@@ -111,7 +111,6 @@
 		3761E8651B75B77C00FB7801 /* Opengl.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781CC18BF656A00FE4F13 /* Opengl.lua */; };
 		3761E8661B75B77C00FB7801 /* OpenglConstants.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781CD18BF656A00FE4F13 /* OpenglConstants.lua */; };
 		3761E8671B75B77C00FB7801 /* StudioConstants.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781CE18BF656A00FE4F13 /* StudioConstants.lua */; };
-		376451B11C3E5053009FA9BB /* info-china.plist in Resources */ = {isa = PBXBuildFile; fileRef = 376451B01C3E5053009FA9BB /* info-china.plist */; };
 		376B77271B1F3C3D004D2C3E /* libPatiSDK-armv7-armv7s-arm64-i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 376B77241B1F3C3D004D2C3E /* libPatiSDK-armv7-armv7s-arm64-i386.a */; };
 		376B77281B1F3C3D004D2C3E /* libPatiSDKFacebook-armv7-armv7s-arm64-i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 376B77251B1F3C3D004D2C3E /* libPatiSDKFacebook-armv7-armv7s-arm64-i386.a */; };
 		376B77291B1F3C3D004D2C3E /* libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 376B77261B1F3C3D004D2C3E /* libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a */; };
@@ -123,7 +122,6 @@
 		377033B8198F731C0091C231 /* libcocos2dx-extensions iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4271834BDA200142BE0 /* libcocos2dx-extensions iOS.a */; };
 		377033B9198F732F0091C231 /* libluabindings iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C03781B618BF654500FE4F13 /* libluabindings iOS.a */; };
 		3780069E1B75BF79003AAE61 /* libkakao-ios-sdk-i386-armv7-armv7s-arm64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3780069D1B75BF79003AAE61 /* libkakao-ios-sdk-i386-armv7-armv7s-arm64.a */; };
-		378006A21B75C149003AAE61 /* info-kakao.plist in Resources */ = {isa = PBXBuildFile; fileRef = 378006A11B75C149003AAE61 /* info-kakao.plist */; };
 		3788EBAC1CB34AB5007A54DA /* Partytrack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3788EBAB1CB34AB5007A54DA /* Partytrack.framework */; };
 		37AC86821B3D452D00240266 /* Moloco.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AC86811B3D452D00240266 /* Moloco.framework */; };
 		37B4F3E61B75BF2B00DF354C /* libPatiSDKKakao-armv7-armv7s-arm64-i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B4F3E51B75BF2B00DF354C /* libPatiSDKKakao-armv7-armv7s-arm64-i386.a */; };
@@ -10858,7 +10856,6 @@
 		3758D8301A93AE6F00833D47 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../libraries/facebook/ios/FacebookSDK.framework; sourceTree = "<group>"; };
 		375CDB161CB25F8B007F5054 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
 		3761E86B1B75B77C00FB7801 /* DragonHeroesKakao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragonHeroesKakao.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		376451B01C3E5053009FA9BB /* info-china.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "info-china.plist"; sourceTree = "<group>"; };
 		376B77241B1F3C3D004D2C3E /* libPatiSDK-armv7-armv7s-arm64-i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPatiSDK-armv7-armv7s-arm64-i386.a"; path = "../../libraries/pati/prebuilt/ios/libPatiSDK-armv7-armv7s-arm64-i386.a"; sourceTree = "<group>"; };
 		376B77251B1F3C3D004D2C3E /* libPatiSDKFacebook-armv7-armv7s-arm64-i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPatiSDKFacebook-armv7-armv7s-arm64-i386.a"; path = "../../libraries/pati/prebuilt/ios/libPatiSDKFacebook-armv7-armv7s-arm64-i386.a"; sourceTree = "<group>"; };
 		376B77261B1F3C3D004D2C3E /* libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a"; path = "../../libraries/pati/prebuilt/ios/libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a"; sourceTree = "<group>"; };
@@ -10870,7 +10867,6 @@
 		377033A4198F5FF00091C231 /* VisibleRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VisibleRect.h; path = ../Classes/VisibleRect.h; sourceTree = "<group>"; };
 		377033AA198F60A50091C231 /* Runtime_ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = "Runtime_ios-mac.mm"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		3780069D1B75BF79003AAE61 /* libkakao-ios-sdk-i386-armv7-armv7s-arm64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libkakao-ios-sdk-i386-armv7-armv7s-arm64.a"; path = "../../libraries/pati/prebuilt/ios/external/libkakao-ios-sdk-i386-armv7-armv7s-arm64.a"; sourceTree = "<group>"; };
-		378006A11B75C149003AAE61 /* info-kakao.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "info-kakao.plist"; sourceTree = "<group>"; };
 		3788EBAB1CB34AB5007A54DA /* Partytrack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Partytrack.framework; path = ../../libraries/partytrack/ios/Partytrack.framework; sourceTree = "<group>"; };
 		37AC86811B3D452D00240266 /* Moloco.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moloco.framework; path = ../../libraries/moloco/ios/Moloco.framework; sourceTree = "<group>"; };
 		37B4F3E51B75BF2B00DF354C /* libPatiSDKKakao-armv7-armv7s-arm64-i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPatiSDKKakao-armv7-armv7s-arm64-i386.a"; path = "../../libraries/pati/prebuilt/ios/libPatiSDKKakao-armv7-armv7s-arm64-i386.a"; sourceTree = "<group>"; };
@@ -36809,8 +36805,6 @@
 				5023810817EBBCAC00990C9B /* AppController.mm */,
 				5023811617EBBCAC00990C9B /* RootViewController.h */,
 				5023811717EBBCAC00990C9B /* RootViewController.mm */,
-				376451B01C3E5053009FA9BB /* info-china.plist */,
-				378006A11B75C149003AAE61 /* info-kakao.plist */,
 				5023811317EBBCAC00990C9B /* Info.plist */,
 				37EF84281B268F3B00EFA299 /* InfoPlist.strings */,
 			);
@@ -37478,7 +37472,6 @@
 				3761E8601B75B77C00FB7801 /* extern.lua in Resources */,
 				3761E8611B75B77C00FB7801 /* GuiConstants.lua in Resources */,
 				3761E8621B75B77C00FB7801 /* json.lua in Resources */,
-				378006A21B75C149003AAE61 /* info-kakao.plist in Resources */,
 				3761E8631B75B77C00FB7801 /* luaj.lua in Resources */,
 				3761E8641B75B77C00FB7801 /* luaoc.lua in Resources */,
 				3761E8651B75B77C00FB7801 /* Opengl.lua in Resources */,
@@ -37519,7 +37512,6 @@
 			files = (
 				7DE4D5921C044036005643BA /* GooglePlayGames.bundle in Resources */,
 				7DE4D5931C044036005643BA /* GooglePlus.bundle in Resources */,
-				376451B11C3E5053009FA9BB /* info-china.plist in Resources */,
 				7DE4D59E1C044036005643BA /* AudioEngine.lua in Resources */,
 				7DE4D59F1C044036005643BA /* CCBReaderLoad.lua in Resources */,
 				7DE4D5A01C044036005643BA /* Cocos2d.lua in Resources */,
