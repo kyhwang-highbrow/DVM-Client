@@ -323,8 +323,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
 	}
 
 	private void hideNavigation() {
-		// 시스템UI 네비게이션 숨김기능 사용핮비 않음
-		/*
+		// 시스템UI 네비게이션 숨김기능
 		if(mDecorView == null) {
 			return;
 		}
@@ -336,7 +335,6 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
 	            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
 	            | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
 	            | View.SYSTEM_UI_FLAG_IMMERSIVE);
-		*/
 	}
 
 	// ===========================================================
