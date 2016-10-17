@@ -21,16 +21,10 @@
 		373E2D841A038712004EF0DB /* AppDelegate_Custom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D7F1A038712004EF0DB /* AppDelegate_Custom.cpp */; };
 		373E2D851A038712004EF0DB /* PerpSupportLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D801A038712004EF0DB /* PerpSupportLua.cpp */; };
 		373E2D861A038712004EF0DB /* PerpSupportPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D821A038712004EF0DB /* PerpSupportPatch.cpp */; };
-		373E2DB21A0CA922004EF0DB /* entry_main.lua in Resources */ = {isa = PBXBuildFile; fileRef = 373E2DB01A0CA922004EF0DB /* entry_main.lua */; };
-		373E2DB31A0CA922004EF0DB /* entry_main.lua in Resources */ = {isa = PBXBuildFile; fileRef = 373E2DB01A0CA922004EF0DB /* entry_main.lua */; };
-		373E2DB41A0CA922004EF0DB /* entry_patch.lua in Resources */ = {isa = PBXBuildFile; fileRef = 373E2DB11A0CA922004EF0DB /* entry_patch.lua */; };
-		373E2DB51A0CA922004EF0DB /* entry_patch.lua in Resources */ = {isa = PBXBuildFile; fileRef = 373E2DB11A0CA922004EF0DB /* entry_patch.lua */; };
 		3744D21519FDD5DE003D7120 /* ioapi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D20C19FDD5DE003D7120 /* ioapi.cpp */; };
 		3744D21719FDD5DE003D7120 /* unzip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D21119FDD5DE003D7120 /* unzip.cpp */; };
 		37519C041A6657A200406F47 /* PerpLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C031A6657A200406F47 /* PerpLua.cpp */; };
 		37519C101A6657B300406F47 /* PerpUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C0E1A6657B300406F47 /* PerpUtils.cpp */; };
-		375211601A526C9D00E3BC6D /* fixed_constant.lua in Resources */ = {isa = PBXBuildFile; fileRef = 3752115F1A526C9D00E3BC6D /* fixed_constant.lua */; };
-		375211611A526CAB00E3BC6D /* fixed_constant.lua in Resources */ = {isa = PBXBuildFile; fileRef = 3752115F1A526C9D00E3BC6D /* fixed_constant.lua */; };
 		3758D8311A93AE6F00833D47 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3758D8301A93AE6F00833D47 /* FacebookSDK.framework */; };
 		375CDB171CB25F8B007F5054 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 375CDB161CB25F8B007F5054 /* SafariServices.framework */; };
 		3761E8001B75B77C00FB7801 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023811717EBBCAC00990C9B /* RootViewController.mm */; };
@@ -99,10 +93,6 @@
 		3761E8461B75B77C00FB7801 /* GooglePlayGames.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C2897C051A90040300B343BB /* GooglePlayGames.bundle */; };
 		3761E8471B75B77C00FB7801 /* GooglePlus.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C2897C031A9003F500B343BB /* GooglePlus.bundle */; };
 		3761E8511B75B77C00FB7801 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37EF84281B268F3B00EFA299 /* InfoPlist.strings */; };
-		3761E8521B75B77C00FB7801 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 37703457198FB72F0091C231 /* config.json */; };
-		3761E8531B75B77C00FB7801 /* entry_main.lua in Resources */ = {isa = PBXBuildFile; fileRef = 373E2DB01A0CA922004EF0DB /* entry_main.lua */; };
-		3761E8541B75B77C00FB7801 /* entry_patch.lua in Resources */ = {isa = PBXBuildFile; fileRef = 373E2DB11A0CA922004EF0DB /* entry_patch.lua */; };
-		3761E8551B75B77C00FB7801 /* fixed_constant.lua in Resources */ = {isa = PBXBuildFile; fileRef = 3752115F1A526C9D00E3BC6D /* fixed_constant.lua */; };
 		3761E8561B75B77C00FB7801 /* AudioEngine.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BD18BF656900FE4F13 /* AudioEngine.lua */; };
 		3761E8571B75B77C00FB7801 /* CCBReaderLoad.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BE18BF656900FE4F13 /* CCBReaderLoad.lua */; };
 		3761E8581B75B77C00FB7801 /* Cocos2d.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BF18BF656900FE4F13 /* Cocos2d.lua */; };
@@ -132,11 +122,9 @@
 		377033B7198F73060091C231 /* libcocos2dx iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4251834BDA200142BE0 /* libcocos2dx iOS.a */; };
 		377033B8198F731C0091C231 /* libcocos2dx-extensions iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4271834BDA200142BE0 /* libcocos2dx-extensions iOS.a */; };
 		377033B9198F732F0091C231 /* libluabindings iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C03781B618BF654500FE4F13 /* libluabindings iOS.a */; };
-		37703458198FB72F0091C231 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 37703457198FB72F0091C231 /* config.json */; };
 		3780069E1B75BF79003AAE61 /* libkakao-ios-sdk-i386-armv7-armv7s-arm64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3780069D1B75BF79003AAE61 /* libkakao-ios-sdk-i386-armv7-armv7s-arm64.a */; };
 		378006A21B75C149003AAE61 /* info-kakao.plist in Resources */ = {isa = PBXBuildFile; fileRef = 378006A11B75C149003AAE61 /* info-kakao.plist */; };
 		3788EBAC1CB34AB5007A54DA /* Partytrack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3788EBAB1CB34AB5007A54DA /* Partytrack.framework */; };
-		37A317271D0A9B9E000026F6 /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 37E8A1351D011ECE00A7E47A /* ps */; };
 		37AC86821B3D452D00240266 /* Moloco.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AC86811B3D452D00240266 /* Moloco.framework */; };
 		37B4F3E61B75BF2B00DF354C /* libPatiSDKKakao-armv7-armv7s-arm64-i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B4F3E51B75BF2B00DF354C /* libPatiSDKKakao-armv7-armv7s-arm64-i386.a */; };
 		37CEDF901C9288FB009A8F7E /* libtnksdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CEDF8F1C9288FB009A8F7E /* libtnksdk.a */; };
@@ -167,11 +155,6 @@
 		37E128E01B45399A00200C23 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128DF1B45399A00200C23 /* SystemConfiguration.framework */; };
 		37E128E21B4539A900200C23 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128E11B4539A800200C23 /* MediaPlayer.framework */; };
 		37E128E61B4539C500200C23 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128E51B4539C500200C23 /* CFNetwork.framework */; };
-		37E8A1391D011ECE00A7E47A /* bg in Resources */ = {isa = PBXBuildFile; fileRef = 37E8A1331D011ECE00A7E47A /* bg */; };
-		37E8A13A1D011ECE00A7E47A /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 37E8A1341D011ECE00A7E47A /* data_dat */; };
-		37E8A13C1D011ECE00A7E47A /* res in Resources */ = {isa = PBXBuildFile; fileRef = 37E8A1361D011ECE00A7E47A /* res */; };
-		37E8A13D1D011ECE00A7E47A /* sound in Resources */ = {isa = PBXBuildFile; fileRef = 37E8A1371D011ECE00A7E47A /* sound */; };
-		37E8A13E1D011ECE00A7E47A /* translate in Resources */ = {isa = PBXBuildFile; fileRef = 37E8A1381D011ECE00A7E47A /* translate */; };
 		37EF84261B268F3B00EFA299 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37EF84281B268F3B00EFA299 /* InfoPlist.strings */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; };
 		5023812417EBBCAC00990C9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5023811417EBBCAC00990C9B /* main.m */; };
@@ -259,10 +242,6 @@
 		7DE4D5901C044036005643BA /* libbox2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A42B1834BDA200142BE0 /* libbox2d iOS.a */; };
 		7DE4D5921C044036005643BA /* GooglePlayGames.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C2897C051A90040300B343BB /* GooglePlayGames.bundle */; };
 		7DE4D5931C044036005643BA /* GooglePlus.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C2897C031A9003F500B343BB /* GooglePlus.bundle */; };
-		7DE4D59A1C044036005643BA /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 37703457198FB72F0091C231 /* config.json */; };
-		7DE4D59B1C044036005643BA /* entry_main.lua in Resources */ = {isa = PBXBuildFile; fileRef = 373E2DB01A0CA922004EF0DB /* entry_main.lua */; };
-		7DE4D59C1C044036005643BA /* entry_patch.lua in Resources */ = {isa = PBXBuildFile; fileRef = 373E2DB11A0CA922004EF0DB /* entry_patch.lua */; };
-		7DE4D59D1C044036005643BA /* fixed_constant.lua in Resources */ = {isa = PBXBuildFile; fileRef = 3752115F1A526C9D00E3BC6D /* fixed_constant.lua */; };
 		7DE4D59E1C044036005643BA /* AudioEngine.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BD18BF656900FE4F13 /* AudioEngine.lua */; };
 		7DE4D59F1C044036005643BA /* CCBReaderLoad.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BE18BF656900FE4F13 /* CCBReaderLoad.lua */; };
 		7DE4D5A01C044036005643BA /* Cocos2d.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BF18BF656900FE4F13 /* Cocos2d.lua */; };
@@ -281,6 +260,15 @@
 		7DE4D5B11C044036005643BA /* Opengl.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781CC18BF656A00FE4F13 /* Opengl.lua */; };
 		7DE4D5B21C044036005643BA /* OpenglConstants.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781CD18BF656A00FE4F13 /* OpenglConstants.lua */; };
 		7DE4D5B31C044036005643BA /* StudioConstants.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781CE18BF656A00FE4F13 /* StudioConstants.lua */; };
+		8DE26C5F1DB4B86C0066E667 /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 8DE26C5A1DB4B86C0066E667 /* data_dat */; };
+		8DE26C601DB4B86C0066E667 /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 8DE26C5B1DB4B86C0066E667 /* ps */; };
+		8DE26C611DB4B86C0066E667 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 8DE26C5C1DB4B86C0066E667 /* res */; };
+		8DE26C621DB4B86C0066E667 /* sound in Resources */ = {isa = PBXBuildFile; fileRef = 8DE26C5D1DB4B86C0066E667 /* sound */; };
+		8DE26C631DB4B86C0066E667 /* translate in Resources */ = {isa = PBXBuildFile; fileRef = 8DE26C5E1DB4B86C0066E667 /* translate */; };
+		8DE26C681DB4B8880066E667 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DE26C641DB4B8880066E667 /* config.json */; };
+		8DE26C691DB4B8880066E667 /* entry_main.lua in Resources */ = {isa = PBXBuildFile; fileRef = 8DE26C651DB4B8880066E667 /* entry_main.lua */; };
+		8DE26C6A1DB4B8880066E667 /* entry_patch.lua in Resources */ = {isa = PBXBuildFile; fileRef = 8DE26C661DB4B8880066E667 /* entry_patch.lua */; };
+		8DE26C6B1DB4B8880066E667 /* fixed_constant.lua in Resources */ = {isa = PBXBuildFile; fileRef = 8DE26C671DB4B8880066E667 /* fixed_constant.lua */; };
 		C03781CF18BF656A00FE4F13 /* AudioEngine.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BD18BF656900FE4F13 /* AudioEngine.lua */; };
 		C03781D018BF656A00FE4F13 /* AudioEngine.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BD18BF656900FE4F13 /* AudioEngine.lua */; };
 		C03781D118BF656A00FE4F13 /* CCBReaderLoad.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BE18BF656900FE4F13 /* CCBReaderLoad.lua */; };
@@ -10856,8 +10844,6 @@
 		373E2D811A038712004EF0DB /* PerpSupportLua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSupportLua.h; path = ../Classes/PerpSupportLua.h; sourceTree = "<group>"; };
 		373E2D821A038712004EF0DB /* PerpSupportPatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpSupportPatch.cpp; path = ../Classes/PerpSupportPatch.cpp; sourceTree = "<group>"; };
 		373E2D831A038712004EF0DB /* PerpSupportPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSupportPatch.h; path = ../Classes/PerpSupportPatch.h; sourceTree = "<group>"; };
-		373E2DB01A0CA922004EF0DB /* entry_main.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = entry_main.lua; path = ../../../entry_main.lua; sourceTree = "<group>"; };
-		373E2DB11A0CA922004EF0DB /* entry_patch.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = entry_patch.lua; path = ../../../entry_patch.lua; sourceTree = "<group>"; };
 		3744D20B19FDD5DE003D7120 /* e_os2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = e_os2.h; path = ../Classes/e_os2.h; sourceTree = "<group>"; };
 		3744D20C19FDD5DE003D7120 /* ioapi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ioapi.cpp; path = ../Classes/ioapi.cpp; sourceTree = "<group>"; };
 		3744D20D19FDD5DE003D7120 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ioapi.h; path = ../Classes/ioapi.h; sourceTree = "<group>"; };
@@ -10869,7 +10855,6 @@
 		37519C031A6657A200406F47 /* PerpLua.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpLua.cpp; path = ../Classes/PerpLua.cpp; sourceTree = "<group>"; };
 		37519C0E1A6657B300406F47 /* PerpUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpUtils.cpp; path = ../Classes/PerpExt/PerpUtils.cpp; sourceTree = "<group>"; };
 		37519C0F1A6657B300406F47 /* PerpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpUtils.h; path = ../Classes/PerpExt/PerpUtils.h; sourceTree = "<group>"; };
-		3752115F1A526C9D00E3BC6D /* fixed_constant.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fixed_constant.lua; path = ../../../fixed_constant.lua; sourceTree = "<group>"; };
 		3758D8301A93AE6F00833D47 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../libraries/facebook/ios/FacebookSDK.framework; sourceTree = "<group>"; };
 		375CDB161CB25F8B007F5054 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
 		3761E86B1B75B77C00FB7801 /* DragonHeroesKakao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragonHeroesKakao.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -10884,7 +10869,6 @@
 		377033A3198F5FF00091C231 /* VisibleRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VisibleRect.cpp; path = ../Classes/VisibleRect.cpp; sourceTree = "<group>"; };
 		377033A4198F5FF00091C231 /* VisibleRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VisibleRect.h; path = ../Classes/VisibleRect.h; sourceTree = "<group>"; };
 		377033AA198F60A50091C231 /* Runtime_ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = "Runtime_ios-mac.mm"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		37703457198FB72F0091C231 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = ../../../config.json; sourceTree = "<group>"; };
 		3780069D1B75BF79003AAE61 /* libkakao-ios-sdk-i386-armv7-armv7s-arm64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libkakao-ios-sdk-i386-armv7-armv7s-arm64.a"; path = "../../libraries/pati/prebuilt/ios/external/libkakao-ios-sdk-i386-armv7-armv7s-arm64.a"; sourceTree = "<group>"; };
 		378006A11B75C149003AAE61 /* info-kakao.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "info-kakao.plist"; sourceTree = "<group>"; };
 		3788EBAB1CB34AB5007A54DA /* Partytrack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Partytrack.framework; path = ../../libraries/partytrack/ios/Partytrack.framework; sourceTree = "<group>"; };
@@ -10924,12 +10908,6 @@
 		37E128DF1B45399A00200C23 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		37E128E11B4539A800200C23 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		37E128E51B4539C500200C23 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
-		37E8A1331D011ECE00A7E47A /* bg */ = {isa = PBXFileReference; lastKnownFileType = folder; name = bg; path = ../../../bg; sourceTree = "<group>"; };
-		37E8A1341D011ECE00A7E47A /* data_dat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data_dat; path = ../../../data_dat; sourceTree = "<group>"; };
-		37E8A1351D011ECE00A7E47A /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../../ps; sourceTree = "<group>"; };
-		37E8A1361D011ECE00A7E47A /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../../res; sourceTree = "<group>"; };
-		37E8A1371D011ECE00A7E47A /* sound */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sound; path = ../../../sound; sourceTree = "<group>"; };
-		37E8A1381D011ECE00A7E47A /* translate */ = {isa = PBXFileReference; lastKnownFileType = folder; name = translate; path = ../../../translate; sourceTree = "<group>"; };
 		37EF842A1B268F4C00EFA299 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		37EF842B1B268F7200EFA299 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5023810717EBBCAC00990C9B /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
@@ -10950,6 +10928,15 @@
 		7DD5DF0D1C03F83100F610BF /* libMobClickGameLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobClickGameLibrary.a; path = ../../libraries/umeng/umsdk_iOS_game_idfa_3.5.8.0/libMobClickGameLibrary.a; sourceTree = "<group>"; };
 		7DD5DF0F1C03F83D00F610BF /* libUMessage_Sdk_1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUMessage_Sdk_1.1.0.a; path = "../../libraries/umeng/UMessage_Sdk_All_1.1.0(idfa)/UMessage_Sdk_1.1.0/libUMessage_Sdk_1.1.0.a"; sourceTree = "<group>"; };
 		7DE4D5B71C044036005643BA /* 龙域战记.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "龙域战记.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DE26C5A1DB4B86C0066E667 /* data_dat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data_dat; path = ../proj.android/assets/data_dat; sourceTree = "<group>"; };
+		8DE26C5B1DB4B86C0066E667 /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../proj.android/assets/ps; sourceTree = "<group>"; };
+		8DE26C5C1DB4B86C0066E667 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../proj.android/assets/res; sourceTree = "<group>"; };
+		8DE26C5D1DB4B86C0066E667 /* sound */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sound; path = ../proj.android/assets/sound; sourceTree = "<group>"; };
+		8DE26C5E1DB4B86C0066E667 /* translate */ = {isa = PBXFileReference; lastKnownFileType = folder; name = translate; path = ../proj.android/assets/translate; sourceTree = "<group>"; };
+		8DE26C641DB4B8880066E667 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = ../proj.android/assets/config.json; sourceTree = "<group>"; };
+		8DE26C651DB4B8880066E667 /* entry_main.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = entry_main.lua; path = ../proj.android/assets/entry_main.lua; sourceTree = "<group>"; };
+		8DE26C661DB4B8880066E667 /* entry_patch.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = entry_patch.lua; path = ../proj.android/assets/entry_patch.lua; sourceTree = "<group>"; };
+		8DE26C671DB4B8880066E667 /* fixed_constant.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fixed_constant.lua; path = ../proj.android/assets/fixed_constant.lua; sourceTree = "<group>"; };
 		C03781AE18BF654500FE4F13 /* cocos2d_lua_bindings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_lua_bindings.xcodeproj; path = "../../cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/cocos2d_lua_bindings.xcodeproj"; sourceTree = "<group>"; };
 		C03781BD18BF656900FE4F13 /* AudioEngine.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = AudioEngine.lua; path = "../../cocos2d-x/cocos/scripting/lua-bindings/script/AudioEngine.lua"; sourceTree = "<group>"; };
 		C03781BE18BF656900FE4F13 /* CCBReaderLoad.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CCBReaderLoad.lua; path = "../../cocos2d-x/cocos/scripting/lua-bindings/script/CCBReaderLoad.lua"; sourceTree = "<group>"; };
@@ -10980,7 +10967,7 @@
 		C2897C011A90034C00B343BB /* GooglePlayGames.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlayGames.framework; path = "../../libraries/google_play_services/ios/GooglePlayGames-iOS-SDK.v3.1.1/GooglePlayGames.framework"; sourceTree = "<group>"; };
 		C2897C031A9003F500B343BB /* GooglePlus.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlus.bundle; path = "../../libraries/google_play_services/ios/google-plus-ios-sdk-1.7.1/GooglePlus.bundle"; sourceTree = "<group>"; };
 		C2897C051A90040300B343BB /* GooglePlayGames.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlayGames.bundle; path = "../../libraries/google_play_services/ios/GooglePlayGames-iOS-SDK.v3.1.1/GooglePlayGames.bundle"; sourceTree = "<group>"; };
-		F293B3C815EB7BE500256477 /* Dragon Heroes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dragon Heroes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F293B3C815EB7BE500256477 /* DragonVillage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragonVillage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F293B3CC15EB7BE500256477 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F293B3D015EB7BE500256477 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		F293B3D215EB7BE500256477 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -36884,7 +36871,7 @@
 		F293B3C915EB7BE500256477 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F293B3C815EB7BE500256477 /* Dragon Heroes.app */,
+				F293B3C815EB7BE500256477 /* DragonVillage.app */,
 				5023816B17EBBCE400990C9B /* DragonHeroes.app */,
 				3761E86B1B75B77C00FB7801 /* DragonHeroesKakao.app */,
 				7DE4D5B71C044036005643BA /* 龙域战记.app */,
@@ -36990,18 +36977,17 @@
 		F293BC4615EB859D00256477 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				37E8A1331D011ECE00A7E47A /* bg */,
-				37E8A1341D011ECE00A7E47A /* data_dat */,
-				37E8A1351D011ECE00A7E47A /* ps */,
-				37E8A1361D011ECE00A7E47A /* res */,
-				37E8A1371D011ECE00A7E47A /* sound */,
-				37E8A1381D011ECE00A7E47A /* translate */,
+				8DE26C641DB4B8880066E667 /* config.json */,
+				8DE26C651DB4B8880066E667 /* entry_main.lua */,
+				8DE26C661DB4B8880066E667 /* entry_patch.lua */,
+				8DE26C671DB4B8880066E667 /* fixed_constant.lua */,
+				8DE26C5A1DB4B86C0066E667 /* data_dat */,
+				8DE26C5B1DB4B86C0066E667 /* ps */,
+				8DE26C5C1DB4B86C0066E667 /* res */,
+				8DE26C5D1DB4B86C0066E667 /* sound */,
+				8DE26C5E1DB4B86C0066E667 /* translate */,
 				C23B44361A90264F00529743 /* Images.xcassets */,
 				7D50CB821C04453500F8FE3E /* Images-china.xcassets */,
-				37703457198FB72F0091C231 /* config.json */,
-				3752115F1A526C9D00E3BC6D /* fixed_constant.lua */,
-				373E2DB01A0CA922004EF0DB /* entry_main.lua */,
-				373E2DB11A0CA922004EF0DB /* entry_patch.lua */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -37099,7 +37085,7 @@
 			);
 			name = "DragonHeroes iOS";
 			productName = engine;
-			productReference = F293B3C815EB7BE500256477 /* Dragon Heroes.app */;
+			productReference = F293B3C815EB7BE500256477 /* DragonVillage.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -37133,7 +37119,7 @@
 						};
 					};
 					F293B3C715EB7BE500256477 = {
-						DevelopmentTeam = 476WETA93A;
+						DevelopmentTeam = Z769FPRMPG;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
 								enabled = 0;
@@ -37479,10 +37465,6 @@
 				3761E8461B75B77C00FB7801 /* GooglePlayGames.bundle in Resources */,
 				3761E8471B75B77C00FB7801 /* GooglePlus.bundle in Resources */,
 				3761E8511B75B77C00FB7801 /* InfoPlist.strings in Resources */,
-				3761E8521B75B77C00FB7801 /* config.json in Resources */,
-				3761E8531B75B77C00FB7801 /* entry_main.lua in Resources */,
-				3761E8541B75B77C00FB7801 /* entry_patch.lua in Resources */,
-				3761E8551B75B77C00FB7801 /* fixed_constant.lua in Resources */,
 				3761E8561B75B77C00FB7801 /* AudioEngine.lua in Resources */,
 				3761E8571B75B77C00FB7801 /* CCBReaderLoad.lua in Resources */,
 				3761E8581B75B77C00FB7801 /* Cocos2d.lua in Resources */,
@@ -37512,17 +37494,14 @@
 				C03781EE18BF656A00FE4F13 /* Opengl.lua in Resources */,
 				C03781F018BF656A00FE4F13 /* OpenglConstants.lua in Resources */,
 				C03781E418BF656A00FE4F13 /* extern.lua in Resources */,
-				375211611A526CAB00E3BC6D /* fixed_constant.lua in Resources */,
 				C03781E618BF656A00FE4F13 /* GuiConstants.lua in Resources */,
 				C03781D418BF656A00FE4F13 /* Cocos2d.lua in Resources */,
 				C03781E218BF656A00FE4F13 /* DrawPrimitives.lua in Resources */,
 				C03781DA18BF656A00FE4F13 /* Deprecated.lua in Resources */,
 				C03781E018BF656A00FE4F13 /* DeprecatedOpenglEnum.lua in Resources */,
 				C03781EC18BF656A00FE4F13 /* luaoc.lua in Resources */,
-				373E2DB51A0CA922004EF0DB /* entry_patch.lua in Resources */,
 				5023817617EBBE3400990C9B /* Icon.icns in Resources */,
 				C03781D218BF656A00FE4F13 /* CCBReaderLoad.lua in Resources */,
-				373E2DB31A0CA922004EF0DB /* entry_main.lua in Resources */,
 				C03781D018BF656A00FE4F13 /* AudioEngine.lua in Resources */,
 				C03781D818BF656A00FE4F13 /* CocoStudio.lua in Resources */,
 				C03781DC18BF656A00FE4F13 /* DeprecatedClass.lua in Resources */,
@@ -37540,10 +37519,6 @@
 			files = (
 				7DE4D5921C044036005643BA /* GooglePlayGames.bundle in Resources */,
 				7DE4D5931C044036005643BA /* GooglePlus.bundle in Resources */,
-				7DE4D59A1C044036005643BA /* config.json in Resources */,
-				7DE4D59B1C044036005643BA /* entry_main.lua in Resources */,
-				7DE4D59C1C044036005643BA /* entry_patch.lua in Resources */,
-				7DE4D59D1C044036005643BA /* fixed_constant.lua in Resources */,
 				376451B11C3E5053009FA9BB /* info-china.plist in Resources */,
 				7DE4D59E1C044036005643BA /* AudioEngine.lua in Resources */,
 				7DE4D59F1C044036005643BA /* CCBReaderLoad.lua in Resources */,
@@ -37571,19 +37546,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DE26C6A1DB4B8880066E667 /* entry_patch.lua in Resources */,
 				1E1607BE1D922D8300CA2C71 /* TapjoyResources.bundle in Resources */,
-				37E8A13D1D011ECE00A7E47A /* sound in Resources */,
-				37A317271D0A9B9E000026F6 /* ps in Resources */,
 				C2897C061A90040300B343BB /* GooglePlayGames.bundle in Resources */,
 				C2897C041A9003F500B343BB /* GooglePlus.bundle in Resources */,
 				C23B44371A90264F00529743 /* Images.xcassets in Resources */,
-				37E8A13E1D011ECE00A7E47A /* translate in Resources */,
 				37EF84261B268F3B00EFA299 /* InfoPlist.strings in Resources */,
-				37703458198FB72F0091C231 /* config.json in Resources */,
-				373E2DB21A0CA922004EF0DB /* entry_main.lua in Resources */,
-				373E2DB41A0CA922004EF0DB /* entry_patch.lua in Resources */,
-				375211601A526C9D00E3BC6D /* fixed_constant.lua in Resources */,
+				8DE26C6B1DB4B8880066E667 /* fixed_constant.lua in Resources */,
 				C03781CF18BF656A00FE4F13 /* AudioEngine.lua in Resources */,
+				8DE26C621DB4B86C0066E667 /* sound in Resources */,
 				7D50CB851C04459600F8FE3E /* Info.plist in Resources */,
 				C03781D118BF656A00FE4F13 /* CCBReaderLoad.lua in Resources */,
 				C03781D318BF656A00FE4F13 /* Cocos2d.lua in Resources */,
@@ -37594,17 +37565,20 @@
 				C03781DD18BF656A00FE4F13 /* DeprecatedEnum.lua in Resources */,
 				C03781DF18BF656A00FE4F13 /* DeprecatedOpenglEnum.lua in Resources */,
 				C03781E118BF656A00FE4F13 /* DrawPrimitives.lua in Resources */,
-				37E8A13C1D011ECE00A7E47A /* res in Resources */,
-				37E8A1391D011ECE00A7E47A /* bg in Resources */,
+				8DE26C681DB4B8880066E667 /* config.json in Resources */,
 				C03781E318BF656A00FE4F13 /* extern.lua in Resources */,
+				8DE26C691DB4B8880066E667 /* entry_main.lua in Resources */,
 				C03781E518BF656A00FE4F13 /* GuiConstants.lua in Resources */,
+				8DE26C611DB4B86C0066E667 /* res in Resources */,
 				C03781E718BF656A00FE4F13 /* json.lua in Resources */,
 				C03781E918BF656A00FE4F13 /* luaj.lua in Resources */,
 				C03781EB18BF656A00FE4F13 /* luaoc.lua in Resources */,
+				8DE26C631DB4B86C0066E667 /* translate in Resources */,
 				C03781ED18BF656A00FE4F13 /* Opengl.lua in Resources */,
 				C03781EF18BF656A00FE4F13 /* OpenglConstants.lua in Resources */,
-				37E8A13A1D011ECE00A7E47A /* data_dat in Resources */,
+				8DE26C5F1DB4B86C0066E667 /* data_dat in Resources */,
 				C03781F118BF656A00FE4F13 /* StudioConstants.lua in Resources */,
+				8DE26C601DB4B86C0066E667 /* ps in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38446,7 +38420,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = 476WETA93A;
+				DEVELOPMENT_TEAM = Z769FPRMPG;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -38481,8 +38455,8 @@
 					"-DPATISDK_GOOGLEPLUS",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.perplelab.hod;
-				PRODUCT_NAME = "Dragon Heroes";
+				PRODUCT_BUNDLE_IDENTIFIER = com.perplelab.dvtest;
+				PRODUCT_NAME = DragonVillage;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -38500,7 +38474,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = 476WETA93A;
+				DEVELOPMENT_TEAM = Z769FPRMPG;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -38535,8 +38509,8 @@
 					"-DPATISDK_GOOGLEPLUS",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.perplelab.hod;
-				PRODUCT_NAME = "Dragon Heroes";
+				PRODUCT_BUNDLE_IDENTIFIER = com.perplelab.dvtest;
+				PRODUCT_NAME = DragonVillage;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

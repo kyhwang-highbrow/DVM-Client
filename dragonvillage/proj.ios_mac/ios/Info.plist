@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1.3</string>
+	<string>0.0.4</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -54,11 +54,11 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.2.2</string>
+	<string>0.0.4</string>
 	<key>FacebookAppID</key>
 	<string>1594052327526175</string>
 	<key>FacebookDisplayName</key>
-	<string>드래곤히어로즈</string>
+	<string>드래곤빌리지</string>
 	<key>GooglePlusClientId</key>
 	<string>173059103932-ns4c0l1mjc5ps7bevc9ngi53gpje7g6q.apps.googleusercontent.com</string>
 	<key>GooglePlusScopes</key>
@@ -125,8 +125,8 @@
 	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 </dict>
 </plist>
