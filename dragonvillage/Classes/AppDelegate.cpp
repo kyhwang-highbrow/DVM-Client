@@ -133,45 +133,30 @@ bool AppDelegate::applicationDidFinishLaunching()
     // 4:3 1.333
     if (ratio <= 1.41)
     {
-        //longLength = 960;
-        //shortLength = 720;
-
-        longLength = 1080;
-        shortLength = 810;
+        longLength = 1280;
+        shortLength = 960;
     }
     // 3:2 1.5
     else if (ratio <= 1.55)
     {
-        //longLength = 960;
-        //shortLength = 640;
-
-        longLength = 1080;
-        shortLength = 720;
+        longLength = 1280;
+        shortLength = 854;
     }
     // 16:10 1.6
     else if (ratio <= 1.63)
     {
-        //longLength = 1024;
-        //shortLength = 640;
-
-        longLength = 1152;
-        shortLength = 720;
+        longLength = 1280;
+        shortLength = 800;
     }
     // 5:3 1.666
     else if (ratio <= 1.7)
     {
-        //longLength = 1066;
-        //shortLength = 640;
-
-        longLength = 1200;
-        shortLength = 720;
+        longLength = 1280;
+        shortLength = 769;
     }
     // 16:9 1.777
     else
     {
-        //longLength = 1138;
-        //shortLength = 640;
-
         longLength = 1280;
         shortLength = 720;
     }

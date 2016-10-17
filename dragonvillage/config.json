@@ -21,23 +21,23 @@
     "simulator_screen_size": [
         {
             "title": "Galaxy S2 - 5:3 (1200x720)",
-            "width": 1200,
-            "height": 720
+            "width": 1280,
+            "height": 769
         },
         {
             "title": "Galaxy Note 10.1 - 16:10 (1152x720)",
-            "width": 1152,
-            "height": 720
+            "width": 1280,
+            "height": 800
         },
         {
             "title": "3:2 (1080x720)",
-            "width": 1080,
-            "height": 720
+            "width": 1280,
+            "height": 854
         },
         {
             "title": "iPad - 4:3 (1080x810)",
-            "width": 1080,
-            "height": 810
+            "width": 1280,
+            "height": 960
         },
         {
             "title": "Galaxy S5 - 16:9 (1280x720)",
