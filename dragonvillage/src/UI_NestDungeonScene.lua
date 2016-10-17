@@ -137,8 +137,8 @@ end
 function UI_NestDungeonScene:initButton()
     local vars = self.vars
     vars['dragonBtn']:setEnabled(false)
-    vars['giantBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"거목 던전" 미구현') end)
-    vars['secretBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"비밀 던전" 미구현') end)
+    vars['giantBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') UIManager:toastNotificationRed('"거목 던전" 미구현') end)
+    vars['secretBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') UIManager:toastNotificationRed('"비밀 던전" 미구현') end)
 end
 
 -------------------------------------

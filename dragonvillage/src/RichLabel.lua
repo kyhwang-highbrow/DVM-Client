@@ -610,6 +610,7 @@ end
 -- @brief 버튼 클릭 핸들러
 -------------------------------------
 function RichLabel:click_word(content, label, underline, color, str)
+    SoundMgr:playEffect('EFFECT', 'ui_button')
     if self.m_clickHandler then
         self.m_clickHandler(content)
     end

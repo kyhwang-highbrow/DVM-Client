@@ -259,7 +259,7 @@ function UI_Popup:makeOButton()
             return
         end
 
-
+        SoundMgr:playEffect('EFFECT', 'ui_button')
         self:closePopup(self.m_cbOKBtn)
     end)
 
@@ -284,6 +284,7 @@ function UI_Popup:makeXButton()
             return
         end
             
+        SoundMgr:playEffect('EFFECT', 'ui_button')
         self:closePopup(self.m_cbCancelBtn)
     end)
 

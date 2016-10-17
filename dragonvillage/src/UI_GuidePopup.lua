@@ -28,7 +28,7 @@ function UI_GuidePopup:init(tab_name)
 
     -- '닫기' 버튼
 	if vars['closeBtn'] then
-	    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+	    vars['closeBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') self:close() end)
 	end
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_GuidePopup')

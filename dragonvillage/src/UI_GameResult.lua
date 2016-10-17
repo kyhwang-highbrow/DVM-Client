@@ -83,6 +83,7 @@ end
 -- @brief 다음 연출 실행
 -------------------------------------
 function UI_GameResult:doNextDirection()
+    SoundMgr:playEffect('EFFECT', 'ui_button')
     self.m_directionStep = (self.m_directionStep + 1)
     if self.m_lDirectionList[self.m_directionStep] then
         self.m_lDirectionList[self.m_directionStep](self)
@@ -149,6 +150,7 @@ function UI_GameResult.direction_end(self)
     if (is_success == true) then
         -- 스킵하면 바로 이동
         vars['skipBtn']:registerScriptTapHandler(function()
+                SoundMgr:playEffect('EFFECT', 'ui_button')
                 self:close()
                 UI_GameRewardPopup(self.m_lDropItemList)
             end)

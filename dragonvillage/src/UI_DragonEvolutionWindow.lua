@@ -160,6 +160,8 @@ end
 -- function click_okBtn
 -------------------------------------
 function UI_DragonEvolutionWindow:click_okBtn()
+    SoundMgr:playEffect('EFFECT', 'ui_button')
+
     -- 드래곤 ID
     local dragon_id = self.m_parentUI.m_selectDragonButton.m_dataDragonID
 
@@ -179,5 +181,6 @@ end
 -- function click_invenBtn
 -------------------------------------
 function UI_DragonEvolutionWindow:click_invenBtn()
+    SoundMgr:playEffect('EFFECT', 'ui_button')
     UI_InventoryEvolutionStonePopup()
 end

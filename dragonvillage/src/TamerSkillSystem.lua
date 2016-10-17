@@ -65,6 +65,7 @@ end
 -- function click_tamerSkillBtn
 -------------------------------------
 function TamerSkillSystem:click_tamerSkillBtn(idx)
+    SoundMgr:playEffect('EFFECT', 'ui_button')
     local remain_time = math_max(self.m_lTamerSkillCoolTime[idx], self.m_tamerSkillCooltimeGlobal)
 
     t_tamer = self.m_tamer.m_charTable
@@ -103,7 +104,7 @@ end
 -- @brief 테이머 궁극기
 -------------------------------------
 function TamerSkillSystem:click_specialSkillBtn()
-
+    SoundMgr:playEffect('EFFECT', 'ui_button')
     if (self.m_specialPowerPoint < 100) then
         local str = Str('궁극기 포인트 {1}이(가) 부족합니다.', 100 - self.m_specialPowerPoint)
         UIManager:toastNotificationRed(str)

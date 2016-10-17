@@ -230,6 +230,7 @@ end
 -- @breif
 -------------------------------------
 function UI_InventoryFruitPopup:click_fruitListItem(fruit_full_type)
+    SoundMgr:playEffect('EFFECT', 'ui_button')
     if (self.m_selectedFruitFullType == fruit_full_type) then
         return
     end

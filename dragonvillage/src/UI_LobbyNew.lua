@@ -147,10 +147,10 @@ end
 -------------------------------------
 function UI_LobbyNew:initButton()
 	local vars = self.vars    
-    vars['swipeTopBtn']:registerScriptTapHandler(function() self:swipeEvent('down') end)
-    vars['swipeBottomBtn']:registerScriptTapHandler(function() self:swipeEvent('up') end)
-    vars['swipeLeftBtn']:registerScriptTapHandler(function() self:swipeEvent('right') end)
-    vars['swipeRightBtn']:registerScriptTapHandler(function() self:swipeEvent('left') end)
+    vars['swipeTopBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') self:swipeEvent('down') end)
+    vars['swipeBottomBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') self:swipeEvent('up') end)
+    vars['swipeLeftBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') self:swipeEvent('right') end)
+    vars['swipeRightBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') self:swipeEvent('left') end)
 end
 
 -------------------------------------

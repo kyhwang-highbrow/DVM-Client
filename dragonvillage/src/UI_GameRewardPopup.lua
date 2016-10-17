@@ -29,7 +29,7 @@ function UI_GameRewardPopup:init(l_drop_item_list)
     vars['retryBtn']:registerScriptTapHandler(function() self:click_retryBtn() end)
     vars['backBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
 
-    vars['boxBtn']:registerScriptTapHandler(function() self:step2() end)
+    vars['boxBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') self:step2() end)
 
     self:step1()
 

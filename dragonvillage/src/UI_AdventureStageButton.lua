@@ -44,7 +44,7 @@ function UI_AdventureStageButton:init(parent_ui, stage_id)
         vars['arrowSprite']:setVisible(false)
     end
 
-    vars['stageBtn']:registerScriptTapHandler(function() parent_ui:click_stageBtn(stage_id, self.m_bOpenStage) end)
+    vars['stageBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') parent_ui:click_stageBtn(stage_id, self.m_bOpenStage) end)
 
     
 

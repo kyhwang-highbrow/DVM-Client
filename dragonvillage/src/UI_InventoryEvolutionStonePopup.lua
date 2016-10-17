@@ -251,6 +251,7 @@ end
 -- @breif 진화석 개별 버튼 클릭
 -------------------------------------
 function UI_InventoryEvolutionStonePopup:click_evolutionStoneItem(rarity, attr)
+    SoundMgr:playEffect('EFFECT', 'ui_button')
     if (self.m_selectedEvolutionStoneRarity == rarity) and (self.m_selectedEvolutionStoneAttr == attr) then
         return
     end
