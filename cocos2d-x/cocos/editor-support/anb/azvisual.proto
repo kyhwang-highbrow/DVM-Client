@@ -1,0 +1,141 @@
+package azVisual;
+
+import "azmodel.proto";
+
+message Key {
+	extend azModel.Type {
+		optional Key type = 111;
+	}
+
+	required azModel.Base base = 1;
+
+	optional float frame = 2;
+	optional bool blank = 3 [default = false];
+	optional azModel.Transform2D transform = 4;
+	optional float alpha = 5 [default = 1.0];
+	optional float color_r = 6 [default = 1.0];
+	optional float color_g = 7 [default = 1.0];
+	optional float color_b = 8 [default = 1.0];
+	optional azModel.BLEND_MODE blend_mode = 9 [default=ALPHA];
+	optional string refrence_name = 10 [default = ""];
+	optional azModel.SHAPE_TYPE shape_type = 11 [default=BOX];
+}
+
+message Layer {
+	extend azModel.Type {
+		optional Layer type = 112;
+	}
+
+	required azModel.Base base = 1;
+
+	optional uint64 reference_rtid = 2;
+
+	repeated Key key_list = 3;
+	repeated Layer layer_list = 4;
+}
+
+message Visual {
+	extend azModel.Type {
+		optional Visual type = 113;
+	}
+
+	required azModel.Base base = 1;
+
+	optional float fps = 2;
+	optional Layer layer = 3;
+}
+
+message VisualGroup {
+	extend azModel.Type {
+		optional VisualGroup type = 114;
+	}
+
+	required azModel.Base base = 1;
+
+	repeated Visual visual_list = 2;
+}
+
+message Socket {
+	extend azModel.Type {
+		optional Socket type = 121;
+	}
+
+	required azModel.Base base = 1;
+
+	optional uint64 reference_rtid = 2;
+}
+
+message SocketGroup {
+	extend azModel.Type {
+		optional SocketGroup type = 122;
+	}
+
+	required azModel.Base base = 1;
+
+	repeated Socket socket_list = 2;
+}
+
+message EventShape {
+	extend azModel.Type {
+		optional EventShape type = 131;
+	}
+
+	required azModel.Base base = 1;
+}
+
+message EventShapeGroup {
+	extend azModel.Type {
+		optional EventShapeGroup type = 132;
+	}
+
+	required azModel.Base base = 1;
+
+	repeated EventShape event_shape_list = 2;
+}
+
+message Particle {
+	extend azModel.Type {
+		optional Particle type = 141;
+	}
+
+	required azModel.Base base = 1;
+}
+
+message ParticleGroup {
+	extend azModel.Type {
+		optional ParticleGroup type = 142;
+	}
+
+	required azModel.Base base = 1;
+
+	repeated Particle particle_list = 2;
+}
+
+message Font {
+	extend azModel.Type {
+		optional EventShape type = 151;
+	}
+
+	required azModel.Base base = 1;
+
+	optional string face = 2;
+	optional int32 size = 3;
+}
+
+message Project {
+	extend azModel.Type {
+		optional Project type = 199;
+	}
+
+	required azModel.Base base = 1;
+
+	optional string version = 2;
+
+	repeated azModel.Bitmap bitmap_list = 3;
+	repeated SocketGroup socket_group_list = 4;
+	repeated EventShapeGroup event_shape_group_list = 5;
+	repeated ParticleGroup particle_group_list = 6;
+	repeated VisualGroup visual_group_list = 7;
+	repeated Font font_list = 8;
+	repeated string import_project_list = 9;
+}

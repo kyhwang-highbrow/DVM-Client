@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\a2dLoader4x.h" />
+    <ClInclude Include="..\a2dToken4x.h" />
+    <ClInclude Include="..\AzBlend.h" />
+    <ClInclude Include="..\AzDataDictionary.h" />
+    <ClInclude Include="..\AzDataInfo.h" />
+    <ClInclude Include="..\AzDataTrip.h" />
+    <ClInclude Include="..\AzID.h" />
+    <ClInclude Include="..\azmodel.pb.h" />
+    <ClInclude Include="..\AzTM.h" />
+    <ClInclude Include="..\azvisual.pb.h" />
+    <ClInclude Include="..\CCazVisual.h" />
+    <ClInclude Include="..\CCActionInterval3D.h" />
+    <ClInclude Include="..\CCAzVRP.h" />
+    <ClInclude Include="..\CCAzPerspective.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\a2dLoader4x.cpp" />
+    <ClCompile Include="..\a2dToken4x.cpp" />
+    <ClCompile Include="..\AzBlend.cpp" />
+    <ClCompile Include="..\AzDataDictionary.cpp" />
+    <ClCompile Include="..\AzDataTrip.cpp" />
+    <ClCompile Include="..\AzID.cpp" />
+    <ClCompile Include="..\azmodel.pb.cc" />
+    <ClCompile Include="..\AzTM.cpp" />
+    <ClCompile Include="..\azvisual.pb.cc" />
+    <ClCompile Include="..\CCazVisual.cpp" />
+    <ClCompile Include="..\CCActionInterval3D.cpp" />
+    <ClCompile Include="..\CCAzVRP.cpp" />
+    <ClCompile Include="..\CCAzPerspective.cpp" />
+  </ItemGroup>
+</Project>

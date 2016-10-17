@@ -1,0 +1,88 @@
+package azModel;
+
+message Type {
+	extensions 1 to max;
+}
+
+message Base {
+	optional uint64 rtid = 1 [default = 0];
+	optional uint64 parent_rtid = 2 [default = 0];
+	optional bool apply = 3 [default = true];
+	optional string name = 4 [default = ""];
+}
+
+enum BLEND_MODE {
+	NONE = 0;
+	ALPHA = 1;
+	SCREEN = 2;
+	MULTIPLY = 3;
+	ADD = 4;
+	SUB = 5;
+	LIGHTEN = 6;
+	OVERDRAW = 7;
+}
+
+enum SHAPE_TYPE {
+	BOX = 0;
+	CIRCLE = 1;
+}
+
+message Vertex2D {
+	optional float x = 1;
+	optional float y = 2;
+	optional float u = 3;
+	optional float v = 4;
+	optional uint32 c = 5;
+	repeated uint32 bone_id = 6;
+	repeated float bone_influence = 7;
+}
+
+message Bone2D {
+	optional float scale_x = 1 [default = 1.0];
+	optional float scale_y = 2 [default = 1.0];
+	optional float rotate_z = 5  [default = 0.0];
+	optional float position_x = 6 [default = 0.0];
+	optional float position_y = 7 [default = 0.0];
+}
+
+message Sprite {
+	extend Type {
+		optional Sprite type = 10;
+	}
+
+	required Base base = 1;
+
+	optional int32 left = 2;
+	optional int32 top = 3;
+	optional int32 right = 4;
+	optional int32 bottom = 5;
+
+	//repeated Vertex2D poly_list = 6;
+	//repeated Bone2D bone_list = 7;
+}
+
+message Bitmap {
+	extend Type {
+		optional Bitmap type = 11;
+	}
+
+	required Base base = 1;
+
+	repeated Sprite sprite_list = 2;
+}
+
+message Transform2D {
+	extend Type {
+		optional Transform2D type = 20;
+	}
+
+	optional float scale_x = 1 [default = 1.0];
+	optional float scale_y = 2 [default = 1.0];
+	optional float offset_x = 3 [default = 0.0];
+	optional float offset_y = 4 [default = 0.0];
+	optional float rotate_z = 5  [default = 0.0];
+	optional float position_x = 6 [default = 0.0];
+	optional float position_y = 7 [default = 0.0];
+	optional bool flip_h = 8  [default = false];
+	optional bool flip_v = 9  [default = false];
+}
