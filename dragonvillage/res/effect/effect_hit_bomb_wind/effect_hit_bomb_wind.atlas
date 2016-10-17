@@ -1,0 +1,90 @@
+
+effect_hit_bomb_wind.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_hit_bomb_wind_01
+  rotate: false
+  xy: 2, 562
+  size: 440, 413
+  orig: 440, 413
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_wind_02
+  rotate: true
+  xy: 693, 233
+  size: 96, 119
+  orig: 96, 119
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_wind_03
+  rotate: false
+  xy: 2, 2
+  size: 198, 195
+  orig: 198, 195
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_wind_04
+  rotate: false
+  xy: 2, 199
+  size: 372, 361
+  orig: 372, 361
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_wind_05
+  rotate: false
+  xy: 444, 614
+  size: 372, 361
+  orig: 372, 361
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_wind_06
+  rotate: true
+  xy: 376, 234
+  size: 326, 315
+  orig: 326, 315
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_wind_07
+  rotate: false
+  xy: 818, 824
+  size: 140, 151
+  orig: 140, 151
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_wind_11
+  rotate: false
+  xy: 818, 824
+  size: 140, 151
+  orig: 140, 151
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_wind_08
+  rotate: false
+  xy: 202, 46
+  size: 140, 151
+  orig: 140, 151
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_wind_09
+  rotate: false
+  xy: 818, 671
+  size: 140, 151
+  orig: 140, 151
+  offset: 0, 0
+  index: -1
+effect_hit_bomb_wind_10
+  rotate: false
+  xy: 693, 461
+  size: 140, 151
+  orig: 140, 151
+  offset: 0, 0
+  index: -1
+effect_missile_explosion_fire
+  rotate: false
+  xy: 693, 331
+  size: 125, 128
+  orig: 125, 128
+  offset: 0, 0
+  index: -1

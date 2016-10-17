@@ -1,0 +1,182 @@
+local PARENT = Character
+
+-------------------------------------
+-- class Enemy
+-------------------------------------
+Enemy = class(PARENT, {
+        m_bWaitState = 'boolean',
+     })
+
+-------------------------------------
+-- function init
+-- @param file_name
+-- @param body
+-------------------------------------
+function Enemy:init(file_name, body, ...)
+    self.m_charType = 'enemy'
+    self.m_bWaitState = false
+end
+
+-------------------------------------
+-- function initAnimator
+-------------------------------------
+function Enemy:initAnimator(file_name)
+end
+
+-------------------------------------
+-- function initAnimatorMonster
+-------------------------------------
+function Enemy:initAnimatorMonster(file_name, attr)
+    -- Animator 삭제
+    if self.m_animator then
+        if self.m_animator.m_node then
+            self.m_animator.m_node:removeFromParent(true)
+            self.m_animator.m_node = nil
+        end
+        self.m_animator = nil
+    end
+
+    -- Animator 생성
+    self.m_animator = AnimatorHelper:makeMonsterAnimator(file_name, attr)
+    if self.m_animator.m_node then
+        self.m_rootNode:addChild(self.m_animator.m_node)
+    end
+end
+
+-------------------------------------
+-- function initWorld
+-- @param game_world
+-------------------------------------
+function Enemy:initWorld(game_world)
+    PARENT.initWorld(self, game_world)
+
+    if self.m_world then
+        self.m_world:addEnemy(self)
+    end
+end
+
+Enemy.st_idle = PARENT.st_idle
+Enemy.st_attack = PARENT.st_attack
+
+Enemy.st_dying = PARENT.st_dying
+Enemy.st_dead = PARENT.st_dead
+Enemy.st_delegate = PARENT.st_delegate
+
+-------------------------------------
+-- function initState
+-------------------------------------
+function Enemy:initState()
+    self:addState('idle', Enemy.st_idle, 'idle', true)
+    self:addState('attack', Enemy.st_attack, 'attack', false)
+    self:addState('attackDelay', Enemy.st_attackDelay, 'idle', true)
+    self:addState('charge', Enemy.st_charge, 'idle', true)    
+    self:addState('dying', Enemy.st_dying, 'idle', false, PRIORITY.DYING)
+    self:addState('dead', Enemy.st_dead, nil, nil, PRIORITY.DEAD)
+
+    self:addState('delegate', Enemy.st_delegate, 'idle', true)
+    self:addState('wait', Enemy.st_wait, 'idle', true)
+
+	self:addState('stun', PARENT.st_stun, 'idle', true, PRIORITY.STUN)
+	self:addState('stun_esc', PARENT.st_stun_esc, 'idle', true, PRIORITY.STUN_ESC)
+    self:addState('comeback', PARENT.st_comeback, 'idle', true)
+end
+
+-------------------------------------
+-- function st_attackDelay
+-------------------------------------
+function Enemy.st_attackDelay(owner, dt)
+    if owner.m_stateTimer == 0 then
+        owner:calcAttackPeriod()
+    end
+
+    if (owner.m_attackPeriod <= owner.m_stateTimer) then
+        owner:changeState('charge')
+    end
+
+    if owner.m_basicAtkGauge then
+        local percentage = owner.m_stateTimer / owner.m_attackPeriod * 100
+        owner.m_basicAtkGauge:setPercentage(percentage)
+    end  
+end
+
+-------------------------------------
+-- function st_charge
+-------------------------------------
+function Enemy.st_charge(owner, dt)
+    if (owner.m_stateTimer == 0) then
+
+        -- 차지 이팩트 재생
+        local res = 'res/effect/effect_attack_ready/effect_attack_ready.spine'
+        local animator = MakeAnimator(res)
+        animator:changeAni('idle', false)
+        owner.m_rootNode:addChild(animator.m_node)
+        local duration = animator:getDuration()
+        animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+
+        local size_type = owner.m_charTable['size_type']
+        if (size_type == 's') then
+            animator:setPosition(0, -25)
+        elseif (size_type == 'm') then
+            animator:setPosition(0, -50)
+        elseif (size_type == 'l') then
+            animator:setPosition(0, -75)
+        end
+
+    elseif (owner.m_stateTimer >= 0.5) then
+        owner.m_chargeDuration = owner.m_stateTimer
+        owner:changeState('attack')
+    end
+end
+
+-------------------------------------
+-- function st_wait
+-------------------------------------
+function Enemy.st_wait(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        owner.speed = 0
+    end
+end
+
+-------------------------------------
+-- function setWaitState
+-------------------------------------
+function Enemy:setWaitState(is_wait_state)
+    self.m_bWaitState = is_wait_state
+
+    if is_wait_state then
+        if isExistValue(self.m_state, 'idle', 'attackDelay', 'attack', 'charge') then
+            self:changeState('wait')
+        end
+    else
+        if (self.m_state == 'wait') then
+            self:changeState('attackDelay')
+        end
+    end
+end
+
+-------------------------------------
+-- function release
+-------------------------------------
+function Enemy:release()
+    PARENT.release(self)
+
+    if self.m_world then
+        self.m_world:removeEnemy(self)
+    end
+end
+
+-------------------------------------
+-- function changeState
+-- @param state
+-- @param forced
+-- @return boolean
+-------------------------------------
+function Enemy:changeState(state, forced)
+    if self.m_bWaitState then
+        if (not isExistValue(state, 'dying', 'dead')) then
+            return PARENT.changeState(self, 'wait', false)
+        end
+    end
+
+    return PARENT.changeState(self, state, forced)
+end

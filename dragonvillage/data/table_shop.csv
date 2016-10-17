@@ -1,0 +1,5 @@
+product_id,product_type,price_type,price,value_type,value,mbuy_count,icon
+1,cash,x,0,cash,1000,0,res/ui/shop_cash0106.png
+2,gold,cash,10,gold,100000,0,res/ui/shop_gold0107.png
+3,stamina,cash,10,stamina,100,0,res/ui/shop_st0106.png
+4,card,cash,100,card,5,0,res/ui/shop_gacha0102.png

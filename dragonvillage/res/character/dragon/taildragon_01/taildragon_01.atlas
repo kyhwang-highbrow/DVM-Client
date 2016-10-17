@@ -1,0 +1,97 @@
+
+taildragon_01.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+taildragon_01_arm_01
+  rotate: true
+  xy: 2, 2
+  size: 28, 60
+  orig: 28, 60
+  offset: 0, 0
+  index: -1
+taildragon_01_arm_02
+  rotate: true
+  xy: 356, 138
+  size: 27, 55
+  orig: 27, 55
+  offset: 0, 0
+  index: -1
+taildragon_01_body_01
+  rotate: false
+  xy: 356, 167
+  size: 87, 87
+  orig: 87, 87
+  offset: 0, 0
+  index: -1
+taildragon_01_body_02
+  rotate: true
+  xy: 237, 35
+  size: 87, 113
+  orig: 87, 113
+  offset: 0, 0
+  index: -1
+taildragon_01_body_03
+  rotate: false
+  xy: 445, 167
+  size: 87, 87
+  orig: 87, 87
+  offset: 0, 0
+  index: -1
+taildragon_01_body_04
+  rotate: false
+  xy: 534, 176
+  size: 87, 78
+  orig: 87, 78
+  offset: 0, 0
+  index: -1
+taildragon_01_body_05
+  rotate: false
+  xy: 623, 194
+  size: 87, 60
+  orig: 87, 60
+  offset: 0, 0
+  index: -1
+taildragon_01_effect_01
+  rotate: false
+  xy: 2, 32
+  size: 233, 222
+  orig: 233, 222
+  offset: 0, 0
+  index: -1
+taildragon_01_eye_01
+  rotate: false
+  xy: 878, 218
+  size: 29, 36
+  orig: 29, 36
+  offset: 0, 0
+  index: -1
+taildragon_01_head_01
+  rotate: false
+  xy: 237, 124
+  size: 117, 130
+  orig: 117, 130
+  offset: 0, 0
+  index: -1
+taildragon_01_head_02
+  rotate: false
+  xy: 64, 5
+  size: 30, 25
+  orig: 30, 25
+  offset: 0, 0
+  index: -1
+taildragon_01_leg_01
+  rotate: true
+  xy: 712, 199
+  size: 55, 87
+  orig: 55, 87
+  offset: 0, 0
+  index: -1
+taildragon_01_leg_02
+  rotate: true
+  xy: 801, 199
+  size: 55, 75
+  orig: 55, 75
+  offset: 0, 0
+  index: -1

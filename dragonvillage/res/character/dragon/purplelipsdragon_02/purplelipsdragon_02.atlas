@@ -1,0 +1,111 @@
+
+purplelipsdragon_02.png
+size: 1024,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+purplelipsdragon_02_arm_01
+  rotate: true
+  xy: 713, 58
+  size: 67, 74
+  orig: 67, 74
+  offset: 0, 0
+  index: -1
+purplelipsdragon_02_arm_02
+  rotate: true
+  xy: 789, 64
+  size: 61, 72
+  orig: 61, 72
+  offset: 0, 0
+  index: -1
+purplelipsdragon_02_body_01
+  rotate: true
+  xy: 2, 3
+  size: 122, 135
+  orig: 122, 135
+  offset: 0, 0
+  index: -1
+purplelipsdragon_02_body_03
+  rotate: true
+  xy: 927, 69
+  size: 56, 59
+  orig: 56, 59
+  offset: 0, 0
+  index: -1
+purplelipsdragon_02_body_04
+  rotate: false
+  xy: 446, 66
+  size: 96, 59
+  orig: 96, 59
+  offset: 0, 0
+  index: -1
+purplelipsdragon_02_eye_01
+  rotate: true
+  xy: 408, 2
+  size: 49, 38
+  orig: 49, 38
+  offset: 0, 0
+  index: -1
+purplelipsdragon_02_hand_01
+  rotate: true
+  xy: 544, 65
+  size: 60, 88
+  orig: 60, 88
+  offset: 0, 0
+  index: -1
+purplelipsdragon_02_hand_02
+  rotate: true
+  xy: 348, 2
+  size: 49, 58
+  orig: 49, 58
+  offset: 0, 0
+  index: -1
+purplelipsdragon_02_head_01
+  rotate: false
+  xy: 236, 34
+  size: 110, 91
+  orig: 110, 91
+  offset: 0, 0
+  index: -1
+purplelipsdragon_02_head_02
+  rotate: false
+  xy: 448, 13
+  size: 45, 51
+  orig: 45, 51
+  offset: 0, 0
+  index: -1
+purplelipsdragon_02_head_03
+  rotate: true
+  xy: 348, 53
+  size: 72, 96
+  orig: 72, 96
+  offset: 0, 0
+  index: -1
+purplelipsdragon_02_head_04
+  rotate: false
+  xy: 139, 9
+  size: 95, 116
+  orig: 95, 116
+  offset: 0, 0
+  index: -1
+purplelipsdragon_02_leg_01
+  rotate: false
+  xy: 634, 63
+  size: 77, 62
+  orig: 77, 62
+  offset: 0, 0
+  index: -1
+purplelipsdragon_02_leg_02
+  rotate: true
+  xy: 863, 70
+  size: 55, 62
+  orig: 55, 62
+  offset: 0, 0
+  index: -1
+purplelipsdragon_02_mouth_01
+  rotate: false
+  xy: 988, 106
+  size: 28, 19
+  orig: 28, 19
+  offset: 0, 0
+  index: -1

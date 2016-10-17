@@ -1,0 +1,32 @@
+{
+	"skill_missile_sword_force":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_sword_force/missile_sword_force.vrp",
+				"body":[0,0,150],
+                "count":1,
+                "scale":1,				
+				"size_up_time":10,
+				"speed":500,
+				"accel":1500,
+				"h_limit_speed":1000,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[-100,20],
+				"missile_type":"pass",
+				"reset_time":0.1,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+				
+			}
+		]
+	}
+}

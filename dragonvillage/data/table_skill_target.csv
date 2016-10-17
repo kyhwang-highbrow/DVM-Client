@@ -1,0 +1,51 @@
+type,fof,rule,comment
+all,all,none,"적군, 아군 구별 없이 전체를 동시에 선택"
+all_random,all,random,피/아 구별 없이 드래곤 타입에 따른 우선순위 대상 중에 무작위 n명 선택
+all_distance_line,all,distance_line,피/아 구별 없이 타겟 포메이션에 따른 우선순위 대상 중에 직선상으로 가장 가까운 대상 n명 선택
+all_distance_x,all,distance_x,피/아 구별 없이 타겟 포메이션에 따른 우선순위 대상 중에 x축으로 가장 가까운 대상 n명 선택
+all_distance_y,all,distance_y,피/아 구별 없이 타겟 포메이션에 따른 우선순위 대상 중에 y축으로 가장 가까운 대상 n명 선택
+all_hp_low,all,hp_low,피/아 구별 없이 타겟 포메이션에 따른 우선순위 대상 중에 HP%가 가장 낮은 대상 n명 선택. n보다 많을 경우 절대 값이 낮은 순으로 n명 선택
+all_hp_high,all,hp_high,피/아 구별 없이 타겟 포메이션에 따른 우선순위 대상 중에 HP%가 가장 높은 대상 n명 선택. n보다 많을 경우 절대 값이 높은 순으로 n명 선택
+all_cp_low,all,cp_low,피/아 구별 없이 타겟 포메이션에 따른 우선순위 대상 중에 CP%가 가장 낮은 대상 n명 선택. n보다 많을 경우 대상 중 무작위로 n명 선택
+all_cp_high,all,cp_high,피/아 구별 없이 타겟 포메이션에 따른 우선순위 대상 중에 CP%가 가장 높은 대상 n명 선택. n보다 많을 경우 대상 중 무작위로 n명 선택
+ally_none,ally,none,[아군] 전체를 동시에 선택
+ally_random,ally,random,자신을 포함하여 [아군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 무작위 n명 선택
+ally_distance_line,ally,distance_line,[아군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 직선상으로 가장 가까운 대상 n명 선택
+ally_distance_x,ally,distance_x,[아군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 x축으로 가장 가까운 대상 n명 선택
+ally_distance_y,ally,distance_y,[아군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 y축으로 가장 가까운 대상 n명 선택
+ally_hp_low,ally,hp_low,[아군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 HP%가 가장 낮은 대상 n명 선택. n보다 많을 경우 절대 값이 낮은 순으로 n명 선택
+ally_hp_high,ally,hp_high,[아군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 HP%가 가장 높은 대상 n명 선택. n보다 많을 경우 절대 값이 높은 순으로 n명 선택
+ally_cp_low,ally,cp_low,[아군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 CP%가 가장 낮은 대상 n명 선택. n보다 많을 경우 대상 중 무작위로 n명 선택
+ally_cp_high,ally,cp_high,[아군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 CP%가 가장 높은 대상 n명 선택. n보다 많을 경우 대상 중 무작위로 n명 선택
+enemy,enemy,none,[적군] 전체를 동시에 선택
+enemy_random,enemy,random,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 무작위 n명 선택
+enemy_distance_line,enemy,distance_line,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 직선상으로 가장 가까운 대상 n명 선택
+enemy_distance_x,enemy,distance_x,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 x축으로 가장 가까운 대상 n명 선택
+enemy_distance_y,enemy,distance_y,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 y축으로 가장 가까운 대상 n명 선택
+enemy_hp_low,enemy,hp_low,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 HP%가 가장 낮은 대상 n명 선택. n보다 많을 경우 절대 값이 낮은 순으로 n명 선택
+enemy_hp_high,enemy,hp_high,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 HP%가 가장 높은 대상 n명 선택. n보다 많을 경우 절대 값이 높은 순으로 n명 선택
+enemy_cp_low,enemy,cp_low,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 CP%가 가장 낮은 대상 n명 선택. n보다 많을 경우 대상 중 무작위로 n명 선택
+enemy_cp_high,enemy,cp_high,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 CP%가 가장 높은 대상 n명 선택. n보다 많을 경우 대상 중 무작위로 n명 선택
+self,self,none,자신을 타겟으로 한다. 타겟 포메이션을 무시
+pos,x,pos,"타겟 포메이션을 무시하고 지정된 위치로 이동하여 진형에 따라 0, 180도 각도로 스킬 사용"
+ally_front_line,ally,front_line,[아군]전위 전체 적용
+ally_middle_line,ally,middle_line,[아군]중위 전체 적용
+ally_back_line,ally,back_line,[아군]후위 전체 적용
+ally_earth_group,ally,earth_group,[아군]파티에서 땅 속성 캐릭터에게 적용
+ally_water_group,ally,water_group,[아군]파티에서 물 속성 캐릭터에게 적용
+ally_wind_group,ally,wind_group,[아군]파티에서 바람 속성 캐릭터에게 적용
+ally_fire_group,ally,fire_group,[아군]파티에서 불 속성 캐릭터에게 적용
+ally_light_group,ally,light_group,[아군]파티에서 빛 속성 캐릭터에게 적용
+ally_dark_group,ally,dark_group,[아군]파티에서 어둠 속성 캐릭터에게 적용
+ally_hatch_group,ally,hatch_group,[아군]파티에서 해치 단계인 캐릭터에게 적용
+ally_hatchling_group,ally,hatchling_group,[아군]파티에서 해츨링 단계인 캐릭터에게 적용
+ally_adult_group,ally,adult_group,[아군]파티에서 성룡 단계인 캐릭터에게 적용
+ally_tanker,ally,tanker,[아군]파티의 방어형 캐릭터에게 적용
+ally_dealer,ally,dealer,[아군]파티의 공격형 캐릭터에게 적용
+ally_supporter,ally,supporter,[아군]파티의 지원형 캐릭터에게 적용
+ally_physical_char,ally,physical_char,[아군]파티의 물리공격형 캐릭터에게 적용
+ally_magical_char,ally,magical_char,[아군]파티의 마법공격형 캐릭터에게 적용
+ally_common_group,ally,common_group,[아군]파티의 일반등급 캐릭터에게 적용
+ally_rare_group,ally,rare_group,[아군]파티의 희귀등급 캐릭터에게 적용
+ally_hero_group,ally,hero_group,[아군]파티의 영웅등급 캐릭터에게 적용
+ally_legend_group,ally,legend_group,[아군]파티의 전설등급 캐릭터에게 적용

@@ -1,0 +1,121 @@
+{
+	"skill_missile_sting_3":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"res/missile/missile_sting/missile_sting.png",
+				"visual":"idle3",
+				"body":[0,0,20],
+                "count":20,				
+                "period":0.02,
+                "scale":0.5,
+				"time":0,
+				"speed":500,
+				"accel":2000,
+				"h_limit_speed":1500,
+				"accel_delay":2.6,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir":-45,
+				"dir_add":5,
+				
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_sting/missile_sting.png",
+				"visual":"idle3",
+				"body":[0,0,20],
+                "count":20,				
+                "period":0.02,
+                "scale":0.5,
+				"time":0.4,
+				"speed":500,
+				"accel":2000,
+				"h_limit_speed":1500,
+				"accel_delay":2.6,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir":45,
+				"dir_add":-5,
+				
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_sting/missile_sting.png",
+				"visual":"idle3",
+				"body":[0,0,20],
+                "count":20,				
+                "period":0.02,
+                "scale":0.5,
+				"time":0.8,
+				"speed":500,
+				"accel":2000,
+				"h_limit_speed":1500,
+				"accel_delay":2.6,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir":-45,
+				"dir_add":5,
+				
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_sting/missile_sting.png",
+				"visual":"idle3",
+				"body":[0,0,20],
+                "count":20,				
+                "period":0.02,
+                "scale":0.5,
+				"time":1.2,
+				"speed":500,
+				"accel":2000,
+				"h_limit_speed":1500,
+				"accel_delay":2.6,
+				"angular_velocity":0,
+				"offset":[0,0],
+				"dir":45,
+				"dir_add":-5,
+				
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

@@ -1,0 +1,97 @@
+{
+    "difficult":2,
+    "bg":"map_ocean",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+				"131009;9;Basic;RO02;RB12;3"
+				"131009;9;Basic;RO06;RB16;3"
+				"131007;9;Basic;RO04;RB14;3"
+				],
+				
+				1:
+				[
+				"131001;9;Appear;RO02;RF12;1"
+				"131001;9;Appear;RO03;RF14;1"
+				"131001;9;Appear;RO06;RF16;1"
+				],
+				
+				2:
+				[
+				"131002;9;Appear;RO02;RM12;0.5"
+				"131002;9;Appear;RO04;RM14;0.5"
+				"131002;9;Appear;RO06;RM16;0.5"
+				]
+            }
+        },
+		
+        {
+            "idx":2,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+                0:
+                [
+				"131001;9;Appear;RO04;RF14;0.5"
+				
+				"131008;9;Appear;RO02;RF22;0.5"
+				"131008;9;Appear;RO06;RF26;0.5"
+				
+				"131006;9;Appear;RO04;RM14;0.5"
+				
+				"131009;9;Appear;RO02;RM22;0.5"
+				"131009;9;Appear;RO06;RM26;0.5"
+				
+				"131003;9;Appear;RO03;RB23;0.5"
+				"131003;9;Appear;RO05;RB25;0.5"
+                ]		
+            }
+        },
+		
+        {
+            "idx":3,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":100,
+                "pos_y":0
+            },
+            "wave":
+            {
+
+				
+				0:
+				[
+				"131012;9;Basic;BOSS;RM14;3"
+				],
+				
+				1:
+				[
+				"131008;9;Appear;RO02;RF12;0.5"
+				"131008;9;Appear;RO06;RF16;0.5"
+				"131009;9;Appear;RO02;RM22;0.5"
+				"131009;9;Appear;RO06;RM26;0.5"
+				"131005;9;Appear;RO03;RB23;0.5"
+				"131005;9;Appear;RO05;RB25;0.5"
+				]
+				
+            }
+        }
+    ]
+}

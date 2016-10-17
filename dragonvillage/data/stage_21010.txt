@@ -1,0 +1,25 @@
+{
+    "difficult":2,
+    "bg":"map_nest_fire",
+	"wave":
+	[
+        {   
+		    "idx":1,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":200,
+                "pos_y":0
+            },
+			
+			
+			"wave":
+            {
+                0:
+                [
+				"140001;1;Basic;BOSS;NEST;0.5"
+                ]
+            }
+        }	
+    ]
+}

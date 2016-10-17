@@ -1,0 +1,132 @@
+
+orpheus_02.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+orpheus_02_arm_01
+  rotate: false
+  xy: 351, 335
+  size: 135, 167
+  orig: 135, 167
+  offset: 0, 0
+  index: -1
+orpheus_02_arm_02
+  rotate: true
+  xy: 617, 288
+  size: 99, 123
+  orig: 99, 123
+  offset: 0, 0
+  index: -1
+orpheus_02_arm_03
+  rotate: false
+  xy: 270, 250
+  size: 77, 79
+  orig: 77, 79
+  offset: 0, 0
+  index: -1
+orpheus_02_arm_04
+  rotate: false
+  xy: 175, 80
+  size: 77, 79
+  orig: 77, 79
+  offset: 0, 0
+  index: -1
+orpheus_02_body_01
+  rotate: false
+  xy: 2, 329
+  size: 189, 173
+  orig: 189, 173
+  offset: 0, 0
+  index: -1
+orpheus_02_body_02
+  rotate: false
+  xy: 488, 391
+  size: 143, 111
+  orig: 143, 111
+  offset: 0, 0
+  index: -1
+orpheus_02_eye_01
+  rotate: true
+  xy: 180, 232
+  size: 95, 88
+  orig: 95, 88
+  offset: 0, 0
+  index: -1
+orpheus_02_foot_01
+  rotate: true
+  xy: 633, 389
+  size: 113, 127
+  orig: 113, 127
+  offset: 0, 0
+  index: -1
+orpheus_02_foot_02
+  rotate: true
+  xy: 762, 389
+  size: 113, 127
+  orig: 113, 127
+  offset: 0, 0
+  index: -1
+orpheus_02_head_01
+  rotate: false
+  xy: 2, 165
+  size: 176, 162
+  orig: 176, 162
+  offset: 0, 0
+  index: -1
+orpheus_02_head_02
+  rotate: true
+  xy: 180, 161
+  size: 69, 81
+  orig: 69, 81
+  offset: 0, 0
+  index: -1
+orpheus_02_head_03
+  rotate: true
+  xy: 742, 288
+  size: 99, 115
+  orig: 99, 115
+  offset: 0, 0
+  index: -1
+orpheus_02_head_04
+  rotate: true
+  xy: 859, 288
+  size: 99, 115
+  orig: 99, 115
+  offset: 0, 0
+  index: -1
+orpheus_02_leg_01
+  rotate: true
+  xy: 891, 389
+  size: 113, 127
+  orig: 113, 127
+  offset: 0, 0
+  index: -1
+orpheus_02_leg_02
+  rotate: true
+  xy: 488, 276
+  size: 113, 127
+  orig: 113, 127
+  offset: 0, 0
+  index: -1
+orpheus_02_mouth_01
+  rotate: false
+  xy: 175, 2
+  size: 77, 76
+  orig: 77, 76
+  offset: 0, 0
+  index: -1
+orpheus_02_wing_01
+  rotate: false
+  xy: 193, 331
+  size: 156, 171
+  orig: 156, 171
+  offset: 0, 0
+  index: -1
+orpheus_02_wing_02
+  rotate: true
+  xy: 2, 7
+  size: 156, 171
+  orig: 156, 171
+  offset: 0, 0
+  index: -1

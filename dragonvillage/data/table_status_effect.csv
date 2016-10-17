@@ -1,0 +1,90 @@
+name,type,t_name,res,res_icon,symbol,groggy,overlab,duration,atk,def,hp,aspd,cri_chance,cri_dmg,cri_avoid,hit_rate,avoid,dmg_adj_rate,dot_interval,dot_dmg,dot_heal,val_1,val_2,val_3,val_4,t_desc,to_programmer
+atk_up,buff,공격력 증가,res/effect/effect_combat_up/effect_combat_up.vrp,x,x,false,0,20,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
+atk_down,debuff,공격력 감소,res/effect/effect_combat_down/effect_combat_down.vrp,x,x,false,0,20,-10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 공격력 감소,정수x퍼센트 (곱연산)
+aspd_up,buff,공격 속도 증가,res/effect/effect_combat_up/effect_combat_up.vrp,x,x,false,0,20,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 공격 속도 증가,퍼센트+퍼센트 (합연산)
+aspd_down,debuff,공격 속도 감소,res/effect/effect_combat_down/effect_combat_down.vrp,x,x,false,0,20,0,0,0,-10,0,0,0,0,0,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 공격 속도 감소,퍼센트+퍼센트 (합연산)
+cri_chance_up,buff,치명 확률 증가,res/effect/effect_combat_up/effect_combat_up.vrp,x,x,false,0,20,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 치명 확률 증가,퍼센트+퍼센트 (합연산)
+cri_chance_down,debuff,치명 확률 감소,res/effect/effect_combat_down/effect_combat_down.vrp,x,x,false,0,20,0,0,0,0,-10,0,0,0,0,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 치명 확률 감소,퍼센트+퍼센트 (합연산)
+def_up,buff,방어력 증가,res/effect/effect_defense_up/effect_defense_up.vrp,x,x,false,0,20,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
+def_down,debuff,방어력 감소,res/effect/effect_defense_down/effect_defense_down.vrp,x,x,false,0,20,0,-10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 방어력 감소,정수x퍼센트 (곱연산)
+hp_up,buff,생명력 증가,res/effect/effect_defense_up/effect_defense_up.vrp,x,x,false,0,20,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 생명력 증가,정수x퍼센트 (곱연산)
+hp_down,debuff,생명력 감소,res/effect/effect_defense_down/effect_defense_down.vrp,x,x,false,0,20,0,0,-10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 생명력 감소,정수x퍼센트 (곱연산)
+cri_avoid_up,buff,치명 방어율 증가,res/effect/effect_defense_up/effect_defense_up.vrp,x,x,false,0,20,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 치명 방어 증가,퍼센트+퍼센트 (합연산)
+cri_avoid_down,debuff,치명 방어율 감소,res/effect/effect_defense_down/effect_defense_down.vrp,x,x,false,0,20,0,0,0,0,0,0,-10,0,0,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 치명 방어 감소,퍼센트+퍼센트 (합연산)
+avoid_up,buff,회피율 증가,res/effect/effect_tactics_up/effect_tactics_up.vrp,x,x,false,0,20,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 회피 증가,퍼센트+퍼센트 (합연산)
+avoid_down,debuff,회피율 감소,res/effect/effect_tactics_down/effect_tactics_down.vrp,x,x,false,0,20,0,0,0,0,0,0,0,0,-10,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 회피 감소,퍼센트+퍼센트 (합연산)
+hit_rate_up,buff,적중률 증가,res/effect/effect_tactics_up/effect_tactics_up.vrp,x,x,false,0,20,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 적중 증가,퍼센트+퍼센트 (합연산)
+hit_rate_down,debuff,적중률 감소,res/effect/effect_tactics_down/effect_tactics_down.vrp,x,x,false,0,20,0,0,0,0,0,0,0,-10,0,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 적중 감소,퍼센트+퍼센트 (합연산)
+cri_dmg_up,buff,치명 피해 증가,res/effect/effect_tactics_up/effect_tactics_up.vrp,x,x,false,0,20,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 치명 피해 증가,퍼센트+퍼센트 (합연산)
+cri_dmg_down,debuff,치명 피해 감소,res/effect/effect_tactics_down/effect_tactics_down.vrp,x,x,false,0,20,0,0,0,0,0,-10,0,0,0,0,0,0,0,0,0,0,0,{1}초 동안 {2}만큼 치명 피해 감소,퍼센트+퍼센트 (합연산)
+p_resist,buff,물리 저항,res/effect/effect_p_resist/effect_p_resist.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,10,0,0,0,0,0,0,0,0,0,-50,0,0,0,50,0,0,0,{duration}초 동안 받는 물리 피해 {1}% 감소,최종 데미지에서 곱연산
+m_resist,buff,마법 저항,res/effect/effect_m_resist/effect_m_resist.vrp,res/ui/icon/status_effect/m_resist.png,x,false,1,10,0,0,0,0,0,0,0,0,0,-50,0,0,0,50,0,0,0,{duration}초 동안 받는 마법 피해 {1}% 감소,최종 데미지에서 곱연산
+bleed,dot_dmg,출혈,res/effect/effect_bleed/effect_bleed.vrp,res/ui/icon/status_effect/bleed.png,x,false,1,30,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,{duration}초 동안 {dot_interval}초마다 공격력의 {dot_dmg}%의 데미지를 줌. 피해를 입으면 즉시 공격력의 {dot_dmg}%의 피해를 주고 지속 시간이 {dot_intervla}만큼 감소.,"속성 영향 받지 않음.(트루뎀), 보스 1/10뎀, 타격당 추뎀 있음."
+poison,dot_dmg,중독,res/effect/effect_poison/effect_poison.vrp,res/ui/icon/status_effect/poison.png,x,false,1,30,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,{duration}초 동안 {dot_interval}초마다 공격력의 {dot_dmg}%의 데미지를 줌.,"속성 영향 받지 않음.(트루뎀), 보스 1/10뎀,"
+burn,dot_dmg,화상,res/effect/effect_burn/effect_burn.vrp,res/ui/icon/status_effect/burn.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,3,3,0,10,0,0,0,"즉시 공격력의 {1}% 피해를 주고, {duration}초 동안 {dot_interval}초마다 공격력의 {dot_dmg}% 데미지를 줌.","속성 영향 받지 않음.(트루뎀), 보스 1/10뎀,"
+electric_shock,cc,감전,res/effect/effect_electric_shock/effect_electric_shock.vrp,res/ui/icon/status_effect/electric_shock.png,x,false,1,3,0,0,0,0,0,0,0,0,0,20,0,0,0,20,0,0,0,{duration}초 동안 행동 불가. 모든 피해 {1}% 증가,
+stun,cc,기절,res/effect/effect_stun/effect_stun.vrp,res/ui/icon/status_effect/stun.png,x,true,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,{duration}초 동안 행동 불가,x
+freeze,cc,빙결,res/effect/effect_freeze/effect_freeze.vrp,x,x,true,1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,50,1,0,0,{duration}초 동안 행동 불가. 물리 피해 {1}% 증가. 피격시 {2}초 후 즉시 해제,x
+stone_curse,cc,석화,res/effect/effect_stone_curse/effect_stone_curse.vrp,x,x,true,1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,50,1,0,0,{duration}초 동안 행동 불가. 마법 피해 {1}% 증가. 피격시 {2}초 후 즉시 해제,x
+sleep,cc,수면,res/effect/effect_sleep/effect_sleep.spine,res/ui/icon/status_effect/stun.png,x,true,1,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,{duration}초 동안 행동 불가. 피격시 즉시 해제. ,받는 피해 2배 증가
+silence,cc,침묵,res/effect/effect_silence/effect_silence.vrp,res/ui/icon/status_effect/silence.png,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,{duration}초 동안 일반 공격만 가능,스킬 사용 불가
+fury,buff,분노,res/effect/effect_fury/effect_fury.vrp,x,o,false,5,5,200,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,{duration}초 동안 공격력 {atk}% 증가,x
+hit_the_mark,buff,적중,res/effect/effect_hit_the_mark/effect_hit_the_mark.vrp,x,o,false,0,10,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,{duration}초 동안 적중률 {hit_rate}% 증가,x
+blessing,buff,축복,res/effect/effect_blessing/effect_blessing.vrp,res/ui/icon/status_effect/blessing.png,o,false,0,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"{duration}초 동안 공격력, 방어력, 생명력 10%만큼 증가",x
+quickly,buff,회피,res/effect/effect_quickly/effect_quickly.vrp,x,o,false,0,10,0,0,0,0,0,0,0,0,20,0,0,0,0,10,20,0,0,{1}초 동안 {2}만큼 회피 증가,x
+plague,debuff,전염병,res/effect/effect_plague/effect_plague.vrp,x,o,false,0,20,-20,0,0,0,0,0,0,0,0,0,3,0,0,150,3,0,0,{duration}초 동안 공격력 {atk}% 감소. 매 {2}초 마다 전이,반경 {1}px 범위 안에 있는 대상에게 전이 됨
+curse,debuff,저주,res/effect/effect_curse/effect_curse.vrp,x,o,false,0,20,0,-5,0,0,0,0,0,0,0,0,1,0,0,5,50,0,0,{duration}초 동안 {def}%만큼 방어력 감소 매 {1}초 마다 {def}%만큼 감소량 증가 최대치는 {2},dot류 처럼 인터벌 있음
+blind,debuff,실명,res/effect/effect_blind/effect_blind.vrp,res/ui/icon/status_effect/blind.png,o,false,1,10,0,0,0,0,0,0,0,-100,0,0,1,0,0,10,100,1,10,{1}초 동안 {2}만큼 적중 감소 매 {3} 마다 {4}만큼 적중 회복,dot류 처럼 인터벌 있음
+slow,debuff,둔화,res/effect/effect_slow/effect_slow.vrp,x,o,false,0,10,0,0,0,0,0,0,0,0,-100,0,0,0,0,10,100,0,0,{1}초 동안 {2}만큼 회피 감소,x
+passive_cri_avoid_up_20,passive,치명 방어 증가,x,x,x,false,0,-1,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,치명 방어 {cri_avoid}% 증가,(퍼플립스 2성 패시브) 개인
+passive_spatter,passive,퐁당퐁당,x,x,x,false,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,200,3,5,0,회피 시 반경 {1}px 범위 내 아군 {2}명의 체력을 퍼플립스 드래곤의 체력 {3}%만큼  회복.,(퍼플립스 4성 패시브)
+passive_cri_dmg_up_15,passive,치명 피해 증가,x,x,x,false,0,-1,0,0,0,0,0,15,0,0,0,0,0,0,0,15,0,0,0,암 속성 아군의 치명 피해 {cri_dmg}% 증가,(청룡 2성 패시브) 개인
+passive_cri_dmg_up_60,passive,치명 피해 증가,x,x,x,false,0,-1,0,0,0,0,0,60,0,0,0,0,0,0,0,60,0,0,0,후위 배치 시 적에게 입히는 치명 피해 {1}% 증가,(청룡 2성 패시브) 개인
+passive_atk_up_15,passive,공격력 증가,x,x,x,false,0,-1,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,지 속성 아군의 공격력 {atk}% 증가,(리프 드래곤 6성 패시브)
+passive_hit_rate_up_1,passive,적중률 증가,x,x,x,false,0,-1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,적중률 {hit_rate}% 증가,(애플칙 6성 패시브) 전체
+passive_hit_rate_up_20,passive,적중률 증가,x,x,x,false,0,-1,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,적중률 {hit_rate}% 증가,(리프 드래곤 4성 패시브) 개인
+passive_atk_up_20,passive,공격력 증가,x,x,x,false,0,-1,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,공격력 {atk}% 증가,(리프 드래곤 2성 패시브) 개인
+passive_cri_chance_up_10,passive,치명 확률 증가,x,x,x,false,0,-1,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,풍 속성 아군의 치명 확률 {cri_chance}% 증가,(애플칙 2성 패시브)
+passive_cri_chance_up_15,passive,치명 확률 증가,x,x,x,false,0,-1,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,풍 속성 아군의 치명 확률 {cri_chance}% 증가,(허리케인 6성 패시브)
+passive_aspd_up_30,passive,공격 속도 증가,x,x,x,false,0,-1,0,0,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,공격 속도 {aspd}% 증가,(허리케인 2성 패시브) 개인
+passive_aspd_up_15,passive,공격 속도 증가,x,x,x,false,0,-1,0,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,공격 속도 {aspd}% 증가,(청룡 6성 패시브)
+passive_def_up_10,passive,방어력 증가,x,x,x,false,0,-1,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,방어력 {def}% 증가,(붐버 2성 패시브)
+passive_cri_avoid_up_1,passive,치명 방어 증가,x,x,x,false,0,-1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,아군 전체 치명 방어 ,(붐버 6성 패시브)
+passive_def_up_15,passive,방어력 증가,x,x,x,false,0,-1,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,풍 속성 아군의 방어력 {def}% 증가,(리티오 6성 패시브)
+passive_recovery,passive,지속 치유,x,x,x,false,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,1,30,0,0,0,{1}초 마다 리티오 전체 생명력의 {dot_heal}% 만큼 아군 전체의 생명력을 회복.,(리티오 4성 패시브)
+passive_regist_poison_30,passive,중독 저항 증가,x,x,x,false,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,중독 디버프에 걸릴 확률 {1}% 감소.,(리티오 2성 패시브) 개인
+passive_avoid_up_10,passive,회피율 증가,x,x,x,false,0,-1,0,0,0,0,0,0,0,0,20,0,0,0,0,20,0,0,0,수 속성 아군의  회피율 {1}% 증가,(퍼플립스 6성 패시브)
+passive_p_resist,passive,물리 저항,x,x,x,false,1,-1,0,0,0,0,0,0,0,0,0,-50,0,0,0,50,0,0,0,받는 물리 피해 {1}% 감소,
+passive_m_resist,passive,마법 저항,x,x,x,false,1,-1,0,0,0,0,0,0,0,0,0,-50,0,0,0,50,0,0,0,받는 마법 피해 {1}% 감소,
+passive_atk_up_25,passive,공격력 증가,x,x,x,false,0,-1,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,광 속성 아군의 공격력 {atk}% 증가,(고대 신룡 6성 패시브) 
+passive_cri_dmg_up_10,passive,치명 피해 증가,x,x,x,false,0,-1,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,지 속성 아군의 치명 피해 {cri_dmg}% 증가,(스파인 6성 패시브) 전체
+passive_hp_up_10,passive,생명력 증가,x,x,x,false,0,-1,0,0,10,0,0,0,0,0,0,0,0,0,0,10,0,0,0,생명력 {1}% 증가,(크레센트 드래곤2성 패시브) 개인
+passive_stun,passive,기절,res/effect/effect_stun/effect_stun.vrp,res/ui/icon/status_effect/stun.png,x,true,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,{duration}초 동안 행동 불가,(애플칙 3성 기본 공격 강화)
+passive_bloodlust,passive,피의 맛,x,x,x,false,5,20,20,0,0,20,0,0,0,0,0,0,0,0,0,20,0,0,0,"공격력, 공격속도 {1}% 증가",
+passive_add_attack,passive,돌풍 소환,x,x,x,false,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,돌풍 소환,
+def_down_missile_gem,debuff,방어력 감소,res/effect/effect_defense_down/effect_defense_down.vrp,res/ui/icon/status_effect/def_down.png,x,false,3,10,0,-10,0,0,0,0,0,0,0,0,0,0,0,10,10,0,0,{1}초 동안 방어력 {2}% 감소 (최대 3번 중첩),x
+debuff_def_down_20,debuff,방어력 감소,res/effect/effect_defense_down/effect_defense_down.vrp,res/ui/icon/status_effect/def_down.png,x,false,1,10,0,-20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,{duration} 초 간 방어력 {def}% 감소,(허리케인 5성 액티브 강화)
+buff_hit_rate_up_20,buff,적중률 증가,res/effect/effect_tactics_up/effect_tactics_up.vrp,res/ui/icon/status_effect/def_down.png,x,false,1,5,0,0,0,0,0,0,0,20,0,0,0,0,0,20,0,0,0,적중률 {1}% 증가,
+debuff_hit_rate_down_20,debuff,적중률 감소,res/effect/effect_tactics_down/effect_tactics_down.vrp,res/ui/icon/status_effect/hit_rate_up.png,x,false,1,5,0,0,0,0,0,0,0,-20,0,0,0,0,0,20,0,0,0,적중률 {1}% 감소,(핑크벨 3성 기본 공격 강화)
+debuff_avoid_down_15,debuff,회피율 감소,res/effect/effect_tactics_down/effect_tactics_down.vrp,res/ui/icon/status_effect/avoid_down.png,x,false,1,5,0,0,0,0,0,0,0,0,-15,0,0,0,0,10,0,0,0,회피율 {1}% 감소,(핑크벨 3성 기본 공격 강화)
+debuff_heal_rate_down_40,debuff,치유효과 감소,x,x,x,false,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,40,0,0,0,{duration} 초 간 치유효과 {1}% 감소,(리티오 3성 기본 공격 강화)
+debuff_hp_down_10,debuff,생명력 감소,res/effect/effect_defense_down/effect_defense_down.vrp,res/ui/icon/status_effect/hp_down.png,x,false,0,5,0,0,-10,0,0,0,0,0,0,0,0,0,0,10,5,10,0,공격 시 {1}% 확률로 {2}초간 피격  대상의 최대 생명력 {3}% 감소 (중첩되지 않음),(크레센트 드래곤 3성 강화)
+passive_hp_up_20,passive,생명력 증가,x,x,x,false,0,-1,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,전방 배치 시 체력 20% 증가,(파워 드래곤 4성 패시브) 개인
+passive_def_up_20,passive,방어력 증가,x,x,x,false,0,-1,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,지 속성 아군의 방어력 {def}% 증가,(파워 드래곤 6성 패시브) 전체
+buff_def_up_overlab_10,buff,방어력 증가,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,3,5,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,{duration} 초 간 방어력 {def}% 증가,(붐버 4성 패시브)
+buff_atk_up_50,buff,공격력 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,1,5,50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,{duration} 초 간 공격력 {atk}% 증가,(청룡 5성 액티브 강화)
+buff_cri_chance_up_20,buff,치명 확률 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/cri_chance_up.png,x,false,1,5,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,적 처치 시 {duration} 초 간 치명타율 {cri_chance}% 증가,(청룡 4성 패시브) 개인 / 중첩불가
+buff_aspd_up_50,buff,공격 속도 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/aspd_up.png,x,false,1,5,0,0,0,50,0,0,0,0,0,0,0,0,0,0,0,0,0,{duration} 초 간 공격 속도 {aspd}% 증가,(리티오 5성 액티브 스킬 강화)
+buff_atk_up_100,buff,공격력 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,0,5,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,적 처치 시 {duration} 초 간 공격력 {atk}% 증가,(고대 신룡 2성 패시브) 개인
+passive_hit_rate_up_25,passive,적중률 증가,x,x,x,false,0,-1,0,0,0,0,0,0,0,25,0,0,0,0,0,0,0,0,0,적중률 {hit_rate}% 증가,(고대 신룡 4성 패시브) 개인
+buff_avoid_up_10,buff,회피율 증가,res/effect/effect_tactics_up/effect_tactics_up.vrp,res/ui/icon/status_effect/avoid_up.png,x,false,0,5,0,0,0,0,0,0,10,0,0,0,0,0,0,10,5,0,0,대상의 회피율이 {2}초 간 {1}% 증가,(크레센트 드래곤 5성 강화)
+buff_rage_atk,buff,공격력 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,10,10,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,공격력 {1}% 증가,
+buff_heal_5,buff,순간 치유,x,x,x,false,10,1,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,전체 생명력의 {dot_heal}% 회복,(고대신룡 5성 액티브 강화)
+buff_heal_10,buff,순간 치유,x,x,x,false,10,1,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,전체 생명력의 {dot_heal}% 회복,(가루다 5성 액티브 강화)
+buff_atk_up_30,buff,공격력 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,1,15,30,0,0,0,0,0,0,0,0,0,0,0,0,15,30,0,0,{1}초 동안 공격력{2}% 증가,
+buff_cri_chance_up_15,buff,치명확률 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/cri_chance_up.png,x,false,1,15,0,0,0,0,15,0,0,0,0,0,0,0,0,15,30,15,0,"{1}초 동안 공격력 {2}%, 치명확률 {3}% 증가",
+buff_atk_up_wave_10,buff,공격력 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,1,10,10,0,0,0,15,0,0,0,0,0,0,0,0,10,10,0,0,{duration} 초 간 공격 속도 {aspd}% 증가,
+buff_cri_dmg_up_30,buff,치명 피해 증가,res/effect/effect_tactics_up/effect_tactics_up.vrp,res/ui/icon/status_effect/cri_dmg_up.png,x,false,1,10,0,0,0,0,0,30,0,0,0,0,0,0,0,10,30,0,0,{duration} 초 간 치명 피해 {cri_dmg}% 증가,(파워드래곤 5성 액티브 강화)
+tamer_buff_atk_50,buff,공격력 증가,res/effect/effect_tamer_combat/effect_tamer_combat.vrp,res/ui/icon/status_effect/atk_up.png,x,false,1,10,50,0,0,0,0,0,0,0,0,0,0,0,0,10,50,0,0,{1}초 동안 공격력 {2}% 증가,테이머 버프
+tamer_buff_def_50,buff,방어력 증가,res/effect/effect_tamer_defense/effect_tamer_defense.vrp,res/ui/icon/status_effect/def_up.png,x,false,1,10,0,50,0,0,0,0,0,0,0,0,0,0,0,10,50,0,0,{1}초 동안 방어력 {2}% 증가,테이머 버프
+tamer_buff_aspd_50,buff,공격속도 증가,res/effect/effect_tamer_tactics/effect_tamer_tactics.vrp,res/ui/icon/status_effect/aspd_up.png,x,false,1,10,0,0,0,50,0,0,0,0,0,0,0,0,0,10,50,0,0,{1}초 동안 공격속도 {2}% 증가,테이머 버프

@@ -1,0 +1,115 @@
+-------------------------------------
+-- function class_
+-- @brief 단일 상속 구조를 지원하고,
+--        클래스 정의에 없는 멤버를 요청했을 때는 조용히 nil을 리턴하는 것이 아니라 에러를 낸다.
+--        인스턴스 테이블에 대해 멤버를 요청했는데 그게 인스턴스 테이블에는 없고 클래스 정의에는 있는 경우,
+--        해당 값이 함수인 경우에만 리턴해 준다. 아니면 무시한다.
+-------------------------------------
+function class_( a, b )
+    local classDef, super
+    if( b ) then -- class( 수퍼클래스, 멤버 정의 )
+        super = a
+        classDef = b
+    else -- class( 멤버 정의 )
+        classDef = a
+    end
+
+    assert( getmetatable( classDef ) == nil )
+
+    local instanceMT = {
+        __index = function( obj, k )
+            local v = classDef[ k ]
+            if( v == nil ) then
+                error( 'unknown member: ' .. tostring( k ) )
+            elseif( type( v ) == 'function' ) then
+                return v
+            else
+                return nil
+            end
+        end;
+
+        __newindex = function( obj, k, v )
+            if( classDef[ k ] == nil ) then
+                error( 'unknown member: ' .. tostring( k ) )
+            end
+            rawset( obj, k, v )
+        end;
+
+        def = classDef;
+    }
+
+    -- 클래스에 생성자 호출 체인 설치
+    classDef.call_init = function( obj, ... )
+        if( super ) then
+            super.call_init( obj, ... )
+        end
+        
+        local init = rawget( classDef, 'init' )
+        if( init ) then
+            init( obj, ... )
+        end
+    end
+    classDef.super = super
+
+    setmetatable( classDef, {
+        __index = super;
+
+        __call = function( _, ... )
+            local obj = {}
+            setmetatable( obj, instanceMT )
+
+            classDef.call_init( obj, ... )
+            if classDef.init_after then
+                classDef.init_after( obj, ... )
+            end
+            return obj
+        end;
+    })
+
+    return classDef
+end
+
+-------------------------------------
+-- function class
+-- @brief 다중 상속
+-------------------------------------
+function class(...)
+    local arg = {...}
+
+    if (#arg == 1) then
+        return class_(arg[1])
+    end
+
+    local super = nil
+    for i,v in ipairs(arg) do
+        if (not super) then
+            super = v
+        else
+            super = class_(super, v)
+        end
+    end
+
+    return super
+end
+
+function isInstanceOf(obj, cls)
+    local mt = getmetatable(obj) -- getmetatable(nil/number) == nil
+    if not mt then return false end
+
+    local def = mt.def
+    while def do
+        if def == cls then return true end
+        def = def.super
+    end
+    return false
+end
+
+
+function getClassName(class)
+    for k, v in pairs(_G) do
+        if (v == class) then
+            return k
+        end
+    end
+    return nil
+end

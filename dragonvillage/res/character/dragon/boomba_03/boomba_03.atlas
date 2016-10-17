@@ -1,0 +1,132 @@
+
+boomba_03.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boomba_03_arm_01
+  rotate: false
+  xy: 2, 2
+  size: 107, 95
+  orig: 107, 95
+  offset: 0, 0
+  index: -1
+boomba_03_arm_02
+  rotate: false
+  xy: 130, 133
+  size: 107, 95
+  orig: 107, 95
+  offset: 0, 0
+  index: -1
+boomba_03_body_01
+  rotate: false
+  xy: 2, 230
+  size: 268, 277
+  orig: 268, 277
+  offset: 0, 0
+  index: -1
+boomba_03_body_02
+  rotate: false
+  xy: 2, 99
+  size: 126, 129
+  orig: 126, 129
+  offset: 0, 0
+  index: -1
+boomba_03_body_03
+  rotate: false
+  xy: 272, 230
+  size: 268, 277
+  orig: 268, 277
+  offset: 0, 0
+  index: -1
+boomba_03_effect_01
+  rotate: false
+  xy: 769, 424
+  size: 92, 83
+  orig: 92, 83
+  offset: 0, 0
+  index: -1
+boomba_03_effect_02
+  rotate: false
+  xy: 348, 145
+  size: 92, 83
+  orig: 92, 83
+  offset: 0, 0
+  index: -1
+boomba_03_effect_03
+  rotate: false
+  xy: 956, 451
+  size: 65, 56
+  orig: 65, 56
+  offset: 0, 0
+  index: -1
+boomba_03_eye_01
+  rotate: false
+  xy: 535, 155
+  size: 59, 60
+  orig: 59, 60
+  offset: 0, 0
+  index: -1
+boomba_03_foot_01
+  rotate: false
+  xy: 195, 78
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_03_foot_02
+  rotate: true
+  xy: 130, 76
+  size: 55, 63
+  orig: 55, 63
+  offset: 0, 0
+  index: -1
+boomba_03_head_01
+  rotate: false
+  xy: 675, 400
+  size: 92, 107
+  orig: 92, 107
+  offset: 0, 0
+  index: -1
+boomba_03_head_02
+  rotate: true
+  xy: 239, 136
+  size: 92, 107
+  orig: 92, 107
+  offset: 0, 0
+  index: -1
+boomba_03_leg_01
+  rotate: true
+  xy: 542, 217
+  size: 75, 85
+  orig: 75, 85
+  offset: 0, 0
+  index: -1
+boomba_03_mouth_01
+  rotate: false
+  xy: 542, 294
+  size: 101, 99
+  orig: 101, 99
+  offset: 0, 0
+  index: -1
+boomba_03_mouth_02
+  rotate: false
+  xy: 542, 395
+  size: 131, 112
+  orig: 131, 112
+  offset: 0, 0
+  index: -1
+boomba_03_wing_01
+  rotate: false
+  xy: 863, 427
+  size: 91, 80
+  orig: 91, 80
+  offset: 0, 0
+  index: -1
+boomba_03_wing_02
+  rotate: false
+  xy: 442, 148
+  size: 91, 80
+  orig: 91, 80
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,90 @@
+
+skill_grow_mushroom.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skill_grow_mushroom_body_01
+  rotate: false
+  xy: 246, 15
+  size: 72, 110
+  orig: 72, 110
+  offset: 0, 0
+  index: -1
+skill_grow_mushroom_effect_01
+  rotate: false
+  xy: 408, 153
+  size: 101, 101
+  orig: 101, 101
+  offset: 0, 0
+  index: -1
+skill_grow_mushroom_effect_02
+  rotate: false
+  xy: 278, 130
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
+skill_grow_mushroom_effect_03
+  rotate: false
+  xy: 138, 21
+  size: 106, 104
+  orig: 106, 104
+  offset: 0, 0
+  index: -1
+skill_grow_mushroom_effect_04
+  rotate: true
+  xy: 320, 22
+  size: 106, 104
+  orig: 106, 104
+  offset: 0, 0
+  index: -1
+skill_grow_mushroom_effect_05
+  rotate: true
+  xy: 426, 63
+  size: 88, 81
+  orig: 88, 81
+  offset: 0, 0
+  index: -1
+skill_grow_mushroom_effect_06
+  rotate: false
+  xy: 2, 127
+  size: 136, 127
+  orig: 136, 127
+  offset: 0, 0
+  index: -1
+skill_grow_mushroom_effect_07
+  rotate: false
+  xy: 140, 127
+  size: 136, 127
+  orig: 136, 127
+  offset: 0, 0
+  index: -1
+skill_grow_mushroom_effect_08
+  rotate: false
+  xy: 426, 23
+  size: 43, 38
+  orig: 43, 38
+  offset: 0, 0
+  index: -1
+skill_grow_mushroom_effect_09
+  rotate: false
+  xy: 67, 16
+  size: 32, 22
+  orig: 32, 22
+  offset: 0, 0
+  index: -1
+skill_grow_mushroom_effect_10
+  rotate: true
+  xy: 2, 2
+  size: 36, 63
+  orig: 36, 63
+  offset: 0, 0
+  index: -1
+skill_grow_mushroom_head_01
+  rotate: false
+  xy: 2, 40
+  size: 134, 85
+  orig: 134, 85
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,20 @@
+{
+	"skill_missile_angle":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_harpoon/missile_harpoon.png",
+				"body":[0,0,0],
+                "scale":1,
+				"offset":[0,0],
+                "movement":"lua_angle",
+                "lua_param":
+                {
+                    "value1":"res/effect/effect_bleed/effect_bleed.vrp"
+                }
+			}
+		]
+	}
+}

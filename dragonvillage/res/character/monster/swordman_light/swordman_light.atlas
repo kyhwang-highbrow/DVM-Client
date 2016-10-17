@@ -1,0 +1,104 @@
+
+swordman_light.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+swordman_light_arm_01
+  rotate: true
+  xy: 349, 100
+  size: 26, 34
+  orig: 26, 34
+  offset: 0, 0
+  index: -1
+swordman_light_arm_02
+  rotate: false
+  xy: 113, 28
+  size: 32, 35
+  orig: 32, 35
+  offset: 0, 0
+  index: -1
+swordman_light_body_01
+  rotate: true
+  xy: 113, 65
+  size: 61, 99
+  orig: 61, 99
+  offset: 0, 0
+  index: -1
+swordman_light_body_02
+  rotate: false
+  xy: 256, 97
+  size: 39, 29
+  orig: 39, 29
+  offset: 0, 0
+  index: -1
+swordman_light_body_03
+  rotate: false
+  xy: 214, 84
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+swordman_light_effect_01
+  rotate: false
+  xy: 61, 15
+  size: 29, 42
+  orig: 29, 42
+  offset: 0, 0
+  index: -1
+swordman_light_effect_02
+  rotate: false
+  xy: 297, 109
+  size: 50, 17
+  orig: 50, 17
+  offset: 0, 0
+  index: -1
+swordman_light_effect_03
+  rotate: false
+  xy: 92, 18
+  size: 19, 39
+  orig: 19, 39
+  offset: 0, 0
+  index: -1
+swordman_light_hand_01
+  rotate: false
+  xy: 385, 98
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+swordman_light_hand_02
+  rotate: false
+  xy: 147, 28
+  size: 29, 35
+  orig: 29, 35
+  offset: 0, 0
+  index: -1
+swordman_light_head_01
+  rotate: false
+  xy: 2, 8
+  size: 57, 49
+  orig: 57, 49
+  offset: 0, 0
+  index: -1
+swordman_light_head_02
+  rotate: false
+  xy: 178, 2
+  size: 36, 27
+  orig: 36, 27
+  offset: 0, 0
+  index: -1
+swordman_light_shoulder_01
+  rotate: false
+  xy: 178, 31
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+swordman_light_wepon_01
+  rotate: false
+  xy: 2, 59
+  size: 109, 67
+  orig: 109, 67
+  offset: 0, 0
+  index: -1

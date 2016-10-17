@@ -1,0 +1,82 @@
+{
+	"skill_missile_rockdown":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_rockdown/missile_rockdown.png",
+				"body":[0,0,35],
+                "count":1,
+                "scale":1,
+                "time":0.2,
+				"speed":100,
+				"accel":2000,
+				"h_limit_speed":900,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[240,200],
+                "dir":-90,
+				
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":true,
+                    "afterimage":true
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_rockdown/missile_rockdown.png",
+				"body":[0,0,35],
+                "count":1,
+                "scale":1,
+                "time":0.1,
+				"speed":100,
+				"accel":2000,
+				"h_limit_speed":900,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[440,200],
+                "dir":-90,
+				
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":true,
+                    "afterimage":true
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_rockdown/missile_rockdown.png",
+				"body":[0,0,35],
+                "count":1,
+                "scale":1,
+                "time":0.3,
+				"speed":100,
+				"accel":2000,
+				"h_limit_speed":900,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[640,200],
+                "dir":-90,
+				
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":true,
+                    "afterimage":true
+                }				
+			}		
+		]
+	}
+}

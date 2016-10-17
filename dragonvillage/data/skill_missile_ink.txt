@@ -1,0 +1,27 @@
+{
+	"skill_missile_ink":
+	{
+		"attack_value":
+		[		
+			{				
+				"idx":1,
+				"res":"res/missile/missile_bubble_black/missile_bubble_black.vrp",
+				"visual":"idle",
+				"body":[0,0,20],
+                "count":1,
+				"time":0.01,
+                "scale":0.7,
+                "period":0.1,
+				"speed":500,
+				"offset":[0,0],
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}

@@ -1,0 +1,58 @@
+{
+    "pattern_boss_queenssnake":
+    [        
+        [
+            "m;RB13;300", "w;2", "a;basic", 
+			"m;RM11;300", "w;2", "a;basic", 
+			"m;RB13;300", "w;2", "a;3"                 
+        ]
+    ],
+	
+    "hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":80,
+                "pattern":
+                [
+                    "m;RM12;300", "w;2", "a;1", "m;RB13;300",
+					"w;2", "a;basic", "w;2", "a;basic"
+                ]
+            },
+			
+            {
+                "hp_percent":60,
+                "pattern":
+                [
+                    "m;RB25;300", "w;2", "a;2", 
+					"m;RB13;300", "w;2", "a;3",
+					"w;2", "a;basic",
+					"w;2", "a;basic",
+					"m;RM23;300", "w;2", "a;3"
+                ]
+            },
+			
+            {
+                "hp_percent":40,
+                "pattern":
+                [
+                    "m;RB23;300", "m;RM21;300", "m;RF23;300", "m;RM25;300", "w;2", "a;3",
+					"m;RM21;300", "m;RB23;300", "m;RM25;300", "m;RF23;300", "w;2", "a;3",
+					"m;RM21;300", "m;RM25;300", "m;RF23;300", "m;RB23;300", "w;2", "a;3",
+					"m;RM25;300", "m;RM21;300", "m;RB23;300", "m;RM23;300", "w;2", "a;3"
+                ]
+            },
+			
+            {
+                "hp_percent":20,
+                "pattern":
+                [
+                    "m;RM14;300", "a;1", "a;1", "a;1", "a;1", "a;1" "w;5"
+                ]
+            }
+        ]
+
+    }
+}
