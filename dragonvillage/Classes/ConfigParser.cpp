@@ -96,6 +96,10 @@ void ConfigParser::readConfig()
                 {
                     _usePatch = objectInitView["usePatch"].GetBool();
                 }
+                if (objectInitView.HasMember("appVer") && objectInitView["appVer"].IsString())
+                {
+                    _appVer = objectInitView["appVer"].GetString();
+                }
             }
         }
 		if (_docRootjson.HasMember("ppsdk_login"))
@@ -162,6 +166,7 @@ ConfigParser::ConfigParser(void) : _isInit(false), _isLandscape(true), _isTestMo
 
     _gcsdkLoginInfo.localPlayerID = "";
     _gcsdkLoginInfo.idfa = "";
+    _appVer = "0.0.0";
 }
 
 rapidjson::Document& ConfigParser::getConfigJsonRoot()
@@ -247,4 +252,9 @@ const PPSDKLoginInfo ConfigParser::getPPSDKLoginInfo()
 const GCSDKLoginInfo ConfigParser::getGCSDKLoginInfo()
 {
     return _gcsdkLoginInfo;
+}
+
+string ConfigParser::getAppVer()
+{
+    return _appVer;
 }

@@ -21,9 +21,6 @@
 USING_NS_CC;
 using namespace std;
 
-// 런칭버전
-#define APP_VER		"0.0.3"
-
 TOLUA_API int  tolua_PerpLua_open(lua_State* tolua_S);
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
@@ -33,25 +30,42 @@ static char s_marketName[16] = { "GOOG" };
 //static char s_marketName[16] = { "NSTORE" };
 #endif
 
-const char* AppDelegate::getAppVer(bool withUserDefaultStr)
+
+/**
+@brief : 문자열을 잘라주는 함수입니다.
+@strOrigin : 자를 데이터
+@strTok : 분기줄 데이터
+@string : 반환형 , 배열로 인자전달
+*/
+string* StringSplit(string strTarget, string strTok)
 {
-	if (withUserDefaultStr)
-	{
-		string ver = "version;";
-		ver.append(APP_VER);
-		return ver.c_str();
-	}
-	else
-	{
-		return APP_VER;
-	}
+    int nCutPos;
+    int nIndex = 0;
+    string* strResult = new string[3];
+
+    while ((nCutPos = strTarget.find_first_of(strTok)) != strTarget.npos)
+    {
+        if (nCutPos > 0)
+        {
+            strResult[nIndex++] = strTarget.substr(0, nCutPos);
+        }
+        strTarget = strTarget.substr(nCutPos + 1);
+    }
+
+    if (strTarget.length() > 0)
+    {
+        strResult[nIndex++] = strTarget.substr(0, nCutPos);
+    }
+
+    return strResult;
 }
 
 void AppDelegate::setPathForPatch()
 {
 	// 리소스 다운로드 경로
+    string app_ver = ConfigParser::getInstance()->getAppVer();
 	string res_path = SupportPatch::getExtensionPath();
-	string patch_path = SupportPatch::getPatchPath(getAppVer(false));
+    string patch_path = SupportPatch::getPatchPath(app_ver.c_str());
 
 
 	FileUtils* fileUtils = FileUtils::getInstance();
@@ -97,10 +111,31 @@ void AppDelegate::setPathForPatch()
     SupportPatch::makePath(writable_path + "dump/");
     SupportPatch::makePath(writable_path + "network_dump/");
 
-	// 이전 버전 폴더 삭제
-    SupportPatch::removeDir(writable_path + "patch_0_0_0");
-    SupportPatch::removeDir(writable_path + "patch_0_0_1");
-    SupportPatch::removeDir(writable_path + "patch_0_0_2");
+    { // 이전 버전 폴더 삭제
+        string app_ver = ConfigParser::getInstance()->getAppVer();
+        string* tok = StringSplit(app_ver, ".");
+        int ver_major = strtol(tok[0].c_str(), NULL, 10);
+        int ver_minor = strtol(tok[1].c_str(), NULL, 10);
+        int ver_build = strtol(tok[2].c_str(), NULL, 10);
+
+        int ver = (ver_major * 100) + (ver_minor * 10) + ver_build;
+        for (int idx = ver; 0 < idx; --idx)
+        {
+            int major = (idx / 100);
+            int minor = ((idx % 100) / 10);
+            int build = (idx % 10);
+
+            // 현재 버전은 skip
+            if ((ver_major == major) && (ver_major == minor) && (ver_build == build)) continue;
+
+            // 0.0.0버전은 skip
+            if ((0 == major) && (0 == minor) && (0 == build)) continue;
+
+            String patch_path = StringUtils::format("patch_%d_%d_%d", major, minor, build);
+            SupportPatch::removeDir(writable_path + patch_path.getCString());
+            //CCLOG(patch_path.getCString());
+        }
+    }
 }
 
 static int l_isWin32(lua_State* L)
@@ -211,7 +246,8 @@ static int l_usePatch(lua_State* L)
 
 static int l_getAppVer(lua_State* L)
 {
-	lua_pushlstring(L, APP_VER, strlen(APP_VER));
+    string app_ver = ConfigParser::getInstance()->getAppVer();
+    lua_pushlstring(L, app_ver.c_str(), strlen(app_ver.c_str()));
 
 	return 1;
 }

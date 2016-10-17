@@ -62,6 +62,7 @@ public:
     bool usePatch();
     const PPSDKLoginInfo getPPSDKLoginInfo();
     const GCSDKLoginInfo getGCSDKLoginInfo();
+    string getAppVer();
 
 private:
     ConfigParser(void);
@@ -81,6 +82,7 @@ private:
     bool _usePatch;
     PPSDKLoginInfo _ppsdkLoginInfo;
     GCSDKLoginInfo _gcsdkLoginInfo;
+    string _appVer;
 
     rapidjson::Document _docRootjson;
 };

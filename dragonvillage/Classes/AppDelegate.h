@@ -53,7 +53,6 @@ public:
     virtual void configChange() {}
 
 	void initLuaEngine();
-	const char* getAppVer(bool withUserDefaultStr);
 	bool startLuaScript(const char* filename);
 	int receivedEventFromNative(const char *param1, const char *param2);
 	void setPathForPatch();
