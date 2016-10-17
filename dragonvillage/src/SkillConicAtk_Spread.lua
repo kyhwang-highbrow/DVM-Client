@@ -65,7 +65,7 @@ function SkillConicAtk_Spread:spreadStatusEffect(target_char, status_effect_type
 	if (target_char:getStatusEffectList()[status_effect_type]) then 
 		-- 2. 대상 상태 효과가 있다면 원형 범위의 주의 적에게 
 		local world = self.m_world
-		local l_target = Skill.findTarget(self, target_char.pos.x, target_char.pos.y, range)
+		local l_target = self:findSpreadTarget(target_char.pos.x, target_char.pos.y, range)
 
 		-- 3. 범위 지정 연출
 		local effect1 = MakeAnimator('res/effect/effect_burn/effect_burn.vrp')
@@ -88,6 +88,30 @@ function SkillConicAtk_Spread:spreadStatusEffect(target_char, status_effect_type
 	end
 end
 
+-------------------------------------
+-- function findSpreadTarget
+-- @brief 원형 충돌 체크 -- 화염 전이 대상을 찾음
+-------------------------------------
+function SkillConicAtk_Spread:findSpreadTarget(x, y, range)
+	local x = x or self.m_targetPos.x
+	local y = y or self.m_targetPos.y
+	local range = range or self.m_range
+
+    local world = self.m_world
+	local l_target = world:getTargetList(self.m_owner, x, y, 'enemy', 'x', 'distance_line')
+    
+	local l_ret = {}
+    local distance = 0
+
+    for _, target in pairs(l_target) do
+		-- 바디사이즈를 감안한 충돌 체크
+		if isCollision(x, y, target, range) then 
+			table.insert(l_ret, target)
+		end
+    end
+    
+    return l_ret
+end
 
 -------------------------------------
 -- function makeSkillInstnce
