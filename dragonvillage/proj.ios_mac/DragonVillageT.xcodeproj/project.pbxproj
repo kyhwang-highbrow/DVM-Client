@@ -10855,7 +10855,7 @@
 		37519C0F1A6657B300406F47 /* PerpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpUtils.h; path = ../Classes/PerpExt/PerpUtils.h; sourceTree = "<group>"; };
 		3758D8301A93AE6F00833D47 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../libraries/facebook/ios/FacebookSDK.framework; sourceTree = "<group>"; };
 		375CDB161CB25F8B007F5054 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
-		3761E86B1B75B77C00FB7801 /* DragonHeroesKakao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragonHeroesKakao.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3761E86B1B75B77C00FB7801 /* DragonVillageTKakao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragonVillageTKakao.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		376B77241B1F3C3D004D2C3E /* libPatiSDK-armv7-armv7s-arm64-i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPatiSDK-armv7-armv7s-arm64-i386.a"; path = "../../libraries/pati/prebuilt/ios/libPatiSDK-armv7-armv7s-arm64-i386.a"; sourceTree = "<group>"; };
 		376B77251B1F3C3D004D2C3E /* libPatiSDKFacebook-armv7-armv7s-arm64-i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPatiSDKFacebook-armv7-armv7s-arm64-i386.a"; path = "../../libraries/pati/prebuilt/ios/libPatiSDKFacebook-armv7-armv7s-arm64-i386.a"; sourceTree = "<group>"; };
 		376B77261B1F3C3D004D2C3E /* libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a"; path = "../../libraries/pati/prebuilt/ios/libPatiSDKGooglePlus-armv7-armv7s-arm64-i386.a"; sourceTree = "<group>"; };
@@ -10872,7 +10872,6 @@
 		37B4F3E51B75BF2B00DF354C /* libPatiSDKKakao-armv7-armv7s-arm64-i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPatiSDKKakao-armv7-armv7s-arm64-i386.a"; path = "../../libraries/pati/prebuilt/ios/libPatiSDKKakao-armv7-armv7s-arm64-i386.a"; sourceTree = "<group>"; };
 		37CB753A1B676EA5002BF6F6 /* LoginPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginPlatform.h; path = ../Classes/LoginPlatform.h; sourceTree = "<group>"; };
 		37CEDF8F1C9288FB009A8F7E /* libtnksdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtnksdk.a; path = ../../libraries/tnkad_sdk/tnkad_sdk_iOS/sdklib/libtnksdk.a; sourceTree = "<group>"; };
-		37D1F4791AEE446B00133299 /* DragonHeroes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = DragonHeroes.entitlements; sourceTree = "<group>"; };
 		37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpSocial.cpp; path = ../Classes/PerpSocial.cpp; sourceTree = "<group>"; };
 		37D8E3F01A304EB9005E479B /* PerpSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSocial.h; path = ../Classes/PerpSocial.h; sourceTree = "<group>"; };
 		37E0007E1B26905C00F23F9E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -10913,7 +10912,7 @@
 		5023811517EBBCAC00990C9B /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5023811617EBBCAC00990C9B /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = RootViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5023811717EBBCAC00990C9B /* RootViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = RootViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		5023816B17EBBCE400990C9B /* DragonHeroes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragonHeroes.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5023816B17EBBCE400990C9B /* DragonVillageT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragonVillageT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5023817217EBBE3400990C9B /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		5023817317EBBE3400990C9B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5023817517EBBE3400990C9B /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
@@ -36846,7 +36845,6 @@
 			isa = PBXGroup;
 			children = (
 				1E1607BD1D922D8200CA2C71 /* TapjoyResources.bundle */,
-				37D1F4791AEE446B00133299 /* DragonHeroes.entitlements */,
 				C2897C051A90040300B343BB /* GooglePlayGames.bundle */,
 				C2897C031A9003F500B343BB /* GooglePlus.bundle */,
 				C03781AE18BF654500FE4F13 /* cocos2d_lua_bindings.xcodeproj */,
@@ -36866,8 +36864,8 @@
 			isa = PBXGroup;
 			children = (
 				F293B3C815EB7BE500256477 /* DragonVillage.app */,
-				5023816B17EBBCE400990C9B /* DragonHeroes.app */,
-				3761E86B1B75B77C00FB7801 /* DragonHeroesKakao.app */,
+				5023816B17EBBCE400990C9B /* DragonVillageT.app */,
+				3761E86B1B75B77C00FB7801 /* DragonVillageTKakao.app */,
 				7DE4D5B71C044036005643BA /* 龙域战记.app */,
 			);
 			name = Products;
@@ -36990,9 +36988,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3761E7F21B75B77C00FB7801 /* DragonHeroes iOS Kakao */ = {
+		3761E7F21B75B77C00FB7801 /* DragonVillageT iOS Kakao */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3761E8681B75B77C00FB7801 /* Build configuration list for PBXNativeTarget "DragonHeroes iOS Kakao" */;
+			buildConfigurationList = 3761E8681B75B77C00FB7801 /* Build configuration list for PBXNativeTarget "DragonVillageT iOS Kakao" */;
 			buildPhases = (
 				3761E7FF1B75B77C00FB7801 /* Sources */,
 				3761E8101B75B77C00FB7801 /* Frameworks */,
@@ -37008,14 +37006,14 @@
 				3761E7FB1B75B77C00FB7801 /* PBXTargetDependency */,
 				3761E7FD1B75B77C00FB7801 /* PBXTargetDependency */,
 			);
-			name = "DragonHeroes iOS Kakao";
+			name = "DragonVillageT iOS Kakao";
 			productName = engine;
-			productReference = 3761E86B1B75B77C00FB7801 /* DragonHeroesKakao.app */;
+			productReference = 3761E86B1B75B77C00FB7801 /* DragonVillageTKakao.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5023812617EBBCE400990C9B /* DragonHeroes Mac */ = {
+		5023812617EBBCE400990C9B /* DragonVillageT Mac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5023816817EBBCE400990C9B /* Build configuration list for PBXNativeTarget "DragonHeroes Mac" */;
+			buildConfigurationList = 5023816817EBBCE400990C9B /* Build configuration list for PBXNativeTarget "DragonVillageT Mac" */;
 			buildPhases = (
 				5023813117EBBCE400990C9B /* Sources */,
 				5023813617EBBCE400990C9B /* Frameworks */,
@@ -37031,14 +37029,14 @@
 				C0A2F03918975FDA0072A7AB /* PBXTargetDependency */,
 				C0A2F02718975FD30072A7AB /* PBXTargetDependency */,
 			);
-			name = "DragonHeroes Mac";
+			name = "DragonVillageT Mac";
 			productName = engine;
-			productReference = 5023816B17EBBCE400990C9B /* DragonHeroes.app */;
+			productReference = 5023816B17EBBCE400990C9B /* DragonVillageT.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7DE4D53B1C044036005643BA /* DragonHeroes iOS China */ = {
+		7DE4D53B1C044036005643BA /* DragonVillageT iOS China */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7DE4D5B41C044036005643BA /* Build configuration list for PBXNativeTarget "DragonHeroes iOS China" */;
+			buildConfigurationList = 7DE4D5B41C044036005643BA /* Build configuration list for PBXNativeTarget "DragonVillageT iOS China" */;
 			buildPhases = (
 				7DE4D5481C044036005643BA /* Sources */,
 				7DE4D55A1C044036005643BA /* Frameworks */,
@@ -37054,14 +37052,14 @@
 				7DE4D5441C044036005643BA /* PBXTargetDependency */,
 				7DE4D5461C044036005643BA /* PBXTargetDependency */,
 			);
-			name = "DragonHeroes iOS China";
+			name = "DragonVillageT iOS China";
 			productName = engine;
 			productReference = 7DE4D5B71C044036005643BA /* 龙域战记.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F293B3C715EB7BE500256477 /* DragonHeroes iOS */ = {
+		F293B3C715EB7BE500256477 /* DragonVillageT iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F293B6C415EB7BEA00256477 /* Build configuration list for PBXNativeTarget "DragonHeroes iOS" */;
+			buildConfigurationList = F293B6C415EB7BEA00256477 /* Build configuration list for PBXNativeTarget "DragonVillageT iOS" */;
 			buildPhases = (
 				F293B3C415EB7BE500256477 /* Sources */,
 				F293B3C515EB7BE500256477 /* Frameworks */,
@@ -37077,7 +37075,7 @@
 				C255B3BE1A8FE76E00A270F8 /* PBXTargetDependency */,
 				C255B3C41A8FE9A000A270F8 /* PBXTargetDependency */,
 			);
-			name = "DragonHeroes iOS";
+			name = "DragonVillageT iOS";
 			productName = engine;
 			productReference = F293B3C815EB7BE500256477 /* DragonVillage.app */;
 			productType = "com.apple.product-type.application";
@@ -37134,7 +37132,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F293B3C215EB7BE500256477 /* Build configuration list for PBXProject "DragonHeroes" */;
+			buildConfigurationList = F293B3C215EB7BE500256477 /* Build configuration list for PBXProject "DragonVillageT" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -37251,10 +37249,10 @@
 			);
 			projectRoot = "";
 			targets = (
-				F293B3C715EB7BE500256477 /* DragonHeroes iOS */,
-				7DE4D53B1C044036005643BA /* DragonHeroes iOS China */,
-				3761E7F21B75B77C00FB7801 /* DragonHeroes iOS Kakao */,
-				5023812617EBBCE400990C9B /* DragonHeroes Mac */,
+				F293B3C715EB7BE500256477 /* DragonVillageT iOS */,
+				7DE4D53B1C044036005643BA /* DragonVillageT iOS China */,
+				3761E7F21B75B77C00FB7801 /* DragonVillageT iOS Kakao */,
+				5023812617EBBCE400990C9B /* DragonVillageT Mac */,
 			);
 		};
 /* End PBXProject section */
@@ -38116,7 +38114,7 @@
 					"-DPATISDK_KAKAOTALK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = DragonHeroesKakao;
+				PRODUCT_NAME = DragonVillageTKakao;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -38168,7 +38166,7 @@
 					"-DPATISDK_KAKAOTALK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = DragonHeroesKakao;
+				PRODUCT_NAME = DragonVillageTKakao;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -38201,7 +38199,7 @@
 					"-pagezero_size",
 					10000,
 				);
-				PRODUCT_NAME = DragonHeroes;
+				PRODUCT_NAME = DragonVillageT;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/cocos/platform/mac $(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac";
 			};
@@ -38228,7 +38226,7 @@
 					"-pagezero_size",
 					10000,
 				);
-				PRODUCT_NAME = DragonHeroes;
+				PRODUCT_NAME = DragonVillageT;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/cocos/platform/mac $(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac";
 			};
@@ -38514,7 +38512,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3761E8681B75B77C00FB7801 /* Build configuration list for PBXNativeTarget "DragonHeroes iOS Kakao" */ = {
+		3761E8681B75B77C00FB7801 /* Build configuration list for PBXNativeTarget "DragonVillageT iOS Kakao" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3761E8691B75B77C00FB7801 /* Debug */,
@@ -38523,7 +38521,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5023816817EBBCE400990C9B /* Build configuration list for PBXNativeTarget "DragonHeroes Mac" */ = {
+		5023816817EBBCE400990C9B /* Build configuration list for PBXNativeTarget "DragonVillageT Mac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5023816917EBBCE400990C9B /* Debug */,
@@ -38532,7 +38530,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7DE4D5B41C044036005643BA /* Build configuration list for PBXNativeTarget "DragonHeroes iOS China" */ = {
+		7DE4D5B41C044036005643BA /* Build configuration list for PBXNativeTarget "DragonVillageT iOS China" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7DE4D5B51C044036005643BA /* Debug */,
@@ -38541,7 +38539,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F293B3C215EB7BE500256477 /* Build configuration list for PBXProject "DragonHeroes" */ = {
+		F293B3C215EB7BE500256477 /* Build configuration list for PBXProject "DragonVillageT" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F293B6C215EB7BEA00256477 /* Debug */,
@@ -38550,7 +38548,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F293B6C415EB7BEA00256477 /* Build configuration list for PBXNativeTarget "DragonHeroes iOS" */ = {
+		F293B6C415EB7BEA00256477 /* Build configuration list for PBXNativeTarget "DragonVillageT iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F293B6C515EB7BEA00256477 /* Debug */,
