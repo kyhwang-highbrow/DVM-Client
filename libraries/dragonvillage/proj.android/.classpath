@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry kind="lib" path="libs/gcm.jar"/>
+	<classpathentry kind="lib" path="libs/IgawCommon_v4.0.8a.jar"/>
+	<classpathentry kind="lib" path="libs/IgawAdbrix_v4.0.6a.jar"/>
+	<classpathentry kind="lib" path="libs/partytrack.jar"/>
+	<classpathentry kind="lib" path="libs/moloco-sdk-1.0.1.jar"/>
+	<classpathentry kind="lib" path="libs/com.mcxiaoke.volley-1.0.16.jar"/>
+	<classpathentry kind="lib" path="libs/tapjoyconnectlibrary.jar"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>

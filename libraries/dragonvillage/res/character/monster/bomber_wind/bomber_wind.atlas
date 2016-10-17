@@ -1,0 +1,111 @@
+
+bomber_wind.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bomber_wind_body_01
+  rotate: false
+  xy: 2, 27
+  size: 61, 99
+  orig: 61, 99
+  offset: 0, 0
+  index: -1
+bomber_wind_body_02
+  rotate: false
+  xy: 355, 92
+  size: 53, 34
+  orig: 53, 34
+  offset: 0, 0
+  index: -1
+bomber_wind_body_03
+  rotate: false
+  xy: 65, 2
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+bomber_wind_body_04
+  rotate: true
+  xy: 273, 16
+  size: 52, 38
+  orig: 52, 38
+  offset: 0, 0
+  index: -1
+bomber_wind_effect_03
+  rotate: true
+  xy: 2, 8
+  size: 17, 35
+  orig: 17, 35
+  offset: 0, 0
+  index: -1
+bomber_wind_effect_04
+  rotate: true
+  xy: 214, 2
+  size: 58, 57
+  orig: 58, 57
+  offset: 0, 0
+  index: -1
+bomber_wind_effect_05
+  rotate: false
+  xy: 214, 62
+  size: 57, 64
+  orig: 57, 64
+  offset: 0, 0
+  index: -1
+bomber_wind_hand_01
+  rotate: false
+  xy: 458, 90
+  size: 41, 36
+  orig: 41, 36
+  offset: 0, 0
+  index: -1
+bomber_wind_hand_02
+  rotate: true
+  xy: 410, 86
+  size: 40, 46
+  orig: 40, 46
+  offset: 0, 0
+  index: -1
+bomber_wind_hand_03
+  rotate: false
+  xy: 107, 11
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+bomber_wind_head_01
+  rotate: false
+  xy: 135, 57
+  size: 77, 69
+  orig: 77, 69
+  offset: 0, 0
+  index: -1
+bomber_wind_head_02
+  rotate: false
+  xy: 355, 63
+  size: 49, 27
+  orig: 49, 27
+  offset: 0, 0
+  index: -1
+bomber_wind_shoulder_01
+  rotate: false
+  xy: 318, 71
+  size: 35, 55
+  orig: 35, 55
+  offset: 0, 0
+  index: -1
+bomber_wind_wepon_01
+  rotate: false
+  xy: 65, 46
+  size: 68, 80
+  orig: 68, 80
+  offset: 0, 0
+  index: -1
+bomber_wind_wepon_02
+  rotate: false
+  xy: 273, 70
+  size: 43, 56
+  orig: 43, 56
+  offset: 0, 0
+  index: -1

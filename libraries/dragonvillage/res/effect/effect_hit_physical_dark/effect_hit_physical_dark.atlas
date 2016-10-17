@@ -1,0 +1,34 @@
+
+effect_hit_physical_dark.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_hit_physical_dark_01
+  rotate: false
+  xy: 2, 148
+  size: 389, 289
+  orig: 389, 289
+  offset: 0, 0
+  index: -1
+effect_hit_physical_dark_02
+  rotate: false
+  xy: 2, 2
+  size: 148, 144
+  orig: 148, 144
+  offset: 0, 0
+  index: -1
+effect_hit_physical_dark_03
+  rotate: false
+  xy: 152, 54
+  size: 133, 92
+  orig: 133, 92
+  offset: 0, 0
+  index: -1
+effect_hit_physical_dark_04
+  rotate: true
+  xy: 393, 250
+  size: 187, 77
+  orig: 187, 77
+  offset: 0, 0
+  index: -1

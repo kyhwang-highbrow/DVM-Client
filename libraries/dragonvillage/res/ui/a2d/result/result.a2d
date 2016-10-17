@@ -1,0 +1,810 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)result.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"failed",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'failed'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":30
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"failed_idle",
+					"apply":true,
+					"fps":10,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'clear_failed.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":63.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"success",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'success_leaf'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":30
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'success_light'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":30
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'clear_success.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "pY":63.000000, "alpha":0
+									},
+									{
+										"frame":5, "pY":63.000000
+									},
+									{
+										"frame":9, "sX":1.300000, "sY":1.300000, "pY":63.000000
+									},
+									{
+										"frame":15, "pY":62.999996
+									},
+									{
+										"frame":30, "pY":63.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'success_bling'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-143.000000, "pY":64.000000
+									},
+									{
+										"frame":30, "pX":-143.000000, "pY":64.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'success_bling'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":143.000000, "pY":64.000000
+									},
+									{
+										"frame":30, "pX":143.000000, "pY":64.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"success_idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":60
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_leaf.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":-1.000000, "pX":234.000000, "pY":2.000000
+									},
+									{
+										"frame":60, "sX":-1.000000, "pX":234.000000, "pY":2.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_leaf.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-235.000000, "pY":1.000000
+									},
+									{
+										"frame":60, "pX":-235.000000, "pY":1.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'clear_success.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":63.000000
+									},
+									{
+										"frame":60, "pY":63.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_bling_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-143.000000, "pY":64.000000
+									},
+									{
+										"frame":60, "pX":-143.000000, "pY":64.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_bling_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":143.000000, "pY":64.000000
+									},
+									{
+										"frame":60, "pX":143.000000, "pY":64.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'success_bling2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.500000, "sY":0.500000, "pX":-282.000000, "pY":68.000000
+									},
+									{
+										"frame":13, "sX":0.500000, "sY":0.500000, "rotate":90.000000, "pX":-282.000000, "pY":68.000000, "alpha":145
+									},
+									{
+										"frame":30, "sX":0.500000, "sY":0.500000, "rotate":180.000000, "pX":-282.000000, "pY":68.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'success_bling2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":18, "sX":0.200000, "sY":0.200000, "pX":-154.000000, "pY":-62.000000
+									},
+									{
+										"frame":48, "sX":0.200000, "sY":0.200000, "pX":-154.000000, "pY":-62.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'success_bling2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":13, "sX":0.300000, "sY":0.300000, "pX":-122.000000, "pY":50.000000
+									},
+									{
+										"frame":43, "sX":0.300000, "sY":0.300000, "pX":-122.000000, "pY":50.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'success_bling2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":0.500000, "sY":0.500000, "pX":261.000000, "pY":-46.000000
+									},
+									{
+										"frame":17, "sX":0.500000, "sY":0.500000, "rotate":90.000000, "pX":261.000000, "pY":-46.000000, "alpha":145
+									},
+									{
+										"frame":34, "sX":0.500000, "sY":0.500000, "rotate":180.000000, "pX":261.000000, "pY":-46.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'success_bling2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "sX":0.200000, "sY":0.200000, "pX":186.000000, "pY":55.000000
+									},
+									{
+										"frame":40, "sX":0.200000, "sY":0.200000, "pX":186.000000, "pY":55.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'success_bling2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25, "sX":0.300000, "sY":0.300000, "pX":31.000000, "pY":-35.000000
+									},
+									{
+										"frame":38, "sX":0.300000, "sY":0.300000, "rotate":90.000000, "pX":31.000000, "pY":-35.000000, "alpha":145
+									},
+									{
+										"frame":55, "sX":0.300000, "sY":0.300000, "rotate":180.000000, "pX":31.000000, "pY":-35.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name":"resource",
+			"expand":true,
+			"apply":false,
+			"visual_list":
+			[
+				{
+					"name":"failed",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sY":0.000000, "alpha":0
+									},
+									{
+										"frame":15
+									},
+									{
+										"frame":30
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'clear_failed.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "pY":63.000000, "alpha":0
+									},
+									{
+										"frame":12, "pY":63.000004, "alpha":102
+									},
+									{
+										"frame":30, "pY":63.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"success_bling",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_bling_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":0
+									},
+									{
+										"frame":21, "alpha":0
+									},
+									{
+										"frame":30
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_bling_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":6, "sX":1.800000, "sY":0.200000
+									},
+									{
+										"frame":21, "sX":4.000000, "sY":0.200000, "alpha":76
+									},
+									{
+										"frame":30, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_bling_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":6, "sX":0.200000, "sY":1.800000
+									},
+									{
+										"frame":21, "sX":0.200000, "sY":4.000000, "alpha":76
+									},
+									{
+										"frame":30, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_bling_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":9, "sX":0.500000, "sY":0.500000
+									},
+									{
+										"frame":19
+									},
+									{
+										"frame":30, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"success_bling2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_bling_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":6, "sX":1.800000, "sY":0.200000
+									},
+									{
+										"frame":21, "sX":4.000000, "sY":0.200000, "alpha":76
+									},
+									{
+										"frame":30, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_bling_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":6, "sX":0.200000, "sY":1.800000
+									},
+									{
+										"frame":21, "sX":0.200000, "sY":4.000000, "alpha":76
+									},
+									{
+										"frame":30, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_bling_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":9, "sX":0.500000, "sY":0.500000
+									},
+									{
+										"frame":19
+									},
+									{
+										"frame":30, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"success_leaf",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_leaf.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":-0.100000, "sY":0.100000, "pX":203.000000, "pY":-44.000000, "alpha":0
+									},
+									{
+										"frame":3, "sX":-0.500000, "sY":0.400000, "pX":216.000000, "pY":-29.000000
+									},
+									{
+										"frame":6, "sX":-0.900000, "sY":0.700000, "pX":230.000000, "pY":-14.000000
+									},
+									{
+										"frame":10, "sX":-1.099998, "sY":1.200000, "pX":238.000000, "pY":11.000000
+									},
+									{
+										"frame":20, "sX":-1.000000, "pX":234.000000, "pY":2.000000
+									},
+									{
+										"frame":30, "sX":-1.000000, "pX":234.000000, "pY":2.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_leaf.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.100000, "sY":0.100000, "pX":-203.000000, "pY":-44.000000, "alpha":0
+									},
+									{
+										"frame":3, "sX":0.500000, "sY":0.400000, "pX":-217.000000, "pY":-29.000000
+									},
+									{
+										"frame":6, "sX":0.900000, "sY":0.700000, "pX":-231.000000, "pY":-14.000000
+									},
+									{
+										"frame":10, "sX":1.100000, "sY":1.200000, "pX":-238.000000, "pY":11.000000
+									},
+									{
+										"frame":20, "pX":-235.000000, "pY":1.000000
+									},
+									{
+										"frame":30, "pX":-235.000000, "pY":1.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_leaf.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":-0.100000, "sY":0.100000, "pX":203.000000, "pY":-44.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":3, "sX":-0.500000, "sY":0.400000, "pX":216.000000, "pY":-29.000000, "mode":"Add"
+									},
+									{
+										"frame":6, "sX":-0.900000, "sY":0.700000, "pX":230.000000, "pY":-14.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":10, "sX":-1.099998, "sY":1.200000, "pX":238.000000, "pY":11.000000, "mode":"Add"
+									},
+									{
+										"frame":20, "sX":-1.000000, "pX":234.000000, "pY":2.000000, "alpha":0
+									},
+									{
+										"frame":30, "sX":-1.000000, "pX":234.000000, "pY":2.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_leaf.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.100000, "sY":0.100000, "pX":-203.000000, "pY":-44.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":3, "sX":0.500000, "sY":0.400000, "pX":-217.000000, "pY":-29.000000, "mode":"Add"
+									},
+									{
+										"frame":6, "sX":0.900000, "sY":0.700000, "pX":-231.000000, "pY":-14.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":10, "sX":1.100000, "sY":1.200000, "pX":-238.000000, "pY":11.000000, "mode":"Add"
+									},
+									{
+										"frame":20, "pX":-235.000000, "pY":1.000000, "alpha":0
+									},
+									{
+										"frame":30, "pX":-235.000000, "pY":1.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"success_light",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":30
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":128
+									},
+									{
+										"frame":8
+									},
+									{
+										"frame":16, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_light_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "alpha":128
+									},
+									{
+										"frame":13
+									},
+									{
+										"frame":22, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":9, "alpha":128
+									},
+									{
+										"frame":19
+									},
+									{
+										"frame":28, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'adventure_result_01_light_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":13, "alpha":128
+									},
+									{
+										"frame":22
+									},
+									{
+										"frame":30, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

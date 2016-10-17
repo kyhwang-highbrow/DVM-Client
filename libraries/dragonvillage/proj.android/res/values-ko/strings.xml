@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">드래곤빌리지</string>
+    <string name="link_cafe">공식 카페 바로가기</string>
+    <string name="signin_other_error">구글+ 로그인 과정에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.</string>
+</resources>

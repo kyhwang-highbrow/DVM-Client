@@ -1,0 +1,31 @@
+{
+	"skill_missile_splash":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_bomber/missile_bomber.vrp",
+				"body":[0,0,20],
+                "count":1,
+                "scale":1,
+                "period":0.1,
+				"speed":150,
+				"accel":300,
+				"accel_delay":0.2,
+				"angular_velocity":0,
+				"missile_type":"splash",
+				"offset":[0,0],
+                "dir_add":0,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+				
+			}
+		]
+	}
+}

@@ -1,0 +1,314 @@
+
+boss_giantdragon_fire.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_giantdragon_fire_wing_01
+  rotate: false
+  xy: 2, 2
+  size: 566, 1019
+  orig: 566, 1019
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_wing_04
+  rotate: false
+  xy: 570, 86
+  size: 450, 935
+  orig: 450, 935
+  offset: 0, 0
+  index: -1
+
+boss_giantdragon_fire2.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_giantdragon_fire_body_01
+  rotate: false
+  xy: 524, 488
+  size: 485, 521
+  orig: 485, 521
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_head_01
+  rotate: false
+  xy: 524, 27
+  size: 490, 459
+  orig: 490, 459
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_wing_03
+  rotate: false
+  xy: 2, 2
+  size: 520, 1007
+  orig: 520, 1007
+  offset: 0, 0
+  index: -1
+
+boss_giantdragon_fire3.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_giantdragon_fire_effect_01
+  rotate: true
+  xy: 2, 3
+  size: 113, 219
+  orig: 113, 219
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_effect_02
+  rotate: true
+  xy: 223, 5
+  size: 111, 102
+  orig: 111, 102
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_effect_03
+  rotate: false
+  xy: 327, 14
+  size: 285, 102
+  orig: 285, 102
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_leg_01
+  rotate: true
+  xy: 614, 2
+  size: 350, 376
+  orig: 350, 376
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_should_01
+  rotate: true
+  xy: 614, 677
+  size: 339, 406
+  orig: 339, 406
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_should_02
+  rotate: true
+  xy: 614, 354
+  size: 321, 402
+  orig: 321, 402
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_wing_02
+  rotate: false
+  xy: 2, 118
+  size: 573, 898
+  orig: 573, 898
+  offset: 0, 0
+  index: -1
+
+boss_giantdragon_fire4.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_giantdragon_fire_arm_01
+  rotate: false
+  xy: 634, 353
+  size: 381, 303
+  orig: 381, 303
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_body_03
+  rotate: false
+  xy: 2, 224
+  size: 630, 765
+  orig: 630, 765
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_leg_02
+  rotate: true
+  xy: 634, 658
+  size: 331, 384
+  orig: 331, 384
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_neck_02
+  rotate: false
+  xy: 634, 2
+  size: 325, 349
+  orig: 325, 349
+  offset: 0, 0
+  index: -1
+
+boss_giantdragon_fire5.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_giantdragon_fire_body_02
+  rotate: false
+  xy: 2, 313
+  size: 559, 698
+  orig: 559, 698
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_effect_05
+  rotate: true
+  xy: 2, 2
+  size: 309, 298
+  orig: 309, 298
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_finger_01
+  rotate: true
+  xy: 302, 47
+  size: 264, 258
+  orig: 264, 258
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_horn_01
+  rotate: true
+  xy: 563, 521
+  size: 490, 459
+  orig: 490, 459
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_mouth_01
+  rotate: true
+  xy: 563, 29
+  size: 490, 459
+  orig: 490, 459
+  offset: 0, 0
+  index: -1
+
+boss_giantdragon_fire6.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_giantdragon_fire_arm_02
+  rotate: false
+  xy: 400, 671
+  size: 331, 307
+  orig: 331, 307
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_body_04
+  rotate: true
+  xy: 2, 2
+  size: 410, 375
+  orig: 410, 375
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_finger_02
+  rotate: false
+  xy: 756, 720
+  size: 264, 258
+  orig: 264, 258
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_finger_03
+  rotate: false
+  xy: 756, 460
+  size: 264, 258
+  orig: 264, 258
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_finger_04
+  rotate: false
+  xy: 756, 200
+  size: 264, 258
+  orig: 264, 258
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_finger_05
+  rotate: true
+  xy: 400, 414
+  size: 255, 273
+  orig: 255, 273
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_foot_01
+  rotate: false
+  xy: 2, 414
+  size: 396, 564
+  orig: 396, 564
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_tail_01
+  rotate: true
+  xy: 379, 2
+  size: 410, 375
+  orig: 410, 375
+  offset: 0, 0
+  index: -1
+
+boss_giantdragon_fire7.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_giantdragon_fire_effect_04
+  rotate: true
+  xy: 2, 259
+  size: 296, 307
+  orig: 296, 307
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_finger_06
+  rotate: false
+  xy: 311, 42
+  size: 255, 273
+  orig: 255, 273
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_finger_07
+  rotate: true
+  xy: 2, 2
+  size: 255, 273
+  orig: 255, 273
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_finger_08
+  rotate: false
+  xy: 568, 42
+  size: 255, 273
+  orig: 255, 273
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_foot_02
+  rotate: true
+  xy: 494, 625
+  size: 391, 525
+  orig: 391, 525
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_mouth_02
+  rotate: false
+  xy: 2, 557
+  size: 490, 459
+  orig: 490, 459
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_neck_01
+  rotate: false
+  xy: 494, 317
+  size: 325, 306
+  orig: 325, 306
+  offset: 0, 0
+  index: -1
+
+boss_giantdragon_fire8.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_giantdragon_fire_hand_01
+  rotate: false
+  xy: 259, 17
+  size: 264, 258
+  orig: 264, 258
+  offset: 0, 0
+  index: -1
+boss_giantdragon_fire_hand_02
+  rotate: false
+  xy: 2, 2
+  size: 255, 273
+  orig: 255, 273
+  offset: 0, 0
+  index: -1

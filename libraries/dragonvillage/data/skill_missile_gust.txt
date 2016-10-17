@@ -1,0 +1,30 @@
+{
+	"skill_missile_gust":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_gust/missile_gust.vrp",
+				"visual":"idle2",
+                "scale":"0.9",
+				"body":[0,0,20],
+				"speed":500,
+				"accel":1500,
+				"h_limit_speed":900,
+				"accel_delay":0.2,
+				"offset":[0,0],
+                "dir":0,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+
+				
+			}
+		]
+	}
+}

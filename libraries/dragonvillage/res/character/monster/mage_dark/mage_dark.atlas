@@ -1,0 +1,104 @@
+
+mage_dark.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mage_dark_arm_01
+  rotate: false
+  xy: 350, 44
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+mage_dark_arm_02
+  rotate: true
+  xy: 86, 17
+  size: 44, 47
+  orig: 44, 47
+  offset: 0, 0
+  index: -1
+mage_dark_body_01
+  rotate: true
+  xy: 142, 61
+  size: 65, 105
+  orig: 65, 105
+  offset: 0, 0
+  index: -1
+mage_dark_body_02
+  rotate: false
+  xy: 454, 90
+  size: 33, 36
+  orig: 33, 36
+  offset: 0, 0
+  index: -1
+mage_dark_body_03
+  rotate: true
+  xy: 350, 2
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+mage_dark_body_04
+  rotate: true
+  xy: 489, 93
+  size: 33, 18
+  orig: 33, 18
+  offset: 0, 0
+  index: -1
+mage_dark_effect_01
+  rotate: false
+  xy: 414, 88
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+mage_dark_effect_02
+  rotate: true
+  xy: 249, 34
+  size: 92, 99
+  orig: 92, 99
+  offset: 0, 0
+  index: -1
+mage_dark_effect_03
+  rotate: true
+  xy: 175, 40
+  size: 19, 39
+  orig: 19, 39
+  offset: 0, 0
+  index: -1
+mage_dark_hand_01
+  rotate: false
+  xy: 135, 29
+  size: 38, 30
+  orig: 38, 30
+  offset: 0, 0
+  index: -1
+mage_dark_hand_02
+  rotate: true
+  xy: 135, 2
+  size: 25, 32
+  orig: 25, 32
+  offset: 0, 0
+  index: -1
+mage_dark_head_01
+  rotate: false
+  xy: 2, 16
+  size: 82, 45
+  orig: 82, 45
+  offset: 0, 0
+  index: -1
+mage_dark_head_02
+  rotate: false
+  xy: 350, 90
+  size: 62, 36
+  orig: 62, 36
+  offset: 0, 0
+  index: -1
+mage_dark_wepon_01
+  rotate: false
+  xy: 2, 63
+  size: 138, 63
+  orig: 138, 63
+  offset: 0, 0
+  index: -1

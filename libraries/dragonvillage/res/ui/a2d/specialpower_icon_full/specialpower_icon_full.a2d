@@ -1,0 +1,149 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)specialpower_icon_full.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"effect",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)specialpower_icon_full.plist'<azSprite>'specialpower_icon_full_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":2.000000, "sY":2.000000, "alpha":0, "colorRGB":[0,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":10, "colorRGB":[0,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":20, "alpha":0, "colorRGB":[0,255,255]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)specialpower_icon_full.plist'<azSprite>'specialpower_icon_full_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "sX":2.000000, "sY":2.000000, "alpha":0, "colorRGB":[0,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":15, "colorRGB":[0,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":20, "alpha":0, "colorRGB":[0,255,255]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)specialpower_icon_full.plist'<azSprite>'specialpower_icon_full_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":3.000000, "sY":3.000000, "pX":-1.000000, "colorRGB":[0,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":6, "sX":0.500000, "sY":0.500000, "pX":-1.000000, "colorRGB":[0,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":20, "sX":0.500000, "sY":0.500000, "pX":-1.000000, "alpha":0, "colorRGB":[0,255,255]
+, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)specialpower_icon_full.plist'<azSprite>'specialpower_icon_full_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "mode":"Add"
+									},
+									{
+										"frame":10, "sX":1.300000, "sY":1.100000, "colorRGB":[0,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":17, "sX":1.100000, "sY":1.300000, "mode":"Add"
+									},
+									{
+										"frame":30, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

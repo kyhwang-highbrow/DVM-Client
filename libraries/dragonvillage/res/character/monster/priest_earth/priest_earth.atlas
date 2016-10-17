@@ -1,0 +1,104 @@
+
+priest_earth.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+priest_earth_arm_01
+  rotate: false
+  xy: 353, 70
+  size: 56, 56
+  orig: 56, 56
+  offset: 0, 0
+  index: -1
+priest_earth_arm_02
+  rotate: true
+  xy: 289, 66
+  size: 60, 62
+  orig: 60, 62
+  offset: 0, 0
+  index: -1
+priest_earth_body_01
+  rotate: true
+  xy: 2, 47
+  size: 79, 127
+  orig: 79, 127
+  offset: 0, 0
+  index: -1
+priest_earth_body_02
+  rotate: true
+  xy: 461, 83
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+priest_earth_body_03
+  rotate: false
+  xy: 217, 23
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+priest_earth_body_04
+  rotate: false
+  xy: 287, 46
+  size: 26, 18
+  orig: 26, 18
+  offset: 0, 0
+  index: -1
+priest_earth_effect_01
+  rotate: false
+  xy: 131, 2
+  size: 52, 53
+  orig: 52, 53
+  offset: 0, 0
+  index: -1
+priest_earth_effect_02
+  rotate: false
+  xy: 2, 4
+  size: 116, 41
+  orig: 116, 41
+  offset: 0, 0
+  index: -1
+priest_earth_effect_03
+  rotate: true
+  xy: 217, 4
+  size: 17, 27
+  orig: 17, 27
+  offset: 0, 0
+  index: -1
+priest_earth_hand_01
+  rotate: false
+  xy: 411, 84
+  size: 48, 42
+  orig: 48, 42
+  offset: 0, 0
+  index: -1
+priest_earth_hand_02
+  rotate: true
+  xy: 259, 26
+  size: 39, 26
+  orig: 39, 26
+  offset: 0, 0
+  index: -1
+priest_earth_head_01
+  rotate: true
+  xy: 215, 67
+  size: 59, 72
+  orig: 59, 72
+  offset: 0, 0
+  index: -1
+priest_earth_wepon_01
+  rotate: false
+  xy: 131, 57
+  size: 82, 69
+  orig: 82, 69
+  offset: 0, 0
+  index: -1
+priest_earth_wepon_02
+  rotate: false
+  xy: 185, 5
+  size: 30, 50
+  orig: 30, 50
+  offset: 0, 0
+  index: -1

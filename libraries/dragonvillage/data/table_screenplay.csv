@@ -1,0 +1,2 @@
+id,scene_effect_1,scene_effect_2,scene_effect_3,sound_effect,bgm_action,bg_image,auto_skip,actor_id,layer,pos,pos_in,pos_out,direction,actor_face,actor_action,t_name,t_text
+999999,x,x,x,x,x,x,-1,999999,1,1,left,left,left,x,brightness_1,테스트,테스트

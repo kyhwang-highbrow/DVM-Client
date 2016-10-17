@@ -1,0 +1,104 @@
+
+spearman_earth.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+spearman_earth_arm_01
+  rotate: false
+  xy: 362, 84
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+spearman_earth_arm_02
+  rotate: true
+  xy: 116, 38
+  size: 36, 39
+  orig: 36, 39
+  offset: 0, 0
+  index: -1
+spearman_earth_body_01
+  rotate: true
+  xy: 167, 47
+  size: 79, 127
+  orig: 79, 127
+  offset: 0, 0
+  index: -1
+spearman_earth_body_02
+  rotate: false
+  xy: 63, 12
+  size: 45, 33
+  orig: 45, 33
+  offset: 0, 0
+  index: -1
+spearman_earth_body_03
+  rotate: false
+  xy: 404, 84
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+spearman_earth_effect_01
+  rotate: true
+  xy: 2, 6
+  size: 39, 59
+  orig: 39, 59
+  offset: 0, 0
+  index: -1
+spearman_earth_effect_02
+  rotate: false
+  xy: 2, 47
+  size: 112, 27
+  orig: 112, 27
+  offset: 0, 0
+  index: -1
+spearman_earth_effect_03
+  rotate: true
+  xy: 296, 44
+  size: 26, 50
+  orig: 26, 50
+  offset: 0, 0
+  index: -1
+spearman_earth_hand_01
+  rotate: true
+  xy: 110, 2
+  size: 34, 32
+  orig: 34, 32
+  offset: 0, 0
+  index: -1
+spearman_earth_hand_02
+  rotate: true
+  xy: 400, 53
+  size: 29, 35
+  orig: 29, 35
+  offset: 0, 0
+  index: -1
+spearman_earth_head_01
+  rotate: false
+  xy: 296, 72
+  size: 64, 54
+  orig: 64, 54
+  offset: 0, 0
+  index: -1
+spearman_earth_head_02
+  rotate: false
+  xy: 362, 55
+  size: 36, 27
+  orig: 36, 27
+  offset: 0, 0
+  index: -1
+spearman_earth_shoulder_01
+  rotate: false
+  xy: 446, 84
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+spearman_earth_wepon_01
+  rotate: false
+  xy: 2, 76
+  size: 163, 50
+  orig: 163, 50
+  offset: 0, 0
+  index: -1

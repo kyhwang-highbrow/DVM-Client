@@ -1,0 +1,83 @@
+
+shot_thunder_strong_dark.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shot_thunder_strong_dark_01
+  rotate: false
+  xy: 2, 144
+  size: 296, 307
+  orig: 296, 307
+  offset: 0, 0
+  index: -1
+shot_thunder_strong_dark_02
+  rotate: false
+  xy: 1136, 77
+  size: 159, 170
+  orig: 159, 170
+  offset: 0, 0
+  index: -1
+shot_thunder_strong_dark_03
+  rotate: false
+  xy: 300, 144
+  size: 296, 307
+  orig: 296, 307
+  offset: 0, 0
+  index: -1
+shot_thunder_strong_dark_04
+  rotate: true
+  xy: 1350, 278
+  size: 173, 230
+  orig: 173, 230
+  offset: 0, 0
+  index: -1
+shot_thunder_strong_dark_05
+  rotate: false
+  xy: 598, 59
+  size: 267, 250
+  orig: 267, 250
+  offset: 0, 0
+  index: -1
+shot_thunder_strong_dark_06
+  rotate: false
+  xy: 867, 59
+  size: 267, 250
+  orig: 267, 250
+  offset: 0, 0
+  index: -1
+shot_thunder_strong_dark_07
+  rotate: true
+  xy: 2, 73
+  size: 69, 522
+  orig: 69, 522
+  offset: 0, 0
+  index: -1
+shot_thunder_strong_dark_08
+  rotate: true
+  xy: 598, 382
+  size: 69, 522
+  orig: 69, 522
+  offset: 0, 0
+  index: -1
+shot_thunder_strong_dark_09
+  rotate: true
+  xy: 2, 2
+  size: 69, 522
+  orig: 69, 522
+  offset: 0, 0
+  index: -1
+shot_thunder_strong_dark_10
+  rotate: true
+  xy: 598, 311
+  size: 69, 522
+  orig: 69, 522
+  offset: 0, 0
+  index: -1
+shot_thunder_strong_dark_11
+  rotate: false
+  xy: 1136, 249
+  size: 212, 202
+  orig: 212, 202
+  offset: 0, 0
+  index: -1

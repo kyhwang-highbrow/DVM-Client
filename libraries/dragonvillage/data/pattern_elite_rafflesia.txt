@@ -1,0 +1,63 @@
+{
+	"pattern_elite_rafflesia":
+	[	
+		
+		[
+			"a;basic", "w;2", "a;basic",
+			"m;RF22;150", "a;basic", "w;2", "a;basic",
+			"m;RF26;150", "a;basic", "w;2", "a;basic",
+			"m;RB23;150", "a;basic", "w;2", "a;basic",
+			"m;RB25;150", "a;basic", "w;2", "a;basic",
+			"m;RM26;150", "a;basic", "w;2", "a;basic"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":80,
+                "pattern":
+                [
+					"m;RM24;300", "a;1", "m;RB14;300", "w;2", "a;basic",
+					"m;RF22;150", "a;basic", "w;2", "a;basic",
+					"m;RF26;150", "a;basic", "w;2", "a;basic"
+
+                ]
+            },
+			
+			{
+                "hp_percent":60,
+                "pattern":
+                [
+					"m;RB24;300", "a;1", "m;RB14;300", "w;2", "a;basic",
+					"m;RB23;150", "a;basic", "w;2", "a;basic",
+					"m;RB25;150", "a;basic", "w;2", "a;basic"
+                ]
+            },
+			
+            {
+                "hp_percent":40,
+                "pattern":
+                [
+					"m;RB24;300", "a;1", "m;RB14;300", "w;2", "a;basic",
+					"m;RB25;150", "a;basic", "w;2", "a;basic",
+					"m;RM26;150", "a;basic", "w;2", "a;basic"
+                ]
+				
+            },
+			
+            {
+                "hp_percent":25,
+                "pattern":
+                [
+					"m;RB22;600", "a;1", "w;1",
+					"m;RB24;600", "a;1", "w;1",
+					"m;RB26;600", "a;1", "w;1"
+                ]				
+            }
+        ]
+    }
+}

@@ -1,0 +1,104 @@
+
+mage_light.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mage_light_arm_01
+  rotate: false
+  xy: 460, 76
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+mage_light_arm_02
+  rotate: true
+  xy: 411, 76
+  size: 44, 47
+  orig: 44, 47
+  offset: 0, 0
+  index: -1
+mage_light_body_01
+  rotate: true
+  xy: 220, 55
+  size: 65, 105
+  orig: 65, 105
+  offset: 0, 0
+  index: -1
+mage_light_body_02
+  rotate: false
+  xy: 367, 37
+  size: 33, 36
+  orig: 33, 36
+  offset: 0, 0
+  index: -1
+mage_light_body_03
+  rotate: true
+  xy: 160, 23
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+mage_light_body_04
+  rotate: false
+  xy: 278, 35
+  size: 33, 18
+  orig: 33, 18
+  offset: 0, 0
+  index: -1
+mage_light_effect_01
+  rotate: false
+  xy: 327, 35
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+mage_light_effect_02
+  rotate: false
+  xy: 2, 21
+  size: 92, 99
+  orig: 92, 99
+  offset: 0, 0
+  index: -1
+mage_light_effect_03
+  rotate: true
+  xy: 2, 2
+  size: 17, 35
+  orig: 17, 35
+  offset: 0, 0
+  index: -1
+mage_light_hand_01
+  rotate: false
+  xy: 204, 23
+  size: 38, 30
+  orig: 38, 30
+  offset: 0, 0
+  index: -1
+mage_light_hand_02
+  rotate: true
+  xy: 244, 28
+  size: 25, 32
+  orig: 25, 32
+  offset: 0, 0
+  index: -1
+mage_light_head_01
+  rotate: false
+  xy: 327, 75
+  size: 82, 45
+  orig: 82, 45
+  offset: 0, 0
+  index: -1
+mage_light_head_02
+  rotate: false
+  xy: 96, 27
+  size: 62, 36
+  orig: 62, 36
+  offset: 0, 0
+  index: -1
+mage_light_wepon_01
+  rotate: false
+  xy: 96, 65
+  size: 122, 55
+  orig: 122, 55
+  offset: 0, 0
+  index: -1

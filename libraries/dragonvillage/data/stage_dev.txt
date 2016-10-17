@@ -1,0 +1,40 @@
+{
+    "difficult":2,
+    "bg":"map_ocean",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":100,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+				"130009;30;Basic;BOSS;RM24;3"
+				]
+            }
+        }
+    ],
+	
+    "summon":
+    {
+        0:
+        [
+        "130015;15;Appear;RO04;RB21;0.5"
+		"130016;15;Appear;RO01;RB17;0.5"
+		],
+		
+		1:
+        [
+        "130015;15;Appear;RO04;RF21;0.5"
+		"130016;15;Appear;RO01;RF27;0.5"
+		"130015;15;Appear;RO01;RO01;0.5"
+		"130016;15;Appear;RO07;RO07;0.5"
+		]
+    }
+}

@@ -1,0 +1,53 @@
+{
+	"skill_breath_1":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/shot_breath_@/shot_breath_@.spine",
+                "scale":"0.55",
+				"body":[0,0,20],
+				"speed":0,
+				"accel":0,
+				"accel_delay":0,
+				"offset":[0,0],
+				"vanish_time":1.6,
+                "dir":0,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"idx":1,
+				"res":"",
+                "scale":"1",
+				"count":5,
+				"period":0.2,
+				"body":[0,0,30],
+				"size_up_time":3,
+				"missile_type":"pass",
+				"speed":2500,
+				"accel":0,
+				"accel_delay":0,
+				"offset":[0,0],
+                "dir":0,
+				"vanish_time":0.3,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+			
+			
+		]
+	}
+}

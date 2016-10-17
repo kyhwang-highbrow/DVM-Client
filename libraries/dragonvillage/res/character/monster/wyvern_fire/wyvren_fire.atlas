@@ -1,0 +1,13 @@
+
+wyvren_fire.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+wyvern_fire
+  rotate: true
+  xy: 2, 2
+  size: 246, 313
+  orig: 246, 313
+  offset: 0, 0
+  index: -1
