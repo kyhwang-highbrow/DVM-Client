@@ -1,0 +1,527 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)title.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"00",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'group'<azVisual>'01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":10
+									},
+									{
+										"frame":90
+									},
+									{
+										"frame":149
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'group'<azVisual>'02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":90
+									},
+									{
+										"frame":143
+									},
+									{
+										"frame":149, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"01",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_bg_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":180.000000
+									},
+									{
+										"frame":94, "pY":91.677856
+									},
+									{
+										"frame":136, "pY":40.000000
+									},
+									{
+										"frame":149, "pY":40.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_dragon_light.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":290.000000
+									},
+									{
+										"frame":99, "pY":290.000000
+									},
+									{
+										"frame":136, "pY":290.000000
+									},
+									{
+										"frame":149, "pY":290.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_dragon_light.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15, "rotate":360.000000, "pY":290.000000, "alpha":12800
+									},
+									{
+										"frame":40, "rotate":176.949142, "pY":290.000000
+									},
+									{
+										"frame":64, "pY":290.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_dragon.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.500000, "sY":0.500000, "pX":20.000000, "pY":-615.000000
+									},
+									{
+										"frame":15, "sX":0.500000, "sY":0.500000, "pX":-3.030302, "pY":64.545471
+									},
+									{
+										"frame":77, "sX":0.500000, "sY":0.500000, "pX":-0.793651, "pY":194.047623
+									},
+									{
+										"frame":99, "sX":0.500000, "sY":0.500000, "pY":240.000000
+									},
+									{
+										"frame":136, "sX":0.500000, "sY":0.500000, "pY":240.000000
+									},
+									{
+										"frame":149, "sX":0.500000, "sY":0.500000, "pY":240.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20, "pX":-10.000000, "pY":-38.000000, "alpha":0
+									},
+									{
+										"frame":54, "pX":-10.000000, "pY":-24.000000
+									},
+									{
+										"frame":99, "pX":-10.000000, "pY":-24.000000
+									},
+									{
+										"frame":136, "pX":-10.000000, "pY":-24.000000
+									},
+									{
+										"frame":149, "pX":-10.000000, "pY":-24.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "sX":0.000000, "sY":0.000000, "rotate":-30.000000, "pX":-373.000000, "pY":80.000000, "alpha":0
+									},
+									{
+										"frame":60, "pX":-373.000000, "pY":94.000000
+									},
+									{
+										"frame":99, "pX":-373.000000, "pY":94.000000
+									},
+									{
+										"frame":136, "pX":-373.000000, "pY":94.000000
+									},
+									{
+										"frame":149, "pX":-373.000000, "pY":94.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "sX":0.000000, "sY":0.000000, "rotate":30.000000, "pX":361.000000, "pY":79.000000, "alpha":0
+									},
+									{
+										"frame":60, "sX":-1.000000, "pX":361.000000, "pY":93.000000
+									},
+									{
+										"frame":99, "sX":-1.000000, "pX":361.000000, "pY":93.000000
+									},
+									{
+										"frame":136, "sX":-1.000000, "pX":361.000000, "pY":93.000000
+									},
+									{
+										"frame":149, "sX":-1.000000, "pX":361.000000, "pY":93.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":35, "sX":0.000000, "sY":0.000000, "rotate":-50.000000, "pX":-109.000000, "pY":46.000000, "alpha":0
+									},
+									{
+										"frame":65, "pX":-109.000000, "pY":60.000000
+									},
+									{
+										"frame":99, "pX":-109.000000, "pY":60.000000
+									},
+									{
+										"frame":136, "pX":-109.000000, "pY":60.000000
+									},
+									{
+										"frame":149, "pX":-109.000000, "pY":60.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":35, "sX":0.000000, "sY":0.000000, "rotate":50.000000, "pX":140.000000, "pY":46.000000, "alpha":0
+									},
+									{
+										"frame":65, "sX":-1.000000, "pX":140.000000, "pY":60.000000
+									},
+									{
+										"frame":99, "sX":-1.000000, "pX":140.000000, "pY":60.000000
+									},
+									{
+										"frame":136, "sX":-1.000000, "pX":140.000000, "pY":60.000000
+									},
+									{
+										"frame":149, "sX":-1.000000, "pX":140.000000, "pY":60.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":40, "sX":0.000000, "sY":0.000000, "rotate":-50.000000, "pX":-68.000000, "pY":56.000000, "alpha":0
+									},
+									{
+										"frame":70, "pX":-68.000000, "pY":70.000000
+									},
+									{
+										"frame":99, "pX":-68.000000, "pY":70.000000
+									},
+									{
+										"frame":136, "pX":-68.000000, "pY":70.000000
+									},
+									{
+										"frame":149, "pX":-68.000000, "pY":70.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":40, "sX":0.000000, "sY":0.000000, "rotate":50.000000, "pX":100.000000, "pY":55.000000, "alpha":0
+									},
+									{
+										"frame":70, "sX":-1.000000, "pX":100.000000, "pY":69.000000
+									},
+									{
+										"frame":99, "sX":-1.000000, "pX":100.000000, "pY":69.000000
+									},
+									{
+										"frame":136, "sX":-1.000000, "pX":100.000000, "pY":69.000000
+									},
+									{
+										"frame":149, "sX":-1.000000, "pX":100.000000, "pY":69.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":70, "pX":-10.000000, "pY":11.000000, "alpha":0
+									},
+									{
+										"frame":80, "pX":-10.000000, "pY":11.000000
+									},
+									{
+										"frame":99, "pX":-10.000001, "pY":11.000000, "alpha":0
+									},
+									{
+										"frame":136, "pX":-10.000001, "pY":11.000000, "alpha":0
+									},
+									{
+										"frame":149, "pX":-10.000001, "pY":11.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"02",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-10.000000, "pY":-24.000000
+									},
+									{
+										"frame":59, "pX":-10.000000, "pY":-24.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-373.000000, "pY":94.000000
+									},
+									{
+										"frame":59, "pX":-373.000000, "pY":94.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":-1.000000, "pX":361.000000, "pY":93.000000
+									},
+									{
+										"frame":59, "sX":-1.000000, "pX":361.000000, "pY":93.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-109.000000, "pY":60.000000
+									},
+									{
+										"frame":59, "pX":-109.000000, "pY":60.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":-1.000000, "pX":140.000000, "pY":60.000000
+									},
+									{
+										"frame":59, "sX":-1.000000, "pX":140.000000, "pY":60.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-68.000000, "pY":70.000000
+									},
+									{
+										"frame":59, "pX":-68.000000, "pY":70.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":-1.000000, "pX":100.000000, "pY":69.000000
+									},
+									{
+										"frame":59, "sX":-1.000000, "pX":100.000000, "pY":69.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20, "pX":-10.000000, "pY":11.000000, "alpha":0
+									},
+									{
+										"frame":30, "pX":-10.000000, "pY":11.000000
+									},
+									{
+										"frame":39, "pX":-10.000001, "pY":11.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"patch",
+					"apply":true,
+					"fps":10,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_bg_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":180.000000
+									},
+									{
+										"frame":1, "pY":180.000000
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

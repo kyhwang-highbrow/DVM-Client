@@ -1,0 +1,48 @@
+
+shot_ray_light.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shot_ray_light_01
+  rotate: false
+  xy: 406, 100
+  size: 104, 96
+  orig: 104, 96
+  offset: 0, 0
+  index: -1
+shot_ray_light_02
+  rotate: true
+  xy: 2, 2
+  size: 66, 125
+  orig: 66, 125
+  offset: 0, 0
+  index: -1
+shot_ray_light_03
+  rotate: false
+  xy: 2, 70
+  size: 139, 126
+  orig: 139, 126
+  offset: 0, 0
+  index: -1
+shot_ray_light_04
+  rotate: false
+  xy: 143, 70
+  size: 139, 126
+  orig: 139, 126
+  offset: 0, 0
+  index: -1
+shot_ray_light_05
+  rotate: false
+  xy: 284, 96
+  size: 120, 100
+  orig: 120, 100
+  offset: 0, 0
+  index: -1
+shot_ray_light_07
+  rotate: false
+  xy: 2, 198
+  size: 512, 50
+  orig: 512, 50
+  offset: 0, 0
+  index: -1

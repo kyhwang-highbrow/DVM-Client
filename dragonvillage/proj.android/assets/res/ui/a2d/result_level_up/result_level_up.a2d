@@ -1,0 +1,541 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)result_level_up.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"level_up",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'level_up_gg'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":20
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'level_up_word'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000, "pY":204.000000
+									},
+									{
+										"frame":45, "sX":0.800000, "sY":0.800000, "pY":204.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"level_up_idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'level_up_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000, "pY":204.000000
+									},
+									{
+										"frame":30, "sX":0.800000, "sY":0.800000, "pY":204.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'level_up_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000, "pY":204.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":15, "sX":0.800000, "sY":0.800000, "pY":204.000000, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":0.800000, "sY":0.800000, "pY":204.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name":"resource",
+			"expand":true,
+			"apply":false,
+			"visual_list":
+			[
+				{
+					"name":"level_up_gg",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_level_up.plist'<azSprite>'result_level_up_gg.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":0
+									},
+									{
+										"frame":5, "sX":1.500000, "sY":1.500000
+									},
+									{
+										"frame":10
+									},
+									{
+										"frame":18, "sX":2.000000, "sY":0.200000
+									},
+									{
+										"frame":20, "sX":3.000000, "sY":0.200000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"level_up_idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_level_up.plist'<azSprite>'result_level_up_word_l.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-70.000000
+									},
+									{
+										"frame":15, "pX":-70.000000, "pY":20.000000
+									},
+									{
+										"frame":30, "pX":-70.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_level_up.plist'<azSprite>'result_level_up_word_e.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-50.000000
+									},
+									{
+										"frame":15, "pX":-50.000000, "pY":20.000000
+									},
+									{
+										"frame":30, "pX":-50.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_level_up.plist'<azSprite>'result_level_up_word_v.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-27.000000
+									},
+									{
+										"frame":15, "pX":-27.000000, "pY":20.000000
+									},
+									{
+										"frame":30, "pX":-27.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_level_up.plist'<azSprite>'result_level_up_word_e.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-7.000000
+									},
+									{
+										"frame":15, "pX":-7.000000, "pY":20.000000
+									},
+									{
+										"frame":30, "pX":-7.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_level_up.plist'<azSprite>'result_level_up_word_l.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":10.000000
+									},
+									{
+										"frame":15, "pX":10.000000, "pY":20.000000
+									},
+									{
+										"frame":30, "pX":10.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_level_up.plist'<azSprite>'result_level_up_word_u.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":42.000000
+									},
+									{
+										"frame":15, "pX":42.000000, "pY":20.000000
+									},
+									{
+										"frame":30, "pX":42.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_level_up.plist'<azSprite>'result_level_up_word_p.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":65.000000
+									},
+									{
+										"frame":15, "pX":65.000000, "pY":20.000000
+									},
+									{
+										"frame":30, "pX":65.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_level_up.plist'<azSprite>'result_level_up_word_mark.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":85.000000
+									},
+									{
+										"frame":15, "pX":85.000000, "pY":20.000000
+									},
+									{
+										"frame":30, "pX":85.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"level_up_word",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_level_up.plist'<azSprite>'result_level_up_word_l.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-70.000000, "pY":33.000000, "alpha":0
+									},
+									{
+										"frame":8, "pX":-70.000000
+									},
+									{
+										"frame":12, "pX":-70.000000, "pY":20.000000
+									},
+									{
+										"frame":16, "pX":-70.000000
+									},
+									{
+										"frame":22, "pX":-70.000000, "pY":5.000000
+									},
+									{
+										"frame":45, "pX":-70.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_level_up.plist'<azSprite>'result_level_up_word_e.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":1, "pX":-50.000000, "pY":33.000000, "alpha":0
+									},
+									{
+										"frame":9, "pX":-50.000000
+									},
+									{
+										"frame":13, "pX":-50.000000, "pY":20.000000
+									},
+									{
+										"frame":17, "pX":-50.000000
+									},
+									{
+										"frame":23, "pX":-50.000000, "pY":5.000000
+									},
+									{
+										"frame":45, "pX":-50.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_level_up.plist'<azSprite>'result_level_up_word_v.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "pX":-27.000000, "pY":33.000000, "alpha":0
+									},
+									{
+										"frame":10, "pX":-27.000000
+									},
+									{
+										"frame":14, "pX":-27.000000, "pY":20.000000
+									},
+									{
+										"frame":18, "pX":-27.000000
+									},
+									{
+										"frame":24, "pX":-27.000000, "pY":5.000000
+									},
+									{
+										"frame":45, "pX":-27.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_level_up.plist'<azSprite>'result_level_up_word_e.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":3, "pX":-7.000000, "pY":33.000000, "alpha":0
+									},
+									{
+										"frame":11, "pX":-7.000000
+									},
+									{
+										"frame":15, "pX":-7.000000, "pY":20.000000
+									},
+									{
+										"frame":19, "pX":-7.000000
+									},
+									{
+										"frame":25, "pX":-7.000000, "pY":5.000000
+									},
+									{
+										"frame":45, "pX":-7.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_level_up.plist'<azSprite>'result_level_up_word_l.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":10.000000, "pY":33.000000, "alpha":0
+									},
+									{
+										"frame":12, "pX":10.000000
+									},
+									{
+										"frame":16, "pX":10.000000, "pY":20.000000
+									},
+									{
+										"frame":20, "pX":10.000000
+									},
+									{
+										"frame":26, "pX":10.000000, "pY":5.000000
+									},
+									{
+										"frame":45, "pX":10.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_level_up.plist'<azSprite>'result_level_up_word_u.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "pX":42.000000, "pY":33.000000, "alpha":0
+									},
+									{
+										"frame":13, "pX":42.000000
+									},
+									{
+										"frame":17, "pX":42.000000, "pY":20.000000
+									},
+									{
+										"frame":21, "pX":42.000000
+									},
+									{
+										"frame":27, "pX":42.000000, "pY":5.000000
+									},
+									{
+										"frame":45, "pX":42.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_level_up.plist'<azSprite>'result_level_up_word_p.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "pX":65.000000, "pY":33.000000, "alpha":0
+									},
+									{
+										"frame":14, "pX":65.000000
+									},
+									{
+										"frame":18, "pX":65.000000, "pY":20.000000
+									},
+									{
+										"frame":22, "pX":65.000000
+									},
+									{
+										"frame":28, "pX":65.000000, "pY":5.000000
+									},
+									{
+										"frame":45, "pX":65.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_level_up.plist'<azSprite>'result_level_up_word_mark.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":7, "pX":85.000000, "pY":33.000000, "alpha":0
+									},
+									{
+										"frame":15, "pX":85.000000
+									},
+									{
+										"frame":19, "pX":85.000000, "pY":20.000000
+									},
+									{
+										"frame":23, "pX":85.000000
+									},
+									{
+										"frame":29, "pX":85.000000, "pY":5.000000
+									},
+									{
+										"frame":45, "pX":85.000000
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

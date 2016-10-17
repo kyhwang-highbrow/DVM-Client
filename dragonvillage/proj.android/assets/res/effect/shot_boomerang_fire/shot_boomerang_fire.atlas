@@ -1,0 +1,34 @@
+
+shot_boomerang_fire.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shot_boomerang_fire_01
+  rotate: false
+  xy: 2, 538
+  size: 579, 266
+  orig: 579, 266
+  offset: 0, 0
+  index: -1
+shot_boomerang_fire_02
+  rotate: false
+  xy: 2, 270
+  size: 579, 266
+  orig: 579, 266
+  offset: 0, 0
+  index: -1
+shot_boomerang_fire_03
+  rotate: true
+  xy: 583, 247
+  size: 557, 266
+  orig: 557, 266
+  offset: 0, 0
+  index: -1
+shot_boomerang_fire_04
+  rotate: false
+  xy: 2, 2
+  size: 579, 266
+  orig: 579, 266
+  offset: 0, 0
+  index: -1

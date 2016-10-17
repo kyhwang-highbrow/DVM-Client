@@ -1,0 +1,153 @@
+
+lambgon_03.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lambgon_03_arm_01
+  rotate: false
+  xy: 236, 54
+  size: 63, 77
+  orig: 63, 77
+  offset: 0, 0
+  index: -1
+lambgon_03_arm_02
+  rotate: false
+  xy: 301, 70
+  size: 63, 77
+  orig: 63, 77
+  offset: 0, 0
+  index: -1
+lambgon_03_body_01
+  rotate: false
+  xy: 2, 99
+  size: 126, 155
+  orig: 126, 155
+  offset: 0, 0
+  index: -1
+lambgon_03_body_02
+  rotate: false
+  xy: 279, 149
+  size: 154, 105
+  orig: 154, 105
+  offset: 0, 0
+  index: -1
+lambgon_03_body_03
+  rotate: false
+  xy: 429, 75
+  size: 53, 59
+  orig: 53, 59
+  offset: 0, 0
+  index: -1
+lambgon_03_effect_01
+  rotate: false
+  xy: 693, 134
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+lambgon_03_foot_01
+  rotate: false
+  xy: 749, 79
+  size: 42, 53
+  orig: 42, 53
+  offset: 0, 0
+  index: -1
+lambgon_03_foot_02
+  rotate: true
+  xy: 236, 2
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+lambgon_03_hand_01
+  rotate: false
+  xy: 484, 75
+  size: 53, 59
+  orig: 53, 59
+  offset: 0, 0
+  index: -1
+lambgon_03_hand_02
+  rotate: false
+  xy: 539, 75
+  size: 53, 59
+  orig: 53, 59
+  offset: 0, 0
+  index: -1
+lambgon_03_head_01
+  rotate: false
+  xy: 2, 8
+  size: 111, 89
+  orig: 111, 89
+  offset: 0, 0
+  index: -1
+lambgon_03_head_02
+  rotate: false
+  xy: 938, 162
+  size: 83, 92
+  orig: 83, 92
+  offset: 0, 0
+  index: -1
+lambgon_03_head_03
+  rotate: false
+  xy: 693, 79
+  size: 54, 53
+  orig: 54, 53
+  offset: 0, 0
+  index: -1
+lambgon_03_head_04
+  rotate: true
+  xy: 130, 28
+  size: 103, 104
+  orig: 103, 104
+  offset: 0, 0
+  index: -1
+lambgon_03_head_05
+  rotate: false
+  xy: 594, 75
+  size: 53, 59
+  orig: 53, 59
+  offset: 0, 0
+  index: -1
+lambgon_03_leg_01
+  rotate: false
+  xy: 366, 74
+  size: 61, 73
+  orig: 61, 73
+  offset: 0, 0
+  index: -1
+lambgon_03_leg_02
+  rotate: false
+  xy: 649, 77
+  size: 42, 57
+  orig: 42, 57
+  offset: 0, 0
+  index: -1
+lambgon_03_weapon_01
+  rotate: true
+  xy: 435, 136
+  size: 118, 127
+  orig: 118, 127
+  offset: 0, 0
+  index: -1
+lambgon_03_weapon_02
+  rotate: true
+  xy: 564, 136
+  size: 118, 127
+  orig: 118, 127
+  offset: 0, 0
+  index: -1
+lambgon_03_wing_01
+  rotate: false
+  xy: 130, 133
+  size: 147, 121
+  orig: 147, 121
+  offset: 0, 0
+  index: -1
+lambgon_03_wing_02
+  rotate: true
+  xy: 815, 157
+  size: 97, 121
+  orig: 97, 121
+  offset: 0, 0
+  index: -1

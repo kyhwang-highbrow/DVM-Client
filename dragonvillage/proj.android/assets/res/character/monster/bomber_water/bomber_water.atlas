@@ -1,0 +1,111 @@
+
+bomber_water.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bomber_water_body_01
+  rotate: false
+  xy: 2, 27
+  size: 61, 99
+  orig: 61, 99
+  offset: 0, 0
+  index: -1
+bomber_water_body_02
+  rotate: false
+  xy: 357, 92
+  size: 53, 34
+  orig: 53, 34
+  offset: 0, 0
+  index: -1
+bomber_water_body_03
+  rotate: true
+  xy: 460, 86
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+bomber_water_body_04
+  rotate: false
+  xy: 246, 88
+  size: 52, 38
+  orig: 52, 38
+  offset: 0, 0
+  index: -1
+bomber_water_effect_03
+  rotate: true
+  xy: 2, 8
+  size: 17, 35
+  orig: 17, 35
+  offset: 0, 0
+  index: -1
+bomber_water_effect_04
+  rotate: true
+  xy: 126, 2
+  size: 58, 57
+  orig: 58, 57
+  offset: 0, 0
+  index: -1
+bomber_water_effect_05
+  rotate: false
+  xy: 126, 62
+  size: 57, 64
+  orig: 57, 64
+  offset: 0, 0
+  index: -1
+bomber_water_hand_01
+  rotate: true
+  xy: 230, 30
+  size: 41, 36
+  orig: 41, 36
+  offset: 0, 0
+  index: -1
+bomber_water_hand_02
+  rotate: true
+  xy: 412, 86
+  size: 40, 46
+  orig: 40, 46
+  offset: 0, 0
+  index: -1
+bomber_water_hand_03
+  rotate: false
+  xy: 94, 18
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+bomber_water_head_01
+  rotate: false
+  xy: 185, 73
+  size: 59, 53
+  orig: 59, 53
+  offset: 0, 0
+  index: -1
+bomber_water_head_02
+  rotate: true
+  xy: 65, 2
+  size: 49, 27
+  orig: 49, 27
+  offset: 0, 0
+  index: -1
+bomber_water_shoulder_01
+  rotate: true
+  xy: 300, 91
+  size: 35, 55
+  orig: 35, 55
+  offset: 0, 0
+  index: -1
+bomber_water_wepon_01
+  rotate: false
+  xy: 65, 53
+  size: 59, 73
+  orig: 59, 73
+  offset: 0, 0
+  index: -1
+bomber_water_wepon_02
+  rotate: false
+  xy: 185, 15
+  size: 43, 56
+  orig: 43, 56
+  offset: 0, 0
+  index: -1

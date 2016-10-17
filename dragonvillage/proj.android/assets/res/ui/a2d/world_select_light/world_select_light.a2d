@@ -1,0 +1,92 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)world_select_light.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)world_select_light.plist'<azSprite>'light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.200000, "sY":0.200000, "alpha":0
+									},
+									{
+										"frame":36, "sX":0.400000, "sY":0.400000, "alpha":128
+									},
+									{
+										"frame":44, "sX":0.700000, "sY":0.700000, "alpha":80
+									},
+									{
+										"frame":80, "sX":0.200000, "sY":0.200000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)world_select_light.plist'<azSprite>'light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":40, "alpha":230, "mode":"Add"
+									},
+									{
+										"frame":80, "alpha":0, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

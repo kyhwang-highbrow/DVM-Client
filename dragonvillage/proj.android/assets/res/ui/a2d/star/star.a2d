@@ -1,0 +1,346 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)star.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"skill_upgrade",
+					"apply":true,
+					"fps":20,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_skill_upgrade_light.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":2, "sX":1.200000
+									},
+									{
+										"frame":6, "sY":1.300000, "alpha":128
+									},
+									{
+										"frame":10, "sX":1.200000, "alpha":0
+									},
+									{
+										"frame":14, "sY":1.100000, "alpha":128
+									},
+									{
+										"frame":30
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"upgrade2",
+					"apply":true,
+					"fps":20,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_upgrade_2.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":30
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_light.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-76.000000
+									},
+									{
+										"frame":2, "sX":1.200000, "pX":-76.000000
+									},
+									{
+										"frame":6, "sY":1.300000, "pX":-76.000000
+									},
+									{
+										"frame":10, "sX":1.200000, "pX":-76.000000
+									},
+									{
+										"frame":14, "sY":1.100000, "pX":-76.000000
+									},
+									{
+										"frame":30, "pX":-76.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"upgrade3",
+					"apply":true,
+					"fps":20,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_upgrade_3.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":31
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_light.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-25.000000
+									},
+									{
+										"frame":2, "sX":1.200000, "pX":-25.000000
+									},
+									{
+										"frame":6, "sY":1.300000, "pX":-25.000000, "alpha":255
+									},
+									{
+										"frame":10, "sX":1.200000, "pX":-25.000000
+									},
+									{
+										"frame":14, "sY":1.100000, "pX":-25.000000
+									},
+									{
+										"frame":31, "pX":-25.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"upgrade4",
+					"apply":true,
+					"fps":20,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_upgrade_4.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":30
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_light.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":26.000000
+									},
+									{
+										"frame":2, "sX":1.200000, "pX":26.000000
+									},
+									{
+										"frame":6, "sY":1.300000, "pX":26.000000
+									},
+									{
+										"frame":10, "sX":1.200000, "pX":26.000000
+									},
+									{
+										"frame":14, "sY":1.100000, "pX":26.000000
+									},
+									{
+										"frame":30, "pX":26.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"upgrade5",
+					"apply":true,
+					"fps":20,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_upgrade_5.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":30
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_light.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":77.000000
+									},
+									{
+										"frame":2, "sX":1.200000, "pX":77.000000
+									},
+									{
+										"frame":6, "sY":1.300000, "pX":77.000000
+									},
+									{
+										"frame":10, "sX":1.200000, "pX":77.000000
+									},
+									{
+										"frame":14, "sY":1.100000, "pX":77.000000
+									},
+									{
+										"frame":30, "pX":77.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"upgrade6",
+					"apply":true,
+					"fps":20,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_upgrade_6.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":30
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)star.plist'<azSprite>'star_light.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":132.000000
+									},
+									{
+										"frame":2, "sX":1.200000, "pX":132.000000
+									},
+									{
+										"frame":6, "sY":1.300000, "pX":132.000000
+									},
+									{
+										"frame":10, "sX":1.200000, "pX":132.000000
+									},
+									{
+										"frame":14, "sY":1.100000, "pX":132.000000
+									},
+									{
+										"frame":30, "pX":132.000000
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

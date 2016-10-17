@@ -1,0 +1,34 @@
+
+skill_shockwave_fire.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skill_firecrash_ batting_01
+  rotate: false
+  xy: 2, 2
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: -1
+skill_firecrash_ batting_02
+  rotate: false
+  xy: 344, 2
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: -1
+skill_firecrash_ batting_03
+  rotate: false
+  xy: 686, 2
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: -1
+skill_firecrash_ batting_04
+  rotate: false
+  xy: 1028, 2
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,83 @@
+
+common_mushroom_attendant_earth.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+attendant_body_01
+  rotate: false
+  xy: 438, 73
+  size: 49, 48
+  orig: 49, 48
+  offset: 0, 0
+  index: -1
+attendant_body_02
+  rotate: false
+  xy: 142, 30
+  size: 27, 25
+  orig: 27, 25
+  offset: 0, 0
+  index: -1
+attendant_body_03
+  rotate: false
+  xy: 142, 57
+  size: 80, 64
+  orig: 80, 64
+  offset: 0, 0
+  index: -1
+attendant_body_04
+  rotate: false
+  xy: 2, 21
+  size: 138, 100
+  orig: 138, 100
+  offset: 0, 0
+  index: -1
+attendant_body_05
+  rotate: false
+  xy: 297, 80
+  size: 80, 41
+  orig: 80, 41
+  offset: 0, 0
+  index: -1
+attendant_effect_01
+  rotate: true
+  xy: 379, 77
+  size: 44, 57
+  orig: 44, 57
+  offset: 0, 0
+  index: -1
+attendant_foot_01
+  rotate: false
+  xy: 2, 2
+  size: 15, 17
+  orig: 15, 17
+  offset: 0, 0
+  index: -1
+attendant_foot_02
+  rotate: false
+  xy: 171, 38
+  size: 15, 17
+  orig: 15, 17
+  offset: 0, 0
+  index: -1
+attendant_hand_01
+  rotate: true
+  xy: 489, 97
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+attendant_hand_02
+  rotate: true
+  xy: 489, 71
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+attendant_wepon_01
+  rotate: false
+  xy: 224, 68
+  size: 71, 53
+  orig: 71, 53
+  offset: 0, 0
+  index: -1

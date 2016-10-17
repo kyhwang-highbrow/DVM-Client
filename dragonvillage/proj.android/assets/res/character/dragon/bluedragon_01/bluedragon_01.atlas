@@ -1,0 +1,118 @@
+
+bluedragon_01.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bluedragon_01_arm_01
+  rotate: false
+  xy: 590, 92
+  size: 62, 45
+  orig: 62, 45
+  offset: 0, 0
+  index: -1
+bluedragon_01_arm_02
+  rotate: false
+  xy: 654, 92
+  size: 62, 45
+  orig: 62, 45
+  offset: 0, 0
+  index: -1
+bluedragon_01_bead_01
+  rotate: false
+  xy: 761, 156
+  size: 101, 98
+  orig: 101, 98
+  offset: 0, 0
+  index: -1
+bluedragon_01_bead_02
+  rotate: true
+  xy: 448, 69
+  size: 67, 65
+  orig: 67, 65
+  offset: 0, 0
+  index: -1
+bluedragon_01_bead_03
+  rotate: false
+  xy: 2, 32
+  size: 229, 222
+  orig: 229, 222
+  offset: 0, 0
+  index: -1
+bluedragon_01_bead_04
+  rotate: false
+  xy: 383, 138
+  size: 130, 116
+  orig: 130, 116
+  offset: 0, 0
+  index: -1
+bluedragon_01_body_01
+  rotate: false
+  xy: 515, 139
+  size: 121, 115
+  orig: 121, 115
+  offset: 0, 0
+  index: -1
+bluedragon_01_body_02
+  rotate: false
+  xy: 233, 38
+  size: 87, 70
+  orig: 87, 70
+  offset: 0, 0
+  index: -1
+bluedragon_01_body_03
+  rotate: false
+  xy: 638, 139
+  size: 121, 115
+  orig: 121, 115
+  offset: 0, 0
+  index: -1
+bluedragon_01_eye_01
+  rotate: false
+  xy: 864, 158
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+bluedragon_01_foot_01
+  rotate: false
+  xy: 962, 181
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+bluedragon_01_foot_02
+  rotate: true
+  xy: 515, 87
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+bluedragon_01_head_01
+  rotate: false
+  xy: 233, 110
+  size: 148, 144
+  orig: 148, 144
+  offset: 0, 0
+  index: -1
+bluedragon_01_leg_01
+  rotate: false
+  xy: 322, 35
+  size: 61, 73
+  orig: 61, 73
+  offset: 0, 0
+  index: -1
+bluedragon_01_leg_02
+  rotate: false
+  xy: 385, 63
+  size: 61, 73
+  orig: 61, 73
+  offset: 0, 0
+  index: -1
+bluedragon_01_mouth_01
+  rotate: true
+  xy: 2, 2
+  size: 28, 19
+  orig: 28, 19
+  offset: 0, 0
+  index: -1
