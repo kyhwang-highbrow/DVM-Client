@@ -1,8 +1,0 @@
-//
-// Prefix header for all source files of the 'kakao-cocos2dx-ios-plugin' target in the 'kakao-cocos2dx-ios-plugin' project
-//
-
-#ifdef __OBJC__
-    #import <Foundation/Foundation.h>
-
-#endif

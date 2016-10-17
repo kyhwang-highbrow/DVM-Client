@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Dragon Village</string>
-    <string name="link_cafe">Cafe Link</string>
-    <string name="signin_other_error">There was an issue with sign in. Please try again later.</string>
-</resources>

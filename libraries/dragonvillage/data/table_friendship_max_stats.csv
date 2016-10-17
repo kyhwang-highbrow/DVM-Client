@@ -1,4 +1,0 @@
-stat_type,atk,aspd,cri_chance,def,hp,cri_avoid,hit_rate,avoid,cri_dmg
-atk,2000,40,40,500,10000,10,20,10,100
-def,1000,20,20,1000,20000,20,20,10,100
-tactics,1000,20,20,500,10000,10,40,20,200
