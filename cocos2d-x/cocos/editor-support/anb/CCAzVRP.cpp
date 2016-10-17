@@ -1755,7 +1755,7 @@ void AzVRP_IMPL::releaseSprite()
 	_sprite_pool.resize(count);
 	for (int i = 0; i < count; ++i)
 	{
-		//		CCLOG("%d : sprite name - '%s'", i, _vrp->getSpriteName(i));
+		// CCLOG("%d : sprite name - '%s'", i, _vrp->getSpriteName(i));
 
 		auto& sprite_info = _sprite_pool.at(i);
 		sprite_info._texture = nullptr;
@@ -1773,7 +1773,7 @@ void AzVRP_IMPL::releaseSprite()
 			sprite_frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(filename);
 			if (!sprite_frame)
 			{
-				CCLOG("%d : can not find sprite - '%s'", i, (_sprite_prefix + _vrp->getSpriteName(i)).c_str());
+				// CCLOG("%d : can not find sprite - '%s'", i, (_sprite_prefix + _vrp->getSpriteName(i)).c_str());
 
 				continue;
 			}

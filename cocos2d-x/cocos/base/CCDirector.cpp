@@ -687,7 +687,7 @@ void Director::purgeCachedData(void)
 
         // Note: some tests such as ActionsTest are leaking refcounted textures
         // There should be no test textures left in the cache
-        CCLOG("%s\n", _textureCache->getCachedTextureInfo().c_str());
+        //CCLOG("%s\n", _textureCache->getCachedTextureInfo().c_str());
     }
     FileUtils::getInstance()->purgeCachedEntries();
 }
