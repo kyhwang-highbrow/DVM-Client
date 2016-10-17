@@ -310,24 +310,24 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
             float ratio = longLength / ShortLength;
 
             if (ratio <= 1.41) {
-                ShortLength = 720;
-                longLength = 960;
+                ShortLength = 960;
+                longLength = 1280;
             }
             else if (ratio <= 1.55){
-                ShortLength = 640;
-                longLength = 960;
+                ShortLength = 854;
+                longLength = 1280;
             }
             else if (ratio <= 1.63){
-                ShortLength = 640;
-                longLength = 1024;
+                ShortLength = 800;
+                longLength = 1280;
             }
             else if (ratio <= 1.7){
-                ShortLength = 640;
-                longLength = 1066;
+                ShortLength = 769;
+                longLength = 1280;
             }
             else{
-                ShortLength = 640;
-                longLength = 1138;
+                ShortLength = 720;
+                longLength = 1280;
             }
 
             if (isLandscape == true) {
