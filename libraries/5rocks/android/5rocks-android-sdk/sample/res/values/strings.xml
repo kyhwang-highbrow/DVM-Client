@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">5Rocks SDK Sample</string>
+
+  <string name="section_orientation">Orientation:</string>
+
+  <string name="section_placement">Placements used in this application:</string>
+  <string name="request_placement_content">Request</string>
+  <string name="show_placement_content">Show</string>
+
+  <string name="section_tracking">Event Tracking:</string>
+  <string name="track_event">Track Event</string>
+  <string name="track_exception">Track Exception</string>
+
+</resources>
