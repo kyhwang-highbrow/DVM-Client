@@ -1357,9 +1357,5 @@ function Character:setSpasticity(b)
 
         self.m_isSpasticity = false
         self.m_delaySpasticity = 0
-
-        -- 현재 변경된 쉐이더를 액션에서 되돌리는데 액션이 스톱되는 경우가 있어서 임시 처리...
-        local shader = ShaderCache:getShader(cc.SHADER_POSITION_TEXTURE_COLOR)
-        self.m_animator.m_node:setGLProgram(shader)
     end
 end
