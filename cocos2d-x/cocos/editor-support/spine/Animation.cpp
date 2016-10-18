@@ -74,7 +74,8 @@ void spAnimation_mix (const spAnimation* self, spSkeleton* skeleton, float lastT
 	}
 
 	for (i = 0; i < n; ++i)
-		spTimeline_apply(self->timelines[i], skeleton, lastTime, time, events, eventsCount, alpha);
+		//spTimeline_apply(self->timelines[i], skeleton, lastTime, time, events, eventsCount, alpha);
+        spTimeline_apply(self->timelines[i], skeleton, lastTime, time, events, eventsCount, 1);
 }
 
 /**/
