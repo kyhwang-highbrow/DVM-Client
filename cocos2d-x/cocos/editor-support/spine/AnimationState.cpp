@@ -151,6 +151,8 @@ void spAnimationState_apply (spAnimationState* self, spSkeleton* skeleton) {
 				alpha = 1;
 				internal->disposeTrackEntry(current->previous);
 				current->previous = 0;
+
+                spSkeleton_setToSetupPose(skeleton);
 			}
 			spAnimation_mix(current->animation, skeleton, current->lastTime, time,
 				current->loop, internal->events, &eventsCount, alpha);
