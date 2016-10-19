@@ -33,7 +33,7 @@ function UIC_Button:init(node)
     
     self:setOriginData()
 
-    -- ¹öÆ°ÀÌ enter·Î ÁøÀÔµÇ¾úÀ» ¶§ updateÇÔ¼ö È£Ãâ
+    -- ë²„íŠ¼ì´ enterë¡œ ì§„ì…ë˜ì—ˆì„ ë•Œ updateí•¨ìˆ˜ í˜¸ì¶œ
     node:registerScriptHandler(function(event)
         if (event == 'enter') then
             self.m_node:scheduleUpdateWithPriorityLua(function() self:update() end, 0)
@@ -65,7 +65,7 @@ end
 
 -------------------------------------
 -- function setOriginData
--- @brief ÇöÀç ¹öÆ°ÀÇ À§Ä¡¿Í ½ºÄÉÀÏÀ» ÀúÀå
+-- @brief í˜„ì¬ ë²„íŠ¼ì˜ ìœ„ì¹˜ì™€ ìŠ¤ì¼€ì¼ì„ ì €ì¥
 -------------------------------------
 function UIC_Button:setOriginData()
     local node = self.m_node
@@ -84,7 +84,7 @@ end
 function UIC_Button:update(dt)
     local node = self.m_node
 
-    -- ÇöÀç ¹öÆ° »óÅÂ Ã¼Å©
+    -- í˜„ì¬ ë²„íŠ¼ ìƒíƒœ ì²´í¬
     local curr_state
     local is_enabled = node:isEnabled()
     local is_selected = node:isSelected()
@@ -98,7 +98,7 @@ function UIC_Button:update(dt)
         curr_state = UIC_BUTTON_DISABLE
     end
 
-    -- »óÅÂ°¡ º¯°æµÇ¾úÀ» °æ¿ì º¯°æ ¾×¼Ç Ã³¸®
+    -- ìƒíƒœê°€ ë³€ê²½ë˜ì—ˆì„ ê²½ìš° ë³€ê²½ ì•¡ì…˜ ì²˜ë¦¬
     if (curr_state ~= self.m_buttonState) then
         self.m_buttonState = curr_state
         self:onButtonStateChange(curr_state)
@@ -121,28 +121,28 @@ end
 function UIC_Button:onButtonStateChange(button_state)
     local node = self.m_node
 
-    -- ½ÇÇàÁßÀÎ ¾×¼Ç stop
+    -- ì‹¤í–‰ì¤‘ì¸ ì•¡ì…˜ stop
     local action = node:getActionByTag(UIC_BUTTON_ACTION_TAG);
     if action then
         node:stopAction(action)
     end
 
-    -- ºñÈ°¼ºÈ­ ½Ã
+    -- ë¹„í™œì„±í™” ì‹œ
     if (button_state == UIC_BUTTON_DISABLE) then
         node:setPosition(self.m_originPosX, self.m_originPosY)
         node:setScale(self.m_originScaleX, self.m_originScaleY)
 
-    -- ÀÏ¹İ »óÅÂ
+    -- ì¼ë°˜ ìƒíƒœ
     elseif (button_state == UIC_BUTTON_NORMAL) then
         node:setPosition(self.m_originPosX, self.m_originPosY)
         node:setScale(self.m_originScaleX, self.m_originScaleY)
 
-    -- ´­·ÁÁø »óÅÂ
+    -- ëˆŒë ¤ì§„ ìƒíƒœ
     elseif (button_state == UIC_BUTTON_SELECTED) then
         node:setPosition(self.m_originPosX, self.m_originPosY)
         node:setScale(self.m_originScaleX * 0.9, self.m_originScaleY * 0.9)
 
-        -- ´­·ÁÁø ¾×¼Ç
+        -- ëˆŒë ¤ì§„ ì•¡ì…˜
         local sequence = cc.Sequence:create(cc.MoveTo:create(0.05, cc.p(self.m_originPosX-2, self.m_originPosY)),
             cc.MoveTo:create(0.05, cc.p(self.m_originPosX, self.m_originPosY)),
             cc.MoveTo:create(0.05, cc.p(self.m_originPosX + 2, self.m_originPosY)),
@@ -151,18 +151,18 @@ function UIC_Button:onButtonStateChange(button_state)
         action:setTag(UIC_BUTTON_ACTION_TAG)
         node:runAction(action)
     
-    -- Å¬¸¯µÈ »óÅÂ
+    -- í´ë¦­ëœ ìƒíƒœ
     elseif (button_state == UIC_BUTTON_CLICK) then
         node:setPosition(self.m_originPosX, self.m_originPosY)
         node:setScale(self.m_originScaleX * 0.9, self.m_originScaleY * 0.9)
 
-        -- Å¬¸¯ ¾×¼Ç
+        -- í´ë¦­ ì•¡ì…˜
         local action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, self.m_originScaleX, self.m_originScaleY), 0.3)
         action:setTag(UIC_BUTTON_ACTION_TAG)
         node:runAction(action)
     end
 
-    -- CLICK»óÅÂÀÏ °æ¿ì NORMAL·Î °­Á¦·Î º¯°æ(¾×¼Ç Á¾·á ÈÄ ÀÚµ¿ Á¤¸®)
+    -- CLICKìƒíƒœì¼ ê²½ìš° NORMALë¡œ ê°•ì œë¡œ ë³€ê²½(ì•¡ì…˜ ì¢…ë£Œ í›„ ìë™ ì •ë¦¬)
     if (button_state == UIC_BUTTON_CLICK) then
         self.m_buttonState = UIC_BUTTON_NORMAL
     end

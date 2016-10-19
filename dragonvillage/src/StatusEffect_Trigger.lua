@@ -17,7 +17,7 @@ end
 
 -------------------------------------
 -- function init_trigger
--- @brief Æ®¸®°Å ¼³Á¤ÇÏ°í ½ÃÀüÀÚ ÀúÀå
+-- @brief íŠ¸ë¦¬ê±° ì„¤ì •í•˜ê³  ì‹œì „ì ì €ì¥
 -------------------------------------
 function StatusEffect_Trigger:init_trigger(trigger_name, char)
 	self.m_triggerName = trigger_name
