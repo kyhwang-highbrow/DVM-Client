@@ -70,7 +70,13 @@ function UI_LobbyNew:initUI()
 
     self:addCameraLayer(5, 'res/lobby/05.png', 0.60, nil, 0, 0)
     self:addCameraLayer(6, 'res/lobby/06.png', 0.80, nil, 0, 0)
-    self:addCameraLayer(7, 'res/lobby/07.png', 1.00, nil, 0, 0)
+    local node = self:addCameraLayer(7, 'res/lobby/07.png', 1.00, nil, 0, 0)
+    do
+        local tamer = MakeAnimator('res/character/tamer/leon_i/leon_i.spine')
+        tamer:changeAni('idle', true)
+        tamer:setPosition(-400, -100)
+        node:addChild(tamer.m_node)
+    end
 
     --[[
     self:addCameraLayer('res/lobby/00.png', 0)
@@ -140,6 +146,8 @@ function UI_LobbyNew:addCameraLayer(layer_idx, res, perspective_ratio, perspecti
     if (layer_idx == 1) then
         
     end
+
+    return node
 end
 
 -------------------------------------
