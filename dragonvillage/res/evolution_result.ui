@@ -218,7 +218,7 @@
 			normal = 'ui/btn/base_0201.png';
 			selected = 'ui/btn/base_0202.png';
 			disable = '';
-			image_type = 0;
+			image_type = 1;
 		};
 		type = 'Menu';
 		ui_name = '';

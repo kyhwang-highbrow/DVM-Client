@@ -694,7 +694,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -5.000000;
+				y = 5.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -746,8 +746,8 @@
 			visible = true;
 			lua_name = 'okBtn';
 			enable = true;
-			normal = 'ui/btn/base_0101.png';
-			selected = 'ui/btn/base_0102.png';
+			normal = 'ui/btn/base_0201.png';
+			selected = 'ui/btn/base_0202.png';
 			disable = '';
 			image_type = 1;
 		};

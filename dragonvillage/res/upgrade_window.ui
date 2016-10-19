@@ -333,7 +333,7 @@
 			normal = 'ui/btn/base_0201.png';
 			selected = 'ui/btn/base_0202.png';
 			disable = 'ui/btn/base_0205.png';
-			image_type = 0;
+			image_type = 1;
 		};
 		[7] =
 		{

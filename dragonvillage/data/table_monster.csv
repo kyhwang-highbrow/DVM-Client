@@ -1,5 +1,5 @@
 id,t_name,type,res,scale,rarity,size_type,icon,attr,target_formation,coin,skill_basic,skill_1,skill_type_1,skill_2,skill_type_2,skill_3,skill_type_3,skill_4,skill_type_4,skill_5,skill_type_5,skill_6,skill_type_6,skill_7,skill_type_7,skill_8,skill_type_8,skill_9,skill_type_9,atk_max,def_max,hp_max,aspd_max,aspd_abs,cri_chance_max,cri_dmg_max,cri_avoid_max,hit_rate_max,avoid_max,char_score
-130001,몬스터 수호병,swordman,res/character/monster/swordman_@/swordman_@.spine,0.8,common,s,x,earth,front,2,230001,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,633,3450,10455,0,15,100,10,10,20,39.17,40.23
+130001,몬스터 수호병,swordman,res/character/monster/swordman_@/swordman_@.spine,0.8,common,s,x,earth,front,2,230001,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,467,3450,19940,0,15,100,10,10,20,40.91,40.23
 130002,몬스터 궁병,archer,res/character/monster/archer_@/archer_@.spine,0.75,common,s,x,earth,front,2,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,800,2450,5955,10,20,150,5,35,40,40.95,42.17
 130003,몬스터 마법사,mage,res/character/monster/mage_@/mage_@.spine,0.75,common,s,x,earth,front,2,230006,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,967,1450,4455,30,15,200,7,20,35,39.69,40.76
 130004,몬스터 창병,spearman,res/character/monster/spearman_@/spearman_@.spine,0.75,common,s,x,earth,front,2,230003,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,633,1700,8955,0,25,100,7,25,45,39.3,40.34
@@ -15,7 +15,7 @@ id,t_name,type,res,scale,rarity,size_type,icon,attr,target_formation,coin,skill_
 130014,부엉이,owl,res/character/monster/common_owl_earth/common_owl_earth.spine,1,common,s,x,earth,front,2,230030,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,800,3250,10455,0,0,25,150,20,10,20,46.04
 130015,버섯 노예,mushroom_slave,res/character/monster/mushroom_slave_1/mushroom_slave_1.spine,1,common,s,x,earth,front,0,230023,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,800,2450,2475,0,0,25,100,5,10,10,34.99
 130016,버섯 노예,mushroom_slave,res/character/monster/mushroom_slave_2/mushroom_slave_2.spine,1,common,s,x,earth,front,0,230023,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,800,2450,2475,0,0,25,100,5,10,10,34.99
-131001,몬스터 수호병,swordman,res/character/monster/swordman_@/swordman_@.spine,1,common,s,x,water,front,2,230001,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,633,3450,10455,0,15,100,10,10,20,39.17,40.23
+131001,몬스터 수호병,swordman,res/character/monster/swordman_@/swordman_@.spine,1,common,s,x,water,front,2,230001,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,467,3450,19940,0,15,100,10,10,20,40.91,40.23
 131002,몬스터 궁병,archer,res/character/monster/archer_@/archer_@.spine,1,common,s,x,water,front,2,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,800,2450,5955,10,20,150,5,35,40,40.95,42.17
 131003,몬스터 마법사,mage,res/character/monster/mage_@/mage_@.spine,1,common,s,x,water,front,2,230006,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,967,1450,4455,30,15,200,7,20,35,39.69,40.76
 131004,몬스터 창병,spearman,res/character/monster/spearman_@/spearman_@.spine,1,common,s,x,water,front,2,230003,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,633,1700,8955,0,25,100,7,25,45,39.3,40.34
@@ -30,11 +30,11 @@ id,t_name,type,res,scale,rarity,size_type,icon,attr,target_formation,coin,skill_
 131013,심해 상어 제독,sharkadmiral,res/character/monster/subboss_sharkadmiral_water/subboss_sharkadmiral_water.spine,1,subboss,l,x,water,front,8,230001,230046,x,230049,passive,230037,x,230047,x,x,x,x,x,x,x,x,x,x,x,3400,2950,87125,0,0,25,100,15,0,45,67.17
 131014,드레이크,drake,res/character/monster/boss_drake_water/boss_drake_water.spine,1,boss,xl,x,water,front,10,230001,230046,x,230047,x,230048,x,230038,x,x,x,x,x,x,x,x,x,x,x,3900,2950,104550,0,0,25,100,15,0,45,72.16
 131015,심해 상어 전사(소환),sharkwarrior_summon,res/character/monster/elite_sharkwarrior_water/elite_sharkwarrior_water.spine,1,elite,m,x,water,front,2,230039,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,1450,2450,6970,0,0,25,100,15,0,45,61.08
-132001,몬스터 수호병,swordman,res/character/monster/swordman_@/swordman_@.spine,1,common,s,x,water,front,2,230001,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,633,3450,10455,0,15,100,10,10,20,39.17,40.23
-132002,몬스터 궁병,archer,res/character/monster/archer_@/archer_@.spine,1,common,s,x,water,front,2,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,800,2450,5955,10,20,150,5,35,40,40.95,42.17
-132003,몬스터 마법사,mage,res/character/monster/mage_@/mage_@.spine,1,common,s,x,water,front,2,230006,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,967,1450,4455,30,15,200,7,20,35,39.69,40.76
-132004,몬스터 창병,spearman,res/character/monster/spearman_@/spearman_@.spine,1,common,s,x,water,front,2,230003,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,633,1700,8955,0,25,100,7,25,45,39.3,40.34
-132005,몬스터 치유사,priest,res/character/monster/priest_@/priest_@.spine,1,common,s,x,water,front,3,230007,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,1300,2200,4455,20,15,100,9,30,30,39.5,40.95
-132006,몬스터 포병,bomber,res/character/monster/bomber_@/bomber_@.spine,1,common,s,x,water,front,3,230008,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,800,2450,8955,10,15,100,10,35,15,38.38,39.26
+132001,몬스터 수호병,swordman,res/character/monster/swordman_@/swordman_@.spine,1,common,s,x,fire,front,2,230001,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,467,3450,19940,0,15,100,10,10,20,40.91,40.23
+132002,몬스터 궁병,archer,res/character/monster/archer_@/archer_@.spine,1,common,s,x,fire,front,2,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,800,2450,5955,10,20,150,5,35,40,40.95,42.17
+132003,몬스터 마법사,mage,res/character/monster/mage_@/mage_@.spine,1,common,s,x,fire,front,2,230006,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,967,1450,4455,30,15,200,7,20,35,39.69,40.76
+132004,몬스터 창병,spearman,res/character/monster/spearman_@/spearman_@.spine,1,common,s,x,fire,front,2,230003,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,633,1700,8955,0,25,100,7,25,45,39.3,40.34
+132005,몬스터 치유사,priest,res/character/monster/priest_@/priest_@.spine,1,common,s,x,fire,front,3,230007,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,1300,2200,4455,20,15,100,9,30,30,39.5,40.95
+132006,몬스터 포병,bomber,res/character/monster/bomber_@/bomber_@.spine,1,common,s,x,fire,front,3,230008,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,800,2450,8955,10,15,100,10,35,15,38.38,39.26
+132040,코카트리스,cockatrice,res/character/monster/boss_cockatrice_@/boss_cockatrice_@.spine,1,boss,xl,x,fire,front,10,230050,230051,x,230052,x,230053,x,x,x,x,x,x,x,x,x,x,x,x,x,3900,2950,104550,0,0,25,100,15,0,45,72.16
 140001,불의 거대 용,giantdragon,res/character/monster/boss_giantdragon_@/boss_giantdragon_@.spine,1,boss,xl,x,fire,front,15,240001,240002,x,240003,x,240004,x,240005,x,240006,x,240007,x,240008,x,240009,x,x,x,4950,2451,748500,50,50,27.5,150,15,50,47.5,0
-139999,야근몬,yageunmon,res/character/monster/common_mushroom_attendant_earth/common_mushroom_attendant_earth.spine,2,boss,xl,x,fire,front,100,230001,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,0,0,999999999,0,0,0,0,0,0,0,0
