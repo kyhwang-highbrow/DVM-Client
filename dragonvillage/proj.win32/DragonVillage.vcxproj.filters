@@ -880,6 +880,12 @@
     <None Include="..\src\UI_DragonEvolutionPopup.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UIC_Node.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UIC_Button.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

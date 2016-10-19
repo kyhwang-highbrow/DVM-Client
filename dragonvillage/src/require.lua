@@ -248,6 +248,10 @@ local t_module = {
     'UI_NestDragonDungeonListItem',
     'UI_NestDungeonStageSelectPopup',
 
+    -- UIC (UI Component)
+    'UIC_Node',
+    'UIC_Button',
+
     'DamageCalc',
     'IconHelper',
     'AnimatorHelper',

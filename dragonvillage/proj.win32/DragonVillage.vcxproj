@@ -472,6 +472,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TamerSkillSystem.lua" />
     <None Include="..\src\Thunder.lua" />
     <None Include="..\src\TriggerHpPercent.lua" />
+    <None Include="..\src\UIC_Button.lua" />
+    <None Include="..\src\UIC_Node.lua" />
     <None Include="..\src\uilib\Notification.lua" />
     <None Include="..\src\uilib\TableView.lua" />
     <None Include="..\src\uilib\UI.lua" />

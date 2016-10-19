@@ -314,6 +314,7 @@ local function loadNode(ui, data, vars, parent)
     end
 
     local node
+    local delegator
     local type = data.type
     local var = data.lua_name
 
@@ -451,6 +452,7 @@ local function loadNode(ui, data, vars, parent)
             , data.image_type or 0
             )
         setPropsForButton(node, data)
+        delegator = UIC_Button(node)
     elseif type == 'TableView' then
         local tableView = cc.TableView:create(cc.size(data.view_width, data.view_height))
         node = TableViewTD.create(tableView)
@@ -530,7 +532,12 @@ local function loadNode(ui, data, vars, parent)
         if vars[var] ~= nil then
             cclog('duplicate var name: ' .. var)
         end
-        vars[var] = node
+
+        if delegator then
+            vars[var] = delegator
+        else
+            vars[var] = node
+        end
     end
 
     return node
