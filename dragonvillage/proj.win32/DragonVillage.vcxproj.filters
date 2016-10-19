@@ -643,9 +643,6 @@
     <None Include="..\src\UI_InventoryFruitPopup.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_FruitListItem.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\DataFriendship.lua">
       <Filter>lua</Filter>
     </None>

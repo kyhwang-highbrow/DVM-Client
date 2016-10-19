@@ -47,3 +47,11 @@ end
 function UIC_Node:convertToNodeSpaceAR(pos)
     return self.m_node:convertToNodeSpaceAR(pos)
 end
+
+function UIC_Node:runAction(action)
+    return self.m_node:runAction(action)
+end
+
+function UIC_Node:stopAllActions()
+    return self.m_node:stopAllActions()
+end

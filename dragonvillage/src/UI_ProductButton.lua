@@ -286,7 +286,6 @@ function UI_ProductButton:nagativeAction()
 
     local start_action = cc.MoveTo:create(0.05, cc.p(-20, 0))
     local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.5, cc.p(0, 0)), 0.2)
-    node:stopAllActions()
     node:runAction(cc.Sequence:create(start_action, end_action))
 end
 

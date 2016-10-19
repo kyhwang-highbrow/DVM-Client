@@ -242,7 +242,6 @@ local t_module = {
     'UI_SkillCard',
     'UI_Tooltip_Skill',
     'UI_DragonGachaResult',
-    'UI_FruitListItem',
     'UI_GuidePopup',
     'UI_NestDungeonScene',
     'UI_NestDragonDungeonListItem',
