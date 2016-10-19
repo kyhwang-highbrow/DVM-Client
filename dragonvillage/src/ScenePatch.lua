@@ -119,8 +119,6 @@ function ScenePatch:click_screenBtn()
         return
     end
 
-    SoundMgr:playEffect('EFFECT', 'ui_button')
-
     -- @TODO global function finishiPatch는 어디있나요?
     --finishPatch()
     local scene = SceneLobby()

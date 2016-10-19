@@ -112,7 +112,6 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_DragonManageScene:click_exitBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     if self.m_tempCondition then 
         UI.close(self)
     else
@@ -126,7 +125,6 @@ end
 -- @brief 상세보기
 -------------------------------------
 function UI_DragonManageScene:click_expandBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     local dragon_id = self.m_selectDragonButton.m_dataDragonID
     UI_DragonDetailPopup(dragon_id)
 end
@@ -136,7 +134,6 @@ end
 -- @brief 도움말 오픈
 -------------------------------------
 function UI_DragonManageScene:click_helpBtn(type)
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     MakeGuidePopup(type)
 end
 
@@ -145,7 +142,6 @@ end
 -- @brief 대표 드래곤 설정
 -------------------------------------
 function UI_DragonManageScene:click_leaderBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     UIManager:toastNotificationRed('"대표 드래곤 설정" 미구현')
 end
 
@@ -154,7 +150,6 @@ end
 -- @brief 드래곤 평가
 -------------------------------------
 function UI_DragonManageScene:click_assessBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     UIManager:toastNotificationRed('"드래곤 평가" 미구현')
 end
 
@@ -163,8 +158,6 @@ end
 -- @brief 승급 버튼
 -------------------------------------
 function UI_DragonManageScene:click_upgradeBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
-
     local function close_cb()
         self:refreshSelectDragonInfo()
     end
@@ -178,9 +171,7 @@ end
 -- function click_evolutionBtn
 -- @brief 진화 버튼
 -------------------------------------
-function UI_DragonManageScene:evolutionBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
-    
+function UI_DragonManageScene:evolutionBtn()    
     local function close_cb()
         self:refreshSelectDragonInfo()
     end
@@ -194,9 +185,7 @@ end
 -- function click_friendshipBtn
 -- @brief 친밀도 버튼
 -------------------------------------
-function UI_DragonManageScene:click_friendshipBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
-    
+function UI_DragonManageScene:click_friendshipBtn()   
     local function close_cb()
         self:refreshSelectDragonInfo()
     end

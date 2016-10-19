@@ -31,7 +31,6 @@ end
 -------------------------------------
 function UI_ClassForm:close()
     if not self.enable then return end
-    SoundMgr:playEffect('EFFECT', 'ui_button')
 
     local function finish_cb()
         UI.close(self)

@@ -59,7 +59,7 @@ end
 -------------------------------------
 function UI_DragonDetailPopup:initButton()
     local vars = self.vars
-    vars['closeBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') self:close() end)
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
 -------------------------------------

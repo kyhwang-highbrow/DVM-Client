@@ -20,12 +20,15 @@ UIC_Button = class(PARENT, {
         m_originScaleY = 'number',
 
         m_buttonState = 'number',
+
+        m_clickSoundName = 'string',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UIC_Button:init(node)
+    self.m_clickSoundName = 'ui_button'
     self.m_node:registerScriptTapHandler(function() UIC_Button.tapHandler(self) end)
     
     self:setOriginData()
@@ -42,8 +45,11 @@ end
 -- function tapHandler
 -------------------------------------
 function UIC_Button.tapHandler(self)
-    self.m_buttonState = UIC_BUTTON_CLICK
-    self:onButtonStateChange(self.m_buttonState)
+    if self.m_clickSoundName then
+        SoundMgr:playEffect('EFFECT', self.m_clickSoundName)
+    end
+
+    self:setClickButtonState()
 
     if self.m_clickFunc then
         self.m_clickFunc()
@@ -100,6 +106,15 @@ function UIC_Button:update(dt)
 end
 
 -------------------------------------
+-- function setClickButtonState
+-- @brief
+-------------------------------------
+function UIC_Button:setClickButtonState()
+    self.m_buttonState = UIC_BUTTON_CLICK
+    self:onButtonStateChange(self.m_buttonState)
+end
+
+-------------------------------------
 -- function onButtonStateChange
 -- @brief
 -------------------------------------
@@ -124,11 +139,14 @@ function UIC_Button:onButtonStateChange(button_state)
 
     -- 눌려진 상태
     elseif (button_state == UIC_BUTTON_SELECTED) then
-        node:setPosition(self.m_originPosX + 2, self.m_originPosY)
+        node:setPosition(self.m_originPosX, self.m_originPosY)
         node:setScale(self.m_originScaleX * 0.9, self.m_originScaleY * 0.9)
 
         -- 눌려진 액션
-        local sequence = cc.Sequence:create(cc.MoveTo:create(0.1, cc.p(self.m_originPosX-2, self.m_originPosY)), cc.MoveTo:create(0.1, cc.p(self.m_originPosX + 2, self.m_originPosY)))
+        local sequence = cc.Sequence:create(cc.MoveTo:create(0.05, cc.p(self.m_originPosX-2, self.m_originPosY)),
+            cc.MoveTo:create(0.05, cc.p(self.m_originPosX, self.m_originPosY)),
+            cc.MoveTo:create(0.05, cc.p(self.m_originPosX + 2, self.m_originPosY)),
+            cc.MoveTo:create(0.05, cc.p(self.m_originPosX, self.m_originPosY)))
         local action = cc.RepeatForever:create(sequence)
         action:setTag(UIC_BUTTON_ACTION_TAG)
         node:runAction(action)

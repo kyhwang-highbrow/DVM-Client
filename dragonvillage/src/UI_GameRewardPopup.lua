@@ -29,7 +29,7 @@ function UI_GameRewardPopup:init(l_drop_item_list)
     vars['retryBtn']:registerScriptTapHandler(function() self:click_retryBtn() end)
     vars['backBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
 
-    vars['boxBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') self:step2() end)
+    vars['boxBtn']:registerScriptTapHandler(function() self:step2() end)
 
     self:step1()
 
@@ -156,7 +156,6 @@ end
 -- function click_nextBtn
 -------------------------------------
 function UI_GameRewardPopup:click_nextBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     local scene = SceneAdventure()
     scene:runScene()
 end
@@ -165,7 +164,6 @@ end
 -- function click_retryBtn
 -------------------------------------
 function UI_GameRewardPopup:click_retryBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     -- 현재 g_currScene은 SceneGame이어야 한다
     local stage_name = g_currScene.m_stageName
 
@@ -177,7 +175,6 @@ end
 -- function click_backBtn
 -------------------------------------
 function UI_GameRewardPopup:click_backBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     local scene = SceneLobby()
     scene:runScene()
 end

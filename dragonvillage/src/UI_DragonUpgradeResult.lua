@@ -100,6 +100,5 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_DragonUpgradeResult:click_exitBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:close()
 end

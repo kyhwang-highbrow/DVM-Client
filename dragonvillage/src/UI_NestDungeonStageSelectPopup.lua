@@ -41,7 +41,6 @@ end
 -------------------------------------
 function UI_NestDungeonStageSelectPopup:close()
     if not self.enable then return end
-    SoundMgr:playEffect('EFFECT', 'ui_button')
 
     local function finish_cb()
         UI.close(self)
@@ -122,7 +121,6 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_NestDungeonStageSelectPopup:click_exitBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:close()
 end
 
@@ -130,8 +128,6 @@ end
 -- function click_dragonDungeonBtn
 -------------------------------------
 function UI_NestDungeonStageSelectPopup:click_dragonDungeonBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
-
     local stage_id = 21010
     local function cb_start_button()
         local stage_name = 'stage_' .. stage_id

@@ -66,6 +66,5 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_DragonEvolutionResult:click_exitBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:close()
 end

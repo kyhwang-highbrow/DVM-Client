@@ -28,7 +28,7 @@ function UI_GuidePopup:init(tab_name)
 
     -- '닫기' 버튼
 	if vars['closeBtn'] then
-	    vars['closeBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') self:close() end)
+	    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 	end
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_GuidePopup')
@@ -178,7 +178,6 @@ end
 -- function click_prevBtn
 -------------------------------------
 function UI_GuidePopup:click_prevBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     if (1 < self.m_currPage) then
         self:changePage(self.m_currPage - 1)
     end
@@ -188,7 +187,6 @@ end
 -- function click_nextBtn
 -------------------------------------
 function UI_GuidePopup:click_nextBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     if (self.m_currPage < self.m_maxPage) then
         self:changePage(self.m_currPage + 1)
     end

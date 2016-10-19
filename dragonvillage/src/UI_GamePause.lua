@@ -37,7 +37,6 @@ end
 -- function click_homeButton
 -------------------------------------
 function UI_GamePause:click_homeButton()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     local scene = SceneAdventure()
     scene:runScene()
 end
@@ -46,7 +45,6 @@ end
 -- function click_retryButton
 -------------------------------------
 function UI_GamePause:click_retryButton()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     -- 현재 g_currScene은 SceneGame이어야 한다
     local stage_name = g_currScene.m_stageName
 
@@ -58,7 +56,6 @@ end
 -- function click_continueButton
 -------------------------------------
 function UI_GamePause:click_continueButton()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     if self.m_endCB then
         self.m_endCB()
     end

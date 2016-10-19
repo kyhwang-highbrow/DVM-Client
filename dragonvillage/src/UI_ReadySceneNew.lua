@@ -85,7 +85,6 @@ function UI_ReadySceneNew:initUI()
     vars['teamBtn2']:registerScriptTapHandler(function() self:message() end)
     vars['teamBtn3']:registerScriptTapHandler(function() self:message() end)
     vars['manageBtn']:registerScriptTapHandler(function()
-        SoundMgr:playEffect('EFFECT', 'ui_button')
         -- @TODO 임시로  
         -- local scene = SceneDragonManage()
         -- scene:runScene()
@@ -134,7 +133,6 @@ function UI_ReadySceneNew:click_exitBtn()
         return
     end
 
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:close()
 end
 
@@ -142,7 +140,6 @@ end
 -- function message
 -------------------------------------
 function UI_ReadySceneNew:message()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     UIManager:toastNotificationRed('미구현 기능입니다.')
 end
 
@@ -284,7 +281,6 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew:click_stagePrevBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     local stage_id = self.m_stageID
     local difficulty, chapter, stage = parseAdventureID(stage_id)
 
@@ -302,7 +298,6 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew:click_stageNextBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     local stage_id = self.m_stageID
     local difficulty, chapter, stage = parseAdventureID(stage_id)
 
@@ -323,7 +318,6 @@ end
 -- @breif "친구 선택"창 닫기
 -------------------------------------
 function UI_ReadySceneNew:click_friendSelectCloseBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self.vars['friendSelectNode']:setVisible(false)
 end
 
@@ -332,7 +326,6 @@ end
 -- @breif 덱 변경창 닫기
 -------------------------------------
 function UI_ReadySceneNew:click_changeCloseBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self.vars['changeNode']:setVisible(false)
 end
 
@@ -341,7 +334,6 @@ end
 -- @breif 덱 변경 버튼
 -------------------------------------
 function UI_ReadySceneNew:click_changeBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     local visible = self.vars['changeNode']:isVisible()
 
     if visible then
@@ -357,8 +349,6 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew:click_autoBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
-
     -- 장착된 드래곤을 해제하는 과정 (장착된 드래곤이 click_deckDragonItem 안에서 해제됨)
     for _,dragon_id in pairs(g_dragonListData.m_lDragonDeck) do
         self:click_deckDragonItem(dragon_id)
@@ -400,7 +390,6 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew:click_startBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     local visible = self.vars['friendSelectNode']:isVisible()
 
     -- 임시로 친구선책 제외
@@ -532,7 +521,6 @@ end
 -- @breif 드래곤 아이콘 클릭(리스트에 있는 것과 덱에 있는 것 동일)
 -------------------------------------
 function UI_ReadySceneNew:click_deckDragonItem(dragon_id)
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     dragon_id = tostring(dragon_id)
 
     local setted, idx = g_dragonListData:isSettedDargon(dragon_id)

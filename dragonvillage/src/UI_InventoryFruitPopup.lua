@@ -136,7 +136,6 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_InventoryFruitPopup:click_exitBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:close()
 end
 
@@ -230,7 +229,6 @@ end
 -- @breif
 -------------------------------------
 function UI_InventoryFruitPopup:click_fruitListItem(fruit_full_type)
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     if (self.m_selectedFruitFullType == fruit_full_type) then
         return
     end
@@ -293,7 +291,6 @@ end
 -- @breif 열매 교환 갯수 버튼 1개
 -------------------------------------
 function UI_InventoryFruitPopup:click_oneBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:setUpgradeCount(1)
 end
 
@@ -302,7 +299,6 @@ end
 -- @breif 열매 교환 갯수 버튼 5개
 -------------------------------------
 function UI_InventoryFruitPopup:click_fiveBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:setUpgradeCount(5)
 end
 
@@ -311,7 +307,6 @@ end
 -- @breif 열매 교환 갯수 버튼 25개
 -------------------------------------
 function UI_InventoryFruitPopup:click_twentyFiveBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:setUpgradeCount(25)
 end
 
@@ -320,7 +315,6 @@ end
 -- @breif 열매 교환 갯수 버튼 50개
 -------------------------------------
 function UI_InventoryFruitPopup:click_fiftyBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:setUpgradeCount(50)
 end
 
@@ -328,9 +322,7 @@ end
 -- function click_upgradeBtn
 -- @breif
 -------------------------------------
-function UI_InventoryFruitPopup:click_upgradeBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
-    
+function UI_InventoryFruitPopup:click_upgradeBtn()    
     if (not self.m_selectedFruitFullType) then
         return false
     end

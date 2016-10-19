@@ -363,7 +363,6 @@ end
 -- @brief "보유 진화석" 버튼 클릭
 -------------------------------------
 function UI_DragonEvolutionPopup:click_invenBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     UI_InventoryEvolutionStonePopup()
 end
 
@@ -372,7 +371,6 @@ end
 -- @brief "진화" 버튼 클릭
 -------------------------------------
 function UI_DragonEvolutionPopup:click_okBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     local dragon_id = self.m_evolutionDragonID
     
     local success, l_invalid_data = g_dragonListData:evolutionDragon(dragon_id)
@@ -391,7 +389,6 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_DragonEvolutionPopup:click_exitBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:close()
 end
 

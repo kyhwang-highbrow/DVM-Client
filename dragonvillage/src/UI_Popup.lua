@@ -226,8 +226,9 @@ end
 -------------------------------------
 function UI_Popup:initUIComponent_OK()
     -- ok 버튼
-    local o_button = self:makeOButton()
-    o_button:setPositionX(0)
+    local x = 0
+    local y = nil -- 기본 위치를 사용
+    local o_button = self:makeOButton(x, y)
 end
 
 -------------------------------------
@@ -245,21 +246,22 @@ end
 -- function makeOButton
 -- @brief
 -------------------------------------
-function UI_Popup:makeOButton()
+function UI_Popup:makeOButton(x, y)
     local node = cc.MenuItemImage:create()
     node:setNormalSpriteFrame(cc.SpriteFrameCache:getInstance():getSpriteFrame('popup_btn01.png'))
     node:setSelectedSpriteFrame(cc.SpriteFrameCache:getInstance():getSpriteFrame('popup_btn03.png'))
 
     node:setDockPoint(cc.p(0.5, 0.5))
     node:setAnchorPoint(cc.p(0.5, 0.5))
-    node:setPosition(85, -281)
+    node:setPosition(x or 85, y or -281)
     self.m_rootMenu:addChild(node)
-    node:registerScriptTapHandler(function()
+
+    local uic_button = UIC_Button(node)
+    uic_button:registerScriptTapHandler(function()
         if (not self.enable) then
             return
         end
 
-        SoundMgr:playEffect('EFFECT', 'ui_button')
         self:closePopup(self.m_cbOKBtn)
     end)
 
@@ -270,21 +272,22 @@ end
 -- function makeXButton
 -- @brief
 -------------------------------------
-function UI_Popup:makeXButton()
+function UI_Popup:makeXButton(x, y)
     local node = cc.MenuItemImage:create()
     node:setNormalSpriteFrame(cc.SpriteFrameCache:getInstance():getSpriteFrame('popup_btn02.png'))
     node:setSelectedSpriteFrame(cc.SpriteFrameCache:getInstance():getSpriteFrame('popup_btn04.png'))
 
     node:setDockPoint(cc.p(0.5, 0.5))
     node:setAnchorPoint(cc.p(0.5, 0.5))
-    node:setPosition(-85, -281)
+    node:setPosition(x or -85, y or -281)
     self.m_rootMenu:addChild(node)
-    node:registerScriptTapHandler(function()
+
+    local uic_button = UIC_Button(node)
+    uic_button:registerScriptTapHandler(function()
         if (not self.enable) then
             return
         end
-            
-        SoundMgr:playEffect('EFFECT', 'ui_button')
+
         self:closePopup(self.m_cbCancelBtn)
     end)
 

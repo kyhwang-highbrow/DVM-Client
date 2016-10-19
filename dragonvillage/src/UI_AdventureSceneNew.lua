@@ -35,8 +35,8 @@ function UI_AdventureSceneNew:init()
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end) -- 다음 챕터
     vars['selectBtn']:registerScriptTapHandler(function() self:click_selectBtn() end) -- 챕터 선택
 
-    vars['normalBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') UIManager:toastNotificationRed('미구현 기능입니다.') end)
-    vars['hardBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') UIManager:toastNotificationRed('미구현 기능입니다.') end)
+    vars['normalBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
+    vars['hardBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
     
     self:doActionReset()
     self:doAction()
@@ -102,7 +102,6 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_AdventureSceneNew:click_exitBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     local scene = SceneLobby()
     scene:runScene()
 end
@@ -118,7 +117,6 @@ end
 -- function click_prevBtn
 -------------------------------------
 function UI_AdventureSceneNew:click_prevBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:refreshChapter(self.m_currChapter - 1)
 end
 
@@ -126,7 +124,6 @@ end
 -- function click_nextBtn
 -------------------------------------
 function UI_AdventureSceneNew:click_nextBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:refreshChapter(self.m_currChapter + 1)
 end
 
@@ -135,7 +132,6 @@ end
 -- @brief 챕터 선택 팝업
 -------------------------------------
 function UI_AdventureSceneNew:click_selectBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     local ui = UI_AdventureChapterSelectPopup(self.m_currChapter)
     ui.m_cbFunction = function(chapter) self:refreshChapter(chapter, true) end
 end
@@ -377,7 +373,6 @@ end
 -- @brief
 -------------------------------------
 function UI_AdventureSceneNew:click_firstRewardBtn(stage_id)
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     UI_AdventureFirstRewardPopup(stage_id, function() self:refreshFirstReward(stage_id) end)
 end
 

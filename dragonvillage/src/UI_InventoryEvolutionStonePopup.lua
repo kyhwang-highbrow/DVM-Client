@@ -45,7 +45,6 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_InventoryEvolutionStonePopup:click_exitBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:close()
 end
 
@@ -251,7 +250,6 @@ end
 -- @breif 진화석 개별 버튼 클릭
 -------------------------------------
 function UI_InventoryEvolutionStonePopup:click_evolutionStoneItem(rarity, attr)
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     if (self.m_selectedEvolutionStoneRarity == rarity) and (self.m_selectedEvolutionStoneAttr == attr) then
         return
     end
@@ -270,7 +268,6 @@ end
 -- @breif 진화석 교환 갯수 버튼
 -------------------------------------
 function UI_InventoryEvolutionStonePopup:click_countBtn(count)
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:setUpgradeCount(count)
 end
 
@@ -323,9 +320,7 @@ end
 -- function click_upgradeBtn
 -- @breif 진화석 교환 업그레이드(교환)
 -------------------------------------
-function UI_InventoryEvolutionStonePopup:click_upgradeBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
-    
+function UI_InventoryEvolutionStonePopup:click_upgradeBtn()    
     local rarity = self.m_selectedEvolutionStoneRarity
     local attr = self.m_selectedEvolutionStoneAttr
     local count = self.m_upgradeCount

@@ -64,7 +64,6 @@ end
 -- function click_clickBtn
 -------------------------------------
 function UI_ItemCard:click_clickBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     local str = self:getToolTipDesc()
     local tool_tip = UI_Tooltip_Skill(70, -145, str)
 

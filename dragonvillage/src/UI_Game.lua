@@ -41,7 +41,6 @@ end
 -- function click_pauseButton
 -------------------------------------
 function UI_Game:click_pauseButton()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     UI_GamePause(function() self.m_gameScene:gamePause() end, function() self.m_gameScene:gameResume() end)
 end
 

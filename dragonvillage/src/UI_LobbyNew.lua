@@ -169,10 +169,10 @@ end
 -------------------------------------
 function UI_LobbyNew:initButton()
 	local vars = self.vars    
-    vars['swipeTopBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') self:swipeEvent('down') end)
-    vars['swipeBottomBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') self:swipeEvent('up') end)
-    vars['swipeLeftBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') self:swipeEvent('right') end)
-    vars['swipeRightBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') self:swipeEvent('left') end)
+    vars['swipeTopBtn']:registerScriptTapHandler(function() self:swipeEvent('down') end)
+    vars['swipeBottomBtn']:registerScriptTapHandler(function() self:swipeEvent('up') end)
+    vars['swipeLeftBtn']:registerScriptTapHandler(function() self:swipeEvent('right') end)
+    vars['swipeRightBtn']:registerScriptTapHandler(function() self:swipeEvent('left') end)
 end
 
 -------------------------------------
@@ -195,9 +195,7 @@ end
 -------------------------------------
 -- function click_exitBtn
 -------------------------------------
-function UI_LobbyNew:click_exitBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
-    
+function UI_LobbyNew:click_exitBtn()    
     local function yes_cb()
         cc.Director:getInstance():endToLua()
     end
@@ -208,8 +206,6 @@ end
 -- function click_colosseumBtn
 -------------------------------------
 function UI_LobbyNew:click_colosseumBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
-
     local function run()
         UIManager:toastNotificationRed('"콜로세움" 미구현')
     end
@@ -221,8 +217,6 @@ end
 -- function click_dungeonBtn
 -------------------------------------
 function UI_LobbyNew:click_dungeonBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
-    
     local func_change_view = nil
     local func_zoom_and_move = nil
     local func_run = nil
@@ -257,8 +251,6 @@ end
 -- @breif 모험
 -------------------------------------
 function UI_LobbyNew:click_adventureBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
-
     local func_change_view = nil
     local func_zoom_and_move = nil
     local func_run = nil
@@ -289,8 +281,6 @@ end
 -- function click_tamerManageBtn
 -------------------------------------
 function UI_LobbyNew:click_tamerManageBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
-
     self.m_tamerAnimator:changeAni('select', false)
     self.m_tamerAnimator:addAniHandler(function() self:cbTamerAnimation() end)
     
@@ -327,8 +317,6 @@ end
 -- @brief 드래곤 관리
 -------------------------------------
 function UI_LobbyNew:click_dragonManageBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
-
     local func_change_view = nil
     local func_zoom_and_move = nil
     local func_run = nil
@@ -359,9 +347,7 @@ end
 -- function click_shopBtn
 -- @brief 상점 구현
 -------------------------------------
-function UI_LobbyNew:click_shopBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
-    
+function UI_LobbyNew:click_shopBtn()    
     local func_change_view = nil
     local func_zoom_and_move = nil
     local func_run = nil

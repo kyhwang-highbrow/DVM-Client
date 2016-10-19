@@ -25,8 +25,8 @@ function UI_TopUserInfo:init()
 
     vars['exitBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['st_ad_btn']:registerScriptTapHandler(function() self:click_st_ad_btn() end)
-    vars['mailBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') UIManager:toastNotificationRed('"우편함" 미구현') end)
-    vars['chatBtn']:registerScriptTapHandler(function() SoundMgr:playEffect('EFFECT', 'ui_button') UIManager:toastNotificationRed('"채팅" 미구현') end)
+    vars['mailBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"우편함" 미구현') end)
+    vars['chatBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"채팅" 미구현') end)
     
 
     self.m_lNumberLabel = {}
@@ -61,7 +61,6 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_TopUserInfo:click_exitBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     local target_ui = self.m_lOwnerUI[1]
     if (not target_ui) then
         return
@@ -74,7 +73,6 @@ end
 -- function click_st_ad_btn
 -------------------------------------
 function UI_TopUserInfo:click_st_ad_btn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self.vars['timeNode']:runAction(cc.ToggleVisibility:create())
 end
 

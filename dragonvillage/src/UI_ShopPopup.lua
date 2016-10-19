@@ -16,8 +16,6 @@ function UI_ShopPopup:init()
     --------------------------------------------------------------------
     -- 추후에 지울 코드(하드코딩)
     vars['addCardBtn']:registerScriptTapHandler(function()
-        SoundMgr:playEffect('EFFECT', 'ui_button')
-
         for i,v in pairs(g_dragonListData.m_lDragonList) do
             v['cnt'] = v['cnt'] + 5
         end
@@ -26,8 +24,6 @@ function UI_ShopPopup:init()
     end)
 
     vars['addStoneBtn']:registerScriptTapHandler(function()
-        SoundMgr:playEffect('EFFECT', 'ui_button')
-
         for _,l_rarity in pairs(g_evolutionStoneData.m_tData) do
             for i,cnt in pairs(l_rarity) do
                 l_rarity[i] = cnt + 5
@@ -38,8 +34,6 @@ function UI_ShopPopup:init()
     end)
 
     vars['evolutionUp']:registerScriptTapHandler(function()
-        SoundMgr:playEffect('EFFECT', 'ui_button')
-
         for i,v in pairs(g_dragonListData.m_lDragonList) do
             local dragon_id = tonumber(v['did'])
             local force = true
@@ -50,8 +44,6 @@ function UI_ShopPopup:init()
     end)
 
     vars['gradeUp']:registerScriptTapHandler(function()
-        SoundMgr:playEffect('EFFECT', 'ui_button')
-
         for i,v in pairs(g_dragonListData.m_lDragonList) do
             local dragon_id = tonumber(v['did'])
             local force = true
@@ -63,8 +55,6 @@ function UI_ShopPopup:init()
 
 	
 	vars['evolutionDown']:registerScriptTapHandler(function()
-        SoundMgr:playEffect('EFFECT', 'ui_button')
-
         for i,v in pairs(g_dragonListData.m_lDragonList) do
             local dragon_id = tonumber(v['did'])
             local force = true
@@ -75,8 +65,6 @@ function UI_ShopPopup:init()
     end)
 
 	vars['gradeDown']:registerScriptTapHandler(function()
-        SoundMgr:playEffect('EFFECT', 'ui_button')
-
         for i,v in pairs(g_dragonListData.m_lDragonList) do
             local dragon_id = tonumber(v['did'])
             local force = true
@@ -87,8 +75,6 @@ function UI_ShopPopup:init()
     end)
 
 	vars['init']:registerScriptTapHandler(function()
-        SoundMgr:playEffect('EFFECT', 'ui_button')
-
         for i,v in pairs(g_dragonListData.m_lDragonList) do
             local dragon_id = tonumber(v['did'])
             local force = true
@@ -102,8 +88,6 @@ function UI_ShopPopup:init()
     end)
 
 	vars['stageOpen']:registerScriptTapHandler(function()
-        SoundMgr:playEffect('EFFECT', 'ui_button')
-
         for i,v in pairs(g_dragonListData.m_lDragonList) do
             local dragon_id = tonumber(v['did'])
             local force = true
@@ -114,8 +98,6 @@ function UI_ShopPopup:init()
     end)
     
     vars['dragonLevelUp']:registerScriptTapHandler(function()
-        SoundMgr:playEffect('EFFECT', 'ui_button')
-
         for i,v in pairs(g_dragonListData.m_lDragonList) do
             local dragon_id = tonumber(v['did'])
             local ret = g_dragonListData:levelUpDragon(dragon_id)
@@ -125,7 +107,6 @@ function UI_ShopPopup:init()
     end)
     
     vars['tamerLevelUp']:registerScriptTapHandler(function()
-        SoundMgr:playEffect('EFFECT', 'ui_button')
         g_userData:levelUpTamer()
         UIManager:toastNotificationGreen('테이머 레벨 업')
     end)
@@ -175,7 +156,6 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_ShopPopup:click_exitBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:close()
 end
 

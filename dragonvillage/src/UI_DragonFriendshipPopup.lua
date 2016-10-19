@@ -207,7 +207,6 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_DragonFriendshipPopup:click_exitBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:close()
 end
 
@@ -216,7 +215,6 @@ end
 -- @brief "친밀도 도움말" 버튼
 -------------------------------------
 function UI_DragonFriendshipPopup:click_infoBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     UIManager:toastNotificationRed(Str('"친밀도 도움말" 미구현'))
 end
 
@@ -225,7 +223,6 @@ end
 -- @brief "능력치 상세보기" 버튼
 -------------------------------------
 function UI_DragonFriendshipPopup:click_detailBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     local dragon_id = self.m_friendshipDragonID
     UI_DragonDetailPopup(dragon_id)
 end
@@ -235,7 +232,6 @@ end
 -- @brief "보유 열매" 버튼
 -------------------------------------
 function UI_DragonFriendshipPopup:click_fruitBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     UI_InventoryFruitPopup()
 end
 
@@ -244,7 +240,6 @@ end
 -- @brief 능력치 카테고리 버튼
 -------------------------------------
 function UI_DragonFriendshipPopup:click_statusCategory(status_category)
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:setStatusCategory(status_category)
 end
 
@@ -253,8 +248,6 @@ end
 -- @brief 능력치 카테고리 버튼
 -------------------------------------
 function UI_DragonFriendshipPopup:click_fruitListItem(fruit_full_type)
-    SoundMgr:playEffect('EFFECT', 'ui_button')
-
     local table_fruit = TABLE:get('fruit')
     local t_fruit = table_fruit[fruit_full_type]
 

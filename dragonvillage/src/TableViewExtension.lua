@@ -166,7 +166,6 @@ function TableViewExtension:setItemUIClass(item_class, click_cb, create_func)
                 ui.vars['clickBtn']:setEnabled(true)
 
                 local function tap_handler()
-                    SoundMgr:playEffect('EFFECT', 'ui_button')
                     if click_cb then
                         click_cb(t_param['item'])
                     end

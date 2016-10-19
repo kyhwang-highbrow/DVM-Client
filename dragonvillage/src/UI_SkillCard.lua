@@ -130,7 +130,6 @@ end
 -- function click_clickBtn
 -------------------------------------
 function UI_SkillCard:click_clickBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     local str = self:getSkillDescStr(self.m_skillID, self.m_skillType)
     local tool_tip = UI_Tooltip_Skill(70, -145, str)
 

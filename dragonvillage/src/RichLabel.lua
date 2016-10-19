@@ -499,7 +499,8 @@ function RichLabel:makeContent_makeButton(content, label, x, y, color, idx_y)
         self.m_menu:addChild(button)
 
         -- 클릭 핸들러 지정
-        button:registerScriptTapHandler(function() self:click_word(content, label, unserline, color, str) end)
+        local uic_button = UIC_Button(button)
+        uic_button:registerScriptTapHandler(function() self:click_word(content, label, unserline, color, str) end)
 
         -- 정력 리스트에 삽입
         table.insert(self.m_hNodeList[idx_y], {node=button ,pos_x=x})
@@ -610,7 +611,6 @@ end
 -- @brief 버튼 클릭 핸들러
 -------------------------------------
 function RichLabel:click_word(content, label, underline, color, str)
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     if self.m_clickHandler then
         self.m_clickHandler(content)
     end

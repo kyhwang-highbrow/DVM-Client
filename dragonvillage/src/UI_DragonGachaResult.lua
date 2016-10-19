@@ -78,7 +78,6 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_DragonGachaResult:click_exitBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:close()
     if self.m_cb then
         self.m_cb()

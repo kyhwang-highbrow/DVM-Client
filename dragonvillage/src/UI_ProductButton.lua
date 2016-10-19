@@ -162,7 +162,6 @@ end
 -- @brief 상품 버튼 클릭
 -------------------------------------
 function UI_ProductButton:click_mainBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     local can_buy, msg =  self:canBuyProduct(self.m_productID)
 
     if can_buy then
