@@ -566,17 +566,6 @@ function UI_ReadySceneNew:click_deckDragonItem(dragon_id)
         end
     end
 
-    -- 버튼 클릭 연출
-    local t_item = self.m_tableViewExt.m_mapItem[tostring(dragon_id)]
-    if t_item then
-        local root = t_item['ui'].vars['root']
-        if root then
-            root:setScale(0.9)
-            root:stopAllActions()
-            root:runAction(cc.ScaleTo:create(0.3, 1))
-        end
-    end
-
     self:init_dragonDeck()
     g_userData:setDirtyLocalSaveData()
 end
