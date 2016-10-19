@@ -21,6 +21,7 @@ UI_LobbyNew = class(PARENT, ITopUserInfo_EventListener:getCloneTable(), {
         m_camera = 'Camera',
         m_currViewName = 'string',
         m_buttonMenu = 'UI',
+        m_tamerAnimator = 'Animator',
      })
 
 -------------------------------------
@@ -76,6 +77,10 @@ function UI_LobbyNew:initUI()
         tamer:changeAni('idle', true)
         tamer:setPosition(-400, -100)
         node:addChild(tamer.m_node)
+        tamer.m_node:setMix('idle', 'pose_1', 0.2)
+        tamer.m_node:setMix('pose_1', 'pose_1', 0.2)
+        tamer.m_node:setMix('pose_1', 'idle', 0.2)
+        self.m_tamerAnimator = tamer
     end
 
     --[[
@@ -276,6 +281,9 @@ end
 -------------------------------------
 function UI_LobbyNew:click_tamerManageBtn()
     SoundMgr:playEffect('EFFECT', 'ui_button')
+
+    self.m_tamerAnimator:changeAni('pose_1', false)
+    self.m_tamerAnimator:addAniHandler(function() self.m_tamerAnimator:changeAni('idle', true) end)
     
     local function run()
         UIManager:toastNotificationRed('"테이머 관리" 미구현')
