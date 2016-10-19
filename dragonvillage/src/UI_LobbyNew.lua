@@ -22,12 +22,15 @@ UI_LobbyNew = class(PARENT, ITopUserInfo_EventListener:getCloneTable(), {
         m_currViewName = 'string',
         m_buttonMenu = 'UI',
         m_tamerAnimator = 'Animator',
+        m_tamerAnimatorRepeatCnt = 'number',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_LobbyNew:init()
+    self.m_tamerAnimatorRepeatCnt = 0
+
     local vars = self:load('lobby_scene.ui', true)
     UIManager:open(self, UIManager.SCENE)
 
@@ -74,12 +77,18 @@ function UI_LobbyNew:initUI()
     local node = self:addCameraLayer(7, 'res/lobby/07.png', 1.00, nil, 0, 0)
     do
         local tamer = MakeAnimator('res/character/tamer/leon_i/leon_i.spine')
-        tamer:changeAni('idle', true)
+        tamer:changeAni('idle', false)
+        tamer:addAniHandler(function() self:cbTamerAnimation() end)
         tamer:setPosition(-400, -100)
         node:addChild(tamer.m_node)
         tamer.m_node:setMix('idle', 'pose_1', 0.2)
         tamer.m_node:setMix('pose_1', 'pose_1', 0.2)
         tamer.m_node:setMix('pose_1', 'idle', 0.2)
+        tamer.m_node:setMix('select', 'select', 0.2)
+        tamer.m_node:setMix('select', 'idle', 0.2)
+        tamer.m_node:setMix('idle', 'select', 0.2)
+        tamer.m_node:setMix('pose_1', 'select', 0.2)
+        tamer.m_node:setMix('select', 'pose_1', 0.2)
         self.m_tamerAnimator = tamer
     end
 
@@ -282,14 +291,35 @@ end
 function UI_LobbyNew:click_tamerManageBtn()
     SoundMgr:playEffect('EFFECT', 'ui_button')
 
-    self.m_tamerAnimator:changeAni('pose_1', false)
-    self.m_tamerAnimator:addAniHandler(function() self.m_tamerAnimator:changeAni('idle', true) end)
+    self.m_tamerAnimator:changeAni('select', false)
+    self.m_tamerAnimator:addAniHandler(function() self:cbTamerAnimation() end)
     
     local function run()
         UIManager:toastNotificationRed('"테이머 관리" 미구현')
     end
     
     self:changeView('center', run)
+end
+
+-------------------------------------
+-- function cbTamerAnimation
+-------------------------------------
+function UI_LobbyNew:cbTamerAnimation()
+    self.m_tamerAnimatorRepeatCnt = (self.m_tamerAnimatorRepeatCnt + 1)
+
+    if (self.m_tamerAnimatorRepeatCnt >= 3) then
+     self.m_tamerAnimatorRepeatCnt = 0
+    end
+
+    local animation
+    if (self.m_tamerAnimatorRepeatCnt == 0) then
+        animation = 'pose_1'
+    else
+        animation = 'idle'
+    end
+
+    self.m_tamerAnimator:changeAni(animation, false)
+    self.m_tamerAnimator:addAniHandler(function() self:cbTamerAnimation() end)
 end
 
 -------------------------------------
