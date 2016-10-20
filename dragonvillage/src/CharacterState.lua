@@ -91,6 +91,24 @@ function Character.st_attack(owner, dt)
 
         -- 공격 타이밍이 있을 경우
         owner.m_animator:setEventHandler(attack_cb)
+
+        -- 일반 공격 중 차지 이펙트
+        if (owner.m_charType == 'dragon') then
+            local attr = owner.m_charTable['attr']
+            local basic_skill_id = owner.m_charTable['skill_basic']
+            local table_skill = TABLE:get('dragon_skill')
+            local t_skill = table_skill[basic_skill_id]
+            local type = t_skill['type']
+
+            if type ~= 'skill_melee_hack' then
+                local res = 'res/effect/effect_missile_charge/effect_missile_charge.vrp'
+                local animator = MakeAnimator(res)
+                animator:changeAni('idle_' .. attr, false)
+                owner.m_rootNode:addChild(animator.m_node)
+                local duration = animator:getDuration()
+                animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+            end
+        end
         
     elseif (owner.m_bFinishAnimation and owner.m_bFinishAttack) then    
         owner.m_attackAnimaDuration = owner.m_stateTimer

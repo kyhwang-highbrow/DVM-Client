@@ -139,8 +139,6 @@ end
 -------------------------------------
 function Hero.st_skillAttack(owner, dt)
     if (owner.m_stateTimer == 0) then
-        cclog('Hero.st_skillAttack')
-
         local active_skill_id = owner:getSkillID('active')
         local table_dragon_skill = TABLE:get('dragon_skill')
         local t_dragon_skill = table_dragon_skill[active_skill_id]

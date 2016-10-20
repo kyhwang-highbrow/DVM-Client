@@ -418,7 +418,25 @@ function Character:doAttack(x, y)
 
     -- 지정된 스킬이 발동되지 않았을 경우 기본 스킬 발동
     if (not b_run_skill) then
-        self:doSkill(self.m_charTable['skill_basic'], nil, x, y)
+        basic_skill_id = self.m_charTable['skill_basic']
+        self:doSkill(basic_skill_id, nil, x, y)
+    end
+    
+    -- 일반 공격 중 공격시 이펙트
+    if (self.m_charType == 'dragon') then
+        local attr = self.m_charTable['attr']
+        local table_skill = TABLE:get('dragon_skill')
+        local t_skill = table_skill[basic_skill_id]
+        local type = t_skill['type']
+
+        if type ~= 'skill_melee_hack' then
+            local res = 'res/effect/effect_missile_charge/effect_missile_charge.vrp'
+            local animator = MakeAnimator(res)
+            animator:changeAni('shot_' .. attr, false)
+            self.m_rootNode:addChild(animator.m_node)
+            local duration = animator:getDuration()
+            animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+        end
     end
 end
 
