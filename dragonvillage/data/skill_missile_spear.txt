@@ -19,7 +19,7 @@
 				
                 "effect":
                 {
-                    "motion_streak":"res/missile/motion_streak/line_fire.png",
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
                     "rotation":false,
                     "afterimage":false
                 }

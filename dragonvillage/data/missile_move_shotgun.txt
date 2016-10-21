@@ -1,0 +1,31 @@
+{
+	"missile_move_shotgun":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"count":5,
+				"period":0,
+                "scale":"0.5",
+				"body":[0,0,20],
+				"speed":500,
+				"accel":1500,
+				"h_limit_speed":900,
+				"accel_delay":0,
+				"offset":[0,0],
+                "dir":-5,
+				"dir_add":2.5,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+
+				
+			}
+		]
+	}
+}

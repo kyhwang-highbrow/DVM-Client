@@ -7,38 +7,49 @@
             "speed":0.2
             "list":           
 			[
-                {"res":"res/bg/canyon/bg_canyon_1_a.png", "width":1920}
-				{"res":"res/bg/canyon/bg_canyon_1_b.png", "width":1920}
+                {"res":"res/bg/canyon/canyon.vrp" "animation":"layer_1_a" "width":1920}
+				{"res":"res/bg/canyon/canyon.vrp" "animation":"layer_1_b" "width":1920}
 			
             ]
         }
         
+		{
+            "name":"구름"
+            "speed":0.3
+            "list":           
+			[
+                {"res":"res/bg/canyon/canyon.vrp" "animation":"layer_cloud_a" "width":1280}
+				{"res":"res/bg/canyon/canyon.vrp" "animation":"layer_cloud_b" "width":2048}
+			
+            ]
+        }
+		
         {
             "name":"원경"
-            "speed":0.4
+            "speed":0.3
             "list":
             [
-                {"res":"res/bg/canyon/bg_canyon_2_a.png", "width":1280}
-                {"res":"res/bg/canyon/bg_canyon_2_b.png", "width":1920}
-				
+                {"res":"res/bg/canyon/canyon.vrp" "animation":"layer_2_a" "width":1600}
+                {"res":"res/bg/canyon/canyon.vrp" "animation":"layer_2_b" "width":1280}
+				{"res":"res/bg/canyon/canyon.vrp" "animation":"layer_2_c" "width":800}
             ]
         }
         
         {
             "name":"중경1"
-            "speed":0.6
+            "speed":0.5
             "list":
             [
-                {"res":"res/bg/canyon/bg_canyon_3.png", "width":1280}
+                {"res":"res/bg/canyon/canyon.vrp" "animation":"layer_3_a"  "width":1880}
             ]
         }
 		
         {
             "name":"중경2"
-            "speed":0.7
+            "speed":0.6
             "list":
             [
-                {"res":"res/bg/canyon/bg_canyon_4.png", "width":1440}
+                {"res":"res/bg/canyon/canyon.vrp" "animation":"layer_4_a"  "width":1440}
 		    ]
 	    }
 		
@@ -47,10 +58,20 @@
             "speed":0.8
             "list":
             [
-                {"res":"res/bg/canyon/bg_canyon_5_a.png", "width":1920}
-				{"res":"res/bg/canyon/bg_canyon_5_b.png", "width":1920}
+                {"res":"res/bg/canyon/canyon.vrp" "animation":"layer_5_a" , "width":1920}
+				{"res":"res/bg/canyon/canyon.vrp" "animation":"layer_5_b" , "width":1920}
+		    ]
+
+        }
+		
+        {		
+            "name":"초근경"
+            "speed":0.9
+            "list":
+            [
+                {"res":"res/bg/canyon/canyon.vrp" "animation":"layer_6_a" , "width":1280}
+				{"res":"res/bg/canyon/canyon.vrp" "animation":"layer_6_b" , "width":1920}
 		    ]
         }
-        
     ]
 }

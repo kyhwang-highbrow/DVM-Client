@@ -1,0 +1,58 @@
+{
+	"missile_move_release":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+                
+                "count":1,
+                "scale":1,
+                "period":0,
+				"dir":135,
+				"speed":300,
+				"accel":2000,
+				"accel_delay":0.5,
+
+				"body":[0,0,20],
+				"offset":[0,0],
+                "dir_add":0,
+				"movement":"guidtarget",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":true
+                }
+				
+			},
+			
+			{
+				"idx":1,
+                
+                "count":1,
+                "scale":1,
+                "period":0,
+				"dir":225,
+				"speed":300,
+				"accel":2000,
+				"accel_delay":0.5,
+
+				"body":[0,0,20],
+				"offset":[0,0],
+                "dir_add":0,
+				"movement":"guidtarget",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":true
+                }
+				
+			}
+
+		]
+	}
+}

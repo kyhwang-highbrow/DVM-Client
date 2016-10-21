@@ -47,9 +47,9 @@
 			rotation = 0.000000;
 			visible = false;
 			lua_name = 'selectBgSprite';
-			file_name = 'ui/frame/list_frame_01.png';
-			color = { 255; 215; 0; };
-			opacity = 50;
+			file_name = 'ui/frame/list_frame_02.png';
+			color = { 255; 255; 255; };
+			opacity = 255;
 			center_rect_x = 0;
 			center_rect_y = 0;
 			center_rect_width = 0;

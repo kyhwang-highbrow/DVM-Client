@@ -1,0 +1,39 @@
+{
+    "pattern_boss_cockatrice":
+    [        
+        [
+           "w;2", "a;basic", "w;2", "a;1", "w;3", "a;2"	, "w;3", "a;3"
+        ]
+    ],
+	
+    "hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":75,
+                "pattern":
+                [
+					"w;2", "a;basic", "w;2", "a;1", "w;3", "a;2", "w;3", "a;3"	
+                ]
+            },
+			
+            {
+                "hp_percent":50,
+                "pattern":
+                [
+                    "w;2", "a;basic", "w;2", "a;1", "w;3", "a;2", "w;3", "a;3"	
+                ]
+            },
+			
+            {
+                "hp_percent":25,
+                "pattern":
+                [
+                    "w;2", "a;basic", "w;2", "a;1", "w;3", "a;2", "w;3", "a;3"
+                ]
+            }
+        ]
+    }
+}

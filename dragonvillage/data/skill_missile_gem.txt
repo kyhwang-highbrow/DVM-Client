@@ -19,7 +19,7 @@
 				
                 "effect":
                 {
-                    "motion_streak":"res/missile/motion_streak/line_dark.png",
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
                     
                     "afterimage":false
                 }
@@ -42,7 +42,7 @@
 				
                 "effect":
                 {
-                    "motion_streak":"res/missile/motion_streak/line_dark.png",
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
                     
                     "afterimage":false
                 }
@@ -65,7 +65,7 @@
 				
                 "effect":
                 {
-                    "motion_streak":"res/missile/motion_streak/line_dark.png",
+                    "motion_streak":"res/missile/motion_streak/motion_streak_line_@.png",
                     
                     "afterimage":false
                 }
