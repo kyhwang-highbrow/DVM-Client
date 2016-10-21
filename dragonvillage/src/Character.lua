@@ -1206,7 +1206,7 @@ function Character:animatorHit(attacker, dir)
     local rarity = self.m_charTable['rarity']
        
     -- 경직
-    if rarity ~= 'boss' and rarity ~= 'subboss' then
+    if rarity ~= 'boss' and rarity ~= 'subboss' and rarity ~= 'elite' then
         self:animatorKnockback(dir)
         self:setSpasticity(true)
 
@@ -1221,12 +1221,18 @@ function Character:animatorHit(attacker, dir)
     
     -- 점멸 처리
     do
+        local delay = 0.15
+
+        if rarity ~= 'boss' and rarity ~= 'subboss' and rarity ~= 'elite' then
+            delay = 0.1
+        end
+
         local action = cc.Sequence:create(
             cc.CallFunc:create(function(node)
                 local shader = ShaderCache:getShader(SHADER_CHARACTER_DAMAGED)
                 self.m_animator.m_node:setGLProgram(shader)
             end),
-            cc.DelayTime:create(0.15),
+            cc.DelayTime:create(delay),
             cc.CallFunc:create(function(node)
                 local shader = ShaderCache:getShader(cc.SHADER_POSITION_TEXTURE_COLOR)
                 self.m_animator.m_node:setGLProgram(shader)
