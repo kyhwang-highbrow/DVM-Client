@@ -422,7 +422,7 @@ function Character:doAttack(x, y)
         self:doSkill(basic_skill_id, nil, x, y)
     end
     
-    -- 일반 공격 중 공격시 이펙트
+    -- 일반 공격 중 공격시 이펙트(차후 정리)
     if (self.m_charType == 'dragon') then
         local attr = self.m_charTable['attr']
         local table_skill = TABLE:get('dragon_skill')
@@ -1204,36 +1204,10 @@ end
 -------------------------------------
 function Character:animatorHit(attacker, dir)
     local rarity = self.m_charTable['rarity']
-    local hitDirectionType = 2
-    
-    if hitDirectionType == 1 then
-        local useAni = false
-
-        if self.m_charType == 'dragon' then
-            useAni = (self.m_state == 'attackDelay')
-        elseif self.m_charType == 'enemy' then
-            --useAni = (rarity ~= 'boss')
-            useAni = (rarity ~= 'boss') and (self.m_state == 'attackDelay')
-        end
-
-        if useAni then
-            -- 데미지 애니메이션
-            self.m_animator:changeAni('damage', false)
-            self:addAniHandler(function()
-                --local ani_name, loop = self:getCurrAniName()
-                self.m_animator:changeAni('idle', true)
-            end)
-        end
-    
-    elseif hitDirectionType == 2 then
-        -- 넉백
-        if rarity ~= 'boss' then
-            self:animatorKnockback(dir)
-        end
-    end
-
+       
     -- 경직
-    if rarity ~= 'boss' then
+    if rarity ~= 'boss' and rarity ~= 'subboss' then
+        self:animatorKnockback(dir)
         self:setSpasticity(true)
 
         if attacker then
