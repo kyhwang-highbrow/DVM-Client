@@ -52,6 +52,10 @@ Missile = class(Entity, {
         -------------------------------------------------------
 
         m_activityCarrier = '',
+		
+		-- 확정 타겟 개념 추가 후 필요한 변수들
+		m_target = '',
+		m_isFadeOut = 'bool',
      })
 
 -------------------------------------
@@ -82,6 +86,8 @@ function Missile:init(file_name, body, ...)
 
     -- 드래곤빌리지에서 추가
     self.m_afterimageMove = 0
+
+	self.m_isFadeOut = false
 end
 
 -------------------------------------
@@ -459,6 +465,29 @@ function Missile:updateMissileOption(dt)
             accidental.m_node:runAction(cc.ScaleTo:create(duration*duration, 0))
         end
     end
+
+	-- 확정 공격시 타겟 위치에서 소멸
+	if self.bFixedAttack and self.m_target then -- physobject에서의 멤버변수라 m_이 안붙어있다.
+		local isPassedTarget = false
+		if (self.m_target.m_bLeftFormation) then
+			if (self.pos.x < self.m_target.pos.x - 50) then isPassedTarget = true end
+        else
+			if (self.pos.x > self.m_target.pos.x + 50) then isPassedTarget = true end
+        end
+		if (isPassedTarget) and (not self.m_isFadeOut) then 
+			local fadeOutTime = 0.25
+			
+			local removeMissile = cc.CallFunc:create(function() self:changeState('dying') end)
+			
+			self.m_animator.m_node:runAction( cc.Sequence:create(cc.FadeOut:create(fadeOutTime), removeMissile))
+			
+			if self.m_motionStreak then 
+				--self.m_motionStreak:runAction( cc.FadeOut:create(fadeOutTime) )
+			end
+
+			self.m_isFadeOut = true
+		end
+	end
 
     return false
 end

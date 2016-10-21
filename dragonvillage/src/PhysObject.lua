@@ -10,6 +10,9 @@ PhysObject = class({
         body = 'table',
         rotation = 'number',
         enable_body = 'boolean',
+		
+		bFixedAttack = 'boolean',	-- 충돌체크에서 제외되고 충돌체크 대신 목표한 위치로 이동 여부만 체크
+
         speed = 'number',
         speed_backup = 'number',
         movement_theta = 'number',
@@ -52,6 +55,7 @@ function PhysObject_initPhys(self, body)
     self.pos = {x=0, y=0}
     self.rotation = 0
     self.enable_body = true
+	self.bFixedAttack = false
     self.speed = 0
     self.movement_theta = 0
     self.movement_x = 0
@@ -273,6 +277,15 @@ end
 -------------------------------------
 function PhysObject:setEnableBody(enabled)
     self.enable_body = enabled
+end
+
+-------------------------------------
+-- function setEnableBody
+-- @param enabled
+-- @param release_appended
+-------------------------------------
+function PhysObject:setFixedAttack(bool)
+    self.bFixedAttack = bool
 end
 
 -------------------------------------

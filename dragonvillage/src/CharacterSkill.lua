@@ -56,7 +56,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 
     ----------------------------------------------
     if (chance_type == 'passive') then
-        if (type == 'skill_shield') then
+        if (type == 'skill_protection') then
             self:doSkill_shield(t_skill, is_hero, phys_group, x, y)
             return true
         else
@@ -69,7 +69,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
         local t_skill = t_skill
 		return StatusEffectHelper:setTriggerPassive(char, t_skill)
 
-    -- 스크립트형 스킬
+    -- 탄막 공격 (스크립트에서 읽어와 미사일 탄막 생성)
     elseif (skill_form == 'script') then
         self:doSkill_basic_normal(t_skill, attr, is_hero, phys_group, x, y, t_data)
         return true
@@ -98,7 +98,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 
     -- 코드형 스킬
     elseif (skill_form == 'code') then
-        if (type == 'basic_ray') then
+        if (type == 'missile_move_ray') then
             self:doSkill_basic_ray(t_skill, attr, is_hero, phys_group, x, y, t_data)
             return true
         elseif (type == 'skill_laser') then
@@ -110,7 +110,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
         elseif (type == 'skill_thunder') then
             self:doSkill_thunder(t_skill, attr, is_hero, phys_group, x, y)
             return true
-        elseif (type == 'skill_chain_lightning') then
+        elseif (type == 'skill_chain_cri_chance') then
             self:doSkill_chainLightning(t_skill, attr, is_hero, phys_group, x, y)
             return true
         elseif (type == 'skill_heal_target') then
@@ -122,7 +122,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
         elseif (type == 'skill_curve') then
             self:doSkill_curve(t_skill, is_hero, phys_group, x, y)
             return true
-        elseif (type == 'skill_protection') then
+        elseif (type == 'skill_protection_spread') then
             self:doSkill_skill_protection(t_skill, t_data)
             return true
         elseif (type == 'skill_heal_single') then
@@ -140,16 +140,16 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
         elseif (type == 'skill_crash') then
             self:doSkill_skill_crash(t_skill, attr, is_hero, phys_group, x, y, t_data)
             return true
-        elseif (type == 'skill_healing_wind') then
+        elseif (type == 'skill_aoe_square_heal_dmg') then
             self:doSkill_skill_healing_wind(t_skill, attr, is_hero, phys_group, x, y, t_data)
             return true
-        elseif (type == 'skill_leaf_blade') then
+        elseif (type == 'skill_curve_twin') then
             self:doSkill_skill_leaf_blade(t_skill, attr, is_hero, phys_group, x, y, t_data)
             return true
         elseif (type == 'skill_purple_protection') then
             self:doSkill_skill_purple_protection(t_skill, t_data)
             return true
-		elseif (type == 'skill_dispel_magic') then
+		elseif (type == 'skill_dispel_harm') then
             self:doSkill_skill_dispel_magic(t_skill, t_data)
             return true
 		elseif (type == 'skill_summon') then
@@ -157,8 +157,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
             return summon_success
 
 		-- 구조 개선 후 ----------------------------------------------------
-
-		elseif isExistValue(type, 'skill_thunder_cloud', 'skill_sweet_dream') then
+		elseif (type == 'skill_aoe_round') then
             SkillAoERound:makeSkillInstnceFromSkill(self, t_skill, t_data)
             return true
 
@@ -166,15 +165,15 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
             SkillConicAtk:makeSkillInstnceFromSkill(self, t_skill, t_data)
 			return true
 
-		elseif (type == 'skill_breath_gust') then
+		elseif (type == 'skill_aoe_cone_spread') then
             SkillConicAtk_Spread:makeSkillInstnceFromSkill(self, t_skill, t_data)
 			return true
 
-		elseif (type == 'skill_explosion_def') then
+		elseif (type == 'skill_aoe_round_jump') then
             SkillExplosion:makeSkillInstnceFromSkill(self, t_skill, t_data)
 			return true
 
-		elseif (type == 'skill_thorns_star') then
+		elseif (type == 'skill_strike_finish_spread') then
             SkillRolling:makeSkillInstnceFromSkill(self, t_skill, t_data)
 			return true
 
@@ -190,7 +189,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
             SkillCounterAttack:makeSkillInstnceFromSkill(self, t_skill, t_data)
             return true
             
-		elseif (type == 'skill_melee_hack') then
+		elseif (type == 'skill_melee_atk') then
 			if isExistValue(t_skill['id'], 210982, 210112, 210212) then -- 램곤, 애플칙, 붐버
 				SkillMeleeHack_Specific:makeSkillInstnceFromSkill(self, t_skill, t_data)
 			else
@@ -199,7 +198,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
             return true
 
         -- 패시브 스킬
-        elseif (type == 'skill_counteratk') then
+        elseif (type == 'skill_react_armor') then
             self:doSkill_counteratk(t_skill, is_hero, phys_group, x, y, t_data)
             return true
 
@@ -219,25 +218,18 @@ function Character:doSkill_basic_normal(t_skill, attr, is_hero, phys_group, x, y
     local start_x = self.pos.x + x
     local start_y = self.pos.y + y
 
-    local type = t_skill['type']
-    local value_1 = t_skill['val_1']
-
     -- 미사일 런쳐 (target, dir, left or right)
     local missile_launcher = MissileLauncher(nil)
-
-
-
     local t_launcher_option = missile_launcher:getOptionTable()
 
     -- 비주얼명 지정
     t_launcher_option['attr_name'] = attr
-
+	
     -- 미사일 갯수 지정
     --t_launcher_option['missile_count'] = value_1
 
     -- 타겟이 있을 경우
     if self.m_targetChar then
-
         -- 브레스일 경우
         if isExistValue(t_skill['type'], 'skill_breath_1', 'skill_breath_2', 'skill_breath_3') then
             if t_data['dir'] then
@@ -253,11 +245,15 @@ function Character:doSkill_basic_normal(t_skill, attr, is_hero, phys_group, x, y
         else
             -- 타겟 지정
             t_launcher_option['target'] = self.m_targetChar
-
-            -- 각도 지정
+       
+	        -- 각도 지정
             local degree = getDegree(start_x, start_y, self.m_targetChar.pos.x, self.m_targetChar.pos.y)
             t_launcher_option['dir'] = degree
         end
+	else
+		self:checkTarget(t_skill)
+		-- 타겟 지정
+        t_launcher_option['target'] = self.m_targetChar
     end
 
     if is_hero then
@@ -274,7 +270,7 @@ function Character:doSkill_basic_normal(t_skill, attr, is_hero, phys_group, x, y
     missile_launcher.m_bHeroMissile = is_hero
     self.m_world:addToUnitList(missile_launcher)
     self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
-    missile_launcher:init_missileLauncher(type, phys_group, activity_carrier, 1)
+    missile_launcher:init_missileLauncher(t_skill, phys_group, activity_carrier, 1)
     missile_launcher.m_animator:changeAni('animation', true)
     missile_launcher:setPosition(start_x, start_y)
 

@@ -419,22 +419,17 @@ function Hero:initStatus(t_char, level, grade, evolution)
         self.m_skillIndicator.m_bUseHighlight = false
 
     -- 타겟형 (아군)
-    elseif isExistValue(type, 'skill_protection', 'skill_purple_protection', 'skill_dispel_magic') then
+    elseif isExistValue(type, 'skill_protection', 'skill_protection_spread', 'skill_dispel_harm') then
         self.m_skillIndicator = SkillIndicator_Target(self)
 	elseif string.find(type, 'skill_buff') then
         self.m_skillIndicator = SkillIndicator_Target(self)
 
 	-- 타겟형 (적군)
-    elseif isExistValue(type, 'skill_thorns_star') then
+    elseif isExistValue(type, 'skill_strike_finish_spread') then
         self.m_skillIndicator = SkillIndicator_OppositeTarget(self)
 
-    -- 라이트닝
-    elseif isExistValue(type, 'skill_dark_lightning', 'skill_sweet_dream') then
-        local isFixedOnTarget = true
-        self.m_skillIndicator = SkillIndicator_AoERound(self, t_skill, isFixedOnTarget)
-
     -- 힐링윈드
-    elseif isExistValue(type, 'skill_healing_wind') then
+    elseif isExistValue(type, 'skill_aod_square_heal_dmg') then
         self.m_skillIndicator = SkillIndicator_HealingWind(self, t_skill)
 
     -- 크래시
@@ -442,20 +437,23 @@ function Hero:initStatus(t_char, level, grade, evolution)
         self.m_skillIndicator = SkillIndicator_Crash(self, t_skill)
 
     -- 리프 블레이드
-    elseif isExistValue(type, 'skill_leaf_blade') then
+    elseif isExistValue(type, 'skill_curve_twin') then
         self.m_skillIndicator = SkillIndicator_LeafBlade(self, t_skill)
 
-    -- 청룡 번개구름, 붐버 액티브
-    elseif isExistValue(type, 'skill_thunder_cloud', 'skill_explosion_def') then
+    -- 청룡 번개구름, 붐버 액티브, 램곤 수면, 서펀트 액티브
+    elseif isExistValue(type, 'skill_aoe_round', 'skill_explosion_def') then
         local isFixedOnTarget = false
         self.m_skillIndicator = SkillIndicator_AoERound(self, t_skill, isFixedOnTarget)
 
     -- 허리케인
-    elseif isExistValue(type, 'skill_breath_gust') then
+    elseif isExistValue(type, 'skill_aoe_cone_spread') then
         self.m_skillIndicator = SkillIndicator_ConicSpread(self, t_skill)
 
     else
         self.m_skillIndicator = SkillIndicator_Target(self)
+		cclog('###############################################')
+		cclog('## 인디케이터 정의 되지 않은 스킬 : ' .. type)
+		cclog('###############################################')
     end
 end
 

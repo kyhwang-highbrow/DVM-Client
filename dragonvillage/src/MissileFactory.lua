@@ -126,18 +126,19 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     --local parent =           t_option['parent'] or GameMgr.m_missileNode
     local target =           t_option['target']
     local sync_pos =         t_option['sync_pos'] or false
-    local motion_streak =    t_option['motion_streak'] or nil
+    --local motion_streak =    t_option['motion_streak'] or nil 실 사용하는 곳에서 정의 .. 혼선이 있다.
     local rotate_time =      t_option['rotate_time'] or nil
     local angular_velocity = t_option['angular_velocity'] or nil
     local angular_velocity_time = t_option['angular_velocity_time'] or nil
     local value_1 =          t_option['value_1']
     local effect =           t_option['effect']
     local lua_param =        t_option['lua_param']
+	local isFixedAttack =	 t_option['bFixedAttack'] or false
 
     local lua_missile = nil
 
     -- 리소스명 변경 (@를 속성명으로 변경)
-    if t_option['attr_name'] then
+    if (t_option['attr_name']) then
         missile_res_name = string.gsub(missile_res_name, '@', t_option['attr_name'])
     end
 
@@ -161,9 +162,9 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         missile.m_straightWaitTime = 0
     elseif movement == 'guidtarget' then
         missile = MissileGuidTarget(missile_res_name, physics_body, target)
-        missile.m_targetPosX = t_option['target_pos'][1]
-        missile.m_targetPosY = t_option['target_pos'][2]
-    elseif movement == 'target' then
+        missile.m_targetPosX = target.m_homePosX --t_option['target_pos'][1]
+        missile.m_targetPosY = target.m_homePosY --t_option['target_pos'][2]
+    elseif movement ==  'target' then
         missile = MissileTarget(missile_res_name, physics_body, is_hero)
 
     -- zigzag
@@ -268,9 +269,9 @@ function MissileFactory:makeMissile_(t_option, is_hero)
             end
 
             -- 모션스트릭(MotionStreak) 효과
-            --if (not GameMgr.m_bLowMode) and USE_MOTION_STREAK and motion_streak then
             if effect['motion_streak'] then
-                missile:setMotionStreak(self.m_world.m_missiledNode, effect['motion_streak'])
+				local motion_streak = string.gsub(effect['motion_streak'], '@', t_option['attr_name'])
+                missile:setMotionStreak(self.m_world.m_missiledNode, motion_streak)
             end
         end
 
@@ -328,7 +329,11 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         --]]
 
         -- Physics, Node, GameMgr에 등록
-        self.m_world:addMissile(missile, object_key)
+		self.m_world:addMissile(missile, object_key)
+		if isFixedAttack then 
+			missile:setFixedAttack(true)
+			missile.m_target = target
+		end
 
         -- 특수 옵션 추가
         --self:applySpecialOption(t_option, missile)

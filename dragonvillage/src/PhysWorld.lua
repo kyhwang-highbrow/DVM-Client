@@ -195,6 +195,7 @@ function PhysWorld:update(dt)
     local object_phys_idx = nil
     local x = 0
     local y = 0
+	local target = nil
 
     local l_enemy_key = nil
     local m_collisionGroup = nil
@@ -209,7 +210,25 @@ function PhysWorld:update(dt)
     -- 충돌 처리
     for phys_key, l_object in pairs(self.m_group) do
         for _, object in ipairs(l_object) do
-            if object.enable_body then
+			
+			if (object.bFixedAttack)  then 
+				if isInstanceOf(object, Missile) then
+					body = object.body
+					target = object.m_target
+					x = object.pos.x
+                    y = object.pos.y
+					-- 점과 점의 거리를 이용하여 충돌 여부 확인
+					if target then 
+						ret = isCollision(x, y, target, 100)
+					end
+                    if ret and target then
+						-- 충돌 콜백 실행
+                        target:runAtkCallback(object, target.pos.x, target.pos.y)
+                        object:runDefCallback(target, x, y)
+                    end
+				end
+			
+            elseif (object.enable_body) then
                 body = object.body
 
                 -- 충돌 idx
@@ -220,31 +239,40 @@ function PhysWorld:update(dt)
                 end
                 check_phys_idx = {}
 
+				-- 해당 phys group의 충돌체크할 상대의 키 리스트
                 l_enemy_key = self.m_collisionGroup[phys_key]
                 if l_enemy_key and body.size > 0 then
                     x    = object.pos.x
                     y    = object.pos.y
                     check_phys_idx = {} -- posindex를 여러군데 걸쳤을 경우를 위해
-                    for x_idx=object.m_posIndexMinX, object.m_posIndexMaxX do
-                        for y_idx=object.m_posIndexMinY, object.m_posIndexMaxY do
-                            for _, enemy_key in pairs(l_enemy_key) do
+
+					-- 해당 오브젝트의 body에 해당하는 모든 idx를 순회
+                    for x_idx = object.m_posIndexMinX, object.m_posIndexMaxX do
+                        for y_idx = object.m_posIndexMinY, object.m_posIndexMaxY do
+                    
+					        for _, enemy_key in pairs(l_enemy_key) do
                                 for _, enemy in pairs(self.m_objPosIndex[enemy_key][x_idx][y_idx]) do
                                     --work_cnt = work_cnt + 1
 
-
+									-- 충돌리스트를 가져온다.
                                     if enemy.m_ownerObject then
                                         t_collision = enemy.m_ownerObject.t_collision
                                     else
                                         t_collision = enemy.t_collision
                                     end
 
+									-- 이미 충돌했는지 체크
                                     if (not check_phys_idx[enemy.phys_idx]) and enemy.enable_body and (not t_collision[object_phys_idx]) then
                                         
+										-- 해당 physobject와 충돌체크 했는지 저장
                                         check_phys_idx[enemy.phys_idx] = true
+										
+										-- 점과 점의 거리를 이용하여 충돌 여부 확인
                                         ret, intersect_pos_x, intersect_pos_y = enemy:isIntersectBody(body, x, y)
                                         if ret then
+											-- 충돌 한 것으로 저장 (해당 오브젝트에 전달)
                                             t_collision[object_phys_idx] = true
-
+											-- 충돌 콜백 실행
                                             enemy:runAtkCallback(object, intersect_pos_x, intersect_pos_y)
                                             object:runDefCallback(enemy, intersect_pos_x, intersect_pos_y)
                                         end

@@ -27,7 +27,6 @@ MissileLauncher = class(Entity, {
         -- ['missile_count']
         -- ['attr_name']        -- 리소스명 변경
         -- ['dir']              -- 런쳐 자체의 각도
-
     })
 
 -------------------------------------
@@ -43,7 +42,7 @@ end
 -------------------------------------
 -- function init_missileLauncher
 -------------------------------------
-function MissileLauncher:init_missileLauncher(script_name, object_key, attack_damage, attack_idx)
+function MissileLauncher:init_missileLauncher(t_skill, object_key, attack_damage, attack_idx)
     self.m_objectKey = object_key
     self.m_attackIdx = attack_idx or 1
     self.m_activityCarrier = attack_damage
@@ -54,19 +53,36 @@ function MissileLauncher:init_missileLauncher(script_name, object_key, attack_da
     self:changeState('attack')
 
     -- data파일에서 로드
+    local script_name = t_skill['type']
     local script = TABLE:loadJsonTable(script_name)
     if (not script) then
         error(script_name .. " DO NOT EXIST!!")
     end
     local script_data = script[script_name]
+    
     self.m_tAttackValueBase = script_data['attack_value']
 
+    -- 테이블에서 덧씌우는 필드
+    if t_skill then
+        local count = 1
+        while (self.m_tAttackValueBase[count]) do
+            -- resource 교체
+			if (t_skill['res_'..count] ~= 'x') then 
+                self.m_tAttackValueBase[count]['res'] = t_skill['res_'..count]
+            end
+			-- 탄막 여부 
+			self.m_tAttackValueBase[count]['bFixedAttack'] = string.find(script_name, 'missile_move_')
+            
+			count = count + 1
+        end
+
+    end
+    
     -- 탄막 관련
     self.m_tAttackPattern = {}
     self.m_tAttackIdxCache = {}
     self.m_tSoundIdxCache = {}
     self.m_missileDepth = 0
-
 
     -- 탄막 패턴 저장 (self.m_tAttackValueBase는 스크립트상의 'attack_value')
     for i, v in ipairs(self.m_tAttackValueBase) do
@@ -298,6 +314,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
         t_option['object_key'] =       self.m_objectKey
         t_option['effect'] =           attack_value['effect']
         t_option['lua_param'] =        attack_value['lua_param']
+		t_option['bFixedAttack'] =	   attack_value['bFixedAttack']
 
         if attack_value.accel_delay_fix then
             t_option['accel_delay'] = t_option['accel_delay'] or 0
