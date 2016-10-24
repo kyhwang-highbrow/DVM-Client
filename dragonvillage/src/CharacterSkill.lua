@@ -98,9 +98,29 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 
     -- 코드형 스킬
     elseif (skill_form == 'code') then
+
+		-- 공용탄 영역
         if (type == 'missile_move_ray') then
             self:doSkill_basic_ray(t_skill, attr, is_hero, phys_group, x, y, t_data)
             return true
+		elseif (type == 'missile_move_straight') then
+            CommonMissile_Straight:makeInstance(self, t_skill)
+            return true
+		elseif (type == 'missile_move_cruise') then
+            CommonMissile_Cruise:makeInstance(self, t_skill)
+            return true
+		elseif (type == 'missile_move_shotgun') then
+            CommonMissile_Shotgun:makeInstance(self, t_skill)
+            return true
+		elseif (type == 'missile_move_release') then
+            CommonMissile_Release:makeInstance(self, t_skill)
+            return true
+		elseif (type == 'missile_move_high_angle') then
+            CommonMissile_High:makeInstance(self, t_skill)
+            return true
+
+
+		-- 스킬 영역
         elseif (type == 'skill_laser') then
             self:doSkill_laser(t_skill, attr, is_hero, phys_group, x, y, t_data)
             return true
@@ -156,6 +176,8 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
             local summon_success = self:doSkill_skill_summon(t_skill, t_data)
             return summon_success
 
+
+			
 		-- 구조 개선 후 ----------------------------------------------------
 		elseif (type == 'skill_aoe_round') then
             SkillAoERound:makeSkillInstnceFromSkill(self, t_skill, t_data)
@@ -642,7 +664,6 @@ end
 -- @brief 스킬 실행
 -------------------------------------
 function Character:doSkill_skill_protection(t_skill, t_data)
-    cclog('doSkill_skill_protection!!')
     local skill = SkillProtection(nil)
 
     -- Physics, Node, GameMgr에 등록

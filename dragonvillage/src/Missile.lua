@@ -468,17 +468,18 @@ function Missile:updateMissileOption(dt)
 
 	-- 확정 공격시 타겟 위치에서 소멸
 	if self.bFixedAttack and self.m_target then -- physobject에서의 멤버변수라 m_이 안붙어있다.
+		-- 지났는지 체크
 		local isPassedTarget = false
 		if (self.m_target.m_bLeftFormation) then
-			if (self.pos.x < self.m_target.pos.x - 50) then isPassedTarget = true end
+			if (self.pos.x < self.m_target.pos.x - 10) then isPassedTarget = true end
         else
-			if (self.pos.x > self.m_target.pos.x + 50) then isPassedTarget = true end
+			if (self.pos.x > self.m_target.pos.x + 10) then isPassedTarget = true end
         end
+
+		-- fade out 처리
 		if (isPassedTarget) and (not self.m_isFadeOut) then 
-			local fadeOutTime = 0.25
-			
+			local fadeOutTime = 0.1
 			local removeMissile = cc.CallFunc:create(function() self:changeState('dying') end)
-			
 			self.m_animator.m_node:runAction( cc.Sequence:create(cc.FadeOut:create(fadeOutTime), removeMissile))
 			
 			if self.m_motionStreak then 

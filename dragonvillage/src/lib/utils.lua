@@ -441,6 +441,13 @@ function getAdjustDegree(degree)
 end
 
 -------------------------------------
+-- function getDegreeFromChar
+-------------------------------------
+function getDegreeFromChar(char1, char2)
+    return getDegree(char1.pos.x, char1.pos.y, char2.pos.x, char2.pos.y)
+end
+
+-------------------------------------
 -- function getDegree
 -------------------------------------
 function getDegree(curr_x, curr_y, dest_x, dest_y)
@@ -523,6 +530,7 @@ end
 -------------------------------------
 -- function isCollision
 -- @brief body size를 고려한 충돌 여부 판단, 원형 
+-- @return boolean
 -------------------------------------
 function isCollision(x, y, target, range)
 	local distance = getDistance(x, y, target.pos['x'], target.pos['y'])
@@ -532,6 +540,7 @@ end
 -------------------------------------
 -- function isCollision_Rect
 -- @brief body size를 고려한 충돌 여부 판단, 사각형 
+-- @return boolean
 -------------------------------------
 function isCollision_Rect(x, y, target, range_x, range_y)
 	local target_x = target.pos.x

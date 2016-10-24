@@ -210,7 +210,8 @@ function PhysWorld:update(dt)
     -- 충돌 처리
     for phys_key, l_object in pairs(self.m_group) do
         for _, object in ipairs(l_object) do
-			
+		
+			-- 단일 타겟만 충돌 체크
 			if (object.bFixedAttack)  then 
 				if isInstanceOf(object, Missile) then
 					body = object.body
@@ -227,7 +228,8 @@ function PhysWorld:update(dt)
                         object:runDefCallback(target, x, y)
                     end
 				end
-			
+
+			-- 다중 충돌 체크
             elseif (object.enable_body) then
                 body = object.body
 

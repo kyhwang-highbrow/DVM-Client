@@ -14,7 +14,7 @@ ISkill = {
 		m_statusEffectType = '',
 		m_statusEffectRate = '',
 
-		m_skillType = '', 
+		m_skillType = 'str', -- 스킬 타입 명 ex) skill_expolosion 
 
 		-- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset
         m_attackPosOffsetX = 'number',

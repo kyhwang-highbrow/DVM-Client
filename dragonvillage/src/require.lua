@@ -127,6 +127,14 @@ local t_module = {
     'MissileFactory',
     'MissileLauncher',
     
+	-- COMMON MISSILE (∞¯≈Î≈∫)
+	'CommonMissile',
+	'CommonMissile_Straight',
+	'CommonMissile_Cruise',
+	'CommonMissile_Shotgun',
+	'CommonMissile_Release',
+	'CommonMissile_High',
+
 	-- STATUS EFFECT
 	'StatusEffect',
     'StatusEffect_Trigger',
