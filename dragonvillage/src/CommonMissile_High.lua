@@ -37,7 +37,7 @@ function CommonMissile_High:fireMissile()
 	t_option['dir'] = -5
 	t_option['rotation'] = t_option['dir']
 
-    t_option['missile_res_name'] = 'res/missile/missile_arrow/missile_arrow.png' --self.m_missileRes -- 테이블에서 가져오나 하드코딩 가능 
+    t_option['missile_res_name'] = self.m_missileRes -- 테이블에서 가져오나 하드코딩 가능 
     t_option['attr_name'] = self.m_owner:getAttribute()
     
 	t_option['physics_body'] = {0, 0, 20}
