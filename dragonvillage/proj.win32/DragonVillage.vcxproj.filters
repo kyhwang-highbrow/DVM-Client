@@ -886,6 +886,24 @@
     <None Include="..\src\SceneTitle.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\CommonMissile.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\CommonMissile_Cruise.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\CommonMissile_Straight.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\CommonMissile_Shotgun.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\CommonMissile_High.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\CommonMissile_Release.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
