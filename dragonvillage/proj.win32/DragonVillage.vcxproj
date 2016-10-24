@@ -400,6 +400,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SceneLogo.lua" />
     <None Include="..\src\ScenePatch.lua" />
     <None Include="..\src\SceneAdventure.lua" />
+    <None Include="..\src\SceneTitle.lua" />
     <None Include="..\src\ScrollMap.lua" />
     <None Include="..\src\ScrollMapLayer.lua" />
     <None Include="..\src\Buff_Shield.lua" />

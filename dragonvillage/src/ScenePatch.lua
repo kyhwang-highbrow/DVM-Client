@@ -4,7 +4,6 @@
 ScenePatch = class(PerpleScene, {
         m_bFinishPatch = 'boolean',
         m_vars = '',
-
 		m_patch_core = 'Patch_Core',
     })
 
@@ -93,9 +92,8 @@ function ScenePatch:finishPatch()
     -- @TODO  임시 처리
     self.m_vars['animator']:setVisual('group', '00')
     self.m_vars['animator']:registerScriptLoopHandler(function()
-        --finishPatch()
-        local scene = SceneLobby()
-        scene:runScene()
+        -- C++ function(AppDelegate_Custom.cpp에 구현되어 있음)
+        finishPatch()
     end)
 end
 
@@ -119,8 +117,6 @@ function ScenePatch:click_screenBtn()
         return
     end
 
-    -- @TODO global function finishiPatch는 어디있나요?
-    --finishPatch()
-    local scene = SceneLobby()
-    scene:runScene()
+    -- C++ function(AppDelegate_Custom.cpp에 구현되어 있음)
+    finishPatch()
 end

@@ -152,7 +152,7 @@ function Network:start(req, delay)
 		local form = formencode(req.data)
 		request:setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8")
 		request:setRequestHeader("Content-Length", tostring(string.len(form)))
-		request:setRequestHeader("sessionkey", UserData.m_user.session_key or '')
+		--request:setRequestHeader("sessionkey", UserData.m_user.session_key or '')
 		if req.hmac then
 			request:setRequestHeader("hmac", tostring(req.hmac))
 		end
@@ -191,21 +191,25 @@ function Network:decodeResult(ret)
 end
 
 function Network:SimpleRequest(t, do_decode)
-	if not t.url then return end
-	local url = self:getApiUrl() .. t.url
-	local data = t.data or {}
-	local method = t.method or 'GET'
-	local success = t.success or function(ret) end
-	local fail = t.fail or function(ret) end
+	if not t['url'] then
+        --return
+    end
+
+    local full_url = t['full_url']
+	local url = full_url or (self:getApiUrl() .. t['url'])
+	local data = t['data'] or {}
+	local method = t['method'] or 'GET'
+	local success = t['success'] or function(ret) end
+	local fail = t['fail'] or function(ret) end
 	local do_decode = do_decode or false
 
     -- 모든 요청은 파라미터로 uid가 들어간다.
-    if self.uid then
-        data['uid'] = self.uid
+    if self['uid'] then
+        data['uid'] = self['uid']
     end
 
 	local r = Network:request(url, data, method)
-	r.finishHandler = function(data)
+	r['finishHandler'] = function(data)
 		local jsondata
 		if do_decode then
 			local plain = AES_Decrypt(HEX2BIN(CONSTANT['AES_KEY']), HEX2BIN(data))
@@ -216,7 +220,7 @@ function Network:SimpleRequest(t, do_decode)
         Network:saveDump(t, jsondata)
 		success(jsondata)
 	end
-	r.failHandler = function()
+	r['failHandler'] = function()
 		fail()
 	end
 	Network:start(r)

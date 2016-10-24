@@ -67,11 +67,12 @@ local t_module = {
 
     -- Scene
     'SceneCommon',
+    'SceneLogo',
     'ScenePatch',
+    'SceneTitle',
+    'SceneLobby',
     'SceneDV',
     'SceneGame',
-    'SceneLogo',
-    'SceneLobby',
     'SceneAdventure',
     'SceneDragonManage',
 

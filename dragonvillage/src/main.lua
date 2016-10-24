@@ -80,6 +80,7 @@ local function main()
     if DV_SCENE_ACTIVE then
         SceneDV():runScene()
     else
+        --local scene = SceneTitle()
         local scene = SceneLobby()
         scene:runScene()
     end
