@@ -63,7 +63,8 @@ function MissileLauncher:init_missileLauncher(t_skill, object_key, attack_damage
     self.m_tAttackValueBase = script_data['attack_value']
 
     -- 테이블에서 덧씌우는 필드
-    if t_skill then
+	-- 기존 스크립트탄은 무시하고 새로 만든 일반탄에 적용한다.
+    if t_skill and (t_skill['type'] == 'code') then
         local count = 1
         while (self.m_tAttackValueBase[count]) do
             -- resource 교체
