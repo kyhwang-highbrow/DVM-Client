@@ -34,7 +34,7 @@ function CommonMissile_Shotgun:fireMissile()
 	-- 수정 가능 부분
 	-----------------------------------------------------------------------------------
 
-	t_option['dir'] = -5
+	t_option['dir'] = getDegreeFromChar(self.m_owner, self.m_target)
 	t_option['rotation'] = t_option['dir']
 
     t_option['missile_res_name'] = self.m_missileRes -- 테이블에서 가져오나 하드코딩 가능 
@@ -64,7 +64,10 @@ function CommonMissile_Shotgun:fireMissile()
 
 	-- 발사 
     local world = self.m_world
-    world.m_missileFactory:makeMissile(t_option)
+	for i = 1, t_option['count'] do
+		world.m_missileFactory:makeMissile(t_option)
+		t_option['dir'] = t_option['dir'] + t_option['dir_add']
+	end
 end
 
 -------------------------------------
