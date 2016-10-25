@@ -33,8 +33,8 @@ function CommonMissile_Straight:fireMissile()
 
 	-- 수정 가능 부분
 	-----------------------------------------------------------------------------------
-
-	t_option['dir'] = getDegreeFromChar(self.m_owner, self.m_target) or 270
+	
+	t_option['dir'] = getDegreeFromChar(self.m_owner, self.m_target) or self:getDefaultDir()
 	t_option['rotation'] = t_option['dir']
 
     t_option['missile_res_name'] = self.m_missileRes -- 테이블에서 가져오나 하드코딩 가능 
@@ -44,12 +44,12 @@ function CommonMissile_Straight:fireMissile()
 	t_option['offset'] = {0, 0}
 
 	t_option['movement'] ='normal' 
-    t_option['missile_type'] = 'NORMAL'
+    t_option['missile_type'] = 'PASS'
 	
 	t_option['scale'] = 1
 	t_option['count'] = 1
 	t_option['period'] = 0
-	t_option['speed'] = 500
+	t_option['speed'] = 800
 	t_option['h_limit_speed'] = 2000
 	t_option['accel_delay'] = 0
     t_option['angular_velocity'] = 0

@@ -235,7 +235,7 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, movement, value1, value2, v
     local t_enemy = table_enemy[enemy_id]
 
     if (not t_enemy) then
-        error(tostring(enemy_id))
+        error(tostring('다음 ID는 존재하지 않습니다 : ' .. enemy_id))
     end
 
     local body = {0, 0, 50}

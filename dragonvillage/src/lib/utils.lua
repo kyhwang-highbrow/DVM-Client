@@ -444,6 +444,7 @@ end
 -- function getDegreeFromChar
 -------------------------------------
 function getDegreeFromChar(char1, char2)
+	if (not char2) then return nil end
     return getDegree(char1.pos.x, char1.pos.y, char2.pos.x, char2.pos.y)
 end
 

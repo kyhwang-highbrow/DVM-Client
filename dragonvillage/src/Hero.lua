@@ -429,7 +429,7 @@ function Hero:initStatus(t_char, level, grade, evolution)
         self.m_skillIndicator = SkillIndicator_OppositeTarget(self)
 
     -- 힐링윈드
-    elseif isExistValue(type, 'skill_aod_square_heal_dmg') then
+    elseif isExistValue(type, 'skill_aoe_square_heal_dmg') then
         self.m_skillIndicator = SkillIndicator_HealingWind(self, t_skill)
 
     -- 크래시

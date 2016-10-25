@@ -49,7 +49,7 @@ function CommonMissile:initCommonMissile(owner, t_skill)
 
 	-- resource 체크 
 	if (not self.m_missileRes) or (self.m_missileRes == 'x') then
-		error('공통탄 .. ' ..  t_skill['type'] .. ' 리소스 없다 ..')
+		error('공통탄 .. ' ..  t_skill['type'] .. ' .. 리소스 없음')
 	end
 	if (self.m_motionStreakRes == 'x') then 
 		self.m_motionStreakRes = nil 
@@ -91,6 +91,18 @@ function CommonMissile:getRandomTargetByRule()
     end
 
     return target
+end
+
+-------------------------------------
+-- function getDefaultDir()
+-- @brief 타겟을 못가져왔을 때 
+-------------------------------------
+function CommonMissile:getDefaultDir()
+    if self.m_owner.m_bLeftFormation then   
+		return 180
+    else                            
+		return 0
+    end
 end
 
 -------------------------------------
