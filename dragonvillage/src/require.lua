@@ -127,7 +127,7 @@ local t_module = {
     'MissileFactory',
     'MissileLauncher',
     
-	-- COMMON MISSILE (°øÅëÅº)
+	-- COMMON MISSILE (ê³µí†µíƒ„)
 	'CommonMissile',
 	'CommonMissile_Straight',
 	'CommonMissile_Cruise',
@@ -255,6 +255,7 @@ local t_module = {
     'UI_NestDungeonScene',
     'UI_NestDragonDungeonListItem',
     'UI_NestDungeonStageSelectPopup',
+    'UI_EditBoxPopup',
 
     -- UIC (UI Component)
     'UIC_Node',

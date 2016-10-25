@@ -20,13 +20,15 @@ function SceneTitle:onEnter()
 
 
     local player_id = nil
-    local uid = nil
-    local idfa = 'temp1'
-    local deviceOS = 3
+    local uid = '130'
+    local idfa = '한글테스트123!@#'
+    local deviceOS = '3'
     local pushToken = 'temp'
 
     local success_cb = function(ret)
         ccdump(ret)
+        local test_str = ret['idfa']
+        cclog(test_str)
     end
 
     local fail_cb = function(ret)

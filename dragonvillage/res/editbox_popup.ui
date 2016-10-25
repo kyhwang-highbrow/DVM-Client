@@ -197,11 +197,11 @@
 			return_type = 0;
 			max_length = 0;
 			text = '';
-			font_name = 'Helvetica';
+			font_name = 'font/common_font_01.ttf';
 			font_size = 24;
 			font_color = { 255; 255; 255; };
 			placeholder = '입력하세요.';
-			placeholder_font_name = 'Helvetica';
+			placeholder_font_name = 'font/common_font_01.ttf';
 			placeholder_font_size = 24;
 			placeholder_font_color = { 255; 255; 255; };
 			normal_bg = 'ui/frame/list_frame_01.png';
