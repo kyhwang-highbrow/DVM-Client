@@ -21,12 +21,16 @@ function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolu
     local max_key = status_name .. '_max'
     local max_lv_value = t_char[max_key]
     local lv_stat = nil
-	-- 2-1. 특정 수치의 레벨에 상관없이 고정된 값을 추가한다.
-	if (status_name == 'aspd') then 
-		lv_stat = t_char[status_name .. '_abs']
-	else
+
+	-- 2-1. 공방체 스탯만 레벨에 따라 증가시키고 나머지는 고정값이다. 
+	if isExistValue(status_name, 'atk', 'def', 'hp') then 
 		lv_stat = (max_lv_value / 60) * lv
+	else
+		lv_stat = t_char[status_name]
 	end
+	
+	--@TODO 임시 처리..!
+	if (not lv_stat) then lv_stat = t_char[status_name .. '_max'] end
 
     -- 3. 승급 능력치
     local grade_key = 'grade_' .. grade
