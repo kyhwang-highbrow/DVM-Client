@@ -945,7 +945,9 @@ end
 function GameWorld:dropItem(x, y)
     local rand = math_random(2, 4)
     for i=1, rand do
-        self:addDropGold(x, y)
+		--@TODO 골드 안떨어지도록 임시 처리
+		self:obtainGold(1)
+        --self:addDropGold(x, y)
     end
 end
 
@@ -1167,7 +1169,7 @@ end
 function GameWorld:addDropGold(x, y)
 
     local gold_obj = ObjectGold(self, x, y)
-    --self:addChild2(gold_obj.m_animator.m_node, DEPTH_ITEM_GOLD)
+    self:addChild2(gold_obj.m_animator.m_node, DEPTH_ITEM_GOLD)
 
     self.m_dropGoldIdx = (self.m_dropGoldIdx + 1)
     gold_obj.m_goldIdx = self.m_dropGoldIdx
