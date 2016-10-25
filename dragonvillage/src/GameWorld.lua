@@ -100,7 +100,8 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
     self.m_groundNode = cc.Node:create()
     self.m_gameNode1:addChild(self.m_groundNode)
 
-    self.makeTouchLayer_GameWorld(self, world_node)
+	-- 모션 스트릭 터치 영역 
+    --self.makeTouchLayer_GameWorld(self, world_node)
 
     -- 그리드 노드
     self.m_gridNode = cc.Node:create()
