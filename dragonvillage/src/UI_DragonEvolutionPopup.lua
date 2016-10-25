@@ -87,7 +87,7 @@ function UI_DragonEvolutionPopup:refresh_evolutionDragonInfo_Curr()
     local t_dragon = table_dragon[dragon_id]
 
     do -- 드래곤 에니메이터
-        local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], t_dragon_data['evolution'])
+        local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], t_dragon_data['evolution'], t_dragon['attr'])
         animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
         animator.m_node:setDockPoint(cc.p(0.5, 0.5))
         animator:setScale(1)
@@ -140,10 +140,11 @@ function UI_DragonEvolutionPopup:refresh_evolutionDragonInfo_Next()
     local t_dragon = table_dragon[dragon_id]
 
     local evolution = t_dragon_data['evolution'] + 1
+	local attr = t_dragon['attr']
 
     if (evolution <= 3) then
         do -- 드래곤 에니메이터
-            local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution)
+            local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, attr)
             animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
             animator.m_node:setDockPoint(cc.p(0.5, 0.5))
             animator:setScale(1)

@@ -148,7 +148,7 @@ function UI_DragonEvolutionWindow:refresh(dragon_id)
         if is_max_evolution then
 
         else
-            self.m_nextEvolutionDragonAnimator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution + 1)
+            self.m_nextEvolutionDragonAnimator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution + 1, t_dragon['attr'])
             self.m_nextEvolutionDragonAnimator.m_node:setDockPoint(cc.p(0.5, 0.5))
             self.m_nextEvolutionDragonAnimator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
             vars['afterNode']:addChild(self.m_nextEvolutionDragonAnimator.m_node)

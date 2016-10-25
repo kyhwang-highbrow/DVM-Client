@@ -33,7 +33,7 @@ function UI_DragonUpgradeResult:init(dragon_id)
     local t_dragon = table_dragon[dragon_id]
 
     do -- 드래곤 에니메이터
-        local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], t_dragon_data['evolution'])
+        local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], t_dragon_data['evolution'], t_dragon['attr'])
         animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
         animator.m_node:setDockPoint(cc.p(0.5, 0.5))
         vars['dragonNode']:removeAllChildren()

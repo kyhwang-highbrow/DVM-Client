@@ -308,7 +308,9 @@ function UI_ProductButton:tempGacha()
 
     local t_random = {}
     for i,v in pairs(table_dragon) do
-        table.insert(t_random, i)
+		if (v['test'] == 1) then 
+	        table.insert(t_random, i)	
+		end
     end
 
     local l_ret = {}

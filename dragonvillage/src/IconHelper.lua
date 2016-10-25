@@ -3,8 +3,14 @@ IconHelper = {}
 -------------------------------------
 -- function getHeroIcon
 -------------------------------------
-function IconHelper:getHeroIcon(res_name, grade)
-    local res_name = string.gsub(res_name, '#', '0' .. grade)
+function IconHelper:getHeroIcon(res_name, evolution, attr)
+    local res_name = res_name
+	if evolution then 
+		res_name = string.gsub(res_name, '#', '0' .. evolution)
+	end
+	if attr then
+		res_name = string.gsub(res_name, '@', attr)
+	end
     local sprite = cc.Sprite:create(res_name)
 
     if (not sprite) then

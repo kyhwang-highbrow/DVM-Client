@@ -71,7 +71,8 @@ function DragonCard:makeDragonCardUI()
     do -- 드래곤 에니메이터
         local res = t_dragon['res']
         local evolution = t_dragon_data['evolution']
-        self.m_uiDragon = AnimatorHelper:makeDragonAnimator(res, evolution)
+		local attr = t_dragon['attr']
+        self.m_uiDragon = AnimatorHelper:makeDragonAnimator(res, evolution, attr)
         self.m_uiDragon.m_node:setAnchorPoint(cc.p(0.5, 0.5))
         self.m_uiDragon.m_node:setDockPoint(cc.p(0.5, 0.5))
         self.m_uiDragon:setPosition(0, -80)

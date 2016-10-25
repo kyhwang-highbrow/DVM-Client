@@ -42,7 +42,7 @@ end
 -------------------------------------
 -- function initAnimatorHero
 -------------------------------------
-function Hero:initAnimatorHero(file_name, evolution)
+function Hero:initAnimatorHero(file_name, evolution, attr)
     -- Animator 삭제
     if self.m_animator then
         if self.m_animator.m_node then
@@ -53,7 +53,7 @@ function Hero:initAnimatorHero(file_name, evolution)
     end
 
     -- Animator 생성
-    self.m_animator = AnimatorHelper:makeDragonAnimator(file_name, evolution)
+    self.m_animator = AnimatorHelper:makeDragonAnimator(file_name, evolution, attr)
     if self.m_animator.m_node then
         self.m_rootNode:addChild(self.m_animator.m_node)
     end
@@ -559,7 +559,8 @@ end
 -- function checkTarget
 -------------------------------------
 function Hero:checkTarget(t_skill)
-
+	-- @TODO 임시 처리
+	--[[
     -- 25%의 확률로 테이머 타겟을 공격
     if (math_random(1, 100) <= 25) then
         local target = self.m_world.m_tamer:getTamerTarget()
@@ -568,7 +569,7 @@ function Hero:checkTarget(t_skill)
             return
         end
     end
-
+	]]
     -- 기본 룰로 타겟 지정
     PARENT.checkTarget(self, t_skill)
 end

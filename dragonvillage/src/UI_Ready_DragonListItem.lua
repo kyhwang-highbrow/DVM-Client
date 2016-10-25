@@ -89,7 +89,9 @@ function UI_Ready_DragonListItem:getCharAnimator()
         local evolution = self.m_dragonData['evolution']
         local table_dragon = TABLE:get('dragon')
         local t_dragon = table_dragon[self.m_dataDragonID]
-        self.m_charAnimator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution)
+		local attr = t_dragon['attr']
+
+        self.m_charAnimator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, attr)
         self.m_charAnimator.m_node:retain()
         self.m_charAnimator:setScale(0.6)
     elseif (evolution ~= self.m_charAnimatorEvolution) then
@@ -99,7 +101,9 @@ function UI_Ready_DragonListItem:getCharAnimator()
         local evolution = self.m_dragonData['evolution']
         local table_dragon = TABLE:get('dragon')
         local t_dragon = table_dragon[self.m_dataDragonID]
-        self.m_charAnimator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution)
+		local attr = t_dragon['attr']
+
+        self.m_charAnimator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, attr)
         self.m_charAnimator.m_node:retain()
         self.m_charAnimator:setScale(0.6)
     end
@@ -199,7 +203,8 @@ function UI_Ready_DragonListItem:refreshDragonInfo()
 
     do -- 드래곤 아이콘
         local evolution = t_dragon_data['evolution']
-        local sprite = IconHelper:getHeroIcon(t_dragon['icon'], evolution)
+		local attr = t_dragon['attr']
+        local sprite = IconHelper:getHeroIcon(t_dragon['icon'], evolution, attr)
         sprite:setAnchorPoint(cc.p(0.5, 0.5))
         sprite:setDockPoint(cc.p(0.5, 0.5))
         vars['iconsNode']:removeAllChildren()

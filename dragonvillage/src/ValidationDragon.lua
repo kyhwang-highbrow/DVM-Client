@@ -27,6 +27,7 @@ end
 -------------------------------------
 function ValidationDragon:validationAnimationList(t_dragon)
     local res_name = t_dragon['res']
+	local attr = t_dragon['attr']
 
     local function func(l_ret, l_visual_list, visual_name)
         if (not table.find(l_visual_list, visual_name)) then
@@ -35,7 +36,7 @@ function ValidationDragon:validationAnimationList(t_dragon)
     end
     
     for evolution=1, 3 do
-        local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution)
+        local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
         local l_visual_list = animator:getVisualList()
         
         local l_ret = {}

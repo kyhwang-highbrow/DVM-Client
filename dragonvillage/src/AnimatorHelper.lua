@@ -3,9 +3,15 @@ AnimatorHelper = {}
 -------------------------------------
 -- function makeDragonAnimator
 -------------------------------------
-function AnimatorHelper:makeDragonAnimator(res_name, evolution)
-
-    local res_name = string.gsub(res_name, '#', '0' .. evolution)
+function AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
+	local res_name = res_name
+	
+	if evolution then 
+		res_name = string.gsub(res_name, '#', '0' .. evolution)
+	end
+	if attr then 
+		res_name = string.gsub(res_name, '@', attr)
+	end
     local animator = MakeAnimator(res_name)
 
     if (not animator.m_node) then

@@ -135,7 +135,7 @@ function UI_DragonUpgradePopup:refresh_dragonInfo(dragon_id)
     if (not self.m_upgradeDragonAnimator) then
         vars['dragonNode']:removeAllChildren()
 
-        local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], t_dragon_data['evolution'])
+        local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], t_dragon_data['evolution'], t_dragon['attr'])
         animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
         animator.m_node:setDockPoint(cc.p(0.5, 0.5))
         vars['dragonNode']:addChild(animator.m_node)
