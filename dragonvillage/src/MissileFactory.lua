@@ -98,7 +98,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 
     local damage_rate =      t_option['damage_rate']
     local object_key =       t_option['object_key'] or 'missile_e'
-    local missile_res_name = t_option['missile_res_name'] or nil
+    local missile_res_name = t_option['missile_res_name'] or ''
     local physics_body =    (t_option['physics_body'] and clone(t_option['physics_body']))
     local speed =            t_option['speed'] or 0
     local l_limit_speed =    t_option['l_limit_speed']
