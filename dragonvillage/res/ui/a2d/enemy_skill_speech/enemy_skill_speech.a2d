@@ -1,0 +1,369 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)enemy_skill_speech.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"base_appear",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)enemy_skill_speech.plist'<azSprite>'skill_speech_bg_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":-0.100000, "sY":-0.100000, "pX":-30.000000, "pY":-34.000000
+									},
+									{
+										"frame":6, "sX":0.800000, "sY":0.800000, "alpha":512
+									},
+									{
+										"frame":9, "sX":0.700000, "sY":0.700000, "pX":-3.000000, "pY":-5.000000, "alpha":512
+									},
+									{
+										"frame":13, "sX":0.800000, "sY":0.800000, "alpha":512
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)enemy_skill_speech.plist'<azSprite>'exclamation_bg.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.100000, "sY":0.100000, "pX":-26.000000, "pY":-24.000000, "alpha":0
+									},
+									{
+										"frame":6, "pX":4.000000, "pY":10.000000
+									},
+									{
+										"frame":9, "sX":0.900000, "sY":0.900000, "pX":1.000000, "pY":5.000000
+									},
+									{
+										"frame":13, "pX":4.000000, "pY":10.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"base_keep",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)enemy_skill_speech.plist'<azSprite>'skill_speech_bg_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000, "alpha":512
+									},
+									{
+										"frame":4, "sX":1.200000, "sY":1.000000, "pX":12.000000, "pY":6.000000, "alpha":512
+									},
+									{
+										"frame":8, "sX":1.000000, "sY":1.200000, "pX":7.000000, "pY":12.000000, "alpha":512
+									},
+									{
+										"frame":12, "sX":1.000000, "sY":1.000000, "pX":5.000000, "pY":6.000000, "alpha":512
+									},
+									{
+										"frame":30, "sX":0.800000, "sY":0.800000, "alpha":512
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)enemy_skill_speech.plist'<azSprite>'exclamation_bg.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":4.000000, "pY":10.000000
+									},
+									{
+										"frame":12, "pX":4.000000, "pY":10.000000
+									},
+									{
+										"frame":30, "pX":4.000000, "pY":10.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"failed",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)enemy_skill_speech.plist'<azSprite>'skill_speech_bg_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":5, "sX":0.000000, "pX":-30.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)enemy_skill_speech.plist'<azSprite>'skill_speech_bg_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":0.000000, "pX":-30.000000
+									},
+									{
+										"frame":9
+									},
+									{
+										"frame":13, "sX":0.900000
+									},
+									{
+										"frame":17, "sY":0.900000
+									},
+									{
+										"frame":21
+									},
+									{
+										"frame":23
+									},
+									{
+										"frame":27, "pY":-10.000000, "alpha":204
+									},
+									{
+										"frame":29, "sX":1.100000, "pY":-16.000000, "alpha":153
+									},
+									{
+										"frame":31, "sY":1.100000, "pY":-19.000000, "alpha":102
+									},
+									{
+										"frame":33, "sY":1.050000, "pY":-26.500000, "alpha":51
+									},
+									{
+										"frame":35, "pY":-34.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)enemy_skill_speech.plist'<azSprite>'skill_speech_failed.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "sX":0.000000, "pX":-29.000000
+									},
+									{
+										"frame":11
+									},
+									{
+										"frame":13, "rotate":-10.000000, "pY":3.000000
+									},
+									{
+										"frame":15, "pY":-2.000000
+									},
+									{
+										"frame":17, "rotate":10.000000, "pY":2.000000
+									},
+									{
+										"frame":19, "sX":1.100000, "pY":-2.000000
+									},
+									{
+										"frame":21, "sY":1.100000, "rotate":-10.000000, "pY":3.000000
+									},
+									{
+										"frame":23, "pY":-1.000000
+									},
+									{
+										"frame":25, "pX":5.000000, "pY":-3.000000
+									},
+									{
+										"frame":27, "pX":-5.000000, "pY":-10.000000, "alpha":204
+									},
+									{
+										"frame":29, "pX":5.000000, "pY":-16.000000, "alpha":153
+									},
+									{
+										"frame":31, "pX":-5.000000, "pY":-19.000000, "alpha":102
+									},
+									{
+										"frame":33, "pX":-2.500000, "pY":-26.500000, "alpha":51
+									},
+									{
+										"frame":35, "pY":-34.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"success",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)enemy_skill_speech.plist'<azSprite>'skill_speech_bg_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":5, "sX":0.000000, "pX":-30.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)enemy_skill_speech.plist'<azSprite>'skill_speech_bg_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":0.000000, "pX":-30.000000
+									},
+									{
+										"frame":9
+									},
+									{
+										"frame":13, "sX":0.900000
+									},
+									{
+										"frame":17, "sY":0.900000
+									},
+									{
+										"frame":21
+									},
+									{
+										"frame":23
+									},
+									{
+										"frame":27, "sX":1.500000, "sY":1.500000, "pX":22.000000, "pY":23.000000
+									},
+									{
+										"frame":32, "sX":1.500000, "sY":1.500000, "pX":22.000000, "pY":23.000000
+									},
+									{
+										"frame":36, "sX":0.000000, "sY":0.000000, "pX":-29.000000, "pY":-32.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)enemy_skill_speech.plist'<azSprite>'skill_speech_success.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":0.000000, "pX":-29.000000
+									},
+									{
+										"frame":11
+									},
+									{
+										"frame":13, "rotate":-10.000000, "pY":3.000000
+									},
+									{
+										"frame":15, "pY":-2.000000
+									},
+									{
+										"frame":17, "rotate":10.000000, "pY":2.000000
+									},
+									{
+										"frame":19, "sX":1.100000, "pY":-2.000000
+									},
+									{
+										"frame":21, "sY":1.100000, "rotate":-10.000000, "pY":2.000000
+									},
+									{
+										"frame":23, "pY":-1.000000
+									},
+									{
+										"frame":27, "sX":1.500000, "sY":1.500000, "pX":22.000000, "pY":22.000000
+									},
+									{
+										"frame":32, "sX":1.500000, "sY":1.500000, "pX":22.000000, "pY":22.000000
+									},
+									{
+										"frame":36, "sX":0.000000, "sY":0.000000, "pX":-29.000000, "pY":-32.000000
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

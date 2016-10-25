@@ -38,8 +38,8 @@ SoundMgr = {
     m_sfxCooltime = {},
 
     -- 옵션
-    m_enableBgm = true,
-    m_enableSfx = true,
+    m_enableBgm = false,
+    m_enableSfx = false,
 
     -- 사운드 품질
     m_quality = SOUND_QUALITY_TOKEN_HIGH, --SOUND_QUALITY_TOKEN_LOW

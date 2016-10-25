@@ -434,8 +434,8 @@ end
 function UI_ReadySceneNew:init_dragonDeck()
 
     self.m_currDeckIdx = nil
-    --@TODO 임시로 대기 막음
-    for i=1, 4 do
+    
+    for i=1, PARTICIPATE_DRAGON_CNT do
         local ui_name = l_deck_ui_name[i]
         local node = self.vars[ui_name]
         node:removeAllChildren()

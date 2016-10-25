@@ -429,7 +429,7 @@ function GameWorld:init_test(deck_type)
     self.m_inGameUI:doActionReset()
 
     do -- 진형 시스템 초기화
-        self:getBattleZone('leon', true)
+        self:getBattleZone('basic', true)
     end
 
     do -- 스킬 조작계 초기화

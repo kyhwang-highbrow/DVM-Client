@@ -86,7 +86,7 @@ PRIORITY =
 --------------------------------------------------------------------------
 -- 특수한 상수들
 
-PARTICIPATE_DRAGON_CNT = 4
+PARTICIPATE_DRAGON_CNT = 5
 
 
 
