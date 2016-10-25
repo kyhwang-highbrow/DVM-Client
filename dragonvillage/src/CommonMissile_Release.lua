@@ -31,7 +31,6 @@ function CommonMissile_Release:fireMissile()
         t_option['object_key'] = 'missile_e'
     end
 
-	-- 1번탄
 	-- 수정 가능 부분 
 	-----------------------------------------------------------------------------------
 	
@@ -54,7 +53,7 @@ function CommonMissile_Release:fireMissile()
 	t_option['h_limit_speed'] = 2000
 	t_option['accel_delay'] = 0.5
     t_option['angular_velocity'] = 0
-	t_option['dir_add'] = 0
+	t_option['dir_add'] = 90
 
 	-- "effect" : {}
     t_option['effect'] = {}
@@ -63,45 +62,12 @@ function CommonMissile_Release:fireMissile()
 
 	-----------------------------------------------------------------------------------
 
-	-- 2번탄
-	local t_option2 = clone(t_option)
-	-- 수정 가능 부분 
-	-----------------------------------------------------------------------------------
-
-	t_option2['dir'] = 225
-	t_option2['rotation'] = t_option2['dir']
-
-	--[[
-    t_option2['missile_res_name'] = 'res/missile/missile_arrow/missile_arrow.png' --self.m_missileRes -- 테이블에서 가져오나 하드코딩 가능 
-    t_option2['attr_name'] = self.m_owner:getAttribute()
-    
-	t_option2['physics_body'] = {0, 0, 20}
-	t_option2['offset'] = {0, 0}
-			
-	t_option2['movement'] ='guidtarget' 
-    t_option2['missile_type'] = 'NORMAL'
-			
-	t_option2['scale'] = 1
-	t_option2['count'] = 1
-	t_option2['period'] = 0
-	t_option2['speed'] = 300
-	t_option2['h_limit_speed'] = 2000
-	t_option2['accel_delay'] = 0.5
-    t_option2['angular_velocity'] = 0
-	t_option2['dir_add'] = 0
-			
-	-- "effe2ct" : {}
-    t_option2['effect'] = {}
-    t_option2['effect']['motion_streak'] = self.m_motionStreakRes
-	t_option2['effect']['afterimage'] = true
-	]]
-	-----------------------------------------------------------------------------------
-
-
 	-- 발사 
     local world = self.m_world
-    world.m_missileFactory:makeMissile(t_option)
-	world.m_missileFactory:makeMissile(t_option2)
+	for i = 1, t_option['count'] do
+		world.m_missileFactory:makeMissile(t_option)
+		t_option['dir'] = t_option['dir'] + t_option['dir_add']
+	end
 end
 
 -------------------------------------

@@ -55,8 +55,9 @@ function CommonMissile_High:fireMissile()
 	t_option['accel'] = 1500
 	t_option['accel_delay'] = 0
     t_option['angular_velocity'] = 0
-	t_option['dir_add'] = 2.5
 	]]
+	t_option['dir_add'] = 0
+	
 
 	-- "effect" : {}
     t_option['effect'] = {}
@@ -69,7 +70,10 @@ function CommonMissile_High:fireMissile()
 
 	-- 발사 
     local world = self.m_world
-    world.m_missileFactory:makeMissile(t_option)
+	for i = 1, t_option['count'] do
+		world.m_missileFactory:makeMissile(t_option)
+		t_option['dir'] = t_option['dir'] + t_option['dir_add']
+	end
 end
 
 -------------------------------------

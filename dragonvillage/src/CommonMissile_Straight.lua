@@ -63,7 +63,10 @@ function CommonMissile_Straight:fireMissile()
 
 	-- 발사 
     local world = self.m_world
-    world.m_missileFactory:makeMissile(t_option)
+	for i = 1, t_option['count'] do
+		world.m_missileFactory:makeMissile(t_option)
+		t_option['dir'] = t_option['dir'] + t_option['dir_add']
+	end
 end
 
 -------------------------------------
