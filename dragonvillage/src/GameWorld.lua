@@ -413,7 +413,7 @@ function GameWorld:init_test(deck_type)
     -- 유저 데이터 덱에 저장된 드래곤 출전 리스트
     local t_deck = g_dragonListData.m_lDragonDeck
 
-    for i=1, 4 do
+    for i=1, PARTICIPATE_DRAGON_CNT do
         local idx = tostring(i)
         if t_deck[idx] and (tonumber(t_deck[idx]) ~= 0) then
 
@@ -422,8 +422,9 @@ function GameWorld:init_test(deck_type)
         end
     end
 
+	--@TODO tamer 덜어내는 중
     -- 테이머 생성
-    self:makeTamer(110001)
+    --self:makeTamer(110001)
 
     self.m_inGameUI:doActionReset()
 
@@ -435,6 +436,8 @@ function GameWorld:init_test(deck_type)
         self.m_skillIndicatorMgr = SkillIndicatorMgr(self, g_currScene.m_colorLayerForSkill)
     end
 
+	--@TODO tamer 덜어내는 중
+	--[[
     do
         self.m_tamerSkillSystem = TamerSkillSystem(self, self.m_tamer)
         self:addListener('game_start', self.m_tamerSkillSystem)
@@ -449,6 +452,7 @@ function GameWorld:init_test(deck_type)
             end
         end
     end
+	]]
 end
 
 -------------------------------------
@@ -698,11 +702,12 @@ function GameWorld:makeDragon(dragon_id, idx)
     local lv = t_dragon_data['lv']
     local grade = t_dragon_data['grade']
     local evolution = t_dragon_data['evolution']
+	local attr = t_dragon['attr']
 
     local hero = Hero(nil, {0, 0, 20})
     hero:initDragonSkillManager('dragon', dragon_id, t_dragon_data['grade'])
     hero.m_tDragonInfo = t_dragon_data
-    hero:initAnimatorHero(t_dragon['res'], t_dragon_data['evolution'])
+    hero:initAnimatorHero(t_dragon['res'], evolution, attr)
     hero.m_animator:setScale(0.5 * t_dragon['scale'])
     hero:initState()
     hero:initStatus(t_dragon, lv, grade, evolution)
@@ -1152,8 +1157,8 @@ end
 -- function init_dropGold
 -------------------------------------
 function GameWorld:init_dropGold()
-    self.m_dropGoldList = {} -- 'list[ObjectGold]'
-    self.m_dropGoldIdx = 0 -- 'number', -- 골드마다 고유한 idx를 가짐
+    self.m_dropGoldList = {}	-- 'list[ObjectGold]'
+    self.m_dropGoldIdx = 0		-- 'number', -- 골드마다 고유한 idx를 가짐
 end
 
 -------------------------------------
@@ -1162,7 +1167,7 @@ end
 function GameWorld:addDropGold(x, y)
 
     local gold_obj = ObjectGold(self, x, y)
-    self:addChild2(gold_obj.m_animator.m_node, DEPTH_ITEM_GOLD)
+    --self:addChild2(gold_obj.m_animator.m_node, DEPTH_ITEM_GOLD)
 
     self.m_dropGoldIdx = (self.m_dropGoldIdx + 1)
     gold_obj.m_goldIdx = self.m_dropGoldIdx

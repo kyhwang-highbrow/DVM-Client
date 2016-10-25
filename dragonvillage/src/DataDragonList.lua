@@ -34,13 +34,15 @@ function DataDragonList:init(user_data_instance, user_data)
         local table_dragon = TABLE:get('dragon')
         local count = 0
         for i,v in pairs(table_dragon) do
-            local dragon_id = i
-            self:addDragon(dragon_id)
+			if (v['test'] == 1) then 
+				local dragon_id = i
+				self:addDragon(dragon_id)
 
-            if count < 5 then
-                count = count + 1
-                self:setDeck(count, dragon_id)
-            end
+				if count < 5 then
+					count = count + 1
+					self:setDeck(count, dragon_id)
+				end
+			end
         end
 
         self.m_userData:setDirtyLocalSaveData()
@@ -459,8 +461,9 @@ function DataDragonList:makeDragonAnimator(dragon_id)
 
     local res = t_dragon['res']
     local evolution = t_dragon_data['evolution']
-
-    local animator = AnimatorHelper:makeDragonAnimator(res, evolution)
+	local attr = t_dragon['attr']
+	 
+    local animator = AnimatorHelper:makeDragonAnimator(res, evolution, attr)
 
     animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
     animator.m_node:setDockPoint(cc.p(0.5, 0.5))

@@ -102,11 +102,18 @@ function GameState:update_start1(dt)
         -- 화면을 빠르게 스크롤
         world.m_mapManager:setSpeed(-1000)
 
+		--[[
         -- 테이머 연출 시작. 이벤트 리스너 등록
         local tamer = world.m_tamer
         tamer:changeState('started_directing')
         tamer:addListener('tamer_appear', self)
         tamer:addListener('tamer_appear_done', self)        
+		]]
+
+		--@TODO tamer 덜어내는 중
+		self:changeState(GAME_STATE_START_2)
+		self:appearDragon()
+
     end
 end
 
