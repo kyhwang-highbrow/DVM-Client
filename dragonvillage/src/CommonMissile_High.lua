@@ -47,8 +47,8 @@ function CommonMissile_High:fireMissile()
     t_option['missile_type'] = 'NORMAL'
 	
 	t_option['scale'] = 1
-	--[[
 	t_option['count'] = 1
+	--[[
 	t_option['period'] = 0
 	t_option['speed'] = 500
 	t_option['h_limit_speed'] = 900
