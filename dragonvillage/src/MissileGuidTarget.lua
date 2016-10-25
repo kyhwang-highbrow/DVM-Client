@@ -2,7 +2,6 @@
 -- class MissileGuidTarget
 -------------------------------------
 MissileGuidTarget = class(Missile, {
-        m_target = 'Enemy',
         m_tergatTimer = 'number',
         m_angularVelocityGuid = 'number',
         m_straightWaitTime = 'number',

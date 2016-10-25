@@ -162,8 +162,8 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         missile.m_straightWaitTime = 0
     elseif movement == 'guidtarget' then
         missile = MissileGuidTarget(missile_res_name, physics_body, target)
-        missile.m_targetPosX = t_option['target_pos'][1]
-        missile.m_targetPosY = t_option['target_pos'][2]
+        --missile.m_targetPosX = t_option['target_pos'][1]
+        --missile.m_targetPosY = t_option['target_pos'][2]
     elseif movement ==  'target' then
         missile = MissileTarget(missile_res_name, physics_body, is_hero)
 
