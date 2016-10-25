@@ -58,8 +58,7 @@ function CommonMissile_Cruise:fireMissile()
 
     t_option['effect'] = {}
     t_option['effect']['motion_streak'] = self.m_motionStreakRes
-
-
+	
 	-----------------------------------------------------------------------------------
 
 	-- 발사 

@@ -34,7 +34,7 @@ function CommonMissile_Straight:fireMissile()
 	-- 수정 가능 부분
 	-----------------------------------------------------------------------------------
 
-	t_option['dir'] = getDegreeFromChar(self.m_owner, self.m_target)
+	t_option['dir'] = getDegreeFromChar(self.m_owner, self.m_target) or 270
 	t_option['rotation'] = t_option['dir']
 
     t_option['missile_res_name'] = self.m_missileRes -- 테이블에서 가져오나 하드코딩 가능 
