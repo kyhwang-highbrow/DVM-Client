@@ -13,10 +13,10 @@ SkillIndicator_AoERound = class(SkillIndicator, {
 -- function init
 -------------------------------------
 function SkillIndicator_AoERound:init(hero, t_skill, isFixedOnTarget)
-    self.m_range = t_skill['val_2']
+    self.m_range = t_skill['val_1']
     self.m_isFixedOnTarget = isFixedOnTarget 
 	
-    self.m_indicatorScale = (self.m_range * 2) / 321
+    self.m_indicatorScale = (self.m_range * 2) / 321 -- 인디케이터 'skill_range_normal' 의 지름
 end
 
 -------------------------------------

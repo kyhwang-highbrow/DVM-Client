@@ -31,9 +31,9 @@ function SkillAoERound:init_skill(attack_count, range, aoe_res)
     self.m_maxAttackCnt = attack_count 
     self.m_range = range
 	self.m_aoeRes = aoe_res
+	self.m_hitInterval = 1/30
 
-	-- 이펙트 생성 
-    --self:makeEffect(self.m_targetPos.x, self.m_targetPos.y)
+	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
 end
 
 -------------------------------------
@@ -47,7 +47,7 @@ end
 -- function initState
 -------------------------------------
 function SkillAoERound:initState()
-    self:addState('appear', SkillAoERound.st_idle, 'appear', true)
+    self:addState('appear', SkillAoERound.st_appear, 'appear', false)
     self:addState('attack', SkillAoERound.st_attack, 'idle', true)
 	self:addState('disappear', SkillAoERound.st_disappear, 'disappear', false)
     self:addState('dying', function(owner, dt) return true end, nil, nil, 10)  
@@ -56,7 +56,7 @@ end
 -------------------------------------
 -- function st_idle
 -------------------------------------
-function SkillAoERound.st_idle(owner, dt)
+function SkillAoERound.st_appear(owner, dt)
     if (owner.m_stateTimer == 0) then
 		-- 이펙트 재생 단위 시간
 		owner.m_hitInterval = owner.m_animator:getDuration()
@@ -87,16 +87,15 @@ function SkillAoERound.st_attack(owner, dt)
     end
 	
 	-- 공격 횟수 초과시 탈출
-	cclog(owner.m_attackCnt)
     if (owner.m_maxAttackCnt <= owner.m_attackCnt) then
-        owner:changeState('dying')
+        owner:changeState('disappear')
     end
 end
 
 -------------------------------------
 -- function st_idle
 -------------------------------------
-function SkillAoERound.st_idle(owner, dt)
+function SkillAoERound.st_disappear(owner, dt)
     if (owner.m_stateTimer == 0) then
 		-- 이펙트 재생 단위 시간
 		owner.m_hitInterval = owner.m_animator:getDuration()
@@ -133,8 +132,10 @@ function SkillAoERound:attack()
         target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
 		
 		-- @TODO 패시브를 자동으로 태우기 위해서는 어디에 있어야..		
-		if self.m_statusEffectType then 
-			self:makeEffect(target_char.pos.x, target_char.pos.y)
+		if self.m_statusEffectType then
+			if (target_char.pos.x ~= self.m_targetPos.x) and (target_char.pos.y ~= self.m_targetPos.y) then 
+				self:makeEffect(target_char.pos.x, target_char.pos.y)
+			end
 			StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectRate)
 		end
     end
@@ -142,20 +143,17 @@ end
 
 -------------------------------------
 -- function makeEffect
+-- @breif 추가 이펙트 생성 .. 현재는 같은 리소스 사용
 -------------------------------------
 function SkillAoERound:makeEffect(x, y)
     -- 이팩트 생성
-    local effect = effectaoeround(self.m_aoeres)
-    effect.m_maxattackcnt = self.m_maxattackcnt
-    effect:setposition(x, y)
-	effect:initstate()
-    effect:changestate('appear')
-	
-	-- duration 가져오기 위해 저장
-	self.m_effect = effect.m_animator
-
-    self.m_owner.m_world.m_missilednode:addchild(effect.m_rootnode, 0)
-    self.m_owner.m_world:addtounitlist(effect)
+    local effect = MakeAnimator(self.m_aoeRes)
+    effect:setPosition(x, y)
+    effect:changeAni('idle', false)
+    self.m_owner.m_world.m_missiledNode:addChild(effect.m_node, 0)
+	effect:addAniHandler(function() 
+		effect.m_node:runAction(cc.RemoveSelf:create())
+	end)
 end
 
 -------------------------------------
@@ -201,86 +199,4 @@ function SkillAoERound:makeSkillInstnceFromSkill(owner, t_skill, t_data)
 	local aoe_res = t_skill['res_1']	  -- 광역 스킬 리소스
 	
     SkillAoERound:makeSkillInstnce(owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target, attack_count, range, aoe_res)
-end
-
-
-
--------------------------------------
--- function st_idle
--------------------------------------
-function SkillAoERound:update(dt)
-	cclog(self.m_state, self.m_hitInterval)
-end
----------------------------------------------------------------------------------------------------------------
-
-
--------------------------------------
--- class EffectAoERound
--------------------------------------
-EffectAoERound = class(Entity, {
-        m_owner = 'Character',
-        m_maxAttackCnt = 'number',
-		m_hitInterval = 'number',
-     })
-
--------------------------------------
--- function init
--- @param file_name
--- @param body
--------------------------------------
-function EffectAoERound:init(file_name, body, ...)
-	self.m_hitInterval = 1/30
-end
-
--------------------------------------
--- function initState
--------------------------------------
-function EffectAoERound:initState()
-    self:addState('appear', EffectAoERound.st_idle, 'appear', false)
-    self:addState('idle', EffectAoERound.st_attack, 'idle', true)
-    self:addState('disappear', EffectAoERound.st_disappear, 'disappear', false)
-    self:addState('dying', function(owner, dt) return true end, nil, false, 10)
-end
-
--------------------------------------
--- function st_idle
--------------------------------------
-function EffectAoERound.st_idle(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		-- 이펙트 재생 단위 시간
-		owner.m_hitInterval = owner.m_animator:getDuration() or 1/30
-	elseif (owner.m_stateTimer > owner.m_hitInterval) then
-		owner:changeState('idle')
-    end
-end
-
--------------------------------------
--- function st_attack
--------------------------------------
-function EffectAoERound.st_attack(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		-- 이펙트 재생 단위 시간
-		owner.m_hitInterval = owner.m_animator:getDuration() or 1/30
-    elseif (owner.m_stateTimer > owner.m_hitInterval * owner.m_maxAttackCnt) then
-        owner:changeState('disappear')
-    end
-end
-
--------------------------------------
--- function st_idle
--------------------------------------
-function EffectAoERound.st_disappear(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		-- 이펙트 재생 단위 시간
-		owner.m_hitInterval = owner.m_animator:getDuration() or 1/30
-	elseif (owner.m_stateTimer > owner.m_hitInterval) then
-		owner:changeState('dying')
-    end
-end
-
--------------------------------------
--- function st_idle
--------------------------------------
-function EffectAoERound:update(dt)
-	cclog(self.m_state, self.m_hitInterval)
 end
