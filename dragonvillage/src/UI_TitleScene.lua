@@ -169,6 +169,7 @@ function UI_TitleScene:workCheckUserID()
     if (user_id or idfa) then
         self:doNextWork()
     else
+        HideLoading()
         local edit_box = UI_EditBoxPopup()
         edit_box:setPopupTitle(Str('닉네임 입력'))
         edit_box:setPopupDsc(Str('사용하실 닉네임을 입력하세요.'))
