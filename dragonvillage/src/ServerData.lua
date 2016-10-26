@@ -78,7 +78,7 @@ end
 
 -------------------------------------
 -- function applyServerData
--- @brief ¼­¹ö·ÎºÎÅÍ ¹ŞÀº Á¤º¸·Î ¼¼ÀÌºê µ¥ÀÌÅÍ¸¦ °»½Å
+-- @brief ì„œë²„ë¡œë¶€í„° ë°›ì€ ì •ë³´ë¡œ ì„¸ì´ë¸Œ ë°ì´í„°ë¥¼ ê°±ì‹ 
 -------------------------------------
 function ServerData:applyServerData(data, ...)
     local args = {...}
@@ -87,7 +87,6 @@ function ServerData:applyServerData(data, ...)
     local container = self.m_rootTable
     for i,key in ipairs(args) do
         if (i < cnt) then
-            cclog(type(container[key]))
             if (type(container[key]) ~= 'table') then
                 container[key] = {}
             end
@@ -98,4 +97,29 @@ function ServerData:applyServerData(data, ...)
     end
 
     self:saveServerDataFile()
+end
+
+-------------------------------------
+-- function get
+-- @brief
+-------------------------------------
+function ServerData:get(...)
+    local args = {...}
+    local cnt = #args
+
+    local container = self.m_rootTable
+    for i,key in ipairs(args) do
+        if (i < cnt) then
+            if (type(container[key]) ~= 'table') then
+                return nil
+            end
+            container = container[key]
+        else
+            if container[key] then
+                return clone(container[key])
+            end
+        end
+    end
+
+    return nil
 end

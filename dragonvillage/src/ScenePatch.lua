@@ -27,7 +27,7 @@ function ScenePatch:onEnter()
 
     self.m_vars['okButton']:registerScriptTapHandler(function() self:click_screenBtn() end)
     self.m_vars['messageLabel']:setVisible(true)
-    self.m_vars['messageLabel']:setString(Str('패치 중'))
+    self.m_vars['messageLabel']:setString(Str('패치 확인 중...'))
 
     do -- 깜빡임 액션 지정
         local node = self.m_vars['messageLabel']
@@ -68,7 +68,10 @@ end
 -- function update
 -------------------------------------
 function ScenePatch:update(dt)
-	if (false == self.m_vars['downloadLabel']:isVisible()) then return end
+    if (self.m_patch_core.m_totalSize <= 0) then
+        self.m_vars['downloadLabel']:setString('')
+        return
+    end
 
 	local curr_size = self.m_patch_core.m_downloadedSize or 'Current Size'
 	local total_size = self.m_patch_core.m_totalSize or 'Total Size'

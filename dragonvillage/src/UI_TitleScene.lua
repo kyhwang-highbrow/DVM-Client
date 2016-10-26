@@ -163,10 +163,10 @@ end
 function UI_TitleScene:workCheckUserID()
     ShowLoading(Str('유저 계정 확인 중...'))
 
-    local user_id = g_userData.m_userData['user_id']
-    local idfa = g_userData.m_userData['idfa']
+    local uid = g_serverData:get('local', 'uid')
+    local idfa = g_serverData:get('local', 'idfa')
 
-    if (user_id or idfa) then
+    if (uid or idfa) then
         self:doNextWork()
     else
         HideLoading()
@@ -187,9 +187,7 @@ function UI_TitleScene:workCheckUserID()
 
         local function close_cb(str)
             local text = edit_box.vars['editBox']:getText()
-            cclog('text', text)
-            g_userData.m_userData['idfa'] = text
-            g_userData:setDirtyLocalSaveData()
+            g_serverData:applyServerData(text, 'local', 'idfa')
             self:doNextWork()
         end
         edit_box:setCloseCB(close_cb)
@@ -203,19 +201,18 @@ end
 function UI_TitleScene:workPlatformLogin()
     ShowLoading(Str('플랫폼 서버에 로그인 중...'))
 
-    local user_id = g_userData.m_userData['user_id']
-    local idfa = g_userData.m_userData['idfa'] or user_id
+    local uid = g_serverData:get('local', 'uid')
+    local idfa = g_serverData:get('local', 'idfa') or uid
 
     local player_id = nil
-    local uid = user_id
+    local uid = uid
     local idfa = idfa
     local deviceOS = '3'
     local pushToken = 'temp'
 
     local success_cb = function(ret)
         -- UID 저장
-        g_userData.m_userData['user_id'] = ret['uid']
-        g_userData:setDirtyLocalSaveData()
+        g_serverData:applyServerData(ret['uid'], 'local', 'uid')
         --ccdump(ret)
         self:doNextWork()
     end
