@@ -231,7 +231,7 @@ function SkillExplosion:findTarget(x, y, range)
 			table.insert(l_ret, target)
 		end
     end
-    
+
     return l_ret
 end
 
@@ -274,8 +274,8 @@ function SkillExplosion:makeSkillInstnceFromSkill(owner, t_skill, t_data)
 	local target = t_data.target
 
 	-- 2. 특수 변수
-	local target_count = t_skill['val_1']
-    local range = t_skill['val_2']
+    local range = t_skill['val_1']
+	local target_count = t_skill['val_2']
     local missile_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
 	local jump_res = t_skill['res_2']
 

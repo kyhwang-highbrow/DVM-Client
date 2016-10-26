@@ -745,7 +745,8 @@ end
 function Character:doSkill_skill_healing_wind(t_skill, attr, is_hero, phys_group, x, y, t_data)
 
     -- 위치, 범위, 타겟 갯수, 데미지
-    local skill = SkillHealingWind('res/effect/skill_healing_wind/skill_healing_wind.spine', {0, 0, 0})
+	local res = string.gsub(t_skill['res_1'], '@', attr)
+    local skill = SkillHealingWind(res, {0, 0, 0})
 
     -- Physics, Node, GameMgr에 등록
     self.m_world.m_missiledNode:addChild(skill.m_rootNode, 0)
