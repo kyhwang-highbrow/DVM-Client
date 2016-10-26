@@ -254,7 +254,7 @@ static int l_getAppVer(lua_State* L)
 
 static int l_restart(lua_State* L)
 {
-	auto scene = new ReloadLuaHelper(ReloadLuaHelper::ENTRY_PATCH);
+    auto scene = ReloadLuaHelper::create(ReloadLuaHelper::ENTRY_PATCH);
 	Director::getInstance()->replaceScene(scene);
 
 	return 0;
@@ -262,7 +262,7 @@ static int l_restart(lua_State* L)
 
 static int l_finishPatch(lua_State* L)
 {
-	auto scene = new ReloadLuaHelper(ReloadLuaHelper::ENTRY_TITLE);
+    auto scene = ReloadLuaHelper::create(ReloadLuaHelper::ENTRY_TITLE);
     Director::getInstance()->replaceScene(scene);
 
 	return 0;

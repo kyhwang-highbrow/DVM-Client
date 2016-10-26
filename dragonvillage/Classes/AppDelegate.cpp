@@ -19,6 +19,21 @@ using namespace CocosDenshion;
 USING_NS_CC;
 using namespace std;
 
+ReloadLuaHelper *ReloadLuaHelper::create(EEntryLua eEntryLua)
+{
+    ReloadLuaHelper *ret = new ReloadLuaHelper(eEntryLua);
+    if (ret && ret->init())
+    {
+        ret->autorelease();
+        return ret;
+    }
+    else
+    {
+        CC_SAFE_DELETE(ret);
+        return nullptr;
+    }
+}
+
 void ReloadLuaHelper::onEnter()
 {
 	if (m_eEntryLua == ENTRY_TITLE)

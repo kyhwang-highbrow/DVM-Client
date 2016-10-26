@@ -13,6 +13,9 @@ public:
 		ENTRY_PATCH = 0,
 		ENTRY_TITLE,
 	};
+
+    static ReloadLuaHelper *create(EEntryLua eEntryLua);
+
 	ReloadLuaHelper(EEntryLua eEntryLua) : m_eEntryLua(eEntryLua) {}
 	virtual ~ReloadLuaHelper() {}
 
