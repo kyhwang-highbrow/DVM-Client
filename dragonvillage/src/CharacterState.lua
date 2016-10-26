@@ -111,13 +111,9 @@ function Character.st_attackDelay(owner, dt)
         -- 어떤 스킬을 사용할 것인지 결정
         local skill_id = owner:getBasicAttackSkillID()
 
-        local cast_time = owner:getCastTimeFromSkillID(skill_id)
-
-        owner:calcAttackPeriod(cast_time)
-
-        owner.m_reservedSkillId = skill_id
-        owner.m_reservedSkillCastTime = cast_time
-
+        owner:reserveSkill(skill_id)
+        owner:calcAttackPeriod()
+        
         -- 캐스팅 게이지
         if owner.m_castingGauge then
             owner.m_castingGauge:setVisible(false)

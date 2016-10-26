@@ -208,6 +208,7 @@ end
 -- @param idx
 -------------------------------------
 function EnemyLua_Boss:doPattern(pattern)
+    cclog('EnemyLua_Boss:doPattern pattern = ' .. pattern)
     local l_str = seperate(pattern, ';')
 
     local type = l_str[1]
@@ -220,9 +221,7 @@ function EnemyLua_Boss:doPattern(pattern)
 
         -- 스킬 예약
         local skill_id = self.m_charTable['skill_' .. self.m_patternAtkIdx]
-        local cast_time = self:getCastTimeFromSkillID(skill_id)
-        self.m_reservedSkillId = skill_id
-        self.m_reservedSkillCastTime = cast_time
+        self:reserveSkill(skill_id)
 
         --cclog('EnemyLua_Boss:doPattern skill_id = ' .. skill_id)
         --cclog('EnemyLua_Boss:doPattern cast_time = ' .. cast_time)
@@ -230,7 +229,7 @@ function EnemyLua_Boss:doPattern(pattern)
         -- 에니메이션 변경
         self.m_tStateAni['attack'] = self:getAttackAnimationName(self.m_patternAtkIdx)
 
-        if cast_time > 0 then
+        if self.m_reservedSkillCastTime > 0 then
             self:changeState('casting')
         else
             self:changeState('attack')

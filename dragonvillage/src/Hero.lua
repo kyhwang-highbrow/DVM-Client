@@ -179,14 +179,9 @@ end
 function Hero.st_skillPrepare(owner, dt)
     if (owner.m_stateTimer == 0) then
         local active_skill_id = owner:getSkillID('active')
-        local cast_time = owner:getCastTimeFromSkillID(active_skill_id)
-
-        local table_dragon_skill = TABLE:get('dragon_skill')
-        local t_dragon_skill = table_dragon_skill[active_skill_id]
-
-        owner.m_reservedSkillId = active_skill_id
-        owner.m_reservedSkillCastTime = cast_time
-
+        
+        owner:reserveSkill(active_skill_id)
+        
         --[[
         owner:addAniHandler(function()
             owner:changeState('skillIdle')

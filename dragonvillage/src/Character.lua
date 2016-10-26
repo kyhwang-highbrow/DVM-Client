@@ -865,8 +865,8 @@ end
 -- function calcAttackPeriod
 -- @brief 공격 주기 계산
 -------------------------------------
-function Character:calcAttackPeriod(cast_time)
-    local cast_time = cast_time or 0
+function Character:calcAttackPeriod()
+    local cast_time = self.m_reservedSkillCastTime
 
     -- 공격 주기 공식
     self.m_attackPeriod = self.m_statusCalc.m_attackTick
@@ -1328,6 +1328,19 @@ function Character:changeStateWithCheckHomePos(state, forced)
 
     self.m_comebackNextState = state
     self:changeState('comeback', forced)
+end
+
+-------------------------------------
+-- function reserveSkill
+-- @brief 사용될 스킬을 예약
+-------------------------------------
+function Character:reserveSkill(skill_id)
+    if not skill_id then return end
+
+    local cast_time = self:getCastTimeFromSkillID(skill_id)
+
+    self.m_reservedSkillId = skill_id
+    self.m_reservedSkillCastTime = cast_time
 end
 
 -------------------------------------
