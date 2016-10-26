@@ -6,6 +6,7 @@ Z_ORDER_POPUP = 200
 Z_ORDER_POPUP_TOP_USER_INFO = 210
 Z_ORDER_TOOL_TIP = 300
 Z_ORDER_TOAST_MSG = 400
+Z_ORDER_LOADING = 500
 
 
 -------------------------------------
@@ -16,6 +17,7 @@ UIManager = {
     NORMAL = 1,
     POPUP = 2,
     TOOLTIP = 3,
+    LOADING = 4,
 
     m_uiLayer = 'CCNode',
     m_uiList = {},
@@ -130,10 +132,14 @@ function UIManager:open(ui, mode, bNotBlendBGLayer)
 
     elseif (mode == UIManager.TOOLTIP) then
         self.m_uiLayer:addChild(ui.root, Z_ORDER_TOOL_TIP)
+
+    elseif (mode == UIManager.LOADING) then
+        self.m_uiLayer:addChild(ui.root, Z_ORDER_LOADING)
+        
     end
 
     -- 임시 터치 블록 영역 생성
-    if (mode == UIManager.POPUP) then
+    if (mode == UIManager.POPUP) or (mode == UIManager.LOADING) then
         local visibleSize = cc.Director:getInstance():getVisibleSize()
 
         --[[

@@ -101,6 +101,7 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workCheckUserID')
     table.insert(self.m_lWorkList, 'workPlatformLogin')
     table.insert(self.m_lWorkList, 'workGameLogin')
+    table.insert(self.m_lWorkList, 'workFinish')
     
 end
 
@@ -119,10 +120,23 @@ function UI_TitleScene:doNextWork()
         self[func_name](self)
         return
     end
+end
 
-    -- 모든 작업이 끝난 경우 로비로 전환
-    local scene = SceneLobby()
-    scene:runScene()
+-------------------------------------
+-- function retryCurrWork
+-------------------------------------
+function UI_TitleScene:retryCurrWork()
+    local func_name = self.m_lWorkList[self.m_workIdx]
+
+    if func_name and (self[func_name]) then
+        cclog('\n')
+        cclog('############################################################')
+        cclog('retry')
+        cclog('# idx : ' .. self.m_workIdx .. ', func_name : ' .. func_name)
+        cclog('############################################################')
+        self[func_name](self)
+        return
+    end
 end
 
 -------------------------------------
@@ -133,7 +147,7 @@ function UI_TitleScene:workTitleAni()
     local vars = self.vars
 
     local function ani_handler()
-        vars['animator']:changeAni('02', true)
+        --vars['animator']:changeAni('02', true)
         self:doNextWork()
     end
 
@@ -147,6 +161,8 @@ end
 --        idfa로 저장하고 이를 통해서 UID를 발급
 -------------------------------------
 function UI_TitleScene:workCheckUserID()
+    ShowLoading(Str('유저 계정 확인 중...'))
+
     local user_id = g_userData.m_userData['user_id']
     local idfa = g_userData.m_userData['idfa']
 
@@ -184,6 +200,8 @@ end
 -- @brief 플랫폼 서버에 게스트 로그인
 -------------------------------------
 function UI_TitleScene:workPlatformLogin()
+    ShowLoading(Str('플랫폼 서버에 로그인 중...'))
+
     local user_id = g_userData.m_userData['user_id']
     local idfa = g_userData.m_userData['idfa'] or user_id
 
@@ -202,6 +220,7 @@ function UI_TitleScene:workPlatformLogin()
     end
 
     local fail_cb = function(ret)
+        ccdebug()
         ccdump(ret)
     end
 
@@ -213,11 +232,13 @@ end
 -- @brief 게임서버에 로그인
 -------------------------------------
 function UI_TitleScene:workGameLogin()
+    ShowLoading(Str('게임 서버에 로그인 중...'))
+
     local user_id = g_userData.m_userData['user_id']
 
     local success_cb = function(ret)
         g_serverData:applyServerData(ret['user'], 'user')
-        ccdump(ret)
+        --ccdump(ret)
         self:doNextWork()
     end
 
@@ -227,6 +248,19 @@ function UI_TitleScene:workGameLogin()
     end
 
     Network_login(user_id, success_cb, fail_cb)
+end
+
+-------------------------------------
+-- function workFinish
+-- @brief 로그인 완료 Scene 전환
+-------------------------------------
+function UI_TitleScene:workFinish()
+    -- 로딩창 숨김
+    HideLoading()
+
+    -- 모든 작업이 끝난 경우 로비로 전환
+    local scene = SceneLobby()
+    scene:runScene()
 end
 
 ------------------------------------------------------------------------------------------------------------------------

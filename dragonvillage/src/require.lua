@@ -219,6 +219,7 @@ local t_module = {
     'ActivityCarrier',
 
 	-- UI
+    'UI_NetworkLoading',
     'UI_TitleScene',
     'UI_LobbyNew',
     'UI_Game',
