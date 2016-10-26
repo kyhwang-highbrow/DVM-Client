@@ -60,6 +60,11 @@ function SkillAoERound.st_appear(owner, dt)
     if (owner.m_stateTimer == 0) then
 		-- 이펙트 재생 단위 시간
 		owner.m_hitInterval = owner.m_animator:getDuration()
+
+		if (not owner.m_targetChar) then 
+			owner:changeState('dying') 
+		end
+	
 	elseif (owner.m_stateTimer > owner.m_hitInterval) then
 		owner:changeState('attack')
     end
@@ -133,11 +138,15 @@ function SkillAoERound:attack()
 		
 		-- @TODO 패시브를 자동으로 태우기 위해서는 어디에 있어야..		
 		if self.m_statusEffectType then
+			StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectRate)
+		end
+
+		-- 낙뢰와 같은 경우 타겟 마다 이펙트 생성
+		if (self.m_maxAttackCnt == 1) then 
 			if (target_char.pos.x ~= self.m_targetPos.x) and (target_char.pos.y ~= self.m_targetPos.y) then 
 				self:makeEffect(target_char.pos.x, target_char.pos.y)
 			end
-			StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectRate)
-		end
+		end 
     end
 end
 
@@ -196,7 +205,7 @@ function SkillAoERound:makeSkillInstnceFromSkill(owner, t_skill, t_data)
 	-- 2. 특수 변수
 	local attack_count = t_skill['hit']	  -- 공격 횟수
     local range = t_skill['val_1']		  -- 공격 반경
-	local aoe_res = t_skill['res_1']	  -- 광역 스킬 리소스
+	local aoe_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())	  -- 광역 스킬 리소스
 	
     SkillAoERound:makeSkillInstnce(owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target, attack_count, range, aoe_res)
 end

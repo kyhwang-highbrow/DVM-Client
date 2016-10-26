@@ -380,7 +380,7 @@ function SkillRolling:makeSkillInstnceFromSkill(owner, t_skill, t_data)
 	local target_count = t_skill['val_1']
 	local buff_prob = t_skill['val_2']
 	local atk_count = t_skill['hit']
-	local missile_res = t_skill['res_1']
+	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
 	local spin_res = t_skill['res_2']
 
     SkillRolling:makeSkillInstnce(owner, missile_res, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target, target_count, buff_prob, atk_count, spin_res)

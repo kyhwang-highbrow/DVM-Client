@@ -34,8 +34,8 @@ function SkillLeafBlade:init_skill(owner, t_skill, t_data)
     end
     self.m_targetPos = {x = tar_x, y = tar_y}
 
-    self.m_missileRes = t_skill['res_1']
-    self.m_motionStreakRes = t_skill['res_2']
+    self.m_missileRes = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
+    self.m_motionStreakRes = (t_skill['res_2'] == 'x') and nil or string.gsub(t_skill['res_2'], '@', owner.m_charTable['attr'])
     self.m_targetCount = t_skill['val_1']
 	self.m_bodySize = t_skill['val_2']
 	self:initActvityCarrier(t_skill)
@@ -121,14 +121,17 @@ function SkillLeafBlade:fireMissile()
     end
 
     t_option['missile_res_name'] = self.m_missileRes
-    t_option['effect'] = {}
-    t_option['effect']['motion_streak'] = self.m_motionStreakRes
+	t_option['attr_name'] = self.m_owner:getAttribute()
+
     t_option['missile_type'] = 'PASS'
-    t_option['scale'] = 1
-    
     t_option['movement'] ='lua_bezier' 
-    t_option['lua_param'] = {}
     
+	t_option['effect'] = {}
+    t_option['effect']['motion_streak'] = self.m_motionStreakRes
+    
+	t_option['scale'] = 1
+    
+    t_option['lua_param'] = {}
     t_option['lua_param']['value1'] = targetPos
     
     -- 상탄

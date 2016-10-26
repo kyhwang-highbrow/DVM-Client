@@ -164,7 +164,7 @@ function SkillBuff:makeSkillInstnceFromSkill(owner, t_skill, t_data)
 	local target = t_data.target
 
 	-- 2. 특수 변수
-    local missile_res = t_skill['res_1']
+    local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
 	
     SkillBuff:makeSkillInstnce(owner, missile_res, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target)
 end

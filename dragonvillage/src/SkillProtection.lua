@@ -28,7 +28,7 @@ function SkillProtection:init_skill(owner, t_skill, target)
     local def_up = t_skill['val_2']
 
 	-- res 경로
-	local res = t_skill['res_1']
+	local res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
 
     local target = target
     if (not target) then

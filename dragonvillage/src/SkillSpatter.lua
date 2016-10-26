@@ -210,7 +210,7 @@ function SkillSpatter:makeSkillInstnceFromSkill(owner, t_skill)
 	-- 2. 특수 변수
     local range = t_skill['val_1']
     local count = t_skill['val_2']
-    local missile_res = t_skill['res_1'] -- 'res/missile/missile_water/missile_water.vrp'
+    local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute()) -- 'res/missile/missile_water/missile_water.vrp'
     local motionstreak_res = t_skill['res_2'] -- 'res/missile/motion_streak/motion_streak_water.png'
     local range_res = t_skill['res_3'] -- 삭제되어있음 
 	

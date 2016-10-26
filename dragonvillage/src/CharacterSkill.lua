@@ -695,7 +695,8 @@ function Character:doSkill_skill_bullet_hole(t_skill, attr, is_hero, phys_group,
     local range = t_skill['val_1']
 
     -- 위치, 범위, 타겟 갯수, 데미지
-    local skill = SkillBulletHole(t_skill['res_1'], {0, 0, range})
+	local res = string.gsub(t_skill['res_1'], '@', attr)
+    local skill = SkillBulletHole(res, {0, 0, range})
 
     skill:init_skill(self, t_data['x'], t_data['y'], t_skill)
 
@@ -799,7 +800,8 @@ end
 -- @brief 스킬 실행
 -------------------------------------
 function Character:doSkill_skill_dispel_magic(t_skill, t_data)
-    local skill = SkillDispelMagic(t_skill['res_1'])
+	local res = string.gsub( t_skill['res_1'], '@', self.m_charTable['attr'])
+    local skill = SkillDispelMagic(res)
 
     -- Physics, Node, GameMgr에 등록
     self.m_world.m_missiledNode:addChild(skill.m_rootNode)

@@ -58,10 +58,10 @@ function SkillRay:init_skill(missile_res, hit)
     self.m_clearCount = 0
     self.m_maxClearCount = 0
 
-    self.m_startPosX = x or 0
-    self.m_startPosY = y or 0
-    self.m_endPosX = x or 0
-    self.m_endPosY = y or 0
+    self.m_startPosX = 0
+    self.m_startPosY = 0
+    self.m_endPosX = 0
+    self.m_endPosY = 0
 
 	if (self.m_owner.phys_key == 'hero') then
         self.m_physGroup = 'missile_h'
@@ -77,7 +77,7 @@ function SkillRay:init_skill(missile_res, hit)
     
 	self.m_rootNode:addChild(self.m_linkEffect.m_node)
 
-	    -- 쿨타임 지정
+	-- 쿨타임 지정
     self.m_limitTime = self.m_owner.m_statusCalc.m_attackTick
 
     local hit = math_max(hit, 1)
@@ -90,7 +90,6 @@ function SkillRay:init_skill(missile_res, hit)
     else
         self.m_endPosX = self.m_startPosX - 2560
     end
-    self.m_endPosY = y
 end
 
 -------------------------------------

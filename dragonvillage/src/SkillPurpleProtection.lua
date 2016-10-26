@@ -29,7 +29,7 @@ function SkillPurpleProtection:init_skill(owner, t_skill, target)
     end
 
     do -- 기본 타겟에 실드
-        local res = t_skill['res_1']
+        local res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
         local shield_hp = base_target.m_maxHp * (t_skill['power_rate'] / 100)
         local duration = t_skill['val_1']
         self:makeShield(base_target, res, shield_hp, duration)

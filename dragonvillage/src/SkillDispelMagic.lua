@@ -33,7 +33,7 @@ function SkillDispelMagic:init_skill(owner, t_skill, t_data)
     -- 스킬 시전자
     self.m_owner = owner
 
-	self.m_resName = t_skill['res_1']
+	self.m_resName = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
 	self.m_healRate = t_skill['power_rate']/100
 	self.m_tSkill = t_skill
 

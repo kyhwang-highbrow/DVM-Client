@@ -34,7 +34,7 @@ function SkillChainLightning:init_SkillChainLightning(owner, t_skill, x, y)
     self.m_owner = owner
 
     -- 리소스
-    self.m_res = t_skill['res_1']
+    self.m_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
 
     self:setPosition(self.pos.x + x, self.pos.y - y)
 

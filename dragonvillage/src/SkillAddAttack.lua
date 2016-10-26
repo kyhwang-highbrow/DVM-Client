@@ -122,7 +122,7 @@ function SkillAddAttack:makeSkillInstnceFromSkill(owner, t_skill, target)
 	local target = target
 
 	-- 2. 특수 변수
-	local missile_res = t_skill['res_1']
+	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
 	local range_x = t_skill['val_1']
 	local range_y = t_skill['val_2']
 

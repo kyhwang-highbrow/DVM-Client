@@ -276,7 +276,7 @@ function SkillExplosion:makeSkillInstnceFromSkill(owner, t_skill, t_data)
 	-- 2. 특수 변수
 	local target_count = t_skill['val_1']
     local range = t_skill['val_2']
-    local missile_res = t_skill['res_1']
+    local missile_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
 	local jump_res = t_skill['res_2']
 
     SkillExplosion:makeSkillInstnce(owner, missile_res, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target, target_count, range, jump_res)

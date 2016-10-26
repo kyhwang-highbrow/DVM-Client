@@ -31,7 +31,8 @@ function Buff_Barrier:init_buff(owner, t_skill)
     Buff.init_buff(self, owner, duration)
 
     -- 베리어 이펙트
-    self.m_barrierEffect = MakeAnimator(t_skill['res_1'])
+	local res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+    self.m_barrierEffect = MakeAnimator(res)
     self.m_barrierEffect:changeAni('appear', false)
     self.m_barrierEffect:addAniHandler(function() self.m_barrierEffect:changeAni('idle', true) end)
     self.m_rootNode:addChild(self.m_barrierEffect.m_node)
