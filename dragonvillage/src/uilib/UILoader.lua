@@ -496,6 +496,12 @@ local function loadNode(ui, data, vars, parent)
         node:setRepeat(data.is_repeat)
         setPropsForNode(node, data)
         setPropsForRGBAProtocol(node, data)
+
+        -- vrp의 대리자를 AnimatorVrp로 생성
+        local animator = AnimatorVrp(nil)
+        animator.m_node = node
+        delegator = animator
+
     elseif type == 'SocketNode' then
         -- 소켓노드를 포함하는 Visual부모노드가 항상 존재한다고 가정
         if not parent then

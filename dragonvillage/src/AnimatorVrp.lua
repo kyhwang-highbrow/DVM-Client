@@ -8,18 +8,20 @@ AnimatorVrp = class(Animator, {
 -- function init
 -------------------------------------
 function AnimatorVrp:init(file_name)
-    local file_name = string.gsub(file_name, '%.vrp', '')
+    if (file_name) then
+        local file_name = string.gsub(file_name, '%.vrp', '')
 
-    -- plist 등록
-    --cc.SpriteFrameCache:getInstance():addSpriteFrames(file_name .. '.plist')
+        -- plist 등록
+        --cc.SpriteFrameCache:getInstance():addSpriteFrames(file_name .. '.plist')
 
-    -- vrp 생성
-    self.m_node = cc.AzVRP:create(file_name .. '.vrp')
-    if self.m_node then
-        self.m_node:loadPlistFiles('')
-        self.m_node:buildSprite('')
+        -- vrp 생성
+        self.m_node = cc.AzVRP:create(file_name .. '.vrp')
+        if self.m_node then
+            self.m_node:loadPlistFiles('')
+            self.m_node:buildSprite('')
+        end
+        self:changeAni('idle', true, true)
     end
-    self:changeAni('idle', true, true)
 
     self.m_type = ANIMATOR_TYPE_VRP
 end
@@ -171,6 +173,21 @@ end
 
 
 
+-------------------------------------
+-------------------------------------
+-- UI에서 사용될 경우를 위해 함수 추가
+-------------------------------------
+function AnimatorVrp:setVisual(group, visual)
+    return self.m_node:setVisual(group, visual)
+end
+function AnimatorVrp:registerScriptLoopHandler(func)
+    return self.m_node:registerScriptLoopHandler(func)
+end
+function AnimatorVrp:setRepeat(loop)
+    return self.m_node:setRepeat(loop)
+end
+-------------------------------------
+-------------------------------------
 
 
 
