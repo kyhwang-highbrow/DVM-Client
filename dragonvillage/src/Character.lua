@@ -358,7 +358,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('slain', self)
 		
 		-- 일반 공격시
-		elseif (attacker.m_activityCarrier:getSkillType() == 'basic') then 
+		elseif (attacker.m_activityCarrier:getAttackType() == 'basic') then 
 			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit_basic', self, attacker.m_activityCarrier)
 
 		-- 액티브 공격시
@@ -1335,6 +1335,7 @@ end
 -- @brief 해당 영웅을 경직시킴
 -------------------------------------
 function Character:setSpasticity(b)
+	if (not self.m_animator) then return end
     if b then
         --self.m_animator.m_node:pause()
         self.m_animator:setTimeScale(0)

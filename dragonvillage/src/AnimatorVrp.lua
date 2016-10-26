@@ -73,6 +73,8 @@ function AnimatorVrp:changeAni(animation_name, loop, checking)
 
     self:addAniHandler(nil)
     self:setEventHandler(nil)
+
+	self.m_aniName = animation_name
 end
 
 -------------------------------------

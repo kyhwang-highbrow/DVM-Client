@@ -66,7 +66,7 @@ function CommonMissile:initActvityCarrier()
     self.m_activityCarrier.m_skillCoefficient = (self.m_powerRate / 100)
 	
 	-- 타격 이벤트에서 일반탄인지 구분할 때 사용
-	self.m_activityCarrier:setSkillType('basic') 
+	self.m_activityCarrier:setAttackType('basic') 
 end
 
 -------------------------------------

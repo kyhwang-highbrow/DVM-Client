@@ -21,7 +21,7 @@ SkillLeonBasic = class(PARENT, {
         m_destPosX = 'number', -- 도착 위치
         m_destPosY = 'number', -- 도착 위치
 
-        m_skillType = 'string',
+        m_attackType = 'string',
      })
 
 -------------------------------------
@@ -35,7 +35,7 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillLeonBasic:init_skill(owner, target_x, target_y, wait_time, damage_rate, move_speed, comback_duration, skill_type)
+function SkillLeonBasic:init_skill(owner, target_x, target_y, wait_time, damage_rate, move_speed, comback_duration, attack_type)
     self.m_owner = owner
     local char = owner
 
@@ -43,7 +43,7 @@ function SkillLeonBasic:init_skill(owner, target_x, target_y, wait_time, damage_
     self.m_damageRate = damage_rate
     self.m_moveSpeed = move_speed or 1500
     self.m_combackDuration = comback_duration or 0.5
-    self.m_skillType = skill_type
+    self.m_attackType = attack_type
 
     -- 위치 지정
     if (not target_x) or (not target_y) then
@@ -280,9 +280,9 @@ function SkillLeonBasic:attackMelee()
     t_option['pos_y'] = self.m_targetY
 
     t_option['physics_body'] = {0, 0, 100}
-    --t_option['attack_damage'] = char:makeAttackDamageInstance()
+    
     t_option['attack_damage'] = self.m_activityCarrier
-    t_option['attack_damage']:setSkillType(self.m_skillType)    -- ??(스킬타입 의미가 다른데...)
+    t_option['attack_damage']:setAttackType(self.m_attackType)
 
     if (char.phys_key == 'hero') then
         t_option['object_key'] = 'missile_h'
@@ -302,12 +302,12 @@ end
 -- function makeSkillInstnce
 -- @param missile_res 
 -------------------------------------
-function SkillLeonBasic:makeSkillInstnce(owner, target_x, target_y, wait_time, damage_rate, move_speed, comback_duration, skill_type)
+function SkillLeonBasic:makeSkillInstnce(owner, target_x, target_y, wait_time, damage_rate, move_speed, comback_duration, attack_type)
     local world = owner.m_world
 
     local skill = SkillLeonBasic(nil)
     skill:initState()
-    skill:init_skill(owner, target_x, target_y, wait_time, damage_rate, move_speed, comback_duration, skill_type)
+    skill:init_skill(owner, target_x, target_y, wait_time, damage_rate, move_speed, comback_duration, attack_type)
 
     -- Physics, Node, GameMgr에 등록
     world.m_missiledNode:addChild(skill.m_rootNode, 0)
@@ -323,10 +323,10 @@ function SkillLeonBasic:makeSkillInstnceFromSkill(owner, t_skill, t_data)
     local damage_rate = (t_skill['power_rate'] / 100)
     local move_speed = t_skill['val_1']
     local comback_duration = t_skill['val_2']
-    local skill_type = t_skill['chance_type']
+    local attack_type = t_skill['chance_type']
     local wait_time = nil
 
-    SkillLeonBasic:makeSkillInstnce(owner, target_x, target_y, wait_time, damage_rate, move_speed, comback_duration, skill_type)
+    SkillLeonBasic:makeSkillInstnce(owner, target_x, target_y, wait_time, damage_rate, move_speed, comback_duration, attack_type)
 end
 
 

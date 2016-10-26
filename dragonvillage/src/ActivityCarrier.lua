@@ -21,7 +21,7 @@ ActivityCarrier = class({
 		m_atkDmgStat = 'str',
 		m_bIgnoreDef = 'bool',
 
-		m_skillType = 'str',		-- 일반공격인지 아닌지 구분
+		m_attackType = 'str',		-- 일반공격인지 아닌지 구분
         m_lFlag = 'list',
     })
 
@@ -128,14 +128,15 @@ end
 
 -------------------------------------
 -- function setSkillType
+-- @brief 기본탄/공통탄/일반탄 인지 스킬인지 구분하기 위함
 -------------------------------------
-function ActivityCarrier:setSkillType(skill_type)
-	self.m_skillType = skill_type
+function ActivityCarrier:setAttackType(attack_type)
+	self.m_attackType = attack_type
 end
 
 -------------------------------------
 -- function getSkillType
 -------------------------------------
-function ActivityCarrier:getSkillType()
-	return self.m_skillType
+function ActivityCarrier:getAttackType()
+	return self.m_attackType
 end

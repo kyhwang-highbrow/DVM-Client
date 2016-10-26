@@ -156,7 +156,7 @@ local t_module = {
     -- SKILL    
 	'Skill',
     'Laser',
-    'LinearLaser',
+	'SkillRay',
     'LinearLaser2',
     'Thunder',
 	'SkillBuff',

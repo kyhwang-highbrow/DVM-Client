@@ -322,9 +322,6 @@
     <None Include="..\src\lib\Radian.lua">
       <Filter>lua\lib</Filter>
     </None>
-    <None Include="..\src\LinearLaser.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SceneLobby.lua">
       <Filter>lua</Filter>
     </None>
@@ -907,10 +904,7 @@
     <None Include="..\src\UI_EditBoxPopup.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_ClassFormUseTopUserInfo.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_TitleScene.lua">
+    <None Include="..\src\SkillRay.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>

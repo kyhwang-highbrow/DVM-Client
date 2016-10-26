@@ -150,11 +150,11 @@ end
 -- @brief 공통 등장 에니메이션 핸들러 등록
 -------------------------------------
 function LinkEffect:registCommonAppearAniHandler()
-    local function bar_ani_handler() self.m_effectNode:changeAni('bar_idle', true) end
-    self.m_effectNode:addAniHandler(bar_ani_handler)
-
     local function start_ani_handler() self.m_startPointNode:changeAni('start_idle', true) end
     self.m_startPointNode:addAniHandler(start_ani_handler)
+
+    local function bar_ani_handler() self.m_effectNode:changeAni('bar_idle', true) end
+    self.m_effectNode:addAniHandler(bar_ani_handler)
 
     local function end_ani_handler() self.m_endPointNode:changeAni('end_idle', true) end
     self.m_endPointNode:addAniHandler(end_ani_handler)

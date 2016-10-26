@@ -44,7 +44,7 @@ function CommonMissile_Straight:fireMissile()
 	t_option['offset'] = {0, 0}
 
 	t_option['movement'] ='normal' 
-    t_option['missile_type'] = 'PASS'
+    t_option['missile_type'] = 'NORMAL'
 	
 	t_option['scale'] = 1
 	t_option['count'] = 1

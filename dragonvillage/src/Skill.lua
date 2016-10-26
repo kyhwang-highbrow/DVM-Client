@@ -98,23 +98,6 @@ function ISkill.st_attack(owner, dt)
 end
 
 -------------------------------------
--- function getDefaultTargetPos
--- @brief 디폴트 타겟 좌표, 인디케이터 없이 시전 된 경우 기본 적을 선택하도록 한다.
--- @default 타겟 룰에 따른 타겟 리스트 중 첫번째를 선택
--------------------------------------
-function ISkill:getDefaultTargetPos()
-    local l_target = self.m_owner:getTargetListByType(self.m_targetType)
-    local target = l_target[1]
-
-    if target then
-		self.m_targetChar = target
-        return target.pos.x, target.pos.y
-    else
-        return self.m_owner.pos.x, self.m_owner.pos.y
-    end
-end
-
--------------------------------------
 -- function attack
 -- @brief findtarget으로 찾은 적에게 공격을 실행한다. 
 -------------------------------------
@@ -154,6 +137,22 @@ function ISkill:findTarget(x, y, range)
     return l_ret
 end
 
+-------------------------------------
+-- function getDefaultTargetPos
+-- @brief 디폴트 타겟 좌표, 인디케이터 없이 시전 된 경우 기본 적을 선택하도록 한다.
+-- @default 타겟 룰에 따른 타겟 리스트 중 첫번째를 선택
+-------------------------------------
+function ISkill:getDefaultTargetPos()
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType)
+    local target = l_target[1]
+
+    if target then
+		self.m_targetChar = target
+		return target.pos.x, target.pos.y
+    else
+        return self.m_owner.pos.x, self.m_owner.pos.y
+    end
+end
 
 -------------------------------------
 -- function initAttackPosOffset

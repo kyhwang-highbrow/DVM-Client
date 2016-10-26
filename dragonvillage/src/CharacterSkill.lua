@@ -3,6 +3,7 @@
 -- @brief 스킬 실행
 -------------------------------------
 function Character:doSkill(skill_id, attr, x, y, t_data)
+	
     ----------------------------------------------
     --[[
     if (self.m_charType == 'enemy' ) then
@@ -101,7 +102,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 
 		-- 공용탄 영역
         if (type == 'missile_move_ray') then
-            self:doSkill_basic_ray(t_skill, attr, is_hero, phys_group, x, y, t_data)
+            SkillRay:makeSkillInstnceFromSkill(self, t_skill, {})
             return true
 		elseif (type == 'missile_move_straight') then
             CommonMissile_Straight:makeInstance(self, t_skill)
@@ -287,7 +288,6 @@ function Character:doSkill_basic_normal(t_skill, attr, is_hero, phys_group, x, y
     -- AttackDamage 생성
     local activity_carrier = self:makeAttackDamageInstance()
     activity_carrier:insertStatusEffectRate(t_skill['status_effect_type'], t_skill['status_effect_rate'])
-	--activity_carrier:setSkillType('basic')
 
     missile_launcher.m_bHeroMissile = is_hero
     self.m_world:addToUnitList(missile_launcher)
@@ -319,63 +319,6 @@ function Character:doSkill_basic_normal(t_skill, attr, is_hero, phys_group, x, y
             t_launcher_option['dir'] = skill_dir
         end
     end
-end
-
--------------------------------------
--- function doSkill_basic_ray
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_basic_ray(t_skill, attr, is_hero, phys_group, x, y, t_data)
-
-    local phys_group = nil
-
-    -- 캐릭터 유형별 변수 정리(dragon or enemy)
-    if (self.m_charType == 'dragon') then
-        is_hero = true
-        phys_group = 'missile_h'
-    else
-        is_hero = false
-        phys_group = 'missile_e'
-    end
-
-    local linear_laser = LinearLaser()
-    local duration = self.m_statusCalc.m_attackTick
-    linear_laser.m_physGroup = phys_group
-
-    -- Physics, Node, GameMgr에 등록
-    --self.m_world:addMissile(linear_laser, object_key)
-    self.m_world.m_missiledNode:addChild(linear_laser.m_rootNode)
-    self.m_world:addToUnitList(linear_laser)
-
-    -- 리소스
-    local res = string.gsub(t_skill['res_1'], '@', attr)
-
-    linear_laser.m_offsetX = x
-    linear_laser.m_offsetY = y
-
-    -- 'res/shot/shot_ray_light/shot_ray_light.spine'
-    linear_laser:initLinearLaser(res, x, y, t_skill['val_1'])
-
-    linear_laser.m_activityCarrier = self:makeAttackDamageInstance()
-    linear_laser.m_activityCarrier.m_skillCoefficient = (t_skill['power_rate'] / 100)
-
-    -- 쿨타임 지정
-    linear_laser.m_limitTime = duration
-    local hit = math_max(t_skill['hit'], 1)
-    linear_laser.m_multiHitTime = linear_laser.m_limitTime / hit
-
-    linear_laser.m_maxClearCount = hit - 1
-
-    if is_hero then
-        linear_laser.m_endPosX = x + 2560
-    else
-        linear_laser.m_endPosX = x - 2560
-    end
-    linear_laser.m_endPosY = y
-
-    linear_laser.m_ownerChar = self
-    linear_laser.m_targetChar = self.m_targetChar
-    linear_laser:refresh()
 end
 
 -------------------------------------

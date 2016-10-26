@@ -515,7 +515,7 @@ function Hero:initStatus(t_char, level, grade, evolution)
         self.m_skillIndicator = SkillIndicator_LeafBlade(self, t_skill)
 
     -- 청룡 번개구름, 붐버 액티브, 램곤 수면, 서펀트 액티브
-    elseif isExistValue(type, 'skill_aoe_round', 'skill_explosion_def') then
+    elseif isExistValue(type, 'skill_aoe_round', 'skill_aoe_round_jump') then
         local isFixedOnTarget = false
         self.m_skillIndicator = SkillIndicator_AoERound(self, t_skill, isFixedOnTarget)
 
