@@ -244,7 +244,7 @@ function SkillRay:makeSkillInstnceFromSkill(owner, t_skill, t_data)
     local owner = owner
 	
 	-- 1. 공통 변수
-    local power_rate = 1 -- t_skill['power_rate']
+    local power_rate = t_skill['power_rate']
 	local target_type = t_skill['target_type']
 	local status_effect_type = t_skill['status_effect_type']
 	local status_effect_rate = t_skill['status_effect_rate']

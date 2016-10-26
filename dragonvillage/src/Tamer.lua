@@ -1,11 +1,11 @@
-local PARENT = Hero
+local PARENT = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:getCloneTable())
 
 -------------------------------------
 -- class Tamer
 -------------------------------------
 Tamer = class(PARENT, {
-        m_tamerTarget = 'char',
-        m_tamerTargetEffect = 'vrp',
+		m_charType = 'tamer',
+		m_charTable = 'table'
      })
 
 -------------------------------------
@@ -13,18 +13,9 @@ Tamer = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function Tamer:init(file_name, body, ...)
-    self.m_charType = 'tamer'
-    self.m_tamerTargetEffect = MakeAnimator('res/indicator/indicator_effect_target/indicator_effect_target.vrp')
-    self.m_tamerTargetEffect.m_node:retain()
-    self.m_tamerTargetEffect:changeAni('idle', true)
-end
-
--------------------------------------
--- function initAnimator
--------------------------------------
-function Tamer:initAnimator(file_name)
-    
+function Tamer:init(file_name, body, t_charTable, ...)
+	self.m_charType = 'tamer'
+	self.m_charTable = t_charTable
 end
 
 -------------------------------------
@@ -47,38 +38,19 @@ function Tamer:initAnimatorTamer(file_name)
     end
 end
 
-Tamer.st_attack = PARENT.st_idle
-Tamer.st_attack = PARENT.st_attack
-Tamer.st_charge = PARENT.st_charge
-Tamer.st_attack = PARENT.st_attack
 Tamer.st_dying = PARENT.st_dying
 Tamer.st_dead = PARENT.st_dead
-Tamer.st_delegate = PARENT.st_delegate
 
 -------------------------------------
 -- function initState
 -------------------------------------
 function Tamer:initState()
     self:addState('idle', Tamer.st_idle, 'idle', true)
-    self:addState('attack', Tamer.st_attack, 'attack', true) -- attack1
-    self:addState('attackDelay', Tamer.st_attackDelay, 'idle', true)
-    self:addState('charge', Tamer.st_charge, 'idle', true)
+    
+	self:addState('comeback', PARENT.st_comeback, 'idle', true)
 
-    -- 테이머는 액티브 스킬이 없음
-    --self:addState('skillPrepare', Tamer.st_skillPrepare, 'skill_appear', true)
-    --self:addState('skillIdle', Tamer.st_skillIdle, 'skill_idle', true)
-    --self:addState('skillAttack', Tamer.st_skillAttack, 'skill_idle', true)
-    --self:addState('skillDisappear', Tamer.st_skillDisappear, 'skill_disappear', false)
-    --
     self:addState('dying', Tamer.st_dying, 'idle', false, 9)
     self:addState('dead', Tamer.st_dead, nil, nil, 10)
-
-    self:addState('delegate', Tamer.st_delegate, 'idle', true)
-    self:addState('wait', Tamer.st_wait, 'idle', true)
-
-    self:addState('stun', PARENT.st_stun, 'idle', true, PRIORITY.STUN)
-	self:addState('stun_esc', PARENT.st_stun_esc, 'idle', true, PRIORITY.STUN_ESC)
-    self:addState('comeback', PARENT.st_comeback, 'idle', true)
 
     -- 테이머만 고유하게 사용
     self:addState('started_directing', Tamer.st_started_directing, 'idle', true) -- move 애니메이션이 없음
@@ -90,15 +62,6 @@ function Tamer:initState()
 end
 
 -------------------------------------
--- function initStatus
--------------------------------------
-function Tamer:initStatus(t_char, level, grade, evolution)
-    PARENT.initStatus(self, t_char, level, grade, evolution)
-
-    -- 테이머 기본 타겟 지정 인디케이터
-    self.m_skillIndicator = SkillIndicator_Tamer(self)
-end
--------------------------------------
 -- function st_started_directing
 -------------------------------------
 function Tamer.st_started_directing(owner, dt)
@@ -107,8 +70,8 @@ function Tamer.st_started_directing(owner, dt)
 
         local start_x = -100
         local start_y = -200
-        local end_x = 800
-        local speed = 1000
+        local end_x = 200
+        local speed = 300
         local duration = math_abs(end_x - start_x) / speed
 
         -- 왼쪽에서 테이머가 등장하여 화면 중앙까지 달려나감 (저공비행)
@@ -117,16 +80,21 @@ function Tamer.st_started_directing(owner, dt)
 
         local move_1 = cc.MoveTo:create(duration, cc.p(end_x, start_y))
         local func = cc.CallFunc:create(function() owner:dispatch('tamer_appear') end)
-        local move_2 = cc.MoveTo:create(duration * 2, cc.p(owner.m_homePosX, owner.m_homePosY))
         local func2 = cc.CallFunc:create(function() owner:changeState('started_directing2') end)
-        local secuence = cc.Sequence:create(
+		local delay = cc.DelayTime:create(1.0)
+        local move_2 = cc.MoveTo:create(duration * 2, cc.p(start_x, start_y))
+
+		-- sequence
+        local sequence = cc.Sequence:create(
             cc.EaseInOut:create(move_1, 2),
             func,
-            cc.EaseInOut:create(move_2, 1.5),
-            func2)
+            func2,
+			delay,
+            cc.EaseInOut:create(move_2, 1.5)
+			)
 
         -- 액션 실행
-        owner:runAction(secuence)
+        owner:runAction(sequence)
     else
 
         -- 위치 동기화
@@ -158,15 +126,4 @@ function Tamer.st_started_directing2(owner, dt)
 
         owner:aniHandlerChain(func2)
     end
-end
-
-
-
-
--------------------------------------
--- function release
--------------------------------------
-function Tamer:release()
-    self.m_tamerTargetEffect.m_node:release()
-    PARENT.release(self)
 end

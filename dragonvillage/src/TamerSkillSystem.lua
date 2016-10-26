@@ -67,7 +67,7 @@ end
 function TamerSkillSystem:click_tamerSkillBtn(idx)
     local remain_time = math_max(self.m_lTamerSkillCoolTime[idx], self.m_tamerSkillCooltimeGlobal)
 
-    t_tamer = self.m_tamer.m_charTable
+    local t_tamer = self.m_tamer.m_charTable
     local skill_id = t_tamer['skill_' .. idx]
 
     local table_skill = TABLE:get(self.m_tamer.m_charType .. '_skill')

@@ -422,10 +422,6 @@ function GameWorld:init_test(deck_type)
         end
     end
 
-	--@TODO tamer 덜어내는 중
-    -- 테이머 생성
-    --self:makeTamer(110001)
-
     self.m_inGameUI:doActionReset()
 
     do -- 진형 시스템 초기화
@@ -436,8 +432,8 @@ function GameWorld:init_test(deck_type)
         self.m_skillIndicatorMgr = SkillIndicatorMgr(self, g_currScene.m_colorLayerForSkill)
     end
 
-	--@TODO tamer 덜어내는 중
-	--[[
+    -- 테이머 생성
+    self:makeTamer(110001)
     do
         self.m_tamerSkillSystem = TamerSkillSystem(self, self.m_tamer)
         self:addListener('game_start', self.m_tamerSkillSystem)
@@ -452,7 +448,6 @@ function GameWorld:init_test(deck_type)
             end
         end
     end
-	]]
 end
 
 -------------------------------------
@@ -743,38 +738,20 @@ function GameWorld:makeTamer(tamer_id)
     local table_tamer = TABLE:get('tamer')
     local t_tamer = table_tamer[tamer_id]
 
-    local lv = 1
-    lv = g_userData.m_userData['lv'] -- 임시
-    local grade = 1
-    local evolution = 1
-
-    local tamer = Tamer(nil, {0, 0, 20})
-    tamer:initDragonSkillManager('tamer', tamer_id, 6)
+    local tamer = Tamer(nil, {0, 0, 20}, t_tamer)
     tamer:initWorld(self)
     tamer:initAnimatorTamer(t_tamer['res'])
     tamer.m_animator:setScale(0.5 * t_tamer['scale'])
     tamer:initState()
-    tamer:initStatus(t_tamer, lv, grade, evolution)
 
-    -- 진영 설정
-    self.m_leftFormationMgr:setChangePosCallback(tamer)
-    
     self.m_worldNode:addChild(tamer.m_rootNode, 2)
     self:addToUnitList(tamer)
-    self.m_physWorld:addObject('hero', tamer)
-    self:addDragon(tamer, 'tamer')
+    --self.m_physWorld:addObject('hero', tamer)
 
     self.m_tamer = tamer
     self.m_bDoingTamerSkill = false
 
-    -- 피격 처리
-    tamer:addDefCallback(function(attacker, defender, i_x, i_y)
-        tamer:undergoAttack(attacker, defender, i_x, i_y)
-    end)
-
-    tamer:makeHPGauge({0, -80})
-
-    self:participationHero(tamer)
+	tamer:changeState('started_directing')
 end
 
 -------------------------------------
