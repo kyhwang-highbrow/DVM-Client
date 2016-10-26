@@ -287,7 +287,7 @@ function Character:doSkill_basic_normal(t_skill, attr, is_hero, phys_group, x, y
     -- AttackDamage 생성
     local activity_carrier = self:makeAttackDamageInstance()
     activity_carrier:insertStatusEffectRate(t_skill['status_effect_type'], t_skill['status_effect_rate'])
-	activity_carrier:setSkillType('basic')
+	--activity_carrier:setSkillType('basic')
 
     missile_launcher.m_bHeroMissile = is_hero
     self.m_world:addToUnitList(missile_launcher)

@@ -280,8 +280,9 @@ function SkillLeonBasic:attackMelee()
     t_option['pos_y'] = self.m_targetY
 
     t_option['physics_body'] = {0, 0, 100}
-    t_option['attack_damage'] = char:makeAttackDamageInstance()
-    t_option['attack_damage']:setSkillType(self.m_skillType)
+    --t_option['attack_damage'] = char:makeAttackDamageInstance()
+    t_option['attack_damage'] = self.m_activityCarrier
+    t_option['attack_damage']:setSkillType(self.m_skillType)    -- ??(스킬타입 의미가 다른데...)
 
     if (char.phys_key == 'hero') then
         t_option['object_key'] = 'missile_h'

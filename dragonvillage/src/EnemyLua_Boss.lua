@@ -44,6 +44,27 @@ function EnemyLua_Boss:initScript(pattern_script_name)
     end
 end
 
+-------------------------------------
+-- function doAttack
+-------------------------------------
+function EnemyLua_Boss:doAttack(x, y)
+    local basic_skill_id = self.m_reservedSkillId
+    
+    local b_run_skill = self:doSkill(basic_skill_id, nil, x, y)
+
+    -- 지정된 스킬이 발동되지 않았을 경우 기본 스킬 발동
+    if (not b_run_skill) then
+        basic_skill_id = self.m_charTable['skill_basic']
+        self:doSkill(basic_skill_id, nil, x, y)
+    end
+
+    -- 예약된 스킬 정보 초기화
+    self.m_reservedSkillId = nil
+    self.m_reservedSkillCastTime = 0
+end
+
+
+EnemyLua_Boss.st_attack = PARENT.st_attack
 
 -------------------------------------
 -- function initState
@@ -51,14 +72,16 @@ end
 function EnemyLua_Boss:initState()
     PARENT.initState(self)
 
-    self:addState('attack', EnemyLua_Boss.st_pattern_idle, 'idle', true)
+    --self:addState('attack', EnemyLua_Boss.st_attack, 'attack', true)
     self:addState('attackDelay', EnemyLua_Boss.st_pattern_idle, 'idle', true)
     self:addState('charge', EnemyLua_Boss.st_pattern_idle, 'idle', true)
+    --self:addState('casting', EnemyLua_Boss.st_casting, 'idle', true)
 
     self:addState('pattern_idle', EnemyLua_Boss.st_pattern_idle, 'idle', true)
     self:addState('pattern_wait', EnemyLua_Boss.st_pattern_wait, 'idle', true)
     self:addState('pattern_move', EnemyLua_Boss.st_pattern_move, 'idle', true)
-    self:addState('pattern_attack', EnemyLua_Boss.st_pattern_attack, 'attack', false)
+    --self:addState('pattern_attack', EnemyLua_Boss.st_pattern_attack, 'attack', false)
+    --self:addState('pattern_casting', EnemyLua_Boss.st_pattern_casting, 'idle', true)
 end
 
 
@@ -67,6 +90,12 @@ end
 -------------------------------------
 function EnemyLua_Boss.st_pattern_idle(owner, dt)
     if owner.m_stateTimer == 0 then
+        
+        -- 캐스팅 게이지
+        if owner.m_castingGauge then
+            owner.m_castingGauge:setVisible(false)
+        end
+
         local pattern = owner:getNextPattern()
         owner:doPattern(pattern)
     end
@@ -87,11 +116,6 @@ function EnemyLua_Boss.st_pattern_wait(owner, dt)
         if (owner.m_coolTimeTimer > owner.m_coolTimeTime) then
             owner.m_coolTimeTimer = owner.m_coolTimeTime
         end
-
-        -- 게이지 초기화
-        if owner.m_basicAtkGauge then
-            owner.m_basicAtkGauge:setPercentage(owner.m_coolTimeTimer / owner.m_coolTimeTime * 100)
-        end
     end
 end
 
@@ -102,77 +126,6 @@ function EnemyLua_Boss.st_pattern_move(owner, dt)
     if owner:isOverTargetPos() then
         owner:setPosition(owner.m_targetPosX, owner.m_targetPosY)
         owner:setSpeed(0)
-        owner:changeState('pattern_idle')
-    end
-end
-
--------------------------------------
--- function st_pattern_attack
--------------------------------------
-function EnemyLua_Boss.st_pattern_attack(owner, dt)
-    if (owner.m_stateTimer == 0) then
-
-        -- 변수 초기화
-        owner.m_bLuanchMissile = false
-        owner.m_bFinishAttack = false
-        owner.m_bFinishAnimation = false
-
-        local function attack_cb(event)
-            owner.m_bLuanchMissile = true
-
-            local x, y = 0, 0
-
-            if event then
-                local string_value = event['eventData']['stringValue']           
-                if string_value and (string_value ~= '') then
-                    local l_str = seperate(string_value, ',')
-                    if l_str then
-                        local scale = owner.m_animator:getScale()
-                        local flip = owner.m_animator.m_bFlip
-                        
-                        x = l_str[1] * scale
-                        y = l_str[2] * scale
-
-                        if flip then
-                            x = -x
-                        end
-                    end
-                end
-            end
-
-            owner.m_attackOffsetX = x
-            owner.m_attackOffsetY = y
-
-            --owner:doAttack(x, y)
-            local skill_id = owner.m_charTable['skill_' .. owner.m_patternAtkIdx]
-            owner:doSkill(skill_id, nil, x, y)
-
-            owner.m_bFinishAttack = true
-
-            do -- 게이지 초기화
-                if owner.m_basicAtkGauge then
-                    owner.m_basicAtkGauge:setPercentage(0)
-                end
-                owner.m_coolTimeTimer = nil
-                owner.m_coolTimeTime = nil
-            end
-        end
-
-        -- 에니메이션 종료 시
-        owner:addAniHandler(function()
-            owner.m_animator:changeAni('idle', true)
-            owner.m_bFinishAnimation = true
-
-            if (not owner.m_bLuanchMissile) then
-                attack_cb()
-            end
-        end)
-
-        -- 공격 타이밍이 있을 경우
-        owner.m_animator:setEventHandler(attack_cb)
-        
-    elseif (owner.m_bFinishAnimation and owner.m_bFinishAttack) then    
-        owner.m_attackAnimaDuration = owner.m_stateTimer
         owner:changeState('pattern_idle')
     end
 end
@@ -265,10 +218,23 @@ function EnemyLua_Boss:doPattern(pattern)
     if (type == 'a') then
         self.m_patternAtkIdx = value_1
 
-        -- 에니메이션 변경
-        self.m_tStateAni['pattern_attack'] = self:getAttackAnimationName(self.m_patternAtkIdx)
+        -- 스킬 예약
+        local skill_id = self.m_charTable['skill_' .. self.m_patternAtkIdx]
+        local cast_time = self:getCastTimeFromSkillID(skill_id)
+        self.m_reservedSkillId = skill_id
+        self.m_reservedSkillCastTime = cast_time
 
-        self:changeState('pattern_attack')
+        --cclog('EnemyLua_Boss:doPattern skill_id = ' .. skill_id)
+        --cclog('EnemyLua_Boss:doPattern cast_time = ' .. cast_time)
+
+        -- 에니메이션 변경
+        self.m_tStateAni['attack'] = self:getAttackAnimationName(self.m_patternAtkIdx)
+
+        if cast_time > 0 then
+            self:changeState('casting')
+        else
+            self:changeState('attack')
+        end
 
     -- 이동 명령
     elseif (type == 'm') then

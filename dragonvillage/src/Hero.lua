@@ -59,8 +59,33 @@ function Hero:initAnimatorHero(file_name, evolution, attr)
     end
 end
 
+-------------------------------------
+-- function doAttack
+-------------------------------------
+function Hero:doAttack(x, y)
+    local basic_skill_id = self.m_reservedSkillId
+
+    PARENT.doAttack(self, x, y)
+
+    -- 원거리 기본 공격에만 이펙트를 추가
+    local attr = self.m_charTable['attr']
+    local table_skill = TABLE:get('dragon_skill')
+    local t_skill = table_skill[basic_skill_id]
+    local type = t_skill['type']
+
+    if type ~= 'skill_melee_atk' then
+        local res = 'res/effect/effect_missile_charge/effect_missile_charge.vrp'
+        local animator = MakeAnimator(res)
+        animator:changeAni('shot_' .. attr, false)
+        self.m_rootNode:addChild(animator.m_node)
+        local duration = animator:getDuration()
+        animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+    end
+end
+
 Hero.st_idle = PARENT.st_idle
-Hero.st_attack = PARENT.st_attack
+Hero.st_attackDelay = PARENT.st_attackDelay
+Hero.st_casting = PARENT.st_casting
 
 Hero.st_dying = PARENT.st_dying
 Hero.st_dead = PARENT.st_dead
@@ -73,6 +98,8 @@ function Hero:initState()
     self:addState('idle', Hero.st_idle, 'idle', true)
     self:addState('attack', Hero.st_attack, 'attack', true)
     self:addState('attackDelay', Hero.st_attackDelay, 'idle', true)
+    self:addState('charge', Hero.st_charge, 'idle', true)
+    self:addState('casting', Hero.st_casting, 'skill_appear', true)
 
     --
     self:addState('skillPrepare', Hero.st_skillPrepare, 'skill_appear', true)
@@ -97,34 +124,75 @@ function Hero:initState()
 end
 
 -------------------------------------
--- function st_attackDelay
+-- function st_attack
 -------------------------------------
-function Hero.st_attackDelay(owner, dt)
-    if owner.m_stateTimer == 0 then
-        owner:calcAttackPeriod()
+function Hero.st_attack(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        -- 원거리 기본 공격에만 이펙트를 추가
+        if owner.m_charTable['skill_basic'] == owner.m_reservedSkillId then
+            local attr = owner.m_charTable['attr']
+            local table_skill = TABLE:get('dragon_skill')
+            local t_skill = table_skill[owner.m_reservedSkillId]
+            local type = t_skill['type']
+
+            if type ~= 'skill_melee_atk' then
+                local res = 'res/effect/effect_missile_charge/effect_missile_charge.vrp'
+                if res then
+                    local animator = MakeAnimator(res)
+                    animator:changeAni('idle_' .. attr, false)
+                    owner.m_rootNode:addChild(animator.m_node)
+                    local duration = animator:getDuration()
+                    animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+                end
+            end
+        end
     end
 
-    if (owner.m_attackPeriod <= owner.m_stateTimer) then
+    PARENT.st_attack(owner, dt)
+end
+
+-------------------------------------
+-- function st_charge
+-------------------------------------
+function Hero.st_charge(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        local attr = owner.m_charTable['attr']
+
+        -- 차지 이팩트 재생
+        local res = 'res/effect/effect_melee_charge/effect_melee_charge.vrp'
+        local animator = MakeAnimator(res)
+        animator:changeAni('idle_' .. attr, false)
+        animator:setPosition(0, -50)
+        owner.m_rootNode:addChild(animator.m_node)
+        local duration = animator:getDuration()
+        animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+
+    elseif (owner.m_stateTimer >= 0.5) then
+        owner.m_chargeDuration = owner.m_stateTimer
         owner:changeState('attack')
-        owner.m_infoUI.vars['atkGauge']:setPercentage(0)
-        return
     end
-
-    local percentage = owner.m_stateTimer / owner.m_attackPeriod * 100
-    owner.m_infoUI.vars['atkGauge']:setPercentage(percentage)
 end
 
 -------------------------------------
 -- function st_skillPrepare
 -------------------------------------
 function Hero.st_skillPrepare(owner, dt)
-    --[[
     if (owner.m_stateTimer == 0) then
+        local active_skill_id = owner:getSkillID('active')
+        local cast_time = owner:getCastTimeFromSkillID(active_skill_id)
+
+        local table_dragon_skill = TABLE:get('dragon_skill')
+        local t_dragon_skill = table_dragon_skill[active_skill_id]
+
+        owner.m_reservedSkillId = active_skill_id
+        owner.m_reservedSkillCastTime = cast_time
+
+        --[[
         owner:addAniHandler(function()
             owner:changeState('skillIdle')
         end)
+        --]]
     end
-    --]]
 end
 
 -------------------------------------
@@ -211,6 +279,11 @@ function Hero.st_skillAttack(owner, dt)
 
         -- 공격 타이밍이 있을 경우
         owner.m_animator:setEventHandler(attack_cb)
+
+        -- 효과음
+        if (owner.m_charType == 'dragon') then
+            SoundMgr:playEffect('EFFECT', 'd_skill')
+        end
     end
 
     if (owner.m_aiParamNum and (owner.m_stateTimer >= owner.m_aiParamNum)) then
@@ -369,6 +442,7 @@ function Hero:makeHPGauge(hp_ui_offset)
     self.m_hpNode:setAnchorPoint(cc.p(0.5, 0.5))
 
     self.m_hpGauge = ui.vars['hpGauge']
+    self.m_castingGauge = ui.vars['atkGauge']
 
     self.m_world.m_worldNode:addChild(self.m_hpNode, 5)
 
@@ -530,7 +604,10 @@ function Hero:updateActiveSkillCoolTime(dt)
         return
     end
 
-    self.m_activeSkillTimer = (self.m_activeSkillTimer + dt)
+    if (self.m_state ~= 'casting') and (self.m_state ~= 'skillPrepare') then
+        self.m_activeSkillTimer = (self.m_activeSkillTimer + dt)
+    end
+
     if (self.m_activeSkillCoolTime <= self.m_activeSkillTimer) then
         self.m_activeSkillTimer = self.m_activeSkillCoolTime
         self.m_infoUI.vars['skllFullVisual']:setVisible(true)

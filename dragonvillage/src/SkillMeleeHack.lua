@@ -205,7 +205,8 @@ function SkillMeleeHack:attackMelee()
     end
 
     t_option['physics_body'] = {0, 0, 30}
-    t_option['attack_damage'] = char:makeAttackDamageInstance()
+    --t_option['attack_damage'] = char:makeAttackDamageInstance()
+    t_option['attack_damage'] = self.m_activityCarrier
 
     if (char.phys_key == 'hero') then
         t_option['object_key'] = 'missile_h'

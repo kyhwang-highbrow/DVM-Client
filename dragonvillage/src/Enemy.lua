@@ -57,6 +57,8 @@ end
 
 Enemy.st_idle = PARENT.st_idle
 Enemy.st_attack = PARENT.st_attack
+Enemy.st_attackDelay = PARENT.st_attackDelay
+Enemy.st_casting = PARENT.st_casting
 
 Enemy.st_dying = PARENT.st_dying
 Enemy.st_dead = PARENT.st_dead
@@ -69,7 +71,9 @@ function Enemy:initState()
     self:addState('idle', Enemy.st_idle, 'idle', true)
     self:addState('attack', Enemy.st_attack, 'attack', false)
     self:addState('attackDelay', Enemy.st_attackDelay, 'idle', true)
-    self:addState('charge', Enemy.st_charge, 'idle', true)    
+    self:addState('charge', Enemy.st_charge, 'idle', true)
+    self:addState('casting', Enemy.st_casting, 'idle', true)
+
     self:addState('dying', Enemy.st_dying, 'idle', false, PRIORITY.DYING)
     self:addState('dead', Enemy.st_dead, nil, nil, PRIORITY.DEAD)
 
@@ -79,24 +83,6 @@ function Enemy:initState()
 	self:addState('stun', PARENT.st_stun, 'idle', true, PRIORITY.STUN)
 	self:addState('stun_esc', PARENT.st_stun_esc, 'idle', true, PRIORITY.STUN_ESC)
     self:addState('comeback', PARENT.st_comeback, 'idle', true)
-end
-
--------------------------------------
--- function st_attackDelay
--------------------------------------
-function Enemy.st_attackDelay(owner, dt)
-    if owner.m_stateTimer == 0 then
-        owner:calcAttackPeriod()
-    end
-
-    if (owner.m_attackPeriod <= owner.m_stateTimer) then
-        owner:changeState('charge')
-    end
-
-    if owner.m_basicAtkGauge then
-        local percentage = owner.m_stateTimer / owner.m_attackPeriod * 100
-        owner.m_basicAtkGauge:setPercentage(percentage)
-    end  
 end
 
 -------------------------------------

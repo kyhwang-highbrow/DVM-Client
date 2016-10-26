@@ -49,7 +49,8 @@ end
 
 Tamer.st_attack = PARENT.st_idle
 Tamer.st_attack = PARENT.st_attack
-Tamer.st_attackDelay = PARENT.st_attackDelay
+Tamer.st_charge = PARENT.st_charge
+Tamer.st_attack = PARENT.st_attack
 Tamer.st_dying = PARENT.st_dying
 Tamer.st_dead = PARENT.st_dead
 Tamer.st_delegate = PARENT.st_delegate
@@ -61,6 +62,7 @@ function Tamer:initState()
     self:addState('idle', Tamer.st_idle, 'idle', true)
     self:addState('attack', Tamer.st_attack, 'attack', true) -- attack1
     self:addState('attackDelay', Tamer.st_attackDelay, 'idle', true)
+    self:addState('charge', Tamer.st_charge, 'idle', true)
 
     -- 테이머는 액티브 스킬이 없음
     --self:addState('skillPrepare', Tamer.st_skillPrepare, 'skill_appear', true)

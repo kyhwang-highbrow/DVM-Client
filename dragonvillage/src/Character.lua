@@ -26,14 +26,20 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_bFinishAttack = 'boolean',        -- MissileLauncher가 공격을 완료했는지 여부
         m_bFinishAnimation = 'boolean',     -- 'attack'에니메이션 재생 완료 여부
 
+        -- @ 예약된 skill 정보
+        m_reservedSkillId = 'number',
+        m_reservedSkillCastTime = 'number',
+
         -- @ target
         m_targetChar = 'Character',
 
         -- @hp UI
         m_hpNode = '',
         m_hpGauge = '',
-        m_basicAtkGauge = '',
         m_hpUIOffset = '',
+
+        -- @casting UI
+        m_castingGauge = '',
 
         -- @이동 관련
         m_isOnTheMove = 'boolean',
@@ -185,6 +191,7 @@ end
 function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 
     if (not attacker.m_activityCarrier) then
+        cclog('attacker.m_activityCarrier nil')
         return
     end
 
@@ -313,7 +320,15 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 		self:makeShieldFont(i_x, i_y)
 		return 
 	end
-	
+
+    -- 스킬 공격으로 피격되였고 스킬 캐스팅 중이였으면 캔슬 처리
+    if (attacker.m_activityCarrier:getSkillType() ~= 'basic') then
+        if (self.m_state == 'casting') then
+            --cclog('Character:undergoAttack skill cancel!!')
+            self:changeState('attackDelay')
+        end
+    end
+        	
 	-- 공격 데미지 전달
     local t_info = {}
     t_info['attr'] = attacker.m_activityCarrier.m_attribute
@@ -331,7 +346,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
     -- 상태이상 체크
     StatusEffectHelper:statusEffectCheck_onHit(attacker.m_activityCarrier, self)
 
-	-- 방어자 피격 이벤트 
+    -- 방어자 피격 이벤트 
     self:dispatch('undergo_attack', attacker.m_activityCarrier.m_activityCarrierOwner)
 	
 	-- 시전자 이벤트 
@@ -377,10 +392,10 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
         self:setDead()
         self:changeState('dying')
     end
-        -- 피격시 타격감을 위한 연출
-        self:animatorHit(attacker, dir)
-    --end
-        
+
+    -- 피격시 타격감을 위한 연출
+    self:animatorHit(attacker, dir)
+            
     self:damagedEvent(self, damage)
 end
 
@@ -412,7 +427,7 @@ end
 -- function doAttack
 -------------------------------------
 function Character:doAttack(x, y)
-    local basic_skill_id = self:getBasicAttackSkillID()
+    local basic_skill_id = self.m_reservedSkillId
     
     local b_run_skill = self:doSkill(basic_skill_id, nil, x, y)
 
@@ -421,53 +436,11 @@ function Character:doAttack(x, y)
         basic_skill_id = self.m_charTable['skill_basic']
         self:doSkill(basic_skill_id, nil, x, y)
     end
-    
-    -- 일반 공격 중 공격시 이펙트(차후 정리)
-    if (self.m_charType == 'dragon') then
-        local attr = self.m_charTable['attr']
-        local table_skill = TABLE:get('dragon_skill')
-        local t_skill = table_skill[basic_skill_id]
-        local type = t_skill['type']
 
-        if type ~= 'skill_melee_hack' then
-            local res = 'res/effect/effect_missile_charge/effect_missile_charge.vrp'
-            local animator = MakeAnimator(res)
-            animator:changeAni('shot_' .. attr, false)
-            self.m_rootNode:addChild(animator.m_node)
-            local duration = animator:getDuration()
-            animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
-        end
-    end
+    -- 예약된 스킬 정보 초기화
+    self.m_reservedSkillId = nil
+    self.m_reservedSkillCastTime = 0
 end
-
---[[
--------------------------------------
--- function makeDamageEffect
--------------------------------------
-function Character:makeDamageEffect(dmg_type, attr, x, y, dir)
-    local dmg_type = dmg_type or DMG_TYPE_PHYSICAL
-    local attr = attr or ATTR_LIGHT
-
-    -- 일반 데미지
-    local effect = nil
-
-
-    if (dmg_type == DMG_TYPE_PHYSICAL) then
-        effect = MakeAnimator('res/effect/effect_hit_physical_fire/effect_hit_physical_fire.spine')
-        effect:setRotation(dir - 180)
-    elseif (dmg_type == DMG_TYPE_MAGICAL) then
-        effect = MakeAnimator('res/effect/effect_hit_magical_water/effect_hit_magical_water.spine')
-    end
-
-    effect:changeAni('idle', false)
-    effect:setPosition(x, y)
-
-    local duration = effect:getDuration()
-    effect:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
-  
-    self.m_world:addChild3(effect.m_node, DEPTH_DAMAGE_EFFECT)
-end
-]]--
 
 -------------------------------------
 -- function makeDamageEffect
@@ -868,7 +841,7 @@ function Character:makeHPGauge(hp_ui_offset)
         progress:setPercentage(100)
         progress:setPosition(0, -7)
         
-        self.m_basicAtkGauge = progress
+        self.m_castingGauge = progress
         hp_node:addChild(progress)
     end
 end
@@ -892,12 +865,18 @@ end
 -- function calcAttackPeriod
 -- @brief 공격 주기 계산
 -------------------------------------
-function Character:calcAttackPeriod()
+function Character:calcAttackPeriod(cast_time)
+    local cast_time = cast_time or 0
+
     -- 공격 주기 공식
     self.m_attackPeriod = self.m_statusCalc.m_attackTick
 
     -- 공격 주기에서 'attack'에니메이션의 길이는 제외
-    self.m_attackPeriod = self.m_attackPeriod - self.m_attackAnimaDuration - self.m_chargeDuration
+    if cast_time > 0 then
+        self.m_attackPeriod = self.m_attackPeriod
+    else
+        self.m_attackPeriod = self.m_attackPeriod - self.m_attackAnimaDuration - self.m_chargeDuration
+    end
 
     -- 음수가 나오지 않도록 보정
     self.m_attackPeriod = math_max(self.m_attackPeriod, 0)
@@ -1163,6 +1142,19 @@ function Character:makeAttackDamageInstance()
     -- 데미지 타입 지정
     activity_carrier.m_damageType = DMG_TYPE_STR[self.m_charTable['char_type']]
 
+    -- 찬스 타입 지정(일반 공격과 스킬을 구분하기 위함)
+    if not self.m_reservedSkillId then
+        error('Character:makeAttackDamageInstance - no reservedSkillId')
+    end
+
+    local t_skill = TABLE:get(self.m_charType .. '_skill')[self.m_reservedSkillId]
+    --activity_carrier:setSkillType(t_skill['chance_type'])
+    if self.m_charTable['skill_basic'] == self.m_reservedSkillId then
+        activity_carrier:setSkillType('basic')
+    else
+        activity_carrier:setSkillType('active')
+    end
+    
     -- 세부 능력치 지정
     for key,_ in pairs(self.m_statusCalc.m_lStatusList) do
         activity_carrier.m_lFinalStat[key] = self.m_statusCalc:getFinalStat(key)

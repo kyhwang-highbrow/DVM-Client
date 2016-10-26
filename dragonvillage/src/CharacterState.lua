@@ -92,33 +92,9 @@ function Character.st_attack(owner, dt)
         -- 공격 타이밍이 있을 경우
         owner.m_animator:setEventHandler(attack_cb)
 
-        -- 일반 공격 중 차지 이펙트(차후 정리)
-        if (owner.m_charType == 'dragon') then
-            local dragonType = owner.m_charTable['type']
-            local attr = owner.m_charTable['attr']
-            
-            local basic_skill_id = owner.m_charTable['skill_basic']
-            local table_skill = TABLE:get('dragon_skill')
-            local t_skill = table_skill[basic_skill_id]
-            local type = t_skill['type']
-            local res
-            local posY = 0
-
-            if type == 'skill_melee_hack' and dragonType == 'applecheek' then
-                res = 'res/effect/effect_melee_charge/effect_melee_charge.vrp'
-                posY= -50
-            elseif type ~= 'skill_melee_hack' then
-                res = 'res/effect/effect_missile_charge/effect_missile_charge.vrp'
-            end
-
-            if res then
-                local animator = MakeAnimator(res)
-                animator:changeAni('idle_' .. attr, false)
-                animator:setPosition(0, posY)
-                owner.m_rootNode:addChild(animator.m_node)
-                local duration = animator:getDuration()
-                animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
-            end
+        -- 캐스팅 게이지
+        if owner.m_castingGauge then
+            owner.m_castingGauge:setVisible(false)
         end
         
     elseif (owner.m_bFinishAnimation and owner.m_bFinishAttack) then    
@@ -132,11 +108,59 @@ end
 -------------------------------------
 function Character.st_attackDelay(owner, dt)
     if owner.m_stateTimer == 0 then
-        owner:calcAttackPeriod()
+        -- 어떤 스킬을 사용할 것인지 결정
+        local skill_id = owner:getBasicAttackSkillID()
+
+        local cast_time = owner:getCastTimeFromSkillID(skill_id)
+
+        owner:calcAttackPeriod(cast_time)
+
+        owner.m_reservedSkillId = skill_id
+        owner.m_reservedSkillCastTime = cast_time
+
+        -- 캐스팅 게이지
+        if owner.m_castingGauge then
+            owner.m_castingGauge:setVisible(false)
+        end
     end
 
     if (owner.m_attackPeriod <= owner.m_stateTimer) then
-        owner:changeState('attack')
+        
+        if owner.m_reservedSkillCastTime > 0 then
+            owner:changeState('casting')
+        else
+            owner:changeState('charge')
+        end
+    end
+end
+
+-------------------------------------
+-- function st_casting
+-------------------------------------
+function Character.st_casting(owner, dt)
+    if owner.m_stateTimer == 0 then
+        --cclog('Character.st_casting')
+
+        -- 캐스팅 게이지
+        if owner.m_castingGauge then
+            owner.m_castingGauge:setVisible(true)
+        end
+
+        -- 캐스팅 이펙트
+        
+    end
+
+    if (owner.m_reservedSkillCastTime <= owner.m_stateTimer) then
+        if owner.m_tStateFunc['skillAttack'] then
+            owner:changeState('skillAttack')
+        else
+            owner:changeState('attack')
+        end
+    end
+
+    if owner.m_castingGauge then
+        local percentage = owner.m_stateTimer / owner.m_reservedSkillCastTime * 100
+        owner.m_castingGauge:setPercentage(percentage)
     end
 end
 

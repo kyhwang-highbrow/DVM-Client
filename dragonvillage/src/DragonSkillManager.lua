@@ -176,7 +176,7 @@ function IDragonSkillManager:getBasicAttackSkillID()
         if (self.m_lReserveTurnSkillID[1]) then
             local skill_id = self.m_lReserveTurnSkillID[1]
             table.remove(self.m_lReserveTurnSkillID, 1)
-            return skill_id
+            return skill_id, true
         end
     end
 
@@ -195,14 +195,26 @@ function IDragonSkillManager:getBasicAttackSkillID()
 
         local item = sum_random:getRandomValue()
         if (item ~= 0) then
-            return item
+            return item, true
         end
     end
 
     -- 3. 기본 스킬
     do
-        return self:getSkillID('basic')
+        return self:getSkillID('basic'), false
     end
+end
+
+-------------------------------------
+-- function getCastTimeFromSkillID
+-- @brief 해당 아이디 스킬의 캐스팅 시간을 얻는다
+-------------------------------------
+function IDragonSkillManager:getCastTimeFromSkillID(skill_id)
+    local table_skill = TABLE:get(self.m_charType .. '_skill')
+    local t_skill = table_skill[skill_id]
+    local cast_time = t_skill['casting_time'] or 0
+
+    return cast_time
 end
 
 -------------------------------------
