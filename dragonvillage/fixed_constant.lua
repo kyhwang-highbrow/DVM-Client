@@ -3,3 +3,6 @@ DEVELOPMENT_SRC_VER = true
 
 -- 김성구의 개인 개발 버전
 DEVELOPMENT_SEONG_GOO_KIM = false
+
+-- 김문성 버전
+DEVELOPMENT_KMS = false
