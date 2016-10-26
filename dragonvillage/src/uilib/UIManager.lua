@@ -54,9 +54,8 @@ function UIManager:init(perple_scene)
     self.m_toastNotiList = {}
     self.m_toastNotiTime = nil
 
-    self:makeTopUserInfo()
-
-    if perple_scene.m_bShowTopUserInfo and self.m_topUserInfo then
+    if perple_scene.m_bShowTopUserInfo then
+        self:makeTopUserInfo()
         self.m_uiLayer:addChild(self.m_topUserInfo.root, Z_ORDER_POPUP_TOP_USER_INFO)
         self.m_topUserInfo:refreshData()
         self.m_topUserInfo:clearOwnerUI()

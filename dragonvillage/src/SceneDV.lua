@@ -10,6 +10,7 @@ SceneDV = class(PerpleScene, {
 -- function init
 -------------------------------------
 function SceneDV:init()
+    self.m_bShowTopUserInfo = false
 end
 
 -------------------------------------

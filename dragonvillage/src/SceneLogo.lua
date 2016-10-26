@@ -11,6 +11,7 @@ SceneLogo = class(PerpleScene, {
 -- function init
 -------------------------------------
 function SceneLogo:init(class_ui)
+    self.m_bShowTopUserInfo = false
     self.m_tLogoList = {'res/logo/perplelab.png'}
     self.m_currLogoIdx = 0
     self.m_finishCB = nil
