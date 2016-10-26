@@ -322,7 +322,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 	end
 
     -- 스킬 공격으로 피격되였고 스킬 캐스팅 중이였으면 캔슬 처리
-    if (attacker.m_activityCarrier:getSkillType() ~= 'basic') then
+    if (attacker.m_activityCarrier:getAttackType() ~= 'basic') then
         if (self.m_state == 'casting') then
             --cclog('Character:undergoAttack skill cancel!!')
             self:changeState('attackDelay')
@@ -1148,11 +1148,11 @@ function Character:makeAttackDamageInstance()
     end
 
     local t_skill = TABLE:get(self.m_charType .. '_skill')[self.m_reservedSkillId]
-    --activity_carrier:setSkillType(t_skill['chance_type'])
-    if self.m_charTable['skill_basic'] == self.m_reservedSkillId then
-        activity_carrier:setSkillType('basic')
+    
+	if self.m_charTable['skill_basic'] == self.m_reservedSkillId then
+        activity_carrier:setAttackType('basic')
     else
-        activity_carrier:setSkillType('active')
+        activity_carrier:setAttackType('active')
     end
     
     -- 세부 능력치 지정

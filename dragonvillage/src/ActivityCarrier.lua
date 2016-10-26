@@ -127,7 +127,7 @@ function ActivityCarrier:isIgnoreDef()
 end
 
 -------------------------------------
--- function setSkillType
+-- function setAttackType
 -- @brief 기본탄/공통탄/일반탄 인지 스킬인지 구분하기 위함
 -------------------------------------
 function ActivityCarrier:setAttackType(attack_type)
@@ -135,7 +135,7 @@ function ActivityCarrier:setAttackType(attack_type)
 end
 
 -------------------------------------
--- function getSkillType
+-- function getAttackType
 -------------------------------------
 function ActivityCarrier:getAttackType()
 	return self.m_attackType

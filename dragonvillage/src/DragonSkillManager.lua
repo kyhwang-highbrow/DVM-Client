@@ -212,7 +212,7 @@ end
 function IDragonSkillManager:getCastTimeFromSkillID(skill_id)
     local table_skill = TABLE:get(self.m_charType .. '_skill')
     local t_skill = table_skill[skill_id]
-    local cast_time = t_skill['casting_time'] or 0
+    local cast_time = tonumber(t_skill['casting_time']) or 0
 
     return cast_time
 end

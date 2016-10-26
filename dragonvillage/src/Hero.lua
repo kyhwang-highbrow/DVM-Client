@@ -70,7 +70,7 @@ function Hero:doAttack(x, y)
     -- 원거리 기본 공격에만 이펙트를 추가
     local attr = self.m_charTable['attr']
     local table_skill = TABLE:get('dragon_skill')
-    local t_skill = table_skill[basic_skill_id]
+    local t_skill = table_skill[basic_skill_id] or {}
     local type = t_skill['type']
 
     if type ~= 'skill_melee_atk' then
@@ -132,7 +132,7 @@ function Hero.st_attack(owner, dt)
         if owner.m_charTable['skill_basic'] == owner.m_reservedSkillId then
             local attr = owner.m_charTable['attr']
             local table_skill = TABLE:get('dragon_skill')
-            local t_skill = table_skill[owner.m_reservedSkillId]
+            local t_skill = table_skill[owner.m_reservedSkillId] or {}
             local type = t_skill['type']
 
             if type ~= 'skill_melee_atk' then

@@ -73,12 +73,7 @@ function SkillRay:init_skill(missile_res, hit)
     self.m_linkEffect:setIgnoreLowEndMode(true)
 
     -- 에니메이션 변경
-    --self.m_linkEffect:registCommonAppearAniHandler()
-	self.m_linkEffect:changeCommonAni('idle', true)
-	cclog('------------------------------------------------')
-	cclog(self.m_linkEffect.m_startPointNode.m_aniName)
-	cclog(self.m_linkEffect.m_effectNode.m_aniName)
-	cclog(self.m_linkEffect.m_endPointNode.m_aniName)
+    self.m_linkEffect:registCommonAppearAniHandler()
     
 	self.m_rootNode:addChild(self.m_linkEffect.m_node)
 
