@@ -416,6 +416,7 @@ end
 function Network:resetServerType()
     self.server_type = 'korea'
 
+    --[[
     -- 로그 출력 여부
     local log = false
 
@@ -478,6 +479,7 @@ function Network:resetServerType()
         cclog('#################################################')
         error()
     end
+    --]]
 end
 
 -------------------------------------

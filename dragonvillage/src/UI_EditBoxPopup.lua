@@ -4,7 +4,8 @@ local PARENT = UI
 -- class UI_EditBoxPopup
 -------------------------------------
 UI_EditBoxPopup = class(PARENT,{
-})
+        m_confirmCB = 'function',
+    })
 
 -------------------------------------
 -- function init
@@ -14,7 +15,7 @@ function UI_EditBoxPopup:init()
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EditBoxPopup')
+    g_currScene:pushBackKeyListener(self, function() end, 'UI_EditBoxPopup')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
@@ -77,6 +78,8 @@ end
 -- function initButton
 -------------------------------------
 function UI_EditBoxPopup:initButton()
+    local vars = self.vars
+    vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
 end
 
 -------------------------------------
@@ -84,6 +87,55 @@ end
 -------------------------------------
 function UI_EditBoxPopup:refresh()
 end
+
+-------------------------------------
+-- function setPopupTitle
+-------------------------------------
+function UI_EditBoxPopup:setPopupTitle(str)
+    local vars = self.vars
+    vars['titleLabel']:setString(str)
+end
+
+-------------------------------------
+-- function setPopupDsc
+-------------------------------------
+function UI_EditBoxPopup:setPopupDsc(str)
+    local vars = self.vars
+    vars['dscLabel']:setString(str)
+end
+
+-------------------------------------
+-- function setPlaceHolder
+-------------------------------------
+function UI_EditBoxPopup:setPlaceHolder(str)
+    local vars = self.vars
+    vars['editBox']:setPlaceHolder(str)
+end
+
+-------------------------------------
+-- function setConfirmCB
+-------------------------------------
+function UI_EditBoxPopup:setConfirmCB(func)
+    self.m_confirmCB = func
+end
+
+-------------------------------------
+-- function click_okBtn
+-------------------------------------
+function UI_EditBoxPopup:click_okBtn()
+    if self.m_confirmCB then
+        local vars = self.vars
+        local str = vars['editBox']:getText()
+
+        if (not self.m_confirmCB(str)) then
+            return
+        end
+    end
+
+    self:close()
+end
+
+
 
 --@CHECK
 UI:checkCompileError(UI_EditBoxPopup)

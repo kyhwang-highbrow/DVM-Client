@@ -61,6 +61,7 @@ function ScenePatch:onEnter()
     self.m_vars['animator']:setVisual('group', 'patch')
 
 	self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    self:refreshPatchIdxLabel()
 end
 
 -------------------------------------
@@ -82,6 +83,7 @@ end
 function ScenePatch:finishPatch()
     self.m_bFinishPatch = true
 
+    --[[
     self.m_vars['messageLabel']:setVisible(true)
     self.m_vars['messageLabel']:setString(Str('화면을 터치하세요.'))
 
@@ -95,17 +97,18 @@ function ScenePatch:finishPatch()
         -- C++ function(AppDelegate_Custom.cpp에 구현되어 있음)
         finishPatch()
     end)
+    --]]
+
+    -- C++ function(AppDelegate_Custom.cpp에 구현되어 있음)
+    finishPatch()
 end
 
 -------------------------------------
 -- function refreshPatchIdxLabel
+-- @brief 앱버전과 패치 정보를 출력
 -------------------------------------
 function ScenePatch:refreshPatchIdxLabel()
-    -- 패치 정보 출력(아직 추가리소스 0.0.0패치만 사용함)
-    local cur_app_ver = getAppVer()
-    local patch_data = PatchData:getInstance()
-    local patch_idx = patch_data:get('patch_ver')
-    local patch_idx_str = string.format('ver : %s, patch : %d', cur_app_ver, patch_idx)
+    local patch_idx_str = PatchData:getInstance():getAppVersionAndPatchIdxString()
     self.m_vars['patchIdxLabel']:setString(patch_idx_str)
 end
 

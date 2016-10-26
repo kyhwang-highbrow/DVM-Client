@@ -9,12 +9,7 @@ PatchData = class({
 -- function init
 -------------------------------------
 function PatchData:init()
-    local t_data = {}
-	t_data['latest_app_ver'] = '0.0.0'
-	t_data['patch_ver'] = 0
-    t_data['res_ver'] = 0
-
-    self.m_tData = t_data
+    self:load()
 end
 
 -------------------------------------
@@ -71,21 +66,37 @@ end
 function PatchData:load()
 	local f = io.open(self:getFilePath(),'r')
 	if f then
-		local data = {}
+        self.m_tData = {}
+		local t_data = {}
 		local content = f:read('*all')
 
 		if #content > 0 then
-			data = json.decode(content)
+			t_data = json.decode(content)
 		end
 		f:close()
 
-		for k,v in pairs(data) do
+		for k,v in pairs(t_data) do
 			self.m_tData[k] = v
 		end
 		
 	else
-		self:init()
+        local t_data = {}
+	    t_data['latest_app_ver'] = '0.0.0'
+	    t_data['patch_ver'] = 0
+        t_data['res_ver'] = 0
+        self.m_tData = t_data
 	end
+end
+
+-------------------------------------
+-- function getAppVersionAndPatchIdxString
+-- @breif 앱버전과 패치 정보 출력용 문자열
+-------------------------------------
+function PatchData:getAppVersionAndPatchIdxString()
+	local cur_app_ver = getAppVer()
+    local patch_idx = self:get('patch_ver')
+    local patch_idx_str = string.format('ver : %s, patch : %d', cur_app_ver, patch_idx)
+    return patch_idx_str
 end
 
 -------------------------------------
@@ -94,6 +105,7 @@ end
 function PatchData:getInstance()
     if (not g_patchData) then
         g_patchData = PatchData()
+        g_patchData:load()
     end
 
     return g_patchData

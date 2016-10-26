@@ -491,6 +491,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_AdventureSceneNew.lua" />
     <None Include="..\src\UI_AdventureStageButton.lua" />
     <None Include="..\src\UI_ClassForm.lua" />
+    <None Include="..\src\UI_ClassFormUseTopUserInfo.lua" />
     <None Include="..\src\UI_DragonDetailPopup.lua" />
     <None Include="..\src\UI_DragonEvolutionPopup.lua" />
     <None Include="..\src\UI_DragonEvolutionResult.lua" />
@@ -521,6 +522,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_Ready_DragonListItem.lua" />
     <None Include="..\src\UI_ShopPopup.lua" />
     <None Include="..\src\UI_SkillCard.lua" />
+    <None Include="..\src\UI_TitleScene.lua" />
     <None Include="..\src\UI_Tooltip.lua" />
     <None Include="..\src\UI_Tooltip_Indicator.lua" />
     <None Include="..\src\UI_Tooltip_Skill.lua" />

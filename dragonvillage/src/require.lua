@@ -20,6 +20,7 @@ local t_module = {
     'perpleLib/crand',
     'perpleLib/PerpleScene',
     'perpleLib/PerpleScene',
+    'fixed_constant',
     'Constant',
     'ConstantForArt',
     'ConstantDragonEvolution',
@@ -217,6 +218,7 @@ local t_module = {
     'ActivityCarrier',
 
 	-- UI
+    'UI_TitleScene',
     'UI_LobbyNew',
     'UI_Game',
     'UI_GameResult',

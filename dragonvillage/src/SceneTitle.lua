@@ -10,6 +10,8 @@ SceneTitle = class(PARENT, {
 -- function init
 -------------------------------------
 function SceneTitle:init()
+    -- 상단 유저정보창 비활성화
+    self.m_bShowTopUserInfo = false
 end
 
 -------------------------------------
@@ -18,7 +20,7 @@ end
 function SceneTitle:onEnter()
     PerpleScene.onEnter(self)
 
-
+    --[[
     local player_id = nil
     local uid = '130'
     local idfa = '한글테스트123!@#'
@@ -36,4 +38,7 @@ function SceneTitle:onEnter()
     end
 
     Network_platform_guest_login(player_id, uid, idfa, deviceOS, pushToken, success_cb, fail_cb)
+    --]]
+
+    UI_TitleScene()
 end
