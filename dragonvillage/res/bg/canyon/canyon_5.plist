@@ -4,148 +4,83 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>bg_canyon_2_a.png</key>
+            <key>bg_canyon_3_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{930,2},{1102,1040}}</string>
+                <string>{{1264,1096},{844,672}}</string>
                 <key>offset</key>
-                <string>{11,-239}</string>
+                <string>{-9,-463}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{30,519},{1102,1040}}</string>
+                <string>{{0,927},{844,672}}</string>
                 <key>sourceSize</key>
-                <string>{1140,1600}</string>
-            </dict>
-            <key>bg_canyon_2_b.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{930,1044},{746,942}}</string>
-                <key>offset</key>
-                <string>{-18,-278}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{111,607},{746,942}}</string>
-                <key>sourceSize</key>
-                <string>{1004,1600}</string>
+                <string>{862,1600}</string>
             </dict>
             <key>bg_canyon_4_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1546,926}}</string>
+                <string>{{2,2},{1602,1260}}</string>
                 <key>offset</key>
-                <string>{-15,-226}</string>
+                <string>{-13,-170}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{50,563},{1546,926}}</string>
+                <string>{{24,340},{1602,1260}}</string>
                 <key>sourceSize</key>
                 <string>{1676,1600}</string>
             </dict>
-            <key>cloud_2.png</key>
+            <key>bg_canyon_6_c.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1550},{748,416}}</string>
+                <string>{{1264,354},{758,740}}</string>
                 <key>offset</key>
-                <string>{-146,10}</string>
+                <string>{34,-430}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,88},{748,416}}</string>
+                <string>{{122,860},{758,740}}</string>
                 <key>sourceSize</key>
-                <string>{1040,612}</string>
+                <string>{934,1600}</string>
             </dict>
-            <key>sand_1.png</key>
+            <key>cloud_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1678,1044},{254,690}}</string>
+                <string>{{2,1606},{1012,342}}</string>
                 <key>offset</key>
-                <string>{6,-27}</string>
+                <string>{-1,12}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{69,54},{254,690}}</string>
+                <string>{{35,217},{1012,342}}</string>
                 <key>sourceSize</key>
-                <string>{380,744}</string>
+                <string>{1084,800}</string>
             </dict>
-            <key>smoke_1.png</key>
+            <key>cloud_04_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{846,1550},{70,62}}</string>
+                <string>{{1938,1096},{806,84}}</string>
                 <key>offset</key>
-                <string>{-7,-9}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{26,46},{70,62}}</string>
-                <key>sourceSize</key>
-                <string>{136,136}</string>
-            </dict>
-            <key>smoke_2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{752,1642},{52,62}}</string>
-                <key>offset</key>
-                <string>{7,6}</string>
+                <string>{-75,-139}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{49,31},{52,62}}</string>
+                <string>{{64,497},{806,84}}</string>
                 <key>sourceSize</key>
-                <string>{136,136}</string>
+                <string>{1084,800}</string>
             </dict>
-            <key>smoke_3.png</key>
+            <key>sand_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{846,1614},{64,46}}</string>
+                <string>{{1264,2},{761,350}}</string>
                 <key>offset</key>
-                <string>{6,16}</string>
+                <string>{-34,-10}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{42,29},{64,46}}</string>
+                <string>{{78,125},{761,350}}</string>
                 <key>sourceSize</key>
-                <string>{136,136}</string>
-            </dict>
-            <key>windmill_1.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{752,1550},{92,90}}</string>
-                <key>offset</key>
-                <string>{0,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{22,24},{92,90}}</string>
-                <key>sourceSize</key>
-                <string>{136,136}</string>
-            </dict>
-            <key>windmill_2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{816,1642},{24,24}}</string>
-                <key>offset</key>
-                <string>{-2,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{54,56},{24,24}}</string>
-                <key>sourceSize</key>
-                <string>{136,136}</string>
-            </dict>
-            <key>windmill_3.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{842,1662},{36,20}}</string>
-                <key>offset</key>
-                <string>{12,6}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{62,52},{36,20}}</string>
-                <key>sourceSize</key>
-                <string>{136,136}</string>
+                <string>{985,580}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -155,9 +90,9 @@
             <key>realTextureFileName</key>
             <string>canyon_5.png</string>
             <key>size</key>
-            <string>{2034,1988}</string>
+            <string>{2027,1950}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:619149facbb1ab4771bdd17514bb8d66:fc18b87701d4d0024665de57fefb0eb5:b3f64fc380ecc41643271056add56aae$</string>
+            <string>$TexturePacker:SmartUpdate:0d3ee6a2d84660fcc83238c0a3436277:ae62c440fba991b01f8e925d53a359fd:e33ae843c9f25165cd7ed6a9beac4719$</string>
             <key>textureFileName</key>
             <string>canyon_5.png</string>
         </dict>

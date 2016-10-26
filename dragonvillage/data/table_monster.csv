@@ -37,16 +37,16 @@ id,t_name,type,res,scale,rarity,size_type,icon,attr,target_formation,coin,skill_
 131032,소세지 문어,octopus,res/character/monster/common_octopus_water/common_octopus_water.spine,1,common,s,x,water,front,2,230015,230016,basic_rate,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,1200,2200,5955,0,8,50,5,0,8
 131041,버섯 노예,mushroom_slave,res/character/monster/mushroom_slave_1/mushroom_slave_1.spine,1,common,s,x,earth,front,0,230003,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,800,2450,2475,0,8,50,5,0,8
 131051,버섯 노예,mushroom_slave,res/character/monster/mushroom_slave_2/mushroom_slave_2.spine,1,common,s,x,earth,front,0,230003,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,800,2450,2475,0,8,50,5,0,8
-132011,킬러비,killerbee,res/character/monster/elite_killerbee_@/elite_killerbee_@.spine,1,elite,m,x,earth,front,4,230009,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,2900,1950,49700,0,8,50,5,0,8
-132012,인어,mermaid,res/character/monster/elite_mermaid_water/elite_mermaid_water.spine,1,elite,m,x,water,front,4,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,2400,1950,49700,0,8,50,5,0,8
-132021,라플레시아,rafflesia,res/character/monster/elite_rafflesia_earth/elite_rafflesia_earth.spine,1,elite,m,x,earth,front,4,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,2400,2950,39700,0,8,50,5,0,8
-132022,심해 상어 전사,sharkwarrior,res/character/monster/elite_sharkwarrior_water/elite_sharkwarrior_water.spine,1,elite,m,x,water,front,4,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,2900,2450,69700,0,8,50,5,0,8
-132031,아울베어,owlbear,res/character/monster/elite_owlbear_earth/elite_owlbear_earth.spine,1,elite,m,x,earth,front,4,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,1900,3450,79700,0,8,50,5,0,8
-132032,독문어,poisonoctopus,res/character/monster/elite_poisonoctopus_water/elite_poisonoctopus_water.spine,1,elite,m,x,water,front,4,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,3400,1450,44700,0,8,50,5,0,8
-132042,심해 상어 전사(소환),sharkwarrior_summon,res/character/monster/elite_sharkwarrior_water/elite_sharkwarrior_water.spine,1,elite,m,x,water,front,2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,1450,2450,6970,0,8,50,5,0,8
-133011,여왕 버섯,mushqueen,res/character/monster/subboss_mushqueen_earth/subboss_mushqueen_earth.spine,1,subboss,l,x,earth,front,8,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,2900,1450,62125,0,8,50,5,0,8
-133012,심해 상어 제독,sharkadmiral,res/character/monster/subboss_sharkadmiral_water/subboss_sharkadmiral_water.spine,1,subboss,l,x,water,front,8,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,3400,2950,87125,0,8,50,5,0,8
-134011,퀸즈 스네이크,queenssnake,res/character/monster/boss_queenssnake_earth/boss_queenssnake_earth.spine,1,boss,xl,x,earth,front,10,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,3400,2450,89550,0,8,50,5,0,8
-134012,드레이크,drake,res/character/monster/boss_drake_water/boss_drake_water.spine,1,boss,xl,x,water,front,10,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,3900,2950,104550,0,8,50,5,0,8
-134013,코카트리스,cockatrice,res/character/monster/boss_cockatrice_@/boss_cockatrice_@.spine,1,boss,xl,x,fire,front,10,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,3900,2950,104550,0,8,50,5,0,8
-135013,불의 거대 용,giantdragon,res/character/monster/boss_giantdragon_@/boss_giantdragon_@.spine,1,boss,xl,x,fire,front,15,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,4950,2451,748500,50,27.5,150,15,50,47.5
+132011,킬러비,killerbee,res/character/monster/elite_killerbee_@/elite_killerbee_@.spine,1,elite,m,x,earth,front,4,230009,230017,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,2900,1950,49700,0,8,50,5,0,8
+132012,인어,mermaid,res/character/monster/elite_mermaid_water/elite_mermaid_water.spine,1,elite,m,x,water,front,4,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,2400,1950,49700,0,8,50,5,0,8
+132021,라플레시아,rafflesia,res/character/monster/elite_rafflesia_earth/elite_rafflesia_earth.spine,1,elite,m,x,earth,front,4,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,2400,2950,39700,0,8,50,5,0,8
+132022,심해 상어 전사,sharkwarrior,res/character/monster/elite_sharkwarrior_water/elite_sharkwarrior_water.spine,1,elite,m,x,water,front,4,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,2900,2450,69700,0,8,50,5,0,8
+132031,아울베어,owlbear,res/character/monster/elite_owlbear_earth/elite_owlbear_earth.spine,1,elite,m,x,earth,front,4,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,1900,3450,79700,0,8,50,5,0,8
+132032,독문어,poisonoctopus,res/character/monster/elite_poisonoctopus_water/elite_poisonoctopus_water.spine,1,elite,m,x,water,front,4,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,3400,1450,44700,0,8,50,5,0,8
+132042,심해 상어 전사(소환),sharkwarrior_summon,res/character/monster/elite_sharkwarrior_water/elite_sharkwarrior_water.spine,1,elite,m,x,water,front,2,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,1450,2450,6970,0,8,50,5,0,8
+133011,여왕 버섯,mushqueen,res/character/monster/subboss_mushqueen_earth/subboss_mushqueen_earth.spine,1,subboss,l,x,earth,front,8,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,2900,1450,62125,0,8,50,5,0,8
+133012,심해 상어 제독,sharkadmiral,res/character/monster/subboss_sharkadmiral_water/subboss_sharkadmiral_water.spine,1,subboss,l,x,water,front,8,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,3400,2950,87125,0,8,50,5,0,8
+134011,퀸즈 스네이크,queenssnake,res/character/monster/boss_queenssnake_earth/boss_queenssnake_earth.spine,1,boss,xl,x,earth,front,10,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,3400,2450,89550,0,8,50,5,0,8
+134012,드레이크,drake,res/character/monster/boss_drake_water/boss_drake_water.spine,1,boss,xl,x,water,front,10,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,3900,2950,104550,0,8,50,5,0,8
+134013,코카트리스,cockatrice,res/character/monster/boss_cockatrice_@/boss_cockatrice_@.spine,1,boss,xl,x,fire,front,10,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,3900,2950,104550,0,8,50,5,0,8
+135013,불의 거대 용,giantdragon,res/character/monster/boss_giantdragon_@/boss_giantdragon_@.spine,1,boss,xl,x,fire,front,15,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,4950,2451,748500,50,27.5,150,15,50,47.5

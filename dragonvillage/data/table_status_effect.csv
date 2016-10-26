@@ -28,7 +28,7 @@ freeze,cc,빙결,res/effect/effect_freeze/effect_freeze.vrp,x,x,true,1,10,0,0,0,
 stone_curse,cc,석화,res/effect/effect_stone_curse/effect_stone_curse.vrp,x,x,true,1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,50,1,0,0,{duration}초 동안 행동 불가. 마법 피해 {1}% 증가. 피격시 {2}초 후 즉시 해제,x
 sleep,cc,수면,res/effect/effect_sleep/effect_sleep.spine,res/ui/icon/status_effect/stun.png,x,true,1,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,{duration}초 동안 행동 불가. 피격시 즉시 해제. ,받는 피해 2배 증가
 silence,cc,침묵,res/effect/effect_silence/effect_silence.vrp,res/ui/icon/status_effect/silence.png,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,{duration}초 동안 일반 공격만 가능,스킬 사용 불가
-fury,buff,분노,res/effect/effect_fury/effect_fury.vrp,x,o,false,5,5,200,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,{duration}초 동안 공격력 {atk}% 증가,x
+fury,buff,분노,res/effect/effect_fury/effect_fury.vrp,x,o,false,1,5,200,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,{duration}초 동안 공격력 {atk}% 증가,x
 hit_the_mark,buff,적중,res/effect/effect_hit_the_mark/effect_hit_the_mark.vrp,x,o,false,0,10,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,{duration}초 동안 적중률 {hit_rate}% 증가,x
 blessing,buff,축복,res/effect/effect_blessing/effect_blessing.vrp,res/ui/icon/status_effect/blessing.png,o,false,0,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"{duration}초 동안 공격력, 방어력, 생명력 10%만큼 증가",x
 quickly,buff,회피,res/effect/effect_quickly/effect_quickly.vrp,x,o,false,0,10,0,0,0,0,0,0,0,0,20,0,0,0,0,10,20,0,0,{1}초 동안 {2}만큼 회피 증가,x

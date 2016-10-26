@@ -15,23 +15,23 @@
             {
 				0:
 				[
-				"131009;5;Basic;RO02;RB12;3"
-				"131009;5;Basic;RO06;RB16;3"
-				"131007;5;Basic;RO04;RB14;3"
+				"131032;5;Basic;RO02;RB12;3"
+				"131032;5;Basic;RO06;RB16;3"
+				"131012;5;Basic;RO04;RB14;3"
 				],
 				
 				1:
 				[
-				"131001;5;Appear;RO02;RF12;1"
-				"131001;5;Appear;RO03;RF14;1"
-				"131001;5;Appear;RO06;RF16;1"
+				"130012;5;Appear;RO02;RF12;1"
+				"130012;5;Appear;RO03;RF14;1"
+				"130012;5;Appear;RO06;RF16;1"
 				],
 				
 				2:
 				[
-				"131002;5;Appear;RO02;RM12;0.5"
-				"131002;5;Appear;RO04;RM14;0.5"
-				"131002;5;Appear;RO06;RM16;0.5"
+				"130012;5;Appear;RO02;RM12;0.5"
+				"130012;5;Appear;RO04;RM14;0.5"
+				"130012;5;Appear;RO06;RM16;0.5"
 				]
             }
         },
@@ -48,18 +48,18 @@
             {
                 0:
                 [
-				"131001;5;Appear;RO04;RF14;0.5"
+				"130012;5;Appear;RO04;RF14;0.5"
 				
-				"131008;5;Appear;RO02;RF22;0.5"
-				"131008;5;Appear;RO06;RF26;0.5"
+				"131022;5;Appear;RO02;RF22;0.5"
+				"131022;5;Appear;RO06;RF26;0.5"
 				
-				"131006;5;Appear;RO04;RM14;0.5"
+				"130062;5;Appear;RO04;RM14;0.5"
 				
-				"131009;5;Appear;RO02;RM22;0.5"
-				"131009;5;Appear;RO06;RM26;0.5"
+				"131032;5;Appear;RO02;RM22;0.5"
+				"131032;5;Appear;RO06;RM26;0.5"
 				
-				"131003;5;Appear;RO03;RB23;0.5"
-				"131003;5;Appear;RO05;RB25;0.5"
+				"130032;5;Appear;RO03;RB23;0.5"
+				"130032;5;Appear;RO05;RB25;0.5"
                 ]		
             }
         },
@@ -78,17 +78,17 @@
 				
 				0:
 				[
-				"131012;5;Basic;BOSS;RM14;3"
+				"132032;5;Basic;BOSS;RM14;3"
 				],
 				
 				1:
 				[
-				"131008;5;Appear;RO02;RF12;0.5"
-				"131008;5;Appear;RO06;RF16;0.5"
-				"131009;5;Appear;RO02;RM22;0.5"
-				"131009;5;Appear;RO06;RM26;0.5"
-				"131005;5;Appear;RO03;RB23;0.5"
-				"131005;5;Appear;RO05;RB25;0.5"
+				"131022;5;Appear;RO02;RF12;0.5"
+				"131022;5;Appear;RO06;RF16;0.5"
+				"131032;5;Appear;RO02;RM22;0.5"
+				"131032;5;Appear;RO06;RM26;0.5"
+				"130052;5;Appear;RO03;RB23;0.5"
+				"130052;5;Appear;RO05;RB25;0.5"
 				]
 				
             }

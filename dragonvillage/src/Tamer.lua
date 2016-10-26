@@ -158,50 +158,8 @@ function Tamer.st_started_directing2(owner, dt)
     end
 end
 
--------------------------------------
--- function setTamerTarget
--- @breif 테이머의 기본 타겟
--------------------------------------
-function Tamer:setTamerTarget(target)
-    self.m_tamerTarget = target
 
-    self.m_tamerTargetEffect.m_node:removeFromParent()
 
-    if target then    
-        target.m_rootNode:addChild(self.m_tamerTargetEffect.m_node)
-    end
-end
-
--------------------------------------
--- function getTamerTarget
--- @breif 테이머의 기본 타겟
--------------------------------------
-function Tamer:getTamerTarget()
-    if (not self.m_tamerTarget) then
-        return nil
-    end
-
-    if (self.m_tamerTarget.m_bDead) then
-        self:setTamerTarget(nil)
-        return nil
-    end
-
-    return self.m_tamerTarget
-end
-
--------------------------------------
--- function checkTarget
--------------------------------------
-function Tamer:checkTarget(t_skill)
-    local target = self:getTamerTarget()
-    if target then
-        self.m_targetChar = target
-        return
-    end
-
-    -- 기본 룰로 타겟 지정
-    PARENT.checkTarget(self, t_skill)
-end
 
 -------------------------------------
 -- function release
@@ -209,49 +167,4 @@ end
 function Tamer:release()
     self.m_tamerTargetEffect.m_node:release()
     PARENT.release(self)
-end
-
--------------------------------------
--- function dispatch
--------------------------------------
-function Tamer:dispatch(event_name, ...)
-    PARENT.dispatch(self, event_name, ...)
-
-    -- 기본 공격 성공 시
-    if (event_name == 'hit_basic') then
-        local arg = {...}
-        local target = arg[1]
-        local activity_carrier = arg[2]
-        self:onTamerHitBasic(target, activity_carrier)
-    end
-end
-
-
--------------------------------------
--- function onTamerHitBasic
--------------------------------------
-function Tamer:onTamerHitBasic(target, activity_carrier)
-
-    -- 중복실행되지 않기 위해 처리
-    if (activity_carrier.m_lFlag['tamer_chain_attack'] == true) then
-        return
-    end
-
-    activity_carrier.m_lFlag['tamer_chain_attack'] = true
-
-    -- 10퍼센트로 발동
-    --if (math_random(1, 100) <= 10) then
-    -- @TODO 합동 공격 제외
-    if false then 
-        local idx = 0
-        for _,char in pairs(self.m_world.m_lDragonList) do
-            if (char.m_charType == 'dragon') and (not char.m_bDead) then
-                idx = (idx + 1)
-                local wait = (idx * 0.1)
-                SkillLeonBasic:makeSkillInstnce(char, target.pos['x'], target.pos['y'], wait, 1, 2500, 0.5, nil)
-            end
-        end
-
-        UIManager:toastNotificationGreen('합동 공격 발동!!')
-    end
 end

@@ -1,17 +1,18 @@
 id,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,chance_type,chance_value,target_type,casting_time,power_source,power_rate,hit,val_1,val_2,val_3,status_effect_rate,status_effect_type,for_gd,desc,to_programmer
 230001,code,skill_melee_atk,근접공격,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,5000,2000,0,0,x,0,x,캐릭터가 직접 대상 앞으로 이동하여 공격한다(공격 모션 필요). 공격이 끝나면 제 자리로 돌아온다.
 230002,code,missile_move_straight,화살 공격,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
-230003,code,missile_move_straight,마법 공격,res/missile/missile_magicshot/missile_magicshot_earth.vrp,x,x,x,instant,magical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,x,0,x,
+230003,code,missile_move_straight,마법 공격,res/missile/missile_magicshot_earth/missile_magicshot_earth.vrp,x,x,x,instant,magical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,x,0,x,
 230004,code,missile_move_release,마법 스킬,res/missile/missile_magicshot/missile_magicshot.vrp,x,x,x,instant,magical,-1,basic_turn,3,enemy_distance_line,3,atk,150,1,0,0,0,0,x,0,x,공격력의 300% 피해를 주는 공격
 230005,code,missile_move_high_angle	,창 공격,res/missile/missile_spear/missile_spear.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,x,0,x,
 230006,code,missile_move_high_angle	,창 스킬,res/missile/missile_spear/missile_spear.png,x,x,x,instant,physical,-1,basic_turn,3,enemy_random,3,atk,300,1,0,0,0,0,x,0,x,공격력의 300% 피해를 주는 공격
 230007,code,skill_heal_single,회복 스킬,res/effect/skill_heal_monster/skill_heal_monster.vrp,x,x,x,instant,magical,-1,basic_turn,5,ally_hp_low,5,atk,400,1,0,0,0,0,x,0,x,공격력의 400% 회복
-230008,code,missile_move_high_angle	,폭탄 공격,res/missile/missile_bomb_@/missile_bomb_@.vrp,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,x,0,x,
-230009,code,missile_move_straight,독침,res/missile/missile_sting/missile_sting.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,x,0,x,
+230008,code,missile_move_high_angle	,폭탄 공격,res/missile/missile_bomb_@/missile_bomb_@.spine,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,x,0,x,
+230009,code,missile_move_straight,독침,res/missile/missile_sting/missile_sting.png,x,x,attack_1,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,x,0,x,
 230010,code,missile_move_straight,가시,res/missile/missile_thorn/missile_thorn.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,x,0,x,
 230011,code,skill_counterattack,반격,res/missile/missile_thorn/missile_thorn.png,x,x,x,instant,physical,-1,basic_turn,1,enemy_distance_line,0,atk,100,1,230012,10,0,0,x,0,x,
 230012,script,skill_missile_thorns,가시 폭풍,res/missile/missile_thorn/missile_thorn.png,x,x,x,instant,physical,-1,basic,1,x,0,atk,100,1,0,0,0,0,x,0,x,
 230013,code,missile_move_straight,깃털 공격,res/missile/missile_feather/missile_feather.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,x,0,x,
 230014,code,missile_move_shotgun,깃털 방사,res/missile/missile_feather/missile_feather.png,x,x,x,instant,physical,-1,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,x,0,x,
 230015,code,missile_move_straight,먹물 공격,res/missile/missile_bubble_black/missile_bubble_black.vrp,x,x,x,instant,magical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,x,0,x,
-230016,code,missile_move_high_angle	,먹물 스킬,res/missile/missile_bubble_black/missile_bubble_black.vrp,x,x,x,instant,magical,-1,basic_rate,0.3,enemy_distance_line,-1,atk,100,1,0,0,0,100,blind,0,x,
+230016,code,missile_move_high_angle	,먹물 스킬,res/missile/missile_bubble_black/missile_bubble_black.vrp,x,x,x,instant,magical,-1,basic_turn,0.3,enemy_distance_line,-1,atk,100,1,0,0,0,100,blind,0,x,
+230017,code,skill_deep_stab,깊은 찌르기,x,x,x,attack_3,instant,physical,-1,basic_turn,0.1,enemy_random,0,atk,1000,1,1,1,0,20,poison,0,x,
