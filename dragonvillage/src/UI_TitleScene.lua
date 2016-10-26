@@ -213,7 +213,20 @@ end
 -- @brief 게임서버에 로그인
 -------------------------------------
 function UI_TitleScene:workGameLogin()
-    self:doNextWork()
+    local user_id = g_userData.m_userData['user_id']
+
+    local success_cb = function(ret)
+        g_serverData:applyServerData(ret['user'], 'user')
+        ccdump(ret)
+        self:doNextWork()
+    end
+
+    local fail_cb = function(ret)
+        ccdebug()
+        ccdump(ret)
+    end
+
+    Network_login(user_id, success_cb, fail_cb)
 end
 
 ------------------------------------------------------------------------------------------------------------------------

@@ -75,6 +75,7 @@ local function main()
     TABLE:init()
     SoundMgr:entry()
     ShaderCache:init()
+    ServerData:getInstance()
     UserData:getInstance()
 
     if DV_SCENE_ACTIVE then

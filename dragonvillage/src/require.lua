@@ -43,6 +43,7 @@ local t_module = {
     'ScrollMap',
     'ScrollMapLayer',
     'AnimationMap',
+    'ServerData',
     'UserData',
     'DropHelper',
     'DragonSkillManager',

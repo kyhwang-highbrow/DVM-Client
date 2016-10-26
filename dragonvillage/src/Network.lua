@@ -56,3 +56,31 @@ function Network_platform_guest_login(player_id, uid, idfa, deviceOS, pushToken,
     -- 네트워크 통신
     Network:SimpleRequest(t_request)
 end
+
+-------------------------------------
+-- function Network_login
+-- @breif 로그인
+-------------------------------------
+function Network_login(uid, success_cb, fail_cb)
+    -- 파라미터 셋팅
+    local t_data = {}
+    t_data['uid'] = uid
+    t_data['hashed_uid'] = nil
+    t_data['imei'] = nil
+    t_data['market'] = nil
+
+    -- 요청 정보 설정
+    local t_request = {}
+    t_request['url'] = '/login'
+    t_request['method'] = 'POST'
+    t_request['data'] = t_data
+
+    -- 성공 시 콜백 함수
+    t_request['success'] = success_cb
+
+    -- 실패 시 콜백 함수
+    t_request['fail'] = fail_cb
+
+    -- 네트워크 통신
+    Network:SimpleRequest(t_request)
+end

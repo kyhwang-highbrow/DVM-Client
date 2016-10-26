@@ -907,6 +907,15 @@
     <None Include="..\src\SkillRay.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\ServerData.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_TitleScene.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_ClassFormUseTopUserInfo.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
