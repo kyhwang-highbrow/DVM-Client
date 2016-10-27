@@ -39,7 +39,11 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_hpUIOffset = '',
 
         -- @casting UI
+        m_castingNode = '',
         m_castingGauge = '',
+        m_castingEffect = '',
+        m_castingMarkGauge = '',
+        m_castingSpeechVisual = '',
 
         -- @이동 관련
         m_isOnTheMove = 'boolean',
@@ -324,7 +328,31 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
     -- 스킬 공격으로 피격되였고 스킬 캐스팅 중이였으면 캔슬 처리
     if (attacker.m_activityCarrier:getAttackType() ~= 'basic') then
         if (self.m_state == 'casting') then
-            --cclog('Character:undergoAttack skill cancel!!')
+            -- 스킬 캔슬 이펙트
+            if self.m_castingEffect then
+                self.m_castingEffect.m_node:stopAllActions()
+
+                self.m_castingEffect:changeAni('end', false)
+
+                local duration = self.m_castingEffect:getDuration()
+                self.m_castingEffect:runAction(cc.Sequence:create(
+                    cc.DelayTime:create(duration),
+                    cc.CallFunc:create(function() self.m_castingEffect = nil end),
+                    cc.RemoveSelf:create()
+                ))
+            end
+
+            -- 스킬 캔슬 이모티콘
+            do
+                local emoticon = MakeAnimator('res/ui/a2d/enemy_skill_speech/enemy_skill_speech.vrp')
+                emoticon:changeAni('failed', false)
+                emoticon:setPosition(100, 100)
+                self.m_rootNode:addChild(emoticon.m_node)
+
+                local duration = emoticon:getDuration()
+                emoticon:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+            end
+
             self:changeState('attackDelay')
         end
     end
@@ -767,8 +795,16 @@ function Character:release()
     if self.m_hpNode then
         self.m_hpNode:removeFromParent(true)
     end
+
+    if self.m_castingNode then
+        self.m_castingNode:removeFromParent(true)
+    end
+
     self.m_hpNode = nil
     self.m_hpGauge = nil
+
+    self.m_castingNode = nil
+    self.m_castingGauge = nil
 
     Entity.release(self)
 end
@@ -827,8 +863,32 @@ function Character:makeHPGauge(hp_ui_offset)
     self.m_hpGauge = progress
     self.m_world.m_worldNode:addChild(hp_node, 5)
 
+    -- casting
     do
-        local img = cc.Sprite:create('res/ui/gauge/ingame_enemy_gg_02.png')
+        local ui = UI()
+        ui:load('enemy_skill_speech.ui')
+
+        self.m_castingNode = ui.root
+        self.m_castingNode:setDockPoint(cc.p(0.5, 0.5))
+        self.m_castingNode:setAnchorPoint(cc.p(0.5, 0.5))
+        self.m_castingNode:setVisible(false)
+        self.m_world.m_worldNode:addChild(self.m_castingNode, 6)
+
+        self.m_castingMarkGauge = ui.vars['markGauge']
+        self.m_castingSpeechVisual = ui.vars['speechVisual']
+
+        --
+        do
+            self.m_castingMarkGauge:setVisible(true)
+            self.m_castingSpeechVisual:setVisible(true)
+        
+            self.m_castingMarkGauge:setPosition(103, 107)
+            self.m_castingSpeechVisual:setPosition(149, 144)
+        end
+        --
+
+        --local img = cc.Sprite:create('res/ui/gauge/ingame_enemy_gg_02.png')
+        local img = cc.Sprite:create('res/ui/gauge/dragon_atk_gg.png')
         img:setDockPoint(cc.p(0.5, 0.5))
         img:setAnchorPoint(cc.p(0.5, 0.5))
 
@@ -838,11 +898,11 @@ function Character:makeHPGauge(hp_ui_offset)
         progress:setBarChangeRate(cc.p(1, 0))
         progress:setAnchorPoint(cc.p(0.5,0.5))
         progress:setDockPoint(cc.p(0.5,0.5))
-        progress:setPercentage(100)
+        progress:setPercentage(0)
         progress:setPosition(0, -7)
-        
+                
         self.m_castingGauge = progress
-        hp_node:addChild(progress)
+        self.m_castingNode:addChild(progress)
     end
 end
 
@@ -854,6 +914,10 @@ function Character:setPosition(x, y)
 
     if self.m_hpNode then
         self.m_hpNode:setPosition(x + self.m_hpUIOffset[1], y + self.m_hpUIOffset[2])
+    end
+
+    if self.m_castingNode then
+        self.m_castingNode:setPosition(x + self.m_hpUIOffset[1], y + self.m_hpUIOffset[2])
     end
 
     if self.m_cbChangePos then

@@ -92,8 +92,8 @@ function EnemyLua_Boss.st_pattern_idle(owner, dt)
     if owner.m_stateTimer == 0 then
         
         -- 캐스팅 게이지
-        if owner.m_castingGauge then
-            owner.m_castingGauge:setVisible(false)
+        if owner.m_castingNode then
+            owner.m_castingNode:setVisible(false)
         end
 
         local pattern = owner:getNextPattern()

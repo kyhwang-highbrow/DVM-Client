@@ -26,6 +26,10 @@ function Character.st_dying(owner, dt)
         if owner.m_hpNode then
             owner.m_hpNode:setVisible(false)
         end
+
+        if owner.m_castingNode then
+            owner.m_castingNode:setVisible(false)
+        end
     end
 end
 
@@ -93,8 +97,11 @@ function Character.st_attack(owner, dt)
         owner.m_animator:setEventHandler(attack_cb)
 
         -- 캐스팅 게이지
-        if owner.m_castingGauge then
-            owner.m_castingGauge:setVisible(false)
+        if owner.m_castingSpeechVisual then
+            owner.m_castingSpeechVisual:setVisual('group', 'success')
+            owner.m_castingSpeechVisual:registerScriptLoopHandler(function() owner.m_castingNode:setVisible(false) end)
+        elseif owner.m_castingNode then
+            owner.m_castingNode:setVisible(false)
         end
         
     elseif (owner.m_bFinishAnimation and owner.m_bFinishAttack) then    
@@ -115,8 +122,8 @@ function Character.st_attackDelay(owner, dt)
         owner:calcAttackPeriod()
         
         -- 캐스팅 게이지
-        if owner.m_castingGauge then
-            owner.m_castingGauge:setVisible(false)
+        if owner.m_castingNode then
+            owner.m_castingNode:setVisible(false)
         end
     end
 
@@ -135,15 +142,43 @@ end
 -------------------------------------
 function Character.st_casting(owner, dt)
     if owner.m_stateTimer == 0 then
-        --cclog('Character.st_casting')
+        
+        local cast_time = owner.m_reservedSkillCastTime
 
         -- 캐스팅 게이지
-        if owner.m_castingGauge then
-            owner.m_castingGauge:setVisible(true)
+        if owner.m_castingNode then
+            owner.m_castingNode:setVisible(true)
+
+            if owner.m_castingSpeechVisual then
+                owner.m_castingSpeechVisual:setVisual('group', 'base_appear')
+            end
         end
 
         -- 캐스팅 이펙트
-        
+        do
+            if owner.m_castingEffect then
+                owner.m_castingEffect:release()
+            end
+
+            local offsetX = 60
+            if owner.m_animator.m_bFlip then
+                offsetX = -offsetX
+            end
+            
+            owner.m_castingEffect = MakeAnimator('res/effect/effect_skillcasting/effect_skillcasting.vrp')
+            owner.m_castingEffect:changeAni('idle', false)
+            owner.m_castingEffect:setPosition(offsetX, 0)
+            owner.m_rootNode:addChild(owner.m_castingEffect.m_node)
+
+            local duration = owner.m_castingEffect:getDuration()
+            owner.m_castingEffect:setTimeScale(duration / cast_time)
+
+            owner.m_castingEffect:runAction(cc.Sequence:create(
+                cc.DelayTime:create(cast_time),
+                cc.CallFunc:create(function() owner.m_castingEffect = nil end),
+                cc.RemoveSelf:create()
+            ))
+        end
     end
 
     if (owner.m_reservedSkillCastTime <= owner.m_stateTimer) then
@@ -157,6 +192,10 @@ function Character.st_casting(owner, dt)
     if owner.m_castingGauge then
         local percentage = owner.m_stateTimer / owner.m_reservedSkillCastTime * 100
         owner.m_castingGauge:setPercentage(percentage)
+
+        if owner.m_castingMarkGauge then
+            owner.m_castingMarkGauge:setPercentage(percentage)
+        end
     end
 end
 

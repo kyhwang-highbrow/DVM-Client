@@ -437,11 +437,28 @@ function Hero:makeHPGauge(hp_ui_offset)
     self.m_hpNode:setAnchorPoint(cc.p(0.5, 0.5))
 
     self.m_hpGauge = ui.vars['hpGauge']
+
+    self.m_castingNode = ui.vars['atkGauge']
     self.m_castingGauge = ui.vars['atkGauge']
 
     self.m_world.m_worldNode:addChild(self.m_hpNode, 5)
 
     self.m_infoUI = ui
+end
+
+-------------------------------------
+-- function setPosition
+-------------------------------------
+function Hero:setPosition(x, y)
+    Entity.setPosition(self, x, y)
+
+    if self.m_hpNode then
+        self.m_hpNode:setPosition(x + self.m_hpUIOffset[1], y + self.m_hpUIOffset[2])
+    end
+
+    if self.m_cbChangePos then
+        self.m_cbChangePos(self)
+    end
 end
 
 -------------------------------------
