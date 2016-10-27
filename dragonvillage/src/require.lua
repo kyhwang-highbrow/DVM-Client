@@ -261,6 +261,10 @@ local t_module = {
     'UI_NestDungeonStageSelectPopup',
     'UI_EditBoxPopup',
 
+    -- UI 드래곤 관리 관련
+    'UI_DragonMgrInfo',
+    'UI_DragonMgrSubmenu',
+
     -- UIC (UI Component)
     'UIC_Node',
     'UIC_Button',

@@ -28,8 +28,8 @@ function UI_DragonManageScene:init(isTempCondition)
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonManageScene')
 
-    self:doActionReset()
-    self:doAction()
+    --self:doActionReset()
+    --self:doAction()
 end
 
 -------------------------------------

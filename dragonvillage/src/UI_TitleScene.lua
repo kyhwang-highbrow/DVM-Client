@@ -234,6 +234,8 @@ function UI_TitleScene:workGameLogin()
 
     local success_cb = function(ret)
         g_serverData:applyServerData(ret['user'], 'user')
+        g_serverData:applyServerData(ret['dragons'], 'dragons')
+        
         --ccdump(ret)
         self:doNextWork()
     end
