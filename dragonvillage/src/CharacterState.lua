@@ -225,6 +225,11 @@ end
 function Character.st_stun(owner, dt)
 	if owner.m_stateTimer == 0 then
 		owner:setSpeed(0)
+
+        -- 캐스팅 게이지
+        if owner.m_castingNode then
+            owner.m_castingNode:setVisible(false)
+        end
 	end
 end
 

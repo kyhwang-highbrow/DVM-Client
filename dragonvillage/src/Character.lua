@@ -346,7 +346,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
             do
                 local emoticon = MakeAnimator('res/ui/a2d/enemy_skill_speech/enemy_skill_speech.vrp')
                 emoticon:changeAni('failed', false)
-                emoticon:setPosition(100, 100)
+                emoticon:setPosition(50, 100)
                 self.m_rootNode:addChild(emoticon.m_node)
 
                 local duration = emoticon:getDuration()
@@ -885,8 +885,8 @@ function Character:makeHPGauge(hp_ui_offset)
             self.m_castingMarkGauge:setVisible(true)
             self.m_castingSpeechVisual:setVisible(true)
         
-            self.m_castingMarkGauge:setPosition(103, 107)
-            self.m_castingSpeechVisual:setPosition(149, 144)
+            self.m_castingMarkGauge:setPosition(53, 107)
+            self.m_castingSpeechVisual:setPosition(99, 144)
         end
         --
 

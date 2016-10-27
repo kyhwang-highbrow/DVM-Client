@@ -129,7 +129,7 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
         end
 
         -- 드래곤 클릭
-        if select_hero:resetActiveSkillCoolTime() then
+        if select_hero:isEndActiveSkillCoolTime() then
             SoundMgr:playEffect('EFFECT', 'touch_skill')
             self:setSelectHero(select_hero)
         
@@ -184,6 +184,7 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
         self.m_selectHero:setSpasticity(false)
 
         self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
+        self.m_selectHero:resetActiveSkillCoolTime()
 
         local active_skill_id = self.m_selectHero:getSkillID('active')
         local t_skill = TABLE:get('dragon_skill')[active_skill_id]
