@@ -491,8 +491,19 @@ function Network:saveDump(t_request, ret)
         return
     end
 
+    local file_name = t_request['url']
+
+    if (not file_name) then
+        if t_request['full_url'] then
+            local l_str = stringSplit(t_request['full_url'], '/')
+            file_name = '/' .. l_str[#l_str]
+        else
+            file_name = '/none'
+        end
+    end
+
     local path = cc.FileUtils:getInstance():getWritablePath() .. 'network_dump'
-    local full_path = string.format('%s%s.txt', path, t_request['url'])
+    local full_path = string.format('%s%s.txt', path, file_name)
 
     local f = io.open(full_path,'w')
     if (not f) then
