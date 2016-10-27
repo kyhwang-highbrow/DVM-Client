@@ -24,9 +24,14 @@ function TamerSkillSystem:init(world, tamer)
     local t_tamer = tamer.m_charTable
     local ui = world.m_inGameUI
 
+    --[[
     ui.vars['tamerSkillBtn1']:registerScriptTapHandler(function() self:click_tamerSkillBtn(1) end)
     ui.vars['tamerSkillBtn2']:registerScriptTapHandler(function() self:click_tamerSkillBtn(2) end)
     ui.vars['tamerSkillBtn3']:registerScriptTapHandler(function() self:click_tamerSkillBtn(3) end)
+    ]]--
+    ui.vars['tamerSkillBtn1']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
+    ui.vars['tamerSkillBtn2']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
+    ui.vars['tamerSkillBtn3']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
 
     local icon = IconHelper:getSkillIcon('tamer', t_tamer['skill_1'])
     ui.vars['tamerSkillBtn1']:addChild(icon)
@@ -57,7 +62,9 @@ function TamerSkillSystem:init(world, tamer)
     do
         self.m_specialPowerPoint = 0
         ui.vars['specialGauge']:setPercentage(0)
-        ui.vars['specialSkillBtn']:registerScriptTapHandler(function() self:click_specialSkillBtn() end)
+        --ui.vars['specialSkillBtn']:registerScriptTapHandler(function() self:click_specialSkillBtn() end)
+        ui.vars['specialSkillBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
+
     end
 end
 
