@@ -439,7 +439,7 @@ function DataAdventure:optainFirstReward(stage_id)
         local item_cnt = t_first_reward['value_' .. i] or 0
 
         if (item_id ~= 0) then
-            g_userData:optainItem(item_id, item_cnt)
+            g_userDataOld:optainItem(item_id, item_cnt)
         end
     end
 

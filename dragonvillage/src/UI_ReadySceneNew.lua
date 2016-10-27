@@ -415,7 +415,7 @@ function UI_ReadySceneNew:click_startBtn()
         if (not g_adventureData:isOpenStage(stage_id)) then
             MakeSimplePopup(POPUP_TYPE.OK, '{@BLACK}' .. Str('이전 스테이지를 클리어하세요.'))
 
-        elseif (not g_userData:useStamina(self.m_staminaType, self.m_staminaValue)) then
+        elseif (not g_userDataOld:useStamina(self.m_staminaType, self.m_staminaValue)) then
             MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup)
             
         else
@@ -555,5 +555,5 @@ function UI_ReadySceneNew:click_deckDragonItem(dragon_id)
     end
 
     self:init_dragonDeck()
-    g_userData:setDirtyLocalSaveData()
+    g_userDataOld:setDirtyLocalSaveData()
 end

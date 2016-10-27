@@ -56,7 +56,7 @@ function DataStamina:update(dt)
         
         -- 데이터 변경 후 저장하도록
         self.m_tData[2] = self.m_lastChargeTime
-        g_userData:setDirtyLocalSaveData()
+        g_userDataOld:setDirtyLocalSaveData()
 
         -- 1개 충전
         self:changeStamina(self.m_stamina - 1, self.m_stamina, 'charge')
@@ -98,7 +98,7 @@ function DataStamina:adjust()
 
     -- 데이터 변경 후 저장하도록
     self.m_tData[2] = self.m_lastChargeTime
-    g_userData:setDirtyLocalSaveData()
+    g_userDataOld:setDirtyLocalSaveData()
 end
 
 -------------------------------------
@@ -112,7 +112,7 @@ function DataStamina:changeStamina(before, after, where)
 
     -- 데이터 변경 후 저장하도록
     self.m_tData[1] = after
-    g_userData:setDirtyLocalSaveData()
+    g_userDataOld:setDirtyLocalSaveData()
 
     --self:print(where)
 end
@@ -146,7 +146,7 @@ function DataStamina:useStamina(cnt)
 
         -- 데이터 변경 후 저장하도록
         self.m_tData[2] = self.m_lastChargeTime
-        g_userData:setDirtyLocalSaveData()
+        g_userDataOld:setDirtyLocalSaveData()
     end
 
     self.m_stamina = self.m_stamina - cnt
@@ -193,7 +193,7 @@ function DataStamina:setMaxStamina(max_stamina)
 
         -- 데이터 변경 후 저장하도록
         self.m_tData[2] = self.m_lastChargeTime
-        g_userData:setDirtyLocalSaveData()
+        g_userDataOld:setDirtyLocalSaveData()
     end
 end
 

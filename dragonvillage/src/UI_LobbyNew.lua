@@ -559,11 +559,11 @@ function UI_LobbyNew:initUserInfo()
     vars['userTitleLabel']:setString(Str('수습테이머'))
 
     -- 닉네임
-    local nickname = g_userData.m_userData['nickname']
+    local nickname = g_userDataOld.m_userData['nickname']
     vars['userNameLabel']:setString(nickname)
 
     -- 레벨
-    local lv = g_userData.m_userData['lv']
+    local lv = g_userDataOld.m_userData['lv']
     vars['userLvLabel']:setString(Str('레벨 {1}', lv))
 
     -- 경헙치
@@ -574,7 +574,7 @@ function UI_LobbyNew:initUserInfo()
         local percentage = (exp / max_exp)
         return math_floor(percentage * 100)
     end
-    local exp = g_userData.m_userData['exp']
+    local exp = g_userDataOld.m_userData['exp']
     local exp_percentage = getTamerExpPercentage(lv, exp)
     vars['userExpLabel']:setString(Str('{1}%', exp_percentage))
     vars['userExpGg']:setPercentage(exp_percentage)

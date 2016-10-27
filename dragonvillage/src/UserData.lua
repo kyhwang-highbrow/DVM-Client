@@ -32,19 +32,19 @@ end
 -- function getInstance
 -------------------------------------
 function UserData:getInstance()
-    if g_userData then
-        return g_userData
+    if g_userDataOld then
+        return g_userDataOld
     end
 
-    g_userData = UserData()
-    g_userData:loadMasterFile()
-    g_adventureData = g_userData.m_dataAdventure
-    g_dragonListData = g_userData.m_dataDragonList
-    g_evolutionStoneData = g_userData.m_dataEvolutionStone
-    g_fruitData = g_userData.m_dataFruit
-    g_friendshipData = g_userData.m_dataFriendship
+    g_userDataOld = UserData()
+    g_userDataOld:loadMasterFile()
+    g_adventureData = g_userDataOld.m_dataAdventure
+    g_dragonListData = g_userDataOld.m_dataDragonList
+    g_evolutionStoneData = g_userDataOld.m_dataEvolutionStone
+    g_fruitData = g_userDataOld.m_dataFruit
+    g_friendshipData = g_userDataOld.m_dataFriendship
 
-    return g_userData
+    return g_userDataOld
 end
 
 -------------------------------------

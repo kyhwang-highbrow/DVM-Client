@@ -263,8 +263,8 @@ function PerpleScene:onEnter()
     end
 
     local function update(dt)
-        if g_userData then
-            g_userData:update(dt)
+        if g_userDataOld then
+            g_userDataOld:update(dt)
         end
     end
     self.m_scene:scheduleUpdateWithPriorityLua(update, 0)

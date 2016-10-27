@@ -16,8 +16,8 @@ UI_TopUserInfo = class(PARENT,{
 function UI_TopUserInfo:init()
     local vars = self:load('top_user_info.ui')
 
-    g_userData.m_staminaList['st_ad']:addChangeCB(function(str)
-        local msg = comma_value(g_userData.m_staminaList['st_ad'].m_stamina)
+    g_userDataOld.m_staminaList['st_ad']:addChangeCB(function(str)
+        local msg = comma_value(g_userDataOld.m_staminaList['st_ad'].m_stamina)
         vars['actingPowerTimeLabel']:setString(str)
     end)
 
@@ -43,8 +43,8 @@ end
 function UI_TopUserInfo:refreshData()
     local vars = self.vars
 
-    local gold = g_userData.m_userData['gold']
-    local cash = g_userData.m_userData['cash']
+    local gold = g_userDataOld.m_userData['gold']
+    local cash = g_userDataOld.m_userData['cash']
     
     --vars['goldLabel']:setString(comma_value(gold))
     self.m_lNumberLabel['gold']:setNumber(gold)
@@ -52,7 +52,7 @@ function UI_TopUserInfo:refreshData()
     self.m_lNumberLabel['cash']:setNumber(cash)
 
     -- 모험 스태미너
-    local st_ad = g_userData.m_staminaList['st_ad'].m_stamina
+    local st_ad = g_userDataOld.m_staminaList['st_ad'].m_stamina
     --vars['actingPowerLabel']:setString(st_ad)
     self.m_lNumberLabel['st_ad']:setNumber(st_ad)
 end

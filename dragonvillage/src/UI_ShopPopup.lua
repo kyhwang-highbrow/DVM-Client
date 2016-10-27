@@ -19,7 +19,7 @@ function UI_ShopPopup:init()
         for i,v in pairs(g_dragonListData.m_lDragonList) do
             v['cnt'] = v['cnt'] + 5
         end
-        g_userData:setDirtyLocalSaveData()
+        g_userDataOld:setDirtyLocalSaveData()
         UIManager:toastNotificationGreen('모든 카드가 5장씩 증가하였습니다.')
     end)
 
@@ -29,7 +29,7 @@ function UI_ShopPopup:init()
                 l_rarity[i] = cnt + 5
             end
         end
-        g_userData:setDirtyLocalSaveData()
+        g_userDataOld:setDirtyLocalSaveData()
         UIManager:toastNotificationGreen('모든 진화석이 5개씩 증가하였습니다.')
     end)
 
@@ -60,7 +60,7 @@ function UI_ShopPopup:init()
             local force = true
             local ret = g_dragonListData:unEvolutionDragon(dragon_id, force)
         end
-        g_userData:setDirtyLocalSaveData(true)
+        g_userDataOld:setDirtyLocalSaveData(true)
         UIManager:toastNotificationGreen('모든 드래곤 퇴화')
     end)
 
@@ -70,7 +70,7 @@ function UI_ShopPopup:init()
             local force = true
             local ret = g_dragonListData:downgradeDragon(dragon_id, force)
         end
-        g_userData:setDirtyLocalSaveData(true)
+        g_userDataOld:setDirtyLocalSaveData(true)
         UIManager:toastNotificationGreen('모든 드래곤 강등')
     end)
 
@@ -80,8 +80,8 @@ function UI_ShopPopup:init()
             local force = true
             local ret = g_dragonListData:initializeDragon(dragon_id, force)
         end
-		g_userData:initTamer()
-        g_userData:setDirtyLocalSaveData(true)
+		g_userDataOld:initTamer()
+        g_userDataOld:setDirtyLocalSaveData(true)
         
         UIManager:toastNotificationGreen('모든 드래곤 초기화')
 		UIManager:toastNotificationGreen('테이머 초기화')
@@ -102,12 +102,12 @@ function UI_ShopPopup:init()
             local dragon_id = tonumber(v['did'])
             local ret = g_dragonListData:levelUpDragon(dragon_id)
         end
-        g_userData:setDirtyLocalSaveData(true)
+        g_userDataOld:setDirtyLocalSaveData(true)
         UIManager:toastNotificationGreen('모든 드래곤 레벨 업')
     end)
     
     vars['tamerLevelUp']:registerScriptTapHandler(function()
-        g_userData:levelUpTamer()
+        g_userDataOld:levelUpTamer()
         UIManager:toastNotificationGreen('테이머 레벨 업')
     end)
     
@@ -166,10 +166,10 @@ end
 function UI_ShopPopup:refreshData()
     local vars = self.vars
 
-    vars['gachaLogLabel']:setString('Gacha : ' .. comma_value(g_userData:getCumulativePurchasesLog('gacha')))
-    vars['staminaLogLabel']:setString('Stamina : ' .. comma_value( g_userData:getCumulativePurchasesLog('stamina')))
-    vars['goldLogLabel']:setString('Gold : ' .. comma_value(g_userData:getCumulativePurchasesLog('gold')))
-    vars['cashLogLabel']:setString('Cash : ' .. comma_value(g_userData:getCumulativePurchasesLog('cash')))
+    vars['gachaLogLabel']:setString('Gacha : ' .. comma_value(g_userDataOld:getCumulativePurchasesLog('gacha')))
+    vars['staminaLogLabel']:setString('Stamina : ' .. comma_value( g_userDataOld:getCumulativePurchasesLog('stamina')))
+    vars['goldLogLabel']:setString('Gold : ' .. comma_value(g_userDataOld:getCumulativePurchasesLog('gold')))
+    vars['cashLogLabel']:setString('Cash : ' .. comma_value(g_userDataOld:getCumulativePurchasesLog('cash')))
 end
 
 -------------------------------------

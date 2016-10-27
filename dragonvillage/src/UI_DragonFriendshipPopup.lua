@@ -179,7 +179,7 @@ function UI_DragonFriendshipPopup:refresh_friendshipInfo(dragon_id)
     local t_friendship_data, t_friendship = g_friendshipData:getFriendship(dragon_id)
 
     -- 친밀도 대사
-    local nickname = '"' .. g_userData.m_userData['nickname'] .. '"'
+    local nickname = '"' .. g_userDataOld.m_userData['nickname'] .. '"'
     vars['conditionLabel']:setString(Str(t_friendship['t_desc'], nickname))
 
     do -- 친밀도 레벨

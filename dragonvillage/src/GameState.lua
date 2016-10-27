@@ -445,7 +445,7 @@ function GameState:dropItem()
     for i,v in ipairs(l_drop_item) do
         local item_id = v[1]
         local count = v[2]
-        g_userData:optainItem(item_id, count)
+        g_userDataOld:optainItem(item_id, count)
     end
 
     return l_drop_item
@@ -466,7 +466,7 @@ function GameState:makeResultUI(is_success)
     local stage_id = self.m_world.m_stageID
 
     -- 테이머 경험치 상승
-    local t_tamer_levelup_data = g_userData:addTamerExpAtStage(stage_id, wave_rate)
+    local t_tamer_levelup_data = g_userDataOld:addTamerExpAtStage(stage_id, wave_rate)
 
     -- 경험치 상승
     local t_deck = g_dragonListData.m_lDragonDeck
@@ -480,7 +480,7 @@ function GameState:makeResultUI(is_success)
             local t_dragon = table_dragon[dragon_id]
 
             -- 드래곤 경험치 상승
-            local t_levelup_data = g_userData:addDragonExpAtStage(dragon_id, stage_id, wave_rate)
+            local t_levelup_data = g_userDataOld:addDragonExpAtStage(dragon_id, stage_id, wave_rate)
 
             -- 유저가 보유하고있는 드래곤의 정보
             local t_dragon_data = g_dragonListData:getDragon(dragon_id)
@@ -497,8 +497,8 @@ function GameState:makeResultUI(is_success)
     end
 
     -- 골드 획득
-    g_userData.m_userData['gold'] = g_userData.m_userData['gold'] + world.m_gold
-    g_userData:setDirtyLocalSaveData()
+    g_userDataOld.m_userData['gold'] = g_userDataOld.m_userData['gold'] + world.m_gold
+    g_userDataOld:setDirtyLocalSaveData()
     
     UI_GameResult(is_success, self.m_fightTimer, world.m_gold, t_tamer_levelup_data, l_dragon_list, l_drop_item_list)
 end

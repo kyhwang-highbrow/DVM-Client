@@ -197,7 +197,7 @@ function UI_AdventureSceneNew:refreshChapter(chapter, force)
 
     -- 마지막에 진입한 챕터 저장
     g_adventureData.m_tData['last_chapter'] = chapter
-    g_userData:setDirtyLocalSaveData(true)
+    g_userDataOld:setDirtyLocalSaveData(true)
 end
 
 -------------------------------------

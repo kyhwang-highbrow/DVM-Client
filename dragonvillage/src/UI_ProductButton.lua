@@ -189,10 +189,10 @@ function UI_ProductButton:canBuyProduct(product_id)
         user_price = 0
 
     elseif (price_type == 'cash') then
-        user_price = g_userData.m_userData['cash']
+        user_price = g_userDataOld.m_userData['cash']
 
     elseif (price_type == 'gold') then
-        user_price = g_userData.m_userData['gold']
+        user_price = g_userDataOld.m_userData['gold']
 
     else
         error('price_type : ' .. price_type)
@@ -238,10 +238,10 @@ function UI_ProductButton:tempBuy(product_id)
         if (price_type == 'x') then
 
         elseif (price_type == 'cash') then
-            g_userData.m_userData['cash'] = g_userData.m_userData['cash'] - price_value
+            g_userDataOld.m_userData['cash'] = g_userDataOld.m_userData['cash'] - price_value
 
         elseif (price_type == 'gold') then
-            g_userData.m_userData['gold'] = g_userData.m_userData['gold'] - price_value
+            g_userDataOld.m_userData['gold'] = g_userDataOld.m_userData['gold'] - price_value
 
         else
             error('price_type : ' .. price_type)
@@ -252,27 +252,27 @@ function UI_ProductButton:tempBuy(product_id)
     if (value_type == 'x') then
 
     elseif (value_type == 'cash') then
-        g_userData.m_userData['cash'] = g_userData.m_userData['cash'] + value
-        g_userData:addCumulativePurchasesLog('cash', value)
+        g_userDataOld.m_userData['cash'] = g_userDataOld.m_userData['cash'] + value
+        g_userDataOld:addCumulativePurchasesLog('cash', value)
 
     elseif (value_type == 'gold') then
-        g_userData.m_userData['gold'] = g_userData.m_userData['gold'] + value
-        g_userData:addCumulativePurchasesLog('gold', value)
+        g_userDataOld.m_userData['gold'] = g_userDataOld.m_userData['gold'] + value
+        g_userDataOld:addCumulativePurchasesLog('gold', value)
 
     elseif (value_type == 'stamina') then
-        g_userData.m_staminaList['st_ad']:addStamina(value)
-        g_userData:addCumulativePurchasesLog('stamina', value)
+        g_userDataOld.m_staminaList['st_ad']:addStamina(value)
+        g_userDataOld:addCumulativePurchasesLog('stamina', value)
 
     elseif (value_type == 'card') then
         self:tempGacha()
-        g_userData:addCumulativePurchasesLog('gacha', 5)
+        g_userDataOld:addCumulativePurchasesLog('gacha', 5)
 
     else
         error('value_type : ' .. value_type)
     end
 
     -- 갱신
-    g_userData:setDirtyLocalSaveData()
+    g_userDataOld:setDirtyLocalSaveData()
     UIManager.m_topUserInfo:refreshData()
     self:refreshData()
 end
