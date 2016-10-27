@@ -123,7 +123,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 
 		-- 스킬 영역
         elseif (type == 'skill_laser') then
-            self:doSkill_laser(t_skill, attr, is_hero, phys_group, x, y, t_data)
+            SkillLaser:makeSkillInstnceFromSkill(self, t_skill, t_data) 
             return true
         elseif (type == 'skill_butt') then
             self:doSkill_butt(t_skill, is_hero, phys_group, x, y, t_data)
@@ -327,46 +327,6 @@ end
 -------------------------------------
 function Character:doSkill_laser(t_skill, attr, is_hero, phys_group, x, y, t_data)
 
-    local phys_group = nil
-
-    -- 캐릭터 유형별 변수 정리(dragon or enemy)
-    if (self.m_charType == 'dragon') then
-        is_hero = true
-        phys_group = 'missile_h'
-    else
-        is_hero = false
-        phys_group = 'missile_e'
-    end
-
-    local linear_laser = LinearLaser2()
-    local duration = (self.m_statusCalc.m_attackTick / 2)
-    linear_laser.m_physGroup = phys_group
-
-    -- Physics, Node, GameMgr에 등록
-    --self.m_world:addMissile(linear_laser, object_key)
-    self.m_world.m_missiledNode:addChild(linear_laser.m_rootNode)
-    self.m_world:addToUnitList(linear_laser)
-
-    -- 리소스
-    local res = string.gsub(t_skill['res_1'], '@', attr)
-
-    linear_laser.m_offsetX = x
-    linear_laser.m_offsetY = y
-
-    -- 'res/shot/shot_ray_light/shot_ray_light.spine'
-    linear_laser:initLinearLaser(res, x, y, t_skill['val_1'])
-
-
-    linear_laser.m_activityCarrier = self:makeAttackDamageInstance()
-    linear_laser.m_activityCarrier.m_skillCoefficient = (t_skill['power_rate'] / 100)
-
-    -- 쿨타임 지정
-    linear_laser.m_limitTime = duration
-    local hit = math_max(t_skill['hit'], 1)
-    linear_laser.m_multiHitTime = linear_laser.m_limitTime / hit
-
-    linear_laser.m_maxClearCount = hit - 1
-
     -- 인디케이터에서
     if t_data['x'] and t_data['y'] then
         linear_laser.m_endPosX = t_data['x']
@@ -378,23 +338,8 @@ function Character:doSkill_laser(t_skill, attr, is_hero, phys_group, x, y, t_dat
         end
     end
 
-	-- @TODO 공격에 묻어나는 이펙트 Carrier 에 담아서..
-	StatusEffectHelper:doStatusEffect(self, t_skill)
-
     -- 타겟이 없을 경우
-    if (linear_laser.m_endPosX == 0) and (linear_laser.m_endPosY == 0) then
-        if self.m_bLeftFormation then
-            linear_laser.m_endPosX = self.pos.x + 400
-            linear_laser.m_endPosY = self.pos.y
-        else
-            linear_laser.m_endPosX = self.pos.x - 400
-            linear_laser.m_endPosY = self.pos.y
-        end
-    end
-    linear_laser:refresh(true)
 
-    linear_laser.m_ownerChar = self
-    linear_laser:refresh()
 end
 
 -------------------------------------

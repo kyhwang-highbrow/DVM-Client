@@ -1,8 +1,9 @@
--------------------------------------
--- class LinearLaser2
--------------------------------------
-LinearLaser2 = class(Entity, {
+local PARENT = class(Entity, ISkill:getCloneTable(), IStateDelegate:getCloneTable())
 
+-------------------------------------
+-- class SkillLaser
+-------------------------------------
+SkillLaser = class(PARENT, {
         m_linkEffect = '',  -- 레이저의 그래픽 리소스
         m_laserDir = '',
 
@@ -14,12 +15,6 @@ LinearLaser2 = class(Entity, {
         m_clearCount = '',
         m_maxClearCount = '',
 
-        m_offsetX = '',
-        m_offsetY = '',
-
-        -- basic ray
-        m_ownerChar = '',
-
         m_startPosX = '',
         m_startPosY = '',
         m_endPosX = '',
@@ -30,8 +25,7 @@ LinearLaser2 = class(Entity, {
 
         m_physGroup = '',
 
-        m_activityCarrier = '',
-
+		m_thickness = '',
         m_laserThickness = 'number', -- 레이저 굵기
      })
 
@@ -40,50 +34,60 @@ LinearLaser2 = class(Entity, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function LinearLaser2:init(file_name, body, ...)
-    self.m_limitTime = 3
-
-    self.m_multiHitTime = 1
-    self.m_multiHitTimer = 0
-
-    self.m_clearCount = 0
-    self.m_maxClearCount = 0
-
-    self.m_offsetX = 0
-    self.m_offsetY = 0
-
-    self:initState()
+function SkillLaser:init(file_name, body, ...)
 end
 
 -------------------------------------
--- function initLinearLaser2
+-- function init_skill
 -------------------------------------
-function LinearLaser2:initLinearLaser(file_name, x, y, type)
+function SkillLaser:init_skill(missile_res, hit, thickness)
+	PARENT.init_skill(self)
 
-    -- 레이저 링크 이펙트 생성
-    self:makeLaserLinkEffect(file_name, type)
+    -- 캐릭터 유형별 변수 정리(dragon or enemy)
+    if (self.m_owner.phys_key == 'hero') then
+        is_hero = true
+        self.m_physGroup = 'missile_h'
+    else
+        is_hero = false
+        self.m_physGroup = 'missile_e'
+    end
 
+    local duration = (self.m_owner.m_statusCalc.m_attackTick / 2)
+    local hit = math_max(hit, 1)
+	self.m_thickness = thickness
+
+	    -- 쿨타임 지정
+    self.m_limitTime = duration
+    self.m_multiHitTime = self.m_limitTime / hit
+    self.m_multiHitTimer = 0
+	
+    self.m_clearCount = 0
+	self.m_maxClearCount = hit - 1
+	
     self.m_laserDir = 180
 
-    self.m_startPosX = x or 0
-    self.m_startPosY = y or 0
-    self.m_endPosX = x or 0
-    self.m_endPosY = y or 0
+    self.m_startPosX = 0
+    self.m_startPosY = 0
+    self.m_endPosX = self.m_targetPos.x
+    self.m_endPosY = self.m_targetPos.y
 
     do
         -- 스케일 지정
-        if (type == 1) then     self.m_laserThickness = 30
-        elseif (type == 2) then self.m_laserThickness = 60
-        elseif (type == 3) then self.m_laserThickness = 120
-        else                    error('type : ' .. type)
+        if (thickness == 1) then     self.m_laserThickness = 30
+        elseif (thickness == 2) then self.m_laserThickness = 60
+        elseif (thickness == 3) then self.m_laserThickness = 120
+        else                    error('레이저 두께는 1~3 이어야 합니다. 현재 thickness : ' .. thickness)
         end
     end
+
+    -- 레이저 링크 이펙트 생성
+    self:makeLaserLinkEffect(missile_res, thickness)
 end
 
 -------------------------------------
 -- function makeLaserLinkEffect
 -------------------------------------
-function LinearLaser2:makeLaserLinkEffect(file_name, type)
+function SkillLaser:makeLaserLinkEffect(file_name, thickness)
     local link_effect = LinkEffect(file_name)
 
     link_effect.m_bRotateEndEffect = false
@@ -98,10 +102,10 @@ function LinearLaser2:makeLaserLinkEffect(file_name, type)
         local scale = 1
 
         -- 스케일 지정
-        if (type == 1) then     scale = 0.5
-        elseif (type == 2) then scale = 1
-        elseif (type == 3) then scale = 2
-        else                    error('type : ' .. type)
+        if (thickness == 1) then     scale = 0.5
+        elseif (thickness == 2) then scale = 1
+        elseif (thickness == 3) then scale = 2
+        else                    error('레이저 두께는 1~3 이어야 합니다. 현재 thickness : ' .. thickness)
         end
 
         link_effect.m_startPointNode:setScale(scale)
@@ -117,9 +121,9 @@ end
 -------------------------------------
 -- function initState
 -------------------------------------
-function LinearLaser2:initState()
-    self:addState('idle', LinearLaser2.st_idle, 'idle', true)
-    self:addState('disappear', LinearLaser2.st_disappear, 'idle', true)
+function SkillLaser:initState()
+    self:addState('idle', SkillLaser.st_idle, 'idle', true)
+    self:addState('disappear', SkillLaser.st_disappear, 'idle', true)
     self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
     self:changeState('idle')
 end
@@ -127,21 +131,20 @@ end
 -------------------------------------
 -- function st_idle
 -------------------------------------
-function LinearLaser2.st_idle(owner, dt)
+function SkillLaser.st_idle(owner, dt)
     
     owner.m_multiHitTimer = owner.m_multiHitTimer + dt
     if (owner.m_multiHitTimer >= owner.m_multiHitTime) and
         (owner.m_clearCount < owner.m_maxClearCount) then
-
-        owner:clearCollisionObjectList()
+        
+		owner:clearCollisionObjectList()
         owner.m_multiHitTimer = owner.m_multiHitTimer - owner.m_multiHitTime
-
         owner.m_clearCount = owner.m_clearCount + 1
     end
 
     owner:refresh()
 
-    if ((not owner.m_ownerChar) or owner.m_ownerChar.m_bDead) or (owner.m_stateTimer >= owner.m_limitTime) then
+    if ((not owner.m_owner) or owner.m_owner.m_bDead) or (owner.m_stateTimer >= owner.m_limitTime) then
         owner:changeState('disappear')
         return
     end
@@ -150,7 +153,7 @@ end
 -------------------------------------
 -- function st_disappear
 -------------------------------------
-function LinearLaser2.st_disappear(owner, dt)
+function SkillLaser.st_disappear(owner, dt)
     if (owner.m_stateTimer == 0) then
         local function ani_handler()
             owner:changeState('dying')
@@ -163,13 +166,14 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function LinearLaser2:refresh(force)
+function SkillLaser:refresh(force)
     local change_start = false
-    if self.m_ownerChar then
-        if (self.m_ownerChar.pos.x ~= self.m_startPosX) or (self.m_ownerChar.pos.y ~= self.m_startPosY) then
+
+    if self.m_owner then
+        if (self.m_owner.pos.x ~= self.m_startPosX) or (self.m_owner.pos.y ~= self.m_startPosY) then
             change_start = true
-            self.m_startPosX = self.m_ownerChar.pos.x + self.m_offsetX
-            self.m_startPosY = self.m_ownerChar.pos.y + self.m_offsetY
+            self.m_startPosX = self.m_owner.pos.x + (self.m_attackPosOffsetX * math.max(self.m_thickness/2, 1))
+            self.m_startPosY = self.m_owner.pos.y + self.m_attackPosOffsetY
             self:setPosition(self.m_startPosX, self.m_startPosY)
         end
     end
@@ -195,15 +199,15 @@ end
 -------------------------------------
 -- function checkCollision
 -------------------------------------
-function LinearLaser2:checkCollision()
+function SkillLaser:checkCollision()
 
     local radius = (self.m_laserThickness / 2)
 
     -- 레이저에 충돌된 모든 객체 리턴
     local t_collision_obj = self.m_world.m_physWorld:getLaserCollision(self.m_startPosX, self.m_startPosY,
         self.m_laserEndPosX, self.m_laserEndPosY, radius, self.m_physGroup)
-
-    -- 모든 객체에 공격
+    
+	-- 모든 객체에 공격
     for i,v in ipairs(t_collision_obj) do
         self:collisionAttack(v['obj'])
     end
@@ -212,7 +216,7 @@ end
 -------------------------------------
 -- function collisionAttack
 -------------------------------------
-function LinearLaser2:collisionAttack(target_char)
+function SkillLaser:collisionAttack(target_char)
     if (not self.t_collision) then
         return
     end
@@ -228,4 +232,50 @@ function LinearLaser2:collisionAttack(target_char)
     target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
 end
 
+-------------------------------------
+-- function makeSkillInstnce
+-- @param missile_res 
+-------------------------------------
+function SkillLaser:makeSkillInstnce(owner, missile_res, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target, hit, thickness)
+	-- 1. 스킬 생성
+    local skill = SkillLaser(nil)
 
+	-- 2. 초기화 관련 함수
+	skill:setParams(owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target)
+    skill:init_skill(missile_res, hit, thickness)
+	skill:initState()
+
+	-- 3. state 시작 
+    skill:changeState('idle')
+
+    -- 4. Physics, Node, GameMgr에 등록
+    local world = owner.m_world
+    world.m_missiledNode:addChild(skill.m_rootNode, 0)
+    world:addToUnitList(skill)
+
+    skill:refresh(true)
+end
+
+-------------------------------------
+-- function makeSkillInstnceFromSkill
+-------------------------------------
+function SkillLaser:makeSkillInstnceFromSkill(owner, t_skill, t_data)
+    local owner = owner
+	
+	-- 1. 공통 변수
+    local power_rate = t_skill['power_rate']
+	local target_type = t_skill['target_type']
+	local status_effect_type = t_skill['status_effect_type']
+	local status_effect_rate = t_skill['status_effect_rate']
+	local skill_type = t_skill['type']
+	local tar_x = t_data.x
+	local tar_y = t_data.y
+	local target = t_data.target
+
+	-- 2. 특수 변수
+    local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+	local hit = t_skill['hit']
+	local thickness = t_skill['val_1']
+
+    SkillLaser:makeSkillInstnce(owner, missile_res, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target, hit, thickness)
+end
