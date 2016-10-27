@@ -58,7 +58,7 @@ function ScenePatch:onEnter()
     patch_core:setFinishCB(finish_cb)
     patch_core:doStep()
 
-    self.m_vars['animator']:setVisual('group', 'patch')
+    self.m_vars['animator']:changeAni('01_patch')
 
 	self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     self:refreshPatchIdxLabel()

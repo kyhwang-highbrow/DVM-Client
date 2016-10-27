@@ -37,8 +37,6 @@ end
 -------------------------------------
 function UI_TitleScene:initUI()
     local vars = self.vars
-    vars['animator']:changeAni('00', true)
-    vars['animator']:addAniHandler(function() vars['animator']:changeAni('02', true) end)
 
     vars['messageLabel']:setVisible(false)
     vars['downloadLabel']:setVisible(false)
@@ -147,11 +145,11 @@ function UI_TitleScene:workTitleAni()
     local vars = self.vars
 
     local function ani_handler()
-        --vars['animator']:changeAni('02', true)
+        vars['animator']:changeAni('04_title_idle', true)
         self:doNextWork()
     end
 
-    vars['animator']:changeAni('00', false)
+    vars['animator']:changeAni('03_title', false)
     vars['animator']:addAniHandler(ani_handler)
 end
 

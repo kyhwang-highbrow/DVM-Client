@@ -41,26 +41,26 @@ void ReloadLuaHelper::onEnter()
 		Size visibleSize = CCDirector::getInstance()->getVisibleSize();
 		Vec2 origin = CCDirector::getInstance()->getVisibleOrigin();
 
-        /*
         // 타이틀 화면이 PNG에서 A2D(vrp)로 변경되어 교체
-        AzVRP* visual = AzVRP::create("res/ui/a2d/ui_title/ui_title.vrp");
+        AzVRP* visual = AzVRP::create("res/ui/a2d/title/title.vrp");
 
         if (visual != NULL)
         {
             visual->loadPlistFiles("");
             visual->buildSprite("");
             visual->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
-            visual->setVisual("group", "idle");
+            visual->setVisual("group", "02_scene_replace");
             this->addChild(visual);
         }
-        */
 
+        /*
         CCSprite* sprite = CCSprite::create("res/ui/logo/title.png");
         if (sprite != NULL)
         {
             sprite->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
             this->addChild(sprite);
         }
+        */
 	}
 
     // 각종 Cache정리, 사운드 정지

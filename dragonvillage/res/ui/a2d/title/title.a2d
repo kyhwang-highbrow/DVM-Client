@@ -33,6 +33,393 @@
 			"visual_list":
 			[
 				{
+					"name":"01_patch",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_bg_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":180.000000
+									},
+									{
+										"frame":1, "pY":180.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"02_scene_replace",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_bg_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":180.000000
+									},
+									{
+										"frame":1, "pY":180.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"03_title",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'00'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":75
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"04_title_idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"expand":true,
+								"apply":true,
+								"layer_list":
+								[
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_bg_01.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "pY":40.000000
+											},
+											{
+												"frame":59, "pY":40.000000
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_dragon_light.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "pY":290.000000
+											},
+											{
+												"frame":59, "pY":290.000000
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_dragon.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "sX":0.500000, "sY":0.500000, "pY":240.000000
+											},
+											{
+												"frame":59, "sX":0.500000, "sY":0.500000, "pY":240.000000
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0101.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "pX":-10.000000, "pY":-24.000000
+											},
+											{
+												"frame":59, "pX":-10.000000, "pY":-24.000000
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0102.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "pX":-373.000000, "pY":94.000000
+											},
+											{
+												"frame":59, "pX":-373.000000, "pY":94.000000
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0102.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "sX":-1.000000, "pX":361.000000, "pY":93.000000
+											},
+											{
+												"frame":59, "sX":-1.000000, "pX":361.000000, "pY":93.000000
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0103.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "pX":-109.000000, "pY":60.000000
+											},
+											{
+												"frame":59, "pX":-109.000000, "pY":60.000000
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0103.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "sX":-1.000000, "pX":140.000000, "pY":60.000000
+											},
+											{
+												"frame":59, "sX":-1.000000, "pX":140.000000, "pY":60.000000
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0104.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "pX":-68.000000, "pY":70.000000
+											},
+											{
+												"frame":59, "pX":-68.000000, "pY":70.000000
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0104.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "sX":-1.000000, "pX":100.000000, "pY":69.000000
+											},
+											{
+												"frame":59, "sX":-1.000000, "pX":100.000000, "pY":69.000000
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0201.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "pX":-10.000001, "pY":11.000000, "alpha":0
+											},
+											{
+												"frame":59, "pX":-10.000001, "pY":11.000000, "alpha":0
+											}
+										]
+									}
+								]
+							}
+,
+							{
+								"expand":true,
+								"apply":true,
+								"layer_list":
+								[
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0101.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "pX":-10.000000, "pY":-24.000000
+											},
+											{
+												"frame":59, "pX":-10.000000, "pY":-24.000000
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0102.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "pX":-373.000000, "pY":94.000000
+											},
+											{
+												"frame":59, "pX":-373.000000, "pY":94.000000
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0102.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "sX":-1.000000, "pX":361.000000, "pY":93.000000
+											},
+											{
+												"frame":59, "sX":-1.000000, "pX":361.000000, "pY":93.000000
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0103.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "pX":-109.000000, "pY":60.000000
+											},
+											{
+												"frame":59, "pX":-109.000000, "pY":60.000000
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0103.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "sX":-1.000000, "pX":140.000000, "pY":60.000000
+											},
+											{
+												"frame":59, "sX":-1.000000, "pX":140.000000, "pY":60.000000
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0104.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "pX":-68.000000, "pY":70.000000
+											},
+											{
+												"frame":59, "pX":-68.000000, "pY":70.000000
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0104.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":0, "sX":-1.000000, "pX":100.000000, "pY":69.000000
+											},
+											{
+												"frame":59, "sX":-1.000000, "pX":100.000000, "pY":69.000000
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)title.plist'<azSprite>'title_logo_0201.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":20, "pX":-10.000000, "pY":11.000000, "alpha":0
+											},
+											{
+												"frame":30, "pX":-10.000000, "pY":11.000000
+											},
+											{
+												"frame":39, "pX":-10.000001, "pY":11.000000, "alpha":0
+											}
+										]
+									}
+								]
+							}
+
+						]
+					}
+				}
+			]
+		},
+		{
+			"name":"resource",
+			"expand":false,
+			"apply":false,
+			"visual_list":
+			[
+				{
 					"name":"00",
 					"apply":true,
 					"fps":30,
@@ -43,7 +430,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azVisualGroup>'group'<azVisual>'01'",
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'01'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -66,7 +453,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'group'<azVisual>'02'",
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'02'",
 								"expand":false,
 								"apply":true,
 								"key_list":
