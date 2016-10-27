@@ -179,7 +179,7 @@ end
 -- function onTouchEnded
 -------------------------------------
 function SkillIndicatorMgr:onTouchEnded(touch, event)
-    if self.m_selectHero then
+    if self.m_selectHero and self.m_selectHero.m_bDead == false then
         -- 경직 중이라면 즉시 해제
         self.m_selectHero:setSpasticity(false)
 

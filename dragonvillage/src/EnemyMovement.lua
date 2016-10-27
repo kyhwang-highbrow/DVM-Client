@@ -143,8 +143,9 @@ function EnemyLua.Basic(owner)
     -- 마지막 액션(Enemy를 공격상태로 변경)
     local finish_action = cc.CallFunc:create(function()
         EnemyLua.st_move(owner, 0)
-        --owner:changeState('charge')
-        owner:changeState('attackDelay')
+        owner:changeState('idle')
+
+        owner:dispatch('enemy_appear_done', owner)
     end)    
 
     -- 액션 생성
@@ -179,9 +180,10 @@ function EnemyLua.Appear(owner)
     local duration = effect:getDuration()
 
     effect:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.CallFunc:create(function()
-        --owner:changeState('charge')
-        owner:changeState('attackDelay')
+        owner:changeState('idle')
         effect:release()
+
+        owner:dispatch('enemy_appear_done', owner)
     end)))
 end
 
@@ -205,8 +207,9 @@ function EnemyLua.BasicOld(owner)
 
     -- 마지막 액션(Enemy를 공격상태로 변경)
     local finish_action = cc.CallFunc:create(function()
-        --owner:changeState('charge')
-        owner:changeState('attackDelay')
+        owner:changeState('idle')
+
+        owner:dispatch('enemy_appear_done', owner)
     end)    
 
     -- 액션 생성

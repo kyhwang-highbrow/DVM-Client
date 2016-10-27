@@ -370,7 +370,14 @@ function Hero:release()
         self.m_world:removeHero(self)
     end
 
-    PARENT.release(self)
+    if self.m_hpNode then
+        self.m_hpNode:removeFromParent(true)
+    end
+    
+    self.m_hpNode = nil
+    self.m_hpGauge = nil
+
+    Entity.release(self)
 end
 
 -------------------------------------
@@ -422,20 +429,6 @@ function Hero:changeHomePos(x, y)
     self.m_homePosY = y
 
     self:setMove(x, y, 500)
-end
-
--------------------------------------
--- function release
--------------------------------------
-function Character:release()
-    if self.m_hpNode then
-        self.m_hpNode:removeFromParent(true)
-    end
-    
-    self.m_hpNode = nil
-    self.m_hpGauge = nil
-
-    Entity.release(self)
 end
 
 -------------------------------------

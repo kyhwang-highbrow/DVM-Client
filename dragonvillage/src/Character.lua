@@ -25,6 +25,7 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_bLuanchMissile = 'boolean',       -- MissileLauncher생성 여부
         m_bFinishAttack = 'boolean',        -- MissileLauncher가 공격을 완료했는지 여부
         m_bFinishAnimation = 'boolean',     -- 'attack'에니메이션 재생 완료 여부
+        m_bFirstAttack = 'boolean',         -- 최초의 공격일 경우
 
         -- @ 예약된 skill 정보
         m_reservedSkillId = 'number',
@@ -936,7 +937,17 @@ function Character:calcAttackPeriod()
     local cast_time = self.m_reservedSkillCastTime
 
     -- 공격 주기 공식
-    self.m_attackPeriod = self.m_statusCalc.m_attackTick
+    if self.m_bFirstAttack then
+        self.m_bFirstAttack = false
+
+        if self.m_charType == 'dragon' then
+            self.m_attackPeriod = 0
+        else
+            self.m_attackPeriod = self.m_statusCalc.m_attackTick * math_random(1, 100) / 100
+        end
+    else
+        self.m_attackPeriod = self.m_statusCalc.m_attackTick
+    end
 
     -- 공격 주기에서 'attack'에니메이션의 길이는 제외
     if cast_time > 0 then

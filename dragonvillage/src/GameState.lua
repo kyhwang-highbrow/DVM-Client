@@ -4,6 +4,7 @@ GAME_STATE_LOADING = 1  -- Scene전환 후 첫 상태
 GAME_STATE_START_1 = 2  -- 테이머 등장
 GAME_STATE_START_2 = 3  -- 테이머 등장
 
+GAME_STATE_ENEMY_APPEAR = 99  -- 적 등장
 
 GAME_STATE_FIGHT = 100
 GAME_STATE_FIGHT_WAIT = 101
@@ -32,7 +33,9 @@ GameState = class(IEventListener:getCloneClass(), {
         m_stateTimer = '',
         m_fightTimer = '',
 
-        m_bApeearDragon = 'boolean',
+        m_bAppearDragon = 'boolean',
+        m_nAppearedEnemys = 'number',
+
         m_waveEffect = 'Animator',
         m_nextWaveDirectionType = 'string',
     })
@@ -45,7 +48,7 @@ function GameState:init(world)
     self.m_state = GAME_STATE_LOADING
     self.m_stateTimer = -1
     self.m_fightTimer = 0
-    self.m_bApeearDragon = false
+    self.m_bAppearDragon = false
 
     self.m_waveEffect = MakeAnimator('res/ui/a2d/ui_boss_warning/ui_boss_warning.vrp')
     self.m_waveEffect:setVisible(false)
@@ -65,6 +68,7 @@ function GameState:update(dt)
     if (self.m_state == GAME_STATE_NONE) then
     elseif (self.m_state == GAME_STATE_START_1) then    self:update_start1(dt)
     elseif (self.m_state == GAME_STATE_START_2) then    self:update_start2(dt)
+    elseif (self.m_state == GAME_STATE_ENEMY_APPEAR) then self:update_enemy_appear(dt)
     elseif (self.m_state == GAME_STATE_FIGHT) then      self:update_fight(dt)
 
     elseif (self.m_state == GAME_STATE_FIGHT_WAIT) then self:update_fight_wait(dt)
@@ -126,15 +130,8 @@ function GameState:update_start2(dt)
             speed = -300
 
             -- 등장 완료일 경우
-            if self.m_bApeearDragon then
-
-                -- 전투 최초 시작 시점
-                self.m_world:dispatch('game_start')
-                self.m_world:buffActivateAtStartup()
-                self.m_world.m_inGameUI:doAction()
-                self:fightDragon()
-
-                self:changeState(GAME_STATE_FIGHT)
+            if self.m_bAppearDragon then
+                self:changeState(GAME_STATE_ENEMY_APPEAR)
             end
         end
         map_mgr:setSpeed(speed)
@@ -162,19 +159,72 @@ function GameState:appearDragon()
         end
     end
 
-    self.m_bApeearDragon = true
+    self.m_bAppearDragon = true
 end
 
 -------------------------------------
--- function fightDragon
+-- function fight
 -------------------------------------
-function GameState:fightDragon()
-    -- 드래곤들을 등장
+function GameState:fight()
+    -- 아군과 적군 전투 시작
     local world = self.m_world
+
     for i,dragon in ipairs(world.m_participants) do
         if (dragon.m_bDead == false) then
+            dragon.m_bFirstAttack = true
             dragon:changeState('attackDelay')
         end
+    end
+
+    for i,enemy in pairs(world.m_tEnemyList) do
+        if (enemy.m_bDead == false) then
+            enemy.m_bFirstAttack = true
+            enemy:changeState('attackDelay')
+        end
+    end
+end
+
+-------------------------------------
+-- function update_enemy_appear
+-------------------------------------
+function GameState:update_enemy_appear(dt)
+    local world = self.m_world
+
+    if (self.m_stateTimer == 0) then
+        for i,dragon in ipairs(world.m_participants) do
+            if (dragon.m_bDead == false) then
+                dragon:changeState('idle')
+            end
+        end
+
+        local enemy_count = #world.m_tEnemyList
+        local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
+
+        if (enemy_count <= 0) and (dynamic_wave <= 0) then
+            self:waveChange()
+        end
+    end
+
+    if world.m_waveMgr:isEmptyDynamicWaveList() then
+        -- 모든 적들이 등장이 끝났는지 확인
+        if self.m_nAppearedEnemys == #world.m_tEnemyList then
+
+            -- 전투 최초 시작시
+            if world.m_waveMgr:isFirstWave() then
+                world:dispatch('game_start')
+                world:buffActivateAtStartup()
+                world.m_inGameUI:doAction()
+            end
+
+            self:fight()
+
+            self:changeState(GAME_STATE_FIGHT)
+        end
+    end
+
+    -- 웨이브 매니져 업데이트
+    if (not world.m_bDoingTamerSkill) then
+        world.m_waveMgr:update(dt)
     end
 end
 
@@ -188,17 +238,11 @@ function GameState:update_fight(dt)
     local enemy_count = #world.m_tEnemyList
     local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
 
-    if (enemy_count <= 0) and (dynamic_wave <= 0) then
-        if self:waveChange() then
-            return
-        end
+    if (not world.m_bDoingTamerSkill) and (enemy_count <= 0) and (dynamic_wave <= 0) then
+        self:changeState(GAME_STATE_ENEMY_APPEAR)
+        return
     end
-
-    -- 웨이브 매니져 업데이트
-    if (not world.m_bDoingTamerSkill) then
-        world.m_waveMgr:update(dt)
-    end
-
+    
     if world.m_skillIndicatorMgr then
         world.m_skillIndicatorMgr:update(dt)
     end
@@ -219,11 +263,6 @@ end
 -------------------------------------
 function GameState:update_fight_wait(dt)
     if (self.m_stateTimer == 0) then
-    --[[
-        if (not self:applyWaveDirection()) then
-            self:changeState(GAME_STATE_FIGHT)
-        end
-    --]]
     end
 end
 
@@ -251,7 +290,7 @@ function GameState:update_final_wave2(dt)
         self.m_waveEffect:changeAni('final_disappear', false)
         self.m_waveEffect:addAniHandler(function()
             self.m_waveEffect:setVisible(false)
-            self:changeState(GAME_STATE_FIGHT)
+            self:changeState(GAME_STATE_ENEMY_APPEAR)
         end)
     end
 end
@@ -294,7 +333,7 @@ function GameState:update_boss_wave3(dt)
         self.m_waveEffect:changeAni('boss_disappear', false)
         self.m_waveEffect:addAniHandler(function()
             self.m_waveEffect:setVisible(false)
-            self:changeState(GAME_STATE_FIGHT)
+            self:changeState(GAME_STATE_ENEMY_APPEAR)
         end)
     end
 end
@@ -488,6 +527,8 @@ function GameState:waveChange()
     -- 다음 웨이브 생성
     world.m_waveMgr:newScenario()
 
+    self.m_nAppearedEnemys = 0
+
     -- 아무런 연출이 없을 경우 GAME_STATE_FIGHT 상태를 유지
     if (self.m_nextWaveDirectionType == nil) and (t_bg_data == nil) then
         return false
@@ -498,19 +539,23 @@ function GameState:waveChange()
 
     -- 배경 전환이 있을 경우 (GAME_STATE_FIGHT_WAIT상태에서 웨이브 연출을 확인함)
     elseif (t_bg_data) then
+        local changeNextState = function()
+            if (not self:applyWaveDirection()) then
+                self:changeState(GAME_STATE_ENEMY_APPEAR)
+            end
+        end
+
         if map_manager:applyWaveScript(t_bg_data) then
             map_manager.m_finishCB = function()
-                    if (not self:applyWaveDirection()) then
-                        self:changeState(GAME_STATE_FIGHT)
-                    end
+                if (not self:applyWaveDirection()) then
+                    changeNextState()
                 end
+            end
             self:changeState(GAME_STATE_FIGHT_WAIT)
             return true
         else
             map_manager.m_finishCB = nil
-            if (not self:applyWaveDirection()) then
-                self:changeState(GAME_STATE_FIGHT)
-            end
+            changeNextState()
         end
 
     else
@@ -556,5 +601,10 @@ function GameState:onEvent(event_name, ...)
     -- 테이머가 전투 위치로 도착
     elseif (event_name == 'tamer_appear_done') then
         self:appearDragon()
+
+    -- 적군이 전투 위치로 도착
+    elseif (event_name == 'enemy_appear_done') then
+        self.m_nAppearedEnemys = self.m_nAppearedEnemys + 1
+    
     end
 end

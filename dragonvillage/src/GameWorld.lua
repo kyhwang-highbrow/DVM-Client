@@ -714,7 +714,8 @@ function GameWorld:makeDragon(dragon_id, idx)
     hero.m_dragonID = dragon_id
     hero.m_charTable = t_dragon
 
-    hero:changeState('attackDelay')
+    --hero:changeState('attackDelay')
+    hero:changeState('idle')
 
     self.m_worldNode:addChild(hero.m_rootNode, 2)
     self:addToUnitList(hero)

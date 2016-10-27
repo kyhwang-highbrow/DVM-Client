@@ -98,7 +98,7 @@ function Character.st_attack(owner, dt)
 
         -- 캐스팅 게이지
         if owner.m_castingSpeechVisual then
-            owner.m_castingSpeechVisual:setVisual('group', 'success')
+            owner.m_castingSpeechVisual:changeAni('success', false)
             owner.m_castingSpeechVisual:registerScriptLoopHandler(function() owner.m_castingNode:setVisible(false) end)
         elseif owner.m_castingNode then
             owner.m_castingNode:setVisible(false)
@@ -150,7 +150,10 @@ function Character.st_casting(owner, dt)
             owner.m_castingNode:setVisible(true)
 
             if owner.m_castingSpeechVisual then
-                owner.m_castingSpeechVisual:setVisual('group', 'base_appear')
+                owner.m_castingSpeechVisual:changeAni('base_appear', false)
+                owner.m_castingSpeechVisual:registerScriptLoopHandler(function()
+                    owner.m_castingSpeechVisual:changeAni('base_keep', true)
+                end)
             end
         end
 
@@ -164,10 +167,18 @@ function Character.st_casting(owner, dt)
             if owner.m_animator.m_bFlip then
                 offsetX = -offsetX
             end
+
+            local scale = 1
+            local rarity = owner.m_charTable['rarity']
+            if rarity ~= 'boss' and rarity ~= 'subboss' and rarity ~= 'elite' then
+            else
+                scale = 2
+            end
             
             owner.m_castingEffect = MakeAnimator('res/effect/effect_skillcasting/effect_skillcasting.vrp')
             owner.m_castingEffect:changeAni('idle', false)
             owner.m_castingEffect:setPosition(offsetX, 0)
+            owner.m_castingEffect:setScale(scale)
             owner.m_rootNode:addChild(owner.m_castingEffect.m_node)
 
             local duration = owner.m_castingEffect:getDuration()

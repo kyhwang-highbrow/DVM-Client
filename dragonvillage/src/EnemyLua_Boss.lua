@@ -72,16 +72,12 @@ EnemyLua_Boss.st_attack = PARENT.st_attack
 function EnemyLua_Boss:initState()
     PARENT.initState(self)
 
-    --self:addState('attack', EnemyLua_Boss.st_attack, 'attack', true)
     self:addState('attackDelay', EnemyLua_Boss.st_pattern_idle, 'idle', true)
     self:addState('charge', EnemyLua_Boss.st_pattern_idle, 'idle', true)
-    --self:addState('casting', EnemyLua_Boss.st_casting, 'idle', true)
-
+    
     self:addState('pattern_idle', EnemyLua_Boss.st_pattern_idle, 'idle', true)
     self:addState('pattern_wait', EnemyLua_Boss.st_pattern_wait, 'idle', true)
     self:addState('pattern_move', EnemyLua_Boss.st_pattern_move, 'idle', true)
-    --self:addState('pattern_attack', EnemyLua_Boss.st_pattern_attack, 'attack', false)
-    --self:addState('pattern_casting', EnemyLua_Boss.st_pattern_casting, 'idle', true)
 end
 
 

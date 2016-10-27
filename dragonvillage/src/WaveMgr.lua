@@ -277,6 +277,9 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, movement, value1, value2, v
     -- 죽음 콜백 등록
     enemy:addListener('character_dead', self.m_world)
 
+    -- 등장 완료 콜백 등록
+    enemy:addListener('enemy_appear_done', self.m_world.m_gameState)
+
     enemy.m_animator.m_node:setScale(animator_scale)
     enemy.m_animator:setFlip(true)
 
@@ -370,4 +373,18 @@ function WaveMgr:dispatch(event_name, ...)
     end
 
     return IEventDispatcher.dispatch(self, event_name, ...)
+end
+
+-------------------------------------
+-- function isFirstWave
+-------------------------------------
+function WaveMgr:isFirstWave()
+    return (self.m_currWave == 1)
+end
+
+-------------------------------------
+-- function isEmptyDynamicWaveList
+-------------------------------------
+function WaveMgr:isEmptyDynamicWaveList()
+    return (#self.m_lDynamicWave == 0)
 end
