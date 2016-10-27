@@ -185,6 +185,9 @@ end
 function AnimatorVrp:registerScriptLoopHandler(func)
     return self.m_node:registerScriptLoopHandler(func)
 end
+function AnimatorVrp:unregisterScriptLoopHandler()
+    return self.m_node:unregisterScriptLoopHandler()
+end
 function AnimatorVrp:setRepeat(loop)
     return self.m_node:setRepeat(loop)
 end
