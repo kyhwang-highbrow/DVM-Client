@@ -353,6 +353,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
                 emoticon:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
             end
 
+            -- 일시적인 슬로우 처리
+            g_gameScene:setTimeScaleAction(0.2, 0.5)
+
             self:changeState('attackDelay')
         end
     end

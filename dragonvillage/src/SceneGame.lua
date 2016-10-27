@@ -30,6 +30,8 @@ SceneGame = class(PerpleScene, {
         m_inGameUI = '',
 
         m_bDevelopMode = 'boolean',
+
+        m_timerTimeScale = 'number',
     })
 
 -------------------------------------
@@ -45,6 +47,8 @@ function SceneGame:init(stage_id, stage_name, develop_mode)
     self.m_bPause = false
     self.m_bDevelopMode = develop_mode or false
     self.m_bShowTopUserInfo = false
+
+    self.m_timerTimeScale = 0
 end
 
 -------------------------------------
@@ -203,6 +207,13 @@ function SceneGame:update(dt)
 
     self.m_gameWorld:updateUnit2(dt)
 
+    if self.m_timerTimeScale > 0 then
+        self.m_timerTimeScale = self.m_timerTimeScale - dt
+        if self.m_timerTimeScale <= 0 then
+            self:setTimeScale(1)
+        end
+    end
+
     local function func()
         self.m_gameWorld:update(dt)
     end
@@ -271,6 +282,16 @@ function SceneGame:sceneDidChangeViewSize()
         local ease_action = cc.EaseIn:create(scale_action, 2)
         self.m_viewLayer:runAction(ease_action)
     end
+end
+
+-------------------------------------
+-- function setTimeScaleAction
+-- @brief duration 시간동안만 timeScale을 변경시킴
+-------------------------------------
+function SceneGame:setTimeScaleAction(timeScale, duration)
+    self:setTimeScale(timeScale)
+
+    self.m_timerTimeScale = duration * timeScale
 end
 
 -------------------------------------
