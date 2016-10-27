@@ -216,9 +216,32 @@ function GameState:update_enemy_appear(dt)
                 world.m_inGameUI:doAction()
             end
 
-            self:fight()
+            -- 웨이브 알림
+            do
+                local waveNoti = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
+                waveNoti:changeAni('wave', false)
+                g_gameScene.m_containerLayer:addChild(waveNoti.m_node)
 
-            self:changeState(GAME_STATE_FIGHT)
+                local waveNum = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
+                waveNum:setVisual('tag', tostring(world.m_waveMgr.m_currWave))
+                waveNoti.m_node:bindVRP('number', waveNum.m_node)
+                
+                local maxWaveNum = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
+                maxWaveNum:setVisual('tag', tostring(world.m_waveMgr.m_maxWave))
+                waveNoti.m_node:bindVRP('max_number', maxWaveNum.m_node)
+
+                local duration = waveNoti:getDuration()
+                waveNoti:runAction(cc.Sequence:create(
+                    cc.DelayTime:create(duration),
+                    cc.CallFunc:create(function()
+                        self:fight()
+                        self:changeState(GAME_STATE_FIGHT)
+                    end),
+                    cc.RemoveSelf:create()
+                ))
+            end
+
+            self:changeState(GAME_STATE_FIGHT_WAIT)
         end
     end
 
