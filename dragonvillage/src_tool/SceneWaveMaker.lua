@@ -48,6 +48,7 @@ SceneWaveMaker = class(PerpleScene, {
 -- function init
 -------------------------------------
 function SceneWaveMaker:init(stage_id, stage_name, develop_mode)
+    self.m_bShowTopUserInfo = false
     self.m_stageID = 99999
     self.m_stageName = g_stage_name
     self.m_bUseLoadingUI = true

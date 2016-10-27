@@ -40,6 +40,7 @@ SceneViewer = class(PerpleScene,{
 -- function init
 -------------------------------------
 function SceneViewer:init()
+    self.m_bShowTopUserInfo = false
 	self.m_uiVars = {}
 	self.m_vrpResName = ENTRY_FILE
 	self.m_visualName = 'idle'
