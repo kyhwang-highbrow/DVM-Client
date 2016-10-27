@@ -221,6 +221,7 @@ local t_module = {
 	-- UI
     'UI_NetworkLoading',
     'UI_TitleScene',
+    'UI_TitleSceneLoading',
     'UI_LobbyNew',
     'UI_Game',
     'UI_GameResult',

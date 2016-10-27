@@ -6,6 +6,7 @@ local PARENT = UI
 UI_TitleScene = class(PARENT,{
         m_lWorkList = 'list',
         m_workIdx = 'number',
+        m_loadingUI = 'UI_TitleSceneLoading',
     })
 
 -------------------------------------
@@ -44,14 +45,15 @@ function UI_TitleScene:initUI()
     -- 앱버전과 패치 정보를 출력
     vars['patchIdxLabel']:setString(PatchData:getInstance():getAppVersionAndPatchIdxString())
 
-    --self:setTouchScreen()
+    self.m_loadingUI = UI_TitleSceneLoading()
+    self.m_loadingUI:hideLoading()
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
 function UI_TitleScene:initButton()
-    --self.vars['okButton']:registerScriptTapHandler(function() self:click_screenBtn() end)
+    self.vars['okButton']:registerScriptTapHandler(function() self:click_screenBtn() end)
 end
 
 -------------------------------------
@@ -81,8 +83,10 @@ end
 -- function click_screenBtn
 -------------------------------------
 function UI_TitleScene:click_screenBtn()
-    local scene = SceneLobby()
-    scene:runScene()
+    local func_name = self.m_lWorkList[self.m_workIdx] .. '_click'
+    if func_name and (self[func_name]) then
+        self[func_name](self)
+    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -154,12 +158,22 @@ function UI_TitleScene:workTitleAni()
 end
 
 -------------------------------------
+-- function workTitleAni_click
+-- @brief 타이틀 연출 화면 클릭 (패치 종료 후 로그인 직전)
+-------------------------------------
+function UI_TitleScene:workTitleAni_click()
+    local vars = self.vars
+    vars['animator']:changeAni('04_title_idle', true)
+    self:doNextWork()
+end
+
+-------------------------------------
 -- function workCheckUserID
 -- @breif uid가 있는지 체크, UID가 없을 경우 유저 닉네임을 받아서
 --        idfa로 저장하고 이를 통해서 UID를 발급
 -------------------------------------
 function UI_TitleScene:workCheckUserID()
-    ShowLoading(Str('유저 계정 확인 중...'))
+    self.m_loadingUI:showLoading(Str('유저 계정 확인 중...'))
 
     local uid = g_serverData:get('local', 'uid')
     local idfa = g_serverData:get('local', 'idfa')
@@ -167,7 +181,7 @@ function UI_TitleScene:workCheckUserID()
     if (uid or idfa) then
         self:doNextWork()
     else
-        HideLoading()
+        self.m_loadingUI:hideLoading()
         local edit_box = UI_EditBoxPopup()
         edit_box:setPopupTitle(Str('닉네임 입력'))
         edit_box:setPopupDsc(Str('사용하실 닉네임을 입력하세요.'))
@@ -197,7 +211,7 @@ end
 -- @brief 플랫폼 서버에 게스트 로그인
 -------------------------------------
 function UI_TitleScene:workPlatformLogin()
-    ShowLoading(Str('플랫폼 서버에 로그인 중...'))
+    self.m_loadingUI:showLoading(Str('플랫폼 서버에 로그인 중...'))
 
     local uid = g_serverData:get('local', 'uid')
     local idfa = g_serverData:get('local', 'idfa') or uid
@@ -211,13 +225,11 @@ function UI_TitleScene:workPlatformLogin()
     local success_cb = function(ret)
         -- UID 저장
         g_serverData:applyServerData(ret['uid'], 'local', 'uid')
-        --ccdump(ret)
         self:doNextWork()
     end
 
     local fail_cb = function(ret)
-        ccdebug()
-        ccdump(ret)
+        self:makeFailPopup()
     end
 
     Network_platform_guest_login(player_id, uid, idfa, deviceOS, pushToken, success_cb, fail_cb)
@@ -228,7 +240,7 @@ end
 -- @brief 게임서버에 로그인
 -------------------------------------
 function UI_TitleScene:workGameLogin()
-    ShowLoading(Str('게임 서버에 로그인 중...'))
+    self.m_loadingUI:showLoading(Str('게임 서버에 로그인 중...'))
 
     local uid = g_serverData:get('local', 'uid')
 
@@ -241,8 +253,7 @@ function UI_TitleScene:workGameLogin()
     end
 
     local fail_cb = function(ret)
-        ccdebug()
-        ccdump(ret)
+        self:makeFailPopup()
     end
 
     Network_login(uid, success_cb, fail_cb)
@@ -254,7 +265,7 @@ end
 -------------------------------------
 function UI_TitleScene:workFinish()
     -- 로딩창 숨김
-    HideLoading()
+    self.m_loadingUI:hideLoading()
 
     -- 모든 작업이 끝난 경우 로비로 전환
     local scene = SceneLobby()
@@ -268,6 +279,22 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------
+-- function makeFailPopup
+-- @brief
+-------------------------------------
+function UI_TitleScene:makeFailPopup(msg)
+    local function ok_btn_cb()
+        self.m_loadingUI:showLoading()
+        self:retryCurrWork()
+    end
+
+    local msg = msg or '{@BLACK}네트워크 연결에 실패하였습니다. 다시 시도하시겠습니까?'
+
+    self.m_loadingUI:hideLoading()
+    MakeSimplePopup(POPUP_TYPE.OK, msg, ok_btn_cb)
+end
 
 --@CHECK
 UI:checkCompileError(UI_TitleScene)

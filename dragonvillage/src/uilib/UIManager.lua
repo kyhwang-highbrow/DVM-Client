@@ -194,7 +194,7 @@ function UIManager:open(ui, mode, bNotBlendBGLayer)
             ui.vars['bgLayerColor'] = layerColor
 
             -- 엑션에 추가
-            ui:addAction(layerColor, UI_ACTION_TYPE_OPACITY, 0, 0.1)
+            ui:addAction(layerColor, UI_ACTION_TYPE_OPACITY, 0, 0.5)
         end
 
         if bNotBlendBGLayer then

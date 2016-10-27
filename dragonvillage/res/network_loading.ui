@@ -60,7 +60,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = '';
+			lua_name = 'loadingImg';
 			file_name = 'ui/icon/leon.png';
 			color = { 255; 255; 255; };
 			opacity = 255;

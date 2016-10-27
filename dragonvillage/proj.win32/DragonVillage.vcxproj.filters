@@ -412,9 +412,6 @@
     <None Include="..\src\ObjectGold.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\LinearLaser2.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\Thunder.lua">
       <Filter>lua</Filter>
     </None>
@@ -923,6 +920,9 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\UI_DragonMgrSubmenu.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_TitleSceneLoading.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>

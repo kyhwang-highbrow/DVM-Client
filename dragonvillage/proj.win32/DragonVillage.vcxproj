@@ -354,7 +354,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\lib\utils.lua" />
     <None Include="..\src\ServerData.lua" />
     <None Include="..\src\SkillRay.lua" />
-    <None Include="..\src\LinearLaser2.lua" />
     <None Include="..\src\LinkEffect.lua" />
     <None Include="..\src\main.lua" />
     <None Include="..\src\mainPatch.lua" />
@@ -527,6 +526,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ShopPopup.lua" />
     <None Include="..\src\UI_SkillCard.lua" />
     <None Include="..\src\UI_TitleScene.lua" />
+    <None Include="..\src\UI_TitleSceneLoading.lua" />
     <None Include="..\src\UI_Tooltip.lua" />
     <None Include="..\src\UI_Tooltip_Indicator.lua" />
     <None Include="..\src\UI_Tooltip_Skill.lua" />
