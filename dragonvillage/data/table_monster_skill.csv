@@ -15,4 +15,7 @@ id,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,c
 230014,code,missile_move_shotgun,깃털 방사,res/missile/missile_feather/missile_feather.png,x,x,x,instant,physical,-1,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,x,0,x,
 230015,code,missile_move_straight,먹물 공격,res/missile/missile_bubble_black/missile_bubble_black.vrp,x,x,x,instant,magical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,x,0,x,
 230016,code,missile_move_high_angle	,먹물 스킬,res/missile/missile_bubble_black/missile_bubble_black.vrp,x,x,x,instant,magical,-1,basic_turn,0.3,enemy_distance_line,-1,atk,100,1,0,0,0,100,blind,0,x,
-230017,code,skill_deep_stab,깊은 찌르기,x,x,x,attack_3,instant,physical,-1,basic_turn,0.1,enemy_random,0,atk,1000,1,1,1,0,20,poison,0,x,
+230017,code,skill_deep_stab,깊은 찌르기,x,x,x,attack_3,instant,physical,-1,basic_turn,0.1,enemy_random,0,atk,1000,1,0,0,0,20,poison,0,x,
+230018,code,missile_move_straight,청새치,res/missile/missile_spearfish/missile_spearfish.vrp,x,x,x,instant,magical,-2,basic,1,enemy_distance_line,0,atk,100,1,0,0,0,0,x,0,x,
+230019,script,skill_missile_thorn,가시 방출,res/missile/missile_thorn/missile_thorn.png,x,x,x,instant,physical,-2,basic_turn,3,enemy_distance_line,3,atk,20,1,0,0,0,0,0,0,x,
+230020,code,skill_buff,물리피해 감소,x,x,x,skill_1,instant,magical,-1,basic_turn,5,ally_none,0,x,0,1,0,0,0,100,p_resist,0,x,

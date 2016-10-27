@@ -1,6 +1,6 @@
 {
     "difficult":2,
-    "bg":"map_forest",
+    "bg":"map_canyon",
 	"wave":
 	[
         {
