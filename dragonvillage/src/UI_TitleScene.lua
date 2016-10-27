@@ -230,7 +230,7 @@ end
 function UI_TitleScene:workGameLogin()
     ShowLoading(Str('게임 서버에 로그인 중...'))
 
-    local user_id = g_userData.m_userData['user_id']
+    local uid = g_serverData:get('local', 'uid')
 
     local success_cb = function(ret)
         g_serverData:applyServerData(ret['user'], 'user')
@@ -243,7 +243,7 @@ function UI_TitleScene:workGameLogin()
         ccdump(ret)
     end
 
-    Network_login(user_id, success_cb, fail_cb)
+    Network_login(uid, success_cb, fail_cb)
 end
 
 -------------------------------------
