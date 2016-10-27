@@ -425,6 +425,20 @@ function Hero:changeHomePos(x, y)
 end
 
 -------------------------------------
+-- function release
+-------------------------------------
+function Character:release()
+    if self.m_hpNode then
+        self.m_hpNode:removeFromParent(true)
+    end
+    
+    self.m_hpNode = nil
+    self.m_hpGauge = nil
+
+    Entity.release(self)
+end
+
+-------------------------------------
 -- function makeHPGauge
 -------------------------------------
 function Hero:makeHPGauge(hp_ui_offset)
