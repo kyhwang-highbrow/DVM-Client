@@ -502,7 +502,15 @@ function Network:saveDump(t_request, ret)
         end
     end
 
-    local path = cc.FileUtils:getInstance():getWritablePath() .. 'network_dump'
+    -- '/'를 '#'으로 치환
+    file_name = string.gsub(file_name, '/', '#')
+
+    -- 첫 문자가 '#'이면 삭제
+    if (string.find(file_name, '#') == 1) then
+        file_name = string.gsub(file_name, '#', '', 1)
+    end
+
+    local path = cc.FileUtils:getInstance():getWritablePath() .. 'network_dump/'
     local full_path = string.format('%s%s.txt', path, file_name)
 
     local f = io.open(full_path,'w')
@@ -514,7 +522,8 @@ function Network:saveDump(t_request, ret)
     local request = dkjson.encode(t_request['data'], {indent=true})
     local response = dkjson.encode(ret, {indent=true})
 
-    local str = '# time(m/d/y h:m:s)\n' .. time .. '\n\n# request\n' .. request .. '\n\n# response\n' .. response
+    local full_url = t_request['full_url'] or (self:getApiUrl() .. t_request['url'])
+    local str = '# time(m/d/y h:m:s)\n' .. time .. '\n\n# url\n' .. full_url .. '\n\n# request\n' .. request .. '\n\n# response\n' .. response
     
     f:write(str)
     f:close()
