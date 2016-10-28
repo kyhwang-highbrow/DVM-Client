@@ -16,7 +16,8 @@ end
 -- function get
 -------------------------------------
 function ServerData_Deck:get(key)
-    return self.m_serverData:get('deck', key)
+    local l_deck = self.m_serverData:get('deck', key)
+    return l_deck or {}
 end
 
 -------------------------------------
