@@ -92,7 +92,7 @@ function Enemy.st_charge(owner, dt)
     if (owner.m_stateTimer == 0) then
 
         -- 차지 이팩트 재생
-        local res = 'res/effect/effect_attack_ready/effect_attack_ready.spine'
+        local res = 'res/effect/effect_attack_ready/effect_attack_ready.vrp'
         local animator = MakeAnimator(res)
         animator:changeAni('idle', false)
         owner.m_rootNode:addChild(animator.m_node)
