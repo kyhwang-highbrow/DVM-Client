@@ -23,6 +23,12 @@ function ServerData:getInstance()
     g_serverData = ServerData()
     g_serverData:loadServerDataFile()
 
+    -- 'user'
+    g_userData = ServerData_User(g_serverData)
+
+    -- 'dragons'
+    g_dragonsData = ServerData_Dragons(g_serverData)
+
     return g_serverData
 end
 

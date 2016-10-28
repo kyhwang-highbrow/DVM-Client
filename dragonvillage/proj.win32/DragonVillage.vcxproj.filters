@@ -925,6 +925,12 @@
     <None Include="..\src\UI_TitleSceneLoading.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\ServerData_User.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\ServerData_Dragons.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
