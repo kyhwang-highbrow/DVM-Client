@@ -68,7 +68,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 
     -- 탄막 공격 (스크립트에서 읽어와 미사일 탄막 생성)
     elseif (skill_form == 'script') then
-        self:doSkill_basic_normal(t_skill, attr, is_hero, phys_group, x, y, t_data)
+        self:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_data)
         return true
 
     -- 상태 효과
@@ -230,10 +230,10 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 end
 
 -------------------------------------
--- function doSkill_basic_normal
--- @brief 스킬 실행
+-- function do_script_shot
+-- @brief 스크립트 탄막 실행 
 -------------------------------------
-function Character:doSkill_basic_normal(t_skill, attr, is_hero, phys_group, x, y, t_data)
+function Character:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_data)
 
     local start_x = self.pos.x + x
     local start_y = self.pos.y + y

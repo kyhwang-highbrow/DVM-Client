@@ -6,8 +6,11 @@ SkillLeafBlade = class(Entity, {
         m_targetPos = '',
 
         m_activityCarrier = 'AttackDamage',
-        m_missileRes = 'string',
+        
+		m_missileRes = 'string',
         m_motionStreakRes = 'string',
+		m_resScale = 'num',
+
         m_targetCount = 'number',
 
 		m_bodySize = 'number',
@@ -36,8 +39,9 @@ function SkillLeafBlade:init_skill(owner, t_skill, t_data)
 
     self.m_missileRes = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
     self.m_motionStreakRes = (t_skill['res_2'] == 'x') and nil or string.gsub(t_skill['res_2'], '@', owner.m_charTable['attr'])
-    self.m_targetCount = t_skill['val_1']
-	self.m_bodySize = t_skill['val_2']
+    self.m_targetCount = t_skill['hit']
+	self.m_resScale = 0.5 -- t_skill['val_1']
+	self.m_bodySize = 30  -- t_skill['val_2']
 	self:initActvityCarrier(t_skill)
 
     self:changeState('idle')
@@ -129,7 +133,7 @@ function SkillLeafBlade:fireMissile()
 	t_option['effect'] = {}
     t_option['effect']['motion_streak'] = self.m_motionStreakRes
     
-	t_option['scale'] = 1
+	t_option['scale'] = self.m_resScale
     
     t_option['lua_param'] = {}
     t_option['lua_param']['value1'] = targetPos
