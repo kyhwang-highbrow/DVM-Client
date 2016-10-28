@@ -952,7 +952,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'chNode8';
+				lua_name = 'backupNode';
 			};
 			[4] =
 			{
@@ -1104,7 +1104,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'backupNode';
+				lua_name = 'chNode8';
 			};
 			[12] =
 			{

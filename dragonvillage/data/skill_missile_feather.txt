@@ -9,7 +9,7 @@
 				"visual":"idle",
 				"count":5,
 				"period":0,
-                "scale":"0.5",
+                "scale":"1",
 				"body":[0,0,20],
 				"speed":500,
 				"accel":1500,

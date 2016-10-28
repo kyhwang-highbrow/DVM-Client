@@ -580,7 +580,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'specialFullViusal';
 				file_name = 'ui/a2d/specialpower_icon_full/specialpower_icon_full.a2d';
 				auto_play = true;
@@ -683,7 +683,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'hpGauge';
 				file_name = 'ui/gauge/ingame_tamer_gg_01.png';
 				color = { 255; 255; 255; };
@@ -713,7 +713,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'specialGauge';
 				file_name = 'ui/gauge/ingame_tamer_gg_02.png';
 				color = { 255; 255; 255; };
@@ -837,7 +837,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'tamerSkillBtn3';
 				enable = true;
 				normal = 'ui/empty.png';
@@ -931,7 +931,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'tamerSkillBtn2';
 				enable = true;
 				normal = 'ui/empty.png';
@@ -1025,7 +1025,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'tamerSkillBtn1';
 				enable = true;
 				normal = 'ui/empty.png';
