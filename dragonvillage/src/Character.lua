@@ -132,6 +132,10 @@ end
 -- function getTargetListByType
 -------------------------------------
 function Character:getTargetListByType(target_type)
+	if (target_type == 'x') then 
+		error('타겟 타입이 x인데요?')
+	end
+
     local table_skill_target = TABLE:get('skill_target')
     local t_skill_target = table_skill_target[target_type]
 
@@ -1208,7 +1212,7 @@ end
 -- function makeAttackDamageInstance
 -- @brief
 -------------------------------------
-function Character:makeAttackDamageInstance()
+function Character:makeAttackDamageInstance(forced_skill_id)
     local activity_carrier = ActivityCarrier()
 
 	-- 시전자를 지정
@@ -1221,14 +1225,17 @@ function Character:makeAttackDamageInstance()
     activity_carrier.m_damageType = DMG_TYPE_STR[self.m_charTable['char_type']]
 
     -- 찬스 타입 지정(일반 공격과 스킬을 구분하기 위함)
-    if (not self.m_reservedSkillId) then
-        error('Character:makeAttackDamageInstance - no reservedSkillId')
+    if (not self.m_reservedSkillId) and (not forced_skill_id) then
+        error('Character:makeAttackDamageInstance - no reservedSkillId or forced_skill_id')
     end
 
     local t_skill = TABLE:get(self.m_charType .. '_skill')[self.m_reservedSkillId]
     
 	if (self.m_charTable['skill_basic'] == self.m_reservedSkillId) then
         activity_carrier:setAttackType('basic')
+	elseif (forced_skill_id) then
+		--@TODO 임시 처리 .. 일반적인 경우로 호출되지 않는 스킬은 어떻게 처리해야할까
+		activity_carrier:setAttackType('active')
     else
         activity_carrier:setAttackType('active')
     end

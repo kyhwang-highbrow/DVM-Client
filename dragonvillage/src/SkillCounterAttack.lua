@@ -24,8 +24,8 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillCounterAttack:init_skill(owner, t_skill, t_data, invoke_skill_id, duration)
-    PARENT.init_skill(self, owner, t_skill, t_data)
+function SkillCounterAttack:init_skill(invoke_skill_id, duration)
+    PARENT.init_skill(self)
 	self.m_invokeSkillId = invoke_skill_id
 	self.m_duration = duration
 	
@@ -35,7 +35,6 @@ function SkillCounterAttack:init_skill(owner, t_skill, t_data, invoke_skill_id, 
 	self.m_owner:addListener(self.m_triggerName, self)
 	
 	self.m_owner:changeState('delegate')
-	self:changeState('appear')
 end
 
 -------------------------------------
@@ -46,7 +45,7 @@ function SkillCounterAttack:initState()
     self:addState('appear', SkillCounterAttack.st_appear, nil, true)
     self:addState('idle', SkillCounterAttack.st_idle, nil, true)
 	self:addState('disappear', SkillCounterAttack.st_disappear, nil, true)
-    self:addState('dying', function(owner, dt) owner.m_owner:changeState('attackDelay') ; return true end, nil, nil, 10)
+    self:addState('dying', function(owner, dt) owner.m_owner:changeState('attackDelay'); return true end, nil, nil, 10)
 end
 
 -------------------------------------
@@ -127,14 +126,20 @@ end
 -------------------------------------
 -- function makeSkillInstnce
 -------------------------------------
-function SkillCounterAttack:makeSkillInstnce(owner, t_skill, t_data, invoke_skill_id, duration)
-    local world = owner.m_world
+function SkillCounterAttack:makeSkillInstnce(invoke_skill_id, duration, ...)
+	-- 1. 스킬 생성
+    local skill = SkillCounterAttack()
 
-    local skill = SkillCounterAttack(nil)
-    skill:init_skill(owner, t_skill, t_data, invoke_skill_id, duration)
-    skill:setPosition(owner.pos.x, owner.pos.y)
+	-- 2. 초기화 관련 함수
+	skill:setParams(...)
+    skill:init_skill(invoke_skill_id, duration)
+	skill:initState()
 
-    -- Physics, Node, GameMgr에 등록
+	-- 3. state 시작 
+    skill:changeState('appear')
+
+    -- 4. Physics, Node, GameMgr에 등록
+    local world = skill.m_owner.m_world
     world.m_missiledNode:addChild(skill.m_rootNode, 0)
     world:addToUnitList(skill)
 end
@@ -144,8 +149,20 @@ end
 -------------------------------------
 function SkillCounterAttack:makeSkillInstnceFromSkill(owner, t_skill, t_data)
     local owner = owner
+	
+	-- 1. 공통 변수
+    local power_rate = t_skill['power_rate']
+	local target_type = t_skill['target_type']
+	local status_effect_type = t_skill['status_effect_type']
+	local status_effect_rate = t_skill['status_effect_rate']
+	local skill_type = t_skill['type']
+	local tar_x = t_data.x
+	local tar_y = t_data.y
+	local target = t_data.target
+
+	-- 2. 특수 변수
     local invoke_skill_id = t_skill['val_1']
 	local duration = t_skill['val_2']
 
-    SkillCounterAttack:makeSkillInstnce(owner, t_skill, t_data, invoke_skill_id, duration)
+    SkillCounterAttack:makeSkillInstnce(invoke_skill_id, duration, owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target)
 end

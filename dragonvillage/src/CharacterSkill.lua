@@ -283,7 +283,7 @@ function Character:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_da
     end
 
     -- AttackDamage 생성
-    local activity_carrier = self:makeAttackDamageInstance()
+    local activity_carrier = self:makeAttackDamageInstance(t_skill['id'])
     activity_carrier:insertStatusEffectRate(t_skill['status_effect_type'], t_skill['status_effect_rate'])
 
     missile_launcher.m_bHeroMissile = is_hero
