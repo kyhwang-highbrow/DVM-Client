@@ -42,6 +42,7 @@ end
 -- function initUI
 -------------------------------------
 function UI_DragonMgrInfo:initUI()
+    self:init_dragonTableView()
 end
 
 -------------------------------------
@@ -79,6 +80,44 @@ function UI_DragonMgrInfo:click_upgradeBtn()
     self.root:setVisible(false)
     local ui = UI_DragonMgrSubmenu()
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function init_dragonTableView
+-------------------------------------
+function UI_DragonMgrInfo:init_dragonTableView()
+    local list_table_node = self.vars['listTableNode']
+
+    -- 생성
+    local function create_func(item)
+        local ui = item['ui']
+        ui.root:setScale(0.8)
+    end
+
+    -- 드래곤 클릭 콜백 함수
+    local function click_dragon_item(item)
+
+    end
+
+    -- 테이블뷰 초기화
+    local table_view_ext = TableViewExtension(list_table_node)
+    table_view_ext:setCellInfo(120, 120)
+    table_view_ext:setItemUIClass(UI_DragonCard, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
+    --table_view_ext:setItemInfo(g_dragonListData.m_lDragonList)
+    table_view_ext:setItemInfo(g_dragonsData:getDragonsList())
+    table_view_ext:update()
+
+    -- 정렬
+    local function default_sort_func(a, b)
+        local a = a['data']
+        local b = b['data']
+
+        return a['did'] < b['did']
+    end
+    table_view_ext:insertSortInfo('default', default_sort_func)
+
+    table_view_ext:sortTableView('default')
+
 end
 
 --@CHECK

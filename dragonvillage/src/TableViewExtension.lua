@@ -120,7 +120,7 @@ function TableViewExtension:setItemInfo(l_list)
 
     for key,value in pairs(l_list) do
         local t_item = {}
-        t_item['uique_id'] = key
+        t_item['unique_id'] = key
         t_item['data'] = value
         table.insert(self.m_lItem, t_item)
 

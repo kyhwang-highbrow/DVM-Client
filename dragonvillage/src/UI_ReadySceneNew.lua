@@ -503,7 +503,7 @@ function UI_ReadySceneNew:init_dragonTableView()
 
     -- 드래곤 클릭 콜백 함수
     local function click_dragon_item(item)
-        self:click_deckDragonItem(item['uique_id'])
+        self:click_deckDragonItem(item['unique_id'])
     end
 
     -- 테이블뷰 초기화

@@ -31,5 +31,12 @@ end
 -------------------------------------
 function ServerData_Dragons:getDragonsList()
     local l_dragons = self.m_serverData:get('dragons')
-    return clone(l_dragons)
+
+    local l_ret = {}
+    for _,v in pairs(l_dragons) do
+        local unique_id = v['id']
+        l_ret[unique_id] = clone(v)
+    end
+
+    return l_ret
 end

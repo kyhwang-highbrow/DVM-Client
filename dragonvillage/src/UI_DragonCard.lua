@@ -1,0 +1,119 @@
+local PARENT = UI
+
+-------------------------------------
+-- class UI_DragonCard
+-------------------------------------
+UI_DragonCard = class(PARENT,{
+        m_dragonData = 'table',
+        m_dragonID = 'number',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_DragonCard:init(t_dragon_data)
+    local vars = self:load('dragon_item.ui')
+
+    self.m_dragonData = t_dragon_data
+    self.m_dragonID = t_dragon_data['did']
+
+    self:refreshDragonInfo()
+end
+
+-------------------------------------
+-- function refreshDragonInfo
+-------------------------------------
+function UI_DragonCard:refreshDragonInfo()
+    if (not self.m_dragonData) then
+        return
+    end
+
+    local vars = self.vars
+    local dragon_id = tonumber(self.m_dragonData['did'])
+
+    -- 유저가 보유하고있는 드래곤의 정보
+    local t_dragon_data = self.m_dragonData
+
+    -- 테이블에 있는 드래곤의 정보
+    local table_dragon = TABLE:get('dragon')
+    local t_dragon = table_dragon[dragon_id]
+
+    do -- 역할 아이콘
+        local res = 'res/ui/dragon_card/list_role_' .. t_dragon['role'] .. '.png'
+        local sprite = cc.Sprite:create(res)
+        sprite:setAnchorPoint(cc.p(0.5, 0.5))
+        sprite:setDockPoint(cc.p(0.5, 0.5))
+        vars['roleNode']:removeAllChildren()
+        vars['roleNode']:addChild(sprite)
+    end
+
+    do -- 배경 프레임
+        local res = 'res/ui/dragon_card/list_frame_bg_' .. t_dragon['rarity'] .. '.png'
+        local sprite = cc.Sprite:create(res)
+        sprite:setAnchorPoint(cc.p(0.5, 0.5))
+        sprite:setDockPoint(cc.p(0.5, 0.5))
+        vars['rarityNode']:removeAllChildren()
+        vars['rarityNode']:addChild(sprite)
+    end
+
+    do -- 레어도 프레임
+        local res = 'res/ui/dragon_card/list_frame_' .. t_dragon['rarity'] .. '.png'
+        local sprite = cc.Sprite:create(res)
+        sprite:setAnchorPoint(cc.p(0.5, 0.5))
+        sprite:setDockPoint(cc.p(0.5, 0.5))
+        vars['frameNode']:removeAllChildren()
+        vars['frameNode']:addChild(sprite)
+    end    
+
+    do -- 드래곤 아이콘
+        local evolution = t_dragon_data['evolution']
+		local attr = t_dragon['attr']
+        local sprite = IconHelper:getHeroIcon(t_dragon['icon'], evolution, attr)
+        sprite:setAnchorPoint(cc.p(0.5, 0.5))
+        sprite:setDockPoint(cc.p(0.5, 0.5))
+        vars['iconsNode']:removeAllChildren()
+        vars['iconsNode']:addChild(sprite)
+    end
+
+    do -- 레벨 표시
+        vars['levelLabel']:setString(Str('{1}', t_dragon_data['lv']))
+    end
+
+    do -- 등급 별
+        local grade_res = 'res/ui/star020' .. t_dragon_data['grade'] .. '.png'
+        local sprite = cc.Sprite:create(grade_res)
+        sprite:setAnchorPoint(cc.p(0.5, 0.5))
+        sprite:setDockPoint(cc.p(0.5, 0.5))
+        vars['starNode']:removeAllChildren()
+        vars['starNode']:addChild(sprite)
+    end
+
+    do -- 물공/마공 아이콘
+        local table_dragon = TABLE:get('dragon')
+        local t_dragon = table_dragon[dragon_id]
+        local char_type = t_dragon['char_type']
+        local res = 'res/ui/dragon_card/list_attack_' .. char_type .. '.png'
+        local icon = cc.Sprite:create(res)
+        if icon then
+            icon:setDockPoint(cc.p(0.5, 0.5))
+            icon:setAnchorPoint(cc.p(0.5, 0.5))
+            vars['attackNode']:removeAllChildren()
+            vars['attackNode']:addChild(icon)
+        end
+    end
+
+    do -- 속성 아이콘
+        local table_dragon = TABLE:get('dragon')
+        local t_dragon = table_dragon[dragon_id]
+        local attr_str = t_dragon['attr']
+        local res = 'res/ui/dragon_card/dc_attr_' .. attr_str .. '.png'
+        local icon = cc.Sprite:create(res)
+        if icon then
+            icon:setDockPoint(cc.p(0.5, 0.5))
+            icon:setAnchorPoint(cc.p(0.5, 0.5))
+            vars['attrNode']:removeAllChildren()
+            vars['attrNode']:addChild(icon)
+        end
+    end
+
+end

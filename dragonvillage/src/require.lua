@@ -267,6 +267,7 @@ local t_module = {
     -- UI 드래곤 관리 관련
     'UI_DragonMgrInfo',
     'UI_DragonMgrSubmenu',
+    'UI_DragonCard',
 
     -- UIC (UI Component)
     'UIC_Node',
