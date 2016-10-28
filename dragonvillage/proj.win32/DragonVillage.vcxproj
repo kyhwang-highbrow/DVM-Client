@@ -353,6 +353,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\lib\Translate.lua" />
     <None Include="..\src\lib\utils.lua" />
     <None Include="..\src\ServerData.lua" />
+    <None Include="..\src\ServerData_Deck.lua" />
     <None Include="..\src\ServerData_Dragons.lua" />
     <None Include="..\src\ServerData_User.lua" />
     <None Include="..\src\SkillRay.lua" />

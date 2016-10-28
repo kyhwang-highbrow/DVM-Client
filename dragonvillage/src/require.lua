@@ -46,6 +46,7 @@ local t_module = {
     'ServerData',
     'ServerData_User',
     'ServerData_Dragons',
+    'ServerData_Deck',
     'UserData',
     'DropHelper',
     'DragonSkillManager',

@@ -928,6 +928,9 @@
     <None Include="..\src\UI_DragonCard.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\ServerData_Deck.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

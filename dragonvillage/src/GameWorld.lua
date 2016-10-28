@@ -410,17 +410,8 @@ function GameWorld:init_test(deck_type)
     -- 배경 이미지 초기화
     self:initBG()
 
-    -- 유저 데이터 덱에 저장된 드래곤 출전 리스트
-    local t_deck = g_dragonListData.m_lDragonDeck
-
-    for i=1, PARTICIPATE_DRAGON_CNT do
-        local idx = tostring(i)
-        if t_deck[idx] and (tonumber(t_deck[idx]) ~= 0) then
-
-            local dragon_id = tonumber(t_deck[idx])
-            self:makeDragon(dragon_id, i)
-        end
-    end
+    -- 덱에 셋팅된 드래곤 생성
+    self:makeDragonDeck()
 
     self.m_inGameUI:doActionReset()
 
@@ -680,6 +671,87 @@ function GameWorld:standbyHero(hero)
             break
         end
     end
+end
+
+-------------------------------------
+-- function makeDragonDeck
+-------------------------------------
+function GameWorld:makeDragonDeck()
+
+    -- 서버에 저장된 드래곤 덱 사용
+    if (DEVELOPMENT_SEONG_GOO_KIM == true) then
+        local l_deck = g_deckData:getDeck('1')
+        for i,v in pairs(l_deck) do
+            local t_dragon_data = g_dragonsData:getDragonDataFromUid(v)
+            if t_dragon_data then
+                self:makeDragonNew(t_dragon_data, i)
+            end
+        end
+        return
+    end
+
+    -- 유저 데이터 덱에 저장된 드래곤 출전 리스트
+    local t_deck = g_dragonListData.m_lDragonDeck
+
+    for i=1, PARTICIPATE_DRAGON_CNT do
+        local idx = tostring(i)
+        if t_deck[idx] and (tonumber(t_deck[idx]) ~= 0) then
+
+            local dragon_id = tonumber(t_deck[idx])
+            self:makeDragon(dragon_id, i)
+        end
+    end
+end
+
+-------------------------------------
+-- function makeDragonNew
+-------------------------------------
+function GameWorld:makeDragonNew(t_dragon_data, idx)
+
+    -- 유저가 보유하고있는 드래곤의 정보
+    local t_dragon_data = t_dragon_data
+    local dragon_id = t_dragon_data['did']
+
+    -- 테이블의 드래곤 정보
+    local table_dragon = TABLE:get('dragon')
+    local t_dragon = table_dragon[dragon_id]
+
+    local lv = t_dragon_data['lv']
+    local grade = t_dragon_data['grade']
+    local evolution = t_dragon_data['evolution']
+	local attr = t_dragon['attr']
+
+    local hero = Hero(nil, {0, 0, 20})
+    hero:initDragonSkillManager('dragon', dragon_id, t_dragon_data['grade'])
+    hero.m_tDragonInfo = t_dragon_data
+    hero:initAnimatorHero(t_dragon['res'], evolution, attr)
+    hero.m_animator:setScale(0.5 * t_dragon['scale'])
+    hero:initState()
+    hero:initStatus(t_dragon, lv, grade, evolution)
+
+    --
+    self.m_leftFormationMgr:setChangePosCallback(hero)
+
+    -- 기본 정보 저장
+    hero.m_dragonID = dragon_id
+    hero.m_charTable = t_dragon
+
+    --hero:changeState('attackDelay')
+    hero:changeState('idle')
+
+    self.m_worldNode:addChild(hero.m_rootNode, 2)
+    self:addToUnitList(hero)
+    self.m_physWorld:addObject('hero', hero)
+    self:addDragon(hero, tonumber(idx))
+
+    -- 피격 처리
+    hero:addDefCallback(function(attacker, defender, i_x, i_y)
+        hero:undergoAttack(attacker, defender, i_x, i_y)
+    end)
+
+    hero:makeHPGauge({0, -80})
+
+    self:participationHero(hero)
 end
 
 -------------------------------------

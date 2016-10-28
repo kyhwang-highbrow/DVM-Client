@@ -40,3 +40,18 @@ function ServerData_Dragons:getDragonsList()
 
     return l_ret
 end
+
+-------------------------------------
+-- function getDragonDataFromUid
+-------------------------------------
+function ServerData_Dragons:getDragonDataFromUid(unique_id)
+    local l_dragons = self.m_serverData:get('dragons')
+
+    for _,v in pairs(l_dragons) do
+        if (unique_id == v['id']) then
+            return clone(v)
+        end
+    end
+
+    return nil
+end

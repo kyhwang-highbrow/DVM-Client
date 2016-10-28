@@ -29,6 +29,9 @@ function ServerData:getInstance()
     -- 'dragons'
     g_dragonsData = ServerData_Dragons(g_serverData)
 
+    -- 'deck'
+    g_deckData = ServerData_Deck(g_serverData)
+
     return g_serverData
 end
 

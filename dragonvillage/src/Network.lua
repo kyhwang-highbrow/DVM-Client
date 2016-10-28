@@ -84,3 +84,59 @@ function Network_login(uid, success_cb, fail_cb)
     -- 네트워크 통신
     Network:SimpleRequest(t_request)
 end
+
+-------------------------------------
+-- function Network_get_deck
+-- @breif 덱 정보 얻어옴
+-------------------------------------
+function Network_get_deck(uid, success_cb, fail_cb)
+    -- 파라미터 셋팅
+    local t_data = {}
+    t_data['uid'] = uid
+
+    -- 요청 정보 설정
+    local t_request = {}
+    t_request['url'] = '/users/get_deck'
+    t_request['method'] = 'POST'
+    t_request['data'] = t_data
+
+    -- 성공 시 콜백 함수
+    t_request['success'] = success_cb
+
+    -- 실패 시 콜백 함수
+    t_request['fail'] = fail_cb
+
+    -- 네트워크 통신
+    Network:SimpleRequest(t_request)
+end
+
+-------------------------------------
+-- function Network_set_deck
+-- @breif 덱 정보 설정
+-------------------------------------
+function Network_set_deck(uid, deck_name, edid1, edid2, edid3, edid4, edid5, success_cb, fail_cb)
+    -- 파라미터 셋팅
+    local t_data = {}
+    t_data['uid'] = uid
+    t_data['deck_name'] = deck_name
+    t_data['edid1'] = edid1
+    t_data['edid2'] = edid2
+    t_data['edid3'] = edid3
+    t_data['edid4'] = edid4
+    t_data['edid5'] = edid5
+
+    -- 요청 정보 설정
+    local t_request = {}
+    t_request['url'] = '/users/set_deck'
+    t_request['method'] = 'POST'
+    t_request['data'] = t_data
+
+    -- 성공 시 콜백 함수
+    t_request['success'] = success_cb
+
+    -- 실패 시 콜백 함수
+    t_request['fail'] = fail_cb
+
+    -- 네트워크 통신
+    Network:SimpleRequest(t_request)
+end

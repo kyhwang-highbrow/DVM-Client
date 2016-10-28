@@ -103,6 +103,7 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workCheckUserID')
     table.insert(self.m_lWorkList, 'workPlatformLogin')
     table.insert(self.m_lWorkList, 'workGameLogin')
+    table.insert(self.m_lWorkList, 'workGetDeck')
     table.insert(self.m_lWorkList, 'workFinish')
     
 end
@@ -263,6 +264,30 @@ function UI_TitleScene:workGameLogin()
     Network_login(uid, success_cb, fail_cb)
 end
 function UI_TitleScene:workGameLogin_click()
+end
+
+-------------------------------------
+-- function workGetDeck
+-- @brief
+-------------------------------------
+function UI_TitleScene:workGetDeck()
+    self.m_loadingUI:showLoading(Str('덱 정보 요청 중...'))
+
+    local uid = g_serverData:get('local', 'uid')
+
+    local success_cb = function(ret)
+        g_serverData:applyServerData(ret['deck'], 'deck')
+        
+        self:doNextWork()
+    end
+
+    local fail_cb = function(ret)
+        self:makeFailPopup()
+    end
+
+    Network_get_deck(uid, success_cb, fail_cb)
+end
+function UI_TitleScene:workGetDeck_click()
 end
 
 -------------------------------------
