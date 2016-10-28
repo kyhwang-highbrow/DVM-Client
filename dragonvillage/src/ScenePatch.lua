@@ -58,7 +58,11 @@ function ScenePatch:onEnter()
     patch_core:setFinishCB(finish_cb)
     patch_core:doStep()
 
-    self.m_vars['animator']:changeAni('01_patch')
+    if (DEVELOPMENT_SEONG_GOO_KIM == true) then
+        self.m_vars['animator']:changeAni('01_patch')
+    else
+        self.m_vars['animator']:changeAni('04_title_idle')
+    end
 
 	self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     self:refreshPatchIdxLabel()
