@@ -21,7 +21,8 @@ end
 -------------------------------------
 -- function init_dotDmg
 -------------------------------------
-function StatusEffect_DotDmg:init_dotDmg(t_status_effect)
+function StatusEffect_DotDmg:init_dotDmg(char, t_status_effect)	
+	self.m_owner = char
 	self.m_dotlRate = t_status_effect['dot_dmg'] / 100
 	self.m_dotInterval = t_status_effect['dot_interval']
 	
@@ -46,7 +47,7 @@ function StatusEffect_DotDmg:update(dt)
 	local ret = PARENT.update(self, dt)
 
 	if (self.m_state ~= 'end') then 
-		if (self.m_targetChar.m_bDead) then
+		if (self.m_owner.m_bDead) then
 			self:changeState('end')
 		end
 
@@ -54,7 +55,7 @@ function StatusEffect_DotDmg:update(dt)
 		self.m_dotTimer = self.m_dotTimer + dt
 		if (self.m_dotTimer > self.m_dotInterval) then
 			-- 트루퍼뎀 
-			self.m_targetChar:dealPercent(self.m_dotlRate)
+			self.m_owner:dealPercent(self.m_dotlRate)
 			self.m_dotTimer = self.m_dotTimer - self.m_dotInterval
 			self:changeState('start')
 		end

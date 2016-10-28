@@ -19,7 +19,7 @@ end
 -- function onTrigger
 -------------------------------------
 function StatusEffect_PassiveSpatter:onTrigger()
-    local owner = self.m_targetChar
+    local owner = self.m_owner
     local t_skill = self.m_subData
     SkillSpatter:makeSkillInstnceFromSkill(owner, t_skill)
 end

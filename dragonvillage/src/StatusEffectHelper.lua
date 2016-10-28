@@ -193,7 +193,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	------------ 특수한 패시브 --------------------------
     if (status_effect_type == 'passive_recovery') or string.find(status_effect_type, 'buff_heal') then
         status_effect = StatusEffect_Recovery(res)
-		status_effect:init_recovery(t_status_effect)
+		status_effect:init_recovery(char, t_status_effect)
 
 	----------- 필드 체크 필요한 패시브 ------------------
 	elseif (status_effect_type == 'passive_bloodlust') then
@@ -203,7 +203,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	----------- 도트 데미지 들어가는 패시브 ------------------
 	elseif (t_status_effect['type'] == 'dot_dmg') then
 		status_effect = StatusEffect_DotDmg(res)
-		status_effect:init_dotDmg(t_status_effect)
+		status_effect:init_dotDmg(char, t_status_effect)
 
 	----------- 보호막 ------------------
 	elseif (t_status_effect['type'] == 'barrier') then
@@ -234,9 +234,9 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 
     -- 중첩 지정
     status_effect.m_maxOverlab = t_status_effect['overlab']
-		
+
 	-- 대상 지정 
-    status_effect:setTargetChar(char)
+	status_effect:setTargetChar(char)
         
 	-- 객체 생성
     local world = char.m_world
@@ -333,7 +333,7 @@ function StatusEffectHelper:invokeStatusEffectForDev(char, res)
     status_effect.m_duration = 5
     status_effect.m_durationTimer = 5
 
-    status_effect.m_targetChar = char
+    status_effect.m_owner = char
     status_effect.m_statusEffectName = 'burn'
 
     -- 객체 생성

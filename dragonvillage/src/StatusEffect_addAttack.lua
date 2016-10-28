@@ -18,7 +18,7 @@ end
 -- function onTrigger
 -------------------------------------
 function StatusEffect_addAttack:onTrigger(target)
-    local owner = self.m_targetChar
+    local owner = self.m_owner
     local t_skill = self.m_subData
 	local target = target
 	

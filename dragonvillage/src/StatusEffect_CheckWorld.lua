@@ -26,14 +26,14 @@ end
 -- function update
 -------------------------------------
 function StatusEffect_CheckWorld:update(dt)
-	local formation_mgr = self.m_targetChar:getFormationMgr('opposite')
+	local formation_mgr = self.m_owner:getFormationMgr('opposite')
 	local char_list = formation_mgr:getEntireCharList()
 	for _, char in pairs(char_list) do 
 		for status_effect_type, status_effect in pairs(char:getStatusEffectList()) do
 			if (status_effect_type == self.m_statusEffectType) then 
 				local status_effect_type = self.m_subData['status_effect_type']
 				local status_effect_rate = self.m_subData['status_effect_rate']
-				StatusEffectHelper:invokeStatusEffect(self.m_targetChar, status_effect_type, status_effect_rate)
+				StatusEffectHelper:invokeStatusEffect(self.m_owner, status_effect_type, status_effect_rate)
 			end
 		end
 	end
