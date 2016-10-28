@@ -358,26 +358,18 @@ function UI_ReadySceneNew:click_autoBtn()
     local stage_id = self.m_stageID
     local difficulty, chapter, stage = parseAdventureID(stage_id)
 
-    if isExistValue(chapter, 1, 3) then
-        self:click_deckDragonItem(120002) -- 파워드래곤
-        self:click_deckDragonItem(120014) -- 허리케인
-        self:click_deckDragonItem(120007) -- 핑크벨
-        self:click_deckDragonItem(120013) -- 청룡
-	elseif isExistValue(chapter, 2, 4) then 
-        self:click_deckDragonItem(120002) -- 파워드래곤
-        self:click_deckDragonItem(120016) -- 스파인
-        self:click_deckDragonItem(120015) -- 리프드래곤
-        self:click_deckDragonItem(120012) -- 리티오
-	elseif (chapter == 5) then 
-		self:click_deckDragonItem(120006) -- 가루다
-		self:click_deckDragonItem(120001) -- 고대신룡
-		self:click_deckDragonItem(120004) -- 크레센트 
-		self:click_deckDragonItem(120003) -- 서펀트
-	elseif (chapter == 6) then 
-		self:click_deckDragonItem(120002) -- 파워드래곤
-        self:click_deckDragonItem(120016) -- 스파인
-        self:click_deckDragonItem(120015) -- 리프드래곤
-		self:click_deckDragonItem(120011) -- 애플칙
+    if isExistValue(chapter, 1, 3, 5) then
+        self:click_deckDragonItem(120273)
+        self:click_deckDragonItem(120142)
+        self:click_deckDragonItem(120081)
+        self:click_deckDragonItem(120183)
+        self:click_deckDragonItem(120092)
+	elseif isExistValue(chapter, 2, 4, 6) then 
+        self:click_deckDragonItem(120011)
+        self:click_deckDragonItem(120021)
+        self:click_deckDragonItem(120071)
+        self:click_deckDragonItem(120081)
+        self:click_deckDragonItem(120191)
     end
 
     -- 드래곤 리스트창을 띄움
@@ -476,6 +468,11 @@ local function create_func(item)
     local ui = item['ui']
     local data = item['data']
     local dragon_id = data['did']
+    
+    if (not ui) then
+        return
+    end
+
     ui.root:setScale(0.87)
 
     local setted, idx = g_dragonListData:isSettedDargon(dragon_id)
