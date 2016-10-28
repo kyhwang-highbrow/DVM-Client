@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>effect_react_armor_01.png</key>
+            <key>effect_shield_01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{258,2},{232,232}}</string>
@@ -17,7 +17,7 @@
                 <key>sourceSize</key>
                 <string>{364,388}</string>
             </dict>
-            <key>effect_react_armor_02.png</key>
+            <key>effect_shield_02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{254,254}}</string>
@@ -36,13 +36,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>effect_react_armor.png</string>
+            <string>effect_shield.png</string>
             <key>size</key>
             <string>{492,258}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:92efb42d07d7b3e62c2a97ddcb90f215:0f07a1a815903118efb9ab9d89bdcc94:0842937e3567ef0c25031b49fdd5cabd$</string>
+            <string>$TexturePacker:SmartUpdate:5c4fe6bae8265614ea0f201f8b72b506:78ed9553de634a4a83e56cc6e90a24be:763407e39468735f26900ff508c99c64$</string>
             <key>textureFileName</key>
-            <string>effect_react_armor.png</string>
+            <string>effect_shield.png</string>
         </dict>
     </dict>
 </plist>

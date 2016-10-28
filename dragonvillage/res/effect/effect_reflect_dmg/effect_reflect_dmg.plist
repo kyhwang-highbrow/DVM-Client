@@ -20,15 +20,15 @@
             <key>effect_reflect_dmg_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{434,2},{416,416}}</string>
+                <string>{{434,2},{254,254}}</string>
                 <key>offset</key>
-                <string>{4,4}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{23,13},{416,416}}</string>
+                <string>{{23,21},{254,254}}</string>
                 <key>sourceSize</key>
-                <string>{454,450}</string>
+                <string>{300,296}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -38,9 +38,9 @@
             <key>realTextureFileName</key>
             <string>effect_reflect_dmg.png</string>
             <key>size</key>
-            <string>{852,434}</string>
+            <string>{690,434}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:df132ef0ce0954658c89a7614521083c:1ab86ab3e5e2eef6a41302fcf24bb8cc:be145484932d4ee35e5293771d6e452e$</string>
+            <string>$TexturePacker:SmartUpdate:2124cfc97ef0566c78128e836a9c2571:f941544e410bf27679523c521e59bedb:be145484932d4ee35e5293771d6e452e$</string>
             <key>textureFileName</key>
             <string>effect_reflect_dmg.png</string>
         </dict>

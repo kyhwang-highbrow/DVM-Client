@@ -7,28 +7,28 @@
             <key>effect_protection_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{528,528}}</string>
+                <string>{{258,2},{232,232}}</string>
                 <key>offset</key>
-                <string>{1,0}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{42,22},{528,528}}</string>
+                <string>{{66,78},{232,232}}</string>
                 <key>sourceSize</key>
-                <string>{610,572}</string>
+                <string>{364,388}</string>
             </dict>
             <key>effect_protection_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{532,2},{416,416}}</string>
+                <string>{{2,2},{254,254}}</string>
                 <key>offset</key>
-                <string>{4,4}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{23,13},{416,416}}</string>
+                <string>{{23,21},{254,254}}</string>
                 <key>sourceSize</key>
-                <string>{454,450}</string>
+                <string>{300,296}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -38,9 +38,9 @@
             <key>realTextureFileName</key>
             <string>effect_protection.png</string>
             <key>size</key>
-            <string>{950,532}</string>
+            <string>{492,258}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f89a2809b5885999f64b97db0c304f9b:666ee9e2e8b9d2f6236879f87fe11fe8:56d4056f4bc2bfab9b01867625952d37$</string>
+            <string>$TexturePacker:SmartUpdate:c206b19b03ec7ecaa3f168a37bedd018:0f07a1a815903118efb9ab9d89bdcc94:56d4056f4bc2bfab9b01867625952d37$</string>
             <key>textureFileName</key>
             <string>effect_protection.png</string>
         </dict>
