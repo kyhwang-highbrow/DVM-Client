@@ -605,7 +605,8 @@ function UI_LobbyNew:initUserInfo()
 
             local icon_res = t_dragon['icon']
             local evolution = t_dragon_data['evolution']
-            return IconHelper:getHeroIcon(icon_res, evolution)
+            local attr = t_dragon['attr']
+            return IconHelper:getHeroIcon(icon_res, evolution, attr)
         end
         return nil
     end

@@ -1,4 +1,4 @@
-USER_DATA_VER = '1.2.4'
+USER_DATA_VER = '1.2.5'
 
 -------------------------------------
 -- class UserData
