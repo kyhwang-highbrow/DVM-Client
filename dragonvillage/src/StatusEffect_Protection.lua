@@ -29,22 +29,8 @@ end
 -- function init_buff
 -------------------------------------
 function StatusEffect_Protection:init_buff(char, shield_hp)
-	--[[
-    -- 기존 실드 삭제 (실드는 무조건 1개만 있다고 가정)
-    for i,v in pairs(owner.m_lEventListener) do
-        if isInstanceOf(v, StatusEffect_Protection) then
-            v:changeState('dying')
-            table.remove(owner.m_lEventListener, i)
-            break
-        end
-    end
-	]]
-	
     self.m_StatusEffect_ProtectionHP = shield_hp
     self.m_StatusEffect_ProtectionHPOrg = shield_hp
-    
-	--self:setPosition(self.mpos.x, owner.pos.y)
-
 	self.m_triggerName = 'hit_shield'
 
     -- 콜백 함수 등록
@@ -67,13 +53,13 @@ end
 -------------------------------------
 function StatusEffect_Protection:update(dt)
     local ret = PARENT.update(self, dt)
-
+	cclog(self.m_state)
 	if (self.m_state == 'idle') then
 		self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 
 		-- 1. 종료 : 시간 초과
-		self.m_durationTimer = self.m_durationTimer + dt
-		if (self.m_durationTimer > self.m_duration) then
+		self.m_durationTimer = self.m_durationTimer - dt
+		if (self.m_durationTimer < 0) then
 			self:changeState('disappear')
 			return
 		end
@@ -91,8 +77,8 @@ end
 -- function st_appear
 -------------------------------------
 function StatusEffect_Protection.st_appear(owner, dt)
-	if (owner.m_stateTimer > owner.m_animator:getDuration()) then
-		owner:changeState('idle')
+	if (owner.m_stateTimer == 0) then
+		owner:addAniHandler(function() owner:changeState('idle') end)
     end
 end
 
@@ -109,8 +95,8 @@ end
 -- function st_hit
 -------------------------------------
 function StatusEffect_Protection.st_hit(owner, dt)
-	if (owner.m_stateTimer == 0 ) then
-		owner.m_animator:addAniHandler(function() owner:changeState('idle') end)
+	if (owner.m_stateTimer == 0) then
+		owner:addAniHandler(function() owner:changeState('idle') end)
     end
 end
 
@@ -118,8 +104,8 @@ end
 -- function st_disappear
 -------------------------------------
 function StatusEffect_Protection.st_disappear(owner, dt)
-	if (owner.m_stateTimer > owner.m_animator:getDuration()) then
-		owner:changeState('dying')
+	if (owner.m_stateTimer == 0) then
+		owner:addAniHandler(function() owner:changeState('dying') end)
     end
 end
 

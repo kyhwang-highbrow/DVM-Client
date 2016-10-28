@@ -30,7 +30,7 @@ end
 -------------------------------------
 function StatusEffect_Trigger:onEvent(event_name, ...)
     if (event_name == self.m_triggerName) then
-        self:onTrigger(...)
+        return self:onTrigger(...)
     end
 end
 
@@ -57,4 +57,6 @@ function StatusEffect_Trigger:onTrigger(defender)
 	end
     
 	StatusEffectHelper:doStatusEffectByType(owner, status_effect_type, status_effect_rate)
+
+	return true
 end
