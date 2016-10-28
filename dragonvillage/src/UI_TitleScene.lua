@@ -205,6 +205,8 @@ function UI_TitleScene:workCheckUserID()
         edit_box:setCloseCB(close_cb)
     end
 end
+function UI_TitleScene:workCheckUserID_click()
+end
 
 -------------------------------------
 -- function workPlatformLogin
@@ -234,6 +236,8 @@ function UI_TitleScene:workPlatformLogin()
 
     Network_platform_guest_login(player_id, uid, idfa, deviceOS, pushToken, success_cb, fail_cb)
 end
+function UI_TitleScene:workPlatformLogin_click()
+end
 
 -------------------------------------
 -- function workGameLogin
@@ -258,6 +262,8 @@ function UI_TitleScene:workGameLogin()
 
     Network_login(uid, success_cb, fail_cb)
 end
+function UI_TitleScene:workGameLogin_click()
+end
 
 -------------------------------------
 -- function workFinish
@@ -275,6 +281,8 @@ function UI_TitleScene:workFinish()
     scene.m_loadingUIDuration = nil -- LoadingUI가 반드시 보여져야 하는 시간(nil일 경우 무시)
 
     scene:runScene()
+end
+function UI_TitleScene:workFinish_click()
 end
 
 ------------------------------------------------------------------------------------------------------------------------
