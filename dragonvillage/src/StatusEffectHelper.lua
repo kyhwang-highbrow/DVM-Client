@@ -379,7 +379,7 @@ function StatusEffectHelper:releaseHarmfulStatusEffect(char)
 
 	-- 해제
 	for type, status_effect in pairs(char:getStatusEffectList()) do
-		if (status_effect.m_type ~= 'buff') and (status_effect.m_type ~= 'passive') then 
+		if isExistValue(status_effect.m_type, 'debuff', 'cc', 'dot_dmg') then 
 			status_effect:changeState('end')
 			break
 		end

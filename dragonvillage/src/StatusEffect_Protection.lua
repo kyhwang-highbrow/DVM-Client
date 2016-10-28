@@ -44,7 +44,7 @@ function StatusEffect_Protection:initState()
 	self:addState('start', StatusEffect_Protection.st_appear, 'appear', false)
     self:addState('idle', StatusEffect_Protection.st_idle, 'idle', true)
 	self:addState('hit', StatusEffect_Protection.st_hit, 'hit', false)
-	self:addState('disappear', StatusEffect_Protection.st_disappear, 'disappear', false)
+	self:addState('end', StatusEffect_Protection.st_disappear, 'disappear', false)
     self:addState('dying', function(owner, dt) owner:release(); return true end, nil, nil, 10)
 end
 
@@ -60,13 +60,13 @@ function StatusEffect_Protection:update(dt)
 		-- 1. 종료 : 시간 초과
 		self.m_durationTimer = self.m_durationTimer - dt
 		if (self.m_durationTimer < 0) then
-			self:changeState('disappear')
+			self:changeState('end')
 			return
 		end
 
 		-- 2. 종료 : 캐릭터 사망
 		if (not self.m_owner) or self.m_owner.m_bDead then
-			self:changeState('disappear')
+			self:changeState('end')
 		end
 	end
 
@@ -115,7 +115,7 @@ end
 function StatusEffect_Protection:onTrigger(char, damage)
 	-- 1. 방어막 유지 여부 계산
     if (self.m_StatusEffect_ProtectionHP <= 0) then
-        self:changeState('disappear')
+        self:changeState('end')
         return false, damage
     end
 	
@@ -124,7 +124,7 @@ function StatusEffect_Protection:onTrigger(char, damage)
 
 	-- 3. 데미지 계산 후 방어막 유지 여부 계산
     if (self.m_StatusEffect_ProtectionHP <= 0) then
-        self:changeState('disappear')
+        self:changeState('end')
         return false, damage + self.m_StatusEffect_ProtectionHP
     end
 

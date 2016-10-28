@@ -211,7 +211,7 @@ function IconHelper:getStatusEffectIcon(status_effect_type)
     local sprite = cc.Sprite:create(res)
 
     if (not sprite) then
-		cclog(' no icon res : ' .. status_effect_type)
+		cclog('이 상태 효과는 아이콘이 없네요 : ' .. status_effect_type)
         sprite = cc.Sprite:create('res/ui/icon/status_effect/p_resist.png')
     end
 
