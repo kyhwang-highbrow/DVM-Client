@@ -1,0 +1,62 @@
+
+skill_bullet_hole_fire.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skill_bullet_hole_fire_01
+  rotate: false
+  xy: 304, 31
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: -1
+skill_bullet_hole_fire_02
+  rotate: false
+  xy: 514, 70
+  size: 169, 169
+  orig: 169, 169
+  offset: 0, 0
+  index: -1
+skill_bullet_hole_fire_03
+  rotate: false
+  xy: 685, 91
+  size: 148, 148
+  orig: 148, 148
+  offset: 0, 0
+  index: -1
+skill_bullet_hole_fire_04
+  rotate: false
+  xy: 2, 2
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+skill_bullet_hole_fire_05
+  rotate: true
+  xy: 514, 33
+  size: 35, 46
+  orig: 35, 46
+  offset: 0, 0
+  index: -1
+skill_bullet_hole_fire_06
+  rotate: false
+  xy: 835, 114
+  size: 115, 125
+  orig: 115, 125
+  offset: 0, 0
+  index: -1
+skill_bullet_hole_fire_07
+  rotate: false
+  xy: 952, 195
+  size: 64, 44
+  orig: 64, 44
+  offset: 0, 0
+  index: -1
+skill_bullet_hole_fire_08
+  rotate: true
+  xy: 2, 79
+  size: 160, 300
+  orig: 160, 300
+  offset: 0, 0
+  index: -1

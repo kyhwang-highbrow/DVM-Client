@@ -1,52 +1,52 @@
 id,t_name,type,res,scale,rarity,size_type,icon,attr,target_formation,coin,skill_basic,skill_1,skill_type_1,skill_2,skill_type_2,skill_3,skill_type_3,skill_4,skill_type_4,skill_5,skill_type_5,skill_6,skill_type_6,skill_7,skill_type_7,skill_8,skill_type_8,skill_9,skill_type_9,atk_max,def_max,hp_max,aspd,cri_chance,cri_dmg,cri_avoid,hit_rate,avoid
-130011,몬스터 수호병,swordman,res/character/monster/swordman_@/swordman_@.spine,0.8,common,s,x,earth,front,2,230001,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,167,1350,3880,0,5,50,5,0,0
-130012,몬스터 수호병,swordman,res/character/monster/swordman_@/swordman_@.spine,1,common,s,x,water,front,2,230001,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,167,1350,3880,0,5,50,5,0,0
-130013,몬스터 수호병,swordman,res/character/monster/swordman_@/swordman_@.spine,1,common,s,x,fire,front,2,230001,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,167,1350,3880,0,5,50,5,0,0
-130014,몬스터 수호병,swordman,res/character/monster/swordman_@/swordman_@.spine,1,common,s,x,light,front,2,230001,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,167,1350,3880,0,5,50,5,0,0
-130015,몬스터 수호병,swordman,res/character/monster/swordman_@/swordman_@.spine,1,common,s,x,dark,front,2,230001,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,167,1350,3880,0,5,50,5,0,0
-130021,몬스터 궁병,archer,res/character/monster/archer_@/archer_@.spine,0.75,common,s,x,earth,front,2,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1110,0,5,50,5,0,0
-130022,몬스터 궁병,archer,res/character/monster/archer_@/archer_@.spine,1,common,s,x,water,front,2,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1110,0,5,50,5,0,0
-130023,몬스터 궁병,archer,res/character/monster/archer_@/archer_@.spine,1,common,s,x,fire,front,2,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1110,0,5,50,5,0,0
-130024,몬스터 궁병,archer,res/character/monster/archer_@/archer_@.spine,1,common,s,x,light,front,2,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1110,0,5,50,5,0,0
-130025,몬스터 궁병,archer,res/character/monster/archer_@/archer_@.spine,1,common,s,x,dark,front,2,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1110,0,5,50,5,0,0
-130031,몬스터 마법사,mage,res/character/monster/mage_@/mage_@.spine,0.75,common,s,x,earth,front,2,230003,230004,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,367,550,810,0,5,50,5,0,0
-130032,몬스터 마법사,mage,res/character/monster/mage_@/mage_@.spine,1,common,s,x,water,front,2,230003,230004,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,367,550,810,0,5,50,5,0,0
-130033,몬스터 마법사,mage,res/character/monster/mage_@/mage_@.spine,1,common,s,x,fire,front,2,230003,230004,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,367,550,810,0,5,50,5,0,0
-130034,몬스터 마법사,mage,res/character/monster/mage_@/mage_@.spine,1,common,s,x,light,front,2,230003,230004,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,367,550,810,0,5,50,5,0,0
-130035,몬스터 마법사,mage,res/character/monster/mage_@/mage_@.spine,1,common,s,x,dark,front,2,230003,230004,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,367,550,810,0,5,50,5,0,0
-130041,몬스터 창병,spearman,res/character/monster/spearman_@/spearman_@.spine,0.75,common,s,x,earth,front,2,230005,230006,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,233,650,1710,0,5,50,5,0,0
-130042,몬스터 창병,spearman,res/character/monster/spearman_@/spearman_@.spine,1,common,s,x,water,front,2,230005,230006,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,233,650,1710,0,5,50,5,0,0
-130043,몬스터 창병,spearman,res/character/monster/spearman_@/spearman_@.spine,1,common,s,x,fire,front,2,230005,230006,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,233,650,1710,0,5,50,5,0,0
-130044,몬스터 창병,spearman,res/character/monster/spearman_@/spearman_@.spine,1,common,s,x,light,front,2,230005,230006,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,233,650,1710,0,5,50,5,0,0
-130045,몬스터 창병,spearman,res/character/monster/spearman_@/spearman_@.spine,1,common,s,x,dark,front,2,230005,230006,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,233,650,1710,0,5,50,5,0,0
-130051,몬스터 치유사,priest,res/character/monster/priest_@/priest_@.spine,0.75,common,s,x,earth,front,3,230003,230007,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,500,850,810,0,5,50,5,0,0
-130052,몬스터 치유사,priest,res/character/monster/priest_@/priest_@.spine,1,common,s,x,water,front,3,230003,230007,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,500,850,810,0,5,50,5,0,0
-130053,몬스터 치유사,priest,res/character/monster/priest_@/priest_@.spine,1,common,s,x,fire,front,3,230003,230007,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,500,850,810,0,5,50,5,0,0
-130054,몬스터 치유사,priest,res/character/monster/priest_@/priest_@.spine,1,common,s,x,light,front,3,230003,230007,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,500,850,810,0,5,50,5,0,0
-130055,몬스터 치유사,priest,res/character/monster/priest_@/priest_@.spine,1,common,s,x,dark,front,3,230003,230007,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,500,850,810,0,5,50,5,0,0
-130061,몬스터 포병,bomber,res/character/monster/bomber_@/bomber_@.spine,0.75,common,s,x,earth,front,3,230008,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1710,0,5,50,5,0,0
-130062,몬스터 포병,bomber,res/character/monster/bomber_@/bomber_@.spine,1,common,s,x,water,front,3,230008,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1710,0,5,50,5,0,0
-130063,몬스터 포병,bomber,res/character/monster/bomber_@/bomber_@.spine,1,common,s,x,fire,front,3,230008,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1710,0,5,50,5,0,0
-130064,몬스터 포병,bomber,res/character/monster/bomber_@/bomber_@.spine,1,common,s,x,light,front,3,230008,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1710,0,5,50,5,0,0
-130065,몬스터 포병,bomber,res/character/monster/bomber_@/bomber_@.spine,1,common,s,x,dark,front,3,230008,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1710,0,5,50,5,0,0
-131011,일벌,honeybee,res/character/monster/common_honeybee_earth/common_honeybee_earth.spine,1,common,s,x,earth,front,2,230009,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,450,550,1110,0,5,50,5,0,0
-131012,해골 생선,bonefish,res/character/monster/common_bonefish_water/common_bonefish_water.spine,1,common,s,x,water,front,2,230010,230019,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,450,350,1410,0,5,50,5,0,0
-131021,시종 버섯,mushroom_attendant,res/character/monster/common_mushroom_attendant_earth/common_mushroom_attendant_earth.spine,1,common,s,x,earth,front,2,230003,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,350,950,810,0,5,50,5,0,0
-131022,복상어,blowshark,res/character/monster/common_blowshark_water/common_blowshark_water.spine,1,common,s,x,water,front,2,230010,230011,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,350,1150,1410,0,5,50,5,0,0
-131031,부엉이,owl,res/character/monster/common_owl_earth/common_owl_earth.spine,1,common,s,x,earth,front,2,230013,230014,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,350,1150,1710,0,5,50,5,0,0
-131032,소세지 문어,octopus,res/character/monster/common_octopus_water/common_octopus_water.spine,1,common,s,x,water,front,2,230015,230016,basic_rate,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,350,850,1110,0,5,50,5,0,0
-131041,버섯 노예,mushroom_slave,res/character/monster/mushroom_slave_1/mushroom_slave_1.spine,1,common,s,x,earth,front,0,230003,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,350,950,405,0,5,50,5,0,0
-131051,버섯 노예,mushroom_slave,res/character/monster/mushroom_slave_2/mushroom_slave_2.spine,1,common,s,x,earth,front,0,230003,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,350,950,405,0,5,50,5,0,0
-132011,킬러비,killerbee,res/character/monster/elite_killerbee_@/elite_killerbee_@.spine,1,elite,m,x,earth,front,4,230009,230017,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,900,750,9400,0,5,50,5,0,0
-132012,인어,mermaid,res/character/monster/elite_mermaid_water/elite_mermaid_water.spine,1,elite,m,x,water,front,4,230018,230020,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,700,750,9400,0,5,50,5,0,0
-132021,라플레시아,rafflesia,res/character/monster/elite_rafflesia_earth/elite_rafflesia_earth.spine,1,elite,m,x,earth,front,4,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,700,1150,7400,0,5,50,5,0,0
-132022,심해 상어 전사,sharkwarrior,res/character/monster/elite_sharkwarrior_water/elite_sharkwarrior_water.spine,1,elite,m,x,water,front,4,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,800,950,13400,0,5,50,5,0,0
-132031,아울베어,owlbear,res/character/monster/elite_owlbear_earth/elite_owlbear_earth.spine,1,elite,m,x,earth,front,4,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,500,1350,15400,0,5,50,5,0,0
-132032,독문어,poisonoctopus,res/character/monster/elite_poisonoctopus_water/elite_poisonoctopus_water.spine,1,elite,m,x,water,front,4,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,1100,550,8400,0,5,50,5,0,0
-132042,심해 상어 전사(소환),sharkwarrior_summon,res/character/monster/elite_sharkwarrior_water/elite_sharkwarrior_water.spine,1,elite,m,x,water,front,2,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,800,950,840,0,5,50,5,0,0
-133011,여왕 버섯,mushqueen,res/character/monster/subboss_mushqueen_earth/subboss_mushqueen_earth.spine,1,subboss,l,x,earth,front,8,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,900,550,11750,0,5,50,5,0,0
-133012,심해 상어 제독,sharkadmiral,res/character/monster/subboss_sharkadmiral_water/subboss_sharkadmiral_water.spine,1,subboss,l,x,water,front,8,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,900,1150,16750,0,5,50,5,0,0
-134011,퀸즈 스네이크,queenssnake,res/character/monster/boss_queenssnake_earth/boss_queenssnake_earth.spine,1,boss,xl,x,earth,front,10,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,1100,950,17100,0,5,50,5,0,0
-134012,드레이크,drake,res/character/monster/boss_drake_water/boss_drake_water.spine,1,boss,xl,x,water,front,10,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,1300,1150,20100,0,5,50,5,0,0
-134013,코카트리스,cockatrice,res/character/monster/boss_cockatrice_@/boss_cockatrice_@.spine,1,boss,xl,x,fire,front,10,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,3900,2950,104550,0,5,50,5,0,0
-135013,불의 거대 용,giantdragon,res/character/monster/boss_giantdragon_@/boss_giantdragon_@.spine,1,boss,xl,x,fire,front,15,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,4950,2451,748500,50,27.5,150,15,50,0
+130011,몬스터 수호병,swordman,res/character/monster/swordman_@/swordman_@.spine,0.8,common,s,x,earth,x,2,230001,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,167,1350,3880,0,5,50,5,0,0
+130012,몬스터 수호병,swordman,res/character/monster/swordman_@/swordman_@.spine,1,common,s,x,water,x,2,230001,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,167,1350,3880,0,5,50,5,0,0
+130013,몬스터 수호병,swordman,res/character/monster/swordman_@/swordman_@.spine,1,common,s,x,fire,x,2,230001,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,167,1350,3880,0,5,50,5,0,0
+130014,몬스터 수호병,swordman,res/character/monster/swordman_@/swordman_@.spine,1,common,s,x,light,x,2,230001,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,167,1350,3880,0,5,50,5,0,0
+130015,몬스터 수호병,swordman,res/character/monster/swordman_@/swordman_@.spine,1,common,s,x,dark,x,2,230001,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,167,1350,3880,0,5,50,5,0,0
+130021,몬스터 궁병,archer,res/character/monster/archer_@/archer_@.spine,0.75,common,s,x,earth,x,2,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1110,0,5,50,5,0,0
+130022,몬스터 궁병,archer,res/character/monster/archer_@/archer_@.spine,1,common,s,x,water,x,2,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1110,0,5,50,5,0,0
+130023,몬스터 궁병,archer,res/character/monster/archer_@/archer_@.spine,1,common,s,x,fire,x,2,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1110,0,5,50,5,0,0
+130024,몬스터 궁병,archer,res/character/monster/archer_@/archer_@.spine,1,common,s,x,light,x,2,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1110,0,5,50,5,0,0
+130025,몬스터 궁병,archer,res/character/monster/archer_@/archer_@.spine,1,common,s,x,dark,x,2,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1110,0,5,50,5,0,0
+130031,몬스터 마법사,mage,res/character/monster/mage_@/mage_@.spine,0.75,common,s,x,earth,x,2,230003,230004,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,367,550,810,0,5,50,5,0,0
+130032,몬스터 마법사,mage,res/character/monster/mage_@/mage_@.spine,1,common,s,x,water,x,2,230003,230004,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,367,550,810,0,5,50,5,0,0
+130033,몬스터 마법사,mage,res/character/monster/mage_@/mage_@.spine,1,common,s,x,fire,x,2,230003,230004,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,367,550,810,0,5,50,5,0,0
+130034,몬스터 마법사,mage,res/character/monster/mage_@/mage_@.spine,1,common,s,x,light,x,2,230003,230004,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,367,550,810,0,5,50,5,0,0
+130035,몬스터 마법사,mage,res/character/monster/mage_@/mage_@.spine,1,common,s,x,dark,x,2,230003,230004,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,367,550,810,0,5,50,5,0,0
+130041,몬스터 창병,spearman,res/character/monster/spearman_@/spearman_@.spine,0.75,common,s,x,earth,x,2,230005,230006,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,233,650,1710,0,5,50,5,0,0
+130042,몬스터 창병,spearman,res/character/monster/spearman_@/spearman_@.spine,1,common,s,x,water,x,2,230005,230006,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,233,650,1710,0,5,50,5,0,0
+130043,몬스터 창병,spearman,res/character/monster/spearman_@/spearman_@.spine,1,common,s,x,fire,x,2,230005,230006,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,233,650,1710,0,5,50,5,0,0
+130044,몬스터 창병,spearman,res/character/monster/spearman_@/spearman_@.spine,1,common,s,x,light,x,2,230005,230006,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,233,650,1710,0,5,50,5,0,0
+130045,몬스터 창병,spearman,res/character/monster/spearman_@/spearman_@.spine,1,common,s,x,dark,x,2,230005,230006,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,233,650,1710,0,5,50,5,0,0
+130051,몬스터 치유사,priest,res/character/monster/priest_@/priest_@.spine,0.75,common,s,x,earth,x,3,230003,230007,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,500,850,810,0,5,50,5,0,0
+130052,몬스터 치유사,priest,res/character/monster/priest_@/priest_@.spine,1,common,s,x,water,x,3,230003,230007,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,500,850,810,0,5,50,5,0,0
+130053,몬스터 치유사,priest,res/character/monster/priest_@/priest_@.spine,1,common,s,x,fire,x,3,230003,230007,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,500,850,810,0,5,50,5,0,0
+130054,몬스터 치유사,priest,res/character/monster/priest_@/priest_@.spine,1,common,s,x,light,x,3,230003,230007,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,500,850,810,0,5,50,5,0,0
+130055,몬스터 치유사,priest,res/character/monster/priest_@/priest_@.spine,1,common,s,x,dark,x,3,230003,230007,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,500,850,810,0,5,50,5,0,0
+130061,몬스터 포병,bomber,res/character/monster/bomber_@/bomber_@.spine,0.75,common,s,x,earth,x,3,230008,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1710,0,5,50,5,0,0
+130062,몬스터 포병,bomber,res/character/monster/bomber_@/bomber_@.spine,1,common,s,x,water,x,3,230008,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1710,0,5,50,5,0,0
+130063,몬스터 포병,bomber,res/character/monster/bomber_@/bomber_@.spine,1,common,s,x,fire,x,3,230008,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1710,0,5,50,5,0,0
+130064,몬스터 포병,bomber,res/character/monster/bomber_@/bomber_@.spine,1,common,s,x,light,x,3,230008,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1710,0,5,50,5,0,0
+130065,몬스터 포병,bomber,res/character/monster/bomber_@/bomber_@.spine,1,common,s,x,dark,x,3,230008,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,300,950,1710,0,5,50,5,0,0
+131011,일벌,honeybee,res/character/monster/common_honeybee_earth/common_honeybee_earth.spine,1,common,s,x,earth,x,2,230009,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,450,550,1110,0,5,50,5,0,0
+131012,해골 생선,bonefish,res/character/monster/common_bonefish_water/common_bonefish_water.spine,1,common,s,x,water,x,2,230010,230020,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,450,350,1410,0,5,50,5,0,0
+131021,시종 버섯,mushroom_attendant,res/character/monster/common_mushroom_attendant_earth/common_mushroom_attendant_earth.spine,1,common,s,x,earth,x,2,230003,230004,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,350,950,810,0,5,50,5,0,0
+131022,복상어,blowshark,res/character/monster/common_blowshark_water/common_blowshark_water.spine,1,common,s,x,water,x,2,230010,230011,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,350,1150,1410,0,5,50,5,0,0
+131031,부엉이,owl,res/character/monster/common_owl_earth/common_owl_earth.spine,1,common,s,x,earth,x,2,230013,230014,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,350,1150,1710,0,5,50,5,0,0
+131032,소세지 문어,octopus,res/character/monster/common_octopus_water/common_octopus_water.spine,1,common,s,x,water,x,2,230015,230016,basic_rate,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,350,850,1110,0,5,50,5,0,0
+131041,버섯 노예,mushroom_slave,res/character/monster/mushroom_slave_1/mushroom_slave_1.spine,1,common,s,x,earth,x,0,230003,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,350,950,405,0,5,50,5,0,0
+131051,버섯 노예,mushroom_slave,res/character/monster/mushroom_slave_2/mushroom_slave_2.spine,1,common,s,x,earth,x,0,230003,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,350,950,405,0,5,50,5,0,0
+132011,킬러비,killerbee,res/character/monster/elite_killerbee_@/elite_killerbee_@.spine,1,elite,m,x,earth,x,4,230009,230017,basic_turn,230018,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,900,750,47000,0,5,50,5,0,0
+132012,인어,mermaid,res/character/monster/elite_mermaid_water/elite_mermaid_water.spine,1,elite,m,x,water,x,4,230019,230021,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,700,750,9400,0,5,50,5,0,0
+132021,라플레시아,rafflesia,res/character/monster/elite_rafflesia_earth/elite_rafflesia_earth.spine,1,elite,m,x,earth,x,4,230002,230004,basic_turn,230025,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,700,1150,40700,0,5,50,5,0,0
+132022,심해 상어 전사,sharkwarrior,res/character/monster/elite_sharkwarrior_water/elite_sharkwarrior_water.spine,1,elite,m,x,water,x,4,230001,230022,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,800,950,13400,0,5,50,5,0,0
+132031,아울베어,owlbear,res/character/monster/elite_owlbear_earth/elite_owlbear_earth.spine,1,elite,m,x,earth,x,4,230013,230014,basic_turn,230024,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,500,1350,92400,0,5,50,5,0,0
+132032,독문어,poisonoctopus,res/character/monster/elite_poisonoctopus_water/elite_poisonoctopus_water.spine,1,elite,m,x,water,x,4,230002,230004,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,1100,550,8400,0,5,50,5,0,0
+132042,심해 상어 전사(소환),sharkwarrior_summon,res/character/monster/elite_sharkwarrior_water/elite_sharkwarrior_water.spine,1,elite,m,x,water,x,2,230001,230022,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,800,950,840,0,5,50,5,0,0
+133011,여왕 버섯,mushqueen,res/character/monster/subboss_mushqueen_earth/subboss_mushqueen_earth.spine,1,subboss,l,x,earth,x,8,230002,230004,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,900,550,11750,0,5,50,5,0,0
+133012,심해 상어 제독,sharkadmiral,res/character/monster/subboss_sharkadmiral_water/subboss_sharkadmiral_water.spine,1,subboss,l,x,water,x,8,230001,230004,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,900,1150,16750,0,5,50,5,0,0
+134011,퀸즈 스네이크,queenssnake,res/character/monster/boss_queenssnake_earth/boss_queenssnake_earth.spine,1,boss,xl,x,earth,x,10,230002,230004,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,1100,950,17100,0,5,50,5,0,0
+134012,드레이크,drake,res/character/monster/boss_drake_water/boss_drake_water.spine,1,boss,xl,x,water,x,10,230002,230023,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,1300,1150,20100,0,5,50,5,0,0
+134013,코카트리스,cockatrice,res/character/monster/boss_cockatrice_@/boss_cockatrice_@.spine,1,boss,xl,x,fire,x,10,230002,230004,basic_turn,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,3900,2950,104550,0,5,50,5,0,0
+135013,불의 거대 용,giantdragon,res/character/monster/boss_giantdragon_@/boss_giantdragon_@.spine,1,boss,xl,x,fire,x,15,230002,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,4950,2451,748500,50,27.5,150,15,50,0

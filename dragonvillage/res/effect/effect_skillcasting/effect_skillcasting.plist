@@ -267,7 +267,7 @@
             <key>effect_skillcasting_21.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,906},{82,87}}</string>
+                <string>{{870,870},{82,87}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -280,7 +280,7 @@
             <key>effect_skillcasting_22.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{86,906},{60,50}}</string>
+                <string>{{93,906},{60,50}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -290,10 +290,101 @@
                 <key>sourceSize</key>
                 <string>{60,50}</string>
             </dict>
+            <key>effect_skillcasting_a_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{903,781},{87,87}}</string>
+                <key>offset</key>
+                <string>{3,-13}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{54,64},{87,87}}</string>
+                <key>sourceSize</key>
+                <string>{189,189}</string>
+            </dict>
+            <key>effect_skillcasting_a_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{816,726},{85,93}}</string>
+                <key>offset</key>
+                <string>{4,-10}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{56,58},{85,93}}</string>
+                <key>sourceSize</key>
+                <string>{189,189}</string>
+            </dict>
+            <key>effect_skillcasting_a_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{571,763},{95,87}}</string>
+                <key>offset</key>
+                <string>{6,-13}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{53,64},{95,87}}</string>
+                <key>sourceSize</key>
+                <string>{189,189}</string>
+            </dict>
+            <key>effect_skillcasting_a_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{482,763},{95,87}}</string>
+                <key>offset</key>
+                <string>{7,-13}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{54,64},{95,87}}</string>
+                <key>sourceSize</key>
+                <string>{189,189}</string>
+            </dict>
+            <key>effect_skillcasting_a_05.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,906},{95,89}}</string>
+                <key>offset</key>
+                <string>{7,-15}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{54,65},{95,89}}</string>
+                <key>sourceSize</key>
+                <string>{189,189}</string>
+            </dict>
+            <key>effect_skillcasting_a_06.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{903,696},{83,91}}</string>
+                <key>offset</key>
+                <string>{4,-11}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{57,60},{83,91}}</string>
+                <key>sourceSize</key>
+                <string>{189,189}</string>
+            </dict>
+            <key>effect_skillcasting_a_07.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{514,478},{161,161}}</string>
+                <key>offset</key>
+                <string>{-14,14}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{161,161}}</string>
+                <key>sourceSize</key>
+                <string>{189,189}</string>
+            </dict>
             <key>effect_skillcasting_p_0002.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{514,478},{160,120}}</string>
+                <string>{{340,504},{160,120}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -319,7 +410,7 @@
             <key>effect_skillcasting_p_0015.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{676,482},{158,120}}</string>
+                <string>{{166,644},{158,120}}</string>
                 <key>offset</key>
                 <string>{1,0}</string>
                 <key>rotated</key>
@@ -332,7 +423,7 @@
             <key>effect_skillcasting_p_0022.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{340,504},{158,120}}</string>
+                <string>{{340,626},{158,120}}</string>
                 <key>offset</key>
                 <string>{1,0}</string>
                 <key>rotated</key>
@@ -345,7 +436,7 @@
             <key>effect_skillcasting_p_0029.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{340,626},{156,120}}</string>
+                <string>{{677,482},{156,120}}</string>
                 <key>offset</key>
                 <string>{2,0}</string>
                 <key>rotated</key>
@@ -358,7 +449,7 @@
             <key>effect_skillcasting_p_0032.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{500,600},{156,120}}</string>
+                <string>{{2,662},{156,120}}</string>
                 <key>offset</key>
                 <string>{2,0}</string>
                 <key>rotated</key>
@@ -371,7 +462,7 @@
             <key>effect_skillcasting_p_0035.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{600,844},{154,120}}</string>
+                <string>{{748,848},{154,120}}</string>
                 <key>offset</key>
                 <string>{3,0}</string>
                 <key>rotated</key>
@@ -384,7 +475,7 @@
             <key>effect_skillcasting_p_0039.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{314,870},{154,120}}</string>
+                <string>{{660,726},{154,120}}</string>
                 <key>offset</key>
                 <string>{3,0}</string>
                 <key>rotated</key>
@@ -397,7 +488,7 @@
             <key>effect_skillcasting_p_0041.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{478,844},{154,120}}</string>
+                <string>{{626,860},{154,120}}</string>
                 <key>offset</key>
                 <string>{3,0}</string>
                 <key>rotated</key>
@@ -410,7 +501,7 @@
             <key>effect_skillcasting_p_0042.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{158,888},{154,120}}</string>
+                <string>{{470,870},{154,120}}</string>
                 <key>offset</key>
                 <string>{3,0}</string>
                 <key>rotated</key>
@@ -423,7 +514,7 @@
             <key>effect_skillcasting_p_0043.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,784},{154,120}}</string>
+                <string>{{314,888},{154,120}}</string>
                 <key>offset</key>
                 <string>{3,0}</string>
                 <key>rotated</key>
@@ -436,7 +527,7 @@
             <key>effect_skillcasting_p_0045.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{158,766},{154,120}}</string>
+                <string>{{158,888},{154,120}}</string>
                 <key>offset</key>
                 <string>{3,0}</string>
                 <key>rotated</key>
@@ -449,7 +540,7 @@
             <key>effect_skillcasting_p_0047.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{322,748},{154,120}}</string>
+                <string>{{2,784},{154,120}}</string>
                 <key>offset</key>
                 <string>{3,0}</string>
                 <key>rotated</key>
@@ -462,7 +553,7 @@
             <key>effect_skillcasting_p_0049.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{498,722},{154,120}}</string>
+                <string>{{160,766},{154,120}}</string>
                 <key>offset</key>
                 <string>{3,0}</string>
                 <key>rotated</key>
@@ -475,7 +566,7 @@
             <key>effect_skillcasting_p_0051.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{658,604},{154,120}}</string>
+                <string>{{326,748},{154,120}}</string>
                 <key>offset</key>
                 <string>{3,0}</string>
                 <key>rotated</key>
@@ -488,7 +579,7 @@
             <key>effect_skillcasting_p_0052.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{836,574},{154,120}}</string>
+                <string>{{500,641},{154,120}}</string>
                 <key>offset</key>
                 <string>{3,0}</string>
                 <key>rotated</key>
@@ -501,7 +592,7 @@
             <key>effect_skillcasting_p_0053.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,662},{154,120}}</string>
+                <string>{{677,604},{154,120}}</string>
                 <key>offset</key>
                 <string>{3,0}</string>
                 <key>rotated</key>
@@ -514,7 +605,7 @@
             <key>effect_skillcasting_p_0055.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{166,644},{154,120}}</string>
+                <string>{{835,574},{154,120}}</string>
                 <key>offset</key>
                 <string>{3,0}</string>
                 <key>rotated</key>
@@ -534,7 +625,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d6c9df81ad77587d5dd40ff481313f99$</string>
+            <string>$TexturePacker:SmartUpdate:1461531b69e91b690bad699ef6f50646$</string>
             <key>textureFileName</key>
             <string>effect_skillcasting.png</string>
         </dict>
