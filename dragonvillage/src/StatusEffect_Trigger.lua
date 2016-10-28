@@ -21,7 +21,7 @@ end
 -------------------------------------
 function StatusEffect_Trigger:init_trigger(trigger_name, char)
 	self.m_triggerName = trigger_name
-	self.m_targetChar = char
+	self.m_owner = char
 	char:addListener(self.m_triggerName, self)
 end
 
@@ -38,7 +38,7 @@ end
 -- function statusEffectReset
 -------------------------------------
 function StatusEffect_Trigger:release()
-    self.m_targetChar:removeListener(self.m_triggerName, self)
+    self.m_owner:removeListener(self.m_triggerName, self)
 	PARENT.release(self)
 end
 
@@ -51,7 +51,7 @@ function StatusEffect_Trigger:onTrigger(defender)
 	local status_effect_rate = self.m_subData['status_effect_rate']
 	
     if (string.find(status_effect_type, 'buff')) then
-		owner = self.m_targetChar
+		owner = self.m_owner
 	else
 		owner = defender
 	end

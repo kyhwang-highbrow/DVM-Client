@@ -57,14 +57,10 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 
     ----------------------------------------------
     if (chance_type == 'passive') then
-        if (type == 'skill_protection') then
-            self:doSkill_shield(t_skill, is_hero, phys_group, x, y)
-            return true
-        else
-            local char = self
-            local t_skill = t_skill
-            return StatusEffectHelper:invokePassive(char, t_skill)
-        end
+        local char = self
+        local t_skill = t_skill
+        return StatusEffectHelper:invokePassive(char, t_skill)
+
 	elseif (chance_type == 'trigger') then
 		local char = self
         local t_skill = t_skill
@@ -149,9 +145,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
         elseif (type == 'skill_heal_single') then
             self:doSkill_skill_heal_single(t_skill, t_data)
             return true
-        elseif (type == 'skill_dark_lightning') then
-            self:doSkill_skill_dark_lightning(t_skill, attr, is_hero, phys_group, x, y, t_data)
-            return true
+
         elseif (type == 'skill_bullet_hole') then
             self:doSkill_skill_bullet_hole(t_skill, attr, is_hero, phys_group, x, y, t_data)
             return true
@@ -167,12 +161,11 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
         elseif (type == 'skill_curve_twin') then
             self:doSkill_skill_leaf_blade(t_skill, attr, is_hero, phys_group, x, y, t_data)
             return true
-        elseif (type == 'skill_purple_protection') then
-            self:doSkill_skill_purple_protection(t_skill, t_data)
-            return true
+
 		elseif (type == 'skill_dispel_harm') then
             self:doSkill_skill_dispel_magic(t_skill, t_data)
             return true
+
 		elseif (type == 'skill_summon') then
             local summon_success = self:doSkill_skill_summon(t_skill, t_data)
             return summon_success
@@ -218,6 +211,10 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 			else
 				SkillMeleeHack:makeSkillInstnceFromSkill(self, t_skill, t_data)
 			end
+            return true
+
+        elseif (type == 'skill_protection') then
+            SkillProtection:makeSkillInstnceFromSkill(self, t_skill, t_data)
             return true
 
         -- 패시브 스킬
@@ -552,7 +549,7 @@ end
 -- @brief 스킬 실행
 -------------------------------------
 function Character:doSkill_skill_protection(t_skill, t_data)
-    local skill = SkillProtection(nil)
+    local skill = SkillProtection_Spread(nil)
 
     -- Physics, Node, GameMgr에 등록
     --self.m_world:addMissile(linear_laser, object_key)
@@ -613,22 +610,6 @@ function Character:doSkill_skill_heal_single(t_skill, t_data)
 		-- @TODO 공격에 묻어나는 이펙트 Carrier 에 담아서..
 		StatusEffectHelper:doStatusEffect(target, t_skill)
     end
-end
-
--------------------------------------
--- function doSkill_skill_dark_lightning
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_skill_dark_lightning(t_skill, attr, is_hero, phys_group, x, y, t_data)
-
-    -- 위치, 범위, 타겟 갯수, 데미지
-    local skill = SkillDarkLightning('res/indicator/indicator_type_range/indicator_type_range.vrp')
-
-    skill:init_skill(self, t_data['x'], t_data['y'], t_skill)
-
-    -- Physics, Node, GameMgr에 등록
-    self.m_world.m_groundNode:addChild(skill.m_rootNode)
-    self.m_world:addToUnitList(skill)
 end
 
 -------------------------------------
@@ -720,25 +701,6 @@ function Character:doSkill_skill_leaf_blade(t_skill, attr, is_hero, phys_group, 
     self.m_world:addToUnitList(skill)
 
     skill:init_skill(self, t_skill, t_data)
-end
-
-
--------------------------------------
--- function doSkill_skill_purple_protection
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_skill_purple_protection(t_skill, t_data)
-    local skill = SkillPurpleProtection(nil)
-
-    -- Physics, Node, GameMgr에 등록
-    --self.m_world:addMissile(linear_laser, object_key)
-    self.m_world.m_worldNode:addChild(skill.m_rootNode, 0)
-    self.m_world:addToUnitList(skill)
-
-    local pos_x = self.pos.x-- + x
-    local pos_y = self.pos.y-- + y
-    skill:setPosition(pos_x, pos_y)
-    skill:init_skill(self, t_skill, t_data['target'])
 end
 
 -------------------------------------

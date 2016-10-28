@@ -147,7 +147,9 @@ local t_module = {
 	'StatusEffect_Recovery',
 	'StatusEffect_DotDmg',
 	'StatusEffect_addAttack',
+    'StatusEffect_Protection',
 	
+
 	'StatusEffectIcon',
 
 	-- EFFECT
@@ -159,18 +161,18 @@ local t_module = {
     -- SKILL    
 	'Skill',
     'Laser',
+    'Thunder',
 	'SkillRay',
     'SkillLaser',
-    'Thunder',
 	'SkillBuff',
-	'SkillDarkLightning',
+	'SkillProtection',
+    'SkillProtection_Spread',
     'SkillChainLightning',
     'SkillHealTarget',
     'SkillHealAround',
     'SkillShield',
     'SkillAttributeAmor',
     'SkillCurve',
-    'SkillProtection',
     'SkillBulletHole',
     'SkillMeleeHack',
 	'SkillMeleeHack_Specific',
@@ -178,7 +180,6 @@ local t_module = {
     'SkillHealingWind',
     'SkillCrash',
     'SkillLeafBlade',
-	'SkillPurpleProtection',
     'SkillSummon',
 	'SkillDispelMagic',
     'SkillSpatter',
@@ -213,7 +214,6 @@ local t_module = {
 	-- BUFF
 	'Buff',
     'Buff_Protection',
-    'Buff_Shield',
 	'Buff_Barrier',
     
 	'WaveMgr',

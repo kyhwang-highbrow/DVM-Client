@@ -1,5 +1,6 @@
 -------------------------------------
 -- class Buff_Protection
+-- @breif 파워드래곤 전용 스킬
 -------------------------------------
 Buff_Protection = class(Buff, {
         m_defUp = 'number',

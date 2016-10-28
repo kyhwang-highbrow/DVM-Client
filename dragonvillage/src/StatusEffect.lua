@@ -6,7 +6,7 @@ local PARENT = Entity
 StatusEffect = class(PARENT, {
         m_statusEffectName = 'string',
         
-		m_targetChar = 'Character', -- owner
+		m_owner = 'Character',
 
         m_lStatus = 'list', -- key:능력치명, value:수치
         m_lStatusAbs = 'list', -- key:능력치명, value:수치
@@ -62,7 +62,7 @@ end
 -- function setTargetChar
 -------------------------------------
 function StatusEffect:setTargetChar(target_char)
-    self.m_targetChar = target_char
+    self.m_owner = target_char
 end
 
 -------------------------------------
@@ -117,7 +117,7 @@ end
 -------------------------------------
 function StatusEffect:update(dt)
     if (self.m_bApply and (self.m_bReset == false)) then
-        if (self.m_targetChar.m_bDead == true) then
+        if (self.m_owner.m_bDead == true) then
             self:changeState('end')
         elseif (self.m_duration ~= -1) then
             self.m_durationTimer = (self.m_durationTimer - dt)
@@ -146,7 +146,7 @@ end
 -- function checkPosDirty
 -------------------------------------
 function StatusEffect:checkPosDirty()
-    if (self.pos.x ~= self.m_targetChar.pos.x) or (self.pos.y ~= self.m_targetChar.pos.y) then
+    if (self.pos.x ~= self.m_owner.pos.x) or (self.pos.y ~= self.m_owner.pos.y) then
         self.m_bDirtyPos = true
     end
 end
@@ -155,7 +155,7 @@ end
 -- function updatePos
 -------------------------------------
 function StatusEffect:updatePos()
-    self:setPosition(self.m_targetChar.pos.x, self.m_targetChar.pos.y)
+    self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
     self.m_bDirtyPos = false
 end
 
@@ -199,7 +199,7 @@ end
 -- function statusEffectApply_
 -------------------------------------
 function StatusEffect:statusEffectApply_()
-    local tar_char = self.m_targetChar
+    local tar_char = self.m_owner
 
     -- %능력치 적용
     for key,value in pairs(self.m_lStatus) do
@@ -231,16 +231,16 @@ function StatusEffect:statusEffectReset()
     end
 
     if (0 < self.m_maxOverlab) then
-        self.m_targetChar.m_tOverlabStatusEffect[self.m_statusEffectName] = nil
+        self.m_owner.m_tOverlabStatusEffect[self.m_statusEffectName] = nil
     end
 	
 	-- 스턴이었다면 스턴 해제
-	if self.m_targetChar and self.m_targetChar.m_state == 'stun' then
-		self.m_targetChar:changeState('stun_esc')
+	if self.m_owner and self.m_owner.m_state == 'stun' then
+		self.m_owner:changeState('stun_esc')
 	end
 
 	-- 대상이 들고 있는 상태효과 리스트에서 제거
-	self.m_targetChar:removeStatusEffect(self)
+	self.m_owner:removeStatusEffect(self)
 
     self.m_bReset = true
 
@@ -251,7 +251,7 @@ end
 -- function statusEffectReset_
 -------------------------------------
 function StatusEffect:statusEffectReset_()
-    local tar_char = self.m_targetChar
+    local tar_char = self.m_owner
     
     -- %능력치 원상 복귀
     for key,value in pairs(self.m_lStatus) do
@@ -288,7 +288,7 @@ end
 function StatusEffect:changeState(state, forced)
     local ret = PARENT.changeState(self, state, forced)
 
-    if (ret == true) and (state ~= 'dying') then
+    if (ret == true) and (state ~= 'dying') and (self.m_topEffect) then
         local animation_name = string.gsub(self.m_tStateAni[state], 'center', 'top')
         self.m_topEffect:changeAni(animation_name, self.m_tStateAniLoop[state])
     end

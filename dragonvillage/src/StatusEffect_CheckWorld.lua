@@ -31,8 +31,8 @@ function StatusEffect_CheckWorld:update(dt)
 	for _, char in pairs(char_list) do 
 		for status_effect_type, status_effect in pairs(char:getStatusEffectList()) do
 			if (status_effect_type == self.m_statusEffectType) then 
-				local status_effect_type = self.m_subData['type']
-				local status_effect_rate = self.m_subData['rate']
+				local status_effect_type = self.m_subData['status_effect_type']
+				local status_effect_rate = self.m_subData['status_effect_rate']
 				StatusEffectHelper:invokeStatusEffect(self.m_targetChar, status_effect_type, status_effect_rate)
 			end
 		end

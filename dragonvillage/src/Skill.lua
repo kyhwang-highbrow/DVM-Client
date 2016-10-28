@@ -31,11 +31,15 @@ end
 
 -------------------------------------
 -- function init_skill
+-- @brief actvityCarrier, AttackOffset, defualt target, default target pos를 설정한다. 
 -------------------------------------
 function ISkill:init_skill()
 	self:initActvityCarrier(self.m_powerRate)
 	self:initAttackPosOffset()
 	
+	if (not self.m_targetChar) then
+		self.m_targetChar = self:getDefaultTarget()
+	end
     if (not self.m_targetPos.x) or (not self.m_targetPos.y) then
         local x, y = self:getDefaultTargetPos()
 		self.m_targetPos = {x = x, y = y}
@@ -138,14 +142,22 @@ function ISkill:findTarget(x, y, range)
 end
 
 -------------------------------------
--- function getDefaultTargetPos
--- @brief 디폴트 타겟 좌표, 인디케이터 없이 시전 된 경우 기본 적을 선택하도록 한다.
+-- function getDefaultTarget
+-- @brief 디폴트 타겟을 반환한다.
+-- @brief 인디케이터 없이 시전 된 경우 사용된다.
 -- @default 타겟 룰에 따른 타겟 리스트 중 첫번째를 선택
 -------------------------------------
-function ISkill:getDefaultTargetPos()
+function ISkill:getDefaultTarget()
     local l_target = self.m_owner:getTargetListByType(self.m_targetType)
-    local target = l_target[1]
+	return l_target[1]
+end
 
+-------------------------------------
+-- function getDefaultTargetPos
+-- @brief 디폴트 타겟의 좌표를 반환한다.
+-------------------------------------
+function ISkill:getDefaultTargetPos()
+    local target = self:getDefaultTarget()
     if target then
 		self.m_targetChar = target
 		return target.pos.x, target.pos.y

@@ -89,59 +89,30 @@ end
 -- function invokeStatusEffect
 -- @brief 상태 효과 발동
 -------------------------------------
-function StatusEffectHelper:invokeStatusEffect(char, status_effect_name, status_effect_rate)
-    if (not status_effect_name) or (status_effect_name == 'x') then
+function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_effect_rate)
+    if (not status_effect_type) or (status_effect_type == 'x') then
         return nil
     end
 	
     local table_status_effect = TABLE:get('status_effect')
-    local t_status_effect = table_status_effect[status_effect_name]
+    local t_status_effect = table_status_effect[status_effect_type]
 
-    assert(t_status_effect, 'status_effect_name : ' .. status_effect_name)
+    assert(t_status_effect, 'status_effect_type : ' .. status_effect_type)
 	
     local status_effect = nil
     if (t_status_effect['overlab'] > 0) then
-        status_effect = char.m_tOverlabStatusEffect[status_effect_name]
+        status_effect = char.m_tOverlabStatusEffect[status_effect_type]
     end
 
     if status_effect then
         status_effect:statusEffectOverlab()
     else
         -- 상태 효과 생성
-        status_effect = StatusEffectHelper:makeStatusEffectInstance(char, status_effect_name, status_effect_rate)
-
-        -- 능력치 지정
-        for _, type in ipairs(L_STATUS_TYPE) do
-            local value = t_status_effect[type]
-            if (value ~= 0) then
-                status_effect:insertStatus(type, value)
-            end
-        end
-
-        status_effect.m_statusEffectName = status_effect_name
-		status_effect.m_type = t_status_effect['type']
-
-        -- 시간 지정
-        status_effect.m_duration = tonumber(t_status_effect['duration'])
-        status_effect.m_durationTimer = status_effect.m_duration
-
-        -- 중첩 지정
-        status_effect.m_maxOverlab = t_status_effect['overlab']
-		
-		-- 대상 지정 
-        status_effect:setTargetChar(char)
-        
-		-- 객체 생성
-        local world = char.m_world
-        world.m_worldNode:addChild(status_effect.m_rootNode, 10)
-        world:addToUnitList(status_effect)
-
-        status_effect:initState()
-        status_effect:changeState('start')
+        status_effect = StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, status_effect_rate)
     end
 
     if (t_status_effect['overlab'] > 0) then
-        char.m_tOverlabStatusEffect[status_effect_name] = status_effect
+        char.m_tOverlabStatusEffect[status_effect_type] = status_effect
     end
 	
 	-- groggy 옵션이 있다면 stun 상태로 바꾼다. 이외의 부가적인 효과는 개별적으로 구현
@@ -212,6 +183,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
     local t_status_effect = table_status_effect[status_effect_type]
     
     local res = t_status_effect['res']
+	
     if (res == 'x') then
         res = nil
     end
@@ -219,9 +191,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	local status_effect = nil
 
 	------------ 특수한 패시브 --------------------------
-    if (status_effect_type == 'passive_recovery') or
-		string.find(status_effect_type, 'buff_heal') then
-
+    if (status_effect_type == 'passive_recovery') or string.find(status_effect_type, 'buff_heal') then
         status_effect = StatusEffect_Recovery(res)
 		status_effect:init_recovery(t_status_effect)
 
@@ -235,11 +205,46 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 		status_effect = StatusEffect_DotDmg(res)
 		status_effect:init_dotDmg(t_status_effect)
 
+	----------- 보호막 ------------------
+	elseif (t_status_effect['type'] == 'barrier') then
+		status_effect = StatusEffect_Protection(res)
+		local shield_hp = char.m_maxHp * (t_status_effect['val_1'] / 100)
+		status_effect:init_buff(char, shield_hp)
+
     else
         status_effect = StatusEffect(res)
     end
 
     status_effect.m_subData = {status_effect_type = status_effect_type, status_effect_rate = status_effect_rate}
+
+	 -- 능력치 지정
+    for _, type in ipairs(L_STATUS_TYPE) do
+        local value = t_status_effect[type]
+        if (value ~= 0) then
+            status_effect:insertStatus(type, value)
+        end
+    end
+
+    status_effect.m_statusEffectName = status_effect_type
+	status_effect.m_type = t_status_effect['type']
+
+    -- 시간 지정
+    status_effect.m_duration = tonumber(t_status_effect['duration'])
+    status_effect.m_durationTimer = status_effect.m_duration
+
+    -- 중첩 지정
+    status_effect.m_maxOverlab = t_status_effect['overlab']
+		
+	-- 대상 지정 
+    status_effect:setTargetChar(char)
+        
+	-- 객체 생성
+    local world = char.m_world
+    world.m_worldNode:addChild(status_effect.m_rootNode, 10)
+    world:addToUnitList(status_effect)
+
+    status_effect:initState()
+    status_effect:changeState('start')
 
     return status_effect
 end

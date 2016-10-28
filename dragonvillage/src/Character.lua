@@ -1221,13 +1221,13 @@ function Character:makeAttackDamageInstance()
     activity_carrier.m_damageType = DMG_TYPE_STR[self.m_charTable['char_type']]
 
     -- 찬스 타입 지정(일반 공격과 스킬을 구분하기 위함)
-    if not self.m_reservedSkillId then
+    if (not self.m_reservedSkillId) then
         error('Character:makeAttackDamageInstance - no reservedSkillId')
     end
 
     local t_skill = TABLE:get(self.m_charType .. '_skill')[self.m_reservedSkillId]
     
-	if self.m_charTable['skill_basic'] == self.m_reservedSkillId then
+	if (self.m_charTable['skill_basic'] == self.m_reservedSkillId) then
         activity_carrier:setAttackType('basic')
     else
         activity_carrier:setAttackType('active')
