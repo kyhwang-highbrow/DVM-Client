@@ -205,15 +205,18 @@ function TamerSkillSystem:addSpecialPowerPoint(add_point)
     -- 궁극기 게이지 이펙트
     if (prev ~= self.m_specialPowerPoint) then
         local visual = ui.vars['specialFullViusal']
+        visual:setVisible(false)
 
+		-- @TODO 궁극기 비쥬얼 막음
+		--[[
         if (self.m_specialPowerPoint == 100) then
             visual:setVisible(true)
             visual:setVisual('group', 'effect')
             visual:setRepeat(false)
             visual:registerScriptLoopHandler(function() visual:setVisual('group', 'idle') visual:setRepeat(true) end)
         else
-            visual:setVisible(false)
         end
+		]]
     end
 end
 

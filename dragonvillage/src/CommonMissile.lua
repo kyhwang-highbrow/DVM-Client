@@ -148,7 +148,7 @@ function CommonMissile:initAttackPos()
 		pos_y = pos_y + offset_y
     else                            
 		pos_x = pos_x - offset_x
-		pos_y = pos_y - offset_y
+		pos_y = pos_y + offset_y
     end
 
 	-- 6. 조정된 값 저장
