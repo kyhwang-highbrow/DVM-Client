@@ -29,7 +29,7 @@ function SkillProtection:init_skill(protection_res, duration)
         self:changeState('dying')
         return
     end
-	--cclog(self.m_targetChar.m_charTable['t_name'])
+	
     do -- 기본 타겟에 실드
 --        local shield_hp = self.m_owner.m_maxHp * (self.m_powerRate / 100)
   --      self:makeShield(self.m_targetChar, shield_hp)

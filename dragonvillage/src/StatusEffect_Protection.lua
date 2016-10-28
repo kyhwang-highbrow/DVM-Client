@@ -53,7 +53,7 @@ end
 -------------------------------------
 function StatusEffect_Protection:update(dt)
     local ret = PARENT.update(self, dt)
-	cclog(self.m_state)
+	
 	if (self.m_state == 'idle') then
 		self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 
