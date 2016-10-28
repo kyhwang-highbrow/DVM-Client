@@ -2,16 +2,14 @@ ATTR_NONE = 0
 ATTR_EARTH = 1
 ATTR_WATER = 2
 ATTR_FIRE = 3
-ATTR_WIND = 4
-ATTR_LIGHT = 5
-ATTR_DARK = 6
+ATTR_LIGHT = 4
+ATTR_DARK = 5
 
 
 T_ATTR_LIST = {}
 T_ATTR_LIST[ATTR_EARTH] = 'earth'
 T_ATTR_LIST[ATTR_WATER] = 'water'
 T_ATTR_LIST[ATTR_FIRE] = 'fire'
-T_ATTR_LIST[ATTR_WIND] = 'wind'
 T_ATTR_LIST[ATTR_LIGHT] = 'light'
 T_ATTR_LIST[ATTR_DARK] = 'dark'
 
@@ -142,8 +140,6 @@ function dragonAttributeName(attr)
         return Str('물속성')
     elseif (attr == ATTR_FIRE) then
         return Str('불속성')
-    elseif (attr == ATTR_WIND) then
-        return Str('바람속성')
     elseif (attr == ATTR_LIGHT) then
         return Str('빛속성')
     elseif (attr == ATTR_DARK) then
@@ -176,9 +172,6 @@ function attributeStrToNum(attr)
 
     elseif (attr == 'water') then
         return ATTR_WATER
-
-    elseif (attr == 'wind') then
-        return ATTR_WIND
 
     else
         error('attr : ' .. attr)
