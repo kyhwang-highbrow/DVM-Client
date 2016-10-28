@@ -239,12 +239,12 @@ end
 -- function makeSkillInstnce
 -- @param missile_res 
 -------------------------------------
-function SkillExplosion:makeSkillInstnce(owner, missile_res, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target, target_count, range, jump_res)
+function SkillExplosion:makeSkillInstnce(missile_res, target_count, range, jump_res, ...)
 	-- 1. 스킬 생성
     local skill = SkillExplosion(missile_res)
 
 	-- 2. 초기화 관련 함수
-	skill:setParams(owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target)
+	skill:setParams(...)
     skill:init_skill(target_count, range, jump_res)
 	skill:initState()
 
@@ -252,7 +252,7 @@ function SkillExplosion:makeSkillInstnce(owner, missile_res, power_rate, target_
     skill:changeState('move')
 
     -- 4. Physics, Node, GameMgr에 등록
-    local world = owner.m_world
+    local world = skill.m_owner.m_world
     world.m_missiledNode:addChild(skill.m_rootNode, 0)
     world:addToUnitList(skill)
 end
@@ -279,5 +279,5 @@ function SkillExplosion:makeSkillInstnceFromSkill(owner, t_skill, t_data)
     local missile_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
 	local jump_res = t_skill['res_2']
 
-    SkillExplosion:makeSkillInstnce(owner, missile_res, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target, target_count, range, jump_res)
+    SkillExplosion:makeSkillInstnce(missile_res, target_count, range, jump_res, owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target)
 end
