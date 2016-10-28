@@ -18,6 +18,9 @@ CommonMissile = class(PARENT, {
 		m_statusEffectRate = '',
 
 		m_targetType = '', -- target_type 필드, 상대 선택 규칙
+
+		-- 캐릭터의 중심을 기준으로 실제 공격이 시작 지점
+        m_attackPos = 'number',
      })
 
 -------------------------------------
@@ -46,6 +49,7 @@ function CommonMissile:initCommonMissile(owner, t_skill)
 
 	self:initActvityCarrier()
 	self:initState()
+	self:initAttackPos()
 
 	-- resource 체크 
 	if (not self.m_missileRes) or (self.m_missileRes == 'x') then
@@ -105,6 +109,51 @@ function CommonMissile:getDefaultDir()
     end
 end
 
+-------------------------------------
+-- function initAttackPosOffset
+-- @brief 캐릭터의 중심을 기준으로 실제 공격이 시작 지점 설정
+-------------------------------------
+function CommonMissile:initAttackPos()
+    -- 1. 초기화
+	local pos_x = self.m_owner.pos.x
+	local pos_y = self.m_owner.pos.y
+	self.m_attackPos = {x = pos_x, y = pos_y}
+
+	-- 2. attack event 가져옴
+    local animator = self.m_owner.m_animator
+    local l_event_data = animator:getEventList('attack', 'attack')
+
+	-- 2-1. attack event 못가져오면 탈출
+    if (not l_event_data[1]) then
+        return
+    end
+
+	-- 3. 부여된 값 가져옴
+    local string_value = l_event_data[1]['stringValue']
+
+	-- 3-1. 못가져오면 탈출
+    if (not string_value) or (string_value == '') then
+        return
+    end
+
+	-- 4. 정리
+    local l_str = seperate(string_value, ',')
+    local scale = animator:getScale()
+    local offset_x = (l_str[1] * scale)
+    local offset_y = (l_str[2] * scale)
+
+	-- 5. offset 진영에 따라 가감
+	if self.m_owner.m_bLeftFormation then   
+		pos_x = pos_x + offset_x
+		pos_y = pos_y + offset_y
+    else                            
+		pos_x = pos_x - offset_x
+		pos_y = pos_y - offset_y
+    end
+
+	-- 6. 조정된 값 저장
+	self.m_attackPos = {x = pos_x, y = pos_y}
+end
 -------------------------------------
 -- function fireMissile
 -------------------------------------

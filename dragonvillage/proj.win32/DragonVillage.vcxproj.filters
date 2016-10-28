@@ -706,13 +706,7 @@
     <None Include="..\src\SkillIndicator_LeafBlade.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SkillPurpleProtection.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\Buff_Barrier.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\Buff_Shield.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\UI_NestDungeonScene.lua">

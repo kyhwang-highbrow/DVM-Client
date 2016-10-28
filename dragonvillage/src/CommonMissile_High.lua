@@ -21,8 +21,8 @@ function CommonMissile_High:fireMissile()
 	-- 수정 X
 	t_option['owner'] = self.m_owner
 	t_option['target'] = self.m_target
-    t_option['pos_x'] = self.m_owner.pos.x
-    t_option['pos_y'] = self.m_owner.pos.y
+    t_option['pos_x'] = self.m_attackPos.x
+    t_option['pos_y'] = self.m_attackPos.y
     t_option['attack_damage'] = self.m_activityCarrier
 	t_option['bFixedAttack'] = true
     if (self.m_owner.phys_key == 'hero') then

@@ -411,7 +411,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SceneTitle.lua" />
     <None Include="..\src\ScrollMap.lua" />
     <None Include="..\src\ScrollMapLayer.lua" />
-    <None Include="..\src\Buff_Shield.lua" />
     <None Include="..\src\ShaderCache.lua" />
     <None Include="..\src\Skill.lua" />
     <None Include="..\src\SkillAddAttack.lua" />
@@ -451,7 +450,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillMeleeHack.lua" />
     <None Include="..\src\SkillMeleeHack_Specific.lua" />
     <None Include="..\src\SkillProtection.lua" />
-    <None Include="..\src\SkillPurpleProtection.lua" />
     <None Include="..\src\SkillRolling.lua" />
     <None Include="..\src\SkillShield.lua" />
     <None Include="..\src\SkillSpatter.lua" />

@@ -170,7 +170,13 @@ end
 -------------------------------------
 function SkillAoERound:makeSkillInstnce(owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target, attack_count, range, aoe_res)
 	-- 1. 스킬 생성
-    local skill = SkillAoERound(aoe_res)
+    local skill = nil
+	-- 리소스를 개별적으로 찍어야 하는 경우에 기본 생성을 하지 않는다. 조건은 좀 더 고려해봐야함  
+	if (attack_count == 1) then 
+		skill = SkillAoERound(nil)
+	else
+		skill = SkillAoERound(aoe_res)
+	end
 
 	-- 2. 초기화 관련 함수
 	skill:setParams(owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target)
