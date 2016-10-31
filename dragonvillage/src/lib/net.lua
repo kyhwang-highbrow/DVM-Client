@@ -218,7 +218,12 @@ function Network:SimpleRequest(t, do_decode)
 			jsondata = Network:decodeResult(data)
 		end
         Network:saveDump(t, jsondata)
-		success(jsondata)
+
+        if (jsondata['status'] and (jsondata['status'] == -9999)) then
+            fail(jsondata)
+        else
+            success(jsondata)
+        end
 	end
 	r['failHandler'] = function()
 		fail()
@@ -293,7 +298,12 @@ function Network:HMacRequest(t, do_decode)
         -- 버전 체크
         if Network:appVersionCheck(jsondata) then
             Network:saveDump(t, jsondata)
-            success(jsondata)
+
+            if (jsondata['status'] and (jsondata['status'] == -9999)) then
+                fail(jsondata)
+            else
+                success(jsondata)
+            end
         end
 	end
 	r.failHandler = function()

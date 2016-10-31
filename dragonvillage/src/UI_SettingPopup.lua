@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_SettingPopup
 -------------------------------------
 UI_SettingPopup = class(PARENT, {
+        m_currTap = 'string',
      })
 
 -------------------------------------
@@ -55,6 +56,18 @@ end
 -------------------------------------
 function UI_SettingPopup:initButton()
     local vars = self.vars
+
+    -- 탭 버튼
+    vars['infoTab']:registerScriptTapHandler(function() self:click_tap('info') end)
+    vars['setTab']:registerScriptTapHandler(function() self:click_tap('set') end)
+    vars['devTab']:registerScriptTapHandler(function() self:click_tap('dev') end)
+
+    -- 정보(info)
+    do
+        vars['clearBtn']:registerScriptTapHandler(function() self:click_clearBtn() end)
+        
+    end
+
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
@@ -62,6 +75,53 @@ end
 -- function refresh
 -------------------------------------
 function UI_SettingPopup:refresh()
+    local vars = self.vars
+    if (not self.m_currTap) then
+         self.m_currTap = 'info'
+    end
+
+    vars['infoNode']:setVisible(false)
+    vars['setNode']:setVisible(false)
+    vars['devNode']:setVisible(false)
+    vars[self.m_currTap .. 'Node']:setVisible(true)
+
+    if (self.m_currTap == 'info') then
+        self:refresh_infoTap()
+    elseif (self.m_currTap == 'set') then
+
+    elseif (self.m_currTap == 'dev') then
+
+    end
+end
+
+-------------------------------------
+-- function refresh_infoTap
+-------------------------------------
+function UI_SettingPopup:refresh_infoTap()
+    local vars = self.vars
+
+    local uid = g_userData:get('uid')
+    local nickname = g_userData:get('nickname') or g_serverData:get('local', 'idfa')
+    local version_str = PatchData:getInstance():getAppVersionAndPatchIdxString()
+
+    vars['userIdLabel']:setString(Str('유저 ID : ') .. uid)
+    vars['userNameLabel']:setString(Str('닉네임 : ') .. nickname)
+    vars['versionLabel']:setString(version_str)
+end
+
+
+-------------------------------------
+-- function click_tap
+-------------------------------------
+function UI_SettingPopup:click_tap(tap_type)
+    self.m_currTap = tap_type
+    self:refresh()
+end
+
+-------------------------------------
+-- function click_clearBtn
+-------------------------------------
+function UI_SettingPopup:click_clearBtn()
 end
 
 -------------------------------------

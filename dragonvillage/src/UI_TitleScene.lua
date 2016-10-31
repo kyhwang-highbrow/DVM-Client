@@ -232,7 +232,7 @@ function UI_TitleScene:workPlatformLogin()
     end
 
     local fail_cb = function(ret)
-        self:makeFailPopup()
+        self:makeFailPopup(nil, ret)
     end
 
     Network_platform_guest_login(player_id, uid, idfa, deviceOS, pushToken, success_cb, fail_cb)
@@ -253,12 +253,11 @@ function UI_TitleScene:workGameLogin()
         g_serverData:applyServerData(ret['user'], 'user')
         g_serverData:applyServerData(ret['dragons'], 'dragons')
         
-        --ccdump(ret)
         self:doNextWork()
     end
 
     local fail_cb = function(ret)
-        self:makeFailPopup()
+        self:makeFailPopup(nil, ret)
     end
 
     Network_login(uid, success_cb, fail_cb)
@@ -282,7 +281,7 @@ function UI_TitleScene:workGetDeck()
     end
 
     local fail_cb = function(ret)
-        self:makeFailPopup()
+        self:makeFailPopup(nil, ret)
     end
 
     Network_get_deck(uid, success_cb, fail_cb)
@@ -317,13 +316,18 @@ end
 -- function makeFailPopup
 -- @brief
 -------------------------------------
-function UI_TitleScene:makeFailPopup(msg)
+function UI_TitleScene:makeFailPopup(msg, ret)
     local function ok_btn_cb()
         self.m_loadingUI:showLoading()
         self:retryCurrWork()
     end
 
     local msg = msg or '{@BLACK}네트워크 연결에 실패하였습니다. 다시 시도하시겠습니까?'
+
+    if ret then
+        local add_msg = '(status : ' .. tostring(ret['status']) .. ', message : ' .. tostring(ret['message']) .. ')'
+        msg =  msg .. '\n\n' .. add_msg
+    end
 
     self.m_loadingUI:hideLoading()
     MakeSimplePopup(POPUP_TYPE.OK, msg, ok_btn_cb)
