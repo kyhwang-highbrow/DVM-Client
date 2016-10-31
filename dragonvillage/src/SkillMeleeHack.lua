@@ -229,12 +229,12 @@ end
 -------------------------------------
 -- function makeSkillInstnce
 -------------------------------------
-function SkillMeleeHack:makeSkillInstnce(owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target, move_speed, comeback_speed)
+function SkillMeleeHack:makeSkillInstnce(move_speed, comeback_speed, ...)
 	-- 1. 스킬 생성
     local skill = SkillMeleeHack('', {0, 0, 0})
 
 	-- 2. 초기화 관련 함수
-	skill:setParams(owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target)
+	skill:setParams(...)
     skill:init_skill(move_speed, comeback_speed)
 	skill:initState()
 
@@ -242,7 +242,7 @@ function SkillMeleeHack:makeSkillInstnce(owner, power_rate, target_type, status_
     skill:changeState('move')
 
     -- 4. Physics, Node, GameMgr에 등록
-    local world = owner.m_world
+    local world = skill.m_owner.m_world
     world.m_missiledNode:addChild(skill.m_rootNode, 0)
     world:addToUnitList(skill)
 end
@@ -256,7 +256,9 @@ function SkillMeleeHack:makeSkillInstnceFromSkill(owner, t_skill, t_data)
 	-- 1. 공통 변수
 	local power_rate = t_skill['power_rate']
 	local target_type = t_skill['target_type']
+	local pre_delay = t_skill['pre_delay']
 	local status_effect_type = t_skill['status_effect_type']
+	local status_effect_value = t_skill['status_effect_value']
 	local status_effect_rate = t_skill['status_effect_rate']
 	local skill_type = t_skill['type']
 	local tar_x = t_data.x
@@ -267,5 +269,5 @@ function SkillMeleeHack:makeSkillInstnceFromSkill(owner, t_skill, t_data)
 	local move_speed = t_skill['val_1'] or 1500
     local comeback_speed = t_skill['val_2'] or 1500
 
-    SkillMeleeHack:makeSkillInstnce(owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target, move_speed, comeback_speed)
+    SkillMeleeHack:makeSkillInstnce(move_speed, comeback_speed, owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
 end

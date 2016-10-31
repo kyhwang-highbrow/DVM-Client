@@ -33,7 +33,7 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillSpatter:init_skill(range, count, motionstreak_res, range_res, std_pos_x, std_pos_y)
+function SkillSpatter:init_skill(motionstreak_res, range_res, range, count, std_pos_x, std_pos_y)
 	-- 멤버 변수
     self.m_spatterRange = range
     self.m_spatterCount = 0
@@ -159,20 +159,20 @@ end
 -- @param motionstreak_res  'res/missile/motion_streak/motion_streak_water.png'
 -- @param range_res         'res/effect/effect_aoe_water/effect_aoe_water.vrp'
 -------------------------------------
-function SkillSpatter:makeSkillInstnce(owner, missile_res, power_rate, target_type, jump_res, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target, range, count, motionstreak_res, range_res)
+function SkillSpatter:makeSkillInstnce(missile_res, motionstreak_res, range_res, range, count, ...)
 	-- 1. 스킬 생성
     local skill = SkillSpatter(missile_res)
 
 	-- 2. 초기화 관련 함수
-	skill:setParams(owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target)
-    skill:init_skill(range, count, motionstreak_res, range_res, owner.pos.x, owner.pos.y)
+	skill:setParams(...)
+    skill:init_skill(motionstreak_res, range_res, range, count, owner.pos.x, owner.pos.y)
 	skill:initState()
 
 	-- 3. state 시작 
     skill:changeState('idle')
 
     -- 4. Physics, Node, GameMgr에 등록
-    local world = owner.m_world
+    local world = skill.m_owner.m_world
     world.m_missiledNode:addChild(skill.m_rootNode, 0)
     world:addToUnitList(skill)
 
@@ -180,7 +180,7 @@ function SkillSpatter:makeSkillInstnce(owner, missile_res, power_rate, target_ty
 	skill:setPosition(owner.pos.x, owner.pos.y)
     skill:setMotionStreak(world.m_missiledNode, motionstreak_res)
 
-    -- 영역 이펙트 생성
+    -- 영역 이펙트 생성 .. 사용 안함
     if (range > 0) and (range_res and (range_res ~= 'x')) then
         local suffix, scale = AreaOfEffectHelper:getAOEData(range)
         local animation_name = 'idle_' .. suffix
@@ -194,13 +194,14 @@ end
 -- function makeSkillInstnceFromSkill
 -------------------------------------
 function SkillSpatter:makeSkillInstnceFromSkill(owner, t_skill)
-
     local owner = owner
 	
 	-- 1. 공통 변수
-    local power_rate = t_skill['power_rate']
+	local power_rate = t_skill['power_rate']
 	local target_type = t_skill['target_type']
+	local pre_delay = t_skill['pre_delay']
 	local status_effect_type = t_skill['status_effect_type']
+	local status_effect_value = t_skill['status_effect_value']
 	local status_effect_rate = t_skill['status_effect_rate']
 	local skill_type = t_skill['type']
 	local tar_x = 0
@@ -208,11 +209,11 @@ function SkillSpatter:makeSkillInstnceFromSkill(owner, t_skill)
 	local target = nil
 
 	-- 2. 특수 변수
-    local range = t_skill['val_1']
-    local count = t_skill['val_2']
     local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute()) -- 'res/missile/missile_water/missile_water.vrp'
     local motionstreak_res = t_skill['res_2'] -- 'res/missile/motion_streak/motion_streak_water.png'
     local range_res = t_skill['res_3'] -- 삭제되어있음 
+    local range = t_skill['val_1']
+    local count = t_skill['val_2']
 	
-    SkillSpatter:makeSkillInstnce(owner, missile_res, power_rate, target_type, jump_res, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target, range, count, motionstreak_res, range_res)
+    SkillSpatter:makeSkillInstnce(missile_res, motionstreak_res, range_res, range, count, owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
 end

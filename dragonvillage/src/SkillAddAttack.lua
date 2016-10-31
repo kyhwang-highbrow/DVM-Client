@@ -87,12 +87,12 @@ end
 -------------------------------------
 -- function makeSkillInstnce
 -------------------------------------
-function SkillAddAttack:makeSkillInstnce(owner, missile_res, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target, range_x, range_y)
+function SkillAddAttack:makeSkillInstnce(missile_res, range_x, range_y, ...)
 	-- 1. 스킬 생성
     local skill = SkillAddAttack(missile_res)
 
 	-- 2. 초기화 관련 함수
-	skill:setParams(owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target)
+	skill:setParams(...)
     skill:init_skill(range_x, range_y)
 	skill:initState()
 
@@ -100,7 +100,7 @@ function SkillAddAttack:makeSkillInstnce(owner, missile_res, power_rate, target_
     skill:changeState('idle')
 
     -- 4. Physics, Node, GameMgr에 등록
-    local world = owner.m_world
+    local world = skill.m_owner.m_world
     world.m_missiledNode:addChild(skill.m_rootNode, 0)
     world:addToUnitList(skill)
 end
@@ -112,9 +112,11 @@ function SkillAddAttack:makeSkillInstnceFromSkill(owner, t_skill, target)
     local owner = owner
 
 	-- 1. 공통 변수
-    local power_rate = t_skill['power_rate']
+	local power_rate = t_skill['power_rate']
 	local target_type = t_skill['target_type']
+	local pre_delay = t_skill['pre_delay']
 	local status_effect_type = t_skill['status_effect_type']
+	local status_effect_value = t_skill['status_effect_value']
 	local status_effect_rate = t_skill['status_effect_rate']
 	local skill_type = t_skill['type']
 	local tar_x = target.pos.x
@@ -126,5 +128,5 @@ function SkillAddAttack:makeSkillInstnceFromSkill(owner, t_skill, target)
 	local range_x = t_skill['val_1']
 	local range_y = t_skill['val_2']
 
-    SkillAddAttack:makeSkillInstnce(owner, missile_res, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target, range_x, range_y)
+    SkillAddAttack:makeSkillInstnce(missile_res, range_x, range_y, owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
 end

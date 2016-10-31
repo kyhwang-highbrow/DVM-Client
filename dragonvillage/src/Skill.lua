@@ -6,15 +6,20 @@ ISkill = {
         m_activityCarrier = 'AttackDamage',
 		m_range = 'num',
 		m_powerRate = 'num',
-		m_targetType = 'str',
+		m_preDelay = 'num',
+
+		-- 타겟 관련 .. 
+		m_targetType = 'str', -- 타겟 선택하는 룰
+		m_targetChar = 'Character', 
+		m_targetPos = 'pos', -- 타겟 위치 정보 빠르게 접근하기 위해..~
 		
-		m_targetChar = 'Character',
-		m_targetPos = 'pos',
-		
+		-- 상태 효과 관련 변수들
 		m_statusEffectType = '',
+		m_statusEffectValue = '',
 		m_statusEffectRate = '',
 
-		m_skillType = 'str', -- 스킬 타입 명 ex) skill_expolosion 
+		-- 스킬 타입 명 ex) skill_expolosion 
+		m_skillType = 'str', 
 
 		-- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset
         m_attackPosOffsetX = 'number',
@@ -69,11 +74,13 @@ end
 -- function setParams
 -- @brief 멤버변수 정의
 -------------------------------------
-function ISkill:setParams(owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target)
+function ISkill:setParams(owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
 	self.m_owner = owner
 	self.m_powerRate = power_rate
 	self.m_targetType = target_type
+	self.m_preDelay = pre_delay
 	self.m_statusEffectType = status_effect_type
+	self.m_statusEffectValue = status_effect_value
 	self.m_statusEffectRate = status_effect_rate
 	self.m_skillType = skill_type
 	self.m_targetPos = {x = tar_x, y = tar_y}

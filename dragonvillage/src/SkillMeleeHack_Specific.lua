@@ -55,12 +55,12 @@ end
 -------------------------------------
 -- function makeSkillInstnce
 -------------------------------------
-function SkillMeleeHack_Specific:makeSkillInstnce(owner, power_rate, target_type, status_effect_type, status_effect_rate, tar_x, tar_y, target, move_speed, comeback_speed, skill_id)
+function SkillMeleeHack_Specific:makeSkillInstnce(move_speed, comeback_speed, skill_id, ...)
 	-- 1. 스킬 생성
     local skill = SkillMeleeHack_Specific('', {0, 0, 0})
 
 	-- 2. 초기화 관련 함수
-	skill:setParams(owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target)
+	skill:setParams(...)
     skill:init_skill(move_speed, comeback_speed, skill_id)
 	skill:initState()
 
@@ -68,7 +68,7 @@ function SkillMeleeHack_Specific:makeSkillInstnce(owner, power_rate, target_type
     skill:changeState('move')
 
     -- 4. Physics, Node, GameMgr에 등록
-    local world = owner.m_world
+    local world = skill.m_owner.m_world
     world.m_missiledNode:addChild(skill.m_rootNode, 0)
     world:addToUnitList(skill)
 end
@@ -82,8 +82,11 @@ function SkillMeleeHack_Specific:makeSkillInstnceFromSkill(owner, t_skill, t_dat
 	-- 1. 공통 변수
 	local power_rate = t_skill['power_rate']
 	local target_type = t_skill['target_type']
+	local pre_delay = t_skill['pre_delay']
 	local status_effect_type = t_skill['status_effect_type']
+	local status_effect_value = t_skill['status_effect_value']
 	local status_effect_rate = t_skill['status_effect_rate']
+	local skill_type = t_skill['type']
 	local tar_x = t_data.x
 	local tar_y = t_data.y
 	local target = t_data.target
@@ -93,5 +96,5 @@ function SkillMeleeHack_Specific:makeSkillInstnceFromSkill(owner, t_skill, t_dat
     local comeback_speed = t_skill['val_2'] or 1500
 	local skill_id = t_skill['id']
 
-    SkillMeleeHack_Specific:makeSkillInstnce(owner, power_rate, target_type, status_effect_type, status_effect_rate, tar_x, tar_y, target, move_speed, comeback_speed, skill_id)
+    SkillMeleeHack_Specific:makeSkillInstnce(move_speed, comeback_speed, skill_id, owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
 end

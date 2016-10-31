@@ -239,7 +239,7 @@ end
 -- function makeSkillInstnce
 -- @param missile_res 
 -------------------------------------
-function SkillExplosion:makeSkillInstnce(missile_res, target_count, range, jump_res, ...)
+function SkillExplosion:makeSkillInstnce(missile_res, jump_res, target_count, range, ...)
 	-- 1. 스킬 생성
     local skill = SkillExplosion(missile_res)
 
@@ -264,9 +264,11 @@ function SkillExplosion:makeSkillInstnceFromSkill(owner, t_skill, t_data)
     local owner = owner
 	
 	-- 1. 공통 변수
-    local power_rate = t_skill['power_rate']
+	local power_rate = t_skill['power_rate']
 	local target_type = t_skill['target_type']
+	local pre_delay = t_skill['pre_delay']
 	local status_effect_type = t_skill['status_effect_type']
+	local status_effect_value = t_skill['status_effect_value']
 	local status_effect_rate = t_skill['status_effect_rate']
 	local skill_type = t_skill['type']
 	local tar_x = t_data.x
@@ -274,10 +276,10 @@ function SkillExplosion:makeSkillInstnceFromSkill(owner, t_skill, t_data)
 	local target = t_data.target
 
 	-- 2. 특수 변수
-    local range = t_skill['val_1']
-	local target_count = t_skill['val_2']
     local missile_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
 	local jump_res = t_skill['res_2']
+    local range = t_skill['val_1']
+	local target_count = t_skill['val_2']
 
-    SkillExplosion:makeSkillInstnce(missile_res, target_count, range, jump_res, owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target)
+    SkillExplosion:makeSkillInstnce(missile_res, jump_res, range, target_count, owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
 end

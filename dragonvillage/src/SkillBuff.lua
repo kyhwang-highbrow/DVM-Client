@@ -129,20 +129,20 @@ end
 -------------------------------------
 -- function makeSkillInstnce
 -------------------------------------
-function SkillBuff:makeSkillInstnce(owner, missile_res, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target)
+function SkillBuff:makeSkillInstnce(missile_res, ...)
 	-- 1. 스킬 생성
     local skill = SkillBuff(missile_res)
 
 	-- 2. 초기화 관련 함수
-	skill:setParams(owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target)
-    skill:init_skill(s)
+	skill:setParams(...)
+    skill:init_skill()
 	skill:initState()
 
 	-- 3. state 시작 
     skill:changeState('idle')
 
     -- 4. Physics, Node, GameMgr에 등록
-    local world = owner.m_world
+    local world = skill.m_owner.m_world
     world.m_missiledNode:addChild(skill.m_rootNode, 0)
     world:addToUnitList(skill)
 end
@@ -154,9 +154,11 @@ function SkillBuff:makeSkillInstnceFromSkill(owner, t_skill, t_data)
     local owner = owner
 
 	-- 1. 공통 변수
-    local power_rate = t_skill['power_rate']
+	local power_rate = t_skill['power_rate']
 	local target_type = t_skill['target_type']
+	local pre_delay = t_skill['pre_delay']
 	local status_effect_type = t_skill['status_effect_type']
+	local status_effect_value = t_skill['status_effect_value']
 	local status_effect_rate = t_skill['status_effect_rate']
 	local skill_type = t_skill['type']
 	local tar_x = t_data.x
@@ -166,5 +168,5 @@ function SkillBuff:makeSkillInstnceFromSkill(owner, t_skill, t_data)
 	-- 2. 특수 변수
     local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
 	
-    SkillBuff:makeSkillInstnce(owner, missile_res, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target)
+    SkillBuff:makeSkillInstnce(missile_res, owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
 end

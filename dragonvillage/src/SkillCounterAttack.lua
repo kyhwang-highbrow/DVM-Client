@@ -128,7 +128,7 @@ end
 -------------------------------------
 function SkillCounterAttack:makeSkillInstnce(invoke_skill_id, duration, ...)
 	-- 1. 스킬 생성
-    local skill = SkillCounterAttack()
+    local skill = SkillCounterAttack(nil)
 
 	-- 2. 초기화 관련 함수
 	skill:setParams(...)
@@ -151,9 +151,11 @@ function SkillCounterAttack:makeSkillInstnceFromSkill(owner, t_skill, t_data)
     local owner = owner
 	
 	-- 1. 공통 변수
-    local power_rate = t_skill['power_rate']
+	local power_rate = t_skill['power_rate']
 	local target_type = t_skill['target_type']
+	local pre_delay = t_skill['pre_delay']
 	local status_effect_type = t_skill['status_effect_type']
+	local status_effect_value = t_skill['status_effect_value']
 	local status_effect_rate = t_skill['status_effect_rate']
 	local skill_type = t_skill['type']
 	local tar_x = t_data.x
@@ -164,5 +166,5 @@ function SkillCounterAttack:makeSkillInstnceFromSkill(owner, t_skill, t_data)
     local invoke_skill_id = t_skill['val_1']
 	local duration = t_skill['val_2']
 
-    SkillCounterAttack:makeSkillInstnce(invoke_skill_id, duration, owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target)
+    SkillCounterAttack:makeSkillInstnce(invoke_skill_id, duration, owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
 end
