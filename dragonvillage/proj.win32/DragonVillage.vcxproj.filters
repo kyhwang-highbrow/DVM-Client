@@ -931,6 +931,9 @@
     <None Include="..\src\ServerData_Deck.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_SettingPopup.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
