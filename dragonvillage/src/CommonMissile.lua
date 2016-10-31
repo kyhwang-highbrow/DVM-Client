@@ -110,9 +110,9 @@ end
 -------------------------------------
 function CommonMissile:getDefaultDir()
     if self.m_owner.m_bLeftFormation then   
-		return 180
-    else                            
 		return 0
+    else                            
+		return 180
     end
 end
 
