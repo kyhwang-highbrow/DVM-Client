@@ -101,7 +101,7 @@ end
 -------------------------------------
 -- function open
 -------------------------------------
-function UIManager:open(ui, mode, bNotBlendBGLayer)
+function UIManager:open(ui, mode, bNotBlendBGLayer, z_order)
     local bNotBlendBGLayer = bNotBlendBGLayer or false
 
     if not isInstanceOf(ui, UI) then
@@ -120,23 +120,27 @@ function UIManager:open(ui, mode, bNotBlendBGLayer)
     
 
     local mode = mode or UIManager.NORMAL
+    local z_order = z_order
 
-    if (mode == UIManager.SCENE) then
-        self.m_uiLayer:addChild(ui.root, Z_ORDER_SCENE)
+    if (not z_order) then
+        if (mode == UIManager.SCENE) then
+            z_order = Z_ORDER_SCENE
 
-    elseif (mode == UIManager.NORMAL) then
-        self.m_uiLayer:addChild(ui.root, Z_ORDER_NORMAL)
+        elseif (mode == UIManager.NORMAL) then
+            z_order = Z_ORDER_NORMAL
 
-    elseif (mode == UIManager.POPUP) then
-        self.m_uiLayer:addChild(ui.root, Z_ORDER_POPUP)
+        elseif (mode == UIManager.POPUP) then
+            z_order = Z_ORDER_POPUP
 
-    elseif (mode == UIManager.TOOLTIP) then
-        self.m_uiLayer:addChild(ui.root, Z_ORDER_TOOL_TIP)
+        elseif (mode == UIManager.TOOLTIP) then
+            z_order = Z_ORDER_TOOL_TIP
 
-    elseif (mode == UIManager.LOADING) then
-        self.m_uiLayer:addChild(ui.root, Z_ORDER_LOADING)
+        elseif (mode == UIManager.LOADING) then
+            z_order = Z_ORDER_LOADING
         
+        end
     end
+    self.m_uiLayer:addChild(ui.root, z_order)
 
     -- 임시 터치 블록 영역 생성
     if (mode == UIManager.POPUP) or (mode == UIManager.LOADING) then
@@ -194,7 +198,9 @@ function UIManager:open(ui, mode, bNotBlendBGLayer)
             ui.vars['bgLayerColor'] = layerColor
 
             -- 엑션에 추가
-            ui:addAction(layerColor, UI_ACTION_TYPE_OPACITY, 0, 0.5)
+            local t_action_data = ui:addAction(layerColor, UI_ACTION_TYPE_OPACITY, 0, 0.5)
+            ui:doActionReset_(t_action_data)
+            ui:doAction_Indivisual(t_action_data)
         end
 
         if bNotBlendBGLayer then

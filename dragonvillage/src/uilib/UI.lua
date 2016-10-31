@@ -124,6 +124,8 @@ function UI:addAction(node, type, delay, duration)
 
     local t_action = {node=node, type=type, duration=duration, delay=delay, pos_x=node:getPositionX(), pos_y=node:getPositionY(), scale_x=node:getScaleX(), scale_y=node:getScaleY(), opacity=node:getOpacity()}
     table.insert(self.actions, t_action)
+
+    return t_action
 end
 
 -------------------------------------
@@ -135,28 +137,37 @@ function UI:doActionReset()
     end
 
     if self.actions then
-        local visibleSize = cc.Director:getInstance():getVisibleSize()
-
-        for i,v in ipairs(self.actions) do
-            if v.type  == UI_ACTION_TYPE_LEFT then
-                v.node:setPositionX(v.pos_x - visibleSize.width)
-            elseif v.type  == UI_ACTION_TYPE_RIGHT then
-                v.node:setPositionX(v.pos_x + visibleSize.width)
-            elseif v.type  == UI_ACTION_TYPE_TOP then
-                v.node:setPositionY(v.pos_y + visibleSize.height)
-            elseif v.type  == UI_ACTION_TYPE_BOTTOM then
-                v.node:setPositionY(v.pos_y - visibleSize.height)
-            elseif v.type == UI_ACTION_TYPE_SCALE then
-                v.node:setScale(0)
-            elseif v.type == UI_ACTION_TYPE_OPACITY then
-                v.node:setOpacity(0)
-            elseif v.type == UI_ACTION_TYPE_OPACITY_R then
-                v.node:setOpacity(255)
-            end
+        for _,t_action_data in ipairs(self.actions) do
+            self:doActionReset_(t_action_data)
         end
     end
 
     self.enable = false
+end
+
+-------------------------------------
+-- function doActionReset_
+-------------------------------------
+function UI:doActionReset_(t_action_data)
+    local visibleSize = cc.Director:getInstance():getVisibleSize()
+    local type = t_action_data['type']
+    local node = t_action_data['node']
+
+    if type == UI_ACTION_TYPE_LEFT then
+        node:setPositionX(t_action_data['pos_x'] - visibleSize['width'])
+    elseif type == UI_ACTION_TYPE_RIGHT then
+        node:setPositionX(t_action_data['pos_x'] + visibleSize['width'])
+    elseif type == UI_ACTION_TYPE_TOP then
+        node:setPositionY(t_action_data['pos_y'] + visibleSize['height'])
+    elseif type == UI_ACTION_TYPE_BOTTOM then
+        node:setPositionY(t_action_data['pos_y'] - visibleSize['height'])
+    elseif type == UI_ACTION_TYPE_SCALE then
+        node:setScale(0)
+    elseif type == UI_ACTION_TYPE_OPACITY then
+        node:setOpacity(0)
+    elseif type == UI_ACTION_TYPE_OPACITY_R then
+        node:setOpacity(255)
+    end
 end
 
 -------------------------------------
@@ -286,25 +297,8 @@ function UI:doAction_(is_reverse, complete_func, rate, no_action)
             end
         end
     else
-        for i,v in ipairs(self.actions) do
-            v.node:stopActionByTag(UI_ACTION_TAG)
-            if v.type  == UI_ACTION_TYPE_LEFT or v.type  == UI_ACTION_TYPE_RIGHT or v.type  == UI_ACTION_TYPE_TOP or v.type  == UI_ACTION_TYPE_BOTTOM then
-                local action = UI_MakeAction(v.delay, cc.MoveTo:create(v.duration * rate, cc.p(v.pos_x, v.pos_y)))
-                v.node:runAction( action )
-
-            elseif v.type == UI_ACTION_TYPE_SCALE then
-                local action = UI_MakeAction(v.delay, cc.ScaleTo:create(v.duration * rate, v.scale_x, v.scale_y))
-                v.node:runAction( action )                
-
-            elseif v.type == UI_ACTION_TYPE_OPACITY then
-                local action = UI_MakeAction(v.delay, cc.FadeTo:create(v.duration * rate, v.opacity))
-                v.node:runAction( action )
-
-            elseif v.type == UI_ACTION_TYPE_OPACITY_R then
-                local action = UI_MakeAction(v.delay, cc.FadeTo:create(v.duration * rate, v.opacity))
-                v.node:runAction( action )
-
-            end
+        for _,t_action_data in ipairs(self.actions) do
+            self:doAction_Indivisual(t_action_data, rate)
         end
     end
 
@@ -316,6 +310,38 @@ function UI:doAction_(is_reverse, complete_func, rate, no_action)
     self.root:runAction( sequence_action )
 
     self.enable = false
+end
+
+-------------------------------------
+-- function doAction_Indivisual
+-------------------------------------
+function UI:doAction_Indivisual(t_action_data, rate)
+    local rate = (rate or 1)
+    local visibleSize = cc.Director:getInstance():getVisibleSize()
+    local type = t_action_data['type']
+    local node = t_action_data['node']
+    local delay = t_action_data['delay']
+    local duration = t_action_data['duration']
+
+    node:stopActionByTag(UI_ACTION_TAG)
+
+    if isExistValue(type, UI_ACTION_TYPE_LEFT, UI_ACTION_TYPE_RIGHT, UI_ACTION_TYPE_TOP, UI_ACTION_TYPE_BOTTOM) then
+        local action = UI_MakeAction(delay, cc.MoveTo:create(duration * rate, cc.p(t_action_data['pos_x'], t_action_data['pos_y'])))
+        node:runAction( action )
+
+    elseif type == UI_ACTION_TYPE_SCALE then
+        local action = UI_MakeAction(delay, cc.ScaleTo:create(duration * rate, t_action_data['scale_x'], t_action_data['scale_y']))
+        node:runAction( action )                
+
+    elseif type == UI_ACTION_TYPE_OPACITY then
+        local action = UI_MakeAction(delay, cc.FadeTo:create(duration * rate, t_action_data['opacity']))
+        node:runAction( action )
+
+    elseif type == UI_ACTION_TYPE_OPACITY_R then
+        local action = UI_MakeAction(delay, cc.FadeTo:create(duration * rate, t_action_data['opacity']))
+        node:runAction( action )
+
+    end
 end
 
 -------------------------------------
