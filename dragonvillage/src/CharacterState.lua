@@ -97,6 +97,10 @@ function Character.st_attack(owner, dt)
         owner.m_animator:setEventHandler(attack_cb)
 
         -- 캐스팅 게이지
+        if owner.m_castingUI then
+            owner.m_castingUI:stopAllActions()
+        end
+
         if owner.m_castingSpeechVisual then
             owner.m_castingSpeechVisual:changeAni('success', false)
             owner.m_castingSpeechVisual:registerScriptLoopHandler(function() owner.m_castingNode:setVisible(false) end)
@@ -148,6 +152,14 @@ function Character.st_casting(owner, dt)
         -- 캐스팅 게이지
         if owner.m_castingNode then
             owner.m_castingNode:setVisible(true)
+
+            if owner.m_castingUI then
+                owner.m_castingUI:stopAllActions()
+                owner.m_castingUI:runAction(cc.RepeatForever:create(cc.Sequence:create(
+                    cc.DelayTime:create(1),
+                    cc.JumpBy:create(0.2, cc.p(0, 0), 20, 1)
+                )))
+            end
 
             if owner.m_castingSpeechVisual then
                 owner.m_castingSpeechVisual:changeAni('base_appear', false)

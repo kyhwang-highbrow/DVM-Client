@@ -289,6 +289,8 @@ end
 -- @brief duration 시간동안만 timeScale을 변경시킴
 -------------------------------------
 function SceneGame:setTimeScaleAction(timeScale, duration)
+    if timeScale == 0 then return end
+
     self:setTimeScale(timeScale)
 
     self.m_timerTimeScale = duration * timeScale

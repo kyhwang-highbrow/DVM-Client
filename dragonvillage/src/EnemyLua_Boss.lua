@@ -44,26 +44,6 @@ function EnemyLua_Boss:initScript(pattern_script_name)
     end
 end
 
--------------------------------------
--- function doAttack
--------------------------------------
-function EnemyLua_Boss:doAttack(x, y)
-    local basic_skill_id = self.m_reservedSkillId
-    
-    local b_run_skill = self:doSkill(basic_skill_id, nil, x, y)
-
-    -- 지정된 스킬이 발동되지 않았을 경우 기본 스킬 발동
-    if (not b_run_skill) then
-        basic_skill_id = self.m_charTable['skill_basic']
-        self:doSkill(basic_skill_id, nil, x, y)
-    end
-
-    -- 예약된 스킬 정보 초기화
-    self.m_reservedSkillId = nil
-    self.m_reservedSkillCastTime = 0
-end
-
-
 EnemyLua_Boss.st_attack = PARENT.st_attack
 
 -------------------------------------
@@ -204,7 +184,7 @@ end
 -- @param idx
 -------------------------------------
 function EnemyLua_Boss:doPattern(pattern)
-    cclog('EnemyLua_Boss:doPattern pattern = ' .. pattern)
+    --cclog('EnemyLua_Boss:doPattern pattern = ' .. pattern)
     local l_str = seperate(pattern, ';')
 
     local type = l_str[1]
@@ -215,15 +195,12 @@ function EnemyLua_Boss:doPattern(pattern)
     if (type == 'a') then
         self.m_patternAtkIdx = value_1
 
+        -- 에니메이션 변경
+        self.m_tStateAni['attack'] = self:getAttackAnimationName(self.m_patternAtkIdx)
+
         -- 스킬 예약
         local skill_id = self.m_charTable['skill_' .. self.m_patternAtkIdx]
         self:reserveSkill(skill_id)
-
-        --cclog('EnemyLua_Boss:doPattern skill_id = ' .. skill_id)
-        --cclog('EnemyLua_Boss:doPattern cast_time = ' .. cast_time)
-
-        -- 에니메이션 변경
-        self.m_tStateAni['attack'] = self:getAttackAnimationName(self.m_patternAtkIdx)
 
         if self.m_reservedSkillCastTime > 0 then
             self:changeState('casting')

@@ -30,6 +30,7 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         -- @ 예약된 skill 정보
         m_reservedSkillId = 'number',
         m_reservedSkillCastTime = 'number',
+        m_reservedSkillAniEventTime = 'number', -- 스킬 애니메이션에서의 attack 이벤트 시간
 
         -- @ target
         m_targetChar = 'Character',
@@ -43,6 +44,8 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_castingNode = '',
         m_castingGauge = '',
         m_castingEffect = '',
+
+        m_castingUI = '',
         m_castingMarkGauge = '',
         m_castingSpeechVisual = '',
 
@@ -200,7 +203,7 @@ end
 function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 
     if (not attacker.m_activityCarrier) then
-        cclog('attacker.m_activityCarrier nil')
+        --cclog('attacker.m_activityCarrier nil')
         return
     end
 
@@ -359,7 +362,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
             end
 
             -- 일시적인 슬로우 처리
-            g_gameScene:setTimeScaleAction(0.2, 0.5)
+            g_gameScene:setTimeScaleAction(0.2, 0.3)
 
             self:changeState('attackDelay')
         end
@@ -873,15 +876,18 @@ function Character:makeHPGauge(hp_ui_offset)
 
     -- casting
     do
-        local ui = UI()
-        ui:load('enemy_skill_speech.ui')
-
-        self.m_castingNode = ui.root
+        self.m_castingNode = cc.Node:create()
         self.m_castingNode:setDockPoint(cc.p(0.5, 0.5))
         self.m_castingNode:setAnchorPoint(cc.p(0.5, 0.5))
         self.m_castingNode:setVisible(false)
         self.m_world.m_worldNode:addChild(self.m_castingNode, 6)
 
+
+        local ui = UI()
+        ui:load('enemy_skill_speech.ui')
+        self.m_castingNode:addChild(ui.root)
+
+        self.m_castingUI = ui.root
         self.m_castingMarkGauge = ui.vars['markGauge']
         self.m_castingSpeechVisual = ui.vars['speechVisual']
 
@@ -908,9 +914,9 @@ function Character:makeHPGauge(hp_ui_offset)
         progress:setDockPoint(cc.p(0.5,0.5))
         progress:setPercentage(0)
         progress:setPosition(0, -7)
-                
-        self.m_castingGauge = progress
         self.m_castingNode:addChild(progress)
+
+        self.m_castingGauge = progress
     end
 end
 
@@ -1422,10 +1428,20 @@ end
 function Character:reserveSkill(skill_id)
     if not skill_id then return end
 
+    local t_skill = self:getSkillTable(skill_id)
     local cast_time = self:getCastTimeFromSkillID(skill_id)
+    local event_time = 0
 
+    local ani = self.m_tStateAni['attack']
+    local eventList = self.m_animator:getEventList(ani, 'attack')
+    
+    if eventList[1] then
+        event_time = eventList[1]['frames'] or 0
+    end
+    
     self.m_reservedSkillId = skill_id
     self.m_reservedSkillCastTime = cast_time
+    self.m_reservedSkillAniEventTime = event_time
 end
 
 -------------------------------------

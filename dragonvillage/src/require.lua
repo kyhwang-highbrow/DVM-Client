@@ -60,6 +60,7 @@ local t_module = {
     'Camera_Lobby',
     'CameraTouchHandler_Lobby',
     'Camera_LobbySwipe',
+    'GameCamera',
     'ValidationDragon',
     'TableViewExtension',
     'StatusEffectHelper',

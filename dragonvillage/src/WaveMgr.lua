@@ -198,7 +198,9 @@ function WaveMgr.changeCameraOption(self, t_data)
     end
 
     local t_data = t_data or {}
-    self.m_world:changeCameraOption(t_data['scale'], t_data['pos_x'], t_data['pos_y'])
+    self.m_world:changeCameraOption(t_data)
+
+    self.m_world.m_gameCamera:setHomeInfo(t_data)
 end
 
 -------------------------------------

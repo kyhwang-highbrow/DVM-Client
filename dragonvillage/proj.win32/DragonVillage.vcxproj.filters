@@ -910,6 +910,9 @@
     <None Include="..\src\UI_NetworkLoading.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\GameCamera.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\UI_DragonMgrInfo.lua">
       <Filter>lua</Filter>
     </None>

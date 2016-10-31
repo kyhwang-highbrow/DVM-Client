@@ -34,6 +34,8 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         m_gameState = '',
 
+        m_gameCamera = '',
+
         m_worldSize = '',
         m_worldScale = '',
         m_worldScaleRealtime = '',
@@ -55,6 +57,8 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         m_tamer = 'Tamer',
         m_bDoingTamerSkill = 'boolean',
+
+        m_currDragonSkill = '',
 
         -- 인게임 조작 UI 사용 관련
         m_bUseIngameUI = 'boolean',
@@ -131,6 +135,7 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
     self.m_worldScaleRealtime = 1
 
     self.m_gameState = GameState(self)
+    self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
 
     self.m_missileRange = {min_x=0-50, max_x = CRITERIA_RESOLUTION_X+50, min_y=-GAME_RESOLUTION_X/2, max_y=GAME_RESOLUTION_X/2}
 
@@ -346,8 +351,7 @@ function GameWorld:update(dt)
 
     self.m_gameState:update(dt)
 
-    --self.m_worldLayer:setPosition(-self.m_tamer.pos.x * self.m_worldScaleRealtime, -self.m_tamer.pos.y* self.m_worldScaleRealtime)
-    --self.m_worldLayer:setScale(0.8)
+    self.m_gameCamera:update(dt)
 
     for char,l_str in pairs(self.m_lPassiveEffect) do
         self:makePassiveStartEffect(char, l_str)
@@ -610,6 +614,8 @@ function GameWorld:addDragon(dragon, idx)
     self.m_lDragonList[idx] = dragon
 
     dragon:addListener('character_dead', self)
+    dragon:addListener('dragon_skill', self)
+    dragon:addListener('active_skill', self.m_gameState)
 end
 
 -------------------------------------
@@ -1078,9 +1084,9 @@ end
 -- @brief 전투영역 리턴
 -------------------------------------
 function GameWorld:getBattleZone(formation, immediately)
+    --cclog('GameWorld:getBattleZone formation = ' .. formation)
     local script = TABLE:loadJsonTable('formation')
-    --cclog(luadump(script))
-
+    
     local start_x = 40
     local end_x = 40 + (80 * 6)
 
@@ -1271,14 +1277,18 @@ end
 -------------------------------------
 -- function changeCameraOption
 -------------------------------------
-function GameWorld:changeCameraOption(scale, x, y, time)
-    local scale = (scale or 1)
-    local x = (x or 0)
-    local y = (y or 0)
+function GameWorld:changeCameraOption(tParam)
+    --[[
+    local tParam = tParam or {}
+
+    local scale = (tParam['scale'] or 1)
+    local x = (tParam['pos_x'] or 0)
+    local y = (tParam['pos_y'] or 0)
 
     local pos_x = -x * scale
     local pos_y = -y * scale
-    local time = (time or 1)
+    local time = (tParam['time'] or 1)
+    local cb = (tParam['cb'] or function() end)
 
     local node = g_gameScene.m_cameraLayer
     
@@ -1288,7 +1298,21 @@ function GameWorld:changeCameraOption(scale, x, y, time)
     local ease_action = cc.EaseIn:create(spawn_action, 2)
 
     node:stopAllActions()
-    node:runAction(ease_action)
+    node:runAction(cc.Sequence:create(
+        ease_action,
+        cc.CallFunc:create(cb)
+    ))
+    ]]--
+
+    local tParam = tParam or {}
+
+    local scale = (tParam['scale'] or 1)
+    local x = (tParam['pos_x'] or 0)
+    local y = (tParam['pos_y'] or 0)
+    local time = (tParam['time'] or 1)
+    local cb = (tParam['cb'] or function() end)
+
+    self.m_gameCamera:setAction(tParam)
 end
 
 -------------------------------------
@@ -1297,6 +1321,7 @@ end
 function GameWorld:onEvent(event_name, ...)
     if (event_name == 'character_dead') then    self:onEvent_character_dead(event_name, ...)
     elseif (event_name == 'change_wave') then   self:onEvent_change_wave(event_name, ...)
+    elseif (event_name == 'dragon_skill') then  self:onEvent_dragon_skill(event_name, ...)
     end
 end
 
@@ -1344,4 +1369,17 @@ function GameWorld:onEvent_change_wave(event_name, ...)
             char:healPercent(percent, b_make_effect)
         end
     end
+end
+
+-------------------------------------
+-- function onEvent_dragon_skill
+-- @brief 드래곤 스킬 사용
+-------------------------------------
+function GameWorld:onEvent_dragon_skill(event_name, ...)
+    local arg = {...}
+    local dragon = arg[1]
+
+    self.m_currDragonSkill = dragon
+
+    self.m_gameState:changeState(GAME_STATE_FIGHT_SKILL)
 end

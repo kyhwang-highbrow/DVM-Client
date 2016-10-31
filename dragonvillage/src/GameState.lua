@@ -7,7 +7,8 @@ GAME_STATE_START_2 = 3  -- 테이머 등장
 GAME_STATE_ENEMY_APPEAR = 99  -- 적 등장
 
 GAME_STATE_FIGHT = 100
-GAME_STATE_FIGHT_WAIT = 101
+GAME_STATE_FIGHT_SKILL = 101
+GAME_STATE_FIGHT_WAIT = 102
 
 -- 파이널 웨이브 연출
 GAME_STATE_FINAL_WAVE = 201
@@ -70,7 +71,7 @@ function GameState:update(dt)
     elseif (self.m_state == GAME_STATE_START_2) then    self:update_start2(dt)
     elseif (self.m_state == GAME_STATE_ENEMY_APPEAR) then self:update_enemy_appear(dt)
     elseif (self.m_state == GAME_STATE_FIGHT) then      self:update_fight(dt)
-
+    elseif (self.m_state == GAME_STATE_FIGHT_SKILL) then self:update_fight_skill(dt)
     elseif (self.m_state == GAME_STATE_FIGHT_WAIT) then self:update_fight_wait(dt)
 
     -- 마지막 웨이브 연출
@@ -205,46 +206,44 @@ function GameState:update_enemy_appear(dt)
         end
     end
 
-    if world.m_waveMgr:isEmptyDynamicWaveList() then
-        -- 모든 적들이 등장이 끝났는지 확인
-        if self.m_nAppearedEnemys == #world.m_tEnemyList then
+    -- 모든 적들이 등장이 끝났는지 확인
+    if world.m_waveMgr:isEmptyDynamicWaveList() and self.m_nAppearedEnemys >= #world.m_tEnemyList then
 
-            -- 전투 최초 시작시
-            if world.m_waveMgr:isFirstWave() then
-                world:dispatch('game_start')
-                world:buffActivateAtStartup()
-                world.m_inGameUI:doAction()
-            end
-
-            -- 웨이브 알림
-            do
-                local waveNoti = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
-                waveNoti:changeAni('wave', false)
-                g_gameScene.m_containerLayer:addChild(waveNoti.m_node)
-
-                local waveNum = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
-                waveNum:setVisual('tag', tostring(world.m_waveMgr.m_currWave))
-                waveNoti.m_node:bindVRP('number', waveNum.m_node)
-                
-                local maxWaveNum = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
-                maxWaveNum:setVisual('tag', tostring(world.m_waveMgr.m_maxWave))
-                waveNoti.m_node:bindVRP('max_number', maxWaveNum.m_node)
-
-                local duration = waveNoti:getDuration()
-                waveNoti:runAction(cc.Sequence:create(
-                    cc.DelayTime:create(duration),
-                    cc.CallFunc:create(function()
-                        self:fight()
-                        self:changeState(GAME_STATE_FIGHT)
-                    end),
-                    cc.RemoveSelf:create()
-                ))
-            end
-
-            self:changeState(GAME_STATE_FIGHT_WAIT)
+        -- 전투 최초 시작시
+        if world.m_waveMgr:isFirstWave() then
+            world:dispatch('game_start')
+            world:buffActivateAtStartup()
+            world.m_inGameUI:doAction()
         end
-    end
 
+        -- 웨이브 알림
+        do
+            local waveNoti = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
+            waveNoti:changeAni('wave', false)
+            g_gameScene.m_containerLayer:addChild(waveNoti.m_node)
+
+            local waveNum = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
+            waveNum:setVisual('tag', tostring(world.m_waveMgr.m_currWave))
+            waveNoti.m_node:bindVRP('number', waveNum.m_node)
+                
+            local maxWaveNum = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
+            maxWaveNum:setVisual('tag', tostring(world.m_waveMgr.m_maxWave))
+            waveNoti.m_node:bindVRP('max_number', maxWaveNum.m_node)
+
+            local duration = waveNoti:getDuration()
+            waveNoti:runAction(cc.Sequence:create(
+                cc.DelayTime:create(duration),
+                cc.CallFunc:create(function()
+                    self:fight()
+                    self:changeState(GAME_STATE_FIGHT)
+                end),
+                cc.RemoveSelf:create()
+            ))
+        end
+
+        self:changeState(GAME_STATE_FIGHT_WAIT)
+    end
+    
     -- 웨이브 매니져 업데이트
     if (not world.m_bDoingTamerSkill) then
         world.m_waveMgr:update(dt)
@@ -278,6 +277,29 @@ function GameState:update_fight(dt)
         for _,dragon in pairs(world.m_lDragonList) do
             dragon:updateActiveSkillCoolTime(dt)
         end
+    end
+end
+
+-------------------------------------
+-- function update_fight_skill
+-------------------------------------
+function GameState:update_fight_skill(dt)
+    local dragon = self.m_world.m_currDragonSkill
+    local timeScale = 0.1
+    
+    if (self.m_stateTimer == 0) then
+        g_currScene:setTimeScale(timeScale)
+        
+        self.m_world.m_gameCamera:setTarget(dragon, {time = timeScale / 8})
+    end
+
+    if (self.m_stateTimer > timeScale / 1.5) then
+        g_currScene:setTimeScale(1)
+        self.m_world.m_gameCamera:reset()
+
+        dragon:changeState('skillAttack2')
+
+        self:changeState(GAME_STATE_FIGHT)
     end
 end
 
@@ -372,7 +394,8 @@ function GameState:update_success(dt)
         -- 모든 적들을 죽임
         world:killAllEnemy()
 
-        world:setWaitAllCharacter(false) -- 포즈 연출을 위해 wait에서 해제
+        --world:setWaitAllCharacter(false) -- 포즈 연출을 위해 wait에서 해제
+
         for i,dragon in ipairs(world.m_participants) do
             if (dragon.m_bDead == false) then
                 dragon:killStateDelegate()
@@ -442,7 +465,7 @@ function GameState:changeState(state)
          self.m_world:setWaitAllCharacter(true)
     end
 
-    if (self.m_state == GAME_STATE_FIGHT) then
+    if (self.m_state == GAME_STATE_FIGHT or self.m_state == GAME_STATE_FIGHT_SKILL) then
         self.m_world:setWaitAllCharacter(false)
     end
 end
@@ -628,6 +651,10 @@ function GameState:onEvent(event_name, ...)
     -- 적군이 전투 위치로 도착
     elseif (event_name == 'enemy_appear_done') then
         self.m_nAppearedEnemys = self.m_nAppearedEnemys + 1
+
+    -- 액티브 스킬 사용 이벤트
+    elseif (event_name == 'active_skill') then
+        self.m_world.m_gameCamera:reset()
     
     end
 end

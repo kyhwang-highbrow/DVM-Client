@@ -204,7 +204,6 @@ end
 -- @return boolean
 -------------------------------------
 function Entity:changeState(state, forced)
-
     -- 지정되지 않은 상태일 경우
     if not self.m_tStateFunc[state] then
         error(string.format('"%s" can not be found.', state))
@@ -224,20 +223,6 @@ function Entity:changeState(state, forced)
         self.m_stateTimer = 0
         changed = true
     end
-
-    --[[
-    if changed then
-        -- 이전 상태 Exit 콜백함수 호출
-        if self.m_tStateExitCB and self.m_tStateExitCB[self.m_prevState] then
-            self.m_tStateExitCB[self.m_prevState](self)
-        end
-
-        -- 현재 상태 Enter 콜백함수 호출
-        if self.m_tStateEnterCB and self.m_tStateEnterCB[self.m_state] then
-            self.m_tStateEnterCB[self.m_state](self)
-        end
-    end
-    --]]
 
     return changed
 end

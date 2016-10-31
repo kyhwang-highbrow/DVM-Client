@@ -103,8 +103,8 @@ function Hero:initState()
 
     --
     self:addState('skillPrepare', Hero.st_skillPrepare, 'skill_appear', true)
-    self:addState('skillIdle', Hero.st_skillIdle, 'skill_idle', true)
-    self:addState('skillAttack', Hero.st_skillAttack, 'skill_idle', true)
+    self:addState('skillAttack', Hero.st_skillAttack, 'skill_appear', true)
+    self:addState('skillAttack2', Hero.st_skillAttack2, 'skill_idle', false)
     self:addState('skillDisappear', Hero.st_skillDisappear, 'skill_disappear', false)
     --
 
@@ -181,26 +181,23 @@ function Hero.st_skillPrepare(owner, dt)
         local active_skill_id = owner:getSkillID('active')
         
         owner:reserveSkill(active_skill_id)
-        
-        --[[
-        owner:addAniHandler(function()
-            owner:changeState('skillIdle')
-        end)
-        --]]
     end
-end
-
--------------------------------------
--- function st_skillIdle
--------------------------------------
-function Hero.st_skillIdle(owner, dt)
-
 end
 
 -------------------------------------
 -- function st_skillAttack
 -------------------------------------
 function Hero.st_skillAttack(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        -- 이벤트
+        owner:dispatch('dragon_skill', owner)
+    end
+end
+
+-------------------------------------
+-- function st_skillAttack2
+-------------------------------------
+function Hero.st_skillAttack2(owner, dt)
     if (owner.m_stateTimer == 0) then
         local active_skill_id = owner:getSkillID('active')
         local table_dragon_skill = TABLE:get('dragon_skill')
@@ -448,6 +445,8 @@ function Hero:makeHPGauge(hp_ui_offset)
     self.m_castingNode = ui.vars['atkGauge']
     self.m_castingGauge = ui.vars['atkGauge']
 
+    self.m_castingGauge:setPercentage(0)
+
     self.m_world.m_worldNode:addChild(self.m_hpNode, 5)
 
     self.m_infoUI = ui
@@ -608,7 +607,8 @@ function Hero:initActiveSkillCoolTime()
     local t_skill = table_skill[active_skil_id]
 
     self.m_activeSkillCoolTime = tonumber(t_skill['cooldown'])
-    self.m_activeSkillTimer = 0
+    --self.m_activeSkillTimer = 0
+    self.m_activeSkillTimer = 100
 end
 
 -------------------------------------
