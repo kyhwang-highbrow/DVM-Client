@@ -48,6 +48,14 @@ function UserData:getInstance()
 end
 
 -------------------------------------
+-- function clearServerDataFile
+-------------------------------------
+function UserData:clearServerDataFile()
+    os.remove(self:getMasterFileName())
+    os.remove(self:getUserDataFile())
+end
+
+-------------------------------------
 -- function loadMasterFile
 -------------------------------------
 function UserData:loadMasterFile()

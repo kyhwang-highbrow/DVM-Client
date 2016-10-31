@@ -82,7 +82,12 @@ function ServerData:saveServerDataFile()
     return true
 end
 
-
+-------------------------------------
+-- function clearServerDataFile
+-------------------------------------
+function ServerData:clearServerDataFile()
+    os.remove(self:getServerDataSaveFileName())
+end
 
 
 -------------------------------------

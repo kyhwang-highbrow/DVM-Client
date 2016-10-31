@@ -59,7 +59,7 @@ function UI_EditBoxPopup:initUI()
     -- ended
     -- return
     vars['editBox']:registerScriptEditBoxHandler(function(event)
-        cclog('### event ' .. event)
+        --cclog('### event ' .. event)
     end)
 
     --vars['editBox']:openKeyboard()

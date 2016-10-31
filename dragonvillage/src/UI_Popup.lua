@@ -41,7 +41,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Popup:init(popup_type, msg, ok_btn_cb, cancel_btn_cb)
+function UI_Popup:init(popup_type, msg, ok_btn_cb, cancel_btn_cb, z_order)
     self.m_popupType = popup_type
     self.m_msg = msg
     self.m_cbOKBtn = ok_btn_cb
@@ -92,7 +92,7 @@ function UI_Popup:init(popup_type, msg, ok_btn_cb, cancel_btn_cb)
 
     self:initUIComponent()
 
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.POPUP, false, z_order)
     self:openPopup()
 
     self:doActionReset()
@@ -262,7 +262,13 @@ function UI_Popup:makeOButton(x, y)
             return
         end
 
-        self:closePopup(self.m_cbOKBtn)
+        if self.m_cbOKBtn then
+            self.m_cbOKBtn()
+        end
+
+        self:close()
+
+        --self:closePopup(self.m_cbOKBtn)
     end)
 
     return node
@@ -288,7 +294,13 @@ function UI_Popup:makeXButton(x, y)
             return
         end
 
-        self:closePopup(self.m_cbCancelBtn)
+        if self.m_cbCancelBtn then
+            self.m_cbCancelBtn()
+        end
+
+        self:close()
+
+        --self:closePopup(self.m_cbCancelBtn)
     end)
 
     return node
@@ -318,8 +330,8 @@ end
 -------------------------------------
 -- function MakeSimplePopup
 -------------------------------------
-function MakeSimplePopup(type, msg, ok_btn_cb, cancel_btn_cb)
-    local popup = UI_Popup(type, msg, ok_btn_cb, cancel_btn_cb)
+function MakeSimplePopup(type, msg, ok_btn_cb, cancel_btn_cb, z_order)
+    local popup = UI_Popup(type, msg, ok_btn_cb, cancel_btn_cb, z_order)
     --popup.m_cbOKBtn = ok_btn_cb
     --popup.m_cbCancelBtn = cancel_btn_cb
     --popup:setMessage(msg)
