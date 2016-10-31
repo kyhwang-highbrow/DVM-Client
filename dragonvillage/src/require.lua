@@ -23,6 +23,7 @@ local t_module = {
     'fixed_constant',
     'Constant',
     'ConstantForArt',
+	'ConstantIngame',
     'ConstantDragonEvolution',
     'ConstantDragonGrade',
     'ConstantAttribute',

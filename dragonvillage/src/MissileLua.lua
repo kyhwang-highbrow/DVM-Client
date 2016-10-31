@@ -172,7 +172,6 @@ end
 
 -------------------------------------
 -- function lua_angle
--- @member m_value1 = 착탄 리소스
 -------------------------------------
 function MissileLua.lua_angle(owner)
     local pos_x = owner.pos.x
@@ -181,21 +180,23 @@ function MissileLua.lua_angle(owner)
     local duration = 0.7
     local target_x = (pos_x - 640)
     local target_y = (pos_y - 50)
-    local hight = 100
-    local loop = 1
+    
+	-- table에서 받아오는 값
+	local height = owner.m_value1
+	local explostion_size = owner.m_value2
+	local explostion_res = owner.m_value3
 
+    local loop = 1
     if (owner.m_target) then
-        target_x = owner.m_target.pos.x
-        target_y = owner.m_target.pos.y
+        target_x = owner.m_target.m_homePosX
+        target_y = owner.m_target.m_homePosY
     end
 
-    local action = cc.JumpTo:create(duration, cc.p(target_x, target_y), hight, loop)
+    local action = cc.JumpTo:create(duration, cc.p(target_x, target_y), height, loop)
 
     local function finish_func()
-        local res = owner.m_value1
-        local attr_name = attributeNumToStr(owner.m_activityCarrier.m_attribute)
-        owner.m_world.m_missileFactory:makeInstantMissile(res, 'center_idle', target_x, target_y, 150, owner, {attr_name = attr_name})
-
+		local attr_name = attributeNumToStr(owner.m_activityCarrier.m_attribute)
+		owner.m_world.m_missileFactory:makeInstantMissile(explostion_res, 'center_idle', target_x, target_y, explostion_size, owner, {attr_name = attr_name})
         owner:changeState('dying')
     end
 

@@ -13,9 +13,9 @@ function CommonMissile_Shotgun:init(file_name, body)
 end
 
 -------------------------------------
--- function fireMissile
+-- function setMissile
 -------------------------------------
-function CommonMissile_Shotgun:fireMissile()
+function CommonMissile_Shotgun:setMissile()
     local t_option = {}
     
 	-- 수정 X
@@ -34,7 +34,7 @@ function CommonMissile_Shotgun:fireMissile()
 	-- 수정 가능 부분
 	-----------------------------------------------------------------------------------
 
-	t_option['dir'] = getDegreeFromChar(self.m_owner, self.m_target)
+	t_option['dir'] = getDegree(self.m_attackPos.x, self.m_attackPos.y, self.m_target.m_homePosX, self.m_target.m_homePosY)
 	t_option['rotation'] = t_option['dir']
 
     t_option['missile_res_name'] = self.m_missileRes -- 테이블에서 가져오나 하드코딩 가능 
@@ -61,13 +61,8 @@ function CommonMissile_Shotgun:fireMissile()
     t_option['effect']['motion_streak'] = self.m_motionStreakRes
 
 	-----------------------------------------------------------------------------------
-
-	-- 발사 
-    local world = self.m_world
-	for i = 1, t_option['count'] do
-		world.m_missileFactory:makeMissile(t_option)
-		t_option['dir'] = t_option['dir'] + t_option['dir_add']
-	end
+	
+	self.m_missileOption = t_option
 end
 
 -------------------------------------
@@ -76,6 +71,7 @@ end
 function CommonMissile_Shotgun:makeInstance(owner, t_skill)
 	local common_missile = CommonMissile_Shotgun()
 	common_missile:initCommonMissile(owner, t_skill)
+	common_missile:setMissile()
 	common_missile:changeState('attack')
 	
 	owner.m_world:addToUnitList(common_missile)

@@ -13,10 +13,10 @@ function CommonMissile_Straight:init(file_name, body)
 end
 
 -------------------------------------
--- function fireMissile
+-- function setMissile
 -------------------------------------
-function CommonMissile_Straight:fireMissile()
-    local t_option = {}
+function CommonMissile_Straight:setMissile()	
+	local t_option = {}
     
 	-- 수정 X
 	t_option['owner'] = self.m_owner
@@ -34,7 +34,7 @@ function CommonMissile_Straight:fireMissile()
 	-- 수정 가능 부분
 	-----------------------------------------------------------------------------------
 	
-	t_option['dir'] = getDegreeFromChar(self.m_owner, self.m_target) or self:getDefaultDir()
+	t_option['dir'] = getDegree(self.m_attackPos.x, self.m_attackPos.y, self.m_target.m_homePosX, self.m_target.m_homePosY) or self:getDefaultDir()
 	t_option['rotation'] = t_option['dir']
 
     t_option['missile_res_name'] = self.m_missileRes -- 테이블에서 가져오나 하드코딩 가능 
@@ -48,7 +48,6 @@ function CommonMissile_Straight:fireMissile()
 	
 	t_option['scale'] = 1
 	t_option['count'] = 1
-	t_option['period'] = 0
 	t_option['speed'] = 800
 	t_option['h_limit_speed'] = 2000
 	t_option['accel_delay'] = 0
@@ -61,12 +60,7 @@ function CommonMissile_Straight:fireMissile()
 
 	-----------------------------------------------------------------------------------
 
-	-- 발사 
-    local world = self.m_world
-	for i = 1, t_option['count'] do
-		world.m_missileFactory:makeMissile(t_option)
-		t_option['dir'] = t_option['dir'] + t_option['dir_add']
-	end
+	self.m_missileOption = t_option
 end
 
 -------------------------------------
@@ -75,6 +69,7 @@ end
 function CommonMissile_Straight:makeInstance(owner, t_skill)
 	local common_missile = CommonMissile_Straight()
 	common_missile:initCommonMissile(owner, t_skill)
+	common_missile:setMissile()
 	common_missile:changeState('attack')
 	
 	owner.m_world:addToUnitList(common_missile)

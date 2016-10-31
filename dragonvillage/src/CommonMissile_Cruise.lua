@@ -13,9 +13,9 @@ function CommonMissile_Cruise:init(file_name, body)
 end
 
 -------------------------------------
--- function fireMissile
+-- function setMissile
 -------------------------------------
-function CommonMissile_Cruise:fireMissile()
+function CommonMissile_Cruise:setMissile()
     local t_option = {}
     
 	-- 수정 X
@@ -34,7 +34,7 @@ function CommonMissile_Cruise:fireMissile()
 	-- 수정 가능 부분
 	-----------------------------------------------------------------------------------
 
-	t_option['dir'] = 90 --getDegreeFromChar(self.m_owner, self.m_target)
+	t_option['dir'] = 90 
 	t_option['rotation'] = t_option['dir']
 	
     t_option['missile_res_name'] = self.m_missileRes -- 테이블에서 가져오나 하드코딩 가능 
@@ -60,12 +60,20 @@ function CommonMissile_Cruise:fireMissile()
     t_option['effect']['motion_streak'] = self.m_motionStreakRes
 	
 	-----------------------------------------------------------------------------------
+	
+	self.m_missileOption = t_option
+end
 
-	-- 발사 
-    local world = self.m_world
-	for i = 1, t_option['count'] do
-		world.m_missileFactory:makeMissile(t_option)
-		t_option['dir'] = t_option['dir'] + t_option['dir_add']
+-------------------------------------
+-- function fireMissile
+-------------------------------------
+function CommonMissile_Cruise:fireMissile()
+	PARENT.fireMissile(self)
+
+	local t_option = self.m_missileOption
+	if (self.m_maxFireCnt) and (self.m_maxFireCnt > 1) then 
+		t_option['dir'] = t_option['dir'] + 10
+		t_option['rotation'] = t_option['dir']
 	end
 end
 
@@ -75,6 +83,7 @@ end
 function CommonMissile_Cruise:makeInstance(owner, t_skill)
 	local common_missile = CommonMissile_Cruise()
 	common_missile:initCommonMissile(owner, t_skill)
+	common_missile:setMissile()
 	common_missile:changeState('attack')
 	
 	owner.m_world:addToUnitList(common_missile)

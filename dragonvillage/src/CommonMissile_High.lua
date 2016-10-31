@@ -4,6 +4,9 @@ local PARENT = CommonMissile
 -- class CommonMissile_High
 -------------------------------------
 CommonMissile_High = class(PARENT, {
+		m_jumpHeight = 'num',
+		m_explosionSize = 'num',
+		m_explosionRes = 'str',
      })
 
 -------------------------------------
@@ -13,9 +16,21 @@ function CommonMissile_High:init(file_name, body)
 end
 
 -------------------------------------
--- function fireMissile
+-- function initCommonMissile
 -------------------------------------
-function CommonMissile_High:fireMissile()
+function CommonMissile_High:initCommonMissile(owner, t_skill)
+	PARENT.initCommonMissile(self, owner, t_skill)
+	
+	-- 특수 변수
+	self.m_jumpHeight = t_skill['val_1']
+	self.m_explosionSize = t_skill['val_2']
+	self.m_explosionRes  = t_skill['res_3']
+end
+
+-------------------------------------
+-- function setMissile
+-------------------------------------
+function CommonMissile_High:setMissile()
     local t_option = {}
     
 	-- 수정 X
@@ -49,7 +64,6 @@ function CommonMissile_High:fireMissile()
 	t_option['scale'] = 1
 	t_option['count'] = 1
 	--[[
-	t_option['period'] = 0
 	t_option['speed'] = 500
 	t_option['h_limit_speed'] = 900
 	t_option['accel'] = 1500
@@ -64,16 +78,13 @@ function CommonMissile_High:fireMissile()
     t_option['effect']['motion_streak'] = self.m_motionStreakRes
 
     t_option['lua_param'] = {}
-    t_option['lua_param']['value1'] = ''
+    t_option['lua_param']['value1'] = self.m_jumpHeight
+	t_option['lua_param']['value2'] = self.m_explosionSize
+	t_option['lua_param']['value3'] = self.m_explosionRes
 
 	-----------------------------------------------------------------------------------
 
-	-- 발사 
-    local world = self.m_world
-	for i = 1, t_option['count'] do
-		world.m_missileFactory:makeMissile(t_option)
-		t_option['dir'] = t_option['dir'] + t_option['dir_add']
-	end
+	self.m_missileOption = t_option
 end
 
 -------------------------------------
@@ -82,6 +93,7 @@ end
 function CommonMissile_High:makeInstance(owner, t_skill)
 	local common_missile = CommonMissile_High()
 	common_missile:initCommonMissile(owner, t_skill)
+	common_missile:setMissile()
 	common_missile:changeState('attack')
 	
 	owner.m_world:addToUnitList(common_missile)

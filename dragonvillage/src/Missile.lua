@@ -103,15 +103,13 @@ function Missile:initAnimator(file_name)
         self.m_animator = nil
     end
 
+    if (file_name == 'x') then
+        cclog('## 미사일 리소스가 없습니다. ## file_name : ' .. file_name)
+        file_name = 'res/missile/missile_developing.png'
+    end
+
     -- Animator 생성
     self.m_animator = MakeAnimator(file_name)
-
-    if (not self.m_animator.m_node) then
-        if file_name and (file_name ~= '') then
-            cclog('## 미사일 리소스가 없습니다.\n## file_name : ' .. file_name)
-            self.m_animator = MakeAnimator('res/missile/missile_developing.png')
-        end
-    end
 
     if self.m_animator.m_node then
         self.m_rootNode:addChild(self.m_animator.m_node)
@@ -471,21 +469,15 @@ function Missile:updateMissileOption(dt)
 		-- 지났는지 체크
 		local isPassedTarget = false
 		if (self.m_target.m_bLeftFormation) then
-			if (self.pos.x < self.m_target.pos.x - 10) then isPassedTarget = true end
+			if (self.pos.x < self.m_target.m_homePosX - 10) then isPassedTarget = true end
         else
-			if (self.pos.x > self.m_target.pos.x + 10) then isPassedTarget = true end
+			if (self.pos.x > self.m_target.m_homePosX + 10) then isPassedTarget = true end
         end
 
-		-- fade out 처리
+		-- fade out 처리, motion streak 는 fade out 불가..
 		if (isPassedTarget) and (not self.m_isFadeOut) then 
-			local fadeOutTime = 0.1
 			local removeMissile = cc.CallFunc:create(function() self:changeState('dying') end)
-			self.m_animator.m_node:runAction( cc.Sequence:create(cc.FadeOut:create(fadeOutTime), removeMissile))
-			
-			if self.m_motionStreak then 
-				--self.m_motionStreak:runAction( cc.FadeOut:create(fadeOutTime) )
-			end
-
+			self.m_animator.m_node:runAction( cc.Sequence:create(cc.FadeOut:create(MISSILE_FADE_OUT_TIME), removeMissile))
 			self.m_isFadeOut = true
 		end
 	end

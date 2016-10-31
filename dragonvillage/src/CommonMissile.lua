@@ -18,9 +18,13 @@ CommonMissile = class(PARENT, {
 		m_statusEffectRate = '',
 
 		m_targetType = '', -- target_type 필드, 상대 선택 규칙
+        m_attackPos = 'number', -- 캐릭터의 중심을 기준으로 실제 공격이 시작 지점
 
-		-- 캐릭터의 중심을 기준으로 실제 공격이 시작 지점
-        m_attackPos = 'number',
+		m_missileOption = 'table',
+		m_missileTimer = 'time',
+		m_missileFireTerm = 'time',
+		m_fireCnt = 'num',
+		m_maxFireCnt = 'num',
      })
 
 -------------------------------------
@@ -44,8 +48,11 @@ function CommonMissile:initCommonMissile(owner, t_skill)
 	self.m_statusEffectType = t_skill['status_effect_type']
 	self.m_statusEffectRate = t_skill['status_effect_rate']
 	self.m_targetType = t_skill['target_type']
+	self.m_maxFireCnt = t_skill['hit']
+	self.m_fireCnt = 0
 
 	self.m_target = self:getRandomTargetByRule()
+	self.m_missileTimer = 0
 
 	self:initActvityCarrier()
 	self:initState()
@@ -155,18 +162,57 @@ function CommonMissile:initAttackPos()
 	self.m_attackPos = {x = pos_x, y = pos_y}
 end
 -------------------------------------
+-- function setMissile
+-------------------------------------
+function CommonMissile:setMissile()
+	error('KMS - 공용탄은 자식클래스에서 탄을 정의합니다.')
+end
+
+-------------------------------------
 -- function fireMissile
 -------------------------------------
 function CommonMissile:fireMissile()
-	error('KMS - 공용탄은 자식클래스에서 탄을 정의합니다.')
+    local world = self.m_world
+	local t_option = self.m_missileOption
+	
+	for i = 1, t_option['count'] do
+		world.m_missileFactory:makeMissile(t_option)
+		t_option['dir'] = t_option['dir'] + t_option['dir_add']
+	end
 end
 
 -------------------------------------
 -- function st_attack
 -------------------------------------
 function CommonMissile.st_attack(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		owner:fireMissile()
+	-- 1. missile timer 따로 계산
+	owner.m_missileTimer = owner.m_missileTimer + dt
+    
+	-- 2. state 시작시 처리 작업
+	if (owner.m_stateTimer == 0) then
+		-- 1일 경우 바로 발사후 종료
+		if (owner.m_maxFireCnt == 1) then
+			owner:fireMissile()
+
+		-- 값이 있을 경우 기준 시간을 나눠서 간격을 구한다.
+		elseif (owner.m_maxFireCnt) then 
+			owner.m_missileFireTerm = FIRE_LIMIT_TIME / owner.m_maxFireCnt
+			owner.m_missileTimer = owner.m_missileFireTerm
+		end
+	end
+
+	-- 3. 발사 
+	if (owner.m_missileFireTerm) then 
+		if (owner.m_missileTimer >= owner.m_missileFireTerm) and (owner.m_maxFireCnt > owner.m_fireCnt) then
+			owner:fireMissile()
+			owner.m_missileTimer = owner.m_missileTimer - owner.m_missileFireTerm
+			owner.m_fireCnt = owner.m_fireCnt + 1
+		end
+	end
+	
+	
+	-- 4. 탈출 조건 : 기준 시간 경과 또는 발사수가 1
+	if (owner.m_stateTimer >= FIRE_LIMIT_TIME) or (owner.m_maxFireCnt == 1) then 
 		owner:changeState('dying')
         return true
     end
@@ -180,6 +226,7 @@ end
 function CommonMissile:makeInstance(owner, t_skill)
 	local common_missile = CommonMissile()
 	common_missile:initCommonMissile(owner, t_skill)
+	common_missile:setMissile()
 
 	owner.m_world:addToUnitList(common_missile)
     owner.m_world.m_worldNode:addChild(common_missile.m_rootNode)

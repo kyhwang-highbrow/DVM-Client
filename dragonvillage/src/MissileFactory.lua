@@ -59,7 +59,7 @@ function MissileFactory:makeMissileEffect(t_option, is_hero)
     local pos_x =            t_option['pos_x'] or 320
     local pos_y =            t_option['pos_y'] or 400
     local depth =            t_option['depth'] or 0
-    local sync_pos =         t_option['sync_pos'] or false
+    --local sync_pos =         t_option['sync_pos'] or false
     local visual =           t_option['visual'] or 'idle'
     local scale =            t_option['scale'] or 1
     local parent =           t_option['parent'] or GameMgr.m_missileNode
@@ -70,6 +70,8 @@ function MissileFactory:makeMissileEffect(t_option, is_hero)
     visual:setScale(scale)
 
     -- 따라가기
+	-- 사용하는 곳이 없음..
+	--[[ 
     if sync_pos and target then
         local offset_x = pos_x - target.pos.x
         local offset_y = pos_y - target.pos.y
@@ -79,6 +81,7 @@ function MissileFactory:makeMissileEffect(t_option, is_hero)
         end
         visual:scheduleUpdateWithPriorityLua(checkAction, 0)
     end
+	]]
 
     -- 재생 후 삭제
     local duation = visual:getDuration()
@@ -123,10 +126,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     local infection =        t_option['infection'] or nil
     local missile_type =     MISSILE_TYPE[t_option['missile_type']]
     local visual =           t_option['visual'] or nil
-    --local parent =           t_option['parent'] or GameMgr.m_missileNode
     local target =           t_option['target']
-    local sync_pos =         t_option['sync_pos'] or false
-    --local motion_streak =    t_option['motion_streak'] or nil 실 사용하는 곳에서 정의 .. 혼선이 있다.
     local rotate_time =      t_option['rotate_time'] or nil
     local angular_velocity = t_option['angular_velocity'] or nil
     local angular_velocity_time = t_option['angular_velocity_time'] or nil
@@ -134,6 +134,9 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     local effect =           t_option['effect']
     local lua_param =        t_option['lua_param']
 	local isFixedAttack =	 t_option['bFixedAttack'] or false
+    --local parent =           t_option['parent'] or GameMgr.m_missileNode
+    --local sync_pos =         t_option['sync_pos'] or false
+    --local motion_streak =    t_option['motion_streak'] or nil 실 사용하는 곳에서 정의 .. 혼선이 있다.
 
     local lua_missile = nil
 

@@ -549,7 +549,6 @@ function isCollision_Rect(x, y, target, range_x, range_y)
 	return (math_abs(target_x - x) < range_x) and (math_abs(target_y - y) < range_y)
 end
 
-
 -------------------------------------
 -- function addChild
 -- @brief addChild수행과 parent의 globalZOrder를 자식들이 따르도록 지정

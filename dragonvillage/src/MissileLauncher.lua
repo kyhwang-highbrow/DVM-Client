@@ -263,8 +263,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
     --    },
     ---------------------------------------------------
 
-    -- data
-    -- 위치 지정
+    -- 공격 위치
     local pos_x = owner.pos.x + attack_value['offset'][1]
     local pos_y = owner.pos.y + attack_value['offset'][2]
 
@@ -276,58 +275,57 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
     local physics_body = attack_value.body -- x, y, radius
     local speed = attack_value.speed or 0
 
+    local t_option = {}
+    t_option['movement'] =         attack_value.movement
+    t_option['missile_res_name'] = attack_value['res']
+    t_option['dir'] =              dir_add
+    t_option['rotation'] =         dir_add
+    t_option['pos_x'] =            pos_x
+    t_option['pos_y'] =            pos_y
+    t_option['speed'] =            speed
+    t_option['l_limit_speed'] =    attack_value.l_limit_speed
+    t_option['h_limit_speed'] =    attack_value.h_limit_speed
+    t_option['scale'] =               attack_value.scale
+    t_option['physics_body'] =     physics_body
+    t_option['attack_damage'] =    (not attack_value.nodamage) and (not attack_value.gold) and owner.m_activityCarrier
+    t_option['damage_rate'] =      attack_value.damage_rate or self.m_powerRate
+    t_option['accel'] =            attack_value.accel
+    t_option['accel_delay'] =      attack_value.accel_delay
+    t_option['delete_time'] =      attack_value.delete_time
+    t_option['vanish_time'] =      attack_value.vanish_time
+    t_option['explosion_time'] =   attack_value.explosion_time
+    t_option['explosion_time2'] =  attack_value.explosion_time2
+    t_option['explosion_time3'] =  attack_value.explosion_time3
+    t_option['reset_time'] =       attack_value.reset_time
+    t_option['reset_time_delay'] = attack_value.reset_time_delay
+    t_option['size_up_time'] =     attack_value.size_up_time
+    t_option['magnet_time'] =      attack_value.magnet_time
+    t_option['depth'] =            depth
+    t_option['infection'] =        attack_value.infection
+    t_option['missile_type'] =     attack_value.missile_type
+    t_option['visual'] =           attack_value.visual
+    t_option['gold'] =             attack_value.gold
+    t_option['motion_streak'] =    attack_value.motion_streak
+    t_option['rotate_time'] =      attack_value.rotate_time
+    t_option['angular_velocity'] = attack_value.angular_velocity
+    t_option['angular_velocity_time'] = attack_value.angular_velocity_time
+    t_option['value_1'] =          attack_value.value_1
+    t_option['object_key'] =       self.m_objectKey
+    t_option['effect'] =           attack_value['effect']
+    t_option['lua_param'] =        attack_value['lua_param']
+	t_option['bFixedAttack'] =	   attack_value['bFixedAttack']
 
-        local t_option = {}
-        t_option['movement'] =         attack_value.movement
-        t_option['missile_res_name'] = attack_value['res']
-        t_option['dir'] =              dir_add
-        t_option['rotation'] =         dir_add
-        t_option['pos_x'] =            pos_x
-        t_option['pos_y'] =            pos_y
-        t_option['speed'] =            speed
-        t_option['l_limit_speed'] =    attack_value.l_limit_speed
-        t_option['h_limit_speed'] =    attack_value.h_limit_speed
-        t_option['scale'] =               attack_value.scale
-        t_option['physics_body'] =     physics_body
-        t_option['attack_damage'] =    (not attack_value.nodamage) and (not attack_value.gold) and owner.m_activityCarrier
-        t_option['damage_rate'] =      attack_value.damage_rate or self.m_powerRate
-        t_option['accel'] =            attack_value.accel
-        t_option['accel_delay'] =      attack_value.accel_delay
-        t_option['delete_time'] =      attack_value.delete_time
-        t_option['vanish_time'] =      attack_value.vanish_time
-        t_option['explosion_time'] =   attack_value.explosion_time
-        t_option['explosion_time2'] =  attack_value.explosion_time2
-        t_option['explosion_time3'] =  attack_value.explosion_time3
-        t_option['reset_time'] =       attack_value.reset_time
-        t_option['reset_time_delay'] = attack_value.reset_time_delay
-        t_option['size_up_time'] =     attack_value.size_up_time
-        t_option['magnet_time'] =      attack_value.magnet_time
-        t_option['depth'] =            depth
-        t_option['infection'] =        attack_value.infection
-        t_option['missile_type'] =     attack_value.missile_type
-        t_option['visual'] =           attack_value.visual
-        t_option['gold'] =             attack_value.gold
-        t_option['motion_streak'] =    attack_value.motion_streak
-        t_option['rotate_time'] =      attack_value.rotate_time
-        t_option['angular_velocity'] = attack_value.angular_velocity
-        t_option['angular_velocity_time'] = attack_value.angular_velocity_time
-        t_option['value_1'] =          attack_value.value_1
-        t_option['object_key'] =       self.m_objectKey
-        t_option['effect'] =           attack_value['effect']
-        t_option['lua_param'] =        attack_value['lua_param']
-		t_option['bFixedAttack'] =	   attack_value['bFixedAttack']
+    if attack_value.accel_delay_fix then
+        t_option['accel_delay'] = t_option['accel_delay'] or 0
+        t_option['accel_delay'] = t_option['accel_delay'] - time
+    end
 
-        if attack_value.accel_delay_fix then
-            t_option['accel_delay'] = t_option['accel_delay'] or 0
-            t_option['accel_delay'] = t_option['accel_delay'] - time
-        end
+    -- 런쳐 옵션 체크
+    if self.m_launcherOption then
+        self:aplyLauncherOption(t_option)
+    end
 
-        -- 런쳐 옵션 체크
-        if self.m_launcherOption then
-            self:aplyLauncherOption(t_option)
-        end
-
-        self.m_world.m_missileFactory:makeMissile(t_option, self.m_bHeroMissile)
+    self.m_world.m_missileFactory:makeMissile(t_option, self.m_bHeroMissile)
 end
 
 

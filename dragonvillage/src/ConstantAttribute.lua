@@ -5,6 +5,7 @@ ATTR_FIRE = 3
 ATTR_LIGHT = 4
 ATTR_DARK = 5
 
+ATTR_LAST = ATTR_DARK
 
 T_ATTR_LIST = {}
 T_ATTR_LIST[ATTR_EARTH] = 'earth'
@@ -36,7 +37,7 @@ function initAttributeSynastry()
             t_attr_synastry[attr1] = {}
         end
 
-        for i=1, 6 do
+        for i=1, ATTR_LAST do
             local key = string.format('strong_type_%.2d', i)
             local attr2 = t_line[key]
 

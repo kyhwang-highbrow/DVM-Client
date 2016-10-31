@@ -13,9 +13,9 @@ function CommonMissile_Release:init(file_name, body)
 end
 
 -------------------------------------
--- function fireMissile
+-- function setMissile
 -------------------------------------
-function CommonMissile_Release:fireMissile()
+function CommonMissile_Release:setMissile()
     local t_option = {}
     
 	-- 수정 X
@@ -48,7 +48,6 @@ function CommonMissile_Release:fireMissile()
 	
 	t_option['scale'] = 1
 	t_option['count'] = 2
-	t_option['period'] = 0.2
 	t_option['speed'] = 100
 	t_option['accel'] = 2000
 	t_option['h_limit_speed'] = 2000
@@ -63,11 +62,19 @@ function CommonMissile_Release:fireMissile()
 
 	-----------------------------------------------------------------------------------
 
-	-- 발사 
-    local world = self.m_world
-	for i = 1, t_option['count'] do
-		world.m_missileFactory:makeMissile(t_option)
-		t_option['dir'] = t_option['dir'] + t_option['dir_add']
+	self.m_missileOption = t_option
+end
+
+-------------------------------------
+-- function fireMissile
+-------------------------------------
+function CommonMissile_Release:fireMissile()
+	PARENT.fireMissile(self)
+
+	local t_option = self.m_missileOption
+	if (self.m_fireCnt) and (self.m_fireCnt > 1) then 
+		t_option['dir'] = t_option['dir'] - 10
+		t_option['rotation'] = t_option['dir']
 	end
 end
 
@@ -77,6 +84,7 @@ end
 function CommonMissile_Release:makeInstance(owner, t_skill)
 	local common_missile = CommonMissile_Release()
 	common_missile:initCommonMissile(owner, t_skill)
+	common_missile:setMissile()
 	common_missile:changeState('attack')
 	
 	owner.m_world:addToUnitList(common_missile)
