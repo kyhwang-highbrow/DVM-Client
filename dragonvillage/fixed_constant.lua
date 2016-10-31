@@ -6,3 +6,6 @@ DEVELOPMENT_SEONG_GOO_KIM = false
 
 -- 김문성 버전
 DEVELOPMENT_KMS = false
+
+-- 김성진 버전
+DEVELOPMENT_KSJ = false
