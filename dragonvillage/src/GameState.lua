@@ -167,6 +167,7 @@ end
 -- function fight
 -------------------------------------
 function GameState:fight()
+    cclog('GameState:fight')
     -- 아군과 적군 전투 시작
     local world = self.m_world
 
@@ -194,7 +195,7 @@ function GameState:update_enemy_appear(dt)
     if (self.m_stateTimer == 0) then
         for i,dragon in ipairs(world.m_participants) do
             if (dragon.m_bDead == false) then
-                dragon:changeState('idle')
+                dragon:changeStateWithCheckHomePos('idle')
             end
         end
 
@@ -204,10 +205,9 @@ function GameState:update_enemy_appear(dt)
         if (enemy_count <= 0) and (dynamic_wave <= 0) then
             self:waveChange()
         end
-    end
-
+    
     -- 모든 적들이 등장이 끝났는지 확인
-    if world.m_waveMgr:isEmptyDynamicWaveList() and self.m_nAppearedEnemys >= #world.m_tEnemyList then
+    elseif world.m_waveMgr:isEmptyDynamicWaveList() and self.m_nAppearedEnemys >= #world.m_tEnemyList then
 
         -- 전투 최초 시작시
         if world.m_waveMgr:isFirstWave() then
@@ -394,7 +394,7 @@ function GameState:update_success(dt)
         -- 모든 적들을 죽임
         world:killAllEnemy()
 
-        --world:setWaitAllCharacter(false) -- 포즈 연출을 위해 wait에서 해제
+        world:setWaitAllCharacter(false) -- 포즈 연출을 위해 wait에서 해제
 
         for i,dragon in ipairs(world.m_participants) do
             if (dragon.m_bDead == false) then
