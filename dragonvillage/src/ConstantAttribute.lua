@@ -98,6 +98,10 @@ function getAttrAdvantageList(attr)
         initAttributeSynastry()
     end
 
+    if (not t_attr_advantage[attr]) then
+        error('attr : ' .. attr)
+    end
+
     return t_attr_advantage[attr]
 end
 
@@ -108,6 +112,10 @@ end
 function getAttrDisadvantageList(attr)
     if (not t_attr_disadvantage ) then
         initAttributeSynastry()
+    end
+
+    if (not t_attr_disadvantage[attr]) then
+        error('attr : ' .. attr)
     end
 
     return t_attr_disadvantage[attr]
