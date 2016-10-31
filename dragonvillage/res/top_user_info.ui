@@ -232,7 +232,7 @@
 			};
 			type = 'Scale9Sprite';
 			ui_name = '';
-			x = 72.000000;
+			x = 8.000000;
 			y = -15.000000;
 			dock_point = { 0.500000; 1.000000; };
 			anchor_point = { 0.500000; 1.000000; };
@@ -324,7 +324,7 @@
 			};
 			type = 'Scale9Sprite';
 			ui_name = '';
-			x = 242.000000;
+			x = 178.000000;
 			y = -15.000000;
 			dock_point = { 0.500000; 1.000000; };
 			anchor_point = { 0.500000; 1.000000; };
@@ -390,7 +390,7 @@
 			};
 			type = 'Scale9Sprite';
 			ui_name = '';
-			x = 412.000000;
+			x = 348.000000;
 			y = -66.000000;
 			dock_point = { 0.500000; 1.000000; };
 			anchor_point = { 0.500000; 1.000000; };
@@ -482,7 +482,7 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = 410.000000;
+			x = 346.000000;
 			y = -15.000000;
 			dock_point = { 0.500000; 1.000000; };
 			anchor_point = { 0.500000; 1.000000; };
@@ -547,6 +547,30 @@
 			enable = true;
 			normal = 'ui/btn/sub_mail_0101.png';
 			selected = 'ui/btn/sub_mail_0102.png';
+			disable = '';
+			image_type = 0;
+		};
+		[11] =
+		{
+			type = 'Button';
+			ui_name = '';
+			x = 466.000000;
+			y = 320.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 80;
+			height = 80;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'settingBtn';
+			enable = true;
+			normal = 'ui/btn/sub_setting_0101.png';
+			selected = 'ui/btn/sub_setting_0102.png';
 			disable = '';
 			image_type = 0;
 		};

@@ -88,4 +88,4 @@ passive_add_attack,passive,돌풍 소환,x,x,x,false,0,-1,0,0,0,0,0,0,0,0,0,0,0,
 passive_hp_up_20,passive,생명력 증가,x,x,x,false,0,-1,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,전방 배치 시 체력 20% 증가,(파워 드래곤 4성 패시브) 개인
 passive_def_up_20,passive,방어력 증가,x,x,x,false,0,-1,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,지 속성 아군의 방어력 {def}% 증가,(파워 드래곤 6성 패시브) 전체
 passive_hit_rate_up_25,passive,적중률 증가,x,x,x,false,0,-1,0,0,0,0,0,0,0,25,0,0,0,0,0,0,0,0,0,x,x,x,x,적중률 {hit_rate}% 증가,(고대 신룡 4성 패시브) 개인
-barrier_protection,barrier,보호막,res/effect/effect_protection/effect_protection.vrp,x,x,false,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
+barrier_protection,barrier,보호막,res/effect/effect_protection/effect_protection.vrp,x,x,false,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
