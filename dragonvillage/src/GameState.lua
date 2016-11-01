@@ -39,6 +39,10 @@ GameState = class(IEventListener:getCloneClass(), {
 
         m_waveEffect = 'Animator',
         m_nextWaveDirectionType = 'string',
+
+        m_skillDescEffect = 'Animator',
+        m_skillNameLabel = 'cc.Label',
+        m_skillDescLabel = 'cc.Label',
     })
 
 -------------------------------------
@@ -54,6 +58,31 @@ function GameState:init(world)
     self.m_waveEffect = MakeAnimator('res/ui/a2d/ui_boss_warning/ui_boss_warning.vrp')
     self.m_waveEffect:setVisible(false)
     g_gameScene.m_containerLayer:addChild(self.m_waveEffect.m_node)
+
+    -- 스킬 설명
+    self.m_skillDescEffect = MakeAnimator('res/ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp')
+    self.m_skillDescEffect:setPosition(0, -200)
+    self.m_skillDescEffect:setVisual('group', 'skill')
+    self.m_skillDescEffect:setRepeat(false)
+    self.m_skillDescEffect:setVisible(false)
+    g_gameScene.m_containerLayer:addChild(self.m_skillDescEffect.m_node)
+
+    local titleNode = self.m_skillDescEffect.m_node:getSocketNode('skill_title')
+    local descNode = self.m_skillDescEffect.m_node:getSocketNode('skill_dsc')
+    
+    self.m_skillNameLabel = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 60, 3, cc.size(800, 200), 1, 1)
+    self.m_skillNameLabel:setAnchorPoint(cc.p(0.5, 0.5))
+	self.m_skillNameLabel:setDockPoint(cc.p(0, 0))
+	self.m_skillNameLabel:setColor(cc.c3b(84,244,87))
+    self.m_skillNameLabel:enableShadow(cc.c4b(0,0,0,255), 3, 0)
+    titleNode:addChild(self.m_skillNameLabel)
+
+    self.m_skillDescLabel = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 30, 3, cc.size(800, 200), 1, 1)
+    self.m_skillDescLabel:setAnchorPoint(cc.p(0.5, 0.5))
+	self.m_skillDescLabel:setDockPoint(cc.p(0, 0))
+	self.m_skillDescLabel:setColor(cc.c3b(220,220,220))
+    self.m_skillDescLabel:enableShadow(cc.c4b(0,0,0,255), 3, 0)
+    descNode:addChild(self.m_skillDescLabel)
 end
 
 -------------------------------------
@@ -284,8 +313,9 @@ end
 -- function update_fight_skill
 -------------------------------------
 function GameState:update_fight_skill(dt)
-    local dragon = self.m_world.m_currDragonSkill
+    local dragon = self.m_world.m_currFocusingDragon
     local timeScale = 0.1
+    local delayTime = 1.5
     
     if (self.m_stateTimer == 0) then
         g_currScene:setTimeScale(timeScale)
@@ -293,12 +323,25 @@ function GameState:update_fight_skill(dt)
         dragon.m_animator:changeAni('pose_1', false)
 
         local duration = dragon:getAniDuration()
-        dragon.m_animator:setTimeScale(duration / (timeScale * 1.5))
+        dragon.m_animator:setTimeScale(duration / (timeScale * delayTime))
         
         self.m_world.m_gameCamera:setTarget(dragon, {time = timeScale / 8})
+
+        -- 스킬 이름 및 설명 문구를 표시
+        do
+            local active_skill_id = dragon:getSkillID('active')
+            local t_skill = TABLE:get('dragon_skill')[active_skill_id]
+
+            self.m_skillDescEffect.m_node:setFrame(0)
+            self.m_skillDescEffect:setVisible(true)
+            self.m_skillDescEffect:setTimeScale(duration / (timeScale * delayTime))
+
+            self.m_skillNameLabel:setString(Str(t_skill['t_name']))
+            self.m_skillDescLabel:setString(Str(t_skill['desc'], t_skill['val_1'], t_skill['val_2'], t_skill['val_3']))
+        end
     end
 
-    if (self.m_stateTimer >= timeScale * 1.5) then
+    if (self.m_stateTimer >= timeScale * delayTime) then
         g_currScene:setTimeScale(1)
 
         dragon:changeState('skillAttack2')

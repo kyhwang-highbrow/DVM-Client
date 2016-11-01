@@ -58,7 +58,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_tamer = 'Tamer',
         m_bDoingTamerSkill = 'boolean',
 
-        m_currDragonSkill = '',
+        m_currFocusingDragon = '',
 
         -- 인게임 조작 UI 사용 관련
         m_bUseIngameUI = 'boolean',
@@ -1379,7 +1379,7 @@ function GameWorld:onEvent_dragon_skill(event_name, ...)
     local arg = {...}
     local dragon = arg[1]
 
-    self.m_currDragonSkill = dragon
-
+    self.m_currFocusingDragon = dragon
+    
     self.m_gameState:changeState(GAME_STATE_FIGHT_SKILL)
 end
