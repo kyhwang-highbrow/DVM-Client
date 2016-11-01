@@ -629,7 +629,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'arraySprite';
+				lua_name = 'sortOrderSprite';
 				file_name = 'ui/a_dialogue_0102_2.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -653,7 +653,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = 'arrayBtn';
+			lua_name = 'sortOrderBtn';
 			enable = true;
 			normal = 'ui/btn/sub_0101.png';
 			selected = 'ui/btn/sub_0102.png';
@@ -745,7 +745,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'typeFriendshipBtn';
+				lua_name = 'sortFriendshipBtn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -809,7 +809,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'typeRarityBtn';
+				lua_name = 'sortRarityBtn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -873,7 +873,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'typeGradeBtn';
+				lua_name = 'sortGradeBtn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -937,7 +937,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'typeLvBtn';
+				lua_name = 'sortLvBtn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1001,7 +1001,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'typeAttrBtn';
+				lua_name = 'sortAttrBtn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1065,7 +1065,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'typeAtkBtn';
+				lua_name = 'sortAtkBtn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1129,7 +1129,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'typeDefBtn';
+				lua_name = 'sortDefBtn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1193,7 +1193,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'typeHpBtn';
+				lua_name = 'sortHpBtn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1376,7 +1376,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = false;
-			lua_name = 'typeNode';
+			lua_name = 'sortNode';
 		};
 		[5] =
 		{
@@ -1435,7 +1435,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = 'typeBtn';
+			lua_name = 'sortBtnBtn';
 			enable = true;
 			normal = 'ui/btn/sub_0101.png';
 			selected = 'ui/btn/sub_0102.png';

@@ -1,0 +1,32 @@
+{
+    "pattern_boss_queenssnake":
+    [        
+        [
+            "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1"
+        ]
+    ],
+	
+    "hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":50,
+                "pattern":
+                [
+                    "w;2", "a;3", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;2"
+                ]
+            },
+			
+            {
+                "hp_percent":30,
+                "pattern":
+                [
+                    "m;RB14;300", "a;2", "a;2", "a;2", "w;3", "a;3"
+                ]
+            }
+        ]
+
+    }
+}

@@ -940,6 +940,10 @@
     <None Include="..\src\UI_Network.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_SettingPopup.lua" />
+    <None Include="..\src\ConstantIngame.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
