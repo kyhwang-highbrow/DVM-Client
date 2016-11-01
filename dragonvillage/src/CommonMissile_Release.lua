@@ -1,5 +1,6 @@
 local PARENT = CommonMissile
 
+local DIR_
 -------------------------------------
 -- class CommonMissile_Release
 -------------------------------------
@@ -34,7 +35,7 @@ function CommonMissile_Release:setMissile()
 	-- 수정 가능 부분 
 	-----------------------------------------------------------------------------------
 	
-	t_option['dir'] = 315 
+	t_option['dir'] = 0
 	t_option['rotation'] = t_option['dir']
 
     t_option['missile_res_name'] = self.m_missileRes -- 테이블에서 가져오나 하드코딩 가능 
@@ -53,7 +54,7 @@ function CommonMissile_Release:setMissile()
 	t_option['h_limit_speed'] = 2000
 	t_option['accel_delay'] = 0.5
     t_option['angular_velocity'] = 0
-	t_option['dir_add'] = 90
+	--t_option['dir_add'] = 90
 
 	-- "effect" : {}
     t_option['effect'] = {}
@@ -67,15 +68,28 @@ end
 
 -------------------------------------
 -- function fireMissile
+-- @breif 여기서는 재정의 해서 사용
 -------------------------------------
 function CommonMissile_Release:fireMissile()
-	PARENT.fireMissile(self)
-
+	local world = self.m_world
 	local t_option = self.m_missileOption
-	if (self.m_fireCnt) and (self.m_fireCnt > 1) then 
-		t_option['dir'] = t_option['dir'] - 10
-		t_option['rotation'] = t_option['dir']
+	
+	local dir_set = nil 
+
+	if self.m_owner.m_bLeftFormation then
+		dir_set = {225, 135}
+    else
+        dir_set = {405, 315}
+    end
+
+	-- 같은 시점에서의 반복 공격
+	for i = 1, t_option['count'] do
+		t_option['dir'] = (dir_set[i] + (math_pow(-1, i) * 10 * self.m_fireCnt))
+		world.m_missileFactory:makeMissile(t_option)
 	end
+
+	-- 상태이상 체크
+	StatusEffectHelper:doStatusEffectByType(self.m_target, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
 end
 
 -------------------------------------

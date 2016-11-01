@@ -63,13 +63,6 @@ function CommonMissile_High:setMissile()
 	
 	t_option['scale'] = 1
 	t_option['count'] = 1
-	--[[
-	t_option['speed'] = 500
-	t_option['h_limit_speed'] = 900
-	t_option['accel'] = 1500
-	t_option['accel_delay'] = 0
-    t_option['angular_velocity'] = 0
-	]]
 	t_option['dir_add'] = 0
 	
 

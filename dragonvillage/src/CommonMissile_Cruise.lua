@@ -48,7 +48,6 @@ function CommonMissile_Cruise:setMissile()
 	
 	t_option['scale'] = 1
 	t_option['count'] = 1
-	t_option['period'] = 0.2
 	t_option['speed'] = 200
 	t_option['h_limit_speed'] = 2000
 	t_option['accel'] = 5000
@@ -70,9 +69,17 @@ end
 function CommonMissile_Cruise:fireMissile()
 	PARENT.fireMissile(self)
 
+	local add_dir = nil 
+
+	if self.m_owner.m_bLeftFormation then
+		add_dir = 10
+    else
+        add_dir = -10
+    end
+
 	local t_option = self.m_missileOption
 	if (self.m_maxFireCnt) and (self.m_maxFireCnt > 1) then 
-		t_option['dir'] = t_option['dir'] + 10
+		t_option['dir'] = t_option['dir'] + add_dir
 		t_option['rotation'] = t_option['dir']
 	end
 end
@@ -84,6 +91,7 @@ function CommonMissile_Cruise:makeInstance(owner, t_skill)
 	local common_missile = CommonMissile_Cruise()
 	common_missile:initCommonMissile(owner, t_skill)
 	common_missile:setMissile()
+	common_missile.m_maxFireCnt = 3
 	common_missile:changeState('attack')
 	
 	owner.m_world:addToUnitList(common_missile)

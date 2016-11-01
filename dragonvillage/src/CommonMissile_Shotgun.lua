@@ -48,7 +48,6 @@ function CommonMissile_Shotgun:setMissile()
 	
 	t_option['scale'] = 0.5
 	t_option['count'] = 5
-	t_option['period'] = 0
 	t_option['speed'] = 500
 	t_option['h_limit_speed'] = 900
 	t_option['accel'] = 1500
