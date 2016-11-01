@@ -57,6 +57,28 @@ function ServerData_Dragons:getDragonDataFromUid(unique_id)
     return nil
 end
 
+-------------------------------------
+-- function applyDragonData
+-- @brief
+-------------------------------------
+function ServerData_Dragons:applyDragonData(t_dragon)
+    local l_dragons = self.m_serverData:get('dragons')
+    local unique_id = t_dragon['id']
+
+    local idx = nil
+
+    for i,v in pairs(l_dragons) do
+        if (unique_id == v['id']) then
+            idx = i
+            break
+        end
+    end
+
+    if idx then
+        self.m_serverData:applyServerData(t_dragon, 'dragons', idx)
+    end
+end
+
 
 T_DRAGON_SORT = {}
 
