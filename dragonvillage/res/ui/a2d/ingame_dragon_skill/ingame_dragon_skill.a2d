@@ -1,0 +1,160 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)ingame_dragon_skill.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+		{
+			"name":"skill_dsc",
+			"apply":true,
+			"res_id":""
+		},
+		{
+			"name":"skill_title",
+			"apply":true,
+			"res_id":""
+		}
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"skill",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'ingame_dragon_skill_bg.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sY":0.000000, "alpha":0
+									},
+									{
+										"frame":5
+									},
+									{
+										"frame":7, "sY":1.100000
+									},
+									{
+										"frame":9
+									},
+									{
+										"frame":35
+									},
+									{
+										"frame":37, "sY":1.100000
+									},
+									{
+										"frame":39, "sY":0.000000, "alpha":0
+									},
+									{
+										"frame":44, "sY":0.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_title'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-1200.000000, "pY":25.000000, "alpha":0
+									},
+									{
+										"frame":5, "pX":-1200.000000, "pY":25.000000, "alpha":0
+									},
+									{
+										"frame":7, "pX":-200.000000, "pY":25.000000
+									},
+									{
+										"frame":9, "pX":-35.000000, "pY":25.000000
+									},
+									{
+										"frame":35, "pX":35.000000, "pY":25.000000
+									},
+									{
+										"frame":37, "pX":200.000000, "pY":25.000000
+									},
+									{
+										"frame":39, "pX":1200.000000, "pY":25.000000, "alpha":0
+									},
+									{
+										"frame":44, "pX":1200.000000, "pY":25.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_dsc'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":1200.000000, "pY":-45.000000, "alpha":0
+									},
+									{
+										"frame":5, "pX":1200.000000, "pY":-45.000000, "alpha":0
+									},
+									{
+										"frame":7, "pX":200.000000, "pY":-45.000000
+									},
+									{
+										"frame":9, "pX":25.000000, "pY":-45.000000
+									},
+									{
+										"frame":35, "pX":-25.000000, "pY":-45.000000
+									},
+									{
+										"frame":37, "pX":-200.000000, "pY":-45.000000
+									},
+									{
+										"frame":39, "pX":-1200.000000, "pY":-45.000000, "alpha":0
+									},
+									{
+										"frame":44, "pX":-1200.000000, "pY":-45.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}
