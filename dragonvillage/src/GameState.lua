@@ -62,8 +62,7 @@ function GameState:init(world)
     -- 스킬 설명
     self.m_skillDescEffect = MakeAnimator('res/ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp')
     self.m_skillDescEffect:setPosition(0, -200)
-    self.m_skillDescEffect:setVisual('group', 'skill')
-    self.m_skillDescEffect:setRepeat(false)
+    self.m_skillDescEffect:changeAni('skill', false)
     self.m_skillDescEffect:setVisible(false)
     g_gameScene.m_containerLayer:addChild(self.m_skillDescEffect.m_node)
 
@@ -315,16 +314,19 @@ end
 function GameState:update_fight_skill(dt)
     local dragon = self.m_world.m_currFocusingDragon
     local timeScale = 0.1
-    local delayTime = 1.5
+    local delayTime = 1
     
     if (self.m_stateTimer == 0) then
+        -- 슬로우
         g_currScene:setTimeScale(timeScale)
 
+        -- 드래곤 승리 애니메이션
         dragon.m_animator:changeAni('pose_1', false)
 
         local duration = dragon:getAniDuration()
         dragon.m_animator:setTimeScale(duration / (timeScale * delayTime))
         
+        -- 카메라 줌인
         self.m_world.m_gameCamera:setTarget(dragon, {time = timeScale / 8})
 
         -- 스킬 이름 및 설명 문구를 표시
@@ -339,14 +341,27 @@ function GameState:update_fight_skill(dt)
             self.m_skillNameLabel:setString(Str(t_skill['t_name']))
             self.m_skillDescLabel:setString(Str(t_skill['desc'], t_skill['val_1'], t_skill['val_2'], t_skill['val_3']))
         end
+
+        -- 스킬 사용 직전 이펙트
+        do
+            local animator = MakeAnimator('res/effect/effect_skillcasting_dragon/effect_skillcasting_dragon.vrp')
+            animator:changeAni('idle', false)
+            g_gameScene.m_containerLayer:addChild(animator.m_node)
+
+            local duration = animator:getDuration() * delayTime
+            animator:setTimeScale(duration / (timeScale * delayTime))
+            animator:addAniHandler(function() animator:runAction(cc.RemoveSelf:create()) end)
+        end
     end
 
     if (self.m_stateTimer >= timeScale * delayTime) then
         g_currScene:setTimeScale(1)
 
+        -- 드래곤 스킬 애니메이션
         dragon:changeState('skillAttack2')
         dragon.m_animator:setTimeScale(1)
 
+        -- 카메라 줌아웃
         self.m_world.m_gameCamera:reset()
         
         self:changeState(GAME_STATE_FIGHT)

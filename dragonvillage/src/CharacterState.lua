@@ -212,13 +212,14 @@ function Character.st_casting(owner, dt)
         end
     end
 
-    if owner.m_castingGauge then
-        local percentage = owner.m_stateTimer / owner.m_reservedSkillCastTime * 100
-        owner.m_castingGauge:setPercentage(percentage)
+    local percentage = owner.m_stateTimer / owner.m_reservedSkillCastTime * 100
 
-        if owner.m_castingMarkGauge then
-            owner.m_castingMarkGauge:setPercentage(percentage)
-        end
+    if owner.m_castingGauge then
+        owner.m_castingGauge:setPercentage(percentage)
+    end
+
+    if owner.m_castingMarkGauge then
+        owner.m_castingMarkGauge:setPercentage(percentage)
     end
 end
 
