@@ -11,6 +11,7 @@
 		"bgm_battle":   {"res":"sound/bgm/bgm_battle.mp3"}
         "result_fail":   {"res":"sound/bgm/result_fail.mp3"}
         "result_success":   {"res":"sound/bgm/result_success.mp3"}
+        "temp":         		    {"res":"sound/ui_button.mp3"}
 	},
 	
 	

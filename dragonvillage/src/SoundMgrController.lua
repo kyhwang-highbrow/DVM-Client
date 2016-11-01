@@ -171,8 +171,15 @@ function SoundMgr:setBgmOnOff(is_on)
         self:stopBGM()
     else
         local sound = self.m_prevBgm
-        SoundMgr:playBGM('temp')
-        SoundMgr:playBGM(sound)
+
+        if (not sound) then
+            sound = self.m_currBgm
+        end
+
+        if sound then
+            SoundMgr:playBGM('temp')
+            SoundMgr:playBGM(sound)
+        end
     end
 end
 

@@ -61,6 +61,15 @@ function ServerData:loadServerDataFile()
         f:close()
     else
         self.m_rootTable = {}
+
+        self.m_rootTable['local'] = {}
+
+        -- 기본 설정 데이터
+        self.m_rootTable['local']['lowResMode'] = false
+        self.m_rootTable['local']['bgm'] = true
+        self.m_rootTable['local']['sfx'] = true
+        self.m_rootTable['local']['fps'] = false
+
         self:saveServerDataFile()
     end
 end
@@ -129,11 +138,33 @@ function ServerData:get(...)
             end
             container = container[key]
         else
-            if container[key] then
+            if (container[key] ~= nil) then
                 return clone(container[key])
             end
         end
     end
 
     return nil
+end
+
+
+-------------------------------------
+-- function applySetting
+-------------------------------------
+function ServerData:applySetting()
+    -- fps 출력
+    local fps = self:get('local', 'fps')
+    cc.Director:getInstance():setDisplayStats(fps)
+
+    -- 저사양모드
+    local lowResMode = self:get('local', 'lowResMode')
+    setLowEndMode(lowResMode)
+
+    -- 배경음
+    local bgm = self:get('local', 'bgm')
+    SoundMgr:setBgmOnOff(bgm)
+
+    -- 효과음
+    local sfx = self:get('local', 'sfx')
+    SoundMgr:setSfxOnOff(sfx)
 end

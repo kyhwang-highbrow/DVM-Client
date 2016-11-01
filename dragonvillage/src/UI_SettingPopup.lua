@@ -76,10 +76,18 @@ function UI_SettingPopup:initButton()
     vars['setTab']:registerScriptTapHandler(function() self:click_tap('set') end)
     vars['devTab']:registerScriptTapHandler(function() self:click_tap('dev') end)
 
-    -- 정보(info)
-    do
+    do -- 정보(info)
         vars['clearBtn']:registerScriptTapHandler(function() self:click_clearBtn() end)
-        
+    end
+
+    do -- 설정(set)
+        vars['lowResModeBtn']:registerScriptTapHandler(function() self:click_lowResModeBtn() end)
+        vars['bgmBtn']:registerScriptTapHandler(function() self:click_bgmBtn() end)
+        vars['sfxBtn']:registerScriptTapHandler(function() self:click_sfxBtn() end)
+    end
+
+    do -- 개발(dev)
+        vars['fpsBtn']:registerScriptTapHandler(function() self:click_fpsBtn() end)
     end
 
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
@@ -101,15 +109,19 @@ function UI_SettingPopup:refresh()
 
     if (self.m_currTap == 'info') then
         self:refresh_infoTap()
+
     elseif (self.m_currTap == 'set') then
+        self:refresh_setTap()
 
     elseif (self.m_currTap == 'dev') then
+        self:refresh_devTap()
 
     end
 end
 
 -------------------------------------
 -- function refresh_infoTap
+-- @brief "정보" 탭
 -------------------------------------
 function UI_SettingPopup:refresh_infoTap()
     local vars = self.vars
@@ -123,12 +135,95 @@ function UI_SettingPopup:refresh_infoTap()
     vars['versionLabel']:setString(version_str)
 end
 
+-------------------------------------
+-- function refresh_setTap
+-- @brief "설정" 탭
+-------------------------------------
+function UI_SettingPopup:refresh_setTap()
+    local vars = self.vars
+
+    -- 저사양모드
+    if g_serverData:get('local', 'lowResMode') then
+        vars['lowResModeLabel']:setString('ON')
+    else
+        vars['lowResModeLabel']:setString('OFF')
+    end
+
+    -- 배경음
+    if g_serverData:get('local', 'bgm') then
+        vars['bgmLabel']:setString('ON')
+    else
+        vars['bgmLabel']:setString('OFF')
+    end
+
+    -- 효과음
+    if g_serverData:get('local', 'sfx') then
+        vars['sfxLabel']:setString('ON')
+    else
+        vars['sfxLabel']:setString('OFF')
+    end
+end
+
+-------------------------------------
+-- function refresh_devTap
+-- @brief "개발" 탭
+-------------------------------------
+function UI_SettingPopup:refresh_devTap()
+    local vars = self.vars
+
+    -- fps
+    if g_serverData:get('local', 'fps') then
+        vars['fpsLabel']:setString('ON')
+    else
+        vars['fpsLabel']:setString('OFF')
+    end
+end
 
 -------------------------------------
 -- function click_tap
 -------------------------------------
 function UI_SettingPopup:click_tap(tap_type)
     self.m_currTap = tap_type
+    self:refresh()
+end
+
+-------------------------------------
+-- function click_lowResModeBtn
+-------------------------------------
+function UI_SettingPopup:click_lowResModeBtn()
+    local value = g_serverData:get('local', 'lowResMode')
+    g_serverData:applyServerData(not value, 'local', 'lowResMode')
+    g_serverData:applySetting()
+    self:refresh()
+end
+
+-------------------------------------
+-- function click_bgmBtn
+-------------------------------------
+function UI_SettingPopup:click_bgmBtn()
+    local value = g_serverData:get('local', 'bgm')
+    g_serverData:applyServerData(not value, 'local', 'bgm')
+    g_serverData:applySetting()
+    self:refresh()
+end
+
+-------------------------------------
+-- function click_sfxBtn
+-------------------------------------
+function UI_SettingPopup:click_sfxBtn()
+    local value = g_serverData:get('local', 'sfx')
+    g_serverData:applyServerData(not value, 'local', 'sfx')
+    g_serverData:applySetting()
+    self:refresh()
+end
+
+-------------------------------------
+-- function click_fpsBtn
+-------------------------------------
+function UI_SettingPopup:click_fpsBtn()
+    local value = g_serverData:get('local', 'fps')
+    g_serverData:applyServerData(not value, 'local', 'fps')
+    g_serverData:applySetting()
     self:refresh()
 end
 
