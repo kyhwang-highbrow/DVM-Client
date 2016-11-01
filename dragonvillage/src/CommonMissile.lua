@@ -184,7 +184,7 @@ function CommonMissile:fireMissile()
 	end
 	
 	-- 상태이상 체크
-	StatusEffectHelper:doStatusEffectByType(self.m_targetChar, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
+	StatusEffectHelper:doStatusEffectByType(self.m_target, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
 end
 
 -------------------------------------
