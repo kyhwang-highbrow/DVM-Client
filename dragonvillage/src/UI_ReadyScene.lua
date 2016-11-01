@@ -7,6 +7,8 @@ UI_ReadyScene = class(PARENT,{
         m_stageID = 'number',
         m_lDeckDragonCard = 'UI_DragonCard',
         m_currSlotIdx = 'number',
+        m_selectEffect = 'cc.Sprite',
+        m_tableViewExt = 'TableViewExtension',
     })
 
 -------------------------------------
@@ -58,6 +60,11 @@ end
 -------------------------------------
 function UI_ReadyScene:initUI()
     self:init_dragonTableView()
+
+    self.m_selectEffect = cc.Sprite:create('res/ui/dragon_card/dragon_item_select.png')
+    self.m_selectEffect:setDockPoint(cc.p(0.5, 0.5))
+    self.m_selectEffect:setAnchorPoint(cc.p(0.5, 0.5))
+    self.m_selectEffect:retain()
 end
 
 -------------------------------------
@@ -73,6 +80,7 @@ end
 -------------------------------------
 function UI_ReadyScene:refresh()
     local stage_id = self.m_stageID
+    local vars = self.vars
 
     do -- 스테이지 이름
         local difficulty, chapter, stage = parseAdventureID(stage_id)
@@ -80,6 +88,21 @@ function UI_ReadyScene:refresh()
         local str = chapter_name .. Str(' {1}-{2}', chapter, stage)
         self.m_titleStr = str
         g_topUserInfo:setTitleString(str)
+    end
+
+    do -- 필요 활동력 표시
+        if (stage_id == 99999) then
+            self.vars['actingPowerLabel']:setString('0')
+        else
+            local table_drop = TABLE:get('drop')
+            local t_drop = table_drop[stage_id]
+
+            -- 'stamina' 추후에 타입별 stamina 사용 예정
+            -- local cost_type = t_drop['cost_type']
+            local cost_value = t_drop['cost_value']
+
+            vars['actingPowerLabel']:setString(cost_value)
+        end
     end
 
     self:refresh_deck()
@@ -127,6 +150,9 @@ function UI_ReadyScene:makeSettedDragonCard(t_dragon_data, idx)
     ui.vars['clickBtn']:registerScriptTapHandler(function()
         self:click_dragonCard(t_dragon_data)
     end)
+
+    -- 장착된 드래곤
+    self:refresh_dragonCard(true, t_dragon_data['id'])
 end
 
 -------------------------------------
@@ -142,6 +168,17 @@ function UI_ReadyScene:refresh_currSlotIdx()
             break
         end
     end
+
+    self.m_selectEffect:removeFromParent()
+    if self.m_currSlotIdx then
+        local node = self.vars['chNode' .. self.m_currSlotIdx]
+        if node then
+            node:addChild(self.m_selectEffect)
+            self.m_selectEffect:stopAllActions()
+            self.m_selectEffect:setOpacity(255)
+            self.m_selectEffect:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 0), cc.FadeTo:create(0.5, 255))))
+        end
+    end
 end
 
 -------------------------------------
@@ -152,7 +189,12 @@ function UI_ReadyScene:init_dragonTableView()
 
     local function create_func(item)
         local ui = item['ui']
+        local data = item['data']
         ui.root:setScale(0.9)
+
+        local unique_id = data['id']
+        local deck_idx = self:isSettedDragon(unique_id)
+        self:refresh_dragonCard(deck_idx, unique_id)
     end
 
     -- 드래곤 클릭 콜백 함수
@@ -169,7 +211,7 @@ function UI_ReadyScene:init_dragonTableView()
     table_view_ext:setItemInfo(g_dragonsData:getDragonsList())
     --table_view_ext:update()
 
-    --self.m_tableViewExt = table_view_ext
+    self.m_tableViewExt = table_view_ext
 
     table_view_ext:insertSortInfo('normal', T_DRAGON_SORT['normal'])
     table_view_ext:insertSortInfo('lv', T_DRAGON_SORT['lv'])
@@ -200,6 +242,9 @@ function UI_ReadyScene:click_dragonCard(t_dragon_data)
         self.m_lDeckDragonCard[deck_idx].root:removeFromParent()
         self.m_lDeckDragonCard[deck_idx] = nil
         self:refresh_currSlotIdx()
+
+        -- 체크표 해제
+        self:refresh_dragonCard(false, unique_id)
         return
     end
 
@@ -217,6 +262,10 @@ end
 -- function isSettedDragon
 -------------------------------------
 function UI_ReadyScene:isSettedDragon(unique_id)
+    if (not self.m_lDeckDragonCard) then
+        return false
+    end
+
     for i,v in pairs(self.m_lDeckDragonCard) do
         if (v.m_dragonData['id'] == unique_id) then
             return i
@@ -261,6 +310,40 @@ function UI_ReadyScene:click_startBtn()
         end
 
         self:checkChangeDeck(next_func)
+    end
+end
+
+-------------------------------------
+-- function refresh_dragonCard
+-- @brief 장착여부에 따른 카드 갱신
+-------------------------------------
+function UI_ReadyScene:refresh_dragonCard(is_setted, unique_id)
+    local item = self.m_tableViewExt.m_mapItem[unique_id]
+
+    if (not item) then
+        return
+    end
+
+    local ui = item['ui']
+
+    if (not ui) then
+        return
+    end
+
+    if is_setted then
+        if (not item['ready_icon']) then
+            local icon = cc.Sprite:create('res/ui/dragon_card/dragon_ready_icon.png')
+            icon:setDockPoint(cc.p(0.5, 0.5))
+            icon:setAnchorPoint(cc.p(0.5, 0.5))
+            ui.root:addChild(icon)
+            item['ready_icon'] = icon    
+        else
+            item['ready_icon']:setVisible(true)
+        end
+    else
+        if item['ready_icon'] then
+            item['ready_icon']:setVisible(false)
+        end
     end
 end
 
@@ -315,6 +398,14 @@ function UI_ReadyScene:checkChangeDeck(next_func)
     else
         next_func()
     end
+end
+
+-------------------------------------
+-- function close
+-------------------------------------
+function UI_ReadyScene:close()
+    self.m_selectEffect:release()
+    UI.close(self)
 end
 
 --@CHECK
