@@ -19,7 +19,7 @@ end
 -- function init_skill
 -------------------------------------
 function SkillMeleeHack_Specific:init_skill(move_speed, comeback_speed, skill_id)
-    PARENT.init_skill(self, move_speed, comeback_speed, skill_id)
+    PARENT.init_skill(self, move_speed, comeback_speed)
 	
 	-- 1. 멤버 변수
 	self.m_skillId = skill_id
