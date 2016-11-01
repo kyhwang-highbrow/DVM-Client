@@ -12,7 +12,6 @@ UI_SettingPopup = class(PARENT, {
 -------------------------------------
 function UI_SettingPopup:init()
     local vars = self:load('setting_popup.ui')
-    --UIManager:open(self, UIManager.POPUP, false, Z_ORDER_POPUP_TOP_USER_INFO + 1)
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정

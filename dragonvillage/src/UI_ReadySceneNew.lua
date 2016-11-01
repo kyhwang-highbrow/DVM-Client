@@ -42,7 +42,9 @@ function UI_ReadySceneNew:init(cb_start_button, stage_id)
     self.m_cbStartButton = cb_start_button
 
     local vars = self:load('ready_scene_02.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
+
+    self:sceneFadeInAction()
 
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ReadySceneNew')
 

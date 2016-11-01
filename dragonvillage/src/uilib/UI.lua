@@ -14,6 +14,7 @@ UI = class({
 
     , m_resName = ''
     , m_closeCB = 'function'
+    , m_lHideUIList = 'list'
 })
 
 -------------------------------------
@@ -26,6 +27,7 @@ function UI:init()
     self.do_action_exit = true
 	
 	self.m_resName = 'not loaded ui'
+    self.m_lHideUIList = {}
 end
 
 -------------------------------------
@@ -366,6 +368,19 @@ function UI:bgLayerColorOn(duration)
             self.vars['bgLayerColor']:runAction( cc.FadeTo:create(duration or 0.5, bgLayerOpacity) )
         end
     end
+end
+
+-------------------------------------
+-- function sceneFadeInAction
+-- @brief Scene 전환 페이드인 효과
+-------------------------------------
+function UI:sceneFadeInAction()
+    local layerColor = cc.LayerColor:create( cc.c4b(0,0,0,255) )
+    layerColor:setDockPoint(cc.p(0.5, 0.5))
+    layerColor:setAnchorPoint(cc.p(0.5, 0.5))
+    layerColor:setRelativeSizeAndType(cc.size(1280, 960), 1, false)
+    layerColor:runAction(cc.Sequence:create(cc.FadeOut:create(0.25), cc.RemoveSelf:create()))
+    self.root:addChild(layerColor, 100)
 end
 
 -------------------------------------

@@ -64,8 +64,6 @@ end
 -- function click_clickBtn
 -------------------------------------
 function UI_ItemCard:click_clickBtn()
-
-cclog('######## 클릭')
     local str = self:getToolTipDesc()
     local tool_tip = UI_Tooltip_Skill(70, -145, str)
 

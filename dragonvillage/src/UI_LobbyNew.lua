@@ -34,6 +34,8 @@ function UI_LobbyNew:init()
     local vars = self:load('lobby_scene.ui', true)
     UIManager:open(self, UIManager.SCENE)
 
+    self:sceneFadeInAction()
+
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_LobbyNew')
 
 	--@UI_ACTION

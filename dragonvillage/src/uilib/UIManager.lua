@@ -1,9 +1,4 @@
-
-Z_ORDER_SCENE = 100
 Z_ORDER_NORMAL = 101
-Z_ORDER_SCENE_TOP_USER_INFO = 110
-Z_ORDER_POPUP = 200
-Z_ORDER_POPUP_TOP_USER_INFO = 210
 Z_ORDER_TOOL_TIP = 300
 Z_ORDER_TOAST_MSG = 400
 Z_ORDER_LOADING = 500
@@ -52,13 +47,13 @@ function UIManager:init(perple_scene)
     self.m_toastNotiLayer:setDockPoint(cc.p(0.5, 0.5))
     self.m_toastNotiLayer:setAnchorPoint(cc.p(0.5, 0.5))
     self.m_toastNotiLayer:setPositionY(220)
-    self.m_uiLayer:addChild(self.m_toastNotiLayer, Z_ORDER_TOAST_MSG)
+    --self.m_uiLayer:addChild(self.m_toastNotiLayer, Z_ORDER_TOAST_MSG)
+    self.m_scene:addChild(self.m_toastNotiLayer, 21)
     self.m_toastNotiList = {}
     self.m_toastNotiTime = nil
 
     if perple_scene.m_bShowTopUserInfo then
         self:makeTopUserInfo()
-        --self.m_uiLayer:addChild(self.m_topUserInfo.root, Z_ORDER_POPUP_TOP_USER_INFO)
         self.m_topUserInfo:refreshData()
         self.m_topUserInfo:clearOwnerUI()
     end
@@ -101,7 +96,7 @@ end
 -------------------------------------
 -- function open
 -------------------------------------
-function UIManager:open(ui, mode, bNotBlendBGLayer, z_order)
+function UIManager:open(ui, mode, bNotBlendBGLayer)
     local bNotBlendBGLayer = bNotBlendBGLayer or false
 
     if not isInstanceOf(ui, UI) then
@@ -116,31 +111,41 @@ function UIManager:open(ui, mode, bNotBlendBGLayer, z_order)
 
     table.insert(list, ui)
 
-
-    
-
     local mode = mode or UIManager.NORMAL
     local z_order = z_order
 
     if (not z_order) then
         if (mode == UIManager.SCENE) then
-            z_order = Z_ORDER_SCENE
+            z_order = Z_ORDER_NORMAL
 
         elseif (mode == UIManager.NORMAL) then
             z_order = Z_ORDER_NORMAL
 
         elseif (mode == UIManager.POPUP) then
-            z_order = Z_ORDER_POPUP
+            z_order = Z_ORDER_NORMAL
 
         elseif (mode == UIManager.TOOLTIP) then
             z_order = Z_ORDER_TOOL_TIP
 
         elseif (mode == UIManager.LOADING) then
-            z_order = Z_ORDER_LOADING
+            z_order = Z_ORDER_NORMAL
         
         end
     end
+
+    -- 다른 UI들은 off
+    if (mode == UIManager.SCENE) then
+        local childs = self.m_uiLayer:getChildren()
+        for _,child in ipairs(childs) do
+            if child:isVisible() then
+                child:setVisible(false)
+                table.insert(ui.m_lHideUIList, child)
+            end
+        end
+    end
+    
     self.m_uiLayer:addChild(ui.root, z_order)
+
 
     -- 임시 터치 블록 영역 생성
     if (mode == UIManager.POPUP) or (mode == UIManager.LOADING) then
@@ -192,7 +197,7 @@ function UIManager:open(ui, mode, bNotBlendBGLayer, z_order)
 
             layerColor:setDockPoint(cc.p(0.5, 0.5))
             layerColor:setAnchorPoint(cc.p(0.5, 0.5))
-            layerColor:setRelativeSizeAndType(cc.size(1280, 810), 1, false)
+            layerColor:setRelativeSizeAndType(cc.size(1280, 960), 1, false)
 
             ui.root:addChild(layerColor, -100)
             ui.vars['bgLayerColor'] = layerColor
@@ -229,6 +234,16 @@ function UIManager:close(ui)
 
     self.m_uiLayer:removeChild(ui.root, true)
     table.remove(list, idx)
+
+    -- 숨김처리된 UI 다시 살림
+    local childs = self.m_uiLayer:getChildren()
+    for _,child in ipairs(ui.m_lHideUIList) do
+        for _,child_ in ipairs(childs) do
+            if (child == child_) then
+                child:setVisible(true)
+            end
+        end
+    end
 end
 
 -------------------------------------

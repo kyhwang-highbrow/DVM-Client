@@ -194,7 +194,7 @@ function UI_Network:makeFailPopup(msg, ret)
         popup_type = POPUP_TYPE.OK
     end
 
-    MakeSimplePopup(popup_type, msg, ok_btn_cb, cancel_btn_cb, Z_ORDER_LOADING + 1)
+    MakeSimplePopup(popup_type, msg, ok_btn_cb, cancel_btn_cb)
 end
 
 

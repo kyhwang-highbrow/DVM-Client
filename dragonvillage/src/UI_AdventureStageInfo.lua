@@ -126,7 +126,14 @@ end
 -------------------------------------
 function UI_AdventureStageInfo:click_enterBtn()
     local stage_id = self.m_stageID
-    UI_ReadySceneNew(nil, stage_id)
+
+    local function close_cb()
+        self:sceneFadeInAction()
+    end
+
+    --local ui = UI_ReadyScene()
+    local ui = UI_ReadySceneNew(nil, stage_id)    
+    ui:setCloseCB(close_cb)
 end
 
 

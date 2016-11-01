@@ -528,6 +528,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_NetworkLoading.lua" />
     <None Include="..\src\UI_Popup.lua" />
     <None Include="..\src\UI_ProductButton.lua" />
+    <None Include="..\src\UI_ReadyScene.lua" />
     <None Include="..\src\UI_ReadySceneNew.lua" />
     <None Include="..\src\UI_Ready_DragonListItem.lua" />
     <None Include="..\src\UI_SettingPopup.lua" />
