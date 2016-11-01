@@ -27,6 +27,8 @@ function UI_Network:init()
     g_currScene:pushBackKeyListener(self, function() end, 'UI_Network')
 
     self:init_MemberVariable()
+
+    self:setLoadingMsg(Str('네트워크 통신 중...'))
 end
 
 -------------------------------------
