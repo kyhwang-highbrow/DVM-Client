@@ -46,6 +46,10 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 
     self:checkTarget(t_skill)
 
+    if (not self.m_targetChar) then
+        return false
+    end
+
     if (not t_skill) then
         cclog('# 존재하지 않는 스킬 ID : ' .. skill_id)
         error()
@@ -821,4 +825,45 @@ function Character:getBreathDegree(x, y, phys_group)
 
     local rand_num = math_random(1, #dir_list)
     return dir_list[rand_num]
+end
+
+-------------------------------------
+-- function getBreathDegree
+-- @brief 캐스팅 중이던 스킬을 취소시킴
+-------------------------------------
+function Character:cancelSkill()
+    if (self.m_state ~= 'casting') then return end
+
+    -- 스킬 캔슬 이펙트
+    if self.m_castingEffect then
+        self.m_castingEffect.m_node:stopAllActions()
+
+        self.m_castingEffect:changeAni('end', false)
+
+        local duration = self.m_castingEffect:getDuration()
+        self.m_castingEffect:runAction(cc.Sequence:create(
+            cc.DelayTime:create(duration),
+            cc.CallFunc:create(function() self.m_castingEffect = nil end),
+            cc.RemoveSelf:create()
+        ))
+    end
+
+    -- 스킬 캔슬 이모티콘
+    do
+        local emoticon = MakeAnimator('res/ui/a2d/enemy_skill_speech/enemy_skill_speech.vrp')
+        emoticon:changeAni('failed', false)
+        emoticon:setPosition(50, 100)
+        self.m_rootNode:addChild(emoticon.m_node)
+
+        local duration = emoticon:getDuration()
+        emoticon:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+    end
+
+    -- 일시적인 슬로우 처리
+    g_gameScene:setTimeScaleAction(0.2, 0.3)
+
+    -- 화면 흔듬
+    ShakeDir2(math_random(335-20, 335+20), math_random(500, 1500))
+
+    self:changeState('attackDelay')
 end

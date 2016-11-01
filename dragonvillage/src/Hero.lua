@@ -443,9 +443,9 @@ function Hero:makeHPGauge(hp_ui_offset)
     self.m_hpGauge = ui.vars['hpGauge']
 
     self.m_castingNode = ui.vars['atkGauge']
-    self.m_castingGauge = ui.vars['atkGauge']
+    --self.m_castingGauge = ui.vars['atkGauge']
 
-    self.m_castingGauge:setPercentage(0)
+    --self.m_castingGauge:setPercentage(0)
 
     self.m_world.m_worldNode:addChild(self.m_hpNode, 5)
 

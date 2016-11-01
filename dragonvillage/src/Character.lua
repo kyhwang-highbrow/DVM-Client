@@ -333,39 +333,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 		return 
 	end
 
-    -- 스킬 공격으로 피격되였고 스킬 캐스팅 중이였으면 캔슬 처리
+    -- 스킬 공격으로 피격되였다면 캐스팅 중이던 스킬을 취소시킴
     if (attacker.m_activityCarrier:getAttackType() ~= 'basic') then
-        if (self.m_state == 'casting') then
-            -- 스킬 캔슬 이펙트
-            if self.m_castingEffect then
-                self.m_castingEffect.m_node:stopAllActions()
-
-                self.m_castingEffect:changeAni('end', false)
-
-                local duration = self.m_castingEffect:getDuration()
-                self.m_castingEffect:runAction(cc.Sequence:create(
-                    cc.DelayTime:create(duration),
-                    cc.CallFunc:create(function() self.m_castingEffect = nil end),
-                    cc.RemoveSelf:create()
-                ))
-            end
-
-            -- 스킬 캔슬 이모티콘
-            do
-                local emoticon = MakeAnimator('res/ui/a2d/enemy_skill_speech/enemy_skill_speech.vrp')
-                emoticon:changeAni('failed', false)
-                emoticon:setPosition(50, 100)
-                self.m_rootNode:addChild(emoticon.m_node)
-
-                local duration = emoticon:getDuration()
-                emoticon:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
-            end
-
-            -- 일시적인 슬로우 처리
-            g_gameScene:setTimeScaleAction(0.2, 0.3)
-
-            self:changeState('attackDelay')
-        end
+        self:cancelSkill()
     end
         	
 	-- 공격 데미지 전달
@@ -511,7 +481,7 @@ end
 -- function makeDamageFont
 -------------------------------------
 function Character:makeDamageFont(damage, x, y, critical, attr_bonus_dmg)
-    local y = y + 70
+    local y = y + 60
 
     if (damage == 0) then
         return
@@ -553,8 +523,9 @@ function Character:makeDamageFont(damage, x, y, critical, attr_bonus_dmg)
         local node = nil
         local label = cc.Label:createWithBMFont('res/font/critical.fnt', comma_value(damage))
         --self:makeDmgFontFadeOut(label)
-
-        if attr_bonus_dmg_label then
+        
+        --if attr_bonus_dmg_label then
+        if false then
             node = cc.Node:create()
             node:addChild(label)
             node:addChild(attr_bonus_dmg_label)
@@ -567,7 +538,8 @@ function Character:makeDamageFont(damage, x, y, critical, attr_bonus_dmg)
         end
 
         node:setPosition(x, y)
-        node:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 3.5 * scale), cc.ScaleTo:create(0.3, 1 * scale), cc.DelayTime:create(0.4), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
+        --node:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 3.5 * scale), cc.ScaleTo:create(0.3, 1 * scale), cc.DelayTime:create(0.4), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
+        node:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.4), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
         node:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
         --node:runAction(self:makeDmgFontAction())
         self.m_world:addChild3(node, DEPTH_CRITICAL_FONT)
@@ -581,7 +553,8 @@ function Character:makeDamageFont(damage, x, y, critical, attr_bonus_dmg)
             label:setColor(cc.c3b(255, 18, 0))
         end
 
-        if attr_bonus_dmg_label then
+        --if attr_bonus_dmg_label then
+        if false then
             node = cc.Node:create()
             node:addChild(label)
             node:addChild(attr_bonus_dmg_label)
@@ -594,7 +567,8 @@ function Character:makeDamageFont(damage, x, y, critical, attr_bonus_dmg)
         end
 
         node:setPosition(x, y)
-        node:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 1.5 * scale), cc.ScaleTo:create(0.1, 1 * scale), cc.DelayTime:create(0.2), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
+        --node:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 1.5 * scale), cc.ScaleTo:create(0.1, 1 * scale), cc.DelayTime:create(0.2), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
+        node:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.2), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
         node:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
         --node:runAction(self:makeDmgFontAction())
         self.m_world:addChild3(node, DEPTH_DAMAGE_FONT)
@@ -901,6 +875,7 @@ function Character:makeHPGauge(hp_ui_offset)
         end
         --
 
+        --[[
         --local img = cc.Sprite:create('res/ui/gauge/ingame_enemy_gg_02.png')
         local img = cc.Sprite:create('res/ui/gauge/dragon_atk_gg.png')
         img:setDockPoint(cc.p(0.5, 0.5))
@@ -917,6 +892,7 @@ function Character:makeHPGauge(hp_ui_offset)
         self.m_castingNode:addChild(progress)
 
         self.m_castingGauge = progress
+        ]]--
     end
 end
 

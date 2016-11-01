@@ -289,16 +289,23 @@ function GameState:update_fight_skill(dt)
     
     if (self.m_stateTimer == 0) then
         g_currScene:setTimeScale(timeScale)
+
+        dragon.m_animator:changeAni('pose_1', false)
+
+        local duration = dragon:getAniDuration()
+        dragon.m_animator:setTimeScale(duration / (timeScale * 1.5))
         
         self.m_world.m_gameCamera:setTarget(dragon, {time = timeScale / 8})
     end
 
-    if (self.m_stateTimer > timeScale / 1.5) then
+    if (self.m_stateTimer >= timeScale * 1.5) then
         g_currScene:setTimeScale(1)
-        self.m_world.m_gameCamera:reset()
 
         dragon:changeState('skillAttack2')
+        dragon.m_animator:setTimeScale(1)
 
+        self.m_world.m_gameCamera:reset()
+        
         self:changeState(GAME_STATE_FIGHT)
     end
 end
