@@ -15,9 +15,6 @@ function UI_TitleSceneLoading:init()
 
     -- 타이틀에서는 로딩 배경을 출력하지 않음
     vars['bgLayerColor']:setVisible(false)
-
-    vars['loadingImg']:setScale(0.5)
-    vars['loadingImg']:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.MoveTo:create(0.5, cc.p(0, 10)), cc.MoveTo:create(0.5, cc.p(0, -10)))))
 end
 
 -------------------------------------
