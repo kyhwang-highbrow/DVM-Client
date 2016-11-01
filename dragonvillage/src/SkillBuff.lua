@@ -31,7 +31,7 @@ end
 -- function initState
 -------------------------------------
 function SkillBuff:initState()
-	PARENT.initState(self)
+	self:setCommonState(self)
     self:addState('start', SkillBuff.st_idle, nil, true)
     self:addState('draw', SkillBuff.st_draw, 'idle', true)
 	self:addState('obtain', SkillBuff.st_obtain, 'obtain', false)

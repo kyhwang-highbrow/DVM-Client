@@ -65,7 +65,7 @@ function SkillMeleeHack_Specific:makeSkillInstnce(move_speed, comeback_speed, sk
 	skill:initState()
 
 	-- 3. state 시작 
-    skill:changeState('move')
+    skill:changeState('delay')
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world

@@ -42,7 +42,7 @@ end
 -- @breif state 정의
 -------------------------------------
 function SkillCounterAttack:initState()
-	PARENT.initState(self)
+	self:setCommonState(self)
     self:addState('start', SkillCounterAttack.st_appear, nil, true)
     self:addState('idle', SkillCounterAttack.st_idle, nil, true)
 	self:addState('disappear', SkillCounterAttack.st_disappear, nil, true)

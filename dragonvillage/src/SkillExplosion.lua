@@ -62,7 +62,7 @@ end
 -- function initState
 -------------------------------------
 function SkillExplosion:initState()
-	PARENT.initState(self)
+	self:setCommonState(self)
     self:addState('start', SkillExplosion.st_move, 'move', true)
     self:addState('attack', SkillExplosion.st_attack, 'idle', false)
 	self:addState('comeback', SkillExplosion.st_comeback, 'move', true)
@@ -80,7 +80,7 @@ function SkillExplosion:update(dt)
 	if (self.m_state ~= 'dying') then 
 		self.m_owner:syncAniAndPhys()
 	end
-
+	
     return PARENT.update(self, dt)
 end
 

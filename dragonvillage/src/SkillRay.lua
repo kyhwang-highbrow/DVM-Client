@@ -96,7 +96,7 @@ end
 -- function initState
 -------------------------------------
 function SkillRay:initState()
-	PARENT.initState(self)
+	self:setCommonState(self)
     self:addState('start', SkillRay.st_idle, 'idle', true)
 end
 

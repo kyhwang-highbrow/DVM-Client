@@ -41,8 +41,8 @@ end
 -- function initState
 -------------------------------------
 function SkillProtection:initState()
-    self:addState('idle', SkillProtection.st_idle, 'idle', true)
-    self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
+	PARENT.initState(self)
+    self:addState('start', SkillProtection.st_idle, 'idle', true)
 end
 
 -------------------------------------
@@ -80,7 +80,7 @@ function SkillProtection:makeSkillInstnce(...)
 	skill:initState()
 
 	-- 3. state 시작 
-    skill:changeState('dying')
+    skill:changeState('delay')
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world

@@ -67,8 +67,8 @@ end
 -- function initState
 -------------------------------------
 function SkillMeleeHack:initState()
-    PARENT.initState(self)
-    self:addState('move', SkillMeleeHack.st_move, 'attack_hack_move', true)
+    self:setCommonState(self)
+    self:addState('start', SkillMeleeHack.st_move, 'attack_hack_move', true)
     self:addState('attack', SkillMeleeHack.st_attack, 'attack_hack', false)
     self:addState('comeback', SkillMeleeHack.st_comeback, 'idle', true)
 end
@@ -239,7 +239,7 @@ function SkillMeleeHack:makeSkillInstnce(move_speed, comeback_speed, ...)
 	skill:initState()
 
 	-- 3. state 시작 
-    skill:changeState('move')
+    skill:changeState('delay')
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world

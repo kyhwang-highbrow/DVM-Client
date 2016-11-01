@@ -50,7 +50,7 @@ end
 -- function initState
 -------------------------------------
 function SkillAoERound:initState()
-	PARENT.initState(self)
+	self:setCommonState(self)
     self:addState('start', SkillAoERound.st_appear, 'appear', false)
     self:addState('attack', SkillAoERound.st_attack, 'idle', true)
 	self:addState('disappear', SkillAoERound.st_disappear, 'disappear', false)
@@ -102,7 +102,7 @@ function SkillAoERound.st_attack(owner, dt)
 end
 
 -------------------------------------
--- function st_idle
+-- function st_disappear
 -------------------------------------
 function SkillAoERound.st_disappear(owner, dt)
     if (owner.m_stateTimer == 0) then

@@ -33,7 +33,7 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillRolling:init_skill(target_count, buff_prob, atk_count, spin_res)
+function SkillRolling:init_skill(spin_res, target_count, buff_prob, atk_count)
     PARENT.init_skill(self)
 	
 	-- 멤버 변수 
@@ -78,7 +78,7 @@ end
 -- function initState
 -------------------------------------
 function SkillRolling:initState()
-    PARENT.initState(self)
+    self:setCommonState(self)
     self:addState('start', SkillRolling.st_move, 'idle', true)
     self:addState('attack', SkillRolling.st_attack, 'idle', true)
 	self:addState('moveAttack', SkillRolling.st_move_attack, 'idle', true)

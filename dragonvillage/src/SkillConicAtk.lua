@@ -45,7 +45,7 @@ end
 -- function initState
 -------------------------------------
 function SkillConicAtk:initState()
-	PARENT.initState(self)
+	self:setCommonState(self)
     self:addState('start', SkillConicAtk.st_idle, 'idle', true)
 end
 

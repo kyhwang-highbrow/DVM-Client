@@ -65,9 +65,9 @@ end
 -- @breif state 정의
 -- @breif 모든 스킬은 delay로 시작하고 start로 본래의 스킬 state를 진행한다.
 -------------------------------------
-function ISkill:initState()
-	self:addState('delay', ISkill.st_delay, nil, false)
-    self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
+function ISkill:setCommonState(owner)
+	owner:addState('delay', ISkill.st_delay, nil, false)
+    owner:addState('dying', function(owner, dt) return true end, nil, nil, 10)
 end
 
 -------------------------------------
