@@ -43,7 +43,7 @@ function SkillConicAtk_Spread:attack()
         target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
 		
 		-- @TODO 공격에 묻어나는 이펙트 Carrier 에 담아서..
-		StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectRate)
+		StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
 
 		if (self.m_skillType == 'skill_breath_gust') then 
 			-- @TODO 허리케인 하드코딩... 화상 번짐
@@ -79,8 +79,9 @@ function SkillConicAtk_Spread:spreadStatusEffect(target_char, status_effect_type
 			for _, target in pairs(l_target) do 
 				if (target_char.phys_idx ~= target.phys_idx) then 
 					-- 4. 같은 상태효과를 적용 시킨다.
+					local value = 100
 					local rate = 100
-					StatusEffectHelper:doStatusEffectByType(target, status_effect_type, rate)
+					StatusEffectHelper:doStatusEffectByType(target, status_effect_type, value, rate)
 				end
 			end
 		end)

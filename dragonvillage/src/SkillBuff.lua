@@ -83,15 +83,17 @@ function SkillBuff.st_obtain(owner, dt)
     if (owner.m_stateTimer == 0) then
 		-- 애플칙 하드 코딩
 		local t_status_effect_rate = stringSplit(owner.m_statusEffectRate, ';')
+		local t_status_effect_value = stringSplit(owner.m_statusEffectValue, ';')
 		local t_status_effect_type = stringSplit(owner.m_statusEffectType, ';')
 		for i, status_effect_type in ipairs(t_status_effect_type) do
+			local status_effect_value = t_status_effect_value[i]
 			local status_effect_rate = t_status_effect_rate[i]
 
 			if (i == 1) then 
-				StatusEffectHelper:doStatusEffect_simple(owner.m_targetChar, status_effect_type, status_effect_rate)
+				StatusEffectHelper:doStatusEffect_simple(owner.m_targetChar, status_effect_type, status_effect_value, status_effect_rate)
 			else
 				if owner.m_isAddedBuff then 
-					StatusEffectHelper:doStatusEffect_simple(owner.m_targetChar, status_effect_type, 100)
+					StatusEffectHelper:doStatusEffect_simple(owner.m_targetChar, status_effect_type, t_status_effect_value, 100)
 				end
 			end
 		end

@@ -24,7 +24,7 @@ function StatusEffectHelper:statusEffectCheck_onHit(attack_damage, defender)
         -- 확률을 퍼밀로 계산
         local permill = rate * 10
         if (math_random(1, 1000) <= permill) then
-            StatusEffectHelper:invokeStatusEffect(defender, type, rate)
+            StatusEffectHelper:invokeStatusEffect(defender, type, 100, rate)
         end
     end
 end
@@ -33,7 +33,7 @@ end
 -- function doStatusEffect_simple
 -- @brief 리팩토링중
 -------------------------------------
-function StatusEffectHelper:doStatusEffect_simple(char, status_effect_type, status_effect_rate)
+function StatusEffectHelper:doStatusEffect_simple(char, status_effect_type, status_effect_value, status_effect_rate)
     -- 타입 있는지 검사
     if (not status_effect_type) or (status_effect_type == 'x') then return end
 
@@ -44,7 +44,7 @@ function StatusEffectHelper:doStatusEffect_simple(char, status_effect_type, stat
     if (math_random(1, 1000) > status_effect_rate * 10) then return end
 
 	-- 상태효과 실행
-	StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_effect_rate)
+	StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_effect_value, status_effect_rate)
 end
 
 -------------------------------------
@@ -54,9 +54,10 @@ end
 -------------------------------------
 function StatusEffectHelper:doStatusEffect(char, t_skill)
 	local status_effect_type = t_skill['status_effect_type']
+	local status_effect_value = t_skill['status_effect_value']
 	local status_effect_rate = t_skill['status_effect_rate']
 
-	self:doStatusEffectByType(char, status_effect_type, status_effect_rate)
+	self:doStatusEffectByType(char, status_effect_type, status_effect_value, status_effect_rate)
 end
 
 -------------------------------------
@@ -64,7 +65,7 @@ end
 -- @brief 확률 체크하여 패시브 발동 
 -- @brief skill table을 사용하지 않기 위해 
 -------------------------------------
-function StatusEffectHelper:doStatusEffectByType(char, status_effect_type, status_effect_rate)
+function StatusEffectHelper:doStatusEffectByType(char, status_effect_type, status_effect_value, status_effect_rate)
     -- 타입 있는지 검사
     if (not status_effect_type) or (status_effect_type == 'x') then return end
 
@@ -73,14 +74,16 @@ function StatusEffectHelper:doStatusEffectByType(char, status_effect_type, statu
 
 	-- ;로 구분하여 다중 버프 가능하도록 함
 	local t_status_effect_type = stringSplit(status_effect_type, ';')
+	local t_status_effect_value = stringSplit(status_effect_value, ';')
 	local t_status_effect_rate = stringSplit(status_effect_rate, ';')
 	for i, type in ipairs(t_status_effect_type) do
+		local value = t_status_effect_value[i]
 		local rate = t_status_effect_rate[i]
 	 
 		-- 확률 검사
 		if (math_random(1, 1000) < rate * 10) then 
 			-- 상태효과 실행
-			StatusEffectHelper:invokeStatusEffect(char, type, rate)
+			StatusEffectHelper:invokeStatusEffect(char, type, value, rate)
 		end
 	end
 end
@@ -89,7 +92,7 @@ end
 -- function invokeStatusEffect
 -- @brief 상태 효과 발동
 -------------------------------------
-function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_effect_rate)
+function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_effect_value, status_effect_rate)
     if (not status_effect_type) or (status_effect_type == 'x') then
         return nil
     end
@@ -108,7 +111,7 @@ function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_
         status_effect:statusEffectOverlab()
     else
         -- 상태 효과 생성
-        status_effect = StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, status_effect_rate)
+        status_effect = StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, status_effect_value, status_effect_rate)
     end
 
     if (t_status_effect['overlab'] > 0) then
@@ -178,7 +181,7 @@ end
 -- function makeStatusEffectInstance
 -- @comment 일반 status effect의 경우 rate가 필요없지만 패시브의 경우 실행 시점에서 확률체크하는 경우가 있다.
 -------------------------------------
-function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, status_effect_rate)
+function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, status_effect_value, status_effect_rate)
     local table_status_effect = TABLE:get('status_effect')
     local t_status_effect = table_status_effect[status_effect_type]
     
@@ -215,12 +218,13 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
         status_effect = StatusEffect(res)
     end
 
-    status_effect.m_subData = {status_effect_type = status_effect_type, status_effect_rate = status_effect_rate}
+    status_effect.m_subData = {status_effect_type = status_effect_type, status_effect_value = status_effect_value, status_effect_rate = status_effect_rate}
 
 	 -- 능력치 지정
     for _, type in ipairs(L_STATUS_TYPE) do
         local value = t_status_effect[type]
         if (value ~= 0) then
+			value = value * status_effect_value/100
             status_effect:insertStatus(type, value)
         end
     end
@@ -267,7 +271,7 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 
 	-- 3. 타겟 대상에 passive생성
 	for _,target in ipairs(l_target) do
-		local passive = StatusEffectHelper:invokeStatusEffect(target, t_skill['status_effect_type'], t_skill['status_effect_rate'])
+		local passive = StatusEffectHelper:invokeStatusEffect(target, t_skill['status_effect_type'], t_skill['status_effect_value'], t_skill['status_effect_rate'])
 
 		-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
 		if passive then

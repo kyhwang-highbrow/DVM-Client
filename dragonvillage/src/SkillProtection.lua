@@ -33,7 +33,7 @@ function SkillProtection:init_skill(protection_res, duration)
     do -- 기본 타겟에 실드
 --        local shield_hp = self.m_owner.m_maxHp * (self.m_powerRate / 100)
   --      self:makeShield(self.m_targetChar, shield_hp)
-		StatusEffectHelper:doStatusEffectByType(self.m_targetChar, self.m_statusEffectType, self.m_statusEffectRate)
+		StatusEffectHelper:doStatusEffectByType(self.m_targetChar, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
     end
 end
 
@@ -41,7 +41,7 @@ end
 -- function initState
 -------------------------------------
 function SkillProtection:initState()
-	PARENT.initState(self)
+	self:setCommonState(self)
     self:addState('start', SkillProtection.st_idle, 'idle', true)
 end
 

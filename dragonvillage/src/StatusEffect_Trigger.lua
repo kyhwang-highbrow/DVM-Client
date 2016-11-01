@@ -48,6 +48,7 @@ end
 function StatusEffect_Trigger:onTrigger(defender)
 	local owner = nil
     local status_effect_type = self.m_subData['status_effect_type']
+	local status_effect_value = self.m_subData['status_effect_value']
 	local status_effect_rate = self.m_subData['status_effect_rate']
 	
     if (string.find(status_effect_type, 'buff')) then
@@ -56,7 +57,7 @@ function StatusEffect_Trigger:onTrigger(defender)
 		owner = defender
 	end
     
-	StatusEffectHelper:doStatusEffectByType(owner, status_effect_type, status_effect_rate)
+	StatusEffectHelper:doStatusEffectByType(owner, status_effect_type, status_effect_value, status_effect_rate)
 
 	return true
 end

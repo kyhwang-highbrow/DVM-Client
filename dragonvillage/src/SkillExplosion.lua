@@ -211,7 +211,7 @@ function SkillExplosion:attack()
         target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
 
 		-- 상태효과 체크
-		StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectRate)
+		StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
     end
 end
 
@@ -239,7 +239,7 @@ end
 -- function makeSkillInstnce
 -- @param missile_res 
 -------------------------------------
-function SkillExplosion:makeSkillInstnce(missile_res, jump_res, target_count, range, ...)
+function SkillExplosion:makeSkillInstnce(missile_res, jump_res, range, target_count, ...)
 	-- 1. 스킬 생성
     local skill = SkillExplosion(missile_res)
 

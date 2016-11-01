@@ -69,7 +69,7 @@ function SkillRolling:spineSideEffect(buff_prob)
 	-- 특정 확률로 5개의 rage 버프 획득
 	if (math_random(1, 1000) > buff_prob * 10) then
 		for i = 1, 5 do 
-			StatusEffectHelper:doStatusEffectByType(self.m_owner, self.m_statusEffectType, self.m_statusEffectRate)
+			StatusEffectHelper:doStatusEffectByType(self.m_owner, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
 		end
 	end
 end
@@ -314,7 +314,7 @@ function SkillRolling:attack()
         self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
         target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
 		
-		StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectRate)
+		StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
     end
 end
 

@@ -26,7 +26,7 @@ function SkillMeleeHack_Specific:init_skill(move_speed, comeback_speed, skill_id
 
 	-- 2. 이동 전에 상태효과 시전
 	if (self.m_skillId == 210212) then -- 붐버 : 방어력 증가
-		StatusEffectHelper:doStatusEffectByType(self.m_owner, self.m_statusEffectType, self.m_statusEffectRate)
+		StatusEffectHelper:doStatusEffectByType(self.m_owner, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
 	end
 end
 
@@ -38,7 +38,7 @@ function SkillMeleeHack_Specific:attackMelee()
 			
 	-- 공격시에 상태 효과 시전 
 	if isExistValue(self.m_skillId, 210982, 210112) and self.m_targetChar then -- 램곤 : 수면, 애플칙 : 스턴
-		StatusEffectHelper:doStatusEffectByType(self.m_targetChar, self.m_statusEffectType, self.m_statusEffectRate)
+		StatusEffectHelper:doStatusEffectByType(self.m_targetChar, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
 	end
 end
 

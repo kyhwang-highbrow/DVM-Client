@@ -142,7 +142,7 @@ function SkillAoERound:attack()
 		
 		-- @TODO 패시브를 자동으로 태우기 위해서는 어디에 있어야..		
 		if self.m_statusEffectType then
-			StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectRate)
+			StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
 		end
 
 		-- 낙뢰와 같은 경우 타겟 마다 이펙트 생성

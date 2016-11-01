@@ -103,7 +103,7 @@ function SkillConicAtk:attack()
         target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
 		
 		-- @TODO 공격에 묻어나는 이펙트 Carrier 에 담아서..
-		StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectRate)
+		StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
     end
 end
 

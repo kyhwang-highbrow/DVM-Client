@@ -15,6 +15,7 @@ CommonMissile = class(PARENT, {
 		m_activityCarrier = 'AttackDamage',
 
 		m_statusEffectType = '',
+		m_statusEffectValue = '',
 		m_statusEffectRate = '',
 
 		m_targetType = '', -- target_type 필드, 상대 선택 규칙
@@ -46,6 +47,7 @@ function CommonMissile:initCommonMissile(owner, t_skill)
 
 	self.m_powerRate = t_skill['power_rate']
 	self.m_statusEffectType = t_skill['status_effect_type']
+	self.m_statusEffectValue = t_skill['status_effect_value']
 	self.m_statusEffectRate = t_skill['status_effect_rate']
 	self.m_targetType = t_skill['target_type']
 	self.m_maxFireCnt = t_skill['hit']
@@ -175,10 +177,14 @@ function CommonMissile:fireMissile()
     local world = self.m_world
 	local t_option = self.m_missileOption
 	
+	-- 같은 시점에서의 반복 공격
 	for i = 1, t_option['count'] do
 		world.m_missileFactory:makeMissile(t_option)
 		t_option['dir'] = t_option['dir'] + t_option['dir_add']
 	end
+	
+	-- 상태이상 체크
+	StatusEffectHelper:doStatusEffectByType(self.m_targetChar, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
 end
 
 -------------------------------------
