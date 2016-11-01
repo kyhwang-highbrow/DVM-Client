@@ -85,10 +85,10 @@ function CalcDragonExp(t_dragon_data, add_exp)
     local t_ret_data = {}
 
     local curr_lv = t_dragon_data['lv']
-    local curr_exp = t_dragon_data['fexp']
+    local curr_exp = t_dragon_data['exp']
 
     t_ret_data['prev_lv'] = t_dragon_data['lv']
-    t_ret_data['prev_exp'] = t_dragon_data['fexp']
+    t_ret_data['prev_exp'] = t_dragon_data['exp']
 
     local table_exp = TABLE:get('exp_dragon')
 
@@ -133,10 +133,10 @@ function CalcDragonExp(t_dragon_data, add_exp)
     local t_exp = table_exp[curr_lv]
 
     t_dragon_data['lv'] = curr_lv
-    t_dragon_data['fexp'] = curr_exp
+    t_dragon_data['exp'] = curr_exp
 
     t_ret_data['curr_lv'] = t_dragon_data['lv']
-    t_ret_data['curr_exp'] = t_dragon_data['fexp']
+    t_ret_data['curr_exp'] = t_dragon_data['exp']
     t_ret_data['curr_max_exp'] = t_exp['exp_d']
     t_ret_data['is_max_level'] = is_max_level
     t_ret_data['add_lv'] = (t_ret_data['curr_lv'] - t_ret_data['prev_lv'])

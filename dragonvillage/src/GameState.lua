@@ -694,10 +694,10 @@ function GameState:tempNetwork(l_dragon_list, finish_cb)
             table.remove(t_dragon_list, 1)
             local unique_id = t_data['user_data']['id']
             local lv = t_data['user_data']['lv']
-            local fexp = t_data['user_data']['fexp']
+            local exp = t_data['user_data']['exp']
             ui_network:setParam('did', unique_id)
             ui_network:setParam('lv', lv)
-            ui_network:setParam('fexp', fexp)
+            ui_network:setParam('exp', exp)
             ui_network:request()
         else
             ui_network:close()
