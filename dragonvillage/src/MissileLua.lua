@@ -230,16 +230,17 @@ function MissileLua.lua_bezier(owner)
     local bezier = getBezier(tar_x, tar_y, pos_x, pos_y, course)
     
     -- 베지어 좌표 마지막 두 점의 각도
+	--[[
 	local t_bezier_pos = getBezierPosList(tar_x, tar_y, pos_x, pos_y, course)
     local last = t_bezier_pos[#t_bezier_pos]
     local last_1 = t_bezier_pos[#t_bezier_pos-1]
     local last_degree = getDegree(last.x, last.y, last_1.x, last_1.y)
-
+	]]
     -- 베지어 곡선 끝난 이후 상대좌표로 직선 운동할 위치
-    -- 직선 운동하는 탄막은 베지어 곡선 마지막 두 점의 각도로 이동한다.
+    -- 직선 운동하는 탄막은 베지어 곡선 마지막 두 점의 각도로 이동한다. // 상하 30도로 픽스
     local std_dist = 1000
-    local degree = getDegree(pos_x, pos_y, tar_x, tar_y)
-    local rad = math_rad(last_degree)
+    local degree = getDegree(pos_x, pos_y, tar_x, tar_y) + 30 * course
+    local rad = math_rad(degree)
     local linear_y = std_dist * math.tan(rad)
     local goForwardPoint = cc.p(std_dist, linear_y)
     

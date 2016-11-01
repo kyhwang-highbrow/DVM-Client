@@ -54,26 +54,6 @@ function SkillLeafBlade.st_idle(owner, dt)
 end
 
 -------------------------------------
--- function getTargetPos
--------------------------------------
-function SkillLeafBlade:getTargetPos()
-    -- 상대방 진형 얻어옴
-    local target_formation_mgr = self.m_owner:getFormationMgr('opposite')
-
-    local target = target_formation_mgr:getTypicalTarget_Random()
-    if target then
-        return target.pos.x, target.pos.y
-    else
-        local x, y = self.m_owner.pos.x, self.m_owner.pos.y
-        if self.m_owner.m_bLeftFormation then
-            return x + 600, y
-        else
-            return x - 600, y
-        end
-    end
-end
-
--------------------------------------
 -- function fireMissile
 -------------------------------------
 function SkillLeafBlade:fireMissile()
