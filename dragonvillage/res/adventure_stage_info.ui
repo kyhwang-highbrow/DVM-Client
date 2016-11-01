@@ -141,8 +141,8 @@
 			{
 				type = 'TableView';
 				ui_name = '';
-				x = 38.000061;
-				y = -121.999985;
+				x = 38.000099;
+				y = -122.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -161,6 +161,25 @@
 				view_height = 122;
 				cell_width = 60;
 				cell_height = 60;
+			};
+			[6] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 38.000099;
+				y = -122.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 714;
+				height = 122;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'listViewNode';
 			};
 			type = 'Scale9Sprite';
 			ui_name = '';

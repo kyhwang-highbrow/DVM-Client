@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
+local PARENT = UI
 
 -------------------------------------
 -- class UI_SettingPopup
@@ -6,19 +6,6 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 UI_SettingPopup = class(PARENT, {
         m_currTap = 'string',
      })
-
-     
--------------------------------------
--- function initParentVariable
--- @brief 자식 클래스에서 반드시 구현할 것
--------------------------------------
-function UI_SettingPopup:initParentVariable()
-    -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_SettingPopup'
-    self.m_bVisible = true
-    self.m_titleStr = Str('설정')
-    self.m_bUseExitBtn = false
-end
 
 -------------------------------------
 -- function init

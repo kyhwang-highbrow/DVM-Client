@@ -129,6 +129,9 @@ end
 -- function changeOwnerUI
 -------------------------------------
 function UI_TopUserInfo:changeOwnerUI(ui)
+    self.root:removeFromParent()
+    ui.root:addChild(self.root, 100)
+
     local vars = self.vars
     vars['exitBtn']:setVisible(ui.m_bUseExitBtn)
 

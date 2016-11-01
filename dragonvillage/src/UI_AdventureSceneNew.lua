@@ -259,7 +259,7 @@ function UI_AdventureSceneNew:click_stageBtn(stage_id, is_open)
 
     -- 스테이지 시작
     if (self.m_focusStageIdx == stage) and is_open then
-        UI_ReadySceneNew(nil, stage_id)
+        UI_AdventureStageInfo(stage_id)
         return
     end
 

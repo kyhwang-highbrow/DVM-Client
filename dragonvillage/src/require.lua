@@ -240,6 +240,7 @@ local t_module = {
     'UI_AdventureChapterButton',
     'UI_AdventureStageButton',
     'UI_AdventureFirstRewardPopup',
+    'UI_AdventureStageInfo',
     'UI_IngameDragonInfo',
     'UI_Popup',
     'UI_DragonManageScene',

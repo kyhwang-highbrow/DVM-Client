@@ -58,7 +58,7 @@ function UIManager:init(perple_scene)
 
     if perple_scene.m_bShowTopUserInfo then
         self:makeTopUserInfo()
-        self.m_uiLayer:addChild(self.m_topUserInfo.root, Z_ORDER_POPUP_TOP_USER_INFO)
+        --self.m_uiLayer:addChild(self.m_topUserInfo.root, Z_ORDER_POPUP_TOP_USER_INFO)
         self.m_topUserInfo:refreshData()
         self.m_topUserInfo:clearOwnerUI()
     end
