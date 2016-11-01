@@ -49,16 +49,19 @@ end
 -- function insertStatusEffectRate
 -- @brief 상태이상 유발
 -------------------------------------
-function ActivityCarrier:insertStatusEffectRate(type, rate)
-	-- type이나 rate가 비정상적이라면 return
+function ActivityCarrier:insertStatusEffectRate(type, value, rate)
+	-- type이나 value, rate가 비정상적이라면 return
 	if (nil == rate) or (0 >= rate) then return end
+	if (not value) then return end
 	if (type == 'x') then return end
 
     if (not self.m_lStatusEffectRate[type]) then
-        self.m_lStatusEffectRate[type] = 0
+        self.m_lStatusEffectRate[type] = {value = 0, rate = 0}
     end
 	
-    self.m_lStatusEffectRate[type] = (self.m_lStatusEffectRate[type] + rate)
+	local _value = self.m_lStatusEffectRate[type]['value']
+	local _rate = self.m_lStatusEffectRate[type]['rate']
+    self.m_lStatusEffectRate[type] = {value = _value + value, rate = _rate + rate}
 end
 
 -------------------------------------

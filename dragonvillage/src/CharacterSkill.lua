@@ -149,7 +149,6 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
         elseif (type == 'skill_heal_single') then
             self:doSkill_skill_heal_single(t_skill, t_data)
             return true
-
         elseif (type == 'skill_bullet_hole') then
             self:doSkill_skill_bullet_hole(t_skill, attr, is_hero, phys_group, x, y, t_data)
             return true
@@ -162,21 +161,19 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
         elseif (type == 'skill_aoe_square_heal_dmg') then
             self:doSkill_skill_healing_wind(t_skill, attr, is_hero, phys_group, x, y, t_data)
             return true
-        elseif (type == 'skill_curve_twin') then
-            self:doSkill_skill_leaf_blade(t_skill, attr, is_hero, phys_group, x, y, t_data)
-            return true
-
 		elseif (type == 'skill_dispel_harm') then
             self:doSkill_skill_dispel_magic(t_skill, t_data)
             return true
-
 		elseif (type == 'skill_summon') then
             local summon_success = self:doSkill_skill_summon(t_skill, t_data)
             return summon_success
-
-
 			
 		-- 구조 개선 후 ----------------------------------------------------
+
+        elseif (type == 'skill_curve_twin') then
+            SkillLeafBlade:makeSkillInstnceFromSkill(self, t_skill, t_data)
+            return true
+
 		elseif (type == 'skill_aoe_round') then
             SkillAoERound:makeSkillInstnceFromSkill(self, t_skill, t_data)
             return true
@@ -288,7 +285,7 @@ function Character:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_da
 
     -- AttackDamage 생성
     local activity_carrier = self:makeAttackDamageInstance(t_skill['id'])
-    activity_carrier:insertStatusEffectRate(t_skill['status_effect_type'], t_skill['status_effect_rate'])
+    activity_carrier:insertStatusEffectRate(t_skill['status_effect_type'], t_skill['status_effect_value'], t_skill['status_effect_rate'])
 
     missile_launcher.m_bHeroMissile = is_hero
     self.m_world:addToUnitList(missile_launcher)
@@ -689,24 +686,6 @@ end
 
 ------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
-
-
-
-
--------------------------------------
--- function doSkill_leaf_blade
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_skill_leaf_blade(t_skill, attr, is_hero, phys_group, x, y, t_data)
-    local skill = SkillLeafBlade(nil)
-
-    -- Physics, Node, GameMgr에 등록
-    self.m_world.m_worldNode:addChild(skill.m_rootNode, 0)
-    self.m_world:addToUnitList(skill)
-
-    skill:init_skill(self, t_skill, t_data)
-end
-
 -------------------------------------
 -- function doSkill_skill_dispel_magic
 -- @brief 스킬 실행

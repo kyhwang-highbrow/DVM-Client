@@ -58,6 +58,12 @@ function ISkill:initActvityCarrier(power_rate)
     -- 공격력 계산을 위해
     self.m_activityCarrier = self.m_owner:makeAttackDamageInstance()
     self.m_activityCarrier.m_skillCoefficient = (power_rate / 100)
+	
+	-- 상태효과도 담음
+	self.m_activityCarrier:insertStatusEffectRate(self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
+	
+	-- 타격 이벤트에서 일반탄인지 구분할 때 사용
+	self.m_activityCarrier:setAttackType('active') 
 end
 
 -------------------------------------

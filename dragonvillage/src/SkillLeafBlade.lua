@@ -1,12 +1,9 @@
+local PARENT = class(Entity, ISkill:getCloneTable())
+
 -------------------------------------
 -- class SkillLeafBlade
 -------------------------------------
-SkillLeafBlade = class(Entity, {
-        m_owner = 'Character',
-        m_targetPos = '',
-
-        m_activityCarrier = 'AttackDamage',
-        
+SkillLeafBlade = class(PARENT, {
 		m_missileRes = 'string',
         m_motionStreakRes = 'string',
 		m_resScale = 'num',
@@ -22,48 +19,28 @@ SkillLeafBlade = class(Entity, {
 -- @param body
 -------------------------------------
 function SkillLeafBlade:init(file_name, body, ...)
-    self:initState()
 end
 
 -------------------------------------
 -- function init_SkillLeafBlade
 -------------------------------------
-function SkillLeafBlade:init_skill(owner, t_skill, t_data)
-    self.m_owner = owner
+function SkillLeafBlade:init_skill(missile_res, motionstreak_res, target_count, res_scale, body_size)
+	PARENT.init_skill(self)
 
-    local tar_x, tar_y = t_data.x, t_data.y
-    if (nil == tar_x) or (nil == tar_y) then 
-        tar_x, tar_y = self:getTargetPos() 
-    end
-    self.m_targetPos = {x = tar_x, y = tar_y}
-
-    self.m_missileRes = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
-    self.m_motionStreakRes = (t_skill['res_2'] == 'x') and nil or string.gsub(t_skill['res_2'], '@', owner.m_charTable['attr'])
-    self.m_targetCount = t_skill['hit']
-	self.m_resScale = 0.5 -- t_skill['val_1']
-	self.m_bodySize = 30  -- t_skill['val_2']
-	self:initActvityCarrier(t_skill)
-
-    self:changeState('idle')
-end
-
--------------------------------------
--- function initActvityCarrier
--------------------------------------
-function SkillLeafBlade:initActvityCarrier(t_skill)    
-    self.m_activityCarrier = self.m_owner:makeAttackDamageInstance()
-    self.m_activityCarrier.m_skillCoefficient = (t_skill['power_rate'] / 100)
-	
-	-- 상태효과 적용
-    self.m_activityCarrier:insertStatusEffectRate(t_skill['status_effect_type'], t_skill['status_effect_rate'])
+	-- 1. 멤버 변수
+    self.m_missileRes = missile_res
+    self.m_motionStreakRes = motionstreak_res
+    self.m_targetCount = target_count
+	self.m_resScale = res_scale
+	self.m_bodySize = body_size
 end
 
 -------------------------------------
 -- function initState
 -------------------------------------
 function SkillLeafBlade:initState()
-    self:addState('idle', SkillLeafBlade.st_idle, 'idle', true)
-    self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
+	self:setCommonState(self)
+    self:addState('start', SkillLeafBlade.st_idle, 'idle', true)
 end
 
 -------------------------------------
@@ -151,4 +128,53 @@ function SkillLeafBlade:fireMissile()
         t_option['lua_param']['value3'] = 0.15 * (i-1)
         local missile = world.m_missileFactory:makeMissile(t_option)
     end 
+end
+
+-------------------------------------
+-- function makeSkillInstnce
+-------------------------------------
+function SkillLeafBlade:makeSkillInstnce(missile_res, motionstreak_res, target_count, res_scale, body_size, ...)
+	-- 1. 스킬 생성
+    local skill = SkillLeafBlade(nil)
+
+	-- 2. 초기화 관련 함수
+	skill:setParams(...)
+    skill:init_skill(missile_res, motionstreak_res, target_count, res_scale, body_size)
+	skill:initState()
+
+	-- 3. state 시작 
+    skill:changeState('delay')
+
+    -- 4. Physics, Node, GameMgr에 등록
+    local world = skill.m_owner.m_world
+    world.m_missiledNode:addChild(skill.m_rootNode, 0)
+    world:addToUnitList(skill)
+end
+
+-------------------------------------
+-- function makeSkillInstnceFromSkill
+-------------------------------------
+function SkillLeafBlade:makeSkillInstnceFromSkill(owner, t_skill, t_data)
+    local owner = owner
+    
+	-- 1. 공통 변수
+	local power_rate = t_skill['power_rate']
+	local target_type = t_skill['target_type']
+	local pre_delay = t_skill['pre_delay']
+	local status_effect_type = t_skill['status_effect_type']
+	local status_effect_value = t_skill['status_effect_value']
+	local status_effect_rate = t_skill['status_effect_rate']
+	local skill_type = t_skill['type']
+	local tar_x = t_data.x
+	local tar_y = t_data.y
+	local target = t_data.target
+
+	-- 2. 특수 변수
+    local missile_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
+	local motionstreak_res = (t_skill['res_2'] == 'x') and nil or string.gsub(t_skill['res_2'], '@', owner.m_charTable['attr'])
+	local target_count = t_skill['hit']
+	local res_scale = 0.5 -- t_skill['val_1']
+	local body_size = 30  -- t_skill['val_2']
+
+    SkillLeafBlade:makeSkillInstnce(missile_res, motionstreak_res, target_count, res_scale, body_size, owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
 end

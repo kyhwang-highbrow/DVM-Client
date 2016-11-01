@@ -20,11 +20,14 @@ function StatusEffectHelper:statusEffectCheck_onHit(attack_damage, defender)
         return
     end
 
-    for type, rate in pairs(attack_damage.m_lStatusEffectRate) do
+    for type, t_content in pairs(attack_damage.m_lStatusEffectRate) do
+		local value = t_content['value']
+		local rate = t_content['rate']
+
         -- 확률을 퍼밀로 계산
         local permill = rate * 10
         if (math_random(1, 1000) <= permill) then
-            StatusEffectHelper:invokeStatusEffect(defender, type, 100, rate)
+            StatusEffectHelper:invokeStatusEffect(defender, type, value, rate)
         end
     end
 end

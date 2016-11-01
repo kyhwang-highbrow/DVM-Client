@@ -45,9 +45,6 @@ function SkillChainLightning:init_SkillChainLightning(owner, t_skill, x, y)
     self.m_activityCarrier = owner:makeAttackDamageInstance()
     self.m_activityCarrier.m_skillCoefficient = (t_skill['power_rate'] / 100)
 
-	-- 상태이상 체크
-    self.m_activityCarrier:insertStatusEffectRate(t_skill['status_effect_type'], t_skill['status_effect_rate'])
-
     local count = t_skill['val_2']
     local t_targets = self:getTargetList(count)
 
