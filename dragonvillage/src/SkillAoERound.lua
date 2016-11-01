@@ -50,24 +50,10 @@ end
 -- function initState
 -------------------------------------
 function SkillAoERound:initState()
-	self:addState('delay', SkillAoERound.st_delay, nil, false)
-    self:addState('appear', SkillAoERound.st_appear, 'appear', false)
+	PARENT.initState(self)
+    self:addState('start', SkillAoERound.st_appear, 'appear', false)
     self:addState('attack', SkillAoERound.st_attack, 'idle', true)
 	self:addState('disappear', SkillAoERound.st_disappear, 'disappear', false)
-    self:addState('dying', function(owner, dt) return true end, nil, nil, 10)  
-end
-
--------------------------------------
--- function st_delay
--------------------------------------
-function SkillAoERound.st_delay(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		if (not owner.m_targetChar) then 
-			owner:changeState('dying') 
-		end
-	elseif (owner.m_stateTimer > owner.m_preDelay) then
-		owner:changeState('appear')
-    end
 end
 
 -------------------------------------

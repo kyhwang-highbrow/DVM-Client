@@ -42,10 +42,10 @@ end
 -- @breif state 정의
 -------------------------------------
 function SkillCounterAttack:initState()
-    self:addState('appear', SkillCounterAttack.st_appear, nil, true)
+	PARENT.initState(self)
+    self:addState('start', SkillCounterAttack.st_appear, nil, true)
     self:addState('idle', SkillCounterAttack.st_idle, nil, true)
 	self:addState('disappear', SkillCounterAttack.st_disappear, nil, true)
-    self:addState('dying', function(owner, dt) owner.m_owner:changeState('attackDelay'); return true end, nil, nil, 10)
 end
 
 -------------------------------------
@@ -92,6 +92,7 @@ function SkillCounterAttack.st_disappear(owner, dt)
 			owner.m_owner.m_animator:changeAni('skill_1_disappear', false) 
 		end
 		local cbFunc = function () 
+			owner.m_owner:changeState('attackDelay')
 			owner:changeState('dying')
 		end
 		owner.m_owner:addAniHandler(cbFunc)
@@ -136,7 +137,7 @@ function SkillCounterAttack:makeSkillInstnce(invoke_skill_id, duration, ...)
 	skill:initState()
 
 	-- 3. state 시작 
-    skill:changeState('appear')
+    skill:changeState('delay')
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world

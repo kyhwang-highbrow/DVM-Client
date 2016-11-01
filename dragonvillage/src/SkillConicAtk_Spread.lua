@@ -126,7 +126,7 @@ function SkillConicAtk_Spread:makeSkillInstnce(attack_count, range, missile_res,
 	skill:initState()
 
 	-- 3. state 시작 
-    skill:changeState('idle')
+    skill:changeState('delay')
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world

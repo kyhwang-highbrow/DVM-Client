@@ -63,10 +63,10 @@ end
 -------------------------------------
 -- function initState
 -- @breif state 정의
+-- @breif 모든 스킬은 delay로 시작하고 start로 본래의 스킬 state를 진행한다.
 -------------------------------------
 function ISkill:initState()
-    self:addState('idle', ISkill.st_idle, nil, true)
-    self:addState('attack', ISkill.st_attack, nil, true)
+	self:addState('delay', ISkill.st_delay, nil, false)
     self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
 end
 
@@ -78,13 +78,26 @@ function ISkill:setParams(owner, power_rate, target_type, pre_delay, status_effe
 	self.m_owner = owner
 	self.m_powerRate = power_rate
 	self.m_targetType = target_type
-	self.m_preDelay = pre_delay
+	self.m_preDelay = pre_delay or 0
 	self.m_statusEffectType = status_effect_type
 	self.m_statusEffectValue = status_effect_value
 	self.m_statusEffectRate = status_effect_rate
 	self.m_skillType = skill_type
 	self.m_targetPos = {x = tar_x, y = tar_y}
 	self.m_targetChar = target
+end
+
+-------------------------------------
+-- function st_delay
+-------------------------------------
+function ISkill.st_delay(owner, dt)
+    if (owner.m_stateTimer == 0) then
+		if (not owner.m_targetChar) then 
+			owner:changeState('dying') 
+		end
+	elseif (owner.m_stateTimer > owner.m_preDelay) then
+		owner:changeState('start')
+    end
 end
 
 -------------------------------------

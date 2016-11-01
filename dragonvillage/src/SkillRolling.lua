@@ -79,7 +79,7 @@ end
 -------------------------------------
 function SkillRolling:initState()
     PARENT.initState(self)
-    self:addState('move', SkillRolling.st_move, 'idle', true)
+    self:addState('start', SkillRolling.st_move, 'idle', true)
     self:addState('attack', SkillRolling.st_attack, 'idle', true)
 	self:addState('moveAttack', SkillRolling.st_move_attack, 'idle', true)
 	self:addState('comeback', SkillRolling.st_comeback, 'remove', true)
@@ -352,7 +352,7 @@ function SkillRolling:makeSkillInstnce(missile_res, spin_res, target_count, buff
 	skill:initState()
 
 	-- 3. state 시작 
-    skill:changeState('move')
+    skill:changeState('delay')
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world

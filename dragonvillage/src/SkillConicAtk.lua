@@ -45,8 +45,8 @@ end
 -- function initState
 -------------------------------------
 function SkillConicAtk:initState()
-    self:addState('idle', SkillConicAtk.st_idle, 'idle', true)
-    self:addState('dying', function(owner, dt) return true end, 'idle', nil, 10)
+	PARENT.initState(self)
+    self:addState('start', SkillConicAtk.st_idle, 'idle', true)
 end
 
 -------------------------------------
@@ -139,7 +139,7 @@ function SkillConicAtk:makeSkillInstnce(attack_count, range, missile_res, ...)
 	skill:initState()
 
 	-- 3. state 시작 
-    skill:changeState('idle')
+    skill:changeState('delay')
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world

@@ -63,7 +63,7 @@ end
 -------------------------------------
 function SkillExplosion:initState()
 	PARENT.initState(self)
-    self:addState('move', SkillExplosion.st_move, 'move', true)
+    self:addState('start', SkillExplosion.st_move, 'move', true)
     self:addState('attack', SkillExplosion.st_attack, 'idle', false)
 	self:addState('comeback', SkillExplosion.st_comeback, 'move', true)
 end
@@ -249,7 +249,7 @@ function SkillExplosion:makeSkillInstnce(missile_res, jump_res, target_count, ra
 	skill:initState()
 
 	-- 3. state 시작 
-    skill:changeState('move')
+    skill:changeState('delay')
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world

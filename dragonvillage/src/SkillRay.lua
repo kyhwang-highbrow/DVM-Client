@@ -96,8 +96,8 @@ end
 -- function initState
 -------------------------------------
 function SkillRay:initState()
-    self:addState('idle', SkillRay.st_idle, 'idle', true)
-    self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
+	PARENT.initState(self)
+    self:addState('start', SkillRay.st_idle, 'idle', true)
 end
 
 -------------------------------------
@@ -228,7 +228,7 @@ function SkillRay:makeSkillInstnce(missile_res, hit, ...)
 	skill:initState()
 
 	-- 3. state 시작 
-    skill:changeState('idle')
+    skill:changeState('delay')
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world

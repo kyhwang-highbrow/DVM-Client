@@ -31,10 +31,10 @@ end
 -- function initState
 -------------------------------------
 function SkillBuff:initState()
-    self:addState('idle', SkillBuff.st_idle, nil, true)
+	PARENT.initState(self)
+    self:addState('start', SkillBuff.st_idle, nil, true)
     self:addState('draw', SkillBuff.st_draw, 'idle', true)
 	self:addState('obtain', SkillBuff.st_obtain, 'obtain', false)
-    self:addState('dying', function(owner, dt) return true end, nil, nil, 10)  
 end
 
 -------------------------------------
@@ -139,7 +139,7 @@ function SkillBuff:makeSkillInstnce(missile_res, ...)
 	skill:initState()
 
 	-- 3. state 시작 
-    skill:changeState('idle')
+    skill:changeState('delay')
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world
