@@ -48,6 +48,9 @@ function PatchCore:init(type, app_ver)
     self.m_state = PATCH_STATE.request_patch_info
 	self.m_downloadedSize = 0
 	self.m_totalSize = 0
+
+    -- 로컬 서버 사용 여부를 false로 지정
+    ServerData:getInstance():applyServerData(false, 'cache', 'user_local_server')
 end
 
 -------------------------------------
@@ -102,6 +105,9 @@ function PatchCore:errorHandler(msg)
     end
 
     local function cancel_btn_cb()
+        -- 로컬 서버 사용 여부를 true로 지정
+        ServerData:getInstance():applyServerData(true, 'cache', 'user_local_server')
+
         self:finish()
     end
 

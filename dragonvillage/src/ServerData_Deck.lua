@@ -16,13 +16,25 @@ end
 -- function get
 -------------------------------------
 function ServerData_Deck:get(key)
-    local l_deck = self.m_serverData:get('deck', key)
-    return l_deck or {}
+    return self.m_serverData:get('deck', key)
 end
 
 -------------------------------------
 -- function getDeck
 -------------------------------------
 function ServerData_Deck:getDeck(type)
-    return self:get(type)
+    local l_deck = self:get(type)
+
+    if l_deck then
+        local t_ret = {}
+        for i,v in pairs(l_deck) do
+            if (v ~= '') then
+                t_ret[tonumber(i)] = v
+            end
+        end
+        
+        return t_ret
+    end
+
+    return {}
 end

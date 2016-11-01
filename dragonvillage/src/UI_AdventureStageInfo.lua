@@ -11,7 +11,7 @@ UI_AdventureStageInfo = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_AdventureStageInfo:init(stage_id)
-    self:initMemberVariable(stage_id)
+    self:init_MemberVariable(stage_id)
 
     local vars = self:load('adventure_stage_info.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -30,9 +30,9 @@ function UI_AdventureStageInfo:init(stage_id)
 end
 
 -------------------------------------
--- function initMemberVariable
+-- function init_MemberVariable
 -------------------------------------
-function UI_AdventureStageInfo:initMemberVariable(stage_id)
+function UI_AdventureStageInfo:init_MemberVariable(stage_id)
     self.m_stageID = stage_id
 end
 
@@ -131,8 +131,13 @@ function UI_AdventureStageInfo:click_enterBtn()
         self:sceneFadeInAction()
     end
 
-    --local ui = UI_ReadyScene()
-    local ui = UI_ReadySceneNew(nil, stage_id)    
+    local ui
+
+    if (DEVELOPMENT_SEONG_GOO_KIM == true) then
+        ui = UI_ReadyScene(stage_id)
+    else
+        ui = UI_ReadySceneNew(nil, stage_id)
+    end
     ui:setCloseCB(close_cb)
 end
 

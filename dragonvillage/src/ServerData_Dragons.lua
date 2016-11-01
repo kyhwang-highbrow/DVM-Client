@@ -43,6 +43,7 @@ end
 
 -------------------------------------
 -- function getDragonDataFromUid
+-- @brief unique id로 드래곤 정보를 얻음
 -------------------------------------
 function ServerData_Dragons:getDragonDataFromUid(unique_id)
     local l_dragons = self.m_serverData:get('dragons')
@@ -54,4 +55,35 @@ function ServerData_Dragons:getDragonDataFromUid(unique_id)
     end
 
     return nil
+end
+
+
+T_DRAGON_SORT = {}
+
+T_DRAGON_SORT['normal'] = function(a, b)
+    local t_data_a = a['data']
+    local t_data_b = b['data']
+    
+    if (t_data_a['did'] > t_data_b['did']) then
+        return true
+    elseif (t_data_a['did'] < t_data_b['did']) then
+        return false
+    end
+
+    return false
+end
+
+T_DRAGON_SORT['lv'] = function(a, b)
+    local t_data_a = a['data']
+    local t_data_b = b['data']
+    
+    if (t_data_a['lv'] > t_data_b['lv']) then
+        return true
+    elseif (t_data_a['lv'] < t_data_b['lv']) then
+        return false
+    end
+
+    
+
+    return false
 end

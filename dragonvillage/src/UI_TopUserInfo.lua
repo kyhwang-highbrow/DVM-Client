@@ -146,3 +146,10 @@ function UI_TopUserInfo:changeOwnerUI(ui)
 
     self.root:setVisible(ui.m_bVisible)
 end
+
+-------------------------------------
+-- function setTitleString
+-------------------------------------
+function UI_TopUserInfo:setTitleString(str)
+    self.vars['titleLabel']:setString(str)
+end

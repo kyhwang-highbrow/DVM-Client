@@ -26,13 +26,13 @@ function UI_Network:init()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() end, 'UI_Network')
 
-    self:initMemberVariable()
+    self:init_MemberVariable()
 end
 
 -------------------------------------
--- function initMemberVariable
+-- function init_MemberVariable
 -------------------------------------
-function UI_Network:initMemberVariable()
+function UI_Network:init_MemberVariable()
     self.m_bRevocable = false
     self.m_bReuse = false
 
@@ -116,8 +116,6 @@ end
 -- function success
 -------------------------------------
 function UI_Network.success(self, ret)
-
-    ccdump(ret)
     
     if self:statusHandler(ret) then
         return

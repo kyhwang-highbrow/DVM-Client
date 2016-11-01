@@ -168,3 +168,12 @@ function ServerData:applySetting()
     local sfx = self:get('local', 'sfx')
     SoundMgr:setSfxOnOff(sfx)
 end
+
+-------------------------------------
+-- function developCache
+-------------------------------------
+function ServerData:developCache()
+    if LocalServer then
+        LocalServer['user_local_server'] = self:get('cache', 'user_local_server')
+    end
+end
