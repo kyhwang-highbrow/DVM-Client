@@ -290,20 +290,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     configChange();
 	startLuaScript(ConfigParser::getInstance()->getEntryFile().c_str());
 
-    // Builder용으로 빌드할 때 사용
-    //startLuaScript("tool_src/entry_builder.lua");
-
-	// Hero Viewer용으로 빌드할 때 사용
-	//startLuaScript("tool_src/entry_hero_viewer.lua");
-
-	// UI Viewer용으로 빌드할 때 사용
-	//startLuaScript("tool_src/entry_ui_viewer.lua");
-
-    // tool용으로 빌드할 때 사용
-    //startLuaScript("tool_src/entry_tool.lua");
-
-    // 아레나 테스트용으올 빌드할 때 사용
-    //startLuaScript("tool_src/entry_arena_test.lua");
+    // 필요한 entry 파일 넣고 빌드
+    // startLuaScript("src_tool/entry_ingame_test.lua");
 
     return true;
 }
