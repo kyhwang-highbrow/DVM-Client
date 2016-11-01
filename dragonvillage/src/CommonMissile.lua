@@ -88,7 +88,6 @@ end
 -- function initState
 -------------------------------------
 function CommonMissile:initState()    
-    -- 상태 생성
     self:addState('attack', CommonMissile.st_attack, nil, true)
     self:addState('dying', function(owner, dt) return true end, nil, true, 3)
 end

@@ -5,12 +5,24 @@ local DIR_
 -- class CommonMissile_Release
 -------------------------------------
 CommonMissile_Release = class(PARENT, {
+		m_count = 'num',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function CommonMissile_Release:init(file_name, body)
+end
+
+-------------------------------------
+-- function initCommonMissile
+-------------------------------------
+function CommonMissile_Release:initCommonMissile(owner, t_skill)
+	PARENT.initCommonMissile(self, owner, t_skill)
+
+	-- release 탄은 한번에 발사한 것으로 고정
+	self.m_maxFireCnt = 1
+	self.m_count = t_skill['hit']
 end
 
 -------------------------------------
@@ -83,9 +95,12 @@ function CommonMissile_Release:fireMissile()
     end
 
 	-- 같은 시점에서의 반복 공격
-	for i = 1, t_option['count'] do
-		t_option['dir'] = (dir_set[i] + (math_pow(-1, i) * 10 * self.m_fireCnt))
-		world.m_missileFactory:makeMissile(t_option)
+	for i = 1, self.m_count do 
+		for j = 1, t_option['count'] do
+			t_option['dir'] = (dir_set[j] + (math_pow(-1, j) * 10 * (i - 1)))
+			world.m_missileFactory:makeMissile(t_option)
+		end
+		t_option['accel'] = t_option['accel'] - 500
 	end
 
 	-- 상태이상 체크
