@@ -108,12 +108,17 @@ function SkillLeafBlade:fireMissile()
         t_option['lua_param']['value3'] = 0.15 * (i-1)
         local missile = world.m_missileFactory:makeMissile(t_option)
     end 
+
+	-- combo hit 연출
+	AnimatorHelper:makeInstanceHitComboffect(self.m_owner.m_world, self.m_targetHitCnt)
+	cclog(self.m_targetHitCnt)
 end
 
 -------------------------------------
 -- function makeSkillInstnce
 -------------------------------------
 function SkillLeafBlade:makeSkillInstnce(missile_res, motionstreak_res, target_count, res_scale, body_size, ...)
+	
 	-- 1. 스킬 생성
     local skill = SkillLeafBlade(nil)
 
@@ -148,13 +153,14 @@ function SkillLeafBlade:makeSkillInstnceFromSkill(owner, t_skill, t_data)
 	local tar_x = t_data.x
 	local tar_y = t_data.y
 	local target = t_data.target
+	local target_hit_cnt = t_data.target_hit_cnt
 
 	-- 2. 특수 변수
     local missile_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
 	local motionstreak_res = (t_skill['res_2'] == 'x') and nil or string.gsub(t_skill['res_2'], '@', owner.m_charTable['attr'])
 	local target_count = t_skill['hit']
 	local res_scale = 0.5 -- t_skill['val_1']
-	local body_size = 30  -- t_skill['val_2']
+	local body_size = LEAF_COLLISTION_SIZE -- t_skill['val_2']
 
-    SkillLeafBlade:makeSkillInstnce(missile_res, motionstreak_res, target_count, res_scale, body_size, owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
+    SkillLeafBlade:makeSkillInstnce(missile_res, motionstreak_res, target_count, res_scale, body_size, owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target, target_hit_cnt)
 end

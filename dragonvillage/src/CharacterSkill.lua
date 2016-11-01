@@ -105,7 +105,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
             SkillRay:makeSkillInstnceFromSkill(self, t_skill, {})
             return true
 		elseif (type == 'missile_move_straight') then
-            CommonMissile_Straight:makeInstance(self, t_skill)
+			CommonMissile_Straight:makeInstance(self, t_skill)
             return true
 		elseif (type == 'missile_move_cruise') then
             CommonMissile_Cruise:makeInstance(self, t_skill)
@@ -712,7 +712,7 @@ function Character:doSkill_skill_summon(t_skill, t_data)
     if (not self.m_world.m_waveMgr:checkSummonable(idx)) then 
         return false
     end
-
+	
     local skill = SkillSummon(nil)
     skill:init_skill(self, t_skill, t_data)
     

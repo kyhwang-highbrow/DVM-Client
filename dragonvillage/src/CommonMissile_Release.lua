@@ -61,10 +61,10 @@ function CommonMissile_Release:setMissile()
 	
 	t_option['scale'] = 1
 	t_option['count'] = 2
-	t_option['speed'] = 100
+	t_option['speed'] = 200
 	t_option['accel'] = 2000
-	t_option['h_limit_speed'] = 2000
-	t_option['accel_delay'] = 0.5
+	t_option['h_limit_speed'] = 10000
+	t_option['accel_delay'] = 1
     t_option['angular_velocity'] = 0
 	--t_option['dir_add'] = 90
 
@@ -97,10 +97,11 @@ function CommonMissile_Release:fireMissile()
 	-- 같은 시점에서의 반복 공격
 	for i = 1, self.m_count do 
 		for j = 1, t_option['count'] do
-			t_option['dir'] = (dir_set[j] + (math_pow(-1, j) * 10 * (i - 1)))
+			t_option['dir'] = (dir_set[j] + (math_pow(-1, j) * 15 * (i - 1)))
 			world.m_missileFactory:makeMissile(t_option)
 		end
-		t_option['accel'] = t_option['accel'] - 500
+		--t_option['accel'] = t_option['accel'] - 500
+		t_option['accel_delay'] = t_option['accel_delay'] + 0.2
 	end
 
 	-- 상태이상 체크

@@ -219,19 +219,18 @@ function SkillIndicator_LeafBlade:findTargetList(x, y)
     --cclog('find target', last_degree1, last_degree2)
 
     local std_dist = 1000
-    local COLLISTION_WIDTH = 45
 
     -- 직선에 의한 충돌 리스트 (상)
     local rad = math_rad(last_degree1)
     local factor_y = math.tan(rad)
     local t_target_line_1 = self.m_world.m_physWorld:getLaserCollision(x, y,
-        x + std_dist, y + std_dist * factor_y, COLLISTION_WIDTH, 'missile_h')
+        x + std_dist, y + std_dist * factor_y, LEAF_COLLISTION_SIZE, 'missile_h')
 
     -- 직선에 의한 충돌 리스트 (하)
     rad = math_rad(last_degree2)
     factor_y = math.tan(rad)
     local t_target_line_2 = self.m_world.m_physWorld:getLaserCollision(x, y,
-        x + std_dist, y + std_dist * factor_y, COLLISTION_WIDTH, 'missile_h')
+        x + std_dist, y + std_dist * factor_y, LEAF_COLLISTION_SIZE, 'missile_h')
     
     -- getLaserCollision는 반환값이 특정 테이블이기때문에 Character 클래스만 꺼내와서 정리한다.
     local l_target_line = {}

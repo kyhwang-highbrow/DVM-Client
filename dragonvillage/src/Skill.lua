@@ -12,6 +12,7 @@ ISkill = {
 		m_targetType = 'str', -- 타겟 선택하는 룰
 		m_targetChar = 'Character', 
 		m_targetPos = 'pos', -- 타겟 위치 정보 빠르게 접근하기 위해..~
+		m_targetHitCnt = 'num', -- 히트 연출 위해
 		
 		-- 상태 효과 관련 변수들
 		m_statusEffectType = '',
@@ -61,9 +62,6 @@ function ISkill:initActvityCarrier(power_rate)
 	
 	-- 상태효과도 담음
 	self.m_activityCarrier:insertStatusEffectRate(self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
-	
-	-- 타격 이벤트에서 일반탄인지 구분할 때 사용
-	self.m_activityCarrier:setAttackType('active') 
 end
 
 -------------------------------------
@@ -80,7 +78,7 @@ end
 -- function setParams
 -- @brief 멤버변수 정의
 -------------------------------------
-function ISkill:setParams(owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
+function ISkill:setParams(owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target, target_hit_cnt)
 	self.m_owner = owner
 	self.m_powerRate = power_rate
 	self.m_targetType = target_type
@@ -91,6 +89,7 @@ function ISkill:setParams(owner, power_rate, target_type, pre_delay, status_effe
 	self.m_skillType = skill_type
 	self.m_targetPos = {x = tar_x, y = tar_y}
 	self.m_targetChar = target
+	self.m_targetHitCnt = target_hit_cnt
 end
 
 -------------------------------------

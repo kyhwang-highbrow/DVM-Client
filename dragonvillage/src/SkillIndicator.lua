@@ -211,6 +211,7 @@ function SkillIndicator:getIndicatorData()
     t_data['x'] = self.m_targetPosX
     t_data['y'] = self.m_targetPosY
     t_data['target'] = self.m_targetChar
+	t_data['target_hit_cnt'] = self.m_highlightList and #self.m_highlightList or 0
 
     self.m_targetDir = nil
     self.m_targetPosX = nil

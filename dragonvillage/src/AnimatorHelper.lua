@@ -83,3 +83,26 @@ function AnimatorHelper:makeMonsterAnimator(res_name, attr)
 
     return animator
 end
+
+-------------------------------------
+-- function makeMonsterAnimator
+-------------------------------------
+function AnimatorHelper:makeInstanceHitComboffect(world, count)
+	-- 1. 3명 부터 연출 들어간다.
+	if (count < 3) then return end 
+
+	local effect = MakeAnimator('res/ui/a2d/ingame_combo_text/ingame_combo_text.vrp')
+	local combo_name = nil
+	if (count > 5) then 
+		combo_name = '40percent_combo'
+	else
+		combo_name = '20percent_combo'
+	end
+
+	effect:changeAni(combo_name, false)
+	effect.m_node:setAnchorPoint(cc.p(0.5, 0.5))
+	effect.m_node:setDockPoint(cc.p(0.5, 0.5))
+	
+	effect:setPosition(640, 150)
+	world.m_worldNode:addChild(effect.m_node)
+end
