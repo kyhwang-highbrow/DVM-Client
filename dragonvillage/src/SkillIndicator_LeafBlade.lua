@@ -58,12 +58,12 @@ function SkillIndicator_LeafBlade:onTouchMoved(x, y)
     self.m_targetChar = t_collision_obj[1]
 
     -- 4-1. 베지어 곡선 이펙트 위치 갱신
-    local last_degree1 = EffectBezierLink_refresh(self.m_indicatorLinkEffect2, tar_x, tar_y, pos_x, pos_y, -1)
-    local last_degree2 = EffectBezierLink_refresh(self.m_indicatorLinkEffect1, tar_x, tar_y, pos_x, pos_y, 1)
+    EffectBezierLink_refresh(self.m_indicatorLinkEffect1, tar_x, tar_y, pos_x, pos_y, 1)
+    EffectBezierLink_refresh(self.m_indicatorLinkEffect2, tar_x, tar_y, pos_x, pos_y, -1)
 
 	-- 4-2. 직선 이펙트 위치 갱신
-    EffectLinearDot_refresh(self.m_indicatorLinkEffect3, tar_x, tar_y, pos_x, pos_y, last_degree1)
-    EffectLinearDot_refresh(self.m_indicatorLinkEffect4, tar_x, tar_y, pos_x, pos_y, last_degree2)
+    EffectLinearDot_refresh(self.m_indicatorLinkEffect3, tar_x, tar_y, pos_x, pos_y, 1)
+    EffectLinearDot_refresh(self.m_indicatorLinkEffect4, tar_x, tar_y, pos_x, pos_y, -1)
     
 	-- 4-3. 타겟에 찍히는 이펙트 위치 갱신
     self.m_indicator2:setPosition(tar_x - pos_x, tar_y - pos_y)

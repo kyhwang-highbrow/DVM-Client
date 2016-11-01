@@ -30,11 +30,10 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function EffectLinearDot_refresh(self, tar_x, tar_y, pos_x, pos_y, degree)
+function EffectLinearDot_refresh(self, tar_x, tar_y, pos_x, pos_y, dir)
     local t_line_pos = {}
 	
-	local degree = degree
-
+	local degree = getDegree(tar_x, tar_y, pos_x, pos_y) + dir * 30
 	local std_dist = 60
     local rad = math_rad(degree)
 
@@ -62,7 +61,7 @@ function EffectLinearDot_refresh(self, tar_x, tar_y, pos_x, pos_y, degree)
             effectNode:setPosition(line_pos['x'], line_pos['y'])
 		end
 		
-        effectNode:setRotation(degree)
+        effectNode:setRotation(degree + 180)
     end
 
 end
