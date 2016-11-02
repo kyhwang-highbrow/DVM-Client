@@ -31,7 +31,7 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_reservedSkillId = 'number',
         m_reservedSkillCastTime = 'number',
         m_reservedSkillAniEventTime = 'number', -- 스킬 애니메이션에서의 attack 이벤트 시간
-
+        
         -- @ target
         m_targetChar = 'Character',
 
@@ -1415,7 +1415,7 @@ function Character:reserveSkill(skill_id)
     if eventList[1] then
         event_time = eventList[1]['frames'] or 0
     end
-    
+
     self.m_reservedSkillId = skill_id
     self.m_reservedSkillCastTime = cast_time
     self.m_reservedSkillAniEventTime = event_time

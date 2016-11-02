@@ -819,7 +819,12 @@ function Character:cancelSkill()
     if self.m_castingEffect then
         self.m_castingEffect.m_node:stopAllActions()
 
-        self.m_castingEffect:changeAni('end', false)
+        local rarity = self.m_charTable['rarity']
+        if rarity == 'boss' or rarity == 'subboss' then
+            self.m_castingEffect:changeAni('end_boss', false)
+        else
+            self.m_castingEffect:changeAni('end', false)
+        end
 
         local duration = self.m_castingEffect:getDuration()
         self.m_castingEffect:setTimeScale(duration / timeScale)

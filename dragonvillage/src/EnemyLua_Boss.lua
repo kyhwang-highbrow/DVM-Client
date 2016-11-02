@@ -54,6 +54,7 @@ function EnemyLua_Boss:initState()
 
     self:addState('attackDelay', EnemyLua_Boss.st_pattern_idle, 'idle', true)
     self:addState('charge', EnemyLua_Boss.st_pattern_idle, 'idle', true)
+    self:addState('casting', EnemyLua_Boss.st_casting, 'casting', true)
     
     self:addState('pattern_idle', EnemyLua_Boss.st_pattern_idle, 'idle', true)
     self:addState('pattern_wait', EnemyLua_Boss.st_pattern_wait, 'idle', true)
@@ -74,6 +75,36 @@ function EnemyLua_Boss.st_pattern_idle(owner, dt)
 
         local pattern = owner:getNextPattern()
         owner:doPattern(pattern)
+    end
+end
+
+-------------------------------------
+-- function st_casting
+-------------------------------------
+function EnemyLua_Boss.st_casting(owner, dt)
+    PARENT.st_casting(owner, dt)
+
+    if owner.m_stateTimer == 0 then
+        local eventList = owner.m_animator:getEventList('casting', 'casting')
+        local eventData = eventList[1]
+        if eventData then
+            cclog('eventData = ' .. luadump(eventData))
+            local string_value = eventData['stringValue']           
+            if string_value and (string_value ~= '') then
+                local l_str = seperate(string_value, ',')
+                if l_str then
+                    local x = l_str[1]
+                    local y = l_str[2]
+
+                    cclog('EnemyLua_Boss.st_casting x = ' .. x)
+                    cclog('EnemyLua_Boss.st_casting y = ' .. y)
+
+                    if owner.m_castingEffect then
+                        owner.m_castingEffect:setPosition(x, y)
+                    end
+                end
+            end
+        end
     end
 end
 
