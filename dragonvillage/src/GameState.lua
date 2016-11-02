@@ -195,7 +195,6 @@ end
 -- function fight
 -------------------------------------
 function GameState:fight()
-    cclog('GameState:fight')
     -- 아군과 적군 전투 시작
     local world = self.m_world
 
@@ -816,7 +815,14 @@ function GameState:onEvent(event_name, ...)
 
     -- 적군이 전투 위치로 도착
     elseif (event_name == 'enemy_appear_done') then
-        self.m_nAppearedEnemys = self.m_nAppearedEnemys + 1
+        if (self.m_state == GAME_STATE_ENEMY_APPEAR) then
+            self.m_nAppearedEnemys = self.m_nAppearedEnemys + 1
+        else
+            -- 잔투중 소환된 경우
+            local arg = {...}
+            local enemy = arg[1]
+            enemy:changeState('attackDelay')
+        end
 
     -- 액티브 스킬 사용 이벤트
     elseif (event_name == 'active_skill') then
