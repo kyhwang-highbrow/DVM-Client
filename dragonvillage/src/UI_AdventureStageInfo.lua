@@ -134,7 +134,7 @@ function UI_AdventureStageInfo:click_enterBtn()
 
         local ui
 
-        if (DEVELOPMENT_SEONG_GOO_KIM == false) then
+        if (not DEVELOPMENT_SEONG_GOO_KIM) then
             ui = UI_ReadyScene(stage_id)
         else
             ui = UI_ReadySceneNew(nil, stage_id)
