@@ -1,0 +1,32 @@
+{
+	"pattern_elite_mermaid":
+	[	
+		
+		[
+			"a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":50,
+                "pattern":
+                [
+					"a;2", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1"
+                ]
+            },
+			
+            {
+                "hp_percent":25,
+                "pattern":
+                [
+					"a;1", "a;2", "w;2", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic"
+				]
+            }
+        ]
+    }
+}
