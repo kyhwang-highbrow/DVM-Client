@@ -16,5 +16,10 @@ end
 function SceneLobby:onEnter()
     PerpleScene.onEnter(self)
     SoundMgr:playBGM('bgm_title')
-    UI_LobbyNew()
+
+    if DEVELOPMENT_SEONG_GOO_KIM then
+        UI_Lobby()
+    else
+        UI_LobbyNew()
+    end
 end

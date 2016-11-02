@@ -9,7 +9,7 @@ POPUP_TYPE = {
 -------------------------------------
 -- class UI_Popup
 -------------------------------------
-UI_Popup = class(UI, ITopUserInfo_EventListener:getCloneTable(), {
+UI_Popup = class(UI, {
         m_rootNode = 'cc.Node',
         m_frameNode = 'cc.Node',
         m_frameTop = '',
@@ -27,16 +27,6 @@ UI_Popup = class(UI, ITopUserInfo_EventListener:getCloneTable(), {
         --
         m_selectCbFunc = 'function',
     })
-
--------------------------------------
--- function initParentVariable
--- @brief
--------------------------------------
-function UI_Popup:initParentVariable()
-    -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_Popup'
-    self.m_bUseExitBtn = false
-end
 
 -------------------------------------
 -- function init

@@ -23,7 +23,7 @@ end
 -------------------------------------
 function UI_DragonMgrInfo:init()
     local vars = self:load('dragon_manage_scene.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonMgrInfo')
@@ -32,6 +32,8 @@ function UI_DragonMgrInfo:init()
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
     --self:doActionReset()
     --self:doAction(nil, false)
+
+    self:sceneFadeInAction()
 
     self:initUI()
     self:initButton()
