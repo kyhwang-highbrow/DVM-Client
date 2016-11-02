@@ -5,7 +5,7 @@ IDragonSkillManager = {
         -- [external variable]
         m_charType = 'string',
         m_charID = 'number',
-        m_charGrade = 'number',
+        m_charEvolution = 'number',
 
         -- [internal variable]
         m_charTable = 'table',
@@ -24,12 +24,12 @@ end
 -------------------------------------
 -- function initDragonSkillManager
 -------------------------------------
-function IDragonSkillManager:initDragonSkillManager(char_type, char_id, char_grade)
-    char_grade = char_grade or 6
+function IDragonSkillManager:initDragonSkillManager(char_type, char_id, char_evolution)
+    char_evolution = char_evolution or 3
 
     self.m_charType = char_type
     self.m_charID = char_id
-    self.m_charGrade = char_grade
+    self.m_charEvolution = char_evolution
 
     -- 캐릭터 테이블 저장
     local table_dragon = TABLE:get(self.m_charType)
@@ -40,7 +40,7 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, char_gra
 
     -- 캐릭터 등급에 따라 루프를 돌며 스킬을 초기화 한다.
     -- 스킬 타입 별로 나중에 추가한것으로 덮어 씌운다.
-    local max_idx = char_grade
+    local max_idx = char_evolution
     for i = 1, max_idx do
         local skill_type_key = 'skill_type_' .. i
         local skill_key = 'skill_' .. i
@@ -147,7 +147,7 @@ function IDragonSkillManager:getSkillIconList()
         if (skill_type ~= 'x') and skill_id ~= 0 then
             local grade_icon_idx = nil
             local grade_idx = i
-            if (self.m_charGrade < grade_idx) then
+            if (self.m_charEvolution < grade_idx) then
                 grade_icon_idx = grade_idx
             end
 
@@ -265,6 +265,6 @@ DragonSkillManager = class(clone(IDragonSkillManager))
 -------------------------------------
 -- function init
 -------------------------------------
-function DragonSkillManager:init(char_type, char_id, char_grade)
-    self:initDragonSkillManager(char_type, char_id, char_grade)
+function DragonSkillManager:init(char_type, char_id, char_evolution)
+    self:initDragonSkillManager(char_type, char_id, char_evolution)
 end

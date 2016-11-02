@@ -728,7 +728,7 @@ function GameWorld:makeDragonNew(t_dragon_data, idx)
 	local attr = t_dragon['attr']
 
     local hero = Hero(nil, {0, 0, 20})
-    hero:initDragonSkillManager('dragon', dragon_id, t_dragon_data['grade'])
+    hero:initDragonSkillManager('dragon', dragon_id, t_dragon_data['evolution'])
     hero.m_tDragonInfo = t_dragon_data
     hero:initAnimatorHero(t_dragon['res'], evolution, attr)
     hero.m_animator:setScale(0.5 * t_dragon['scale'])
@@ -778,7 +778,7 @@ function GameWorld:makeDragon(dragon_id, idx)
 	local attr = t_dragon['attr']
 
     local hero = Hero(nil, {0, 0, 20})
-    hero:initDragonSkillManager('dragon', dragon_id, t_dragon_data['grade'])
+    hero:initDragonSkillManager('dragon', dragon_id, t_dragon_data['evolution'])
     hero.m_tDragonInfo = t_dragon_data
     hero:initAnimatorHero(t_dragon['res'], evolution, attr)
     hero.m_animator:setScale(0.5 * t_dragon['scale'])

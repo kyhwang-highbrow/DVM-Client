@@ -271,7 +271,7 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, movement, value1, value2, v
     enemy:initAnimatorMonster(t_enemy['res'], t_enemy['attr'])
     self.m_world:initEnemyClass(enemy)
     enemy:initLuaValue(value1, value2, value3, value4, value5)
-    enemy:initDragonSkillManager('enemy', enemy_id)
+    enemy:initDragonSkillManager('enemy', enemy_id, 6) -- monster는 skill_1~skill_6을 모두 사용
     enemy:initState()
     enemy:initStatus(t_enemy, level)
     enemy:changeState('move')
