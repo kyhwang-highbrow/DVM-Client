@@ -183,8 +183,6 @@ function MissileLua.lua_angle(owner)
     
 	-- table에서 받아오는 값
 	local height = owner.m_value1
---	local explostion_size = owner.m_value2
-	--local explostion_res = owner.m_value3
 
     local loop = 1
     if (owner.m_target) then
