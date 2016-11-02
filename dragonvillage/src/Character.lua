@@ -171,7 +171,8 @@ function Character:initStatus(t_char, level, grade, evolution)
     local evolution = (evolution or 1)
 
     if isExistValue(self.m_charType, 'dragon') then
-        self.m_statusCalc = MakeOwnDragonStatusCalculator(self.m_charTable['id'])
+        --self.m_statusCalc = MakeOwnDragonStatusCalculator(self.m_charTable['id'])
+       self.m_statusCalc = MakeDragonStatusCalculator(self.m_charTable['id'], level, grade, evolution)
     elseif isExistValue(self.m_charType, 'enemy', 'tamer') then
         self.m_statusCalc = StatusCalculator(self.m_charType, self.m_charTable['id'], level, grade, evolution)
     end
