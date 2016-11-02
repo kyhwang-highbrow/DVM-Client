@@ -345,6 +345,7 @@ function GameState:update_fight_skill(dt)
         do
             local animator = MakeAnimator('res/effect/effect_skillcasting_dragon/effect_skillcasting_dragon.vrp')
             animator:changeAni('idle', false)
+            animator:setPosition(0, 80)
             g_gameScene.m_containerLayer:addChild(animator.m_node)
 
             local duration = animator:getDuration() * delayTime
