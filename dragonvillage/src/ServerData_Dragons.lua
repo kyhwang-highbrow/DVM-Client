@@ -3,6 +3,7 @@
 -------------------------------------
 ServerData_Dragons = class({
         m_serverData = 'ServerData',
+        m_leaderDragonOdid = 'string', -- 리더 드래곤의 obejct id
     })
 
 -------------------------------------
@@ -76,6 +77,66 @@ function ServerData_Dragons:applyDragonData(t_dragon)
 
     if idx then
         self.m_serverData:applyServerData(t_dragon, 'dragons', idx)
+    end
+end
+
+-------------------------------------
+-- function getLeaderDragon
+-- @brief 리더드래곤의 정보를 얻어옴
+-------------------------------------
+function ServerData_Dragons:getLeaderDragon()
+    
+    -- 서버에서 넘어온 드래곤 리스트에서 리더를 찾음
+    if (not self.m_leaderDragonOdid) then
+        local l_dragons = self.m_serverData:get('dragons')
+        for i,v in pairs(l_dragons) do
+            if v['leader'] then
+                self.m_leaderDragonOdid = v['id']
+                break
+            end
+        end
+    end
+
+    -- 서버에서 넘어온 드래곤 리스트에서 리더를 찾음
+    if (not self.m_leaderDragonOdid) then
+        local l_dragons = self.m_serverData:get('dragons')
+        if l_dragons[1] then
+            self.m_leaderDragonOdid = l_dragons[1]['id']
+        end
+    end
+
+    -- 드래곤 데이터를 리턴
+    if self.m_leaderDragonOdid then
+        local t_dragon_data = self:getDragonDataFromUid(self.m_leaderDragonOdid)
+
+        -- 로컬 데이터 변경
+        t_dragon_data['leader'] = true
+        self:applyDragonData(t_dragon_data)
+
+        return t_dragon_data
+    end
+
+    return nil
+end
+
+-------------------------------------
+-- function setLeaderDragon
+-- @brief 리더드래곤 설정
+-------------------------------------
+function ServerData_Dragons:setLeaderDragon(doid)
+    if (self.m_leaderDragonOdid) then
+        local t_dragon_data = self:getDragonDataFromUid(self.m_leaderDragonOdid)
+        t_dragon_data['leader'] = false
+        self:applyDragonData(t_dragon_data)
+    end
+
+    self.m_leaderDragonOdid = doid
+    if (self.m_leaderDragonOdid) then
+        local t_dragon_data = self:getDragonDataFromUid(self.m_leaderDragonOdid)
+
+        -- 로컬 데이터 변경
+        t_dragon_data['leader'] = true
+        self:applyDragonData(t_dragon_data)
     end
 end
 

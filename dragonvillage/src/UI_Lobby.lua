@@ -95,6 +95,20 @@ function UI_Lobby:refresh_userInfo()
     local exp_percentage = getTamerExpPercentage(lv, exp)
     vars['userExpLabel']:setString(Str('{1}%', exp_percentage))
     vars['userExpGg']:setPercentage(exp_percentage)
+
+    -- 대표 드래곤 아이콘
+    local t_leader_dragon_data = g_dragonsData:getLeaderDragon()
+    if t_leader_dragon_data then
+        local dragon_id = t_leader_dragon_data['did']
+        local table_dragon = TABLE:get('dragon')
+        local t_dragon = table_dragon[dragon_id]
+
+        local sprite = IconHelper:getHeroIcon(t_dragon['icon'], t_leader_dragon_data['evolution'], t_dragon['attr'])
+        sprite:setAnchorPoint(cc.p(0.5, 0.5))
+        sprite:setDockPoint(cc.p(0.5, 0.5))
+        vars['userNode']:removeAllChildren()
+        vars['userNode']:addChild(sprite)
+    end
 end
 
 -------------------------------------
@@ -117,6 +131,7 @@ function UI_Lobby:click_dragonManageBtn()
         local ui = UI_DragonManageInfo()
         local function close_cb()
             self:sceneFadeInAction()
+            self:refresh_userInfo()
         end
         ui:setCloseCB(close_cb)
     end

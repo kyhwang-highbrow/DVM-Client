@@ -83,6 +83,22 @@ LocalServer['/dragons/update'] = function(t_request)
     success_cb(t_ret)
 end
 
+LocalServer['/users/set_leader_dragon'] = function(t_request)
+    local t_data = t_request['data']
+
+    local success_cb = t_request['success']
+
+    local fail_cb = t_request['fail']
+
+    local t_ret = {}
+    t_ret['status'] = 0
+    t_ret['message'] = 'success'
+
+    success_cb(t_ret)
+end
+
+
+
 
 
 

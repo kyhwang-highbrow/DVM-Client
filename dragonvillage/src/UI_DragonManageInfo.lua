@@ -81,7 +81,7 @@ function UI_DragonManageInfo:initButton()
         vars['switchBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"보기" 미구현') end)
 
         -- 대표
-        vars['leaderBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"대표 설정" 미구현') end)
+        vars['leaderBtn']:registerScriptTapHandler(function() self:click_leaderBtn() end)
 
         -- 평가
         vars['assessBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"평가" 미구현') end)
@@ -379,6 +379,45 @@ end
 -------------------------------------
 function UI_DragonManageInfo:click_upgradeBtn()
 end
+
+-------------------------------------
+-- function click_leaderBtn
+-- @brief 대표드래곤 지정
+-------------------------------------
+function UI_DragonManageInfo:click_leaderBtn()
+    if (not self.m_selectDragonOID) then
+        return
+    end
+
+    local leader_dragon = g_dragonsData:getLeaderDragon()
+    if (leader_dragon['id'] == self.m_selectDragonOID) then
+        UIManager:toastNotificationRed(Str('이미 대표 드래곤으로 설정되어 있습니다.'))
+        return
+    end
+
+    local function yes_cb()
+        local uid = g_userData:get('uid')
+
+        local function success_cb(ret)
+            if ret['leader_dragon'] then
+                local doid = ret['leader_dragon']
+                g_dragonsData:setLeaderDragon(doid)
+            end
+            UIManager:toastNotificationGreen(Str('대표 드래곤으로 설정되었습니다.'))
+        end
+
+        local ui_network = UI_Network()
+        ui_network:setUrl('/users/set_leader_dragon')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('doid', self.m_selectDragonOID)
+        ui_network:setRevocable(true)
+        ui_network:setSuccessCB(success_cb)
+        ui_network:request()
+    end
+
+    MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('대표 드래곤으로 설정하시겠습니까?'), yes_cb)
+end
+
 
 -------------------------------------
 -- function init_dragonTableView
