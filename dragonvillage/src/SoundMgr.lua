@@ -75,12 +75,6 @@ function SoundMgr:entry()
     cclog_sound('SoundMgr:entry()')
     cclog_sound('#################################################')
 
-    -- @TODO 소리 임시 조절
-	if DEVELOPMENT_KMS or DEVELOPMENT_KSJ then
-		self.m_enableBgm = false
-		self.m_enableSfx = false
-	end
-
     self:loadSoundList()
 end
 

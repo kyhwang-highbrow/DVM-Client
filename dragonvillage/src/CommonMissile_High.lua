@@ -22,9 +22,10 @@ function CommonMissile_High:initCommonMissile(owner, t_skill)
 	PARENT.initCommonMissile(self, owner, t_skill)
 	
 	-- 특수 변수
+	local attr = self.m_owner.m_charTable['attr'] or ''
 	self.m_jumpHeight = t_skill['val_1']
 	self.m_explosionSize = t_skill['val_2']
-	self.m_explosionRes  = t_skill['res_3']
+	self.m_explosionRes  = string.gsub(t_skill['res_3'], '@', attr)
 end
 
 -------------------------------------
@@ -45,6 +46,12 @@ function CommonMissile_High:setMissile()
     else
         t_option['object_key'] = 'missile_e'
     end
+
+	t_option['cbFunction'] = function() 
+		local attr = self.m_owner.m_charTable['attr'] or ''
+		self.m_owner.m_world.m_missileFactory:makeInstantMissile(self.m_explosionRes, 'center_idle', self.m_target.m_homePosX, self.m_target.m_homePosY, self.m_explosionSize, self.m_owner, {attr_name = attr})
+        self.m_owner:changeState('dying')
+	end
 
 	-- 수정 가능 부분
 	-----------------------------------------------------------------------------------
@@ -72,8 +79,8 @@ function CommonMissile_High:setMissile()
 
     t_option['lua_param'] = {}
     t_option['lua_param']['value1'] = self.m_jumpHeight
-	t_option['lua_param']['value2'] = self.m_explosionSize
-	t_option['lua_param']['value3'] = self.m_explosionRes
+	--t_option['lua_param']['value2'] = self.m_explosionSize
+	--t_option['lua_param']['value3'] = self.m_explosionRes
 
 	-----------------------------------------------------------------------------------
 

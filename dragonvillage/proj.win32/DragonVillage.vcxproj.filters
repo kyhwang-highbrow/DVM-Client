@@ -955,7 +955,7 @@
     <None Include="..\src\NetworkLocalServer.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_Lobby.lua">
+    <None Include="..\src\SkillHitEffectDirector.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>

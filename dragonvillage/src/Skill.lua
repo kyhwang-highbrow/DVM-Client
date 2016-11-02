@@ -243,6 +243,17 @@ end
 function ISkill:makeSkillInstnceFromSkill()
 end
 
+
+
+
+
+
+
+
+
+
+
+
 -------------------------------------
 -- function getCloneTable
 -- @brief

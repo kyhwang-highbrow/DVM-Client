@@ -92,6 +92,8 @@ function AnimatorHelper:makeInstanceHitComboffect(world, count)
 	if (count < 3) then return end 
 
 	local effect = MakeAnimator('res/ui/a2d/ingame_combo_text/ingame_combo_text.vrp')
+
+	-- 2. hit 수에 따라 변경
 	local combo_name = nil
 	if (count > 5) then 
 		combo_name = '40percent_combo'

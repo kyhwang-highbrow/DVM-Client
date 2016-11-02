@@ -220,7 +220,7 @@ function PhysWorld:update(dt)
                     y = object.pos.y
 					-- 점과 점의 거리를 이용하여 충돌 여부 확인
 					if target then 
-						ret = isCollision(x, y, target, 100)
+						ret = isCollision(x, y, target, 20)
 					end
                     if ret and target then
 						-- 충돌 콜백 실행

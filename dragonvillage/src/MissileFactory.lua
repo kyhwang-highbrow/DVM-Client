@@ -133,7 +133,10 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     local value_1 =          t_option['value_1']
     local effect =           t_option['effect']
     local lua_param =        t_option['lua_param']
+	
 	local isFixedAttack =	 t_option['bFixedAttack'] or false
+	local missileCBFunction =t_option['cbFunction']
+
     --local parent =           t_option['parent'] or GameMgr.m_missileNode
     --local sync_pos =         t_option['sync_pos'] or false
     --local motion_streak =    t_option['motion_streak'] or nil 실 사용하는 곳에서 정의 .. 혼선이 있다.
@@ -352,6 +355,11 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         elseif missile_type == MISSILE_TYPE['SPLASH'] then
             missile:addAtkCallback(MissileHitCB.splash)
         end
+
+		-- @TODO 공용탄 개발 후 개별적인 콜백이 필요함에 따라 각 탄에서 콜백함수를 던지도록함
+		if (missileCBFunction) then
+			missile:addAtkCallback(missileCBFunction)
+		end
 
 
         -- Visual명 변경

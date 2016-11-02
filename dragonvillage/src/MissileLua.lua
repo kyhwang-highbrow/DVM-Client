@@ -183,8 +183,8 @@ function MissileLua.lua_angle(owner)
     
 	-- table에서 받아오는 값
 	local height = owner.m_value1
-	local explostion_size = owner.m_value2
-	local explostion_res = owner.m_value3
+--	local explostion_size = owner.m_value2
+	--local explostion_res = owner.m_value3
 
     local loop = 1
     if (owner.m_target) then
@@ -193,15 +193,7 @@ function MissileLua.lua_angle(owner)
     end
 
     local action = cc.JumpTo:create(duration, cc.p(target_x, target_y), height, loop)
-
-    local function finish_func()
-		local attr_name = attributeNumToStr(owner.m_activityCarrier.m_attribute)
-		owner.m_world.m_missileFactory:makeInstantMissile(explostion_res, 'center_idle', target_x, target_y, explostion_size, owner, {attr_name = attr_name})
-        owner:changeState('dying')
-    end
-
-    local sequence = cc.Sequence:create(action, cc.CallFunc:create(finish_func))
-    owner.m_rootNode:runAction(sequence)
+    owner.m_rootNode:runAction(action)
 end
 
 -------------------------------------
