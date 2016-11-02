@@ -618,7 +618,7 @@ end
 -------------------------------------
 function GameState:makeResultUI(is_success)
 
-    if (not DEVELOPMENT_SEONG_GOO_KIM) then
+    if (DEVELOPMENT_SEONG_GOO_KIM) then
         self:makeResultUI_Old(is_success)
         return
     end

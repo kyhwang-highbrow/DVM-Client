@@ -83,7 +83,7 @@ local function main()
         SceneDV():runScene()
     else
         -- 김성구의 개발환경에서만 동작
-        if DEVELOPMENT_SEONG_GOO_KIM then
+        if (not DEVELOPMENT_SEONG_GOO_KIM) then
             local scene = SceneTitle()
             scene:runScene()
         else

@@ -58,7 +58,7 @@ function ScenePatch:onEnter()
     patch_core:setFinishCB(finish_cb)
     patch_core:doStep()
 
-    if (DEVELOPMENT_SEONG_GOO_KIM == true) then
+    if (DEVELOPMENT_SEONG_GOO_KIM == false) then
         self.m_vars['animator']:changeAni('01_patch')
     else
         self.m_vars['animator']:changeAni('04_title_idle')

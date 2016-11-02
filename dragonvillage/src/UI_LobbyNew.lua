@@ -48,7 +48,7 @@ function UI_LobbyNew:init()
 	self:refresh()
 
 
-    if (DEVELOPMENT_SEONG_GOO_KIM == true) then
+    if (DEVELOPMENT_SEONG_GOO_KIM == false) then
         self:initUserInfoNew()
     else
         self:initUserInfo()
@@ -344,7 +344,7 @@ function UI_LobbyNew:click_dragonManageBtn()
 
     -- 실행
     func_run = function()
-        if (DEVELOPMENT_SEONG_GOO_KIM == true) then
+        if (DEVELOPMENT_SEONG_GOO_KIM == false) then
             local t_data = nil
             local close_cb = function()
                 local scene = SceneLobby()
