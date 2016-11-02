@@ -1652,7 +1652,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'skillNode1';
+				lua_name = 'skillNode0';
 			};
 			[27] =
 			{
@@ -1671,7 +1671,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'skillNode2';
+				lua_name = 'skillNode1';
 			};
 			[28] =
 			{
@@ -1690,7 +1690,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'skillNode3';
+				lua_name = 'skillNode2';
 			};
 			[29] =
 			{
@@ -1709,7 +1709,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'skillNode4';
+				lua_name = 'skillNode3';
 			};
 			[30] =
 			{
@@ -1730,7 +1730,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'skllLvLabel1';
+					lua_name = 'skllLvLabel0';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
 					text = '0';
@@ -1756,7 +1756,7 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = -98.000000;
-				y = -192.000000;
+				y = -193.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1796,7 +1796,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'skllLvLabel2';
+					lua_name = 'skllLvLabel1';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
 					text = '0';
@@ -1862,7 +1862,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'skllLvLabel3';
+					lua_name = 'skllLvLabel2';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
 					text = '0';
@@ -1928,7 +1928,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'skllLvLabel4';
+					lua_name = 'skllLvLabel3';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
 					text = '0';
@@ -1979,8 +1979,8 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = 29.000000;
-				y = -192.000000;
+				x = -111.000000;
+				y = -86.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
