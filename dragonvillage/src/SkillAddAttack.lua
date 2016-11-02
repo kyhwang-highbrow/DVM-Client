@@ -44,21 +44,8 @@ end
 -------------------------------------
 function SkillAddAttack.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
-		owner:attack()
+		owner:runAttack()
 		owner.m_animator:addAniHandler(function() owner:changeState('dying') end)
-    end
-end
-
--------------------------------------
--- function attack
--------------------------------------
-function SkillAddAttack:attack()
-    local t_targets = self:findTarget()
-	
-    for i,target_char in ipairs(t_targets) do
-        -- 공격
-        self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
-        target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
     end
 end
 

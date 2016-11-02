@@ -114,13 +114,6 @@ function SkillBuff:getDefaultTargetPos()
 end
 
 -------------------------------------
--- function attack
--------------------------------------
-function SkillBuff:attack()
-    PARENT.attack(self) 
-end
-
--------------------------------------
 -- function findTarget
 -- @brief 공격 대상 찾음
 -------------------------------------

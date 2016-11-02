@@ -157,7 +157,7 @@ function SkillRolling.st_attack(owner, dt)
     if (owner.m_multiAtkTimer > owner.m_hitInterval) then
 		-- 첫공격시에만 화면 쉐이크
 		if (owner.m_attackCnt == 0) then ShakeDir2(owner.movement_theta, 300) end
-		owner:attack()
+		owner:runAttack()
 
         owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
 		owner.m_attackCnt = owner.m_attackCnt + 1
@@ -311,9 +311,9 @@ function SkillRolling:attack()
 	
     for i,target_char in ipairs(t_targets) do
         -- 공격
-        self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
-        target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
+        self:attack(target_char)
 		
+		-- @TODO 상태효과..
 		StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
     end
 end

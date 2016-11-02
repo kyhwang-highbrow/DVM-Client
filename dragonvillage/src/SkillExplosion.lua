@@ -125,7 +125,7 @@ function SkillExplosion.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
 		-- 공격
 		local attackFunc = cc.CallFunc:create(function() 
-			owner:attack()
+			owner:runAttack()
 			ShakeDir2(owner.movement_theta, 1500)
 		end)
 
@@ -204,16 +204,15 @@ function SkillExplosion:getDefaultTargetPos()
 end
 
 -------------------------------------
--- function attack
+-- function runAttack
 -------------------------------------
-function SkillExplosion:attack()
+function SkillExplosion:runAttack()
     local t_targets = self:findTarget(self.m_targetPos.x, self.m_targetPos.y, self.m_range)
 	
     for i,target_char in ipairs(t_targets) do
-        -- 공격
-        self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
-        target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
-
+		-- 공격
+        self:attack(target_char)
+		
 		-- 상태효과 체크
 		StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
     end

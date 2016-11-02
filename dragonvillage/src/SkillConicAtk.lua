@@ -65,7 +65,7 @@ function SkillConicAtk.st_idle(owner, dt)
 	-- 반복 공격
     owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
     if (owner.m_multiAtkTimer > owner.m_hitInterval) then
-        owner:attack()
+        owner:runAttack()
         owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
 		owner.m_attackCount = owner.m_attackCount + 1
     end
@@ -92,15 +92,14 @@ function SkillConicAtk:getDefaultTargetPos()
 end
 
 -------------------------------------
--- function attack
+-- function runAttack
 -------------------------------------
-function SkillConicAtk:attack()
+function SkillConicAtk:runAttack()
     local t_targets = self:findTarget(self.m_owner.pos.x, self.m_owner.pos.y, self.m_range, self.m_degree)
 
     for i,target_char in ipairs(t_targets) do
         -- 공격
-        self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
-        target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
+        self:attack(target_char)
 		
 		-- @TODO 공격에 묻어나는 이펙트 Carrier 에 담아서..
 		StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)

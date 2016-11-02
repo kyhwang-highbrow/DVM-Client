@@ -90,7 +90,7 @@ function SkillAoERound.st_attack(owner, dt)
 	-- 반복 공격
     owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
     if (owner.m_multiAtkTimer > owner.m_hitInterval) then
-        owner:attack()
+        owner:runAttack()
         owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
 		owner.m_attackCnt = owner.m_attackCnt + 1
     end
@@ -130,15 +130,14 @@ function SkillAoERound:findTarget(x, y, range)
 end
 
 -------------------------------------
--- function attack
+-- function runAttack
 -------------------------------------
-function SkillAoERound:attack()
+function SkillAoERound:runAttack()
     local t_targets = self:findTarget()
 	
     for i,target_char in ipairs(t_targets) do
         -- 공격
-        self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
-        target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
+        self:attack(target_char)
 		
 		-- @TODO 패시브를 자동으로 태우기 위해서는 어디에 있어야..		
 		if self.m_statusEffectType then

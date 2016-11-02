@@ -73,7 +73,7 @@ function SkillChainLightning.st_idle(owner, dt)
     owner:updatePos()
 
 	if (owner.m_stateTimer == 0) then
-        owner:attack()
+        owner:runAttack()
     end
 	-- aniHandler로 이펙트에 changeState('dying') 붙임
 end
@@ -112,13 +112,12 @@ function SkillChainLightning:getTargetList(count)
 end
 
 -------------------------------------
--- function attack
+-- function runAttack
 -------------------------------------
-function SkillChainLightning:attack()
+function SkillChainLightning:runAttack()
     for i,target_char in ipairs(self.m_tTargetList) do
         -- 공격
-        self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
-        target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
+        self:attack(target_char)
 
         -- 이펙트 생성
         local effect = self:makeEffect(i, self.m_res)

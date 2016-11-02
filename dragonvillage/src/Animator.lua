@@ -157,6 +157,26 @@ function Animator:setPosition(x, y)
 end
 
 -------------------------------------
+-- function setPosition
+-------------------------------------
+function Animator:setDockPoint(x, y)
+    if (not self.m_node) then
+        return
+    end
+    self.m_node:setDockPoint(cc.p(x, y))
+end
+
+-------------------------------------
+-- function setPosition
+-------------------------------------
+function Animator:setAnchorPoint(x, y)
+    if (not self.m_node) then
+        return
+    end
+    self.m_node:setAnchorPoint(cc.p(x, y))
+end
+
+-------------------------------------
 -- function setRotation
 -- @brief 
 -- @param degree

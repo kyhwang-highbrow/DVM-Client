@@ -7,9 +7,7 @@ SkillLeafBlade = class(PARENT, {
 		m_missileRes = 'string',
         m_motionStreakRes = 'string',
 		m_resScale = 'num',
-
         m_targetCount = 'number',
-
 		m_bodySize = 'number',
      })
 
@@ -95,6 +93,10 @@ function SkillLeafBlade:fireMissile()
     t_option['lua_param'] = {}
     t_option['lua_param']['value1'] = targetPos
     
+	t_option['cbFunction'] = function()
+		self.m_skillHitEffctDirector:doWork()
+	end
+
     -- 상탄
     t_option['lua_param']['value2'] = 'top'
     for i = 1, self.m_targetCount do 
@@ -108,10 +110,6 @@ function SkillLeafBlade:fireMissile()
         t_option['lua_param']['value3'] = 0.15 * (i-1)
         local missile = world.m_missileFactory:makeMissile(t_option)
     end 
-
-	-- combo hit 연출
-	AnimatorHelper:makeInstanceHitComboffect(self.m_owner.m_world, self.m_targetHitCnt)
-	cclog(self.m_targetHitCnt)
 end
 
 -------------------------------------

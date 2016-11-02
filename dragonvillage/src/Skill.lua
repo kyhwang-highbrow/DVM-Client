@@ -25,6 +25,10 @@ ISkill = {
 		-- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset
         m_attackPosOffsetX = 'number',
         m_attackPosOffsetY = 'number',
+
+		-- 스킬 연출 관리자 - 디렉터
+		m_skillHitEffctDirector = 'SkillHitEffectDirector',
+
      }
 
 -------------------------------------
@@ -43,6 +47,8 @@ function ISkill:init_skill()
 	self:initActvityCarrier(self.m_powerRate)
 	self:initAttackPosOffset()
 	
+	self.m_skillHitEffctDirector = SkillHitEffectDirector()
+
 	if (not self.m_targetChar) then
 		self.m_targetChar = self:getDefaultTarget()
 	end
@@ -120,24 +126,34 @@ end
 -------------------------------------
 function ISkill.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
-		owner:attack()
+		owner:runAttack()
 	else
 		owner:changeState('dying')
     end
 end
 
 -------------------------------------
--- function attack
+-- function runAttack
 -- @brief findtarget으로 찾은 적에게 공격을 실행한다. 
 -------------------------------------
-function ISkill:attack()
+function ISkill:runAttack()
     local t_targets = self:findTarget()
-	
     for i,target_char in ipairs(t_targets) do
-        -- 공격
-        self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
-        target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
+		self:attack(target_char)
     end
+end
+
+-------------------------------------
+-- function attack
+-- @brief 공격 콜백을 실행시키고 hit 연출을 조작한다.
+-------------------------------------
+function ISkill:attack(target_char)
+    -- 공격
+    self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
+    target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
+
+	-- 연출
+	self.m_skillHitEffctDirector:doWork()
 end
 
 -------------------------------------

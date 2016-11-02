@@ -32,15 +32,14 @@ function SkillConicAtk_Spread:init_skill(attack_count, range, isSpread)
 end
 
 -------------------------------------
--- function attack
+-- function runAttack
 -------------------------------------
-function SkillConicAtk_Spread:attack()
+function SkillConicAtk_Spread:runAttack()
     local t_targets = self:findTarget(self.m_owner.pos.x, self.m_owner.pos.y, self.m_range, self.m_degree)
 
     for i, target_char in ipairs(t_targets) do
         -- 공격
-        self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
-        target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
+        self:attack(target_char)
 		
 		-- @TODO 공격에 묻어나는 이펙트 Carrier 에 담아서..
 		StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)

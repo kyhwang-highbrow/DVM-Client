@@ -152,7 +152,6 @@ local t_module = {
 	'StatusEffect_addAttack',
     'StatusEffect_Protection',
 	
-
 	'StatusEffectIcon',
 
 	-- EFFECT
@@ -161,6 +160,10 @@ local t_module = {
     'EffectBezierLink',
     'EffectLinearDot',
     
+	
+	-- SKILL HELPER
+	'SkillHitEffectDirector',
+
     -- SKILL    
 	'Skill',
     'Laser',
@@ -209,10 +212,6 @@ local t_module = {
 	'SkillIndicator_AoERound',
 	'SkillIndicator_Conic',
 	'SkillIndicator_ConicSpread',
-
-	-- S.P.
-    'SpecialPower',
-    'SpecialPowerLeon',
     
 	-- BUFF
 	'Buff',
