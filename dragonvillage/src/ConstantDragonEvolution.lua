@@ -36,15 +36,21 @@ end
 
 -------------------------------------
 -- function dragonMaxLevel
--- @brief 드래곤 진화도(evolution)별 최대 레벨
+-- @brief 드래곤 승급(grade)별 최대 레벨
 -------------------------------------
-function dragonMaxLevel(evolution_lv)
-    if (evolution_lv == 1) then
+function dragonMaxLevel(dragon_grade)
+    if (dragon_grade == 1) then
         return 20
-    elseif (evolution_lv == 2) then
+    elseif (dragon_grade == 2) then
+        return 30
+    elseif (dragon_grade == 3) then
         return 40
-    elseif (evolution_lv == 3) then
+    elseif (dragon_grade == 4) then
+        return 50
+    elseif (dragon_grade == 5) then
         return 60
+    elseif (dragon_grade == 6) then
+        return 70
     else
         error()
     end

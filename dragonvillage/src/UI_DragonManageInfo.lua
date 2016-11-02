@@ -132,8 +132,11 @@ function UI_DragonManageInfo:refresh()
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[t_dragon_data['did']]
 
-    -- 드래곤 기본 정보 변경
+    -- 드래곤 기본 정보 갱신
     self:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
+
+    -- 드래곤 스킬 정보 갱신
+    self:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
 
     -- 아이콘 갱신
     self:refresh_icons(t_dragon_data, t_dragon)
@@ -144,7 +147,7 @@ end
 
 -------------------------------------
 -- function refresh_dragonBasicInfo
--- @brief 드래곤 기본 정보 변경
+-- @brief 드래곤 기본 정보 갱신
 -------------------------------------
 function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
     local vars = self.vars
@@ -174,6 +177,63 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
         animator:addAniHandler(function() animator:changeAni('idle', true) end)
         animator:setAlpha(0)
         animator:runAction(cc.FadeIn:create(0.1))
+    end
+
+    do -- 레벨
+        local lv_str = Str('{1}/{2}', t_dragon_data['lv'], dragonMaxLevel(t_dragon_data['grade']))
+        vars['lvLabel']:setString(lv_str)
+    end
+
+    do -- 경혐치 exp
+        local lv = t_dragon_data['lv']
+        local table_exp = TABLE:get('exp_dragon')
+        local t_exp = table_exp[lv] 
+        local max_exp = t_exp['exp_d']
+        local percentage = (t_dragon_data['exp'] / max_exp) * 100
+        percentage = math_floor(percentage)
+        vars['expLabel']:setString(Str('{1}%', percentage))
+
+        vars['expGauge']:stopAllActions()
+        vars['expGauge']:setPercentage(0)
+        vars['expGauge']:runAction(cc.ProgressTo:create(0.2, percentage)) 
+    end
+
+    do -- 승급 경험치
+        vars['upgradeLabel']:setString('')
+        vars['upgradeGauge']:setPercentage(0)
+    end
+
+    do -- 친밀도
+        vars['friendshipLabel']:setString(Str('무관심'))
+        vars['friendshipGauge']:setPercentage(0)
+    end
+end
+
+-------------------------------------
+-- function refresh_dragonSkillsInfo
+-- @brief 드래곤 스킬 정보 갱신
+-------------------------------------
+function UI_DragonManageInfo:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
+    local vars = self.vars
+    local dragon_id = t_dragon_data['did']
+
+    do -- 스킬 아이콘 생성
+        local skill_mgr = DragonSkillManager('dragon', dragon_id, t_dragon_data['grade'])
+        local l_skill_icon = skill_mgr:getSkillIconList()
+        for i=0, 6 do
+            if l_skill_icon[i] then
+                vars['skillNode' .. i]:removeAllChildren()
+                vars['skillNode' .. i]:addChild(l_skill_icon[i].root)
+                local lock = (t_dragon_data['grade'] < i)
+                l_skill_icon[i]:setLockSpriteVisible(lock)
+
+                if lock then
+                    vars['skllLvLabel' .. i]:setString('0')
+                else
+                    vars['skllLvLabel' .. i]:setString('1')
+                end
+            end
+        end
     end
 end
 
@@ -289,9 +349,9 @@ function UI_DragonManageInfo:changeDragonSelectFrame()
     -- addChild 후 액션 실행(깜빡임)
     if ui then
         ui.root:addChild(self.m_dragonSelectFrame)
-        ui.root:stopAllActions()
-        ui.root:setOpacity(255)
-        ui.root:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 50), cc.FadeTo:create(0.5, 255))))
+        self.m_dragonSelectFrame:stopAllActions()
+        self.m_dragonSelectFrame:setOpacity(255)
+        self.m_dragonSelectFrame:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 50), cc.FadeTo:create(0.5, 255))))
         self.m_dragonSelectFrame:release()
         return
     end
