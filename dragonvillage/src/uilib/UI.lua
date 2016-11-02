@@ -384,6 +384,33 @@ function UI:sceneFadeInAction()
 end
 
 -------------------------------------
+-- function sceneFadeOutAction
+-- @brief Scene 전환 페이드인 효과
+-------------------------------------
+function UI:sceneFadeOutAction()
+    local layerColor = cc.LayerColor:create( cc.c4b(0,0,0,0) )
+    layerColor:setDockPoint(cc.p(0.5, 0.5))
+    layerColor:setAnchorPoint(cc.p(0.5, 0.5))
+    layerColor:setRelativeSizeAndType(cc.size(1280, 960), 1, false)
+    layerColor:runAction(cc.Sequence:create(cc.FadeIn:create(0.3), cc.RemoveSelf:create()))
+    self.root:addChild(layerColor, 100)
+end
+
+-------------------------------------
+-- function sceneFadeOutAndCallFunc
+-- @brief Scene 전환 페이드인 효과
+-------------------------------------
+function UI:sceneFadeOutAndCallFunc(func)
+    self:sceneFadeOutAction()
+    
+    local ui = UI()
+    ui:load('empty.ui')
+    local bNotBlendBGLayer = true
+    UIManager:open(ui, UIManager.POPUP, bNotBlendBGLayer)
+    ui.root:runAction(cc.Sequence:create(cc.DelayTime:create(0.3), cc.CallFunc:create(func), cc.CallFunc:create(function() ui:close() end)))
+end
+
+-------------------------------------
 -- function initUI
 -- @brief 순수가상함수
 -------------------------------------

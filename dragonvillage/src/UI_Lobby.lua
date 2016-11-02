@@ -101,19 +101,27 @@ end
 -- function click_adventureBtn
 -------------------------------------
 function UI_Lobby:click_adventureBtn()
-    local scene = SceneAdventure()
-    scene:runScene()
+    local func = function()
+        local scene = SceneAdventure()
+        scene:runScene()
+    end
+
+    self:sceneFadeOutAndCallFunc(func)
 end
 
 -------------------------------------
 -- function click_dragonManageBtn
 -------------------------------------
 function UI_Lobby:click_dragonManageBtn()
-    local ui = UI_DragonManageInfo()
-    local function close_cb()
-        self:sceneFadeInAction()
+    local func = function()
+        local ui = UI_DragonManageInfo()
+        local function close_cb()
+            self:sceneFadeInAction()
+        end
+        ui:setCloseCB(close_cb)
     end
-    ui:setCloseCB(close_cb)
+
+    self:sceneFadeOutAndCallFunc(func)
 end
 
 -------------------------------------

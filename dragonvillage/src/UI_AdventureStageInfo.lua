@@ -125,20 +125,24 @@ end
 -- function click_enterBtn
 -------------------------------------
 function UI_AdventureStageInfo:click_enterBtn()
-    local stage_id = self.m_stageID
+    local func = function()
+        local stage_id = self.m_stageID
 
-    local function close_cb()
-        self:sceneFadeInAction()
+        local function close_cb()
+            self:sceneFadeInAction()
+        end
+
+        local ui
+
+        if (DEVELOPMENT_SEONG_GOO_KIM == true) then
+            ui = UI_ReadyScene(stage_id)
+        else
+            ui = UI_ReadySceneNew(nil, stage_id)
+        end
+        ui:setCloseCB(close_cb)
     end
 
-    local ui
-
-    if (DEVELOPMENT_SEONG_GOO_KIM == true) then
-        ui = UI_ReadyScene(stage_id)
-    else
-        ui = UI_ReadySceneNew(nil, stage_id)
-    end
-    ui:setCloseCB(close_cb)
+    self:sceneFadeOutAndCallFunc(func)
 end
 
 
