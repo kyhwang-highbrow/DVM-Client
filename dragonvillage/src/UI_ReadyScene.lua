@@ -61,7 +61,7 @@ end
 function UI_ReadyScene:initUI()
     self:init_dragonTableView()
 
-    self.m_selectEffect = cc.Sprite:create('res/ui/dragon_card/dragon_item_select.png')
+    self.m_selectEffect = cc.Sprite:create('res/ui/frame/dragon_select_frame.png')
     self.m_selectEffect:setDockPoint(cc.p(0.5, 0.5))
     self.m_selectEffect:setAnchorPoint(cc.p(0.5, 0.5))
     self.m_selectEffect:retain()

@@ -7,6 +7,7 @@ UI_DragonManageInfo = class(PARENT,{
         m_selectDragonData = 'table',
         m_selectDragonOID = 'number',
         m_tableViewExt = 'TableViewExtension',
+        m_dragonSelectFrame = 'sprite', --선택된 드래곤의 카드에 표시
     })
 
 -------------------------------------
@@ -257,7 +258,46 @@ function UI_DragonManageInfo:setSelectDragonData(dragon_object_id, b_force)
     self.m_selectDragonOID = dragon_object_id
     self.m_selectDragonData = g_dragonsData:getDragonDataFromUid(dragon_object_id)
 
+    -- 선택된 드래곤 카드에 프레임 표시
+    self:changeDragonSelectFrame()
+
     self:refresh()
+end
+
+-------------------------------------
+-- function changeDragonSelectFrame
+-- @brief 선택된 드래곤 카드에 프레임 표시
+-------------------------------------
+function UI_DragonManageInfo:changeDragonSelectFrame()
+    -- 없으면 새로 생성
+    if (not self.m_dragonSelectFrame) then
+        self.m_dragonSelectFrame = cc.Sprite:create('res/ui/frame/dragon_select_frame.png')
+        self.m_dragonSelectFrame:setDockPoint(cc.p(0.5, 0.5))
+        self.m_dragonSelectFrame:setAnchorPoint(cc.p(0.5, 0.5))
+        self.m_dragonSelectFrame:retain()
+    else
+    -- 있으면 부모에게서 떼어냄
+        self.m_dragonSelectFrame:retain()
+        self.m_dragonSelectFrame:removeFromParent()
+    end
+
+    -- 테이블뷰에서 선택된 드래곤의 카드를 가져옴
+    local dragon_object_id = self.m_selectDragonOID
+    local t_item = self.m_tableViewExt.m_mapItem[dragon_object_id]
+    local ui = t_item['ui']
+
+    -- addChild 후 액션 실행(깜빡임)
+    if ui then
+        ui.root:addChild(self.m_dragonSelectFrame)
+        ui.root:stopAllActions()
+        ui.root:setOpacity(255)
+        ui.root:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 50), cc.FadeTo:create(0.5, 255))))
+        self.m_dragonSelectFrame:release()
+        return
+    end
+
+    self.m_dragonSelectFrame:release()
+    self.m_dragonSelectFrame = nil
 end
 
 -------------------------------------
@@ -290,6 +330,11 @@ function UI_DragonManageInfo:init_dragonTableView()
     local function create_func(item)
         local ui = item['ui']
         ui.root:setScale(0.7)
+
+        local data = item['data']
+        if (self.m_selectDragonOID == data['id']) then
+            self:changeDragonSelectFrame()
+        end
     end
 
     -- 드래곤 클릭 콜백 함수
