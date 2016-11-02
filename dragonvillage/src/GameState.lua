@@ -317,7 +317,7 @@ function GameState:update_fight_skill(dt)
     
     if (self.m_stateTimer == 0) then
         -- 슬로우
-        g_currScene:setTimeScale(timeScale)
+        g_gameScene:setTimeScaleAction(timeScale, delayTime)
 
         -- 드래곤 승리 애니메이션
         dragon.m_animator:changeAni('pose_1', false)
@@ -343,8 +343,9 @@ function GameState:update_fight_skill(dt)
 
         -- 스킬 사용 직전 이펙트
         do
+            local attr = dragon.m_charTable['attr']
             local animator = MakeAnimator('res/effect/effect_skillcasting_dragon/effect_skillcasting_dragon.vrp')
-            animator:changeAni('idle', false)
+            animator:changeAni('idle_' .. attr, false)
             animator:setPosition(0, 80)
             g_gameScene.m_containerLayer:addChild(animator.m_node)
 
@@ -355,8 +356,6 @@ function GameState:update_fight_skill(dt)
     end
 
     if (self.m_stateTimer >= timeScale * delayTime) then
-        g_currScene:setTimeScale(1)
-
         -- 드래곤 스킬 애니메이션
         dragon:changeState('skillAttack2')
         dragon.m_animator:setTimeScale(1)

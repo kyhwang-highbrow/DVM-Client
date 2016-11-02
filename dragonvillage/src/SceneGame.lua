@@ -213,7 +213,7 @@ function SceneGame:update(dt)
             self:setTimeScale(1)
         end
     end
-
+    
     local function func()
         self.m_gameWorld:update(dt)
     end
@@ -297,16 +297,18 @@ function SceneGame:setTimeScaleAction(timeScale, duration)
 end
 
 -------------------------------------
--- function shake
+-- function setShakeAction
 -- @brief 화면 떨림 연출
 -------------------------------------
-function SceneGame:shake(x, y)
+function SceneGame:setShakeAction(x, y)
+    local timeScale = cc.Director:getInstance():getScheduler():getTimeScale()
+    local duration = 0.5 * timeScale
+
     self.m_shakeLayer:stopAllActions()
-    local start_action = cc.MoveTo:create(0.05, cc.p(x, y))
-    local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.5, cc.p(0, 0)), 0.2)
+    local start_action = cc.MoveTo:create(0, cc.p(x, y))
+    local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(duration, cc.p(0, 0)), 0.2)
     self.m_shakeLayer:runAction(cc.Sequence:create(start_action, end_action))
 end
-
 
 -------------------------------------
 -- function Shake
@@ -314,7 +316,7 @@ end
 -------------------------------------
 function Shake(x, y)
     if g_gameScene then
-        g_gameScene:shake(x, y)
+        g_gameScene:setShakeAction(x, y)
     end
 end
 
@@ -325,7 +327,7 @@ end
 function ShakeDir(dir, distance)
     if g_gameScene then
         local pos = getPointFromAngleAndDistance(dir, distance)
-        g_gameScene:shake(pos['x'], pos['y'])
+        g_gameScene:setShakeAction(pos['x'], pos['y'])
     end
 end
 

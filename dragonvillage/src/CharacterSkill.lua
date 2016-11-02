@@ -813,6 +813,8 @@ end
 function Character:cancelSkill()
     if (self.m_state ~= 'casting') then return end
 
+    local timeScale = 0.2
+
     -- 스킬 캔슬 이펙트
     if self.m_castingEffect then
         self.m_castingEffect.m_node:stopAllActions()
@@ -820,11 +822,11 @@ function Character:cancelSkill()
         self.m_castingEffect:changeAni('end', false)
 
         local duration = self.m_castingEffect:getDuration()
-        self.m_castingEffect:runAction(cc.Sequence:create(
-            cc.DelayTime:create(duration),
-            cc.CallFunc:create(function() self.m_castingEffect = nil end),
-            cc.RemoveSelf:create()
-        ))
+        self.m_castingEffect:setTimeScale(duration / timeScale)
+        self.m_castingEffect:addAniHandler(function()
+            self.m_castingEffect:runAction(cc.RemoveSelf:create())
+            self.m_castingEffect = nil
+        end)
     end
 
     -- 스킬 캔슬 이모티콘
@@ -839,10 +841,10 @@ function Character:cancelSkill()
     end
 
     -- 일시적인 슬로우 처리
-    g_gameScene:setTimeScaleAction(0.2, 0.3)
+    g_gameScene:setTimeScaleAction(timeScale, 0.3)
 
     -- 화면 흔듬
-    ShakeDir2(math_random(335-20, 335+20), math_random(500, 1500))
+    ShakeDir2(math_random(335-20, 335+20), 1500)
 
     self:changeState('attackDelay')
 end

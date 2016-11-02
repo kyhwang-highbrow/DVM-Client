@@ -181,14 +181,20 @@ function Character.st_casting(owner, dt)
             end
 
             local scale = 1
+            local aniName = 'idle'
+
             local rarity = owner.m_charTable['rarity']
             if rarity ~= 'boss' and rarity ~= 'subboss' and rarity ~= 'elite' then
             else
                 scale = 2
             end
+
+            if rarity == 'boss' or rarity == 'subboss' then
+                aniName = 'idle_boss'
+            end
             
             owner.m_castingEffect = MakeAnimator('res/effect/effect_skillcasting/effect_skillcasting.vrp')
-            owner.m_castingEffect:changeAni('idle', false)
+            owner.m_castingEffect:changeAni(aniName, false)
             owner.m_castingEffect:setPosition(offsetX, 0)
             owner.m_castingEffect:setScale(scale)
             owner.m_rootNode:addChild(owner.m_castingEffect.m_node)
