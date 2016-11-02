@@ -137,28 +137,6 @@ function getCounterAttribute(attr1, attr2)
 end
 
 -------------------------------------
--- function dragonAttributeName
--- @brief
--------------------------------------
-function dragonAttributeName(attr)
-    if (attr == ATTR_NONE) then
-        return Str('무속성')
-    elseif (attr == ATTR_EARTH) then
-        return Str('땅속성')
-    elseif (attr == ATTR_WATER) then
-        return Str('물속성')
-    elseif (attr == ATTR_FIRE) then
-        return Str('불속성')
-    elseif (attr == ATTR_LIGHT) then
-        return Str('빛속성')
-    elseif (attr == ATTR_DARK) then
-        return Str('어둠속성')
-    else
-        error('attr ' .. attr)
-    end
-end
-
--------------------------------------
 -- function attributeStrToNum
 -- @brief 속성을 number타입으로 표현
 -------------------------------------

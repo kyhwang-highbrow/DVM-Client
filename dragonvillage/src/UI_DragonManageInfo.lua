@@ -102,6 +102,19 @@ function UI_DragonManageInfo:initButton()
         -- 오름차순, 내림차순
         vars['sortOrderBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"오름차순, 내림차순" 미구현') end)
     end
+
+    do -- 기타 버튼
+        -- 능력치 상세보기
+        vars['detailBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"능력치 상세보기" 미구현') end)
+
+        -- 스킬 상세보기
+        vars['skillBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"스킬 상세보기" 미구현') end)
+
+        -- 장비 개별 버튼 1~3
+        vars['equipSlotBtn1']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"장비" 미구현') end)
+        vars['equipSlotBtn2']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"장비" 미구현') end)
+        vars['equipSlotBtn3']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"장비" 미구현') end)
+    end
 end
 
 -------------------------------------
@@ -118,6 +131,37 @@ function UI_DragonManageInfo:refresh()
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[t_dragon_data['did']]
 
+    -- 드래곤 기본 정보 변경
+    self:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
+
+    -- 아이콘 갱신
+    self:refresh_icons(t_dragon_data, t_dragon)
+
+    -- 능력치 정보 갱신
+    self:refresh_status(t_dragon_data, t_dragon)
+end
+
+-------------------------------------
+-- function refresh_dragonBasicInfo
+-- @brief 드래곤 기본 정보 변경
+-------------------------------------
+function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
+    local vars = self.vars
+
+    do -- 드래곤 이름
+        local evolution_lv = t_dragon_data['evolution']
+        vars['nameLabel']:setString(Str(t_dragon['t_name']) .. '-' .. evolutionName(evolution_lv))
+    end
+
+    do -- 드래곤 등급
+        vars['starNode']:removeAllChildren()
+        local star_res = 'res/ui/star020' .. t_dragon_data['grade'] .. '.png'
+        local star_icon = cc.Sprite:create(star_res)
+        star_icon:setDockPoint(cc.p(0.5, 0.5))
+        star_icon:setAnchorPoint(cc.p(0.5, 0.5))
+        vars['starNode']:addChild(star_icon)
+    end
+
     do -- 드래곤 실리소스
         local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], t_dragon_data['evolution'], t_dragon['attr'])
         animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
@@ -130,7 +174,69 @@ function UI_DragonManageInfo:refresh()
         animator:setAlpha(0)
         animator:runAction(cc.FadeIn:create(0.1))
     end
+end
 
+-------------------------------------
+-- function refresh_icons
+-- @brief 아이콘 갱신
+-------------------------------------
+function UI_DragonManageInfo:refresh_icons(t_dragon_data, t_dragon)
+    local vars = self.vars
+
+    do -- 희귀도
+        local rarity = t_dragon['rarity']
+        vars['rarityNode']:removeAllChildren()
+        local icon = IconHelper:getRarityIcon(rarity)
+        vars['rarityNode']:addChild(icon)
+
+        vars['rarityLabel']:setString(dragonRarityName(rarity))
+    end
+
+    do -- 드래곤 속성
+        local attr = t_dragon['attr']
+        vars['attrNode']:removeAllChildren()
+        local icon = IconHelper:getAttributeIcon(attr)
+        vars['attrNode']:addChild(icon)
+
+        vars['attrLabel']:setString(dragonAttributeName(attr))
+    end
+
+    do -- 드래곤 역할(role)
+        local role_type = t_dragon['role']
+        vars['roleNode']:removeAllChildren()
+        local icon = IconHelper:getRoleIcon(role_type)
+        vars['roleNode']:addChild(icon)
+
+        vars['roleLabel']:setString(dragonRoleName(role_type))
+    end
+
+    do -- 드래곤 공격 타입(char_type)
+        local attack_type = t_dragon['char_type']
+        vars['charTypeNode']:removeAllChildren()
+        local icon = IconHelper:getAttackTypeIcon(attack_type)
+        vars['charTypeNode']:addChild(icon)
+
+        vars['charTypeLabel']:setString(dragonAttackTypeName(attack_type))
+    end
+end
+
+-------------------------------------
+-- function refresh_status
+-- @brief 능력치 정보 갱신
+-------------------------------------
+function UI_DragonManageInfo:refresh_status(t_dragon_data, t_dragon)
+    local vars = self.vars
+    local dragon_id = t_dragon['did']
+    local lv = t_dragon_data['lv']
+    local grade = t_dragon_data['grade']
+    local evolution = t_dragon_data['evolution']
+
+    -- 능력치 계산기
+    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution)
+
+    vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
+    vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
+    vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
 end
 
 -------------------------------------

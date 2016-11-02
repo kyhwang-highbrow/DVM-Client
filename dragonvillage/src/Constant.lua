@@ -133,11 +133,11 @@ end
 -------------------------------------
 function dragonRoleName(role_type)
     if (role_type == 'dealer') then
-        return Str('공격형')
+        return Str('공격')
     elseif (role_type == 'tanker') then
-        return Str('방어형')
+        return Str('방어')
     elseif (role_type == 'supporter') then
-        return Str('지원형')
+        return Str('지원')
     else
         error('role_type: ' .. role_type)
     end
@@ -149,10 +149,48 @@ end
 -------------------------------------
 function dragonAttackTypeName(attack_type)
     if (attack_type == 'physical') then
-        return Str('물리공격형')
+        return Str('물리')
     elseif (attack_type == 'magical') then
-        return Str('마법공격형')
+        return Str('마법')
     else
         error('attack_type: ' .. attack_type)
+    end
+end
+
+-------------------------------------
+-- function dragonRarityName
+-- @brief 
+-------------------------------------
+function dragonRarityName(rarity)
+    if (rarity == 'common') then
+        return Str('일반')
+    elseif (rarity == 'rare') then
+        return Str('희귀')
+    elseif (rarity == 'hero') then
+        return Str('영웅')
+    elseif (rarity == 'legend') then
+        return Str('전설')
+    else
+        error('rarity: ' .. rarity)
+    end
+end
+
+-------------------------------------
+-- function dragonAttributeName
+-- @brief 
+-------------------------------------
+function dragonAttributeName(rarity)
+    if (rarity == 'fire') then
+        return Str('화염')
+    elseif (rarity == 'water') then
+        return Str('물')
+    elseif (rarity == 'earth') then
+        return Str('땅')
+    elseif (rarity == 'dark') then
+        return Str('어둠')
+    elseif (rarity == 'light') then
+        return Str('빛')
+    else
+        error('rarity: ' .. rarity)
     end
 end

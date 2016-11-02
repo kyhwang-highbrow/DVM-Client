@@ -220,3 +220,22 @@ function IconHelper:getStatusEffectIcon(status_effect_type)
 
     return sprite
 end
+
+-------------------------------------
+-- function getRarityIcon
+-- @brief 희귀도 아이콘
+-------------------------------------
+function IconHelper:getRarityIcon(rarity)
+	local res = 'res/ui/icon/rarity/gem_' .. rarity .. '.png'
+    local sprite = cc.Sprite:create(res)
+
+    if (not sprite) then
+		cclog('이 희귀도는 아이콘이 없네요 : ' .. rarity)
+        sprite = cc.Sprite:create('res/ui/icon/rarity/gem_common.png')
+    end
+
+    sprite:setDockPoint(cc.p(0.5, 0.5))
+    sprite:setAnchorPoint(cc.p(0.5, 0.5))
+
+    return sprite
+end
