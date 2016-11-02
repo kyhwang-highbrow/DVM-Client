@@ -273,8 +273,7 @@ local t_module = {
     'UI_SettingPopup',
 
     -- UI 드래곤 관리 관련
-    'UI_DragonMgrInfo',
-    'UI_DragonMgrSubmenu',
+    'UI_DragonManageInfo',
     'UI_DragonCard',
 
     -- UIC (UI Component)

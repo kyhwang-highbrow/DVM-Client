@@ -109,7 +109,7 @@ end
 -- function click_dragonManageBtn
 -------------------------------------
 function UI_Lobby:click_dragonManageBtn()
-    local ui = UI_DragonMgrInfo()
+    local ui = UI_DragonManageInfo()
     local function close_cb()
         self:sceneFadeInAction()
     end

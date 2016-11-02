@@ -350,7 +350,7 @@ function UI_LobbyNew:click_dragonManageBtn()
                 local scene = SceneLobby()
                 scene:runScene()
             end
-            local scene = SceneCommon(UI_DragonMgrInfo, t_data, close_cb)
+            local scene = SceneCommon(UI_DragonManageInfo, t_data, close_cb)
             scene:runScene()
         else
             local scene = SceneDragonManage()
