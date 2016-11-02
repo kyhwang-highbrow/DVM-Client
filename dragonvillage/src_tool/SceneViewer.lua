@@ -1,5 +1,5 @@
 local FONT_PATH = 'res/font/common_font_01.ttf'
-local ENTRY_FILE = 'res/character/dragon/godaeshinryong_01/godaeshinryong_01.json'
+local ENTRY_FILE = 'res/character/dragon/godaeshinryong_light_01/godaeshinryong_light_01.json'
 
 -- 드래곤의 피격박스 사이즈는 20이지만 scale 0.5를 사용하기 때문에 상대적으로 40의 크기를 가진다.
 local t_PHYSICS_SIZE = {40, 30, 40, 60, 100, 200}
@@ -24,9 +24,11 @@ SceneViewer = class(PerpleScene,{
 
 		m_bgName = 'string',
 
-        m_nodeScale = 'number',
-        m_rootNode = 'cc.Node',
-
+        m_dragonScale = 'number',
+        m_effctNode = 'cc.Node',
+		m_uiNode = 'cc.Node',
+		m_mapNode = 'cc.Node',
+		
         m_editBox = '',
 
 		m_zero_point = '',
@@ -34,6 +36,7 @@ SceneViewer = class(PerpleScene,{
 		m_physics_index = 'number',
 
 		m_dummy = 'vrp',
+		m_mapManager = 'map ani'
 	})
 
 -------------------------------------
@@ -55,9 +58,10 @@ function SceneViewer:init()
 	self.m_physical_box = nil
 	self.m_physics_index = 1
 
-	self.m_bgName = 'res/bg/forest/bg_forest_1_a.png'
+	self.m_bgName = 'map_canyon'
 
 	self.m_dummy = nil
+
 end
 
 -------------------------------------
@@ -65,19 +69,41 @@ end
 -------------------------------------
 function SceneViewer:onEnter()
 	PerpleScene.onEnter(self)
+	
+	-- button 들이 위치하는 ui node 
+	do
+		self.m_uiNode = cc.Node:create()
+		self.m_uiNode:setPosition(0, 0)
+		self.m_uiNode:setContentSize(cc.Director:getInstance():getVisibleSize())
+		self.m_uiNode:setAnchorPoint(cc.p(0.5, 0.5))
+		self.m_uiNode:setDockPoint(cc.p(0.5, 0.5))
+		self.m_scene:addChild(self.m_uiNode, 7)
+		
+		self:makeUI()
+	end
+	
+	-- effect 표시하는 root node
+	do
+		self.m_effctNode = cc.Node:create()
+		self.m_effctNode:setPosition(0, 0)
+		self.m_effctNode:setDockPoint(cc.p(0.5, 0.5))
+		self.m_scene:addChild(self.m_effctNode, 10)
+		self:makeTouchLayer(self.m_effctNode)
+			
+		self.m_dragonScale = 0.4
+		self:makeHeroVisual()
+	end
 
-    self.m_nodeScale = 0.4
-    self.m_rootNode = cc.Node:create()
-    self.m_rootNode:setPosition(0, 0)
-    self.m_rootNode:setDockPoint(cc.p(0.5, 0.5))
-    self.m_scene:addChild(self.m_rootNode, 10)
-
-    self:makeTouchLayer(self.m_rootNode)
-
-	self:makeUI()
-	self:makeHeroVisual()
-
-	self:changeBG()
+	-- scroll map node 
+	do
+		self.m_mapNode = cc.Node:create()
+		self.m_mapNode:setPosition(0, 0)
+		self.m_mapNode:setDockPoint(cc.p(0.5, 0.5))
+		self.m_scene:addChild(self.m_mapNode, 5)
+		
+		self:changeBG()
+		self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+	end
 end
 
 -------------------------------------
@@ -111,7 +137,7 @@ function SceneViewer:makeUI()
 			edit_box:setReturnType(cc.KEYBOARD_RETURNTYPE_DONE)
 			edit_box:registerScriptEditBoxHandler(editBoxTextEventHandle)
 			edit_box:setText(self.m_bgName)
-			self.m_scene:addChild(edit_box)
+			self.m_uiNode:addChild(edit_box)
 
 			edit_box:setPosition(0, 50)
 			edit_box:setDockPoint(cc.p(0.5, 0))
@@ -124,10 +150,10 @@ function SceneViewer:makeUI()
 				if eventType == ccui.TouchEventType.ended then
 					self:makeHeroVisual()
 
-                    self.m_nodeScale = 1
-                    self.m_rootNode:setPosition(0, 0)
-                    self.m_rootNode:setScale(self.m_nodeScale)
-                    self.m_uiVars['scaleLable']:setString('스케일 ' .. self.m_nodeScale)
+                    self.m_dragonScale = 1
+                    self.m_effctNode:setPosition(0, 0)
+                    self.m_effctNode:setScale(self.m_dragonScale)
+                    self.m_uiVars['scaleLable']:setString('스케일 ' .. self.m_dragonScale)
 				end
 			end
 
@@ -141,7 +167,7 @@ function SceneViewer:makeUI()
 			button:setPosition(0, 120)
 			button:setDockPoint(cc.p(0.5, 0))
 			button:addTouchEventListener(touchEvent)
-			self.m_scene:addChild(button)
+			self.m_uiNode:addChild(button)
 		end
 		----------------------------------------------------------------------
 
@@ -165,7 +191,7 @@ function SceneViewer:makeUI()
 			button:setPosition(0, -50)
 			button:setDockPoint(cc.p(0.5, 1))
 			button:addTouchEventListener(touchEvent)
-			self.m_scene:addChild(button)
+			self.m_uiNode:addChild(button)
 		end
 		----------------------------------------------------------------------
 
@@ -189,7 +215,7 @@ function SceneViewer:makeUI()
 			edit_box:setReturnType(cc.KEYBOARD_RETURNTYPE_DONE)
 			edit_box:registerScriptEditBoxHandler(editBoxTextEventHandle)
 			edit_box:setText(self.m_vrpResName)
-			self.m_scene:addChild(edit_box)
+			self.m_uiNode:addChild(edit_box)
 
 			edit_box:setPosition(0, -100)
 			edit_box:setDockPoint(cc.p(0.5, 1))
@@ -219,7 +245,7 @@ function SceneViewer:makeUI()
 			edit_box:registerScriptEditBoxHandler(editBoxTextEventHandle)
 			edit_box:setText(self.m_visualName)
 			self.m_uiVars['visualName'] = edit_box
-			self.m_scene:addChild(edit_box)
+			self.m_uiNode:addChild(edit_box)
 
 			edit_box:setPosition(-125, -150)
 			edit_box:setDockPoint(cc.p(0.5, 1))
@@ -241,7 +267,7 @@ function SceneViewer:makeUI()
 			custom_button:setPosition(150, -150)
 			custom_button:setDockPoint(cc.p(0.5, 1))
 			custom_button:addTouchEventListener(touchEvent)
-			self.m_scene:addChild(custom_button)
+			self.m_uiNode:addChild(custom_button)
 		end
 
 		do -- 비주얼 >
@@ -259,7 +285,7 @@ function SceneViewer:makeUI()
 			custom_button:setDockPoint(cc.p(0.5, 1))
 			custom_button:addTouchEventListener(touchEvent)
 			custom_button:setScaleX(-0.7)
-			self.m_scene:addChild(custom_button)
+			self.m_uiNode:addChild(custom_button)
 		end
 		----------------------------------------------------------------------
 
@@ -270,7 +296,7 @@ function SceneViewer:makeUI()
 		local custom_label = cc.Label:createWithTTF('스케일 : 1', FONT_PATH, 20.0, 0, editBoxSize, cc.TEXT_ALIGNMENT_LEFT)
 		custom_label:setPosition(-125, -210)
 		custom_label:setDockPoint(cc.p(0.5, 1))
-		self.m_scene:addChild(custom_label)
+		self.m_uiNode:addChild(custom_label)
 		self.m_uiVars['scaleLable'] = custom_label
 		----------------------------------------------------------------------
 
@@ -289,7 +315,7 @@ function SceneViewer:makeUI()
 			custom_button:setPosition(150, -210)
 			custom_button:setDockPoint(cc.p(0.5, 1))
 			custom_button:addTouchEventListener(touchEvent)
-			self.m_scene:addChild(custom_button)
+			self.m_uiNode:addChild(custom_button)
 		end
 
 		do -- 스케일 >
@@ -307,7 +333,7 @@ function SceneViewer:makeUI()
 			custom_button:setDockPoint(cc.p(0.5, 1))
 			custom_button:addTouchEventListener(touchEvent)
 			custom_button:setScaleX(-0.7)
-			self.m_scene:addChild(custom_button)
+			self.m_uiNode:addChild(custom_button)
 		end
 
 		-- 스케일 프리셋 버튼
@@ -331,7 +357,7 @@ function SceneViewer:makeUI()
 				button:setPosition(220 + 100 * i, -210)
 				button:setDockPoint(cc.p(0.5, 1))
 				button:addTouchEventListener(touchEvent)
-				self.m_scene:addChild(button)
+				self.m_uiNode:addChild(button)
 			end
 		end
 		----------------------------------------------------------------------
@@ -354,7 +380,7 @@ function SceneViewer:makeUI()
 			button:setPosition(50, 200)
 			button:setDockPoint(cc.p(0, 0.5))
 			button:addTouchEventListener(touchEvent)
-			self.m_scene:addChild(button)
+			self.m_uiNode:addChild(button)
 		end
 		----------------------------------------------------------------------
 
@@ -376,7 +402,7 @@ function SceneViewer:makeUI()
 			button:setPosition(50, 100)
 			button:setDockPoint(cc.p(0, 0.5))
 			button:addTouchEventListener(touchEvent)
-			self.m_scene:addChild(button)
+			self.m_uiNode:addChild(button)
 		end
 
 		-- 피격박스 사이즈 label
@@ -385,7 +411,7 @@ function SceneViewer:makeUI()
 			local custom_label = cc.Label:createWithTTF(physics_text, FONT_PATH, 20.0, 0, cc.size(70,50), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 			custom_label:setPosition(150, 100)
 			custom_label:setDockPoint(cc.p(0, 0.5))
-			self.m_scene:addChild(custom_label)
+			self.m_uiNode:addChild(custom_label)
 			self.m_uiVars['physicsLabel'] = custom_label
 		end
 
@@ -403,7 +429,7 @@ function SceneViewer:makeUI()
 			custom_button:setPosition(100, 100)
 			custom_button:setDockPoint(cc.p(0, 0.5))
 			custom_button:addTouchEventListener(touchEvent)
-			self.m_scene:addChild(custom_button)
+			self.m_uiNode:addChild(custom_button)
 		end
 
 		do -- 피격박스 크기 >
@@ -421,16 +447,16 @@ function SceneViewer:makeUI()
 			custom_button:setPosition(200, 100)
 			custom_button:setDockPoint(cc.p(0, 0.5))
 			custom_button:addTouchEventListener(touchEvent)
-			self.m_scene:addChild(custom_button)
+			self.m_uiNode:addChild(custom_button)
 		end
 		----------------------------------------------------------------------
 
 		----------------------------------------------------------------------
 
 		local t_dummy_res = {
-			'res/character/dragon/godaeshinryong_01/godaeshinryong_01.json',
-			'res/character/dragon/godaeshinryong_02/godaeshinryong_02.json',
-			'res/character/dragon/godaeshinryong_03/godaeshinryong_03.json',
+			'res/character/dragon/godaeshinryong_light_01/godaeshinryong_light_01.json',
+			'res/character/dragon/godaeshinryong_light_02/godaeshinryong_light_02.json',
+			'res/character/dragon/godaeshinryong_light_03/godaeshinryong_light_03.json',
 		}
 
 		for i = 1, 3 do
@@ -444,7 +470,7 @@ function SceneViewer:makeUI()
 						self.m_dummy:setPosition(0, 0)
 						self.m_dummy.m_node:setDockPoint(cc.p(0.5, 0.5))
 						self.m_dummy.m_node:setScale(0.5)
-						self.m_rootNode:addChild(self.m_dummy.m_node, -1)
+						self.m_effctNode:addChild(self.m_dummy.m_node, -1)
 					end
 				end
 			end
@@ -459,7 +485,7 @@ function SceneViewer:makeUI()
 			button:setPosition(50, 50 - 50 * i)
 			button:setDockPoint(cc.p(0, 0.5))
 			button:addTouchEventListener(touchEvent)
-			self.m_scene:addChild(button)
+			self.m_uiNode:addChild(button)
 		end
 end
 
@@ -489,7 +515,7 @@ function SceneViewer:makeHeroVisual()
     self.m_animator = self:MakeAnimator(self:getResName(vrp_res_name))
     self.m_animator:setPosition(0, 0)
     self.m_animator.m_node:setDockPoint(cc.p(0.5, 0.5))
-    self.m_rootNode:addChild(self.m_animator.m_node)
+    self.m_effctNode:addChild(self.m_animator.m_node)
 
     self.m_visualNameList = self.m_animator:getVisualList()
     self.m_animator:setSkin(self.m_heroGrade)
@@ -718,15 +744,15 @@ end
 -------------------------------------
 function SceneViewer:changeScale(b_next, tar_scale)
 	if tar_scale then
-		self.m_nodeScale = tar_scale
+		self.m_dragonScale = tar_scale
 	elseif b_next then
-        self.m_nodeScale = self.m_nodeScale + 0.1
+        self.m_dragonScale = self.m_dragonScale + 0.1
 	else
-        self.m_nodeScale = self.m_nodeScale - 0.1
+        self.m_dragonScale = self.m_dragonScale - 0.1
 	end
-    self.m_rootNode:setScale(self.m_nodeScale)
+    self.m_effctNode:setScale(self.m_dragonScale)
 
-    self.m_uiVars['scaleLable']:setString('스케일 ' .. self.m_nodeScale)
+    self.m_uiVars['scaleLable']:setString('스케일 ' .. self.m_dragonScale)
 end
 
 
@@ -734,33 +760,13 @@ end
 -- function changeBG
 -------------------------------------
 function SceneViewer:changeBG()
-
-	if self.m_uiVars['bg1'] then
-		self.m_uiVars['bg1']:removeFromParent(true)
+	if self.m_mapManager then 
+		self.m_mapManager = nil
 	end
-
-	if self.m_uiVars['bg2'] then
-		self.m_uiVars['bg2']:removeFromParent(true)
-	end
-
-	local function makeSprite(idx)
-		local sprite = cc.Sprite:create(self.m_bgName)
-		if sprite then
-			self.m_scene:addChild(sprite, -1)
-			sprite:setDockPoint(cc.p(0.5, 0))
-
-			if idx == 1 then
-				sprite:setPositionY(960/2)
-			else
-				sprite:setPositionY(960/2 + 960)
-			end
-		end
-
-		return sprite
-	end
-
-	self.m_uiVars['bg1'] = makeSprite(1)
-	self.m_uiVars['bg2'] = makeSprite(2)
+	
+	self.m_mapManager = ScrollMap(self.m_mapNode)
+	self.m_mapManager:setBg(self.m_bgName)
+	self.m_mapManager:setSpeed(-100)
 end
 
 -------------------------------------
@@ -789,6 +795,15 @@ end
 -------------------------------------
 function SceneViewer:onTouchMoved(touch, event)
     local delte = touch:getDelta()
-    local x, y = self.m_rootNode:getPosition()
-    self.m_rootNode:setPosition(x + delte['x'], y + delte['y'])
+    local x, y = self.m_effctNode:getPosition()
+    self.m_effctNode:setPosition(x + delte['x'], y + delte['y'])
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function SceneViewer:update(dt)
+	if (self.m_mapManager) then
+		self.m_mapManager:update(dt)
+	end
 end
