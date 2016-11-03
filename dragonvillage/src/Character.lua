@@ -551,7 +551,7 @@ function Character:makeDamageFont(damage, x, y, critical, attr_bonus_dmg)
         --self:makeDmgFontFadeOut(label)
         
         if (self.m_charType == 'dragon') then
-            label:setColor(cc.c3b(255, 18, 0))
+            label:setColor(cc.c3b(235, 71, 42))
         end
 
         --if attr_bonus_dmg_label then

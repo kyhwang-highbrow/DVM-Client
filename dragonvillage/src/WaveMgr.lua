@@ -266,9 +266,9 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, movement, value1, value2, v
     local enemy = self:tryPatternEnemy(t_enemy, body)
     if (not enemy) then
         enemy = EnemyLua(t_enemy['res'], body)
+        enemy:initAnimatorMonster(t_enemy['res'], t_enemy['attr'])
     end
 
-    enemy:initAnimatorMonster(t_enemy['res'], t_enemy['attr'])
     self.m_world:initEnemyClass(enemy)
     enemy:initLuaValue(value1, value2, value3, value4, value5)
     enemy:initDragonSkillManager('enemy', enemy_id, 6) -- monster는 skill_1~skill_6을 모두 사용
@@ -322,6 +322,7 @@ function WaveMgr:tryPatternEnemy(t_enemy, body)
     -- 임시 구현
     if (type == 'giantdragon') then
         local enemy = Monster_GiantDragon(t_enemy['res'], body)
+        enemy:initAnimatorMonster(t_enemy['res'], t_enemy['attr'])
         enemy:initScript(script_name)
 
         return enemy
@@ -334,6 +335,7 @@ function WaveMgr:tryPatternEnemy(t_enemy, body)
     end
 
     local enemy = EnemyLua_Boss(t_enemy['res'], body)
+    enemy:initAnimatorMonster(t_enemy['res'], t_enemy['attr'])
     enemy:initScript(script_name)
 
     return enemy

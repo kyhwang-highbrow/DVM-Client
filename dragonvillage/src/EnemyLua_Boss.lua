@@ -23,7 +23,6 @@ EnemyLua_Boss = class(PARENT, {
 -- @param body
 -------------------------------------
 function EnemyLua_Boss:init(file_name, body, ...)
-
 end
 
 -------------------------------------
@@ -41,6 +40,18 @@ function EnemyLua_Boss:initScript(pattern_script_name)
     -- HP 트리거 생성
     if script['hp_trriger'] then
         self.m_triggerHpPercent = TriggerHpPercent(self, script['hp_trriger'])
+    end
+
+    -- 애니메이션 믹스 설정
+    if script['ani_mix'] then
+        for _, string_value in pairs(script['ani_mix']) do
+            local l_str = seperate(string_value, ';')
+            local aniName1 = l_str[1]
+            local aniName2 = l_str[2]
+            local time = l_str[3]
+            
+            self.m_animator.m_node:setMix(aniName1, aniName2, time)
+        end
     end
 end
 
@@ -88,16 +99,12 @@ function EnemyLua_Boss.st_casting(owner, dt)
         local eventList = owner.m_animator:getEventList('casting', 'casting')
         local eventData = eventList[1]
         if eventData then
-            cclog('eventData = ' .. luadump(eventData))
             local string_value = eventData['stringValue']           
             if string_value and (string_value ~= '') then
                 local l_str = seperate(string_value, ',')
                 if l_str then
                     local x = l_str[1]
                     local y = l_str[2]
-
-                    cclog('EnemyLua_Boss.st_casting x = ' .. x)
-                    cclog('EnemyLua_Boss.st_casting y = ' .. y)
 
                     if owner.m_castingEffect then
                         owner.m_castingEffect:setPosition(x, y)
