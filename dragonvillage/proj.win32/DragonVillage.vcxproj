@@ -279,6 +279,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\CharacterSkill.lua" />
     <None Include="..\src\CharacterState.lua" />
     <None Include="..\src\CharacterStateDelegate.lua" />
+    <None Include="..\src\ChargeSystem_Touch.lua" />
     <None Include="..\src\CommonMissile.lua" />
     <None Include="..\src\CommonMissile_Cruise.lua" />
     <None Include="..\src\CommonMissile_High.lua" />
@@ -360,6 +361,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_Dragons.lua" />
     <None Include="..\src\ServerData_User.lua" />
     <None Include="..\src\SkillHitEffectDirector.lua" />
+    <None Include="..\src\SkillLaser.lua" />
+    <None Include="..\src\SkillProtection_Spread.lua" />
     <None Include="..\src\SkillRay.lua" />
     <None Include="..\src\LinkEffect.lua" />
     <None Include="..\src\main.lua" />
@@ -493,6 +496,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\uilib\UILoader.lua" />
     <None Include="..\src\uilib\UIManager.lua" />
     <None Include="..\src\UILua.lua" />
+    <None Include="..\src\UI_AdventureChapterButton.lua" />
+    <None Include="..\src\UI_AdventureChapterSelectPopup.lua" />
     <None Include="..\src\UI_AdventureFirstRewardPopup.lua" />
     <None Include="..\src\UI_AdventureSceneNew.lua" />
     <None Include="..\src\UI_AdventureStageButton.lua" />

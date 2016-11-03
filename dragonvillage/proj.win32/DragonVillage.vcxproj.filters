@@ -961,6 +961,21 @@
     <None Include="..\src\UI_SettingPopup_Dev.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\SkillLaser.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\ChargeSystem_Touch.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\SkillProtection_Spread.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_AdventureChapterButton.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_AdventureChapterSelectPopup.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\UI_DragonDevApiPopup.lua">
       <Filter>lua</Filter>
     </None>
