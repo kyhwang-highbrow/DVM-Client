@@ -55,7 +55,7 @@ function CommonMissile_High:setMissile()
 		self.m_activityCarrier.m_skillCoefficient = (self.m_powerRate / 100) -- 폭발 시점에서 데미지 전달
 		self.m_owner.m_activityCarrier = self.m_activityCarrier
 		self.m_owner.m_world.m_missileFactory:makeInstantMissile(self.m_explosionRes, 'center_idle', self.m_target.m_homePosX, self.m_target.m_homePosY, self.m_explosionSize, self.m_owner, {attr_name = attr})
-		self.m_owner:changeState('dying')
+		self:changeState('dying')
 	end
 
 	-- 수정 가능 부분
