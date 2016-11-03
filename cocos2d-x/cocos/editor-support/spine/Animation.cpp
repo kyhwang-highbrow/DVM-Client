@@ -73,9 +73,14 @@ void spAnimation_mix (const spAnimation* self, spSkeleton* skeleton, float lastT
 		lastTime = FMOD(lastTime, self->duration);
 	}
 
-	for (i = 0; i < n; ++i)
-		//spTimeline_apply(self->timelines[i], skeleton, lastTime, time, events, eventsCount, alpha);
-        spTimeline_apply(self->timelines[i], skeleton, lastTime, time, events, eventsCount, 1);
+    for (i = 0; i < n; ++i)
+    {
+        if (self->timelines[i]->type == SP_TIMELINE_COLOR)
+            spTimeline_apply(self->timelines[i], skeleton, lastTime, time, events, eventsCount, 1);
+        else
+            spTimeline_apply(self->timelines[i], skeleton, lastTime, time, events, eventsCount, alpha);
+        
+    }
 }
 
 /**/
