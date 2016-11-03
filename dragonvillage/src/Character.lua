@@ -1159,6 +1159,7 @@ end
 
 -------------------------------------
 -- function getCharType
+-- @return 공격 속성 physical or magical
 -------------------------------------
 function Character:getCharType()
 	return self.m_charTable['char_type']
