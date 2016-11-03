@@ -138,6 +138,8 @@ function dragonRoleName(role_type)
         return Str('방어')
     elseif (role_type == 'supporter') then
         return Str('지원')
+    elseif (role_type == 'healer') then
+        return Str('회복')
     else
         error('role_type: ' .. role_type)
     end
