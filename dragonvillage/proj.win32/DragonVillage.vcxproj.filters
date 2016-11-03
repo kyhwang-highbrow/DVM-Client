@@ -964,6 +964,9 @@
     <None Include="..\src\UI_DragonDevApiPopup.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_SimplePopup.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

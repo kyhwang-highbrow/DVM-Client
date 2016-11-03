@@ -28,6 +28,14 @@ function UIC_Node:setPosition(x, y)
     return self.m_node:setPosition(x, y)
 end
 
+function UIC_Node:setPositionX(x)
+    return self.m_node:setPositionX(x)
+end
+
+function UIC_Node:setPositionY(y)
+    return self.m_node:setPositionY(y)
+end
+
 function UIC_Node:addChild(child, z_order)
     return self.m_node:addChild(child, z_order or 0)
 end

@@ -244,6 +244,7 @@ local t_module = {
     'UI_AdventureStageInfo',
     'UI_IngameDragonInfo',
     'UI_Popup',
+    'UI_SimplePopup',
     'UI_DragonManageScene',
     'UI_DragonUpgradePopup',
     'UI_DragonUpgradeResult',

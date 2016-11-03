@@ -37,7 +37,7 @@ function UI_SettingPopup:close()
         local function ok_cb()
             restart()
         end
-        MakeSimplePopup(POPUP_TYPE.OK, '{@BLACK}' .. Str('변경사항 적용을 위해 게임을 재시작합니다.'), ok_cb)
+        MakeSimplePopup(POPUP_TYPE.OK, Str('변경사항 적용을 위해 게임을 재시작합니다.'), ok_cb)
         return    
     end
     
