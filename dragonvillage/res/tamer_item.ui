@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/dragon_card/list_frame_bg_common.png';
+				file_name = 'ui/frame/icon_bg_01.png';
 				color = { 255; 255; 255; };
 				opacity = 200;
 				flip_x = false;

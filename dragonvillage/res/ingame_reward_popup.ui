@@ -618,8 +618,8 @@
 			visible = true;
 			lua_name = 'backBtn';
 			enable = true;
-			normal = 'ui/btn/base_0104.png';
-			selected = 'ui/btn/base_0105.png';
+			normal = 'ui/btn/base_0106.png';
+			selected = 'ui/btn/base_0107.png';
 			disable = '';
 			image_type = 1;
 		};
