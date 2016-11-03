@@ -167,3 +167,30 @@ function UIC_Button:onButtonStateChange(button_state)
         self.m_buttonState = UIC_BUTTON_NORMAL
     end
 end
+
+-------------------------------------
+-- function setPosition
+-- @brief
+-------------------------------------
+function UIC_Button:setPosition(x, y)
+    PARENT.setPosition(self, x, y)
+    self:setOriginData()
+end
+
+-------------------------------------
+-- function setPositionX
+-- @brief
+-------------------------------------
+function UIC_Button:setPositionX(x)
+    PARENT.setPositionX(self, x)
+    self:setOriginData()
+end
+
+-------------------------------------
+-- function setPositionY
+-- @brief
+-------------------------------------
+function UIC_Button:setPositionY(y)
+    PARENT.setPositionY(self, y)
+    self:setOriginData()
+end
