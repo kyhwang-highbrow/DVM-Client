@@ -235,7 +235,7 @@ end
 -- @brief 스크립트 탄막 실행 
 -------------------------------------
 function Character:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_data)
-
+	
     local start_x = self.pos.x + x
     local start_y = self.pos.y + y
 
@@ -245,9 +245,6 @@ function Character:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_da
 
     -- 비주얼명 지정
     t_launcher_option['attr_name'] = attr
-	
-    -- 미사일 갯수 지정
-    --t_launcher_option['missile_count'] = value_1
 
     -- 타겟이 있을 경우
     if self.m_targetChar then
@@ -266,14 +263,10 @@ function Character:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_da
         else
             -- 타겟 지정
             t_launcher_option['target'] = self.m_targetChar
-       
-	        -- 각도 지정
-            local degree = getDegree(start_x, start_y, self.m_targetChar.pos.x, self.m_targetChar.pos.y)
-            t_launcher_option['dir'] = degree
         end
 	else
-		self:checkTarget(t_skill)
 		-- 타겟 지정
+		self:checkTarget(t_skill)
         t_launcher_option['target'] = self.m_targetChar
     end
 
