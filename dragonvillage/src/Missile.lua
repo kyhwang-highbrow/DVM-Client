@@ -543,8 +543,9 @@ function Missile:fireAddScriptMissile()
     local missile_launcher = MissileLauncher(nil)
     local t_launcher_option = missile_launcher:getOptionTable()
 
-    -- 비주얼명 지정
-    t_launcher_option['attr_name'] = self.m_activityCarrier.m_attribute
+    -- 속성 : activityCarrier 에 있는 것은 숫자기 때문에 변환해준다
+	local attr_name = attributeNumToStr(self.m_activityCarrier.m_attribute)
+    t_launcher_option['attr_name'] = attr_name
 
 	local is_hero = (owner.m_charType == 'dragon')
 	local phys_group = nil 
