@@ -256,7 +256,10 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, movement, value1, value2, v
         body[3] = 200
     end
 
-
+    -- 난이도별 레벨 설정
+    local t_drop = TABLE:get('drop')[self.m_world.m_stageID]
+    local level = level + t_drop['level']
+    
     local scale = 1
     local offset_y = (body[3] * 1.5)
     local hp_ui_offset = {0, -offset_y}
