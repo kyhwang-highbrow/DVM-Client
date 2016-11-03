@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_SettingPopup = class(PARENT, {
         m_currTap = 'string',
+        m_bRestart = 'boolean',
      })
 
 -------------------------------------
@@ -24,26 +25,24 @@ function UI_SettingPopup:init()
 
     self:initUI()
     self:initButton()
+    self:init_Dev()
     self:refresh()
 end
 
---[[
 -------------------------------------
 -- function close
 -------------------------------------
 function UI_SettingPopup:close()
-    if (not self.enable) then
-        return
+    if (self.m_bRestart == true) then
+        local function ok_cb()
+            restart()
+        end
+        MakeSimplePopup(POPUP_TYPE.OK, '{@BLACK}' .. Str('변경사항 적용을 위해 게임을 재시작합니다.'), ok_cb)
+        return    
     end
-
-    local function finish_cb()
-        UI.close(self)
-    end
-
-    -- @ui_actions
-    self:doActionReverse(finish_cb, 0.5, false)
+    
+    PARENT.close(self)
 end
---]]
 
 -------------------------------------
 -- function initUI
@@ -70,10 +69,6 @@ function UI_SettingPopup:initButton()
         vars['lowResModeBtn']:registerScriptTapHandler(function() self:click_lowResModeBtn() end)
         vars['bgmBtn']:registerScriptTapHandler(function() self:click_bgmBtn() end)
         vars['sfxBtn']:registerScriptTapHandler(function() self:click_sfxBtn() end)
-    end
-
-    do -- 개발(dev)
-        vars['fpsBtn']:registerScriptTapHandler(function() self:click_fpsBtn() end)
     end
 
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
@@ -151,21 +146,6 @@ function UI_SettingPopup:refresh_setTap()
 end
 
 -------------------------------------
--- function refresh_devTap
--- @brief "개발" 탭
--------------------------------------
-function UI_SettingPopup:refresh_devTap()
-    local vars = self.vars
-
-    -- fps
-    if g_serverData:get('local', 'fps') then
-        vars['fpsLabel']:setString('ON')
-    else
-        vars['fpsLabel']:setString('OFF')
-    end
-end
-
--------------------------------------
 -- function click_tap
 -------------------------------------
 function UI_SettingPopup:click_tap(tap_type)
@@ -199,16 +179,6 @@ end
 function UI_SettingPopup:click_sfxBtn()
     local value = g_serverData:get('local', 'sfx')
     g_serverData:applyServerData(not value, 'local', 'sfx')
-    g_serverData:applySetting()
-    self:refresh()
-end
-
--------------------------------------
--- function click_fpsBtn
--------------------------------------
-function UI_SettingPopup:click_fpsBtn()
-    local value = g_serverData:get('local', 'fps')
-    g_serverData:applyServerData(not value, 'local', 'fps')
     g_serverData:applySetting()
     self:refresh()
 end

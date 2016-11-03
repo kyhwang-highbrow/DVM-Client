@@ -270,6 +270,7 @@ local t_module = {
     'UI_NestDungeonStageSelectPopup',
     'UI_EditBoxPopup',
     'UI_SettingPopup',
+    'UI_SettingPopup_Dev',
 
     -- UI 드래곤 관리 관련
     'UI_DragonManageInfo',
