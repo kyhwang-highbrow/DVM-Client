@@ -197,6 +197,39 @@ function TableViewExtension:setItemUIClass(item_class, click_cb, create_func)
 end
 
 -------------------------------------
+-- function delItem
+-- @breif
+-------------------------------------
+function TableViewExtension:delItem(unique_id)
+    if (not self.m_tableViewTD) then
+        return
+    end
+
+    -- map리스트에서 삭제
+    self.m_mapItem[unique_id] = nil
+
+    local idx = nil
+    local t_item = nil
+
+    for i,item in pairs(self.m_lItem) do
+        if (item['unique_id'] == unique_id) then
+            t_item = item
+            idx = i
+            break
+        end
+    end
+
+    if t_item then
+        local ui = t_item['ui']
+        ui.root:removeFromParent()
+    end
+
+    if idx then
+        table.remove(self.m_lItem, idx)
+    end
+end
+
+-------------------------------------
 -- function update
 -- @brief 갱신(reload 기능)
 -------------------------------------

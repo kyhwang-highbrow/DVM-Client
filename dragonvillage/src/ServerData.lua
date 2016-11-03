@@ -115,7 +115,11 @@ function ServerData:applyServerData(data, ...)
             end
             container = container[key]
         else
-            container[key] = clone(data)
+            if data then
+                container[key] = clone(data)
+            else
+                container[key] = nil
+            end
         end
     end
 

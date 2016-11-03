@@ -81,6 +81,27 @@ function ServerData_Dragons:applyDragonData(t_dragon)
 end
 
 -------------------------------------
+-- function delDragonData
+-- @brief
+-------------------------------------
+function ServerData_Dragons:delDragonData(dragon_object_id)
+    local l_dragons = self.m_serverData:get('dragons')
+
+    local idx = nil
+
+    for i,v in pairs(l_dragons) do
+        if (dragon_object_id == v['id']) then
+            idx = i
+            break
+        end
+    end
+
+    if idx then
+        self.m_serverData:applyServerData(nil, 'dragons', idx)
+    end
+end
+
+-------------------------------------
 -- function getLeaderDragon
 -- @brief 리더드래곤의 정보를 얻어옴
 -------------------------------------
