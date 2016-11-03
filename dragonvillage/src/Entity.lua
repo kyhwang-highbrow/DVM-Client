@@ -218,7 +218,7 @@ function Entity:changeState(state, forced)
         self.m_state = state
 
         -- idle 애니메이션에 한해서 중복 체크
-        local check = (state == 'idle') or (state == 'wait_pattern')
+        local check = (state == 'idle') or (state == 'attackDelay') or (state == 'pattern_wait')
 
         if self.m_animator then
             self.m_animator:changeAni(self.m_tStateAni[state], self.m_tStateAniLoop[state], check)
