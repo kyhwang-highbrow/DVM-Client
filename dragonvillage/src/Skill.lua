@@ -90,8 +90,8 @@ function ISkill:setParams(owner, power_rate, target_type, pre_delay, status_effe
 	self.m_targetType = target_type
 	self.m_preDelay = pre_delay or 0
 	self.m_statusEffectType = status_effect_type
-	self.m_statusEffectValue = status_effect_value
-	self.m_statusEffectRate = status_effect_rate
+	self.m_statusEffectValue = tonumber(status_effect_value)
+	self.m_statusEffectRate = tonumber(status_effect_rate)
 	self.m_skillType = skill_type
 	self.m_targetPos = {x = tar_x, y = tar_y}
 	self.m_targetChar = target

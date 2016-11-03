@@ -17,8 +17,6 @@ SkillLaser = class(PARENT, {
 
         m_startPosX = '',
         m_startPosY = '',
-        m_endPosX = '',
-        m_endPosY = '',
 
         m_laserEndPosX = '',
         m_laserEndPosY = '',
@@ -30,7 +28,7 @@ SkillLaser = class(PARENT, {
      })
 
 -------------------------------------
--- function init
+-- function initc
 -- @param file_name
 -- @param body
 -------------------------------------
@@ -68,12 +66,10 @@ function SkillLaser:init_skill(missile_res, hit, thickness)
 
     self.m_startPosX = 0
     self.m_startPosY = 0
-    self.m_endPosX = self.m_targetPos.x
-    self.m_endPosY = self.m_targetPos.y
-
+	
     do
         -- 스케일 지정
-        if (thickness == 1) then     self.m_laserThickness = 30
+        if	   (thickness == 1) then self.m_laserThickness = 30
         elseif (thickness == 2) then self.m_laserThickness = 60
         elseif (thickness == 3) then self.m_laserThickness = 120
         else                    error('레이저 두께는 1~3 이어야 합니다. 현재 thickness : ' .. thickness)
@@ -102,7 +98,7 @@ function SkillLaser:makeLaserLinkEffect(file_name, thickness)
         local scale = 1
 
         -- 스케일 지정
-        if (thickness == 1) then     scale = 0.5
+        if     (thickness == 1) then scale = 0.5
         elseif (thickness == 2) then scale = 1
         elseif (thickness == 3) then scale = 2
         else                    error('레이저 두께는 1~3 이어야 합니다. 현재 thickness : ' .. thickness)
@@ -168,7 +164,7 @@ end
 -------------------------------------
 function SkillLaser:refresh(force)
     local change_start = false
-
+	
     if self.m_owner then
         if (self.m_owner.pos.x ~= self.m_startPosX) or (self.m_owner.pos.y ~= self.m_startPosY) then
             change_start = true
@@ -179,7 +175,7 @@ function SkillLaser:refresh(force)
     end
 
     if force or change_start then
-        local dir = getDegree(self.m_startPosX, self.m_startPosY, self.m_endPosX, self.m_endPosY)
+        local dir = getDegree(self.m_startPosX, self.m_startPosY, self.m_targetPos.x, self.m_targetPos.y)
 
         if (self.m_laserDir ~= dir) then
             self.m_laserDir = dir
@@ -236,12 +232,12 @@ end
 -- function makeSkillInstnce
 -- @param missile_res 
 -------------------------------------
-function SkillLaser:makeSkillInstnce(owner, missile_res, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target, hit, thickness)
+function SkillLaser:makeSkillInstnce(missile_res, hit, thickness, ...)
 	-- 1. 스킬 생성
     local skill = SkillLaser(nil)
 
 	-- 2. 초기화 관련 함수
-	skill:setParams(owner, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target)
+	skill:setParams(...)
     skill:init_skill(missile_res, hit, thickness)
 	skill:initState()
 
@@ -249,7 +245,7 @@ function SkillLaser:makeSkillInstnce(owner, missile_res, power_rate, target_type
     skill:changeState('idle')
 
     -- 4. Physics, Node, GameMgr에 등록
-    local world = owner.m_world
+    local world = skill.m_owner.m_world
     world.m_missiledNode:addChild(skill.m_rootNode, 0)
     world:addToUnitList(skill)
 
@@ -271,11 +267,11 @@ function SkillLaser:makeSkillInstnceFromSkill(owner, t_skill, t_data)
 	local tar_x = t_data.x
 	local tar_y = t_data.y
 	local target = t_data.target
-
+	
 	-- 2. 특수 변수
     local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
 	local hit = t_skill['hit']
 	local thickness = t_skill['val_1']
 
-    SkillLaser:makeSkillInstnce(owner, missile_res, power_rate, target_type, status_effect_type, status_effect_rate, skill_type, tar_x, tar_y, target, hit, thickness)
+    SkillLaser:makeSkillInstnce(missile_res, hit, thickness, owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
 end
