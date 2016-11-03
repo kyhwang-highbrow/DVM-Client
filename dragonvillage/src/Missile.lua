@@ -56,6 +56,13 @@ Missile = class(Entity, {
 		-- 확정 타겟 개념 추가 후 필요한 변수들
 		m_target = '',
 		m_isFadeOut = 'bool',
+
+		-- 미사일이 미사일을 쏜다
+		m_addScript = 'table',
+		m_addScriptStart = '',
+		m_addScriptTerm = '',
+		m_addScriptMax = '',
+		m_fireCnt = '',
      })
 
 -------------------------------------
@@ -88,6 +95,9 @@ function Missile:init(file_name, body, ...)
     self.m_afterimageMove = 0
 
 	self.m_isFadeOut = false
+
+	self.m_addScript = nil
+	self.m_fireCnt  = 0
 end
 
 -------------------------------------
@@ -482,6 +492,24 @@ function Missile:updateMissileOption(dt)
 		end
 	end
 
+	-- 미사일이 미사일을 쏜다ㅏ아아아아ㅏ
+	if (self.m_addScript) then
+		-- 0. 특정 타임 마다 발사
+		if(self.m_stateTimer > self.m_addScriptStart + self.m_addScriptTerm * self.m_fireCnt) then 
+			-- 1. 발사!
+			self:fireAddScriptMissile()
+			self.m_fireCnt = self.m_fireCnt + 1
+
+			-- 2. 최대발사수가 -1인 경우에는 제한 없이 발사하게 된다.
+			if (self.m_addScriptMax ~= -1) then
+				-- 2-1. 최대 발사 수 도달 시 스크립트를 지워 처리
+				if (self.m_fireCnt >= self.m_addScriptMax) then 
+					self.m_addScript = nil
+				end
+			end
+
+		end
+	end
     return false
 end
 
@@ -503,7 +531,43 @@ function Missile:getBodySizeFromAnimator()
     return body_size
 end
 
+-------------------------------------
+-- function fireAddScriptMissile
+-------------------------------------
+function Missile:fireAddScriptMissile()
+    local start_x = self.pos.x 
+    local start_y = self.pos.y
+	local owner = self.m_activityCarrier.m_activityCarrierOwner
 
+    -- 미사일 런쳐 (target, dir, left or right)
+    local missile_launcher = MissileLauncher(nil)
+    local t_launcher_option = missile_launcher:getOptionTable()
+
+    -- 비주얼명 지정
+    t_launcher_option['attr_name'] = self.m_activityCarrier.m_attribute
+
+	local is_hero = (owner.m_charType == 'dragon')
+	local phys_group = nil 
+    if is_hero then
+        t_launcher_option['target_pos'] = {start_x + 500, start_y}
+		phys_group = 'missile_h'
+    else
+        t_launcher_option['target_pos'] = {start_x - 500, start_y}
+		phys_group = 'missile_e'
+    end
+
+    -- AttackDamage 생성
+    local activity_carrier = owner:makeAttackDamageInstance(1005)
+    missile_launcher.m_bHeroMissile = is_hero
+    self.m_world:addToUnitList(missile_launcher)
+    self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
+    missile_launcher:init_missileLauncherByScript(self.m_addScript, phys_group, activity_carrier, 1)
+    missile_launcher.m_animator:changeAni('animation', true)
+    missile_launcher:setPosition(start_x, start_y)
+
+    -- 미사일의 파워 비율
+    missile_launcher.m_powerRate = self.m_activityCarrier.m_skillCoefficient
+end
 
 -------------------------------------
 -- table MissileHitCB

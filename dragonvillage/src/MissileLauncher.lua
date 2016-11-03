@@ -76,9 +76,42 @@ function MissileLauncher:init_missileLauncher(t_skill, object_key, attack_damage
             
 			count = count + 1
         end
-
     end
     
+    -- 탄막 관련
+    self.m_tAttackPattern = {}
+    self.m_tAttackIdxCache = {}
+    self.m_tSoundIdxCache = {}
+    self.m_missileDepth = 0
+
+    -- 탄막 패턴 저장 (self.m_tAttackValueBase는 스크립트상의 'attack_value')
+    for i, v in ipairs(self.m_tAttackValueBase) do
+        local idx = v.idx or #self.m_tAttackPattern + 1
+        if (not self.m_tAttackPattern[idx]) then
+            self.m_tAttackPattern[idx] = {}
+        end
+        table.insert(self.m_tAttackPattern[idx], i)
+    end
+
+    -- 미사일 패턴 초기화
+    self:init_missilePattern(self.m_attackIdx)
+end
+
+-------------------------------------
+-- function init_missileLauncherByScript
+-------------------------------------
+function MissileLauncher:init_missileLauncherByScript(script_data, object_key, attack_damage, attack_idx)
+    self.m_objectKey = object_key
+    self.m_attackIdx = attack_idx or 1
+    self.m_activityCarrier = attack_damage
+
+    -- 상태 생성
+    self:addState('attack', MissileLauncher.st_attack, 'idle', true)
+    self:addState('dying', function(owner, dt) return true end, nil, true, 3)
+    self:changeState('attack')
+    
+    self.m_tAttackValueBase = script_data
+	    
     -- 탄막 관련
     self.m_tAttackPattern = {}
     self.m_tAttackIdxCache = {}
@@ -282,50 +315,50 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 
 	for i=1, #attack_value.dir_array do
 		local t_option = {}
-		--t_option['owner'] =			   self.m_owner
-		t_option['movement'] =         attack_value.movement
-		t_option['missile_res_name'] = attack_value['res']
-		t_option['dir'] =              attack_value.dir_array[i] + dir_add
-		t_option['rotation'] =         attack_value.dir_array[i] + dir_add
-		t_option['pos_x'] =            pos_x
-		t_option['pos_y'] =            pos_y
-		t_option['speed'] =            speed
-		t_option['l_limit_speed'] =    attack_value.l_limit_speed
-		t_option['h_limit_speed'] =    attack_value.h_limit_speed
-		t_option['scale'] =            attack_value.scale
-		t_option['physics_body'] =     physics_body
-		t_option['attack_damage'] =    (not attack_value.nodamage) and (not attack_value.gold) and owner.m_activityCarrier
-		t_option['damage_rate'] =      attack_value.damage_rate or self.m_powerRate
-		t_option['accel'] =            attack_value.accel
-		t_option['accel_delay'] =      attack_value.accel_delay
-		t_option['delete_time'] =      attack_value.delete_time
-		t_option['vanish_time'] =      attack_value.vanish_time
-		t_option['explosion_time'] =   attack_value.explosion_time
-		t_option['explosion_time2'] =  attack_value.explosion_time2
-		t_option['explosion_time3'] =  attack_value.explosion_time3
-		t_option['reset_time'] =       attack_value.reset_time
-		t_option['reset_time_delay'] = attack_value.reset_time_delay
-		t_option['size_up_time'] =     attack_value.size_up_time
-		t_option['magnet_time'] =      attack_value.magnet_time
-		t_option['depth'] =            depth
-		t_option['infection'] =        attack_value.infection
-		t_option['missile_type'] =     attack_value.missile_type
-		t_option['visual'] =           attack_value.visual
-		t_option['gold'] =             attack_value.gold
-		t_option['motion_streak'] =    attack_value.motion_streak
-		t_option['rotate_time'] =      attack_value.rotate_time
-		t_option['angular_velocity'] = attack_value.angular_velocity
+		t_option['movement'] =			attack_value.movement
+		t_option['missile_res_name'] =	attack_value['res']
+		t_option['dir'] =				attack_value.dir_array[i] + dir_add
+		t_option['rotation'] =			attack_value.dir_array[i] + dir_add
+		t_option['pos_x'] =				pos_x
+		t_option['pos_y'] =				pos_y
+		t_option['speed'] =				speed
+		t_option['l_limit_speed'] =		attack_value.l_limit_speed
+		t_option['h_limit_speed'] =		attack_value.h_limit_speed
+		t_option['scale'] =				attack_value.scale
+		t_option['physics_body'] =		physics_body
+		t_option['attack_damage'] =		(not attack_value.nodamage) and (not attack_value.gold) and owner.m_activityCarrier
+		t_option['damage_rate'] =		attack_value.damage_rate or self.m_powerRate
+		t_option['accel'] =				attack_value.accel
+		t_option['accel_delay'] =		attack_value.accel_delay
+		t_option['delete_time'] =		attack_value.delete_time
+		t_option['vanish_time'] =		attack_value.vanish_time
+		t_option['explosion_time'] =	attack_value.explosion_time
+		t_option['explosion_time2'] =	attack_value.explosion_time2
+		t_option['explosion_time3'] =	attack_value.explosion_time3
+		t_option['reset_time'] =		attack_value.reset_time
+		t_option['reset_time_delay'] =	attack_value.reset_time_delay
+		t_option['size_up_time'] =		attack_value.size_up_time
+		t_option['magnet_time'] =		attack_value.magnet_time
+		t_option['depth'] =				depth
+		t_option['infection'] =			attack_value.infection
+		t_option['missile_type'] =		attack_value.missile_type
+		t_option['visual'] =			attack_value.visual
+		t_option['gold'] =				attack_value.gold
+		t_option['motion_streak'] =		attack_value.motion_streak
+		t_option['rotate_time'] =		attack_value.rotate_time
+		t_option['angular_velocity'] =	attack_value.angular_velocity
 		t_option['angular_velocity_time'] = attack_value.angular_velocity_time
-		t_option['value_1'] =          attack_value.value_1
-		t_option['object_key'] =       self.m_objectKey
-		t_option['effect'] =           attack_value['effect']
-		t_option['lua_param'] =        attack_value['lua_param']
+		t_option['value_1'] =			attack_value.value_1
+		t_option['object_key'] =		self.m_objectKey
+		t_option['effect'] =			attack_value['effect']
+		t_option['lua_param'] =			attack_value['lua_param']
 
-		t_option['bFixedAttack'] =	   attack_value['bFixedAttack']
-		t_option['add_script_type'] =  attack_value['add_script_type']
-		t_option['add_script_time'] =  attack_value['add_script_time']
-		t_option['add_script_term'] =  attack_value['add_script_term']
-		t_option['add_script_count'] = attack_value['add_script_count']
+		t_option['bFixedAttack'] =		attack_value['bFixedAttack']
+
+		t_option['add_script'] =		attack_value['add_script']
+		t_option['add_script_start'] =	attack_value['add_script_start']
+		t_option['add_script_term'] =	attack_value['add_script_term']
+		t_option['add_script_max'] =	attack_value['add_script_max']
 
 		if attack_value.accel_delay_fix then
 			t_option['accel_delay'] = t_option['accel_delay'] or 0

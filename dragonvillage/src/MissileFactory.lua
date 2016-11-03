@@ -134,8 +134,13 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     local effect =           t_option['effect']
     local lua_param =        t_option['lua_param']
 	
-	local isFixedAttack =	 t_option['bFixedAttack'] or false
-	local missileCBFunction =t_option['cbFunction']
+	local isFixedAttack =		t_option['bFixedAttack'] or false
+	local missileCBFunction =	t_option['cbFunction']
+
+	local add_script =			t_option['add_script'] or nil
+	local add_script_start =	t_option['add_script_start'] or 0
+	local add_script_term =		t_option['add_script_term'] or 5
+	local add_script_max =		t_option['add_script_max'] or 1
 
     --local parent =           t_option['parent'] or GameMgr.m_missileNode
     --local sync_pos =         t_option['sync_pos'] or false
@@ -314,7 +319,6 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         missile:setRotation(rotation)
         missile:setPosition(pos_x, pos_y)
 
-        ---[[
         if attack_damage then
             missile.m_activityCarrier = attack_damage
         
@@ -323,27 +327,16 @@ function MissileFactory:makeMissile_(t_option, is_hero)
                 missile.m_activityCarrier.m_skillCoefficient = damage_rate
             end
         end
-        --]]
-
-        --[[
-        -- Physics, Node, GameMgr에 등록
-        Phys:addObject(object_key, missile)
-        parent:addChild(missile:node(), depth)
-        GameMgr:addToSHCharList(missile)
-        --]]
 
         -- Physics, Node, GameMgr에 등록
 		self.m_world:addMissile(missile, object_key)
+
 		if isFixedAttack then 
 			missile:setFixedAttack(true)
 			missile.m_target = target
 		end
 
-        -- 특수 옵션 추가
-        --self:applySpecialOption(t_option, missile)
-
         -- 미사일 타입 지정, 타입별 히트 콜백 함수 등록
-        --missile.m_missileType = missile_type
         if (missile_type==nil) or missile_type == MISSILE_TYPE['NORMAL'] then
             missile:addAtkCallback(MissileHitCB.normal)
 
@@ -356,11 +349,18 @@ function MissileFactory:makeMissile_(t_option, is_hero)
             missile:addAtkCallback(MissileHitCB.splash)
         end
 
-		-- @TODO 공용탄 개발 후 개별적인 콜백이 필요함에 따라 각 탄에서 콜백함수를 던지도록함
+		-- 공용탄 개발 후 개별적인 콜백이 필요함에 따라 각 탄에서 콜백함수를 던지도록함
 		if (missileCBFunction) then
 			missile:addAtkCallback(missileCBFunction)
 		end
 
+		-- 미사일이 미사일을 쏜다
+		if (add_script) then
+			missile.m_addScript = add_script
+			missile.m_addScriptStart = add_script_start
+			missile.m_addScriptTerm = add_script_term
+			missile.m_addScriptMax = add_script_max
+		end
 
         -- Visual명 변경
         if visual then
