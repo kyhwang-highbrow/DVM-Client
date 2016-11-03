@@ -73,7 +73,7 @@ function UI_DragonManageInfo:initButton()
         vars['equipmentBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"장비" 미구현') end)
 
         -- 강화
-        vars['reinforceBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"강화" 미구현') end)
+        vars['reinforceBtn']:registerScriptTapHandler(function() self:click_reinforceBtn() end)
     end
 
     do -- 좌상단 버튼들 초기화
@@ -378,6 +378,47 @@ end
 -- @brief 승급 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_upgradeBtn()
+end
+
+-------------------------------------
+-- function click_reinforceBtn
+-- @brief 강화 버튼 (임시로 드래곤 개발 API 팝업 호출)
+-------------------------------------
+function UI_DragonManageInfo:click_reinforceBtn()
+    if (not self.m_selectDragonOID) then
+        return
+    end
+
+    local ui = UI_DragonDevApiPopup(self.m_selectDragonOID)
+    local function close_cb()
+        self:refresh_dragonIndivisual(self.m_selectDragonOID)
+    end
+    ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function refresh_dragonIndivisual
+-- @brief 특정 드래곤의 object_id로 갱신
+-------------------------------------
+function UI_DragonManageInfo:refresh_dragonIndivisual(dragon_object_id)
+    local item = self.m_tableViewExt.m_mapItem[dragon_object_id]
+
+    local t_dragon_data = g_dragonsData:getDragonDataFromUid(dragon_object_id)
+
+    -- 테이블뷰 리스트의 데이터 갱신
+    item['data'] = t_dragon_data
+
+    -- UI card 버튼이 있을 경우 데이터 갱신
+    if item and item['ui'] then
+        local ui = item['ui']
+        ui.m_dragonData = t_dragon_data
+        ui:refreshDragonInfo()
+    end
+
+    -- 갱신된 드래곤이 선택된 드래곤일 경우
+    if (dragon_object_id == self.m_selectDragonOID) then
+        self:setSelectDragonData(dragon_object_id, true)
+    end
 end
 
 -------------------------------------
