@@ -119,7 +119,7 @@ function IconHelper:getAttributeIcon(attribute)
     local sprite = cc.Sprite:create(res_name)
 
     if (not sprite) then
-        error('res_name : ' .. res_name)
+        sprite = cc.Sprite:create('res/ui/icon/item/developing.png')
     end
 
     sprite:setDockPoint(cc.p(0.5, 0.5))
@@ -137,7 +137,7 @@ function IconHelper:getRoleIcon(role)
     local sprite = cc.Sprite:create(res_name)
 
     if (not sprite) then
-        error('res_name : ' .. res_name)
+        sprite = cc.Sprite:create('res/ui/icon/item/developing.png')
     end
 
     sprite:setDockPoint(cc.p(0.5, 0.5))
@@ -155,7 +155,7 @@ function IconHelper:getAttackTypeIcon(attack_type)
     local sprite = cc.Sprite:create(res_name)
 
     if (not sprite) then
-        error('res_name : ' .. res_name)
+        sprite = cc.Sprite:create('res/ui/icon/item/developing.png')
     end
 
     sprite:setDockPoint(cc.p(0.5, 0.5))
@@ -175,7 +175,7 @@ function IconHelper:getDragonRarityBG(rarity)
     local sprite = cc.Sprite:create(res_name)
 
     if (not sprite) then
-        error('res_name : ' .. res_name)
+        sprite = cc.Sprite:create('res/ui/icon/item/developing.png')
     end
 
     sprite:setDockPoint(cc.p(0.5, 0.5))
