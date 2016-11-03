@@ -26,7 +26,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
     local attr = attr or self.m_charTable['attr'] or self.m_charTable['attr_1']
 
     -- 캐릭터 유형별 변수 정리(dragon or enemy)
-    if isExistValue(self.m_charType, 'dragon', 'tamer') then
+    if (self.m_charType == 'dragon') then
         is_hero = true
         phys_group = 'missile_h'
     elseif (self.m_charType == 'enemy') then
@@ -58,6 +58,21 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
     local type = t_skill['type']
     local skill_form = t_skill['skill_form']
     local chance_type = t_skill['chance_type']
+
+	if t_data['target_cnt'] then 
+		if is_hero then 
+			local target_cnt = t_data['target_cnt']
+			if (target_cnt > 4) then
+				self.m_nextSkillCoolTimeReduce = 0.4
+			elseif (target_cnt > 2) then
+				self.m_nextSkillCoolTimeReduce = 0.2
+			else
+				self.m_nextSkillCoolTimeReduce = 0
+			end
+		end
+	end
+
+
 
     ----------------------------------------------
     if (chance_type == 'passive') then

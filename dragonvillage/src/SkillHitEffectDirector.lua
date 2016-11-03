@@ -1,3 +1,9 @@
+-------------------------------------
+-- class SkillHitEffectDirector
+-- @breif 스킬을 사용할 때 나오는 연출 및 효과 관리 
+-- 연출 : 히트 콤보 및 다중 히트 버프 연출
+-- 효과 : 스킬 쿨다운 감소 
+-------------------------------------
 SkillHitEffectDirector = class({
 	m_hitCount = 'num',
 	m_inGameUI = 'UI_Game',
@@ -73,11 +79,8 @@ function SkillHitEffectDirector:displayComboBuff(count)
 	end
 
 	local animator = AnimatorHelper:makeInstanceHitComboffect(combo_name)
-	--[[
-	animator:addAniHandler(function()
-		animator:release()
-	end)
-	]]
+	
+	-- 3. 각 비율에 대응하기 위해서 위치를 상단 - 100으로 고정 2를 나누는 것은 중앙 y좌표가 0이기 때문
 	local visibleSize = cc.Director:getInstance():getVisibleSize()
 	animator:setPosition(0, visibleSize.height/2 - 100)
 

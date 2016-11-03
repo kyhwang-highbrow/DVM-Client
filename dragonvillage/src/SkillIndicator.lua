@@ -25,6 +25,7 @@ SkillIndicator = class({
         m_targetPosX = '',
         m_targetPosY = '',
         m_targetChar = '',
+		m_targetCnt = 'num',
 
         -- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset
         m_attackPosOffsetX = 'number',
@@ -103,6 +104,9 @@ function SkillIndicator:changeSIState(state)
 		self.m_skillIndicatorMgr:makeSkillToolTip(self.m_hero)
 
     elseif (state == SI_STATE_DISAPPEAR) then
+		-- 스킬 히트 콤보 판단 
+		self.m_targetCnt = self.m_highlightList and #self.m_highlightList or 0
+
         self.m_indicatorRootNode:setVisible(false)
         self.m_highlightList = nil
         self:onDisappear()
@@ -211,9 +215,9 @@ function SkillIndicator:getIndicatorData()
     t_data['x'] = self.m_targetPosX
     t_data['y'] = self.m_targetPosY
     t_data['target'] = self.m_targetChar
-	t_data['target_hit_cnt'] = self.m_highlightList and #self.m_highlightList or 0
+	t_data['target_cnt'] = self.m_targetCnt
 
-    self.m_targetDir = nil
+	self.m_targetDir = nil
     self.m_targetPosX = nil
     self.m_targetPosY = nil
     self.m_targetChar = nil

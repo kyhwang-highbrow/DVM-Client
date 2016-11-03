@@ -17,6 +17,9 @@ Hero = class(PARENT, {
 
         m_activeSkillTimer = 'number',
         m_activeSkillCoolTime = 'number',
+
+		m_nextSkillCoolTimeReduce = 'number',
+
         m_afterimageMove = 'number',
      })
 
@@ -607,7 +610,8 @@ function Hero:initActiveSkillCoolTime()
     local t_skill = table_skill[active_skil_id]
 
     self.m_activeSkillCoolTime = tonumber(t_skill['cooldown'])
-    --self.m_activeSkillTimer = 0
+	self.m_nextSkillCoolTimeReduce = 0
+    
     self.m_activeSkillTimer = 100
 end
 
@@ -615,6 +619,7 @@ end
 -- function updateActiveSkillCoolTime
 -------------------------------------
 function Hero:updateActiveSkillCoolTime(dt)
+	--cclog(self.m_activeSkillCoolTime  * (1 - self.m_nextSkillCoolTimeReduce))
     if (not self.m_activeSkillCoolTime) or (self.m_activeSkillCoolTime == 0) then
         return
     end
@@ -627,12 +632,12 @@ function Hero:updateActiveSkillCoolTime(dt)
         self.m_activeSkillTimer = (self.m_activeSkillTimer + dt)
     end
 
-    if (self.m_activeSkillCoolTime <= self.m_activeSkillTimer) then
+    if (self.m_activeSkillCoolTime  * (1 - self.m_nextSkillCoolTimeReduce) <= self.m_activeSkillTimer) then
         self.m_activeSkillTimer = self.m_activeSkillCoolTime
         self.m_infoUI.vars['skllFullVisual']:setVisible(true)
     end
 
-    self.m_infoUI.vars['skillGauge']:setPercentage(self.m_activeSkillTimer / self.m_activeSkillCoolTime * 100)
+    self.m_infoUI.vars['skillGauge']:setPercentage(self.m_activeSkillTimer / (self.m_activeSkillCoolTime * (1 - self.m_nextSkillCoolTimeReduce)) * 100  )
 
     --cclog(' self.m_activeSkillTimer ' .. self.m_activeSkillTimer)
 end
