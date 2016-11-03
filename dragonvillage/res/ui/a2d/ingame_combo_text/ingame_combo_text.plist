@@ -161,11 +161,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{212,38}</string>
+                <string>{214,38}</string>
                 <key>spriteSourceSize</key>
                 <string>{214,38}</string>
                 <key>textureRect</key>
-                <string>{{989,91},{212,38}}</string>
+                <string>{{989,1},{214,38}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -345,7 +345,7 @@
                 <key>spriteSourceSize</key>
                 <string>{214,38}</string>
                 <key>textureRect</key>
-                <string>{{989,1},{214,38}}</string>
+                <string>{{989,91},{214,38}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -404,7 +404,7 @@
             <key>size</key>
             <string>{1406,152}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:93b0076b12e0b78a024b3b4a1700cffc:7e192589f587c458edb2ba4bfd75a4ae:2a9c702955535dca5acc273a8b2e63e4$</string>
+            <string>$TexturePacker:SmartUpdate:84bfba8f901cfd0671b4457a440ae89b:99e964fef25154ddabb9e35ccaac06ca:2a9c702955535dca5acc273a8b2e63e4$</string>
             <key>textureFileName</key>
             <string>ingame_combo_text.png</string>
         </dict>

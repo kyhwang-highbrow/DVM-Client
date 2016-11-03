@@ -300,6 +300,7 @@ function PerpleScene:makeLoadingUI()
         local visibleSize = cc.Director:getInstance():getVisibleSize()
         layer:setContentSize(visibleSize.width, visibleSize.height)
 
+        --[[
         do
             -- 메세지 지정
             local msg = 'loading...'
@@ -316,6 +317,14 @@ function PerpleScene:makeLoadingUI()
             label:enableOutline(cc.c4b(0, 0, 0, 255), 3)
             layer:addChild(label)
         end
+        --]]
+
+        local ui = UI()
+        local vars = ui:load('network_loading.ui')
+        if vars['loadingLabel'] then
+            vars['loadingLabel']:setString(Str('로딩 중...'))
+        end
+        layer:addChild(ui.root)
     end
 
     return layer

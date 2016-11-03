@@ -219,7 +219,7 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = true;
+			visible = false;
 			lua_name = 'addStoneBtn';
 			enable = true;
 			normal = 'ui/btn/base_0101.png';
@@ -283,7 +283,7 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = true;
+			visible = false;
 			lua_name = 'addCardBtn';
 			enable = true;
 			normal = 'ui/btn/base_0101.png';
@@ -347,7 +347,7 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = true;
+			visible = false;
 			lua_name = 'evolutionUp';
 			enable = true;
 			normal = 'ui/btn/base_0401.png';
@@ -411,7 +411,7 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = true;
+			visible = false;
 			lua_name = 'evolutionDown';
 			enable = true;
 			normal = 'ui/btn/base_0401.png';
@@ -475,7 +475,7 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = true;
+			visible = false;
 			lua_name = 'gradeUp';
 			enable = true;
 			normal = 'ui/btn/base_0401.png';
@@ -539,7 +539,7 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = true;
+			visible = false;
 			lua_name = 'gradeDown';
 			enable = true;
 			normal = 'ui/btn/base_0401.png';
@@ -603,7 +603,7 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = true;
+			visible = false;
 			lua_name = 'init';
 			enable = true;
 			normal = 'ui/btn/base_0401.png';
@@ -667,7 +667,7 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = true;
+			visible = false;
 			lua_name = 'stageOpen';
 			enable = true;
 			normal = 'ui/btn/base_0401.png';
@@ -731,7 +731,7 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = true;
+			visible = false;
 			lua_name = 'tamerLevelUp';
 			enable = true;
 			normal = 'ui/btn/base_0401.png';
@@ -795,7 +795,7 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = true;
+			visible = false;
 			lua_name = 'dragonLevelUp';
 			enable = true;
 			normal = 'ui/btn/base_0401.png';
