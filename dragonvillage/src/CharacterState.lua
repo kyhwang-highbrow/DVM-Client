@@ -53,26 +53,11 @@ function Character.st_attack(owner, dt)
         owner.m_bFinishAttack = false
         owner.m_bFinishAnimation = false
 
-		-- 모션 타입 처리
-        local table_skill = TABLE:get(owner.m_charType .. '_skill')
-        local t_skill = table_skill[owner.m_reservedSkillId]
-        local motion_type = t_skill['motion_type']
-        
-		if (motion_type == 'instant') then
-            owner.m_aiParamNum = nil
-            owner:addAniHandler(function()
-                owner:changeState('attackDelay')
-            end)
-        elseif (motion_type == 'maintain') then
-            owner.m_aiParamNum = (owner.m_statusCalc.m_attackTick / 2)
-        else
-            error('motion_type : ' .. motion_type)
-        end
-
-		-- 공격 콜백
         local function attack_cb(event)
             owner.m_bLuanchMissile = true
+
             local x, y = 0, 0
+
             if event then
                 local string_value = event['eventData']['stringValue']           
                 if string_value and (string_value ~= '') then
@@ -122,13 +107,10 @@ function Character.st_attack(owner, dt)
         elseif owner.m_castingNode then
             owner.m_castingNode:setVisible(false)
         end
-    end
-	
-	--@ TODO 우선 임시로 공격 애니메이션에도 motion type 추가했는데.. 상충되는 요소가 있음
-	if (owner.m_aiParamNum and (owner.m_stateTimer >= owner.m_aiParamNum)) then
-    --elseif (owner.m_bFinishAnimation and owner.m_bFinishAttack) then    
+        
+    elseif (owner.m_bFinishAnimation and owner.m_bFinishAttack) then    
         owner.m_attackAnimaDuration = owner.m_stateTimer
-		owner:changeState('attackDelay')
+        owner:changeState('attackDelay')
     end
 end
 
