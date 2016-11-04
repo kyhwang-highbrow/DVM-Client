@@ -107,5 +107,5 @@ end
 function SkillHitEffectDirector:applyCooltimeBuff()
 	local timer = self.m_owner.m_activeSkillTimer
 	local cooltime = self.m_owner.m_activeSkillCoolTime 
-	self.m_owner.m_activeSkillTimer = timer + (cooltime * REDUCE_COOLTIME)
+	self.m_owner.m_activeSkillTimer = timer + (cooltime * COOLTIME_BUFF_RATE)
 end
