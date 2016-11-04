@@ -979,6 +979,9 @@
     <None Include="..\src\UI_ReadyScene_Deck.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_DragonManageInfoView.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

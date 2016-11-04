@@ -102,6 +102,9 @@ function UI_DragonManageInfo:initButton()
         
         -- 오름차순, 내림차순
         vars['sortOrderBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"오름차순, 내림차순" 미구현') end)
+
+        -- 진화 단계 보기
+        vars['evolutionViewBtn']:registerScriptTapHandler(function() self:click_evolutionViewBtn() end)
     end
 
     do -- 기타 버튼
@@ -505,6 +508,19 @@ function UI_DragonManageInfo:click_sellBtn()
 
     -- 시작
     func_popup()
+end
+
+-------------------------------------
+-- function click_evolutionViewBtn
+-- @brief 드래곤 진화 단계 보기 팝업
+-------------------------------------
+function UI_DragonManageInfo:click_evolutionViewBtn()
+    if (not self.m_selectDragonData) then
+        return
+    end
+
+    local dragon_id = self.m_selectDragonData['did']
+    UI_DragonManageInfoView(dragon_id)
 end
 
 -------------------------------------
