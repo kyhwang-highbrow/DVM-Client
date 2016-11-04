@@ -711,6 +711,7 @@ end
 
 -------------------------------------
 -- function updateAfterImage
+-- @TODO hero class에 추가 됨에 따라 각각 따로 구현되었던 updateAfterImage 통합 필요
 -------------------------------------
 function Hero:updateAfterImage(dt)
     local speed = self.m_world.m_mapManager.m_speed
@@ -718,27 +719,23 @@ function Hero:updateAfterImage(dt)
     -- 에프터이미지
     self.m_afterimageMove = self.m_afterimageMove + (speed * dt)
 
-    --local interval = char.body.size * 0.5 -- 반지름이기 때문에 2배
-    local interval = -50
+    local interval = -30
 
     if (self.m_afterimageMove <= interval) then
         self.m_afterimageMove = self.m_afterimageMove - interval
-        -- cclog('출력 출력 출력')
 
         local duration = (interval / speed) * 1.5 -- 3개의 잔상이 보일 정도
         duration = math_clamp(duration, 0.3, 0.7)
 
         local res = self.m_animator.m_resName
-        local rotation = self.m_animator:getRotation()
         local accidental = MakeAnimator(res)
-        --accidental.m_node:setRotation(rotation)
         accidental:changeAni(self.m_animator.m_currAnimation)
-        local parent = self.m_rootNode:getParent()
-        --parent:addChild(accidental.m_node)
-        self.m_world.m_worldNode:addChild(accidental.m_node, 2)
+        
+		local parent = self.m_rootNode:getParent()
+        self.m_world.m_worldNode:addChild(accidental.m_node, 1)
         accidental:setScale(self.m_animator:getScale())
         accidental:setFlip(self.m_animator.m_bFlip)
-        accidental.m_node:setOpacity(255 * 0.3)
+        accidental.m_node:setOpacity(255 * 0.2)
         accidental.m_node:setPosition(self.pos.x, self.pos.y)
         
         accidental.m_node:runAction(cc.MoveBy:create(duration, cc.p(speed / 2, 0)))
