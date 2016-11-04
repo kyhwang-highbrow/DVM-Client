@@ -175,6 +175,33 @@ function Character.st_casting(owner, dt)
                 owner.m_castingEffect:release()
             end
 
+			-- 캐스팅 애니메이션 실행시 캐스팅 이벤트 문자열을 가져온다.
+			local function casting_cb(event)
+				owner.m_bLuanchMissile = true
+				if event then
+					local x, y = 0, 0
+					local string_value = event['eventData']['stringValue']           
+					if string_value and (string_value ~= '') then
+						local l_str = seperate(string_value, ',')
+						if l_str then
+							local scale = owner.m_animator:getScale()
+							local flip = owner.m_animator.m_bFlip
+                        
+							x = l_str[1] * scale
+							y = l_str[2] * scale
+
+							if flip then
+								x = -x
+							end
+						end
+					end
+					-- 이벤트가 존재할 시에만 setPosition 된다.
+					owner.m_castingEffect:setPosition(x, y)
+				end
+			end
+			owner.m_animator:setEventHandler(casting_cb)
+
+			-- 기본으로 찍히게 될 캐스팅 이펙트 좌표 (60, 0)
             local offsetX = 60
             if owner.m_animator.m_bFlip then
                 offsetX = -offsetX
