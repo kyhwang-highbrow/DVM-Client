@@ -35,4 +35,4 @@ MAP_SCROLL_SPEED_DOWN_ACCEL = 350
 -- 디버깅용 
 --------------------------------------------
 -- # 드래곤 활성화 스킬을 출력한다. 
-PRINT_DRAGON_SKILL = true
+PRINT_DRAGON_SKILL = false -- @mskim 필요할때만 켜서 쓰세요
