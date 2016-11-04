@@ -288,6 +288,22 @@ function GameState:update_fight(dt)
     local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
 
     if (not world.m_bDoingTamerSkill) and (enemy_count <= 0) and (dynamic_wave <= 0) then
+        if world.m_skillIndicatorMgr then
+            world.m_skillIndicatorMgr:cancel()
+        end
+
+        do -- 드래곤 상태 체크
+            local bWaitState = true
+
+            for _,dragon in pairs(world.m_lDragonList) do
+                if (not dragon.m_bDead and dragon.m_state ~= 'attackDelay') then
+                    bWaitState = false
+                end
+            end
+
+            if (not bWaitState) then return end
+        end
+
 		if world.m_waveMgr:getNextWaveScriptData() then 
 		    self:changeState(GAME_STATE_WAVE_INTERMISSION)
 		else
@@ -319,6 +335,14 @@ function GameState:update_wave_intermission(dt)
 	local map_mgr = world.m_mapManager
 	local speed = 0
 
+    if (self.m_stateTimer == 0) then
+        for _,dragon in pairs(world.m_lDragonList) do
+            if (not dragon.m_bDead) then
+                dragon:setAfrerImage(true)
+            end
+        end
+    end
+
 	-- 1. 전환 시간 2/3 지점까지 비교적 완만하게 빨라짐
 	if (self.m_stateTimer < WAVE_INTERMISSION_TIME * 2 / 3) then
 		speed = map_mgr.m_speed - (WAVE_INTERMISSION_MAP_SPEED * dt)
@@ -333,6 +357,13 @@ function GameState:update_wave_intermission(dt)
 	-- 3. 전환 시간 이후 속도 고정시키고 전환
 	if (self.m_stateTimer >= WAVE_INTERMISSION_TIME) then
         map_mgr:setSpeed(-300)
+
+        for _,dragon in pairs(world.m_lDragonList) do
+            if (not dragon.m_bDead) then
+                dragon:setAfrerImage(false)
+            end
+        end
+
 		self:changeState(GAME_STATE_ENEMY_APPEAR)
 	end
 end

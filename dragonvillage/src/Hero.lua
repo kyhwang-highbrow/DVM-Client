@@ -21,6 +21,8 @@ Hero = class(PARENT, {
 		m_nextSkillCoolTimeReduce = 'number',
 
         m_afterimageMove = 'number',
+
+        m_bUseSelfAfterImage = 'boolean',
      })
 
 -------------------------------------
@@ -33,6 +35,8 @@ function Hero:init(file_name, body, ...)
 
     self.m_bActive = false
     self.m_bWaitState = false
+
+    self.m_bUseSelfAfterImage = false
 end
 
 -------------------------------------
@@ -60,6 +64,17 @@ function Hero:initAnimatorHero(file_name, evolution, attr)
     if self.m_animator.m_node then
         self.m_rootNode:addChild(self.m_animator.m_node)
     end
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function Hero:update(dt)
+    if self.m_bUseSelfAfterImage then
+        self:updateAfterImage(dt)
+    end
+
+    return Character.update(self, dt)
 end
 
 -------------------------------------
@@ -684,4 +699,49 @@ function Hero:checkTarget(t_skill)
 	]]
     -- 기본 룰로 타겟 지정
     PARENT.checkTarget(self, t_skill)
+end
+
+-------------------------------------
+-- function setAfrerImage
+-------------------------------------
+function Hero:setAfrerImage(b)
+    self.m_afterimageMove = 0
+    self.m_bUseSelfAfterImage = b
+end
+
+-------------------------------------
+-- function updateAfterImage
+-------------------------------------
+function Hero:updateAfterImage(dt)
+    local speed = self.m_world.m_mapManager.m_speed
+
+    -- 에프터이미지
+    self.m_afterimageMove = self.m_afterimageMove + (speed * dt)
+
+    --local interval = char.body.size * 0.5 -- 반지름이기 때문에 2배
+    local interval = -50
+
+    if (self.m_afterimageMove <= interval) then
+        self.m_afterimageMove = self.m_afterimageMove - interval
+        -- cclog('출력 출력 출력')
+
+        local duration = (interval / speed) * 1.5 -- 3개의 잔상이 보일 정도
+        duration = math_clamp(duration, 0.3, 0.7)
+
+        local res = self.m_animator.m_resName
+        local rotation = self.m_animator:getRotation()
+        local accidental = MakeAnimator(res)
+        --accidental.m_node:setRotation(rotation)
+        accidental:changeAni(self.m_animator.m_currAnimation)
+        local parent = self.m_rootNode:getParent()
+        --parent:addChild(accidental.m_node)
+        self.m_world.m_worldNode:addChild(accidental.m_node, 2)
+        accidental:setScale(self.m_animator:getScale())
+        accidental:setFlip(self.m_animator.m_bFlip)
+        accidental.m_node:setOpacity(255 * 0.3)
+        accidental.m_node:setPosition(self.pos.x, self.pos.y)
+        
+        accidental.m_node:runAction(cc.MoveBy:create(duration, cc.p(speed / 2, 0)))
+        accidental.m_node:runAction(cc.Sequence:create(cc.FadeTo:create(duration, 0), cc.RemoveSelf:create()))
+    end
 end

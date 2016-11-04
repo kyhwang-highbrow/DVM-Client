@@ -182,8 +182,6 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
     if self.m_selectHero and self.m_selectHero.m_bDead == false then
         -- 경직 중이라면 즉시 해제
         self.m_selectHero:setSpasticity(false)
-
-        self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
         self.m_selectHero:resetActiveSkillCoolTime()
 
         local active_skill_id = self.m_selectHero:getSkillID('active')
@@ -195,14 +193,24 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             self.m_selectHero:changeState('skillAttack')
         end
 
-
-        self.m_selectHero.m_animator:setTimeScale(1)
-        self:setSelectHero(nil)
-        g_currScene:setTimeScale(1)
-        self.m_bSlowMode = false
-        self:changeDrakLayerColor(255)
-        self:clearHighlightList()
+        self:cancel()
     end
+end
+
+-------------------------------------
+-- function cancel
+-------------------------------------
+function SkillIndicatorMgr:cancel()
+    if self.m_selectHero then
+        self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
+        self.m_selectHero.m_animator:setTimeScale(1)
+    end
+
+    self:setSelectHero(nil)
+    g_currScene:setTimeScale(1)
+    self.m_bSlowMode = false
+    self:changeDrakLayerColor(255)
+    self:clearHighlightList()
 end
 
 -------------------------------------
