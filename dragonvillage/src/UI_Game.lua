@@ -11,7 +11,7 @@ UI_Game = class(UI, {
 function UI_Game:init(game_scene)
     self.m_gameScene = game_scene
 
-    local vars = self:load('ingame_scene.ui')
+    local vars = self:load('ingame_scene_new.ui')
     UIManager:open(self, UIManager.NORMAL)
 
     vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)    

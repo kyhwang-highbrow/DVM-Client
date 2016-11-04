@@ -268,6 +268,8 @@ function GameState:update_enemy_appear(dt)
                 end),
                 cc.RemoveSelf:create()
             ))
+
+            g_gameScene.m_inGameUI.vars['waveVisual']:setVisual('wave', string.format('%02d', world.m_waveMgr.m_currWave))
         end
 
         self:changeState(GAME_STATE_FIGHT_WAIT)
