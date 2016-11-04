@@ -15,7 +15,9 @@ FIRE_LIMIT_TIME = 0.5
 -- # 드래곤 스킬 콤보에 따른 쿨타임 버프 단위 계수
 COOLTIME_BUFF_RATE = 0.2
 
-
+-- # 웨이브 인터미션 시간과 맵 스크롤 가감 속도
+WAVE_INTERMISSION_TIME = 1.5
+WAVE_INTERMISSION_MAP_SPEED = 2000
 
 
 

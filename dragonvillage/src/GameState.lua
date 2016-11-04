@@ -4,6 +4,7 @@ GAME_STATE_LOADING = 1  -- Scene전환 후 첫 상태
 GAME_STATE_START_1 = 2  -- 테이머 등장
 GAME_STATE_START_2 = 3  -- 테이머 등장
 
+GAME_STATE_WAVE_INTERMISSION = 98 -- wave 인터미션
 GAME_STATE_ENEMY_APPEAR = 99  -- 적 등장
 
 GAME_STATE_FIGHT = 100
@@ -97,7 +98,8 @@ function GameState:update(dt)
     if (self.m_state == GAME_STATE_NONE) then
     elseif (self.m_state == GAME_STATE_START_1) then    self:update_start1(dt)
     elseif (self.m_state == GAME_STATE_START_2) then    self:update_start2(dt)
-    elseif (self.m_state == GAME_STATE_ENEMY_APPEAR) then self:update_enemy_appear(dt)
+    elseif (self.m_state == GAME_STATE_WAVE_INTERMISSION) then self:update_wave_intermission(dt)
+	elseif (self.m_state == GAME_STATE_ENEMY_APPEAR) then self:update_enemy_appear(dt)
     elseif (self.m_state == GAME_STATE_FIGHT) then      self:update_fight(dt)
     elseif (self.m_state == GAME_STATE_FIGHT_SKILL) then self:update_fight_skill(dt)
     elseif (self.m_state == GAME_STATE_FIGHT_WAIT) then self:update_fight_wait(dt)
@@ -218,7 +220,7 @@ end
 -------------------------------------
 function GameState:update_enemy_appear(dt)
     local world = self.m_world
-
+	
     if (self.m_stateTimer == 0) then
         for i,dragon in ipairs(world.m_participants) do
             if (dragon.m_bDead == false) then
@@ -288,7 +290,11 @@ function GameState:update_fight(dt)
     local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
 
     if (not world.m_bDoingTamerSkill) and (enemy_count <= 0) and (dynamic_wave <= 0) then
-        self:changeState(GAME_STATE_ENEMY_APPEAR)
+		if world.m_waveMgr:getNextWaveScriptData() then 
+		    self:changeState(GAME_STATE_WAVE_INTERMISSION)
+		else
+			self:changeState(GAME_STATE_SUCCESS)
+		end
         return
     end
     
@@ -305,6 +311,32 @@ function GameState:update_fight(dt)
             dragon:updateActiveSkillCoolTime(dt)
         end
     end
+end
+
+-------------------------------------
+-- function update_wave_intermission
+-------------------------------------
+function GameState:update_wave_intermission(dt)
+	local world = self.m_world
+	local map_mgr = world.m_mapManager
+	local speed = 0
+
+	-- 1. 전환 시간 2/3 지점까지 비교적 완만하게 빨라짐
+	if (self.m_stateTimer < WAVE_INTERMISSION_TIME * 2 / 3) then
+		speed = map_mgr.m_speed - (WAVE_INTERMISSION_MAP_SPEED * dt)
+		map_mgr:setSpeed(speed)
+
+	-- 2. 전환 시간 까지 비교적 빠르게 느려짐
+	elseif (self.m_stateTimer > WAVE_INTERMISSION_TIME * 2 / 3) then
+		speed = map_mgr.m_speed + (WAVE_INTERMISSION_MAP_SPEED * 1.9 * dt)
+		map_mgr:setSpeed(speed)
+	end
+	
+	-- 3. 전환 시간 이후 속도 고정시키고 전환
+	if (self.m_stateTimer >= WAVE_INTERMISSION_TIME) then
+        map_mgr:setSpeed(-300)
+		self:changeState(GAME_STATE_ENEMY_APPEAR)
+	end
 end
 
 -------------------------------------
