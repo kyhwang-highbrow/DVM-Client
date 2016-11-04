@@ -115,12 +115,12 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = -393.000000;
-				y = -8.000000;
+				x = -420.000000;
+				y = -14.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 322;
+				width = 252;
 				height = 586;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -129,7 +129,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/icon/leon.png';
+				file_name = 'ui/icon/goni.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
