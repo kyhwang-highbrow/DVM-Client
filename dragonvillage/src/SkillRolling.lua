@@ -304,9 +304,9 @@ function SkillRolling:getDefaultTargetPos()
 end
 
 -------------------------------------
--- function attack
+-- function runAttack
 -------------------------------------
-function SkillRolling:attack()
+function SkillRolling:runAttack()
     local t_targets = self:findTarget(self.m_targetPos.x, self.m_targetPos.y, 1)
 	
     for i,target_char in ipairs(t_targets) do

@@ -224,8 +224,8 @@ function SkillLaser:collisionAttack(target_char)
 
     -- 충돌, 공격 처리
     self.t_collision[target_char.phys_idx] = true
-    self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
-    target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
+	
+	self:attack(target_char)
 end
 
 -------------------------------------

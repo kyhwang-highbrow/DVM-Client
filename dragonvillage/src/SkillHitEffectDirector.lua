@@ -85,19 +85,17 @@ function SkillHitEffectDirector:displayComboBuff()
 		self:applyCooltimeBuff()
 	end
 
-	local animator = nil
 	if self.m_animator then
-		animator = self.m_animator
-		animator:changeAni(combo_name, false)
+		self.m_animator:changeAni(combo_name, false)
 	else
-		animator = AnimatorHelper:makeInstanceHitComboffect(combo_name)
-	end
-	
-	-- 3. 각 비율에 대응하기 위해서 위치를 상단 - 100으로 고정 2를 나누는 것은 중앙 y좌표가 0이기 때문
-	local visibleSize = cc.Director:getInstance():getVisibleSize()
-	animator:setPosition(0, visibleSize.height/2 - 100)
+		self.m_animator = AnimatorHelper:makeInstanceHitComboffect(combo_name)
 
-	self.m_inGameUI.root:addChild(animator.m_node)
+		-- 3. 각 비율에 대응하기 위해서 위치를 상단 - 100으로 고정 2를 나누는 것은 중앙 y좌표가 0이기 때문
+		local visibleSize = cc.Director:getInstance():getVisibleSize()
+		self.m_animator:setPosition(0, visibleSize.height/2 - 100)
+
+		self.m_inGameUI.root:addChild(self.m_animator.m_node)
+	end
 end
 
 
