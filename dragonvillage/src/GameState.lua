@@ -288,9 +288,15 @@ function GameState:update_fight(dt)
     local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
 
     if (not world.m_bDoingTamerSkill) and (enemy_count <= 0) and (dynamic_wave <= 0) then
+        --[[
         if world.m_skillIndicatorMgr then
-            world.m_skillIndicatorMgr:cancel()
+            local dragon = world.m_skillIndicatorMgr.m_selectHero
+            if dragon and dragon.m_bDead then
+                self.m_selectHero:changeState('attackDelay')
+                world.m_skillIndicatorMgr:cancel()
+            end
         end
+        ]]--
 
         do -- 드래곤 상태 체크
             local bWaitState = true

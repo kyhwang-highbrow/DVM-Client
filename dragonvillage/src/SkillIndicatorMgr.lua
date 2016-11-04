@@ -167,12 +167,16 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
             g_currScene:setTimeScale(SKILL_INDICATOR_SLOW)
             self:changeDrakLayerColor(DARK_LAYER_OPACITY)
 
-            self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)
+            if self.m_selectHero then
+                self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)
+            end
         end
     end
 
-    self.m_selectHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
-    self.m_selectHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
+    if self.m_selectHero then
+        self.m_selectHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
+        self.m_selectHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
+    end
 end
 
 -------------------------------------
