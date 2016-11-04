@@ -180,6 +180,11 @@ function UI_ProductButton:canBuyProduct(product_id)
     local table_shop = TABLE:get('shop')
     local t_shop = table_shop[product_id]
 
+    -- @TEMP @TODO
+    if (t_shop['product_type'] == 'card') then
+        return false, '가챠 개편 예정입니다.'
+    end
+
     local price_type = t_shop['price_type']
     local price_value = t_shop['price']
     local user_price = 0
