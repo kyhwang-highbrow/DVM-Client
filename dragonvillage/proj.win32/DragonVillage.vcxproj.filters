@@ -829,9 +829,6 @@
     <None Include="..\src\SkillConicAtk_Spread.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_ReadySceneNew.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\UI_Tooltip_Indicator.lua">
       <Filter>lua</Filter>
     </None>
