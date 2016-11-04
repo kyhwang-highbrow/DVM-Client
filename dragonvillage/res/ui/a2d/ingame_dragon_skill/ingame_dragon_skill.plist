@@ -15,9 +15,9 @@
                 <key>spriteSourceSize</key>
                 <string>{1280,180}</string>
                 <key>textureRect</key>
-                <string>{{1,384},{1280,180}}</string>
+                <string>{{1,1},{1280,180}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_dragon_skill_dsc.png</key>
             <dict>
@@ -30,7 +30,82 @@
                 <key>spriteSourceSize</key>
                 <string>{306,34}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{306,34}}</string>
+                <string>{{907,183},{306,34}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_dragon_skill_gauge_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{139,72}</string>
+                <key>spriteSourceSize</key>
+                <string>{139,72}</string>
+                <key>textureRect</key>
+                <string>{{1,183},{139,72}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_dragon_skill_gauge_0201.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{67,95}</string>
+                <key>spriteSourceSize</key>
+                <string>{67,95}</string>
+                <key>textureRect</key>
+                <string>{{237,183},{67,95}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>ingame_dragon_skill_gauge_0202.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{63,93}</string>
+                <key>spriteSourceSize</key>
+                <string>{63,93}</string>
+                <key>textureRect</key>
+                <string>{{334,183},{63,93}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>ingame_dragon_skill_gauge_0203.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{56,93}</string>
+                <key>spriteSourceSize</key>
+                <string>{56,93}</string>
+                <key>textureRect</key>
+                <string>{{812,183},{56,93}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>ingame_dragon_skill_gauge_0204.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{70,93}</string>
+                <key>spriteSourceSize</key>
+                <string>{70,93}</string>
+                <key>textureRect</key>
+                <string>{{142,183},{70,93}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -45,9 +120,9 @@
                 <key>spriteSourceSize</key>
                 <string>{381,58}</string>
                 <key>textureRect</key>
-                <string>{{37,1},{381,58}}</string>
+                <string>{{429,183},{381,58}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -61,9 +136,9 @@
             <key>realTextureFileName</key>
             <string>ingame_dragon_skill.png</string>
             <key>size</key>
-            <string>{182,1665}</string>
+            <string>{1282,256}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:e15ad2cd6e665e48e278ebdc5c10de37:630298c57c4a709e2f10edd174bc0ea2:84fa350bf50a1f73ae01307cdcd5d52a$</string>
+            <string>$TexturePacker:SmartUpdate:1e65ddebeb0b42ae036bdce1f86e1e1c:fe259343fab74200905d01e54758698d:84fa350bf50a1f73ae01307cdcd5d52a$</string>
             <key>textureFileName</key>
             <string>ingame_dragon_skill.png</string>
         </dict>

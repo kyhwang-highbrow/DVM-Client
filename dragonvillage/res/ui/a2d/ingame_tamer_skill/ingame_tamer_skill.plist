@@ -11,11 +11,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{82,119}</string>
+                <string>{114,155}</string>
                 <key>spriteSourceSize</key>
-                <string>{82,119}</string>
+                <string>{114,155}</string>
                 <key>textureRect</key>
-                <string>{{617,297},{82,119}}</string>
+                <string>{{254,344},{114,155}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -26,11 +26,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{76,116}</string>
+                <string>{109,152}</string>
                 <key>spriteSourceSize</key>
-                <string>{76,116}</string>
+                <string>{109,152}</string>
                 <key>textureRect</key>
-                <string>{{788,297},{76,116}}</string>
+                <string>{{370,344},{109,152}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -41,11 +41,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{65,117}</string>
+                <string>{97,151}</string>
                 <key>spriteSourceSize</key>
-                <string>{65,117}</string>
+                <string>{97,151}</string>
                 <key>textureRect</key>
-                <string>{{894,77},{65,117}}</string>
+                <string>{{481,344},{97,151}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -56,11 +56,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{85,116}</string>
+                <string>{119,152}</string>
                 <key>spriteSourceSize</key>
-                <string>{85,116}</string>
+                <string>{119,152}</string>
                 <key>textureRect</key>
-                <string>{{701,297},{85,116}}</string>
+                <string>{{840,1},{119,152}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -71,13 +71,13 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{69,101}</string>
+                <string>{77,109}</string>
                 <key>spriteSourceSize</key>
-                <string>{69,101}</string>
+                <string>{77,109}</string>
                 <key>textureRect</key>
-                <string>{{1,404},{69,101}}</string>
+                <string>{{934,187},{77,109}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>fire_0202.png</key>
             <dict>
@@ -86,11 +86,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{65,99}</string>
+                <string>{73,107}</string>
                 <key>spriteSourceSize</key>
-                <string>{65,99}</string>
+                <string>{73,107}</string>
                 <key>textureRect</key>
-                <string>{{894,196},{65,99}}</string>
+                <string>{{911,266},{73,107}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -101,11 +101,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{56,99}</string>
+                <string>{64,106}</string>
                 <key>spriteSourceSize</key>
-                <string>{56,99}</string>
+                <string>{64,106}</string>
                 <key>textureRect</key>
-                <string>{{866,297},{56,99}}</string>
+                <string>{{580,442},{64,106}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -116,11 +116,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{72,99}</string>
+                <string>{80,107}</string>
                 <key>spriteSourceSize</key>
-                <string>{72,99}</string>
+                <string>{80,107}</string>
                 <key>textureRect</key>
-                <string>{{72,404},{72,99}}</string>
+                <string>{{961,78},{80,107}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -135,7 +135,7 @@
                 <key>spriteSourceSize</key>
                 <string>{92,96}</string>
                 <key>textureRect</key>
-                <string>{{886,413},{74,74}}</string>
+                <string>{{911,375},{74,74}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -150,7 +150,7 @@
                 <key>spriteSourceSize</key>
                 <string>{92,96}</string>
                 <key>textureRect</key>
-                <string>{{894,1},{66,74}}</string>
+                <string>{{986,266},{66,74}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -165,9 +165,9 @@
                 <key>spriteSourceSize</key>
                 <string>{92,96}</string>
                 <key>textureRect</key>
-                <string>{{83,290},{74,58}}</string>
+                <string>{{911,451},{74,58}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>tamer_skill_0203.png</key>
             <dict>
@@ -180,7 +180,7 @@
                 <key>spriteSourceSize</key>
                 <string>{92,96}</string>
                 <key>textureRect</key>
-                <string>{{866,355},{56,56}}</string>
+                <string>{{987,342},{56,56}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -195,9 +195,9 @@
                 <key>spriteSourceSize</key>
                 <string>{117,103}</string>
                 <key>textureRect</key>
-                <string>{{809,415},{91,75}}</string>
+                <string>{{961,1},{91,75}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>tamer_skill_charging_0102.png</key>
             <dict>
@@ -210,7 +210,7 @@
                 <key>spriteSourceSize</key>
                 <string>{290,262}</string>
                 <key>textureRect</key>
-                <string>{{146,290},{216,218}}</string>
+                <string>{{693,262},{216,218}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -225,7 +225,7 @@
                 <key>spriteSourceSize</key>
                 <string>{259,245}</string>
                 <key>textureRect</key>
-                <string>{{364,276},{251,235}}</string>
+                <string>{{1,276},{251,235}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -240,9 +240,9 @@
                 <key>spriteSourceSize</key>
                 <string>{287,273}</string>
                 <key>textureRect</key>
-                <string>{{83,1},{287,273}}</string>
+                <string>{{1,1},{287,273}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>tamer_skill_charging_0105.png</key>
             <dict>
@@ -255,9 +255,9 @@
                 <key>spriteSourceSize</key>
                 <string>{273,259}</string>
                 <key>textureRect</key>
-                <string>{{358,1},{273,259}}</string>
+                <string>{{290,1},{273,259}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>tamer_skill_charging_0106.png</key>
             <dict>
@@ -270,7 +270,7 @@
                 <key>spriteSourceSize</key>
                 <string>{273,259}</string>
                 <key>textureRect</key>
-                <string>{{619,1},{273,259}}</string>
+                <string>{{565,1},{273,259}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -285,9 +285,9 @@
                 <key>spriteSourceSize</key>
                 <string>{92,96}</string>
                 <key>textureRect</key>
-                <string>{{617,418},{92,96}}</string>
+                <string>{{840,155},{92,96}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>tamer_skill_frame_0201.png</key>
             <dict>
@@ -300,7 +300,7 @@
                 <key>spriteSourceSize</key>
                 <string>{92,96}</string>
                 <key>textureRect</key>
-                <string>{{715,415},{92,96}}</string>
+                <string>{{580,344},{92,96}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -315,9 +315,9 @@
                 <key>spriteSourceSize</key>
                 <string>{401,80}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{401,80}}</string>
+                <string>{{290,262},{401,80}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -331,9 +331,9 @@
             <key>realTextureFileName</key>
             <string>ingame_tamer_skill.png</string>
             <key>size</key>
-            <string>{966,512}</string>
+            <string>{1053,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2f1f3e60014659642f10071ca31d256e:54bfbd1d94591a5bacd08f083664b5c8:df3c90c02fc25d4056968dfcc1144384$</string>
+            <string>$TexturePacker:SmartUpdate:9d327e82533f09860397c3f8df8aee2c:d8ff5b247a43a5b2a08f0ab0a68674f0:df3c90c02fc25d4056968dfcc1144384$</string>
             <key>textureFileName</key>
             <string>ingame_tamer_skill.png</string>
         </dict>
