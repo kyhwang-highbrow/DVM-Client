@@ -44,6 +44,7 @@ end
 -- function initUI
 -------------------------------------
 function UI_Lobby:initUI()
+    self:makeTamerAnimator()
 end
 
 -------------------------------------
@@ -156,6 +157,38 @@ function UI_Lobby:click_exitBtn()
     MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('종료하시겠습니까?'), yes_cb)
 end
 
+
+---------------------------------------------------------------------
+
+-------------------------------------
+-- function makeTamerAnimator
+-------------------------------------
+function UI_Lobby:makeTamerAnimator()
+    local vars = self.vars
+    if vars['tamerSprite'] then
+        vars['tamerSprite']:setVisible(false)
+    end
+
+    do
+        local tamer = MakeAnimator('res/character/tamer/goni_i/goni_i.spine')
+        tamer:changeAni('idle', true)
+        --tamer:addAniHandler(function() self:cbTamerAnimation() end)
+        --tamer:setPosition(-400, -100)
+        tamer:setPosition(320, 90)
+        self.root:addChild(tamer.m_node)
+        tamer:setScale(1.3)
+        tamer.m_node:setMix('idle', 'pose_1', 0.2)
+        tamer.m_node:setMix('pose_1', 'pose_1', 0.2)
+        tamer.m_node:setMix('pose_1', 'idle', 0.2)
+        tamer.m_node:setMix('select', 'select', 0.2)
+        tamer.m_node:setMix('select', 'idle', 0.2)
+        tamer.m_node:setMix('idle', 'select', 0.2)
+        tamer.m_node:setMix('pose_1', 'select', 0.2)
+        tamer.m_node:setMix('select', 'pose_1', 0.2)
+    end
+end
+
+---------------------------------------------------------------------
 
 --@CHECK
 UI:checkCompileError(UI_Lobby)
