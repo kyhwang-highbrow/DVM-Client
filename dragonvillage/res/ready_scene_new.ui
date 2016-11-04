@@ -21,7 +21,7 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'ui/bg01.png';
+			file_name = 'ui/bg02.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			flip_x = false;

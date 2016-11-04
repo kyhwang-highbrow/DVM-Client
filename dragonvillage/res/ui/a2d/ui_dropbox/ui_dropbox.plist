@@ -6,450 +6,444 @@
         <dict>
             <key>ui_dropbox_circle_03.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{407,478},{97,99}}</string>
+                <key>offset</key>
                 <string>{-2,-5}</string>
-                <key>spriteSize</key>
-                <string>{99,101}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{8,14},{97,99}}</string>
+                <key>sourceSize</key>
                 <string>{117,117}</string>
-                <key>textureRect</key>
-                <string>{{1,1093},{99,101}}</string>
-                <key>textureRotated</key>
-                <false/>
             </dict>
             <key>ui_dropbox_circle_04.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,483},{91,101}}</string>
+                <key>offset</key>
                 <string>{-1,-1}</string>
-                <key>spriteSize</key>
-                <string>{93,103}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{12,9},{91,101}}</string>
+                <key>sourceSize</key>
                 <string>{117,117}</string>
-                <key>textureRect</key>
-                <string>{{1,1196},{93,103}}</string>
-                <key>textureRotated</key>
-                <false/>
             </dict>
             <key>ui_dropbox_circle_05.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{305,529},{95,99}}</string>
+                <key>offset</key>
                 <string>{2,0}</string>
-                <key>spriteSize</key>
-                <string>{97,101}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{13,9},{95,99}}</string>
+                <key>sourceSize</key>
                 <string>{117,117}</string>
-                <key>textureRect</key>
-                <string>{{155,347},{97,101}}</string>
-                <key>textureRotated</key>
-                <false/>
             </dict>
             <key>ui_dropbox_gold.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{305,436},{100,91}}</string>
+                <key>offset</key>
                 <string>{1,0}</string>
-                <key>spriteSize</key>
-                <string>{102,93}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{10,1},{100,91}}</string>
+                <key>sourceSize</key>
                 <string>{118,93}</string>
-                <key>textureRect</key>
-                <string>{{1,1301},{102,93}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>ui_dropbox_gold_01.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{405,670},{98,63}}</string>
+                <key>offset</key>
                 <string>{4,1}</string>
-                <key>spriteSize</key>
-                <string>{100,65}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{9,1},{98,63}}</string>
+                <key>sourceSize</key>
                 <string>{108,67}</string>
-                <key>textureRect</key>
-                <string>{{96,1305},{100,65}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>ui_dropbox_gold_02.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
+                <key>frame</key>
+                <string>{{305,626},{98,83}}</string>
+                <key>offset</key>
+                <string>{-1,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,1},{98,83}}</string>
+                <key>sourceSize</key>
                 <string>{100,85}</string>
-                <key>spriteSourceSize</key>
-                <string>{100,85}</string>
-                <key>textureRect</key>
-                <string>{{155,774},{100,85}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>ui_dropbox_gold_03.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,698},{83,70}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{85,72}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,1},{83,70}}</string>
+                <key>sourceSize</key>
                 <string>{87,72}</string>
-                <key>textureRect</key>
-                <string>{{163,1305},{85,72}}</string>
-                <key>textureRotated</key>
-                <true/>
+            </dict>
+            <key>ui_dropbox_gold_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{102,641},{98,55}}</string>
+                <key>offset</key>
+                <string>{-1,-14}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,29},{98,55}}</string>
+                <key>sourceSize</key>
+                <string>{100,85}</string>
             </dict>
             <key>ui_dropbox_light_01.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{172,730},{75,78}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{75,78}</string>
-                <key>spriteSourceSize</key>
-                <string>{75,78}</string>
-                <key>textureRect</key>
-                <string>{{103,1496},{75,78}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{75,78}}</string>
+                <key>sourceSize</key>
+                <string>{75,78}</string>
             </dict>
             <key>ui_dropbox_light_02.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{306,306},{128,128}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{128,128}</string>
-                <key>spriteSourceSize</key>
-                <string>{128,128}</string>
-                <key>textureRect</key>
-                <string>{{1,963},{128,128}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{128,128}}</string>
+                <key>sourceSize</key>
+                <string>{128,128}</string>
             </dict>
             <key>ui_dropbox_light_03.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{154,238},{150,150}}</string>
+                <key>offset</key>
                 <string>{1,-1}</string>
-                <key>spriteSize</key>
-                <string>{152,152}</string>
-                <key>spriteSourceSize</key>
-                <string>{154,154}</string>
-                <key>textureRect</key>
-                <string>{{1,347},{152,152}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{3,3},{150,150}}</string>
+                <key>sourceSize</key>
+                <string>{154,154}</string>
             </dict>
             <key>ui_dropbox_light_04.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,238},{150,150}}</string>
+                <key>offset</key>
                 <string>{1,-1}</string>
-                <key>spriteSize</key>
-                <string>{152,152}</string>
-                <key>spriteSourceSize</key>
-                <string>{154,154}</string>
-                <key>textureRect</key>
-                <string>{{1,501},{152,152}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{3,3},{150,150}}</string>
+                <key>sourceSize</key>
+                <string>{154,154}</string>
             </dict>
             <key>ui_dropbox_light_05.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{348,154},{150,150}}</string>
+                <key>offset</key>
                 <string>{1,-1}</string>
-                <key>spriteSize</key>
-                <string>{152,152}</string>
-                <key>spriteSourceSize</key>
-                <string>{154,154}</string>
-                <key>textureRect</key>
-                <string>{{1,655},{152,152}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{3,3},{150,150}}</string>
+                <key>sourceSize</key>
+                <string>{154,154}</string>
             </dict>
             <key>ui_dropbox_light_06.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{348,2},{150,150}}</string>
+                <key>offset</key>
                 <string>{1,-1}</string>
-                <key>spriteSize</key>
-                <string>{152,152}</string>
-                <key>spriteSourceSize</key>
-                <string>{154,154}</string>
-                <key>textureRect</key>
-                <string>{{1,809},{152,152}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{3,3},{150,150}}</string>
+                <key>sourceSize</key>
+                <string>{154,154}</string>
             </dict>
             <key>ui_dropbox_light_item.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,2},{234,344}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{234,344}}</string>
+                <key>sourceSize</key>
                 <string>{234,344}</string>
-                <key>spriteSourceSize</key>
-                <string>{234,344}</string>
-                <key>textureRect</key>
-                <string>{{1,1},{234,344}}</string>
-                <key>textureRotated</key>
-                <false/>
             </dict>
             <key>ui_dropbox_rainbow_fx.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{112,390},{106,89}}</string>
+                <key>offset</key>
                 <string>{-3,0}</string>
-                <key>spriteSize</key>
-                <string>{108,91}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{3,2},{106,89}}</string>
+                <key>sourceSize</key>
                 <string>{118,93}</string>
-                <key>textureRect</key>
-                <string>{{155,562},{108,91}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>ui_dropbox_rainbow_wing.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{87,766},{51,61}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{1,1},{51,61}}</string>
+                <key>sourceSize</key>
                 <string>{53,63}</string>
-                <key>spriteSourceSize</key>
-                <string>{53,63}</string>
-                <key>textureRect</key>
-                <string>{{183,1203},{53,63}}</string>
-                <key>textureRotated</key>
-                <false/>
             </dict>
             <key>ui_dropbox_silver.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{105,548},{98,91}}</string>
+                <key>offset</key>
                 <string>{2,0}</string>
-                <key>spriteSize</key>
-                <string>{100,93}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{12,1},{98,91}}</string>
+                <key>sourceSize</key>
                 <string>{118,93}</string>
-                <key>textureRect</key>
-                <string>{{1,1405},{100,93}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>ui_dropbox_silver_01.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,576},{98,63}}</string>
+                <key>offset</key>
                 <string>{4,0}</string>
-                <key>spriteSize</key>
-                <string>{100,65}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{9,2},{98,63}}</string>
+                <key>sourceSize</key>
                 <string>{108,67}</string>
-                <key>textureRect</key>
-                <string>{{169,1065},{100,65}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>ui_dropbox_silver_02.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
+                <key>frame</key>
+                <string>{{205,590},{98,83}}</string>
+                <key>offset</key>
+                <string>{-1,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,1},{98,83}}</string>
+                <key>sourceSize</key>
                 <string>{100,85}</string>
-                <key>spriteSourceSize</key>
-                <string>{100,85}</string>
-                <key>textureRect</key>
-                <string>{{155,876},{100,85}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>ui_dropbox_silver_03.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{436,393},{83,70}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{85,72}</string>
-                <key>spriteSourceSize</key>
-                <string>{87,72}</string>
-                <key>textureRect</key>
-                <string>{{170,1392},{85,72}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <true/>
+                <key>sourceColorRect</key>
+                <string>{{2,1},{83,70}}</string>
+                <key>sourceSize</key>
+                <string>{87,72}</string>
+            </dict>
+            <key>ui_dropbox_silver_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{302,711},{98,53}}</string>
+                <key>offset</key>
+                <string>{-1,-15}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,31},{98,53}}</string>
+                <key>sourceSize</key>
+                <string>{100,85}</string>
             </dict>
             <key>ui_dropbox_special.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,390},{108,91}}</string>
+                <key>offset</key>
                 <string>{-3,0}</string>
-                <key>spriteSize</key>
-                <string>{110,93}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,1},{108,91}}</string>
+                <key>sourceSize</key>
                 <string>{118,93}</string>
-                <key>textureRect</key>
-                <string>{{155,450},{110,93}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>ui_dropbox_special_01.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{112,481},{106,65}}</string>
+                <key>offset</key>
                 <string>{0,-1}</string>
-                <key>spriteSize</key>
-                <string>{108,65}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{1,2},{106,65}}</string>
+                <key>sourceSize</key>
                 <string>{108,67}</string>
-                <key>textureRect</key>
-                <string>{{102,1093},{108,65}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>ui_dropbox_special_02.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
+                <key>frame</key>
+                <string>{{220,490},{98,83}}</string>
+                <key>offset</key>
+                <string>{-1,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,1},{98,83}}</string>
+                <key>sourceSize</key>
                 <string>{100,85}</string>
-                <key>spriteSourceSize</key>
-                <string>{100,85}</string>
-                <key>textureRect</key>
-                <string>{{131,978},{100,85}}</string>
-                <key>textureRotated</key>
-                <false/>
             </dict>
             <key>ui_dropbox_special_03.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{87,72}</string>
-                <key>spriteSourceSize</key>
-                <string>{87,72}</string>
-                <key>textureRect</key>
-                <string>{{96,1407},{87,72}}</string>
-                <key>textureRotated</key>
+                <key>frame</key>
+                <string>{{436,306},{85,70}}</string>
+                <key>offset</key>
+                <string>{1,0}</string>
+                <key>rotated</key>
                 <true/>
+                <key>sourceColorRect</key>
+                <string>{{2,1},{85,70}}</string>
+                <key>sourceSize</key>
+                <string>{87,72}</string>
+            </dict>
+            <key>ui_dropbox_special_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,641},{98,55}}</string>
+                <key>offset</key>
+                <string>{-1,-14}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,29},{98,55}}</string>
+                <key>sourceSize</key>
+                <string>{100,85}</string>
             </dict>
             <key>ui_dropbox_star.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{306,238},{34,34}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{34,34}</string>
-                <key>spriteSourceSize</key>
-                <string>{34,34}</string>
-                <key>textureRect</key>
-                <string>{{169,1167},{34,34}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{34,34}}</string>
+                <key>sourceSize</key>
+                <string>{34,34}</string>
             </dict>
             <key>ui_dropbox_wood.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{406,577},{98,91}}</string>
+                <key>offset</key>
                 <string>{2,0}</string>
-                <key>spriteSize</key>
-                <string>{100,93}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{12,1},{98,91}}</string>
+                <key>sourceSize</key>
                 <string>{118,93}</string>
-                <key>textureRect</key>
-                <string>{{155,672},{100,93}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>ui_dropbox_wood_01.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{202,675},{98,53}}</string>
+                <key>offset</key>
                 <string>{4,5}</string>
-                <key>spriteSize</key>
-                <string>{100,55}</string>
-                <key>spriteSourceSize</key>
-                <string>{108,67}</string>
-                <key>textureRect</key>
-                <string>{{1,1507},{100,55}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{9,2},{98,53}}</string>
+                <key>sourceSize</key>
+                <string>{108,67}</string>
             </dict>
             <key>ui_dropbox_wood_02.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{220,390},{98,83}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{100,85}</string>
-                <key>spriteSourceSize</key>
-                <string>{100,85}</string>
-                <key>textureRect</key>
-                <string>{{96,1203},{100,85}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <true/>
+                <key>sourceColorRect</key>
+                <string>{{1,1},{98,83}}</string>
+                <key>sourceSize</key>
+                <string>{100,85}</string>
             </dict>
             <key>ui_dropbox_wood_03.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{87,698},{83,66}}</string>
+                <key>offset</key>
                 <string>{0,-1}</string>
-                <key>spriteSize</key>
-                <string>{85,68}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,4},{83,66}}</string>
+                <key>sourceSize</key>
                 <string>{87,72}</string>
-                <key>textureRect</key>
-                <string>{{183,1479},{85,68}}</string>
-                <key>textureRotated</key>
-                <true/>
+            </dict>
+            <key>ui_dropbox_wood_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{402,735},{96,53}}</string>
+                <key>offset</key>
+                <string>{0,-14}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,30},{96,53}}</string>
+                <key>sourceSize</key>
+                <string>{100,85}</string>
             </dict>
         </dict>
         <key>metadata</key>
         <dict>
             <key>format</key>
-            <integer>3</integer>
+            <integer>2</integer>
             <key>realTextureFileName</key>
             <string>ui_dropbox.png</string>
             <key>size</key>
-            <string>{253,1572}</string>
+            <string>{512,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c9467c1381c787ba5f71bbf270849a5a:c6a8683fb2a0364d3f90ee83e3e4d60c:244c42ac2c88dd343932fa641ccb6464$</string>
+            <string>$TexturePacker:SmartUpdate:a8c6b670e4f9b2c02d2706b0cadf270b$</string>
             <key>textureFileName</key>
             <string>ui_dropbox.png</string>
         </dict>

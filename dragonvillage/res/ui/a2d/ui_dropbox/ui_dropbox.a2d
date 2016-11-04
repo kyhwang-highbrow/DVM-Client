@@ -91,25 +91,25 @@
 								"key_list":
 								[
 									{
-										"frame":0, "sX":2.500000, "sY":2.500000
+										"frame":0, "sX":1.200000, "sY":1.200000
 									},
 									{
-										"frame":10, "sX":2.500000, "sY":2.500000, "pY":-9.000000
+										"frame":10, "sX":1.200000, "sY":1.200000, "pY":-9.000000
 									},
 									{
-										"frame":15, "sX":2.500000, "sY":2.500000, "pY":-10.000000
+										"frame":15, "sX":1.200000, "sY":1.200000, "pY":-10.000000
 									},
 									{
-										"frame":18, "sX":2.500000, "sY":2.500000, "pY":-9.500000
+										"frame":18, "sX":1.200000, "sY":1.200000, "pY":-9.500000
 									},
 									{
-										"frame":22, "sX":2.500000, "sY":2.500000, "pY":-7.400000
+										"frame":22, "sX":1.200000, "sY":1.200000, "pY":-7.400000
 									},
 									{
-										"frame":31, "sX":2.500000, "sY":2.500000, "pY":0.646154
+										"frame":31, "sX":1.200000, "sY":1.200000, "pY":0.646154
 									},
 									{
-										"frame":35, "sX":2.500000, "sY":2.500000
+										"frame":35, "sX":1.200000, "sY":1.200000
 									}
 								]
 							}
@@ -194,6 +194,433 @@
 									},
 									{
 										"frame":35
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dark_dungeon_effect_playable",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_dark_dungeon_effect_playable'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sY":0.400000
+									},
+									{
+										"frame":40, "sY":0.400000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dark_dungeon_empty_gold",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_gold_empty'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000, "colorRGB":[166,166,166]
+
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dark_dungeon_empty_rainbow",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_rainbow_empty'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000, "colorRGB":[166,166,166]
+
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dark_dungeon_empty_silver",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_silver_empty'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000, "colorRGB":[166,166,166]
+
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dark_dungeon_empty_wood",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_wood_empty'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000, "colorRGB":[166,166,166]
+
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dark_dungeon_idle_gold",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_dark_dungeon_idle_gold'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000
+									},
+									{
+										"frame":15, "sX":1.200000, "sY":1.200000, "pY":10.000000
+									},
+									{
+										"frame":30, "sX":1.200000, "sY":1.200000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dark_dungeon_idle_rainbow",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_dark_dungeon_idle_rainbow'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000
+									},
+									{
+										"frame":15, "sX":1.200000, "sY":1.200000, "pY":10.000000
+									},
+									{
+										"frame":30, "sX":1.200000, "sY":1.200000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dark_dungeon_idle_silver",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_dark_dungeon_idle_silver'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000
+									},
+									{
+										"frame":15, "sX":1.200000, "sY":1.200000, "pY":10.000000
+									},
+									{
+										"frame":30, "sX":1.200000, "sY":1.200000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dark_dungeon_idle_wood",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_dark_dungeon_idle_wood'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000
+									},
+									{
+										"frame":15, "sX":1.200000, "sY":1.200000, "pY":10.000000
+									},
+									{
+										"frame":30, "sX":1.200000, "sY":1.200000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dark_dungeon_ready_gold",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_dark_dungeon_ready_gold'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000
+									},
+									{
+										"frame":2, "sX":1.200000, "sY":1.150000, "pY":-7.000000
+									},
+									{
+										"frame":4, "sX":1.200000, "sY":1.200000, "pY":13.250000
+									},
+									{
+										"frame":11, "sX":1.200000, "sY":1.200000, "pY":20.000000
+									},
+									{
+										"frame":14, "sX":1.200000, "sY":1.200000, "pY":6.476190
+									},
+									{
+										"frame":16, "sX":1.200000, "sY":1.130000, "pY":-4.000000
+									},
+									{
+										"frame":18, "sX":1.200000, "sY":1.200000
+									},
+									{
+										"frame":30, "sX":1.200000, "sY":1.200000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dark_dungeon_ready_rainbow",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_dark_dungeon_ready_rainbow'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000
+									},
+									{
+										"frame":2, "sX":1.200000, "sY":1.150000, "pY":-7.000000
+									},
+									{
+										"frame":4, "sX":1.200000, "sY":1.200000, "pY":13.250000
+									},
+									{
+										"frame":11, "sX":1.200000, "sY":1.200000, "pY":20.000000
+									},
+									{
+										"frame":14, "sX":1.200000, "sY":1.200000, "pY":6.476190
+									},
+									{
+										"frame":16, "sX":1.200000, "sY":1.130000, "pY":-4.000000
+									},
+									{
+										"frame":18, "sX":1.200000, "sY":1.200000
+									},
+									{
+										"frame":30, "sX":1.200000, "sY":1.200000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dark_dungeon_ready_silver",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_dark_dungeon_ready_silver'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000
+									},
+									{
+										"frame":2, "sX":1.200000, "sY":1.150000, "pY":-7.000000
+									},
+									{
+										"frame":4, "sX":1.200000, "sY":1.200000, "pY":13.250000
+									},
+									{
+										"frame":11, "sX":1.200000, "sY":1.200000, "pY":20.000000
+									},
+									{
+										"frame":14, "sX":1.200000, "sY":1.200000, "pY":6.476190
+									},
+									{
+										"frame":16, "sX":1.200000, "sY":1.130000, "pY":-4.000000
+									},
+									{
+										"frame":18, "sX":1.200000, "sY":1.200000
+									},
+									{
+										"frame":30, "sX":1.200000, "sY":1.200000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dark_dungeon_ready_wood",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_dark_dungeon_ready_wood'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.200000, "sY":1.200000
+									},
+									{
+										"frame":2, "sX":1.200000, "sY":1.150000, "pY":-7.000000
+									},
+									{
+										"frame":4, "sX":1.200000, "sY":1.200000, "pY":13.250000
+									},
+									{
+										"frame":11, "sX":1.200000, "sY":1.200000, "pY":20.000000
+									},
+									{
+										"frame":14, "sX":1.200000, "sY":1.200000, "pY":6.476190
+									},
+									{
+										"frame":16, "sX":1.200000, "sY":1.130000, "pY":-4.000000
+									},
+									{
+										"frame":18, "sX":1.200000, "sY":1.200000
+									},
+									{
+										"frame":30, "sX":1.200000, "sY":1.200000
 									}
 								]
 							}
@@ -471,10 +898,10 @@
 								"key_list":
 								[
 									{
-										"frame":0, "sX":2.500000, "sY":2.500000
+										"frame":0
 									},
 									{
-										"frame":30, "sX":2.500000, "sY":2.500000
+										"frame":30
 									}
 								]
 							}
@@ -619,6 +1046,727 @@
 			"visual_list":
 			[
 				{
+					"name":"source_dark_dungeon_effect_playable",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.600000, "sY":0.600000, "mode":"Add"
+									},
+									{
+										"frame":3, "sX":1.300000, "sY":1.300000, "rotate":48.000000, "mode":"Add"
+									},
+									{
+										"frame":8, "sX":1.500000, "sY":1.500000, "rotate":72.000000, "mode":"Add"
+									},
+									{
+										"frame":24, "sX":2.500000, "sY":2.500000, "rotate":92.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":40, "sX":2.500000, "sY":2.500000, "rotate":92.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.600000, "sY":0.600000, "mode":"Add"
+									},
+									{
+										"frame":3, "sX":1.300000, "sY":1.300000, "rotate":48.000000, "mode":"Add"
+									},
+									{
+										"frame":8, "sX":1.500000, "sY":1.500000, "rotate":72.000000, "mode":"Add"
+									},
+									{
+										"frame":24, "sX":2.500000, "sY":2.500000, "rotate":92.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":40, "sX":2.500000, "sY":2.500000, "rotate":92.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"source_dark_dungeon_idle_gold",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.600000, "sY":0.600000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":2, "sX":0.600000, "sY":0.600000, "mode":"Add"
+									},
+									{
+										"frame":8, "sX":1.400000, "sY":1.400000, "alpha":51, "mode":"Add"
+									},
+									{
+										"frame":14, "sX":1.542857, "sY":1.542857, "alpha":14, "mode":"Add"
+									},
+									{
+										"frame":18, "sX":1.578571, "sY":1.578571, "alpha":5, "mode":"Add"
+									},
+									{
+										"frame":22, "sX":1.600000, "sY":1.600000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_gold'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":30
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "pX":32.000000, "pY":-10.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":12, "sX":0.900000, "sY":0.900000, "rotate":9.000000, "pX":32.000000, "pY":1.500000, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":0.000000, "sY":0.000000, "rotate":90.000000, "pX":32.000000, "pY":105.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "rotate":-203.000000, "pX":-24.000000, "pY":-34.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":6, "sX":0.900000, "sY":0.900000, "rotate":-194.000000, "pX":-24.000000, "pY":-22.499998, "mode":"Add"
+									},
+									{
+										"frame":24, "sX":0.000000, "sY":0.000000, "rotate":-113.000000, "pX":-24.000000, "pY":81.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "rotate":-82.000000, "pX":-42.000000, "pY":-32.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":2, "sX":0.900000, "sY":0.900000, "rotate":-72.999992, "pX":-42.000000, "pY":-20.500000, "mode":"Add"
+									},
+									{
+										"frame":20, "sX":0.000000, "sY":0.000000, "rotate":8.000000, "pX":-42.000000, "pY":83.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "pX":5.000000, "pY":36.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":8, "sX":0.900000, "sY":0.900000, "rotate":9.000000, "pX":5.000000, "pY":47.500000, "mode":"Add"
+									},
+									{
+										"frame":26, "sX":0.000000, "sY":0.000000, "rotate":90.000000, "pX":5.000000, "pY":151.000000, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"source_dark_dungeon_idle_rainbow",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":2.000000, "sY":2.000000, "pX":1.000000, "pY":4.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":2.000000, "sY":2.000000, "rotate":180.000000, "pX":1.000000, "pY":4.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":2.000000, "sY":2.000000, "rotate":180.000000, "pX":1.000000, "pY":3.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":2.000000, "sY":2.000000, "rotate":360.000000, "pX":1.000000, "pY":3.000000, "alpha":179, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_rainbow'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":30
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "pX":32.000000, "pY":-10.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":12, "sX":0.900000, "sY":0.900000, "rotate":9.000000, "pX":32.000000, "pY":1.500000, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":0.000000, "sY":0.000000, "rotate":90.000000, "pX":32.000000, "pY":105.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "rotate":-203.000000, "pX":-24.000000, "pY":-34.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":6, "sX":0.900000, "sY":0.900000, "rotate":-194.000000, "pX":-24.000000, "pY":-22.499998, "mode":"Add"
+									},
+									{
+										"frame":24, "sX":0.000000, "sY":0.000000, "rotate":-113.000000, "pX":-24.000000, "pY":81.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "rotate":-82.000000, "pX":-42.000000, "pY":-32.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":2, "sX":0.900000, "sY":0.900000, "rotate":-72.999992, "pX":-42.000000, "pY":-20.500000, "mode":"Add"
+									},
+									{
+										"frame":20, "sX":0.000000, "sY":0.000000, "rotate":8.000000, "pX":-42.000000, "pY":83.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "pX":5.000000, "pY":36.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":8, "sX":0.900000, "sY":0.900000, "rotate":9.000000, "pX":5.000000, "pY":47.500000, "mode":"Add"
+									},
+									{
+										"frame":26, "sX":0.000000, "sY":0.000000, "rotate":90.000000, "pX":5.000000, "pY":151.000000, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"source_dark_dungeon_idle_silver",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_silver'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"source_dark_dungeon_idle_wood",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_wood'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-1.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"source_dark_dungeon_ready_gold",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.600000, "sY":0.600000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":2, "sX":0.600000, "sY":0.600000, "mode":"Add"
+									},
+									{
+										"frame":8, "sX":1.400000, "sY":1.400000, "alpha":51, "mode":"Add"
+									},
+									{
+										"frame":14, "sX":1.542857, "sY":1.542857, "alpha":14, "mode":"Add"
+									},
+									{
+										"frame":18, "sX":1.578571, "sY":1.578571, "alpha":5, "mode":"Add"
+									},
+									{
+										"frame":22, "sX":1.600000, "sY":1.600000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_gold'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":3
+									},
+									{
+										"frame":5, "rotate":-10.000000
+									},
+									{
+										"frame":7
+									},
+									{
+										"frame":11, "rotate":-2.666667
+									},
+									{
+										"frame":13, "rotate":10.000000
+									},
+									{
+										"frame":15
+									},
+									{
+										"frame":30
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "pX":32.000000, "pY":-10.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":12, "sX":0.900000, "sY":0.900000, "rotate":9.000000, "pX":32.000000, "pY":1.500000, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":0.000000, "sY":0.000000, "rotate":90.000000, "pX":32.000000, "pY":105.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "rotate":-203.000000, "pX":-24.000000, "pY":-34.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":6, "sX":0.900000, "sY":0.900000, "rotate":-194.000000, "pX":-24.000000, "pY":-22.499998, "mode":"Add"
+									},
+									{
+										"frame":24, "sX":0.000000, "sY":0.000000, "rotate":-113.000000, "pX":-24.000000, "pY":81.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "rotate":-82.000000, "pX":-42.000000, "pY":-32.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":2, "sX":0.900000, "sY":0.900000, "rotate":-72.999992, "pX":-42.000000, "pY":-20.500000, "mode":"Add"
+									},
+									{
+										"frame":20, "sX":0.000000, "sY":0.000000, "rotate":8.000000, "pX":-42.000000, "pY":83.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "pX":5.000000, "pY":36.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":8, "sX":0.900000, "sY":0.900000, "rotate":9.000000, "pX":5.000000, "pY":47.500000, "mode":"Add"
+									},
+									{
+										"frame":26, "sX":0.000000, "sY":0.000000, "rotate":90.000000, "pX":5.000000, "pY":151.000000, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"source_dark_dungeon_ready_rainbow",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":2.000000, "sY":2.000000, "pX":1.000000, "pY":4.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":2.000000, "sY":2.000000, "rotate":180.000000, "pX":1.000000, "pY":4.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":2.000000, "sY":2.000000, "rotate":180.000000, "pX":1.000000, "pY":3.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":2.000000, "sY":2.000000, "rotate":360.000000, "pX":1.000000, "pY":3.000000, "alpha":179, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_rainbow_fluttering'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":3
+									},
+									{
+										"frame":5, "rotate":-10.000000
+									},
+									{
+										"frame":7
+									},
+									{
+										"frame":11, "rotate":-2.666667
+									},
+									{
+										"frame":13, "rotate":10.000000
+									},
+									{
+										"frame":15
+									},
+									{
+										"frame":30
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "pX":32.000000, "pY":-10.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":12, "sX":0.900000, "sY":0.900000, "rotate":9.000000, "pX":32.000000, "pY":1.500000, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":0.000000, "sY":0.000000, "rotate":90.000000, "pX":32.000000, "pY":105.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "rotate":-203.000000, "pX":-24.000000, "pY":-34.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":6, "sX":0.900000, "sY":0.900000, "rotate":-194.000000, "pX":-24.000000, "pY":-22.499998, "mode":"Add"
+									},
+									{
+										"frame":24, "sX":0.000000, "sY":0.000000, "rotate":-113.000000, "pX":-24.000000, "pY":81.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "rotate":-82.000000, "pX":-42.000000, "pY":-32.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":2, "sX":0.900000, "sY":0.900000, "rotate":-72.999992, "pX":-42.000000, "pY":-20.500000, "mode":"Add"
+									},
+									{
+										"frame":20, "sX":0.000000, "sY":0.000000, "rotate":8.000000, "pX":-42.000000, "pY":83.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "pX":5.000000, "pY":36.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":8, "sX":0.900000, "sY":0.900000, "rotate":9.000000, "pX":5.000000, "pY":47.500000, "mode":"Add"
+									},
+									{
+										"frame":26, "sX":0.000000, "sY":0.000000, "rotate":90.000000, "pX":5.000000, "pY":151.000000, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"source_dark_dungeon_ready_silver",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_silver'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":3
+									},
+									{
+										"frame":5, "rotate":-10.000000
+									},
+									{
+										"frame":7
+									},
+									{
+										"frame":11, "rotate":-2.666667
+									},
+									{
+										"frame":13, "rotate":10.000000
+									},
+									{
+										"frame":15
+									},
+									{
+										"frame":30
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"source_dark_dungeon_ready_wood",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'source_wood'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":3
+									},
+									{
+										"frame":5, "rotate":-10.000000
+									},
+									{
+										"frame":7
+									},
+									{
+										"frame":11, "rotate":-2.666667
+									},
+									{
+										"frame":13, "rotate":10.000000
+									},
+									{
+										"frame":15
+									},
+									{
+										"frame":30
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"source_gold",
 					"apply":true,
 					"fps":30,
@@ -647,6 +1795,41 @@
 								[
 									{
 										"frame":0, "pX":-2.000000, "pY":13.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"source_gold_empty",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_gold_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":23.000000, "pY":13.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_gold_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":2.000000, "pY":-4.000000
 									}
 								]
 							}
@@ -1556,7 +2739,7 @@
 							{
 								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_rainbow_wing.png'",
 								"expand":false,
-								"apply":true,
+								"apply":false,
 								"key_list":
 								[
 									{
@@ -1640,7 +2823,7 @@
 							{
 								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_rainbow_wing.png'",
 								"expand":false,
-								"apply":true,
+								"apply":false,
 								"key_list":
 								[
 									{
@@ -1651,6 +2834,198 @@
 									},
 									{
 										"frame":21, "rotate":-8.263158, "pX":35.000000, "pY":-4.000000, "cX":20.000000, "cY":15.000000
+									},
+									{
+										"frame":30, "pX":35.000000, "pY":-4.000000, "cX":20.000000, "cY":15.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"source_rainbow_empty",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_rainbow_wing.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "rotate":51.000000, "pX":-29.000000, "pY":-4.000000, "cX":20.000000, "cY":15.000000, "hflip":"H"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_special_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":23.000000, "pY":13.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_special_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":2.000000, "pY":-4.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_rainbow_wing.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":0, "rotate":-40.000000, "pX":35.000000, "pY":-4.000000, "cX":20.000000, "cY":15.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"source_rainbow_fluttering",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_rainbow_wing.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "pX":-31.000000, "pY":-4.000000, "cX":20.000000, "cY":15.000000, "hflip":"H"
+									},
+									{
+										"frame":2, "sX":0.800000, "rotate":57.142857, "pX":-31.000002, "pY":-4.000000, "cX":20.000000, "cY":15.000000, "hflip":"H"
+									},
+									{
+										"frame":7, "sX":0.800000, "sY":1.100000, "rotate":-20.000000, "pX":-31.000000, "pY":-4.000000, "cX":20.000000, "cY":14.999999, "hflip":"H"
+									},
+									{
+										"frame":11, "sX":0.800000, "rotate":60.000000, "pX":-31.000000, "pY":-4.000000, "cX":20.000000, "cY":15.000000, "hflip":"H"
+									},
+									{
+										"frame":15, "sX":0.800000, "rotate":-20.000000, "pX":-31.000000, "pY":-4.000000, "cX":20.000000, "cY":15.000000, "hflip":"H"
+									},
+									{
+										"frame":19, "sX":0.800000, "rotate":10.000000, "pX":-31.000000, "pY":-4.000000, "cX":20.000000, "cY":14.999999, "hflip":"H"
+									},
+									{
+										"frame":30, "sX":0.800000, "pX":-31.000000, "pY":-4.000000, "cX":20.000000, "cY":15.000000, "hflip":"H"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_special_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":2.000000, "pY":-4.000000
+									},
+									{
+										"frame":30, "pX":2.000000, "pY":-4.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_special_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-3.000000, "pY":13.000000
+									},
+									{
+										"frame":30, "pX":-3.000000, "pY":13.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_rainbow_fx.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":76, "colorRGB":[255,47,52]
+, "mode":"Add"
+									},
+									{
+										"frame":5, "alpha":76, "colorRGB":[129,62,1]
+, "mode":"Add"
+									},
+									{
+										"frame":10, "alpha":76, "colorRGB":[108,103,0]
+, "mode":"Add"
+									},
+									{
+										"frame":15, "alpha":76, "colorRGB":[16,108,0]
+, "mode":"Add"
+									},
+									{
+										"frame":20, "alpha":76, "colorRGB":[0,12,234]
+, "mode":"Add"
+									},
+									{
+										"frame":25, "alpha":76, "colorRGB":[107,0,111]
+, "mode":"Add"
+									},
+									{
+										"frame":30, "alpha":76, "colorRGB":[255,47,52]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_rainbow_wing.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":35.000000, "pY":-4.000000, "cX":20.000000, "cY":15.000000
+									},
+									{
+										"frame":2, "rotate":-57.142895, "pX":35.000000, "pY":-4.000000, "cX":20.000000, "cY":15.000000
+									},
+									{
+										"frame":7, "sY":1.100000, "rotate":20.000000, "pX":35.000000, "pY":-4.000000, "cX":20.000000, "cY":14.999999
+									},
+									{
+										"frame":11, "rotate":-60.000000, "pX":35.000000, "pY":-4.000000, "cX":20.000000, "cY":15.000000
+									},
+									{
+										"frame":15, "rotate":20.000000, "pX":35.000000, "pY":-4.000000, "cX":20.000000, "cY":15.000000
+									},
+									{
+										"frame":19, "rotate":-10.000000, "pX":35.000000, "pY":-4.000000, "cX":20.000000, "cY":14.999999
 									},
 									{
 										"frame":30, "pX":35.000000, "pY":-4.000000, "cX":20.000000, "cY":15.000000
@@ -1769,7 +3144,7 @@
 							{
 								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_rainbow_wing.png'",
 								"expand":false,
-								"apply":true,
+								"apply":false,
 								"key_list":
 								[
 									{
@@ -1839,7 +3214,7 @@
 							{
 								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_rainbow_wing.png'",
 								"expand":false,
-								"apply":true,
+								"apply":false,
 								"key_list":
 								[
 									{
@@ -1902,19 +3277,19 @@
 								"key_list":
 								[
 									{
-										"frame":0, "sX":2.500000, "sY":2.500000
+										"frame":0
 									},
 									{
-										"frame":3, "sX":2.490000, "sY":2.410000
+										"frame":3, "sX":0.990000, "sY":0.910000
 									},
 									{
-										"frame":7, "sX":2.930243, "sY":3.091606, "pY":9.000000
+										"frame":7, "sX":1.430243, "sY":1.591606, "pY":9.000000
 									},
 									{
-										"frame":11, "sX":2.500000, "sY":2.500000, "alpha":0
+										"frame":11, "alpha":0
 									},
 									{
-										"frame":27, "sX":2.500000, "sY":2.500000, "alpha":0
+										"frame":27, "alpha":0
 									}
 								]
 							},
@@ -1925,19 +3300,19 @@
 								"key_list":
 								[
 									{
-										"frame":3, "sX":2.490000, "sY":2.410000, "alpha":0
+										"frame":3, "sX":0.990000, "sY":0.910000, "alpha":0
 									},
 									{
-										"frame":7, "sX":2.930243, "sY":3.091606, "pY":9.000000
+										"frame":7, "sX":1.430243, "sY":1.591606, "pY":9.000000
 									},
 									{
-										"frame":11, "sX":2.500000, "sY":2.500000
+										"frame":11
 									},
 									{
-										"frame":15, "sX":2.500000, "sY":2.500000
+										"frame":15
 									},
 									{
-										"frame":19, "sX":2.500000, "sY":2.500000
+										"frame":19
 									}
 								]
 							},
@@ -1974,10 +3349,13 @@
 										"frame":8, "sX":0.500000, "sY":0.500000, "pY":8.000000
 									},
 									{
-										"frame":12, "sX":0.600000, "sY":0.600000, "pY":101.000000
+										"frame":11, "sX":0.500000, "sY":0.500000, "pY":112.000000
 									},
 									{
-										"frame":18, "sX":0.700000, "sY":0.700000, "pY":21.000000, "alpha":0
+										"frame":15, "sX":0.500000, "sY":0.500000, "pY":147.000000, "alpha":0
+									},
+									{
+										"frame":20, "sX":0.500000, "sY":0.500000, "pY":147.000000, "alpha":0
 									}
 								]
 							},
@@ -1988,65 +3366,19 @@
 								"key_list":
 								[
 									{
-										"frame":12, "sX":0.600000, "sY":0.600000, "pY":101.000000, "alpha":0
+										"frame":12, "pY":101.000000, "alpha":0
 									},
 									{
-										"frame":18, "sX":0.700000, "sY":0.700000, "pY":21.000000
+										"frame":18, "sX":1.400000, "sY":1.400000, "pY":8.000000
 									},
 									{
-										"frame":23, "sX":0.800000, "sY":0.800000, "pY":-18.000000
+										"frame":23, "sX":1.400000, "sY":1.400000
 									},
 									{
-										"frame":28, "pY":-19.000000
+										"frame":28, "sX":1.400000, "sY":1.400000
 									},
 									{
-										"frame":33, "pY":-19.000000, "alpha":0
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_item.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":12, "sX":0.600000, "sY":0.600000, "pX":-222.000000, "pY":101.000000, "alpha":0
-									},
-									{
-										"frame":18, "sX":0.700000, "sY":0.700000, "pX":-222.000000, "pY":21.000000
-									},
-									{
-										"frame":23, "sX":0.800000, "sY":0.800000, "pX":-222.000000, "pY":-18.000000
-									},
-									{
-										"frame":28, "pX":-222.000000, "pY":-19.000000
-									},
-									{
-										"frame":33, "pX":-222.000000, "pY":-19.000000, "alpha":0
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_item.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":12, "sX":0.600000, "sY":0.600000, "pX":222.000000, "pY":101.000000, "alpha":0
-									},
-									{
-										"frame":18, "sX":0.700000, "sY":0.700000, "pX":222.000000, "pY":21.000000
-									},
-									{
-										"frame":23, "sX":0.800000, "sY":0.800000, "pX":222.000000, "pY":-18.000000
-									},
-									{
-										"frame":28, "pX":222.000000, "pY":-19.000000
-									},
-									{
-										"frame":33, "pX":222.000000, "pY":-19.000000, "alpha":0
+										"frame":33, "sX":1.400000, "sY":1.400000, "alpha":0
 									}
 								]
 							}
@@ -2117,6 +3449,41 @@
 								[
 									{
 										"frame":0, "pX":-3.000000, "pY":13.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"source_silver_empty",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_silver_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":23.000000, "pY":13.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_silver_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":2.000000, "pY":-4.000000
 									}
 								]
 							}
@@ -2312,6 +3679,41 @@
 								[
 									{
 										"frame":0, "pX":-2.000000, "pY":13.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"source_wood_empty",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_wood_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":23.000000, "pY":13.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_wood_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":2.000000, "pY":-4.000000
 									}
 								]
 							}
