@@ -1,0 +1,412 @@
+
+goni_i.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+goni_i_acc_01
+  rotate: false
+  xy: 746, 386
+  size: 30, 41
+  orig: 30, 41
+  offset: 0, 0
+  index: -1
+goni_i_arm_01
+  rotate: false
+  xy: 1036, 643
+  size: 115, 133
+  orig: 115, 133
+  offset: 0, 0
+  index: -1
+goni_i_arm_02
+  rotate: false
+  xy: 854, 515
+  size: 147, 142
+  orig: 147, 142
+  offset: 0, 0
+  index: -1
+goni_i_bac_01
+  rotate: false
+  xy: 1008, 398
+  size: 72, 122
+  orig: 72, 122
+  offset: 0, 0
+  index: -1
+goni_i_bac_02
+  rotate: false
+  xy: 1286, 673
+  size: 72, 122
+  orig: 72, 122
+  offset: 0, 0
+  index: -1
+goni_i_body_01
+  rotate: false
+  xy: 2, 320
+  size: 395, 702
+  orig: 395, 702
+  offset: 0, 0
+  index: -1
+goni_i_body_02
+  rotate: true
+  xy: 1607, 772
+  size: 118, 252
+  orig: 118, 252
+  offset: 0, 0
+  index: -1
+goni_i_body_03
+  rotate: true
+  xy: 854, 388
+  size: 125, 152
+  orig: 125, 152
+  offset: 0, 0
+  index: -1
+goni_i_body_04
+  rotate: false
+  xy: 405, 235
+  size: 228, 171
+  orig: 228, 171
+  offset: 0, 0
+  index: -1
+goni_i_effect_01
+  rotate: false
+  xy: 399, 693
+  size: 476, 329
+  orig: 476, 329
+  offset: 0, 0
+  index: -1
+goni_i_effect_02
+  rotate: false
+  xy: 2, 24
+  size: 298, 294
+  orig: 298, 294
+  offset: 0, 0
+  index: -1
+goni_i_effect_03
+  rotate: false
+  xy: 877, 778
+  size: 226, 244
+  orig: 226, 244
+  offset: 0, 0
+  index: -1
+goni_i_effect_04
+  rotate: false
+  xy: 399, 408
+  size: 256, 283
+  orig: 256, 283
+  offset: 0, 0
+  index: -1
+goni_i_effect_05
+  rotate: false
+  xy: 405, 74
+  size: 168, 159
+  orig: 168, 159
+  offset: 0, 0
+  index: -1
+goni_i_effect_06
+  rotate: false
+  xy: 1153, 655
+  size: 131, 140
+  orig: 131, 140
+  offset: 0, 0
+  index: -1
+goni_i_effect_07
+  rotate: true
+  xy: 302, 62
+  size: 256, 101
+  orig: 256, 101
+  offset: 0, 0
+  index: -1
+goni_i_effect_08
+  rotate: true
+  xy: 1607, 892
+  size: 130, 283
+  orig: 130, 283
+  offset: 0, 0
+  index: -1
+goni_i_effect_09
+  rotate: false
+  xy: 1892, 864
+  size: 154, 158
+  orig: 154, 158
+  offset: 0, 0
+  index: -1
+goni_i_effect_10
+  rotate: false
+  xy: 1105, 797
+  size: 236, 225
+  orig: 236, 225
+  offset: 0, 0
+  index: -1
+goni_i_effect_11
+  rotate: false
+  xy: 1082, 411
+  size: 61, 109
+  orig: 61, 109
+  offset: 0, 0
+  index: -1
+goni_i_eye_01
+  rotate: false
+  xy: 692, 296
+  size: 34, 32
+  orig: 34, 32
+  offset: 0, 0
+  index: -1
+goni_i_eye_02
+  rotate: true
+  xy: 1861, 865
+  size: 25, 27
+  orig: 25, 27
+  offset: 0, 0
+  index: -1
+goni_i_eye_03
+  rotate: false
+  xy: 778, 400
+  size: 36, 27
+  orig: 36, 27
+  offset: 0, 0
+  index: -1
+goni_i_eye_04
+  rotate: true
+  xy: 854, 662
+  size: 29, 21
+  orig: 29, 21
+  offset: 0, 0
+  index: -1
+goni_i_eye_05
+  rotate: false
+  xy: 1263, 632
+  size: 18, 21
+  orig: 18, 21
+  offset: 0, 0
+  index: -1
+goni_i_eye_06
+  rotate: true
+  xy: 746, 366
+  size: 18, 21
+  orig: 18, 21
+  offset: 0, 0
+  index: -1
+goni_i_eye_07
+  rotate: true
+  xy: 1003, 643
+  size: 14, 15
+  orig: 14, 15
+  offset: 0, 0
+  index: -1
+goni_i_eye_08
+  rotate: true
+  xy: 1343, 811
+  size: 14, 15
+  orig: 14, 15
+  offset: 0, 0
+  index: -1
+goni_i_eye_09
+  rotate: true
+  xy: 1343, 797
+  size: 12, 11
+  orig: 12, 11
+  offset: 0, 0
+  index: -1
+goni_i_eye_10
+  rotate: false
+  xy: 1455, 731
+  size: 12, 11
+  orig: 12, 11
+  offset: 0, 0
+  index: -1
+goni_i_eye_11
+  rotate: false
+  xy: 1105, 780
+  size: 42, 15
+  orig: 42, 15
+  offset: 0, 0
+  index: -1
+goni_i_eye_12
+  rotate: false
+  xy: 1286, 656
+  size: 30, 15
+  orig: 30, 15
+  offset: 0, 0
+  index: -1
+goni_i_eye_13
+  rotate: true
+  xy: 2020, 820
+  size: 42, 19
+  orig: 42, 19
+  offset: 0, 0
+  index: -1
+goni_i_eye_14
+  rotate: false
+  xy: 657, 408
+  size: 27, 19
+  orig: 27, 19
+  offset: 0, 0
+  index: -1
+goni_i_face_01
+  rotate: false
+  xy: 575, 91
+  size: 134, 142
+  orig: 134, 142
+  offset: 0, 0
+  index: -1
+goni_i_finger_01
+  rotate: false
+  xy: 688, 364
+  size: 56, 63
+  orig: 56, 63
+  offset: 0, 0
+  index: -1
+goni_i_finger_02
+  rotate: false
+  xy: 635, 254
+  size: 55, 74
+  orig: 55, 74
+  offset: 0, 0
+  index: -1
+goni_i_finger_03
+  rotate: false
+  xy: 526, 4
+  size: 44, 68
+  orig: 44, 68
+  offset: 0, 0
+  index: -1
+goni_i_finger_04
+  rotate: true
+  xy: 1130, 529
+  size: 31, 58
+  orig: 31, 58
+  offset: 0, 0
+  index: -1
+goni_i_hair_01
+  rotate: false
+  xy: 657, 429
+  size: 195, 262
+  orig: 195, 262
+  offset: 0, 0
+  index: -1
+goni_i_hair_02
+  rotate: false
+  xy: 1003, 522
+  size: 125, 119
+  orig: 125, 119
+  offset: 0, 0
+  index: -1
+goni_i_hair_03
+  rotate: true
+  xy: 405, 2
+  size: 70, 119
+  orig: 70, 119
+  offset: 0, 0
+  index: -1
+goni_i_hair_04
+  rotate: false
+  xy: 575, 2
+  size: 63, 87
+  orig: 63, 87
+  offset: 0, 0
+  index: -1
+goni_i_hair_05
+  rotate: false
+  xy: 640, 8
+  size: 72, 81
+  orig: 72, 81
+  offset: 0, 0
+  index: -1
+goni_i_hair_06
+  rotate: true
+  xy: 1360, 655
+  size: 72, 81
+  orig: 72, 81
+  offset: 0, 0
+  index: -1
+goni_i_hand_01
+  rotate: true
+  xy: 877, 659
+  size: 117, 157
+  orig: 117, 157
+  offset: 0, 0
+  index: -1
+goni_i_hand_02
+  rotate: true
+  xy: 1861, 745
+  size: 117, 157
+  orig: 117, 157
+  offset: 0, 0
+  index: -1
+goni_i_head_01
+  rotate: true
+  xy: 1343, 827
+  size: 195, 262
+  orig: 195, 262
+  offset: 0, 0
+  index: -1
+goni_i_mouth_01
+  rotate: false
+  xy: 688, 330
+  size: 42, 32
+  orig: 42, 32
+  offset: 0, 0
+  index: -1
+goni_i_mouth_02
+  rotate: false
+  xy: 2, 3
+  size: 42, 19
+  orig: 42, 19
+  offset: 0, 0
+  index: -1
+goni_i_mouth_03
+  rotate: true
+  xy: 380, 30
+  size: 30, 19
+  orig: 30, 19
+  offset: 0, 0
+  index: -1
+goni_i_neck_01
+  rotate: false
+  xy: 1201, 578
+  size: 60, 75
+  orig: 60, 75
+  offset: 0, 0
+  index: -1
+goni_i_wepon_01
+  rotate: false
+  xy: 1360, 729
+  size: 93, 96
+  orig: 93, 96
+  offset: 0, 0
+  index: -1
+goni_i_wepon_02
+  rotate: true
+  xy: 1130, 562
+  size: 79, 69
+  orig: 79, 69
+  offset: 0, 0
+  index: -1
+goni_i_wepon_03
+  rotate: false
+  xy: 1455, 744
+  size: 94, 81
+  orig: 94, 81
+  offset: 0, 0
+  index: -1
+goni_i_wepon_04
+  rotate: true
+  xy: 1551, 749
+  size: 76, 51
+  orig: 76, 51
+  offset: 0, 0
+  index: -1
+goni_i_wepon_05
+  rotate: false
+  xy: 302, 9
+  size: 76, 51
+  orig: 76, 51
+  offset: 0, 0
+  index: -1
+goni_i_wepon_06
+  rotate: true
+  xy: 635, 330
+  size: 76, 51
+  orig: 76, 51
+  offset: 0, 0
+  index: -1

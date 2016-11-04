@@ -206,6 +206,7 @@ function UI_GameResult:initDragonList(t_tamer_levelup_data, l_dragon_list)
     -- 드래곤 노드(테이머 포함) 정렬
     self:sortDragonNode(dragon_cnt)
 
+    --[[
     -- 테이머 리소스 생성
     local tamer = MakeAnimator('res/character/tamer/leon/leon.spine')
     tamer.m_node:setDockPoint(cc.p(0.5, 0.5))
@@ -229,9 +230,11 @@ function UI_GameResult:initDragonList(t_tamer_levelup_data, l_dragon_list)
         levelup_director:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type)
         self:addLevelUpDirector(levelup_director)
     end
+    --]]
 
     -- 드래곤 리소스 생성
     for i,v in ipairs(l_dragon_list) do
+        ccdump(v)
         local user_data = v['user_data']
         local table_data = v['table_data']
         local res_name = table_data['res']
@@ -279,7 +282,8 @@ function UI_GameResult:sortDragonNode(dragon_cnt)
     local vars = self.vars
 
     -- 테이머 노드 하나 추가
-    local cnt = dragon_cnt + 1
+    --local cnt = dragon_cnt + 1
+    local cnt = dragon_cnt -- 테이머 제거
     local idx = 0
 
     if (cnt % 2) == 0 then
@@ -290,13 +294,8 @@ function UI_GameResult:sortDragonNode(dragon_cnt)
 
     local start_x = (idx * interval)
 
-    for i=1, 6 do
-        local node = nil
-        if (i==1) then
-            node = vars['tamerNode']
-        else
-            node = vars['dragonNode' .. (i - 1)]
-        end
+    for i=1, 5 do
+        local node = vars['dragonNode' .. i]
         
         if (i <= cnt) then
             node:setPositionX(start_x)

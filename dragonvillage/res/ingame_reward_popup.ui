@@ -111,7 +111,7 @@
 			lua_name = 'skipLabel';
 			font_name = 'font/common_font_01.ttf';
 			font_size = 50;
-			text = 'BOX TOUCH!';
+			text = '상자를 터치하세요';
 			h_alignment = 1;
 			v_alignment = 1;
 			color = { 255; 246; 181; };
@@ -581,7 +581,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 28;
-				text = '돌아가기';
+				text = '처음으로';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 243; 236; 225; };
@@ -603,7 +603,7 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = 0.000000;
+			x = -222.000000;
 			y = -270.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
@@ -693,7 +693,7 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = -222.000000;
+			x = 0.000000;
 			y = -270.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
@@ -708,8 +708,8 @@
 			visible = true;
 			lua_name = 'retryBtn';
 			enable = true;
-			normal = 'ui/btn/base_0101.png';
-			selected = 'ui/btn/base_0102.png';
+			normal = 'ui/btn/base_0106.png';
+			selected = 'ui/btn/base_0107.png';
 			disable = '';
 			image_type = 1;
 		};
