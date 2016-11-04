@@ -265,17 +265,17 @@ function UI_AdventureSceneNew:SpeechBalloon(chapter)
 
         local str = ''
         if (chapter == 1) then
-            str = Str('풍속성 드래곤이 유리한 지역이야.\n잘 모르겠으면 [자동배치]를 이용해.')
+            str = Str('불속성 드래곤이 유리한 지역이야.\n잘 모르겠으면 [자동배치]를 이용해.')
         elseif (chapter == 2) then
             str = Str('각종 상태이상 효과를 거는 적들이 등장해.\n[리티오] 드래곤을 데려가.')
         elseif (chapter == 3) then
-            str = Str('테이머의 능력인 [집중공격]을 사용해봐.\n테이머 터치 -> 대상 지정')
+            str = Str('한가지 속성만으로는 통과하기 힘들어.\n다양한 속성의 드래곤을 준비하는게 좋아.')
         elseif (chapter == 4) then
-            str = Str('궁극기는 적을 한번에 처치할 수 있어.\n화면 우측하단의 [테이머] 버튼을 터치해봐')
+            str = Str('이글이글 타오르는 불에게는.\n시원한 물이 필요하지.')
         elseif (chapter == 5) then
-            str = Str('승급과 진화를 통해 한층 더 강력해 질 수 있지.\n[상점]에서 진화와 승급을 체험할 수 있어.')
+            str = Str('지금까지와는 다른 속성이 등장해.\n조금 특별한 드래곤이 필요하겠는걸?')
         elseif (chapter == 6) then
-            str = Str('강력한 몬스터들과 마음껏 싸워봐.\n친밀도가 상승하면 [합동공격]을 할 수 있어.')
+            str = Str('어두운 기운을 물리치려면\n빛속성 드래곤이 재격이지.')
         end
 
         local dock_point = cc.p(0.5, 1)
