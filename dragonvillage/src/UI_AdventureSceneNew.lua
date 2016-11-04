@@ -3,6 +3,7 @@
 -------------------------------------
 UI_AdventureSceneNew = class(UI, ITopUserInfo_EventListener:getCloneTable(), {
         m_currChapter = 'number',
+        m_currDifficulty = 'number',
         m_openStage = 'number', -- 진입 가능한 스테이지
         m_focusStageIdx = 'number',
         m_adventureShip = 'UI',
@@ -35,8 +36,12 @@ function UI_AdventureSceneNew:init()
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end) -- 다음 챕터
     vars['selectBtn']:registerScriptTapHandler(function() self:click_selectBtn() end) -- 챕터 선택
 
-    vars['normalBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
-    vars['hardBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
+    vars['easyBtn']:registerScriptTapHandler(function() self:click_selectDifficultyBtn(1) end)
+    vars['normalBtn']:registerScriptTapHandler(function() self:click_selectDifficultyBtn(2) end)
+    vars['hardBtn']:registerScriptTapHandler(function() self:click_selectDifficultyBtn(3) end)
+
+    vars['bgSprite']:setLocalZOrder(-2)
+    vars['chapterNode']:setLocalZOrder(-1)
     
     self:doActionReset()
     self:doAction()
@@ -46,7 +51,7 @@ function UI_AdventureSceneNew:init()
 
     -- 마지막에 진입한 챕터로 진입
     local last_chapter = g_adventureData.m_tData['last_chapter'] or 1
-    self:refreshChapter(last_chapter)
+    self:refreshChapter(last_chapter, 1)
 end
 
 -------------------------------------
@@ -117,14 +122,26 @@ end
 -- function click_prevBtn
 -------------------------------------
 function UI_AdventureSceneNew:click_prevBtn()
-    self:refreshChapter(self.m_currChapter - 1)
+    local difficulty = self.m_currDifficulty
+    local chapter = (self.m_currChapter - 1)
+
+    if g_adventureData:isOpenChapter(difficulty, chapter) then  
+        self:refreshChapter(chapter, difficulty)
+    end
 end
 
 -------------------------------------
 -- function click_nextBtn
 -------------------------------------
 function UI_AdventureSceneNew:click_nextBtn()
-    self:refreshChapter(self.m_currChapter + 1)
+    local difficulty = self.m_currDifficulty
+    local chapter = (self.m_currChapter + 1)
+
+    if g_adventureData:isOpenChapter(difficulty, chapter) then  
+        self:refreshChapter(chapter, difficulty)
+    else
+        UIManager:toastNotificationRed(Str('{1}챕터를 먼저 모험하세요.', self.m_currChapter))
+    end
 end
 
 -------------------------------------
@@ -133,20 +150,41 @@ end
 -------------------------------------
 function UI_AdventureSceneNew:click_selectBtn()
     local ui = UI_AdventureChapterSelectPopup(self.m_currChapter)
-    ui.m_cbFunction = function(chapter) self:refreshChapter(chapter, true) end
+    local difficulty = 1
+    ui.m_cbFunction = function(chapter) self:refreshChapter(chapter, difficulty, true) end
+end
+
+-------------------------------------
+-- function click_selectDifficultyBtn
+-- @brief 난이도 변경 버튼
+-------------------------------------
+function UI_AdventureSceneNew:click_selectDifficultyBtn(difficulty)
+    if (self.m_currDifficulty == difficulty) then
+        return
+    end
+
+    local chapter = self.m_currChapter
+    local force = false
+
+    if g_adventureData:isOpenChapter(difficulty, chapter) then  
+        self:refreshChapter(chapter, difficulty, force)
+    else
+        UIManager:toastNotificationRed(Str('이전 난이도를 먼저 클리어하세요!'))
+    end
 end
 
 -------------------------------------
 -- function refreshChapter
 -- @breif 챕터 변경
 -------------------------------------
-function UI_AdventureSceneNew:refreshChapter(chapter, force)
-    if (not force) and (self.m_currChapter == chapter) then
+function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, force)
+    if (not force) and (self.m_currChapter == chapter) and (self.m_currDifficulty == difficulty) then
         return
     end
 
     local vars = self.vars
     self.m_currChapter = chapter
+    self.m_currDifficulty = difficulty or self.m_currDifficulty
 
     do -- 챕터 전환 연출
         vars['splashLayer']:setLocalZOrder(1)
@@ -169,10 +207,9 @@ function UI_AdventureSceneNew:refreshChapter(chapter, force)
     end
 
     self.m_lStageButton = {}
-    for i=1, MAX_ADVANTURE_STAGE do
+    for i=1, MAX_ADVENTURE_STAGE do
         vars['stageDock0' .. i]:removeAllChildren()
-        local difficulty = 1
-        local stage_id = makeAdventureID(difficulty, chapter, i)
+        local stage_id = makeAdventureID(self.m_currDifficulty, chapter, i)
         local button = UI_AdventureStageButton(self, stage_id)
         vars['stageDock0' .. i]:addChild(button.root)
         self.m_lStageButton[i] = button
@@ -182,7 +219,7 @@ function UI_AdventureSceneNew:refreshChapter(chapter, force)
     end
 
     do -- 진입 가능한 스테이지 저장
-        local t_ret, focus_stage = g_adventureData:getStageScoreList(1, chapter)
+        local t_ret, focus_stage = g_adventureData:getStageScoreList(self.m_currDifficulty, chapter)
         self:focusStageButton(focus_stage, true)
         self.m_openStage = focus_stage
     end
@@ -198,6 +235,9 @@ function UI_AdventureSceneNew:refreshChapter(chapter, force)
     -- 마지막에 진입한 챕터 저장
     g_adventureData.m_tData['last_chapter'] = chapter
     g_userDataOld:setDirtyLocalSaveData(true)
+
+    -- 난이도 버튼
+    self:refresh_difficultyButtons()
 end
 
 -------------------------------------
@@ -313,8 +353,28 @@ function UI_AdventureSceneNew:focusStageButton(idx, immediately)
     end
 
     self.m_focusStageIdx = idx
+end
 
+-------------------------------------
+-- function refresh_difficultyButtons
+-- @brief 난이도 관련 버튼 갱신 (쉬움, 보통, 어려움)
+-------------------------------------
+function UI_AdventureSceneNew:refresh_difficultyButtons()
+    local vars = self.vars
 
+    local chapter = self.m_currChapter
+    for difficulty=1, MAX_ADVENTURE_DIFFICULTY do
+
+        -- 난이도별 잠금 아이콘
+        local is_lock = (not g_adventureData:isOpenChapter(difficulty, chapter))
+        local lock_sprite_name = 'lockSprite' .. string.format('%.2d', difficulty)
+        vars[lock_sprite_name]:setVisible(is_lock)
+
+        -- 선택된 난이도 아이콘
+        local is_selected = (difficulty == self.m_currDifficulty)
+        local disable_sprite_name = 'disableSprite' .. string.format('%.2d', difficulty)
+        vars[disable_sprite_name]:setVisible(not is_selected)
+    end
     
 end
 

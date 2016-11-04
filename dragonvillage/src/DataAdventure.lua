@@ -2,7 +2,8 @@
 
 --MAX_ADVENTURE_CHAPTER = 6
 MAX_ADVENTURE_CHAPTER = 3
-MAX_ADVANTURE_STAGE = 8
+MAX_ADVENTURE_STAGE = 8
+MAX_ADVENTURE_DIFFICULTY = 3
 
 -------------------------------------
 -- class DataAdventure
@@ -104,7 +105,7 @@ function DataAdventure:getStageScoreList(difficulty, chapter)
 
     local focus_stage = nil
 
-    for i=1, MAX_ADVANTURE_STAGE do
+    for i=1, MAX_ADVENTURE_STAGE do
         local stage_id = makeAdventureID(difficulty, chapter, i)
         local t_stage_data = self:getStageData(stage_id)
         t_ret[i] = t_stage_data
@@ -114,7 +115,7 @@ function DataAdventure:getStageScoreList(difficulty, chapter)
         end
 
         if (t_stage_data['grade'] > 0) then
-            focus_stage = math_min(i + 1, MAX_ADVANTURE_STAGE)
+            focus_stage = math_min(i + 1, MAX_ADVENTURE_STAGE)
         end
     end
     
@@ -147,7 +148,7 @@ function DataAdventure:clearStage(stage_id, grade)
     -- 챕터 오픈
     if (t_stage_data['clear_cnt'] == 1) then
         local difficulty, chapter, stage = parseAdventureID(stage_id)
-        if (difficulty == 1) and (stage == MAX_ADVANTURE_STAGE) then
+        if (difficulty == 1) and (stage == MAX_ADVENTURE_STAGE) then
             local open_chapter = math_min(chapter + 1, MAX_ADVENTURE_CHAPTER)
             self.m_tData['open_chapter'] = open_chapter
         end
@@ -242,6 +243,16 @@ function DataAdventure:isOpenStage(stage_id)
 end
 
 -------------------------------------
+-- function isOpenChapter
+-- @brief
+-------------------------------------
+function DataAdventure:isOpenChapter(difficulty, chapter)
+    local stage = 1
+    local stage_id = makeAdventureID(difficulty, chapter, stage)
+    return self:isOpenStage(stage_id)
+end
+
+-------------------------------------
 -- function getPrevStageID
 -- @brief
 -------------------------------------
@@ -254,13 +265,13 @@ function getPrevStageID(stage_id)
 
     if (difficulty == 1) then
         if (stage == 1) then
-            return makeAdventureID(difficulty, chapter-1, MAX_ADVANTURE_STAGE)
+            return makeAdventureID(difficulty, chapter-1, MAX_ADVENTURE_STAGE)
         else
             return makeAdventureID(difficulty, chapter, stage-1)
         end
     else
         if (stage == 1) then
-            return makeAdventureID(difficulty-1, chapter, MAX_ADVANTURE_STAGE)
+            return makeAdventureID(difficulty-1, chapter, MAX_ADVENTURE_STAGE)
         else
             return makeAdventureID(difficulty, chapter, stage-1)
         end
@@ -279,8 +290,8 @@ end
 -------------------------------------
 function DataAdventure:allStageClear()
 	for difficulty = 1, 3 do
-		for chapter = 1, 10 do
-			for stage = 1, 8 do
+		for chapter = 1, MAX_ADVENTURE_CHAPTER do
+			for stage = 1, MAX_ADVENTURE_STAGE do
 				local stage_id = makeAdventureID(difficulty, chapter, stage)
                 stage_id = tostring(stage_id)
 

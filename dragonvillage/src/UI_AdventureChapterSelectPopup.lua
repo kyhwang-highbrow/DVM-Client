@@ -43,17 +43,7 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_AdventureChapterSelectPopup:click_exitBtn()
-    SoundMgr:playEffect('EFFECT', 'ui_button')
     self:close()
-end
-
--------------------------------------
--- function close
--------------------------------------
-function UI_AdventureChapterSelectPopup:close()
-    if not self.enable then return end
-    SoundMgr:playEffect('EFFECT', 'ui_button')
-    UI.close(self)
 end
 
 -------------------------------------
@@ -95,7 +85,7 @@ function UI_AdventureChapterSelectPopup:init_tableView()
 
     -- 클릭 콜백 함수
     local function click_dragon_item(item)
-        local chapter = item['uique_id']
+        local chapter = item['unique_id']
     
         local root = item['ui'].vars['root']
         if root then
