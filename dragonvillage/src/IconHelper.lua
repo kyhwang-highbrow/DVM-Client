@@ -32,7 +32,6 @@ function IconHelper:getDragonIconFromDid(dragon_id, evolution, grade)
     local res_name = t_dragon['icon']
     local evolution = evolution
     local attr = t_dragon['attr']
-    cclog('res_name ' .. res_name)
     local sprite = IconHelper:getHeroIcon(res_name, evolution, attr)
 
     -- 등급 정보가 있을 경우
