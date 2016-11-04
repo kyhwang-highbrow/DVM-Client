@@ -234,7 +234,6 @@ function UI_GameResult:initDragonList(t_tamer_levelup_data, l_dragon_list)
 
     -- 드래곤 리소스 생성
     for i,v in ipairs(l_dragon_list) do
-        ccdump(v)
         local user_data = v['user_data']
         local table_data = v['table_data']
         local res_name = table_data['res']
