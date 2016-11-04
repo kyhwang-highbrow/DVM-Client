@@ -7,11 +7,11 @@
             <key>ui_dropbox_circle_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{407,478},{97,99}}</string>
+                <string>{{397,1776},{97,99}}</string>
                 <key>offset</key>
                 <string>{-2,-5}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{8,14},{97,99}}</string>
                 <key>sourceSize</key>
@@ -20,11 +20,11 @@
             <key>ui_dropbox_circle_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,483},{91,101}}</string>
+                <string>{{306,1884},{91,101}}</string>
                 <key>offset</key>
                 <string>{-1,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{12,9},{91,101}}</string>
                 <key>sourceSize</key>
@@ -33,11 +33,11 @@
             <key>ui_dropbox_circle_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{305,529},{95,99}}</string>
+                <string>{{436,1646},{95,99}}</string>
                 <key>offset</key>
                 <string>{2,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{13,9},{95,99}}</string>
                 <key>sourceSize</key>
@@ -46,72 +46,72 @@
             <key>ui_dropbox_gold.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{305,436},{100,91}}</string>
+                <string>{{2,304},{327,300}}</string>
                 <key>offset</key>
-                <string>{1,0}</string>
+                <string>{5,-2}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{10,1},{100,91}}</string>
+                <string>{{39,8},{327,300}}</string>
                 <key>sourceSize</key>
-                <string>{118,93}</string>
+                <string>{395,312}</string>
             </dict>
             <key>ui_dropbox_gold_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{405,670},{98,63}}</string>
+                <string>{{2,606},{326,206}}</string>
                 <key>offset</key>
-                <string>{4,1}</string>
+                <string>{13,1}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{9,1},{98,63}}</string>
+                <string>{{31,8},{326,206}}</string>
                 <key>sourceSize</key>
-                <string>{108,67}</string>
+                <string>{362,224}</string>
             </dict>
             <key>ui_dropbox_gold_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{305,626},{98,83}}</string>
+                <string>{{329,953},{325,277}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,1},{98,83}}</string>
+                <string>{{4,4},{325,277}}</string>
                 <key>sourceSize</key>
-                <string>{100,85}</string>
+                <string>{335,285}</string>
             </dict>
             <key>ui_dropbox_gold_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,698},{83,70}}</string>
+                <string>{{656,1300},{283,231}}</string>
                 <key>offset</key>
-                <string>{0,0}</string>
+                <string>{1,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{2,1},{83,70}}</string>
+                <string>{{5,5},{283,231}}</string>
                 <key>sourceSize</key>
-                <string>{87,72}</string>
+                <string>{291,241}</string>
             </dict>
             <key>ui_dropbox_gold_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{102,641},{98,55}}</string>
+                <string>{{329,1232},{325,179}}</string>
                 <key>offset</key>
-                <string>{-1,-14}</string>
+                <string>{-1,-49}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,29},{98,55}}</string>
+                <string>{{4,102},{325,179}}</string>
                 <key>sourceSize</key>
-                <string>{100,85}</string>
+                <string>{335,285}</string>
             </dict>
             <key>ui_dropbox_light_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{172,730},{75,78}}</string>
+                <string>{{941,1300},{75,78}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -124,7 +124,7 @@
             <key>ui_dropbox_light_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{306,306},{128,128}}</string>
+                <string>{{306,1646},{128,128}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -137,7 +137,7 @@
             <key>ui_dropbox_light_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{154,238},{150,150}}</string>
+                <string>{{154,1882},{150,150}}</string>
                 <key>offset</key>
                 <string>{1,-1}</string>
                 <key>rotated</key>
@@ -150,7 +150,7 @@
             <key>ui_dropbox_light_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,238},{150,150}}</string>
+                <string>{{154,1730},{150,150}}</string>
                 <key>offset</key>
                 <string>{1,-1}</string>
                 <key>rotated</key>
@@ -163,7 +163,7 @@
             <key>ui_dropbox_light_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{348,154},{150,150}}</string>
+                <string>{{2,1882},{150,150}}</string>
                 <key>offset</key>
                 <string>{1,-1}</string>
                 <key>rotated</key>
@@ -176,7 +176,7 @@
             <key>ui_dropbox_light_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{348,2},{150,150}}</string>
+                <string>{{2,1730},{150,150}}</string>
                 <key>offset</key>
                 <string>{1,-1}</string>
                 <key>rotated</key>
@@ -189,7 +189,7 @@
             <key>ui_dropbox_light_item.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{234,344}}</string>
+                <string>{{359,220},{234,344}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -202,11 +202,11 @@
             <key>ui_dropbox_rainbow_fx.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{112,390},{106,89}}</string>
+                <string>{{306,1776},{106,89}}</string>
                 <key>offset</key>
                 <string>{-3,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{3,2},{106,89}}</string>
                 <key>sourceSize</key>
@@ -215,7 +215,7 @@
             <key>ui_dropbox_rainbow_wing.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{87,766},{51,61}}</string>
+                <string>{{941,1377},{51,61}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -228,128 +228,128 @@
             <key>ui_dropbox_silver.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{105,548},{98,91}}</string>
+                <string>{{705,331},{327,300}}</string>
                 <key>offset</key>
-                <string>{2,0}</string>
+                <string>{5,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{12,1},{98,91}}</string>
+                <string>{{39,7},{327,300}}</string>
                 <key>sourceSize</key>
-                <string>{118,93}</string>
+                <string>{395,312}</string>
             </dict>
             <key>ui_dropbox_silver_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,576},{98,63}}</string>
+                <string>{{331,456},{326,216}}</string>
                 <key>offset</key>
-                <string>{4,0}</string>
+                <string>{14,-4}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{9,2},{98,63}}</string>
+                <string>{{32,8},{326,216}}</string>
                 <key>sourceSize</key>
-                <string>{108,67}</string>
+                <string>{362,224}</string>
             </dict>
             <key>ui_dropbox_silver_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{205,590},{98,83}}</string>
+                <string>{{657,840},{325,277}}</string>
                 <key>offset</key>
-                <string>{-1,0}</string>
+                <string>{-2,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,1},{98,83}}</string>
+                <string>{{3,4},{325,277}}</string>
                 <key>sourceSize</key>
-                <string>{100,85}</string>
+                <string>{335,285}</string>
             </dict>
             <key>ui_dropbox_silver_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{436,393},{83,70}}</string>
+                <string>{{287,1413},{277,231}}</string>
                 <key>offset</key>
-                <string>{0,0}</string>
+                <string>{-1,2}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{2,1},{83,70}}</string>
+                <string>{{6,3},{277,231}}</string>
                 <key>sourceSize</key>
-                <string>{87,72}</string>
+                <string>{291,241}</string>
             </dict>
             <key>ui_dropbox_silver_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{302,711},{98,53}}</string>
+                <string>{{656,1119},{325,179}}</string>
                 <key>offset</key>
-                <string>{-1,-15}</string>
+                <string>{-1,-50}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,31},{98,53}}</string>
+                <string>{{4,103},{325,179}}</string>
                 <key>sourceSize</key>
-                <string>{100,85}</string>
+                <string>{335,285}</string>
             </dict>
             <key>ui_dropbox_special.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,390},{108,91}}</string>
+                <string>{{2,2},{355,300}}</string>
                 <key>offset</key>
-                <string>{-3,0}</string>
+                <string>{-8,-2}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{2,1},{108,91}}</string>
+                <string>{{12,8},{355,300}}</string>
                 <key>sourceSize</key>
-                <string>{118,93}</string>
+                <string>{395,312}</string>
             </dict>
             <key>ui_dropbox_special_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{112,481},{106,65}}</string>
+                <string>{{359,2},{354,216}}</string>
                 <key>offset</key>
-                <string>{0,-1}</string>
+                <string>{-1,-4}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{1,2},{106,65}}</string>
+                <string>{{3,8},{354,216}}</string>
                 <key>sourceSize</key>
-                <string>{108,67}</string>
+                <string>{362,224}</string>
             </dict>
             <key>ui_dropbox_special_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{220,490},{98,83}}</string>
+                <string>{{2,814},{325,277}}</string>
                 <key>offset</key>
-                <string>{-1,0}</string>
+                <string>{-2,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,1},{98,83}}</string>
+                <string>{{3,4},{325,277}}</string>
                 <key>sourceSize</key>
-                <string>{100,85}</string>
+                <string>{335,285}</string>
             </dict>
             <key>ui_dropbox_special_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{436,306},{85,70}}</string>
+                <string>{{2,1274},{283,231}}</string>
                 <key>offset</key>
-                <string>{1,0}</string>
+                <string>{3,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{2,1},{85,70}}</string>
+                <string>{{7,5},{283,231}}</string>
                 <key>sourceSize</key>
-                <string>{87,72}</string>
+                <string>{291,241}</string>
             </dict>
             <key>ui_dropbox_special_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,641},{98,55}}</string>
+                <string>{{941,1430},{98,55}}</string>
                 <key>offset</key>
                 <string>{-1,-14}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,29},{98,55}}</string>
                 <key>sourceSize</key>
@@ -358,7 +358,7 @@
             <key>ui_dropbox_star.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{306,238},{34,34}}</string>
+                <string>{{659,456},{34,34}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -371,67 +371,67 @@
             <key>ui_dropbox_wood.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{406,577},{98,91}}</string>
+                <string>{{715,2},{327,300}}</string>
                 <key>offset</key>
-                <string>{2,0}</string>
+                <string>{6,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{12,1},{98,91}}</string>
+                <string>{{40,6},{327,300}}</string>
                 <key>sourceSize</key>
-                <string>{118,93}</string>
+                <string>{395,312}</string>
             </dict>
             <key>ui_dropbox_wood_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{202,675},{98,53}}</string>
+                <string>{{659,660},{326,178}}</string>
                 <key>offset</key>
-                <string>{4,5}</string>
+                <string>{12,18}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{9,2},{98,53}}</string>
+                <string>{{30,5},{326,178}}</string>
                 <key>sourceSize</key>
-                <string>{108,67}</string>
+                <string>{362,224}</string>
             </dict>
             <key>ui_dropbox_wood_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{220,390},{98,83}}</string>
+                <string>{{330,674},{325,277}}</string>
                 <key>offset</key>
-                <string>{0,0}</string>
+                <string>{-1,1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{1,1},{98,83}}</string>
+                <string>{{4,3},{325,277}}</string>
                 <key>sourceSize</key>
-                <string>{100,85}</string>
+                <string>{335,285}</string>
             </dict>
             <key>ui_dropbox_wood_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{87,698},{83,66}}</string>
+                <string>{{2,1507},{277,221}}</string>
                 <key>offset</key>
-                <string>{0,-1}</string>
+                <string>{-1,-2}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{2,4},{83,66}}</string>
+                <string>{{6,12},{277,221}}</string>
                 <key>sourceSize</key>
-                <string>{87,72}</string>
+                <string>{291,241}</string>
             </dict>
             <key>ui_dropbox_wood_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{402,735},{96,53}}</string>
+                <string>{{2,1093},{325,179}}</string>
                 <key>offset</key>
-                <string>{0,-14}</string>
+                <string>{1,-49}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{2,30},{96,53}}</string>
+                <string>{{6,102},{325,179}}</string>
                 <key>sourceSize</key>
-                <string>{100,85}</string>
+                <string>{335,285}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -441,9 +441,9 @@
             <key>realTextureFileName</key>
             <string>ui_dropbox.png</string>
             <key>size</key>
-            <string>{512,1024}</string>
+            <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:a8c6b670e4f9b2c02d2706b0cadf270b$</string>
+            <string>$TexturePacker:SmartUpdate:c842987d42c521becf407918b57b7fac$</string>
             <key>textureFileName</key>
             <string>ui_dropbox.png</string>
         </dict>

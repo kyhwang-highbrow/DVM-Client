@@ -1049,12 +1049,16 @@
 			relative_size_type = 0;
 			width = 100;
 			height = 100;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
+			scale_x = 0.800000;
+			scale_y = 0.800000;
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			action_type = 3;
+			action_delay_1 = 0.000000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
 			lua_name = 'waveVisual';
 			file_name = 'ui/a2d/ingame_wave_gauge/ingame_wave_gauge.a2d';
 			auto_play = true;
@@ -1082,6 +1086,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				action_type = 4;
+				action_delay_1 = 0.000000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.500000;
 				lua_name = '';
 				file_name = 'ui/temp/temp_ingame_tamer_frame.png';
 				color = { 255; 255; 255; };
@@ -1108,6 +1116,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				action_type = 4;
+				action_delay_1 = 0.000000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.500000;
 				lua_name = '';
 				file_name = 'ui/temp/temp_ingame.png';
 				color = { 255; 255; 255; };
@@ -1264,6 +1276,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				action_type = 4;
+				action_delay_1 = 0.050000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.500000;
 				lua_name = '';
 			};
 			[5] =
@@ -1388,6 +1404,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				action_type = 4;
+				action_delay_1 = 0.100000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.500000;
 				lua_name = '';
 			};
 			[6] =
@@ -1512,6 +1532,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				action_type = 4;
+				action_delay_1 = 0.150000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.500000;
 				lua_name = '';
 			};
 			[7] =
@@ -1636,6 +1660,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				action_type = 4;
+				action_delay_1 = 0.200000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.500000;
 				lua_name = '';
 			};
 			type = 'Menu';

@@ -1,131 +1,131 @@
 
 leafdragon_fire_03.png
-size: 2048,256
+size: 512,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 leafdragon_fire_03_arm_01
-  rotate: false
-  xy: 1503, 184
+  rotate: true
+  xy: 448, 362
   size: 69, 61
   orig: 69, 61
   offset: 0, 0
   index: -1
 leafdragon_fire_03_arm_02
-  rotate: false
-  xy: 1574, 184
+  rotate: true
+  xy: 448, 291
   size: 69, 61
   orig: 69, 61
   offset: 0, 0
   index: -1
 leafdragon_fire_03_body_01
   rotate: false
-  xy: 334, 69
+  xy: 168, 329
   size: 135, 176
   orig: 135, 176
   offset: 0, 0
   index: -1
 leafdragon_fire_03_body_02
-  rotate: false
-  xy: 471, 134
+  rotate: true
+  xy: 168, 146
   size: 181, 111
   orig: 181, 111
   offset: 0, 0
   index: -1
 leafdragon_fire_03_body_03
   rotate: false
-  xy: 1080, 136
+  xy: 2, 2
   size: 111, 109
   orig: 111, 109
   offset: 0, 0
   index: -1
 leafdragon_fire_03_eye_01
   rotate: false
-  xy: 2, 2
+  xy: 203, 17
   size: 49, 46
   orig: 49, 46
   offset: 0, 0
   index: -1
 leafdragon_fire_03_foot_01
-  rotate: false
-  xy: 1193, 159
+  rotate: true
+  xy: 115, 24
   size: 87, 86
   orig: 87, 86
   offset: 0, 0
   index: -1
 leafdragon_fire_03_foot_02
-  rotate: false
-  xy: 1282, 159
+  rotate: true
+  xy: 421, 160
   size: 87, 86
   orig: 87, 86
   offset: 0, 0
   index: -1
 leafdragon_fire_03_hand_01
   rotate: false
-  xy: 1645, 184
+  xy: 269, 56
   size: 69, 61
   orig: 69, 61
   offset: 0, 0
   index: -1
 leafdragon_fire_03_hand_02
   rotate: false
-  xy: 1716, 184
+  xy: 340, 56
   size: 69, 61
   orig: 69, 61
   offset: 0, 0
   index: -1
 leafdragon_fire_03_head_01
   rotate: false
-  xy: 940, 117
+  xy: 281, 119
   size: 138, 128
   orig: 138, 128
   offset: 0, 0
   index: -1
 leafdragon_fire_03_head_03
   rotate: false
-  xy: 654, 118
+  xy: 305, 378
   size: 141, 127
   orig: 141, 127
   offset: 0, 0
   index: -1
 leafdragon_fire_03_head_04
   rotate: false
-  xy: 797, 118
+  xy: 305, 249
   size: 141, 127
   orig: 141, 127
   offset: 0, 0
   index: -1
 leafdragon_fire_03_leg_01
-  rotate: false
-  xy: 1371, 166
+  rotate: true
+  xy: 421, 94
   size: 64, 79
   orig: 64, 79
   offset: 0, 0
   index: -1
 leafdragon_fire_03_leg_02
   rotate: false
-  xy: 1437, 166
+  xy: 203, 65
   size: 64, 79
   orig: 64, 79
   offset: 0, 0
   index: -1
 leafdragon_fire_03_mouth_01
-  rotate: true
-  xy: 471, 73
+  rotate: false
+  xy: 448, 433
   size: 59, 72
   orig: 59, 72
   offset: 0, 0
   index: -1
 leafdragon_fire_03_wing_01
   rotate: false
-  xy: 2, 50
+  xy: 2, 310
   size: 164, 195
   orig: 164, 195
   offset: 0, 0
   index: -1
 leafdragon_fire_03_wing_02
   rotate: false
-  xy: 168, 50
+  xy: 2, 113
   size: 164, 195
   orig: 164, 195
   offset: 0, 0
