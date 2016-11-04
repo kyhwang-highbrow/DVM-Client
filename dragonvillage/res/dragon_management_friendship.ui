@@ -31,6 +31,29 @@
 		};
 		[2] =
 		{
+			type = 'LayerColor';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 3;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			color = { 0; 0; 0; };
+			opacity = 100;
+			src_blend = 770;
+			dest_blend = 771;
+		};
+		[3] =
+		{
 			type = 'Sprite';
 			ui_name = '';
 			x = 0.000000;
@@ -55,7 +78,7 @@
 			src_blend = 770;
 			dest_blend = 771;
 		};
-		[3] =
+		[4] =
 		{
 			[1] =
 			{
@@ -2016,7 +2039,7 @@
 			visible = true;
 			lua_name = '';
 		};
-		[4] =
+		[5] =
 		{
 			[1] =
 			{
@@ -2178,6 +2201,32 @@
 			};
 			[3] =
 			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = -76.000031;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 174;
+				height = 64;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/icon/dragon_shadow.png';
+				color = { 255; 255; 255; };
+				opacity = 150;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[4] =
+			{
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
@@ -2195,7 +2244,7 @@
 				visible = true;
 				lua_name = 'dragonNode';
 			};
-			[4] =
+			[5] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -2235,7 +2284,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[5] =
+			[6] =
 			{
 				[1] =
 				{
@@ -2371,7 +2420,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[6] =
+			[7] =
 			{
 				[1] =
 				{
@@ -2507,7 +2556,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[7] =
+			[8] =
 			{
 				[1] =
 				{
@@ -2643,7 +2692,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[8] =
+			[9] =
 			{
 				[1] =
 				{
@@ -2756,7 +2805,7 @@
 			visible = true;
 			lua_name = '';
 		};
-		[5] =
+		[6] =
 		{
 			[1] =
 			{
