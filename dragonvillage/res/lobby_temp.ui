@@ -120,7 +120,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'tamerSprite';
 				file_name = 'ui/temp/temp_char.png';
 				color = { 255; 255; 255; };
 				opacity = 255;

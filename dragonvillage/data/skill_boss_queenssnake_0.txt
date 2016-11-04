@@ -7,7 +7,7 @@
 			{
 				"idx":1,
 				"res":"res/missile/missile_crescent/missile_crescent_@.vrp",
-				"body":[0,0,2],
+				"body":[0,0,20],
                 "count":3,				
                 "period":0.2,
                 "scale":0.8,

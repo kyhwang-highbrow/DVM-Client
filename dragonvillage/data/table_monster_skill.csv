@@ -1,69 +1,65 @@
-id,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,chance_type,chance_value,target_type,casting_time,power_rate,default_power,hit,val_1,val_2,val_3,status_effect_rate,status_effect_type,for_gd,desc,to_programmer,
-230001,code,skill_melee_atk,근접공격,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,0,100,100,1,5000,2000,0,0,x,0,x,캐릭터가 직접 대상 앞으로 이동하여 공격한다(공격 모션 필요). 공격이 끝나면 제 자리로 돌아온다.,
-230002,script,skill_missile_arrow,직선형,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,0,100,100,1,1,1,0,0,x,0,x,단발 탄과 동일,
-230003,script,skill_missile_spear,창공격,res/missile/missile_spear/missile_spear.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,0,100,100,1,1,1,0,0,x,0,x,대상 방향으로 관통하는 투사체 발사,
-230004,script,skill_missile_bomb,폭탄,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,0,100,100,1,1,1,0,0,x,0,x,폭발 마력구와 동일,
-230005,script,skill_missile_bounce,바운스,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,0,100,100,1,1,1,0,0,x,0,x,,
-230006,script,skill_missile_magicshot,마법공격,res/missile/missile_magicshot/missile_magicshot.vrp,x,x,x,instant,magical,-1,basic,1,enemy_distance_line,0,100,100,1,1,1,0,0,x,0,x,호밍 애로우와 동일,
-230007,code,skill_heal_single,회복,res/effect/skill_heal_monster/skill_heal_monster.vrp,x,x,x,instant,magical,-1,basic,1,ally_hp_low,0,200,200,4,1,1,0,0,x,0,x,타겟 치유 스킬과 동일,
-230008,script,skill_missile_bombard,폭격,res/missile/missile_bomb_@/missile_bomb_@.vrp,res/missile/effect_hit_magical_fire/effect_hit_magical_fire.spine,res/indicator/warning_sign/warning_sign.vrp,x,instant,physical,-1,basic,1,enemy_distance_line,0,200,200,1,1,1,0,0,x,0,x,,
-230009,code,skill_summon,소환,x,x,x,x,instant,magical,0,basic,0.5,self,0,0,0,1,1,0,0,0,x,0,x,,
-230010,code,skill_butt,돌진,x,x,x,x,instant,physical,-1,basic,0.2,enemy_distance_line,0,100,100,1,1,1,0,0,x,0,x,,
-230011,script,skill_missile_beatstab,연속찌르기,x,res/indicator/warning_sign/warning_sign.vrp,x,attack_2,instant,physical,-2,basic,0.15,enemy_distance_line,0,100,100,1,2,1,0,0,x,0,x,관통탄 스크립트 개량하여 사용,
-230012,script,skill_missile_minibee,일벌 날리기,res/missile/missile_minibee/missile_minibee.spine,res/indicator/warning_sign/warning_sign.vrp,x,attack_4,instant,physical,-2,basic,0.2,enemy_distance_line,0,50,50,1,4,1,0,0,x,0,x,,
-230013,code,skill_deep_stab,깊은 찌르기,x,x,x,attack_3,instant,physical,-1,basic,0.1,enemy_random,0,1000,1000,1,1,1,0,0,x,0,x,,
-230014,script,skill_missile_sting_1,독침 날리기,res/missile/missile_sting/missile_sting.png,x,x,attack_1,instant,physical,-1,basic,0.1,enemy_distance_line,0,100,100,1,1,1,0,0,x,0,x,,
-230015,script,skill_missile_sting_2,독침 날리기 전방,res/missile/missile_sting/missile_sting.png,x,x,attack_2,instant,physical,-2,basic,0.1,enemy_distance_line,0,100,100,1,1,1,0,0,x,0,x,,
-230016,script,skill_missile_sting_3,독침 방사,res/missile/missile_sting/missile_sting.png,x,x,attack_2,instant,physical,-2,basic,0.1,enemy_distance_line,0,25,25,1,1,1,0,0,x,0,x,,
-230017,script,skill_missile_honeycomb,벌통 던지기,"res/missile/missile_honeycomb/missile_honeycomb.png",x,x,skill_1,instant,physical,-2,basic,0.3,enemy_random,0,100,100,1,6,1,0,0,x,0,x,하나의 스크립트에서 idx:1의 탄이 피격시 idx:2 탄이 동작하는 탄속성 필요함,
-230018,script,skill_missile_summonbee,벌 소환,res/missile/missile_minibee/missile_minibee.spine,x,x,x,instant,physical,-1,basic,1,enemy_random,0,80,80,1,4,1,0,0,x,0,x,,
-230019,script,skill_missile_scaies,비늘 날리기,res/missile/missile_scaies/missile_scaies.png,x,x,x,instant,physical,-1,basic,0.3,enemy_distance_line,0,50,50,36,1,1,0,0,x,0,x,,
-230020,script,skill_cloud_poison,향수 뿌리기,res/missile/missile_cloud_poison/missile_cloud_poison.vrp,x,x,x,instant,magical,-2,basic,0.3,enemy_distance_line,0,15,15,1,1,1,0,0,x,0,x,"스킬 캔슬 조건: 퀸즈 스네이크가 향수병을 꺼내 들고 전용 모션(skill_03)을 약 5초간 유지함, 그 동안 향수병에 퀸즈 스네이크의 전체 체력의 5%에 해당하는 체력이 향수병에 생기고 공격할 수 있게 됨(공격 가능 인디케이터 필요) 지속 시간 동안 향수병을 공격하여 파괴하면 독성 구름은 퀸즈 스네이크에 머물러 10초간 지속 데미지를 줌",
-230021,code,skill_giant_snake,거대 뱀 소환,res/effect/skill_giant_snake/skill_giant_snake.spine,x,x,x,instant,magical,-1,basic,0.1,enemy_distance_line,0,1000,1000,1,1,1,0,0,x,0,x,직선형 인디케이터 표시 3초,
-230022,script,skill_missile_mushroom,버섯 로켓,res/missile/missile_mushroom/missile_mushroom.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,0,80,80,1,1,1,0,0,x,0,x,,
-230023,script,skill_satelliet_mushroom,버섯 종자 공격,res/missile/missile_satelliet_mushroom/missile_satelliet_mushroom.vrp,x,x,x,instant,magical,-1,basic,1,enemy_distance_line,0,100,100,1,10,3,0,0,x,0,x,"스킬 사용자 주변을 도는 탄 무브먼트 필요, 탄 체력 필요, 탄에서 탄이 발사되는 트리거 필요",
-230024,script,skill_grow_mushroom,버섯 재배,res/effect/skill_grow_mushroom/skill_grow_mushroom.spine,x,x,x,instant,magical,-2,basic,0.2,enemy_distance_line,0,300,300,5,10,3,0,0,x,0,x,버섯 종자는 계속해서 매 3초마다 대상의 최대 체력의 val_1 %를 흡수하여 성장하며(scale 상승) 대상이 체력을 모두 빼앗기거나 사망하게 되면 버섯이 폭발하여 광역 피해를 준다. 버섯은 15초 후에 자동으로 사라진다. (val_2 초마다 hit 번 공격),
-230025,script,skill_drain_life,생명력 흡수,res/missile/missile_drain_life/missile_drain_life.vrp,x,x,skill_1,instant,magical,-1,basic,1,enemy_hp_high,0,25,25,1,50,1,0,0,x,0,x,대상의 power_rate % 만큼 데미지를 주고 피해량의 val_1 % 만틈 자신을 회복 시킨다. 투사체는 대상에서 자신으로 이동,
-230026,script,skill_life_link,씨앗 뿌리기,res/effect/skill_life_link_plant/skill_life_link_plant.spine,x,x,x,instant,magical,-1,basic,0.3,enemy_random,0,20,20,1,5,10,0,0,x,0,x,"전이되는 피해량은 power_rate % 만큼 공유함, val_1 수 만큼 뿌리가 뻗어나감, 지속시간은 val_2 초",
-230027,script,skill_missile_feather,깃털 날리기,res/missile/missile_feather/missile_feather.png,x,x,x,instant,physical,-1,basic,1,enemy_random,0,60,60,1,1,1,0,0,x,0,x,,
-230028,script,skill_typhoon_feather,깃털 폭풍,res/missile/missile_feather/missile_feather.png,x,x,skill_1,instant,physical,-2,basic,0.3,enemy_distance_line,0,40,40,1,1,1,0,0,x,0,x,,
-230029,script,skill_drain_life,생명력 흡수,res/missile/missile_drain_life/missile_drain_life.vrp,x,x,skill_1,instant,magical,-1,basic,1,enemy_hp_high,0,25,25,1,50,1,0,0,x,0,x,대상의 power_rate % 만큼 데미지를 주고 피해량의 val_1 % 만틈 자신을 회복 시킨다. 투사체는 대상에서 자신으로 이동,
-230030,script,skill_missile_feather,깃털 날리기,res/missile/missile_feather/missile_feather.png,x,x,x,instant,physical,-2,basic,1,enemy_random,0,80,80,1,1,1,0,0,x,0,x,,
-230031,script,skill_missile_thorn,가시 날리기,res/missile/missile_thorn/missile_thorn.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,0,100,100,1,1,1,0,0,x,0,x,,
-231031,script,skill_missile_thorns,가시 폭풍,res/missile/missile_thorn/missile_thorn.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,0,20,20,1,1,1,0,0,x,0,x,,
-230032,code,skill_counterattack,가시 방사,res/missile/missile_thorn/missile_thorn.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,0,100,100,1,231031,10,0,0,x,0,x,,
-230033,script,skill_missile_ink,먹물 발사,res/missile/missile_bubble_black/missile_bubble_black.vrp,x,x,x,instant,magical,-1,basic,1,enemy_distance_line,0,100,25,1,1,1,0,25,blind,0,x,,
-230034,script,skill_missile_spearfish,청새치,res/missile/missile_spearfish/missile_spearfish.png,x,x,x,instant,physical,-2,basic,1,enemy_distance_line,0,100,100,1,1,1,0,0,x,0,x,,
-230035,code,skill_melee_hack,작살 찌르기,res/missile/missile_harpoon/missile_harpoon.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,0,100,100,1,5000,2000,0,0,x,0,x,,
-230036,script,skill_missile_poisonflask,독병 던지기,res/missile/missile_poisonflask/missilepoison_flask.vrp,x,x,x,instant,magical,-1,basic,0.3,enemy_random,0,150,150,1,1,1,0,100,poison,0,x,,
-230037,script,skill_missile_anchor,닷 공격,res/missile/missile_anchor/missile_anchor.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,0,100,100,1,1,1,0,0,x,0,x,,
-230038,script,skill_missile_sword_force,검기 날리기,res/missile/missile_sword_force/missile_sword_force.png,x,x,skill_4,instant,physical,-1,basic,1,enemy_distance_line,0,30,30,1,1,1,0,5,bleed,0,x,,
-230039,script,skill_missile_harpoon,작살 던지기,res/missile/missile_harpoon/missile_harpoon.png,x,x,skill_1,instant,physical,-1,basic,1,enemy_random,0,100,100,1,1,1,0,50,bleed,0,x,,
-230040,script,skill_missile_ink2,먹물 발사,res/missile/missile_bubble_black/missile_bubble_black.vrp,x,x,x,instant,magical,-1,basic,1,enemy_distance_line,0,25,25,1,1,1,0,25,blind,0,x,,
-240001,script,skill_missile_giantdragon_basic,작은 브레스,res/missile/missile_giantdragon_basic_@/missile_giantdragon_basic_@.spine,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,0,100,100,1,1,1,0,0,x,0,x,,
-240002,code,missile_move_ray,레이저,res/effect/skill_giantdragon_laser_@/skill_giantdragon_laser_@.spine,x,x,skill_1,maintain,magical,-1,basic,1,enemy_distance_line,0,200,200,20,1,1,0,0,x,0,skill_giantdragon_laser,,
-240003,script,skill_missile_giantdragon_basic,할퀴기,x,x,x,skill_2,instant,physical,-1,basic,1,enemy_distance_line,0,100,100,1,1,1,0,0,x,0,skill_giantdragon_claw,,
-240004,script,skill_missile_giantdragon_basic,브레스,res/effect/skill_giantdragon_breath_@/skill_giantdragon_breath_@.spine,x,x,skill_3,maintain,magical,-1,basic,1,enemy_distance_line,0,100,100,1,1,1,0,0,x,0,skill_giantdragon_breath,,
-240005,code,skill_thunder,머리 뿔,res/missile/shot_thunder_light/shot_thunder_light.spine,x,x,skill_4,instant,magical,-1,basic,1,enemy_distance_line,0,100,100,3,1,1,0,0,x,0,skill_thunder,,
-240006,code,skill_thunder,꼬리,res/missile/shot_thunder_light/shot_thunder_light.spine,x,x,skill_5,instant,magical,-1,basic,1,enemy_distance_line,0,100,100,3,1,1,0,0,x,0,skill_thunder,,
-240007,script,skill_missile_giantdragon_basic,졸개 소환,x,x,x,skill_6,instant,magical,-1,basic,1,enemy_distance_line,0,100,100,1,5,1,0,0,x,0,skill_summon_wyvern,,
-240008,script,skill_missile_giantdragon_basic,강습,x,x,x,skill_7,instant,physical,-1,basic,1,enemy_distance_line,0,100,100,1,1,1,0,0,x,0,skill_assault,,
-240009,script,skill_missile_giantdragon_meteor,운석 소환,res/effect/skill_giantdragon_meteor_@/skill_giantdragon_meteor_@.vrp,x,x,skill_8,instant,physical,-1,basic,1,enemy_distance_line,0,100,100,5,1,1,0,0,x,0,skill_giantdragon_meteor,,
-230041,status_effect,skill_buff_team,물리 저항,x,x,x,skill_1,instant,magical,-1,basic,1,ally_none,0,0,0,0,1,1,0,100,p_resist,0,물리 저항,,
-230042,status_effect,skill_buff_team,마법 저항,x,x,x,x,instant,magical,-1,basic,1,ally_none,0,0,0,0,1,1,0,100,m_resist,0,마법 저항,,
-230043,code,skill_buff_self,물리 저항,x,x,x,x,instant,magical,-1,passive,none,self,0,0,0,0,1,1,0,100,passive_p_resist,0,물리 저항,,
-230044,code,skill_buff_self,마법 저항,x,x,x,x,instant,magical,-1,passive,none,self,0,0,0,0,1,1,0,100,passive_m_resist,0,마법 저항,,
-230045,code,skill_heal_single,회복,res/effect/skill_heal_monster/skill_heal_monster.vrp,x,x,skill_1,instant,magical,-2,basic,1,ally_hp_low,0,400,400,4,1,1,0,0,x,0,다크 크리스탈 치유사,타겟 치유 스킬과 동일,
-230046,code,skill_summon,소환,x,x,x,skill_1,instant,x,0,basic,0.5,self,0,0,0,1,0,0,0,0,x,0,,,
-230047,code,skill_summon,소환,x,x,x,skill_1,instant,x,0,basic,0.5,self,0,0,0,1,1,0,0,0,x,0,,,
-230048,code,skill_summon,소환,x,x,x,skill_1,instant,x,0,basic,0.5,self,0,0,0,1,2,0,0,0,x,0,,,
-230049,code,skill_bloodlust,피의 맛,x,x,x,x,instant,x,0,passive,none,self,0,0,0,1,1,1,1,100,passive_bloodlust,0,,,
-230050,code,skill_melee_hack,쪼기,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,0,1,1,1,5000,2000,0,0,x,0,다크 크리스탈 수호병 공격,캐릭터가 직접 대상 앞으로 이동하여 공격한다(공격 모션 필요). 공격이 끝나면 제 자리로 돌아온다.,
-230051,script,skill_missile_gastric_juice,불폭탄,res/missile/missile_gastric_juice_fire/missile_gastric_juice_fire.spine,x,x,skill_1,instant,x,0,basic,1,enemy_distance_line,0,1,1,1,1,1,1,0,x,0,,,
-230052,code,basic_ray,응시,res/effect/skill_ray/skill_ray.spine,x,x,skill_2,instant,x,0,basic,1,enemy_distance_line,0,1,1,10,1,1,1,0,x,0,,,
-230053,script,skill_missile_gastric_juice,발광,x,x,x,skill_3,instant,x,0,basic,1,enemy_distance_line,0,1,1,1,1,1,1,0,x,0,,,
+id,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,chance_type,chance_value,target_type,casting_time,power_source,power_rate,hit,val_1,val_2,val_3,status_effect_rate,status_effect_value,status_effect_type,for_gd,desc,to_programmer
+230001,code,skill_melee_atk,근접공격,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,5000,10000,0,0,0,x,0,x,캐릭터가 직접 대상 앞으로 이동하여 공격한다(공격 모션 필요). 공격이 끝나면 제 자리로 돌아온다.
+230002,code,missile_move_straight,화살 공격,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+230003,code,missile_move_straight,마법 공격,res/missile/missile_magicshot_earth/missile_magicshot_earth.vrp,res/missile/motion_streak/motion_streak_line_@.png,x,x,instant,magical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,
+230004,code,missile_move_release,마법 스킬,res/missile/missile_magicshot/missile_magicshot.vrp,res/missile/motion_streak/motion_streak_line_@.png,x,x,instant,magical,-1,basic_turn,2,enemy_distance_line,4,atk,50,2,0,0,0,0,0,x,0,x,공격력의 300% 피해를 주는 공격
+230005,code,missile_move_high_angle	,창 공격,res/missile/missile_spear/missile_spear.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,100,20,0,0,0,x,0,x,
+230006,code,missile_move_high_angle	,창 스킬,res/missile/missile_spear/missile_spear.png,res/missile/motion_streak/motion_streak_line_@.png,x,x,instant,physical,-1,basic_turn,2,enemy_random,4,atk,200,1,100,20,0,0,0,x,0,x,공격력의 300% 피해를 주는 공격
+230007,code,skill_heal_single,회복 스킬,res/effect/skill_heal_monster/skill_heal_monster.vrp,x,x,x,instant,magical,-1,basic_turn,3,ally_hp_low,5,atk,400,1,0,0,0,0,0,x,0,x,공격력의 400% 회복
+230008,code,missile_move_high_angle	,폭탄 공격,res/missile/missile_bomb_@/missile_bomb_@.spine,x,res/effect/effect_hit_bomb_@/effect_hit_bomb_@.spine,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,100,150,0,0,0,x,0,x,
+230009,code,missile_move_straight,독침,res/missile/missile_sting/missile_sting.png,x,x,attack_1,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,50,100,poison,0,x,
+230010,code,missile_move_straight,가시,res/missile/missile_thorn/missile_thorn.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,
+230011,code,skill_counterattack,반격,res/missile/missile_thorn/missile_thorn.png,x,x,x,instant,physical,-1,basic_turn,1,enemy_distance_line,4,atk,100,1,230012,10,0,0,0,x,0,x,
+230012,script,skill_missile_thorns,가시 폭풍,res/missile/missile_thorn/missile_thorn.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,0,atk,40,1,0,0,0,0,0,x,0,x,
+230013,code,missile_move_straight,깃털 공격,res/missile/missile_feather/missile_feather.png,res/missile/motion_streak/motion_streak_line_@.png,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,
+230014,script,skill_missile_feather,깃털 방사,res/missile/missile_feather/missile_feather.png,res/missile/motion_streak/motion_streak_line_@.png,x,x,instant,physical,-1,basic_turn,3,enemy_distance_line,4,atk,70,1,0,0,0,0,0,x,0,x,
+230015,code,missile_move_straight,직선형 볼,res/missile/missile_ball/missile_ball_@.vrp,x,x,x,instant,magical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,
+230016,code,missile_move_high_angle	,먹물 스킬,res/missile/missile_bubble_black/missile_bubble_black.vrp,x,x,x,instant,magical,-1,basic_turn,4,enemy_distance_line,4,atk,100,1,100,20,0,100,100,blind,0,x,
+230017,script,skill_missile_sting_3,독침 방사,res/missile/missile_sting/missile_sting.png,res/missile/motion_streak/motion_streak_line_@.png,x,attack_2,instant,physical,-2,basic_turn,3,enemy_distance_line,4,atk,50,1,0,0,0,0,x,0,0,,
+230018,script,skill_missile_beatstab,연속찌르기,res/missile/missile_sting/missile_sting.png,x,x,attack_2,instant,physical,-2,basic_turn,3,enemy_distance_line,3,atk,50,1,0,0,0,0,0,x,0,x,
+230019,code,missile_move_straight,청새치,res/missile/missile_spearfish/missile_spearfish.vrp,res/missile/motion_streak/motion_streak_water.png,x,x,instant,magical,-2,basic,1,enemy_distance_line,0,atk,40,1,0,0,0,0,0,x,0,x,
+230020,script,skill_missile_thorn,가시 방출,res/missile/missile_thorn/missile_thorn.png,x,x,x,instant,physical,-2,basic_turn,3,enemy_distance_line,4,atk,20,1,0,0,0,0,0,x,0,x,
+230021,code,skill_protection,피해 흡수,x,x,x,skill_1,instant,magical,-1,basic_turn,5,ally_none,5,x,0,1,0,0,0,100,10,barrier_protection,0,x,
+230022,code,missile_move_high_angle	,작살 던지기,res/missile/missile_harpoon/missile_harpoon.png,x,x,skill_1,instant,physical,-1,basic_turn,3,enemy_random,4,atk,200,1,100,20,0,100,100,bleed,0,x,
+230023,script,skill_missile_sword_force,검기 날리기,res/missile/missile_sword_force/missile_sword_force.png,x,x,skill_4,instant,physical,-1,basic_turn,5,enemy_distance_line,0,atk,30,1,0,0,0,5,100,bleed,0,x,
+230024,script,skill_typhoon_feather,깃털 폭풍,res/missile/missile_feather/missile_feather.png,x,x,skill_1,instant,physical,-2,basic_turn,5,enemy_distance_line,4,atk,100,1,0,0,0,0,0,x,0,x,
+230025,script,skill_life_link,씨앗 뿌리기,res/effect/skill_life_link_plant/skill_life_link_plant.spine,x,x,x,instant,magical,-1,basic_turn,5,enemy_random,4,atk,50,1,0,0,0,0,0,x,0,x,
+230026,code,missile_move_high_angle	,독병 던지기,res/missile/missile_poisonflask/missile_poisonflask.vrp,x,x,x,instant,magical,-1,basic_turn,3,enemy_random,4,atk,150,1,100,150,0,100,100,poison,0,x,
+230027,code,missile_move_release,벌 소환,res/missile/missile_minibee/missile_minibee.spine,x,x,x,instant,physical,-1,basic,1,enemy_random,-1,atk,50,1,0,0,0,0,0,x,0,x,
+230028,script,skill_missile_scaies,비늘 날리기,res/missile/missile_minibee/missile_minibee.spine,x,x,x,instant,physical,-1,basic_turn,3,enemy_distance_line,4,atk,50,1,0,0,0,0,0,x,0,x,
+230029,code,missile_move_release,버섯 스킬,res/missile/missile_mushroom/missile_mushroom.png,x,x,x,instant,magical,-1,basic_turn,3,enemy_distance_line,4,atk,200,1,0,0,0,0,0,x,0,x,
+230030,code,missile_move_high_angle	,포자 공격,res/missile/missile_magicshot/missile_magicshot.vrp,x,x,attack,instant,magical,-1,basic,1,enemy_distance_line,-1,atk,50,1,200,20,0,20,100,poison,0,x,
+230031,code,skill_summon,소환,x,x,x,skill_1,instant,x,0,basic_turn,5,self,5,x,0,1,0,0,0,0,0,x,0,x,
+230032,code,skill_summon,소환,x,x,x,skill_1,instant,x,0,basic_turn,5,self,5,x,0,1,1,0,0,0,0,x,0,x,
+230033,code,skill_summon,소환,x,x,x,skill_1,instant,x,0,basic_turn,5,self,5,x,0,1,2,0,0,0,0,x,0,x,
+230034,code,missile_move_high_angle	,벌통 던지기,"res/missile/missile_honeycomb/missile_honeycomb.png",x,res/effect/effect_hit_bomb_earth/effect_hit_bomb_earth.spine,skill_1,instant,physical,-1,basic_turn,3,enemy_random,4,atk,200,1,100,150,0,0,0,x,0,x,
+230035,script,skill_grow_mushroom,버섯 폭탄,res/effect/skill_grow_mushroom/skill_grow_mushroom.spine,x,x,x,instant,magical,-2,basic_turn,7,enemy_distance_line,5,atk,500,1,0,0,0,0,0,x,0,x,
+230036,script,skill_missile_bossshot_01,보스샷,res/missile/missile_spearfish/missile_spearfish.vrp,res/missile/motion_streak/motion_streak_water.png,x,skill_1,instant,magical,-2,basic_turn,10,enemy_distance_line,5,atk,10,1,0,0,0,0,0,x,0,x,
+231001,script,skill_elite_1,엘리트_1,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+231002,script,skill_elite_2,엘리트_2,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+231003,script,skill_elite_3,엘리트_3,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+231004,script,skill_elite_4,엘리트_4,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+231005,script,skill_elite_5,엘리트_5,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+232011,script,skill_subboss_mushqueen_1,여왕버섯,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+232012,script,skill_subboss_mushqueen_2,여왕버섯,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+232013,script,skill_subboss_mushqueen_3,여왕버섯,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+232021,script,skill_subboss_sharkadmiral_1,심해상어제독,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+232022,script,skill_subboss_sharkadmiral_2,심해상어제독,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+232023,script,skill_subboss_sharkadmiral_3,심해상어제독,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+232031,script,skill_subboss_griffin_1,그리핀,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+232032,script,skill_subboss_griffin_2,그리핀,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+232033,script,skill_subboss_griffin_3,그리핀,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
 231000,script,skill_boss_queenssnake_0,퀸즈스네이크 : 기본 공격 (attack),x,x,x,attack,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
 231001,script,skill_boss_queenssnake_1,퀸즈스네이크 : 벌집 던지기 (우측상단 집중공격),x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
 231002,script,skill_boss_queenssnake_2,퀸즈스네이크 : 벌집 탄막 (skill_2_loop),x,x,x,skill_2,maintain,physical,-2,basic_turn,1,enemy_distance_line,4,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
-231003,script,skill_boss_queenssnake_3,퀸즈스네이크 : 향수병 독안개 (skill_3_appear / skill_3_attack),x,x,x,skill_3,instant,physical,-2,basic_turn,1,enemy_distance_line,2,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+231003,script,skill_boss_queenssnake_3,퀸즈스네이크 : 향수병 독안개 (skill_3_appear / skill_3_attack),x,x,x,skill_3,instant,physical,-2,basic_turn,1,enemy_distance_line,2,atk,40,1,0,0,0,100,100,poison,0,x,직선으로 이동하는 원거리 공격
 231004,code,skill_summon,퀸즈스네이크 : 소환 (skill_4),x,x,x,skill_4,instant,x,0,basic_turn,5,self,3,x,0,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+232001,script,skill_boss_drake_1,드레이크 : 물뱉기 (skill_1),x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+232002,script,skill_boss_drake_2,드레이크 : 베기 (skill_4),x,x,x,skill_4,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+233001,script,skill_boss_cockatrice_1,코카트리스 : 불뿜기 (skill_1),x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+233002,script,skill_boss_cockatrice_2,코카트리스 : 3연 불뿜기 (skill_1),x,x,x,skill_1,maintain,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+233003,script,skill_boss_cockatrice_3,코카트리스 : 탄막뱉기 (skill_2),x,x,x,skill_2,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+233004,script,skill_boss_cockatrice_3,코카트리스 : 태양권 (skill_3),x,x,x,skill_3,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+230037,code,missile_move_high_angle	,도토리 발사,res/missile/missile_nut/missile_nut.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,100,0,0,0,0,x,0,x,
+230038,code,missile_move_straight,도토리 연사,res/missile/missile_nut/missile_nut.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,25,4,100,0,0,0,0,x,0,x,
+230039,script,skill_bounce,글레이브,,,,,,,,,,,,,,,,,,,,,,,
