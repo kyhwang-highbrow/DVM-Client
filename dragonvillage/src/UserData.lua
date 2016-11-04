@@ -484,6 +484,9 @@ function UserData:optainItem(item_id, count)
         local final_count = (value * count)
         self.m_dataFruit:addFruit(t_item['rarity'], t_item['attr'], final_count)
 
+    -- 드래곤
+    elseif (type == 'dragon') then
+
     else
         error('item_type : ' .. type)
     end
