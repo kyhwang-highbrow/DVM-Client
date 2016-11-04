@@ -135,7 +135,7 @@ function UI_NestDungeonStageSelectPopup:click_dragonDungeonBtn()
         scene:runScene()
     end
 
-    UI_ReadySceneNew(cb_start_button, stage_id)
+    UI_ReadyScene(cb_start_button, stage_id)
 end
 
 --@CHECK

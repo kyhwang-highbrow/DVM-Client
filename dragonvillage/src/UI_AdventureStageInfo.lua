@@ -132,13 +132,7 @@ function UI_AdventureStageInfo:click_enterBtn()
             self:sceneFadeInAction()
         end
 
-        local ui
-
-        if (not DEVELOPMENT_SEONG_GOO_KIM) then
-            ui = UI_ReadyScene(stage_id)
-        else
-            ui = UI_ReadySceneNew(nil, stage_id)
-        end
+        local ui = UI_ReadyScene(stage_id)
         ui:setCloseCB(close_cb)
     end
 
