@@ -53,7 +53,7 @@ function UI_DragonManageScene:init_dragonTableView()
     -- 테이블뷰 초기화
     local table_view_ext = TableViewExtension(list_table_node)
     table_view_ext:setCellInfo(120, 120)
-    table_view_ext:setItemUIClass(UI_Ready_DragonListItem, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
+    table_view_ext:setItemUIClass(UI_DragonCard, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
     table_view_ext:setItemInfo(g_dragonListData.m_lDragonList)
     table_view_ext:update()
 

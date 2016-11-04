@@ -502,9 +502,6 @@
     <None Include="..\src\SceneAdventure.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_Ready_DragonListItem.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SceneDragonManage.lua">
       <Filter>lua</Filter>
     </None>

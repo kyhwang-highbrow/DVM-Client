@@ -234,7 +234,6 @@ local t_module = {
     'UI_GamePause',
     'UI_GameDebug',
     'UI_ReadyScene',
-    'UI_Ready_DragonListItem',
     'UI_AdventureSceneNew',
     'UI_AdventureChapterSelectPopup',
     'UI_AdventureChapterButton',
