@@ -40,8 +40,8 @@
             "idx":2,
 			"camera":
             {
-                "scale":1,
-                "pos_x":0,
+                "scale":0.9,
+                "pos_x":50,
                 "pos_y":0
             },
             "wave":
