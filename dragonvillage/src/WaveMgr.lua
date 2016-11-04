@@ -333,7 +333,9 @@ function WaveMgr:tryPatternEnemy(t_enemy, body)
 
     -- 테이블이 없을 경우 return
     local script = TABLE:loadJsonTable(script_name)
-    if (not script) then
+	local is_pattern_ignore = (t_enemy['pattern'] == 'ignore')
+	cclog(is_pattern_ignore)
+    if (not script) or is_pattern_ignore then
         return nil
     end
 
