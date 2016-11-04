@@ -33,7 +33,7 @@ function TamerSkillSystem:init(world, tamer)
     ui.vars['tamerSkillBtn2']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
     ui.vars['tamerSkillBtn3']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
     ui.vars['tamerSkillBtn4']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
-
+    --[[
     local icon = IconHelper:getSkillIcon('tamer', t_tamer['skill_1'])
     ui.vars['tamerSkillBtn1']:addChild(icon)
 
@@ -42,7 +42,7 @@ function TamerSkillSystem:init(world, tamer)
 
     local icon = IconHelper:getSkillIcon('tamer', t_tamer['skill_3'])
     ui.vars['tamerSkillBtn3']:addChild(icon)
-
+    ]]--
     ui.vars['characterMenu']:setVisible(false)
 
     self.m_tamerSkillCooltimeGlobal = 0
@@ -50,12 +50,12 @@ function TamerSkillSystem:init(world, tamer)
     self.m_lTamerSkillCoolTime[1] = 0
     self.m_lTamerSkillCoolTime[2] = 0
     self.m_lTamerSkillCoolTime[3] = 0
-
+    --[[
     ui.vars['timeGauge1']:setLocalZOrder(1)
     ui.vars['timeGauge2']:setLocalZOrder(1)
     ui.vars['timeGauge3']:setLocalZOrder(1)
     ui.vars['timeGauge4']:setLocalZOrder(1)
-
+    ]]--
     ui.vars['timeGauge1']:setPercentage(0)
     ui.vars['timeGauge2']:setPercentage(0)
     ui.vars['timeGauge3']:setPercentage(0)
