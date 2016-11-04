@@ -179,7 +179,7 @@
 			lua_name = 'continueButton';
 			enable = true;
 			normal = 'ui/btn/base_0101.png';
-			selected = 'ui/btn/base_0102png';
+			selected = 'ui/btn/base_0102.png';
 			disable = '';
 			image_type = 1;
 		};
