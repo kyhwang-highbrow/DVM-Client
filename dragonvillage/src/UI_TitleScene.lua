@@ -297,6 +297,10 @@ function UI_TitleScene:workFinish()
     -- 로딩창 숨김
     self.m_loadingUI:hideLoading()
 
+    -- 화면을 터치하세요. 출력
+    self:setTouchScreen()
+end
+function UI_TitleScene:workFinish_click()
     -- 모든 작업이 끝난 경우 로비로 전환
     local scene = SceneLobby()
 
@@ -305,8 +309,6 @@ function UI_TitleScene:workFinish()
     scene.m_loadingUIDuration = nil -- LoadingUI가 반드시 보여져야 하는 시간(nil일 경우 무시)
 
     scene:runScene()
-end
-function UI_TitleScene:workFinish_click()
 end
 
 ------------------------------------------------------------------------------------------------------------------------
