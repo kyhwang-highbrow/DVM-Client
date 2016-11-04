@@ -21,31 +21,65 @@ function IconHelper:getHeroIcon(res_name, evolution, attr)
 end
 
 -------------------------------------
+-- function getDragonIconFromDid
+-------------------------------------
+function IconHelper:getDragonIconFromDid(dragon_id, evolution, grade)
+    local table_dragon = TABLE:get('dragon')
+    local t_dragon = table_dragon[dragon_id]
+
+    assert(t_dragon, 'dragon_id : ' .. dragon_id)
+
+    local res_name = t_dragon['icon']
+    local evolution = evolution
+    local attr = t_dragon['attr']
+    cclog('res_name ' .. res_name)
+    local sprite = IconHelper:getHeroIcon(res_name, evolution, attr)
+
+    -- 등급 정보가 있을 경우
+    if grade then
+        local grade_res = 'res/ui/star020' .. grade .. '.png'
+        local grade_sprite = cc.Sprite:create(grade_res)
+        if grade_sprite then
+            grade_sprite:setAnchorPoint(cc.p(0.5, 0.5))
+            grade_sprite:setDockPoint(cc.p(0.5, 0.5))
+            grade_sprite:setScale(0.38)
+            grade_sprite:setPositionY(-50)
+            sprite:addChild(grade_sprite)
+        end
+    end
+
+    return sprite
+end
+
+-------------------------------------
 -- function getItemIcon
 -- @brief item테이블의 item id로 아이콘 생성
 -------------------------------------
 function IconHelper:getItemIcon(item_id)
 
-    local type_str = nil
+    local table_item = TABLE:get('item')
+    local t_item = table_item[item_id]
 
-    if (type(item_id) == 'number') then
-        local table_item = TABLE:get('item')
-        local t_item = table_item[item_id]
-
-        if (not t_item) then
-            error('item_id : ' .. item_id)
-        end
-
-        type_str = t_item['full_type']
-    else
-        -- full_type일 경우
-        type_str = item_id
+    if (not t_item) then
+        error('item_id : ' .. item_id)
     end
 
+    local sprite = nil
 
-    local res_name = 'res/ui/icon/item/' .. type_str .. '.png'
-    local sprite = cc.Sprite:create(res_name)
+    -- 타입별 아이콘 별도 처리
+    local item_type = t_item['type']
+    if (item_type == 'dragon') then
+        local dragon_id = t_item['val_1']
+        local evolution = t_item['rarity']
+        local grade = 1
+        sprite = IconHelper:getDragonIconFromDid(dragon_id, evolution, grade)
+    else
+        local type_str = t_item['full_type']
+        local res_name = 'res/ui/icon/item/' .. type_str .. '.png'
+        sprite = cc.Sprite:create(res_name)
+    end
 
+    -- 아이콘이 없을 경우
     if (not sprite) then
         sprite = cc.Sprite:create('res/ui/icon/item/developing.png')
     end
