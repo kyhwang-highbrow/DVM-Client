@@ -59,6 +59,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
     local skill_form = t_skill['skill_form']
     local chance_type = t_skill['chance_type']
 
+	-- @TODO 타겟 수를 전달.. 스킬 콤보 버프 관련해서 작업하던 중 남은 것 .. 추후 사용 가능성 존재
 	if t_data['target_cnt'] then 
 		if is_hero then 
 			local target_cnt = t_data['target_cnt']

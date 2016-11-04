@@ -52,7 +52,9 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, char_evo
     end
 
 	-- @TEST 활성화 스킬 확인 로그
-    self:printSkillManager()
+	if PRINT_DRAGON_SKILL then 
+		self:printSkillManager()
+	end
 end
 
 -------------------------------------

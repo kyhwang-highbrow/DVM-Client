@@ -5,9 +5,12 @@
 -- 효과 : 스킬 쿨다운 감소 
 -------------------------------------
 SkillHitEffectDirector = class({
+	m_owner = 'character',
+	
 	m_hitCount = 'num',
 	m_inGameUI = 'UI_Game',
-	
+	m_animator = 'A2D',
+
 	m_isExhibit1st = 'bool',
 	m_isExhibit2nd = 'bool',
 })
@@ -15,8 +18,10 @@ SkillHitEffectDirector = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillHitEffectDirector:init()
+function SkillHitEffectDirector:init(owner)
+	self.m_owner = owner
 	self.m_inGameUI = g_gameScene.m_inGameUI
+	self.m_animator = nil
 	self.m_hitCount = 0
 	self.m_isExhibit1st = false
 	self.m_isExhibit2nd = false
@@ -60,7 +65,7 @@ end
 -- function displayHitCombo
 -- @brief 스킬 hit count 연출
 -------------------------------------
-function SkillHitEffectDirector:displayComboBuff(count)
+function SkillHitEffectDirector:displayComboBuff()
 	local count = self.m_hitCount
 	local combo_name = nil
 
@@ -70,19 +75,37 @@ function SkillHitEffectDirector:displayComboBuff(count)
 	if (count > 4) and (self.m_isExhibit2nd) then return end
 
 	-- 2. hit 수에 따라 visual 변경
-	if (count > 5) then 
+	if (count > 4) then 
 		combo_name = '40percent_combo'
 		self.m_isExhibit2nd = true
+		self:applyCooltimeBuff()
 	else
 		combo_name = '20percent_combo'
 		self.m_isExhibit1st = true
+		self:applyCooltimeBuff()
 	end
 
-	local animator = AnimatorHelper:makeInstanceHitComboffect(combo_name)
+	local animator = nil
+	if self.m_animator then
+		animator = self.m_animator
+		animator:changeAni(combo_name, false)
+	else
+		animator = AnimatorHelper:makeInstanceHitComboffect(combo_name)
+	end
 	
 	-- 3. 각 비율에 대응하기 위해서 위치를 상단 - 100으로 고정 2를 나누는 것은 중앙 y좌표가 0이기 때문
 	local visibleSize = cc.Director:getInstance():getVisibleSize()
 	animator:setPosition(0, visibleSize.height/2 - 100)
 
 	self.m_inGameUI.root:addChild(animator.m_node)
+end
+
+
+-------------------------------------
+-- function applyCooltimeBuff
+-------------------------------------
+function SkillHitEffectDirector:applyCooltimeBuff()
+	local timer = self.m_owner.m_activeSkillTimer
+	local cooltime = self.m_owner.m_activeSkillCoolTime 
+	self.m_owner.m_activeSkillTimer = timer + (cooltime * REDUCE_COOLTIME)
 end

@@ -47,7 +47,7 @@ function ISkill:init_skill()
 	self:initActvityCarrier(self.m_powerRate)
 	self:initAttackPosOffset()
 	
-	self.m_skillHitEffctDirector = SkillHitEffectDirector()
+	self.m_skillHitEffctDirector = SkillHitEffectDirector(self.m_owner)
 
 	if (not self.m_targetChar) then
 		self.m_targetChar = self:getDefaultTarget()
