@@ -819,18 +819,15 @@ function GameWorld:makeTamer(tamer_id)
 
     local tamer = Tamer(nil, {0, 0, 20}, t_tamer)
     tamer:initWorld(self)
-    tamer:initAnimatorTamer(t_tamer['res'])
-    tamer.m_animator:setScale(0.5 * t_tamer['scale'])
+    --tamer:initAnimatorTamer(t_tamer['res'])
+    --tamer.m_animator:setScale(0.5 * t_tamer['scale'])
     tamer:initState()
 
     self.m_worldNode:addChild(tamer.m_rootNode, 2)
     self:addToUnitList(tamer)
-    --self.m_physWorld:addObject('hero', tamer)
 
     self.m_tamer = tamer
     self.m_bDoingTamerSkill = false
-
-	tamer:changeState('started_directing')
 end
 
 -------------------------------------

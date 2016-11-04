@@ -122,7 +122,6 @@ end
 -- function update_start1
 -------------------------------------
 function GameState:update_start1(dt)
-
     if (self.m_stateTimer == 0) then
         -- 드래곤들을 숨김
         local world = self.m_world
@@ -135,15 +134,12 @@ function GameState:update_start1(dt)
         end
 
         -- 화면을 빠르게 스크롤
-        world.m_mapManager:setSpeed(-1000)
+        world.m_mapManager:setSpeed(-1000)  
 
-		--
-        -- 테이머 연출 시작. 이벤트 리스너 등록
-        local tamer = world.m_tamer
-        tamer:changeState('started_directing')
-        tamer:addListener('tamer_appear', self)
-        tamer:addListener('tamer_appear_done', self)        
+	elseif (self.m_stateTimer >= DRAGON_APPEAR_TIME) then
+		self:changeState(GAME_STATE_START_2)
     end
+
 end
 
 -------------------------------------
@@ -152,11 +148,11 @@ end
 function GameState:update_start2(dt)
     local world = self.m_world
     local map_mgr = world.m_mapManager
-
-    if (self.m_stateTimer == 0) then
-
+    
+	if (self.m_stateTimer == 0) then
+		self:appearDragon()
     else
-        local speed = map_mgr.m_speed + (150 * dt)
+        local speed = map_mgr.m_speed + (MAP_SCROLL_SPEED_DOWN_ACCEL * dt)
         if speed >= -300 then
             speed = -300
 
