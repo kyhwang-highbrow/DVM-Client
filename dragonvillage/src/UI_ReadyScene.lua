@@ -112,7 +112,7 @@ function UI_ReadyScene:init_dragonTableView()
     local function create_func(item)
         local ui = item['ui']
         local data = item['data']
-        ui.root:setScale(0.9)
+        ui.root:setScale(0.7)
 
         local unique_id = data['id']
         self:refresh_dragonCard(unique_id)
@@ -127,7 +127,7 @@ function UI_ReadyScene:init_dragonTableView()
 
     -- 테이블뷰 초기화
     local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.VERTICAL)
-    table_view_ext:setCellInfo2(4, 516, 130, 130, 130)
+    table_view_ext:setCellInfo2(5, 516, 105, 105, 105)
     table_view_ext:setItemUIClass(UI_DragonCard, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
     table_view_ext:setItemInfo(g_dragonsData:getDragonsList())
     --table_view_ext:update()
