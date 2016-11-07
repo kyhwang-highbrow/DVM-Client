@@ -74,14 +74,14 @@ function GameState:init(world)
     self.m_skillNameLabel:setAnchorPoint(cc.p(0.5, 0.5))
 	self.m_skillNameLabel:setDockPoint(cc.p(0, 0))
 	self.m_skillNameLabel:setColor(cc.c3b(84,244,87))
-    self.m_skillNameLabel:enableShadow(cc.c4b(0,0,0,255), 3, 0)
+    self.m_skillNameLabel:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
     titleNode:addChild(self.m_skillNameLabel)
 
     self.m_skillDescLabel = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 30, 3, cc.size(800, 200), 1, 1)
     self.m_skillDescLabel:setAnchorPoint(cc.p(0.5, 0.5))
 	self.m_skillDescLabel:setDockPoint(cc.p(0, 0))
 	self.m_skillDescLabel:setColor(cc.c3b(220,220,220))
-    self.m_skillDescLabel:enableShadow(cc.c4b(0,0,0,255), 3, 0)
+    self.m_skillDescLabel:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
     descNode:addChild(self.m_skillDescLabel)
 end
 

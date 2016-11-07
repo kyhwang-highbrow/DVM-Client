@@ -34,8 +34,17 @@ function TamerSkillSystem:init(world, tamer)
         --ui.vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() self:click_tamerSkillBtn(i) end)
         ui.vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
 
-        local icon = IconHelper:getSkillIcon('tamer', t_tamer['skill_' .. i])
-        ui.vars['tamerSkillNode' .. i]:addChild(icon)
+        -- 스킬 아이콘
+        do
+            local icon = IconHelper:getSkillIcon('tamer', t_tamer['skill_' .. i])
+            ui.vars['tamerSkillNode' .. i]:addChild(icon)
+        end
+
+        do
+            local icon = IconHelper:getSkillIcon('tamer', t_tamer['skill_' .. i])
+            local socketNode = ui.vars['tamerSkillVisual' .. i].m_node:getSocketNode('skill_normal')
+            socketNode:addChild(icon)
+        end
 
         ui.vars['timeGauge' .. i]:setPercentage(0)
     end
@@ -46,6 +55,18 @@ function TamerSkillSystem:init(world, tamer)
         
         --ui.vars['specialSkillBtn']:registerScriptTapHandler(function() self:click_specialSkillBtn() end)
         ui.vars['specialSkillBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
+
+        -- 스킬 아이콘
+        do
+            local icon = IconHelper:getSkillIcon('tamer', 211081)
+            ui.vars['tamerSkillNode' .. i]:addChild(icon)
+        end
+
+        do
+            local icon = IconHelper:getSkillIcon('tamer', 211081)
+            local socketNode = ui.vars['specialSkillVisual'].m_node:getSocketNode('skill_special')
+            socketNode:addChild(icon)
+        end
 
         ui.vars['specialTimeGauge']:setPercentage(0)
     end
@@ -159,7 +180,7 @@ function TamerSkillSystem:update(dt)
             self.m_lTamerSkillCoolTime[i] = math_max(self.m_lTamerSkillCoolTime[i] - dt, 0)
         end
 
-        local prev_percentage = ui.vars['timeGauge' .. i]:setPercentage()
+        local prev_percentage = ui.vars['timeGauge' .. i]:getPercentage()
         local percentage = 0
 
         if (self.m_tamerSkillCooltimeGlobal > self.m_lTamerSkillCoolTime[i]) then
@@ -169,17 +190,17 @@ function TamerSkillSystem:update(dt)
         end
 
         ui.vars['timeGauge' .. i]:setPercentage(percentage)
-
+        
         if prev_percentage ~= percentage then
             local visual = ui.vars['tamerSkillVisual' .. i]
             visual:setVisible(false)
 
             if percentage >= 100 then
                 visual:setVisible(true)
-                visual:setVisual('skill_charging', '01')
+                visual:setVisual('skill_charging', 'normal')
                 visual:setRepeat(false)
                 visual:registerScriptLoopHandler(function()
-                    visual:setVisual('skill_idle', '01')
+                    visual:setVisual('skill_idle', 'normal')
                     visual:setRepeat(true)
                 end)
             end
@@ -197,20 +218,17 @@ function TamerSkillSystem:addSpecialPowerPoint(add_point)
     local ui = self.m_world.m_inGameUI
     ui.vars['specialTimeGauge']:setPercentage(100 - self.m_specialPowerPoint)
 
-    cclog('TamerSkillSystem:addSpecialPowerPoint specialPowerPoint = ' .. self.m_specialPowerPoint)
-
     -- 궁극기 게이지 이펙트
     if (prev ~= self.m_specialPowerPoint) then
         local visual = ui.vars['specialSkillVisual']
         visual:setVisible(false)
 
 		if (self.m_specialPowerPoint == 100) then
-            cclog('skill_charging')
             visual:setVisible(true)
-            visual:setVisual('skill_charging', '01')
+            visual:setVisual('skill_charging', 'special')
             visual:setRepeat(false)
             visual:registerScriptLoopHandler(function()
-                visual:setVisual('skill_idle', '01')
+                visual:setVisual('skill_idle', 'special')
                 visual:setRepeat(true)
             end)
         end
