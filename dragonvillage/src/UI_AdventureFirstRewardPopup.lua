@@ -81,6 +81,23 @@ end
 function UI_AdventureFirstRewardPopup:click_receiveBtn()
     SoundMgr:playEffect('EFFECT', 'get_gacha')
 
+    local l_reward_item = DropHelper:getFirstRewardItemList(self.m_stageID)
+
+    local function finish_cb()
+        g_adventureData:optainFirstReward(self.m_stageID)
+        g_topUserInfo:refreshData()
+
+        if self.m_cbRefresh then
+            self.m_cbRefresh()
+        end
+        MakeSimplePopup(POPUP_TYPE.OK, Str('{@BLACK}' ..'보상을 수령하였습니다.'), function()
+            self:refreshUI()
+        end)
+    end
+
+    GameState:dropItem_network(l_reward_item, finish_cb)
+
+    --[[
     g_adventureData:optainFirstReward(self.m_stageID)
 
     if self.m_cbRefresh then
@@ -90,6 +107,7 @@ function UI_AdventureFirstRewardPopup:click_receiveBtn()
     MakeSimplePopup(POPUP_TYPE.OK, Str('{@BLACK}' ..'보상을 수령하였습니다.'), function()
             self:refreshUI()
         end)
+    --]]
 end
 
 -------------------------------------

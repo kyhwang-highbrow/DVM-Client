@@ -682,19 +682,20 @@ function GameState:dropItem_networkSetRequest(ui_network, item_id, count)
     local t_item = table_item[item_id]
 
     local type = t_item['type']
+    local val_1 = t_item['val_1']
     local uid = g_userData:get('uid')
 
     if (type == 'gold') then
         ui_network:setUrl('/users/update')
         ui_network:setParam('uid', uid)
         ui_network:setParam('act', 'increase')
-        ui_network:setParam('gold', count)
+        ui_network:setParam('gold', (count * val_1))
 
     elseif (type == 'cash') then
         ui_network:setUrl('/users/update')
         ui_network:setParam('uid', uid)
         ui_network:setParam('act', 'increase')
-        ui_network:setParam('cash', count)
+        ui_network:setParam('cash', (count * val_1))
 
     elseif (type == 'dragon') then
         local did = t_item['val_1']
@@ -710,7 +711,7 @@ function GameState:dropItem_networkSetRequest(ui_network, item_id, count)
         ui_network:setParam('uid', uid)
         ui_network:setParam('act', 'increase')
         ui_network:setParam('key', 'fruits')
-        ui_network:setParam('value', tostring(fruit_id) .. ',' .. count)
+        ui_network:setParam('value', tostring(fruit_id) .. ',' .. (count * val_1))
 
     elseif (type == 'evolution_stone') then
         local evolution_stone_id = t_item['item']
@@ -718,7 +719,7 @@ function GameState:dropItem_networkSetRequest(ui_network, item_id, count)
         ui_network:setParam('uid', uid)
         ui_network:setParam('act', 'increase')
         ui_network:setParam('key', 'evolution_stones')
-        ui_network:setParam('value', tostring(evolution_stone_id) .. ',' .. count)
+        ui_network:setParam('value', tostring(evolution_stone_id) .. ',' .. (count * val_1))
     end
 end
 

@@ -118,6 +118,30 @@ function DropHelper:dropItem()
 end
 
 -------------------------------------
+-- function getFirstRewardItemList
+-- @brief 해당 stage_id의 최초보상 아이템 항목 리턴
+-------------------------------------
+function DropHelper:getFirstRewardItemList(stage_id)
+    local table_first_reward = TABLE:get('first_reward')
+    local t_first_reward = table_first_reward[stage_id]
+
+    local l_reward_item = {}
+
+    -- 보상 지급
+    for i=1, 10 do
+        local item_id = t_first_reward['reward_' .. i] or 0
+        local item_cnt = t_first_reward['value_' .. i] or 0
+
+        if (item_id ~= 0) then
+            table.insert(l_reward_item, {item_id, item_cnt})
+        end
+    end
+
+    return l_reward_item
+end
+
+
+-------------------------------------
 -- function dropItemIndependent
 -- @brief
 -------------------------------------
