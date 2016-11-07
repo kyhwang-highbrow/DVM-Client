@@ -180,11 +180,6 @@ function UI_ProductButton:canBuyProduct(product_id)
     local table_shop = TABLE:get('shop')
     local t_shop = table_shop[product_id]
 
-    -- @TEMP @TODO
-    if (t_shop['product_type'] == 'card') then
-        return false, '가챠 개편 예정입니다.'
-    end
-
     local price_type = t_shop['price_type']
     local price_value = t_shop['price']
     local user_price = 0
@@ -194,10 +189,10 @@ function UI_ProductButton:canBuyProduct(product_id)
         user_price = 0
 
     elseif (price_type == 'cash') then
-        user_price = g_userDataOld.m_userData['cash']
+        user_price = g_userData:get('cash')
 
     elseif (price_type == 'gold') then
-        user_price = g_userDataOld.m_userData['gold']
+        user_price = g_userData:get('gold')
 
     else
         error('price_type : ' .. price_type)
@@ -225,15 +220,18 @@ function UI_ProductButton:canBuyProduct(product_id)
 end
 
 -------------------------------------
--- function tempBuy
--- @brief 임시 구매
+-- function network_ProductPay
+-- @brief 상품 가격 지불
 -------------------------------------
-function UI_ProductButton:tempBuy(product_id)
+function UI_ProductButton:network_ProductPay(product_id, finish_cb)
     local table_shop = TABLE:get('shop')
     local t_shop = table_shop[product_id]
 
     local value_type = t_shop['value_type']
     local value = t_shop['value']
+
+    local cash = g_userData:get('cash')
+    local gold = g_userData:get('gold')
 
     do -- 재화 사용
         local price_type = t_shop['price_type']
@@ -241,45 +239,150 @@ function UI_ProductButton:tempBuy(product_id)
 
         -- 지불
         if (price_type == 'x') then
+            finish_cb()
+            return
 
         elseif (price_type == 'cash') then
-            g_userDataOld.m_userData['cash'] = g_userDataOld.m_userData['cash'] - price_value
+            cash = (cash - price_value)
 
         elseif (price_type == 'gold') then
-            g_userDataOld.m_userData['gold'] = g_userDataOld.m_userData['gold'] - price_value
+            gold = (gold - price_value)
 
         else
             error('price_type : ' .. price_type)
         end
     end
 
+
+    -- Network
+    local b_revocable = true
+    return self:network_updateGoldAndCash(gold, cash, finish_cb, b_revocable)
+end
+
+-------------------------------------
+-- function network_ProductReceive
+-- @brief 상품 받기
+-------------------------------------
+function UI_ProductButton:network_ProductReceive(product_id, finish_cb)
+    local table_shop = TABLE:get('shop')
+    local t_shop = table_shop[product_id]
+
+    local value_type = t_shop['value_type']
+    local value = t_shop['value']
+
+    local cash = g_userData:get('cash')
+    local gold = g_userData:get('gold')
+
     -- 구매 상품 추가
     if (value_type == 'x') then
 
     elseif (value_type == 'cash') then
-        g_userDataOld.m_userData['cash'] = g_userDataOld.m_userData['cash'] + value
-        g_userDataOld:addCumulativePurchasesLog('cash', value)
+        cash = (cash + value)
+        return self:network_updateGoldAndCash(gold, cash, finish_cb, false)
 
     elseif (value_type == 'gold') then
-        g_userDataOld.m_userData['gold'] = g_userDataOld.m_userData['gold'] + value
-        g_userDataOld:addCumulativePurchasesLog('gold', value)
+        gold = (gold + value)
+        return self:network_updateGoldAndCash(gold, cash, finish_cb, false)
 
     elseif (value_type == 'stamina') then
         g_userDataOld.m_staminaList['st_ad']:addStamina(value)
-        g_userDataOld:addCumulativePurchasesLog('stamina', value)
+        return
 
     elseif (value_type == 'card') then
-        self:tempGacha()
-        g_userDataOld:addCumulativePurchasesLog('gacha', 5)
+        --self:tempGacha()
+        --g_userDataOld:addCumulativePurchasesLog('gacha', 5)
+        return self:network_gacha_AddDragons({120074,120093,120093,120093,120093}, finish_cb)
 
     else
         error('value_type : ' .. value_type)
     end
+end
 
-    -- 갱신
-    g_userDataOld:setDirtyLocalSaveData()
-    UIManager.m_topUserInfo:refreshData()
-    self:refreshData()
+-------------------------------------
+-- function network_updateGoldAndCash
+-- @brief 골드, 캐시 동기화
+-------------------------------------
+function UI_ProductButton:network_updateGoldAndCash(gold, cash, finish_cb, b_revocable)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        if ret['user'] then
+            g_serverData:applyServerData(ret['user'], 'user')
+        end
+        self:refreshData()
+        finish_cb()
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/update')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('act', 'update')
+    ui_network:setParam('gold', gold)
+    ui_network:setParam('cash', cash)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:setRevocable(b_revocable)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function network_gacha_AddDragons
+-- @brief 드래곤들 추가
+-------------------------------------
+function UI_ProductButton:network_gacha_AddDragons(l_dragon_id, finish_cb)
+    local uid = g_userData:get('uid')
+    local table_dragon = TABLE:get('dragon')
+    local t_list = l_dragon_id or {}
+    local do_work
+
+    local ui_network = UI_Network()
+    ui_network:setReuse(true)
+    ui_network:setUrl('/dragons/add')
+    ui_network:setParam('uid', uid)
+
+    do_work = function(ret)
+        if (ret and ret['dragons']) then
+            for _,t_dragon in pairs(ret['dragons']) do
+                g_dragonsData:applyDragonData(t_dragon)
+            end
+        end
+
+        local did = t_list[1]
+        
+        if did then
+            table.remove(t_list, 1)
+            --local msg = '"' .. table_dragon[did]['t_name'] .. '"드래곤 추가 중...'
+            --ui_network:setLoadingMsg(msg)
+            ui_network:setParam('did', did)
+            ui_network:request()
+        else
+            ui_network:close()
+            finish_cb()
+        end
+    end
+    ui_network:setSuccessCB(do_work)
+    do_work()
+end
+
+
+-------------------------------------
+-- function tempBuy
+-- @brief 임시 구매
+-------------------------------------
+function UI_ProductButton:tempBuy(product_id)
+    local func_pay
+    local func_receive
+
+    -- 상품 가격 지불
+    func_pay = function()
+        self:network_ProductPay(product_id, func_receive)
+    end
+
+    -- 상품 받기
+    func_receive = function()
+        self:network_ProductReceive(product_id, function() end)
+    end
+
+    func_pay()
 end
 
 -------------------------------------
@@ -302,6 +405,7 @@ function UI_ProductButton:refreshData()
             self.m_ownerUI:refreshData()
         end
     end
+    g_topUserInfo:refreshData()
 end
 
 -------------------------------------

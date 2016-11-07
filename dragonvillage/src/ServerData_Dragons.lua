@@ -75,8 +75,12 @@ function ServerData_Dragons:applyDragonData(t_dragon)
         end
     end
 
+    -- 기존에 있는 드래곤이면 갱신
     if idx then
         self.m_serverData:applyServerData(t_dragon, 'dragons', idx)
+    -- 기존에 없던 드래곤이면 추가
+    else
+        self.m_serverData:applyServerData(t_dragon, 'dragons', #l_dragons + 1)
     end
 end
 

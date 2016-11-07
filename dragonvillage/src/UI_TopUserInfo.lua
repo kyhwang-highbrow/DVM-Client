@@ -44,8 +44,8 @@ end
 function UI_TopUserInfo:refreshData()
     local vars = self.vars
 
-    local gold = g_userDataOld.m_userData['gold']
-    local cash = g_userDataOld.m_userData['cash']
+    local gold = g_userData:get('gold')
+    local cash = g_userData:get('cash')
     
     --vars['goldLabel']:setString(comma_value(gold))
     self.m_lNumberLabel['gold']:setNumber(gold)

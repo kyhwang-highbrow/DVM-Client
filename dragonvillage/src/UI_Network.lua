@@ -224,9 +224,11 @@ end
 
 -- 네트워크 통신 테스트
 function UI_NetworkTest()
+    local uid = g_userData:get('uid')
+
     local ui_network = UI_Network()
     ui_network:setUrl('/login')
-    ui_network:setParam('uid', 138)
+    ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(function(ret) ccdump(ret) end)
     ui_network:setRevocable(true)
     ui_network:setReuse(true)
