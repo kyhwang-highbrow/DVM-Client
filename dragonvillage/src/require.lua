@@ -275,8 +275,10 @@ local t_module = {
     'UI_DragonDevApiPopup',
 
     -- UI 드래곤 관리 관련
+    'UI_DragonManage_Base',
     'UI_DragonManageInfo',
     'UI_DragonManageInfoView',
+    'UI_DragonManageUpgrade',
     'UI_DragonCard',
 
     -- UIC (UI Component)

@@ -381,6 +381,12 @@ end
 -- @brief 승급 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_upgradeBtn()
+    local function close_cb()
+        self:sceneFadeInAction()
+    end
+    local doid = self.m_selectDragonOID
+    local ui = UI_DragonManageUpgrade(doid)
+    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------
