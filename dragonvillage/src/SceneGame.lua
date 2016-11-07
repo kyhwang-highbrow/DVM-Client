@@ -205,8 +205,6 @@ function SceneGame:update(dt)
         return
     end
 
-    self.m_gameWorld:updateUnit2(dt)
-
     if self.m_timerTimeScale > 0 then
         self.m_timerTimeScale = self.m_timerTimeScale - dt
         if self.m_timerTimeScale <= 0 then

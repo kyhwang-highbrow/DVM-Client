@@ -304,11 +304,18 @@ function GameState:update_fight(dt)
             for _,dragon in pairs(world.m_lDragonList) do
                 if (not dragon.m_bDead and dragon.m_state ~= 'attackDelay') then
                     bWaitState = false
+					-- 강제로  attackDelay state 진입
+					dragon:changeState('attackDelay')
                 end
             end
 
             if (not bWaitState) then return end
         end
+
+		-- 스킬 및 탄을 다 날려 버리자
+		for _, skill in pairs(world.m_lSkillList) do
+			skill:changeState('dying')
+		end
 
 		if world.m_waveMgr:getNextWaveScriptData() then 
 		    self:changeState(GAME_STATE_WAVE_INTERMISSION)

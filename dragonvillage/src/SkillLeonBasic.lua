@@ -311,7 +311,7 @@ function SkillLeonBasic:makeSkillInstnce(owner, target_x, target_y, wait_time, d
 
     -- Physics, Node, GameMgr에 등록
     world.m_missiledNode:addChild(skill.m_rootNode, 0)
-    world:addToUnitList(skill)
+    world:addToSkillList(skill)
 end
 
 -------------------------------------

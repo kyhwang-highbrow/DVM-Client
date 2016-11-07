@@ -41,17 +41,6 @@ function Skill:init(file_name, body, ...)
 end
 
 -------------------------------------
--- function initWorld
--- @param game_world
--------------------------------------
-function Skill:initWorld(game_world)
-    PARENT.initWorld(self, game_world)
-
-	-- 별도의 스킬 entity 관리 리스트에 추가
-	game_world.m_lSkillList[self] = self
-end
-
--------------------------------------
 -- function init_skill
 -- @brief actvityCarrier, AttackOffset, defualt target, default target pos를 설정한다. 
 -------------------------------------

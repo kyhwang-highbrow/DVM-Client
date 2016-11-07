@@ -17,7 +17,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_missiledNode = 'cc.Node',
 
         m_lUnitList = 'list',
-        m_lUnitList2 = 'list',
+		m_lSkillList = 'table',
         m_tEnemyList = 'EnemyList',
 
         m_physWorld = 'PhysWorld',
@@ -119,7 +119,7 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
     self.m_gameNode1:addChild(self.m_missiledNode)
 
     self.m_lUnitList = {}
-    self.m_lUnitList2 = {}
+	self.m_lSkillList = {}
     self.m_tEnemyList = {}
 
     self.m_physWorld = PhysWorld(self.m_gameNode1, false)
@@ -259,24 +259,6 @@ function GameWorld:updateUnit(dt)
 end
 
 -------------------------------------
--- function updateUnit2
--- @param dt
--------------------------------------
-function GameWorld:updateUnit2(dt)
-    local t_remove = {}
-    for i,v in ipairs(self.m_lUnitList2) do
-        if (v:update(dt) == true) then
-            table.insert(t_remove, 1, i)
-            v:release()
-        end
-    end
-
-    for i,v in ipairs(t_remove) do
-        table.remove(self.m_lUnitList2, v)
-    end
-end
-
--------------------------------------
 -- function cleanupUnit
 -------------------------------------
 function GameWorld:cleanupUnit()
@@ -285,12 +267,6 @@ function GameWorld:cleanupUnit()
     end
 
     self.m_lUnitList = {}
-
-    for i,v in ipairs(self.m_lUnitList2) do
-        v:release()
-    end
-
-    self.m_lUnitList2 = {}
 end
 
 -------------------------------------
@@ -312,12 +288,13 @@ function GameWorld:addUnit(unit)
 end
 
 -------------------------------------
--- function addToUnitList2
--- @param Unit
+-- function addToSkillList
+-- @param Skill
+-- @brief skill list는 관리용으로 사용하고 실질적인 동작은 unit list를 통함
 -------------------------------------
-function GameWorld:addToUnitList2(unit)
-    table.insert(self.m_lUnitList2, unit)
-    unit:initWorld(self)
+function GameWorld:addToSkillList(skill)
+    self.m_lSkillList[skill] = skill
+	self:addToUnitList(skill)
 end
 
 -------------------------------------
@@ -334,10 +311,6 @@ function GameWorld:update(dt)
 
     if (prev ~= scale) then
         self.m_worldScaleRealtime = scale
-
-        --if (scale < self.m_worldScale) then
-        --    scale = self.m_worldScale
-        --end
         self.m_missileRange['min_x'] = 0 - 200
         self.m_missileRange['max_x'] = (CRITERIA_RESOLUTION_X / scale) + 200
         self.m_missileRange['min_y'] = (-GAME_RESOLUTION_X / 2 / scale) - 200
@@ -1112,7 +1085,6 @@ function GameWorld:getBattleZone(formation, immediately)
         end
     end
 end
-
 
 --------------------------------------
 -- function makeDebugLayer

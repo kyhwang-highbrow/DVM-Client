@@ -245,11 +245,7 @@ function IconHelper:getStatusEffectIcon(status_effect_type)
 
     if (not sprite) then
         if (res ~= 'x') then
-            -- @mskim
-            -- 상태효과 아이콘을 나오는 기준이 있음?
-            -- 'res_icon'에 해당하는 값이 'x'인 경우엔 사용하지 않는다는 뜻으로 해석되어야 하는것 같은데
-            -- 불필요한 로그를 양상하게됨 추후에 정리하세요
-		    cclog('이 상태 효과는 아이콘이 없네요 : ' .. status_effect_type)
+		    cclog(status_effect_type .. ' 상태 효과는 아이콘이 없음. 추가 해야함')
         end
         sprite = cc.Sprite:create('res/ui/icon/status_effect/p_resist.png')
     end

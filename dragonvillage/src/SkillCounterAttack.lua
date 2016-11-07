@@ -147,5 +147,5 @@ function SkillCounterAttack:makeSkillInstance(invoke_skill_id, duration, ...)
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world
     world.m_missiledNode:addChild(skill.m_rootNode, 0)
-    world:addToUnitList(skill)
+    world:addToSkillList(skill)
 end

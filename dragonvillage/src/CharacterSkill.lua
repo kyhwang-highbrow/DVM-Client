@@ -453,7 +453,7 @@ function Character:doSkill_chainLightning(t_skill, attr, is_hero, phys_group, x,
     -- Physics, Node, GameMgr에 등록
     --self.m_world:addMissile(linear_laser, object_key)
     self.m_world.m_missiledNode:addChild(skill.m_rootNode)
-    self.m_world:addToUnitList(skill)
+    self.m_world:addToSkillList(skill)
 
     skill:init_SkillChainLightning(self, t_skill, x, y)
 end
@@ -467,7 +467,7 @@ function Character:doSkill_healTarget(t_skill, is_hero, phys_group, x, y)
 
     -- Physics, Node, GameMgr에 등록
     self.m_world.m_missiledNode:addChild(skill.m_rootNode)
-    self.m_world:addToUnitList(skill)
+    self.m_world:addToSkillList(skill)
 
     skill:setPosition(self.pos.x, self.pos.y)
     skill:init_skill(self, t_skill)
@@ -485,7 +485,7 @@ function Character:doSkill_healAround(t_skill, is_hero, phys_group, x, y)
     -- Physics, Node, GameMgr에 등록
     --self.m_world:addMissile(linear_laser, object_key)
     self.m_world.m_worldNode:addChild(skill.m_rootNode, 0)
-    self.m_world:addToUnitList(skill)
+    self.m_world:addToSkillList(skill)
 
     local pos_x = self.pos.x + x
     local pos_y = self.pos.y + y
@@ -504,7 +504,7 @@ function Character:doSkill_shield(t_skill, is_hero, phys_group, x, y)
 
     -- Physics, Node, GameMgr에 등록
     self.m_world.m_worldNode:addChild(skill.m_rootNode, 0)
-    self.m_world:addToUnitList(skill)
+    self.m_world:addToSkillList(skill)
 
     local pos_x = self.pos.x + x
     local pos_y = self.pos.y + y
@@ -524,7 +524,7 @@ function Character:doSkill_counteratk(t_skill, is_hero, phys_group, x, y, t_data
 
     -- Physics, Node, GameMgr에 등록
     self.m_world.m_worldNode:addChild(skill.m_rootNode, 3)
-    self.m_world:addToUnitList(skill)
+    self.m_world:addToSkillList(skill)
 
     local pos_x = self.pos.x + x
     local pos_y = self.pos.y + y
@@ -544,7 +544,7 @@ function Character:doSkill_curve(t_skill, is_hero, phys_group, x, y)
     -- Physics, Node, GameMgr에 등록
     --self.m_world:addMissile(linear_laser, object_key)
     self.m_world.m_worldNode:addChild(skill.m_rootNode, 0)
-    self.m_world:addToUnitList(skill)
+    self.m_world:addToSkillList(skill)
 
     local pos_x = self.pos.x + x
     local pos_y = self.pos.y + y
@@ -564,7 +564,7 @@ function Character:doSkill_skill_protection(t_skill, t_data)
     -- Physics, Node, GameMgr에 등록
     --self.m_world:addMissile(linear_laser, object_key)
     self.m_world.m_worldNode:addChild(skill.m_rootNode, 0)
-    self.m_world:addToUnitList(skill)
+    self.m_world:addToSkillList(skill)
 
     local pos_x = self.pos.x-- + x
     local pos_y = self.pos.y-- + y
@@ -639,7 +639,7 @@ function Character:doSkill_skill_bullet_hole(t_skill, attr, is_hero, phys_group,
     -- Physics, Node, GameMgr에 등록
     self.m_physWorld:addObject('hole_h', skill)
     self.m_world.m_missiledNode:addChild(skill.m_rootNode)
-    self.m_world:addToUnitList(skill)
+    self.m_world:addToSkillList(skill)
 end
 
 -------------------------------------
@@ -655,7 +655,7 @@ function Character:doSkill_skill_deep_stab(t_skill, attr, is_hero, phys_group, x
 
     -- Physics, Node, GameMgr에 등록
     self.m_world.m_worldNode:addChild(skill.m_rootNode, 0)
-    self.m_world:addToUnitList(skill)
+    self.m_world:addToSkillList(skill)
 end
 
 -------------------------------------
@@ -671,7 +671,7 @@ function Character:doSkill_skill_crash(t_skill, attr, is_hero, phys_group, x, y,
 
     -- Physics, Node, GameMgr에 등록
     self.m_world.m_worldNode:addChild(skill.m_rootNode, 0)
-    self.m_world:addToUnitList(skill)
+    self.m_world:addToSkillList(skill)
 end
 
 -------------------------------------
@@ -686,7 +686,7 @@ function Character:doSkill_skill_healing_wind(t_skill, attr, is_hero, phys_group
 
     -- Physics, Node, GameMgr에 등록
     self.m_world.m_missiledNode:addChild(skill.m_rootNode, 0)
-    self.m_world:addToUnitList(skill)
+    self.m_world:addToSkillList(skill)
 
     skill:init_skill(self, t_data['x'], t_data['y'], t_skill)
 end
@@ -705,7 +705,7 @@ function Character:doSkill_skill_dispel_magic(t_skill, t_data)
 
     -- Physics, Node, GameMgr에 등록
     self.m_world.m_missiledNode:addChild(skill.m_rootNode)
-    self.m_world:addToUnitList(skill)
+    self.m_world:addToSkillList(skill)
 
     skill:setPosition(self.pos.x, self.pos.y)
     skill:init_skill(self, t_skill, t_data)
@@ -727,7 +727,7 @@ function Character:doSkill_skill_summon(t_skill, t_data)
     
     -- Physics, Node, GameMgr에 등록
     self.m_world.m_groundNode:addChild(skill.m_rootNode)
-    self.m_world:addToUnitList(skill)
+    self.m_world:addToSkillList(skill)
 
     return true
 end
