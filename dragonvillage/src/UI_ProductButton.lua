@@ -286,6 +286,7 @@ function UI_ProductButton:network_ProductReceive(product_id, finish_cb)
 
     elseif (value_type == 'stamina') then
         g_userDataOld.m_staminaList['st_ad']:addStamina(value)
+        self:refreshData()
         return
 
     elseif (value_type == 'card') then
