@@ -885,6 +885,7 @@ function GameWorld:onKeyReleased(keyCode, event)
             dragon:updateActiveSkillCoolTime(100)
         end
         self.m_tamerSkillSystem:addSpecialPowerPoint(100)
+		self.m_tamerSkillSystem:resetCoolTime()
 
     elseif (keyCode == KEY_V) then
         self.m_gameState:changeState(GAME_STATE_SUCCESS)

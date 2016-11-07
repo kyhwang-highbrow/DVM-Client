@@ -52,8 +52,6 @@ end
 -- function update
 -------------------------------------
 function StatusEffect_Protection:update(dt)
-    local ret = PARENT.update(self, dt)
-	
 	if (self.m_state == 'idle') then
 		self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 
@@ -70,7 +68,7 @@ function StatusEffect_Protection:update(dt)
 		end
 	end
 
-    return ret
+    return PARENT.update(self, dt)
 end
 
 -------------------------------------
