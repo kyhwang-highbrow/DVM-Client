@@ -27,15 +27,15 @@
 	"azVisualGroup":
 	[
 		{
-			"name":"group",
+			"name":"rank",
 			"expand":true,
 			"apply":true,
 			"visual_list":
 			[
 				{
-					"name":"grade_a",
+					"name":"a",
 					"apply":true,
-					"fps":10,
+					"fps":50,
 					"layer_root":
 					{
 						"expand":true,
@@ -43,24 +43,170 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_bg.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_02.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0
+										"frame":10, "sX":1.300000, "sY":1.300000
+									},
+									{
+										"frame":14, "sX":1.500000, "sY":1.500000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_a.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_a_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pX":1.000000, "pY":15.000000
+										"frame":0, "sX":4.500000, "sY":4.500000, "pY":4.000000, "alpha":25
+									},
+									{
+										"frame":3, "sX":4.093750, "sY":4.093750, "pY":4.000000, "alpha":121
+									},
+									{
+										"frame":8, "sX":1.250000, "sY":1.250000, "pY":4.000000
+									},
+									{
+										"frame":13, "pY":4.000000
+									},
+									{
+										"frame":99, "pY":4.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_a_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":4.700001, "sY":4.700001, "pY":6.000000, "alpha":51, "mode":"Add"
+									},
+									{
+										"frame":3, "sX":4.281250, "sY":4.281250, "pY":6.000000, "alpha":188, "mode":"Add"
+									},
+									{
+										"frame":8, "sX":1.350000, "sY":1.350000, "pY":6.000000, "mode":"Add"
+									},
+									{
+										"frame":34, "pY":6.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":23, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,0,128]
+, "mode":"Add"
+									},
+									{
+										"frame":99, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,0,128]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.100000, "sY":0.100000, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":8, "sX":0.335294, "sY":0.335294, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":17, "sX":0.477828, "sY":0.477828, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":25, "sX":0.556880, "sY":0.556880, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":34, "sX":0.600000, "sY":0.600000, "cX":-4.000000, "cY":6.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "sX":0.700000, "sY":0.700000, "rotate":10.000000, "pX":1.000000, "pY":-1.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":14, "rotate":75.000000, "pX":3.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":1.400000, "sY":1.400000, "rotate":180.000000, "pX":-1.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":31, "sX":1.400000, "sY":1.400000, "rotate":215.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":40, "sX":1.400000, "sY":1.400000, "rotate":280.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_10.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "sX":2.300000, "sY":2.300000, "rotate":10.000000, "mode":"Add"
+									},
+									{
+										"frame":14, "sX":2.600000, "sY":2.600000, "rotate":75.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":2.700000, "sY":2.700000, "rotate":180.000000, "alpha":76, "mode":"Add"
+									},
+									{
+										"frame":31, "sX":3.000000, "sY":3.000000, "rotate":215.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_10.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.400000, "sY":0.400000
+									},
+									{
+										"frame":23, "sX":0.400000, "sY":0.400000
+									},
+									{
+										"frame":31, "sX":0.400000, "sY":0.400000, "alpha":0
+									},
+									{
+										"frame":40, "sX":0.400000, "sY":0.400000, "alpha":0
 									}
 								]
 							}
@@ -68,9 +214,9 @@
 					}
 				},
 				{
-					"name":"grade_b",
+					"name":"b",
 					"apply":true,
-					"fps":10,
+					"fps":50,
 					"layer_root":
 					{
 						"expand":true,
@@ -78,24 +224,168 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_bg.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_02.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0
+										"frame":10, "sX":1.300000, "sY":1.300000
+									},
+									{
+										"frame":14, "sX":1.500000, "sY":1.500000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_b.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_b_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pX":1.000000, "pY":15.000000
+										"frame":0, "sX":4.500000, "sY":4.500000, "pY":4.000000, "alpha":25
+									},
+									{
+										"frame":3, "sX":4.093750, "sY":4.093750, "pY":4.000000, "alpha":121
+									},
+									{
+										"frame":8, "sX":1.250000, "sY":1.250000, "pY":4.000000
+									},
+									{
+										"frame":13, "pY":4.000000
+									},
+									{
+										"frame":99, "pY":4.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_b_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":4.700001, "sY":4.700001, "pY":6.000000, "alpha":51, "mode":"Add"
+									},
+									{
+										"frame":3, "sX":4.281250, "sY":4.281250, "pY":6.000000, "alpha":188, "mode":"Add"
+									},
+									{
+										"frame":8, "sX":1.350000, "sY":1.350000, "pY":6.000000, "mode":"Add"
+									},
+									{
+										"frame":34, "pY":6.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":23, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "mode":"Add"
+									},
+									{
+										"frame":99, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.100000, "sY":0.100000, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":8, "sX":0.335294, "sY":0.335294, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":17, "sX":0.477828, "sY":0.477828, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":25, "sX":0.556880, "sY":0.556880, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":34, "sX":0.600000, "sY":0.600000, "cX":-4.000000, "cY":6.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "sX":0.700000, "sY":0.700000, "rotate":10.000000, "pX":1.000000, "pY":-1.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":14, "rotate":75.000000, "pX":3.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":1.400000, "sY":1.400000, "rotate":180.000000, "pX":-1.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":31, "sX":1.400000, "sY":1.400000, "rotate":215.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":40, "sX":1.400000, "sY":1.400000, "rotate":280.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_10.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "sX":2.300000, "sY":2.300000, "rotate":10.000000, "mode":"Add"
+									},
+									{
+										"frame":14, "sX":2.600000, "sY":2.600000, "rotate":75.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":2.700000, "sY":2.700000, "rotate":180.000000, "alpha":76, "mode":"Add"
+									},
+									{
+										"frame":31, "sX":3.000000, "sY":3.000000, "rotate":215.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_10.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.400000, "sY":0.400000
+									},
+									{
+										"frame":23, "sX":0.400000, "sY":0.400000
+									},
+									{
+										"frame":31, "sX":0.400000, "sY":0.400000, "alpha":0
+									},
+									{
+										"frame":40, "sX":0.400000, "sY":0.400000, "alpha":0
 									}
 								]
 							}
@@ -103,9 +393,9 @@
 					}
 				},
 				{
-					"name":"grade_c",
+					"name":"c",
 					"apply":true,
-					"fps":10,
+					"fps":50,
 					"layer_root":
 					{
 						"expand":true,
@@ -113,24 +403,170 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_bg.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_02.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0
+										"frame":10, "sX":1.300000, "sY":1.300000
+									},
+									{
+										"frame":14, "sX":1.500000, "sY":1.500000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_c.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_c_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pX":1.000000, "pY":15.000000
+										"frame":0, "sX":4.500000, "sY":4.500000, "pY":4.000000, "alpha":25
+									},
+									{
+										"frame":3, "sX":4.093750, "sY":4.093750, "pY":4.000000, "alpha":121
+									},
+									{
+										"frame":8, "sX":1.250000, "sY":1.250000, "pY":4.000000
+									},
+									{
+										"frame":13, "pY":4.000000
+									},
+									{
+										"frame":99, "pY":4.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_c_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":4.700001, "sY":4.700001, "pY":6.000000, "alpha":51, "mode":"Add"
+									},
+									{
+										"frame":3, "sX":4.281250, "sY":4.281250, "pY":6.000000, "alpha":188, "mode":"Add"
+									},
+									{
+										"frame":8, "sX":1.350000, "sY":1.350000, "pY":6.000000, "mode":"Add"
+									},
+									{
+										"frame":34, "pY":6.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":23, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,128,0]
+, "mode":"Add"
+									},
+									{
+										"frame":99, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,128,0]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.100000, "sY":0.100000, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":8, "sX":0.335294, "sY":0.335294, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":17, "sX":0.477828, "sY":0.477828, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":25, "sX":0.556880, "sY":0.556880, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":34, "sX":0.600000, "sY":0.600000, "cX":-4.000000, "cY":6.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "sX":0.700000, "sY":0.700000, "rotate":10.000000, "pX":1.000000, "pY":-1.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":14, "rotate":75.000000, "pX":3.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":1.400000, "sY":1.400000, "rotate":180.000000, "pX":-1.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":31, "sX":1.400000, "sY":1.400000, "rotate":215.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":40, "sX":1.400000, "sY":1.400000, "rotate":280.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_10.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "sX":2.300000, "sY":2.300000, "rotate":10.000000, "mode":"Add"
+									},
+									{
+										"frame":14, "sX":2.600000, "sY":2.600000, "rotate":75.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":2.700000, "sY":2.700000, "rotate":180.000000, "alpha":76, "mode":"Add"
+									},
+									{
+										"frame":31, "sX":3.000000, "sY":3.000000, "rotate":215.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_10.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.400000, "sY":0.400000
+									},
+									{
+										"frame":23, "sX":0.400000, "sY":0.400000
+									},
+									{
+										"frame":31, "sX":0.400000, "sY":0.400000, "alpha":0
+									},
+									{
+										"frame":40, "sX":0.400000, "sY":0.400000, "alpha":0
 									}
 								]
 							}
@@ -138,9 +574,9 @@
 					}
 				},
 				{
-					"name":"grade_s",
+					"name":"s",
 					"apply":true,
-					"fps":10,
+					"fps":50,
 					"layer_root":
 					{
 						"expand":true,
@@ -148,24 +584,528 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_bg.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_02.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0
+										"frame":10, "sX":1.300000, "sY":1.300000
+									},
+									{
+										"frame":14, "sX":1.500000, "sY":1.500000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_s.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_s_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pX":1.000000, "pY":15.000000
+										"frame":0, "sX":4.500000, "sY":4.500000, "pY":4.000000, "alpha":25
+									},
+									{
+										"frame":3, "sX":4.093750, "sY":4.093750, "pY":4.000000, "alpha":121
+									},
+									{
+										"frame":8, "sX":1.250000, "sY":1.250000, "pY":4.000000
+									},
+									{
+										"frame":13, "pY":4.000000
+									},
+									{
+										"frame":99, "pY":4.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_s_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":4.700001, "sY":4.700001, "pY":6.000000, "alpha":51, "mode":"Add"
+									},
+									{
+										"frame":3, "sX":4.281250, "sY":4.281250, "pY":6.000000, "alpha":188, "mode":"Add"
+									},
+									{
+										"frame":8, "sX":1.350000, "sY":1.350000, "pY":6.000000, "mode":"Add"
+									},
+									{
+										"frame":34, "pY":6.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":23, "sX":0.410000, "sY":0.410000, "pY":-8.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,255,0]
+, "mode":"Add"
+									},
+									{
+										"frame":99, "sX":0.410000, "sY":0.410000, "pY":-8.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,255,0]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.100000, "sY":0.100000, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":8, "sX":0.335294, "sY":0.335294, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":17, "sX":0.477828, "sY":0.477828, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":25, "sX":0.556880, "sY":0.556880, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":34, "sX":0.600000, "sY":0.600000, "cX":-4.000000, "cY":6.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "sX":0.700000, "sY":0.700000, "rotate":10.000000, "pX":1.000000, "pY":-1.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":14, "rotate":75.000000, "pX":3.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":1.400000, "sY":1.400000, "rotate":180.000000, "pX":-1.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":31, "sX":1.400000, "sY":1.400000, "rotate":215.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":40, "sX":1.400000, "sY":1.400000, "rotate":280.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_10.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "sX":2.300000, "sY":2.300000, "rotate":10.000000, "mode":"Add"
+									},
+									{
+										"frame":14, "sX":2.600000, "sY":2.600000, "rotate":75.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":2.700000, "sY":2.700000, "rotate":180.000000, "alpha":76, "mode":"Add"
+									},
+									{
+										"frame":31, "sX":3.000000, "sY":3.000000, "rotate":215.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_10.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.400000, "sY":0.400000
+									},
+									{
+										"frame":23, "sX":0.400000, "sY":0.400000
+									},
+									{
+										"frame":31, "sX":0.400000, "sY":0.400000, "alpha":0
+									},
+									{
+										"frame":40, "sX":0.400000, "sY":0.400000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name":"resource_Copy",
+			"expand":true,
+			"apply":false,
+			"visual_list":
+			[
+				{
+					"name":"source_circle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_06.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":2.000000, "sY":2.000000, "alpha":0
+									},
+									{
+										"frame":3, "sX":2.000000, "sY":2.000000
+									},
+									{
+										"frame":6, "sX":2.000000, "sY":2.000000
+									},
+									{
+										"frame":9, "sX":2.000000, "sY":2.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_07.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":2.000000, "sY":2.000000, "alpha":0
+									},
+									{
+										"frame":7, "sX":2.000000, "sY":2.000000
+									},
+									{
+										"frame":10, "sX":2.000000, "sY":2.000000
+									},
+									{
+										"frame":13, "sX":2.000000, "sY":2.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_08.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "sX":2.000000, "sY":2.000000, "alpha":0
+									},
+									{
+										"frame":11, "sX":2.000000, "sY":2.000000
+									},
+									{
+										"frame":14, "sX":2.000000, "sY":2.000000
+									},
+									{
+										"frame":17, "sX":2.000000, "sY":2.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_06.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "sX":2.000000, "sY":2.000000, "alpha":0
+									},
+									{
+										"frame":15, "sX":2.000000, "sY":2.000000
+									},
+									{
+										"frame":18, "sX":2.000000, "sY":2.000000
+									},
+									{
+										"frame":21, "sX":2.000000, "sY":2.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_07.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":16, "sX":2.000000, "sY":2.000000, "alpha":0
+									},
+									{
+										"frame":19, "sX":2.000000, "sY":2.000000
+									},
+									{
+										"frame":22, "sX":2.000000, "sY":2.000000
+									},
+									{
+										"frame":30, "sX":2.000000, "sY":2.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_08.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20, "sX":2.000000, "sY":2.000000, "alpha":0
+									},
+									{
+										"frame":23, "sX":2.000000, "sY":2.000000, "alpha":128
+									},
+									{
+										"frame":26, "sX":2.000000, "sY":2.000000, "alpha":128
+									},
+									{
+										"frame":34, "sX":2.000000, "sY":2.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"source_star",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":1, "sX":0.800000, "sY":0.800000
+									},
+									{
+										"frame":20
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "sX":0.900000, "sY":0.900000, "rotate":-28.000000
+									},
+									{
+										"frame":24, "rotate":-28.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":3, "rotate":-17.000000
+									},
+									{
+										"frame":22, "rotate":-17.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":1, "sX":1.100000, "sY":1.100000, "rotate":-76.000000
+									},
+									{
+										"frame":26, "rotate":-76.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "rotate":-176.000000
+									},
+									{
+										"frame":31, "rotate":-176.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.500000, "sY":0.500000, "rotate":39.000000
+									},
+									{
+										"frame":25, "rotate":39.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "rotate":149.000000
+									},
+									{
+										"frame":27, "rotate":149.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":3, "sX":0.800000, "sY":0.800000, "rotate":68.000000
+									},
+									{
+										"frame":30, "rotate":68.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.700000, "sY":0.700000, "rotate":-147.000000
+									},
+									{
+										"frame":24, "rotate":-147.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":1, "sX":1.500000, "sY":1.500000, "rotate":-114.000000
+									},
+									{
+										"frame":27, "rotate":-114.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "sX":1.200000, "sY":1.200000, "rotate":166.000000
+									},
+									{
+										"frame":31, "rotate":166.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.100000, "sY":1.100000, "rotate":110.000000
+									},
+									{
+										"frame":26, "rotate":110.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"source_star_s",
+					"apply":true,
+					"fps":50,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_rank_fx_09.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":3.000000, "sY":3.000000
+									},
+									{
+										"frame":7, "sX":2.000000, "sY":2.000000, "rotate":-90.000000, "pX":-150.000000
+									},
+									{
+										"frame":15, "sX":1.391304, "sY":1.391304, "rotate":-144.782608, "pX":-241.304352
+									},
+									{
+										"frame":22, "sX":1.104348, "sY":1.104348, "rotate":-170.608688, "pX":-284.347839
+									},
+									{
+										"frame":29, "rotate":-180.000000, "pX":-300.000000
 									}
 								]
 							}

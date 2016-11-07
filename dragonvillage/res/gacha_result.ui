@@ -544,7 +544,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 277;
+					width = 382;
 					height = 44;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -560,7 +560,7 @@
 					v_alignment = 1;
 					color = { 102; 88; 71; };
 					opacity = 255;
-					dimension_width = 277;
+					dimension_width = 382;
 					dimension_height = 44;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -582,7 +582,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 320;
+				width = 436;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -601,12 +601,12 @@
 			};
 			type = 'Node';
 			ui_name = 'right';
-			x = 205.000000;
+			x = 324.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 344;
+			width = 436;
 			height = 278;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -684,7 +684,7 @@
 		{
 			type = 'Node';
 			ui_name = '';
-			x = -140.000000;
+			x = -199.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
@@ -703,7 +703,7 @@
 		{
 			type = 'Sprite';
 			ui_name = '';
-			x = 207.000000;
+			x = 326.000000;
 			y = 220.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
@@ -729,7 +729,7 @@
 		{
 			type = 'Visual';
 			ui_name = '';
-			x = 256.000000;
+			x = 375.000000;
 			y = 108.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
