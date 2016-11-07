@@ -98,6 +98,7 @@ local t_module = {
     'GameWorld_Formation',
     'GameState',
     'TamerSkillSystem',
+	'TamerSkillManager',
 
 	'Missile',
     'MissileBoomerang',

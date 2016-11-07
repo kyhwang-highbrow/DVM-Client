@@ -55,7 +55,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_skillIndicatorMgr = 'SkillIndicatorMgr',
         m_tamerSkillSystem = 'TamerSkillSystem',
 
-        m_tamer = 'Tamer',
+        m_tamerSkillMgr = 'Tamer',
         m_bDoingTamerSkill = 'boolean',
 
         m_currFocusingDragon = '',
@@ -401,9 +401,9 @@ function GameWorld:init_test(deck_type)
     end
 
     -- 테이머 생성
-    self:makeTamer(110001)
+    self:makeTamerSkillManager(110001)
     do
-        self.m_tamerSkillSystem = TamerSkillSystem(self, self.m_tamer)
+        self.m_tamerSkillSystem = TamerSkillSystem(self, self.m_tamerSkillMgr)
         self:addListener('game_start', self.m_tamerSkillSystem)
 
         for _,char in pairs(self.m_lDragonList) do
@@ -786,20 +786,8 @@ end
 -------------------------------------
 -- function makeTamer
 -------------------------------------
-function GameWorld:makeTamer(tamer_id)
-    local table_tamer = TABLE:get('tamer')
-    local t_tamer = table_tamer[tamer_id]
-
-    local tamer = Tamer(nil, {0, 0, 20}, t_tamer)
-    tamer:initWorld(self)
-    --tamer:initAnimatorTamer(t_tamer['res'])
-    --tamer.m_animator:setScale(0.5 * t_tamer['scale'])
-    tamer:initState()
-
-    self.m_worldNode:addChild(tamer.m_rootNode, 2)
-    self:addToUnitList(tamer)
-
-    self.m_tamer = tamer
+function GameWorld:makeTamerSkillManager(tamer_id)
+    self.m_tamerSkillMgr = TamerSkillManager(tamer_id)
     self.m_bDoingTamerSkill = false
 end
 
@@ -948,7 +936,7 @@ function GameWorld:onKeyReleased(keyCode, event)
         end
 
     elseif (keyCode == KEY_L) then    
-        self.m_tamer:doSkill(241001, nil, 0, 0)
+        self.m_tamerSkillMgr:doSkill(241001, nil, 0, 0)
     end
 end
 

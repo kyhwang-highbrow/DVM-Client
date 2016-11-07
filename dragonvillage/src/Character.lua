@@ -136,7 +136,7 @@ end
 -------------------------------------
 function Character:getTargetListByType(target_type)
 	if (target_type == 'x') then 
-		error('타겟 타입이 x인데요?')
+		error('타겟 타입이 x인데요? 테이블 수정해주세요')
 	end
 
     local table_skill_target = TABLE:get('skill_target')

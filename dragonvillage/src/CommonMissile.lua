@@ -206,7 +206,7 @@ function CommonMissile.st_attack(owner, dt)
 			owner.m_missileFireTerm = FIRE_LIMIT_TIME / owner.m_maxFireCnt
 			owner.m_missileTimer = owner.m_missileFireTerm
 		end
-		--cclog('common missile : ' .. owner.m_owner.pos.x .. ', ' .. owner.m_owner.pos.y, '///', owner.m_target.m_homePosX .. ', ' ..  owner.m_target.m_homePosY)  
+		cclog('common missile : ' .. owner.m_owner.pos.x .. ', ' .. owner.m_owner.pos.y, '///', owner.m_target.m_homePosX .. ', ' ..  owner.m_target.m_homePosY)  
 	end
 
 	-- 3. 발사 
