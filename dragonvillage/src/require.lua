@@ -125,7 +125,6 @@ local t_module = {
     'CharacterSkill',
     'CharacterStateDelegate',
     'Hero',
-    'Tamer',
     'Enemy',
     'EnemyLua',
     'EnemyLua_Boss',

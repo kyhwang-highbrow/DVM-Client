@@ -49,8 +49,8 @@ function TamerSkillSystem:init(world, tamer)
         --self.m_lTamerSkillCoolTime[i] = 0
         self.m_lTamerSkillCoolTime[i] = TAMER_SKILL_COOLTIME
 
-        --ui.vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() self:click_tamerSkillBtn(i) end)
-        ui.vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
+        ui.vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() self:click_tamerSkillBtn(i) end)
+        --ui.vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
 
         -- 스킬 아이콘
         do
@@ -108,6 +108,7 @@ end
 -- function click_tamerSkillBtn
 -------------------------------------
 function TamerSkillSystem:click_tamerSkillBtn(idx)
+--[[
     local remain_time = math_max(self.m_lTamerSkillCoolTime[idx], self.m_tamerSkillCooltimeGlobal)
 
     local t_tamer = self.m_tamer.m_charTable
@@ -139,6 +140,8 @@ function TamerSkillSystem:click_tamerSkillBtn(idx)
     end
 
     self:onEvent('tamer_skill')
+]]
+	self.m_world.m_tamerSkillMgr:doSkill(idx)
 end
 
 -------------------------------------

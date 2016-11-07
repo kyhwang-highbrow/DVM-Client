@@ -53,8 +53,9 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_rightFormationMgr = '',
 
         m_skillIndicatorMgr = 'SkillIndicatorMgr',
-        m_tamerSkillSystem = 'TamerSkillSystem',
 
+		-- 테이머 스킬 관련
+        m_tamerSkillSystem = 'TamerSkillSystem',
         m_tamerSkillMgr = 'Tamer',
         m_bDoingTamerSkill = 'boolean',
 
@@ -792,7 +793,7 @@ end
 -- function makeTamer
 -------------------------------------
 function GameWorld:makeTamerSkillManager(tamer_id)
-    self.m_tamerSkillMgr = TamerSkillManager(tamer_id)
+    self.m_tamerSkillMgr = TamerSkillManager(tamer_id, self)
     self.m_bDoingTamerSkill = false
 end
 

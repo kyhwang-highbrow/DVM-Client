@@ -100,7 +100,7 @@ function IconHelper:getSkillIcon(char_type, skill_id)
     local t_skill = table_skill[skill_id]
 
     if (not t_skill) then
-        error('t_skill : ' .. t_skill)
+        error(skill_id .. '번 스킬은 테이블 데이타가 없다.')
     end
 
     local res_name = t_skill['res_icon']
@@ -125,7 +125,7 @@ function IconHelper:getSpecialSkillIcon(skill_id)
     local t_skill = table_skill[skill_id]
 
     if (not t_skill) then
-        error('t_skill : ' .. t_skill)
+        error(skill_id .. '번 스킬은 테이블 데이타가 없다.')
     end
 
     local res_name = t_skill['res_icon']
@@ -241,13 +241,18 @@ end
 -------------------------------------
 function IconHelper:getStatusEffectIcon(status_effect_type)
 	local res = TABLE:get('status_effect')[status_effect_type]['res_icon']
-    local sprite = cc.Sprite:create(res)
+	
+	if (res == 'x') then 
+		res = 'res/ui/icon/alarm_01.png' 
+	end 
+    
+	local sprite = cc.Sprite:create(res)
 
     if (not sprite) then
         if (res ~= 'x') then
 		    cclog(status_effect_type .. ' 상태 효과는 아이콘이 없음. 추가 해야함')
         end
-        sprite = cc.Sprite:create('res/ui/icon/status_effect/p_resist.png')
+        sprite = cc.Sprite:create('res/ui/icon/alarm_01.png')
     end
 
     sprite:setDockPoint(cc.p(0.5, 0.5))

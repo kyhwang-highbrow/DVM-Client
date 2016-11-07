@@ -20,11 +20,11 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function StatusEffect_Recovery:init_recovery(char, t_status_effect)
+function StatusEffect_Recovery:init_recovery(char, t_status_effect, status_effect_value)
 	self.m_owner = char
-	self.m_healRate = t_status_effect['dot_heal']
-	self.m_healInterval = t_status_effect['val_1']
-	self.m_healTimer = 0
+	self.m_healRate = (t_status_effect['dot_heal']/100) * (status_effect_value/100)
+	self.m_healInterval = t_status_effect['dot_interval']
+	self.m_healTimer = self.m_healInterval
 end
 
 -------------------------------------
@@ -44,7 +44,7 @@ function StatusEffect_Recovery.st_idle(owner, dt)
 	if (owner.m_owner.m_bDead) and (owner.m_state ~= 'end') then
         owner:changeState('end')
     end
-	-- 반복 공격
+	
     owner.m_healTimer = owner.m_healTimer + dt
     if (owner.m_healTimer > owner.m_healInterval) then
         -- 힐

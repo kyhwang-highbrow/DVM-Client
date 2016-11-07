@@ -18,8 +18,6 @@ Hero = class(PARENT, {
         m_activeSkillTimer = 'number',
         m_activeSkillCoolTime = 'number',
 
-		m_nextSkillCoolTimeReduce = 'number',
-
         m_afterimageMove = 'number',
 
         m_bUseSelfAfterImage = 'boolean',

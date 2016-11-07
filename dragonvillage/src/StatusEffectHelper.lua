@@ -36,7 +36,7 @@ end
 -- function doStatusEffect_simple
 -- @brief 리팩토링중
 -------------------------------------
-function StatusEffectHelper:doStatusEffect_simple(char, status_effect_type, status_effect_value, status_effect_rate)
+function StatusEffectHelper:doStatusEffect_simple(char, status_effect_type, status_effect_value, status_effect_rate, duration)
     -- 타입 있는지 검사
     if (not status_effect_type) or (status_effect_type == 'x') then return end
 
@@ -47,7 +47,7 @@ function StatusEffectHelper:doStatusEffect_simple(char, status_effect_type, stat
     if (math_random(1, 1000) > status_effect_rate * 10) then return end
 
 	-- 상태효과 실행
-	StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_effect_value, status_effect_rate)
+	StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_effect_value, status_effect_rate, duration)
 end
 
 -------------------------------------
@@ -68,7 +68,7 @@ end
 -- @brief 확률 체크하여 패시브 발동 
 -- @brief skill table을 사용하지 않기 위해 
 -------------------------------------
-function StatusEffectHelper:doStatusEffectByType(char, status_effect_type, status_effect_value, status_effect_rate)
+function StatusEffectHelper:doStatusEffectByType(char, status_effect_type, status_effect_value, status_effect_rate, duration)
     -- 타입 있는지 검사
     if (not status_effect_type) or (status_effect_type == 'x') then return end
 
@@ -86,7 +86,7 @@ function StatusEffectHelper:doStatusEffectByType(char, status_effect_type, statu
 		-- 확률 검사
 		if (math_random(1, 1000) < rate * 10) then 
 			-- 상태효과 실행
-			StatusEffectHelper:invokeStatusEffect(char, type, value, rate)
+			StatusEffectHelper:invokeStatusEffect(char, type, value, rate, duration)
 		end
 	end
 end
@@ -95,7 +95,7 @@ end
 -- function invokeStatusEffect
 -- @brief 상태 효과 발동
 -------------------------------------
-function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_effect_value, status_effect_rate)
+function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_effect_value, status_effect_rate, duration)
     if (not status_effect_type) or (status_effect_type == 'x') then
         return nil
     end
@@ -114,7 +114,7 @@ function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_
         status_effect:statusEffectOverlab()
     else
         -- 상태 효과 생성
-        status_effect = StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, status_effect_value, status_effect_rate)
+        status_effect = StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, status_effect_value, status_effect_rate, duration)
     end
 
     if (t_status_effect['overlab'] > 0) then
@@ -184,10 +184,9 @@ end
 -- function makeStatusEffectInstance
 -- @comment 일반 status effect의 경우 rate가 필요없지만 패시브의 경우 실행 시점에서 확률체크하는 경우가 있다.
 -------------------------------------
-function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, status_effect_value, status_effect_rate)
+function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, status_effect_value, status_effect_rate, duration)
     local table_status_effect = TABLE:get('status_effect')
     local t_status_effect = table_status_effect[status_effect_type]
-    
     local res = t_status_effect['res']
 	
     if (res == 'x') then
@@ -196,10 +195,10 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 
 	local status_effect = nil
 
-	------------ 특수한 패시브 --------------------------
-    if (status_effect_type == 'passive_recovery') or string.find(status_effect_type, 'buff_heal') then
+	------------ 힐 --------------------------
+    if (status_effect_type == 'heal') then
         status_effect = StatusEffect_Recovery(res)
-		status_effect:init_recovery(char, t_status_effect)
+		status_effect:init_recovery(char, t_status_effect, status_effect_value, duration)
 
 	----------- 필드 체크 필요한 패시브 ------------------
 	elseif (status_effect_type == 'passive_bloodlust') then
@@ -236,7 +235,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	status_effect.m_type = t_status_effect['type']
 
     -- 시간 지정
-    status_effect.m_duration = tonumber(t_status_effect['duration'])
+    status_effect.m_duration = tonumber(duration) or tonumber(t_status_effect['duration'])
     status_effect.m_durationTimer = status_effect.m_duration
 
     -- 중첩 지정
@@ -270,7 +269,6 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 
 	-- 2. skill의 타겟룰로 passive의 대상 리스트를 얻어옴
 	local l_target = char:getTargetList(t_skill)
-	--cclog(t_skill['status_effect_type'] .. ' : ' .. #l_target)
 
 	-- 3. 타겟 대상에 passive생성
 	for _,target in ipairs(l_target) do
