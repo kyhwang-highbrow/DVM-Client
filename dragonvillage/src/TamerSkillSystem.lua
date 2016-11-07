@@ -20,59 +20,37 @@ TamerSkillSystem = class(IEventListener:getCloneClass(), {
 function TamerSkillSystem:init(world, tamer)
     self.m_world = world
     self.m_tamer = tamer
+    self.m_tamerSkillCooltimeGlobal = 0
+    self.m_lTamerSkillCoolTime = {}
 
     local t_tamer = tamer.m_charTable
     local ui = world.m_inGameUI
 
-    --[[
-    ui.vars['tamerSkillBtn1']:registerScriptTapHandler(function() self:click_tamerSkillBtn(1) end)
-    ui.vars['tamerSkillBtn2']:registerScriptTapHandler(function() self:click_tamerSkillBtn(2) end)
-    ui.vars['tamerSkillBtn3']:registerScriptTapHandler(function() self:click_tamerSkillBtn(3) end)
-    ]]--
-    ui.vars['tamerSkillBtn1']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
-    ui.vars['tamerSkillBtn2']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
-    ui.vars['tamerSkillBtn3']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
-    ui.vars['tamerSkillBtn4']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
-    --[[
-    local icon = IconHelper:getSkillIcon('tamer', t_tamer['skill_1'])
-    ui.vars['tamerSkillBtn1']:addChild(icon)
+    -- 일반 스킬
+    for i = 1, 3 do
+        --self.m_lTamerSkillCoolTime[i] = 0
+        self.m_lTamerSkillCoolTime[i] = TAMER_SKILL_COOLTIME
 
-    local icon = IconHelper:getSkillIcon('tamer', t_tamer['skill_2'])
-    ui.vars['tamerSkillBtn2']:addChild(icon)
+        --ui.vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() self:click_tamerSkillBtn(i) end)
+        ui.vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
 
-    local icon = IconHelper:getSkillIcon('tamer', t_tamer['skill_3'])
-    ui.vars['tamerSkillBtn3']:addChild(icon)
-    ]]--
-    ui.vars['characterMenu']:setVisible(false)
+        local icon = IconHelper:getSkillIcon('tamer', t_tamer['skill_' .. i])
+        ui.vars['tamerSkillNode' .. i]:addChild(icon)
 
-    self.m_tamerSkillCooltimeGlobal = 0
-    self.m_lTamerSkillCoolTime = {}
-    self.m_lTamerSkillCoolTime[1] = 0
-    self.m_lTamerSkillCoolTime[2] = 0
-    self.m_lTamerSkillCoolTime[3] = 0
-    --[[
-    ui.vars['timeGauge1']:setLocalZOrder(1)
-    ui.vars['timeGauge2']:setLocalZOrder(1)
-    ui.vars['timeGauge3']:setLocalZOrder(1)
-    ui.vars['timeGauge4']:setLocalZOrder(1)
-    ]]--
-    ui.vars['timeGauge1']:setPercentage(0)
-    ui.vars['timeGauge2']:setPercentage(0)
-    ui.vars['timeGauge3']:setPercentage(0)
-    ui.vars['timeGauge4']:setPercentage(0)
-
-    --ui.vars['timeLabel1']:setLocalZOrder(2)
-    --ui.vars['timeLabel2']:setLocalZOrder(2)
-    --ui.vars['timeLabel3']:setLocalZOrder(2)
-
+        ui.vars['timeGauge' .. i]:setPercentage(0)
+    end
+      
     -- 궁극기
     do
         self.m_specialPowerPoint = 0
-        ui.vars['timeGauge1']:setPercentage(0)
-        --ui.vars['tamerSkillBtn1']:registerScriptTapHandler(function() self:click_specialSkillBtn() end)
-        ui.vars['tamerSkillBtn1']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
+        
+        --ui.vars['specialSkillBtn']:registerScriptTapHandler(function() self:click_specialSkillBtn() end)
+        ui.vars['specialSkillBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
 
+        ui.vars['specialTimeGauge']:setPercentage(0)
     end
+
+    ui.vars['characterMenu']:setVisible(false)
 end
 
 -------------------------------------
@@ -168,7 +146,6 @@ end
 function TamerSkillSystem:update(dt)
     local ui = self.m_world.m_inGameUI
     
-    --[[
     if (0 < self.m_tamerSkillCooltimeGlobal) then
         self.m_tamerSkillCooltimeGlobal = (self.m_tamerSkillCooltimeGlobal - dt)
 
@@ -177,28 +154,37 @@ function TamerSkillSystem:update(dt)
         end
     end
 
-    for i=1, 3 do
+    for i = 1, 3 do
         if (0 < self.m_lTamerSkillCoolTime[i]) then
             self.m_lTamerSkillCoolTime[i] = math_max(self.m_lTamerSkillCoolTime[i] - dt, 0)
         end
 
-        if (self.m_tamerSkillCooltimeGlobal > self.m_lTamerSkillCoolTime[i]) then
-            
-            local percentage = (self.m_tamerSkillCooltimeGlobal / TAMER_SKILL_GLOBAL_COOLTIME) * 100
-            ui.vars['timeGauge' .. i]:setPercentage(percentage)
-            --ui.vars['timeLabel' .. i]:setString(math_floor(self.m_tamerSkillCooltimeGlobal + 0.5))
-        else
-            local percentage = (self.m_lTamerSkillCoolTime[i] / TAMER_SKILL_COOLTIME) * 100
-            ui.vars['timeGauge' .. i]:setPercentage(percentage)
+        local prev_percentage = ui.vars['timeGauge' .. i]:setPercentage()
+        local percentage = 0
 
-            if (self.m_lTamerSkillCoolTime[i] <= 0) then
-                --ui.vars['timeLabel' .. i]:setString('')
-            else
-                --ui.vars['timeLabel' .. i]:setString(math_floor(self.m_lTamerSkillCoolTime[i] + 0.5))
+        if (self.m_tamerSkillCooltimeGlobal > self.m_lTamerSkillCoolTime[i]) then
+            percentage = (self.m_tamerSkillCooltimeGlobal / TAMER_SKILL_GLOBAL_COOLTIME) * 100
+        else
+            percentage = (self.m_lTamerSkillCoolTime[i] / TAMER_SKILL_COOLTIME) * 100
+        end
+
+        ui.vars['timeGauge' .. i]:setPercentage(percentage)
+
+        if prev_percentage ~= percentage then
+            local visual = ui.vars['tamerSkillVisual' .. i]
+            visual:setVisible(false)
+
+            if percentage >= 100 then
+                visual:setVisible(true)
+                visual:setVisual('skill_charging', '01')
+                visual:setRepeat(false)
+                visual:registerScriptLoopHandler(function()
+                    visual:setVisual('skill_idle', '01')
+                    visual:setRepeat(true)
+                end)
             end
         end
     end
-    ]]--
 end
 
 -------------------------------------
@@ -209,26 +195,34 @@ function TamerSkillSystem:addSpecialPowerPoint(add_point)
     self.m_specialPowerPoint = math_clamp(self.m_specialPowerPoint + add_point, 0, 100)
 
     local ui = self.m_world.m_inGameUI
-    --ui.vars['timeGauge1']:setPercentage(self.m_specialPowerPoint)
+    ui.vars['specialTimeGauge']:setPercentage(100 - self.m_specialPowerPoint)
+
+    cclog('TamerSkillSystem:addSpecialPowerPoint specialPowerPoint = ' .. self.m_specialPowerPoint)
 
     -- 궁극기 게이지 이펙트
     if (prev ~= self.m_specialPowerPoint) then
-        local visual = ui.vars['tamerSkillVisual1']
+        local visual = ui.vars['specialSkillVisual']
         visual:setVisible(false)
 
-		-- @TODO 궁극기 비쥬얼 막음
-		--[[
-        if (self.m_specialPowerPoint == 100) then
+		if (self.m_specialPowerPoint == 100) then
+            cclog('skill_charging')
             visual:setVisible(true)
-            visual:setVisual('group', 'effect')
+            visual:setVisual('skill_charging', '01')
             visual:setRepeat(false)
-            visual:registerScriptLoopHandler(function() visual:setVisual('group', 'idle') visual:setRepeat(true) end)
-        else
+            visual:registerScriptLoopHandler(function()
+                visual:setVisual('skill_idle', '01')
+                visual:setRepeat(true)
+            end)
         end
-		]]
     end
 end
 
+-------------------------------------
+-- function showSpeech
+-------------------------------------
+function TamerSkillSystem:showSpeech()
+    
+end
 
 -------------------------------------
 -- function onEvent

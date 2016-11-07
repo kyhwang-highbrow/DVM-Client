@@ -9,13 +9,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,-9}</string>
+                <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{424,642}</string>
+                <string>{200,200}</string>
                 <key>spriteSourceSize</key>
-                <string>{440,680}</string>
+                <string>{200,200}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{424,642}}</string>
+                <string>{{1,1},{200,200}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -27,9 +27,9 @@
             <key>realTextureFileName</key>
             <string>gacha.png</string>
             <key>size</key>
-            <string>{426,644}</string>
+            <string>{202,202}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d74f82902cb14e3d84200148acdb33c0:ecec87f7b374b9d116f0b0679f177a2d:0ee78ab6ba4799a2aaa099e0fb0ca202$</string>
+            <string>$TexturePacker:SmartUpdate:94fca561db3d0b58bc1d0961a7255dcc:b1cb0d03c494b70a2cac0fcce53a77ae:0ee78ab6ba4799a2aaa099e0fb0ca202$</string>
             <key>textureFileName</key>
             <string>gacha.png</string>
         </dict>

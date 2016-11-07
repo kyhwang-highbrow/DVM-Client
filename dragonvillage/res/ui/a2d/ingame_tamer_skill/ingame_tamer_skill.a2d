@@ -19,6 +19,16 @@
 	"azTag":
 	[
 		{
+			"name":"skill_normal",
+			"apply":true,
+			"res_id":""
+		},
+		{
+			"name":"skill_special",
+			"apply":true,
+			"res_id":""
+		},
+		{
 			"name":"talk_label",
 			"apply":true,
 			"res_id":""
@@ -324,7 +334,62 @@
 			"visual_list":
 			[
 				{
-					"name":"01",
+					"name":"normal",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_frame_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000
+									},
+									{
+										"frame":16
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'charging'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.700000, "sY":0.700000, "mode":"Add"
+									},
+									{
+										"frame":16, "sX":0.700000, "sY":0.700000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_normal'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000
+									},
+									{
+										"frame":16
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"special",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -362,172 +427,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_0101.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":0.800000, "sY":0.800000
-									},
-									{
-										"frame":16
-									}
-								]
-							}
-						]
-					}
-				},
-				{
-					"name":"02",
-					"apply":true,
-					"fps":30,
-					"layer_root":
-					{
-						"expand":true,
-						"apply":true,
-						"layer_list":
-						[
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_frame_0201.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":0.800000, "sY":0.800000
-									},
-									{
-										"frame":16
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'charging'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":0.700000, "sY":0.700000, "mode":"Add"
-									},
-									{
-										"frame":16, "sX":0.700000, "sY":0.700000, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_0201.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":0.800000, "sY":0.800000
-									},
-									{
-										"frame":16
-									}
-								]
-							}
-						]
-					}
-				},
-				{
-					"name":"03",
-					"apply":true,
-					"fps":30,
-					"layer_root":
-					{
-						"expand":true,
-						"apply":true,
-						"layer_list":
-						[
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_frame_0201.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":0.800000, "sY":0.800000
-									},
-									{
-										"frame":16
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'charging'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":0.700000, "sY":0.700000, "mode":"Add"
-									},
-									{
-										"frame":16, "sX":0.700000, "sY":0.700000, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_0202.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":0.800000, "sY":0.800000
-									},
-									{
-										"frame":16
-									}
-								]
-							}
-						]
-					}
-				},
-				{
-					"name":"04",
-					"apply":true,
-					"fps":30,
-					"layer_root":
-					{
-						"expand":true,
-						"apply":true,
-						"layer_list":
-						[
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_frame_0201.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":0.800000, "sY":0.800000
-									},
-									{
-										"frame":16
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'charging'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "sX":0.700000, "sY":0.700000, "mode":"Add"
-									},
-									{
-										"frame":16, "sX":0.700000, "sY":0.700000, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_0203.png'",
+								"res_id":"<azProject>''<azTag>'skill_special'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -552,7 +452,79 @@
 			"visual_list":
 			[
 				{
-					"name":"01",
+					"name":"normal",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_frame_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":8, "cY":2.000000
+									},
+									{
+										"frame":15
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":39.000000, "mode":"Add"
+									},
+									{
+										"frame":7, "pY":39.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pY":39.000000, "mode":"Add"
+									},
+									{
+										"frame":15, "pY":39.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_normal'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":15
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"special",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -607,223 +579,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_0101.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
-									},
-									{
-										"frame":15
-									}
-								]
-							}
-						]
-					}
-				},
-				{
-					"name":"02",
-					"apply":true,
-					"fps":30,
-					"layer_root":
-					{
-						"expand":true,
-						"apply":true,
-						"layer_list":
-						[
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_frame_0201.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
-									},
-									{
-										"frame":8, "cY":2.000000
-									},
-									{
-										"frame":15
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire_02'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pY":39.000000, "mode":"Add"
-									},
-									{
-										"frame":7, "pY":39.000000, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire_02'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":8, "pY":39.000000, "mode":"Add"
-									},
-									{
-										"frame":15, "pY":39.000000, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_0201.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
-									},
-									{
-										"frame":15
-									}
-								]
-							}
-						]
-					}
-				},
-				{
-					"name":"03",
-					"apply":true,
-					"fps":30,
-					"layer_root":
-					{
-						"expand":true,
-						"apply":true,
-						"layer_list":
-						[
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_frame_0201.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
-									},
-									{
-										"frame":8, "cY":2.000000
-									},
-									{
-										"frame":15
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire_02'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pY":39.000000, "mode":"Add"
-									},
-									{
-										"frame":7, "pY":39.000000, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire_02'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":8, "pY":39.000000, "mode":"Add"
-									},
-									{
-										"frame":15, "pY":39.000000, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_0202.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
-									},
-									{
-										"frame":15
-									}
-								]
-							}
-						]
-					}
-				},
-				{
-					"name":"04",
-					"apply":true,
-					"fps":30,
-					"layer_root":
-					{
-						"expand":true,
-						"apply":true,
-						"layer_list":
-						[
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_frame_0201.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
-									},
-									{
-										"frame":8, "cY":2.000000
-									},
-									{
-										"frame":15
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire_02'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pY":39.000000, "mode":"Add"
-									},
-									{
-										"frame":7, "pY":39.000000, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire_02'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":8, "pY":39.000000, "mode":"Add"
-									},
-									{
-										"frame":15, "pY":39.000000, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_0203.png'",
+								"res_id":"<azProject>''<azTag>'skill_special'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -844,7 +600,7 @@
 		{
 			"name":"skill_normal",
 			"expand":true,
-			"apply":true,
+			"apply":false,
 			"visual_list":
 			[
 				{

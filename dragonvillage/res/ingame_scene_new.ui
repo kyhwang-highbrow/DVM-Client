@@ -1043,7 +1043,7 @@
 			type = 'Visual';
 			ui_name = '';
 			x = 50.000000;
-			y = 50.000000;
+			y = 46.000000;
 			dock_point = { 0.500000; 1.000000; };
 			anchor_point = { 0.500000; 1.000000; };
 			relative_size_type = 0;
@@ -1131,6 +1131,11 @@
 			};
 			[3] =
 			{
+				[1] =
+				{
+					type = 'SocketNode';
+					socket_name = 'talk_label';
+				};
 				type = 'Visual';
 				ui_name = '';
 				x = 85.000000;
@@ -1173,7 +1178,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'tamerSkillBtn1';
+					lua_name = 'specialSkillBtn';
 					enable = true;
 					normal = 'ui/empty.png';
 					selected = '';
@@ -1198,8 +1203,8 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/gauge/tamer_skill_0101.png';
-					color = { 102; 102; 102; };
+					file_name = 'ui/icon/skill/tamer_skill_frame_0101.png';
+					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
 					flip_y = false;
@@ -1208,6 +1213,25 @@
 				};
 				[3] =
 				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 0.800000;
+					scale_y = 0.800000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'specialSkillNode';
+				};
+				[4] =
+				{
 					type = 'ProgressTimer';
 					ui_name = '';
 					x = 0.000000;
@@ -1215,29 +1239,34 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 92;
-					height = 96;
+					width = 0;
+					height = 0;
 					scale_x = 0.800000;
 					scale_y = 0.800000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'timeGauge1';
-					file_name = 'ui/gauge/tamer_skill_0101.png';
+					lua_name = 'specialTimeGauge';
+					file_name = 'ui/icon/skill/tamer_skill_frame_0102.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
 					flip_y = false;
 					src_blend = 770;
 					dest_blend = 771;
-					progress_type = 0;
+					progress_type = 1;
 					mid_point_x = 0.500000;
 					mid_point_y = 0.500000;
 					percentage = 30;
 				};
-				[4] =
+				[5] =
 				{
+					[1] =
+					{
+						type = 'SocketNode';
+						socket_name = 'talk_label';
+					};
 					type = 'Visual';
 					ui_name = '';
 					x = 50.000000;
@@ -1253,7 +1282,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
-					lua_name = 'tamerSkillVisual1';
+					lua_name = 'specialSkillVisual';
 					file_name = 'ui/a2d/ingame_tamer_skill/ingame_tamer_skill.a2d';
 					auto_play = false;
 					is_repeat = false;
@@ -1301,7 +1330,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'tamerSkillBtn2';
+					lua_name = 'tamerSkillBtn1';
 					enable = true;
 					normal = 'ui/empty.png';
 					selected = '';
@@ -1326,7 +1355,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/gauge/tamer_skill_0201.png';
+					file_name = 'ui/icon/skill/tamer_skill_frame_0201.png';
 					color = { 102; 102; 102; };
 					opacity = 255;
 					flip_x = false;
@@ -1336,6 +1365,25 @@
 				};
 				[3] =
 				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000015;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 0.800000;
+					scale_y = 0.800000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'tamerSkillNode1';
+				};
+				[4] =
+				{
 					type = 'ProgressTimer';
 					ui_name = '';
 					x = 0.000000;
@@ -1343,29 +1391,34 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 92;
-					height = 96;
+					width = 0;
+					height = 0;
 					scale_x = 0.800000;
 					scale_y = 0.800000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'timeGauge2';
-					file_name = 'ui/gauge/tamer_skill_0201.png';
+					lua_name = 'timeGauge1';
+					file_name = 'ui/icon/skill/tamer_skill_frame_0202.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
 					flip_y = false;
 					src_blend = 770;
 					dest_blend = 771;
-					progress_type = 0;
+					progress_type = 1;
 					mid_point_x = 0.500000;
 					mid_point_y = 0.500000;
 					percentage = 30;
 				};
-				[4] =
+				[5] =
 				{
+					[1] =
+					{
+						type = 'SocketNode';
+						socket_name = 'talk_label';
+					};
 					type = 'Visual';
 					ui_name = '';
 					x = 50.000000;
@@ -1381,7 +1434,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
-					lua_name = 'tamerSkillVisual2';
+					lua_name = 'tamerSkillVisual1';
 					file_name = 'ui/a2d/ingame_tamer_skill/ingame_tamer_skill.a2d';
 					auto_play = false;
 					is_repeat = false;
@@ -1429,7 +1482,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'tamerSkillBtn3';
+					lua_name = 'tamerSkillBtn2';
 					enable = true;
 					normal = 'ui/empty.png';
 					selected = '';
@@ -1454,7 +1507,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/gauge/tamer_skill_0301.png';
+					file_name = 'ui/icon/skill/tamer_skill_frame_0201.png';
 					color = { 102; 102; 102; };
 					opacity = 255;
 					flip_x = false;
@@ -1464,6 +1517,25 @@
 				};
 				[3] =
 				{
+					type = 'Node';
+					ui_name = '';
+					x = 3.125000;
+					y = 3.125008;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 0.800000;
+					scale_y = 0.800000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'tamerSkillNode2';
+				};
+				[4] =
+				{
 					type = 'ProgressTimer';
 					ui_name = '';
 					x = 0.000000;
@@ -1471,29 +1543,34 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 92;
-					height = 96;
+					width = 0;
+					height = 0;
 					scale_x = 0.800000;
 					scale_y = 0.800000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'timeGauge3';
-					file_name = 'ui/gauge/tamer_skill_0301.png';
+					lua_name = 'timeGauge2';
+					file_name = 'ui/icon/skill/tamer_skill_frame_0202.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
 					flip_y = false;
 					src_blend = 770;
 					dest_blend = 771;
-					progress_type = 0;
+					progress_type = 1;
 					mid_point_x = 0.500000;
 					mid_point_y = 0.500000;
 					percentage = 30;
 				};
-				[4] =
+				[5] =
 				{
+					[1] =
+					{
+						type = 'SocketNode';
+						socket_name = 'talk_label';
+					};
 					type = 'Visual';
 					ui_name = '';
 					x = 50.000000;
@@ -1509,7 +1586,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
-					lua_name = 'tamerSkillVisual3';
+					lua_name = 'tamerSkillVisual2';
 					file_name = 'ui/a2d/ingame_tamer_skill/ingame_tamer_skill.a2d';
 					auto_play = false;
 					is_repeat = false;
@@ -1557,7 +1634,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'tamerSkillBtn4';
+					lua_name = 'tamerSkillBtn3';
 					enable = true;
 					normal = 'ui/empty.png';
 					selected = '';
@@ -1582,7 +1659,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/gauge/tamer_skill_0401.png';
+					file_name = 'ui/icon/skill/tamer_skill_frame_0201.png';
 					color = { 102; 102; 102; };
 					opacity = 255;
 					flip_x = false;
@@ -1592,6 +1669,25 @@
 				};
 				[3] =
 				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000031;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 0.800000;
+					scale_y = 0.800000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'tamerSkillNode3';
+				};
+				[4] =
+				{
 					type = 'ProgressTimer';
 					ui_name = '';
 					x = 0.000000;
@@ -1599,29 +1695,34 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 92;
-					height = 96;
+					width = 0;
+					height = 0;
 					scale_x = 0.800000;
 					scale_y = 0.800000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'timeGauge4';
-					file_name = 'ui/gauge/tamer_skill_0401.png';
+					lua_name = 'timeGauge3';
+					file_name = 'ui/icon/skill/tamer_skill_frame_0202.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
 					flip_y = false;
 					src_blend = 770;
 					dest_blend = 771;
-					progress_type = 0;
+					progress_type = 1;
 					mid_point_x = 0.500000;
 					mid_point_y = 0.500000;
 					percentage = 30;
 				};
-				[4] =
+				[5] =
 				{
+					[1] =
+					{
+						type = 'SocketNode';
+						socket_name = 'talk_label';
+					};
 					type = 'Visual';
 					ui_name = '';
 					x = 50.000000;
@@ -1637,7 +1738,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
-					lua_name = 'tamerSkillVisual4';
+					lua_name = 'tamerSkillVisual3';
 					file_name = 'ui/a2d/ingame_tamer_skill/ingame_tamer_skill.a2d';
 					auto_play = false;
 					is_repeat = false;
