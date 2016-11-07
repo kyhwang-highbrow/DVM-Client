@@ -256,7 +256,8 @@ function UI_Tooltip_Skill:getSkillDescStr(char_type, skill_id, skill_type)
         skill_type_str = Str('(메뉴얼)')
 
     else
-        error('skill_type : ' .. skill_type)
+		-- @TODO 테이머 스킬은 skill_type 이 없는데.. 
+        skill_type_str = Str('(테이머 스킬)')
     end
 
     local desc = Str(t_skill['desc'], t_skill['val_1'], t_skill['val_2'], t_skill['val_3'])

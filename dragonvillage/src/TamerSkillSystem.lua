@@ -6,7 +6,6 @@ local TAMER_SKILL_COOLTIME = 20
 -------------------------------------
 TamerSkillSystem = class(IEventListener:getCloneClass(), {
         m_world = 'GameWrold',
-        m_tamer = 'Tamer',
 
         m_tamerSkillCooltimeGlobal = 'number',
         m_lTamerSkillCoolTime = 'list[number]',
@@ -22,7 +21,6 @@ TamerSkillSystem = class(IEventListener:getCloneClass(), {
 -------------------------------------
 function TamerSkillSystem:init(world, tamer)
     self.m_world = world
-    self.m_tamer = tamer
     self.m_tamerSkillCooltimeGlobal = 0
     self.m_lTamerSkillCoolTime = {}
 
@@ -46,11 +44,9 @@ function TamerSkillSystem:init(world, tamer)
 
     -- 일반 스킬
     for i = 1, 3 do
-        --self.m_lTamerSkillCoolTime[i] = 0
         self.m_lTamerSkillCoolTime[i] = TAMER_SKILL_COOLTIME
 
         ui.vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() self:click_tamerSkillBtn(i) end)
-        --ui.vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
 
         -- 스킬 아이콘
         do
@@ -108,29 +104,29 @@ end
 -- function click_tamerSkillBtn
 -------------------------------------
 function TamerSkillSystem:click_tamerSkillBtn(idx)
---[[
+	-- 1. 사용할 스킬 테이블 가져온다.
+    local t_skill = self.m_world.m_tamerSkillMgr.m_skill_list[idx]
+    local skill_id = t_skill['id']
+
+	-- 2. 쿨타임을 계산하여 처리
     local remain_time = math_max(self.m_lTamerSkillCoolTime[idx], self.m_tamerSkillCooltimeGlobal)
-
-    local t_tamer = self.m_tamer.m_charTable
-    local skill_id = t_tamer['skill_' .. idx]
-
-    local table_skill = TABLE:get(self.m_tamer.m_charType .. '_skill')
-    local t_skill = table_skill[skill_id]
-
     if (remain_time > 0) then
         local str = '[' .. Str(t_skill['t_name']) .. ']' .. Str('{1}초 후 사용할 수 있습니다.', math_floor(remain_time + 0.5))
         UIManager:toastNotificationRed(str)
         return
     end
 
-    self.m_tamer:doSkill(skill_id, nil, 0, 0)
+	-- 3. 쿨타임이 돌았다면 스킬 실행
+    self.m_world.m_tamerSkillMgr:doSkill(idx)
 
+	-- 4. 쿨타임 정산
     self.m_tamerSkillCooltimeGlobal = TAMER_SKILL_GLOBAL_COOLTIME
     self.m_lTamerSkillCoolTime[idx] = TAMER_SKILL_COOLTIME
     self:update(0)
 
+	-- 5. UI 툴팁 연출
     do
-        local char_type = self.m_tamer.m_charType
+        local char_type = 'tamer'
         local skill_id = skill_id
         local skill_type = nil
         local str = UI_Tooltip_Skill:getSkillDescStr(char_type, skill_id, skill_type)
@@ -140,8 +136,6 @@ function TamerSkillSystem:click_tamerSkillBtn(idx)
     end
 
     self:onEvent('tamer_skill')
-]]
-	self.m_world.m_tamerSkillMgr:doSkill(idx)
 end
 
 -------------------------------------
