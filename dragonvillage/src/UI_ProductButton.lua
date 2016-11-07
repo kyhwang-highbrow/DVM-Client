@@ -360,7 +360,7 @@ function UI_ProductButton:network_gacha_AddDragons(l_dragon_id, finish_cb)
             ui_network:request()
         else
             ui_network:close()
-            finish_cb()
+            finish_cb(l_dragon_id)
         end
     end
     ui_network:setSuccessCB(do_work)
@@ -373,6 +373,11 @@ end
 -- @brief 임시 구매
 -------------------------------------
 function UI_ProductButton:tempBuy(product_id)
+    local table_shop = TABLE:get('shop')
+    local t_shop = table_shop[product_id]
+    local value_type = t_shop['value_type']
+
+
     local func_pay
     local func_receive
     local func_show_result
@@ -388,8 +393,12 @@ function UI_ProductButton:tempBuy(product_id)
     end
 
     -- 결과 팝업
-    func_show_result = function()
-        --UI_DragonGachaResult()
+    func_show_result = function(t_data)
+
+        if (value_type == 'card') then
+            UIManager:toastNotificationGreen('드래곤이 인벤에 추가되었습니다.')
+            UIManager:toastNotificationGreen('가챠 연출은 구현 예정입니다.')
+        end
     end
 
     func_pay()
