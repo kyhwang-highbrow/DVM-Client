@@ -619,7 +619,7 @@ end
 -------------------------------------
 -- function dropItem
 -------------------------------------
-function GameState:dropItem()
+function GameState:dropItem(finish_cb)
     local stage_id = self.m_world.m_stageID
     local drop_helper = DropHelper(stage_id)
     local l_drop_item = drop_helper:dropItem()
@@ -629,74 +629,124 @@ function GameState:dropItem()
     for i,v in ipairs(l_drop_item) do
         local item_id = v[1]
         local count = v[2]
-        g_userDataOld:optainItem(item_id, count)
+        --g_userDataOld:optainItem(item_id, count)
     end
+
+    -- 네트워크 통신
+    self:dropItem_network(l_drop_item, finish_cb)
 
     return l_drop_item
 end
 
 -------------------------------------
--- function makeResultUI_Old
+-- function dropItem_network
 -------------------------------------
-function GameState:makeResultUI_Old(is_success)
+function GameState:dropItem_network(l_drop_item, finish_cb)
+    local uid = g_userData:get('uid')
+    local l_drop_item = clone(l_drop_item)
 
-    -- 웨이브 진행 정도(클리어 시 100%)
-    local wave_rate = ((self.m_world.m_waveMgr.m_currWave - 1) / self.m_world.m_waveMgr.m_maxWave)
-    if is_success then
-        wave_rate = 1
-    end
+    local do_work
 
-    local l_dragon_list = {}
-    local stage_id = self.m_world.m_stageID
+    local ui_network = UI_Network()
+    ui_network:setReuse(true)
 
-    -- 테이머 경험치 상승
-    local t_tamer_levelup_data = g_userDataOld:addTamerExpAtStage(stage_id, wave_rate)
+    do_work = function(ret)
+        self:dropItem_networkResponse(ret)
 
-    -- 경험치 상승
-    local t_deck = g_dragonListData.m_lDragonDeck
-    local table_dragon = TABLE:get('dragon')
+        ui_network:softReset()
 
-    for i=1, 5 do
-        local idx = tostring(i)
-        if t_deck[idx] and (tonumber(t_deck[idx]) ~= 0) then
+        local t_drop_data = l_drop_item[1]
+        if t_drop_data then
+            table.remove(l_drop_item, 1)
 
-            local dragon_id = tonumber(t_deck[idx])
-            local t_dragon = table_dragon[dragon_id]
+            local item_id = t_drop_data[1]
+            local count = t_drop_data[2]
 
-            -- 드래곤 경험치 상승
-            local t_levelup_data = g_userDataOld:addDragonExpAtStage(dragon_id, stage_id, wave_rate)
-
-            -- 유저가 보유하고있는 드래곤의 정보
-            local t_dragon_data = g_dragonListData:getDragon(dragon_id)
-
-            table.insert(l_dragon_list, {user_data=t_dragon_data, table_data=t_dragon, levelup_data=t_levelup_data})
+            self:dropItem_networkSetRequest(ui_network, item_id, count)
+            ui_network:request()
+        else
+            ui_network:close()
+            finish_cb()
         end
     end
 
-    local world = self.m_world
+    ui_network:setSuccessCB(do_work)
+    do_work()
+end
 
-    local l_drop_item_list = {}
-    if is_success then
-        l_drop_item_list = self:dropItem()
+-------------------------------------
+-- function dropItem_networkSetRequest
+-------------------------------------
+function GameState:dropItem_networkSetRequest(ui_network, item_id, count)
+    local table_item = TABLE:get('item')
+    local t_item = table_item[item_id]
+
+    local type = t_item['type']
+    local uid = g_userData:get('uid')
+
+    if (type == 'gold') then
+        ui_network:setUrl('/users/update')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('act', 'increase')
+        ui_network:setParam('gold', count)
+
+    elseif (type == 'cash') then
+        ui_network:setUrl('/users/update')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('act', 'increase')
+        ui_network:setParam('cash', count)
+
+    elseif (type == 'dragon') then
+        local did = t_item['val_1']
+        local evolution = t_item['rarity']
+        ui_network:setUrl('/dragons/add')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('did', did)
+        ui_network:setParam('evolution', evolution or 1)
+
+    elseif (type == 'fruit') then
+        local fruit_id = t_item['item']
+        ui_network:setUrl('/users/manage')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('act', 'increase')
+        ui_network:setParam('key', 'fruits')
+        ui_network:setParam('value', tostring(fruit_id) .. ',' .. count)
+
+    elseif (type == 'evolution_stone') then
+        local evolution_stone_id = t_item['item']
+        ui_network:setUrl('/users/manage')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('act', 'increase')
+        ui_network:setParam('key', 'evolution_stones')
+        ui_network:setParam('value', tostring(evolution_stone_id) .. ',' .. count)
+    end
+end
+
+-------------------------------------
+-- function dropItem_networkResponse
+-------------------------------------
+function GameState:dropItem_networkResponse(ret)
+    if (not ret) then
+        return
     end
 
-    -- 골드 획득
-    g_userDataOld.m_userData['gold'] = g_userDataOld.m_userData['gold'] + world.m_gold
-    g_userDataOld:setDirtyLocalSaveData()
-    
-    UI_GameResult(is_success, self.m_fightTimer, world.m_gold, t_tamer_levelup_data, l_dragon_list, l_drop_item_list)
+    -- 획득한 재화 추가 (골드, 캐시, 열매, 진화석)
+    if ret['user'] then
+        g_serverData:applyServerData(ret['user'], 'user')
+    end
+
+    -- 획득한 드래곤 추가
+    if (ret['dragons']) then
+        for _,t_dragon in pairs(ret['dragons']) do
+            g_dragonsData:applyDragonData(t_dragon)
+        end
+    end
 end
 
 -------------------------------------
 -- function makeResultUI
 -------------------------------------
 function GameState:makeResultUI(is_success)
-
-    if (DEVELOPMENT_SEONG_GOO_KIM) then
-        self:makeResultUI_Old(is_success)
-        return
-    end
-
     -- 웨이브 진행 정도(클리어 시 100%)
     local wave_rate = ((self.m_world.m_waveMgr.m_currWave - 1) / self.m_world.m_waveMgr.m_maxWave)
     if is_success then
@@ -726,21 +776,34 @@ function GameState:makeResultUI(is_success)
 
     local world = self.m_world
 
+
+    local func_drop
+    local func_exp
+    local func_ui_result
+
     local l_drop_item_list = {}
-    if is_success then
-        l_drop_item_list = self:dropItem()
+
+    -- 1. 아이템 드랍
+    func_drop = function()
+        if is_success then
+            l_drop_item_list = self:dropItem(func_exp)
+        else
+            func_exp()
+        end
     end
 
-    -- 골드 획득
-    g_userDataOld.m_userData['gold'] = g_userDataOld.m_userData['gold'] + world.m_gold
-    g_userDataOld:setDirtyLocalSaveData()
-    
+    -- 2. 경험치 상승
+    func_exp = function()
+        self:tempNetwork(l_dragon_list, func_ui_result)
+    end
 
-    local function finish_cb()
+    -- 3. UI 생성
+    func_ui_result = function()
         UI_GameResult(is_success, self.m_fightTimer, world.m_gold, t_tamer_levelup_data, l_dragon_list, l_drop_item_list)
     end
 
-    self:tempNetwork(l_dragon_list, finish_cb)
+    -- 최초 실행
+    func_drop()
 end
 
 -------------------------------------

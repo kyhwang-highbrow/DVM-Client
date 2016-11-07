@@ -48,6 +48,13 @@ function UI_Network:init_MemberVariable()
 end
 
 -------------------------------------
+-- function softReset
+-------------------------------------
+function UI_Network:softReset()
+    self.m_tData = {}
+end
+
+-------------------------------------
 -- function setRevocable
 -------------------------------------
 function UI_Network:setRevocable(revocable)
