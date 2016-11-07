@@ -35,6 +35,7 @@ local TableInfo = {
         upgrade           = {'table_upgrade',               'rarity',       false},
         evolution         = {'table_evolution',             'rarity',       false},
         shop              = {'table_shop',                  'product_id',   false},
+        gacha             = {'table_gacha',                 'did',          false},
         first_reward      = {'table_first_reward',          'stage',        false},
         attribute         = {'table_attribute',             'attr_id',      false},
         status            = {'table_status',                'type',         false},

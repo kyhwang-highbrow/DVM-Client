@@ -289,9 +289,9 @@ function UI_ProductButton:network_ProductReceive(product_id, finish_cb)
         return
 
     elseif (value_type == 'card') then
-        --self:tempGacha()
-        --g_userDataOld:addCumulativePurchasesLog('gacha', 5)
-        return self:network_gacha_AddDragons({120074,120093,120093,120093,120093}, finish_cb)
+        local count = value
+        local l_dragon_list = self:tempGacha(count)
+        return self:network_gacha_AddDragons(l_dragon_list, finish_cb)
 
     else
         error('value_type : ' .. value_type)
@@ -346,13 +346,16 @@ function UI_ProductButton:network_gacha_AddDragons(l_dragon_id, finish_cb)
             end
         end
 
-        local did = t_list[1]
+        local t_dragon = t_list[1]
         
-        if did then
+        if t_dragon then
             table.remove(t_list, 1)
+            local did = t_dragon['did']
+            local evolution = t_dragon['evolution']
             --local msg = '"' .. table_dragon[did]['t_name'] .. '"드래곤 추가 중...'
             --ui_network:setLoadingMsg(msg)
             ui_network:setParam('did', did)
+            ui_network:setParam('evolution', evolution or 1)
             ui_network:request()
         else
             ui_network:close()
@@ -371,6 +374,7 @@ end
 function UI_ProductButton:tempBuy(product_id)
     local func_pay
     local func_receive
+    local func_show_result
 
     -- 상품 가격 지불
     func_pay = function()
@@ -379,7 +383,12 @@ function UI_ProductButton:tempBuy(product_id)
 
     -- 상품 받기
     func_receive = function()
-        self:network_ProductReceive(product_id, function() end)
+        self:network_ProductReceive(product_id, func_show_result)
+    end
+
+    -- 결과 팝업
+    func_show_result = function()
+        --UI_DragonGachaResult()
     end
 
     func_pay()
@@ -412,36 +421,42 @@ end
 -- function tempGacha
 -- @brief
 -------------------------------------
-function UI_ProductButton:tempGacha()
-    local table_dragon = TABLE:get('dragon')
+function UI_ProductButton:tempGacha(count)
+    local table_gacha = TABLE:get('gacha')
+    local t_ret = {}
 
-    local t_random = {}
-    for i,v in pairs(table_dragon) do
-		if (v['test'] == 1) then 
-	        table.insert(t_random, i)	
-		end
-    end
-
-    local l_ret = {}
-    for i=1, 5 do
-        local rand_num = math_random(1, #t_random)
-        local dragon_id = t_random[rand_num]
-        table.insert(l_ret, dragon_id)
-
-        local t_dragon_data = g_dragonListData:addDragon(dragon_id)
-        --cclog(luadump(t_dragon_data))
-    end
-
-
-    local _showGachaResult = nil
-    local function showGachaResult()
-        if l_ret[1] then
-            local dragon_id = l_ret[1]
-            UI_DragonGachaResult(dragon_id, _showGachaResult)
-            table.remove(l_ret, 1)
+    -- 랜덤 클래스 생성
+    local sum_random = SumRandom()
+    for i,v in pairs(table_gacha) do
+        if (v['test'] == 1) then
+            --local did = v['did']
+            local table_idx = i
+            local rate = v['rate']
+            sum_random:addItem(rate, table_idx)
         end
     end
-    _showGachaResult = showGachaResult
 
-    showGachaResult()
+    -- 뽑힌 드래곤 저장
+    local l_dragon_gatch = {} -- {did, evolution}
+    for i=1, count do
+        -- 드래곤 ID
+        local table_idx = sum_random:getRandomValue()
+        local t_gacha = table_gacha[table_idx]
+        local did = t_gacha['did']
+
+        -- 진화도 랜덤
+        local evolution
+        do
+            local sum_random_evolution = SumRandom()
+            sum_random_evolution:addItem(t_gacha['hatch_rate'], 1)
+            sum_random_evolution:addItem(t_gacha['hatcling_rate'], 2)
+            sum_random_evolution:addItem(t_gacha['adult_rate'], 3)
+            evolution = sum_random_evolution:getRandomValue()     
+        end
+
+        -- 테이블에 추가
+        table.insert(t_ret, {did=did, evolution=evolution})
+    end
+
+    return t_ret
 end
