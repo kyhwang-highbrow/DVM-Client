@@ -1,5 +1,5 @@
-id,skill_form,type,t_name,upgrade_num,res_icon,res_1,res_2,res_3,res_hit,animation,motion_type,dmg_type,dir,chance_type,chance_value,target_type,indicator_type,power_rate,cooldown,hit,val_1,val_2,val_3,status_effect_rate,status_effect_type,val_id,for_gd,desc,to_programmer
-211081,code,skill_melee_hack,박치기,01,res/ui/icon/skill/skill_melee_hack_01.png,res/effect/skill_dash_earth/skill_dash_earth.spine,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,x,100,10,1,5000,2000,0,0,x,1,200000,[물리] 대상에게 돌진하여 공격력의 200%의 피해를 준다.,
-241001,status_effect,skill_tamer_atk_up,용맹,01,res/ui/icon/skill/tamer_combat.png,x,x,x,x,x,instant,physical,-1,manual,1,ally_none,x,0,30,0,0,0,0,100,tamer_buff_atk_50,0,0,아군 공격력 10초간 50% 증가,아군 공격력 10초간 50% 증가
-241004,status_effect,skill_tamer_def_up,버티기,01,res/ui/icon/skill/tamer_defense.png,x,x,x,x,x,instant,physical,-1,manual,1,ally_none,x,0,30,0,0,0,0,100,tamer_buff_def_50,0,0,아군 방어력 10초간 50% 증가,아군 방어력 10초간 50% 증가
-241005,status_effect,skill_tamer_aspd_up,가속,01,res/ui/icon/skill/tamer_tactic.png,x,x,x,x,x,instant,physical,-1,manual,1,ally_none,x,0,30,0,0,0,0,100,tamer_buff_aspd_50,0,0,아군 공격속도 10초간 50% 증가,아군 공격속도 10초간 50% 증가
+id,t_name,res_icon,form,target_logic1,target_logic2,target_logic3,effect1,effect2,effect3,t_desc,desc
+241001,헤알,241001.png,status_effect,friend,hp,min,heal;1;40;0,x,x,아군 드래곤 중 가장 체력이 적은 드래곤의 hp를 40% 회복시킵니다,effect# 칼럼에서 배열 순서는 1type ; 2duration ; 3value1 ; 4value2
+241002,레비테트,241002.png,status_effect,friend,def,max,def_up;15;50;0,x,x,아군 드래곤 중 가장 방어력이 높은 드래곤의 def를 15초 동안 50% 증가시킵니다,effect# 칼럼에서 배열 순서는 1type ; 2duration ; 3value1 ; 4value2
+241003,콘퓨,241003.png,status_effect,friend,atk,max,atk_up;15;50;0,x,x,아군 드래곤 중 가장 공격력이 높은 드래곤의 atk를 15초 동안 50% 증가시킵니다,effect# 칼럼에서 배열 순서는 1type ; 2duration ; 3value1 ; 4value2
+241004,합동공격,241004.png,code,friend,x,all,code,x,x,아군 드래곤들이 달려들어 합동 공격을 가합니다.,effect# 칼럼에서 배열 순서는 1type ; 2duration ; 3value1 ; 4value2
