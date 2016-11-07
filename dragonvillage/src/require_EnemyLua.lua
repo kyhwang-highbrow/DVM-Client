@@ -7,236 +7,124 @@
 
 local alpha_test_1 = 0
 local alpha_test_2 = 300
+local pos_x_r = 710
+local pos_x_l = 570
+local pos_x_add = 100
+local pos_y = 255
+local pos_y_add = -70
 
 ENEMY_POS = {}
 
-ENEMY_POS['LEFT0'] = {x=-80, y=400}
-ENEMY_POS['LEFT1'] = {x=-80, y=320}
-ENEMY_POS['LEFT2'] = {x=-80, y=240}
-ENEMY_POS['LEFT3'] = {x=-80, y=160}
-ENEMY_POS['LEFT4'] = {x=-80, y=80}
-ENEMY_POS['LEFT5'] = {x=-80, y=0}
-ENEMY_POS['LEFT6'] = {x=-80, y=-80}
-ENEMY_POS['LEFT7'] = {x=-80, y=-160}
-ENEMY_POS['LEFT8'] = {x=-80, y=-240}
-ENEMY_POS['LEFT9'] = {x=-80, y=-320}
-ENEMY_POS['LEFT10'] = {x=-80, y=-400}
-
-ENEMY_POS['RIGHT0'] = {x=1360, y=400}
-ENEMY_POS['RIGHT1'] = {x=1360, y=320}
-ENEMY_POS['RIGHT2'] = {x=1360, y=240}
-ENEMY_POS['RIGHT3'] = {x=1360, y=160}
-ENEMY_POS['RIGHT4'] = {x=1360, y=80}
-ENEMY_POS['RIGHT5'] = {x=1360, y=0}
-ENEMY_POS['RIGHT6'] = {x=1360, y=-80}
-ENEMY_POS['RIGHT7'] = {x=1360, y=-160}
-ENEMY_POS['RIGHT8'] = {x=1360, y=-240}
-ENEMY_POS['RIGHT9'] = {x=1360, y=-320}
-ENEMY_POS['RIGHT10'] = {x=1360, y=-400}
-
-ENEMY_POS['TOP18'] = {x=1360, y=400}
-ENEMY_POS['TOP17'] = {x=1280, y=400}
-ENEMY_POS['TOP16'] = {x=1200, y=400}
-ENEMY_POS['TOP15'] = {x=1120, y=400}
-ENEMY_POS['TOP14'] = {x=1040, y=400}
-ENEMY_POS['TOP13'] = {x=960, y=400}
-ENEMY_POS['TOP12'] = {x=880, y=400}
-ENEMY_POS['TOP11'] = {x=800, y=400}
-ENEMY_POS['TOP10'] = {x=720, y=400}
-ENEMY_POS['TOP9'] = {x=640, y=400}
-ENEMY_POS['TOP8'] = {x=560, y=400}
-ENEMY_POS['TOP7'] = {x=480, y=400}
-ENEMY_POS['TOP6'] = {x=400, y=400}
-ENEMY_POS['TOP5'] = {x=320, y=400}
-ENEMY_POS['TOP4'] = {x=240, y=400}
-ENEMY_POS['TOP3'] = {x=160, y=400}
-ENEMY_POS['TOP2'] = {x=80, y=400}
-ENEMY_POS['TOP1'] = {x=0, y=400}
-ENEMY_POS['TOP0'] = {x=-80, y=400}
-
-
-ENEMY_POS['BOTTOM18'] = {x=1360, y=-400}
-ENEMY_POS['BOTTOM17'] = {x=1280, y=-400}
-ENEMY_POS['BOTTOM16'] = {x=1200, y=-400}
-ENEMY_POS['BOTTOM15'] = {x=1120, y=-400}
-ENEMY_POS['BOTTOM14'] = {x=1040, y=-400}
-ENEMY_POS['BOTTOM13'] = {x=960, y=-400}
-ENEMY_POS['BOTTOM12'] = {x=880, y=-400}
-ENEMY_POS['BOTTOM11'] = {x=800, y=-400}
-ENEMY_POS['BOTTOM10'] = {x=720, y=-400}
-ENEMY_POS['BOTTOM9'] = {x=640, y=-400}
-ENEMY_POS['BOTTOM8'] = {x=560, y=-400}
-ENEMY_POS['BOTTOM7'] = {x=480, y=-400}
-ENEMY_POS['BOTTOM6'] = {x=-400, y=-400}
-ENEMY_POS['BOTTOM5'] = {x=320, y=-400}
-ENEMY_POS['BOTTOM4'] = {x=240, y=-400}
-ENEMY_POS['BOTTOM3'] = {x=160, y=-400}
-ENEMY_POS['BOTTOM2'] = {x=80, y=-400}
-ENEMY_POS['BOTTOM1'] = {x=0, y=-400}
-ENEMY_POS['BOTTOM0'] = {x=-80, y=-400}
-
-
-ENEMY_POS['AREA1'] = {x=800, y=240}
-ENEMY_POS['AREA2'] = {x=800, y=160}
-ENEMY_POS['AREA3'] = {x=800, y=80}
-ENEMY_POS['AREA4'] = {x=800, y=0}
-ENEMY_POS['AREA5'] = {x=800, y=-80}
-ENEMY_POS['AREA6'] = {x=800, y=-160}
-ENEMY_POS['AREA7'] = {x=800, y=-240}
-
-ENEMY_POS['AREA8'] = {x=880, y=240}
-ENEMY_POS['AREA9'] = {x=880, y=160}
-ENEMY_POS['AREA10'] = {x=880, y=80}
-ENEMY_POS['AREA11'] = {x=880, y=0}
-ENEMY_POS['AREA12'] = {x=880, y=-80}
-ENEMY_POS['AREA13'] = {x=880, y=-160}
-ENEMY_POS['AREA14'] = {x=880, y=-240}
-
-ENEMY_POS['AREA15'] = {x=960, y=240}
-ENEMY_POS['AREA16'] = {x=960, y=160}
-ENEMY_POS['AREA17'] = {x=960, y=80}
-ENEMY_POS['AREA18'] = {x=960, y=0}
-ENEMY_POS['AREA19'] = {x=960, y=-80}
-ENEMY_POS['AREA20'] = {x=960, y=-160}
-ENEMY_POS['AREA21'] = {x=960, y=-240}
-
-ENEMY_POS['AREA22'] = {x=1040, y=240}
-ENEMY_POS['AREA23'] = {x=1040, y=160}
-ENEMY_POS['AREA24'] = {x=1040, y=80}
-ENEMY_POS['AREA25'] = {x=1040, y=0}
-ENEMY_POS['AREA26'] = {x=1040, y=-80}
-ENEMY_POS['AREA27'] = {x=1040, y=-160}
-ENEMY_POS['AREA28'] = {x=1040, y=-240}
-
-ENEMY_POS['AREA29'] = {x=1120, y=240}
-ENEMY_POS['AREA30'] = {x=1120, y=160}
-ENEMY_POS['AREA31'] = {x=1120, y=80}
-ENEMY_POS['AREA32'] = {x=1120, y=0}
-ENEMY_POS['AREA33'] = {x=1120, y=-80}
-ENEMY_POS['AREA34'] = {x=1120, y=-160}
-ENEMY_POS['AREA35'] = {x=1120, y=-240}
-
-ENEMY_POS['AREA36'] = {x=1200, y=240}
-ENEMY_POS['AREA37'] = {x=1200, y=160}
-ENEMY_POS['AREA38'] = {x=1200, y=80}
-ENEMY_POS['AREA39'] = {x=1200, y=0}
-ENEMY_POS['AREA40'] = {x=1200, y=-80}
-ENEMY_POS['AREA41'] = {x=1200, y=-160}
-ENEMY_POS['AREA42'] = {x=1200, y=-240}
 
 -- 알파버전 타일 r
 
-ENEMY_POS['RF11'] = {x=710, y=240}
-ENEMY_POS['RF12'] = {x=710, y=160}
-ENEMY_POS['RF13'] = {x=710, y=80}
-ENEMY_POS['RF14'] = {x=710, y=0}
-ENEMY_POS['RF15'] = {x=710, y=-80}
-ENEMY_POS['RF16'] = {x=710, y=-160}
-ENEMY_POS['RF17'] = {x=710, y=-240}
-ENEMY_POS['RF21'] = {x=810, y=240}
-ENEMY_POS['RF22'] = {x=810, y=160}
-ENEMY_POS['RF23'] = {x=810, y=80}
-ENEMY_POS['RF24'] = {x=810, y=0}
-ENEMY_POS['RF25'] = {x=810, y=-80}
-ENEMY_POS['RF26'] = {x=810, y=-160}
-ENEMY_POS['RF27'] = {x=810, y=-240}
-
-ENEMY_POS['RM11'] = {x=910, y=240}
-ENEMY_POS['RM12'] = {x=910, y=160}
-ENEMY_POS['RM13'] = {x=910, y=80}
-ENEMY_POS['RM14'] = {x=910, y=0}
-ENEMY_POS['RM15'] = {x=910, y=-80}
-ENEMY_POS['RM16'] = {x=910, y=-160}
-ENEMY_POS['RM17'] = {x=910, y=-240}
-ENEMY_POS['RM21'] = {x=1010, y=240}
-ENEMY_POS['RM22'] = {x=1010, y=160}
-ENEMY_POS['RM23'] = {x=1010, y=80}
-ENEMY_POS['RM24'] = {x=1010, y=0}
-ENEMY_POS['RM25'] = {x=1010, y=-80}
-ENEMY_POS['RM26'] = {x=1010, y=-160}
-ENEMY_POS['RM27'] = {x=1010, y=-240}
-
-ENEMY_POS['RB11'] = {x=1110, y=240}
-ENEMY_POS['RB12'] = {x=1110, y=160}
-ENEMY_POS['RB13'] = {x=1110, y=80}
-ENEMY_POS['RB14'] = {x=1110, y=0}
-ENEMY_POS['RB15'] = {x=1110, y=-80}
-ENEMY_POS['RB16'] = {x=1110, y=-160}
-ENEMY_POS['RB17'] = {x=1110, y=-240}
-ENEMY_POS['RB21'] = {x=1210, y=240}
-ENEMY_POS['RB22'] = {x=1210, y=160}
-ENEMY_POS['RB23'] = {x=1210, y=80}
-ENEMY_POS['RB24'] = {x=1210, y=0}
-ENEMY_POS['RB25'] = {x=1210, y=-80}
-ENEMY_POS['RB26'] = {x=1210, y=-160}
-ENEMY_POS['RB27'] = {x=1210, y=-240}
+ENEMY_POS['RF11'] = {x=pos_x_r + (pos_x_add * 0), y=pos_y + (pos_y_add * 0)}
+ENEMY_POS['RF12'] = {x=pos_x_r + (pos_x_add * 0), y=pos_y + (pos_y_add * 1)}
+ENEMY_POS['RF13'] = {x=pos_x_r + (pos_x_add * 0), y=pos_y + (pos_y_add * 2)}
+ENEMY_POS['RF14'] = {x=pos_x_r + (pos_x_add * 0), y=pos_y + (pos_y_add * 3)}
+ENEMY_POS['RF15'] = {x=pos_x_r + (pos_x_add * 0), y=pos_y + (pos_y_add * 4)}
+ENEMY_POS['RF16'] = {x=pos_x_r + (pos_x_add * 0), y=pos_y + (pos_y_add * 5)}
+ENEMY_POS['RF17'] = {x=pos_x_r + (pos_x_add * 0), y=pos_y + (pos_y_add * 6)}
+ENEMY_POS['RF21'] = {x=pos_x_r + (pos_x_add * 1), y=pos_y + (pos_y_add * 0)}
+ENEMY_POS['RF22'] = {x=pos_x_r + (pos_x_add * 1), y=pos_y + (pos_y_add * 1)}
+ENEMY_POS['RF23'] = {x=pos_x_r + (pos_x_add * 1), y=pos_y + (pos_y_add * 2)}
+ENEMY_POS['RF24'] = {x=pos_x_r + (pos_x_add * 1), y=pos_y + (pos_y_add * 3)}
+ENEMY_POS['RF25'] = {x=pos_x_r + (pos_x_add * 1), y=pos_y + (pos_y_add * 4)}
+ENEMY_POS['RF26'] = {x=pos_x_r + (pos_x_add * 1), y=pos_y + (pos_y_add * 5)}
+ENEMY_POS['RF27'] = {x=pos_x_r + (pos_x_add * 1), y=pos_y + (pos_y_add * 6)}
+ENEMY_POS['RM11'] = {x=pos_x_r + (pos_x_add * 2), y=pos_y + (pos_y_add * 0)}
+ENEMY_POS['RM12'] = {x=pos_x_r + (pos_x_add * 2), y=pos_y + (pos_y_add * 1)}
+ENEMY_POS['RM13'] = {x=pos_x_r + (pos_x_add * 2), y=pos_y + (pos_y_add * 2)}
+ENEMY_POS['RM14'] = {x=pos_x_r + (pos_x_add * 2), y=pos_y + (pos_y_add * 3)}
+ENEMY_POS['RM15'] = {x=pos_x_r + (pos_x_add * 2), y=pos_y + (pos_y_add * 4)}
+ENEMY_POS['RM16'] = {x=pos_x_r + (pos_x_add * 2), y=pos_y + (pos_y_add * 5)}
+ENEMY_POS['RM17'] = {x=pos_x_r + (pos_x_add * 2), y=pos_y + (pos_y_add * 6)}
+ENEMY_POS['RM21'] = {x=pos_x_r + (pos_x_add * 3), y=pos_y + (pos_y_add * 0)}
+ENEMY_POS['RM22'] = {x=pos_x_r + (pos_x_add * 3), y=pos_y + (pos_y_add * 1)}
+ENEMY_POS['RM23'] = {x=pos_x_r + (pos_x_add * 3), y=pos_y + (pos_y_add * 2)}
+ENEMY_POS['RM24'] = {x=pos_x_r + (pos_x_add * 3), y=pos_y + (pos_y_add * 3)}
+ENEMY_POS['RM25'] = {x=pos_x_r + (pos_x_add * 3), y=pos_y + (pos_y_add * 4)}
+ENEMY_POS['RM26'] = {x=pos_x_r + (pos_x_add * 3), y=pos_y + (pos_y_add * 5)}
+ENEMY_POS['RM27'] = {x=pos_x_r + (pos_x_add * 3), y=pos_y + (pos_y_add * 6)}
+ENEMY_POS['RB11'] = {x=pos_x_r + (pos_x_add * 4), y=pos_y + (pos_y_add * 0)}
+ENEMY_POS['RB12'] = {x=pos_x_r + (pos_x_add * 4), y=pos_y + (pos_y_add * 1)}
+ENEMY_POS['RB13'] = {x=pos_x_r + (pos_x_add * 4), y=pos_y + (pos_y_add * 2)}
+ENEMY_POS['RB14'] = {x=pos_x_r + (pos_x_add * 4), y=pos_y + (pos_y_add * 3)}
+ENEMY_POS['RB15'] = {x=pos_x_r + (pos_x_add * 4), y=pos_y + (pos_y_add * 4)}
+ENEMY_POS['RB16'] = {x=pos_x_r + (pos_x_add * 4), y=pos_y + (pos_y_add * 5)}
+ENEMY_POS['RB17'] = {x=pos_x_r + (pos_x_add * 4), y=pos_y + (pos_y_add * 6)}
+ENEMY_POS['RB21'] = {x=pos_x_r + (pos_x_add * 5), y=pos_y + (pos_y_add * 0)}
+ENEMY_POS['RB22'] = {x=pos_x_r + (pos_x_add * 5), y=pos_y + (pos_y_add * 1)}
+ENEMY_POS['RB23'] = {x=pos_x_r + (pos_x_add * 5), y=pos_y + (pos_y_add * 2)}
+ENEMY_POS['RB24'] = {x=pos_x_r + (pos_x_add * 5), y=pos_y + (pos_y_add * 3)}
+ENEMY_POS['RB25'] = {x=pos_x_r + (pos_x_add * 5), y=pos_y + (pos_y_add * 4)}
+ENEMY_POS['RB26'] = {x=pos_x_r + (pos_x_add * 5), y=pos_y + (pos_y_add * 5)}
+ENEMY_POS['RB27'] = {x=pos_x_r + (pos_x_add * 5), y=pos_y + (pos_y_add * 6)}
 
 -- 알파버전 타일 l
 
-ENEMY_POS['LF11'] = {x=570, y=240}
-ENEMY_POS['LF12'] = {x=570, y=160}
-ENEMY_POS['LF13'] = {x=570, y=80}
-ENEMY_POS['LF14'] = {x=570, y=0}
-ENEMY_POS['LF15'] = {x=570, y=-80}
-ENEMY_POS['LF16'] = {x=570, y=-160}
-ENEMY_POS['LF17'] = {x=570, y=-240}
-ENEMY_POS['LF21'] = {x=470, y=240}
-ENEMY_POS['LF22'] = {x=470, y=160}
-ENEMY_POS['LF23'] = {x=470, y=80}
-ENEMY_POS['LF24'] = {x=470, y=0}
-ENEMY_POS['LF25'] = {x=470, y=-80}
-ENEMY_POS['LF26'] = {x=470, y=-160}
-ENEMY_POS['LF27'] = {x=470, y=-240}
-
-ENEMY_POS['LM11'] = {x=370, y=240}
-ENEMY_POS['LM12'] = {x=370, y=160}
-ENEMY_POS['LM13'] = {x=370, y=80}
-ENEMY_POS['LM14'] = {x=370, y=0}
-ENEMY_POS['LM15'] = {x=370, y=-80}
-ENEMY_POS['LM16'] = {x=370, y=-160}
-ENEMY_POS['LM17'] = {x=370, y=-240}
-ENEMY_POS['LM21'] = {x=270, y=240}
-ENEMY_POS['LM22'] = {x=270, y=160}
-ENEMY_POS['LM23'] = {x=270, y=80}
-ENEMY_POS['LM24'] = {x=270, y=0}
-ENEMY_POS['LM25'] = {x=270, y=-80}
-ENEMY_POS['LM26'] = {x=270, y=-160}
-ENEMY_POS['LM27'] = {x=270, y=-240}
-
-ENEMY_POS['LB11'] = {x=170, y=240}
-ENEMY_POS['LB12'] = {x=170, y=160}
-ENEMY_POS['LB13'] = {x=170, y=80}
-ENEMY_POS['LB14'] = {x=170, y=0}
-ENEMY_POS['LB15'] = {x=170, y=-80}
-ENEMY_POS['LB16'] = {x=170, y=-160}
-ENEMY_POS['LB17'] = {x=170, y=-240}
-ENEMY_POS['LB21'] = {x=70, y=240}
-ENEMY_POS['LB22'] = {x=70, y=160}
-ENEMY_POS['LB23'] = {x=70, y=80}
-ENEMY_POS['LB24'] = {x=70, y=0}
-ENEMY_POS['LB25'] = {x=70, y=-80}
-ENEMY_POS['LB26'] = {x=70, y=-160}
-ENEMY_POS['LB27'] = {x=70, y=-240}
+ENEMY_POS['LF11'] = {x=pos_x_l + (pos_x_add * 0), y=pos_y + (pos_y_add * 0)}
+ENEMY_POS['LF12'] = {x=pos_x_l + (pos_x_add * 0), y=pos_y + (pos_y_add * 1)}
+ENEMY_POS['LF13'] = {x=pos_x_l + (pos_x_add * 0), y=pos_y + (pos_y_add * 2)}
+ENEMY_POS['LF14'] = {x=pos_x_l + (pos_x_add * 0), y=pos_y + (pos_y_add * 3)}
+ENEMY_POS['LF15'] = {x=pos_x_l + (pos_x_add * 0), y=pos_y + (pos_y_add * 4)}
+ENEMY_POS['LF16'] = {x=pos_x_l + (pos_x_add * 0), y=pos_y + (pos_y_add * 5)}
+ENEMY_POS['LF17'] = {x=pos_x_l + (pos_x_add * 0), y=pos_y + (pos_y_add * 6)}
+ENEMY_POS['LF21'] = {x=pos_x_l + (pos_x_add * 1), y=pos_y + (pos_y_add * 0)}
+ENEMY_POS['LF22'] = {x=pos_x_l + (pos_x_add * 1), y=pos_y + (pos_y_add * 1)}
+ENEMY_POS['LF23'] = {x=pos_x_l + (pos_x_add * 1), y=pos_y + (pos_y_add * 2)}
+ENEMY_POS['LF24'] = {x=pos_x_l + (pos_x_add * 1), y=pos_y + (pos_y_add * 3)}
+ENEMY_POS['LF25'] = {x=pos_x_l + (pos_x_add * 1), y=pos_y + (pos_y_add * 4)}
+ENEMY_POS['LF26'] = {x=pos_x_l + (pos_x_add * 1), y=pos_y + (pos_y_add * 5)}
+ENEMY_POS['LF27'] = {x=pos_x_l + (pos_x_add * 1), y=pos_y + (pos_y_add * 6)}
+ENEMY_POS['LM11'] = {x=pos_x_l + (pos_x_add * 2), y=pos_y + (pos_y_add * 0)}
+ENEMY_POS['LM12'] = {x=pos_x_l + (pos_x_add * 2), y=pos_y + (pos_y_add * 1)}
+ENEMY_POS['LM13'] = {x=pos_x_l + (pos_x_add * 2), y=pos_y + (pos_y_add * 2)}
+ENEMY_POS['LM14'] = {x=pos_x_l + (pos_x_add * 2), y=pos_y + (pos_y_add * 3)}
+ENEMY_POS['LM15'] = {x=pos_x_l + (pos_x_add * 2), y=pos_y + (pos_y_add * 4)}
+ENEMY_POS['LM16'] = {x=pos_x_l + (pos_x_add * 2), y=pos_y + (pos_y_add * 5)}
+ENEMY_POS['LM17'] = {x=pos_x_l + (pos_x_add * 2), y=pos_y + (pos_y_add * 6)}
+ENEMY_POS['LM21'] = {x=pos_x_l + (pos_x_add * 3), y=pos_y + (pos_y_add * 0)}
+ENEMY_POS['LM22'] = {x=pos_x_l + (pos_x_add * 3), y=pos_y + (pos_y_add * 1)}
+ENEMY_POS['LM23'] = {x=pos_x_l + (pos_x_add * 3), y=pos_y + (pos_y_add * 2)}
+ENEMY_POS['LM24'] = {x=pos_x_l + (pos_x_add * 3), y=pos_y + (pos_y_add * 3)}
+ENEMY_POS['LM25'] = {x=pos_x_l + (pos_x_add * 3), y=pos_y + (pos_y_add * 4)}
+ENEMY_POS['LM26'] = {x=pos_x_l + (pos_x_add * 3), y=pos_y + (pos_y_add * 5)}
+ENEMY_POS['LM27'] = {x=pos_x_l + (pos_x_add * 3), y=pos_y + (pos_y_add * 6)}
+ENEMY_POS['LB11'] = {x=pos_x_l + (pos_x_add * 4), y=pos_y + (pos_y_add * 0)}
+ENEMY_POS['LB12'] = {x=pos_x_l + (pos_x_add * 4), y=pos_y + (pos_y_add * 1)}
+ENEMY_POS['LB13'] = {x=pos_x_l + (pos_x_add * 4), y=pos_y + (pos_y_add * 2)}
+ENEMY_POS['LB14'] = {x=pos_x_l + (pos_x_add * 4), y=pos_y + (pos_y_add * 3)}
+ENEMY_POS['LB15'] = {x=pos_x_l + (pos_x_add * 4), y=pos_y + (pos_y_add * 4)}
+ENEMY_POS['LB16'] = {x=pos_x_l + (pos_x_add * 4), y=pos_y + (pos_y_add * 5)}
+ENEMY_POS['LB17'] = {x=pos_x_l + (pos_x_add * 4), y=pos_y + (pos_y_add * 6)}
+ENEMY_POS['LB21'] = {x=pos_x_l + (pos_x_add * 5), y=pos_y + (pos_y_add * 0)}
+ENEMY_POS['LB22'] = {x=pos_x_l + (pos_x_add * 5), y=pos_y + (pos_y_add * 1)}
+ENEMY_POS['LB23'] = {x=pos_x_l + (pos_x_add * 5), y=pos_y + (pos_y_add * 2)}
+ENEMY_POS['LB24'] = {x=pos_x_l + (pos_x_add * 5), y=pos_y + (pos_y_add * 3)}
+ENEMY_POS['LB25'] = {x=pos_x_l + (pos_x_add * 5), y=pos_y + (pos_y_add * 4)}
+ENEMY_POS['LB26'] = {x=pos_x_l + (pos_x_add * 5), y=pos_y + (pos_y_add * 5)}
+ENEMY_POS['LB27'] = {x=pos_x_l + (pos_x_add * 5), y=pos_y + (pos_y_add * 6)}
 
 
 
 ENEMY_POS['RC01'] = {x=960, y=0}
 
-ENEMY_POS['RO01'] = {x=1380, y=240}
-ENEMY_POS['RO02'] = {x=1380, y=160}
-ENEMY_POS['RO03'] = {x=1380, y=80}
-ENEMY_POS['RO04'] = {x=1380, y=0}
-ENEMY_POS['RO05'] = {x=1380, y=-80}
-ENEMY_POS['RO06'] = {x=1380, y=-160}
-ENEMY_POS['RO07'] = {x=1380, y=-240}
+ENEMY_POS['RO01'] = {x=1380, y=pos_y + (pos_y_add * 0)}
+ENEMY_POS['RO02'] = {x=1380, y=pos_y + (pos_y_add * 1)}
+ENEMY_POS['RO03'] = {x=1380, y=pos_y + (pos_y_add * 2)}
+ENEMY_POS['RO04'] = {x=1380, y=pos_y + (pos_y_add * 3)}
+ENEMY_POS['RO05'] = {x=1380, y=pos_y + (pos_y_add * 4)}
+ENEMY_POS['RO06'] = {x=1380, y=pos_y + (pos_y_add * 5)}
+ENEMY_POS['RO07'] = {x=1380, y=pos_y + (pos_y_add * 6)}
 
-ENEMY_POS['LO01'] = {x=-100, y=240}
-ENEMY_POS['LO02'] = {x=-100, y=160}
-ENEMY_POS['LO03'] = {x=-100, y=80}
-ENEMY_POS['LO04'] = {x=-100, y=0}
-ENEMY_POS['LO05'] = {x=-100, y=-80}
-ENEMY_POS['LO06'] = {x=-100, y=-160}
-ENEMY_POS['LO07'] = {x=-100, y=-240}
+ENEMY_POS['LO01'] = {x=-100, y=pos_y + (pos_y_add * 0)}
+ENEMY_POS['LO02'] = {x=-100, y=pos_y + (pos_y_add * 1)}
+ENEMY_POS['LO03'] = {x=-100, y=pos_y + (pos_y_add * 2)}
+ENEMY_POS['LO04'] = {x=-100, y=pos_y + (pos_y_add * 3)}
+ENEMY_POS['LO05'] = {x=-100, y=pos_y + (pos_y_add * 4)}
+ENEMY_POS['LO06'] = {x=-100, y=pos_y + (pos_y_add * 5)}
+ENEMY_POS['LO07'] = {x=-100, y=pos_y + (pos_y_add * 6)}
 
 ENEMY_POS['TO01'] = {x=70, y=400}
 ENEMY_POS['TO02'] = {x=170, y=400}
