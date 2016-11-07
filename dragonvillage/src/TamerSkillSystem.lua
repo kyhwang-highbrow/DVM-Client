@@ -38,7 +38,7 @@ function TamerSkillSystem:init(world, tamer)
         self.m_tamerAnimator.m_node:setMix('pain', 'happiness', 0.1)
         self.m_tamerAnimator:changeAni('idle', true, true)
 
-        cclog('tamer ani list = ' .. luadump(self.m_tamerAnimator:getVisualList()))
+        --cclog('tamer ani list = ' .. luadump(self.m_tamerAnimator:getVisualList()))
         ui.vars['tamerNode']:addChild(self.m_tamerAnimator.m_node)
     end
 
@@ -275,6 +275,9 @@ function TamerSkillSystem:showSpeech(msg, ani)
         ui.vars['tamerTalkVisual']:setVisible(true)
         ui.vars['tamerTalkVisual']:registerScriptLoopHandler(function()
             ui.vars['tamerTalkVisual']:setVisible(false)
+
+            -- 대사 종료 후 idle 애니메이션으로
+            self.m_tamerAnimator:changeAni('idle', true, true)
         end)
 
         self.m_speechLabel:setString(msg)
