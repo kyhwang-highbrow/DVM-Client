@@ -4,7 +4,7 @@
 -- 연출 : 히트 콤보 및 다중 히트 버프 연출
 -- 효과 : 스킬 쿨다운 감소 
 -------------------------------------
-SkillHitEffectDirector = class({
+SkillHitEffectDirector = class(IEventDispatcher:getCloneClass(), {
 	m_owner = 'character',
 	
 	m_hitCount = 'num',
@@ -25,6 +25,10 @@ function SkillHitEffectDirector:init(owner)
 	self.m_hitCount = 0
 	self.m_isExhibit1st = false
 	self.m_isExhibit2nd = false
+
+    -- 이벤트 리스너 등록
+    self:addListener('skill_combo_1', self.m_owner.m_world.m_tamerSkillSystem)
+    self:addListener('skill_combo_2', self.m_owner.m_world.m_tamerSkillSystem)
 end
 
 -------------------------------------
@@ -106,4 +110,16 @@ function SkillHitEffectDirector:applyCooltimeBuff()
 	local timer = self.m_owner.m_activeSkillTimer
 	local cooltime = self.m_owner.m_activeSkillCoolTime 
 	self.m_owner.m_activeSkillTimer = timer + (cooltime * COOLTIME_BUFF_RATE)
+end
+
+-------------------------------------
+-- function onEnd
+-- @brief 스킬 종료시 호출됨
+-------------------------------------
+function SkillHitEffectDirector:onEnd()
+    if self.m_isExhibit2nd then
+        self:dispatch('skill_combo_2', self.m_owner)
+    elseif self.m_isExhibit1st then
+        self:dispatch('skill_combo_1', self.m_owner)
+    end
 end

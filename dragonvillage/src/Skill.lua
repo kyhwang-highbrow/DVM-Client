@@ -266,6 +266,8 @@ end
 -- @brief
 -------------------------------------
 function Skill:release()
+    self.m_skillHitEffctDirector:onEnd()
+
 	if self.m_world then
 		self.m_world.m_lSkillList[self] = nil
 	end

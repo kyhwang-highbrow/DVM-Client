@@ -300,7 +300,11 @@ function TamerSkillSystem:onEvent(event_name, ...)
     if (event_name == 'game_start') then
         self:addSpecialPowerPoint(25)
 
-        self:showSpeech(Str('이번에도 잘 부탁해 얘들아!'), 'idle')
+        if (math_random(1, 2) == 1) then
+            self:showSpeech(Str('자 시작이다!'), 'idle')
+        else
+            self:showSpeech(Str('이번에도 잘 부탁해 얘들아!'), 'idle')
+        end
 
     -- 아군 드래곤 액티브 스킬 사용 3점
     elseif (event_name == 'active_skill') then
@@ -333,11 +337,19 @@ function TamerSkillSystem:onEvent(event_name, ...)
 
     -- 웨이브 시작시
     elseif (event_name == 'wave_start') then
-        self:showSpeech(Str('곧 전투 시작이야!'), 'idle')
+        if (math_random(1, 2) == 1) then
+            self:showSpeech(Str('곧 전투 시작이야!'), 'idle')
+        else
+            self:showSpeech(Str('모두 전투 준비!'), 'idle')
+        end
 
     -- 보스 웨이브 시작시
     elseif (event_name == 'boss_wave') then
-        self:showSpeech(Str('이번엔 모두 조심해야해!'), 'idle')
+        if (math_random(1, 2) == 1) then
+            self:showSpeech(Str('긴장해! 거대한 녀석이 온다!'), 'idle')
+        else
+            self:showSpeech(Str('이번엔 모두 조심해야해!'), 'idle')
+        end
 
     -- 스테이지 클리어시
     elseif (event_name == 'stage_clear') then
@@ -352,14 +364,36 @@ function TamerSkillSystem:onEvent(event_name, ...)
         local arg = {...}
         local dragon = arg[1]
 
-        self:showSpeech(Str('{1} 좀 더 힘내!', dragon.m_charTable['t_name']), 'pain')
+        if (math_random(1, 2) == 1) then
+            self:showSpeech(Str('위험해! {1}', dragon.m_charTable['t_name']), 'pain')
+        else
+            self:showSpeech(Str('{1} 좀 더 힘내!', dragon.m_charTable['t_name']), 'pain')
+        end
 
     -- 적 스킬 캔슬 시
     elseif (event_name == 'character_casting_cancel') then
         local arg = {...}
         local dragon = arg[1]
 
-        self:showSpeech(Str('잘했어! {1}', dragon.m_charTable['t_name']), 'happiness')
+        if (math_random(1, 2) == 1) then
+            self:showSpeech(Str('잘했어! {1}', dragon.m_charTable['t_name']), 'happiness')
+        else
+            self:showSpeech(Str('{1} 너무 멋져!', dragon.m_charTable['t_name']), 'happiness')
+        end
+
+    -- 스킬 다단히트1
+    elseif (event_name == 'skill_combo_1') then
+        local arg = {...}
+        local dragon = arg[1]
+
+        self:showSpeech(Str('{1} 계속 그렇게 해!', dragon.m_charTable['t_name']), 'happiness')
+
+    -- 스킬 다단히트2
+    elseif (event_name == 'skill_combo_2') then
+        local arg = {...}
+        local dragon = arg[1]
+
+        self:showSpeech(Str('{1}만 믿으면 되겠는걸!', dragon.m_charTable['t_name']), 'happiness')
         
     end
 end

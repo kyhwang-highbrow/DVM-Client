@@ -371,7 +371,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 
     -- 남은 체력이 20%이하일 경우 이벤트 발생
     if (damage > 0) then
-        if ( self.m_bLeftFormation and ((self.m_hp / self.m_maxHp) <= 0.2) ) then
+        if ((self.m_hp / self.m_maxHp) <= 0.2) then
             self:dispatch('character_weak', self)
         end
     end
