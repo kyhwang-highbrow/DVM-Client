@@ -118,28 +118,28 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 
 		-- 공용탄 영역
         if (type == 'missile_move_ray') then
-            SkillRay:makeSkillInstnceFromSkill(self, t_skill, {})
+            SkillRay:makeSkillInstance(self, t_skill, {})
             return true
 		elseif (type == 'missile_move_straight') then
-			CommonMissile_Straight:makeInstance(self, t_skill)
+			CommonMissile_Straight:makeMissileInstance(self, t_skill)
             return true
 		elseif (type == 'missile_move_cruise') then
-            CommonMissile_Cruise:makeInstance(self, t_skill)
+            CommonMissile_Cruise:makeMissileInstance(self, t_skill)
             return true
 		elseif (type == 'missile_move_shotgun') then
-            CommonMissile_Shotgun:makeInstance(self, t_skill)
+            CommonMissile_Shotgun:makeMissileInstance(self, t_skill)
             return true
 		elseif (type == 'missile_move_release') then
-            CommonMissile_Release:makeInstance(self, t_skill)
+            CommonMissile_Release:makeMissileInstance(self, t_skill)
             return true
 		elseif (type == 'missile_move_high_angle') then
-            CommonMissile_High:makeInstance(self, t_skill)
+            CommonMissile_High:makeMissileInstance(self, t_skill)
             return true
 
 
 		-- 스킬 영역
         elseif (type == 'skill_laser') then
-            SkillLaser:makeSkillInstnceFromSkill(self, t_skill, t_data) 
+            SkillLaser:makeSkillInstance(self, t_skill, t_data) 
             return true
         elseif (type == 'skill_butt') then
             self:doSkill_butt(t_skill, is_hero, phys_group, x, y, t_data)
@@ -187,51 +187,51 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 		-- 구조 개선 후 ----------------------------------------------------
 
         elseif (type == 'skill_curve_twin') then
-            SkillLeafBlade:makeSkillInstnceFromSkill(self, t_skill, t_data)
+            SkillLeafBlade:makeSkillInstance(self, t_skill, t_data)
             return true
 
 		elseif (type == 'skill_aoe_round') then
-            SkillAoERound:makeSkillInstnceFromSkill(self, t_skill, t_data)
+            SkillAoERound:makeSkillInstance(self, t_skill, t_data)
             return true
 
 		elseif (type == 'skill_conic') then
-            SkillConicAtk:makeSkillInstnceFromSkill(self, t_skill, t_data)
+            SkillConicAtk:makeSkillInstance(self, t_skill, t_data)
 			return true
 
 		elseif (type == 'skill_aoe_cone_spread') then
-            SkillConicAtk_Spread:makeSkillInstnceFromSkill(self, t_skill, t_data)
+            SkillConicAtk_Spread:makeSkillInstance(self, t_skill, t_data)
 			return true
 
 		elseif (type == 'skill_aoe_round_jump') then
-            SkillExplosion:makeSkillInstnceFromSkill(self, t_skill, t_data)
+            SkillExplosion:makeSkillInstance(self, t_skill, t_data)
 			return true
 
 		elseif (type == 'skill_strike_finish_spread') then
-            SkillRolling:makeSkillInstnceFromSkill(self, t_skill, t_data)
+            SkillRolling:makeSkillInstance(self, t_skill, t_data)
 			return true
 
 		elseif string.find(type, 'skill_buff') then
-            SkillBuff:makeSkillInstnceFromSkill(self, t_skill, t_data)
+            SkillBuff:makeSkillInstance(self, t_skill, t_data)
 			return true
 
         elseif (type == 'skill_leon_basic') then
-            SkillLeonBasic:makeSkillInstnceFromSkill(self, t_skill, t_data)
+            SkillLeonBasic:makeSkillInstance(self, t_skill, t_data)
             return true
             
 	    elseif (type == 'skill_counterattack') then
-            SkillCounterAttack:makeSkillInstnceFromSkill(self, t_skill, t_data)
+            SkillCounterAttack:makeSkillInstance(self, t_skill, t_data)
             return true
             
 		elseif (type == 'skill_melee_atk') then
 			if isExistValue(t_skill['id'], 210982, 210112, 210212) then -- 램곤, 애플칙, 붐버
-				SkillMeleeHack_Specific:makeSkillInstnceFromSkill(self, t_skill, t_data)
+				SkillMeleeHack_Specific:makeSkillInstance(self, t_skill, t_data)
 			else
-				SkillMeleeHack:makeSkillInstnceFromSkill(self, t_skill, t_data)
+				SkillMeleeHack:makeSkillInstance(self, t_skill, t_data)
 			end
             return true
 
         elseif (type == 'skill_protection') then
-            SkillProtection:makeSkillInstnceFromSkill(self, t_skill, t_data)
+            SkillProtection:makeSkillInstance(self, t_skill, t_data)
             return true
 
         -- 패시브 스킬

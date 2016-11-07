@@ -14,7 +14,6 @@ Skill = class(PARENT, {
 		m_targetType = 'str', -- 타겟 선택하는 룰
 		m_targetChar = 'Character', 
 		m_targetPos = 'pos', -- 타겟 위치 정보 빠르게 접근하기 위해..~
-		m_targetHitCnt = 'num', -- 히트 연출 위해
 		
 		-- 상태 효과 관련 변수들
 		m_statusEffectType = '',
@@ -97,7 +96,7 @@ end
 -- function setParams
 -- @brief 멤버변수 정의
 -------------------------------------
-function Skill:setParams(owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target, target_hit_cnt)
+function Skill:setParams(owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
 	self.m_owner = owner
 	self.m_powerRate = power_rate
 	self.m_targetType = target_type
@@ -108,7 +107,23 @@ function Skill:setParams(owner, power_rate, target_type, pre_delay, status_effec
 	self.m_skillType = skill_type
 	self.m_targetPos = {x = tar_x, y = tar_y}
 	self.m_targetChar = target
-	self.m_targetHitCnt = target_hit_cnt
+end
+
+-------------------------------------
+-- function setSkillParams
+-- @brief 멤버변수 정의
+-------------------------------------
+function Skill:setSkillParams(owner, t_skill, t_data)
+	self.m_owner = owner
+	self.m_powerRate = t_skill['power_rate']
+	self.m_targetType = t_skill['target_type']
+	self.m_preDelay = t_skill['pre_delay'] or 0
+	self.m_statusEffectType = t_skill['status_effect_type']
+	self.m_statusEffectValue = tonumber(t_skill['status_effect_value'])
+	self.m_statusEffectRate = tonumber(t_skill['status_effect_rate'])
+	self.m_skillType = t_skill['type']
+	self.m_targetPos = {x = t_data.x, y = t_data.y}
+	self.m_targetChar = t_data.target
 end
 
 -------------------------------------
@@ -270,16 +285,8 @@ function Skill:release()
 end
 
 -------------------------------------
--- function makeSkillInstnce
--- @brief 실제 스킬 인스턴스를 생성하고 월드에 등록하는 부분
+-- function makeSkillInstance
+-- @brief 사용할 변수 정리 및 실제 스킬 인스턴스를 생성하고 월드에 등록하는 부분
 -------------------------------------
-function Skill:makeSkillInstnce()
-end
-
--------------------------------------
--- function makeSkillInstnceFromSkill
--- @brief Character - doSkill 에서 호출될 부분 
--- 스킬 테이블에서 필요한 데이터를 가공하여 전달.
--------------------------------------
-function Skill:makeSkillInstnceFromSkill()
+function Skill:makeSkillInstance()
 end

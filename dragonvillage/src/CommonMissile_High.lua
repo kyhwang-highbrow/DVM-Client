@@ -90,9 +90,9 @@ function CommonMissile_High:setMissile()
 end
 
 -------------------------------------
--- function makeInstance
+-- function makeMissileInstance
 -------------------------------------
-function CommonMissile_High:makeInstance(owner, t_skill)
+function CommonMissile_High:makeMissileInstance(owner, t_skill)
 	local common_missile = CommonMissile_High()
 	common_missile:initCommonMissile(owner, t_skill)
 	common_missile:setMissile()

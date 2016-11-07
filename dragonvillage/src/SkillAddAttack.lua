@@ -72,31 +72,12 @@ function SkillAddAttack:findTarget()
 end
 
 -------------------------------------
--- function makeSkillInstnce
+-- function makeSkillInstance
 -------------------------------------
-function SkillAddAttack:makeSkillInstnce(missile_res, range_x, range_y, ...)
-	-- 1. 스킬 생성
-    local skill = SkillAddAttack(missile_res)
-
-	-- 2. 초기화 관련 함수
-	skill:setParams(...)
-    skill:init_skill(range_x, range_y)
-	skill:initState()
-
-	-- 3. state 시작 
-    skill:changeState('idle')
-
-    -- 4. Physics, Node, GameMgr에 등록
-    local world = skill.m_owner.m_world
-    world.m_missiledNode:addChild(skill.m_rootNode, 0)
-    world:addToUnitList(skill)
-end
-
--------------------------------------
--- function makeSkillInstnceFromSkill
--------------------------------------
-function SkillAddAttack:makeSkillInstnceFromSkill(owner, t_skill, target)
-    local owner = owner
+function SkillAddAttack:makeSkillInstance(owner, t_skill, target)
+	-- 변수 선언부
+	------------------------------------------------------
+	local owner = owner
 
 	-- 1. 공통 변수
 	local power_rate = t_skill['power_rate']
@@ -115,5 +96,21 @@ function SkillAddAttack:makeSkillInstnceFromSkill(owner, t_skill, target)
 	local range_x = t_skill['val_1']
 	local range_y = t_skill['val_2']
 
-    SkillAddAttack:makeSkillInstnce(missile_res, range_x, range_y, owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
+	-- 인스턴스 생성부
+	------------------------------------------------------
+	-- 1. 스킬 생성
+    local skill = SkillAddAttack(missile_res)
+
+	-- 2. 초기화 관련 함수
+	skill:setParams(owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
+    skill:init_skill(range_x, range_y)
+	skill:initState()
+
+	-- 3. state 시작 
+    skill:changeState('idle')
+
+    -- 4. Physics, Node, GameMgr에 등록
+    local world = skill.m_owner.m_world
+    world.m_missiledNode:addChild(skill.m_rootNode, 0)
+    world:addToUnitList(skill)
 end

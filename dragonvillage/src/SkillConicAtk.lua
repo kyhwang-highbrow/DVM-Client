@@ -126,14 +126,22 @@ function SkillConicAtk:findTarget(x, y, range, degree)
 end
 
 -------------------------------------
--- function makeSkillInstnce
+-- function makeSkillInstance
 -------------------------------------
-function SkillConicAtk:makeSkillInstnce(attack_count, range, missile_res, ...)
+function SkillConicAtk:makeSkillInstance(owner, t_skill, t_data)
+	-- 변수 선언부
+	------------------------------------------------------
+	local attack_count = t_skill['hit']
+    local range = t_skill['val_1']
+	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+
+	-- 인스턴스 생성부
+	------------------------------------------------------
 	-- 1. 스킬 생성
     local skill = SkillConicAtk(missile_res)
 
 	-- 2. 초기화 관련 함수
-	skill:setParams(...)
+	skill:setSkillParams(owner, t_skill, t_data)
     skill:init_skill(attack_count, range)
 	skill:initState()
 
@@ -144,30 +152,4 @@ function SkillConicAtk:makeSkillInstnce(attack_count, range, missile_res, ...)
     local world = skill.m_owner.m_world
     world.m_missiledNode:addChild(skill.m_rootNode, 0)
     world:addToUnitList(skill)
-end
-
--------------------------------------
--- function makeSkillInstnceFromSkill
--------------------------------------
-function SkillConicAtk:makeSkillInstnceFromSkill(owner, t_skill, t_data)
-    local owner = owner
-		
-	-- 1. 공통 변수
-	local power_rate = t_skill['power_rate']
-	local target_type = t_skill['target_type']
-	local pre_delay = t_skill['pre_delay']
-	local status_effect_type = t_skill['status_effect_type']
-	local status_effect_value = t_skill['status_effect_value']
-	local status_effect_rate = t_skill['status_effect_rate']
-	local skill_type = t_skill['type']
-	local tar_x = t_data.x
-	local tar_y = t_data.y
-	local target = t_data.target
-
-	-- 2. 특수 변수
-	local attack_count = t_skill['hit']
-    local range = t_skill['val_1']
-	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
-
-    SkillConicAtk:makeSkillInstnce(attack_count, range, missile_res, owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
 end

@@ -206,6 +206,7 @@ function CommonMissile.st_attack(owner, dt)
 			owner.m_missileFireTerm = FIRE_LIMIT_TIME / owner.m_maxFireCnt
 			owner.m_missileTimer = owner.m_missileFireTerm
 		end
+		cclog(owner.m_owner.pos.x .. ', ' .. owner.m_owner.pos.y, '///', owner.m_target.m_homePosX .. ', ' ..  owner.m_target.m_homePosY)  
 	end
 
 	-- 3. 발사 
@@ -217,7 +218,6 @@ function CommonMissile.st_attack(owner, dt)
 		end
 	end
 	
-	
 	-- 4. 탈출 조건 : 기준 시간 경과 또는 발사수가 1
 	if (owner.m_stateTimer >= FIRE_LIMIT_TIME) or (owner.m_maxFireCnt == 1) then 
 		owner:changeState('dying')
@@ -228,9 +228,9 @@ function CommonMissile.st_attack(owner, dt)
 end
 
 -------------------------------------
--- function makeInstance
+-- function makeMissileInstance
 -------------------------------------
-function CommonMissile:makeInstance(owner, t_skill)
+function CommonMissile:makeMissileInstance(owner, t_skill)
 	local common_missile = CommonMissile()
 	common_missile:initCommonMissile(owner, t_skill)
 	common_missile:setMissile()

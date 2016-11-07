@@ -169,9 +169,18 @@ function SkillAoERound:makeEffect(x, y)
 end
 
 -------------------------------------
--- function makeSkillInstnce
+-- function makeSkillInstance
 -------------------------------------
-function SkillAoERound:makeSkillInstnce(attack_count, range, aoe_res, ...)
+function SkillAoERound:makeSkillInstance(owner, t_skill, t_data)
+	-- 변수 선언부
+	------------------------------------------------------
+	local attack_count = t_skill['hit']	  -- 공격 횟수
+    local range = t_skill['val_1']		  -- 공격 반경
+	local aoe_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())	  -- 광역 스킬 리소스
+
+	
+	-- 인스턴스 생성부
+	------------------------------------------------------
 	-- 1. 스킬 생성
     local skill = nil
 	-- 리소스를 개별적으로 찍어야 하는 경우에 기본 생성을 하지 않는다. 조건은 좀 더 고려해봐야함  
@@ -182,7 +191,7 @@ function SkillAoERound:makeSkillInstnce(attack_count, range, aoe_res, ...)
 	end
 
 	-- 2. 초기화 관련 함수
-	skill:setParams(...)
+	skill:setSkillParams(owner, t_skill, t_data)
     skill:init_skill(attack_count, range, aoe_res)
 	skill:initState()
 
@@ -193,30 +202,4 @@ function SkillAoERound:makeSkillInstnce(attack_count, range, aoe_res, ...)
     local world = skill.m_owner.m_world
     world.m_missiledNode:addChild(skill.m_rootNode, 0)
     world:addToUnitList(skill)
-end
-
--------------------------------------
--- function makeSkillInstnceFromSkill
--------------------------------------
-function SkillAoERound:makeSkillInstnceFromSkill(owner, t_skill, t_data)
-    local owner = owner
-	
-	-- 1. 공통 변수
-	local power_rate = t_skill['power_rate']
-	local target_type = t_skill['target_type']
-	local pre_delay = t_skill['pre_delay']
-	local status_effect_type = t_skill['status_effect_type']
-	local status_effect_value = t_skill['status_effect_value']
-	local status_effect_rate = t_skill['status_effect_rate']
-	local skill_type = t_skill['type']
-	local tar_x = t_data.x
-	local tar_y = t_data.y
-	local target = t_data.target
-
-	-- 2. 특수 변수
-	local attack_count = t_skill['hit']	  -- 공격 횟수
-    local range = t_skill['val_1']		  -- 공격 반경
-	local aoe_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())	  -- 광역 스킬 리소스
-	
-    SkillAoERound:makeSkillInstnce(attack_count, range, aoe_res, owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
 end

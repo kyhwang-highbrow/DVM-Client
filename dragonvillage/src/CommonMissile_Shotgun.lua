@@ -65,9 +65,9 @@ function CommonMissile_Shotgun:setMissile()
 end
 
 -------------------------------------
--- function makeInstance
+-- function makeMissileInstance
 -------------------------------------
-function CommonMissile_Shotgun:makeInstance(owner, t_skill)
+function CommonMissile_Shotgun:makeMissileInstance(owner, t_skill)
 	local common_missile = CommonMissile_Shotgun()
 	common_missile:initCommonMissile(owner, t_skill)
 	common_missile:setMissile()

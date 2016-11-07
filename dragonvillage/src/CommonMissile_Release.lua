@@ -109,9 +109,9 @@ function CommonMissile_Release:fireMissile()
 end
 
 -------------------------------------
--- function makeInstance
+-- function makeMissileInstance
 -------------------------------------
-function CommonMissile_Release:makeInstance(owner, t_skill)
+function CommonMissile_Release:makeMissileInstance(owner, t_skill)
 	local common_missile = CommonMissile_Release()
 	common_missile:initCommonMissile(owner, t_skill)
 	common_missile:setMissile()

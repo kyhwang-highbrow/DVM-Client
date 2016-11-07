@@ -25,5 +25,5 @@ function StatusEffect_addAttack:onTrigger(target)
 	-- 확률체크
     --if (math_random(1, 1000) > t_skill['status_effect_rate'] * 10) then return end
 
-    SkillAddAttack:makeSkillInstnceFromSkill(owner, t_skill, target)
+    SkillAddAttack:makeSkillInstance(owner, t_skill, target)
 end

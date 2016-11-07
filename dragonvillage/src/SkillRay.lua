@@ -215,15 +215,21 @@ function SkillRay:collisionAttack(target_char)
 end
 
 -------------------------------------
--- function makeSkillInstnce
--- @param missile_res 
+-- function makeSkillInstance
 -------------------------------------
-function SkillRay:makeSkillInstnce(missile_res, hit, ...)
+function SkillRay:makeSkillInstance(owner, t_skill, t_data)
+	-- 변수 선언부
+	------------------------------------------------------
+    local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+	local hit = t_skill['hit']
+
+	-- 인스턴스 생성부
+	------------------------------------------------------
 	-- 1. 스킬 생성
     local skill = SkillRay(nil)
 
 	-- 2. 초기화 관련 함수
-	skill:setParams(...)
+	skill:setSkillParams(owner, t_skill, t_data)
     skill:init_skill(missile_res, hit)
 	skill:initState()
 
@@ -234,29 +240,4 @@ function SkillRay:makeSkillInstnce(missile_res, hit, ...)
     local world = skill.m_owner.m_world
     world.m_missiledNode:addChild(skill.m_rootNode, 0)
     world:addToUnitList(skill)
-end
-
--------------------------------------
--- function makeSkillInstnceFromSkill
--------------------------------------
-function SkillRay:makeSkillInstnceFromSkill(owner, t_skill, t_data)
-    local owner = owner
-	
-	-- 1. 공통 변수
-	local power_rate = t_skill['power_rate']
-	local target_type = t_skill['target_type']
-	local pre_delay = t_skill['pre_delay']
-	local status_effect_type = t_skill['status_effect_type']
-	local status_effect_value = t_skill['status_effect_value']
-	local status_effect_rate = t_skill['status_effect_rate']
-	local skill_type = t_skill['type']
-	local tar_x = t_data.x
-	local tar_y = t_data.y
-	local target = t_data.target
-
-	-- 2. 특수 변수
-    local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
-	local hit = t_skill['hit']
-
-    SkillRay:makeSkillInstnce(missile_res, hit, owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
 end
