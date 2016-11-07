@@ -4,64 +4,25 @@ local PARENT = UI
 -- class UI_DragonGachaResult
 -------------------------------------
 UI_DragonGachaResult = class(PARENT, ITopUserInfo_EventListener:getCloneTable(),{
-        m_cb = 'function',
-
         m_lNumberLabel = 'list',
+        m_lGachaDragonList = 'list',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonGachaResult:init(dragon_id, cb)
-    self.m_cb = cb
+function UI_DragonGachaResult:init(l_gacha_dragon_list)
+    self.m_lGachaDragonList = clone(l_gacha_dragon_list)
 
     local vars = self:load('gacha_result.ui')
     UIManager:open(self, UIManager.POPUP)
 
-    SoundMgr:playEffect('EFFECT', 'get_gacha')
-
-    vars['okBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
-    vars['cardVisual']:setLocalZOrder(1)
-
-    local t_dragon_data = g_dragonListData:getDragon(dragon_id)
-
-    local table_dragon = TABLE:get('dragon')
-    local t_dragon = table_dragon[dragon_id]
-
-    local dragon_card = DragonCard(t_dragon, t_dragon_data)
-    vars['cardNode']:addChild(dragon_card.m_uiRoot)
-    vars['cardNode']:setVisible(false)
-
-    do -- 최초 label 수치 지정
-        self.m_lNumberLabel = {}
-        self.m_lNumberLabel['lukLabel'] = NumberLabel(vars['lukLabel'], 0, 1)
-        self.m_lNumberLabel['dexLabel'] = NumberLabel(vars['dexLabel'], 0, 1)
-        self.m_lNumberLabel['agiLabel'] = NumberLabel(vars['agiLabel'], 0, 1)
-        self.m_lNumberLabel['vitLabel'] = NumberLabel(vars['vitLabel'], 0, 1)
-        self.m_lNumberLabel['intLabel'] = NumberLabel(vars['intLabel'], 0, 1)
-        self.m_lNumberLabel['strLabel'] = NumberLabel(vars['strLabel'], 0, 1)
-
-        vars['cardGg']:setPercentage(0)
-        vars['cardLabel']:setString('')
-    end
-    vars['cardVisual']:setRepeat(false)
-    vars['cardVisual']:setVisual('group', 'card')
-    vars['cardVisual']:registerScriptLoopHandler(function()
-        self:startAction(t_dragon, t_dragon_data)
-        vars['cardVisual']:setVisual('group', 'card_star_light_' .. t_dragon_data['grade'])
-        vars['cardVisual']:registerScriptLoopHandler(function()
-            vars['cardVisual']:setVisible(false)
-        end)
-    end)
-
-    -- 에니메이션 시간이 맞지 않아서 강제로 처리
-    local duration = vars['cardVisual']:getDuration()
-    vars['cardVisual']:runAction(cc.Sequence:create(cc.DelayTime:create(duration - 0.3), cc.CallFunc:create(function()
-            vars['cardNode']:setVisible(true)
-        end)))
-    
     -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() end, 'UI_DragonGachaResult')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonGachaResult')
+
+    vars['okBtn']:registerScriptTapHandler(function() self:refresh() end)
+
+    self:refresh()
 end
 
 -------------------------------------
@@ -79,52 +40,109 @@ end
 -------------------------------------
 function UI_DragonGachaResult:click_exitBtn()
     self:close()
-    if self.m_cb then
-        self.m_cb()
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_DragonGachaResult:refresh()
+    if (#self.m_lGachaDragonList <= 0) then
+        self:close()
+        return
+    end
+
+    local t_gacha_dragon = self.m_lGachaDragonList[1]
+    table.remove(self.m_lGachaDragonList, 1)
+
+    local vars = self.vars
+    SoundMgr:playEffect('EFFECT', 'get_gacha')
+
+
+    do -- 챕터 전환 연출
+        vars['splashLayer']:setLocalZOrder(1)
+        vars['splashLayer']:setVisible(true)
+        vars['splashLayer']:stopAllActions()
+        vars['splashLayer']:setOpacity(255)
+        vars['splashLayer']:runAction(cc.Sequence:create(cc.FadeOut:create(0.5), cc.Hide:create()))
+    end
+
+    local did = t_gacha_dragon['did']
+    local evolution = t_gacha_dragon['evolution']
+
+    local table_dragon = TABLE:get('dragon')
+    local t_dragon = table_dragon[did]
+    
+    -- 등급
+    vars['starVisual']:changeAni('card_star_light_1')
+
+    -- 이름
+    vars['nameLabel']:setString(Str(t_dragon['t_name']) .. '-' .. evolutionName(evolution))
+
+    do -- 능력치
+        self:refresh_status(t_dragon, evolution)
+    end
+
+    do -- 희귀도
+        local rarity = t_dragon['rarity']
+        vars['rarityNode']:removeAllChildren()
+        local icon = IconHelper:getRarityIcon(rarity)
+        vars['rarityNode']:addChild(icon)
+
+        vars['rarityLabel']:setString(dragonRarityName(rarity))
+    end
+
+    do -- 드래곤 속성
+        local attr = t_dragon['attr']
+        vars['attrNode']:removeAllChildren()
+        local icon = IconHelper:getAttributeIcon(attr)
+        vars['attrNode']:addChild(icon)
+
+        vars['attrLabel']:setString(dragonAttributeName(attr))
+    end
+
+    do -- 드래곤 역할(role)
+        local role_type = t_dragon['role']
+        vars['roleNode']:removeAllChildren()
+        local icon = IconHelper:getRoleIcon(role_type)
+        vars['roleNode']:addChild(icon)
+
+        vars['roleLabel']:setString(dragonRoleName(role_type))
+    end
+
+    do -- 드래곤 공격 타입(char_type)
+        local attack_type = t_dragon['char_type']
+        vars['charTypeNode']:removeAllChildren()
+        local icon = IconHelper:getAttackTypeIcon(attack_type)
+        vars['charTypeNode']:addChild(icon)
+
+        vars['charTypeLabel']:setString(dragonAttackTypeName(attack_type))
+    end
+
+    do -- 드래곤 실리소스
+        vars['dragonNode']:removeAllChildren()
+        local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
+        animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
+        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+        vars['dragonNode']:removeAllChildren(false)
+        vars['dragonNode']:addChild(animator.m_node)
     end
 end
 
 -------------------------------------
--- function startAction
--- @brief
+-- function refresh_status
+-- @brief 능력치 정보 갱신
 -------------------------------------
-function UI_DragonGachaResult:startAction(t_dragon, t_dragon_data)
+function UI_DragonGachaResult:refresh_status(t_dragon, evolution)
     local vars = self.vars
+    local dragon_id = t_dragon['did']
+    local lv = 1
+    local grade = 1
+    local evolution = evolution
 
-    local dragon_id = t_dragon['id']
-    local status_calc1 = MakeOwnDragonStatusCalculator(dragon_id)
+    -- 능력치 계산기
+    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution)
 
-    vars['cardNode']:setVisible(true)
-
-    self.m_lNumberLabel['lukLabel']:setNumber(status_calc1:getDPBaseStatus('LUK'))
-    self.m_lNumberLabel['dexLabel']:setNumber(status_calc1:getDPBaseStatus('DEX'))
-    self.m_lNumberLabel['agiLabel']:setNumber(status_calc1:getDPBaseStatus('AGI'))
-    self.m_lNumberLabel['vitLabel']:setNumber(status_calc1:getDPBaseStatus('VIT'))
-    self.m_lNumberLabel['intLabel']:setNumber(status_calc1:getDPBaseStatus('INT'))
-    self.m_lNumberLabel['strLabel']:setNumber(status_calc1:getDPBaseStatus('STR'))
-
-    do -- 카드 보유 갯수
-        local rarity = dragonRarityStrToNum(t_dragon['rarity'])
-        local table_upgrade = TABLE:get('upgrade')
-        local t_upgrade = table_upgrade[rarity]
-
-        local key = 'cost_card_0' .. t_dragon_data['grade']
-        local max_count = t_upgrade[key]
-        local count = t_dragon_data['cnt']
-
-        if (max_count == 0) then
-            vars['cardGg']:runAction(cc.ProgressTo:create(2, 100))
-            local function tween_cb(value, node)
-                node:setString(Str('{1}/{2}', math_floor(value), 'MAX'))
-            end
-            vars['cardLabel']:runAction(cc.ActionTweenForLua:create(1, 0, count, tween_cb))
-        else
-            local percentage = math_floor((count / max_count) * 100)
-            local function tween_cb(value, node)
-                node:setString(Str('{1}/{2}', math_floor(value), max_count))
-            end
-            vars['cardGg']:runAction(cc.ProgressTo:create(1, percentage))
-            vars['cardLabel']:runAction(cc.ActionTweenForLua:create(1, 0, count, tween_cb))
-        end
-    end
+    vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
+    vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
+    vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
 end

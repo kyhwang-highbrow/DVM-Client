@@ -332,7 +332,7 @@ end
 function UI_ProductButton:network_gacha_AddDragons(l_dragon_id, finish_cb)
     local uid = g_userData:get('uid')
     local table_dragon = TABLE:get('dragon')
-    local t_list = l_dragon_id or {}
+    local t_list = clone(l_dragon_id)
     local do_work
 
     local ui_network = UI_Network()
@@ -398,6 +398,8 @@ function UI_ProductButton:tempBuy(product_id)
         if (value_type == 'card') then
             UIManager:toastNotificationGreen('드래곤이 인벤에 추가되었습니다.')
             UIManager:toastNotificationGreen('가챠 연출은 구현 예정입니다.')
+            local l_dragon_list = t_data
+            UI_DragonGachaResult(l_dragon_list)
         end
     end
 
