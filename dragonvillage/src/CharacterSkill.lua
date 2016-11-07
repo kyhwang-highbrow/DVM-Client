@@ -820,7 +820,7 @@ end
 -- @brief 캐스팅 중이던 스킬을 취소시킴
 -------------------------------------
 function Character:cancelSkill()
-    if (self.m_state ~= 'casting') then return end
+    if (self.m_state ~= 'casting') then return false end
 
     local timeScale = 0.2
 
@@ -861,4 +861,6 @@ function Character:cancelSkill()
     ShakeDir2(math_random(335-20, 335+20), 1500)
 
     self:changeState('attackDelay')
+
+    return true
 end

@@ -336,7 +336,17 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 
     -- 스킬 공격으로 피격되였다면 캐스팅 중이던 스킬을 취소시킴
     if (attacker.m_activityCarrier:getAttackType() ~= 'basic') then
-        self:cancelSkill()
+        
+        if self:cancelSkill() then
+            -- 적 스킬 공격 캔슬 성공시
+            local attackerCharacter = attacker.m_activityCarrier.m_activityCarrierOwner
+            if attackerCharacter then
+                self:dispatch('character_casting_cancel', attackerCharacter)
+            end
+        end
+
+        -- 적 스킬 공격에 피격시
+        self:dispatch('character_damaged_skill', self)
     end
         	
 	-- 공격 데미지 전달
@@ -358,6 +368,13 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 
     -- 방어자 피격 이벤트 
     self:dispatch('undergo_attack', attacker.m_activityCarrier.m_activityCarrierOwner)
+
+    -- 남은 체력이 20%이하일 경우 이벤트 발생
+    if (damage > 0) then
+        if ( self.m_bLeftFormation and ((self.m_hp / self.m_maxHp) <= 0.2) ) then
+            self:dispatch('character_weak', self)
+        end
+    end
 	
 	-- 시전자 이벤트 
 	if attacker.m_activityCarrier.m_activityCarrierOwner then

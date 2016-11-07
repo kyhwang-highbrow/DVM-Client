@@ -266,6 +266,8 @@ function GameState:update_enemy_appear(dt)
             ))
 
             g_gameScene.m_inGameUI.vars['waveVisual']:setVisual('wave', string.format('%02d', world.m_waveMgr.m_currWave))
+
+            world:dispatch('wave_start')
         end
 
         self:changeState(GAME_STATE_FIGHT_WAIT)
@@ -503,6 +505,8 @@ function GameState:update_boss_wave2(dt)
         self.m_waveEffect:addAniHandler(function()
             self:changeState(GAME_STATE_BOSS_WAVE3)
         end)
+
+        self.m_world:dispatch('boss_wave')
     end
 end
 
@@ -554,6 +558,9 @@ function GameState:update_success(dt)
         g_gameScene.m_inGameUI:doActionReverse()
 
         self.m_stateParam = true
+
+        self.m_world:dispatch('stage_clear')
+
     elseif (self.m_stateTimer >= 3.5) then
         if self.m_stateParam then
             self:makeResultUI(true)

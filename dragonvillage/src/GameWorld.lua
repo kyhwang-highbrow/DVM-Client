@@ -405,11 +405,16 @@ function GameWorld:init_test(deck_type)
     do
         self.m_tamerSkillSystem = TamerSkillSystem(self, self.m_tamerSkillMgr)
         self:addListener('game_start', self.m_tamerSkillSystem)
+        self:addListener('wave_start', self.m_tamerSkillSystem)
+        self:addListener('boss_wave', self.m_tamerSkillSystem)
+        self:addListener('stage_clear', self.m_tamerSkillSystem)
 
         for _,char in pairs(self.m_lDragonList) do
             if (char.m_charType == 'dragon') then
                 char:addListener('active_skill', self.m_tamerSkillSystem)
                 char:addListener('character_dead', self.m_tamerSkillSystem)
+                char:addListener('character_weak', self.m_tamerSkillSystem)
+                char:addListener('character_damaged_skill', self.m_tamerSkillSystem)
             elseif (char.m_charType == 'tamer') then
                 char:addListener('basic_skill', self.m_tamerSkillSystem)
                 char:addListener('change_hp', self.m_tamerSkillSystem)
