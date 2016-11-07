@@ -396,8 +396,6 @@ function UI_ProductButton:tempBuy(product_id)
     func_show_result = function(t_data)
 
         if (value_type == 'card') then
-            UIManager:toastNotificationGreen('드래곤이 인벤에 추가되었습니다.')
-            UIManager:toastNotificationGreen('가챠 연출은 구현 예정입니다.')
             local l_dragon_list = t_data
             UI_DragonGachaResult(l_dragon_list)
         end
