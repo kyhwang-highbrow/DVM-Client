@@ -1,7 +1,9 @@
+local PARENT = Entity
+
 -------------------------------------
--- class ISkill
+-- class Skill
 -------------------------------------
-ISkill = {
+Skill = class(PARENT, {
         m_owner = 'Character',
         m_activityCarrier = 'AttackDamage',
 		m_range = 'num',
@@ -29,21 +31,32 @@ ISkill = {
 		-- 스킬 연출 관리자 - 디렉터
 		m_skillHitEffctDirector = 'SkillHitEffectDirector',
 
-     }
+     })
 
 -------------------------------------
 -- function init
 -- @param file_name
 -- @param body
 -------------------------------------
-function ISkill:init(file_name, body, ...)    
+function Skill:init(file_name, body, ...)    
+end
+
+-------------------------------------
+-- function initWorld
+-- @param game_world
+-------------------------------------
+function Skill:initWorld(game_world)
+    PARENT.initWorld(self, game_world)
+
+	-- 별도의 스킬 entity 관리 리스트에 추가
+	game_world.m_lSkillList[self] = self
 end
 
 -------------------------------------
 -- function init_skill
 -- @brief actvityCarrier, AttackOffset, defualt target, default target pos를 설정한다. 
 -------------------------------------
-function ISkill:init_skill()
+function Skill:init_skill()
 	self:initActvityCarrier(self.m_powerRate)
 	self:initAttackPosOffset()
 	
@@ -61,7 +74,7 @@ end
 -------------------------------------
 -- function initActvityCarrier
 -------------------------------------
-function ISkill:initActvityCarrier(power_rate)    
+function Skill:initActvityCarrier(power_rate)    
     -- 공격력 계산을 위해
     self.m_activityCarrier = self.m_owner:makeAttackDamageInstance()
     self.m_activityCarrier.m_skillCoefficient = (power_rate / 100)
@@ -75,8 +88,8 @@ end
 -- @breif state 정의
 -- @breif 모든 스킬은 delay로 시작하고 start로 본래의 스킬 state를 진행한다.
 -------------------------------------
-function ISkill:setCommonState(skill)
-	skill:addState('delay', ISkill.st_delay, nil, false)
+function Skill:setCommonState(skill)
+	skill:addState('delay', Skill.st_delay, nil, false)
     skill:addState('dying', function(owner, dt) return true end, nil, nil, 10)
 end
 
@@ -84,7 +97,7 @@ end
 -- function setParams
 -- @brief 멤버변수 정의
 -------------------------------------
-function ISkill:setParams(owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target, target_hit_cnt)
+function Skill:setParams(owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target, target_hit_cnt)
 	self.m_owner = owner
 	self.m_powerRate = power_rate
 	self.m_targetType = target_type
@@ -101,7 +114,7 @@ end
 -------------------------------------
 -- function st_delay
 -------------------------------------
-function ISkill.st_delay(owner, dt)
+function Skill.st_delay(owner, dt)
     if (owner.m_stateTimer == 0) then
 		if (not owner.m_targetChar) then 
 			owner:changeState('dying') 
@@ -114,7 +127,7 @@ end
 -------------------------------------
 -- function st_idle
 -------------------------------------
-function ISkill.st_idle(owner, dt)
+function Skill.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
 	else
 		owner:changeState('attack')
@@ -124,7 +137,7 @@ end
 -------------------------------------
 -- function st_attack
 -------------------------------------
-function ISkill.st_attack(owner, dt)
+function Skill.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
 		owner:runAttack()
 	else
@@ -136,7 +149,7 @@ end
 -- function runAttack
 -- @brief findtarget으로 찾은 적에게 공격을 실행한다. 
 -------------------------------------
-function ISkill:runAttack()
+function Skill:runAttack()
     local t_targets = self:findTarget()
     for i,target_char in ipairs(t_targets) do
 		self:attack(target_char)
@@ -147,7 +160,7 @@ end
 -- function attack
 -- @brief 공격 콜백을 실행시키고 hit 연출을 조작한다.
 -------------------------------------
-function ISkill:attack(target_char)
+function Skill:attack(target_char)
     -- 공격
     self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
     target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
@@ -161,7 +174,7 @@ end
 -- @brief 모든 공격 대상 찾음
 -- @default 직선거리에서 범위를 기준으로 충돌여부 판단
 -------------------------------------
-function ISkill:findTarget(x, y, range)
+function Skill:findTarget(x, y, range)
 	local x = x or self.m_targetPos.x
 	local y = y or self.m_targetPos.y
 	local range = range or self.m_range
@@ -188,7 +201,7 @@ end
 -- @brief 인디케이터 없이 시전 된 경우 사용된다.
 -- @default 타겟 룰에 따른 타겟 리스트 중 첫번째를 선택
 -------------------------------------
-function ISkill:getDefaultTarget()
+function Skill:getDefaultTarget()
     local l_target = self.m_owner:getTargetListByType(self.m_targetType)
 	return l_target[1]
 end
@@ -197,7 +210,7 @@ end
 -- function getDefaultTargetPos
 -- @brief 디폴트 타겟의 좌표를 반환한다.
 -------------------------------------
-function ISkill:getDefaultTargetPos()
+function Skill:getDefaultTargetPos()
     local target = self:getDefaultTarget()
     if target then
 		self.m_targetChar = target
@@ -211,7 +224,7 @@ end
 -- function initAttackPosOffset
 -- @brief 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset 지정
 -------------------------------------
-function ISkill:initAttackPosOffset()
+function Skill:initAttackPosOffset()
     self.m_attackPosOffsetX = 0
     self.m_attackPosOffsetY = 0
 
@@ -240,15 +253,27 @@ end
 -- function getAttackPosition
 -- @brief 캐릭터의 애니메이션상 공격 시작 위치의 offset을 가져온다.
 -------------------------------------
-function ISkill:getAttackPosition()
+function Skill:getAttackPosition()
     return self.m_attackPosOffsetX, self.m_attackPosOffsetY
+end
+
+-------------------------------------
+-- function release
+-- @brief
+-------------------------------------
+function Skill:release()
+	if self.m_world then
+		self.m_world.m_lSkillList[self] = nil
+	end
+
+	PARENT.release(self)
 end
 
 -------------------------------------
 -- function makeSkillInstnce
 -- @brief 실제 스킬 인스턴스를 생성하고 월드에 등록하는 부분
 -------------------------------------
-function ISkill:makeSkillInstnce()
+function Skill:makeSkillInstnce()
 end
 
 -------------------------------------
@@ -256,32 +281,5 @@ end
 -- @brief Character - doSkill 에서 호출될 부분 
 -- 스킬 테이블에서 필요한 데이터를 가공하여 전달.
 -------------------------------------
-function ISkill:makeSkillInstnceFromSkill()
-end
-
-
-
-
-
-
-
-
-
-
-
-
--------------------------------------
--- function getCloneTable
--- @brief
--------------------------------------
-function ISkill:getCloneTable()
-    return clone(ISkill)
-end
-
--------------------------------------
--- function getCloneClass
--- @brief
--------------------------------------
-function ISkill:getCloneClass()
-    return class(clone(ISkill))
+function Skill:makeSkillInstnceFromSkill()
 end

@@ -1,4 +1,4 @@
-local PARENT = class(Entity, ISkill:getCloneTable(), IStateDelegate:getCloneTable())
+local PARENT = class(Skill, IStateDelegate:getCloneTable())
 
 -------------------------------------
 -- class SkillRay

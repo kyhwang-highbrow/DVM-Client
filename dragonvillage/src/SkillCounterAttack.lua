@@ -1,4 +1,4 @@
-local PARENT = class(Entity, ISkill:getCloneTable(), IEventListener:getCloneTable())
+local PARENT = class(Skill, IEventListener:getCloneTable())
 
 -------------------------------------
 -- class SkillCounterAttack

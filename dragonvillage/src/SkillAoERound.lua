@@ -1,4 +1,4 @@
-local PARENT = class(Entity, ISkill:getCloneTable())
+local PARENT = Skill
 
 -------------------------------------
 -- class SkillAoERound
