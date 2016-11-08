@@ -1,7 +1,6 @@
 local TAMER_SKILL_COOLTIME = 20
 
 local showToolTip = function(skill_id)
---[[
     local char_type = 'tamer'
     local skill_id = skill_id
     local skill_type = nil
@@ -9,7 +8,6 @@ local showToolTip = function(skill_id)
 
     local tool_tip = UI_Tooltip_Skill(320, -220, str, true)
     tool_tip:autoRelease()
-	]]
 end
 
 -------------------------------------
