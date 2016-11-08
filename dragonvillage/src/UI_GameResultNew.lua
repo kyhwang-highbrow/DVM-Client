@@ -267,6 +267,13 @@ function UI_GameResultNew:direction_openBox()
 end
 
 -------------------------------------
+-- function direction_openBox_click
+-- @brief
+-------------------------------------
+function UI_GameResultNew:direction_openBox_click()
+end
+
+-------------------------------------
 -- function direction_dropItem
 -- @brief
 -------------------------------------
