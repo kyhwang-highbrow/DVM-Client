@@ -98,6 +98,7 @@ function UI_Lobby:refresh_userInfo()
     vars['userExpGg']:setPercentage(exp_percentage)
 
     -- 대표 드래곤 아이콘
+    --[[
     local t_leader_dragon_data = g_dragonsData:getLeaderDragon()
     if t_leader_dragon_data then
         local dragon_id = t_leader_dragon_data['did']
@@ -110,6 +111,7 @@ function UI_Lobby:refresh_userInfo()
         vars['userNode']:removeAllChildren()
         vars['userNode']:addChild(sprite)
     end
+    --]]
 end
 
 -------------------------------------
