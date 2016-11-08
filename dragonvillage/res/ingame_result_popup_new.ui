@@ -443,7 +443,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'dragonBoard5';
 				file_name = 'ui/frame/base_frame_06.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -682,7 +682,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'dragonBoard4';
 				file_name = 'ui/frame/base_frame_06.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -921,7 +921,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'dragonBoard3';
 				file_name = 'ui/frame/base_frame_06.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -1160,7 +1160,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'dragonBoard2';
 				file_name = 'ui/frame/base_frame_06.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -1399,7 +1399,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'dragonBoard1';
 				file_name = 'ui/frame/base_frame_06.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
