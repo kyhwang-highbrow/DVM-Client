@@ -997,6 +997,9 @@
     <None Include="..\src\UI_DragonManageUpgrade.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_DragonManageUpgradeResult.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

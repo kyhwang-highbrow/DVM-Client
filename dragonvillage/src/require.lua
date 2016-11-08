@@ -280,6 +280,7 @@ local t_module = {
     'UI_DragonManageInfo',
     'UI_DragonManageInfoView',
     'UI_DragonManageUpgrade',
+    'UI_DragonManageUpgradeResult',
     'UI_DragonCard',
 
     -- UIC (UI Component)

@@ -50,6 +50,9 @@ end
 -- function initUI
 -------------------------------------
 function UI_DragonManageUpgrade:initUI()
+    local vars = self.vars
+    vars['upgradeGauge']:setPercentage(0)
+
     self:init_dragonTableView()
     --self:setDefaultSelectDragon()
 end
@@ -120,14 +123,16 @@ function UI_DragonManageUpgrade:refresh()
     do -- 승급 경험치
         if is_max_grade then
             vars['upgradeExpLabel']:setString(Str('승급 경험치 MAX'))
-            vars['upgradeGauge']:setPercentage(100)
+            vars['upgradeGauge']:stopAllActions()
+            vars['upgradeGauge']:runAction(cc.ProgressTo:create(0.3, 100)) 
         else
             local req_exp = t_grade_info['req_exp']
             local curr_exp = t_dragon_data['gexp']
             local percentage = (curr_exp / req_exp) * 100
 
             vars['upgradeExpLabel']:setString(Str('승급 경험치 {1}%', math_floor(percentage)))
-            vars['upgradeGauge']:setPercentage(percentage)
+            vars['upgradeGauge']:stopAllActions()
+            vars['upgradeGauge']:runAction(cc.ProgressTo:create(0.3, percentage)) 
         end
     end
 
@@ -468,7 +473,8 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
     end
 
     local function success_cb(ret)
-        
+        local t_prev_dragon_data = self.m_selectDragonData
+
         -- 재료로 사용된 드래곤 삭제
         if ret['deleted_dragons_oid'] then
             for _,odid in pairs(ret['deleted_dragons_oid']) do
@@ -496,6 +502,15 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
         self:refresh_dragonIndivisual(doid)
 
         self.m_bChangeDragonList = true
+
+        do
+            local t_next_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
+
+            -- 결과 팝업
+            if (t_prev_dragon_data['grade'] < t_next_dragon_data['grade']) then
+                UI_DragonManageUpgradeResult(t_next_dragon_data)
+            end
+        end
     end
 
     local ui_network = UI_Network()
