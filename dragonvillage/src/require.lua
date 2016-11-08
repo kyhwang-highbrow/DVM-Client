@@ -233,6 +233,7 @@ local t_module = {
     'UI_Lobby',
     'UI_Game',
     'UI_GameResult',
+    'UI_GameResultNew',
     'UI_GamePause',
     'UI_GameDebug',
     'UI_ReadyScene',

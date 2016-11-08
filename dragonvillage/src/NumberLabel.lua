@@ -6,7 +6,8 @@ NumberLabel = class({
         m_actionDuration = 'number',
         m_number = 'number',
         m_orgColor = 'c3b',
-        m_orgScale = 'number',
+        m_orgScaleX = 'number',
+        m_orgScaleY = 'number',
     })
 
 -------------------------------------
@@ -17,7 +18,8 @@ function NumberLabel:init(label, number, actionDuration)
     self.m_number = (number or 0)
     self.m_actionDuration = (actionDuration or 1)
     self.m_orgColor = label:getColor()
-    self.m_orgScale = label:getScale()
+    self.m_orgScaleX = label:getScaleX()
+    self.m_orgScaleY = label:getScaleY()
 
     label:setString(self.getNumberStr(self.m_number))
 end
@@ -59,7 +61,7 @@ function NumberLabel:setNumber(number, immediately)
     --]]
 
     -- 크기 변화
-    local scale_action = cc.Sequence:create(cc.ScaleTo:create(0.1, self.m_orgScale * 1.2), cc.ScaleTo:create(0.1, self.m_orgScale * 1))
+    local scale_action = cc.Sequence:create(cc.ScaleTo:create(0.1, self.m_orgScaleX * 1.2, self.m_orgScaleY * 1.2), cc.ScaleTo:create(0.1, self.m_orgScaleX * 1, self.m_orgScaleY * 1))
     self.m_label:runAction(scale_action)
 end
 

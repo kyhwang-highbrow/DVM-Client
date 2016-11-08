@@ -801,7 +801,8 @@ function GameState:makeResultUI(is_success)
 
     -- 3. UI 생성
     func_ui_result = function()
-        UI_GameResult(is_success, self.m_fightTimer, world.m_gold, t_tamer_levelup_data, l_dragon_list, l_drop_item_list)
+        local stage_id = self.m_world.m_stageID
+        UI_GameResultNew(stage_id, is_success, self.m_fightTimer, world.m_gold, t_tamer_levelup_data, l_dragon_list, l_drop_item_list)
     end
 
     -- 최초 실행
