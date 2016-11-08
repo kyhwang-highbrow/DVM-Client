@@ -45,6 +45,7 @@ end
 -------------------------------------
 function Character.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
+        owner.m_bEnableSpasticity = false
 
         owner:dispatch('basic_skill')
 
@@ -108,8 +109,11 @@ function Character.st_attack(owner, dt)
             owner.m_castingNode:setVisible(false)
         end
         
-    elseif (owner.m_bFinishAnimation and owner.m_bFinishAttack) then    
+    elseif (owner.m_bFinishAnimation and owner.m_bFinishAttack) then
         owner.m_attackAnimaDuration = owner.m_stateTimer
+
+        owner.m_bEnableSpasticity = true
+
         owner:changeState('attackDelay')
     end
 end

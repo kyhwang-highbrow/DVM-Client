@@ -205,6 +205,8 @@ end
 -------------------------------------
 function Hero.st_skillAttack(owner, dt)
     if (owner.m_stateTimer == 0) then
+        owner.m_bEnableSpasticity = false
+
         -- 이벤트
         owner:dispatch('dragon_skill', owner)
     end
@@ -304,6 +306,8 @@ end
 -------------------------------------
 function Hero.st_skillDisappear(owner, dt)
     if (owner.m_stateTimer == 0) then
+        owner.m_bEnableSpasticity = true
+
         owner:addAniHandler(function()
             owner:changeState('attackDelay')
         end)

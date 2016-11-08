@@ -86,8 +86,10 @@ function TamerSkillSystem:click_tamerSkillBtn(idx)
     end
 
 	-- 3. 쿨타임이 돌았다면 스킬 실행
-    self.m_world.m_tamerSkillMgr:doSkill(idx)
-
+    self:dispatch('tamer_skill', function()
+        self.m_world.m_tamerSkillMgr:doSkill(idx)
+    end)
+    
 	-- 4. 쿨타임 정산
     self.m_tamerSkillCooltimeGlobal = TAMER_SKILL_GLOBAL_COOLTIME
     self.m_lTamerSkillCoolTime[idx] = TAMER_SKILL_COOLTIME

@@ -43,16 +43,19 @@ function TamerSkillCut:init(world, dark_layer, t_tamer)
     do
         self.m_bgVisual = MakeAnimator('res/effect/effect_skillcut_goni/effect_skillcut_goni.vrp')
         self.m_bgVisual:setVisible(false)
-        socketNode = self.m_bgVisual.m_node:getSocketNode('goni')
-
+        self.m_bgVisual:setAnchorPoint(cc.p(0.5, 0.5))
+        self.m_bgVisual:setDockPoint(cc.p(0.5, 0.5))
         self.m_darkLayer:addChild(self.m_bgVisual.m_node)
+
+        socketNode = self.m_bgVisual.m_node:getSocketNode('goni')
     end
     
     -- 테이머
     if socketNode then
         self.m_tamerAnimator = MakeAnimator('res/character/tamer/goni_i/goni_i.spine')
-        self.m_tamerAnimator:changeAni('idle', true, true)
-
+        self.m_tamerAnimator:setAnchorPoint(cc.p(0.5, 0.5))
+        self.m_tamerAnimator:setDockPoint(cc.p(0.5, 0.5))
+                
         socketNode:addChild(self.m_tamerAnimator.m_node)
     end
 end
@@ -82,11 +85,35 @@ end
 -- function update_normal
 -------------------------------------
 function TamerSkillCut:update_normal(dt)
-    if self.m_timer == 0 then
-        g_gameScene:flashIn({color = cc.c3b(0, 0, 0), time = 0})
+    if self:isBeginningInStep(0) then
+        g_gameScene:flashIn({color = cc.c3b(0, 0, 0), opacity = 100, time = 0.2, cbEnd = function()
+            self:nextStep()
+        end})
 
-        self.m_bgVisual:changeAni('skill_1', tre)
+    elseif self:isBeginningInStep(1) then
+        local timeScale = 0.1
+        
+        g_gameScene:setTimeScale(timeScale)
+        
+        self.m_bgVisual:setTimeScale(1 / timeScale)
+        self.m_bgVisual:changeAni('skill_1', false)
         self.m_bgVisual:setVisible(true)
+        self.m_bgVisual:addAniHandler(function()
+            self:nextStep()
+        end)
+
+        self.m_tamerAnimator:changeAni('skill_1', false)
+
+    elseif self:isBeginningInStep(2) then
+        self.m_bgVisual:setVisible(false)
+        g_gameScene:flashOut({color = cc.c3b(255, 255, 255), time = 0.1, cbEnd = function()
+            self:nextStep()
+        end})
+
+        g_gameScene:setTimeScale(1)
+
+    elseif self:isBeginningInStep(3) then
+        self:onEnd()
     end
 end
 
@@ -130,7 +157,16 @@ function TamerSkillCut:start(type, cbEnd)
 	self.m_stepPrevTime = 0
 
     self.m_type = type
-    self.m_cbEnd = cbEnd
+    self.m_cbEnd = cbEnd or function() end
+end
+
+-------------------------------------
+-- function onEnd
+-------------------------------------
+function TamerSkillCut:onEnd()
+    self.m_bPlaying = false
+
+    self.m_cbEnd()
 end
 
 -------------------------------------
@@ -142,11 +178,11 @@ function TamerSkillCut:onEvent(event_name, ...)
 
     -- 테이머 스킬
     if (event_name == 'tamer_skill') then
-        --self:start(TAMER_SKILL_CUT_TYPE__NORMAL, cbEnd)
+        self:start(TAMER_SKILL_CUT_TYPE__NORMAL, cbEnd)
 
     -- 테이머 궁극기
     elseif (event_name == 'tamer_special_skill') then
-        --self:start(TAMER_SKILL_CUT_TYPE__SPECIAL, cbEnd)
+        self:start(TAMER_SKILL_CUT_TYPE__SPECIAL, cbEnd)
 
     end
 end

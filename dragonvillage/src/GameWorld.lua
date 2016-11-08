@@ -410,7 +410,7 @@ function GameWorld:init_test(deck_type)
     local t_tamer = self.m_tamerSkillMgr.m_charTable
 
     do
-        self.m_tamerSkillCut = TamerSkillCut(self, g_currScene.m_colorLayerForSkill, t_tamer)
+        self.m_tamerSkillCut = TamerSkillCut(self, g_currScene.m_colorLayerTamerSkill, t_tamer)
     end
 
     do

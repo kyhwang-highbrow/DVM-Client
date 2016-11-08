@@ -110,12 +110,11 @@ function SceneGame:init_layer()
 
     self.m_colorLayerTamerSkill = cc.LayerColor:create()
     self.m_colorLayerTamerSkill:setColor(cc.c3b(255, 255, 255))
-    self.m_colorLayerTamerSkill:setOpacity(255)
+    self.m_colorLayerTamerSkill:setOpacity(0)
     self.m_colorLayerTamerSkill:setNormalSize(1280, 810)
     self.m_colorLayerTamerSkill:setAnchorPoint(cc.p(0.5, 0.5))
     self.m_colorLayerTamerSkill:setDockPoint(cc.p(0.5, 0.5))
     self.m_scene:addChild(self.m_colorLayerTamerSkill)
-    self.m_colorLayerTamerSkill:setVisible(false)
 end
 
 -------------------------------------
@@ -311,19 +310,21 @@ end
 
 -------------------------------------
 -- function flashIn
--- @brief 지정된 칼라 레이어를 페이드인
+-- @brief 테이머 스킬 칼라 레이어를 페이드인
 -------------------------------------
 function SceneGame:flashIn(tParam)
 	local tParam = tParam or {}
 	local cbEnd = tParam['cbEnd']
 	local time = tParam['time'] or 0.5
 	local color = tParam['color'] or cc.c3b(255, 255, 255)
+    local opacity = tParam['opacity'] or 255
 
-    local layer = self.m_colorLayerForSkill
+    local layer = self.m_colorLayerTamerSkill
 	layer:setColor(color)
 	layer:setOpacity(0)
 	layer:runAction(cc.Sequence:create(
-		cc.FadeIn:create(time),
+		--cc.FadeIn:create(time),
+        cc.FadeTo:create(time, opacity),
 		cc.CallFunc:create(function(node)
 			if cbEnd then
 				cbEnd()
@@ -334,16 +335,14 @@ end
 
 -------------------------------------
 -- function flashOut
--- @brief 지정된 칼라 레이어를 페이드아웃
+-- @brief 테이머 스킬 칼라 레이어를 페이드아웃
 -------------------------------------
 function SceneGame:flashOut(tParam)
 	local tParam = tParam or {}
 	local cbEnd = tParam['cbEnd']
 	local time = tParam['time'] or 0.5
 	
-	local time = time or 0.5
-    local layer = self.m_colorLayerForSkill
-	layer:setOpacity(255)
+	local layer = self.m_colorLayerTamerSkill
 	layer:runAction(cc.Sequence:create(
 		cc.FadeOut:create(time),
 		cc.CallFunc:create(function(node)

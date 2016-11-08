@@ -84,6 +84,7 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_comebackNextState = 'state',
 
         -- 피격시 경직 관련
+        m_bEnableSpasticity = 'boolean',-- 경직 가능 활성화 여부
         m_isSpasticity = 'boolean',     -- 경직 중 여부
         m_delaySpasticity = 'number',   -- 경직 남은 시간
      })
@@ -107,6 +108,7 @@ function Character:init(file_name, body, ...)
 	self.m_lStatusEffect = {}
 	self.m_lStatusIcon = {}
 
+    self.m_bEnableSpasticity = true
     self.m_isSpasticity = false
     self.m_delaySpasticity = 0
 end
@@ -972,7 +974,7 @@ function Character:update(dt)
     if self.m_isSpasticity then
         self.m_delaySpasticity = self.m_delaySpasticity - dt
 
-        if self.m_delaySpasticity <= 0 then
+        if self.m_delaySpasticity <= 0 or self.m_bEnableSpasticity == false then
             self:setSpasticity(false)
         else
             return
@@ -1225,11 +1227,6 @@ function Character:makeAttackDamageInstance(forced_skill_id)
     -- 데미지 타입 지정
     activity_carrier.m_damageType = DMG_TYPE_STR[self.m_charTable['char_type']]
 
-    -- 찬스 타입 지정(일반 공격과 스킬을 구분하기 위함)
-    if (not self.m_reservedSkillId) and (not forced_skill_id) then
-        error('Character:makeAttackDamageInstance - no reservedSkillId or forced_skill_id')
-    end
-
     local t_skill = TABLE:get(self.m_charType .. '_skill')[self.m_reservedSkillId]
     
 	if (self.m_charTable['skill_basic'] == self.m_reservedSkillId) then
@@ -1445,7 +1442,7 @@ end
 -------------------------------------
 function Character:setSpasticity(b)
 	if (not self.m_animator) then return end
-    if b then
+    if b and self.m_bEnableSpasticity then
         --self.m_animator.m_node:pause()
         self.m_animator:setTimeScale(0)
 
