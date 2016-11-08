@@ -408,7 +408,7 @@ function GameState:update_fight_skill(dt)
             self.m_skillDescEffect:setTimeScale(duration / (timeScale * delayTime))
 
             self.m_skillNameLabel:setString(Str(t_skill['t_name']))
-            self.m_skillDescLabel:setString(Str(t_skill['desc'], t_skill['val_1'], t_skill['val_2'], t_skill['val_3']))
+            self.m_skillDescLabel:setString(Str(t_skill['t_desc'], t_skill['desc_1'], t_skill['desc_2'], t_skill['desc_3'], t_skill['desc_4'], t_skill['desc_5']))
         end
 
         -- 스킬 사용 직전 이펙트

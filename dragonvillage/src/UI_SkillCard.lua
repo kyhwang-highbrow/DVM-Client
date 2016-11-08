@@ -87,7 +87,7 @@ function UI_SkillCard:getSkillDescStrPure(skill_id, skill_type)
     local table_skill = TABLE:get(table_name)
     local t_skill = table_skill[skill_id]
 
-    local desc = Str(t_skill['desc'], t_skill['val_1'], t_skill['val_2'], t_skill['val_3'])
+    local desc = Str(t_skill['t_desc'], t_skill['desc_1'], t_skill['desc_2'], t_skill['desc_3'], t_skill['desc_4'], t_skill['desc_5'])
     return desc
 end
 
@@ -120,7 +120,7 @@ function UI_SkillCard:getSkillDescStr(skill_id, skill_type)
         error('skill_type : ' .. skill_type)
     end
 
-    local desc = Str(t_skill['desc'], t_skill['val_1'], t_skill['val_2'], t_skill['val_3'])
+    local desc = Str(t_skill['t_desc'], t_skill['desc_1'], t_skill['desc_2'], t_skill['desc_3'], t_skill['desc_4'], t_skill['desc_5'])
 
     local str = '{@SKILL_NAME} ' .. t_skill['t_name'] .. skill_type_str .. '\n {@SKILL_DESC}' .. desc
     return str
