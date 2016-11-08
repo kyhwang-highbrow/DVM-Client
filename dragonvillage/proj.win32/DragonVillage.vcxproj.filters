@@ -982,19 +982,13 @@
     <None Include="..\src\TamerSkillManager.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\TamerSkillCombination.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\Tamer.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\UI_DragonManage_Base.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\TamerSkillCut.lua">
+    <None Include="..\src\UI_DragonManageUpgrade.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_DragonManageUpgrade.lua">
+    <None Include="..\src\TamerSpecialSkillCombination.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\UI_DragonManageUpgradeResult.lua">
