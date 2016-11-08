@@ -509,6 +509,11 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
             -- 결과 팝업
             if (t_prev_dragon_data['grade'] < t_next_dragon_data['grade']) then
                 UI_DragonManageUpgradeResult(t_next_dragon_data)
+            else
+                -- 반듯이 폴리싱 할 것!
+                self.vars['upgradeVisual']:setVisible(true)
+                self.vars['upgradeVisual']:setVisual('res', 'material_frame_fx')
+                self.vars['upgradeVisual']:setRepeat(false)
             end
         end
     end
