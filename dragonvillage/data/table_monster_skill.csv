@@ -49,13 +49,15 @@ id,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,c
 232031,script,skill_subboss_griffin_1,그리핀,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
 232032,script,skill_subboss_griffin_2,그리핀,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
 232033,script,skill_subboss_griffin_3,그리핀,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
-231000,script,skill_boss_queenssnake_0,퀸즈스네이크 : 기본 공격 (attack),x,x,x,attack,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,30,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
-231001,script,skill_boss_queenssnake_1,퀸즈스네이크 : 벌집 던지기 (우측상단 집중공격),x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,20,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+231000,script,skill_boss_queenssnake_0,퀸즈스네이크 : 기본 공격 (attack),x,x,x,attack,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+231001,script,skill_boss_queenssnake_1,퀸즈스네이크 : 벌집 던지기 (우측상단 집중공격),x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
 231002,script,skill_boss_queenssnake_2,퀸즈스네이크 : 벌집 탄막 (skill_2_loop),x,x,x,skill_2,maintain,physical,-2,basic_turn,1,enemy_distance_line,4,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
-231003,script,skill_boss_queenssnake_3,퀸즈스네이크 : 향수병 독안개 (skill_3_appear / skill_3_attack),x,x,x,skill_3,instant,physical,-2,basic_turn,1,enemy_distance_line,2,atk,20,1,0,0,0,100,100,poison,0,x,직선으로 이동하는 원거리 공격
+231003,script,skill_boss_queenssnake_3,퀸즈스네이크 : 향수병 독안개 (skill_3_appear / skill_3_attack),x,x,x,skill_3,instant,physical,-2,basic_turn,1,enemy_distance_line,2,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
 231004,code,skill_summon,퀸즈스네이크 : 소환 (skill_4),x,x,x,skill_4,instant,x,0,basic_turn,5,self,3,x,0,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
 232001,script,skill_boss_drake_1,드레이크 : 물뱉기 (skill_1),x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
-232002,script,skill_boss_drake_2,드레이크 : 베기 (skill_4),x,x,x,skill_4,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+232002,script,skill_boss_drake_2,드레이크 : 유령 검기 (skill_4),x,x,x,skill_4,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+232003,script,skill_boss_drake_3,드레이크 : 망자의 검 (skill_2),x,x,x,skill_2,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,
+232004,script,skill_boss_drake_4,드레이크 : 포격 명령 (skill_3),x,x,x,skill_3,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,
 233001,script,skill_boss_cockatrice_1,코카트리스 : 불뿜기 (skill_1),x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
 233002,script,skill_boss_cockatrice_2,코카트리스 : 3연 불뿜기 (skill_1),x,x,x,skill_1,maintain,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
 233003,script,skill_boss_cockatrice_3,코카트리스 : 탄막뱉기 (skill_2),x,x,x,skill_2,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
@@ -63,3 +65,4 @@ id,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,c
 230037,code,missile_move_high_angle	,도토리 발사,res/missile/missile_nut/missile_nut.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,100,0,0,0,0,x,0,x,
 230038,code,missile_move_straight,도토리 연사,res/missile/missile_nut/missile_nut.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,25,4,100,0,0,0,0,x,0,x,
 230039,script,skill_bounce,글레이브,res/missile/missile_glave_fire/missile_glave_fire.spine,res/missile/motion_streak/motion_streak_line_@.png,x,skill_1,instant,physical,-1,basic_turn,3,enemy_distance_line,2,atk,300,1,0,0,0,0,0,x,0,x,
+230040,code,skill_melee_atk,쪼기,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,30,1,5000,10000,0,0,0,x,0,x,캐릭터가 직접 대상 앞으로 이동하여 공격한다(공격 모션 필요). 공격이 끝나면 제 자리로 돌아온다.

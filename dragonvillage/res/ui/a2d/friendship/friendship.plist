@@ -4,6 +4,111 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>friendship_down_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{60,86}</string>
+                <key>spriteSourceSize</key>
+                <string>{60,86}</string>
+                <key>textureRect</key>
+                <string>{{699,959},{60,86}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>friendship_down_0102.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{61,86}</string>
+                <key>spriteSourceSize</key>
+                <string>{61,86}</string>
+                <key>textureRect</key>
+                <string>{{806,857},{61,86}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>friendship_down_0103.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{67,76}</string>
+                <key>spriteSourceSize</key>
+                <string>{67,76}</string>
+                <key>textureRect</key>
+                <string>{{936,477},{67,76}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>friendship_down_0104.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{65,83}</string>
+                <key>spriteSourceSize</key>
+                <string>{65,83}</string>
+                <key>textureRect</key>
+                <string>{{196,943},{65,83}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>friendship_down_0105.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{65,83}</string>
+                <key>spriteSourceSize</key>
+                <string>{65,83}</string>
+                <key>textureRect</key>
+                <string>{{944,546},{65,83}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>friendship_down_0106.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{70,87}</string>
+                <key>spriteSourceSize</key>
+                <string>{70,87}</string>
+                <key>textureRect</key>
+                <string>{{936,149},{70,87}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>friendship_down_0107.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{69,83}</string>
+                <key>spriteSourceSize</key>
+                <string>{69,83}</string>
+                <key>textureRect</key>
+                <string>{{936,392},{69,83}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>friendship_rank_a_0101.png</key>
             <dict>
                 <key>aliases</key>
@@ -15,9 +120,9 @@
                 <key>spriteSourceSize</key>
                 <string>{137,139}</string>
                 <key>textureRect</key>
-                <string>{{954,169},{137,139}}</string>
+                <string>{{869,719},{137,139}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>friendship_rank_a_0102.png</key>
             <dict>
@@ -30,7 +135,7 @@
                 <key>spriteSourceSize</key>
                 <string>{174,175}</string>
                 <key>textureRect</key>
-                <string>{{602,196},{174,175}}</string>
+                <string>{{760,195},{174,175}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,7 +150,7 @@
                 <key>spriteSourceSize</key>
                 <string>{136,136}</string>
                 <key>textureRect</key>
-                <string>{{761,373},{136,136}}</string>
+                <string>{{356,842},{136,136}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -60,7 +165,7 @@
                 <key>spriteSourceSize</key>
                 <string>{174,174}</string>
                 <key>textureRect</key>
-                <string>{{760,1},{174,174}}</string>
+                <string>{{760,372},{174,174}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -75,9 +180,9 @@
                 <key>spriteSourceSize</key>
                 <string>{166,164}</string>
                 <key>textureRect</key>
-                <string>{{936,1},{166,164}}</string>
+                <string>{{381,676},{166,164}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>friendship_rank_c_0101.png</key>
             <dict>
@@ -90,7 +195,7 @@
                 <key>spriteSourceSize</key>
                 <string>{136,136}</string>
                 <key>textureRect</key>
-                <string>{{1102,1},{136,136}}</string>
+                <string>{{494,849},{136,136}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -105,7 +210,7 @@
                 <key>spriteSourceSize</key>
                 <string>{174,174}</string>
                 <key>textureRect</key>
-                <string>{{778,177},{174,174}}</string>
+                <string>{{208,430},{174,174}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -120,7 +225,7 @@
                 <key>spriteSourceSize</key>
                 <string>{152,146}</string>
                 <key>textureRect</key>
-                <string>{{1102,139},{146,134}}</string>
+                <string>{{889,1},{146,134}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -135,9 +240,9 @@
                 <key>spriteSourceSize</key>
                 <string>{185,227}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{185,227}}</string>
+                <string>{{250,1},{185,227}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>friendship_rank_fx_03.png</key>
             <dict>
@@ -150,9 +255,9 @@
                 <key>spriteSourceSize</key>
                 <string>{205,200}</string>
                 <key>textureRect</key>
-                <string>{{188,1},{205,200}}</string>
+                <string>{{1,430},{205,200}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>friendship_rank_fx_04.png</key>
             <dict>
@@ -165,9 +270,9 @@
                 <key>spriteSourceSize</key>
                 <string>{218,213}</string>
                 <key>textureRect</key>
-                <string>{{1,230},{218,213}}</string>
+                <string>{{1,215},{218,213}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>friendship_rank_fx_05.png</key>
             <dict>
@@ -180,7 +285,7 @@
                 <key>spriteSourceSize</key>
                 <string>{159,153}</string>
                 <key>textureRect</key>
-                <string>{{1050,308},{159,153}}</string>
+                <string>{{549,694},{159,153}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -195,7 +300,7 @@
                 <key>spriteSourceSize</key>
                 <string>{234,234}</string>
                 <key>textureRect</key>
-                <string>{{404,205},{196,200}}</string>
+                <string>{{1,632},{196,200}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -210,9 +315,9 @@
                 <key>spriteSourceSize</key>
                 <string>{234,234}</string>
                 <key>textureRect</key>
-                <string>{{216,208},{186,204}}</string>
+                <string>{{479,1},{186,204}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>friendship_rank_fx_08.png</key>
             <dict>
@@ -225,9 +330,9 @@
                 <key>spriteSourceSize</key>
                 <string>{234,234}</string>
                 <key>textureRect</key>
-                <string>{{390,1},{192,202}}</string>
+                <string>{{685,1},{192,202}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>friendship_rank_fx_09.png</key>
             <dict>
@@ -240,7 +345,7 @@
                 <key>spriteSourceSize</key>
                 <string>{34,34}</string>
                 <key>textureRect</key>
-                <string>{{1,450},{34,34}}</string>
+                <string>{{889,149},{34,34}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -255,9 +360,9 @@
                 <key>spriteSourceSize</key>
                 <string>{149,155}</string>
                 <key>textureRect</key>
-                <string>{{899,353},{149,155}}</string>
+                <string>{{199,792},{149,155}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>friendship_rank_s_0101.png</key>
             <dict>
@@ -270,7 +375,7 @@
                 <key>spriteSourceSize</key>
                 <string>{136,157}</string>
                 <key>textureRect</key>
-                <string>{{602,373},{136,157}}</string>
+                <string>{{710,719},{136,157}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -285,7 +390,322 @@
                 <key>spriteSourceSize</key>
                 <string>{174,193}</string>
                 <key>textureRect</key>
-                <string>{{584,1},{174,193}}</string>
+                <string>{{1,834},{174,193}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>friendship_tutorial_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{10,-3}</string>
+                <key>spriteSize</key>
+                <string>{86,102}</string>
+                <key>spriteSourceSize</key>
+                <string>{120,120}</string>
+                <key>textureRect</key>
+                <string>{{936,288},{86,102}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>friendship_tutorial_0102.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{6,-6}</string>
+                <key>spriteSize</key>
+                <string>{94,96}</string>
+                <key>spriteSourceSize</key>
+                <string>{120,120}</string>
+                <key>textureRect</key>
+                <string>{{869,860},{94,96}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>friendship_tutorial_0103.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{100,100}</string>
+                <key>spriteSourceSize</key>
+                <string>{100,100}</string>
+                <key>textureRect</key>
+                <string>{{704,857},{100,100}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>friendship_up_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{60,86}</string>
+                <key>spriteSourceSize</key>
+                <string>{60,86}</string>
+                <key>textureRect</key>
+                <string>{{787,959},{60,86}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>friendship_up_0102.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{61,86}</string>
+                <key>spriteSourceSize</key>
+                <string>{61,86}</string>
+                <key>textureRect</key>
+                <string>{{944,631},{61,86}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>friendship_up_0103.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{67,76}</string>
+                <key>spriteSourceSize</key>
+                <string>{67,76}</string>
+                <key>textureRect</key>
+                <string>{{281,943},{67,76}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>friendship_up_0104.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{65,83}</string>
+                <key>spriteSourceSize</key>
+                <string>{65,83}</string>
+                <key>textureRect</key>
+                <string>{{632,935},{65,83}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>friendship_up_0105.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{65,83}</string>
+                <key>spriteSourceSize</key>
+                <string>{65,83}</string>
+                <key>textureRect</key>
+                <string>{{875,956},{65,83}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>friendship_up_0106.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{70,84}</string>
+                <key>spriteSourceSize</key>
+                <string>{70,84}</string>
+                <key>textureRect</key>
+                <string>{{632,849},{70,84}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>friendship_up_0107.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{65,87}</string>
+                <key>spriteSourceSize</key>
+                <string>{65,87}</string>
+                <key>textureRect</key>
+                <string>{{936,221},{65,87}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>friendship_up_0108.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{20,82}</string>
+                <key>spriteSourceSize</key>
+                <string>{20,82}</string>
+                <key>textureRect</key>
+                <string>{{250,188},{20,82}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>friendship_up_fx_01.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,-5}</string>
+                <key>spriteSize</key>
+                <string>{186,161}</string>
+                <key>spriteSourceSize</key>
+                <string>{192,183}</string>
+                <key>textureRect</key>
+                <string>{{221,215},{186,161}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>friendship_up_fx_02.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,-5}</string>
+                <key>spriteSize</key>
+                <string>{186,161}</string>
+                <key>spriteSourceSize</key>
+                <string>{192,183}</string>
+                <key>textureRect</key>
+                <string>{{384,362},{186,161}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>friendship_up_fx_03.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,-6}</string>
+                <key>spriteSize</key>
+                <string>{184,159}</string>
+                <key>spriteSourceSize</key>
+                <string>{192,183}</string>
+                <key>textureRect</key>
+                <string>{{572,533},{184,159}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>friendship_up_fx_04.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,-11}</string>
+                <key>spriteSize</key>
+                <string>{186,149}</string>
+                <key>spriteSourceSize</key>
+                <string>{192,183}</string>
+                <key>textureRect</key>
+                <string>{{384,525},{186,149}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>friendship_up_fx_05.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,0}</string>
+                <key>spriteSize</key>
+                <string>{186,171}</string>
+                <key>spriteSourceSize</key>
+                <string>{192,183}</string>
+                <key>textureRect</key>
+                <string>{{384,189},{186,171}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>friendship_up_fx_06.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,0}</string>
+                <key>spriteSize</key>
+                <string>{186,171}</string>
+                <key>spriteSourceSize</key>
+                <string>{192,183}</string>
+                <key>textureRect</key>
+                <string>{{572,195},{186,171}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>friendship_up_fx_07.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,-1}</string>
+                <key>spriteSize</key>
+                <string>{184,169}</string>
+                <key>spriteSourceSize</key>
+                <string>{192,183}</string>
+                <key>textureRect</key>
+                <string>{{758,548},{184,169}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>friendship_up_fx_08.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,-4}</string>
+                <key>spriteSize</key>
+                <string>{186,163}</string>
+                <key>spriteSourceSize</key>
+                <string>{192,183}</string>
+                <key>textureRect</key>
+                <string>{{572,368},{186,163}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>friendship_up_fx_09.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,0}</string>
+                <key>spriteSize</key>
+                <string>{184,171}</string>
+                <key>spriteSourceSize</key>
+                <string>{192,183}</string>
+                <key>textureRect</key>
+                <string>{{208,606},{184,171}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>friendship_up_heart.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{247,212}</string>
+                <key>spriteSourceSize</key>
+                <string>{247,212}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{247,212}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -301,9 +721,9 @@
             <key>realTextureFileName</key>
             <string>friendship.png</string>
             <key>size</key>
-            <string>{1239,510}</string>
+            <string>{1024,1022}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b416ceb9feaae2136d9e689ab5473ee8:603929d3910321f9b317c66ff0b8d427:56e1c0b621046333c0269a9a0eeda3e4$</string>
+            <string>$TexturePacker:SmartUpdate:23993182295ad97efd98ff205d17f966:25a41a468407519484da725acea81e76:56e1c0b621046333c0269a9a0eeda3e4$</string>
             <key>textureFileName</key>
             <string>friendship.png</string>
         </dict>

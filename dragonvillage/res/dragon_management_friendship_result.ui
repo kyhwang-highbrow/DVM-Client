@@ -794,6 +794,31 @@
 			{
 				type = 'Visual';
 				ui_name = '';
+				x = 37.999939;
+				y = 14.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 0.700000;
+				scale_y = 0.700000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'frindshipFxVisual';
+				file_name = 'ui/a2d/friendship/friendship.a2d';
+				auto_play = false;
+				is_repeat = false;
+				visual_id = 'frindship;fx';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
+			[12] =
+			{
+				type = 'Visual';
+				ui_name = '';
 				x = 247.000000;
 				y = 188.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -806,12 +831,12 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
-				lua_name = 'gradeVisual';
+				visible = false;
+				lua_name = 'rankVisual';
 				file_name = 'ui/a2d/friendship/friendship.a2d';
-				auto_play = true;
+				auto_play = false;
 				is_repeat = false;
-				visual_id = 'group;grade_s';
+				visual_id = 'rank;s';
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
