@@ -982,10 +982,10 @@
     <None Include="..\src\TamerSkillManager.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\TamerSpeechSystem.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\TamerSkillManager.lua">
+    <None Include="..\src\Tamer.lua" />
+    <None Include="..\src\UI_DragonManageUpgrade.lua" />
+    <None Include="..\src\UI_DragonManage_Base.lua" />
+    <None Include="..\src\TamerSkillCombination.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>
