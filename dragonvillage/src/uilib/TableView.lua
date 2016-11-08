@@ -42,7 +42,7 @@ function TableView:_init()
         local idx = cell:getIdx() + 1
         local cellData = self.m_cellDatas[idx]
         if not cellData then
-            cclog_error('TableView error : cellData dont exist')
+            --cclog_error('TableView error : cellData dont exist')
             return 0, 0
         end
         

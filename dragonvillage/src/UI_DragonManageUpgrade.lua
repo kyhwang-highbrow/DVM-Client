@@ -1,9 +1,12 @@
 local PARENT = UI_DragonManage_Base
+local MAX_DRAGON_UPGRADE_MATERIAL_MAX = 30 -- 한 번에 사용 가능한 재료 수
 
 -------------------------------------
 -- class UI_DragonManageUpgrade
 -------------------------------------
 UI_DragonManageUpgrade = class(PARENT,{
+        m_tableViewExtMaterial = 'TableViewExtension', -- 재료
+        m_tableViewExtSelectMaterial = 'TableViewExtension', -- 선택된 재료
     })
 
 -------------------------------------
@@ -140,6 +143,264 @@ function UI_DragonManageUpgrade:refresh()
     end
 
     vars['selectLabel']:setString(Str('선택재료 {1} / 30', 0))
+
+    -- 재료 리스트 갱신
+    self:init_dragonUpgradeMaterialTableView()
+
+    -- 선택된 재료 리스트 갱신
+    self:init_dragonUpgradeMaterialSelectTableView()
+
+    self:refresh_selectedMaterial()
+end
+
+-------------------------------------
+-- function init_dragonUpgradeMaterialTableView
+-- @brief 드래곤 승급 재료(다른 드래곤) 리스트 테이블 뷰
+-------------------------------------
+function UI_DragonManageUpgrade:init_dragonUpgradeMaterialTableView()
+    local list_table_node = self.vars['selectListNode']
+    list_table_node:removeAllChildren()
+
+    local item_size = 150
+    local item_scale = 0.75
+
+    -- 생성
+    local function create_func(item)
+        local ui = item['ui']
+        ui.root:setScale(item_scale)
+    end
+
+    -- 드래곤 클릭 콜백 함수
+    local function click_dragon_item(item)
+        self:click_dragonUpgradeMaterial(item)
+    end
+
+    -- 테이블뷰 초기화
+    local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.VERTICAL)
+    do -- 아이콘 크기 지정
+        local item_adjust_size = (item_size * item_scale)
+        local nItemPerCell = 4
+        local cell_width = (item_adjust_size * nItemPerCell)
+        local cell_height = item_adjust_size
+        local item_width = item_adjust_size
+        local item_height = item_adjust_size
+        table_view_ext:setCellInfo2(nItemPerCell, cell_width, cell_height, item_width, item_height)
+    end    
+    table_view_ext:setItemUIClass(UI_DragonCard, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
+    
+    -- 재료로 사용 가능한 리스트를 얻어옴
+    local l_dragon_list = self:getDragonUpgradeMaterialList(self.m_selectDragonOID)
+    table_view_ext:setItemInfo(l_dragon_list)
+
+    table_view_ext:update()
+
+    self.m_tableViewExtMaterial = table_view_ext
+end
+
+-------------------------------------
+-- function getDragonUpgradeMaterialList
+-- @brief 드래곤 승급 재료(다른 드래곤) 리스트
+-------------------------------------
+function UI_DragonManageUpgrade:getDragonUpgradeMaterialList(doid)
+
+    if (not doid) then
+        return
+    end
+
+    local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+    if (not t_dragon_data) then
+        return
+    end
+
+    -- 최대 등급인지 확인
+    local is_max_grade = (t_dragon_data['grade'] >= MAX_DRAGON_GRADE)
+
+    -- 남은 드래곤 스킬 레벨 갯수
+    local num_of_remin_skill_level = g_dragonsData:getNumberOfRemainingSkillLevel(doid)
+
+    -- 1. 최대 등급, 최대 스킬 레벨일 경우 모든 드래곤 제외
+    if (is_max_grade and num_of_remin_skill_level) then
+        return {}
+    end
+
+    -- 2. 자기 자신 드래곤 제외
+    local l_dragon_list = g_dragonsData:getDragonsList()-- clone된 데이터를 사용
+    l_dragon_list[doid] = nil
+
+    -- 3. 최대 등급일 경우 원종이 다른 드래곤 제외
+    if is_max_grade then
+        local table_dragon = TABLE:get('dragon')
+        local t_dragon = table_dragon[t_dragon_data['did']]
+        local dragon_type = t_dragon['type']
+        for _doid, _t_data in pairs(l_dragon_list) do
+            local did = _t_data['did']
+            local _t_dragon = table_dragon[did]
+
+            if (_t_dragon['type'] ~= dragon_type) then
+                l_dragon_list[_doid] = nil
+            end 
+        end
+    end
+
+    return l_dragon_list
+end
+
+-------------------------------------
+-- function init_dragonUpgradeMaterialSelectTableView
+-- @brief 선택된 드래곤 승급 재료(다른 드래곤) 리스트 테이블 뷰
+-------------------------------------
+function UI_DragonManageUpgrade:init_dragonUpgradeMaterialSelectTableView()
+    local list_table_node = self.vars['materialNode']
+    list_table_node:removeAllChildren()
+
+    local item_size = 150
+    local item_scale = 0.5
+    local item_adjust_size = (item_size * item_scale)
+
+    -- 생성
+    local function create_func(item)
+        local ui = item['ui']
+        ui.root:setScale(item_scale)
+    end
+
+    -- 드래곤 클릭 콜백 함수
+    local function click_dragon_item(item)
+        self:click_dragonUpgradeMaterial(item)
+    end
+
+    -- 테이블뷰 초기화
+    local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.HORIZONTAL)
+    table_view_ext:setCellInfo(item_adjust_size, item_adjust_size)  
+    table_view_ext:setItemUIClass(UI_DragonCard, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
+    table_view_ext:setItemInfo({})
+    table_view_ext:update()
+
+    self.m_tableViewExtSelectMaterial = table_view_ext
+end
+
+-------------------------------------
+-- function click_dragonUpgradeMaterial
+-------------------------------------
+function UI_DragonManageUpgrade:click_dragonUpgradeMaterial(item)
+    local data = item['data']
+    local unique_id = data['id']
+
+    local selected_material_item = self.m_tableViewExtSelectMaterial:getItem(unique_id)
+
+    -- 재료 해제
+    if selected_material_item then
+        self.m_tableViewExtSelectMaterial:delItem(unique_id)
+        self.m_tableViewExtSelectMaterial:update()
+        self:refresh_selectedMaterial()
+        return
+
+    -- 재료 추가
+    else
+        self.m_tableViewExtSelectMaterial:addItem(unique_id, data)
+        self.m_tableViewExtSelectMaterial:update()
+        self:refresh_selectedMaterial()
+        return
+    end
+end
+
+-------------------------------------
+-- function refresh_selectedMaterial
+-- @brief 선택된 재료의 구성이 변경되었을때
+-------------------------------------
+function UI_DragonManageUpgrade:refresh_selectedMaterial()
+    
+    local vars = self.vars
+
+    local t_analyze
+
+    do -- 재료 분석 (가격 총 경험치 등)
+        local doid = self.m_selectDragonOID
+        local l_item = self.m_tableViewExtSelectMaterial.m_lItem
+        t_analyze = self:analyzeSelectedMaterial(doid, l_item)
+    end
+
+    -- 재료 갯수 출력
+    vars['selectLabel']:setString(Str('선택재료 {1} / {2}', t_analyze['count'], MAX_DRAGON_UPGRADE_MATERIAL_MAX))
+
+    -- 가격 출력
+    vars['priceLabel']:setString(comma_value(t_analyze['total_price']))
+end
+
+-------------------------------------
+-- function analyzeSelectedMaterial
+-- @brief 선택된 재료의 구성이 변경되었을때
+-------------------------------------
+function UI_DragonManageUpgrade:analyzeSelectedMaterial(doid, l_item)
+    --local l_item = self.m_tableViewExtSelectMaterial.m_lItem
+
+    local t_ret = {}
+
+    local t_dragon_Data = g_dragonsData:getDragonDataFromUid(doid)
+    local table_grade_info = TABLE:get('grade_info')
+    local table_dragon = TABLE:get('dragon')
+
+    -- 최대 등급까지 필요한 경험치 총 량 계산
+    local total_remain_exp = 0
+    for grade=t_dragon_Data['grade'], MAX_DRAGON_GRADE do
+        local t_grade_info = table_grade_info[grade]
+        if (grade == t_dragon_Data['grade']) then
+            total_remain_exp = total_remain_exp + (t_grade_info['req_exp'] - t_dragon_Data['gexp'])
+        else
+            total_remain_exp = total_remain_exp + t_grade_info['req_exp']
+        end
+    end
+    t_ret['total_remain_exp'] = total_remain_exp
+
+    -- 재료들을 모두 사용하여 승급할 때 필요한 골드
+    local total_price = 0
+    for i,v in pairs(l_item) do
+        local data = v['data']
+        local grade = data['grade']
+        local req_gold = table_grade_info[grade]['req_gold']
+        total_price = (total_price + req_gold)
+    end
+    t_ret['total_price'] = total_price
+
+    -- 스킬들의 레벨업 가능한 갯수
+    local num_of_remin_skill_level = g_dragonsData:getNumberOfRemainingSkillLevel(doid)
+    t_ret['num_of_remin_skill_level'] = num_of_remin_skill_level
+
+    -- 스킬들의 레벨업 수
+    local num_of_skill_level = 0
+    for i,v in pairs(l_item) do
+        local data = v['data']
+        local doid2 = data['id']
+        if g_dragonsData:isSameTypeDragon(doid, doid2) then
+            num_of_skill_level = (num_of_skill_level + 1)
+        end
+    end
+    t_ret['num_of_skill_level'] = num_of_skill_level
+
+    -- 현재 갯수
+    local count = table.count(l_item)
+    t_ret['count'] = count
+
+    -- 경험치 체크
+    local total_exp = 0
+    for i,v in pairs(l_item) do
+        local data = v['data']
+        local grade = data['grade']
+        local evolution = data['evolution']
+        local evolution_str
+        if (evolution == 1) then
+            evolution_str = 'hatch_exp'
+        elseif (evolution == 2) then
+            evolution_str = 'hatchling_exp'
+        elseif (evolution == 3) then
+            evolution_str = 'adult_exp'
+        end
+        local exp = table_grade_info[grade][evolution_str]
+        total_exp = (total_exp + exp)
+    end
+    t_ret['total_exp'] = total_exp
+
+
+    return t_ret
 end
 
 -------------------------------------

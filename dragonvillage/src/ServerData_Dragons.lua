@@ -165,6 +165,46 @@ function ServerData_Dragons:setLeaderDragon(doid)
     end
 end
 
+-------------------------------------
+-- function getNumberOfRemainingSkillLevel
+-- @brief 남은 드래곤 스킬 레벨 갯수 리턴
+-------------------------------------
+function ServerData_Dragons:getNumberOfRemainingSkillLevel(doid)
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+
+    local skill_0 = (t_dragon_data['skill_0'] or 0) -- 최대 10
+    local skill_1 = (t_dragon_data['skill_1'] or 0) -- 최대 10
+    local skill_2 = (t_dragon_data['skill_2'] or 0) -- 최대 10
+    local skill_3 = (t_dragon_data['skill_3'] or 0) -- 최대 1
+
+    local total_skill_level = (skill_0 + skill_1 + skill_2 + skill_3)
+    local num_of_remain_skill_level = (31 - total_skill_level)
+
+    return num_of_remain_skill_level
+end
+
+-------------------------------------
+-- function isSameTypeDragon
+-- @brief 드래곤들의 원종(dragon 테이블의 type컬럼)이 같은지 확인
+-------------------------------------
+function ServerData_Dragons:isSameTypeDragon(doid1, doid2)
+    local table_dragon = TABLE:get('dragon')
+    
+    local t_dragon_data_1 = self:getDragonDataFromUid(doid1)
+    local t_dragon_data_2 = self:getDragonDataFromUid(doid2)
+
+    local did_1 = t_dragon_data_1['did']
+    local did_2 = t_dragon_data_2['did']
+
+    local t_dragon_1 = table_dragon[did_1]
+    local t_dragon_2 = table_dragon[did_2]
+
+    local is_same_type = (t_dragon_1['type'] == t_dragon_2['type'])
+
+    return is_same_type
+end
+
+
 
 T_DRAGON_SORT = {}
 

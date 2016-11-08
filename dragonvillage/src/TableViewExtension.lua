@@ -197,6 +197,33 @@ function TableViewExtension:setItemUIClass(item_class, click_cb, create_func)
 end
 
 -------------------------------------
+-- function getItem
+-- @breif
+-------------------------------------
+function TableViewExtension:getItem(unique_id)
+    return self.m_mapItem[unique_id]
+end
+
+-------------------------------------
+-- function addItem
+-- @breif
+-------------------------------------
+function TableViewExtension:addItem(unique_id, t_data)
+    if (not self.m_tableViewTD) then
+        return
+    end
+
+    self:delItem(unique_id)
+
+    local t_item = {}
+    t_item['unique_id'] = unique_id
+    t_item['data'] = t_data
+
+    self.m_mapItem[unique_id] = t_item
+    self.m_lItem[#self.m_lItem + 1] = t_item
+end
+
+-------------------------------------
 -- function delItem
 -- @breif
 -------------------------------------
@@ -221,12 +248,23 @@ function TableViewExtension:delItem(unique_id)
 
     if t_item then
         local ui = t_item['ui']
-        ui.root:removeFromParent()
+        if ui then
+            ui.root:removeFromParent()
+        end
     end
 
     if idx then
         table.remove(self.m_lItem, idx)
     end
+end
+
+-------------------------------------
+-- function getItemCount
+-- @breif
+-------------------------------------
+function TableViewExtension:getItemCount()
+    local count = table.count(self.m_lItem)
+    return count
 end
 
 -------------------------------------
