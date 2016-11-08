@@ -144,13 +144,18 @@ function TamerSkillCut:update_special(dt)
 
         self.m_tamerAnimator:changeAni('skill_2', false)
 
+        local duration = self.m_bgVisual:getDuration()
+        g_gameScene:flashIn({color = cc.c3b(255, 255, 255), time = duration, cbEnd = function()
+            self:nextStep()
+        end})
+
     elseif self:isBeginningInStep(2) then
         self.m_bgVisual:setVisible(false)
         
         g_gameScene:flashOut({color = cc.c3b(255, 255, 255), time = 0.5, cbEnd = function()
             self:nextStep()
         end})
-
+        
     elseif self:isBeginningInStep(3) then
         g_gameScene:gameResume()
 
