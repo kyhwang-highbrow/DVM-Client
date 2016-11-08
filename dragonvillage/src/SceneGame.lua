@@ -308,6 +308,52 @@ function SceneGame:setShakeAction(x, y)
     self.m_shakeLayer:runAction(cc.Sequence:create(start_action, end_action))
 end
 
+
+-------------------------------------
+-- function flashIn
+-- @brief 지정된 칼라 레이어를 페이드인
+-------------------------------------
+function SceneGame:flashIn(tParam)
+	local tParam = tParam or {}
+	local cbEnd = tParam['cbEnd']
+	local time = tParam['time'] or 0.5
+	local color = tParam['color'] or cc.c3b(255, 255, 255)
+
+    local layer = self.m_colorLayerForSkill
+	layer:setColor(color)
+	layer:setOpacity(0)
+	layer:runAction(cc.Sequence:create(
+		cc.FadeIn:create(time),
+		cc.CallFunc:create(function(node)
+			if cbEnd then
+				cbEnd()
+			end
+		end)
+	))
+end
+
+-------------------------------------
+-- function flashOut
+-- @brief 지정된 칼라 레이어를 페이드아웃
+-------------------------------------
+function SceneGame:flashOut(tParam)
+	local tParam = tParam or {}
+	local cbEnd = tParam['cbEnd']
+	local time = tParam['time'] or 0.5
+	
+	local time = time or 0.5
+    local layer = self.m_colorLayerForSkill
+	layer:setOpacity(255)
+	layer:runAction(cc.Sequence:create(
+		cc.FadeOut:create(time),
+		cc.CallFunc:create(function(node)
+			if cbEnd then
+				cbEnd()
+			end
+		end)
+	))
+end
+
 -------------------------------------
 -- function Shake
 -- @brief 화면 떨림 연출

@@ -991,6 +991,9 @@
     <None Include="..\src\UI_DragonManage_Base.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TamerSkillCut.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\UI_DragonManageUpgrade.lua">
       <Filter>lua</Filter>
     </None>

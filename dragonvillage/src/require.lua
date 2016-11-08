@@ -99,6 +99,7 @@ local t_module = {
     'GameState',
     'TamerSpeechSystem',
     'TamerSkillSystem',
+    'TamerSkillCut',
 	'TamerSkillManager',
 
 	'Missile',

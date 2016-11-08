@@ -56,6 +56,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
 		-- 테이머 스킬 관련
         m_tamerSkillSystem = 'TamerSkillSystem',
+        m_tamerSkillCut = 'TamerSkillCut',
         m_tamerSkillMgr = 'Tamer',
         m_bDoingTamerSkill = 'boolean',
 
@@ -409,7 +410,14 @@ function GameWorld:init_test(deck_type)
     local t_tamer = self.m_tamerSkillMgr.m_charTable
 
     do
+        self.m_tamerSkillCut = TamerSkillCut(self, g_currScene.m_colorLayerForSkill, t_tamer)
+    end
+
+    do
         self.m_tamerSkillSystem = TamerSkillSystem(self, t_tamer)
+        self.m_tamerSkillSystem:addListener('tamer_skill', self.m_tamerSkillCut)
+        self.m_tamerSkillSystem:addListener('tamer_special_skill', self.m_tamerSkillCut)
+
         self:addListener('game_start', self.m_tamerSkillSystem)
         
         for _,char in pairs(self.m_lDragonList) do

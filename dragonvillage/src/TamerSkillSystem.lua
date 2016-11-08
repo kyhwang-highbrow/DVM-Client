@@ -4,7 +4,7 @@ local TAMER_SKILL_COOLTIME = 20
 -------------------------------------
 -- class TamerSkillSystem
 -------------------------------------
-TamerSkillSystem = class(IEventListener:getCloneClass(), {
+TamerSkillSystem = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable(), {
         m_world = 'GameWrold',
 
         m_tamerSkillCooltimeGlobal = 'number',
