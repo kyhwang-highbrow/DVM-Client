@@ -28,7 +28,7 @@ function ServerData_Deck:getDeck(type)
     if l_deck then
         local t_ret = {}
         for i,v in pairs(l_deck) do
-            if (v ~= '') then
+            if (v ~= '') and g_dragonsData:getDragonDataFromUid(v) then
                 t_ret[tonumber(i)] = v
             end
         end
