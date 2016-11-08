@@ -74,6 +74,8 @@ UNDER_LINE_PNG = 'res/common/underline.png'
 EMPTY_PNG = 'res/common/empty.png'
 EMPTY_TABLE = {}
 
+MAX_DRAGON_GRADE = 6
+
 -- state priority
 PRIORITY =
 {

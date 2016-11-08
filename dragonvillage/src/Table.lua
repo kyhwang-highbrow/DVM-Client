@@ -40,7 +40,9 @@ local TableInfo = {
         attribute         = {'table_attribute',             'attr_id',      false},
         status            = {'table_status',                'type',         false},
         status_effect     = {'table_status_effect',         'name',         false},
-        
+
+        -- 드래곤 관리 관련
+        grade_info        = {'table_grade_info',            'grade',        false},
     }
 
 -------------------------------------

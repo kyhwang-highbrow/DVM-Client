@@ -1,13 +1,9 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
+local PARENT = UI_DragonManage_Base
 
 -------------------------------------
 -- class UI_DragonManageInfo
 -------------------------------------
 UI_DragonManageInfo = class(PARENT,{
-        m_selectDragonData = 'table',
-        m_selectDragonOID = 'number',
-        m_tableViewExt = 'TableViewExtension',
-        m_dragonSelectFrame = 'sprite', --선택된 드래곤의 카드에 표시
     })
 
 -------------------------------------
@@ -311,81 +307,20 @@ function UI_DragonManageInfo:click_exitBtn()
 end
 
 -------------------------------------
--- function setSelectDragonData
--------------------------------------
-function UI_DragonManageInfo:setSelectDragonData(dragon_object_id, b_force)
-    if (not b_force) and (self.m_selectDragonOID == dragon_object_id) then
-        return
-    end
-
-    self.m_selectDragonOID = dragon_object_id
-    self.m_selectDragonData = g_dragonsData:getDragonDataFromUid(dragon_object_id)
-
-    -- 선택된 드래곤 카드에 프레임 표시
-    self:changeDragonSelectFrame()
-
-    self:refresh()
-end
-
--------------------------------------
--- function changeDragonSelectFrame
--- @brief 선택된 드래곤 카드에 프레임 표시
--------------------------------------
-function UI_DragonManageInfo:changeDragonSelectFrame()
-    -- 없으면 새로 생성
-    if (not self.m_dragonSelectFrame) then
-        self.m_dragonSelectFrame = cc.Sprite:create('res/ui/frame/dragon_select_frame.png')
-        self.m_dragonSelectFrame:setDockPoint(cc.p(0.5, 0.5))
-        self.m_dragonSelectFrame:setAnchorPoint(cc.p(0.5, 0.5))
-        self.m_dragonSelectFrame:retain()
-    else
-    -- 있으면 부모에게서 떼어냄
-        self.m_dragonSelectFrame:retain()
-        self.m_dragonSelectFrame:removeFromParent()
-    end
-
-    -- 테이블뷰에서 선택된 드래곤의 카드를 가져옴
-    local dragon_object_id = self.m_selectDragonOID
-    local t_item = self.m_tableViewExt.m_mapItem[dragon_object_id]
-    local ui = t_item['ui']
-
-    -- addChild 후 액션 실행(깜빡임)
-    if ui then
-        ui.root:addChild(self.m_dragonSelectFrame)
-        self.m_dragonSelectFrame:stopAllActions()
-        self.m_dragonSelectFrame:setOpacity(255)
-        self.m_dragonSelectFrame:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 50), cc.FadeTo:create(0.5, 255))))
-        self.m_dragonSelectFrame:release()
-        return
-    end
-
-    self.m_dragonSelectFrame:release()
-    self.m_dragonSelectFrame = nil
-end
-
--------------------------------------
--- function setDefaultSelectDragon
--------------------------------------
-function UI_DragonManageInfo:setDefaultSelectDragon()
-    local item = self.m_tableViewExt.m_lItem[1]
-
-    if (item) then
-        local dragon_object_id = item['data']['id']
-        local b_force = true
-        self:setSelectDragonData(dragon_object_id, b_force)
-    end
-end
-
--------------------------------------
 -- function click_upgradeBtn
 -- @brief 승급 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_upgradeBtn()
+    local ui = UI_DragonManageUpgrade(doid)
+
+    -- 선탠된 드래곤 설정
+    local doid = self.m_selectDragonOID
+    ui:setSelectDragonData(doid)
+
+    -- UI종료 후 콜백
     local function close_cb()
         self:sceneFadeInAction()
     end
-    local doid = self.m_selectDragonOID
-    local ui = UI_DragonManageUpgrade(doid)
     ui:setCloseCB(close_cb)
 end
 
@@ -403,31 +338,6 @@ function UI_DragonManageInfo:click_reinforceBtn()
         self:refresh_dragonIndivisual(self.m_selectDragonOID)
     end
     ui:setCloseCB(close_cb)
-end
-
--------------------------------------
--- function refresh_dragonIndivisual
--- @brief 특정 드래곤의 object_id로 갱신
--------------------------------------
-function UI_DragonManageInfo:refresh_dragonIndivisual(dragon_object_id)
-    local item = self.m_tableViewExt.m_mapItem[dragon_object_id]
-
-    local t_dragon_data = g_dragonsData:getDragonDataFromUid(dragon_object_id)
-
-    -- 테이블뷰 리스트의 데이터 갱신
-    item['data'] = t_dragon_data
-
-    -- UI card 버튼이 있을 경우 데이터 갱신
-    if item and item['ui'] then
-        local ui = item['ui']
-        ui.m_dragonData = t_dragon_data
-        ui:refreshDragonInfo()
-    end
-
-    -- 갱신된 드래곤이 선택된 드래곤일 경우
-    if (dragon_object_id == self.m_selectDragonOID) then
-        self:setSelectDragonData(dragon_object_id, true)
-    end
 end
 
 -------------------------------------
@@ -527,52 +437,6 @@ function UI_DragonManageInfo:click_evolutionViewBtn()
 
     local dragon_id = self.m_selectDragonData['did']
     UI_DragonManageInfoView(dragon_id)
-end
-
--------------------------------------
--- function init_dragonTableView
--------------------------------------
-function UI_DragonManageInfo:init_dragonTableView()
-    local list_table_node = self.vars['listTableNode']
-
-    -- 생성
-    local function create_func(item)
-        local ui = item['ui']
-        ui.root:setScale(0.7)
-
-        local data = item['data']
-        if (self.m_selectDragonOID == data['id']) then
-            self:changeDragonSelectFrame()
-        end
-    end
-
-    -- 드래곤 클릭 콜백 함수
-    local function click_dragon_item(item)
-        local data = item['data']
-        local dragon_object_id = data['id']
-        self:setSelectDragonData(dragon_object_id)
-    end
-
-    -- 테이블뷰 초기화
-    local table_view_ext = TableViewExtension(list_table_node)
-    table_view_ext:setCellInfo(105, 105)
-    table_view_ext:setItemUIClass(UI_DragonCard, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
-    --table_view_ext:setItemInfo(g_dragonListData.m_lDragonList)
-    table_view_ext:setItemInfo(g_dragonsData:getDragonsList())
-    table_view_ext:update()
-
-    -- 정렬
-    local function default_sort_func(a, b)
-        local a = a['data']
-        local b = b['data']
-
-        return a['did'] < b['did']
-    end
-    table_view_ext:insertSortInfo('default', default_sort_func)
-
-    table_view_ext:sortTableView('default')
-
-    self.m_tableViewExt = table_view_ext
 end
 
 --@CHECK

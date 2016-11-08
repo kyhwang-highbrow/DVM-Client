@@ -60,6 +60,86 @@ end
 -- function refresh
 -------------------------------------
 function UI_DragonManageUpgrade:refresh()
+
+    local t_dragon_data = self.m_selectDragonData
+
+    if (not t_dragon_data) then
+        return
+    end
+
+    local vars = self.vars
+
+    -- 드래곤 테이블
+    local table_dragon = TABLE:get('dragon')
+    local t_dragon = table_dragon[t_dragon_data['did']]
+
+    -- 등급 테이블
+    local table_grade_info = TABLE:get('grade_info')
+    local t_grade_info = table_grade_info[t_dragon_data['grade']]
+    local t_next_grade_info = table_grade_info[t_dragon_data['grade'] + 1]
+
+    -- 최대 등급인지 여부
+    local is_max_grade = (t_dragon_data['grade'] >= MAX_DRAGON_GRADE)
+
+    do -- 드래곤 이름
+        vars['nameLabel']:setString(Str(t_dragon['t_name']))
+    end
+
+    do -- 드래곤 현재 정보 카드
+        vars['termsIconNode']:removeAllChildren()
+        local dragon_card = UI_DragonCard(t_dragon_data)
+        vars['termsIconNode']:addChild(dragon_card.root)
+    end
+
+    do -- 드래곤 다음 등급 정보 카드
+        vars['maxIconNode']:removeAllChildren()
+
+        if is_max_grade then
+            
+        else
+            local t_next_dragon_data = clone(t_dragon_data)
+            t_next_dragon_data['grade'] = (t_next_dragon_data['grade'] + 1)
+            local dragon_card = UI_DragonCard(t_next_dragon_data)
+            vars['maxIconNode']:addChild(dragon_card.root)
+        end
+    end
+    
+    -- 등급 업이 될 때 표시 스프라이트
+    vars['gradeUpSprite']:setVisible(false)
+
+    -- 스킬 업이 될 때 표시 스프라이트
+    vars['skillUpSprite']:setVisible(false)
+    
+    do -- 승급 경험치
+        if is_max_grade then
+            vars['upgradeExpLabel']:setString(Str('승급 경험치 MAX'))
+            vars['upgradeGauge']:setPercentage(100)
+        else
+            local req_exp = t_grade_info['req_exp']
+            local curr_exp = t_dragon_data['gexp']
+            local percentage = (curr_exp / req_exp) * 100
+
+            vars['upgradeExpLabel']:setString(Str('승급 경험치 {1}%', percentage))
+            vars['upgradeGauge']:setPercentage(percentage)
+        end
+    end
+
+    -- 레벨 표시
+    do
+        local curr_lv = t_dragon_data['lv']
+        local max_lv = t_grade_info['max_lv']
+        vars['termsLvLabel']:setString(Str('조건레벨 {1}/{2}', curr_lv, max_lv))
+
+        if is_max_grade then
+            vars['maxLvLabel']:setVisible(false)
+        else
+            vars['maxLvLabel']:setVisible(true)
+            local next_max_lv = t_next_grade_info['max_lv']
+            vars['maxLvLabel']:setString(Str('최대레벨 {1} > {2}', max_lv, next_max_lv))
+        end
+    end
+
+    vars['selectLabel']:setString(Str('선택재료 {1} / 30', 0))
 end
 
 -------------------------------------
