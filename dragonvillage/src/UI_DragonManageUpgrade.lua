@@ -493,8 +493,7 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
         end
 
         -- UI 갱신
-        local b_force = true
-        self:setSelectDragonData(doid, b_force)
+        self:refresh_dragonIndivisual(doid)
 
         self.m_bChangeDragonList = true
     end
