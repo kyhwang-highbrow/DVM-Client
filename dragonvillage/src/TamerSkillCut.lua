@@ -83,6 +83,7 @@ end
 
 -------------------------------------
 -- function update_normal
+-- @brief 테이머 스킬
 -------------------------------------
 function TamerSkillCut:update_normal(dt)
     if self:isBeginningInStep(0) then
@@ -102,8 +103,46 @@ function TamerSkillCut:update_normal(dt)
             self:nextStep()
         end)
 
+        self.m_tamerAnimator:setTimeScale(1 / timeScale)
         self.m_tamerAnimator:changeAni('skill_1', false)
 
+    elseif self:isBeginningInStep(2) then
+        self.m_bgVisual:setVisible(false)
+        g_gameScene:flashOut({color = cc.c3b(255, 255, 255), time = 0.1, cbEnd = function()
+            self:nextStep()
+        end})
+
+        g_gameScene:setTimeScale(1)
+
+    elseif self:isBeginningInStep(3) then
+        self:onEnd()
+    end
+end
+
+-------------------------------------
+-- function update_special
+-- @brief 테이머 궁극기
+-------------------------------------
+function TamerSkillCut:update_special(dt)
+    if self:isBeginningInStep(0) then
+        g_gameScene:gamePause()
+        g_gameScene:flashIn({color = cc.c3b(0, 0, 0), time = 0.2, cbEnd = function()
+            self:nextStep()
+        end})
+
+    elseif self.m_step == 1 then
+        if self:isBeginningInStep(1) then
+            self.m_bgVisual:changeAni('skill_2', false)
+            self.m_bgVisual:setVisible(true)
+            self.m_bgVisual:addAniHandler(function()
+                self:nextStep()
+            end)
+
+            local duration = self.m_bgVisual:getDuration()
+
+            self.m_tamerAnimator:changeAni('skill_2', false)
+        else
+        end
     elseif self:isBeginningInStep(2) then
         self.m_bgVisual:setVisible(false)
         g_gameScene:flashOut({color = cc.c3b(255, 255, 255), time = 0.1, cbEnd = function()
@@ -141,6 +180,13 @@ function TamerSkillCut:isBeginningInStep(step)
 	local step = step or self.m_step
 	
 	return (self.m_step == step and self.m_stepTimer == 0)
+end
+
+-------------------------------------
+-- function isPassedStepTime
+-------------------------------------
+function TamerSkillCut:isPassedStepTime(time)
+	return (self.m_stepPrevTime <= time and time <= self.m_stepTimer)
 end
 
 -------------------------------------
