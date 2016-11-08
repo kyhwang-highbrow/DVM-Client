@@ -406,7 +406,7 @@ function GameWorld:init_test(deck_type)
     end
 
     -- 테이머 생성
-    self:makeTamerSkillManager(110001)
+    self:makeTamerSkillManager(TAMER_ID)
     local t_tamer = self.m_tamerSkillMgr.m_charTable
 
     do

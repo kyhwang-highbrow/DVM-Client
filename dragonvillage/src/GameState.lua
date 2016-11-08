@@ -321,10 +321,6 @@ function GameState:update_fight(dt)
         world.m_skillIndicatorMgr:update(dt)
     end
 
-    if world.m_tamerSkillCut then
-        world.m_tamerSkillCut:update(dt)
-    end
-
     if world.m_tamerSkillSystem then
         world.m_tamerSkillSystem:update(dt)
     end

@@ -6,7 +6,7 @@ local TAMER_SKILL_CUT_TYPE__SPECIAL = 2
 -------------------------------------
 TamerSkillCut = class(IEventListener:getCloneClass(), {
         m_world = 'GameWrold',
-        m_darkLayer = '',
+        m_skillLayer = '',
         
         m_bPlaying = 'boolean',
 
@@ -31,9 +31,10 @@ TamerSkillCut = class(IEventListener:getCloneClass(), {
 -------------------------------------
 -- function init
 -------------------------------------
-function TamerSkillCut:init(world, dark_layer, t_tamer)
+function TamerSkillCut:init(world, skill_layer, t_tamer)
     self.m_world = world
-    self.m_darkLayer = dark_layer
+    self.m_skillLayer = skill_layer
+    self.m_skillLayer:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
 
     self.m_bPlaying = false
 
@@ -45,7 +46,7 @@ function TamerSkillCut:init(world, dark_layer, t_tamer)
         self.m_bgVisual:setVisible(false)
         self.m_bgVisual:setAnchorPoint(cc.p(0.5, 0.5))
         self.m_bgVisual:setDockPoint(cc.p(0.5, 0.5))
-        self.m_darkLayer:addChild(self.m_bgVisual.m_node)
+        self.m_skillLayer:addChild(self.m_bgVisual.m_node)
 
         socketNode = self.m_bgVisual.m_node:getSocketNode('goni')
     end
@@ -76,6 +77,8 @@ function TamerSkillCut:update(dt)
         self:update_normal(dt)
 
     elseif self.m_type == TAMER_SKILL_CUT_TYPE__SPECIAL then
+        self:update_special(dt)
+
     end
 
     self:updateTimer(dt)
@@ -107,12 +110,13 @@ function TamerSkillCut:update_normal(dt)
         self.m_tamerAnimator:changeAni('skill_1', false)
 
     elseif self:isBeginningInStep(2) then
+        g_gameScene:setTimeScale(1)
+
         self.m_bgVisual:setVisible(false)
+        
         g_gameScene:flashOut({color = cc.c3b(255, 255, 255), time = 0.1, cbEnd = function()
             self:nextStep()
-        end})
-
-        g_gameScene:setTimeScale(1)
+        end})     
 
     elseif self:isBeginningInStep(3) then
         self:onEnd()
@@ -126,32 +130,30 @@ end
 function TamerSkillCut:update_special(dt)
     if self:isBeginningInStep(0) then
         g_gameScene:gamePause()
-        g_gameScene:flashIn({color = cc.c3b(0, 0, 0), time = 0.2, cbEnd = function()
+
+        g_gameScene:flashIn({color = cc.c3b(0, 0, 0), time = 0.5, cbEnd = function()
             self:nextStep()
         end})
 
-    elseif self.m_step == 1 then
-        if self:isBeginningInStep(1) then
-            self.m_bgVisual:changeAni('skill_2', false)
-            self.m_bgVisual:setVisible(true)
-            self.m_bgVisual:addAniHandler(function()
-                self:nextStep()
-            end)
+    elseif self:isBeginningInStep(1) then
+        self.m_bgVisual:changeAni('skill_2', false)
+        self.m_bgVisual:setVisible(true)
+        self.m_bgVisual:addAniHandler(function()
+            self:nextStep()
+        end)
 
-            local duration = self.m_bgVisual:getDuration()
+        self.m_tamerAnimator:changeAni('skill_2', false)
 
-            self.m_tamerAnimator:changeAni('skill_2', false)
-        else
-        end
     elseif self:isBeginningInStep(2) then
         self.m_bgVisual:setVisible(false)
-        g_gameScene:flashOut({color = cc.c3b(255, 255, 255), time = 0.1, cbEnd = function()
+        
+        g_gameScene:flashOut({color = cc.c3b(255, 255, 255), time = 0.5, cbEnd = function()
             self:nextStep()
         end})
 
-        g_gameScene:setTimeScale(1)
-
     elseif self:isBeginningInStep(3) then
+        g_gameScene:gameResume()
+
         self:onEnd()
     end
 end

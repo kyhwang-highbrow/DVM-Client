@@ -1,6 +1,16 @@
 local TAMER_SKILL_GLOBAL_COOLTIME = 3
 local TAMER_SKILL_COOLTIME = 20
 
+local showToolTip = function(skill_id)
+    local char_type = 'tamer'
+    local skill_id = skill_id
+    local skill_type = nil
+    local str = UI_Tooltip_Skill:getSkillDescStr(char_type, skill_id, skill_type)
+
+    local tool_tip = UI_Tooltip_Skill(320, -220, str, true)
+    tool_tip:autoRelease()
+end
+
 -------------------------------------
 -- class TamerSkillSystem
 -------------------------------------
@@ -28,7 +38,13 @@ function TamerSkillSystem:init(world, t_tamer)
         self.m_lTamerSkillCoolTime[i] = TAMER_SKILL_COOLTIME
 
         ui.vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() self:click_tamerSkillBtn(i) end)
-
+        ui.vars['tamerSkillBtn' .. i].m_node:registerScriptPressHandler(function()
+            -- 누르고 있을 경우 툴팁 표시
+            local t_skill = self.m_world.m_tamerSkillMgr.m_skill_list[i]
+            local skill_id = t_skill['id']
+            showToolTip(skill_id)
+        end)
+        
         -- 스킬 아이콘
         do
             local icon = IconHelper:getSkillIcon('tamer', t_tamer['skill_' .. i])
@@ -48,8 +64,8 @@ function TamerSkillSystem:init(world, t_tamer)
     do
         self.m_specialPowerPoint = 0
         
-        --ui.vars['specialSkillBtn']:registerScriptTapHandler(function() self:click_specialSkillBtn() end)
-        ui.vars['specialSkillBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
+        ui.vars['specialSkillBtn']:registerScriptTapHandler(function() self:click_specialSkillBtn() end)
+        --ui.vars['specialSkillBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
 
         -- 스킬 아이콘
         do
@@ -72,7 +88,7 @@ end
 -------------------------------------
 -- function click_tamerSkillBtn
 -------------------------------------
-function TamerSkillSystem:click_tamerSkillBtn(idx)
+function TamerSkillSystem:click_tamerSkillBtn(idx, b)
 	-- 1. 사용할 스킬 테이블 가져온다.
     local t_skill = self.m_world.m_tamerSkillMgr.m_skill_list[idx]
     local skill_id = t_skill['id']
@@ -97,13 +113,7 @@ function TamerSkillSystem:click_tamerSkillBtn(idx)
 
 	-- 5. UI 툴팁 연출
     do
-        local char_type = 'tamer'
-        local skill_id = skill_id
-        local skill_type = nil
-        local str = UI_Tooltip_Skill:getSkillDescStr(char_type, skill_id, skill_type)
-
-        local tool_tip = UI_Tooltip_Skill(320, -220, str, true)
-        tool_tip:autoRelease()
+        showToolTip(skill_id)
     end
 
     self:onEvent('tamer_skill')
@@ -123,6 +133,11 @@ function TamerSkillSystem:click_specialSkillBtn()
     -- 궁극기 포인트 감소
     self:addSpecialPowerPoint(-self.m_specialPowerPoint)
 
+    self:dispatch('tamer_special_skill', function()
+        
+    end)
+
+    --[[
     g_gameScene:gamePause()
     local res = 'res/character/tamer/leon_i/leon_i.spine'
 
@@ -157,6 +172,7 @@ function TamerSkillSystem:click_specialSkillBtn()
 
     local ui = self.m_world.m_inGameUI
     ui.root:addChild(animator.m_node)
+    ]]--
 end
 
 -------------------------------------
