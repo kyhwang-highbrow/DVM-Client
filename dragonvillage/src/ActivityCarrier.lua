@@ -39,6 +39,24 @@ function ActivityCarrier:init()
 end
 
 -------------------------------------
+-- function setStatuses
+-------------------------------------
+function ActivityCarrier:setStatuses(status_calc)
+    for key,_ in pairs(status_calc.m_lStatusList) do
+        self.m_lFinalStat[key] = status_calc:getFinalStat(key)
+    end
+end
+
+-------------------------------------
+-- function mergeStat
+-------------------------------------
+function ActivityCarrier:mergeStat(add_activity_carrier)
+    for key, _ in pairs(self.m_lFinalStat) do
+        self.m_lFinalStat[key] = self.m_lFinalStat[key] + add_activity_carrier:getStat(key)
+    end
+end
+
+-------------------------------------
 -- function getStat
 -------------------------------------
 function ActivityCarrier:getStat(type)

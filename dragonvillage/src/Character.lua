@@ -1239,9 +1239,7 @@ function Character:makeAttackDamageInstance(forced_skill_id)
     end
     
     -- 세부 능력치 지정
-    for key,_ in pairs(self.m_statusCalc.m_lStatusList) do
-        activity_carrier.m_lFinalStat[key] = self.m_statusCalc:getFinalStat(key)
-    end
+	activity_carrier:setStatuses(self.m_statusCalc)
 
     return activity_carrier
 end

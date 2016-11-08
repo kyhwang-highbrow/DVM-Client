@@ -111,12 +111,12 @@ function TamerSkillManager:getTargetList(t_skill)
 end
 
 -------------------------------------
--- function doSkill
+-- function doTamerSkill
 -------------------------------------
-function TamerSkillManager:doSkill(skill_idx)
+function TamerSkillManager:doTamerSkill(skill_idx)
 	local t_skill = self.m_skill_list[skill_idx]
 
-	if t_skill['form'] == 'status_effect' then 
+	if (t_skill['form'] == 'status_effect') then 
 		-- 1. target 설정
 		local l_target = self:getTargetList(t_skill)
 
@@ -154,7 +154,32 @@ function TamerSkillManager:doSkill(skill_idx)
 			-- 4. 인덱스 증가
 			idx = idx + 1
 		end
+
+	elseif (t_skill['form'] == 'code') then
+		
+		-- 1. code 형 스킬은 하나의 필드만 참조 
+		local effect_str = t_skill['effect1']
+		if (not effect_str) or (effect_str == 'x') then 
+			return
+		end
+
+		-- 2. 파싱하여 규칙에 맞게 분배
+		local t_effect = stringSplit(effect_str, ';')
+		local type = t_effect[1]
+		local value_1 = t_effect[2]
+		
+		-- 3. 추가 필요한 변수
+		local world = self.m_world
+		local res = t_skill['res']
+
+		if (type == 'sum_atk') then
+			TamerSpecialSkillCombination:makeSkillInstance(res, self.m_world, value_1)
+		end
+
 	else
 		cclog('미구현 테이머 스킬 : ' .. t_skill['id'] .. ' / ' .. t_skill['t_name'])
+		return false
 	end
+
+	return true
 end

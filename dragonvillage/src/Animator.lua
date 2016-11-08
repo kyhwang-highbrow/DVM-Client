@@ -150,7 +150,7 @@ function Animator:setPosition(x, y)
         return
     end
 
-    self.m_node:setPosition(x, y)
+    self.m_node:setPosition(cc.p(x, y))
 
     self.m_posX = x
     self.m_posY = y

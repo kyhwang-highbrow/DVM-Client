@@ -5,7 +5,7 @@ local PARENT = Entity
 -------------------------------------
 Skill = class(PARENT, {
         m_owner = 'Character',
-        m_activityCarrier = 'AttackDamage',
+        m_activityCarrier = 'ActivityCarrier',
 		m_range = 'num',
 		m_powerRate = 'num',
 		m_preDelay = 'num',

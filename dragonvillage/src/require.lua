@@ -162,7 +162,6 @@ local t_module = {
     'EffectBezierLink',
     'EffectLinearDot',
     
-	
 	-- SKILL HELPER
 	'SkillHitEffectDirector',
 
@@ -220,6 +219,9 @@ local t_module = {
     'Buff_Protection',
 	'Buff_Barrier',
     
+	-- TAMER SPECAIL SKILL
+	'TamerSpecialSkillCombination',
+
 	'WaveMgr',
     'DynamicWave',
     'ActivityCarrier',
