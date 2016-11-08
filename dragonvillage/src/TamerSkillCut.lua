@@ -97,20 +97,22 @@ function TamerSkillCut:update_normal(dt)
     elseif self:isBeginningInStep(1) then
         local timeScale = 0.1
         
-        g_gameScene:setTimeScale(timeScale)
+        --g_gameScene:setTimeScale(timeScale)
         
-        self.m_bgVisual:setTimeScale(1 / timeScale)
+        --self.m_bgVisual:setTimeScale(1 / timeScale)
+        g_gameScene:gamePause()
+
         self.m_bgVisual:changeAni('skill_1', false)
         self.m_bgVisual:setVisible(true)
         self.m_bgVisual:addAniHandler(function()
             self:nextStep()
         end)
 
-        self.m_tamerAnimator:setTimeScale(1 / timeScale)
+        --self.m_tamerAnimator:setTimeScale(1 / timeScale)
         self.m_tamerAnimator:changeAni('skill_1', false)
 
     elseif self:isBeginningInStep(2) then
-        g_gameScene:setTimeScale(1)
+        --g_gameScene:setTimeScale(1)
 
         self.m_bgVisual:setVisible(false)
         
@@ -119,6 +121,7 @@ function TamerSkillCut:update_normal(dt)
         end})     
 
     elseif self:isBeginningInStep(3) then
+        g_gameScene:gameResume()
         self:onEnd()
     end
 end
@@ -200,6 +203,8 @@ end
 -- function start
 -------------------------------------
 function TamerSkillCut:start(type, cbEnd)
+    if self.m_bPlaying then return end
+
     self.m_bPlaying = true
 
     self.m_step = 0

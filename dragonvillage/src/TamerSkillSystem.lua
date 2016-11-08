@@ -70,7 +70,7 @@ function TamerSkillSystem:init(world, t_tamer)
         -- 스킬 아이콘
         do
             local icon = IconHelper:getSkillIcon('tamer', 241001)
-            --ui.vars['tamerSkillNode' .. i]:addChild(icon)
+            ui.vars['specialSkillNode']:addChild(icon)
         end
 
         do
