@@ -988,6 +988,12 @@
     <None Include="..\src\UI_DragonManage_Base.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TamerSpeechSystem.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\TamerSkillManager.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

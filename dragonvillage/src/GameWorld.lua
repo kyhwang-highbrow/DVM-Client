@@ -59,6 +59,9 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_tamerSkillMgr = 'Tamer',
         m_bDoingTamerSkill = 'boolean',
 
+        -- 테이머 대사 및 표정
+        m_tamerSpeechSystem = 'TamerSpeechSystem',
+
         m_currFocusingDragon = '',
 
         -- 인게임 조작 UI 사용 관련
@@ -403,22 +406,32 @@ function GameWorld:init_test(deck_type)
 
     -- 테이머 생성
     self:makeTamerSkillManager(110001)
-    do
-        self.m_tamerSkillSystem = TamerSkillSystem(self, self.m_tamerSkillMgr)
-        self:addListener('game_start', self.m_tamerSkillSystem)
-        self:addListener('wave_start', self.m_tamerSkillSystem)
-        self:addListener('boss_wave', self.m_tamerSkillSystem)
-        self:addListener('stage_clear', self.m_tamerSkillSystem)
+    local t_tamer = self.m_tamerSkillMgr.m_charTable
 
+    do
+        self.m_tamerSkillSystem = TamerSkillSystem(self, t_tamer)
+        self:addListener('game_start', self.m_tamerSkillSystem)
+        
         for _,char in pairs(self.m_lDragonList) do
-            if (char.m_charType == 'dragon') then
+            if (char.m_bLeftFormation) then
                 char:addListener('active_skill', self.m_tamerSkillSystem)
                 char:addListener('character_dead', self.m_tamerSkillSystem)
-                char:addListener('character_weak', self.m_tamerSkillSystem)
-                char:addListener('character_damaged_skill', self.m_tamerSkillSystem)
-            elseif (char.m_charType == 'tamer') then
-                char:addListener('basic_skill', self.m_tamerSkillSystem)
-                char:addListener('change_hp', self.m_tamerSkillSystem)
+            end
+        end
+    end
+
+    do
+        self.m_tamerSpeechSystem = TamerSpeechSystem(self, t_tamer)
+        self:addListener('game_start', self.m_tamerSpeechSystem)
+        self:addListener('wave_start', self.m_tamerSpeechSystem)
+        self:addListener('boss_wave', self.m_tamerSpeechSystem)
+        self:addListener('stage_clear', self.m_tamerSpeechSystem)
+
+        for _,char in pairs(self.m_lDragonList) do
+            if (char.m_bLeftFormation) then
+                char:addListener('character_dead', self.m_tamerSpeechSystem)
+                char:addListener('character_weak', self.m_tamerSpeechSystem)
+                char:addListener('character_damaged_skill', self.m_tamerSpeechSystem)
             end
         end
     end

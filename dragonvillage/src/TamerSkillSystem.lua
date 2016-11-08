@@ -11,36 +11,17 @@ TamerSkillSystem = class(IEventListener:getCloneClass(), {
         m_lTamerSkillCoolTime = 'list[number]',
 
         m_specialPowerPoint = 'number', -- 100이 되면 스킬 사용 가능
-
-        m_tamerAnimator = 'Animator',
-        m_speechLabel = 'cc.Label',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function TamerSkillSystem:init(world, tamer)
+function TamerSkillSystem:init(world, t_tamer)
     self.m_world = world
     self.m_tamerSkillCooltimeGlobal = 0
     self.m_lTamerSkillCoolTime = {}
 
-    local t_tamer = tamer.m_charTable
     local ui = world.m_inGameUI
-
-    -- 테이머
-    do
-        self.m_tamerAnimator = MakeAnimator('res/character/tamer/goni_i/goni_i.spine')
-        self.m_tamerAnimator.m_node:setMix('idle', 'happiness', 0.1)
-        self.m_tamerAnimator.m_node:setMix('happiness', 'idle', 0.1)
-        self.m_tamerAnimator.m_node:setMix('idle', 'pain', 0.1)
-        self.m_tamerAnimator.m_node:setMix('pain', 'idle', 0.1)
-        self.m_tamerAnimator.m_node:setMix('happiness', 'pain', 0.1)
-        self.m_tamerAnimator.m_node:setMix('pain', 'happiness', 0.1)
-        self.m_tamerAnimator:changeAni('idle', true, true)
-
-        --cclog('tamer ani list = ' .. luadump(self.m_tamerAnimator:getVisualList()))
-        ui.vars['tamerNode']:addChild(self.m_tamerAnimator.m_node)
-    end
 
     -- 일반 스킬
     for i = 1, 3 do
@@ -62,7 +43,7 @@ function TamerSkillSystem:init(world, tamer)
 
         ui.vars['timeGauge' .. i]:setPercentage(0)
     end
-      
+
     -- 궁극기
     do
         self.m_specialPowerPoint = 0
@@ -83,18 +64,6 @@ function TamerSkillSystem:init(world, tamer)
         end
 
         ui.vars['specialTimeGauge']:setPercentage(0)
-    end
-
-    -- 대사
-    do
-        self.m_speechLabel = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 24, 0, cc.size(340, 100), 1, 1)
-        self.m_speechLabel:setAnchorPoint(cc.p(0.5, 0.5))
-	    self.m_speechLabel:setDockPoint(cc.p(0, 0))
-	    self.m_speechLabel:setColor(cc.c3b(50, 40, 30))
-        --self.m_speechLabel:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
-
-        local socketNode = ui.vars['tamerTalkVisual'].m_node:getSocketNode('talk_label')
-        socketNode:addChild(self.m_speechLabel)
     end
 
     ui.vars['characterMenu']:setVisible(false)
@@ -263,32 +232,6 @@ function TamerSkillSystem:addSpecialPowerPoint(add_point)
 end
 
 -------------------------------------
--- function showSpeech
--------------------------------------
-function TamerSkillSystem:showSpeech(msg, ani)
-    local ui = self.m_world.m_inGameUI
-    if (not ui.vars['tamerTalkVisual'].m_node:isEndAnimation()) then return end
-
-    -- 대사
-    if msg then
-        ui.vars['tamerTalkVisual'].m_node:setFrame(0)
-        ui.vars['tamerTalkVisual']:setVisible(true)
-        ui.vars['tamerTalkVisual']:registerScriptLoopHandler(function()
-            ui.vars['tamerTalkVisual']:setVisible(false)
-
-            -- 대사 종료 후 idle 애니메이션으로
-            self.m_tamerAnimator:changeAni('idle', true, true)
-        end)
-
-        self.m_speechLabel:setString(msg)
-    end
-
-    -- 테이머
-    local ani = ani or 'idle'
-    self.m_tamerAnimator:changeAni(ani, true, true)
-end
-
--------------------------------------
 -- function onEvent
 -------------------------------------
 function TamerSkillSystem:onEvent(event_name, ...)
@@ -297,12 +240,6 @@ function TamerSkillSystem:onEvent(event_name, ...)
     if (event_name == 'game_start') then
         self:addSpecialPowerPoint(25)
 
-        if (math_random(1, 2) == 1) then
-            self:showSpeech(Str('자 시작이다!'), 'idle')
-        else
-            self:showSpeech(Str('이번에도 잘 부탁해 얘들아!'), 'idle')
-        end
-
     -- 아군 드래곤 액티브 스킬 사용 3점
     elseif (event_name == 'active_skill') then
         self:addSpecialPowerPoint(3)
@@ -310,88 +247,12 @@ function TamerSkillSystem:onEvent(event_name, ...)
 
     -- 드래곤 사망 5점
     elseif (event_name == 'character_dead') then
-        local arg = {...}
-        local dragon = arg[1]
         self:addSpecialPowerPoint(5)
-
-        self:showSpeech(Str('아.. 안돼 {1}', dragon.m_charTable['t_name']), 'pain')
-
-    -- 테이머 일반 공격 1점
-    elseif (event_name == 'basic_skill') then
-        self:addSpecialPowerPoint(1)
 
     -- 테이머 스킬 사용 3점
     elseif (event_name == 'tamer_skill') then
         self:addSpecialPowerPoint(3)
 
-    -- 테이머 HP 변경
-    elseif (event_name == 'change_hp') then
-        local arg = {...}
-        local char = arg[1]
-        local percentage = char.m_hp / char.m_maxHp * 100
-        local ui = self.m_world.m_inGameUI
-        ui.vars['hpGauge']:setPercentage(percentage)
-
-    -- 웨이브 시작시
-    elseif (event_name == 'wave_start') then
-        if (math_random(1, 2) == 1) then
-            self:showSpeech(Str('곧 전투 시작이야!'), 'idle')
-        else
-            self:showSpeech(Str('모두 전투 준비!'), 'idle')
-        end
-
-    -- 보스 웨이브 시작시
-    elseif (event_name == 'boss_wave') then
-        if (math_random(1, 2) == 1) then
-            self:showSpeech(Str('긴장해! 거대한 녀석이 온다!'), 'idle')
-        else
-            self:showSpeech(Str('이번엔 모두 조심해야해!'), 'idle')
-        end
-
-    -- 스테이지 클리어시
-    elseif (event_name == 'stage_clear') then
-        self:showSpeech(Str('야호! 모두들 고생했어!'), 'happiness')
-
-    -- 적 스킬로 드래곤 피격시
-    elseif (event_name == 'character_damaged_skill') then
-        self:showSpeech(Str('큭.. 모두 조심해!'), 'pain')
-
-    -- 드래곤 위기
-    elseif (event_name == 'character_weak') then
-        local arg = {...}
-        local dragon = arg[1]
-
-        if (math_random(1, 2) == 1) then
-            self:showSpeech(Str('위험해! {1}', dragon.m_charTable['t_name']), 'pain')
-        else
-            self:showSpeech(Str('{1} 좀 더 힘내!', dragon.m_charTable['t_name']), 'pain')
-        end
-
-    -- 적 스킬 캔슬 시
-    elseif (event_name == 'character_casting_cancel') then
-        local arg = {...}
-        local dragon = arg[1]
-
-        if (math_random(1, 2) == 1) then
-            self:showSpeech(Str('잘했어! {1}', dragon.m_charTable['t_name']), 'happiness')
-        else
-            self:showSpeech(Str('{1} 너무 멋져!', dragon.m_charTable['t_name']), 'happiness')
-        end
-
-    -- 스킬 다단히트1
-    elseif (event_name == 'skill_combo_1') then
-        local arg = {...}
-        local dragon = arg[1]
-
-        self:showSpeech(Str('{1} 계속 그렇게 해!', dragon.m_charTable['t_name']), 'happiness')
-
-    -- 스킬 다단히트2
-    elseif (event_name == 'skill_combo_2') then
-        local arg = {...}
-        local dragon = arg[1]
-
-        self:showSpeech(Str('{1}만 믿으면 되겠는걸!', dragon.m_charTable['t_name']), 'happiness')
-        
     end
 end
 

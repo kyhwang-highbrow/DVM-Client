@@ -97,6 +97,7 @@ local t_module = {
     'GameWorld_Touch',
     'GameWorld_Formation',
     'GameState',
+    'TamerSpeechSystem',
     'TamerSkillSystem',
 	'TamerSkillManager',
 
