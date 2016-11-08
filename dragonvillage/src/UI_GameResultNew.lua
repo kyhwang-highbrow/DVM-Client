@@ -218,7 +218,7 @@ end
 
 -------------------------------------
 -- function initDragonList
--- @brief
+-- @brief 드래곤 정보 설정
 -------------------------------------
 function UI_GameResultNew:initDragonList(t_tamer_levelup_data, l_dragon_list)
     local dragon_cnt = #l_dragon_list
@@ -289,6 +289,15 @@ function UI_GameResultNew:initDragonList(t_tamer_levelup_data, l_dragon_list)
             local type          = 'dragon'
             levelup_director:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type)
             self:addLevelUpDirector(levelup_director)
+
+            do -- 등급
+                local grade_res = 'res/ui/star020' .. user_data['grade'] .. '.png'
+                local sprite = cc.Sprite:create(grade_res)
+                sprite:setAnchorPoint(cc.p(0.5, 0.5))
+                sprite:setDockPoint(cc.p(0.5, 0.5))
+                vars['starNode' .. i]:removeAllChildren()
+                vars['starNode' .. i]:addChild(sprite)
+            end
         end
     end
 end
