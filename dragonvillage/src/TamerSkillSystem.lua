@@ -74,12 +74,12 @@ function TamerSkillSystem:init(world, t_tamer)
 
         -- 스킬 아이콘
         do
-            local icon = IconHelper:getSkillIcon('tamer', 241001)
+            local icon = IconHelper:getSkillIcon('tamer', 241004)
             ui.vars['specialSkillNode']:addChild(icon)
         end
 
         do
-            local icon = IconHelper:getSkillIcon('tamer', 241001)
+            local icon = IconHelper:getSkillIcon('tamer', 241004)
             local socketNode = ui.vars['specialSkillVisual'].m_node:getSocketNode('skill_special')
             socketNode:addChild(icon)
         end
