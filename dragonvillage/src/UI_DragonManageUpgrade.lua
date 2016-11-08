@@ -172,6 +172,14 @@ function UI_DragonManageUpgrade:init_dragonUpgradeMaterialTableView()
     local function create_func(item)
         local ui = item['ui']
         ui.root:setScale(item_scale)
+
+        local data = item['data']
+        local doid = data['id']
+        if g_dragonsData:isSameTypeDragon(self.m_selectDragonOID, doid) then
+            ui.vars['skillSprite']:setVisible(true)
+        end
+
+        self:refresh_materialDragonIndivisual(item['unique_id'])
     end
 
     -- 드래곤 클릭 콜백 함수
@@ -265,6 +273,12 @@ function UI_DragonManageUpgrade:init_dragonUpgradeMaterialSelectTableView()
     local function create_func(item)
         local ui = item['ui']
         ui.root:setScale(item_scale)
+
+        local data = item['data']
+        local doid = data['id']
+        if g_dragonsData:isSameTypeDragon(self.m_selectDragonOID, doid) then
+            ui.vars['skillSprite']:setVisible(true)
+        end
     end
 
     -- 드래곤 클릭 콜백 함수
@@ -295,6 +309,7 @@ function UI_DragonManageUpgrade:click_dragonUpgradeMaterial(item)
     if selected_material_item then
         self.m_tableViewExtSelectMaterial:delItem(unique_id)
         self.m_tableViewExtSelectMaterial:update()
+        self:refresh_materialDragonIndivisual(unique_id)
         self:refresh_selectedMaterial()
         return
 
@@ -302,8 +317,29 @@ function UI_DragonManageUpgrade:click_dragonUpgradeMaterial(item)
     else
         self.m_tableViewExtSelectMaterial:addItem(unique_id, data)
         self.m_tableViewExtSelectMaterial:update()
+        self:refresh_materialDragonIndivisual(unique_id)
         self:refresh_selectedMaterial()
         return
+    end
+end
+
+-------------------------------------
+-- function refresh_materialDragonIndivisual
+-- @brief 드래곤 재료 리스트에서 선택된 드래곤 표시
+-------------------------------------
+function UI_DragonManageUpgrade:refresh_materialDragonIndivisual(odid)
+    if (not self.m_tableViewExtMaterial) then
+        return
+    end
+
+    local item = self.m_tableViewExtMaterial:getItem(odid)
+
+    if item then
+        local is_selected = (self.m_tableViewExtSelectMaterial:getItem(odid) ~= nil)
+        local ui = item['ui']
+        if ui then
+            ui.vars['shadowSprite']:setVisible(is_selected)
+        end
     end
 end
 
