@@ -1,7 +1,7 @@
-local TAMER_SKILL_GLOBAL_COOLTIME = 3
 local TAMER_SKILL_COOLTIME = 20
 
 local showToolTip = function(skill_id)
+--[[
     local char_type = 'tamer'
     local skill_id = skill_id
     local skill_type = nil
@@ -9,6 +9,7 @@ local showToolTip = function(skill_id)
 
     local tool_tip = UI_Tooltip_Skill(320, -220, str, true)
     tool_tip:autoRelease()
+	]]
 end
 
 -------------------------------------
@@ -35,7 +36,7 @@ function TamerSkillSystem:init(world, t_tamer)
 
     -- 일반 스킬
     for i = 1, 3 do
-        self.m_lTamerSkillCoolTime[i] = TAMER_SKILL_COOLTIME
+        self.m_lTamerSkillCoolTime[i] = 0--TAMER_SKILL_COOLTIME
 
         ui.vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() self:click_tamerSkillBtn(i) end)
         ui.vars['tamerSkillBtn' .. i].m_node:registerScriptPressHandler(function()
@@ -62,10 +63,14 @@ function TamerSkillSystem:init(world, t_tamer)
 
     -- 궁극기
     do
-        self.m_specialPowerPoint = 0
+		self.m_specialPowerPoint = 0
         
         ui.vars['specialSkillBtn']:registerScriptTapHandler(function() self:click_specialSkillBtn() end)
-        --ui.vars['specialSkillBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('미구현 기능입니다.') end)
+
+		local idx = 4
+		self.m_lTamerSkillCoolTime[idx] = TAMER_SP_SKILL_COOLTIME
+
+        ui.vars['specialSkillBtn']:registerScriptTapHandler(function() self:click_specialSkillBtn() end)
 
         -- 스킬 아이콘
         do
@@ -103,7 +108,7 @@ function TamerSkillSystem:click_tamerSkillBtn(idx, b)
 
 	-- 3. 쿨타임이 돌았다면 스킬 실행
     self:dispatch('tamer_skill', function()
-        self.m_world.m_tamerSkillMgr:doSkill(idx)
+        self.m_world.m_tamerSkillMgr:doTamerSkill(idx)
     end)
     
 	-- 4. 쿨타임 정산
@@ -134,45 +139,8 @@ function TamerSkillSystem:click_specialSkillBtn()
     self:addSpecialPowerPoint(-self.m_specialPowerPoint)
 
     self:dispatch('tamer_special_skill', function()
-        
+        self.m_world.m_tamerSkillMgr:doTamerSkill(4)
     end)
-
-    --[[
-    g_gameScene:gamePause()
-    local res = 'res/character/tamer/leon_i/leon_i.spine'
-
-    local animator = MakeAnimator(res)
-    animator.m_node:setDockPoint(cc.p(0.5, 0.5))
-    animator:changeAni('cutscene', false)
-
-    self.m_tamer:setActive(false)
-
-    local function funct()
-        animator:release()
-        g_gameScene:gameResume()
-
-        do
-            local special_power = SpecialPowerLeon('res/character/tamer/leon/leon.spine')
-
-            local tamer = self.m_tamer
-
-            special_power.m_owner = self.m_tamer
-            special_power.m_activityCarrier = tamer:makeAttackDamageInstance()
-            special_power.m_activityCarrier.m_skillCoefficient = 0.5
-
-            special_power:setPosition(1280/2, 0) -- 가운데서 시작
-            g_gameScene.m_gameWorld:addChild2(special_power.m_rootNode)
-            g_gameScene.m_gameWorld:addToUnitList(special_power)
-        end
-    end
-
-    local duration = animator:getDuration()
-    animator.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.CallFunc:create(funct)))
-
-
-    local ui = self.m_world.m_inGameUI
-    ui.root:addChild(animator.m_node)
-    ]]--
 end
 
 -------------------------------------
