@@ -319,6 +319,12 @@ function UI_DragonManageInfo:click_upgradeBtn()
 
     -- UI종료 후 콜백
     local function close_cb()
+        if ui.m_bChangeDragonList then
+            self:init_dragonTableView()
+            local dragon_object_id = ui.m_selectDragonOID
+            local b_force = true
+            self:setSelectDragonData(dragon_object_id, b_force)
+        end
         self:sceneFadeInAction()
     end
     ui:setCloseCB(close_cb)

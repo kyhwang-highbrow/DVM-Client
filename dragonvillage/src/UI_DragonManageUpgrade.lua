@@ -5,6 +5,7 @@ local MAX_DRAGON_UPGRADE_MATERIAL_MAX = 30 -- 한 번에 사용 가능한 재료
 -- class UI_DragonManageUpgrade
 -------------------------------------
 UI_DragonManageUpgrade = class(PARENT,{
+        m_bChangeDragonList = 'boolean',
         m_tableViewExtMaterial = 'TableViewExtension', -- 재료
         m_tableViewExtSelectMaterial = 'TableViewExtension', -- 선택된 재료
     })
@@ -25,6 +26,8 @@ end
 -- function init
 -------------------------------------
 function UI_DragonManageUpgrade:init()
+    self.m_bChangeDragonList = false
+
     local vars = self:load('dragon_management_upgrade.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -57,6 +60,7 @@ end
 -------------------------------------
 function UI_DragonManageUpgrade:initButton()
     local vars = self.vars
+    vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
 end
 
 -------------------------------------
@@ -122,7 +126,7 @@ function UI_DragonManageUpgrade:refresh()
             local curr_exp = t_dragon_data['gexp']
             local percentage = (curr_exp / req_exp) * 100
 
-            vars['upgradeExpLabel']:setString(Str('승급 경험치 {1}%', percentage))
+            vars['upgradeExpLabel']:setString(Str('승급 경험치 {1}%', math_floor(percentage)))
             vars['upgradeGauge']:setPercentage(percentage)
         end
     end
@@ -401,6 +405,72 @@ function UI_DragonManageUpgrade:analyzeSelectedMaterial(doid, l_item)
 
 
     return t_ret
+end
+
+-------------------------------------
+-- function click_upgradeBtn
+-------------------------------------
+function UI_DragonManageUpgrade:click_upgradeBtn()
+    local material_count = self.m_tableViewExtSelectMaterial:getItemCount()
+
+    if (material_count <= 0) then
+        UIManager:toastNotificationRed(Str('재료 드래곤을 선택해주세요!'))
+        return
+    end
+
+    local uid = g_userData:get('uid')
+    local doid = self.m_selectDragonOID
+    local src_doids = ''
+    do
+        for _doid,_ in pairs(self.m_tableViewExtSelectMaterial.m_mapItem) do
+            if (src_doids == '') then
+                src_doids = tostring(_doid)
+            else
+                src_doids = src_doids .. ',' .. tostring(_doid)
+            end
+        end
+    end
+
+    local function success_cb(ret)
+        
+        -- 재료로 사용된 드래곤 삭제
+        if ret['deleted_dragons_oid'] then
+            for _,odid in pairs(ret['deleted_dragons_oid']) do
+                g_dragonsData:delDragonData(odid)
+
+                -- 드래곤 리스트 갱신
+                self.m_tableViewExt:delItem(odid)
+            end
+
+            self.m_tableViewExt:update()
+        end
+
+        -- 승급된 드래곤 갱신
+        if ret['dragon'] then
+            g_dragonsData:applyDragonData(ret['dragon'])
+        end
+
+        -- 골드 갱신
+        if ret['remain_gold'] then
+            g_serverData:applyServerData(ret['remain_gold'], 'user', 'gold')
+            g_topUserInfo:refreshData()
+        end
+
+        -- UI 갱신
+        local b_force = true
+        self:setSelectDragonData(doid, b_force)
+
+        self.m_bChangeDragonList = true
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/upgrade')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('src_doids', src_doids)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
 end
 
 -------------------------------------

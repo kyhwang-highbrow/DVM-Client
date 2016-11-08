@@ -164,6 +164,7 @@ end
 -------------------------------------
 function UI_DragonManage_Base:init_dragonTableView()
     local list_table_node = self.vars['listTableNode']
+    list_table_node:removeAllChildren()
 
     -- 생성
     local function create_func(item)

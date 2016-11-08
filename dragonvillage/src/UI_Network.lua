@@ -169,6 +169,12 @@ function UI_Network:statusHandler(ret)
         return
     end
 
+    -- not enough gold
+    if (status == -7) then
+        self:makeShopPopup(msg, ret)
+        return true
+    end
+
     self:makeFailPopup(nil, ret)
     return true
 end
@@ -202,6 +208,15 @@ function UI_Network:makeFailPopup(msg, ret)
     end
 
     MakeSimplePopup(popup_type, msg, ok_btn_cb, cancel_btn_cb)
+end
+
+-------------------------------------
+-- function makeShopPopup
+-- @brief
+-------------------------------------
+function UI_Network:makeShopPopup(msg, ret)
+    self:close()
+    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup)
 end
 
 
