@@ -73,7 +73,7 @@ function TamerSkillSystem:init(world, tamer)
         -- 스킬 아이콘
         do
             local icon = IconHelper:getSkillIcon('tamer', 241001)
-            ui.vars['tamerSkillNode' .. i]:addChild(icon)
+            --ui.vars['tamerSkillNode' .. i]:addChild(icon)
         end
 
         do
@@ -393,4 +393,16 @@ function TamerSkillSystem:onEvent(event_name, ...)
         self:showSpeech(Str('{1}만 믿으면 되겠는걸!', dragon.m_charTable['t_name']), 'happiness')
         
     end
+end
+
+-------------------------------------
+-- function showSpeech
+-- @debuging
+-------------------------------------
+function TamerSkillSystem:resetCoolTime()
+    self.m_tamerSkillCooltimeGlobal = 0
+
+	for i, _ in pairs(self.m_lTamerSkillCoolTime) do
+		self.m_lTamerSkillCoolTime[i] = 0
+	end
 end
