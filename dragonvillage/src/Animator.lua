@@ -157,6 +157,32 @@ function Animator:setPosition(x, y)
 end
 
 -------------------------------------
+-- function setPositionX
+-------------------------------------
+function Animator:setPositionX(x)
+    if (not self.m_node) then
+        return
+    end
+
+    self.m_node:setPositionX(x)
+
+    self.m_posX = x
+end
+
+-------------------------------------
+-- function setPositionY
+-------------------------------------
+function Animator:setPositionY(y)
+    if (not self.m_node) then
+        return
+    end
+
+    self.m_node:setPositionY(y)
+
+    self.m_posY = y
+end
+
+-------------------------------------
 -- function setPosition
 -------------------------------------
 function Animator:setDockPoint(x, y)

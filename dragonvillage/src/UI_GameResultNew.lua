@@ -239,18 +239,6 @@ function UI_GameResultNew:direction_showBox()
         vars['dragonNode3']:setVisible(false)
         vars['dragonNode4']:setVisible(false)
         vars['dragonNode5']:setVisible(false)
-
-        vars['dragonBoard1']:setVisible(false)
-        vars['dragonBoard2']:setVisible(false)
-        vars['dragonBoard3']:setVisible(false)
-        vars['dragonBoard4']:setVisible(false)
-        vars['dragonBoard5']:setVisible(false)
-
-        vars['lvUpVisual1']:setVisible(false)
-        vars['lvUpVisual2']:setVisible(false)
-        vars['lvUpVisual3']:setVisible(false)
-        vars['lvUpVisual4']:setVisible(false)
-        vars['lvUpVisual5']:setVisible(false)
     end
 
     vars['boxVisual']:setVisible(true)
