@@ -89,6 +89,11 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
         return false
     end
 
+    -- 연출 중일 경우 입력 막음
+    if (world.m_tamerSkillCut:isPlaying()) then
+        return true
+    end
+
     -- 월드상의 터치 위치 얻어옴
     local location = touch:getLocation()
     local node_pos = self.m_touchNode:convertToNodeSpace(location)

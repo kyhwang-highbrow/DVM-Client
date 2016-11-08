@@ -200,6 +200,13 @@ function TamerSkillCut:isPassedStepTime(time)
 end
 
 -------------------------------------
+-- function isPassedStepTime
+-------------------------------------
+function TamerSkillCut:isPlaying()
+    return self.m_bPlaying
+end
+
+-------------------------------------
 -- function start
 -------------------------------------
 function TamerSkillCut:start(type, cbEnd)
