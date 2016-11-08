@@ -15,6 +15,10 @@ UI_GameResultNew = class(UI, {
 
         m_directionStep = 'number',
         m_lDirectionList = 'list',
+
+
+        m_lWorkList = 'list',
+        m_workIdx = 'number',
      })
 
 -------------------------------------
@@ -34,7 +38,14 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     local vars = self:load('ingame_result_popup_new.ui')
     UIManager:open(self, UIManager.POPUP)
 
+    vars['homeBtn']:registerScriptTapHandler(function() self:click_homeBtn() end)
+    vars['againBtn']:registerScriptTapHandler(function() self:click_retryBtn() end)
+    vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
+
     vars['retryBtn']:registerScriptTapHandler(function() self:click_retryBtn() end)
+    vars['returnBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+
+    vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
 
     do -- NumberLabel 초기화, 게임 플레이 시간, 획득 골드
         self.m_lNumberLabel = {}
@@ -59,6 +70,12 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
         end
     end
     
+    do -- 유저 레벨, 경험치
+        vars['userExpLabel']:setString(Str('경험치 +{1}', t_tamer_levelup_data['add_exp']))
+        vars['userLvLabel']:setString(Str('레벨{1}', t_tamer_levelup_data['curr_lv']))
+        vars['userExpGg']:setPercentage(t_tamer_levelup_data['curr_exp'] / t_tamer_levelup_data['curr_max_exp'] * 100)
+    end
+
 
     -- 레벨업 연출 클래스 리스트
     self.m_lLevelupDirector = {}
@@ -66,52 +83,70 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     -- 드래곤 리스트
     self:initDragonList(t_tamer_levelup_data, l_dragon_list)    
 
-    -- 연출 리스트 초기화
-    self:initDirectionList()
-    self:addDirection(UI_GameResultNew.direction_start)
-    self:addDirection(UI_GameResultNew.direction_end)
-    self:doNextDirection()
-
     self:doActionReset()
     self:doAction()
 
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_backBtn() end, 'UI_GameResultNew')
+
+    -- @brief work초기화 용도로 사용함
+    self:setWorkList()
+    self:doNextWork()
 end
 
 -------------------------------------
--- function initDirectionList
--- @brief 연출 리스트 초기화
+-- function setWorkList
 -------------------------------------
-function UI_GameResultNew:initDirectionList()
-    self.m_directionStep = 0
-    self.m_lDirectionList = {}
+function UI_GameResultNew:setWorkList()
+    self.m_workIdx = 0
+
+    self.m_lWorkList = {}
+    table.insert(self.m_lWorkList, 'direction_start')
+    table.insert(self.m_lWorkList, 'direction_end')
+    table.insert(self.m_lWorkList, 'direction_showBox')
+    table.insert(self.m_lWorkList, 'direction_openBox')
+    table.insert(self.m_lWorkList, 'direction_dropItem')
+    
+    
 end
 
 -------------------------------------
--- function addDirection
--- @brief 연출 추가
+-- function doNextWork
 -------------------------------------
-function UI_GameResultNew:addDirection(func)
-    table.insert(self.m_lDirectionList, func)
-end
+function UI_GameResultNew:doNextWork()
+    self.m_workIdx = (self.m_workIdx + 1)
+    local func_name = self.m_lWorkList[self.m_workIdx]
 
--------------------------------------
--- function doNextDirection
--- @brief 다음 연출 실행
--------------------------------------
-function UI_GameResultNew:doNextDirection()
-    self.m_directionStep = (self.m_directionStep + 1)
-    if self.m_lDirectionList[self.m_directionStep] then
-        self.m_lDirectionList[self.m_directionStep](self)
+    if func_name and (self[func_name]) then
+        --cclog('\n')
+        --cclog('############################################################')
+        --cclog('# idx : ' .. self.m_workIdx .. ', func_name : ' .. func_name)
+        --cclog('############################################################')
+        self[func_name](self)
+        return
     end
 end
+
+-------------------------------------
+-- function click_screenBtn
+-------------------------------------
+function UI_GameResultNew:click_screenBtn()
+    if (not self.m_lWorkList[self.m_workIdx]) then
+        return
+    end
+
+    local func_name = self.m_lWorkList[self.m_workIdx] .. '_click'
+    if func_name and (self[func_name]) then
+        self[func_name](self)
+    end
+end
+
 
 -------------------------------------
 -- function direction_start
 -- @brief 시작 연출
 -------------------------------------
-function UI_GameResultNew.direction_start(self)
+function UI_GameResultNew:direction_start()
     local is_success = self.m_bSuccess
     local vars = self.vars
 
@@ -133,11 +168,8 @@ function UI_GameResultNew.direction_start(self)
     vars['againBtn']:setVisible(false)
     vars['nextBtn']:setVisible(false)
 
-    vars['skipLabel']:setVisible(true)
+    vars['skipLabel']:setVisible(false)
     vars['retryBtn']:setVisible(false)
-    vars['skipBtn']:registerScriptTapHandler(function()
-        self:doNextDirection()
-    end)
 
     -- 플레이 시간, 획득 골드
     self.m_lNumberLabel['time']:setNumber(self.m_time)
@@ -147,14 +179,21 @@ function UI_GameResultNew.direction_start(self)
     self:startLevelUpDirector()
 
     self.root:stopAllActions()
-    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(2), cc.CallFunc:create(function() self:doNextDirection() end)))
+    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(2), cc.CallFunc:create(function() self:doNextWork() end)))
+end
+
+-------------------------------------
+-- function direction_start_click
+-------------------------------------
+function UI_GameResultNew:direction_start_click()
+    self:doNextWork()
 end
 
 -------------------------------------
 -- function direction_end
 -- @brief 종료 연출 (성공했을 시에만 들어옴)
 -------------------------------------
-function UI_GameResultNew.direction_end(self)
+function UI_GameResultNew:direction_end()
     local is_success = self.m_bSuccess
     local vars = self.vars
 
@@ -167,25 +206,106 @@ function UI_GameResultNew.direction_end(self)
 
     self.root:stopAllActions()
     if (is_success == true) then
-        -- 스킵하면 바로 이동
-        vars['skipBtn']:registerScriptTapHandler(function()
-                self:close()
-                UI_GameRewardPopup(self.m_lDropItemList)
-            end)
-
-        --[[
         -- 2초 후 자동으로 이동
         self.root:runAction(cc.Sequence:create(cc.DelayTime:create(2), cc.CallFunc:create(function()
-                self:close()
-                UI_GameRewardPopup(self.m_lDropItemList)
+                self:doNextWork()
             end)))
-        --]]
     else
         vars['skipLabel']:setVisible(false)
         vars['skipBtn']:setVisible(false)
+
         vars['retryBtn']:setVisible(true)
+        vars['returnBtn']:setVisible(true)
     end
 end
+
+-------------------------------------
+-- function direction_end_click
+-------------------------------------
+function UI_GameResultNew:direction_end_click()
+    self.root:stopAllActions()
+    self:doNextWork()
+end
+
+-------------------------------------
+-- function direction_showBox
+-- @brief 상자 연출 시작
+-------------------------------------
+function UI_GameResultNew:direction_showBox()
+    local vars = self.vars
+    do
+        vars['dragonNode1']:setVisible(false)
+        vars['dragonNode2']:setVisible(false)
+        vars['dragonNode3']:setVisible(false)
+        vars['dragonNode4']:setVisible(false)
+        vars['dragonNode5']:setVisible(false)
+
+        vars['dragonBoard1']:setVisible(false)
+        vars['dragonBoard2']:setVisible(false)
+        vars['dragonBoard3']:setVisible(false)
+        vars['dragonBoard4']:setVisible(false)
+        vars['dragonBoard5']:setVisible(false)
+
+        vars['lvUpVisual1']:setVisible(false)
+        vars['lvUpVisual2']:setVisible(false)
+        vars['lvUpVisual3']:setVisible(false)
+        vars['lvUpVisual4']:setVisible(false)
+        vars['lvUpVisual5']:setVisible(false)
+    end
+
+    vars['boxVisual']:setVisible(true)
+    vars['boxVisual']:changeAni('ui_box_rainbow_idle', true)
+end
+
+-------------------------------------
+-- function direction_showBox_click
+-- @brief 상자 연출 시작
+-------------------------------------
+function UI_GameResultNew:direction_showBox_click()
+    self:doNextWork()
+end
+
+-------------------------------------
+-- function direction_openBox
+-- @brief 상자 연출 시작
+-------------------------------------
+function UI_GameResultNew:direction_openBox()
+    local vars = self.vars
+    vars['boxVisual']:changeAni('ui_box_rainbow_open', false)
+    vars['boxVisual']:addAniHandler(function()
+        vars['boxVisual']:setVisible(false) 
+        self:doNextWork()
+    end)
+end
+
+-------------------------------------
+-- function direction_dropItem
+-- @brief
+-------------------------------------
+function UI_GameResultNew:direction_dropItem()
+    local vars = self.vars
+
+    for i,v in ipairs(self.m_lDropItemList) do
+        self:makeRewardItem(i, v)
+    end
+
+    SoundMgr:playEffect('EFFECT', 'get_gacha')
+
+    vars['skipLabel']:setVisible(false)
+
+    vars['homeBtn']:setVisible(true)
+    vars['againBtn']:setVisible(true)
+    vars['nextBtn']:setVisible(true)
+end
+
+-------------------------------------
+-- function direction_dropItem
+-- @brief
+-------------------------------------
+function UI_GameResultNew:direction_dropItem_click()
+
+end
+
 
 
 -------------------------------------
@@ -347,6 +467,14 @@ function UI_GameResultNew:click_backBtn()
 end
 
 -------------------------------------
+-- function click_homeBtn
+-------------------------------------
+function UI_GameResultNew:click_homeBtn()
+    local scene = SceneLobby()
+    scene:runScene()
+end
+
+-------------------------------------
 -- function click_retryBtn
 -------------------------------------
 function UI_GameResultNew:click_retryBtn()
@@ -355,4 +483,34 @@ function UI_GameResultNew:click_retryBtn()
 
     local scene = SceneGame(g_currScene.m_stageID, stage_name)
     scene:runScene()
+end
+
+-------------------------------------
+-- function click_nextBtn
+-------------------------------------
+function UI_GameResultNew:click_nextBtn()
+    local scene = SceneAdventure()
+    scene:runScene()
+end
+
+-------------------------------------
+-- function makeRewardItem
+-------------------------------------
+function UI_GameResultNew:makeRewardItem(i, v)
+    local vars = self.vars
+
+    local item_id = v[1]
+    local count = v[2]
+
+    local item_card = UI_ItemCard(item_id, 0)
+    item_card:setRarityVisibled(true)
+
+    local icon = item_card.root--DropHelper:getItemIconFromIID(item_id)
+    vars['rewardNode' .. i]:setVisible(true)
+    vars['rewardIconNode' .. i]:addChild(icon)
+
+    local table_item = TABLE:get('item')
+    local t_item = table_item[item_id]
+    
+    vars['rewardLabel' .. i]:setString(t_item['t_name'] .. '\nX ' .. count)
 end
