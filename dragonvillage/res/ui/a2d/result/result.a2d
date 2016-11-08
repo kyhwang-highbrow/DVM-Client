@@ -27,7 +27,7 @@
 	"azVisualGroup":
 	[
 		{
-			"name":"adventure",
+			"name":"group",
 			"expand":true,
 			"apply":true,
 			"visual_list":
@@ -182,7 +182,7 @@
 					}
 				},
 				{
-					"name":"succses_01",
+					"name":"success_01",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -548,7 +548,7 @@
 					}
 				},
 				{
-					"name":"succses_02",
+					"name":"success_02",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -914,7 +914,7 @@
 					}
 				},
 				{
-					"name":"succses_03",
+					"name":"success_03",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -1280,7 +1280,7 @@
 					}
 				},
 				{
-					"name":"succses_idle_01",
+					"name":"success_idle_01",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -1503,7 +1503,7 @@
 					}
 				},
 				{
-					"name":"succses_idle_02",
+					"name":"success_idle_02",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -1740,7 +1740,7 @@
 					}
 				},
 				{
-					"name":"succses_idle_03",
+					"name":"success_idle_03",
 					"apply":true,
 					"fps":30,
 					"layer_root":
