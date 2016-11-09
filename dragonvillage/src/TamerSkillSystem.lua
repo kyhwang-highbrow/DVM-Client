@@ -1,5 +1,3 @@
-local TAMER_SKILL_COOLTIME = 20
-
 local showToolTip = function(skill_id)
     local char_type = 'tamer'
     local skill_id = skill_id
@@ -29,12 +27,15 @@ function TamerSkillSystem:init(world, t_tamer)
     self.m_world = world
     self.m_tamerSkillCooltimeGlobal = 0
     self.m_lTamerSkillCoolTime = {}
+    self.m_specialPowerPoint = 0
 
     local ui = world.m_inGameUI
 
     -- 일반 스킬
     for i = 1, 3 do
-        self.m_lTamerSkillCoolTime[i] = 1--TAMER_SKILL_COOLTIME
+        local t_skill = TABLE:get('tamer_skill')[t_tamer['skill_' .. i]]
+
+        self.m_lTamerSkillCoolTime[i] = t_skill['cooldown']
 
         ui.vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() self:click_tamerSkillBtn(i) end)
         ui.vars['tamerSkillBtn' .. i].m_node:registerScriptPressHandler(function()
@@ -61,10 +62,10 @@ function TamerSkillSystem:init(world, t_tamer)
 
     -- 궁극기
     do
-		self.m_specialPowerPoint = 0
-        
-        --local idx = 4
-		--self.m_lTamerSkillCoolTime[idx] = TAMER_SP_SKILL_COOLTIME
+		local idx = 4
+        local t_skill = TABLE:get('tamer_skill')[t_tamer['skill_' .. idx]]
+
+		self.m_lTamerSkillCoolTime[idx] = t_skill['cooldown']
 
         ui.vars['specialSkillBtn']:registerScriptTapHandler(function() self:click_specialSkillBtn() end)
 
@@ -111,7 +112,7 @@ function TamerSkillSystem:click_tamerSkillBtn(idx, b)
     
 	-- 4. 쿨타임 정산
     self.m_tamerSkillCooltimeGlobal = TAMER_SKILL_GLOBAL_COOLTIME
-    self.m_lTamerSkillCoolTime[idx] = TAMER_SKILL_COOLTIME
+    self.m_lTamerSkillCoolTime[idx] = t_skill['cooldown']
     self:update(0)
 
 	-- 5. UI 툴팁 연출
@@ -180,6 +181,8 @@ function TamerSkillSystem:update(dt)
     end
 
     for i = 1, 3 do
+        local t_skill = self.m_world.m_tamerSkillMgr.m_skill_list[i]
+
         if (0 < self.m_lTamerSkillCoolTime[i]) then
             self.m_lTamerSkillCoolTime[i] = math_max(self.m_lTamerSkillCoolTime[i] - dt, 0)
         end
@@ -190,7 +193,7 @@ function TamerSkillSystem:update(dt)
         if (self.m_tamerSkillCooltimeGlobal > self.m_lTamerSkillCoolTime[i]) then
             percentage = (self.m_tamerSkillCooltimeGlobal / TAMER_SKILL_GLOBAL_COOLTIME) * 100
         else
-            percentage = (self.m_lTamerSkillCoolTime[i] / TAMER_SKILL_COOLTIME) * 100
+            percentage = (self.m_lTamerSkillCoolTime[i] / t_skill['cooldown']) * 100
         end
 
         ui.vars['timeGauge' .. i]:setPercentage(percentage)
