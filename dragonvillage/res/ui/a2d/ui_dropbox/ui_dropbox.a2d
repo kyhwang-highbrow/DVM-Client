@@ -664,6 +664,23 @@
 										"frame":30, "sX":2.000000, "sY":2.000000
 									}
 								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":0.000000, "sY":0.000000, "mode":"Add"
+									},
+									{
+										"frame":24, "sX":1.538462, "sY":1.538462, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":3.000000, "sY":3.000000, "alpha":0, "mode":"Add"
+									}
+								]
 							}
 						]
 					}
@@ -763,6 +780,23 @@
 										"frame":30, "sX":2.000000, "sY":2.000000
 									}
 								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":0.000000, "sY":0.000000, "mode":"Add"
+									},
+									{
+										"frame":24, "sX":1.538462, "sY":1.538462, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":3.000000, "sY":3.000000, "alpha":0, "mode":"Add"
+									}
+								]
 							}
 						]
 					}
@@ -835,6 +869,23 @@
 										"frame":30, "sX":2.000000, "sY":2.000000
 									}
 								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":0.000000, "sY":0.000000, "mode":"Add"
+									},
+									{
+										"frame":24, "sX":1.538462, "sY":1.538462, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":3.000000, "sY":3.000000, "alpha":0, "mode":"Add"
+									}
+								]
 							}
 						]
 					}
@@ -905,6 +956,23 @@
 									},
 									{
 										"frame":30, "sX":2.000000, "sY":2.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ui_dropbox.plist'<azSprite>'ui_dropbox_light_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":0.000000, "sY":0.000000, "mode":"Add"
+									},
+									{
+										"frame":24, "sX":1.538462, "sY":1.538462, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":3.000000, "sY":3.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							}

@@ -7,7 +7,7 @@
             <key>missile_ring_dark_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{115,390},{111,111}}</string>
+                <string>{{341,2},{111,111}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>missile_ring_earth_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{115,277},{111,111}}</string>
+                <string>{{228,301},{111,111}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>missile_ring_fire_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,390},{111,111}}</string>
+                <string>{{115,301},{111,111}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>missile_ring_light_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,277},{111,111}}</string>
+                <string>{{2,301},{111,111}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,20 +59,20 @@
             <key>missile_ring_water_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{273,273}}</string>
+                <string>{{2,2},{297,297}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{45,45},{273,273}}</string>
+                <string>{{33,33},{297,297}}</string>
                 <key>sourceSize</key>
                 <string>{363,363}</string>
             </dict>
             <key>missile_ring_water_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{228,277},{60,60}}</string>
+                <string>{{2,414},{60,60}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -92,7 +92,7 @@
             <key>size</key>
             <string>{512,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f6866fc96be0b675c072a4b3cff03021$</string>
+            <string>$TexturePacker:SmartUpdate:99cce5d47e526a9b4c2e7cb5bc8bea4b$</string>
             <key>textureFileName</key>
             <string>missile_ring.png</string>
         </dict>

@@ -59,10 +59,12 @@ id,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,c
 232003,script,skill_boss_drake_3,드레이크 : 서리 결계 (skill_2),x,x,x,skill_2,instant,physical,-2,basic_turn,1,enemy_distance_line,4,atk,25,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
 232004,script,skill_boss_drake_4,드레이크 : 포격 명령 (skill_3),x,x,x,skill_3,instant,physical,-2,basic_turn,1,enemy_distance_line,3,atk,90,1,0,0,0,100,100,stun,0,x,직선으로 이동하는 원거리 공격
 232005,script,skill_boss_drake_5,드레이크 : 강화 유령 검기 (skill_5),x,x,x,skill_5,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,120,1,0,0,0,100,100,bleed,0,x,직선으로 이동하는 원거리 공격
-233001,script,skill_boss_cockatrice_1,코카트리스 : 불뿜기 (skill_1),x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
-233002,script,skill_boss_cockatrice_2,코카트리스 : 3연 불뿜기 (skill_1),x,x,x,skill_1,maintain,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
-233003,script,skill_boss_cockatrice_3,코카트리스 : 탄막뱉기 (skill_2),x,x,x,skill_2,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
-233004,script,skill_boss_cockatrice_3,코카트리스 : 태양권 (skill_3),x,x,x,skill_3,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+233000,code,skill_melee_atk,근접공격,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,33,1,5000,10000,0,0,0,x,0,x,캐릭터가 직접 대상 앞으로 이동하여 공격한다(공격 모션 필요). 공격이 끝나면 제 자리로 돌아온다.
+233001,script,skill_boss_cockatrice_1,코카트리스 : 불뿜기 (skill_1),x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,50,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+233002,script,skill_boss_cockatrice_2,코카트리스 : 시한 폭탄 (skill_1),x,x,x,skill_1,maintain,physical,-2,basic_turn,1,enemy_distance_line,2,atk,30,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+233003,script,skill_boss_cockatrice_3,코카트리스 : 화염 브레스 (skill_2),x,x,x,skill_2,instant,physical,-2,basic_turn,1,enemy_distance_line,3,atk,25,1,0,0,0,100,100,burn,0,x,직선으로 이동하는 원거리 공격
+233004,script,skill_boss_cockatrice_4,코카트리스 : 태양권 (skill_3),x,x,x,skill_3,instant,physical,-2,basic_turn,1,enemy_distance_line,4,atk,100,1,0,0,0,100,100,stun,0,x,직선으로 이동하는 원거리 공격
+233005,code,skill_heal_single,코카트리스 : 체력 회복 (skill_4_idle),res/effect/skill_heal_monster/skill_heal_monster.vrp,res/effect/skill_recovery/skill_recovery.vrp,x,skill_4_appear,instant,magical,-1,basic_turn,1,self,-1,atk,700,5,0,0,0,0,0,x,0,x,공격력의 700% 회복
 230037,code,missile_move_high_angle	,도토리 발사,res/missile/missile_nut/missile_nut.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,100,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
 230038,code,missile_move_straight,도토리 연사,res/missile/missile_nut/missile_nut.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,25,4,100,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
 230039,script,skill_bounce,글레이브,res/missile/missile_glave_fire/missile_glave_fire.spine,res/missile/motion_streak/motion_streak_line_@.png,x,skill_1,instant,physical,-1,basic_turn,3,enemy_distance_line,2,atk,300,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격

@@ -4,49 +4,36 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>bg_forest_3_a.png</key>
+            <key>bg_forest_3_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1040},{748,948}}</string>
+                <string>{{2,2},{1344,820}}</string>
                 <key>offset</key>
-                <string>{-40,-326}</string>
+                <string>{-13,-390}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{26,652},{748,948}}</string>
+                <string>{{8,780},{1344,820}}</string>
                 <key>sourceSize</key>
-                <string>{880,1600}</string>
+                <string>{1386,1600}</string>
             </dict>
             <key>bg_forest_3_c.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{752,1120},{810,1060}}</string>
+                <string>{{882,824},{810,1060}}</string>
                 <key>offset</key>
                 <string>{8,-270}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{173,540},{810,1060}}</string>
                 <key>sourceSize</key>
                 <string>{1140,1600}</string>
             </dict>
-            <key>bg_forest_4_a.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,2},{980,1036}}</string>
-                <key>offset</key>
-                <string>{-8,-282}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{8,564},{980,1036}}</string>
-                <key>sourceSize</key>
-                <string>{1012,1600}</string>
-            </dict>
             <key>bg_forest_4_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{984,2},{1116,878}}</string>
+                <string>{{2,824},{1116,878}}</string>
                 <key>offset</key>
                 <string>{-25,-361}</string>
                 <key>rotated</key>
@@ -64,9 +51,9 @@
             <key>realTextureFileName</key>
             <string>forest_6.png</string>
             <key>size</key>
-            <string>{1864,1990}</string>
+            <string>{1694,1942}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:1ac0fca9a78b7b0bcb39452a6520c5ed:f83f943664e8f4358039acb28ca90f95:2b2467158aebaf7d4a8291ea44451b34$</string>
+            <string>$TexturePacker:SmartUpdate:cf86a3f38807e535b97470ca9b1084e7:818216676b13bde6749cc55836483c72:2b2467158aebaf7d4a8291ea44451b34$</string>
             <key>textureFileName</key>
             <string>forest_6.png</string>
         </dict>

@@ -1786,35 +1786,9 @@
 				[1] =
 				{
 					type = 'Sprite';
-					ui_name = '2';
-					x = 0.000000;
-					y = -66.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 104;
-					height = 48;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/icon/friendship_feed_dais.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[2] =
-				{
-					type = 'Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = 0.000000;
+					y = 78.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1835,12 +1809,12 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[3] =
+				[2] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -89.000000;
+					y = 1.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1875,13 +1849,13 @@
 					shadow_direction = 0;
 					shadow_distance = 4.000000;
 				};
-				[4] =
+				[3] =
 				{
 					[1] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 42.000000;
+						x = 64.000000;
 						y = 6.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -1921,12 +1895,12 @@
 					{
 						type = 'Scale9Sprite';
 						ui_name = '';
-						x = -45.000000;
+						x = -40.000000;
 						y = 5.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 103;
+						width = 127;
 						height = 40;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -1947,8 +1921,8 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = -46.000000;
-						y = 5.000000;
+						x = -27.000000;
+						y = 6.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1983,14 +1957,40 @@
 						shadow_direction = 0;
 						shadow_distance = 3.000000;
 					};
+					[4] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -82.000000;
+						y = 6.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 46;
+						height = 46;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icon_gold.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Button';
 					ui_name = '';
 					x = 0.000000;
-					y = 101.000000;
+					y = -69.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 230;
+					width = 240;
 					height = 72;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -2230,14 +2230,14 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = -41.000000;
+				y = 10.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 100;
 				height = 100;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
