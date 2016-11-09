@@ -4,7 +4,9 @@ GAME_STATE_LOADING = 1  -- Scene전환 후 첫 상태
 GAME_STATE_START_1 = 2  -- 테이머 등장
 GAME_STATE_START_2 = 3  -- 테이머 등장
 
-GAME_STATE_WAVE_INTERMISSION = 98 -- wave 인터미션
+GAME_STATE_WAVE_INTERMISSION = 90 -- wave 인터미션
+GAME_STATE_WAVE_INTERMISSION_WAIT = 91
+
 GAME_STATE_ENEMY_APPEAR = 99  -- 적 등장
 
 GAME_STATE_FIGHT = 100
@@ -99,7 +101,8 @@ function GameState:update(dt)
     elseif (self.m_state == GAME_STATE_START_1) then    self:update_start1(dt)
     elseif (self.m_state == GAME_STATE_START_2) then    self:update_start2(dt)
     elseif (self.m_state == GAME_STATE_WAVE_INTERMISSION) then self:update_wave_intermission(dt)
-	elseif (self.m_state == GAME_STATE_ENEMY_APPEAR) then self:update_enemy_appear(dt)
+    elseif (self.m_state == GAME_STATE_WAVE_INTERMISSION_WAIT) then self:update_wave_intermission_wait(dt)
+    elseif (self.m_state == GAME_STATE_ENEMY_APPEAR) then self:update_enemy_appear(dt)
     elseif (self.m_state == GAME_STATE_FIGHT) then      self:update_fight(dt)
     elseif (self.m_state == GAME_STATE_FIGHT_SKILL) then self:update_fight_skill(dt)
     elseif (self.m_state == GAME_STATE_FIGHT_WAIT) then self:update_fight_wait(dt)
@@ -290,27 +293,13 @@ function GameState:update_fight(dt)
     local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
 
     if (not world.m_bDoingTamerSkill) and (enemy_count <= 0) and (dynamic_wave <= 0) then
-        do -- 드래곤 상태 체크
-            local bWaitState = true
-
-            for _,dragon in pairs(world.m_lDragonList) do
-                if (not dragon.m_bDead and dragon.m_state ~= 'attackDelay') then
-                    bWaitState = false
-					-- 강제로  attackDelay state 진입
-					dragon:changeState('attackDelay')
-                end
-            end
-
-            if (not bWaitState) then return end
-        end
-
-		-- 스킬 및 탄을 다 날려 버리자
+        -- 스킬 및 탄을 다 날려 버리자
 		for _, skill in pairs(world.m_lSkillList) do
 			skill:changeState('dying')
 		end
 
 		if world.m_waveMgr:getNextWaveScriptData() then 
-		    self:changeState(GAME_STATE_WAVE_INTERMISSION)
+		    self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
 		else
 			self:changeState(GAME_STATE_SUCCESS)
 		end
@@ -371,6 +360,33 @@ function GameState:update_wave_intermission(dt)
 
 		self:changeState(GAME_STATE_ENEMY_APPEAR)
 	end
+end
+
+-------------------------------------
+-- function update_wave_intermission_wait
+-------------------------------------
+function GameState:update_wave_intermission_wait(dt)
+    local world = self.m_world
+
+    if (self.m_stateTimer == 0) then
+        cclog('GameState:update_wave_intermission_wait')
+        if world.m_skillIndicatorMgr then
+            world.m_skillIndicatorMgr:clear()
+        end
+    end
+
+    -- 드래곤 상태 체크
+    local b = true
+
+    for _,dragon in pairs(world.m_lDragonList) do
+        if (not dragon.m_bDead and dragon.m_state ~= 'wait') then
+            b = false
+        end
+    end
+
+    if (b) then
+        self:changeState(GAME_STATE_WAVE_INTERMISSION)
+    end
 end
 
 -------------------------------------

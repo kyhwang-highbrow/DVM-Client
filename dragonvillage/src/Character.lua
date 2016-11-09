@@ -1231,9 +1231,11 @@ function Character:animatorShake()
     end
 
     -- 실행중인 액션 stop
-    local action = target_node:getActionByTag(CHARACTER_ACTION_TAG__SHAKE);
-    if action then
-        target_node:stopAction(action)
+    do
+        local action = target_node:getActionByTag(CHARACTER_ACTION_TAG__SHAKE);
+        if action then
+            target_node:stopAction(action)
+        end
     end
 
     local start_action = cc.MoveTo:create(0.05, cc.p(x, y))
@@ -1275,9 +1277,11 @@ function Character:animatorHit(attacker, dir)
         end
 
         -- 실행중인 액션 stop
-        local action = target_node:getActionByTag(CHARACTER_ACTION_TAG__SHADER);
-        if action then
-            target_node:stopAction(action)
+        do
+            local action = target_node:getActionByTag(CHARACTER_ACTION_TAG__SHADER);
+            if action then
+                target_node:stopAction(action)
+            end
         end
 
         local action = cc.Sequence:create(
@@ -1319,9 +1323,11 @@ function Character:animatorKnockback(dir)
     local pos_y = math_sin(math_rad(dir)) * distance
 
     -- 실행중인 액션 stop
-    local action = target_node:getActionByTag(CHARACTER_ACTION_TAG__KNOCKBACK);
-    if action then
-        target_node:stopAction(action)
+    do
+        local action = target_node:getActionByTag(CHARACTER_ACTION_TAG__KNOCKBACK);
+        if action then
+            target_node:stopAction(action)
+        end
     end
 
     local start_action = cc.DelayTime:create(SpasticityTime)

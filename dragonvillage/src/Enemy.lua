@@ -130,7 +130,7 @@ function Enemy:setWaitState(is_wait_state)
     self.m_bWaitState = is_wait_state
 
     if is_wait_state then
-        if isExistValue(self.m_state, 'idle', 'attackDelay', 'attack', 'charge') then
+        if isExistValue(self.m_state, 'idle', 'attackDelay', 'attack', 'charge', 'casting') then
             self:changeState('wait')
         end
     else

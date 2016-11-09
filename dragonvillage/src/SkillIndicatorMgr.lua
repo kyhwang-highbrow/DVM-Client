@@ -155,6 +155,7 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicatorMgr:onTouchMoved(touch, event)
+    if not self.m_selectHero then return end
 
     -- 월드상의 터치 위치 얻어옴
     local location = touch:getLocation()
@@ -183,7 +184,6 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
         -- 경직 중이라면 즉시 해제
         self.m_selectHero:setSpasticity(false)
 
-        self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
         self.m_selectHero:resetActiveSkillCoolTime()
 
         local active_skill_id = self.m_selectHero:getSkillID('active')
@@ -195,7 +195,16 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             self.m_selectHero:changeState('skillAttack')
         end
 
+        self:clear()
+    end
+end
 
+-------------------------------------
+-- function clear
+-------------------------------------
+function SkillIndicatorMgr:clear()
+    if self.m_selectHero then
+        self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
         self.m_selectHero.m_animator:setTimeScale(1)
         self:setSelectHero(nil)
         g_currScene:setTimeScale(1)
@@ -210,7 +219,10 @@ end
 -------------------------------------
 function SkillIndicatorMgr:update(dt)
     if (self.m_selectHero) then
-        if (self.m_bSlowMode == false) then
+        if (self.m_selectHero.m_bDead) or (not self.m_world:isPossibleControl()) then
+            self:clear()
+
+        elseif (self.m_bSlowMode == false) then
             self.m_startTimer = self.m_startTimer + dt
             if (0.5 < self.m_startTimer) then
                 self.m_bSlowMode = true
@@ -223,7 +235,6 @@ function SkillIndicatorMgr:update(dt)
     end
     
 end
-
 
 -------------------------------------
 -- function setSelectHero
