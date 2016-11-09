@@ -72,7 +72,7 @@
             <key>skill_goni_effect_04_3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{859,804},{184,159}}</string>
+                <string>{{859,925},{184,159}}</string>
                 <key>offset</key>
                 <string>{-30,-6}</string>
                 <key>rotated</key>
@@ -107,6 +107,19 @@
                 <string>{{0,43},{242,207}}</string>
                 <key>sourceSize</key>
                 <string>{292,293}</string>
+            </dict>
+            <key>skill_goni_effect_05.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{876,799},{124,128}}</string>
+                <key>offset</key>
+                <string>{-2,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{124,128}}</string>
+                <key>sourceSize</key>
+                <string>{128,128}</string>
             </dict>
             <key>skill_goni_effect_f_0080.png</key>
             <dict>
@@ -326,7 +339,7 @@
             <key>size</key>
             <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:627688dc438b8cdf39f432422e980090$</string>
+            <string>$TexturePacker:SmartUpdate:548d28025ad316b778ee0bcc9dfa69e7$</string>
             <key>textureFileName</key>
             <string>skill_goni.png</string>
         </dict>

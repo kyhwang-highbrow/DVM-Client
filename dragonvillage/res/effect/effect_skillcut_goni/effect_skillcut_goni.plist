@@ -7,7 +7,7 @@
             <key>effect_skillcut_goni_13.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{140,245},{70,70}}</string>
+                <string>{{84,856},{70,70}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>effect_skillcut_goni_14.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{244,241}}</string>
+                <string>{{369,2},{244,241}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,15 +33,28 @@
             <key>effect_skillcut_goni_15.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,245},{80,136}}</string>
+                <string>{{2,856},{80,136}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{80,136}}</string>
                 <key>sourceSize</key>
                 <string>{80,136}</string>
+            </dict>
+            <key>goni_i.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{365,852}}</string>
+                <key>offset</key>
+                <string>{-13,-3}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{14,16},{365,852}}</string>
+                <key>sourceSize</key>
+                <string>{419,878}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -51,9 +64,9 @@
             <key>realTextureFileName</key>
             <string>effect_skillcut_goni.png</string>
             <key>size</key>
-            <string>{256,512}</string>
+            <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2998452c156df00f416a2bed037d6367$</string>
+            <string>$TexturePacker:SmartUpdate:7ea5c745ba061b7f6b2781bdee225a2a:8ab91837135b567a7a1c4a5b449d248b:14f010fb4f7a273ec4d856bb9b5015e8$</string>
             <key>textureFileName</key>
             <string>effect_skillcut_goni.png</string>
         </dict>
