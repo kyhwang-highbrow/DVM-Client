@@ -250,7 +250,12 @@ function UI_DragonManagementFriendship:refresh_fruitList(attr)
         vars['fruitPrice' .. i]:setString(comma_value(t_fruit['req_gold']))
 
         -- 열매 주기 버튼
-        vars['fruitBtn' .. i]:registerScriptTapHandler(function() self:click_fruitBtn(fid) end)
+        local function click_fruitBtn()
+            local fid = t_fruit['fid']
+            local fruit_node = vars['fruitNode' .. i]
+            self:click_fruitBtn(fid, fruit_node)
+        end
+        vars['fruitBtn' .. i]:registerScriptTapHandler(click_fruitBtn)
     end
 end
 
@@ -284,7 +289,7 @@ end
 -------------------------------------
 -- function click_fruitBtn
 -------------------------------------
-function UI_DragonManagementFriendship:click_fruitBtn(fruit_id)
+function UI_DragonManagementFriendship:click_fruitBtn(fruit_id, fruit_node)
     local count = g_userData:getFruitCount(fruit_id)
 
     if (count <= 0) then
@@ -296,7 +301,9 @@ function UI_DragonManagementFriendship:click_fruitBtn(fruit_id)
     local doid = self.m_selectDragonOID
 
     local function success_cb(ret)
-        -- ret['isFlevelUP']
+        -- ret['is_flevelup']
+
+        -- ret['bonus_grade'] -- 's', 'a', 'b', 'c'
 
         -- 드래곤 갱신
         if ret['dragon'] then
@@ -309,11 +316,13 @@ function UI_DragonManagementFriendship:click_fruitBtn(fruit_id)
             g_topUserInfo:refreshData()
         end
 
-        -- 남은 열매 갯수 저장
-        if ret['remain_fruit'] then
-            g_userData:setFruitCount(fruit_id, ret['remain_fruit'])
-            local count = g_userData:getFruitCount(fruit_id)
+        -- 열매 갯수 동기화
+        if ret['fruits'] then
+            g_serverData:applyServerData(ret['fruits'], 'user', 'fruits')
         end
+
+        -- 서버에서 새로 받은 드래곤 정보로 갱신
+        self:setSelectDragonDataRefresh()
 
         -- 드래곤 정보 갱신
         self:refresh_dragonFriendshipInfo()
@@ -331,6 +340,14 @@ function UI_DragonManagementFriendship:click_fruitBtn(fruit_id)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
+end
+
+-------------------------------------
+-- function fruitFeedAction
+-------------------------------------
+function UI_DragonManagementFriendship:fruitFeedAction(fruit_id, fruit_node, finish_cb)
+    --local item_icon = IconHelper:getItemIcon(fruit_id)
+    --item_icon:setPosition(100, 100)
 end
 
 -------------------------------------

@@ -69,6 +69,14 @@ function UI_DragonManage_Base:click_exitBtn()
 end
 
 -------------------------------------
+-- function setSelectDragonDataRefresh
+-------------------------------------
+function UI_DragonManage_Base:setSelectDragonDataRefresh()
+    local dragon_object_id = self.m_selectDragonOID
+    self.m_selectDragonData = g_dragonsData:getDragonDataFromUid(dragon_object_id)
+end
+
+-------------------------------------
 -- function setSelectDragonData
 -------------------------------------
 function UI_DragonManage_Base:setSelectDragonData(dragon_object_id, b_force)
