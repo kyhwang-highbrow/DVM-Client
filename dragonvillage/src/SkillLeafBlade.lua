@@ -6,9 +6,9 @@ local PARENT = Skill
 SkillLeafBlade = class(PARENT, {
 		m_missileRes = 'string',
         m_motionStreakRes = 'string',
-		m_resScale = 'num',
         m_targetCount = 'number',
 		m_bodySize = 'number',
+		m_isPass = 'bool'
      })
 
 -------------------------------------
@@ -22,14 +22,14 @@ end
 -------------------------------------
 -- function init_SkillLeafBlade
 -------------------------------------
-function SkillLeafBlade:init_skill(missile_res, motionstreak_res, target_count, res_scale, body_size)
+function SkillLeafBlade:init_skill(missile_res, motionstreak_res, target_count, body_size, isPass)
 	PARENT.init_skill(self)
 
 	-- 1. 멤버 변수
     self.m_missileRes = missile_res
     self.m_motionStreakRes = motionstreak_res
     self.m_targetCount = target_count
-	self.m_resScale = res_scale
+	self.m_isPass = isPass
 	self.m_bodySize = body_size
 end
 
@@ -82,7 +82,10 @@ function SkillLeafBlade:fireMissile()
     t_option['missile_res_name'] = self.m_missileRes
 	t_option['attr_name'] = self.m_owner:getAttribute()
 
-    t_option['missile_type'] = 'PASS'
+	if (self.m_isPass) then 
+		t_option['missile_type'] = 'PASS'
+	end
+
     t_option['movement'] ='lua_bezier' 
     
 	t_option['effect'] = {}
@@ -121,8 +124,8 @@ function SkillLeafBlade:makeSkillInstance(owner, t_skill, t_data)
     local missile_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
 	local motionstreak_res = (t_skill['res_2'] == 'x') and nil or string.gsub(t_skill['res_2'], '@', owner.m_charTable['attr'])
 	local target_count = t_skill['hit']
-	local res_scale = 0.5 -- t_skill['val_1']
-	local body_size = LEAF_COLLISTION_SIZE -- t_skill['val_2']
+	local isPass = t_skill['val_1'] == 1
+	local body_size = LEAF_COLLISTION_SIZE
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
@@ -131,7 +134,7 @@ function SkillLeafBlade:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(missile_res, motionstreak_res, target_count, res_scale, body_size)
+    skill:init_skill(missile_res, motionstreak_res, target_count, body_size, isPass)
 	skill:initState()
 
 	-- 3. state 시작 
