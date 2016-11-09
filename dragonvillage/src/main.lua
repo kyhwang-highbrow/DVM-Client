@@ -82,14 +82,8 @@ local function main()
     if DV_SCENE_ACTIVE then
         SceneDV():runScene()
     else
-        -- 김성구의 개발환경에서만 동작
-        if (not DEVELOPMENT_SEONG_GOO_KIM) then
-            local scene = SceneTitle()
-            scene:runScene()
-        else
-            local scene = SceneLobby()
-            scene:runScene()
-        end
+        local scene = SceneTitle()
+        scene:runScene()
     end
 
 end
