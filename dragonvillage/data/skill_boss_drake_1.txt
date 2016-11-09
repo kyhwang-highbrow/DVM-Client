@@ -17,9 +17,9 @@
 				"l_limit_speed":0,
 				"angular_velocity":0,
 				"offset":[0,0],
-				"size_up_time":1,
+				"size_up_time":0.5,
 				
-				"movement":"target",
+				
 				
 				"dir_array":[0],
 				"dir_add":0,			

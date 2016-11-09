@@ -36,7 +36,7 @@ silence,cc,침묵,res/effect/effect_silence/effect_silence.vrp,res/ui/icon/statu
 bleed,dot_dmg,출혈,res/effect/effect_bleed/effect_bleed.vrp,res/ui/icon/status_effect/bleed.png,x,false,1,30,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,x,x,x,x,{duration}초 동안 {dot_interval}초마다 공격력의 {dot_dmg}%의 데미지를 줌. 피해를 입으면 즉시 공격력의 {dot_dmg}%의 피해를 주고 지속 시간이 {dot_intervla}만큼 감소.,"속성 영향 받지 않음.(트루뎀), 보스 1/10뎀, 타격당 추뎀 있음."
 poison,dot_dmg,중독,res/effect/effect_poison/effect_poison.vrp,res/ui/icon/status_effect/poison.png,x,false,1,30,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,x,x,x,x,{duration}초 동안 {dot_interval}초마다 공격력의 {dot_dmg}%의 데미지를 줌.,"속성 영향 받지 않음.(트루뎀), 보스 1/10뎀,"
 burn,dot_dmg,화상,res/effect/effect_burn/effect_burn.vrp,res/ui/icon/status_effect/burn.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,3,3,0,10,0,0,0,x,x,x,x,"즉시 공격력의 {1}% 피해를 주고, {duration}초 동안 {dot_interval}초마다 공격력의 {dot_dmg}% 데미지를 줌.","속성 영향 받지 않음.(트루뎀), 보스 1/10뎀,"
-heal,dot_heal,힐,res/effect/effect_tactics_up/effect_tactics_up.vrp,x,x,false,1,15,0,0,0,0,0,0,0,0,0,0,3,0,10,0,0,0,0,x,x,x,x,x,x
+heal,dot_heal,힐,res/effect/effect_heal/effect_heal.vrp,x,x,false,1,15,0,0,0,0,0,0,0,0,0,0,3,0,100,0,0,0,0,x,x,x,x,x,x
 passive_cri_avoid_up_20,passive,치명 방어 증가,x,x,x,false,0,-1,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,x,x,x,x,치명 방어 {cri_avoid}% 증가,(퍼플립스 2성 패시브) 개인
 passive_spatter,passive,퐁당퐁당,x,x,x,false,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,200,3,5,0,x,x,x,x,회피 시 반경 {1}px 범위 내 아군 {2}명의 체력을 퍼플립스 드래곤의 체력 {3}%만큼  회복.,(퍼플립스 4성 패시브)
 passive_cri_dmg_up_15,passive,치명 피해 증가,x,x,x,false,0,-1,0,0,0,0,0,15,0,0,0,0,0,0,0,15,0,0,0,x,x,x,x,암 속성 아군의 치명 피해 {cri_dmg}% 증가,(청룡 2성 패시브) 개인
@@ -66,7 +66,7 @@ passive_add_attack,passive,돌풍 소환,x,x,x,false,0,-1,0,0,0,0,0,0,0,0,0,0,0,
 passive_hp_up_20,passive,생명력 증가,x,x,x,false,0,-1,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,전방 배치 시 체력 20% 증가,(파워 드래곤 4성 패시브) 개인
 passive_def_up_20,passive,방어력 증가,x,x,x,false,0,-1,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,지 속성 아군의 방어력 {def}% 증가,(파워 드래곤 6성 패시브) 전체
 passive_hit_rate_up_25,passive,적중률 증가,x,x,x,false,0,-1,0,0,0,0,0,0,0,25,0,0,0,0,0,0,0,0,0,x,x,x,x,적중률 {hit_rate}% 증가,(고대 신룡 4성 패시브) 개인
-barrier_protection,barrier,보호막,x,x,x,false,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
+barrier_protection,barrier,보호막,res/effect/effect_protection/effect_protection.vrp,x,x,false,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
 passive_atk_up,passive,공격력 증가,x,x,x,false,0,15,100,0,0,0,0,0,0,0,0,0,0,0,0,15,100,0,0,x,x,x,x,공격력 {1}증가,
 passive_aspd_up,passive,공격 속도 증가,x,x,x,false,0,15,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,x,
 passive_cri_chance_up,passive,치명 확률 증가,x,x,x,false,0,15,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,x,
