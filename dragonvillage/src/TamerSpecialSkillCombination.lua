@@ -169,7 +169,9 @@ end
 function TamerSpecialSkillCombination.st_end(owner, dt)
 	if (owner.m_stateTimer == 0) then
 		-- 1. 이펙트 disappear
-		owner.m_mainEffect:changeAni('disappear', false)
+        if owner.m_mainEffect then
+		    owner.m_mainEffect:changeAni('disappear', false)
+        end
 		-- 2. 드래곤 제자리 및 스테이트 attackDelay
 		for _, dragon in pairs(owner.m_lDragon) do 
 			dragon:setMove(dragon.m_homePosX, dragon.m_homePosY, SPEED)
