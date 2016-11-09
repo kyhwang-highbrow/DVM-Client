@@ -369,7 +369,6 @@ function GameState:update_wave_intermission_wait(dt)
     local world = self.m_world
 
     if (self.m_stateTimer == 0) then
-        cclog('GameState:update_wave_intermission_wait')
         if world.m_skillIndicatorMgr then
             world.m_skillIndicatorMgr:clear()
         end

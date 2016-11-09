@@ -125,7 +125,8 @@ end
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------
-function SkillCounterAttack:makeSkillInstance(invoke_skill_id, duration, ...)
+--function SkillCounterAttack:makeSkillInstance(invoke_skill_id, duration, ...)
+function SkillCounterAttack:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
     local invoke_skill_id = t_skill['val_1']
