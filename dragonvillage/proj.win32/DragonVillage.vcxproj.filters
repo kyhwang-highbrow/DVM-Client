@@ -334,22 +334,10 @@
     <None Include="..\src\GameState.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_GameResult.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\DamageCalc.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_GamePause.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_Game.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\MissileEffecter.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_GameDebug.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\MissileLua.lua">
@@ -451,9 +439,6 @@
     <None Include="..\src\SkillIndicator_laser.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_IngameDragonInfo.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SkillIndicator_Range.lua">
       <Filter>lua</Filter>
     </None>
@@ -490,9 +475,6 @@
     <None Include="..\src\SpecialPower.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_Popup.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\DataAdventure.lua">
       <Filter>lua</Filter>
     </None>
@@ -502,31 +484,16 @@
     <None Include="..\src\SceneDragonManage.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_DragonManageScene.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SkillIndicator_HealingWind.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillHealingWind.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_Tooltip.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_AdventureStageButton.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\ConstantString.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_TopUserInfo.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\DataStamina.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_ShopPopup.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\DataDragonList.lua">
@@ -568,22 +535,7 @@
     <None Include="..\src\SumRandom.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_GameRewardPopup.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_DragonEvolutionWindow.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_ItemCard.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_ProductButton.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\TriggerHpPercent.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_InventoryEvolutionStonePopup.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\NumberLabel.lua">
@@ -601,24 +553,6 @@
     <None Include="..\src\DragonSkillManager.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_SkillCard.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_DragonUpgradeResult.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_DragonEvolutionResult.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_AdventureFirstRewardPopup.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_Tooltip_Skill.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_DragonGachaResult.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\ScrollMapLayer.lua">
       <Filter>lua</Filter>
     </None>
@@ -626,9 +560,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\DataFruit.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_InventoryFruitPopup.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\DataFriendship.lua">
@@ -658,17 +589,8 @@
     <None Include="..\src\PatchData.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_ClassForm.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_GuidePopup.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\UILua.lua">
       <Filter>lua\uilib</Filter>
-    </None>
-    <None Include="..\src\UI_LobbyNew.lua">
-      <Filter>lua</Filter>
     </None>
     <None Include="..\src\Camera.lua">
       <Filter>lua</Filter>
@@ -701,15 +623,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\Buff_Barrier.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_NestDungeonScene.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_NestDragonDungeonListItem.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_NestDungeonStageSelectPopup.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\EffectBezierLink.lua">
@@ -749,9 +662,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\AreaOfEffectHelper.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_DragonDetailPopup.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\ActivityCarrier.lua">
@@ -823,13 +733,7 @@
     <None Include="..\src\SkillConicAtk_Spread.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_Tooltip_Indicator.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SkillLeonBasic.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_AdventureSceneNew.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\StatusEffectIcon.lua">
@@ -838,28 +742,13 @@
     <None Include="..\src\SkillMeleeHack_Specific.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_DragonUpgradePopup.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SkillCounterAttack.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillAttributeAmor.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_DragonFriendshipPopup.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\ShaderCache.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_DragonEvolutionPopup.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UIC_Node.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UIC_Button.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SceneTitle.lua">
@@ -883,28 +772,13 @@
     <None Include="..\src\CommonMissile_Release.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_EditBoxPopup.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SkillRay.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\ServerData.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_TitleScene.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_ClassFormUseTopUserInfo.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_NetworkLoading.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\GameCamera.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_TitleSceneLoading.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\ServerData_User.lua">
@@ -913,43 +787,19 @@
     <None Include="..\src\ServerData_Dragons.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_DragonCard.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\ServerData_Deck.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\StatusEffect_Protection.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_Network.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\ConstantIngame.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_SettingPopup.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_AdventureStageInfo.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_ReadyScene.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\NetworkLocalServer.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillHitEffectDirector.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_Lobby.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_DragonManageInfo.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_SettingPopup_Dev.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillLaser.lua">
@@ -961,40 +811,10 @@
     <None Include="..\src\SkillProtection_Spread.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_AdventureChapterButton.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_AdventureChapterSelectPopup.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_DragonDevApiPopup.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_SimplePopup.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_ReadyScene_Deck.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_DragonManageInfoView.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\TamerSkillManager.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_DragonManage_Base.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_DragonManageUpgrade.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\TamerSpecialSkillCombination.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_DragonManageUpgradeResult.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_GameResultNew.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\TamerSkillCut.lua">
@@ -1003,11 +823,194 @@
     <None Include="..\src\TamerSpeechSystem.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_IngameUnitInfo.lua">
-      <Filter>lua</Filter>
+    <None Include="..\src\UI_TopUserInfo.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AdventureChapterButton.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AdventureChapterSelectPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AdventureFirstRewardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AdventureSceneNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AdventureStageButton.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AdventureStageInfo.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClassForm.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClassFormUseTopUserInfo.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonCard.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonDetailPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonDevApiPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonEvolutionPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonEvolutionResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonEvolutionWindow.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonFriendshipPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonGachaResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonManage_Base.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonManageInfo.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonManageInfoView.lua">
+      <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_DragonManagementEvolution.lua">
-      <Filter>lua</Filter>
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonManagementFriendship.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonManageScene.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonManageUpgrade.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonManageUpgradeResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonUpgradePopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonUpgradeResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EditBoxPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Game.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GameDebug.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GamePause.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GameResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GameResultNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GameRewardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GuidePopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_IngameDragonInfo.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_IngameUnitInfo.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_InventoryEvolutionStonePopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_InventoryFruitPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ItemCard.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Lobby.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_LobbyNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_NestDragonDungeonListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_NestDungeonScene.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_NestDungeonStageSelectPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Network.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_NetworkLoading.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Popup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ProductButton.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ReadyScene.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ReadyScene_Deck.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_SettingPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_SettingPopup_Dev.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ShopPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_SimplePopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_SkillCard.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_TitleScene.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_TitleSceneLoading.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Tooltip.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Tooltip_Indicator.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Tooltip_Skill.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UIC_Node.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
+    <None Include="..\src\UIC_Button.lua">
+      <Filter>lua\UIC</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1043,6 +1046,12 @@
     </Filter>
     <Filter Include="lua\uilib">
       <UniqueIdentifier>{7b7f0150-bb66-49d2-99b0-5b8865ad7b25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua\UI">
+      <UniqueIdentifier>{322da439-5448-4bef-bf50-d4aef78f62ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua\UIC">
+      <UniqueIdentifier>{9fb02849-a183-4c31-ac99-1ad8c865423c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

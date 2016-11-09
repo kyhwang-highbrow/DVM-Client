@@ -1,5 +1,4 @@
 local PARENT = UI_DragonManage_Base
-local MAX_DRAGON_UPGRADE_MATERIAL_MAX = 30 -- 한 번에 사용 가능한 재료 수
 
 -------------------------------------
 -- class UI_DragonManagementEvolution

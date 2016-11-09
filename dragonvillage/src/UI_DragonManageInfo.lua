@@ -63,7 +63,7 @@ function UI_DragonManageInfo:initButton()
         vars['evolutionBtn']:registerScriptTapHandler(function() self:click_evolutionBtn() end)
 
         -- 친밀도
-        vars['friendshipBtn']:registerScriptTapHandler(function() end)
+        vars['friendshipBtn']:registerScriptTapHandler(function() self:click_friendshipBtn() end)
 
         -- 장비
         vars['equipmentBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"장비" 미구현') end)
@@ -341,6 +341,35 @@ end
 -------------------------------------
 function UI_DragonManageInfo:click_evolutionBtn()
     local ui = UI_DragonManagementEvolution(doid)
+
+    -- 선탠된 드래곤 설정
+    local doid = self.m_selectDragonOID
+    ui:setSelectDragonData(doid)
+
+    -- UI종료 후 콜백
+    local function close_cb()
+        if ui.m_bChangeDragonList then
+            self:init_dragonTableView()
+            local dragon_object_id = ui.m_selectDragonOID
+            local b_force = true
+            self:setSelectDragonData(dragon_object_id, b_force)
+        else
+            if (self.m_selectDragonOID ~= ui.m_selectDragonOID) then
+                local b_force = true
+                self:setSelectDragonData(ui.m_selectDragonOID, b_force)
+            end
+        end
+        self:sceneFadeInAction()
+    end
+    ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_friendshipBtn
+-- @brief 친밀도 버튼
+-------------------------------------
+function UI_DragonManageInfo:click_friendshipBtn()
+    local ui = UI_DragonManagementFriendship(doid)
 
     -- 선탠된 드래곤 설정
     local doid = self.m_selectDragonOID
