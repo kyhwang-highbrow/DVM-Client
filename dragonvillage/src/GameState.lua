@@ -619,7 +619,7 @@ end
 function GameState:dropItem(finish_cb)
     local stage_id = self.m_world.m_stageID
     local drop_helper = DropHelper(stage_id)
-    local l_drop_item = drop_helper:dropItem()
+    local box_grade, l_drop_item = drop_helper:dropItem()
 
     --cclog(luadump(l_drop_item))
 
@@ -632,7 +632,7 @@ function GameState:dropItem(finish_cb)
     -- 네트워크 통신
     self:dropItem_network(l_drop_item, finish_cb)
 
-    return l_drop_item
+    return box_grade, l_drop_item
 end
 
 -------------------------------------
@@ -779,12 +779,13 @@ function GameState:makeResultUI(is_success)
     local func_exp
     local func_ui_result
 
+    local box_grade = 'c'
     local l_drop_item_list = {}
 
     -- 1. 아이템 드랍
     func_drop = function()
         if is_success then
-            l_drop_item_list = self:dropItem(func_exp)
+            box_grade, l_drop_item_list = self:dropItem(func_exp)
         else
             func_exp()
         end
@@ -798,7 +799,7 @@ function GameState:makeResultUI(is_success)
     -- 3. UI 생성
     func_ui_result = function()
         local stage_id = self.m_world.m_stageID
-        UI_GameResultNew(stage_id, is_success, self.m_fightTimer, world.m_gold, t_tamer_levelup_data, l_dragon_list, l_drop_item_list)
+        UI_GameResultNew(stage_id, is_success, self.m_fightTimer, world.m_gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list)
     end
 
     -- 최초 실행

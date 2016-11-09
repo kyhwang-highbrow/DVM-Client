@@ -86,35 +86,21 @@ end
 -- @brief 해당 stage_id의 아이템을 모두 드랍
 -------------------------------------
 function DropHelper:dropItem()
-    local l_drop_item = {}
-
     local table_drop = TABLE:get('drop')
     local t_drop = table_drop[self.m_stageID]
 
+    -- 1. 상자 결정
     local sum_random = SumRandom()
     sum_random:addItem(t_drop['rate_s'], 's')
     sum_random:addItem(t_drop['rate_a'], 'a')
     sum_random:addItem(t_drop['rate_b'], 'b')
     sum_random:addItem(t_drop['rate_c'], 'c')
+    local box_grade = sum_random:getRandomValue()
 
-    local value1 = sum_random:getRandomValue()
-    local value2 = sum_random:getRandomValue()
-    local value3 = sum_random:getRandomValue()
+    -- 2. 상자에서 3개의 아이템 드랍
+    local l_drop_item = self:dropItemIndependent(box_grade, 3)
 
-    -- 세개 모두 c등급일 경우 하나를 b등급으로 상향
-    if (value1 == 'c') and (value2 == 'c') and (value3 == 'c') then
-        value3 = 'b'
-    end
-
-    local item1 = self:dropItemIndependent(value1)
-    local item2 = self:dropItemIndependent(value2)
-    local item3 = self:dropItemIndependent(value3)
-
-    l_drop_item[1] = item1
-    l_drop_item[2] = item2
-    l_drop_item[3] = item3
-
-    return l_drop_item
+    return box_grade, l_drop_item
 end
 
 -------------------------------------
@@ -145,7 +131,7 @@ end
 -- function dropItemIndependent
 -- @brief
 -------------------------------------
-function DropHelper:dropItemIndependent(grade)
+function DropHelper:dropItemIndependent(grade, count)
     local table_drop = TABLE:get('drop')
     local t_drop = table_drop[self.m_stageID]
 
@@ -159,8 +145,14 @@ function DropHelper:dropItemIndependent(grade)
         sum_random:addItem(t_drop[key_rate], {t_drop[key_id], t_drop[key_value]})
     end
 
-    local item = sum_random:getRandomValue()
-    return item
+    local l_drop_item = {}
+
+    for i=1, count do
+        local t_item = sum_random:getRandomValue(nil, true)
+        table.insert(l_drop_item, t_item)
+    end
+
+    return l_drop_item
 end
 
 
