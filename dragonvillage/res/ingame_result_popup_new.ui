@@ -885,32 +885,6 @@
 					};
 					[7] =
 					{
-						type = 'Sprite';
-						ui_name = '';
-						x = 0.000000;
-						y = 45.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 310;
-						height = 58;
-						scale_x = 0.400000;
-						scale_y = 0.400000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = 'starNode1';
-						file_name = 'ui/icon/star_bg_01.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					[8] =
-					{
 						type = 'Node';
 						ui_name = '';
 						x = 0.000000;
@@ -927,6 +901,25 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = 'dragonNode1';
+					};
+					[8] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 0.000000;
+						y = 48.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 28;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'starNode1';
 					};
 					type = 'Scale9Sprite';
 					ui_name = '';
@@ -1090,32 +1083,6 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 0.000000;
-						y = 45.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 310;
-						height = 58;
-						scale_x = 0.400000;
-						scale_y = 0.400000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = 'starNode2';
-						file_name = 'ui/icon/star_bg_01.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					[6] =
-					{
-						type = 'Sprite';
-						ui_name = '';
-						x = 0.000000;
 						y = 31.000000;
 						dock_point = { 0.500000; 0.000000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -1137,7 +1104,7 @@
 						src_blend = 770;
 						dest_blend = 771;
 					};
-					[7] =
+					[6] =
 					{
 						type = 'ProgressTimer';
 						ui_name = '';
@@ -1167,7 +1134,7 @@
 						mid_point_y = 0.000000;
 						percentage = 100;
 					};
-					[8] =
+					[7] =
 					{
 						type = 'Node';
 						ui_name = '';
@@ -1185,6 +1152,25 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = 'dragonNode2';
+					};
+					[8] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 0.000000;
+						y = 48.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 28;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'starNode2';
 					};
 					type = 'Scale9Sprite';
 					ui_name = '';
@@ -1348,32 +1334,6 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 0.000000;
-						y = 45.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 310;
-						height = 58;
-						scale_x = 0.400000;
-						scale_y = 0.400000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = 'starNode3';
-						file_name = 'ui/icon/star_bg_01.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					[6] =
-					{
-						type = 'Sprite';
-						ui_name = '';
-						x = 0.000000;
 						y = 31.000000;
 						dock_point = { 0.500000; 0.000000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -1395,7 +1355,7 @@
 						src_blend = 770;
 						dest_blend = 771;
 					};
-					[7] =
+					[6] =
 					{
 						type = 'ProgressTimer';
 						ui_name = '';
@@ -1425,7 +1385,7 @@
 						mid_point_y = 0.000000;
 						percentage = 100;
 					};
-					[8] =
+					[7] =
 					{
 						type = 'Node';
 						ui_name = '';
@@ -1443,6 +1403,25 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = 'dragonNode3';
+					};
+					[8] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 0.000000;
+						y = 48.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 28;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'starNode3';
 					};
 					type = 'Scale9Sprite';
 					ui_name = '';
@@ -1606,32 +1585,6 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 0.000000;
-						y = 45.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 310;
-						height = 58;
-						scale_x = 0.400000;
-						scale_y = 0.400000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = 'starNode4';
-						file_name = 'ui/icon/star_bg_01.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					[6] =
-					{
-						type = 'Sprite';
-						ui_name = '';
-						x = 0.000000;
 						y = 31.000000;
 						dock_point = { 0.500000; 0.000000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -1653,7 +1606,7 @@
 						src_blend = 770;
 						dest_blend = 771;
 					};
-					[7] =
+					[6] =
 					{
 						type = 'ProgressTimer';
 						ui_name = '';
@@ -1683,7 +1636,7 @@
 						mid_point_y = 0.000000;
 						percentage = 100;
 					};
-					[8] =
+					[7] =
 					{
 						type = 'Node';
 						ui_name = '';
@@ -1701,6 +1654,25 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = 'dragonNode4';
+					};
+					[8] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 0.000000;
+						y = 48.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 28;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'starNode4';
 					};
 					type = 'Scale9Sprite';
 					ui_name = '';
@@ -1864,32 +1836,6 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 0.000000;
-						y = 45.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 310;
-						height = 58;
-						scale_x = 0.400000;
-						scale_y = 0.400000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = 'starNode5';
-						file_name = 'ui/icon/star_bg_01.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					[6] =
-					{
-						type = 'Sprite';
-						ui_name = '';
-						x = 0.000000;
 						y = 31.000000;
 						dock_point = { 0.500000; 0.000000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -1911,7 +1857,7 @@
 						src_blend = 770;
 						dest_blend = 771;
 					};
-					[7] =
+					[6] =
 					{
 						type = 'ProgressTimer';
 						ui_name = '';
@@ -1941,7 +1887,7 @@
 						mid_point_y = 0.000000;
 						percentage = 100;
 					};
-					[8] =
+					[7] =
 					{
 						type = 'Node';
 						ui_name = '';
@@ -1959,6 +1905,25 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = 'dragonNode5';
+					};
+					[8] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 0.000000;
+						y = 48.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 28;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'starNode5';
 					};
 					type = 'Scale9Sprite';
 					ui_name = '';
