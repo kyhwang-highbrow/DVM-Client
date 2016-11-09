@@ -82,7 +82,6 @@ local t_module = {
     'SceneDV',
     'SceneGame',
     'SceneAdventure',
-    'SceneDragonManage',
 
     -- Phys
 	'PhysWorld',
@@ -251,11 +250,7 @@ local t_module = {
     'UI_IngameUnitInfo',
     'UI_Popup',
     'UI_SimplePopup',
-    'UI_DragonManageScene',
-    'UI_DragonUpgradePopup',
     'UI_DragonUpgradeResult',
-    'UI_DragonEvolutionPopup',
-    'UI_DragonEvolutionWindow',
     'UI_DragonEvolutionResult',
     'UI_DragonDetailPopup',
     'UI_DragonFriendshipPopup',

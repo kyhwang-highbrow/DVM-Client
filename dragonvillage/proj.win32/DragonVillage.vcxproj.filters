@@ -481,9 +481,6 @@
     <None Include="..\src\SceneAdventure.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SceneDragonManage.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SkillIndicator_HealingWind.lua">
       <Filter>lua</Filter>
     </None>
@@ -859,13 +856,7 @@
     <None Include="..\src\UI_DragonDevApiPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_DragonEvolutionPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_DragonEvolutionResult.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_DragonEvolutionWindow.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_DragonFriendshipPopup.lua">
@@ -889,16 +880,10 @@
     <None Include="..\src\UI_DragonManagementFriendship.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_DragonManageScene.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_DragonManageUpgrade.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_DragonManageUpgradeResult.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_DragonUpgradePopup.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_DragonUpgradeResult.lua">

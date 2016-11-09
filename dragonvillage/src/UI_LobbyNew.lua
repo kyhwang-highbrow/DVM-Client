@@ -344,18 +344,13 @@ function UI_LobbyNew:click_dragonManageBtn()
 
     -- 실행
     func_run = function()
-        if (not DEVELOPMENT_SEONG_GOO_KIM) then
-            local t_data = nil
-            local close_cb = function()
-                local scene = SceneLobby()
-                scene:runScene()
-            end
-            local scene = SceneCommon(UI_DragonManageInfo, t_data, close_cb)
-            scene:runScene()
-        else
-            local scene = SceneDragonManage()
+        local t_data = nil
+        local close_cb = function()
+            local scene = SceneLobby()
             scene:runScene()
         end
+        local scene = SceneCommon(UI_DragonManageInfo, t_data, close_cb)
+        scene:runScene()
     end
 
     func_change_view()
