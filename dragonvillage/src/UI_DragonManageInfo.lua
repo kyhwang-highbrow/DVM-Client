@@ -60,7 +60,7 @@ function UI_DragonManageInfo:initButton()
         vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
 
         -- 진화
-        vars['evolutionBtn']:registerScriptTapHandler(function()  end)
+        vars['evolutionBtn']:registerScriptTapHandler(function() self:click_evolutionBtn() end)
 
         -- 친밀도
         vars['friendshipBtn']:registerScriptTapHandler(function() end)
@@ -312,6 +312,30 @@ end
 -------------------------------------
 function UI_DragonManageInfo:click_upgradeBtn()
     local ui = UI_DragonManageUpgrade(doid)
+
+    -- 선탠된 드래곤 설정
+    local doid = self.m_selectDragonOID
+    ui:setSelectDragonData(doid)
+
+    -- UI종료 후 콜백
+    local function close_cb()
+        if ui.m_bChangeDragonList then
+            self:init_dragonTableView()
+            local dragon_object_id = ui.m_selectDragonOID
+            local b_force = true
+            self:setSelectDragonData(dragon_object_id, b_force)
+        end
+        self:sceneFadeInAction()
+    end
+    ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_evolutionBtn
+-- @brief 진화 버튼
+-------------------------------------
+function UI_DragonManageInfo:click_evolutionBtn()
+    local ui = UI_DragonManagementEvolution(doid)
 
     -- 선탠된 드래곤 설정
     local doid = self.m_selectDragonOID
