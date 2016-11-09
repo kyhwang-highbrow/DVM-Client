@@ -484,6 +484,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Table.lua" />
     <None Include="..\src\TableViewExtension.lua" />
     <None Include="..\src\TableViewTD.lua" />
+    <None Include="..\src\TableClass.lua" />
     <None Include="..\src\TamerSkillCut.lua" />
     <None Include="..\src\TamerSpecialSkillCombination.lua" />
     <None Include="..\src\TamerSkillManager.lua" />

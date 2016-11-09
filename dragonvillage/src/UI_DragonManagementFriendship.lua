@@ -5,6 +5,7 @@ local PARENT = UI_DragonManage_Base
 -------------------------------------
 UI_DragonManagementFriendship = class(PARENT,{
         m_bChangeDragonList = 'boolean',
+        m_currAttrTab = 'string',
     })
 
 -------------------------------------
@@ -24,6 +25,7 @@ end
 -------------------------------------
 function UI_DragonManagementFriendship:init()
     self.m_bChangeDragonList = false
+    self.m_currAttrTab = nil
 
     local vars = self:load('dragon_management_friendship.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -53,6 +55,14 @@ end
 -------------------------------------
 function UI_DragonManagementFriendship:initButton()
     local vars = self.vars
+
+    vars['fireBtn']:registerScriptTapHandler(function() self:changeAttrTab('fire') end)
+    vars['waterBtn']:registerScriptTapHandler(function() self:changeAttrTab('water') end)
+    vars['earthBtn']:registerScriptTapHandler(function() self:changeAttrTab('earth') end)
+    vars['lightBtn']:registerScriptTapHandler(function() self:changeAttrTab('light') end)
+    vars['darkBtn']:registerScriptTapHandler(function() self:changeAttrTab('dark') end)
+    vars['commonBtn']:registerScriptTapHandler(function() self:changeAttrTab('global') end)
+    vars['resetBtn']:registerScriptTapHandler(function() self:changeAttrTab('reset') end)
 end
 
 -------------------------------------
@@ -74,6 +84,8 @@ function UI_DragonManagementFriendship:refresh()
 
     -- 드래곤 친밀도 정보 (왼쪽 정보)
     self:refresh_dragonFriendshipInfo(t_dragon_data, t_dragon)
+
+    self:refresh_fruitList(t_dragon['attr'])
 end
 
 -------------------------------------
@@ -144,7 +156,163 @@ function UI_DragonManagementFriendship:refresh_dragonFriendshipInfo(t_dragon_dat
         vars['atkGauge']:setPercentage((atk_cur / atk_cap) * 100)
     end
 
+    -- 보너스 아이콘 변경
+    self:refresh_bonusIcon(t_dragon['attr'])
+
     -- friendshipFxVisual
+end
+
+-------------------------------------
+-- function refresh_bonusIcon
+-- @brief 보너스 아이콘 변경
+-------------------------------------
+function UI_DragonManagementFriendship:refresh_bonusIcon(dragon_attr)
+    local vars = self.vars
+    local bonus_icon = vars['bonusSprite']
+    local attr_btn = vars[dragon_attr .. 'Btn']
+
+    bonus_icon:retain()
+    bonus_icon:removeFromParent()
+    attr_btn:addChild(bonus_icon)
+    bonus_icon:release()
+end
+
+-------------------------------------
+-- function changeAttrTab
+-- @brief 속성 탭 변경
+-------------------------------------
+function UI_DragonManagementFriendship:changeAttrTab(attr, b_force)
+    if (not b_force) and (self.m_currAttrTab == attr) then
+        return
+    end
+
+    local vars = self.vars
+    self.m_currAttrTab = attr
+
+    if (attr == 'reset') then
+        vars['resetNode']:setVisible(true)
+        vars['fruitFeedNode']:setVisible(false)
+    else
+        vars['resetNode']:setVisible(false)
+        vars['fruitFeedNode']:setVisible(true)
+
+        self:refresh_fruitList(attr)
+    end
+
+    -- 속성 탭 이름 지정
+    vars['attrTitle']:setString(self:getAttrTabName(attr))
+end
+
+-------------------------------------
+-- function refresh_fruitList
+-- @brief
+-------------------------------------
+function UI_DragonManagementFriendship:refresh_fruitList(attr)
+    local vars = self.vars
+    local table_fruit_class = TableClass('fruit')
+
+    -- attr속성의 테이블만 얻어옴
+    local l_fruit_list = table_fruit_class:filterList('attr', attr)
+
+    -- 정렬
+    table.sort(l_fruit_list, function(a, b) return a['fid'] < b['fid'] end)
+
+    for i,t_fruit in ipairs(l_fruit_list) do 
+        -- 열매 이미지
+        vars['fruitNode' .. i]:removeAllChildren()
+        local icon = IconHelper:getItemIcon(t_fruit['fid'])
+        vars['fruitNode' .. i]:addChild(icon)
+
+        -- 열매 보요 갯수
+        local fid = t_fruit['fid']
+        local count = g_userData:getFruitCount(fid)
+        vars['fruitLabel' .. i]:setString(comma_value(count))
+
+        -- 열매 경험치
+        vars['fruitExpLabel' .. i]:setString(comma_value(t_fruit['exp']))
+
+        -- 열매 사용 가격
+        vars['fruitPrice' .. i]:setString(comma_value(t_fruit['req_gold']))
+
+        -- 열매 주기 버튼
+        vars['fruitBtn' .. i]:registerScriptTapHandler(function() self:click_fruitBtn(fid) end)
+    end
+end
+
+-------------------------------------
+-- function getAttrTabName
+-- @brief 속성 탭 이름 리턴
+-------------------------------------
+function UI_DragonManagementFriendship:getAttrTabName(attr)
+    local attr_str = ''
+    if (attr == 'fire') then
+        attr_str = Str('화속성 열매')
+    elseif (attr == 'water') then
+        attr_str = Str('수속성 열매')
+    elseif (attr == 'earth') then
+        attr_str = Str('땅속성 열매')
+    elseif (attr == 'light') then
+        attr_str = Str('빛속성 열매')
+    elseif (attr == 'dark') then
+        attr_str = Str('어둠속성 열매')
+    elseif (attr == 'global') then
+        attr_str = Str('공통 열매')
+    elseif (attr == 'reset') then
+        attr_str = Str('망각의 열매')
+    else
+        error('attr : ' .. attr)
+    end
+
+    return attr_str
+end
+
+-------------------------------------
+-- function click_fruitBtn
+-------------------------------------
+function UI_DragonManagementFriendship:click_fruitBtn(fruit_id)
+    local count = g_userData:getFruitCount(fruit_id)
+
+    if (count <= 0) then
+        UIManager:toastNotificationRed(Str('열매가 부족하네요!!'))
+        return
+    end
+
+    local uid = g_userData:get('uid')
+    local doid = self.m_selectDragonOID
+
+    local function success_cb(ret)
+        -- ret['isFlevelUP']
+
+        -- 드래곤 갱신
+        if ret['dragon'] then
+            g_dragonsData:applyDragonData(ret['dragon'])
+        end
+
+        -- 골드 갱신
+        if ret['remain_gold'] then
+            g_serverData:applyServerData(ret['remain_gold'], 'user', 'gold')
+            g_topUserInfo:refreshData()
+        end
+
+        -- 남은 열매 갯수 저장
+        if ret['remain_fruit'] then
+            g_userData:setFruitCount(fruit_id, ret['remain_fruit'])
+            local count = g_userData:getFruitCount(fruit_id)
+            cclog('count ' .. count)
+        end
+
+        self:refresh()
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/friendshipUp')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('fid', fruit_id)
+    ui_network:setParam('fcnt', 1)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
 end
 
 -------------------------------------

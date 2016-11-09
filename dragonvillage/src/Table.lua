@@ -25,7 +25,7 @@ local TableInfo = {
         exp_dragon        = {'table_exp_dragon',            'lv_d',         false},
         exp_tamer         = {'table_exp_tamer',             'lv_t',         false},
         item              = {'table_item',                  'item',         false},
-        fruit             = {'table_fruit',                 'f_type',       false},
+        fruit             = {'table_fruit',                 'fid',          false},
         fruit_upgrade     = {'table_fruit_upgrade',         'rarity',       false},
 
         friendship           = {'table_friendship',           'friendship',   false},

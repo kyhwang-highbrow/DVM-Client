@@ -36,6 +36,7 @@ local t_module = {
 
     -- Util
     'Table',
+    'TableClass',
     'RichLabel',
     'NumberLabel',
     'LevelupDirector',

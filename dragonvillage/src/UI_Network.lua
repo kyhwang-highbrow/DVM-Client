@@ -169,6 +169,12 @@ function UI_Network:statusHandler(ret)
         return
     end
 
+    -- not enough fruit
+    if (status == -6) then
+        self:makeCommonPopup(Str('열매가 부족합니다.'))
+        return true
+    end
+
     -- not enough gold (골드가 부족할 때)
     if (status == -7) then
         self:makeShopPopup(msg, ret)

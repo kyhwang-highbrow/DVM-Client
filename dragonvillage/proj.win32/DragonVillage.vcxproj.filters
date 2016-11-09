@@ -1012,6 +1012,9 @@
     <None Include="..\src\UIC_Button.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\TableClass.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
