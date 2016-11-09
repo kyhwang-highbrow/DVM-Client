@@ -79,6 +79,45 @@ function UI_SkillCard:getSkillName(skill_id, skill_type)
 end
 
 -------------------------------------
+-- function getSkillNameStr
+-------------------------------------
+function UI_SkillCard:getSkillNameStr(skill_id)
+    local table_name = self.m_charType .. '_skill'
+
+    local table_skill = TABLE:get(table_name)
+    local t_skill = table_skill[skill_id]
+
+    return Str(t_skill['t_name'])
+end
+
+-------------------------------------
+-- function getSkillTypeStr
+-------------------------------------
+function UI_SkillCard:getSkillTypeStr(skill_type)
+    local skill_type_str = ''
+    if (skill_type == 'basic') then
+        skill_type_str = Str('기본공격')
+
+    elseif (skill_type == 'basic_turn') or (skill_type == 'basic_rate') then
+        skill_type_str = Str('일반')
+
+    elseif (skill_type == 'passive') then
+        skill_type_str = Str('패시브')
+
+    elseif (skill_type == 'active') then
+        skill_type_str = Str('액티브')
+
+    elseif (skill_type == 'manual') then
+        skill_type_str = ''
+
+    else
+        error('skill_type : ' .. skill_type)
+    end
+
+    return skill_type_str
+end
+
+-------------------------------------
 -- function getSkillDescStrPure
 -------------------------------------
 function UI_SkillCard:getSkillDescStrPure(skill_id, skill_type)
