@@ -49,12 +49,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -49.000000;
-					y = 19.000000;
+					x = -11.000000;
+					y = -26.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 50;
+					width = 99;
 					height = 29;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -64,13 +64,13 @@
 					visible = true;
 					lua_name = 'levelLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
-					text = '20';
-					h_alignment = 1;
+					font_size = 24;
+					text = '레벨{0}';
+					h_alignment = 0;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 50;
+					dimension_width = 99;
 					dimension_height = 29;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -87,43 +87,17 @@
 				};
 				[4] =
 				{
-					[1] =
-					{
-						type = 'Sprite';
-						ui_name = '';
-						x = 0.000000;
-						y = 0.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 310;
-						height = 58;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/star0206.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
-					y = -50.000000;
+					y = -51.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 310;
-					height = 58;
-					scale_x = 0.380000;
-					scale_y = 0.380000;
+					width = 150;
+					height = 25;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
