@@ -1673,6 +1673,66 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				lua_name = 'upgradeGauge2';
+				file_name = 'ui/gauge/upgarde_gg_02.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+				progress_type = 4;
+				mid_point_x = 0.000000;
+				mid_point_y = 0.000000;
+				percentage = 0;
+			};
+			[10] =
+			{
+				type = 'ProgressTimer';
+				ui_name = '';
+				x = 0.000000;
+				y = 17.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 636;
+				height = 22;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'upgradeGauge1';
+				file_name = 'ui/gauge/upgarde_gg_01.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+				progress_type = 4;
+				mid_point_x = 0.000000;
+				mid_point_y = 0.000000;
+				percentage = 0;
+			};
+			[11] =
+			{
+				type = 'ProgressTimer';
+				ui_name = '';
+				x = 0.000000;
+				y = 17.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 636;
+				height = 22;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
 				lua_name = 'upgradeGauge';
 				file_name = 'ui/gauge/upgarde_gg.png';
 				color = { 255; 255; 255; };
@@ -1684,18 +1744,18 @@
 				progress_type = 4;
 				mid_point_x = 0.000000;
 				mid_point_y = 0.000000;
-				percentage = 100;
+				percentage = 0;
 			};
-			[10] =
+			[12] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 0.000000;
+				x = 172.000000;
 				y = 16.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 700;
+				width = 356;
 				height = 30;
 				scale_x = 0.920000;
 				scale_y = 1.000000;
@@ -1706,12 +1766,12 @@
 				lua_name = 'upgradeExpLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '승급경험치 100.00%';
-				h_alignment = 1;
+				text = '{0}%';
+				h_alignment = 0;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 700;
+				dimension_width = 356;
 				dimension_height = 30;
 				letter_spacing = 0.000000;
 				has_stroke = true;
@@ -1726,7 +1786,47 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[11] =
+			[13] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = -167.000000;
+				y = 16.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 365;
+				height = 30;
+				scale_x = 0.920000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 20;
+				text = '승급경험치';
+				h_alignment = 2;
+				v_alignment = 1;
+				color = { 255; 255; 255; };
+				opacity = 255;
+				dimension_width = 365;
+				dimension_height = 30;
+				letter_spacing = 0.000000;
+				has_stroke = true;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 102; 88; 71; };
+				has_shadow = false;
+				shadow_color = { 102; 88; 71; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 3.000000;
+			};
+			[14] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -1766,7 +1866,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[12] =
+			[15] =
 			{
 				type = 'Scale9Sprite';
 				ui_name = '';
@@ -1792,7 +1892,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[13] =
+			[16] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -1811,7 +1911,7 @@
 				visible = true;
 				lua_name = 'materialNode';
 			};
-			[14] =
+			[17] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -1837,7 +1937,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[15] =
+			[18] =
 			{
 				[1] =
 				{
