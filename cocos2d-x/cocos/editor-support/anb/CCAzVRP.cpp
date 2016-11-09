@@ -1585,7 +1585,7 @@ bool AzVRP_IMPL::initWithFile(const std::string& filename)
 		if (!initWithData(data.getBytes(), data.getSize())) return false;
 
 		s_vrp_cache.insert(TYPE_VRP_CACHE::value_type(filename, std::shared_ptr< const VRP >(_vrp)));
-		CCLOG("AzVRP add cache : %s", filename.c_str());
+		//CCLOG("AzVRP add cache : %s", filename.c_str());
 	}
 
 	_file_name = filename;

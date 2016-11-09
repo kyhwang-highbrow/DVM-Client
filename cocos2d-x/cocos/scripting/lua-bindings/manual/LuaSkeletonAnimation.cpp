@@ -70,7 +70,7 @@ LuaSkeletonAnimation* LuaSkeletonAnimation::createWithFile (const char* skeleton
         spSkeletonJson_dispose(json);
 
         spine::SkeletonAnimation::s_skeleton_data_cache.insert(TYPE_SKELETON_DATA_CACHE::value_type(skeletonDataFile, skeletonData));
-        CCLOG("LuaSkeletonAnimation add cache : %s", skeletonDataFile);
+        //CCLOG("LuaSkeletonAnimation add cache : %s", skeletonDataFile);
     }
 
     LuaSkeletonAnimation* node = new (std::nothrow) LuaSkeletonAnimation(skeletonData);
