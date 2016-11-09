@@ -1003,6 +1003,9 @@
     <None Include="..\src\TamerSpeechSystem.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_IngameUnitInfo.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\UI_DragonManagementEvolution.lua">
       <Filter>lua</Filter>
     </None>

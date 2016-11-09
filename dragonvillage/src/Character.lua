@@ -1,3 +1,7 @@
+local CHARACTER_ACTION_TAG__SHAKE = 1
+local CHARACTER_ACTION_TAG__KNOCKBACK = 2
+local CHARACTER_ACTION_TAG__SHADER = 3
+
 -------------------------------------
 -- class Character
 -------------------------------------
@@ -819,55 +823,16 @@ end
 -------------------------------------
 function Character:makeHPGauge(hp_ui_offset)
     self.m_hpUIOffset = hp_ui_offset
-
-    local hp_node = cc.Node:create()
-    hp_node:setDockPoint(cc.p(0.5, 0.5))
-    hp_node:setAnchorPoint(cc.p(0.5, 0.5))
-    self.m_hpNode = hp_node
-    --self.m_hpNode:setScaleX(1.5)
-
-    do -- 검은 배경
-        local res = 'res/ui/gauge/ingame_enemy_bg.png'
-        local img = cc.Sprite:create(res)
-        img:setDockPoint(cc.p(0.5, 0.5))
-        img:setAnchorPoint(cc.p(0.5, 0.5))
-        --img:setColor(cc.c3b(0,0,0))
-        self.m_hpNode:addChild(img)
-    end
-
-    local res = 'res/ui/gauge/ingame_enemy_gg_01.png'
-
-    local img = cc.Sprite:create(res)
-    img:setDockPoint(cc.p(0.5, 0.5))
-    img:setAnchorPoint(cc.p(0.5, 0.5))
     
+    local ui = UI_IngameUnitInfo(self)
+    self.m_hpNode = ui.root
+    self.m_hpNode:setDockPoint(cc.p(0.5, 0.5))
+    self.m_hpNode:setAnchorPoint(cc.p(0.5, 0.5))
 
-    local progress = cc.ProgressTimer:create(img)
-    progress:setType(cc.PROGRESS_TIMER_TYPE_BAR)
-    progress:setMidpoint(cc.p(0, 0))
-    progress:setBarChangeRate(cc.p(1, 0))
-    progress:setAnchorPoint(cc.p(0.5,0.5))
-    progress:setDockPoint(cc.p(0.5,0.5))
-    progress:setPercentage(100)
-    progress:setPosition(0, 2)
+    self.m_hpGauge = ui.vars['hpGauge']
 
-    hp_node:addChild(progress)
-    --hp_node:setVisible(false)
-
-    -- 배경 생성
-    --[[
-    do
-        local bg = cc.Sprite:create('res/ui/gauge_minion_frame_01.png')
-        bg:setDockPoint(cc.p(0.5, 0.5))
-        bg:setAnchorPoint(cc.p(0.5, 0.5))
-        --bg:setColor(cc.c3b(0,0,0))
-        hp_node:addChild(bg)
-    end
-    --]]
-
-    self.m_hpGauge = progress
-    self.m_world.m_worldNode:addChild(hp_node, 5)
-
+    self.m_world.m_worldNode:addChild(self.m_hpNode, 5)
+    
     -- casting
     do
         self.m_castingNode = cc.Node:create()
@@ -1265,10 +1230,18 @@ function Character:animatorShake()
         y = -y
     end
 
-    target_node:stopAllActions()
+    -- 실행중인 액션 stop
+    local action = target_node:getActionByTag(CHARACTER_ACTION_TAG__SHAKE);
+    if action then
+        target_node:stopAction(action)
+    end
+
     local start_action = cc.MoveTo:create(0.05, cc.p(x, y))
     local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.3, cc.p(0, 0)), 0.2)
-    target_node:runAction(cc.Sequence:create(start_action, end_action))
+    local action = cc.Sequence:create(start_action, end_action)
+    action:setTag(CHARACTER_ACTION_TAG__SHAKE)
+
+    target_node:runAction(action)
 end
 
 -------------------------------------
@@ -1293,11 +1266,18 @@ function Character:animatorHit(attacker, dir)
     end
     
     -- 점멸 처리
-    do
+    local target_node = self.m_animator.m_node
+    if target_node then
         local delay = 0.15
 
         if rarity ~= 'boss' and rarity ~= 'subboss' and rarity ~= 'elite' then
             delay = 0.1
+        end
+
+        -- 실행중인 액션 stop
+        local action = target_node:getActionByTag(CHARACTER_ACTION_TAG__SHADER);
+        if action then
+            target_node:stopAction(action)
         end
 
         local action = cc.Sequence:create(
@@ -1311,7 +1291,9 @@ function Character:animatorHit(attacker, dir)
                 self.m_animator.m_node:setGLProgram(shader)
             end)
         )
-        self:runAction(action)
+        action:setTag(CHARACTER_ACTION_TAG__SHADER)
+        
+        target_node:runAction(action)
     end
 end
 
@@ -1336,10 +1318,18 @@ function Character:animatorKnockback(dir)
     local pos_x = math_cos(math_rad(dir)) * distance
     local pos_y = math_sin(math_rad(dir)) * distance
 
-    target_node:stopAllActions()
+    -- 실행중인 액션 stop
+    local action = target_node:getActionByTag(CHARACTER_ACTION_TAG__KNOCKBACK);
+    if action then
+        target_node:stopAction(action)
+    end
+
     local start_action = cc.DelayTime:create(SpasticityTime)
     local end_action = cc.MoveTo:create(0.1, cc.p(0, 0))
-    target_node:runAction(cc.Sequence:create(start_action, end_action))
+    local action = cc.Sequence:create(start_action, end_action)
+    action:setTag(CHARACTER_ACTION_TAG__KNOCKBACK)
+
+    target_node:runAction(action)
 
     target_node:setPosition(pos_x, pos_y)
 end
