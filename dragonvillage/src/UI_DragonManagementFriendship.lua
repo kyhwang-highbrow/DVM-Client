@@ -281,11 +281,23 @@ function UI_DragonManagementFriendship:refresh_resetFruit()
     local reset_fruit_cnt = t_friendship['reset_fruit_cnt']
 
     -- 망각에 필요한 망각의 열매 갯수
-    vars['resetPriceLabel']:setString(Str('{1}개', reset_fruit_cnt))
+    local req_price = self:getRessetFruitGold() * reset_fruit_cnt
+    vars['resetPriceLabel']:setString(comma_value(req_price))
 
     -- 보유한 망각의 열매 갯수
     local count = g_userData:getResetFruitCount()
-    vars['fruitResetLabel']:setString(comma_value(count))
+    vars['fruitResetLabel']:setString(Str('{1} / {2}', comma_value(reset_fruit_cnt), comma_value(count)))
+end
+
+-------------------------------------
+-- function getRessetFruitGold
+-- @brief 망각의 열매 가격
+-------------------------------------
+function UI_DragonManagementFriendship:getRessetFruitGold()
+    local table_fruit = TableClass('fruit')
+    local reset_fruit_id = g_userData:getResetFruitID()
+    local t_fruit = table_fruit:get(reset_fruit_id)
+    return t_fruit['req_gold']
 end
 
 -------------------------------------
@@ -393,7 +405,7 @@ function UI_DragonManagementFriendship:click_resetUseBtn()
     if (t_dragon_data['can_rollback'] == false) then
         UIManager:toastNotificationRed(Str('망각의 열매는 단계별 1회만 사용할 수 있습니다.'))
         return
-    end
+    end    
     
     local flv = t_dragon_data['flv']
     local table_friendship = TableClass('friendship')
