@@ -169,9 +169,15 @@ function UI_Network:statusHandler(ret)
         return
     end
 
-    -- not enough gold
+    -- not enough gold (골드가 부족할 때)
     if (status == -7) then
         self:makeShopPopup(msg, ret)
+        return true
+    end
+
+    -- not enough material (드래곤 진화 재료가 부족할 때)
+    if (status == -11) then
+        self:makeCommonPopup(Str('진화재료가 부족합니다.'))
         return true
     end
 
@@ -217,6 +223,15 @@ end
 function UI_Network:makeShopPopup(msg, ret)
     self:close()
     MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup)
+end
+
+-------------------------------------
+-- function makeCommonPopup
+-- @brief
+-------------------------------------
+function UI_Network:makeCommonPopup(msg)
+    self:close()
+    MakeSimplePopup(POPUP_TYPE.OK, Str(msg))
 end
 
 

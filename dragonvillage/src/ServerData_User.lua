@@ -15,6 +15,6 @@ end
 -------------------------------------
 -- function get
 -------------------------------------
-function ServerData_User:get(key)
-    return self.m_serverData:get('user', key)
+function ServerData_User:get(...)
+    return self.m_serverData:get('user', ...)
 end

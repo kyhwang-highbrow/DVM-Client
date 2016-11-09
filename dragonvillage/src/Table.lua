@@ -43,6 +43,8 @@ local TableInfo = {
 
         -- 드래곤 관리 관련
         grade_info        = {'table_grade_info',            'grade',        false},
+        dragon_evolution  = {'table_dragon_evolution',      'did',          false},
+        evolution_item    = {'table_evolution_item',        'item_id',      false},
     }
 
 -------------------------------------
