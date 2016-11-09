@@ -42,9 +42,11 @@ local TableInfo = {
         status_effect     = {'table_status_effect',         'name',         false},
 
         -- 드래곤 관리 관련
-        grade_info        = {'table_grade_info',            'grade',        false},
-        dragon_evolution  = {'table_dragon_evolution',      'did',          false},
-        evolution_item    = {'table_evolution_item',        'item_id',      false},
+        grade_info           = {'table_grade_info',            'grade',        false},
+        dragon_evolution     = {'table_dragon_evolution',      'did',          false},
+        evolution_item       = {'table_evolution_item',        'item_id',      false},
+        friendship_variables = {'table_friendship_variables',  'vari',         false},
+        
     }
 
 -------------------------------------
