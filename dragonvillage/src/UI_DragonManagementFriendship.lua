@@ -47,6 +47,9 @@ function UI_DragonManagementFriendship:initUI()
     local vars = self.vars
     self:init_dragonTableView()
     --self:setDefaultSelectDragon()
+
+    -- 최초 탭 설정
+    self:refresh_fruitList('fire')
 end
 
 -------------------------------------
@@ -84,8 +87,6 @@ function UI_DragonManagementFriendship:refresh()
 
     -- 드래곤 친밀도 정보 (왼쪽 정보)
     self:refresh_dragonFriendshipInfo(t_dragon_data, t_dragon)
-
-    self:refresh_fruitList(t_dragon['attr'])
 end
 
 -------------------------------------
@@ -298,7 +299,6 @@ function UI_DragonManagementFriendship:click_fruitBtn(fruit_id)
         if ret['remain_fruit'] then
             g_userData:setFruitCount(fruit_id, ret['remain_fruit'])
             local count = g_userData:getFruitCount(fruit_id)
-            cclog('count ' .. count)
         end
 
         self:refresh()
