@@ -70,6 +70,7 @@ end
 
 -------------------------------------
 -- function refresh
+-- @brief 선택된 드래곤이 변경되었을 때 호출
 -------------------------------------
 function UI_DragonManagementFriendship:refresh()
 
@@ -86,15 +87,30 @@ function UI_DragonManagementFriendship:refresh()
     local t_dragon = table_dragon[t_dragon_data['did']]
 
     -- 드래곤 친밀도 정보 (왼쪽 정보)
-    self:refresh_dragonFriendshipInfo(t_dragon_data, t_dragon)
+    self:refresh_dragonFriendshipInfo()
+
+    -- 보너스 아이콘 변경
+    self:refresh_bonusIcon(t_dragon['attr'])
 end
 
 -------------------------------------
 -- function refresh_dragonFriendshipInfo
 -- @brief 드래곤 친밀도 정보 (왼쪽 정보)
 -------------------------------------
-function UI_DragonManagementFriendship:refresh_dragonFriendshipInfo(t_dragon_data, t_dragon)
+function UI_DragonManagementFriendship:refresh_dragonFriendshipInfo()
     local vars = self.vars
+
+    local t_dragon_data = self.m_selectDragonData
+
+    if (not t_dragon_data) then
+        return
+    end
+
+    local vars = self.vars
+
+    -- 드래곤 테이블
+    local table_dragon = TABLE:get('dragon')
+    local t_dragon = table_dragon[t_dragon_data['did']]
 
     local flv = t_dragon_data['flv']
     local fexp = t_dragon_data['fexp']
@@ -157,9 +173,6 @@ function UI_DragonManagementFriendship:refresh_dragonFriendshipInfo(t_dragon_dat
         vars['atkGauge']:setPercentage((atk_cur / atk_cap) * 100)
     end
 
-    -- 보너스 아이콘 변경
-    self:refresh_bonusIcon(t_dragon['attr'])
-
     -- friendshipFxVisual
 end
 
@@ -209,6 +222,7 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonManagementFriendship:refresh_fruitList(attr)
+    local attr = (attr or self.m_currAttrTab)
     local vars = self.vars
     local table_fruit_class = TableClass('fruit')
 
@@ -301,7 +315,11 @@ function UI_DragonManagementFriendship:click_fruitBtn(fruit_id)
             local count = g_userData:getFruitCount(fruit_id)
         end
 
-        self:refresh()
+        -- 드래곤 정보 갱신
+        self:refresh_dragonFriendshipInfo()
+
+        -- 열매 정보 갱신
+        self:refresh_fruitList(attr)
     end
 
     local ui_network = UI_Network()
