@@ -28,11 +28,6 @@ function UI_DragonManageInfo:init()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonManageInfo')
 
-    -- @UI_ACTION
-    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
-    --self:doActionReset()
-    --self:doAction(nil, false)
-
     self:sceneFadeInAction()
 
     self:initUI()

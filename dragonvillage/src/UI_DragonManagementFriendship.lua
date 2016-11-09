@@ -6,6 +6,7 @@ local PARENT = UI_DragonManage_Base
 UI_DragonManagementFriendship = class(PARENT,{
         m_bChangeDragonList = 'boolean',
         m_currAttrTab = 'string',
+        m_prevFriendshipData = 'table', -- 친밀도 상승 연출을 위한 데이터 저장용
     })
 
 -------------------------------------
@@ -50,6 +51,11 @@ function UI_DragonManagementFriendship:initUI()
 
     -- 최초 탭 설정
     self:refresh_fruitListTab('fire')
+
+    vars['expGauge']:setPercentage(0)
+    vars['hpGauge']:setPercentage(0)
+    vars['defGauge']:setPercentage(0)
+    vars['atkGauge']:setPercentage(0)
 end
 
 -------------------------------------
@@ -151,7 +157,9 @@ function UI_DragonManagementFriendship:refresh_dragonFriendshipInfo()
         local cur_exp = fexp
 
         vars['expLabel']:setString(Str('{1} / {2}', cur_exp, req_exp))
-        vars['expGauge']:setPercentage((cur_exp / req_exp) * 100)
+        local percentage = (cur_exp / req_exp) * 100
+        vars['expGauge']:stopAllActions()
+        vars['expGauge']:runAction(cc.ProgressTo:create(0.3, percentage))
     end
 
     local table_friendship_variables = TABLE:get('friendship_variables')
@@ -160,7 +168,9 @@ function UI_DragonManagementFriendship:refresh_dragonFriendshipInfo()
         local hp_cur = t_dragon_data['hp']
 
         vars['hpLabel']:setString(Str('{1} / {2}', hp_cur, hp_cap))
-        vars['hpGauge']:setPercentage((hp_cur / hp_cap) * 100)
+        local percentage = (hp_cur / hp_cap) * 100
+        vars['hpGauge']:stopAllActions()
+        vars['hpGauge']:runAction(cc.ProgressTo:create(0.3, percentage))
     end
 
     do -- 친밀도에 의한 방어력 상승 표시
@@ -168,7 +178,9 @@ function UI_DragonManagementFriendship:refresh_dragonFriendshipInfo()
         local def_cur = t_dragon_data['def']
 
         vars['defLabel']:setString(Str('{1} / {2}', def_cur, def_cap))
-        vars['defGauge']:setPercentage((def_cur / def_cap) * 100)
+        local percentage = (def_cur / def_cap) * 100
+        vars['defGauge']:stopAllActions()
+        vars['defGauge']:runAction(cc.ProgressTo:create(0.3, percentage))
     end
 
     do -- 친밀도에 의한 공격력 상승 표시
@@ -176,10 +188,10 @@ function UI_DragonManagementFriendship:refresh_dragonFriendshipInfo()
         local atk_cur = t_dragon_data['atk']
 
         vars['atkLabel']:setString(Str('{1} / {2}', atk_cur, atk_cap))
-        vars['atkGauge']:setPercentage((atk_cur / atk_cap) * 100)
+        local percentage = (atk_cur / atk_cap) * 100
+        vars['atkGauge']:stopAllActions()
+        vars['atkGauge']:runAction(cc.ProgressTo:create(0.3, percentage))
     end
-
-    -- friendshipFxVisual
 end
 
 -------------------------------------
@@ -338,14 +350,21 @@ function UI_DragonManagementFriendship:click_fruitBtn(fruit_id, fruit_node)
         return
     end
 
+    -- 네트워크 통신
+    self:network_friendshipUp(fruit_id)
+end
+
+-------------------------------------
+-- function network_friendshipUp
+-------------------------------------
+function UI_DragonManagementFriendship:network_friendshipUp(fruit_id)
     local uid = g_userData:get('uid')
     local doid = self.m_selectDragonOID
 
+    -- 친밀도 상승 연출을 위한 데이터 저장용
+    self.m_prevFriendshipData = clone(self.m_selectDragonData)
+
     local function success_cb(ret)
-        -- ret['is_flevelup']
-
-        -- ret['bonus_grade'] -- 's', 'a', 'b', 'c'
-
         -- 드래곤 갱신
         if ret['dragon'] then
             g_dragonsData:applyDragonData(ret['dragon'])
@@ -370,6 +389,18 @@ function UI_DragonManagementFriendship:click_fruitBtn(fruit_id, fruit_node)
 
         -- 열매 정보 갱신
         self:refresh_fruitListTab(attr)
+        
+        -- 친밀도가 상승하였을 경우
+        if (ret['is_flevelup'] == true) then
+            local t_prev_dragon_data = self.m_prevFriendshipData
+            local t_curr_dragon_data = ret['dragon']
+            local bonus_grade = ret['bonus_grade'] -- 's', 'a', 'b', 'c'
+
+            -- 결과 팝업 생성
+            UI_DragonManageFriendshipResult(bonus_grade, t_prev_dragon_data, t_curr_dragon_data)
+
+            self.vars['friendshipFxVisual']:setVisual()
+        end
     end
 
     local ui_network = UI_Network()
@@ -393,6 +424,7 @@ end
 
 -------------------------------------
 -- function click_resetUseBtn
+-- @brief 망각의 열매 사용 버튼 데이터 갱신
 -------------------------------------
 function UI_DragonManagementFriendship:click_resetUseBtn()
     local t_dragon_data = self.m_selectDragonData
@@ -419,8 +451,15 @@ function UI_DragonManagementFriendship:click_resetUseBtn()
         return
     end
 
-    -- 네트워크 통신
-    self:network_rollback()
+    do -- 팝업으로 물어봄
+        local function yes_cb()
+            -- 네트워크 통신
+            self:network_rollback()
+        end
+
+        local msg = Str('망각의 열매를 사용하여\n친밀도의 상태와 능력치를 한단계 전으로 되돌립니다.\n\n정말 사용하시겠습니까?')
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, yes_cb)
+    end
 end
 
 -------------------------------------
@@ -431,7 +470,6 @@ local uid = g_userData:get('uid')
     local doid = self.m_selectDragonOID
 
     local function success_cb(ret)
-        ccdump(ret)
 
         -- 드래곤 갱신
         if ret['dragon'] then

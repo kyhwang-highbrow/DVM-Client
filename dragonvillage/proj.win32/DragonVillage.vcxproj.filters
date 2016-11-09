@@ -1000,6 +1000,9 @@
     <None Include="..\src\TableClass.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_DragonManageFriendshipResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
