@@ -61,7 +61,7 @@ function TamerSkillManager:getTargetList(t_skill)
 	local target_team = t_skill['target_logic1']
 	local target_stat = t_skill['target_logic2']
 	local target_calc = t_skill['target_logic3']
-	local target_cnt = 3
+	local target_cnt = 1
 
 	-- 1. 아군 or 적군 or 전체
 	local l_target = nil
@@ -71,6 +71,7 @@ function TamerSkillManager:getTargetList(t_skill)
 		l_target = world:getCharList('enemy')
 	elseif (target_team == 'all') then
 		l_target = table.merge(world:getCharList('ally'), world:getCharList('enemy'))
+		target_cnt = 5
 	else
 		error('테이머 스킬 대상 로직1이 잘못되었습니다. 확인해주세요\nid : ' .. t_skill['id'] .. ' target logic : ' .. target_team)
 	end

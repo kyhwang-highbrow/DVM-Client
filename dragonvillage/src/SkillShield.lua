@@ -1,15 +1,12 @@
+local PARENT = class(Skill, IStateDelegate:getCloneTable())
+
 -------------------------------------
 -- class SkillShield
 -------------------------------------
-SkillShield = class(Entity, {
-        m_owner = 'Character',
-
+SkillShield = class(PARENT, {
         m_hpRange = 'number',
         m_currHP = 'number',
         m_currDamage = 'number',
-		m_duration = 'number',
-
-        m_shieldHP = 'number', -- 실드로 추가될 체력
      })
 
 -------------------------------------
@@ -25,32 +22,23 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillShield:init_skill(owner, res, x, y, t_skill)
-    self.m_owner = owner
-
+function SkillShield:init_skill(active_rate, shield_hp_rate)
 	-- 1. 발동 조건 (체력의 x % 소진시)
-    local rate = (t_skill['val_1'] / 100)
-    self.m_hpRange = owner.m_maxHp * rate
-    self.m_currHP = owner.m_hp
+    local rate = (active_rate / 100)
+    self.m_hpRange = self.m_owner.m_maxHp * rate
+    self.m_currHP = self.m_owner.m_hp
     self.m_currDamage = 0
 
-	-- 2. 제한 시간
-	self.m_duration = t_skill['val_2']
-
-    -- 3. 실드로 추가될 체력
-    self.m_shieldHP = owner.m_maxHp * (t_skill['val_3'] / 100)
-
-    -- 4. 콜백 함수 등록
-    owner:addHpEventListener(self)
+    -- 2. 콜백 함수 등록
+    self.m_owner:addHpEventListener(self)
 end
 
 -------------------------------------
 -- function initState
 -------------------------------------
 function SkillShield:initState()
-    self:addState('idle', SkillShield.st_idle, 'idle', true)
-    self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
-    self:changeState('idle')
+	self:setCommonState(self)
+    self:addState('start', SkillShield.st_idle, 'idle', true)
 end
 
 -------------------------------------
@@ -76,25 +64,36 @@ function SkillShield:changeHpCB(char, hp, max_hp)
 
         if self.m_hpRange <= self.m_currDamage then
             self.m_currDamage = (self.m_currDamage % self.m_hpRange)
-            self:makeShield()
+            StatusEffectHelper:doStatusEffectByType(char, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
         end
     end
 
     self.m_currHP = hp
 end
 
-
 -------------------------------------
--- function makeShield
+-- function makeSkillInstance
 -------------------------------------
-function SkillShield:makeShield()
-    local shield = Buff_Shield('res/effect/effect_shield/effect_shield.spine')
+function SkillShield:makeSkillInstance(owner, t_skill, t_data)
+	-- 변수 선언부
+	------------------------------------------------------
+	local active_rate = t_skill['val_1']
 
-    self.m_world.m_worldNode:addChild(shield.m_rootNode, 5)
-    self.m_world:addToUnitList(shield)
+	-- 인스턴스 생성부
+	------------------------------------------------------
+	-- 1. 스킬 생성
+    local skill = SkillShield(nil)
 
-	shield:init_buff(self.m_owner, self.m_shieldHP, self.m_duration)
+	-- 2. 초기화 관련 함수
+	skill:setSkillParams(owner, t_skill, t_data)
+    skill:init_skill(active_rate)
+	skill:initState()
 
-	-- @TODO effect_shield.spine는 너무 커서 일단 줄임... 
-	shield.m_animator:setScale(0.5)
+	-- 3. state 시작 
+    skill:changeState('delay')
+
+    -- 4. Physics, Node, GameMgr에 등록
+    local world = skill.m_owner.m_world
+    world.m_missiledNode:addChild(skill.m_rootNode, 0)
+    world:addToSkillList(skill)
 end

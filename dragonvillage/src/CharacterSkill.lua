@@ -60,10 +60,15 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
     local chance_type = t_skill['chance_type']
 
     ----------------------------------------------
-    if (chance_type == 'passive') then
-        local char = self
-        local t_skill = t_skill
-        return StatusEffectHelper:invokePassive(char, t_skill)
+    if (chance_type == 'passive') then 
+	    if (type == 'skill_shield') then
+            SkillShield:makeSkillInstance(self, t_skill, t_data)
+            return true
+		else
+			local char = self
+			local t_skill = t_skill
+			return StatusEffectHelper:invokePassive(char, t_skill)
+		end
 
 	elseif (chance_type == 'trigger') then
 		local char = self

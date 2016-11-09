@@ -19,7 +19,7 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillProtection:init_skill(protection_res, duration)
+function SkillProtection:init_skill()
 	PARENT.init_skill(self)
 	
     if (not self.m_targetChar) then
@@ -31,8 +31,6 @@ function SkillProtection:init_skill(protection_res, duration)
     end
 	
     do -- 기본 타겟에 실드
---        local shield_hp = self.m_owner.m_maxHp * (self.m_powerRate / 100)
-  --      self:makeShield(self.m_targetChar, shield_hp)
 		StatusEffectHelper:doStatusEffectByType(self.m_targetChar, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
     end
 end
@@ -56,27 +54,11 @@ function SkillProtection.st_idle(owner, dt)
 end
 
 -------------------------------------
--- function makeShield
--------------------------------------
-function SkillProtection:makeShield(target, shield_hp)
-	local world = self.m_owner.m_world
-    local buff = Buff_Shield(self.m_protectionRes)
-    world.m_worldNode:addChild(buff.m_rootNode, 10)
-    world:addToUnitList(buff)
-    buff:init_buff(target, shield_hp, self.m_duration)
-end
-
--------------------------------------
 -- function makeSkillInstance
 -------------------------------------
 function SkillProtection:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
-	local spin_res = t_skill['res_2']
-	local target_count = t_skill['val_1']
-	local buff_prob = t_skill['val_2']
-	local atk_count = t_skill['hit']
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
