@@ -11,9 +11,7 @@ local PARENT = class(Skill, IStateDelegate:getCloneTable())
 -- ['val_2']        충격파 반지름
 -------------------------------------
 SkillCrash = class(PARENT, {
-        m_owner = 'Character',
         m_tSkill = 'table',
-        m_activityCarrier = 'AttackDamage',
 
         -- t_skill에서 얻어오는 데이터
         m_shockwaveEffectRes = 'string',    -- t_skill['res_1']
@@ -42,7 +40,6 @@ end
 -------------------------------------
 function SkillCrash:init_skill(owner, t_skill, t_data)
     self.m_owner = owner
-    local char = owner
     self.m_tSkill = t_skill
 
     -- t_skill에서 얻어오는 데이터
@@ -64,7 +61,6 @@ function SkillCrash:init_skill(owner, t_skill, t_data)
 
     -- StateDelegate 적용
     owner:setStateDelegate(self)
-    self:changeState('move')
 end
 
 -------------------------------------
@@ -289,8 +285,8 @@ function SkillCrash:attackShockwave(x, y)
     -- 메뉴얼 스킬 발동
     self:doManualSkill(target_count)
 
-	-- @TODO 공격에 묻어나는 이펙트 Carrier 에 담아서..
-	StatusEffectHelper:doStatusEffect(self.m_owner, self.m_tSkill)
+	-- 상태효과
+	StatusEffectHelper:doStatusEffectByStr(self.m_owner, t_target, self.m_lStatusEffectStr)
 end
 
 -------------------------------------
@@ -348,4 +344,30 @@ end
 function SkillCrash:release()
     self:releaseCrashPhsyObject()
     PARENT.release(self)
+end
+
+-------------------------------------
+-- function makeSkillInstance
+-------------------------------------
+function SkillCrash:makeSkillInstance(owner, t_skill, t_data)
+	-- 변수 선언부
+	------------------------------------------------------
+
+	-- 인스턴스 생성부
+	------------------------------------------------------
+	-- 1. 스킬 생성
+    local skill = SkillCrash(nil)
+
+	-- 2. 초기화 관련 함수
+	skill:setSkillParams(owner, t_skill, t_data)
+    skill:init_skill(owner, t_skill, t_data)
+	skill:initState()
+
+	-- 3. state 시작 
+    skill:changeState('move')
+
+    -- 4. Physics, Node, GameMgr에 등록
+    local world = skill.m_owner.m_world
+    world.m_missiledNode:addChild(skill.m_rootNode, 0)
+    world:addToSkillList(skill)
 end

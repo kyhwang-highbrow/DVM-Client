@@ -5,6 +5,7 @@ local PARENT = Skill
 -------------------------------------
 SkillBuff = class(PARENT, {
         m_isAddedBuff = 'bool',
+		m_addBuffProb = 'num',
     })
 
 -------------------------------------
@@ -19,9 +20,11 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillBuff:init_skill()
+function SkillBuff:init_skill(add_buff_prob)
     PARENT.init_skill(self)
 	
+	self.m_addBuffProb = add_buff_prob
+
 	self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 
 	self.m_isAddedBuff = false
@@ -53,16 +56,11 @@ function SkillBuff.st_draw(owner, dt)
 	if (owner.m_stateTimer == 0) then
 		-- @TODO
 		-- 애플칙 하드 코딩
-		local t_status_effect_rate = stringSplit(owner.m_statusEffectRate, ';')
-		for i, status_effect_rate in ipairs(t_status_effect_rate) do
-			-- 확률 검사
-			if (math_random(1, 1000) < status_effect_rate * 10) then 
-				-- 추가 버프 실행 판단
-				if (i == 2) then 
-					owner.m_isAddedBuff = true 
-					owner.m_animator:changeAni('idle_gold')
-				end 
-			end
+		local rate = owner.m_addBuffProb
+		if (math_random(1, 1000) < rate * 10) then 
+			-- 추가 버프 실행 판단
+			owner.m_isAddedBuff = true 
+			owner.m_animator:changeAni('idle_gold')
 		end
 
 		-- 투사체 투척
@@ -82,21 +80,10 @@ end
 function SkillBuff.st_obtain(owner, dt)
     if (owner.m_stateTimer == 0) then
 		-- 애플칙 하드 코딩
-		local t_status_effect_rate = stringSplit(owner.m_statusEffectRate, ';')
-		local t_status_effect_value = stringSplit(owner.m_statusEffectValue, ';')
-		local t_status_effect_type = stringSplit(owner.m_statusEffectType, ';')
-		for i, status_effect_type in ipairs(t_status_effect_type) do
-			local status_effect_value = t_status_effect_value[i]
-			local status_effect_rate = t_status_effect_rate[i]
-
-			if (i == 1) then 
-				StatusEffectHelper:doStatusEffect_simple(owner.m_targetChar, status_effect_type, status_effect_value, status_effect_rate)
-			else
-				if owner.m_isAddedBuff then 
-					StatusEffectHelper:doStatusEffect_simple(owner.m_targetChar, status_effect_type, t_status_effect_value, 100)
-				end
-			end
+		if (not owner.m_isAddedBuff) then 
+			owner.m_lStatusEffectStr[2] = nil
 		end
+		StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {owner.m_targetChar}, owner.m_lStatusEffectStr)
 
 		owner.m_animator:setPosition(0, 100)
 		owner.m_animator:addAniHandler(function()
@@ -106,28 +93,13 @@ function SkillBuff.st_obtain(owner, dt)
 end
 
 -------------------------------------
--- function getDefaultTargetPos
--- @brief 디폴트 타겟 좌표
--------------------------------------
-function SkillBuff:getDefaultTargetPos()
-    return PARENT.getDefaultTargetPos(self) 
-end
-
--------------------------------------
--- function findTarget
--- @brief 공격 대상 찾음
--------------------------------------
-function SkillBuff:findTarget()
-    return PARENT.findTarget(self) 
-end
-
--------------------------------------
 -- function makeSkillInstance
 -------------------------------------
 function SkillBuff:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+	local add_buff_prob = t_skill['val_1']
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
@@ -136,7 +108,7 @@ function SkillBuff:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill()
+    skill:init_skill(add_buff_prob)
 	skill:initState()
 
 	-- 3. state 시작 

@@ -23,7 +23,7 @@ function SkillConicAtk_Spread:init_skill(attack_count, range, isSpread)
     PARENT.init_skill(self, attack_count, range)
 	
 	self.m_speardCnt = 0
-	self.m_isSpread = isSpread == 0
+	self.m_isSpread = isSpread == 1
 
 	if (self.m_skillType == 'skill_breath_gust') then 
 		-- @TODO 허리케인 하드코딩... 나중에는 리소스 자체에서 스케일을 주는거로 하자
@@ -41,7 +41,7 @@ function SkillConicAtk_Spread:runAttack()
         -- 공격
         self:attack(target_char)
 		
-		if (self.m_skillType == 'skill_aoe_cone_spread') then 
+		if (self.m_isSpread) then 
 			-- @TODO 허리케인 하드코딩... 화상 번짐
 			if (self.m_speardCnt == 0) then
 				self:spreadStatusEffect(target_char, 'burn', 225)

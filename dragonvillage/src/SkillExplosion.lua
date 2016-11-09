@@ -5,7 +5,7 @@ local PARENT = class(Skill, IStateDelegate:getCloneTable())
 -------------------------------------
 SkillExplosion = class(PARENT, {
 		m_afterimageMove = 'time',
-		m_targetCount= '',
+		m_isIgnoreDef= '',
 		m_range = 'num',
 		m_jumpRes = 'str',
      })
@@ -21,13 +21,14 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillExplosion:init_skill(target_count, range, jump_res)
-    PARENT.init_skill(self)
+function SkillExplosion:init_skill(jump_res, range, isIgnoreDef)
+	self.m_isIgnoreDef = isIgnoreDef
+    
+	PARENT.init_skill(self)
 	
 	-- 멤버 변수 
-	self.m_targetCount = target_count
-	self.m_range = range
 	self.m_jumpRes = jump_res
+	self.m_range = range
 	self.m_afterimageMove = 0
 
 	self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
@@ -46,7 +47,7 @@ function SkillExplosion:initActvityCarrier(power_rate)
     PARENT.initActvityCarrier(self, power_rate)    
 
 	self.m_activityCarrier:setAtkDmgStat('def')
-	self.m_activityCarrier:setIgnoreDef(power_rate == 100 and false or true)
+	self.m_activityCarrier:setIgnoreDef(self.m_isIgnoreDef)
 end
 
 -------------------------------------
@@ -236,7 +237,7 @@ function SkillExplosion:makeSkillInstance(owner, t_skill, t_data)
     local missile_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
 	local jump_res = t_skill['res_2']
     local range = t_skill['val_1']
-	local target_count = t_skill['val_2']
+	local isIgnoreDef = t_skill['val_2'] == 1
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
@@ -245,7 +246,7 @@ function SkillExplosion:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(target_count, range, jump_res)
+    skill:init_skill(jump_res, range, isIgnoreDef)
 	skill:initState()
 
 	-- 3. state 시작 

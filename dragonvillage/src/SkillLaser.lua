@@ -112,6 +112,9 @@ function SkillLaser:makeLaserLinkEffect(file_name, thickness)
     self.m_rootNode:addChild(link_effect.m_node)
 
     self.m_linkEffect = link_effect
+
+	-- 상태효과
+	StatusEffectHelper:doStatusEffectByStr(self.m_owner, {}, self.m_lStatusEffectStr)
 end
 
 -------------------------------------
@@ -229,17 +232,17 @@ function SkillLaser:collisionAttack(target_char)
 end
 
 -------------------------------------
--- function makeSkillInstnce
+-- function makeSkillInstance
 -- @param missile_res 
 -------------------------------------
-function SkillLaser:makeSkillInstnce(owner, t_skill, t_data)
+function SkillLaser:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
     local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
 	local hit = t_skill['hit']
 	local thickness = t_skill['val_1']
 	
-
+	cclog(missile_res)
 	-- 인스턴스 생성부
 	------------------------------------------------------	
 	-- 1. 스킬 생성

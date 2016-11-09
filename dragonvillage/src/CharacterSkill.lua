@@ -127,9 +127,6 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 
 
 		-- 스킬 영역
-        elseif (type == 'skill_laser') then
-            SkillLaser:makeSkillInstance(self, t_skill, t_data) 
-            return true
         elseif (type == 'skill_butt') then
             self:doSkill_butt(t_skill, is_hero, phys_group, x, y, t_data)
             return true
@@ -159,9 +156,6 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
             return true
         elseif (type == 'skill_deep_stab') then
             self:doSkill_skill_deep_stab(t_skill, attr, is_hero, phys_group, x, y, t_data)
-            return true
-        elseif (type == 'skill_crash') then
-            self:doSkill_skill_crash(t_skill, attr, is_hero, phys_group, x, y, t_data)
             return true
 
 		elseif (type == 'skill_dispel_harm') then
@@ -223,6 +217,14 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 
         elseif (type == 'skill_aoe_square_heal_dmg') then
 			SkillHealingWind:makeSkillInstance(self, t_skill, t_data)
+            return true
+		
+		elseif (type == 'skill_crash') then
+			SkillCrash:makeSkillInstance(self, t_skill, t_data)
+            return true
+
+        elseif (type == 'skill_laser') then
+            SkillLaser:makeSkillInstance(self, t_skill, t_data) 
             return true
 
         -- 패시브 스킬
@@ -643,22 +645,6 @@ function Character:doSkill_skill_deep_stab(t_skill, attr, is_hero, phys_group, x
     local skill = SkillDeepStab('', {0, 0, 0})
 
     skill:init_skill(self, t_skill)
-
-    -- Physics, Node, GameMgr에 등록
-    self.m_world.m_worldNode:addChild(skill.m_rootNode, 0)
-    self.m_world:addToSkillList(skill)
-end
-
--------------------------------------
--- function doSkill_skill_crash
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_skill_crash(t_skill, attr, is_hero, phys_group, x, y, t_data)
-
-    -- 위치, 범위, 타겟 갯수, 데미지
-    local skill = SkillCrash('', {0, 0, 0})
-
-    skill:init_skill(self, t_skill, t_data)
 
     -- Physics, Node, GameMgr에 등록
     self.m_world.m_worldNode:addChild(skill.m_rootNode, 0)

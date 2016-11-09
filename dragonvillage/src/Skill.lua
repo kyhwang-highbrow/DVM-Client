@@ -76,7 +76,14 @@ function Skill:adjustAnimator(power_rate)
 	if (not self.m_animator) then return end
 
 	if self.m_resScale then 
- 		self.m_animator:setScale(self.m_resScale)
+		-- res_scale 의 경우 ;가 있으면 x,y 각각 개별로 들어간다...
+		if string.find(self.m_resScale, ';') then
+			local l_scale = stringSplit(self.m_resScale, ';')
+			self.m_animator.m_node:setScaleX(l_scale[1])
+			self.m_animator.m_node:setScaleY(l_scale[2])
+		else
+ 			self.m_animator:setScale(self.m_resScale)
+		end
 	end
 end
 

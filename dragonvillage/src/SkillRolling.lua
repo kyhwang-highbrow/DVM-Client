@@ -61,7 +61,8 @@ end
 -- function initSpineSideEffect
 -- @breif 특정 드래곤 하드 코딩
 -------------------------------------
-function SkillRolling:spineSideEffect(buff_prob) 
+function SkillRolling:spineSideEffect()
+	self.m_owner.m_animator:setVisible(false) 
 end
 
 -------------------------------------
@@ -136,9 +137,6 @@ function SkillRolling.st_attack(owner, dt)
 		-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
         owner.m_multiAtkTimer = owner.m_hitInterval
 		owner.m_attackCnt = 0
-
-		-- 드래곤 모습 가리기 위해서 빈 애니메이션으로 지정해 사용
-        owner.m_owner.m_animator:changeAni('')
     end
 
     owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
@@ -211,7 +209,10 @@ function SkillRolling.st_comeback(owner, dt)
         local action = cc.MoveTo:create(0.1, target_pos)
 
 		-- state chnage 함수 콜
-		local cbFunc = cc.CallFunc:create(function() owner:changeState('dying') end)
+		local cbFunc = cc.CallFunc:create(function()	
+			owner.m_owner.m_animator:setVisible(true)
+			owner:changeState('dying') 
+		end)
 		
 		owner.m_owner:runAction(cc.Sequence:create(cc.EaseOut:create(action, 2), cbFunc))
     end

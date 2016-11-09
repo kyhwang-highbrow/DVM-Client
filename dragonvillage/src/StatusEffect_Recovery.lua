@@ -47,7 +47,6 @@ function StatusEffect_Recovery.st_idle(owner, dt)
 	
     owner.m_healTimer = owner.m_healTimer + dt
     if (owner.m_healTimer > owner.m_healInterval) then
-        -- í
         owner.m_owner:healPercent(owner.m_healRate)
         owner.m_healTimer = owner.m_healTimer - owner.m_healInterval
     end

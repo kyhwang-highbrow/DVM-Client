@@ -133,6 +133,12 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
 			for _, target in ipairs(t_target) do
 				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
 			end
+		elseif (target_type == 'ally') then 
+			-- @TODO 피아 구분해서 가져오도록..
+			local ally = owner.m_world.m_lDragonList
+			for _, target in pairs(ally) do
+				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
+			end
 		end
 
 		-- 4. 인덱스 증가
@@ -202,8 +208,7 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 	local status_effect = StatusEffect_Trigger(res)
 
 	-- 적 처치 시
-	if (t_skill['type'] == 'skill_cri_chance_up') then
-		cclog('123123')
+	if isExistValue(t_skill['type'], 'skill_cri_chance_up', 'skill_atk_up') then
 		status_effect:init_trigger('slain', char)
 	
 	-- 모든 공격시
@@ -253,7 +258,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	local status_effect = nil
 
 	------------ 힐 --------------------------
-    if (status_effect_type == 'heal') then
+    if isExistValue(status_effect_type, 'passive_recovery', 'heal') then
         status_effect = StatusEffect_Recovery(res)
 		status_effect:init_recovery(char, t_status_effect, status_effect_value, duration)
 
@@ -532,4 +537,18 @@ function StatusEffectHelper:getStatusEffectTypeFromSkillTable(t_skill)
 	local status_effect_type = t_effect[1]
 
 	return status_effect_type
+end
+
+-------------------------------------
+-- function getStatusEffectTypeFromSkillTable
+-- @brief 상태효과 타입 파싱해서 가져옴
+-------------------------------------
+function StatusEffectHelper:parsingStatusEffectStr(l_status_effect_str, idx)
+	local effect_str = l_status_effect_str[idx]
+	if (not effect_str) or (effect_str == 'x') then 
+		return nil 
+	end
+	local t_effect = stringSplit(effect_str, ';')
+
+	return t_effect
 end
