@@ -1190,6 +1190,23 @@ function GameWorld:primitivesDraw(transform, transformUpdated)
 end
 
 -------------------------------------
+-- function isPossibleControl
+-------------------------------------
+function GameWorld:isPossibleControl()
+    -- 전투 중일 때에만
+    if (not self.m_gameState:isFight()) then
+        return false
+    end
+
+    -- 연출 중일 경우 입력 막음
+    if (self.m_tamerSkillCut:isPlaying()) then
+        return false
+    end
+
+    return true
+end
+
+-------------------------------------
 -- function isOnFight
 -------------------------------------
 function GameWorld:isOnFight()
@@ -1263,32 +1280,6 @@ end
 -- function changeCameraOption
 -------------------------------------
 function GameWorld:changeCameraOption(tParam)
-    --[[
-    local tParam = tParam or {}
-
-    local scale = (tParam['scale'] or 1)
-    local x = (tParam['pos_x'] or 0)
-    local y = (tParam['pos_y'] or 0)
-
-    local pos_x = -x * scale
-    local pos_y = -y * scale
-    local time = (tParam['time'] or 1)
-    local cb = (tParam['cb'] or function() end)
-
-    local node = g_gameScene.m_cameraLayer
-    
-    local zoom_action = cc.ScaleTo:create(time, scale)
-    local move_action = cc.MoveTo:create(time, cc.p(pos_x, pos_y))
-    local spawn_action = cc.Spawn:create(zoom_action, move_action)
-    local ease_action = cc.EaseIn:create(spawn_action, 2)
-
-    node:stopAllActions()
-    node:runAction(cc.Sequence:create(
-        ease_action,
-        cc.CallFunc:create(cb)
-    ))
-    ]]--
-
     local tParam = tParam or {}
 
     local scale = (tParam['scale'] or 1)

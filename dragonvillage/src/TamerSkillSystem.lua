@@ -34,7 +34,7 @@ function TamerSkillSystem:init(world, t_tamer)
 
     -- 일반 스킬
     for i = 1, 3 do
-        self.m_lTamerSkillCoolTime[i] = 0--TAMER_SKILL_COOLTIME
+        self.m_lTamerSkillCoolTime[i] = 1--TAMER_SKILL_COOLTIME
 
         ui.vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() self:click_tamerSkillBtn(i) end)
         ui.vars['tamerSkillBtn' .. i].m_node:registerScriptPressHandler(function()
@@ -63,10 +63,8 @@ function TamerSkillSystem:init(world, t_tamer)
     do
 		self.m_specialPowerPoint = 0
         
-        ui.vars['specialSkillBtn']:registerScriptTapHandler(function() self:click_specialSkillBtn() end)
-
-		local idx = 4
-		self.m_lTamerSkillCoolTime[idx] = TAMER_SP_SKILL_COOLTIME
+        --local idx = 4
+		--self.m_lTamerSkillCoolTime[idx] = TAMER_SP_SKILL_COOLTIME
 
         ui.vars['specialSkillBtn']:registerScriptTapHandler(function() self:click_specialSkillBtn() end)
 
@@ -92,6 +90,8 @@ end
 -- function click_tamerSkillBtn
 -------------------------------------
 function TamerSkillSystem:click_tamerSkillBtn(idx, b)
+    if not self.m_world:isPossibleControl() then return end
+    
 	-- 1. 사용할 스킬 테이블 가져온다.
     local t_skill = self.m_world.m_tamerSkillMgr.m_skill_list[idx]
     local skill_id = t_skill['id']
@@ -127,18 +127,35 @@ end
 -- @brief 테이머 궁극기
 -------------------------------------
 function TamerSkillSystem:click_specialSkillBtn()
+    if not self.m_world:isPossibleControl() then return end
+
+    -- 1. 사용할 스킬 테이블 가져온다.
+    local t_skill = self.m_world.m_tamerSkillMgr.m_skill_list[4]
+    
+    -- 2. 궁극기 게이지 체크
     if (self.m_specialPowerPoint < 100) then
         local str = Str('궁극기 포인트 {1}이(가) 부족합니다.', 100 - self.m_specialPowerPoint)
         UIManager:toastNotificationRed(str)
         return
     end
 
-    -- 궁극기 포인트 감소
-    self:addSpecialPowerPoint(-self.m_specialPowerPoint)
+    -- 3. 쿨타임 체크
+    local remain_time = self.m_tamerSkillCooltimeGlobal
+    if (remain_time > 0) then
+        local str = '[' .. Str(t_skill['t_name']) .. ']' .. Str('{1}초 후 사용할 수 있습니다.', math_floor(remain_time + 0.5))
+        UIManager:toastNotificationRed(str)
+        return
+    end
 
+    -- 4. 스킬 실행
     self:dispatch('tamer_special_skill', function()
         self.m_world.m_tamerSkillMgr:doTamerSkill(4)
     end)
+
+    -- 5. 궁극기 포인트 및 쿨타임 정산
+    self:addSpecialPowerPoint(-self.m_specialPowerPoint)
+    self.m_tamerSkillCooltimeGlobal = TAMER_SKILL_GLOBAL_COOLTIME
+    self:update(0)
 end
 
 -------------------------------------
@@ -152,6 +169,13 @@ function TamerSkillSystem:update(dt)
 
         if (0 > self.m_tamerSkillCooltimeGlobal) then
             self.m_tamerSkillCooltimeGlobal = 0
+        end
+
+        -- 궁극기 게이지가 다 찬 경우에는 클로벌 쿨타임을 표시
+        if self.m_specialPowerPoint >= 100 then
+            local percentage = (self.m_tamerSkillCooltimeGlobal / TAMER_SKILL_GLOBAL_COOLTIME) * 100
+            local ui = self.m_world.m_inGameUI
+            ui.vars['specialTimeGauge']:setPercentage(percentage)
         end
     end
 
@@ -247,7 +271,9 @@ end
 function TamerSkillSystem:resetCoolTime()
     self.m_tamerSkillCooltimeGlobal = 0
 
-	for i, _ in pairs(self.m_lTamerSkillCoolTime) do
+	for i = 1, 3 do
 		self.m_lTamerSkillCoolTime[i] = 0
 	end
+
+    self:update(0)
 end
