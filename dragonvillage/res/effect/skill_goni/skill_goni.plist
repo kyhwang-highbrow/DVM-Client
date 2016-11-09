@@ -46,7 +46,7 @@
             <key>skill_goni_effect_04_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{438,800},{210,105}}</string>
+                <string>{{442,853},{210,105}}</string>
                 <key>offset</key>
                 <string>{-14,38}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>skill_goni_effect_04_2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{876,617},{180,139}}</string>
+                <string>{{868,802},{180,139}}</string>
                 <key>offset</key>
                 <string>{-29,3}</string>
                 <key>rotated</key>
@@ -72,11 +72,11 @@
             <key>skill_goni_effect_04_3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{859,925},{184,159}}</string>
+                <string>{{2,1288},{184,159}}</string>
                 <key>offset</key>
                 <string>{-30,-6}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{24,73},{184,159}}</string>
                 <key>sourceSize</key>
@@ -85,7 +85,7 @@
             <key>skill_goni_effect_04_4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{480,410},{224,183}}</string>
+                <string>{{736,410},{224,183}}</string>
                 <key>offset</key>
                 <string>{-33,-6}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>skill_goni_effect_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{876,799},{124,128}}</string>
+                <string>{{868,984},{124,128}}</string>
                 <key>offset</key>
                 <string>{-2,0}</string>
                 <key>rotated</key>
@@ -121,10 +121,23 @@
                 <key>sourceSize</key>
                 <string>{128,128}</string>
             </dict>
+            <key>skill_goni_effect_06.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{480,410},{254,252}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{1,2},{254,252}}</string>
+                <key>sourceSize</key>
+                <string>{256,256}</string>
+            </dict>
             <key>skill_goni_effect_f_0080.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,870},{207,207}}</string>
+                <string>{{2,876},{207,207}}</string>
                 <key>offset</key>
                 <string>{9,0}</string>
                 <key>rotated</key>
@@ -150,7 +163,7 @@
             <key>skill_goni_effect_f_0084.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{446,595},{215,203}}</string>
+                <string>{{225,659},{215,203}}</string>
                 <key>offset</key>
                 <string>{5,2}</string>
                 <key>rotated</key>
@@ -163,7 +176,7 @@
             <key>skill_goni_effect_f_0086.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{225,659},{211,193}}</string>
+                <string>{{2,681},{211,193}}</string>
                 <key>offset</key>
                 <string>{1,7}</string>
                 <key>rotated</key>
@@ -189,7 +202,7 @@
             <key>skill_goni_effect_f_0090.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{215,854},{209,205}}</string>
+                <string>{{215,864},{209,205}}</string>
                 <key>offset</key>
                 <string>{7,-1}</string>
                 <key>rotated</key>
@@ -202,7 +215,7 @@
             <key>skill_goni_effect_f_0092.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1079},{203,203}}</string>
+                <string>{{635,989},{203,203}}</string>
                 <key>offset</key>
                 <string>{6,-2}</string>
                 <key>rotated</key>
@@ -215,7 +228,7 @@
             <key>skill_goni_effect_f_0094.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{635,1007},{199,201}}</string>
+                <string>{{420,1163},{199,201}}</string>
                 <key>offset</key>
                 <string>{6,-3}</string>
                 <key>rotated</key>
@@ -228,7 +241,7 @@
             <key>skill_goni_effect_f_0096.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{418,1106},{193,201}}</string>
+                <string>{{209,1270},{193,201}}</string>
                 <key>offset</key>
                 <string>{6,-3}</string>
                 <key>rotated</key>
@@ -241,7 +254,7 @@
             <key>skill_goni_effect_f_0098.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{650,804},{201,207}}</string>
+                <string>{{426,960},{201,207}}</string>
                 <key>offset</key>
                 <string>{10,0}</string>
                 <key>rotated</key>
@@ -254,7 +267,7 @@
             <key>skill_goni_effect_f_0100.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{211,1061},{205,201}}</string>
+                <string>{{2,1085},{205,201}}</string>
                 <key>offset</key>
                 <string>{14,2}</string>
                 <key>rotated</key>
@@ -267,7 +280,7 @@
             <key>skill_goni_effect_f_0102.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{426,907},{207,197}}</string>
+                <string>{{211,1071},{207,197}}</string>
                 <key>offset</key>
                 <string>{7,5}</string>
                 <key>rotated</key>
@@ -280,7 +293,7 @@
             <key>skill_goni_effect_f_0104.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{663,617},{211,185}}</string>
+                <string>{{655,802},{211,185}}</string>
                 <key>offset</key>
                 <string>{0,8}</string>
                 <key>rotated</key>
@@ -293,7 +306,7 @@
             <key>skill_goni_effect_f_0106.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,681},{211,187}}</string>
+                <string>{{442,664},{211,187}}</string>
                 <key>offset</key>
                 <string>{-7,3}</string>
                 <key>rotated</key>
@@ -319,7 +332,7 @@
             <key>skill_goni_effect_f_0110.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{706,410},{223,205}}</string>
+                <string>{{736,595},{223,205}}</string>
                 <key>offset</key>
                 <string>{4,1}</string>
                 <key>rotated</key>
@@ -339,7 +352,7 @@
             <key>size</key>
             <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:548d28025ad316b778ee0bcc9dfa69e7$</string>
+            <string>$TexturePacker:SmartUpdate:191cbc6f2c750f5a133d0841d6527a42$</string>
             <key>textureFileName</key>
             <string>skill_goni.png</string>
         </dict>
