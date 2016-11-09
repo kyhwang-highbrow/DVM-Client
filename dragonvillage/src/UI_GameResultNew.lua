@@ -235,13 +235,9 @@ end
 -------------------------------------
 function UI_GameResultNew:direction_showBox()
     local vars = self.vars
-    do
-        vars['dragonNode1']:setVisible(false)
-        vars['dragonNode2']:setVisible(false)
-        vars['dragonNode3']:setVisible(false)
-        vars['dragonNode4']:setVisible(false)
-        vars['dragonNode5']:setVisible(false)
-    end
+
+    -- 드래곤 레벨업 연출 node 끄기
+    vars['dragonResultNode']:setVisible(false)
 
     vars['boxVisual']:setVisible(true)
     local visual_name = self:getBoxVisualName(self.m_boxGrade, 'idle')
@@ -443,10 +439,10 @@ function UI_GameResultNew:sortDragonNode(dragon_cnt)
     local start_x = (idx * interval)
 
     for i=1, 5 do
-        local node = vars['dragonNode' .. i]
+        local node = vars['dragonBoard' .. i]
         
         if (i <= cnt) then
-            node:setPositionX(77 + start_x)
+            node:setPositionX(start_x)
             start_x = (start_x + interval)    
         else
             node:setVisible(false)
