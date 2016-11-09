@@ -95,11 +95,6 @@ function TamerSkillCut:update_normal(dt)
         end})
 
     elseif self:isBeginningInStep(1) then
-        local timeScale = 0.1
-        
-        --g_gameScene:setTimeScale(timeScale)
-        
-        --self.m_bgVisual:setTimeScale(1 / timeScale)
         g_gameScene:gamePause()
 
         self.m_bgVisual:changeAni('skill_1', false)
@@ -108,13 +103,10 @@ function TamerSkillCut:update_normal(dt)
             self:nextStep()
         end)
 
-        --self.m_tamerAnimator:setTimeScale(1 / timeScale)
         self.m_tamerAnimator:changeAni('skill_1', false)
 
     elseif self:isBeginningInStep(2) then
-        --g_gameScene:setTimeScale(1)
-
-        self.m_bgVisual:setVisible(false)
+         self.m_bgVisual:setVisible(false)
         
         g_gameScene:flashOut({color = cc.c3b(255, 255, 255), time = 0.1, cbEnd = function()
             self:nextStep()
@@ -147,10 +139,8 @@ function TamerSkillCut:update_special(dt)
 
         self.m_tamerAnimator:changeAni('skill_2', false)
 
-        local duration = self.m_bgVisual:getDuration()
-        g_gameScene:flashIn({color = cc.c3b(255, 255, 255), time = duration, cbEnd = function()
-            self:nextStep()
-        end})
+        --local duration = self.m_bgVisual:getDuration()
+        --g_gameScene:flashIn({color = cc.c3b(255, 255, 255), time = duration})
 
     elseif self:isBeginningInStep(2) then
         self.m_bgVisual:setVisible(false)
