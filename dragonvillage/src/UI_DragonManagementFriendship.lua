@@ -49,7 +49,7 @@ function UI_DragonManagementFriendship:initUI()
     --self:setDefaultSelectDragon()
 
     -- 최초 탭 설정
-    self:refresh_fruitList('fire')
+    self:refresh_fruitListTab('fire')
 end
 
 -------------------------------------
@@ -66,6 +66,9 @@ function UI_DragonManagementFriendship:initButton()
     vars['darkBtn']:registerScriptTapHandler(function() self:changeAttrTab('dark') end)
     vars['commonBtn']:registerScriptTapHandler(function() self:changeAttrTab('global') end)
     vars['resetBtn']:registerScriptTapHandler(function() self:changeAttrTab('reset') end)
+
+    -- 망각의 열매 사용 버튼
+    vars['resetUseBtn']:registerScriptTapHandler(function() self:click_resetUseBtn() end)
 end
 
 -------------------------------------
@@ -91,6 +94,9 @@ function UI_DragonManagementFriendship:refresh()
 
     -- 보너스 아이콘 변경
     self:refresh_bonusIcon(t_dragon['attr'])
+
+    -- 망각의 열매 정보 변경
+    self:refresh_resetFruit()
 end
 
 -------------------------------------
@@ -206,11 +212,11 @@ function UI_DragonManagementFriendship:changeAttrTab(attr, b_force)
     if (attr == 'reset') then
         vars['resetNode']:setVisible(true)
         vars['fruitFeedNode']:setVisible(false)
+        self:refresh_resetFruit()
     else
         vars['resetNode']:setVisible(false)
         vars['fruitFeedNode']:setVisible(true)
-
-        self:refresh_fruitList(attr)
+        self:refresh_fruitListTab(attr)
     end
 
     -- 속성 탭 이름 지정
@@ -218,10 +224,10 @@ function UI_DragonManagementFriendship:changeAttrTab(attr, b_force)
 end
 
 -------------------------------------
--- function refresh_fruitList
+-- function refresh_fruitListTab
 -- @brief
 -------------------------------------
-function UI_DragonManagementFriendship:refresh_fruitList(attr)
+function UI_DragonManagementFriendship:refresh_fruitListTab(attr)
     local attr = (attr or self.m_currAttrTab)
     local vars = self.vars
     local table_fruit_class = TableClass('fruit')
@@ -257,6 +263,29 @@ function UI_DragonManagementFriendship:refresh_fruitList(attr)
         end
         vars['fruitBtn' .. i]:registerScriptTapHandler(click_fruitBtn)
     end
+end
+
+-------------------------------------
+-- function refresh_resetFruitTab
+-- @brief 
+-------------------------------------
+function UI_DragonManagementFriendship:refresh_resetFruit()
+    local t_dragon_data = self.m_selectDragonData
+
+    local flv = t_dragon_data['flv']
+    local table_friendship = TableClass('friendship')
+    local t_friendship = table_friendship:get(flv)
+
+    local vars = self.vars
+
+    local reset_fruit_cnt = t_friendship['reset_fruit_cnt']
+
+    -- 망각에 필요한 망각의 열매 갯수
+    vars['resetPriceLabel']:setString(Str('{1}개', reset_fruit_cnt))
+
+    -- 보유한 망각의 열매 갯수
+    local count = g_userData:getResetFruitCount()
+    vars['fruitResetLabel']:setString(comma_value(count))
 end
 
 -------------------------------------
@@ -311,8 +340,8 @@ function UI_DragonManagementFriendship:click_fruitBtn(fruit_id, fruit_node)
         end
 
         -- 골드 갱신
-        if ret['remain_gold'] then
-            g_serverData:applyServerData(ret['remain_gold'], 'user', 'gold')
+        if ret['gold'] then
+            g_serverData:applyServerData(ret['gold'], 'user', 'gold')
             g_topUserInfo:refreshData()
         end
 
@@ -328,7 +357,7 @@ function UI_DragonManagementFriendship:click_fruitBtn(fruit_id, fruit_node)
         self:refresh_dragonFriendshipInfo()
 
         -- 열매 정보 갱신
-        self:refresh_fruitList(attr)
+        self:refresh_fruitListTab(attr)
     end
 
     local ui_network = UI_Network()
@@ -346,8 +375,86 @@ end
 -- function fruitFeedAction
 -------------------------------------
 function UI_DragonManagementFriendship:fruitFeedAction(fruit_id, fruit_node, finish_cb)
-    --local item_icon = IconHelper:getItemIcon(fruit_id)
-    --item_icon:setPosition(100, 100)
+    local item_icon = IconHelper:getItemIcon(fruit_id)
+    item_icon:setPosition(100, 100)
+end
+
+-------------------------------------
+-- function click_resetUseBtn
+-------------------------------------
+function UI_DragonManagementFriendship:click_resetUseBtn()
+    local t_dragon_data = self.m_selectDragonData
+
+    if (t_dragon_data['flv'] <= 1) then
+        UIManager:toastNotificationRed(Str('"무관심"단계에서는 망각의 열매를 사용할 수 없습니다.'))
+        return
+    end
+
+    if (t_dragon_data['can_rollback'] == false) then
+        UIManager:toastNotificationRed(Str('망각의 열매는 단계별 1회만 사용할 수 있습니다.'))
+        return
+    end
+    
+    local flv = t_dragon_data['flv']
+    local table_friendship = TableClass('friendship')
+    local t_friendship = table_friendship:get(flv)
+
+    local req_count = t_friendship['reset_fruit_cnt']
+    local own_count = g_userData:getResetFruitCount()
+
+    if (own_count < req_count) then
+        UIManager:toastNotificationRed(Str('망각의 열매가 부족합니다.'))
+        return
+    end
+
+    -- 네트워크 통신
+    self:network_rollback()
+end
+
+-------------------------------------
+-- function network_rollback
+-------------------------------------
+function UI_DragonManagementFriendship:network_rollback()
+local uid = g_userData:get('uid')
+    local doid = self.m_selectDragonOID
+
+    local function success_cb(ret)
+        ccdump(ret)
+
+        -- 드래곤 갱신
+        if ret['dragon'] then
+            g_dragonsData:applyDragonData(ret['dragon'])
+        end
+
+        -- 골드 갱신
+        if ret['gold'] then
+            g_serverData:applyServerData(ret['gold'], 'user', 'gold')
+            g_topUserInfo:refreshData()
+        end
+
+        -- 열매 갯수 동기화
+        if ret['fruits'] then
+            g_serverData:applyServerData(ret['fruits'], 'user', 'fruits')
+        end
+
+        -- 서버에서 새로 받은 드래곤 정보로 갱신
+        self:setSelectDragonDataRefresh()
+
+        -- 드래곤 정보 갱신
+        self:refresh_dragonFriendshipInfo()
+
+        -- 망각의 열매 정보 갱신
+        self:refresh_resetFruit()
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/rollback')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('fid', g_userData:getResetFruitID())
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
 end
 
 -------------------------------------

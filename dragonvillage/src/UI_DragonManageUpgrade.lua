@@ -493,8 +493,8 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
         end
 
         -- 골드 갱신
-        if ret['remain_gold'] then
-            g_serverData:applyServerData(ret['remain_gold'], 'user', 'gold')
+        if ret['gold'] then
+            g_serverData:applyServerData(ret['gold'], 'user', 'gold')
             g_topUserInfo:refreshData()
         end
 

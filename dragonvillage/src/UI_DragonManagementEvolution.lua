@@ -307,8 +307,8 @@ function UI_DragonManagementEvolution:click_upgradeBtn()
 
     local function success_cb(ret)
         -- 진화 재료 갱신
-        if ret['remain_evolution_stones'] then
-            g_serverData:applyServerData(ret['remain_evolution_stones'], 'user', 'evolution_stones')
+        if ret['evolution_stones'] then
+            g_serverData:applyServerData(ret['evolution_stones'], 'user', 'evolution_stones')
         end
 
         -- 승급된 드래곤 갱신
@@ -317,8 +317,8 @@ function UI_DragonManagementEvolution:click_upgradeBtn()
         end
 
         -- 골드 갱신
-        if ret['remain_gold'] then
-            g_serverData:applyServerData(ret['remain_gold'], 'user', 'gold')
+        if ret['gold'] then
+            g_serverData:applyServerData(ret['gold'], 'user', 'gold')
             g_topUserInfo:refreshData()
         end
 

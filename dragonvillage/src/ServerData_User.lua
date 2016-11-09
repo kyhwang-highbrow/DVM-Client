@@ -21,7 +21,7 @@ end
 
 -------------------------------------
 -- function getFruitCount
--- @brief 보유???�매??�?���?리턴
+-- @brief 보유중인 열매 갯수 리턴
 -------------------------------------
 function ServerData_User:getFruitCount(fruit_id)
     local fruit_id = tostring(fruit_id)
@@ -30,10 +30,19 @@ function ServerData_User:getFruitCount(fruit_id)
 end
 
 -------------------------------------
--- function setFruitCount
--- @brief 보유???�매??�?���??�??
+-- function getResetFruitCount
+-- @brief 망각의 열매 갯수 리턴
 -------------------------------------
-function ServerData_User:setFruitCount(fruit_id, count)
-    local fruit_id = tostring(fruit_id)
-    self.m_serverData:applyServerData(count, 'user', 'fruits', fruit_id)
+function ServerData_User:getResetFruitCount()
+    local fruit_id = self:getResetFruitID()
+    return self:getFruitCount(fruit_id)
+end
+
+-------------------------------------
+-- function getResetFruitID
+-- @brief 망각의 열매 ID
+-------------------------------------
+function ServerData_User:getResetFruitID()
+    -- 망각의 열매 id : 702009
+    return 702009
 end
