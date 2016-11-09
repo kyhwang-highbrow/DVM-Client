@@ -173,7 +173,7 @@ function UI_Lobby:makeTamerAnimator()
 
     do
         local tamer = MakeAnimator('res/character/tamer/goni_i/goni_i.spine')
-        tamer:changeAni('idle', true)
+        tamer:changeAni('lobby_pose', true)
         --tamer:addAniHandler(function() self:cbTamerAnimation() end)
         --tamer:setPosition(-400, -100)
         tamer:setDockPoint(cc.p(0.5, 0.5))
@@ -182,14 +182,8 @@ function UI_Lobby:makeTamerAnimator()
         tamer:setPosition(-320, -250)
         self.root:addChild(tamer.m_node)
         tamer:setScale(1.3)
-        tamer.m_node:setMix('idle', 'pose_1', 0.2)
-        tamer.m_node:setMix('pose_1', 'pose_1', 0.2)
-        tamer.m_node:setMix('pose_1', 'idle', 0.2)
-        tamer.m_node:setMix('select', 'select', 0.2)
-        tamer.m_node:setMix('select', 'idle', 0.2)
-        tamer.m_node:setMix('idle', 'select', 0.2)
-        tamer.m_node:setMix('pose_1', 'select', 0.2)
-        tamer.m_node:setMix('select', 'pose_1', 0.2)
+        tamer.m_node:setMix('lobby_idle', 'lobby_pose', 0.2)
+        tamer.m_node:setMix('lobby_pose', 'lobby_idle', 0.2)
     end
 end
 
