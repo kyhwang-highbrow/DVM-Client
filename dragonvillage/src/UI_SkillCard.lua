@@ -12,7 +12,7 @@ UI_SkillCard = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SkillCard:init(char_type, skill_id, skill_type, grade_icon_idx)
+function UI_SkillCard:init(char_type, skill_id, skill_type)
     self.m_charType = char_type
     self.m_skillID = skill_id
     self.m_skillType = skill_type
@@ -31,15 +31,6 @@ function UI_SkillCard:init(char_type, skill_id, skill_type, grade_icon_idx)
         vars['activeSprite']:setVisible(false)
         vars['skillLabel']:setString('패시브')
         vars['skillLabel']:setColor(cc.c3b(255,255,30))
-    end
-    
-    if grade_icon_idx then
-        local res = 'res/ui/star030' .. grade_icon_idx .. '.png'
-        local sprite = cc.Sprite:create(res)
-        sprite:setDockPoint(cc.p(0.5, 0.5))
-        sprite:setAnchorPoint(cc.p(0.5, 0.5))
-        vars['starLockNode']:addChild(sprite)
-        vars['lockSprite']:setVisible(true)
     end
     
     vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
