@@ -56,8 +56,8 @@ id,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,c
 231004,code,skill_summon,퀸즈스네이크 : 소환 (skill_4),x,x,x,skill_4,instant,x,0,basic_turn,5,self,3,x,0,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
 232001,script,skill_boss_drake_1,드레이크 : 음파 뱉기 (skill_1),x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,20,1,0,0,0,100,100,silence,0,x,직선으로 이동하는 원거리 공격
 232002,script,skill_boss_drake_2,드레이크 : 유령 검기 (skill_4),x,x,x,skill_4,instant,physical,-2,basic_turn,1,enemy_distance_line,1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
-232003,script,skill_boss_drake_3,드레이크 : 서리 결계 (skill_2),x,x,x,skill_2,instant,physical,-2,basic_turn,1,enemy_distance_line,4,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
-232004,script,skill_boss_drake_4,드레이크 : 포격 명령 (skill_3),x,x,x,skill_3,instant,physical,-2,basic_turn,1,enemy_distance_line,3,atk,60,1,0,0,0,100,100,stun,0,x,직선으로 이동하는 원거리 공격
+232003,script,skill_boss_drake_3,드레이크 : 서리 결계 (skill_2),x,x,x,skill_2,instant,physical,-2,basic_turn,1,enemy_distance_line,4,atk,25,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
+232004,script,skill_boss_drake_4,드레이크 : 포격 명령 (skill_3),x,x,x,skill_3,instant,physical,-2,basic_turn,1,enemy_distance_line,3,atk,90,1,0,0,0,100,100,stun,0,x,직선으로 이동하는 원거리 공격
 232005,script,skill_boss_drake_5,드레이크 : 강화 유령 검기 (skill_5),x,x,x,skill_5,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,120,1,0,0,0,100,100,bleed,0,x,직선으로 이동하는 원거리 공격
 233001,script,skill_boss_cockatrice_1,코카트리스 : 불뿜기 (skill_1),x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격
 233002,script,skill_boss_cockatrice_2,코카트리스 : 3연 불뿜기 (skill_1),x,x,x,skill_1,maintain,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,0,x,직선으로 이동하는 원거리 공격

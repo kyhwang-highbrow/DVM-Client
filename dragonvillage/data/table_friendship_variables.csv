@@ -1,0 +1,8 @@
+vari,value,desc
+identical_coef,0.5,용과 속성이 같은 열매를 먹였을 경우 상승하는 비율
+hp_cap,10000,친밀도로 인한 hp의 최대 상승량
+def_cap,2000,친밀도로 인한 def의 최대 상승량
+atk_cap,2000,친밀도로 인한 atk의 최대 상승량
+grade_s,560,s와 a등급을 구분짓는 상승 수치
+grade_a,420,a와 b등급을 구분짓는 상승 수치
+grade_b,300,b와 c등급을 구분짓는 상승 수치

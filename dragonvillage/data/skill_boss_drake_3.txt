@@ -17,8 +17,8 @@
 				
 				"accel_delay":0,
 				"angular_velocity":0,
-				"offset":[300,-100],
-				"dir_array":[-30],
+				"offset":[500,-500],
+				"dir_array":[-20],
 				"dir_add":0,			
 				"missile_type":"pass",
 				"add_script":
@@ -131,7 +131,7 @@
 				
 				"accel_delay":0,
 				"angular_velocity":0,
-				"offset":[300,300],
+				"offset":[100,500],
 				"dir_array":[50],
 				"dir_add":0,			
 				"missile_type":"pass",
