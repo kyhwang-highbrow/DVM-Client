@@ -7,20 +7,7 @@
             <key>missile_ring_dark_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,228},{111,111}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{111,111}}</string>
-                <key>sourceSize</key>
-                <string>{111,111}</string>
-            </dict>
-            <key>missile_ring_eart_01.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{115,115},{111,111}}</string>
+                <string>{{115,390},{111,111}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +20,7 @@
             <key>missile_ring_earth_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,115},{111,111}}</string>
+                <string>{{115,277},{111,111}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +33,7 @@
             <key>missile_ring_fire_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{115,2},{111,111}}</string>
+                <string>{{2,390},{111,111}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +46,7 @@
             <key>missile_ring_light_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{111,111}}</string>
+                <string>{{2,277},{111,111}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,15 +59,28 @@
             <key>missile_ring_water_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{115,115},{111,111}}</string>
+                <string>{{2,2},{273,273}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{111,111}}</string>
+                <string>{{45,45},{273,273}}</string>
                 <key>sourceSize</key>
-                <string>{111,111}</string>
+                <string>{363,363}</string>
+            </dict>
+            <key>missile_ring_water_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{228,277},{60,60}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{60,60}}</string>
+                <key>sourceSize</key>
+                <string>{60,60}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -90,9 +90,9 @@
             <key>realTextureFileName</key>
             <string>missile_ring.png</string>
             <key>size</key>
-            <string>{256,512}</string>
+            <string>{512,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6a923f3a4524e8992aa4bb50f571a1fa$</string>
+            <string>$TexturePacker:SmartUpdate:f6866fc96be0b675c072a4b3cff03021$</string>
             <key>textureFileName</key>
             <string>missile_ring.png</string>
         </dict>

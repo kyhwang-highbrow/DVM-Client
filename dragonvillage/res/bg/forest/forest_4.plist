@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>bg_forest_1_c.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{1280,1600}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{1280,1600}}</string>
+                <key>sourceSize</key>
+                <string>{1280,1600}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>forest_4.png</string>
+            <key>size</key>
+            <string>{1284,1604}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:1ac0fca9a78b7b0bcb39452a6520c5ed:f83f943664e8f4358039acb28ca90f95:2b2467158aebaf7d4a8291ea44451b34$</string>
+            <key>textureFileName</key>
+            <string>forest_4.png</string>
+        </dict>
+    </dict>
+</plist>

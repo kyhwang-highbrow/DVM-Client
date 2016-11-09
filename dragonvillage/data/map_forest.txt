@@ -7,10 +7,10 @@
             "speed":0.2
             "list":
             [
-                {"res":"res/bg/forest/bg_forest_1_a.png" "width":1280}
-                {"res":"res/bg/forest/bg_forest_1_b.png" "width":1280}
-				{"res":"res/bg/forest/bg_forest_1_c.png" "width":1280}
-				
+                {"res":"res/bg/forest/forest.vrp" "animation":"layer_1_a" "width":1280}
+				{"res":"res/bg/forest/forest.vrp" "animation":"layer_1_b" "width":1280}
+				{"res":"res/bg/forest/forest.vrp" "animation":"layer_1_c" "width":1280}
+					
             ]
         }
         
@@ -20,8 +20,9 @@
             "speed":0.4
             "list":
             [
-                {"res":"res/bg/forest/bg_forest_2_a.png" "width":1138}
-                {"res":"res/bg/forest/bg_forest_2_b.png" "width":1880}
+                {"res":"res/bg/forest/forest.vrp" "animation":"layer_2_a" "width":1138}
+				{"res":"res/bg/forest/forest.vrp" "animation":"layer_2_b" "width":1880}
+				
             ]
         }
         
@@ -31,9 +32,10 @@
             "speed":0.6
             "list":
             [
-                {"res":"res/bg/forest/bg_forest_3_a.png" "width":880}
-                {"res":"res/bg/forest/bg_forest_3_b.png" "width":1300}
-				{"res":"res/bg/forest/bg_forest_3_c.png" "width":1140}
+			    {"res":"res/bg/forest/forest.vrp" "animation":"layer_3_a" "width":880}
+                {"res":"res/bg/forest/forest.vrp" "animation":"layer_3_b" "width":1300}
+				{"res":"res/bg/forest/forest.vrp" "animation":"layer_3_c" "width":1140}
+                
             ]
         }
         
@@ -43,9 +45,11 @@
             "speed":0.7
             "list":
             [
-                {"res":"res/bg/forest/bg_forest_4_a.png" "width":1038}
-                {"res":"res/bg/forest/bg_forest_4_b.png" "width":1138}
-				{"res":"res/bg/forest/bg_forest_4_c.png" "width":1280}
+                {"res":"res/bg/forest/forest.vrp" "animation":"layer_4_a" "width":1038}
+				{"res":"res/bg/forest/forest.vrp" "animation":"layer_4_b" "width":1138}
+				{"res":"res/bg/forest/forest.vrp" "animation":"layer_4_c" "width":1280}
+				
+
 		    ]
         }
 		
@@ -55,9 +59,10 @@
             "speed":0.9
             "list":
             [
-                {"res":"res/bg/forest/bg_forest_5_a.png" "width":1138}
-                {"res":"res/bg/forest/bg_forest_5_b.png" "width":1138}
-				{"res":"res/bg/forest/bg_forest_5_c.png" "width":1138}
+               {"res":"res/bg/forest/forest.vrp" "animation":"layer_5_a" "width":1138}
+			   {"res":"res/bg/forest/forest.vrp" "animation":"layer_5_b" "width":1138}
+			   {"res":"res/bg/forest/forest.vrp" "animation":"layer_5_c" "width":1138}
+
                 
             ]
         }
