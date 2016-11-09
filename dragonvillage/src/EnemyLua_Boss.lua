@@ -103,8 +103,15 @@ function EnemyLua_Boss.st_casting(owner, dt)
             if string_value and (string_value ~= '') then
                 local l_str = seperate(string_value, ',')
                 if l_str then
-                    local x = l_str[1]
-                    local y = l_str[2]
+                    local scale = owner.m_animator:getScale()
+					local flip = owner.m_animator.m_bFlip
+                        
+					local x = l_str[1] * scale
+					local y = l_str[2] * scale
+
+					if flip then
+						x = -x
+					end
 
                     if owner.m_castingEffect then
                         owner.m_castingEffect:setPosition(x, y)
