@@ -147,7 +147,7 @@ function UI_DragonFriendshipPopup:refresh_dragonInfo(dragon_id)
 
     do -- 등급 표기
         local grade = t_dragon_data['grade']
-        local res = string.format('res/ui/star020%d.png', grade)
+        local res = string.format('res/ui/icon/star010%d.png', grade)
         local sprite = cc.Sprite:create(res)
         sprite:setAnchorPoint(cc.p(0.5, 0.5))
         sprite:setDockPoint(cc.p(0.5, 0.5))

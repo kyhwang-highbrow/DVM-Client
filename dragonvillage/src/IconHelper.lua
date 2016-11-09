@@ -36,7 +36,7 @@ function IconHelper:getDragonIconFromDid(dragon_id, evolution, grade)
 
     -- 등급 정보가 있을 경우
     if grade then
-        local grade_res = 'res/ui/star020' .. grade .. '.png'
+        local grade_res = 'res/ui/icon/star010' .. grade .. '.png'
         local grade_sprite = cc.Sprite:create(grade_res)
         if grade_sprite then
             grade_sprite:setAnchorPoint(cc.p(0.5, 0.5))

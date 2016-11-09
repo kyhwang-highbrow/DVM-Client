@@ -80,7 +80,7 @@ function UI_DragonCard:refreshDragonInfo()
     end
 
     do -- 등급 별
-        local grade_res = 'res/ui/star020' .. t_dragon_data['grade'] .. '.png'
+        local grade_res = 'res/ui/icon/star010' .. t_dragon_data['grade'] .. '.png'
         local sprite = cc.Sprite:create(grade_res)
         sprite:setAnchorPoint(cc.p(0.5, 0.5))
         sprite:setDockPoint(cc.p(0.5, 0.5))
