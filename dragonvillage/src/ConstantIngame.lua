@@ -26,7 +26,7 @@ DRAGON_APPEAR_TIME = 0.5
 MAP_SCROLL_SPEED_DOWN_ACCEL = 350
 
 -- # 테이머 스킬 글로벌 쿨타임
-TAMER_SKILL_GLOBAL_COOLTIME = 3
+TAMER_SKILL_GLOBAL_COOLTIME = 1
 
 --------------------------------------------
 -- 각 스킬에서 공유하는 상수

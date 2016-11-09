@@ -47,7 +47,10 @@ end
 -------------------------------------
 -- function showSpeech
 -------------------------------------
-function TamerSpeechSystem:showSpeech(msg, ani)
+function TamerSpeechSystem:showSpeech(msg, ani, loop)
+    local loop = loop
+    if loop == nil then loop = true end
+
     local ui = self.m_world.m_inGameUI
     if (not ui.vars['tamerTalkVisual'].m_node:isEndAnimation()) then return end
 
@@ -67,7 +70,11 @@ function TamerSpeechSystem:showSpeech(msg, ani)
 
     -- 테이머
     local ani = ani or 'idle'
-    self.m_tamerAnimator:changeAni(ani, true, true)
+    self.m_tamerAnimator:changeAni(ani, loop, true)
+
+    if not loop then
+        self.m_tamerAnimator:addAniHandler(function() self.m_tamerAnimator:changeAni('idle', true) end)
+    end
 end
 
 -------------------------------------
@@ -75,8 +82,12 @@ end
 -------------------------------------
 function TamerSpeechSystem:onEvent(event_name, ...)
 
+    -- 드래곤 소환 시
+    if (event_name == 'dragon_summon') then
+        self:showSpeech(nil, 'summon', false)
+
     -- 게임 시작 시
-    if (event_name == 'game_start') then
+    elseif (event_name == 'game_start') then
         if (math_random(1, 2) == 1) then
             self:showSpeech(Str('자 시작이다!'), 'idle')
         else

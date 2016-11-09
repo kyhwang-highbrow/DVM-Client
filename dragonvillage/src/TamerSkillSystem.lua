@@ -155,7 +155,8 @@ function TamerSkillSystem:click_specialSkillBtn()
 
     -- 5. 궁극기 포인트 및 쿨타임 정산
     self:addSpecialPowerPoint(-self.m_specialPowerPoint)
-    self.m_tamerSkillCooltimeGlobal = TAMER_SKILL_GLOBAL_COOLTIME
+    --self.m_tamerSkillCooltimeGlobal = TAMER_SKILL_GLOBAL_COOLTIME
+    self.m_tamerSkillCooltimeGlobal = 5
     self:update(0)
 end
 
@@ -256,6 +257,9 @@ function TamerSkillSystem:onEvent(event_name, ...)
         self:addSpecialPowerPoint(3)
         self:addSpecialPowerPoint(20) -- 개발 편의성을 위해
 
+        -- 글로벌 쿨타임
+        self.m_tamerSkillCooltimeGlobal = TAMER_SKILL_GLOBAL_COOLTIME
+
     -- 드래곤 사망 5점
     elseif (event_name == 'character_dead') then
         self:addSpecialPowerPoint(5)
@@ -279,4 +283,12 @@ function TamerSkillSystem:resetCoolTime()
 	end
 
     self:update(0)
+end
+
+-------------------------------------
+-- function isWaitingGlobalCoolTime
+-- @debuging
+-------------------------------------
+function TamerSkillSystem:isWaitingGlobalCoolTime()
+    return self.m_tamerSkillCooltimeGlobal > 0
 end

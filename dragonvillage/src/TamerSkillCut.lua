@@ -106,7 +106,7 @@ function TamerSkillCut:update_normal(dt)
         self.m_tamerAnimator:changeAni('skill_1', false)
 
     elseif self:isBeginningInStep(2) then
-         self.m_bgVisual:setVisible(false)
+        self.m_bgVisual:setVisible(false)
         
         g_gameScene:flashOut({color = cc.c3b(255, 255, 255), time = 0.1, cbEnd = function()
             self:nextStep()

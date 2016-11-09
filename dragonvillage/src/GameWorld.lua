@@ -65,8 +65,8 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         m_currFocusingDragon = '',
 
-        -- 인게임 조작 UI 사용 관련
-        m_bUseIngameUI = 'boolean',
+        -- 조작 막음 여부
+        m_bPreventControl = 'boolean',
 
         m_formationDebugNode = '',
 
@@ -102,6 +102,8 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
     self.m_gameNode2 = game_node2
     self.m_gameNode3 = game_node3
     self.m_bDevelopMode = develop_mode or false
+
+    self.m_bPreventControl = false
 
     self.m_bgNode = cc.Node:create()
     self.m_gameNode1:addChild(self.m_bgNode)
@@ -416,7 +418,9 @@ function GameWorld:init_test(deck_type)
     do
         self.m_tamerSkillSystem = TamerSkillSystem(self, t_tamer)
         self.m_tamerSkillSystem:addListener('tamer_skill', self.m_tamerSkillCut)
+        --self.m_tamerSkillSystem:addListener('tamer_skill', self.m_gameState)
         self.m_tamerSkillSystem:addListener('tamer_special_skill', self.m_tamerSkillCut)
+        --self.m_tamerSkillSystem:addListener('tamer_special_skill', self.m_gameState)
 
         self:addListener('game_start', self.m_tamerSkillSystem)
         
@@ -430,6 +434,7 @@ function GameWorld:init_test(deck_type)
 
     do
         self.m_tamerSpeechSystem = TamerSpeechSystem(self, t_tamer)
+        self:addListener('dragon_summon', self.m_tamerSpeechSystem)
         self:addListener('game_start', self.m_tamerSpeechSystem)
         self:addListener('wave_start', self.m_tamerSpeechSystem)
         self:addListener('boss_wave', self.m_tamerSpeechSystem)
@@ -1127,6 +1132,11 @@ end
 -- function isPossibleControl
 -------------------------------------
 function GameWorld:isPossibleControl()
+    -- 강제적 조작 막음
+    if (self.m_bPreventControl) then
+        return false
+    end
+
     -- 전투 중일 때에만
     if (not self.m_gameState:isFight()) then
         return false
@@ -1134,6 +1144,11 @@ function GameWorld:isPossibleControl()
 
     -- 연출 중일 경우 입력 막음
     if (self.m_tamerSkillCut:isPlaying()) then
+        return false
+    end
+
+    -- 글로벌 쿨타임 중일 경우
+    if (self.m_tamerSkillSystem:isWaitingGlobalCoolTime()) then
         return false
     end
 

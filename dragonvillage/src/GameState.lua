@@ -11,7 +11,8 @@ GAME_STATE_ENEMY_APPEAR = 99  -- 적 등장
 
 GAME_STATE_FIGHT = 100
 GAME_STATE_FIGHT_WAIT = 101
-GAME_STATE_FIGHT_SKILL = 102
+GAME_STATE_FIGHT_SKILL = 102        -- 드래곤 스킬
+GAME_STATE_FIGHT_TAMER_SKILL = 103  -- 테이머 스킬
 
 -- 파이널 웨이브 연출
 GAME_STATE_FINAL_WAVE = 201
@@ -105,6 +106,7 @@ function GameState:update(dt)
     elseif (self.m_state == GAME_STATE_ENEMY_APPEAR) then self:update_enemy_appear(dt)
     elseif (self.m_state == GAME_STATE_FIGHT) then      self:update_fight(dt)
     elseif (self.m_state == GAME_STATE_FIGHT_SKILL) then self:update_fight_skill(dt)
+    elseif (self.m_state == GAME_STATE_FIGHT_TAMER_SKILL) then self:update_fight_tamer_skill(dt)
     elseif (self.m_state == GAME_STATE_FIGHT_WAIT) then self:update_fight_wait(dt)
 
     -- 마지막 웨이브 연출
@@ -188,6 +190,8 @@ function GameState:appearDragon()
             world.m_missiledNode:addChild(effect.m_node)
         end
     end
+
+    world:dispatch('dragon_summon')
 
     self.m_bAppearDragon = true
 end
@@ -447,6 +451,20 @@ function GameState:update_fight_skill(dt)
         self.m_world.m_gameCamera:reset()
         
         self:changeState(GAME_STATE_FIGHT)
+    end
+end
+
+-------------------------------------
+-- function update_fight_tamer_skill
+-------------------------------------
+function GameState:update_fight_tamer_skill(dt)
+    local world = self.m_world
+
+    if (self.m_stateTimer == 0) then
+        for i,v in ipairs(self.m_participants) do
+            v:setWaitState(false)
+            v:changeState('idle')
+        end
     end
 end
 
@@ -981,6 +999,10 @@ function GameState:onEvent(event_name, ...)
     -- 액티브 스킬 사용 이벤트
     elseif (event_name == 'active_skill') then
         self.m_world.m_gameCamera:reset()
+
+    -- 테이머 스킬 사용 이벤트
+    elseif (event_name == 'tamer_special_skill') then
+        self:changeState(GAME_STATE_FIGHT_TAMER_SKILL)
     
     end
 end

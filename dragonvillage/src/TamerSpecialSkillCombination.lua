@@ -97,6 +97,9 @@ function TamerSpecialSkillCombination.st_start(owner, dt)
 			target:changeState('idle')
 		end
 
+        -- 게임 조작 막음
+        owner.m_world.m_bPreventControl = true
+
 	elseif (owner.m_stateTimer >= 0.5) then
 		for _, dragon in pairs(owner.m_lDragon) do 
 			owner.m_lDragonEffect[dragon]:changeAni('idle_dragon', true)
@@ -187,6 +190,9 @@ function TamerSpecialSkillCombination.st_end(owner, dt)
 
 	-- 4. 적당한 시간 후 종료
 	elseif (owner.m_stateTimer >= 1) then
+        -- 게임 조작 해제
+        owner.m_world.m_bPreventControl = false
+
 		return true
 	end
 end

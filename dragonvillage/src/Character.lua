@@ -10,8 +10,8 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_maxHp = '',
         m_hp = '',
 
-        m_charType = '',
-        m_charTable = '',
+        --m_charType = '',
+        --m_charTable = '',
         m_statusCalc = '',
         m_stateDelegate = 'CharacterStateDelegate',
 
