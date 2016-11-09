@@ -190,7 +190,7 @@ function TamerSpecialSkillCombination.st_end(owner, dt)
 
 	-- 4. 적당한 시간 후 종료
 	elseif (owner.m_stateTimer >= 1) then
-        -- 게임 조작 해제
+        -- 게임 조작 막음 해제
         owner.m_world.m_bPreventControl = false
 
 		return true

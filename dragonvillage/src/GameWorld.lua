@@ -426,7 +426,8 @@ function GameWorld:init_test(deck_type)
         
         for _,char in pairs(self.m_lDragonList) do
             if (char.m_bLeftFormation) then
-                char:addListener('active_skill', self.m_tamerSkillSystem)
+                --char:addListener('active_skill', self.m_tamerSkillSystem)
+                char:addListener('dragon_skill', self.m_tamerSkillSystem)
                 char:addListener('character_dead', self.m_tamerSkillSystem)
             end
         end

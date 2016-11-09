@@ -403,6 +403,9 @@ function GameState:update_fight_skill(dt)
     local delayTime = 1
     
     if (self.m_stateTimer == 0) then
+        -- 게임 조작 막음
+        self.m_world.m_bPreventControl = true
+
         -- 슬로우
         g_gameScene:setTimeScaleAction(timeScale, delayTime)
 
@@ -443,6 +446,9 @@ function GameState:update_fight_skill(dt)
     end
 
     if (self.m_stateTimer >= timeScale * delayTime) then
+        -- 게임 조작 막음 해제
+        self.m_world.m_bPreventControl = false
+
         -- 드래곤 스킬 애니메이션
         dragon:changeState('skillAttack2')
         dragon.m_animator:setTimeScale(1)

@@ -253,7 +253,8 @@ function TamerSkillSystem:onEvent(event_name, ...)
         self:addSpecialPowerPoint(25)
 
     -- 아군 드래곤 액티브 스킬 사용 3점
-    elseif (event_name == 'active_skill') then
+    --elseif (event_name == 'active_skill') then
+    elseif (event_name == 'dragon_skill') then
         self:addSpecialPowerPoint(3)
         self:addSpecialPowerPoint(20) -- 개발 편의성을 위해
 
