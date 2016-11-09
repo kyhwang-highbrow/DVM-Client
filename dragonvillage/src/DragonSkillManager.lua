@@ -40,7 +40,7 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, char_evo
 
     -- 캐릭터 등급에 따라 루프를 돌며 스킬을 초기화 한다.
     -- 스킬 타입 별로 나중에 추가한것으로 덮어 씌운다.
-    local max_idx = char_evolution
+    local max_idx = char_evolution + 1
     for i = 1, max_idx do
         local skill_type_key = 'skill_type_' .. i
         local skill_key = 'skill_' .. i

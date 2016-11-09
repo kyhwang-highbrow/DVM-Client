@@ -1,19 +1,5 @@
 local PARENT = Entity
 
-
-local PENTAGON_POS = {
-	{x = 0, y = 100},
-	{x = 100, y = 50},
-	{x = 80, y = -100},
-	{x = -80, y = -100},
-	{x = -100, y = 50}
-}
-local STD_X = 900
-local STD_Y = 45
-local SPEED = 2500
-local ATTACK_INTERVAL = 0.2
-local MAX_HIT = 10
-
 -------------------------------------
 -- class TamerSpecialSkillCombination
 -- @brief skill
@@ -22,6 +8,7 @@ TamerSpecialSkillCombination = class(PARENT, {
 		m_activityCarrier = 'ActivityCarrier',
 		m_world = 'Game World',
 		m_mainEffect = 'effect',
+		m_lDragonEffect = 'effect',
 		m_res = 'resource path',
 
 		m_lDragon = 'list[dragon]',
@@ -52,6 +39,8 @@ function TamerSpecialSkillCombination:init_skill(res, world, power_multiply)
 
 	self.m_hitCnt = 0
 	self.m_maxHitCnt = MAX_HIT
+
+	self.m_lDragonEffect = {}
 
 	self:setActivityCarrier()
 end
@@ -87,13 +76,17 @@ end
 -------------------------------------
 function TamerSpecialSkillCombination.st_start(owner, dt)
 	if (owner.m_stateTimer == 0) then
-		-- 1. 모든 드래곤에게 벼락 이벤트 시전 후 idle로 상태 변경
+		-- 1. 모든 드래곤에게 벼락 이벤트 시전 후 idle_dragon으로 상태 변경
 		local thunder_effect = nil
 		for _, dragon in pairs(owner.m_lDragon) do 
 			thunder_effect = MakeAnimator(owner.m_res)
 			thunder_effect:changeAni('start', false)
 			thunder_effect:setPosition(cc.p(0, 0))
+
 			dragon.m_rootNode:addChild(thunder_effect.m_node)
+			
+			-- 리스트에 이펙트 저장
+			owner.m_lDragonEffect[dragon] = thunder_effect
 			
 			-- dragon 정지
 			dragon:changeState('idle')
@@ -105,6 +98,10 @@ function TamerSpecialSkillCombination.st_start(owner, dt)
 		end
 
 	elseif (owner.m_stateTimer >= 0.5) then
+		for _, dragon in pairs(owner.m_lDragon) do 
+			owner.m_lDragonEffect[dragon]:changeAni('idle_dragon', true)
+		end
+
 		-- 2. 적당한 시간 후 다음 페이즈로 이동
 		owner:changeState('phase_1')
 	end
@@ -177,6 +174,7 @@ function TamerSpecialSkillCombination.st_end(owner, dt)
 		for _, dragon in pairs(owner.m_lDragon) do 
 			dragon:setMove(dragon.m_homePosX, dragon.m_homePosY, SPEED)
 			dragon:changeState('attackDelay')
+			owner.m_lDragonEffect[dragon]:release()
 		end
 		-- 3. 타겟 스테이트 attackDelay
 		for _, target in pairs(owner.m_tTarget) do 

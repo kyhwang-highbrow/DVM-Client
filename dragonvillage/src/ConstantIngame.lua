@@ -31,12 +31,28 @@ TAMER_SKILL_GLOBAL_COOLTIME = 3
 --------------------------------------------
 -- 각 스킬에서 공유하는 상수
 --------------------------------------------
--- # 1. SkillLeafBlade
+-- # SkillLeafBlade
  LEAF_COLLISTION_SIZE = 30
+
+
+ -- # 고니 스페셜 스킬
+ PENTAGON_POS = {
+	{x = 0, y = 100},
+	{x = 100, y = 50},
+	{x = 80, y = -100},
+	{x = -80, y = -100},
+	{x = -100, y = 50}
+}
+STD_X = 900
+STD_Y = 45
+SPEED = 2500
+ATTACK_INTERVAL = 0.2
+MAX_HIT = 10
+
 
 
  --------------------------------------------
 -- 디버깅용 
 --------------------------------------------
 -- # 드래곤 활성화 스킬을 출력한다. 
-PRINT_DRAGON_SKILL = false -- @mskim 필요할때만 켜서 쓰세요
+PRINT_DRAGON_SKILL = false
