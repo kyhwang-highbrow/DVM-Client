@@ -170,6 +170,7 @@ function SkillAttributeAmor:fireMissile()
         end
 
         t_option['missile_res_name'] = self.m_missileRes
+		t_option['attr_name'] = self.m_owner:getAttribute()
         t_option['visual'] = 'missile'
 
         t_option['movement'] = 'fix'

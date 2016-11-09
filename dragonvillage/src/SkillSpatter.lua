@@ -174,7 +174,7 @@ function SkillSpatter:makeSkillInstance(owner, t_skill)
     local skill = SkillSpatter(missile_res)
 
 	-- 2. 초기화 관련 함수
-	skill:setSkillParams(owner, t_skill, t_data)
+	skill:setSkillParams(owner, t_skill, {})
     skill:init_skill(motionstreak_res, range_res, range, count, owner.pos.x, owner.pos.y)
 	skill:initState()
 

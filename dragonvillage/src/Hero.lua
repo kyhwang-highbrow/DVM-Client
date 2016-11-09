@@ -231,7 +231,7 @@ function Hero.st_skillAttack2(owner, dt)
         elseif (motion_type == 'maintain') then
             owner.m_aiParamNum = (owner.m_statusCalc.m_attackTick / 2)
         else
-            error('motion_type : ' .. motion_type)
+            error('스킬 테이블 motion_type이 ['.. motion_type .. '] 라고 잘못들어갔네요...')
         end
 
         local function attack_cb(event)

@@ -41,7 +41,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
     local t_skill = table_skill[skill_id]
 
     if (not t_skill) then
-        error('스킬 테이블이 존재하지 않는ㄷr' .. tostring(skill_id))
+        error('스킬 테이블이 존재하지 않는ㄷr...' .. tostring(skill_id))
     end
 
     self:checkTarget(t_skill)
