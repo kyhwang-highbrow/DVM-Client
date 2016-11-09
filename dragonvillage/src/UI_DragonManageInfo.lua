@@ -324,6 +324,11 @@ function UI_DragonManageInfo:click_upgradeBtn()
             local dragon_object_id = ui.m_selectDragonOID
             local b_force = true
             self:setSelectDragonData(dragon_object_id, b_force)
+        else
+            if (self.m_selectDragonOID ~= ui.m_selectDragonOID) then
+                local b_force = true
+                self:setSelectDragonData(ui.m_selectDragonOID, b_force)
+            end
         end
         self:sceneFadeInAction()
     end
@@ -348,6 +353,11 @@ function UI_DragonManageInfo:click_evolutionBtn()
             local dragon_object_id = ui.m_selectDragonOID
             local b_force = true
             self:setSelectDragonData(dragon_object_id, b_force)
+        else
+            if (self.m_selectDragonOID ~= ui.m_selectDragonOID) then
+                local b_force = true
+                self:setSelectDragonData(ui.m_selectDragonOID, b_force)
+            end
         end
         self:sceneFadeInAction()
     end

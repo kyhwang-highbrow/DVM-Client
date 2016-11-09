@@ -24,7 +24,7 @@ end
 -- function init
 -------------------------------------
 function UI_DragonManagementEvolution:init()
-    self.m_bChangeDragonList = true
+    self.m_bChangeDragonList = false
 
     local vars = self:load('dragon_management_evolution.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -326,6 +326,8 @@ function UI_DragonManagementEvolution:click_upgradeBtn()
         -- UI 갱신
         self:refresh_dragonIndivisual(doid)
         self:refresh()
+
+        self.m_bChangeDragonList = true
     end
 
     local ui_network = UI_Network()
