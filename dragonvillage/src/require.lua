@@ -258,8 +258,6 @@ local t_module = {
     'UI_GameRewardPopup',
     'UI_ItemCard',
     'UI_ProductButton',
-    'UI_InventoryEvolutionStonePopup',
-    'UI_InventoryFruitPopup',
     'UI_SkillCard',
     'UI_Tooltip_Skill',
     'UI_DragonGachaResult',

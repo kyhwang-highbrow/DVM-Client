@@ -910,12 +910,6 @@
     <None Include="..\src\UI_IngameUnitInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_InventoryEvolutionStonePopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_InventoryFruitPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_ItemCard.lua">
       <Filter>lua\UI</Filter>
     </None>
