@@ -856,12 +856,6 @@
     <None Include="..\src\UI_DragonDevApiPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_DragonEvolutionResult.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_DragonFriendshipPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_DragonGachaResult.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -884,9 +878,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_DragonManageUpgradeResult.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_DragonUpgradeResult.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_EditBoxPopup.lua">
