@@ -62,16 +62,6 @@ end
 -- @breif 특정 드래곤 하드 코딩
 -------------------------------------
 function SkillRolling:spineSideEffect(buff_prob) 
-	
-	-- 액티브 스킬 사용시 rage 버프 해제
-	StatusEffectHelper:releaseStatusEffect(self.m_owner, self.m_statusEffectType)
-
-	-- 특정 확률로 5개의 rage 버프 획득
-	if (math_random(1, 1000) > buff_prob * 10) then
-		for i = 1, 5 do 
-			StatusEffectHelper:doStatusEffectByType(self.m_owner, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
-		end
-	end
 end
 
 -------------------------------------
@@ -137,7 +127,7 @@ function SkillRolling.st_move(owner, dt)
 end
 
 -------------------------------------
--- function st_attackc
+-- function st_attack
 -------------------------------------
 function SkillRolling.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
@@ -157,30 +147,37 @@ function SkillRolling.st_attack(owner, dt)
     if (owner.m_multiAtkTimer > owner.m_hitInterval) then
 		-- 첫공격시에만 화면 쉐이크
 		if (owner.m_attackCnt == 0) then ShakeDir2(owner.movement_theta, 300) end
-		owner:runAttack()
+		owner:runAttack(true) -- @TODO 구조 개선 필요
 
         owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
 		owner.m_attackCnt = owner.m_attackCnt + 1
     end
 	
-	-- 현재 공격 대상이 죽었다면 다음 대상으로 이동, 총 공격대상 수 제한 있음
-	if (owner.m_targetChar) and (owner.m_targetChar.m_bDead) and (owner.m_maxTargetCnt > owner.m_targetCnt) then
-		local t_targets = owner:findTarget(owner.m_targetPos.x, owner.m_targetPos.y, 1500)
-		if t_targets[1] then 
-			owner.m_targetChar = t_targets[1]
-			owner.m_targetPos = t_targets[1].pos
+	-- 현재 공격 대상이 죽었다면 
+	if (owner.m_targetChar) and (owner.m_targetChar.m_bDead) then
+		-- 카운트 남아 있으면 다음 대상으로 이동, 총 공격대상 수 제한 있음
+		if (owner.m_maxTargetCnt > owner.m_targetCnt) then
+			local t_targets = owner:findTarget(owner.m_targetPos.x, owner.m_targetPos.y, 1500)
+			if t_targets[1] then 
+				owner.m_targetChar = t_targets[1]
+				owner.m_targetPos = t_targets[1].pos
 
-			owner.m_attackCnt = 0
-			owner.m_targetCnt = owner.m_targetCnt + 1
+				owner.m_attackCnt = 0
+				owner.m_targetCnt = owner.m_targetCnt + 1
 
-			-- state move_attack 로 변경
-			owner:changeState('moveAttack')
+				-- state move_attack 로 변경
+				owner:changeState('moveAttack')
+			end
 		end
 	end
 
 	-- 최대 공격 횟수 초과시 탈출
     if (owner.m_maxAttackCnt <= owner.m_attackCnt) then
         owner:changeState('comeback')
+		-- 스파인 드래곤 .. 적 죽일 시 상태효과
+		if (owner.m_targetChar) and (owner.m_targetChar.m_bDead) then
+			StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {}, owner.m_lStatusEffectStr)
+		end
     end
 end
 
@@ -304,25 +301,14 @@ function SkillRolling:getDefaultTargetPos()
 end
 
 -------------------------------------
--- function runAttack
--------------------------------------
-function SkillRolling:runAttack()
-    local t_targets = self:findTarget(self.m_targetPos.x, self.m_targetPos.y, 1)
-	
-    for i,target_char in ipairs(t_targets) do
-        -- 공격
-        self:attack(target_char)
-		
-		-- @TODO 상태효과..
-		StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
-    end
-end
-
--------------------------------------
 -- function findTarget
 -- @brief 공격 대상 찾음
 -------------------------------------
-function SkillRolling:findTarget(x, y, range)
+function SkillRolling:findTarget()
+	local x = self.m_targetPos.x
+	local y = self.m_targetPos.y
+	local range = 1
+
     local world = self.m_world
 	local l_target = world:getTargetList(self.m_owner, x, y, 'enemy', 'x', 'distance_line')
     

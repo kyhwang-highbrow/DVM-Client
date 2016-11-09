@@ -92,32 +92,17 @@ function SkillConicAtk:getDefaultTargetPos()
 end
 
 -------------------------------------
--- function runAttack
--------------------------------------
-function SkillConicAtk:runAttack()
-    local t_targets = self:findTarget(self.m_owner.pos.x, self.m_owner.pos.y, self.m_range, self.m_degree)
-
-    for i,target_char in ipairs(t_targets) do
-        -- 공격
-        self:attack(target_char)
-		
-		-- @TODO 공격에 묻어나는 이펙트 Carrier 에 담아서..
-		StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
-    end
-end
-
--------------------------------------
 -- function findTarget
 -- @brief 공격 대상 찾음
 -------------------------------------
-function SkillConicAtk:findTarget(x, y, range, degree)
+function SkillConicAtk:findTarget()
     local world = self.m_world
 	
 	local t_data = {}
-	t_data['x'] = x -- 시작 좌표
-	t_data['y'] = y
-	t_data['dir'] = degree -- 방향
-	t_data['radius'] = range -- 거리
+	t_data['x'] = self.m_owner.pos.x -- 시작 좌표
+	t_data['y'] = self.m_owner.pos.y
+	t_data['dir'] = self.m_degree -- 방향
+	t_data['radius'] = self.m_range -- 거리
     t_data['angle_range'] = 20 -- 각도 범위
 
 	local l_target = world:getTargetList(self.m_owner, x, y, 'enemy', 'x', 'fan_shape', t_data)

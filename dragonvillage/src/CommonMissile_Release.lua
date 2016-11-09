@@ -105,7 +105,7 @@ function CommonMissile_Release:fireMissile()
 	end
 
 	-- 상태이상 체크
-	StatusEffectHelper:doStatusEffectByType(self.m_target, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
+	StatusEffectHelper:doStatusEffectByStr(self.m_owner, {self.m_target}, self.m_lStatusEffectStr)
 end
 
 -------------------------------------

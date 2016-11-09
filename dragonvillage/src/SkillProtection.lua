@@ -31,7 +31,7 @@ function SkillProtection:init_skill()
     end
 	
     do -- 기본 타겟에 실드
-		StatusEffectHelper:doStatusEffectByType(self.m_targetChar, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
+		StatusEffectHelper:doStatusEffectByStr(self.m_owner, {self.m_targetChar}, self.m_lStatusEffectStr)
     end
 end
 

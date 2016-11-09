@@ -64,7 +64,7 @@ function SkillShield:changeHpCB(char, hp, max_hp)
 
         if self.m_hpRange <= self.m_currDamage then
             self.m_currDamage = (self.m_currDamage % self.m_hpRange)
-            StatusEffectHelper:doStatusEffectByType(char, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
+            StatusEffectHelper:doStatusEffectByStr(self.m_owner, {self.m_targetChar}, self.m_lStatusEffectStr)
         end
     end
 

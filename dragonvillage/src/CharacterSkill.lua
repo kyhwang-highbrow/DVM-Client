@@ -163,9 +163,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
         elseif (type == 'skill_crash') then
             self:doSkill_skill_crash(t_skill, attr, is_hero, phys_group, x, y, t_data)
             return true
-        elseif (type == 'skill_aoe_square_heal_dmg') then
-            self:doSkill_skill_healing_wind(t_skill, attr, is_hero, phys_group, x, y, t_data)
-            return true
+
 		elseif (type == 'skill_dispel_harm') then
             self:doSkill_skill_dispel_magic(t_skill, t_data)
             return true
@@ -221,6 +219,10 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 
         elseif (type == 'skill_protection') then
             SkillProtection:makeSkillInstance(self, t_skill, t_data)
+            return true
+
+        elseif (type == 'skill_aoe_square_heal_dmg') then
+			SkillHealingWind:makeSkillInstance(self, t_skill, t_data)
             return true
 
         -- 패시브 스킬
@@ -662,25 +664,6 @@ function Character:doSkill_skill_crash(t_skill, attr, is_hero, phys_group, x, y,
     self.m_world.m_worldNode:addChild(skill.m_rootNode, 0)
     self.m_world:addToSkillList(skill)
 end
-
--------------------------------------
--- function doSkill_skill_healing_wind
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_skill_healing_wind(t_skill, attr, is_hero, phys_group, x, y, t_data)
-
-    -- 위치, 범위, 타겟 갯수, 데미지
-	local res = string.gsub(t_skill['res_1'], '@', attr)
-    local skill = SkillHealingWind(res, {0, 0, 0})
-
-    -- Physics, Node, GameMgr에 등록
-    self.m_world.m_missiledNode:addChild(skill.m_rootNode, 0)
-    self.m_world:addToSkillList(skill)
-
-    skill:init_skill(self, t_data['x'], t_data['y'], t_skill)
-end
-
-
 
 ------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------

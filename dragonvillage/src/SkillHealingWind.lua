@@ -1,14 +1,15 @@
+local PARENT = Skill
+
 -------------------------------------
 -- class SkillHealingWind
 -------------------------------------
-SkillHealingWind = class(Entity, {
-        m_owner = 'Character',
-        m_activityCarrier = 'AttackDamage',
-        m_tSkill = 'table',
+SkillHealingWind = class(PARENT, {
         m_skillWidth = 'number',
-
+		m_dmgRate = 'number',
         m_hitCount = 'number',
         m_hitInterval = 'number',
+
+		m_lTarget = 'Character', -- @TODO status effect 담으려고 사용 임시
      })
 
 -------------------------------------
@@ -17,55 +18,33 @@ SkillHealingWind = class(Entity, {
 -- @param body
 -------------------------------------
 function SkillHealingWind:init(file_name, body, ...)    
-    self:initState()
 end
 
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillHealingWind:init_skill(owner, x, y, t_skill)
-    self.m_owner = owner
-    self.m_tSkill = t_skill
+function SkillHealingWind:init_skill(hit, dmg_rate, skill_width)
+    PARENT.init_skill(self)
 
-    if (not x) or (not y) then
-        x, y = self:getTargetPos()
-    end
-    y = 0
-
-    self:setPosition(x, y)
-
-    -- 공격력 계산을 위해
-    self.m_activityCarrier = self.m_owner:makeAttackDamageInstance()
-    self.m_activityCarrier.m_skillCoefficient = (t_skill['power_rate'] / 100)
-
-    -- 스킬 범위
-    self.m_skillWidth = t_skill['val_2']
-
-    -- 스킬 횟수
-    self.m_hitCount = t_skill['hit']
+	-- 멤버 변수
+    self.m_skillWidth = skill_width
+	self.m_dmgRate = dmg_rate
+    self.m_hitCount = hit
     self.m_hitInterval = 0
+
+	self:setPosition(self.m_targetPos.x, 0)
+
+	-- predelay 연출 위해서 .. 
+	self.m_animator:setVisible(false)
 end
 
 -------------------------------------
 -- function initState
 -------------------------------------
 function SkillHealingWind:initState()
-    self:addState('attack', SkillHealingWind.st_attack, 'tornado', true)
+	self:setCommonState(self)
+    self:addState('start', SkillHealingWind.st_attack, 'tornado', true)
     self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
-    self:changeState('attack')
-end
-
--------------------------------------
--- function st_idle
--------------------------------------
-function SkillHealingWind.st_idle(owner, dt)
-    if (owner.m_stateTimer == 0) then
-        owner:addAniHandler(function()
-                owner:changeState('dying')
-            end)
-    elseif (owner.m_stateTimer >= 0.5) then
-        owner:changeState('attack')
-    end
 end
 
 -------------------------------------
@@ -73,67 +52,64 @@ end
 -------------------------------------
 function SkillHealingWind.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
+		owner.m_animator:setVisible(true)
         owner:addAniHandler(function()
-                owner:changeState('dying')
-            end)
-        owner:attack()
+			-- 상태효과
+			StatusEffectHelper:doStatusEffectByStr(owner.m_owner, owner.m_lTarget, owner.m_lStatusEffectStr)
+            owner:changeState('dying')
+        end)
     end
 
     if (0 < owner.m_hitCount) then
-        if (owner.m_hitInterval == 0) then
-            owner.m_hitInterval = (owner.m_hitInterval + 0.3)
-            owner:attack()
+		if (owner.m_hitInterval == 0) then 
+			owner.m_hitInterval = (owner.m_hitInterval + 0.2)
+            owner:runAttack()
             owner.m_hitCount = (owner.m_hitCount - 1)
-        else
-            owner.m_hitInterval = (owner.m_hitInterval - dt)
-            if (owner.m_hitInterval <= 0) then
-                owner.m_hitInterval = (owner.m_hitInterval + 0.3)
-                owner:attack()
-                owner.m_hitCount = (owner.m_hitCount - 1)
-            end
-        end
-    end
-end
-
--------------------------------------
--- function getTargetPos
--------------------------------------
-function SkillHealingWind:getTargetPos()
-    local l_target = self.m_owner:getTargetList(self.m_tSkill)
-    local target = l_target[1]
-
-    if target then
-        return target.pos.x, target.pos.y
-    else
-        return self.m_owner.pos.x, self.m_owner.pos.y
+		elseif (owner.m_stateTimer - owner.m_hitInterval > 0) then
+			owner.m_hitInterval = (owner.m_hitInterval + 0.2)
+            owner:runAttack()
+            owner.m_hitCount = (owner.m_hitCount - 1)
+		end
     end
 end
 
 -------------------------------------
 -- function attack
 -------------------------------------
-function SkillHealingWind:attack()
-    local t_targets = self:findTarget(self.pos.x, self.pos.y)
+function SkillHealingWind:runAttack()
+    local t_target = self:findTarget(self.pos.x, self.pos.y)
 
-    for i,target_char in ipairs(t_targets) do
+    for i, target_char in ipairs(t_target) do
+		self:attack(target_char)	
+    end
 
-        if (self.m_owner.m_bLeftFormation == target_char.m_bLeftFormation) then
-            -- 아군 회복
-            local heal_rate = (self.m_tSkill['power_rate'] / 100)
-            local atk_dmg = self.m_activityCarrier:getStat('atk')
-            local heal = HealCalc_M(atk_dmg) * heal_rate
-            target_char:healAbs(heal)
+	self.m_lTarget = t_target
+end
 
-            -- 회복 이펙트
-            local effect = self.m_world:addInstantEffect('res/effect/effect_heal/effect_heal.vrp', 'idle', target_char.pos.x, target_char.pos.y)
-            effect:setScale(1.5)
-        else
-            -- 적군 공격
-            self.m_activityCarrier.m_skillCoefficient = (self.m_tSkill['val_1'] / 100)
-            self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
-            target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
-            --self.m_world:addInstantEffect('res/effect/shot_super_thunder/shot_super_thunder.vrp', 'idle', target_char.pos.x, target_char.pos.y)
-        end
+-------------------------------------
+-- function attack
+-------------------------------------
+function SkillHealingWind:attack(target_char)
+	if (not target_char) then return end
+
+    if (self.m_owner.m_bLeftFormation == target_char.m_bLeftFormation) then
+        -- 아군 회복
+        local heal_rate = (self.m_powerRate / 100)
+        local atk_dmg = self.m_activityCarrier:getStat('atk')
+        local heal = HealCalc_M(atk_dmg) * heal_rate
+        target_char:healAbs(heal)
+
+        -- 회복 이펙트
+        local effect = self.m_world:addInstantEffect('res/effect/effect_heal/effect_heal.vrp', 'idle', target_char.pos.x, target_char.pos.y)
+        effect:setScale(1.5)
+    else
+        -- 적군 공격
+        self.m_activityCarrier.m_skillCoefficient = (self.m_dmgRate / 100)
+        self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
+        target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
+
+		-- 연출
+		self.m_skillHitEffctDirector:doWork()
     end
 end
 
@@ -159,4 +135,34 @@ function SkillHealingWind:findTarget(x, y)
     end
 
     return l_ret
+end
+
+-------------------------------------
+-- function makeSkillInstance
+-------------------------------------
+function SkillHealingWind:makeSkillInstance(owner, t_skill, t_data)
+	-- 변수 선언부
+	------------------------------------------------------
+	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+    local hit = t_skill['hit'] -- 공격 횟수
+	local dmg_rate = t_skill['val_1']			-- power rate 는 힐, dmg rate 는 공격
+	local skill_width = t_skill['val_2']		  -- 공격 반경
+	
+	-- 인스턴스 생성부
+	------------------------------------------------------
+	-- 1. 스킬 생성
+    local skill = SkillHealingWind(missile_res)
+	
+	-- 2. 초기화 관련 함수
+	skill:setSkillParams(owner, t_skill, t_data)
+    skill:init_skill(hit, dmg_rate, skill_width)
+	skill:initState()
+
+	-- 3. state 시작 
+    skill:changeState('delay')
+
+    -- 4. Physics, Node, GameMgr에 등록
+    local world = skill.m_owner.m_world
+    world.m_missiledNode:addChild(skill.m_rootNode, 0)
+    world:addToSkillList(skill)
 end

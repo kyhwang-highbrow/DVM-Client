@@ -55,7 +55,7 @@ end
 -------------------------------------
 function SkillExplosion:boombaSideEffect() 
 	-- 액티브 스킬 사용시 def 버프 해제
-	StatusEffectHelper:releaseStatusEffect(self.m_owner, self.m_statusEffectType)
+	StatusEffectHelper:releaseStatusEffect(self.m_owner, self.m_lStatusEffectStr)
 end
 
 -------------------------------------
@@ -204,25 +204,14 @@ function SkillExplosion:getDefaultTargetPos()
 end
 
 -------------------------------------
--- function runAttack
--------------------------------------
-function SkillExplosion:runAttack()
-    local t_targets = self:findTarget(self.m_targetPos.x, self.m_targetPos.y, self.m_range)
-	
-    for i,target_char in ipairs(t_targets) do
-		-- 공격
-        self:attack(target_char)
-		
-		-- 상태효과 체크
-		StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
-    end
-end
-
--------------------------------------
 -- function findTarget
 -- @brief 공격 대상 찾음
 -------------------------------------
-function SkillExplosion:findTarget(x, y, range)
+function SkillExplosion:findTarget()
+	local x = self.m_targetPos.x
+	local y = self.m_targetPos.y
+	local range = self.m_range
+
     local world = self.m_world
 	local l_target = world:getTargetList(self.m_owner, x, y, 'enemy', 'x', 'distance_line')
     

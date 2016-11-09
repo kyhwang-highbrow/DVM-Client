@@ -9,16 +9,15 @@ Skill = class(PARENT, {
 		m_range = 'num',
 		m_powerRate = 'num',
 		m_preDelay = 'num',
+		m_resScale = 'str',
 
 		-- 타겟 관련 .. 
-		m_targetType = 'str', -- 타겟 선택하는 룰
 		m_targetChar = 'Character', 
+		m_targetType = 'str', -- 타겟 선택하는 룰
 		m_targetPos = 'pos', -- 타겟 위치 정보 빠르게 접근하기 위해..~
 		
 		-- 상태 효과 관련 변수들
-		m_statusEffectType = '',
-		m_statusEffectValue = '',
-		m_statusEffectRate = '',
+		m_lStatusEffectStr = '',
 
 		-- 스킬 타입 명 ex) skill_expolosion 
 		m_skillType = 'str', 
@@ -29,7 +28,6 @@ Skill = class(PARENT, {
 
 		-- 스킬 연출 관리자 - 디렉터
 		m_skillHitEffctDirector = 'SkillHitEffectDirector',
-
      })
 
 -------------------------------------
@@ -47,8 +45,10 @@ end
 function Skill:init_skill()
 	self:initActvityCarrier(self.m_powerRate)
 	self:initAttackPosOffset()
-	
+	self:adjustAnimator()
+
 	self.m_skillHitEffctDirector = SkillHitEffectDirector(self.m_owner)
+	
 
 	if (not self.m_targetChar) then
 		self.m_targetChar = self:getDefaultTarget()
@@ -66,10 +66,20 @@ function Skill:initActvityCarrier(power_rate)
     -- 공격력 계산을 위해
     self.m_activityCarrier = self.m_owner:makeAttackDamageInstance()
     self.m_activityCarrier.m_skillCoefficient = (power_rate / 100)
-	
-	-- 상태효과도 담음
-	self.m_activityCarrier:insertStatusEffectRate(self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
 end
+
+-------------------------------------
+-- function adjustAnimator
+-- @breif animator 조정하는 부분
+-------------------------------------
+function Skill:adjustAnimator(power_rate)    
+	if (not self.m_animator) then return end
+
+	if self.m_resScale then 
+ 		self.m_animator:setScale(self.m_resScale)
+	end
+end
+
 
 -------------------------------------
 -- function initState
@@ -82,23 +92,6 @@ function Skill:setCommonState(skill)
 end
 
 -------------------------------------
--- function setParams
--- @brief 멤버변수 정의
--------------------------------------
-function Skill:setParams(owner, power_rate, target_type, pre_delay, status_effect_type, status_effect_value, status_effect_rate, skill_type, tar_x, tar_y, target)
-	self.m_owner = owner
-	self.m_powerRate = power_rate
-	self.m_targetType = target_type
-	self.m_preDelay = pre_delay or 0
-	self.m_statusEffectType = status_effect_type
-	self.m_statusEffectValue = tonumber(status_effect_value)
-	self.m_statusEffectRate = tonumber(status_effect_rate)
-	self.m_skillType = skill_type
-	self.m_targetPos = {x = tar_x, y = tar_y}
-	self.m_targetChar = target
-end
-
--------------------------------------
 -- function setSkillParams
 -- @brief 멤버변수 정의
 -------------------------------------
@@ -107,9 +100,8 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_powerRate = t_skill['power_rate']
 	self.m_targetType = t_skill['target_type']
 	self.m_preDelay = t_skill['pre_delay'] or 0
-	self.m_statusEffectType = t_skill['status_effect_type']
-	self.m_statusEffectValue = tonumber(t_skill['status_effect_value'])
-	self.m_statusEffectRate = tonumber(t_skill['status_effect_rate'])
+	self.m_resScale = t_skill['res_scale']
+	self.m_lStatusEffectStr = {t_skill['status_effect_1'], t_skill['status_effect_2']}
 	self.m_skillType = t_skill['type']
 	self.m_targetPos = {x = t_data.x, y = t_data.y}
 	self.m_targetChar = t_data.target
@@ -153,11 +145,16 @@ end
 -- function runAttack
 -- @brief findtarget으로 찾은 적에게 공격을 실행한다. 
 -------------------------------------
-function Skill:runAttack()
-    local t_targets = self:findTarget()
-    for i,target_char in ipairs(t_targets) do
+function Skill:runAttack(bNoStatusEffect)
+	local t_target = self:findTarget()
+    for i,target_char in ipairs(t_target) do
 		self:attack(target_char)
     end
+	 
+	-- 상태효과
+	if not bNoStatusEffect then
+		StatusEffectHelper:doStatusEffectByStr(self.m_owner, t_target, self.m_lStatusEffectStr)
+	end
 end
 
 -------------------------------------

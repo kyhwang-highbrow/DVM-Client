@@ -46,18 +46,7 @@ end
 -- function runSpatter
 -------------------------------------
 function StatusEffect_Trigger:onTrigger(defender)
-	local owner = nil
-    local status_effect_type = self.m_subData['status_effect_type']
-	local status_effect_value = self.m_subData['status_effect_value']
-	local status_effect_rate = self.m_subData['status_effect_rate']
-	
-    if (string.find(status_effect_type, 'buff')) then
-		owner = self.m_owner
-	else
-		owner = defender
-	end
-    
-	StatusEffectHelper:doStatusEffectByType(owner, status_effect_type, status_effect_value, status_effect_rate)
-
+	local t_status_effect_str = {self.m_subData['status_effect_1'], self.m_subData['status_effect_2']}
+	StatusEffectHelper:doStatusEffectByStr(self.m_owner, {defender}, t_status_effect_str)
 	return true
 end

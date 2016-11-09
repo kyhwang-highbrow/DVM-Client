@@ -44,9 +44,6 @@ function SkillBulletHole:init_skill(owner, x, y, t_skill)
         defender:setRotation(defender.movement_theta)
         defender:changeState('hole')
     end)
-
-	-- @TODO 공격에 묻어나는 이펙트 Carrier 에 담아서..
-	StatusEffectHelper:doStatusEffect(owner, t_skill)
 end
 
 -------------------------------------

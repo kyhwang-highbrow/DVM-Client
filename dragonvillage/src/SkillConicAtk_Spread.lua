@@ -41,10 +41,7 @@ function SkillConicAtk_Spread:runAttack()
         -- 공격
         self:attack(target_char)
 		
-		-- @TODO 공격에 묻어나는 이펙트 Carrier 에 담아서..
-		StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
-
-		if (self.m_skillType == 'skill_breath_gust') then 
+		if (self.m_skillType == 'skill_aoe_cone_spread') then 
 			-- @TODO 허리케인 하드코딩... 화상 번짐
 			if (self.m_speardCnt == 0) then
 				self:spreadStatusEffect(target_char, 'burn', 225)
@@ -52,6 +49,9 @@ function SkillConicAtk_Spread:runAttack()
 		end
     end
 	self.m_speardCnt = 1
+
+	-- 상태효과
+	StatusEffectHelper:doStatusEffectByStr(self.m_owner, t_target, self.m_lStatusEffectStr)
 end
 
 -------------------------------------

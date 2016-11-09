@@ -41,9 +41,10 @@ function SkillProtection_Spread:init_skill(owner, t_skill, target)
         self.m_world:addToUnitList(buff)
         buff:init_buff(self.m_owner, duration, def_up, target, res)
     end
-
-	-- @TODO 공격에 묻어나는 이펙트 Carrier 에 담아서..
-	StatusEffectHelper:doStatusEffect(target, t_skill)
+	
+	local status_effect_str = t_skill['status_effect_1']
+	-- 상태효과
+	StatusEffectHelper:doStatusEffectByStr(self.m_owner, {target}, status_effect_str)
 end
 
 -------------------------------------

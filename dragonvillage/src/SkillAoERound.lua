@@ -11,6 +11,8 @@ SkillAoERound = class(PARENT, {
         m_multiAtkTimer = 'dt',
         m_hitInterval = 'number',
 		m_effect = 'effect',
+
+		m_lTarget = 'Character', -- @TODO status effect 담으려고 사용 임시
      })
 
 -------------------------------------
@@ -37,6 +39,9 @@ function SkillAoERound:init_skill(attack_count, range, aoe_res)
 
 	-- predelay 연출 위해서 .. 
 	self.m_animator:setVisible(false)
+
+	-- 상태효과
+	StatusEffectHelper:doStatusEffectByStr(self.m_owner, {}, self.m_lStatusEffectStr)
 end
 
 -------------------------------------
@@ -90,7 +95,7 @@ function SkillAoERound.st_attack(owner, dt)
 	-- 반복 공격
     owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
     if (owner.m_multiAtkTimer > owner.m_hitInterval) then
-        owner:runAttack()
+        owner:runAttack(false)
         owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
 		owner.m_attackCnt = owner.m_attackCnt + 1
     end
@@ -114,36 +119,15 @@ function SkillAoERound.st_disappear(owner, dt)
 end
 
 -------------------------------------
--- function getDefaultTargetPos
--- @brief 디폴트 타겟 좌표
--------------------------------------
-function SkillAoERound:getDefaultTargetPos()
-    return PARENT.getDefaultTargetPos(self) 
-end
-
--------------------------------------
--- function findTarget
--- @brief 공격 대상 찾음
--------------------------------------
-function SkillAoERound:findTarget(x, y, range)
-    return PARENT.findTarget(self, x, y, range) 
-end
-
--------------------------------------
 -- function runAttack
 -------------------------------------
 function SkillAoERound:runAttack()
-    local t_targets = self:findTarget()
+    local t_target = self:findTarget()
 	
-    for i,target_char in ipairs(t_targets) do
+    for i,target_char in ipairs(t_target) do
         -- 공격
         self:attack(target_char)
 		
-		-- @TODO 패시브를 자동으로 태우기 위해서는 어디에 있어야..		
-		if self.m_statusEffectType then
-			StatusEffectHelper:doStatusEffectByType(target_char, self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
-		end
-
 		-- 낙뢰와 같은 경우 타겟 마다 이펙트 생성
 		if (self.m_maxAttackCnt == 1) then 
 			if (target_char.pos.x ~= self.m_targetPos.x) and (target_char.pos.y ~= self.m_targetPos.y) then 
@@ -151,6 +135,8 @@ function SkillAoERound:runAttack()
 			end
 		end 
     end
+
+	self.m_lTarget = t_target
 end
 
 -------------------------------------

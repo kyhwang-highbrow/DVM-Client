@@ -74,7 +74,7 @@ function StatusEffectHelper:doStatusEffectByType(char, status_effect_type, statu
 
 	-- 피격자가 사망했을 경우 리턴
     if (char.m_bDead == true) then return end
-
+	
 	-- ;로 구분하여 다중 버프 가능하도록 함
 	local t_status_effect_type = stringSplit(status_effect_type, ';')
 	local t_status_effect_value = stringSplit(status_effect_value, ';')
@@ -92,14 +92,70 @@ function StatusEffectHelper:doStatusEffectByType(char, status_effect_type, statu
 end
 
 -------------------------------------
+-- function doStatusEffectByStr
+-- @brief statuseffect 배열 사용함
+-------------------------------------
+function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect_str)
+   	-- 피격자가 사망했을 경우 리턴
+    if (owner.m_bDead == true) then return end
+	
+	-- 1. 타겟 대상에 상태효과생성
+	local idx = 1
+	local effect_str = nil
+	local t_effect = nil
+	local type = nil 
+	local target_type = nil 
+	local duration = nil
+	local rate = nil
+	local value_1 = nil
+	local value_2 = nil
+	
+	while true do 
+		-- 1. 파싱할 구문 가져오고 탈출 체크
+		effect_str = l_status_effect_str[idx]
+		if (not effect_str) or (effect_str == 'x') then 
+			break 
+		end
+
+		-- 2. 파싱하여 규칙에 맞게 분배
+		t_effect = stringSplit(effect_str, ';')
+		type = t_effect[1]
+		target_type = t_effect[2]
+		duration = t_effect[3]
+		rate = t_effect[4] 
+		value_1 = t_effect[5]
+		--value_2 = t_effect[4]
+		
+		-- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
+		if (target_type == 'self') then 
+			StatusEffectHelper:invokeStatusEffect(owner, type, value_1, rate, duration)
+		elseif (target_type == 'target') then 
+			for _, target in ipairs(t_target) do
+				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
+			end
+		end
+
+		-- 4. 인덱스 증가
+		idx = idx + 1
+	end
+end
+
+
+-------------------------------------
 -- function invokeStatusEffect
 -- @brief 상태 효과 발동
 -------------------------------------
 function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_effect_value, status_effect_rate, duration)
-    if (not status_effect_type) or (status_effect_type == 'x') then
+    -- validation
+	if (not status_effect_type) or (status_effect_type == 'x') then
         return nil
     end
-	
+		 
+	-- 확률 검사
+	if (math_random(1, 1000) > status_effect_rate * 10) then 
+		return nil
+	end
+
     local table_status_effect = TABLE:get('status_effect')
     local t_status_effect = table_status_effect[status_effect_type]
 
@@ -137,7 +193,7 @@ end
 -------------------------------------
 function StatusEffectHelper:setTriggerPassive(char, t_skill)
     local table_status_effect = TABLE:get('status_effect')
-	local status_effect_type = t_skill['status_effect_type']
+	local status_effect_type = self:getStatusEffectTypeFromSkillTable(t_skill)
     local t_status_effect = table_status_effect[status_effect_type]
     
     local res = t_status_effect['res']
@@ -147,6 +203,7 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 
 	-- 적 처치 시
 	if (t_skill['type'] == 'skill_cri_chance_up') then
+		cclog('123123')
 		status_effect:init_trigger('slain', char)
 	
 	-- 모든 공격시
@@ -234,7 +291,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
     status_effect.m_statusEffectName = status_effect_type
 	status_effect.m_type = t_status_effect['type']
 
-    -- 시간 지정
+    -- 시간 지정 (skill table 에서 받아와서 덮어씌우거나 status effect table 값 사용)
     status_effect.m_duration = tonumber(duration) or tonumber(t_status_effect['duration'])
     status_effect.m_durationTimer = status_effect.m_duration
 
@@ -260,27 +317,71 @@ end
 -------------------------------------
 function StatusEffectHelper:invokePassive(char, t_skill)
 	local table_status_effect = TABLE:get('status_effect')
-	local t_status_effect = table_status_effect[t_skill['status_effect_type']]
+	local status_effect_type = self:getStatusEffectTypeFromSkillTable(t_skill)
+	local l_status_effect_str = {t_skill['status_effect_1'], t_skill['status_effect_2']}
 	
-	-- 1. 발동 조건 확인 (발동되지 않을 경우 리턴)
-	if (not self:checkPassiveActivation(char, t_skill['chance_value'], t_status_effect)) then 
-		return
-	end
+	-- 1. 발동 조건 확인 (발동되지 않을 경우 리턴)\
+	-- 기획 이슈로 제거
 
 	-- 2. skill의 타겟룰로 passive의 대상 리스트를 얻어옴
 	local l_target = char:getTargetList(t_skill)
 
 	-- 3. 타겟 대상에 passive생성
-	for _,target in ipairs(l_target) do
-		local passive = StatusEffectHelper:invokeStatusEffect(target, t_skill['status_effect_type'], t_skill['status_effect_value'], t_skill['status_effect_rate'])
+	local idx = 1
+	local effect_str = nil
+	local t_effect = nil
+	local type = nil 
+	local target_type = nil 
+	local duration = nil
+	local rate = nil
+	local value_1 = nil
+	local value_2 = nil
+	local t_status_effect = {}
 
-		-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
-		if passive then
-			if (not target.m_world.m_lPassiveEffect[target]) then
-				target.m_world.m_lPassiveEffect[target] = {}
-			end
-			table.insert(target.m_world.m_lPassiveEffect[target], t_status_effect['t_name'])
+	while true do 
+		-- 1. 파싱할 구문 가져오고 탈출 체크
+		effect_str = l_status_effect_str[idx]
+		if (not effect_str) or (effect_str == 'x') then 
+			break 
 		end
+
+		-- 2. 파싱하여 규칙에 맞게 분배
+		t_effect = stringSplit(effect_str, ';')
+		type = t_effect[1]
+		target_type = t_effect[2]
+		duration = t_effect[3]
+		rate = t_effect[4] 
+		value_1 = t_effect[5]
+		--value_2 = t_effect[4]
+		
+		t_status_effect = table_status_effect[type]
+					
+		-- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
+		if (target_type == 'self') then 
+			StatusEffectHelper:invokeStatusEffect(char, type, value_1, rate, duration)
+
+			local world = char.m_world
+			-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
+			if (not world.m_lPassiveEffect[char]) then
+				world.m_lPassiveEffect[char] = {}
+			end
+			table.insert(world.m_lPassiveEffect[char], t_status_effect['t_name'])
+
+		elseif (target_type == 'target') then 
+			for _, target in ipairs(l_target) do
+				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
+
+				local world = target.m_world
+				-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
+				if (not world.m_lPassiveEffect[target]) then
+					world.m_lPassiveEffect[target] = {}
+				end
+				table.insert(world.m_lPassiveEffect[target], t_status_effect['t_name'])
+			end
+		end
+
+		-- 4. 인덱스 증가
+		idx = idx + 1
 	end
 end
 
@@ -320,7 +421,7 @@ function StatusEffectHelper:checkPassiveActivation(char, chance_value, t_status_
 			end
 		end
 	else
-		error('정의 되지 않은 패시브 발동 조건')
+		error('정의 되지 않은 패시브 발동 조건 : ' .. chance_value)
 	end
 
 	return false
@@ -356,7 +457,7 @@ end
 -- function releaseStatusEffect
 -- @brief 특정 타입의 상태효과 해제
 -------------------------------------
-function StatusEffectHelper:releaseStatusEffect(char, status_effect_type)
+function StatusEffectHelper:releaseStatusEffect(char, t_status_effect_str)
     -- 타입 있는지 검사
     if (not status_effect_type) or (status_effect_type == 'x') then return end
 
@@ -364,13 +465,26 @@ function StatusEffectHelper:releaseStatusEffect(char, status_effect_type)
     if (char.m_bDead == true) then return end
 
 	-- 특정 타입 해제
-	-- @TODO 타입명 말고 phys_key로 해제하려면... 해제 주체가 status effect 에 있어야 하는데 아닌 경우도 있어 임시로 처리
-	for type, tar_status_effect in pairs(char:getStatusEffectList()) do
-		if (status_effect_type == type) then 
-			tar_status_effect:changeState('end')
-			char:removeStatusEffect(tar_status_effect)
-			break
+	local idx = 1
+	while true do 
+		local effect_str = t_status_effect_str[idx]
+		if (not effect_str) or (effect_str == 'x') then 
+			break 
 		end
+		
+		local t_effect = stringSplit(effect_str, ';')
+		local status_effect_type = t_effect[1]
+
+		-- @TODO 타입명 말고 phys_key로 해제하려면... 해제 주체가 status effect 에 있어야 하는데 아닌 경우도 있어 임시로 처리
+		for type, tar_status_effect in pairs(char:getStatusEffectList()) do
+			if (status_effect_type == type) then 
+				tar_status_effect:changeState('end')
+				char:removeStatusEffect(tar_status_effect)
+				break
+			end
+		end
+
+		idx = idx + 1
 	end
 end
 
@@ -403,4 +517,19 @@ function StatusEffectHelper:releaseStatusEffectAll(char)
 	for type, status_effect in pairs(char:getStatusEffectList()) do
 		status_effect:changeState('end')
 	end
+end
+
+-------------------------------------
+-- function getStatusEffectTypeFromSkillTable
+-- @brief 상태효과 타입 파싱해서 가져옴
+-------------------------------------
+function StatusEffectHelper:getStatusEffectTypeFromSkillTable(t_skill)
+	local effect_str = t_skill['status_effect_1']
+	if (not effect_str) or (effect_str == 'x') then 
+		return nil 
+	end
+	local t_effect = stringSplit(effect_str, ';')
+	local status_effect_type = t_effect[1]
+
+	return status_effect_type
 end
