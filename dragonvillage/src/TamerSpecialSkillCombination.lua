@@ -58,6 +58,8 @@ function TamerSpecialSkillCombination:setActivityCarrier()
 			self.m_activityCarrier:mergeStat(activity_carrier)
 		end
 	end
+
+    self.m_activityCarrier.m_attackType = 'special'
 end
 
 -------------------------------------
