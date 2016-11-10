@@ -89,12 +89,12 @@ function TamerSpecialSkillCombination.st_start(owner, dt)
 			owner.m_lDragonEffect[dragon] = thunder_effect
 			
 			-- dragon 정지
-			dragon:changeState('idle')
+			dragon:changeState('delegate')
 		end
 		
 		-- 타겟도 정지
 		for _, target in pairs(owner.m_tTarget) do 
-			target:changeState('idle')
+			target:changeState('delegate')
 		end
 
         -- 게임 조작 막음
