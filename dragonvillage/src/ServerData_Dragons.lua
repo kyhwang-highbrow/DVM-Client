@@ -134,11 +134,37 @@ function ServerData_Dragons:getLeaderDragon()
     if self.m_leaderDragonOdid then
         local t_dragon_data = self:getDragonDataFromUid(self.m_leaderDragonOdid)
 
-        -- 로컬 데이터 변경
-        t_dragon_data['leader'] = true
-        self:applyDragonData(t_dragon_data)
 
-        return t_dragon_data
+        if t_dragon_data then
+            -- 로컬 데이터 변경
+            t_dragon_data['leader'] = true
+            self:applyDragonData(t_dragon_data)
+
+            return t_dragon_data
+        end
+    end
+
+    -- 아무것도 아닌 경우 새로운 리더를 지정
+    do
+        self.m_leaderDragonOdid = nil
+        local l_dragon = self:getDragonsList()
+        for doid,_ in pairs(l_dragon) do
+            self.m_leaderDragonOdid = doid
+            break
+        end
+
+        -- 드래곤 데이터를 리턴
+        if self.m_leaderDragonOdid then
+            local t_dragon_data = self:getDragonDataFromUid(self.m_leaderDragonOdid)
+
+            if t_dragon_data then
+                -- 로컬 데이터 변경
+                t_dragon_data['leader'] = true
+                self:applyDragonData(t_dragon_data)
+
+                return t_dragon_data
+            end
+        end
     end
 
     return nil
