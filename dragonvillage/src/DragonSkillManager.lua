@@ -40,7 +40,7 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, char_evo
 
     -- 캐릭터 등급에 따라 루프를 돌며 스킬을 초기화 한다.
     -- 스킬 타입 별로 나중에 추가한것으로 덮어 씌운다.
-    local max_idx = char_evolution + 1
+    local max_idx = char_evolution
     for i = 1, max_idx do
         local skill_type_key = 'skill_type_' .. i
         local skill_key = 'skill_' .. i
@@ -74,6 +74,11 @@ function IDragonSkillManager:initSkillIDList()
 
     -- 기본 공격 지정
     self:setSkillID('basic', t_character['skill_basic'])
+
+    -- 기본 액티브 스킬 지정
+    if t_character['skill_active'] then
+        self:setSkillID('active', t_character['skill_active'])
+    end
 end
 
 -------------------------------------
@@ -133,16 +138,17 @@ function IDragonSkillManager:getSkillIconList()
 
     local t_character = self.m_charTable
 
-    do -- 기본 공격 스킬 아이콘
-        local basic_skill_id = self:getSkillID('basic')
-        if basic_skill_id then
-            local icon = UI_SkillCard(self.m_charType, basic_skill_id, 'basic')
-            l_skill_icon[0] = icon
+    do -- 액티브 스킬
+        local skill_id = t_character['skill_active']
+        local skill_type = 'active'
+
+        if (skill_type ~= 'x') and skill_id ~= 0 then
+            l_skill_icon[0] = UI_SkillCard(self.m_charType, skill_id, skill_type)
         end
     end
 
     -- 진화에 의한 스킬 아이콘
-    for i=1, MAX_DRAGON_GRADE do
+    for i=1, MAX_DRAGON_EVOLUTION do
         local skill_id = t_character['skill_' .. i]
         local skill_type = t_character['skill_type_' .. i]
 

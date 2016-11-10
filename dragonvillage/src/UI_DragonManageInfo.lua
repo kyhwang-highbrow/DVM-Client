@@ -212,7 +212,7 @@ function UI_DragonManageInfo:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
     local dragon_id = t_dragon_data['did']
 
     do -- 스킬 아이콘 생성
-        local skill_mgr = DragonSkillManager('dragon', dragon_id, t_dragon_data['grade'])
+        local skill_mgr = DragonSkillManager('dragon', dragon_id, t_dragon_data['evolution'])
         local l_skill_icon = skill_mgr:getSkillIconList()
         for i=0, MAX_DRAGON_EVOLUTION do
             if l_skill_icon[i] then
