@@ -194,9 +194,9 @@ end
 -------------------------------------
 function Hero.st_skillPrepare(owner, dt)
     if (owner.m_stateTimer == 0) then
-        local active_skill_id = owner:getSkillID('active')
+        --local active_skill_id = owner:getSkillID('active')
         
-        owner:reserveSkill(active_skill_id)
+        --owner:reserveSkill(active_skill_id)
     end
 end
 
