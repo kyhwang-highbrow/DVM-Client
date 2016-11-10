@@ -44,6 +44,7 @@
 		"fever_touch":   		{"res":"sound/fever_touch.mp3"}
 		"hit_damage_m":   		{"res":"sound/hit_damage_m.mp3"}
 		"hit_damage_d":   		{"res":"sound/hit_damage_d.mp3"}
+		"hit_damage_n":   		{"res":"sound/hit_damage_n.mp3"}
 		
 		"success_starup":   	{"res":"sound/success_starup.mp3"}
 		"success_evo":   		{"res":"sound/success_evo.mp3"}

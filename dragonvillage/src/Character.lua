@@ -357,12 +357,14 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
         -- 효과음
         if self.m_bLeftFormation then
             SoundMgr:playEffect('EFFECT', 'hit_damage_d')
+        else
+            SoundMgr:playEffect('EFFECT', 'hit_damage_m')
         end
-    end
-
-    -- 효과음
-    if not self.m_bLeftFormation then
-        SoundMgr:playEffect('EFFECT', 'hit_damage_m')
+    else
+        -- 효과음
+        if not self.m_bLeftFormation then
+            SoundMgr:playEffect('EFFECT', 'hit_damage_n')
+        end
     end
         	
 	-- 공격 데미지 전달
