@@ -67,9 +67,6 @@ function UI_DragonManageUpgradeResult:refresh()
         vars['dragonNameLabel']:setString(Str(t_dragon['t_name']))
     end
     
-
-    UIManager:toastNotificationRed('임시 승급 결과화면입니다.')
-    UIManager:toastNotificationRed('폴리싱 기간에 수정 예정입니다.')
     vars['skillInfoLabel']:setString('')
     vars['skillNameLabel']:setString('')
 
