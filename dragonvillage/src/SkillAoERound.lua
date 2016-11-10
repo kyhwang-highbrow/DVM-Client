@@ -137,9 +137,7 @@ function SkillAoERound:runAttack()
 		
 		-- @TODO 낙뢰와 같은 경우 타겟 마다 이펙트 생성 임시 구현
 		if (self.m_maxAttackCnt == 1) then 
-			if (target_char.pos.x ~= self.m_targetPos.x) and (target_char.pos.y ~= self.m_targetPos.y) then 
-				self:makeEffect(target_char.pos.x, target_char.pos.y)
-			end
+			self:makeEffect(target_char.pos.x, target_char.pos.y)
 		end 
     end
 end
