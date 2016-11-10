@@ -45,11 +45,6 @@ function UI_ReadyScene:init(stage_id)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ReadyScene')
 
-    -- @UI_ACTION
-    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
-    --self:doActionReset()
-    --self:doAction(nil, false)
-
     self:initUI()
     self:initButton()
     self:refresh()
@@ -69,6 +64,7 @@ end
 -------------------------------------
 function UI_ReadyScene:initButton()
     local vars = self.vars
+    vars['manageBtn']:registerScriptTapHandler(function() self:click_manageBtn() end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
 end
 
@@ -108,6 +104,7 @@ end
 -------------------------------------
 function UI_ReadyScene:init_dragonTableView()
     local list_table_node = self.vars['listView']
+    list_table_node:removeAllChildren()
 
     local function create_func(item)
         local ui = item['ui']
@@ -172,6 +169,23 @@ function UI_ReadyScene:isSettedDragon(unique_id)
     end
 
     return false
+end
+
+-------------------------------------
+-- function click_manageBtn
+-- @breif 드래곤 관리
+-------------------------------------
+function UI_ReadyScene:click_manageBtn()
+    local ui = UI_DragonManageInfo()
+    local function close_cb()
+        local function func()
+            self:refresh()
+            self:init_dragonTableView()
+            self.m_readySceneDeck:init_deck()
+        end
+        self:sceneFadeInAction(func)
+    end
+    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------
