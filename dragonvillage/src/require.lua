@@ -277,6 +277,7 @@ local t_module = {
     'UI_DragonManageUpgrade',
     'UI_DragonManageUpgradeResult',
     'UI_DragonManagementEvolution',
+    'UI_DragonManageEvolutionResult',
     'UI_DragonManagementFriendship',
     'UI_DragonManageFriendshipResult',
     'UI_DragonCard',

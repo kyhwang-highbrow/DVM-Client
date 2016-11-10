@@ -327,6 +327,9 @@ function UI_DragonManagementEvolution:click_upgradeBtn()
         self:refresh()
 
         self.m_bChangeDragonList = true
+
+        -- 팝업 연출
+        UI_DragonManageEvolutionResult(ret['dragon'])
     end
 
     local ui_network = UI_Network()
