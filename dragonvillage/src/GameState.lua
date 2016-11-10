@@ -23,6 +23,7 @@ GAME_STATE_BOSS_WAVE = 211
 GAME_STATE_BOSS_WAVE2 = 212
 GAME_STATE_BOSS_WAVE3 = 213
 
+GAME_STATE_SUCCESS_WAIT = 300
 GAME_STATE_SUCCESS = 301
 GAME_STATE_FAILURE = 302
 
@@ -118,6 +119,7 @@ function GameState:update(dt)
     elseif (self.m_state == GAME_STATE_BOSS_WAVE2) then self:update_boss_wave2(dt)
     elseif (self.m_state == GAME_STATE_BOSS_WAVE3) then self:update_boss_wave3(dt)
 
+    elseif (self.m_state == GAME_STATE_SUCCESS_WAIT) then    self:update_success_wait(dt)
     elseif (self.m_state == GAME_STATE_SUCCESS) then    self:update_success(dt)
     elseif (self.m_state == GAME_STATE_FAILURE) then    self:update_failure(dt)
     end
@@ -307,7 +309,7 @@ function GameState:update_fight(dt)
 		if world.m_waveMgr:getNextWaveScriptData() then 
 		    self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
 		else
-			self:changeState(GAME_STATE_SUCCESS)
+			self:changeState(GAME_STATE_SUCCESS_WAIT)
 		end
         return
     end
@@ -554,6 +556,33 @@ function GameState:update_boss_wave3(dt)
             self:changeState(GAME_STATE_ENEMY_APPEAR)
         end)
     end
+end
+
+-------------------------------------
+-- function update_success_wait
+-------------------------------------
+function GameState:update_success_wait(dt)
+    local world = self.m_world
+
+    if (self.m_stateTimer == 0) then
+        if world.m_skillIndicatorMgr then
+            world.m_skillIndicatorMgr:clear()
+        end
+    end
+
+    -- 드래곤 상태 체크
+    local b = true
+
+    for _,dragon in pairs(world.m_participants) do
+        if (not dragon.m_bDead and dragon.m_state ~= 'wait') then
+            cclog('dragon.m_state = ' .. dragon.m_state)
+            b = false
+        end
+    end
+
+    if b then
+        self:changeState(GAME_STATE_SUCCESS)
+    end    
 end
 
 -------------------------------------
