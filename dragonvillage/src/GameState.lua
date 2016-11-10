@@ -391,7 +391,7 @@ function GameState:update_wave_intermission_wait(dt)
         end
     end
 
-    if (b) then
+    if (b or self.m_stateTimer >= 4) then
         self:changeState(GAME_STATE_WAVE_INTERMISSION)
     end
 end
@@ -575,12 +575,11 @@ function GameState:update_success_wait(dt)
 
     for _,dragon in pairs(world.m_participants) do
         if (not dragon.m_bDead and dragon.m_state ~= 'wait') then
-            cclog('dragon.m_state = ' .. dragon.m_state)
             b = false
         end
     end
 
-    if b then
+    if (b or self.m_stateTimer >= 4) then
         self:changeState(GAME_STATE_SUCCESS)
     end    
 end

@@ -74,6 +74,7 @@ function SkillRolling:initState()
     self:addState('attack', SkillRolling.st_attack, 'idle', true)
 	self:addState('moveAttack', SkillRolling.st_move_attack, 'idle', true)
 	self:addState('comeback', SkillRolling.st_comeback, 'remove', true)
+    self:addState('dying', IStateDelegate.st_dying, nil, nil, 10)
 end
 
 -------------------------------------
