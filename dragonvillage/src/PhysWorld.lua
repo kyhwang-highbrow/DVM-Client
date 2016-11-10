@@ -689,7 +689,8 @@ function PhysWorld:getLaserCollision(x1, y1, x2, y2, thickness, phys_key)
             end
 
             -- 충돌된 객체라면 리스트에 저장 (죽지 않은 대상)
-            if (not_finish == false) and (object.m_bDead == false) then
+            --if (not_finish == false) and (object.m_bDead == false) then
+            if (not_finish == false) then
                 local distance = math_distance(x1, y1, x3, y3)
                 table.insert(t_collision_obj, {obj=object, dist = distance, x=x3, y=y3})
             end

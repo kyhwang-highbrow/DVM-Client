@@ -98,7 +98,9 @@ end
 -- function setPosition
 -------------------------------------
 function Entity:setPosition(x, y)
-    self.m_rootNode:setPosition(x, y)
+    if self.m_rootNode then
+        self.m_rootNode:setPosition(x, y)
+    end
 
     PhysObject.setPosition(self, x, y)
 
