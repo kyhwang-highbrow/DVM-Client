@@ -39,6 +39,8 @@ end
 -------------------------------------
 function StatusEffect_Trigger:release()
     self.m_owner:removeListener(self.m_triggerName, self)
+	--@ TODO 상태효과 관리 구조 재설계 필요
+	self.m_owner.m_tOverlabStatusEffect[self.m_statusEffectName] = nil
 	PARENT.release(self)
 end
 

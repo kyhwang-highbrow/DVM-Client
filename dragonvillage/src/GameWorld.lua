@@ -886,7 +886,10 @@ function GameWorld:onKeyReleased(keyCode, event)
             for type, se in pairs(v:getStatusEffectList()) do
 				cclog(type, se.m_overlabCnt)
 			end
-
+			cclog('------overlab list')
+			for type, se in pairs(v.m_tOverlabStatusEffect) do
+				cclog(type)
+			end
 			cclog('=============================')
 
         end
