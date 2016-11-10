@@ -5,7 +5,7 @@ IDragonSkillManager = {
         -- [external variable]
         m_charType = 'string',
         m_charID = 'number',
-        m_charEvolution = 'number',
+        m_openSkillCount = 'number',
 
         -- [internal variable]
         m_charTable = 'table',
@@ -24,12 +24,12 @@ end
 -------------------------------------
 -- function initDragonSkillManager
 -------------------------------------
-function IDragonSkillManager:initDragonSkillManager(char_type, char_id, char_evolution)
-    char_evolution = char_evolution or 3
+function IDragonSkillManager:initDragonSkillManager(char_type, char_id, open_skill_count)
+    open_skill_count = open_skill_count or 3
 
     self.m_charType = char_type
     self.m_charID = char_id
-    self.m_charEvolution = char_evolution
+    self.m_openSkillCount = open_skill_count
 
     -- 캐릭터 테이블 저장
     local table_dragon = TABLE:get(self.m_charType)
@@ -40,7 +40,7 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, char_evo
 
     -- 캐릭터 등급에 따라 루프를 돌며 스킬을 초기화 한다.
     -- 스킬 타입 별로 나중에 추가한것으로 덮어 씌운다.
-    local max_idx = char_evolution
+    local max_idx = open_skill_count
     for i = 1, max_idx do
         local skill_type_key = 'skill_type_' .. i
         local skill_key = 'skill_' .. i
@@ -252,6 +252,15 @@ function IDragonSkillManager:printSkillManager()
 end
 
 -------------------------------------
+-- function getSkillDescPure
+-- @brief 스킬 설명 리턴
+-------------------------------------
+function IDragonSkillManager:getSkillDescPure(t_skill)
+    local desc = Str(t_skill['t_desc'], t_skill['desc_1'], t_skill['desc_2'], t_skill['desc_3'], t_skill['desc_4'], t_skill['desc_5'])
+    return desc
+end
+
+-------------------------------------
 -- function getCloneTable
 -------------------------------------
 function IDragonSkillManager:getCloneTable()
@@ -267,6 +276,6 @@ DragonSkillManager = class(clone(IDragonSkillManager))
 -------------------------------------
 -- function init
 -------------------------------------
-function DragonSkillManager:init(char_type, char_id, char_evolution)
-    self:initDragonSkillManager(char_type, char_id, char_evolution)
+function DragonSkillManager:init(char_type, char_id, open_skill_count)
+    self:initDragonSkillManager(char_type, char_id, open_skill_count)
 end
