@@ -20,34 +20,6 @@ function SkillIndicator_ConicSpread:init(hero, t_skill)
 end
 
 -------------------------------------
--- function initIndicatorNode
--------------------------------------
-function SkillIndicator_ConicSpread:initIndicatorNode()
-    if (not PARENT.initIndicatorNode(self)) then
-        return
-    end
-
-    local root_node = self.m_indicatorRootNode
-
-    do -- 캐스팅 이펙트
-        local indicator = MakeAnimator('res/indicator/indicator_breath_gust/indicator_breath_gust.vrp')
-		indicator:setTimeScale(5)
-		indicator:changeAni('20_normal', false)
-		indicator:setPosition(self:getAttackPosition())
-        root_node:addChild(indicator.m_node)
-
-		-- @하드코딩
-		if (self.m_skillType == 'skill_breath_gust') then 
-			indicator:setScale(self.m_skillRadius / 800)
-		end
-
-        self.m_indicator1 = indicator
-
-		return true
-    end
-end
-
--------------------------------------
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_ConicSpread:onTouchMoved(x, y)

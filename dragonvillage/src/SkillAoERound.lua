@@ -38,10 +38,6 @@ function SkillAoERound:init_skill(attack_count, range, aoe_res, add_damage)
 	self.m_hitInterval = 1/30
 	
 	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
-
-	-- predelay 연출 위해서 .. 
-	self.m_animator:setVisible(false)
-
 end
 
 -------------------------------------
@@ -59,8 +55,6 @@ end
 -------------------------------------
 function SkillAoERound.st_appear(owner, dt)
     if (owner.m_stateTimer == 0) then
-		owner.m_animator:setVisible(true)
-		
 		-- 이펙트 재생 단위 시간
 		owner.m_hitInterval = owner.m_animator:getDuration()
 		if (not owner.m_targetChar) then 

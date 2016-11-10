@@ -16,6 +16,7 @@ SkillIndicator = class({
         m_indicatorRootNode = 'cc.Node',
         m_indicator1 = '',
         m_indicator2 = '',
+		m_indicatorScale = '',
         m_highlightList = '',
 
         m_indicatorTouchPosX = '',

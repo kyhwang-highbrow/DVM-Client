@@ -119,10 +119,13 @@ end
 -------------------------------------
 function Skill.st_delay(owner, dt)
     if (owner.m_stateTimer == 0) then
+		owner.m_animator:setVisible(false) 
 		if (not owner.m_targetChar) then 
+			cclog('타겟이 없어 스킬을 강제로 죽임 .. kms')
 			owner:changeState('dying') 
 		end
 	elseif (owner.m_stateTimer > owner.m_preDelay) then
+		owner.m_animator:setVisible(true) 
 		owner:changeState('start')
     end
 end

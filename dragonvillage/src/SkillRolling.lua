@@ -50,9 +50,6 @@ function SkillRolling:init_skill(spin_res, target_count, buff_prob, atk_count)
 	-- 스핀 이펙트 속도 조절
 	self.m_animator:setTimeScale(2)
 
-	-- 특정 드래곤 효과
-	self:spineSideEffect(buff_prob)
-
     -- StateDelegate 적용
     self.m_owner:setStateDelegate(self)
 end
@@ -62,7 +59,6 @@ end
 -- @breif 특정 드래곤 하드 코딩
 -------------------------------------
 function SkillRolling:spineSideEffect()
-	self.m_owner.m_animator:setVisible(false) 
 end
 
 -------------------------------------
@@ -104,6 +100,7 @@ function SkillRolling.st_move(owner, dt)
 	owner:updateAfterImage(dt)
 
     if (owner.m_stateTimer == 0) then
+		owner.m_owner.m_animator:setVisible(false) 
 		-- 스핀 이펙트
 		if (nil == owner.m_spinAnimator) then 
 			local animator = MakeAnimator(owner.m_spinRes)

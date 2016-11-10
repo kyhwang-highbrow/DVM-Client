@@ -5,7 +5,6 @@ SkillIndicator_AoERound = class(SkillIndicator, {
         m_range = 'num',            -- 반지름
         m_indicatorEffect01 = '',
         m_indicatorLinkEffect = '',
-        m_indicatorScale = 'num',
         m_isFixedOnTarget = 'bool', 
     })
 

@@ -7,6 +7,7 @@ SkillIndicator_Conic = class(SkillIndicator, {
 		m_indicatorAddEffectList = '',
 
 		m_skillRadius = 'num',
+		
     })
 
 -------------------------------------
@@ -16,6 +17,7 @@ function SkillIndicator_Conic:init(hero, t_skill)
 	PARENT.init(self, hero)
 	
 	self.m_skillRadius = t_skill['val_1']
+	self.m_indicatorScale = t_skill['res_scale']
 end
 
 -------------------------------------
@@ -97,9 +99,8 @@ function SkillIndicator_Conic:initIndicatorNode()
 		indicator:setTimeScale(5)
         root_node:addChild(indicator.m_node)
 		indicator:setPosition(self:getAttackPosition())
-		indicator:setScale(self.m_skillRadius / 500)
+		indicator:setScale(self.m_indicatorScale)
         self.m_indicator1 = indicator
-
 		return true
     end
 end
