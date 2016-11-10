@@ -238,182 +238,22 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_01.png'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fx'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+										"frame":0, "alpha":0
 									},
 									{
-										"frame":3, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+										"frame":9
 									},
 									{
-										"frame":6, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+										"frame":29
 									},
 									{
-										"frame":9, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_02.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":4, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":7, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
-									},
-									{
-										"frame":10, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
-									},
-									{
-										"frame":13, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_03.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":8, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":11, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
-									},
-									{
-										"frame":14, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
-									},
-									{
-										"frame":17, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_04.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":12, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":15, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
-									},
-									{
-										"frame":18, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
-									},
-									{
-										"frame":21, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_05.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":16, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":19, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
-									},
-									{
-										"frame":22, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
-									},
-									{
-										"frame":25, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_06.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":20, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":23, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
-									},
-									{
-										"frame":26, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
-									},
-									{
-										"frame":29, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_07.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":24, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":27, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
-									},
-									{
-										"frame":30, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
-									},
-									{
-										"frame":33, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_08.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":28, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":31, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
-									},
-									{
-										"frame":34, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
-									},
-									{
-										"frame":37, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_09.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":32, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
-									},
-									{
-										"frame":35, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
-									},
-									{
-										"frame":38, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
-									},
-									{
-										"frame":41, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+										"frame":41, "alpha":0
 									}
 								]
 							}
@@ -725,10 +565,10 @@
 								"key_list":
 								[
 									{
-										"frame":10, "sX":1.300000, "sY":1.300000
+										"frame":19, "sX":1.300000, "sY":1.300000
 									},
 									{
-										"frame":14, "sX":1.500000, "sY":1.500000
+										"frame":23, "sX":1.500000, "sY":1.500000
 									}
 								]
 							},
@@ -739,19 +579,19 @@
 								"key_list":
 								[
 									{
-										"frame":0, "sX":4.500000, "sY":4.500000, "pY":4.000000, "alpha":25
+										"frame":0, "sX":4.500000, "sY":4.500000, "pY":4.000000, "alpha":0
 									},
 									{
-										"frame":3, "sX":4.093750, "sY":4.093750, "pY":4.000000, "alpha":121
+										"frame":12, "sX":4.093750, "sY":4.093750, "pY":4.000000, "alpha":121
 									},
 									{
-										"frame":8, "sX":1.250000, "sY":1.250000, "pY":4.000000
+										"frame":17, "sX":1.250000, "sY":1.250000, "pY":4.000000
 									},
 									{
-										"frame":13, "pY":4.000000
+										"frame":22, "pY":4.000000
 									},
 									{
-										"frame":99, "pY":4.000000
+										"frame":135, "pY":4.000000
 									}
 								]
 							},
@@ -762,55 +602,76 @@
 								"key_list":
 								[
 									{
-										"frame":0, "sX":4.700001, "sY":4.700001, "pY":6.000000, "alpha":51, "mode":"Add"
+										"frame":0, "sX":4.700001, "sY":4.700001, "pY":6.000000, "alpha":0, "mode":"Add"
 									},
 									{
-										"frame":3, "sX":4.281250, "sY":4.281250, "pY":6.000000, "alpha":188, "mode":"Add"
+										"frame":12, "sX":4.281250, "sY":4.281250, "pY":6.000000, "alpha":188, "mode":"Add"
 									},
 									{
-										"frame":8, "sX":1.350000, "sY":1.350000, "pY":6.000000, "mode":"Add"
+										"frame":17, "sX":1.350000, "sY":1.350000, "pY":6.000000, "mode":"Add"
 									},
 									{
-										"frame":34, "pY":6.000000, "alpha":0, "mode":"Add"
+										"frame":43, "pY":6.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_circle'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_circle'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":23, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,0,128]
+										"frame":59, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,60,74]
 , "mode":"Add"
 									},
 									{
-										"frame":99, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,0,128]
+										"frame":135, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,60,74]
 , "mode":"Add"
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_circle'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_circle'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.100000, "sY":0.100000, "cX":-4.000000, "cY":6.000000
+										"frame":32, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,60,74]
+, "mode":"Add"
 									},
 									{
-										"frame":8, "sX":0.335294, "sY":0.335294, "cX":-4.000000, "cY":6.000000
+										"frame":108, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,60,74]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":9, "sX":0.100000, "sY":0.100000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,0,255]
+
 									},
 									{
-										"frame":17, "sX":0.477828, "sY":0.477828, "cX":-4.000000, "cY":6.000000
+										"frame":17, "sX":0.335294, "sY":0.335294, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,0,255]
+
 									},
 									{
-										"frame":25, "sX":0.556880, "sY":0.556880, "cX":-4.000000, "cY":6.000000
+										"frame":26, "sX":0.477828, "sY":0.477828, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,0,255]
+
 									},
 									{
-										"frame":34, "sX":0.600000, "sY":0.600000, "cX":-4.000000, "cY":6.000000
+										"frame":34, "sX":0.700000, "sY":0.700000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,0,255]
+
+									},
+									{
+										"frame":40, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,0,255]
+
 									}
 								]
 							},
@@ -821,19 +682,19 @@
 								"key_list":
 								[
 									{
-										"frame":6, "sX":0.700000, "sY":0.700000, "rotate":10.000000, "pX":1.000000, "pY":-1.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+										"frame":15, "sX":0.700000, "sY":0.700000, "rotate":10.000000, "pX":1.000000, "pY":-1.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
 									},
 									{
-										"frame":14, "rotate":75.000000, "pX":3.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+										"frame":23, "rotate":75.000000, "pX":3.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
 									},
 									{
-										"frame":23, "sX":1.400000, "sY":1.400000, "rotate":180.000000, "pX":-1.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+										"frame":32, "sX":1.400000, "sY":1.400000, "rotate":180.000000, "pX":-1.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
 									},
 									{
-										"frame":31, "sX":1.400000, "sY":1.400000, "rotate":215.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
+										"frame":40, "sX":1.400000, "sY":1.400000, "rotate":215.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
 									},
 									{
-										"frame":40, "sX":1.400000, "sY":1.400000, "rotate":280.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
+										"frame":49, "sX":1.400000, "sY":1.400000, "rotate":280.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							},
@@ -844,16 +705,16 @@
 								"key_list":
 								[
 									{
-										"frame":6, "sX":2.300000, "sY":2.300000, "rotate":10.000000, "mode":"Add"
+										"frame":15, "sX":2.300000, "sY":2.300000, "rotate":10.000000, "mode":"Add"
 									},
 									{
-										"frame":14, "sX":2.600000, "sY":2.600000, "rotate":75.000000, "alpha":128, "mode":"Add"
+										"frame":23, "sX":2.600000, "sY":2.600000, "rotate":75.000000, "alpha":128, "mode":"Add"
 									},
 									{
-										"frame":23, "sX":2.700000, "sY":2.700000, "rotate":180.000000, "alpha":76, "mode":"Add"
+										"frame":32, "sX":2.700000, "sY":2.700000, "rotate":180.000000, "alpha":76, "mode":"Add"
 									},
 									{
-										"frame":31, "sX":3.000000, "sY":3.000000, "rotate":215.000000, "alpha":0, "mode":"Add"
+										"frame":40, "sX":3.000000, "sY":3.000000, "rotate":215.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							},
@@ -867,22 +728,22 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_star'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.400000, "sY":0.400000
+										"frame":9, "sX":0.400000, "sY":0.400000
 									},
 									{
-										"frame":23, "sX":0.400000, "sY":0.400000
-									},
-									{
-										"frame":31, "sX":0.400000, "sY":0.400000, "alpha":0
+										"frame":32, "sX":0.400000, "sY":0.400000
 									},
 									{
 										"frame":40, "sX":0.400000, "sY":0.400000, "alpha":0
+									},
+									{
+										"frame":49, "sX":0.400000, "sY":0.400000, "alpha":0
 									}
 								]
 							}
@@ -906,10 +767,10 @@
 								"key_list":
 								[
 									{
-										"frame":10, "sX":1.300000, "sY":1.300000
+										"frame":19, "sX":1.300000, "sY":1.300000
 									},
 									{
-										"frame":14, "sX":1.500000, "sY":1.500000
+										"frame":23, "sX":1.500000, "sY":1.500000
 									}
 								]
 							},
@@ -920,19 +781,19 @@
 								"key_list":
 								[
 									{
-										"frame":0, "sX":4.500000, "sY":4.500000, "pY":4.000000, "alpha":25
+										"frame":0, "sX":4.500000, "sY":4.500000, "pY":4.000000, "alpha":0
 									},
 									{
-										"frame":3, "sX":4.093750, "sY":4.093750, "pY":4.000000, "alpha":121
+										"frame":12, "sX":4.093750, "sY":4.093750, "pY":4.000000, "alpha":121
 									},
 									{
-										"frame":8, "sX":1.250000, "sY":1.250000, "pY":4.000000
+										"frame":17, "sX":1.250000, "sY":1.250000, "pY":4.000000
 									},
 									{
-										"frame":13, "pY":4.000000
+										"frame":22, "pY":4.000000
 									},
 									{
-										"frame":99, "pY":4.000000
+										"frame":135, "pY":4.000000
 									}
 								]
 							},
@@ -943,53 +804,67 @@
 								"key_list":
 								[
 									{
-										"frame":0, "sX":4.700001, "sY":4.700001, "pY":6.000000, "alpha":51, "mode":"Add"
+										"frame":0, "sX":4.700001, "sY":4.700001, "pY":6.000000, "alpha":0, "mode":"Add"
 									},
 									{
-										"frame":3, "sX":4.281250, "sY":4.281250, "pY":6.000000, "alpha":188, "mode":"Add"
+										"frame":12, "sX":4.281250, "sY":4.281250, "pY":6.000000, "alpha":188, "mode":"Add"
 									},
 									{
-										"frame":8, "sX":1.350000, "sY":1.350000, "pY":6.000000, "mode":"Add"
+										"frame":17, "sX":1.350000, "sY":1.350000, "pY":6.000000, "mode":"Add"
 									},
 									{
-										"frame":34, "pY":6.000000, "alpha":0, "mode":"Add"
+										"frame":43, "pY":6.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_circle'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_circle'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":23, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "mode":"Add"
+										"frame":59, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "mode":"Add"
 									},
 									{
-										"frame":99, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "mode":"Add"
+										"frame":135, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "mode":"Add"
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_circle'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_circle'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.100000, "sY":0.100000, "cX":-4.000000, "cY":6.000000
+										"frame":32, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "mode":"Add"
 									},
 									{
-										"frame":8, "sX":0.335294, "sY":0.335294, "cX":-4.000000, "cY":6.000000
+										"frame":108, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":9, "sX":0.100000, "sY":0.100000, "cX":-4.000000, "cY":6.000000
 									},
 									{
-										"frame":17, "sX":0.477828, "sY":0.477828, "cX":-4.000000, "cY":6.000000
+										"frame":17, "sX":0.335294, "sY":0.335294, "cX":-4.000000, "cY":6.000000
 									},
 									{
-										"frame":25, "sX":0.556880, "sY":0.556880, "cX":-4.000000, "cY":6.000000
+										"frame":26, "sX":0.477828, "sY":0.477828, "cX":-4.000000, "cY":6.000000
 									},
 									{
-										"frame":34, "sX":0.600000, "sY":0.600000, "cX":-4.000000, "cY":6.000000
+										"frame":34, "sX":0.700000, "sY":0.700000, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":40, "sX":1.200000, "sY":1.200000, "cX":-4.000000, "cY":6.000000
 									}
 								]
 							},
@@ -1000,19 +875,19 @@
 								"key_list":
 								[
 									{
-										"frame":6, "sX":0.700000, "sY":0.700000, "rotate":10.000000, "pX":1.000000, "pY":-1.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+										"frame":15, "sX":0.700000, "sY":0.700000, "rotate":10.000000, "pX":1.000000, "pY":-1.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
 									},
 									{
-										"frame":14, "rotate":75.000000, "pX":3.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+										"frame":23, "rotate":75.000000, "pX":3.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
 									},
 									{
-										"frame":23, "sX":1.400000, "sY":1.400000, "rotate":180.000000, "pX":-1.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+										"frame":32, "sX":1.400000, "sY":1.400000, "rotate":180.000000, "pX":-1.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
 									},
 									{
-										"frame":31, "sX":1.400000, "sY":1.400000, "rotate":215.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
+										"frame":40, "sX":1.400000, "sY":1.400000, "rotate":215.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
 									},
 									{
-										"frame":40, "sX":1.400000, "sY":1.400000, "rotate":280.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
+										"frame":49, "sX":1.400000, "sY":1.400000, "rotate":280.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							},
@@ -1023,16 +898,16 @@
 								"key_list":
 								[
 									{
-										"frame":6, "sX":2.300000, "sY":2.300000, "rotate":10.000000, "mode":"Add"
+										"frame":15, "sX":2.300000, "sY":2.300000, "rotate":10.000000, "mode":"Add"
 									},
 									{
-										"frame":14, "sX":2.600000, "sY":2.600000, "rotate":75.000000, "alpha":128, "mode":"Add"
+										"frame":23, "sX":2.600000, "sY":2.600000, "rotate":75.000000, "alpha":128, "mode":"Add"
 									},
 									{
-										"frame":23, "sX":2.700000, "sY":2.700000, "rotate":180.000000, "alpha":76, "mode":"Add"
+										"frame":32, "sX":2.700000, "sY":2.700000, "rotate":180.000000, "alpha":76, "mode":"Add"
 									},
 									{
-										"frame":31, "sX":3.000000, "sY":3.000000, "rotate":215.000000, "alpha":0, "mode":"Add"
+										"frame":40, "sX":3.000000, "sY":3.000000, "rotate":215.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							},
@@ -1046,22 +921,22 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_star'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.400000, "sY":0.400000
+										"frame":9, "sX":0.400000, "sY":0.400000
 									},
 									{
-										"frame":23, "sX":0.400000, "sY":0.400000
-									},
-									{
-										"frame":31, "sX":0.400000, "sY":0.400000, "alpha":0
+										"frame":32, "sX":0.400000, "sY":0.400000
 									},
 									{
 										"frame":40, "sX":0.400000, "sY":0.400000, "alpha":0
+									},
+									{
+										"frame":49, "sX":0.400000, "sY":0.400000, "alpha":0
 									}
 								]
 							}
@@ -1085,10 +960,10 @@
 								"key_list":
 								[
 									{
-										"frame":10, "sX":1.300000, "sY":1.300000
+										"frame":19, "sX":1.300000, "sY":1.300000
 									},
 									{
-										"frame":14, "sX":1.500000, "sY":1.500000
+										"frame":23, "sX":1.500000, "sY":1.500000
 									}
 								]
 							},
@@ -1099,19 +974,19 @@
 								"key_list":
 								[
 									{
-										"frame":0, "sX":4.500000, "sY":4.500000, "pY":4.000000, "alpha":25
+										"frame":0, "sX":4.500000, "sY":4.500000, "pY":4.000000, "alpha":0
 									},
 									{
-										"frame":3, "sX":4.093750, "sY":4.093750, "pY":4.000000, "alpha":121
+										"frame":12, "sX":4.093750, "sY":4.093750, "pY":4.000000, "alpha":121
 									},
 									{
-										"frame":8, "sX":1.250000, "sY":1.250000, "pY":4.000000
+										"frame":17, "sX":1.250000, "sY":1.250000, "pY":4.000000
 									},
 									{
-										"frame":13, "pY":4.000000
+										"frame":22, "pY":4.000000
 									},
 									{
-										"frame":99, "pY":4.000000
+										"frame":135, "pY":4.000000
 									}
 								]
 							},
@@ -1122,55 +997,76 @@
 								"key_list":
 								[
 									{
-										"frame":0, "sX":4.700001, "sY":4.700001, "pY":6.000000, "alpha":51, "mode":"Add"
+										"frame":0, "sX":4.700001, "sY":4.700001, "pY":6.000000, "alpha":0, "mode":"Add"
 									},
 									{
-										"frame":3, "sX":4.281250, "sY":4.281250, "pY":6.000000, "alpha":188, "mode":"Add"
+										"frame":12, "sX":4.281250, "sY":4.281250, "pY":6.000000, "alpha":188, "mode":"Add"
 									},
 									{
-										"frame":8, "sX":1.350000, "sY":1.350000, "pY":6.000000, "mode":"Add"
+										"frame":17, "sX":1.350000, "sY":1.350000, "pY":6.000000, "mode":"Add"
 									},
 									{
-										"frame":34, "pY":6.000000, "alpha":0, "mode":"Add"
+										"frame":43, "pY":6.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_circle'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_circle'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":23, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,128,0]
+										"frame":59, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[68,0,0]
 , "mode":"Add"
 									},
 									{
-										"frame":99, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,128,0]
+										"frame":135, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[68,0,0]
 , "mode":"Add"
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_circle'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_circle'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.100000, "sY":0.100000, "cX":-4.000000, "cY":6.000000
+										"frame":32, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[68,0,0]
+, "mode":"Add"
 									},
 									{
-										"frame":8, "sX":0.335294, "sY":0.335294, "cX":-4.000000, "cY":6.000000
+										"frame":108, "sX":0.410000, "sY":0.410000, "pX":2.000000, "pY":2.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[68,0,0]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":9, "sX":0.100000, "sY":0.100000, "cX":-4.000000, "cY":6.000000, "colorRGB":[68,0,0]
+
 									},
 									{
-										"frame":17, "sX":0.477828, "sY":0.477828, "cX":-4.000000, "cY":6.000000
+										"frame":17, "sX":0.335294, "sY":0.335294, "cX":-4.000000, "cY":6.000000, "colorRGB":[68,0,0]
+
 									},
 									{
-										"frame":25, "sX":0.556880, "sY":0.556880, "cX":-4.000000, "cY":6.000000
+										"frame":26, "sX":0.477828, "sY":0.477828, "cX":-4.000000, "cY":6.000000, "colorRGB":[68,0,0]
+
 									},
 									{
-										"frame":34, "sX":0.600000, "sY":0.600000, "cX":-4.000000, "cY":6.000000
+										"frame":34, "sX":0.700000, "sY":0.700000, "cX":-4.000000, "cY":6.000000, "colorRGB":[68,0,0]
+
+									},
+									{
+										"frame":40, "sX":1.200000, "sY":1.200000, "cX":-4.000000, "cY":6.000000, "colorRGB":[68,0,0]
+
 									}
 								]
 							},
@@ -1181,19 +1077,19 @@
 								"key_list":
 								[
 									{
-										"frame":6, "sX":0.700000, "sY":0.700000, "rotate":10.000000, "pX":1.000000, "pY":-1.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+										"frame":15, "sX":0.700000, "sY":0.700000, "rotate":10.000000, "pX":1.000000, "pY":-1.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
 									},
 									{
-										"frame":14, "rotate":75.000000, "pX":3.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+										"frame":23, "rotate":75.000000, "pX":3.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
 									},
 									{
-										"frame":23, "sX":1.400000, "sY":1.400000, "rotate":180.000000, "pX":-1.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+										"frame":32, "sX":1.400000, "sY":1.400000, "rotate":180.000000, "pX":-1.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
 									},
 									{
-										"frame":31, "sX":1.400000, "sY":1.400000, "rotate":215.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
+										"frame":40, "sX":1.400000, "sY":1.400000, "rotate":215.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
 									},
 									{
-										"frame":40, "sX":1.400000, "sY":1.400000, "rotate":280.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
+										"frame":49, "sX":1.400000, "sY":1.400000, "rotate":280.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							},
@@ -1204,16 +1100,16 @@
 								"key_list":
 								[
 									{
-										"frame":6, "sX":2.300000, "sY":2.300000, "rotate":10.000000, "mode":"Add"
+										"frame":15, "sX":2.300000, "sY":2.300000, "rotate":10.000000, "mode":"Add"
 									},
 									{
-										"frame":14, "sX":2.600000, "sY":2.600000, "rotate":75.000000, "alpha":128, "mode":"Add"
+										"frame":23, "sX":2.600000, "sY":2.600000, "rotate":75.000000, "alpha":128, "mode":"Add"
 									},
 									{
-										"frame":23, "sX":2.700000, "sY":2.700000, "rotate":180.000000, "alpha":76, "mode":"Add"
+										"frame":32, "sX":2.700000, "sY":2.700000, "rotate":180.000000, "alpha":76, "mode":"Add"
 									},
 									{
-										"frame":31, "sX":3.000000, "sY":3.000000, "rotate":215.000000, "alpha":0, "mode":"Add"
+										"frame":40, "sX":3.000000, "sY":3.000000, "rotate":215.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							},
@@ -1227,22 +1123,22 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_star'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.400000, "sY":0.400000
+										"frame":9, "sX":0.400000, "sY":0.400000
 									},
 									{
-										"frame":23, "sX":0.400000, "sY":0.400000
-									},
-									{
-										"frame":31, "sX":0.400000, "sY":0.400000, "alpha":0
+										"frame":32, "sX":0.400000, "sY":0.400000
 									},
 									{
 										"frame":40, "sX":0.400000, "sY":0.400000, "alpha":0
+									},
+									{
+										"frame":49, "sX":0.400000, "sY":0.400000, "alpha":0
 									}
 								]
 							}
@@ -1266,10 +1162,10 @@
 								"key_list":
 								[
 									{
-										"frame":10, "sX":1.300000, "sY":1.300000
+										"frame":19, "sX":1.300000, "sY":1.300000
 									},
 									{
-										"frame":14, "sX":1.500000, "sY":1.500000
+										"frame":23, "sX":1.500000, "sY":1.500000
 									}
 								]
 							},
@@ -1280,19 +1176,19 @@
 								"key_list":
 								[
 									{
-										"frame":0, "sX":4.500000, "sY":4.500000, "pY":4.000000, "alpha":25
+										"frame":0, "sX":4.500000, "sY":4.500000, "pY":4.000000, "alpha":0
 									},
 									{
-										"frame":3, "sX":4.093750, "sY":4.093750, "pY":4.000000, "alpha":121
+										"frame":12, "sX":4.093750, "sY":4.093750, "pY":4.000000, "alpha":121
 									},
 									{
-										"frame":8, "sX":1.250000, "sY":1.250000, "pY":4.000000
+										"frame":17, "sX":1.250000, "sY":1.250000, "pY":4.000000
 									},
 									{
-										"frame":13, "pY":4.000000
+										"frame":22, "pY":4.000000
 									},
 									{
-										"frame":99, "pY":4.000000
+										"frame":136, "pY":4.000000
 									}
 								]
 							},
@@ -1303,55 +1199,71 @@
 								"key_list":
 								[
 									{
-										"frame":0, "sX":4.700001, "sY":4.700001, "pY":6.000000, "alpha":51, "mode":"Add"
+										"frame":0, "sX":4.700001, "sY":4.700001, "pY":6.000000, "alpha":0, "mode":"Add"
 									},
 									{
-										"frame":3, "sX":4.281250, "sY":4.281250, "pY":6.000000, "alpha":188, "mode":"Add"
+										"frame":12, "sX":4.281250, "sY":4.281250, "pY":6.000000, "alpha":188, "mode":"Add"
 									},
 									{
-										"frame":8, "sX":1.350000, "sY":1.350000, "pY":6.000000, "mode":"Add"
+										"frame":17, "sX":1.350000, "sY":1.350000, "pY":6.000000, "mode":"Add"
 									},
 									{
-										"frame":34, "pY":6.000000, "alpha":0, "mode":"Add"
+										"frame":43, "pY":6.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_circle'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_circle'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":23, "sX":0.410000, "sY":0.410000, "pY":-8.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,255,0]
+										"frame":60, "sX":0.410000, "sY":0.410000, "pY":-8.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,255,200]
 , "mode":"Add"
 									},
 									{
-										"frame":99, "sX":0.410000, "sY":0.410000, "pY":-8.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,255,0]
+										"frame":136, "sX":0.410000, "sY":0.410000, "pY":-8.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,255,200]
 , "mode":"Add"
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_circle'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_circle'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.100000, "sY":0.100000, "cX":-4.000000, "cY":6.000000
+										"frame":32, "sX":0.410000, "sY":0.410000, "pY":-8.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,255,200]
+, "mode":"Add"
 									},
 									{
-										"frame":8, "sX":0.335294, "sY":0.335294, "cX":-4.000000, "cY":6.000000
+										"frame":108, "sX":0.410000, "sY":0.410000, "pY":-8.000000, "cX":-4.000000, "cY":6.000000, "colorRGB":[255,255,200]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":9, "sX":0.100000, "sY":0.100000, "cX":-4.000000, "cY":6.000000
 									},
 									{
-										"frame":17, "sX":0.477828, "sY":0.477828, "cX":-4.000000, "cY":6.000000
+										"frame":17, "sX":0.335294, "sY":0.335294, "cX":-4.000000, "cY":6.000000
 									},
 									{
-										"frame":25, "sX":0.556880, "sY":0.556880, "cX":-4.000000, "cY":6.000000
+										"frame":26, "sX":0.477828, "sY":0.477828, "cX":-4.000000, "cY":6.000000
 									},
 									{
-										"frame":34, "sX":0.600000, "sY":0.600000, "cX":-4.000000, "cY":6.000000
+										"frame":34, "sX":0.700000, "sY":0.700000, "cX":-4.000000, "cY":6.000000
+									},
+									{
+										"frame":40, "sX":1.200000, "sY":1.200000, "cX":-4.000000, "cY":6.000000
 									}
 								]
 							},
@@ -1362,19 +1274,19 @@
 								"key_list":
 								[
 									{
-										"frame":6, "sX":0.700000, "sY":0.700000, "rotate":10.000000, "pX":1.000000, "pY":-1.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+										"frame":15, "sX":0.700000, "sY":0.700000, "rotate":10.000000, "pX":1.000000, "pY":-1.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
 									},
 									{
-										"frame":14, "rotate":75.000000, "pX":3.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+										"frame":23, "rotate":75.000000, "pX":3.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
 									},
 									{
-										"frame":23, "sX":1.400000, "sY":1.400000, "rotate":180.000000, "pX":-1.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
+										"frame":32, "sX":1.400000, "sY":1.400000, "rotate":180.000000, "pX":-1.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "mode":"Add"
 									},
 									{
-										"frame":31, "sX":1.400000, "sY":1.400000, "rotate":215.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
+										"frame":40, "sX":1.400000, "sY":1.400000, "rotate":215.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
 									},
 									{
-										"frame":40, "sX":1.400000, "sY":1.400000, "rotate":280.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
+										"frame":49, "sX":1.400000, "sY":1.400000, "rotate":280.000000, "pX":-2.000000, "pY":5.000000, "cX":-12.000000, "cY":10.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							},
@@ -1385,16 +1297,16 @@
 								"key_list":
 								[
 									{
-										"frame":6, "sX":2.300000, "sY":2.300000, "rotate":10.000000, "mode":"Add"
+										"frame":15, "sX":2.300000, "sY":2.300000, "rotate":10.000000, "mode":"Add"
 									},
 									{
-										"frame":14, "sX":2.600000, "sY":2.600000, "rotate":75.000000, "alpha":128, "mode":"Add"
+										"frame":23, "sX":2.600000, "sY":2.600000, "rotate":75.000000, "alpha":128, "mode":"Add"
 									},
 									{
-										"frame":23, "sX":2.700000, "sY":2.700000, "rotate":180.000000, "alpha":76, "mode":"Add"
+										"frame":32, "sX":2.700000, "sY":2.700000, "rotate":180.000000, "alpha":76, "mode":"Add"
 									},
 									{
-										"frame":31, "sX":3.000000, "sY":3.000000, "rotate":215.000000, "alpha":0, "mode":"Add"
+										"frame":40, "sX":3.000000, "sY":3.000000, "rotate":215.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							},
@@ -1408,22 +1320,22 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_star'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.400000, "sY":0.400000
+										"frame":9, "sX":0.400000, "sY":0.400000
 									},
 									{
-										"frame":23, "sX":0.400000, "sY":0.400000
-									},
-									{
-										"frame":31, "sX":0.400000, "sY":0.400000, "alpha":0
+										"frame":32, "sX":0.400000, "sY":0.400000
 									},
 									{
 										"frame":40, "sX":0.400000, "sY":0.400000, "alpha":0
+									},
+									{
+										"frame":49, "sX":0.400000, "sY":0.400000, "alpha":0
 									}
 								]
 							}
@@ -1433,11 +1345,204 @@
 			]
 		},
 		{
-			"name":"resource_Copy",
+			"name":"res",
 			"expand":true,
 			"apply":false,
 			"visual_list":
 			[
+				{
+					"name":"res_fx",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":3, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":6, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":9, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":7, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":10, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":13, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":11, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":14, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":17, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":15, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":18, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":21, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_05.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":16, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":19, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":22, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":25, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_06.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":26, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_07.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":24, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":27, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":33, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_08.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":28, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":31, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":34, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":37, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)friendship.plist'<azSprite>'friendship_up_fx_09.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":32, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":35, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":38, "sX":2.000000, "sY":2.000000, "pY":119.000000, "mode":"Add"
+									},
+									{
+										"frame":41, "sX":2.000000, "sY":2.000000, "pY":119.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
 				{
 					"name":"source_circle",
 					"apply":true,
@@ -1582,7 +1687,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_star_s'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -1596,7 +1701,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_star_s'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -1610,7 +1715,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_star_s'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -1624,7 +1729,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_star_s'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -1638,7 +1743,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_star_s'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -1652,7 +1757,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_star_s'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -1666,7 +1771,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_star_s'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -1680,7 +1785,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_star_s'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -1694,7 +1799,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_star_s'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -1708,7 +1813,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_star_s'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -1722,7 +1827,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_star_s'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -1736,7 +1841,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'resource_Copy'<azVisual>'source_star_s'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'source_star_s'",
 								"expand":false,
 								"apply":true,
 								"key_list":

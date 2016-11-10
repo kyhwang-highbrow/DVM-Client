@@ -120,7 +120,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 244;
+				width = 400;
 				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -165,24 +165,50 @@
 			};
 			[4] =
 			{
-				type = 'Node';
+				type = 'Sprite';
 				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
+				x = -78.000000;
+				y = -40.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 100;
-				height = 100;
+				width = 174;
+				height = 64;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'dragonNode';
+				lua_name = '';
+				file_name = 'ui/icon/dragon_shadow.png';
+				color = { 255; 255; 255; };
+				opacity = 150;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
 			};
 			[5] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -78.000000;
+				y = 60.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'dragonNode';
+			};
+			[6] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -222,7 +248,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[6] =
+			[7] =
 			{
 				[1] =
 				{
@@ -358,7 +384,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[7] =
+			[8] =
 			{
 				[1] =
 				{
@@ -494,7 +520,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[8] =
+			[9] =
 			{
 				[1] =
 				{
@@ -630,7 +656,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[9] =
+			[10] =
 			{
 				[1] =
 				{
@@ -726,7 +752,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[10] =
+			[11] =
 			{
 				[1] =
 				{
@@ -790,12 +816,12 @@
 				disable = '';
 				image_type = 1;
 			};
-			[11] =
+			[12] =
 			{
 				type = 'Visual';
 				ui_name = '';
-				x = 37.999939;
-				y = 14.000000;
+				x = -45.000000;
+				y = 4.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -815,12 +841,12 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
-			[12] =
+			[13] =
 			{
 				type = 'Visual';
 				ui_name = '';
-				x = 247.000000;
-				y = 188.000000;
+				x = 200.000000;
+				y = 124.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -840,6 +866,31 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
+			[14] =
+			{
+				type = 'Visual';
+				ui_name = '';
+				x = 30.000000;
+				y = 100.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 0.600000;
+				scale_y = 0.600000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'rankUpVisual';
+				file_name = 'ui/a2d/friendship/friendship.a2d';
+				auto_play = false;
+				is_repeat = false;
+				visual_id = 'frindship;up';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
@@ -847,7 +898,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 444;
+			width = 600;
 			height = 610;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
