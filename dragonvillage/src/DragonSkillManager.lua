@@ -212,6 +212,7 @@ function IDragonSkillManager:getDragonSkillIconList()
         if (skill_type ~= 'x') and skill_id ~= 0 then
             local skill_lv = self:getSkillLevel(0)
             local skill_indivisual_info = DragonSkillIndivisualInfo('dragon', skill_type, skill_id, skill_lv)
+            skill_indivisual_info:init_skillLevelupIDList()
             skill_indivisual_info:applySkillLevel()
             l_skill_icon[0] = UI_DragonSkillCard(skill_indivisual_info)
         end
@@ -225,6 +226,7 @@ function IDragonSkillManager:getDragonSkillIconList()
         if (skill_type ~= 'x') and skill_id ~= 0 then
             local skill_lv = self:getSkillLevel(i)
             local skill_indivisual_info = DragonSkillIndivisualInfo('dragon', skill_type, skill_id, skill_lv)
+            skill_indivisual_info:init_skillLevelupIDList()
             skill_indivisual_info:applySkillLevel()
             l_skill_icon[i] = UI_DragonSkillCard(skill_indivisual_info)
         end

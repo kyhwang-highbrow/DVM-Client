@@ -31,8 +31,8 @@ function DragonSkillIndivisualInfo:init_skillLevelupIDList(l_existing_list)
 
     local skill_id = self.m_skillID
     
-    -- 2레벨부터 해당 레벨까지의 lvid를 저장
-    for i=2, self.m_skillLevel do
+    -- 1레벨부터 해당 레벨까지의 lvid를 저장
+    for i=1, self.m_skillLevel do
         local skill_level_id = (skill_id * 100) + i
         table.insert(self.m_lSkillLevelupIDList, skill_level_id)
     end
@@ -51,7 +51,63 @@ function DragonSkillIndivisualInfo:applySkillLevel()
         error('skill_id ' .. skill_id)
     end
 
+    -- 값이 변경되므로 복사해서 사용
     self.m_tSkill = clone(self.m_tSkill)
 
-    -- TODO 스킬 modify 적용
+    if true then
+        return
+    end
+
+    cclog('### DragonSkillIndivisualInfo:applySkillLevel() : ' .. skill_id)
+
+    local table_dragon_skill_modify = TABLE:get('dragon_skill_modify')
+    
+    local l_modify_list = {}
+
+    for _,v in ipairs(self.m_lSkillLevelupIDList) do
+        local t_dragon_skill_modify = table_dragon_skill_modify[v]
+        
+        if t_dragon_skill_modify then
+            for i=1, 10 do
+                local column = t_dragon_skill_modify[string.format('col_%.2d', i)]
+                local modify = t_dragon_skill_modify[string.format('mod_%.2d', i)]
+                local value = t_dragon_skill_modify[string.format('val_%.2d', i)]
+
+                if column and (column ~= 'x') then
+                    cclog('column ' .. column)
+
+                    local t_modify = l_modify_list[column]
+                    if (not t_modify) then
+                        t_modify = {column=column, modify=modify, value=value}
+                        l_modify_list[column] = t_modify
+                    else
+                        if (t_modify['modify'] ~= modify) then
+                            error('modify타입이 다르게 사용되었습니다.')
+                        end
+                        
+                        if (modify == 'exchange') then
+                            t_modify['value'] = value
+                        elseif (modify == 'add') then
+                            t_modify['value'] = (t_modify['value'] + value)
+                        elseif (modify == 'multiply') then
+                            t_modify['value'] = (t_modify['value'] + value)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    -- 적용
+    for column, t_modify in pairs(l_modify_list) do
+        local modify = t_modify['modify']
+
+        if (modify == 'exchange') then
+            t_modify['value'] = value
+        elseif (modify == 'add') then
+            t_modify['value'] = (t_modify['value'] + value)
+        elseif (modify == 'multiply') then
+            t_modify['value'] = (t_modify['value'] + value)
+        end
+    end
 end

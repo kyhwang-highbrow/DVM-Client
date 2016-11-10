@@ -13,8 +13,9 @@ TABLE = {
 -------------------------------------
 local TableInfo = {
         --                 테이블명,                         키,             toString여부
-        dragon            = {'table_dragon',                'id',           false},
-        dragon_skill      = {'table_dragon_skill',          'id',           false},
+        dragon              = {'table_dragon',               'id',          false},
+        dragon_skill        = {'table_dragon_skill',         'id',          false},
+        dragon_skill_modify = {'table_dragon_skill_modify', 'slid',         false},
         dragon_special    = {'table_dragon_special_power',  'id',           false},
         enemy             = {'table_monster',               'id',           false},
         enemy_skill       = {'table_monster_skill',         'id',           false},
