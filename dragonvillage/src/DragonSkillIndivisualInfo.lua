@@ -54,15 +54,10 @@ function DragonSkillIndivisualInfo:applySkillLevel()
     -- 값이 변경되므로 복사해서 사용
     self.m_tSkill = clone(self.m_tSkill)
 
-    if true then
-        return
-    end
-
-    cclog('### DragonSkillIndivisualInfo:applySkillLevel() : ' .. skill_id)
-
     local table_dragon_skill_modify = TABLE:get('dragon_skill_modify')
     
     local l_modify_list = {}
+    local t_last_modify_table = nil
 
     for _,v in ipairs(self.m_lSkillLevelupIDList) do
         local t_dragon_skill_modify = table_dragon_skill_modify[v]
@@ -74,15 +69,13 @@ function DragonSkillIndivisualInfo:applySkillLevel()
                 local value = t_dragon_skill_modify[string.format('val_%.2d', i)]
 
                 if column and (column ~= 'x') then
-                    cclog('column ' .. column)
-
                     local t_modify = l_modify_list[column]
                     if (not t_modify) then
                         t_modify = {column=column, modify=modify, value=value}
                         l_modify_list[column] = t_modify
                     else
                         if (t_modify['modify'] ~= modify) then
-                            error('modify타입이 다르게 사용되었습니다.')
+                            error('modify타입이 다르게 사용되었습니다. slid : ' .. v)
                         end
                         
                         if (modify == 'exchange') then
@@ -95,19 +88,37 @@ function DragonSkillIndivisualInfo:applySkillLevel()
                     end
                 end
             end
+
+            -- 최후에 반영되는 테이블
+            t_last_modify_table = t_dragon_skill_modify
         end
     end
 
-    -- 적용
+
+    -- 스킬 레벨 modify 적용
     for column, t_modify in pairs(l_modify_list) do
         local modify = t_modify['modify']
+        local value = t_modify['value']
 
         if (modify == 'exchange') then
-            t_modify['value'] = value
+            self.m_tSkill[column] = value
+
         elseif (modify == 'add') then
-            t_modify['value'] = (t_modify['value'] + value)
+            self.m_tSkill[column] = self.m_tSkill[column] + value
+
         elseif (modify == 'multiply') then
-            t_modify['value'] = (t_modify['value'] + value)
+            self.m_tSkill[column] = self.m_tSkill[column] + (self.m_tSkill[column] * value)
+
         end
+    end
+
+    -- 최후의 테이블로 설명필드 갱신
+    if t_last_modify_table then
+        self.m_tSkill['t_desc'] = t_last_modify_table['t_desc']
+        self.m_tSkill['desc_1'] = t_last_modify_table['desc_1']
+        self.m_tSkill['desc_2'] = t_last_modify_table['desc_2']
+        self.m_tSkill['desc_3'] = t_last_modify_table['desc_3']
+        self.m_tSkill['desc_4'] = t_last_modify_table['desc_4']
+        self.m_tSkill['desc_5'] = t_last_modify_table['desc_5']
     end
 end
