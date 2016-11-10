@@ -109,6 +109,7 @@ end
 -- function onEnterAppear
 -------------------------------------
 function SkillIndicator_Conic:onEnterAppear()
+    PARENT.onEnterAppear(self)
     self.m_indicator1:changeAni('20', false)
 end
 
