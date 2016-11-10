@@ -24,20 +24,15 @@ function SkillConicAtk_Spread:init_skill(attack_count, range, isSpread)
 	
 	self.m_speardCnt = 0
 	self.m_isSpread = isSpread == 1
-
-	if (self.m_skillType == 'skill_breath_gust') then 
-		-- @TODO 허리케인 하드코딩... 나중에는 리소스 자체에서 스케일을 주는거로 하자
-		self.m_animator.m_node:setScale(self.m_range/800)
-	end
 end
 
 -------------------------------------
 -- function runAttack
 -------------------------------------
 function SkillConicAtk_Spread:runAttack()
-    local t_targets = self:findTarget(self.m_owner.pos.x, self.m_owner.pos.y, self.m_range, self.m_degree)
+    local t_target = self:findTarget(self.m_owner.pos.x, self.m_owner.pos.y, self.m_range, self.m_degree)
 
-    for i, target_char in ipairs(t_targets) do
+    for i, target_char in ipairs(t_target) do
         -- 공격
         self:attack(target_char)
 		
