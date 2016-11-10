@@ -1,9 +1,10 @@
 local PARENT = StatusEffect
 
 -------------------------------------
--- class StatusEffect_Recovery
+-- class StatusEffect_Heal
 -------------------------------------
-StatusEffect_Recovery = class(PARENT, {
+StatusEffect_Heal = class(PARENT, {
+		m_healType = '',
 		m_healRate = '',
 		m_healInterval = '',
 		m_healTimer = '',
@@ -14,14 +15,15 @@ StatusEffect_Recovery = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function StatusEffect_Recovery:init(file_name, body)
+function StatusEffect_Heal:init(file_name, body)
 end
 
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function StatusEffect_Recovery:init_recovery(char, t_status_effect, status_effect_value)
+function StatusEffect_Heal:init_heal(char, t_status_effect, status_effect_value, duration)
 	self.m_owner = char
+	self.m_healType = t_status_effect['val_1']
 	self.m_healRate = (t_status_effect['dot_heal']/100) * (status_effect_value/100)
 	self.m_healInterval = t_status_effect['dot_interval']
 	self.m_healTimer = self.m_healInterval
@@ -30,9 +32,9 @@ end
 -------------------------------------
 -- function initState
 -------------------------------------
-function StatusEffect_Recovery:initState()
+function StatusEffect_Heal:initState()
     self:addState('start', StatusEffect.st_start, 'center_start', false)
-    self:addState('idle', StatusEffect_Recovery.st_idle, 'center_idle', true)
+    self:addState('idle', StatusEffect_Heal.st_idle, 'center_idle', true)
     self:addState('end', StatusEffect.st_end, 'center_end', false)
 	self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
 end
@@ -40,14 +42,32 @@ end
 -------------------------------------
 -- function st_idle
 -------------------------------------
-function StatusEffect_Recovery.st_idle(owner, dt)
+function StatusEffect_Heal.st_idle(owner, dt)
 	if (owner.m_owner.m_bDead) and (owner.m_state ~= 'end') then
         owner:changeState('end')
     end
 	
     owner.m_healTimer = owner.m_healTimer + dt
     if (owner.m_healTimer > owner.m_healInterval) then
-        owner.m_owner:healPercent(owner.m_healRate)
+		owner:doHeal()
         owner.m_healTimer = owner.m_healTimer - owner.m_healInterval
     end
+end
+
+-------------------------------------
+-- function doHeal
+-------------------------------------
+function StatusEffect_Heal:doHeal()
+	-- 상대 체력의 n% 회복
+	if (self.m_healType == 'hp_target') then 
+		self.m_owner:healPercent(self.m_healRate)
+
+	-- 시전자의 데미지의 n% 회복
+	-- @TODO 시전자 가져오려면 구조 개선해야함 
+	elseif (self.m_healType == 'atk') then 
+		local atk_dmg = self.m_owner.m_statusCalc:getFinalStat('atk')
+		local heal = HealCalc_M(atk_dmg)
+		heal = (heal * self.m_healRate)
+		self.m_owner:healAbs(heal)
+	end
 end

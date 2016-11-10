@@ -256,9 +256,9 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	local status_effect = nil
 
 	------------ 힐 --------------------------
-    if isExistValue(status_effect_type, 'passive_recovery', 'heal') then
-        status_effect = StatusEffect_Recovery(res)
-		status_effect:init_recovery(char, t_status_effect, status_effect_value, duration)
+    if isExistValue(status_effect_type, 'passive_recovery', 'heal', 'heal_per_atk') then
+        status_effect = StatusEffect_Heal(res)
+		status_effect:init_heal(char, t_status_effect, status_effect_value, duration)
 
 	----------- 필드 체크 필요한 패시브 ------------------
 	elseif (status_effect_type == 'passive_bloodlust') then

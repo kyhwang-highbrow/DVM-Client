@@ -150,7 +150,7 @@ local t_module = {
     'StatusEffect_Trigger',
     'StatusEffect_PassiveSpatter',
 	'StatusEffect_CheckWorld',
-	'StatusEffect_Recovery',
+	'StatusEffect_Heal',
 	'StatusEffect_DotDmg',
 	'StatusEffect_addAttack',
     'StatusEffect_Protection',

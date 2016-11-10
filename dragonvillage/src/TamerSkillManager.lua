@@ -108,7 +108,7 @@ function TamerSkillManager:getTargetList(t_skill)
 		table.insert(l_target_ret, l_target[i])
 	end
 
-	return l_target
+	return l_target_ret
 end
 
 -------------------------------------
