@@ -25,7 +25,7 @@ function TamerSpeechSystem:init(world, t_tamer)
         self.m_tamerAnimator.m_node:setMix('pain', 'idle', 0.1)
         self.m_tamerAnimator.m_node:setMix('happiness', 'pain', 0.1)
         self.m_tamerAnimator.m_node:setMix('pain', 'happiness', 0.1)
-        self.m_tamerAnimator:changeAni('idle', true, true)
+        self.m_tamerAnimator:changeAni('summon', true, true)
 
         --cclog('tamer ani list = ' .. luadump(self.m_tamerAnimator:getVisualList()))
         ui.vars['tamerNode']:addChild(self.m_tamerAnimator.m_node)
