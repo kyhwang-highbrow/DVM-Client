@@ -153,7 +153,7 @@ function SkillRolling.st_attack(owner, dt)
 	if (owner.m_targetChar) and (owner.m_targetChar.m_bDead) then
 		-- 카운트 남아 있으면 다음 대상으로 이동, 총 공격대상 수 제한 있음
 		if (owner.m_maxTargetCnt > owner.m_targetCnt) then
-			local t_targets = owner:findTarget(owner.m_targetPos.x, owner.m_targetPos.y, 1500)
+			local t_targets = owner.m_world:getTargetList(owner.m_owner, 0, 0, 'enemy', 'x', 'distance_line')
 			if t_targets[1] then 
 				owner.m_targetChar = t_targets[1]
 				owner.m_targetPos = t_targets[1].pos
