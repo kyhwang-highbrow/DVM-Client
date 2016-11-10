@@ -276,63 +276,6 @@
 			};
 			[10] =
 			{
-				type = 'Node';
-				ui_name = '';
-				x = -154.000000;
-				y = -189.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 80;
-				height = 80;
-				scale_x = 0.475000;
-				scale_y = 0.475000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'roleNode';
-			};
-			[11] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = -111.000000;
-				y = -189.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 63;
-				height = 63;
-				scale_x = 0.600000;
-				scale_y = 0.600000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'atkTypeNode';
-			};
-			[12] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = -68.000000;
-				y = -189.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 63;
-				height = 63;
-				scale_x = 0.600000;
-				scale_y = 0.600000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'attrNode';
-			};
-			[13] =
-			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 152.000000;
@@ -371,7 +314,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[14] =
+			[11] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -411,7 +354,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[15] =
+			[12] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -451,7 +394,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[16] =
+			[13] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -491,7 +434,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[17] =
+			[14] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -531,7 +474,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[18] =
+			[15] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -570,6 +513,82 @@
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
+			};
+			[16] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -154.000000;
+				y = -191.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 46;
+				height = 46;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'rarityNode';
+			};
+			[17] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 29.000000;
+				y = -191.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 46;
+				height = 46;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'atkTypeNode';
+			};
+			[18] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -30.000000;
+				y = -191.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 46;
+				height = 46;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'roleNode';
+			};
+			[19] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -93.000000;
+				y = -191.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 46;
+				height = 46;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'attrNode';
 			};
 			type = 'Sprite';
 			ui_name = '';
