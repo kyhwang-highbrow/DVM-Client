@@ -718,7 +718,9 @@ function GameWorld:makeDragonNew(t_dragon_data, idx)
 	local attr = t_dragon['attr']
 
     local hero = Hero(nil, {0, 0, 20})
+    hero:setDragonSkillLevelList(t_dragon_data['skill_0'], t_dragon_data['skill_1'], t_dragon_data['skill_2'], t_dragon_data['skill_3'])
     hero:initDragonSkillManager('dragon', dragon_id, t_dragon_data['evolution'])
+    hero:initActiveSkillCoolTime() -- 액티브 스킬 쿨타임 지정
     hero.m_tDragonInfo = t_dragon_data
     hero:initAnimatorHero(t_dragon['res'], evolution, attr)
     hero.m_animator:setScale(0.5 * t_dragon['scale'])

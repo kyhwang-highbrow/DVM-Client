@@ -6,6 +6,7 @@ IDragonSkillManager = {
         m_charType = 'string',
         m_charID = 'number',
         m_openSkillCount = 'number',
+        m_dragonSkillLevel = 'table', --드래곤일 경우에만 사용, 스킬 레벨 지정
 
         -- [internal variable]
         m_charTable = 'table',
@@ -38,6 +39,14 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, open_ski
 
     self:initSkillIDList()
 
+    -- 기본 공격 지정
+    self:setSkillID('basic', t_character['skill_basic'], 1)
+
+    -- 기본 액티브 스킬 지정
+    if t_character['skill_active'] then
+        self:setSkillID('active', t_character['skill_active'], self:getSkillLevel(0))
+    end
+
     -- 캐릭터 등급에 따라 루프를 돌며 스킬을 초기화 한다.
     -- 스킬 타입 별로 나중에 추가한것으로 덮어 씌운다.
     local max_idx = open_skill_count
@@ -48,13 +57,37 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, open_ski
         local skill_type = t_character[skill_type_key]
         local skill_id = t_character[skill_key]
 
-        self:setSkillID(skill_type, skill_id)
+        self:setSkillID(skill_type, skill_id, self:getSkillLevel(i))
     end
 
 	-- @TEST 활성화 스킬 확인 로그
 	if PRINT_DRAGON_SKILL then 
 		self:printSkillManager()
 	end
+end
+
+-------------------------------------
+-- function setDragonSkillLevelList
+-- @breif 드래곤의 스킬 레벨 적용
+-------------------------------------
+function IDragonSkillManager:setDragonSkillLevelList(skill_00_lv, skill_01_lv, skill_02_lv, skill_03_lv)
+    self.m_dragonSkillLevel = {}
+    self.m_dragonSkillLevel[0] = skill_00_lv or 0 -- 액티브 스킬
+    self.m_dragonSkillLevel[1] = skill_01_lv or 0 -- 패시브 1
+    self.m_dragonSkillLevel[2] = skill_02_lv or 0 -- 패시브 2
+    self.m_dragonSkillLevel[3] = skill_03_lv or 0 -- 액티브 강화
+end
+
+-------------------------------------
+-- function getSkillLevel
+-------------------------------------
+function IDragonSkillManager:getSkillLevel(idx)
+    if (not self.m_dragonSkillLevel) then
+        return 0
+    end
+
+    local skill_lv = self.m_dragonSkillLevel[idx] or 0
+    return skill_lv
 end
 
 -------------------------------------
@@ -71,20 +104,12 @@ function IDragonSkillManager:initSkillIDList()
     self.m_lSkillIndivisualInfo['passive'] = {}
     self.m_lSkillIndivisualInfo['manual'] = {}
     self.m_lSkillIndivisualInfo['active'] = false
-
-    -- 기본 공격 지정
-    self:setSkillID('basic', t_character['skill_basic'])
-
-    -- 기본 액티브 스킬 지정
-    if t_character['skill_active'] then
-        self:setSkillID('active', t_character['skill_active'])
-    end
 end
 
 -------------------------------------
 -- function setSkillID
 -------------------------------------
-function IDragonSkillManager:setSkillID(skill_type, skill_id)
+function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv)
     if (skill_type == 'x') then
         return
     end
@@ -94,12 +119,19 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id)
         error('skill_type : ' .. skill_type)
     end
 
-    local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_id)
+    local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_id, skill_lv)
 
     if isExistValue(skill_type, 'active', 'basic') then
+
+        local l_existing_list = nil
+        if self.m_lSkillIndivisualInfo[skill_type] then
+            l_existing_list = self.m_lSkillIndivisualInfo[skill_type].m_lSkillLevelupIDList
+        end
         self.m_lSkillIndivisualInfo[skill_type] = skill_indivisual_info
+        skill_indivisual_info:init_skillLevelupIDList(l_existing_list)
     else
         table.insert(self.m_lSkillIndivisualInfo[skill_type], skill_indivisual_info)
+        skill_indivisual_info:init_skillLevelupIDList(nil)
     end
 end
 
@@ -143,7 +175,8 @@ function IDragonSkillManager:getSkillIconList()
         local skill_type = 'active'
 
         if (skill_type ~= 'x') and skill_id ~= 0 then
-            l_skill_icon[0] = UI_SkillCard(self.m_charType, skill_id, skill_type)
+            local skill_lv = self:getSkillLevel(0)
+            l_skill_icon[0] = UI_SkillCard(self.m_charType, skill_id, skill_type, skill_lv)
         end
     end
 
@@ -153,7 +186,8 @@ function IDragonSkillManager:getSkillIconList()
         local skill_type = t_character['skill_type_' .. i]
 
         if (skill_type ~= 'x') and skill_id ~= 0 then
-            l_skill_icon[i] = UI_SkillCard(self.m_charType, skill_id, skill_type)
+            local skill_lv = self:getSkillLevel(i)
+            l_skill_icon[i] = UI_SkillCard(self.m_charType, skill_id, skill_type, skill_lv)
         end
     end
 
@@ -276,6 +310,57 @@ DragonSkillManager = class(clone(IDragonSkillManager))
 -------------------------------------
 -- function init
 -------------------------------------
-function DragonSkillManager:init(char_type, char_id, open_skill_count)
-    self:initDragonSkillManager(char_type, char_id, open_skill_count)
+function DragonSkillManager:init()
+end
+
+-------------------------------------
+-- function MakeDragonSkillManager
+-------------------------------------
+function MakeDragonSkillManager(did, evolution_lv, skill_00_lv, skill_01_lv, skill_02_lv, skill_03_lv)
+    
+    -- 드래곤 스킬 매니저 생성
+    local dragon_skill_mgr = DragonSkillManager()
+
+    -- 스킬 레벨 설정
+    dragon_skill_mgr:setDragonSkillLevelList(skill_00_lv, skill_01_lv, skill_02_lv, skill_03_lv)
+
+    -- 스킬들 설정
+    local char_type = 'dragon'
+    local char_id = did
+    local open_skill_count = evolution_lv
+    dragon_skill_mgr:initDragonSkillManager(char_type, char_id, open_skill_count)
+
+    return dragon_skill_mgr
+end
+
+-------------------------------------
+-- function MakeDragonSkillFromDoid
+-- @brief 드래곤 오브젝트 ID로 스킬 매니저 생성
+-------------------------------------
+function MakeDragonSkillFromDoid(doid)
+    local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+
+    local dragon_skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
+    return dragon_skill_mgr
+end
+
+-------------------------------------
+-- function MakeDragonSkillFromDragonData
+-- @brief 드래곤 데이터 테이블로 스킬 매니저 생성
+-------------------------------------
+function MakeDragonSkillFromDragonData(t_dragon_data)
+    if (not t_dragon_data) then
+        return nil
+    end
+
+    local did = t_dragon_data['did']
+    local evolution_lv = t_dragon_data['evolution']
+    local skill_00_lv = t_dragon_data['skill_0']
+    local skill_01_lv = t_dragon_data['skill_1']
+    local skill_02_lv = t_dragon_data['skill_2']
+    local skill_03_lv = t_dragon_data['skill_3']
+
+    local dragon_skill_mgr = MakeDragonSkillManager(did, evolution_lv, skill_00_lv, skill_01_lv, skill_02_lv, skill_03_lv)
+
+    return dragon_skill_mgr
 end

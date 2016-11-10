@@ -12,7 +12,7 @@ UI_SkillCard = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SkillCard:init(char_type, skill_id, skill_type)
+function UI_SkillCard:init(char_type, skill_id, skill_type, skill_lv)
     self.m_charType = char_type
     self.m_skillID = skill_id
     self.m_skillType = skill_type
@@ -32,7 +32,7 @@ function UI_SkillCard:init(char_type, skill_id, skill_type)
         vars['skillLabel']:setString('패시브')
         vars['skillLabel']:setColor(cc.c3b(255,255,30))
     end
-    
+
     vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
 end
 

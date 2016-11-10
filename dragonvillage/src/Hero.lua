@@ -603,16 +603,6 @@ function Hero:changeState(state, forced)
 end
 
 -------------------------------------
--- function initDragonSkillManager
--------------------------------------
-function Hero:initDragonSkillManager(char_type, char_id, char_evolution)
-    PARENT.initDragonSkillManager(self, char_type, char_id, char_evolution)
-
-    -- 액티브 스킬 쿨타임 지정
-    self:initActiveSkillCoolTime()
-end
-
--------------------------------------
 -- function initActiveSkillCoolTime
 -------------------------------------
 function Hero:initActiveSkillCoolTime()
