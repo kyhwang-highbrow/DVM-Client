@@ -249,12 +249,15 @@ function UI_Tooltip_Indicator:getSkillDescStr(char_type, skill_id, skill_type, i
     local skill_type_str = t_skill['t_name']
 	
 	-- 2. 스킬 설명
+    local desc = IDragonSkillManager:getSkillDescPure(t_skill)
+    --[[
 	local desc_1 = '{@WARNING} ' .. t_skill['desc_1'] .. text_color
 	local desc_2 = '{@WARNING} ' .. t_skill['desc_2'] .. text_color
 	local desc_3 = '{@WARNING} ' .. t_skill['desc_3'] .. text_color
     local desc_4 = '{@WARNING} ' .. t_skill['desc_4'] .. text_color
     local desc_5 = '{@WARNING} ' .. t_skill['desc_5'] .. text_color
     local desc = Str(t_skill['t_desc'], desc_1, desc_2, desc_3, desc_4, desc_5)
+    ]]--
 
     local str = name_color .. skill_type_str .. ' : ' .. text_color .. desc
 

@@ -262,28 +262,56 @@ function Hero.st_skillAttack2(owner, dt)
             owner.m_animator:setEventHandler(nil)
 
             -- 사운드
-            local name = owner.m_charTable['t_name']
+            local type = owner.m_charTable['type']
 
-            if (name == '고대 신룡') then
-                SoundMgr:playEffect('EFFECT', 'skill_godae_shinryong')
+            if (type == 'powerdragon') then
+                SoundMgr:playEffect('EFFECT', 'skill_powerdragon')
 
-            elseif (name == '파워 드래곤') then
-                SoundMgr:playEffect('EFFECT', 'skill_power_dragon')
+            elseif (type == 'lambgon') then
+                SoundMgr:playEffect('EFFECT', 'skill_lambgon')
 
-            elseif (name == '서펀트 드래곤') then
-                SoundMgr:playEffect('EFFECT', 'skill_serpent_dragon')
+            elseif (type == 'applecheek') then
+                SoundMgr:playEffect('EFFECT', 'skill_applecheek')
 
-            elseif (name == '크레센트 드래곤') then
-                SoundMgr:playEffect('EFFECT', 'skill_crescent')
+            elseif (type == 'spine') then
+                SoundMgr:playEffect('EFFECT', 'skill_spine')
 
-            elseif (name == '테일 드래곤') then
-                SoundMgr:playEffect('EFFECT', 'skill_tail_dragon')
+            elseif (type == 'leafdragon') then
+                SoundMgr:playEffect('EFFECT', 'skill_leafdragon')
 
-            elseif (name == '가루다') then
+            elseif (type == 'taildragon') then
+                SoundMgr:playEffect('EFFECT', 'skill_taildragon')
+
+            elseif (type == 'purplelipsdragon') then
+                SoundMgr:playEffect('EFFECT', 'skill_purplelipsdragon')
+
+            elseif (type == 'pinkbell') then
+                SoundMgr:playEffect('EFFECT', 'skill_pinkbell')
+
+            elseif (type == 'bluedragon') then
+                SoundMgr:playEffect('EFFECT', 'skill_bluedragon')
+
+            elseif (type == 'littio') then
+                SoundMgr:playEffect('EFFECT', 'skill_littio')
+
+            elseif (type == 'hurricane') then
+                SoundMgr:playEffect('EFFECT', 'skill_hurricane')
+
+            elseif (type == 'garuda') then
                 SoundMgr:playEffect('EFFECT', 'skill_garuda')
 
-            elseif (name == '핑크벨') then
-                SoundMgr:playEffect('EFFECT', 'skill_pinkbell')
+            elseif (type == 'boomba') then
+                SoundMgr:playEffect('EFFECT', 'skill_boomba')
+
+            elseif (type == 'godaeshinryong') then
+                SoundMgr:playEffect('EFFECT', 'skill_godaeshinryong')
+
+            elseif (type == 'crescentdragon') then
+                SoundMgr:playEffect('EFFECT', 'skill_crescentdragon')
+
+            elseif (type == 'serpentdragon') then
+                SoundMgr:playEffect('EFFECT', 'skill_serpentdragon')
+
             end
         end
 
@@ -292,7 +320,7 @@ function Hero.st_skillAttack2(owner, dt)
 
         -- 효과음
         if (owner.m_charType == 'dragon') then
-            SoundMgr:playEffect('EFFECT', 'd_skill')
+            --SoundMgr:playEffect('EFFECT', 'd_skill')
         end
     end
 

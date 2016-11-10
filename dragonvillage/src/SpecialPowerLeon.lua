@@ -97,7 +97,7 @@ end
 function SpecialPowerLeon.attack(self)
 
     ShakeDir2(math_random(335-20, 335+20), math_random(500, 1500))
-    SoundMgr:playEffect('EFFECT', 'option_thunderbolt_3')
+    --SoundMgr:playEffect('EFFECT', 'option_thunderbolt_3')
 
     for i,v in pairs(self.m_world.m_tEnemyList) do
         if (not v.m_bDead) and (v.enable_body) then

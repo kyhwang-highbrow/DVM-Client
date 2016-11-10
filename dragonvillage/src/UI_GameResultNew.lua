@@ -284,7 +284,7 @@ function UI_GameResultNew:direction_dropItem()
         self:makeRewardItem(i, v)
     end
 
-    SoundMgr:playEffect('EFFECT', 'get_gacha')
+    SoundMgr:playEffect('EFFECT', 'reward')
 
     vars['skipLabel']:setVisible(false)
 

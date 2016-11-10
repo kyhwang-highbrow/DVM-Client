@@ -54,7 +54,7 @@ end
 -------------------------------------
 function SkillHitEffectDirector:displayHitCnt()
 	ShakeDir2(math_random(335-20, 335+20), math_random(500, 1500))
-    SoundMgr:playEffect('EFFECT', 'option_thunderbolt_3')
+    --SoundMgr:playEffect('EFFECT', 'option_thunderbolt_3')
 
     g_gameScene.m_inGameUI.vars['hitLabel']:setString(self.m_hitCount)
     g_gameScene.m_inGameUI.vars['hitNode']:setVisible(true)

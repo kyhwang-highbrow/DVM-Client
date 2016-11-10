@@ -353,6 +353,13 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 
         -- 적 스킬 공격에 피격시
         self:dispatch('character_damaged_skill', self)
+
+        -- 효과음
+        if self.m_bLeftFormation then
+            SoundMgr:playEffect('EFFECT', 'hit_damage_d')
+        else
+            SoundMgr:playEffect('EFFECT', 'hit_damage_m')
+        end
     end
         	
 	-- 공격 데미지 전달

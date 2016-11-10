@@ -55,7 +55,7 @@ function UI_DragonGachaResult:refresh()
     table.remove(self.m_lGachaDragonList, 1)
 
     local vars = self.vars
-    SoundMgr:playEffect('EFFECT', 'get_gacha')
+    SoundMgr:playEffect('EFFECT', 'reward')
 
 
     do -- 챕터 전환 연출

@@ -105,6 +105,10 @@ function TamerSkillCut:update_normal(dt)
 
         self.m_tamerAnimator:changeAni('skill_1', false)
 
+        -- 효과음
+        SoundMgr:playEffect('VOICE', 'vo_tamer_basic')
+        SoundMgr:playEffect('EFFECT', 'skill_tamer_basic')
+        
     elseif self:isBeginningInStep(2) then
         self.m_bgVisual:setVisible(false)
         
@@ -139,8 +143,9 @@ function TamerSkillCut:update_special(dt)
 
         self.m_tamerAnimator:changeAni('skill_2', false)
 
-        --local duration = self.m_bgVisual:getDuration()
-        --g_gameScene:flashIn({color = cc.c3b(255, 255, 255), time = duration})
+        -- 효과음
+        SoundMgr:playEffect('VOICE', 'vo_tamer_special')
+        SoundMgr:playEffect('EFFECT', 'skill_tamer_special')
 
     elseif self:isBeginningInStep(2) then
         self.m_bgVisual:setVisible(false)

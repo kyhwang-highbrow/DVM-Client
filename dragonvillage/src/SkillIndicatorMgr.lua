@@ -109,28 +109,9 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
     end 
 
     if select_hero then
-        -- 테이머 기본 타겟 지정
-        if (select_hero.m_charType == 'tamer') then
-            SoundMgr:playEffect('EFFECT', 'touch_skill')
-            self:setSelectHero(select_hero)
-        
-            self:changeDrakLayerColor(DARK_LAYER_OPACITY, SKILL_INDICATOR_FADE_OUT_DURATION)
-
-            self.m_firstTouchPos = node_pos
-
-            select_hero.m_skillIndicator:changeSIState(SI_STATE_READY)
-
-            self:addHighlightList(select_hero, 5)
-            event:stopPropagation()
-
-            self.m_selectHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
-            self.m_selectHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
-            return true
-        end
-
         -- 드래곤 클릭
         if select_hero:isEndActiveSkillCoolTime() then
-            SoundMgr:playEffect('EFFECT', 'touch_skill')
+            SoundMgr:playEffect('EFFECT', 'skill_touch')
             self:setSelectHero(select_hero)
         
             self:changeDrakLayerColor(DARK_LAYER_OPACITY, SKILL_INDICATOR_FADE_OUT_DURATION)

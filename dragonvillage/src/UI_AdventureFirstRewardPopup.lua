@@ -79,7 +79,7 @@ end
 -- function click_receiveBtn
 -------------------------------------
 function UI_AdventureFirstRewardPopup:click_receiveBtn()
-    SoundMgr:playEffect('EFFECT', 'get_gacha')
+    SoundMgr:playEffect('EFFECT', 'reward')
 
     local l_reward_item = DropHelper:getFirstRewardItemList(self.m_stageID)
 

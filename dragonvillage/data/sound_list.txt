@@ -9,37 +9,54 @@
 			"res_low":	"sound/bgm/bgm_title.mp3"
 		},
 		"bgm_battle":   {"res":"sound/bgm/bgm_battle.mp3"}
+		"bgm_boss":   	{"res":"sound/bgm/bgm_boss.mp3"}
+		"result_success":{"res":"sound/bgm/result_success.mp3"}
         "result_fail":   {"res":"sound/bgm/result_fail.mp3"}
-        "result_success":   {"res":"sound/bgm/result_success.mp3"}
-        "temp":         		    {"res":"sound/ui_button.mp3"}
 	},
 	
-	
 	"EFFECT":
-	{	
-        "d_skill":          {"res":"sound/d_skill.mp3"}
-        "t_ready":          {"res":"sound/t_ready.ogg"}
-        "t_skill":          {"res":"sound/t_skill.ogg"}
-        "ui_button":        {"res":"sound/ui_button.mp3"}
-        "hit_damage":        {"res":"sound/hit_damage.mp3"}
-        
-        "gold_get":             {"res":"sound/gold_get.mp3"}
-        "skill_crescent":       {"res":"sound/skill_crescent.mp3"}
-        "skill_godae_shinryong":{"res":"sound/skill_godae_shinryong.mp3"}
-        "skill_power_dragon":   {"res":"sound/skill_power_dragon.mp3"}
-        "skill_serpent_dragon": {"res":"sound/skill_serpent_dragon.mp3"}
-        "skill_tail_dragon":    {"res":"sound/skill_tail_dragon.mp3"}
-        "touch_skill":          {"res":"sound/touch_skill.mp3"}
-        "special_power":        {"res":"sound/special_power.mp3"}
-        "option_thunderbolt_3": {"res":"sound/option_thunderbolt_3.mp3"}
-        "option_magicsword_2":  {"res":"sound/option_magicsword_2.mp3"}
-        
-        "boss_warning":  {"res":"sound/boss_warning.mp3"}
-        "dragon_levelup":  {"res":"sound/dragon_levelup.mp3"}
-        "dragon_upgrade":  {"res":"sound/dragon_upgrade.mp3"}
-        "get_gacha":  {"res":"sound/get_gacha.mp3"}
-        "skill_garuda":  {"res":"sound/skill_garuda.mp3"}
-        "skill_pinkbell":  {"res":"sound/skill_pinkbell.mp3"}
-        
+	{
+		"skill_powerdragon":	{"res":"sound/skill_powerdragon.mp3"}
+		"skill_lambgon":   		{"res":"sound/skill_lambgon.mp3"}
+		"skill_applecheek":   	{"res":"sound/skill_applecheek.mp3"}
+		"skill_spine":   		{"res":"sound/skill_spine.mp3"}
+		"skill_leafdragon":   	{"res":"sound/skill_leafdragon.mp3"}
+		"skill_taildragon":   	{"res":"sound/skill_taildragon.mp3"}
+		"skill_purplelipsdragon":  {"res":"sound/skill_purplelipsdragon.mp3"}
+		"skill_pinkbell":   	{"res":"sound/skill_pinkbell.mp3"}
+		"skill_bluedragon":   	{"res":"sound/skill_bluedragon.mp3"}
+		"skill_littio":   		{"res":"sound/skill_littio.mp3"}
+		"skill_hurricane":   	{"res":"sound/skill_hurricane.mp3"}
+		"skill_garuda":   		{"res":"sound/skill_garuda.mp3"}
+		"skill_godaeshinryong": {"res":"sound/skill_godaeshinryong.mp3"}
+		"skill_serpentdragon":  {"res":"sound/skill_serpentdragon.mp3"}
+		"skill_crescentdragon": {"res":"sound/skill_crescentdragon.mp3"}
+		"skill_boomba":   		{"res":"sound/skill_boomba.mp3"}
+		
+		"skill_touch":   		{"res":"sound/skill_touch.mp3"}
+		"skill_ready":   		{"res":"sound/skill_ready.mp3"}
+		"skill_tamer_basic":   	{"res":"sound/skill_tamer_basic.mp3"}
+		"skill_tamer_special":  {"res":"sound/skill_tamer_special.mp3"}
+		
+		"boss_warning":   		{"res":"sound/boss_warning.mp3"}
+		"dragon_levelup":   	{"res":"sound/dragon_levelup.mp3"}
+		"fever":   				{"res":"sound/fever.mp3"}
+		"fever_touch":   		{"res":"sound/fever_touch.mp3"}
+		"hit_damage_m":   		{"res":"sound/hit_damage_m.mp3"}
+		"hit_damage_d":   		{"res":"sound/hit_damage_d.mp3"}
+		
+		"success_starup":   	{"res":"sound/success_starup.mp3"}
+		"success_evo":   		{"res":"sound/success_evo.mp3"}
+		"eat":   				{"res":"sound/eat.mp3"}
+		"success_friendship":   {"res":"sound/success_friendship.mp3"}
+		"touch_basic":   		{"res":"sound/touch_basic.mp3"}
+		"reward":   			{"res":"sound/reward.mp3"}
+	},
+	
+	"VOICE":
+	{
+		"vo_tamer_basic":   	{"res":"sound/voice/vo_tamer_basic.mp3"}
+		"vo_tamer_special":   	{"res":"sound/voice/vo_tamer_special.mp3"}
+		"vo_tamer_fever":   	{"res":"sound/voice/vo_tamer_fever.mp3"}
 	}
 }

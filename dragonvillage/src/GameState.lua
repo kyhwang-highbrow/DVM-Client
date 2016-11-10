@@ -445,6 +445,9 @@ function GameState:update_fight_skill(dt)
             animator:setTimeScale(duration / (timeScale * delayTime))
             animator:addAniHandler(function() animator:runAction(cc.RemoveSelf:create()) end)
         end
+
+        -- 효과음
+        SoundMgr:playEffect('EFFECT', 'skill_ready')
     end
 
     if (self.m_stateTimer >= timeScale * delayTime) then
@@ -524,6 +527,8 @@ function GameState:update_boss_wave(dt)
         self.m_waveEffect:addAniHandler(function()
             self:changeState(GAME_STATE_BOSS_WAVE2)
         end)
+
+        SoundMgr:stopBGM()
     end
 end
 
@@ -555,6 +560,9 @@ function GameState:update_boss_wave3(dt)
             self.m_waveEffect:setVisible(false)
             self:changeState(GAME_STATE_ENEMY_APPEAR)
         end)
+
+        -- 보스 배경음
+        SoundMgr:playBGM('bgm_boss')
     end
 end
 

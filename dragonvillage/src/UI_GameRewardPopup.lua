@@ -120,7 +120,7 @@ function UI_GameRewardPopup:step3()
         self:makeRewardItem(i, v)
     end
 
-    SoundMgr:playEffect('EFFECT', 'get_gacha')
+    SoundMgr:playEffect('EFFECT', 'reward')
 
     vars['boxVisual']:unregisterScriptLoopHandler()
     vars['boxVisual']:setVisible(false)

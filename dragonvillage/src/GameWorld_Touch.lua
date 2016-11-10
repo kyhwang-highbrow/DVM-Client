@@ -66,12 +66,12 @@ function GameWorld.onTouchMoved_GameWorld(self, touch, event)
 
     -- 공격이 이루어 졌으면 사운드 재생
     if b_attack then
-        SoundMgr:playEffect('EFFECT', 'option_magicsword_2')
+        --SoundMgr:playEffect('EFFECT', 'option_magicsword_2')
     end
 
     -- 동전을 획득했으면 사운드 재생
     if b_get_gold then
-        SoundMgr:playEffect('EFFECT', 'gold_get')
+        --SoundMgr:playEffect('EFFECT', 'gold_get')
     end
 
     -- 모션스트릭 효과 위치 갱신
