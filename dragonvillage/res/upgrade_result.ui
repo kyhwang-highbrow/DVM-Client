@@ -272,15 +272,15 @@
 				dimension_width = 190;
 				dimension_height = 84;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
-				has_shadow = false;
+				stroke_color = { 54; 118; 120; };
+				has_shadow = true;
 				shadow_color = { 0; 0; 0; };
-				shadow_opacity = 255;
+				shadow_opacity = 100;
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
@@ -393,6 +393,11 @@
 		};
 		[8] =
 		{
+			[1] =
+			{
+				type = 'SocketNode';
+				socket_name = 'particle_radius_glow_1';
+			};
 			type = 'Visual';
 			ui_name = '';
 			x = 50.000000;
