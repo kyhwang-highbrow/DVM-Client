@@ -213,13 +213,11 @@ function UI_DragonManageInfo:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
 
     do -- 스킬 아이콘 생성
         local skill_mgr = MakeDragonSkillFromDoid(doid)
-        local l_skill_icon = skill_mgr:getSkillIconList()
+        local l_skill_icon = skill_mgr:getDragonSkillIconList()
         for i=0, MAX_DRAGON_EVOLUTION do
             if l_skill_icon[i] then
                 vars['skillNode' .. i]:removeAllChildren()
                 vars['skillNode' .. i]:addChild(l_skill_icon[i].root)
-                local lock = (t_dragon_data['evolution'] < i)
-                l_skill_icon[i]:setLockSpriteVisible(lock)
 
                 -- 스킬 레벨 출력
                 local skill_lv = skill_mgr:getSkillLevel(i)

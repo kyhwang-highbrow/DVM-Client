@@ -259,6 +259,7 @@ local t_module = {
     'UI_ItemCard',
     'UI_ProductButton',
     'UI_SkillCard',
+    'UI_DragonSkillCard',
     'UI_Tooltip_Skill',
     'UI_DragonGachaResult',
     'UI_GuidePopup',

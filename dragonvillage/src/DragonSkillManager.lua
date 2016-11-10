@@ -119,7 +119,7 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv)
         error('skill_type : ' .. skill_type)
     end
 
-    local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_id, skill_lv)
+    local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
 
     if isExistValue(skill_type, 'active', 'basic') then
 
@@ -133,6 +133,9 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv)
         table.insert(self.m_lSkillIndivisualInfo[skill_type], skill_indivisual_info)
         skill_indivisual_info:init_skillLevelupIDList(nil)
     end
+
+    -- 스킬 레벨 적용
+    skill_indivisual_info:applySkillLevel()
 end
 
 -------------------------------------
@@ -188,6 +191,42 @@ function IDragonSkillManager:getSkillIconList()
         if (skill_type ~= 'x') and skill_id ~= 0 then
             local skill_lv = self:getSkillLevel(i)
             l_skill_icon[i] = UI_SkillCard(self.m_charType, skill_id, skill_type, skill_lv)
+        end
+    end
+
+    return l_skill_icon
+end
+
+-------------------------------------
+-- function getDragonSkillIconList
+-------------------------------------
+function IDragonSkillManager:getDragonSkillIconList()
+    local l_skill_icon = {}
+
+    local t_character = self.m_charTable
+
+    do -- 액티브 스킬
+        local skill_id = t_character['skill_active']
+        local skill_type = 'active'
+
+        if (skill_type ~= 'x') and skill_id ~= 0 then
+            local skill_lv = self:getSkillLevel(0)
+            local skill_indivisual_info = DragonSkillIndivisualInfo('dragon', skill_type, skill_id, skill_lv)
+            skill_indivisual_info:applySkillLevel()
+            l_skill_icon[0] = UI_DragonSkillCard(skill_indivisual_info)
+        end
+    end
+
+    -- 진화에 의한 스킬 아이콘
+    for i=1, MAX_DRAGON_EVOLUTION do
+        local skill_id = t_character['skill_' .. i]
+        local skill_type = t_character['skill_type_' .. i]
+
+        if (skill_type ~= 'x') and skill_id ~= 0 then
+            local skill_lv = self:getSkillLevel(i)
+            local skill_indivisual_info = DragonSkillIndivisualInfo('dragon', skill_type, skill_id, skill_lv)
+            skill_indivisual_info:applySkillLevel()
+            l_skill_icon[i] = UI_DragonSkillCard(skill_indivisual_info)
         end
     end
 

@@ -991,6 +991,9 @@
     <None Include="..\src\UI_DragonManageEvolutionResult.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_DragonSkillCard.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
