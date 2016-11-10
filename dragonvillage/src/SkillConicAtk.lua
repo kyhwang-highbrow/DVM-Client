@@ -77,21 +77,6 @@ function SkillConicAtk.st_idle(owner, dt)
 end
 
 -------------------------------------
--- function getDefaultTargetPos
--- @brief 디폴트 타겟 좌표
--------------------------------------
-function SkillConicAtk:getDefaultTargetPos()
-    local l_target = self.m_owner:getTargetList(self.m_tSkill)
-    local target = l_target[1]
-
-    if target then
-        return target.pos.x, target.pos.y
-    else
-        return self.m_owner.pos.x, self.m_owner.pos.y
-    end
-end
-
--------------------------------------
 -- function findTarget
 -- @brief 공격 대상 찾음
 -------------------------------------
