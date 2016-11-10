@@ -271,6 +271,7 @@ local t_module = {
     'UI_SettingPopup',
     'UI_SettingPopup_Dev',
     'UI_DragonDevApiPopup',
+    'UI_InvenDevApiPopup',
 
     -- UI 드래곤 관리 관련
     'UI_DragonManage_Base',

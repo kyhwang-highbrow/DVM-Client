@@ -46,3 +46,13 @@ function ServerData_User:getResetFruitID()
     -- 망각의 열매 id : 702009
     return 702009
 end
+
+-------------------------------------
+-- function getEvolutionStoneCount
+-- @brief 보유중인 진화재료 갯수 리턴
+-------------------------------------
+function ServerData_User:getEvolutionStoneCount(evolution_stone_id)
+    local evolution_stone_id = tostring(evolution_stone_id)
+    local count = self:get('evolution_stones', evolution_stone_id) or 0
+    return count
+end

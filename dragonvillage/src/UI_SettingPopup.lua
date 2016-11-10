@@ -69,6 +69,7 @@ function UI_SettingPopup:initButton()
         vars['lowResModeBtn']:registerScriptTapHandler(function() self:click_lowResModeBtn() end)
         vars['bgmBtn']:registerScriptTapHandler(function() self:click_bgmBtn() end)
         vars['sfxBtn']:registerScriptTapHandler(function() self:click_sfxBtn() end)
+        vars['invenBtn']:registerScriptTapHandler(function() self:click_invenBtn() end)
     end
 
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
@@ -181,6 +182,13 @@ function UI_SettingPopup:click_sfxBtn()
     g_serverData:applyServerData(not value, 'local', 'sfx')
     g_serverData:applySetting()
     self:refresh()
+end
+
+-------------------------------------
+-- function click_invenBtn
+-------------------------------------
+function UI_SettingPopup:click_invenBtn()
+    UI_InvenDevApiPopup()
 end
 
 -------------------------------------
