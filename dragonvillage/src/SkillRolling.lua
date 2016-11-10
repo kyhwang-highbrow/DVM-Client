@@ -151,6 +151,7 @@ function SkillRolling.st_attack(owner, dt)
 	
 	-- 현재 공격 대상이 죽었다면 
 	if (owner.m_targetChar) and (owner.m_targetChar.m_bDead) then
+		--[[ @TODO 향후에 스킬 자체를 수정해야함
 		-- 카운트 남아 있으면 다음 대상으로 이동, 총 공격대상 수 제한 있음
 		if (owner.m_maxTargetCnt > owner.m_targetCnt) then
 			local t_targets = owner.m_world:getTargetList(owner.m_owner, 0, 0, 'enemy', 'x', 'distance_line')
@@ -165,11 +166,18 @@ function SkillRolling.st_attack(owner, dt)
 				owner:changeState('moveAttack')
 			end
 		end
+		]]
+		
+		owner:changeState('comeback')
+		-- 스파인 드래곤 .. 적 죽일 시 상태효과
+		if (owner.m_targetChar) and (owner.m_targetChar.m_bDead) then
+			StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {}, owner.m_lStatusEffectStr)
+		end
 	end
 
 	-- 최대 공격 횟수 초과시 탈출
     if (owner.m_maxAttackCnt <= owner.m_attackCnt) then
-        owner:changeState('comeback')
+		owner:changeState('comeback')
 		-- 스파인 드래곤 .. 적 죽일 시 상태효과
 		if (owner.m_targetChar) and (owner.m_targetChar.m_bDead) then
 			StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {}, owner.m_lStatusEffectStr)
