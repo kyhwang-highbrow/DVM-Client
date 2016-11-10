@@ -2363,6 +2363,70 @@
 		{
 			[1] =
 			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 0.000000;
+				y = -32.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 86;
+				height = 50;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 22;
+				text = '진화단계';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 243; 236; 225; };
+				opacity = 255;
+				dimension_width = 86;
+				dimension_height = 50;
+				letter_spacing = 0.000000;
+				has_stroke = true;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 102; 88; 71; };
+				has_shadow = true;
+				shadow_color = { 102; 88; 71; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 3.000000;
+			};
+			type = 'Button';
+			ui_name = '';
+			x = -597.000000;
+			y = -63.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 80;
+			height = 80;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'evolutionViewBtn';
+			enable = true;
+			normal = 'ui/btn/base_switch_01.png';
+			selected = 'ui/btn/base_switch_02.png';
+			disable = '';
+			image_type = 0;
+		};
+		[10] =
+		{
+			[1] =
+			{
 				type = 'LayerColor';
 				ui_name = '';
 				x = 0.000000;
@@ -2388,12 +2452,12 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 4.000000;
+				x = 56.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 1047;
+				width = 1152;
 				height = 100;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -3299,70 +3363,6 @@
 				disable = '';
 				image_type = 1;
 			};
-			[7] =
-			{
-				[1] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 2.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 88;
-					height = 80;
-					scale_x = 0.960000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
-					text = '진화단계\n보기';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 243; 236; 225; };
-					opacity = 255;
-					dimension_width = 88;
-					dimension_height = 80;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 3.000000;
-				};
-				type = 'Button';
-				ui_name = '';
-				x = 582.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 106;
-				height = 98;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'evolutionViewBtn';
-				enable = true;
-				normal = 'ui/btn/sub_0101.png';
-				selected = 'ui/btn/sub_0102.png';
-				disable = '';
-				image_type = 1;
-			};
 			type = 'Menu';
 			ui_name = 'bottom ';
 			x = 0.000000;
@@ -3380,7 +3380,7 @@
 			visible = true;
 			lua_name = '';
 		};
-		[10] =
+		[11] =
 		{
 			type = 'Node';
 			ui_name = '';

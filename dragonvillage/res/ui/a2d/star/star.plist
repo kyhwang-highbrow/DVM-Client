@@ -4,6 +4,111 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>star_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{52,52}</string>
+                <key>spriteSourceSize</key>
+                <string>{52,52}</string>
+                <key>textureRect</key>
+                <string>{{455,467},{52,52}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>star_0102.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{218,213}</string>
+                <key>spriteSourceSize</key>
+                <string>{218,213}</string>
+                <key>textureRect</key>
+                <string>{{1,117},{218,213}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>star_0103.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{88,88}</string>
+                <key>spriteSourceSize</key>
+                <string>{88,88}</string>
+                <key>textureRect</key>
+                <string>{{221,136},{88,88}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>star_bg_01.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,2}</string>
+                <key>spriteSize</key>
+                <string>{310,54}</string>
+                <key>spriteSourceSize</key>
+                <string>{310,58}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{310,54}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>star_circle_01.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-4,-10}</string>
+                <key>spriteSize</key>
+                <string>{196,200}</string>
+                <key>spriteSourceSize</key>
+                <string>{234,234}</string>
+                <key>textureRect</key>
+                <string>{{313,1},{196,200}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>star_circle_02.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-3,-2}</string>
+                <key>spriteSize</key>
+                <string>{186,204}</string>
+                <key>spriteSourceSize</key>
+                <string>{234,234}</string>
+                <key>textureRect</key>
+                <string>{{1,392},{186,204}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>star_circle_03.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{4,0}</string>
+                <key>spriteSize</key>
+                <string>{192,202}</string>
+                <key>spriteSourceSize</key>
+                <string>{234,234}</string>
+                <key>textureRect</key>
+                <string>{{311,203},{192,202}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>star_draw_01.png</key>
             <dict>
                 <key>aliases</key>
@@ -15,9 +120,9 @@
                 <key>spriteSourceSize</key>
                 <string>{73,71}</string>
                 <key>textureRect</key>
-                <string>{{599,76},{13,23}}</string>
+                <string>{{296,226},{13,23}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>star_draw_02.png</key>
             <dict>
@@ -30,9 +135,9 @@
                 <key>spriteSourceSize</key>
                 <string>{73,71}</string>
                 <key>textureRect</key>
-                <string>{{570,95},{25,15}}</string>
+                <string>{{263,97},{25,15}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>star_draw_03.png</key>
             <dict>
@@ -45,7 +150,7 @@
                 <key>spriteSourceSize</key>
                 <string>{73,71}</string>
                 <key>textureRect</key>
-                <string>{{528,101},{21,21}}</string>
+                <string>{{285,372},{21,21}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -60,9 +165,9 @@
                 <key>spriteSourceSize</key>
                 <string>{73,71}</string>
                 <key>textureRect</key>
-                <string>{{587,95},{13,27}}</string>
+                <string>{{263,82},{13,27}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>star_draw_05.png</key>
             <dict>
@@ -75,7 +180,7 @@
                 <key>spriteSourceSize</key>
                 <string>{73,71}</string>
                 <key>textureRect</key>
-                <string>{{576,76},{21,17}}</string>
+                <string>{{221,117},{21,17}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -90,9 +195,9 @@
                 <key>spriteSourceSize</key>
                 <string>{73,71}</string>
                 <key>textureRect</key>
-                <string>{{551,95},{23,17}}</string>
+                <string>{{263,114},{23,17}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>star_draw_07.png</key>
             <dict>
@@ -105,9 +210,9 @@
                 <key>spriteSourceSize</key>
                 <string>{73,71}</string>
                 <key>textureRect</key>
-                <string>{{501,76},{23,29}}</string>
+                <string>{{263,57},{23,29}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>star_draw_08.png</key>
             <dict>
@@ -120,7 +225,7 @@
                 <key>spriteSourceSize</key>
                 <string>{73,71}</string>
                 <key>textureRect</key>
-                <string>{{526,76},{21,23}}</string>
+                <string>{{290,111},{21,23}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -135,9 +240,9 @@
                 <key>spriteSourceSize</key>
                 <string>{73,71}</string>
                 <key>textureRect</key>
-                <string>{{501,107},{25,17}}</string>
+                <string>{{292,84},{25,17}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>star_draw_10.png</key>
             <dict>
@@ -150,9 +255,9 @@
                 <key>spriteSourceSize</key>
                 <string>{73,71}</string>
                 <key>textureRect</key>
-                <string>{{549,76},{17,25}}</string>
+                <string>{{294,57},{17,25}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>star_draw_light_01.png</key>
             <dict>
@@ -165,9 +270,9 @@
                 <key>spriteSourceSize</key>
                 <string>{73,71}</string>
                 <key>textureRect</key>
-                <string>{{501,1},{73,71}}</string>
+                <string>{{221,226},{73,71}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>star_draw_light_02.png</key>
             <dict>
@@ -180,9 +285,9 @@
                 <key>spriteSourceSize</key>
                 <string>{73,71}</string>
                 <key>textureRect</key>
-                <string>{{574,1},{73,71}}</string>
+                <string>{{221,299},{73,71}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>star_light.png</key>
             <dict>
@@ -195,7 +300,7 @@
                 <key>spriteSourceSize</key>
                 <string>{70,70}</string>
                 <key>textureRect</key>
-                <string>{{647,1},{70,70}}</string>
+                <string>{{213,372},{70,70}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -206,11 +311,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{55,58}</string>
+                <string>{52,52}</string>
                 <key>spriteSourceSize</key>
-                <string>{55,58}</string>
+                <string>{52,52}</string>
                 <key>textureRect</key>
-                <string>{{719,61},{55,58}}</string>
+                <string>{{455,467},{52,52}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -225,7 +330,7 @@
                 <key>spriteSourceSize</key>
                 <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{126,126}}</string>
+                <string>{{207,444},{126,126}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -240,9 +345,9 @@
                 <key>spriteSourceSize</key>
                 <string>{310,58}</string>
                 <key>textureRect</key>
-                <string>{{719,1},{56,58}}</string>
+                <string>{{395,467},{56,58}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>star_upgrade_3.png</key>
             <dict>
@@ -255,9 +360,9 @@
                 <key>spriteSourceSize</key>
                 <string>{310,58}</string>
                 <key>textureRect</key>
-                <string>{{391,1},{108,58}}</string>
+                <string>{{335,467},{108,58}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>star_upgrade_4.png</key>
             <dict>
@@ -270,7 +375,7 @@
                 <key>spriteSourceSize</key>
                 <string>{310,58}</string>
                 <key>textureRect</key>
-                <string>{{341,61},{158,58}}</string>
+                <string>{{335,407},{158,58}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -285,7 +390,7 @@
                 <key>spriteSourceSize</key>
                 <string>{310,58}</string>
                 <key>textureRect</key>
-                <string>{{129,61},{210,58}}</string>
+                <string>{{1,332},{210,58}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -300,7 +405,7 @@
                 <key>spriteSourceSize</key>
                 <string>{310,58}</string>
                 <key>textureRect</key>
-                <string>{{129,1},{260,58}}</string>
+                <string>{{1,57},{260,58}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -309,12 +414,16 @@
         <dict>
             <key>format</key>
             <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
             <key>realTextureFileName</key>
             <string>star.png</string>
             <key>size</key>
-            <string>{776,128}</string>
+            <string>{510,579}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:32429b457bffd73060aa602d5b6993fa:c64a544e27d14618f6a09c3082eeb7cf:3529feb3fcfae6daa554c62bd8c6844e$</string>
+            <string>$TexturePacker:SmartUpdate:1444b8d581ebad87b389fb6bdb5a0018:2436c3a9c3462aa07bcfd278d6ed7118:3529feb3fcfae6daa554c62bd8c6844e$</string>
             <key>textureFileName</key>
             <string>star.png</string>
         </dict>
