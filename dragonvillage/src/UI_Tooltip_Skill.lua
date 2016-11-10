@@ -140,7 +140,7 @@ function UI_Tooltip_Skill:autoPositioning(node)
     local anchor_y = 0.5
 
     -- X축 위치 지정
-    local width = self.m_richLabel:getStringWidth()
+    local width = self.m_richLabel:getStringWidth() + 100
     local scr_size = cc.Director:getInstance():getWinSize()
     if (pos_x < 0) then
         local min_x = -(scr_size['width'] / 2)
