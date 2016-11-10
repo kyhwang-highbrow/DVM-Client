@@ -350,6 +350,8 @@ function UI_DragonManagementFriendship:click_fruitBtn(fruit_id, fruit_node)
         return
     end
 
+    SoundMgr:playEffect('EFFECT', 'eat')
+
     -- 네트워크 통신
     self:network_friendshipUp(fruit_id)
 end

@@ -22,6 +22,8 @@ function UI_DragonManageUpgradeResult:init(t_dragon_data)
     self:initUI()
     self:initButton()
     self:refresh()
+
+    SoundMgr:playEffect('EFFECT', 'success_starup')
 end
 
 -------------------------------------
