@@ -473,13 +473,14 @@ end
 -------------------------------------
 function Character:doAttack(x, y)
     local basic_skill_id = self.m_reservedSkillId
-    
-    local b_run_skill = self:doSkill(basic_skill_id, nil, x, y)
+    if basic_skill_id then
+        local b_run_skill = self:doSkill(basic_skill_id, nil, x, y)
 
-    -- 지정된 스킬이 발동되지 않았을 경우 기본 스킬 발동
-    if (not b_run_skill) then
-        basic_skill_id = self.m_charTable['skill_basic']
-        self:doSkill(basic_skill_id, nil, x, y)
+        -- 지정된 스킬이 발동되지 않았을 경우 기본 스킬 발동
+        if (not b_run_skill) then
+            basic_skill_id = self.m_charTable['skill_basic']
+            self:doSkill(basic_skill_id, nil, x, y)
+        end
     end
 
     -- 예약된 스킬 정보 초기화
