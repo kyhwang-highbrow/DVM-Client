@@ -9,6 +9,13 @@ UI_DragonDevApiPopup = class(PARENT, {
         m_evolution = 'number',
         m_grade = 'number',
         m_level = 'number',
+
+        m_skill0 = 'number',
+        m_skill1 = 'number',
+        m_skill2 = 'number',
+        m_skill3 = 'number',
+
+        m_bChangeSkill = 'boolean',
      })
 
 -------------------------------------
@@ -16,6 +23,7 @@ UI_DragonDevApiPopup = class(PARENT, {
 -------------------------------------
 function UI_DragonDevApiPopup:init(dragon_object_id)
     self.m_dragonObjectID = dragon_object_id
+    self.m_bChangeSkill = false
 
     local vars = self:load('dragon_dev_api_popup.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -52,6 +60,11 @@ function UI_DragonDevApiPopup:initUI()
     self.m_evolution = t_dragon_data['evolution']
     self.m_grade = t_dragon_data['grade']
     self.m_level = t_dragon_data['lv']
+
+    self.m_skill0 = t_dragon_data['skill_0']
+    self.m_skill1 = t_dragon_data['skill_1']
+    self.m_skill2 = t_dragon_data['skill_2']
+    self.m_skill3 = t_dragon_data['skill_3']
 end
 
 -------------------------------------
@@ -73,6 +86,22 @@ function UI_DragonDevApiPopup:initButton()
     vars['levelUpBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level + 1, 1, max_level) self:refresh() end)
     vars['levelDownBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level - 1, 1, max_level) self:refresh() end)
 
+    vars['levelUpBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level + 1, 1, max_level) self:refresh() end)
+    vars['levelDownBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level - 1, 1, max_level) self:refresh() end)
+
+    -- 스킬 레벨들
+    vars['skillUpBtn0']:registerScriptTapHandler(function() self.m_skill0 = math_clamp(self.m_skill0 + 1, 1, 10) self:networkSkillLevel(0) end)
+    vars['skillDownBtn0']:registerScriptTapHandler(function() self.m_skill0 = math_clamp(self.m_skill0 - 1, 1, 10) self:networkSkillLevel(0) end)
+
+    vars['skillUpBtn1']:registerScriptTapHandler(function() self.m_skill1 = math_clamp(self.m_skill1 + 1, 0, 10) self:networkSkillLevel(1) end)
+    vars['skillDownBtn1']:registerScriptTapHandler(function() self.m_skill1 = math_clamp(self.m_skill1 - 1, 0, 10) self:networkSkillLevel(1) end)
+
+    vars['skillUpBtn2']:registerScriptTapHandler(function() self.m_skill2 = math_clamp(self.m_skill2 + 1, 0, 10) self:networkSkillLevel(2) end)
+    vars['skillDownBtn2']:registerScriptTapHandler(function() self.m_skill2 = math_clamp(self.m_skill2 - 1, 0, 10) self:networkSkillLevel(2) end)
+
+    vars['skillUpBtn3']:registerScriptTapHandler(function() self.m_skill3 = math_clamp(self.m_skill3 + 1, 0, 1) self:networkSkillLevel(3) end)
+    vars['skillDownBtn3']:registerScriptTapHandler(function() self.m_skill3 = math_clamp(self.m_skill3 - 1, 0, 1) self:networkSkillLevel(3) end)
+
     vars['applyBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
@@ -87,6 +116,35 @@ function UI_DragonDevApiPopup:refresh()
     vars['evolutionLabel']:setString('진화 : ' .. self.m_evolution)
     vars['gradeLabel']:setString('승급 : ' .. self.m_grade)
     vars['levelLabel']:setString('레벨 : ' .. self.m_level)
+
+    vars['skillLabel0']:setString('스킬 0 레벨 : ' .. self.m_skill0)
+    vars['skillLabel1']:setString('스킬 1 레벨 : ' .. self.m_skill1)
+    vars['skillLabel2']:setString('스킬 2 레벨 : ' .. self.m_skill2)
+    vars['skillLabel3']:setString('스킬 3 레벨 : ' .. self.m_skill3)
+end
+
+-------------------------------------
+-- function networkSkillLevel
+-------------------------------------
+function UI_DragonDevApiPopup:networkSkillLevel(skill_idx)
+    local function success_cb(ret)
+        if ret and ret['dragon'] then
+            g_dragonsData:applyDragonData(ret['dragon'])
+            self:refresh()
+            self.m_bChangeSkill = true
+        end
+    end
+
+    local uid = g_userData:get('uid')
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/update')
+    ui_network:setRevocable(true)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('did', self.m_dragonObjectID)
+    ui_network:setParam('act', 'update')
+    ui_network:setParam('skills', string.format('%d,%d', skill_idx, self['m_skill' .. skill_idx]))
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
 end
 
 -------------------------------------
@@ -110,6 +168,22 @@ function UI_DragonDevApiPopup:click_closeBtn()
         is_change = true
     end
 
+    if (t_dragon_data['skill_0'] ~= self.m_skill0) then
+        is_change = true
+    end
+
+    if (t_dragon_data['skill_1'] ~= self.m_skill1) then
+        is_change = true
+    end
+
+    if (t_dragon_data['skill_2'] ~= self.m_skill2) then
+        is_change = true
+    end
+
+    if (t_dragon_data['skill_3'] ~= self.m_skill3) then
+        is_change = true
+    end
+
     if is_change then
         local function success_cb(ret)
             if ret and ret['dragon'] then
@@ -129,13 +203,19 @@ function UI_DragonDevApiPopup:click_closeBtn()
         ui_network:setParam('evolution', self.m_evolution)
         ui_network:setParam('grade', self.m_grade)
         ui_network:setParam('lv', self.m_level)
+        ui_network:setParam('skills', '0,' .. self.m_skill0)
+        ui_network:setParam('skills', '1,' .. self.m_skill1)
+        ui_network:setParam('skills', '2,' .. self.m_skill2)
+        ui_network:setParam('skills', '3,' .. self.m_skill3)
         ui_network:setSuccessCB(success_cb)
         ui_network:request()
 
         return
     end
     
-    self:setCloseCB(nil)
+    if (self.m_bChangeSkill == false) then
+        self:setCloseCB(nil)
+    end
     self:close()
 end
 

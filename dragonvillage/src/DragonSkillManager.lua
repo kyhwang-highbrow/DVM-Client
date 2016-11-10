@@ -26,7 +26,8 @@ end
 -- function initDragonSkillManager
 -------------------------------------
 function IDragonSkillManager:initDragonSkillManager(char_type, char_id, open_skill_count)
-    open_skill_count = open_skill_count or 3
+    --open_skill_count = open_skill_count or 3
+    open_skill_count = 10
 
     self.m_charType = char_type
     self.m_charID = char_id
@@ -57,7 +58,9 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, open_ski
         local skill_type = t_character[skill_type_key]
         local skill_id = t_character[skill_key]
 
-        self:setSkillID(skill_type, skill_id, self:getSkillLevel(i))
+        if skill_type and skill_id then
+            self:setSkillID(skill_type, skill_id, self:getSkillLevel(i))
+        end
     end
 
 	-- @TEST 활성화 스킬 확인 로그
@@ -82,6 +85,11 @@ end
 -- function getSkillLevel
 -------------------------------------
 function IDragonSkillManager:getSkillLevel(idx)
+    -- 적 몬스터는 무조건 1로 처리
+    if (self.m_charType == 'enemy') then
+        return 1
+    end
+
     if (not self.m_dragonSkillLevel) then
         return 0
     end
@@ -110,6 +118,10 @@ end
 -- function setSkillID
 -------------------------------------
 function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv)
+    if (skill_lv <= 0) then
+        return
+    end
+
     if (skill_type == 'x') then
         return
     end
