@@ -78,6 +78,9 @@ function SkillLaser:init_skill(missile_res, hit, thickness)
 
     -- 레이저 링크 이펙트 생성
     self:makeLaserLinkEffect(missile_res, thickness)
+	
+	-- 상태효과 (고대신룡 힐)
+	StatusEffectHelper:doStatusEffectByStr(self.m_owner, {}, self.m_lStatusEffectStr)
 end
 
 -------------------------------------
@@ -112,9 +115,6 @@ function SkillLaser:makeLaserLinkEffect(file_name, thickness)
     self.m_rootNode:addChild(link_effect.m_node)
 
     self.m_linkEffect = link_effect
-
-	-- 상태효과
-	StatusEffectHelper:doStatusEffectByStr(self.m_owner, {}, self.m_lStatusEffectStr)
 end
 
 -------------------------------------
@@ -242,7 +242,6 @@ function SkillLaser:makeSkillInstance(owner, t_skill, t_data)
 	local hit = t_skill['hit']
 	local thickness = t_skill['val_1']
 	
-	cclog(missile_res)
 	-- 인스턴스 생성부
 	------------------------------------------------------	
 	-- 1. 스킬 생성

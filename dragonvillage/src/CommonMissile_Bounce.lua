@@ -1,22 +1,36 @@
 local PARENT = CommonMissile
 
 -------------------------------------
--- class CommonMissile_Shotgun
+-- class CommonMissile_Bounce
 -------------------------------------
-CommonMissile_Shotgun = class(PARENT, {
+CommonMissile_Bounce = class(PARENT, {
+		m_maxCount = '',
+		m_jumpHeight = '',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function CommonMissile_Shotgun:init(file_name, body)
+function CommonMissile_Bounce:init(file_name, body)
+end
+
+-------------------------------------
+-- function initCommonMissile
+-------------------------------------
+function CommonMissile_Bounce:initCommonMissile(owner, t_skill)
+	PARENT.initCommonMissile(self, owner, t_skill)
+	
+	-- 특수 변수
+	local attr = self.m_owner.m_charTable['attr'] or ''
+	self.m_jumpHeight = t_skill['val_1']
+	self.m_maxCount = t_skill['val_2']
 end
 
 -------------------------------------
 -- function setMissile
 -------------------------------------
-function CommonMissile_Shotgun:setMissile()
-    local t_option = {}
+function CommonMissile_Bounce:setMissile()	
+	local t_option = {}
     
 	-- 수정 X
 	t_option['owner'] = self.m_owner
@@ -24,7 +38,7 @@ function CommonMissile_Shotgun:setMissile()
     t_option['pos_x'] = self.m_attackPos.x
     t_option['pos_y'] = self.m_attackPos.y
     t_option['attack_damage'] = self.m_activityCarrier
-	t_option['bFixedAttack'] = true
+	t_option['bFixedAttack'] = false
     if (self.m_owner.phys_key == 'hero') then
         t_option['object_key'] = 'missile_h'
     else
@@ -33,8 +47,8 @@ function CommonMissile_Shotgun:setMissile()
 
 	-- 수정 가능 부분
 	-----------------------------------------------------------------------------------
-
-	t_option['dir'] = getDegree(self.m_attackPos.x, self.m_attackPos.y, self.m_target.m_homePosX, self.m_target.m_homePosY)
+	
+	t_option['dir'] = 0 --getDegree(self.m_attackPos.x, self.m_attackPos.y, self.m_target.m_homePosX, self.m_target.m_homePosY) or self:getDefaultDir()
 	t_option['rotation'] = t_option['dir']
 
     t_option['missile_res_name'] = self.m_missileRes -- 테이블에서 가져오나 하드코딩 가능 
@@ -43,32 +57,30 @@ function CommonMissile_Shotgun:setMissile()
 	t_option['physics_body'] = {0, 0, 20}
 	t_option['offset'] = {0, 0}
 
-	t_option['movement'] ='normal' 
-    t_option['missile_type'] = 'NORMAL'
+	t_option['movement'] ='lua_bounce' 
+    t_option['missile_type'] = 'PASS'
 	
 	t_option['scale'] = self.m_resScale
-	t_option['count'] = 5
-	t_option['speed'] = 500
-	t_option['h_limit_speed'] = 900
-	t_option['accel'] = 1500
-	t_option['accel_delay'] = 0
-    t_option['angular_velocity'] = 0
-	t_option['dir_add'] = 2.5
+	t_option['count'] = 1
+	t_option['dir_add'] = 0
 
 	-- "effect" : {}
     t_option['effect'] = {}
-    t_option['effect']['motion_streak'] = self.m_motionStreakRes
+    --t_option['effect']['motion_streak'] = self.m_motionStreakRes
 
+	t_option['lua_param'] = {}
+    t_option['lua_param']['value1'] = self.m_jumpHeight
+	t_option['lua_param']['value2'] = self.m_maxCount
 	-----------------------------------------------------------------------------------
-	
+
 	self.m_missileOption = t_option
 end
 
 -------------------------------------
 -- function makeMissileInstance
 -------------------------------------
-function CommonMissile_Shotgun:makeMissileInstance(owner, t_skill)
-	local common_missile = CommonMissile_Shotgun()
+function CommonMissile_Bounce:makeMissileInstance(owner, t_skill)
+	local common_missile = CommonMissile_Bounce()
 	common_missile:initCommonMissile(owner, t_skill)
 	common_missile:setMissile()
 	common_missile:changeState('attack')

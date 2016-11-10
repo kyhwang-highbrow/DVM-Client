@@ -494,9 +494,7 @@ end
 -- function findTarget
 -------------------------------------
 function GameWorld:findTarget(type, x, y, l_remove)
-
     if (type == 'enemy') then
-        
         local enemy = nil
         local distance = nil
 

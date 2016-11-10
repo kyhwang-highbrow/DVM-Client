@@ -184,6 +184,9 @@ function MissileLua.lua_angle(owner)
 	-- table에서 받아오는 값
 	local height = owner.m_value1
 
+	-- 폭발 콜백
+	local cbFunction = cc.CallFunc:create(owner.m_value2)
+
     local loop = 1
     if (owner.m_target) then
         target_x = owner.m_target.m_homePosX
@@ -191,7 +194,7 @@ function MissileLua.lua_angle(owner)
     end
 
     local action = cc.JumpTo:create(duration, cc.p(target_x, target_y), height, loop)
-    owner.m_rootNode:runAction(action)
+    owner.m_rootNode:runAction(cc.Sequence:create(action, cbFunction))
 end
 
 -------------------------------------
@@ -242,4 +245,56 @@ function MissileLua.lua_bezier(owner)
     
     local sequence = cc.Sequence:create(delayTime, bezierForward, goForward, finish_action)
     owner.m_rootNode:runAction(sequence)
+end
+
+-------------------------------------
+-- function lua_bounce
+-------------------------------------
+function MissileLua.lua_bounce(owner)
+    local pos_x = owner.pos.x
+    local pos_y = owner.pos.y
+
+    local target_x = (pos_x - 640)
+    local target_y = (pos_y - 50)
+	
+	if (owner.m_target) then
+        target_x = owner.m_target.m_homePosX
+        target_y = owner.m_target.m_homePosY
+    end
+
+	local l_target = owner.m_owner.m_world.m_tEnemyList
+    
+	local duration = 0.7
+	local loop = 1
+	local height = owner.m_value1
+	local count = 2
+	local max_count = math_min(owner.m_value2, #l_target)
+	
+	local scale_action_duration = 0.05
+	local scale_rate_x = 1.25
+	local scale_rate_y = 0.25
+
+	local scale_action = cc.ScaleBy:create(scale_action_duration, scale_rate_x, scale_rate_y)
+	local scale_action2 = cc.ScaleBy:create(scale_action_duration, 1/scale_rate_x, 1/scale_rate_y)
+
+	-- 재귀 호출을 위한 편법
+	local cbFunction2 = nil
+	local cbFunction = 	cc.CallFunc:create(function()
+		-- 탈출 조건
+		if (count >= max_count) then 
+			owner:changeState('dying')
+		end
+		if l_target[count] then 
+			target_x = l_target[count].m_homePosX
+			target_y = l_target[count].m_homePosY
+			local jump_action = cc.JumpTo:create(duration, cc.p(target_x, target_y), height, loop)
+			owner.m_rootNode:runAction(cc.Sequence:create(jump_action, scale_action, scale_action2, cbFunction2))
+		end
+		count = count + 1
+	end)
+	cbFunction2 = cbFunction
+
+	-- START
+	local jump_action = cc.JumpTo:create(duration, cc.p(target_x, target_y), height, loop)
+	owner.m_rootNode:runAction(cc.Sequence:create(jump_action, scale_action, scale_action2, cbFunction))
 end

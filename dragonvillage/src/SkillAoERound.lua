@@ -12,7 +12,8 @@ SkillAoERound = class(PARENT, {
         m_hitInterval = 'number',
 		m_effect = 'effect',
 
-		m_lTarget = 'Character', -- @TODO status effect 담으려고 사용 임시
+		m_addDamage = 'str',	-- @TODO 임시 추가 데미지 구현
+		m_lTarget = 'characters'  -- @TODO 임시 구현
      })
 
 -------------------------------------
@@ -26,29 +27,21 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillAoERound:init_skill(attack_count, range, aoe_res)
+function SkillAoERound:init_skill(attack_count, range, aoe_res, add_damage)
     PARENT.init_skill(self)
 
 	-- 멤버 변수
     self.m_maxAttackCnt = attack_count 
     self.m_range = range
 	self.m_aoeRes = aoe_res
+	self.m_addDamage = add_damage
 	self.m_hitInterval = 1/30
-
+	
 	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
 
 	-- predelay 연출 위해서 .. 
 	self.m_animator:setVisible(false)
 
-	-- 상태효과
-	StatusEffectHelper:doStatusEffectByStr(self.m_owner, {}, self.m_lStatusEffectStr)
-end
-
--------------------------------------
--- function initActvityCarrier
--------------------------------------
-function SkillAoERound:initActvityCarrier(t_skill)    
-    PARENT.initActvityCarrier(self, t_skill)  
 end
 
 -------------------------------------
@@ -102,6 +95,9 @@ function SkillAoERound.st_attack(owner, dt)
 	
 	-- 공격 횟수 초과시 탈출
     if (owner.m_maxAttackCnt <= owner.m_attackCnt) then
+		-- 상태효과 (self만 가능)
+		StatusEffectHelper:doStatusEffectByStr(owner.m_owner, owner.m_lTarget, owner.m_lStatusEffectStr)
+
         owner:changeState('disappear')
     end
 end
@@ -123,20 +119,35 @@ end
 -------------------------------------
 function SkillAoERound:runAttack()
     local t_target = self:findTarget()
-	
-    for i,target_char in ipairs(t_target) do
+	self.m_lTarget = t_target
+
+    for i, target_char in ipairs(t_target) do
+		-- @TODO 중독 추가 데미지 임시 구현!!!
+		local add_value = 0
+		if string.find(self.m_addDamage, ';') then	
+			local l_str = stringSplit(self.m_addDamage, ';')
+			local add_type = l_str[1]
+			add_Value = l_str[2]
+			for type, status_effect in pairs(target_char:getStatusEffectList()) do
+				if (status_effect.m_statusEffectName == add_type) then 
+					add_value = l_str[2]
+					break
+				end
+			end
+		end
+		-- 데미지를 공격시마다 계산
+		self.m_activityCarrier.m_skillCoefficient = ((self.m_powerRate + add_value) / 100)
+
         -- 공격
         self:attack(target_char)
 		
-		-- 낙뢰와 같은 경우 타겟 마다 이펙트 생성
+		-- @TODO 낙뢰와 같은 경우 타겟 마다 이펙트 생성 임시 구현
 		if (self.m_maxAttackCnt == 1) then 
 			if (target_char.pos.x ~= self.m_targetPos.x) and (target_char.pos.y ~= self.m_targetPos.y) then 
 				self:makeEffect(target_char.pos.x, target_char.pos.y)
 			end
 		end 
     end
-
-	self.m_lTarget = t_target
 end
 
 -------------------------------------
@@ -164,7 +175,8 @@ function SkillAoERound:makeSkillInstance(owner, t_skill, t_data)
     local range = t_skill['val_1']		  -- 공격 반경
 	local aoe_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())	  -- 광역 스킬 리소스
 
-	
+	local add_damage = t_skill['val_2'] -- 추가데미지 필드
+
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
@@ -178,7 +190,7 @@ function SkillAoERound:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(attack_count, range, aoe_res)
+    skill:init_skill(attack_count, range, aoe_res, add_damage)
 	skill:initState()
 
 	-- 3. state 시작 

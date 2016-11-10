@@ -276,7 +276,11 @@ function GameState:update_enemy_appear(dt)
 
             g_gameScene.m_inGameUI.vars['waveVisual']:setVisual('wave', string.format('%02d', world.m_waveMgr.m_currWave))
 
+			-- 웨이브 시작 이벤트 전달
             world:dispatch('wave_start')
+			for _, dragon in pairs(world.m_lDragonList) do
+				dragon:dispatch('wave_start')
+			end
         end
 
         self:changeState(GAME_STATE_FIGHT_WAIT)

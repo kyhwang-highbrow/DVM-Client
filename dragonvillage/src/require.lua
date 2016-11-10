@@ -143,6 +143,7 @@ local t_module = {
 	'CommonMissile_Shotgun',
 	'CommonMissile_Release',
 	'CommonMissile_High',
+	'CommonMissile_Bounce',
 
 	-- STATUS EFFECT
 	'StatusEffect',

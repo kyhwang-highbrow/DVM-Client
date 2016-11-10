@@ -376,6 +376,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
     t_damaged_info['critical'] = critical
 	attacker.m_activityCarrier:setDamagedInfo(t_damaged_info)
 
+    -- 상태이상 체크
+    StatusEffectHelper:statusEffectCheck_onHit(attacker.m_activityCarrier, self)
+
     -- 방어자 피격 이벤트 
     self:dispatch('undergo_attack', attacker.m_activityCarrier.m_activityCarrierOwner)
 

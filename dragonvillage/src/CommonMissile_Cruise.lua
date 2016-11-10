@@ -46,7 +46,7 @@ function CommonMissile_Cruise:setMissile()
 	t_option['movement'] ='guidtarget' 
     t_option['missile_type'] = 'NORMAL'
 	
-	t_option['scale'] = 1
+	t_option['scale'] = self.m_resScale
 	t_option['count'] = 1
 	t_option['speed'] = 200
 	t_option['h_limit_speed'] = 2000

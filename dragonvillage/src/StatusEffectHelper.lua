@@ -23,12 +23,7 @@ function StatusEffectHelper:statusEffectCheck_onHit(attack_damage, defender)
     for type, t_content in pairs(attack_damage.m_lStatusEffectRate) do
 		local value = t_content['value']
 		local rate = t_content['rate']
-
-        -- 확률을 퍼밀로 계산
-        local permill = rate * 10
-        if (math_random(1, 1000) <= permill) then
-            StatusEffectHelper:invokeStatusEffect(defender, type, value, rate)
-        end
+        StatusEffectHelper:invokeStatusEffect(defender, type, value, rate)
     end
 end
 
@@ -156,7 +151,6 @@ function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_
 	if (not status_effect_type) or (status_effect_type == 'x') then
         return nil
     end
-		 
 	-- 확률 검사
 	if (math_random(1, 1000) > status_effect_rate * 10) then 
 		return nil
@@ -231,6 +225,10 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 	elseif (status_effect_type == 'passive_spatter') then
         status_effect = StatusEffect_PassiveSpatter(res)
 		status_effect:init_trigger('avoid', char)
+	
+	-- 웨이브 시작 시
+	elseif (t_skill['type'] == 'passive_wave_start') then
+		status_effect:init_trigger('wave_start', char)
 
 	-- default : 피격시
 	else
@@ -445,7 +443,7 @@ function StatusEffectHelper:invokeStatusEffectForDev(char, res)
     status_effect.m_durationTimer = 5
 
     status_effect.m_owner = char
-    status_effect.m_statusEffectName = 'burn'
+    status_effect.m_statusEffectName = 'poison'
 
     -- 객체 생성
     local world = char.m_world

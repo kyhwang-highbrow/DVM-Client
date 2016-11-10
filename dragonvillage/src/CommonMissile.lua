@@ -10,6 +10,7 @@ CommonMissile = class(PARENT, {
 
 		m_missileRes = 'str',
 		m_motionStreakRes = 'str',
+		m_resScale = 'num',
 
 		m_powerRate = 'num',
 		m_activityCarrier = 'AttackDamage',
@@ -42,6 +43,7 @@ function CommonMissile:initCommonMissile(owner, t_skill)
 	local attr = owner.m_charTable['attr'] or ''
 	self.m_missileRes = string.gsub(t_skill['res_1'], '@', attr)
 	self.m_motionStreakRes = string.gsub(t_skill['res_2'], '@', attr)
+	self.m_resScale = t_skill['res_scale']
 
 	self.m_powerRate = t_skill['power_rate']
 	self.m_lStatusEffectStr = {t_skill['status_effect_1'], t_skill['status_effect_2']}
@@ -74,7 +76,7 @@ function CommonMissile:initActvityCarrier()
     self.m_activityCarrier.m_skillCoefficient = (self.m_powerRate / 100)
 	
 	-- 상태효과도 담음
-    -- self.m_activityCarrier:insertStatusEffectRate(self.m_statusEffectType, self.m_statusEffectValue, self.m_statusEffectRate)
+    self.m_activityCarrier:insertStatusEffectRate(self.m_lStatusEffectStr)
 	
 	-- 타격 이벤트에서 일반탄인지 구분할 때 사용
 	self.m_activityCarrier:setAttackType('basic') 
@@ -179,9 +181,6 @@ function CommonMissile:fireMissile()
 		world.m_missileFactory:makeMissile(t_option)
 		t_option['dir'] = t_option['dir'] + t_option['dir_add']
 	end
-	
-	-- 상태이상 체크
-	StatusEffectHelper:doStatusEffectByStr(self.m_owner, {self.m_target}, self.m_lStatusEffectStr)
 end
 
 -------------------------------------

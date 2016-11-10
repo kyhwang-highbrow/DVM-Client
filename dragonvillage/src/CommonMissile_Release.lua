@@ -59,7 +59,7 @@ function CommonMissile_Release:setMissile()
 	t_option['movement'] ='guidtarget' 
     t_option['missile_type'] = 'NORMAL'
 	
-	t_option['scale'] = 1
+	t_option['scale'] = self.m_resScale
 	t_option['count'] = 2
 	t_option['speed'] = 200
 	t_option['accel'] = 2000

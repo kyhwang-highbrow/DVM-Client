@@ -124,7 +124,9 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 		elseif (type == 'missile_move_high_angle') then
             CommonMissile_High:makeMissileInstance(self, t_skill)
             return true
-
+		elseif (type == 'missile_move_bounce') then
+            CommonMissile_Bounce:makeMissileInstance(self, t_skill)
+            return true
 
 		-- 스킬 영역
         elseif (type == 'skill_butt') then
@@ -287,7 +289,7 @@ function Character:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_da
 
     -- AttackDamage 생성
     local activity_carrier = self:makeAttackDamageInstance(t_skill['id'])
-    activity_carrier:insertStatusEffectRate(t_skill['status_effect_type'], t_skill['status_effect_value'], t_skill['status_effect_rate'])
+    activity_carrier:insertStatusEffectRate({t_skill['status_effect_1'], t_skill['status_effect_2']})
 
     missile_launcher.m_bHeroMissile = is_hero
     self.m_world:addToUnitList(missile_launcher)
