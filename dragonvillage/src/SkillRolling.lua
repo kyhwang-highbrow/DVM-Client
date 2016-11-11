@@ -9,11 +9,14 @@ SkillRolling = class(PARENT, {
 		m_targetCnt = 'number',
 		m_maxTargetCnt = 'number',
 		m_maxAttackCnt = 'number',
-		
+
+		-- 이동 체크
+		m_bMoving = 'bool',
+
 		-- 반복 공격 위한 시간 관리 용
         m_multiAtkTimer = 'dt',
         m_hitInterval = 'number',
-	
+		
 		-- 잔상 시간 관리 용
 		m_afterimageMove = '',
 
@@ -43,6 +46,7 @@ function SkillRolling:init_skill(spin_res, target_count, buff_prob, atk_count)
 	self.m_afterimageMove = 0
 	self.m_targetCnt = 0
 	self.m_attackCnt = 0
+	self.m_bMoving = false
 
     -- 최초 위치 지정
     self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
@@ -149,39 +153,19 @@ function SkillRolling.st_attack(owner, dt)
 		owner.m_attackCnt = owner.m_attackCnt + 1
     end
 	
-	-- 현재 공격 대상이 죽었다면 
+	-- 현재 공격 대상이 죽었다면 state move_attack 로 변경
 	if (owner.m_targetChar) and (owner.m_targetChar.m_bDead) then
-		--[[ @TODO 향후에 스킬 자체를 수정해야함
-		-- 카운트 남아 있으면 다음 대상으로 이동, 총 공격대상 수 제한 있음
-		if (owner.m_maxTargetCnt > owner.m_targetCnt) then
-			local t_targets = owner.m_world:getTargetList(owner.m_owner, 0, 0, 'enemy', 'x', 'distance_line')
-			if t_targets[1] then 
-				owner.m_targetChar = t_targets[1]
-				owner.m_targetPos = t_targets[1].pos
-
-				owner.m_attackCnt = 0
-				owner.m_targetCnt = owner.m_targetCnt + 1
-
-				-- state move_attack 로 변경
-				owner:changeState('moveAttack')
-			end
-		end
-		]]
+		owner:changeState('moveAttack')
 		
-		owner:changeState('comeback')
 		-- 스파인 드래곤 .. 적 죽일 시 상태효과
 		if (owner.m_targetChar) and (owner.m_targetChar.m_bDead) then
 			StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {}, owner.m_lStatusEffectStr)
 		end
 	end
 
-	-- 최대 공격 횟수 초과시 탈출
+	-- 최대 공격 횟수 초과시 돌아감
     if (owner.m_maxAttackCnt <= owner.m_attackCnt) then
 		owner:changeState('comeback')
-		-- 스파인 드래곤 .. 적 죽일 시 상태효과
-		if (owner.m_targetChar) and (owner.m_targetChar.m_bDead) then
-			StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {}, owner.m_lStatusEffectStr)
-		end
     end
 end
 
@@ -192,17 +176,50 @@ function SkillRolling.st_move_attack(owner, dt)
 	-- 잔상 효과
 	owner:updateAfterImage(dt)
 
-    if (owner.m_stateTimer == 0) then
-        -- 이동
-        local target_pos = cc.p(owner.m_targetPos.x - 40, owner.m_targetPos.y)
-        local action = cc.MoveTo:create(0.1, target_pos)
-		local delay = cc.DelayTime:create(0.6)
+	-- a. 이동중인지 체크
+	if (not owner.m_bMoving) then 
+		-- 1. 다음 타겟을 검색
+		if (not owner.m_targetChar) then
+			-- 1-1. 최대 충돌 갯수 체크
+			if (owner.m_maxTargetCnt > owner.m_targetCnt) then
+				local t_targets = owner.m_world:getTargetList(owner.m_owner, 0, 0, 'enemy', 'x', 'distance_line')
+				-- 1-2. 타겟이 있는지 체크
+				local rand = math_random(1, #t_targets)
+				if t_targets[rand] then 
+					owner.m_targetChar = t_targets[rand]
+					owner.m_targetPos = t_targets[rand].pos
+				else
+					owner:changeState('comeback')
+				end
+			else
+				owner:changeState('comeback')
+			end
 
-		-- state chnage 함수 콜
-		local cbFunc = cc.CallFunc:create(function() owner:changeState('attack') end)
+		-- 2. 타겟이 있으면 이동 공격
+		else
+			-- 2-1. 이동
+			local target_pos = cc.p(owner.m_targetPos.x, owner.m_targetPos.y)
+			local action = cc.MoveTo:create(0.1, target_pos)
+			owner.m_bMoving = true
+
+			-- 2-2. state chnage 함수 콜
+			local cbFunc = cc.CallFunc:create(function() 
+				local animator = MakeAnimator('res/effect/effect_hit_01/effect_hit_01.vrp')
+				animator:changeAni('idle', true)
+				animator.m_node:setPosition(owner.m_owner.pos.x, owner.m_owner.pos.y)
+				owner.m_owner.m_world.m_missiledNode:addChild(animator.m_node)
+
+				ShakeDir2(owner.movement_theta, 300)
+				owner:runAttack(true) -- @TODO 구조 개선 필요
+				owner.m_bMoving = false
+			end)
 		
-		owner.m_owner:runAction(cc.Sequence:create(cc.EaseIn:create(action, 2), cbFunc))
-    end
+			-- 2-3. 액션 실행 및 후 타겟 지움
+			owner.m_owner:runAction(cc.Sequence:create(cc.EaseIn:create(action, 2), cbFunc))
+			owner.m_targetCnt = owner.m_targetCnt + 1
+			owner.m_targetChar = nil
+		end
+	end
 end
 
 -------------------------------------
