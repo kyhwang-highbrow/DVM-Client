@@ -13,7 +13,7 @@ UI_InvenDevApiPopup = class(PARENT, {
 -------------------------------------
 function UI_InvenDevApiPopup:init()
     local vars = self:load('inven_dev_api_popup.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_InvenDevApiPopup')
