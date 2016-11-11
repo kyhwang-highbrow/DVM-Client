@@ -476,7 +476,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StatusEffect_DotDmg.lua" />
     <None Include="..\src\StatusEffect_PassiveSpatter.lua" />
     <None Include="..\src\StatusEffect_Protection.lua" />
-    <None Include="..\src\StatusEffect_Recovery.lua" />
+    <None Include="..\src\StatusEffect_Heal.lua" />
     <None Include="..\src\StatusEffect_Trigger.lua" />
     <None Include="..\src\Stopwatch.lua" />
     <None Include="..\src\SumRandom.lua" />
@@ -531,7 +531,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_GuidePopup.lua" />
     <None Include="..\src\UI_IngameDragonInfo.lua" />
     <None Include="..\src\UI_IngameUnitInfo.lua" />
-    <None Include="..\src\UI_InvenDevApiPopup.lua" />
     <None Include="..\src\UI_ItemCard.lua" />
     <None Include="..\src\UI_Lobby.lua" />
     <None Include="..\src\UI_LobbyNew.lua" />

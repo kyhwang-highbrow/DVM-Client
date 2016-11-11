@@ -709,9 +709,6 @@
     <None Include="..\src\SkillBuff.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\StatusEffect_Recovery.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\StatusEffect_DotDmg.lua">
       <Filter>lua</Filter>
     </None>
@@ -994,8 +991,8 @@
     <None Include="..\src\UI_DragonSkillCard.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_InvenDevApiPopup.lua">
-      <Filter>lua\UI</Filter>
+    <None Include="..\src\StatusEffect_Heal.lua">
+      <Filter>lua</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
