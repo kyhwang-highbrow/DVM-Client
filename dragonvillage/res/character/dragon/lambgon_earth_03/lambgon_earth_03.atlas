@@ -46,6 +46,20 @@ lambgon_earth_03_effect_01
   orig: 120, 120
   offset: 0, 0
   index: -1
+lambgon_earth_03_effect_03
+  rotate: false
+  xy: 864, 121
+  size: 41, 34
+  orig: 41, 34
+  offset: 0, 0
+  index: -1
+lambgon_earth_03_effect_04
+  rotate: false
+  xy: 815, 121
+  size: 47, 34
+  orig: 47, 34
+  offset: 0, 0
+  index: -1
 lambgon_earth_03_foot_01
   rotate: false
   xy: 749, 79

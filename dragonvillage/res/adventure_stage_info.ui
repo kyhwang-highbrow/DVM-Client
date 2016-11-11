@@ -139,7 +139,7 @@
 			};
 			[5] =
 			{
-				type = 'TableView';
+				type = 'Node';
 				ui_name = '';
 				x = 38.000099;
 				y = -122.000000;
@@ -154,13 +154,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'listView';
-				scroll = 2;
-				bounce = true;
-				view_width = 714;
-				view_height = 122;
-				cell_width = 60;
-				cell_height = 60;
+				lua_name = 'dropListNode';
 			};
 			[6] =
 			{
@@ -179,7 +173,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'listViewNode';
+				lua_name = 'monsterListNode';
 			};
 			type = 'Scale9Sprite';
 			ui_name = '';
