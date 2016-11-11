@@ -481,6 +481,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Stopwatch.lua" />
     <None Include="..\src\SumRandom.lua" />
     <None Include="..\src\Table.lua" />
+    <None Include="..\src\TableMonster.lua" />
+    <None Include="..\src\TableStageDesc.lua" />
     <None Include="..\src\TableViewExtension.lua" />
     <None Include="..\src\TableViewTD.lua" />
     <None Include="..\src\TableClass.lua" />
@@ -534,6 +536,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ItemCard.lua" />
     <None Include="..\src\UI_Lobby.lua" />
     <None Include="..\src\UI_LobbyNew.lua" />
+    <None Include="..\src\UI_MonsterCard.lua" />
     <None Include="..\src\UI_NestDragonDungeonListItem.lua" />
     <None Include="..\src\UI_NestDungeonScene.lua" />
     <None Include="..\src\UI_NestDungeonStageSelectPopup.lua" />

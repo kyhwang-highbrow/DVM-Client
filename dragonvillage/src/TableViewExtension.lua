@@ -157,11 +157,12 @@ function TableViewExtension:setItemUIClass(item_class, click_cb, create_func)
             local data = t_param['item']['data']
             ui = item_class(data)
             ui.root:setAnchorPoint(cc.p(0, 0))
+            ui.root:setDockPoint(cc.p(0, 0))
             ui.root:setPosition(t_param['itemPos']['x'], t_param['itemPos']['y'])
             
             --cclog('######## new')
 
-            if ui.vars['clickBtn'] then
+            if (click_cb and ui.vars['clickBtn']) then
                 ui.vars['clickBtn']:setVisible(true)
                 ui.vars['clickBtn']:setEnabled(true)
 

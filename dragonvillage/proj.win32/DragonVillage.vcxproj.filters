@@ -994,6 +994,15 @@
     <None Include="..\src\StatusEffect_Heal.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableStageDesc.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_MonsterCard.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\TableMonster.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

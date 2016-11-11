@@ -69,6 +69,10 @@ local t_module = {
     'AreaOfEffectHelper',
     'ShaderCache',
 
+    -- Table
+    'TableStageDesc',
+    'TableMonster',
+
     -- Interface
     'IEventDispatcher',
     'ITopUserInfo_EventListener',
@@ -272,6 +276,7 @@ local t_module = {
     'UI_SettingPopup_Dev',
     'UI_DragonDevApiPopup',
     'UI_InvenDevApiPopup',
+    'UI_MonsterCard',
 
     -- UI 드래곤 관리 관련
     'UI_DragonManage_Base',

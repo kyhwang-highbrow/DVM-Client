@@ -5,6 +5,9 @@ local PARENT = UI
 -------------------------------------
 UI_AdventureStageInfo = class(PARENT,{
         m_stageID = 'number',
+        m_currTab = 'string', -- 'item' or 'monster'
+        m_bInitItemTableView = 'boolean',
+        m_bInitMonsterTableView = 'boolean',
     })
 
 -------------------------------------
@@ -40,6 +43,7 @@ end
 -- function initUI
 -------------------------------------
 function UI_AdventureStageInfo:initUI()
+    self:click_tabBtn('item')
 end
 
 -------------------------------------
@@ -47,6 +51,8 @@ end
 -------------------------------------
 function UI_AdventureStageInfo:initButton()
     local vars = self.vars
+    vars['rewardBtn']:registerScriptTapHandler(function() self:click_tabBtn('item') end)
+    vars['enemyInfoBtn']:registerScriptTapHandler(function() self:click_tabBtn('monster') end)
     vars['enterBtn']:registerScriptTapHandler(function() self:click_enterBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
@@ -64,8 +70,11 @@ function UI_AdventureStageInfo:refresh()
         vars['titleLabel']:setString(chapter_name .. Str(' {1}-{2}', chapter, stage))
     end
 
+    local table_stage_desc = TableStageDesc()
+
     do -- 스테이지 설명
-        vars['dscLabel']:setString(Str('정령의 숲에서 정령정령한 일이 일어나고 있었다.\n정령정령한 일은 과연 무엇일까?'))
+        local desc = table_stage_desc:getStageDesc(stage_id)
+        vars['dscLabel']:setString(desc)
     end
 
     do -- 모험 소비 활동력
@@ -80,9 +89,41 @@ function UI_AdventureStageInfo:refresh()
             self.vars['actingPowerLabel']:setString(cost_value)
         end 
     end
+end
 
-    -- 획득 가능 보상
-    self:refresh_rewardInfo()
+-------------------------------------
+-- function refresh_monsterList
+-------------------------------------
+function UI_AdventureStageInfo:refresh_monsterList()
+    local vars = self.vars
+    local stage_id = self.m_stageID
+
+    local table_stage_desc = TableStageDesc()
+
+    do -- 몬스터 아이콘 리스트
+        local l_monster_id = table_stage_desc:getMonsterIDList(stage_id)
+
+        local list_table_node = self.vars['monsterListNode']
+        local cardUIClass = UI_MonsterCard
+        local cardUISize = 0.8
+        local width, height = cardUIClass:getCardSize(cardUISize)
+
+        -- 리스트 아이템 생성 콜백
+        local function create_func(item)
+            local ui = item['ui']
+            ui.root:setScale(cardUISize)
+        end
+
+        -- 클릭 콜백 함수
+        local click_item = nil
+
+        -- 테이블뷰 초기화
+        local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.HORIZONTAL)
+        table_view_ext:setCellInfo(width, height)
+        table_view_ext:setItemUIClass(cardUIClass, click_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
+        table_view_ext:setItemInfo(l_monster_id)
+        table_view_ext:update()
+    end
 end
 
 -------------------------------------
@@ -95,7 +136,7 @@ function UI_AdventureStageInfo:refresh_rewardInfo()
     local drop_helper = DropHelper(stage_id)
     local l_item_list = drop_helper:getDisplayItemList()
 
-    local list_table_node = self.vars['listViewNode']
+    local list_table_node = self.vars['dropListNode']
 
     -- 리스트 아이템 생성 콜백
     local function create_func(item)
@@ -117,8 +158,6 @@ function UI_AdventureStageInfo:refresh_rewardInfo()
     table_view_ext:setItemUIClass(UI_ItemCard, click_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
     table_view_ext:setItemInfo(l_item_list)
     table_view_ext:update()
-
-    --self.m_tableViewExt = table_view_ext
 end
 
 -------------------------------------
@@ -137,6 +176,42 @@ function UI_AdventureStageInfo:click_enterBtn()
     end
 
     self:sceneFadeOutAndCallFunc(func)
+end
+
+-------------------------------------
+-- function click_tabBtn
+-- @brief '획득 가능 보상', '출현 정보'
+-------------------------------------
+function UI_AdventureStageInfo:click_tabBtn(tab_type)
+    if (self.m_currTab == tab_type) then
+        return
+    end
+
+    self.m_currTab = tab_type
+
+    local vars = self.vars
+
+    if (self.m_currTab == 'item') then
+        vars['monsterListNode']:setVisible(false)
+        vars['dropListNode']:setVisible(true)
+        
+        if (not self.m_bInitItemTableView) then
+            self:refresh_rewardInfo()
+            self.m_bInitItemTableView = true
+        end
+
+    elseif (self.m_currTab == 'monster') then
+        vars['monsterListNode']:setVisible(true)
+        vars['dropListNode']:setVisible(false)
+
+        if (not self.m_bInitMonsterTableView) then
+           self:refresh_monsterList()
+           self.m_bInitMonsterTableView = true
+        end
+        
+    else
+        error('self.m_currTab : ' .. self.m_currTab)
+    end
 end
 
 

@@ -58,12 +58,12 @@ end
 -- function doHeal
 -------------------------------------
 function StatusEffect_Heal:doHeal()
-	-- »ó´ë Ã¼·ÂÀÇ n% È¸º¹
+	-- ìƒëŒ€ ì²´ë ¥ì˜ n% íšŒë³µ
 	if (self.m_healType == 'hp_target') then 
 		self.m_owner:healPercent(self.m_healRate)
 
-	-- ½ÃÀüÀÚÀÇ µ¥¹ÌÁöÀÇ n% È¸º¹
-	-- @TODO ½ÃÀüÀÚ °¡Á®¿À·Á¸é ±¸Á¶ °³¼±ÇØ¾ßÇÔ 
+	-- ì‹œì „ìì˜ ë°ë¯¸ì§€ì˜ n% íšŒë³µ
+	-- @TODO ì‹œì „ì ê°€ì ¸ì˜¤ë ¤ë©´ êµ¬ì¡° ê°œì„ í•´ì•¼í•¨ 
 	elseif (self.m_healType == 'atk') then 
 		local atk_dmg = self.m_owner.m_statusCalc:getFinalStat('atk')
 		local heal = HealCalc_M(atk_dmg)
