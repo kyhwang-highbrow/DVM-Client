@@ -1148,6 +1148,13 @@ function Character:getFormationMgr(opposite)
 end
 
 -------------------------------------
+-- function getName
+-------------------------------------
+function Character:getName()
+	return self.m_charTable['t_name']
+end
+
+-------------------------------------
 -- function getAttribute
 -------------------------------------
 function Character:getAttribute()

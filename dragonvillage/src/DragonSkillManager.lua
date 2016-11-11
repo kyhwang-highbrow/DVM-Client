@@ -330,16 +330,18 @@ function IDragonSkillManager:printSkillManager()
     end
 
     cclog('########DragonSkillManager##############')
-	cclog('id : ' .. self.m_charID)
+	cclog('dragon id : ' .. self.m_charID)
 	for type, skill in pairs(self.m_lSkillIndivisualInfo) do
 		if isExistValue(type, 'active', 'basic') then
 			if self.m_lSkillIndivisualInfo[type] then
-				cclog('type : ' .. type, 'skill : ' .. skill.m_tSkill['id'] .. skill.m_tSkill['t_name'])
+				cclog('type : ' .. type, 'skill : ' .. skill.m_tSkill['id'] .. skill.m_tSkill['t_name'] .. ' lv.' .. skill.m_skillLevel)
 			end
 		else
-			cclog('type : ' .. type, '')
-			for i, skill2 in pairs(skill) do
-				cclog('    no.' .. i .. ' : ' .. skill2.m_tSkill['id'] .. skill2.m_tSkill['t_name'])
+			if (skill[1]) then 
+				cclog('type : ' .. type, '')
+				for i, skill2 in pairs(skill) do
+					cclog('--> no.' .. i .. ' : ' .. skill2.m_tSkill['id'] .. skill2.m_tSkill['t_name'] .. ' lv.' .. skill2.m_skillLevel)
+				end
 			end
 		end
 	end
@@ -353,6 +355,30 @@ end
 function IDragonSkillManager:getSkillDescPure(t_skill)
     local desc = Str(t_skill['t_desc'], t_skill['desc_1'], t_skill['desc_2'], t_skill['desc_3'], t_skill['desc_4'], t_skill['desc_5'])
     return desc
+end
+
+-------------------------------------
+-- function getLevelingSkill
+-- @brief 레벨링된 스킬 테이블 반환
+-------------------------------------
+function IDragonSkillManager:getLevelingSkill(skill_id)
+	local t_skill = nil
+	for skill_type, skill_info in pairs(self.m_lSkillIndivisualInfo) do
+		if isExistValue(skill_type, 'active', 'basic') then
+			if (skill_info.m_skillID == skill_id) then
+				t_skill = skill_info.m_tSkill
+				break
+			end
+		else
+			for i, skill_info2 in pairs(skill_info) do
+				if (skill_info2.m_skillID == skill_id) then
+					t_skill = skill_info2.m_tSkill
+					break
+				end
+			end
+		end
+	end
+	return t_skill
 end
 
 -------------------------------------
