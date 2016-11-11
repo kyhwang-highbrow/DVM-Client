@@ -60,6 +60,7 @@ end
 function UI_ReadyScene:initUI()
     self:init_dragonTableView()
     self:setSelectedDragonDoid_default()
+    self:init_monsterTableView()
 end
 
 -------------------------------------
@@ -355,6 +356,42 @@ function UI_ReadyScene:setSelectedDragonDoid_default()
     if t_dragon_data then
         local doid = t_dragon_data['id']
         self:setSelectedDragonDoid(t_dragon_data['id'])
+    end
+end
+
+
+-------------------------------------
+-- function init_monsterTableView
+-------------------------------------
+function UI_ReadyScene:init_monsterTableView()
+    local vars = self.vars
+    local stage_id = self.m_stageID
+
+    local table_stage_desc = TableStageDesc()
+
+    do -- 몬스터 아이콘 리스트
+        local l_monster_id = table_stage_desc:getMonsterIDList(stage_id)
+
+        local list_table_node = self.vars['enemyListView']
+        local cardUIClass = UI_MonsterCard
+        local cardUISize = 0.65
+        local width, height = cardUIClass:getCardSize(cardUISize)
+
+        -- 리스트 아이템 생성 콜백
+        local function create_func(item)
+            local ui = item['ui']
+            ui.root:setScale(cardUISize)
+        end
+
+        -- 클릭 콜백 함수
+        local click_item = nil
+
+        -- 테이블뷰 초기화
+        local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.HORIZONTAL)
+        table_view_ext:setCellInfo(width, height)
+        table_view_ext:setItemUIClass(cardUIClass, click_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
+        table_view_ext:setItemInfo(l_monster_id)
+        table_view_ext:update()
     end
 end
 
