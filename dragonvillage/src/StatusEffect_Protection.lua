@@ -6,6 +6,8 @@ local PARENT = StatusEffect_Trigger
 StatusEffect_Protection = class(PARENT, {
 		m_StatusEffect_ProtectionHP = 'number', -- 실드로 보호될 데미지 량
         m_StatusEffect_ProtectionHPOrg = 'number',
+
+		m_label = 'cc.Label',
      })
 
 -------------------------------------
@@ -15,6 +17,15 @@ StatusEffect_Protection = class(PARENT, {
 -------------------------------------
 function StatusEffect_Protection:init(file_name, body, ...)
     self:initState()
+
+	do
+        local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 20, 2, cc.size(250, 100), 1, 1)
+        label:setPosition(0, -100)
+        label:setDockPoint(cc.p(0.5, 0.5))
+        label:setAnchorPoint(cc.p(0.5, 0.5))
+        self.m_rootNode:addChild(label)
+        self.m_label = label
+    end
 end
 
 
@@ -52,6 +63,7 @@ end
 -- function update
 -------------------------------------
 function StatusEffect_Protection:update(dt)
+	self.m_label:setString(string.format('%.1f / %.1f', self.m_StatusEffect_ProtectionHP, self.m_StatusEffect_ProtectionHPOrg))
 	if (self.m_state == 'idle') then
 		self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 

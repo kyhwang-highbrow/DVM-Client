@@ -98,7 +98,7 @@ function SceneGame:init_layer()
 
                     -- 스킬 인디케이터 레이어
                     self.m_gameIndicatorNode = cc.Node:create()
-                    self.m_worldLayer:addChild(self.m_gameIndicatorNode)
+                    self.m_worldLayer:addChild(self.m_gameIndicatorNode, 99)
 
                     -- 하일라이트 레이어
                     self.m_gameHighlightNode = cc.Node:create()
