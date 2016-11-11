@@ -24,22 +24,38 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
     local is_hero = true
     local phys_group = 'missile_h'
     local attr = attr or self.m_charTable['attr'] or self.m_charTable['attr_1']
+	local t_skill = nil
 
     -- 캐릭터 유형별 변수 정리(dragon or enemy)
     if (self.m_charType == 'dragon') then
         is_hero = true
         phys_group = 'missile_h'
+		-- 스킬 레벨이 반영된 테이블 정보 가져옴
+		for skill_type, skill_info in pairs(self.m_lSkillIndivisualInfo) do
+			if isExistValue(skill_type, 'active', 'basic') then
+				if (skill_info.m_skillID == skill_id) then
+					t_skill = skill_info.m_tSkill
+					break
+				end
+			else
+				for i, skill_info2 in pairs(skill_info) do
+					if (skill_info2.m_skillID == skill_id) then
+						t_skill = skill_info2.m_tSkill
+						break
+					end
+				end
+			end
+		end
     elseif (self.m_charType == 'enemy') then
         is_hero = false
         phys_group = 'missile_e'
+		local table_skill = TABLE:get(self.m_charType .. '_skill')
+		t_skill = table_skill[skill_id]
     else
         error()
     end
 
-    -- 테이블 정보 가져옴
-    local table_skill = TABLE:get(self.m_charType .. '_skill')
-    local t_skill = table_skill[skill_id]
-
+	-- 스킬 테이블 체크
     if (not t_skill) then
         error('스킬 테이블이 존재하지 않는ㄷr...' .. tostring(skill_id))
     end
