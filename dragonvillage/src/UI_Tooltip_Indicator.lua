@@ -60,19 +60,22 @@ function UI_Tooltip_Indicator:init_data(dragon)
 	local char_type = dragon.m_charType
 	local dragon_id = dragon.m_dragonID
 	local t_dragon = TABLE:get(char_type)[dragon_id]
-	local dragon_grade = dragon.m_tDragonInfo['grade']
+	local dragon_evol = dragon.m_tDragonInfo['evolution']
 	
 	-- 1. 전체 드래곤 액티브 스킬을 체크한다.
 	-- key = skill id, value = 활성화 여부
+	-- @TODO 스킬 활성화 조건에 대해 체크해야함
 	local t_active_id = {} 
-	for i = 1, 6 do 
+	table.insert(t_active_id, {	skill_id = t_dragon['skill_active'], isActivation = true})
+	for i = 1, 4 do 
 		if (t_dragon['skill_type_' .. i ] == 'active') then 
-			table.insert(t_active_id, {	skill_id = t_dragon['skill_' .. i ], isActivation = dragon_grade >= i})
+			table.insert(t_active_id, {	skill_id = t_dragon['skill_' .. i ], isActivation = dragon_evol == 3})
 		end
 	end
 	
 	-- 2. 멤버 변수에 저장
 	self.m_tActiveSkillId = t_active_id
+	ccdump(t_active_id)
 end
 
 -------------------------------------
@@ -85,6 +88,7 @@ function UI_Tooltip_Indicator:displayData()
 	local str = nil 
 	local idx = 1
 	for i, v in pairs(self.m_tActiveSkillId) do 
+		cclog(i, v.skill_id)
 		str = self:getSkillDescStr(char_type, v['skill_id'], skill_type, v['isActivation'])
 		self:setSkillText(idx, str)
 		idx = idx + 1
@@ -243,9 +247,9 @@ end
 -- function getSkillDescStr
 -------------------------------------
 function UI_Tooltip_Indicator:getSkillDescStr(char_type, skill_id, skill_type, isActivation)
-    --local table_skill = TABLE:get(char_type .. '_skill')
-    --local t_skill = table_skill[skill_id]
-    local t_skill = self.m_skillIndivisualInfo.m_tSkill
+    local table_skill = TABLE:get(char_type .. '_skill')
+    local t_skill = table_skill[skill_id]
+    --local t_skill = self.m_skillIndivisualInfo.m_tSkill
 
 	local name_color = isActivation and '{@ORANGE}' or '{@GRAY}'
 	local text_color = isActivation and '{@WHITE}' or '{@GRAY}'
