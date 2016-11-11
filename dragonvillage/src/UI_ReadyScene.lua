@@ -369,6 +369,10 @@ function UI_ReadyScene:init_monsterTableView()
 
     local table_stage_desc = TableStageDesc()
 
+    if (not table_stage_desc:get(stage_id)) then
+        return
+    end
+
     do -- 몬스터 아이콘 리스트
         local l_monster_id = table_stage_desc:getMonsterIDList(stage_id)
 

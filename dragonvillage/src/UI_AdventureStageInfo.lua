@@ -70,13 +70,6 @@ function UI_AdventureStageInfo:refresh()
         vars['titleLabel']:setString(chapter_name .. Str(' {1}-{2}', chapter, stage))
     end
 
-    local table_stage_desc = TableStageDesc()
-
-    do -- 스테이지 설명
-        local desc = table_stage_desc:getStageDesc(stage_id)
-        vars['dscLabel']:setString(desc)
-    end
-
     do -- 모험 소비 활동력
         if (stage_id == 99999) then
             self.vars['actingPowerLabel']:setString('0')
@@ -89,6 +82,17 @@ function UI_AdventureStageInfo:refresh()
             self.vars['actingPowerLabel']:setString(cost_value)
         end 
     end
+
+    local table_stage_desc = TableStageDesc()
+    
+    if (not table_stage_desc:get(stage_id)) then
+        return
+    end
+
+    do -- 스테이지 설명
+        local desc = table_stage_desc:getStageDesc(stage_id)
+        vars['dscLabel']:setString(desc)
+    end
 end
 
 -------------------------------------
@@ -99,6 +103,10 @@ function UI_AdventureStageInfo:refresh_monsterList()
     local stage_id = self.m_stageID
 
     local table_stage_desc = TableStageDesc()
+
+    if (not table_stage_desc:get(stage_id)) then
+        return
+    end
 
     do -- 몬스터 아이콘 리스트
         local l_monster_id = table_stage_desc:getMonsterIDList(stage_id)
