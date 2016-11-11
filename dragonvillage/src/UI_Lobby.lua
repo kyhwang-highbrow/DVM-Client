@@ -4,7 +4,9 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -- class UI_Lobby
 -------------------------------------
 UI_Lobby = class(PARENT,{
-})
+        m_tamerAnimator = 'Animator',
+        m_tamerIdleAniCount = 'number',
+    })
 
 -------------------------------------
 -- function initParentVariable
@@ -81,7 +83,7 @@ function UI_Lobby:refresh_userInfo()
     vars['userNameLabel']:setString(nickname)
 
     -- 레벨
-    local lv = g_userData:get('lv')
+    local lv = g_userDataOld.m_userData['lv']
     vars['userLvLabel']:setString(Str('레벨 {1}', lv))
 
     -- 경헙치
@@ -92,7 +94,7 @@ function UI_Lobby:refresh_userInfo()
         local percentage = (exp / max_exp)
         return math_floor(percentage * 100)
     end
-    local exp = g_userData:get('exp')
+    local exp = g_userDataOld.m_userData['exp']
     local exp_percentage = getTamerExpPercentage(lv, exp)
     vars['userExpLabel']:setString(Str('{1}%', exp_percentage))
     vars['userExpGg']:setPercentage(exp_percentage)
@@ -173,7 +175,7 @@ function UI_Lobby:makeTamerAnimator()
 
     do
         local tamer = MakeAnimator('res/character/tamer/goni_i/goni_i.spine')
-        tamer:changeAni('lobby_pose', true)
+        tamer:changeAni('lobby_pose', false)
         --tamer:addAniHandler(function() self:cbTamerAnimation() end)
         --tamer:setPosition(-400, -100)
         tamer:setDockPoint(cc.p(0.5, 0.5))
@@ -184,7 +186,27 @@ function UI_Lobby:makeTamerAnimator()
         tamer:setScale(1.3)
         tamer.m_node:setMix('lobby_idle', 'lobby_pose', 0.2)
         tamer.m_node:setMix('lobby_pose', 'lobby_idle', 0.2)
+
+        self.m_tamerAnimator = tamer
+        self.m_tamerIdleAniCount = 0
+
+        tamer:addAniHandler(function() self:changeTamerAniHandler() end)
     end
+end
+
+-------------------------------------
+-- function changeTamerAniHandler
+-------------------------------------
+function UI_Lobby:changeTamerAniHandler()
+    if (self.m_tamerIdleAniCount <= 0) then
+        self.m_tamerAnimator:changeAni('lobby_pose', false)
+        self.m_tamerIdleAniCount = math_random(3, 4)
+    else
+        self.m_tamerIdleAniCount = (self.m_tamerIdleAniCount - 1)
+        self.m_tamerAnimator:changeAni('lobby_idle', false)
+    end
+
+    self.m_tamerAnimator:addAniHandler(function() self:changeTamerAniHandler() end)
 end
 
 ---------------------------------------------------------------------
