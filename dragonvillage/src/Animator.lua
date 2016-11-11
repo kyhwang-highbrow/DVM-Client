@@ -321,6 +321,17 @@ function Animator:setVisible(visible)
 end
 
 -------------------------------------
+-- function isVisible
+-------------------------------------
+function Animator:isVisible()
+    if self.m_node then
+        return self.m_node:isVisible()
+	else
+		return false
+    end
+end
+
+-------------------------------------
 -- function scheduleUpdate
 -------------------------------------
 function Animator:scheduleUpdate(func)

@@ -906,8 +906,12 @@ function GameWorld:onKeyReleased(keyCode, event)
 			end
         end
 
-    elseif (keyCode == KEY_L) then    
-        self.m_tamerSkillMgr:doSkill(241001, nil, 0, 0)
+	-- 스킬 다 죽이기
+	elseif (keyCode == KEY_K) then    
+		cclog('KILL SKILL ALL')
+        for _, skill in pairs(self.m_lSkillList) do
+			skill:changeState('dying')
+		end
     end
 end
 

@@ -89,7 +89,7 @@ end
 
 
 -------------------------------------
--- function initState
+-- function setCommonState
 -- @breif state 정의
 -- @breif 모든 스킬은 delay로 시작하고 start로 본래의 스킬 state를 진행한다.
 -------------------------------------
@@ -121,7 +121,7 @@ function Skill.st_delay(owner, dt)
     if (owner.m_stateTimer == 0) then
 		owner.m_animator:setVisible(false) 
 		if (not owner.m_targetChar) then 
-			cclog('타겟이 없어 스킬을 강제로 죽임 .. kms')
+			cclog('SKLILL DELAY STATE : 타겟이 없어 스킬을 강제로 죽임 .. kms')
 			owner:changeState('dying') 
 		end
 	elseif (owner.m_stateTimer > owner.m_preDelay) then
@@ -148,6 +148,25 @@ function Skill.st_attack(owner, dt)
 		owner:runAttack()
 	else
 		owner:changeState('dying')
+    end
+end
+
+-------------------------------------
+-- function st_dying
+-------------------------------------
+function Skill.st_dying(owner, dt)
+    if (owner.m_stateTimer == 0) then
+		-- 제 위치로 
+		if (owner.m_owner.pos.x ~= owner.m_owner.m_homePosX) then
+			owner.m_owner:setMove(owner.m_owner.m_homePosX, owner.m_owner.m_homePosY, 1500)
+		end
+
+		-- Visible On
+		if (not owner.m_owner.m_animator:isVisible()) then
+			owner.m_owner.m_animator:isVisible(true)
+		end
+
+		return true
     end
 end
 

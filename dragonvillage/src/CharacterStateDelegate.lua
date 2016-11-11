@@ -36,6 +36,15 @@ function IStateDelegate.st_dying(owner, dt)
         if (owner.m_character.m_stateDelegate == owner) then
             owner.m_character:setStateDelegate(nil)
         end
+		-- 제 위치로 
+		if (owner.m_owner.pos.x ~= owner.m_owner.m_homePosX) then
+			owner.m_owner:setMove(owner.m_owner.m_homePosX, owner.m_owner.m_homePosY, 1500)
+		end
+
+		-- Visible On
+		if (not owner.m_owner.m_animator:isVisible()) then
+			owner.m_owner.m_animator:setVisible(true)
+		end
     end
     owner:setOwnerCharacter(nil)
     return true

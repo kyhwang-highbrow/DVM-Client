@@ -303,12 +303,11 @@ function GameState:update_fight(dt)
     local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
 
     if (not world.m_bDoingTamerSkill) and (enemy_count <= 0) and (dynamic_wave <= 0) then
-        --[[
-        -- 스킬 및 탄을 다 날려 버리자
+        
+        -- 스킬 다 날려 버리자
 		for _, skill in pairs(world.m_lSkillList) do
 			skill:changeState('dying')
 		end
-        ]]--
 
 		if world.m_waveMgr:getNextWaveScriptData() then 
 		    self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
