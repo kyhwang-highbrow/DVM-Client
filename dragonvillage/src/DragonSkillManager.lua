@@ -151,6 +151,14 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv)
 end
 
 -------------------------------------
+-- function getSkillIndivisualInfo
+-- @brief 타입별 스킬의 DragonSkillIndivisualInfo를 얻어옴
+-------------------------------------
+function IDragonSkillManager:getSkillIndivisualInfo(skill_type)
+    return self.m_lSkillIndivisualInfo[skill_type]
+end
+
+-------------------------------------
 -- function getSkillID
 -- @brief 타입별 스킬 ID를 얻어옴(테이블을 리턴할 수도 있음)
 -------------------------------------

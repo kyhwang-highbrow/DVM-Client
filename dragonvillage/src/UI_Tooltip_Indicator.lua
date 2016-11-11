@@ -19,6 +19,8 @@ UI_Tooltip_Indicator = class(PARENT, {
 
 		m_tActiveSkillId = 'list',
 		m_char = 'Character',
+
+        m_skillIndivisualInfo = 'DragonSkillIndivisualInfo',
     })
 
 -------------------------------------
@@ -47,6 +49,8 @@ function UI_Tooltip_Indicator:init(x, y, dragon)
 	self:init_data(dragon)
 	
 	self.m_char = dragon
+
+    self.m_skillIndivisualInfo = dragon:getSkillIndivisualInfo('active')
 end
 
 -------------------------------------
@@ -239,8 +243,9 @@ end
 -- function getSkillDescStr
 -------------------------------------
 function UI_Tooltip_Indicator:getSkillDescStr(char_type, skill_id, skill_type, isActivation)
-    local table_skill = TABLE:get(char_type .. '_skill')
-    local t_skill = table_skill[skill_id]
+    --local table_skill = TABLE:get(char_type .. '_skill')
+    --local t_skill = table_skill[skill_id]
+    local t_skill = self.m_skillIndivisualInfo.m_tSkill
 
 	local name_color = isActivation and '{@ORANGE}' or '{@GRAY}'
 	local text_color = isActivation and '{@WHITE}' or '{@GRAY}'
