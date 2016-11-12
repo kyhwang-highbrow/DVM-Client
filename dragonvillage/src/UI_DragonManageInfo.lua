@@ -222,9 +222,22 @@ function UI_DragonManageInfo:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
                 -- 스킬 레벨 출력
                 local skill_lv = skill_mgr:getSkillLevel(i)
                 vars['skllLvLabel' .. i]:setString(tostring(skill_lv))
+
+                l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function() self:click_skillDetailBtn() end)
             end
         end
     end
+end
+
+-------------------------------------
+-- function click_skillDetailBtn
+-- @brief 스킬 상세정보 보기 버튼
+-------------------------------------
+function UI_DragonManageInfo:click_skillDetailBtn()
+    local doid = self.m_selectDragonOID
+    local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+
+    UI_SkillDetailPopup(t_dragon_data)
 end
 
 -------------------------------------
