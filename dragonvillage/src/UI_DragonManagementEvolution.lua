@@ -181,6 +181,7 @@ function UI_DragonManagementEvolution:refresh_nextSkillInfo(t_dragon_data, t_dra
     else
         -- 스킬 아이콘
         local icon = UI_SkillCard('dragon', skill_id, skill_type)
+		icon:setSkillTypeVisible(false)
         vars['skillNode']:addChild(icon.root)
 
         -- 스킬 이름

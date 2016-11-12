@@ -176,3 +176,10 @@ function UI_SkillCard:setLockSpriteVisible(visible)
     local vars = self.vars
     vars['lockSprite']:setVisible(visible)
 end
+
+-------------------------------------
+-- function setSkillTypeVisible
+-------------------------------------
+function UI_SkillCard:setSkillTypeVisible(visible)
+	self.vars['skillLabel']:setVisible(visible)
+end
