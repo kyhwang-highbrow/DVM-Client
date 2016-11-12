@@ -147,8 +147,8 @@
 				type = 'Button';
 				ui_name = '';
 				x = -136.000000;
-				y = 214.000000;
-				dock_point = { 0.500000; 0.500000; };
+				y = -146.000000;
+				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 1.000000; };
 				relative_size_type = 0;
 				width = 128;
@@ -263,8 +263,8 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = 214.000000;
-				dock_point = { 0.500000; 0.500000; };
+				y = -146.000000;
+				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 1.000000; };
 				relative_size_type = 0;
 				width = 128;
@@ -379,8 +379,8 @@
 				type = 'Button';
 				ui_name = '';
 				x = 136.000000;
-				y = 214.000000;
-				dock_point = { 0.500000; 0.500000; };
+				y = -146.000000;
+				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 1.000000; };
 				relative_size_type = 0;
 				width = 128;
@@ -1139,8 +1139,8 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 252.000000;
-				dock_point = { 0.500000; 0.500000; };
+				y = -108.000000;
+				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 510;
