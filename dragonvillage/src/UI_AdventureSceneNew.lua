@@ -228,8 +228,10 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, force)
     self:SpeechBalloon(chapter)
 
     -- 이전, 다음 챕터 버튼
-    vars['prevBtn']:setEnabled(1 < chapter)
-    vars['nextBtn']:setEnabled(chapter < MAX_ADVENTURE_CHAPTER)
+    --vars['prevBtn']:setEnabled(1 < chapter)
+    vars['prevBtn']:setVisible(1 < chapter)
+    --vars['nextBtn']:setEnabled(chapter < MAX_ADVENTURE_CHAPTER)
+    vars['nextBtn']:setVisible(chapter < MAX_ADVENTURE_CHAPTER)
 
 
     -- 마지막에 진입한 챕터 저장
