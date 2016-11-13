@@ -83,3 +83,26 @@ function UI_DragonSkillCard:getSkillDescStr()
     local str = '{@SKILL_NAME} ' .. t_skill['t_name'] .. skill_type_str .. '\n {@SKILL_DESC}' .. desc
     return str
 end
+
+-------------------------------------
+-- function setButtonEnabled
+-------------------------------------
+function UI_DragonSkillCard:setButtonEnabled(enable)
+    local vars = self.vars
+    vars['clickBtn']:setEnabled(enable)
+end
+
+-------------------------------------
+-- function setLockSpriteVisible
+-------------------------------------
+function UI_DragonSkillCard:setLockSpriteVisible(visible)
+    local vars = self.vars
+    vars['lockSprite']:setVisible(visible)
+end
+
+-------------------------------------
+-- function setSkillTypeVisible
+-------------------------------------
+function UI_DragonSkillCard:setSkillTypeVisible(visible)
+	self.vars['skillLabel']:setVisible(visible)
+end

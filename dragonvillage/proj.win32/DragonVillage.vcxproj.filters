@@ -1006,6 +1006,12 @@
     <None Include="..\src\UI_SkillDetailPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableDragonSkill.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\TableDragon.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

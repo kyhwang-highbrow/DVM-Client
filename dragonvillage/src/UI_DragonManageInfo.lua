@@ -237,7 +237,11 @@ function UI_DragonManageInfo:click_skillDetailBtn()
     local doid = self.m_selectDragonOID
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
 
-    UI_SkillDetailPopup(t_dragon_data)
+    local ui = UI_SkillDetailPopup(t_dragon_data)
+
+    ui.m_cbUpgradeBtn = function()
+        self:click_upgradeBtn()
+    end
 end
 
 -------------------------------------

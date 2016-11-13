@@ -15,19 +15,6 @@ function TableStageDesc:init()
 end
 
 -------------------------------------
--- function get
--------------------------------------
-function TableStageDesc:get(key)
-    local t_table = PARENT.get(self, key)
-
-    if (not t_table) then
-        cclog('# error 스테이지 ' .. key .. '번의 정보가 table_stage_desc.csv 파일 안에 없습니다.')
-    end
-
-    return t_table
-end
-
--------------------------------------
 -- function getStageDesc
 -- @brief 스테이지 설명을 리턴
 -------------------------------------

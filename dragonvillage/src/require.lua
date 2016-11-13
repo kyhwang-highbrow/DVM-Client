@@ -71,7 +71,9 @@ local t_module = {
 
     -- Table
     'TableStageDesc',
+    'TableDragon',
     'TableMonster',
+    'TableDragonSkill',
 
     -- Interface
     'IEventDispatcher',
