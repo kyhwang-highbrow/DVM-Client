@@ -69,6 +69,7 @@ end
 function UI_ReadyScene:initButton()
     local vars = self.vars
     vars['manageBtn']:registerScriptTapHandler(function() self:click_manageBtn() end)
+    vars['dragonInfoBtn']:registerScriptTapHandler(function() self:click_dragonInfoBtn() end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
 end
 
@@ -199,6 +200,20 @@ function UI_ReadyScene:click_manageBtn()
 
     -- 덱 저장 후 이동
     self:checkChangeDeck(next_func)
+end
+
+-------------------------------------
+-- function click_dragonInfoBtn
+-- @breif 드래곤 상세보기 버튼
+-------------------------------------
+function UI_ReadyScene:click_dragonInfoBtn()
+    if (not self.m_selectedDragonDoid) then
+        return
+    end
+
+    local t_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_selectedDragonDoid)
+
+    UI_DragonDetailPopup(t_dragon_data)
 end
 
 -------------------------------------

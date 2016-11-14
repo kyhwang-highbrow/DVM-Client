@@ -231,6 +231,19 @@ function UI_ReadyScene_Deck:setSlot(idx, doid)
         self:makeSettedDragonCard(t_dragon_data, idx)
         self:refresh_dragonCard(doid)
     end
+
+    do -- 5명이사이 되는지 확인 후 disableSprite로 표시
+        local node = self.m_uiReadyScene.vars['disableSprite']
+        local count = table.count(self.m_tDeckMap)
+        if (count < 5) then
+            node:setVisible(false)
+        else
+            node:setVisible(true)
+            node:stopAllActions()
+            node:setOpacity(0)
+            node:runAction(cc.FadeIn:create(0.15))
+        end
+    end
 end
 
 -------------------------------------
