@@ -1,0 +1,297 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)ingame_fever.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+		{
+			"name":"skill_cancel_01",
+			"apply":true,
+			"res_id":""
+		},
+		{
+			"name":"skill_cancel_02",
+			"apply":true,
+			"res_id":""
+		}
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"fever",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":14, "sY":0.800000
+									},
+									{
+										"frame":29
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"skill_cancel",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_0301.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sY":0.000000, "alpha":0
+									},
+									{
+										"frame":3
+									},
+									{
+										"frame":5, "sY":1.200000
+									},
+									{
+										"frame":7
+									},
+									{
+										"frame":22
+									},
+									{
+										"frame":24, "sY":1.200000
+									},
+									{
+										"frame":26
+									},
+									{
+										"frame":29, "sY":0.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_cancel_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-500.000000, "pY":23.000000, "alpha":0
+									},
+									{
+										"frame":5, "pX":-50.000000, "pY":23.000000
+									},
+									{
+										"frame":7, "pX":-30.000000, "pY":23.000000
+									},
+									{
+										"frame":22, "pX":30.000000, "pY":23.000000
+									},
+									{
+										"frame":24, "pX":50.000000, "pY":23.000000
+									},
+									{
+										"frame":29, "pX":500.000000, "pY":23.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_cancel_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":500.000000, "pY":-23.000000, "alpha":0
+									},
+									{
+										"frame":5, "pX":50.000000, "pY":-23.000000
+									},
+									{
+										"frame":7, "pX":30.000000, "pY":-23.000000
+									},
+									{
+										"frame":22, "pX":-30.000000, "pY":-23.000000
+									},
+									{
+										"frame":24, "pX":-50.000000, "pY":-23.000000
+									},
+									{
+										"frame":29, "pX":-500.000000, "pY":-23.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"start",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sY":0.000000
+									},
+									{
+										"frame":5
+									},
+									{
+										"frame":7, "sY":1.200000
+									},
+									{
+										"frame":9
+									},
+									{
+										"frame":35
+									},
+									{
+										"frame":37, "sY":1.200000
+									},
+									{
+										"frame":39
+									},
+									{
+										"frame":44, "sY":0.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-1500.000000
+									},
+									{
+										"frame":7, "pX":-200.000000
+									},
+									{
+										"frame":9, "pX":-100.000000
+									},
+									{
+										"frame":35, "pX":100.000000
+									},
+									{
+										"frame":37, "pX":200.000000
+									},
+									{
+										"frame":44, "pX":1500.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-1500.000000
+									},
+									{
+										"frame":7, "pX":-200.000000
+									},
+									{
+										"frame":9, "pX":-100.000000, "colorRGB":[255,0,128]
+
+									},
+									{
+										"frame":14, "pX":-61.538460, "colorRGB":[255,128,64]
+
+									},
+									{
+										"frame":18, "pX":-30.769228, "colorRGB":[255,255,0]
+
+									},
+									{
+										"frame":23, "pX":7.692314, "colorRGB":[0,255,0]
+
+									},
+									{
+										"frame":27, "pX":38.461544, "colorRGB":[0,0,255]
+
+									},
+									{
+										"frame":31, "pX":69.230774, "colorRGB":[64,0,128]
+
+									},
+									{
+										"frame":35, "pX":100.000000, "colorRGB":[128,0,128]
+
+									},
+									{
+										"frame":37, "pX":200.000000
+									},
+									{
+										"frame":44, "pX":1500.000000
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}
