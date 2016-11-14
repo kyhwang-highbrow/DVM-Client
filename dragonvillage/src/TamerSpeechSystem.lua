@@ -19,13 +19,16 @@ function TamerSpeechSystem:init(world, t_tamer)
     -- 테이머
     do
         self.m_tamerAnimator = MakeAnimator('res/character/tamer/goni_i/goni_i.spine')
+        self.m_tamerAnimator.m_node:setMix('idle', 'summon', 0.1)
+        self.m_tamerAnimator.m_node:setMix('summon', 'idle', 0.1)
         self.m_tamerAnimator.m_node:setMix('idle', 'happiness', 0.1)
         self.m_tamerAnimator.m_node:setMix('happiness', 'idle', 0.1)
         self.m_tamerAnimator.m_node:setMix('idle', 'pain', 0.1)
         self.m_tamerAnimator.m_node:setMix('pain', 'idle', 0.1)
         self.m_tamerAnimator.m_node:setMix('happiness', 'pain', 0.1)
         self.m_tamerAnimator.m_node:setMix('pain', 'happiness', 0.1)
-        self.m_tamerAnimator:changeAni('summon', true, true)
+        --self.m_tamerAnimator:changeAni('summon', true, true)
+        self.m_tamerAnimator:changeAni('idle', true, true)
 
         --cclog('tamer ani list = ' .. luadump(self.m_tamerAnimator:getVisualList()))
         ui.vars['tamerNode']:addChild(self.m_tamerAnimator.m_node)

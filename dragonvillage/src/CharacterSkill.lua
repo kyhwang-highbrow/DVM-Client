@@ -778,7 +778,7 @@ function Character:getBreathDegree(x, y, phys_group)
 end
 
 -------------------------------------
--- function getBreathDegree
+-- function cancelSkill
 -- @brief 캐스팅 중이던 스킬을 취소시킴
 -------------------------------------
 function Character:cancelSkill()

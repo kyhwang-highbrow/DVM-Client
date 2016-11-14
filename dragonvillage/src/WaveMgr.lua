@@ -287,6 +287,7 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, movement, value1, value2, v
 
     -- 스킬 캐스팅 중 취소시 콜백 등록
     enemy:addListener('character_casting_cancel', self.m_world.m_tamerSpeechSystem)
+    enemy:addListener('character_casting_cancel', self.m_world.m_gameFever)
 
     enemy.m_animator.m_node:setScale(animator_scale)
     enemy.m_animator:setFlip(true)

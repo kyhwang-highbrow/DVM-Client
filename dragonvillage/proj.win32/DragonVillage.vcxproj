@@ -320,6 +320,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\FormationMgr.lua" />
     <None Include="..\src\FormationMgr_TargetRule.lua" />
     <None Include="..\src\GameCamera.lua" />
+    <None Include="..\src\GameFever.lua" />
     <None Include="..\src\GameState.lua" />
     <None Include="..\src\GameWorld.lua" />
     <None Include="..\src\GameWorld_Formation.lua" />

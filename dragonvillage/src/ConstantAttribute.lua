@@ -295,3 +295,14 @@ function getAttrSynastryEffect(attr1, attr2)
     
     return t_attr_synastry_effect
 end
+
+-------------------------------------
+-- function getRandomAttr
+-- @brief 랜덤 속성을 하나 얻는다
+-------------------------------------
+function getRandomAttr()
+    local idx = math_random(1, 5)
+    return T_ATTR_LIST[idx]
+end
+
+    

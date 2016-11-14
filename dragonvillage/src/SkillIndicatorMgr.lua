@@ -118,9 +118,6 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
 
             self.m_firstTouchPos = node_pos
 
-            local active_skill_id = select_hero:getSkillID('active')
-            select_hero:reserveSkill(active_skill_id)
-
             select_hero.m_skillIndicator:changeSIState(SI_STATE_READY)
 
             self:addHighlightList(select_hero, 5)
@@ -226,6 +223,11 @@ end
 function SkillIndicatorMgr:setSelectHero(hero)
     self.m_startTimer = 0
     self.m_selectHero = hero
+
+    if hero then
+        local active_skill_id = hero:getSkillID('active')
+        hero:reserveSkill(active_skill_id)
+    end
 end
 
 

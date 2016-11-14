@@ -340,13 +340,19 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 	end
 
     -- 스킬 공격으로 피격되였다면 캐스팅 중이던 스킬을 취소시킴
-    if (attacker.m_activityCarrier:getAttackType() ~= 'basic') then
+    local attackType = attacker.m_activityCarrier:getAttackType()
+    if (attackType ~= 'basic' and attackType ~= 'fever') then
         
         if self:cancelSkill() then
             -- 적 스킬 공격 캔슬 성공시
             local attackerCharacter = attacker.m_activityCarrier.m_activityCarrierOwner
             if attackerCharacter then
-                self:dispatch('character_casting_cancel', attackerCharacter)
+                local percentage = 0
+                if self.m_castingMarkGauge then
+                    percentage = self.m_castingMarkGauge:getPercentage()
+                end
+
+                self:dispatch('character_casting_cancel', attackerCharacter, percentage)
             end
         end
 
@@ -368,6 +374,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
         	
 	-- 공격 데미지 전달
     local t_info = {}
+    t_info['attack_type'] = attackType
     t_info['attr'] = attacker.m_activityCarrier.m_attribute
     t_info['dmg_type'] = dmg_type
 	t_info['critical'] = critical
@@ -421,10 +428,18 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     end
 
     local t_info = t_info or EMPTY_TABLE
-    local dir = (attacker and attacker.movement_theta) or 0
+    --local dir = (attacker and attacker.movement_theta) or 0
+    local dir = 0
+    if attacker and isInstanceOf(attacker, PhysObject) then
+        dir = attacker.movement_theta
+    end
 
     -- 데미지 폰트 출력
-    self:makeDamageEffect(t_info['dmg_type'], t_info['attr'], i_x, i_y, dir, t_info['critical'])
+    if t_info['attack_type'] == 'fever' then
+        self:makeDamageEffectForFever(t_info['dmg_type'], t_info['attr'], i_x, i_y, dir, t_info['critical'])
+    else
+        self:makeDamageEffect(t_info['dmg_type'], t_info['attr'], i_x, i_y, dir, t_info['critical'])
+    end
     self:makeDamageFont(damage, i_x, i_y, t_info['critical'], t_info['attr_bonus_dmg'])
 
     -- 데미지 적용
@@ -512,6 +527,20 @@ function Character:makeDamageEffect(dmg_type, attr, x, y, dir, critical)
     self.m_world:addChild3(effect.m_node, DEPTH_DAMAGE_EFFECT)
 end
 
+-------------------------------------
+-- function makeDamageEffectForFever
+-------------------------------------
+function Character:makeDamageEffectForFever(dmg_type, attr, x, y, dir, critical)
+    -- 피버 데미지
+    local effect = MakeAnimator('res/effect/effect_fever/effect_fever.vrp')
+    effect:changeAni('damage', false)
+    effect:setPosition(x, y)
+
+    local duration = effect:getDuration()
+    effect:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+  
+    self.m_world:addChild3(effect.m_node, DEPTH_DAMAGE_EFFECT)
+end
 
 -------------------------------------
 -- function makeDamageFont
@@ -1289,10 +1318,10 @@ function Character:animatorHit(attacker, dir)
     -- 점멸 처리
     local target_node = self.m_animator.m_node
     if target_node then
-        local delay = 0.15
+        local delay = 0.1
 
         if rarity ~= 'boss' and rarity ~= 'subboss' and rarity ~= 'elite' then
-            delay = 0.1
+            delay = 0.06
         end
 
         -- 실행중인 액션 stop

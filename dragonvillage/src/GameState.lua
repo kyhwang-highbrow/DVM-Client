@@ -11,8 +11,9 @@ GAME_STATE_ENEMY_APPEAR = 99  -- 적 등장
 
 GAME_STATE_FIGHT = 100
 GAME_STATE_FIGHT_WAIT = 101
-GAME_STATE_FIGHT_SKILL = 102        -- 드래곤 스킬
+GAME_STATE_FIGHT_DRAGON_SKILL = 102 -- 드래곤 스킬
 GAME_STATE_FIGHT_TAMER_SKILL = 103  -- 테이머 스킬
+GAME_STATE_FIGHT_FEVER = 104        -- 피버모드
 
 -- 파이널 웨이브 연출
 GAME_STATE_FINAL_WAVE = 201
@@ -106,9 +107,11 @@ function GameState:update(dt)
     elseif (self.m_state == GAME_STATE_WAVE_INTERMISSION_WAIT) then self:update_wave_intermission_wait(dt)
     elseif (self.m_state == GAME_STATE_ENEMY_APPEAR) then self:update_enemy_appear(dt)
     elseif (self.m_state == GAME_STATE_FIGHT) then      self:update_fight(dt)
-    elseif (self.m_state == GAME_STATE_FIGHT_SKILL) then self:update_fight_skill(dt)
+    elseif (self.m_state == GAME_STATE_FIGHT_DRAGON_SKILL) then self:update_fight_dragon_skill(dt)
     elseif (self.m_state == GAME_STATE_FIGHT_TAMER_SKILL) then self:update_fight_tamer_skill(dt)
     elseif (self.m_state == GAME_STATE_FIGHT_WAIT) then self:update_fight_wait(dt)
+
+    elseif (self.m_state == GAME_STATE_FIGHT_FEVER) then      self:update_fight_fever(dt)
 
     -- 마지막 웨이브 연출
     elseif (self.m_state == GAME_STATE_FINAL_WAVE) then self:update_final_wave(dt)
@@ -157,8 +160,13 @@ function GameState:update_start2(dt)
     local map_mgr = world.m_mapManager
     
 	if (self.m_stateTimer == 0) then
-		self:appearDragon()
-    else
+        world:dispatch('dragon_summon')
+
+    elseif (self.m_stateTimer >= 0.5) then
+        if not self.m_bAppearDragon then
+            self:appearDragon()
+        end
+
         local speed = map_mgr.m_speed + (MAP_SCROLL_SPEED_DOWN_ACCEL * dt)
         if speed >= -300 then
             speed = -300
@@ -325,6 +333,10 @@ function GameState:update_fight(dt)
         world.m_tamerSkillSystem:update(dt)
     end
 
+    if world.m_gameFever then
+        world.m_gameFever:update(dt)
+    end
+
     do -- 드래곤 액티브 스킬 쿨타임 증가
         for _,dragon in pairs(world.m_lDragonList) do
             dragon:updateActiveSkillCoolTime(dt)
@@ -400,9 +412,9 @@ function GameState:update_wave_intermission_wait(dt)
 end
 
 -------------------------------------
--- function update_fight_skill
+-- function update_fight_dragon_skill
 -------------------------------------
-function GameState:update_fight_skill(dt)
+function GameState:update_fight_dragon_skill(dt)
     local dragon = self.m_world.m_currFocusingDragon
     local timeScale = 0.1
     local delayTime = 1
@@ -475,10 +487,38 @@ function GameState:update_fight_tamer_skill(dt)
     local world = self.m_world
 
     if (self.m_stateTimer == 0) then
-        for i,v in ipairs(self.m_participants) do
+        for i,v in ipairs(world.m_participants) do
             v:setWaitState(false)
             v:changeState('idle')
         end
+    end
+end
+
+-------------------------------------
+-- function update_fight_fever
+-------------------------------------
+function GameState:update_fight_fever(dt)
+    local world = self.m_world
+        
+    if (self.m_stateTimer == 0) then
+        -- 아군 드래곤 모든 행동 정지 및 자기 위치로 이동
+        for _, skill in pairs(world.m_lSkillList) do
+            if skill.m_owner.m_bLeftFormation then
+                skill:changeState('dying')
+            end
+		end
+
+        -- 적군은 계속 공격하도록 함
+        for i, enemy in ipairs(world.m_tEnemyList) do
+            enemy:setWaitState(false)
+        end
+                        
+        -- 피버 모드 시작
+        world.m_gameFever:onStart()
+    end
+
+    if world.m_gameFever then
+        world.m_gameFever:update(dt)
     end
 end
 
@@ -680,7 +720,7 @@ function GameState:changeState(state)
          self.m_world:setWaitAllCharacter(true)
     end
 
-    if (self.m_state == GAME_STATE_FIGHT or self.m_state == GAME_STATE_FIGHT_SKILL) then
+    if (self.m_state == GAME_STATE_FIGHT or self.m_state == GAME_STATE_FIGHT_DRAGON_SKILL) then
         self.m_world:setWaitAllCharacter(false)
     end
 end

@@ -21,6 +21,8 @@ Hero = class(PARENT, {
         m_afterimageMove = 'number',
 
         m_bUseSelfAfterImage = 'boolean',
+
+        m_feverEffect = '',
      })
 
 -------------------------------------
@@ -35,6 +37,7 @@ function Hero:init(file_name, body, ...)
     self.m_bWaitState = false
 
     self.m_bUseSelfAfterImage = false
+    self.m_feverEffect = nil
 end
 
 -------------------------------------
@@ -193,11 +196,6 @@ end
 -- function st_skillPrepare
 -------------------------------------
 function Hero.st_skillPrepare(owner, dt)
-    if (owner.m_stateTimer == 0) then
-        --local active_skill_id = owner:getSkillID('active')
-        
-        --owner:reserveSkill(active_skill_id)
-    end
 end
 
 -------------------------------------
@@ -498,6 +496,28 @@ function Hero:makeHPGauge(hp_ui_offset)
     self.m_world.m_worldNode:addChild(self.m_hpNode, 5)
 
     self.m_infoUI = ui
+end
+
+-------------------------------------
+-- function makeFeverEffect
+-------------------------------------
+function Hero:makeFeverEffect()
+    if self.m_feverEffect then return end
+
+    local res = 'res/effect/effect_fever/effect_fever.vrp'
+    self.m_feverEffect = MakeAnimator(res)
+    self.m_feverEffect:changeAni('buff', true)
+    self.m_rootNode:addChild(self.m_feverEffect.m_node)
+end
+
+-------------------------------------
+-- function removeFeverEffect
+-------------------------------------
+function Hero:removeFeverEffect()
+    if not self.m_feverEffect then return end
+
+    self.m_feverEffect:release()
+    self.m_feverEffect = nil
 end
 
 -------------------------------------

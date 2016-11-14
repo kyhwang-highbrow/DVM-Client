@@ -215,8 +215,7 @@ function Character.st_casting(owner, dt)
             local aniName = 'idle'
 
             local rarity = owner.m_charTable['rarity']
-            if rarity ~= 'boss' and rarity ~= 'subboss' and rarity ~= 'elite' then
-            else
+            if rarity == 'boss' or rarity == 'subboss' or rarity == 'elite' then
                 scale = 2
             end
 

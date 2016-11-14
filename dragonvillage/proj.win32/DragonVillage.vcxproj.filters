@@ -1003,6 +1003,9 @@
     <None Include="..\src\TableMonster.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\GameFever.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\UI_SkillDetailPopup.lua">
       <Filter>lua\UI</Filter>
     </None>

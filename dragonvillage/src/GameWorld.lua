@@ -33,7 +33,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_waveMgr = '',
 
         m_gameState = '',
-
+        m_gameFever = '',
         m_gameCamera = '',
 
         m_worldSize = '',
@@ -142,6 +142,7 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
     self.m_worldScaleRealtime = 1
 
     self.m_gameState = GameState(self)
+    self.m_gameFever = GameFever(self)
     self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
 
     self.m_missileRange = {min_x=0-50, max_x = CRITERIA_RESOLUTION_X+50, min_y=-GAME_RESOLUTION_X/2, max_y=GAME_RESOLUTION_X/2}
@@ -906,6 +907,11 @@ function GameWorld:onKeyReleased(keyCode, event)
 			end
         end
 
+    -- 피버 모드 발동
+    elseif (keyCode == KEY_F) then    
+        cclog('FEVER')
+        self.m_gameFever:addFeverPoint(100)
+        
 	-- 스킬 다 죽이기
 	elseif (keyCode == KEY_K) then    
 		cclog('KILL SKILL ALL')
@@ -1314,5 +1320,5 @@ function GameWorld:onEvent_dragon_skill(event_name, ...)
 
     self.m_currFocusingDragon = dragon
     
-    self.m_gameState:changeState(GAME_STATE_FIGHT_SKILL)
+    self.m_gameState:changeState(GAME_STATE_FIGHT_DRAGON_SKILL)
 end
