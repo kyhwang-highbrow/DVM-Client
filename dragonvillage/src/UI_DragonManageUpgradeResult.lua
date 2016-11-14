@@ -17,13 +17,15 @@ function UI_DragonManageUpgradeResult:init(t_dragon_data)
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonManageUpgradeResult')
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_DragonManageUpgradeResult')
 
     self:initUI()
     self:initButton()
     self:refresh()
 
     SoundMgr:playEffect('EFFECT', 'success_starup')
+
+    self:sceneFadeInAction()
 end
 
 -------------------------------------
@@ -37,7 +39,7 @@ end
 -------------------------------------
 function UI_DragonManageUpgradeResult:initButton()
     local vars = self.vars
-    vars['okBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['okBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
 -------------------------------------
@@ -100,6 +102,16 @@ function UI_DragonManageUpgradeResult:refresh()
         end
     end
     --]]
+end
+
+-------------------------------------
+-- function click_closeBtn
+-------------------------------------
+function UI_DragonManageUpgradeResult:click_closeBtn()
+    local function func()
+        self:close()
+    end
+    self:sceneFadeOutAndCallFunc(func)
 end
 
 --@CHECK
