@@ -512,8 +512,20 @@ function UI_DragonManageInfo:click_evolutionViewBtn()
         return
     end
 
-    local dragon_id = self.m_selectDragonData['did']
-    UI_DragonManageInfoView(dragon_id)
+    local l_dragon_id = {}
+    local curr_idx = nil
+
+    for idx, item in ipairs(self.m_tableViewExt.m_lItem) do
+        local data = item['data']
+        local did = data['did']
+        table.insert(l_dragon_id, did)
+
+        if (data['id'] == self.m_selectDragonOID) then
+            curr_idx = idx
+        end
+    end
+
+    UI_DragonManageInfoView(l_dragon_id, curr_idx)
 end
 
 -------------------------------------

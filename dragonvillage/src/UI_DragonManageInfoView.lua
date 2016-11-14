@@ -4,14 +4,16 @@ local PARENT = UI
 -- class UI_DragonManageInfoView
 -------------------------------------
 UI_DragonManageInfoView = class(PARENT, {
-        m_dragonID = 'number',
+        m_lDragonID = 'lsit',
+        m_currIdx = 'number',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonManageInfoView:init(dragon_id)
-    self.m_dragonID = dragon_id
+function UI_DragonManageInfoView:init(l_dragon_id_list, idx)
+    self.m_lDragonID = l_dragon_id_list
+    self.m_currIdx = idx
 
     local vars = self:load('dragon_management_info_view.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -22,13 +24,39 @@ function UI_DragonManageInfoView:init(dragon_id)
     self:initUI()
     self:initButton()
     self:refresh()
+
+    local swipe = Camera_LobbySwipe(self.root, function(type) self:onSwipeEvent(type) end)
+    swipe.m_sensitivity = 0.025
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
 function UI_DragonManageInfoView:initUI()
-    local dragon_id = self.m_dragonID
+
+end
+
+-------------------------------------
+-- function initButton
+-- @brief 버튼 UI 초기화
+-------------------------------------
+function UI_DragonManageInfoView:initButton()
+    local vars = self.vars
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_DragonManageInfoView:refresh()
+    if (not self.m_lDragonID) then
+        return
+    end
+
+    local idx = (self.m_currIdx or 1)
+    self.m_currIdx = idx
+
+    local dragon_id = self.m_lDragonID[idx]
     local vars = self.vars
 
     local table_dragon = TABLE:get('dragon')
@@ -66,22 +94,53 @@ function UI_DragonManageInfoView:initUI()
         animator:changeAni('pose_1', false)
         animator:addAniHandler(function() animator:changeAni('idle', true) end)
     end
-
 end
 
 -------------------------------------
--- function initButton
--- @brief 버튼 UI 초기화
+-- function onSwipeEvent
 -------------------------------------
-function UI_DragonManageInfoView:initButton()
-    local vars = self.vars
-    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+function UI_DragonManageInfoView:onSwipeEvent(type)
+
+    -- idx 플러스
+    if (type == 'left') then
+        if (self.m_currIdx < #self.m_lDragonID) then
+            self.m_currIdx = self.m_currIdx + 1
+            self:refresh()
+        end
+    -- idx 마이너스
+    elseif (type == 'right') then
+        if (self.m_currIdx > 1) then
+            self.m_currIdx = self.m_currIdx - 1
+            self:refresh()
+        end
+    end
 end
 
 -------------------------------------
--- function refresh
+-- function tempGstarInit
 -------------------------------------
-function UI_DragonManageInfoView:refresh()
+function UI_DragonManageInfoView:tempGstarInit()
+    self.m_lDragonID = {}
+    table.insert(self.m_lDragonID, 120011) -- 파워 드래곤
+    table.insert(self.m_lDragonID, 120021) -- 램곤
+    table.insert(self.m_lDragonID, 120051) -- 애플칙
+    table.insert(self.m_lDragonID, 120071) -- 스파인
+    table.insert(self.m_lDragonID, 120081) -- 리프 드래곤
+    table.insert(self.m_lDragonID, 120092) -- 테일 드래곤
+    table.insert(self.m_lDragonID, 120142) -- 퍼플립스 드래곤
+    table.insert(self.m_lDragonID, 120165) -- 티모벨
+    table.insert(self.m_lDragonID, 120183) -- 이그블루 드래곤
+    table.insert(self.m_lDragonID, 120193) -- 푸리티오
+    table.insert(self.m_lDragonID, 120204) -- 라이케인
+    table.insert(self.m_lDragonID, 120213) -- 가루다
+    table.insert(self.m_lDragonID, 120273) -- 붐버
+    table.insert(self.m_lDragonID, 120294) -- 고대 신룡
+    table.insert(self.m_lDragonID, 120325) -- 크레센트 드래곤
+    table.insert(self.m_lDragonID, 120335) -- 서펀트 드래곤
+
+    self.m_currIdx = 1
+
+    self:refresh()
 end
 
 --@CHECK
