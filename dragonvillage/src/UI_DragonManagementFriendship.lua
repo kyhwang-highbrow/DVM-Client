@@ -50,7 +50,7 @@ function UI_DragonManagementFriendship:initUI()
     --self:setDefaultSelectDragon()
 
     -- 최초 탭 설정
-    self:changeAttrTab('fire')
+    self:changeAttrTab('global')
 
     vars['expGauge']:setPercentage(0)
     vars['hpGauge']:setPercentage(0)
