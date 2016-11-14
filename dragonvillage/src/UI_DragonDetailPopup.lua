@@ -4,14 +4,14 @@ local PARENT = UI
 -- class UI_DragonDetailPopup
 -------------------------------------
 UI_DragonDetailPopup = class(PARENT, ITopUserInfo_EventListener:getCloneTable(), {
-    m_dragonID = 'number',
+    m_tDragonData = 'table',
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonDetailPopup:init(dragon_id)
-    self.m_dragonID = dragon_id
+function UI_DragonDetailPopup:init(t_dragon_data)
+    self.m_tDragonData = t_dragon_data
 
     local vars = self:load('dragon_manage_detail_info.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -67,11 +67,11 @@ end
 -- @brief dragon_id로 드래곤의 상세 정보를 출력
 -------------------------------------
 function UI_DragonDetailPopup:refresh()
-    local dragon_id = self.m_dragonID
     local vars = self.vars
 
     -- 유저가 보유하고있는 드래곤의 정보
-    local t_dragon_data = g_dragonListData:getDragon(dragon_id)
+    local t_dragon_data = self.m_tDragonData
+    local dragon_id = t_dragon_data['did']
 
     -- 테이블에 있는 드래곤의 정보
     local table_dragon = TABLE:get('dragon')
@@ -91,7 +91,7 @@ function UI_DragonDetailPopup:refresh()
     end
 
     do -- level
-        local lv_str = Str('{1} / {2}', t_dragon_data['lv'], dragonMaxLevel(t_dragon_data['evolution']))
+        local lv_str = Str('{1} / {2}', t_dragon_data['lv'], dragonMaxLevel(t_dragon_data['grade']))
         vars['lvLabel']:setString(lv_str)
     end
 
@@ -117,8 +117,8 @@ function UI_DragonDetailPopup:refresh()
     end
 
     do -- 속성
-        local attr_num = attributeStrToNum(t_dragon['attr'])
-        vars['attrLabel']:setString(dragonAttributeName(attr_num))
+        local attr = t_dragon['attr']
+        vars['attrLabel']:setString(dragonAttributeName(attr))
     end
 
     do -- 역할
@@ -130,7 +130,10 @@ function UI_DragonDetailPopup:refresh()
     end
 
     do -- 능력치 입력
-        local status_calc = MakeOwnDragonStatusCalculator(dragon_id)
+        local lv = t_dragon_data['lv']
+        local grade = t_dragon_data['grade']
+        local evolution = t_dragon_data['evolution']
+        local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution)
         vars['atk_p_label']:setString(status_calc:getFinalStatDisplay('atk'))
         vars['atk_spd_label']:setString(status_calc:getFinalStatDisplay('aspd'))
         vars['cri_chance_label']:setString(status_calc:getFinalStatDisplay('cri_chance'))
@@ -140,14 +143,6 @@ function UI_DragonDetailPopup:refresh()
         vars['avoid_label']:setString(status_calc:getFinalStatDisplay('avoid'))
         vars['hit_rate_label']:setString(status_calc:getFinalStatDisplay('hit_rate'))
         vars['cri_dmg_label']:setString(status_calc:getFinalStatDisplay('cri_dmg'))
-    end
-
-    for _,attr in pairs(T_ATTR_LIST) do
-        if (t_dragon['attr'] == attr) then
-            vars[attr .. 'Sprite']:setVisible(true)
-        else
-            vars[attr .. 'Sprite']:setVisible(false)
-        end
     end
 end
 

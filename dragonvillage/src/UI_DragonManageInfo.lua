@@ -100,7 +100,7 @@ function UI_DragonManageInfo:initButton()
 
     do -- 기타 버튼
         -- 능력치 상세보기
-        vars['detailBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"능력치 상세보기" 미구현') end)
+        vars['detailBtn']:registerScriptTapHandler(function() self:click_detailBtn() end)
 
         -- 스킬 상세보기
         vars['skillBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"스킬 상세보기" 미구현') end)
@@ -514,6 +514,18 @@ function UI_DragonManageInfo:click_evolutionViewBtn()
 
     local dragon_id = self.m_selectDragonData['did']
     UI_DragonManageInfoView(dragon_id)
+end
+
+-------------------------------------
+-- function click_detailBtn
+-- @brief 드래곤 상세 보기 팝업
+-------------------------------------
+function UI_DragonManageInfo:click_detailBtn()
+    if (not self.m_selectDragonData) then
+        return
+    end
+
+    UI_DragonDetailPopup(self.m_selectDragonData)
 end
 
 --@CHECK
