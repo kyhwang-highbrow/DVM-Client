@@ -1923,6 +1923,32 @@
 		{
 			[1] =
 			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 456;
+				height = 456;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'disableSprite';
+				file_name = 'ui/frame/ready_formation_disable.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[2] =
+			{
 				[1] =
 				{
 					type = 'Button';
@@ -1964,7 +1990,7 @@
 				visible = true;
 				lua_name = 'chNode9';
 			};
-			[2] =
+			[3] =
 			{
 				[1] =
 				{
@@ -2007,7 +2033,7 @@
 				visible = true;
 				lua_name = 'chNode8';
 			};
-			[3] =
+			[4] =
 			{
 				[1] =
 				{
@@ -2050,7 +2076,7 @@
 				visible = true;
 				lua_name = 'chNode7';
 			};
-			[4] =
+			[5] =
 			{
 				[1] =
 				{
@@ -2093,7 +2119,7 @@
 				visible = true;
 				lua_name = 'chNode6';
 			};
-			[5] =
+			[6] =
 			{
 				[1] =
 				{
@@ -2136,7 +2162,7 @@
 				visible = true;
 				lua_name = 'chNode5';
 			};
-			[6] =
+			[7] =
 			{
 				[1] =
 				{
@@ -2179,7 +2205,7 @@
 				visible = true;
 				lua_name = 'chNode4';
 			};
-			[7] =
+			[8] =
 			{
 				[1] =
 				{
@@ -2222,7 +2248,7 @@
 				visible = true;
 				lua_name = 'chNode3';
 			};
-			[8] =
+			[9] =
 			{
 				[1] =
 				{
@@ -2265,7 +2291,7 @@
 				visible = true;
 				lua_name = 'chNode2';
 			};
-			[9] =
+			[10] =
 			{
 				[1] =
 				{
