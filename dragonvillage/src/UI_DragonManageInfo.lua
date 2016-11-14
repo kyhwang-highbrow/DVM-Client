@@ -102,9 +102,6 @@ function UI_DragonManageInfo:initButton()
         -- 능력치 상세보기
         vars['detailBtn']:registerScriptTapHandler(function() self:click_detailBtn() end)
 
-        -- 스킬 상세보기
-        vars['skillBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"스킬 상세보기" 미구현') end)
-
         -- 장비 개별 버튼 1~3
         vars['equipSlotBtn1']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"장비" 미구현') end)
         vars['equipSlotBtn2']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"장비" 미구현') end)
