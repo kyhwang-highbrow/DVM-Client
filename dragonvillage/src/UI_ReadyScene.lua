@@ -184,16 +184,21 @@ end
 -- @breif 드래곤 관리
 -------------------------------------
 function UI_ReadyScene:click_manageBtn()
-    local ui = UI_DragonManageInfo()
-    local function close_cb()
-        local function func()
-            self:refresh()
-            self:init_dragonTableView()
-            self.m_readySceneDeck:init_deck()
+    local function next_func()
+        local ui = UI_DragonManageInfo()
+        local function close_cb()
+            local function func()
+                self:refresh()
+                self:init_dragonTableView()
+                self.m_readySceneDeck:init_deck()
+            end
+            self:sceneFadeInAction(func)
         end
-        self:sceneFadeInAction(func)
+        ui:setCloseCB(close_cb)
     end
-    ui:setCloseCB(close_cb)
+
+    -- 덱 저장 후 이동
+    self:checkChangeDeck(next_func)
 end
 
 -------------------------------------
