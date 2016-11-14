@@ -20,6 +20,9 @@ DragonSortManager = class({
         m_bAscendingSort = 'boolean', -- 오름차순인지 여부
 
         m_funcSettedDragon = 'function',
+
+        -- 내부에서 별도로 사용하는 vars
+        m_vars = 'table',
     })
 
 -------------------------------------
@@ -29,6 +32,7 @@ function DragonSortManager:init(vars, table_view_ext, b_ascending_sort, sort_typ
     self.vars = vars
     self.m_tableViewExt = table_view_ext
 
+    self:init_vars()
     self:init_button()
 
     self:click_sortOrderBtn(b_ascending_sort)
@@ -36,10 +40,34 @@ function DragonSortManager:init(vars, table_view_ext, b_ascending_sort, sort_typ
 end
 
 -------------------------------------
+-- function init_vars
+-------------------------------------
+function DragonSortManager:init_vars()
+    self.m_vars = {}
+    self.m_vars['sortBtn'] = self.vars['sortBtn'] 
+    self.m_vars['sortOrderBtn'] = self.vars['sortOrderBtn'] 
+    self.m_vars['sortNode'] = self.vars['sortNode']
+    self.m_vars['sortOrderSprite'] = self.vars['sortOrderSprite']
+    self.m_vars['sortLabel'] = self.vars['sortLabel']
+
+    for i,v in ipairs(t_sort_type) do
+        local luaname, luaname_org = self:getSortBtnName(firstLetterUpper(v))
+        self.m_vars[luaname] = self.vars[luaname_org]
+    end
+end
+
+-------------------------------------
+-- function getSortBtnName
+-------------------------------------
+function DragonSortManager:getSortBtnName(type)
+    return 'sort' .. type .. 'Btn', 'sort' .. type .. 'Btn'
+end
+
+-------------------------------------
 -- function init_button
 -------------------------------------
 function DragonSortManager:init_button()
-    local vars = self.vars
+    local vars = self.m_vars
 
     -- 정렬 카테고리 on/off
     vars['sortBtn']:registerScriptTapHandler(function() self:click_sortBtn() end)
@@ -48,7 +76,7 @@ function DragonSortManager:init_button()
     vars['sortOrderBtn']:registerScriptTapHandler(function() self:click_sortOrderBtn() end)
 
     for i,v in ipairs(t_sort_type) do
-        local luaname = 'sort' .. firstLetterUpper(v) .. 'Btn'
+        local luaname = self:getSortBtnName(firstLetterUpper(v))
         vars[luaname]:registerScriptTapHandler(function() self:click_sortTypeBtn(v) end)
     end
 end
@@ -58,7 +86,7 @@ end
 -- @brief 정렬 카테고리 on/off
 -------------------------------------
 function DragonSortManager:click_sortBtn()
-    local vars = self.vars
+    local vars = self.m_vars
     vars['sortNode']:runAction(cc.ToggleVisibility:create())
 end
 
@@ -72,7 +100,7 @@ function DragonSortManager:click_sortOrderBtn(b_ascending_sort, skip_change_sort
     else
         self.m_bAscendingSort = (not self.m_bAscendingSort)
     end
-    local vars = self.vars
+    local vars = self.m_vars
 
     if self.m_bAscendingSort then
         vars['sortOrderSprite']:setScaleY(-1)
@@ -90,7 +118,7 @@ end
 -- @brief
 -------------------------------------
 function DragonSortManager:click_sortTypeBtn(type, skip_change_sort)
-    local vars = self.vars
+    local vars = self.m_vars
     local str = self:getSortName(type)
     vars['sortLabel']:setString(str)
 
@@ -222,4 +250,49 @@ end
 -------------------------------------
 function DragonSortManager:setIsSettedDragonFunc(func)
     self.m_funcSettedDragon = func
+end
+
+
+
+
+
+
+
+
+
+-------------------------------------
+-- class DragonSortManager_upgradeUI
+-- @breif 보유한 열매의 정렬을 돕는 클래스
+-------------------------------------
+DragonSortManager_upgradeUI = class(DragonSortManager, {
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function DragonSortManager_upgradeUI:init(vars, table_view_ext, b_ascending_sort, sort_type)
+end
+
+-------------------------------------
+-- function init_vars
+-------------------------------------
+function DragonSortManager_upgradeUI:init_vars()
+    self.m_vars = {}
+    self.m_vars['sortBtn'] = self.vars['sortSelectBtn'] 
+    self.m_vars['sortOrderBtn'] = self.vars['sortSelectOrderBtn'] 
+    self.m_vars['sortNode'] = self.vars['sortSelectNode']
+    self.m_vars['sortOrderSprite'] = self.vars['sortSelectOrderSprite']
+    self.m_vars['sortLabel'] = self.vars['sortSelectLabel']
+
+    for i,v in ipairs(t_sort_type) do
+        local luaname, luaname_org = self:getSortBtnName(firstLetterUpper(v))
+        self.m_vars[luaname] = self.vars[luaname_org]
+    end
+end
+
+-------------------------------------
+-- function getSortBtnName
+-------------------------------------
+function DragonSortManager_upgradeUI:getSortBtnName(type)
+    return 'sort' .. type .. 'Btn', 'sortSelect' .. type .. 'Btn'
 end
