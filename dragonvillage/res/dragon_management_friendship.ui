@@ -399,7 +399,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'commonBtn';
+				lua_name = 'globalBtn';
 				enable = true;
 				normal = 'ui/btn/friendship_common_01.png';
 				selected = 'ui/btn/friendship_common_02.png';

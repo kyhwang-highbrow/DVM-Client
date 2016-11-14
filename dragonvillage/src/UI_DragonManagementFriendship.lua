@@ -70,7 +70,7 @@ function UI_DragonManagementFriendship:initButton()
     vars['earthBtn']:registerScriptTapHandler(function() self:changeAttrTab('earth') end)
     vars['lightBtn']:registerScriptTapHandler(function() self:changeAttrTab('light') end)
     vars['darkBtn']:registerScriptTapHandler(function() self:changeAttrTab('dark') end)
-    vars['commonBtn']:registerScriptTapHandler(function() self:changeAttrTab('global') end)
+    vars['globalBtn']:registerScriptTapHandler(function() self:changeAttrTab('global') end)
     vars['resetBtn']:registerScriptTapHandler(function() self:changeAttrTab('reset') end)
 
     -- 망각의 열매 사용 버튼
@@ -219,7 +219,16 @@ function UI_DragonManagementFriendship:changeAttrTab(attr, b_force)
     end
 
     local vars = self.vars
+    local prev_tab = self.m_currAttrTab
     self.m_currAttrTab = attr
+
+    if (prev_tab and vars[prev_tab .. 'Btn']) then
+        vars[prev_tab .. 'Btn']:setEnabled(true)
+    end
+
+    if (attr and vars[attr .. 'Btn']) then
+        vars[attr .. 'Btn']:setEnabled(false)
+    end
 
     if (attr == 'reset') then
         vars['resetNode']:setVisible(true)

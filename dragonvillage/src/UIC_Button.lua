@@ -119,6 +119,12 @@ end
 -- @brief
 -------------------------------------
 function UIC_Button:onButtonStateChange(button_state)
+
+    -- disable은 버튼의 액션에 관여하지 않음 (일단은.. Seong-goo Kim)
+    if (button_state == UIC_BUTTON_DISABLE) then
+        return
+    end
+
     local node = self.m_node
 
     -- 실행중인 액션 stop
