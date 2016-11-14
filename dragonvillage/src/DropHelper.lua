@@ -51,29 +51,6 @@ function DropHelper:getDisplayItemList()
 end
 
 -------------------------------------
--- function getDisplayItemIconList
--------------------------------------
-function DropHelper:getDisplayItemIconList()
-    local l_item_list = self:getDisplayItemList()
-
-    local l_ret = {}
-    for i,item_id in ipairs(l_item_list) do
-        --local icon = self:getItemIconFromIID(item_id)
-        local item_card = UI_ItemCard(item_id, 0)
-
-        -- 첫 번째 드롭 아이템은 강조
-        if (i == 1) then
-            item_card:setHighlight(true)
-        end
-
-        local icon = item_card.root
-        table.insert(l_ret, icon)
-    end
-
-    return l_ret
-end
-
--------------------------------------
 -- function getItemIconFromIID
 -------------------------------------
 function DropHelper:getItemIconFromIID(item_id)

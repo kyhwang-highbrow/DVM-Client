@@ -76,7 +76,11 @@ function UI_DragonCard:refreshDragonInfo()
     end
 
     do -- 레벨 표시
-        vars['levelLabel']:setString(Str('{1}', t_dragon_data['lv']))
+        if t_dragon_data['lv'] then
+            vars['levelLabel']:setString(Str('{1}', t_dragon_data['lv']))
+        else
+            vars['levelLabel']:setVisible(false)
+        end
     end
 
     do -- 등급 별

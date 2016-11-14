@@ -15,6 +15,24 @@ function UI_ItemCard:init(item_id, count)
     self.m_itemID = item_id
     self.m_itemCount = count
 
+    local table_item = TABLE:get('item')
+    local t_item = table_item[item_id]
+
+    if (t_item['type'] == 'dragon') then
+        self:init_dragonItem(t_item)
+    else
+        self:init_commonItem(t_item)
+    end
+
+    self.vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
+end
+
+-------------------------------------
+-- function init_commonItem
+-------------------------------------
+function UI_ItemCard:init_commonItem(t_item)
+    local item_id = self.m_itemID
+
     local vars = self:load('drop_item.ui')
 
     local icon = IconHelper:getItemIcon(item_id)
@@ -33,30 +51,44 @@ function UI_ItemCard:init(item_id, count)
     local t_item = table_item[item_id]
     local rarity_str = evolutionStoneRarityNumToStr(t_item['rarity'])
     vars['rarityVisual']:setVisual('group', rarity_str)
+end
 
-    
-    vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
+-------------------------------------
+-- function init_dragonItem
+-------------------------------------
+function UI_ItemCard:init_dragonItem(t_item)
+    local item_id = self.m_itemID
+
+    local t_dragon_data = {}
+    t_dragon_data['did'] = t_item['val_1']
+    t_dragon_data['evolution'] = t_item['rarity']
+    t_dragon_data['grade'] = 1
+
+    local dragon_card = UI_DragonCard(t_dragon_data)
+    self.root = dragon_card.root
+    self.vars = dragon_card.vars
+    local vars = dragon_card.vars
 end
 
 -------------------------------------
 -- function setRarityVisibled
 -------------------------------------
 function UI_ItemCard:setRarityVisibled(visible)
-    self.vars['rarityVisual']:setVisible(visible)
-end
+    if (not self.vars['rarityVisual']) then
+        return
+    end
 
--------------------------------------
--- function setHighlight
--------------------------------------
-function UI_ItemCard:setHighlight(visible)
-    self.vars['highlightSprite']:setVisible(visible)
-    self.vars['numberLabel']:setString(Str('확률 증가'))
+    self.vars['rarityVisual']:setVisible(visible)
 end
 
 -------------------------------------
 -- function setString
 -------------------------------------
 function UI_ItemCard:setString(str)
+    if (not self.vars['numberLabel']) then
+        return
+    end
+
     self.vars['numberLabel']:setString(str)
 end
 
