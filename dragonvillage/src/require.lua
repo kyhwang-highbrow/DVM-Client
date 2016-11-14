@@ -68,6 +68,7 @@ local t_module = {
     'StatusEffectHelper',
     'AreaOfEffectHelper',
     'ShaderCache',
+    'DragonSortManager',
 
     -- Table
     'TableStageDesc',

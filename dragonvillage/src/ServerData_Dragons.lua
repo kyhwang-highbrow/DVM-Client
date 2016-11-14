@@ -4,6 +4,8 @@
 ServerData_Dragons = class({
         m_serverData = 'ServerData',
         m_leaderDragonOdid = 'string', -- 리더 드래곤의 obejct id
+
+        m_lSortData = 'list', -- doid를 key값으로 하고, 정렬에 필요한 데이터를 저장
     })
 
 -------------------------------------
@@ -11,6 +13,7 @@ ServerData_Dragons = class({
 -------------------------------------
 function ServerData_Dragons:init(server_data)
     self.m_serverData = server_data
+    self.m_lSortData = {}
 end
 
 -------------------------------------
@@ -82,6 +85,9 @@ function ServerData_Dragons:applyDragonData(t_dragon)
     else
         self.m_serverData:applyServerData(t_dragon, 'dragons', #l_dragons + 1)
     end
+
+    -- 드래곤 정렬 데이터 수정
+    self:setDragonsSortData(unique_id)
 end
 
 -------------------------------------
@@ -228,6 +234,45 @@ function ServerData_Dragons:isSameTypeDragon(doid1, doid2)
     local is_same_type = (t_dragon_1['type'] == t_dragon_2['type'])
 
     return is_same_type
+end
+
+-------------------------------------
+-- function getDragonsSortData
+-------------------------------------
+function ServerData_Dragons:getDragonsSortData(doid)
+    if (not self.m_lSortData[doid]) then
+        self:setDragonsSortData(doid)
+    end
+
+    return self.m_lSortData[doid]
+end
+
+-------------------------------------
+-- function setDragonsSortData
+-------------------------------------
+function ServerData_Dragons:setDragonsSortData(doid)
+
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+
+    local table_dragon = TABLE:get('dragon')
+    local t_dragon = table_dragon[t_dragon_data['did']]
+
+    local status_calc = MakeOwnDragonStatusCalculator(doid)
+
+    local t_sort_data = {}
+    t_sort_data['doid'] = doid
+    t_sort_data['did'] = t_dragon_data['did']
+    t_sort_data['hp'] = status_calc:getFinalStat('hp')
+    t_sort_data['def'] = status_calc:getFinalStat('def')
+    t_sort_data['atk'] = status_calc:getFinalStat('atk')
+    t_sort_data['attr'] = attributeStrToNum(t_dragon['attr'])
+    t_sort_data['lv'] = t_dragon_data['lv']
+    t_sort_data['grade'] = t_dragon_data['grade']
+    t_sort_data['evolution'] = t_dragon_data['evolution']
+    t_sort_data['rarity'] = dragonRarityStrToNum(t_dragon['rarity'])
+    t_sort_data['friendship'] = t_dragon_data['flv']
+
+    self.m_lSortData[doid] = t_sort_data
 end
 
 

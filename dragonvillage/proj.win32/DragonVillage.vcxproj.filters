@@ -1015,6 +1015,9 @@
     <None Include="..\src\UI_InvenDevApiPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\DragonSortManager.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

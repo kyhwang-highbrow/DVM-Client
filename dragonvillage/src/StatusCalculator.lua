@@ -208,58 +208,15 @@ end
 -- function MakeOwnDragonStatusCalculator
 -- @brief
 -------------------------------------
-function MakeOwnDragonStatusCalculator(dragon_id, t_data)
-    -- 유저가 보유하고있는 드래곤의 정보
-    local t_dragon_data = g_dragonListData:getDragon(dragon_id)
+function MakeOwnDragonStatusCalculator(dragon_object_id)
+    local t_dragon_data = g_dragonsData:getDragonDataFromUid(dragon_object_id)
 
+    local dragon_id = t_dragon_data['did']
     local lv = t_dragon_data['lv']
     local grade = t_dragon_data['grade']
     local evolution = t_dragon_data['evolution']
 
-    -- 필요한 경우 데이터 조작
-    if t_data then
-        if t_data['lv'] then
-            lv = lv + t_data['lv']
-        end
-
-        if t_data['grade'] then
-            grade = grade + t_data['grade']
-        end
-
-        if t_data['evolution'] then
-            evolution = evolution + t_data['evolution']
-        end
-    end
-
     local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution)
-
-    -- 속성 보너스 (곱연산)
-    do
-        local attr = g_dragonListData:getTableData(dragon_id, 'attr')
-        local attr_num = attributeStrToNum(attr)
-        local table_attribute = TABLE:get('attribute')
-        local t_attr = table_attribute[attr_num]
-
-        local t_attr_bunus = {}
-        for i=1, 3 do
-            local option_key = string.format('ability_option_%.2d', i)
-            local value_key = string.format('ability_value_%.2d', i)
-
-            local option_type = t_attr[option_key]
-            local option_value = t_attr[value_key]
-
-            attributeOption(t_attr_bunus, option_type, option_value)
-        end
-        status_calc:setAttributeBonusStats(t_attr_bunus)
-    end
-    
-    do -- 친밀도 (합연산)
-        local t_friendship_data, t_friendship = g_friendshipData:getFriendship(dragon_id)
-        local t_detailed_stats = t_friendship_data['stats']
-
-        -- 친밀도 능력치 추가
-        --status_calc:setFriendshipDetailedStats(t_detailed_stats)
-    end
 
     return status_calc
 end

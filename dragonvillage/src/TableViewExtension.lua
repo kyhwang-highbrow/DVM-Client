@@ -288,8 +288,8 @@ end
 -- function sortTableView
 -- @brief
 -------------------------------------
-function TableViewExtension:sortTableView(sort_type)
-    if (self.m_currSortType == sort_type) then
+function TableViewExtension:sortTableView(sort_type, b_force)
+    if (not b_force) and (self.m_currSortType == sort_type) then
         return
     end
 

@@ -36,6 +36,9 @@ function UI_DragonManagementEvolution:init()
     self:initUI()
     self:initButton()
     self:refresh()
+
+    -- 정렬 도우미
+    DragonSortManager(vars, self.m_tableViewExt)
 end
 
 -------------------------------------

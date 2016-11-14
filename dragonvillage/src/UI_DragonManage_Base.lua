@@ -28,6 +28,10 @@ end
 --        하위 클래스에서 init을 해야함
 -------------------------------------
 function UI_DragonManage_Base:init()
+
+    -- 드래곤들의 덱설정 여부 데이터 갱신
+    g_deckData:resetDragonDeckInfo()
+
 end
 
 -------------------------------------

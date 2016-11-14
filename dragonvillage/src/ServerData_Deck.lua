@@ -3,6 +3,8 @@
 -------------------------------------
 ServerData_Deck = class({
         m_serverData = 'ServerData',
+
+        m_mapDragonDeckInfo = 'map',
     })
 
 -------------------------------------
@@ -37,4 +39,34 @@ function ServerData_Deck:getDeck(type)
     end
 
     return {}
+end
+
+-------------------------------------
+-- function resetDragonDeckInfo
+-- @breif 해당 드래곤이 덱에 설정되어있는지 여부
+-------------------------------------
+function ServerData_Deck:resetDragonDeckInfo()
+    self.m_mapDragonDeckInfo = {}
+
+    local l_deck = self:getDeck('1')
+
+    for i,v in pairs(l_deck) do
+        self.m_mapDragonDeckInfo[v] = i
+    end
+end
+
+-------------------------------------
+-- function isSettedDragon
+-- @breif 해당 드래곤이 덱에 설정되어있는지 여부
+-------------------------------------
+function ServerData_Deck:isSettedDragon(doid)
+    if (not self.m_mapDragonDeckInfo) then
+        self:resetDragonDeckInfo()
+    end
+
+    if self.m_mapDragonDeckInfo[doid] then
+        return self.m_mapDragonDeckInfo[doid]
+    else
+        return false
+    end
 end
