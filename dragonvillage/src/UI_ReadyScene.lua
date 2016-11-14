@@ -55,6 +55,17 @@ function UI_ReadyScene:init(stage_id)
     self:refresh()
 
     self.m_readySceneDeck = UI_ReadyScene_Deck(self)
+
+    do -- 정렬 도우미
+        self.m_dragonSortMgr = DragonSortManager(self.vars, self.m_tableViewExt)
+
+        local function func(doid)
+            return self.m_readySceneDeck.m_tDeckMap[doid]
+        end
+
+        self.m_dragonSortMgr:setIsSettedDragonFunc(func)
+        self.m_dragonSortMgr:changeSort()
+    end
 end
 
 -------------------------------------
@@ -145,16 +156,6 @@ function UI_ReadyScene:init_dragonTableView()
     --table_view_ext:update()
 
     self.m_tableViewExt = table_view_ext
-
-    do -- 정렬 도우미
-        self.m_dragonSortMgr = DragonSortManager(self.vars, self.m_tableViewExt)
-
-        local function func(doid)
-            return self.m_readySceneDeck.m_tDeckMap[doid]
-        end
-
-        self.m_dragonSortMgr:setIsSettedDragonFunc(func)
-    end
 end
 
 -------------------------------------
@@ -204,6 +205,17 @@ function UI_ReadyScene:click_manageBtn()
                 self:refresh()
                 self:init_dragonTableView()
                 self.m_readySceneDeck:init_deck()
+
+                do -- 정렬 도우미
+                    self.m_dragonSortMgr = DragonSortManager(self.vars, self.m_tableViewExt)
+
+                    local function func(doid)
+                        return self.m_readySceneDeck.m_tDeckMap[doid]
+                    end
+
+                    self.m_dragonSortMgr:setIsSettedDragonFunc(func)
+                    self.m_dragonSortMgr:changeSort()
+                end
             end
             self:sceneFadeInAction(func)
         end
