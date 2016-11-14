@@ -189,7 +189,7 @@ end
 -- function appearDone
 -------------------------------------
 function SceneGame:appearDone()
-    self.m_gameWorld.m_gameState:changeState(GAME_STATE_START_2)
+    --self.m_gameWorld.m_gameState:changeState(GAME_STATE_START_2)
 end
 
 -------------------------------------

@@ -503,7 +503,7 @@ function GameState:update_fight_fever(dt)
     if (self.m_stateTimer == 0) then
         -- 아군 드래곤 모든 행동 정지 및 자기 위치로 이동
         for _, skill in pairs(world.m_lSkillList) do
-            if skill.m_owner and skill.m_owner.m_bLeftFormation then
+            if isInstanceOf(skill, Skill) and skill.m_owner and skill.m_owner.m_bLeftFormation then
                 skill:changeState('dying')
             end
 		end

@@ -2,8 +2,6 @@ local GAME_FEVER_STATE_CHARGING = 0
 local GAME_FEVER_STATE_APPEAR   = 1
 local GAME_FEVER_STATE_LIVE     = 2
 
-local GAME_FEVER_TIME = 5   -- 피버모드 지속 시간
-
 -------------------------------------
 -- class GameFever
 -------------------------------------
@@ -135,7 +133,7 @@ function GameFever:update_charging(dt)
     end
 
     
-    self.m_curPoint = self.m_curPoint + (self.m_stepPoint * dt / 2)
+    self.m_curPoint = self.m_curPoint + (self.m_stepPoint * dt / FEVER_POINT_UPDATE_TIME)
     if self.m_curPoint >= self.m_realPoint then
         self.m_curPoint = self.m_realPoint
         self.m_stepPoint = 0
@@ -198,7 +196,7 @@ function GameFever:update_live(dt)
     if (enemy_count <= 0) and (dynamic_wave <= 0) then
         self:onEnd()
 
-    elseif (self.m_stateTimer >= GAME_FEVER_TIME) then
+    elseif (self.m_stateTimer >= FEVER_KEEP_TIME) then
         self:onEnd()
     end
 end
@@ -253,6 +251,7 @@ function GameFever:doAttack()
     -- 데미지 설정
     self.m_activityCarrier = hero:makeAttackDamageInstance()
     self.m_activityCarrier.m_attackType = 'fever'
+    self.m_activityCarrier.m_bIgnoreDef = true
 
     -- 공격
 	hero:runAtkCallback(enemy, enemy.pos.x, enemy.pos.y)
