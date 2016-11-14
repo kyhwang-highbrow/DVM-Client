@@ -18,6 +18,8 @@ DragonSortManager = class({
         m_tableViewExt = 'TableViewExtension',
         m_currSortType = 'string',
         m_bAscendingSort = 'boolean', -- 오름차순인지 여부
+
+        m_funcSettedDragon = 'function',
     })
 
 -------------------------------------
@@ -161,8 +163,8 @@ function DragonSortManager:sortFunc(a, b)
     local a_sort_data = g_dragonsData:getDragonsSortData(a_data['id'])
     local b_sort_data = g_dragonsData:getDragonsSortData(b_data['id'])
 
-    local a_deck_idx = g_deckData:isSettedDragon(a_data['id']) or 999
-    local b_deck_idx = g_deckData:isSettedDragon(b_data['id']) or 999
+    local a_deck_idx = self:isSettedDragon(a_data['id']) or 999
+    local b_deck_idx = self:isSettedDragon(b_data['id']) or 999
 
     -- 덱에 설정된 데이터로 우선 정렬
     if (a_deck_idx ~= b_deck_idx) then
@@ -200,4 +202,24 @@ function DragonSortManager:sortFunc(a, b)
     if (a_sort_data['lv'] ~= b_sort_data['lv']) then
         return a_sort_data['lv'] > b_sort_data['lv']
     end
+end
+
+-------------------------------------
+-- function isSettedDragon
+-- @breif
+-------------------------------------
+function DragonSortManager:isSettedDragon(doid)
+    if self.m_funcSettedDragon then
+        return self.m_funcSettedDragon(doid) or 999
+    end
+
+    return g_deckData:isSettedDragon(doid) or 999
+end
+
+-------------------------------------
+-- function setIsSettedDragonFunc
+-- @breif
+-------------------------------------
+function DragonSortManager:setIsSettedDragonFunc(func)
+    self.m_funcSettedDragon = func
 end

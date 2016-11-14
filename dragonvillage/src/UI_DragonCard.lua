@@ -6,6 +6,7 @@ local PARENT = UI
 UI_DragonCard = class(PARENT,{
         m_dragonData = 'table',
         m_dragonID = 'number',
+        m_funcCheckSettedDragon = 'function', -- 드래곤이 덱에 설정되어있는지 확인하는 함수
     })
 
 -------------------------------------
@@ -130,4 +131,36 @@ function UI_DragonCard:refreshDragonInfo()
         end
     end
 
+end
+
+-------------------------------------
+-- function setCheckSettedDragonFunc
+-- @brief 덱에 설정되어있는지 여부 리턴
+-------------------------------------
+function UI_DragonCard:setCheckSettedDragonFunc(func)
+    self.m_funcCheckSettedDragon = func
+end
+
+-------------------------------------
+-- function checkSettedDragon
+-- @brief 덱에 설정되어있는지 여부 리턴
+-------------------------------------
+function UI_DragonCard:checkSettedDragon()
+    local doid = self.m_dragonData['id']
+
+    if self.m_funcCheckSettedDragon then
+        return self.m_funcCheckSettedDragon(doid)
+    end
+
+    local is_setted = g_deckData:isSettedDragon(doid)
+
+    return is_setted
+end
+
+-------------------------------------
+-- function setReadySpriteVisible
+-- @brief
+-------------------------------------
+function UI_DragonCard:setReadySpriteVisible(visible)
+    self.vars['readySprite']:setVisible(visible)
 end

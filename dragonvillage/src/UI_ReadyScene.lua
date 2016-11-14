@@ -11,6 +11,9 @@ UI_ReadyScene = class(PARENT,{
         m_readySceneDeck = 'UI_ReadyScene_Deck',
 
         m_selectedDragonDoid = 'string',
+
+        -- 정렬 도우미
+        m_dragonSortMgr = 'DragonSortManager',
     })
 
 -------------------------------------
@@ -45,7 +48,7 @@ function UI_ReadyScene:init(stage_id)
     self:sceneFadeInAction()
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ReadyScene')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ReadyScene')
 
     self:initUI()
     self:initButton()
@@ -118,6 +121,9 @@ function UI_ReadyScene:init_dragonTableView()
 
         local unique_id = data['id']
         self:refresh_dragonCard(unique_id)
+
+        -- 설정된 드래곤 표시 없애기
+        ui:setCheckSettedDragonFunc(function() return false end)
     end
 
     -- 드래곤 클릭 콜백 함수
@@ -140,9 +146,15 @@ function UI_ReadyScene:init_dragonTableView()
 
     self.m_tableViewExt = table_view_ext
 
-    table_view_ext:insertSortInfo('normal', T_DRAGON_SORT['normal'])
-    table_view_ext:insertSortInfo('lv', T_DRAGON_SORT['lv'])
-    table_view_ext:sortTableView('normal')
+    do -- 정렬 도우미
+        self.m_dragonSortMgr = DragonSortManager(self.vars, self.m_tableViewExt)
+
+        local function func(doid)
+            return self.m_readySceneDeck.m_tDeckMap[doid]
+        end
+
+        self.m_dragonSortMgr:setIsSettedDragonFunc(func)
+    end
 end
 
 -------------------------------------

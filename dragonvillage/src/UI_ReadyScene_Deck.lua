@@ -139,6 +139,10 @@ function UI_ReadyScene_Deck:makeSettedDragonCard(t_dragon_data, idx)
     local vars = self.m_uiReadyScene.vars
 
     local ui = UI_DragonCard(t_dragon_data)
+    
+    -- 설정된 드래곤 표시 없애기
+    ui:setCheckSettedDragonFunc(function() return false end)
+    ui:setReadySpriteVisible(false)
 
     vars['chNode' .. idx]:addChild(ui.root)
 
@@ -171,19 +175,9 @@ function UI_ReadyScene_Deck:refresh_dragonCard(doid)
     end
 
     if is_setted then
-        if (not item['ready_icon']) then
-            local icon = cc.Sprite:create('res/ui/dragon_card/dragon_ready_icon.png')
-            icon:setDockPoint(cc.p(0.5, 0.5))
-            icon:setAnchorPoint(cc.p(0.5, 0.5))
-            ui.root:addChild(icon)
-            item['ready_icon'] = icon    
-        else
-            item['ready_icon']:setVisible(true)
-        end
+        ui:setReadySpriteVisible(true)
     else
-        if item['ready_icon'] then
-            item['ready_icon']:setVisible(false)
-        end
+        ui:setReadySpriteVisible(false)
     end
 end
 

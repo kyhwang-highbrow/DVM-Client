@@ -159,8 +159,6 @@ function TableViewExtension:setItemUIClass(item_class, click_cb, create_func)
             ui.root:setAnchorPoint(cc.p(0, 0))
             ui.root:setDockPoint(cc.p(0, 0))
             ui.root:setPosition(t_param['itemPos']['x'], t_param['itemPos']['y'])
-            
-            --cclog('######## new')
 
             if (click_cb and ui.vars['clickBtn']) then
                 ui.vars['clickBtn']:setVisible(true)
@@ -181,7 +179,7 @@ function TableViewExtension:setItemUIClass(item_class, click_cb, create_func)
             ui.root:retain() -- cleanup함수에서 release
             t_param['item']['ui'] = ui
         else
-            --cclog('######## old')
+            ui.root:setPosition(t_param['itemPos']['x'], t_param['itemPos']['y'])
         end
         
         if (ui.root:getParent()) then
@@ -251,6 +249,8 @@ function TableViewExtension:delItem(unique_id)
         local ui = t_item['ui']
         if ui then
             ui.root:removeFromParent()
+            ui.root:release()
+            t_item['ui'] = nil
         end
     end
 
