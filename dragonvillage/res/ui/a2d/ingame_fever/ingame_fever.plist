@@ -109,6 +109,81 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>fever_idle_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{60,74}</string>
+                <key>spriteSourceSize</key>
+                <string>{60,74}</string>
+                <key>textureRect</key>
+                <string>{{1140,183},{60,74}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>fever_idle_0102.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{58,73}</string>
+                <key>spriteSourceSize</key>
+                <string>{58,73}</string>
+                <key>textureRect</key>
+                <string>{{1806,139},{58,73}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>fever_idle_0103.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{63,73}</string>
+                <key>spriteSourceSize</key>
+                <string>{63,73}</string>
+                <key>textureRect</key>
+                <string>{{1683,194},{63,73}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>fever_idle_0104.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{59,73}</string>
+                <key>spriteSourceSize</key>
+                <string>{59,73}</string>
+                <key>textureRect</key>
+                <string>{{870,238},{59,73}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>fever_idle_star.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{62,70}</string>
+                <key>spriteSourceSize</key>
+                <string>{62,70}</string>
+                <key>textureRect</key>
+                <string>{{1216,183},{62,70}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -123,7 +198,7 @@
             <key>size</key>
             <string>{1920,306}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:adfe017f4510e4de881d1cd197bcc7f0:38d8cd885b8d1d5bc93caf0b3d2e2a7f:35534a7d3cdc4777c508ddb7878b5055$</string>
+            <string>$TexturePacker:SmartUpdate:7f98614646e63432c2d915dbd009a3a0:22d9faa7ca8d4bb0fa3f94050caff6f5:35534a7d3cdc4777c508ddb7878b5055$</string>
             <key>textureFileName</key>
             <string>ingame_fever.png</string>
         </dict>

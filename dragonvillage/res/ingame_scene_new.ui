@@ -1787,41 +1787,6 @@
 		{
 			[1] =
 			{
-				type = 'SocketNode';
-				socket_name = 'skill_cancel_01';
-			};
-			[2] =
-			{
-				type = 'SocketNode';
-				socket_name = 'skill_cancel_02';
-			};
-			type = 'Visual';
-			ui_name = '';
-			x = 50.000000;
-			y = 50.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 100;
-			height = 100;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = false;
-			lua_name = 'feverVisual';
-			file_name = 'ui/a2d/ingame_fever/ingame_fever.a2d';
-			auto_play = false;
-			is_repeat = false;
-			visual_id = 'fever;start';
-			color = { 255; 255; 255; };
-			opacity = 255;
-		};
-		[12] =
-		{
-			[1] =
-			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
@@ -1916,6 +1881,111 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = 'feverNode';
+		};
+		[12] =
+		{
+			[1] =
+			{
+				type = 'SocketNode';
+				socket_name = 'skill_cancel_01';
+			};
+			[2] =
+			{
+				type = 'SocketNode';
+				socket_name = 'skill_cancel_02';
+			};
+			type = 'Visual';
+			ui_name = '';
+			x = 50.000000;
+			y = 50.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 100;
+			height = 100;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = false;
+			lua_name = 'feverStartVisual';
+			file_name = 'ui/a2d/ingame_fever/ingame_fever.a2d';
+			auto_play = false;
+			is_repeat = false;
+			visual_id = 'fever;start';
+			color = { 255; 255; 255; };
+			opacity = 255;
+		};
+		[13] =
+		{
+			[1] =
+			{
+				type = 'SocketNode';
+				socket_name = 'skill_cancel_01';
+			};
+			[2] =
+			{
+				type = 'SocketNode';
+				socket_name = 'skill_cancel_02';
+			};
+			type = 'Visual';
+			ui_name = '';
+			x = 50.000000;
+			y = 50.000000;
+			dock_point = { 0.500000; 1.000000; };
+			anchor_point = { 0.500000; 1.000000; };
+			relative_size_type = 0;
+			width = 100;
+			height = 100;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = false;
+			lua_name = 'feverIdleVisual';
+			file_name = 'ui/a2d/ingame_fever/ingame_fever.a2d';
+			auto_play = false;
+			is_repeat = false;
+			visual_id = 'fever;idle';
+			color = { 255; 255; 255; };
+			opacity = 255;
+		};
+		[14] =
+		{
+			[1] =
+			{
+				type = 'SocketNode';
+				socket_name = 'skill_cancel_01';
+			};
+			[2] =
+			{
+				type = 'SocketNode';
+				socket_name = 'skill_cancel_02';
+			};
+			type = 'Visual';
+			ui_name = '';
+			x = -102.000000;
+			y = 245.000000;
+			dock_point = { 1.000000; 0.500000; };
+			anchor_point = { 1.000000; 0.500000; };
+			relative_size_type = 0;
+			width = 100;
+			height = 100;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = false;
+			lua_name = 'skillCancelVisual';
+			file_name = 'ui/a2d/ingame_fever/ingame_fever.a2d';
+			auto_play = false;
+			is_repeat = false;
+			visual_id = 'fever;skill_cancel';
+			color = { 255; 255; 255; };
+			opacity = 255;
 		};
 		type = 'Menu';
 		ui_name = '';

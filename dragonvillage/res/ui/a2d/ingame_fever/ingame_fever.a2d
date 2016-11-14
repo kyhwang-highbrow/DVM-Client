@@ -42,7 +42,7 @@
 			"visual_list":
 			[
 				{
-					"name":"idle",
+					"name":"idle_01",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -52,19 +52,520 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_0201.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_star.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0
+										"frame":0, "pX":-145.000000, "pY":20.000000
 									},
 									{
-										"frame":14, "sY":0.800000
+										"frame":3, "pX":-145.000000
 									},
 									{
-										"frame":29
+										"frame":5, "pX":-145.000000, "pY":-20.000000
+									},
+									{
+										"frame":7, "pX":-145.000000
+									},
+									{
+										"frame":19, "pX":-145.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "pX":-87.000000, "pY":20.000000
+									},
+									{
+										"frame":5, "pX":-87.000000
+									},
+									{
+										"frame":7, "pX":-87.000000, "pY":-20.000000
+									},
+									{
+										"frame":9, "pX":-87.000000
+									},
+									{
+										"frame":19, "pX":-87.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-28.000000, "pY":20.000000
+									},
+									{
+										"frame":7, "pX":-28.000000
+									},
+									{
+										"frame":9, "pX":-28.000000, "pY":-20.000000
+									},
+									{
+										"frame":11, "pX":-28.000000
+									},
+									{
+										"frame":19, "pX":-28.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "pX":34.000000, "pY":20.000000
+									},
+									{
+										"frame":9, "pX":34.000000
+									},
+									{
+										"frame":11, "pX":34.000000, "pY":-20.000000
+									},
+									{
+										"frame":13, "pX":34.000000
+									},
+									{
+										"frame":19, "pX":34.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":91.000000, "pY":20.000000
+									},
+									{
+										"frame":11, "pX":91.000000
+									},
+									{
+										"frame":13, "pX":91.000000, "pY":-20.000000
+									},
+									{
+										"frame":15, "pX":91.000000
+									},
+									{
+										"frame":19, "pX":91.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_star.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "pX":151.000000, "pY":20.000000
+									},
+									{
+										"frame":13, "pX":151.000000
+									},
+									{
+										"frame":15, "pX":151.000000, "pY":-20.000000
+									},
+									{
+										"frame":17, "pX":151.000000
+									},
+									{
+										"frame":19, "pX":151.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"idle_02",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_star.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-145.000000
+									},
+									{
+										"frame":4, "pX":-145.000000, "colorRGB":[255,0,0]
+
+									},
+									{
+										"frame":8, "sX":1.300000, "pX":-145.000000, "colorRGB":[255,128,64]
+
+									},
+									{
+										"frame":12, "sY":1.300000, "pX":-145.000000, "colorRGB":[255,255,0]
+
+									},
+									{
+										"frame":16, "sX":1.200000, "pX":-145.000000, "colorRGB":[0,255,0]
+
+									},
+									{
+										"frame":20, "sY":1.200000, "pX":-145.000000, "colorRGB":[0,0,255]
+
+									},
+									{
+										"frame":24, "sX":1.100000, "pX":-145.000000, "colorRGB":[128,0,128]
+
+									},
+									{
+										"frame":28, "sY":1.100000, "pX":-145.000000, "colorRGB":[255,0,128]
+
+									},
+									{
+										"frame":42, "pX":-145.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-87.000000
+									},
+									{
+										"frame":6, "pX":-87.000000, "colorRGB":[255,0,0]
+
+									},
+									{
+										"frame":10, "sX":1.300000, "pX":-87.000000, "colorRGB":[255,128,64]
+
+									},
+									{
+										"frame":14, "sY":1.300000, "pX":-87.000000, "colorRGB":[255,255,0]
+
+									},
+									{
+										"frame":18, "sX":1.200000, "pX":-87.000000, "colorRGB":[0,255,0]
+
+									},
+									{
+										"frame":22, "sY":1.200000, "pX":-87.000000, "colorRGB":[0,0,255]
+
+									},
+									{
+										"frame":26, "sX":1.100000, "pX":-87.000000, "colorRGB":[128,0,128]
+
+									},
+									{
+										"frame":30, "sY":1.100000, "pX":-87.000000, "colorRGB":[255,0,128]
+
+									},
+									{
+										"frame":42, "pX":-87.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-28.000000
+									},
+									{
+										"frame":8, "pX":-28.000000, "colorRGB":[255,0,0]
+
+									},
+									{
+										"frame":12, "sX":1.300000, "pX":-28.000000, "colorRGB":[255,128,64]
+
+									},
+									{
+										"frame":16, "sY":1.300000, "pX":-28.000000, "colorRGB":[255,255,0]
+
+									},
+									{
+										"frame":20, "sX":1.200000, "pX":-28.000000, "colorRGB":[0,255,0]
+
+									},
+									{
+										"frame":24, "sY":1.200000, "pX":-28.000000, "colorRGB":[0,0,255]
+
+									},
+									{
+										"frame":28, "sX":1.100000, "pX":-28.000000, "colorRGB":[128,0,128]
+
+									},
+									{
+										"frame":32, "sY":1.100000, "pX":-28.000000, "colorRGB":[255,0,128]
+
+									},
+									{
+										"frame":42, "pX":-28.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":34.000000
+									},
+									{
+										"frame":10, "pX":34.000000, "colorRGB":[255,0,0]
+
+									},
+									{
+										"frame":14, "sX":1.300000, "pX":34.000000, "colorRGB":[255,128,64]
+
+									},
+									{
+										"frame":18, "sY":1.300000, "pX":34.000000, "colorRGB":[255,255,0]
+
+									},
+									{
+										"frame":22, "sX":1.200000, "pX":34.000000, "colorRGB":[0,255,0]
+
+									},
+									{
+										"frame":26, "sY":1.200000, "pX":34.000000, "colorRGB":[0,0,255]
+
+									},
+									{
+										"frame":30, "sX":1.100000, "pX":34.000000, "colorRGB":[128,0,128]
+
+									},
+									{
+										"frame":34, "sY":1.100000, "pX":34.000000, "colorRGB":[255,0,128]
+
+									},
+									{
+										"frame":42, "pX":34.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":91.000000
+									},
+									{
+										"frame":12, "pX":91.000000, "colorRGB":[255,0,0]
+
+									},
+									{
+										"frame":16, "sX":1.300000, "pX":91.000000, "colorRGB":[255,128,64]
+
+									},
+									{
+										"frame":20, "sY":1.300000, "pX":91.000000, "colorRGB":[255,255,0]
+
+									},
+									{
+										"frame":24, "sX":1.200000, "pX":91.000000, "colorRGB":[0,255,0]
+
+									},
+									{
+										"frame":28, "sY":1.200000, "pX":91.000000, "colorRGB":[0,0,255]
+
+									},
+									{
+										"frame":32, "sX":1.100000, "pX":91.000000, "colorRGB":[128,0,128]
+
+									},
+									{
+										"frame":36, "sY":1.100000, "pX":91.000000, "colorRGB":[255,0,128]
+
+									},
+									{
+										"frame":42, "pX":91.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_star.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":151.000000
+									},
+									{
+										"frame":14, "pX":151.000000, "colorRGB":[255,0,0]
+
+									},
+									{
+										"frame":18, "sX":1.300000, "pX":151.000000, "colorRGB":[255,128,64]
+
+									},
+									{
+										"frame":22, "sY":1.300000, "pX":151.000000, "colorRGB":[255,255,0]
+
+									},
+									{
+										"frame":26, "sX":1.200000, "pX":151.000000, "colorRGB":[0,255,0]
+
+									},
+									{
+										"frame":30, "sY":1.200000, "pX":151.000000, "colorRGB":[0,0,255]
+
+									},
+									{
+										"frame":34, "sX":1.100000, "pX":151.000000, "colorRGB":[128,0,128]
+
+									},
+									{
+										"frame":38, "sY":1.100000, "pX":151.000000, "colorRGB":[255,0,128]
+
+									},
+									{
+										"frame":42, "pX":151.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"idle_03",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_star.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-145.000000
+									},
+									{
+										"frame":2, "pX":-145.000000
+									},
+									{
+										"frame":7, "sX":0.000000, "sY":1.200000, "pX":-145.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-87.000000
+									},
+									{
+										"frame":3, "pX":-87.000000
+									},
+									{
+										"frame":8, "sX":0.000000, "sY":1.200000, "pX":-87.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-28.000000
+									},
+									{
+										"frame":4, "pX":-28.000000
+									},
+									{
+										"frame":9, "sX":0.000000, "sY":1.200000, "pX":-28.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":34.000000
+									},
+									{
+										"frame":5, "pX":34.000000
+									},
+									{
+										"frame":10, "sX":0.000000, "sY":1.200000, "pX":34.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":91.000000
+									},
+									{
+										"frame":6, "pX":91.000000
+									},
+									{
+										"frame":11, "sX":0.000000, "sY":1.200000, "pX":91.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_star.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":151.000000
+									},
+									{
+										"frame":7, "pX":151.000000
+									},
+									{
+										"frame":12, "sX":0.000000, "sY":1.200000, "pX":151.000000, "alpha":0
 									}
 								]
 							}
