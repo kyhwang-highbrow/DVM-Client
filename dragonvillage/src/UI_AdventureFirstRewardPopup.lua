@@ -90,9 +90,8 @@ function UI_AdventureFirstRewardPopup:click_receiveBtn()
         if self.m_cbRefresh then
             self.m_cbRefresh()
         end
-        MakeSimplePopup(POPUP_TYPE.OK, Str('{@BLACK}' ..'보상을 수령하였습니다.'), function()
-            self:refreshUI()
-        end)
+        self:close()
+        MakeSimplePopup(POPUP_TYPE.OK, Str('{@BLACK}' ..'보상을 수령하였습니다.'))
     end
 
     GameState:dropItem_network(l_reward_item, finish_cb)
