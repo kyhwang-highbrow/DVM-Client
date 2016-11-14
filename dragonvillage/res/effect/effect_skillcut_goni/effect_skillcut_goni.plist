@@ -7,7 +7,7 @@
             <key>effect_skillcut_goni_13.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{84,856},{70,70}}</string>
+                <string>{{166,856},{70,70}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -43,6 +43,19 @@
                 <key>sourceSize</key>
                 <string>{80,136}</string>
             </dict>
+            <key>effect_skillcut_goni_16.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{84,856},{80,136}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{80,136}}</string>
+                <key>sourceSize</key>
+                <string>{80,136}</string>
+            </dict>
             <key>goni_i.png</key>
             <dict>
                 <key>frame</key>
@@ -66,7 +79,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2462946e6e44feec125866808aae7ffc:7b56b03a840e777c161363b0fad17f82:14f010fb4f7a273ec4d856bb9b5015e8$</string>
+            <string>$TexturePacker:SmartUpdate:168d939e7ac33aab13673ef803ba325e:81e317f3ffff7fac469047b3194b56e9:14f010fb4f7a273ec4d856bb9b5015e8$</string>
             <key>textureFileName</key>
             <string>effect_skillcut_goni.png</string>
         </dict>

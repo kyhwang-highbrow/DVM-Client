@@ -6,35 +6,35 @@ filter: Linear,Linear
 repeat: none
 goni_i_acc_01
   rotate: false
-  xy: 434, 73
+  xy: 1311, 1657
   size: 30, 41
   orig: 30, 41
   offset: 0, 0
   index: -1
 goni_i_arm_01
-  rotate: false
-  xy: 399, 599
+  rotate: true
+  xy: 1337, 1237
   size: 115, 133
   orig: 115, 133
   offset: 0, 0
   index: -1
 goni_i_arm_02
   rotate: false
-  xy: 399, 888
+  xy: 1311, 1513
   size: 147, 142
   orig: 147, 142
   offset: 0, 0
   index: -1
 goni_i_bac_01
   rotate: false
-  xy: 1345, 1727
+  xy: 1714, 1535
   size: 72, 122
   orig: 72, 122
   offset: 0, 0
   index: -1
 goni_i_bac_02
-  rotate: true
-  xy: 1419, 1752
+  rotate: false
+  xy: 399, 929
   size: 72, 122
   orig: 72, 122
   offset: 0, 0
@@ -48,21 +48,21 @@ goni_i_body_01
   index: -1
 goni_i_body_02
   rotate: false
-  xy: 1884, 1794
+  xy: 302, 95
   size: 118, 252
   orig: 118, 252
   offset: 0, 0
   index: -1
 goni_i_body_03
-  rotate: false
-  xy: 399, 734
+  rotate: true
+  xy: 1213, 1700
   size: 125, 152
   orig: 125, 152
   offset: 0, 0
   index: -1
 goni_i_body_04
   rotate: false
-  xy: 450, 1032
+  xy: 1102, 1078
   size: 228, 171
   orig: 228, 171
   offset: 0, 0
@@ -83,196 +83,217 @@ goni_i_effect_02
   index: -1
 goni_i_effect_03
   rotate: false
-  xy: 928, 1802
+  xy: 1820, 1802
   size: 226, 244
   orig: 226, 244
   offset: 0, 0
   index: -1
 goni_i_effect_04
-  rotate: false
-  xy: 450, 1432
+  rotate: true
+  xy: 450, 1069
   size: 256, 283
   orig: 256, 283
   offset: 0, 0
   index: -1
 goni_i_effect_05
   rotate: false
-  xy: 905, 1538
+  xy: 1367, 1657
   size: 168, 159
   orig: 168, 159
   offset: 0, 0
   index: -1
 goni_i_effect_06
   rotate: false
-  xy: 526, 746
+  xy: 1460, 1515
   size: 131, 140
   orig: 131, 140
   offset: 0, 0
   index: -1
 goni_i_effect_07
-  rotate: false
-  xy: 928, 1699
+  rotate: true
+  xy: 735, 1069
   size: 256, 101
   orig: 256, 101
   offset: 0, 0
   index: -1
 goni_i_effect_08
-  rotate: false
-  xy: 302, 64
+  rotate: true
+  xy: 928, 1695
   size: 130, 283
   orig: 130, 283
   offset: 0, 0
   index: -1
 goni_i_effect_09
   rotate: false
-  xy: 1075, 1539
+  xy: 1537, 1658
   size: 154, 158
   orig: 154, 158
   offset: 0, 0
   index: -1
 goni_i_effect_10
   rotate: false
-  xy: 450, 1205
+  xy: 841, 1468
   size: 236, 225
   orig: 236, 225
   offset: 0, 0
   index: -1
 goni_i_effect_11
-  rotate: true
-  xy: 1543, 1763
+  rotate: false
+  xy: 399, 697
   size: 61, 109
   orig: 61, 109
   offset: 0, 0
   index: -1
 goni_i_effect_12
   rotate: false
-  xy: 1420, 1826
+  xy: 1079, 1473
   size: 230, 220
   orig: 230, 220
   offset: 0, 0
   index: -1
 goni_i_effect_13
   rotate: false
-  xy: 1652, 1826
+  xy: 1105, 1251
   size: 230, 220
   orig: 230, 220
   offset: 0, 0
   index: -1
+goni_i_effect_14
+  rotate: false
+  xy: 928, 1827
+  size: 476, 219
+  orig: 476, 219
+  offset: 0, 0
+  index: -1
+goni_i_effect_15
+  rotate: false
+  xy: 450, 1327
+  size: 389, 388
+  orig: 389, 388
+  offset: 0, 0
+  index: -1
+goni_i_effect_16
+  rotate: true
+  xy: 1406, 1818
+  size: 228, 412
+  orig: 228, 412
+  offset: 0, 0
+  index: -1
 goni_i_eye_01
   rotate: false
-  xy: 1848, 1792
+  xy: 132, 19
   size: 34, 32
   orig: 34, 32
   offset: 0, 0
   index: -1
 goni_i_eye_02
   rotate: false
-  xy: 1156, 1822
+  xy: 168, 24
   size: 25, 27
   orig: 25, 27
   offset: 0, 0
   index: -1
 goni_i_eye_03
   rotate: true
-  xy: 471, 351
+  xy: 538, 933
   size: 36, 27
   orig: 36, 27
   offset: 0, 0
   index: -1
 goni_i_eye_04
-  rotate: false
-  xy: 1419, 1729
+  rotate: true
+  xy: 1311, 1482
   size: 29, 21
   orig: 29, 21
   offset: 0, 0
   index: -1
 goni_i_eye_05
   rotate: true
-  xy: 1156, 1802
+  xy: 538, 913
   size: 18, 21
   orig: 18, 21
   offset: 0, 0
   index: -1
 goni_i_eye_06
-  rotate: false
-  xy: 1848, 1769
+  rotate: true
+  xy: 885, 1697
   size: 18, 21
   orig: 18, 21
   offset: 0, 0
   index: -1
 goni_i_eye_07
-  rotate: false
-  xy: 905, 1700
+  rotate: true
+  xy: 450, 1053
   size: 14, 15
   orig: 14, 15
   offset: 0, 0
   index: -1
 goni_i_eye_08
-  rotate: false
-  xy: 500, 372
+  rotate: true
+  xy: 1593, 1515
   size: 14, 15
   orig: 14, 15
   offset: 0, 0
   index: -1
 goni_i_eye_09
-  rotate: false
-  xy: 491, 257
+  rotate: true
+  xy: 1343, 1657
   size: 12, 11
   orig: 12, 11
   offset: 0, 0
   index: -1
 goni_i_eye_10
   rotate: false
-  xy: 72, 7
+  xy: 1332, 1080
   size: 12, 11
   orig: 12, 11
   offset: 0, 0
   index: -1
 goni_i_eye_11
-  rotate: false
-  xy: 1186, 1699
+  rotate: true
+  xy: 812, 1025
   size: 42, 15
   orig: 42, 15
   offset: 0, 0
   index: -1
 goni_i_eye_12
-  rotate: false
-  xy: 1231, 1540
+  rotate: true
+  xy: 452, 495
   size: 30, 15
   orig: 30, 15
   offset: 0, 0
   index: -1
 goni_i_eye_13
   rotate: false
-  xy: 399, 1032
+  xy: 841, 1696
   size: 42, 19
   orig: 42, 19
   offset: 0, 0
   index: -1
 goni_i_eye_14
-  rotate: false
-  xy: 688, 1411
+  rotate: true
+  xy: 1343, 1671
   size: 27, 19
   orig: 27, 19
   offset: 0, 0
   index: -1
 goni_i_face_01
   rotate: false
-  xy: 548, 888
+  xy: 1332, 1093
   size: 134, 142
   orig: 134, 142
   offset: 0, 0
   index: -1
 goni_i_finger_01
   rotate: true
-  xy: 379, 6
+  xy: 473, 913
   size: 56, 63
   orig: 56, 63
   offset: 0, 0
   index: -1
 goni_i_finger_02
-  rotate: false
-  xy: 434, 194
+  rotate: true
+  xy: 1971, 1683
   size: 55, 74
   orig: 55, 74
   offset: 0, 0
@@ -292,99 +313,99 @@ goni_i_finger_04
   offset: 0, 0
   index: -1
 goni_i_hair_01
-  rotate: false
-  xy: 708, 1453
+  rotate: true
+  xy: 841, 1271
   size: 195, 262
   orig: 195, 262
   offset: 0, 0
   index: -1
 goni_i_hair_02
   rotate: true
-  xy: 399, 472
+  xy: 1593, 1531
   size: 125, 119
   orig: 125, 119
   offset: 0, 0
   index: -1
 goni_i_hair_03
   rotate: false
-  xy: 399, 351
+  xy: 399, 808
   size: 70, 119
   orig: 70, 119
   offset: 0, 0
   index: -1
 goni_i_hair_04
   rotate: false
-  xy: 1350, 1638
+  xy: 399, 608
   size: 63, 87
   orig: 63, 87
   offset: 0, 0
   index: -1
 goni_i_hair_05
   rotate: false
-  xy: 1350, 1555
+  xy: 664, 986
   size: 72, 81
   orig: 72, 81
   offset: 0, 0
   index: -1
 goni_i_hair_06
   rotate: false
-  xy: 471, 389
+  xy: 738, 986
   size: 72, 81
   orig: 72, 81
   offset: 0, 0
   index: -1
 goni_i_hand_01
   rotate: false
-  xy: 1231, 1557
+  xy: 1693, 1659
   size: 117, 157
   orig: 117, 157
   offset: 0, 0
   index: -1
 goni_i_hand_02
-  rotate: true
-  xy: 905, 1419
+  rotate: false
+  xy: 1337, 1354
   size: 117, 157
   orig: 117, 157
   offset: 0, 0
   index: -1
 goni_i_hand_03
   rotate: true
-  xy: 1186, 1716
+  xy: 1812, 1667
   size: 133, 157
   orig: 133, 157
   offset: 0, 0
   index: -1
 goni_i_head_01
   rotate: true
-  xy: 1156, 1851
+  xy: 838, 1074
   size: 195, 262
   orig: 195, 262
   offset: 0, 0
   index: -1
 goni_i_mouth_01
-  rotate: false
-  xy: 2004, 2014
+  rotate: true
+  xy: 380, 51
   size: 42, 32
   orig: 42, 32
   offset: 0, 0
   index: -1
 goni_i_mouth_02
-  rotate: false
-  xy: 2004, 1993
+  rotate: true
+  xy: 1788, 1615
   size: 42, 19
   orig: 42, 19
   offset: 0, 0
   index: -1
 goni_i_mouth_03
   rotate: false
-  xy: 708, 1432
+  xy: 399, 350
   size: 30, 19
   orig: 30, 19
   offset: 0, 0
   index: -1
 goni_i_neck_01
   rotate: true
-  xy: 302, 2
+  xy: 1971, 1740
   size: 60, 75
   orig: 60, 75
   offset: 0, 0
@@ -397,43 +418,43 @@ goni_i_special_01
   offset: 0, 0
   index: -1
 goni_i_wepon_01
-  rotate: true
-  xy: 1654, 1731
+  rotate: false
+  xy: 473, 971
   size: 93, 96
   orig: 93, 96
   offset: 0, 0
   index: -1
 goni_i_wepon_02
   rotate: true
-  xy: 434, 270
+  xy: 399, 527
   size: 79, 69
   orig: 79, 69
   offset: 0, 0
   index: -1
 goni_i_wepon_03
   rotate: false
-  xy: 1752, 1743
+  xy: 568, 986
   size: 94, 81
   orig: 94, 81
   offset: 0, 0
   index: -1
 goni_i_wepon_04
   rotate: true
-  xy: 434, 116
+  xy: 399, 449
   size: 76, 51
   orig: 76, 51
   offset: 0, 0
   index: -1
 goni_i_wepon_05
   rotate: true
-  xy: 659, 810
+  xy: 399, 371
   size: 76, 51
   orig: 76, 51
   offset: 0, 0
   index: -1
 goni_i_wepon_06
-  rotate: true
-  xy: 659, 732
+  rotate: false
+  xy: 302, 42
   size: 76, 51
   orig: 76, 51
   offset: 0, 0
