@@ -21,7 +21,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonManageInfo:init()
+function UI_DragonManageInfo:init(doid, b_ascending_sort, sort_type)
     local vars = self:load('dragon_management_info.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -35,7 +35,10 @@ function UI_DragonManageInfo:init()
     self:refresh()
 
     -- 정렬 도우미
-    DragonSortManager(vars, self.m_tableViewExt)
+    self:init_dragonSortMgr(b_ascending_sort, sort_type)
+
+    -- 첫 선택 드래곤 지정
+    self:setDefaultSelectDragon(doid)
 end
 
 -------------------------------------
@@ -43,7 +46,6 @@ end
 -------------------------------------
 function UI_DragonManageInfo:initUI()
     self:init_dragonTableView()
-    self:setDefaultSelectDragon()
 end
 
 -------------------------------------
@@ -319,11 +321,12 @@ end
 -- @brief 승급 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_upgradeBtn()
-    local ui = UI_DragonManageUpgrade(doid)
-
-    -- 선탠된 드래곤 설정
+    -- 선탠된 드래곤과 정렬 설정
     local doid = self.m_selectDragonOID
-    ui:setSelectDragonData(doid)
+    local b_ascending_sort = self.m_dragonSortMgr.m_bAscendingSort
+    local sort_type = self.m_dragonSortMgr.m_currSortType
+
+    local ui = UI_DragonManageUpgrade(doid, b_ascending_sort, sort_type)
 
     -- UI종료 후 콜백
     local function close_cb()
@@ -338,6 +341,13 @@ function UI_DragonManageInfo:click_upgradeBtn()
                 self:setSelectDragonData(ui.m_selectDragonOID, b_force)
             end
         end
+
+        do -- 정렬
+            self.m_dragonSortMgr:click_sortOrderBtn(ui.m_dragonSortMgr.m_bAscendingSort, true)
+            self.m_dragonSortMgr:click_sortTypeBtn(ui.m_dragonSortMgr.m_currSortType, true)
+            self.m_dragonSortMgr:changeSort()
+        end
+
         self:sceneFadeInAction()
     end
     ui:setCloseCB(close_cb)
@@ -348,11 +358,12 @@ end
 -- @brief 진화 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_evolutionBtn()
-    local ui = UI_DragonManagementEvolution(doid)
-
-    -- 선탠된 드래곤 설정
+    -- 선탠된 드래곤과 정렬 설정
     local doid = self.m_selectDragonOID
-    ui:setSelectDragonData(doid)
+    local b_ascending_sort = self.m_dragonSortMgr.m_bAscendingSort
+    local sort_type = self.m_dragonSortMgr.m_currSortType
+
+    local ui = UI_DragonManagementEvolution(doid, b_ascending_sort, sort_type)
 
     -- UI종료 후 콜백
     local function close_cb()
@@ -367,6 +378,13 @@ function UI_DragonManageInfo:click_evolutionBtn()
                 self:setSelectDragonData(ui.m_selectDragonOID, b_force)
             end
         end
+
+        do -- 정렬
+            self.m_dragonSortMgr:click_sortOrderBtn(ui.m_dragonSortMgr.m_bAscendingSort, true)
+            self.m_dragonSortMgr:click_sortTypeBtn(ui.m_dragonSortMgr.m_currSortType, true)
+            self.m_dragonSortMgr:changeSort()
+        end
+
         self:sceneFadeInAction()
     end
     ui:setCloseCB(close_cb)
@@ -377,11 +395,12 @@ end
 -- @brief 친밀도 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_friendshipBtn()
-    local ui = UI_DragonManagementFriendship(doid)
-
-    -- 선탠된 드래곤 설정
+    -- 선탠된 드래곤과 정렬 설정
     local doid = self.m_selectDragonOID
-    ui:setSelectDragonData(doid)
+    local b_ascending_sort = self.m_dragonSortMgr.m_bAscendingSort
+    local sort_type = self.m_dragonSortMgr.m_currSortType
+
+    local ui = UI_DragonManagementFriendship(doid, b_ascending_sort, sort_type)
 
     -- UI종료 후 콜백
     local function close_cb()
@@ -396,6 +415,13 @@ function UI_DragonManageInfo:click_friendshipBtn()
                 self:setSelectDragonData(ui.m_selectDragonOID, b_force)
             end
         end
+
+        do -- 정렬
+            self.m_dragonSortMgr:click_sortOrderBtn(ui.m_dragonSortMgr.m_bAscendingSort, true)
+            self.m_dragonSortMgr:click_sortTypeBtn(ui.m_dragonSortMgr.m_currSortType, true)
+            self.m_dragonSortMgr:changeSort()
+        end
+
         self:sceneFadeInAction()
     end
     ui:setCloseCB(close_cb)

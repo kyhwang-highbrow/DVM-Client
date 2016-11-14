@@ -24,7 +24,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonManagementFriendship:init()
+function UI_DragonManagementFriendship:init(doid, b_ascending_sort, sort_type)
     self.m_bChangeDragonList = false
     self.m_currAttrTab = nil
 
@@ -41,7 +41,10 @@ function UI_DragonManagementFriendship:init()
     self:refresh()
 
     -- 정렬 도우미
-    DragonSortManager(vars, self.m_tableViewExt)
+    self:init_dragonSortMgr(b_ascending_sort, sort_type)
+
+    -- 첫 선택 드래곤 지정
+    self:setDefaultSelectDragon(doid)
 end
 
 -------------------------------------

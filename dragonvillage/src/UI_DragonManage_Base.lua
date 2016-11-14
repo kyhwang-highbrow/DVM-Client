@@ -8,6 +8,7 @@ UI_DragonManage_Base = class(PARENT,{
         m_selectDragonOID = 'number',           -- 선택된 드래곤의 dragon object id
         m_tableViewExt = 'TableViewExtension',  -- 하단의 드래곤 리스트 테이블 뷰
         m_dragonSelectFrame = 'sprite',         -- 선택된 드래곤의 카드에 표시
+        m_dragonSortMgr = 'DragonSortManager',
     })
 
 -------------------------------------
@@ -32,6 +33,14 @@ function UI_DragonManage_Base:init()
     -- 드래곤들의 덱설정 여부 데이터 갱신
     g_deckData:resetDragonDeckInfo()
 
+end
+
+-------------------------------------
+-- function init_dragonSortMgr
+-- @brief 정렬 도우미
+-------------------------------------
+function UI_DragonManage_Base:init_dragonSortMgr(b_ascending_sort, sort_type)
+    self.m_dragonSortMgr = DragonSortManager(self.vars, self.m_tableViewExt, b_ascending_sort, sort_type)
 end
 
 -------------------------------------
@@ -131,7 +140,13 @@ end
 -- function setDefaultSelectDragon
 -- @brief 지정된 드래곤이 없을 경우 기본 드래곤을 설정
 -------------------------------------
-function UI_DragonManage_Base:setDefaultSelectDragon()
+function UI_DragonManage_Base:setDefaultSelectDragon(doid)
+    if doid then
+        local b_force = true
+        self:setSelectDragonData(doid, b_force)
+        return
+    end
+
     local item = self.m_tableViewExt.m_lItem[1]
 
     if (item) then
@@ -195,9 +210,8 @@ function UI_DragonManage_Base:init_dragonTableView()
     local table_view_ext = TableViewExtension(list_table_node)
     table_view_ext:setCellInfo(105, 105)
     table_view_ext:setItemUIClass(UI_DragonCard, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
-    --table_view_ext:setItemInfo(g_dragonListData.m_lDragonList)
     table_view_ext:setItemInfo(g_dragonsData:getDragonsList())
-    table_view_ext:update()
+    --table_view_ext:update()
 
     -- 정렬
     local function default_sort_func(a, b)

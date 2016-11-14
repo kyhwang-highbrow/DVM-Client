@@ -25,7 +25,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonManageUpgrade:init()
+function UI_DragonManageUpgrade:init(doid, b_ascending_sort, sort_type)
     self.m_bChangeDragonList = false
 
     local vars = self:load('dragon_management_upgrade.ui')
@@ -46,7 +46,10 @@ function UI_DragonManageUpgrade:init()
     self:refresh()
 
     -- 정렬 도우미
-    DragonSortManager(vars, self.m_tableViewExt)
+    self:init_dragonSortMgr(b_ascending_sort, sort_type)
+
+    -- 첫 선택 드래곤 지정
+    self:setDefaultSelectDragon(doid)
 end
 
 -------------------------------------

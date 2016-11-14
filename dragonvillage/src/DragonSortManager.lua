@@ -23,14 +23,14 @@ DragonSortManager = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function DragonSortManager:init(vars, table_view_ext)
+function DragonSortManager:init(vars, table_view_ext, b_ascending_sort, sort_type)
     self.vars = vars
     self.m_tableViewExt = table_view_ext
 
     self:init_button()
 
-    self.m_bAscendingSort = false
-    self:click_sortTypeBtn('lv')
+    self:click_sortOrderBtn(b_ascending_sort)
+    self:click_sortTypeBtn(sort_type or 'lv')
 end
 
 -------------------------------------
@@ -64,8 +64,12 @@ end
 -- function click_sortOrderBtn
 -- @brief 오름차순, 내림차순
 -------------------------------------
-function DragonSortManager:click_sortOrderBtn()
-    self.m_bAscendingSort = (not self.m_bAscendingSort)
+function DragonSortManager:click_sortOrderBtn(b_ascending_sort, skip_change_sort)
+    if (b_ascending_sort ~= nil) then
+        self.m_bAscendingSort = b_ascending_sort
+    else
+        self.m_bAscendingSort = (not self.m_bAscendingSort)
+    end
     local vars = self.vars
 
     if self.m_bAscendingSort then
@@ -74,21 +78,25 @@ function DragonSortManager:click_sortOrderBtn()
         vars['sortOrderSprite']:setScaleY(1)
     end
 
-    self:changeSort()
+    if (not skip_change_sort) then
+        self:changeSort()
+    end
 end
 
 -------------------------------------
 -- function click_sortTypeBtn
 -- @brief
 -------------------------------------
-function DragonSortManager:click_sortTypeBtn(type)
+function DragonSortManager:click_sortTypeBtn(type, skip_change_sort)
     local vars = self.vars
     local str = self:getSortName(type)
     vars['sortLabel']:setString(str)
 
     self.m_currSortType = type
 
-    self:changeSort()
+    if (not skip_change_sort) then
+        self:changeSort()
+    end
 end
 
 
