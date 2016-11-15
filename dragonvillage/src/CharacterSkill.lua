@@ -43,7 +43,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 
 	-- 스킬 테이블 체크
     if (not t_skill) then
-        error('스킬 테이블이 존재하지 않는ㄷr...' .. tostring(skill_id))
+        error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 테이블이 없습니다')
     end
 
     self:checkTarget(t_skill)
@@ -146,9 +146,6 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
         elseif (type == 'skill_heal_single') then
             self:doSkill_skill_heal_single(t_skill, t_data)
             return true
-        elseif (type == 'skill_bullet_hole') then
-            self:doSkill_skill_bullet_hole(t_skill, attr, is_hero, phys_group, x, y, t_data)
-            return true
         elseif (type == 'skill_deep_stab') then
             self:doSkill_skill_deep_stab(t_skill, attr, is_hero, phys_group, x, y, t_data)
             return true
@@ -156,6 +153,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 		elseif (type == 'skill_dispel_harm') then
             self:doSkill_skill_dispel_magic(t_skill, t_data)
             return true
+
 		elseif (type == 'skill_summon') then
             local summon_success = self:doSkill_skill_summon(t_skill, t_data)
             return summon_success

@@ -493,7 +493,7 @@ function Character:doAttack(x, y)
 
         -- 지정된 스킬이 발동되지 않았을 경우 기본 스킬 발동
         if (not b_run_skill) then
-            basic_skill_id = self.m_charTable['skill_basic']
+            basic_skill_id = self:getBasicAttackSkillID()
             self:doSkill(basic_skill_id, nil, x, y)
         end
     end
