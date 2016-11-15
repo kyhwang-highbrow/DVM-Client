@@ -1024,6 +1024,9 @@
     <None Include="..\src\StatusEffect_Trigger_Release.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\DragonAutoSetHelper.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -84,6 +84,7 @@ function UI_ReadyScene:initButton()
     local vars = self.vars
     vars['manageBtn']:registerScriptTapHandler(function() self:click_manageBtn() end)
     vars['dragonInfoBtn']:registerScriptTapHandler(function() self:click_dragonInfoBtn() end)
+    vars['autoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
 end
 
@@ -254,6 +255,30 @@ function UI_ReadyScene:click_dragonInfoBtn()
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_selectedDragonDoid)
 
     UI_DragonDetailPopup(t_dragon_data)
+end
+
+-------------------------------------
+-- function click_autoBtn
+-- @breif
+-------------------------------------
+function UI_ReadyScene:click_autoBtn()
+    local stage_id = self.m_stageID
+    local l_dragon_list = g_dragonsData:getDragonsList()
+
+    local helper = DragonAutoSetHelper()
+    helper:setStageID(stage_id)
+    helper:setDragonList(l_dragon_list)
+
+    local l_auto_deck = helper:getAutoDeck()
+
+    -- 1. 덱을 비움
+    self.m_readySceneDeck:clear_deck()
+
+    -- 2. 덱을 채움
+    for i,t_dragon_data in pairs(l_auto_deck) do
+        self.m_readySceneDeck.m_focusDeckSlot = i
+        self:click_dragonCard(t_dragon_data)
+    end
 end
 
 -------------------------------------

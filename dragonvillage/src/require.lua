@@ -51,6 +51,7 @@ local t_module = {
     'ServerData_Deck',
     'UserData',
     'DropHelper',
+    'DragonAutoSetHelper',
     'DragonSkillManager',
     'DragonSkillIndivisualInfo',
     'SumRandom',

@@ -97,6 +97,25 @@ function UI_ReadyScene_Deck:setFocusDeckSlotEffect(idx)
 end
 
 -------------------------------------
+-- function clear_deck
+-------------------------------------
+function UI_ReadyScene_Deck:clear_deck()
+    do -- UI 정리
+        if self.m_lSettedDragonCard then
+            for _,ui in pairs(self.m_lSettedDragonCard) do
+                ui.root:removeFromParent()
+            end
+        end
+        self.m_lSettedDragonCard = {}
+    end
+
+    self.m_lDeckList = {}
+    self.m_tDeckMap = {}
+
+    self:setFocusDeckSlotEffect(1)
+end
+
+-------------------------------------
 -- function init_deck
 -------------------------------------
 function UI_ReadyScene_Deck:init_deck()
