@@ -75,7 +75,7 @@
                 <key>spriteSourceSize</key>
                 <string>{243,86}</string>
                 <key>textureRect</key>
-                <string>{{1948,92},{243,86}}</string>
+                <string>{{1948,143},{243,86}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -90,7 +90,7 @@
                 <key>spriteSourceSize</key>
                 <string>{321,102}</string>
                 <key>textureRect</key>
-                <string>{{1156,620},{321,102}}</string>
+                <string>{{1156,750},{321,102}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -105,9 +105,9 @@
                 <key>spriteSourceSize</key>
                 <string>{226,39}</string>
                 <key>textureRect</key>
-                <string>{{1818,1063},{226,39}}</string>
+                <string>{{1998,1078},{226,39}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>fever_0303.png</key>
             <dict>
@@ -120,7 +120,7 @@
                 <key>spriteSourceSize</key>
                 <string>{85,36}</string>
                 <key>textureRect</key>
-                <string>{{1948,337},{85,36}}</string>
+                <string>{{1948,388},{85,36}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -135,9 +135,9 @@
                 <key>spriteSourceSize</key>
                 <string>{60,74}</string>
                 <key>textureRect</key>
-                <string>{{2,1420},{60,74}}</string>
+                <string>{{118,996},{60,74}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>fever_idle_0102.png</key>
             <dict>
@@ -150,9 +150,9 @@
                 <key>spriteSourceSize</key>
                 <string>{58,73}</string>
                 <key>textureRect</key>
-                <string>{{1988,1104},{58,73}}</string>
+                <string>{{528,874},{58,73}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>fever_idle_0103.png</key>
             <dict>
@@ -165,9 +165,9 @@
                 <key>spriteSourceSize</key>
                 <string>{63,73}</string>
                 <key>textureRect</key>
-                <string>{{1882,460},{63,73}}</string>
+                <string>{{378,874},{63,73}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>fever_idle_0104.png</key>
             <dict>
@@ -180,9 +180,9 @@
                 <key>spriteSourceSize</key>
                 <string>{59,73}</string>
                 <key>textureRect</key>
-                <string>{{64,1420},{59,73}}</string>
+                <string>{{453,874},{59,73}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>fever_idle_star.png</key>
             <dict>
@@ -195,9 +195,9 @@
                 <key>spriteSourceSize</key>
                 <string>{62,70}</string>
                 <key>textureRect</key>
-                <string>{{1882,535},{62,70}}</string>
+                <string>{{528,934},{62,70}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>fever_idle_star_s.png</key>
             <dict>
@@ -210,7 +210,7 @@
                 <key>spriteSourceSize</key>
                 <string>{88,88}</string>
                 <key>textureRect</key>
-                <string>{{1948,2},{88,88}}</string>
+                <string>{{1948,53},{88,88}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -229,6 +229,111 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
+            <key>ingame_fever_btn_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{128,117}</string>
+                <key>spriteSourceSize</key>
+                <string>{128,117}</string>
+                <key>textureRect</key>
+                <string>{{1826,402},{128,117}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>ingame_fever_btn_0102.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{128,105}</string>
+                <key>spriteSourceSize</key>
+                <string>{128,105}</string>
+                <key>textureRect</key>
+                <string>{{1156,620},{128,105}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>ingame_fever_btn_0103.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{81,113}</string>
+                <key>spriteSourceSize</key>
+                <string>{81,113}</string>
+                <key>textureRect</key>
+                <string>{{1654,1058},{81,113}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_fever_btn_0104.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{164,174}</string>
+                <key>spriteSourceSize</key>
+                <string>{164,174}</string>
+                <key>textureRect</key>
+                <string>{{202,874},{164,174}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>ingame_fever_btn_0201.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{114,50}</string>
+                <key>spriteSourceSize</key>
+                <string>{114,50}</string>
+                <key>textureRect</key>
+                <string>{{2,996},{114,50}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_fever_btn_0202.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{114,49}</string>
+                <key>spriteSourceSize</key>
+                <string>{114,49}</string>
+                <key>textureRect</key>
+                <string>{{2,1048},{114,49}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_fever_btn_0203.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{89,49}</string>
+                <key>spriteSourceSize</key>
+                <string>{89,49}</string>
+                <key>textureRect</key>
+                <string>{{1948,2},{89,49}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>ingame_fever_res_0003.png</key>
             <dict>
                 <key>aliases</key>
@@ -240,9 +345,9 @@
                 <key>spriteSourceSize</key>
                 <string>{768,420}</string>
                 <key>textureRect</key>
-                <string>{{1988,1179},{60,56}}</string>
+                <string>{{453,935},{60,56}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_fever_res_0007.png</key>
             <dict>
@@ -255,9 +360,9 @@
                 <key>spriteSourceSize</key>
                 <string>{768,420}</string>
                 <key>textureRect</key>
-                <string>{{1826,402},{104,56}}</string>
+                <string>{{1945,426},{104,56}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ingame_fever_res_0011.png</key>
             <dict>
@@ -270,9 +375,9 @@
                 <key>spriteSourceSize</key>
                 <string>{768,420}</string>
                 <key>textureRect</key>
-                <string>{{1826,460},{150,54}}</string>
+                <string>{{2,940},{150,54}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_fever_res_0015.png</key>
             <dict>
@@ -285,9 +390,9 @@
                 <key>spriteSourceSize</key>
                 <string>{768,420}</string>
                 <key>textureRect</key>
-                <string>{{1752,924},{198,64}}</string>
+                <string>{{2,874},{198,64}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_fever_res_0019.png</key>
             <dict>
@@ -300,9 +405,9 @@
                 <key>spriteSourceSize</key>
                 <string>{768,420}</string>
                 <key>textureRect</key>
-                <string>{{1948,375},{244,80}}</string>
+                <string>{{1737,1078},{244,80}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_fever_res_0023.png</key>
             <dict>
@@ -315,9 +420,9 @@
                 <key>spriteSourceSize</key>
                 <string>{768,420}</string>
                 <key>textureRect</key>
-                <string>{{2,1124},{294,102}}</string>
+                <string>{{1752,974},{294,102}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_fever_res_0027.png</key>
             <dict>
@@ -330,9 +435,9 @@
                 <key>spriteSourceSize</key>
                 <string>{768,420}</string>
                 <key>textureRect</key>
-                <string>{{2,1498},{342,130}}</string>
+                <string>{{1654,1173},{342,130}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_fever_res_0031.png</key>
             <dict>
@@ -345,9 +450,9 @@
                 <key>spriteSourceSize</key>
                 <string>{768,420}</string>
                 <key>textureRect</key>
-                <string>{{1818,1104},{392,168}}</string>
+                <string>{{1260,1058},{392,168}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_fever_res_0035.png</key>
             <dict>
@@ -360,7 +465,7 @@
                 <key>spriteSourceSize</key>
                 <string>{768,420}</string>
                 <key>textureRect</key>
-                <string>{{1826,621},{440,210}}</string>
+                <string>{{1826,532},{440,210}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -468,7 +573,7 @@
             <key>size</key>
             <string>{2048,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:a489dc30906bb7399eccec4ccf5a2c0e:600edc4eb7ccd809ccd6164baff73da2:35534a7d3cdc4777c508ddb7878b5055$</string>
+            <string>$TexturePacker:SmartUpdate:061b40c19712b210ad1c28522e2248ca:9c37fed7d95c585a4bb3a45218d1407f:35534a7d3cdc4777c508ddb7878b5055$</string>
             <key>textureFileName</key>
             <string>ingame_fever.png</string>
         </dict>

@@ -540,17 +540,7 @@ end
 -- function setHp
 -------------------------------------
 function Hero:setHp(hp)
-    self.m_hp = hp
-
-    if self.m_hpGauge then
-        self.m_hpGauge:setPercentage(self.m_hp / self.m_maxHp * 100)
-    end
-
-    if self.m_hpEventListener then
-        for i, v in pairs(self.m_hpEventListener) do
-            v:changeHpCB(self, self.m_hp, self.m_maxHp)
-        end
-    end
+    Character.setHp(self, hp)
 
     self:dispatch('change_hp', self, self.m_hp, self.m_maxHp)
 end

@@ -42,6 +42,230 @@
 			"visual_list":
 			[
 				{
+					"name":"button_fx",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":39
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "mode":"Add"
+									},
+									{
+										"frame":9, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15, "mode":"Add"
+									},
+									{
+										"frame":19, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25, "mode":"Add"
+									},
+									{
+										"frame":29, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":35, "mode":"Add"
+									},
+									{
+										"frame":39, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button_finger'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":39
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button_text'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-110.000000, "pY":30.000000, "alpha":0
+									},
+									{
+										"frame":4, "pX":-114.210526, "pY":30.000000
+									},
+									{
+										"frame":35, "pX":-126.842102, "pY":30.000000
+									},
+									{
+										"frame":39, "pX":-130.000000, "pY":30.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"button_idle_fx",
+					"apply":false,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "sY":0.000000
+									},
+									{
+										"frame":4
+									},
+									{
+										"frame":6, "sX":1.300000
+									},
+									{
+										"frame":8, "sY":1.300000
+									},
+									{
+										"frame":10, "sX":1.200000
+									},
+									{
+										"frame":12, "sY":1.200000
+									},
+									{
+										"frame":14, "sX":1.100000
+									},
+									{
+										"frame":16, "sY":1.100000
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":59
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":60
+									},
+									{
+										"frame":99
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":100
+									},
+									{
+										"frame":139
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":140
+									},
+									{
+										"frame":160
+									},
+									{
+										"frame":179, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"idle_01",
 					"apply":true,
 					"fps":30,
@@ -598,10 +822,10 @@
 										"frame":4, "sX":1.300000, "sY":1.300000, "pY":-25.000000
 									},
 									{
-										"frame":6, "sX":1.000000, "sY":1.000000, "pY":-25.000000
+										"frame":6, "pY":-25.000000
 									},
 									{
-										"frame":11, "sX":1.000000, "sY":1.000000, "pY":-20.555555
+										"frame":11, "pY":-20.555555
 									},
 									{
 										"frame":16, "pY":23.000000, "alpha":0
@@ -624,10 +848,10 @@
 										"frame":4, "sX":1.300000, "sY":1.300000, "pY":17.000000
 									},
 									{
-										"frame":6, "sX":1.000000, "sY":1.000000, "pY":17.000000
+										"frame":6, "pY":17.000000
 									},
 									{
-										"frame":11, "sX":1.000000, "sY":1.000000, "pY":21.444445
+										"frame":11, "pY":21.444445
 									},
 									{
 										"frame":16, "pY":65.000000, "alpha":0
@@ -2142,6 +2366,433 @@
 									},
 									{
 										"frame":59, "pX":-533.186462
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_button",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "pY":-6.000000
+									},
+									{
+										"frame":9, "pY":-6.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15, "pY":-6.000000
+									},
+									{
+										"frame":19, "pY":-6.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":24
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25, "pY":-6.000000
+									},
+									{
+										"frame":29, "pY":-6.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30
+									},
+									{
+										"frame":34
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":35, "pY":-6.000000
+									},
+									{
+										"frame":39, "pY":-6.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_button_finger",
+					"apply":true,
+					"fps":10,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-2.000000, "pY":68.000000
+									},
+									{
+										"frame":4, "pX":-2.000000, "pY":68.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "pX":-2.000000, "pY":54.000000
+									},
+									{
+										"frame":9, "pX":-2.000000, "pY":54.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "pX":-2.000000, "pY":68.000000
+									},
+									{
+										"frame":14, "pX":-2.000000, "pY":68.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15, "pX":-2.000000, "pY":54.000000
+									},
+									{
+										"frame":19, "pX":-2.000000, "pY":54.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20, "pX":-2.000000, "pY":68.000000
+									},
+									{
+										"frame":24, "pX":-2.000000, "pY":68.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25, "pX":-2.000000, "pY":54.000000
+									},
+									{
+										"frame":29, "pX":-2.000000, "pY":54.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-2.000000, "pY":68.000000
+									},
+									{
+										"frame":34, "pX":-2.000000, "pY":68.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":35, "pX":-2.000000, "pY":54.000000
+									},
+									{
+										"frame":39, "pX":-2.000000, "pY":54.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_button_idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":39
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "mode":"Add"
+									},
+									{
+										"frame":9, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15, "mode":"Add"
+									},
+									{
+										"frame":19, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25, "mode":"Add"
+									},
+									{
+										"frame":29, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":35, "mode":"Add"
+									},
+									{
+										"frame":39, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button_finger'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":39
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button_text'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-110.000000, "pY":30.000000, "alpha":0
+									},
+									{
+										"frame":4, "pX":-114.210526, "pY":30.000000
+									},
+									{
+										"frame":35, "pX":-126.842102, "pY":30.000000
+									},
+									{
+										"frame":39, "pX":-130.000000, "pY":30.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_button_text",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":9.000000, "pY":19.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-23.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0203.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":5.000000, "pY":-63.000000
 									}
 								]
 							}

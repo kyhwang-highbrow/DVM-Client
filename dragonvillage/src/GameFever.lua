@@ -28,6 +28,7 @@ GameFever = class(IEventListener:getCloneClass(), {
         m_feverLabel = '',
         m_feverStartVisual = '',
         m_feverIdleVisual = '',
+        m_feverTutVisual = '',
         m_skillCancelVisual = '',
 
         m_notiLabel1 = 'cc.Label',
@@ -86,6 +87,7 @@ function GameFever:initUI()
     self.m_feverLabel = ui.vars['feverLabel']
     self.m_feverStartVisual = ui.vars['feverStartVisual']
     self.m_feverIdleVisual = ui.vars['feverIdleVisual']
+    self.m_feverTutVisual = ui.vars['feverTutVisual']
     self.m_skillCancelVisual = ui.vars['skillCancelVisual']
 
     -- 피버 포인트 추가 알림을 위한 라벨 생성
@@ -110,6 +112,8 @@ function GameFever:initUI()
     socketNode2:addChild(self.m_notiLabel2)
 
     self.m_feverNode:setVisible(false)
+    self.m_feverTutVisual:setVisible(false)
+    self.m_feverTutVisual:setRepeat(true)
     self.m_skillCancelVisual:setVisible(false)
 end
 
@@ -165,6 +169,7 @@ function GameFever:update(dt)
 
     self.m_colorLayer:setVisible(self.m_bActive)
     self.m_feverNode:setVisible(self.m_state == GAME_FEVER_STATE_CHARGING or self.m_state == GAME_FEVER_STATE_APPEAR)
+    self.m_feverTutVisual:setVisible(self.m_state == GAME_FEVER_STATE_LIVE)
     
     return false
 end
@@ -237,6 +242,7 @@ function GameFever:update_live(dt)
         self.m_feverStartVisual:setVisible(false)
         self.m_feverIdleVisual:setVisual('fever', 'idle_02')
         self.m_feverIdleVisual:setRepeat(true)
+        self.m_feverTutVisual.m_node:setFrame(0)
 
         -- 피버 모드 터치 입력 활성화
         self.m_touchNode:setVisible(self.m_bActive)

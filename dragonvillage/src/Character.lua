@@ -45,6 +45,8 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_hpGauge2 = '',
         m_hpUIOffset = '',
 
+        m_stepHpGauge2 = 'number',       -- m_hpGauge2의 매 프레임당 변화량
+
         -- @casting UI
         m_castingNode = '',
         m_castingGauge = '',
@@ -107,6 +109,8 @@ function Character:init(file_name, body, ...)
     self.m_chargeDuration = 0
     self.m_attackAnimaDuration = 0
     self.m_isOnTheMove = false
+
+    self.m_stepHpGauge2 = 0
 
 	self.m_undergoAttackEventListener = {}
     self.m_tOverlabStatusEffect = {}
@@ -810,11 +814,12 @@ function Character:setHp(hp)
     self.m_hp = hp
 
     if self.m_hpGauge then
-        if (self.m_hp >= self.m_maxHp) then
-            --self.m_hpNode:setVisible(false)
-        else
-            --self.m_hpNode:setVisible(true)
-            self.m_hpGauge:setPercentage(self.m_hp / self.m_maxHp * 100)
+        local percentage = self.m_hp / self.m_maxHp * 100
+        self.m_hpGauge:setPercentage(self.m_hp / self.m_maxHp * 100)
+
+        if self.m_hpGauge2 then
+            local prev_percentage = self.m_hpGauge2:getPercentage()
+            self.m_stepHpGauge2 = (percentage - prev_percentage) / 2
         end
     end
 
@@ -992,14 +997,16 @@ function Character:update(dt)
     self:updateMove(dt)
 	self:updateStatusIcon(dt)
 
-    if self.m_hpGauge2 then
+    if self.m_hpGauge2 and self.m_stepHpGauge2 ~= 0 then
         local realValue = self.m_hpGauge:getPercentage()
-        local value = self.m_hpGauge2:getPercentage()
-        
-        if realValue > value then       value = value + 1
-        elseif realValue < value then   value = value - 1
-        end
+        local value = self.m_hpGauge2:getPercentage() + self.m_stepHpGauge2 * dt
 
+        if (self.m_stepHpGauge2 > 0 and value >= realValue) 
+            or (self.m_stepHpGauge2 < 0 and value <= realValue) then
+            self.m_stepHpGauge2 = 0
+            value = realValue
+        end
+        
         self.m_hpGauge2:setPercentage(value)
     end
 
