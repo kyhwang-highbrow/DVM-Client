@@ -85,12 +85,14 @@ function UI_DragonCard:refreshDragonInfo()
     end
 
     do -- 등급 별
-        local grade_res = 'res/ui/icon/star010' .. t_dragon_data['grade'] .. '.png'
-        local sprite = cc.Sprite:create(grade_res)
-        sprite:setAnchorPoint(cc.p(0.5, 0.5))
-        sprite:setDockPoint(cc.p(0.5, 0.5))
-        vars['starNode']:removeAllChildren()
-        vars['starNode']:addChild(sprite)
+        if t_dragon_data['grade'] then
+            local grade_res = 'res/ui/icon/star010' .. t_dragon_data['grade'] .. '.png'
+            local sprite = cc.Sprite:create(grade_res)
+            sprite:setAnchorPoint(cc.p(0.5, 0.5))
+            sprite:setDockPoint(cc.p(0.5, 0.5))
+            vars['starNode']:removeAllChildren()
+            vars['starNode']:addChild(sprite)
+        end
     end
 
     do -- 물공/마공 아이콘
@@ -163,4 +165,17 @@ end
 -------------------------------------
 function UI_DragonCard:setReadySpriteVisible(visible)
     self.vars['readySprite']:setVisible(visible)
+end
+
+-------------------------------------
+-- function MakeSimpleDragonCard
+-------------------------------------
+function MakeSimpleDragonCard(did)
+    local t_dragon_data = {}
+    t_dragon_data['did'] = did
+    t_dragon_data['lv'] = nil
+    t_dragon_data['evolution'] = 3
+    t_dragon_data['grade'] = nil
+
+    return UI_DragonCard(t_dragon_data)
 end

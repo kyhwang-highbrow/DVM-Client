@@ -42,6 +42,8 @@ end
 -------------------------------------
 function UI_DragonManageInfoView:initButton()
     local vars = self.vars
+    vars['prevDragonBtn']:registerScriptTapHandler(function() self:onSwipeEvent('right') end)
+    vars['nextDragonBtn']:registerScriptTapHandler(function() self:onSwipeEvent('left') end)
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
@@ -61,6 +63,10 @@ function UI_DragonManageInfoView:refresh()
 
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[dragon_id]
+
+    do
+        vars['nameLabel']:setString(Str(t_dragon['t_name']))
+    end
 
     do
         vars['hatchNode']:removeAllChildren()
@@ -93,6 +99,38 @@ function UI_DragonManageInfoView:refresh()
 
         animator:changeAni('pose_1', false)
         animator:addAniHandler(function() animator:changeAni('idle', true) end)
+    end
+
+    self:refresh_navigation()
+end
+
+-------------------------------------
+-- function refresh_navigation
+-------------------------------------
+function UI_DragonManageInfoView:refresh_navigation()
+    local vars = self.vars
+
+
+    local left_did = self.m_lDragonID[self.m_currIdx - 1]
+    if left_did then
+        vars['prevDragonBtn']:setVisible(true)    
+        vars['prevDragonNode']:removeAllChildren()
+        local icon = MakeSimpleDragonCard(left_did)
+        icon.vars['clickBtn']:setEnabled(false)
+        vars['prevDragonNode']:addChild(icon.root)
+    else
+        vars['prevDragonBtn']:setVisible(false)
+    end
+
+    local right_did = self.m_lDragonID[self.m_currIdx + 1]
+    if right_did then
+        vars['nextDragonBtn']:setVisible(true)    
+        vars['nextDragonNode']:removeAllChildren()
+        local icon = MakeSimpleDragonCard(right_did)
+        icon.vars['clickBtn']:setEnabled(false)
+        vars['nextDragonNode']:addChild(icon.root)
+    else
+        vars['nextDragonBtn']:setVisible(false)
     end
 end
 
