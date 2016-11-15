@@ -199,6 +199,9 @@ function GameFever:update_appear(dt)
     local world = self.m_world
 
     if (self.m_stateTimer == 0) then
+        SoundMgr:playEffect('VOICE', 'vo_tamer_fever')
+        SoundMgr:playEffect('EFFECT', 'fever')
+        
         -- 피버 모드 시작 연출
         self.m_feverStartVisual:setVisible(true)
         self.m_feverStartVisual:setVisual('fever', 'start')
@@ -302,10 +305,14 @@ function GameFever:doAttack()
     self.m_activityCarrier.m_attackType = 'fever'
     self.m_activityCarrier.m_bIgnoreDef = true
     self.m_activityCarrier.m_attribute = ATTR_NONE
+    self.m_activityCarrier.m_skillCoefficient = FEVER_ATTACK_DAMAGE_RATE or 1
 
     -- 공격
 	hero:runAtkCallback(enemy, enemy.pos.x, enemy.pos.y)
 	enemy:runDefCallback(self, enemy.pos.x, enemy.pos.y)
+
+    -- 효과음
+    SoundMgr:playEffect('EFFECT', 'fever_touch')
 
     -- 이펙트
     do
@@ -409,17 +416,19 @@ function GameFever:showNoti(point)
 
     self.m_totalGetPoint = self.m_totalGetPoint + point
 
-    self.m_notiLabel1:setString(Str('스킬 취소 성공'))
     self.m_notiLabel2:setString(Str('+{1}%', self.m_totalGetPoint))
 
     -- 획득 포인트에 따른 연출
     if point >= PERFECT_SKILL_CANCEL_FEVER_POINT then
+        self.m_notiLabel1:setString(Str('완벽한 스킬 취소'))
         self.m_notiLabel1:setColor(cc.c3b(255,246,0))
         self.m_notiLabel2:setColor(cc.c3b(255,246,0))
     elseif point >= GREAT_SKILL_CANCEL_FEVER_POINT then
+        self.m_notiLabel1:setString(Str('적절한 스킬 취소'))
         self.m_notiLabel1:setColor(cc.c3b(0,222,255))
         self.m_notiLabel2:setColor(cc.c3b(0,222,255))
     else
+        self.m_notiLabel1:setString(Str('스킬 취소'))
         self.m_notiLabel1:setColor(cc.c3b(255,255,255))
         self.m_notiLabel2:setColor(cc.c3b(255,255,255))
     end

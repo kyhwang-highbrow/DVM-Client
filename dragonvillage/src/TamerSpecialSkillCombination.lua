@@ -145,7 +145,9 @@ function TamerSpecialSkillCombination.st_phase_2(owner, dt)
 		owner.m_mainEffect:addAniHandler(function()
 			owner.m_mainEffect:changeAni('idle', true)
 		end)
-		
+
+        SoundMgr:playEffect('EFFECT', 'skill_tamer_special_2')
+        		
 	-- 2. 적당한 시간 후 다음 페이즈로 이동
 	elseif (owner.m_stateTimer >= 0.5) then
 		owner:changeState('phase_3')

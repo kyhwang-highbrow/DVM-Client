@@ -146,6 +146,8 @@ function GameState:update_start1(dt)
         -- 화면을 빠르게 스크롤
         world.m_mapManager:setSpeed(-1000)  
 
+        SoundMgr:playEffect('VOICE', 'vo_tamer_start')
+        
 	elseif (self.m_stateTimer >= DRAGON_APPEAR_TIME) then
 		self:changeState(GAME_STATE_START_2)
     end
@@ -160,6 +162,8 @@ function GameState:update_start2(dt)
     local map_mgr = world.m_mapManager
     
 	if (self.m_stateTimer == 0) then
+        SoundMgr:playEffect('EFFECT', 'summon')
+        
         world:dispatch('dragon_summon')
 
     elseif (self.m_stateTimer >= 0.5) then
@@ -200,9 +204,7 @@ function GameState:appearDragon()
             world.m_missiledNode:addChild(effect.m_node)
         end
     end
-
-    world:dispatch('dragon_summon')
-
+    
     self.m_bAppearDragon = true
 end
 
