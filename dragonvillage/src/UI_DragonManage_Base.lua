@@ -72,6 +72,18 @@ function UI_DragonManage_Base:click_exitBtn()
 end
 
 -------------------------------------
+-- function close
+-------------------------------------
+function UI_DragonManage_Base:close()
+    if self.m_dragonSelectFrame then
+        self.m_dragonSelectFrame:release()
+        self.m_dragonSelectFrame = nil
+    end
+
+    PARENT.close(self)
+end
+
+-------------------------------------
 -- function setSelectDragonDataRefresh
 -- @brief 선택된 드래곤의 데이터를 최신으로 갱신
 -------------------------------------
@@ -113,7 +125,6 @@ function UI_DragonManage_Base:changeDragonSelectFrame()
         self.m_dragonSelectFrame:retain()
     else
     -- 있으면 부모에게서 떼어냄
-        self.m_dragonSelectFrame:retain()
         self.m_dragonSelectFrame:removeFromParent()
     end
 
@@ -128,12 +139,8 @@ function UI_DragonManage_Base:changeDragonSelectFrame()
         self.m_dragonSelectFrame:stopAllActions()
         self.m_dragonSelectFrame:setOpacity(255)
         self.m_dragonSelectFrame:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 50), cc.FadeTo:create(0.5, 255))))
-        self.m_dragonSelectFrame:release()
         return
     end
-
-    self.m_dragonSelectFrame:release()
-    self.m_dragonSelectFrame = nil
 end
 
 -------------------------------------
