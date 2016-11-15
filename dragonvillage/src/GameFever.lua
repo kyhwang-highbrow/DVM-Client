@@ -21,12 +21,17 @@ GameFever = class(IEventListener:getCloneClass(), {
 
         m_colorLayer = 'cc.LayerColor',
 
+        m_totalGetPoint = 'number', -- 총 획득 포인트
+
         -- UI
         m_feverNode = '',
         m_feverLabel = '',
         m_feverStartVisual = '',
         m_feverIdleVisual = '',
         m_skillCancelVisual = '',
+
+        m_notiLabel1 = 'cc.Label',
+        m_notiLabel2 = 'cc.Label',
      })
 
 -------------------------------------
@@ -41,7 +46,7 @@ function GameFever:init(world)
     world.m_worldLayer:addChild(self.m_touchNode)
 
     self:makeTouchLayer(self.m_touchNode)
-
+    
     -- 암전
     self.m_colorLayer = cc.LayerColor:create()
     self.m_colorLayer:setColor(cc.c3b(0, 0, 0))
@@ -57,22 +62,51 @@ function GameFever:init(world)
     bgVisual:changeAni('idle', true)
     bgVisual:setPosition((CRITERIA_RESOLUTION_X / 2), 0)
     self.m_touchNode:addChild(bgVisual.m_node)
-
-
+    
     self.m_state = GAME_FEVER_STATE_CHARGING
     self.m_stateTimer = 0
 
     self.m_curPoint = 0
     self.m_realPoint = 0
     self.m_stepPoint = 0
+    self.m_totalGetPoint = 0
 
-    local ui = world.m_inGameUI
+    self:initUI()
+end
+
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function GameFever:initUI()
+    local ui = self.m_world.m_inGameUI
 
     self.m_feverNode = ui.vars['feverNode']
     self.m_feverLabel = ui.vars['feverLabel']
     self.m_feverStartVisual = ui.vars['feverStartVisual']
     self.m_feverIdleVisual = ui.vars['feverIdleVisual']
     self.m_skillCancelVisual = ui.vars['skillCancelVisual']
+
+    -- 피버 포인트 추가 알림을 위한 라벨 생성
+    self.m_notiLabel1 = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 34, 3, cc.size(400, 100), 1, 1)
+    self.m_notiLabel2 = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 40, 3, cc.size(400, 100), 1, 1)
+    self.m_notiLabel1:setColor(cc.c3b(255,246,0))
+    self.m_notiLabel1:setStrokeType(0)
+    self.m_notiLabel1:setStrokeDetailLevel(0)
+    self.m_notiLabel1:enableShadow(cc.c4b(0, 0, 0, 255), cc.size(0, -4), 0)
+    self.m_notiLabel1:enableOutline(cc.c4b(0, 0, 0, 255), 3)
+    self.m_notiLabel1:setSharpTextInCustomStroke(true)
+    self.m_notiLabel2:setColor(cc.c3b(255,246,0))
+    self.m_notiLabel2:setStrokeType(0)
+    self.m_notiLabel2:setStrokeDetailLevel(0)
+    self.m_notiLabel2:enableShadow(cc.c4b(0, 0, 0, 255), cc.size(0, -4), 0)
+    self.m_notiLabel2:enableOutline(cc.c4b(0, 0, 0, 255), 3)
+    self.m_notiLabel2:setSharpTextInCustomStroke(true)
+
+    local socketNode1 = self.m_skillCancelVisual.m_node:getSocketNode('skill_cancel_01')
+    socketNode1:addChild(self.m_notiLabel1)
+    local socketNode2 = self.m_skillCancelVisual.m_node:getSocketNode('skill_cancel_02')
+    socketNode2:addChild(self.m_notiLabel2)
 
     self.m_feverNode:setVisible(false)
     self.m_skillCancelVisual:setVisible(false)
@@ -231,6 +265,7 @@ end
 -------------------------------------
 function GameFever:onEnd()
     self.m_bActive = false
+
     self.m_touchNode:setVisible(self.m_bActive)
 
     -- 버프 이펙트 해제
@@ -242,6 +277,8 @@ function GameFever:onEnd()
     
     self:changeState(GAME_FEVER_STATE_CHARGING)
     self.m_world.m_gameState:changeState(GAME_STATE_FIGHT)
+
+    self.m_feverLabel:setString(Str('{1}%', math_floor(self.m_curPoint)))
 end
 
 -------------------------------------
@@ -347,10 +384,45 @@ end
 -- function addFeverPoint
 -------------------------------------
 function GameFever:addFeverPoint(point)
+    if self:isActive() then return end
+
     self.m_realPoint = self.m_realPoint + point
     self.m_realPoint = math_min(self.m_realPoint, 100)
 
     self.m_stepPoint = self.m_realPoint - self.m_curPoint
+end
+
+-------------------------------------
+-- function showNoti
+-------------------------------------
+function GameFever:showNoti(point)
+    if self.m_skillCancelVisual.m_node:isEndAnimation() then
+        self.m_totalGetPoint = 0
+
+        self.m_skillCancelVisual:registerScriptLoopHandler(function()
+            self.m_skillCancelVisual:setVisible(false)
+        end)
+    end
+
+    self.m_skillCancelVisual:setVisible(true)
+    self.m_skillCancelVisual.m_node:setFrame(0)
+
+    self.m_totalGetPoint = self.m_totalGetPoint + point
+
+    self.m_notiLabel1:setString(Str('스킬 취소 성공'))
+    self.m_notiLabel2:setString(Str('+{1}%', self.m_totalGetPoint))
+
+    -- 획득 포인트에 따른 연출
+    if point >= PERFECT_SKILL_CANCEL_FEVER_POINT then
+        self.m_notiLabel1:setColor(cc.c3b(255,246,0))
+        self.m_notiLabel2:setColor(cc.c3b(255,246,0))
+    elseif point >= GREAT_SKILL_CANCEL_FEVER_POINT then
+        self.m_notiLabel1:setColor(cc.c3b(0,222,255))
+        self.m_notiLabel2:setColor(cc.c3b(0,222,255))
+    else
+        self.m_notiLabel1:setColor(cc.c3b(255,255,255))
+        self.m_notiLabel2:setColor(cc.c3b(255,255,255))
+    end
 end
 
 -------------------------------------
@@ -376,5 +448,6 @@ function GameFever:onEvent(event_name, ...)
         end
 
         self:addFeverPoint(point)
+        self:showNoti(point)
     end
 end

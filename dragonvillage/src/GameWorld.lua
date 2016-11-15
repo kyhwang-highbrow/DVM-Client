@@ -909,8 +909,9 @@ function GameWorld:onKeyReleased(keyCode, event)
 
     -- 피버 모드 발동
     elseif (keyCode == KEY_F) then    
-        cclog('FEVER')
-        self.m_gameFever:addFeverPoint(100)
+        if not self.m_gameFever:isActive() then
+            self.m_gameFever:addFeverPoint(100)
+        end
         
 	-- 스킬 다 죽이기
 	elseif (keyCode == KEY_K) then    
