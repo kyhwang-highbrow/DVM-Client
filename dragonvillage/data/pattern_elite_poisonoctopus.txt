@@ -1,0 +1,52 @@
+{
+	"pattern_elite_poisonoctopus":
+	[			
+		[
+			"m;RM24;200", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;2",
+			"m;RM22;200", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;2",
+			"m;RM26;200", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;2"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":75,
+                "pattern":
+                [
+					"m;RM24;100", "a;1", "a;2", "w;3",
+					
+					"m;RM24;200", "a;basic", "w;1", "a;2", "a;3", "w;2",
+					"m;RM22;200", "a;basic", "w;1", "a;2", "a;3", "w;2",
+					"m;RM26;200", "a;basic", "w;1", "a;2", "a;3", "w;2"
+                ]
+            },
+			
+			{
+                "hp_percent":50,
+                "pattern":
+                [
+					"m;RM24;100", "a;2", "a;2", "a;3", "w;1"
+					
+					"m;RF24;100", "a;basic", "w;1", "a;2", "w;1",
+					"m;RF22;100", "a;basic", "w;1", "a;2", "w;1",
+					"m;RF26;100", "a;basic", "w;1", "a;2", "w;1",
+					"m;RF24;100", "a;basic", "w;1", "a;2", "w;1", 
+					"m;RF22;100", "a;basic", "w;1", "a;2", "w;1", 
+					"m;RF26;100", "a;basic", "w;1", "a;2", "w;1"
+                ]
+            },
+			
+            {
+                "hp_percent":25,
+                "pattern":
+                [
+					"m;RB14;100", "a;3", "a;3", "a;3", "w;3"
+				]
+            }
+        ]
+    }
+}

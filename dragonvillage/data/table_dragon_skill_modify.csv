@@ -1,12 +1,332 @@
 slid,sid,lv,t_name,col_01,mod_01,val_01,col_02,mod_02,val_02,col_03,mod_03,val_03,col_04,mod_04,val_04,col_05,mod_05,val_05,desc_1,desc_2,desc_3,desc_4,desc_5,t_desc
+20001101,200011,1,수호,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,10,20,x,x,x,{1}초 간 지정 아군의 피해를 대신 받고 자신은 {2}%만큼 방어력이 상승
+20001102,200011,2,수호,val_2,add,3,x,x,0,x,x,0,x,x,0,x,x,0,10,23,x,x,x,{1}초 간 지정 아군의 피해를 대신 받고 자신은 {2}%만큼 방어력이 상승
+20001103,200011,3,수호,val_2,add,3,x,x,0,x,x,0,x,x,0,x,x,0,10,26,x,x,x,{1}초 간 지정 아군의 피해를 대신 받고 자신은 {2}%만큼 방어력이 상승
+20001104,200011,4,수호,val_2,add,3,x,x,0,x,x,0,x,x,0,x,x,0,10,29,x,x,x,{1}초 간 지정 아군의 피해를 대신 받고 자신은 {2}%만큼 방어력이 상승
+20001105,200011,5,수호,val_2,add,3,x,x,0,x,x,0,x,x,0,x,x,0,10,32,x,x,x,{1}초 간 지정 아군의 피해를 대신 받고 자신은 {2}%만큼 방어력이 상승
+20001106,200011,6,수호,val_2,add,3,x,x,0,x,x,0,x,x,0,x,x,0,10,35,x,x,x,{1}초 간 지정 아군의 피해를 대신 받고 자신은 {2}%만큼 방어력이 상승
+20001107,200011,7,수호,val_2,add,3,x,x,0,x,x,0,x,x,0,x,x,0,10,38,x,x,x,{1}초 간 지정 아군의 피해를 대신 받고 자신은 {2}%만큼 방어력이 상승
+20001108,200011,8,수호,val_2,add,3,x,x,0,x,x,0,x,x,0,x,x,0,10,41,x,x,x,{1}초 간 지정 아군의 피해를 대신 받고 자신은 {2}%만큼 방어력이 상승
+20001109,200011,9,수호,val_2,add,3,x,x,0,x,x,0,x,x,0,x,x,0,10,44,x,x,x,{1}초 간 지정 아군의 피해를 대신 받고 자신은 {2}%만큼 방어력이 상승
+20001110,200011,10,수호,val_2,add,3,x,x,0,x,x,0,x,x,0,x,x,0,10,47,x,x,x,{1}초 간 지정 아군의 피해를 대신 받고 자신은 {2}%만큼 방어력이 상승
+22001101,220011,1,실드,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,20,10,10,x,x,최대 생명력의 {1}%가 소진될 때 마다 {2}초 간 최대 체력의 {3}%의 실드를 생성
+22001102,220011,2,실드,val_3,add,3,x,x,0,x,x,0,x,x,0,x,x,0,20,10,13,x,x,최대 생명력의 {1}%가 소진될 때 마다 {2}초 간 최대 체력의 {3}%의 실드를 생성
+22001103,220011,3,실드,val_3,add,3,x,x,0,x,x,0,x,x,0,x,x,0,20,10,16,x,x,최대 생명력의 {1}%가 소진될 때 마다 {2}초 간 최대 체력의 {3}%의 실드를 생성
+22001104,220011,4,실드,val_3,add,3,x,x,0,x,x,0,x,x,0,x,x,0,20,10,19,x,x,최대 생명력의 {1}%가 소진될 때 마다 {2}초 간 최대 체력의 {3}%의 실드를 생성
+22001105,220011,5,실드,val_3,add,3,x,x,0,x,x,0,x,x,0,x,x,0,20,10,22,x,x,최대 생명력의 {1}%가 소진될 때 마다 {2}초 간 최대 체력의 {3}%의 실드를 생성
+22001106,220011,6,실드,val_3,add,3,x,x,0,x,x,0,x,x,0,x,x,0,20,10,25,x,x,최대 생명력의 {1}%가 소진될 때 마다 {2}초 간 최대 체력의 {3}%의 실드를 생성
+22001107,220011,7,실드,val_3,add,3,x,x,0,x,x,0,x,x,0,x,x,0,20,10,28,x,x,최대 생명력의 {1}%가 소진될 때 마다 {2}초 간 최대 체력의 {3}%의 실드를 생성
+22001108,220011,8,실드,val_3,add,3,x,x,0,x,x,0,x,x,0,x,x,0,20,10,31,x,x,최대 생명력의 {1}%가 소진될 때 마다 {2}초 간 최대 체력의 {3}%의 실드를 생성
+22001109,220011,9,실드,val_3,add,3,x,x,0,x,x,0,x,x,0,x,x,0,20,10,34,x,x,최대 생명력의 {1}%가 소진될 때 마다 {2}초 간 최대 체력의 {3}%의 실드를 생성
+22001110,220011,10,실드,val_3,add,6,x,x,0,x,x,0,x,x,0,x,x,0,20,10,40,x,x,최대 생명력의 {1}%가 소진될 때 마다 {2}초 간 최대 체력의 {3}%의 실드를 생성
+22002101,220021,1,전진,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,20,x,x,x,x,방어력 {1}% 증가
+22002102,220021,2,전진,status_effect_1,exchange,passive_def_up;self;-1;100;23,x,x,0,x,x,0,x,x,0,x,x,0,23,x,x,x,x,방어력 {1}% 증가
+22002103,220021,3,전진,status_effect_1,exchange,passive_def_up;self;-1;100;26,x,x,0,x,x,0,x,x,0,x,x,0,26,x,x,x,x,방어력 {1}% 증가
+22002104,220021,4,전진,status_effect_1,exchange,passive_def_up;self;-1;100;29,x,x,0,x,x,0,x,x,0,x,x,0,29,x,x,x,x,방어력 {1}% 증가
+22002105,220021,5,전진,status_effect_1,exchange,passive_def_up;self;-1;100;32,x,x,0,x,x,0,x,x,0,x,x,0,32,x,x,x,x,방어력 {1}% 증가
+22002106,220021,6,전진,status_effect_1,exchange,passive_def_up;self;-1;100;35,x,x,0,x,x,0,x,x,0,x,x,0,35,x,x,x,x,방어력 {1}% 증가
+22002107,220021,7,전진,status_effect_1,exchange,passive_def_up;self;-1;100;38,x,x,0,x,x,0,x,x,0,x,x,0,38,x,x,x,x,방어력 {1}% 증가
+22002108,220021,8,전진,status_effect_1,exchange,passive_def_up;self;-1;100;41,x,x,0,x,x,0,x,x,0,x,x,0,41,x,x,x,x,방어력 {1}% 증가
+22002109,220021,9,전진,status_effect_1,exchange,passive_def_up;self;-1;100;44,x,x,0,x,x,0,x,x,0,x,x,0,44,x,x,x,x,방어력 {1}% 증가
+22002110,220021,10,전진,status_effect_1,exchange,passive_def_up;self;-1;100;50,x,x,0,x,x,0,x,x,0,x,x,0,50,x,x,x,x,방어력 {1}% 증가
+22003101,220031,1,강화 수호,status_effect_1,exchange,atk_up;target;10;100;10,x,x,0,x,x,0,x,x,0,x,x,0,10,x,x,x,x,수호 대상의 공격력 {1}% 증가
+20008101,200081,1,달콤한 꿈,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,100,100,x,x,x,지정 범위의 적에게 공격력의 {1}%의 피해를 입히고 {2}% 확률로 수면
+20008102,200081,2,달콤한 꿈,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,105,100,x,x,x,지정 범위의 적에게 공격력의 {1}%의 피해를 입히고 {2}% 확률로 수면
+20008103,200081,3,달콤한 꿈,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,110,100,x,x,x,지정 범위의 적에게 공격력의 {1}%의 피해를 입히고 {2}% 확률로 수면
+20008104,200081,4,달콤한 꿈,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,115,100,x,x,x,지정 범위의 적에게 공격력의 {1}%의 피해를 입히고 {2}% 확률로 수면
+20008105,200081,5,달콤한 꿈,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,120,100,x,x,x,지정 범위의 적에게 공격력의 {1}%의 피해를 입히고 {2}% 확률로 수면
+20008106,200081,6,달콤한 꿈,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,125,100,x,x,x,지정 범위의 적에게 공격력의 {1}%의 피해를 입히고 {2}% 확률로 수면
+20008107,200081,7,달콤한 꿈,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,130,100,x,x,x,지정 범위의 적에게 공격력의 {1}%의 피해를 입히고 {2}% 확률로 수면
+20008108,200081,8,달콤한 꿈,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,135,100,x,x,x,지정 범위의 적에게 공격력의 {1}%의 피해를 입히고 {2}% 확률로 수면
+20008109,200081,9,달콤한 꿈,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,140,100,x,x,x,지정 범위의 적에게 공격력의 {1}%의 피해를 입히고 {2}% 확률로 수면
+20008110,200081,10,달콤한 꿈,power_rate,add,10,x,x,0,x,x,0,x,x,0,x,x,0,150,100,x,x,x,지정 범위의 적에게 공격력의 {1}%의 피해를 입히고 {2}% 확률로 수면
+22004101,220041,1,생명력 증가,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,10,x,x,x,x,생명력 {1}% 증가
+22004102,220041,2,생명력 증가,status_effect_1,exchange,passive_hp_up;self;-1;100;13,x,x,0,x,x,0,x,x,0,x,x,0,13,x,x,x,x,생명력 {1}% 증가
+22004103,220041,3,생명력 증가,status_effect_1,exchange,passive_hp_up;self;-1;100;16,x,x,0,x,x,0,x,x,0,x,x,0,16,x,x,x,x,생명력 {1}% 증가
+22004104,220041,4,생명력 증가,status_effect_1,exchange,passive_hp_up;self;-1;100;19,x,x,0,x,x,0,x,x,0,x,x,0,19,x,x,x,x,생명력 {1}% 증가
+22004105,220041,5,생명력 증가,status_effect_1,exchange,passive_hp_up;self;-1;100;22,x,x,0,x,x,0,x,x,0,x,x,0,22,x,x,x,x,생명력 {1}% 증가
+22004106,220041,6,생명력 증가,status_effect_1,exchange,passive_hp_up;self;-1;100;25,x,x,0,x,x,0,x,x,0,x,x,0,25,x,x,x,x,생명력 {1}% 증가
+22004107,220041,7,생명력 증가,status_effect_1,exchange,passive_hp_up;self;-1;100;28,x,x,0,x,x,0,x,x,0,x,x,0,28,x,x,x,x,생명력 {1}% 증가
+22004108,220041,8,생명력 증가,status_effect_1,exchange,passive_hp_up;self;-1;100;31,x,x,0,x,x,0,x,x,0,x,x,0,31,x,x,x,x,생명력 {1}% 증가
+22004109,220041,9,생명력 증가,status_effect_1,exchange,passive_hp_up;self;-1;100;34,x,x,0,x,x,0,x,x,0,x,x,0,34,x,x,x,x,생명력 {1}% 증가
+22004110,220041,10,생명력 증가,status_effect_1,exchange,passive_hp_up;self;-1;100;40,x,x,0,x,x,0,x,x,0,x,x,0,40,x,x,x,x,생명력 {1}% 증가
+22005101,220051,1,회피율 증가,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,10,x,x,x,x,회피율 {1}% 증가
+22005102,220051,2,회피율 증가,status_effect_1,exchange,passive_avoid_up;self;-1;100;12,x,x,0,x,x,0,x,x,0,x,x,0,12,x,x,x,x,회피율 {1}% 증가
+22005103,220051,3,회피율 증가,status_effect_1,exchange,passive_avoid_up;self;-1;100;14,x,x,0,x,x,0,x,x,0,x,x,0,14,x,x,x,x,회피율 {1}% 증가
+22005104,220051,4,회피율 증가,status_effect_1,exchange,passive_avoid_up;self;-1;100;16,x,x,0,x,x,0,x,x,0,x,x,0,16,x,x,x,x,회피율 {1}% 증가
+22005105,220051,5,회피율 증가,status_effect_1,exchange,passive_avoid_up;self;-1;100;18,x,x,0,x,x,0,x,x,0,x,x,0,18,x,x,x,x,회피율 {1}% 증가
+22005106,220051,6,회피율 증가,status_effect_1,exchange,passive_avoid_up;self;-1;100;20,x,x,0,x,x,0,x,x,0,x,x,0,20,x,x,x,x,회피율 {1}% 증가
+22005107,220051,7,회피율 증가,status_effect_1,exchange,passive_avoid_up;self;-1;100;22,x,x,0,x,x,0,x,x,0,x,x,0,22,x,x,x,x,회피율 {1}% 증가
+22005108,220051,8,회피율 증가,status_effect_1,exchange,passive_avoid_up;self;-1;100;24,x,x,0,x,x,0,x,x,0,x,x,0,24,x,x,x,x,회피율 {1}% 증가
+22005109,220051,9,회피율 증가,status_effect_1,exchange,passive_avoid_up;self;-1;100;26,x,x,0,x,x,0,x,x,0,x,x,0,26,x,x,x,x,회피율 {1}% 증가
+22005110,220051,10,회피율 증가,status_effect_1,exchange,passive_avoid_up;self;-1;100;30,x,x,0,x,x,0,x,x,0,x,x,0,30,x,x,x,x,회피율 {1}% 증가
+22006101,220061,1,강화 달콤한 꿈,power_rate,add,100,x,x,0,x,x,0,x,x,0,x,x,0,100,x,x,x,x,달콤한 꿈의 공격력을 {1}% 증가시킴
+20011101,200111,1,사과드립니다,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,30,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011102,200111,2,사과드립니다,status_effect_1,exchange,atk_up;target;15;100;33,x,x,0,x,x,0,x,x,0,x,x,0,33,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011103,200111,3,사과드립니다,status_effect_1,exchange,atk_up;target;15;100;36,x,x,0,x,x,0,x,x,0,x,x,0,36,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011104,200111,4,사과드립니다,status_effect_1,exchange,atk_up;target;15;100;39,x,x,0,x,x,0,x,x,0,x,x,0,39,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011105,200111,5,사과드립니다,status_effect_1,exchange,atk_up;target;15;100;42,x,x,0,x,x,0,x,x,0,x,x,0,42,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011106,200111,6,사과드립니다,status_effect_1,exchange,atk_up;target;15;100;45,x,x,0,x,x,0,x,x,0,x,x,0,45,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011107,200111,7,사과드립니다,status_effect_1,exchange,atk_up;target;15;100;48,x,x,0,x,x,0,x,x,0,x,x,0,48,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011108,200111,8,사과드립니다,status_effect_1,exchange,atk_up;target;15;100;51,x,x,0,x,x,0,x,x,0,x,x,0,51,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011109,200111,9,사과드립니다,status_effect_1,exchange,atk_up;target;15;100;54,x,x,0,x,x,0,x,x,0,x,x,0,54,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011110,200111,10,사과드립니다,status_effect_1,exchange,atk_up;target;15;100;60,x,x,0,x,x,0,x,x,0,x,x,0,60,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+22007101,220071,1,장난꾸러기,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,10,x,x,x,x,치명확률 {1}% 증가
+22007102,220071,2,장난꾸러기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;13,x,x,0,x,x,0,x,x,0,x,x,0,13,x,x,x,x,치명확률 {1}% 증가
+22007103,220071,3,장난꾸러기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;16,x,x,0,x,x,0,x,x,0,x,x,0,16,x,x,x,x,치명확률 {1}% 증가
+22007104,220071,4,장난꾸러기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;19,x,x,0,x,x,0,x,x,0,x,x,0,19,x,x,x,x,치명확률 {1}% 증가
+22007105,220071,5,장난꾸러기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;22,x,x,0,x,x,0,x,x,0,x,x,0,22,x,x,x,x,치명확률 {1}% 증가
+22007106,220071,6,장난꾸러기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;25,x,x,0,x,x,0,x,x,0,x,x,0,25,x,x,x,x,치명확률 {1}% 증가
+22007107,220071,7,장난꾸러기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;28,x,x,0,x,x,0,x,x,0,x,x,0,28,x,x,x,x,치명확률 {1}% 증가
+22007108,220071,8,장난꾸러기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;31,x,x,0,x,x,0,x,x,0,x,x,0,31,x,x,x,x,치명확률 {1}% 증가
+22007109,220071,9,장난꾸러기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;34,x,x,0,x,x,0,x,x,0,x,x,0,34,x,x,x,x,치명확률 {1}% 증가
+22007110,220071,10,장난꾸러기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;40,x,x,0,x,x,0,x,x,0,x,x,0,40,x,x,x,x,치명확률 {1}% 증가
+22008101,220081,1,아침에 사과,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,20,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008102,220081,2,아침에 사과,status_effect_1,exchange,atk_up;self;10;100;23,x,x,0,x,x,0,x,x,0,x,x,0,23,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008103,220081,3,아침에 사과,status_effect_1,exchange,atk_up;self;10;100;26,x,x,0,x,x,0,x,x,0,x,x,0,26,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008104,220081,4,아침에 사과,status_effect_1,exchange,atk_up;self;10;100;29,x,x,0,x,x,0,x,x,0,x,x,0,29,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008105,220081,5,아침에 사과,status_effect_1,exchange,atk_up;self;10;100;32,x,x,0,x,x,0,x,x,0,x,x,0,32,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008106,220081,6,아침에 사과,status_effect_1,exchange,atk_up;self;10;100;35,x,x,0,x,x,0,x,x,0,x,x,0,35,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008107,220081,7,아침에 사과,status_effect_1,exchange,atk_up;self;10;100;38,x,x,0,x,x,0,x,x,0,x,x,0,38,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008108,220081,8,아침에 사과,status_effect_1,exchange,atk_up;self;10;100;41,x,x,0,x,x,0,x,x,0,x,x,0,41,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008109,220081,9,아침에 사과,status_effect_1,exchange,atk_up;self;10;100;44,x,x,0,x,x,0,x,x,0,x,x,0,44,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008110,220081,10,아침에 사과,status_effect_1,exchange,atk_up;self;10;100;50,x,x,0,x,x,0,x,x,0,x,x,0,50,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22009101,220091,1,금사과,status_effect_2,exchange,cri_chance_up;target;10;100;50,x,x,0,x,x,0,x,x,0,x,x,0,60,50,x,x,x,스킬 사용시 {1}% 확률로 금사과를 던져 대상의 치명확률 {2}% 추가 증가
+20011201,200112,1,레몬드립니다,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,30,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011202,200112,2,레몬드립니다,status_effect_1,exchange,atk_up;target;15;100;33,x,x,0,x,x,0,x,x,0,x,x,0,33,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011203,200112,3,레몬드립니다,status_effect_1,exchange,atk_up;target;15;100;36,x,x,0,x,x,0,x,x,0,x,x,0,36,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011204,200112,4,레몬드립니다,status_effect_1,exchange,atk_up;target;15;100;39,x,x,0,x,x,0,x,x,0,x,x,0,39,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011205,200112,5,레몬드립니다,status_effect_1,exchange,atk_up;target;15;100;42,x,x,0,x,x,0,x,x,0,x,x,0,42,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011206,200112,6,레몬드립니다,status_effect_1,exchange,atk_up;target;15;100;45,x,x,0,x,x,0,x,x,0,x,x,0,45,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011207,200112,7,레몬드립니다,status_effect_1,exchange,atk_up;target;15;100;48,x,x,0,x,x,0,x,x,0,x,x,0,48,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011208,200112,8,레몬드립니다,status_effect_1,exchange,atk_up;target;15;100;51,x,x,0,x,x,0,x,x,0,x,x,0,51,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011209,200112,9,레몬드립니다,status_effect_1,exchange,atk_up;target;15;100;54,x,x,0,x,x,0,x,x,0,x,x,0,54,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+20011210,200112,10,레몬드립니다,status_effect_1,exchange,atk_up;target;15;100;60,x,x,0,x,x,0,x,x,0,x,x,0,60,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
+22008201,220082,1,아침에 라임,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,20,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008202,220082,2,아침에 라임,status_effect_1,exchange,atk_up;self;10;100;23,x,x,0,x,x,0,x,x,0,x,x,0,23,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008203,220082,3,아침에 라임,status_effect_1,exchange,atk_up;self;10;100;26,x,x,0,x,x,0,x,x,0,x,x,0,26,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008204,220082,4,아침에 라임,status_effect_1,exchange,atk_up;self;10;100;29,x,x,0,x,x,0,x,x,0,x,x,0,29,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008205,220082,5,아침에 라임,status_effect_1,exchange,atk_up;self;10;100;32,x,x,0,x,x,0,x,x,0,x,x,0,32,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008206,220082,6,아침에 라임,status_effect_1,exchange,atk_up;self;10;100;35,x,x,0,x,x,0,x,x,0,x,x,0,35,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008207,220082,7,아침에 라임,status_effect_1,exchange,atk_up;self;10;100;38,x,x,0,x,x,0,x,x,0,x,x,0,38,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008208,220082,8,아침에 라임,status_effect_1,exchange,atk_up;self;10;100;41,x,x,0,x,x,0,x,x,0,x,x,0,41,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008209,220082,9,아침에 라임,status_effect_1,exchange,atk_up;self;10;100;44,x,x,0,x,x,0,x,x,0,x,x,0,44,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22008210,220082,10,아침에 라임,status_effect_1,exchange,atk_up;self;10;100;50,x,x,0,x,x,0,x,x,0,x,x,0,50,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
+22009201,220092,1,금라임,status_effect_2,exchange,cri_chance_up;target;10;100;50,x,x,0,x,x,0,x,x,0,x,x,0,60,50,x,x,x,스킬 사용시 {1}% 확률로 금라임을 던져 대상의 치명확률 {2}% 추가 증가
+20016101,200161,1,가시의 별,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,1000,x,x,x,x,대상에게 공격력의 {1}% 피해. 적이 죽을 경우 다른 대상에게 추가 공격
+20016102,200161,2,가시의 별,power_rate,add,10,x,x,0,x,x,0,x,x,0,x,x,0,1010,x,x,x,x,대상에게 공격력의 {1}% 피해. 적이 죽을 경우 다른 대상에게 추가 공격
+20016103,200161,3,가시의 별,power_rate,add,10,x,x,0,x,x,0,x,x,0,x,x,0,1020,x,x,x,x,대상에게 공격력의 {1}% 피해. 적이 죽을 경우 다른 대상에게 추가 공격
+20016104,200161,4,가시의 별,power_rate,add,10,x,x,0,x,x,0,x,x,0,x,x,0,1030,x,x,x,x,대상에게 공격력의 {1}% 피해. 적이 죽을 경우 다른 대상에게 추가 공격
+20016105,200161,5,가시의 별,power_rate,add,10,x,x,0,x,x,0,x,x,0,x,x,0,1040,x,x,x,x,대상에게 공격력의 {1}% 피해. 적이 죽을 경우 다른 대상에게 추가 공격
+20016106,200161,6,가시의 별,power_rate,add,10,x,x,0,x,x,0,x,x,0,x,x,0,1050,x,x,x,x,대상에게 공격력의 {1}% 피해. 적이 죽을 경우 다른 대상에게 추가 공격
+20016107,200161,7,가시의 별,power_rate,add,10,x,x,0,x,x,0,x,x,0,x,x,0,1060,x,x,x,x,대상에게 공격력의 {1}% 피해. 적이 죽을 경우 다른 대상에게 추가 공격
+20016108,200161,8,가시의 별,power_rate,add,10,x,x,0,x,x,0,x,x,0,x,x,0,1070,x,x,x,x,대상에게 공격력의 {1}% 피해. 적이 죽을 경우 다른 대상에게 추가 공격
+20016109,200161,9,가시의 별,power_rate,add,10,x,x,0,x,x,0,x,x,0,x,x,0,1080,x,x,x,x,대상에게 공격력의 {1}% 피해. 적이 죽을 경우 다른 대상에게 추가 공격
+20016110,200161,10,가시의 별,power_rate,add,20,x,x,0,x,x,0,x,x,0,x,x,0,1100,x,x,x,x,대상에게 공격력의 {1}% 피해. 적이 죽을 경우 다른 대상에게 추가 공격
+22010101,220101,1,맹독가시,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,5,x,x,x,x,모든 공격에 중독 확률 {1}% 추가
+22010102,220101,2,맹독가시,status_effect_1,exchange,poison;target;30;6;100,x,x,0,x,x,0,x,x,0,x,x,0,6,x,x,x,x,모든 공격에 중독 확률 {1}% 추가
+22010103,220101,3,맹독가시,status_effect_1,exchange,poison;target;30;7;100,x,x,0,x,x,0,x,x,0,x,x,0,7,x,x,x,x,모든 공격에 중독 확률 {1}% 추가
+22010104,220101,4,맹독가시,status_effect_1,exchange,poison;target;30;8;100,x,x,0,x,x,0,x,x,0,x,x,0,8,x,x,x,x,모든 공격에 중독 확률 {1}% 추가
+22010105,220101,5,맹독가시,status_effect_1,exchange,poison;target;30;9;100,x,x,0,x,x,0,x,x,0,x,x,0,9,x,x,x,x,모든 공격에 중독 확률 {1}% 추가
+22010106,220101,6,맹독가시,status_effect_1,exchange,poison;target;30;10;100,x,x,0,x,x,0,x,x,0,x,x,0,10,x,x,x,x,모든 공격에 중독 확률 {1}% 추가
+22010107,220101,7,맹독가시,status_effect_1,exchange,poison;target;30;11;100,x,x,0,x,x,0,x,x,0,x,x,0,11,x,x,x,x,모든 공격에 중독 확률 {1}% 추가
+22010108,220101,8,맹독가시,status_effect_1,exchange,poison;target;30;12;100,x,x,0,x,x,0,x,x,0,x,x,0,12,x,x,x,x,모든 공격에 중독 확률 {1}% 추가
+22010109,220101,9,맹독가시,status_effect_1,exchange,poison;target;30;13;100,x,x,0,x,x,0,x,x,0,x,x,0,13,x,x,x,x,모든 공격에 중독 확률 {1}% 추가
+22010110,220101,10,맹독가시,status_effect_1,exchange,poison;target;30;15;100,x,x,0,x,x,0,x,x,0,x,x,0,15,x,x,x,x,모든 공격에 중독 확률 {1}% 추가
+22011101,220111,1,가시갈기,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,5,x,x,x,x,치명확률 {1}% 증가
+22011102,220111,2,가시갈기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;8,x,x,0,x,x,0,x,x,0,x,x,0,8,x,x,x,x,치명확률 {1}% 증가
+22011103,220111,3,가시갈기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;11,x,x,0,x,x,0,x,x,0,x,x,0,11,x,x,x,x,치명확률 {1}% 증가
+22011104,220111,4,가시갈기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;14,x,x,0,x,x,0,x,x,0,x,x,0,14,x,x,x,x,치명확률 {1}% 증가
+22011105,220111,5,가시갈기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;17,x,x,0,x,x,0,x,x,0,x,x,0,17,x,x,x,x,치명확률 {1}% 증가
+22011106,220111,6,가시갈기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;20,x,x,0,x,x,0,x,x,0,x,x,0,20,x,x,x,x,치명확률 {1}% 증가
+22011107,220111,7,가시갈기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;23,x,x,0,x,x,0,x,x,0,x,x,0,23,x,x,x,x,치명확률 {1}% 증가
+22011108,220111,8,가시갈기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;26,x,x,0,x,x,0,x,x,0,x,x,0,26,x,x,x,x,치명확률 {1}% 증가
+22011109,220111,9,가시갈기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;29,x,x,0,x,x,0,x,x,0,x,x,0,29,x,x,x,x,치명확률 {1}% 증가
+22011110,220111,10,가시갈기,status_effect_1,exchange,passive_cri_chance_up;self;-1;100;35,x,x,0,x,x,0,x,x,0,x,x,0,35,x,x,x,x,치명확률 {1}% 증가
+22012101,220121,1,강화 가시의 별,status_effect_1,exchange,atk_up;self;10;100;30,x,x,0,x,x,0,x,x,0,x,x,0,10,10,x,x,x,스킬을 맞고 적이 죽을 경우 {1}초간 공격력 {2}% 증가
+20013101,200131,1,리프 블레이드,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,225,30,x,x,x,나뭇잎 칼날을 날려 공격력의 {1}% 피해를 주고 {2}% 확률로 출혈 효과 부여
+20013102,200131,2,리프 블레이드,power_rate,add,3,x,x,0,x,x,0,x,x,0,x,x,0,234,30,x,x,x,나뭇잎 칼날을 날려 공격력의 {1}% 피해를 주고 {2}% 확률로 출혈 효과 부여
+20013103,200131,3,리프 블레이드,power_rate,add,6,x,x,0,x,x,0,x,x,0,x,x,0,243,30,x,x,x,나뭇잎 칼날을 날려 공격력의 {1}% 피해를 주고 {2}% 확률로 출혈 효과 부여
+20013104,200131,4,리프 블레이드,power_rate,add,9,x,x,0,x,x,0,x,x,0,x,x,0,252,30,x,x,x,나뭇잎 칼날을 날려 공격력의 {1}% 피해를 주고 {2}% 확률로 출혈 효과 부여
+20013105,200131,5,리프 블레이드,power_rate,add,12,x,x,0,x,x,0,x,x,0,x,x,0,261,30,x,x,x,나뭇잎 칼날을 날려 공격력의 {1}% 피해를 주고 {2}% 확률로 출혈 효과 부여
+20013106,200131,6,리프 블레이드,power_rate,add,15,x,x,0,x,x,0,x,x,0,x,x,0,270,30,x,x,x,나뭇잎 칼날을 날려 공격력의 {1}% 피해를 주고 {2}% 확률로 출혈 효과 부여
+20013107,200131,7,리프 블레이드,power_rate,add,18,x,x,0,x,x,0,x,x,0,x,x,0,279,30,x,x,x,나뭇잎 칼날을 날려 공격력의 {1}% 피해를 주고 {2}% 확률로 출혈 효과 부여
+20013108,200131,8,리프 블레이드,power_rate,add,21,x,x,0,x,x,0,x,x,0,x,x,0,288,30,x,x,x,나뭇잎 칼날을 날려 공격력의 {1}% 피해를 주고 {2}% 확률로 출혈 효과 부여
+20013109,200131,9,리프 블레이드,power_rate,add,24,x,x,0,x,x,0,x,x,0,x,x,0,297,30,x,x,x,나뭇잎 칼날을 날려 공격력의 {1}% 피해를 주고 {2}% 확률로 출혈 효과 부여
+20013110,200131,10,리프 블레이드,power_rate,add,27,x,x,0,x,x,0,x,x,0,x,x,0,306,30,x,x,x,나뭇잎 칼날을 날려 공격력의 {1}% 피해를 주고 {2}% 확률로 출혈 효과 부여
+22013101,220131,1,후방 지원,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,10,x,x,x,x,공격력 {1}% 증가
+22013102,220131,2,후방 지원,status_effect_1,exchange,passive_atk_up;self;-1;100;13,x,x,0,x,x,0,x,x,0,x,x,0,13,x,x,x,x,공격력 {1}% 증가
+22013103,220131,3,후방 지원,status_effect_1,exchange,passive_atk_up;self;-1;100;16,x,x,0,x,x,0,x,x,0,x,x,0,16,x,x,x,x,공격력 {1}% 증가
+22013104,220131,4,후방 지원,status_effect_1,exchange,passive_atk_up;self;-1;100;19,x,x,0,x,x,0,x,x,0,x,x,0,19,x,x,x,x,공격력 {1}% 증가
+22013105,220131,5,후방 지원,status_effect_1,exchange,passive_atk_up;self;-1;100;22,x,x,0,x,x,0,x,x,0,x,x,0,22,x,x,x,x,공격력 {1}% 증가
+22013106,220131,6,후방 지원,status_effect_1,exchange,passive_atk_up;self;-1;100;25,x,x,0,x,x,0,x,x,0,x,x,0,25,x,x,x,x,공격력 {1}% 증가
+22013107,220131,7,후방 지원,status_effect_1,exchange,passive_atk_up;self;-1;100;28,x,x,0,x,x,0,x,x,0,x,x,0,28,x,x,x,x,공격력 {1}% 증가
+22013108,220131,8,후방 지원,status_effect_1,exchange,passive_atk_up;self;-1;100;31,x,x,0,x,x,0,x,x,0,x,x,0,31,x,x,x,x,공격력 {1}% 증가
+22013109,220131,9,후방 지원,status_effect_1,exchange,passive_atk_up;self;-1;100;34,x,x,0,x,x,0,x,x,0,x,x,0,34,x,x,x,x,공격력 {1}% 증가
+22013110,220131,10,후방 지원,status_effect_1,exchange,passive_atk_up;self;-1;100;40,x,x,0,x,x,0,x,x,0,x,x,0,40,x,x,x,x,공격력 {1}% 증가
+22014101,220141,1,정교함,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,10,x,x,x,x,적중률 {1}% 증가
+22014102,220141,2,정교함,status_effect_1,exchange,passive_hit_rate_up;self;-1;100;13,x,x,0,x,x,0,x,x,0,x,x,0,13,x,x,x,x,적중률 {1}% 증가
+22014103,220141,3,정교함,status_effect_1,exchange,passive_hit_rate_up;self;-1;100;16,x,x,0,x,x,0,x,x,0,x,x,0,16,x,x,x,x,적중률 {1}% 증가
+22014104,220141,4,정교함,status_effect_1,exchange,passive_hit_rate_up;self;-1;100;19,x,x,0,x,x,0,x,x,0,x,x,0,19,x,x,x,x,적중률 {1}% 증가
+22014105,220141,5,정교함,status_effect_1,exchange,passive_hit_rate_up;self;-1;100;22,x,x,0,x,x,0,x,x,0,x,x,0,22,x,x,x,x,적중률 {1}% 증가
+22014106,220141,6,정교함,status_effect_1,exchange,passive_hit_rate_up;self;-1;100;25,x,x,0,x,x,0,x,x,0,x,x,0,25,x,x,x,x,적중률 {1}% 증가
+22014107,220141,7,정교함,status_effect_1,exchange,passive_hit_rate_up;self;-1;100;28,x,x,0,x,x,0,x,x,0,x,x,0,28,x,x,x,x,적중률 {1}% 증가
+22014108,220141,8,정교함,status_effect_1,exchange,passive_hit_rate_up;self;-1;100;31,x,x,0,x,x,0,x,x,0,x,x,0,31,x,x,x,x,적중률 {1}% 증가
+22014109,220141,9,정교함,status_effect_1,exchange,passive_hit_rate_up;self;-1;100;34,x,x,0,x,x,0,x,x,0,x,x,0,34,x,x,x,x,적중률 {1}% 증가
+22014110,220141,10,정교함,status_effect_1,exchange,passive_hit_rate_up;self;-1;100;40,x,x,0,x,x,0,x,x,0,x,x,0,40,x,x,x,x,적중률 {1}% 증가
+22015101,220151,1,강화 리프 블레이드,val_1,exchange,1,x,x,0,x,x,0,x,x,0,x,x,0,x,x,x,x,x,리프 블레이드가 관통 효과를 가짐
+20002101,200021,1,낙뢰,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,450,x,x,x,x,지정 범위 안의 적에게 공격력의 {1}%의 피해를 줌
+20002102,200021,2,낙뢰,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,455,x,x,x,x,지정 범위 안의 적에게 공격력의 {1}%의 피해를 줌
+20002103,200021,3,낙뢰,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,460,x,x,x,x,지정 범위 안의 적에게 공격력의 {1}%의 피해를 줌
+20002104,200021,4,낙뢰,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,465,x,x,x,x,지정 범위 안의 적에게 공격력의 {1}%의 피해를 줌
+20002105,200021,5,낙뢰,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,470,x,x,x,x,지정 범위 안의 적에게 공격력의 {1}%의 피해를 줌
+20002106,200021,6,낙뢰,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,475,x,x,x,x,지정 범위 안의 적에게 공격력의 {1}%의 피해를 줌
+20002107,200021,7,낙뢰,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,480,x,x,x,x,지정 범위 안의 적에게 공격력의 {1}%의 피해를 줌
+20002108,200021,8,낙뢰,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,485,x,x,x,x,지정 범위 안의 적에게 공격력의 {1}%의 피해를 줌
+20002109,200021,9,낙뢰,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,490,x,x,x,x,지정 범위 안의 적에게 공격력의 {1}%의 피해를 줌
+20002110,200021,10,낙뢰,power_rate,add,10,x,x,0,x,x,0,x,x,0,x,x,0,500,x,x,x,x,지정 범위 안의 적에게 공격력의 {1}%의 피해를 줌
+22016101,220161,1,방어력 증가,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,10,x,x,x,x,방어력 {1}% 증가
+22016102,220161,2,방어력 증가,status_effect_1,exchange,passive_def_up;self;-1;100;13,x,x,0,x,x,0,x,x,0,x,x,0,13,x,x,x,x,방어력 {1}% 증가
+22016103,220161,3,방어력 증가,status_effect_1,exchange,passive_def_up;self;-1;100;16,x,x,0,x,x,0,x,x,0,x,x,0,16,x,x,x,x,방어력 {1}% 증가
+22016104,220161,4,방어력 증가,status_effect_1,exchange,passive_def_up;self;-1;100;19,x,x,0,x,x,0,x,x,0,x,x,0,19,x,x,x,x,방어력 {1}% 증가
+22016105,220161,5,방어력 증가,status_effect_1,exchange,passive_def_up;self;-1;100;22,x,x,0,x,x,0,x,x,0,x,x,0,22,x,x,x,x,방어력 {1}% 증가
+22016106,220161,6,방어력 증가,status_effect_1,exchange,passive_def_up;self;-1;100;25,x,x,0,x,x,0,x,x,0,x,x,0,25,x,x,x,x,방어력 {1}% 증가
+22016107,220161,7,방어력 증가,status_effect_1,exchange,passive_def_up;self;-1;100;28,x,x,0,x,x,0,x,x,0,x,x,0,28,x,x,x,x,방어력 {1}% 증가
+22016108,220161,8,방어력 증가,status_effect_1,exchange,passive_def_up;self;-1;100;31,x,x,0,x,x,0,x,x,0,x,x,0,31,x,x,x,x,방어력 {1}% 증가
+22016109,220161,9,방어력 증가,status_effect_1,exchange,passive_def_up;self;-1;100;34,x,x,0,x,x,0,x,x,0,x,x,0,34,x,x,x,x,방어력 {1}% 증가
+22016110,220161,10,방어력 증가,status_effect_1,exchange,passive_def_up;self;-1;100;40,x,x,0,x,x,0,x,x,0,x,x,0,40,x,x,x,x,방어력 {1}% 증가
+22017101,220171,1,버블샤워,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,30,x,x,x,x,일반 공격 시 {1}% 확률로 유도형 물방울 4개를 추가로 발사
+22017102,220171,2,버블샤워,chance_value,add,0.02,x,x,0,x,x,0,x,x,0,x,x,0,32,x,x,x,x,일반 공격 시 {1}% 확률로 유도형 물방울 4개를 추가로 발사
+22017103,220171,3,버블샤워,chance_value,add,0.01,x,x,0,x,x,0,x,x,0,x,x,0,33,x,x,x,x,일반 공격 시 {1}% 확률로 유도형 물방울 4개를 추가로 발사
+22017104,220171,4,버블샤워,chance_value,add,0.01,x,x,0,x,x,0,x,x,0,x,x,0,34,x,x,x,x,일반 공격 시 {1}% 확률로 유도형 물방울 4개를 추가로 발사
+22017105,220171,5,버블샤워,chance_value,add,0.01,x,x,0,x,x,0,x,x,0,x,x,0,35,x,x,x,x,일반 공격 시 {1}% 확률로 유도형 물방울 4개를 추가로 발사
+22017106,220171,6,버블샤워,chance_value,add,0.01,x,x,0,x,x,0,x,x,0,x,x,0,36,x,x,x,x,일반 공격 시 {1}% 확률로 유도형 물방울 4개를 추가로 발사
+22017107,220171,7,버블샤워,chance_value,add,0.01,x,x,0,x,x,0,x,x,0,x,x,0,37,x,x,x,x,일반 공격 시 {1}% 확률로 유도형 물방울 4개를 추가로 발사
+22017108,220171,8,버블샤워,chance_value,add,0.01,x,x,0,x,x,0,x,x,0,x,x,0,38,x,x,x,x,일반 공격 시 {1}% 확률로 유도형 물방울 4개를 추가로 발사
+22017109,220171,9,버블샤워,chance_value,add,0.01,x,x,0,x,x,0,x,x,0,x,x,0,39,x,x,x,x,일반 공격 시 {1}% 확률로 유도형 물방울 4개를 추가로 발사
+22017110,220171,10,버블샤워,chance_value,add,0.01,x,x,0,x,x,0,x,x,0,x,x,0,40,x,x,x,x,일반 공격 시 {1}% 확률로 유도형 물방울 4개를 추가로 발사
+22018101,220181,1,낙뢰 충전,status_effect_1,exchange,cri_chance_up;self;10;100;10,x,x,0,x,x,0,x,x,0,x,x,0,10,10,x,x,x,낙뢰 사용 시 {1}초간 치명확률 {2}% 증가
+20009101,200091,1,보라빛 가호,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,10,20,x,x,x,아군 단일 대상에게 보호막을 걸어 {1}초 동안 대상 생명력의 {2}% 만큼 방어
+20009102,200091,2,보라빛 가호,status_effect_1,exchange,barrier_protection;target;10;100;230,x,x,0,x,x,0,x,x,0,x,x,0,10,23,x,x,x,아군 단일 대상에게 보호막을 걸어 {1}초 동안 대상 생명력의 {2}% 만큼 방어
+20009103,200091,3,보라빛 가호,status_effect_1,exchange,barrier_protection;target;10;100;260,x,x,0,x,x,0,x,x,0,x,x,0,10,26,x,x,x,아군 단일 대상에게 보호막을 걸어 {1}초 동안 대상 생명력의 {2}% 만큼 방어
+20009104,200091,4,보라빛 가호,status_effect_1,exchange,barrier_protection;target;10;100;290,x,x,0,x,x,0,x,x,0,x,x,0,10,29,x,x,x,아군 단일 대상에게 보호막을 걸어 {1}초 동안 대상 생명력의 {2}% 만큼 방어
+20009105,200091,5,보라빛 가호,status_effect_1,exchange,barrier_protection;target;10;100;320,x,x,0,x,x,0,x,x,0,x,x,0,10,32,x,x,x,아군 단일 대상에게 보호막을 걸어 {1}초 동안 대상 생명력의 {2}% 만큼 방어
+20009106,200091,6,보라빛 가호,status_effect_1,exchange,barrier_protection;target;10;100;350,x,x,0,x,x,0,x,x,0,x,x,0,10,35,x,x,x,아군 단일 대상에게 보호막을 걸어 {1}초 동안 대상 생명력의 {2}% 만큼 방어
+20009107,200091,7,보라빛 가호,status_effect_1,exchange,barrier_protection;target;10;100;380,x,x,0,x,x,0,x,x,0,x,x,0,10,38,x,x,x,아군 단일 대상에게 보호막을 걸어 {1}초 동안 대상 생명력의 {2}% 만큼 방어
+20009108,200091,8,보라빛 가호,status_effect_1,exchange,barrier_protection;target;10;100;410,x,x,0,x,x,0,x,x,0,x,x,0,10,41,x,x,x,아군 단일 대상에게 보호막을 걸어 {1}초 동안 대상 생명력의 {2}% 만큼 방어
+20009109,200091,9,보라빛 가호,status_effect_1,exchange,barrier_protection;target;10;100;440,x,x,0,x,x,0,x,x,0,x,x,0,10,44,x,x,x,아군 단일 대상에게 보호막을 걸어 {1}초 동안 대상 생명력의 {2}% 만큼 방어
+20009110,200091,10,보라빛 가호,status_effect_1,exchange,barrier_protection;target;10;100;500,x,x,0,x,x,0,x,x,0,x,x,0,10,50,x,x,x,아군 단일 대상에게 보호막을 걸어 {1}초 동안 대상 생명력의 {2}% 만큼 방어
+22019101,220191,1,보석 파괴,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,50,10,30,x,x,일반 공격 시 {1}% 확률로 대상의 방어력을 {2}초간 {3}% 감소 시킴
+22019102,220191,2,보석 파괴,status_effect_1,exchange,def_down;target;10;51;30,x,x,0,x,x,0,x,x,0,x,x,0,51,10,30,x,x,일반 공격 시 {1}% 확률로 대상의 방어력을 {2}초간 {3}% 감소 시킴
+22019103,220191,3,보석 파괴,status_effect_1,exchange,def_down;target;10;52;30,x,x,0,x,x,0,x,x,0,x,x,0,52,10,30,x,x,일반 공격 시 {1}% 확률로 대상의 방어력을 {2}초간 {3}% 감소 시킴
+22019104,220191,4,보석 파괴,status_effect_1,exchange,def_down;target;10;53;30,x,x,0,x,x,0,x,x,0,x,x,0,53,10,30,x,x,일반 공격 시 {1}% 확률로 대상의 방어력을 {2}초간 {3}% 감소 시킴
+22019105,220191,5,보석 파괴,status_effect_1,exchange,def_down;target;10;54;30,x,x,0,x,x,0,x,x,0,x,x,0,54,10,30,x,x,일반 공격 시 {1}% 확률로 대상의 방어력을 {2}초간 {3}% 감소 시킴
+22019106,220191,6,보석 파괴,status_effect_1,exchange,def_down;target;10;55;30,x,x,0,x,x,0,x,x,0,x,x,0,55,10,30,x,x,일반 공격 시 {1}% 확률로 대상의 방어력을 {2}초간 {3}% 감소 시킴
+22019107,220191,7,보석 파괴,status_effect_1,exchange,def_down;target;10;56;30,x,x,0,x,x,0,x,x,0,x,x,0,56,10,30,x,x,일반 공격 시 {1}% 확률로 대상의 방어력을 {2}초간 {3}% 감소 시킴
+22019108,220191,8,보석 파괴,status_effect_1,exchange,def_down;target;10;57;30,x,x,0,x,x,0,x,x,0,x,x,0,57,10,30,x,x,일반 공격 시 {1}% 확률로 대상의 방어력을 {2}초간 {3}% 감소 시킴
+22019109,220191,9,보석 파괴,status_effect_1,exchange,def_down;target;10;58;30,x,x,0,x,x,0,x,x,0,x,x,0,58,10,30,x,x,일반 공격 시 {1}% 확률로 대상의 방어력을 {2}초간 {3}% 감소 시킴
+22019110,220191,10,보석 파괴,status_effect_1,exchange,def_down;target;10;60;30,x,x,0,x,x,0,x,x,0,x,x,0,60,10,30,x,x,일반 공격 시 {1}% 확률로 대상의 방어력을 {2}초간 {3}% 감소 시킴
+22020101,220201,1,퐁당퐁당,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,5,x,x,x,x,회피 시 아군 전체의 생명력을 퍼플립스 드래곤의 체력 {1}% 만큼 회복
+22020102,220201,2,퐁당퐁당,status_effect_1,exchange,passive_spatter;self;-1;100;6,x,x,0,x,x,0,x,x,0,x,x,0,6,x,x,x,x,회피 시 아군 전체의 생명력을 퍼플립스 드래곤의 체력 {1}% 만큼 회복
+22020103,220201,3,퐁당퐁당,status_effect_1,exchange,passive_spatter;self;-1;100;6,x,x,0,x,x,0,x,x,0,x,x,0,7,x,x,x,x,회피 시 아군 전체의 생명력을 퍼플립스 드래곤의 체력 {1}% 만큼 회복
+22020104,220201,4,퐁당퐁당,status_effect_1,exchange,passive_spatter;self;-1;100;6,x,x,0,x,x,0,x,x,0,x,x,0,8,x,x,x,x,회피 시 아군 전체의 생명력을 퍼플립스 드래곤의 체력 {1}% 만큼 회복
+22020105,220201,5,퐁당퐁당,status_effect_1,exchange,passive_spatter;self;-1;100;6,x,x,0,x,x,0,x,x,0,x,x,0,9,x,x,x,x,회피 시 아군 전체의 생명력을 퍼플립스 드래곤의 체력 {1}% 만큼 회복
+22020106,220201,6,퐁당퐁당,status_effect_1,exchange,passive_spatter;self;-1;100;6,x,x,0,x,x,0,x,x,0,x,x,0,10,x,x,x,x,회피 시 아군 전체의 생명력을 퍼플립스 드래곤의 체력 {1}% 만큼 회복
+22020107,220201,7,퐁당퐁당,status_effect_1,exchange,passive_spatter;self;-1;100;6,x,x,0,x,x,0,x,x,0,x,x,0,11,x,x,x,x,회피 시 아군 전체의 생명력을 퍼플립스 드래곤의 체력 {1}% 만큼 회복
+22020108,220201,8,퐁당퐁당,status_effect_1,exchange,passive_spatter;self;-1;100;6,x,x,0,x,x,0,x,x,0,x,x,0,12,x,x,x,x,회피 시 아군 전체의 생명력을 퍼플립스 드래곤의 체력 {1}% 만큼 회복
+22020109,220201,9,퐁당퐁당,status_effect_1,exchange,passive_spatter;self;-1;100;6,x,x,0,x,x,0,x,x,0,x,x,0,13,x,x,x,x,회피 시 아군 전체의 생명력을 퍼플립스 드래곤의 체력 {1}% 만큼 회복
+22020110,220201,10,퐁당퐁당,status_effect_1,exchange,passive_spatter;self;-1;100;6,x,x,0,x,x,0,x,x,0,x,x,0,14,x,x,x,x,회피 시 아군 전체의 생명력을 퍼플립스 드래곤의 체력 {1}% 만큼 회복
+22021101,220211,1,강화 보라빛 가호,status_effect_2,exchange,heal;target;10;100;10,x,x,0,x,x,0,x,x,0,x,x,0,10,x,x,x,x,보호막 사용 시 대상의 체력 {1}% 회복
+20007101,200071,1,치유의 바람,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,75,0,x,x,x,지정 범위의 아군에게 공격력의 {1}% 회복 혹은 적군에게는 공격력의 {2}%로 공격
+20007102,200071,2,치유의 바람,power_rate,add,2,val_1,add,2,x,x,0,x,x,0,x,x,0,81,6,x,x,x,지정 범위의 아군에게 공격력의 {1}% 회복 혹은 적군에게는 공격력의 {2}%로 공격
+20007103,200071,3,치유의 바람,power_rate,add,2,val_1,add,2,x,x,0,x,x,0,x,x,0,87,12,x,x,x,지정 범위의 아군에게 공격력의 {1}% 회복 혹은 적군에게는 공격력의 {2}%로 공격
+20007104,200071,4,치유의 바람,power_rate,add,2,val_1,add,2,x,x,0,x,x,0,x,x,0,93,18,x,x,x,지정 범위의 아군에게 공격력의 {1}% 회복 혹은 적군에게는 공격력의 {2}%로 공격
+20007105,200071,5,치유의 바람,power_rate,add,2,val_1,add,2,x,x,0,x,x,0,x,x,0,99,24,x,x,x,지정 범위의 아군에게 공격력의 {1}% 회복 혹은 적군에게는 공격력의 {2}%로 공격
+20007106,200071,6,치유의 바람,power_rate,add,2,val_1,add,2,x,x,0,x,x,0,x,x,0,105,30,x,x,x,지정 범위의 아군에게 공격력의 {1}% 회복 혹은 적군에게는 공격력의 {2}%로 공격
+20007107,200071,7,치유의 바람,power_rate,add,2,val_1,add,2,x,x,0,x,x,0,x,x,0,111,36,x,x,x,지정 범위의 아군에게 공격력의 {1}% 회복 혹은 적군에게는 공격력의 {2}%로 공격
+20007108,200071,8,치유의 바람,power_rate,add,2,val_1,add,2,x,x,0,x,x,0,x,x,0,117,42,x,x,x,지정 범위의 아군에게 공격력의 {1}% 회복 혹은 적군에게는 공격력의 {2}%로 공격
+20007109,200071,9,치유의 바람,power_rate,add,2,val_1,add,2,x,x,0,x,x,0,x,x,0,123,48,x,x,x,지정 범위의 아군에게 공격력의 {1}% 회복 혹은 적군에게는 공격력의 {2}%로 공격
+20007110,200071,10,치유의 바람,power_rate,add,2,val_1,add,2,x,x,0,x,x,0,x,x,0,129,54,x,x,x,지정 범위의 아군에게 공격력의 {1}% 회복 혹은 적군에게는 공격력의 {2}%로 공격
+22022101,220221,1,공격력 증가,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,10,x,x,x,x,공격력 {1}% 증가
+22022102,220221,2,공격력 증가,status_effect_1,exchange,passive_atk_up;self;-1;100;13,x,x,0,x,x,0,x,x,0,x,x,0,13,x,x,x,x,공격력 {1}% 증가
+22022103,220221,3,공격력 증가,status_effect_1,exchange,passive_atk_up;self;-1;100;16,x,x,0,x,x,0,x,x,0,x,x,0,16,x,x,x,x,공격력 {1}% 증가
+22022104,220221,4,공격력 증가,status_effect_1,exchange,passive_atk_up;self;-1;100;19,x,x,0,x,x,0,x,x,0,x,x,0,19,x,x,x,x,공격력 {1}% 증가
+22022105,220221,5,공격력 증가,status_effect_1,exchange,passive_atk_up;self;-1;100;22,x,x,0,x,x,0,x,x,0,x,x,0,22,x,x,x,x,공격력 {1}% 증가
+22022106,220221,6,공격력 증가,status_effect_1,exchange,passive_atk_up;self;-1;100;25,x,x,0,x,x,0,x,x,0,x,x,0,25,x,x,x,x,공격력 {1}% 증가
+22022107,220221,7,공격력 증가,status_effect_1,exchange,passive_atk_up;self;-1;100;28,x,x,0,x,x,0,x,x,0,x,x,0,28,x,x,x,x,공격력 {1}% 증가
+22022108,220221,8,공격력 증가,status_effect_1,exchange,passive_atk_up;self;-1;100;31,x,x,0,x,x,0,x,x,0,x,x,0,31,x,x,x,x,공격력 {1}% 증가
+22022109,220221,9,공격력 증가,status_effect_1,exchange,passive_atk_up;self;-1;100;34,x,x,0,x,x,0,x,x,0,x,x,0,34,x,x,x,x,공격력 {1}% 증가
+22022110,220221,10,공격력 증가,status_effect_1,exchange,passive_atk_up;self;-1;100;40,x,x,0,x,x,0,x,x,0,x,x,0,40,x,x,x,x,공격력 {1}% 증가
+22023101,220231,1,교감,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,50,50,x,x,x,일반 공격시 {1}% 확률로 주위 아군의 생명력을 공격력의 {2}% 만큼 회복
+22023102,220231,2,교감,power_rate,add,1,x,x,0,x,x,0,x,x,0,x,x,0,50,55,x,x,x,일반 공격시 {1}% 확률로 주위 아군의 생명력을 공격력의 {2}% 만큼 회복
+22023103,220231,3,교감,power_rate,add,1,x,x,0,x,x,0,x,x,0,x,x,0,50,60,x,x,x,일반 공격시 {1}% 확률로 주위 아군의 생명력을 공격력의 {2}% 만큼 회복
+22023104,220231,4,교감,power_rate,add,1,x,x,0,x,x,0,x,x,0,x,x,0,50,65,x,x,x,일반 공격시 {1}% 확률로 주위 아군의 생명력을 공격력의 {2}% 만큼 회복
+22023105,220231,5,교감,power_rate,add,1,x,x,0,x,x,0,x,x,0,x,x,0,50,70,x,x,x,일반 공격시 {1}% 확률로 주위 아군의 생명력을 공격력의 {2}% 만큼 회복
+22023106,220231,6,교감,power_rate,add,1,x,x,0,x,x,0,x,x,0,x,x,0,50,75,x,x,x,일반 공격시 {1}% 확률로 주위 아군의 생명력을 공격력의 {2}% 만큼 회복
+22023107,220231,7,교감,power_rate,add,1,x,x,0,x,x,0,x,x,0,x,x,0,50,80,x,x,x,일반 공격시 {1}% 확률로 주위 아군의 생명력을 공격력의 {2}% 만큼 회복
+22023108,220231,8,교감,power_rate,add,1,x,x,0,x,x,0,x,x,0,x,x,0,50,85,x,x,x,일반 공격시 {1}% 확률로 주위 아군의 생명력을 공격력의 {2}% 만큼 회복
+22023109,220231,9,교감,power_rate,add,1,x,x,0,x,x,0,x,x,0,x,x,0,50,90,x,x,x,일반 공격시 {1}% 확률로 주위 아군의 생명력을 공격력의 {2}% 만큼 회복
+22023110,220231,10,교감,power_rate,add,2,x,x,0,x,x,0,x,x,0,x,x,0,50,100,x,x,x,일반 공격시 {1}% 확률로 주위 아군의 생명력을 공격력의 {2}% 만큼 회복
+22024101,220241,1,강화 치유의 바람,status_effect_1,exchange,def_up;ally;10;100;10,x,x,0,x,x,0,x,x,0,x,x,0,10,10,x,x,x,아군에게 사용시 {1}초간 방어력 {2}% 증가
 20015101,200151,1,번개 구름,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,600,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
-20015102,200151,2,번개 구름,power_rate,multiply,0.2,x,x,0,x,x,0,x,x,0,x,x,0,720,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
-20015103,200151,3,번개 구름,power_rate,multiply,0.2,x,x,0,x,x,0,x,x,0,x,x,0,840,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
-20015104,200151,4,번개 구름,power_rate,multiply,0.2,x,x,0,x,x,0,x,x,0,x,x,0,960,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
-20015105,200151,5,번개 구름,power_rate,multiply,0.2,x,x,0,x,x,0,x,x,0,x,x,0,1080,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
-20015106,200151,6,번개 구름,power_rate,multiply,0.2,x,x,0,x,x,0,x,x,0,x,x,0,1200,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
-20015107,200151,7,번개 구름,power_rate,multiply,0.2,x,x,0,x,x,0,x,x,0,x,x,0,1320,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
-20015108,200151,8,번개 구름,power_rate,multiply,0.2,x,x,0,x,x,0,x,x,0,x,x,0,1440,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
-20015109,200151,9,번개 구름,power_rate,multiply,0.2,x,x,0,x,x,0,x,x,0,x,x,0,1560,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
-20015110,200151,10,번개 구름,power_rate,multiply,0.2,x,x,0,x,x,0,x,x,0,x,x,0,1680,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
-22027101,220271,1,번개 구름 강화,res_scale,exchange,1,val_1,exchange,200,status_effect_1,exchange,atk_up;self;5;100;50,x,x,0,x,x,0,5,50,x,x,x,번개 구름 사용 시 {1}초간 공격력 {2}% 증가. 번개 구름 범위 확대
+20015102,200151,2,번개 구름,power_rate,add,3,x,x,0,x,x,0,x,x,0,x,x,0,612,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
+20015103,200151,3,번개 구름,power_rate,add,3,x,x,0,x,x,0,x,x,0,x,x,0,624,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
+20015104,200151,4,번개 구름,power_rate,add,3,x,x,0,x,x,0,x,x,0,x,x,0,636,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
+20015105,200151,5,번개 구름,power_rate,add,3,x,x,0,x,x,0,x,x,0,x,x,0,648,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
+20015106,200151,6,번개 구름,power_rate,add,3,x,x,0,x,x,0,x,x,0,x,x,0,660,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
+20015107,200151,7,번개 구름,power_rate,add,3,x,x,0,x,x,0,x,x,0,x,x,0,672,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
+20015108,200151,8,번개 구름,power_rate,add,3,x,x,0,x,x,0,x,x,0,x,x,0,684,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
+20015109,200151,9,번개 구름,power_rate,add,3,x,x,0,x,x,0,x,x,0,x,x,0,696,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
+20015110,200151,10,번개 구름,power_rate,add,6,x,x,0,x,x,0,x,x,0,x,x,0,720,x,x,x,x,지정 범위에 번개 구름을 생성하여 공격력의 {1}% 피해를 줌
+22025101,220251,1,풍운,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,10,5,x,x,x,적 처치 시 {1}초간 치명확률 {2}% 증가
+22025102,220251,2,풍운,status_effect_1,exchange,cri_chance_up;self;10;100;6,x,x,0,x,x,0,x,x,0,x,x,0,10,6,x,x,x,적 처치 시 {1}초간 치명확률 {2}% 증가
+22025103,220251,3,풍운,status_effect_1,exchange,cri_chance_up;self;10;100;7,x,x,0,x,x,0,x,x,0,x,x,0,10,7,x,x,x,적 처치 시 {1}초간 치명확률 {2}% 증가
+22025104,220251,4,풍운,status_effect_1,exchange,cri_chance_up;self;10;100;8,x,x,0,x,x,0,x,x,0,x,x,0,10,8,x,x,x,적 처치 시 {1}초간 치명확률 {2}% 증가
+22025105,220251,5,풍운,status_effect_1,exchange,cri_chance_up;self;10;100;9,x,x,0,x,x,0,x,x,0,x,x,0,10,9,x,x,x,적 처치 시 {1}초간 치명확률 {2}% 증가
+22025106,220251,6,풍운,status_effect_1,exchange,cri_chance_up;self;10;100;10,x,x,0,x,x,0,x,x,0,x,x,0,10,10,x,x,x,적 처치 시 {1}초간 치명확률 {2}% 증가
+22025107,220251,7,풍운,status_effect_1,exchange,cri_chance_up;self;10;100;11,x,x,0,x,x,0,x,x,0,x,x,0,10,11,x,x,x,적 처치 시 {1}초간 치명확률 {2}% 증가
+22025108,220251,8,풍운,status_effect_1,exchange,cri_chance_up;self;10;100;12,x,x,0,x,x,0,x,x,0,x,x,0,10,12,x,x,x,적 처치 시 {1}초간 치명확률 {2}% 증가
+22025109,220251,9,풍운,status_effect_1,exchange,cri_chance_up;self;10;100;13,x,x,0,x,x,0,x,x,0,x,x,0,10,13,x,x,x,적 처치 시 {1}초간 치명확률 {2}% 증가
+22025110,220251,10,풍운,status_effect_1,exchange,cri_chance_up;self;10;100;14,x,x,0,x,x,0,x,x,0,x,x,0,10,14,x,x,x,적 처치 시 {1}초간 치명확률 {2}% 증가
+22026101,220261,1,청룡의 힘,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,50,x,x,x,x,치명피해 {1}% 증가
+22026102,220261,2,청룡의 힘,status_effect_1,exchange,passive_cri_dmg_up;self;-1;100;55,x,x,0,x,x,0,x,x,0,x,x,0,55,x,x,x,x,치명피해 {1}% 증가
+22026103,220261,3,청룡의 힘,status_effect_1,exchange,passive_cri_dmg_up;self;-1;100;60,x,x,0,x,x,0,x,x,0,x,x,0,60,x,x,x,x,치명피해 {1}% 증가
+22026104,220261,4,청룡의 힘,status_effect_1,exchange,passive_cri_dmg_up;self;-1;100;65,x,x,0,x,x,0,x,x,0,x,x,0,65,x,x,x,x,치명피해 {1}% 증가
+22026105,220261,5,청룡의 힘,status_effect_1,exchange,passive_cri_dmg_up;self;-1;100;70,x,x,0,x,x,0,x,x,0,x,x,0,70,x,x,x,x,치명피해 {1}% 증가
+22026106,220261,6,청룡의 힘,status_effect_1,exchange,passive_cri_dmg_up;self;-1;100;75,x,x,0,x,x,0,x,x,0,x,x,0,75,x,x,x,x,치명피해 {1}% 증가
+22026107,220261,7,청룡의 힘,status_effect_1,exchange,passive_cri_dmg_up;self;-1;100;80,x,x,0,x,x,0,x,x,0,x,x,0,80,x,x,x,x,치명피해 {1}% 증가
+22026108,220261,8,청룡의 힘,status_effect_1,exchange,passive_cri_dmg_up;self;-1;100;85,x,x,0,x,x,0,x,x,0,x,x,0,85,x,x,x,x,치명피해 {1}% 증가
+22026109,220261,9,청룡의 힘,status_effect_1,exchange,passive_cri_dmg_up;self;-1;100;90,x,x,0,x,x,0,x,x,0,x,x,0,90,x,x,x,x,치명피해 {1}% 증가
+22026110,220261,10,청룡의 힘,status_effect_1,exchange,passive_cri_dmg_up;self;-1;100;95,x,x,0,x,x,0,x,x,0,x,x,0,95,x,x,x,x,치명피해 {1}% 증가
+22027101,220271,1,강화 번개 구름,status_effect_1,exchange,atk_up;self;5;100;50,res_scale,exchange,1,val_1,add,50,x,x,0,x,x,0,5,50,x,x,x,번개 구름 사용 시 {1}초간 공격력 {2}% 증가. 번개 구름 범위 확대
+20012101,200121,1,날개짓,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,25,x,x,x,x,해로운 상태이상 효과를 1개 해제하고 대상 전체 생명력의 {1}% 회복
+20012102,200121,2,날개짓,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,30,x,x,x,x,해로운 상태이상 효과를 1개 해제하고 대상 전체 생명력의 {1}% 회복
+20012103,200121,3,날개짓,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,35,x,x,x,x,해로운 상태이상 효과를 1개 해제하고 대상 전체 생명력의 {1}% 회복
+20012104,200121,4,날개짓,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,40,x,x,x,x,해로운 상태이상 효과를 1개 해제하고 대상 전체 생명력의 {1}% 회복
+20012105,200121,5,날개짓,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,45,x,x,x,x,해로운 상태이상 효과를 1개 해제하고 대상 전체 생명력의 {1}% 회복
+20012106,200121,6,날개짓,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,50,x,x,x,x,해로운 상태이상 효과를 1개 해제하고 대상 전체 생명력의 {1}% 회복
+20012107,200121,7,날개짓,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,55,x,x,x,x,해로운 상태이상 효과를 1개 해제하고 대상 전체 생명력의 {1}% 회복
+20012108,200121,8,날개짓,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,60,x,x,x,x,해로운 상태이상 효과를 1개 해제하고 대상 전체 생명력의 {1}% 회복
+20012109,200121,9,날개짓,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,65,x,x,x,x,해로운 상태이상 효과를 1개 해제하고 대상 전체 생명력의 {1}% 회복
+20012110,200121,10,날개짓,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,70,x,x,x,x,해로운 상태이상 효과를 1개 해제하고 대상 전체 생명력의 {1}% 회복
+22028101,220281,1,상쾌한 바람,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,10,1,x,x,x,{1}초 마다 리티오 전체 생명력의 {2}% 만큼 아군 전체의 생명력을 회복
+22028102,220281,2,상쾌한 바람,status_effect_1,exchange,passive_recovery;target;-1;100;2,x,x,0,x,x,0,x,x,0,x,x,0,10,2,x,x,x,{1}초 마다 리티오 전체 생명력의 {2}% 만큼 아군 전체의 생명력을 회복
+22028103,220281,3,상쾌한 바람,status_effect_1,exchange,passive_recovery;target;-1;100;3,x,x,0,x,x,0,x,x,0,x,x,0,10,3,x,x,x,{1}초 마다 리티오 전체 생명력의 {2}% 만큼 아군 전체의 생명력을 회복
+22028104,220281,4,상쾌한 바람,status_effect_1,exchange,passive_recovery;target;-1;100;4,x,x,0,x,x,0,x,x,0,x,x,0,10,4,x,x,x,{1}초 마다 리티오 전체 생명력의 {2}% 만큼 아군 전체의 생명력을 회복
+22028105,220281,5,상쾌한 바람,status_effect_1,exchange,passive_recovery;target;-1;100;5,x,x,0,x,x,0,x,x,0,x,x,0,10,5,x,x,x,{1}초 마다 리티오 전체 생명력의 {2}% 만큼 아군 전체의 생명력을 회복
+22028106,220281,6,상쾌한 바람,status_effect_1,exchange,passive_recovery;target;-1;100;6,x,x,0,x,x,0,x,x,0,x,x,0,10,6,x,x,x,{1}초 마다 리티오 전체 생명력의 {2}% 만큼 아군 전체의 생명력을 회복
+22028107,220281,7,상쾌한 바람,status_effect_1,exchange,passive_recovery;target;-1;100;7,x,x,0,x,x,0,x,x,0,x,x,0,10,7,x,x,x,{1}초 마다 리티오 전체 생명력의 {2}% 만큼 아군 전체의 생명력을 회복
+22028108,220281,8,상쾌한 바람,status_effect_1,exchange,passive_recovery;target;-1;100;8,x,x,0,x,x,0,x,x,0,x,x,0,10,8,x,x,x,{1}초 마다 리티오 전체 생명력의 {2}% 만큼 아군 전체의 생명력을 회복
+22028109,220281,9,상쾌한 바람,status_effect_1,exchange,passive_recovery;target;-1;100;9,x,x,0,x,x,0,x,x,0,x,x,0,10,9,x,x,x,{1}초 마다 리티오 전체 생명력의 {2}% 만큼 아군 전체의 생명력을 회복
+22028110,220281,10,상쾌한 바람,status_effect_1,exchange,passive_recovery;target;-1;100;10,x,x,0,x,x,0,x,x,0,x,x,0,10,10,x,x,x,{1}초 마다 리티오 전체 생명력의 {2}% 만큼 아군 전체의 생명력을 회복
+22029101,220291,1,바람의 보호,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,5,x,x,x,x,아군 전체의 방어력 {1}% 증가
+22029102,220291,2,바람의 보호,status_effect_1,exchange,passive_def_up;target;-1;100;6,x,x,0,x,x,0,x,x,0,x,x,0,6,x,x,x,x,아군 전체의 방어력 {1}% 증가
+22029103,220291,3,바람의 보호,status_effect_1,exchange,passive_def_up;target;-1;100;7,x,x,0,x,x,0,x,x,0,x,x,0,7,x,x,x,x,아군 전체의 방어력 {1}% 증가
+22029104,220291,4,바람의 보호,status_effect_1,exchange,passive_def_up;target;-1;100;8,x,x,0,x,x,0,x,x,0,x,x,0,8,x,x,x,x,아군 전체의 방어력 {1}% 증가
+22029105,220291,5,바람의 보호,status_effect_1,exchange,passive_def_up;target;-1;100;9,x,x,0,x,x,0,x,x,0,x,x,0,9,x,x,x,x,아군 전체의 방어력 {1}% 증가
+22029106,220291,6,바람의 보호,status_effect_1,exchange,passive_def_up;target;-1;100;10,x,x,0,x,x,0,x,x,0,x,x,0,10,x,x,x,x,아군 전체의 방어력 {1}% 증가
+22029107,220291,7,바람의 보호,status_effect_1,exchange,passive_def_up;target;-1;100;11,x,x,0,x,x,0,x,x,0,x,x,0,11,x,x,x,x,아군 전체의 방어력 {1}% 증가
+22029108,220291,8,바람의 보호,status_effect_1,exchange,passive_def_up;target;-1;100;12,x,x,0,x,x,0,x,x,0,x,x,0,12,x,x,x,x,아군 전체의 방어력 {1}% 증가
+22029109,220291,9,바람의 보호,status_effect_1,exchange,passive_def_up;target;-1;100;13,x,x,0,x,x,0,x,x,0,x,x,0,13,x,x,x,x,아군 전체의 방어력 {1}% 증가
+22029110,220291,10,바람의 보호,status_effect_1,exchange,passive_def_up;target;-1;100;15,x,x,0,x,x,0,x,x,0,x,x,0,15,x,x,x,x,아군 전체의 방어력 {1}% 증가
+22030101,220301,1,강화 날개짓,status_effect_1,exchange,aspd_up;target;10;100;20,x,x,0,x,x,0,x,x,0,x,x,0,10,20,x,x,x,날개짓 대상의 공격속도 {1}초간 {2}% 증가

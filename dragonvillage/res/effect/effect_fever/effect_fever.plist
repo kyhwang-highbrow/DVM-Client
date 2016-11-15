@@ -4,27 +4,14 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>Untitled-4.jpg</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,2},{1294,723}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{1294,723}}</string>
-                <key>sourceSize</key>
-                <string>{1294,723}</string>
-            </dict>
             <key>effect_fever_20.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{388,836},{124,128}}</string>
+                <string>{{686,1472},{124,128}}</string>
                 <key>offset</key>
                 <string>{-2,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{124,128}}</string>
                 <key>sourceSize</key>
@@ -33,7 +20,7 @@
             <key>effect_fever_21.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{578,1640},{82,87}}</string>
+                <string>{{529,612},{82,87}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +33,7 @@
             <key>effect_fever_a_07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1883,800},{161,161}}</string>
+                <string>{{370,1218},{161,161}}</string>
                 <key>offset</key>
                 <string>{-14,14}</string>
                 <key>rotated</key>
@@ -59,7 +46,7 @@
             <key>effect_fever_b_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1829,612},{70,93}}</string>
+                <string>{{529,831},{70,93}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +59,7 @@
             <key>effect_fever_b_08.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1829,707},{58,85}}</string>
+                <string>{{529,926},{58,85}}</string>
                 <key>offset</key>
                 <string>{0,2}</string>
                 <key>rotated</key>
@@ -85,7 +72,7 @@
             <key>effect_fever_missile_a_0001.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,727},{388,107}}</string>
+                <string>{{613,647},{388,107}}</string>
                 <key>offset</key>
                 <string>{19,10}</string>
                 <key>rotated</key>
@@ -98,7 +85,7 @@
             <key>effect_fever_missile_a_0003.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{256,1924},{366,105}}</string>
+                <string>{{2,1195},{366,105}}</string>
                 <key>offset</key>
                 <string>{32,12}</string>
                 <key>rotated</key>
@@ -111,11 +98,11 @@
             <key>effect_fever_missile_a_0005.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{367,963},{368,125}}</string>
+                <string>{{589,994},{368,125}}</string>
                 <key>offset</key>
                 <string>{32,20}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{86,39},{368,125}}</string>
                 <key>sourceSize</key>
@@ -124,7 +111,7 @@
             <key>effect_fever_missile_a_0007.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1700,205},{374,131}}</string>
+                <string>{{400,205},{374,131}}</string>
                 <key>offset</key>
                 <string>{29,23}</string>
                 <key>rotated</key>
@@ -137,7 +124,7 @@
             <key>effect_fever_missile_a_0009.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1698,581},{376,129}}</string>
+                <string>{{398,581},{376,129}}</string>
                 <key>offset</key>
                 <string>{29,24}</string>
                 <key>rotated</key>
@@ -150,11 +137,11 @@
             <key>effect_fever_missile_a_0011.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{359,1351},{380,127}}</string>
+                <string>{{2,1066},{380,127}}</string>
                 <key>offset</key>
                 <string>{28,22}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{76,36},{380,127}}</string>
                 <key>sourceSize</key>
@@ -163,7 +150,7 @@
             <key>effect_fever_missile_a_0013.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,842},{384,119}}</string>
+                <string>{{601,873},{384,119}}</string>
                 <key>offset</key>
                 <string>{27,18}</string>
                 <key>rotated</key>
@@ -176,11 +163,11 @@
             <key>effect_fever_missile_a_0015.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{250,963},{386,115}}</string>
+                <string>{{603,756},{386,115}}</string>
                 <key>offset</key>
                 <string>{28,14}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{73,50},{386,115}}</string>
                 <key>sourceSize</key>
@@ -189,11 +176,11 @@
             <key>effect_fever_missile_a_0017.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{240,1357},{390,117}}</string>
+                <string>{{2,947},{390,117}}</string>
                 <key>offset</key>
                 <string>{27,15}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{70,48},{390,117}}</string>
                 <key>sourceSize</key>
@@ -202,11 +189,11 @@
             <key>effect_fever_missile_a_0019.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{121,1357},{392,117}}</string>
+                <string>{{2,828},{392,117}}</string>
                 <key>offset</key>
                 <string>{27,16}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{69,47},{392,117}}</string>
                 <key>sourceSize</key>
@@ -215,11 +202,11 @@
             <key>effect_fever_missile_a_0021.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1359},{394,117}}</string>
+                <string>{{2,580},{394,117}}</string>
                 <key>offset</key>
                 <string>{27,18}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{68,45},{394,117}}</string>
                 <key>sourceSize</key>
@@ -228,11 +215,11 @@
             <key>effect_fever_missile_a_0023.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,963},{394,117}}</string>
+                <string>{{2,461},{394,117}}</string>
                 <key>offset</key>
                 <string>{28,19}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{69,44},{394,117}}</string>
                 <key>sourceSize</key>
@@ -241,7 +228,7 @@
             <key>effect_fever_missile_a_0025.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1298,719},{396,121}}</string>
+                <string>{{2,338},{396,121}}</string>
                 <key>offset</key>
                 <string>{28,19}</string>
                 <key>rotated</key>
@@ -254,7 +241,7 @@
             <key>effect_fever_missile_a_0027.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1298,592},{398,125}}</string>
+                <string>{{615,520},{398,125}}</string>
                 <key>offset</key>
                 <string>{28,18}</string>
                 <key>rotated</key>
@@ -267,7 +254,7 @@
             <key>effect_fever_missile_a_0029.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1298,465},{398,125}}</string>
+                <string>{{615,393},{398,125}}</string>
                 <key>offset</key>
                 <string>{29,21}</string>
                 <key>rotated</key>
@@ -280,7 +267,7 @@
             <key>effect_fever_missile_a_0031.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1298,205},{400,127}}</string>
+                <string>{{621,2},{400,127}}</string>
                 <key>offset</key>
                 <string>{29,21}</string>
                 <key>rotated</key>
@@ -293,11 +280,11 @@
             <key>effect_fever_missile_a_0033.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{121,963},{392,127}}</string>
+                <string>{{2,699},{392,127}}</string>
                 <key>offset</key>
                 <string>{31,21}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{73,37},{392,127}}</string>
                 <key>sourceSize</key>
@@ -306,7 +293,7 @@
             <key>effect_fever_missile_a_0035.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1298,334},{398,129}}</string>
+                <string>{{615,262},{398,129}}</string>
                 <key>offset</key>
                 <string>{33,23}</string>
                 <key>rotated</key>
@@ -319,11 +306,11 @@
             <key>effect_fever_missile_a_0037.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1917,2},{398,129}}</string>
+                <string>{{615,131},{398,129}}</string>
                 <key>offset</key>
                 <string>{34,23}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{73,34},{398,129}}</string>
                 <key>sourceSize</key>
@@ -332,11 +319,11 @@
             <key>effect_fever_missile_a_0039.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1911,402},{396,131}}</string>
+                <string>{{2,205},{396,131}}</string>
                 <key>offset</key>
                 <string>{36,24}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{76,32},{396,131}}</string>
                 <key>sourceSize</key>
@@ -345,7 +332,7 @@
             <key>effect_fever_missile_s_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1837,96},{514,72}}</string>
+                <string>{{541,96},{514,72}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -358,7 +345,7 @@
             <key>effect_fever_missile_s_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1298,96},{537,107}}</string>
+                <string>{{2,96},{537,107}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -371,7 +358,7 @@
             <key>effect_fever_missile_s_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1298,2},{617,92}}</string>
+                <string>{{2,2},{617,92}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -384,11 +371,11 @@
             <key>effect_fever_p_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{385,1733},{146,161}}</string>
+                <string>{{815,1121},{146,161}}</string>
                 <key>offset</key>
                 <string>{8,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{17,1},{146,161}}</string>
                 <key>sourceSize</key>
@@ -397,7 +384,7 @@
             <key>effect_fever_p_01_dot.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{392,727},{95,127}}</string>
+                <string>{{686,1375},{95,127}}</string>
                 <key>offset</key>
                 <string>{-2,2}</string>
                 <key>rotated</key>
@@ -410,11 +397,11 @@
             <key>effect_fever_p_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{636,1487},{142,149}}</string>
+                <string>{{812,1569},{142,149}}</string>
                 <key>offset</key>
                 <string>{-7,3}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{4,4},{142,149}}</string>
                 <key>sourceSize</key>
@@ -423,11 +410,11 @@
             <key>effect_fever_p_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{533,1730},{150,147}}</string>
+                <string>{{815,1420},{150,147}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{7,7},{150,147}}</string>
                 <key>sourceSize</key>
@@ -436,11 +423,11 @@
             <key>effect_fever_p_07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{488,1333},{152,149}}</string>
+                <string>{{815,1269},{152,149}}</string>
                 <key>offset</key>
                 <string>{-6,5}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,2},{152,149}}</string>
                 <key>sourceSize</key>
@@ -449,11 +436,11 @@
             <key>effect_fever_p_09.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{488,1487},{146,151}}</string>
+                <string>{{533,1375},{146,151}}</string>
                 <key>offset</key>
                 <string>{-4,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{5,7},{146,151}}</string>
                 <key>sourceSize</key>
@@ -462,7 +449,7 @@
             <key>effect_fever_p_circle_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{624,1882},{128,128}}</string>
+                <string>{{394,959},{128,128}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -475,11 +462,11 @@
             <key>effect_fever_s_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{256,1749},{127,173}}</string>
+                <string>{{384,1089},{127,173}}</string>
                 <key>offset</key>
                 <string>{129,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{272,121},{127,173}}</string>
                 <key>sourceSize</key>
@@ -488,11 +475,11 @@
             <key>effect_fever_s_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1755},{254,252}}</string>
+                <string>{{559,1121},{254,252}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{1,2},{254,252}}</string>
                 <key>sourceSize</key>
@@ -501,7 +488,7 @@
             <key>effect_fever_s_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1829,794},{52,52}}</string>
+                <string>{{524,1013},{52,52}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -514,7 +501,7 @@
             <key>effect_fever_s_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{488,1640},{88,88}}</string>
+                <string>{{2,1713},{88,88}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -524,6 +511,19 @@
                 <key>sourceSize</key>
                 <string>{88,88}</string>
             </dict>
+            <key>effect_fever_s_bg.jpg</key>
+            <dict>
+                <key>frame</key>
+                <string>{{529,701},{128,72}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{128,72}}</string>
+                <key>sourceSize</key>
+                <string>{128,72}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -532,9 +532,9 @@
             <key>realTextureFileName</key>
             <string>effect_fever.png</string>
             <key>size</key>
-            <string>{2048,2048}</string>
+            <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6a2f5b7b33529e8ff420ea98dd05a29d$</string>
+            <string>$TexturePacker:SmartUpdate:04682d1a73ccb3937231e858ad83c037$</string>
             <key>textureFileName</key>
             <string>effect_fever.png</string>
         </dict>

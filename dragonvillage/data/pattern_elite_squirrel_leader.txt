@@ -1,5 +1,5 @@
 {
-	"pattern_elite_sharkwarrior":
+	"pattern_elite_squirrel_leader":
 	[			
 		[
 			"a;basic", "w;2", "a;basic", "w;2"
@@ -39,7 +39,7 @@
                 "hp_percent":25,
                 "pattern":
                 [
-					"m;RB14;100", "a;3", "a;3", "a;3", "a;1", "a;3", "w;1"
+					"m;RB14;100", "a;2", "a;2", "a;2", "a;2", "a;1", "w;1"
 				]
             }
         ]
