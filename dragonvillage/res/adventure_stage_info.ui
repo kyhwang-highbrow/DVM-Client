@@ -146,7 +146,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 740;
+				width = 748;
 				height = 130;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -155,7 +155,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/mini_bg_10.png';
+				file_name = 'ui/frame/base_frame_06.png';
 				color = { 199; 188; 179; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -172,7 +172,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 739;
+				width = 718;
 				height = 124;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -186,12 +186,12 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 76.000000;
+				x = 77.000000;
 				y = -127.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 738;
+				width = 718;
 				height = 124;
 				scale_x = 1.000000;
 				scale_y = 1.000000;

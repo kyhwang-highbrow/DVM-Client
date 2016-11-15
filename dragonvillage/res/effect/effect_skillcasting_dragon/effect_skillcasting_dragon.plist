@@ -7,11 +7,11 @@
             <key>effect_skillcasting_dragon_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{89,382},{127,85}}</string>
+                <string>{{240,761},{127,85}}</string>
                 <key>offset</key>
                 <string>{0,-21}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,42},{127,85}}</string>
                 <key>sourceSize</key>
@@ -20,7 +20,7 @@
             <key>effect_skillcasting_dragon_01_fire.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,382},{127,85}}</string>
+                <string>{{200,856},{127,85}}</string>
                 <key>offset</key>
                 <string>{0,-21}</string>
                 <key>rotated</key>
@@ -33,11 +33,11 @@
             <key>effect_skillcasting_dragon_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{200,245},{126,125}}</string>
+                <string>{{369,372},{126,125}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{126,125}}</string>
                 <key>sourceSize</key>
@@ -46,11 +46,11 @@
             <key>effect_skillcasting_dragon_02_fire.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{176,382},{126,125}}</string>
+                <string>{{369,245},{126,125}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{126,125}}</string>
                 <key>sourceSize</key>
@@ -59,7 +59,7 @@
             <key>effect_skillcasting_dragon_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{101,245},{135,97}}</string>
+                <string>{{101,856},{135,97}}</string>
                 <key>offset</key>
                 <string>{0,-19}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>effect_skillcasting_dragon_03_fire.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,245},{135,97}}</string>
+                <string>{{2,864},{135,97}}</string>
                 <key>offset</key>
                 <string>{0,-19}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>effect_skillcasting_dragon_13.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{327,245},{70,70}}</string>
+                <string>{{168,784},{70,70}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>effect_skillcasting_dragon_13_fire.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{303,373},{70,70}}</string>
+                <string>{{96,784},{70,70}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -134,6 +134,45 @@
                 <key>sourceSize</key>
                 <string>{244,241}</string>
             </dict>
+            <key>effect_skillcasting_dragon_missile_s_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{205,245},{514,72}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{514,72}}</string>
+                <key>sourceSize</key>
+                <string>{514,72}</string>
+            </dict>
+            <key>effect_skillcasting_dragon_missile_s_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{96,245},{537,107}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{537,107}}</string>
+                <key>sourceSize</key>
+                <string>{537,107}</string>
+            </dict>
+            <key>effect_skillcasting_dragon_missile_s_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,245},{617,92}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{617,92}}</string>
+                <key>sourceSize</key>
+                <string>{617,92}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -142,9 +181,9 @@
             <key>realTextureFileName</key>
             <string>effect_skillcasting_dragon.png</string>
             <key>size</key>
-            <string>{512,512}</string>
+            <string>{512,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f72ff6307cbf92b8ad64c5bb396ab271$</string>
+            <string>$TexturePacker:SmartUpdate:7fa8ce2071d77638ab240103ee42f07b$</string>
             <key>textureFileName</key>
             <string>effect_skillcasting_dragon.png</string>
         </dict>

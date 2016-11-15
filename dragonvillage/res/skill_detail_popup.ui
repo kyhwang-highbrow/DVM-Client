@@ -220,8 +220,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 428;
-					height = 89;
+					width = 400;
+					height = 88;
 					scale_x = 0.920000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -236,8 +236,8 @@
 					v_alignment = 0;
 					color = { 102; 88; 71; };
 					opacity = 255;
-					dimension_width = 428;
-					dimension_height = 89;
+					dimension_width = 400;
+					dimension_height = 88;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -411,8 +411,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 428;
-					height = 89;
+					width = 400;
+					height = 88;
 					scale_x = 0.920000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -427,8 +427,8 @@
 					v_alignment = 0;
 					color = { 102; 88; 71; };
 					opacity = 255;
-					dimension_width = 428;
-					dimension_height = 89;
+					dimension_width = 400;
+					dimension_height = 88;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -602,8 +602,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 428;
-					height = 89;
+					width = 400;
+					height = 88;
 					scale_x = 0.920000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -618,8 +618,8 @@
 					v_alignment = 0;
 					color = { 102; 88; 71; };
 					opacity = 255;
-					dimension_width = 428;
-					dimension_height = 89;
+					dimension_width = 400;
+					dimension_height = 88;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -885,8 +885,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 428;
-					height = 89;
+					width = 400;
+					height = 88;
 					scale_x = 0.920000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -901,8 +901,8 @@
 					v_alignment = 0;
 					color = { 102; 88; 71; };
 					opacity = 255;
-					dimension_width = 428;
-					dimension_height = 89;
+					dimension_width = 400;
+					dimension_height = 88;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -1177,7 +1177,7 @@
 				lua_name = 'beforeLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 34;
-				text = '스킬상세정보';
+				text = '스킬 상세정보';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 243; 236; 225; };
