@@ -109,8 +109,15 @@ function UI_ReadyScene_Deck:clear_deck()
         self.m_lSettedDragonCard = {}
     end
 
+    local l_refresh_dragon_doid = clone(self.m_lDeckList)
+
     self.m_lDeckList = {}
     self.m_tDeckMap = {}
+
+    -- 드래곤 인벤의 카드 갱신을 위해 호출
+    for _,doid in  pairs(l_refresh_dragon_doid) do
+        self:refresh_dragonCard(doid)
+    end
 
     self:setFocusDeckSlotEffect(1)
 end
