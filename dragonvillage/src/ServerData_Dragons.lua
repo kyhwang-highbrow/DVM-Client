@@ -237,6 +237,40 @@ function ServerData_Dragons:isSameTypeDragon(doid1, doid2)
 end
 
 -------------------------------------
+-- function isMaxEvolution
+-- @brief 최대 진화도 드래곤인지 확인
+-------------------------------------
+function ServerData_Dragons:isMaxEvolution(dragon_object_id)
+    local t_dragon_data = self:getDragonDataFromUid(dragon_object_id)
+    local is_max_evolution = (t_dragon_data['evolution'] >= MAX_DRAGON_EVOLUTION)
+    return is_max_evolution
+end
+
+-------------------------------------
+-- function isMaxGrade
+-- @brief 최대 등급 드래곤인지 확인
+-------------------------------------
+function ServerData_Dragons:isMaxGrade(dragon_object_id)
+    local t_dragon_data = self:getDragonDataFromUid(dragon_object_id)
+    local is_max_grade = (t_dragon_data['grade'] >= MAX_DRAGON_GRADE)
+    return is_max_grade
+end
+
+-------------------------------------
+-- function canUpgrade
+-- @brief 업그레이드 가능 여부
+-------------------------------------
+function ServerData_Dragons:canUpgrade(dragon_object_id)
+    -- 최대 등급 여부
+    local is_max_grade = self:isMaxGrade(dragon_object_id)
+    
+    -- 남은 드래곤 스킬 레벨 갯수
+    local num_of_remin_skill_level = self:getNumberOfRemainingSkillLevel(dragon_object_id)
+
+    return (not is_max_grade) or (0 < num_of_remin_skill_level)
+end
+
+-------------------------------------
 -- function getDragonsSortData
 -------------------------------------
 function ServerData_Dragons:getDragonsSortData(doid)

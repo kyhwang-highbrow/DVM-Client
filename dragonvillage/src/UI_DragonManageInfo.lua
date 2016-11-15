@@ -321,8 +321,16 @@ end
 -- @brief 승급 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_upgradeBtn()
-    -- 선탠된 드래곤과 정렬 설정
     local doid = self.m_selectDragonOID
+
+    do -- 최대 친밀도인지 확인
+        if (not g_dragonsData:canUpgrade(doid)) then
+            UIManager:toastNotificationGreen(Str('최대 승급단계의 드래곤입니다.'))
+            return
+        end
+    end
+
+    -- 선탠된 드래곤과 정렬 설정
     local b_ascending_sort = self.m_dragonSortMgr.m_bAscendingSort
     local sort_type = self.m_dragonSortMgr.m_currSortType
 
@@ -358,8 +366,16 @@ end
 -- @brief 진화 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_evolutionBtn()
-    -- 선탠된 드래곤과 정렬 설정
     local doid = self.m_selectDragonOID
+
+    do -- 최대 진화도인지 확인
+        if g_dragonsData:isMaxEvolution(doid) then
+            UIManager:toastNotificationGreen(Str('최대 진화단계의 드래곤입니다.'))
+            return
+        end
+    end
+
+    -- 선탠된 드래곤과 정렬 설정
     local b_ascending_sort = self.m_dragonSortMgr.m_bAscendingSort
     local sort_type = self.m_dragonSortMgr.m_currSortType
 
