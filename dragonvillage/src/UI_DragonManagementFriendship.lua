@@ -265,6 +265,15 @@ function UI_DragonManagementFriendship:refresh_fruitListTab(attr)
     -- 정렬
     table.sort(l_fruit_list, function(a, b) return a['fid'] < b['fid'] end)
 
+    -- 보너스 여부
+    local bonus_active = false
+    if self.m_selectDragonData then
+        local t_dragon_data = self.m_selectDragonData
+        local t_dragon = TableDragon():get(t_dragon_data['did'])
+        local dragon_attr = t_dragon['attr']
+        bonus_active = (attr == dragon_attr)
+    end
+
     for i,t_fruit in ipairs(l_fruit_list) do 
         -- 열매 이미지
         vars['fruitNode' .. i]:removeAllChildren()
@@ -277,7 +286,11 @@ function UI_DragonManagementFriendship:refresh_fruitListTab(attr)
         vars['fruitLabel' .. i]:setString(comma_value(count))
 
         -- 열매 경험치
-        vars['fruitExpLabel' .. i]:setString(comma_value(t_fruit['exp']))
+        local fruit_exp = t_fruit['exp']
+        if bonus_active then
+            fruit_exp = fruit_exp * 1.5
+        end
+        vars['fruitExpLabel' .. i]:setString(comma_value(fruit_exp))
 
         -- 열매 사용 가격
         vars['fruitPrice' .. i]:setString(comma_value(t_fruit['req_gold']))
@@ -289,6 +302,9 @@ function UI_DragonManagementFriendship:refresh_fruitListTab(attr)
             self:click_fruitBtn(fid, fruit_node)
         end
         vars['fruitBtn' .. i]:registerScriptTapHandler(click_fruitBtn)
+
+        -- 보너스 화살 아이콘
+        vars['bonusUpSprite' .. i]:setVisible(bonus_active)
     end
 end
 
