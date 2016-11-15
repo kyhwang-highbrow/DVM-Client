@@ -396,6 +396,64 @@ function UI_DragonManageUpgrade:refresh_selectedMaterial()
 
     -- 가격 출력
     vars['priceLabel']:setString(comma_value(t_analyze['total_price']))
+
+    -- 선택된 재료로 인한 경험치 상승
+    self:refresh_selectedMaterialExp(t_analyze['total_exp'])
+end
+
+-------------------------------------
+-- function refresh_selectedMaterialExp
+-- @brief 선택된 재료로 인한 경험치 상승
+-------------------------------------
+function UI_DragonManageUpgrade:refresh_selectedMaterialExp(total_exp)
+    local vars = self.vars
+    
+    local t_dragon_data = self.m_selectDragonData
+
+    -- 최대 등급인지 여부
+    local is_max_grade = (t_dragon_data['grade'] >= MAX_DRAGON_GRADE)
+
+    -- 등급 테이블
+    local table_grade_info = TABLE:get('grade_info')
+    local t_grade_info = table_grade_info[t_dragon_data['grade']]
+
+    if is_max_grade then
+        return
+    end
+
+    local req_exp = t_grade_info['req_exp']
+    local curr_exp = (t_dragon_data['gexp'] + total_exp)
+
+    local percentage = (curr_exp / req_exp) * 100
+    percentage = math_clamp(percentage, 0, 100)
+
+    vars['upgradeExpLabel']:setString(Str('승급 경험치 {1}%', math_floor(percentage)))
+
+    vars['upgradeGauge1']:stopAllActions()
+    vars['upgradeGauge1']:runAction(cc.ProgressTo:create(0.3, percentage))
+
+    -- 경험치가 초과했다면
+    local remain_exp = (curr_exp - req_exp)
+    if (remain_exp <= 0) then
+        vars['upgradeGauge2']:stopAllActions()
+        vars['upgradeGauge2']:runAction(cc.ProgressTo:create(0.3, 0))
+        return
+    end
+
+    -- 다음 레벨의 경험치
+    local t_next_grade_info = table_grade_info[t_dragon_data['grade'] + 1]
+    if (not t_next_grade_info) then
+        vars['upgradeGauge2']:stopAllActions()
+        vars['upgradeGauge2']:runAction(cc.ProgressTo:create(0.3, 0))
+        return
+    end
+
+    -- 초과한 경험치 표시
+    local req_next_exp = t_next_grade_info['req_exp']
+    local percentage = (remain_exp / req_next_exp) * 100
+    vars['upgradeGauge2']:stopAllActions()
+    vars['upgradeGauge2']:runAction(cc.ProgressTo:create(0.3, percentage))
+    vars['upgradeExpLabel']:setString(Str('승급 경험치 {1}%', math_floor(100 + percentage)))
 end
 
 -------------------------------------
@@ -527,29 +585,10 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
 
         self.m_bChangeDragonList = true
 
-        do
-            local t_next_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
+        local t_next_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
 
-            -- 결과 팝업
-            if (t_prev_dragon_data['grade'] < t_next_dragon_data['grade']) then
-                UI_DragonManageUpgradeResult(t_next_dragon_data)
-
-                -- 최대 승급을 달성했을 경우(스킬까지 모두 다)
-                if (not g_dragonsData:canUpgrade(doid)) then
-                    self:close()
-                    return
-                end
-            else
-                -- 반듯이 폴리싱 할 것!
-                self.vars['upgradeVisual']:setVisible(true)
-                self.vars['upgradeVisual']:setVisual('res', 'material_frame_fx')
-                self.vars['upgradeVisual']:setRepeat(false)
-                SoundMgr:playEffect('EFFECT', 'exp_gauge')
-            end
-        end
-
-        -- UI 갱신
-        self:refresh_dragonIndivisual(doid)
+        -- 연출 시작
+        self:upgradeDirecting(doid, t_prev_dragon_data, t_next_dragon_data)
     end
 
     local ui_network = UI_Network()
@@ -560,6 +599,54 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
+end
+
+-------------------------------------
+-- function upgradeDirecting
+-- @brief 강화 연출
+-------------------------------------
+function UI_DragonManageUpgrade:upgradeDirecting(doid, t_prev_dragon_data, t_next_dragon_data)
+    local block_ui = UI_BlockPopup()
+
+    local directing_animation
+    local directing_result
+
+    -- 에니메이션 연출
+    directing_animation = function()
+        local vars = self.vars
+        vars['upgradeGauge1']:stopAllActions()
+        vars['upgradeGauge1']:setPercentage(0)
+
+        vars['upgradeGauge2']:stopAllActions()
+        vars['upgradeGauge2']:setPercentage(0)
+
+        self.vars['upgradeVisual']:setVisible(true)
+        self.vars['upgradeVisual']:setVisual('res', 'material_frame_fx')
+        self.vars['upgradeVisual']:setRepeat(false)
+        self.vars['upgradeVisual']:addAniHandler(directing_result)
+        SoundMgr:playEffect('EFFECT', 'exp_gauge')
+    end
+
+    -- 결과 연출
+    directing_result = function()
+        block_ui:close()
+
+        -- 결과 팝업
+        if (t_prev_dragon_data['grade'] < t_next_dragon_data['grade']) then
+            UI_DragonManageUpgradeResult(t_next_dragon_data)
+
+            -- 최대 승급을 달성했을 경우(스킬까지 모두 다)
+            if (not g_dragonsData:canUpgrade(doid)) then
+                self:close()
+                return
+            end
+        end
+
+        -- UI 갱신
+        self:refresh_dragonIndivisual(doid)
+    end
+
+    directing_animation()
 end
 
 -------------------------------------

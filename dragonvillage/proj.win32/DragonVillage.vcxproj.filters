@@ -1021,6 +1021,9 @@
     <None Include="..\src\DragonAutoSetHelper.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_BlockPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
