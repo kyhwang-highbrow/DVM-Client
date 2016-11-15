@@ -1021,6 +1021,9 @@
     <None Include="..\src\DragonSortManager.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\StatusEffect_Trigger_Release.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
