@@ -431,29 +431,6 @@ function UI_DragonManageUpgrade:refresh_selectedMaterialExp(total_exp)
 
     vars['upgradeGauge1']:stopAllActions()
     vars['upgradeGauge1']:runAction(cc.ProgressTo:create(0.3, percentage))
-
-    -- 경험치가 초과했다면
-    local remain_exp = (curr_exp - req_exp)
-    if (remain_exp <= 0) then
-        vars['upgradeGauge2']:stopAllActions()
-        vars['upgradeGauge2']:runAction(cc.ProgressTo:create(0.3, 0))
-        return
-    end
-
-    -- 다음 레벨의 경험치
-    local t_next_grade_info = table_grade_info[t_dragon_data['grade'] + 1]
-    if (not t_next_grade_info) then
-        vars['upgradeGauge2']:stopAllActions()
-        vars['upgradeGauge2']:runAction(cc.ProgressTo:create(0.3, 0))
-        return
-    end
-
-    -- 초과한 경험치 표시
-    local req_next_exp = t_next_grade_info['req_exp']
-    local percentage = (remain_exp / req_next_exp) * 100
-    vars['upgradeGauge2']:stopAllActions()
-    vars['upgradeGauge2']:runAction(cc.ProgressTo:create(0.3, percentage))
-    vars['upgradeExpLabel']:setString(Str('승급 경험치 {1}%', math_floor(100 + percentage)))
 end
 
 -------------------------------------
@@ -614,11 +591,6 @@ function UI_DragonManageUpgrade:upgradeDirecting(doid, t_prev_dragon_data, t_nex
     -- 에니메이션 연출
     directing_animation = function()
         local vars = self.vars
-        vars['upgradeGauge1']:stopAllActions()
-        vars['upgradeGauge1']:setPercentage(0)
-
-        vars['upgradeGauge2']:stopAllActions()
-        vars['upgradeGauge2']:setPercentage(0)
 
         self.vars['upgradeVisual']:setVisible(true)
         self.vars['upgradeVisual']:setVisual('res', 'material_frame_fx')

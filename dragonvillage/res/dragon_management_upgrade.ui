@@ -1699,8 +1699,8 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'upgradeGauge';
-				file_name = 'ui/gauge/upgarde_gg.png';
+				lua_name = 'upgradeGauge2';
+				file_name = 'ui/gauge/upgarde_gg_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -1730,7 +1730,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'upgradeGauge1';
-				file_name = 'ui/gauge/upgarde_gg_01.png';
+				file_name = 'ui/gauge/upgarde_gg_02.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -1759,8 +1759,8 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'upgradeGauge2';
-				file_name = 'ui/gauge/upgarde_gg_02.png';
+				lua_name = 'upgradeGauge';
+				file_name = 'ui/gauge/upgarde_gg.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
