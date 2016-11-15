@@ -40,7 +40,7 @@ GREAT_SKILL_CANCEL_FEVER_POINT = 25
 GOOD_SKILL_CANCEL_FEVER_POINT = 15
 
 -- #  피버모드 데미지 배율
-FEVER_ATTACK_DAMAGE_RATE = 1
+FEVER_ATTACK_DAMAGE_RATE = 0.8
 
 --------------------------------------------
 -- 각 스킬에서 공유하는 상수
