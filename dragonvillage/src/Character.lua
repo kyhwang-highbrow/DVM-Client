@@ -1510,7 +1510,7 @@ function Character:restore()
 	end
 
 	-- Visible On
-	if (not self.m_animator:isVisible()) then
+	if (self.m_animator) and (not self.m_animator:isVisible()) then
 		self.m_animator:setVisible(true)
 	end
 end

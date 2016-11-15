@@ -105,7 +105,7 @@ function SkillIndicator_HealingWind:initIndicatorNode()
         self.m_indicatorEffect01 = indicator
 
 		--@TODO 스킬 인디케이터 스케일 전면 수정 해야함
-        local scale_x = 24/36 -- (self.m_skillWidth / 360)
+        local scale_x = (self.m_skillWidth / 360)
         indicator.m_node:setScaleX(scale_x)
     end
 

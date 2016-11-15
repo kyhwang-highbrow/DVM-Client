@@ -110,6 +110,7 @@ end
 -- @brief 타겟을 못가져왔을 때 
 -------------------------------------
 function CommonMissile:getDefaultDir()
+	cclog('-- 공용탄 타겟을 못찾아 기본 발사각 0 or 180 으로 발사합니다.')
     if self.m_owner.m_bLeftFormation then   
 		return 0
     else                            
