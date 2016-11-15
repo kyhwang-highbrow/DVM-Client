@@ -7,11 +7,11 @@
 
 local alpha_test_1 = 0
 local alpha_test_2 = 300
-local pos_x_r = 710
+local pos_x_r = 740
 local pos_x_l = 570
-local pos_x_add = 100
-local pos_y = 255
-local pos_y_add = -70
+local pos_x_add = 95
+local pos_y = 240
+local pos_y_add = -68
 
 ENEMY_POS = {}
 
@@ -132,6 +132,7 @@ ENEMY_POS['TO03'] = {x=270, y=400}
 ENEMY_POS['TO04'] = {x=370, y=400}
 ENEMY_POS['TO05'] = {x=470, y=400}
 ENEMY_POS['TO06'] = {x=570, y=400}
+
 ENEMY_POS['TO07'] = {x=710, y=400}
 ENEMY_POS['TO08'] = {x=810, y=400}
 ENEMY_POS['TO09'] = {x=910, y=400}
@@ -145,6 +146,7 @@ ENEMY_POS['BO03'] = {x=270, y=-400}
 ENEMY_POS['BO04'] = {x=370, y=-400}
 ENEMY_POS['BO05'] = {x=470, y=-400}
 ENEMY_POS['BO06'] = {x=570, y=-400}
+
 ENEMY_POS['BO07'] = {x=710, y=-400}
 ENEMY_POS['BO08'] = {x=810, y=-400}
 ENEMY_POS['BO09'] = {x=910, y=-400}
