@@ -149,7 +149,9 @@ function TamerSkillSystem:click_specialSkillBtn()
     end
 
     -- 4. 스킬 실행
+    self.m_world.m_inGameUI.root:setVisible(false)
     self:dispatch('tamer_special_skill', function()
+        self.m_world.m_inGameUI.root:setVisible(true)
         self.m_world.m_tamerSkillMgr:doTamerSkill(4)
     end)
 

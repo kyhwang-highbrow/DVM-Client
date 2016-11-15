@@ -667,7 +667,9 @@ function GameState:update_success(dt)
         world:clearGold()
 
         g_adventureData:clearStage(g_gameScene.m_stageID, 1)
-        g_gameScene.m_inGameUI:doActionReverse()
+        g_gameScene.m_inGameUI:doActionReverse(function()
+            g_gameScene.m_inGameUI.root:setVisible(false)
+        end)
 
         self.m_stateParam = true
 
@@ -700,7 +702,9 @@ function GameState:update_failure(dt)
             end
         end
 
-        g_gameScene.m_inGameUI:doActionReverse()
+        g_gameScene.m_inGameUI:doActionReverse(function()
+            g_gameScene.m_inGameUI.root:setVisible(false)
+        end)
         self:makeResultUI(false)
     end
 end

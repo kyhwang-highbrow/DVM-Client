@@ -431,15 +431,12 @@ function GameWorld:init_test(deck_type)
     do
         self.m_tamerSkillSystem = TamerSkillSystem(self, t_tamer)
         self.m_tamerSkillSystem:addListener('tamer_skill', self.m_tamerSkillCut)
-        --self.m_tamerSkillSystem:addListener('tamer_skill', self.m_gameState)
         self.m_tamerSkillSystem:addListener('tamer_special_skill', self.m_tamerSkillCut)
-        --self.m_tamerSkillSystem:addListener('tamer_special_skill', self.m_gameState)
-
+        
         self:addListener('game_start', self.m_tamerSkillSystem)
         
         for _,char in pairs(self.m_lDragonList) do
             if (char.m_bLeftFormation) then
-                --char:addListener('active_skill', self.m_tamerSkillSystem)
                 char:addListener('dragon_skill', self.m_tamerSkillSystem)
                 char:addListener('character_dead', self.m_tamerSkillSystem)
             end
@@ -949,6 +946,15 @@ function GameWorld:onKeyReleased(keyCode, event)
             v:setMove(0, -240, 1500)
         end
 
+    -- 아군 다 죽이기
+    elseif (keyCode == KEY_D) then
+        for i, v in ipairs(self.m_participants) do
+            if (not v.m_bDead) then
+                v:setDead()
+                v:setEnableBody(false)
+                v:changeState('dying')
+            end
+        end
     end
 end
 

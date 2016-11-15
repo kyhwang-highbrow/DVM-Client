@@ -8,6 +8,8 @@ local GAME_FEVER_STATE_LIVE     = 2
 GameFever = class(IEventListener:getCloneClass(), {
         m_world = 'GameWorld',
         m_touchNode = 'cc.Node',
+        m_colorLayer = 'cc.LayerColor',
+
         m_bActive = 'boolean',
 
         m_activityCarrier = 'ActivityCarrier',
@@ -19,9 +21,7 @@ GameFever = class(IEventListener:getCloneClass(), {
         m_realPoint = 'number',     -- 실제 피버 게이지값
         m_stepPoint = 'number',     -- 매프레임마다의 피버 게이지값 변화량
 
-        m_colorLayer = 'cc.LayerColor',
-
-        m_totalGetPoint = 'number', -- 총 획득 포인트
+        m_tAttackOrder = 'table',   -- 아군 공격 순서
 
         -- UI
         m_feverNode = '',
@@ -69,7 +69,8 @@ function GameFever:init(world)
     self.m_curPoint = 0
     self.m_realPoint = 0
     self.m_stepPoint = 0
-    self.m_totalGetPoint = 0
+    
+    self.m_tAttackOrder = {}
 
     self:initUI()
 end
@@ -259,6 +260,8 @@ function GameFever:onStart()
     self.m_curPoint = 0
     self.m_realPoint = 0
     self.m_stepPoint = 0
+
+    self.m_tAttackOrder = {}
     
     self:changeState(GAME_FEVER_STATE_APPEAR)
 end
@@ -292,8 +295,10 @@ function GameFever:doAttack()
 
 	ShakeDir2(math_random(300, 500), math_random(300, 500))
 
-    -- 랜덤한 아군을 선택
-    local hero = world.m_participants[math_random(1, #world.m_participants)]
+    local dragon = self.m_tAttackOrder[1]
+
+    --local hero = world.m_participants[math_random(1, #world.m_participants)]
+    local hero = self:getRandomHero()
     if not hero then return end
 
     -- 랜덤한 적군을 선택
@@ -337,35 +342,31 @@ function GameFever:doAttack()
         
         local duration = animator:getDuration()
         animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
-    
-    --[[
-        local missile = Entity('res/missile/shot_normal_' .. attr .. '/shot_normal_' .. attr .. '.spine')
-        missile.m_animator:changeAni('idle', true)
-        missile:setPosition(hero.pos.x, hero.pos.y)
-        missile.m_rootNode:scheduleUpdateWithPriorityLua(function(dt)
-            local x, y = missile.m_rootNode:getPosition()
-            missile:setPosition(x, y)
-        end, 0)
-        world.m_missiledNode:addChild(missile.m_rootNode)
-        
-        local res_motion_streak = 'res/missile/motion_streak/motion_streak_line_' .. attr .. '.png'
-        missile:setMotionStreak(world.m_missiledNode, res_motion_streak)
-        
-        local bezier = {
-            cc.p(hero.pos.x, hero.pos.y),
-            cc.p((hero.pos.x + enemy.pos.x) / 2, (hero.pos.y + enemy.pos.y) / 2 + math_random(-300, 300)),
-            cc.p(enemy.pos.x, enemy.pos.y)
-        }
-
-        missile:runAction(cc.Sequence:create(
-            cc.BezierTo:create(0.2, bezier),
-            cc.CallFunc:create(function()
-                missile:release()
-            end)
-        ))
-    ]]--
     end
-    
+end
+
+-------------------------------------
+-- function getRandomHero
+-- @brief 랜덤한 아군을 선택
+-------------------------------------
+function GameFever:getRandomHero()
+    if #self.m_tAttackOrder == 0 then
+        for i, dragon in ipairs(self.m_world.m_participants) do
+            if not dragon.m_bDead then
+                table.insert(self.m_tAttackOrder, dragon)
+            end
+        end
+
+        if #self.m_tAttackOrder == 0 then return nil end
+        self.m_tAttackOrder = randomShuffle(self.m_tAttackOrder)
+    end
+
+    local hero = table.remove(self.m_tAttackOrder, 1)
+    if hero and hero.m_bDead then
+        hero = self:getRandomHero()
+    end
+
+    return hero
 end
 
 -------------------------------------
@@ -403,20 +404,13 @@ end
 -- function showNoti
 -------------------------------------
 function GameFever:showNoti(point)
-    if self.m_skillCancelVisual.m_node:isEndAnimation() then
-        self.m_totalGetPoint = 0
-
-        self.m_skillCancelVisual:registerScriptLoopHandler(function()
-            self.m_skillCancelVisual:setVisible(false)
-        end)
-    end
-
-    self.m_skillCancelVisual:setVisible(true)
     self.m_skillCancelVisual.m_node:setFrame(0)
+    self.m_skillCancelVisual:setVisible(true)
+    self.m_skillCancelVisual:registerScriptLoopHandler(function()
+        self.m_skillCancelVisual:setVisible(false)
+    end)
 
-    self.m_totalGetPoint = self.m_totalGetPoint + point
-
-    self.m_notiLabel2:setString(Str('+{1}%', self.m_totalGetPoint))
+    self.m_notiLabel2:setString(Str('+{1}%', point))
 
     -- 획득 포인트에 따른 연출
     if point >= PERFECT_SKILL_CANCEL_FEVER_POINT then
