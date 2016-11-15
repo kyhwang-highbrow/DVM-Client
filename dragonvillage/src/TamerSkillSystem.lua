@@ -99,7 +99,7 @@ function TamerSkillSystem:initTamerSpecialSkillBtn()
 	local visual = ui.vars['specialSkillVisual']
 	visual:setVisible(true)
 
-	-- 시작 연출
+	-- 시작 연출 @TODO 수정해야함.. 
 	local delay = cc.DelayTime:create(8)
 	local cbFunction = function()
 		visual:setVisual('skill_charging', 'special')

@@ -88,11 +88,10 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 	    local l_target = self:getTargetList(t_skill)
 
 		-- 2. 상태효과 문자열(;로 구분)
-		local status_effect_str = t_skill['status_effect_1']
+		local status_effect_str = {t_skill['status_effect_1'], t_skill['status_effect_2']}
 
         -- 3. 타겟에 상태효과생성
 		StatusEffectHelper:doStatusEffectByStr(self, l_target, status_effect_str)
-
         return true
 
     -- 코드형 스킬
