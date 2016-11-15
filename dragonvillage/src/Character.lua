@@ -819,7 +819,7 @@ function Character:setHp(hp)
 
         if self.m_hpGauge2 then
             local prev_percentage = self.m_hpGauge2:getPercentage()
-            self.m_stepHpGauge2 = (percentage - prev_percentage) / 2
+            self.m_stepHpGauge2 = percentage - prev_percentage
         end
     end
 
