@@ -889,13 +889,7 @@
     <None Include="..\src\UI_GamePause.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_GameResult.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_GameResultNew.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_GameRewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_GuidePopup.lua">

@@ -533,9 +533,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_Game.lua" />
     <None Include="..\src\UI_GameDebug.lua" />
     <None Include="..\src\UI_GamePause.lua" />
-    <None Include="..\src\UI_GameResult.lua" />
     <None Include="..\src\UI_GameResultNew.lua" />
-    <None Include="..\src\UI_GameRewardPopup.lua" />
     <None Include="..\src\UI_GuidePopup.lua" />
     <None Include="..\src\UI_IngameDragonInfo.lua" />
     <None Include="..\src\UI_IngameUnitInfo.lua" />
