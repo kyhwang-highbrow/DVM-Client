@@ -19,6 +19,7 @@ GameFever = class(IEventListener:getCloneClass(), {
         m_realPoint = 'number',     -- 실제 피버 게이지값
         m_stepPoint = 'number',     -- 매프레임마다의 피버 게이지값 변화량
 
+        m_colorLayer = 'cc.LayerColor',
 
         -- UI
         m_feverNode = '',
@@ -40,6 +41,16 @@ function GameFever:init(world)
     world.m_worldLayer:addChild(self.m_touchNode)
 
     self:makeTouchLayer(self.m_touchNode)
+
+    -- 암전
+    self.m_colorLayer = cc.LayerColor:create()
+    self.m_colorLayer:setColor(cc.c3b(0, 0, 0))
+    self.m_colorLayer:setOpacity(100)
+    self.m_colorLayer:setAnchorPoint(cc.p(0.5, 0.5))
+    self.m_colorLayer:setDockPoint(cc.p(0, 0.5))
+    self.m_colorLayer:setNormalSize(4000, 2000)
+    self.m_colorLayer:setVisible(false)
+    world.m_bgNode:addChild(self.m_colorLayer, 1)
     
     -- 집중선 비주얼
     local bgVisual = MakeAnimator('res/effect/effect_fever/effect_fever.vrp')
@@ -117,6 +128,7 @@ function GameFever:update(dt)
 
     end
 
+    self.m_colorLayer:setVisible(self.m_bActive)
     self.m_feverNode:setVisible(self.m_state == GAME_FEVER_STATE_CHARGING or self.m_state == GAME_FEVER_STATE_APPEAR)
     
     return false
@@ -252,6 +264,7 @@ function GameFever:doAttack()
     self.m_activityCarrier = hero:makeAttackDamageInstance()
     self.m_activityCarrier.m_attackType = 'fever'
     self.m_activityCarrier.m_bIgnoreDef = true
+    self.m_activityCarrier.m_attribute = ATTR_NONE
 
     -- 공격
 	hero:runAtkCallback(enemy, enemy.pos.x, enemy.pos.y)

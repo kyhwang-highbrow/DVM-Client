@@ -128,6 +128,7 @@ end
 -- @return number 1=상성, 0=무상성, -1역상성
 -------------------------------------
 function getCounterAttribute(attr1, attr2)
+    if (attr1 == nil or attr2 == nil) then return 0 end
     if (not t_attr_synastry) then
         initAttributeSynastry()
     end
