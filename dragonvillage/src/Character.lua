@@ -42,6 +42,7 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         -- @hp UI
         m_hpNode = '',
         m_hpGauge = '',
+        m_hpGauge2 = '',
         m_hpUIOffset = '',
 
         -- @casting UI
@@ -871,6 +872,7 @@ function Character:makeHPGauge(hp_ui_offset)
     self.m_hpNode:setAnchorPoint(cc.p(0.5, 0.5))
 
     self.m_hpGauge = ui.vars['hpGauge']
+    self.m_hpGauge2 = ui.vars['hpGauge2']
 
     self.m_world.m_worldNode:addChild(self.m_hpNode, 5)
     
@@ -989,6 +991,18 @@ function Character:update(dt)
 
     self:updateMove(dt)
 	self:updateStatusIcon(dt)
+
+    if self.m_hpGauge2 then
+        local realValue = self.m_hpGauge:getPercentage()
+        local value = self.m_hpGauge2:getPercentage()
+        
+        if realValue > value then       value = value + 1
+        elseif realValue < value then   value = value - 1
+        end
+
+        self.m_hpGauge2:setPercentage(value)
+    end
+
     return Entity.update(self, dt)
 end
 

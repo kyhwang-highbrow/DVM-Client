@@ -487,6 +487,7 @@ function Hero:makeHPGauge(hp_ui_offset)
     self.m_hpNode:setAnchorPoint(cc.p(0.5, 0.5))
 
     self.m_hpGauge = ui.vars['hpGauge']
+    self.m_hpGauge2 = ui.vars['hpGauge2']
 
     self.m_castingNode = ui.vars['atkGauge']
     --self.m_castingGauge = ui.vars['atkGauge']

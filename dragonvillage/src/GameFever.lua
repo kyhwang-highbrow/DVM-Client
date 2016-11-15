@@ -451,6 +451,6 @@ function GameFever:onEvent(event_name, ...)
         end
 
         self:addFeverPoint(point)
-        self:showNoti(point)
+        --self:showNoti(point)
     end
 end
