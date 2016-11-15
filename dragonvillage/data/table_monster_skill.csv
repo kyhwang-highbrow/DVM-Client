@@ -37,12 +37,12 @@
 230036,script,skill_missile_bossshot_01,보스샷,x,x,x,attack,instant,magical,-2,basic_turn,10,enemy_distance_line,5,atk,10,1,0,0,0,0,0,x,x,x,0,x,x
 230042,script,skill_missile_bossshot_02,보스샷,x,x,x,skill_2,instant,magical,-2,basic_turn,10,enemy_distance_line,5,atk,20,1,0,0,0,0,0,x,x,x,0,x,x
 230046,script,skill_missile_bossshot_03,보스샷,x,x,x,skill_2,instant,magical,-2,basic_turn,10,enemy_distance_line,5,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
-231000,script,skill_elite_0,엘리트_0,res/missile/missile_arrow/missile_arrow.png,x,x,skill_1,instant,physical,-1,basic_turn,3,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
-231001,script,skill_elite_1,엘리트_1,res/missile/missile_arrow/missile_arrow.png,x,x,skill_1,instant,physical,-1,basic_turn,3,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
-231002,script,skill_elite_2,엘리트_2,res/missile/missile_arrow/missile_arrow.png,x,x,skill_1,instant,physical,-1,basic_turn,3,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
-231003,script,skill_elite_3,엘리트_3,res/missile/missile_arrow/missile_arrow.png,x,x,skill_2,instant,physical,-1,basic_turn,3,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
-231004,script,skill_elite_4,엘리트_4,res/missile/missile_arrow/missile_arrow.png,x,x,skill_1,instant,physical,-1,basic_turn,3,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
-231005,script,skill_elite_5,엘리트_5,res/missile/missile_arrow/missile_arrow.png,x,x,skill_1,instant,physical,-1,basic_turn,3,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
+231000,script,skill_elite_0,엘리트_0,res/missile/missile_arrow/missile_arrow.png,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
+231001,script,skill_elite_1,엘리트_1,res/missile/missile_arrow/missile_arrow.png,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
+231002,script,skill_elite_2,엘리트_2,res/missile/missile_arrow/missile_arrow.png,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
+231003,script,skill_elite_3,엘리트_3,res/missile/missile_arrow/missile_arrow.png,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
+231004,script,skill_elite_4,엘리트_4,res/missile/missile_arrow/missile_arrow.png,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
+231005,script,skill_elite_5,엘리트_5,res/missile/missile_arrow/missile_arrow.png,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
 232011,script,skill_subboss_mushqueen_1,여왕버섯,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
 232012,script,skill_subboss_mushqueen_2,여왕버섯,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
 232013,script,skill_subboss_mushqueen_3,여왕버섯,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
@@ -73,6 +73,6 @@
 230039,script,skill_bounce,글레이브,res/missile/missile_glave_fire/missile_glave_fire.spine,res/missile/motion_streak/motion_streak_line_@.png,x,skill_1,instant,physical,-1,basic_turn,3,enemy_distance_line,2,atk,200,1,0,0,0,0,0,x,x,x,0,x,직선으로 이동하는 원거리 공격
 230040,code,skill_melee_atk,쪼기,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,30,1,5000,10000,0,0,0,x,x,x,0,x,캐릭터가 직접 대상 앞으로 이동하여 공격한다(공격 모션 필요). 공격이 끝나면 제 자리로 돌아온다.
 230041,script,skill_missile_feather,깃털 날리기,res/missile/missile_feather/missile_feather.png,res/missile/motion_streak/motion_streak_line_@.png,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,70,1,0,0,0,0,0,x,x,x,0,x,
-230045,status_effect,skill_buff,회피율 증가,x,x,x,x,instant,x,-1,basic_turn,3,self,3,x,0,1,0,0,0,0,0,x,avoid_up;target;10:100:50,x,0,x,자신에게 회피율 증가 50% 버프
-230043,code,missile_move_high_angle	,바위 투척,res/missile/missile_ball/missile_ball_@.vrp,x,x,x,instant,magical,-1,basic_turn,4,enemy_distance_line,4,atk,300,1,200,20,0,500,100,blind,stun;target;5;100;100,x,0,x,
+230045,status_effect,skill_buff,회피율 증가,x,x,x,x,instant,x,-1,basic_turn,3,self,3,x,0,1,0,0,0,0,0,x,avoid_up;target;10;100;185,x,0,x,자신에게 회피율 증가 버프
+230043,code,missile_move_high_angle	,바위 투척,res/missile/missile_ball/missile_ball_@.vrp,x,x,x,instant,magical,-1,basic_turn,4,enemy_distance_line,4,atk,300,1,200,20,0,500,100,stun,stun;target;5;100;100,x,0,x,
 230044,code,missile_move_high_angle	,도토리 발사,res/missile/missile_nut/missile_nut.png,res/missile/motion_streak/motion_streak_blade.png,x,x,instant,physical,-1,basic_turn,3,enemy_distance_line,3,atk,100,4,100,0,0,0,0,x,x,x,0,x,곡선으로 이동하는 원거리 공격

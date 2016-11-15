@@ -201,7 +201,7 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 25.000000;
+				y = 27.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -214,9 +214,9 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/mini_bg_07.png';
-				color = { 228; 220; 209; };
-				opacity = 255;
+				file_name = 'ui/frame/mini_bg_11.png';
+				color = { 199; 188; 179; };
+				opacity = 150;
 				center_rect_x = 0;
 				center_rect_y = 0;
 				center_rect_width = 0;
@@ -227,7 +227,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = 24.000000;
+				y = 26.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1739,8 +1739,8 @@
 			type = 'Button';
 			ui_name = '';
 			x = 427.000000;
-			y = -302.000000;
-			dock_point = { 0.500000; 0.500000; };
+			y = 58.000000;
+			dock_point = { 0.500000; 0.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 334;
@@ -1803,8 +1803,8 @@
 			type = 'Button';
 			ui_name = '';
 			x = 161.000000;
-			y = -302.000000;
-			dock_point = { 0.500000; 0.500000; };
+			y = 58.000000;
+			dock_point = { 0.500000; 0.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 172;
@@ -1867,8 +1867,8 @@
 			type = 'Button';
 			ui_name = '';
 			x = -303.000000;
-			y = -217.000000;
-			dock_point = { 0.500000; 0.500000; };
+			y = 143.000000;
+			dock_point = { 0.500000; 0.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 128;
@@ -1892,22 +1892,22 @@
 			{
 				type = 'Scale9Sprite';
 				ui_name = '';
-				x = 0.000000;
+				x = 40.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 630;
-				height = 96;
+				width = 96;
+				height = 550;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
-				rotation = 0.000000;
+				rotation = 90.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/mini_bg_10.png';
-				color = { 243; 236; 225; };
+				file_name = 'ui/frame/mini_bg_11.png';
+				color = { 199; 188; 179; };
 				opacity = 255;
 				center_rect_x = 0;
 				center_rect_y = 0;
@@ -1916,6 +1916,32 @@
 			};
 			[2] =
 			{
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = 45.000000;
+				y = 0.000000;
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 96;
+				height = 80;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = -90.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frame/mini_bg_11.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
+			[3] =
+			{
 				type = 'Node';
 				ui_name = '';
 				x = 40.000000;
@@ -1923,7 +1949,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 535;
+				width = 537;
 				height = 100;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -1933,7 +1959,7 @@
 				visible = true;
 				lua_name = 'enemyListView';
 			};
-			[3] =
+			[4] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -1976,8 +2002,8 @@
 			type = 'Scale9Sprite';
 			ui_name = '';
 			x = -303.000000;
-			y = -300.000000;
-			dock_point = { 0.500000; 0.500000; };
+			y = 60.000000;
+			dock_point = { 0.500000; 0.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 640;
@@ -1989,7 +2015,7 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'ui/frame/mini_bg_06.png';
+			file_name = 'ui/frame/mini_bg_07.png';
 			color = { 102; 88; 71; };
 			opacity = 255;
 			center_rect_x = 0;
