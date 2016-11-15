@@ -116,6 +116,22 @@ function UI_ReadyScene:refresh()
             vars['actingPowerLabel']:setString(cost_value)
         end
     end
+
+    do -- 상성에 좋은 속성 아이콘 출력
+        local table_drop = TABLE:get('drop')
+        local t_drop = table_drop[stage_id]
+        local stage_attr = t_drop['attr']
+        local l_attr = getAttrDisadvantageList(stage_attr)        
+
+        for i,v in ipairs(l_attr) do
+            local node = vars['advNode' .. i]
+
+            if node then
+                local icon = IconHelper:getAttributeIcon(v)
+                node:addChild(icon)
+            end
+        end
+    end
 end
 
 -------------------------------------
