@@ -256,7 +256,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	local status_effect = nil
 
 	------------ 힐 --------------------------
-    if isExistValue(status_effect_type, 'passive_recovery', 'heal', 'heal_per_atk') then
+    if isExistValue(status_effect_type, 'passive_recovery', 'heal', 'heal_per_atk', 'tamer_heal') then
         status_effect = StatusEffect_Heal(res)
 		status_effect:init_heal(char, t_status_effect, status_effect_value, duration)
 
