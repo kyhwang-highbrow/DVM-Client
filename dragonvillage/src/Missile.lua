@@ -1,3 +1,5 @@
+local PARENT = Entity
+
 MISSILE_TYPE = {}
 MISSILE_TYPE['NORMAL'] = 1
 MISSILE_TYPE['normal'] = 1
@@ -15,7 +17,7 @@ SIZE_UP_SCALE = (10-1)
 -------------------------------------
 -- class Missile
 -------------------------------------
-Missile = class(Entity, {
+Missile = class(PARENT, {
         m_owner = '',
         m_afterimageMove = '',
         m_bAfterimage = 'boolean',
@@ -568,6 +570,18 @@ function Missile:fireAddScriptMissile()
 
     -- 미사일의 파워 비율
     missile_launcher.m_powerRate = self.m_activityCarrier.m_skillCoefficient
+end
+
+-------------------------------------
+-- function release
+-- @brief
+-------------------------------------
+function Missile:release()
+	if self.m_world then
+		self.m_world.m_lMissileList[self] = nil
+	end
+
+	PARENT.release(self)
 end
 
 -------------------------------------

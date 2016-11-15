@@ -181,17 +181,27 @@ function MissileLua.lua_angle(owner)
     local target_x = (pos_x - 640)
     local target_y = (pos_y - 50)
     
-	-- table에서 받아오는 값
-	local height = owner.m_value1
-
-	-- 폭발 콜백
-	local cbFunction = cc.CallFunc:create(owner.m_value2)
-
     local loop = 1
     if (owner.m_target) then
         target_x = owner.m_target.m_homePosX
         target_y = owner.m_target.m_homePosY
     end
+
+	-- table에서 받아오는 값
+	local height = owner.m_value1
+	local explosion_res = owner.m_value2
+	local explosion_size = owner.m_value3
+	local power_rate = owner.m_value4
+
+	-- 폭발 콜백
+	local cbFunction = cc.CallFunc:create(function()
+	if (explosion_res == 'x') then
+			explosion_res = nil
+		end
+		local attr = owner.m_owner.m_charTable['attr'] or ''
+		owner.m_world.m_missileFactory:makeInstantMissile(explosion_res, 'center_idle', target_x, target_y, explosion_size, owner, {attr_name = attr})
+		owner:changeState('dying')	
+	end)
 
     local action = cc.JumpTo:create(duration, cc.p(target_x, target_y), height, loop)
     owner.m_rootNode:runAction(cc.Sequence:create(action, cbFunction))

@@ -18,6 +18,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         m_lUnitList = 'list',
 		m_lSkillList = 'table',
+		m_lMissileList = 'table',
         m_tEnemyList = 'EnemyList',
 
         m_physWorld = 'PhysWorld',
@@ -127,6 +128,7 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
 
     self.m_lUnitList = {}
 	self.m_lSkillList = {}
+	self.m_lMissileList = {}
     self.m_tEnemyList = {}
 
     self.m_physWorld = PhysWorld(self.m_gameNode1, false)
@@ -303,6 +305,16 @@ end
 function GameWorld:addToSkillList(skill)
     self.m_lSkillList[skill] = skill
 	self:addToUnitList(skill)
+end
+
+-------------------------------------
+-- function addToMissileList
+-- @param Missile, CommonMissile
+-- @brief skill list와 동일
+-------------------------------------
+function GameWorld:addToMissileList(missile)
+    self.m_lMissileList[missile] = missile
+	self:addToUnitList(missile)
 end
 
 -------------------------------------
@@ -487,7 +499,7 @@ end
 -------------------------------------
 function GameWorld:addMissile(missile, object_key)
     self.m_missiledNode:addChild(missile.m_rootNode)
-    self:addToUnitList(missile)
+    self:addToMissileList(missile)
     self.m_physWorld:addObject(object_key, missile)
 end
 
@@ -915,10 +927,28 @@ function GameWorld:onKeyReleased(keyCode, event)
         
 	-- 스킬 다 죽이기
 	elseif (keyCode == KEY_K) then    
-		cclog('KILL SKILL ALL')
+		local count = 1
         for _, skill in pairs(self.m_lSkillList) do
 			skill:changeState('dying')
+			count = count + 1
 		end
+		cclog('KILL SKILL ALL - Count : ' .. count)
+
+	-- 미사일 없애기
+	elseif (keyCode == KEY_L) then    
+		local count = 1
+		for _, missile in pairs(self.m_lMissileList) do
+			missile:changeState('dying')
+			count = count + 1
+		end
+		cclog('KILL MISSILE ALL - Count : ' .. count)
+
+	-- 강제 위치 이동
+	elseif (keyCode == KEY_A) then    
+        for i,v in ipairs(self.m_participants) do
+            v:setMove(0, -240, 1500)
+        end
+
     end
 end
 

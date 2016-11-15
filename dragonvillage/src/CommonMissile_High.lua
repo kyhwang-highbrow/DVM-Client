@@ -40,7 +40,7 @@ function CommonMissile_High:setMissile()
     t_option['pos_x'] = self.m_attackPos.x
     t_option['pos_y'] = self.m_attackPos.y
 
-	self.m_activityCarrier.m_skillCoefficient = 0	-- high angle 탄은 미사일이 데미지를 주지 않는다.
+	--self.m_activityCarrier.m_skillCoefficient = 0	-- high angle 탄은 미사일이 데미지를 주지 않는다.
     t_option['attack_damage'] = self.m_activityCarrier
 	t_option['bFixedAttack'] = true
 
@@ -75,20 +75,13 @@ function CommonMissile_High:setMissile()
 
     t_option['lua_param'] = {}
     t_option['lua_param']['value1'] = self.m_jumpHeight
+	t_option['lua_param']['value2'] = self.m_explosionRes
+	t_option['lua_param']['value3'] = self.m_explosionSize
+	t_option['lua_param']['value4'] = self.m_powerRate
 
 	-----------------------------------------------------------------------------------
 
 	-- t_option['cbFunction']은 atkCallback으로 충돌해야 발생하므로 도착하자마자 터지도록 추가 액션을 넣는다.
-	t_option['lua_param']['value2'] = function() 
-		if (self.m_explosionRes == 'x') then
-			self.m_explosionRes = nil
-		end
-		local attr = self.m_owner.m_charTable['attr'] or ''
-		self.m_activityCarrier.m_skillCoefficient = (self.m_powerRate / 100) -- 폭발 시점에서 데미지 전달
-		self.m_owner.m_activityCarrier = self.m_activityCarrier
-		self.m_owner.m_world.m_missileFactory:makeInstantMissile(self.m_explosionRes, 'center_idle', self.m_target.m_homePosX, self.m_target.m_homePosY, self.m_explosionSize, self.m_owner, {attr_name = attr})
-		self:changeState('dying')
-	end
 
 	self.m_missileOption = t_option
 end
