@@ -101,6 +101,10 @@ function UI_DragonManage_Base:setSelectDragonData(dragon_object_id, b_force)
         return
     end
 
+    if (not self:checkDragonSelect(dragon_object_id)) then
+        return
+    end
+
     -- 선택된 드래곤의 데이터를 최신으로 갱신
     self.m_selectDragonOID = dragon_object_id
     self.m_selectDragonData = g_dragonsData:getDragonDataFromUid(dragon_object_id)
@@ -197,6 +201,7 @@ function UI_DragonManage_Base:init_dragonTableView()
 
     -- 생성
     local function create_func(item)
+        self:reateDragonCardCB(item)
         local ui = item['ui']
         ui.root:setScale(0.7)
 
@@ -232,6 +237,22 @@ function UI_DragonManage_Base:init_dragonTableView()
     table_view_ext:sortTableView('default')
 
     self.m_tableViewExt = table_view_ext
+end
+
+-------------------------------------
+-- function reateDragonCardCB
+-- @brief 드래곤 생성 콜백
+-------------------------------------
+function UI_DragonManage_Base:reateDragonCardCB(item)
+
+end
+
+-------------------------------------
+-- function checkDragonSelect
+-- @brief 선택이 가능한 드래곤인지 여부
+-------------------------------------
+function UI_DragonManage_Base:checkDragonSelect(doid)
+    return true
 end
 
 --@CHECK

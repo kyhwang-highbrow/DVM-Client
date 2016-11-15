@@ -355,5 +355,33 @@ function UI_DragonManagementEvolution:click_exitBtn()
     self:close()
 end
 
+-------------------------------------
+-- function reateDragonCardCB
+-- @brief 드래곤 생성 콜백
+-------------------------------------
+function UI_DragonManagementEvolution:reateDragonCardCB(item)
+    local ui = item['ui']
+    local data = item['data']
+    local doid = data['id']
+
+    if g_dragonsData:isMaxEvolution(doid) then
+        if ui then
+            ui.vars['shadowSprite']:setVisible(true)
+        end
+    end
+end
+
+-------------------------------------
+-- function checkDragonSelect
+-- @brief 선택이 가능한 드래곤인지 여부
+-------------------------------------
+function UI_DragonManagementEvolution:checkDragonSelect(doid)
+    if g_dragonsData:isMaxEvolution(doid) then
+        UIManager:toastNotificationGreen(Str('최대 진화단계의 드래곤입니다.'))
+        return false
+    end
+    return true
+end
+
 --@CHECK
 UI:checkCompileError(UI_DragonManagementEvolution)
