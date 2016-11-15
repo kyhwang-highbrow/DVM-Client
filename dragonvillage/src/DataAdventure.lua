@@ -306,6 +306,31 @@ function getPrevStageID(stage_id)
 end
 
 -------------------------------------
+-- function getNextStageID
+-- @brief
+-------------------------------------
+function DataAdventure:getNextStageID(stage_id)
+    local difficulty, chapter, stage = parseAdventureID(stage_id)
+
+    if (stage < MAX_ADVENTURE_STAGE) then
+        local next_stage_id = makeAdventureID(difficulty, chapter, stage + 1)
+        return next_stage_id
+    end
+
+    if (1 == difficulty) and (chapter < MAX_ADVENTURE_CHAPTER) then
+        local next_stage_id = makeAdventureID(difficulty, chapter + 1, 1)
+        return next_stage_id
+    end
+
+    if (1 < difficulty) then
+        local next_stage_id = makeAdventureID(difficulty + 1, chapter, 1)
+        return next_stage_id
+    end
+
+    return nil
+end
+
+-------------------------------------
 -- function allStageClear
 -- @TEST
 -- stage_id
@@ -338,6 +363,16 @@ function DataAdventure:allStageClear()
 	self.m_userData:setDirtyLocalSaveData(true)
 end
 
+
+-------------------------------------
+-- function setFocusStage
+-- @brief
+-------------------------------------
+function DataAdventure:setFocusStage(stage_id)
+   -- 마지막에 진입한 스테이지 저장
+    self.m_tData['last_stage'] = stage_id
+    g_userDataOld:setDirtyLocalSaveData(true)
+end
 
 -------------------------------------------------------------------------------------------------------------------
 -- 최초 클리어 보상 관련 start

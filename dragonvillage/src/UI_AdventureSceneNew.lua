@@ -50,8 +50,9 @@ function UI_AdventureSceneNew:init()
     self:makeShipObject()
 
     -- 마지막에 진입한 챕터로 진입
-    local last_chapter = g_adventureData.m_tData['last_chapter'] or 1
-    self:refreshChapter(last_chapter, 1)
+    local last_stage = g_adventureData.m_tData['last_stage']
+    local difficulty, chapter, stage = parseAdventureID(last_stage)
+    self:refreshChapter(chapter, difficulty, stage)
 end
 
 -------------------------------------
@@ -162,7 +163,7 @@ end
 -------------------------------------
 function UI_AdventureSceneNew:click_selectBtn()
     local ui = UI_AdventureChapterSelectPopup(self.m_currChapter)
-    ui.m_cbFunction = function(chapter, difficulty) self:refreshChapter(chapter, difficulty, true) end
+    ui.m_cbFunction = function(chapter, difficulty) self:refreshChapter(chapter, difficulty, nil, true) end
 end
 
 -------------------------------------
@@ -178,7 +179,7 @@ function UI_AdventureSceneNew:click_selectDifficultyBtn(difficulty)
     local force = false
 
     if g_adventureData:isOpenChapter(difficulty, chapter) then  
-        self:refreshChapter(chapter, difficulty, force)
+        self:refreshChapter(chapter, difficulty, nil, force)
     else
         UIManager:toastNotificationRed(Str('이전 난이도를 먼저 클리어하세요!'))
     end
@@ -188,7 +189,7 @@ end
 -- function refreshChapter
 -- @breif 챕터 변경
 -------------------------------------
-function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, force)
+function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
     if (not force) and (self.m_currChapter == chapter) and (self.m_currDifficulty == difficulty) then
         return
     end
@@ -231,8 +232,14 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, force)
 
     do -- 진입 가능한 스테이지 저장
         local t_ret, focus_stage = g_adventureData:getStageScoreList(self.m_currDifficulty, chapter)
-        self:focusStageButton(focus_stage, true)
         self.m_openStage = focus_stage
+
+        if stage and g_adventureData:isOpenStage(makeAdventureID(self.m_currDifficulty, chapter, stage)) then
+            self:focusStageButton(stage, true, true)
+        else
+            self:focusStageButton(focus_stage, true, true)
+            stage = focus_stage
+        end
     end
 
     -- 말풍선
@@ -244,13 +251,13 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, force)
     --vars['nextBtn']:setEnabled(chapter < MAX_ADVENTURE_CHAPTER)
     vars['nextBtn']:setVisible(chapter < MAX_ADVENTURE_CHAPTER)
 
-
-    -- 마지막에 진입한 챕터 저장
-    g_adventureData.m_tData['last_chapter'] = chapter
-    g_userDataOld:setDirtyLocalSaveData(true)
-
     -- 난이도 버튼
     self:refresh_difficultyButtons()
+
+    do -- 마지막에 진입한 스테이지 저장
+        local stage_id = makeAdventureID(self.m_currDifficulty, chapter, stage)
+        g_adventureData:setFocusStage(stage_id)
+    end
 end
 
 -------------------------------------
@@ -334,15 +341,10 @@ end
 -------------------------------------
 -- function focusStageButton
 -------------------------------------
-function UI_AdventureSceneNew:focusStageButton(idx, immediately)
-    if (self.m_focusStageIdx == idx) then
+function UI_AdventureSceneNew:focusStageButton(idx, immediately, b_force)
+    if (not b_force) and (self.m_focusStageIdx == idx) then
         return
     end
-
-    local difficulty = 1
-    local chapter = self.m_currChapter
-    local stage = idx
-    local stage_id = makeAdventureID(difficulty, chapter, stage)
 
     local prev_btn = self.m_lStageButton[self.m_focusStageIdx]
     if prev_btn then
@@ -366,6 +368,11 @@ function UI_AdventureSceneNew:focusStageButton(idx, immediately)
     end
 
     self.m_focusStageIdx = idx
+
+    do -- 마지막에 진입한 스테이지 저장
+        local stage_id = makeAdventureID(self.m_currDifficulty, self.m_currChapter, idx)
+        g_adventureData:setFocusStage(stage_id)
+    end
 end
 
 -------------------------------------

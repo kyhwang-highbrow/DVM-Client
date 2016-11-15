@@ -28,6 +28,7 @@ UI_GameResultNew = class(UI, {
 -- @param body
 -------------------------------------
 function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list)
+    self.m_stageID = stage_id
     self.m_bSuccess = is_success
     self.m_time = time
     self.m_gold = gold
@@ -484,6 +485,13 @@ end
 -- function click_nextBtn
 -------------------------------------
 function UI_GameResultNew:click_nextBtn()
+    -- 다음 스테이지 ID 지정
+    local stage_id = self.m_stageID
+    local next_stage_id = g_adventureData:getNextStageID(stage_id)
+    if next_stage_id then
+        g_adventureData:setFocusStage(next_stage_id)
+    end
+
     local scene = SceneAdventure()
     scene:runScene()
 end
