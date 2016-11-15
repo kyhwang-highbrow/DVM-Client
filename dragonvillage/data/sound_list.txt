@@ -8,6 +8,7 @@
 			"res_mid":	"sound/bgm/bgm_title.mp3"
 			"res_low":	"sound/bgm/bgm_title.mp3"
 		},
+        "bgm_intro":   {"res":"sound/bgm/bgm_intro.mp3"}
 		"bgm_battle":   {"res":"sound/bgm/bgm_battle.mp3"}
 		"bgm_boss":   	{"res":"sound/bgm/bgm_boss.mp3"}
 		"result_success":{"res":"sound/bgm/result_success.mp3"}
@@ -37,6 +38,7 @@
 		"skill_ready":   		{"res":"sound/skill_ready.mp3"}
 		"skill_tamer_basic":   	{"res":"sound/skill_tamer_basic.mp3"}
 		"skill_tamer_special":  {"res":"sound/skill_tamer_special.mp3"}
+        "skill_tamer_special_2":  {"res":"sound/skill_tamer_special_2.mp3"}
 		
 		"boss_warning":   		{"res":"sound/boss_warning.mp3"}
 		"dragon_levelup":   	{"res":"sound/dragon_levelup.mp3"}
@@ -52,6 +54,8 @@
 		"success_friendship":   {"res":"sound/success_friendship.mp3"}
 		"touch_basic":   		{"res":"sound/touch_basic.mp3"}
 		"reward":   			{"res":"sound/reward.mp3"}
+        "summon":   			{"res":"sound/summon.mp3"}
+        "exp_gauge":   			{"res":"sound/exp_gauge.mp3"}
 	},
 	
 	"VOICE":
@@ -59,5 +63,6 @@
 		"vo_tamer_basic":   	{"res":"sound/voice/vo_tamer_basic.mp3"}
 		"vo_tamer_special":   	{"res":"sound/voice/vo_tamer_special.mp3"}
 		"vo_tamer_fever":   	{"res":"sound/voice/vo_tamer_fever.mp3"}
+        "vo_tamer_start":   	{"res":"sound/voice/vo_tamer_start.mp3"}
 	}
 }

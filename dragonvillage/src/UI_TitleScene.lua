@@ -149,6 +149,8 @@ end
 function UI_TitleScene:workTitleAni()
     local vars = self.vars
 
+    SoundMgr:playBGM('bgm_intro')
+
     local function ani_handler()
         vars['animator']:changeAni('04_title_idle', true)
         self:doNextWork()

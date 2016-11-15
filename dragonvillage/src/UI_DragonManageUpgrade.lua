@@ -541,6 +541,7 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
                 self.vars['upgradeVisual']:setVisible(true)
                 self.vars['upgradeVisual']:setVisual('res', 'material_frame_fx')
                 self.vars['upgradeVisual']:setRepeat(false)
+                SoundMgr:playEffect('EFFECT', 'exp_gauge')
             end
         end
     end
