@@ -57,7 +57,7 @@ function UI_ReadyScene:init(stage_id)
     self.m_readySceneDeck = UI_ReadyScene_Deck(self)
 
     do -- 정렬 도우미
-        self.m_dragonSortMgr = DragonSortManager(self.vars, self.m_tableViewExt)
+        self.m_dragonSortMgr = DragonSortManagerReady(self.vars, self.m_tableViewExt)
 
         local function func(doid)
             return self.m_readySceneDeck.m_tDeckMap[doid]
@@ -207,7 +207,7 @@ function UI_ReadyScene:click_manageBtn()
                 self.m_readySceneDeck:init_deck()
 
                 do -- 정렬 도우미
-                    self.m_dragonSortMgr = DragonSortManager(self.vars, self.m_tableViewExt)
+                    self.m_dragonSortMgr = DragonSortManagerReady(self.vars, self.m_tableViewExt)
 
                     local function func(doid)
                         return self.m_readySceneDeck.m_tDeckMap[doid]

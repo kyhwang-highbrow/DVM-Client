@@ -8,6 +8,8 @@ UI_DragonManageUpgrade = class(PARENT,{
         m_bChangeDragonList = 'boolean',
         m_tableViewExtMaterial = 'TableViewExtension', -- 재료
         m_tableViewExtSelectMaterial = 'TableViewExtension', -- 선택된 재료
+
+        m_materialSortMgr = 'DragonSortManagerUpgradeMaterial',
     })
 
 -------------------------------------
@@ -159,11 +161,11 @@ function UI_DragonManageUpgrade:refresh()
 
     vars['selectLabel']:setString(Str('선택재료 {1} / 30', 0))
 
-    -- 재료 리스트 갱신
-    self:init_dragonUpgradeMaterialTableView()
-
     -- 선택된 재료 리스트 갱신
     self:init_dragonUpgradeMaterialSelectTableView()
+
+    -- 재료 리스트 갱신
+    self:init_dragonUpgradeMaterialTableView()
 
     self:refresh_selectedMaterial()
 end
@@ -218,6 +220,19 @@ function UI_DragonManageUpgrade:init_dragonUpgradeMaterialTableView()
     table_view_ext:update()
 
     self.m_tableViewExtMaterial = table_view_ext
+
+    do -- 정렬 도우미 도입
+        local b_ascending_sort = nil
+        local sort_type = nil
+
+        if self.m_materialSortMgr then
+            b_ascending_sort = self.m_materialSortMgr.m_bAscendingSort
+            sort_type = self.m_materialSortMgr.m_currSortType
+        end
+        
+        self.m_materialSortMgr = DragonSortManagerUpgradeMaterial(self.vars, table_view_ext, self.m_tableViewExtSelectMaterial, b_ascending_sort, sort_type)
+        self.m_materialSortMgr:changeSort()
+    end
 end
 
 -------------------------------------
@@ -322,6 +337,7 @@ function UI_DragonManageUpgrade:click_dragonUpgradeMaterial(item)
         self.m_tableViewExtSelectMaterial:update()
         self:refresh_materialDragonIndivisual(unique_id)
         self:refresh_selectedMaterial()
+        self.m_materialSortMgr:changeSort2()
         return
 
     -- 재료 추가
@@ -330,6 +346,7 @@ function UI_DragonManageUpgrade:click_dragonUpgradeMaterial(item)
         self.m_tableViewExtSelectMaterial:update()
         self:refresh_materialDragonIndivisual(unique_id)
         self:refresh_selectedMaterial()
+        self.m_materialSortMgr:changeSort2()
         return
     end
 end
@@ -340,6 +357,10 @@ end
 -------------------------------------
 function UI_DragonManageUpgrade:refresh_materialDragonIndivisual(odid)
     if (not self.m_tableViewExtMaterial) then
+        return
+    end
+
+    if (not self.m_tableViewExtSelectMaterial) then
         return
     end
 

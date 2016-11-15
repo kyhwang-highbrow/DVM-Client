@@ -28,15 +28,21 @@ DragonSortManager = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function DragonSortManager:init(vars, table_view_ext, b_ascending_sort, sort_type)
+function DragonSortManager:init()
+end
+
+-------------------------------------
+-- function init_commonSotrUI
+-------------------------------------
+function DragonSortManager:init_commonSotrUI(vars, table_view_ext, b_ascending_sort, sort_type)
     self.vars = vars
     self.m_tableViewExt = table_view_ext
 
     self:init_vars()
     self:init_button()
 
-    self:click_sortOrderBtn(b_ascending_sort)
-    self:click_sortTypeBtn(sort_type or 'lv')
+    self:click_sortOrderBtn(b_ascending_sort, true)
+    self:click_sortTypeBtn(sort_type or 'lv', true)
 end
 
 -------------------------------------
@@ -253,30 +259,62 @@ function DragonSortManager:setIsSettedDragonFunc(func)
 end
 
 
-
-
-
-
-
-
-
 -------------------------------------
--- class DragonSortManager_upgradeUI
+-- class DragonSortManagerCommon
 -- @breif 보유한 열매의 정렬을 돕는 클래스
 -------------------------------------
-DragonSortManager_upgradeUI = class(DragonSortManager, {
+DragonSortManagerCommon = class(DragonSortManager, {
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function DragonSortManager_upgradeUI:init(vars, table_view_ext, b_ascending_sort, sort_type)
+function DragonSortManagerCommon:init(vars, table_view_ext, b_ascending_sort, sort_type)
+    self:init_commonSotrUI(vars, table_view_ext, b_ascending_sort, sort_type)
+    self:changeSort()
+end
+
+
+
+-------------------------------------
+-- class DragonSortManagerReady
+-- @breif 보유한 열매의 정렬을 돕는 클래스
+-------------------------------------
+DragonSortManagerReady = class(DragonSortManager, {
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function DragonSortManagerReady:init(vars, table_view_ext, b_ascending_sort, sort_type)
+    self:init_commonSotrUI(vars, table_view_ext, b_ascending_sort, sort_type)
+
+    -- setIsSettedDragonFunc실행 후 하기 위해서 외부에서 호출함
+    --self:changeSort()
+end
+
+
+
+-------------------------------------
+-- class DragonSortManagerUpgradeMaterial
+-- @breif 보유한 열매의 정렬을 돕는 클래스
+-------------------------------------
+DragonSortManagerUpgradeMaterial = class(DragonSortManager, {
+        m_tableViewExt2 = 'TableViewExtension',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function DragonSortManagerUpgradeMaterial:init(vars, table_view_ext, table_view_ext2, b_ascending_sort, sort_type)
+    self:init_commonSotrUI(vars, table_view_ext, b_ascending_sort, sort_type)
+    self.m_tableViewExt2 = table_view_ext2
 end
 
 -------------------------------------
 -- function init_vars
 -------------------------------------
-function DragonSortManager_upgradeUI:init_vars()
+function DragonSortManagerUpgradeMaterial:init_vars()
     self.m_vars = {}
     self.m_vars['sortBtn'] = self.vars['sortSelectBtn'] 
     self.m_vars['sortOrderBtn'] = self.vars['sortSelectOrderBtn'] 
@@ -293,6 +331,37 @@ end
 -------------------------------------
 -- function getSortBtnName
 -------------------------------------
-function DragonSortManager_upgradeUI:getSortBtnName(type)
+function DragonSortManagerUpgradeMaterial:getSortBtnName(type)
     return 'sort' .. type .. 'Btn', 'sortSelect' .. type .. 'Btn'
+end
+
+-------------------------------------
+-- function changeSort
+-------------------------------------
+function DragonSortManagerUpgradeMaterial:changeSort()
+    local function default_sort_func(a, b)
+        return self:sortFunc(a, b)
+    end
+
+    self.m_tableViewExt:insertSortInfo('sort', default_sort_func)
+    self.m_tableViewExt:sortTableView('sort', true)
+
+    if self.m_tableViewExt2 then
+        self.m_tableViewExt2:insertSortInfo('sort', default_sort_func)
+        self.m_tableViewExt2:sortTableView('sort', true)
+    end
+end
+
+-------------------------------------
+-- function changeSort2
+-------------------------------------
+function DragonSortManagerUpgradeMaterial:changeSort2()
+    local function default_sort_func(a, b)
+        return self:sortFunc(a, b)
+    end
+
+    if self.m_tableViewExt2 then
+        self.m_tableViewExt2:insertSortInfo('sort', default_sort_func)
+        self.m_tableViewExt2:sortTableView('sort', true)
+    end
 end

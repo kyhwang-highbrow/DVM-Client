@@ -40,7 +40,7 @@ end
 -- @brief 정렬 도우미
 -------------------------------------
 function UI_DragonManage_Base:init_dragonSortMgr(b_ascending_sort, sort_type)
-    self.m_dragonSortMgr = DragonSortManager(self.vars, self.m_tableViewExt, b_ascending_sort, sort_type)
+    self.m_dragonSortMgr = DragonSortManagerCommon(self.vars, self.m_tableViewExt, b_ascending_sort, sort_type)
 end
 
 -------------------------------------
