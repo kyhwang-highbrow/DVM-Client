@@ -75,7 +75,6 @@ function UI_Tooltip_Indicator:init_data(dragon)
 	
 	-- 2. 멤버 변수에 저장
 	self.m_tActiveSkillId = t_active_id
-	ccdump(t_active_id)
 end
 
 -------------------------------------
@@ -88,7 +87,6 @@ function UI_Tooltip_Indicator:displayData()
 	local str = nil 
 	local idx = 1
 	for i, v in pairs(self.m_tActiveSkillId) do 
-		cclog(i, v.skill_id)
 		str = self:getSkillDescStr(char_type, v['skill_id'], skill_type, v['isActivation'])
 		self:setSkillText(idx, str)
 		idx = idx + 1

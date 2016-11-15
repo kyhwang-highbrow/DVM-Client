@@ -67,8 +67,6 @@ function EffectBezierLink_refresh(self, tar_x, tar_y, pos_x, pos_y, dir)
 		pre_pos_x = bezier_pos['x']
 		pre_pos_y = bezier_pos['y']
     end
-
-	return degree
 end
 
 -------------------------------------

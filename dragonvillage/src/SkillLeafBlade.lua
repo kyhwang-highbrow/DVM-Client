@@ -137,7 +137,7 @@ function SkillLeafBlade:makeSkillInstance(owner, t_skill, t_data)
 	local motionstreak_res = (t_skill['res_2'] == 'x') and nil or string.gsub(t_skill['res_2'], '@', owner.m_charTable['attr'])
 	local target_count = t_skill['hit']
 	local isPass = t_skill['val_1'] == 1
-	local body_size = LEAF_COLLISTION_SIZE
+	local body_size = LEAF_COLLISION_SIZE
 
 	-- 인스턴스 생성부
 	------------------------------------------------------

@@ -1,3 +1,5 @@
+local PARENT = SkillIndicator
+
 -------------------------------------
 -- class SkillIndicator_LeafBlade
 -------------------------------------
@@ -9,12 +11,20 @@ SkillIndicator_LeafBlade = class(SkillIndicator, {
 
         m_indicatorLinkEffect3 = '',
         m_indicatorLinkEffect4 = '',
+
+		-- 리프블레이드 무관통 관련 변수
+		m_isPass = 'bool',
+		m_isCollision = 'bool', 
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillIndicator_LeafBlade:init(hero)
+function SkillIndicator_LeafBlade:init(hero, t_skill)
+	PARENT.init(self, hero)
+
+	self.m_isPass = (t_skill['val_1'] == 1)
+	self.m_isCollision = false
 end
 
 -------------------------------------
@@ -56,7 +66,7 @@ function SkillIndicator_LeafBlade:onTouchMoved(x, y)
 
     local t_collision_obj = self:findTargetList(tar_x, tar_y)
     self.m_targetChar = t_collision_obj[1]
-
+	
     -- 4-1. 베지어 곡선 이펙트 위치 갱신
     EffectBezierLink_refresh(self.m_indicatorLinkEffect1, tar_x, tar_y, pos_x, pos_y, 1)
     EffectBezierLink_refresh(self.m_indicatorLinkEffect2, tar_x, tar_y, pos_x, pos_y, -1)
@@ -204,33 +214,21 @@ function SkillIndicator_LeafBlade:findTargetList(x, y)
     local l_target1 = target_formation_mgr:findBezierTarget(x, y, pos_x, pos_y, 1)
     local l_target2 = target_formation_mgr:findBezierTarget(x, y, pos_x, pos_y, -1)
 
-    -- 베지어 좌표 마지막 두 점의 각도 (상)
-    local bezier = getBezierPosList(x, y, pos_x, pos_y, 1)
-    local last = bezier[#bezier]
-    local last_1 = bezier[#bezier-1]
-    local last_degree1 = getDegree(last.x, last.y, last_1.x, last_1.y)
-
-    -- 베지어 좌표 마지막 두 점의 각도 (하)
-    bezier = getBezierPosList(x, y, pos_x, pos_y, -1)
-    last = bezier[#bezier]
-    last_1 = bezier[#bezier-1]
-    local last_degree2 = getDegree(last.x, last.y, last_1.x, last_1.y)
-    
-    --cclog('find target', last_degree1, last_degree2)
-
     local std_dist = 1000
 
+	local degree = getDegree(pos_x, pos_y, x, y)
+
     -- 직선에 의한 충돌 리스트 (상)
-    local rad = math_rad(last_degree1)
+    local rad = math_rad(degree + LEAF_STRAIGHT_ANGLE)
     local factor_y = math.tan(rad)
     local t_target_line_1 = self.m_world.m_physWorld:getLaserCollision(x, y,
-        x + std_dist, y + std_dist * factor_y, LEAF_COLLISTION_SIZE, 'missile_h')
+        x + std_dist, y + std_dist * factor_y, LEAF_COLLISION_SIZE, 'missile_h')
 
     -- 직선에 의한 충돌 리스트 (하)
-    rad = math_rad(last_degree2)
+    rad = math_rad(degree - LEAF_STRAIGHT_ANGLE)
     factor_y = math.tan(rad)
     local t_target_line_2 = self.m_world.m_physWorld:getLaserCollision(x, y,
-        x + std_dist, y + std_dist * factor_y, LEAF_COLLISTION_SIZE, 'missile_h')
+        x + std_dist, y + std_dist * factor_y, LEAF_COLLISION_SIZE, 'missile_h')
     
     -- getLaserCollision는 반환값이 특정 테이블이기때문에 Character 클래스만 꺼내와서 정리한다.
     local l_target_line = {}

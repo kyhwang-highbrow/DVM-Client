@@ -46,8 +46,8 @@ FEVER_ATTACK_DAMAGE_RATE = 0.8
 -- 각 스킬에서 공유하는 상수
 --------------------------------------------
 -- # SkillLeafBlade
- LEAF_COLLISTION_SIZE = 30
-
+ LEAF_COLLISION_SIZE = 30
+ LEAF_STRAIGHT_ANGLE = 30
 
  -- # 고니 스페셜 스킬
  PENTAGON_POS = {

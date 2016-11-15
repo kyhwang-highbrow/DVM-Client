@@ -87,9 +87,9 @@ function TamerSkillManager:getTargetList(t_skill)
 	table.sort(l_target, function(a,b)
 		if (target_stat == 'hp') then
 			if (target_calc == 'max') then
-				return a.m_hp > b.m_hp
+				return (a.m_hp/a.m_maxHp) > (b.m_hp/b.m_maxHp)
 			else
-				return a.m_hp < b.m_hp
+				return (a.m_hp/a.m_maxHp) < (b.m_hp/b.m_maxHp)
 			end
 		
 		else
