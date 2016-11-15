@@ -264,7 +264,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	elseif (status_effect_type == 'passive_bloodlust') then
 		status_effect = StatusEffect_CheckWorld(res)
 		status_effect:init_checkWorld(char, 'bleed') 
-
+		
 	----------- 도트 데미지 들어가는 패시브 ------------------
 	elseif (t_status_effect['type'] == 'dot_dmg') then
 		status_effect = StatusEffect_DotDmg(res)
@@ -275,6 +275,11 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 		status_effect = StatusEffect_Protection(res)
 		local shield_hp = char.m_maxHp * (t_status_effect['val_1'] / 100)
 		status_effect:init_buff(char, shield_hp)
+
+	----------- 특이한 해제 조건을 가진 것들 ------------------
+	elseif isExistValue(status_effect_type, 'sleep') then
+		status_effect = StatusEffect_Trigger_Release(res)
+		status_effect:init_trigger('undergo_attack', char)
 
     else
         status_effect = StatusEffect(res)

@@ -45,7 +45,7 @@ function StatusEffect_Trigger:release()
 end
 
 -------------------------------------
--- function runSpatter
+-- function onTrigger
 -------------------------------------
 function StatusEffect_Trigger:onTrigger(defender)
 	local t_status_effect_str = {self.m_subData['status_effect_1'], self.m_subData['status_effect_2']}

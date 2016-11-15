@@ -156,6 +156,7 @@ local t_module = {
 	-- STATUS EFFECT
 	'StatusEffect',
     'StatusEffect_Trigger',
+	'StatusEffect_Trigger_Release',
     'StatusEffect_PassiveSpatter',
 	'StatusEffect_CheckWorld',
 	'StatusEffect_Heal',
