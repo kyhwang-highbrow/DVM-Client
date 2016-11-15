@@ -108,6 +108,25 @@
 			};
 			[3] =
 			{
+				type = 'Node';
+				ui_name = '';
+				x = 0.000000;
+				y = -24.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 460;
+				height = 420;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'selectListNode';
+			};
+			[4] =
+			{
 				[1] =
 				{
 					type = 'Sprite';
@@ -136,8 +155,8 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 177.000000;
-				y = 218.000000;
+				x = 174.000000;
+				y = 219.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -156,7 +175,7 @@
 				disable = '';
 				image_type = 1;
 			};
-			[4] =
+			[5] =
 			{
 				[1] =
 				{
@@ -874,7 +893,7 @@
 				visible = false;
 				lua_name = 'sortSelectNode';
 			};
-			[5] =
+			[6] =
 			{
 				[1] =
 				{
@@ -937,25 +956,6 @@
 				selected = 'ui/btn/sub_0102.png';
 				disable = '';
 				image_type = 1;
-			};
-			[6] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = 0.000000;
-				y = -24.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 460;
-				height = 420;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'selectListNode';
 			};
 			type = 'Menu';
 			ui_name = 'left';
