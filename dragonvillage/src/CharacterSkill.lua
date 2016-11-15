@@ -31,7 +31,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
         is_hero = true
         phys_group = 'missile_h'
 		-- @TODO 스킬 레벨이 반영된 테이블 정보 가져옴
-		t_skill = self:getLevelingSkill(skill_id)
+		t_skill = self:getLevelingSkillById(skill_id)
     elseif (self.m_charType == 'enemy') then
         is_hero = false
         phys_group = 'missile_e'
@@ -87,21 +87,12 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
         -- 1. skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
 	    local l_target = self:getTargetList(t_skill)
 
-		-- 1-1. skill 타겟 수 추가
-		local target_count = clone(t_skill['val_1'])
-		local _count = 0
+		-- 2. 상태효과 문자열(;로 구분)
+		local status_effect_str = t_skill['status_effect_1']
 
-        -- 2. 타겟 대상에 상태효과생성
-	    for _,target in ipairs(l_target) do
-            if (target_count == 0) then
-                -- 0일 경우 모든 타겟에 적용
-            elseif (_count >= target_count) then
-                break
-            end
+        -- 3. 타겟에 상태효과생성
+		StatusEffectHelper:doStatusEffectByStr(self, l_target, status_effect_str)
 
-		    StatusEffectHelper:invokeStatusEffect(target, t_skill['status_effect_type'], t_skill)
-			_count = _count + 1
-        end
         return true
 
     -- 코드형 스킬

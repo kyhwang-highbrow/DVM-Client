@@ -72,7 +72,7 @@ end
 -- function adjustAnimator
 -- @breif animator 조정하는 부분
 -------------------------------------
-function Skill:adjustAnimator(power_rate)    
+function Skill:adjustAnimator()    
 	if (not self.m_animator) then return end
 
 	if self.m_resScale then 
@@ -95,7 +95,7 @@ end
 -------------------------------------
 function Skill:setCommonState(skill)
 	skill:addState('delay', Skill.st_delay, nil, false)
-    skill:addState('dying', function(owner, dt) return true end, nil, nil, 10)
+    skill:addState('dying', Skill.st_dying, nil, nil, 10)
 end
 
 -------------------------------------
@@ -156,16 +156,7 @@ end
 -------------------------------------
 function Skill.st_dying(owner, dt)
     if (owner.m_stateTimer == 0) then
-		-- 제 위치로 
-		if (owner.m_owner.pos.x ~= owner.m_owner.m_homePosX) then
-			owner.m_owner:setMove(owner.m_owner.m_homePosX, owner.m_owner.m_homePosY, 1500)
-		end
-
-		-- Visible On
-		if (not owner.m_owner.m_animator:isVisible()) then
-			owner.m_owner.m_animator:isVisible(true)
-		end
-
+		owner.m_owner:restore()
 		return true
     end
 end

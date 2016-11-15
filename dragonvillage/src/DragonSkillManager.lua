@@ -359,9 +359,19 @@ end
 
 -------------------------------------
 -- function getLevelingSkill
--- @brief 레벨링된 스킬 테이블 반환
+-- @param Skill type
+-- @brief 타입으로 찾아 레벨링된 스킬 테이블 반환
 -------------------------------------
-function IDragonSkillManager:getLevelingSkill(skill_id)
+function IDragonSkillManager:getLevelingSkillByType(skill_type)
+	return self.m_lSkillIndivisualInfo[skill_type]
+end
+
+-------------------------------------
+-- function getLevelingSkill
+-- @param Skill id 
+-- @brief id로 찾아 레벨링된 스킬 테이블 반환
+-------------------------------------
+function IDragonSkillManager:getLevelingSkillById(skill_id)
 	local t_skill = nil
 	for skill_type, skill_info in pairs(self.m_lSkillIndivisualInfo) do
 		if isExistValue(skill_type, 'active', 'basic') then

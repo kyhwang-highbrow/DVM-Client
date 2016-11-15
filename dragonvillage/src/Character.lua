@@ -1498,3 +1498,19 @@ function Character:setSpasticity(b)
         self.m_delaySpasticity = 0
     end
 end
+
+-------------------------------------
+-- function restore
+-- @brief 원상복구한다
+-------------------------------------
+function Character:restore()
+    -- 제 위치로 
+	if (self.pos.x ~= self.m_homePosX) then
+		self:setMove(self.m_homePosX, self.m_homePosY, 1500)
+	end
+
+	-- Visible On
+	if (not self.m_animator:isVisible()) then
+		self.m_animator:setVisible(true)
+	end
+end

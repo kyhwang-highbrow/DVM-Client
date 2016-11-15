@@ -560,12 +560,7 @@ end
 function Hero:initStatus(t_char, level, grade, evolution)
     PARENT.initStatus(self, t_char, level, grade, evolution)
 	
-    local active_skill_id = self:getSkillID('active')
-    if (active_skill_id == 0) then
-        return
-    end
-	
-    local t_skill = TABLE:get('dragon_skill')[active_skill_id]
+    local t_skill = self:getLevelingSkillByType('active').m_tSkill
 
 	local type = t_skill['type']
 	
