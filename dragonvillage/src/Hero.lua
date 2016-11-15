@@ -22,6 +22,7 @@ Hero = class(PARENT, {
 
         m_bUseSelfAfterImage = 'boolean',
 
+        m_skillPrepareEffect = '',
         m_feverEffect = '',
      })
 
@@ -37,6 +38,7 @@ function Hero:init(file_name, body, ...)
     self.m_bWaitState = false
 
     self.m_bUseSelfAfterImage = false
+    self.m_skillPrepareEffect = nil
     self.m_feverEffect = nil
 end
 
@@ -767,4 +769,28 @@ function Hero:updateAfterImage(dt)
         accidental.m_node:runAction(cc.MoveBy:create(duration, cc.p(speed / 2, 0)))
         accidental.m_node:runAction(cc.Sequence:create(cc.FadeTo:create(duration, 0), cc.RemoveSelf:create()))
     end
+end
+
+-------------------------------------
+-- function makeSkillPrepareEffect
+-------------------------------------
+function Hero:makeSkillPrepareEffect()
+    if self.m_skillPrepareEffect then return end
+
+    local attr = self.m_charTable['attr']
+    local res = 'res/effect/effect_skillcasting_dragon/effect_skillcasting_dragon.vrp'
+
+    self.m_skillPrepareEffect = MakeAnimator(res)
+    self.m_skillPrepareEffect:changeAni('start_' .. attr, true)
+    self.m_rootNode:addChild(self.m_skillPrepareEffect.m_node)
+end
+
+-------------------------------------
+-- function removeSkillPrepareEffect
+-------------------------------------
+function Hero:removeSkillPrepareEffect()
+    if not self.m_skillPrepareEffect then return end
+
+    self.m_skillPrepareEffect:release()
+    self.m_skillPrepareEffect = nil
 end

@@ -104,6 +104,9 @@ function SkillIndicator:changeSIState(state)
 		-- 툴팁 생성
 		self.m_skillIndicatorMgr:makeSkillToolTip(self.m_hero)
 
+        -- 영웅 스킬 준비 이펙트 생성
+        self.m_hero:makeSkillPrepareEffect()
+
     elseif (state == SI_STATE_DISAPPEAR) then
 		-- 스킬 히트 콤보 판단 
 		self.m_targetCnt = self.m_highlightList and #self.m_highlightList or 0
@@ -114,6 +117,9 @@ function SkillIndicator:changeSIState(state)
 
 		-- 툴팁 닫기
 		self.m_skillIndicatorMgr:closeSkillToolTip()
+
+        -- 영웅 스킬 준비 이펙트 해제
+        self.m_hero:removeSkillPrepareEffect()
     end
 end
 
