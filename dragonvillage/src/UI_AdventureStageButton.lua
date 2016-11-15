@@ -39,23 +39,27 @@ function UI_AdventureStageButton:init(parent_ui, stage_id)
         end
     end
 
-    do -- юс╫ц
+    do
         vars['selectSprite']:setVisible(false)
         vars['arrowSprite']:setVisible(false)
     end
 
+    do -- 난이도에 따라 sprite표시
+        if (difficulty == 1) then
+            vars['easySprite']:setVisible(true)
+
+        elseif (difficulty == 2) then
+            vars['easySprite']:setVisible(false)
+            vars['normalSprite']:setVisible(true)
+
+        elseif (difficulty == 3) then
+            vars['easySprite']:setVisible(false)
+            vars['hardSprite']:setVisible(true)
+
+        else
+            error('difficulty : ' .. difficulty)
+        end
+    end
+
     vars['stageBtn']:registerScriptTapHandler(function() parent_ui:click_stageBtn(stage_id, self.m_bOpenStage) end)
-
-    
-
-    --[[
-    t_stage_data['']
-
-    stageBtn
-    selectSprite
-    arrowSprite
-    openSprite
-    lockSprite
-    completeSprite
-    --]]
 end

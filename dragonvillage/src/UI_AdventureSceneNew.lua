@@ -378,6 +378,25 @@ function UI_AdventureSceneNew:refresh_difficultyButtons()
         vars[disable_sprite_name]:setVisible(not is_selected)
     end
     
+    do -- 난이도에 따라 sprite표시
+        local difficulty = self.m_currDifficulty
+        vars['easySprite']:setVisible(false)
+        vars['normalSprite']:setVisible(false)
+        vars['hardSprite']:setVisible(false)
+
+        if (difficulty == 1) then
+            vars['easySprite']:setVisible(true)
+
+        elseif (difficulty == 2) then
+            vars['normalSprite']:setVisible(true)
+
+        elseif (difficulty == 3) then
+            vars['hardSprite']:setVisible(true)
+
+        else
+            error('difficulty : ' .. difficulty)
+        end
+    end
 end
 
 
