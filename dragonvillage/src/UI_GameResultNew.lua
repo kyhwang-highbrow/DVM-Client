@@ -520,7 +520,9 @@ function UI_GameResultNew:makeRewardItem(i, v)
         elseif (self.m_boxGrade == 'c') then
             lua_name = 'commonSprite'
         end
-        item_card.vars[lua_name]:setVisible(true)
+        if item_card.vars[lua_name] then
+            item_card.vars[lua_name]:setVisible(true)
+        end
     end
 end
 
