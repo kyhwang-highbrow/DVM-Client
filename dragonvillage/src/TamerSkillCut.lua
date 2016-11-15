@@ -130,7 +130,7 @@ function TamerSkillCut:update_special(dt)
     if self:isBeginningInStep(0) then
         g_gameScene:gamePause()
 
-        g_gameScene:flashIn({color = cc.c3b(0, 0, 0), time = 0.5, cbEnd = function()
+        g_gameScene:flashIn({color = cc.c3b(0, 0, 0), time = 0.3, cbEnd = function()
             self:nextStep()
         end})
 
@@ -150,7 +150,7 @@ function TamerSkillCut:update_special(dt)
     elseif self:isBeginningInStep(2) then
         self.m_bgVisual:setVisible(false)
         
-        g_gameScene:flashOut({color = cc.c3b(255, 255, 255), time = 0.5, cbEnd = function()
+        g_gameScene:flashOut({color = cc.c3b(255, 255, 255), time = 0.3, cbEnd = function()
             self:nextStep()
         end})
         
