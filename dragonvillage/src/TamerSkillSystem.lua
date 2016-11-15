@@ -18,73 +18,98 @@ TamerSkillSystem = class(IEventDispatcher:getCloneClass(), IEventListener:getClo
         m_lTamerSkillCoolTime = 'list[number]',
 
         m_specialPowerPoint = 'number', -- 100이 되면 스킬 사용 가능
+		m_isUseSpecialSkill = 'bool', -- 궁극기 사용 여부
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function TamerSkillSystem:init(world, t_tamer)
+function TamerSkillSystem:init(world)
     self.m_world = world
     self.m_tamerSkillCooltimeGlobal = 0
     self.m_lTamerSkillCoolTime = {}
-    self.m_specialPowerPoint = 0
-
-    local ui = world.m_inGameUI
+    self.m_isUseSpecialSkill = false
 
     -- 일반 스킬
     for i = 1, 3 do
-        local t_skill = TABLE:get('tamer_skill')[t_tamer['skill_' .. i]]
-
-        self.m_lTamerSkillCoolTime[i] = t_skill['cooldown']
-
-        ui.vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() self:click_tamerSkillBtn(i) end)
-        ui.vars['tamerSkillBtn' .. i].m_node:registerScriptPressHandler(function()
-            -- 누르고 있을 경우 툴팁 표시
-            local t_skill = self.m_world.m_tamerSkillMgr.m_skill_list[i]
-            local skill_id = t_skill['id']
-            showToolTip(skill_id)
-        end)
-        
-        -- 스킬 아이콘
-        do
-            local icon = IconHelper:getSkillIcon('tamer', t_tamer['skill_' .. i])
-            ui.vars['tamerSkillNode' .. i]:addChild(icon)
-        end
-
-        do
-            local icon = IconHelper:getSkillIcon('tamer', t_tamer['skill_' .. i])
-            local socketNode = ui.vars['tamerSkillVisual' .. i].m_node:getSocketNode('skill_normal')
-            socketNode:addChild(icon)
-        end
-
-        ui.vars['timeGauge' .. i]:setPercentage(0)
+		self:initTamerSkillBtn(i)
     end
 
     -- 궁극기
+	self:initTamerSpecialSkillBtn()
+
+    self.m_world.m_inGameUI.vars['characterMenu']:setVisible(false)
+end
+
+-------------------------------------
+-- function initTamerSkillBtn
+-------------------------------------
+function TamerSkillSystem:initTamerSkillBtn(i)
+    local ui = self.m_world.m_inGameUI
+	local skill_id = self.m_world.m_tamerSkillMgr.m_skill_list[i]['id']
+
+	-- 1. 살짝 순차적으로 활성화
+    self.m_lTamerSkillCoolTime[i] = ((2/30) * i) 
+
+	-- 2. 버튼 핸들러 등록, 누르고 있으면 툴팁
+    ui.vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() self:click_tamerSkillBtn(i) end)
+    ui.vars['tamerSkillBtn' .. i].m_node:registerScriptPressHandler(function()
+        showToolTip(skill_id)
+    end)
+        
+    -- 스킬 아이콘
     do
-		local idx = 4
-        local t_skill = TABLE:get('tamer_skill')[t_tamer['skill_' .. idx]]
-
-		self.m_lTamerSkillCoolTime[idx] = t_skill['cooldown']
-
-        ui.vars['specialSkillBtn']:registerScriptTapHandler(function() self:click_specialSkillBtn() end)
-
-        -- 스킬 아이콘
-        do
-            local icon = IconHelper:getSkillIcon('tamer', 241004)
-            ui.vars['specialSkillNode']:addChild(icon)
-        end
-
-        do
-            local icon = IconHelper:getSkillIcon('tamer', 241004)
-            local socketNode = ui.vars['specialSkillVisual'].m_node:getSocketNode('skill_special')
-            socketNode:addChild(icon)
-        end
-
-        ui.vars['specialTimeGauge']:setPercentage(0)
+        local icon = IconHelper:getSkillIcon('tamer', skill_id)
+		local icon2 = IconHelper:getSkillIcon('tamer', skill_id)
+        
+		ui.vars['tamerSkillNode' .. i]:addChild(icon)
+        local socketNode = ui.vars['tamerSkillVisual' .. i].m_node:getSocketNode('skill_normal')
+        socketNode:addChild(icon2)
     end
 
-    ui.vars['characterMenu']:setVisible(false)
+    ui.vars['timeGauge' .. i]:setPercentage(0)
+end
+
+-------------------------------------
+-- function initTamerSpecialSkillBtn
+-------------------------------------
+function TamerSkillSystem:initTamerSpecialSkillBtn()
+	local idx = 4
+	local ui = self.m_world.m_inGameUI
+	local skill_id = self.m_world.m_tamerSkillMgr.m_skill_list[idx]['id']
+
+	-- 2. 버튼 핸들러 등록, 누르고 있으면 툴팁
+    ui.vars['specialSkillBtn']:registerScriptTapHandler(function() self:click_specialSkillBtn() end)
+	ui.vars['specialSkillBtn'].m_node:registerScriptPressHandler(function()
+        showToolTip(skill_id)
+    end)
+
+    -- 스킬 아이콘
+    do
+        local icon = IconHelper:getSkillIcon('tamer', skill_id)
+		local icon2 = IconHelper:getSkillIcon('tamer', skill_id)
+
+        ui.vars['specialSkillNode']:addChild(icon)
+        local socketNode = ui.vars['specialSkillVisual'].m_node:getSocketNode('skill_special')
+        socketNode:addChild(icon2)
+    end
+
+	-- 사용 가능한 상태로 세팅
+    ui.vars['specialTimeGauge']:setPercentage(0)
+	local visual = ui.vars['specialSkillVisual']
+	visual:setVisible(true)
+
+	-- 시작 연출
+	local delay = cc.DelayTime:create(8)
+	local cbFunction = function()
+		visual:setVisual('skill_charging', 'special')
+		visual:setRepeat(false)
+		visual:registerScriptLoopHandler(function()
+			visual:setVisual('skill_idle', 'special')
+			visual:setRepeat(true)
+		end)
+	end
+	visual:runAction(cc.Sequence:create(delay, cc.CallFunc:create(cbFunction)))
 end
 
 -------------------------------------
@@ -129,37 +154,28 @@ end
 -------------------------------------
 function TamerSkillSystem:click_specialSkillBtn()
     if not self.m_world:isPossibleControl() then return end
+	
+	-- 1. 궁극기는 한번만 사용하도록 
+	if self.m_isUseSpecialSkill then 
+	    local str = '이미 궁극기를 사용하셨습니다..☆'
+        UIManager:toastNotificationRed(str)
+		return 
+	end 
 
-    -- 1. 사용할 스킬 테이블 가져온다.
+    -- 2. 사용할 스킬 테이블 가져온다.
     local t_skill = self.m_world.m_tamerSkillMgr.m_skill_list[4]
-    
-    -- 2. 궁극기 게이지 체크
-    if (self.m_specialPowerPoint < 100) then
-        local str = Str('궁극기 포인트 {1}이(가) 부족합니다.', 100 - self.m_specialPowerPoint)
-        UIManager:toastNotificationRed(str)
-        return
-    end
 
-    -- 3. 쿨타임 체크
-    local remain_time = self.m_tamerSkillCooltimeGlobal
-    if (remain_time > 0) then
-        local str = '[' .. Str(t_skill['t_name']) .. ']' .. Str('{1}초 후 사용할 수 있습니다.', math_floor(remain_time + 0.5))
-        UIManager:toastNotificationRed(str)
-        return
-    end
-
-    -- 4. 스킬 실행
+    -- 3. 스킬 실행
     self.m_world.m_inGameUI.root:setVisible(false)
     self:dispatch('tamer_special_skill', function()
         self.m_world.m_inGameUI.root:setVisible(true)
         self.m_world.m_tamerSkillMgr:doTamerSkill(4)
     end)
 
-    -- 5. 궁극기 포인트 및 쿨타임 정산
-    self:addSpecialPowerPoint(-self.m_specialPowerPoint)
-    --self.m_tamerSkillCooltimeGlobal = TAMER_SKILL_GLOBAL_COOLTIME
+    -- 4. 후처리
+    self.m_isUseSpecialSkill = true
     self.m_tamerSkillCooltimeGlobal = 5
-    self:update(0)
+    self:refreshSpecialSkillBtn()
 end
 
 -------------------------------------
@@ -176,7 +192,7 @@ function TamerSkillSystem:update(dt)
         end
 
         -- 궁극기 게이지가 다 찬 경우에는 클로벌 쿨타임을 표시
-        if self.m_specialPowerPoint >= 100 then
+        if not self.m_isUseSpecialSkill then
             local percentage = (self.m_tamerSkillCooltimeGlobal / TAMER_SKILL_GLOBAL_COOLTIME) * 100
             local ui = self.m_world.m_inGameUI
             ui.vars['specialTimeGauge']:setPercentage(percentage)
@@ -184,64 +200,68 @@ function TamerSkillSystem:update(dt)
     end
 
     for i = 1, 3 do
-        local t_skill = self.m_world.m_tamerSkillMgr.m_skill_list[i]
+        self:updateSkillBtn(i, dt)
+    end
+end
 
-        if (0 < self.m_lTamerSkillCoolTime[i]) then
-            self.m_lTamerSkillCoolTime[i] = math_max(self.m_lTamerSkillCoolTime[i] - dt, 0)
-        end
+-------------------------------------
+-- function updateSkillBtn
+-------------------------------------
+function TamerSkillSystem:updateSkillBtn(i, dt)
+	local ui = self.m_world.m_inGameUI
+	local t_skill = self.m_world.m_tamerSkillMgr.m_skill_list[i]
 
-        local prev_percentage = ui.vars['timeGauge' .. i]:getPercentage()
-        local percentage = 0
+    if (0 < self.m_lTamerSkillCoolTime[i]) then
+        self.m_lTamerSkillCoolTime[i] = math_max(self.m_lTamerSkillCoolTime[i] - dt, 0)
+    end
 
-        if (self.m_tamerSkillCooltimeGlobal > self.m_lTamerSkillCoolTime[i]) then
-            percentage = (self.m_tamerSkillCooltimeGlobal / TAMER_SKILL_GLOBAL_COOLTIME) * 100
-        else
-            percentage = (self.m_lTamerSkillCoolTime[i] / t_skill['cooldown']) * 100
-        end
+    local prev_percentage = ui.vars['timeGauge' .. i]:getPercentage()
+    local percentage = 0
 
-        ui.vars['timeGauge' .. i]:setPercentage(percentage)
+    if (self.m_tamerSkillCooltimeGlobal > self.m_lTamerSkillCoolTime[i]) then
+        percentage = (self.m_tamerSkillCooltimeGlobal / TAMER_SKILL_GLOBAL_COOLTIME) * 100
+    else
+        percentage = (self.m_lTamerSkillCoolTime[i] / t_skill['cooldown']) * 100
+    end
         
-        if prev_percentage ~= percentage then
-            local visual = ui.vars['tamerSkillVisual' .. i]
-            visual:setVisible(false)
+    if prev_percentage ~= percentage then
+		ui.vars['timeGauge' .. i]:setPercentage(percentage)
+        
+		local visual = ui.vars['tamerSkillVisual' .. i]
+        visual:setVisible(false)
 
-            if percentage <= 0 then
-                visual:setVisible(true)
-                visual:setVisual('skill_charging', 'normal')
-                visual:setRepeat(false)
-                visual:registerScriptLoopHandler(function()
-                    visual:setVisual('skill_idle', 'normal')
-                    visual:setRepeat(true)
-                end)
-            end
+        if percentage <= 0 then
+            visual:setVisible(true)
+            visual:setVisual('skill_charging', 'normal')
+            visual:setRepeat(false)
+            visual:registerScriptLoopHandler(function()
+                visual:setVisual('skill_idle', 'normal')
+                visual:setRepeat(true)
+            end)
         end
     end
 end
 
 -------------------------------------
--- function addSpecialPowerPoint
+-- function refreshSpecialSkillBtn
 -------------------------------------
-function TamerSkillSystem:addSpecialPowerPoint(add_point)
-    local prev = self.m_specialPowerPoint
-    self.m_specialPowerPoint = math_clamp(self.m_specialPowerPoint + add_point, 0, 100)
-
+function TamerSkillSystem:refreshSpecialSkillBtn()
     local ui = self.m_world.m_inGameUI
-    ui.vars['specialTimeGauge']:setPercentage(100 - self.m_specialPowerPoint)
-
-    -- 궁극기 게이지 이펙트
-    if (prev ~= self.m_specialPowerPoint) then
-        local visual = ui.vars['specialSkillVisual']
-        visual:setVisible(false)
-
-		if (self.m_specialPowerPoint == 100) then
-            visual:setVisible(true)
-            visual:setVisual('skill_charging', 'special')
-            visual:setRepeat(false)
-            visual:registerScriptLoopHandler(function()
-                visual:setVisual('skill_idle', 'special')
-                visual:setRepeat(true)
-            end)
-        end
+    
+	-- 궁극기 사용한 것으로 처리
+	ui.vars['specialTimeGauge']:setPercentage(100)
+    local visual = ui.vars['specialSkillVisual']
+    visual:setVisible(false)
+	
+	-- 기능상 필요는 없지만 추후 수정향방을 몰라 남겨둠
+	if (not self.m_isUseSpecialSkill) then
+        visual:setVisible(true)
+        visual:setVisual('skill_charging', 'special')
+        visual:setRepeat(false)
+        visual:registerScriptLoopHandler(function()
+            visual:setVisual('skill_idle', 'special')
+            visual:setRepeat(true)
+        end)
     end
 end
 
@@ -250,26 +270,15 @@ end
 -------------------------------------
 function TamerSkillSystem:onEvent(event_name, ...)
 
-    -- 게임 시작 시 25점
     if (event_name == 'game_start') then
-        self:addSpecialPowerPoint(25)
 
-    -- 아군 드래곤 액티브 스킬 사용 3점
-    --elseif (event_name == 'active_skill') then
     elseif (event_name == 'dragon_skill') then
-        self:addSpecialPowerPoint(3)
-        self:addSpecialPowerPoint(20) -- 개발 편의성을 위해
-
         -- 글로벌 쿨타임
         self.m_tamerSkillCooltimeGlobal = TAMER_SKILL_GLOBAL_COOLTIME
 
-    -- 드래곤 사망 5점
     elseif (event_name == 'character_dead') then
-        self:addSpecialPowerPoint(5)
 
-    -- 테이머 스킬 사용 3점
     elseif (event_name == 'tamer_skill') then
-        self:addSpecialPowerPoint(3)
 
     end
 end

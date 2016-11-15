@@ -429,7 +429,7 @@ function GameWorld:init_test(deck_type)
     end
 
     do
-        self.m_tamerSkillSystem = TamerSkillSystem(self, t_tamer)
+        self.m_tamerSkillSystem = TamerSkillSystem(self)
         self.m_tamerSkillSystem:addListener('tamer_skill', self.m_tamerSkillCut)
         self.m_tamerSkillSystem:addListener('tamer_special_skill', self.m_tamerSkillCut)
         
@@ -855,7 +855,7 @@ function GameWorld:onKeyReleased(keyCode, event)
         for _,dragon in pairs(self.m_lDragonList) do
             dragon:updateActiveSkillCoolTime(100)
         end
-        self.m_tamerSkillSystem:addSpecialPowerPoint(100)
+        self.m_tamerSkillSystem.m_isUseSpecialSkill = false
 		self.m_tamerSkillSystem:resetCoolTime()
 
     elseif (keyCode == KEY_V) then

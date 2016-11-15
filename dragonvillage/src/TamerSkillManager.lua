@@ -1,5 +1,7 @@
 -------------------------------------
 -- class TamerSkillManager
+-- @brief tamer skill system 은 UI및 쿨타임을 담당한다면 
+-- tamer skill manager 는 각 스킬의 사용을 관장한다.
 -------------------------------------
 TamerSkillManager = class({
 		m_world = 'GameWorld',
