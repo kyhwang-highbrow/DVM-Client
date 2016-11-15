@@ -91,7 +91,7 @@ function UI_DragonManageInfo:initButton()
 
     do -- 하단 버튼들 초기화
         -- 도감
-        vars['collectionBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"도감" 미구현') end)
+        vars['collectionBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end)
         
         -- 정렬
         vars['sortBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"정렬" 미구현') end)
@@ -527,6 +527,15 @@ function UI_DragonManageInfo:click_sellBtn()
 
     -- 시작
     func_popup()
+end
+
+-------------------------------------
+-- function click_collectionBtn
+-- @brief 임시 도감
+-------------------------------------
+function UI_DragonManageInfo:click_collectionBtn()
+    local ui = UI_DragonManageInfoView()
+    ui:tempGstarInit()
 end
 
 -------------------------------------
