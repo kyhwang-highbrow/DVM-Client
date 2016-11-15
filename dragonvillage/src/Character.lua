@@ -1503,10 +1503,12 @@ end
 -- function restore
 -- @brief 원상복구한다
 -------------------------------------
-function Character:restore()
+function Character:restore(restore_speed)
+	local speed = restore_speed or 1000
+
     -- 제 위치로 
 	if (self.pos.x ~= self.m_homePosX) then
-		self:setMove(self.m_homePosX, self.m_homePosY, 1500)
+		self:setMove(self.m_homePosX, self.m_homePosY, speed)
 	end
 
 	-- Visible On
