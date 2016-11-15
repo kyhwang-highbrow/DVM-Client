@@ -402,14 +402,21 @@ function UI_AdventureSceneNew:refresh_difficultyButtons()
         vars['normalSprite']:setVisible(false)
         vars['hardSprite']:setVisible(false)
 
+        vars['easyBtn']:setEnabled(true)
+        vars['normalBtn']:setEnabled(true)
+        vars['hardBtn']:setEnabled(true)
+
         if (difficulty == 1) then
             vars['easySprite']:setVisible(true)
+            vars['easyBtn']:setEnabled(false)
 
         elseif (difficulty == 2) then
             vars['normalSprite']:setVisible(true)
+            vars['normalBtn']:setEnabled(false)
 
         elseif (difficulty == 3) then
             vars['hardSprite']:setVisible(true)
+            vars['hardBtn']:setEnabled(false)
 
         else
             error('difficulty : ' .. difficulty)

@@ -199,9 +199,13 @@ function UI_AdventureStageInfo:click_tabBtn(tab_type)
 
     local vars = self.vars
 
+    vars['rewardBtn']:setEnabled(true)
+    vars['enemyInfoBtn']:setEnabled(true)
+
     if (self.m_currTab == 'item') then
         vars['monsterListNode']:setVisible(false)
         vars['dropListNode']:setVisible(true)
+        vars['rewardBtn']:setEnabled(false)
         
         if (not self.m_bInitItemTableView) then
             self:refresh_rewardInfo()
@@ -211,6 +215,7 @@ function UI_AdventureStageInfo:click_tabBtn(tab_type)
     elseif (self.m_currTab == 'monster') then
         vars['monsterListNode']:setVisible(true)
         vars['dropListNode']:setVisible(false)
+        vars['enemyInfoBtn']:setEnabled(false)
 
         if (not self.m_bInitMonsterTableView) then
            self:refresh_monsterList()
