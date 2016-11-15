@@ -292,6 +292,13 @@ function SkillIndicatorMgr:addHighlightList(char, zorder)
     char.m_hpNode:removeFromParent(false)
     g_gameScene.m_gameHighlightNode:addChild(char.m_hpNode, t_data['ui_zorder'])
     char.m_hpNode:release()
+
+    t_data['ui_casting_parent'] = char.m_castingNode:getParent()
+    t_data['ui_casting_zorder'] = char.m_castingNode:getLocalZOrder()
+    char.m_castingNode:retain()
+    char.m_castingNode:removeFromParent(false)
+    g_gameScene.m_gameHighlightNode:addChild(char.m_castingNode, t_data['ui_casting_zorder'])
+    char.m_castingNode:release()
 end
 
 -------------------------------------
@@ -319,6 +326,12 @@ function SkillIndicatorMgr:removeHighlightList(char)
         node:retain()
         node:removeFromParent(false)
         t_data['ui_parent']:addChild(node, t_data['ui_zorder'])
+        node:release()
+
+        local node = char.m_castingNode
+        node:retain()
+        node:removeFromParent(false)
+        t_data['ui_casting_parent']:addChild(node, t_data['ui_casting_zorder'])
         node:release()
 
         self.m_lHighlightList[char] = nil

@@ -1062,7 +1062,9 @@ function Character:setTargetEffect(animator)
     self:removeTargetEffect()
     self.m_targetEffect = animator
     if animator then
-        self.m_rootNode:addChild(animator.m_node)
+        --self.m_rootNode:addChild(animator.m_node)
+        animator:setPosition(-self.m_hpUIOffset[1], -self.m_hpUIOffset[2])
+        self.m_hpNode:addChild(animator.m_node)
     end
 end
 
