@@ -508,6 +508,20 @@ function UI_GameResultNew:makeRewardItem(i, v)
     local t_item = table_item[item_id]
     
     vars['rewardLabel' .. i]:setString(t_item['t_name'] .. '\nX ' .. count)
+
+    do -- 상자의 등급에 따라 아이템 카드 프레임 변경
+        local lua_name = 'legendSprite'
+        if (self.m_boxGrade == 's') then
+            lua_name = 'legendSprite'
+        elseif (self.m_boxGrade == 'a') then
+            lua_name = 'heroSprite'
+        elseif (self.m_boxGrade == 'b') then
+            lua_name = 'rareSprite'
+        elseif (self.m_boxGrade == 'c') then
+            lua_name = 'commonSprite'
+        end
+        item_card.vars[lua_name]:setVisible(true)
+    end
 end
 
 -------------------------------------
