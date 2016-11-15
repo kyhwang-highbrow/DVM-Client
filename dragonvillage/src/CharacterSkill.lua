@@ -256,11 +256,6 @@ function Character:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_da
                 t_launcher_option['dir'] = t_data['dir']
             else
                 t_launcher_option['dir'] = self:getBreathDegree(start_x, start_y, phys_group)
-                if (not t_launcher_option['dir']) then
-                    -- 각도 지정
-                    local degree = getDegree(start_x, start_y, self.m_targetChar.pos.x, self.m_targetChar.pos.y)
-                    t_launcher_option['dir'] = degree
-                end
             end
         else
             -- 타겟 지정
@@ -271,6 +266,12 @@ function Character:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_da
 		self:checkTarget(t_skill)
         t_launcher_option['target'] = self.m_targetChar
     end
+
+	-- 각도 지정
+	if (not t_launcher_option['dir']) then
+        local degree = getDegree(start_x, start_y, self.m_targetChar.pos.x, self.m_targetChar.pos.y)
+        t_launcher_option['dir'] = degree
+	end
 
     if is_hero then
         t_launcher_option['target_pos'] = {start_x + 500, start_y}
