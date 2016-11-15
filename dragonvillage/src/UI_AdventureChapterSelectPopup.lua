@@ -82,6 +82,17 @@ function UI_AdventureChapterSelectPopup:init_tableView()
     l_chapter_list[5] = 5
     l_chapter_list[6] = 6
 
+    -- 생성 콜백 함수
+    local function create_func(item)
+        local ui = item['ui']
+
+        ui.m_cbDifficultyBtn = function(chapter, difficulty)
+            self:close()
+            if self.m_cbFunction then
+                self.m_cbFunction(chapter, difficulty)
+            end
+        end
+    end
 
     -- 클릭 콜백 함수
     local function click_dragon_item(item)
@@ -99,7 +110,8 @@ function UI_AdventureChapterSelectPopup:init_tableView()
         if is_open then
             self:close()
             if self.m_cbFunction then
-                self.m_cbFunction(chapter)
+                local difficulty = g_adventureData:getChapterOpenDifficulty(chapter)
+                self.m_cbFunction(chapter, difficulty)
             end
         end
     end
@@ -107,7 +119,7 @@ function UI_AdventureChapterSelectPopup:init_tableView()
     -- 테이블뷰 초기화
     local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.HORIZONTAL)
     table_view_ext:setCellInfo(400, 430)
-    table_view_ext:setItemUIClass(UI_AdventureChapterButton, click_dragon_item) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
+    table_view_ext:setItemUIClass(UI_AdventureChapterButton, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
     table_view_ext:setItemInfo(l_chapter_list)
     table_view_ext:update()
 

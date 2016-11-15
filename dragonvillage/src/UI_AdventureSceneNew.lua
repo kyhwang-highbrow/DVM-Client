@@ -127,6 +127,12 @@ function UI_AdventureSceneNew:click_prevBtn()
 
     if g_adventureData:isOpenChapter(difficulty, chapter) then  
         self:refreshChapter(chapter, difficulty)
+    else
+        local difficulty = g_adventureData:getChapterOpenDifficulty(chapter)
+        if (0 < difficulty) then
+            self:refreshChapter(chapter, difficulty)
+            UIManager:toastNotificationRed(Str('난이도가 변경되었습니다.'))
+        end
     end
 end
 
@@ -140,7 +146,13 @@ function UI_AdventureSceneNew:click_nextBtn()
     if g_adventureData:isOpenChapter(difficulty, chapter) then  
         self:refreshChapter(chapter, difficulty)
     else
-        UIManager:toastNotificationRed(Str('{1}챕터를 먼저 모험하세요.', self.m_currChapter))
+        local difficulty = g_adventureData:getChapterOpenDifficulty(chapter)
+        if (0 < difficulty) then
+            self:refreshChapter(chapter, difficulty)
+            UIManager:toastNotificationRed(Str('난이도가 변경되었습니다.'))
+        else
+            UIManager:toastNotificationRed(Str('{1}챕터를 먼저 모험하세요.', self.m_currChapter))
+        end
     end
 end
 
@@ -150,8 +162,7 @@ end
 -------------------------------------
 function UI_AdventureSceneNew:click_selectBtn()
     local ui = UI_AdventureChapterSelectPopup(self.m_currChapter)
-    local difficulty = 1
-    ui.m_cbFunction = function(chapter) self:refreshChapter(chapter, difficulty, true) end
+    ui.m_cbFunction = function(chapter, difficulty) self:refreshChapter(chapter, difficulty, true) end
 end
 
 -------------------------------------

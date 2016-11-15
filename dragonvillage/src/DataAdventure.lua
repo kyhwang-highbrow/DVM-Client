@@ -222,6 +222,10 @@ end
 -- @brief
 -------------------------------------
 function DataAdventure:isOpenGlobalChapter(chapter)
+    if (MAX_ADVENTURE_CHAPTER < chapter) then
+        return false
+    end
+
     local is_open = (chapter <= self.m_tData['open_chapter'])
     return is_open
 end
@@ -247,9 +251,32 @@ end
 -- @brief
 -------------------------------------
 function DataAdventure:isOpenChapter(difficulty, chapter)
+    if (MAX_ADVENTURE_CHAPTER < chapter) then
+        return false
+    end
+
     local stage = 1
     local stage_id = makeAdventureID(difficulty, chapter, stage)
     return self:isOpenStage(stage_id)
+end
+
+-------------------------------------
+-- function getChapterOpenDifficulty
+-- @brief
+-------------------------------------
+function DataAdventure:getChapterOpenDifficulty(chapter)
+    if (MAX_ADVENTURE_CHAPTER < chapter) then
+        return 0
+    end
+    
+    local open_difficulty = 0
+    for i=1, MAX_ADVENTURE_DIFFICULTY do
+        if self:isOpenChapter(i, chapter) then
+            open_difficulty = i
+        end
+    end
+
+    return open_difficulty
 end
 
 -------------------------------------
