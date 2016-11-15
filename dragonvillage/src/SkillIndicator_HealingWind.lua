@@ -11,6 +11,7 @@ SkillIndicator_HealingWind = class(SkillIndicator, {
 -------------------------------------
 function SkillIndicator_HealingWind:init(hero, t_skill)
     self.m_skillWidth = t_skill['val_2']
+	self.m_indicatorScale = t_skill['res_scale']
 end
 
 -------------------------------------
@@ -29,8 +30,7 @@ function SkillIndicator_HealingWind:onTouchMoved(x, y)
     self.m_targetPosY = y
 
     -- 인디케이터 위치 보정
-    --self.m_indicatorEffect01:setPosition(x-pos_x, y-pos_y)
-    self.m_indicatorEffect01:setPosition(x-pos_x, 0 - pos_y)
+    self.m_indicatorEffect01:setPosition(x - pos_x, 0 - pos_y)
     self.m_indicator2:setPosition(x - pos_x, y - pos_y)
 
 
@@ -104,7 +104,8 @@ function SkillIndicator_HealingWind:initIndicatorNode()
         root_node:addChild(indicator.m_node)
         self.m_indicatorEffect01 = indicator
 
-        local scale_x = (self.m_skillWidth / 360)
+		--@TODO 스킬 인디케이터 스케일 전면 수정 해야함
+        local scale_x = 24/36 -- (self.m_skillWidth / 360)
         indicator.m_node:setScaleX(scale_x)
     end
 

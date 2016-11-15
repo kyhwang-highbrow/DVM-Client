@@ -155,7 +155,11 @@ function SkillHealingWind:makeSkillInstance(owner, t_skill, t_data)
 	
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(hit, dmg_rate, skill_width)
+	
+	--@TODO 스킬 리소스 스케일 조정 문제
+	skill.m_resScale = skill_width / 360
+    
+	skill:init_skill(hit, dmg_rate, skill_width)
 	skill:initState()
 
 	-- 3. state 시작 
