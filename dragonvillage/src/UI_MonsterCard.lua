@@ -57,6 +57,13 @@ function UI_MonsterCard:refresh()
         end
     end
 
+    do -- 보스류 프레임 표시
+        local rarity = t_monster['rarity']
+        if isExistValue(rarity, 'elite', 'subboss', 'boss') then
+            vars['enemyBossSprite']:setVisible(true)
+        end
+    end
+
     do -- 레벨 표시
         vars['levelLabel']:setVisible(false)
     end
