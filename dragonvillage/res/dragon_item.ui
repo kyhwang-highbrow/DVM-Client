@@ -341,7 +341,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 25;
-					text = '재료';
+					text = '출전';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 0; 0; 0; };
@@ -376,7 +376,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
-				lua_name = 'materialSprite';
+				lua_name = 'readySprite';
 				file_name = 'ui/frame/dragon_select_frame_material.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -442,7 +442,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
-				lua_name = 'readySprite';
+				lua_name = 'materialSprite';
 				file_name = 'ui/frame/dragon_select_frame_ready.png';
 				color = { 255; 255; 255; };
 				opacity = 255;

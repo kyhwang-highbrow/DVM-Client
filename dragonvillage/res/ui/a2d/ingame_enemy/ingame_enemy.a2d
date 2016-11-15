@@ -43,6 +43,68 @@
 						"layer_list":
 						[
 							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_adv_arrow'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":14
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"disadv_arrow",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_disadv_arrow'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":19
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name":"res",
+			"expand":true,
+			"apply":false,
+			"visual_list":
+			[
+				{
+					"name":"res_adv_arrow",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
 								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_enemy.plist'<azSprite>'attr_adv_arrow.png'",
 								"expand":false,
 								"apply":true,
@@ -86,7 +148,7 @@
 					}
 				},
 				{
-					"name":"disadv_arrow",
+					"name":"res_disadv_arrow",
 					"apply":true,
 					"fps":30,
 					"layer_root":

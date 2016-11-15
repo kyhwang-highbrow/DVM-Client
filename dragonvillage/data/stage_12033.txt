@@ -47,13 +47,11 @@
 				"130011;7;Appear;RO02;RF12;0.5"
 				"130011;7;Appear;RO04;RF24;0.5"
 				"130011;7;Appear;RO06;RF16;0.5"
-				"130033;7;Appear;RO01;RM11;0.5"
+				"131071;7;Appear;RO01;RM11;0.5"
 				"130033;7;Appear;RO04;RM24;0.5"
-				"130033;7;Appear;RO07;RM17;0.5"
+				"131071;7;Appear;RO07;RM17;0.5"
 				"130043;7;Appear;RO03;RB13;0.5"
 				"130043;7;Appear;RO05;RB15;0.5"
-				"131071;7;Appear;RO02;RB22;0.5"
-				"131071;7;Appear;RO06;RB26;0.5"
                 ]		
             }
         },
@@ -63,7 +61,7 @@
 			"camera":
             {
                 "scale":0.8,
-                "pos_x":100,
+                "pos_x":0,
                 "pos_y":0
             },
             "wave":

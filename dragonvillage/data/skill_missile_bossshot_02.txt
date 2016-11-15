@@ -10,7 +10,7 @@
 				"body":[0,0,0],
                 "count":1,
                 "period":0,
-                "scale":1.5,
+                "scale":2,
 				"time":0,
 				"speed":500,
 				"accel":-500,
@@ -18,7 +18,7 @@
 				"accel_delay":0.1,
 				"angular_velocity":30,
 				"offset":[0,0],
-				"vanish_time":2.5,
+				"vanish_time":1.1,
 				"dir":-45,
 				"dir_add":0,
 				
@@ -31,33 +31,15 @@
 						"count":18,
 						"period":0.03,
 						"scale":0.3,
-						"time":1.5,
+						"time":0,
 						"speed":500,
 						"accel":100,
 						"h_limit_speed":800,
 						"accel_delay":0,
 						"angular_velocity":0,
 						"offset":[0,0],
-						"dir_array":[0,180],
+						"dir_array":[0,90,180,270],
 						"dir_add":10
-					},
-					
-					{
-						"idx":1,
-						"res":"res/missile/missile_wedge_2/missile_wedge_2_@.vrp",
-						"body":[0,0,10],
-						"count":18,
-						"period":0.03,
-						"scale":0.3,
-						"time":1.5,
-						"speed":500,
-						"accel":100,
-						"h_limit_speed":800,
-						"accel_delay":0,
-						"angular_velocity":0,
-						"offset":[0,0],
-						"dir_array":[0,180],
-						"dir_add":-10
 					}
 				],
 				
