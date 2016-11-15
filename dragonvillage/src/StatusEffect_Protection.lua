@@ -63,7 +63,9 @@ end
 -- function update
 -------------------------------------
 function StatusEffect_Protection:update(dt)
-	self.m_label:setString(string.format('%.1f / %.1f', self.m_StatusEffect_ProtectionHP, self.m_StatusEffect_ProtectionHPOrg))
+	if DISPLAY_SHIELD_HP then	
+		self.m_label:setString(string.format('%.1f / %.1f', self.m_StatusEffect_ProtectionHP, self.m_StatusEffect_ProtectionHPOrg))
+	end
 	if (self.m_state == 'idle') then
 		self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 
