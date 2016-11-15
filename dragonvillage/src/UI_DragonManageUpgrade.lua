@@ -525,9 +525,6 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
             g_topUserInfo:refreshData()
         end
 
-        -- UI 갱신
-        self:refresh_dragonIndivisual(doid)
-
         self.m_bChangeDragonList = true
 
         do
@@ -536,6 +533,12 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
             -- 결과 팝업
             if (t_prev_dragon_data['grade'] < t_next_dragon_data['grade']) then
                 UI_DragonManageUpgradeResult(t_next_dragon_data)
+
+                -- 최대 승급을 달성했을 경우(스킬까지 모두 다)
+                if (not g_dragonsData:canUpgrade(doid)) then
+                    self:close()
+                    return
+                end
             else
                 -- 반듯이 폴리싱 할 것!
                 self.vars['upgradeVisual']:setVisible(true)
@@ -544,6 +547,9 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
                 SoundMgr:playEffect('EFFECT', 'exp_gauge')
             end
         end
+
+        -- UI 갱신
+        self:refresh_dragonIndivisual(doid)
     end
 
     local ui_network = UI_Network()

@@ -329,14 +329,20 @@ function UI_DragonManagementEvolution:click_upgradeBtn()
             g_topUserInfo:refreshData()
         end
 
-        -- UI 갱신
-        self:refresh_dragonIndivisual(doid)
-        self:refresh()
-
         self.m_bChangeDragonList = true
 
         -- 팝업 연출
         UI_DragonManageEvolutionResult(ret['dragon'])
+
+        -- 최대 진화도를 달성했을 경우
+        if g_dragonsData:isMaxEvolution(doid) then
+            self:close()
+            return
+        end
+
+        -- UI 갱신
+        self:refresh_dragonIndivisual(doid)
+        self:refresh()
     end
 
     local ui_network = UI_Network()
