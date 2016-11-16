@@ -343,6 +343,11 @@ function GameState:update_fight(dt)
                 -- 모든 적들을 죽임
                 world:killAllEnemy()
 
+                -- 스킬 다 날려 버리자
+		        for _, skill in pairs(world.m_lSkillList) do
+			        skill:changeState('dying')
+		        end
+
                 self:changeState(GAME_STATE_SUCCESS_WAIT)
             end
         end

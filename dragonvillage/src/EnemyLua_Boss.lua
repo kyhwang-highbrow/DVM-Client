@@ -97,9 +97,11 @@ end
 function EnemyLua_Boss.st_dying(owner, dt)
     if (owner.m_stateTimer == 0) then
         -- 효과음
-        local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
-                
-        SoundMgr:playEffect('VOICE', string.format('vo_boss%d_die', chapter))
+        if owner.m_charTable['rarity'] == 'boss' then
+            local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
+        
+            SoundMgr:playEffect('VOICE', string.format('vo_boss%d_die', chapter))
+        end
     end
 
     PARENT.st_dying(owner, dt)
@@ -137,10 +139,12 @@ function EnemyLua_Boss.st_casting(owner, dt)
         end
 
         -- 효과음
-        local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
-        local type = math_random(1, 2)
-        
-        SoundMgr:playEffect('VOICE', string.format('vo_boss%d_skill_%d', chapter, type))
+        if owner.m_charTable['rarity'] == 'boss' then
+            local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
+            local type = math_random(1, 2)
+
+            SoundMgr:playEffect('VOICE', string.format('vo_boss%d_skill_%d', chapter, type))
+        end
     end
 end
 
@@ -322,7 +326,7 @@ function EnemyLua_Boss:cancelSkill()
     local b = PARENT.cancelSkill(self)
     
     -- 보스별 음성
-    if b then
+    if b and self.m_charTable['rarity'] == 'boss' then
         local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
         SoundMgr:stopEffect('VOICE', string.format('vo_boss%d_skill_1', chapter))
         SoundMgr:stopEffect('VOICE', string.format('vo_boss%d_skill_2', chapter))
