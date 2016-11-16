@@ -202,7 +202,6 @@ end
 -- function onEnterAppear
 -------------------------------------
 function SkillIndicator:onEnterAppear()
-    self.m_hero:changeState('skillPrepare')
     self.m_hero.m_animator:setTimeScale(5)
 end
 

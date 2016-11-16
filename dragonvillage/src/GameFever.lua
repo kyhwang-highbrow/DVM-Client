@@ -95,6 +95,8 @@ function GameFever:initUI()
     self.m_feverLabel = cc.Label:createWithBMFont('res/font/fever_gauge.fnt', tostring(999))
     self.m_feverLabel:setAnchorPoint(cc.p(0.5, 0.5))
     self.m_feverLabel:setDockPoint(cc.p(0.5, 0.5))
+    self.m_feverLabel:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    self.m_feverLabel:setAdditionalKerning(0)
     self.m_feverLabel:setPosition(0, 14)
     self.m_feverNode:addChild(self.m_feverLabel)
     
@@ -177,7 +179,7 @@ function GameFever:update(dt)
     end
 
     self.m_colorLayer:setVisible(self.m_bActive)
-    self.m_feverNode:setVisible(self.m_state == GAME_FEVER_STATE_CHARGING or self.m_state == GAME_FEVER_STATE_APPEAR)
+    --self.m_feverNode:setVisible(self.m_state == GAME_FEVER_STATE_CHARGING or self.m_state == GAME_FEVER_STATE_APPEAR)
     self.m_feverTutVisual:setVisible(self.m_state == GAME_FEVER_STATE_LIVE)
     
     return false
@@ -247,7 +249,7 @@ function GameFever:update_live(dt)
 
     if (self.m_stateTimer == 0) then
         -- 피버 모드 연출
-        self.m_feverNode:setVisible(false)
+        --self.m_feverNode:setVisible(false)
         self.m_feverStartVisual:setVisible(false)
         self.m_feverIdleVisual:setVisual('fever', 'idle_02')
         self.m_feverIdleVisual:setRepeat(true)
@@ -422,6 +424,15 @@ function GameFever:addFeverPoint(point)
     self.m_realPoint = math_min(self.m_realPoint, 100)
 
     self.m_stepPoint = self.m_realPoint - self.m_curPoint
+
+    -- 획득시마다 게이지 표시
+    self.m_feverNode:setVisible(true)
+    self.m_feverNode:runAction(cc.Sequence:create(
+        cc.FadeIn:create(0.1),
+        cc.DelayTime:create(FEVER_POINT_UPDATE_TIME),
+        cc.FadeOut:create(0.5),
+        cc.CallFunc:create(function(node) node:setVisible(false) end)
+    ))
 end
 
 -------------------------------------

@@ -19,9 +19,6 @@ end
 -- function onEnterAppear
 -------------------------------------
 function SkillIndicator_Tamer:onEnterAppear()
-    --self.m_hero:changeState('skillPrepare')
-    --self.m_hero.m_animator:setTimeScale(5)
-
     do -- 드래곤별 친밀도를 얻어옴
         local world = self:getWorld()
         self.m_lFriendshipPercentLabel = {}

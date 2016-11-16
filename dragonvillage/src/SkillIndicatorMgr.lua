@@ -227,6 +227,8 @@ function SkillIndicatorMgr:setSelectHero(hero)
     if hero then
         local active_skill_id = hero:getSkillID('active')
         hero:reserveSkill(active_skill_id)
+
+        hero:changeState('skillPrepare')
     end
 end
 

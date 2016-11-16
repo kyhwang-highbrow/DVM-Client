@@ -503,6 +503,11 @@ function GameState:update_fight_fever(dt)
     local world = self.m_world
         
     if (self.m_stateTimer == 0) then
+        -- 인디케이터 삭제
+        if world.m_skillIndicatorMgr then
+            world.m_skillIndicatorMgr:clear()
+        end
+
         -- 아군 드래곤 모든 행동 정지 및 자기 위치로 이동
         for _, skill in pairs(world.m_lSkillList) do
             if isInstanceOf(skill, Skill) and skill.m_owner and skill.m_owner.m_bLeftFormation then
