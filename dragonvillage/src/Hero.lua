@@ -701,7 +701,7 @@ function Hero:resetActiveSkillCoolTime()
     if self:isEndActiveSkillCoolTime() then
         self.m_activeSkillTimer = 0
         self.m_infoUI.vars['skllFullVisual']:setVisible(false)
-        self.m_infoUI.vars['skllFullVisual2']:setVisible(true)
+        self.m_infoUI.vars['skllFullVisual2']:setVisible(false)
         self.m_infoUI.vars['skillGauge']:setPercentage(0)
         return true
     else
