@@ -427,6 +427,8 @@ function UI_DragonManagementFriendship:network_friendshipUp(fruit_id)
         self:refresh_fruitListTab(attr)
         
         self:friendshipDirecting(ret['is_flevelup'], ret['bonus_grade'], self.m_prevFriendshipData, ret['dragon'])
+
+        self.m_bChangeDragonList = true
     end
 
     local ui_network = UI_Network()
