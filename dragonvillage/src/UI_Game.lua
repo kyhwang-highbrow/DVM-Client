@@ -14,7 +14,8 @@ function UI_Game:init(game_scene)
     local vars = self:load('ingame_scene_new.ui')
     UIManager:open(self, UIManager.NORMAL)
 
-    vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)    
+    vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
+	vars['feverButton']:registerScriptTapHandler(function() self:click_feverButton() end)    
 
     local label = cc.Label:createWithBMFont('res/font/hit_font.fnt', tostring(999))
     label:setDockPoint(cc.p(0.5, 0.5))
@@ -42,6 +43,16 @@ end
 -------------------------------------
 function UI_Game:click_pauseButton()
     UI_GamePause(function() self.m_gameScene:gamePause() end, function() self.m_gameScene:gameResume() end)
+end
+
+-------------------------------------
+-- function click_feverButton
+-------------------------------------
+function UI_Game:click_feverButton()
+	local game_fever = self.m_gameScene.m_gameWorld.m_gameFever
+    if not game_fever:isActive() then
+        game_fever:addFeverPoint(100)
+    end
 end
 
 -------------------------------------
