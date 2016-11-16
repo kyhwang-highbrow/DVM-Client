@@ -228,7 +228,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '경험치';
+				text = '친밀도';
 				h_alignment = 2;
 				v_alignment = 1;
 				color = { 102; 88; 71; };
