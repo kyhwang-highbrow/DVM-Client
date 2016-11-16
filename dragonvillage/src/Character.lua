@@ -10,8 +10,8 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_maxHp = '',
         m_hp = '',
 
-        --m_charType = '',
-        --m_charTable = '',
+        m_charType = '',
+        m_charTable = '',
         m_statusCalc = '',
         m_stateDelegate = 'CharacterStateDelegate',
 
@@ -177,7 +177,7 @@ end
 function Character:initStatus(t_char, level, grade, evolution, doid)
     local level = level or 1
     self.m_charTable = t_char
-
+	
     -- 능력치 계산기
     local grade = (grade or 1)
     local evolution = (evolution or 1)
@@ -267,14 +267,6 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
         critical = (math_random(1, 1000) <= (final_critical_chance * 10))
     end
 
-    --[[
-    cclog('######################################################')
-    cclog('공격력 : ' .. atk_dmg)
-    cclog('방어력 : ' .. def_pwr)
-    cclog('데미지 : ' .. damage)
-    cclog('######################################################')
-    --]]
-
     local attr_bonus_dmg = 0 -- 속성에 의해 추가된 데미지
     do -- 데미지 관련
         local damage_multifly = 1
@@ -302,6 +294,17 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
     damage = math_floor(damage * attacker.m_activityCarrier.m_skillCoefficient)
 
     attr_bonus_dmg = math_min(attr_bonus_dmg, damage)
+		
+	if PRINT_ATTACK_INFO then
+		cclog('######################################################')
+		cclog('공격자 : ' .. attacker.m_activityCarrier.m_activityCarrierOwner:getName())
+		cclog('방어자 : ' .. defender:getName())
+		cclog('공격 타입 : ' .. attacker.m_activityCarrier:getAttackType())
+		cclog(' 공격력 : ' .. atk_dmg)
+		cclog(' 방어력 : ' .. def_pwr)
+		cclog(' 데미지 : ' .. damage)
+		cclog('######################################################')
+    end
 
     -- 회피 계산
     local hit_rate = attacker.m_activityCarrier:getStat('hit_rate')
@@ -1203,7 +1206,11 @@ end
 -- function getName
 -------------------------------------
 function Character:getName()
-	return self.m_charTable['t_name']
+	if self.m_charTable then 
+		return self.m_charTable['t_name']
+	else
+		return '까미'
+	end
 end
 
 -------------------------------------

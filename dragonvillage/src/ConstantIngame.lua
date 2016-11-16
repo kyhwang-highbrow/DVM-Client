@@ -71,5 +71,8 @@ MAX_HIT = 10
 -- # 드래곤 활성화 스킬을 출력한다. 
 PRINT_DRAGON_SKILL = false
 
+-- # 인게임 공격 정보를 콘솔에 출력한다
+PRINT_ATTACK_INFO = false
+
 -- # 보호막량을 인게임에 표시한다.
 DISPLAY_SHIELD_HP = false
