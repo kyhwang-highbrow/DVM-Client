@@ -243,14 +243,14 @@ function SkillIndicator_LeafBlade:findTargetList(x, y)
     for i, col in pairs(t_target_line_1) do
         table.insert(l_target_line, col['obj'])
 		if (not self.m_isPass) then 
-			self.m_target_1 = col['obj']
+			self.m_target_2 = col['obj']
 			break
 		end
     end
     for i, col in pairs(t_target_line_2) do
         table.insert(l_target_line, col['obj'])
 		if (not self.m_isPass) then 
-			self.m_target_2 = col['obj']
+			self.m_target_1 = col['obj']
 			break
 		end
     end
@@ -301,20 +301,20 @@ function SkillIndicator_LeafBlade:changeEffectNonePass()
 	
 	-- 탄1
 	if self.m_target_1 then
-		self:checkPosX(self.m_indicatorLinkEffect2.m_lEffectNode, self.m_target_1)
-		self:checkPosX(self.m_indicatorLinkEffect3.m_lEffectNode, self.m_target_1)
+		self:checkPosX(self.m_indicatorLinkEffect1.m_lEffectNode, self.m_target_1)
+		self:checkPosX(self.m_indicatorLinkEffect4.m_lEffectNode, self.m_target_1)
 	else
-		self.m_indicatorLinkEffect2:changeAni('circle', true)
-		self.m_indicatorLinkEffect3:changeAni('circle', true)
+		self.m_indicatorLinkEffect1:changeAni('circle', true)
+		self.m_indicatorLinkEffect4:changeAni('circle', true)
 	end
 	
 	-- 탄2
 	if self.m_target_2 then
-		self:checkPosX(self.m_indicatorLinkEffect1.m_lEffectNode, self.m_target_2)
-		self:checkPosX(self.m_indicatorLinkEffect4.m_lEffectNode, self.m_target_2)
+		self:checkPosX(self.m_indicatorLinkEffect2.m_lEffectNode, self.m_target_2)
+		self:checkPosX(self.m_indicatorLinkEffect3.m_lEffectNode, self.m_target_2)
 	else
-		self.m_indicatorLinkEffect1:changeAni('circle', true)
-		self.m_indicatorLinkEffect4:changeAni('circle', true)
+		self.m_indicatorLinkEffect2:changeAni('circle', true)
+		self.m_indicatorLinkEffect3:changeAni('circle', true)
 	end
 end
 
