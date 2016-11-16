@@ -10,6 +10,7 @@ UI_FruitFeedPress = class({
         m_blockUI = 'UI_BlockPopup',
 
         m_timer = 'number',
+        m_emotionTimer = 'number',
 
         ---
         m_fruitCount = 'number', -- 보유한 열매 갯수
@@ -44,6 +45,7 @@ function UI_FruitFeedPress:resetFruitFeedPress()
     self.m_currFruitBtn = nil
     self.m_currFruitID = nil
     self.m_timer = 0
+    self.m_emotionTimer = 0
 
     self.m_updateNode:unscheduleUpdate()
     
@@ -93,6 +95,12 @@ function UI_FruitFeedPress:update(dt)
         end
         
         self.m_timer = 0.1
+    end
+
+    self.m_emotionTimer = (self.m_emotionTimer - dt)
+    if (self.m_emotionTimer <= 0) then
+        self.m_friendshipUI:showEmotionEffect()
+        self.m_emotionTimer = 2.5
     end
 end
 
