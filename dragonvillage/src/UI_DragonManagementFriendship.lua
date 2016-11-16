@@ -616,10 +616,46 @@ end
 -- @brief 열매 날아가는 연출
 -------------------------------------
 function UI_DragonManagementFriendship:feedDirecting(fruit_id, fruit_node)
-    --local icon = IconHelper:getItemIcon(fruit_id)
-    --self.root:addChild(icon)
-
     local vars = self.vars
+    local pos_x = 0
+    local pos_y = 0
+
+    local dest_pos_x = 0
+    local dest_pos_y = 0
+
+    do -- 시작 위치
+        local x, y = fruit_node:getPosition()
+        local parent = fruit_node:getParent()
+        local world_pos = parent:convertToWorldSpaceAR(cc.p(x, y))
+        local local_pos = self.root:convertToNodeSpaceAR(world_pos)
+        pos_x = local_pos['x']
+        pos_y = local_pos['y']
+    end
+
+    do -- 도착 위치
+        local x, y = vars['dragonNode']:getPosition()
+        local parent = vars['dragonNode']:getParent()
+        local world_pos = parent:convertToWorldSpaceAR(cc.p(x, y))
+        local local_pos = self.root:convertToNodeSpaceAR(world_pos)
+        dest_pos_x = local_pos['x'] + math_random(-50, 50)
+        dest_pos_y = local_pos['y'] + 100 + math_random(-50, 50)
+    end
+
+    -- 아이콘 생성
+    local icon = IconHelper:getItemIcon(fruit_id)
+    icon:setPosition(pos_x, pos_y)
+    self.root:addChild(icon)
+
+    do -- 액션 실행
+        local distance = getDistance(pos_x, pos_y, dest_pos_x, dest_pos_y)
+        local duration = 0.5 + math_max(0, ((distance - 450) * 0.0001))
+        local jump_height = math_random(100, 250)
+        local action = cc.JumpTo:create(duration, cc.p(dest_pos_x, dest_pos_y), jump_height, 1)
+		local action2 = cc.RotateTo:create(duration, -720)
+        local spawn = cc.Spawn:create(cc.EaseIn:create(action, 1), action2)
+        local scale_action = cc.ScaleTo:create(0.05, 0)
+		icon:runAction(cc.Sequence:create(spawn, scale_action, cc.RemoveSelf:create()))
+    end
 end
 
 --@CHECK
