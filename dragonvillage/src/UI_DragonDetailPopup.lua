@@ -130,10 +130,8 @@ function UI_DragonDetailPopup:refresh()
     end
 
     do -- 능력치 입력
-        local lv = t_dragon_data['lv']
-        local grade = t_dragon_data['grade']
-        local evolution = t_dragon_data['evolution']
-        local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution)
+        local doid = t_dragon_data['id']
+        local status_calc = MakeOwnDragonStatusCalculator(doid)
         vars['atk_p_label']:setString(status_calc:getFinalStatDisplay('atk'))
         vars['atk_spd_label']:setString(status_calc:getFinalStatDisplay('aspd'))
         vars['cri_chance_label']:setString(status_calc:getFinalStatDisplay('cri_chance'))
@@ -143,6 +141,16 @@ function UI_DragonDetailPopup:refresh()
         vars['avoid_label']:setString(status_calc:getFinalStatDisplay('avoid'))
         vars['hit_rate_label']:setString(status_calc:getFinalStatDisplay('hit_rate'))
         vars['cri_dmg_label']:setString(status_calc:getFinalStatDisplay('cri_dmg'))
+
+        vars['add_atk_p_label']:setString(status_calc:getFinalAddStatDisplay('atk'))
+        vars['add_atk_spd_label']:setString(status_calc:getFinalAddStatDisplay('aspd'))
+        vars['add_cri_chance_label']:setString(status_calc:getFinalAddStatDisplay('cri_chance'))
+        vars['add_def_p_label']:setString(status_calc:getFinalAddStatDisplay('def'))
+        vars['add_hp_label']:setString(status_calc:getFinalAddStatDisplay('hp'))
+        vars['add_cri_avoid_label']:setString(status_calc:getFinalAddStatDisplay('cri_avoid'))
+        vars['add_avoid_label']:setString(status_calc:getFinalAddStatDisplay('avoid'))
+        vars['add_hit_rate_label']:setString(status_calc:getFinalAddStatDisplay('hit_rate'))
+        vars['add_cri_dmg_label']:setString(status_calc:getFinalAddStatDisplay('cri_dmg'))
     end
 end
 

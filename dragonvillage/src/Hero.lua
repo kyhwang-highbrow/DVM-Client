@@ -550,8 +550,8 @@ end
 -------------------------------------
 -- function initStatus
 -------------------------------------
-function Hero:initStatus(t_char, level, grade, evolution)
-    PARENT.initStatus(self, t_char, level, grade, evolution)
+function Hero:initStatus(t_char, level, grade, evolution, doid)
+    PARENT.initStatus(self, t_char, level, grade, evolution, doid)
 	
     local t_skill = self:getLevelingSkillByType('active').m_tSkill
 

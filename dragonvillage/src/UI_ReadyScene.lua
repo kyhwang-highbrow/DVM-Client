@@ -420,11 +420,8 @@ function UI_ReadyScene:setSelectedDragonDoid(doid)
     end
 
     do -- 능력치 계산기
-        local did = t_dragon_data['did']
-        local lv = t_dragon_data['lv']
-        local grade = t_dragon_data['grade']
-        local evolution = t_dragon_data['evolution']
-        local status_calc = MakeDragonStatusCalculator(did, lv, grade, evolution)
+        local doid = t_dragon_data['id']
+        local status_calc = MakeOwnDragonStatusCalculator(doid)
 
         vars['atkLabel']:setString(status_calc:getFinalStatDisplay('atk'))
         vars['defLabel']:setString(status_calc:getFinalStatDisplay('def'))

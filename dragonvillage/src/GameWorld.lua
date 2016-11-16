@@ -720,6 +720,7 @@ function GameWorld:makeDragonNew(t_dragon_data, idx)
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[dragon_id]
 
+    local doid = t_dragon_data['id']
     local lv = t_dragon_data['lv']
     local grade = t_dragon_data['grade']
     local evolution = t_dragon_data['evolution']
@@ -733,7 +734,7 @@ function GameWorld:makeDragonNew(t_dragon_data, idx)
     hero:initAnimatorHero(t_dragon['res'], evolution, attr)
     hero.m_animator:setScale(0.5 * t_dragon['scale'])
     hero:initState()
-    hero:initStatus(t_dragon, lv, grade, evolution)
+    hero:initStatus(t_dragon, lv, grade, evolution, doid)
 
     --
     self.m_leftFormationMgr:setChangePosCallback(hero)

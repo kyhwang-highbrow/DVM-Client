@@ -62,7 +62,6 @@ function StatusCalculator:calcStatusList(char_type, cid, lv, grade, evolution)
         t_status['lv'] = lv_stat
         t_status['grade'] = grade_stat
         t_status['evolution'] = evolution_stat
-        t_status['attribute_bonus'] = 0
         t_status['friendship_bonus'] = 0
 
         l_status[status_name] = t_status
@@ -115,67 +114,19 @@ function StatusCalculator:getFinalStatDisplay(stat_type)
 end
 
 -------------------------------------
--- function applyAttributeBonusStats
--- @brief 속성 보너스는 (기본, 레벨, 등급, 진화 능력치 합산의 %능력을 bonus로 줌)
+-- function getFinalAddStatDisplay
+-- @brief 친밀도로 증가된 수치 표시 (추후 항목이 추가될 수 있음)
 -------------------------------------
-function StatusCalculator:applyAttributeBonusStats(stat_type, multiply)
+function StatusCalculator:getFinalAddStatDisplay(stat_type)
     local t_status = self.m_lStatusList[stat_type]
+    local add_stat = t_status['friendship_bonus']
 
-    if (not t_status) then
-        error('stat_type : ' .. stat_type)
+    add_stat = math_floor(add_stat)
+    if (add_stat == 0) then
+        return ''
     end
 
-    -- 속성 보너스는 (기본, 레벨, 등급, 진화 능력치 합산의 %능력을 bonus로 줌)
-    local stat = (t_status['base'] + t_status['lv'] + t_status['grade'] + t_status['evolution'])
-    local attribute_bonus = (stat * multiply)
-
-    t_status['attribute_bonus'] = (t_status['attribute_bonus'] + attribute_bonus)
-    t_status['final'] = (t_status['final'] + attribute_bonus)
-end
-
--------------------------------------
--- function setAttributeBonusStats
--- @brief 속성능력 (추가 능력) 적용
--------------------------------------
-function StatusCalculator:setAttributeBonusStats(t_attr_bonus)
-    for stat_type,value in pairs(t_attr_bonus) do
-
-        local skip = isExistValue(stat_type, 'damage')
-
-        if (not skip) then
-            local value_multiply = (value / 100)
-            self:applyAttributeBonusStats(stat_type, value_multiply)
-        end
-    end
-
-    -- # 세부 능력치 적용
-    self.m_attackTick = self:getAttackTick()
-end
-
--------------------------------------
--- function applyFriendshipDetailedStats
--------------------------------------
-function StatusCalculator:applyFriendshipDetailedStats(stat_type, add_stat)
-    local t_status = self.m_lStatusList[stat_type]
-
-    if (not t_status) then
-        error('stat_type : ' .. stat_type)
-    end
-
-    t_status['friendship_bonus'] = (t_status['friendship_bonus'] + add_stat)
-    t_status['final'] = (t_status['final'] + add_stat)   
-end
-
--------------------------------------
--- function setFriendshipDetailedStats
--------------------------------------
-function StatusCalculator:setFriendshipDetailedStats(t_detailed_stats)
-    for stat_type,add_stat in pairs(t_detailed_stats) do
-        self:applyFriendshipDetailedStats(stat_type, add_stat)
-    end
-
-    -- # 세부 능력치 적용
-    self.m_attackTick = self:getAttackTick()
+    return '(+' .. math_floor(add_stat) .. ')'
 end
 
 -------------------------------------
@@ -187,20 +138,29 @@ end
 
 
 -------------------------------------
--- function getDPBaseStatus
--- @brief
--- TODO 삭제
+-- function applyFriendshipBonus
 -------------------------------------
-function StatusCalculator:getDPBaseStatus(status_type)
-    return 0
+function StatusCalculator:applyFriendshipBonus(l_bonus)
+    if (not l_bonus) then
+        return
+    end
+
+    for key, value in pairs(l_bonus) do
+        local t_status = self.m_lStatusList[key]
+        t_status['friendship_bonus'] = value
+        t_status['final'] = t_status['final'] + value
+    end
 end
+
+
 
 -------------------------------------
 -- function MakeDragonStatusCalculator
 -- @brief
 -------------------------------------
-function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution)
+function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, l_friendship_bonus)
     local status_calc = StatusCalculator('dragon', dragon_id, lv, grade, evolution)
+    status_calc:applyFriendshipBonus(l_friendship_bonus)
     return status_calc
 end
 
@@ -216,7 +176,12 @@ function MakeOwnDragonStatusCalculator(dragon_object_id)
     local grade = t_dragon_data['grade']
     local evolution = t_dragon_data['evolution']
 
-    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution)
+    local l_friendship_bonus = {}
+    l_friendship_bonus['atk'] = t_dragon_data['atk']
+    l_friendship_bonus['def'] = t_dragon_data['def']
+    l_friendship_bonus['hp'] = t_dragon_data['hp']
+
+    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, l_friendship_bonus)
 
     return status_calc
 end

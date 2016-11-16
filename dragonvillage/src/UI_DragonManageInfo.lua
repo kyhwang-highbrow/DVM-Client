@@ -296,13 +296,10 @@ end
 -------------------------------------
 function UI_DragonManageInfo:refresh_status(t_dragon_data, t_dragon)
     local vars = self.vars
-    local dragon_id = t_dragon['did']
-    local lv = t_dragon_data['lv']
-    local grade = t_dragon_data['grade']
-    local evolution = t_dragon_data['evolution']
 
     -- 능력치 계산기
-    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution)
+    local doid = t_dragon_data['id']
+    local status_calc = MakeOwnDragonStatusCalculator(doid)
 
     vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
     vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
