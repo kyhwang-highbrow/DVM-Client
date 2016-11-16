@@ -231,11 +231,12 @@ function TamerSkillSystem:updateSkillBtn(i, dt)
         visual:setVisible(false)
 
         if percentage <= 0 then
+			local temp_icon_num = 4 - i
             visual:setVisible(true)
-            visual:setVisual('skill_charging', 'normal')
+            visual:setVisual('skill_charging', 'normal_0' .. temp_icon_num)
             visual:setRepeat(false)
             visual:registerScriptLoopHandler(function()
-                visual:setVisual('skill_idle', 'normal')
+                visual:setVisual('skill_idle', 'normal_0' .. temp_icon_num)
                 visual:setRepeat(true)
             end)
         end
