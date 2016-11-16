@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>ingame_dragon_skill_b_0043.png</key>
+            <key>ingame_dragon_skill_b_01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{102,104}}</string>
@@ -17,153 +17,10 @@
                 <key>sourceSize</key>
                 <string>{320,240}</string>
             </dict>
-            <key>ingame_dragon_skill_b_0047.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{106,2},{102,100}}</string>
-                <key>offset</key>
-                <string>{-8,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{101,71},{102,100}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>ingame_dragon_skill_b_0051.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{210,2},{104,104}}</string>
-                <key>offset</key>
-                <string>{-8,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{100,68},{104,104}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>ingame_dragon_skill_b_0055.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{316,2},{104,104}}</string>
-                <key>offset</key>
-                <string>{-6,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{102,68},{104,104}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>ingame_dragon_skill_b_0057.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{422,2},{104,104}}</string>
-                <key>offset</key>
-                <string>{-8,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{100,69},{104,104}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>ingame_dragon_skill_b_0059.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{528,2},{102,102}}</string>
-                <key>offset</key>
-                <string>{-8,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{101,69},{102,102}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>ingame_dragon_skill_b_0063.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{632,2},{104,104}}</string>
-                <key>offset</key>
-                <string>{-8,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{100,69},{104,104}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>ingame_dragon_skill_b_0067.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{738,2},{104,104}}</string>
-                <key>offset</key>
-                <string>{-6,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{102,69},{104,104}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>ingame_dragon_skill_b_0071.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{844,2},{108,106}}</string>
-                <key>offset</key>
-                <string>{-7,-2}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{99,69},{108,106}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>ingame_dragon_skill_b_0075.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{954,2},{102,102}}</string>
-                <key>offset</key>
-                <string>{-7,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{102,70},{102,102}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>ingame_dragon_skill_b_0077.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1058,2},{104,104}}</string>
-                <key>offset</key>
-                <string>{-7,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{101,69},{104,104}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
-            <key>ingame_dragon_skill_b_0079.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1164,2},{104,104}}</string>
-                <key>offset</key>
-                <string>{-7,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{101,69},{104,104}}</string>
-                <key>sourceSize</key>
-                <string>{320,240}</string>
-            </dict>
             <key>ingame_dragon_skill_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,110},{1280,180}}</string>
+                <string>{{106,2},{1280,180}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -176,7 +33,7 @@
             <key>ingame_dragon_skill_charging_0101.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1284,110},{89,73}}</string>
+                <string>{{1388,2},{89,73}}</string>
                 <key>offset</key>
                 <string>{3,7}</string>
                 <key>rotated</key>
@@ -189,7 +46,7 @@
             <key>ingame_dragon_skill_charging_0102.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1375,110},{214,216}}</string>
+                <string>{{1479,2},{214,216}}</string>
                 <key>offset</key>
                 <string>{-4,2}</string>
                 <key>rotated</key>
@@ -202,7 +59,7 @@
             <key>ingame_dragon_skill_charging_0103.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1591,110},{251,233}}</string>
+                <string>{{1695,2},{251,233}}</string>
                 <key>offset</key>
                 <string>{-4,0}</string>
                 <key>rotated</key>
@@ -215,7 +72,7 @@
             <key>ingame_dragon_skill_charging_0104.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,345},{287,273}}</string>
+                <string>{{2,237},{287,273}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -228,7 +85,7 @@
             <key>ingame_dragon_skill_charging_0105.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{291,345},{273,259}}</string>
+                <string>{{291,237},{273,259}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -241,7 +98,7 @@
             <key>ingame_dragon_skill_charging_0106.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{566,345},{273,259}}</string>
+                <string>{{566,237},{273,259}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -254,7 +111,7 @@
             <key>ingame_dragon_skill_circle_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{841,345},{194,198}}</string>
+                <string>{{841,237},{194,198}}</string>
                 <key>offset</key>
                 <string>{-4,-10}</string>
                 <key>rotated</key>
@@ -267,7 +124,7 @@
             <key>ingame_dragon_skill_circle_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1037,345},{184,202}}</string>
+                <string>{{1037,237},{184,202}}</string>
                 <key>offset</key>
                 <string>{-3,-2}</string>
                 <key>rotated</key>
@@ -280,7 +137,7 @@
             <key>ingame_dragon_skill_circle_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1223,345},{190,200}}</string>
+                <string>{{1223,237},{190,200}}</string>
                 <key>offset</key>
                 <string>{4,0}</string>
                 <key>rotated</key>
@@ -293,7 +150,7 @@
             <key>ingame_dragon_skill_dsc.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1415,345},{306,34}}</string>
+                <string>{{1415,237},{306,34}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -306,7 +163,7 @@
             <key>ingame_dragon_skill_gauge_0101.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1723,345},{139,72}}</string>
+                <string>{{1723,237},{139,72}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -316,62 +173,10 @@
                 <key>sourceSize</key>
                 <string>{139,72}</string>
             </dict>
-            <key>ingame_dragon_skill_gauge_0201.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1864,345},{67,95}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{67,95}}</string>
-                <key>sourceSize</key>
-                <string>{67,95}</string>
-            </dict>
-            <key>ingame_dragon_skill_gauge_0202.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1933,345},{63,93}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{63,93}}</string>
-                <key>sourceSize</key>
-                <string>{63,93}</string>
-            </dict>
-            <key>ingame_dragon_skill_gauge_0203.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,620},{56,93}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{56,93}}</string>
-                <key>sourceSize</key>
-                <string>{56,93}</string>
-            </dict>
-            <key>ingame_dragon_skill_gauge_0204.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{60,620},{70,93}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{70,93}}</string>
-                <key>sourceSize</key>
-                <string>{70,93}</string>
-            </dict>
             <key>ingame_dragon_skill_name.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{132,620},{381,58}}</string>
+                <string>{{2,512},{381,58}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -391,7 +196,7 @@
             <key>size</key>
             <string>{2048,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6eb0224d921b35da6e2c4b8a1e1cd0c4$</string>
+            <string>$TexturePacker:SmartUpdate:95eb6937feedfc15f43365778826f8ae$</string>
             <key>textureFileName</key>
             <string>ingame_dragon_skill.png</string>
         </dict>
