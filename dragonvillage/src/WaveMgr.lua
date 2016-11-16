@@ -15,6 +15,8 @@ WaveMgr = class(IEventDispatcher:getCloneClass(), {
         m_bDevelopMode = '',
 
         m_cameraData = 'table',
+
+        m_highestRarity = 'number',     -- 하나의 웨이브 안에서 가장 높은 rarity
     })
 
 -------------------------------------
@@ -212,11 +214,20 @@ function WaveMgr:newScenario_dynamicWave(t_data)
     end
 
     self.m_lDynamicWave = {}
-
+    self.m_highestRarity = 'common'
+    
     for i, v in pairs(t_data['wave']) do
         for _, data in pairs(v) do
             local dynamic_wave = DynamicWave(self, data, i)
             table.insert(self.m_lDynamicWave, dynamic_wave)
+
+            -- 마지막 웨이브에서는 최대 등급을 가진 적을 찾음
+            local t_enemy = TABLE:get('enemy')[dynamic_wave.m_enemyID]
+            local rarity = t_enemy['rarity']
+                
+            if monsterRarityStrToNum(rarity) > monsterRarityStrToNum(self.m_highestRarity) then
+                self.m_highestRarity = rarity
+            end
         end
     end
 end
@@ -396,8 +407,22 @@ function WaveMgr:isFirstWave()
 end
 
 -------------------------------------
+-- function isFinalWave
+-------------------------------------
+function WaveMgr:isFinalWave()
+    return (self.m_currWave == self.m_maxWave)
+end
+
+-------------------------------------
 -- function isEmptyDynamicWaveList
 -------------------------------------
 function WaveMgr:isEmptyDynamicWaveList()
     return (#self.m_lDynamicWave == 0)
+end
+
+-------------------------------------
+-- function getHighestRariry
+-------------------------------------
+function WaveMgr:getHighestRariry()
+    return self.m_highestRarity
 end

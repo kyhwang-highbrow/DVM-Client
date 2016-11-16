@@ -297,9 +297,7 @@ function GameState:update_enemy_appear(dt)
     end
     
     -- 웨이브 매니져 업데이트
-    if (not world.m_bDoingTamerSkill) then
-        world.m_waveMgr:update(dt)
-    end
+    world.m_waveMgr:update(dt)
 end
 
 -------------------------------------
@@ -312,19 +310,42 @@ function GameState:update_fight(dt)
     local enemy_count = #world.m_tEnemyList
     local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
 
-    if (not world.m_bDoingTamerSkill) and (enemy_count <= 0) and (dynamic_wave <= 0) then
-        
-        -- 스킬 다 날려 버리자
-		for _, skill in pairs(world.m_lSkillList) do
-			skill:changeState('dying')
-		end
+    -- 해당 웨이브의 모든 적이 등장한 상태일 경우
+    if (dynamic_wave <= 0) then
 
-		if world.m_waveMgr:getNextWaveScriptData() then 
-		    self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
-		else
-			self:changeState(GAME_STATE_SUCCESS_WAIT)
-		end
-        return
+        -- 클리어 여부 체크
+        if (enemy_count <= 0) then
+            -- 스킬 다 날려 버리자
+		    for _, skill in pairs(world.m_lSkillList) do
+			    skill:changeState('dying')
+		    end
+
+		    if world.m_waveMgr:getNextWaveScriptData() then 
+		        self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
+		    else
+			    self:changeState(GAME_STATE_SUCCESS_WAIT)
+		    end
+            return
+
+        -- 마지막 웨이브라면 해당 웨이브의 최고 등급 적이 존재하지 않을 경우 클리어 처리
+        elseif world.m_waveMgr:isFinalWave() then
+            local highestRariry = world.m_waveMgr:getHighestRariry()
+            local bExistBoss = false
+            
+            for _, enemy in ipairs(world.m_tEnemyList) do
+                if (enemy.m_charTable['rarity'] == highestRariry) then
+                    bExistBoss = true
+                    break
+                end
+            end
+
+            if not bExistBoss then
+                -- 모든 적들을 죽임
+                world:killAllEnemy()
+
+                self:changeState(GAME_STATE_SUCCESS_WAIT)
+            end
+        end
     end
     
     if world.m_skillIndicatorMgr then

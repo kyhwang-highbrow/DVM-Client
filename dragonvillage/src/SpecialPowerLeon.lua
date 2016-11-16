@@ -72,7 +72,6 @@ function SpecialPowerLeon.st_end(owner, dt)
         owner.m_world.m_mapManager:tintTo(255, 255, 255, 0.5)
 
         local world = owner.m_world
-        world.m_bDoingTamerSkill = false
         world:setWaitAllCharacter(false)
 
         world.m_mapManager:tintTo(255, 255, 255, 0.5)

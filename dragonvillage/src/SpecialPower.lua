@@ -68,7 +68,6 @@ end
 function SpecialPower.st_end(owner, dt)
     if (owner.m_stateTimer == 0) then
         local world = owner.m_world
-        world.m_bDoingTamerSkill = false
         world:setWaitAllCharacter(false)
 
         world.m_mapManager:tintTo(255, 255, 255, 0.5)

@@ -59,8 +59,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_tamerSkillSystem = 'TamerSkillSystem',
         m_tamerSkillCut = 'TamerSkillCut',
         m_tamerSkillMgr = 'Tamer',
-        m_bDoingTamerSkill = 'boolean',
-
+        
         -- 테이머 대사 및 표정
         m_tamerSpeechSystem = 'TamerSpeechSystem',
 
@@ -766,7 +765,6 @@ end
 -------------------------------------
 function GameWorld:makeTamerSkillManager(tamer_id)
     self.m_tamerSkillMgr = TamerSkillManager(tamer_id, self)
-    self.m_bDoingTamerSkill = false
 end
 
 -------------------------------------
@@ -947,13 +945,24 @@ function GameWorld:onKeyReleased(keyCode, event)
             v:setMove(0, -240, 1500)
         end
 
-    -- 아군 다 죽이기
+    -- 테스트
     elseif (keyCode == KEY_D) then
+        --[[
         for i, v in ipairs(self.m_participants) do
             if (not v.m_bDead) then
                 v:setDead()
                 v:setEnableBody(false)
                 v:changeState('dying')
+            end
+        end
+        ]]--
+        for i, v in ipairs(self.m_tEnemyList) do
+            if not v.m_bDead then
+                if isExistValue(v.m_charTable['rarity'], 'elite', 'subboss', 'boss') then
+                    v:setDead()
+                    v:setEnableBody(false)
+                    v:changeState('dying')
+                end
             end
         end
     end
