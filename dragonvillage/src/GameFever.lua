@@ -427,12 +427,16 @@ function GameFever:addFeverPoint(point)
 
     -- 획득시마다 게이지 표시
     self.m_feverNode:setVisible(true)
-    self.m_feverNode:runAction(cc.Sequence:create(
-        cc.FadeIn:create(0.1),
-        cc.DelayTime:create(FEVER_POINT_UPDATE_TIME),
-        cc.FadeOut:create(0.5),
-        cc.CallFunc:create(function(node) node:setVisible(false) end)
-    ))
+    
+    local function action(node)
+        node:runAction(cc.Sequence:create(
+            cc.FadeIn:create(0.2),
+            cc.DelayTime:create(FEVER_POINT_UPDATE_TIME),
+            cc.FadeOut:create(0.3),
+            cc.CallFunc:create(function(node) self.m_feverNode:setVisible(false) end)
+        ))
+    end
+    doAllChildren(self.m_feverNode, action)
 end
 
 -------------------------------------
