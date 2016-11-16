@@ -16,7 +16,7 @@ function UI_DragonManageInfoView:init(l_dragon_id_list, idx)
     self.m_currIdx = idx
 
     local vars = self:load('dragon_management_info_view.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonManageInfoView')
@@ -27,6 +27,8 @@ function UI_DragonManageInfoView:init(l_dragon_id_list, idx)
 
     local swipe = Camera_LobbySwipe(self.root, function(type) self:onSwipeEvent(type) end)
     swipe.m_sensitivity = 0.025
+
+    self:sceneFadeInAction()
 end
 
 -------------------------------------
