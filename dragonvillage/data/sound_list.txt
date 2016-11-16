@@ -56,6 +56,8 @@
 		"reward":   			{"res":"sound/reward.mp3"}
         "summon":   			{"res":"sound/summon.mp3"}
         "exp_gauge":   			{"res":"sound/exp_gauge.mp3"}
+		
+		"monster_skill_cast":	{"res":"sound/monster_skill_cast.mp3"}
 	},
 	
 	"VOICE":
@@ -64,5 +66,15 @@
 		"vo_tamer_special":   	{"res":"sound/voice/vo_tamer_special.mp3"}
 		"vo_tamer_fever":   	{"res":"sound/voice/vo_tamer_fever.mp3"}
         "vo_tamer_start":   	{"res":"sound/voice/vo_tamer_start.mp3"}
+		
+		"vo_boss1_skill_1":   	{"res":"sound/voice/vo_boss1_skill_1.mp3"}
+		"vo_boss1_skill_2":   	{"res":"sound/voice/vo_boss1_skill_2.mp3"}
+		"vo_boss1_skill_cancel":{"res":"sound/voice/vo_boss1_skill_cancel.mp3"}
+		"vo_boss2_skill_1":   	{"res":"sound/voice/vo_boss2_skill_1.mp3"}
+		"vo_boss2_skill_2":   	{"res":"sound/voice/vo_boss2_skill_2.mp3"}
+		"vo_boss2_skill_cancel":{"res":"sound/voice/vo_boss2_skill_cancel.mp3"}
+		"vo_boss3_skill_1":   	{"res":"sound/voice/vo_boss3_skill_1.mp3"}
+		"vo_boss3_skill_2":   	{"res":"sound/voice/vo_boss3_skill_2.mp3"}
+		"vo_boss3_skill_cancel":{"res":"sound/voice/vo_boss3_skill_cancel.mp3"}
 	}
 }

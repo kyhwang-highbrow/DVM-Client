@@ -119,6 +119,12 @@ function EnemyLua_Boss.st_casting(owner, dt)
                 end
             end
         end
+
+        -- 효과음 차후 정리 필요!!
+        local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
+        local type = math_random(1, 2)
+        
+        SoundMgr:playEffect('VOICE', string.format('vo_boss%d_skill_%d', chapter, type))
     end
 end
 
@@ -291,4 +297,21 @@ function EnemyLua_Boss:setHp(hp)
         local percent = (self.m_hp / self.m_maxHp * 100)
         self.m_triggerHpPercent:checkTrigger(percent)
     end
+end
+
+-------------------------------------
+-- function cancelSkill
+-------------------------------------
+function EnemyLua_Boss:cancelSkill()
+    local b = PARENT.cancelSkill(self)
+    local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
+
+    -- 보스별 음성
+    if b then
+        SoundMgr:stopEffect('VOICE', string.format('vo_boss%d_skill_1', chapter))
+        SoundMgr:stopEffect('VOICE', string.format('vo_boss%d_skill_2', chapter))
+        SoundMgr:playEffect('VOICE', string.format('vo_boss%d_skill_cancel', chapter))
+    end
+    
+    return b
 end

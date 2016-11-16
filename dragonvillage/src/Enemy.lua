@@ -115,6 +115,17 @@ function Enemy.st_charge(owner, dt)
 end
 
 -------------------------------------
+-- function st_casting
+-------------------------------------
+function Enemy.st_casting(owner, dt)
+    PARENT.st_casting(owner, dt)
+
+    if owner.m_stateTimer == 0 then
+        SoundMgr:playEffect('EFFECT', 'monster_skill_cast')
+    end
+end
+
+-------------------------------------
 -- function st_wait
 -------------------------------------
 function Enemy.st_wait(owner, dt)
