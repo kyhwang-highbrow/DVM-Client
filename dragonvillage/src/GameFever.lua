@@ -431,7 +431,7 @@ function GameFever:addFeverPoint(point)
     local function action(node)
         node:runAction(cc.Sequence:create(
             cc.FadeIn:create(0.2),
-            cc.DelayTime:create(FEVER_POINT_UPDATE_TIME),
+            cc.DelayTime:create(3),
             cc.FadeOut:create(0.3),
             cc.CallFunc:create(function(node) self.m_feverNode:setVisible(false) end)
         ))
