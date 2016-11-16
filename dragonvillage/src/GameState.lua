@@ -891,6 +891,8 @@ function GameState:dropItem_networkResponse(ret)
             g_dragonsData:applyDragonData(t_dragon)
         end
     end
+
+    g_topUserInfo:refreshData()
 end
 
 -------------------------------------
