@@ -93,8 +93,7 @@ function TamerSkillSystem:initTamerSpecialSkillBtn()
         
         self.m_skillVisualTop = MakeAnimator('res/ui/a2d/ingame_tamer_skill/ingame_tamer_skill.vrp')
         self.m_skillVisualTop:setVisual('skill_idle', 'special_idle')
-        --self.m_skillVisualTop:setVisual('skill_idle', 'normal_01')
-        self.m_skillVisualTop:setVisible(true)
+        self.m_skillVisualTop:setVisible(false)
         self.m_skillVisualTop.m_node:setAnchorPoint(cc.p(0.5, 0.5))
         self.m_skillVisualTop.m_node:setDockPoint(cc.p(0.5, 0.5))
         self.m_skillVisualTop:setRepeat(true)
@@ -118,7 +117,7 @@ function TamerSkillSystem:initTamerSpecialSkillBtn()
 		visual:setRepeat(false)
 
         self.m_skillVisualTop:setVisual('skill_charging', 'special_open')
-        --self.m_skillVisualTop:setVisual('skill_charging', 'normal_01')
+        self.m_skillVisualTop:setVisible(true)
         self.m_skillVisualTop:setRepeat(false)
 
 		visual:registerScriptLoopHandler(function()
@@ -126,7 +125,6 @@ function TamerSkillSystem:initTamerSpecialSkillBtn()
 			visual:setRepeat(true)
 
             self.m_skillVisualTop:setVisual('skill_idle', 'special_idle')
-            --self.m_skillVisualTop:setVisual('skill_idle', 'normal_01')
             self.m_skillVisualTop:setRepeat(true)
 		end)
 	end
