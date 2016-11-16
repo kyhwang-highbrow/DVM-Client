@@ -66,6 +66,8 @@ function EnemyLua_Boss:initState()
     self:addState('attackDelay', EnemyLua_Boss.st_pattern_idle, 'idle', true)
     self:addState('charge', EnemyLua_Boss.st_pattern_idle, 'idle', true)
     self:addState('casting', EnemyLua_Boss.st_casting, 'casting', true)
+
+    self:addState('dying', EnemyLua_Boss.st_dying, 'idle', false, PRIORITY.DYING)
     
     self:addState('pattern_idle', EnemyLua_Boss.st_pattern_idle, 'idle', true)
     self:addState('pattern_wait', EnemyLua_Boss.st_pattern_wait, 'idle', true)
@@ -87,6 +89,20 @@ function EnemyLua_Boss.st_pattern_idle(owner, dt)
         local pattern = owner:getNextPattern()
         owner:doPattern(pattern)
     end
+end
+
+-------------------------------------
+-- function st_dying
+-------------------------------------
+function EnemyLua_Boss.st_dying(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        -- 효과음
+        local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
+                
+        SoundMgr:playEffect('VOICE', string.format('vo_boss%d_die', chapter))
+    end
+
+    PARENT.st_dying(owner, dt)
 end
 
 -------------------------------------
