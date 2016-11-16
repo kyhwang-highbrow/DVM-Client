@@ -48,12 +48,12 @@ function CommonMissile_Cruise:setMissile()
 	
 	t_option['scale'] = self.m_resScale
 	t_option['count'] = 1
-	t_option['speed'] = 200
+	t_option['speed'] = 300
 	t_option['h_limit_speed'] = 2000
-	t_option['accel'] = 5000
-	t_option['accel_delay'] = 0.5
+	t_option['accel'] = 10000
+	t_option['accel_delay'] = 1
     t_option['angular_velocity'] = 0
-	t_option['dir_add'] = 0
+	t_option['dir_add'] = 10
 
     t_option['effect'] = {}
     t_option['effect']['motion_streak'] = self.m_motionStreakRes
