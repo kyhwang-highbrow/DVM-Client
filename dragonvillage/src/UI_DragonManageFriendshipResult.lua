@@ -75,7 +75,7 @@ function UI_DragonManageFriendshipResult:initUI(grade, t_prev_dragon_data, t_cur
         local hp_cap = table_friendship_variables['hp_cap']['value']
         local hp_cur = t_dragon_data['hp']
 
-        vars['hpLabel']:setString(comma_value(hp_cur - t_prev_dragon_data['hp']))
+        vars['hpLabel']:setString('+ ' .. comma_value(hp_cur - t_prev_dragon_data['hp']))
         vars['hpGauge']:setPercentage((hp_cur / hp_cap) * 100)
     end
 
@@ -83,7 +83,7 @@ function UI_DragonManageFriendshipResult:initUI(grade, t_prev_dragon_data, t_cur
         local def_cap = table_friendship_variables['def_cap']['value']
         local def_cur = t_dragon_data['def']
 
-        vars['defLabel']:setString(comma_value(def_cur - t_prev_dragon_data['def']))
+        vars['defLabel']:setString('+ ' .. comma_value(def_cur - t_prev_dragon_data['def']))
         vars['defGauge']:setPercentage((def_cur / def_cap) * 100)
     end
 
@@ -91,19 +91,21 @@ function UI_DragonManageFriendshipResult:initUI(grade, t_prev_dragon_data, t_cur
         local atk_cap = table_friendship_variables['atk_cap']['value']
         local atk_cur = t_dragon_data['atk']
 
-        vars['atkLabel']:setString(comma_value(atk_cur - t_prev_dragon_data['atk']))
+        vars['atkLabel']:setString('+ ' .. comma_value(atk_cur - t_prev_dragon_data['atk']))
         vars['atkGauge']:setPercentage((atk_cur / atk_cap) * 100)
     end
 
     -- 비주얼 연출
     vars['rankVisual']:setVisible(true)
-    vars['rankVisual']:setRepeat(false)
-    vars['rankVisual']:setVisual('rank', grade)
+    vars['rankVisual']:changeAni('rank_' .. grade, false)
 
     -- 비주얼 연출
     vars['frindshipFxVisual']:setVisible(true)
-    vars['frindshipFxVisual']:setRepeat(false)
-    vars['frindshipFxVisual']:setVisual('frindship', 'fx')
+    vars['frindshipFxVisual']:changeAni('friendship_fx', false)
+
+    vars['rankUpVisual']:setVisible(true)
+    vars['rankUpVisual']:changeAni('friendship_up', false)
+    
 end
 
 -------------------------------------

@@ -431,9 +431,10 @@ function UI_DragonManagementFriendship:network_friendshipUp(fruit_id)
 
             -- 결과 팝업 생성
             UI_DragonManageFriendshipResult(bonus_grade, t_prev_dragon_data, t_curr_dragon_data)
-
-            self.vars['friendshipFxVisual']:setVisual()
         end
+
+        self.vars['friendshipFxVisual']:setVisible(true)
+        self.vars['friendshipFxVisual']:changeAni('friendship_fx', false)
     end
 
     local ui_network = UI_Network()
@@ -528,6 +529,9 @@ local uid = g_userData:get('uid')
 
         -- 망각의 열매 정보 갱신
         self:refresh_resetFruit()
+
+        self.vars['friendshipFxVisual']:setVisible(true)
+        self.vars['friendshipFxVisual']:changeAni('friendship_down', false)
     end
 
     local ui_network = UI_Network()
