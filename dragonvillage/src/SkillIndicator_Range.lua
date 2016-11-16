@@ -110,6 +110,10 @@ function SkillIndicator_Range:initIndicatorNode()
         local indicator = MakeAnimator('res/indicator/indicator_effect_cast/indicator_effect_cast.vrp')
         indicator:setTimeScale(5)
         indicator:changeAni('normal', true)
+
+		-- @TODO
+		indicator:setVisible(false)
+
         root_node:addChild(indicator.m_node)
         self.m_indicatorEffect01 = indicator
     end

@@ -90,6 +90,10 @@ function SkillIndicator_OppositeTarget:initIndicatorNode()
         local indicator = MakeAnimator('res/indicator/indicator_effect_cast/indicator_effect_cast.vrp')
         indicator:setTimeScale(5)
         indicator:changeAni('normal', true)
+
+		-- @TODO
+		indicator:setVisible(false)
+
         root_node:addChild(indicator.m_node)
         self.m_indicatorEffect01 = indicator
     end
@@ -98,6 +102,9 @@ function SkillIndicator_OppositeTarget:initIndicatorNode()
         local link_effect = LinkEffect('res/indicator/indicator_type_target/indicator_type_target.vrp', 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
         root_node:addChild(link_effect.m_node)
         self.m_indicatorLinkEffect = link_effect
+
+		--@TODO
+		link_effect.m_startPointNode:setVisible(false)
     end
 end
 
