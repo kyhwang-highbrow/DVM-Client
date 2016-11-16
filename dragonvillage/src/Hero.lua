@@ -680,10 +680,11 @@ function Hero:updateActiveSkillCoolTime(dt)
         self.m_infoUI.vars['skllFullVisual']:setRepeat(false)
         self.m_infoUI.vars['skllFullVisual']:setVisual('skill_gauge', 'charging')
         self.m_infoUI.vars['skllFullVisual']:registerScriptLoopHandler(function()
-            self.m_infoUI.vars['skllFullVisual']:setVisual('skill_gauge', 'idle')
+            local attr = self.m_charTable['attr']
+
+            self.m_infoUI.vars['skllFullVisual']:setVisual('skill_gauge', 'idle_' .. attr)
             self.m_infoUI.vars['skllFullVisual']:setRepeat(true)
 
-            local attr = self.m_charTable['attr']
             self.m_infoUI.vars['skllFullVisual2']:setVisual('skill_gauge', 'idle_s_' .. attr)
             self.m_infoUI.vars['skllFullVisual2']:setVisible(true)
         end)
