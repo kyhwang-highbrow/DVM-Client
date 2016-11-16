@@ -445,6 +445,9 @@ end
 -- @brief 열매주기 연출
 -------------------------------------
 function UI_DragonManagementFriendship:friendshipDirecting(is_fevelup, bonus_grade, t_prev_dragon_data, t_curr_dragon_data)
+    -- 이모티콘 표시
+    self:showEmotionEffect()
+
     if (not is_fevelup) then
         self.vars['friendshipFxVisual']:setVisible(true)
         self.vars['friendshipFxVisual']:changeAni('friendship_fx', false)
@@ -460,9 +463,9 @@ function UI_DragonManagementFriendship:friendshipDirecting(is_fevelup, bonus_gra
     directing_animation = function()
         local vars = self.vars
 
-        self.vars['friendshipVisual']:setVisible(true)
-        self.vars['friendshipVisual']:changeAni('friendship_up', false)
-        self.vars['friendshipVisual']:addAniHandler(directing_result)
+        vars['friendshipVisual']:setVisible(true)
+        vars['friendshipVisual']:changeAni('friendship_up', false)
+        vars['friendshipVisual']:addAniHandler(directing_result)
     end
 
     -- 결과 연출
@@ -474,6 +477,33 @@ function UI_DragonManagementFriendship:friendshipDirecting(is_fevelup, bonus_gra
     end
 
     directing_animation()
+end
+
+-------------------------------------
+-- function showEmotionEffect
+-- @brief 감정 이펙트 연출
+-------------------------------------
+function UI_DragonManagementFriendship:showEmotionEffect()
+    local vars = self.vars
+    local animator = MakeAnimator('res/ui/a2d/emotion/emotion.vrp')
+
+    do -- 에니메이션 지정
+        local sum_random = SumRandom()
+        sum_random:addItem(1, 'curious')
+        sum_random:addItem(2, 'exciting')
+        sum_random:addItem(2, 'like')
+        sum_random:addItem(2, 'love')
+        local ani_name = sum_random:getRandomValue()     
+        animator:changeAni(ani_name, false)
+    end
+
+    -- 위치 지정
+    animator:setPosition(-70, 200)
+    
+    -- 재생 후 삭제
+    local duration = animator.m_node:getDuration()
+    animator.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+    vars['dragonNode']:addChild(animator.m_node)
 end
 
 -------------------------------------
@@ -586,6 +616,8 @@ end
 function UI_DragonManagementFriendship:feedDirecting(fruit_id, fruit_node)
     --local icon = IconHelper:getItemIcon(fruit_id)
     --self.root:addChild(icon)
+
+    local vars = self.vars
 end
 
 --@CHECK
