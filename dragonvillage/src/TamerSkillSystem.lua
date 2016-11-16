@@ -19,6 +19,8 @@ TamerSkillSystem = class(IEventDispatcher:getCloneClass(), IEventListener:getClo
 
         m_specialPowerPoint = 'number', -- 100이 되면 스킬 사용 가능
 		m_isUseSpecialSkill = 'bool', -- 궁극기 사용 여부
+
+        m_skillVisualTop = '',
      })
 
 -------------------------------------
@@ -87,9 +89,19 @@ function TamerSkillSystem:initTamerSpecialSkillBtn()
     -- 스킬 아이콘
     do
         local icon = IconHelper:getSkillIcon('tamer', skill_id)
-		local icon2 = IconHelper:getSkillIcon('tamer', skill_id)
+		ui.vars['specialSkillNode']:addChild(icon)
+        
+        self.m_skillVisualTop = MakeAnimator('res/ui/a2d/ingame_tamer_skill/ingame_tamer_skill.vrp')
+        self.m_skillVisualTop:setVisual('skill_idle', 'special_idle')
+        --self.m_skillVisualTop:setVisual('skill_idle', 'normal_01')
+        self.m_skillVisualTop:setVisible(true)
+        self.m_skillVisualTop.m_node:setAnchorPoint(cc.p(0.5, 0.5))
+        self.m_skillVisualTop.m_node:setDockPoint(cc.p(0.5, 0.5))
+        self.m_skillVisualTop:setRepeat(true)
 
-        ui.vars['specialSkillNode']:addChild(icon)
+        ui.vars['specialSkillNode2']:addChild(self.m_skillVisualTop.m_node)
+        
+        local icon2 = IconHelper:getSkillIcon('tamer', skill_id)
         local socketNode = ui.vars['specialSkillVisual'].m_node:getSocketNode('skill_special')
         socketNode:addChild(icon2)
     end
@@ -104,9 +116,18 @@ function TamerSkillSystem:initTamerSpecialSkillBtn()
 	local cbFunction = function()
 		visual:setVisual('skill_charging', 'special')
 		visual:setRepeat(false)
+
+        self.m_skillVisualTop:setVisual('skill_charging', 'special_open')
+        --self.m_skillVisualTop:setVisual('skill_charging', 'normal_01')
+        self.m_skillVisualTop:setRepeat(false)
+
 		visual:registerScriptLoopHandler(function()
 			visual:setVisual('skill_idle', 'special')
 			visual:setRepeat(true)
+
+            self.m_skillVisualTop:setVisual('skill_idle', 'special_idle')
+            --self.m_skillVisualTop:setVisual('skill_idle', 'normal_01')
+            self.m_skillVisualTop:setRepeat(true)
 		end)
 	end
 	visual:runAction(cc.Sequence:create(delay, cc.CallFunc:create(cbFunction)))
@@ -253,6 +274,8 @@ function TamerSkillSystem:refreshSpecialSkillBtn()
 	ui.vars['specialTimeGauge']:setPercentage(100)
     local visual = ui.vars['specialSkillVisual']
     visual:setVisible(false)
+
+    self.m_skillVisualTop:setVisible(false)
 	
 	-- 기능상 필요는 없지만 추후 수정향방을 몰라 남겨둠
 	if (not self.m_isUseSpecialSkill) then

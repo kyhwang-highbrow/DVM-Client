@@ -4,179 +4,62 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>fire_0101.png</key>
+            <key>ingame_tamer_skill_0101.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,881},{114,155}}</string>
+                <string>{{255,1235},{102,89}}</string>
                 <key>offset</key>
-                <string>{0,0}</string>
+                <string>{-1,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{114,155}}</string>
+                <string>{{13,13},{102,89}}</string>
                 <key>sourceSize</key>
-                <string>{114,155}</string>
+                <string>{130,115}</string>
             </dict>
-            <key>fire_0102.png</key>
+            <key>ingame_tamer_skill_0201.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{118,881},{109,152}}</string>
+                <string>{{180,1327},{162,110}}</string>
                 <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{109,152}}</string>
-                <key>sourceSize</key>
-                <string>{109,152}</string>
-            </dict>
-            <key>fire_0103.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{123,1035},{97,151}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{97,151}}</string>
-                <key>sourceSize</key>
-                <string>{97,151}</string>
-            </dict>
-            <key>fire_0104.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,1038},{119,152}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{119,152}}</string>
-                <key>sourceSize</key>
-                <string>{119,152}</string>
-            </dict>
-            <key>fire_0201.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{159,1188},{77,109}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{77,109}}</string>
-                <key>sourceSize</key>
-                <string>{77,109}</string>
-            </dict>
-            <key>fire_0202.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{84,1192},{73,107}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{73,107}}</string>
-                <key>sourceSize</key>
-                <string>{73,107}</string>
-            </dict>
-            <key>fire_0203.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{445,881},{64,106}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{64,106}}</string>
-                <key>sourceSize</key>
-                <string>{64,106}</string>
-            </dict>
-            <key>fire_0204.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,1192},{80,107}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{80,107}}</string>
-                <key>sourceSize</key>
-                <string>{80,107}</string>
-            </dict>
-            <key>tamer_skill_0101.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{346,1172},{102,83}}</string>
-                <key>offset</key>
-                <string>{0,-1}</string>
+                <string>{-1,-2}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{1,4},{102,83}}</string>
+                <string>{{3,10},{162,110}}</string>
                 <key>sourceSize</key>
-                <string>{104,89}</string>
+                <string>{170,126}</string>
             </dict>
-            <key>tamer_skill_0201.png</key>
+            <key>ingame_tamer_skill_b_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{438,1061},{68,86}}</string>
+                <string>{{400,1449},{102,104}}</string>
                 <key>offset</key>
-                <string>{-1,4}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{11,1},{68,86}}</string>
-                <key>sourceSize</key>
-                <string>{92,96}</string>
-            </dict>
-            <key>tamer_skill_0202.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{438,989},{70,70}}</string>
-                <key>offset</key>
-                <string>{-1,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{10,14},{70,70}}</string>
-                <key>sourceSize</key>
-                <string>{92,96}</string>
-            </dict>
-            <key>tamer_skill_0203.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{437,1149},{66,68}}</string>
-                <key>offset</key>
-                <string>{-1,-1}</string>
+                <string>{-7,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{12,15},{66,68}}</string>
+                <string>{{102,68},{102,104}}</string>
                 <key>sourceSize</key>
-                <string>{92,96}</string>
+                <string>{320,240}</string>
             </dict>
-            <key>tamer_skill_charging_0101.png</key>
+            <key>ingame_tamer_skill_charging_0101.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{346,1097},{89,73}}</string>
+                <string>{{292,1451},{89,73}}</string>
                 <key>offset</key>
                 <string>{3,7}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{17,8},{89,73}}</string>
                 <key>sourceSize</key>
                 <string>{117,103}</string>
             </dict>
-            <key>tamer_skill_charging_0102.png</key>
+            <key>ingame_tamer_skill_charging_0102.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{291,110},{214,216}}</string>
+                <string>{{291,405},{214,216}}</string>
                 <key>offset</key>
                 <string>{-4,2}</string>
                 <key>rotated</key>
@@ -186,23 +69,23 @@
                 <key>sourceSize</key>
                 <string>{290,262}</string>
             </dict>
-            <key>tamer_skill_charging_0103.png</key>
+            <key>ingame_tamer_skill_charging_0103.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{277,483},{251,233}}</string>
+                <string>{{2,1092},{251,233}}</string>
                 <key>offset</key>
                 <string>{-4,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,6},{251,233}}</string>
                 <key>sourceSize</key>
                 <string>{259,245}</string>
             </dict>
-            <key>tamer_skill_charging_0104.png</key>
+            <key>ingame_tamer_skill_charging_0104.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,84},{287,273}}</string>
+                <string>{{2,295},{287,273}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -212,10 +95,10 @@
                 <key>sourceSize</key>
                 <string>{287,273}</string>
             </dict>
-            <key>tamer_skill_charging_0105.png</key>
+            <key>ingame_tamer_skill_charging_0105.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,359},{273,259}}</string>
+                <string>{{2,570},{273,259}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -225,10 +108,10 @@
                 <key>sourceSize</key>
                 <string>{273,259}</string>
             </dict>
-            <key>tamer_skill_charging_0106.png</key>
+            <key>ingame_tamer_skill_charging_0106.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,620},{273,259}}</string>
+                <string>{{2,831},{273,259}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -238,10 +121,62 @@
                 <key>sourceSize</key>
                 <string>{273,259}</string>
             </dict>
-            <key>tamer_skill_frame_0101.png</key>
+            <key>ingame_tamer_skill_effect_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{277,736},{182,143}}</string>
+                <string>{{277,621},{202,232}}</string>
+                <key>offset</key>
+                <string>{1,-3}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{13,9},{202,232}}</string>
+                <key>sourceSize</key>
+                <string>{226,244}</string>
+            </dict>
+            <key>ingame_tamer_skill_effect_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,1327},{176,177}}</string>
+                <key>offset</key>
+                <string>{-3,-4}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{27,28},{176,177}}</string>
+                <key>sourceSize</key>
+                <string>{236,225}</string>
+            </dict>
+            <key>ingame_tamer_skill_effect_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{424,291}}</string>
+                <key>offset</key>
+                <string>{6,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{32,19},{424,291}}</string>
+                <key>sourceSize</key>
+                <string>{476,329}</string>
+            </dict>
+            <key>ingame_tamer_skill_effect_05.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{180,1491},{53,101}}</string>
+                <key>offset</key>
+                <string>{0,1}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{4,3},{53,101}}</string>
+                <key>sourceSize</key>
+                <string>{61,109}</string>
+            </dict>
+            <key>ingame_tamer_skill_frame_0101.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{277,982},{182,143}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
@@ -251,10 +186,10 @@
                 <key>sourceSize</key>
                 <string>{210,167}</string>
             </dict>
-            <key>tamer_skill_frame_0101_bg.png</key>
+            <key>ingame_tamer_skill_frame_0101_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{291,326},{194,155}}</string>
+                <string>{{277,825},{194,155}}</string>
                 <key>offset</key>
                 <string>{-2,5}</string>
                 <key>rotated</key>
@@ -264,23 +199,23 @@
                 <key>sourceSize</key>
                 <string>{210,167}</string>
             </dict>
-            <key>tamer_skill_frame_0201.png</key>
+            <key>ingame_tamer_skill_frame_0201.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{405,2},{106,104}}</string>
+                <string>{{400,1343},{106,104}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{7,6},{106,104}}</string>
                 <key>sourceSize</key>
                 <string>{122,116}</string>
             </dict>
-            <key>tamer_skill_frame_0201_bg.png</key>
+            <key>ingame_tamer_skill_frame_0201_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{222,1035},{106,106}}</string>
+                <string>{{291,295},{106,106}}</string>
                 <key>offset</key>
                 <string>{-1,1}</string>
                 <key>rotated</key>
@@ -290,10 +225,10 @@
                 <key>sourceSize</key>
                 <string>{122,116}</string>
             </dict>
-            <key>tamer_skill_frame_0301.png</key>
+            <key>ingame_tamer_skill_frame_0301.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{229,881},{106,106}}</string>
+                <string>{{255,1127},{106,106}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -303,10 +238,10 @@
                 <key>sourceSize</key>
                 <string>{122,116}</string>
             </dict>
-            <key>tamer_skill_frame_0301_bg.png</key>
+            <key>ingame_tamer_skill_frame_0301_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{238,1143},{106,106}}</string>
+                <string>{{363,1127},{106,106}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -316,10 +251,10 @@
                 <key>sourceSize</key>
                 <string>{122,116}</string>
             </dict>
-            <key>tamer_skill_frame_0401.png</key>
+            <key>ingame_tamer_skill_frame_0401.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{330,989},{106,106}}</string>
+                <string>{{359,1235},{106,106}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -329,10 +264,10 @@
                 <key>sourceSize</key>
                 <string>{122,116}</string>
             </dict>
-            <key>tamer_skill_frame_0401_bg.png</key>
+            <key>ingame_tamer_skill_frame_0401_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{337,881},{106,106}}</string>
+                <string>{{292,1343},{106,106}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -342,14 +277,14 @@
                 <key>sourceSize</key>
                 <string>{122,116}</string>
             </dict>
-            <key>tamer_talk_0101.png</key>
+            <key>ingame_tamer_talk_0101.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{401,80}}</string>
+                <string>{{428,2},{401,80}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{401,80}}</string>
                 <key>sourceSize</key>
@@ -363,9 +298,9 @@
             <key>realTextureFileName</key>
             <string>ingame_tamer_skill.png</string>
             <key>size</key>
-            <string>{512,1301}</string>
+            <string>{511,1553}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:244b7f20331841a8e0d5ef1466ccfd15:1461b34998b1735c74d03283551d0c40:df3c90c02fc25d4056968dfcc1144384$</string>
+            <string>$TexturePacker:SmartUpdate:5914998b605c65b4296089c5a30843b9:7be88a9b0912c7b03fc395dd6570110f:df3c90c02fc25d4056968dfcc1144384$</string>
             <key>textureFileName</key>
             <string>ingame_tamer_skill.png</string>
         </dict>

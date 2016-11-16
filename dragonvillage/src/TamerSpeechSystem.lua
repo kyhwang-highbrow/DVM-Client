@@ -59,7 +59,8 @@ function TamerSpeechSystem:showSpeech(msg, ani, loop)
 
     -- 대사
     if msg then
-        ui.vars['tamerTalkVisual'].m_node:setFrame(0)
+        --ui.vars['tamerTalkVisual'].m_node:setFrame(0)
+        ui.vars['tamerTalkVisual']:setVisual('ingame_tamer_talk', '01')
         ui.vars['tamerTalkVisual']:setVisible(true)
         ui.vars['tamerTalkVisual']:registerScriptLoopHandler(function()
             ui.vars['tamerTalkVisual']:setVisible(false)
