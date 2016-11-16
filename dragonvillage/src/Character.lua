@@ -45,6 +45,7 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_hpUIOffset = '',
 
         m_stepHpGauge2 = 'number',       -- m_hpGauge2의 매 프레임당 변화량
+		m_hpElastic = 'number',
 
         -- @casting UI
         m_castingNode = '',
@@ -110,6 +111,7 @@ function Character:init(file_name, body, ...)
     self.m_isOnTheMove = false
 
     self.m_stepHpGauge2 = 0
+	self.m_hpElastic = 0
 
 	self.m_undergoAttackEventListener = {}
     self.m_tOverlabStatusEffect = {}
@@ -1000,12 +1002,14 @@ function Character:update(dt)
 	self:updateStatusIcon(dt)
 
     if self.m_hpGauge2 and self.m_stepHpGauge2 ~= 0 then
+		self.m_hpElastic = self.m_hpElastic + 1
         local realValue = self.m_hpGauge:getPercentage()
-        local value = self.m_hpGauge2:getPercentage() + self.m_stepHpGauge2 * dt
+        local value = self.m_hpGauge2:getPercentage() + self.m_stepHpGauge2 * dt * (self.m_hpElastic / 10)
 
         if (self.m_stepHpGauge2 > 0 and value >= realValue) 
             or (self.m_stepHpGauge2 < 0 and value <= realValue) then
             self.m_stepHpGauge2 = 0
+			self.m_hpElastic = 0
             value = realValue
         end
         
