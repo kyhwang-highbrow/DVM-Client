@@ -298,7 +298,7 @@ slid,sid,lv,t_name,col_01,mod_01,val_01,col_02,mod_02,val_02,col_03,mod_03,val_0
 22026108,220261,8,청룡의 힘,status_effect_1,exchange,passive_cri_dmg_up;self;-1;100;85,x,x,0,x,x,0,x,x,0,x,x,0,85,x,x,x,x,치명피해 {1}% 증가
 22026109,220261,9,청룡의 힘,status_effect_1,exchange,passive_cri_dmg_up;self;-1;100;90,x,x,0,x,x,0,x,x,0,x,x,0,90,x,x,x,x,치명피해 {1}% 증가
 22026110,220261,10,청룡의 힘,status_effect_1,exchange,passive_cri_dmg_up;self;-1;100;95,x,x,0,x,x,0,x,x,0,x,x,0,95,x,x,x,x,치명피해 {1}% 증가
-22027101,220271,1,강화 번개 구름,status_effect_1,exchange,atk_up;self;5;100;50,res_scale,exchange,1,val_1,add,50,x,x,0,x,x,0,5,50,x,x,x,번개 구름 사용 시 {1}초간 공격력 {2}% 증가. 번개 구름 범위 확대
+22027101,220271,1,강화 번개 구름,status_effect_1,exchange,atk_up;self;5;100;50,val_1,add,20,x,x,0,x,x,0,x,x,0,5,50,x,x,x,번개 구름 사용 시 {1}초간 공격력 {2}% 증가. 번개 구름 범위 확대
 20012101,200121,1,날개짓,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,25,x,x,x,x,해로운 상태이상 효과를 1개 해제하고 대상 전체 생명력의 {1}% 회복
 20012102,200121,2,날개짓,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,30,x,x,x,x,해로운 상태이상 효과를 1개 해제하고 대상 전체 생명력의 {1}% 회복
 20012103,200121,3,날개짓,power_rate,add,5,x,x,0,x,x,0,x,x,0,x,x,0,35,x,x,x,x,해로운 상태이상 효과를 1개 해제하고 대상 전체 생명력의 {1}% 회복
