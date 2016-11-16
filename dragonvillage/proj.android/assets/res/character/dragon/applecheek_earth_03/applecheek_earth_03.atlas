@@ -1,0 +1,132 @@
+
+applecheek_earth_03.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+applecheek_earth_03_apple_01
+  rotate: false
+  xy: 827, 149
+  size: 97, 105
+  orig: 97, 105
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_arm_01
+  rotate: true
+  xy: 305, 2
+  size: 81, 97
+  orig: 81, 97
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_arm_02
+  rotate: true
+  xy: 404, 2
+  size: 81, 78
+  orig: 81, 78
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_body_01
+  rotate: false
+  xy: 429, 99
+  size: 126, 155
+  orig: 126, 155
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_body_02
+  rotate: false
+  xy: 671, 88
+  size: 97, 59
+  orig: 97, 59
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_body_03
+  rotate: false
+  xy: 671, 149
+  size: 154, 105
+  orig: 154, 105
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_eff_01
+  rotate: false
+  xy: 305, 85
+  size: 122, 169
+  orig: 122, 169
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_eye_01
+  rotate: false
+  xy: 484, 61
+  size: 38, 36
+  orig: 38, 36
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_foot_01
+  rotate: true
+  xy: 130, 15
+  size: 35, 82
+  orig: 35, 82
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_foot_02
+  rotate: true
+  xy: 52, 7
+  size: 43, 76
+  orig: 43, 76
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_head_01
+  rotate: false
+  xy: 557, 105
+  size: 112, 149
+  orig: 112, 149
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_head_02
+  rotate: false
+  xy: 926, 163
+  size: 82, 91
+  orig: 82, 91
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_head_03
+  rotate: false
+  xy: 2, 2
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_leg_01
+  rotate: true
+  xy: 770, 77
+  size: 70, 82
+  orig: 70, 82
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_leg_02
+  rotate: false
+  xy: 854, 71
+  size: 56, 76
+  orig: 56, 76
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_mouth_01
+  rotate: false
+  xy: 214, 5
+  size: 66, 45
+  orig: 66, 45
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_wing_01
+  rotate: false
+  xy: 2, 52
+  size: 174, 202
+  orig: 174, 202
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_wing_02
+  rotate: false
+  xy: 178, 52
+  size: 125, 202
+  orig: 125, 202
+  offset: 0, 0
+  index: -1

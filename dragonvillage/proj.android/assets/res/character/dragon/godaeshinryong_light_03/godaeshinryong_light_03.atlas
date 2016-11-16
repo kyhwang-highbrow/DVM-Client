@@ -1,0 +1,111 @@
+
+godaeshinryong_light_03.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+godaeshinryong_light_03_arm_01
+  rotate: true
+  xy: 2, 2
+  size: 56, 115
+  orig: 56, 115
+  offset: 0, 0
+  index: -1
+godaeshinryong_light_03_arm_02
+  rotate: false
+  xy: 962, 143
+  size: 56, 95
+  orig: 56, 95
+  offset: 0, 0
+  index: -1
+godaeshinryong_light_03_body_01
+  rotate: false
+  xy: 142, 102
+  size: 139, 136
+  orig: 139, 136
+  offset: 0, 0
+  index: -1
+godaeshinryong_light_03_body_02
+  rotate: false
+  xy: 283, 163
+  size: 157, 75
+  orig: 157, 75
+  offset: 0, 0
+  index: -1
+godaeshinryong_light_03_effect_01
+  rotate: true
+  xy: 390, 109
+  size: 52, 48
+  orig: 52, 48
+  offset: 0, 0
+  index: -1
+godaeshinryong_light_03_effect_02
+  rotate: false
+  xy: 726, 125
+  size: 116, 113
+  orig: 116, 113
+  offset: 0, 0
+  index: -1
+godaeshinryong_light_03_effect_03
+  rotate: false
+  xy: 844, 125
+  size: 116, 113
+  orig: 116, 113
+  offset: 0, 0
+  index: -1
+godaeshinryong_light_03_eye_01
+  rotate: false
+  xy: 226, 33
+  size: 29, 29
+  orig: 29, 29
+  offset: 0, 0
+  index: -1
+godaeshinryong_light_03_eye_02
+  rotate: false
+  xy: 119, 33
+  size: 18, 25
+  orig: 18, 25
+  offset: 0, 0
+  index: -1
+godaeshinryong_light_03_head_01
+  rotate: false
+  xy: 605, 132
+  size: 119, 106
+  orig: 119, 106
+  offset: 0, 0
+  index: -1
+godaeshinryong_light_03_head_04
+  rotate: false
+  xy: 226, 64
+  size: 44, 36
+  orig: 44, 36
+  offset: 0, 0
+  index: -1
+godaeshinryong_light_03_leg_01
+  rotate: true
+  xy: 283, 97
+  size: 64, 105
+  orig: 64, 105
+  offset: 0, 0
+  index: -1
+godaeshinryong_light_03_leg_02
+  rotate: true
+  xy: 142, 44
+  size: 56, 82
+  orig: 56, 82
+  offset: 0, 0
+  index: -1
+godaeshinryong_light_03_wing_01
+  rotate: false
+  xy: 2, 60
+  size: 138, 178
+  orig: 138, 178
+  offset: 0, 0
+  index: -1
+godaeshinryong_light_03_wing_02
+  rotate: true
+  xy: 442, 167
+  size: 71, 161
+  orig: 71, 161
+  offset: 0, 0
+  index: -1

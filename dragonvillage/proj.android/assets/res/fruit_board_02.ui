@@ -50,7 +50,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'avoidLabel1';
+					lua_name = 'avoid_01_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -88,7 +88,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'avoidBtn1';
+				lua_name = 'avoid_01_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -114,7 +114,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'avoidLabel2';
+					lua_name = 'avoid_02_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -152,7 +152,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'avoidBtn2';
+				lua_name = 'avoid_02_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -178,7 +178,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'avoidLabel3';
+					lua_name = 'avoid_03_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -216,7 +216,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'avoidBtn3';
+				lua_name = 'avoid_03_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -242,7 +242,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'avoidLabel4';
+					lua_name = 'avoid_04_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -280,7 +280,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'avoidBtn4';
+				lua_name = 'avoid_04_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -306,7 +306,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'hitRateLabel1';
+					lua_name = 'hit_rate_01_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -344,7 +344,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'hitRateBtn1';
+				lua_name = 'hit_rate_01_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -370,7 +370,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'hitRateLabel2';
+					lua_name = 'hit_rate_02_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -408,7 +408,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'hitRateBtn2';
+				lua_name = 'hit_rate_02_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -434,7 +434,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'hitRateLabel3';
+					lua_name = 'hit_rate_03_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -472,7 +472,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'hitRateBtn3';
+				lua_name = 'hit_rate_03_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -498,7 +498,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'hitRateLabel4';
+					lua_name = 'hit_rate_04_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -536,7 +536,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'hitRateBtn4';
+				lua_name = 'hit_rate_04_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -562,7 +562,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'criDmgLabel1';
+					lua_name = 'cri_dmg_01_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -600,7 +600,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'criDmgBtn1';
+				lua_name = 'cri_dmg_01_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -626,7 +626,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'criDmgLabel2';
+					lua_name = 'cri_dmg_02_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -664,7 +664,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'criDmgBtn2';
+				lua_name = 'cri_dmg_02_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -690,7 +690,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'criDmgLabel3';
+					lua_name = 'cri_dmg_03_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -728,7 +728,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'criDmgBtn3';
+				lua_name = 'cri_dmg_03_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -754,7 +754,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'criDmgLabel4';
+					lua_name = 'cri_dmg_04_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -792,7 +792,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'criDmgBtn4';
+				lua_name = 'cri_dmg_04_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -983,7 +983,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'defLabel1';
+					lua_name = 'def_01_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -1021,7 +1021,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'defBtn1';
+				lua_name = 'def_01_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1047,7 +1047,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'defLabel2';
+					lua_name = 'def_02_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -1085,7 +1085,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'defBtn2';
+				lua_name = 'def_02_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1111,7 +1111,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'defLabel3';
+					lua_name = 'def_03_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -1149,7 +1149,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'defBtn3';
+				lua_name = 'def_03_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1175,7 +1175,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'defLabel4';
+					lua_name = 'def_04_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -1213,7 +1213,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'defBtn4';
+				lua_name = 'def_04_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1239,7 +1239,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'hpLabel1';
+					lua_name = 'hp_01_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -1277,7 +1277,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'hpBtn1';
+				lua_name = 'hp_01_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1303,7 +1303,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'hpLabel2';
+					lua_name = 'hp_02_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -1341,7 +1341,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'hpBtn2';
+				lua_name = 'hp_02_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1367,7 +1367,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'hpLabel3';
+					lua_name = 'hp_03_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -1405,7 +1405,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'hpBtn3';
+				lua_name = 'hp_03_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1431,7 +1431,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'hpLabel4';
+					lua_name = 'hp_04_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -1469,7 +1469,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'hpBtn4';
+				lua_name = 'hp_04_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1495,7 +1495,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'criAvoidLabel1';
+					lua_name = 'cri_avoid_01_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -1533,7 +1533,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'criAvoidBtn1';
+				lua_name = 'cri_avoid_01_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1559,7 +1559,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'criAvoidLabel2';
+					lua_name = 'cri_avoid_02_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -1597,7 +1597,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'criAvoidBtn2';
+				lua_name = 'cri_avoid_02_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1623,7 +1623,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'criAvoidLabel3';
+					lua_name = 'cri_avoid_03_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -1661,7 +1661,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'criAvoidBtn3';
+				lua_name = 'cri_avoid_03_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1687,7 +1687,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'criAvoidLabel4';
+					lua_name = 'cri_avoid_04_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -1725,7 +1725,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'criAvoidBtn4';
+				lua_name = 'cri_avoid_04_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1916,7 +1916,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'atkLabel1';
+					lua_name = 'atk_01_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -1954,7 +1954,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'atkBtn1';
+				lua_name = 'atk_01_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -1980,7 +1980,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'atkLabel2';
+					lua_name = 'atk_02_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -2018,7 +2018,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'atkBtn2';
+				lua_name = 'atk_02_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -2044,7 +2044,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'atkLabel3';
+					lua_name = 'atk_03_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -2082,7 +2082,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'atkBtn3';
+				lua_name = 'atk_03_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -2108,7 +2108,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'atkLabel4';
+					lua_name = 'atk_04_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -2146,7 +2146,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'atkBtn4';
+				lua_name = 'atk_04_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -2172,7 +2172,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'aspdLabel1';
+					lua_name = 'aspd_01_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -2210,7 +2210,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'aspdBtn1';
+				lua_name = 'aspd_01_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -2236,7 +2236,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'aspdLabel2';
+					lua_name = 'aspd_02_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -2274,7 +2274,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'aspdBtn2';
+				lua_name = 'aspd_02_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -2300,7 +2300,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'aspdLabel3';
+					lua_name = 'aspd_03_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -2338,7 +2338,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'aspdBtn3';
+				lua_name = 'aspd_03_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -2364,7 +2364,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'aspdLabel4';
+					lua_name = 'aspd_04_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -2402,7 +2402,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'aspdBtn4';
+				lua_name = 'aspd_04_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -2428,7 +2428,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'criChanceLabel1';
+					lua_name = 'cri_chance_01_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -2466,7 +2466,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'criChanceBtn1';
+				lua_name = 'cri_chance_01_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -2492,7 +2492,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'criChanceLabel2';
+					lua_name = 'cri_chance_02_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -2530,7 +2530,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'criChanceBtn2';
+				lua_name = 'cri_chance_02_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -2556,7 +2556,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'criChanceLabel3';
+					lua_name = 'cri_chance_03_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -2594,7 +2594,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'criChanceBtn3';
+				lua_name = 'cri_chance_03_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';
@@ -2620,7 +2620,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'criChanceLabel4';
+					lua_name = 'cri_chance_04_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -2658,7 +2658,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'criChanceBtn4';
+				lua_name = 'cri_chance_04_btn';
 				enable = true;
 				normal = 'ui/empty.png';
 				selected = '';

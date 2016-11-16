@@ -15,9 +15,9 @@
                 <key>spriteSourceSize</key>
                 <string>{117,117}</string>
                 <key>textureRect</key>
-                <string>{{1,1093},{99,101}}</string>
+                <string>{{899,1472},{99,101}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ui_dropbox_circle_04.png</key>
             <dict>
@@ -30,9 +30,9 @@
                 <key>spriteSourceSize</key>
                 <string>{117,117}</string>
                 <key>textureRect</key>
-                <string>{{1,1196},{93,103}}</string>
+                <string>{{899,1377},{93,103}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ui_dropbox_circle_05.png</key>
             <dict>
@@ -45,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{117,117}</string>
                 <key>textureRect</key>
-                <string>{{155,347},{97,101}}</string>
+                <string>{{310,1853},{97,101}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -54,13 +54,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{1,0}</string>
+                <string>{5,-2}</string>
                 <key>spriteSize</key>
-                <string>{102,93}</string>
+                <string>{329,302}</string>
                 <key>spriteSourceSize</key>
-                <string>{118,93}</string>
+                <string>{395,312}</string>
                 <key>textureRect</key>
-                <string>{{1,1301},{102,93}}</string>
+                <string>{{719,2},{329,302}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -69,45 +69,60 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{4,1}</string>
+                <string>{13,1}</string>
                 <key>spriteSize</key>
-                <string>{100,65}</string>
+                <string>{328,208}</string>
                 <key>spriteSourceSize</key>
-                <string>{108,67}</string>
+                <string>{362,224}</string>
                 <key>textureRect</key>
-                <string>{{96,1305},{100,65}}</string>
+                <string>{{332,524},{328,208}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ui_dropbox_gold_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,0}</string>
                 <key>spriteSize</key>
-                <string>{100,85}</string>
+                <string>{327,279}</string>
                 <key>spriteSourceSize</key>
-                <string>{100,85}</string>
+                <string>{335,285}</string>
                 <key>textureRect</key>
-                <string>{{155,774},{100,85}}</string>
+                <string>{{2,708},{327,279}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ui_dropbox_gold_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{1,0}</string>
                 <key>spriteSize</key>
-                <string>{85,72}</string>
+                <string>{285,233}</string>
                 <key>spriteSourceSize</key>
-                <string>{87,72}</string>
+                <string>{291,241}</string>
                 <key>textureRect</key>
-                <string>{{163,1305},{85,72}}</string>
+                <string>{{331,1198},{285,233}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
+            </dict>
+            <key>ui_dropbox_gold_04.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,-49}</string>
+                <key>spriteSize</key>
+                <string>{327,181}</string>
+                <key>spriteSourceSize</key>
+                <string>{335,285}</string>
+                <key>textureRect</key>
+                <string>{{660,918},{327,181}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>ui_dropbox_light_01.png</key>
             <dict>
@@ -120,9 +135,9 @@
                 <key>spriteSourceSize</key>
                 <string>{75,78}</string>
                 <key>textureRect</key>
-                <string>{{103,1496},{75,78}}</string>
+                <string>{{310,1956},{75,78}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ui_dropbox_light_02.png</key>
             <dict>
@@ -135,7 +150,7 @@
                 <key>spriteSourceSize</key>
                 <string>{128,128}</string>
                 <key>textureRect</key>
-                <string>{{1,963},{128,128}}</string>
+                <string>{{310,1723},{128,128}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -150,7 +165,7 @@
                 <key>spriteSourceSize</key>
                 <string>{154,154}</string>
                 <key>textureRect</key>
-                <string>{{1,347},{152,152}}</string>
+                <string>{{2,1733},{152,152}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -165,7 +180,7 @@
                 <key>spriteSourceSize</key>
                 <string>{154,154}</string>
                 <key>textureRect</key>
-                <string>{{1,501},{152,152}}</string>
+                <string>{{2,1887},{152,152}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -180,7 +195,7 @@
                 <key>spriteSourceSize</key>
                 <string>{154,154}</string>
                 <key>textureRect</key>
-                <string>{{1,655},{152,152}}</string>
+                <string>{{156,1733},{152,152}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -195,7 +210,7 @@
                 <key>spriteSourceSize</key>
                 <string>{154,154}</string>
                 <key>textureRect</key>
-                <string>{{1,809},{152,152}}</string>
+                <string>{{156,1887},{152,152}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -206,13 +221,13 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{234,344}</string>
+                <string>{226,278}</string>
                 <key>spriteSourceSize</key>
-                <string>{234,344}</string>
+                <string>{226,278}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{234,344}}</string>
+                <string>{{2,1505},{226,278}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ui_dropbox_rainbow_fx.png</key>
             <dict>
@@ -225,9 +240,9 @@
                 <key>spriteSourceSize</key>
                 <string>{118,93}</string>
                 <key>textureRect</key>
-                <string>{{155,562},{108,91}}</string>
+                <string>{{899,1284},{108,91}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ui_dropbox_rainbow_wing.png</key>
             <dict>
@@ -240,7 +255,7 @@
                 <key>spriteSourceSize</key>
                 <string>{53,63}</string>
                 <key>textureRect</key>
-                <string>{{183,1203},{53,63}}</string>
+                <string>{{282,1658},{53,63}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -249,103 +264,118 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{2,0}</string>
+                <string>{5,-1}</string>
                 <key>spriteSize</key>
-                <string>{100,93}</string>
+                <string>{329,302}</string>
                 <key>spriteSourceSize</key>
-                <string>{118,93}</string>
+                <string>{395,312}</string>
                 <key>textureRect</key>
-                <string>{{1,1405},{100,93}}</string>
+                <string>{{361,220},{329,302}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ui_dropbox_silver_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{4,0}</string>
+                <string>{14,-3}</string>
                 <key>spriteSize</key>
-                <string>{100,65}</string>
+                <string>{328,218}</string>
                 <key>spriteSourceSize</key>
-                <string>{108,67}</string>
+                <string>{362,224}</string>
                 <key>textureRect</key>
-                <string>{{169,1065},{100,65}}</string>
+                <string>{{2,306},{328,218}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ui_dropbox_silver_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-2,0}</string>
                 <key>spriteSize</key>
-                <string>{100,85}</string>
+                <string>{327,279}</string>
                 <key>spriteSourceSize</key>
-                <string>{100,85}</string>
+                <string>{335,285}</string>
                 <key>textureRect</key>
-                <string>{{155,876},{100,85}}</string>
+                <string>{{662,637},{327,279}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ui_dropbox_silver_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,2}</string>
                 <key>spriteSize</key>
-                <string>{85,72}</string>
+                <string>{279,233}</string>
                 <key>spriteSourceSize</key>
-                <string>{87,72}</string>
+                <string>{291,241}</string>
                 <key>textureRect</key>
-                <string>{{170,1392},{85,72}}</string>
+                <string>{{618,1284},{279,233}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
+            </dict>
+            <key>ui_dropbox_silver_04.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,-50}</string>
+                <key>spriteSize</key>
+                <string>{327,181}</string>
+                <key>spriteSourceSize</key>
+                <string>{335,285}</string>
+                <key>textureRect</key>
+                <string>{{331,1015},{327,181}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>ui_dropbox_special.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-3,0}</string>
+                <string>{-8,-2}</string>
                 <key>spriteSize</key>
-                <string>{110,93}</string>
+                <string>{357,302}</string>
                 <key>spriteSourceSize</key>
-                <string>{118,93}</string>
+                <string>{395,312}</string>
                 <key>textureRect</key>
-                <string>{{155,450},{110,93}}</string>
+                <string>{{2,2},{357,302}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ui_dropbox_special_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,-1}</string>
+                <string>{-1,-4}</string>
                 <key>spriteSize</key>
-                <string>{108,65}</string>
+                <string>{356,216}</string>
                 <key>spriteSourceSize</key>
-                <string>{108,67}</string>
+                <string>{362,224}</string>
                 <key>textureRect</key>
-                <string>{{102,1093},{108,65}}</string>
+                <string>{{361,2},{356,216}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ui_dropbox_special_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-2,0}</string>
                 <key>spriteSize</key>
-                <string>{100,85}</string>
+                <string>{327,279}</string>
                 <key>spriteSourceSize</key>
-                <string>{100,85}</string>
+                <string>{335,285}</string>
                 <key>textureRect</key>
-                <string>{{131,978},{100,85}}</string>
+                <string>{{331,734},{327,279}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -354,15 +384,30 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{3,0}</string>
                 <key>spriteSize</key>
-                <string>{87,72}</string>
+                <string>{285,233}</string>
                 <key>spriteSourceSize</key>
-                <string>{87,72}</string>
+                <string>{291,241}</string>
                 <key>textureRect</key>
-                <string>{{96,1407},{87,72}}</string>
+                <string>{{2,1270},{285,233}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
+            </dict>
+            <key>ui_dropbox_special_04.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,-14}</string>
+                <key>spriteSize</key>
+                <string>{100,57}</string>
+                <key>spriteSourceSize</key>
+                <string>{100,85}</string>
+                <key>textureRect</key>
+                <string>{{337,1658},{100,57}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>ui_dropbox_star.png</key>
             <dict>
@@ -375,7 +420,7 @@
                 <key>spriteSourceSize</key>
                 <string>{34,34}</string>
                 <key>textureRect</key>
-                <string>{{169,1167},{34,34}}</string>
+                <string>{{618,1198},{34,34}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -384,28 +429,28 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{2,0}</string>
+                <string>{6,0}</string>
                 <key>spriteSize</key>
-                <string>{100,93}</string>
+                <string>{329,302}</string>
                 <key>spriteSourceSize</key>
-                <string>{118,93}</string>
+                <string>{395,312}</string>
                 <key>textureRect</key>
-                <string>{{155,672},{100,93}}</string>
+                <string>{{692,333},{329,302}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ui_dropbox_wood_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{4,5}</string>
+                <string>{12,18}</string>
                 <key>spriteSize</key>
-                <string>{100,55}</string>
+                <string>{328,180}</string>
                 <key>spriteSourceSize</key>
-                <string>{108,67}</string>
+                <string>{362,224}</string>
                 <key>textureRect</key>
-                <string>{{1,1507},{100,55}}</string>
+                <string>{{2,526},{328,180}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -414,42 +459,61 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-1,1}</string>
                 <key>spriteSize</key>
-                <string>{100,85}</string>
+                <string>{327,279}</string>
                 <key>spriteSourceSize</key>
-                <string>{100,85}</string>
+                <string>{335,285}</string>
                 <key>textureRect</key>
-                <string>{{96,1203},{100,85}}</string>
+                <string>{{2,989},{327,279}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ui_dropbox_wood_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,-1}</string>
+                <string>{-1,-2}</string>
                 <key>spriteSize</key>
-                <string>{85,68}</string>
+                <string>{279,223}</string>
                 <key>spriteSourceSize</key>
-                <string>{87,72}</string>
+                <string>{291,241}</string>
                 <key>textureRect</key>
-                <string>{{183,1479},{85,68}}</string>
+                <string>{{289,1433},{279,223}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
+            </dict>
+            <key>ui_dropbox_wood_04.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{1,-49}</string>
+                <key>spriteSize</key>
+                <string>{327,181}</string>
+                <key>spriteSourceSize</key>
+                <string>{335,285}</string>
+                <key>textureRect</key>
+                <string>{{660,1101},{327,181}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
         <dict>
             <key>format</key>
             <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
             <key>realTextureFileName</key>
             <string>ui_dropbox.png</string>
             <key>size</key>
-            <string>{253,1572}</string>
+            <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c9467c1381c787ba5f71bbf270849a5a:c6a8683fb2a0364d3f90ee83e3e4d60c:244c42ac2c88dd343932fa641ccb6464$</string>
+            <string>$TexturePacker:SmartUpdate:1809e43a34a8d3edf25327a3376a020b:7f0b179ed0d77b962b44c341f82fe615:244c42ac2c88dd343932fa641ccb6464$</string>
             <key>textureFileName</key>
             <string>ui_dropbox.png</string>
         </dict>

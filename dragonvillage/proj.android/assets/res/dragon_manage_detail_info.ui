@@ -10,7 +10,7 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = -1.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 3;
@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/manage_detail_info_frame_01.png';
+				file_name = 'ui/frame/popup_frame_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -35,9 +35,35 @@
 			{
 				[1] =
 				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 3;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frame/base_frame_06.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[2] =
+				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -68.000000;
 					y = 160.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -73,11 +99,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[2] =
+				[3] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -69.000000;
 					y = 120.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -113,11 +139,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[3] =
+				[4] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -69.000000;
 					y = 80.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -153,11 +179,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[4] =
+				[5] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -69.000000;
 					y = 40.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -193,11 +219,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[5] =
+				[6] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -69.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -233,11 +259,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[6] =
+				[7] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -69.000000;
 					y = -40.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -273,11 +299,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[7] =
+				[8] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -69.000000;
 					y = -80.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -313,11 +339,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[8] =
+				[9] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -69.000000;
 					y = -120.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -353,11 +379,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[9] =
+				[10] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -69.000000;
 					y = -160.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -393,16 +419,16 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[10] =
+				[11] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 2.000000;
+					x = -2.000000;
 					y = 160.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 168;
+					width = 102;
 					height = 44;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -418,47 +444,7 @@
 					v_alignment = 1;
 					color = { 102; 88; 71; };
 					opacity = 255;
-					dimension_width = 168;
-					dimension_height = 44;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 47; 40; 22; };
-					has_shadow = false;
-					shadow_color = { 47; 40; 22; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 3.000000;
-				};
-				[11] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 1.000000;
-					y = 120.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 168;
-					height = 44;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'atk_spd_label';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
-					text = '{0}';
-					h_alignment = 2;
-					v_alignment = 1;
-					color = { 102; 88; 71; };
-					opacity = 255;
-					dimension_width = 168;
+					dimension_width = 102;
 					dimension_height = 44;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -477,12 +463,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 1.000000;
-					y = 80.000000;
+					x = -3.000000;
+					y = 120.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 168;
+					width = 102;
 					height = 44;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -490,7 +476,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'cri_chance_label';
+					lua_name = 'atk_spd_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -498,7 +484,7 @@
 					v_alignment = 1;
 					color = { 102; 88; 71; };
 					opacity = 255;
-					dimension_width = 168;
+					dimension_width = 102;
 					dimension_height = 44;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -517,12 +503,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 1.000000;
-					y = 40.000000;
+					x = -3.000000;
+					y = 80.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 168;
+					width = 102;
 					height = 44;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -530,7 +516,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'def_p_label';
+					lua_name = 'cri_chance_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -538,7 +524,7 @@
 					v_alignment = 1;
 					color = { 102; 88; 71; };
 					opacity = 255;
-					dimension_width = 168;
+					dimension_width = 102;
 					dimension_height = 44;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -557,12 +543,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 1.000000;
-					y = 0.000000;
+					x = -3.000000;
+					y = 40.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 168;
+					width = 102;
 					height = 44;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -570,7 +556,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'hp_label';
+					lua_name = 'def_p_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -578,7 +564,7 @@
 					v_alignment = 1;
 					color = { 102; 88; 71; };
 					opacity = 255;
-					dimension_width = 168;
+					dimension_width = 102;
 					dimension_height = 44;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -597,12 +583,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 1.000000;
-					y = -40.000000;
+					x = -3.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 168;
+					width = 102;
 					height = 44;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -610,7 +596,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'cri_avoid_label';
+					lua_name = 'hp_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -618,7 +604,7 @@
 					v_alignment = 1;
 					color = { 102; 88; 71; };
 					opacity = 255;
-					dimension_width = 168;
+					dimension_width = 102;
 					dimension_height = 44;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -637,12 +623,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 1.000000;
-					y = -80.000000;
+					x = -3.000000;
+					y = -40.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 168;
+					width = 102;
 					height = 44;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -650,7 +636,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'avoid_label';
+					lua_name = 'cri_avoid_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -658,7 +644,7 @@
 					v_alignment = 1;
 					color = { 102; 88; 71; };
 					opacity = 255;
-					dimension_width = 168;
+					dimension_width = 102;
 					dimension_height = 44;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -677,12 +663,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 1.000000;
-					y = -120.000000;
+					x = -3.000000;
+					y = -80.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 168;
+					width = 102;
 					height = 44;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -690,7 +676,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'hit_rate_label';
+					lua_name = 'avoid_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -698,7 +684,7 @@
 					v_alignment = 1;
 					color = { 102; 88; 71; };
 					opacity = 255;
-					dimension_width = 168;
+					dimension_width = 102;
 					dimension_height = 44;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -717,12 +703,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 1.000000;
-					y = -160.000000;
+					x = -3.000000;
+					y = -120.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 168;
+					width = 102;
 					height = 44;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -730,7 +716,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'cri_dmg_label';
+					lua_name = 'hit_rate_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = '{0}';
@@ -738,7 +724,7 @@
 					v_alignment = 1;
 					color = { 102; 88; 71; };
 					opacity = 255;
-					dimension_width = 168;
+					dimension_width = 102;
 					dimension_height = 44;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -755,324 +741,52 @@
 				};
 				[19] =
 				{
-					[1] =
-					{
-						type = 'Sprite';
-						ui_name = '';
-						x = 51.000000;
-						y = 1.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 40;
-						height = 40;
-						scale_x = 1.400000;
-						scale_y = 1.400000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/icon_favor_02.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					type = 'Sprite';
+					type = 'LabelTTF';
 					ui_name = '';
-					x = 105.000000;
-					y = 80.000000;
+					x = -3.000000;
+					y = -160.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 63;
-					height = 63;
-					scale_x = 0.540000;
-					scale_y = 0.540000;
+					width = 102;
+					height = 44;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'lightSprite';
-					file_name = 'ui/icon/attr/attr_light_02.png';
-					color = { 255; 255; 255; };
+					lua_name = 'cri_dmg_label';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = '{0}';
+					h_alignment = 2;
+					v_alignment = 1;
+					color = { 102; 88; 71; };
 					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[20] =
-				{
-					[1] =
-					{
-						type = 'Sprite';
-						ui_name = '';
-						x = 51.000000;
-						y = 1.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 40;
-						height = 40;
-						scale_x = 1.400000;
-						scale_y = 1.400000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/icon_favor_02.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					type = 'Sprite';
-					ui_name = '';
-					x = 105.000000;
-					y = -161.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 63;
-					height = 63;
-					scale_x = 0.540000;
-					scale_y = 0.540000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'darkSprite';
-					file_name = 'ui/icon/attr/attr_dark_02.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[21] =
-				{
-					[1] =
-					{
-						type = 'Sprite';
-						ui_name = '';
-						x = 51.000000;
-						y = 1.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 40;
-						height = 40;
-						scale_x = 1.400000;
-						scale_y = 1.400000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/icon_favor_02.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					type = 'Sprite';
-					ui_name = '';
-					x = 105.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 63;
-					height = 63;
-					scale_x = 0.540000;
-					scale_y = 0.540000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'earthSprite';
-					file_name = 'ui/icon/attr/attr_earth_02.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[22] =
-				{
-					[1] =
-					{
-						type = 'Sprite';
-						ui_name = '';
-						x = 51.000000;
-						y = 1.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 40;
-						height = 40;
-						scale_x = 1.400000;
-						scale_y = 1.400000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/icon_favor_02.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					type = 'Sprite';
-					ui_name = '';
-					x = 105.000000;
-					y = -80.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 63;
-					height = 63;
-					scale_x = 0.540000;
-					scale_y = 0.540000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'waterSprite';
-					file_name = 'ui/icon/attr/attr_water_02.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[23] =
-				{
-					[1] =
-					{
-						type = 'Sprite';
-						ui_name = '';
-						x = 51.000000;
-						y = 1.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 40;
-						height = 40;
-						scale_x = 1.400000;
-						scale_y = 1.400000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/icon_favor_02.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					type = 'Sprite';
-					ui_name = '';
-					x = 105.000000;
-					y = -120.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 63;
-					height = 63;
-					scale_x = 0.540000;
-					scale_y = 0.540000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'fireSprite';
-					file_name = 'ui/icon/attr/attr_fire_02.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[24] =
-				{
-					[1] =
-					{
-						type = 'Sprite';
-						ui_name = '';
-						x = 51.000000;
-						y = 1.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 40;
-						height = 40;
-						scale_x = 1.400000;
-						scale_y = 1.400000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/icon_favor_02.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					type = 'Sprite';
-					ui_name = '';
-					x = 105.000000;
-					y = 160.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 63;
-					height = 63;
-					scale_x = 0.540000;
-					scale_y = 0.540000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'windSprite';
-					file_name = 'ui/icon/attr/attr_wind_02.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
+					dimension_width = 102;
+					dimension_height = 44;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 47; 40; 22; };
+					has_shadow = false;
+					shadow_color = { 47; 40; 22; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
 				};
 				type = 'Menu';
 				ui_name = 'right';
-				x = 161.000000;
-				y = -35.000000;
+				x = 144.000000;
+				y = -34.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 312;
+				width = 338;
 				height = 386;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -1086,9 +800,35 @@
 			{
 				[1] =
 				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 3;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frame/base_frame_06.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[2] =
+				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -44.000000;
 					y = 160.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1124,11 +864,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[2] =
+				[3] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -44.000000;
 					y = 120.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1164,11 +904,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[3] =
+				[4] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -44.000000;
 					y = 80.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1204,11 +944,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[4] =
+				[5] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -44.000000;
 					y = 40.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1244,11 +984,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[5] =
+				[6] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -44.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1284,11 +1024,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[6] =
+				[7] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -44.000000;
 					y = -40.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1324,11 +1064,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[7] =
+				[8] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -44.000000;
 					y = -80.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1364,11 +1104,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[8] =
+				[9] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -44.000000;
 					y = -120.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1404,11 +1144,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[9] =
+				[10] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -44.000000;
 					y = -160.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1444,11 +1184,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[10] =
+				[11] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 19.000000;
+					x = 30.000000;
 					y = 160.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1484,11 +1224,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[11] =
+				[12] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 27.000000;
+					x = 37.000000;
 					y = 80.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1524,11 +1264,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[12] =
+				[13] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 27.000000;
+					x = 37.000000;
 					y = 40.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1564,11 +1304,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[13] =
+				[14] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 27.000000;
+					x = 37.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1604,11 +1344,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[14] =
+				[15] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 27.000000;
+					x = 37.000000;
 					y = -40.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1644,11 +1384,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[15] =
+				[16] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 27.000000;
+					x = 37.000000;
 					y = -80.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1684,11 +1424,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[16] =
+				[17] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 27.000000;
+					x = 37.000000;
 					y = -120.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1724,11 +1464,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[17] =
+				[18] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 27.000000;
+					x = 37.000000;
 					y = -160.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1764,11 +1504,11 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[18] =
+				[19] =
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 15.000000;
+					x = 25.000000;
 					y = 122.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1783,11 +1523,11 @@
 					visible = true;
 					lua_name = 'starNode';
 				};
-				[19] =
+				[20] =
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 134.000000;
+					x = 116.000000;
 					y = -81.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1802,11 +1542,11 @@
 					visible = true;
 					lua_name = 'attrNode';
 				};
-				[20] =
+				[21] =
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 134.000000;
+					x = 116.000000;
 					y = -42.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1821,11 +1561,11 @@
 					visible = true;
 					lua_name = 'rarityNode';
 				};
-				[21] =
+				[22] =
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 133.000000;
+					x = 115.000000;
 					y = -120.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1840,11 +1580,11 @@
 					visible = true;
 					lua_name = 'roleNode';
 				};
-				[22] =
+				[23] =
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 131.000000;
+					x = 113.000000;
 					y = -160.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1861,12 +1601,12 @@
 				};
 				type = 'Menu';
 				ui_name = 'left';
-				x = -163.000000;
-				y = -35.000000;
+				x = -173.000000;
+				y = -34.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 312;
+				width = 283;
 				height = 386;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -1881,7 +1621,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 199.000000;
+				y = 211.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1904,15 +1644,15 @@
 				dimension_width = 500;
 				dimension_height = 54;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 47; 40; 22; };
-				has_shadow = false;
-				shadow_color = { 47; 40; 22; };
-				shadow_opacity = 255;
+				stroke_color = { 47; 38; 31; };
+				has_shadow = true;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 100;
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
@@ -1921,7 +1661,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 293.000000;
-				y = 198.000000;
+				y = 214.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1940,15 +1680,394 @@
 				disable = '';
 				image_type = 0;
 			};
+			[6] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -7.000000;
+					y = 161.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 102;
+					height = 44;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'add_atk_p_label';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = '+{0}';
+					h_alignment = 0;
+					v_alignment = 1;
+					color = { 18; 216; 0; };
+					opacity = 255;
+					dimension_width = 102;
+					dimension_height = 44;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 102; 88; 71; };
+					has_shadow = false;
+					shadow_color = { 102; 88; 71; };
+					shadow_opacity = 200;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[2] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -7.000000;
+					y = 121.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 102;
+					height = 44;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'add_atk_spd_label';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = '+{0}';
+					h_alignment = 0;
+					v_alignment = 1;
+					color = { 18; 216; 0; };
+					opacity = 255;
+					dimension_width = 102;
+					dimension_height = 44;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 47; 40; 22; };
+					has_shadow = false;
+					shadow_color = { 47; 40; 22; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[3] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -7.000000;
+					y = 81.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 102;
+					height = 44;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'add_cri_chance_label';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = '+{0}';
+					h_alignment = 0;
+					v_alignment = 1;
+					color = { 18; 216; 0; };
+					opacity = 255;
+					dimension_width = 102;
+					dimension_height = 44;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 47; 40; 22; };
+					has_shadow = false;
+					shadow_color = { 47; 40; 22; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[4] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -7.000000;
+					y = 41.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 102;
+					height = 44;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'add_def_p_label';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = '+{0}';
+					h_alignment = 0;
+					v_alignment = 1;
+					color = { 18; 216; 0; };
+					opacity = 255;
+					dimension_width = 102;
+					dimension_height = 44;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 47; 40; 22; };
+					has_shadow = false;
+					shadow_color = { 47; 40; 22; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[5] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -6.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 102;
+					height = 44;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'add_hp_label';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = '+{0}';
+					h_alignment = 0;
+					v_alignment = 1;
+					color = { 18; 216; 0; };
+					opacity = 255;
+					dimension_width = 102;
+					dimension_height = 44;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 47; 40; 22; };
+					has_shadow = false;
+					shadow_color = { 47; 40; 22; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[6] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -7.000000;
+					y = -39.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 102;
+					height = 44;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'add_cri_avoid_label';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = '+{0}';
+					h_alignment = 0;
+					v_alignment = 1;
+					color = { 18; 216; 0; };
+					opacity = 255;
+					dimension_width = 102;
+					dimension_height = 44;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 47; 40; 22; };
+					has_shadow = false;
+					shadow_color = { 47; 40; 22; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[7] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -7.000000;
+					y = -79.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 102;
+					height = 44;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'add_avoid_label';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = '+{0}';
+					h_alignment = 0;
+					v_alignment = 1;
+					color = { 18; 216; 0; };
+					opacity = 255;
+					dimension_width = 102;
+					dimension_height = 44;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 47; 40; 22; };
+					has_shadow = false;
+					shadow_color = { 47; 40; 22; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[8] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -7.000000;
+					y = -119.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 102;
+					height = 44;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'add_hit_rate_label';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = '+{0}';
+					h_alignment = 0;
+					v_alignment = 1;
+					color = { 18; 216; 0; };
+					opacity = 255;
+					dimension_width = 102;
+					dimension_height = 44;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 47; 40; 22; };
+					has_shadow = false;
+					shadow_color = { 47; 40; 22; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[9] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -7.000000;
+					y = -160.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 102;
+					height = 44;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'add_cri_dmg_label';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = '+{0}';
+					h_alignment = 0;
+					v_alignment = 1;
+					color = { 18; 216; 0; };
+					opacity = 255;
+					dimension_width = 102;
+					dimension_height = 44;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 47; 40; 22; };
+					has_shadow = false;
+					shadow_color = { 47; 40; 22; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				type = 'Menu';
+				ui_name = '';
+				x = 255.000000;
+				y = -34.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 132;
+				height = 386;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+			};
 			type = 'Menu';
 			ui_name = '';
-			x = 298.000000;
-			y = 30.000000;
+			x = 0.000000;
+			y = 25.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 660;
-			height = 472;
+			height = 500;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;

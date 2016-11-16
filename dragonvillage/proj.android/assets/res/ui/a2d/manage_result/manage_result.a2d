@@ -87,6 +87,47 @@
 					}
 				},
 				{
+					"name":"card_star_light_1",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'card_star_light'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-105.000000, "pY":165.000000
+									},
+									{
+										"frame":30, "pX":-105.000000, "pY":162.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)manage_result.plist'<azSprite>'star.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-105.000000, "pY":162.000000
+									},
+									{
+										"frame":33, "pX":-105.000000, "pY":162.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"card_star_light_2",
 					"apply":true,
 					"fps":30,
@@ -646,7 +687,7 @@
 		{
 			"name":"resource",
 			"expand":true,
-			"apply":false,
+			"apply":true,
 			"visual_list":
 			[
 				{

@@ -1,0 +1,2809 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)ingame_fever.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+		{
+			"name":"skill_cancel_01",
+			"apply":true,
+			"res_id":""
+		},
+		{
+			"name":"skill_cancel_02",
+			"apply":true,
+			"res_id":""
+		}
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"fever",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"button_fx",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":39
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "mode":"Add"
+									},
+									{
+										"frame":9, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15, "mode":"Add"
+									},
+									{
+										"frame":19, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25, "mode":"Add"
+									},
+									{
+										"frame":29, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":35, "mode":"Add"
+									},
+									{
+										"frame":39, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button_finger'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":39
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button_text'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-110.000000, "pY":30.000000, "alpha":0
+									},
+									{
+										"frame":4, "pX":-114.210526, "pY":30.000000
+									},
+									{
+										"frame":35, "pX":-126.842102, "pY":30.000000
+									},
+									{
+										"frame":39, "pX":-130.000000, "pY":30.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"button_idle_fx",
+					"apply":false,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "sY":0.000000
+									},
+									{
+										"frame":4
+									},
+									{
+										"frame":6, "sX":1.300000
+									},
+									{
+										"frame":8, "sY":1.300000
+									},
+									{
+										"frame":10, "sX":1.200000
+									},
+									{
+										"frame":12, "sY":1.200000
+									},
+									{
+										"frame":14, "sX":1.100000
+									},
+									{
+										"frame":16, "sY":1.100000
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":59
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":60
+									},
+									{
+										"frame":99
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":100
+									},
+									{
+										"frame":139
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":140
+									},
+									{
+										"frame":160
+									},
+									{
+										"frame":179, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"idle_01",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_star.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-145.000000, "pY":20.000000
+									},
+									{
+										"frame":3, "pX":-145.000000
+									},
+									{
+										"frame":5, "pX":-145.000000, "pY":-20.000000
+									},
+									{
+										"frame":7, "pX":-145.000000
+									},
+									{
+										"frame":19, "pX":-145.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "pX":-87.000000, "pY":20.000000
+									},
+									{
+										"frame":5, "pX":-87.000000
+									},
+									{
+										"frame":7, "pX":-87.000000, "pY":-20.000000
+									},
+									{
+										"frame":9, "pX":-87.000000
+									},
+									{
+										"frame":19, "pX":-87.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-28.000000, "pY":20.000000
+									},
+									{
+										"frame":7, "pX":-28.000000
+									},
+									{
+										"frame":9, "pX":-28.000000, "pY":-20.000000
+									},
+									{
+										"frame":11, "pX":-28.000000
+									},
+									{
+										"frame":19, "pX":-28.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "pX":34.000000, "pY":20.000000
+									},
+									{
+										"frame":9, "pX":34.000000
+									},
+									{
+										"frame":11, "pX":34.000000, "pY":-20.000000
+									},
+									{
+										"frame":13, "pX":34.000000
+									},
+									{
+										"frame":19, "pX":34.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":91.000000, "pY":20.000000
+									},
+									{
+										"frame":11, "pX":91.000000
+									},
+									{
+										"frame":13, "pX":91.000000, "pY":-20.000000
+									},
+									{
+										"frame":15, "pX":91.000000
+									},
+									{
+										"frame":19, "pX":91.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_star.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "pX":151.000000, "pY":20.000000
+									},
+									{
+										"frame":13, "pX":151.000000
+									},
+									{
+										"frame":15, "pX":151.000000, "pY":-20.000000
+									},
+									{
+										"frame":17, "pX":151.000000
+									},
+									{
+										"frame":19, "pX":151.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"idle_02",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_star.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-145.000000
+									},
+									{
+										"frame":4, "pX":-145.000000, "colorRGB":[255,0,0]
+
+									},
+									{
+										"frame":8, "sX":1.300000, "pX":-145.000000, "colorRGB":[255,128,64]
+
+									},
+									{
+										"frame":12, "sY":1.300000, "pX":-145.000000, "colorRGB":[255,255,0]
+
+									},
+									{
+										"frame":16, "sX":1.200000, "pX":-145.000000, "colorRGB":[0,255,0]
+
+									},
+									{
+										"frame":20, "sY":1.200000, "pX":-145.000000, "colorRGB":[0,0,255]
+
+									},
+									{
+										"frame":24, "sX":1.100000, "pX":-145.000000, "colorRGB":[128,0,128]
+
+									},
+									{
+										"frame":28, "sY":1.100000, "pX":-145.000000, "colorRGB":[255,0,128]
+
+									},
+									{
+										"frame":42, "pX":-145.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-87.000000
+									},
+									{
+										"frame":6, "pX":-87.000000, "colorRGB":[255,0,0]
+
+									},
+									{
+										"frame":10, "sX":1.300000, "pX":-87.000000, "colorRGB":[255,128,64]
+
+									},
+									{
+										"frame":14, "sY":1.300000, "pX":-87.000000, "colorRGB":[255,255,0]
+
+									},
+									{
+										"frame":18, "sX":1.200000, "pX":-87.000000, "colorRGB":[0,255,0]
+
+									},
+									{
+										"frame":22, "sY":1.200000, "pX":-87.000000, "colorRGB":[0,0,255]
+
+									},
+									{
+										"frame":26, "sX":1.100000, "pX":-87.000000, "colorRGB":[128,0,128]
+
+									},
+									{
+										"frame":30, "sY":1.100000, "pX":-87.000000, "colorRGB":[255,0,128]
+
+									},
+									{
+										"frame":42, "pX":-87.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-28.000000
+									},
+									{
+										"frame":8, "pX":-28.000000, "colorRGB":[255,0,0]
+
+									},
+									{
+										"frame":12, "sX":1.300000, "pX":-28.000000, "colorRGB":[255,128,64]
+
+									},
+									{
+										"frame":16, "sY":1.300000, "pX":-28.000000, "colorRGB":[255,255,0]
+
+									},
+									{
+										"frame":20, "sX":1.200000, "pX":-28.000000, "colorRGB":[0,255,0]
+
+									},
+									{
+										"frame":24, "sY":1.200000, "pX":-28.000000, "colorRGB":[0,0,255]
+
+									},
+									{
+										"frame":28, "sX":1.100000, "pX":-28.000000, "colorRGB":[128,0,128]
+
+									},
+									{
+										"frame":32, "sY":1.100000, "pX":-28.000000, "colorRGB":[255,0,128]
+
+									},
+									{
+										"frame":42, "pX":-28.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":34.000000
+									},
+									{
+										"frame":10, "pX":34.000000, "colorRGB":[255,0,0]
+
+									},
+									{
+										"frame":14, "sX":1.300000, "pX":34.000000, "colorRGB":[255,128,64]
+
+									},
+									{
+										"frame":18, "sY":1.300000, "pX":34.000000, "colorRGB":[255,255,0]
+
+									},
+									{
+										"frame":22, "sX":1.200000, "pX":34.000000, "colorRGB":[0,255,0]
+
+									},
+									{
+										"frame":26, "sY":1.200000, "pX":34.000000, "colorRGB":[0,0,255]
+
+									},
+									{
+										"frame":30, "sX":1.100000, "pX":34.000000, "colorRGB":[128,0,128]
+
+									},
+									{
+										"frame":34, "sY":1.100000, "pX":34.000000, "colorRGB":[255,0,128]
+
+									},
+									{
+										"frame":42, "pX":34.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":91.000000
+									},
+									{
+										"frame":12, "pX":91.000000, "colorRGB":[255,0,0]
+
+									},
+									{
+										"frame":16, "sX":1.300000, "pX":91.000000, "colorRGB":[255,128,64]
+
+									},
+									{
+										"frame":20, "sY":1.300000, "pX":91.000000, "colorRGB":[255,255,0]
+
+									},
+									{
+										"frame":24, "sX":1.200000, "pX":91.000000, "colorRGB":[0,255,0]
+
+									},
+									{
+										"frame":28, "sY":1.200000, "pX":91.000000, "colorRGB":[0,0,255]
+
+									},
+									{
+										"frame":32, "sX":1.100000, "pX":91.000000, "colorRGB":[128,0,128]
+
+									},
+									{
+										"frame":36, "sY":1.100000, "pX":91.000000, "colorRGB":[255,0,128]
+
+									},
+									{
+										"frame":42, "pX":91.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_star.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":151.000000
+									},
+									{
+										"frame":14, "pX":151.000000, "colorRGB":[255,0,0]
+
+									},
+									{
+										"frame":18, "sX":1.300000, "pX":151.000000, "colorRGB":[255,128,64]
+
+									},
+									{
+										"frame":22, "sY":1.300000, "pX":151.000000, "colorRGB":[255,255,0]
+
+									},
+									{
+										"frame":26, "sX":1.200000, "pX":151.000000, "colorRGB":[0,255,0]
+
+									},
+									{
+										"frame":30, "sY":1.200000, "pX":151.000000, "colorRGB":[0,0,255]
+
+									},
+									{
+										"frame":34, "sX":1.100000, "pX":151.000000, "colorRGB":[128,0,128]
+
+									},
+									{
+										"frame":38, "sY":1.100000, "pX":151.000000, "colorRGB":[255,0,128]
+
+									},
+									{
+										"frame":42, "pX":151.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"idle_03",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_star.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-145.000000
+									},
+									{
+										"frame":2, "pX":-145.000000
+									},
+									{
+										"frame":7, "sX":0.000000, "sY":1.200000, "pX":-145.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-87.000000
+									},
+									{
+										"frame":3, "pX":-87.000000
+									},
+									{
+										"frame":8, "sX":0.000000, "sY":1.200000, "pX":-87.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-28.000000
+									},
+									{
+										"frame":4, "pX":-28.000000
+									},
+									{
+										"frame":9, "sX":0.000000, "sY":1.200000, "pX":-28.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":34.000000
+									},
+									{
+										"frame":5, "pX":34.000000
+									},
+									{
+										"frame":10, "sX":0.000000, "sY":1.200000, "pX":34.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":91.000000
+									},
+									{
+										"frame":6, "pX":91.000000
+									},
+									{
+										"frame":11, "sX":0.000000, "sY":1.200000, "pX":91.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_star.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":151.000000
+									},
+									{
+										"frame":7, "pX":151.000000
+									},
+									{
+										"frame":12, "sX":0.000000, "sY":1.200000, "pX":151.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"skill_cancel",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azTag>'skill_cancel_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "sY":0.000000, "pY":-25.000000, "alpha":0
+									},
+									{
+										"frame":2, "pY":-25.000000
+									},
+									{
+										"frame":4, "sX":1.300000, "sY":1.300000, "pY":-25.000000
+									},
+									{
+										"frame":6, "pY":-25.000000
+									},
+									{
+										"frame":11, "pY":-20.555555
+									},
+									{
+										"frame":16, "pY":23.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_cancel_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "sY":0.000000, "pY":17.000000, "alpha":0
+									},
+									{
+										"frame":2, "pY":17.000000
+									},
+									{
+										"frame":4, "sX":1.300000, "sY":1.300000, "pY":17.000000
+									},
+									{
+										"frame":6, "pY":17.000000
+									},
+									{
+										"frame":11, "pY":21.444445
+									},
+									{
+										"frame":16, "pY":65.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_cancel_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "sY":0.000000, "pY":17.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":2, "pY":17.000000, "mode":"Add"
+									},
+									{
+										"frame":4, "sX":1.300000, "sY":1.300000, "pY":17.000000, "mode":"Add"
+									},
+									{
+										"frame":6, "sX":1.500000, "sY":1.500000, "pY":17.000000, "mode":"Add"
+									},
+									{
+										"frame":11, "sX":2.000000, "sY":2.000000, "pY":17.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"skill_cancel_01",
+					"apply":false,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_0301.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sY":0.000000, "alpha":0
+									},
+									{
+										"frame":3
+									},
+									{
+										"frame":5, "sY":1.200000
+									},
+									{
+										"frame":7
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_cancel_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-500.000000, "pY":19.000000, "alpha":0
+									},
+									{
+										"frame":3, "pX":-50.000000, "pY":19.000000
+									},
+									{
+										"frame":5, "pY":19.000000
+									},
+									{
+										"frame":7, "pY":19.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_cancel_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "pX":-500.000000, "pY":-23.000000, "alpha":0
+									},
+									{
+										"frame":5, "pX":-50.000000, "pY":-23.000000
+									},
+									{
+										"frame":7, "pY":-23.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"skill_cancel_02",
+					"apply":false,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_0301.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":9
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_cancel_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":19.000000
+									},
+									{
+										"frame":3, "pY":19.000000
+									},
+									{
+										"frame":5, "sX":1.200000, "sY":1.200000, "pY":19.000000
+									},
+									{
+										"frame":9, "pY":19.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_cancel_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-23.000000
+									},
+									{
+										"frame":3, "pY":-23.000000
+									},
+									{
+										"frame":5, "sX":1.200000, "sY":1.200000, "pY":-23.000000
+									},
+									{
+										"frame":9, "pY":-23.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"skill_cancel_03",
+					"apply":false,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_0301.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":2, "sY":1.200000
+									},
+									{
+										"frame":4
+									},
+									{
+										"frame":9, "sX":2.000000, "sY":0.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_cancel_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":19.000000
+									},
+									{
+										"frame":2, "sY":1.200000, "pY":19.000000
+									},
+									{
+										"frame":4, "pY":19.000000
+									},
+									{
+										"frame":9, "sX":2.000000, "sY":0.000000, "pY":19.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_cancel_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-23.000000
+									},
+									{
+										"frame":2, "sY":1.200000, "pY":-23.000000
+									},
+									{
+										"frame":4, "pY":-23.000000
+									},
+									{
+										"frame":9, "sX":2.000000, "sY":0.000000, "pY":-23.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"start",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_bg.jpg'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":14.000000, "sY":14.000000, "alpha":0, "colorRGB":[20,44,34]
+, "mode":"Multiply"
+									},
+									{
+										"frame":5, "sX":14.000000, "sY":14.000000, "alpha":179, "colorRGB":[20,44,34]
+, "mode":"Multiply"
+									},
+									{
+										"frame":41, "sX":14.000000, "sY":14.000000, "alpha":179, "colorRGB":[20,44,34]
+, "mode":"Multiply"
+									},
+									{
+										"frame":44, "sX":14.000000, "sY":14.000000, "alpha":0, "colorRGB":[20,44,34]
+, "mode":"Multiply"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sY":0.000000
+									},
+									{
+										"frame":4, "sY":0.800000
+									},
+									{
+										"frame":5
+									},
+									{
+										"frame":7, "sY":1.200000
+									},
+									{
+										"frame":9
+									},
+									{
+										"frame":35
+									},
+									{
+										"frame":37, "sY":1.200000
+									},
+									{
+										"frame":39
+									},
+									{
+										"frame":44, "sY":0.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_0102.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-1500.000000
+									},
+									{
+										"frame":7, "pX":-200.000000
+									},
+									{
+										"frame":9, "pX":-100.000000
+									},
+									{
+										"frame":35, "pX":100.000000
+									},
+									{
+										"frame":37, "pX":200.000000
+									},
+									{
+										"frame":44, "pX":1500.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_0103.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-1500.000000
+									},
+									{
+										"frame":7, "pX":-200.000000
+									},
+									{
+										"frame":9, "pX":-100.000000, "colorRGB":[255,0,128]
+
+									},
+									{
+										"frame":14, "pX":-61.538460, "colorRGB":[255,128,64]
+
+									},
+									{
+										"frame":18, "pX":-30.769228, "colorRGB":[255,255,0]
+
+									},
+									{
+										"frame":23, "pX":7.692314, "colorRGB":[0,255,0]
+
+									},
+									{
+										"frame":27, "pX":38.461544, "colorRGB":[0,0,255]
+
+									},
+									{
+										"frame":31, "pX":69.230774, "colorRGB":[64,0,128]
+
+									},
+									{
+										"frame":35, "pX":100.000000, "colorRGB":[128,0,128]
+
+									},
+									{
+										"frame":37, "pX":200.000000
+									},
+									{
+										"frame":44, "pX":1500.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_02_ss'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2
+									},
+									{
+										"frame":44
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'fever'<azVisual>'idle_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.800000, "sY":1.800000, "pX":-1515.000000, "pY":-2.000000
+									},
+									{
+										"frame":7, "sX":1.800000, "sY":1.800000, "pX":-215.000000, "pY":-2.000000
+									},
+									{
+										"frame":9, "sX":1.800000, "sY":1.800000, "pX":-115.000000, "pY":-2.000000, "colorRGB":[255,255,255]
+
+									},
+									{
+										"frame":14, "sX":1.800000, "sY":1.800000, "pX":-76.538460, "pY":-2.000000, "colorRGB":[255,255,255]
+
+									},
+									{
+										"frame":18, "sX":1.800000, "sY":1.800000, "pX":-45.769226, "pY":-2.000000, "colorRGB":[255,255,0]
+
+									},
+									{
+										"frame":23, "sX":1.800000, "sY":1.800000, "pX":-7.307686, "pY":-2.000000, "colorRGB":[255,255,255]
+
+									},
+									{
+										"frame":27, "sX":1.800000, "sY":1.800000, "pX":23.461544, "pY":-2.000000, "colorRGB":[255,255,255]
+
+									},
+									{
+										"frame":31, "sX":1.800000, "sY":1.800000, "pX":54.230774, "pY":-2.000000, "colorRGB":[255,255,255]
+
+									},
+									{
+										"frame":35, "sX":1.800000, "sY":1.800000, "pX":85.000000, "pY":-2.000000, "colorRGB":[255,255,255]
+
+									},
+									{
+										"frame":37, "sX":1.800000, "sY":1.800000, "pX":185.000000, "pY":-2.000000
+									},
+									{
+										"frame":44, "sX":1.800000, "sY":1.800000, "pX":1485.000000, "pY":-2.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'fever'<azVisual>'idle_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.800000, "sY":1.800000, "pX":-1515.000000, "pY":-2.000000, "mode":"Add"
+									},
+									{
+										"frame":7, "sX":1.800000, "sY":1.800000, "pX":-215.000000, "pY":-2.000000, "mode":"Add"
+									},
+									{
+										"frame":9, "sX":1.800000, "sY":1.800000, "pX":-115.000000, "pY":-2.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":14, "sX":1.800000, "sY":1.800000, "pX":-76.538460, "pY":-2.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":18, "sX":1.800000, "sY":1.800000, "pX":-45.769226, "pY":-2.000000, "colorRGB":[255,255,0]
+, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":1.800000, "sY":1.800000, "pX":-7.307686, "pY":-2.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":27, "sX":1.800000, "sY":1.800000, "pX":23.461544, "pY":-2.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":31, "sX":1.800000, "sY":1.800000, "pX":54.230774, "pY":-2.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":35, "sX":1.800000, "sY":1.800000, "pX":85.000000, "pY":-2.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":37, "sX":1.800000, "sY":1.800000, "pX":185.000000, "pY":-2.000000, "mode":"Add"
+									},
+									{
+										"frame":44, "sX":1.800000, "sY":1.800000, "pX":1485.000000, "pY":-2.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_01_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "sX":2.500000, "sY":2.000000, "pY":90.000000, "hflip":"H"
+									},
+									{
+										"frame":37, "sX":2.500000, "sY":2.000000, "pY":90.000000, "hflip":"H"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_01_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "sX":2.500000, "sY":2.000000, "pY":90.000000, "colorRGB":[164,175,255]
+, "mode":"Add", "hflip":"H"
+									},
+									{
+										"frame":38, "sX":2.500000, "sY":2.000000, "pY":90.000000, "colorRGB":[164,175,255]
+, "mode":"Add", "hflip":"H"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_01_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "sX":2.500000, "sY":2.000000, "pY":-90.000000, "hflip":"H"
+									},
+									{
+										"frame":42, "sX":2.500000, "sY":2.000000, "pY":-90.000000, "hflip":"H"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_01_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":11, "sX":2.500000, "sY":2.000000, "pY":-90.000000, "colorRGB":[132,255,153]
+, "mode":"Add", "hflip":"H"
+									},
+									{
+										"frame":43, "sX":2.500000, "sY":2.000000, "pY":-90.000000, "colorRGB":[132,255,153]
+, "mode":"Add", "hflip":"H"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_02_ss_b'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "sY":0.300000, "pY":86.000000
+									},
+									{
+										"frame":33, "sY":0.300000, "pY":86.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_02_ss_b'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "sY":0.300000, "pY":-86.000000
+									},
+									{
+										"frame":33, "sY":0.300000, "pY":-86.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_03_ss'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":1127.000000, "pY":164.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":8, "pX":655.000061, "pY":164.000000, "mode":"Add"
+									},
+									{
+										"frame":39, "pX":655.000061, "pY":164.000000, "mode":"Add"
+									},
+									{
+										"frame":44, "pX":655.000000, "pY":164.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_03_ss'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":458.000000, "pY":164.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":8, "pX":-14.000000, "pY":164.000000, "mode":"Add"
+									},
+									{
+										"frame":39, "pX":-14.000000, "pY":164.000000, "mode":"Add"
+									},
+									{
+										"frame":44, "pX":-14.000000, "pY":164.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_03_ss'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":1127.000000, "pY":289.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":8, "pX":655.000061, "pY":289.000031, "mode":"Add"
+									},
+									{
+										"frame":39, "pX":655.000061, "pY":289.000031, "mode":"Add"
+									},
+									{
+										"frame":44, "pX":655.000000, "pY":289.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_03_ss'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":458.000000, "pY":289.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":8, "pX":-14.000000, "pY":289.000031, "mode":"Add"
+									},
+									{
+										"frame":39, "pX":-14.000000, "pY":289.000031, "mode":"Add"
+									},
+									{
+										"frame":44, "pX":-14.000000, "pY":289.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_03_ss'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":1127.000000, "pY":-414.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":8, "pX":655.000061, "pY":-414.000000, "mode":"Add"
+									},
+									{
+										"frame":39, "pX":655.000061, "pY":-414.000000, "mode":"Add"
+									},
+									{
+										"frame":44, "pX":655.000000, "pY":-414.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_03_ss'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":458.000000, "pY":-414.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":8, "pX":-14.000000, "pY":-414.000000, "mode":"Add"
+									},
+									{
+										"frame":39, "pX":-14.000000, "pY":-414.000000, "mode":"Add"
+									},
+									{
+										"frame":44, "pX":-14.000000, "pY":-414.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_03_ss'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":1127.000000, "pY":-289.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":8, "pX":655.000061, "pY":-289.000031, "mode":"Add"
+									},
+									{
+										"frame":39, "pX":655.000061, "pY":-289.000031, "mode":"Add"
+									},
+									{
+										"frame":44, "pX":655.000000, "pY":-289.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_03_ss'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":458.000000, "pY":-289.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":8, "pX":-14.000000, "pY":-289.000031, "mode":"Add"
+									},
+									{
+										"frame":39, "pX":-14.000000, "pY":-289.000031, "mode":"Add"
+									},
+									{
+										"frame":44, "pX":-14.000000, "pY":-289.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_bg.jpg'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":14.000000, "sY":14.000000, "alpha":0, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":2, "sX":14.000000, "sY":14.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":5, "sX":14.000000, "sY":14.000000, "alpha":0, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":39, "sX":14.000000, "sY":14.000000, "alpha":0, "colorRGB":[255,255,255]
+, "mode":"Add"
+									},
+									{
+										"frame":44, "sX":14.000000, "sY":14.000000, "colorRGB":[255,255,255]
+, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name":"res",
+			"expand":true,
+			"apply":false,
+			"visual_list":
+			[
+				{
+					"name":"res_01_s",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0003.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-159.000000
+									},
+									{
+										"frame":1, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0007.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "pY":-159.000000
+									},
+									{
+										"frame":3, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0011.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pY":-159.000000
+									},
+									{
+										"frame":5, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0015.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "pY":-159.000000
+									},
+									{
+										"frame":7, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0019.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pY":-159.000000
+									},
+									{
+										"frame":9, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0023.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "pY":-159.000000
+									},
+									{
+										"frame":11, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0027.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "pY":-159.000000
+									},
+									{
+										"frame":13, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0031.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":14, "pY":-159.000000
+									},
+									{
+										"frame":15, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0035.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":16, "pY":-159.000000
+									},
+									{
+										"frame":17, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0039.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":18, "pY":-159.000000
+									},
+									{
+										"frame":19, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0043.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20, "pY":-159.000000
+									},
+									{
+										"frame":21, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0047.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":22, "pY":-159.000000
+									},
+									{
+										"frame":23, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0051.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":24, "pY":-159.000000
+									},
+									{
+										"frame":25, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0055.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pY":-159.000000
+									},
+									{
+										"frame":27, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0059.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":28, "pY":-159.000000
+									},
+									{
+										"frame":29, "pY":-159.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_02_s",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_0101_s.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.010000, "cX":640.000000
+									},
+									{
+										"frame":14, "pX":-1282.000000, "cX":640.000000
+									},
+									{
+										"frame":29, "sX":0.200000, "pX":-2028.000000, "cX":640.000000
+									},
+									{
+										"frame":30, "sX":0.010000, "cX":640.000000
+									},
+									{
+										"frame":44, "pX":-1282.000000, "cX":640.000000
+									},
+									{
+										"frame":59, "sX":0.200000, "pX":-2028.000000, "cX":640.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_02_ss",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_02_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":620.000000, "pY":72.000000, "colorRGB":[255,89,94]
+, "mode":"Add"
+									},
+									{
+										"frame":30, "pX":620.000000, "pY":72.000000, "colorRGB":[255,89,94]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_02_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":3, "pX":620.000000, "pY":36.000000, "colorRGB":[255,227,115]
+, "mode":"Add"
+									},
+									{
+										"frame":33, "pX":620.000000, "pY":36.000000, "colorRGB":[255,227,115]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_02_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "pX":620.000000, "colorRGB":[118,255,79]
+, "mode":"Add"
+									},
+									{
+										"frame":36, "pX":620.000000, "colorRGB":[118,255,79]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_02_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":9, "pX":620.000000, "pY":-36.000000, "colorRGB":[89,185,255]
+, "mode":"Add"
+									},
+									{
+										"frame":39, "pX":620.000000, "pY":-36.000000, "colorRGB":[89,185,255]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_02_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":620.000000, "pY":-72.000000, "colorRGB":[122,89,255]
+, "mode":"Add"
+									},
+									{
+										"frame":42, "pX":620.000000, "pY":-72.000000, "colorRGB":[122,89,255]
+, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_02_ss_b",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_02_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sY":0.200000, "pX":620.000000, "pY":72.000000, "colorRGB":[255,89,94]
+, "mode":"Add"
+									},
+									{
+										"frame":30, "sY":0.200000, "pX":620.000000, "pY":72.000000, "colorRGB":[255,89,94]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_02_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":3, "sY":0.200000, "pX":620.000000, "pY":36.000000, "colorRGB":[255,227,115]
+, "mode":"Add"
+									},
+									{
+										"frame":33, "sY":0.200000, "pX":620.000000, "pY":36.000000, "colorRGB":[255,227,115]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_02_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "sY":0.200000, "pX":620.000000, "colorRGB":[118,255,79]
+, "mode":"Add"
+									},
+									{
+										"frame":36, "sY":0.200000, "pX":620.000000, "colorRGB":[118,255,79]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_02_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":9, "sY":0.200000, "pX":620.000000, "pY":-36.000000, "colorRGB":[89,185,255]
+, "mode":"Add"
+									},
+									{
+										"frame":39, "sY":0.200000, "pX":620.000000, "pY":-36.000000, "colorRGB":[89,185,255]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_02_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "sY":0.200000, "pX":620.000000, "pY":-72.000000, "colorRGB":[122,89,255]
+, "mode":"Add"
+									},
+									{
+										"frame":42, "sY":0.200000, "pX":620.000000, "pY":-72.000000, "colorRGB":[122,89,255]
+, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_03_s_a",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_star_s.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000, "colorRGB":[255,87,91]
+
+									},
+									{
+										"frame":14, "sX":0.800000, "sY":0.800000, "pY":103.000000, "colorRGB":[255,241,64]
+
+									},
+									{
+										"frame":29, "sX":0.800000, "sY":0.800000, "colorRGB":[81,255,151]
+
+									},
+									{
+										"frame":44, "sX":0.800000, "sY":0.800000, "pY":103.000000, "colorRGB":[128,140,255]
+
+									},
+									{
+										"frame":59, "sX":0.800000, "sY":0.800000, "colorRGB":[228,79,255]
+
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_03_s_b",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_star_s.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":103.000000, "colorRGB":[109,255,98]
+
+									},
+									{
+										"frame":14, "colorRGB":[77,148,255]
+
+									},
+									{
+										"frame":29, "pY":103.000000, "colorRGB":[254,120,164]
+
+									},
+									{
+										"frame":44, "colorRGB":[252,255,119]
+
+									},
+									{
+										"frame":59, "pY":103.000000, "colorRGB":[109,255,98]
+
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_03_s_c",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_star_s.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "colorRGB":[81,255,151]
+
+									},
+									{
+										"frame":14, "pY":103.000000, "colorRGB":[128,140,255]
+
+									},
+									{
+										"frame":29, "colorRGB":[255,87,91]
+
+									},
+									{
+										"frame":44, "pY":103.000000, "colorRGB":[255,241,64]
+
+									},
+									{
+										"frame":59, "colorRGB":[81,255,151]
+
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_03_s_d",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_idle_star_s.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000, "pY":103.000000, "colorRGB":[254,120,164]
+
+									},
+									{
+										"frame":14, "sX":0.800000, "sY":0.800000, "colorRGB":[252,255,119]
+
+									},
+									{
+										"frame":29, "sX":0.800000, "sY":0.800000, "pY":103.000000, "colorRGB":[109,255,98]
+
+									},
+									{
+										"frame":44, "sX":0.800000, "sY":0.800000, "colorRGB":[77,148,255]
+
+									},
+									{
+										"frame":59, "sX":0.800000, "sY":0.800000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_03_ss",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_03_s_a'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":59, "pX":-642.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_03_s_b'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-97.932198
+									},
+									{
+										"frame":50, "pX":-642.000000
+									},
+									{
+										"frame":51
+									},
+									{
+										"frame":59, "pX":-97.932198
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_03_s_a'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-206.745773
+									},
+									{
+										"frame":40, "pX":-642.000000
+									},
+									{
+										"frame":41
+									},
+									{
+										"frame":59, "pX":-206.745773
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_03_s_b'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-315.559326
+									},
+									{
+										"frame":30, "pX":-642.000000
+									},
+									{
+										"frame":31
+									},
+									{
+										"frame":59, "pX":-315.559326
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_03_s_c'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-424.372864
+									},
+									{
+										"frame":20, "pX":-642.000000
+									},
+									{
+										"frame":21
+									},
+									{
+										"frame":59, "pX":-424.372864
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_03_s_d'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-533.186462
+									},
+									{
+										"frame":10, "pX":-642.000000
+									},
+									{
+										"frame":11
+									},
+									{
+										"frame":59, "pX":-533.186462
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_button",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "pY":-6.000000
+									},
+									{
+										"frame":9, "pY":-6.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15, "pY":-6.000000
+									},
+									{
+										"frame":19, "pY":-6.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":24
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25, "pY":-6.000000
+									},
+									{
+										"frame":29, "pY":-6.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30
+									},
+									{
+										"frame":34
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":35, "pY":-6.000000
+									},
+									{
+										"frame":39, "pY":-6.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_button_finger",
+					"apply":true,
+					"fps":10,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-2.000000, "pY":68.000000
+									},
+									{
+										"frame":4, "pX":-2.000000, "pY":68.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "pX":-2.000000, "pY":54.000000
+									},
+									{
+										"frame":9, "pX":-2.000000, "pY":54.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "pX":-2.000000, "pY":68.000000
+									},
+									{
+										"frame":14, "pX":-2.000000, "pY":68.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15, "pX":-2.000000, "pY":54.000000
+									},
+									{
+										"frame":19, "pX":-2.000000, "pY":54.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20, "pX":-2.000000, "pY":68.000000
+									},
+									{
+										"frame":24, "pX":-2.000000, "pY":68.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25, "pX":-2.000000, "pY":54.000000
+									},
+									{
+										"frame":29, "pX":-2.000000, "pY":54.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":30, "pX":-2.000000, "pY":68.000000
+									},
+									{
+										"frame":34, "pX":-2.000000, "pY":68.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":35, "pX":-2.000000, "pY":54.000000
+									},
+									{
+										"frame":39, "pX":-2.000000, "pY":54.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_button_idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":39
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "mode":"Add"
+									},
+									{
+										"frame":9, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15, "mode":"Add"
+									},
+									{
+										"frame":19, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25, "mode":"Add"
+									},
+									{
+										"frame":29, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":35, "mode":"Add"
+									},
+									{
+										"frame":39, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button_finger'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":39
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button_text'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-110.000000, "pY":30.000000, "alpha":0
+									},
+									{
+										"frame":4, "pX":-114.210526, "pY":30.000000
+									},
+									{
+										"frame":35, "pX":-126.842102, "pY":30.000000
+									},
+									{
+										"frame":39, "pX":-130.000000, "pY":30.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_button_text",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":9.000000, "pY":19.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-23.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0203.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":5.000000, "pY":-63.000000
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

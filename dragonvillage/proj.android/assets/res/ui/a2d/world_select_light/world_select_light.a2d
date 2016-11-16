@@ -27,13 +27,118 @@
 	"azVisualGroup":
 	[
 		{
-			"name":"group",
+			"name":"light",
 			"expand":true,
 			"apply":true,
 			"visual_list":
 			[
 				{
 					"name":"idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'light_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":50.000000, "pY":-15.000000
+									},
+									{
+										"frame":80, "pX":50.000000, "pY":-15.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'light_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":30.000000, "pY":-25.000000
+									},
+									{
+										"frame":80, "pX":30.000000, "pY":-25.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'light_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":49, "pX":65.000000, "pY":-23.000000
+									},
+									{
+										"frame":129, "pX":65.000000, "pY":-23.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'light_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":49, "pX":45.000000, "pY":-33.000000
+									},
+									{
+										"frame":129, "pX":45.000000, "pY":-33.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'light_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":100, "pX":80.000000, "pY":-30.000000
+									},
+									{
+										"frame":180, "pX":80.000000, "pY":-30.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'light_idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":100, "pX":60.000000, "pY":-40.000000
+									},
+									{
+										"frame":180, "pX":60.000000, "pY":-40.000000
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name":"res",
+			"expand":true,
+			"apply":false,
+			"visual_list":
+			[
+				{
+					"name":"light_idle",
 					"apply":true,
 					"fps":30,
 					"layer_root":
