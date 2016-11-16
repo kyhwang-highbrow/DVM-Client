@@ -800,9 +800,6 @@ function Character:cancelSkill()
         emoticon:setPosition(50, 100)
         self.m_rootNode:addChild(emoticon.m_node)
 
-        local duration = emoticon:getDuration()
-        emoticon:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
-
         -- 현재 캐스팅 게이지 상태에 따른 비주얼 분기 처리
         local castingPercentage = 0
         if self.m_castingMarkGauge then
@@ -816,6 +813,9 @@ function Character:cancelSkill()
         else
             emoticon:changeAni('cancel_03', false)
         end
+
+        local duration = emoticon:getDuration()
+        emoticon:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
     end
 
     -- 일시적인 슬로우 처리
