@@ -184,28 +184,6 @@ function SkillIndicator_LeafBlade:initIndicatorNode()
 end
 
 -------------------------------------
--- function onChangeTargetCount
--------------------------------------
-function SkillIndicator_LeafBlade:onChangeTargetCount(old_target_count, cur_target_count)
-	-- 활성화
-	if (old_target_count == 0) and (cur_target_count > 0) then
-		self.m_indicator2:changeAni('enemy_start_idle', true)
-		self.m_indicatorLinkEffect1:changeAni('circle', true)
-		self.m_indicatorLinkEffect2:changeAni('circle', true)
-		self.m_indicatorLinkEffect3:changeAni('circle', true)
-		self.m_indicatorLinkEffect4:changeAni('circle', true)
-
-	-- 비활성화
-	elseif (old_target_count > 0) and (cur_target_count == 0) then
-		self.m_indicator2:changeAni('normal_start_idle', true)
-		self.m_indicatorLinkEffect1:changeAni('circle_normal', true)
-		self.m_indicatorLinkEffect2:changeAni('circle_normal', true)
-		self.m_indicatorLinkEffect3:changeAni('circle_normal', true)
-		self.m_indicatorLinkEffect4:changeAni('circle_normal', true)
-	end
-end
-
--------------------------------------
 -- function findTarget
 -------------------------------------
 function SkillIndicator_LeafBlade:findTargetList(x, y)
@@ -288,6 +266,28 @@ function SkillIndicator_LeafBlade:findTargetList(x, y)
 end
 
 -------------------------------------
+-- function onChangeTargetCount
+-------------------------------------
+function SkillIndicator_LeafBlade:onChangeTargetCount(old_target_count, cur_target_count)
+	-- 활성화
+	if (old_target_count == 0) and (cur_target_count > 0) then
+		self.m_indicator2:changeAni('enemy_start_idle', true)
+		self.m_indicatorLinkEffect1:changeAni('circle', true)
+		self.m_indicatorLinkEffect2:changeAni('circle', true)
+		self.m_indicatorLinkEffect3:changeAni('circle', true)
+		self.m_indicatorLinkEffect4:changeAni('circle', true)
+
+	-- 비활성화
+	elseif (old_target_count > 0) and (cur_target_count == 0) then
+		self.m_indicator2:changeAni('normal_start_idle', true)
+		self.m_indicatorLinkEffect1:changeAni('circle_normal', true)
+		self.m_indicatorLinkEffect2:changeAni('circle_normal', true)
+		self.m_indicatorLinkEffect3:changeAni('circle_normal', true)
+		self.m_indicatorLinkEffect4:changeAni('circle_normal', true)
+	end
+end
+
+-------------------------------------
 -- function checkNonePass
 -------------------------------------
 function SkillIndicator_LeafBlade:changeEffectNonePass()
@@ -304,8 +304,8 @@ function SkillIndicator_LeafBlade:changeEffectNonePass()
 		self:checkPosX(self.m_indicatorLinkEffect2.m_lEffectNode, self.m_target_1)
 		self:checkPosX(self.m_indicatorLinkEffect3.m_lEffectNode, self.m_target_1)
 	else
-		self.m_indicatorLinkEffect2:changeAni('circle_normal', true)
-		self.m_indicatorLinkEffect3:changeAni('circle_normal', true)
+		self.m_indicatorLinkEffect2:changeAni('circle', true)
+		self.m_indicatorLinkEffect3:changeAni('circle', true)
 	end
 	
 	-- 탄2
@@ -313,8 +313,8 @@ function SkillIndicator_LeafBlade:changeEffectNonePass()
 		self:checkPosX(self.m_indicatorLinkEffect1.m_lEffectNode, self.m_target_2)
 		self:checkPosX(self.m_indicatorLinkEffect4.m_lEffectNode, self.m_target_2)
 	else
-		self.m_indicatorLinkEffect1:changeAni('circle_normal', true)
-		self.m_indicatorLinkEffect4:changeAni('circle_normal', true)
+		self.m_indicatorLinkEffect1:changeAni('circle', true)
+		self.m_indicatorLinkEffect4:changeAni('circle', true)
 	end
 end
 
