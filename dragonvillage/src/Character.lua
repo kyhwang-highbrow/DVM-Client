@@ -35,7 +35,8 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_reservedSkillId = 'number',
         m_reservedSkillCastTime = 'number',
         m_reservedSkillAniEventTime = 'number', -- 스킬 애니메이션에서의 attack 이벤트 시간
-        
+        m_isAddSkill = 'bool', -- 드래곤이 에약한 스킬이 basic_rate나 basic_turn 인 경우
+
         -- @ target
         m_targetChar = 'Character',
 
@@ -491,13 +492,13 @@ end
 -- function doAttack
 -------------------------------------
 function Character:doAttack(x, y)
-    local basic_skill_id = self.m_reservedSkillId
-    if basic_skill_id then
-        local b_run_skill = self:doSkill(basic_skill_id, nil, x, y)
+    local skill_id = self.m_reservedSkillId
+    if skill_id then
+        local b_run_skill = self:doSkill(skill_id, nil, x, y)
 
-        -- 지정된 스킬이 발동되지 않았을 경우 기본 스킬 발동
-        if (not b_run_skill) then
-            basic_skill_id = self:getBasicAttackSkillID()
+        -- 지정된 스킬이 발동되지 않았을 경우 또는 basic_turn, rate 인 경우 기본 스킬 발동
+        if self.m_isAddSkill or (not b_run_skill) then
+            local basic_skill_id = self:getBasicAttackSkillID()
             self:doSkill(basic_skill_id, nil, x, y)
         end
     end

@@ -124,10 +124,11 @@ end
 function Character.st_attackDelay(owner, dt)
     if owner.m_stateTimer == 0 then
         -- 어떤 스킬을 사용할 것인지 결정
-        local skill_id = owner:getBasicAttackSkillID()
+        local skill_id, is_add_skill = owner:getBasicAttackSkillID()
 
         owner:reserveSkill(skill_id)
         owner:calcAttackPeriod()
+		owner.m_isAddSkill = is_add_skill
         
         -- 캐스팅 게이지
         if owner.m_castingNode then
