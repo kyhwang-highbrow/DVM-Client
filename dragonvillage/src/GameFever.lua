@@ -89,6 +89,15 @@ function GameFever:initUI()
     self.m_feverIdleVisual = ui.vars['feverIdleVisual']
     self.m_feverTutVisual = ui.vars['feverTutVisual']
     self.m_skillCancelVisual = ui.vars['skillCancelVisual']
+    
+    -- 이미지 폰트 생성
+    self.m_feverLabel:setVisible(false)
+    self.m_feverLabel = cc.Label:createWithBMFont('res/font/fever_gauge.fnt', tostring(999))
+    self.m_feverLabel:setAnchorPoint(cc.p(0.5, 0.5))
+    self.m_feverLabel:setDockPoint(cc.p(0.5, 0.5))
+    self.m_feverLabel:setPosition(0, 14)
+    self.m_feverNode:addChild(self.m_feverLabel)
+    
 
     -- 피버 포인트 추가 알림을 위한 라벨 생성
     self.m_notiLabel1 = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 34, 3, cc.size(400, 100), 1, 1)
@@ -281,9 +290,12 @@ function GameFever:onEnd()
     self.m_touchNode:setVisible(self.m_bActive)
 
     -- 버프 이펙트 해제
-    for i, dragon in ipairs(self.m_world.m_participants) do
-        if not dragon.m_bDead then
-            dragon:removeFeverEffect()
+    for i, hero in ipairs(self.m_world.m_participants) do
+        if not hero.m_bDead then
+            hero:removeFeverEffect()
+
+            hero.m_animator:setTimeScale(1)
+            hero.m_animator:changeAni('idle', true)
         end
     end
     
@@ -299,13 +311,18 @@ end
 function GameFever:doAttack()
     local world = self.m_world
 
-	ShakeDir2(math_random(300, 500), math_random(300, 500))
-
-    local dragon = self.m_tAttackOrder[1]
+	ShakeDir2(math_random(100, 300), math_random(100, 300))
 
     --local hero = world.m_participants[math_random(1, #world.m_participants)]
     local hero = self:getRandomHero()
     if not hero then return end
+
+    hero.m_animator:setTimeScale(3)
+    hero.m_animator:changeAni('attack', false)
+    hero.m_animator:addAniHandler(function()
+        hero.m_animator:setTimeScale(1)
+        hero.m_animator:changeAni('idle', true)
+    end)
 
     -- 랜덤한 적군을 선택
     local enemy = world.m_rightFormationMgr.m_globalCharList[math_random(1, #world.m_rightFormationMgr.m_globalCharList)]
@@ -319,6 +336,7 @@ function GameFever:doAttack()
     self.m_activityCarrier.m_skillCoefficient = FEVER_ATTACK_DAMAGE_RATE or 1
 
     -- 공격
+    hero:animatorShake()
 	hero:runAtkCallback(enemy, enemy.pos.x, enemy.pos.y)
 	enemy:runDefCallback(self, enemy.pos.x, enemy.pos.y)
 

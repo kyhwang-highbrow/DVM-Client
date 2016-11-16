@@ -1290,9 +1290,9 @@ function Character:animatorShake()
         return
     end
 
-    local x = math_random(10, 14)
-    local y = math_random(10, 14)
-
+    local x = -math_random(30, 40)
+    local y = math_random(20, 30)
+    --[[
     if (math_random(1, 2) == 1) then
         x = -x
     end
@@ -1300,16 +1300,18 @@ function Character:animatorShake()
     if (math_random(1, 2) == 1) then
         y = -y
     end
+    ]]--
 
     -- 실행중인 액션 stop
     do
         local action = target_node:getActionByTag(CHARACTER_ACTION_TAG__SHAKE);
         if action then
             target_node:stopAction(action)
+            target_node:setPosition(0, 0)
         end
     end
 
-    local start_action = cc.MoveTo:create(0.05, cc.p(x, y))
+    local start_action = cc.MoveTo:create(0.05, cc.p(x, 0))
     local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.3, cc.p(0, 0)), 0.2)
     local action = cc.Sequence:create(start_action, end_action)
     action:setTag(CHARACTER_ACTION_TAG__SHAKE)

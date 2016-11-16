@@ -781,6 +781,7 @@ function Hero:makeSkillPrepareEffect()
     local res = 'res/effect/effect_skillcasting_dragon/effect_skillcasting_dragon.vrp'
 
     self.m_skillPrepareEffect = MakeAnimator(res)
+    self.m_skillPrepareEffect:setTimeScale(5)
     self.m_skillPrepareEffect:changeAni('start_' .. attr, true)
     self.m_rootNode:addChild(self.m_skillPrepareEffect.m_node)
 end
