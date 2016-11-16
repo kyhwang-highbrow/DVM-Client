@@ -2,7 +2,7 @@
 	"pattern_elite_sharkwarrior":
 	[			
 		[
-			"a;basic", "w;2", "a;basic", "w;2"
+			"a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1"
 		]
     ],
 	

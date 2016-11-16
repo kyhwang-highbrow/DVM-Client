@@ -11,7 +11,7 @@
                 "period":0,
                 "scale":1,
 				"time":0,
-				"speed":2000,
+				"speed":1800,
 				"accel":0,
 				"accel_delay":0,
 				"angular_velocity":0,
@@ -85,8 +85,8 @@
 				],
 				
 				"add_script_start":0,
-				"add_script_term":0.07,
-				"add_script_max":10,
+				"add_script_term":0.05,
+				"add_script_max":12,
 				
                 "effect":
                 {

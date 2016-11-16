@@ -2,7 +2,7 @@
 	"pattern_subboss_sharkadmiral":
 	[			
 		[
-			"a;basic", "w;1"
+			"a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;1"
 		]
     ],
 	
