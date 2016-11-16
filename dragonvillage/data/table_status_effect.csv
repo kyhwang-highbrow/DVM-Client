@@ -14,6 +14,9 @@ fury,buff,분노,res/effect/effect_fury/effect_fury.vrp,res/ui/icon/status_effec
 hit_the_mark,buff,적중,res/effect/effect_hit_the_mark/effect_hit_the_mark.vrp,res/ui/icon/status_effect/hit_rate_up.png,o,false,1,10,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,10,x,x,x,{duration}초 동안 적중률 {hit_rate}% 증가,x
 blessing,buff,축복,res/effect/effect_blessing/effect_blessing.vrp,res/ui/icon/status_effect/blessing.png,o,false,1,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,x,x,x,"{duration}초 동안 공격력, 방어력, 생명력 10%만큼 증가",x
 quickly,buff,회피,res/effect/effect_quickly/effect_quickly.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,20,0,0,0,0,10,20,0,0,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
+tamer_atk_up,buff,공격력 증가,res/effect/effect_tamer_combat/effect_tamer_combat.vrp,res/ui/icon/status_effect/atk_up.png,x,false,1,15,100,0,0,0,0,0,0,0,0,0,0,0,0,15,100,0,0,15,100,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
+tamer_def_up,buff,방어력 증가,res/effect/effect_tamer_defense/effect_tamer_defense.vrp,res/ui/icon/status_effect/def_up.png,x,false,1,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
+tamer_heal,dot_heal,회복,res/effect/effect_tamer_tactics/effect_tamer_tactics.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,3,0,100,hp_target,0,0,0,x,x,x,x,x,x
 atk_down,debuff,공격력 감소,res/effect/effect_combat_down/effect_combat_down.vrp,res/ui/icon/status_effect/atk_down.png,x,false,1,20,-20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,x,x,x,{1}초 동안 {2}만큼 공격력 감소,정수x퍼센트 (곱연산)
 aspd_down,debuff,공격 속도 감소,res/effect/effect_combat_down/effect_combat_down.vrp,res/ui/icon/status_effect/aspd_down.png,x,false,1,20,0,0,0,-20,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,x,x,{1}초 동안 {2}만큼 공격 속도 감소,퍼센트+퍼센트 (합연산)
 cri_chance_down,debuff,치명 확률 감소,res/effect/effect_combat_down/effect_combat_down.vrp,res/ui/icon/status_effect/cri_chance_down.png,x,false,1,20,0,0,0,0,-20,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,{1}초 동안 {2}만큼 치명 확률 감소,퍼센트+퍼센트 (합연산)
