@@ -381,6 +381,9 @@ function UI_DragonManagementFriendship:click_fruitBtn(fruit_id, fruit_node)
         return
     end
 
+    -- 열매 날아가는 연출
+    self:feedDirecting(fruit_id, fruit_node)
+
     SoundMgr:playEffect('EFFECT', 'eat')
 
     -- 네트워크 통신
@@ -423,18 +426,7 @@ function UI_DragonManagementFriendship:network_friendshipUp(fruit_id)
         -- 열매 정보 갱신
         self:refresh_fruitListTab(attr)
         
-        -- 친밀도가 상승하였을 경우
-        if (ret['is_flevelup'] == true) then
-            local t_prev_dragon_data = self.m_prevFriendshipData
-            local t_curr_dragon_data = ret['dragon']
-            local bonus_grade = ret['bonus_grade'] -- 's', 'a', 'b', 'c'
-
-            -- 결과 팝업 생성
-            UI_DragonManageFriendshipResult(bonus_grade, t_prev_dragon_data, t_curr_dragon_data)
-        end
-
-        self.vars['friendshipFxVisual']:setVisible(true)
-        self.vars['friendshipFxVisual']:changeAni('friendship_fx', false)
+        self:friendshipDirecting(ret['is_flevelup'], ret['bonus_grade'], self.m_prevFriendshipData, ret['dragon'])
     end
 
     local ui_network = UI_Network()
@@ -446,6 +438,42 @@ function UI_DragonManagementFriendship:network_friendshipUp(fruit_id)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
+end
+
+-------------------------------------
+-- function friendshipDirecting
+-- @brief 열매주기 연출
+-------------------------------------
+function UI_DragonManagementFriendship:friendshipDirecting(is_fevelup, bonus_grade, t_prev_dragon_data, t_curr_dragon_data)
+    if (not is_fevelup) then
+        self.vars['friendshipFxVisual']:setVisible(true)
+        self.vars['friendshipFxVisual']:changeAni('friendship_fx', false)
+        return
+    end
+
+    local block_ui = UI_BlockPopup()
+
+    local directing_animation
+    local directing_result
+
+    -- 에니메이션 연출
+    directing_animation = function()
+        local vars = self.vars
+
+        self.vars['friendshipVisual']:setVisible(true)
+        self.vars['friendshipVisual']:changeAni('friendship_up', false)
+        self.vars['friendshipVisual']:addAniHandler(directing_result)
+    end
+
+    -- 결과 연출
+    directing_result = function()
+        block_ui:close()
+
+        -- 결과 팝업 생성
+        UI_DragonManageFriendshipResult(bonus_grade, t_prev_dragon_data, t_curr_dragon_data)
+    end
+
+    directing_animation()
 end
 
 -------------------------------------
@@ -530,8 +558,8 @@ local uid = g_userData:get('uid')
         -- 망각의 열매 정보 갱신
         self:refresh_resetFruit()
 
-        self.vars['friendshipFxVisual']:setVisible(true)
-        self.vars['friendshipFxVisual']:changeAni('friendship_down', false)
+        self.vars['friendshipVisual']:setVisible(true)
+        self.vars['friendshipVisual']:changeAni('friendship_down', false)
     end
 
     local ui_network = UI_Network()
@@ -549,6 +577,15 @@ end
 -------------------------------------
 function UI_DragonManagementFriendship:click_exitBtn()
     self:close()
+end
+
+-------------------------------------
+-- function feedDirecting
+-- @brief 열매 날아가는 연출
+-------------------------------------
+function UI_DragonManagementFriendship:feedDirecting(fruit_id, fruit_node)
+    --local icon = IconHelper:getItemIcon(fruit_id)
+    --self.root:addChild(icon)
 end
 
 --@CHECK

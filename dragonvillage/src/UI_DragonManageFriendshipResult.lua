@@ -101,11 +101,7 @@ function UI_DragonManageFriendshipResult:initUI(grade, t_prev_dragon_data, t_cur
 
     -- 비주얼 연출
     vars['frindshipFxVisual']:setVisible(true)
-    vars['frindshipFxVisual']:changeAni('friendship_fx', false)
-
-    vars['rankUpVisual']:setVisible(true)
-    vars['rankUpVisual']:changeAni('friendship_up', false)
-    
+    vars['frindshipFxVisual']:changeAni('friendship_fx', false)    
 end
 
 -------------------------------------
