@@ -76,6 +76,8 @@ local t_module = {
     'TableDragon',
     'TableMonster',
     'TableDragonSkill',
+    'TableFriendship',
+    'TableFruit',
 
     -- Interface
     'IEventDispatcher',
@@ -282,6 +284,7 @@ local t_module = {
     'UI_DragonDevApiPopup',
     'UI_InvenDevApiPopup',
     'UI_MonsterCard',
+    'UI_FruitFeedPress',
 
     -- UI 드래곤 관리 관련
     'UI_DragonManage_Base',

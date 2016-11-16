@@ -153,3 +153,10 @@ end
 function UI_TopUserInfo:setTitleString(str)
     self.vars['titleLabel']:setString(str)
 end
+
+-------------------------------------
+-- function setGoldNumber
+-------------------------------------
+function UI_TopUserInfo:setGoldNumber(gold)
+    self.m_lNumberLabel['gold']:setNumber(gold)
+end

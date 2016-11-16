@@ -64,6 +64,13 @@ function UIC_Button:registerScriptTapHandler(func)
 end
 
 -------------------------------------
+-- function registerScriptPressHandler
+-------------------------------------
+function UIC_Button:registerScriptPressHandler(func)
+    self.m_node:registerScriptPressHandler(func)
+end
+
+-------------------------------------
 -- function setOriginData
 -- @brief 현재 버튼의 위치와 스케일을 저장
 -------------------------------------
@@ -199,4 +206,13 @@ end
 function UIC_Button:setPositionY(y)
     PARENT.setPositionY(self, y)
     self:setOriginData()
+end
+
+
+-------------------------------------
+-- function isSelected
+-- @brief
+-------------------------------------
+function UIC_Button:isSelected()
+    return (self.m_buttonState == UIC_BUTTON_SELECTED)
 end

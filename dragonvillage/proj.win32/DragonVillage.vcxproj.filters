@@ -1024,6 +1024,15 @@
     <None Include="..\src\UI_BlockPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_FruitFeedPress.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\TableFriendship.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\TableFruit.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -7,6 +7,7 @@ UI_DragonManagementFriendship = class(PARENT,{
         m_bChangeDragonList = 'boolean',
         m_currAttrTab = 'string',
         m_prevFriendshipData = 'table', -- 친밀도 상승 연출을 위한 데이터 저장용
+        m_fruitFeedPressHelper = 'UI_FruitFeedPress',
     })
 
 -------------------------------------
@@ -19,6 +20,7 @@ function UI_DragonManagementFriendship:initParentVariable()
     self.m_bVisible = true or false
     self.m_titleStr = Str('친밀도') or nil
     self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
+    self.m_fruitFeedPressHelper = UI_FruitFeedPress(self)
 end
 
 -------------------------------------
@@ -302,6 +304,9 @@ function UI_DragonManagementFriendship:refresh_fruitListTab(attr)
             self:click_fruitBtn(fid, fruit_node)
         end
         vars['fruitBtn' .. i]:registerScriptTapHandler(click_fruitBtn)
+        vars['fruitBtn' .. i]:registerScriptPressHandler(function(tag, menu_item)
+            self.m_fruitFeedPressHelper:fruitPressHandler(fid, menu_item, vars['fruitLabel' .. i])
+        end)
 
         -- 보너스 화살 아이콘
         vars['bonusUpSprite' .. i]:setVisible(bonus_active)
@@ -381,6 +386,18 @@ function UI_DragonManagementFriendship:click_fruitBtn(fruit_id, fruit_node)
         return
     end
 
+    do-- 골드 확인
+        local curr_gold = g_userData:get('gold')
+        local table_fruit = TableFruit()
+        local t_fruit = table_fruit:get(fruit_id)
+        local req_gold = t_fruit['req_gold']
+
+        if (curr_gold < req_gold) then
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup)
+            return
+        end
+    end
+
     -- 열매 날아가는 연출
     self:feedDirecting(fruit_id, fruit_node)
 
@@ -393,7 +410,7 @@ end
 -------------------------------------
 -- function network_friendshipUp
 -------------------------------------
-function UI_DragonManagementFriendship:network_friendshipUp(fruit_id)
+function UI_DragonManagementFriendship:network_friendshipUp(fruit_id, count)
     local uid = g_userData:get('uid')
     local doid = self.m_selectDragonOID
 
@@ -436,7 +453,7 @@ function UI_DragonManagementFriendship:network_friendshipUp(fruit_id)
     ui_network:setParam('uid', uid)
     ui_network:setParam('doid', doid)
     ui_network:setParam('fid', fruit_id)
-    ui_network:setParam('fcnt', 1)
+    ui_network:setParam('fcnt', count or 1)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
