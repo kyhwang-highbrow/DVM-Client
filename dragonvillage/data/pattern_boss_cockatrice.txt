@@ -2,7 +2,7 @@
     "pattern_boss_cockatrice":
     [        
         [
-            "a;basic","a;basic","a;1","w;2"
+            "a;basic","a;basic","a;1", "w;2", "a;2", "w;3"
         ]
     ],
 	
