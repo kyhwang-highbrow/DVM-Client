@@ -10,8 +10,6 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_maxHp = '',
         m_hp = '',
 
-        m_charType = '',
-        m_charTable = '',
         m_statusCalc = '',
         m_stateDelegate = 'CharacterStateDelegate',
 
@@ -303,7 +301,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 		cclog(' 공격력 : ' .. atk_dmg)
 		cclog(' 방어력 : ' .. def_pwr)
 		cclog(' 데미지 : ' .. damage)
-		cclog('######################################################')
+		cclog('------------------------------------------------------')
     end
 
     -- 회피 계산
