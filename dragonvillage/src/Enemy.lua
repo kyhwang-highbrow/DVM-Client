@@ -58,7 +58,6 @@ end
 Enemy.st_idle = PARENT.st_idle
 Enemy.st_attack = PARENT.st_attack
 Enemy.st_attackDelay = PARENT.st_attackDelay
-Enemy.st_casting = PARENT.st_casting
 
 Enemy.st_dying = PARENT.st_dying
 Enemy.st_dead = PARENT.st_dead
@@ -120,7 +119,7 @@ end
 function Enemy.st_casting(owner, dt)
     PARENT.st_casting(owner, dt)
 
-    if owner.m_stateTimer == 0 then
+    if owner.m_state == 'casting' and owner.m_stateTimer == 0 then
         SoundMgr:playEffect('EFFECT', 'monster_skill_cast')
     end
 end

@@ -95,7 +95,7 @@ end
 function EnemyLua_Boss.st_casting(owner, dt)
     PARENT.st_casting(owner, dt)
 
-    if owner.m_stateTimer == 0 then
+    if owner.m_state == 'casting' and owner.m_stateTimer == 0 then
         local eventList = owner.m_animator:getEventList('casting', 'casting')
         local eventData = eventList[1]
         if eventData then
@@ -120,7 +120,7 @@ function EnemyLua_Boss.st_casting(owner, dt)
             end
         end
 
-        -- 효과음 차후 정리 필요!!
+        -- 효과음
         local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
         local type = math_random(1, 2)
         
@@ -304,10 +304,10 @@ end
 -------------------------------------
 function EnemyLua_Boss:cancelSkill()
     local b = PARENT.cancelSkill(self)
-    local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
-
+    
     -- 보스별 음성
     if b then
+        local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
         SoundMgr:stopEffect('VOICE', string.format('vo_boss%d_skill_1', chapter))
         SoundMgr:stopEffect('VOICE', string.format('vo_boss%d_skill_2', chapter))
         SoundMgr:playEffect('VOICE', string.format('vo_boss%d_skill_cancel', chapter))
