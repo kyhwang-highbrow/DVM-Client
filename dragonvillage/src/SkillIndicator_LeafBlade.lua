@@ -217,8 +217,8 @@ function SkillIndicator_LeafBlade:findTargetList(x, y)
 			table.insert(l_target, l_target2[1])
 			self.m_target_2 = l_target2[1]
 		end
-		if (#l_target > 0) then
-			return l_target
+		if (#l_target > 0) and self.m_target_1 and self.m_target_2 then
+			--return l_target
 		end
 	end
 
@@ -242,26 +242,30 @@ function SkillIndicator_LeafBlade:findTargetList(x, y)
     local l_target_line = {}
     for i, col in pairs(t_target_line_1) do
         table.insert(l_target_line, col['obj'])
-		if (not self.m_isPass) then 
+		if (not self.m_isPass) and (not self.m_target_2) then 
 			self.m_target_2 = col['obj']
 			break
 		end
     end
     for i, col in pairs(t_target_line_2) do
         table.insert(l_target_line, col['obj'])
-		if (not self.m_isPass) then 
+		if (not self.m_isPass) and (not self.m_target_1) then 
 			self.m_target_1 = col['obj']
 			break
 		end
     end
 	
 	-- 하나의 테이블로 합침
-	if self.m_isPass then 
+	if (not self.m_isPass) then 
+		if (#l_target > 0) then 
+			return l_target
+		else
+			return l_target_line
+		end
+	else
 		l_target = table.merge(l_target1, l_target2)
 		l_target = table.merge(l_target, l_target_line)
 		return l_target
-	else
-		return l_target_line
 	end 
 end
 
@@ -324,10 +328,10 @@ end
 function SkillIndicator_LeafBlade:checkPosX(l_effect, target)
 	local pos_x = nil
 	
-	-- 위아래 나누어 타겟을 저장하기 때문에x 좌표만 검사 한다 
+	-- 위아래 나누어 타겟을 저장하기 때문에 x 좌표만 검사 한다 
 	for _, effect in pairs(l_effect) do
-		pos_x = effect.m_node:getPositionX()
-		if (pos_x + 150> target.pos.x) then
+		pos_x = effect.m_node:getPositionX() + self.m_hero.pos.x
+		if (pos_x > target.pos.x) then
 			effect:changeAni('circle_normal', true)
 		else
 			effect:changeAni('circle', true)
