@@ -816,8 +816,8 @@ function Character:setHp(hp)
         self.m_hpGauge:setPercentage(self.m_hp / self.m_maxHp * 100)
 
         if self.m_hpGauge2 then
-            local action = cc.Sequence:create(cc.DelayTime:create(0.5), cc.ProgressTo:create(0.5, percentage))
-            self.m_hpGauge2:runAction(action)
+            local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ProgressTo:create(0.5, percentage))
+            self.m_hpGauge2:runAction(cc.EaseIn:create(action, 2))
         end
     end
 
