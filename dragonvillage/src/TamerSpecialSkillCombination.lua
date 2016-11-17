@@ -1,8 +1,22 @@
 local PARENT = Entity
 
+ -- # 스페셜 스킬 상수
+ local PENTAGON_POS = {
+	{x = 0, y = 100},
+	{x = 100, y = 50},
+	{x = 80, y = -100},
+	{x = -80, y = -100},
+	{x = -100, y = 50}
+}
+local STD_X = 900
+local STD_Y = 45
+local SPEED = 2500
+local ATTACK_INTERVAL = 0.2
+local MAX_HIT = 10
+
 -------------------------------------
 -- class TamerSpecialSkillCombination
--- @brief skill
+-- @brief 고니가 사용하는 테이머 궁극기
 -------------------------------------
 TamerSpecialSkillCombination = class(PARENT, {
 		m_activityCarrier = 'ActivityCarrier',

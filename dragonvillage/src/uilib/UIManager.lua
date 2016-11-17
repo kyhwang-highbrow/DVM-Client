@@ -376,10 +376,11 @@ end
 function UIManager:onKeyReleased(keyCode, event)
 	if (keyCode == KEY_U) then
 		local last_ui = table.getLast(self.m_uiList)
-		local class_name = getClassName(last_ui) or last_ui.m_uiName
-		self:toastNotificationGreen('## UI CLASS NAME : ' .. last_ui.m_uiName)
+		local class_name = last_ui.m_uiName or 'Class 이름이 정의되지 않았습니다.'
+		self:toastNotificationGreen('## UI CLASS NAME : ' .. class_name)
 	elseif (keyCode == KEY_I) then
 		local last_ui = table.getLast(self.m_uiList)
-		self:toastNotificationGreen('## UI FILE : ' .. last_ui.m_resName)
+		local ui_name = last_ui.m_resName or 'ui 파일이 없습니다'
+		self:toastNotificationGreen('## UI FILE : ' .. ui_name)
 	end
 end

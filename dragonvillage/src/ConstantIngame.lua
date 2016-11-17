@@ -49,21 +49,6 @@ FEVER_ATTACK_DAMAGE_RATE = 0.8
  LEAF_COLLISION_SIZE = 30
  LEAF_STRAIGHT_ANGLE = 30
 
- -- # 고니 스페셜 스킬
- PENTAGON_POS = {
-	{x = 0, y = 100},
-	{x = 100, y = 50},
-	{x = 80, y = -100},
-	{x = -80, y = -100},
-	{x = -100, y = 50}
-}
-STD_X = 900
-STD_Y = 45
-SPEED = 2500
-ATTACK_INTERVAL = 0.2
-MAX_HIT = 10
-
-
 
  --------------------------------------------
 -- 디버깅용 
