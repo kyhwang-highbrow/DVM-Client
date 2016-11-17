@@ -167,7 +167,6 @@ function UI_ReadyScene_Deck:makeSettedDragonCard(t_dragon_data, idx)
     local ui = UI_DragonCard(t_dragon_data)
     
     -- 설정된 드래곤 표시 없애기
-    ui:setCheckSettedDragonFunc(function() return false end)
     ui:setReadySpriteVisible(false)
 
     vars['chNode' .. idx]:addChild(ui.root)

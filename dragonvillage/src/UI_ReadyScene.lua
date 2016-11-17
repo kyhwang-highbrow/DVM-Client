@@ -149,9 +149,6 @@ function UI_ReadyScene:init_dragonTableView()
 
         local unique_id = data['id']
         self:refresh_dragonCard(unique_id)
-
-        -- 설정된 드래곤 표시 없애기
-        ui:setCheckSettedDragonFunc(function() return false end)
     end
 
     -- 드래곤 클릭 콜백 함수

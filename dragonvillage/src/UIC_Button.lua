@@ -216,3 +216,20 @@ end
 function UIC_Button:isSelected()
     return (self.m_buttonState == UIC_BUTTON_SELECTED)
 end
+
+
+-------------------------------------
+-- function setNormalSpriteFrame
+-- @brief
+-------------------------------------
+function UIC_Button:setNormalSpriteFrame(sprite_frame)
+    return self.m_node:setNormalSpriteFrame(sprite_frame)
+end
+
+-------------------------------------
+-- function setNormalImage
+-- @brief
+-------------------------------------
+function UIC_Button:setNormalImage(node)
+    return self.m_node:setNormalSpriteFrame(node)
+end

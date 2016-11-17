@@ -1,3 +1,4 @@
+--[[
 local PARENT = UI
 
 -------------------------------------
@@ -39,15 +40,6 @@ function UI_DragonCard:refreshDragonInfo()
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[dragon_id]
 
-    do -- 역할 아이콘
-        local res = 'res/ui/dragon_card/list_role_' .. t_dragon['role'] .. '.png'
-        local sprite = cc.Sprite:create(res)
-        sprite:setAnchorPoint(cc.p(0.5, 0.5))
-        sprite:setDockPoint(cc.p(0.5, 0.5))
-        vars['roleNode']:removeAllChildren()
-        vars['roleNode']:addChild(sprite)
-    end
-
     do -- 배경 프레임
         local res = 'res/ui/dragon_card/list_frame_bg_' .. t_dragon['rarity'] .. '.png'
         local sprite = cc.Sprite:create(res)
@@ -56,15 +48,6 @@ function UI_DragonCard:refreshDragonInfo()
         vars['rarityNode']:removeAllChildren()
         vars['rarityNode']:addChild(sprite)
     end
-
-    do -- 레어도 프레임
-        local res = 'res/ui/dragon_card/list_frame_' .. t_dragon['rarity'] .. '.png'
-        local sprite = cc.Sprite:create(res)
-        sprite:setAnchorPoint(cc.p(0.5, 0.5))
-        sprite:setDockPoint(cc.p(0.5, 0.5))
-        vars['frameNode']:removeAllChildren()
-        vars['frameNode']:addChild(sprite)
-    end    
 
     do -- 드래곤 아이콘
         local evolution = t_dragon_data['evolution']
@@ -92,20 +75,6 @@ function UI_DragonCard:refreshDragonInfo()
             sprite:setDockPoint(cc.p(0.5, 0.5))
             vars['starNode']:removeAllChildren()
             vars['starNode']:addChild(sprite)
-        end
-    end
-
-    do -- 물공/마공 아이콘
-        local table_dragon = TABLE:get('dragon')
-        local t_dragon = table_dragon[dragon_id]
-        local char_type = t_dragon['char_type']
-        local res = 'res/ui/dragon_card/list_attack_' .. char_type .. '.png'
-        local icon = cc.Sprite:create(res)
-        if icon then
-            icon:setDockPoint(cc.p(0.5, 0.5))
-            icon:setAnchorPoint(cc.p(0.5, 0.5))
-            vars['attackNode']:removeAllChildren()
-            vars['attackNode']:addChild(icon)
         end
     end
 
@@ -179,3 +148,4 @@ function MakeSimpleDragonCard(did)
 
     return UI_DragonCard(t_dragon_data)
 end
+--]]

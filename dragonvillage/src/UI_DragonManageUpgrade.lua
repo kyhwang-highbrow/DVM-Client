@@ -189,7 +189,7 @@ function UI_DragonManageUpgrade:init_dragonUpgradeMaterialTableView()
         local data = item['data']
         local doid = data['id']
         if g_dragonsData:isSameTypeDragon(self.m_selectDragonOID, doid) then
-            ui.vars['skillSprite']:setVisible(true)
+            ui:setSkillSpriteVisible(true)
         end
 
         self:refresh_materialDragonIndivisual(item['unique_id'])
@@ -303,7 +303,7 @@ function UI_DragonManageUpgrade:init_dragonUpgradeMaterialSelectTableView()
         local data = item['data']
         local doid = data['id']
         if g_dragonsData:isSameTypeDragon(self.m_selectDragonOID, doid) then
-            ui.vars['skillSprite']:setVisible(true)
+            ui:setSkillSpriteVisible(true)
         end
     end
 
@@ -370,7 +370,7 @@ function UI_DragonManageUpgrade:refresh_materialDragonIndivisual(odid)
         local is_selected = (self.m_tableViewExtSelectMaterial:getItem(odid) ~= nil)
         local ui = item['ui']
         if ui then
-            ui.vars['shadowSprite']:setVisible(is_selected)
+            ui:setShadowSpriteVisible(is_selected)
         end
     end
 end
