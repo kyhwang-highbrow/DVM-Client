@@ -91,44 +91,16 @@ function TamerSkillSystem:initTamerSpecialSkillBtn()
         local icon = IconHelper:getSkillIcon('tamer', skill_id)
 		ui.vars['specialSkillNode']:addChild(icon)
         
-        self.m_skillVisualTop = MakeAnimator('res/ui/a2d/ingame_tamer_skill/ingame_tamer_skill.vrp')
-        self.m_skillVisualTop:setVisual('skill_idle', 'special_idle')
-        self.m_skillVisualTop:setVisible(false)
-        self.m_skillVisualTop.m_node:setAnchorPoint(cc.p(0.5, 0.5))
-        self.m_skillVisualTop.m_node:setDockPoint(cc.p(0.5, 0.5))
-        self.m_skillVisualTop:setRepeat(true)
-
-        ui.vars['specialSkillNode2']:addChild(self.m_skillVisualTop.m_node)
-        
         local icon2 = IconHelper:getSkillIcon('tamer', skill_id)
         local socketNode = ui.vars['specialSkillVisual'].m_node:getSocketNode('skill_special')
         socketNode:addChild(icon2)
+
+        self.m_skillVisualTop = MakeAnimator('res/ui/a2d/ingame_tamer_skill/ingame_tamer_skill.vrp')
+        ui.vars['specialSkillVisual'].m_node:addChild(self.m_skillVisualTop.m_node)
     end
 
 	-- 사용 가능한 상태로 세팅
     ui.vars['specialTimeGauge']:setPercentage(0)
-	local visual = ui.vars['specialSkillVisual']
-	visual:setVisible(true)
-
-	-- 시작 연출 @TODO 수정해야함.. 
-	local delay = cc.DelayTime:create(8)
-	local cbFunction = function()
-		visual:setVisual('skill_charging', 'special')
-		visual:setRepeat(false)
-
-        self.m_skillVisualTop:setVisual('skill_charging', 'special_open')
-        self.m_skillVisualTop:setVisible(true)
-        self.m_skillVisualTop:setRepeat(false)
-
-		visual:registerScriptLoopHandler(function()
-			visual:setVisual('skill_idle', 'special')
-			visual:setRepeat(true)
-
-            self.m_skillVisualTop:setVisual('skill_idle', 'special_idle')
-            self.m_skillVisualTop:setRepeat(true)
-		end)
-	end
-	visual:runAction(cc.Sequence:create(delay, cc.CallFunc:create(cbFunction)))
 end
 
 -------------------------------------
@@ -194,7 +166,6 @@ function TamerSkillSystem:click_specialSkillBtn()
     -- 4. 후처리
     self.m_isUseSpecialSkill = true
     self.m_tamerSkillCooltimeGlobal = 5
-    self:refreshSpecialSkillBtn()
 end
 
 -------------------------------------
@@ -203,24 +174,20 @@ end
 function TamerSkillSystem:update(dt)
     local ui = self.m_world.m_inGameUI
     
+    -- 글로벌 쿨타임 계산
     if (0 < self.m_tamerSkillCooltimeGlobal) then
         self.m_tamerSkillCooltimeGlobal = (self.m_tamerSkillCooltimeGlobal - dt)
 
         if (0 > self.m_tamerSkillCooltimeGlobal) then
             self.m_tamerSkillCooltimeGlobal = 0
         end
-
-        -- 궁극기 게이지가 다 찬 경우에는 클로벌 쿨타임을 표시
-        if not self.m_isUseSpecialSkill then
-            local percentage = (self.m_tamerSkillCooltimeGlobal / TAMER_SKILL_GLOBAL_COOLTIME) * 100
-            local ui = self.m_world.m_inGameUI
-            ui.vars['specialTimeGauge']:setPercentage(percentage)
-        end
     end
 
     for i = 1, 3 do
         self:updateSkillBtn(i, dt)
     end
+
+    self:updateSpecialSkillBtn(dt)
 end
 
 -------------------------------------
@@ -250,12 +217,12 @@ function TamerSkillSystem:updateSkillBtn(i, dt)
         visual:setVisible(false)
 
         if percentage <= 0 then
-			local temp_icon_num = 4 - i
+			local icon_idx = 4 - i
             visual:setVisible(true)
-            visual:setVisual('skill_charging', 'normal_0' .. temp_icon_num)
+            visual:setVisual('skill_charging', 'normal_0' .. icon_idx)
             visual:setRepeat(false)
             visual:registerScriptLoopHandler(function()
-                visual:setVisual('skill_idle', 'normal_0' .. temp_icon_num)
+                visual:setVisual('skill_idle', 'normal_0' .. icon_idx)
                 visual:setRepeat(true)
             end)
         end
@@ -263,27 +230,39 @@ function TamerSkillSystem:updateSkillBtn(i, dt)
 end
 
 -------------------------------------
--- function refreshSpecialSkillBtn
+-- function updateSpecialSkillBtn
 -------------------------------------
-function TamerSkillSystem:refreshSpecialSkillBtn()
+function TamerSkillSystem:updateSpecialSkillBtn(dt)
     local ui = self.m_world.m_inGameUI
-    
-	-- 궁극기 사용한 것으로 처리
-	ui.vars['specialTimeGauge']:setPercentage(100)
     local visual = ui.vars['specialSkillVisual']
-    visual:setVisible(false)
+    local percentage = 0
 
-    self.m_skillVisualTop:setVisible(false)
-	
-	-- 기능상 필요는 없지만 추후 수정향방을 몰라 남겨둠
-	if (not self.m_isUseSpecialSkill) then
+    -- 이미 궁극기를 사용한 경우 항상 비활성화 표시
+    if self.m_isUseSpecialSkill then
+        percentage = 100
+            
+    -- 궁극기를 사용 가능한 경우에는 클로벌 쿨타임을 표시
+    else
+        percentage = (self.m_tamerSkillCooltimeGlobal / TAMER_SKILL_GLOBAL_COOLTIME) * 100
+    end
+    ui.vars['specialTimeGauge']:setPercentage(percentage)
+    
+    if percentage <= 0 and not visual:isVisible() then
         visual:setVisible(true)
         visual:setVisual('skill_charging', 'special')
         visual:setRepeat(false)
         visual:registerScriptLoopHandler(function()
             visual:setVisual('skill_idle', 'special')
             visual:setRepeat(true)
+
+            self.m_skillVisualTop:setVisual('skill_idle', 'special_idle')
+            self.m_skillVisualTop:setRepeat(true)
         end)
+
+        self.m_skillVisualTop:setVisual('skill_charging', 'special_open')
+        self.m_skillVisualTop:setRepeat(false)
+    elseif percentage > 0 then
+        visual:setVisible(false)
     end
 end
 
