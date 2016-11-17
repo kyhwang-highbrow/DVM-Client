@@ -1101,16 +1101,8 @@ end
 -------------------------------------
 function GameState:onEvent(event_name, ...)
     
-    -- 테이머 등장 (테이머가 화면 중앙까지 진출)
-    if (event_name == 'tamer_appear') then
-        self:changeState(GAME_STATE_START_2)
-
-    -- 테이머가 전투 위치로 도착
-    elseif (event_name == 'tamer_appear_done') then
-        self:appearDragon()
-
     -- 적군이 전투 위치로 도착
-    elseif (event_name == 'enemy_appear_done') then
+    if (event_name == 'enemy_appear_done') then
         if (self.m_state == GAME_STATE_FIGHT) then
             -- 잔투중 소환된 경우
             local arg = {...}

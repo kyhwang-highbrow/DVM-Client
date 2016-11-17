@@ -4,6 +4,7 @@
 TamerSpeechSystem = class(IEventListener:getCloneClass(), {
         m_world = 'GameWrold',
 
+        m_bLockTamerTalkAni = 'boolean',
         m_tamerAnimator = 'Animator',
         m_speechLabel = 'cc.Label',
      })
@@ -13,6 +14,8 @@ TamerSpeechSystem = class(IEventListener:getCloneClass(), {
 -------------------------------------
 function TamerSpeechSystem:init(world, t_tamer)
     self.m_world = world
+
+    self.m_bLockTamerTalkAni = false
     
     local ui = world.m_inGameUI
 
@@ -27,7 +30,6 @@ function TamerSpeechSystem:init(world, t_tamer)
         self.m_tamerAnimator.m_node:setMix('pain', 'idle', 0.1)
         self.m_tamerAnimator.m_node:setMix('happiness', 'pain', 0.1)
         self.m_tamerAnimator.m_node:setMix('pain', 'happiness', 0.1)
-        --self.m_tamerAnimator:changeAni('summon', true, true)
         self.m_tamerAnimator:changeAni('idle', true, true)
 
         --cclog('tamer ani list = ' .. luadump(self.m_tamerAnimator:getVisualList()))
@@ -55,21 +57,24 @@ function TamerSpeechSystem:showSpeech(msg, ani, loop)
     if loop == nil then loop = true end
 
     local ui = self.m_world.m_inGameUI
-    if (not ui.vars['tamerTalkVisual'].m_node:isEndAnimation()) then return end
+    if self.m_bLockTamerTalkAni then return end
 
     -- 대사
     if msg then
-        --ui.vars['tamerTalkVisual'].m_node:setFrame(0)
-        ui.vars['tamerTalkVisual']:setVisual('ingame_tamer_talk', '01')
         ui.vars['tamerTalkVisual']:setVisible(true)
-        ui.vars['tamerTalkVisual']:registerScriptLoopHandler(function()
+        ui.vars['tamerTalkVisual']:setVisual('ingame_tamer_talk', '01')
+        ui.vars['tamerTalkVisual']:addAniHandler(function()
             ui.vars['tamerTalkVisual']:setVisible(false)
 
             -- 대사 종료 후 idle 애니메이션으로
             self.m_tamerAnimator:changeAni('idle', true, true)
+
+            self.m_bLockTamerTalkAni = false
         end)
 
         self.m_speechLabel:setString(msg)
+
+        self.m_bLockTamerTalkAni = true
     end
 
     -- 테이머
