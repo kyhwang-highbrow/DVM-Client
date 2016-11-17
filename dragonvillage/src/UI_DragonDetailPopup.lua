@@ -100,9 +100,13 @@ function UI_DragonDetailPopup:refresh()
         local table_exp = TABLE:get('exp_dragon')
         local t_exp = table_exp[lv] 
         local max_exp = t_exp['exp_d']
-        local percent = (t_dragon_data['exp'] / max_exp) * 100
-        percent = math_floor(percent)
-        vars['expLabel']:setString(Str('{1}%', percent))
+        if (max_exp > 0) then
+            local percent = (t_dragon_data['exp'] / max_exp) * 100
+            percent = math_floor(percent)
+            vars['expLabel']:setString(Str('{1}%', percent))
+        else
+            vars['expLabel']:setString(Str('최대레벨'))
+        end
 
         --vars['expGg']:setPercentage(percent)
     end

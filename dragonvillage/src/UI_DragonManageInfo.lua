@@ -185,13 +185,21 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
         local table_exp = TABLE:get('exp_dragon')
         local t_exp = table_exp[lv] 
         local max_exp = t_exp['exp_d']
-        local percentage = (t_dragon_data['exp'] / max_exp) * 100
-        percentage = math_floor(percentage)
-        vars['expLabel']:setString(Str('{1}%', percentage))
 
-        vars['expGauge']:stopAllActions()
-        vars['expGauge']:setPercentage(0)
-        vars['expGauge']:runAction(cc.ProgressTo:create(0.2, percentage)) 
+        if (max_exp > 0) then
+            local percentage = (t_dragon_data['exp'] / max_exp) * 100
+            percentage = math_floor(percentage)
+            vars['expLabel']:setString(Str('{1}%', percentage))
+
+            vars['expGauge']:stopAllActions()
+            vars['expGauge']:setPercentage(0)
+            vars['expGauge']:runAction(cc.ProgressTo:create(0.2, percentage)) 
+        else
+            vars['expLabel']:setString(Str('최대레벨'))
+            vars['expGauge']:stopAllActions()
+            vars['expGauge']:setPercentage(100)
+        end
+        
     end
 
     do -- 승급 경험치
