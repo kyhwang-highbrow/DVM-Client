@@ -845,11 +845,12 @@ end
 -------------------------------------
 function GameWorld:onKeyReleased(keyCode, event)
 
+    -- 현재 웨이브를 클리어
     if (keyCode == KEY_R) then
-        -- 현재 웨이브를 클리어
         self:killAllEnemy()
         self.m_waveMgr:clearDynamicWave()
 
+	-- 스킬 충전
     elseif (keyCode == KEY_C) then
         for _,dragon in pairs(self.m_lDragonList) do
             dragon:updateActiveSkillCoolTime(100)
@@ -857,18 +858,23 @@ function GameWorld:onKeyReleased(keyCode, event)
         self.m_tamerSkillSystem.m_isUseSpecialSkill = false
 		self.m_tamerSkillSystem:resetCoolTime()
 
+	-- 미션 성공
     elseif (keyCode == KEY_V) then
         self.m_gameState:changeState(GAME_STATE_SUCCESS)
 
+	-- 미션 실패
     elseif (keyCode == KEY_B) then
         self.m_gameState:changeState(GAME_STATE_FAILURE)
 
+	-- 진영 가늠자 출력 
     elseif (keyCode == KEY_0) then
         self.m_formationDebugNode:runAction(cc.ToggleVisibility:create())
 
+	-- 배경 초기화
     elseif (keyCode == KEY_M) then
         self:initBG()
 
+	-- 강제로 wait 상태로 걸어버림
     elseif (keyCode == KEY_O) then
         for i,v in ipairs(self.m_tEnemyList) do
             v:setWaitState(true)
@@ -878,6 +884,7 @@ function GameWorld:onKeyReleased(keyCode, event)
             v:setWaitState(true)
         end
 
+	-- wait 상태 해제
     elseif (keyCode == KEY_P) then
         for i,v in ipairs(self.m_tEnemyList) do
             v:setWaitState(false)
@@ -939,23 +946,8 @@ function GameWorld:onKeyReleased(keyCode, event)
 		end
 		cclog('KILL MISSILE ALL - Count : ' .. count)
 
-	-- 강제 위치 이동
-	elseif (keyCode == KEY_A) then    
-        for i,v in ipairs(self.m_participants) do
-            v:setMove(0, -240, 1500)
-        end
-
     -- 테스트
     elseif (keyCode == KEY_D) then
-        --[[
-        for i, v in ipairs(self.m_participants) do
-            if (not v.m_bDead) then
-                v:setDead()
-                v:setEnableBody(false)
-                v:changeState('dying')
-            end
-        end
-        ]]--
         for i, v in ipairs(self.m_tEnemyList) do
             if not v.m_bDead then
                 if isExistValue(v.m_charTable['rarity'], 'elite', 'subboss', 'boss') then
