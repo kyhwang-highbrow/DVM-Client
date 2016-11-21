@@ -472,9 +472,6 @@
     <None Include="..\src\DataStamina.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\DataDragonList.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\CharacterEvent.lua">
       <Filter>lua</Filter>
     </None>
@@ -533,15 +530,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\EffectTimer.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\DataFruit.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\DataFriendship.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\DataFruit_ListHelper.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\AnimationMap.lua">

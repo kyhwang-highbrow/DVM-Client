@@ -185,19 +185,3 @@ function DragonCard:makeDragonCardUI()
         end
     end
 end
-
-
--------------------------------------
--- function makeGachaDragonCard
--------------------------------------
-function DragonCard:makeGachaDragonCard(dragon_id)
-    local table_dragon = TABLE:get('dragon')
-    local t_dragon = table_dragon[dragon_id]
-
-    local t_dragon_data = DataDragonList:makeDragonData(dragon_id)
-    t_dragon_data['lv'] = 0
-    t_dragon_data['grade'] = 0
-    t_dragon_data['evolution'] = 3
-
-    return DragonCard(t_dragon, t_dragon_data)
-end

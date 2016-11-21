@@ -314,11 +314,6 @@ local t_module = {
     -- Data
     'DataAdventure',
     'DataStamina',
-    'DataDragonList',
-    'DataEvolutionStone',
-    'DataFruit',
-    'DataFruit_ListHelper',
-    'DataFriendship',
 
     -- Network
     'Network',

@@ -59,7 +59,6 @@ end
 -------------------------------------
 function ValidationDragon:validationSkill(t_dragon)
     local table_dragon_skill = TABLE:get('dragon_skill')
-    local table_dragon_special = TABLE:get('dragon_special')
 
     for i=1, 6 do
         local skill_type = t_dragon[string.format('skill_type_%d', i)]

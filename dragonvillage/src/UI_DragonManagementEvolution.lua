@@ -372,7 +372,7 @@ function UI_DragonManagementEvolution:reateDragonCardCB(item)
 
     if g_dragonsData:isMaxEvolution(doid) then
         if ui then
-            ui.vars['shadowSprite']:setVisible(true)
+            ui:setShadowSpriteVisible(true)
         end
     end
 end

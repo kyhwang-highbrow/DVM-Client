@@ -569,43 +569,6 @@ function UI_LobbyNew:initUserInfoNew()
     local exp_percentage = getTamerExpPercentage(lv, exp)
     vars['userExpLabel']:setString(Str('{1}%', exp_percentage))
     vars['userExpGg']:setPercentage(exp_percentage)
-    
-    --[[
-    -- 아이콘
-    local function getRepresentativeDragonIcon()
-        local dragon_id = nil
-
-        -- 1. 덱에서 드래곤 id 얻어옴
-        for i=1, 10 do
-            dragon_id = g_dragonListData.m_lDragonDeck[i]
-            break
-        end
-
-        -- 2. 드래곤 리스트에서 드래곤 id 얻어옴
-        if (not dragon_id) then
-            for _,t_data in pairs(g_dragonListData.m_lDragonList) do
-                dragon_id = t_data['did']
-            end
-        end
-
-        if dragon_id then
-            dragon_id = tonumber(dragon_id)
-            local t_dragon_data = g_dragonListData:getDragon(dragon_id)
-
-            local table_dragon = TABLE:get('dragon')
-            local t_dragon = table_dragon[dragon_id]
-
-            local icon_res = t_dragon['icon']
-            local evolution = t_dragon_data['evolution']
-            return IconHelper:getHeroIcon(icon_res, evolution)
-        end
-        return nil
-    end
-    local dragon_icon = getRepresentativeDragonIcon()
-    dragon_icon:setAnchorPoint(cc.p(0.5, 0.5))
-    dragon_icon:setDockPoint(cc.p(0.5, 0.5))
-    vars['userNode']:addChild(dragon_icon)
-    --]]
 end
 
 -- @CHECK

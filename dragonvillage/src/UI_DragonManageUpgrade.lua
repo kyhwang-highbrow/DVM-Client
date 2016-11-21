@@ -639,7 +639,7 @@ function UI_DragonManageUpgrade:reateDragonCardCB(item)
 
     if (not g_dragonsData:canUpgrade(doid)) then
         if ui then
-            ui.vars['shadowSprite']:setVisible(true)
+            ui:setShadowSpriteVisible(true)
         end
     end
 end

@@ -12,10 +12,6 @@ UserData = class({
         m_staminaList = '',
 
         m_dataAdventure = 'DataAdventure',
-        m_dataDragonList = 'DataDragonList',
-        m_dataEvolutionStone = 'DataEvolutionStone',
-        m_dataFruit = 'DataFruit',
-        m_dataFriendship = 'DataFriendship',
 
         m_bDirtyLocalSaveData = 'boolean', -- 로컬 세이브 데이터 변경 여부
     })
@@ -39,10 +35,6 @@ function UserData:getInstance()
     g_userDataOld = UserData()
     g_userDataOld:loadMasterFile()
     g_adventureData = g_userDataOld.m_dataAdventure
-    g_dragonListData = g_userDataOld.m_dataDragonList
-    g_evolutionStoneData = g_userDataOld.m_dataEvolutionStone
-    g_fruitData = g_userDataOld.m_dataFruit
-    g_friendshipData = g_userDataOld.m_dataFriendship
 
     return g_userDataOld
 end
@@ -187,12 +179,6 @@ end
 function UserData:afterLoadUserDataFile()
     -- @ 모험모드(Adventure)
     self.m_dataAdventure = DataAdventure(self, self.m_userData)
-
-    self.m_dataDragonList = DataDragonList(self, self.m_userData)
-
-    self.m_dataEvolutionStone = DataEvolutionStone(self, self.m_userData)
-    self.m_dataFruit = DataFruit(self, self.m_userData)
-    self.m_dataFriendship = DataFriendship(self, self.m_userData)
 end
 
 -------------------------------------
@@ -473,16 +459,6 @@ function UserData:optainItem(item_id, count)
     elseif (type == 'gold') then
         local final_count = (value * count)
         self.m_userData['gold'] = self.m_userData['gold'] + final_count
-
-    -- 진화석
-    elseif (type == 'evolution_stone') then
-        local final_count = (value * count)
-        self.m_dataEvolutionStone:addEvolutionStone(t_item['rarity'], t_item['attr'], final_count)
-
-    -- 열매
-    elseif (type == 'fruit') then
-        local final_count = (value * count)
-        self.m_dataFruit:addFruit(t_item['rarity'], t_item['attr'], final_count)
 
     -- 드래곤
     elseif (type == 'dragon') then

@@ -265,7 +265,7 @@ function ServerData_Dragons:canUpgrade(dragon_object_id)
     local is_max_grade = self:isMaxGrade(dragon_object_id)
     
     -- 남은 드래곤 스킬 레벨 갯수
-    local num_of_remin_skill_level = self:getNumberOfRemainingSkillLevel(dragon_object_id)
+    local num_of_remin_skill_level = self:getNumberOfRemainingSkillLevel(dragon_object_id)    
 
     return (not is_max_grade) or (0 < num_of_remin_skill_level)
 end
