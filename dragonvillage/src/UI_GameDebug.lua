@@ -207,7 +207,7 @@ function UI_GameDebug:makeTableView()
         local item = {}
         item['cb1'] = UI_GameDebug.timeScaleButton
         item['cb2'] = UI_GameDebug.timeScaleButton
-        item['str'] = '게임 배속 X ' .. g_currScene.m_timeScale
+        item['str'] = '게임 배속 X ' .. g_gameScene.m_gameWorld.m_gameTimeScale:getBase()
 
         table.insert(item_info, item)
     end
@@ -314,8 +314,8 @@ function UI_GameDebug.timeScaleButton(self, item, idx)
         add_scale = -0.1
     end
 
-    local scale = g_currScene.m_timeScale + add_scale
-    g_currScene:setTimeScale(scale)
+    local scale = g_gameScene.m_gameWorld.m_gameTimeScale:getBase() + add_scale
+    g_gameScene.m_gameWorld.m_gameTimeScale:setBase(scale)
 
     item['label']:setString('게임 배속 X ' .. scale)
 end

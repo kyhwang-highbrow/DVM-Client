@@ -985,6 +985,9 @@
     <None Include="..\src\SkillGuardian.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\GameTimeScale.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

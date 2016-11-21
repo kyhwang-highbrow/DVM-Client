@@ -146,7 +146,7 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
         local distance = getDistance(self.m_firstTouchPos['x'], self.m_firstTouchPos['y'], node_pos['x'], node_pos['y'])
         if (distance >= 50) then
             self.m_bSlowMode = true
-            g_currScene:setTimeScale(SKILL_INDICATOR_SLOW)
+            self.m_world.m_gameTimeScale:set(SKILL_INDICATOR_SLOW)
             self:changeDrakLayerColor(DARK_LAYER_OPACITY)
 
             self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)
@@ -188,7 +188,7 @@ function SkillIndicatorMgr:clear()
         self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
         self.m_selectHero.m_animator:setTimeScale(1)
         self:setSelectHero(nil)
-        g_currScene:setTimeScale(1)
+        self.m_world.m_gameTimeScale:reset()
         self.m_bSlowMode = false
         self:changeDrakLayerColor(255)
         self:clearHighlightList()
@@ -207,7 +207,7 @@ function SkillIndicatorMgr:update(dt)
             self.m_startTimer = self.m_startTimer + dt
             if (0.5 < self.m_startTimer) then
                 self.m_bSlowMode = true
-                g_currScene:setTimeScale(SKILL_INDICATOR_SLOW)
+                self.m_world.m_gameTimeScale:set(SKILL_INDICATOR_SLOW)
                 self:changeDrakLayerColor(DARK_LAYER_OPACITY)
 
                 self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)

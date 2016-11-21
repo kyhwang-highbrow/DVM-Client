@@ -37,6 +37,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_gameState = '',
         m_gameFever = '',
         m_gameCamera = '',
+        m_gameTimeScale = '',
 
         m_worldSize = '',
         m_worldScale = '',
@@ -147,6 +148,7 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
     self.m_gameState = GameState(self)
     self.m_gameFever = GameFever(self)
     self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
+    self.m_gameTimeScale = GameTimeScale(self)
 
     self.m_missileRange = {min_x=0-50, max_x = CRITERIA_RESOLUTION_X+50, min_y=-GAME_RESOLUTION_X/2, max_y=GAME_RESOLUTION_X/2}
 
@@ -346,6 +348,8 @@ function GameWorld:update(dt)
     self.m_gameState:update(dt)
 
     self.m_gameCamera:update(dt)
+
+    self.m_gameTimeScale:update(dt)
 
     for char,l_str in pairs(self.m_lPassiveEffect) do
         self:makePassiveStartEffect(char, l_str)

@@ -440,7 +440,7 @@ function Character:cancelSkill()
     end
 
     -- 일시적인 슬로우 처리
-    g_gameScene:setTimeScaleAction(timeScale, 0.3)
+    self.m_world.m_gameTimeScale:set(timeScale, 0.3)
 
     -- 화면 흔듬
     ShakeDir2(math_random(335-20, 335+20), 1500)

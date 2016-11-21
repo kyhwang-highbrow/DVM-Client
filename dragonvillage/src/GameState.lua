@@ -452,7 +452,7 @@ function GameState:update_fight_dragon_skill(dt)
         self.m_world.m_bPreventControl = true
 
         -- 슬로우
-        g_gameScene:setTimeScaleAction(timeScale, delayTime)
+        self.m_world.m_gameTimeScale:set(timeScale, delayTime)
 
         -- 드래곤 승리 애니메이션
         dragon.m_animator:changeAni('pose_1', false)
