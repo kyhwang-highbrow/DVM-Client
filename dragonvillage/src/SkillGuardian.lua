@@ -1,11 +1,12 @@
 local PARENT = Skill
 
 -------------------------------------
--- class SkillProtection
+-- class SkillGuardian
 -------------------------------------
-SkillProtection = class(PARENT, {
-		m_protectionRes = '',
-		m_duration = '',
+SkillGuardian = class(PARENT, {
+        m_duration = 'num',
+		m_defUpRate = 'num',
+		m_res = 'str'
      })
 
 -------------------------------------
@@ -13,31 +14,43 @@ SkillProtection = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function SkillProtection:init(file_name, body, ...)
+function SkillGuardian:init(file_name, body, ...)
 end
 
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillProtection:init_skill()
+function SkillGuardian:init_skill(duration, def_up_rate, res)
 	PARENT.init_skill(self)
+
+	-- 멤버 변수
+	self.m_duration = duration
+	self.m_defUpRate = def_up_rate
+	self.m_res = res
 end
 
 -------------------------------------
 -- function initState
 -------------------------------------
-function SkillProtection:initState()
+function SkillGuardian:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillProtection.st_idle, 'idle', true)
+    self:addState('start', SkillGuardian.st_idle, 'idle', true)
 end
 
 -------------------------------------
 -- function st_idle
 -------------------------------------
-function SkillProtection.st_idle(owner, dt)
+function SkillGuardian.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
-		-- 기본 타겟에 실드
+		-- 수호
+        local buff = Buff_Protection()
+        owner.m_world.m_worldNode:addChild(buff.m_rootNode, 10)
+        owner.m_world:addToUnitList(buff)
+        buff:init_buff(owner.m_owner, owner.m_duration, owner.m_defUpRate, owner.m_targetChar, owner.m_res)
+	
+		-- 상태효과
 		StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {owner.m_targetChar}, owner.m_lStatusEffectStr)
+
         owner:changeState('dying')
         return
     end
@@ -46,18 +59,21 @@ end
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------
-function SkillProtection:makeSkillInstance(owner, t_skill, t_data)
+function SkillGuardian:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
+    local duration = t_skill['val_1']
+    local def_up_rate = t_skill['val_2']
+	local res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = SkillProtection(nil)
+    local skill = SkillGuardian(nil)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(nil)
+    skill:init_skill(duration, def_up_rate, res)
 	skill:initState()
 
 	-- 3. state 시작 

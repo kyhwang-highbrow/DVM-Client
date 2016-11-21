@@ -567,7 +567,7 @@ function Hero:initStatus(t_char, level, grade, evolution, doid)
         self.m_skillIndicator.m_bUseHighlight = false
 
     -- 타겟형 (아군)
-    elseif isExistValue(type, 'skill_protection', 'skill_protection_spread', 'skill_dispel_harm') then
+    elseif isExistValue(type, 'skill_protection', 'skill_protection_spread', 'skill_dispel_harm', 'skill_heal_single') then
         self.m_skillIndicator = SkillIndicator_Target(self)
 	elseif string.find(type, 'skill_buff') then
         self.m_skillIndicator = SkillIndicator_Target(self)

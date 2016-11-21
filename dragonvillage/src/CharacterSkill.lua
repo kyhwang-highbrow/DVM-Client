@@ -121,42 +121,13 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
             return true
 
 		-- 스킬 영역
-        elseif (type == 'skill_butt') then
-            self:doSkill_butt(t_skill, is_hero, phys_group, x, y, t_data)
-            return true
-        elseif (type == 'skill_thunder') then
-            self:doSkill_thunder(t_skill, attr, is_hero, phys_group, x, y)
-            return true
-        elseif (type == 'skill_chain_cri_chance') then
-            self:doSkill_chainLightning(t_skill, attr, is_hero, phys_group, x, y)
-            return true
-        elseif (type == 'skill_heal_target') then
-            self:doSkill_healTarget(t_skill, is_hero, phys_group, x, y)
-            return true
-        elseif (type == 'skill_heal_around') then
-            self:doSkill_healAround(t_skill, is_hero, phys_group, x, y)
-            return true
-        elseif (type == 'skill_curve') then
-            self:doSkill_curve(t_skill, is_hero, phys_group, x, y)
-            return true
-        elseif (type == 'skill_protection_spread') then
-            self:doSkill_skill_protection(t_skill, t_data)
-            return true
-        elseif (type == 'skill_heal_single') then
-            self:doSkill_skill_heal_single(t_skill, t_data)
-            return true
-        elseif (type == 'skill_deep_stab') then
-            self:doSkill_skill_deep_stab(t_skill, attr, is_hero, phys_group, x, y, t_data)
+
+		-- 패시브 스킬
+        elseif (type == 'skill_react_armor') then
+            self:doSkill_counteratk(t_skill, is_hero, phys_group, x, y, t_data)
             return true
 
-		elseif (type == 'skill_dispel_harm') then
-            self:doSkill_skill_dispel_magic(t_skill, t_data)
-            return true
 
-		elseif (type == 'skill_summon') then
-            local summon_success = self:doSkill_skill_summon(t_skill, t_data)
-            return summon_success
-			
 		-- 구조 개선 후 ----------------------------------------------------
 
         elseif (type == 'skill_curve_twin') then
@@ -184,13 +155,9 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 			return true
 
 		elseif string.find(type, 'skill_buff') then
-            SkillBuff:makeSkillInstance(self, t_skill, t_data)
+            SkillDrawBuff:makeSkillInstance(self, t_skill, t_data)
 			return true
 
-        elseif (type == 'skill_leon_basic') then
-            SkillLeonBasic:makeSkillInstance(self, t_skill, t_data)
-            return true
-            
 	    elseif (type == 'skill_counterattack') then
             SkillCounterAttack:makeSkillInstance(self, t_skill, t_data)
             return true
@@ -219,10 +186,26 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
             SkillLaser:makeSkillInstance(self, t_skill, t_data) 
             return true
 
-        -- 패시브 스킬
-        elseif (type == 'skill_react_armor') then
-            self:doSkill_counteratk(t_skill, is_hero, phys_group, x, y, t_data)
+		elseif (type == 'skill_dispel_harm') then
+            SkillDispelMagic:makeSkillInstance(self, t_skill, t_data)
             return true
+
+        elseif (type == 'skill_heal_single') then
+			SkillHealSingle:makeSkillInstance(self, t_skill, t_data)
+            return true
+
+		elseif (type == 'skill_heal_around') then
+            SkillHealAround:makeSkillInstance(self, t_skill, t_data)
+            return true
+
+        elseif (type == 'skill_protection_spread') then -- 파워드래곤 스킬 '수호'
+            SkillGuardian:makeSkillInstance(self, t_skill, t_data)
+            return true
+
+
+		-- 특수 스킬들
+		elseif (type == 'skill_summon') then
+            return SkillSummon:makeSkillInstance(self, t_skill, t_data)
 
         end
     end
@@ -315,192 +298,6 @@ function Character:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_da
 end
 
 -------------------------------------
--- function doSkill_laser
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_laser(t_skill, attr, is_hero, phys_group, x, y, t_data)
-
-    -- 인디케이터에서
-    if t_data['x'] and t_data['y'] then
-        linear_laser.m_endPosX = t_data['x']
-        linear_laser.m_endPosY = t_data['y']
-    else
-        if self.m_targetChar then
-            linear_laser.m_endPosX = self.m_targetChar.pos.x
-            linear_laser.m_endPosY = self.m_targetChar.pos.y
-        end
-    end
-
-    -- 타겟이 없을 경우
-
-end
-
--------------------------------------
--- function doSkill_butt
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_butt(t_skill, is_hero, phys_group, x, y, t_data)
-    local target_x = nil
-    local target_y = nil
-
-    if t_data then
-        target_x = t_data['x']
-        target_y = t_data['y']
-    end
-
-    if (not target_x) or (not target_y) then
-        if self.m_targetChar then
-            target_x = self.m_targetChar.pos.x
-            target_y = self.m_targetChar.pos.y
-        else
-            target_x = x + 500
-            target_y = y
-        end
-    end
-
-    self.m_attackAnimaDuration = self.m_stateTimer
-    self.m_activityCarrier.m_skillCoefficient = (t_skill['power_rate'] / 100)
-    self:changeState('dash')
-    self:setMove(target_x, target_y, 1500)
-
-
-    local grade = t_skill['val_1']
-
-    if grade == 1 then
-
-    elseif grade == 2 then
-        self:makeDashEffect(0.5)
-    elseif grade == 3 then
-        self:makeDashEffect(1)
-    end
-end
-
-
--------------------------------------
--- function doSkill_thunder
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_thunder(t_skill, attr, is_hero, phys_group, x, y)
-
-    local phys_group = nil
-
-    -- 캐릭터 유형별 변수 정리(dragon or enemy)
-    if (self.m_charType == 'dragon') then
-        is_hero = true
-        phys_group = 'missile_h'
-    else
-        is_hero = false
-        phys_group = 'missile_e'
-    end
-
-    local thunder = Thunder()
-
-    thunder.m_physGroup = phys_group
-
-    -- Physics, Node, GameMgr에 등록
-    --self.m_world:addMissile(linear_laser, object_key)
-    self.m_world.m_missiledNode:addChild(thunder.m_rootNode)
-    self.m_world:addToUnitList(thunder)
-
-    -- 리소스
-    local res = string.gsub(t_skill['res_1'], '@', attr)
-
-    thunder:setPosition(self.pos.x + x, self.pos.y - y)
-
-    thunder.m_activityCarrier = self:makeAttackDamageInstance()
-    thunder.m_activityCarrier.m_skillCoefficient = (t_skill['power_rate'] / 100)
-
-    local count = t_skill['val_1']
-    thunder:init_Thunder(res, count)
-end
-
--------------------------------------
--- function doSkill_chainLightning
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_chainLightning(t_skill, attr, is_hero, phys_group, x, y)
-
-    local phys_group = nil
-
-    -- 캐릭터 유형별 변수 정리(dragon or enemy)
-    if (self.m_charType == 'dragon') then
-        phys_group = 'missile_h'
-    else
-        phys_group = 'missile_e'
-    end
-
-    local skill = SkillChainLightning()
-
-    skill.m_offsetX = x
-    skill.m_offsetY = y
-
-    skill.m_physGroup = phys_group
-
-    -- Physics, Node, GameMgr에 등록
-    --self.m_world:addMissile(linear_laser, object_key)
-    self.m_world.m_missiledNode:addChild(skill.m_rootNode)
-    self.m_world:addToSkillList(skill)
-
-    skill:init_SkillChainLightning(self, t_skill, x, y)
-end
-
--------------------------------------
--- function doSkill_healTarget
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_healTarget(t_skill, is_hero, phys_group, x, y)
-    local skill = SkillHealTarget(nil)
-
-    -- Physics, Node, GameMgr에 등록
-    self.m_world.m_missiledNode:addChild(skill.m_rootNode)
-    self.m_world:addToSkillList(skill)
-
-    skill:setPosition(self.pos.x, self.pos.y)
-    skill:init_skill(self, t_skill)
-end
-
--------------------------------------
--- function doSkill_healAround
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_healAround(t_skill, is_hero, phys_group, x, y)
-
-    local skill = SkillHealAround('res/effect/shot_heal_around/shot_heal_around.spine')
-    --local skill = SkillHealAround(nil)
-
-    -- Physics, Node, GameMgr에 등록
-    --self.m_world:addMissile(linear_laser, object_key)
-    self.m_world.m_worldNode:addChild(skill.m_rootNode, 0)
-    self.m_world:addToSkillList(skill)
-
-    local pos_x = self.pos.x + x
-    local pos_y = self.pos.y + y
-
-    skill:setPosition(pos_x, pos_y)
-
-    skill:init_skill(self, res, x, y, t_skill)
-end
-
--------------------------------------
--- function doSkill_shield
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_shield(t_skill, is_hero, phys_group, x, y)
-    local skill = SkillShield(nil)
-
-    -- Physics, Node, GameMgr에 등록
-    self.m_world.m_worldNode:addChild(skill.m_rootNode, 0)
-    self.m_world:addToSkillList(skill)
-
-    local pos_x = self.pos.x + x
-    local pos_y = self.pos.y + y
-
-    skill:setPosition(pos_x, pos_y)
-
-    skill:init_skill(self, res, x, y, t_skill)
-end
-
--------------------------------------
 -- function doSkill_counteratk
 -- @brief 스킬 실행
 -------------------------------------
@@ -520,184 +317,8 @@ function Character:doSkill_counteratk(t_skill, is_hero, phys_group, x, y, t_data
     skill:init_skill(self, res, x, y, t_skill, t_data)
 end
 
--------------------------------------
--- function doSkill_curve
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_curve(t_skill, is_hero, phys_group, x, y)
-    local skill = SkillCurve(nil)
-
-    -- Physics, Node, GameMgr에 등록
-    --self.m_world:addMissile(linear_laser, object_key)
-    self.m_world.m_worldNode:addChild(skill.m_rootNode, 0)
-    self.m_world:addToSkillList(skill)
-
-    local pos_x = self.pos.x + x
-    local pos_y = self.pos.y + y
-
-    skill:setPosition(pos_x, pos_y)
-
-    skill:init_skill(self, t_skill)
-end
-
--------------------------------------
--- function doSkill_skill_protection
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_skill_protection(t_skill, t_data)
-    local skill = SkillProtection_Spread(nil)
-
-    -- Physics, Node, GameMgr에 등록
-    --self.m_world:addMissile(linear_laser, object_key)
-    self.m_world.m_worldNode:addChild(skill.m_rootNode, 0)
-    self.m_world:addToSkillList(skill)
-
-    local pos_x = self.pos.x-- + x
-    local pos_y = self.pos.y-- + y
-    skill:setPosition(pos_x, pos_y)
-    skill:init_skill(self, t_skill, t_data['target'])
-end
-
--------------------------------------
--- function doSkill_skill_heal_single
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_skill_heal_single(t_skill, t_data)
-    local target = nil
-    if t_data then
-        target = t_data['target']
-    end
-
-    -- 지정된 타겟이 없을 경우 랜덤으로 사용
-    if (not target) then
-
-        -- 타겟 설정
-        local formation_mgr = nil
-        if self.m_bLeftFormation then
-            formation_mgr = self.m_world.m_leftFormationMgr
-        else
-            formation_mgr = self.m_world.m_rightFormationMgr
-        end
-        target = formation_mgr:getRandomHealTarget()
-    end
-
-    local heal_rate = (t_skill['power_rate'] / 100)
-
-    -- 타겟에 회복 수행, 이팩트 생성
-    if target and (not target.m_bDead) then
-        local atk_dmg = self.m_statusCalc:getFinalStat('atk')
-        local heal = HealCalc_M(atk_dmg)
-
-        local res = string.gsub(t_skill['res_1'], '@', self.m_charTable['attr'])
-        local effect = self.m_world:addInstantEffect(res, 'heal_effect', target.pos.x, target.pos.y)
-
-        target:healAbs(heal * heal_rate)
-
-        local effect_heal = EffectHeal(res, {0,0,0})
-        effect_heal:initState()
-        effect_heal:changeState('move')
-        effect_heal:init_EffectHeal(self.pos.x, self.pos.y, target)
-        --effect_heal:setMotionStreak(self.m_world.m_gameNode1, 'res/effect/motion_streak/motion_streak_emblem_tree.png')
-
-        self.m_world.m_physWorld:addObject('effect', effect_heal)
-        self.m_world.m_worldNode:addChild(effect_heal.m_rootNode, 0)
-        self.m_world:addToUnitList(effect_heal)
-
-		-- @TODO 공격에 묻어나는 이펙트 Carrier 에 담아서..
-		StatusEffectHelper:doStatusEffect(target, t_skill)
-    end
-end
-
--------------------------------------
--- function doSkill_skill_bullet_hole
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_skill_bullet_hole(t_skill, attr, is_hero, phys_group, x, y, t_data)
-
-    local range = t_skill['val_1']
-
-    -- 위치, 범위, 타겟 갯수, 데미지
-	local res = string.gsub(t_skill['res_1'], '@', attr)
-    local skill = SkillBulletHole(res, {0, 0, range})
-
-    skill:init_skill(self, t_data['x'], t_data['y'], t_skill)
-
-    -- Physics, Node, GameMgr에 등록
-    self.m_physWorld:addObject('hole_h', skill)
-    self.m_world.m_missiledNode:addChild(skill.m_rootNode)
-    self.m_world:addToSkillList(skill)
-end
-
--------------------------------------
--- function doSkill_skill_deep_stab
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_skill_deep_stab(t_skill, attr, is_hero, phys_group, x, y, t_data)
-
-    -- 위치, 범위, 타겟 갯수, 데미지
-    local skill = SkillDeepStab('', {0, 0, 0})
-
-    skill:init_skill(self, t_skill)
-
-    -- Physics, Node, GameMgr에 등록
-    self.m_world.m_worldNode:addChild(skill.m_rootNode, 0)
-    self.m_world:addToSkillList(skill)
-end
-
 ------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
--------------------------------------
--- function doSkill_skill_dispel_magic
--- @brief 스킬 실행
--------------------------------------
-function Character:doSkill_skill_dispel_magic(t_skill, t_data)
-	local res = string.gsub( t_skill['res_1'], '@', self.m_charTable['attr'])
-    local skill = SkillDispelMagic(res)
-
-    -- Physics, Node, GameMgr에 등록
-    self.m_world.m_missiledNode:addChild(skill.m_rootNode)
-    self.m_world:addToSkillList(skill)
-
-    skill:setPosition(self.pos.x, self.pos.y)
-    skill:init_skill(self, t_skill, t_data)
-end
-
--------------------------------------
--- function doSkill_skill_summon
--- @brief 스킬 실행
--- @return boolean true리턴 시 소환, false리턴 시 소환 실패(기본 공격 나가도록)
--------------------------------------
-function Character:doSkill_skill_summon(t_skill, t_data)
-    local idx = t_skill['val_1']
-    if (not self.m_world.m_waveMgr:checkSummonable(idx)) then 
-        return false
-    end
-	
-    local skill = SkillSummon(nil)
-    skill:init_skill(self, t_skill, t_data)
-    
-    -- Physics, Node, GameMgr에 등록
-    self.m_world.m_groundNode:addChild(skill.m_rootNode)
-    self.m_world:addToSkillList(skill)
-
-    return true
-end
-
-
-------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 -------------------------------------

@@ -1,9 +1,9 @@
 local PARENT = Skill
 
 -------------------------------------
--- class SkillBuff
+-- class SkillThrowBuff
 -------------------------------------
-SkillBuff = class(PARENT, {
+SkillThrowBuff = class(PARENT, {
         m_isAddedBuff = 'bool',
 		m_addBuffProb = 'num',
     })
@@ -13,14 +13,14 @@ SkillBuff = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function SkillBuff:init(file_name, body, ...)    
+function SkillThrowBuff:init(file_name, body, ...)    
     self:initState()
 end
 
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillBuff:init_skill(add_buff_prob)
+function SkillThrowBuff:init_skill(add_buff_prob)
     PARENT.init_skill(self)
 	
 	self.m_addBuffProb = add_buff_prob
@@ -33,17 +33,17 @@ end
 -------------------------------------
 -- function initState
 -------------------------------------
-function SkillBuff:initState()
+function SkillThrowBuff:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillBuff.st_idle, nil, true)
-    self:addState('draw', SkillBuff.st_draw, 'idle', true)
-	self:addState('obtain', SkillBuff.st_obtain, 'obtain', false)
+    self:addState('start', SkillThrowBuff.st_idle, nil, true)
+    self:addState('draw', SkillThrowBuff.st_draw, 'idle', true)
+	self:addState('obtain', SkillThrowBuff.st_obtain, 'obtain', false)
 end
 
 -------------------------------------
 -- function st_idle
 -------------------------------------
-function SkillBuff.st_idle(owner, dt)
+function SkillThrowBuff.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
 		owner:changeState('draw')
     end
@@ -52,7 +52,7 @@ end
 -------------------------------------
 -- function st_draw
 -------------------------------------
-function SkillBuff.st_draw(owner, dt)
+function SkillThrowBuff.st_draw(owner, dt)
 	if (owner.m_stateTimer == 0) then
 		-- @TODO
 		-- 애플칙 하드 코딩
@@ -77,7 +77,7 @@ end
 -------------------------------------
 -- function st_obtain
 -------------------------------------
-function SkillBuff.st_obtain(owner, dt)
+function SkillThrowBuff.st_obtain(owner, dt)
     if (owner.m_stateTimer == 0) then
 		-- 애플칙 하드 코딩
 		if (not owner.m_isAddedBuff) then 
@@ -95,7 +95,7 @@ end
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------
-function SkillBuff:makeSkillInstance(owner, t_skill, t_data)
+function SkillThrowBuff:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
@@ -104,7 +104,7 @@ function SkillBuff:makeSkillInstance(owner, t_skill, t_data)
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = SkillBuff(missile_res)
+    local skill = SkillThrowBuff(missile_res)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)

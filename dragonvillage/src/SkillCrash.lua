@@ -35,6 +35,9 @@ function SkillCrash:init(file_name, body, ...)
     self:initState()
 end
 
+local SPEED_MOVE = 1500
+local SPEED_COMEBACK = 1500
+
 -------------------------------------
 -- function init_skill
 -------------------------------------
@@ -56,7 +59,7 @@ function SkillCrash:init_skill(owner, t_skill, t_data)
     self:initAnimator(self.m_dashEffectRes)
 
     local target_x, target_y = self:getTargetPos(t_data)    
-    owner:setMove(target_x, target_y, 1500)
+    owner:setMove(target_x, target_y, SPEED_MOVE)
     
 
     -- StateDelegate 적용
@@ -127,7 +130,7 @@ function SkillCrash.st_comeback(owner, dt)
         local y = char.pos.y
         owner:attackShockwave(x, y)
 
-        char:setMove(char.m_homePosX, char.m_homePosY, 800)
+        char:setMove(char.m_homePosX, char.m_homePosY, SPEED_COMEBACK)
     elseif (char.m_isOnTheMove == false) then
         owner:changeState('dying')
     end

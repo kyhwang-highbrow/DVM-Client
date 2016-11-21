@@ -1,8 +1,9 @@
+local PARENT = Skill
+
 -------------------------------------
 -- class SkillSummon
 -------------------------------------
-SkillSummon = class(Entity, {
-        m_owner = 'Character',
+SkillSummon = class(PARENT, {
 		m_summonIdx = 'num',
      })
 
@@ -12,24 +13,23 @@ SkillSummon = class(Entity, {
 -- @param body
 -------------------------------------
 function SkillSummon:init(file_name, body, ...)
-    self:initState()
 end
 
 -------------------------------------
 -- function init_SkillSummon
 -------------------------------------
-function SkillSummon:init_skill(owner, t_skill)
-    self.m_owner = owner
-    self.m_summonIdx = t_skill['val_1']
-    self:changeState('idle')
+function SkillSummon:init_skill(summon_idx)
+	PARENT.init_skill(self)
+
+    self.m_summonIdx = summon_idx
 end
 
 -------------------------------------
 -- function initState
 -------------------------------------
 function SkillSummon:initState()
+	self:setCommonState(self)
     self:addState('idle', SkillSummon.st_idle, 'idle', true)
-    self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
 end
 
 -------------------------------------
@@ -41,4 +41,37 @@ function SkillSummon.st_idle(owner, dt)
     else
         owner:changeState('dying')
     end
+end
+
+-------------------------------------
+-- function makeSkillInstance
+-------------------------------------
+function SkillSummon:makeSkillInstance(owner, t_skill, t_data)
+	-- 변수 선언부
+	------------------------------------------------------
+	local summon_idx = t_skill['val_1']
+
+    if (not owner.m_world.m_waveMgr:checkSummonable(summon_idx)) then 
+        return false
+    end
+
+	-- 인스턴스 생성부
+	------------------------------------------------------
+	-- 1. 스킬 생성
+    local skill = SkillSummon(nil)
+
+	-- 2. 초기화 관련 함수
+	skill:setSkillParams(owner, t_skill, t_data)
+    skill:init_skill(summon_idx)
+	skill:initState()
+
+	-- 3. state 시작 
+    skill:changeState('delay')
+
+    -- 4. Physics, Node, GameMgr에 등록
+    local world = skill.m_owner.m_world
+    world.m_missiledNode:addChild(skill.m_rootNode, 0)
+    world:addToSkillList(skill)
+
+	return true
 end

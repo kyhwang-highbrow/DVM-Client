@@ -121,7 +121,7 @@ function Skill.st_delay(owner, dt)
     if (owner.m_stateTimer == 0) then
 		owner.m_animator:setVisible(false) 
 		if (not owner.m_targetChar) then 
-			cclog('SKLILL DELAY STATE : 타겟이 없어 스킬을 강제로 죽임 .. kms')
+			owner:printTargetIsNotExist()
 			owner:changeState('dying') 
 		end
 	elseif (owner.m_stateTimer > owner.m_preDelay) then
@@ -299,4 +299,22 @@ end
 -- @brief 사용할 변수 정리 및 실제 스킬 인스턴스를 생성하고 월드에 등록하는 부분
 -------------------------------------
 function Skill:makeSkillInstance()
+end
+
+
+
+
+
+
+-------------------------------------
+-- function printTargetIsNotExist
+-- @brief
+-------------------------------------
+function Skill:printTargetIsNotExist()
+	cclog('###########################################')
+	cclog('-- 타겟을 못 찾았습니다')
+	cclog('STATE NAME : ' .. self.m_state)
+	cclog('SKILL CASTER : ' ..  self.m_owner:getName())
+	cclog('SKILL TYPE : ' ..  self.m_skillType)
+	cclog('-------------------------------------------')
 end
