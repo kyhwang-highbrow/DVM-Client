@@ -18,6 +18,7 @@ SceneGame = class(PerpleScene, {
         m_gameNode1 = 'cc.Node',        -- 게임 레이어
         m_gameNode2 = 'cc.Node',        -- 게임 레이어
         m_gameNode3 = 'cc.Node',        -- 게임 레이어
+        m_feverNode = 'cc.Node',        -- 피버 레이어
         m_gameIndicatorNode = 'cc.Node',
         m_gameHighlightNode = 'cc.Node',
         m_colorLayerForSkill = 'cc.LayerColor', -- 암전 레이어
@@ -86,6 +87,10 @@ function SceneGame:init_layer()
                     self.m_gameNode3 = cc.Node:create()
                     self.m_worldLayer:addChild(self.m_gameNode3)
 
+                    -- 피버 레이어
+                    self.m_feverNode = cc.Node:create()
+                    self.m_worldLayer:addChild(self.m_feverNode)
+
                     -- 암전용 레이어
                     self.m_colorLayerForSkill = cc.LayerColor:create()
                     self.m_colorLayerForSkill:setColor(cc.c3b(0, 0, 0))
@@ -145,7 +150,7 @@ function SceneGame:prepare()
         -- 레이어 생성
         self:init_layer()
 
-        self.m_gameWorld = GameWorld(self.m_stageID, self.m_stageName, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
+        self.m_gameWorld = GameWorld(self.m_stageID, self.m_stageName, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_feverNode, self.m_inGameUI, self.m_bDevelopMode)
         self.m_gameWorld:initWaveMgr(self.m_stageName, self.m_bDevelopMode)
 
         -- 스테이지의 스크립트 정보를 얻어옴
@@ -233,6 +238,7 @@ function SceneGame:gamePause()
 
     doAllChildren(self.m_gameNode1, f_pause)
     doAllChildren(self.m_gameNode2, f_pause)
+    doAllChildren(self.m_feverNode, f_pause)
 end
 
 -------------------------------------
@@ -247,6 +253,7 @@ function SceneGame:gameResume()
 
     doAllChildren(self.m_gameNode1, f_resume)
     doAllChildren(self.m_gameNode2, f_resume)
+    doAllChildren(self.m_feverNode, f_resume)
 end
 
 -------------------------------------

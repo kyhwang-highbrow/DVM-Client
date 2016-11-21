@@ -23,7 +23,6 @@ Hero = class(PARENT, {
         m_bUseSelfAfterImage = 'boolean',
 
         m_skillPrepareEffect = '',
-        m_feverEffect = '',
      })
 
 -------------------------------------
@@ -39,7 +38,6 @@ function Hero:init(file_name, body, ...)
 
     self.m_bUseSelfAfterImage = false
     self.m_skillPrepareEffect = nil
-    self.m_feverEffect = nil
 end
 
 -------------------------------------
@@ -502,28 +500,6 @@ function Hero:makeHPGauge(hp_ui_offset)
 end
 
 -------------------------------------
--- function makeFeverEffect
--------------------------------------
-function Hero:makeFeverEffect()
-    if self.m_feverEffect then return end
-
-    local res = 'res/effect/effect_fever/effect_fever.vrp'
-    self.m_feverEffect = MakeAnimator(res)
-    self.m_feverEffect:changeAni('buff', true)
-    self.m_rootNode:addChild(self.m_feverEffect.m_node)
-end
-
--------------------------------------
--- function removeFeverEffect
--------------------------------------
-function Hero:removeFeverEffect()
-    if not self.m_feverEffect then return end
-
-    self.m_feverEffect:release()
-    self.m_feverEffect = nil
-end
-
--------------------------------------
 -- function setPosition
 -------------------------------------
 function Hero:setPosition(x, y)
@@ -532,7 +508,7 @@ function Hero:setPosition(x, y)
     if self.m_hpNode then
         self.m_hpNode:setPosition(x + self.m_hpUIOffset[1], y + self.m_hpUIOffset[2])
     end
-
+    
     if self.m_cbChangePos then
         self.m_cbChangePos(self)
     end

@@ -23,6 +23,9 @@ GameFever = class(IEventListener:getCloneClass(), {
 
         m_tAttackOrder = 'table',   -- 아군 공격 순서
 
+        -- buff effect
+        m_lFeverEffect = '',        -- 피버시 아군에게 붙을 이펙트 리스트
+
         -- UI
         m_feverNode = '',
         m_feverLabel = '',
@@ -33,6 +36,8 @@ GameFever = class(IEventListener:getCloneClass(), {
 
         m_notiLabel1 = 'cc.Label',
         m_notiLabel2 = 'cc.Label',
+
+        m_testCount = 'number',
      })
 
 -------------------------------------
@@ -44,7 +49,7 @@ function GameFever:init(world)
 
     self.m_touchNode = cc.Node:create()
     self.m_touchNode:setVisible(self.m_bActive)
-    world.m_worldLayer:addChild(self.m_touchNode)
+    world.m_feverNode:addChild(self.m_touchNode)
 
     self:makeTouchLayer(self.m_touchNode)
     
@@ -72,6 +77,10 @@ function GameFever:init(world)
     self.m_stepPoint = 0
     
     self.m_tAttackOrder = {}
+    
+    self.m_lFeverEffect = {}
+
+    self.m_testCount = 0
 
     self:initUI()
 end
@@ -102,6 +111,7 @@ function GameFever:initUI()
     
 
     -- 피버 포인트 추가 알림을 위한 라벨 생성
+    --[[
     self.m_notiLabel1 = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 34, 3, cc.size(400, 100), 1, 1)
     self.m_notiLabel2 = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 40, 3, cc.size(400, 100), 1, 1)
     self.m_notiLabel1:setColor(cc.c3b(255,246,0))
@@ -121,6 +131,7 @@ function GameFever:initUI()
     socketNode1:addChild(self.m_notiLabel1)
     local socketNode2 = self.m_skillCancelVisual.m_node:getSocketNode('skill_cancel_02')
     socketNode2:addChild(self.m_notiLabel2)
+    ]]--
 
     self.m_feverNode:setVisible(false)
     self.m_feverTutVisual:setVisible(false)
@@ -229,13 +240,6 @@ function GameFever:update_appear(dt)
         self.m_feverIdleVisual:setVisible(true)
         self.m_feverIdleVisual:setVisual('fever', 'idle_01')
         self.m_feverIdleVisual:setRepeat(false)
-        
-        -- 버프 이펙트
-        for i, dragon in ipairs(world.m_participants) do
-            if not dragon.m_bDead then
-                dragon:makeFeverEffect()
-            end
-        end
     end
 end
 
@@ -266,6 +270,19 @@ function GameFever:update_live(dt)
     elseif (self.m_stateTimer >= FEVER_KEEP_TIME) then
         self:onEnd()
     end
+
+    -- 버프 이펙트 위치 갱신
+    for i, feverEffect in ipairs(self.m_lFeverEffect) do
+        local hero = world.m_participants[i]
+        if (hero and hero.m_bDead == false) then
+            feverEffect:setVisible(true)
+            feverEffect:setPosition(hero.pos.x, hero.pos.y)
+        else
+            feverEffect:setVisible(false)
+        end
+    end
+
+    cclog('self.m_testCount = ' .. self.m_testCount)
 end
 
 -------------------------------------
@@ -280,6 +297,9 @@ function GameFever:onStart()
 
     self.m_tAttackOrder = {}
     
+    -- 버프 이펙트 생성
+    self:makeBuffEffects()
+    
     self:changeState(GAME_FEVER_STATE_APPEAR)
 end
 
@@ -291,11 +311,11 @@ function GameFever:onEnd()
 
     self.m_touchNode:setVisible(self.m_bActive)
 
-    -- 버프 이펙트 해제
+    -- 버프 이펙트 삭제
+    self:removeBuffEffects()
+
     for i, hero in ipairs(self.m_world.m_participants) do
         if not hero.m_bDead then
-            hero:removeFeverEffect()
-
             hero.m_animator:setTimeScale(1)
             hero.m_animator:changeAni('idle', true)
         end
@@ -305,6 +325,39 @@ function GameFever:onEnd()
     self.m_world.m_gameState:changeState(GAME_STATE_FIGHT)
 
     self.m_feverLabel:setString(Str('{1}%', math_floor(self.m_curPoint)))
+end
+
+-------------------------------------
+-- function makeBuffEffects
+-- @brief 버프 이펙트들을 생성
+-------------------------------------
+function GameFever:makeBuffEffects()
+    self.m_lFeverEffect = {}
+
+    for i, hero in ipairs(self.m_world.m_participants) do
+        if not self.m_lFeverEffect[i] then
+            local res = 'res/effect/effect_fever/effect_fever.vrp'
+            local feverEffect = MakeAnimator(res)
+            feverEffect:setVisible(false)
+            feverEffect:changeAni('buff', true)
+                    
+            self.m_world.m_feverNode:addChild(feverEffect.m_node)
+
+            table.insert(self.m_lFeverEffect, feverEffect)
+        end
+    end
+end
+
+-------------------------------------
+-- function removeBuffEffects
+-- @brief 버프 이펙트들을 삭제
+-------------------------------------
+function GameFever:removeBuffEffects()
+    for i, feverEffect in ipairs(self.m_lFeverEffect) do
+        feverEffect:release()
+    end
+
+    self.m_lFeverEffect = {}
 end
 
 -------------------------------------
@@ -357,8 +410,8 @@ function GameFever:doAttack()
 
         local animator = MakeAnimator(res)
         animator:changeAni(aniName, false)
-        animator:setPosition(0, 0)
-        hero.m_rootNode:addChild(animator.m_node)
+        animator:setPosition(hero.pos.x, hero.pos.y)
+        world.m_feverNode:addChild(animator.m_node)
 
         local distance = getDistance(hero.pos.x, hero.pos.y, enemy.pos.x, enemy.pos.y)
         animator:setScale(distance / 1440)
@@ -367,7 +420,11 @@ function GameFever:doAttack()
         animator:setRotation(degree)
         
         local duration = animator:getDuration()
-        animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+        animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), 
+            cc.CallFunc:create(function() self.m_testCount = self.m_testCount - 1 end),
+        cc.RemoveSelf:create()))
+
+        self.m_testCount = self.m_testCount + 1
     end
 end
 
@@ -377,9 +434,9 @@ end
 -------------------------------------
 function GameFever:getRandomHero()
     if #self.m_tAttackOrder == 0 then
-        for i, dragon in ipairs(self.m_world.m_participants) do
-            if not dragon.m_bDead then
-                table.insert(self.m_tAttackOrder, dragon)
+        for i, hero in ipairs(self.m_world.m_participants) do
+            if not hero.m_bDead then
+                table.insert(self.m_tAttackOrder, hero)
             end
         end
 

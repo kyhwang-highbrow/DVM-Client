@@ -542,7 +542,7 @@ function Character:makeDamageEffectForFever(dmg_type, attr, x, y, dir, critical)
     local duration = effect:getDuration()
     effect:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
   
-    self.m_world:addChild3(effect.m_node, DEPTH_DAMAGE_EFFECT)
+    self.m_world.m_feverNode:addChild(effect.m_node, DEPTH_DAMAGE_EFFECT)
 end
 
 -------------------------------------
