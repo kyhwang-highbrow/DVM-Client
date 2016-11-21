@@ -496,9 +496,6 @@
     <None Include="..\src\DropHelper.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\DataEvolutionStone.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\ConstantAttribute.lua">
       <Filter>lua</Filter>
     </None>

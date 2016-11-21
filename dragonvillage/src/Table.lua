@@ -27,14 +27,10 @@ local TableInfo = {
         exp_tamer         = {'table_exp_tamer',             'lv_t',         false},
         item              = {'table_item',                  'item',         false},
         fruit             = {'table_fruit',                 'fid',          false},
-        fruit_upgrade     = {'table_fruit_upgrade',         'rarity',       false},
 
         friendship           = {'table_friendship',           'friendship',   false},
-        friendship_max_stats = {'table_friendship_max_stats', 'stat_type',    false},
 
         item_sort_by_type = {'table_item',                  'full_type',    false},
-        upgrade           = {'table_upgrade',               'rarity',       false},
-        evolution         = {'table_evolution',             'rarity',       false},
         shop              = {'table_shop',                  'product_id',   false},
         gacha             = {'table_gacha',                 'did',          false},
         first_reward      = {'table_first_reward',          'stage',        false},

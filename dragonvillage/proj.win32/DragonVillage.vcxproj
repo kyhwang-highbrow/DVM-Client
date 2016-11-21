@@ -296,7 +296,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Counter.lua" />
     <None Include="..\src\DamageCalc.lua" />
     <None Include="..\src\DataAdventure.lua" />
-    <None Include="..\src\DataEvolutionStone.lua" />
     <None Include="..\src\DataStamina.lua" />
     <None Include="..\src\DragonAutoSetHelper.lua" />
     <None Include="..\src\DragonCard.lua" />
