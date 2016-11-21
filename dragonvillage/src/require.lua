@@ -289,7 +289,6 @@ local t_module = {
     'UI_DragonManageEvolutionResult',
     'UI_DragonManagementFriendship',
     'UI_DragonManageFriendshipResult',
-    'UI_DragonCard',
     'UI_CharacterCard',
     'UI_SkillDetailPopup',
 

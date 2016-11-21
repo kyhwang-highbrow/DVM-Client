@@ -13,7 +13,7 @@ TABLE = {
 -------------------------------------
 local TableInfo = {
         --                 테이블명,                         키,             toString여부
-        dragon              = {'table_dragon',               'id',          false},
+        dragon              = {'table_dragon',               'did',         false},
         dragon_skill        = {'table_dragon_skill',         'id',          false},
         dragon_skill_modify = {'table_dragon_skill_modify', 'slid',         false},
         enemy             = {'table_monster',               'id',           false},
