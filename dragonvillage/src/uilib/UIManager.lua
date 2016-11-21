@@ -22,6 +22,9 @@ UIManager = {
     m_toastNotiTime = 'number',
     m_toastNotiLayer = 'cc.Node',
 
+	m_debugLayer = nil, --'cc.Node'
+	m_debugLabel = nil, --'cc.LabelTTF'
+
     m_topUserInfo = nil,
 }
 
@@ -29,7 +32,6 @@ UIManager = {
 -- function init
 -------------------------------------
 function UIManager:init(perple_scene)
-
     local scene = perple_scene.m_scene
 
     if self.m_scene then
@@ -62,6 +64,38 @@ function UIManager:init(perple_scene)
 end
 
 -------------------------------------
+-- function initDebugLayer
+-------------------------------------
+function UIManager:initDebugLayer()
+	-- debug 정보 표시 영역 초기화
+	local rect = cc.rect(0, 0, 0, 0)
+	self.m_debugLayer = cc.Scale9Sprite:create(rect, 'res/ui/toast_notification.png')
+	self.m_debugLayer:setDockPoint(cc.p(0.5, 0))
+    self.m_debugLayer:setAnchorPoint(cc.p(0.5, 0))
+	self.m_debugLayer:setNormalSize(320, 180)
+    self.m_debugLayer:setPositionY(10)
+	self.m_debugLayer:setOpacity(150)
+	self.m_scene:addChild(self.m_debugLayer, 21)
+
+	-- debug label
+	self.m_debugLabel = cc.Label:createWithTTF('----','res/font/common_font_01.ttf', 22, 1, cc.size(600, 50), 1, 1)
+	self.m_debugLabel:setDockPoint(cc.p(0.5, 0.5))
+    self.m_debugLabel:setAnchorPoint(cc.p(0.5, 0.5))
+	self.m_debugLayer:addChild(self.m_debugLabel)
+end
+
+-------------------------------------
+-- function removeDebugLayer
+-- @brief dubug 영역을 cleanUp() 호출 시 같이 내려준다.
+-------------------------------------
+function UIManager:removeDebugLayer()
+	if (self.m_debugLayer) then
+		self.m_debugLayer:removeFromParent(true)
+		self.m_debugLayer = nil
+	end
+end
+
+-------------------------------------
 -- function makeTopUserInfo
 -------------------------------------
 function UIManager:makeTopUserInfo()
@@ -80,6 +114,7 @@ function UIManager:cleanUp()
     for i = #self.m_uiList, 1, -1 do
         self.m_uiList[i]:close()
     end
+	self:removeDebugLayer()
 end
 
 -------------------------------------
@@ -371,16 +406,43 @@ function UIManager:sortToastNoti()
 end
 
 -------------------------------------
+-- function setDebugText
+-- @brief
+-------------------------------------
+function UIManager:setDebugText(str)
+	-- debug 영역이 없을 시 생성해준다.
+	if (not self.m_debugLayer) then
+		self:initDebugLayer()
+	end
+	-- @TODO 임시로 메모리값만 출력 .. 추후에 필요한것을 자유롭게 추가할 수 있도록 수정
+	if (str == 'memory') then 
+		str = string.format('on memory : %.2f MB', collectgarbage('count') / 1024) .. '\n' .. '_g count : ' .. table.count(_G)
+	end
+	-- set 
+	self.m_debugLabel:setString(str)
+end
+
+-------------------------------------
 -- function onKeyReleased
 -------------------------------------
 function UIManager:onKeyReleased(keyCode, event)
+	-- UI 클래스 이름 출력
 	if (keyCode == KEY_U) then
 		local last_ui = table.getLast(self.m_uiList)
 		local class_name = last_ui.m_uiName or 'Class 이름이 정의되지 않았습니다.'
 		self:toastNotificationGreen('## UI CLASS NAME : ' .. class_name)
+
+	-- ui 파일 이름 출력
 	elseif (keyCode == KEY_I) then
 		local last_ui = table.getLast(self.m_uiList)
 		local ui_name = last_ui.m_resName or 'ui 파일이 없습니다'
 		self:toastNotificationGreen('## UI FILE : ' .. ui_name)
+
+	-- debug 영역 활성화/비활성화
+	elseif (keyCode == KEY_G) then
+		DISPLAY_DEBUG_INFO = not DISPLAY_DEBUG_INFO
+		if (self.m_debugLayer) then
+			self.m_debugLayer:setVisible(DISPLAY_DEBUG_INFO)
+		end
 	end
 end

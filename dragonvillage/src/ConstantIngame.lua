@@ -61,3 +61,6 @@ PRINT_ATTACK_INFO = false
 
 -- # 보호막량을 인게임에 표시한다.
 DISPLAY_SHIELD_HP = false
+
+-- # 메모리 사용량 등 각종 디버깅 정보를 인게임에 출력한다
+DISPLAY_DEBUG_INFO = false
