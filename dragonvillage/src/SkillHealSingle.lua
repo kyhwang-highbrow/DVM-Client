@@ -53,22 +53,6 @@ function SkillHealSingle.st_idle(owner, dt)
 end
 
 -------------------------------------
--- function getDefaultTarget
--- @brief 디폴트 타겟을 반환한다.
--------------------------------------
-function SkillHealSingle:getDefaultTarget()
-	-- 타겟 설정
-	local formation_mgr = nil
-	local world = self.m_owner.m_world
-	if self.m_owner.m_bLeftFormation then
-		formation_mgr = world.m_leftFormationMgr
-	else
-		formation_mgr = world.m_rightFormationMgr
-	end
-	return formation_mgr:getRandomHealTarget()
-end
-
--------------------------------------
 -- function doHeal
 -------------------------------------
 function SkillHealSingle:doHeal()

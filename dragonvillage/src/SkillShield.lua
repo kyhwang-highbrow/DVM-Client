@@ -23,6 +23,8 @@ end
 -- function init_skill
 -------------------------------------
 function SkillShield:init_skill(active_rate, shield_hp_rate)
+	PARENT.init_skill(self)
+
 	-- 1. 발동 조건 (체력의 x % 소진시)
     local rate = (active_rate / 100)
     self.m_hpRange = self.m_owner.m_maxHp * rate

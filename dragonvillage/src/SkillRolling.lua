@@ -74,6 +74,8 @@ function SkillRolling:initState()
     self:addState('attack', SkillRolling.st_attack, 'idle', true)
 	self:addState('moveAttack', SkillRolling.st_move_attack, 'idle', true)
 	self:addState('comeback', SkillRolling.st_comeback, 'remove', true)
+
+	-- 영웅을 제어하는 스킬은 dying state를 별도로 정의 
     self:addState('dying', IStateDelegate.st_dying, nil, nil, 10)
 end
 
