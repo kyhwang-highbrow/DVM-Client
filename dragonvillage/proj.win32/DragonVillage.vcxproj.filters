@@ -355,9 +355,6 @@
     <None Include="..\src\UserData.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UserData_Cache.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\IconHelper.lua">
       <Filter>lua</Filter>
     </None>
@@ -449,9 +446,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\Stopwatch.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\SpecialPower.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\DataAdventure.lua">
@@ -653,9 +647,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\StatusEffect_CheckWorld.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\SpecialPowerLeon.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillDispelMagic.lua">

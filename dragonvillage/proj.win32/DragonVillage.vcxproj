@@ -455,8 +455,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SoundMgr.lua" />
     <None Include="..\src\SoundMgrController.lua" />
     <None Include="..\src\SoundMgrProtected.lua" />
-    <None Include="..\src\SpecialPower.lua" />
-    <None Include="..\src\SpecialPowerLeon.lua" />
     <None Include="..\src\StatusCalculator.lua" />
     <None Include="..\src\StatusCalculatorFormula.lua" />
     <None Include="..\src\StatusEffect.lua" />
@@ -556,7 +554,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_Tooltip_Skill.lua" />
     <None Include="..\src\UI_TopUserInfo.lua" />
     <None Include="..\src\UserData.lua" />
-    <None Include="..\src\UserData_Cache.lua" />
     <None Include="..\src\ValidationAssistant.lua" />
     <None Include="..\src\ValidationDragon.lua" />
     <None Include="..\src\WaveMgr.lua" />
