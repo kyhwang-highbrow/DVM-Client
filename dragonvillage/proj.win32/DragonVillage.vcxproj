@@ -330,7 +330,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\IconHelper.lua" />
     <None Include="..\src\IEventDispatcher.lua" />
     <None Include="..\src\ITopUserInfo_EventListener.lua" />
-    <None Include="..\src\Laser.lua" />
     <None Include="..\src\LaserMissile.lua" />
     <None Include="..\src\LevelupDirector.lua" />
     <None Include="..\src\LevelupDirector_GameResult.lua" />
@@ -365,7 +364,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_User.lua" />
     <None Include="..\src\SkillHitEffectDirector.lua" />
     <None Include="..\src\SkillLaser.lua" />
-    <None Include="..\src\SkillProtection_Spread.lua" />
+    <None Include="..\src\SkillGuardian.lua" />
     <None Include="..\src\SkillRay.lua" />
     <None Include="..\src\LinkEffect.lua" />
     <None Include="..\src\main.lua" />
@@ -426,21 +425,16 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillAddAttack.lua" />
     <None Include="..\src\SkillAoERound.lua" />
     <None Include="..\src\SkillAttributeAmor.lua" />
-    <None Include="..\src\SkillBuff.lua" />
+    <None Include="..\src\SkillThrowBuff.lua" />
     <None Include="..\src\SkillConicAtk_Spread.lua" />
     <None Include="..\src\SkillCounterAttack.lua" />
-    <None Include="..\src\SkillDarkLightning.lua" />
     <None Include="..\src\SkillDispelMagic.lua" />
     <None Include="..\src\SkillExplosion.lua" />
-    <None Include="..\src\SkillBulletHole.lua" />
-    <None Include="..\src\SkillChainLightning.lua" />
     <None Include="..\src\SkillConicAtk.lua" />
     <None Include="..\src\SkillCrash.lua" />
-    <None Include="..\src\SkillCurve.lua" />
-    <None Include="..\src\SkillDeepStab.lua" />
     <None Include="..\src\SkillHealAround.lua" />
     <None Include="..\src\SkillHealingWind.lua" />
-    <None Include="..\src\SkillHealTarget.lua" />
+    <None Include="..\src\SkillHealSingle.lua" />
     <None Include="..\src\SkillIndicator.lua" />
     <None Include="..\src\SkillIndicatorMgr.lua" />
     <None Include="..\src\SkillIndicator_AoERound.lua" />
@@ -456,7 +450,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillIndicator_Tamer.lua" />
     <None Include="..\src\SkillIndicator_Target.lua" />
     <None Include="..\src\SkillLeafBlade.lua" />
-    <None Include="..\src\SkillLeonBasic.lua" />
     <None Include="..\src\SkillMeleeHack.lua" />
     <None Include="..\src\SkillMeleeHack_Specific.lua" />
     <None Include="..\src\SkillProtection.lua" />
@@ -499,7 +492,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TamerSkillManager.lua" />
     <None Include="..\src\TamerSkillSystem.lua" />
     <None Include="..\src\TamerSpeechSystem.lua" />
-    <None Include="..\src\Thunder.lua" />
     <None Include="..\src\TriggerHpPercent.lua" />
     <None Include="..\src\UIC_Button.lua" />
     <None Include="..\src\UIC_Node.lua" />
