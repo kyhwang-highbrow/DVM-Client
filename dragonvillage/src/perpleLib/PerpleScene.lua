@@ -269,8 +269,7 @@ function PerpleScene:onEnter()
         end
 
 		if DISPLAY_DEBUG_INFO then 
-			local str = string.format('on memory : %.2f MB', collectgarbage('count') / 1024) .. '\n' .. '_g count : ' .. table.count(_G)
-			UIManager:setDebugText(str)
+			UIManager:setDebugText('memory')
 		end
     end
     self.m_scene:scheduleUpdateWithPriorityLua(update, 0)
