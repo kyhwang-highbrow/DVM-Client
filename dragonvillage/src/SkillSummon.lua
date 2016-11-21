@@ -29,7 +29,7 @@ end
 -------------------------------------
 function SkillSummon:initState()
 	self:setCommonState(self)
-    self:addState('idle', SkillSummon.st_idle, 'idle', true)
+    self:addState('start', SkillSummon.st_idle, 'idle', true)
 end
 
 -------------------------------------

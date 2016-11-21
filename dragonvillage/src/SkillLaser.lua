@@ -121,10 +121,9 @@ end
 -- function initState
 -------------------------------------
 function SkillLaser:initState()
-    self:addState('idle', SkillLaser.st_idle, 'idle', true)
+	self:setCommonState(self)
+    self:addState('start', SkillLaser.st_idle, 'idle', true)
     self:addState('disappear', SkillLaser.st_disappear, 'idle', true)
-    self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
-    self:changeState('idle')
 end
 
 -------------------------------------
@@ -253,7 +252,7 @@ function SkillLaser:makeSkillInstance(owner, t_skill, t_data)
 	skill:initState()
 
 	-- 3. state 시작 
-    skill:changeState('idle')
+    skill:changeState('delay')
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world

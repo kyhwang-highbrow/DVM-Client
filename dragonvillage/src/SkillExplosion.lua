@@ -63,13 +63,12 @@ end
 -- function initState
 -------------------------------------
 function SkillExplosion:initState()
-	-- @TODO state 관련해서 접근하는 부모 클래스가 많다보니 중첩되는 문제가 생긴다. 다른 방식으로 정리가 필요
-	PARENT.initState(self)
 	self:setCommonState(self)
-	self:addState('delay', SkillExplosion.st_delay, 'move', true)
     self:addState('start', SkillExplosion.st_move, 'move', true)
     self:addState('attack', SkillExplosion.st_attack, 'idle', false)
 	self:addState('comeback', SkillExplosion.st_comeback, 'move', true)
+	
+	-- 영웅을 제어하는 스킬은 dying state를 별도로 정의
 	self:addState('dying', IStateDelegate.st_dying, nil, nil, 10)
 end
 

@@ -44,7 +44,6 @@ end
 function SkillHealingWind:initState()
 	self:setCommonState(self)
     self:addState('start', SkillHealingWind.st_attack, 'tornado', true)
-    self:addState('dying', function(owner, dt) return true end, nil, nil, 10)
 end
 
 -------------------------------------
