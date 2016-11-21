@@ -218,6 +218,7 @@ function Character.st_casting(owner, dt)
             local rarity = owner.m_charTable['rarity']
             if rarity == 'boss' or rarity == 'subboss' or rarity == 'elite' then
                 scale = 2
+				offsetX = offsetX * 2
             end
 
             if rarity == 'boss' or rarity == 'subboss' then
