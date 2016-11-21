@@ -63,8 +63,10 @@ function UI_CharacterCard:refreshDragonInfo()
     end
 
     do -- 등급 아이콘 생성
-        local res = 'character_card_star0' .. t_dragon_data['grade'] .. '.png'
-        self:makeStarIcon(res)
+        if t_dragon_data['grade'] then
+            local res = 'character_card_star0' .. t_dragon_data['grade'] .. '.png'
+            self:makeStarIcon(res)
+        end
     end
 
     do -- 레벨 지정
@@ -325,4 +327,17 @@ end
 
 function UI_DragonCard(t_dragon_data)
     return UI_CharacterCard(t_dragon_data)
+end
+
+-------------------------------------
+-- function MakeSimpleDragonCard
+-------------------------------------
+function MakeSimpleDragonCard(did)
+    local t_dragon_data = {}
+    t_dragon_data['did'] = did
+    t_dragon_data['lv'] = nil
+    t_dragon_data['evolution'] = 3
+    t_dragon_data['grade'] = nil
+
+    return UI_DragonCard(t_dragon_data)
 end
