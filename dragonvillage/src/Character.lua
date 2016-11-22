@@ -176,10 +176,12 @@ function Character:initStatus(t_char, level, grade, evolution, doid)
     local grade = (grade or 1)
     local evolution = (evolution or 1)
 
-    if isExistValue(self.m_charType, 'dragon') then
+    if (self.m_charType == 'dragon') then
        self.m_statusCalc = MakeOwnDragonStatusCalculator(doid)
-    elseif isExistValue(self.m_charType, 'enemy', 'tamer') then
-        self.m_statusCalc = StatusCalculator(self.m_charType, self.m_charTable['id'], level, grade, evolution)
+    elseif (self.m_charType == 'enemy') then
+        self.m_statusCalc = StatusCalculator(self.m_charType, self.m_charTable['mid'], level, grade, evolution)
+    else
+        error('self.m_charType : ' .. self.m_charType)
     end
 
     local hp = self.m_statusCalc:getFinalStat('hp')

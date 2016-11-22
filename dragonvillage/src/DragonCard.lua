@@ -152,7 +152,7 @@ function DragonCard:makeDragonCardUI()
     end
 
     do -- 드래곤 이름
-        self.m_uiNameIcon = IconHelper:getDragonNamePng(t_dragon['id'])
+        self.m_uiNameIcon = IconHelper:getDragonNamePng(t_dragon['did'])
         self.m_uiNameIcon:setPosition(0, -215)
         self.m_uiRoot:addChild(self.m_uiNameIcon)
     end

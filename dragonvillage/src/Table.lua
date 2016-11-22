@@ -13,13 +13,13 @@ TABLE = {
 -------------------------------------
 local TableInfo = {
         --                 테이블명,                         키,             toString여부
-        dragon              = {'table_dragon',               'did',         false},
-        dragon_skill        = {'table_dragon_skill',         'id',          false},
+        dragon              = {'table_dragon',              'did',          false},
+        dragon_skill        = {'table_dragon_skill',        'sid',          false},
         dragon_skill_modify = {'table_dragon_skill_modify', 'slid',         false},
-        enemy             = {'table_monster',               'id',           false},
-        enemy_skill       = {'table_monster_skill',         'id',           false},
-        tamer             = {'table_tamer',                 'id',           false},
-        tamer_skill       = {'table_tamer_skill',           'id',           false},
+        enemy             = {'table_monster',               'mid',          false},
+        enemy_skill       = {'table_monster_skill',         'sid',          false},
+        tamer             = {'table_tamer',                 'tid',          false},
+        tamer_skill       = {'table_tamer_skill',           'sid',          false},
         skill_target      = {'table_skill_target',          'type',         false},
         drop              = {'table_drop',                  'stage',        false},
         stage_desc        = {'table_stage_desc',            'stage',        false},
@@ -27,22 +27,21 @@ local TableInfo = {
         exp_tamer         = {'table_exp_tamer',             'lv_t',         false},
         item              = {'table_item',                  'item',         false},
         fruit             = {'table_fruit',                 'fid',          false},
-
-        friendship           = {'table_friendship',           'friendship',   false},
+        friendship        = {'table_dragon_friendship',     'friendship',   false},
 
         item_sort_by_type = {'table_item',                  'full_type',    false},
         shop              = {'table_shop',                  'product_id',   false},
-        gacha             = {'table_gacha',                 'did',          false},
+        gacha             = {'table_dragon_gacha',          'did',          false},
         first_reward      = {'table_first_reward',          'stage',        false},
         attribute         = {'table_attribute',             'attr_id',      false},
         status            = {'table_status',                'type',         false},
         status_effect     = {'table_status_effect',         'name',         false},
 
         -- 드래곤 관리 관련
-        grade_info           = {'table_grade_info',            'grade',        false},
-        dragon_evolution     = {'table_dragon_evolution',      'did',          false},
-        evolution_item       = {'table_evolution_item',        'item_id',      false},
-        friendship_variables = {'table_friendship_variables',  'vari',         false},
+        grade_info           = {'table_dragon_grade_info',  'grade',        false},
+        dragon_evolution     = {'table_dragon_evolution',    'did',          false},
+        evolution_item       = {'table_dragon_evolution_item',        'item_id',      false},
+        friendship_variables = {'table_dragon_friendship_variables',  'vari',         false},
         
     }
 

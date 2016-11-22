@@ -25,7 +25,7 @@ function SkillIndicator_Tamer:onEnterAppear()
 
         for _,char in pairs(world.m_lDragonList) do
             if (char.m_charType == 'dragon') then
-                local dragon_id = char.m_charTable['id']
+                local dragon_id = char.m_charTable['did']
 
                 local t_friendship_data, t_friendship = g_friendshipData:getFriendship(dragon_id)
                 --ccdump(t_friendship_data)

@@ -60,7 +60,7 @@ function SkillMeleeHack_Specific:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
 	local move_speed = t_skill['val_1'] or 1500
     local comeback_speed = t_skill['val_2'] or 1500
-	local skill_id = t_skill['id']
+	local skill_id = t_skill['sid']
 
 	-- 인스턴스 생성부
 	------------------------------------------------------

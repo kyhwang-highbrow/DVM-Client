@@ -75,7 +75,7 @@ function TamerSkillManager:getTargetList(t_skill)
 		l_target = table.merge(world:getCharList('ally'), world:getCharList('enemy'))
 		target_cnt = 5
 	else
-		error('테이머 스킬 대상 로직1이 잘못되었습니다. 확인해주세요\nid : ' .. t_skill['id'] .. ' target logic : ' .. target_team)
+		error('테이머 스킬 대상 로직1이 잘못되었습니다. 확인해주세요\nid : ' .. t_skill['sid'] .. ' target logic : ' .. target_team)
 	end
 
 	-- 2. 타겟의 기준 status 가 x라면 이후 로직도 볼 필요 없으므로 리턴

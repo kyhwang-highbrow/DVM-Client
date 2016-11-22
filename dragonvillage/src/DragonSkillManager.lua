@@ -334,13 +334,13 @@ function IDragonSkillManager:printSkillManager()
 	for type, skill in pairs(self.m_lSkillIndivisualInfo) do
 		if isExistValue(type, 'active', 'basic') then
 			if self.m_lSkillIndivisualInfo[type] then
-				cclog('type : ' .. type, 'skill : ' .. skill.m_tSkill['id'] .. skill.m_tSkill['t_name'] .. ' lv.' .. skill.m_skillLevel)
+				cclog('type : ' .. type, 'skill : ' .. skill.m_tSkill['sid'] .. skill.m_tSkill['t_name'] .. ' lv.' .. skill.m_skillLevel)
 			end
 		else
 			if (skill[1]) then 
 				cclog('type : ' .. type, '')
 				for i, skill2 in pairs(skill) do
-					cclog('--> no.' .. i .. ' : ' .. skill2.m_tSkill['id'] .. skill2.m_tSkill['t_name'] .. ' lv.' .. skill2.m_skillLevel)
+					cclog('--> no.' .. i .. ' : ' .. skill2.m_tSkill['sid'] .. skill2.m_tSkill['t_name'] .. ' lv.' .. skill2.m_skillLevel)
 				end
 			end
 		end

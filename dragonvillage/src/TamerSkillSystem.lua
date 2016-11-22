@@ -48,7 +48,7 @@ end
 -------------------------------------
 function TamerSkillSystem:initTamerSkillBtn(i)
     local ui = self.m_world.m_inGameUI
-	local skill_id = self.m_world.m_tamerSkillMgr.m_skill_list[i]['id']
+	local skill_id = self.m_world.m_tamerSkillMgr.m_skill_list[i]['sid']
 
 	-- 1. 살짝 순차적으로 활성화
     self.m_lTamerSkillCoolTime[i] = ((2/30) * i) 
@@ -78,7 +78,7 @@ end
 function TamerSkillSystem:initTamerSpecialSkillBtn()
 	local idx = 4
 	local ui = self.m_world.m_inGameUI
-	local skill_id = self.m_world.m_tamerSkillMgr.m_skill_list[idx]['id']
+	local skill_id = self.m_world.m_tamerSkillMgr.m_skill_list[idx]['sid']
 
 	-- 2. 버튼 핸들러 등록, 누르고 있으면 툴팁
     ui.vars['specialSkillBtn']:registerScriptTapHandler(function() self:click_specialSkillBtn() end)
@@ -111,7 +111,7 @@ function TamerSkillSystem:click_tamerSkillBtn(idx, b)
     
 	-- 1. 사용할 스킬 테이블 가져온다.
     local t_skill = self.m_world.m_tamerSkillMgr.m_skill_list[idx]
-    local skill_id = t_skill['id']
+    local skill_id = t_skill['sid']
 
 	-- 2. 쿨타임을 계산하여 처리
     local remain_time = math_max(self.m_lTamerSkillCoolTime[idx], self.m_tamerSkillCooltimeGlobal)

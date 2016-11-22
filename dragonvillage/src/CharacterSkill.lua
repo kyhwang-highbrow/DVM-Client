@@ -163,7 +163,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
             return true
             
 		elseif (type == 'skill_melee_atk') then
-			if isExistValue(t_skill['id'], 210982, 210112, 210212) then -- 램곤, 애플칙, 붐버
+			if isExistValue(skill_id, 210982, 210112, 210212) then -- 램곤, 애플칙, 붐버
 				SkillMeleeHack_Specific:makeSkillInstance(self, t_skill, t_data)
 			else
 				SkillMeleeHack:makeSkillInstance(self, t_skill, t_data)
@@ -262,7 +262,7 @@ function Character:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_da
     end
 
     -- AttackDamage 생성
-    local activity_carrier = self:makeAttackDamageInstance(t_skill['id'])
+    local activity_carrier = self:makeAttackDamageInstance(t_skill['sid'])
     activity_carrier:insertStatusEffectRate({t_skill['status_effect_1'], t_skill['status_effect_2']})
 
     missile_launcher.m_bHeroMissile = is_hero
