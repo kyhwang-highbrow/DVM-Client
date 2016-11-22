@@ -267,10 +267,6 @@ function PerpleScene:onEnter()
         if g_userDataOld then
             g_userDataOld:update(dt)
         end
-
-		if DISPLAY_DEBUG_INFO then 
-			UIManager:setDebugText('memory')
-		end
     end
     self.m_scene:scheduleUpdateWithPriorityLua(update, 0)
 end

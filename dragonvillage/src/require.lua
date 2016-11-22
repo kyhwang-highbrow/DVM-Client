@@ -245,6 +245,7 @@ local t_module = {
     'UI_GameResultNew',
     'UI_GamePause',
     'UI_GameDebug',
+	'UI_GameDebug_RealTime',
     'UI_ReadyScene',
     'UI_ReadyScene_Deck',
     'UI_AdventureSceneNew',
