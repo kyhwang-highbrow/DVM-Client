@@ -1,4 +1,4 @@
-stage,difficult,chapter_info,stage_info,reward_1,value_1,reward_2,value_2,reward_3,value_3,reward_4,value_4
+stage,r_difficult,r_chapter_info,r_stage_info,reward_1,value_1,reward_2,value_2,reward_3,value_3,reward_4,value_4
 11012,easy,챕터1,스테이지2,700002,1,701111,5,703001,20,702013,10
 11014,easy,챕터1,스테이지4,770191,1,701111,5,703001,20,702012,10
 11016,easy,챕터1,스테이지6,700002,1,701111,5,703001,20,702011,10

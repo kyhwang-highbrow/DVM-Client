@@ -2,7 +2,7 @@
 	"pattern_subboss_griffin":
 	[			
 		[
-			"a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;2", "w;1", "a;1", "w;1"
+			"a;basic", "w;4", "a;basic", "w;4", "a;1", "w;3"
 		]
     ],
 	
@@ -15,7 +15,7 @@
                 "hp_percent":50,
                 "pattern":
                 [
-					"a;1", "w;1", "a;basic", "w;1", "a;3", "w;1", "a;basic", "w;1", "a;3", "w;1"
+					"a;1", "w;2", "a;basic", "w;2", "a;2", "w;2", "a;basic", "w;4", "a;1", "w;2"
                 ]
             },
 			
@@ -23,7 +23,7 @@
                 "hp_percent":25,
                 "pattern":
                 [
-					"a;2", "a;5", "a;5", "w;5", "a;2", "a;2", "w;2"
+					"a;2", "a;3", "a;1", "w;5", "a;2", "a;2", "w;2"
 				]
             }
         ]

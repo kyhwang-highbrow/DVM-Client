@@ -2,7 +2,7 @@
 	"pattern_subboss_mushqueen":
 	[				
 		[
-			"w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1" 
+			"a;basic", "w;2", "a;basic", "w;2", "a;3", "w;3", "a;1", "w;2"
 		]
     ],
 	
@@ -15,7 +15,8 @@
                 "hp_percent":50,
                 "pattern":
                 [                    
-                    "m;RB24;300", "a;2", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1"
+                    "a;1", "w;3",
+					"a;basic", "w;2", "a;basic", "w;2", "a;3", "w;2"
                 ]
             },
 			
@@ -23,7 +24,8 @@
                 "hp_percent":25,
                 "pattern":
                 [
-					"m;RM24;300", "a;4", "w;3", "a;3", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1"
+					"a;3", "w;3", "a;1", "w;5",
+					"a;basic", "w;2", "a;basic", "w;2"
                 ]
             }
         ]

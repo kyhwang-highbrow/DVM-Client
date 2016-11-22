@@ -1,4 +1,4 @@
-vari,value,desc
+vari,value,r_desc
 identical_coef,0.5,용과 속성이 같은 열매를 먹였을 경우 상승하는 비율
 hp_cap,10000,친밀도로 인한 hp의 최대 상승량
 def_cap,2000,친밀도로 인한 def의 최대 상승량
