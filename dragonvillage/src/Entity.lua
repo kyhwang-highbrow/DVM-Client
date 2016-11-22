@@ -133,12 +133,6 @@ function Entity:release()
     self.m_rootNode = nil
 
     if self.m_motionStreak then
-		--[[
-        local function removeThis(node)
-            node:removeFromParent(true)
-        end
-        self.m_motionStreak:runAction(cc.Sequence:create(cc.DelayTime:create(0.001), cc.CallFunc:create(removeThis)))
-        ]]
 		self.m_motionStreak:removeFromParent(true)
 		self.m_motionStreak = nil
     end

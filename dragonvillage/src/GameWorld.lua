@@ -1379,7 +1379,7 @@ end
 -- @breif 메모리 체크 중에 게임 월드 해제가 제대로 안되는가 하여 만듬
 -------------------------------------
 function GameWorld:releaseAll()
-
+	-- unit 리스트를 통해 한방에 삭제
 	self:cleanupUnit()
     self.m_lUnitList = nil
 	self.m_lSkillList = nil
@@ -1389,33 +1389,61 @@ function GameWorld:releaseAll()
     self.m_lDragonList = nil
     self.m_participants = nil
     
+	-- 저위험군
     self.m_stageName = nil
     self.m_stageID = nil
-    self.m_inGameUI = nil
-    self.m_worldLayer = nil
+    self.m_worldSize = nil
+    self.m_worldScale = nil
+    self.m_worldScaleRealtime = nil
+    self.m_bDebugGrid = nil
+    self.m_missileRange = nil
+    self.m_bDevelopMode = nil
+    self.m_lWorldScaleChangeCB = nil
+    self.m_currFocusingDragon = nil
+    self.m_bPreventControl = nil
+    self.m_formationDebugNode = nil
+    self.m_dropGoldList = nil
+    self.m_dropGoldIdx = nil
+    self.m_touchMotionStreak = nil
+    self.m_touchPrevPos = nil
+    self.m_tCollisionTime = nil
+    self.m_goldUnit = nil
+    self.m_gold = nil
+    self.m_lPassiveEffect = nil
+
+	-- node들은 따로 remove 안해줘도 될듯
+	self.m_worldLayer = nil
     self.m_gameNode1 = nil
     self.m_gameNode2 = nil
     self.m_gameNode3 = nil
     self.m_feverNode = nil
-    self.m_bDevelopMode = nil
-    self.m_bPreventControl = nil
+    self.m_gridNode = nil
     self.m_bgNode = nil
     self.m_groundNode = nil
-    self.m_gridNode = nil
     self.m_worldNode = nil
-    self.m_missiledNode = nil
-    self.m_physWorld = nil
-	self.m_missileFactory = nil
-    self.m_worldSize = nil
-    self.m_worldScale = nil
-    self.m_worldScaleRealtime = nil
+    self.m_missiledNode = nil	
+    
+	-- 의심만 가는 정도 
+	self.m_waveMgr = nil
     self.m_gameState = nil
     self.m_gameFever = nil
     self.m_gameCamera = nil
     self.m_gameTimeScale = nil
-    self.m_missileRange = nil
-    self.m_lWorldScaleChangeCB = nil
-    self.m_touchPrevPos = nil
-    self.m_tCollisionTime = nil
-    self.m_lPassiveEffect = nil
+
+    self.m_missileFactory = nil
+    self.m_mapManager = nil
+    self.m_physWorld = nil
+	   
+	-- 특별 관리
+	self.m_inGameUI:close()
+	self.m_inGameUI = nil
+
+	self.m_leftFormationMgr = nil
+    self.m_rightFormationMgr = nil
+    self.m_skillIndicatorMgr = nil 
+	
+    self.m_tamerSkillSystem = nil
+    self.m_tamerSkillCut = nil
+    self.m_tamerSkillMgr = nil
+    self.m_tamerSpeechSystem = nil
 end
