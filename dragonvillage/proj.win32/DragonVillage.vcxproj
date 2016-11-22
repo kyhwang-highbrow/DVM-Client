@@ -522,6 +522,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_FruitFeedPress.lua" />
     <None Include="..\src\UI_Game.lua" />
     <None Include="..\src\UI_GameDebug.lua" />
+    <None Include="..\src\UI_GameDebug_RealTime.lua" />
     <None Include="..\src\UI_GamePause.lua" />
     <None Include="..\src\UI_GameResultNew.lua" />
     <None Include="..\src\UI_GuidePopup.lua" />
