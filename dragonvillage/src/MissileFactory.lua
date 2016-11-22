@@ -360,6 +360,12 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 			missile.m_addScriptStart = add_script_start
 			missile.m_addScriptTerm = add_script_term
 			missile.m_addScriptMax = add_script_max
+			missile.m_lAddScriptTime = {}
+			local time = 0
+			for i = 1, add_script_max do
+				time = add_script_start + (i-1)*add_script_term
+				table.insert(missile.m_lAddScriptTime, time)
+			end
 		end
 
         -- Visual명 변경

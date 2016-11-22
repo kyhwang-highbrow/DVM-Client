@@ -110,7 +110,7 @@ function MissileLauncher:init_missileLauncherByScript(script_data, object_key, a
     self:addState('dying', function(owner, dt) return true end, nil, true, 3)
     self:changeState('attack')
     
-    self.m_tAttackValueBase = script_data
+    self.m_tAttackValueBase = script_data or {}
 	    
     -- 탄막 관련
     self.m_tAttackPattern = {}

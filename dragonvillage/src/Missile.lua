@@ -64,6 +64,7 @@ Missile = class(PARENT, {
 		m_addScriptStart = '',
 		m_addScriptTerm = '',
 		m_addScriptMax = '',
+		m_lAddScriptTime = 'list',
 		m_fireCnt = '',
      })
 
@@ -496,20 +497,22 @@ function Missile:updateMissileOption(dt)
 
 	-- 미사일이 미사일을 쏜다ㅏ아아아아ㅏ
 	if (self.m_addScript) then
-		-- 0. 특정 타임 마다 발사
-		if(self.m_stateTimer > self.m_addScriptStart + self.m_addScriptTerm * self.m_fireCnt) then 
-			-- 1. 발사!
-			self:fireAddScriptMissile()
-			self.m_fireCnt = self.m_fireCnt + 1
-
-			-- 2. 최대발사수가 -1인 경우에는 제한 없이 발사하게 된다.
-			if (self.m_addScriptMax ~= -1) then
-				-- 2-1. 최대 발사 수 도달 시 스크립트를 지워 처리
-				if (self.m_fireCnt >= self.m_addScriptMax) then 
-					self.m_addScript = nil
+		-- 0. 미리 구한 add missile time list 를 돌면서 시간이 지난 탄을 발사한다
+		for i, time in ipairs(self.m_lAddScriptTime) do
+			if (self.m_stateTimer > time) then 
+				-- 1. 발사!
+				self:fireAddScriptMissile()
+				self.m_fireCnt = self.m_fireCnt + 1
+				table.remove(self.m_lAddScriptTime, i)
+				-- 2. 최대발사수가 -1인 경우에는 제한 없이 발사하게 된다.
+				if (self.m_addScriptMax ~= -1) then
+					-- 2-1. 최대 발사 수 도달 시 스크립트를 지워 처리
+					if (self.m_fireCnt >= self.m_addScriptMax) then 
+						self.m_addScript = nil
+						break
+					end
 				end
 			end
-
 		end
 	end
     return false
