@@ -44,14 +44,18 @@ function AnimatorSpine:changeAni(animation_name, loop, checking)
 
     if (not checking) then
         if animation_name then
-            self.m_node:setAnimation(0, animation_name, loop)
+            if (not self.m_node:setAnimation(0, animation_name, loop)) then
+                self.m_node:setAnimation(0, self.m_defaultAniName, loop)
+            end
             self.m_node:setToSetupPose()
             self.m_node:update(0)
         end
         self.m_currAnimation = animation_name
     else
         if animation_name and (self.m_currAnimation ~= animation_name) then
-            self.m_node:setAnimation(0, animation_name, loop)
+            if (not self.m_node:setAnimation(0, animation_name, loop)) then
+                self.m_node:setAnimation(0, self.m_defaultAniName, loop)
+            end
             self.m_node:setToSetupPose()
             self.m_node:update(0)
         end

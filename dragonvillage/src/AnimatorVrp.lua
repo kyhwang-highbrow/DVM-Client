@@ -43,28 +43,16 @@ function AnimatorVrp:changeAni(animation_name, loop, checking)
 
     if (not checking) then
         if animation_name then
-
-            -- 앞모습 먼저(임시)
-            if not self.m_node:setVisual('group', animation_name .. '_f') then
-                if not self.m_node:setVisual('group', animation_name) then
-                    if not self.m_node:setVisual('group', 'idle') then
-                        self.m_node:setVisual('group', 'idle_f')
-                    end
-                end
+            if (not self.m_node:setVisual('group', animation_name)) then
+                self.m_node:setVisual('group', self.m_defaultAniName)
             end
             self.m_node:setRepeat(loop)
         end
         self.m_currAnimation = animation_name
     else
         if animation_name and (self.m_currAnimation ~= animation_name) then
-
-            -- 앞모습 먼저(임시)
-            if not self.m_node:setVisual('group', animation_name .. '_f') then
-                if not self.m_node:setVisual('group', animation_name) then
-                    if not self.m_node:setVisual('group', 'idle') then
-                        self.m_node:setVisual('group', 'idle_f')
-                    end
-                end
+            if (not self.m_node:setVisual('group', animation_name)) then
+                self.m_node:setVisual('group', self.m_defaultAniName)
             end
             self.m_node:setRepeat(loop)
         end

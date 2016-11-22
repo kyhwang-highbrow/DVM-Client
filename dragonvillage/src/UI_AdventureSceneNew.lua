@@ -1,3 +1,12 @@
+local T_CHAPTER_MAP_RES = {}
+T_CHAPTER_MAP_RES[1] = 'res/bg/map_forest/map_forest.vrp'
+T_CHAPTER_MAP_RES[2] = 'res/bg/map_ocean/map_ocean.vrp'
+T_CHAPTER_MAP_RES[3] = 'res/bg/world_map/chapter_03.png'
+T_CHAPTER_MAP_RES[4] = 'res/bg/world_map/chapter_03.png'
+T_CHAPTER_MAP_RES[5] = 'res/bg/world_map/chapter_03.png'
+T_CHAPTER_MAP_RES[6] = 'res/bg/world_map/chapter_03.png'
+
+
 -------------------------------------
 -- class UI_AdventureSceneNew
 -------------------------------------
@@ -212,10 +221,21 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
 
     do -- 챕터 배경
         vars['chapterNode']:removeAllChildren()
-        local bg = cc.Sprite:create('res/bg/world_map/chapter_0' .. chapter .. '.png')
-        bg:setDockPoint(cc.p(0.5, 0.5))
-        bg:setAnchorPoint(cc.p(0.5, 0.5))
-        vars['chapterNode']:addChild(bg)
+        local res = T_CHAPTER_MAP_RES[chapter]
+        local animator = MakeAnimator(res)
+        animator:setDefaultAniName('easy')
+        if (self.m_currDifficulty == 1) then
+            animator:changeAni('easy', true)
+        elseif (self.m_currDifficulty == 2) then
+            animator:changeAni('normal', true)
+        elseif (self.m_currDifficulty == 3) then
+            animator:changeAni('hard', true)
+        else
+            error('self.m_currDifficulty : ' .. self.m_currDifficulty)
+        end
+        animator:setDockPoint(cc.p(0.5, 0.5))
+        animator:setAnchorPoint(cc.p(0.5, 0.5))
+        vars['chapterNode']:addChild(animator.m_node)
     end
 
     self.m_lStageButton = {}

@@ -12,7 +12,8 @@ Animator = class({
         m_currAnimation = 'string',
         m_bFlip = 'boolean',
 
-        m_aniName = '',
+        m_defaultAniName = 'string',
+        m_aniName = 'string',
         m_posX = 'number',
         m_posY = 'number',
     })
@@ -21,6 +22,7 @@ Animator = class({
 -- function init
 -------------------------------------
 function Animator:init(file_name)
+    self.m_defaultAniName = 'idle'
     self.m_resName = file_name
     self.m_bFlip = false
 end
@@ -29,6 +31,13 @@ end
 -- function setSkin
 -------------------------------------
 function Animator:setSkin(skin_name)
+end
+
+-------------------------------------
+-- function setDefaultAniName
+-------------------------------------
+function Animator:setDefaultAniName(ani_name)
+    self.m_defaultAniName = ani_name
 end
 
 -------------------------------------
