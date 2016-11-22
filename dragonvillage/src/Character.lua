@@ -1446,8 +1446,8 @@ function Character:animatorFloating()
     end
 
     local sequence = cc.Sequence:create(
-        cc.MoveTo:create(math_random(5, 15) * 0.1, cc.p(math_random(-5, 5), math_random(-10, -5))),
-        cc.MoveTo:create(math_random(5, 15) * 0.1, cc.p(math_random(-5, 5), math_random(5, 10)))
+        cc.MoveTo:create(math_random(5, 15) * 0.1, cc.p(math_random(-CHARACTER_FLOATING_MAX_X_SCOPE, -CHARACTER_FLOATING_MIN_X_SCOPE), math_random(-CHARACTER_FLOATING_MAX_Y_SCOPE, -CHARACTER_FLOATING_MIN_Y_SCOPE))),
+        cc.MoveTo:create(math_random(5, 15) * 0.1, cc.p(math_random(CHARACTER_FLOATING_MIN_X_SCOPE, CHARACTER_FLOATING_MAX_X_SCOPE), math_random(CHARACTER_FLOATING_MIN_Y_SCOPE, CHARACTER_FLOATING_MAX_Y_SCOPE)))
     )
 
     local action = cc.RepeatForever:create(sequence)

@@ -28,6 +28,9 @@ MAP_SCROLL_SPEED_DOWN_ACCEL = 350
 -- # 테이머 스킬 글로벌 쿨타임
 TAMER_SKILL_GLOBAL_COOLTIME = 1
 
+--------------------------------------------
+-- 피버모드
+--------------------------------------------
 -- #  피버모드 지속 시간
 FEVER_KEEP_TIME = 6
 
@@ -41,6 +44,21 @@ GOOD_SKILL_CANCEL_FEVER_POINT = 15
 
 -- #  피버모드 데미지 배율
 FEVER_ATTACK_DAMAGE_RATE = 0.8
+
+--------------------------------------------
+-- 인게임 Flow 연출
+--------------------------------------------
+-- #  드래곤/몬스터 배치 후 흔들림 랜덤 범위(- ~ +)
+CHARACTER_FLOATING_MIN_X_SCOPE = 5
+CHARACTER_FLOATING_MAX_X_SCOPE = 8
+CHARACTER_FLOATING_MIN_Y_SCOPE = 14
+CHARACTER_FLOATING_MAX_Y_SCOPE = 20
+
+-- # 배경 백판 floating 흔들림 범위(- ~ +)
+MAP_FLOATING_Y_SCOPE = 8
+
+-- # 배경 백판 floating 회전 범위(- ~ +)
+MAP_FLOATING_ROTATE_SCOPE = 1
 
 --------------------------------------------
 -- 각 스킬에서 공유하는 상수

@@ -150,7 +150,12 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
     self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
     self.m_gameTimeScale = GameTimeScale(self)
 
-    self.m_missileRange = {min_x=0-50, max_x = CRITERIA_RESOLUTION_X+50, min_y=-GAME_RESOLUTION_X/2, max_y=GAME_RESOLUTION_X/2}
+    self.m_missileRange = {
+        min_x = 0 - 50,
+        max_x = CRITERIA_RESOLUTION_X + 50,
+        min_y = -GAME_RESOLUTION_X / 2,
+        max_y = GAME_RESOLUTION_X / 2
+    }
 
     -- callback
     self.m_lWorldScaleChangeCB = {}
@@ -329,16 +334,23 @@ function GameWorld:update(dt)
     local prev = self.m_worldScaleRealtime
     local scale = self.m_worldLayer:getScale()
     local camera_scale = g_gameScene.m_cameraLayer:getScale()
+    local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
 
     scale = scale * camera_scale
 
-    if (prev ~= scale) then
+    --if (prev ~= scale) then
         self.m_worldScaleRealtime = scale
         self.m_missileRange['min_x'] = 0 - 200
         self.m_missileRange['max_x'] = (CRITERIA_RESOLUTION_X / scale) + 200
         self.m_missileRange['min_y'] = (-GAME_RESOLUTION_X / 2 / scale) - 200
         self.m_missileRange['max_y'] = (GAME_RESOLUTION_X / 2 / scale) + 200
-    end
+
+        -- 차후 정리...(웨이브 시작시 한번만 계산하면 될듯)
+        self.m_missileRange['min_x'] = self.m_missileRange['min_x'] + cameraHomePosX
+        self.m_missileRange['max_x'] = self.m_missileRange['max_x'] + cameraHomePosX
+        self.m_missileRange['min_y'] = self.m_missileRange['min_y'] + cameraHomePosY
+        self.m_missileRange['max_y'] = self.m_missileRange['max_y'] + cameraHomePosY
+    --end
 
     self.m_physWorld:update(dt)
     self:updateUnit(dt)
