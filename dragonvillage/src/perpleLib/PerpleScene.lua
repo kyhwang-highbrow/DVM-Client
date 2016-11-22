@@ -263,12 +263,17 @@ function PerpleScene:onEnter()
         SoundMgr:setSlowMode(false)
     end
 
-    local function update(dt)
+	local function update(dt)
         if g_userDataOld then
             g_userDataOld:update(dt)
         end
+		if DISPLAY_DEBUG_INFO then
+			UIManager:updateDebugUI(dt)
+		end
     end
     self.m_scene:scheduleUpdateWithPriorityLua(update, 0)
+	-- @kms 멤버 함수와 로컬 함수의 속도차이..?
+    -- self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -283,6 +288,18 @@ function PerpleScene:onExit()
     end
 
     --cclog('PerpleScene:onExit()')
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function PerpleScene:update(dt)
+    if g_userDataOld then
+        g_userDataOld:update(dt)
+    end
+	if DISPLAY_DEBUG_INFO then
+		UIManager:updateDebugUI(dt)
+	end
 end
 
 -------------------------------------

@@ -373,14 +373,14 @@ function UIManager:sortToastNoti()
 end
 
 -------------------------------------
--- function setDebugUI
+-- function updateDebugUI
 -- @brief
 -------------------------------------
-function UIManager:setDebugUI()
+function UIManager:updateDebugUI(dt)
 	if (not self.m_debugUI) then
-		self.m_debugUI = UI_GameDebug_RealTime()
-		self.m_scene:addChild(self.m_debugUI.m_debugLayer, 21)
+		self.m_debugUI = UI_GameDebug_RealTime(self.m_scene)
 	end
+	self.m_debugUI:update(dt)
 end
 
 -------------------------------------
@@ -412,10 +412,9 @@ function UIManager:onKeyReleased(keyCode, event)
 
 	-- debug 영역 활성화/비활성화
 	elseif (keyCode == KEY_G) then
-		if (not self.m_debugUI) then 
-			self:setDebugUI()
-		else
-			self:removeDebugUI()
+		DISPLAY_DEBUG_INFO = not DISPLAY_DEBUG_INFO
+		if self.m_debugUI then
+			self.m_debugUI.m_debugLayer:setVisible(DISPLAY_DEBUG_INFO)
 		end
 	end
 end
