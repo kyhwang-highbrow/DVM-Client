@@ -988,6 +988,9 @@
     <None Include="..\src\GameTimeScale.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_GameDebug_RealTime.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
