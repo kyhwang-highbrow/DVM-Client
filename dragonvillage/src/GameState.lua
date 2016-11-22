@@ -320,7 +320,7 @@ function GameState:update_fight(dt)
 			    skill:changeState('dying')
 		    end
 
-		    if world.m_waveMgr:getNextWaveScriptData() then 
+		    if world.m_waveMgr:isFinalWave() == false then
 		        self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
 		    else
 			    self:changeState(GAME_STATE_SUCCESS_WAIT)
@@ -383,9 +383,14 @@ function GameState:update_wave_intermission(dt)
     if (self.m_stateTimer == 0) then
         for _,dragon in pairs(world.m_lDragonList) do
             if (not dragon.m_bDead) then
-                dragon:setAfrerImage(true)
+                dragon:setAfterImage(true)
             end
         end
+
+        local t_wave_data, is_final_wave = world.m_waveMgr:getNextWaveScriptData()
+
+        -- 카메라 옵션 설정
+        world:changeCameraOption(t_wave_data['camera'])
     end
 
 	-- 1. 전환 시간 2/3 지점까지 비교적 완만하게 빨라짐
@@ -405,7 +410,7 @@ function GameState:update_wave_intermission(dt)
 
         for _,dragon in pairs(world.m_lDragonList) do
             if (not dragon.m_bDead) then
-                dragon:setAfrerImage(false)
+                dragon:setAfterImage(false)
             end
         end
 

@@ -168,12 +168,18 @@ ENEMY_POS['NEST'] = {x=1500, y=0}
 -- @brief 적군의 절대 위치
 -------------------------------------
 function getEnemyPos(key)
-    if (not ENEMY_POS[key]) then
+    local pos = ENEMY_POS[key]
+
+    if (not pos) then
         cclog('ERROE! 존재하지 않는 key : ' .. tostring(key))
-        return {x=0, y=0}
+        pos = { x = 0, y = 0 }
     end
 
-    return ENEMY_POS[key]
+    -- 현재 카메라 위치를 기준으로 하는 상대 좌표로 변경
+    pos['x'] = pos['x'] + g_gameScene.m_gameWorld.m_gameCamera.m_homePosX
+    pos['y'] = pos['y'] + g_gameScene.m_gameWorld.m_gameCamera.m_homePosY
+
+    return ret
 end
 
 -------------------------------------
@@ -194,137 +200,9 @@ function getWorldEnemyPos(enemy, key)
     pos.x = pos.x / world_scale
     pos.y = pos.y / world_scale
 
+    -- 현재 카메라 위치를 기준으로 하는 상대 좌표로 변경
+    pos['x'] = pos['x'] + g_gameScene.m_gameWorld.m_gameCamera.m_homePosX
+    pos['y'] = pos['y'] + g_gameScene.m_gameWorld.m_gameCamera.m_homePosY
+
     return pos
-end
-
-
--- [F11][F21] [M11][M21] [R11][R21]
---   
--- [F12][F22] [M12][M22] [R12][R22]
---   
--- [F13][F23] [M13][M23] [R13][R23]
---   
--- [F14][F24] [M14][M24] [R14][R24]
---   
--- [F15][F25] [M15][M25] [R15][R25]
-
--- [F16][F26] [M16][M26] [R16][R26]
-
--- [F17][F27] [M17][M27] [R17][R27]
-
-ENEMY_FORMATION_POS = {}
-ENEMY_FORMATION_POS[1] = {}
-ENEMY_FORMATION_POS[2] = {}
-ENEMY_FORMATION_POS[3] = {}
-
--- size 1
-local interval_y = 100
-local pos_1_x = 638 + 40
-local pos_2_x = 638 + 40 + 80
-ENEMY_FORMATION_POS[1]['A11'] = {x=pos_1_x, y=interval_y*3};    ENEMY_FORMATION_POS[1]['A21'] = {x=pos_2_x, y=interval_y*3}; 
-ENEMY_FORMATION_POS[1]['A12'] = {x=pos_1_x, y=interval_y*2};    ENEMY_FORMATION_POS[1]['A22'] = {x=pos_2_x, y=interval_y*2}; 
-ENEMY_FORMATION_POS[1]['A13'] = {x=pos_1_x, y=interval_y*1};    ENEMY_FORMATION_POS[1]['A23'] = {x=pos_2_x, y=interval_y*1}; 
-ENEMY_FORMATION_POS[1]['A14'] = {x=pos_1_x, y=0};               ENEMY_FORMATION_POS[1]['A24'] = {x=pos_2_x, y=0};            
-ENEMY_FORMATION_POS[1]['A15'] = {x=pos_1_x, y=-interval_y*1};   ENEMY_FORMATION_POS[1]['A25'] = {x=pos_2_x, y=-interval_y*1};
-ENEMY_FORMATION_POS[1]['A16'] = {x=pos_1_x, y=-interval_y*2};   ENEMY_FORMATION_POS[1]['A26'] = {x=pos_2_x, y=-interval_y*2};
-ENEMY_FORMATION_POS[1]['A17'] = {x=pos_1_x, y=-interval_y*3};   ENEMY_FORMATION_POS[1]['A27'] = {x=pos_2_x, y=-interval_y*3};
-
-local pos_1_x = 796 + 40
-local pos_2_x = 796 + 40 + 80
-ENEMY_FORMATION_POS[1]['B11'] = {x=pos_1_x, y=interval_y*3};     ENEMY_FORMATION_POS[1]['B21'] = {x=pos_2_x, y=interval_y*3}; 
-ENEMY_FORMATION_POS[1]['B12'] = {x=pos_1_x, y=interval_y*2};     ENEMY_FORMATION_POS[1]['B22'] = {x=pos_2_x, y=interval_y*2}; 
-ENEMY_FORMATION_POS[1]['B13'] = {x=pos_1_x, y=interval_y*1};     ENEMY_FORMATION_POS[1]['B23'] = {x=pos_2_x, y=interval_y*1}; 
-ENEMY_FORMATION_POS[1]['B14'] = {x=pos_1_x, y=0};                ENEMY_FORMATION_POS[1]['B24'] = {x=pos_2_x, y=0};            
-ENEMY_FORMATION_POS[1]['B15'] = {x=pos_1_x, y=-interval_y*1};    ENEMY_FORMATION_POS[1]['B25'] = {x=pos_2_x, y=-interval_y*1};
-ENEMY_FORMATION_POS[1]['B16'] = {x=pos_1_x, y=-interval_y*2};    ENEMY_FORMATION_POS[1]['B26'] = {x=pos_2_x, y=-interval_y*2};
-ENEMY_FORMATION_POS[1]['B17'] = {x=pos_1_x, y=-interval_y*3};    ENEMY_FORMATION_POS[1]['B27'] = {x=pos_2_x, y=-interval_y*3};
-
-local pos_1_x = 958 + 40
-local pos_2_x = 958 + 40 + 80
-ENEMY_FORMATION_POS[1]['C11'] = {x=pos_1_x, y=interval_y*3};     ENEMY_FORMATION_POS[1]['C21'] = {x=pos_2_x, y=interval_y*3}; 
-ENEMY_FORMATION_POS[1]['C12'] = {x=pos_1_x, y=interval_y*2};     ENEMY_FORMATION_POS[1]['C22'] = {x=pos_2_x, y=interval_y*2}; 
-ENEMY_FORMATION_POS[1]['C13'] = {x=pos_1_x, y=interval_y*1};     ENEMY_FORMATION_POS[1]['C23'] = {x=pos_2_x, y=interval_y*1}; 
-ENEMY_FORMATION_POS[1]['C14'] = {x=pos_1_x, y=0};                ENEMY_FORMATION_POS[1]['C24'] = {x=pos_2_x, y=0};            
-ENEMY_FORMATION_POS[1]['C15'] = {x=pos_1_x, y=-interval_y*1};    ENEMY_FORMATION_POS[1]['C25'] = {x=pos_2_x, y=-interval_y*1};
-ENEMY_FORMATION_POS[1]['C16'] = {x=pos_1_x, y=-interval_y*2};    ENEMY_FORMATION_POS[1]['C26'] = {x=pos_2_x, y=-interval_y*2};
-ENEMY_FORMATION_POS[1]['C17'] = {x=pos_1_x, y=-interval_y*3};    ENEMY_FORMATION_POS[1]['C27'] = {x=pos_2_x, y=-interval_y*3};
-
--- size 2
-local interval_y = 110
-local pos_1_x = 802 + 50
-local pos_2_x = 802 + 50 + 100
-ENEMY_FORMATION_POS[2]['A11'] = {x=pos_1_x, y=interval_y*3};    ENEMY_FORMATION_POS[2]['A21'] = {x=pos_2_x, y=interval_y*3}; 
-ENEMY_FORMATION_POS[2]['A12'] = {x=pos_1_x, y=interval_y*2};    ENEMY_FORMATION_POS[2]['A22'] = {x=pos_2_x, y=interval_y*2}; 
-ENEMY_FORMATION_POS[2]['A13'] = {x=pos_1_x, y=interval_y*1};    ENEMY_FORMATION_POS[2]['A23'] = {x=pos_2_x, y=interval_y*1}; 
-ENEMY_FORMATION_POS[2]['A14'] = {x=pos_1_x, y=0};               ENEMY_FORMATION_POS[2]['A24'] = {x=pos_2_x, y=0};            
-ENEMY_FORMATION_POS[2]['A15'] = {x=pos_1_x, y=-interval_y*1};   ENEMY_FORMATION_POS[2]['A25'] = {x=pos_2_x, y=-interval_y*1};
-ENEMY_FORMATION_POS[2]['A16'] = {x=pos_1_x, y=-interval_y*2};   ENEMY_FORMATION_POS[2]['A26'] = {x=pos_2_x, y=-interval_y*2};
-ENEMY_FORMATION_POS[2]['A17'] = {x=pos_1_x, y=-interval_y*3};   ENEMY_FORMATION_POS[2]['A27'] = {x=pos_2_x, y=-interval_y*3};
-
-local pos_1_x = 1002 + 50
-local pos_2_x = 1002 + 50 + 100
-ENEMY_FORMATION_POS[2]['B11'] = {x=pos_1_x, y=interval_y*3};     ENEMY_FORMATION_POS[2]['B21'] = {x=pos_2_x, y=interval_y*3}; 
-ENEMY_FORMATION_POS[2]['B12'] = {x=pos_1_x, y=interval_y*2};     ENEMY_FORMATION_POS[2]['B22'] = {x=pos_2_x, y=interval_y*2}; 
-ENEMY_FORMATION_POS[2]['B13'] = {x=pos_1_x, y=interval_y*1};     ENEMY_FORMATION_POS[2]['B23'] = {x=pos_2_x, y=interval_y*1}; 
-ENEMY_FORMATION_POS[2]['B14'] = {x=pos_1_x, y=0};                ENEMY_FORMATION_POS[2]['B24'] = {x=pos_2_x, y=0};            
-ENEMY_FORMATION_POS[2]['B15'] = {x=pos_1_x, y=-interval_y*1};    ENEMY_FORMATION_POS[2]['B25'] = {x=pos_2_x, y=-interval_y*1};
-ENEMY_FORMATION_POS[2]['B16'] = {x=pos_1_x, y=-interval_y*2};    ENEMY_FORMATION_POS[2]['B26'] = {x=pos_2_x, y=-interval_y*2};
-ENEMY_FORMATION_POS[2]['B17'] = {x=pos_1_x, y=-interval_y*3};    ENEMY_FORMATION_POS[2]['B27'] = {x=pos_2_x, y=-interval_y*3};
-
-local pos_1_x = 1202 + 50
-local pos_2_x = 1202 + 50 + 100
-ENEMY_FORMATION_POS[2]['C11'] = {x=pos_1_x, y=interval_y*3};     ENEMY_FORMATION_POS[2]['C21'] = {x=pos_2_x, y=interval_y*3}; 
-ENEMY_FORMATION_POS[2]['C12'] = {x=pos_1_x, y=interval_y*2};     ENEMY_FORMATION_POS[2]['C22'] = {x=pos_2_x, y=interval_y*2}; 
-ENEMY_FORMATION_POS[2]['C13'] = {x=pos_1_x, y=interval_y*1};     ENEMY_FORMATION_POS[2]['C23'] = {x=pos_2_x, y=interval_y*1}; 
-ENEMY_FORMATION_POS[2]['C14'] = {x=pos_1_x, y=0};                ENEMY_FORMATION_POS[2]['C24'] = {x=pos_2_x, y=0};            
-ENEMY_FORMATION_POS[2]['C15'] = {x=pos_1_x, y=-interval_y*1};    ENEMY_FORMATION_POS[2]['C25'] = {x=pos_2_x, y=-interval_y*1};
-ENEMY_FORMATION_POS[2]['C16'] = {x=pos_1_x, y=-interval_y*2};    ENEMY_FORMATION_POS[2]['C26'] = {x=pos_2_x, y=-interval_y*2};
-ENEMY_FORMATION_POS[2]['C17'] = {x=pos_1_x, y=-interval_y*3};    ENEMY_FORMATION_POS[2]['C27'] = {x=pos_2_x, y=-interval_y*3};
-
--- size 3
-local interval_y = 120
-local pos_1_x = 1139 + 60
-local pos_2_x = 1139 + 60 + 120
-ENEMY_FORMATION_POS[3]['A11'] = {x=pos_1_x, y=interval_y*3};    ENEMY_FORMATION_POS[3]['A21'] = {x=pos_2_x, y=interval_y*3}; 
-ENEMY_FORMATION_POS[3]['A12'] = {x=pos_1_x, y=interval_y*2};    ENEMY_FORMATION_POS[3]['A22'] = {x=pos_2_x, y=interval_y*2}; 
-ENEMY_FORMATION_POS[3]['A13'] = {x=pos_1_x, y=interval_y*1};    ENEMY_FORMATION_POS[3]['A23'] = {x=pos_2_x, y=interval_y*1}; 
-ENEMY_FORMATION_POS[3]['A14'] = {x=pos_1_x, y=0};               ENEMY_FORMATION_POS[3]['A24'] = {x=pos_2_x, y=0};            
-ENEMY_FORMATION_POS[3]['A15'] = {x=pos_1_x, y=-interval_y*1};   ENEMY_FORMATION_POS[3]['A25'] = {x=pos_2_x, y=-interval_y*1};
-ENEMY_FORMATION_POS[3]['A16'] = {x=pos_1_x, y=-interval_y*2};   ENEMY_FORMATION_POS[3]['A26'] = {x=pos_2_x, y=-interval_y*2};
-ENEMY_FORMATION_POS[3]['A17'] = {x=pos_1_x, y=-interval_y*3};   ENEMY_FORMATION_POS[3]['A27'] = {x=pos_2_x, y=-interval_y*3};
-
-local pos_1_x = 1396 + 60
-local pos_2_x = 1396 + 60 + 120
-ENEMY_FORMATION_POS[3]['B11'] = {x=pos_1_x, y=interval_y*3};     ENEMY_FORMATION_POS[3]['B21'] = {x=pos_2_x, y=interval_y*3}; 
-ENEMY_FORMATION_POS[3]['B12'] = {x=pos_1_x, y=interval_y*2};     ENEMY_FORMATION_POS[3]['B22'] = {x=pos_2_x, y=interval_y*2}; 
-ENEMY_FORMATION_POS[3]['B13'] = {x=pos_1_x, y=interval_y*1};     ENEMY_FORMATION_POS[3]['B23'] = {x=pos_2_x, y=interval_y*1}; 
-ENEMY_FORMATION_POS[3]['B14'] = {x=pos_1_x, y=0};                ENEMY_FORMATION_POS[3]['B24'] = {x=pos_2_x, y=0};            
-ENEMY_FORMATION_POS[3]['B15'] = {x=pos_1_x, y=-interval_y*1};    ENEMY_FORMATION_POS[3]['B25'] = {x=pos_2_x, y=-interval_y*1};
-ENEMY_FORMATION_POS[3]['B16'] = {x=pos_1_x, y=-interval_y*2};    ENEMY_FORMATION_POS[3]['B26'] = {x=pos_2_x, y=-interval_y*2};
-ENEMY_FORMATION_POS[3]['B17'] = {x=pos_1_x, y=-interval_y*3};    ENEMY_FORMATION_POS[3]['B27'] = {x=pos_2_x, y=-interval_y*3};
-
-local pos_1_x = 1653 + 60
-local pos_2_x = 1653 + 60 + 120
-ENEMY_FORMATION_POS[3]['C11'] = {x=pos_1_x, y=interval_y*3};     ENEMY_FORMATION_POS[3]['C21'] = {x=pos_2_x, y=interval_y*3}; 
-ENEMY_FORMATION_POS[3]['C12'] = {x=pos_1_x, y=interval_y*2};     ENEMY_FORMATION_POS[3]['C22'] = {x=pos_2_x, y=interval_y*2}; 
-ENEMY_FORMATION_POS[3]['C13'] = {x=pos_1_x, y=interval_y*1};     ENEMY_FORMATION_POS[3]['C23'] = {x=pos_2_x, y=interval_y*1}; 
-ENEMY_FORMATION_POS[3]['C14'] = {x=pos_1_x, y=0};                ENEMY_FORMATION_POS[3]['C24'] = {x=pos_2_x, y=0};            
-ENEMY_FORMATION_POS[3]['C15'] = {x=pos_1_x, y=-interval_y*1};    ENEMY_FORMATION_POS[3]['C25'] = {x=pos_2_x, y=-interval_y*1};
-ENEMY_FORMATION_POS[3]['C16'] = {x=pos_1_x, y=-interval_y*2};    ENEMY_FORMATION_POS[3]['C26'] = {x=pos_2_x, y=-interval_y*2};
-ENEMY_FORMATION_POS[3]['C17'] = {x=pos_1_x, y=-interval_y*3};    ENEMY_FORMATION_POS[3]['C27'] = {x=pos_2_x, y=-interval_y*3};
-
-
--------------------------------------
--- function getFormationEnemyPos
--- @brief
--------------------------------------
-function getFormationEnemyPos(enemy, key)
-    local size = enemy.m_world.m_worldSize
-
-    if (not ENEMY_FORMATION_POS[size][key]) then
-        cclog('ERROE! 존재하지 않는 key : ' .. tostring(key))
-        return {x=0, y=0}
-    end
-
-    return ENEMY_FORMATION_POS[size][key]
 end

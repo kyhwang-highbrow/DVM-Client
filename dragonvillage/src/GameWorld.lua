@@ -1307,6 +1307,8 @@ function GameWorld:changeCameraOption(tParam)
     local cb = (tParam['cb'] or function() end)
 
     self.m_gameCamera:setAction(tParam)
+
+    self.m_gameCamera:setHomeInfo(tParam)
 end
 
 -------------------------------------

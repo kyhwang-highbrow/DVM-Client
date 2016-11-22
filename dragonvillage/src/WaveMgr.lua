@@ -14,8 +14,6 @@ WaveMgr = class(IEventDispatcher:getCloneClass(), {
         m_stageName = '',
         m_bDevelopMode = '',
 
-        m_cameraData = 'table',
-
         m_highestRarity = 'number',     -- 하나의 웨이브 안에서 가장 높은 rarity
     })
 
@@ -39,12 +37,7 @@ function WaveMgr:init(world, stage_name, develop_mode)
 
     self.m_bDevelopMode = develop_mode or false
 
-    self.m_cameraData = {}
-    self.m_cameraData['scale'] = 1
-    self.m_cameraData['pox_x'] = 0
-    self.m_cameraData['pox_y'] = 0
-
-	-- 소환 몬스터 정보
+    -- 소환 몬스터 정보
 	self:setSummonData(script)
 end
 
@@ -182,27 +175,12 @@ function WaveMgr:newScenario()
 
     local t_data = self.m_scriptData['wave'][wave]
 
-    --self.m_world:changeWorldSize(size)
-
     -- 카메라 옵션 설정
-    WaveMgr.changeCameraOption(self, t_data['camera'])
+    self.m_world:changeCameraOption(t_data)
+    
     self:newScenario_dynamicWave(t_data)
 
     self:dispatch('change_wave', self.m_currWave)
-end
-
--------------------------------------
--- function changeCameraOption
--------------------------------------
-function WaveMgr.changeCameraOption(self, t_data)
-    if t_data then
-        self.m_cameraData = t_data
-    end
-
-    local t_data = t_data or {}
-    self.m_world:changeCameraOption(t_data)
-
-    self.m_world.m_gameCamera:setHomeInfo(t_data)
 end
 
 -------------------------------------

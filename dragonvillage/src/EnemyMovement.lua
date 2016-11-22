@@ -186,37 +186,3 @@ function EnemyLua.Appear(owner)
         owner:dispatch('enemy_appear_done', owner)
     end)))
 end
-
--------------------------------------
--- function BasicOld
--- @brief 등장 후 죽을때까지 전투
--- @param value1 = 출발 위치
--- @param value2 = 도착 위치
--- @prarm value3 = 등장 시간(duration)
--------------------------------------
-function EnemyLua.BasicOld(owner)
-    -- m_luaValue1 출발 위치
-    -- m_luaValue2 도착 위치
-    -- m_luaValue3 등장 시간
-    local pos1 = getWorldEnemyPos(owner, owner.m_luaValue1)
-    local pos2 = getFormationEnemyPos(owner, owner.m_luaValue2)
-    local duration = owner.m_luaValue3 or 1.
-
-    -- 출발 위치 지정
-    owner:setPosition(pos1.x, pos1.y)
-
-    -- 마지막 액션(Enemy를 공격상태로 변경)
-    local finish_action = cc.CallFunc:create(function()
-        owner:changeState('idle')
-
-        owner:dispatch('enemy_appear_done', owner)
-    end)    
-
-    -- 액션 생성
-    local action = cc.MoveTo:create(duration, cc.p(pos2.x, pos2.y))
-    local ease_in = cc.EaseIn:create(action, 0.8)
-    local sequence = cc.Sequence:create(ease_in, finish_action)
-
-    -- 액션 실행
-    owner.m_rootNode:runAction(sequence)
-end

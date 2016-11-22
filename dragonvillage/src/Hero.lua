@@ -713,9 +713,9 @@ function Hero:checkTarget(t_skill)
 end
 
 -------------------------------------
--- function setAfrerImage
+-- function setAfterImage
 -------------------------------------
-function Hero:setAfrerImage(b)
+function Hero:setAfterImage(b)
     self.m_afterimageMove = 0
     self.m_bUseSelfAfterImage = b
 end
