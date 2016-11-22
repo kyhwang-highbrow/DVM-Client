@@ -382,8 +382,7 @@ function GameState:update_wave_intermission(dt)
         t_camera_info['pos_x'] = 0
         --t_camera_info['pos_y'] = math_random(-1, 1) * 300
         t_camera_info['time'] = WAVE_INTERMISSION_TIME
-        t_camera_info['scale'] = 1
-
+        
         -- 임시 처리...
         if is_final_wave then
             t_camera_info['pos_y'] = -300 * t_camera_info['scale']
