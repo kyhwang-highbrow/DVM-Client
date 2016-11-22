@@ -467,11 +467,11 @@ end
 -------------------------------------
 -- function changeHomePos
 -------------------------------------
-function Hero:changeHomePos(x, y)
-    self.m_homePosX = x
-    self.m_homePosY = y
+function Hero:changeHomePos(x, y, speed)
+    self:setHomePos(x, y)
 
-    self:setMove(x, y, 500)
+    local speed = speed or 500
+    self:setMove(x, y, speed)
 end
 
 -------------------------------------

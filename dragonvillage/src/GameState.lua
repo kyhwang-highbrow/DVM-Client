@@ -237,12 +237,6 @@ function GameState:update_enemy_appear(dt)
     local world = self.m_world
 	
     if (self.m_stateTimer == 0) then
-        for i,dragon in ipairs(world.m_participants) do
-            if (dragon.m_bDead == false) then
-                dragon:changeStateWithCheckHomePos('idle')
-            end
-        end
-
         local enemy_count = #world.m_tEnemyList
         local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
 
@@ -381,15 +375,39 @@ function GameState:update_wave_intermission(dt)
 	local speed = 0
 
     if (self.m_stateTimer == 0) then
-        for _,dragon in pairs(world.m_lDragonList) do
-            if (not dragon.m_bDead) then
-                dragon:setAfterImage(true)
+        local t_wave_data, is_final_wave = world.m_waveMgr:getNextWaveScriptData()
+        local t_camera_info = t_wave_data['camera'] or {}
+
+        -- 랜덤하게 카메라 위치를 변경
+        t_camera_info['pos_x'] = 0
+        --t_camera_info['pos_y'] = math_random(-1, 1) * 300
+        t_camera_info['time'] = WAVE_INTERMISSION_TIME
+        t_camera_info['scale'] = 1
+
+        -- 임시 처리...
+        if is_final_wave then
+            t_camera_info['pos_y'] = -300 * t_camera_info['scale']
+        else
+            t_camera_info['pos_y'] = 300 * t_camera_info['scale']
+        end
+        
+        -- 아군
+        for i, v in ipairs(world.m_participants) do
+            if (v.m_bDead == false) then
+                -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
+                local homePosX = v.m_orgHomePosX + t_camera_info['pos_x']
+                local homePosY = v.m_orgHomePosY + t_camera_info['pos_y']
+                local distance = getDistance(v.pos.x, v.pos.y, homePosX, homePosY)
+                
+                v:changeHomePos(homePosX, homePosY, distance / WAVE_INTERMISSION_TIME)
+                v:changeStateWithCheckHomePos('idle')
+
+                -- 잔상 연출 활성화
+                v:setAfterImage(true)
             end
         end
 
-        local t_wave_data, is_final_wave = world.m_waveMgr:getNextWaveScriptData()
-
-        -- 카메라 옵션 설정
+        -- 카메라 액션 설정
         world:changeCameraOption(t_wave_data['camera'])
     end
 

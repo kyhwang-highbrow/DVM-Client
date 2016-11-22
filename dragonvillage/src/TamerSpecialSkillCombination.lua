@@ -132,10 +132,12 @@ end
 function TamerSpecialSkillCombination.st_phase_1(owner, dt)
 	-- 1. 모든 드래곤을 순회하며 지정된 위치로 이동 시킴
 	if (owner.m_stateTimer == 0) then
+        local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+
 		local x, y, idx = 0, 0, 1
 		for i, dragon in pairs(owner.m_lDragon) do 
-			x = STD_X + PENTAGON_POS[idx].x
-			y = STD_Y + PENTAGON_POS[idx].y
+			x = STD_X + PENTAGON_POS[idx].x + cameraHomePosX
+			y = STD_Y + PENTAGON_POS[idx].y + cameraHomePosY
 			dragon:setMove(x, y, SPEED)
 			idx = idx + 1
 		end
@@ -152,9 +154,11 @@ end
 function TamerSpecialSkillCombination.st_phase_2(owner, dt)
 	-- 1. 에너지 구체 이펙트 생성 (m_mainEffect)
 	if (owner.m_stateTimer == 0) then
+        local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+
 		owner.m_mainEffect = MakeAnimator(owner.m_res)
 		owner.m_mainEffect:changeAni('appear', false)
-		owner.m_mainEffect:setPosition(cc.p(STD_X, STD_Y))
+		owner.m_mainEffect:setPosition(cc.p(STD_X + cameraHomePosX, STD_Y + cameraHomePosY))
 		owner.m_world.m_missiledNode:addChild(owner.m_mainEffect.m_node)
 		owner.m_mainEffect:addAniHandler(function()
 			owner.m_mainEffect:changeAni('idle', true)

@@ -32,7 +32,8 @@ function SkillHealingWind:init_skill(hit, dmg_rate, skill_width)
     self.m_hitCount = hit
     self.m_hitInterval = 0
 
-	self:setPosition(self.m_targetPos.x, 0)
+    local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+	self:setPosition(self.m_targetPos.x, cameraHomePosY) -- Y좌표값은 화면의 중심으로 세팅
 
 	-- predelay 연출 위해서 .. 
 	self.m_animator:setVisible(false)

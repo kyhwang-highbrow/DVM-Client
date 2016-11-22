@@ -30,7 +30,7 @@ function SkillIndicator_HealingWind:onTouchMoved(x, y)
     self.m_targetPosY = y
 
     -- 인디케이터 위치 보정
-    self.m_indicatorEffect01:setPosition(x - pos_x, 0 - pos_y)
+    self.m_indicatorEffect01:setPosition(x - pos_x, 0)
     self.m_indicator2:setPosition(x - pos_x, y - pos_y)
 
 

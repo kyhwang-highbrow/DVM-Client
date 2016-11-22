@@ -1086,12 +1086,10 @@ function GameWorld:getBattleZone(formation, immediately)
     local start_y = -360 + 40
     local end_y = 360 - 40
 
-    --script['basic']
-
     local t_formation = script[formation]
 
-    for i,v in pairs(self.m_lDragonList) do
-    local t_data = t_formation[tostring(i)]
+    for i,v in pairs(self.m_participants) do
+        local t_data = t_formation[tostring(i)]
         local x_rate = t_data[1]
         local y_rate = t_data[2]
 
@@ -1099,10 +1097,13 @@ function GameWorld:getBattleZone(formation, immediately)
         local pos_y = start_y + ((end_y - start_y) * (y_rate/100))
 
         --cclog('# pos_x, pos_y : ' .. pos_x .. ', ' .. pos_y)
+
+        v:setOrgHomePos(pos_x, pos_y)
+
         if immediately then
+            v:setOrgHomePos(pos_x, pos_y)
+            v:setHomePos(pos_x, pos_y)
             v:setPosition(pos_x, pos_y)
-            v.m_homePosX = pos_x
-            v.m_homePosY = pos_y
         else
             v:changeHomePos(pos_x, pos_y)
         end

@@ -1,6 +1,7 @@
 local CHARACTER_ACTION_TAG__SHAKE = 1
 local CHARACTER_ACTION_TAG__KNOCKBACK = 2
 local CHARACTER_ACTION_TAG__SHADER = 3
+local CHARACTER_ACTION_TAG__FLOATING = 4
 
 -------------------------------------
 -- class Character
@@ -62,6 +63,8 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_damagedEventListener = 'list',   -- 데미지를 입었을 때 이벤트
 
         -- @ 위치 관련(전투 중 기본 위치)
+        m_orgHomePosX = 'number',
+        m_orgHomePosY = 'number',
         m_homePosX = 'number',
         m_homePosY = 'number',
 
@@ -866,6 +869,22 @@ function Character:release()
 end
 
 -------------------------------------
+-- function setOrgHomePos
+-------------------------------------
+function Character:setOrgHomePos(x, y)
+    self.m_orgHomePosX = x
+    self.m_orgHomePosY = y
+end
+
+-------------------------------------
+-- function setHomePos
+-------------------------------------
+function Character:setHomePos(x, y)
+    self.m_homePosX = x
+    self.m_homePosY = y
+end
+
+-------------------------------------
 -- function makeHPGauge
 -------------------------------------
 function Character:makeHPGauge(hp_ui_offset)
@@ -1405,6 +1424,36 @@ function Character:animatorKnockback(dir)
     target_node:runAction(action)
 
     target_node:setPosition(pos_x, pos_y)
+end
+
+-------------------------------------
+-- function animatorFloating
+-- @brief 캐릭터 부유중 효과
+-------------------------------------
+function Character:animatorFloating()
+    local target_node = self.m_animator.m_node
+    if (not target_node) then
+        return
+    end
+
+    -- 실행중인 액션 stop
+    do
+        local action = target_node:getActionByTag(CHARACTER_ACTION_TAG__FLOATING);
+        if action then
+            target_node:stopAction(action)
+            target_node:setPosition(0, 0)
+        end
+    end
+
+    local sequence = cc.Sequence:create(
+        cc.MoveTo:create(math_random(5, 15) * 0.1, cc.p(math_random(-5, 5), math_random(-10, -5))),
+        cc.MoveTo:create(math_random(5, 15) * 0.1, cc.p(math_random(-5, 5), math_random(5, 10)))
+    )
+
+    local action = cc.RepeatForever:create(sequence)
+    action:setTag(CHARACTER_ACTION_TAG__FLOATING)
+
+    target_node:runAction(action)
 end
 
 -------------------------------------

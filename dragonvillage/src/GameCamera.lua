@@ -36,15 +36,6 @@ function GameCamera:init(world, node)
 end
 
 -------------------------------------
--- function setHomeInfo
--------------------------------------
-function GameCamera:setHomeInfo(tParam)
-    self.m_homeScale = tParam['scale'] or self.m_homeScale
-    self.m_homePosX = tParam['pos_x'] or self.m_homePosX
-    self.m_homePosY = tParam['pos_y'] or self.m_homePosY
-end
-
--------------------------------------
 -- function update
 -------------------------------------
 function GameCamera:update(dt)
@@ -62,6 +53,22 @@ function GameCamera:update(dt)
 	x, y = self:adjustPos(x, y, scale)
 
 	self.m_node:setPosition(x, y)
+end
+
+-------------------------------------
+-- function setHomeInfo
+-------------------------------------
+function GameCamera:setHomeInfo(tParam)
+    self.m_homeScale = tParam['scale'] or self.m_homeScale
+    self.m_homePosX = tParam['pos_x'] or self.m_homePosX
+    self.m_homePosY = tParam['pos_y'] or self.m_homePosY
+end
+
+-------------------------------------
+-- function getHomePos
+-------------------------------------
+function GameCamera:getHomePos()
+    return self.m_homePosX, self.m_homePosY
 end
 
 -------------------------------------

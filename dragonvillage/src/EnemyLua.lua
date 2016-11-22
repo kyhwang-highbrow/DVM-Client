@@ -43,10 +43,8 @@ end
 function EnemyLua.st_move(owner, dt)
     local x, y = owner.m_rootNode:getPosition()
     if (owner.pos.x ~= x) or (owner.pos.y ~= y) then
+        owner:setHomePos(x, y)
         owner:setPosition(x, y)
-
-        owner.m_homePosX = x
-        owner.m_homePosY = y
     end
 end
 

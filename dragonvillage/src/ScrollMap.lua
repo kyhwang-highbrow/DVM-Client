@@ -12,6 +12,8 @@ ScrollMap = class(MapManager, {
         m_colorB = 'number',
 
         m_colorScale = '',
+
+        m_floatingType = 'number',
     })
 
 -------------------------------------
@@ -29,10 +31,57 @@ function ScrollMap:init(node)
     self.m_colorB = 255
 
     self.m_colorScale = 100
+
+    self.m_floatingType = 0
+
+    -- 임시 처리
+    local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
+    if chapter == 2 then
+        self:setFloating(2)
+    else
+        self:setFloating(1)
+    end
 end
 
 -------------------------------------
--- function filename
+-- function setFloating
+-- @breif 배경 백판 연출 설정
+-------------------------------------
+function ScrollMap:setFloating(type)
+    self.m_floatingType = type
+
+    local sequence
+
+    if self.m_floatingType == 1 then
+        -- 위아래 흔들림
+        sequence = cc.Sequence:create(
+            cc.MoveTo:create(1.5, cc.p(0, 15)),
+            cc.MoveTo:create(1.5, cc.p(0, -15))
+        )
+        
+
+    elseif self.m_floatingType == 2 then
+        -- 회전 쏠림
+        local move_action = cc.Sequence:create(
+            cc.MoveTo:create(1.5, cc.p(0, 15)),
+            cc.MoveTo:create(1.5, cc.p(0, -15))
+        )
+
+        local rotate_action = cc.Sequence:create(
+            cc.RotateTo:create(2.5, 2),
+            cc.RotateTo:create(2.5, -2)
+        )
+        
+        sequence = cc.Spawn:create(move_action, rotate_action)
+    end
+
+    if sequence then
+        self.m_node:runAction(cc.RepeatForever:create(sequence))
+    end
+end
+
+-------------------------------------
+-- function setBg
 -------------------------------------
 function ScrollMap:setBg(res)
 

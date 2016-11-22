@@ -134,10 +134,9 @@ function EnemyLua.Basic(owner)
     local pos2 = getWorldEnemyPos(owner, owner.m_luaValue2)
     local duration = owner.m_luaValue3 or 1
 
-    owner.m_homePosX = pos2.x
-    owner.m_homePosY = pos2.y
-
     -- 출발 위치 지정
+    owner:setOrgHomePos(pos2.x, pos2.y)
+    owner:setHomePos(pos2.x, pos2.y)
     owner:setPosition(pos1.x, pos1.y)
 
     -- 마지막 액션(Enemy를 공격상태로 변경)
@@ -168,8 +167,8 @@ function EnemyLua.Appear(owner)
     local pos2 = getWorldEnemyPos(owner, owner.m_luaValue2)
 
     -- 출발 위치 지정
-    owner.m_homePosX = pos2.x
-    owner.m_homePosY = pos2.y
+    owner:setOrgHomePos(pos2.x, pos2.y)
+    owner:setHomePos(pos2.x, pos2.y)
     owner:setPosition(pos2.x, pos2.y)
 
     -- 이펙트 재생 후 AI 동작

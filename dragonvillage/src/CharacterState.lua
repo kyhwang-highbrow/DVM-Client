@@ -134,6 +134,9 @@ function Character.st_attackDelay(owner, dt)
         if owner.m_castingNode then
             owner.m_castingNode:setVisible(false)
         end
+
+        -- 부유중 연출
+        owner:animatorFloating()
     end
 
     if (owner.m_attackPeriod <= owner.m_stateTimer) then

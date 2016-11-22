@@ -176,8 +176,9 @@ function getEnemyPos(key)
     end
 
     -- 현재 카메라 위치를 기준으로 하는 상대 좌표로 변경
-    pos['x'] = pos['x'] + g_gameScene.m_gameWorld.m_gameCamera.m_homePosX
-    pos['y'] = pos['y'] + g_gameScene.m_gameWorld.m_gameCamera.m_homePosY
+    local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+    pos['x'] = pos['x'] + cameraHomePosX
+    pos['y'] = pos['y'] + cameraHomePosY
 
     return pos
 end
@@ -201,8 +202,9 @@ function getWorldEnemyPos(enemy, key)
     pos.y = pos.y / world_scale
 
     -- 현재 카메라 위치를 기준으로 하는 상대 좌표로 변경
-    pos['x'] = pos['x'] + g_gameScene.m_gameWorld.m_gameCamera.m_homePosX
-    pos['y'] = pos['y'] + g_gameScene.m_gameWorld.m_gameCamera.m_homePosY
+    local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+    pos['x'] = pos['x'] + cameraHomePosX
+    pos['y'] = pos['y'] + cameraHomePosY
 
     return pos
 end
