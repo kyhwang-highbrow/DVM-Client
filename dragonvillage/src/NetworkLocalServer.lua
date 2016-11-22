@@ -63,8 +63,21 @@ LocalServer['/users/set_deck'] = function(t_request)
     t_ret['status'] = 0
     t_ret['message'] = 'success'
 
-    local l_deck = g_deckData:getDeck(t_data['deckno'])
-    --ccdump(l_deck)
+    do
+        local t_deck = {}
+        t_deck['deckname'] = t_request['deckname']
+        t_deck['deck'] = {}
+        t_deck['deck']['1'] = t_request['edoid1']
+        t_deck['deck']['2'] = t_request['edoid2']
+        t_deck['deck']['3'] = t_request['edoid3']
+        t_deck['deck']['4'] = t_request['edoid4']
+        t_deck['deck']['5'] = t_request['edoid5']
+        t_deck['deck']['6'] = t_request['edoid6']
+        t_deck['deck']['7'] = t_request['edoid7']
+        t_deck['deck']['8'] = t_request['edoid8']
+        t_deck['deck']['9'] = t_request['edoid9']
+        t_ret['deck'] = t_deck
+    end
 
     success_cb(t_ret)
 end

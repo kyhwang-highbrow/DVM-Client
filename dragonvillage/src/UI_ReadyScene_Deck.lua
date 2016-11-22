@@ -298,7 +298,11 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
 
         local function success_cb(ret)
             if ret['deck'] then
-                g_serverData:applyServerData(ret['deck'], 'deck')
+                local ret_deck = ret['deck']
+                local t_deck = ret_deck['deck']
+                local deckname = ret_deck['deckname']
+
+                g_deckData:setDeck(deckname, ret_deck)
             end
             next_func()
         end
@@ -308,16 +312,16 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
         ui_network:setHmac(false)
         ui_network:setRevocable(true)
         ui_network:setParam('uid', uid)
-        ui_network:setParam('deckno', 1)
-        ui_network:setParam('edid1', self.m_lDeckList[1] and self.m_lDeckList[1] or nil)
-        ui_network:setParam('edid2', self.m_lDeckList[2] and self.m_lDeckList[2] or nil)
-        ui_network:setParam('edid3', self.m_lDeckList[3] and self.m_lDeckList[3] or nil)
-        ui_network:setParam('edid4', self.m_lDeckList[4] and self.m_lDeckList[4] or nil)
-        ui_network:setParam('edid5', self.m_lDeckList[5] and self.m_lDeckList[5] or nil)
-        ui_network:setParam('edid6', self.m_lDeckList[6] and self.m_lDeckList[6] or nil)
-        ui_network:setParam('edid7', self.m_lDeckList[7] and self.m_lDeckList[7] or nil)
-        ui_network:setParam('edid8', self.m_lDeckList[8] and self.m_lDeckList[8] or nil)
-        ui_network:setParam('edid9', self.m_lDeckList[9] and self.m_lDeckList[9] or nil)
+        ui_network:setParam('deckname', 1)
+        ui_network:setParam('edoid1', self.m_lDeckList[1] and self.m_lDeckList[1] or nil)
+        ui_network:setParam('edoid2', self.m_lDeckList[2] and self.m_lDeckList[2] or nil)
+        ui_network:setParam('edoid3', self.m_lDeckList[3] and self.m_lDeckList[3] or nil)
+        ui_network:setParam('edoid4', self.m_lDeckList[4] and self.m_lDeckList[4] or nil)
+        ui_network:setParam('edoid5', self.m_lDeckList[5] and self.m_lDeckList[5] or nil)
+        ui_network:setParam('edoid6', self.m_lDeckList[6] and self.m_lDeckList[6] or nil)
+        ui_network:setParam('edoid7', self.m_lDeckList[7] and self.m_lDeckList[7] or nil)
+        ui_network:setParam('edoid8', self.m_lDeckList[8] and self.m_lDeckList[8] or nil)
+        ui_network:setParam('edoid9', self.m_lDeckList[9] and self.m_lDeckList[9] or nil)
         ui_network:setSuccessCB(success_cb)
         ui_network:request()
     else

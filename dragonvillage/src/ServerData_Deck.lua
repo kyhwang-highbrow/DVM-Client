@@ -22,14 +22,44 @@ function ServerData_Deck:get(key)
 end
 
 -------------------------------------
+-- function setDeck
+-- @brief
+-------------------------------------
+function ServerData_Deck:setDeck(type, t_deck)
+    local l_deck = self.m_serverData:get('deck')
+
+    local idx = nil
+    for i,value in pairs(l_deck) do
+        if (value['deckname'] == type) then
+            idx = i
+            break
+        end
+    end
+
+    if (not idx) then
+        idx = #l_deck + 1
+    end
+
+    self.m_serverData:applyServerData(t_deck, 'deck', idx)
+end
+
+-------------------------------------
 -- function getDeck
+-- @brief
 -------------------------------------
 function ServerData_Deck:getDeck(type)
-    local l_deck = self:get(type)
+    local l_deck = self.m_serverData:get('deck')
 
-    if l_deck then
+    local t_deck = nil
+    for i,value in ipairs(l_deck) do
+        if (value['deckname'] == type) then
+            t_deck = value['deck']
+        end
+    end
+
+    if t_deck then
         local t_ret = {}
-        for i,v in pairs(l_deck) do
+        for i,v in pairs(t_deck) do
             if (v ~= '') and g_dragonsData:getDragonDataFromUid(v) then
                 t_ret[tonumber(i)] = v
             end
