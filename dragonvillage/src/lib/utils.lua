@@ -598,3 +598,12 @@ function getSortPosList(interval, count)
 
     return l_pos
 end
+
+-------------------------------------
+-- function printMemory
+-- @brief 보기 좋게 현재 메모리 출력
+-------------------------------------
+function PrintMemory(str)
+	local str = str or 'CHECK MEMORY'
+	cclog(string.format('### %s : %.2f MB', str, collectgarbage('count') / 1024))
+end

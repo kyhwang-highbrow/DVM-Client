@@ -416,5 +416,6 @@ function UIManager:onKeyReleased(keyCode, event)
 		if self.m_debugUI then
 			self.m_debugUI.m_debugLayer:setVisible(DISPLAY_DEBUG_INFO)
 		end
+		PrintMemory()
 	end
 end

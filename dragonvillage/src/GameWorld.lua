@@ -942,7 +942,6 @@ function GameWorld:onKeyReleased(keyCode, event)
 			count = count + 1
 		end
 		cclog('KILL SKILL ALL - Count : ' .. count)
-
 	-- 미사일 없애기
 	elseif (keyCode == KEY_L) then    
 		local count = 1
@@ -1333,11 +1332,6 @@ function GameWorld:onEvent_character_dead(event_name, ...)
     -- 드래곤 사망
     if (char_type == 'dragon') then
 
-    -- 테이머 사망
-    elseif (char_type == 'tamer') then
-        -- 모든 드래곤 사망 처리 (클리어 실패)
-        self:killAllDragon()
-
     -- 몬스터 사망
     elseif (char_type == 'enemy') then
         self:dropItem(char.pos['x'], char.pos['y'])
@@ -1378,4 +1372,50 @@ function GameWorld:onEvent_dragon_skill(event_name, ...)
     self.m_currFocusingDragon = dragon
     
     self.m_gameState:changeState(GAME_STATE_FIGHT_DRAGON_SKILL)
+end
+
+-------------------------------------
+-- function releaseAll
+-- @breif 메모리 체크 중에 게임 월드 해제가 제대로 안되는가 하여 만듬
+-------------------------------------
+function GameWorld:releaseAll()
+
+	self:cleanupUnit()
+    self.m_lUnitList = nil
+	self.m_lSkillList = nil
+	self.m_lMissileList = nil
+
+    self.m_tEnemyList = nil
+    self.m_lDragonList = nil
+    self.m_participants = nil
+    
+    self.m_stageName = nil
+    self.m_stageID = nil
+    self.m_inGameUI = nil
+    self.m_worldLayer = nil
+    self.m_gameNode1 = nil
+    self.m_gameNode2 = nil
+    self.m_gameNode3 = nil
+    self.m_feverNode = nil
+    self.m_bDevelopMode = nil
+    self.m_bPreventControl = nil
+    self.m_bgNode = nil
+    self.m_groundNode = nil
+    self.m_gridNode = nil
+    self.m_worldNode = nil
+    self.m_missiledNode = nil
+    self.m_physWorld = nil
+	self.m_missileFactory = nil
+    self.m_worldSize = nil
+    self.m_worldScale = nil
+    self.m_worldScaleRealtime = nil
+    self.m_gameState = nil
+    self.m_gameFever = nil
+    self.m_gameCamera = nil
+    self.m_gameTimeScale = nil
+    self.m_missileRange = nil
+    self.m_lWorldScaleChangeCB = nil
+    self.m_touchPrevPos = nil
+    self.m_tCollisionTime = nil
+    self.m_lPassiveEffect = nil
 end
