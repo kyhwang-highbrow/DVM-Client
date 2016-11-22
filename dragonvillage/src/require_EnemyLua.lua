@@ -168,7 +168,7 @@ ENEMY_POS['NEST'] = {x=1500, y=0}
 -- @brief 적군의 절대 위치
 -------------------------------------
 function getEnemyPos(key)
-    local pos = ENEMY_POS[key]
+    local pos = clone(ENEMY_POS[key])
 
     if (not pos) then
         cclog('ERROE! 존재하지 않는 key : ' .. tostring(key))
@@ -179,7 +179,7 @@ function getEnemyPos(key)
     pos['x'] = pos['x'] + g_gameScene.m_gameWorld.m_gameCamera.m_homePosX
     pos['y'] = pos['y'] + g_gameScene.m_gameWorld.m_gameCamera.m_homePosY
 
-    return ret
+    return pos
 end
 
 -------------------------------------
