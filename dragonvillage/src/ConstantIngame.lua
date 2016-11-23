@@ -53,12 +53,17 @@ CHARACTER_FLOATING_MIN_X_SCOPE = 5
 CHARACTER_FLOATING_MAX_X_SCOPE = 8
 CHARACTER_FLOATING_MIN_Y_SCOPE = 14
 CHARACTER_FLOATING_MAX_Y_SCOPE = 20
+-- #  드래곤/몬스터 배치 후 흔들림 반복 주기 시간(초)
+CHARACTER_FLOATING_TIME = 1
 
 -- # 배경 백판 floating 흔들림 범위(- ~ +)
 MAP_FLOATING_Y_SCOPE = 8
-
+-- # 배경 백판 floating 흔들림 반복 주기 시간(초)
+MAP_FLOATING_TIME = 3
 -- # 배경 백판 floating 회전 범위(- ~ +)
 MAP_FLOATING_ROTATE_SCOPE = 1
+-- # 배경 백판 floating 회전 반복 주기 시간
+MAP_FLOATING_ROTATE_TIME = 5
 
 --------------------------------------------
 -- 각 스킬에서 공유하는 상수
