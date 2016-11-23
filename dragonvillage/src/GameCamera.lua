@@ -72,6 +72,13 @@ function GameCamera:getHomePos()
 end
 
 -------------------------------------
+-- function getHomeScale
+-------------------------------------
+function GameCamera:getHomeScale()
+    return self.m_homeScale
+end
+
+-------------------------------------
 -- function setAction
 -------------------------------------
 function GameCamera:setAction(t_data)

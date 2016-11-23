@@ -41,7 +41,6 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         m_worldSize = '',
         m_worldScale = '',
-        m_worldScaleRealtime = '',
 
         m_bDebugGrid = '',
 
@@ -143,7 +142,7 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
 
     self.m_worldSize = nil
     self.m_worldScale = nil
-    self.m_worldScaleRealtime = 1
+    
 
     self.m_gameState = GameState(self)
     self.m_gameFever = GameFever(self)
@@ -156,6 +155,7 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
         min_y = -GAME_RESOLUTION_X / 2,
         max_y = GAME_RESOLUTION_X / 2
     }
+    self:setMissileRange()
 
     -- callback
     self.m_lWorldScaleChangeCB = {}
@@ -330,28 +330,6 @@ end
 -- @param dt
 -------------------------------------
 function GameWorld:update(dt)
-    
-    local prev = self.m_worldScaleRealtime
-    local scale = self.m_worldLayer:getScale()
-    local camera_scale = g_gameScene.m_cameraLayer:getScale()
-    local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
-
-    scale = scale * camera_scale
-
-    --if (prev ~= scale) then
-        self.m_worldScaleRealtime = scale
-        self.m_missileRange['min_x'] = 0 - 200
-        self.m_missileRange['max_x'] = (CRITERIA_RESOLUTION_X / scale) + 200
-        self.m_missileRange['min_y'] = (-GAME_RESOLUTION_X / 2 / scale) - 200
-        self.m_missileRange['max_y'] = (GAME_RESOLUTION_X / 2 / scale) + 200
-
-        -- 차후 정리...(웨이브 시작시 한번만 계산하면 될듯)
-        self.m_missileRange['min_x'] = self.m_missileRange['min_x'] + cameraHomePosX
-        self.m_missileRange['max_x'] = self.m_missileRange['max_x'] + cameraHomePosX
-        self.m_missileRange['min_y'] = self.m_missileRange['min_y'] + cameraHomePosY
-        self.m_missileRange['max_y'] = self.m_missileRange['max_y'] + cameraHomePosY
-    --end
-
     self.m_physWorld:update(dt)
     self:updateUnit(dt)
 
@@ -842,6 +820,27 @@ function GameWorld:addWorldScaleChangeCB(owner, cb)
 end
 
 -------------------------------------
+-- function setMissileRange
+-------------------------------------
+function GameWorld:setMissileRange()
+    local scale = self.m_worldLayer:getScale()
+    local cameraHomePosX, cameraHomePosY = self.m_gameCamera:getHomePos()
+    local cameraScale = self.m_gameCamera:getHomeScale()
+
+    scale = scale * cameraScale
+
+    self.m_missileRange['min_x'] = 0 - 200
+    self.m_missileRange['max_x'] = (CRITERIA_RESOLUTION_X / scale) + 200
+    self.m_missileRange['min_y'] = (-GAME_RESOLUTION_X / 2 / scale) - 200
+    self.m_missileRange['max_y'] = (GAME_RESOLUTION_X / 2 / scale) + 200
+
+    self.m_missileRange['min_x'] = self.m_missileRange['min_x'] + cameraHomePosX
+    self.m_missileRange['max_x'] = self.m_missileRange['max_x'] + cameraHomePosX
+    self.m_missileRange['min_y'] = self.m_missileRange['min_y'] + cameraHomePosY
+    self.m_missileRange['max_y'] = self.m_missileRange['max_y'] + cameraHomePosY
+end
+
+-------------------------------------
 -- function checkMissileRange
 -------------------------------------
 function GameWorld:checkMissileRange(x, y)
@@ -1321,6 +1320,9 @@ function GameWorld:changeCameraOption(tParam)
     self.m_gameCamera:setAction(tParam)
 
     self.m_gameCamera:setHomeInfo(tParam)
+
+    -- 미사일 제한 범위 재설정
+    self:setMissileRange()
 end
 
 -------------------------------------
@@ -1407,7 +1409,7 @@ function GameWorld:releaseAll()
     self.m_stageID = nil
     self.m_worldSize = nil
     self.m_worldScale = nil
-    self.m_worldScaleRealtime = nil
+    
     self.m_bDebugGrid = nil
     self.m_missileRange = nil
     self.m_bDevelopMode = nil
