@@ -66,7 +66,7 @@ function CommonMissile_Bounce:setMissile()
 
 	-- "effect" : {}
     t_option['effect'] = {}
-    --t_option['effect']['motion_streak'] = self.m_motionStreakRes
+    t_option['effect']['motion_streak'] = self.m_motionStreakRes
 
 	t_option['lua_param'] = {}
     t_option['lua_param']['value1'] = self.m_jumpHeight

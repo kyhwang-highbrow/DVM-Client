@@ -500,7 +500,7 @@ function Character:doAttack(x, y)
 
         -- 지정된 스킬이 발동되지 않았을 경우 또는 basic_turn, rate 인 경우 기본 스킬 발동
         if self.m_isAddSkill or (not b_run_skill) then
-            local basic_skill_id = self:getBasicAttackSkillID()
+            local basic_skill_id = self:getSkillID('basic')
             self:doSkill(basic_skill_id, nil, x, y)
         end
     end

@@ -1390,6 +1390,21 @@ function GameWorld:onEvent_dragon_skill(event_name, ...)
 end
 
 -------------------------------------
+-- function getEnemyList
+-------------------------------------
+function GameWorld:getEnemyList()
+	return self.m_tEnemyList
+end
+
+-------------------------------------
+-- function getAtivatedDragonList
+-- @brief 활성화된 드래곤 리스트 반환, 기획상 기준이 바뀔 가능성이 높기 때문에 함수로 관리
+-------------------------------------
+function GameWorld:getAtivatedDragonList()
+	return self.m_participants
+end
+
+-------------------------------------
 -- function releaseAll
 -- @breif 메모리 체크 중에 게임 월드 해제가 제대로 안되는가 하여 만듬
 -------------------------------------

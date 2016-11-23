@@ -39,8 +39,6 @@ function CommonMissile_High:setMissile()
 	t_option['target'] = self.m_target
     t_option['pos_x'] = self.m_attackPos.x
     t_option['pos_y'] = self.m_attackPos.y
-
-	--self.m_activityCarrier.m_skillCoefficient = 0	-- high angle 탄은 미사일이 데미지를 주지 않는다.
     t_option['attack_damage'] = self.m_activityCarrier
 	t_option['bFixedAttack'] = true
 

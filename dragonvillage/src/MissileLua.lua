@@ -254,6 +254,7 @@ end
 -- function lua_bounce
 -------------------------------------
 function MissileLua.lua_bounce(owner)
+	-- 위치 좌표 및 타겟 좌표 세팅
     local pos_x = owner.pos.x
     local pos_y = owner.pos.y
 
@@ -265,33 +266,48 @@ function MissileLua.lua_bounce(owner)
         target_y = owner.m_target.m_homePosY
     end
 
-	local l_target = owner.m_owner.m_world.m_tEnemyList
+	-- 월드와 적군 리스트 세팅
+	local world = owner.m_owner.m_world
+	local l_target = world:getEnemyList()
     
+	-- 필요한 변수 선언
 	local duration = 0.7
 	local loop = 1
 	local height = owner.m_value1
-	local count = 2
+	local count = 0
 	local max_count = math_min(owner.m_value2, #l_target)
-	
+	local attr = owner.m_owner.m_charTable['attr'] or ''
+	local after_effect_res = 'res/effect/effect_hit_physical_dark/effect_hit_physical_dark.json'
+
+	-- 바운스 느낌을 살리기 위한 스케일 수치 하드코딩
 	local scale_action_duration = 0.05
 	local scale_rate_x = 1.25
 	local scale_rate_y = 0.25
 
+	-- 공통으로 사용될 액션 미리 정의
 	local scale_action = cc.ScaleBy:create(scale_action_duration, scale_rate_x, scale_rate_y)
 	local scale_action2 = cc.ScaleBy:create(scale_action_duration, 1/scale_rate_x, 1/scale_rate_y)
+	local after_effect = cc.CallFunc:create(function()
+		world.m_missileFactory:makeInstantMissile(after_effect_res, 'idle', target_x, target_y, 10, owner, {attr_name = attr, scale = -1})
+	end)
 
 	-- 재귀 호출을 위한 편법
 	local cbFunction2 = nil
-	local cbFunction = 	cc.CallFunc:create(function()
+	local cbFunction = cc.CallFunc:create(function()
 		-- 탈출 조건
 		if (count >= max_count) then 
 			owner:changeState('dying')
 		end
-		if l_target[count] then 
-			target_x = l_target[count].m_homePosX
-			target_y = l_target[count].m_homePosY
+
+		local rand = math_random(1, #l_target)
+		if l_target[rand] then 
+			target_x = l_target[rand].m_homePosX
+			target_y = l_target[rand].m_homePosY
 			local jump_action = cc.JumpTo:create(duration, cc.p(target_x, target_y), height, loop)
-			owner.m_rootNode:runAction(cc.Sequence:create(jump_action, scale_action, scale_action2, cbFunction2))
+			owner.m_rootNode:runAction(cc.Sequence:create(jump_action, after_effect, scale_action, scale_action2, cbFunction2))
+		else
+			-- 타겟을 찾지 못하여도 탈출
+			owner:changeState('dying')
 		end
 		count = count + 1
 	end)
@@ -299,5 +315,5 @@ function MissileLua.lua_bounce(owner)
 
 	-- START
 	local jump_action = cc.JumpTo:create(duration, cc.p(target_x, target_y), height, loop)
-	owner.m_rootNode:runAction(cc.Sequence:create(jump_action, scale_action, scale_action2, cbFunction))
+	owner.m_rootNode:runAction(cc.Sequence:create(jump_action, after_effect, scale_action, scale_action2, cbFunction))
 end
