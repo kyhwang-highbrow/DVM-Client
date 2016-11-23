@@ -991,6 +991,9 @@
     <None Include="..\src\UI_GameDebug_RealTime.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\CommonMissile_Bounce.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

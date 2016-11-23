@@ -281,6 +281,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\CharacterStateDelegate.lua" />
     <None Include="..\src\ChargeSystem_Touch.lua" />
     <None Include="..\src\CommonMissile.lua" />
+    <None Include="..\src\CommonMissile_Bounce.lua" />
     <None Include="..\src\CommonMissile_Cruise.lua" />
     <None Include="..\src\CommonMissile_High.lua" />
     <None Include="..\src\CommonMissile_Release.lua" />
