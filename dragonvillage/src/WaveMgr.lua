@@ -127,7 +127,7 @@ function WaveMgr:checkSummonable(idx)
 	end
 
 	-- enemy list를 순회하면서 소환하려는 위치에 몬스터가 있는지 체크
-	for _, enemy in pairs(self.m_world.m_tEnemyList) do
+	for _, enemy in pairs(self.m_world:getEnemyList()) do
 		local enemy_pos = enemy['pos']
 		for _, dynamic_wave in pairs(self.m_lSummonWave[idx]) do
 			local dest_pos = getEnemyPos(dynamic_wave.m_luaValue2)

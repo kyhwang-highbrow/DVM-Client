@@ -248,7 +248,7 @@ end
 -------------------------------------
 function GameFever:update_live(dt)
     local world = self.m_world
-    local enemy_count = #world.m_tEnemyList
+    local enemy_count = #world:getEnemyList()
     local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
 
     if (self.m_stateTimer == 0) then

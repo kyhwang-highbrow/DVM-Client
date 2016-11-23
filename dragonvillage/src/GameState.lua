@@ -222,7 +222,7 @@ function GameState:fight()
         end
     end
 
-    for i,enemy in pairs(world.m_tEnemyList) do
+    for i,enemy in pairs(world:getEnemyList()) do
         if (enemy.m_bDead == false) then
             enemy.m_bFirstAttack = true
             enemy:changeState('attackDelay')
@@ -237,7 +237,7 @@ function GameState:update_enemy_appear(dt)
     local world = self.m_world
 	
     if (self.m_stateTimer == 0) then
-        local enemy_count = #world.m_tEnemyList
+        local enemy_count = #world:getEnemyList()
         local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
 
         if (enemy_count <= 0) and (dynamic_wave <= 0) then
@@ -245,7 +245,7 @@ function GameState:update_enemy_appear(dt)
         end
     
     -- 모든 적들이 등장이 끝났는지 확인
-    elseif world.m_waveMgr:isEmptyDynamicWaveList() and self.m_nAppearedEnemys >= #world.m_tEnemyList then
+    elseif world.m_waveMgr:isEmptyDynamicWaveList() and self.m_nAppearedEnemys >= #world:getEnemyList() then
 
         -- 전투 최초 시작시
         if world.m_waveMgr:isFirstWave() then
@@ -301,7 +301,7 @@ function GameState:update_fight(dt)
     self.m_fightTimer = self.m_fightTimer + dt
     local world = self.m_world
 
-    local enemy_count = #world.m_tEnemyList
+    local enemy_count = #world:getEnemyList()
     local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
 
     -- 해당 웨이브의 모든 적이 등장한 상태일 경우
@@ -326,7 +326,7 @@ function GameState:update_fight(dt)
             local highestRariry = world.m_waveMgr:getHighestRariry()
             local bExistBoss = false
             
-            for _, enemy in ipairs(world.m_tEnemyList) do
+            for _, enemy in ipairs(world:getEnemyList()) do
                 if (enemy.m_charTable['rarity'] == highestRariry) then
                     bExistBoss = true
                     break
@@ -565,7 +565,7 @@ function GameState:update_fight_fever(dt)
 		end
 
         -- 적군은 계속 공격하도록 함
-        for i, enemy in ipairs(world.m_tEnemyList) do
+        for i, enemy in ipairs(world:getEnemyList()) do
             enemy:setWaitState(false)
         end
                         
@@ -711,7 +711,7 @@ function GameState:update_success(dt)
             end
         end
 
-        for i,enemy in ipairs(world.m_tEnemyList) do
+        for i,enemy in ipairs(world:getEnemyList()) do
             if (enemy.m_bDead == false) then
                 enemy:changeState('idle', true)
             end
@@ -750,7 +750,7 @@ function GameState:update_failure(dt)
             end
         end
 
-        for i,enemy in ipairs(world.m_tEnemyList) do
+        for i,enemy in ipairs(world:getEnemyList()) do
             if (enemy.m_bDead == false) then
                 enemy:changeState('idle', true)
             end

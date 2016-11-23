@@ -48,7 +48,7 @@ function TamerSpecialSkillCombination:init_skill(res, world, power_multiply)
 	self.m_res = res
 	self.m_world = world
 	self.m_lDragon = world:getDragonList()
-	self.m_tTarget = world.m_tEnemyList
+	self.m_tTarget = world:getEnemyList()
 	self.m_powerMultiply = power_multiply
 
 	self.m_hitCnt = 0

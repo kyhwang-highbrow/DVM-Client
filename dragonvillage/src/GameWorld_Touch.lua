@@ -43,7 +43,7 @@ function GameWorld.onTouchMoved_GameWorld(self, touch, event)
 
         -- 적군과의 충돌 처리
         if self:isOnFight() then
-            for _,enemy in pairs(self.m_tEnemyList) do
+            for _,enemy in pairs(self:getEnemyList()) do
                 if self:loopAttackEnemy(enemy, iter_x, iter_y, time) then
                     b_attack = true
                 end

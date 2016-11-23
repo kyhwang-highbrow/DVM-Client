@@ -503,7 +503,7 @@ function GameWorld:findTarget(type, x, y, l_remove)
         local enemy = nil
         local distance = nil
 
-        for i,v in pairs(self.m_tEnemyList) do
+        for i,v in pairs(self:getEnemyList()) do
             if v.m_bDead then
             elseif l_remove and table.find(l_remove, v.phys_idx) then
             else
@@ -545,7 +545,7 @@ function GameWorld:getCharList(team)
     if (team == 'ally') then
         return self:getDragonList()
     elseif (team == 'enemy') then
-        return self.m_tEnemyList
+        return self:getEnemyList()
     end
 end
 
@@ -589,7 +589,7 @@ end
 -- @brief
 -------------------------------------
 function GameWorld:killAllEnemy()
-    for i,v in pairs(self.m_tEnemyList) do
+    for i,v in pairs(self:getEnemyList()) do
         if (not v.m_bDead) then
             v:setDead()
             v:setEnableBody(false)
@@ -893,7 +893,7 @@ function GameWorld:onKeyReleased(keyCode, event)
 
 	-- 강제로 wait 상태로 걸어버림
     elseif (keyCode == KEY_O) then
-        for i,v in ipairs(self.m_tEnemyList) do
+        for i,v in ipairs(self:getEnemyList()) do
             v:setWaitState(true)
         end
 
@@ -903,7 +903,7 @@ function GameWorld:onKeyReleased(keyCode, event)
 
 	-- wait 상태 해제
     elseif (keyCode == KEY_P) then
-        for i,v in ipairs(self.m_tEnemyList) do
+        for i,v in ipairs(self:getEnemyList()) do
             v:setWaitState(false)
         end
 
@@ -932,7 +932,7 @@ function GameWorld:onKeyReleased(keyCode, event)
 
     -- 상태 효과 이펙트 확인
     elseif (keyCode == KEY_T) then    
-        for i,v in ipairs(self.m_tEnemyList) do
+        for i,v in ipairs(self:getEnemyList()) do
 			if (i < 5) then 
 				StatusEffectHelper:invokeStatusEffectForDev(v, STATUS_EFFECT_RES)
 				cclog(STATUS_EFFECT_RES)
@@ -974,7 +974,7 @@ function GameWorld:onKeyReleased(keyCode, event)
 
     -- 보스 모두 죽이기
     elseif (keyCode == KEY_D) then
-        for i, v in ipairs(self.m_tEnemyList) do
+        for i, v in ipairs(self:getEnemyList()) do
             if not v.m_bDead then
                 if isExistValue(v.m_charTable['rarity'], 'elite', 'subboss', 'boss') then
                     v:setDead()
@@ -990,7 +990,7 @@ end
 -- function setWaitAllCharacter
 -------------------------------------
 function GameWorld:setWaitAllCharacter(wait)
-    for i,v in ipairs(self.m_tEnemyList) do
+    for i,v in ipairs(self:getEnemyList()) do
         v:setWaitState(wait)
     end
 
