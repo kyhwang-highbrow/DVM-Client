@@ -13,14 +13,14 @@ applecheek_earth_01_apple_01
   index: -1
 applecheek_earth_01_arm_01
   rotate: false
-  xy: 647, 24
+  xy: 701, 24
   size: 50, 42
   orig: 50, 42
   offset: 0, 0
   index: -1
 applecheek_earth_01_arm_02
   rotate: false
-  xy: 747, 24
+  xy: 753, 24
   size: 40, 42
   orig: 40, 42
   offset: 0, 0
@@ -34,7 +34,7 @@ applecheek_earth_01_body_01
   index: -1
 applecheek_earth_01_body_02
   rotate: true
-  xy: 929, 77
+  xy: 535, 7
   size: 47, 55
   orig: 47, 55
   offset: 0, 0
@@ -53,30 +53,44 @@ applecheek_earth_01_eff_01
   orig: 122, 169
   offset: 0, 0
   index: -1
+applecheek_earth_01_eff_02
+  rotate: false
+  xy: 865, 69
+  size: 55, 55
+  orig: 55, 55
+  offset: 0, 0
+  index: -1
 applecheek_earth_01_eye_01
   rotate: false
-  xy: 699, 20
+  xy: 795, 26
+  size: 46, 46
+  orig: 46, 46
+  offset: 0, 0
+  index: -1
+applecheek_earth_01_eye_02
+  rotate: false
+  xy: 843, 21
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 applecheek_earth_01_foot_01
   rotate: true
-  xy: 535, 15
+  xy: 594, 28
   size: 39, 52
   orig: 39, 52
   offset: 0, 0
   index: -1
 applecheek_earth_01_foot_02
   rotate: true
-  xy: 594, 26
+  xy: 648, 25
   size: 41, 51
   orig: 41, 51
   offset: 0, 0
   index: -1
 applecheek_earth_01_hand_01
   rotate: false
-  xy: 865, 82
+  xy: 922, 82
   size: 62, 42
   orig: 62, 42
   offset: 0, 0
@@ -97,7 +111,7 @@ applecheek_earth_01_head_01
   index: -1
 applecheek_earth_01_head_02
   rotate: false
-  xy: 865, 52
+  xy: 891, 39
   size: 28, 28
   orig: 28, 28
   offset: 0, 0
@@ -118,7 +132,7 @@ applecheek_earth_01_leg_02
   index: -1
 applecheek_earth_01_mouth_01
   rotate: false
-  xy: 895, 61
+  xy: 592, 7
   size: 28, 19
   orig: 28, 19
   offset: 0, 0
