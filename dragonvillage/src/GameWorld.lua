@@ -1100,7 +1100,7 @@ function GameWorld:getBattleZone(formation, immediately)
 
     local t_formation = script[formation]
 
-    for i,v in pairs(self.m_participants) do
+    for i,v in pairs(self.m_lDragonList) do
         local t_data = t_formation[tostring(i)]
         local x_rate = t_data[1]
         local y_rate = t_data[2]
