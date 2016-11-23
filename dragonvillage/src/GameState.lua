@@ -337,10 +337,8 @@ function GameState:update_fight(dt)
                 -- 모든 적들을 죽임
                 world:killAllEnemy()
 
-                -- 스킬 다 날려 버리자
-		        for _, skill in pairs(world.m_lSkillList) do
-			        skill:changeState('dying')
-		        end
+                -- 스킬과 미사일도 다 날려 버리자
+				world:removeMissileAndSkill()
 
                 self:changeState(GAME_STATE_SUCCESS_WAIT)
             end
@@ -409,6 +407,9 @@ function GameState:update_wave_intermission(dt)
         -- 카메라 액션 설정
         world:changeCameraOption(t_wave_data['camera'])
     end
+
+	-- 0. 스킬 및 미사일을 날린다
+	world:removeMissileAndSkill()
 
 	-- 1. 전환 시간 2/3 지점까지 비교적 완만하게 빨라짐
 	if (self.m_stateTimer < WAVE_INTERMISSION_TIME * 2 / 3) then

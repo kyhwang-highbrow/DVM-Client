@@ -1405,6 +1405,18 @@ function GameWorld:getDragonList()
 end
 
 -------------------------------------
+-- function removeMissileAndSkill
+-------------------------------------
+function GameWorld:removeMissileAndSkill()
+    for _, skill in pairs(self.m_lSkillList) do
+		skill:changeState('dying')
+	end
+	for _, missile in pairs(self.m_lMissileList) do
+		missile:changeState('dying')
+	end
+end
+
+-------------------------------------
 -- function releaseAll
 -- @breif 메모리 체크 중에 게임 월드 해제가 제대로 안되는가 하여 만듬
 -------------------------------------
