@@ -531,54 +531,58 @@ function Hero:initStatus(t_char, level, grade, evolution, doid)
 	
     local t_skill = self:getLevelingSkillByType('active').m_tSkill
 
-	local type = t_skill['type']
+	local type = t_skill['indicator']
+		
+	-- 타겟형(아군)
+	if (type == 'target_ally') then
+		self.m_skillIndicator = SkillIndicator_Target(self)
+
+	-- 타겟형(적군)
+	elseif (type == 'target') then
+		self.m_skillIndicator = SkillIndicator_OppositeTarget(self)
+
+	-- 원형 범위
+	elseif (type == 'round') then
+		self.m_skillIndicator = SkillIndicator_AoERound(self, t_skill, isFixedOnTarget)
+
+	-- 시전 범위 제한 있는 타겟
+	elseif (type == 'range') then
+		self.m_skillIndicator = SkillIndicator_Range(self)
+
+	-- 원뿔형
+	elseif (type == 'cone') then
+		self.m_skillIndicator = SkillIndicator_Conic(self, t_skill)
+
+	-- 레이저
+	elseif (type == 'bar') then
+		self.m_skillIndicator = SkillIndicator_laser(self, t_skill)
+
+	------------------ 특수한 인디케이터들 ------------------
 	
-    -- 직선형
-    if isExistValue(type, 'skill_laser', 'skill_breath_1', 'skill_breath_2', 'skill_breath_3') then
-        self.m_skillIndicator = SkillIndicator_laser(self, t_skill)
+	-- 크래쉬(가루다)
+	elseif (type == 'target_cone') then
+		self.m_skillIndicator = SkillIndicator_HealingWind(self, t_skill)
+	
+	-- 힐링윈드 (핑크벨)
+	elseif (type == 'square') then
+		self.m_skillIndicator = SkillIndicator_HealingWind(self, t_skill)
+	
+	-- 리프블레이드 (리프드래곤)
+	elseif (type == 'curve_twin') then
+		self.m_skillIndicator = SkillIndicator_LeafBlade(self, t_skill)
+	
+	-- 원뿔형 확산 (허리케인)
+	elseif (type == 'cone_spread') then
+		self.m_skillIndicator = SkillIndicator_ConicSpread(self, t_skill)
 
-    -- 범위형
-    elseif isExistValue(type, 'skill_bullet_hole') then
-        self.m_skillIndicator = SkillIndicator_Range(self)
-        self.m_skillIndicator.m_bUseHighlight = false
-
-    -- 타겟형 (아군)
-    elseif isExistValue(type, 'skill_protection', 'skill_protection_spread', 'skill_dispel_harm', 'skill_heal_single') then
-        self.m_skillIndicator = SkillIndicator_Target(self)
-	elseif string.find(type, 'skill_buff') then
-        self.m_skillIndicator = SkillIndicator_Target(self)
-
-	-- 타겟형 (적군)
-    elseif isExistValue(type, 'skill_strike_finish_spread') then
-        self.m_skillIndicator = SkillIndicator_OppositeTarget(self)
-
-    -- 힐링윈드
-    elseif isExistValue(type, 'skill_aoe_square_heal_dmg') then
-        self.m_skillIndicator = SkillIndicator_HealingWind(self, t_skill)
-
-    -- 크래시
-    elseif isExistValue(type, 'skill_crash') then
-        self.m_skillIndicator = SkillIndicator_Crash(self, t_skill)
-
-    -- 리프 블레이드
-    elseif isExistValue(type, 'skill_curve_twin') then
-        self.m_skillIndicator = SkillIndicator_LeafBlade(self, t_skill)
-
-    -- 청룡 번개구름, 붐버 액티브, 램곤 수면, 서펀트 액티브
-    elseif isExistValue(type, 'skill_aoe_round', 'skill_aoe_round_jump') then
-        local isFixedOnTarget = false
-        self.m_skillIndicator = SkillIndicator_AoERound(self, t_skill, isFixedOnTarget)
-
-    -- 허리케인
-    elseif isExistValue(type, 'skill_aoe_cone_spread') then
-        self.m_skillIndicator = SkillIndicator_ConicSpread(self, t_skill)
-
-    else
-        self.m_skillIndicator = SkillIndicator_Target(self)
+	-- 미정의 인디케이터
+	else
+		self.m_skillIndicator = SkillIndicator_Target(self, t_skill)
 		cclog('###############################################')
-		cclog('## 인디케이터 정의 되지 않은 스킬 : ' .. type)
+		cclog('## 인디케이터 정의 되지 않은 스킬 : ' .. t_skill['type'])
 		cclog('###############################################')
-    end
+	end
+
 end
 
 -------------------------------------

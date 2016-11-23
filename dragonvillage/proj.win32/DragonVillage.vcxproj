@@ -441,7 +441,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillIndicator_HealingWind.lua" />
     <None Include="..\src\SkillIndicator_laser.lua" />
     <None Include="..\src\SkillIndicator_LeafBlade.lua" />
-    <None Include="..\src\SkillIndicator_Lightning.lua" />
     <None Include="..\src\SkillIndicator_OppositeTarget.lua" />
     <None Include="..\src\SkillIndicator_Range.lua" />
     <None Include="..\src\SkillIndicator_Target.lua" />

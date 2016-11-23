@@ -436,9 +436,6 @@
     <None Include="..\src\EffectHeal.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SkillIndicator_Lightning.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\EnemyLua_Boss.lua">
       <Filter>lua</Filter>
     </None>
