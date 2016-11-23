@@ -4,6 +4,7 @@ DV_SCENE_ACTIVE = false
 -- class SceneDV
 -------------------------------------
 SceneDV = class(PerpleScene, {
+		m_lSpineAni = {},
     })
 
 -------------------------------------
@@ -11,6 +12,7 @@ SceneDV = class(PerpleScene, {
 -------------------------------------
 function SceneDV:init()
     self.m_bShowTopUserInfo = false
+	self.m_lSpineAni = {}
 end
 
 -------------------------------------
@@ -18,9 +20,9 @@ end
 -------------------------------------
 function SceneDV:onEnter()
     PerpleScene.onEnter(self)
-
-    --self:spineTest()
-    self:bezierTest()
+	g_currScene:addKeyKeyListener(self)
+	self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+	cc.Director:getInstance():setDisplayStats(true)
 end
 
 function bezierat(a, b, c, d, t)
@@ -73,54 +75,57 @@ function SceneDV:bezierTest()
     end
 end
 
-
-
+-------------------------------------
+-- function updateUnit
+-- @param dt
+-------------------------------------
+function SceneDV:update(dt)
+	PerpleScene.update(self, dt)
+	for i, v in pairs(self.m_lSpineAni) do
+		cclog('ani #'..i)
+		for i = 1, 10000 do
+			local temp = i * 3 + 10 - 99
+		end
+		
+	end
+end
 
 -------------------------------------
--- function spineTest
+-- function setAni
 -------------------------------------
-function SceneDV:spineTest()
-    local json_name = 'res/character/dragon/godaeshinryong_03/godaeshinryong_03.json'
-    local atlas_name = 'res/character/dragon/godaeshinryong_03/godaeshinryong_03.atlas'
-    local spine = sp.SkeletonAnimation:create(json_name, atlas_name, 1)
+function SceneDV:setAni(res_name, x, y)
+	local ani = MakeAnimator(res_name)
+	ani:setPosition(x, y)
+	table.insert(self.m_lSpineAni, ani)
+	self.m_scene:addChild(ani.m_node)
+end
 
-    spine:setSkin('goblingirl')
+-------------------------------------
+-- function onKeyReleased
+-------------------------------------
+function SceneDV:onKeyReleased(keyCode, event)
+	if keyCode == KEY_F then
+		local rand_x = math_random(0, 960)
+		local rand_y = math_random(0, 500)
+		local json_name = 'res/missile/missile_arrow/missile_arrow.png'
+		self:setAni(json_name, rand_x, rand_y)
 
-    spine:setAnimation(0, 'attack', true)
-    spine:setAnchorPoint(cc.p(0.5, 0.5))
-    spine:setDockPoint(cc.p(0.5, 0.5))
-    spine:setPosition(0, -200)
-    
-    self.m_scene:addChild(spine)  
+	elseif keyCode == KEY_S then
+		local rand_x = math_random(0, 960)
+		local rand_y = math_random(0, 500)
+		local json_name = 'res/character/dragon/spine_earth_01/spine_earth_01.json'
+		self:setAni(json_name, rand_x, rand_y)
 
-    spine:setBoneRotation('bone44', 90)
-    spine:setBoneRotation('bone44', 0, 1.6)
-    --spine:setBoneRotation('bone44', 90)
-    spine:setMix('attack', 'idle', 0.5)
+	elseif keyCode == KEY_D then
+		local rand_x = math_random(0, 960)
+		local rand_y = math_random(0, 500)
+		local res_name = 'res/missile/missile_giantdragon_basic_fire/missile_giantdragon_basic_fire.vrp'
+		self:setAni(res_name, rand_x, rand_y)
 
-    spine:registerSpineEventHandler(function()
-        spine:setAnimation(0, 'idle', true)
-        spine:setToSetupPose()
-        spine:update(0)
-    end, sp.EventType.ANIMATION_COMPLETE)
-
-    --[[
-    spine:runAction(cc.Sequence:create(cc.DelayTime:create(3), cc.CallFunc:create(function(node)
-        --node:setSkin('goblin')
-        --spine:setBoneRotation('head', 0)
-        node:setAnimation(0, 'idle', true)
-        node:setToSetupPose()
-    end)))
-    --]]
-
-    spine:setScaleX(-1)
-
-    --[[
-    local function checkAction(dt)
-        spine:setBoneRotation('head', 90)
-        spine:update(0)
-
-    end
-    self.m_scene:scheduleUpdateWithPriorityLua(checkAction, 0)
-    --]]
+	elseif keyCode == KEY_A then
+		for i, v in pairs(self.m_lSpineAni) do
+			v:release()
+		end
+		self.m_lSpineAni = {}
+	end
 end
