@@ -135,7 +135,7 @@ function GameState:update_start1(dt)
     if (self.m_stateTimer == 0) then
         -- 드래곤들을 숨김
         local world = self.m_world
-        for i,dragon in ipairs(world.m_participants) do
+        for i,dragon in ipairs(world:getDragonList()) do
             if (dragon.m_bDead == false) and (dragon.m_charType == 'dragon') then
                 dragon.m_rootNode:setVisible(false)
                 dragon.m_hpNode:setVisible(false)
@@ -190,7 +190,7 @@ end
 function GameState:appearDragon()
     -- 드래곤들을 등장
     local world = self.m_world
-    for i,dragon in ipairs(world.m_participants) do
+    for i,dragon in ipairs(world:getDragonList()) do
         if (dragon.m_bDead == false) then
             dragon.m_rootNode:setVisible(true)
             dragon.m_hpNode:setVisible(true)
@@ -215,7 +215,7 @@ function GameState:fight()
     -- 아군과 적군 전투 시작
     local world = self.m_world
 
-    for i,dragon in ipairs(world.m_participants) do
+    for i,dragon in ipairs(world:getDragonList()) do
         if (dragon.m_bDead == false) then
             dragon.m_bFirstAttack = true
             dragon:changeState('attackDelay')
@@ -282,7 +282,7 @@ function GameState:update_enemy_appear(dt)
 
 			-- 웨이브 시작 이벤트 전달
             world:dispatch('wave_start')
-			for _, dragon in pairs(world.m_lDragonList) do
+			for _, dragon in pairs(world:getDragonList()) do
 				dragon:dispatch('wave_start')
 			end
         end
@@ -360,7 +360,7 @@ function GameState:update_fight(dt)
     end
 
     do -- 드래곤 액티브 스킬 쿨타임 증가
-        for _,dragon in pairs(world.m_lDragonList) do
+        for _,dragon in pairs(world:getDragonList()) do
             dragon:updateActiveSkillCoolTime(dt)
         end
     end
@@ -391,7 +391,7 @@ function GameState:update_wave_intermission(dt)
         end
         
         -- 아군
-        for i, v in ipairs(world.m_participants) do
+        for i, v in ipairs(world:getDragonList()) do
             if (v.m_bDead == false) then
                 -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
                 local homePosX = v.m_orgHomePosX + t_camera_info['pos_x']
@@ -425,7 +425,7 @@ function GameState:update_wave_intermission(dt)
 	if (self.m_stateTimer >= WAVE_INTERMISSION_TIME) then
         map_mgr:setSpeed(-300)
 
-        for _,dragon in pairs(world.m_lDragonList) do
+        for _,dragon in pairs(world:getDragonList()) do
             if (not dragon.m_bDead) then
                 dragon:setAfterImage(false)
             end
@@ -450,7 +450,7 @@ function GameState:update_wave_intermission_wait(dt)
     -- 드래곤 상태 체크
     local b = true
 
-    for _,dragon in pairs(world.m_lDragonList) do
+    for _,dragon in pairs(world:getDragonList()) do
         if (not dragon.m_bDead and dragon.m_state ~= 'wait') then
             b = false
         end
@@ -537,7 +537,7 @@ function GameState:update_fight_tamer_skill(dt)
     local world = self.m_world
 
     if (self.m_stateTimer == 0) then
-        for i,v in ipairs(world.m_participants) do
+        for i,v in ipairs(world:getDragonList()) do
             v:setWaitState(false)
             v:changeState('idle')
         end
@@ -679,7 +679,7 @@ function GameState:update_success_wait(dt)
     -- 드래곤 상태 체크
     local b = true
 
-    for _,dragon in pairs(world.m_participants) do
+    for _,dragon in pairs(world:getDragonList()) do
         if (not dragon.m_bDead and dragon.m_state ~= 'wait') then
             b = false
         end
@@ -703,7 +703,7 @@ function GameState:update_success(dt)
 
         world:setWaitAllCharacter(false) -- 포즈 연출을 위해 wait에서 해제
 
-        for i,dragon in ipairs(world.m_participants) do
+        for i,dragon in ipairs(world:getDragonList()) do
             if (dragon.m_bDead == false) then
                 dragon:killStateDelegate()
                 dragon:changeState('success_pose') -- 포즈 후 오른쪽으로 사라짐
@@ -743,7 +743,7 @@ function GameState:update_failure(dt)
     if (self.m_stateTimer == 0) then
 
         local world = self.m_world
-        for i,dragon in ipairs(world.m_participants) do
+        for i,dragon in ipairs(world:getDragonList()) do
             if (dragon.m_bDead == false) then
                 dragon:changeState('idle')
             end

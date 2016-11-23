@@ -96,7 +96,7 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
     -- 터치된 캐릭터 결정
     local near_distance = nil
     local select_hero = nil
-    for i, v in pairs(self.m_world.m_participants) do
+    for i, v in pairs(self.m_world:getDragonList()) do
         local x, y = v:getCenterPos()
         local distance = math_distance(x, y, node_pos['x'], node_pos['y'])
 

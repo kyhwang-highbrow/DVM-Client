@@ -130,7 +130,7 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
 			end
 		elseif (target_type == 'ally') then 
 			-- @TODO 피아 구분해서 가져오도록..
-			local ally = owner.m_world.m_lDragonList
+			local ally = owner.m_world:getDragonList()
 			for _, target in pairs(ally) do
 				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
 			end
@@ -419,7 +419,7 @@ function StatusEffectHelper:checkPassiveActivation(char, chance_value, t_status_
 
 		-- characterlist 순회
 		-- @TODO list 가져오는것 수정해야함
-		for i, character in pairs(char.m_world.m_lDragonList) do
+		for i, character in pairs(char.m_world:getDragonList()) do
 			if (character:getAttribute() == attr) then
 				match_count = match_count + 1
 			end

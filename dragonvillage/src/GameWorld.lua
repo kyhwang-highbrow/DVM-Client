@@ -20,14 +20,14 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_lUnitList = 'list',
 		m_lSkillList = 'table',
 		m_lMissileList = 'table',
-        m_tEnemyList = 'EnemyList',
+        
+        -- 출전중인 hero 
+        m_participants = '',
+		m_tEnemyList = 'EnemyList',
+        m_lDragonList = 'DragonList',
 
         m_physWorld = 'PhysWorld',
 
-        m_lDragonList = 'list',
-
-        -- 출전중인 hero
-        m_participants = '',
 
         m_missileFactory = '',
 
@@ -520,7 +520,7 @@ function GameWorld:findTarget(type, x, y, l_remove)
         local hero = nil
         local distance = nil
 
-        for i,v in pairs(self.m_participants) do
+        for i,v in pairs(self:getDragonList()) do
             if v.m_bDead then
             elseif l_remove and table.find(l_remove, v.phys_idx) then
             else
@@ -543,7 +543,7 @@ end
 -------------------------------------
 function GameWorld:getCharList(team)
     if (team == 'ally') then
-        return self.m_participants
+        return self:getDragonList()
     elseif (team == 'enemy') then
         return self.m_tEnemyList
     end
@@ -645,10 +645,10 @@ function GameWorld:removeHero(hero)
     if (hero_count <= 0) then
         self.m_gameState:changeState(GAME_STATE_FAILURE)
     else
-        if #self.m_participants <= 0 then
-            
+		local l_dragon = self:getDragonList()
+        if #l_dragon <= 0 then
             for i=1, 10 do
-                local hero = self.m_lDragonList[i]
+                local hero = l_dragon[i]
                 if hero then
                     cclog('hero.m_bDead ' .. tostring(hero.m_bDead))
                     cclog('hero.m_bActive ' .. tostring(hero.m_bActive))
@@ -869,7 +869,7 @@ function GameWorld:onKeyReleased(keyCode, event)
 
 	-- 스킬 충전
     elseif (keyCode == KEY_C) then
-        for _,dragon in pairs(self.m_lDragonList) do
+        for _,dragon in pairs(self:getDragonList()) do
             dragon:updateActiveSkillCoolTime(100)
         end
         self.m_tamerSkillSystem.m_isUseSpecialSkill = false
@@ -897,7 +897,7 @@ function GameWorld:onKeyReleased(keyCode, event)
             v:setWaitState(true)
         end
 
-        for i,v in ipairs(self.m_participants) do
+        for i,v in ipairs(self:getDragonList()) do
             v:setWaitState(true)
         end
 
@@ -907,13 +907,13 @@ function GameWorld:onKeyReleased(keyCode, event)
             v:setWaitState(false)
         end
 
-        for i,v in ipairs(self.m_participants) do
+        for i,v in ipairs(self:getDragonList()) do
             v:setWaitState(false)
         end
 
 	elseif (keyCode == KEY_Z) then
 		cclog('#### 아군 드래곤의 버프, 디버프 및 패시브 적용 확인 ')
-        for _,v in ipairs(self.m_participants) do
+        for _,v in ipairs(self:getDragonList()) do
 			cclog('---------------')
 			cclog(' DRAGON : ' .. v.m_charTable['t_name'])
             for type, se in pairs(v:getStatusEffectList()) do
@@ -964,7 +964,7 @@ function GameWorld:onKeyReleased(keyCode, event)
 
     -- 아군 모두 죽이기
     elseif (keyCode == KEY_J) then
-        for i, v in ipairs(self.m_participants) do
+        for i, v in ipairs(self:getDragonList()) do
             if not v.m_bDead then
                 v:setDead()
                 v:setEnableBody(false)
@@ -994,7 +994,7 @@ function GameWorld:setWaitAllCharacter(wait)
         v:setWaitState(wait)
     end
 
-    for i,v in ipairs(self.m_participants) do
+    for i,v in ipairs(self:getDragonList()) do
         v:setWaitState(wait)
     end
 end
@@ -1018,7 +1018,7 @@ end
 function GameWorld:buffActivateAtStartup()
     local l_tar_skill_type = {'basic', 'normal'}
 
-    for _,dragon in pairs(self.m_lDragonList) do
+    for _,dragon in pairs(self:getDragonList()) do
         for _,skill_type in pairs(l_tar_skill_type) do
             local skill_id = dragon:getSkillID(skill_type)
             local table_skill = TABLE:get('dragon_skill')
@@ -1029,7 +1029,7 @@ function GameWorld:buffActivateAtStartup()
         end
     end
 
-    for _,dragon in pairs(self.m_lDragonList) do
+    for _,dragon in pairs(self:getDragonList()) do
         local l_passive = dragon.m_lSkillIndivisualInfo['passive']
         for i,skill_info in pairs(l_passive) do
             local skill_id = skill_info.m_skillID
@@ -1370,7 +1370,7 @@ function GameWorld:onEvent_change_wave(event_name, ...)
     if(1 < wave) then
         local percent = (10 / 100)
         local b_make_effect = true
-        for _, char in pairs(self.m_lDragonList) do
+        for _, char in pairs(self:getDragonList()) do
             char:healPercent(percent, b_make_effect)
         end
     end
@@ -1397,10 +1397,10 @@ function GameWorld:getEnemyList()
 end
 
 -------------------------------------
--- function getAtivatedDragonList
+-- function getDragonList
 -- @brief 활성화된 드래곤 리스트 반환, 기획상 기준이 바뀔 가능성이 높기 때문에 함수로 관리
 -------------------------------------
-function GameWorld:getAtivatedDragonList()
+function GameWorld:getDragonList()
 	return self.m_participants
 end
 

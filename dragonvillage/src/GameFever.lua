@@ -273,7 +273,7 @@ function GameFever:update_live(dt)
 
     -- 버프 이펙트 위치 갱신
     for i, feverEffect in ipairs(self.m_lFeverEffect) do
-        local hero = world.m_participants[i]
+        local hero = world:getDragonList()[i]
         if (hero and hero.m_bDead == false) then
             feverEffect:setVisible(true)
             feverEffect:setPosition(hero.pos.x, hero.pos.y)
@@ -314,7 +314,7 @@ function GameFever:onEnd()
     -- 버프 이펙트 삭제
     self:removeBuffEffects()
 
-    for i, hero in ipairs(self.m_world.m_participants) do
+    for i, hero in ipairs(self.m_world:getDragonList()) do
         if not hero.m_bDead then
             hero.m_animator:setTimeScale(1)
             hero.m_animator:changeAni('idle', true)
@@ -334,7 +334,7 @@ end
 function GameFever:makeBuffEffects()
     self.m_lFeverEffect = {}
 
-    for i, hero in ipairs(self.m_world.m_participants) do
+    for i, hero in ipairs(self.m_world:getDragonList()) do
         if not self.m_lFeverEffect[i] then
             local res = 'res/effect/effect_fever/effect_fever.vrp'
             local feverEffect = MakeAnimator(res)
@@ -368,7 +368,6 @@ function GameFever:doAttack()
 
 	ShakeDir2(math_random(100, 300), math_random(100, 300))
 
-    --local hero = world.m_participants[math_random(1, #world.m_participants)]
     local hero = self:getRandomHero()
     if not hero then return end
 
@@ -434,7 +433,7 @@ end
 -------------------------------------
 function GameFever:getRandomHero()
     if #self.m_tAttackOrder == 0 then
-        for i, hero in ipairs(self.m_world.m_participants) do
+        for i, hero in ipairs(self.m_world:getDragonList()) do
             if not hero.m_bDead then
                 table.insert(self.m_tAttackOrder, hero)
             end
