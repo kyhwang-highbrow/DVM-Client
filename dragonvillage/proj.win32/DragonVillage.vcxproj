@@ -360,6 +360,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_Dragons.lua" />
     <None Include="..\src\ServerData_User.lua" />
     <None Include="..\src\SkillHitEffectDirector.lua" />
+    <None Include="..\src\SkillIndicator_Laser.lua" />
     <None Include="..\src\SkillLaser.lua" />
     <None Include="..\src\SkillGuardian.lua" />
     <None Include="..\src\SkillRay.lua" />
@@ -439,7 +440,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillIndicator_ConicSpread.lua" />
     <None Include="..\src\SkillIndicator_Crash.lua" />
     <None Include="..\src\SkillIndicator_HealingWind.lua" />
-    <None Include="..\src\SkillIndicator_laser.lua" />
     <None Include="..\src\SkillIndicator_LeafBlade.lua" />
     <None Include="..\src\SkillIndicator_OppositeTarget.lua" />
     <None Include="..\src\SkillIndicator_Range.lua" />

@@ -1,14 +1,14 @@
 -------------------------------------
--- class SkillIndicator_laser
+-- class SkillIndicator_Laser
 -------------------------------------
-SkillIndicator_laser = class(SkillIndicator, {
+SkillIndicator_Laser = class(SkillIndicator, {
         m_thickness = 'number', -- 레이저의 굵기
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillIndicator_laser:init(hero, t_skill)
+function SkillIndicator_Laser:init(hero, t_skill)
 
     -- 스킬테이블의 val_1의 값으로 레이저의 굵기를 조정
     local size = t_skill['val_1']
@@ -26,7 +26,7 @@ end
 -------------------------------------
 -- function onTouchMoved
 -------------------------------------
-function SkillIndicator_laser:onTouchMoved(x, y)
+function SkillIndicator_Laser:onTouchMoved(x, y)
 
     if (self.m_siState == SI_STATE_READY) then
         return
@@ -118,7 +118,7 @@ end
 -------------------------------------
 -- function initIndicatorNode
 -------------------------------------
-function SkillIndicator_laser:initIndicatorNode()
+function SkillIndicator_Laser:initIndicatorNode()
     if (not SkillIndicator.initIndicatorNode(self)) then
         return
     end
@@ -150,7 +150,7 @@ end
 -------------------------------------
 -- function onChangeTargetCount
 -------------------------------------
-function SkillIndicator_laser:onChangeTargetCount(old_target_count, cur_target_count)
+function SkillIndicator_Laser:onChangeTargetCount(old_target_count, cur_target_count)
 
     -- 활성화
     if (old_target_count == 0) and (cur_target_count > 0) then
@@ -169,7 +169,7 @@ end
 -------------------------------------
 -- function findTarget
 -------------------------------------
-function SkillIndicator_laser:findTarget(pos_x, pos_y, dir)
+function SkillIndicator_Laser:findTarget(pos_x, pos_y, dir)
     local end_pos = getPointFromAngleAndDistance(dir, 2560)    
     local end_x = pos_x + end_pos['x']
     local end_y = pos_y + end_pos['y']

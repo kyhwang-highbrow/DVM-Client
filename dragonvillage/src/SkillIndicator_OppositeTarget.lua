@@ -87,11 +87,9 @@ function SkillIndicator_OppositeTarget:initIndicatorNode()
 
     do
         local link_effect = LinkEffect('res/indicator/indicator_type_target/indicator_type_target.vrp', 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
+		link_effect:doNotUseHead()
         root_node:addChild(link_effect.m_node)
         self.m_indicatorEffect = link_effect
-
-		--@TODO
-		link_effect.m_startPointNode:setVisible(false)
     end
 end
 

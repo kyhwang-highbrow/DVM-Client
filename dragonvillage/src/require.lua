@@ -209,7 +209,7 @@ local t_module = {
     -- SKILL INDICATOR
     'SkillIndicatorMgr',
     'SkillIndicator',
-    'SkillIndicator_laser',
+    'SkillIndicator_Laser',
     'SkillIndicator_Range',
     'SkillIndicator_Target',
 	'SkillIndicator_OppositeTarget',

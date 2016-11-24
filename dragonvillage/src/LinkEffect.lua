@@ -181,6 +181,14 @@ function LinkEffect:changeCommonAni(ani_name, loop, anihandler)
 end
 
 -------------------------------------
+-- function doNotUseHead
+-- @TODO start - effect - end node 전부 사용함을 가정하고 있기 때문에 하나만 덜어내는 것이 어려워 임시 처리
+-------------------------------------
+function LinkEffect:doNotUseHead()
+	self.m_startPointNode:setVisible(false)
+end
+
+-------------------------------------
 -- function release
 -------------------------------------
 function LinkEffect:release()

@@ -555,7 +555,7 @@ function Hero:initStatus(t_char, level, grade, evolution, doid)
 
 	-- 레이저
 	elseif (type == 'bar') then
-		self.m_skillIndicator = SkillIndicator_laser(self, t_skill)
+		self.m_skillIndicator = SkillIndicator_Laser(self, t_skill)
 
 	------------------ 특수한 인디케이터들 ------------------
 	
