@@ -41,7 +41,7 @@ function SkillIndicator_ConicSpread:onTouchMoved(x, y)
         isChangeDegree = true
 	end
 
-	self.m_indicator1:setRotation(dir)
+	self.m_indicatorEffect:setRotation(dir)
 
     self.m_targetPosX = tar_x
     self.m_targetPosY = tar_y
@@ -126,18 +126,4 @@ function SkillIndicator_ConicSpread:spreadStatusEffect(l_target, status_effect_t
 		end
 	end
 
-end
-
--------------------------------------
--- function onChangeTargetCount
--------------------------------------
-function SkillIndicator_ConicSpread:onChangeTargetCount(old_target_count, cur_target_count)
-	-- 활성화
-	if (old_target_count == 0) and (cur_target_count > 0) then
-		self.m_indicator1:changeAni('20', false)
-
-	-- 비활성화
-	elseif (old_target_count > 0) and (cur_target_count == 0) then
-		self.m_indicator1:changeAni('20_normal', false)
-	end
 end

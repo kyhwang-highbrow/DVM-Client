@@ -2,7 +2,6 @@
 -- class SkillIndicator_laser
 -------------------------------------
 SkillIndicator_laser = class(SkillIndicator, {
-        m_indicatorEffect01 = '',
         m_thickness = 'number', -- 레이저의 굵기
     })
 
@@ -49,9 +48,8 @@ function SkillIndicator_laser:onTouchMoved(x, y)
         change_degree = true
     end
 
-    self.m_indicatorEffect01:setRotation(dir)
-    self.m_indicator1:setRotation(dir)
-    self.m_indicator2:setRotation(dir)
+    self.m_indicatorEffect:setRotation(dir)
+    self.m_indicatorAddEffect:setRotation(dir)
 
     if change_degree then
         local adjust_pos = getPointFromAngleAndDistance(dir, 500)
@@ -60,12 +58,12 @@ function SkillIndicator_laser:onTouchMoved(x, y)
         local bp1 = {x=0, y=y}
         local bp2 = {x=3000, y=y}
         local ip_x, ip_y = getIntersectPoint(ap1, ap2, bp1, bp2)
-        self.m_indicator2:setPosition(ip_x - pos_x + self.m_attackPosOffsetX, ip_y - pos_y + self.m_attackPosOffsetY)
+        self.m_indicatorAddEffect:setPosition(ip_x - pos_x + self.m_attackPosOffsetX, ip_y - pos_y + self.m_attackPosOffsetY)
 
         self.m_targetPosX = (ip_x + self.m_attackPosOffsetX)
         self.m_targetPosY = (ip_y + self.m_attackPosOffsetY)
     else
-        self.m_indicator2:setPosition(x - pos_x + self.m_attackPosOffsetX, y - pos_y + self.m_attackPosOffsetY)
+        self.m_indicatorAddEffect:setPosition(x - pos_x + self.m_attackPosOffsetX, y - pos_y + self.m_attackPosOffsetY)
     end
 
     do
@@ -127,25 +125,13 @@ function SkillIndicator_laser:initIndicatorNode()
 
     local root_node = self.m_indicatorRootNode
 
-    do -- 캐스팅 이펙트
-        local indicator = MakeAnimator('res/indicator/indicator_effect_cast/indicator_effect_cast.vrp')
-        indicator:setTimeScale(5)
-        indicator:changeAni('normal', true)
-
-		-- @TODO
-		indicator:setVisible(false)
-
-        root_node:addChild(indicator.m_node)
-        self.m_indicatorEffect01 = indicator
-    end
-
     do
         local indicator = MakeAnimator('res/indicator/indicator_type_straight/indicator_type_straight.vrp')
         indicator:setTimeScale(5)
         indicator:changeAni('bar_normal', true)
         indicator:setPosition(self.m_attackPosOffsetX, self.m_attackPosOffsetY)
         root_node:addChild(indicator.m_node)
-        self.m_indicator1 = indicator
+        self.m_indicatorEffect = indicator
 
         -- a2d상에서 굵기가 120으로 되어있음
         indicator.m_node:setScaleX(self.m_thickness/120)
@@ -156,7 +142,7 @@ function SkillIndicator_laser:initIndicatorNode()
         indicator:setTimeScale(5)
         indicator:changeAni('cursor_normal', true)
         root_node:addChild(indicator.m_node)
-        self.m_indicator2 = indicator
+        self.m_indicatorAddEffect = indicator
     end
 end
 
@@ -168,15 +154,13 @@ function SkillIndicator_laser:onChangeTargetCount(old_target_count, cur_target_c
 
     -- 활성화
     if (old_target_count == 0) and (cur_target_count > 0) then
-        self.m_indicatorEffect01:changeAni('enemy', true)
-        self.m_indicator1:changeAni('bar_enemy', true)
-        self.m_indicator2:changeAni('cursor_enemy', true)
+        self.m_indicatorEffect:changeAni('bar_enemy', true)
+        self.m_indicatorAddEffect:changeAni('cursor_enemy', true)
 
     -- 비활성화
     elseif (old_target_count > 0) and (cur_target_count == 0) then
-        self.m_indicatorEffect01:changeAni('normal', true)
-        self.m_indicator1:changeAni('bar_normal', true)
-        self.m_indicator2:changeAni('cursor_normal', true)
+        self.m_indicatorEffect:changeAni('bar_normal', true)
+        self.m_indicatorAddEffect:changeAni('cursor_normal', true)
 
     end
 

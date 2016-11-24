@@ -1,3 +1,4 @@
+local PARENT = SkillIndicator
 -------------------------------------
 -- class SkillIndicator_Crash
 -- @brief 가루다의 액티스 스킬 (skill_crash)
@@ -8,10 +9,8 @@
 -- ['val_1']        충격파 데미지 (%)
 -- ['val_2']        충격파 반지름
 -------------------------------------
-SkillIndicator_Crash = class(SkillIndicator, {
-        m_indicatorEffect01 = '',
-        m_indicatorEffect02 = '',
-        m_indicatorLinkEffect = '',
+SkillIndicator_Crash = class(PARENT, {
+        m_indicatorAddEffect = '',
         m_skillRadius = 'number',
     })
 
@@ -40,9 +39,9 @@ function SkillIndicator_Crash:onTouchMoved(x, y)
     local t_collision_obj = self:findShockwaveTarget(x, y)
 
     -- 이펙트 위치
-    LinkEffect_refresh(self.m_indicatorLinkEffect, 0, 0, x - pos_x, y - pos_y)
+    LinkEffect_refresh(self.m_indicatorEffect, 0, 0, x - pos_x, y - pos_y)
 
-    self.m_indicatorEffect02:setPosition(x - pos_x, y - pos_y)
+    self.m_indicatorAddEffect:setPosition(x - pos_x, y - pos_y)
 
     local skill_indicator_mgr = self:getSkillIndicatorMgr()
 
@@ -98,30 +97,18 @@ function SkillIndicator_Crash:initIndicatorNode()
 
     local root_node = self.m_indicatorRootNode
 
-    do -- 캐스팅 이펙트
-        local indicator = MakeAnimator('res/indicator/indicator_effect_cast/indicator_effect_cast.vrp')
-        indicator:setTimeScale(5)
-        indicator:changeAni('enemy', true)
-
-		-- @TODO
-		indicator:setVisible(false)
-
-        root_node:addChild(indicator.m_node)
-        self.m_indicatorEffect01 = indicator
-    end
-
     do
         local indicator = MakeAnimator('res/indicator/indicator_common/indicator_common.vrp')
         indicator:changeAni('fan_shape_enemy', true)
         indicator:setRotation(0)
         root_node:addChild(indicator.m_node)
-        self.m_indicatorEffect02 = indicator
+        self.m_indicatorAddEffect = indicator
     end
 
     do
         local link_effect = LinkEffect('res/indicator/indicator_type_target/indicator_type_target.vrp', 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
         root_node:addChild(link_effect.m_node)
-		self.m_indicatorLinkEffect = link_effect
+		self.m_indicatorEffect = link_effect
 		
 		--@TODO
 		link_effect.m_startPointNode:setVisible(false)
@@ -137,19 +124,19 @@ function SkillIndicator_Crash:onChangeTargetCount(old_target_count, cur_target_c
 
     -- 활성화
     if (old_target_count == 0) and (cur_target_count > 0) then
-        self.m_indicatorLinkEffect.m_startPointNode:changeAni('enemy_start_idle', true)
-        self.m_indicatorLinkEffect.m_effectNode:changeAni('enemy_bar_idle', true)
-        self.m_indicatorLinkEffect.m_endPointNode:changeAni('enemy_end_idle', true)
+        self.m_indicatorEffect.m_startPointNode:changeAni('enemy_start_idle', true)
+        self.m_indicatorEffect.m_effectNode:changeAni('enemy_bar_idle', true)
+        self.m_indicatorEffect.m_endPointNode:changeAni('enemy_end_idle', true)
 
-        self.m_indicatorEffect02:changeAni('fan_shape_enemy')
+        self.m_indicatorAddEffect:changeAni('fan_shape_enemy')
 
     -- 비활성화
     elseif (old_target_count > 0) and (cur_target_count == 0) then
-        self.m_indicatorLinkEffect.m_startPointNode:changeAni('normal_start_idle', true)
-        self.m_indicatorLinkEffect.m_effectNode:changeAni('normal_bar_idle', true)
-        self.m_indicatorLinkEffect.m_endPointNode:changeAni('normal_end_idle', true)
+        self.m_indicatorEffect.m_startPointNode:changeAni('normal_start_idle', true)
+        self.m_indicatorEffect.m_effectNode:changeAni('normal_bar_idle', true)
+        self.m_indicatorEffect.m_endPointNode:changeAni('normal_end_idle', true)
 
-        self.m_indicatorEffect02:changeAni('fan_shape_normal')
+        self.m_indicatorAddEffect:changeAni('fan_shape_normal')
 
     end
 end

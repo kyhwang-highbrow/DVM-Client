@@ -5,9 +5,7 @@ local PARENT = SkillIndicator
 -------------------------------------
 SkillIndicator_Conic = class(SkillIndicator, {
 		m_indicatorAddEffectList = '',
-
 		m_skillRadius = 'num',
-		
     })
 
 -------------------------------------
@@ -31,7 +29,7 @@ function SkillIndicator_Conic:onTouchMoved(x, y)
     local x, y = x, y
     local pos_x, pos_y = self:getAttackPosition()
     local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
-	self.m_indicator1:setRotation(dir)
+	self.m_indicatorEffect:setRotation(dir)
 
     self.m_targetPosX = x
     self.m_targetPosY = y
@@ -100,7 +98,7 @@ function SkillIndicator_Conic:initIndicatorNode()
         root_node:addChild(indicator.m_node)
 		indicator:setPosition(self:getAttackPosition())
 		indicator:setScale(self.m_indicatorScale)
-        self.m_indicator1 = indicator
+        self.m_indicatorEffect = indicator
 		return true
     end
 end
@@ -110,21 +108,21 @@ end
 -------------------------------------
 function SkillIndicator_Conic:onEnterAppear()
     PARENT.onEnterAppear(self)
-    self.m_indicator1:changeAni('20', false)
+    self.m_indicatorEffect:changeAni('20', false)
 end
 
 -------------------------------------
 -- function onChangeTargetCount
 -------------------------------------
 function SkillIndicator_Conic:onChangeTargetCount(old_target_count, cur_target_count)
-    -- 활성화
-    if (old_target_count == 0) and (cur_target_count > 0) then
-        --self.m_indicatorEffect:changeAni('skill_range_enemy', true)
+	-- 활성화
+	if (old_target_count == 0) and (cur_target_count > 0) then
+		self.m_indicatorEffect:changeAni('20', false)
 
-    -- 비활성화 
-    elseif (old_target_count > 0) and (cur_target_count == 0) then
-        --self.m_indicatorEffect:changeAni('skill_range_normal', true)
-    end
+	-- 비활성화
+	elseif (old_target_count > 0) and (cur_target_count == 0) then
+		self.m_indicatorEffect:changeAni('20_normal', false)
+	end
 end
 
 

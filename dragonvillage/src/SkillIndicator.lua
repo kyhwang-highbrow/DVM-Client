@@ -14,10 +14,8 @@ SkillIndicator = class({
         m_siState = 'number',
 
         m_indicatorRootNode = 'cc.Node',
-        m_indicator1 = '',
-        m_indicator2 = '',
-		m_indicatorScale = '',
-        m_highlightList = '',
+        m_indicatorEffect = 'A2D',
+		m_indicatorScale = 'number',
 
         m_indicatorTouchPosX = '',
         m_indicatorTouchPosY = '',
@@ -26,11 +24,12 @@ SkillIndicator = class({
         m_targetPosX = '',
         m_targetPosY = '',
         m_targetChar = '',
-		m_targetCnt = 'num',
 
         -- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset
         m_attackPosOffsetX = 'number',
         m_attackPosOffsetY = 'number',
+
+		m_highlightList = ''
     })
 
 -------------------------------------
@@ -88,7 +87,6 @@ function SkillIndicator:changeSIState(state)
 
     if (state == SI_STATE_READY) then
         self:initIndicatorNode()
-        self:initIndicator()
         self.m_indicatorRootNode:setVisible(false)
         self.m_highlightList = nil
 
@@ -108,11 +106,7 @@ function SkillIndicator:changeSIState(state)
         self.m_hero:makeSkillPrepareEffect()
 
     elseif (state == SI_STATE_DISAPPEAR) then
-		-- 스킬 히트 콤보 판단 
-		self.m_targetCnt = self.m_highlightList and #self.m_highlightList or 0
-
         self.m_indicatorRootNode:setVisible(false)
-        self.m_highlightList = nil
         self:onDisappear()
 
 		-- 툴팁 닫기
@@ -157,8 +151,6 @@ function SkillIndicator:onTouchMoved(x, y)
     end
 end
 
-
-
 -------------------------------------
 -- function initIndicatorNode
 -------------------------------------
@@ -193,12 +185,6 @@ function SkillIndicator:update()
 end
 
 -------------------------------------
--- function initIndicator
--------------------------------------
-function SkillIndicator:initIndicator()
-end
-
--------------------------------------
 -- function onEnterAppear
 -------------------------------------
 function SkillIndicator:onEnterAppear()
@@ -209,6 +195,7 @@ end
 -- function onDisappear
 -------------------------------------
 function SkillIndicator:onDisappear()
+	-- 현재 사용하는 곳이 없으나 추후 사용하면 좋을듯
 end
 
 -------------------------------------
@@ -221,7 +208,6 @@ function SkillIndicator:getIndicatorData()
     t_data['x'] = self.m_targetPosX
     t_data['y'] = self.m_targetPosY
     t_data['target'] = self.m_targetChar
-	t_data['target_cnt'] = self.m_targetCnt
 
 	self.m_targetDir = nil
     self.m_targetPosX = nil
