@@ -3,13 +3,13 @@
 -------------------------------------
 SkillIndicator_Laser = class(SkillIndicator, {
         m_thickness = 'number', -- 레이저의 굵기
+		m_indicatorAddEffect = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function SkillIndicator_Laser:init(hero, t_skill)
-
     -- 스킬테이블의 val_1의 값으로 레이저의 굵기를 조정
     local size = t_skill['val_1']
     if (size == 1) then
@@ -27,16 +27,14 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_Laser:onTouchMoved(x, y)
-
     if (self.m_siState == SI_STATE_READY) then
         return
     end
-
-    self.m_targetPosX = x
-    self.m_targetPosY = y
     
     local pos_x, pos_y = self:getAttackPosition()
     local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
+
+	local t_collision_obj = self:findTarget(pos_x, pos_y, dir)
 
     -- 각도 제한
     local change_degree = false
@@ -48,6 +46,11 @@ function SkillIndicator_Laser:onTouchMoved(x, y)
         change_degree = true
     end
 
+    self.m_targetPosX = x
+    self.m_targetPosY = y
+
+	-- 이펙트 조정
+	self.m_targetDir = dir
     self.m_indicatorEffect:setRotation(dir)
     self.m_indicatorAddEffect:setRotation(dir)
 
@@ -66,51 +69,8 @@ function SkillIndicator_Laser:onTouchMoved(x, y)
         self.m_indicatorAddEffect:setPosition(x - pos_x + self.m_attackPosOffsetX, y - pos_y + self.m_attackPosOffsetY)
     end
 
-    do
-        local skill_indicator_mgr = self:getSkillIndicatorMgr()
-
-        local old_target_count = 0
-
-        local old_highlight_list = self.m_highlightList
-
-        if self.m_highlightList then
-            old_target_count = #self.m_highlightList
-        end
-
-        -- 레이저에 충돌된 모든 객체 리턴
-        local t_collision_obj = self:findTarget(pos_x, pos_y, dir)
-
-        for i,target in ipairs(t_collision_obj) do            
-            if (not target.m_targetEffect) then
-                skill_indicator_mgr:addHighlightList(target)
-                self:makeTargetEffect(target)
-            end
-            
-        end
-
-        if old_highlight_list then
-            for i,v in ipairs(old_highlight_list) do
-                local find = false
-                for _,v2 in ipairs(t_collision_obj) do
-                    if (v == v2) then
-                        find = true
-                        break
-                    end
-                end
-                if (find == false) then
-                    skill_indicator_mgr:removeHighlightList(v)
-                end
-            end
-        end
-
-        self.m_highlightList = t_collision_obj
-
-        local cur_target_count = #self.m_highlightList
-        self:onChangeTargetCount(old_target_count, cur_target_count)
-    end
-
-
-    self.m_targetDir = dir
+	-- 하이라이트 갱신
+	self:setHighlightEffect(t_collision_obj)
 end
 
 
@@ -151,7 +111,6 @@ end
 -- function onChangeTargetCount
 -------------------------------------
 function SkillIndicator_Laser:onChangeTargetCount(old_target_count, cur_target_count)
-
     -- 활성화
     if (old_target_count == 0) and (cur_target_count > 0) then
         self.m_indicatorEffect:changeAni('bar_enemy', true)
@@ -161,9 +120,7 @@ function SkillIndicator_Laser:onChangeTargetCount(old_target_count, cur_target_c
     elseif (old_target_count > 0) and (cur_target_count == 0) then
         self.m_indicatorEffect:changeAni('bar_normal', true)
         self.m_indicatorAddEffect:changeAni('cursor_normal', true)
-
     end
-
 end
 
 -------------------------------------

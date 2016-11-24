@@ -2,24 +2,24 @@
 -- class SkillIndicator_Target
 -------------------------------------
 SkillIndicator_Target = class(SkillIndicator, {
+		m_isOpposite = 'bool', --formationMgr 가져올때 사용'
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillIndicator_Target:init(hero)
+function SkillIndicator_Target:init(hero, t_skill, is_opposite)
+	self.m_isOpposite = is_opposite
 end
 
 -------------------------------------
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_Target:onTouchMoved(x, y)
-
     if (self.m_siState == SI_STATE_READY) then
         return
     end
 
-    local x, y = x, y
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
 
     local t_collision_obj = self:findTarget(x, y)
@@ -36,51 +36,9 @@ function SkillIndicator_Target:onTouchMoved(x, y)
     -- 이펙트 위치
     LinkEffect_refresh(self.m_indicatorEffect, 0, 0, x - pos_x, y - pos_y)
 
-    local skill_indicator_mgr = self:getSkillIndicatorMgr()
-
-    local old_target_count = 0
-
-    local old_highlight_list = self.m_highlightList
-
-    if self.m_highlightList then
-        old_target_count = #self.m_highlightList
-    end
-
-    --local t_collision_obj = self:findTarget(x, y)
-
-    for i,target in ipairs(t_collision_obj) do            
-        if (not target.m_targetEffect) then
-            skill_indicator_mgr:addHighlightList(target)
-            self:makeTargetEffect(target, 'appear_ally', 'idle_ally')
-        end
-    end
-
-    if old_highlight_list then
-        for i,v in ipairs(old_highlight_list) do
-            local find = false
-            for _,v2 in ipairs(t_collision_obj) do
-                if (v == v2) then
-                    find = true
-                    break
-                end
-            end
-            if (find == false) then
-                if (v ~= self.m_hero) then
-                    skill_indicator_mgr:removeHighlightList(v)
-                else
-                    v:removeTargetEffect(v)
-                end
-            end
-        end
-    end
-
-    self.m_highlightList = t_collision_obj
-
-    local cur_target_count = #self.m_highlightList
-    self:onChangeTargetCount(old_target_count, cur_target_count)
+	-- 하이라이트 갱신
+    self:setHighlightEffect(t_collision_obj)
 end
-
-
 
 -------------------------------------
 -- function initIndicatorNode
@@ -115,7 +73,6 @@ function SkillIndicator_Target:onChangeTargetCount(old_target_count, cur_target_
         self.m_indicatorEffect.m_startPointNode:changeAni('normal_start_idle', true)
         self.m_indicatorEffect.m_effectNode:changeAni('normal_bar_idle', true)
         self.m_indicatorEffect.m_endPointNode:changeAni('normal_end_idle', true)
-
     end
 end
 
@@ -124,15 +81,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_Target:findTarget(x, y)
-    local world = self:getWorld()
-    local target_formation_mgr = nil
-
-    if self.m_hero.m_bLeftFormation then
-        target_formation_mgr = world.m_leftFormationMgr
-    else
-        target_formation_mgr = world.m_rightFormationMgr
-    end
-
+    local target_formation_mgr = self.m_hero:getFormationMgr(self.m_isOpposite)
     local l_target = target_formation_mgr:findNearTarget(x, y, -1, 1, EMPTY_TABLE)
     
     return {l_target[1]}

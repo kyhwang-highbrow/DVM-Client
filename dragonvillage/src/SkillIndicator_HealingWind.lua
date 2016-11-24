@@ -18,24 +18,60 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_HealingWind:onTouchMoved(x, y)
-
     if (self.m_siState == SI_STATE_READY) then
         return
     end
 
-    local x, y = x, y
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
+    
+	local t_collision_obj = self:findTarget(x, y)
 
     self.m_targetPosX = x
     self.m_targetPosY = y
 
-    -- 인디케이터 위치 보정
+    -- 이펙트 조정
     self.m_indicatorEffect:setPosition(x - pos_x, 0)
     self.m_indicatorAddEffect:setPosition(x - pos_x, y - pos_y)
 
+	-- 하이라이트 갱신
+    self:setHighlightEffect(t_collision_obj)
+end
 
-    local t_collision_obj = self:findTarget(x, y)
+-------------------------------------
+-- function initIndicatorNode
+-------------------------------------
+function SkillIndicator_HealingWind:initIndicatorNode()
+    if (not SkillIndicator.initIndicatorNode(self)) then
+        return
+    end
 
+    local root_node = self.m_indicatorRootNode
+
+    do -- 캐스팅 이펙트
+        local indicator = MakeAnimator('res/indicator/indicator_type_straight/indicator_type_straight.vrp')
+        indicator:setTimeScale(5)
+        indicator:changeAni('healing_wind_normal', true)
+        root_node:addChild(indicator.m_node)
+        self.m_indicatorEffect = indicator
+
+		--@TODO 스킬 인디케이터 스케일 전면 수정 해야함
+        local scale_x = (self.m_skillWidth / 360)
+        indicator.m_node:setScaleX(scale_x)
+    end
+
+    do
+        local indicator = MakeAnimator('res/indicator/indicator_type_straight/indicator_type_straight.vrp')
+        indicator:setTimeScale(5)
+        indicator:changeAni('cursor_normal', true)
+        root_node:addChild(indicator.m_node)
+        self.m_indicatorAddEffect = indicator
+    end
+end
+
+-------------------------------------
+-- function setHighlight
+-------------------------------------
+function SkillIndicator:setHighlightEffect(t_collision_obj)
     local skill_indicator_mgr = self:getSkillIndicatorMgr()
 
     local old_target_count = 0
@@ -45,8 +81,6 @@ function SkillIndicator_HealingWind:onTouchMoved(x, y)
     if self.m_highlightList then
         old_target_count = #self.m_highlightList
     end
-
-    --local t_collision_obj = self:findTarget(x, y)
 
     for i,target in ipairs(t_collision_obj) do            
         if (not target.m_targetEffect) then
@@ -84,53 +118,6 @@ function SkillIndicator_HealingWind:onTouchMoved(x, y)
     local cur_target_count = #self.m_highlightList
     self:onChangeTargetCount(old_target_count, cur_target_count)
 end
-
-
-
--------------------------------------
--- function initIndicatorNode
--------------------------------------
-function SkillIndicator_HealingWind:initIndicatorNode()
-    if (not SkillIndicator.initIndicatorNode(self)) then
-        return
-    end
-
-    local root_node = self.m_indicatorRootNode
-
-    do -- 캐스팅 이펙트
-        local indicator = MakeAnimator('res/indicator/indicator_type_straight/indicator_type_straight.vrp')
-        indicator:setTimeScale(5)
-        indicator:changeAni('healing_wind_normal', true)
-        root_node:addChild(indicator.m_node)
-        self.m_indicatorEffect = indicator
-
-		--@TODO 스킬 인디케이터 스케일 전면 수정 해야함
-        local scale_x = (self.m_skillWidth / 360)
-        indicator.m_node:setScaleX(scale_x)
-    end
-
-    do
-        local indicator = MakeAnimator('res/indicator/indicator_type_straight/indicator_type_straight.vrp')
-        indicator:setTimeScale(5)
-        indicator:changeAni('cursor_normal', true)
-        root_node:addChild(indicator.m_node)
-        self.m_indicatorAddEffect = indicator
-    end
-end
-
--------------------------------------
--- function onChangeTargetCount
--------------------------------------
-function SkillIndicator_HealingWind:onChangeTargetCount(old_target_count, cur_target_count)
-    -- 활성화
-    if (old_target_count == 0) and (cur_target_count > 0) then
-
-    -- 비활성화
-    elseif (old_target_count > 0) and (cur_target_count == 0) then
-
-    end
-end
-
 
 -------------------------------------
 -- function findTarget

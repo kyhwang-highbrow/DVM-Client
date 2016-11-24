@@ -25,69 +25,26 @@ function SkillIndicator_AoERound:onTouchMoved(x, y)
         return
     end
 
-    local x, y = x, y
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
-
-    local t_collision_obj = self:findTargetList(x, y, self.m_range, self.m_isFixedOnTarget)
+    
+	local t_collision_obj = self:findTargetList(x, y, self.m_range, self.m_isFixedOnTarget)
     self.m_targetChar = t_collision_obj[1]
 
     if self.m_isFixedOnTarget and self.m_targetChar then
         x = self.m_targetChar.pos.x
         y = self.m_targetChar.pos.y
     end
-
-    -- 이펙트 위치
-    LinkEffect_refresh(self.m_indicatorEffect, 0, 0, x - pos_x, y - pos_y)
-    self.m_indicatorAddEffect:setPosition(x-pos_x, y-pos_y)
     
     self.m_targetPosX = x
     self.m_targetPosY = y
 
-    local skill_indicator_mgr = self:getSkillIndicatorMgr()
+    -- 이펙트 위치
+    LinkEffect_refresh(self.m_indicatorEffect, 0, 0, x - pos_x, y - pos_y)
+    self.m_indicatorAddEffect:setPosition(x-pos_x, y-pos_y)
 
-    local old_target_count = 0
-
-    local old_highlight_list = self.m_highlightList
-
-    if self.m_highlightList then
-        old_target_count = #self.m_highlightList
-    end
-
-    --local t_collision_obj = self:findTarget(x, y)
-
-    for i,target in ipairs(t_collision_obj) do            
-        if (not target.m_targetEffect) then
-            skill_indicator_mgr:addHighlightList(target)
-            self:makeTargetEffect(target)
-        end
-    end
-
-    if old_highlight_list then
-        for i,v in ipairs(old_highlight_list) do
-            local find = false
-            for _,v2 in ipairs(t_collision_obj) do
-                if (v == v2) then
-                    find = true
-                    break
-                end
-            end
-            if (find == false) then
-                if (v ~= self.m_hero) then
-                    skill_indicator_mgr:removeHighlightList(v)
-                else
-                    v:removeTargetEffect(v)
-                end
-            end
-        end
-    end
-
-    self.m_highlightList = t_collision_obj
-
-    local cur_target_count = #self.m_highlightList
-    self:onChangeTargetCount(old_target_count, cur_target_count)
+	-- 하이라이트 갱신
+    self:setHighlightEffect(t_collision_obj)
 end
-
-
 
 -------------------------------------
 -- function initIndicatorNode
@@ -170,15 +127,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_AoERound:_findTarget(x, y, range)
-    local world = self:getWorld()
-    local target_formation_mgr = nil
-
-    if self.m_hero.m_bLeftFormation then
-        target_formation_mgr = world.m_rightFormationMgr
-    else
-        target_formation_mgr = world.m_leftFormationMgr
-    end
-     
+    local target_formation_mgr = self.m_hero:getFormationMgr()
     local l_target = target_formation_mgr:findNearTarget(x, y, range, 1, EMPTY_TABLE)
     
     return l_target[1]

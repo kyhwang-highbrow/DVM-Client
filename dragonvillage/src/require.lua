@@ -212,7 +212,6 @@ local t_module = {
     'SkillIndicator_Laser',
     'SkillIndicator_Range',
     'SkillIndicator_Target',
-	'SkillIndicator_OppositeTarget',
     'SkillIndicator_HealingWind',
     'SkillIndicator_Crash',
     'SkillIndicator_LeafBlade',

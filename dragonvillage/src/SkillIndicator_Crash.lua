@@ -26,66 +26,23 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_Crash:onTouchMoved(x, y)
-
     if (self.m_siState == SI_STATE_READY) then
         return
     end
 
-    local x, y = x, y
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
 
     self.m_targetPosX = x
     self.m_targetPosY = y
-    local t_collision_obj = self:findShockwaveTarget(x, y)
 
     -- 이펙트 위치
     LinkEffect_refresh(self.m_indicatorEffect, 0, 0, x - pos_x, y - pos_y)
-
     self.m_indicatorAddEffect:setPosition(x - pos_x, y - pos_y)
 
-    local skill_indicator_mgr = self:getSkillIndicatorMgr()
-
-    local old_target_count = 0
-
-    local old_highlight_list = self.m_highlightList
-
-    if self.m_highlightList then
-        old_target_count = #self.m_highlightList
-    end
-
-    for i,target in ipairs(t_collision_obj) do            
-        if (not target.m_targetEffect) then
-            skill_indicator_mgr:addHighlightList(target)
-            self:makeTargetEffect(target, 'appear_enemy', 'idle_enemy')
-        end
-    end
-
-    if old_highlight_list then
-        for i,v in ipairs(old_highlight_list) do
-            local find = false
-            for _,v2 in ipairs(t_collision_obj) do
-                if (v == v2) then
-                    find = true
-                    break
-                end
-            end
-            if (find == false) then
-                if (v ~= self.m_hero) then
-                    skill_indicator_mgr:removeHighlightList(v)
-                else
-                    v:removeTargetEffect(v)
-                end
-            end
-        end
-    end
-
-    self.m_highlightList = t_collision_obj
-
-    local cur_target_count = #self.m_highlightList
-    self:onChangeTargetCount(old_target_count, cur_target_count)
+	-- 하이라이트 갱신
+    local t_collision_obj = self:findShockwaveTarget(x, y)
+    self:setHighlightEffect(t_collision_obj)
 end
-
-
 
 -------------------------------------
 -- function initIndicatorNode
@@ -97,6 +54,7 @@ function SkillIndicator_Crash:initIndicatorNode()
 
     local root_node = self.m_indicatorRootNode
 
+	-- 충돌후 파장 이펙트
     do
         local indicator = MakeAnimator('res/indicator/indicator_common/indicator_common.vrp')
         indicator:changeAni('fan_shape_enemy', true)
@@ -105,14 +63,13 @@ function SkillIndicator_Crash:initIndicatorNode()
         self.m_indicatorAddEffect = indicator
     end
 
+	-- 타겟 링크이펙트
     do
         local link_effect = LinkEffect('res/indicator/indicator_type_target/indicator_type_target.vrp', 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
         link_effect:doNotUseHead()
 		root_node:addChild(link_effect.m_node)
 		self.m_indicatorEffect = link_effect
-    end
-
-    
+    end    
 end
 
 -------------------------------------

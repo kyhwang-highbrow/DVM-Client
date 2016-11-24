@@ -155,7 +155,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 			return true
 
 		elseif string.find(type, 'skill_buff') then
-            SkillDrawBuff:makeSkillInstance(self, t_skill, t_data)
+            SkillThrowBuff:makeSkillInstance(self, t_skill, t_data)
 			return true
 
 	    elseif (type == 'skill_counterattack') then

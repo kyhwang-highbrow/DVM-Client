@@ -26,61 +26,32 @@ function SkillIndicator_Conic:onTouchMoved(x, y)
         return
     end
 
-    local x, y = x, y
     local pos_x, pos_y = self:getAttackPosition()
     local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
-	self.m_indicatorEffect:setRotation(dir)
-
-    self.m_targetPosX = x
-    self.m_targetPosY = y
-    
+	
 	local t_collision_obj = self:findTargetList(x, y, dir)
 
-    local skill_indicator_mgr = self:getSkillIndicatorMgr()
+	-- 1. 각도 제한
+    local isChangeDegree = true
+	if (dir > 30) and (dir < 180) then 
+        dir = 30
+        isChangeDegree = false
+	elseif (dir < 330) and (dir > 180) then
+        dir = 330
+        isChangeDegree = false
+	end
 
-    local old_target_count = 0
+	if isChangeDegree then 
+		self.m_targetPosX = x
+		self.m_targetPosY = y
+	end
+    
+	-- 이펙트 조정
+	self.m_indicatorEffect:setRotation(dir)
 
-    local old_highlight_list = self.m_highlightList
-
-    if self.m_highlightList then
-        old_target_count = #self.m_highlightList
-    end
-
-    --local t_collision_obj = self:findTarget(x, y)
-
-    for i,target in ipairs(t_collision_obj) do            
-        if (not target.m_targetEffect) then
-            skill_indicator_mgr:addHighlightList(target)
-            self:makeTargetEffect(target)
-        end
-    end
-
-    if old_highlight_list then
-        for i,v in ipairs(old_highlight_list) do
-            local find = false
-            for _,v2 in ipairs(t_collision_obj) do
-                if (v == v2) then
-                    find = true
-                    break
-                end
-            end
-            if (find == false) then
-                if (v ~= self.m_hero) then
-                    skill_indicator_mgr:removeHighlightList(v)
-                else
-                    v:removeTargetEffect(v)
-                end
-            end
-        end
-    end
-
-    self.m_highlightList = t_collision_obj
-
-    local cur_target_count = #self.m_highlightList
-    self:onChangeTargetCount(old_target_count, cur_target_count)
+	-- 하이라이트 갱신
+    self:setHighlightEffect(t_collision_obj)
 end
-
-
 
 -------------------------------------
 -- function initIndicatorNode

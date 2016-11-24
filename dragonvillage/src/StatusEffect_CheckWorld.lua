@@ -26,7 +26,7 @@ end
 -- function update
 -------------------------------------
 function StatusEffect_CheckWorld:update(dt)
-	local formation_mgr = self.m_owner:getFormationMgr('opposite')
+	local formation_mgr = self.m_owner:getFormationMgr(true)
 	local char_list = formation_mgr:getEntireCharList()
 	for _, char in pairs(char_list) do 
 		for status_effect_type, status_effect in pairs(char:getStatusEffectList()) do

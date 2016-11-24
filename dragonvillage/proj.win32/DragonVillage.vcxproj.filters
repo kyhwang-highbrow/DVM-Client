@@ -634,9 +634,6 @@
     <None Include="..\src\SkillRolling.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SkillIndicator_OppositeTarget.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\CharacterStateDelegate.lua">
       <Filter>lua</Filter>
     </None>

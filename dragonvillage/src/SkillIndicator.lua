@@ -146,9 +146,6 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator:onTouchMoved(x, y)
-    if (self.m_siState == SI_STATE_READY) then
-        return
-    end
 end
 
 -------------------------------------
@@ -196,6 +193,55 @@ end
 -------------------------------------
 function SkillIndicator:onDisappear()
 	-- 현재 사용하는 곳이 없으나 추후 사용하면 좋을듯
+end
+
+-------------------------------------
+-- function setHighlight
+-------------------------------------
+function SkillIndicator:setHighlightEffect(t_collision_obj)
+	local skill_indicator_mgr = self:getSkillIndicatorMgr()
+
+    local old_target_count = 0
+
+    local old_highlight_list = self.m_highlightList
+
+    if self.m_highlightList then
+        old_target_count = #self.m_highlightList
+    end
+
+    for i,target in ipairs(t_collision_obj) do            
+        if (not target.m_targetEffect) then
+            skill_indicator_mgr:addHighlightList(target)
+            self:makeTargetEffect(target)
+        end
+            
+    end
+
+    if old_highlight_list then
+        for i,v in ipairs(old_highlight_list) do
+            local find = false
+            for _,v2 in ipairs(t_collision_obj) do
+                if (v == v2) then
+                    find = true
+                    break
+                end
+            end
+            if (find == false) then
+                skill_indicator_mgr:removeHighlightList(v)
+            end
+        end
+    end
+
+    self.m_highlightList = t_collision_obj
+
+    local cur_target_count = #self.m_highlightList
+    self:onChangeTargetCount(old_target_count, cur_target_count)
+end
+
+-------------------------------------
+-- function onChangeTargetCount
+-------------------------------------
+function SkillIndicator:onChangeTargetCount(old_target_count, cur_target_count)
 end
 
 -------------------------------------
@@ -261,4 +307,10 @@ function SkillIndicator:getAttackPosition()
     pos_x = (pos_x + self.m_attackPosOffsetX)
     pos_y = (pos_y + self.m_attackPosOffsetY)
     return pos_x, pos_y
+end
+
+-------------------------------------
+-- function findTarget
+-------------------------------------
+function SkillIndicator:findTarget(x, y)
 end

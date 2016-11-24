@@ -535,15 +535,15 @@ function Hero:initStatus(t_char, level, grade, evolution, doid)
 		
 	-- 타겟형(아군)
 	if (type == 'target_ally') then
-		self.m_skillIndicator = SkillIndicator_Target(self)
+		self.m_skillIndicator = SkillIndicator_Target(self, t_skill, false)
 
 	-- 타겟형(적군)
 	elseif (type == 'target') then
-		self.m_skillIndicator = SkillIndicator_OppositeTarget(self)
+		self.m_skillIndicator = SkillIndicator_Target(self, t_skill, true)
 
 	-- 원형 범위
 	elseif (type == 'round') then
-		self.m_skillIndicator = SkillIndicator_AoERound(self, t_skill, isFixedOnTarget)
+		self.m_skillIndicator = SkillIndicator_AoERound(self, t_skill, false)
 
 	-- 시전 범위 제한 있는 타겟
 	elseif (type == 'range') then
@@ -561,7 +561,7 @@ function Hero:initStatus(t_char, level, grade, evolution, doid)
 	
 	-- 크래쉬(가루다)
 	elseif (type == 'target_cone') then
-		self.m_skillIndicator = SkillIndicator_HealingWind(self, t_skill)
+		self.m_skillIndicator = SkillIndicator_Crash(self, t_skill)
 	
 	-- 힐링윈드 (핑크벨)
 	elseif (type == 'square') then
@@ -577,7 +577,7 @@ function Hero:initStatus(t_char, level, grade, evolution, doid)
 
 	-- 미정의 인디케이터
 	else
-		self.m_skillIndicator = SkillIndicator_Target(self, t_skill)
+		self.m_skillIndicator = SkillIndicator_Target(self, t_skill, false)
 		cclog('###############################################')
 		cclog('## 인디케이터 정의 되지 않은 스킬 : ' .. t_skill['type'])
 		cclog('###############################################')

@@ -1190,16 +1190,15 @@ end
 -------------------------------------
 -- function getFormationMgr
 -------------------------------------
-function Character:getFormationMgr(opposite)
-	local isOpposite = (opposite == 'opposite')
+function Character:getFormationMgr(is_opposite)
     if self.m_bLeftFormation then
-		if isOpposite then
+		if is_opposite then
 			return self.m_world.m_rightFormationMgr
 		else
 			return self.m_world.m_leftFormationMgr
 		end
     else
-        if isOpposite then
+        if is_opposite then
 			return self.m_world.m_leftFormationMgr
 		else
 			return self.m_world.m_rightFormationMgr
