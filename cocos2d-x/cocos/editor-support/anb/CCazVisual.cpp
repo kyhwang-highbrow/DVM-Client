@@ -284,6 +284,7 @@ AzVisual::AzVisual(void)
 }
 AzVisual::~AzVisual(void)
 {
+    unregisterScriptLoopHandler();
 	releaseSprite();
 
 	if (_quads) free(_quads);

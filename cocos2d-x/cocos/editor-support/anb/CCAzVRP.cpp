@@ -1314,6 +1314,7 @@ AzVRP::AzVRP()
 }
 AzVRP::~AzVRP()
 {
+    unregisterScriptLoopHandler();
 }
 
 void AzVRP::onEnter()
