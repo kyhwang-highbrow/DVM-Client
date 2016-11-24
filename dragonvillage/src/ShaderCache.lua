@@ -8,7 +8,10 @@ function ShaderCache:init()
 end
 
 function ShaderCache:addShader(key, vsh, fsh)
-    local shader = cc.GLProgram:createWithFilenames(vsh, fsh)
+    local shader = cc.ShaderCache:getInstance():getGLProgram(key)
+    if shader then return end
+
+    shader = cc.GLProgram:createWithFilenames(vsh, fsh)
     shader:link()
 
     shader:bindAttribLocation(cc.ATTRIBUTE_NAME_POSITION, cc.VERTEX_ATTRIB_POSITION)

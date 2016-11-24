@@ -195,21 +195,25 @@ function UI_GameDebug:makeTableView()
     end
 
     do -- 화면 밝기
-        local item = {}
-        item['cb1'] = UI_GameDebug.brightnessButton
-        item['cb2'] = UI_GameDebug.brightnessButton  
-        item['str'] = '배경 밝기 ' .. g_gameScene.m_gameWorld.m_mapManager.m_colorScale .. ' %'
+        if g_gameScene.m_gameWorld.m_mapManager then
+            local item = {}
+            item['cb1'] = UI_GameDebug.brightnessButton
+            item['cb2'] = UI_GameDebug.brightnessButton  
+            item['str'] = '배경 밝기 ' .. g_gameScene.m_gameWorld.m_mapManager.m_colorScale .. ' %'
 
-        table.insert(item_info, item)
+            table.insert(item_info, item)
+        end
     end
 
     do -- Time Sacle
-        local item = {}
-        item['cb1'] = UI_GameDebug.timeScaleButton
-        item['cb2'] = UI_GameDebug.timeScaleButton
-        item['str'] = '게임 배속 X ' .. g_gameScene.m_gameWorld.m_gameTimeScale:getBase()
+        if g_gameScene.m_gameWorld.m_gameTimeScale then
+            local item = {}
+            item['cb1'] = UI_GameDebug.timeScaleButton
+            item['cb2'] = UI_GameDebug.timeScaleButton
+            item['str'] = '게임 배속 X ' .. g_gameScene.m_gameWorld.m_gameTimeScale:getBase()
 
-        table.insert(item_info, item)
+            table.insert(item_info, item)
+        end
     end
 
     do -- 저사양모드
@@ -225,24 +229,26 @@ function UI_GameDebug:makeTableView()
     end
 
     do -- 피격박스 on/off
-        local item = {}
-        item['cb1'] = UI_GameDebug.physDebugButton
+        if g_gameScene.m_gameWorld.m_physWorld then
+            local item = {}
+            item['cb1'] = UI_GameDebug.physDebugButton
 
-        item['cb'] = function()
-            local cb = function(debug_on)
-                if item['label'] then
-                    if debug_on then
-                        item['label']:setString(Str('피격박스 ON'))
-                    else
-                        item['label']:setString(Str('피격박스 OFF'))
+            item['cb'] = function()
+                local cb = function(debug_on)
+                    if item['label'] then
+                        if debug_on then
+                            item['label']:setString(Str('피격박스 ON'))
+                        else
+                            item['label']:setString(Str('피격박스 OFF'))
+                        end
                     end
                 end
+
+                g_gameScene.m_gameWorld.m_physWorld:addDebugChangeCB(self, cb)
             end
 
-            g_gameScene.m_gameWorld.m_physWorld:addDebugChangeCB(self, cb)
+            table.insert(item_info, item)
         end
-
-        table.insert(item_info, item)
     end
 
     do -- FPS on/off

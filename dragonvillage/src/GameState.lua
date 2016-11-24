@@ -46,6 +46,12 @@ GameState = class(IEventListener:getCloneClass(), {
         m_waveEffect = 'Animator',
         m_nextWaveDirectionType = 'string',
 
+        -- 웨이브
+        m_waveNoti = 'Animator',
+        m_waveNum = 'Animator',
+        m_waveMaxNum = 'Animator',
+
+        -- 스킬
         m_skillDescEffect = 'Animator',
         m_skillNameLabel = 'cc.Label',
         m_skillDescLabel = 'cc.Label',
@@ -64,6 +70,17 @@ function GameState:init(world)
     self.m_waveEffect = MakeAnimator('res/ui/a2d/ui_boss_warning/ui_boss_warning.vrp')
     self.m_waveEffect:setVisible(false)
     g_gameScene.m_containerLayer:addChild(self.m_waveEffect.m_node)
+
+    -- 웨이브
+    self.m_waveNoti = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
+    self.m_waveNoti:setVisible(false)
+    g_gameScene.m_containerLayer:addChild(self.m_waveNoti.m_node)
+
+    self.m_waveNum = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
+    self.m_waveNoti.m_node:bindVRP('number', self.m_waveNum.m_node)
+                
+    self.m_waveMaxNum = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
+    self.m_waveNoti.m_node:bindVRP('max_number', self.m_waveMaxNum.m_node)
 
     -- 스킬 설명
     self.m_skillDescEffect = MakeAnimator('res/ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp')
@@ -144,7 +161,9 @@ function GameState:update_start1(dt)
         end
 
         -- 화면을 빠르게 스크롤
-        world.m_mapManager:setSpeed(-1000)  
+        if world.m_mapManager then
+            world.m_mapManager:setSpeed(-1000)  
+        end
 
         SoundMgr:playEffect('VOICE', 'vo_tamer_start')
         
@@ -246,47 +265,37 @@ function GameState:update_enemy_appear(dt)
     
     -- 모든 적들이 등장이 끝났는지 확인
     elseif world.m_waveMgr:isEmptyDynamicWaveList() and self.m_nAppearedEnemys >= #world:getEnemyList() then
-
+        
         -- 전투 최초 시작시
         if world.m_waveMgr:isFirstWave() then
             world:dispatch('game_start')
             world:buffActivateAtStartup()
             world.m_inGameUI:doAction()
         end
-
+        
         -- 웨이브 알림
         do
-            local waveNoti = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
-            waveNoti:changeAni('wave', false)
-            g_gameScene.m_containerLayer:addChild(waveNoti.m_node)
+            self.m_waveNoti:setVisible(true)
+            self.m_waveNoti:changeAni('wave', false)
+            self.m_waveNum:setVisual('tag', tostring(world.m_waveMgr.m_currWave))
+            self.m_waveMaxNum:setVisual('tag', tostring(world.m_waveMgr.m_maxWave))
 
-            local waveNum = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
-            waveNum:setVisual('tag', tostring(world.m_waveMgr.m_currWave))
-            waveNoti.m_node:bindVRP('number', waveNum.m_node)
-                
-            local maxWaveNum = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
-            maxWaveNum:setVisual('tag', tostring(world.m_waveMgr.m_maxWave))
-            waveNoti.m_node:bindVRP('max_number', maxWaveNum.m_node)
-
-            local duration = waveNoti:getDuration()
-            waveNoti:runAction(cc.Sequence:create(
+            local duration = self.m_waveNoti:getDuration()
+            self.m_waveNoti:runAction(cc.Sequence:create(
                 cc.DelayTime:create(duration),
-                cc.CallFunc:create(function()
+                cc.CallFunc:create(function(node)
+                    node:setVisible(false)
                     self:fight()
                     self:changeState(GAME_STATE_FIGHT)
-                end),
-                cc.RemoveSelf:create()
+                end)
             ))
 
             g_gameScene.m_inGameUI.vars['waveVisual']:setVisual('wave', string.format('%02d', world.m_waveMgr.m_currWave))
 
 			-- 웨이브 시작 이벤트 전달
             world:dispatch('wave_start')
-			for _, dragon in pairs(world:getDragonList()) do
-				dragon:dispatch('wave_start')
-			end
         end
-
+                
         self:changeState(GAME_STATE_FIGHT_WAIT)
     end
     

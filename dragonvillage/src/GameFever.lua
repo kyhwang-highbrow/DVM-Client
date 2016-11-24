@@ -37,7 +37,7 @@ GameFever = class(IEventListener:getCloneClass(), {
         m_notiLabel1 = 'cc.Label',
         m_notiLabel2 = 'cc.Label',
 
-        m_testCount = 'number',
+        m_tMissile = 'table',       -- 아군 * 적군 가지수의 미사일 존재 여부를 저장하기 위한 테이블(최적화를 위함)
      })
 
 -------------------------------------
@@ -80,8 +80,8 @@ function GameFever:init(world)
     
     self.m_lFeverEffect = {}
 
-    self.m_testCount = 0
-
+    self.m_tMissile = {}
+    
     self:initUI()
 end
 
@@ -190,7 +190,6 @@ function GameFever:update(dt)
     end
 
     self.m_colorLayer:setVisible(self.m_bActive)
-    --self.m_feverNode:setVisible(self.m_state == GAME_FEVER_STATE_CHARGING or self.m_state == GAME_FEVER_STATE_APPEAR)
     self.m_feverTutVisual:setVisible(self.m_state == GAME_FEVER_STATE_LIVE)
     
     return false
@@ -229,6 +228,10 @@ function GameFever:update_appear(dt)
     if (self.m_stateTimer == 0) then
         SoundMgr:playEffect('VOICE', 'vo_tamer_fever')
         SoundMgr:playEffect('EFFECT', 'fever')
+
+        -- 현재 카메라에 따른 위치 변경
+        local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
+        self.m_touchNode:setPosition(cameraHomePosX, cameraHomePosY)
         
         -- 피버 모드 시작 연출
         self.m_feverStartVisual:setVisible(true)
@@ -281,8 +284,6 @@ function GameFever:update_live(dt)
             feverEffect:setVisible(false)
         end
     end
-
-    cclog('self.m_testCount = ' .. self.m_testCount)
 end
 
 -------------------------------------
@@ -296,6 +297,7 @@ function GameFever:onStart()
     self.m_stepPoint = 0
 
     self.m_tAttackOrder = {}
+    self.m_tMissile = {}
     
     -- 버프 이펙트 생성
     self:makeBuffEffects()
@@ -405,25 +407,34 @@ function GameFever:doAttack()
         local res = 'res/effect/effect_fever/effect_fever.vrp'
         local type = t_type[math_random(1, #t_type)]
     
+        local animator
         local aniName = string.format('missile_%s_%s', attr, type)
 
-        local animator = MakeAnimator(res)
+        local missileKey = string.format('%d_%d_%d_%d_%s', hero.pos.x, hero.pos.y, enemy.pos.x, enemy.pos.y, type)
+        
+        if self.m_tMissile[missileKey] then
+            animator = self.m_tMissile[missileKey]
+        else
+            animator = MakeAnimator(res)
+            animator:setPosition(hero.pos.x, hero.pos.y)
+            world.m_feverNode:addChild(animator.m_node)
+
+            local distance = getDistance(hero.pos.x, hero.pos.y, enemy.pos.x, enemy.pos.y)
+            animator:setScale(distance / 1440)
+
+            local degree = getDegree(hero.pos.x, hero.pos.y, enemy.pos.x, enemy.pos.y)
+            animator:setRotation(degree)
+        end
         animator:changeAni(aniName, false)
-        animator:setPosition(hero.pos.x, hero.pos.y)
-        world.m_feverNode:addChild(animator.m_node)
-
-        local distance = getDistance(hero.pos.x, hero.pos.y, enemy.pos.x, enemy.pos.y)
-        animator:setScale(distance / 1440)
-
-        local degree = getDegree(hero.pos.x, hero.pos.y, enemy.pos.x, enemy.pos.y)
-        animator:setRotation(degree)
         
         local duration = animator:getDuration()
         animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), 
-            cc.CallFunc:create(function() self.m_testCount = self.m_testCount - 1 end),
+            cc.CallFunc:create(function()
+                self.m_tMissile[missileKey] = nil
+            end),
         cc.RemoveSelf:create()))
 
-        self.m_testCount = self.m_testCount + 1
+        self.m_tMissile[missileKey] = animator
     end
 end
 

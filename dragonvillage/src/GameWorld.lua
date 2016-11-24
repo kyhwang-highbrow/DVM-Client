@@ -143,18 +143,12 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
     self.m_worldSize = nil
     self.m_worldScale = nil
     
-
+    self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
     self.m_gameState = GameState(self)
     self.m_gameFever = GameFever(self)
-    self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
     self.m_gameTimeScale = GameTimeScale(self)
 
-    self.m_missileRange = {
-        min_x = 0 - 50,
-        max_x = CRITERIA_RESOLUTION_X + 50,
-        min_y = -GAME_RESOLUTION_X / 2,
-        max_y = GAME_RESOLUTION_X / 2
-    }
+    self.m_missileRange = {}
     self:setMissileRange()
 
     -- callback
@@ -330,16 +324,26 @@ end
 -- @param dt
 -------------------------------------
 function GameWorld:update(dt)
-    self.m_physWorld:update(dt)
+    if self.m_physWorld then
+        self.m_physWorld:update(dt)
+    end
     self:updateUnit(dt)
 
-    self.m_mapManager:update(dt)
+    if self.m_mapManager then
+        self.m_mapManager:update(dt)
+    end
 
-    self.m_gameState:update(dt)
+    if self.m_gameState then
+        self.m_gameState:update(dt)
+    end
 
-    self.m_gameCamera:update(dt)
+    if self.m_gameCamera then
+        self.m_gameCamera:update(dt)
+    end
 
-    self.m_gameTimeScale:update(dt)
+    if self.m_gameTimeScale then
+        self.m_gameTimeScale:update(dt)
+    end
 
     for char,l_str in pairs(self.m_lPassiveEffect) do
         self:makePassiveStartEffect(char, l_str)
