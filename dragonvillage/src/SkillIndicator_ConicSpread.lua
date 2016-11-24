@@ -50,7 +50,7 @@ function SkillIndicator_ConicSpread:spreadStatusEffect(l_target, status_effect_t
 				count = count + 1
 			else
 				-- 2. 범위 지정 연출
-				local effect1 = MakeAnimator('res/indicator/indicator_breath_gust/indicator_breath_gust.vrp')
+				local effect1 = MakeAnimator(RES_INDICATOR['CONE'])
 				effect1:changeAni('cicle', true)
 				effect1:setAlpha(0.6)
 				effect1:setScale(225/150)

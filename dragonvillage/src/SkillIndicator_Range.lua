@@ -68,7 +68,7 @@ function SkillIndicator_Range:initIndicatorNode()
 
 	-- 타겟 이펙트
     do
-        local indicator = MakeAnimator('res/indicator/indicator_type_range/indicator_type_range.vrp')
+        local indicator = MakeAnimator(RES_INDICATOR['RANGE'])
         indicator:setTimeScale(5)
         indicator:changeAni('skill_range_normal', true)
         root_node:addChild(indicator.m_node)
@@ -77,7 +77,7 @@ function SkillIndicator_Range:initIndicatorNode()
 
 	-- 사정거리 이펙트
     do
-        local indicator = MakeAnimator('res/indicator/indicator_type_range/indicator_type_range.vrp')
+        local indicator = MakeAnimator(RES_INDICATOR['RANGE'])
         indicator:setTimeScale(5)
         indicator:changeAni('cast_range_normal', true)
         root_node:addChild(indicator.m_node)

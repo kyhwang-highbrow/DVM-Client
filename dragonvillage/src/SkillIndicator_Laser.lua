@@ -86,7 +86,7 @@ function SkillIndicator_Laser:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do
-        local indicator = MakeAnimator('res/indicator/indicator_type_straight/indicator_type_straight.vrp')
+        local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
         indicator:setTimeScale(5)
         indicator:changeAni('bar_normal', true)
         indicator:setPosition(self.m_attackPosOffsetX, self.m_attackPosOffsetY)
@@ -98,7 +98,7 @@ function SkillIndicator_Laser:initIndicatorNode()
     end
 
     do
-        local indicator = MakeAnimator('res/indicator/indicator_type_straight/indicator_type_straight.vrp')
+        local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
         indicator:setTimeScale(5)
         indicator:changeAni('cursor_normal', true)
         root_node:addChild(indicator.m_node)

@@ -57,14 +57,14 @@ function SkillIndicator_AoERound:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do
-        local link_effect = LinkEffect('res/indicator/indicator_type_target/indicator_type_target.vrp', 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
+        local link_effect = LinkEffect(RES_INDICATOR['TARGET'], 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
 		link_effect:doNotUseHead()
         root_node:addChild(link_effect.m_node)
         self.m_indicatorEffect = link_effect
     end
 
     do
-        local indicator = MakeAnimator('res/indicator/indicator_type_range/indicator_type_range.vrp')
+        local indicator = MakeAnimator(RES_INDICATOR['RANGE'])
         indicator:setTimeScale(5)
         indicator:setScale(self.m_indicatorScale)
         indicator:changeAni('skill_range_normal', false)

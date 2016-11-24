@@ -101,7 +101,7 @@ function SkillIndicator_LeafBlade:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do -- 교차점 이펙트
-        local indicator = MakeAnimator('res/indicator/indicator_type_target/indicator_type_target.vrp')
+        local indicator = MakeAnimator(RES_INDICATOR['TARGET'])
         indicator:setTimeScale(5)
         indicator:changeAni('enemy_start_idle', true)
         root_node:addChild(indicator.m_node)
@@ -110,28 +110,28 @@ function SkillIndicator_LeafBlade:initIndicatorNode()
     
     -- 베지어 곡선 이펙트 (상)
     do
-        local link_effect = EffectBezierLink('res/indicator/indicator_bezier/indicator_bezier.vrp', 'circle')
+        local link_effect = EffectBezierLink(RES_INDICATOR['BEZIER'], 'circle')
         root_node:addChild(link_effect.m_node)
         self.m_indicatorBezierEffect1 = link_effect
     end
 
     -- 베지어 곡선 이펙트 (하)
     do
-        local link_effect = EffectBezierLink('res/indicator/indicator_bezier/indicator_bezier.vrp', 'circle')
+        local link_effect = EffectBezierLink(RES_INDICATOR['BEZIER'], 'circle')
         root_node:addChild(link_effect.m_node)
         self.m_indicatorBezierEffect2 = link_effect
     end
 
     -- 직선 이펙트 (상)
     do
-        local link_effect = EffectLinearDot('res/indicator/indicator_bezier/indicator_bezier.vrp', 'circle')
+        local link_effect = EffectLinearDot(RES_INDICATOR['BEZIER'], 'circle')
         root_node:addChild(link_effect.m_node)
         self.m_indicatorLinearEffect1 = link_effect
     end
 
     -- 직선 이펙트 (하)
     do
-        local link_effect = EffectLinearDot('res/indicator/indicator_bezier/indicator_bezier.vrp', 'circle')
+        local link_effect = EffectLinearDot(RES_INDICATOR['BEZIER'], 'circle')
         root_node:addChild(link_effect.m_node)
         self.m_indicatorLinearEffect2 = link_effect
     end

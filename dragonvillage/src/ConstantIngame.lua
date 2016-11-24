@@ -72,6 +72,18 @@ MAP_FLOATING_ROTATE_TIME = 5
  LEAF_COLLISION_SIZE = 30
  LEAF_STRAIGHT_ANGLE = 30
 
+--------------------------------------------
+-- 인디케이터 리소스 경로
+--------------------------------------------
+RES_INDICATOR = 
+{
+	STRAIGHT = 'res/indicator/indicator_type_straight/indicator_type_straight.vrp',
+	TARGET = 'res/indicator/indicator_type_target/indicator_type_target.vrp',
+	CONE = 'res/indicator/indicator_breath_gust/indicator_breath_gust.vrp',
+	RANGE = 'res/indicator/indicator_type_range/indicator_type_range.vrp',
+	BEZIER = 'res/indicator/indicator_bezier/indicator_bezier.vrp',
+	COMMON = 'res/indicator/indicator_common/indicator_common.vrp',
+}
 
  --------------------------------------------
 -- 디버깅용 

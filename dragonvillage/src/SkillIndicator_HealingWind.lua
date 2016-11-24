@@ -48,7 +48,7 @@ function SkillIndicator_HealingWind:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do -- 캐스팅 이펙트
-        local indicator = MakeAnimator('res/indicator/indicator_type_straight/indicator_type_straight.vrp')
+        local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
         indicator:setTimeScale(5)
         indicator:changeAni('healing_wind_normal', true)
         root_node:addChild(indicator.m_node)
@@ -60,7 +60,7 @@ function SkillIndicator_HealingWind:initIndicatorNode()
     end
 
     do
-        local indicator = MakeAnimator('res/indicator/indicator_type_straight/indicator_type_straight.vrp')
+        local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
         indicator:setTimeScale(5)
         indicator:changeAni('cursor_normal', true)
         root_node:addChild(indicator.m_node)

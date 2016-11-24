@@ -51,7 +51,7 @@ function SkillIndicator_Target:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do
-        local link_effect = LinkEffect('res/indicator/indicator_type_target/indicator_type_target.vrp', 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
+        local link_effect = LinkEffect(RES_INDICATOR['TARGET'], 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
         link_effect:doNotUseHead()
 		root_node:addChild(link_effect.m_node)
         self.m_indicatorEffect = link_effect
@@ -62,11 +62,16 @@ end
 -- function onChangeTargetCount
 -------------------------------------
 function SkillIndicator_Target:onChangeTargetCount(old_target_count, cur_target_count)
+	local type = 'ally'
+	if self.m_isOpposite then
+		type = 'enemy'
+	end
+
     -- 활성화
     if (old_target_count == 0) and (cur_target_count > 0) then
-        self.m_indicatorEffect.m_startPointNode:changeAni('ally_start_idle', true)
-        self.m_indicatorEffect.m_effectNode:changeAni('ally_bar_idle', true)
-        self.m_indicatorEffect.m_endPointNode:changeAni('ally_end_idle', true)
+        self.m_indicatorEffect.m_startPointNode:changeAni(type .. '_start_idle', true)
+        self.m_indicatorEffect.m_effectNode:changeAni(type .. '_bar_idle', true)
+        self.m_indicatorEffect.m_endPointNode:changeAni(type .. '_end_idle', true)
 
     -- 비활성화
     elseif (old_target_count > 0) and (cur_target_count == 0) then

@@ -64,7 +64,7 @@ function SkillIndicator_Conic:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do -- 캐스팅 이펙트
-        local indicator = MakeAnimator('res/indicator/indicator_breath_gust/indicator_breath_gust.vrp')
+        local indicator = MakeAnimator(RES_INDICATOR['CONE'])
 		indicator:setTimeScale(5)
         root_node:addChild(indicator.m_node)
 		indicator:setPosition(self:getAttackPosition())
