@@ -151,7 +151,7 @@ function TamerSkillManager:doTamerSkill(skill_idx)
 			
 			-- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
 			for _,target in ipairs(l_target) do
-				StatusEffectHelper:doStatusEffect_simple(target, type, value_1, rate, duration)
+				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
 			end
 
 			-- 4. 인덱스 증가

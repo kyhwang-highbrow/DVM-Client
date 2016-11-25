@@ -28,65 +28,6 @@ function StatusEffectHelper:statusEffectCheck_onHit(attack_damage, defender)
 end
 
 -------------------------------------
--- function doStatusEffect_simple
--- @brief 리팩토링중
--------------------------------------
-function StatusEffectHelper:doStatusEffect_simple(char, status_effect_type, status_effect_value, status_effect_rate, duration)
-    -- 타입 있는지 검사
-    if (not status_effect_type) or (status_effect_type == 'x') then return end
-
-	-- 피격자가 사망했을 경우 리턴
-    if (char.m_bDead == true) then return end
-
-	-- 확률 검사
-    if (math_random(1, 1000) > status_effect_rate * 10) then return end
-
-	-- 상태효과 실행
-	StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_effect_value, status_effect_rate, duration)
-end
-
--------------------------------------
--- function doStatusEffect
--- @brief 확률 체크하여 패시브 발동 
--- @TODO 공격이나 스킬에 묻어나는 경우.. 
--------------------------------------
-function StatusEffectHelper:doStatusEffect(char, t_skill)
-	local status_effect_type = t_skill['status_effect_type']
-	local status_effect_value = t_skill['status_effect_value']
-	local status_effect_rate = t_skill['status_effect_rate']
-
-	self:doStatusEffectByType(char, status_effect_type, status_effect_value, status_effect_rate)
-end
-
--------------------------------------
--- function doStatusEffectByType
--- @brief 확률 체크하여 패시브 발동 
--- @brief skill table을 사용하지 않기 위해 
--------------------------------------
-function StatusEffectHelper:doStatusEffectByType(char, status_effect_type, status_effect_value, status_effect_rate, duration)
-    -- 타입 있는지 검사
-    if (not status_effect_type) or (status_effect_type == 'x') then return end
-
-	-- 피격자가 사망했을 경우 리턴
-    if (char.m_bDead == true) then return end
-	
-	-- ;로 구분하여 다중 버프 가능하도록 함
-	local t_status_effect_type = stringSplit(status_effect_type, ';')
-	local t_status_effect_value = stringSplit(status_effect_value, ';')
-	local t_status_effect_rate = stringSplit(status_effect_rate, ';')
-	for i, type in ipairs(t_status_effect_type) do
-		local value = t_status_effect_value[i]
-		local rate = t_status_effect_rate[i]
-	 
-		-- 확률 검사
-		if (math_random(1, 1000) < rate * 10) then 
-			-- 상태효과 실행
-			StatusEffectHelper:invokeStatusEffect(char, type, value, rate, duration)
-		end
-	end
-end
-
--------------------------------------
 -- function doStatusEffectByStr
 -- @brief statuseffect 배열 사용함
 -------------------------------------
@@ -448,7 +389,7 @@ function StatusEffectHelper:invokeStatusEffectForDev(char, res)
     status_effect.m_durationTimer = 5
 
     status_effect.m_owner = char
-    status_effect.m_statusEffectName = 'poison'
+    status_effect.m_statusEffectName = 'burn'
 
     -- 객체 생성
     local world = char.m_world

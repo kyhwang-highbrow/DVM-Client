@@ -23,7 +23,35 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_ConicSpread:onTouchMoved(x, y)
-	PARENT.onTouchMoved(self, x, y)
+	if (self.m_siState == SI_STATE_READY) then
+        return
+    end
+
+    local pos_x, pos_y = self:getAttackPosition()
+    local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
+	
+	local t_collision_obj = self:findTargetList(x, y, dir)
+
+	-- 1. 각도 제한
+    local isChangeDegree = true
+	if (dir > 30) and (dir < 180) then 
+        dir = 30
+        isChangeDegree = false
+	elseif (dir < 330) and (dir > 180) then
+        dir = 330
+        isChangeDegree = false
+	end
+
+	if isChangeDegree then 
+		self.m_targetPosX = x
+		self.m_targetPosY = y
+	end
+    
+	-- 이펙트 조정
+	self.m_indicatorEffect:setRotation(dir)
+
+	-- 하이라이트 갱신
+    self:setHighlightEffect(t_collision_obj)
 
 	-- 전이 이펙트
 	self:spreadStatusEffect(t_collision_obj, 'burn', 225)

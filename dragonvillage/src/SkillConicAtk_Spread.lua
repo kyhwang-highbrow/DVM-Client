@@ -52,6 +52,7 @@ end
 -------------------------------------
 -- function spreadStatusEffect
 -- @brief 특정 상태이상을 전이... 시킨다
+-- @TODO 향후에 상태이상 전이가 늘어난다면... 정형화시킬 필요는 있으나 현재는 하드코딩
 -------------------------------------
 function SkillConicAtk_Spread:spreadStatusEffect(target_char, status_effect_type, range)
 	
@@ -70,14 +71,9 @@ function SkillConicAtk_Spread:spreadStatusEffect(target_char, status_effect_type
 			local duration = effect1.m_node:getDuration()
 			effect1.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
 				
-			for _, target in pairs(l_target) do 
-				if (target_char.phys_idx ~= target.phys_idx) then 
-					-- 4. 같은 상태효과를 적용 시킨다.
-					local value = 100
-					local rate = 100
-					StatusEffectHelper:doStatusEffectByType(target, status_effect_type, value, rate)
-				end
-			end
+			-- 4. 같은 상태효과를 적용 시킨다.
+			local l_status_effect_str = {'burn;target;30;100;100'}
+			StatusEffectHelper:doStatusEffectByStr(self.m_owner, l_target, l_status_effect_str)
 		end)
 				
 	end
