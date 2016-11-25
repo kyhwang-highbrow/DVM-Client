@@ -1,14 +1,12 @@
 local PARENT = StatusEffect_Trigger
 
 -------------------------------------
--- class StatusEffect_Protection
--- @breif HP있는 실드 보호막
+-- class StatusEffect_Barrier
+-- @brief 방어 횟수가 있는 보호막 
+-- @TODO 리소스 확인 및 테스트 필요
 -------------------------------------
-StatusEffect_Protection = class(PARENT, {
-		m_StatusEffect_ProtectionHP = 'number', -- 실드로 보호될 데미지 량
-        m_StatusEffect_ProtectionHPOrg = 'number',
-
-		m_label = 'cc.Label',
+StatusEffect_Barrier = class(PARENT, {
+		m_defCount = 'num',
      })
 
 -------------------------------------
@@ -16,56 +14,45 @@ StatusEffect_Protection = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function StatusEffect_Protection:init(file_name, body, ...)
+function StatusEffect_Barrier:init(file_name, body, ...)
     self:initState()
-
-	do
-        local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 20, 2, cc.size(250, 100), 1, 1)
-        label:setPosition(0, -100)
-        label:setDockPoint(cc.p(0.5, 0.5))
-        label:setAnchorPoint(cc.p(0.5, 0.5))
-        self.m_rootNode:addChild(label)
-        self.m_label = label
-    end
 end
-
 
 -------------------------------------
 -- function init_top
 -------------------------------------
-function StatusEffect_Protection:init_top(file_name)
+function StatusEffect_Barrier:init_top(file_name)
 	-- top을 찍지 않는다
 end
 
 -------------------------------------
 -- function init_buff
 -------------------------------------
-function StatusEffect_Protection:init_buff(char, shield_hp)
-    self.m_StatusEffect_ProtectionHP = shield_hp
-    self.m_StatusEffect_ProtectionHPOrg = shield_hp
+function StatusEffect_Barrier:init_buff(owner, def_count)
+	self.m_defCount = def_count
 	self.m_triggerName = 'hit_shield'
-
-    -- 콜백 함수 등록
+    
+	-- 콜백 함수 등록
     char:addListener(self.m_triggerName, self)
 end
 
 -------------------------------------
 -- function initState
--------------------------------------
-function StatusEffect_Protection:initState()
-	self:addState('start', StatusEffect_Protection.st_appear, 'appear', false)
-    self:addState('idle', StatusEffect_Protection.st_idle, 'idle', true)
-	self:addState('hit', StatusEffect_Protection.st_hit, 'hit', false)
-	self:addState('end', StatusEffect_Protection.st_disappear, 'disappear', false)
+-----------------/--------------------
+function StatusEffect_Barrier:initState()
+	self:addState('start', StatusEffect_Barrier.st_appear, 'appear', false)
+    self:addState('idle', StatusEffect_Barrier.st_idle, 'idle', true)
+	self:addState('hit', StatusEffect_Barrier.st_hit, 'hit', false)
+	self:addState('end', StatusEffect_Barrier.st_disappear, 'disappear', false)
     self:addState('dying', function(owner, dt) owner:release(); return true end, nil, nil, 10)
 end
 
 -------------------------------------
 -- function update
 -------------------------------------
-function StatusEffect_Protection:update(dt)
+function StatusEffect_Barrier:update(dt)
 	if DISPLAY_SHIELD_HP then	
-		self.m_label:setString(string.format('%.1f / %.1f', self.m_StatusEffect_ProtectionHP, self.m_StatusEffect_ProtectionHPOrg))
+		self.m_label:setString(string.format('%.1f / %.1f', self.m_StatusEffect_BarrierHP, self.m_StatusEffect_BarrierHPOrg))
 	end
 	if (self.m_state == 'idle') then
 		-- 1. 종료 : 시간 초과
@@ -87,7 +74,7 @@ end
 -------------------------------------
 -- function st_appear
 -------------------------------------
-function StatusEffect_Protection.st_appear(owner, dt)
+function StatusEffect_Barrier.st_appear(owner, dt)
 	if (owner.m_stateTimer == 0) then
 		owner:addAniHandler(function() owner:changeState('idle') end)
     end
@@ -96,7 +83,7 @@ end
 -------------------------------------
 -- function st_idle
 -------------------------------------
-function StatusEffect_Protection.st_idle(owner, dt)
+function StatusEffect_Barrier.st_idle(owner, dt)
 	if (owner.m_stateTimer == 0) then
 
     end
@@ -105,7 +92,7 @@ end
 -------------------------------------
 -- function st_hit
 -------------------------------------
-function StatusEffect_Protection.st_hit(owner, dt)
+function StatusEffect_Barrier.st_hit(owner, dt)
 	if (owner.m_stateTimer == 0) then
 		owner:addAniHandler(function() owner:changeState('idle') end)
     end
@@ -114,7 +101,7 @@ end
 -------------------------------------
 -- function st_disappear
 -------------------------------------
-function StatusEffect_Protection.st_disappear(owner, dt)
+function StatusEffect_Barrier.st_disappear(owner, dt)
 	if (owner.m_stateTimer == 0) then
 		owner:addAniHandler(function() owner:changeState('dying') end)
     end
@@ -123,20 +110,12 @@ end
 -------------------------------------
 -- function onTrigger
 -------------------------------------
-function StatusEffect_Protection:onTrigger(char, damage)
-	-- 1. 방어막 유지 여부 계산
-    if (self.m_StatusEffect_ProtectionHP <= 0) then
-        self:changeState('end')
-        return false, damage
-    end
+function StatusEffect_Barrier:onTrigger(char, damage)
+    self.m_defCount = self.m_defCount - 1
 	
-	-- 2. 실드 에너지 데미지 적용
-    self.m_StatusEffect_ProtectionHP = self.m_StatusEffect_ProtectionHP - damage
-
-	-- 3. 데미지 계산 후 방어막 유지 여부 계산
-    if (self.m_StatusEffect_ProtectionHP <= 0) then
+	if (self.m_defCount <= 0) then
         self:changeState('end')
-        return false, damage + self.m_StatusEffect_ProtectionHP
+        return false
     end
 
     self:changeState('hit')

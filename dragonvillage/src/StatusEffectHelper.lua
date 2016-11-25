@@ -211,8 +211,8 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 		status_effect = StatusEffect_DotDmg(res)
 		status_effect:init_dotDmg(char, t_status_effect)
 
-	----------- 보호막 ------------------
-	elseif (t_status_effect['type'] == 'barrier') then
+	----------- HP 보호막 ------------------
+	elseif (status_effect_type == 'barrier_protection') then
 		status_effect = StatusEffect_Protection(res)
 		local shield_hp = char.m_maxHp * (t_status_effect['val_1'] / 100)
 		status_effect:init_buff(char, shield_hp)
