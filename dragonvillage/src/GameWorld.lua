@@ -647,11 +647,24 @@ function GameWorld:removeHero(hero)
     -- 게임 종료 체크(모든 영웅이 죽었을 경우)
     local hero_count = table.count(self.m_lDragonList)
     if (hero_count <= 0) then
-        self.m_gameState:changeState(GAME_STATE_FAILURE)
+		if (self.m_waveMgr.m_bDevelopMode) then 
+			-- 개발 스테이지에서는 드래곤이 전부 죽을 시 드래곤을 되살리고 스테이지 초기화 한다 
+			self.m_lDragonList = {}
+			self.m_participants = {}
+			
+			self:makeDragonDeck()
+			self:getBattleZone('basic', true)
+			
+			self:killAllEnemy()
+		else
+			self.m_gameState:changeState(GAME_STATE_FAILURE)
+		end
+	-- 대기 및 친구 드래곤 구현시 살림 @ms 16.11.25
+	--[[
     else
 		local l_dragon = self:getDragonList()
         if #l_dragon <= 0 then
-            for i=1, 10 do
+            for i= 1, 10 do
                 local hero = l_dragon[i]
                 if hero then
                     cclog('hero.m_bDead ' .. tostring(hero.m_bDead))
@@ -664,6 +677,7 @@ function GameWorld:removeHero(hero)
                 end
             end
         end
+		]]--
     end
 end
 
