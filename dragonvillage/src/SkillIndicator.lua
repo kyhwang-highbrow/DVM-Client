@@ -4,6 +4,18 @@ SI_STATE_APPEAR = 2
 SI_STATE_IDLE = 3
 SI_STATE_DISAPPEAR = 4
 
+--[[
+@MS 2016.11.25
+1. 이펙트 관리 멤버변수 통일
+  기본 - m_indicatorEffect 
+  추가 - m_indicatorAddEffect (필요한 경우 개별적으로 추가)
+  특수 - 개별관리
+
+2. 리소스 경로는 ConstantIngame 에서 관리
+
+3. 공통되는 로직은 최대한 합쳐서 관리
+]]
+
 -------------------------------------
 -- class SkillIndicator
 -------------------------------------
@@ -192,7 +204,7 @@ end
 -- function onDisappear
 -------------------------------------
 function SkillIndicator:onDisappear()
-	-- 현재 사용하는 곳이 없으나 추후 사용하면 좋을듯
+	-- 현재 사용하는 곳이 없으나 추후 사용하면 좋을듯 @MS 2016.11.24
 end
 
 -------------------------------------

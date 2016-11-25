@@ -24,7 +24,7 @@ function WaveMgr:init(world, stage_name, develop_mode)
     self.m_world = world
 
     self.m_stageName = stage_name
-
+	
     -- 파일에서 웨이브 정보를 얻어옴
     local script = TABLE:loadJsonTable(stage_name)
     self.m_scriptData = script
@@ -35,7 +35,7 @@ function WaveMgr:init(world, stage_name, develop_mode)
     self.m_lDynamicWave = {}
 	self.m_lSummonWave = {}
 
-    self.m_bDevelopMode = develop_mode or false
+    self.m_bDevelopMode = develop_mode or (stage_name == 'stage_dev') or false
 
     -- 소환 몬스터 정보
 	self:setSummonData(script)
@@ -174,10 +174,12 @@ function WaveMgr:newScenario()
     end
 
     local t_data = self.m_scriptData['wave'][wave]
+	
+	if (wave == 1) or (self.m_bDevelopMode == true) then 
+		-- 카메라 옵션 설정
+		self.m_world:changeCameraOption(t_data['camera'])
+	end
 
-    -- 카메라 옵션 설정
-    self.m_world:changeCameraOption(t_data)
-    
     self:newScenario_dynamicWave(t_data)
 
     self:dispatch('change_wave', self.m_currWave)
@@ -388,6 +390,10 @@ end
 -- function isFinalWave
 -------------------------------------
 function WaveMgr:isFinalWave()
+	if (self.m_bDevelopMode) then 
+		return false 
+	end
+
     return (self.m_currWave == self.m_maxWave)
 end
 

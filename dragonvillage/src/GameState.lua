@@ -345,10 +345,6 @@ function GameState:update_fight(dt)
             if not bExistBoss then
                 -- 모든 적들을 죽임
                 world:killAllEnemy()
-
-                -- 스킬과 미사일도 다 날려 버리자
-				world:removeMissileAndSkill()
-
                 self:changeState(GAME_STATE_SUCCESS_WAIT)
             end
         end
@@ -384,19 +380,21 @@ function GameState:update_wave_intermission(dt)
     if (self.m_stateTimer == 0) then
         local t_wave_data, is_final_wave = world.m_waveMgr:getNextWaveScriptData()
         local t_camera_info = t_wave_data['camera'] or {}
-
-        -- 랜덤하게 카메라 위치를 변경
-        t_camera_info['pos_x'] = 0
-        --t_camera_info['pos_y'] = math_random(-1, 1) * 300
-        t_camera_info['time'] = WAVE_INTERMISSION_TIME
+		
+		if (world.m_waveMgr.m_bDevelopMode == false) then 
+			-- 랜덤하게 카메라 위치를 변경
+			t_camera_info['pos_x'] = 0
+			--t_camera_info['pos_y'] = math_random(-1, 1) * 300
+			t_camera_info['time'] = WAVE_INTERMISSION_TIME
         
-        -- 임시 처리...
-        if is_final_wave then
-            t_camera_info['pos_y'] = -300 * t_camera_info['scale']
-        else
-            t_camera_info['pos_y'] = 300 * t_camera_info['scale']
+			-- 임시 처리...
+			if is_final_wave then
+				t_camera_info['pos_y'] = -300 * t_camera_info['scale']
+			else
+				t_camera_info['pos_y'] = 300 * t_camera_info['scale']
+			end
         end
-        
+
         -- 아군
         for i, v in ipairs(world:getDragonList()) do
             if (v.m_bDead == false) then
@@ -414,7 +412,7 @@ function GameState:update_wave_intermission(dt)
         end
 
         -- 카메라 액션 설정
-        world:changeCameraOption(t_wave_data['camera'])
+        world:changeCameraOption(t_camera_info)
     end
 
 	-- 0. 스킬 및 미사일을 날린다
@@ -694,6 +692,9 @@ function GameState:update_success_wait(dt)
             b = false
         end
     end
+
+    -- 스킬과 미사일도 다 날려 버리자
+	world:removeMissileAndSkill()
 
     if (b or self.m_stateTimer >= 4) then
         self:changeState(GAME_STATE_SUCCESS)

@@ -1314,15 +1314,7 @@ end
 -------------------------------------
 function GameWorld:changeCameraOption(tParam)
     local tParam = tParam or {}
-
-    local scale = (tParam['scale'] or 1)
-    local x = (tParam['pos_x'] or 0)
-    local y = (tParam['pos_y'] or 0)
-    local time = (tParam['time'] or 1)
-    local cb = (tParam['cb'] or function() end)
-
     self.m_gameCamera:setAction(tParam)
-
     self.m_gameCamera:setHomeInfo(tParam)
 
     -- 미사일 제한 범위 재설정
