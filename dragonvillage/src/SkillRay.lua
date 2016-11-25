@@ -44,7 +44,7 @@ function SkillRay:init_skill(missile_res, hit)
     local start_ani = 'start_appear'
     local link_ani = 'bar_appear'
     local end_ani = 'end_appear'
-    self.m_linkEffect = LinkEffect(file_name, link_ani, start_ani, end_ani, 200, 200)
+    self.m_linkEffect = EffectLink(file_name, link_ani, start_ani, end_ani, 200, 200)
     self.m_linkEffect.m_bRotateEndEffect = false
 
     self.m_laserLength = 800
@@ -164,7 +164,7 @@ function SkillRay:refresh()
 
         -- 가장 가까이 위치한 충돌체의 거리까지만 레이저 출력
         if (not self:checkCollision()) then
-            LinkEffect_refresh(self.m_linkEffect, 0, 0, pos['x'], pos['y'])
+            EffectLink_refresh(self.m_linkEffect, 0, 0, pos['x'], pos['y'])
         end
     else
         self:checkCollision()
@@ -188,7 +188,7 @@ function SkillRay:checkCollision()
         x = x - self.pos.x
         y = y - self.pos.y
 
-        LinkEffect_refresh(self.m_linkEffect, 0, 0, x, y)
+        EffectLink_refresh(self.m_linkEffect, 0, 0, x, y)
 
         self:collisionAttack(first_obj['obj'])
 

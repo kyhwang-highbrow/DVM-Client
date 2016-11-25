@@ -1,7 +1,7 @@
 -------------------------------------
--- class LinkEffect
+-- class EffectLink
 -------------------------------------
-LinkEffect = class({
+EffectLink = class({
         m_node = 'CCNode',
         m_clippingNode = 'CCClippingNode',
         m_stencil = 'DrawNode',
@@ -15,7 +15,7 @@ LinkEffect = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function LinkEffect:init(res, bar_visual, start_visual, end_visual, width, height)
+function EffectLink:init(res, bar_visual, start_visual, end_visual, width, height)
     local bar_visual = (bar_visual or 'bar_appear')
     local start_visual = (start_visual or 'start_appear')
     local end_visual = (end_visual or 'end_appear')
@@ -64,14 +64,14 @@ end
 -------------------------------------
 -- function setVisible
 -------------------------------------
-function LinkEffect:setVisible(visible)
+function EffectLink:setVisible(visible)
     self.m_node:setVisible(visible)
 end
 
 -------------------------------------
 -- function rotate
 -------------------------------------
-function LinkEffect_setRotation(self, degree)
+function EffectLink_setRotation(self, degree)
     local rotation = (-(degree - 90))
     self.m_node:setRotation(rotation)
 
@@ -88,7 +88,7 @@ end
 -------------------------------------
 -- function ignoreLowEndMode
 -------------------------------------
-function LinkEffect:setIgnoreLowEndMode(ignore)
+function EffectLink:setIgnoreLowEndMode(ignore)
     self.m_startPointNode:setIgnoreLowEndMode(ignore)
     self.m_effectNode:setIgnoreLowEndMode(ignore)
     self.m_endPointNode:setIgnoreLowEndMode(ignore)
@@ -97,14 +97,14 @@ end
 -------------------------------------
 -- function setPosition
 -------------------------------------
-function LinkEffect_setPosition(self, x, y)
+function EffectLink_setPosition(self, x, y)
     self.m_node:setPosition(x, y)
 end
 
 -------------------------------------
 -- function setHeight
 -------------------------------------
-function LinkEffect_setHeight(self, height)
+function EffectLink_setHeight(self, height)
     local width = self.m_width
     local height = height
 
@@ -123,19 +123,19 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function LinkEffect_refresh(self, start_x, start_y, end_x, end_y)
+function EffectLink_refresh(self, start_x, start_y, end_x, end_y)
     local degree = getDegree(start_x, start_y, end_x, end_y)
     local distance = math_distance(start_x, start_y, end_x, end_y)
     
-    LinkEffect_setPosition(self, start_x, start_y)
-    LinkEffect_setRotation(self, degree)
-    LinkEffect_setHeight(self, distance)
+    EffectLink_setPosition(self, start_x, start_y)
+    EffectLink_setRotation(self, degree)
+    EffectLink_setHeight(self, distance)
 end
 
 -------------------------------------
 -- function createWithParent
 -------------------------------------
-function LinkEffect:createWithParent(parent, x, y, z_order, res_name, visual_name, is_repeat)
+function EffectLink:createWithParent(parent, x, y, z_order, res_name, visual_name, is_repeat)
 
     local animator = MakeAnimator(res_name)
     animator:changeAni(visual_name, is_repeat)
@@ -149,7 +149,7 @@ end
 -- function registCommonAppearAniHandler
 -- @brief 공통 등장 에니메이션 핸들러 등록
 -------------------------------------
-function LinkEffect:registCommonAppearAniHandler()
+function EffectLink:registCommonAppearAniHandler()
     local function start_ani_handler() self.m_startPointNode:changeAni('start_idle', true) end
     self.m_startPointNode:addAniHandler(start_ani_handler)
 
@@ -164,7 +164,7 @@ end
 -- function changeCommonAni
 -- @brief 공통 에니메이션 변경
 -------------------------------------
-function LinkEffect:changeCommonAni(ani_name, loop, anihandler)
+function EffectLink:changeCommonAni(ani_name, loop, anihandler)
     loop = (loop or false)
 
     self.m_startPointNode:changeAni('start_' .. ani_name, loop)
@@ -184,14 +184,14 @@ end
 -- function doNotUseHead
 -- @TODO start - effect - end node 전부 사용함을 가정하고 있기 때문에 하나만 덜어내는 것이 어려워 임시 처리
 -------------------------------------
-function LinkEffect:doNotUseHead()
+function EffectLink:doNotUseHead()
 	self.m_startPointNode:setVisible(false)
 end
 
 -------------------------------------
 -- function release
 -------------------------------------
-function LinkEffect:release()
+function EffectLink:release()
     if self.m_node then
         self.m_node:removeFromParent(true)
         self.m_node = nil

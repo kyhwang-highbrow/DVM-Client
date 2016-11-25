@@ -2,6 +2,7 @@ local PARENT = StatusEffect_Trigger
 
 -------------------------------------
 -- class StatusEffect_Protection
+-- @breif HP있는 실드 보호막
 -------------------------------------
 StatusEffect_Protection = class(PARENT, {
 		m_StatusEffect_ProtectionHP = 'number', -- 실드로 보호될 데미지 량

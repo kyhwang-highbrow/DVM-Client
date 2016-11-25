@@ -171,7 +171,7 @@ local t_module = {
 	'StatusEffectIcon',
 
 	-- EFFECT
-	'LinkEffect',
+	'EffectLink',
 	'EffectHeal',
     'EffectBezierLink',
     'EffectLinearDot',

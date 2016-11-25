@@ -87,7 +87,7 @@ end
 -- function makeLaserLinkEffect
 -------------------------------------
 function SkillLaser:makeLaserLinkEffect(file_name, thickness)
-    local link_effect = LinkEffect(file_name)
+    local link_effect = EffectLink(file_name)
 
     link_effect.m_bRotateEndEffect = false
 
@@ -182,7 +182,7 @@ function SkillLaser:refresh(force)
         if (self.m_laserDir ~= dir) then
             self.m_laserDir = dir
             local pos = getPointFromAngleAndDistance(dir, 2560)    
-            LinkEffect_refresh(self.m_linkEffect, 0, 0, pos['x'], pos['y'])
+            EffectLink_refresh(self.m_linkEffect, 0, 0, pos['x'], pos['y'])
 
             self.m_laserEndPosX = self.m_startPosX + pos['x']
             self.m_laserEndPosY = self.m_startPosY + pos['y']

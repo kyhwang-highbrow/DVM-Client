@@ -286,9 +286,6 @@
     <None Include="..\src\MissileLauncher.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\LinkEffect.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\MissileBoomerang.lua">
       <Filter>lua</Filter>
     </None>
@@ -983,6 +980,9 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillIndicator_Laser.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\EffectLink.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>

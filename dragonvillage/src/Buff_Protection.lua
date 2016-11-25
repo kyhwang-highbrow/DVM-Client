@@ -9,7 +9,7 @@ Buff_Protection = class(Buff, {
 		m_res = 'string',
 
         m_shieldEffect = 'Animator',
-        m_barEffect = 'LinkEffect',
+        m_barEffect = 'EffectLink',
         m_barrierEffect1 = 'Animator',
         m_barrierEffect2 = 'Animator',
      })
@@ -35,8 +35,7 @@ function Buff_Protection:init_buff(owner, duration, def_up, target, res)
 	self.m_res = res
 
     -- 연결 이펙트
-    self.m_barEffect = LinkEffect(res, 'bar_appear', '', '', 512, 256)
-    --self.m_rootNode:addChild(self.m_barEffect.m_node)
+    self.m_barEffect = EffectLink(res, 'bar_appear', '', '', 512, 256)
     self.m_world.m_groundNode:addChild(self.m_barEffect.m_node)
     self.m_barEffect.m_startPointNode:setVisible(false)
     self.m_barEffect.m_endPointNode:setVisible(false)
@@ -190,8 +189,7 @@ function Buff_Protection:updateBuffPos()
     self.m_barrierEffect2:setPosition(x, y)
     self.m_shieldEffect:setPosition(x, y)
 
-    --LinkEffect_refresh(self.m_barEffect, 0, 0, x, y)
-    LinkEffect_refresh(self.m_barEffect, self.pos.x, self.pos.y, self.m_target.pos.x, self.m_target.pos.y)
+    EffectLink_refresh(self.m_barEffect, self.pos.x, self.pos.y, self.m_target.pos.x, self.m_target.pos.y)
 
     self.m_bDirtyPos = false
 end

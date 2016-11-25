@@ -39,7 +39,7 @@ function SkillIndicator_AoERound:onTouchMoved(x, y)
     self.m_targetPosY = y
 
     -- 이펙트 위치
-    LinkEffect_refresh(self.m_indicatorEffect, 0, 0, x - pos_x, y - pos_y)
+    EffectLink_refresh(self.m_indicatorEffect, 0, 0, x - pos_x, y - pos_y)
     self.m_indicatorAddEffect:setPosition(x-pos_x, y-pos_y)
 
 	-- 하이라이트 갱신
@@ -57,7 +57,7 @@ function SkillIndicator_AoERound:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do
-        local link_effect = LinkEffect(RES_INDICATOR['TARGET'], 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
+        local link_effect = EffectLink(RES_INDICATOR['TARGET'], 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
 		link_effect:doNotUseHead()
         root_node:addChild(link_effect.m_node)
         self.m_indicatorEffect = link_effect
