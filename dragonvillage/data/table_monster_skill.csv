@@ -1,6 +1,6 @@
 sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,chance_type,chance_value,target_type,casting_time,power_source,power_rate,hit,val_1,val_2,val_3,status_effect_rate,status_effect_value,status_effect_type,status_effect_1,status_effect_2,for_gd,t_desc,to_programmer
 230001,code,skill_melee_atk,근접공격,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,5000,10000,0,0,0,x,x,x,0,x,캐릭터가 직접 대상 앞으로 이동하여 공격한다(공격 모션 필요). 공격이 끝나면 제 자리로 돌아온다.
-230002,code,missile_move_straight,화살 공격,res/missile/missile_arrow/missile_arrow.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,직선으로 이동하는 원거리 공격
+230002,code,missile_move_straight,화살 공격,res/missile/missile_arrow/missile_arrow.vrp,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,직선으로 이동하는 원거리 공격
 230003,code,missile_move_straight,마법 공격,res/missile/missile_magicshot_earth/missile_magicshot_earth.vrp,res/missile/motion_streak/motion_streak_line_@.png,x,x,instant,magical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 230004,code,missile_move_release,마법 스킬,res/missile/missile_magicshot/missile_magicshot.vrp,res/missile/motion_streak/motion_streak_line_@.png,x,x,instant,magical,-1,basic_turn,2,enemy_distance_line,4,atk,100,2,0,0,0,0,0,x,x,x,0,x,공격력의 300% 피해를 주는 공격
 230005,code,missile_move_high_angle        ,창 공격,res/missile/missile_spear/missile_spear.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,100,20,0,0,0,x,x,x,0,x,x
@@ -35,7 +35,15 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 230034,code,missile_move_high_angle	,벌통 던지기,"res/missile/missile_honeycomb/missile_honeycomb.png",x,res/effect/effect_hit_bomb_earth/effect_hit_bomb_earth.spine,skill_1,instant,physical,-1,basic_turn,3,enemy_random,4,atk,200,1,100,150,0,0,0,x,x,x,0,x,x
 230035,script,skill_grow_mushroom,버섯 폭탄,res/effect/skill_grow_mushroom/skill_grow_mushroom.spine,x,x,x,instant,magical,-2,basic_turn,7,enemy_distance_line,5,atk,500,1,0,0,0,0,0,x,x,x,0,x,x
 230036,script,skill_missile_bossshot_01,보스샷,x,x,x,attack,instant,magical,-2,basic_turn,10,enemy_distance_line,5,atk,10,1,0,0,0,0,0,x,x,x,0,x,x
+230037,code,missile_move_high_angle	,도토리 발사,res/missile/missile_nut/missile_nut.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,100,0,0,0,0,x,x,x,0,x,곡선으로 이동하는 원거리 공격
+230038,code,missile_move_straight,도토리 연사,res/missile/missile_nut/missile_nut.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,25,4,100,0,0,0,0,x,x,x,0,x,직선으로 이동하는 원거리 공격
+230039,script,skill_bounce,글레이브,res/missile/missile_glave_fire/missile_glave_fire.spine,res/missile/motion_streak/motion_streak_line_@.png,x,skill_1,instant,physical,-1,basic_turn,3,enemy_distance_line,2,atk,200,1,0,0,0,0,0,x,x,x,0,x,직선으로 이동하는 원거리 공격
+230040,code,skill_melee_atk,쪼기,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,30,1,5000,10000,0,0,0,x,x,x,0,x,캐릭터가 직접 대상 앞으로 이동하여 공격한다(공격 모션 필요). 공격이 끝나면 제 자리로 돌아온다.
+230041,script,skill_missile_feather,깃털 날리기,res/missile/missile_feather/missile_feather.png,res/missile/motion_streak/motion_streak_line_@.png,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,70,1,0,0,0,0,0,x,x,x,0,x,
 230042,script,skill_missile_bossshot_02,보스샷,x,x,x,skill_2,instant,magical,-2,basic_turn,10,enemy_distance_line,5,atk,20,1,0,0,0,0,0,x,x,x,0,x,x
+230043,code,missile_move_high_angle	,바위 투척,res/missile/missile_ball/missile_ball_@.vrp,x,x,x,instant,magical,-1,basic_turn,4,enemy_distance_line,4,atk,300,1,200,20,0,500,100,stun,stun;target;5;100;100,x,0,x,
+230044,code,missile_move_high_angle	,도토리 발사,res/missile/missile_nut/missile_nut.png,res/missile/motion_streak/motion_streak_blade.png,x,x,instant,physical,-1,basic_turn,3,enemy_distance_line,3,atk,100,4,100,0,0,0,0,x,x,x,0,x,곡선으로 이동하는 원거리 공격
+230045,status_effect,skill_buff,회피율 증가,x,x,x,x,instant,x,-1,basic_turn,3,self,3,x,0,1,0,0,0,0,0,x,avoid_up;target;10;100;185,x,0,x,자신에게 회피율 증가 버프
 230046,script,skill_missile_bossshot_03,보스샷,x,x,x,skill_2,instant,magical,-2,basic_turn,10,enemy_distance_line,5,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 231000,script,skill_elite_0,엘리트_0,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 231001,script,skill_elite_1,엘리트_1,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
@@ -52,6 +60,9 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 232031,script,skill_subboss_griffin_1,그리핀,x,x,x,skill_1,instant,physical,0,basic_turn,1,enemy_distance_line,2,atk,30,1,0,0,0,0,0,x,x,x,0,x,x
 232032,script,skill_subboss_griffin_2,그리핀,x,x,x,skill_2,instant,physical,0,basic_turn,2,enemy_distance_line,2,atk,50,1,0,0,0,0,0,x,x,x,0,x,x
 232033,script,skill_subboss_griffin_3,그리핀,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,5,atk,50,1,0,0,0,0,0,x,x,x,0,x,x
+232041,script,skill_subboss_spider_1,용암 거미,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
+232042,script,skill_subboss_spider_2,용암 거미,x,x,x,skill_1,instant,physical,0,basic_turn,4,enemy_distance_line,1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
+232043,script,skill_subboss_spider_3,용암 거미,x,x,x,skill_1,instant,physical,0,basic_turn,5,enemy_distance_line,1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
 233100,script,skill_boss_queenssnake_0,퀸즈스네이크 : 기본 공격 (attack),x,x,x,attack,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
 233101,script,skill_boss_queenssnake_1,퀸즈스네이크 : 벌집 던지기 (우측상단 집중공격),x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
 233102,script,skill_boss_queenssnake_2,퀸즈스네이크 : 벌집 탄막 (skill_2_loop),x,x,x,skill_2,maintain,physical,-2,basic_turn,1,enemy_distance_line,4,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
@@ -68,12 +79,9 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 233303,script,skill_boss_cockatrice_3,코카트리스 : 화염 브레스 (skill_2),x,x,x,skill_2,instant,physical,-2,basic_turn,1,enemy_distance_line,3,atk,25,1,0,0,0,100,100,burn,burn;target;30;10;100,x,0,x,x
 233304,script,skill_boss_cockatrice_4,코카트리스 : 태양권 (skill_3),x,x,x,skill_3,instant,physical,-2,basic_turn,1,enemy_distance_line,3,atk,100,1,0,0,0,100,100,stun,stun;target;5;100;100,x,0,x,x
 233305,code,skill_heal_single,코카트리스 : 체력 회복 (skill_4_idle),res/effect/skill_heal_monster/skill_heal_monster.vrp,res/effect/skill_recovery/skill_recovery.vrp,x,skill_4_appear,instant,magical,-1,basic_turn,1,self,2,atk,700,5,0,0,0,0,0,x,x,x,0,x,공격력의 700% 회복
-230037,code,missile_move_high_angle	,도토리 발사,res/missile/missile_nut/missile_nut.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,100,0,0,0,0,x,x,x,0,x,곡선으로 이동하는 원거리 공격
-230038,code,missile_move_straight,도토리 연사,res/missile/missile_nut/missile_nut.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,25,4,100,0,0,0,0,x,x,x,0,x,직선으로 이동하는 원거리 공격
-230039,script,skill_bounce,글레이브,res/missile/missile_glave_fire/missile_glave_fire.spine,res/missile/motion_streak/motion_streak_line_@.png,x,skill_1,instant,physical,-1,basic_turn,3,enemy_distance_line,2,atk,200,1,0,0,0,0,0,x,x,x,0,x,직선으로 이동하는 원거리 공격
-230040,code,skill_melee_atk,쪼기,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,30,1,5000,10000,0,0,0,x,x,x,0,x,캐릭터가 직접 대상 앞으로 이동하여 공격한다(공격 모션 필요). 공격이 끝나면 제 자리로 돌아온다.
-230041,script,skill_missile_feather,깃털 날리기,res/missile/missile_feather/missile_feather.png,res/missile/motion_streak/motion_streak_line_@.png,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,70,1,0,0,0,0,0,x,x,x,0,x,
-230045,status_effect,skill_buff,회피율 증가,x,x,x,x,instant,x,-1,basic_turn,3,self,3,x,0,1,0,0,0,0,0,x,avoid_up;target;10;100;185,x,0,x,자신에게 회피율 증가 버프
-230043,code,missile_move_high_angle	,바위 투척,res/missile/missile_ball/missile_ball_@.vrp,x,x,x,instant,magical,-1,basic_turn,4,enemy_distance_line,4,atk,300,1,200,20,0,500,100,stun,stun;target;5;100;100,x,0,x,
-230044,code,missile_move_high_angle	,도토리 발사,res/missile/missile_nut/missile_nut.png,res/missile/motion_streak/motion_streak_blade.png,x,x,instant,physical,-1,basic_turn,3,enemy_distance_line,3,atk,100,4,100,0,0,0,0,x,x,x,0,x,곡선으로 이동하는 원거리 공격
+233401,script,skill_boss_ifrit_1,화염고리,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,1,atk,1,1,0,0,0,0,0,0,x,x,0,x,x
+233402,script,skill_boss_ifrit_2,파열,x,x,x,skill_2,instant,magical,0,basic_turn,1,enemy_distance_line,1,atk,1,1,0,0,0,0,0,0,x,x,0,x,x
+233403,script,skill_boss_ifrit_3,극 화염손길,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,1,atk,1,1,0,0,0,0,0,0,x,x,0,x,x
+233404,script,skill_boss_ifrit_4,화염고리 첨,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,1,atk,1,1,0,0,0,0,0,0,x,x,0,x,x
+233405,script,skill_boss_ifrit_5,슈퍼노바,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,1,atk,1,1,0,0,0,0,0,0,x,x,0,x,x
 234001,script,skill_missile_bossshot_03,보스샷(무캐스팅),x,x,x,skill_2,instant,magical,-2,basic_turn,10,enemy_distance_line,0,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
