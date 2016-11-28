@@ -1,0 +1,124 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)loading.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"loading",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)loading.plist'<azSprite>'loading_point.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "sY":0.000000, "pX":-45.000000, "alpha":0
+									},
+									{
+										"frame":9, "pX":-45.000000
+									},
+									{
+										"frame":11, "sX":1.100000, "sY":1.100000, "pX":-45.000000
+									},
+									{
+										"frame":13, "pX":-45.000000
+									},
+									{
+										"frame":29, "sX":0.000000, "sY":0.000000, "pX":-45.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)loading.plist'<azSprite>'loading_point.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":9, "sX":0.000000, "sY":0.000000, "alpha":0
+									},
+									{
+										"frame":18
+									},
+									{
+										"frame":20, "sX":1.100000, "sY":1.100000
+									},
+									{
+										"frame":22
+									},
+									{
+										"frame":38, "sX":0.000000, "sY":0.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)loading.plist'<azSprite>'loading_point.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":18, "sX":0.000000, "sY":0.000000, "pX":45.000000, "alpha":0
+									},
+									{
+										"frame":27, "pX":45.000000
+									},
+									{
+										"frame":29, "sX":1.100000, "sY":1.100000, "pX":45.000000
+									},
+									{
+										"frame":31, "pX":45.000000
+									},
+									{
+										"frame":47, "sX":0.000000, "sY":0.000000, "pX":45.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

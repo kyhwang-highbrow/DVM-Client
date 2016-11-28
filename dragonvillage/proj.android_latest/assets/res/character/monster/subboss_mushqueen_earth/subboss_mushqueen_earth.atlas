@@ -1,0 +1,174 @@
+
+subboss_mushqueen_earth.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mushqueen_acc_01
+  rotate: true
+  xy: 159, 159
+  size: 60, 61
+  orig: 60, 61
+  offset: 0, 0
+  index: -1
+mushqueen_acc_02
+  rotate: false
+  xy: 318, 305
+  size: 35, 36
+  orig: 35, 36
+  offset: 0, 0
+  index: -1
+mushqueen_acc_03
+  rotate: true
+  xy: 448, 319
+  size: 78, 62
+  orig: 78, 62
+  offset: 0, 0
+  index: -1
+mushqueen_arm_01
+  rotate: false
+  xy: 222, 171
+  size: 60, 48
+  orig: 60, 48
+  offset: 0, 0
+  index: -1
+mushqueen_arm_02
+  rotate: false
+  xy: 134, 109
+  size: 60, 48
+  orig: 60, 48
+  offset: 0, 0
+  index: -1
+mushqueen_body_01
+  rotate: false
+  xy: 223, 387
+  size: 118, 123
+  orig: 118, 123
+  offset: 0, 0
+  index: -1
+mushqueen_body_02
+  rotate: false
+  xy: 2, 160
+  size: 155, 70
+  orig: 155, 70
+  offset: 0, 0
+  index: -1
+mushqueen_body_03
+  rotate: false
+  xy: 2, 27
+  size: 118, 70
+  orig: 118, 70
+  offset: 0, 0
+  index: -1
+mushqueen_cape_01
+  rotate: false
+  xy: 2, 99
+  size: 130, 59
+  orig: 130, 59
+  offset: 0, 0
+  index: -1
+mushqueen_cape_02
+  rotate: false
+  xy: 223, 343
+  size: 134, 42
+  orig: 134, 42
+  offset: 0, 0
+  index: -1
+mushqueen_cape_03
+  rotate: false
+  xy: 193, 221
+  size: 106, 59
+  orig: 106, 59
+  offset: 0, 0
+  index: -1
+mushqueen_effect_01
+  rotate: true
+  xy: 455, 399
+  size: 30, 34
+  orig: 30, 34
+  offset: 0, 0
+  index: -1
+mushqueen_effect_02
+  rotate: false
+  xy: 356, 287
+  size: 27, 29
+  orig: 27, 29
+  offset: 0, 0
+  index: -1
+mushqueen_eye_01
+  rotate: true
+  xy: 318, 269
+  size: 34, 36
+  orig: 34, 36
+  offset: 0, 0
+  index: -1
+mushqueen_eye_02
+  rotate: false
+  xy: 284, 183
+  size: 28, 36
+  orig: 28, 36
+  offset: 0, 0
+  index: -1
+mushqueen_face_01
+  rotate: true
+  xy: 455, 431
+  size: 79, 43
+  orig: 79, 43
+  offset: 0, 0
+  index: -1
+mushqueen_hair_01
+  rotate: false
+  xy: 2, 346
+  size: 219, 164
+  orig: 219, 164
+  offset: 0, 0
+  index: -1
+mushqueen_hair_02
+  rotate: false
+  xy: 2, 232
+  size: 189, 112
+  orig: 189, 112
+  offset: 0, 0
+  index: -1
+mushqueen_hair_03
+  rotate: false
+  xy: 359, 318
+  size: 87, 79
+  orig: 87, 79
+  offset: 0, 0
+  index: -1
+mushqueen_head_01
+  rotate: false
+  xy: 343, 399
+  size: 110, 111
+  orig: 110, 111
+  offset: 0, 0
+  index: -1
+mushqueen_leg_01
+  rotate: false
+  xy: 196, 101
+  size: 40, 56
+  orig: 40, 56
+  offset: 0, 0
+  index: -1
+mushqueen_leg_02
+  rotate: false
+  xy: 238, 113
+  size: 40, 56
+  orig: 40, 56
+  offset: 0, 0
+  index: -1
+mushqueen_mouth_01
+  rotate: false
+  xy: 2, 7
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+mushqueen_wepon_01
+  rotate: true
+  xy: 193, 282
+  size: 59, 123
+  orig: 59, 123
+  offset: 0, 0
+  index: -1

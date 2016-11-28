@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>attr_synastry_arrow_01.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{46,48}</string>
+                <key>spriteSourceSize</key>
+                <string>{46,48}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{46,48}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>realTextureFileName</key>
+            <string>attr_synastry_arrow.png</string>
+            <key>size</key>
+            <string>{48,50}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:e61ee46e61dbbf6d113d2066565a6542:3d6800f0f768560c619abcc13d915164:3a148bbfbb81fcbe54c26ce5c055e171$</string>
+            <key>textureFileName</key>
+            <string>attr_synastry_arrow.png</string>
+        </dict>
+    </dict>
+</plist>

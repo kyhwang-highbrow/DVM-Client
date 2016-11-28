@@ -1,0 +1,76 @@
+
+skill_counteratk_fire.png
+size: 4096,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_missile_01
+  rotate: true
+  xy: 2, 2
+  size: 60, 115
+  orig: 60, 115
+  offset: 0, 0
+  index: -1
+effect_reflect_fire_01
+  rotate: false
+  xy: 2, 64
+  size: 409, 444
+  orig: 409, 444
+  offset: 0, 0
+  index: -1
+effect_reflect_fire_02
+  rotate: false
+  xy: 413, 64
+  size: 409, 444
+  orig: 409, 444
+  offset: 0, 0
+  index: -1
+effect_reflect_fire_03
+  rotate: false
+  xy: 824, 64
+  size: 409, 444
+  orig: 409, 444
+  offset: 0, 0
+  index: -1
+effect_reflect_fire_05
+  rotate: false
+  xy: 1235, 126
+  size: 422, 382
+  orig: 422, 382
+  offset: 0, 0
+  index: -1
+effect_reflect_on_fire_02
+  rotate: false
+  xy: 2327, 404
+  size: 120, 104
+  orig: 120, 104
+  offset: 0, 0
+  index: -1
+effect_reflect_on_fire_03
+  rotate: false
+  xy: 1235, 105
+  size: 30, 19
+  orig: 30, 19
+  offset: 0, 0
+  index: -1
+effect_shield_01
+  rotate: false
+  xy: 1659, 222
+  size: 305, 286
+  orig: 305, 286
+  offset: 0, 0
+  index: -1
+effect_shield_02
+  rotate: false
+  xy: 1966, 283
+  size: 227, 225
+  orig: 227, 225
+  offset: 0, 0
+  index: -1
+effect_shield_05
+  rotate: false
+  xy: 2195, 386
+  size: 130, 122
+  orig: 130, 122
+  offset: 0, 0
+  index: -1

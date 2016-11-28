@@ -1,0 +1,104 @@
+
+mage_earth.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mage_earth_arm_01
+  rotate: false
+  xy: 435, 70
+  size: 56, 56
+  orig: 56, 56
+  offset: 0, 0
+  index: -1
+mage_earth_arm_02
+  rotate: true
+  xy: 2, 2
+  size: 43, 48
+  orig: 43, 48
+  offset: 0, 0
+  index: -1
+mage_earth_body_01
+  rotate: true
+  xy: 2, 47
+  size: 79, 127
+  orig: 79, 127
+  offset: 0, 0
+  index: -1
+mage_earth_body_02
+  rotate: false
+  xy: 186, 24
+  size: 45, 45
+  orig: 45, 45
+  offset: 0, 0
+  index: -1
+mage_earth_body_03
+  rotate: false
+  xy: 283, 22
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+mage_earth_body_04
+  rotate: true
+  xy: 356, 28
+  size: 36, 24
+  orig: 36, 24
+  offset: 0, 0
+  index: -1
+mage_earth_effect_01
+  rotate: true
+  xy: 131, 17
+  size: 52, 53
+  orig: 52, 53
+  offset: 0, 0
+  index: -1
+mage_earth_effect_02
+  rotate: false
+  xy: 364, 69
+  size: 69, 57
+  orig: 69, 57
+  offset: 0, 0
+  index: -1
+mage_earth_effect_03
+  rotate: false
+  xy: 493, 99
+  size: 17, 27
+  orig: 17, 27
+  offset: 0, 0
+  index: -1
+mage_earth_hand_01
+  rotate: false
+  xy: 233, 22
+  size: 48, 42
+  orig: 48, 42
+  offset: 0, 0
+  index: -1
+mage_earth_hand_02
+  rotate: false
+  xy: 325, 31
+  size: 29, 33
+  orig: 29, 33
+  offset: 0, 0
+  index: -1
+mage_earth_head_01
+  rotate: false
+  xy: 253, 66
+  size: 109, 60
+  orig: 109, 60
+  offset: 0, 0
+  index: -1
+mage_earth_head_02
+  rotate: false
+  xy: 52, 9
+  size: 62, 36
+  orig: 62, 36
+  offset: 0, 0
+  index: -1
+mage_earth_wepon_01
+  rotate: false
+  xy: 131, 71
+  size: 120, 55
+  orig: 120, 55
+  offset: 0, 0
+  index: -1

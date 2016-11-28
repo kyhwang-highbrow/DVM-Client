@@ -1,0 +1,258 @@
+
+boss_queenssnake_earth.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+queenssnake_ breast_01
+  rotate: false
+  xy: 135, 127
+  size: 52, 49
+  orig: 52, 49
+  offset: 0, 0
+  index: -1
+queenssnake_ breast_02
+  rotate: false
+  xy: 244, 423
+  size: 52, 49
+  orig: 52, 49
+  offset: 0, 0
+  index: -1
+queenssnake_acc_01
+  rotate: false
+  xy: 312, 500
+  size: 52, 42
+  orig: 52, 42
+  offset: 0, 0
+  index: -1
+queenssnake_acc_02
+  rotate: false
+  xy: 244, 474
+  size: 66, 68
+  orig: 66, 68
+  offset: 0, 0
+  index: -1
+queenssnake_acc_03
+  rotate: false
+  xy: 244, 379
+  size: 52, 42
+  orig: 52, 42
+  offset: 0, 0
+  index: -1
+queenssnake_acc_04
+  rotate: false
+  xy: 312, 456
+  size: 52, 42
+  orig: 52, 42
+  offset: 0, 0
+  index: -1
+queenssnake_acc_05
+  rotate: false
+  xy: 298, 412
+  size: 52, 42
+  orig: 52, 42
+  offset: 0, 0
+  index: -1
+queenssnake_arm_01
+  rotate: false
+  xy: 181, 295
+  size: 60, 79
+  orig: 60, 79
+  offset: 0, 0
+  index: -1
+queenssnake_arm_02
+  rotate: true
+  xy: 562, 799
+  size: 60, 79
+  orig: 60, 79
+  offset: 0, 0
+  index: -1
+queenssnake_body_01
+  rotate: true
+  xy: 2, 21
+  size: 94, 158
+  orig: 94, 158
+  offset: 0, 0
+  index: -1
+queenssnake_body_02
+  rotate: false
+  xy: 271, 803
+  size: 206, 218
+  orig: 206, 218
+  offset: 0, 0
+  index: -1
+queenssnake_body_03
+  rotate: false
+  xy: 2, 376
+  size: 240, 174
+  orig: 240, 174
+  offset: 0, 0
+  index: -1
+queenssnake_body_04
+  rotate: false
+  xy: 2, 739
+  size: 267, 282
+  orig: 267, 282
+  offset: 0, 0
+  index: -1
+queenssnake_body_05
+  rotate: false
+  xy: 479, 861
+  size: 235, 160
+  orig: 235, 160
+  offset: 0, 0
+  index: -1
+queenssnake_eye_01
+  rotate: false
+  xy: 838, 868
+  size: 23, 31
+  orig: 23, 31
+  offset: 0, 0
+  index: -1
+queenssnake_eye_02
+  rotate: false
+  xy: 863, 868
+  size: 23, 31
+  orig: 23, 31
+  offset: 0, 0
+  index: -1
+queenssnake_finger_01
+  rotate: true
+  xy: 716, 863
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
+queenssnake_finger_02
+  rotate: true
+  xy: 181, 257
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
+queenssnake_finger_03
+  rotate: true
+  xy: 758, 863
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
+queenssnake_finger_04
+  rotate: false
+  xy: 800, 868
+  size: 36, 31
+  orig: 36, 31
+  offset: 0, 0
+  index: -1
+queenssnake_finger_05
+  rotate: false
+  xy: 724, 830
+  size: 23, 31
+  orig: 23, 31
+  offset: 0, 0
+  index: -1
+queenssnake_finger_06
+  rotate: false
+  xy: 749, 830
+  size: 23, 31
+  orig: 23, 31
+  offset: 0, 0
+  index: -1
+queenssnake_hair_01
+  rotate: false
+  xy: 479, 804
+  size: 81, 55
+  orig: 81, 55
+  offset: 0, 0
+  index: -1
+queenssnake_hair_02
+  rotate: false
+  xy: 2, 117
+  size: 131, 135
+  orig: 131, 135
+  offset: 0, 0
+  index: -1
+queenssnake_hair_03
+  rotate: true
+  xy: 271, 710
+  size: 91, 122
+  orig: 91, 122
+  offset: 0, 0
+  index: -1
+queenssnake_hair_04
+  rotate: false
+  xy: 2, 552
+  size: 260, 185
+  orig: 260, 185
+  offset: 0, 0
+  index: -1
+queenssnake_hair_05
+  rotate: true
+  xy: 135, 178
+  size: 74, 55
+  orig: 74, 55
+  offset: 0, 0
+  index: -1
+queenssnake_hand_01
+  rotate: true
+  xy: 643, 799
+  size: 60, 79
+  orig: 60, 79
+  offset: 0, 0
+  index: -1
+queenssnake_hand_02
+  rotate: true
+  xy: 298, 368
+  size: 42, 50
+  orig: 42, 50
+  offset: 0, 0
+  index: -1
+queenssnake_hand_03
+  rotate: false
+  xy: 264, 627
+  size: 122, 81
+  orig: 122, 81
+  offset: 0, 0
+  index: -1
+queenssnake_head_01
+  rotate: false
+  xy: 2, 254
+  size: 177, 120
+  orig: 177, 120
+  offset: 0, 0
+  index: -1
+queenssnake_head_02
+  rotate: false
+  xy: 716, 901
+  size: 177, 120
+  orig: 177, 120
+  offset: 0, 0
+  index: -1
+queenssnake_head_03
+  rotate: false
+  xy: 395, 720
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+queenssnake_mouth_01
+  rotate: false
+  xy: 2, 2
+  size: 23, 17
+  orig: 23, 17
+  offset: 0, 0
+  index: -1
+queenssnake_wepon_01
+  rotate: true
+  xy: 264, 544
+  size: 81, 110
+  orig: 81, 110
+  offset: 0, 0
+  index: -1
+queenssnake_wepon_02
+  rotate: true
+  xy: 895, 910
+  size: 111, 126
+  orig: 111, 126
+  offset: 0, 0
+  index: -1

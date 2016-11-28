@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>skill_leaf_blade_fire_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{100,98}}</string>
+                <key>offset</key>
+                <string>{0,1}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{100,98}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>skill_leaf_blade_fire.png</string>
+            <key>size</key>
+            <string>{102,104}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:3a407f6c969de9dce42b9ea98648f91e:f9f8b6461cae31d2af3d036a5d6f94b1:e493f3110935c1bc9af3d3015489784f$</string>
+            <key>textureFileName</key>
+            <string>skill_leaf_blade_fire.png</string>
+        </dict>
+    </dict>
+</plist>
