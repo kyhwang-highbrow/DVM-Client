@@ -7,13 +7,6 @@
 #include "HttpClient.h"
 #include "LoginPlatform.h"
 
-// @patisdk
-#if (LOGIN_PLATFORM == LOGIN_PLATFORM_PATISDK)
-#include "PatiTypes.h"
-#include "PatiPublishSDK.h"
-#include "PatiPublishPlatform.h"
-#endif
-
 using namespace CocosDenshion;
 
 USING_NS_CC;
@@ -199,82 +192,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	director->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
 #endif
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-    /*
-	this->receivedEventFromNative("userdefault", "phone_number;01049245635");
-	this->receivedEventFromNative("userdefault", "device_type;win32");
-	this->receivedEventFromNative("userdefault", getAppVer(true));
-	this->receivedEventFromNative("userdefault", "market;GOOG");
-	this->receivedEventFromNative("userdefault", "device_name;com");
-	this->receivedEventFromNative("userdefault", "os_ver;win7");
-    */
-
-// @patisdk
-#if (LOGIN_PLATFORM == LOGIN_PLATFORM_PATISDK)
-	PatiSDK::Win32::setPreferencesPath(PREFERENCES_PATH_EXECUTABLE_PATH, "");
-    #ifdef USE_KAKAO
-        PatiSDK::Win32::setEncryptedClientData("9dRs6IhLsf/NksBceLhHLgFy9JWXHvu76jllaQBo2rscyfl1m3Mh6wtoKM0ykYaU2U5QkdA/9wO8rIe1zbaRZw==");
-        PatiSDK::Win32::setPackageName("com.perplelab.hod4kakao");
-    #else
-        PatiSDK::Win32::setEncryptedClientData("9dRs6IhLsf9G5c3V6pK+0gFy9JWXHvu7HMf+6EHL1brT93q3aCA+jBJ4bQZglENq8xKGjaOAkhTa2iqjW1roaQ==");
-        PatiSDK::Win32::setPackageName("com.perplelab.hod");
-    #endif
-    PatiSDK::Win32::setMarketName("GOOG");
-    //PatiSDK::Win32::setMarketName("APPL");
-    PatiSDK::Win32::setAppRevision("1.0.0");
-
-    if (PatiSDK::initSDK())
-    {
-#ifdef USE_FACEBOOK
-#ifdef FACEBOOK_LOGIN_PATI
-        // @facebook
-        PatiSDK::initFacebook();
-#endif
-#endif
-
-#ifdef USE_GOOGLEPLAY
-#ifdef GOOGLEPLAY_LOGIN_PATI
-		// @google+
-		PatiSDK::initGooglePlus();
-#endif
-#endif
-
-#ifdef USE_KAKAO
-#ifdef KAKAO_LOGIN_PATI
-		// @kakao, in patisdk
-		const char *kakaoClientID = "94330009902599810";
-		const char *kakaoClientSecret = "+GY145B5vGkjrTjO3500Mu+5yTzuQtqIj+Ecn3DlmDyCuoYgqhmsY4JXg/7KocEGuEi+2+EPwLWdcwxsnuARag==";
-		PatiSDK::initKakao(kakaoClientID, kakaoClientSecret);
-#endif
-#endif
-
-		bool isTestMode = ConfigParser::getInstance()->isTestMode();
-		if (isTestMode)
-		{
-			PatiSDK::setTestMode();
-		}
-
-		PatiSDK::gameLaunched();
-    }
-#endif
-
-#endif
-
 	initLuaEngine();
-
-    // Register custom function.
-    //LuaStack *stack = engine->getLuaStack();
-    //register_custom_function(stack->getLuaState());
-
-#if (COCOS2D_DEBUG>0)
-	/*
-	if (ConfigParser::getInstance()->useIdeDebug())
-	{
-		if (startRuntime())
-			return true;
-	}
-	*/
-#endif
 
 	FileUtils::getInstance()->addSearchPath("ps");
 	FileUtils::getInstance()->addSearchPath("src");

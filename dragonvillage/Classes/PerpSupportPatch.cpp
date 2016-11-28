@@ -20,7 +20,6 @@
 ///////////////////////////////////////////////////////////////////////////
 //추가 다운로드 디렉토리
 #define EXTENTION_RESOURCE_DIR       "patch_0_0_0/"
-#define EXTENTION_RESOURCE_DIR_KAKAO "patch_0_0_0_KAKAO/"
 ///////////////////////////////////////////////////////////////////////////
 
 #define MAX_FILE_NAME_LENGTH	256
@@ -275,12 +274,7 @@ void SupportPatch::removeDir(string dir)
 
 string SupportPatch::getExtensionPath()
 {
-	//fixPathForWIN32(path);
-#ifdef USE_KAKAO
-    return EXTENTION_RESOURCE_DIR_KAKAO;
-#else
     return EXTENTION_RESOURCE_DIR;
-#endif
 }
 
 string SupportPatch::getPatchPath(const char* ver)

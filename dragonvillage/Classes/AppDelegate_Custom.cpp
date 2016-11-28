@@ -8,11 +8,6 @@
 #include "ConfigParser.h"
 #include "LoginPlatform.h"
 
-// @patisdk
-#if (LOGIN_PLATFORM == LOGIN_PLATFORM_PATISDK)
-#include "PatiPublishLua.h"
-#endif
-
 /*
 정리하기가 애매한 부분이 있어 AppDelegate.cpp의 라인을 줄이고,
 수정 가능성이 있는 부분만 이 곳에 옮겨서 정의
@@ -170,15 +165,7 @@ static int l_isIos(lua_State* L)
 
 static int l_loginPlatform(lua_State* L)
 {
-#if (LOGIN_PLATFORM == LOGIN_PLATFORM_PATISDK)
-    lua_pushnumber(L, (int)1);
-#elif (LOGIN_PLATFORM == LOGIN_PLATFORM_PPSDK)
-    lua_pushnumber(L, (int)2);
-#elif (LOGIN_PLATFORM == LOGIN_PLATFORM_GAMECENTER)
-    lua_pushnumber(L, (int)3);
-#else
     lua_pushnumber(L, (int)0);
-#endif
     return 1;
 }
 
@@ -453,11 +440,6 @@ void AppDelegate::initLuaEngine()
 	};
 
 	lua_State* L = engine->getLuaStack()->getLuaState();
-
-// @patisdk
-#if (LOGIN_PLATFORM == LOGIN_PLATFORM_PATISDK)
-    luaopen_patipublishsdk(L);
-#endif
 
     luaL_register(L, "_G", global_functions);
 	engine->getLuaStack()->addLuaLoader(SupportLua::luaLoader);
