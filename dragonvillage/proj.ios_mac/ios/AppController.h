@@ -23,11 +23,6 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifdef USE_MOLOCO
-// @moloco
-#import <Moloco/Moloco.h>
-#endif
-
 #ifdef USE_BILLING
 // @billing
 #import <StoreKit/StoreKit.h>
@@ -52,47 +47,8 @@
 @property (assign) bool canBilling;
 #endif
 
-#ifdef USE_MOLOCO
-// @moloco
-@property (strong, readonly) MolocoTracker *tracer;
-#endif
-
 - (void)sendLocalNotification:(NSString *)type withTime:(int)sec withMsg:(NSString *)msg;
 - (void)cancelNotification;
-
-// @tapjoy
-- (void)tjcConnectSuccess:(NSNotification *)notifyObj;
-- (void)tjcConnectFail:(NSNotification *)notifyObj;
-
-// @adbrix
-- (void)adbrixUserInfo:(NSString *)arg0;
-- (void)adbrixFirstTimeExperience:(NSString *)arg0 param:(NSString *)arg1;
-- (void)adbrixRetention:(NSString *)arg0 param:(NSString *)arg1;
-- (void)adbrixBuy:(NSString *)arg0 param:(NSString *)arg1;
-- (void)adbrixCustomCohort:(NSString *)arg0 param:(NSString *)arg1;
-
-// @tapjoy
-- (void)fiverocksUserInfo:(NSString *)arg0;
-- (void)fiverocksTrackEvent:(NSString *)arg0;
-- (void)fiverocksTrackPurchase:(NSString *)arg0;
-- (void)fiverocksCustomCohort:(NSString *)arg0 param:(NSString *)arg1;
-- (void)fiverocksAppDataVersion:(NSString *)arg0;
-
-// @tnk
-- (void)tnkAction:(NSString *)arg0;
-- (void)tnkSetUserName:(NSString *)arg0;
-
-#ifdef USE_PARTYTRACK
-// @partytrack
-- (void)partytrackPayment:(NSString *)arg0;
-- (void)partytrackEvent:(NSString *)arg0;
-#endif
-
-#ifdef USE_MOLOCO
-// @moloco
-- (void)molocoEvent:(NSString *)arg0 param:(NSString *)arg1;
-- (void)molocoEventSpatial:(NSString *)arg0 param:(NSString *)arg1;
-#endif
 
 // @clipboard
 - (void)clipboardSetText:(NSString *)arg0;
@@ -103,40 +59,6 @@
 
 // @memory info
 - (NSString *)getFreeMemory;
-
-#if (LOGIN_PLATFORM == LOGIN_PLATFORM_PPSDK)
-// @ppsdk
-- (void)ppsdkLogin;
-- (void)ppsdkLogout;
-- (void)ppsdkLoginAuth:(int)result param:(NSString *)info;
-- (void)ppsdkExchangeGoods:(NSString *)arg0;
-- (void)ppsdkShowSDKCenter;
-#endif
-
-#if LOGIN_PLATFORM == LOGIN_PLATFORM_GAMECENTER
-// @gameCenter
-- (void)gcsdkLogin;
-#endif
-
-#ifdef USE_UMENG
-// @umeng
-- (void)umengBeginLogPageView:(NSString *)arg0;
-- (void)umengEndLogPageView:(NSString *)arg0;
-- (void)umengBeginEvent:(NSString *)arg0 param:(NSString *)arg1;
-- (void)umengEndEvent:(NSString *)arg0 param:(NSString *)arg1;
-- (void)umengEvent:(NSString *)arg0 param:(NSString *)arg1;
-- (void)umengPay:(NSString *)arg0 param:(NSString *)arg1;
-- (void)umengBuy:(NSString *)arg0 param:(NSString *)arg1;
-- (void)umengUse:(NSString *)arg0 param:(NSString *)arg1;
-- (void)umengLevel:(NSString *)arg0 param:(NSString *)arg1;
-- (void)umengBonus:(NSString *)arg0 param:(NSString *)arg1;
-- (void)umengProfileSignInWithPUID:(NSString *)arg0 param:(NSString *)arg1;
-- (void)umengProfileSignOff:(NSString *)arg0 param:(NSString *)arg1;
-- (void)umengSetUserLevelId:(NSString *)arg0 param:(NSString *)arg1;
-
-// @umeng - option1
-//- (void)updateMethod:(NSDictionary *)appInfo;
-#endif
 
 #ifdef USE_BILLING
 // @billing

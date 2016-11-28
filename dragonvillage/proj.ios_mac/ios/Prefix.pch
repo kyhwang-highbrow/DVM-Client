@@ -6,8 +6,4 @@
     #import <Foundation/Foundation.h>
     #import <UIKit/UIKit.h>
     #import "LoginPlatform.h"
-#ifdef USE_GOOGLEPLAY
-    // @google+
-    #import <GooglePlayGames/GooglePlayGames.h>
-#endif
 #endif
