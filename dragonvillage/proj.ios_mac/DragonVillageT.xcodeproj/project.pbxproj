@@ -14,7 +14,6 @@
 		15A8A4841834C73500142BE0 /* libcocos2dx-extensions Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4191834BDA200142BE0 /* libcocos2dx-extensions Mac.a */; };
 		15A8A4851834C73500142BE0 /* libCocosDenshion Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A41F1834BDA200142BE0 /* libCocosDenshion Mac.a */; };
 		1AF4C403178663F200122817 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AF4C402178663F200122817 /* libz.dylib */; };
-		1E1607BE1D922D8300CA2C71 /* TapjoyResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1E1607BD1D922D8200CA2C71 /* TapjoyResources.bundle */; };
 		1E1607C11D922EAB00CA2C71 /* Tapjoy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E1607C01D922EAB00CA2C71 /* Tapjoy.framework */; };
 		1EE7C4801D9244DE005EF89F /* IgaworksCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E162B4A1D92367100CA2C71 /* IgaworksCore.framework */; };
 		1EE7C4811D924545005EF89F /* AdBrix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E162B451D92367100CA2C71 /* AdBrix.framework */; };
@@ -90,8 +89,6 @@
 		3761E8421B75B77C00FB7801 /* libCocosDenshion iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A42D1834BDA200142BE0 /* libCocosDenshion iOS.a */; };
 		3761E8431B75B77C00FB7801 /* libchipmunk iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4291834BDA200142BE0 /* libchipmunk iOS.a */; };
 		3761E8441B75B77C00FB7801 /* libbox2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A42B1834BDA200142BE0 /* libbox2d iOS.a */; };
-		3761E8461B75B77C00FB7801 /* GooglePlayGames.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C2897C051A90040300B343BB /* GooglePlayGames.bundle */; };
-		3761E8471B75B77C00FB7801 /* GooglePlus.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C2897C031A9003F500B343BB /* GooglePlus.bundle */; };
 		3761E8511B75B77C00FB7801 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37EF84281B268F3B00EFA299 /* InfoPlist.strings */; };
 		3761E8561B75B77C00FB7801 /* AudioEngine.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BD18BF656900FE4F13 /* AudioEngine.lua */; };
 		3761E8571B75B77C00FB7801 /* CCBReaderLoad.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BE18BF656900FE4F13 /* CCBReaderLoad.lua */; };
@@ -238,8 +235,6 @@
 		7DE4D58E1C044036005643BA /* libCocosDenshion iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A42D1834BDA200142BE0 /* libCocosDenshion iOS.a */; };
 		7DE4D58F1C044036005643BA /* libchipmunk iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4291834BDA200142BE0 /* libchipmunk iOS.a */; };
 		7DE4D5901C044036005643BA /* libbox2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A42B1834BDA200142BE0 /* libbox2d iOS.a */; };
-		7DE4D5921C044036005643BA /* GooglePlayGames.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C2897C051A90040300B343BB /* GooglePlayGames.bundle */; };
-		7DE4D5931C044036005643BA /* GooglePlus.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C2897C031A9003F500B343BB /* GooglePlus.bundle */; };
 		7DE4D59E1C044036005643BA /* AudioEngine.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BD18BF656900FE4F13 /* AudioEngine.lua */; };
 		7DE4D59F1C044036005643BA /* CCBReaderLoad.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BE18BF656900FE4F13 /* CCBReaderLoad.lua */; };
 		7DE4D5A01C044036005643BA /* Cocos2d.lua in Resources */ = {isa = PBXBuildFile; fileRef = C03781BF18BF656900FE4F13 /* Cocos2d.lua */; };
@@ -310,8 +305,6 @@
 		C2897BFE1A90031700B343BB /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2897BFD1A90031700B343BB /* GoogleOpenSource.framework */; };
 		C2897C001A90033100B343BB /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2897BFF1A90033100B343BB /* GooglePlus.framework */; };
 		C2897C021A90034C00B343BB /* GooglePlayGames.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2897C011A90034C00B343BB /* GooglePlayGames.framework */; };
-		C2897C041A9003F500B343BB /* GooglePlus.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C2897C031A9003F500B343BB /* GooglePlus.bundle */; };
-		C2897C061A90040300B343BB /* GooglePlayGames.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C2897C051A90040300B343BB /* GooglePlayGames.bundle */; };
 		F293B3CD15EB7BE500256477 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F293B3CC15EB7BE500256477 /* QuartzCore.framework */; };
 		F293B3D115EB7BE500256477 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F293B3D015EB7BE500256477 /* OpenAL.framework */; };
 		F293B3D315EB7BE500256477 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F293B3D215EB7BE500256477 /* AudioToolbox.framework */; };
@@ -685,7 +678,6 @@
 		15A8A4031834BDA200142BE0 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = "../../cocos2d-x/build/cocos2d_libs.xcodeproj"; sourceTree = "<group>"; };
 		1AF4C402178663F200122817 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = ../../../../../../../../usr/lib/libz.dylib; sourceTree = "<group>"; };
 		1CC28FA01B69003F00F75BE8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		1E1607BD1D922D8200CA2C71 /* TapjoyResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TapjoyResources.bundle; path = ../../libraries/tapjoy/ios/TapjoySDK_iOS_v11.8.1/Libraries/Tapjoy.embeddedframework/Tapjoy.framework/Versions/A/Resources/TapjoyResources.bundle; sourceTree = "<group>"; };
 		1E1607C01D922EAB00CA2C71 /* Tapjoy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Tapjoy.framework; path = ../../libraries/tapjoy/ios/TapjoySDK_iOS_v11.8.1/Libraries/Tapjoy.embeddedframework/Tapjoy.framework; sourceTree = "<group>"; };
 		1E1607C91D92365800CA2C71 /* Ask.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Ask.js; sourceTree = "<group>"; };
 		1E1607CA1D92365800CA2C71 /* BackupFile.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = BackupFile.js; sourceTree = "<group>"; };
@@ -10960,8 +10952,6 @@
 		C2897BFD1A90031700B343BB /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = "../../libraries/google_play_services/ios/google-plus-ios-sdk-1.7.1/GoogleOpenSource.framework"; sourceTree = "<group>"; };
 		C2897BFF1A90033100B343BB /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = "../../libraries/google_play_services/ios/google-plus-ios-sdk-1.7.1/GooglePlus.framework"; sourceTree = "<group>"; };
 		C2897C011A90034C00B343BB /* GooglePlayGames.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlayGames.framework; path = "../../libraries/google_play_services/ios/GooglePlayGames-iOS-SDK.v3.1.1/GooglePlayGames.framework"; sourceTree = "<group>"; };
-		C2897C031A9003F500B343BB /* GooglePlus.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlus.bundle; path = "../../libraries/google_play_services/ios/google-plus-ios-sdk-1.7.1/GooglePlus.bundle"; sourceTree = "<group>"; };
-		C2897C051A90040300B343BB /* GooglePlayGames.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlayGames.bundle; path = "../../libraries/google_play_services/ios/GooglePlayGames-iOS-SDK.v3.1.1/GooglePlayGames.bundle"; sourceTree = "<group>"; };
 		F293B3C815EB7BE500256477 /* DragonVillage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragonVillage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F293B3CC15EB7BE500256477 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F293B3D015EB7BE500256477 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -36844,9 +36834,6 @@
 		F293B3BD15EB7BE500256477 = {
 			isa = PBXGroup;
 			children = (
-				1E1607BD1D922D8200CA2C71 /* TapjoyResources.bundle */,
-				C2897C051A90040300B343BB /* GooglePlayGames.bundle */,
-				C2897C031A9003F500B343BB /* GooglePlus.bundle */,
 				C03781AE18BF654500FE4F13 /* cocos2d_lua_bindings.xcodeproj */,
 				15A8A4031834BDA200142BE0 /* cocos2d_libs.xcodeproj */,
 				377033AA198F60A50091C231 /* Runtime_ios-mac.mm */,
@@ -37454,8 +37441,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3761E8461B75B77C00FB7801 /* GooglePlayGames.bundle in Resources */,
-				3761E8471B75B77C00FB7801 /* GooglePlus.bundle in Resources */,
 				3761E8511B75B77C00FB7801 /* InfoPlist.strings in Resources */,
 				3761E8561B75B77C00FB7801 /* AudioEngine.lua in Resources */,
 				3761E8571B75B77C00FB7801 /* CCBReaderLoad.lua in Resources */,
@@ -37508,8 +37493,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7DE4D5921C044036005643BA /* GooglePlayGames.bundle in Resources */,
-				7DE4D5931C044036005643BA /* GooglePlus.bundle in Resources */,
 				7DE4D59E1C044036005643BA /* AudioEngine.lua in Resources */,
 				7DE4D59F1C044036005643BA /* CCBReaderLoad.lua in Resources */,
 				7DE4D5A01C044036005643BA /* Cocos2d.lua in Resources */,
@@ -37537,9 +37520,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DE26C6A1DB4B8880066E667 /* entry_patch.lua in Resources */,
-				1E1607BE1D922D8300CA2C71 /* TapjoyResources.bundle in Resources */,
-				C2897C061A90040300B343BB /* GooglePlayGames.bundle in Resources */,
-				C2897C041A9003F500B343BB /* GooglePlus.bundle in Resources */,
 				C23B44371A90264F00529743 /* Images.xcassets in Resources */,
 				37EF84261B268F3B00EFA299 /* InfoPlist.strings in Resources */,
 				8DE26C6B1DB4B8880066E667 /* fixed_constant.lua in Resources */,
