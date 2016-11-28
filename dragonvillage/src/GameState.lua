@@ -382,17 +382,18 @@ function GameState:update_wave_intermission(dt)
         local t_camera_info = t_wave_data['camera'] or {}
 		
 		if (world.m_waveMgr.m_bDevelopMode == false) then 
-			-- 랜덤하게 카메라 위치를 변경
-			t_camera_info['pos_x'] = 0
-			--t_camera_info['pos_y'] = math_random(-1, 1) * 300
+            local curCameraPosX, curCameraPosY = world.m_gameCamera:getHomePos()
+            local tRandomY = {}
+            for _, v in pairs({-300, 0, 300}) do
+                if v ~= curCameraPosY then
+                    table.insert(tRandomY, v)
+                end
+            end
+
+            -- 랜덤하게 카메라 위치를 변경
+			t_camera_info['pos_x'] = curCameraPosX * t_camera_info['scale']
+			t_camera_info['pos_y'] = tRandomY[math_random(1, #tRandomY)] * t_camera_info['scale']
 			t_camera_info['time'] = WAVE_INTERMISSION_TIME
-        
-			-- 임시 처리...
-			if is_final_wave then
-				t_camera_info['pos_y'] = -300 * t_camera_info['scale']
-			else
-				t_camera_info['pos_y'] = 300 * t_camera_info['scale']
-			end
         end
 
         -- 아군
