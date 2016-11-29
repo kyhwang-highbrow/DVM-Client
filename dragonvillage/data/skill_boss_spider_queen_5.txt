@@ -1,0 +1,32 @@
+{
+	"skill_boss_spider_queen_5":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_spider/missile_spider_fire.png",
+				"body":[0,0,10],
+                "count":50,
+                "scale":0.2,
+                "period":0.1,
+				"speed":500,
+				"accel":-500,
+				"l_limit_speed":100,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[0,0],
+                "dir_add":100,
+				
+				"movement":"guid",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}

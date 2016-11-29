@@ -1,0 +1,193 @@
+{
+	"skill_boss_spider_queen_1":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_spider/missile_spider_fire.png",
+				"body":[0,0,20],
+                "count":15,
+                "scale":0.5,
+                "period":0.2,
+				"speed":400,
+				"offset":[0,0],
+                "dir_array":[22,67,112,157,202,247,292,337],
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_spider/missile_spider_fire.png",
+				"body":[0,0,20],
+                "count":24,
+                "scale":0.5,
+				"time":3,
+                "period":0.2,
+				"speed":400,
+				"offset":[0,0],
+                "dir_array":[22,67,112,157,202,247,292,337],
+				"dir_add":10,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_spider/missile_spider_fire.png",
+				"body":[0,0,20],
+                "count":25,
+                "scale":0.5,
+				"time":7.8,
+                "period":0.2,
+				"speed":400,
+				"offset":[0,0],
+                "dir_array":[267,302,357,402,447,492,537,582],
+				"dir_add":-10,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_web/wab.png",
+				"body":[0,0,0],
+                "count":21,
+                "scale":3,
+                "period":0.05,
+				"speed":1000,
+				"accel":-10000,
+				"l_limit_speed":0,
+				"accel_delay":1,
+				"accel_delay_fix":"true",
+				"offset":[0,0],
+                "dir_array":[22,67,112,157,202,247,292,337],
+				
+				"delete_time":13,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_web/wab2.png",
+				"body":[0,0,0],
+                "count":1,
+                "scale":3,
+                "period":0,
+				"speed":130,
+				"accel":-10000,
+				"accel_delay_fix":"true",
+				"l_limit_speed":0,
+				"accel_delay":1,
+				"offset":[0,0],
+				"dir_array":[0,45,90,135,180,225,270,315],
+				
+				"delete_time":13,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_web/wab2.png",
+				"body":[0,0,0],
+                "count":1,
+                "scale":6,
+                "period":0,
+				"speed":260,
+				"accel":-10000,
+				"accel_delay_fix":"true",
+				"l_limit_speed":0,
+				"accel_delay":1,
+				"offset":[0,0],
+				"dir_array":[0,45,90,135,180,225,270,315],
+				
+				"delete_time":13,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_web/wab2.png",
+				"body":[0,0,0],
+                "count":1,
+                "scale":10,
+                "period":0,
+				"speed":450,
+				"accel":-10000,
+				"accel_delay_fix":"true",
+				"l_limit_speed":0,
+				"accel_delay":1,
+				"offset":[0,0],
+				"dir_array":[0,45,90,135,180,225,270,315],
+				
+				"delete_time":13,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_web/wab2.png",
+				"body":[0,0,0],
+                "count":1,
+                "scale":18,
+                "period":0,
+				"speed":780,
+				"accel":-10000,
+				"accel_delay_fix":"true",
+				"l_limit_speed":0,
+				"accel_delay":1,
+				"offset":[0,0],
+				"dir_array":[0,45,90,135,180,225,270,315],
+				
+				"delete_time":13,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}

@@ -1,0 +1,40 @@
+{
+    "pattern_boss_spider_queen":
+    [        
+        [
+            "a;5", "w;4"
+        ]
+    ],
+	
+    "hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":1,
+                "pattern":
+                [
+                    "a;1"
+                ]
+            },
+			
+            {
+                "hp_percent":1,
+                "pattern":
+                [
+                    "a;1"
+                ]
+            }
+        ]
+
+    },
+	"ani_mix":
+	[
+        "idle;attack;0.1",
+        "idle;idle;0.1",
+        "attack;idle;0.1",
+		"skill_2;idle;0.1",
+		"idle;skill_2;0.1"
+    ]
+}
