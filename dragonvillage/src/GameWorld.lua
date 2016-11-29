@@ -20,6 +20,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_lUnitList = 'list',
 		m_lSkillList = 'table',
 		m_lMissileList = 'table',
+		m_lSpecailMissileList = 'table',
         
         -- 출전중인 hero 
         m_participants = '',
@@ -130,6 +131,7 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
     self.m_lUnitList = {}
 	self.m_lSkillList = {}
 	self.m_lMissileList = {}
+	self.m_lSpecailMissileList = {}
     self.m_tEnemyList = {}
 
     self.m_physWorld = PhysWorld(self.m_gameNode1, false)
@@ -332,6 +334,15 @@ function GameWorld:addToMissileList(missile)
 end
 
 -------------------------------------
+-- function addToSpecailMissileList
+-- @param Missile, CommonMissile
+-- @brief 특수 미사일 관리
+-------------------------------------
+function GameWorld:addToSpecailMissileList(missile)
+    self.m_lSpecailMissileList[missile] = missile
+end
+
+-------------------------------------
 -- function update
 -- @param dt
 -------------------------------------
@@ -500,6 +511,13 @@ end
 -------------------------------------
 function GameWorld:initEnemyClass(enemy)
     self.m_rightFormationMgr:setChangePosCallback(enemy)
+end
+
+-------------------------------------
+-- function 
+-------------------------------------
+function GameWorld:addDestructibleMissile(missile)
+	self:addToSpecailMissileList(missile)
 end
 
 -------------------------------------

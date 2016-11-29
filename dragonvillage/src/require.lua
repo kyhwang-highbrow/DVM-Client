@@ -114,6 +114,8 @@ local t_module = {
     'TamerSkillCut',
 	'TamerSkillManager',
 
+	
+	-- MISSILE
 	'Missile',
     'MissileBoomerang',
     'MissileCurve',
@@ -133,6 +135,7 @@ local t_module = {
     'require_MissileLua',
     'LaserMissile',
 
+	-- CHARACTER
 	'Character',
     'CharacterEvent',
     'CharacterState',

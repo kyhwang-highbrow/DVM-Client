@@ -134,8 +134,10 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     local effect =           t_option['effect']
     local lua_param =        t_option['lua_param']
 	
-	local isFixedAttack =		t_option['bFixedAttack'] or false
-	local missileCBFunction =	t_option['cbFunction']
+	local is_fixed_attack =		t_option['bFixedAttack'] or false
+	local missile_cbFunction =	t_option['cbFunction']
+
+	local missile_event =		t_option['events']
 
 	local add_script =			t_option['add_script'] or nil
 	local add_script_start =	t_option['add_script_start'] or 0
@@ -155,54 +157,62 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 
     -- 미사일 생성
     local missile = nil
-    if string.match(movement, 'lua_')then
+    
+	if string.match(movement, 'lua_')then
         missile = MissileLua(missile_res_name, physics_body)
         missile.m_target = target
         lua_missile = true
-    elseif movement == 'normal' then
+
+    elseif (movement == 'normal') then
         missile = Missile(missile_res_name, physics_body)
-    elseif movement == 'instant' then
+
+    elseif (movement == 'instant') then
         missile = MissileInstant(missile_res_name, physics_body)
-    elseif movement == 'drop' then
+
+    elseif (movement == 'drop') then
         missile = MissileDrop(missile_res_name, physics_body, is_hero)
-    elseif movement == 'guid' then
+
+    elseif (movement == 'guid') then
         missile = MissileGuid(missile_res_name, physics_body, is_hero)
-    elseif movement == 'guid_strong' then
+
+    elseif (movement == 'guid_strong') then
         missile = MissileGuid(missile_res_name, physics_body, is_hero)
         missile.m_angularVelocityGuid = 720
         missile.m_straightWaitTime = 0
-    elseif movement == 'guidtarget' then
+
+    elseif (movement == 'guidtarget') then
         missile = MissileGuidTarget(missile_res_name, physics_body, target)
-    elseif movement ==  'target' then
+
+    elseif (movement ==  'target') then
         missile = MissileTarget(missile_res_name, physics_body, is_hero)
 
     -- zigzag
-    elseif movement == 'zigzag_l' then
+    elseif (movement == 'zigzag_l') then
         missile = MissileZigzag(missile_res_name, physics_body)
         missile.m_leftOrRight = true
-    elseif movement == 'zigzag_r' then
+    elseif (movement == 'zigzag_r') then
         missile = MissileZigzag(missile_res_name, physics_body)
         missile.m_leftOrRight = false
 
     -- boomerang
-    elseif movement == 'boomerang' then
+    elseif (movement == 'boomerang') then
         missile = MissileBoomerang(missile_res_name, physics_body, is_hero)
-    elseif movement == 'boomerang_l' then
+    elseif (movement == 'boomerang_l') then
         missile = MissileBoomerang(missile_res_name, physics_body, is_hero)
         missile.m_leftOrRight = true
-    elseif movement == 'boomerang_r' then
+    elseif (movement == 'boomerang_r') then
         missile = MissileBoomerang(missile_res_name, physics_body, is_hero)
         missile.m_leftOrRight = false
 
     -- boomerang_fix
-    elseif movement == 'boomerang_fix' then
+    elseif (movement == 'boomerang_fix') then
         missile = MissileBoomerang(missile_res_name, physics_body, is_hero)
         missile.m_bFix = true
-    elseif movement == 'boomerang_l_fix' then
+    elseif (movement == 'boomerang_l_fix') then
         missile = MissileBoomerang(missile_res_name, physics_body, is_hero)
         missile.m_leftOrRight = true
         missile.m_bFix = true
-    elseif movement == 'boomerang_r_fix' then
+    elseif (movement == 'boomerang_r_fix') then
         missile = MissileBoomerang(missile_res_name, physics_body, is_hero)
         missile.m_leftOrRight = false
         missile.m_bFix = true
@@ -212,19 +222,21 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         missile = MissileCurve(missile_res_name, physics_body, is_hero, target)
 
     -- drop 파생
-    elseif movement == 'drop_guid' then
+    elseif (movement == 'drop_guid') then
         missile = MissileDropGuid(missile_res_name, physics_body, is_hero)
-    elseif movement == 'drop_target' then
+    
+	elseif (movement == 'drop_target') then
         missile = MissileDropTarget(missile_res_name, physics_body, is_hero)
-    elseif movement == 'drop_zigzag_l' then
+    
+	elseif (movement == 'drop_zigzag_l') then
         missile = MissileDropZigzag(missile_res_name, physics_body, is_hero)
         missile.m_leftOrRight = true
-    elseif movement == 'drop_zigzag_r' then
+    
+	elseif (movement == 'drop_zigzag_r') then
         missile = MissileDropZigzag(missile_res_name, physics_body, is_hero)
         missile.m_leftOrRight = false
     
-
-    elseif movement == 'drop_random' then
+    elseif (movement == 'drop_random') then
         missile = MissileDropRandom(missile_res_name, physics_body, is_hero)
         missile.m_randomTime = value_1[1]
         missile.m_randomDirA = dir + value_1[2]
@@ -331,7 +343,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         -- Physics, Node, GameMgr에 등록
 		self.m_world:addMissile(missile, object_key)
 
-		if isFixedAttack then 
+		if is_fixed_attack then 
 			missile:setFixedAttack(true)
 			missile.m_target = target
 		end
@@ -350,8 +362,13 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         end
 
 		-- 공용탄 개발 후 개별적인 콜백이 필요함에 따라 각 탄에서 콜백함수를 던지도록함
-		if (missileCBFunction) then
-			missile:addAtkCallback(missileCBFunction)
+		if (missile_cbFunction) then
+			missile:addAtkCallback(missile_cbFunction)
+		end
+
+		-- 별도의 event 처리가 필요한 미사일 처리
+		if (missile_event == 'destroy') then
+			self.m_world:addDestructibleMissile(missile)
 		end
 
 		-- 미사일이 미사일을 쏜다

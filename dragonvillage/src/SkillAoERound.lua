@@ -140,6 +140,9 @@ function SkillAoERound:runAttack()
 			self:makeEffect(target_char.pos.x, target_char.pos.y)
 		end 
     end
+
+	-- 스킬이 제거할 수 있는 미사일 제거
+	self:removeDestructibleMissile()
 end
 
 -------------------------------------

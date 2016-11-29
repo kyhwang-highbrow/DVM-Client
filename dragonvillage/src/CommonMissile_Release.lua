@@ -1,6 +1,5 @@
 local PARENT = CommonMissile
 
-local DIR_
 -------------------------------------
 -- class CommonMissile_Release
 -------------------------------------

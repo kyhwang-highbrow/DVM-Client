@@ -582,6 +582,7 @@ end
 function Missile:release()
 	if self.m_world then
 		self.m_world.m_lMissileList[self] = nil
+		self.m_world.m_lSpecailMissileList[self] = nil
 	end
 
 	PARENT.release(self)

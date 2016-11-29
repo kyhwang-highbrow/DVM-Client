@@ -229,6 +229,11 @@ function TamerSpecialSkillCombination:runAttack()
 		self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
 		target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
     end
+
+	-- 스킬이 제거할 수 있는 미사일 제거
+	for i, v in pairs(self.m_world.m_lSpecailMissileList) do
+		v:release()
+	end
 end
 
 -------------------------------------

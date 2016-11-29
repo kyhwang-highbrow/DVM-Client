@@ -501,7 +501,7 @@ function TargetRule_getTargetList_charType(org_list, char_type)
     local t_ret = {}
 
 	for i, character in pairs(org_list) do
-		if (character:getCharType() == char_type) then
+		if (character:getCharAttackAttr() == char_type) then
 			table.insert(t_ret, character)
 		end
 	end

@@ -20,7 +20,9 @@ Skill = class(PARENT, {
 		m_lStatusEffectStr = '',
 
 		-- 스킬 타입 명 ex) skill_expolosion 
+		m_skillName = 'str',
 		m_skillType = 'str', 
+
 
 		-- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset
         m_attackPosOffsetX = 'number',
@@ -109,7 +111,8 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_preDelay = t_skill['pre_delay'] or 0
 	self.m_resScale = t_skill['res_scale']
 	self.m_lStatusEffectStr = {t_skill['status_effect_1'], t_skill['status_effect_2']}
-	self.m_skillType = t_skill['type']
+	self.m_skillType = t_skill['chance_type']
+	self.m_skillName = t_skill['type']
 	self.m_targetPos = {x = t_data.x, y = t_data.y}
 	self.m_targetChar = t_data.target
 end
@@ -170,7 +173,10 @@ function Skill:runAttack(bNoStatusEffect)
     for i,target_char in ipairs(t_target) do
 		self:attack(target_char)
     end
-	 
+	
+	-- 스킬이 제거할 수 있는 미사일 제거
+	self:removeDestructibleMissile()
+
 	-- 상태효과
 	if not bNoStatusEffect then
 		StatusEffectHelper:doStatusEffectByStr(self.m_owner, t_target, self.m_lStatusEffectStr)
@@ -279,6 +285,24 @@ function Skill:getAttackPosition()
 end
 
 -------------------------------------
+-- function removeDestructibleMissile
+-- @brief 월드의 처리 가능한 미사일을 없앤다
+-------------------------------------
+function Skill:removeDestructibleMissile()
+	if (self.m_skillType == 'active') and (self.m_owner:getCharType() == 'dragon') then 
+		cclog('clear specail missile' .. self.m_skillName)
+		local x = self.m_targetPos.x
+		local y = self.m_targetPos.y
+		local range = 300
+		for i, v in pairs(self.m_world.m_lSpecailMissileList) do
+			if isCollision(x, y, v, range) then 
+				v:release()
+			end
+		end
+	end
+end
+
+-------------------------------------
 -- function release
 -- @brief
 -------------------------------------
@@ -315,6 +339,6 @@ function Skill:printTargetIsNotExist()
 	cclog('-- 타겟을 못 찾았습니다')
 	cclog('STATE NAME : ' .. self.m_state)
 	cclog('SKILL CASTER : ' ..  self.m_owner:getName())
-	cclog('SKILL TYPE : ' ..  self.m_skillType)
+	cclog('SKILL TYPE : ' ..  self.m_skillName)
 	cclog('-------------------------------------------')
 end

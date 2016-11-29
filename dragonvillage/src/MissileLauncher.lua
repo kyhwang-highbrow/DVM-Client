@@ -354,6 +354,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		t_option['lua_param'] =			attack_value['lua_param']
 
 		t_option['bFixedAttack'] =		attack_value['bFixedAttack']
+		t_option['events'] =			attack_value['events']
 
 		t_option['add_script'] =		attack_value['add_script']
 		t_option['add_script_start'] =	attack_value['add_script_start']

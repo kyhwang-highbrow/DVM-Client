@@ -469,16 +469,10 @@ function PhysWorld:initGroup()
     self:addGroup('hero', {'missile_e'}, {0, 255, 0, 127})
     self:addGroup('enemy', {'missile_h'}, {0, 255, 0, 127})
     
-    self:addGroup('missile_h', {'effecter_h'}, {255, 0, 0, 127})
-    self:addGroup('missile_e', {'hole_h'}, {255, 0, 0, 127})    
+    self:addGroup('missile_h', {}, {255, 0, 0, 127})
+    self:addGroup('missile_e', {}, {255, 0, 0, 127})    
 
-    self:addGroup('effecter_h', {}, {0, 0, 255, 127})
     self:addGroup('effect', {}, {0, 0, 255, 127})
-
-    self:addGroup('hole_h', {}, {0, 255, 0, 127})
-
-
-    self:addGroup('tamer', {}, {0, 0, 255, 127})
 end
 
 

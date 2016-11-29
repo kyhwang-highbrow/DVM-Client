@@ -45,6 +45,9 @@ function SkillConicAtk_Spread:runAttack()
     end
 	self.m_speardCnt = 1
 
+	-- 스킬이 제거할 수 있는 미사일 제거
+	self:removeDestructibleMissile()
+
 	-- 상태효과
 	StatusEffectHelper:doStatusEffectByStr(self.m_owner, t_target, self.m_lStatusEffectStr)
 end
