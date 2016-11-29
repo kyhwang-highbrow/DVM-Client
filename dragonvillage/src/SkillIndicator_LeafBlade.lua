@@ -87,8 +87,51 @@ function SkillIndicator_LeafBlade:onTouchMoved(x, y)
     self.m_targetPosY = tar_y
 
 	-- 6. 공격 대상 하이라이트 이펙트 관리
-    self:setHighlightEffect(t_collision_obj)
+    local skill_indicator_mgr = self:getSkillIndicatorMgr()
+    local old_target_count = 0
+    local old_highlight_list = self.m_highlightList
+
+    if self.m_highlightList then
+        old_target_count = #self.m_highlightList
+    end
+
+    for i,target in ipairs(t_collision_obj) do            
+        if (not target.m_targetEffect) then
+            skill_indicator_mgr:addHighlightList(target)
+            self:makeTargetEffect(target)
+        end
+    end
+
+    if old_highlight_list then
+        for i,v in ipairs(old_highlight_list) do
+            local isFind = false
+            for _,v2 in ipairs(t_collision_obj) do
+                if (v == v2) then
+                    isFind = true
+                    break
+                end
+            end
+            if (isFind == false) then
+                if (v ~= self.m_hero) then
+                    skill_indicator_mgr:removeHighlightList(v)
+                else
+                    v:removeTargetEffect(v)
+                end
+            end
+        end
+    end
+
+    self.m_highlightList = t_collision_obj
+	    
+	if (not self.m_isPass) then
+		self:changeEffectNonePass()
+	else
+		local cur_target_count = #self.m_highlightList
+		self:onChangeTargetCount(old_target_count, cur_target_count)
+	end
 end
+
+
 
 -------------------------------------
 -- function initIndicatorNode
@@ -135,66 +178,24 @@ function SkillIndicator_LeafBlade:initIndicatorNode()
         root_node:addChild(link_effect.m_node)
         self.m_indicatorLinearEffect2 = link_effect
     end
-end
 
--------------------------------------
--- function setHighlight
--------------------------------------
-function SkillIndicator_LeafBlade:setHighlightEffect(t_collision_obj)
-	local skill_indicator_mgr = self:getSkillIndicatorMgr()
-
-    local old_target_count = 0
-
-    local old_highlight_list = self.m_highlightList
-
-    if self.m_highlightList then
-        old_target_count = #self.m_highlightList
-    end
-
-    for i,target in ipairs(t_collision_obj) do            
-        if (not target.m_targetEffect) then
-            skill_indicator_mgr:addHighlightList(target)
-            self:makeTargetEffect(target)
-        end
-            
-    end
-
-    if old_highlight_list then
-        for i,v in ipairs(old_highlight_list) do
-            local find = false
-            for _,v2 in ipairs(t_collision_obj) do
-                if (v == v2) then
-                    find = true
-                    break
-                end
-            end
-            if (find == false) then
-                skill_indicator_mgr:removeHighlightList(v)
-            end
-        end
-    end
-
-    self.m_highlightList = t_collision_obj
-
-    local cur_target_count = #self.m_highlightList
-
-	if (not self.m_isPass) then
-		self:changeEffectNonePass()
-	else
-		local cur_target_count = #self.m_highlightList
-		self:onChangeTargetCount(old_target_count, cur_target_count)
-	end
 end
 
 -------------------------------------
 -- function findTarget
 -------------------------------------
 function SkillIndicator_LeafBlade:findTargetList(x, y)
-    local target_formation_mgr = self.m_hero:getFormationMgr()
+    local world = self:getWorld()
+    local target_formation_mgr = nil
 	
 	self.m_target_1 = nil 
 	self.m_target_2 = nil
 
+    if self.m_hero.m_bLeftFormation then
+        target_formation_mgr = world.m_rightFormationMgr
+    else
+        target_formation_mgr = world.m_leftFormationMgr
+    end
     local pos_x = self.m_hero.pos.x
     local pos_y = self.m_hero.pos.y
 
@@ -213,6 +214,9 @@ function SkillIndicator_LeafBlade:findTargetList(x, y)
 		if (#l_target2 > 0) then 
 			table.insert(l_target, l_target2[1])
 			self.m_target_2 = l_target2[1]
+		end
+		if (#l_target > 0) and self.m_target_1 and self.m_target_2 then
+			--return l_target
 		end
 	end
 
