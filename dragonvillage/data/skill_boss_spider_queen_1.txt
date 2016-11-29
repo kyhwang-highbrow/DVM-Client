@@ -5,12 +5,15 @@
 		[		
 			{
 				"idx":1,
-				"res":"res/missile/missile_spider/missile_spider_fire.png",
-				"body":[0,0,20],
-                "count":15,
-                "scale":0.5,
-                "period":0.2,
-				"speed":400,
+				"res":"res/missile/missile_spider/missile_spider.vrp",
+				"body":[0,0,30],
+                "count":8,
+                "scale":1,
+                "period":0.4,
+				"speed":50,
+				"accel":500,
+				"accel_delay":0.5,
+				"h_limit_speed":300,
 				"offset":[0,0],
                 "dir_array":[22,67,112,157,202,247,292,337],
 				
@@ -24,13 +27,16 @@
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_spider/missile_spider_fire.png",
-				"body":[0,0,20],
-                "count":24,
-                "scale":0.5,
+				"res":"res/missile/missile_spider/missile_spider.vrp",
+				"body":[0,0,30],
+                "count":12,
+                "scale":1,
 				"time":3,
-                "period":0.2,
-				"speed":400,
+                "period":0.4,
+				"speed":50,
+				"accel":500,
+				"accel_delay":0.5,
+				"h_limit_speed":300,
 				"offset":[0,0],
                 "dir_array":[22,67,112,157,202,247,292,337],
 				"dir_add":10,
@@ -45,13 +51,16 @@
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_spider/missile_spider_fire.png",
-				"body":[0,0,20],
-                "count":25,
-                "scale":0.5,
+				"res":"res/missile/missile_spider/missile_spider.vrp",
+				"body":[0,0,30],
+                "count":13,
+                "scale":1,
 				"time":7.8,
-                "period":0.2,
-				"speed":400,
+                "period":0.4,
+				"speed":50,
+				"accel":500,
+				"accel_delay":0.5,
+				"h_limit_speed":300,
 				"offset":[0,0],
                 "dir_array":[267,302,357,402,447,492,537,582],
 				"dir_add":-10,
@@ -69,7 +78,7 @@
 				"res":"res/missile/missile_web/wab.png",
 				"body":[0,0,0],
                 "count":21,
-                "scale":3,
+                "scale":6,
                 "period":0.05,
 				"speed":1000,
 				"accel":-10000,
@@ -79,7 +88,7 @@
 				"offset":[0,0],
                 "dir_array":[22,67,112,157,202,247,292,337],
 				
-				"delete_time":13,
+				"delete_time":15,
 				
                 "effect":
                 {
@@ -104,7 +113,7 @@
 				"offset":[0,0],
 				"dir_array":[0,45,90,135,180,225,270,315],
 				
-				"delete_time":13,
+				"delete_time":15,
 				
                 "effect":
                 {
@@ -129,7 +138,7 @@
 				"offset":[0,0],
 				"dir_array":[0,45,90,135,180,225,270,315],
 				
-				"delete_time":13,
+				"delete_time":15,
 				
                 "effect":
                 {
@@ -154,7 +163,7 @@
 				"offset":[0,0],
 				"dir_array":[0,45,90,135,180,225,270,315],
 				
-				"delete_time":13,
+				"delete_time":15,
 				
                 "effect":
                 {
@@ -179,7 +188,7 @@
 				"offset":[0,0],
 				"dir_array":[0,45,90,135,180,225,270,315],
 				
-				"delete_time":13,
+				"delete_time":15,
 				
                 "effect":
                 {

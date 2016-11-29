@@ -1,5 +1,5 @@
 {
-	"skill_boss_spider_queen_5":
+	"skill_subboss_chariot_scarab_02_2":
 	{
 		"attack_value":
 		[		

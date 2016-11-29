@@ -1,6 +1,6 @@
 {
     "difficult":2,
-    "bg":"map_canyon",
+    "bg":"map_volcano",
 	"wave":
 	[
         {
@@ -15,10 +15,31 @@
             {
 				0:
 				[
-				"139023;20;Appear;RO01;RM14;0.5"
+				
+				"139021;30;Basic;RO02;RM11;1"
+				"139022;30;Basic;RO06;RM17;1"
+				
 				]
             }
-        }
+        },
+		
+		{
+			"idx":2,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+				"139023;10;Basic;RO04;RM14;1"
+				
+				]
+            }
+		}
     ],
 	
     "summon":

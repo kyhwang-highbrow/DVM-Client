@@ -1,0 +1,86 @@
+{
+    "difficult":2,
+    "bg":"map_volcano",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+				"130011;8;Appear;RO03;RF13;0.5"
+				"130011;8;Appear;RO05;RF15;0.5"
+				"131013;8;Appear;RO02;RM11;0.5"
+				"131013;8;Appear;RO04;RF24;0.5"
+				"131013;8;Appear;RO06;RM17;0.5"
+				"130023;8;Appear;RO04;RM24;0.5"
+				"131061;8;Appear;RO02;RB12;0.5"
+				"131061;8;Appear;RO06;RB16;0.5"
+				]
+            }
+        },
+        {
+            "idx":2,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+                0:
+                [
+				"130013;10;Appear;RO02;RF12;0.5"
+				"130013;10;Appear;RO04;RF14;0.5"
+				"130013;10;Appear;RO06;RF16;0.5"				
+                ],
+				
+				0.2:
+                [
+				"131071;10;Appear;RO03;RM13;0.5"
+				"131071;10;Appear;RO05;RM15;0.5"					
+				],
+				
+				0.4:
+                [				
+				"131061;10;Basic;RO02;RB12;0.5"
+				"131061;10;Basic;RO04;RB24;0.5"
+				"131061;10;Basic;RO06;RB16;0.5"
+                ]	
+            }
+        },
+		
+        {
+            "idx":3,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+
+				
+				0:
+				[
+				"132013;10;Basic;RO04;RM14;0.5"
+				],				
+				
+				0.5:
+				[
+				"131013;10;Appear;RO02;RB12;0.5"
+				"131013;10;Appear;RO06;RB16;0.5"
+				]
+            }
+        }
+    ]
+}
