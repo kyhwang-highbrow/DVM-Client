@@ -319,10 +319,8 @@ function GameState:update_fight(dt)
         -- 클리어 여부 체크
         if (enemy_count <= 0) then
             -- 스킬 다 날려 버리자
-		    for _, skill in pairs(world.m_lSkillList) do
-			    skill:changeState('dying')
-		    end
-
+            world:cleanupSkill()
+		    
 		    if world.m_waveMgr:isFinalWave() == false then
 		        self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
 		    else
@@ -343,6 +341,9 @@ function GameState:update_fight(dt)
             end
 
             if not bExistBoss then
+                -- 스킬 다 날려 버리자
+		        world:cleanupSkill()
+
                 -- 모든 적들을 죽임
                 world:killAllEnemy()
                 self:changeState(GAME_STATE_SUCCESS_WAIT)

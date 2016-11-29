@@ -300,6 +300,18 @@ function GameWorld:addUnit(unit)
 end
 
 -------------------------------------
+-- function cleanupSkill
+-------------------------------------
+function GameWorld:cleanupSkill()
+    -- 스킬 다 날려 버리자
+	for i, v in ipairs(self.m_lSkillList) do
+        v:changeState('dying')
+    end
+
+    self.m_lSkillList = {}
+end
+
+-------------------------------------
 -- function addToSkillList
 -- @param Skill
 -- @brief skill list는 관리용으로 사용하고 실질적인 동작은 unit list를 통함
@@ -1001,6 +1013,46 @@ function GameWorld:onKeyReleased(keyCode, event)
                 end
             end
         end
+
+    -- 카메라 이동
+    elseif (keyCode == KEY_LEFT_ARROW) then
+        local curCameraPosX, curCameraPosY = self.m_gameCamera:getPosition()
+        local cameraScale = self.m_gameCamera:getHomeScale()
+        
+        self:changeCameraOption({
+            pos_x = curCameraPosX - (300 * cameraScale),
+            pos_y = curCameraPosY
+        }, true)
+
+    elseif (keyCode == KEY_RIGHT_ARROW) then
+        local curCameraPosX, curCameraPosY = self.m_gameCamera:getPosition()
+        local cameraScale = self.m_gameCamera:getHomeScale()
+        
+        self:changeCameraOption({
+            pos_x = curCameraPosX + (300 * cameraScale),
+            pos_y = curCameraPosY
+        }, true)
+
+    elseif (keyCode == KEY_UP_ARROW) then
+        local curCameraPosX, curCameraPosY = self.m_gameCamera:getPosition()
+        local cameraScale = self.m_gameCamera:getHomeScale()
+
+        cclog('curCameraPosX = ' .. curCameraPosX)
+        cclog('curCameraPosY = ' .. curCameraPosY)
+        
+        self:changeCameraOption({
+            pos_x = curCameraPosX,
+            pos_y = curCameraPosY + (300 * cameraScale)
+        }, true)
+
+    elseif (keyCode == KEY_DOWN_ARROW) then
+        local curCameraPosX, curCameraPosY = self.m_gameCamera:getPosition()
+        local cameraScale = self.m_gameCamera:getHomeScale()
+        
+        self:changeCameraOption({
+            pos_x = curCameraPosX,
+            pos_y = curCameraPosY - (300 * cameraScale)
+        }, true)
     end
 end
 
@@ -1326,13 +1378,16 @@ end
 -------------------------------------
 -- function changeCameraOption
 -------------------------------------
-function GameWorld:changeCameraOption(tParam)
+function GameWorld:changeCameraOption(tParam, bKeepHomePos)
     local tParam = tParam or {}
     self.m_gameCamera:setAction(tParam)
-    self.m_gameCamera:setHomeInfo(tParam)
 
-    -- 미사일 제한 범위 재설정
-    self:setMissileRange()
+    if not bKeepHomePos then
+        self.m_gameCamera:setHomeInfo(tParam)
+
+        -- 미사일 제한 범위 재설정
+        self:setMissileRange()
+    end
 end
 
 -------------------------------------
