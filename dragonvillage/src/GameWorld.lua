@@ -1017,41 +1017,34 @@ function GameWorld:onKeyReleased(keyCode, event)
     -- 카메라 이동
     elseif (keyCode == KEY_LEFT_ARROW) then
         local curCameraPosX, curCameraPosY = self.m_gameCamera:getPosition()
-        local cameraScale = self.m_gameCamera:getHomeScale()
         
         self:changeCameraOption({
-            pos_x = curCameraPosX - (300 * cameraScale),
+            pos_x = curCameraPosX - 300,
             pos_y = curCameraPosY
         }, true)
 
     elseif (keyCode == KEY_RIGHT_ARROW) then
         local curCameraPosX, curCameraPosY = self.m_gameCamera:getPosition()
-        local cameraScale = self.m_gameCamera:getHomeScale()
         
         self:changeCameraOption({
-            pos_x = curCameraPosX + (300 * cameraScale),
+            pos_x = curCameraPosX + 300,
             pos_y = curCameraPosY
         }, true)
 
     elseif (keyCode == KEY_UP_ARROW) then
         local curCameraPosX, curCameraPosY = self.m_gameCamera:getPosition()
-        local cameraScale = self.m_gameCamera:getHomeScale()
-
-        cclog('curCameraPosX = ' .. curCameraPosX)
-        cclog('curCameraPosY = ' .. curCameraPosY)
-        
+                
         self:changeCameraOption({
             pos_x = curCameraPosX,
-            pos_y = curCameraPosY + (300 * cameraScale)
+            pos_y = curCameraPosY + 300
         }, true)
 
     elseif (keyCode == KEY_DOWN_ARROW) then
         local curCameraPosX, curCameraPosY = self.m_gameCamera:getPosition()
-        local cameraScale = self.m_gameCamera:getHomeScale()
-        
+                
         self:changeCameraOption({
             pos_x = curCameraPosX,
-            pos_y = curCameraPosY - (300 * cameraScale)
+            pos_y = curCameraPosY - 300
         }, true)
     end
 end

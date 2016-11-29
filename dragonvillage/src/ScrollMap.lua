@@ -98,48 +98,45 @@ function ScrollMap:setBg(res)
     -- 스크립트로 맵 생성
     local script = TABLE:loadJsonTable(res)
     if script then        
-        for _,v in ipairs(script['layer']) do
-
-            local total_width = 0
-            for i,data in ipairs(v['list']) do
-                total_width = total_width + data['width']
-            end
-
+        for _, v in ipairs(script['layer']) do
+            local type = v['type'] or 'horizontal'
             local speed = v['speed']
             local offset_x = 0
-            for i,data in ipairs(v['list']) do
-                local map_layer = ScrollMapLayer(self.m_node, data['res'], data['animation'], total_width, offset_x, 0, 0, speed)
+            local offset_y = 0
+            local interval = 0
+
+            -- 속도값이 0일 경우 반복되지 않는 맵으로 간주
+            if speed ~= 0 then
+                for i, data in ipairs(v['list']) do
+                    if type == 'horizontal' then
+                        interval = interval + (data['width'] or 0)
+                    elseif type == 'vertical' then
+                        interval = interval + (data['height'] or 0)
+                    end
+                end
+            end
+            
+            for i, data in ipairs(v['list']) do
+                local real_offset_x = (data['pos_x'] or 0)
+                local real_offset_y = (data['pos_y'] or 0)
+                local scale = (data['scale'] or 1)
+
+                if type == 'horizontal' then
+                    real_offset_x = real_offset_x + offset_x
+                elseif type == 'vertical' then
+                    real_offset_y = real_offset_y + offset_y
+                end
+                
+                local map_layer = ScrollMapLayer(self.m_node, type, data['res'], data['animation'], interval, real_offset_x, real_offset_y, scale, speed)
                 table.insert(self.m_tMapLayer, map_layer)
-                offset_x = offset_x + data['width']
+
+                if type == 'horizontal' then
+                    offset_x = offset_x + (data['width'] or 0)
+                elseif type == 'vertical' then
+                    offset_y = offset_y + (data['height'] or 0)
+                end
             end
         end
-        return
-    end
-
-    -- 일반적인 룰로 생성
-    if res then
-        -- 원경
-        local map_layer = ScrollMapLayer(self.m_node, 'res/test/bg/' .. res .. '_1_a.png', 1280*2, 0, 0, 0, 0.2)
-        table.insert(self.m_tMapLayer, map_layer)
-
-        local map_layer = ScrollMapLayer(self.m_node, 'res/test/bg/' .. res .. '_1_b.png', 1280*2, 1280, 0, 0, 0.2)
-        table.insert(self.m_tMapLayer, map_layer)
-
-
-        -- 원경2
-        local map_layer2 = ScrollMapLayer(self.m_node, 'res/test/bg/' .. res .. '_2_a.png', 1280*2, 0, 0, 0, 0.5)
-        table.insert(self.m_tMapLayer, map_layer2)
-
-        local map_layer2 = ScrollMapLayer(self.m_node, 'res/test/bg/' .. res .. '_2_b.png', 1280*2, 1280, 0, 0, 0.51)
-        table.insert(self.m_tMapLayer, map_layer2)
-
-        -- 원경3
-        local map_layer3 = ScrollMapLayer(self.m_node, 'res/test/bg/' .. res .. '_3_a.png', 1280*2, 0, 0, 0, 0.8)
-        table.insert(self.m_tMapLayer, map_layer3)
-
-        local map_layer3 = ScrollMapLayer(self.m_node, 'res/test/bg/' .. res .. '_3_b.png', 1280*2, 1280, 0, 0, 0.8)
-        table.insert(self.m_tMapLayer, map_layer3)
-        return
     end
 end
 

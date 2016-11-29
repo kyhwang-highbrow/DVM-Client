@@ -15,6 +15,11 @@ GameCamera = class({
     m_homeScale = 'number',
     m_homePosX = 'number',
     m_homePosY = 'number',
+
+    -- 액션 사용시에는 액션이 끝났을때의 결과값을 가짐(액션 중간의 실시간 정보가 아님)
+    m_curScale = 'number',
+    m_curPosX = 'number',
+    m_curPosY = 'number',
 })
 
 -------------------------------------
@@ -31,6 +36,10 @@ function GameCamera:init(world, node)
     self.m_homeScale = 1
     self.m_homePosX = 0
     self.m_homePosY = 0
+
+    self.m_curScale = 1
+    self.m_curPosX = 0
+    self.m_curPosY = 0
 
 	self:reset()
 end
@@ -79,6 +88,20 @@ function GameCamera:getHomeScale()
 end
 
 -------------------------------------
+-- function getPosition
+-------------------------------------
+function GameCamera:getPosition()
+    return self.m_curPosX, self.m_curPosY
+end
+
+-------------------------------------
+-- function getScale
+-------------------------------------
+function GameCamera:getScale()
+    return self.m_curScale
+end
+
+-------------------------------------
 -- function setAction
 -------------------------------------
 function GameCamera:setAction(t_data)
@@ -99,6 +122,8 @@ function GameCamera:setAction(t_data)
 		
 		if scale ~= prevScale then
 			zoom_action = cc.ScaleTo:create(time, scale)
+
+            self.m_curScale = scale
 		end
 	else
 		scale = prevScale
@@ -107,12 +132,15 @@ function GameCamera:setAction(t_data)
 	-- pos
 	local prevX, prevY = self.m_node:getPosition()
 	if x and y then
-		local x = -x * scale
-		local y = -y * scale
-		x, y = self:adjustPos(x, y, scale)
+		local nextX = -x * scale
+		local nextY = -y * scale
+		nextX, nextY = self:adjustPos(nextX, nextY, scale)
 		
-		if x ~= prevX or y ~= prevY then
-			move_action = cc.MoveTo:create(time, cc.p(x, y))
+		if nextX ~= prevX or nextY ~= prevY then
+			move_action = cc.MoveTo:create(time, cc.p(nextX, nextY))
+
+            self.m_curPosX = x
+            self.m_curPosY = y
 		end
 	end
 
