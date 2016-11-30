@@ -159,11 +159,10 @@ end
 -------------------------------------
 -- function Appear
 -- @brief 등장 후 죽을때까지 전투
--- @param value1 = 도착 위치
+-- @param value2 = 도착 위치
 -------------------------------------
 function EnemyLua.Appear(owner)
-    -- m_luaValue1 도착 위치
-    --local pos1 = getWorldEnemyPos(owner, owner.m_luaValue1)
+    -- m_luaValue2 도착 위치
     local pos2 = getWorldEnemyPos(owner, owner.m_luaValue2)
 
     -- 출발 위치 지정

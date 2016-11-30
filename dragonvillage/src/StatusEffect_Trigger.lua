@@ -4,7 +4,8 @@ local PARENT = StatusEffect
 -- class StatusEffect_Trigger
 -------------------------------------
 StatusEffect_Trigger = class(PARENT, IEventListener:getCloneTable(), {
-		m_triggerName = ''
+		m_triggerName = '',
+		m_eventFunction = '',
     })
 
 -------------------------------------
@@ -13,15 +14,18 @@ StatusEffect_Trigger = class(PARENT, IEventListener:getCloneTable(), {
 -- @param body
 -------------------------------------
 function StatusEffect_Trigger:init(file_name, body)
+	self.m_eventFunction = nil
 end
 
 -------------------------------------
 -- function init_trigger
 -- @brief 트리거 설정하고 시전자 저장
 -------------------------------------
-function StatusEffect_Trigger:init_trigger(trigger_name, char)
-	self.m_triggerName = trigger_name
+function StatusEffect_Trigger:init_trigger(char, trigger_name, event_function)
 	self.m_owner = char
+	self.m_triggerName = trigger_name
+	self.m_eventFunction = event_function
+
 	char:addListener(self.m_triggerName, self)
 end
 
@@ -48,6 +52,11 @@ end
 -- function onTrigger
 -------------------------------------
 function StatusEffect_Trigger:onTrigger(defender)
+	if (self.m_eventFunction) then 
+		self.m_eventFunction(defender)
+		return true
+	end
+
 	local t_status_effect_str = {self.m_subData['status_effect_1'], self.m_subData['status_effect_2']}
 	StatusEffectHelper:doStatusEffectByStr(self.m_owner, {defender}, t_status_effect_str)
 	return true

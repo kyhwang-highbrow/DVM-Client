@@ -456,6 +456,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 
     -- 죽음 체크
     if (self.m_hp <= 0) and (self.m_bDead == false) then
+		self:dispatch('dead', self)
         self:setDead()
         self:changeState('dying')
     end

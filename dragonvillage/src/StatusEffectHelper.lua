@@ -135,47 +135,38 @@ end
 function StatusEffectHelper:setTriggerPassive(char, t_skill)
     local table_status_effect = TABLE:get('status_effect')
 	local status_effect_type = self:getStatusEffectTypeFromSkillTable(t_skill)
-    local t_status_effect = table_status_effect[status_effect_type]
+    local t_status_effect = table_status_effect[status_effect_type] or {}
     
     local res = t_status_effect['res']
     if (res == 'x') then res = nil end
 
-	local status_effect = StatusEffect_Trigger(res)
+	local status_effect = nil
+	local trigger_name = t_skill['chance_value'] or 'undergo_attack'
+	local event_function = nil
 
-	-- 적 처치 시
-	if isExistValue(t_skill['type'], 'skill_cri_chance_up', 'skill_atk_up') then
-		status_effect:init_trigger('slain', char)
-	
-	-- 모든 공격시
-	elseif (t_skill['type'] == 'skill_poison') then
-		status_effect:init_trigger('hit', char)
-
-	-- 일반 공격시
-	elseif isExistValue(t_skill['type'], 'skill_rage') then
-		status_effect:init_trigger('hit_basic', char)
-	
-	elseif (status_effect_type == 'passive_add_attack') then
+	-- 클래스 종류가 다른 경우
+	if (status_effect_type == 'passive_add_attack') then
         status_effect = StatusEffect_addAttack(res)
-		status_effect:init_trigger('hit_basic', char)
-
-	-- 피격시
-	elseif (t_skill['type'] == 'skill_def_up_overlab') then
-		status_effect:init_trigger('undergo_attack', char)
-	
-	-- 회피시
 	elseif (status_effect_type == 'passive_spatter') then
         status_effect = StatusEffect_PassiveSpatter(res)
-		status_effect:init_trigger('avoid', char)
-	
-	-- 웨이브 시작 시
-	elseif (t_skill['type'] == 'passive_wave_start') then
-		status_effect:init_trigger('wave_start', char)
-
-	-- default : 피격시
 	else
-		status_effect:init_trigger('undergo_attack', char)
-    end
-			
+		status_effect = StatusEffect_Trigger(res)
+	end
+	
+	-- 트리거로 발동될 함수 개별 설정
+	if (t_skill['type'] == 'skill_summon_die') then
+		event_function = function()
+			cclog('DO SUMMON')
+			local mid = t_skill['val_1']
+			local lv = t_skill['val_2']
+			local dest = t_skill['val_3']
+			char.m_world.m_waveMgr:spawnEnemy_dynamic(mid, lv, 'Appear', nil, dest, 0.5)
+		end
+	end
+		
+	-- 테이블에서 받아온 트리거 네임 설정	
+	status_effect:init_trigger(char, trigger_name, event_function)
+
     status_effect.m_subData = t_skill
 
     return status_effect
