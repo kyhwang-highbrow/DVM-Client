@@ -151,8 +151,14 @@ function WaveMgr:newScenario()
         local script = TABLE:loadJsonTable(self.m_stageName)
         self.m_scriptData = script
 
-        -- 무조건 첫웨이브로 변경
+        -- 개발스테이지는 [idx = 1] 인것을 찾아 사용
         self.m_currWave = 0
+		for i, wave_data in ipairs(script['wave']) do
+			if (wave_data['idx'] == 1) then
+				self.m_currWave = i - 1
+				break;
+			end
+		end
     end
 
     self.m_currWave = self.m_currWave + 1
