@@ -47,7 +47,7 @@ end
 -- function makeSkillInstance
 -------------------------------------
 function SkillSummon:makeSkillInstance(owner, t_skill, t_data)
-	-- º¯¼ö ¼±¾ğºÎ
+	-- ë³€ìˆ˜ ì„ ì–¸ë¶€
 	------------------------------------------------------
 	local summon_idx = t_skill['val_1']
 
@@ -55,20 +55,20 @@ function SkillSummon:makeSkillInstance(owner, t_skill, t_data)
         return false
     end
 
-	-- ÀÎ½ºÅÏ½º »ı¼ººÎ
+	-- ì¸ìŠ¤í„´ìŠ¤ ìƒì„±ë¶€
 	------------------------------------------------------
-	-- 1. ½ºÅ³ »ı¼º
+	-- 1. ìŠ¤í‚¬ ìƒì„±
     local skill = SkillSummon(nil)
 
-	-- 2. ÃÊ±âÈ­ °ü·Ã ÇÔ¼ö
+	-- 2. ì´ˆê¸°í™” ê´€ë ¨ í•¨ìˆ˜
 	skill:setSkillParams(owner, t_skill, t_data)
     skill:init_skill(summon_idx)
 	skill:initState()
 
-	-- 3. state ½ÃÀÛ 
+	-- 3. state ì‹œì‘ 
     skill:changeState('delay')
 
-    -- 4. Physics, Node, GameMgr¿¡ µî·Ï
+    -- 4. Physics, Node, GameMgrì— ë“±ë¡
     local world = skill.m_owner.m_world
     world.m_missiledNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)

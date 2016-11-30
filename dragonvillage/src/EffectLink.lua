@@ -10,8 +10,6 @@ EffectLink = class({
         m_effectNode = 'CCNode',
         m_width = 'number',
         m_bRotateEndEffect = 'boolean',
-
-		m_isAppear = 'bool',
     })
 
 -------------------------------------
@@ -61,7 +59,6 @@ function EffectLink:init(res, bar_visual, start_visual, end_visual, width, heigh
     self.m_endPointNode.m_node:setPositionY(height)
 
     self.m_bRotateEndEffect = true
-	self.m_isAppear = true
 end
 
 -------------------------------------
