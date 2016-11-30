@@ -526,7 +526,7 @@ function Network:saveDump(t_request, ret)
     end
 
     local path = cc.FileUtils:getInstance():getWritablePath() .. 'network_dump/'
-    local full_path = string.format('%s%s.txt', path, file_name)
+    local full_path = string.format('%s%s.json', path, file_name)
 
     local f = io.open(full_path,'w')
     if (not f) then
