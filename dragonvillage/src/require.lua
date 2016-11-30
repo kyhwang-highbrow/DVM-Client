@@ -38,6 +38,8 @@ local t_module = {
     'TimeLib',
     'Table',
     'TableClass',
+    'ResPreloadMgr',
+    'ResPreloadMgr_List',
     'RichLabel',
     'NumberLabel',
     'LevelupDirector',

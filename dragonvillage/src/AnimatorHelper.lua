@@ -4,15 +4,9 @@ AnimatorHelper = {}
 -- function makeDragonAnimator
 -------------------------------------
 function AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
-	local res_name = res_name
-	
-	if evolution then 
-		res_name = string.gsub(res_name, '#', '0' .. evolution)
-	end
-	if attr then 
-		res_name = string.gsub(res_name, '@', attr)
-	end
-    local animator = MakeAnimator(res_name)
+
+	local res_name = self:getDragonResName(res_name, evolution, attr)
+	local animator = MakeAnimator(res_name)
 
     if (not animator.m_node) then
         animator = MakeAnimator('res/character/dragon/developing_dragon/developing_dragon.spine')
@@ -68,7 +62,7 @@ end
 -------------------------------------
 function AnimatorHelper:makeMonsterAnimator(res_name, attr)
 
-    local res_name = string.gsub(res_name, '@', attr)
+    local res_name = self:getMonsterResName(res_name, attr)
     local animator = MakeAnimator(res_name)
 
     if (not animator.m_node) then
@@ -108,4 +102,28 @@ function AnimatorHelper:makeInstanceHitComboffect(combo_name, cbFunction)
 	end
 
 	return animator
+end
+
+-------------------------------------
+-- function getDragonResName
+-------------------------------------
+function AnimatorHelper:getDragonResName(res_name, evolution, attr)
+	local res_name = res_name
+	
+	if evolution then 
+		res_name = string.gsub(res_name, '#', '0' .. evolution)
+	end
+	if attr then 
+		res_name = string.gsub(res_name, '@', attr)
+	end
+    
+    return res_name
+end
+
+-------------------------------------
+-- function getMonsterResName
+-------------------------------------
+function AnimatorHelper:getMonsterResName(res_name, attr)
+    local res_name = string.gsub(res_name, '@', attr)
+    return res_name
 end

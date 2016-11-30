@@ -305,12 +305,15 @@ end
 -- function cleanupSkill
 -------------------------------------
 function GameWorld:cleanupSkill()
+    local count = 0
+
     -- 스킬 다 날려 버리자
-	for i, v in ipairs(self.m_lSkillList) do
+	for _, v in pairs(self.m_lSkillList) do
         v:changeState('dying')
+        count = count + 1
     end
 
-    self.m_lSkillList = {}
+    return count
 end
 
 -------------------------------------
@@ -995,11 +998,8 @@ function GameWorld:onKeyReleased(keyCode, event)
         
 	-- 스킬 다 죽이기
 	elseif (keyCode == KEY_K) then    
-		local count = 1
-        for _, skill in pairs(self.m_lSkillList) do
-			skill:changeState('dying')
-			count = count + 1
-		end
+		local count = self:cleanupSkill()
+        
 		cclog('KILL SKILL ALL - Count : ' .. count)
 	-- 미사일 없애기
 	elseif (keyCode == KEY_L) then    
@@ -1484,9 +1484,8 @@ end
 -- function removeMissileAndSkill
 -------------------------------------
 function GameWorld:removeMissileAndSkill()
-    for _, skill in pairs(self.m_lSkillList) do
-		skill:changeState('dying')
-	end
+    self:cleanupSkill()
+
 	for _, missile in pairs(self.m_lMissileList) do
 		missile:changeState('dying')
 	end

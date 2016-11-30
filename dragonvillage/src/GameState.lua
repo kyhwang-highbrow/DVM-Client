@@ -347,6 +347,7 @@ function GameState:update_fight(dt)
                 -- 모든 적들을 죽임
                 world:killAllEnemy()
                 self:changeState(GAME_STATE_SUCCESS_WAIT)
+                return
             end
         end
     end
@@ -415,10 +416,10 @@ function GameState:update_wave_intermission(dt)
 
         -- 카메라 액션 설정
         world:changeCameraOption(t_camera_info)
-    end
 
-	-- 0. 스킬 및 미사일을 날린다
-	world:removeMissileAndSkill()
+        -- 0. 스킬 및 미사일을 날린다
+	    world:removeMissileAndSkill()
+    end
 
 	-- 1. 전환 시간 2/3 지점까지 비교적 완만하게 빨라짐
 	if (self.m_stateTimer < WAVE_INTERMISSION_TIME * 2 / 3) then
@@ -484,7 +485,7 @@ function GameState:update_fight_dragon_skill(dt)
         self.m_world.m_bPreventControl = true
 
         -- 슬로우
-        self.m_world.m_gameTimeScale:set(timeScale, delayTime)
+        self.m_world.m_gameTimeScale:set(timeScale)
 
         -- 드래곤 승리 애니메이션
         dragon.m_animator:changeAni('pose_1', false)
@@ -523,11 +524,13 @@ function GameState:update_fight_dragon_skill(dt)
 
         -- 효과음
         SoundMgr:playEffect('EFFECT', 'skill_ready')
-    end
-
-    if (self.m_stateTimer >= timeScale * delayTime) then
+    
+    elseif (self.m_stateTimer >= timeScale * delayTime) then
         -- 게임 조작 막음 해제
         self.m_world.m_bPreventControl = false
+
+        -- 슬로우
+        self.m_world.m_gameTimeScale:set(1)
 
         -- 드래곤 스킬 애니메이션
         dragon:changeState('skillAttack2')

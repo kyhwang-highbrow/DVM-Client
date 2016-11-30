@@ -90,8 +90,14 @@ end
 -------------------------------------
 -- function getPosition
 -------------------------------------
-function GameCamera:getPosition()
-    return self.m_curPosX, self.m_curPosY
+function GameCamera:getPosition(bReal)
+    if bRealTime then
+        -- 수정 필요...
+        local x, y = self.m_node:getPosition()
+        return -x, -y
+    else
+        return self.m_curPosX, self.m_curPosY
+    end
 end
 
 -------------------------------------

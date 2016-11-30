@@ -33,6 +33,8 @@ SceneGame = class(PerpleScene, {
         m_bDevelopMode = 'boolean',
 
         m_timerTimeScale = 'number',
+
+        m_resPreloadMgr = 'ResPreloadMgr',
     })
 
 -------------------------------------
@@ -131,14 +133,14 @@ function SceneGame:onEnter()
     SoundMgr:playBGM('bgm_battle')
 
     self.m_inGameUI = UI_Game(self)
+    self.m_resPreloadMgr = ResPreloadMgr()
 end
 
 -------------------------------------
 -- function onExit
 -------------------------------------
 function SceneGame:onExit()
-	self.m_gameWorld = nil
-    g_gameScene = nil
+	g_gameScene = nil
     PerpleScene.onExit(self)
 end
 
@@ -169,10 +171,11 @@ function SceneGame:prepare()
         self:sceneDidChangeViewSize()
     end)
 
-
-    -- self:addLoading(function()
-    --     MakeAnimator('res/effect/godae_shinryong_special/godae_shinryong_special.spine'):release()
-    -- end)
+    self:addLoading(function()
+        -- 리소스 프리로드
+        local ret = self.m_resPreloadMgr:loadFromStageID(self.m_stageID)
+        return ret
+    end)
 
     self:addLoading(function()
         self.m_inGameUI:init_debugUI()

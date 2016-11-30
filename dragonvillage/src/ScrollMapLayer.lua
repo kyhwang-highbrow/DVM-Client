@@ -30,7 +30,6 @@ function ScrollMapLayer:init(parent, type, res, animation, interval, offset_x, o
     local visible_height = 1600
 
     -- 스프라이트 생성
-    cclog('ScrollMapLayer:init res = ' .. res)
     local animator = MakeAnimator(res)
     if animation then
         animator:changeAni(animation, true)
@@ -93,11 +92,15 @@ end
 -------------------------------------
 function ScrollMapLayer_update(self, totalMove, dt)
     local pos = (totalMove * self.m_speedScale)
+    local cameraX, cameraY = g_gameScene.m_gameWorld.m_gameCamera:getPosition()
+    local value
 
     if self.m_type == 'horizontal' then
         pos = pos + self.m_offsetX
+        value = cameraX - (CRITERIA_RESOLUTION_X - 2)
     elseif self.m_type == 'vertical' then
         pos = pos + self.m_offsetY
+        value = cameraY - (CRITERIA_RESOLUTION_Y - 2)
     end
 
     local start_pos = pos
@@ -105,14 +108,14 @@ function ScrollMapLayer_update(self, totalMove, dt)
         start_pos = math_floor(pos % self.m_interval)
     end
     
-    if start_pos < 0 then
+    if start_pos < value then
         start_pos = start_pos + self.m_interval
-    elseif start_pos > 0 then
+    elseif start_pos > value then
         start_pos = start_pos - self.m_interval
     end
 
     local visibleSize = self.m_visibleSize
-    for i,v in ipairs(self.m_tSprite) do
+    for i, v in ipairs(self.m_tSprite) do
         if self.m_type == 'horizontal' then
             v:setPositionX(start_pos)
         elseif self.m_type == 'vertical' then

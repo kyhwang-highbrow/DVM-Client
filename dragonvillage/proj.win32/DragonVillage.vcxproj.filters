@@ -988,6 +988,12 @@
     <None Include="..\src\TimeLib.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\ResPreloadMgr.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\ResPreloadMgr_List.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
