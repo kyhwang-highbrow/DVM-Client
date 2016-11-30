@@ -111,7 +111,7 @@
 				"h_limit_speed":800,
 				"accel_delay":0,
 				"angular_velocity":180,
-				"offset":[0,0],
+				"offset":[0,20],
                 "dir_array":[180],
 				"missile_type":"pass",
 				"reset_time":0.5,

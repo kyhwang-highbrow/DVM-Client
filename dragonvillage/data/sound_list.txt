@@ -76,9 +76,14 @@
 		"vo_boss3_skill_1":   	{"res":"sound/voice/vo_boss3_skill_1.mp3"}
 		"vo_boss3_skill_2":   	{"res":"sound/voice/vo_boss3_skill_2.mp3"}
 		"vo_boss3_skill_cancel":{"res":"sound/voice/vo_boss3_skill_cancel.mp3"}
+		"vo_boss4_skill_1":   	{"res":"sound/voice/vo_boss1_skill_1.mp3"}
+		"vo_boss4_skill_2":   	{"res":"sound/voice/vo_boss1_skill_2.mp3"}
+		"vo_boss4_skill_cancel":{"res":"sound/voice/vo_boss1_skill_cancel.mp3"}
+		
 		"vo_boss1_die":   		{"res":"sound/voice/vo_boss1_die.mp3"}
 		"vo_boss2_die":   		{"res":"sound/voice/vo_boss2_die.mp3"}
 		"vo_boss3_die":   		{"res":"sound/voice/vo_boss3_die.mp3"}
+		"vo_boss4_die":   		{"res":"sound/voice/vo_boss3_die.mp3"}
 		
 		"vo_boss99_skill_1":   	{"res":"sound/voice/vo_boss1_skill_1.mp3"}
 		"vo_boss99_skill_2":   	{"res":"sound/voice/vo_boss1_skill_2.mp3"}

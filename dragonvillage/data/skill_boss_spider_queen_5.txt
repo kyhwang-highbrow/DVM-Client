@@ -7,9 +7,9 @@
 				"idx":1,
 				"res":"res/missile/missile_spider/missile_spider.vrp",
 				"body":[0,0,10],
-                "count":25,
+                "count":13,
                 "scale":0.5,
-                "period":0.2,
+                "period":0.4,
 				"speed":500,
 				"accel":-500,
 				"l_limit_speed":100,
@@ -17,6 +17,8 @@
 				"angular_velocity":0,
 				"offset":[0,0],
                 "dir_add":100,
+				
+				"events":"destroy",
 				
 				"movement":"guid",
 				
