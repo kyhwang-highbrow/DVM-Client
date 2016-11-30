@@ -783,3 +783,12 @@ function Hero:removeSkillPrepareEffect()
     self.m_skillPrepareEffect:release()
     self.m_skillPrepareEffect = nil
 end
+
+-------------------------------------
+-- function hideIndicator
+-------------------------------------
+function Hero:hideIndicator()
+	if self.m_skillIndicator then
+		self.m_skillIndicator:setIndicatorVisible(false)
+	end
+end

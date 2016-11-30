@@ -72,12 +72,12 @@ function SkillIndicator_LeafBlade:onTouchMoved(x, y)
     self.m_targetChar = t_collision_obj[1]
 	
     -- 4-1. 베지어 곡선 이펙트 위치 갱신
-    EffectBezierLink_refresh(self.m_indicatorBezierEffect1, tar_x, tar_y, pos_x, pos_y, 1)
-    EffectBezierLink_refresh(self.m_indicatorBezierEffect2, tar_x, tar_y, pos_x, pos_y, -1)
+    self.m_indicatorBezierEffect1:refreshEffect(tar_x, tar_y, pos_x, pos_y, 1)
+	self.m_indicatorBezierEffect2:refreshEffect(tar_x, tar_y, pos_x, pos_y, -1)
 
 	-- 4-2. 직선 이펙트 위치 갱신
-    EffectLinearDot_refresh(self.m_indicatorLinearEffect1, tar_x, tar_y, pos_x, pos_y, 1)
-    EffectLinearDot_refresh(self.m_indicatorLinearEffect2, tar_x, tar_y, pos_x, pos_y, -1)
+    self.m_indicatorLinearEffect1:refreshEffect(tar_x, tar_y, pos_x, pos_y, 1)
+	self.m_indicatorLinearEffect2:refreshEffect(tar_x, tar_y, pos_x, pos_y, -1)
 
 	-- 4-3. 타겟에 찍히는 이펙트 위치 갱신
     self.m_indicatorEffect:setPosition(tar_x - pos_x, tar_y - pos_y)
@@ -87,6 +87,13 @@ function SkillIndicator_LeafBlade:onTouchMoved(x, y)
     self.m_targetPosY = tar_y
 
 	-- 6. 공격 대상 하이라이트 이펙트 관리
+	self:setHighlightEffect(t_collision_obj)
+end
+
+-------------------------------------
+-- function setHighlight
+-------------------------------------
+function SkillIndicator_LeafBlade:setHighlightEffect(t_collision_obj)
     local skill_indicator_mgr = self:getSkillIndicatorMgr()
     local old_target_count = 0
     local old_highlight_list = self.m_highlightList
@@ -130,8 +137,6 @@ function SkillIndicator_LeafBlade:onTouchMoved(x, y)
 		self:onChangeTargetCount(old_target_count, cur_target_count)
 	end
 end
-
-
 
 -------------------------------------
 -- function initIndicatorNode
@@ -334,4 +339,16 @@ function SkillIndicator_LeafBlade:checkPosX(l_effect, target)
 			effect:changeAni('circle', true)
 		end
 	end
+end
+
+-------------------------------------
+-- function onEnterAppear
+-------------------------------------
+function SkillIndicator_LeafBlade:onEnterAppear()
+    PARENT.onEnterAppear(self)
+
+    self.m_indicatorBezierEffect1.m_isAppear = true
+    self.m_indicatorBezierEffect2.m_isAppear = true
+    self.m_indicatorLinearEffect1.m_isAppear = true
+    self.m_indicatorLinearEffect2.m_isAppear = true
 end

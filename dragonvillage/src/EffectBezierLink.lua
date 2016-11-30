@@ -5,7 +5,8 @@ EffectBezierLink = class({
         m_node = 'CCNode',
         m_res = '',
         m_bar_visual = '',
-        m_lEffectNode = 'CCNode'
+        m_lEffectNode = 'CCNode',
+		m_isAppear = 'bool',
     })
 
 -------------------------------------
@@ -15,6 +16,7 @@ function EffectBezierLink:init(res, visual_name)
     self.m_lEffectNode = {}
     self.m_res = res
     self.m_bar_visual = visual_name
+	self.m_isAppear = true
 
     -- node 생성
     self.m_node = cc.Node:create()
@@ -28,9 +30,9 @@ function EffectBezierLink:setVisible(visible)
 end
 
 -------------------------------------
--- function refresh
+-- function refreshEffect
 -------------------------------------
-function EffectBezierLink_refresh(self, tar_x, tar_y, pos_x, pos_y, dir)
+function EffectBezierLink:refreshEffect(tar_x, tar_y, pos_x, pos_y, dir)
     local x = tar_x - pos_x
     local y = tar_y - pos_y
 
@@ -49,7 +51,7 @@ function EffectBezierLink_refresh(self, tar_x, tar_y, pos_x, pos_y, dir)
 	local degree = nil 
 
 	-- 4. 이펙트 생성 밑 불러오기
-	for i, bezier_pos in pairs(t_bezier_pos) do
+	for i, bezier_pos in ipairs(t_bezier_pos) do
 		if (nil == self.m_lEffectNode[i]) then
 			-- 없을 경우 생성
 			effectNode = self:createWithParent(self.m_node, bezier_pos['x'], bezier_pos['y'], 0, self.m_res, self.m_bar_visual, true)
@@ -67,6 +69,15 @@ function EffectBezierLink_refresh(self, tar_x, tar_y, pos_x, pos_y, dir)
 		pre_pos_x = bezier_pos['x']
 		pre_pos_y = bezier_pos['y']
     end
+
+	-- 5. 이펙트 등장 연출
+	if (self.m_isAppear) then 
+		for i, effectNode in ipairs(self.m_lEffectNode) do 
+			effectNode:setAlpha(0)
+			effectNode:runAction(cc.FadeIn:create(LEAF_INDICATOR_EFFECT_DELAY * i))
+		end
+		self.m_isAppear = false
+	end
 end
 
 -------------------------------------

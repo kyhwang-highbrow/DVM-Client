@@ -5,7 +5,8 @@ EffectLinearDot = class({
         m_node = 'CCNode',
         m_resName = '',
         m_bar_visual = '',
-        m_lEffectNode = 'CCNode'
+        m_lEffectNode = 'CCNode',
+		m_isAppear = 'bool',
     })
 
 -------------------------------------
@@ -15,6 +16,7 @@ function EffectLinearDot:init(res_name, bar_visual)
     self.m_lEffectNode = {}
     self.m_resName = res_name
     self.m_bar_visual = bar_visual
+	self.m_isAppear = true
 
     -- node 생성
     self.m_node = cc.Node:create()
@@ -28,9 +30,9 @@ function EffectLinearDot:setVisible(visible)
 end
 
 -------------------------------------
--- function refresh
+-- function refreshEffect
 -------------------------------------
-function EffectLinearDot_refresh(self, tar_x, tar_y, pos_x, pos_y, dir)
+function EffectLinearDot:refreshEffect(tar_x, tar_y, pos_x, pos_y, dir)
     local t_line_pos = {}
 	
 	local degree = getDegree(tar_x, tar_y, pos_x, pos_y) + dir * LEAF_STRAIGHT_ANGLE
@@ -48,8 +50,9 @@ function EffectLinearDot_refresh(self, tar_x, tar_y, pos_x, pos_y, dir)
         table.insert(t_line_pos, {x = x, y = y})
     end
 
+	-- 이펙트 생성 밑 불러오기
 	local effectNode = nil
-	for i, line_pos in pairs(t_line_pos) do
+	for i, line_pos in ipairs(t_line_pos) do
 		if (nil == self.m_lEffectNode[i]) then
 			-- 없을 경우 생성 
 			effectNode = self:createWithParent(self.m_node, line_pos['x'], line_pos['y'], 0, self.m_resName, self.m_bar_visual, true)
@@ -60,10 +63,18 @@ function EffectLinearDot_refresh(self, tar_x, tar_y, pos_x, pos_y, dir)
 			effectNode = self.m_lEffectNode[i]
             effectNode:setPosition(line_pos['x'], line_pos['y'])
 		end
-		
+
         effectNode:setRotation(degree + 180)
     end
-
+		
+	-- 이펙트 등장 연출
+	if (self.m_isAppear) then 
+		for i, effectNode in ipairs(self.m_lEffectNode) do 
+			effectNode:setAlpha(0)
+			effectNode:runAction(cc.FadeIn:create(0.05 + LEAF_INDICATOR_EFFECT_DELAY * i))
+		end
+		self.m_isAppear = false
+	end
 end
 
 -------------------------------------

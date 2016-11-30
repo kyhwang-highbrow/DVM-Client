@@ -289,7 +289,6 @@ end
 -------------------------------------
 function Character.st_stun(owner, dt)
 	if owner.m_stateTimer == 0 then
-		--owner:setSpeed(0)
 		owner:restore(500)
 
         -- 캐스팅 게이지

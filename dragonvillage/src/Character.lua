@@ -1241,6 +1241,13 @@ function Character:getCharAttackAttr()
 end
 
 -------------------------------------
+-- function isDragon
+-------------------------------------
+function Character:isDragon()
+	return self.m_charType == 'dragon'
+end
+
+-------------------------------------
 -- function insertStatusEffect
 -------------------------------------
 function Character:insertStatusEffect(status_effect)
@@ -1594,4 +1601,11 @@ function Character:restore(restore_speed)
 	if (self.m_animator) and (not self.m_animator:isVisible()) then
 		self.m_animator:setVisible(true)
 	end
+end
+
+-------------------------------------
+-- function hideIndicator
+-- @brief 실 구현은 hero 클래스에서만 되어있다.
+-------------------------------------
+function Character:hideIndicator()
 end

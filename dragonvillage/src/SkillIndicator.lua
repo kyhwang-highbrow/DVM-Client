@@ -118,7 +118,7 @@ function SkillIndicator:changeSIState(state)
         self.m_hero:makeSkillPrepareEffect()
 
     elseif (state == SI_STATE_DISAPPEAR) then
-        self.m_indicatorRootNode:setVisible(false)
+        --self.m_indicatorRootNode:setVisible(false)
         self:onDisappear()
 
 		-- 툴팁 닫기
@@ -208,6 +208,15 @@ function SkillIndicator:onDisappear()
 end
 
 -------------------------------------
+-- function findTarget
+-------------------------------------
+function SkillIndicator:setIndicatorVisible(isVisible)
+	if self.m_indicatorRootNode then
+		self.m_indicatorRootNode:setVisible(isVisible)
+	end
+end
+
+-------------------------------------
 -- function setHighlight
 -------------------------------------
 function SkillIndicator:setHighlightEffect(t_collision_obj)
@@ -280,33 +289,43 @@ end
 -------------------------------------
 function SkillIndicator:makeTargetEffect(target_char, ani_name1, ani_name2)
     local indicator = MakeAnimator('res/indicator/indicator_effect_target/indicator_effect_target.vrp')
-    indicator:setTimeScale(5)
     indicator:changeAni(ani_name1 or 'appear', false)
     indicator:addAniHandler(function() indicator:changeAni(ani_name2 or 'idle', true) end)
+    indicator:setTimeScale(5)
+	indicator:setScale(0.1)
+	indicator:runAction(cc.ScaleTo:create(0.02, 1)) -- timescale 주의
+
     target_char:setTargetEffect(indicator)
-
-    -- 속성 상성 표시
+    
+	-- 속성 상성 표시
     if ani_name1 ~= 'appear_ally' then
-        local attackerAttr = self.m_hero.m_charTable['attr']
-        local defenderAttr = target_char.m_charTable['attr']
-        local attr_synastry = getCounterAttribute(attackerAttr, defenderAttr)
-        local aniName
+		self:makeAttributeEffect(target_char, indicator)
+    end
+end
 
-        if attr_synastry then
-            if attr_synastry > 0 then       aniName = 'adv_arrow'
-            elseif attr_synastry < 0 then   aniName = 'disadv_arrow'
-            end
+-------------------------------------
+-- function makeAttributeEffect
+-------------------------------------
+function SkillIndicator:makeAttributeEffect(target_char, indicator)
+	local attackerAttr = self.m_hero.m_charTable['attr']
+    local defenderAttr = target_char.m_charTable['attr']
+    local attr_synastry = getCounterAttribute(attackerAttr, defenderAttr)
+    local aniName
+
+    if attr_synastry then
+        if attr_synastry > 0 then       aniName = 'adv_arrow'
+        elseif attr_synastry < 0 then   aniName = 'disadv_arrow'
         end
+    end
 
-        local attrCounterNoti
-        if aniName then
-            attrCounterNoti = MakeAnimator('res/ui/a2d/ingame_enemy/ingame_enemy.vrp')
-            attrCounterNoti:setPosition(0, 50)
-            attrCounterNoti:setTimeScale(10)
-            attrCounterNoti:setVisual('attr', aniName)
+    local attrCounterNoti
+    if aniName then
+        attrCounterNoti = MakeAnimator('res/ui/a2d/ingame_enemy/ingame_enemy.vrp')
+        attrCounterNoti:setPosition(0, 50)
+        attrCounterNoti:setTimeScale(10)
+        attrCounterNoti:setVisual('attr', aniName)
 
-            indicator.m_node:addChild(attrCounterNoti.m_node)
-        end
+        indicator.m_node:addChild(attrCounterNoti.m_node)
     end
 end
 

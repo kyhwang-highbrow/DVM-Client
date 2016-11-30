@@ -71,6 +71,7 @@ MAP_FLOATING_ROTATE_TIME = 5
 -- # SkillLeafBlade
  LEAF_COLLISION_SIZE = 30
  LEAF_STRAIGHT_ANGLE = 30
+ LEAF_INDICATOR_EFFECT_DELAY = 1/1000
 
 --------------------------------------------
 -- 인디케이터 리소스 경로

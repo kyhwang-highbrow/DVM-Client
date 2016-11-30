@@ -134,32 +134,12 @@ function Skill.st_delay(owner, dt)
 end
 
 -------------------------------------
--- function st_idle
--------------------------------------
-function Skill.st_idle(owner, dt)
-    if (owner.m_stateTimer == 0) then
-	else
-		owner:changeState('attack')
-    end
-end
-
--------------------------------------
--- function st_attack
--------------------------------------
-function Skill.st_attack(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		owner:runAttack()
-	else
-		owner:changeState('dying')
-    end
-end
-
--------------------------------------
 -- function st_dying
 -------------------------------------
 function Skill.st_dying(owner, dt)
     if (owner.m_stateTimer == 0) then
 		owner.m_owner:restore()
+		owner.m_owner:hideIndicator()
 		return true
     end
 end

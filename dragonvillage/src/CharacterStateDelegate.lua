@@ -34,6 +34,8 @@ function IStateDelegate.st_dying(owner, dt)
     -- m_character의 StateDelegate를 초기화
     if owner.m_character then
 		owner.m_character:restore()
+		owner.m_character:hideIndicator()
+		-- 해제
         if (owner.m_character.m_stateDelegate == owner) then
             owner.m_character:setStateDelegate(nil)
         end
