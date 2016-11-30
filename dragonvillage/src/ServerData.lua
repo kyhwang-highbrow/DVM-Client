@@ -209,3 +209,22 @@ function ServerData:developCache()
         LocalServer['user_local_server'] = self:get('cache', 'user_local_server')
     end
 end
+
+
+-------------------------------------
+-- function networkCommonRespone
+-- @breif 중복되는 코드를 방지하기 위해 ret값에 예약된 데이터를 한번에 처리
+-------------------------------------
+function ServerData:networkCommonRespone(ret)
+    -- 서버 시간 동기화
+    if (ret['server_info'] and ret['server_info']['server_time']) then
+        local server_time = math_floor(ret['server_info']['server_time'] / 1000)
+        Timer:setServerTime(server_time)
+    end
+
+    -- 스태미나 동기화
+    if (ret['staminas']) then
+        local data = ret['staminas']
+        g_serverData:applyServerData(data, 'user', 'staminas')
+    end
+end

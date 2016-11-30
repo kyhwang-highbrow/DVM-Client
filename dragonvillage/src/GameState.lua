@@ -972,12 +972,24 @@ function GameState:makeResultUI(is_success)
     local world = self.m_world
 
 
+    local func_network_game_finish
     local func_drop
     local func_exp
     local func_ui_result
 
     local box_grade = 'c'
     local l_drop_item_list = {}
+
+    -- 0. 네트워크 통신
+    func_network_game_finish = function()
+        -- 개발 스테이지임
+        if (g_gameScene.m_gameKey == nil) then
+            func_drop()
+        else
+            local t_param = self:makeGameFinishParam(is_success)
+            g_gameScene:networkGameFinish(t_param, func_drop)
+        end
+    end
 
     -- 1. 아이템 드랍
     func_drop = function()
@@ -1000,7 +1012,36 @@ function GameState:makeResultUI(is_success)
     end
 
     -- 최초 실행
-    func_drop()
+    func_network_game_finish()
+end
+
+-------------------------------------
+-- function makeGameFinishParam
+-------------------------------------
+function GameState:makeGameFinishParam(is_success)
+    local t_param = {}
+
+    do-- 클리어 했는지 여부 ( 0 이면 실패, 1이면 성공)
+        t_param['clear_type'] = is_success and (1 or 0)
+    end
+
+    do-- 경험치 보정치 ( 실패했을 경우 사용 ) ex : 66% 인경우 66
+        local wave_rate = ((self.m_world.m_waveMgr.m_currWave - 1) / self.m_world.m_waveMgr.m_maxWave)
+        wave_rate = math_floor(wave_rate * 100)
+        t_param['exp_rate'] = wave_rate
+    end
+
+    do-- 미션 성공 여부 (성공시 1, 실패시 0)
+        t_param['clear_mission_1'] = 0
+        t_param['clear_mission_2'] = 0
+        t_param['clear_mission_3'] = 0
+    end
+
+    do-- 획득 골드
+        t_param['gold'] = 0
+    end
+
+    return t_param
 end
 
 -------------------------------------

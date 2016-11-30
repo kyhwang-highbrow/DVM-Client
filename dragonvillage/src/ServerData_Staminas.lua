@@ -26,7 +26,7 @@ end
 -------------------------------------
 function ServerData_Staminas:getStaminaCount(stamina_type)
     if (not self:isActive()) then
-        error()
+        self:updateStaminaInfo(stamina_type)
     end
 
     local t_stamina_info = self:getRef(stamina_type)
@@ -45,7 +45,7 @@ end
 -------------------------------------
 function ServerData_Staminas:getChargeRemainText(stamina_type)
     if (not self:isActive()) then
-        error()
+        self:updateStaminaInfo(stamina_type)
     end
 
     local t_stamina_info = self:getRef(stamina_type)

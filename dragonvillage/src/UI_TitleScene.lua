@@ -255,11 +255,8 @@ function UI_TitleScene:workGameLogin()
         g_serverData:applyServerData(ret['user'], 'user')
         g_serverData:applyServerData(ret['dragons'], 'dragons')
 
-        -- 서버 시간 동기화
-        if (ret['server_info'] and ret['server_info']['server_time']) then
-            local server_time = math_floor(ret['server_info']['server_time'] / 1000)
-            Timer:setServerTime(server_time)
-        end
+        -- server_info 정보를 갱신
+        g_serverData:networkCommonRespone(ret)
         
         self:doNextWork()
     end

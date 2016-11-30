@@ -107,14 +107,8 @@ function UI_ReadyScene:refresh()
         if (stage_id == 99999) then
             self.vars['actingPowerLabel']:setString('0')
         else
-            local table_drop = TABLE:get('drop')
-            local t_drop = table_drop[stage_id]
-
-            -- 'stamina' 추후에 타입별 stamina 사용 예정
-            -- local cost_type = t_drop['cost_type']
-            local cost_value = t_drop['cost_value']
-
-            vars['actingPowerLabel']:setString(cost_value)
+            local stamina_type, stamina_value = self:getStageStaminaInfo()
+            vars['actingPowerLabel']:setString(stamina_value)
         end
     end
 
@@ -301,19 +295,54 @@ function UI_ReadyScene:click_startBtn()
     elseif (not g_adventureData:isOpenStage(stage_id)) then
         MakeSimplePopup(POPUP_TYPE.OK, '{@BLACK}' .. Str('이전 스테이지를 클리어하세요.'))
 
-        -- 날개 소모 임시로 skip(서버 연동에서 다시 부활)
---    elseif (not g_userDataOld:useStamina(self.m_staminaType, self.m_staminaValue)) then
---        MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup)
-            
+    -- 날개 소모
+    elseif (not g_staminasData:hasStaminaCount(self:getStageStaminaInfo())) then
+        MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup)
+                    
     else
         local function next_func()
-            local stage_name = 'stage_' .. stage_id
-            local scene = SceneGame(stage_id, stage_name, false)
-            scene:runScene()
+            self:networkGameStart()
         end
 
         self:checkChangeDeck(next_func)
     end
+end
+
+-------------------------------------
+-- function replaceGameScene
+-- @breif
+-------------------------------------
+function UI_ReadyScene:replaceGameScene(game_key)
+    local stage_id = self.m_stageID
+
+    local stage_name = 'stage_' .. stage_id
+    local scene = SceneGame(stage_id, stage_name, false)
+    scene.m_gameKey = game_key
+    scene:runScene()
+end
+
+-------------------------------------
+-- function networkGameStart
+-- @breif
+-------------------------------------
+function UI_ReadyScene:networkGameStart()
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        -- server_info, staminas 정보를 갱신
+        g_serverData:networkCommonRespone(ret)
+
+        local game_key = ret['gamekey']
+        self:replaceGameScene(game_key)
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/stage/start')
+    ui_network:setRevocable(true)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', self.m_stageID)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
 end
 
 -------------------------------------
@@ -476,6 +505,23 @@ function UI_ReadyScene:init_monsterTableView()
         table_view_ext:setItemInfo(l_monster_id)
         table_view_ext:update()
     end
+end
+
+-------------------------------------
+-- function getStageStaminaInfo
+-- @brief stage_id에 해당하는 필요 스태미너 타입, 갯수 리턴
+-------------------------------------
+function UI_ReadyScene:getStageStaminaInfo()
+    local stage_id = self.m_stageID
+    local table_drop = TABLE:get('drop')
+    local t_drop = table_drop[stage_id]
+
+    -- 'stamina' 추후에 타입별 stamina 사용 예정
+    --local cost_type = t_drop['cost_type']
+    local cost_type = 'st'
+    local cost_value = t_drop['cost_value']
+
+    return cost_type, cost_value
 end
 
 -------------------------------------

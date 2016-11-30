@@ -33,7 +33,7 @@ SceneGame = class(PerpleScene, {
         m_bDevelopMode = 'boolean',
 
         m_timerTimeScale = 'number',
-
+        m_gameKey = 'number', -- 서버에서 넘어오는 고유 Key
         m_resPreloadMgr = 'ResPreloadMgr',
     })
 
@@ -392,4 +392,45 @@ function ShakeDir2(dir, speed)
         local distance = math_clamp(speed / 20, 5, 50)
         ShakeDir(dir, distance)
     end
+end
+
+-------------------------------------
+-- function networkGameFinish
+-- @breif
+-------------------------------------
+function SceneGame:networkGameFinish(t_param, next_func)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        self:networkGameFinish_response(ret)        
+
+        if next_func then
+            next_func()
+        end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/stage/finish')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', self.m_stageID)
+    ui_network:setParam('clear_type', t_param['clear_type'])
+    ui_network:setParam('exp_rate', t_param['exp_rate'])
+    ui_network:setParam('clear_mission_1', t_param['clear_mission_1'])
+    ui_network:setParam('clear_mission_2', t_param['clear_mission_2'])
+    ui_network:setParam('clear_mission_3', t_param['clear_mission_3'])
+    ui_network:setParam('gold', t_param['gold'])
+    ui_network:setParam('gamekey', self.m_gameKey)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function networkGameFinish_response
+-- @breif
+-------------------------------------
+function SceneGame:networkGameFinish_response(ret)
+    -- server_info, staminas 정보를 갱신
+    g_serverData:networkCommonRespone(ret)
+
+    -- @TODO 중간 커밋 후 작업 예정
 end
