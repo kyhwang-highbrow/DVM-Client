@@ -137,7 +137,6 @@ end
 -- function onExit
 -------------------------------------
 function SceneGame:onExit()
-	self.m_gameWorld:releaseAll()
 	self.m_gameWorld = nil
     g_gameScene = nil
     PerpleScene.onExit(self)

@@ -290,7 +290,6 @@ end
 -------------------------------------
 function Skill:removeDestructibleMissile()
 	if (self.m_skillType == 'active') and (self.m_owner:getCharType() == 'dragon') then 
-		cclog('clear specail missile' .. self.m_skillName)
 		local x = self.m_targetPos.x
 		local y = self.m_targetPos.y
 		local range = 300

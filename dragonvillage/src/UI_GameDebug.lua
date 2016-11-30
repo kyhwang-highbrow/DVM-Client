@@ -8,12 +8,16 @@ UI_GameDebug = class(UI,{
         m_bShow = 'boolean',    -- 보여지고 있는 상태(기본은 화면 왼쪽에 숨겨있음)
         m_width = 'number',     -- UI 넓이
         m_height = 'number',    -- UI 높이
+
+		m_world = 'GameWorld',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_GameDebug:init()
+	self.m_world =  g_gameScene.m_gameWorld
+
     -- UI의 크기 지정(높이는 화면의 높이)
     local scr_size = cc.Director:getInstance():getWinSize()
     self.m_width = UI_GAMEDEBUG_WIDTH
@@ -175,6 +179,48 @@ function UI_GameDebug:makeTableView()
     -- 디버깅 아이템 설정
     local item_info = {}
 
+	do -- 웨이브 클리어 
+        local item = {}
+		item['str'] = Str('웨이브 클리어')
+        item['cb1'] = function()
+			self.m_world:killAllEnemy()
+			self.m_world.m_waveMgr:clearDynamicWave()
+        end
+        table.insert(item_info, item)
+    end
+
+	do -- 스테이지 성공
+        local item = {}
+		item['str'] = Str('스테이지 성공')
+        item['cb1'] = function()
+			self.m_world.m_gameState:changeState(GAME_STATE_SUCCESS)
+        end
+        table.insert(item_info, item)
+    end
+
+	do -- 피격박스 on/off
+        if g_gameScene.m_gameWorld.m_physWorld then
+            local item = {}
+            item['cb1'] = UI_GameDebug.physDebugButton
+
+            item['cb'] = function()
+                local cb = function(debug_on)
+                    if item['label'] then
+                        if debug_on then
+                            item['label']:setString(Str('피격박스 ON'))
+                        else
+                            item['label']:setString(Str('피격박스 OFF'))
+                        end
+                    end
+                end
+
+                g_gameScene.m_gameWorld.m_physWorld:addDebugChangeCB(self, cb)
+            end
+
+            table.insert(item_info, item)
+        end
+    end
+
     do -- 화면 크기
         local item = {}
         item['cb1'] = UI_GameDebug.worldScaleButton
@@ -263,6 +309,17 @@ function UI_GameDebug:makeTableView()
         table.insert(item_info, item)
     end
 
+	do -- Realtime Debug on/off
+        local item = {}
+        item['cb1'] = UI_GameDebug.realtimeDebugButton
+        if DISPLAY_DEBUG_INFO then
+            item['str'] = Str('Memory ON')
+        else
+            item['str'] = Str('Memory OFF')
+        end
+
+        table.insert(item_info, item)
+    end
 
     node:setItemInfo(item_info)
     node:update()
@@ -360,5 +417,21 @@ function UI_GameDebug.fpsButton(self, item, idx)
         item['label']:setString(Str('FPS ON'))
     else
         item['label']:setString(Str('FPS OFF'))
+    end
+end
+
+-------------------------------------
+-- function fpsButton
+-------------------------------------
+function UI_GameDebug.realtimeDebugButton(self, item, idx)
+    DISPLAY_DEBUG_INFO = not DISPLAY_DEBUG_INFO
+	if UIManager.m_debugUI then
+		UIManager.m_debugUI.m_debugLayer:setVisible(DISPLAY_DEBUG_INFO)
+	end
+
+    if DISPLAY_DEBUG_INFO then
+        item['label']:setString(Str('Memory ON'))
+    else
+        item['label']:setString(Str('Memory OFF'))
     end
 end
