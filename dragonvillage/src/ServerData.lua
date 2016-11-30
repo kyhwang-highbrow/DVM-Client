@@ -32,6 +32,9 @@ function ServerData:getInstance()
     -- 'deck'
     g_deckData = ServerData_Deck(g_serverData)
 
+    -- 'staminas' (user/staminas)
+    g_staminasData = ServerData_Staminas(g_serverData)
+
     return g_serverData
 end
 
@@ -144,6 +147,31 @@ function ServerData:get(...)
         else
             if (container[key] ~= nil) then
                 return clone(container[key])
+            end
+        end
+    end
+
+    return nil
+end
+
+-------------------------------------
+-- function getRef
+-- @brief
+-------------------------------------
+function ServerData:getRef(...)
+    local args = {...}
+    local cnt = #args
+
+    local container = self.m_rootTable
+    for i,key in ipairs(args) do
+        if (i < cnt) then
+            if (type(container[key]) ~= 'table') then
+                return nil
+            end
+            container = container[key]
+        else
+            if (container[key] ~= nil) then
+                return container[key]
             end
         end
     end

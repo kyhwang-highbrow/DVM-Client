@@ -53,9 +53,13 @@ function UIManager:init(perple_scene)
     self.m_toastNotiList = {}
     self.m_toastNotiTime = nil
 
+    -- TopUserInfo를 사용하는 Scene일 경우 초기화
     if perple_scene.m_bShowTopUserInfo then
         self:makeTopUserInfo()
-        self.m_topUserInfo:refreshData()
+    end
+    
+    -- 이전 Scene에서 사용됐을 수 있으므로 정리
+    if self.m_topUserInfo then
         self.m_topUserInfo:clearOwnerUI()
     end
 

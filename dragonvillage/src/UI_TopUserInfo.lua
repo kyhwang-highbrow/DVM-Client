@@ -16,11 +16,6 @@ UI_TopUserInfo = class(PARENT,{
 function UI_TopUserInfo:init()
     local vars = self:load('top_user_info.ui')
 
-    g_userDataOld.m_staminaList['st_ad']:addChangeCB(function(str)
-        local msg = comma_value(g_userDataOld.m_staminaList['st_ad'].m_stamina)
-        vars['actingPowerTimeLabel']:setString(str)
-    end)
-
     --vars['exitBtn']:setVisible(false)
 
     vars['exitBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
@@ -36,6 +31,13 @@ function UI_TopUserInfo:init()
     self.m_lNumberLabel['st_ad'] = NumberLabel(vars['actingPowerLabel'], 0, 0.3)
 
     self:clearOwnerUI()
+
+    -- UI가 enter로 진입되었을 때 update함수 호출
+    self.root:registerScriptHandler(function(event)
+        if (event == 'enter') then
+            self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+        end
+    end)
 end
 
 -------------------------------------
@@ -53,9 +55,11 @@ function UI_TopUserInfo:refreshData()
     self.m_lNumberLabel['cash']:setNumber(cash)
 
     -- 모험 스태미너
-    local st_ad = g_userDataOld.m_staminaList['st_ad'].m_stamina
-    --vars['actingPowerLabel']:setString(st_ad)
+    local st_ad = g_staminasData:getStaminaCount('st')
     self.m_lNumberLabel['st_ad']:setNumber(st_ad)
+
+    local str = g_staminasData:getChargeRemainText('st')
+    vars['actingPowerTimeLabel']:setString(str)
 end
 
 -------------------------------------
@@ -123,6 +127,9 @@ end
 function UI_TopUserInfo:clearOwnerUI()
     self.m_lOwnerUI = {}
     self.m_ownerUIIdx = 0
+
+    -- 스태미너 업데이트 관련 임시 위치
+    g_staminasData:updateOff()
 end
 
 -------------------------------------
@@ -145,6 +152,16 @@ function UI_TopUserInfo:changeOwnerUI(ui)
     end
 
     self.root:setVisible(ui.m_bVisible)
+
+    do -- 스태미너 업데이트 관련 임시 위치
+        if ui.m_bVisible then
+            g_staminasData:updateOn()
+        else
+            g_staminasData:updateOff()
+        end
+    end
+
+    self:refreshData()
 end
 
 -------------------------------------
@@ -159,4 +176,11 @@ end
 -------------------------------------
 function UI_TopUserInfo:setGoldNumber(gold)
     self.m_lNumberLabel['gold']:setNumber(gold)
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_TopUserInfo:update(dt)
+    self:refreshData()
 end

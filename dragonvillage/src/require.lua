@@ -35,6 +35,7 @@ local t_module = {
     'PatchCore',
 
     -- Util
+    'TimeLib',
     'Table',
     'TableClass',
     'RichLabel',
@@ -49,6 +50,7 @@ local t_module = {
     'ServerData_User',
     'ServerData_Dragons',
     'ServerData_Deck',
+    'ServerData_Staminas',
     'UserData',
     'DropHelper',
     'DragonAutoSetHelper',

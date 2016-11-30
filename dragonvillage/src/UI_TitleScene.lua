@@ -254,6 +254,12 @@ function UI_TitleScene:workGameLogin()
     local success_cb = function(ret)
         g_serverData:applyServerData(ret['user'], 'user')
         g_serverData:applyServerData(ret['dragons'], 'dragons')
+
+        -- 서버 시간 동기화
+        if (ret['server_info'] and ret['server_info']['server_time']) then
+            local server_time = math_floor(ret['server_info']['server_time'] / 1000)
+            Timer:setServerTime(server_time)
+        end
         
         self:doNextWork()
     end
