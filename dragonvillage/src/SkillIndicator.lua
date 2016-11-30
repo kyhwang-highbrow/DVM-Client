@@ -220,7 +220,7 @@ end
 -- function setHighlight
 -------------------------------------
 function SkillIndicator:setHighlightEffect(t_collision_obj)
-	local skill_indicator_mgr = self:getSkillIndicatorMgr()
+    local skill_indicator_mgr = self:getSkillIndicatorMgr()
 
     local old_target_count = 0
 
@@ -233,9 +233,13 @@ function SkillIndicator:setHighlightEffect(t_collision_obj)
     for i,target in ipairs(t_collision_obj) do            
         if (not target.m_targetEffect) then
             skill_indicator_mgr:addHighlightList(target)
-            self:makeTargetEffect(target)
+
+            if (self.m_hero.m_bLeftFormation == target.m_bLeftFormation) then
+                self:makeTargetEffect(target, 'appear_ally', 'idle_ally')
+            else
+                self:makeTargetEffect(target, 'appear_enemy', 'idle_enemy')
+            end
         end
-            
     end
 
     if old_highlight_list then
@@ -248,7 +252,11 @@ function SkillIndicator:setHighlightEffect(t_collision_obj)
                 end
             end
             if (find == false) then
-                skill_indicator_mgr:removeHighlightList(v)
+                if (v ~= self.m_hero) then
+                    skill_indicator_mgr:removeHighlightList(v)
+                else
+                    v:removeTargetEffect(v)
+                end
             end
         end
     end
@@ -258,6 +266,7 @@ function SkillIndicator:setHighlightEffect(t_collision_obj)
     local cur_target_count = #self.m_highlightList
     self:onChangeTargetCount(old_target_count, cur_target_count)
 end
+
 
 -------------------------------------
 -- function onChangeTargetCount
