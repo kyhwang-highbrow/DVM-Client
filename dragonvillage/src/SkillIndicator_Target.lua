@@ -30,6 +30,11 @@ function SkillIndicator_Target:onTouchMoved(x, y)
         y = self.m_targetChar.pos.y
     end
 
+	-- 타겟이 변경되었다면 인디케이터 액션 다시 실행
+	if (self.m_targetPosX ~= x) or (self.m_targetPosY ~= y) then
+		self.m_indicatorEffect:refreshAction()
+	end
+
 	self.m_targetPosX = x
     self.m_targetPosY = y
 
@@ -38,6 +43,57 @@ function SkillIndicator_Target:onTouchMoved(x, y)
 
 	-- 하이라이트 갱신
     self:setHighlightEffect(t_collision_obj)
+end
+
+-------------------------------------
+-- function setHighlight
+-------------------------------------
+function SkillIndicator_Target:setHighlightEffect(t_collision_obj)
+    local skill_indicator_mgr = self:getSkillIndicatorMgr()
+
+    local old_target_count = 0
+
+    local old_highlight_list = self.m_highlightList
+
+    if self.m_highlightList then
+        old_target_count = #self.m_highlightList
+    end
+
+    for i,target in ipairs(t_collision_obj) do            
+        if (not target.m_targetEffect) then
+            skill_indicator_mgr:addHighlightList(target)
+
+            if (self.m_hero.m_bLeftFormation == target.m_bLeftFormation) then
+                self:makeTargetEffect(target, 'appear_ally', 'idle_ally')
+            else
+                self:makeTargetEffect(target, 'appear_enemy', 'idle_enemy')
+            end
+        end
+    end
+
+    if old_highlight_list then
+        for i,v in ipairs(old_highlight_list) do
+            local find = false
+            for _,v2 in ipairs(t_collision_obj) do
+                if (v == v2) then
+                    find = true
+                    break
+                end
+            end
+            if (find == false) then
+                if (v ~= self.m_hero) then
+                    skill_indicator_mgr:removeHighlightList(v)
+                else
+                    v:removeTargetEffect(v)
+                end
+            end
+        end
+    end
+
+    self.m_highlightList = t_collision_obj
+
+    local cur_target_count = #self.m_highlightList
+    self:onChangeTargetCount(old_target_count, cur_target_count)
 end
 
 -------------------------------------

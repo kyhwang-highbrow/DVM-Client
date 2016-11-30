@@ -71,7 +71,7 @@ end
 -------------------------------------
 -- function setHighlight
 -------------------------------------
-function SkillIndicator:setHighlightEffect(t_collision_obj)
+function SkillIndicator_HealingWind:setHighlightEffect(t_collision_obj)
     local skill_indicator_mgr = self:getSkillIndicatorMgr()
 
     local old_target_count = 0

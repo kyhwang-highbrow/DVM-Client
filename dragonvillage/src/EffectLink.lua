@@ -10,6 +10,8 @@ EffectLink = class({
         m_effectNode = 'CCNode',
         m_width = 'number',
         m_bRotateEndEffect = 'boolean',
+
+		m_isAppear = 'bool',
     })
 
 -------------------------------------
@@ -59,6 +61,7 @@ function EffectLink:init(res, bar_visual, start_visual, end_visual, width, heigh
     self.m_endPointNode.m_node:setPositionY(height)
 
     self.m_bRotateEndEffect = true
+	self.m_isAppear = true
 end
 
 -------------------------------------
@@ -121,6 +124,14 @@ function EffectLink_setHeight(self, height)
 end
 
 -------------------------------------
+-- function refreshAction
+-------------------------------------
+function EffectLink:refreshAction()
+	self.m_effectNode:setAlpha(0)
+    self.m_effectNode:runAction(cc.FadeIn:create(0.05))
+end
+
+-------------------------------------
 -- function refresh
 -------------------------------------
 function EffectLink_refresh(self, start_x, start_y, end_x, end_y)
@@ -136,7 +147,6 @@ end
 -- function createWithParent
 -------------------------------------
 function EffectLink:createWithParent(parent, x, y, z_order, res_name, visual_name, is_repeat)
-
     local animator = MakeAnimator(res_name)
     animator:changeAni(visual_name, is_repeat)
     animator.m_node:setPosition(x, y)
@@ -186,6 +196,7 @@ end
 -------------------------------------
 function EffectLink:doNotUseHead()
 	self.m_startPointNode:setVisible(false)
+	self.m_endPointNode:setVisible(false)
 end
 
 -------------------------------------
