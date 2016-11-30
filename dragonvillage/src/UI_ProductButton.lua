@@ -285,7 +285,8 @@ function UI_ProductButton:network_ProductReceive(product_id, finish_cb)
         return self:network_updateGoldAndCash(gold, cash, finish_cb, false)
 
     elseif (value_type == 'stamina') then
-        g_userDataOld.m_staminaList['st_ad']:addStamina(value)
+        --g_userDataOld.m_staminaList['st_ad']:addStamina(value)
+        -- @TODO 스태미너 추가
         self:refreshData()
         return
 
@@ -377,6 +378,10 @@ function UI_ProductButton:tempBuy(product_id)
     local t_shop = table_shop[product_id]
     local value_type = t_shop['value_type']
 
+    if (value_type == 'stamina') then
+        UIManager:toastNotificationRed(Str('날개 구매는 상점 개편 후에 제공될 예정입니다.'))
+        return
+    end
 
     local func_pay
     local func_receive

@@ -316,7 +316,6 @@ local t_module = {
 
     -- Data
     'DataAdventure',
-    'DataStamina',
 
     -- Network
     'Network',

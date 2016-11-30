@@ -8,9 +8,6 @@ UserData = class({
         m_masterData = '',
         m_cache = '',
 
-        -- 스태미나 관련
-        m_staminaList = '',
-
         m_dataAdventure = 'DataAdventure',
 
         m_bDirtyLocalSaveData = 'boolean', -- 로컬 세이브 데이터 변경 여부
@@ -71,25 +68,6 @@ function UserData:loadMasterFile()
     end
 
     self:loadUserDataFile()
-
-
-    -- 스태미나 생성
-    self.m_staminaList = {}
-    for i,v in pairs(self.m_userData['stamina']) do
-        local max_stamina = 10
-        local charge_time = 300
-
-        if (i == 'st_ad') then
-            --local user_lv = self.m_userData['lv']
-            --local t_user = TABLE:get('user')[user_lv]
-            --max_stamina = t_user['stamina']
-            max_stamina = 10
-            charge_time = 300
-        end
-        local t_data = v
-
-        self.m_staminaList[i] = DataStamina(i, v[1], max_stamina, charge_time, v[2], t_data)
-    end
 end
 
 -------------------------------------
@@ -224,10 +202,6 @@ end
 -- function update
 -------------------------------------
 function UserData:update(dt)
-    for i,v in pairs(self.m_staminaList) do
-        v:update(dt)
-    end
-
     if self.m_bDirtyLocalSaveData then
         self.m_bDirtyLocalSaveData = false
         self:saveUserDataFile()
@@ -244,37 +218,6 @@ function UserData:setDirtyLocalSaveData(immediately)
         self.m_bDirtyLocalSaveData = true
     end
 end
-
--------------------------------------
--- function adjustStamina
--------------------------------------
-function UserData:adjustStamina()
-    for i,v in pairs(self.m_staminaList) do
-        v:adjust()
-
-        self.m_userData['stamina'][i][1] = v.m_stamina
-        self.m_userData['stamina'][i][2] = v.m_lastChargeTime
-    end
-
-    self:setDirtyLocalSaveData()
-end
-
--------------------------------------
--- function useStamina
--------------------------------------
-function UserData:useStamina(type, cnt)
-    local stamina = self.m_staminaList[type]
-    
-    if (not stamina) then
-        return false
-    end
-
-    local success = stamina:useStamina(cnt)
-    self:adjustStamina()
-
-    return success
-end
-
 
 -------------------------------------
 -- function addCumulativePurchasesLog
@@ -400,11 +343,6 @@ function UserData:addTamerExp(add_exp)
     t_ret_data['is_max_level'] = is_max_level
     t_ret_data['add_lv'] = (t_ret_data['curr_lv'] - t_ret_data['prev_lv'])
     t_ret_data['add_exp'] = real_add_exp
-
-    -- 레벨업을 했을 경우
-    if (0 < t_ret_data['add_lv']) then    
-        self.m_staminaList['st_ad']:setMaxStamina(t_exp['stamina'])
-    end
 
     self:setDirtyLocalSaveData()
 

@@ -454,9 +454,6 @@
     <None Include="..\src\ConstantString.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\DataStamina.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\CharacterEvent.lua">
       <Filter>lua</Filter>
     </None>
