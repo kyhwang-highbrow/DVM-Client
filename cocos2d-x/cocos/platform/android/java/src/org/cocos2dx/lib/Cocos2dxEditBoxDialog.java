@@ -27,7 +27,6 @@ package org.cocos2dx.lib;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -138,10 +137,7 @@ public class Cocos2dxEditBoxDialog extends Dialog {
 	// ===========================================================
 
 	public Cocos2dxEditBoxDialog(final Context pContext, final String pTitle, final String pMessage, final int pInputMode, final int pInputFlag, final int pReturnType, final int pMaxLength) {
-//		super(pContext, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-		super(pContext, org.cocos2dx.lib.R.style.Theme_AppCompat_Light_NoActionBar_FullScreen);
-		
-//		Theme.AppCompat.Light.NoActionBar.FullScreen
+		super(pContext, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
 //		super(context, R.style.Theme_Translucent);
 
 		this.mTitle = pTitle;
@@ -160,7 +156,7 @@ public class Cocos2dxEditBoxDialog extends Dialog {
 
 		final LinearLayout layout = new LinearLayout(this.getContext());
 		layout.setOrientation(LinearLayout.VERTICAL);
-		
+
 		final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
 		this.mTextViewTitle = new TextView(this.getContext());
@@ -169,9 +165,7 @@ public class Cocos2dxEditBoxDialog extends Dialog {
 		this.mTextViewTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
 		layout.addView(this.mTextViewTitle, textviewParams);
 
-		this.mInputEditText = new EditText(getContext());
-		this.mInputEditText.setBackgroundColor(Color.WHITE);
-		//, null, org.cocos2dx.lib.R.style.Widget_AppCompat_EditText
+		this.mInputEditText = new EditText(this.getContext());
 		final LinearLayout.LayoutParams editTextParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		editTextParams.leftMargin = editTextParams.rightMargin = this.convertDipsToPixels(10);
 
