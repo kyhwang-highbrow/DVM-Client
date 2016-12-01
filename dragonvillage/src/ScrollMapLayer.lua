@@ -92,8 +92,12 @@ end
 -------------------------------------
 function ScrollMapLayer_update(self, totalMove, dt)
     local pos = (totalMove * self.m_speedScale)
-    local cameraX, cameraY = g_gameScene.m_gameWorld.m_gameCamera:getPosition()
+    local cameraX, cameraY = 0, 0
     local value
+
+    if g_gameScene then
+        cameraX, cameraY = g_gameScene.m_gameWorld.m_gameCamera:getPosition()
+    end
 
     if self.m_type == 'horizontal' then
         pos = pos + self.m_offsetX
