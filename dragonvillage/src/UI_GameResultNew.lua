@@ -74,9 +74,13 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     end
     
     do -- 유저 레벨, 경험치
+        local lv, exp, percentage = g_userData:getUserLevelInfo()
         vars['userExpLabel']:setString(Str('경험치 +{1}', t_tamer_levelup_data['add_exp']))
-        vars['userLvLabel']:setString(Str('레벨{1}', t_tamer_levelup_data['curr_lv']))
-        vars['userExpGg']:setPercentage(t_tamer_levelup_data['curr_exp'] / t_tamer_levelup_data['curr_max_exp'] * 100)
+        vars['userLvLabel']:setString(Str('레벨{1}', lv))
+        vars['userExpGg']:setPercentage(percentage)
+        --vars['userExpLabel']:setString(Str('경험치 +{1}', t_tamer_levelup_data['add_exp']))
+        --vars['userLvLabel']:setString(Str('레벨{1}', t_tamer_levelup_data['curr_lv']))
+        --vars['userExpGg']:setPercentage(t_tamer_levelup_data['curr_exp'] / t_tamer_levelup_data['curr_max_exp'] * 100)
     end
 
 

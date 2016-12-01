@@ -83,19 +83,13 @@ function UI_Lobby:refresh_userInfo()
     vars['userNameLabel']:setString(nickname)
 
     -- 레벨
-    local lv = g_userDataOld.m_userData['lv']
+    local lv = g_userData:get('lv')
     vars['userLvLabel']:setString(Str('레벨 {1}', lv))
 
     -- 경헙치
-    local function getTamerExpPercentage(lv, exp)
-        local table_exp_tamer = TABLE:get('exp_tamer')
-        local t_exp_tamer = table_exp_tamer[lv]
-        local max_exp = t_exp_tamer['exp_t']
-        local percentage = (exp / max_exp)
-        return math_floor(percentage * 100)
-    end
-    local exp = g_userDataOld.m_userData['exp']
-    local exp_percentage = getTamerExpPercentage(lv, exp)
+    local table_user_level = TableUserLevel()
+    local exp = g_userData:get('exp')
+    local exp_percentage = table_user_level:getUserLevelExpPercentage(lv, exp)
     vars['userExpLabel']:setString(Str('{1}%', exp_percentage))
     vars['userExpGg']:setPercentage(exp_percentage)
 

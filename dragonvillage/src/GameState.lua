@@ -950,7 +950,7 @@ function GameState:makeResultUI(is_success)
     local l_dragon_list = {}
     local stage_id = self.m_world.m_stageID
 
-    -- 테이머 경험치 상승
+    -- 테이머 경험치 상승 (서버 연동 시 삭제 필요함)
     local t_tamer_levelup_data = g_userDataOld:addTamerExpAtStage(stage_id, wave_rate)
 
     local table_drop = TABLE:get('drop')

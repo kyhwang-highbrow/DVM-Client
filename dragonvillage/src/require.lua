@@ -81,6 +81,7 @@ local t_module = {
     'TableDragonSkill',
     'TableFriendship',
     'TableFruit',
+    'TableUserLevel',
 
     -- Interface
     'IEventDispatcher',

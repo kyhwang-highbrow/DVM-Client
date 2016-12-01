@@ -56,3 +56,17 @@ function ServerData_User:getEvolutionStoneCount(evolution_stone_id)
     local count = self:get('evolution_stones', evolution_stone_id) or 0
     return count
 end
+
+-------------------------------------
+-- function getUserLevelInfo
+-- @brief
+-------------------------------------
+function ServerData_User:getUserLevelInfo()
+    local table_user_level = TableUserLevel()
+
+    local lv = g_userData:get('lv')
+    local exp = g_userData:get('exp')
+    local percentage = table_user_level:getUserLevelExpPercentage(lv, exp)
+
+    return lv, exp, percentage
+end
