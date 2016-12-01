@@ -288,6 +288,7 @@ function EnemyLua_Boss:doPattern(pattern)
         local pos = getEnemyPos(value_1)
         
         self:setTargetPos(pos['x'], pos['y'])
+		self:setHomePos(pos['x'], pos['y'])
         self:setSpeed(speed)
         self:changeState('pattern_move')
 

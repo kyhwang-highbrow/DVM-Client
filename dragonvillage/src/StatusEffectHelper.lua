@@ -159,7 +159,8 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 			local mid = t_skill['val_1']
 			local lv = t_skill['val_2']
 			local dest = t_skill['val_3']
-			char.m_world.m_waveMgr:spawnEnemy_dynamic(mid, lv, 'Appear', nil, dest, 0.5)
+			local enemy = char.m_world.m_waveMgr:spawnEnemy_dynamic(mid, lv, 'Appear', nil, dest, 0.5)
+			enemy:setPosition(char.pos.x, char.pos.y)
 		end
 	end
 		

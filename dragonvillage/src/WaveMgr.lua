@@ -310,6 +310,8 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, movement, value1, value2, v
     if EnemyLua[movement] then
         EnemyLua[movement](enemy)
     end
+
+	return enemy
 end
 
 -------------------------------------
