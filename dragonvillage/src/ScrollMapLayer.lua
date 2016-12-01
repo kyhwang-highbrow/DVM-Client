@@ -90,21 +90,18 @@ end
 -------------------------------------
 -- function update
 -------------------------------------
-function ScrollMapLayer_update(self, totalMove, dt)
+function ScrollMapLayer_update(self, totalMove, dt, cameraX, cameraY)
     local pos = (totalMove * self.m_speedScale)
-    local cameraX, cameraY = 0, 0
-    local value
-
-    if g_gameScene then
-        cameraX, cameraY = g_gameScene.m_gameWorld.m_gameCamera:getPosition()
-    end
+    local cameraX = cameraX or 0
+    local cameraY = cameraY or 0
+    local referenceValue
 
     if self.m_type == 'horizontal' then
         pos = pos + self.m_offsetX
-        value = cameraX - (CRITERIA_RESOLUTION_X - 2)
+        referenceValue = cameraX - (CRITERIA_RESOLUTION_X / 2)
     elseif self.m_type == 'vertical' then
         pos = pos + self.m_offsetY
-        value = cameraY - (CRITERIA_RESOLUTION_Y - 2)
+        referenceValue = cameraY - (CRITERIA_RESOLUTION_Y / 2)
     end
 
     local start_pos = pos
@@ -112,9 +109,9 @@ function ScrollMapLayer_update(self, totalMove, dt)
         start_pos = math_floor(pos % self.m_interval)
     end
     
-    if start_pos < value then
+    if start_pos < referenceValue then
         start_pos = start_pos + self.m_interval
-    elseif start_pos > value then
+    elseif start_pos > referenceValue then
         start_pos = start_pos - self.m_interval
     end
 

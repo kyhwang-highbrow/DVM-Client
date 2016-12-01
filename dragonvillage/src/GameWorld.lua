@@ -502,6 +502,9 @@ function GameWorld:initBG()
         self.m_mapManager = ScrollMap(self.m_bgNode)
         self.m_mapManager:setBg(bg)
         self.m_mapManager:setSpeed(-100)
+        self.m_mapManager:setFuncGetCameraPosition(function()
+            return self.m_gameCamera:getPosition()
+        end)
 
         local difficulty, chapter, stage = parseAdventureID(self.m_stageID)
         if chapter == 2 then

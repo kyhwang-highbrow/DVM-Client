@@ -14,6 +14,8 @@ ScrollMap = class(MapManager, {
         m_colorScale = '',
 
         m_floatingType = 'number',
+
+        m_fGetCameraPosition = 'function',
     })
 
 -------------------------------------
@@ -33,6 +35,8 @@ function ScrollMap:init(node)
     self.m_colorScale = 100
 
     self.m_floatingType = 0
+
+    self.m_fGetCameraPosition = nil
 end
 
 -------------------------------------
@@ -133,6 +137,13 @@ function ScrollMap:setBg(res)
 end
 
 -------------------------------------
+-- function setFuncGetCameraPosition
+-------------------------------------
+function ScrollMap:setFuncGetCameraPosition(func)
+    self.m_fGetCameraPosition = func
+end
+
+-------------------------------------
 -- function update
 -- @param dt
 -------------------------------------
@@ -142,8 +153,13 @@ function ScrollMap:update(dt)
 
     self.m_totalMove = self.m_totalMove + distance
 
+    local cameraX, cameraY = 0, 0
+    if self.m_fGetCameraPosition then
+        cameraX, cameraY = self.m_fGetCameraPosition()
+    end
+
     for i,v in ipairs(self.m_tMapLayer) do
-        ScrollMapLayer_update(v, self.m_totalMove, dt)
+        ScrollMapLayer_update(v, self.m_totalMove, dt, cameraX, cameraY)
     end
 
     return self.m_totalMove
