@@ -264,9 +264,6 @@ function PerpleScene:onEnter()
     end
 
 	local function update(dt)
-        if g_userDataOld then
-            g_userDataOld:update(dt)
-        end
 		if DISPLAY_DEBUG_INFO then
 			UIManager:updateDebugUI(dt)
 		end
@@ -294,9 +291,6 @@ end
 -- function update
 -------------------------------------
 function PerpleScene:update(dt)
-    if g_userDataOld then
-        g_userDataOld:update(dt)
-    end
 	if DISPLAY_DEBUG_INFO then
 		UIManager:updateDebugUI(dt)
 	end

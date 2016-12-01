@@ -15,8 +15,6 @@ function UI_ShopPopup:init()
 
     self:initProductList()
 
-    self:refreshData()
-
     self:doActionReset()
     self:doAction()
 
@@ -58,19 +56,6 @@ end
 -------------------------------------
 function UI_ShopPopup:click_exitBtn()
     self:close()
-end
-
--------------------------------------
--- function refreshData
--- @brief 누적 구매 로그 출력
--------------------------------------
-function UI_ShopPopup:refreshData()
-    local vars = self.vars
-
-    vars['gachaLogLabel']:setString('Gacha : ' .. comma_value(g_userDataOld:getCumulativePurchasesLog('gacha')))
-    vars['staminaLogLabel']:setString('Stamina : ' .. comma_value( g_userDataOld:getCumulativePurchasesLog('stamina')))
-    vars['goldLogLabel']:setString('Gold : ' .. comma_value(g_userDataOld:getCumulativePurchasesLog('gold')))
-    vars['cashLogLabel']:setString('Cash : ' .. comma_value(g_userDataOld:getCumulativePurchasesLog('cash')))
 end
 
 -------------------------------------

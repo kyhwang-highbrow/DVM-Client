@@ -16,10 +16,6 @@ function UI_IngameDragonInfo:init(hero)
         vars['levelLabel']:setString('')
     end
 
-    if (hero.m_charType == 'tamer') then
-        vars['levelLabel']:setString(g_userDataOld.m_userData['lv'])
-    end
-
     local attr_str = hero.m_charTable['attr']
     local res = 'res/ui/icon/attr/attr_' .. attr_str .. '.png'
     local icon = cc.Sprite:create(res)

@@ -70,7 +70,7 @@ end
 -- function makeTopUserInfo
 -------------------------------------
 function UIManager:makeTopUserInfo()
-    if (not self.m_topUserInfo) and g_userDataOld then
+    if (not self.m_topUserInfo) then
         self.m_topUserInfo = UI_TopUserInfo()
         self.m_topUserInfo.root:retain()
 

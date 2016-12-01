@@ -285,7 +285,6 @@ function UI_ProductButton:network_ProductReceive(product_id, finish_cb)
         return self:network_updateGoldAndCash(gold, cash, finish_cb, false)
 
     elseif (value_type == 'stamina') then
-        --g_userDataOld.m_staminaList['st_ad']:addStamina(value)
         -- @TODO 스태미너 추가
         self:refreshData()
         return
@@ -424,11 +423,6 @@ end
 -- function refreshData
 -------------------------------------
 function UI_ProductButton:refreshData()
-    if self.m_ownerUI then
-        if self.m_ownerUI.refreshData then
-            self.m_ownerUI:refreshData()
-        end
-    end
     g_topUserInfo:refreshData()
 end
 

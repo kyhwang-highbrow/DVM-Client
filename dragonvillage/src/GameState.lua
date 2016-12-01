@@ -821,7 +821,6 @@ function GameState:dropItem(finish_cb)
     for i,v in ipairs(l_drop_item) do
         local item_id = v[1]
         local count = v[2]
-        --g_userDataOld:optainItem(item_id, count)
     end
 
     -- 네트워크 통신
