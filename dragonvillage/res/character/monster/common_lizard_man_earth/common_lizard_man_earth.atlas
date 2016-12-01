@@ -1,10 +1,10 @@
 
-common_lizard_man_warrior_earth.png
+common_lizard_man_earth.png
 size: 128,128
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-common_lizard_man_warrior_earth
+common_lizard_man_earth
   rotate: false
   xy: 2, 2
   size: 111, 95
