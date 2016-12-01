@@ -536,10 +536,18 @@ end
 -------------------------------------
 -- function addMissile
 -------------------------------------
-function GameWorld:addMissile(missile, object_key)
-    self.m_missiledNode:addChild(missile.m_rootNode)
+function GameWorld:addMissile(missile, object_key, res_depth)
     self:addToMissileList(missile)
     self.m_physWorld:addObject(object_key, missile)
+    
+	local target_node = nil
+	if (res_depth == 'bottom') then
+		target_node = self.m_worldNode
+	else
+		target_node = self.m_missiledNode
+	end	
+
+	target_node:addChild(missile.m_rootNode)
 end
 
 -------------------------------------

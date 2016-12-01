@@ -156,7 +156,6 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 	-- 트리거로 발동될 함수 개별 설정
 	if (t_skill['type'] == 'skill_summon_die') then
 		event_function = function()
-			cclog('DO SUMMON')
 			local mid = t_skill['val_1']
 			local lv = t_skill['val_2']
 			local dest = t_skill['val_3']

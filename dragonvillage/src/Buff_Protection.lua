@@ -34,7 +34,7 @@ function Buff_Protection:init_buff(owner, duration, def_up, target, res)
     self.m_target = target
 	self.m_res = res
 
-    -- 연결 이펙트
+    -- 연결 이펙트 -- @TODO groundnode..? 여기서만 사용중
     self.m_barEffect = EffectLink(res, 'bar_appear', '', '', 512, 256)
     self.m_world.m_groundNode:addChild(self.m_barEffect.m_node)
     self.m_barEffect.m_startPointNode:setVisible(false)

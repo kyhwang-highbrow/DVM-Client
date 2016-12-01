@@ -72,46 +72,48 @@ function SceneGame:init_layer()
             self.m_shakeLayer = cc.Node:create()
             self.m_viewLayer:addChild(self.m_shakeLayer)
 
-            self.m_cameraLayer = cc.Node:create()
-            self.m_shakeLayer:addChild(self.m_cameraLayer)
+			do
+				self.m_cameraLayer = cc.Node:create()
+				self.m_shakeLayer:addChild(self.m_cameraLayer)
 
-            do -- 월드 레이어 (줌인, 줌아웃 관여)
-                self.m_worldLayer = cc.Node:create()
-                self.m_cameraLayer:addChild(self.m_worldLayer)
+				do -- 월드 레이어 (줌인, 줌아웃 관여)
+					self.m_worldLayer = cc.Node:create()
+					self.m_cameraLayer:addChild(self.m_worldLayer)
 
-                do -- 게임 레이어
-                    self.m_gameNode1 = cc.Node:create()
-                    self.m_worldLayer:addChild(self.m_gameNode1)
+					do -- 게임 레이어
+						self.m_gameNode1 = cc.Node:create()
+						self.m_worldLayer:addChild(self.m_gameNode1)
 
-                    -- 게임 레이어
-                    self.m_gameNode2 = cc.Node:create()
-                    self.m_worldLayer:addChild(self.m_gameNode2)
-                    self.m_gameNode3 = cc.Node:create()
-                    self.m_worldLayer:addChild(self.m_gameNode3)
+						-- 게임 레이어
+						self.m_gameNode2 = cc.Node:create()
+						self.m_worldLayer:addChild(self.m_gameNode2)
+						self.m_gameNode3 = cc.Node:create()
+						self.m_worldLayer:addChild(self.m_gameNode3)
 
-                    -- 피버 레이어
-                    self.m_feverNode = cc.Node:create()
-                    self.m_worldLayer:addChild(self.m_feverNode)
+						-- 피버 레이어
+						self.m_feverNode = cc.Node:create()
+						self.m_worldLayer:addChild(self.m_feverNode)
 
-                    -- 암전용 레이어
-                    self.m_colorLayerForSkill = cc.LayerColor:create()
-                    self.m_colorLayerForSkill:setColor(cc.c3b(0, 0, 0))
-                    self.m_colorLayerForSkill:setOpacity(100)
-                    self.m_colorLayerForSkill:setAnchorPoint(cc.p(0.5, 0.5))
-                    self.m_colorLayerForSkill:setDockPoint(cc.p(0, 0.5))
-                    self.m_colorLayerForSkill:setNormalSize(4000, 2000)
-                    self.m_colorLayerForSkill:setVisible(false)
-                    self.m_worldLayer:addChild(self.m_colorLayerForSkill)
+						-- 암전용 레이어
+						self.m_colorLayerForSkill = cc.LayerColor:create()
+						self.m_colorLayerForSkill:setColor(cc.c3b(0, 0, 0))
+						self.m_colorLayerForSkill:setOpacity(100)
+						self.m_colorLayerForSkill:setAnchorPoint(cc.p(0.5, 0.5))
+						self.m_colorLayerForSkill:setDockPoint(cc.p(0, 0.5))
+						self.m_colorLayerForSkill:setNormalSize(4000, 2000)
+						self.m_colorLayerForSkill:setVisible(false)
+						self.m_worldLayer:addChild(self.m_colorLayerForSkill)
 
-                    -- 스킬 인디케이터 레이어
-                    self.m_gameIndicatorNode = cc.Node:create()
-                    self.m_worldLayer:addChild(self.m_gameIndicatorNode, 99)
+						-- 스킬 인디케이터 레이어
+						self.m_gameIndicatorNode = cc.Node:create()
+						self.m_worldLayer:addChild(self.m_gameIndicatorNode, 99)
 
-                    -- 하일라이트 레이어
-                    self.m_gameHighlightNode = cc.Node:create()
-                    self.m_worldLayer:addChild(self.m_gameHighlightNode)
-                end
-            end
+						-- 하일라이트 레이어
+						self.m_gameHighlightNode = cc.Node:create()
+						self.m_worldLayer:addChild(self.m_gameHighlightNode)
+					end
+				end
+			end
         end
     end
 

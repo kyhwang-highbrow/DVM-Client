@@ -135,11 +135,11 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     local lua_param =        t_option['lua_param']
 	
 	local is_fixed_attack =		t_option['bFixedAttack'] or false
-	local missile_cbFunction =	t_option['cbFunction']
-
+	local missile_cbFunction =	t_option['cbFunction']	-- 이것은 lua상에서 짜여진 스크립트 탄 또는 코드 스킬에서 전달.. 
 	local missile_event =		t_option['events']
+	local res_depth =			t_option['res_depth']
 
-	local add_script =			t_option['add_script'] or nil
+	local add_script =			t_option['add_script']
 	local add_script_start =	t_option['add_script_start'] or 0
 	local add_script_term =		t_option['add_script_term'] or 5
 	local add_script_max =		t_option['add_script_max'] or 1
@@ -341,7 +341,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         end
 
         -- Physics, Node, GameMgr에 등록
-		self.m_world:addMissile(missile, object_key)
+		self.m_world:addMissile(missile, object_key, res_depth)
 
 		if is_fixed_attack then 
 			missile:setFixedAttack(true)

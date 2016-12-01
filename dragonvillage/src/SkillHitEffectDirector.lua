@@ -56,13 +56,13 @@ function SkillHitEffectDirector:displayHitCnt()
 	ShakeDir2(math_random(335-20, 335+20), math_random(500, 1500))
     --SoundMgr:playEffect('EFFECT', 'option_thunderbolt_3')
 
-    g_gameScene.m_inGameUI.vars['hitLabel']:setString(self.m_hitCount)
-    g_gameScene.m_inGameUI.vars['hitNode']:setVisible(true)
-    g_gameScene.m_inGameUI.vars['hitNode']:stopAllActions()
+    self.m_inGameUI.vars['hitLabel']:setString(self.m_hitCount)
+    self.m_inGameUI.vars['hitNode']:setVisible(true)
+    self.m_inGameUI.vars['hitNode']:stopAllActions()
 
-    g_gameScene.m_inGameUI.vars['hitNode']:setScale(1.4)
-    g_gameScene.m_inGameUI.vars['hitNode']:setOpacity(255)
-    g_gameScene.m_inGameUI.vars['hitNode']:runAction(cc.Sequence:create(cc.ScaleTo:create(0.15, 1), cc.FadeOut:create(0.5), cc.Hide:create()))
+    self.m_inGameUI.vars['hitNode']:setScale(1.4)
+    self.m_inGameUI.vars['hitNode']:setOpacity(255)
+    self.m_inGameUI.vars['hitNode']:runAction(cc.Sequence:create(cc.ScaleTo:create(0.15, 1), cc.FadeOut:create(0.5), cc.Hide:create()))
 end
 
 -------------------------------------
