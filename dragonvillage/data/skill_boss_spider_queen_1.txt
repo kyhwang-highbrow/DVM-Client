@@ -17,7 +17,7 @@
 				"accel_delay_fix":"true",
 				"offset":[0,0],
                 "dir_array":[0],
-				
+				"res_depth":"bottom",
 				"delete_time":15,
 				
                 "effect":
@@ -40,6 +40,8 @@
 				"accel_delay":0.5,
 				"h_limit_speed":300,
 				"offset":[0,0],
+				
+				"res_depth":"bottom",
                 "dir_array":[22,67,112,157,202,247,292,337],
 				
                 "effect":
@@ -63,6 +65,8 @@
 				"accel_delay":0.5,
 				"h_limit_speed":300,
 				"offset":[0,0],
+				
+				"res_depth":"bottom",
                 "dir_array":[22,67,112,157,202,247,292,337],
 				"dir_add":10,
 				
@@ -87,6 +91,8 @@
 				"accel_delay":0.5,
 				"h_limit_speed":300,
 				"offset":[0,0],
+				
+				"res_depth":"bottom",
                 "dir_array":[267,302,357,402,447,492,537,582],
 				"dir_add":-10,
 				

@@ -40,11 +40,11 @@
 					
 					{
 						"idx":1,
-						"res":"res/missile/missile_poison/missile_poison.png",
+						"res":"res/missile/missile_poison/missile_poison.vrp",
 						"body":[0,0,10],
 						"count":1,
 						"period":0,
-						"scale":3,
+						"scale":1,
 						"time":0,
 						"speed":900,
 						"accel":0,
@@ -111,7 +111,7 @@
 						"body":[0,0,10],
 						"count":1,
 						"period":0,
-						"scale":3,
+						"scale":1,
 						"time":0,
 						"speed":900,
 						"accel":0,

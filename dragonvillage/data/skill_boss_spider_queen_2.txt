@@ -79,10 +79,10 @@
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_poison/missile_poison.png",
+				"res":"res/missile/missile_poison/missile_poison.vrp",
 				"body":[0,0,20],
                 "count":36,
-                "scale":5,
+                "scale":2,
                 "period":0,
 				"time":2,
 				"speed":1000,
@@ -105,10 +105,10 @@
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_poison/missile_poison.png",
+				"res":"res/missile/missile_poison/missile_poison.vrp",
 				"body":[0,0,20],
                 "count":36,
-                "scale":5,
+                "scale":2,
                 "period":0,
 				"time":2.4,
 				"speed":1000,

@@ -6,47 +6,22 @@
 		[
 			{
 				"idx":1,
-				"res":"res/missile/missile_dot/cristal_fire.png",
-				"body":[0,0,20],
-                "count":3,
-                "period":0.7,
+				"res":"res/missile/missile_ball/missile_ball_fire.vrp",
+				"body":[0,0,30],
+                "count":4,
+                "period":0.8,
                 "scale":1,
 				"time":0,
-				"speed":500,
+				"speed":700,
 				"accel":0,
 				"l_limit_speed":0,
 				"accel_delay":0.1,
 				"angular_velocity":0,
-				"offset":[-150,500],
+				"offset":[-200,500],
 				"vanish_time":10,
 				"dir":-125,
-				"dir_add":10,
+				"dir_add":5,
 				
-				"add_script":
-				[					
-					{
-						"idx":1,
-						"res":"res/missile/missile_dot/missile_dot_@.png",
-						"body":[0,0,10],
-						"count":1,
-						"period":0.04,
-						"scale":1,
-						"time":0,
-						"speed":0,
-						"accel":0,
-						"h_limit_speed":500,
-						"accel_delay":0.5,
-						"angular_velocity":0,
-						"offset":[0,0],
-						"dir_array":[0,180],
-						"dir_add":5,
-						"vanish_time":10
-					}
-				],
-				
-				"add_script_start":0,
-				"add_script_term":0.1,
-				"add_script_max":20,
 				
                 "effect":
                 {
@@ -58,47 +33,22 @@
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_dot/cristal_fire.png",
-				"body":[0,0,20],
-                "count":3,
-                "period":1,
+				"res":"res/missile/missile_ball/missile_ball_fire.vrp",
+				"body":[0,0,30],
+                "count":5,
+                "period":0.6,
                 "scale":1,
-				"time":0,
-				"speed":500,
+				"time":0.4,
+				"speed":700,
 				"accel":0,
 				"l_limit_speed":0,
 				"accel_delay":0.1,
 				"angular_velocity":0,
-				"offset":[-250,500],
+				"offset":[-300,500],
 				"vanish_time":10,
 				"dir":-105,
-				"dir_add":-10,
+				"dir_add":-5,
 				
-				"add_script":
-				[					
-					{
-						"idx":1,
-						"res":"res/missile/missile_dot/missile_dot_@.png",
-						"body":[0,0,10],
-						"count":1,
-						"period":0.04,
-						"scale":1,
-						"time":0,
-						"speed":0,
-						"accel":0,
-						"h_limit_speed":500,
-						"accel_delay":0.5,
-						"angular_velocity":0,
-						"offset":[0,0],
-						"dir_array":[0,180],
-						"dir_add":-5,
-						"vanish_time":10
-					}
-				],
-				
-				"add_script_start":0,
-				"add_script_term":0.1,
-				"add_script_max":20,
 				
                 "effect":
                 {
@@ -110,47 +60,22 @@
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_dot/cristal_fire.png",
-				"body":[0,0,20],
-                "count":3,
-                "period":0.5,
+				"res":"res/missile/missile_ball/missile_ball_fire.vrp",
+				"body":[0,0,30],
+                "count":6,
+                "period":0.2,
                 "scale":1,
-				"time":0,
-				"speed":500,
+				"time":0.4,
+				"speed":700,
 				"accel":0,
 				"l_limit_speed":0,
 				"accel_delay":0.1,
 				"angular_velocity":0,
-				"offset":[-350,500],
+				"offset":[-400,500],
 				"vanish_time":10,
 				"dir":-125,
-				"dir_add":10,
+				"dir_add":5,
 				
-				"add_script":
-				[					
-					{
-						"idx":1,
-						"res":"res/missile/missile_dot/missile_dot_@.png",
-						"body":[0,0,10],
-						"count":1,
-						"period":0.04,
-						"scale":1,
-						"time":0,
-						"speed":0,
-						"accel":0,
-						"h_limit_speed":500,
-						"accel_delay":0.5,
-						"angular_velocity":0,
-						"offset":[0,0],
-						"dir_array":[0,180],
-						"dir_add":-5,
-						"vanish_time":10
-					}
-				],
-				
-				"add_script_start":0,
-				"add_script_term":0.1,
-				"add_script_max":20,
 				
                 "effect":
                 {
@@ -162,47 +87,22 @@
 			
 			{
 				"idx":1,
-				"res":"res/missile/missile_dot/cristal_fire.png",
-				"body":[0,0,20],
+				"res":"res/missile/missile_ball/missile_ball_fire.vrp",
+				"body":[0,0,30],
                 "count":3,
-                "period":0.7,
+                "period":0.4,
                 "scale":1,
-				"time":0,
-				"speed":500,
+				"time":0.6,
+				"speed":700,
 				"accel":0,
 				"l_limit_speed":0,
 				"accel_delay":0.1,
 				"angular_velocity":0,
-				"offset":[-450,500],
+				"offset":[-500,500],
 				"vanish_time":10,
 				"dir":-115,
 				"dir_add":-5,
 				
-				"add_script":
-				[					
-					{
-						"idx":1,
-						"res":"res/missile/missile_dot/missile_dot_@.png",
-						"body":[0,0,10],
-						"count":1,
-						"period":0.04,
-						"scale":1,
-						"time":0,
-						"speed":0,
-						"accel":0,
-						"h_limit_speed":500,
-						"accel_delay":0.5,
-						"angular_velocity":0,
-						"offset":[0,0],
-						"dir_array":[0,180],
-						"dir_add":-5,
-						"vanish_time":10
-					}
-				],
-				
-				"add_script_start":0,
-				"add_script_term":0.1,
-				"add_script_max":20,
 				
                 "effect":
                 {
