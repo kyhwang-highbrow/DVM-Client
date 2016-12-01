@@ -994,6 +994,9 @@
     <None Include="..\src\ResPreloadMgr_List.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableUserLevel.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
