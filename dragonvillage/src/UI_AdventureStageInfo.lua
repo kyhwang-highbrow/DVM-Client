@@ -71,7 +71,7 @@ function UI_AdventureStageInfo:refresh()
     end
 
     do -- 모험 소비 활동력
-        if (stage_id == 99999) then
+        if (stage_id == DEV_STAGE_ID) then
             self.vars['actingPowerLabel']:setString('0')
         else
             local table_drop = TABLE:get('drop')

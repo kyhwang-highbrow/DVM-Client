@@ -369,6 +369,10 @@ end
 -- @brief
 -------------------------------------
 function DataAdventure:setFocusStage(stage_id)
+    if (stage_id == DEV_STAGE_ID) then
+        return
+    end
+
    -- 마지막에 진입한 스테이지 저장
     self.m_tData['last_stage'] = stage_id
     g_userDataOld:setDirtyLocalSaveData(true)

@@ -104,7 +104,7 @@ function UI_ReadyScene:refresh()
     end
 
     do -- 필요 활동력 표시
-        if (stage_id == 99999) then
+        if (stage_id == DEV_STAGE_ID) then
             self.vars['actingPowerLabel']:setString('0')
         else
             local stamina_type, stamina_value = self:getStageStaminaInfo()
@@ -279,11 +279,8 @@ end
 function UI_ReadyScene:click_startBtn()
     local stage_id = self.m_stageID
 
-    -- @TEST
-    --stage_id = 99999
-
     -- 개발 스테이지
-    if (stage_id == 99999) then
+    if (stage_id == DEV_STAGE_ID) then
         local scene = SceneGame(nil, stage_id, 'stage_dev', true)
         scene:runScene()
         return

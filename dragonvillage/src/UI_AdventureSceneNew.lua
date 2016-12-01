@@ -50,6 +50,10 @@ function UI_AdventureSceneNew:init()
     vars['normalBtn']:registerScriptTapHandler(function() self:click_selectDifficultyBtn(2) end)
     vars['hardBtn']:registerScriptTapHandler(function() self:click_selectDifficultyBtn(3) end)
 
+    vars['devStageBtn']:registerScriptTapHandler(function()
+            UI_AdventureStageInfo(DEV_STAGE_ID)
+        end)
+
     vars['bgSprite']:setLocalZOrder(-2)
     vars['chapterNode']:setLocalZOrder(-1)
     

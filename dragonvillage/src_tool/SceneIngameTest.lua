@@ -23,7 +23,7 @@ function SceneIngameTest:onEnter()
     ServerData:getInstance():applySetting()
     UserData:getInstance()
 	
-    local scene = SceneGame(nil, 99999, 'stage_dev', true)
+    local scene = SceneGame(nil, DEV_STAGE_ID, 'stage_dev', true)
     scene:runScene()
     return
 end

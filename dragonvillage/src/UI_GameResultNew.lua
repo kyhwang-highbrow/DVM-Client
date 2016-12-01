@@ -195,7 +195,7 @@ end
 
 -------------------------------------
 -- function direction_end
--- @brief 종료 연출 (성공했을 시에만 들어옴)
+-- @brief 종료 연출
 -------------------------------------
 function UI_GameResultNew:direction_end()
     local is_success = self.m_bSuccess
@@ -209,6 +209,13 @@ function UI_GameResultNew:direction_end()
     self:stopLevelUpDirector()
 
     self.root:stopAllActions()
+
+    -- @개발 스테이지
+    if (self.m_stageID == DEV_STAGE_ID) then
+        vars['returnBtn']:setVisible(true)
+        return
+    end
+
     if (is_success == true) then
         -- 2초 후 자동으로 이동
         self.root:runAction(cc.Sequence:create(cc.DelayTime:create(2), cc.CallFunc:create(function()
@@ -227,6 +234,11 @@ end
 -- function direction_end_click
 -------------------------------------
 function UI_GameResultNew:direction_end_click()
+    -- @개발 스테이지
+    if (self.m_stageID == DEV_STAGE_ID) then
+        return
+    end
+
     self.root:stopAllActions()
     self:doNextWork()
 end

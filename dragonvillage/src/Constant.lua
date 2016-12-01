@@ -81,6 +81,7 @@ EMPTY_TABLE = {}
 CENTER_POINT = cc.p(0.5, 0.5)
 
 MAX_DRAGON_GRADE = 6
+DEV_STAGE_ID = 99999
 
 -- state priority
 PRIORITY =
