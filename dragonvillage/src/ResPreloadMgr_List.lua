@@ -23,8 +23,14 @@ end
 -- function getPreloadList_Tamer
 -------------------------------------
 function ResPreloadMgr:getPreloadList_Tamer()
-    local ret = {}
+    -- TODO: 현재 테이머는 고니로 고정이므로 차후 수정
+    --local t_tamer = TABLE:get('tamer')[TAMER_ID]
 
+    local ret = {
+        'res/character/tamer/goni_i/goni_i.spine',
+        'res/effect/effect_skillcut_goni/effect_skillcut_goni.vrp'
+    }
+    
     return ret
 end
 
@@ -33,6 +39,8 @@ end
 -------------------------------------
 function ResPreloadMgr:getPreloadList_Hero()
     local ret = {}
+
+    local t_skillList = { 'skill_basic', 'skill_active', 'skill_1', 'skill_3' }
 
     local l_deck = g_deckData:getDeck('1')
     for _, v in pairs(l_deck) do
@@ -47,8 +55,8 @@ function ResPreloadMgr:getPreloadList_Hero()
                 local res_name = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, attr)
                 table.insert(ret, res_name)
                 
-                -- 스킬 및 스테이터스 이펙트
-                for _, k in pairs({'skill_basic', 'skill_active', 'skill_1', 'skill_3'}) do
+                -- 스킬
+                for _, k in pairs(t_skillList) do
                     local t_skill = TABLE:get('dragon_skill')[t_dragon[k]]
                     if t_skill then
 
@@ -56,18 +64,6 @@ function ResPreloadMgr:getPreloadList_Hero()
                             if (t_skill['res_' .. i] ~= 'x') then
                                 local res_name = string.gsub(t_skill['res_' .. i], '@', attr)
                                 table.insert(ret, res_name)
-                            end
-                        end
-
-                        for i = 1, 1 do
-                            local effect_str = t_skill['status_effect_' .. i]
-                            if effect_str then
-                                local t_effect = stringSplit(effect_str, ';')
-                                local type = t_effect[1]
-                                local t_statusEffect = TABLE:get('status_effect')[type]
-                                if (t_statusEffect and t_statusEffect['res'] ~= 'x') then
-                                    table.insert(ret, t_statusEffect['res'])
-                                end
                             end
                         end
                     end
@@ -82,8 +78,50 @@ end
 -------------------------------------
 -- function getPreloadList_Stage
 -------------------------------------
-function ResPreloadMgr:getPreloadList_Stage()
+function ResPreloadMgr:getPreloadList_Stage(stageName)
     local ret = {}
+
+    local t_skillList = { 'skill_basic' }
+    for i = 1, 9 do
+        table.insert(t_skillList, 'skill_' .. i)
+    end
+
+    local script = TABLE:loadJsonTable(stageName)
+    if script then
+        for _, v in pairs(script['wave']) do
+            if v['wave'] then
+                for _, a in pairs(v['wave']) do
+                    for _, data in pairs(a) do
+                        local l_str = seperate(data, ';')
+                        local enemy_id = tonumber(l_str[1])   -- 적군 ID
+
+                        local t_enemy = TABLE:get('enemy')[enemy_id]
+                        if t_enemy then
+                            -- 적군
+                            local attr = t_enemy['attr']
+
+                            local res_name = AnimatorHelper:getMonsterResName(t_enemy['res'], attr)
+                            table.insert(ret, res_name)
+
+                            -- 스킬
+                            for _, k in pairs(t_skillList) do
+                                local t_skill = TABLE:get('enemy_skill')[t_enemy[k]]
+                                if t_skill then
+
+                                    for i = 1, 3 do
+                                        if (t_skill['res_' .. i] ~= 'x') then
+                                            local res_name = string.gsub(t_skill['res_' .. i], '@', attr)
+                                            table.insert(ret, res_name)
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
 
     return ret
 end

@@ -2,7 +2,7 @@
 -- class ResPreloadMgr
 -------------------------------------
 ResPreloadMgr = class({
-    m_stageID               = 'number',
+    m_stageName             = 'number',
     m_bCompletedPreload     = 'boolean',
     m_bPreparedPreloadList  = 'boolean',
     m_tPreloadList          = 'table',
@@ -12,27 +12,28 @@ ResPreloadMgr = class({
 -- function init
 -------------------------------------
 function ResPreloadMgr:init()
-    self.m_stageID = -1
+    self.m_stageName = ''
     self.m_bCompletedPreload = false
     self.m_bPreparedPreloadList = false
     self.m_tPreloadList = {}
 end
 
 -------------------------------------
--- function loadFromStageID
+-- function loadFromStageName
 --@brief 해당 스테이지 관련 리소스를 프리로드
 -------------------------------------
-function ResPreloadMgr:loadFromStageID(stageID)
-    if (self.m_bCompletedPreload and self.m_stageID == stageID) then
+function ResPreloadMgr:loadFromStageName(stageName)
+    
+    if (self.m_bCompletedPreload and self.m_stageName == stageName) then
         -- 이미 프리로드된 경우
         return true
     end
 
-    if (not self.m_bPreparedPreloadList or self.m_stageID ~= stageID) then
+    if (not self.m_bPreparedPreloadList or self.m_stageName ~= stageName) then
         -- 프리로드할 리스트가 준비되지 않은 경우 리스트를 생성
-        self.m_tPreloadList = self:makeResList(stageID)
+        self.m_tPreloadList = self:makeResList(stageName)
 
-        self.m_stageID = stageID
+        self.m_stageName = stageName
         self.m_bPreparedPreloadList = true
 
         --cclog('self.m_tPreloadList = ' .. luadump(self.m_tPreloadList))
@@ -40,8 +41,8 @@ function ResPreloadMgr:loadFromStageID(stageID)
         return false
     end
 
-    local ret = self:loadRes()
-    return ret
+    self.m_bCompletedPreload = self:loadRes()
+    return self.m_bCompletedPreload
 end
 
 -------------------------------------
@@ -73,7 +74,7 @@ end
 -- function makeResList
 -- @brief 해당 스테이지 관련 리소스 목록을 얻음
 -------------------------------------
-function ResPreloadMgr:makeResList(stageID)
+function ResPreloadMgr:makeResList(stageName)
     local ret = {}
     local temp = {}
 
@@ -102,9 +103,8 @@ function ResPreloadMgr:makeResList(stageID)
     end
     
     -- 스테이지(적군) 관련 리소스
-    do
-        -- TODO: 프리로드 정보 파일을 열어서 해당 스테이지의 리소스 목록을 가져옴
-        local tList = self:getPreloadList_Stage(stageID)
+    if stageName then
+        local tList = self:getPreloadList_Stage(stageName)
         for _, k in ipairs(tList) do
             temp[k] = true
         end
@@ -132,15 +132,18 @@ function ResPreloadMgr:caching(res_name)
 	elseif string.match(res_name, '%.vrp') then
 		res_name = string.gsub(res_name, '%.vrp', '')
 		
+        --[[
 		-- plist 등록(SpriteFrame 캐싱)
 		local plist_name = res_name .. '.plist'
 		if cc.FileUtils:getInstance():isFileExist(plist_name) then
 			cc.SpriteFrameCache:getInstance():addSpriteFrames(plist_name)
 		end
+        ]]--
 
 		-- vrp를 생성(VRP 캐싱)
 		local node = cc.AzVRP:create(res_name .. '.vrp')
         if node then
+            node:loadPlistFiles('')
 		    node:buildSprite('')
         else
             cclog('## ERROR!! ResPreloadMgr:caching() file not exist', res_name)

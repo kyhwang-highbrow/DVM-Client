@@ -173,10 +173,10 @@ function SceneGame:prepare()
 
     self:addLoading(function()
         -- 리소스 프리로드
-        local ret = self.m_resPreloadMgr:loadFromStageID(self.m_stageID)
+        local ret = self.m_resPreloadMgr:loadFromStageName(self.m_stageName)
         return ret
     end)
-
+    
     self:addLoading(function()
         self.m_inGameUI:init_debugUI()
     end)
