@@ -391,6 +391,10 @@ end
 -- function isFirstWave
 -------------------------------------
 function WaveMgr:isFirstWave()
+    if (self.m_bDevelopMode) then 
+        return true
+    end
+
     return (self.m_currWave == 1)
 end
 
