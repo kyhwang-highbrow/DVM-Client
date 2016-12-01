@@ -20,6 +20,13 @@ function ServerData_User:get(...)
 end
 
 -------------------------------------
+-- function applyServerData
+-------------------------------------
+function ServerData_User:applyServerData(data, ...)
+    return self.m_serverData:applyServerData(data, 'user', ...)
+end
+
+-------------------------------------
 -- function getFruitCount
 -- @brief 보유중인 열매 갯수 리턴
 -------------------------------------

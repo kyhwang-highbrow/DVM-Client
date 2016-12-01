@@ -941,73 +941,35 @@ end
 -- function makeResultUI
 -------------------------------------
 function GameState:makeResultUI(is_success)
-    -- 웨이브 진행 정도(클리어 시 100%)
-    local wave_rate = ((self.m_world.m_waveMgr.m_currWave - 1) / self.m_world.m_waveMgr.m_maxWave)
-    if is_success then
-        wave_rate = 1
-    end
-
-    local l_dragon_list = {}
-    local stage_id = self.m_world.m_stageID
-
-    -- 테이머 경험치 상승 (서버 연동 시 삭제 필요함)
-    local t_tamer_levelup_data = g_userDataOld:addTamerExpAtStage(stage_id, wave_rate)
-
-    local table_drop = TABLE:get('drop')
-    local t_drop = table_drop[stage_id]
-    local add_exp = t_drop and t_drop['dragon_exp'] or 0
-    add_exp = math_floor(add_exp * wave_rate)
-
-    -- 경험치 상승
-    local l_deck = g_deckData:getDeck('1')
-    local table_dragon = TABLE:get('dragon')
-    for i,v in pairs(l_deck) do
-        local t_dragon_data = g_dragonsData:getDragonDataFromUid(v)
-        local t_dragon = table_dragon[t_dragon_data['did']]
-        local t_levelup_data = CalcDragonExp(t_dragon_data, add_exp)
-        table.insert(l_dragon_list, {user_data=t_dragon_data, table_data=t_dragon, levelup_data=t_levelup_data})
-    end
-
-    local world = self.m_world
-
-
+    -- 작업 함수들
     local func_network_game_finish
-    local func_drop
-    local func_exp
     local func_ui_result
 
-    local box_grade = 'c'
-    local l_drop_item_list = {}
+    -- UI연출에 필요한 테이블들
+    local t_result_ref = {}
+    t_result_ref['user_levelup_data'] = {}
+    t_result_ref['dragon_levelu_data_list'] = {}
+    t_result_ref['drop_reward_grade'] = 'c'
+    t_result_ref['drop_reward_list'] = {}
 
-    -- 0. 네트워크 통신
+    -- 1. 네트워크 통신
     func_network_game_finish = function()
-        -- 개발 스테이지임
-        if (g_gameScene.m_gameKey == nil) then
-            func_drop()
-        else
-            local t_param = self:makeGameFinishParam(is_success)
-            g_gameScene:networkGameFinish(t_param, func_drop)
-        end
+        local t_param = self:makeGameFinishParam(is_success)
+        g_gameScene:networkGameFinish(t_param, t_result_ref, func_ui_result)
     end
 
-    -- 1. 아이템 드랍
-    func_drop = function()
-        if is_success then
-            box_grade, l_drop_item_list = self:dropItem(func_exp)
-        else
-            func_exp()
-        end
-    end
-
-    -- 2. 경험치 상승
-    func_exp = function()
-        self:tempNetwork(l_dragon_list, func_ui_result)
-    end
-
-    -- 3. UI 생성
+    -- 2. UI 생성
     func_ui_result = function()
-        local stage_id = self.m_world.m_stageID
-        UI_GameResultNew(stage_id, is_success, self.m_fightTimer, world.m_gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list)
+        local world = self.m_world
+        local stage_id = world.m_stageID
+        UI_GameResultNew(stage_id,
+            is_success,
+            self.m_fightTimer,
+            world.m_gold,
+            t_result_ref['user_levelup_data'],
+            t_result_ref['dragon_levelu_data_list'],
+            t_result_ref['drop_reward_grade'],
+            t_result_ref['drop_reward_list'])
     end
 
     -- 최초 실행
@@ -1027,7 +989,7 @@ function GameState:makeGameFinishParam(is_success)
     do-- 경험치 보정치 ( 실패했을 경우 사용 ) ex : 66% 인경우 66
         local wave_rate = ((self.m_world.m_waveMgr.m_currWave - 1) / self.m_world.m_waveMgr.m_maxWave)
         wave_rate = math_floor(wave_rate * 100)
-        t_param['exp_rate'] = wave_rate
+        t_param['exp_rate'] = math_clamp(wave_rate, 0, 100)
     end
 
     do-- 미션 성공 여부 (성공시 1, 실패시 0)
@@ -1042,51 +1004,6 @@ function GameState:makeGameFinishParam(is_success)
 
     return t_param
 end
-
--------------------------------------
--- function tempNetwork
--- @brief 임시 네트워크 통신
--------------------------------------
-function GameState:tempNetwork(l_dragon_list, finish_cb)
-    local t_dragon_list = clone(l_dragon_list)
-
-    local do_work
-
-    local uid = g_userData:get('uid')
-
-    local ui_network = UI_Network()
-    ui_network:setReuse(true)
-    ui_network:setUrl('/dragons/update')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('act', 'update')
-
-    do_work = function(ret)
-        local t_data = t_dragon_list[1]
-
-        if t_data then
-            table.remove(t_dragon_list, 1)
-            local unique_id = t_data['user_data']['id']
-            local lv = t_data['user_data']['lv']
-            local exp = t_data['user_data']['exp']
-            ui_network:setParam('did', unique_id)
-            ui_network:setParam('lv', lv)
-            ui_network:setParam('exp', exp)
-            ui_network:request()
-        else
-            ui_network:close()
-            finish_cb()
-        end
-
-        if ret and ret['dragon'] then
-            g_dragonsData:applyDragonData(ret['dragon'])
-        end
-    end
-    ui_network:setSuccessCB(do_work)
-    
-    
-    do_work()
-end
-
 
 -------------------------------------
 -- function waveChange

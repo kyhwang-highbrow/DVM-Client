@@ -27,3 +27,52 @@ function TableUserLevel:getUserLevelExpPercentage(lv, exp)
 
     return percentage
 end
+
+-------------------------------------
+-- function getReqExp
+-- @breif
+-------------------------------------
+function TableUserLevel:getReqExp(lv)
+    local t_user_level = self:get(lv)
+    return t_user_level['req_exp']
+end
+
+-------------------------------------
+-- function getBetweenExp
+-- @breif 두 레벨과 경험치 사이의 경험치를 리턴
+-------------------------------------
+function TableUserLevel:getBetweenExp(low_lv, low_lv_exp, high_lv, high_lv_exp)
+
+    if (high_lv < low_lv) then
+        error()
+    end
+
+    if (low_lv == high_lv) and (high_lv_exp < low_lv_exp) then
+        error()
+    end
+
+    local between_exp = 0
+
+    for i=low_lv, high_lv do
+        local t_table = self:get(i)
+
+        if (i == low_lv) then
+            if (low_lv == high_lv) then
+                between_exp = between_exp + (high_lv_exp - low_lv_exp)
+            else
+                between_exp = between_exp + (t_table['req_exp'] - low_lv_exp)
+            end
+
+        elseif (i < high_lv) then
+            between_exp = between_exp + t_table['req_exp']
+
+        elseif (i == high_lv) then
+            between_exp = between_exp + high_lv_exp
+
+        else
+            error()
+        end
+    end
+
+    return between_exp
+end

@@ -40,7 +40,8 @@ SceneGame = class(PerpleScene, {
 -------------------------------------
 -- function init
 -------------------------------------
-function SceneGame:init(stage_id, stage_name, develop_mode)
+function SceneGame:init(game_key, stage_id, stage_name, develop_mode)
+    self.m_gameKey = game_key
     self.m_stageID = stage_id
     self.m_stageName = stage_name
     self.m_bUseLoadingUI = true
@@ -400,11 +401,18 @@ end
 -- function networkGameFinish
 -- @breif
 -------------------------------------
-function SceneGame:networkGameFinish(t_param, next_func)
+function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
+    if (self.m_stageID == 99999) then
+        if next_func then
+            next_func()
+        end
+        return
+    end
+
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
-        self:networkGameFinish_response(ret)        
+        self:networkGameFinish_response(ret, t_result_ref)
 
         if next_func then
             next_func()
@@ -429,10 +437,115 @@ end
 -------------------------------------
 -- function networkGameFinish_response
 -- @breif
+-- @param t_result_ref 결과화면에서 사용하기 위한 각종 정보들 저장
+--        t_result_ref['user_levelup_data'] = {}
+--        t_result_ref['dragon_levelu_data_list'] = {}
+--        t_result_ref['drop_reward_grade'] = 'c'
+--        t_result_ref['drop_reward_list'] = {}
 -------------------------------------
-function SceneGame:networkGameFinish_response(ret)
+function SceneGame:networkGameFinish_response(ret, t_result_ref)
     -- server_info, staminas 정보를 갱신
     g_serverData:networkCommonRespone(ret)
 
-    -- @TODO 중간 커밋 후 작업 예정
+    -- 유저 정보 변경사항 적용 (레벨, 경험치)
+    self:networkGameFinish_response_user_info(ret, t_result_ref)
+
+    -- 변경된 드래곤 적용
+    self:networkGameFinish_response_modified_dragons(ret, t_result_ref)
+
+
+    -- 드랍 정보 drop_reward
+    -- 스테이지 클리어 정보 stage_clear_info
+end
+
+-------------------------------------
+-- function networkGameFinish_response_user_info
+-- @breif 유저 정보 변경사항 적용 (레벨, 경험치)
+-------------------------------------
+function SceneGame:networkGameFinish_response_user_info(ret, t_result_ref)
+    local user_levelup_data = t_result_ref['user_levelup_data']
+
+    -- 이전 레벨과 경험치
+    user_levelup_data['prev_lv'] = g_userData:get('lv')
+    user_levelup_data['prev_exp'] = g_userData:get('exp')
+
+    do -- 서버에서 넘어온 레벨과 경험치 적용
+        if ret['lv'] then
+            g_userData:applyServerData(ret['lv'], 'lv')
+        end
+
+        if ret['exp'] then
+            g_userData:applyServerData(ret['exp'], 'exp')
+        end
+    end
+
+    -- 현재 레벨과 경험치
+    user_levelup_data['curr_lv'] = g_userData:get('lv')
+    user_levelup_data['curr_exp'] = g_userData:get('exp')
+
+    -- 현재 레벨의 최대 경험치
+    local table_user_level = TableUserLevel()
+    local lv = g_userData:get('lv')
+    local curr_max_exp = table_user_level:getReqExp(lv)
+    user_levelup_data['curr_max_exp'] = curr_max_exp
+
+    -- 최대 레벨 여부
+    user_levelup_data['is_max_level'] = (curr_max_exp == 0)
+
+    do -- 추가 경험치 총량
+        local low_lv = user_levelup_data['prev_lv']
+        local low_lv_exp = user_levelup_data['prev_exp']
+        local high_lv = user_levelup_data['curr_lv']
+        local high_lv_exp = user_levelup_data['curr_exp']
+        user_levelup_data['add_exp'] = table_user_level:getBetweenExp(low_lv, low_lv_exp, high_lv, high_lv_exp)
+    end    
+end
+
+-------------------------------------
+-- function networkGameFinish_response_modified_dragons
+-- @breif 드래곤 변경사항 적용 (레벨, 경험치)
+-------------------------------------
+function SceneGame:networkGameFinish_response_modified_dragons(ret, t_result_ref)
+    if (not ret['modified_dragons']) then
+        return
+    end
+
+    local dragon_levelu_data_list = t_result_ref['dragon_levelu_data_list']
+    local table_dragon = TableDragon()
+
+    for _,t_dragon in ipairs(ret['modified_dragons']) do
+        local udid = t_dragon['id']
+        local did = t_dragon['did']
+            
+        -- 변경 전 드래곤 정보
+        local t_prev_dragon_data = g_dragonsData:getDragonDataFromUid(udid)
+
+        -- 서버에서 넘어온 드래곤 정보 저장
+        g_dragonsData:applyDragonData(t_dragon)
+
+        -- 변경 후 드래곤 정보
+        local t_next_dragon_data = g_dragonsData:getDragonDataFromUid(udid)
+
+        -- 드래곤 레벨업 연출을 위한 데이터
+        local levelup_data = {}
+        do
+             levelup_data['prev_lv'] = t_prev_dragon_data['lv']
+             levelup_data['prev_exp'] = t_prev_dragon_data['exp']
+             levelup_data['curr_lv'] = t_next_dragon_data['lv']
+             levelup_data['curr_exp'] = t_next_dragon_data['exp']
+
+             local max_level = dragonMaxLevel(t_next_dragon_data['grade'])
+             local is_max_level = (t_next_dragon_data['lv'] >= max_level)
+             levelup_data['is_max_level'] = is_max_level
+        end
+
+        -- t_data에 정보를 담음
+        local t_data = {}
+        t_data['levelup_data'] = levelup_data
+        t_data['user_data'] = t_next_dragon_data
+        t_data['table_data'] = table_dragon:get(did)
+
+        -- 레퍼런스 테이블에 insert
+        table.insert(dragon_levelu_data_list, t_data)
+    end
 end

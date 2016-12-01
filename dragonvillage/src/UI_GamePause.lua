@@ -48,7 +48,7 @@ function UI_GamePause:click_retryButton()
     -- 현재 g_currScene은 SceneGame이어야 한다
     local stage_name = g_currScene.m_stageName
 
-    local scene = SceneGame(g_currScene.m_stageID, stage_name)
+    local scene = SceneGame(g_currScene.m_gameKey, g_currScene.m_stageID, stage_name)
     scene:runScene()
 end
 

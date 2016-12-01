@@ -225,6 +225,28 @@ function ServerData:networkCommonRespone(ret)
     -- 스태미나 동기화
     if (ret['staminas']) then
         local data = ret['staminas']
-        g_serverData:applyServerData(data, 'user', 'staminas')
+        self:applyServerData(data, 'user', 'staminas')
+    end
+
+    do -- 재화 관련
+        -- 캐시
+        if ret['cash'] then
+            self:applyServerData(ret['cash'], 'user', 'cash')    
+        end
+
+        -- 골드
+        if ret['gold'] then
+            self:applyServerData(ret['gold'], 'user', 'gold')    
+        end
+
+        -- 열매 갯수
+        if ret['fruits'] then
+            self:applyServerData(ret['fruits'], 'user', 'fruits')
+        end
+
+        -- 진화 재료 갱신
+        if ret['evolution_stones'] then
+            g_serverData:applyServerData(ret['evolution_stones'], 'user', 'evolution_stones')
+        end
     end
 end

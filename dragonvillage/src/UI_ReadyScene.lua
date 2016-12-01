@@ -284,7 +284,7 @@ function UI_ReadyScene:click_startBtn()
 
     -- 개발 스테이지
     if (stage_id == 99999) then
-        local scene = SceneGame(stage_id, 'stage_dev', true)
+        local scene = SceneGame(nil, stage_id, 'stage_dev', true)
         scene:runScene()
         return
     end
@@ -316,8 +316,7 @@ function UI_ReadyScene:replaceGameScene(game_key)
     local stage_id = self.m_stageID
 
     local stage_name = 'stage_' .. stage_id
-    local scene = SceneGame(stage_id, stage_name, false)
-    scene.m_gameKey = game_key
+    local scene = SceneGame(game_key, stage_id, stage_name, false)
     scene:runScene()
 end
 

@@ -73,14 +73,11 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
         end
     end
     
-    do -- 유저 레벨, 경험치
-        local lv, exp, percentage = g_userData:getUserLevelInfo()
+    -- 유저 레벨, 경험치
+    if (0 < table.count(t_tamer_levelup_data)) then
         vars['userExpLabel']:setString(Str('경험치 +{1}', t_tamer_levelup_data['add_exp']))
-        vars['userLvLabel']:setString(Str('레벨{1}', lv))
-        vars['userExpGg']:setPercentage(percentage)
-        --vars['userExpLabel']:setString(Str('경험치 +{1}', t_tamer_levelup_data['add_exp']))
-        --vars['userLvLabel']:setString(Str('레벨{1}', t_tamer_levelup_data['curr_lv']))
-        --vars['userExpGg']:setPercentage(t_tamer_levelup_data['curr_exp'] / t_tamer_levelup_data['curr_max_exp'] * 100)
+        vars['userLvLabel']:setString(Str('레벨{1}', t_tamer_levelup_data['curr_lv']))
+        vars['userExpGg']:setPercentage(t_tamer_levelup_data['curr_exp'] / t_tamer_levelup_data['curr_max_exp'] * 100)
     end
 
 
@@ -478,11 +475,14 @@ end
 -- function click_retryBtn
 -------------------------------------
 function UI_GameResultNew:click_retryBtn()
+    --[[
     -- 현재 g_currScene은 SceneGame이어야 한다
     local stage_name = g_currScene.m_stageName
 
-    local scene = SceneGame(g_currScene.m_stageID, stage_name)
+    local scene = SceneGame(g_currScene.m_gameKey, g_currScene.m_stageID, stage_name)
     scene:runScene()
+    --]]
+    UIManager:toastNotificationGreen(Str('"다시하기" 버튼 개편 예정입니다.'))
 end
 
 -------------------------------------
