@@ -503,6 +503,13 @@ function GameWorld:initBG()
         self.m_mapManager:setBg(bg)
         self.m_mapManager:setSpeed(-100)
 
+        local difficulty, chapter, stage = parseAdventureID(self.m_stageID)
+        if chapter == 2 then
+            self.m_mapManager:setFloating(2)
+        else
+            self.m_mapManager:setFloating(1)
+        end
+
     else
         error('bg_type : ' .. bg_type)
 

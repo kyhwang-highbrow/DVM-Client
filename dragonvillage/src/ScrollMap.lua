@@ -33,14 +33,6 @@ function ScrollMap:init(node)
     self.m_colorScale = 100
 
     self.m_floatingType = 0
-
-    -- 임시 처리
-    local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
-    if chapter == 2 then
-        self:setFloating(2)
-    else
-        self:setFloating(1)
-    end
 end
 
 -------------------------------------
