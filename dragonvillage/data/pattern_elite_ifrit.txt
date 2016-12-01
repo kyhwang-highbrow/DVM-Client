@@ -1,0 +1,23 @@
+{
+	"pattern_elite_ifrit":
+	[			
+		[
+			"a;1", "w;5"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":1,
+                "pattern":
+                [
+					"a;1", "w;3"
+                ]
+            }
+        ]
+    }
+}

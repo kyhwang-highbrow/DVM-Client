@@ -1,0 +1,23 @@
+{
+	"pattern_elite_lizard_man_shaman":
+	[			
+		[
+			"a;1", "w;10"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":1,
+                "pattern":
+                [
+					"a;1", "w;3"
+                ]
+            }
+        ]
+    }
+}

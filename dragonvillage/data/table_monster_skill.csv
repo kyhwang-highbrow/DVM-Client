@@ -50,6 +50,9 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 231003,script,skill_elite_3,엘리트_3,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 231004,script,skill_elite_4,엘리트_4,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 231005,script,skill_elite_5,엘리트_5,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
+231006,script,skill_elite_ifrit_1,엘리트_이프리트,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
+231007,script,skill_elite_lizard_man_shaman_1,엘리트_도마뱀 인간 주술사,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
+231008,script,skill_elite_gargoyle_1,엘리트_가고일,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
 232011,script,skill_subboss_mushqueen_1,여왕버섯,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
 232012,script,skill_subboss_mushqueen_2,여왕버섯,x,x,x,skill_1,instant,physical,0,basic_turn,4,enemy_distance_line,3,atk,50,1,0,0,0,0,0,x,x,x,0,x,x
 232013,script,skill_subboss_mushqueen_3,여왕버섯,x,x,x,skill_1,instant,physical,0,basic_turn,5,enemy_distance_line,5,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
@@ -59,12 +62,12 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 232031,script,skill_subboss_griffin_1,그리핀,x,x,x,skill_1,instant,physical,0,basic_turn,1,enemy_distance_line,2,atk,30,1,0,0,0,0,0,x,x,x,0,x,x
 232032,script,skill_subboss_griffin_2,그리핀,x,x,x,skill_2,instant,physical,0,basic_turn,2,enemy_distance_line,2,atk,50,1,0,0,0,0,0,x,x,x,0,x,x
 232033,script,skill_subboss_griffin_3,그리핀,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,5,atk,50,1,0,0,0,0,0,x,x,x,0,x,x
-232041,status_effect,skill_subboss_chariot_scarab_01_1,분노,x,x,x,skill_1,instant,physical,0,basic_turn,3,self,1,atk,1,1,0,0,0,0,0,x,def_up;target;10;100;100,x,0,x,x
-232042,script,skill_subboss_chariot_scarab_01_2,꿰뚫기,x,x,x,skill_1,instant,physical,0,basic_turn,4,enemy_distance_line,1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
-232043,code,skill_summon_die,탈출,x,x,x,skill_1,instant,physical,0,basic_turn,5,enemy_distance_line,1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
-232051,status_effect,skill_subboss_chariot_scarab_02_1,인내,x,x,x,skill_1,instant,physical,0,basic_turn,3,self,1,atk,1,1,0,0,0,0,0,x,atk_up;target;10;100;100,x,0,x,x
-232052,script,skill_subboss_chariot_scarab_02_2,초토화,x,x,x,skill_1,instant,physical,0,basic_turn,4,enemy_distance_line,1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
-232053,code,skill_summon_die,탈출,x,x,x,skill_1,instant,physical,0,basic_turn,5,enemy_distance_line,1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
+232041,status_effect,skill_subboss_chariot_scarab_01_1,전차 풍뎅이(돌격): 분노,x,x,x,skill_1,instant,physical,0,basic_turn,3,self,1,atk,1,1,0,0,0,0,0,x,def_up;target;10;100;100,x,0,x,x
+232042,script,skill_subboss_chariot_scarab_01_2,전차 풍뎅이(돌격): 꿰뚫기,x,x,x,skill_1,instant,physical,0,basic_turn,4,enemy_distance_line,1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
+232043,code,skill_summon_die,전차 풍뎅이(돌격): 탈출,x,x,x,skill_1,instant,physical,0,basic_turn,5,enemy_distance_line,1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
+232051,status_effect,skill_subboss_chariot_scarab_02_1,전차 풍뎅이(포격): 인내,x,x,x,skill_1,instant,physical,0,basic_turn,3,self,1,atk,1,1,0,0,0,0,0,x,atk_up;target;10;100;100,x,0,x,x
+232052,script,skill_subboss_chariot_scarab_02_2,전차 풍뎅이(포격): 초토화,x,x,x,skill_1,instant,physical,0,basic_turn,4,enemy_distance_line,1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
+232053,code,skill_summon_die,전차 풍뎅이(포격): 탈출,x,x,x,skill_1,instant,physical,0,basic_turn,5,enemy_distance_line,1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
 233100,script,skill_boss_queenssnake_0,퀸즈스네이크 : 기본 공격 (attack),x,x,x,attack,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
 233101,script,skill_boss_queenssnake_1,퀸즈스네이크 : 벌집 던지기 (우측상단 집중공격),x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
 233102,script,skill_boss_queenssnake_2,퀸즈스네이크 : 벌집 탄막 (skill_2_loop),x,x,x,skill_2,maintain,physical,-2,basic_turn,1,enemy_distance_line,4,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
