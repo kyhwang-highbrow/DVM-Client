@@ -560,6 +560,15 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ValidationAssistant.lua" />
     <None Include="..\src\ValidationDragon.lua" />
     <None Include="..\src\WaveMgr.lua" />
+    <None Include="..\src_tool\entry_ui_viewer.lua" />
+    <None Include="..\src_tool\entry_viewer.lua" />
+    <None Include="..\src_tool\entry_wave_maker.lua" />
+    <None Include="..\src_tool\redefine.lua" />
+    <None Include="..\src_tool\SceneIngameTest.lua" />
+    <None Include="..\src_tool\SceneViewer.lua" />
+    <None Include="..\src_tool\SceneWaveMaker.lua" />
+    <None Include="..\src_tool\Scene_UIViewer.lua" />
+    <None Include="..\src_tool\UI_WaveMaker.lua" />
     <None Include="build-cfg.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

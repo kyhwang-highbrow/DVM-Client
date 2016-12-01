@@ -997,6 +997,33 @@
     <None Include="..\src\TableUserLevel.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src_tool\Scene_UIViewer.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\SceneIngameTest.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\SceneViewer.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\SceneWaveMaker.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\UI_WaveMaker.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\entry_ui_viewer.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\entry_viewer.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\entry_wave_maker.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\redefine.lua">
+      <Filter>lua_tool</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
@@ -1037,6 +1064,9 @@
     </Filter>
     <Filter Include="lua\UIC">
       <UniqueIdentifier>{9fb02849-a183-4c31-ac99-1ad8c865423c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua_tool">
+      <UniqueIdentifier>{1e095777-9941-4d5a-bba9-fbab8cd680b9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
