@@ -991,9 +991,6 @@
     <None Include="..\src\ResPreloadMgr.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\ResPreloadMgr_List.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\TableUserLevel.lua">
       <Filter>lua</Filter>
     </None>
@@ -1023,6 +1020,9 @@
     </None>
     <None Include="..\src_tool\redefine.lua">
       <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src\ResPreloadHelper.lua">
+      <Filter>lua</Filter>
     </None>
     <None Include="..\src\TableDragonTrainInfo.lua">
       <Filter>lua</Filter>

@@ -118,7 +118,7 @@ function SkillIndicator:changeSIState(state)
         self.m_hero:makeSkillPrepareEffect()
 
     elseif (state == SI_STATE_DISAPPEAR) then
-        --self.m_indicatorRootNode:setVisible(false)
+        self.m_indicatorRootNode:setVisible(false)
         self:onDisappear()
 
 		-- 툴팁 닫기
@@ -208,7 +208,7 @@ function SkillIndicator:onDisappear()
 end
 
 -------------------------------------
--- function findTarget
+-- function setIndicatorVisible
 -------------------------------------
 function SkillIndicator:setIndicatorVisible(isVisible)
 	if self.m_indicatorRootNode then

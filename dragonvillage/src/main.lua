@@ -87,6 +87,7 @@ local function main()
         scene:runScene()
     end
 
+    savePreloadFile()
 end
 
 local status, msg = xpcall(main, __G__TRACKBACK__)

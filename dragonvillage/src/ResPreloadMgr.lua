@@ -30,32 +30,57 @@ function ResPreloadMgr:loadFromStageName(stageName)
     end
 
     if (not self.m_bPreparedPreloadList or self.m_stageName ~= stageName) then
-        -- 프리로드할 리스트가 준비되지 않은 경우 리스트를 생성
-        self.m_tPreloadList = self:makeResList(stageName)
-
         self.m_stageName = stageName
+        self.m_bCompletedPreload = false
         self.m_bPreparedPreloadList = true
+
+        -- 프리로드 리스트 초기화
+        self.m_tPreloadList = {}
+
+        -- 스테이지에 관련된 것들을 제외한 나머지 리소스들을 추가
+        do
+            local basePreloadList = makeResListForGame()
+            self.m_tPreloadList = basePreloadList
+        end
+
+        -- 해당 스테이지 관련 리소스 추가
+        do
+            local stagePreloadList = loadPreloadFile()
+            local addPreloadList
+
+            if stagePreloadList and stagePreloadList[stageName] then
+                addPreloadList = stagePreloadList[stageName]
+            else
+                -- 해당 스테이지의 리소스 정보가 없는 경우
+                --addPreloadList = makeResListForGame(stageName, true)
+            end
+
+            if addPreloadList then
+                for _, res in pairs(addPreloadList) do
+                    table.insert(self.m_tPreloadList, res)
+                end
+            end
+        end
 
         --cclog('self.m_tPreloadList = ' .. luadump(self.m_tPreloadList))
 
         return false
     end
 
-    self.m_bCompletedPreload = self:loadRes()
+    self.m_bCompletedPreload = self:_loadRes()
     return self.m_bCompletedPreload
 end
 
 -------------------------------------
--- function loadRes
+-- function _loadRes
 -------------------------------------
-function ResPreloadMgr:loadRes()
+function ResPreloadMgr:_loadRes()
     local limitedCount = 10  -- 프레임마다 처리될 리소스 수
     local count = 0
     local t_remove = {}
 
     for i, v in ipairs(self.m_tPreloadList) do
-        --cclog('ResPreloadMgr:loadRes ' .. v)
-        self:caching(v)
+        resCaching(v)
         count = count + 1
 
         table.insert(t_remove, 1, i)
@@ -68,96 +93,4 @@ function ResPreloadMgr:loadRes()
 	end
 
     return (#self.m_tPreloadList == 0)
-end
-
--------------------------------------
--- function makeResList
--- @brief 해당 스테이지 관련 리소스 목록을 얻음
--------------------------------------
-function ResPreloadMgr:makeResList(stageName)
-    local ret = {}
-    local temp = {}
-
-    -- 공용 리소스
-    do
-        local tList = self:getPreloadList_Common()
-        for _, k in ipairs(tList) do
-            temp[k] = true
-        end
-    end
-
-    -- 테이머 관련 리소스
-    do
-        local tList = self:getPreloadList_Tamer()
-        for _, k in ipairs(tList) do
-            temp[k] = true
-        end
-    end
-
-    -- 아군 관련 리소스
-    do
-        local tList = self:getPreloadList_Hero()
-        for _, k in ipairs(tList) do
-            temp[k] = true
-        end
-    end
-    
-    -- 스테이지(적군) 관련 리소스
-    if stageName then
-        local tList = self:getPreloadList_Stage(stageName)
-        for _, k in ipairs(tList) do
-            temp[k] = true
-        end
-    end
-
-    -- 인덱스형 테이블로 변환
-    for k, _ in pairs(temp) do
-        table.insert(ret, k)
-    end
-
-    return ret
-end
-
--------------------------------------
--- function caching
--------------------------------------
-function ResPreloadMgr:caching(res_name)
-    if (not res_name) or (string.len(res_name) == 0) then return end
-
-    -- plist
-    if string.match(res_name, '%.plist') then
-        cc.SpriteFrameCache:getInstance():addSpriteFrames(res_name)
-
-    -- vrp
-	elseif string.match(res_name, '%.vrp') then
-		res_name = string.gsub(res_name, '%.vrp', '')
-		
-        --[[
-		-- plist 등록(SpriteFrame 캐싱)
-		local plist_name = res_name .. '.plist'
-		if cc.FileUtils:getInstance():isFileExist(plist_name) then
-			cc.SpriteFrameCache:getInstance():addSpriteFrames(plist_name)
-		end
-        ]]--
-
-		-- vrp를 생성(VRP 캐싱)
-		local node = cc.AzVRP:create(res_name .. '.vrp')
-        if node then
-            node:loadPlistFiles('')
-		    node:buildSprite('')
-        else
-            cclog('## ERROR!! ResPreloadMgr:caching() file not exist', res_name)
-        end
-
-    -- spine
-    elseif string.match(res_name, '%.spine') then
-		res_name = string.gsub(res_name, '%.spine', '')
-		
-		local node = sp.SkeletonAnimation:create(res_name .. '.json', res_name ..  '.atlas', 1)
-        if node then
-            
-        else
-            cclog('## ERROR!! ResPreloadMgr:caching() file not exist', res_name)
-        end
-	end
 end
