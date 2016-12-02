@@ -453,8 +453,9 @@ function SceneGame:networkGameFinish_response(ret, t_result_ref)
     -- 변경된 드래곤 적용
     self:networkGameFinish_response_modified_dragons(ret, t_result_ref)
 
-
     -- 드랍 정보 drop_reward
+    self:networkGameFinish_response_drop_reward(ret, t_result_ref)
+
     -- 스테이지 클리어 정보 stage_clear_info
 end
 
@@ -547,5 +548,27 @@ function SceneGame:networkGameFinish_response_modified_dragons(ret, t_result_ref
 
         -- 레퍼런스 테이블에 insert
         table.insert(dragon_levelu_data_list, t_data)
+    end
+end
+
+-------------------------------------
+-- function networkGameFinish_response_drop_reward
+-- @breif 드랍 보상 데이터 처리
+-------------------------------------
+function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
+    if (not ret['drop_reward']) then
+        return
+    end
+
+    -- 보상 등급 지정
+    t_result_ref['drop_reward_grade'] = ret['drop_reward_grade'] or 'c'
+
+    local drop_reward_list = t_result_ref['drop_reward_list']
+
+    for i,v in ipairs(ret['drop_reward']) do
+        local item_id = tonumber(v['item_id'])
+        local count = tonumber(v['num'])
+        local t_data = {item_id, count}
+        table.insert(drop_reward_list, t_data)
     end
 end
