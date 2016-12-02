@@ -41,6 +41,15 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     local vars = self:load('ingame_result_popup_new.ui')
     UIManager:open(self, UIManager.POPUP)
 
+    -- 스테이지를 클리어했을 경우 다음 스테이지 ID 지정
+    if (is_success == true) then
+        local stage_id = self.m_stageID
+        local next_stage_id = g_adventureData:getNextStageID(stage_id)
+        if next_stage_id then
+            g_adventureData:setFocusStage(next_stage_id)
+        end
+    end
+
     vars['homeBtn']:registerScriptTapHandler(function() self:click_homeBtn() end)
     vars['againBtn']:registerScriptTapHandler(function() self:click_retryBtn() end)
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
@@ -487,14 +496,10 @@ end
 -- function click_retryBtn
 -------------------------------------
 function UI_GameResultNew:click_retryBtn()
-    --[[
-    -- 현재 g_currScene은 SceneGame이어야 한다
-    local stage_name = g_currScene.m_stageName
+    local stage_id = self.m_stageID
 
-    local scene = SceneGame(g_currScene.m_gameKey, g_currScene.m_stageID, stage_name)
+    local scene = SceneAdventure(stage_id)
     scene:runScene()
-    --]]
-    UIManager:toastNotificationGreen(Str('"다시하기" 버튼 개편 예정입니다.'))
 end
 
 -------------------------------------

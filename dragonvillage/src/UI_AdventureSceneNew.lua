@@ -35,7 +35,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_AdventureSceneNew:init()
+function UI_AdventureSceneNew:init(stage_id)
     local vars = self:load('adventure_scene_02.ui')
     UIManager:open(self, UIManager.NORMAL)
 
@@ -64,7 +64,7 @@ function UI_AdventureSceneNew:init()
     self:makeShipObject()
 
     -- 마지막에 진입한 챕터로 진입
-    local last_stage = g_adventureData.m_tData['last_stage']
+    local last_stage = (stage_id or g_adventureData.m_tData['last_stage'])
     local difficulty, chapter, stage = parseAdventureID(last_stage)
     self:refreshChapter(chapter, difficulty, stage)
 end
