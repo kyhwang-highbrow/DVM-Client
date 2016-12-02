@@ -7,7 +7,7 @@
             <key>bg_volcano_1_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,358},{1922,1600}}</string>
+                <string>{{2,2},{1922,1600}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -17,16 +17,16 @@
                 <key>sourceSize</key>
                 <string>{1922,1600}</string>
             </dict>
-            <key>bg_volcano_4_b.png</key>
+            <key>bg_volcano_2_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{2004,354}}</string>
+                <string>{{2,1604},{1866,380}}</string>
                 <key>offset</key>
-                <string>{-3,-623}</string>
+                <string>{87,-214}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{19,1246},{2004,354}}</string>
+                <string>{{178,824},{1866,380}}</string>
                 <key>sourceSize</key>
                 <string>{2048,1600}</string>
             </dict>
@@ -38,9 +38,9 @@
             <key>realTextureFileName</key>
             <string>volcano_1.png</string>
             <key>size</key>
-            <string>{2008,1960}</string>
+            <string>{1926,1986}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b1fa0fab531bd6eb51de47915c71fd47:002af8ee6f627f060ffa6f8ebc6a67b9:f77de0003325ee3d137ad2c8b8959a8b$</string>
+            <string>$TexturePacker:SmartUpdate:d4a56a9cba0353b72efccc5c53d447e8:971f6bd85be19e02b95d0d528f6f0fcb:f77de0003325ee3d137ad2c8b8959a8b$</string>
             <key>textureFileName</key>
             <string>volcano_1.png</string>
         </dict>
