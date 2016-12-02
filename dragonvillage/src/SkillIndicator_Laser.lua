@@ -34,9 +34,7 @@ function SkillIndicator_Laser:onTouchMoved(x, y)
     local pos_x, pos_y = self:getAttackPosition()
     local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
 
-	local t_collision_obj = self:findTarget(pos_x, pos_y, dir)
-
-    -- 각도 제한
+	-- 각도 제한
     local change_degree = false
     if (30 < dir) and (dir <= 180) then
         dir = 30
@@ -70,6 +68,7 @@ function SkillIndicator_Laser:onTouchMoved(x, y)
     end
 
 	-- 하이라이트 갱신
+	local t_collision_obj = self:findTarget(pos_x, pos_y, dir)
 	self:setHighlightEffect(t_collision_obj)
 end
 

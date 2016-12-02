@@ -161,6 +161,7 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 			local dest = t_skill['val_3']
 			local enemy = char.m_world.m_waveMgr:spawnEnemy_dynamic(mid, lv, 'Appear', nil, dest, 0.5)
 			enemy:setPosition(char.pos.x, char.pos.y)
+			enemy:setHomePos(char.pos.x, char.pos.y)
 		end
 	end
 		
@@ -211,7 +212,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	----------- 특이한 해제 조건을 가진 것들 ------------------
 	elseif isExistValue(status_effect_type, 'sleep') then
 		status_effect = StatusEffect_Trigger_Release(res)
-		status_effect:init_trigger('undergo_attack', char)
+		status_effect:init_trigger(char, 'undergo_attack', nil)
 
     else
         status_effect = StatusEffect(res)

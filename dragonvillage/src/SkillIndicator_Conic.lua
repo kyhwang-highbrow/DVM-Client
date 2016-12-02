@@ -29,8 +29,6 @@ function SkillIndicator_Conic:onTouchMoved(x, y)
     local pos_x, pos_y = self:getAttackPosition()
     local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
 	
-	local t_collision_obj = self:findTargetList(x, y, dir)
-
 	-- 1. 각도 제한
     local isChangeDegree = true
 	if (dir > 30) and (dir < 180) then 
@@ -41,15 +39,16 @@ function SkillIndicator_Conic:onTouchMoved(x, y)
         isChangeDegree = false
 	end
 
-	if isChangeDegree then 
+	if (not isChangeDegree) then 
 		self.m_targetPosX = x
 		self.m_targetPosY = y
 	end
-    
+
 	-- 이펙트 조정
 	self.m_indicatorEffect:setRotation(dir)
 
 	-- 하이라이트 갱신
+	local t_collision_obj = self:findTargetList(x, y, dir)
     self:setHighlightEffect(t_collision_obj)
 end
 

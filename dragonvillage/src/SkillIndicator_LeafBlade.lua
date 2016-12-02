@@ -129,7 +129,6 @@ function SkillIndicator_LeafBlade:setHighlightEffect(t_collision_obj)
     end
 
     self.m_highlightList = t_collision_obj
-	    
 	if (not self.m_isPass) then
 		self:changeEffectNonePass()
 	else
@@ -277,7 +276,7 @@ end
 -------------------------------------
 function SkillIndicator_LeafBlade:onChangeTargetCount(old_target_count, cur_target_count)
 	-- 활성화
-	if (old_target_count == 0) and (cur_target_count > 0) then
+	if (cur_target_count > 0) then
 		self.m_indicatorEffect:changeAni('enemy_start_idle', true)
 		self.m_indicatorBezierEffect1:changeAni('circle', true)
 		self.m_indicatorBezierEffect2:changeAni('circle', true)
@@ -285,7 +284,7 @@ function SkillIndicator_LeafBlade:onChangeTargetCount(old_target_count, cur_targ
 		self.m_indicatorLinearEffect2:changeAni('circle', true)
 
 	-- 비활성화
-	elseif (old_target_count > 0) and (cur_target_count == 0) then
+	elseif (cur_target_count == 0) then
 		self.m_indicatorEffect:changeAni('normal_start_idle', true)
 		self.m_indicatorBezierEffect1:changeAni('circle_normal', true)
 		self.m_indicatorBezierEffect2:changeAni('circle_normal', true)
