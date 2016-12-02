@@ -87,7 +87,8 @@ local function main()
         scene:runScene()
     end
 
-    savePreloadFile()
+    -- 프리로드 파일 생성시
+    --savePreloadFile()
 end
 
 local status, msg = xpcall(main, __G__TRACKBACK__)
