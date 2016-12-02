@@ -103,41 +103,48 @@ end
 -- function summonWave
 -------------------------------------
 function WaveMgr:summonWave(idx)
-	for _, dynamic_wave in pairs(self.m_lSummonWave[idx]) do
-		self:spawnEnemy_dynamic(
-			dynamic_wave.m_enemyID, 
-			dynamic_wave.m_enemyLevel, 
-			dynamic_wave.m_movement,
-			dynamic_wave.m_luaValue1,
-			dynamic_wave.m_luaValue2,
-			dynamic_wave.m_luaValue3,
-			dynamic_wave.m_luaValue4,
-			dynamic_wave.m_luaValue5
-			)
-	end
-end
-
--------------------------------------
--- function checkSummonable
--------------------------------------
-function WaveMgr:checkSummonable(idx)
 	-- summon 스크립트가 없으면 false
 	if (not self.m_lSummonWave[idx]) then
 		return false
 	end
+	
+	-- enemy list를 순회하면서 소환하려는 위치에 몬스터가 없는 곳에 소환
+	local enemy_pos, dest_pos = nil, nil
+	local isSummonable = true
+	for _, dynamic_wave in pairs(self.m_lSummonWave[idx]) do
+		dest_pos = getEnemyPos(dynamic_wave.m_luaValue2)
+		isSummonable = true
 
-	-- enemy list를 순회하면서 소환하려는 위치에 몬스터가 있는지 체크
-	for _, enemy in pairs(self.m_world:getEnemyList()) do
-		local enemy_pos = enemy['pos']
-		for _, dynamic_wave in pairs(self.m_lSummonWave[idx]) do
-			local dest_pos = getEnemyPos(dynamic_wave.m_luaValue2)
-			if (enemy_pos['x'] == dest_pos['x']) and (enemy_pos['y'] == dest_pos['y']) then
-				return false
+		-- 소환 가능한지 체크한다.
+		for _, enemy in pairs(self.m_world:getEnemyList()) do
+			enemy_pos = enemy['pos']
+			if (enemy_pos['x'] == dest_pos['x']) or (enemy_pos['y'] == dest_pos['y']) then
+				isSummonable = false	
+				break
 			end
 		end
-	end
 
-	return true
+		-- 소환
+		if isSummonable then 
+			self:summonEnemy(dynamic_wave)
+		end
+	end
+end
+
+-------------------------------------
+-- function summonEnemy
+-------------------------------------
+function WaveMgr:summonEnemy(dynamic_wave)
+	self:spawnEnemy_dynamic(
+		dynamic_wave.m_enemyID, 
+		dynamic_wave.m_enemyLevel, 
+		dynamic_wave.m_movement,
+		dynamic_wave.m_luaValue1,
+		dynamic_wave.m_luaValue2,
+		dynamic_wave.m_luaValue3,
+		dynamic_wave.m_luaValue4,
+		dynamic_wave.m_luaValue5
+		)
 end
 
 -------------------------------------

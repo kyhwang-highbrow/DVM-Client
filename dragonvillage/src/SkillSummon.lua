@@ -51,10 +51,6 @@ function SkillSummon:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
 	local summon_idx = t_skill['val_1']
 
-    if (not owner.m_world.m_waveMgr:checkSummonable(summon_idx)) then 
-        return false
-    end
-
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
