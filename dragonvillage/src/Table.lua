@@ -43,7 +43,8 @@ local TableInfo = {
         dragon_evolution     = {'table_dragon_evolution',    'did',          false},
         evolution_item       = {'table_dragon_evolution_item',        'item_id',      false},
         friendship_variables = {'table_dragon_friendship_variables',  'vari',         false},
-        
+        dragon_train_info    = {'table_dragon_train_info',  'grade',        false},
+        dragon_train_status  = {'table_dragon_train_status','lsid',         false},
     }
 
 -------------------------------------

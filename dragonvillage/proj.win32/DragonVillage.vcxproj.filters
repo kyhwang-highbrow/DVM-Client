@@ -1024,6 +1024,12 @@
     <None Include="..\src_tool\redefine.lua">
       <Filter>lua_tool</Filter>
     </None>
+    <None Include="..\src\TableDragonTrainInfo.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\TableDragonTrainStatus.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
