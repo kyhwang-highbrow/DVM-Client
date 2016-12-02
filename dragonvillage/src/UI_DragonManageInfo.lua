@@ -68,8 +68,8 @@ function UI_DragonManageInfo:initButton()
         -- 장비
         vars['equipmentBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"장비" 미구현') end)
 
-        -- 강화
-        vars['reinforceBtn']:registerScriptTapHandler(function() self:click_reinforceBtn() end)
+        -- 수련
+        vars['trainBtn']:registerScriptTapHandler(function() self:click_trainBtn() end)
     end
 
     do -- 좌상단 버튼들 초기화
@@ -449,10 +449,10 @@ function UI_DragonManageInfo:click_friendshipBtn()
 end
 
 -------------------------------------
--- function click_reinforceBtn
--- @brief 강화 버튼 (임시로 드래곤 개발 API 팝업 호출)
+-- function click_trainBtn
+-- @brief 수련 버튼 (임시로 드래곤 개발 API 팝업 호출)
 -------------------------------------
-function UI_DragonManageInfo:click_reinforceBtn()
+function UI_DragonManageInfo:click_trainBtn()
     if (not self.m_selectDragonOID) then
         return
     end
