@@ -1030,6 +1030,9 @@
     <None Include="..\src\TableDragonTrainStatus.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_DragonManageTrain.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

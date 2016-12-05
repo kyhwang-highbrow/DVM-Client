@@ -47,9 +47,9 @@ function UI_CharacterCard:refreshDragonInfo()
     local table_dragon = TableDragon()
     local t_dragon = table_dragon:get(did)
 
-    do -- 레어도에 따른 배경 이미지(버튼)
-        --local res = 'res/ui/a2d/character_card/character_card_bg_' .. t_dragon['rarity'] .. '.png'
+    do -- 속성 따른 배경 이미지(버튼)
         local res = 'character_card_bg_' .. t_dragon['rarity'] .. '.png'
+        --local res = 'character_card_bg_' .. t_dragon['attr'] .. '.png'
         self:makeClickBtn(res)
     end
 
@@ -76,6 +76,7 @@ function UI_CharacterCard:refreshDragonInfo()
 
     do -- 카드 프레임
         local res = 'character_card_frame.png'
+        --local res = 'character_card_frame_' .. t_dragon['rarity'] .. '.png'
         self:makeFrame(res)
     end
 
