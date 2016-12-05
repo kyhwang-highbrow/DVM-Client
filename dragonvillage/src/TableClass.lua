@@ -16,6 +16,13 @@ function TableClass:init(table_name, key)
 end
 
 -------------------------------------
+-- function setKey
+-------------------------------------
+function TableClass:setKey(key)
+    self.m_currKey = key
+end
+
+-------------------------------------
 -- function get
 -------------------------------------
 function TableClass:get(key)

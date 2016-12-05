@@ -36,7 +36,7 @@ end
 -------------------------------------
 -- function getSkillName
 -------------------------------------
-function TableDragonSkill:getSkillName()
+function TableDragonSkill:getSkillName(key)
     local t_skill = self:get(key)
     return t_skill['t_name']
 end
