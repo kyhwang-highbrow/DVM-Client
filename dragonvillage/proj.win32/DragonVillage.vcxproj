@@ -271,6 +271,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_Staminas.lua" />
     <None Include="..\src\ResPreloadMgr.lua" />
     <None Include="..\src\ResPreloadHelper.lua" />
+    <None Include="..\src\SkillSpiderWeb.lua" />
     <None Include="..\src\StatusEffect_Barrier.lua" />
     <None Include="..\src\Camera.lua" />
     <None Include="..\src\CameraTouchHandler.lua" />

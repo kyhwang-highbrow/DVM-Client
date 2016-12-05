@@ -1033,6 +1033,9 @@
     <None Include="..\src\UI_DragonManageTrain.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SkillSpiderWeb.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
