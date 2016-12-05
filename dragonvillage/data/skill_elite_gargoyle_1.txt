@@ -20,7 +20,6 @@
 				"offset":[0,0],
 				"dir":160,
 				"dir_add":0,
-				"missile_type":"pass",
 				
 				
                 "effect":
@@ -47,7 +46,6 @@
 				"offset":[0,0],
 				"dir":165,
 				"dir_add":0,
-				"missile_type":"pass",
 				
 				
                 "effect":
@@ -74,7 +72,6 @@
 				"offset":[0,0],
 				"dir":170,
 				"dir_add":0,
-				"missile_type":"pass",
 				
 				
                 "effect":
@@ -101,7 +98,6 @@
 				"offset":[0,0],
 				"dir":175,
 				"dir_add":0,
-				"missile_type":"pass",
 				
 				
                 "effect":
@@ -128,7 +124,6 @@
 				"offset":[0,0],
 				"dir":180,
 				"dir_add":0,
-				"missile_type":"pass",
 				
 				
                 "effect":
@@ -155,7 +150,6 @@
 				"offset":[0,0],
 				"dir":185,
 				"dir_add":0,
-				"missile_type":"pass",
 				
 				
                 "effect":
@@ -182,7 +176,6 @@
 				"offset":[0,0],
 				"dir":190,
 				"dir_add":0,
-				"missile_type":"pass",
 				
 				
                 "effect":
@@ -209,7 +202,6 @@
 				"offset":[0,0],
 				"dir":195,
 				"dir_add":0,
-				"missile_type":"pass",
 				
 				
                 "effect":
@@ -237,7 +229,6 @@
 				"offset":[0,0],
 				"dir":200,
 				"dir_add":0,
-				"missile_type":"pass",
 				
 				
                 "effect":

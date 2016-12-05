@@ -4,44 +4,83 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>bg_volcano_2_b.png</key>
+            <key>bg_volcano_1_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{2030,948}}</string>
+                <string>{{2,2},{1922,1600}}</string>
                 <key>offset</key>
-                <string>{-9,13}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,313},{2030,948}}</string>
+                <string>{{0,0},{1922,1600}}</string>
                 <key>sourceSize</key>
-                <string>{2048,1600}</string>
+                <string>{1922,1600}</string>
             </dict>
-            <key>bg_volcano_5_a.png</key>
+            <key>bg_volcano_magma_01_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{528,952},{1316,772}}</string>
+                <string>{{592,1604},{64,84}}</string>
                 <key>offset</key>
-                <string>{-90,-414}</string>
+                <string>{48,-33}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{276,828},{1316,772}}</string>
+                <string>{{240,98},{64,84}}</string>
                 <key>sourceSize</key>
-                <string>{2048,1600}</string>
+                <string>{448,214}</string>
             </dict>
-            <key>bg_volcano_5_c.png</key>
+            <key>bg_volcano_magma_01_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,952},{860,524}}</string>
+                <string>{{518,1802},{68,80}}</string>
                 <key>offset</key>
-                <string>{272,-538}</string>
+                <string>{44,7}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{234,60},{68,80}}</string>
+                <key>sourceSize</key>
+                <string>{448,214}</string>
+            </dict>
+            <key>bg_volcano_magma_01_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{518,1604},{98,72}}</string>
+                <key>offset</key>
+                <string>{2,29}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{866,1076},{860,524}}</string>
+                <string>{{177,42},{98,72}}</string>
                 <key>sourceSize</key>
-                <string>{2048,1600}</string>
+                <string>{448,214}</string>
+            </dict>
+            <key>bg_volcano_magma_01_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{518,1704},{96,80}}</string>
+                <key>offset</key>
+                <string>{-24,25}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{152,42},{96,80}}</string>
+                <key>sourceSize</key>
+                <string>{448,214}</string>
+            </dict>
+            <key>bg_volcano_spiderweb_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,1604},{514,416}}</string>
+                <key>offset</key>
+                <string>{18,-14}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{36,38},{514,416}}</string>
+                <key>sourceSize</key>
+                <string>{550,464}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -51,9 +90,9 @@
             <key>realTextureFileName</key>
             <string>volcano_2.png</string>
             <key>size</key>
-            <string>{2034,1814}</string>
+            <string>{1926,2022}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d4a56a9cba0353b72efccc5c53d447e8:971f6bd85be19e02b95d0d528f6f0fcb:f77de0003325ee3d137ad2c8b8959a8b$</string>
+            <string>$TexturePacker:SmartUpdate:d39a64618358c4b4d7fc7146f8fc38f1:89f7600694f77ce68fadcbcc28bb1d15:f77de0003325ee3d137ad2c8b8959a8b$</string>
             <key>textureFileName</key>
             <string>volcano_2.png</string>
         </dict>
