@@ -211,6 +211,16 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
         vars['friendshipLabel']:setString(Str('무관심'))
         vars['friendshipGauge']:setPercentage(0)
     end
+
+    do -- 희귀도
+        local rarity = t_dragon['rarity']
+        vars['rarityFrameNode']:removeAllChildren()
+        local res = string.format('res/ui/frame/manage_grade_frame_%s.png', rarity)
+        local frame = cc.Sprite:create(res)
+        frame:setDockPoint(cc.p(0.5, 0.5))
+        frame:setAnchorPoint(cc.p(0.5, 0.5))
+        vars['rarityFrameNode']:addChild(frame)
+    end
 end
 
 -------------------------------------
