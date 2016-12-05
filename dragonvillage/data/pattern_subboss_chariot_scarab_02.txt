@@ -2,30 +2,13 @@
 	"pattern_subboss_chariot_scarab_02":
 	[				
 		[
-			"a;2", "w;10", "m;RF14;300", "a;1", "w;10", "m;RM11;300", "a;2", "w;10", "m;RB14;300", "a;1", "w;10", "m;RM17;300"
-		]
-    ],
-	
-    "hp_trriger":
-    {
-        "priority":1,
-        "list":
-        [
-            {
-                "hp_percent":1,
-                "pattern":
-                [                    
-                    "a;1", "w;2"
-                ]
-            },
+			"m;RM17;300", "a;2", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;5",
+			"m;RF14;300", "a;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;2", "w;2.1",
+			"m;RM11;300", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;2", "w;10",
+			"m;RB14;300", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;2", "a;2",  "a;2", "w;8",
 			
-            {
-                "hp_percent":1,
-                "pattern":
-                [
-					"a;1", "w;2"
-                ]
-            }
-        ]
-    }
+			"m;RB17;300", "a;5", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;1.5",
+			"m;RM21;300", "a;5", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;1.5"
+		]
+    ]
 }

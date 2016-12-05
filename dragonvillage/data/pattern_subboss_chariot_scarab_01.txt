@@ -2,30 +2,13 @@
 	"pattern_subboss_chariot_scarab_01":
 	[				
 		[
-			"a;2", "w;10", "m;RB14;300", "a;1", "w;10", "m;RM17;300", "a;2", "w;10", "m;RF14;300", "a;1", "w;10", "m;RM11;300"
-		]
-    ],
-	
-    "hp_trriger":
-    {
-        "priority":1,
-        "list":
-        [
-            {
-                "hp_percent":1,
-                "pattern":
-                [                    
-                    "a;1", "w;2"
-                ]
-            },
+			"m;RM11;300", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;2.1", "a;2", "w;10",
+			"m;RB14;300", "a;2", "w;10", "a;basic", "w;1", "a;basic", "w;3",
+			"m;RM17;300", "a;1", "a;basic", "a;basic", "a;basic", "a;2", "w;10",
+			"m;RF14;300",  "a;2", "w;10", "a;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1",
 			
-            {
-                "hp_percent":1,
-                "pattern":
-                [
-					"a;1", "w;2"
-                ]
-            }
-        ]
-    }
+			"m;RB11;300", "a;5", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;1",
+			"m;RM27;300", "a;5", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;1"
+		]
+    ]
 }
