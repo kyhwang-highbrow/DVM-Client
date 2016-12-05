@@ -6,7 +6,7 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 230005,code,missile_move_high_angle        ,창 공격,res/missile/missile_spear/missile_spear.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,100,20,0,0,0,x,x,x,0,x,x
 230006,code,missile_move_high_angle	,창 스킬,res/missile/missile_spear/missile_spear.png,res/missile/motion_streak/motion_streak_line_@.png,x,x,instant,physical,-1,basic_turn,2,enemy_random,4,atk,400,1,100,20,0,0,0,x,x,x,0,x,공격력의 300% 피해를 주는 공격
 230007,code,skill_heal_single,회복 스킬,res/effect/skill_heal_monster/skill_heal_monster.vrp,x,x,x,instant,magical,-1,basic_turn,3,ally_hp_low,5,atk,400,1,0,0,0,0,0,x,x,x,0,x,공격력의 400% 회복
-230008,code,missile_move_high_angle	,폭탄 공격,res/missile/missile_bomb_@/missile_bomb_@.spine,x,res/effect/effect_hit_bomb_@/effect_hit_bomb_@.spine,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,100,150,0,0,0,x,x,x,0,x,x
+230008,code,missile_move_high_angle	,폭탄 공격,res/missile/missile_bomb_@/missile_bomb_@.spine,x,res/effect/effect_hit_bomb_@/effect_hit_bomb_@.spine,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,100,200,0,0,0,x,x,x,0,x,x
 230009,code,missile_move_straight,독침,res/missile/missile_sting/missile_sting.png,x,x,attack,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,100,100,poison,poison;target;30;100;100,x,0,x,x
 230010,code,missile_move_straight,가시,res/missile/missile_thorn/missile_thorn.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 230011,code,skill_counterattack,반격,res/missile/missile_thorn/missile_thorn.png,x,x,x,instant,physical,-1,basic_turn,1,enemy_distance_line,4,atk,100,1,230012,10,0,0,0,x,x,x,0,x,x
@@ -87,8 +87,9 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 233400,code,missile_move_straight,거미줄 뭉치,res/missile/missile_skein/missile_skein.png,res/missile/motion_streak/motion_streak_blade.png,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,1,atk,100,1,0,0,0,0,0,0,x,x,0,x,x
 233401,script,skill_boss_spider_queen_1,파이어 웹,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,1,atk,50,1,0,0,0,0,0,0,x,x,0,x,x
 233402,script,skill_boss_spider_queen_2,포이즌 노바,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,1,atk,200,1,0,0,0,0,0,0,x,x,0,x,x
-233403,script,skill_boss_spider_queen_3,옭아매기,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,1,atk,100,1,0,0,0,0,0,0,x,x,0,x,x
+233403,code,skill_boss_spider_queen_3,옭아매기,res/effect/effect_spider_web_skein/effect_spider_web_skein.vrp,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,1,atk,100,1,0,0,0,0,0,0,stun;target;10;100;100,x,0,x,x
 233404,script,skill_boss_spider_queen_4,맹독결계,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,1,atk,50,1,0,0,0,0,0,0,x,x,0,x,x
 233405,code,skill_summon,거미알 소환,x,x,x,skill_2,instant,magical,0,basic_turn,1,enemy_distance_line,1,atk,10,1,0,0,0,0,0,0,x,x,0,x,x
 234001,script,skill_subboss_griffin_3,그리핀(무캐스팅),x,x,x,skill_2,instant,magical,-2,basic_turn,10,enemy_distance_line,0,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 234002,script,skill_boss_spider_queen_5,거미새끼 소환,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,0,atk,1,1,0,0,0,0,0,0,x,x,0,x,x
+234003,code,trigger_skill,트리거에 의해 발동되는 스킬 테스트,x,x,x,skill_1,instant,magical,0,trigger,dead,enemy_distance_line,0,atk,1,1,230002,0,0,0,0,0,x,x,0,x,x
