@@ -68,6 +68,18 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
         self:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_data)
         return true
 
+	-- 상태 효과만 거는 스킬
+	elseif (skill_form == 'status_effect') then
+		-- 1. skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
+		local l_target = self:getTargetList(t_skill)
+
+		-- 2. 상태효과 문자열(;로 구분)
+		local status_effect_str = {t_skill['status_effect_1'], t_skill['status_effect_2']}
+
+		-- 3. 타겟에 상태효과생성
+		StatusEffectHelper:doStatusEffectByStr(self, l_target, status_effect_str)
+		return true
+
     -- 코드형 스킬
     elseif (skill_form == 'code') then
 		-- 패시브
@@ -81,23 +93,13 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 				return StatusEffectHelper:invokePassive(char, t_skill)
 			end
 
+
 		-- 트리거 설정하는 패시브
 		elseif (chance_type == 'trigger') then
 			local char = self
 			local t_skill = t_skill
 			return StatusEffectHelper:setTriggerPassive(char, t_skill)
 		
-		-- 상태 효과만 거는 스킬
-		elseif (skill_form == 'status_effect') then
-			-- 1. skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
-			local l_target = self:getTargetList(t_skill)
-
-			-- 2. 상태효과 문자열(;로 구분)
-			local status_effect_str = {t_skill['status_effect_1'], t_skill['status_effect_2']}
-
-			-- 3. 타겟에 상태효과생성
-			StatusEffectHelper:doStatusEffectByStr(self, l_target, status_effect_str)
-			return true
 
 		-- 공용탄 영역
         elseif (type == 'missile_move_ray') then
