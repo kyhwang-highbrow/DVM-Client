@@ -71,6 +71,21 @@ function SkillSpiderWeb.st_disappear(owner, dt)
 end
 
 -------------------------------------
+-- function update
+-------------------------------------
+function SkillSpiderWeb:update(dt)
+	-- 사망 체크
+    if (self.m_owner.m_bDead) and (self.m_state ~= 'dying') then
+        self:changeState('dying')
+    end
+	-- 드래곤의 애니와 객체, 스킬 위치 동기화
+	self.m_targetChar:syncAniAndPhys()
+	self:setPosition(self.m_targetChar.pos.x, self.m_targetChar.pos.y)
+
+    return PARENT.update(self, dt)
+end
+
+-------------------------------------
 -- function makeSkillInstance
 -------------------------------------
 function SkillSpiderWeb:makeSkillInstance(owner, t_skill, t_data)

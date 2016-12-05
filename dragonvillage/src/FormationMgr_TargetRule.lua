@@ -60,6 +60,9 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
     elseif (type == 'random') then          return TargetRule_getTargetList_random(org_list)
     elseif (type == 'fan_shape') then       return TargetRule_getTargetList_fan_shape(org_list, t_data)
 	
+	elseif (type == 'status_not_stun') then return TargetRule_getTargetList_status_effect(org_list, 'stun', false)
+	elseif (type == 'status_stun') then		return TargetRule_getTargetList_status_effect(org_list, 'stun', true)
+
 	--elseif (type == 'front_line') then      return TargetRule_getTargetList_row(FORMATION_FRONT)
 	--elseif (type == 'middle_line') then     return TargetRule_getTargetList_row(FORMATION_MIDDLE)
 	--elseif (type == 'back_line') then       return TargetRule_getTargetList_row(FORMATION_REAR)
@@ -283,6 +286,32 @@ function TargetRule_getTargetList_random(org_list)
         local rand_idx = t_random[rand_num]
         table.insert(t_ret, org_list[rand_idx])
         table.remove(t_random, rand_num)
+    end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function TargetRule_getTargetList_status_effect
+-- @brief 특정 상태효과에 따른 구분
+-- @param org_list : 전체 타겟 리스트
+-- @param status_effect_name : 제외하거나 대상으로할 상태효과 이름
+-- @param b_include : 해당 상태효과를 제외할지 대상으로할지 여부 / true 일 때 대상으로함
+-------------------------------------
+function TargetRule_getTargetList_status_effect(org_list, status_effect_name, b_include)
+    local t_ret = {}
+	local isInsert = nil
+	
+    for i,v in pairs(org_list) do
+		isInsert = not b_include
+		for name, status_effect in pairs(v:getStatusEffectList()) do
+			if (name == status_effect_name) then
+				isInsert = b_include
+			end
+		end
+		if isInsert then 
+			table.insert(t_ret, v)
+		end
     end
 
     return t_ret
