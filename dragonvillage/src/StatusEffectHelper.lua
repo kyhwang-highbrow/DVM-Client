@@ -149,10 +149,12 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
         status_effect = StatusEffect_addAttack(res)
 	elseif (status_effect_type == 'passive_spatter') then
         status_effect = StatusEffect_PassiveSpatter(res)
+		char.m_world:addToUnitList(status_effect)
 	else
 		status_effect = StatusEffect_Trigger(res)
 	end
 	
+	-- @TODO trigger function을 여기서 전달할건지 클래스로 파일을 분리할건지..
 	-- 트리거로 발동될 함수 개별 설정
 	if (t_skill['type'] == 'skill_summon_die') then
 		event_function = function()
@@ -162,6 +164,11 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 			local enemy = char.m_world.m_waveMgr:spawnEnemy_dynamic(mid, lv, 'Appear', nil, dest, 0.5)
 			enemy:setPosition(char.pos.x, char.pos.y)
 			enemy:setHomePos(char.pos.x, char.pos.y)
+		end
+	elseif (t_skill['type'] == 'skill_trigger') then
+		event_function = function()
+			local skill_id = t_skill['sid']
+			char:doSkill(skill_id, nil, nil, nil)
 		end
 	end
 		
@@ -476,7 +483,7 @@ function StatusEffectHelper:getStatusEffectTypeFromSkillTable(t_skill)
 end
 
 -------------------------------------
--- function getStatusEffectTypeFromSkillTable
+-- function parsingStatusEffectStr
 -- @brief 상태효과 타입 파싱해서 가져옴
 -------------------------------------
 function StatusEffectHelper:parsingStatusEffectStr(l_status_effect_str, idx)

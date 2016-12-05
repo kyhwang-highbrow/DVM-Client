@@ -215,6 +215,7 @@ local t_module = {
 	'SkillRolling',
 	'SkillAddAttack',
 	'SkillCounterAttack',
+	'SkillSpiderWeb',
 
     -- SKILL INDICATOR
     'SkillIndicatorMgr',

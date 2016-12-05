@@ -62,43 +62,45 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
     local chance_type = t_skill['chance_type']
 
     ----------------------------------------------
-    if (chance_type == 'passive') then 
-	    if (type == 'skill_shield') then
-            SkillShield:makeSkillInstance(self, t_skill, t_data)
-            return true
-		else
-			local char = self
-			local t_skill = t_skill
-			return StatusEffectHelper:invokePassive(char, t_skill)
-		end
-
-	elseif (chance_type == 'trigger') then
-		local char = self
-        local t_skill = t_skill
-		return StatusEffectHelper:setTriggerPassive(char, t_skill)
 
     -- 탄막 공격 (스크립트에서 읽어와 미사일 탄막 생성)
-    elseif (skill_form == 'script') then
+    if (skill_form == 'script') then
         self:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_data)
-        return true
-
-    -- 상태 효과
-    elseif (skill_form == 'status_effect') then
-        -- 1. skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
-	    local l_target = self:getTargetList(t_skill)
-
-		-- 2. 상태효과 문자열(;로 구분)
-		local status_effect_str = {t_skill['status_effect_1'], t_skill['status_effect_2']}
-
-        -- 3. 타겟에 상태효과생성
-		StatusEffectHelper:doStatusEffectByStr(self, l_target, status_effect_str)
         return true
 
     -- 코드형 스킬
     elseif (skill_form == 'code') then
+		-- 패시브
+		if (chance_type == 'passive') then 
+			if (type == 'skill_shield') then
+				SkillShield:makeSkillInstance(self, t_skill, t_data)
+				return true
+			else
+				local char = self
+				local t_skill = t_skill
+				return StatusEffectHelper:invokePassive(char, t_skill)
+			end
+
+		-- 트리거 설정하는 패시브
+		elseif (chance_type == 'trigger') then
+			local char = self
+			local t_skill = t_skill
+			return StatusEffectHelper:setTriggerPassive(char, t_skill)
+		
+		-- 상태 효과만 거는 스킬
+		elseif (skill_form == 'status_effect') then
+			-- 1. skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
+			local l_target = self:getTargetList(t_skill)
+
+			-- 2. 상태효과 문자열(;로 구분)
+			local status_effect_str = {t_skill['status_effect_1'], t_skill['status_effect_2']}
+
+			-- 3. 타겟에 상태효과생성
+			StatusEffectHelper:doStatusEffectByStr(self, l_target, status_effect_str)
+			return true
 
 		-- 공용탄 영역
-        if (type == 'missile_move_ray') then
+        elseif (type == 'missile_move_ray') then
             SkillRay:makeSkillInstance(self, t_skill, {})
             return true
 		elseif (type == 'missile_move_straight') then
@@ -200,6 +202,10 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 
         elseif (type == 'skill_protection_spread') then -- 파워드래곤 스킬 '수호'
             SkillGuardian:makeSkillInstance(self, t_skill, t_data)
+            return true
+
+		elseif (type == 'skill_spider_web') then
+            SkillSpiderWeb:makeSkillInstance(self, t_skill, t_data)
             return true
 
 

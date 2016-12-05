@@ -73,6 +73,9 @@ MAP_FLOATING_ROTATE_TIME = 5
  LEAF_STRAIGHT_ANGLE = 30
  LEAF_INDICATOR_EFFECT_DELAY = 5/1000
 
+ -- # StatusEffect_PassiveSpatter
+ STATUEEFFECT_GLOBAL_COOL = 0.5
+
 --------------------------------------------
 -- 인디케이터 리소스 경로
 --------------------------------------------
