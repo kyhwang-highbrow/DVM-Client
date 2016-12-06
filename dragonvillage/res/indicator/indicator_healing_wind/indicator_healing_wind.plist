@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>indicator_type_straight_01.png</key>
+            <key>indicator_healing_wind_01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{500,152}}</string>
@@ -17,7 +17,7 @@
                 <key>sourceSize</key>
                 <string>{500,170}</string>
             </dict>
-            <key>indicator_type_straight_02.png</key>
+            <key>indicator_healing_wind_02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,156},{492,152}}</string>
@@ -30,7 +30,7 @@
                 <key>sourceSize</key>
                 <string>{500,170}</string>
             </dict>
-            <key>indicator_type_straight_03.png</key>
+            <key>indicator_healing_wind_03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,310},{468,112}}</string>
@@ -43,7 +43,7 @@
                 <key>sourceSize</key>
                 <string>{500,170}</string>
             </dict>
-            <key>indicator_type_straight_04.png</key>
+            <key>indicator_healing_wind_04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{246,424},{54,112}}</string>
@@ -56,7 +56,7 @@
                 <key>sourceSize</key>
                 <string>{54,170}</string>
             </dict>
-            <key>indicator_type_straight_line.png</key>
+            <key>indicator_healing_wind_line.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{472,310},{26,139}}</string>
@@ -69,7 +69,7 @@
                 <key>sourceSize</key>
                 <string>{26,139}</string>
             </dict>
-            <key>indicator_type_straight_select_01.png</key>
+            <key>indicator_healing_wind_select_01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{124,424},{62,120}}</string>
@@ -82,7 +82,7 @@
                 <key>sourceSize</key>
                 <string>{62,170}</string>
             </dict>
-            <key>indicator_type_straight_select_02.png</key>
+            <key>indicator_healing_wind_select_02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,424},{100,120}}</string>
@@ -101,13 +101,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>indicator_type_straight.png</string>
+            <string>indicator_healing_wind.png</string>
             <key>size</key>
             <string>{512,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:46c6585bda91ff2a737d8caa4c7d017e$</string>
+            <string>$TexturePacker:SmartUpdate:a89750ba01192197f79512d7d531d0ec$</string>
             <key>textureFileName</key>
-            <string>indicator_type_straight.png</string>
+            <string>indicator_healing_wind.png</string>
         </dict>
     </dict>
 </plist>

@@ -76,7 +76,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'trainGauge1';
+					lua_name = 'trainGaugeA';
 					file_name = 'ui/gauge/lobby_profile_0102.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
@@ -108,7 +108,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'priceLabel1';
+						lua_name = 'priceLabelA';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
 						text = 'priceLabel1';
@@ -146,7 +146,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'trainButton1';
+					lua_name = 'trainButtonA';
 					enable = true;
 					normal = 'ui/btn/sub_0101.png';
 					selected = 'ui/btn/sub_0102.png';
@@ -170,7 +170,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'titleLabel1';
+					lua_name = 'titleLabelA';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = 'titleLabel1';
@@ -210,7 +210,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'dscLabel1';
+					lua_name = 'dscLabelA';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = 'titleLabel1';
@@ -297,7 +297,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'priceLabel2';
+						lua_name = 'priceLabelB';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
 						text = 'priceLabel2';
@@ -335,7 +335,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'trainButton2';
+					lua_name = 'trainButtonB';
 					enable = true;
 					normal = 'ui/btn/sub_0101.png';
 					selected = 'ui/btn/sub_0102.png';
@@ -359,7 +359,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'trainGauge2';
+					lua_name = 'trainGaugeB';
 					file_name = 'ui/gauge/lobby_profile_0102.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
@@ -389,7 +389,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'titleLabel2';
+					lua_name = 'titleLabelB';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = 'titleLabel1';
@@ -429,7 +429,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'dscLabel2';
+					lua_name = 'dscLabelB';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
 					text = 'titleLabel1';

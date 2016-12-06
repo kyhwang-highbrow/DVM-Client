@@ -7,7 +7,7 @@
 			"m;RM17;300", "a;1", "a;basic", "a;basic", "a;basic", "a;2", "w;10",
 			"m;RF14;300",  "a;2", "w;10", "a;1", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1",
 			
-			"m;RB11;300", "a;5", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;1",
+			"m;RB11;400", "a;5", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;1",
 			"m;RM27;300", "a;5", "a;basic", "w;1", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;1"
 		]
     ]

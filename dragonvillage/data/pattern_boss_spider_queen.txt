@@ -2,7 +2,7 @@
     "pattern_boss_spider_queen":
     [        
         [
-            "a;basic", "w;2", "a;basic", "w;2", "a;1", "w;14", "a;basic", "w;2", "a;basic", "w;2"
+            "a;basic", "w;2", "a;basic", "w;2", "a;1", "w;14", "a;3", "w;2", "a;basic", "w;2"
         ]
     ],
 	
@@ -36,7 +36,8 @@
             }
         ]
 
-    },
+    }
+	
 	"ani_mix":
 	[
         "idle;attack;0.1",

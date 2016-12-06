@@ -18,6 +18,8 @@
 				"offset":[0,0],
 				"dir_array":[-30,30,90,150,210,270],
 				
+				"missile_type":"pass",
+				
 				"vanish_time":1.6,
 				
                 "effect":
@@ -42,6 +44,8 @@
 				"angular_velocity":-180,
 				"offset":[0,0],
 				"dir_array":[-30,30,90,150,210,270],
+				
+				"missile_type":"pass",
 				
 				"vanish_time":1.6,
 				
@@ -93,7 +97,6 @@
 				"offset":[0,0],
 				"dir":0,
 				"dir_add":10,
-				"missile_type":"pass",
 				
                 "effect":
                 {
@@ -119,7 +122,6 @@
 				"offset":[0,0],
 				"dir":5,
 				"dir_add":10,
-				"missile_type":"pass",
 				
                 "effect":
                 {

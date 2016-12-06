@@ -26,6 +26,8 @@ enemy_hp_low,enemy,hp_low,[적군]이면서 타겟 포메이션에 따른 우선
 enemy_hp_high,enemy,hp_high,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 HP%가 가장 높은 대상 n명 선택. n보다 많을 경우 절대 값이 높은 순으로 n명 선택
 enemy_cp_low,enemy,cp_low,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 CP%가 가장 낮은 대상 n명 선택. n보다 많을 경우 대상 중 무작위로 n명 선택
 enemy_cp_high,enemy,cp_high,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 CP%가 가장 높은 대상 n명 선택. n보다 많을 경우 대상 중 무작위로 n명 선택
+enemy_status_not_stun,enemy,status_not_stun,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 해당 상태 효과가 없는 대상을 선택
+enemy_status_stun,enemy,status_stun,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 해당 상태 효과에 걸린 대상을 선택
 self,self,none,자신을 타겟으로 한다. 타겟 포메이션을 무시
 pos,x,pos,"타겟 포메이션을 무시하고 지정된 위치로 이동하여 진형에 따라 0, 180도 각도로 스킬 사용"
 ally_front_line,ally,front_line,[아군]전위 전체 적용
