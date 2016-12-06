@@ -95,6 +95,8 @@ function UI_DragonManageTrain:refresh()
     -- 보유 라테아 갯수 라벨
     local lactea = g_userData:get('lactea')
     vars['lacteaLabel']:setString(comma_value(lactea))
+
+    self:int_trainSlotTableView(t_dragon_data)
 end
 
 -------------------------------------
@@ -126,6 +128,65 @@ function UI_DragonManageTrain:refresh_currDragonTrainStatus(t_dragon_data, t_dra
     vars['hpLabel']:setString(Str('체력 증가+{1}', comma_value(l_status['hp'])))
     vars['defLabel']:setString(Str('방어력 증가+{1}', comma_value(l_status['def'])))
     vars['atklabel']:setString(Str('공격력 증가+{1}', comma_value(l_status['atk'])))
+end
+
+-------------------------------------
+-- function makeDragonSlotDataList
+-------------------------------------
+function UI_DragonManageTrain:makeDragonSlotDataList(t_dragon_data)
+    
+    local doid = t_dragon_data['id']
+
+    local l_dragon_slot_data = {}
+
+    for i=1,6 do
+        l_dragon_slot_data[i] = {doid=doid, grade=i}
+    end
+
+    return l_dragon_slot_data
+end
+
+
+-------------------------------------
+-- function int_trainSlotTableView
+-------------------------------------
+function UI_DragonManageTrain:int_trainSlotTableView(t_dragon_data)
+
+
+    local list_table_node = self.vars['tableViewNode']
+    list_table_node:removeAllChildren()
+
+    -- 생성
+    local function create_func(item)
+        --[[
+        self:reateDragonCardCB(item)
+        local ui = item['ui']
+        ui.root:setScale(0.7)
+
+        local data = item['data']
+        if (self.m_selectDragonOID == data['id']) then
+            self:changeDragonSelectFrame()
+        end
+        --]]
+    end
+
+    -- 드래곤 클릭 콜백 함수
+    local function click_dragon_item(item)
+        --[[
+        local data = item['data']
+        local dragon_object_id = data['id']
+        self:setSelectDragonData(dragon_object_id)
+        --]]
+    end
+
+    -- 테이블뷰 초기화
+    local table_view_ext = TableViewExtension(list_table_node)
+    table_view_ext:setCellInfo(400, 460)
+    table_view_ext:setItemUIClass(UI_DragonTrainSlot_ListItem, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
+    table_view_ext:setItemInfo(self:makeDragonSlotDataList(t_dragon_data))
+    table_view_ext:update()
+
+    --self.m_tableViewExt = table_view_ext
 end
 
 -------------------------------------
