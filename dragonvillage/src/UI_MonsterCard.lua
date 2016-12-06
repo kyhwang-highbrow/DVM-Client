@@ -4,69 +4,145 @@ local PARENT = UI
 -- class UI_MonsterCard
 -------------------------------------
 UI_MonsterCard = class(PARENT,{
+        root = '',
+        vars = '',
+
         m_monsterID = 'number',
+
+        m_clickBtnRes = 'string',
+        m_charIconRes = 'string',
+        m_attrIconRes = 'string',
+        m_starIconRes = 'string',
+        m_charFrameRes = 'string',
+        m_charLevelNumber = 'number',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_MonsterCard:init(monster_id)
-    local vars = self:load('dragon_item.ui')
+    cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/character_card/character_card.plist')
 
+    self.root = cc.Menu:create()
+    self.root:setNormalSize(150, 150)
+    self.root:setDockPoint(CENTER_POINT)
+    self.root:setAnchorPoint(CENTER_POINT)
+    self.root:setPosition(0, 0)
+
+    self.vars = {}
     self.m_monsterID = monster_id
 
-    self:refresh()
-
-    vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
+    self:refreshMonsterInfo()
 end
 
 -------------------------------------
--- function refresh
+-- function refreshMonsterInfo
 -------------------------------------
-function UI_MonsterCard:refresh()
+function UI_MonsterCard:refreshMonsterInfo()
     local vars = self.vars
     local monster_id = self.m_monsterID
 
     local table_monster = TableMonster()
     local t_monster = table_monster:get(monster_id)
-    
+
+    do -- 속성 따른 배경 이미지(버튼)
+        local res = 'character_card_bg_' .. t_monster['attr'] .. '.png'
+        self:makeClickBtn(res)
+    end
+
     do -- 몬스터 아이콘
-        vars['iconsNode']:removeAllChildren()
         local icon = table_monster:getMonsterIcon(monster_id)
-        vars['iconsNode']:addChild(icon)
+        self.vars['clickBtn']:addChild(icon)
     end
 
-    do -- 배경 프레임
-        local res = 'res/ui/dragon_card/list_frame_bg_common.png'
-        local sprite = cc.Sprite:create(res)
-        sprite:setAnchorPoint(cc.p(0.5, 0.5))
-        sprite:setDockPoint(cc.p(0.5, 0.5))
-        vars['rarityNode']:removeAllChildren()
-        vars['rarityNode']:addChild(sprite)
-    end
-
-    do -- 속성 아이콘
-        local attr_str = t_monster['attr']
-        local res = 'res/ui/dragon_card/dc_attr_' .. attr_str .. '.png'
-        local icon = cc.Sprite:create(res)
-        if icon then
-            icon:setDockPoint(cc.p(0.5, 0.5))
-            icon:setAnchorPoint(cc.p(0.5, 0.5))
-            vars['attrNode']:removeAllChildren()
-            vars['attrNode']:addChild(icon)
-        end
+    do -- 속성 아이콘 생성
+        local res = 'character_card_attr_' .. t_monster['attr'] .. '.png'
+        self:makeAttrIcon(res)
     end
 
     do -- 보스류 프레임 표시
         local rarity = t_monster['rarity']
         if isExistValue(rarity, 'elite', 'subboss', 'boss') then
-            vars['enemyBossSprite']:setVisible(true)
+            self:makeFrame('character_card_frame_boss.png')
+        else
+            local res = 'character_card_frame.png'
+            self:makeFrame(res)
         end
     end
+end
 
-    do -- 레벨 표시
-        vars['levelLabel']:setVisible(false)
+-------------------------------------
+-- function makeClickBtn
+-------------------------------------
+function UI_MonsterCard:makeClickBtn(res)
+    if (self.m_clickBtnRes == res) then
+        return
     end
+    self.m_clickBtnRes = res
+
+    local btn = self.vars['clickBtn']
+
+    if (not btn) then
+        btn = cc.MenuItemImage:create()
+        btn:setDockPoint(CENTER_POINT)
+        btn:setAnchorPoint(CENTER_POINT)
+        self.vars['clickBtn'] = UIC_Button(btn)
+        self.root:addChild(btn)
+
+        btn:registerScriptTapHandler(function() self:click_clickBtn() end)
+    end
+
+    btn:setNormalSpriteFrame(cc.SpriteFrameCache:getInstance():getSpriteFrame(res))
+        
+    return btn
+end
+
+-------------------------------------
+-- function makeAttrIcon
+-- @brief 속성 아이콘 생성
+-------------------------------------
+function UI_MonsterCard:makeAttrIcon(res)
+    if (self.m_attrIconRes == res) then
+        return
+    end
+    self.m_attrIconRes = res
+
+    local vars = self.vars
+
+    if vars['attrIcon'] then
+        vars['attrIcon']:removeFromParent()
+    end
+    
+    local sprite = cc.Sprite:createWithSpriteFrameName(res)
+    sprite:setDockPoint(CENTER_POINT)
+    sprite:setAnchorPoint(CENTER_POINT)
+    sprite:setScale(1.1)
+    sprite:setPosition(-46, 46)
+    self.vars['clickBtn']:addChild(sprite, 2)
+    vars['attrIcon'] = sprite
+end
+
+-------------------------------------
+-- function makeFrame
+-- @brief 프레임 생성
+-------------------------------------
+function UI_MonsterCard:makeFrame(res)
+    if (self.m_charFrameRes == res) then
+        return
+    end
+    self.m_charFrameRes = res
+
+    local vars = self.vars
+
+    if vars['charFrame'] then
+        vars['charFrame']:removeFromParent()
+    end
+    
+    local sprite = cc.Sprite:createWithSpriteFrameName(res)
+    sprite:setDockPoint(CENTER_POINT)
+    sprite:setAnchorPoint(CENTER_POINT)
+    self.vars['clickBtn']:addChild(sprite, 11)
+    vars['charFrame'] = sprite
 end
 
 -------------------------------------

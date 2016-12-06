@@ -48,8 +48,7 @@ function UI_CharacterCard:refreshDragonInfo()
     local t_dragon = table_dragon:get(did)
 
     do -- 속성 따른 배경 이미지(버튼)
-        local res = 'character_card_bg_' .. t_dragon['rarity'] .. '.png'
-        --local res = 'character_card_bg_' .. t_dragon['attr'] .. '.png'
+        local res = 'character_card_bg_' .. t_dragon['attr'] .. '.png'
         self:makeClickBtn(res)
     end
 
@@ -75,8 +74,7 @@ function UI_CharacterCard:refreshDragonInfo()
     end    
 
     do -- 카드 프레임
-        local res = 'character_card_frame.png'
-        --local res = 'character_card_frame_' .. t_dragon['rarity'] .. '.png'
+        local res = 'character_card_frame_' .. t_dragon['rarity'] .. '.png'
         self:makeFrame(res)
     end
 
@@ -172,8 +170,8 @@ function UI_CharacterCard:makeAttrIcon(res)
     local sprite = cc.Sprite:createWithSpriteFrameName(res)
     sprite:setDockPoint(CENTER_POINT)
     sprite:setAnchorPoint(CENTER_POINT)
-    sprite:setScale(0.45)
-    sprite:setPosition(-51, 51)
+    sprite:setScale(1.1)
+    sprite:setPosition(-46, 46)
     self.vars['clickBtn']:addChild(sprite, 2)
     vars['attrIcon'] = sprite
 end
@@ -197,7 +195,7 @@ function UI_CharacterCard:makeStarIcon(res)
     local sprite = cc.Sprite:createWithSpriteFrameName(res)
     sprite:setDockPoint(CENTER_POINT)
     sprite:setAnchorPoint(CENTER_POINT)
-    sprite:setPosition(0, -51)
+    sprite:setPosition(0, -52)
     self.vars['clickBtn']:addChild(sprite, 3)
     vars['starIcon'] = sprite
 end
@@ -236,7 +234,7 @@ function UI_CharacterCard:setLevelText(level)
     end
 
     local pos_x = -60
-    local pos_y = 20
+    local pos_y = 0
     local font_size = 15
     if (level < 10) then
         lvSprite1:setVisible(true)
