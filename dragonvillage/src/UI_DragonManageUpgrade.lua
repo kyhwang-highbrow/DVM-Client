@@ -365,14 +365,17 @@ function UI_DragonManageUpgrade:refresh_materialDragonIndivisual(odid)
     end
 
     local item = self.m_tableViewExtMaterial:getItem(odid)
-
-    if item then
-        local is_selected = (self.m_tableViewExtSelectMaterial:getItem(odid) ~= nil)
-        local ui = item['ui']
-        if ui then
-            ui:setShadowSpriteVisible(is_selected)
-        end
+    if (not item) then
+        return
     end
+    
+    local ui = item['ui']
+    if (not ui) then
+        return
+    end
+
+    local is_selected = (self.m_tableViewExtSelectMaterial:getItem(odid) ~= nil)
+    ui:setShadowSpriteVisible(is_selected)
 end
 
 -------------------------------------

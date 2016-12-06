@@ -303,6 +303,7 @@ local t_module = {
     'UI_DragonTrainSlot_ListItem',
     'UI_CharacterCard',
     'UI_SkillDetailPopup',
+    'UI_DragonGoodbye',
 
     -- UIC (UI Component)
     'UIC_Node',

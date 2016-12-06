@@ -1039,6 +1039,9 @@
     <None Include="..\src\SkillSpiderWeb.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_DragonGoodbye.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

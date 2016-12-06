@@ -558,6 +558,18 @@ function UI_DragonManageInfo:click_sellBtn()
         return
     end
     
+    local ui = UI_DragonGoodbye()
+
+    -- 선택된 드래곤은 바로 추가하기 위해서
+    ui:addMaterial(self.m_selectDragonOID)
+
+    -- UI종료 후 콜백
+    local function close_cb()
+        self:sceneFadeInAction()
+    end
+    ui:setCloseCB(close_cb)
+
+    --[[
     local func_popup    -- 여부 묻기
     local func_network  -- 네트워크 통신
     local func_finish   -- 종료 후 적용 (ret)
@@ -595,6 +607,7 @@ function UI_DragonManageInfo:click_sellBtn()
 
     -- 시작
     func_popup()
+    --]]
 end
 
 -------------------------------------

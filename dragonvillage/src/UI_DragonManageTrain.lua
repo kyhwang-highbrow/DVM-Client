@@ -193,7 +193,13 @@ end
 -- function click_lacteaButton
 -------------------------------------
 function UI_DragonManageTrain:click_lacteaButton()
-    cclog('## UI_DragonManageTrain:click_lacteaButton()')
+    local ui = UI_DragonGoodbye()
+
+    -- UI종료 후 콜백
+    local function close_cb()
+        self:sceneFadeInAction()
+    end
+    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------
