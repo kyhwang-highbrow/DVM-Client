@@ -89,6 +89,17 @@ RES_INDICATOR =
 	COMMON = 'res/indicator/indicator_common/indicator_common.vrp',
 }
 
+--------------------------------------------
+-- 유닛
+--------------------------------------------
+function isDragon(id)
+    return ( math_floor(id / 10000) == 12 )
+end
+
+function isMonster(id)
+    return ( math_floor(id / 10000) == 13 )
+end
+
  --------------------------------------------
 -- 디버깅용 
 --------------------------------------------

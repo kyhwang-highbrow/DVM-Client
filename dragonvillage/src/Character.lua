@@ -68,6 +68,8 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_homePosX = 'number',
         m_homePosY = 'number',
 
+        -- @ 임시 변수()
+
         -- 보호막 스킬
         m_buffProtection = 'Buff_Protection',
         m_lProtectionList = 'list',
@@ -118,6 +120,28 @@ function Character:init(file_name, body, ...)
     self.m_bEnableSpasticity = true
     self.m_isSpasticity = false
     self.m_delaySpasticity = 0
+end
+
+-------------------------------------
+-- function initState
+-------------------------------------
+function Character:initState()
+    self:addState('idle', Character.st_idle, 'idle', true)
+    self:addState('attack', Character.st_attack, 'attack', false)
+    self:addState('attackDelay', Character.st_attackDelay, 'idle', true)
+    self:addState('charge', Character.st_charge, 'idle', true)
+    self:addState('casting', Character.st_casting, 'idle', true)
+
+    self:addState('dying', Character.st_dying, 'idle', false, PRIORITY.DYING)
+    self:addState('dead', Character.st_dead, nil, nil, PRIORITY.DEAD)
+
+    self:addState('delegate', Character.st_delegate, 'idle', true)
+    self:addState('wait', Character.st_wait, 'idle', true)
+    self:addState('move', Character.st_move, 'idle', true)
+
+	self:addState('stun', Character.st_stun, 'idle', true, PRIORITY.STUN)
+	self:addState('stun_esc', Character.st_stun_esc, 'idle', true, PRIORITY.STUN_ESC)
+    self:addState('comeback', Character.st_comeback, 'idle', true)
 end
 
 -------------------------------------
@@ -180,13 +204,17 @@ function Character:initStatus(t_char, level, grade, evolution, doid)
     local evolution = (evolution or 1)
 
     if (self.m_charType == 'dragon') then
-       self.m_statusCalc = MakeOwnDragonStatusCalculator(doid)
+        if doid then
+            self.m_statusCalc = MakeOwnDragonStatusCalculator(doid)
+        else
+            self.m_statusCalc = MakeDragonStatusCalculator(self.m_charTable['did'], level, grade, evolution)
+        end
     elseif (self.m_charType == 'enemy') then
         self.m_statusCalc = StatusCalculator(self.m_charType, self.m_charTable['mid'], level, grade, evolution)
     else
         error('self.m_charType : ' .. self.m_charType)
     end
-
+    
     local hp = self.m_statusCalc:getFinalStat('hp')
     self.m_maxHp = hp
     self.m_hp = hp

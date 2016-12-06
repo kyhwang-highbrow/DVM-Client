@@ -44,44 +44,15 @@ function Enemy:initAnimatorMonster(file_name, attr)
 end
 
 -------------------------------------
--- function initWorld
--- @param game_world
--------------------------------------
-function Enemy:initWorld(game_world)
-    PARENT.initWorld(self, game_world)
-
-    if self.m_world then
-        self.m_world:addEnemy(self)
-    end
-end
-
-Enemy.st_idle = PARENT.st_idle
-Enemy.st_attack = PARENT.st_attack
-Enemy.st_attackDelay = PARENT.st_attackDelay
-
-Enemy.st_dying = PARENT.st_dying
-Enemy.st_dead = PARENT.st_dead
-Enemy.st_delegate = PARENT.st_delegate
-
--------------------------------------
 -- function initState
 -------------------------------------
 function Enemy:initState()
-    self:addState('idle', Enemy.st_idle, 'idle', true)
-    self:addState('attack', Enemy.st_attack, 'attack', false)
-    self:addState('attackDelay', Enemy.st_attackDelay, 'idle', true)
+    PARENT.initState(self)
+
     self:addState('charge', Enemy.st_charge, 'idle', true)
     self:addState('casting', Enemy.st_casting, 'idle', true)
 
-    self:addState('dying', Enemy.st_dying, 'idle', false, PRIORITY.DYING)
-    self:addState('dead', Enemy.st_dead, nil, nil, PRIORITY.DEAD)
-
-    self:addState('delegate', Enemy.st_delegate, 'idle', true)
     self:addState('wait', Enemy.st_wait, 'idle', true)
-
-	self:addState('stun', PARENT.st_stun, 'idle', true, PRIORITY.STUN)
-	self:addState('stun_esc', PARENT.st_stun_esc, 'idle', true, PRIORITY.STUN_ESC)
-    self:addState('comeback', PARENT.st_comeback, 'idle', true)
 end
 
 -------------------------------------

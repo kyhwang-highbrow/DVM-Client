@@ -1,14 +1,16 @@
+EnemyMovement = {}
+
 -------------------------------------
 -- function MoveTo
 -------------------------------------
-function EnemyLua.MoveTo(owner)
+function EnemyMovement.MoveTo(owner, luaValue1, luaValue2, luaValue3, luaValue4, luaValue5)
     
     -- m_luaValue1 출발 위치
     -- m_luaValue2 도착 위치
     -- m_luaValue3 속도
-    local pos1 = getWorldEnemyPos(owner, owner.m_luaValue1)
-    local pos2 = getWorldEnemyPos(owner, owner.m_luaValue2)
-    local speed = owner.m_luaValue3 or 500
+    local pos1 = getWorldEnemyPos(owner, luaValue1)
+    local pos2 = getWorldEnemyPos(owner, luaValue2)
+    local speed = luaValue3 or 500
 
     -- 출발 위치 지정
     owner:setPosition(pos1.x, pos1.y)
@@ -34,14 +36,14 @@ end
 -------------------------------------
 -- function BezierTo_a
 -------------------------------------
-function EnemyLua.BezierTo_a(owner)
+function EnemyMovement.BezierTo_a(owner, luaValue1, luaValue2, luaValue3, luaValue4, luaValue5)
     
     -- m_luaValue1 출발 위치
     -- m_luaValue2 도착 위치
     -- m_luaValue3 속도
-    local pos1 = getWorldEnemyPos(owner, owner.m_luaValue1)
-    local pos2 = getWorldEnemyPos(owner, owner.m_luaValue2)
-    local speed = owner.m_luaValue3 or 500
+    local pos1 = getWorldEnemyPos(owner, luaValue1)
+    local pos2 = getWorldEnemyPos(owner, luaValue2)
+    local speed = luaValue3 or 500
 
     -- 출발 위치 지정
     owner:setPosition(pos1.x, pos1.y)
@@ -79,14 +81,14 @@ end
 -------------------------------------
 -- function BezierTo_b
 -------------------------------------
-function EnemyLua.BezierTo_b(owner)
+function EnemyMovement.BezierTo_b(owner, luaValue1, luaValue2, luaValue3, luaValue4, luaValue5)
     
     -- m_luaValue1 출발 위치
     -- m_luaValue2 도착 위치
     -- m_luaValue3 속도
-    local pos1 = getWorldEnemyPos(owner, owner.m_luaValue1)
-    local pos2 = getWorldEnemyPos(owner, owner.m_luaValue2)
-    local speed = owner.m_luaValue3 or 500
+    local pos1 = getWorldEnemyPos(owner, luaValue1)
+    local pos2 = getWorldEnemyPos(owner, luaValue2)
+    local speed = luaValue3 or 500
 
     -- 출발 위치 지정
     owner:setPosition(pos1.x, pos1.y)
@@ -126,13 +128,13 @@ end
 -- @param value2 = 도착 위치
 -- @prarm value3 = 등장 시간(duration)
 -------------------------------------
-function EnemyLua.Basic(owner)
+function EnemyMovement.Basic(owner, luaValue1, luaValue2, luaValue3, luaValue4, luaValue5)
     -- m_luaValue1 출발 위치
     -- m_luaValue2 도착 위치
     -- m_luaValue3 등장 시간
-    local pos1 = getWorldEnemyPos(owner, owner.m_luaValue1)
-    local pos2 = getWorldEnemyPos(owner, owner.m_luaValue2)
-    local duration = owner.m_luaValue3 or 1
+    local pos1 = getWorldEnemyPos(owner, luaValue1)
+    local pos2 = getWorldEnemyPos(owner, luaValue2)
+    local duration = luaValue3 or 1
 
     -- 출발 위치 지정
     owner:setOrgHomePos(pos2.x, pos2.y)
@@ -141,7 +143,6 @@ function EnemyLua.Basic(owner)
 
     -- 마지막 액션(Enemy를 공격상태로 변경)
     local finish_action = cc.CallFunc:create(function()
-        EnemyLua.st_move(owner, 0)
         owner:changeState('idle')
 
         owner:dispatch('enemy_appear_done', owner)
@@ -163,13 +164,13 @@ end
 -- @param value2 = 도착 위치
 -- @prarm value3 = 등장 시간(duration)
 -------------------------------------
-function EnemyLua.Basic2(owner)
+function EnemyMovement.Basic2(owner, luaValue1, luaValue2, luaValue3, luaValue4, luaValue5)
     -- m_luaValue1 출발 위치
     -- m_luaValue2 도착 위치
     -- m_luaValue3 등장 시간
-    local pos1 = getWorldEnemyPos(owner, owner.m_luaValue1)
-    local pos2 = getWorldEnemyPos(owner, owner.m_luaValue2)
-    local duration = owner.m_luaValue3 or 1
+    local pos1 = getWorldEnemyPos(owner, luaValue1)
+    local pos2 = getWorldEnemyPos(owner, luaValue2)
+    local duration = luaValue3 or 1
 
     -- 출발 위치 지정
     owner:setOrgHomePos(pos2.x, pos2.y)
@@ -185,7 +186,6 @@ function EnemyLua.Basic2(owner)
 
     -- 마지막 액션(Enemy를 공격상태로 변경)
     local finish_action = cc.CallFunc:create(function()
-        EnemyLua.st_move(owner, 0)
         owner:changeState('idle')
         effect:release()
         owner:dispatch('enemy_appear_done', owner)
@@ -207,9 +207,9 @@ end
 -- @brief 등장 후 죽을때까지 전투
 -- @param value2 = 도착 위치
 -------------------------------------
-function EnemyLua.Appear(owner)
+function EnemyMovement.Appear(owner, luaValue1, luaValue2, luaValue3, luaValue4, luaValue5)
     -- m_luaValue2 도착 위치
-    local pos2 = getWorldEnemyPos(owner, owner.m_luaValue2)
+    local pos2 = getWorldEnemyPos(owner, luaValue2)
 
     -- 출발 위치 지정
     owner:setOrgHomePos(pos2.x, pos2.y)

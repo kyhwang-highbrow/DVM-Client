@@ -102,23 +102,15 @@ function Hero:doAttack(x, y)
     end
 end
 
-Hero.st_idle = PARENT.st_idle
-Hero.st_attackDelay = PARENT.st_attackDelay
-Hero.st_casting = PARENT.st_casting
-
-Hero.st_dying = PARENT.st_dying
-Hero.st_dead = PARENT.st_dead
-Hero.st_delegate = PARENT.st_delegate
-
 -------------------------------------
 -- function initState
 -------------------------------------
 function Hero:initState()
-    self:addState('idle', Hero.st_idle, 'idle', true)
+    PARENT.initState(self)
+
     self:addState('attack', Hero.st_attack, 'attack', true)
-    self:addState('attackDelay', Hero.st_attackDelay, 'idle', true)
     self:addState('charge', Hero.st_charge, 'idle', true)
-    self:addState('casting', Hero.st_casting, 'skill_appear', true)
+    self:addState('casting', PARENT.st_casting, 'skill_appear', true)
 
     --
     self:addState('skillPrepare', Hero.st_skillPrepare, 'skill_appear', true)
@@ -127,19 +119,11 @@ function Hero:initState()
     self:addState('skillDisappear', Hero.st_skillDisappear, 'skill_disappear', false)
     --
 
-    self:addState('dying', Hero.st_dying, 'idle', false, PRIORITY.DYING)
-    self:addState('dead', Hero.st_dead, nil, nil, PRIORITY.DEAD)
-
-    self:addState('delegate', Hero.st_delegate, 'idle', true)
     self:addState('wait', Hero.st_wait, 'idle', true)
 
     -- success
     self:addState('success_pose', Hero.st_success_pose, 'pose_1', false)
     self:addState('success_move', Hero.st_success_move, 'idle', true)
-
-	self:addState('stun', PARENT.st_stun, 'idle', true, PRIORITY.STUN)
-	self:addState('stun_esc', PARENT.st_stun_esc, 'idle', true, PRIORITY.STUN_ESC)
-    self:addState('comeback', PARENT.st_comeback, 'idle', true)
 end
 
 -------------------------------------
@@ -410,7 +394,11 @@ end
 -------------------------------------
 function Hero:release()
     if self.m_world then
-        self.m_world:removeHero(self)
+        if self.m_bLeftFormation then
+            self.m_world:removeHero(self)
+        else
+            self.m_world:removeEnemy(self)
+        end
     end
 
     if self.m_hpNode then

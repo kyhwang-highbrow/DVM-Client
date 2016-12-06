@@ -1,4 +1,4 @@
-local PARENT = EnemyLua
+local PARENT = Enemy
 
 -------------------------------------
 -- class EnemyLua_Boss

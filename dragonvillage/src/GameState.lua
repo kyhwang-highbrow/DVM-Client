@@ -254,9 +254,9 @@ end
 -------------------------------------
 function GameState:update_enemy_appear(dt)
     local world = self.m_world
+    local enemy_count = #world:getEnemyList()
 	
     if (self.m_stateTimer == 0) then
-        local enemy_count = #world:getEnemyList()
         local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
 
         if (enemy_count <= 0) and (dynamic_wave <= 0) then
@@ -264,7 +264,7 @@ function GameState:update_enemy_appear(dt)
         end
     
     -- 모든 적들이 등장이 끝났는지 확인
-    elseif world.m_waveMgr:isEmptyDynamicWaveList() and self.m_nAppearedEnemys >= #world:getEnemyList() then
+    elseif world.m_waveMgr:isEmptyDynamicWaveList() and self.m_nAppearedEnemys >= enemy_count then
         
         -- 전투 최초 시작시
         if world.m_waveMgr:isFirstWave() then
@@ -329,7 +329,7 @@ function GameState:update_fight(dt)
             return
 
         -- 마지막 웨이브라면 해당 웨이브의 최고 등급 적이 존재하지 않을 경우 클리어 처리
-        elseif world.m_waveMgr:isFinalWave() then
+        elseif ( not world.m_bArenaMode and world.m_waveMgr:isFinalWave() ) then
             local highestRariry = world.m_waveMgr:getHighestRariry()
             local bExistBoss = false
             

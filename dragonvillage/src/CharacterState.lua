@@ -306,3 +306,14 @@ function Character.st_stun_esc(owner, dt)
         owner:changeStateWithCheckHomePos('attackDelay', true)
 	end
 end
+
+-------------------------------------
+-- function st_move
+-------------------------------------
+function Character.st_move(owner, dt)
+    local x, y = owner.m_rootNode:getPosition()
+    if (owner.pos.x ~= x) or (owner.pos.y ~= y) then
+        owner:setHomePos(x, y)
+        owner:setPosition(x, y)
+    end
+end

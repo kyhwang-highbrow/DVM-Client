@@ -46,6 +46,8 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_bDebugGrid = '',
 
         m_missileRange = 'table',
+
+        m_bArenaMode = 'boolean',
         m_bDevelopMode = 'boolean',
 
         -- callback
@@ -104,6 +106,7 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
     self.m_gameNode2 = game_node2
     self.m_gameNode3 = game_node3
     self.m_feverNode = fever_node
+    self.m_bArenaMode = false
     self.m_bDevelopMode = develop_mode or false
 
     self.m_bPreventControl = false
@@ -520,13 +523,6 @@ function GameWorld:initBG()
 end
 
 -------------------------------------
--- function initEnemyClass
--------------------------------------
-function GameWorld:initEnemyClass(enemy)
-    self.m_rightFormationMgr:setChangePosCallback(enemy)
-end
-
--------------------------------------
 -- function 
 -------------------------------------
 function GameWorld:addDestructibleMissile(missile)
@@ -627,6 +623,16 @@ end
 function GameWorld:addEnemy(enemy)
     table.insert(self.m_tEnemyList, enemy)
     --cclog('GameWorld:addEnemy(enemy) cnt : ' .. #self.m_tEnemyList)
+
+    -- 죽음 콜백 등록
+    enemy:addListener('character_dead', self)
+
+    -- 등장 완료 콜백 등록
+    enemy:addListener('enemy_appear_done', self.m_gameState)
+
+    -- 스킬 캐스팅 중 취소시 콜백 등록
+    enemy:addListener('character_casting_cancel', self.m_tamerSpeechSystem)
+    enemy:addListener('character_casting_cancel', self.m_gameFever)
 end
 
 -------------------------------------
@@ -766,63 +772,18 @@ function GameWorld:makeDragonDeck()
     for i,v in pairs(l_deck) do
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(v)
         if t_dragon_data then
-            self:makeDragonNew(t_dragon_data, i)
+            local hero = self:makeDragonNew(t_dragon_data)
+            if hero then
+                self.m_worldNode:addChild(hero.m_rootNode, 2)
+                self.m_physWorld:addObject('hero', hero)
+                self:addDragon(hero, tonumber(i))
+
+                self:participationHero(hero)
+
+                self.m_leftFormationMgr:setChangePosCallback(hero)
+            end
         end
     end
-end
-
--------------------------------------
--- function makeDragonNew
--------------------------------------
-function GameWorld:makeDragonNew(t_dragon_data, idx)
-
-    -- 유저가 보유하고있는 드래곤의 정보
-    local t_dragon_data = t_dragon_data
-    local dragon_id = t_dragon_data['did']
-
-    -- 테이블의 드래곤 정보
-    local table_dragon = TABLE:get('dragon')
-    local t_dragon = table_dragon[dragon_id]
-
-    local doid = t_dragon_data['id']
-    local lv = t_dragon_data['lv']
-    local grade = t_dragon_data['grade']
-    local evolution = t_dragon_data['evolution']
-	local attr = t_dragon['attr']
-
-    local hero = Hero(nil, {0, 0, 20})
-    hero:setDragonSkillLevelList(t_dragon_data['skill_0'], t_dragon_data['skill_1'], t_dragon_data['skill_2'], t_dragon_data['skill_3'])
-    hero:initDragonSkillManager('dragon', dragon_id, t_dragon_data['evolution'])
-    hero:initActiveSkillCoolTime() -- 액티브 스킬 쿨타임 지정
-    hero.m_tDragonInfo = t_dragon_data
-    hero:initAnimatorHero(t_dragon['res'], evolution, attr)
-    hero.m_animator:setScale(0.5 * t_dragon['scale'])
-    hero:initState()
-    hero:initStatus(t_dragon, lv, grade, evolution, doid)
-
-    --
-    self.m_leftFormationMgr:setChangePosCallback(hero)
-
-    -- 기본 정보 저장
-    hero.m_dragonID = dragon_id
-    hero.m_charTable = t_dragon
-
-    --hero:changeState('attackDelay')
-    hero:changeState('idle')
-
-    self.m_worldNode:addChild(hero.m_rootNode, 2)
-    self:addToUnitList(hero)
-    self.m_physWorld:addObject('hero', hero)
-    self:addDragon(hero, tonumber(idx))
-
-    -- 피격 처리
-    hero:addDefCallback(function(attacker, defender, i_x, i_y)
-        hero:undergoAttack(attacker, defender, i_x, i_y)
-    end)
-
-    hero:makeHPGauge({0, -80})
-
-    self:participationHero(hero)
 end
 
 -------------------------------------

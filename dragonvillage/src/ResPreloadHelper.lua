@@ -160,8 +160,8 @@ function resCaching(res_name)
         end
 	end
 
-    if b then
-        --cclog('resCaching ' .. res_name)
+    if b and DEVELOPMENT_KSJ then
+        cclog('resCaching ' .. res_name)
     end
 
     return b

@@ -13,7 +13,7 @@ WaveMgr = class(IEventDispatcher:getCloneClass(), {
 
         m_stageName = '',
         m_bDevelopMode = '',
-
+        
         m_highestRarity = 'number',     -- 하나의 웨이브 안에서 가장 높은 rarity
     })
 
@@ -215,11 +215,13 @@ function WaveMgr:newScenario_dynamicWave(t_data)
             table.insert(self.m_lDynamicWave, dynamic_wave)
 
             -- 마지막 웨이브에서는 최대 등급을 가진 적을 찾음
-            local t_enemy = TABLE:get('enemy')[dynamic_wave.m_enemyID]
-            local rarity = t_enemy['rarity']
+            if (not self.m_world.m_bArenaMode) then
+                local t_enemy = TABLE:get('enemy')[dynamic_wave.m_enemyID]
+                local rarity = t_enemy['rarity']
                 
-            if monsterRarityStrToNum(rarity) > monsterRarityStrToNum(self.m_highestRarity) then
-                self.m_highestRarity = rarity
+                if monsterRarityStrToNum(rarity) > monsterRarityStrToNum(self.m_highestRarity) then
+                    self.m_highestRarity = rarity
+                end
             end
         end
     end
@@ -237,123 +239,50 @@ end
 -------------------------------------
 function WaveMgr:spawnEnemy_dynamic(enemy_id, level, movement, value1, value2, value3, value4, value5)
 
-    local table_enemy = TABLE:get('enemy')
-    local t_enemy = table_enemy[enemy_id]
+    local enemy
 
-    if (not t_enemy) then
-        error(tostring('다음 ID는 존재하지 않습니다 : ' .. enemy_id))
-    end
+    if isMonster(enemy_id) then
+        -- Enemy 생성
+        enemy = self.m_world:makeEnemyNew(enemy_id, level)
+        enemy:setPosition(1000, 0)
+        
+        self.m_world.m_worldNode:addChild(enemy.m_rootNode, 1)
+        self.m_world.m_physWorld:addObject('enemy', enemy)
+        self.m_world:addEnemy(enemy)
 
-    local body = {0, 0, 50}
+        self.m_world.m_rightFormationMgr:setChangePosCallback(enemy)
 
-    -- 사이즈 타입별 피격박스 반지름 변경
-    local size_type = t_enemy['size_type']
-    if (size_type == 's') then
-        body[3] = 30
-    elseif (size_type == 'm') then
-        body[3] = 40
-    elseif (size_type == 'l') then
-        body[3] = 60
-    elseif (size_type == 'xl') then
-        body[3] = 100
-	elseif (size_type == 'xxl') then
-        body[3] = 200
-    end
+        -- 패시브 실행
+	    local l_passive = enemy.m_lSkillIndivisualInfo['passive']
+        for i,skill_info in pairs(l_passive) do
+            local skill_id = skill_info.m_skillID
+            enemy:doSkill(skill_id, nil, 0, 0)
+        end
 
-    -- 난이도별 레벨 설정
-    local t_drop = TABLE:get('drop')[self.m_world.m_stageID]
-    local level = level + t_drop['level']
-    
-    local scale = 1
-    local offset_y = (body[3] * 1.5)
-    local hp_ui_offset = {0, -offset_y}
-    local animator_scale = t_enemy['scale'] or 1
+        if EnemyMovement[movement] then
+            EnemyMovement[movement](enemy, value1, value2, value3, value4, value5)
+        end
 
-    -- Enemy 생성
-    local enemy = self:tryPatternEnemy(t_enemy, body)
-    if (not enemy) then
-        enemy = EnemyLua(t_enemy['res'], body)
-        enemy:initAnimatorMonster(t_enemy['res'], t_enemy['attr'])
-    end
+    elseif isDragon(enemy_id) then
+        -- 드래곤일 경우 등급 및 진화, 친밀도의 데이터도 추가 정리 필요
+        enemy = self.m_world:makeDragonNew({
+            did = enemy_id,
+            lv = level,
+            skill_0 = 1
+        }, true)
+                        
+        self.m_world.m_worldNode:addChild(enemy.m_rootNode, 1)
+        self.m_world.m_physWorld:addObject('enemy', enemy)
+        self.m_world:addEnemy(enemy)
 
-    self.m_world:initEnemyClass(enemy)
-    enemy:initLuaValue(value1, value2, value3, value4, value5)
-    enemy:initDragonSkillManager('enemy', enemy_id, 6) -- monster는 skill_1~skill_6을 모두 사용
-    enemy:initState()
-    enemy:initStatus(t_enemy, level)
-    enemy:changeState('move')
+        self.m_world.m_rightFormationMgr:setChangePosCallback(enemy)
 
-    -- 죽음 콜백 등록
-    enemy:addListener('character_dead', self.m_world)
-
-    -- 등장 완료 콜백 등록
-    enemy:addListener('enemy_appear_done', self.m_world.m_gameState)
-
-    -- 스킬 캐스팅 중 취소시 콜백 등록
-    enemy:addListener('character_casting_cancel', self.m_world.m_tamerSpeechSystem)
-    enemy:addListener('character_casting_cancel', self.m_world.m_gameFever)
-
-    enemy.m_animator.m_node:setScale(animator_scale)
-    enemy.m_animator:setFlip(true)
-
-    self.m_world.m_worldNode:addChild(enemy.m_rootNode, 1)
-    self.m_world:addToUnitList(enemy)
-    enemy:makeHPGauge(hp_ui_offset)
-
-    enemy:setPosition(1000, 0)
-    self.m_world.m_physWorld:addObject('enemy', enemy)
-
-    enemy:addDefCallback(function(attacker, defender, i_x, i_y)
-        enemy:undergoAttack(attacker, defender, i_x, i_y, 0)
-    end)
-
-	-- 패시브 실행
-	local l_passive = enemy.m_lSkillIndivisualInfo['passive']
-    for i,skill_info in pairs(l_passive) do
-        local skill_id = skill_info.m_skillID
-        enemy:doSkill(skill_id, nil, 0, 0)
-    end
-
-    if EnemyLua[movement] then
-        EnemyLua[movement](enemy)
+        if EnemyMovement[movement] then
+            EnemyMovement[movement](enemy, value1, value2, value3, value4, value5)
+        end
     end
 
 	return enemy
-end
-
--------------------------------------
--- function tryPatternEnemy
--- @brief 패턴을 가진 적군
--- ex) 'pattern_' + rarity + type
---     'pattern_boss_queenssnake'
--------------------------------------
-function WaveMgr:tryPatternEnemy(t_enemy, body)
-    local rarity = t_enemy['rarity']
-    local type = t_enemy['type']
-    local script_name = 'pattern_' .. rarity .. '_' .. type    
-
-    -- 임시 구현
-    if (type == 'giantdragon') then
-        local enemy = Monster_GiantDragon(t_enemy['res'], body)
-        enemy:initAnimatorMonster(t_enemy['res'], t_enemy['attr'])
-        enemy:initScript(script_name)
-
-        return enemy
-    end
-
-    -- 테이블이 없을 경우 return
-    local script = TABLE:loadJsonTable(script_name)
-	local is_pattern_ignore = (t_enemy['pattern'] == 'ignore')
-	
-    if (not script) or is_pattern_ignore then
-        return nil
-    end
-
-    local enemy = EnemyLua_Boss(t_enemy['res'], body)
-    enemy:initAnimatorMonster(t_enemy['res'], t_enemy['attr'])
-    enemy:initScript(script_name)
-
-    return enemy
 end
 
 -------------------------------------
