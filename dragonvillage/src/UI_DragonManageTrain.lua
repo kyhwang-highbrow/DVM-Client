@@ -251,6 +251,7 @@ function UI_DragonManageTrain:click_trainButton(item, slot_type)
             end
 
             MakeSimplePopup(POPUP_TYPE.YES_NO, Str('라테아가 부족합니다.\n상점으로 이동하시겠습니까?'), openLacteaPopup)
+            return
         end
     end
 
