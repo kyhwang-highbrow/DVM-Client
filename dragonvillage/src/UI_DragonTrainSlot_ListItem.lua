@@ -90,6 +90,7 @@ function UI_DragonTrainSlot_ListItem:refresh_slotVars(grade, slot_type, role, re
     end
 
     -- 레벨 표시 (1~10레벨이므로 10을 곱함)
+    vars['trainGaugeLabel' .. suffix]:setString(Str('{1}/10', level))
     vars['trainGauge' .. suffix]:setPercentage(level * 10)
 
     -- 수련 1회에 해당하는 설명

@@ -121,21 +121,21 @@ function TableDragonTrainStatus:getTrainSlotDescStr(slot_name, dragon_role, leve
 
     local str = ''
     if atk then 
-        str = Str('공격력 +{1}%', atk / 10 * level)
+        str = Str('공격력 +{1}%', math_floor(atk / 10 * level))
     end
 
     if def then
         if (str ~= '') then
             str = str .. ', '
         end
-        str = str .. Str('방어력 +{1}%', def / 10 * level)
+        str = str .. Str('방어력 +{1}%', math_floor(def / 10 * level))
     end
 
     if hp then
         if (str ~= '') then
             str = str .. ', '
         end
-        str = str .. Str('방어력 +{1}%', hp / 10 * level)
+        str = str .. Str('방어력 +{1}%', math_floor(hp / 10 * level))
     end
 
     return str

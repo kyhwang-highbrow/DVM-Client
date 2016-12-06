@@ -168,6 +168,10 @@ function UI_DragonManageTrain:int_trainSlotTableView(t_dragon_data)
             self:changeDragonSelectFrame()
         end
         --]]
+
+        local ui = item['ui']
+        ui.vars['trainButtonA']:registerScriptTapHandler(function() self:click_trainButton(item, 'a') end)
+        ui.vars['trainButtonB']:registerScriptTapHandler(function() self:click_trainButton(item, 'b') end)
     end
 
     -- 드래곤 클릭 콜백 함수
@@ -215,6 +219,105 @@ function UI_DragonManageTrain:click_lacteaButton()
         self:sceneFadeInAction()
     end
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_trainButton
+-------------------------------------
+function UI_DragonManageTrain:click_trainButton(item, slot_type)
+    local ui = item['ui']
+    local data = item['data']
+
+    local grade = ui.m_grade
+    local dragon_grade = self.m_selectDragonData['grade']
+
+    -- 수련 슬롯 등급 체크
+    if (dragon_grade < grade) then
+        UIManager:toastNotificationRed(Str('{1}등급이 되어야 수련할 수 있습니다.', grade))
+        return
+    end
+
+    do -- 라테아 갯수 체크
+        local table_dragon = TableDragon()
+        local t_dragon = table_dragon:get(self.m_selectDragonData['did'])
+
+        local table_dragon_train_info = TableDragonTrainInfo()
+        local req_lactea = table_dragon_train_info:getReqLactea(dragon_grade, t_dragon['rarity'])
+
+        local lactea = g_userData:get('lactea')
+        if (lactea < req_lactea) then
+            local function openLacteaPopup()
+                self:click_lacteaButton()
+            end
+
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('라테아가 부족합니다.\n상점으로 이동하시겠습니까?'), openLacteaPopup)
+        end
+    end
+
+    local slot_name = string.format('%.2d_%s', grade, slot_type)
+
+    local level, is_max_level, reward_receive = ui:parseTrainSlotData(slot_name)
+
+    -- 최대 레벨, 보상까지 받은 경우
+    if (is_max_level == true) and (reward_receive == true) then
+        UIManager:toastNotificationRed(Str('더이상 수련할 수 없습니다.'))
+    elseif (is_max_level == true) and (reward_receive == false) then
+        --보상
+    else
+        --수련
+        self:networkTrainRequest(slot_name, ui)
+    end
+end
+
+-------------------------------------
+-- function networkTrainRequest
+-------------------------------------
+function UI_DragonManageTrain:networkTrainRequest(slot_name, ui)
+    local uid = g_userData:get('uid')
+    local doid = self.m_selectDragonOID
+
+    local function success_cb(ret)
+        self:networkTrainResponse(ret, ui)
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/train')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('slotid', slot_name)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function networkTrainResponse
+-------------------------------------
+function UI_DragonManageTrain:networkTrainResponse(ret, ui)
+    local vars = self.vars
+
+    -- 라테아 갱신
+    if ret['lactea'] then
+        g_serverData:applyServerData(ret['lactea'], 'user', 'lactea')
+        g_topUserInfo:refreshData()
+
+        vars['lacteaLabel']:setString(comma_value(ret['lactea']))
+    end
+
+    -- 드래곤 정보 갱신
+    if ret['dragon'] then
+        g_dragonsData:applyDragonData(ret['dragon'])
+
+        -- 드래곤 테이블
+        local t_dragon_data = ret['dragon']
+        local table_dragon = TableDragon()
+        local t_dragon = table_dragon:get(t_dragon_data['did'])
+
+        -- 수련에 의한 능력치 갱신
+        self:refresh_currDragonTrainStatus(t_dragon_data, t_dragon)
+    end
+
+    ui:refresh()
 end
 
 -------------------------------------
