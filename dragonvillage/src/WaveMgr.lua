@@ -114,11 +114,11 @@ function WaveMgr:summonWave(idx)
 	for _, dynamic_wave in pairs(self.m_lSummonWave[idx]) do
 		dest_pos = getEnemyPos(dynamic_wave.m_luaValue2)
 		isSummonable = true
-
+		
 		-- 소환 가능한지 체크한다.
 		for _, enemy in pairs(self.m_world:getEnemyList()) do
 			enemy_pos = enemy['pos']
-			if (enemy_pos['x'] == dest_pos['x']) or (enemy_pos['y'] == dest_pos['y']) then
+			if (enemy_pos['x'] == dest_pos['x']) and (enemy_pos['y'] == dest_pos['y']) then
 				isSummonable = false	
 				break
 			end
