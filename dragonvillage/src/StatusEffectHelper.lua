@@ -220,6 +220,11 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	elseif isExistValue(status_effect_type, 'sleep') then
 		status_effect = StatusEffect_Trigger_Release(res)
 		status_effect:init_trigger(char, 'undergo_attack', nil)
+	
+	----------- 침묵 ------------------
+	elseif (status_effect_type == 'silence') then
+		status_effect = StatusEffect_Silence(res)
+		status_effect:init_status(char, t_status_effect)
 
     else
         status_effect = StatusEffect(res)

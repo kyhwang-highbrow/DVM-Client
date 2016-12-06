@@ -126,6 +126,12 @@ function Character.st_attackDelay(owner, dt)
         -- 어떤 스킬을 사용할 것인지 결정
         local skill_id, is_add_skill = owner:getBasicAttackSkillID()
 
+		-- 스킬 캐스팅 불가 처리
+		if owner.m_isSilence then
+			is_add_skill = false
+			skill_id = owner:getSkillID('basic')
+		end
+
         owner:reserveSkill(skill_id)
         owner:calcAttackPeriod()
 		owner.m_isAddSkill = is_add_skill
@@ -139,7 +145,7 @@ function Character.st_attackDelay(owner, dt)
         owner:animatorFloating()
     end
 
-    if (owner.m_attackPeriod <= owner.m_stateTimer) then
+    if (owner.m_stateTimer >= owner.m_attackPeriod) then
         
         if owner.m_reservedSkillCastTime > 0 then
             owner:changeState('casting')
@@ -290,6 +296,7 @@ end
 function Character.st_stun(owner, dt)
 	if owner.m_stateTimer == 0 then
 		owner:restore(500)
+		owner:setSilence(true)
 
         -- 캐스팅 게이지
         if owner.m_castingNode then
@@ -303,6 +310,7 @@ end
 -------------------------------------
 function Character.st_stun_esc(owner, dt)
 	if owner.m_stateTimer == 0 then
+		owner:setSilence(false)
         owner:changeStateWithCheckHomePos('attackDelay', true)
 	end
 end

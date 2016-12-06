@@ -97,15 +97,17 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
     local near_distance = nil
     local select_hero = nil
     for i, v in pairs(self.m_world:getDragonList()) do
-        local x, y = v:getCenterPos()
-        local distance = math_distance(x, y, node_pos['x'], node_pos['y'])
+		if (not v.m_isSilence) then 
+			local x, y = v:getCenterPos()
+			local distance = math_distance(x, y, node_pos['x'], node_pos['y'])
 
-        if (distance <= 100) then
-            if (near_distance == nil) or (distance < near_distance) then
-                near_distance = distance
-                select_hero = v
-            end
-        end
+			if (distance <= 100) then
+				if (near_distance == nil) or (distance < near_distance) then
+					near_distance = distance
+					select_hero = v
+				end
+			end
+		end
     end 
 
     if select_hero then

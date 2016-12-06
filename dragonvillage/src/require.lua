@@ -177,6 +177,7 @@ local t_module = {
 	'StatusEffect_DotDmg',
 	'StatusEffect_addAttack',
     'StatusEffect_Protection',
+	'StatusEffect_Silence',
 	
 	'StatusEffectIcon',
 

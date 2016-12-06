@@ -96,6 +96,9 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_bEnableSpasticity = 'boolean',-- 경직 가능 활성화 여부
         m_isSpasticity = 'boolean',     -- 경직 중 여부
         m_delaySpasticity = 'number',   -- 경직 남은 시간
+
+		-- 스킬 사용 불가 상태
+		m_isSilence = 'boolean',
      })
 
 local SpasticityTime = 0.2
@@ -120,6 +123,8 @@ function Character:init(file_name, body, ...)
     self.m_bEnableSpasticity = true
     self.m_isSpasticity = false
     self.m_delaySpasticity = 0
+
+	self.m_isSilence = false
 end
 
 -------------------------------------
@@ -1637,4 +1642,11 @@ end
 -- @brief 실 구현은 hero 클래스에서만 되어있다.
 -------------------------------------
 function Character:hideIndicator()
+end
+
+-------------------------------------
+-- function setSilence
+-------------------------------------
+function Character:setSilence(b)
+	self.m_isSilence = b
 end
