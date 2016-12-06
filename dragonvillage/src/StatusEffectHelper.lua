@@ -134,7 +134,7 @@ end
 -------------------------------------
 function StatusEffectHelper:setTriggerPassive(char, t_skill)
     local table_status_effect = TABLE:get('status_effect')
-	local status_effect_type = self:getStatusEffectTypeFromSkillTable(t_skill)
+	local status_effect_type = self:getStatusEffectTypeFromSkillTable(t_skill, 1)
     local t_status_effect = table_status_effect[status_effect_type] or {}
     
     local res = t_status_effect['res']
@@ -276,7 +276,6 @@ end
 -------------------------------------
 function StatusEffectHelper:invokePassive(char, t_skill)
 	local table_status_effect = TABLE:get('status_effect')
-	local status_effect_type = self:getStatusEffectTypeFromSkillTable(t_skill)
 	local l_status_effect_str = {t_skill['status_effect_1'], t_skill['status_effect_2']}
 	
 	-- 1. 발동 조건 확인 (발동되지 않을 경우 리턴)\
@@ -478,19 +477,26 @@ function StatusEffectHelper:releaseStatusEffectAll(char)
 	end
 end
 
+
+-------------------------------------
+-- function getStatusEffectTableFromSkillTable
+-- @brief 상태효과 파싱하여 테이블화
+-------------------------------------
+function StatusEffectHelper:getStatusEffectTableFromSkillTable(t_skill, idx)
+	local effect_str = t_skill['status_effect_' .. idx]
+	if (not effect_str) or (effect_str == 'x') then 
+		return nil 
+	end
+	return stringSplit(effect_str, ';')
+end
+
 -------------------------------------
 -- function getStatusEffectTypeFromSkillTable
 -- @brief 상태효과 타입 파싱해서 가져옴
 -------------------------------------
-function StatusEffectHelper:getStatusEffectTypeFromSkillTable(t_skill)
-	local effect_str = t_skill['status_effect_1']
-	if (not effect_str) or (effect_str == 'x') then 
-		return nil 
-	end
-	local t_effect = stringSplit(effect_str, ';')
-	local status_effect_type = t_effect[1]
-
-	return status_effect_type
+function StatusEffectHelper:getStatusEffectTypeFromSkillTable(t_skill, idx)
+	local t_effect = self:getStatusEffectTableFromSkillTable(t_skill, idx)
+	return t_effect[1]
 end
 
 -------------------------------------

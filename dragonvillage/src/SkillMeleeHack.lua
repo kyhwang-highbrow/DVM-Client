@@ -66,10 +66,10 @@ end
 -------------------------------------
 -- function initState
 -------------------------------------
-function SkillMeleeHack:initState()
+function SkillMeleeHack:initState(attack_ani)
     self:setCommonState(self)
     self:addState('start', SkillMeleeHack.st_move, 'attack_hack_move', true)
-    self:addState('attack', SkillMeleeHack.st_attack, 'attack_hack', false)
+    self:addState('attack', SkillMeleeHack.st_attack, attack_ani, false)
     self:addState('comeback', SkillMeleeHack.st_comeback, 'idle', true)
 
 	-- 영웅을 제어하는 스킬은 dying state를 별도로 정의
@@ -237,6 +237,7 @@ function SkillMeleeHack:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
 	local move_speed = t_skill['val_1'] or 1500
     local comeback_speed = t_skill['val_2'] or 1500
+	local attack_ani = (t_skill['animation'] == 'x') and 'attack_hack' or t_skill['animation']
 
 	-- 인스턴스 생성부
 	------------------------------------------------------	
@@ -246,7 +247,7 @@ function SkillMeleeHack:makeSkillInstance(owner, t_skill, t_data)
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
     skill:init_skill(move_speed, comeback_speed)
-	skill:initState()
+	skill:initState(attack_ani)
 
 	-- 3. state 시작 
     skill:changeState('delay')

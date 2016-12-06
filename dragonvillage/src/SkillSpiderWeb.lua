@@ -4,8 +4,7 @@ local PARENT = Skill
 -- class SkillSpiderWeb
 -------------------------------------
 SkillSpiderWeb = class(PARENT, {
-		-- t_skill에서 얻어오는 데이터
-		m_healRate = '',
+		m_statusDuration = 'num',
 	})
 
 -------------------------------------
@@ -21,7 +20,11 @@ end
 -------------------------------------
 function SkillSpiderWeb:init_skill()
 	PARENT.init_skill(self)
+	local t_effect = StatusEffectHelper:parsingStatusEffectStr(self.m_lStatusEffectStr, 1)
+	self.m_statusDuration = tonumber(t_effect[3])
+
 	self:setPosition(self.m_targetChar.pos.x, self.m_targetChar.pos.y)
+	self.m_animator:setVisible(false) 
 end
 
 -------------------------------------
@@ -29,9 +32,9 @@ end
 -------------------------------------
 function SkillSpiderWeb:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillSpiderWeb.st_appear, 'appear', true)
+    self:addState('start', SkillSpiderWeb.st_appear, 'appear', false)
 	self:addState('idle', SkillSpiderWeb.st_idle, 'idle', true)
-	self:addState('end', SkillSpiderWeb.st_disappear, 'disappear', true)
+	self:addState('end', SkillSpiderWeb.st_disappear, 'disappear', false)
 end
 
 -------------------------------------
@@ -52,8 +55,7 @@ end
 -------------------------------------
 function SkillSpiderWeb.st_idle(owner, dt)
 	if (owner.m_stateTimer == 0) then
-	elseif (owner.m_stateTimer > 10) then
-		--@TODO.mskim 하드코딩 숫자
+	elseif (owner.m_stateTimer > owner.m_statusDuration) then
 		owner:changeState('end')
 	end
 end
