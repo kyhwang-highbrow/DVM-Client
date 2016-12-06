@@ -340,9 +340,6 @@
     <None Include="..\src\require_MissileLua.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\EnemyLua.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\DynamicWave.lua">
       <Filter>lua</Filter>
     </None>
@@ -1028,6 +1025,9 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\TableDragonTrainStatus.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\GameWorld_Unit.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\UI_DragonManageTrain.lua">
