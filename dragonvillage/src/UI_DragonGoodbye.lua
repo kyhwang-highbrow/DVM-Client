@@ -5,6 +5,7 @@ local MAX_DRAGON_GOODBYE_MATERIAL_MAX = 30 -- 한 번에 작별 가능한 드래
 -- class UI_DragonGoodbye
 -------------------------------------
 UI_DragonGoodbye = class(PARENT,{
+        m_bChangeDragonList = 'boolean',
         m_tableViewExtMaterial = 'TableViewExtension', -- 재료
         m_tableViewExtSelectMaterial = 'TableViewExtension', -- 선택된 재료
         m_tableDragonTrainInfo = 'TableDragonTrainInfo',
@@ -35,6 +36,7 @@ function UI_DragonGoodbye:init()
 
     self:sceneFadeInAction()
 
+    self.m_bChangeDragonList = false
     self.m_tableDragonTrainInfo = TableDragonTrainInfo()
     self.m_addLactea = 0
 
@@ -53,6 +55,8 @@ end
 -- function initButton
 -------------------------------------
 function UI_DragonGoodbye:initButton()
+    local vars = self.vars
+    vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
 end
 
 -------------------------------------
@@ -195,6 +199,75 @@ function UI_DragonGoodbye:click_dragonCard(item)
     else
         self:addMaterial(doid)
     end
+end
+
+-------------------------------------
+-- function click_sellBtn
+-------------------------------------
+function UI_DragonGoodbye:click_sellBtn()
+    local item_cnt = self.m_tableViewExtSelectMaterial:getItemCount()
+
+    if (item_cnt <= 0) then
+        UIManager:toastNotificationRed(Str('작별할 드래곤을 선택해주세요!'))
+        return
+    end
+
+    local uid = g_userData:get('uid')
+    local src_doids = nil
+    for _doid,_ in pairs(self.m_tableViewExtSelectMaterial.m_mapItem) do
+        if (not src_doids) then
+            src_doids = tostring(_doid)
+        else
+            src_doids = src_doids .. ',' .. tostring(_doid)
+        end
+    end
+
+    self:goodbyeNetworkRequest(uid, src_doids)
+end
+
+-------------------------------------
+-- function goodbyeNetworkRequest
+-------------------------------------
+function UI_DragonGoodbye:goodbyeNetworkRequest(uid, src_doids)
+    local function success_cb(ret)
+        self:goodbyeNetworkResponse(ret)
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/goodbye')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('src_doids', src_doids)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function goodbyeNetworkResponse
+-------------------------------------
+function UI_DragonGoodbye:goodbyeNetworkResponse(ret)
+    -- 재료로 사용된 드래곤 삭제
+    if ret['deleted_dragons_oid'] then
+        for _,odid in pairs(ret['deleted_dragons_oid']) do
+            g_dragonsData:delDragonData(odid)
+
+            -- 드래곤 리스트 갱신
+            self.m_tableViewExtMaterial:delItem(odid)
+        end
+
+        self.m_tableViewExtMaterial:update()
+    end
+
+    -- 라테아 갱신
+    if ret['lactea'] then
+        g_serverData:applyServerData(ret['lactea'], 'user', 'lactea')
+        g_topUserInfo:refreshData()
+    end
+
+    self:init_dragonUMaterialSelectTableView()
+    self:refresh_lactea()
+
+    self.m_bChangeDragonList = true
 end
 
 -------------------------------------
