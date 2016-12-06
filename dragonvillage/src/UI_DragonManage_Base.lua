@@ -101,6 +101,10 @@ function UI_DragonManage_Base:setSelectDragonData(dragon_object_id, b_force)
         return
     end
 
+    if (not g_dragonsData:getDragonDataFromUid(dragon_object_id)) then
+        return self:setDefaultSelectDragon()
+    end
+
     if (not self:checkDragonSelect(dragon_object_id)) then
         return
     end
