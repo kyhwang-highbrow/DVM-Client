@@ -35,3 +35,16 @@ function TableDragonTrainInfo:getGoodbyeLacteaCnt(dragon_grade, dragon_evolution
     local lactea = t_dragon_train_info[key]
     return lactea
 end
+
+-------------------------------------
+-- function getReqLactea
+-- @brief 수련 시 필요한 라테아 양
+-------------------------------------
+function TableDragonTrainInfo:getReqLactea(dragon_grade, dragon_rarity)
+    local t_dragon_train_info = self:get(dragon_grade)
+
+    local key = 'req_' .. dragon_rarity
+
+    local lactea = t_dragon_train_info[key]
+    return lactea
+end

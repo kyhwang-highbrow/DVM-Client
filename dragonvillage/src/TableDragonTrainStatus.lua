@@ -90,3 +90,53 @@ function TableDragonTrainStatus:getStatusRate(t_dragon_train_status, dragon_role
 
     return value
 end
+
+
+-------------------------------------
+-- function getDesc
+-- @brief 수련 1회에 해당하는 설명
+-------------------------------------
+function TableDragonTrainStatus:getDesc(slot_name, dragon_role)
+    local t_dragon_train_status = self:get(slot_name)
+
+    local main_desc = t_dragon_train_status['t_' .. dragon_role]
+    local desc_1 = t_dragon_train_status[dragon_role .. '_desc_1']
+    local desc_2 = t_dragon_train_status[dragon_role .. '_desc_2']
+
+    local ret_desc = Str(main_desc, desc_1, desc_2)
+    return ret_desc
+end
+
+-------------------------------------
+-- function getTrainSlotDescStr
+-- @brief
+-------------------------------------
+function TableDragonTrainStatus:getTrainSlotDescStr(slot_name, dragon_role, level)
+    local t_dragon_train_status = self:get(slot_name)
+
+    local atk = tonumber(t_dragon_train_status[dragon_role .. '_atk'])
+    local def = tonumber(t_dragon_train_status[dragon_role .. '_def'])
+    local hp = tonumber(t_dragon_train_status[dragon_role .. '_hp'])
+   
+
+    local str = ''
+    if atk then 
+        str = Str('공격력 +{1}%', atk / 10 * level)
+    end
+
+    if def then
+        if (str ~= '') then
+            str = str .. ', '
+        end
+        str = str .. Str('방어력 +{1}%', def / 10 * level)
+    end
+
+    if hp then
+        if (str ~= '') then
+            str = str .. ', '
+        end
+        str = str .. Str('방어력 +{1}%', hp / 10 * level)
+    end
+
+    return str
+end
