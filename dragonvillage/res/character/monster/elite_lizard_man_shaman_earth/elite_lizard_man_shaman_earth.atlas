@@ -41,7 +41,7 @@ elite_lizard_man_shaman_earth_body_03
   index: -1
 elite_lizard_man_shaman_earth_hand_01
   rotate: false
-  xy: 260, 113
+  xy: 706, 148
   size: 56, 42
   orig: 56, 42
   offset: 0, 0
@@ -79,6 +79,13 @@ elite_lizard_man_shaman_earth_leg_02
   xy: 764, 192
   size: 61, 138
   orig: 61, 138
+  offset: 0, 0
+  index: -1
+elite_lizard_man_shaman_earth_mouth_01
+  rotate: false
+  xy: 260, 96
+  size: 54, 59
+  orig: 54, 59
   offset: 0, 0
   index: -1
 elite_lizard_man_shaman_earth_tail_01
