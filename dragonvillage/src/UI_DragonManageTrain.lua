@@ -197,6 +197,21 @@ function UI_DragonManageTrain:click_lacteaButton()
 
     -- UI종료 후 콜백
     local function close_cb()
+        if ui.m_bChangeDragonList then
+            self.m_bChangeDragonList = true
+            self:init_dragonTableView()
+
+            -- 기존에 선택되어 있던 드래곤이 없어졌을 경우
+            if (not g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)) then
+                self:setDefaultSelectDragon(nil)
+            end
+
+            -- 보유 라테아 갯수 라벨
+            local vars = self.vars
+            local lactea = g_userData:get('lactea')
+            vars['lacteaLabel']:setString(comma_value(lactea))
+        end
+
         self:sceneFadeInAction()
     end
     ui:setCloseCB(close_cb)

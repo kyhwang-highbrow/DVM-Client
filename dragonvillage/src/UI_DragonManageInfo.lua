@@ -565,49 +565,18 @@ function UI_DragonManageInfo:click_sellBtn()
 
     -- UI종료 후 콜백
     local function close_cb()
+        if ui.m_bChangeDragonList then
+            self:init_dragonTableView()
+
+            -- 기존에 선택되어 있던 드래곤이 없어졌을 경우
+            if (not g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)) then
+                self:setDefaultSelectDragon(nil)
+            end
+        end
+
         self:sceneFadeInAction()
     end
     ui:setCloseCB(close_cb)
-
-    --[[
-    local func_popup    -- 여부 묻기
-    local func_network  -- 네트워크 통신
-    local func_finish   -- 종료 후 적용 (ret)
-
-    -- 여부 묻기
-    func_popup = function()
-        MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('드래곤을 떠나보내시겠습니까?'), func_network)
-    end
-
-    -- 네트워크 통신
-    func_network = function()
-        local uid = g_userData:get('uid')
-
-        local ui_network = UI_Network()
-        ui_network:setUrl('/dragons/del')
-        ui_network:setParam('uid', uid)
-        ui_network:setParam('doid', self.m_selectDragonOID)
-        ui_network:setSuccessCB(func_finish)
-        ui_network:setRevocable(true)
-        ui_network:request()
-    end
-
-    -- 종료 후 적용 (ret)
-    func_finish = function(ret)
-        -- 테이블 뷰에서 삭제
-        self.m_tableViewExt:delItem(self.m_selectDragonOID)
-        self.m_tableViewExt:update()
-
-        g_dragonsData:delDragonData(self.m_selectDragonOID)
-        self.m_selectDragonOID = nil
-
-        -- 기본 선택 드래곤 다시 지정
-        self:setDefaultSelectDragon()
-    end
-
-    -- 시작
-    func_popup()
-    --]]
 end
 
 -------------------------------------
