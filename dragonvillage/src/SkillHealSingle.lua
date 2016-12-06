@@ -25,6 +25,8 @@ function SkillHealSingle:init_skill(missile_res)
     -- 멤버 변수
 	self.m_res = missile_res
 	self.m_healRate = self.m_powerRate/100
+
+	self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 end
 
 -------------------------------------
@@ -47,9 +49,6 @@ function SkillHealSingle.st_idle(owner, dt)
 			owner:changeState('dying')
 		end)
     end
-
-	-- 위치 동기화
-	owner:setPosition(owner.m_targetChar.pos.x, owner.m_targetChar.pos.y)
 end
 
 -------------------------------------
@@ -66,6 +65,7 @@ function SkillHealSingle:doHeal()
 
         target:healAbs(heal * self.m_healRate)
 
+		-- 나에게로부터 상대에게 가는 힐 이펙트 생성
         local effect_heal = EffectHeal(self.m_res, {0,0,0})
         effect_heal:initState()
         effect_heal:changeState('move')
