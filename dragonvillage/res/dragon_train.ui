@@ -1275,7 +1275,7 @@
 		};
 		[4] =
 		{
-			type = 'TableView';
+			type = 'Node';
 			ui_name = '';
 			x = 173.000000;
 			y = 15.000000;
@@ -1290,13 +1290,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = 'tableView';
-			scroll = 2;
-			bounce = true;
-			view_width = 894;
-			view_height = 460;
-			cell_width = 60;
-			cell_height = 60;
+			lua_name = 'tableViewNode';
 		};
 		type = 'Menu';
 		ui_name = '';

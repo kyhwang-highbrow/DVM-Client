@@ -64,11 +64,11 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 232033,script,skill_subboss_griffin_3,그리핀,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,5,atk,50,1,0,0,0,0,0,x,x,x,0,x,x
 232040,code,skill_melee_atk,근접공격,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,5000,10000,0,0,0,x,x,x,0,x,캐릭터가 직접 대상 앞으로 이동하여 공격한다(공격 모션 필요). 공격이 끝나면 제 자리로 돌아온다.
 232041,status_effect,skill_subboss_chariot_scarab_01_1,전차 풍뎅이(돌격): 분노,x,x,x,skill_1,instant,physical,0,basic_turn,3,self,2,atk,1,1,0,0,0,0,0,x,atk_up;target;10;100;100,x,0,x,x
-232042,script,skill_subboss_chariot_scarab_01_2,전차 풍뎅이(돌격): 돌파,x,x,x,skill_1,instant,physical,0,basic_turn,4,enemy_distance_line,3,atk,20,1,0,0,0,0,0,x,x,x,0,x,x
+232042,script,skill_subboss_chariot_scarab_01_2,전차 풍뎅이(돌격): 돌파,x,x,x,skill_2,instant,physical,0,basic_turn,4,enemy_distance_line,3,atk,20,1,0,0,0,0,0,x,x,x,0,x,x
 232043,code,skill_summon_die,전차 풍뎅이(돌격): 탈출,x,x,x,skill_1,instant,physical,0,trigger,dead,self,1,atk,1,1,131041,7,RB21,0,0,x,x,x,0,x,x
 232050,code,missile_move_high_angle        ,포격,res/missile/missile_ball/missile_ball_@.vrp,x,x,x,instant,magical,-1,basic,1,enemy_distance_line,-1,atk,100,1,100,50,0,0,0,x,x,x,0,x,x
 232051,status_effect,skill_subboss_chariot_scarab_02_1,전차 풍뎅이(포격): 인내,x,x,x,skill_1,instant,physical,0,basic_turn,3,self,2,atk,1,1,0,0,0,0,0,x,def_up;target;10;100;100,x,0,x,x
-232052,script,skill_subboss_chariot_scarab_02_2,전차 풍뎅이(포격): 초토화,x,x,x,skill_1,instant,physical,0,basic_turn,4,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
+232052,script,skill_subboss_chariot_scarab_02_2,전차 풍뎅이(포격): 초토화,x,x,x,skill_2,instant,physical,0,basic_turn,4,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 232053,code,skill_summon_die,전차 풍뎅이(포격): 탈출,x,x,x,skill_1,instant,physical,0,trigger,dead,self,1,atk,1,1,131051,7,RB17,0,0,x,x,x,0,x,x
 233100,script,skill_boss_queenssnake_0,퀸즈스네이크 : 기본 공격 (attack),x,x,x,attack,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
 233101,script,skill_boss_queenssnake_1,퀸즈스네이크 : 벌집 던지기 (우측상단 집중공격),x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
