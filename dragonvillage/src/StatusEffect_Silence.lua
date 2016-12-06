@@ -17,7 +17,7 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function StatusEffect_Silence:init_status(char, t_status_effect, status_effect_value, duration)
+function StatusEffect_Silence:init_status(char)
 	self.m_owner = char
 	char:setSilence(true)
 end

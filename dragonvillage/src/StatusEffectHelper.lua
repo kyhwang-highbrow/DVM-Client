@@ -161,9 +161,15 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 			local mid = t_skill['val_1']
 			local lv = t_skill['val_2']
 			local dest = t_skill['val_3']
+			local effect_res = t_skill['res_1']
+			local pos_x = char.pos.x
+			local pos_y = char.pos.y
+
 			local enemy = char.m_world.m_waveMgr:spawnEnemy_dynamic(mid, lv, 'Appear', nil, dest, 0.5)
-			enemy:setPosition(char.pos.x, char.pos.y)
-			enemy:setHomePos(char.pos.x, char.pos.y)
+			enemy:setPosition(pos_x, pos_y)
+			enemy:setHomePos(pos_x, pos_y)
+
+			char.m_world:addInstantEffect(effect_res, 'idle', pos_x, pos_y)
 		end
 	elseif (t_skill['type'] == 'skill_trigger') then
 		event_function = function()
@@ -224,7 +230,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	----------- 침묵 ------------------
 	elseif (status_effect_type == 'silence') then
 		status_effect = StatusEffect_Silence(res)
-		status_effect:init_status(char, t_status_effect)
+		status_effect:init_status(char)
 
     else
         status_effect = StatusEffect(res)
