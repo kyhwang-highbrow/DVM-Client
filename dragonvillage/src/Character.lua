@@ -92,6 +92,8 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
 		m_lStatusIcon = 'sprite table',
         m_comebackNextState = 'state',
 
+        m_bInvincibility = 'boolean',   -- 무적 상태 여부
+
         -- 피격시 경직 관련
         m_bEnableSpasticity = 'boolean',-- 경직 가능 활성화 여부
         m_isSpasticity = 'boolean',     -- 경직 중 여부
@@ -119,6 +121,8 @@ function Character:init(file_name, body, ...)
     self.m_tOverlabStatusEffect = {}
 	self.m_lStatusEffect = {}
 	self.m_lStatusIcon = {}
+
+    self.m_bInvincibility = false
 
     self.m_bEnableSpasticity = true
     self.m_isSpasticity = false
@@ -248,6 +252,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 
     if (not attacker.m_activityCarrier) then
         --cclog('attacker.m_activityCarrier nil')
+        return
+    end
+
+    -- 무적 상태 여부 체크
+    if self.m_bInvincibility then
         return
     end
 
@@ -1275,13 +1284,6 @@ function Character:getCharAttackAttr()
 end
 
 -------------------------------------
--- function isDragon
--------------------------------------
-function Character:isDragon()
-	return self.m_charType == 'dragon'
-end
-
--------------------------------------
 -- function insertStatusEffect
 -------------------------------------
 function Character:insertStatusEffect(status_effect)
@@ -1599,8 +1601,16 @@ function Character:reserveSkill(skill_id)
 end
 
 -------------------------------------
+-- function setInvincibility
+-- @brief 해당 캐릭 무적 여부 설정
+-------------------------------------
+function Character:setInvincibility(b)
+    self.m_bInvincibility = b
+end
+
+-------------------------------------
 -- function setSpasticity
--- @brief 해당 영웅을 경직시킴
+-- @brief 해당 캐릭 경직 여부 설정
 -------------------------------------
 function Character:setSpasticity(b)
 	if (not self.m_animator) then return end

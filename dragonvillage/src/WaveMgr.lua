@@ -208,6 +208,8 @@ function WaveMgr:newScenario_dynamicWave(t_data)
 
     self.m_lDynamicWave = {}
     self.m_highestRarity = 'common'
+
+    local table_enemy = TableMonster()
     
     for i, v in pairs(t_data['wave']) do
         for _, data in pairs(v) do
@@ -215,8 +217,8 @@ function WaveMgr:newScenario_dynamicWave(t_data)
             table.insert(self.m_lDynamicWave, dynamic_wave)
 
             -- 마지막 웨이브에서는 최대 등급을 가진 적을 찾음
-            if (not self.m_world.m_bArenaMode) then
-                local t_enemy = TABLE:get('enemy')[dynamic_wave.m_enemyID]
+            if isMonster(dynamic_wave.m_enemyID) then
+                local t_enemy = table_enemy:get(dynamic_wave.m_enemyID)
                 local rarity = t_enemy['rarity']
                 
                 if monsterRarityStrToNum(rarity) > monsterRarityStrToNum(self.m_highestRarity) then
@@ -243,7 +245,7 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, movement, value1, value2, v
 
     if isMonster(enemy_id) then
         -- Enemy 생성
-        enemy = self.m_world:makeEnemyNew(enemy_id, level)
+        enemy = self.m_world:makeMonsterNew(enemy_id, level)
         enemy:setPosition(1000, 0)
         
         self.m_world.m_worldNode:addChild(enemy.m_rootNode, 1)

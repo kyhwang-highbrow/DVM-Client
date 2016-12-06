@@ -106,6 +106,9 @@ function TamerSpecialSkillCombination.st_start(owner, dt)
 			
 			-- dragon 정지
 			dragon:changeState('delegate')
+
+            -- dragon 무적상태 부여
+            dragon:setInvincibility(true)
 		end
 		
 		-- 타겟도 정지
@@ -197,10 +200,11 @@ function TamerSpecialSkillCombination.st_end(owner, dt)
         if owner.m_mainEffect then
 		    owner.m_mainEffect:changeAni('disappear', false)
         end
-		-- 2. 드래곤 제자리 및 스테이트 attackDelay
+		-- 2. 드래곤 제자리 및 스테이트 attackDelay, 무적 해제
 		for _, dragon in pairs(owner.m_lDragon) do 
 			dragon:setMove(dragon.m_homePosX, dragon.m_homePosY, SPEED)
 			dragon:changeState('attackDelay')
+            dragon:setInvincibility(false)
 			owner.m_lDragonEffect[dragon]:release()
 		end
 		-- 3. 타겟 스테이트 attackDelay

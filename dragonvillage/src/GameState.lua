@@ -329,7 +329,7 @@ function GameState:update_fight(dt)
             return
 
         -- 마지막 웨이브라면 해당 웨이브의 최고 등급 적이 존재하지 않을 경우 클리어 처리
-        elseif ( not world.m_bArenaMode and world.m_waveMgr:isFinalWave() ) then
+        elseif ( not m_bDevelopMode and not world.m_bArenaMode and world.m_waveMgr:isFinalWave() ) then
             local highestRariry = world.m_waveMgr:getHighestRariry()
             local bExistBoss = false
             
