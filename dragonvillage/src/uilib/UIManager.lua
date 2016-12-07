@@ -83,8 +83,11 @@ end
 -------------------------------------
 function UIManager:cleanUp()
     for i = #self.m_uiList, 1, -1 do
-        self.m_uiList[i]:close()
+        local ui = self.m_uiList[i]
+        self.m_uiLayer:removeChild(ui.root, true)
     end
+    self.m_uiList = {}
+
 	self:removeDebugUI()
 end
 
