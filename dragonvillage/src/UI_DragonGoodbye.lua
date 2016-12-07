@@ -10,6 +10,7 @@ UI_DragonGoodbye = class(PARENT,{
         m_tableViewExtSelectMaterial = 'TableViewExtension', -- 선택된 재료
         m_tableDragonTrainInfo = 'TableDragonTrainInfo',
         m_addLactea = 'number', -- 추가될 라테아 수
+        m_dragonSortMgr = 'DragonSortManager',
     })
 
 -------------------------------------
@@ -43,6 +44,17 @@ function UI_DragonGoodbye:init()
     self:initUI()
     self:initButton()
     self:refresh()
+
+    -- 정렬 도우미
+    self:init_dragonSortMgr()
+end
+
+-------------------------------------
+-- function init_dragonSortMgr
+-- @brief 정렬 도우미
+-------------------------------------
+function UI_DragonGoodbye:init_dragonSortMgr(b_ascending_sort, sort_type)
+    self.m_dragonSortMgr = DragonSortManagerUpgradeMaterial(self.vars, self.m_tableViewExtMaterial, b_ascending_sort, sort_type)
 end
 
 -------------------------------------
