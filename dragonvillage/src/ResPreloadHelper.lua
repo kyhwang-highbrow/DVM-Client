@@ -253,6 +253,7 @@ end
 function getPreloadList_Stage(stageName)
     local ret = {}
 
+    local table_enemy = TableMonster()
     local t_skillList = { 'skill_basic' }
     for i = 1, 9 do
         table.insert(t_skillList, 'skill_' .. i)
@@ -267,7 +268,7 @@ function getPreloadList_Stage(stageName)
                         local l_str = seperate(data, ';')
                         local enemy_id = tonumber(l_str[1])   -- 적군 ID
 
-                        local t_enemy = TableMonster()[enemy_id]
+                        local t_enemy = table_enemy:get(enemy_id)
                         if t_enemy then
                             -- 적군
                             local attr = t_enemy['attr']
