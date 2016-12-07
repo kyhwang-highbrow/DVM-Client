@@ -485,7 +485,7 @@ end
 function StatusEffectHelper:getStatusEffectTableFromSkillTable(t_skill, idx)
 	local effect_str = t_skill['status_effect_' .. idx]
 	if (not effect_str) or (effect_str == 'x') then 
-		return nil 
+		return {}
 	end
 	return stringSplit(effect_str, ';')
 end
