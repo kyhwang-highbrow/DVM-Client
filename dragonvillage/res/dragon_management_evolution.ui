@@ -38,7 +38,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -214.000000;
+					y = -202.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -77,8 +77,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = 179.000000;
+					x = 3.000000;
+					y = 183.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -118,7 +118,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
-					y = -45.000000;
+					y = -40.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -155,8 +155,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = 179.000000;
+					x = 3.000000;
+					y = 183.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -196,7 +196,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
-					y = -57.000000;
+					y = -39.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -214,8 +214,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 19.000000;
-					y = -214.000000;
+					x = 17.000000;
+					y = -201.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -252,8 +252,8 @@
 				};
 				type = 'Menu';
 				ui_name = '진화';
-				x = 11.000000;
-				y = 40.000000;
+				x = 12.000000;
+				y = 39.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -273,8 +273,8 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 4.000000;
-					y = 93.000000;
+					x = 0.000000;
+					y = 92.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -292,7 +292,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 4.000000;
+					x = 0.000000;
 					y = 192.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -413,7 +413,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -125.000000;
+					y = -124.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -451,12 +451,12 @@
 				type = 'Menu';
 				ui_name = '스킬오픈';
 				x = 443.000000;
-				y = 17.000000;
+				y = 22.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 382;
-				height = 424;
+				height = 413;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -468,12 +468,12 @@
 			type = 'Sprite';
 			ui_name = '';
 			x = -1.000000;
-			y = 44.000000;
+			y = 39.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 1278;
-			height = 568;
+			height = 564;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -495,8 +495,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -97.000000;
-				y = 1.000000;
+				x = -95.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -515,7 +515,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 35.000000;
-				y = 12.000000;
+				y = 11.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -555,7 +555,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 35.000000;
-				y = -12.000000;
+				y = -13.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -643,7 +643,7 @@
 			type = 'Menu';
 			ui_name = '1';
 			x = -475.000000;
-			y = -195.000000;
+			y = -193.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -663,8 +663,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -97.000000;
-				y = 1.000000;
+				x = -95.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -683,7 +683,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 35.000000;
-				y = 12.000000;
+				y = 11.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -723,7 +723,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 35.000000;
-				y = -12.000000;
+				y = -13.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -811,7 +811,7 @@
 			type = 'Menu';
 			ui_name = '2';
 			x = -187.000000;
-			y = -195.000000;
+			y = -193.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -831,8 +831,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -97.000000;
-				y = 1.000000;
+				x = -95.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -851,7 +851,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 35.000000;
-				y = 12.000000;
+				y = 11.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -891,7 +891,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 35.000000;
-				y = -12.000000;
+				y = -13.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -979,7 +979,7 @@
 			type = 'Menu';
 			ui_name = '3';
 			x = 100.000000;
-			y = -195.000000;
+			y = -193.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -2022,7 +2022,7 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = 397.000000;
+			x = 447.000000;
 			y = -193.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
