@@ -39,11 +39,11 @@ function SkillIndicator_Conic:onTouchMoved(x, y)
         isChangeDegree = false
 	end
 
-	if (not isChangeDegree) then 
+	if (isChangeDegree) then 
 		self.m_targetPosX = x
 		self.m_targetPosY = y
 	end
-
+	
 	-- 이펙트 조정
 	self.m_indicatorEffect:setRotation(dir)
 

@@ -42,7 +42,7 @@ function SkillIndicator_ConicSpread:onTouchMoved(x, y)
         isChangeDegree = false
 	end
 
-	if isChangeDegree then 
+	if (isChangeDegree) then 
 		self.m_targetPosX = x
 		self.m_targetPosY = y
 	end
