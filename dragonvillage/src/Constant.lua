@@ -26,7 +26,7 @@ CHECK_UI_LOAD_TIME = false
 
 POSTONE_CODE_RUN = isWin32()
 
--- 윈도우에서 사용
+-- KEY CODE .. 윈도우에서 사용
 KEY_LEFT_ARROW = 23
 KEY_RIGHT_ARROW = 24
 KEY_UP_ARROW = 25
@@ -75,6 +75,14 @@ KEY_Y = 145
 
 KEY_Z = 146
 
+-- COLOR
+COLOR_RED = cc.c3b(255, 0, 0)
+COLOR_CYAN = cc.c3b(0, 255, 255)
+COLOR_GREEN = cc.c3b(0, 0, 255)
+COLOR_BALCK = cc.c3b(0, 0, 0)
+COLOR_WHITE = cc.c3b(255, 255, 255)
+
+-- TEMP
 UNDER_LINE_PNG = 'res/common/underline.png'
 EMPTY_PNG = 'res/common/empty.png'
 EMPTY_TABLE = {}

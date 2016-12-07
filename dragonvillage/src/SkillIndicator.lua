@@ -106,7 +106,6 @@ function SkillIndicator:changeSIState(state)
         self.m_targetPosX = nil
         self.m_targetPosY = nil
         self.m_targetChar = nil
-
     elseif (state == SI_STATE_APPEAR) then
         self.m_indicatorRootNode:setVisible(true)
         self:onEnterAppear()
@@ -120,7 +119,7 @@ function SkillIndicator:changeSIState(state)
     elseif (state == SI_STATE_DISAPPEAR) then
         self.m_indicatorRootNode:setVisible(false)
         self:onDisappear()
-
+		
 		-- 툴팁 닫기
 		self.m_skillIndicatorMgr:closeSkillToolTip()
 
@@ -198,6 +197,11 @@ end
 -------------------------------------
 function SkillIndicator:onEnterAppear()
     self.m_hero.m_animator:setTimeScale(5)
+	self.m_indicatorEffect.m_node:setColor(cc.c3b(0, 255, 255))
+	self.m_indicatorEffect:changeAni('appear')
+	self.m_indicatorEffect:addAniHandler(function()
+		self.m_indicatorEffect:changeAni('idle', true)
+	end)
 end
 
 -------------------------------------
@@ -297,7 +301,7 @@ end
 -- function makeTargetEffect
 -------------------------------------
 function SkillIndicator:makeTargetEffect(target_char, ani_name1, ani_name2)
-    local indicator = MakeAnimator('res/indicator/indicator_effect_target/indicator_effect_target.vrp')
+    local indicator = MakeAnimator(RES_INDICATOR['EFFECT'])
     indicator:changeAni(ani_name1 or 'appear', false)
     indicator:addAniHandler(function() indicator:changeAni(ani_name2 or 'idle', true) end)
     indicator:setTimeScale(5)

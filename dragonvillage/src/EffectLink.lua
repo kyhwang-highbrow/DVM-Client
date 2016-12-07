@@ -188,6 +188,30 @@ function EffectLink:changeCommonAni(ani_name, loop, anihandler)
 end
 
 -------------------------------------
+-- function changeAni
+-- @brief 구조상 필요
+-------------------------------------
+function EffectLink:changeAni(ani_name, loop)
+    local loop = (loop or false)
+    self.m_startPointNode:changeAni('start_' .. ani_name, loop)
+    self.m_effectNode:changeAni('bar_' .. ani_name, loop)
+    self.m_endPointNode:changeAni('end_' .. ani_name, loop)
+end
+
+-------------------------------------
+-- function addAniHandler
+-- @brief 구조상 필요
+-------------------------------------
+function EffectLink:addAniHandler(anihandler)
+    if (not anihandler) then
+        return
+    end
+    self.m_startPointNode:addAniHandler(nil)
+    self.m_effectNode:addAniHandler(anihandler)
+    self.m_endPointNode:addAniHandler(nil)
+end
+
+-------------------------------------
 -- function doNotUseHead
 -- @TODO start - effect - end node 전부 사용함을 가정하고 있기 때문에 하나만 덜어내는 것이 어려워 임시 처리
 -------------------------------------

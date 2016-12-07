@@ -79,7 +79,7 @@ function SkillIndicator_ConicSpread:spreadStatusEffect(l_target, status_effect_t
 			else
 				-- 2. 범위 지정 연출
 				local effect1 = MakeAnimator(RES_INDICATOR['CONE'])
-				effect1:changeAni('cicle', true)
+				effect1:changeAni('circle', true)
 				effect1:setAlpha(0.6)
 				effect1:setScale(225/150)
 				self.m_indicatorRootNode:addChild(effect1.m_node, 0)

@@ -48,24 +48,25 @@ function SkillIndicator_HealingWind:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do -- 캐스팅 이펙트
-        local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
+        local indicator = MakeAnimator(RES_INDICATOR['HEALING_WIND'])
         indicator:setTimeScale(5)
-        indicator:changeAni('healing_wind_normal', true)
         root_node:addChild(indicator.m_node)
+		indicator.m_node:setColor(COLOR_CYAN)
         self.m_indicatorEffect = indicator
 
 		--@TODO 스킬 인디케이터 스케일 전면 수정 해야함
         local scale_x = (self.m_skillWidth / 360)
         indicator.m_node:setScaleX(scale_x)
+
     end
 
-    do
-        local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
-        indicator:setTimeScale(5)
-        indicator:changeAni('cursor_normal', true)
-        root_node:addChild(indicator.m_node)
-        self.m_indicatorAddEffect = indicator
-    end
+	do -- 커서 이펙트
+		local indicator = MakeAnimator(RES_INDICATOR['HEALING_WIND'])
+		indicator:setTimeScale(5)
+		indicator:changeAni('cursor', true)
+		root_node:addChild(indicator.m_node)
+		self.m_indicatorAddEffect = indicator
+	end
 end
 
 -------------------------------------

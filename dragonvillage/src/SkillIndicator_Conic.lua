@@ -63,22 +63,14 @@ function SkillIndicator_Conic:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do -- 캐스팅 이펙트
-        local indicator = MakeAnimator(RES_INDICATOR['CONE'])
-		indicator:setTimeScale(5)
+        local indicator = MakeAnimator(RES_INDICATOR['CONE20'])
         root_node:addChild(indicator.m_node)
 		indicator:setPosition(self:getAttackPosition())
 		indicator:setScale(self.m_indicatorScale)
+		indicator:setTimeScale(5)
         self.m_indicatorEffect = indicator
 		return true
     end
-end
-
--------------------------------------
--- function onEnterAppear
--------------------------------------
-function SkillIndicator_Conic:onEnterAppear()
-    PARENT.onEnterAppear(self)
-    self.m_indicatorEffect:changeAni('20', false)
 end
 
 -------------------------------------
@@ -87,11 +79,11 @@ end
 function SkillIndicator_Conic:onChangeTargetCount(old_target_count, cur_target_count)
 	-- 활성화
 	if (old_target_count == 0) and (cur_target_count > 0) then
-		self.m_indicatorEffect:changeAni('20', false)
+		self.m_indicatorEffect.m_node:setColor(COLOR_RED)
 
 	-- 비활성화
 	elseif (old_target_count > 0) and (cur_target_count == 0) then
-		self.m_indicatorEffect:changeAni('20_normal', false)
+		self.m_indicatorEffect.m_node:setColor(COLOR_CYAN)
 	end
 end
 

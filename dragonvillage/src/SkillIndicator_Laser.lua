@@ -87,7 +87,6 @@ function SkillIndicator_Laser:initIndicatorNode()
     do
         local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
         indicator:setTimeScale(5)
-        indicator:changeAni('bar_normal', true)
         indicator:setPosition(self.m_attackPosOffsetX, self.m_attackPosOffsetY)
         root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator
@@ -99,7 +98,7 @@ function SkillIndicator_Laser:initIndicatorNode()
     do
         local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
         indicator:setTimeScale(5)
-        indicator:changeAni('cursor_normal', true)
+		indicator:changeAni('cursor', true)
         root_node:addChild(indicator.m_node)
         self.m_indicatorAddEffect = indicator
     end
@@ -112,13 +111,13 @@ end
 function SkillIndicator_Laser:onChangeTargetCount(old_target_count, cur_target_count)
     -- 활성화
     if (old_target_count == 0) and (cur_target_count > 0) then
-        self.m_indicatorEffect:changeAni('bar_enemy', true)
-        self.m_indicatorAddEffect:changeAni('cursor_enemy', true)
+        self.m_indicatorEffect.m_node:setColor(COLOR_RED)
+        self.m_indicatorAddEffect.m_node:setColor(COLOR_RED)
 
     -- 비활성화
     elseif (old_target_count > 0) and (cur_target_count == 0) then
-        self.m_indicatorEffect:changeAni('bar_normal', true)
-        self.m_indicatorAddEffect:changeAni('cursor_normal', true)
+        self.m_indicatorEffect.m_node:setColor(COLOR_CYAN)
+		self.m_indicatorAddEffect.m_node:setColor(COLOR_CYAN)
     end
 end
 
