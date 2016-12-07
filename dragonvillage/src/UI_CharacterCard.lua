@@ -81,7 +81,7 @@ function UI_CharacterCard:refreshDragonInfo()
     do -- 드래곤들의 덱설정 여부 데이터 갱신
         if t_dragon_data and t_dragon_data['id'] then
             local doid = t_dragon_data['id']
-            local is_setted = g_deckData:isSettedDragon(doid)
+            local is_setted = (g_deckData:isSettedDragon(doid) ~= false)
             self:setReadySpriteVisible(is_setted)
         end
     end
