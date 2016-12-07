@@ -11,6 +11,8 @@ Skill = class(PARENT, {
 		m_preDelay = 'num',
 		m_resScale = 'str',
 
+		m_rangeEffect = 'a2d',
+
 		-- 타겟 관련 .. 
 		m_targetChar = 'Character', 
 		m_targetType = 'str', -- 타겟 선택하는 룰
@@ -22,7 +24,6 @@ Skill = class(PARENT, {
 		-- 스킬 타입 명 ex) skill_expolosion 
 		m_skillName = 'str',
 		m_skillType = 'str', 
-
 
 		-- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset
         m_attackPosOffsetX = 'number',
@@ -139,7 +140,6 @@ end
 function Skill.st_dying(owner, dt)
     if (owner.m_stateTimer == 0) then
 		owner.m_owner:restore()
-		owner.m_owner:hideIndicator()
 		return true
     end
 end
@@ -279,6 +279,24 @@ function Skill:removeDestructibleMissile()
 			end
 		end
 	end
+end
+
+-------------------------------------
+-- function makeRangeEffect
+-- @brief range effect를 생성한다.
+-------------------------------------
+function Skill:makeRangeEffect(res_path, range)
+	-- 1. 생성
+	local effect = MakeAnimator(res_path)
+	effect:setScale(range/200)
+	self.m_rootNode:addChild(effect.m_node)
+	self.m_rangeEffect = effect
+
+	-- 2. appear 후 idle 반복 재생
+	effect:changeAni('appear', false)
+	effect:addAniHandler(function()
+		effect:changeAni('idle', true)
+	end)
 end
 
 -------------------------------------

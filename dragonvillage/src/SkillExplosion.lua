@@ -38,6 +38,8 @@ function SkillExplosion:init_skill(jump_res, range, isIgnoreDef)
 
 	-- 특정 드래곤 전용 
 	self:boombaSideEffect()
+
+	self:makeRangeEffect(RES_RANGE, range)
 end
 
 -------------------------------------
@@ -146,7 +148,7 @@ end
 -------------------------------------
 function SkillExplosion.st_comeback(owner, dt)
     if (owner.m_stateTimer == 0) then
-
+		owner.m_rangeEffect:changeAni('disappear', false)
 	elseif (owner.m_stateTimer > 0.5) then
 		owner:changeState('dying')
     end

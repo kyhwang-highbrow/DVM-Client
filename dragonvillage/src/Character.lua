@@ -1648,13 +1648,6 @@ function Character:restore(restore_speed)
 end
 
 -------------------------------------
--- function hideIndicator
--- @brief 실 구현은 hero 클래스에서만 되어있다.
--------------------------------------
-function Character:hideIndicator()
-end
-
--------------------------------------
 -- function setSilence
 -------------------------------------
 function Character:setSilence(b)

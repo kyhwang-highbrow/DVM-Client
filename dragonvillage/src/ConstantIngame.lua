@@ -93,6 +93,8 @@ RES_INDICATOR =
 	HEALING_WIND = 'res/indicator/indicator_healing_wind/indicator_healing_wind.vrp',
 }
 
+RES_RANGE = 'res/effect/skill_range/skill_range.vrp'
+
 --------------------------------------------
 -- 유닛
 --------------------------------------------

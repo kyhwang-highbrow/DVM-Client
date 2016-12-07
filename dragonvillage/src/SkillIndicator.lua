@@ -99,7 +99,7 @@ function SkillIndicator:changeSIState(state)
 
     if (state == SI_STATE_READY) then
         self:initIndicatorNode()
-        self.m_indicatorRootNode:setVisible(false)
+        self:setIndicatorVisible(false)
         self.m_highlightList = nil
 
         self.m_targetDir = nil
@@ -107,7 +107,7 @@ function SkillIndicator:changeSIState(state)
         self.m_targetPosY = nil
         self.m_targetChar = nil
     elseif (state == SI_STATE_APPEAR) then
-        self.m_indicatorRootNode:setVisible(true)
+        self:setIndicatorVisible(true)
         self:onEnterAppear()
 		
 		-- 툴팁 생성
@@ -197,7 +197,6 @@ end
 -------------------------------------
 function SkillIndicator:onEnterAppear()
     self.m_hero.m_animator:setTimeScale(5)
-	self.m_indicatorEffect.m_node:setColor(cc.c3b(0, 255, 255))
 	self.m_indicatorEffect:changeAni('appear')
 	self.m_indicatorEffect:addAniHandler(function()
 		self.m_indicatorEffect:changeAni('idle', true)

@@ -10,7 +10,6 @@ SkillAoERound = class(PARENT, {
 
         m_multiAtkTimer = 'dt',
         m_hitInterval = 'number',
-		m_effect = 'effect',
 
 		m_addDamage = 'str',	-- @TODO 임시 추가 데미지 구현
 		m_lTarget = 'characters'  -- @TODO 임시 구현
@@ -38,6 +37,8 @@ function SkillAoERound:init_skill(attack_count, range, aoe_res, add_damage)
 	self.m_hitInterval = 1/30
 	
 	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
+
+	self:makeRangeEffect(RES_RANGE, range)
 end
 
 -------------------------------------
@@ -55,14 +56,13 @@ end
 -------------------------------------
 function SkillAoERound.st_appear(owner, dt)
     if (owner.m_stateTimer == 0) then
-		-- 이펙트 재생 단위 시간
-		owner.m_hitInterval = owner.m_animator:getDuration()
 		if (not owner.m_targetChar) then 
 			owner:changeState('dying') 
 		end
-	
-	elseif (owner.m_stateTimer > owner.m_hitInterval) then
-		owner:changeState('attack')
+
+		owner.m_animator:addAniHandler(function()
+			owner:changeState('attack')
+		end)
     end
 end
 
@@ -91,7 +91,6 @@ function SkillAoERound.st_attack(owner, dt)
     if (owner.m_maxAttackCnt <= owner.m_attackCnt) then
 		-- 상태효과 (self만 가능)
 		StatusEffectHelper:doStatusEffectByStr(owner.m_owner, owner.m_lTarget, owner.m_lStatusEffectStr)
-
         owner:changeState('disappear')
     end
 end
@@ -101,10 +100,10 @@ end
 -------------------------------------
 function SkillAoERound.st_disappear(owner, dt)
     if (owner.m_stateTimer == 0) then
-		-- 이펙트 재생 단위 시간
-		owner.m_hitInterval = owner.m_animator:getDuration()
-	elseif (owner.m_stateTimer > owner.m_hitInterval) then
-		owner:changeState('dying')
+		owner.m_rangeEffect:changeAni('disappear', false)
+		owner.m_rangeEffect:addAniHandler(function()
+			owner:changeState('dying')
+		end)
     end
 end
 
