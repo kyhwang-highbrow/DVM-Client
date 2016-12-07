@@ -2,32 +2,7 @@
 	"skill_boss_spider_queen_1":
 	{
 		"attack_value":
-		[			
-			{
-				"idx":1,
-				"res":"res/missile/missile_web/missile_web.spine",
-				"body":[0,0,0],
-                "count":1,
-                "scale":1,
-                "period":0,
-				"speed":0,
-				"accel":0,
-				"l_limit_speed":0,
-				"accel_delay":0,
-				"accel_delay_fix":"true",
-				"offset":[0,0],
-                "dir_array":[0],
-				"res_depth":"bottom",
-				"delete_time":15,
-				
-                "effect":
-                {
-                    "motion_streak":"",
-                    "rotation":false,
-                    "afterimage":false
-                }				
-			},
-			
+		[	
 			{
 				"idx":1,
 				"res":"res/missile/missile_spider/missile_spider.vrp",
@@ -36,10 +11,10 @@
                 "count":8,
                 "scale":0.2,
                 "period":0.4,
-				"speed":50,
-				"accel":500,
-				"accel_delay":0.5,
-				"h_limit_speed":300,
+				"speed":1000,
+				"accel":-5000,
+				"accel_delay":0,
+				"l_limit_speed":300,
 				"offset":[0,0],
 				"size_up_time":4,
 				
@@ -63,10 +38,10 @@
                 "scale":0.2,
 				"time":3,
                 "period":0.4,
-				"speed":50,
-				"accel":500,
-				"accel_delay":0.5,
-				"h_limit_speed":300,
+				"speed":1000,
+				"accel":-5000,
+				"accel_delay":0,
+				"l_limit_speed":300,
 				"offset":[0,0],
 				"size_up_time":4,
 				
@@ -91,10 +66,10 @@
                 "scale":0.2,
 				"time":7.8,
                 "period":0.4,
-				"speed":50,
-				"accel":500,
-				"accel_delay":0.5,
-				"h_limit_speed":300,
+				"speed":1000,
+				"accel":-5000,
+				"accel_delay":0,
+				"l_limit_speed":300,
 				"offset":[0,0],
 				
 				"res_depth":"bottom",

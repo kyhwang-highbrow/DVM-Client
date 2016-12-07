@@ -26,10 +26,10 @@
 				[
 					{
 						"idx":1,
-						"res":"res/missile/missile_wedge_2/missile_wedge_2_@.vrp",
+						"res":"res/missile/missile_spine/missile_spine_@.png",
 						"body":[0,0,20],
 						"count":1,
-						"scale":0.5,
+						"scale":1,
 						"period":0,
 						"time":0,
 						"speed":800,
@@ -74,10 +74,10 @@
 				[
 					{
 						"idx":1,
-						"res":"res/missile/missile_wedge_2/missile_wedge_2_water.vrp",
+						"res":"res/missile/missile_spine/missile_spine_water.png",
 						"body":[0,0,20],
 						"count":1,
-						"scale":0.3,
+						"scale":0.8,
 						"period":0,
 						"time":0,
 						"speed":800,
@@ -122,10 +122,10 @@
 				[
 					{
 						"idx":1,
-						"res":"res/missile/missile_wedge_2/missile_wedge_2_fire.vrp",
+						"res":"res/missile/missile_spine/missile_spine_fire.png",
 						"body":[0,0,20],
 						"count":1,
-						"scale":0.3,
+						"scale":0.6,
 						"period":0,
 						"time":0,
 						"speed":800,

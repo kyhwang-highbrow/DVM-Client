@@ -29,6 +29,7 @@
         ]
 
     },
+	
 	"ani_mix":
 	[
         "idle;attack;0.1",

@@ -1,5 +1,5 @@
 sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,chance_type,chance_value,target_type,casting_time,power_source,power_rate,hit,val_1,val_2,val_3,status_effect_rate,status_effect_value,status_effect_type,status_effect_1,status_effect_2,for_gd,t_desc,to_programmer
-230001,code,skill_melee_atk,근접공격,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,5000,10000,0,0,0,x,x,x,0,x,캐릭터가 직접 대상 앞으로 이동하여 공격한다(공격 모션 필요). 공격이 끝나면 제 자리로 돌아온다.
+230001,code,skill_melee_atk,근접공격,x,x,x,skill_1,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,5000,10000,0,0,0,x,x,x,0,x,캐릭터가 직접 대상 앞으로 이동하여 공격한다(공격 모션 필요). 공격이 끝나면 제 자리로 돌아온다.
 230002,code,missile_move_straight,화살 공격,res/missile/missile_arrow/missile_arrow.vrp,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,직선으로 이동하는 원거리 공격
 230003,code,missile_move_straight,마법 공격,res/missile/missile_magicshot_earth/missile_magicshot_earth.vrp,x,x,x,instant,magical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 230004,code,missile_move_release,마법 스킬,res/missile/missile_magicshot/missile_magicshot.vrp,x,x,x,instant,magical,-1,basic_turn,2,enemy_distance_line,4,atk,100,2,0,0,0,0,0,x,x,x,0,x,공격력의 300% 피해를 주는 공격
@@ -50,9 +50,9 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 231003,script,skill_elite_3,엘리트_3,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 231004,script,skill_elite_4,엘리트_4,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 231005,script,skill_elite_5,엘리트_5,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
-231006,script,skill_elite_ifrit_1,엘리트_이프리트,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,150,1,0,0,0,0,0,x,x,x,0,x,x
+231006,script,skill_elite_ifrit_1,엘리트_이프리트,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 231007,script,skill_elite_lizard_man_shaman_1,엘리트_도마뱀 인간 주술사,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,150,1,0,0,0,0,0,x,x,x,0,x,x
-231008,script,skill_elite_gargoyle_1,엘리트_가고일,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
+231008,script,skill_elite_gargoyle_1,엘리트_가고일,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,70,1,0,0,0,0,0,x,x,x,0,x,x
 232011,script,skill_subboss_mushqueen_1,여왕버섯,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
 232012,script,skill_subboss_mushqueen_2,여왕버섯,x,x,x,skill_1,instant,physical,0,basic_turn,4,enemy_distance_line,3,atk,50,1,0,0,0,0,0,x,x,x,0,x,x
 232013,script,skill_subboss_mushqueen_3,여왕버섯,x,x,x,skill_1,instant,physical,0,basic_turn,5,enemy_distance_line,5,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
@@ -65,11 +65,11 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 232040,code,skill_melee_atk,근접공격,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,5000,10000,0,0,0,x,x,x,0,x,캐릭터가 직접 대상 앞으로 이동하여 공격한다(공격 모션 필요). 공격이 끝나면 제 자리로 돌아온다.
 232041,status_effect,skill_subboss_chariot_scarab_01_1,전차 풍뎅이(돌격): 분노,x,x,x,skill_1,instant,physical,0,basic_turn,3,self,2,atk,1,1,0,0,0,0,0,x,atk_up;target;10;100;100,x,0,x,x
 232042,script,skill_subboss_chariot_scarab_01_2,전차 풍뎅이(돌격): 돌파,x,x,x,skill_2,instant,physical,0,basic_turn,4,enemy_distance_line,3,atk,20,1,0,0,0,0,0,x,x,x,0,x,x
-232043,code,skill_summon_die,전차 풍뎅이(돌격): 탈출,x,x,x,skill_1,instant,physical,0,trigger,dead,self,1,atk,1,1,131081,13,RB21,0,0,x,x,x,0,x,x
+232043,code,skill_summon_die,전차 풍뎅이(돌격): 탈출,res/effect/effect_transform/effect_transform.vrp,x,x,skill_1,instant,physical,0,trigger,dead,self,1,atk,1,1,131091,13,RB21,0,0,x,x,x,0,x,x
 232050,code,missile_move_high_angle        ,포격,res/missile/missile_ball/missile_ball_@.vrp,x,x,x,instant,magical,-1,basic,1,enemy_distance_line,-1,atk,40,3,150,50,0,0,0,x,x,x,0,x,x
 232051,status_effect,skill_subboss_chariot_scarab_02_1,전차 풍뎅이(포격): 인내,x,x,x,skill_1,instant,physical,0,basic_turn,3,self,2,atk,1,1,0,0,0,0,0,x,def_up;target;10;100;100,x,0,x,x
-232052,script,skill_subboss_chariot_scarab_02_2,전차 풍뎅이(포격): 초토화,x,x,x,skill_2,instant,physical,0,basic_turn,4,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
-232053,code,skill_summon_die,전차 풍뎅이(포격): 탈출,res/effect/effect_jump/effect_jump.vrp,x,x,skill_1,instant,physical,0,trigger,dead,self,1,atk,1,1,131081,13,RB17,0,0,x,x,x,0,x,x
+232052,script,skill_subboss_chariot_scarab_02_2,전차 풍뎅이(포격): 초토화,x,x,x,skill_2,instant,physical,0,basic_turn,4,enemy_distance_line,3,atk,70,1,0,0,0,0,0,x,x,x,0,x,x
+232053,code,skill_summon_die,전차 풍뎅이(포격): 탈출,res/effect/effect_transform/effect_transform.vrp,x,x,skill_1,instant,physical,0,trigger,dead,self,1,atk,1,1,131101,13,RB17,0,0,x,x,x,0,x,x
 233100,script,skill_boss_queenssnake_0,퀸즈스네이크 : 기본 공격 (attack),x,x,x,attack,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
 233101,script,skill_boss_queenssnake_1,퀸즈스네이크 : 벌집 던지기 (우측상단 집중공격),x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
 233102,script,skill_boss_queenssnake_2,퀸즈스네이크 : 벌집 탄막 (skill_2_loop),x,x,x,skill_2,maintain,physical,-2,basic_turn,1,enemy_distance_line,4,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
@@ -86,12 +86,13 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 233303,script,skill_boss_cockatrice_3,코카트리스 : 화염 브레스 (skill_2),x,x,x,skill_2,instant,physical,-2,basic_turn,1,enemy_distance_line,3,atk,25,1,0,0,0,100,100,burn,burn;target;30;10;100,x,0,x,x
 233304,script,skill_boss_cockatrice_4,코카트리스 : 태양권 (skill_3),x,x,x,skill_3,instant,physical,-2,basic_turn,1,enemy_distance_line,3,atk,100,1,0,0,0,100,100,stun,stun;target;5;100;100,x,0,x,x
 233305,code,skill_heal_single,코카트리스 : 체력 회복 (skill_4_idle),res/effect/skill_heal_monster/skill_heal_monster.vrp,res/effect/skill_recovery/skill_recovery.vrp,x,skill_4_appear,instant,magical,-1,basic_turn,1,self,2,atk,700,5,0,0,0,0,0,x,x,x,0,x,공격력의 700% 회복
-233400,code,missile_move_straight,거미줄 뭉치,res/missile/missile_skein/missile_skein.png,res/missile/motion_streak/motion_streak_blade.png,x,skill_1,instant,magical,0,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,0,x,x,0,x,x
+233400,code,missile_move_straight,거미줄 뭉치,res/missile/missile_ball/missile_ball_@.vrp,x,x,skill_1,instant,magical,0,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,0,x,x,0,x,x
 233401,script,skill_boss_spider_queen_1,스파이더 웹,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,2,atk,50,1,0,0,0,0,0,0,x,x,0,x,x
 233402,script,skill_boss_spider_queen_2,포이즌 노바,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,3,atk,150,1,0,0,0,0,0,0,poison;target;30;100;100,x,0,x,x
-233403,code,skill_spider_web,옭아매기,res/effect/effect_spider_web_skein/effect_spider_web_skein.vrp,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_status_not_stun,0,atk,100,1,0,0,0,0,0,0,stun;target;10;100;100,x,0,x,x
+233403,code,skill_spider_web,옭아매기,res/effect/effect_spider_web_skein/effect_spider_web_skein.vrp,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_status_not_stun,1,atk,100,1,0,0,0,0,0,0,stun;target;10;100;100,x,0,x,x
 233404,script,skill_boss_spider_queen_4,맹독결계,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,3,atk,50,1,0,0,0,0,0,0,poison;target;30;100;100,x,0,x,x
-233405,code,skill_summon,거미알 소환,x,x,x,skill_2,instant,magical,0,basic_turn,1,enemy_distance_line,3,atk,20,1,0,0,0,0,0,0,x,x,0,x,x
+233405,code,skill_summon,거미알 소환,x,x,x,skill_2,instant,magical,0,basic_turn,1,enemy_distance_line,3,atk,100,1,0,0,0,0,0,0,x,x,0,x,x
 234001,script,skill_subboss_griffin_3,그리핀(무캐스팅),x,x,x,skill_2,instant,magical,-2,basic_turn,10,enemy_distance_line,0,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
-234002,script,skill_boss_spider_queen_5,거미새끼 소환,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,0,atk,1,1,0,0,0,0,0,0,x,x,0,x,x
+234002,script,skill_boss_spider_queen_5,거미새끼 소환,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,0,atk,10,1,0,0,0,0,0,0,x,x,0,x,x
 234003,code,trigger_skill,트리거에 의해 발동되는 스킬 테스트,x,x,x,skill_1,instant,magical,0,trigger,dead,enemy_distance_line,0,atk,1,1,230002,0,0,0,0,0,x,x,0,x,x
+234004,script,skill_boss_spider_queen_6,거미줄,x,x,x,skill_2,instant,magical,0,basic_turn,1,enemy_distance_line,0,atk,0,1,0,0,0,0,0,0,aspd_down;target;15;100;30,x,0,x,x
