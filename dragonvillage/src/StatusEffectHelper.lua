@@ -171,9 +171,9 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 
 			char.m_world:addInstantEffect(effect_res, 'idle', pos_x, pos_y)
 		end
-	elseif (t_skill['type'] == 'skill_trigger') then
+	elseif (t_skill['type'] == 'trigger_skill') then
 		event_function = function()
-			local skill_id = t_skill['sid']
+			local skill_id = t_skill['val_1']
 			char:doSkill(skill_id, nil, nil, nil)
 		end
 	end
