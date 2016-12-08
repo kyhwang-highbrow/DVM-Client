@@ -361,6 +361,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		t_option['add_script_start'] =	attack_value['add_script_start']
 		t_option['add_script_term'] =	attack_value['add_script_term']
 		t_option['add_script_max'] =	attack_value['add_script_max']
+		t_option['add_script_dead'] =	attack_value['add_script_dead']
 
 		if attack_value.accel_delay_fix then
 			t_option['accel_delay'] = t_option['accel_delay'] or 0

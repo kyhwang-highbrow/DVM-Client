@@ -64,6 +64,7 @@ Missile = class(PARENT, {
 		m_addScriptStart = '',
 		m_addScriptTerm = '',
 		m_addScriptMax = '',
+		m_addScriptDead = 'bool',
 		m_lAddScriptTime = 'list',
 		m_fireCnt = '',
      })
@@ -509,6 +510,10 @@ function Missile:updateMissileOption(dt)
 					-- 2-1. 최대 발사 수 도달 시 스크립트를 지워 처리
 					if (self.m_fireCnt >= self.m_addScriptMax) then 
 						self.m_addScript = nil
+						-- 2-2. addScript 탄을 전부 쏘면 현재 탄을 지우는 기능
+						if (self.m_addScriptDead) then 
+							self:changeState('dying')
+						end
 						break
 					end
 				end
