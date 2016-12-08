@@ -9,8 +9,6 @@ TriggerTime = class({
         m_priority = 'number',
         m_lPatternList = 'table',
         m_currIdx = 'number',
-
-        m_tCurrPattern = 'table',
      })
 
 -------------------------------------
@@ -53,7 +51,6 @@ function TriggerTime:checkTrigger(time)
         return
     end
 
-    self.m_tCurrPattern = t_data['pattern']
     self.m_bActive = true
     self.m_bUsed = true
     self.m_currIdx = self.m_currIdx + 1
@@ -61,8 +58,13 @@ function TriggerTime:checkTrigger(time)
     do -- 변경된 패턴을 패턴 리스트에 추가
         local idx = self.m_owner.m_currPatternIdx
 
-        for i, v in ipairs(self.m_tCurrPattern) do
-            table.insert(self.m_owner.m_tCurrPattern, idx + i, v)
+        for i, v in ipairs(t_data['pattern']) do
+            local pattern_info = {
+                priority = self.m_priority,
+                pattern = v
+            }
+
+            table.insert(self.m_owner.m_tCurrPattern, idx + i, pattern_info)
         end
     end
 end

@@ -34,9 +34,8 @@ function EnemyLua_Boss:initScript(pattern_script_name)
     self.m_patternScriptName = pattern_script_name
 
     local script = TABLE:loadJsonTable(pattern_script_name)
-    local pattern_list = script[pattern_script_name]
-
-    self.m_tOrgPattern = pattern_list[math_random(1, #pattern_list)]
+    
+    self.m_tOrgPattern = self:getBasePatternList()
     self.m_tCurrPattern = self.m_tOrgPattern
     self.m_currPatternIdx = 0
 
@@ -203,16 +202,14 @@ function EnemyLua_Boss:getNextPattern()
 
         if (not self.m_triggerHpPercent) then
             -- 다시 랜덤
-            local pattern_script_name = self.m_patternScriptName
-            local script = TABLE:loadJsonTable(pattern_script_name)
-            local pattern_list = script[pattern_script_name]
-            self.m_tOrgPattern = pattern_list[math_random(1, #pattern_list)]
+            self.m_tOrgPattern = self:getBasePatternList()
         end
 
         self.m_tCurrPattern = self.m_tOrgPattern
     end
 
-    return self.m_tCurrPattern[self.m_currPatternIdx]
+    local pattern_info = self.m_tCurrPattern[self.m_currPatternIdx]
+    return pattern_info['pattern']
 end
 
 -------------------------------------
@@ -245,7 +242,7 @@ end
 -- @param idx
 -------------------------------------
 function EnemyLua_Boss:doPattern(pattern)
-    --cclog('EnemyLua_Boss:doPattern pattern = ' .. pattern)
+    cclog('EnemyLua_Boss:doPattern pattern = ' .. pattern)
     local l_str = seperate(pattern, ';')
 
     local type = l_str[1]
@@ -325,4 +322,27 @@ function EnemyLua_Boss:cancelSkill()
     end
     
     return b
+end
+
+-------------------------------------
+-- function getBasePatternList
+-- @brief 기본 패턴 리스트를 얻음(기본 패턴 리스트가 다수일 경우 랜덤하게 하나만 가져옴)
+-------------------------------------
+function EnemyLua_Boss:getBasePatternList()
+    local pattern_script_name = self.m_patternScriptName
+    local script = TABLE:loadJsonTable(pattern_script_name)
+    local pattern_list_set = script[pattern_script_name]
+    local pattern_list = pattern_list_set[math_random(1, #pattern_list_set)]
+    local ret = {}
+
+    for i, pattern in ipairs(pattern_list) do
+        local pattern_info = {
+            priority = 0,
+            pattern = pattern
+        }
+
+        table.insert(ret, pattern_info)
+    end
+    
+    return ret
 end
