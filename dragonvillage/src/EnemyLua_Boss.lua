@@ -4,6 +4,7 @@ local PARENT = Enemy
 -- class EnemyLua_Boss
 -------------------------------------
 EnemyLua_Boss = class(PARENT, {
+        m_tOrgPattern = 'table',    -- 반복되어서 수행될 패턴 리스트
         m_tCurrPattern = 'table',
         m_currPatternIdx = 'number',
         m_patternWaitTime = 'number',
@@ -12,9 +13,9 @@ EnemyLua_Boss = class(PARENT, {
 
         m_patternScriptName = 'string',
         m_triggerHpPercent = 'TriggerHpPercent',
+        m_triggerTime = 'TriggerTime',
 
-        m_coolTimeTimer = 'number',
-        m_coolTimeTime = 'number',
+        m_patternTime = 'number',
      })
 
 -------------------------------------
@@ -23,6 +24,7 @@ EnemyLua_Boss = class(PARENT, {
 -- @param body
 -------------------------------------
 function EnemyLua_Boss:init(file_name, body, ...)
+    self.m_patternTime = 0
 end
 
 -------------------------------------
@@ -34,12 +36,18 @@ function EnemyLua_Boss:initScript(pattern_script_name)
     local script = TABLE:loadJsonTable(pattern_script_name)
     local pattern_list = script[pattern_script_name]
 
-    self.m_tCurrPattern = pattern_list[math_random(1, #pattern_list)]
+    self.m_tOrgPattern = pattern_list[math_random(1, #pattern_list)]
+    self.m_tCurrPattern = self.m_tOrgPattern
     self.m_currPatternIdx = 0
 
     -- HP 트리거 생성
     if script['hp_trriger'] then
-        self.m_triggerHpPercent = TriggerHpPercent(self, script['hp_trriger'])
+        self.m_triggerHpPercent = TriggerHpPercent(self, clone(script['hp_trriger']))
+    end
+
+    -- 타임 트리거 생성
+    if script['time_trriger'] then
+        self.m_triggerTime = TriggerTime(self, clone(script['time_trriger']))
     end
 
     -- 애니메이션 믹스 설정
@@ -74,6 +82,21 @@ function EnemyLua_Boss:initState()
     self:addState('pattern_move', EnemyLua_Boss.st_pattern_move, 'idle', true)
 end
 
+-------------------------------------
+-- function update
+-------------------------------------
+function EnemyLua_Boss:update(dt)
+    if (self.m_state == 'pattern_idle' or self.m_state == 'pattern_wait' or self.m_state == 'pattern_move') then
+        self.m_patternTime = self.m_patternTime + dt
+        --cclog('self.m_patternTime = ' .. self.m_patternTime)
+    
+        if self.m_triggerTime then
+            self.m_triggerTime:checkTrigger(self.m_patternTime)
+        end
+    end
+    
+    return PARENT.update(self, dt)
+end
 
 -------------------------------------
 -- function st_pattern_idle
@@ -155,15 +178,6 @@ function EnemyLua_Boss.st_pattern_wait(owner, dt)
     if (owner.m_stateTimer >= owner.m_patternWaitTime) then
         owner:changeState('pattern_idle')
     end
-
-    -- 쿨타임 게이지 적용
-    if owner.m_coolTimeTime and (owner.m_coolTimeTimer < owner.m_coolTimeTime) then
-        owner.m_coolTimeTimer = (owner.m_coolTimeTimer + dt)
-
-        if (owner.m_coolTimeTimer > owner.m_coolTimeTime) then
-            owner.m_coolTimeTimer = owner.m_coolTimeTime
-        end
-    end
 end
 
 -------------------------------------
@@ -187,39 +201,15 @@ function EnemyLua_Boss:getNextPattern()
     if (pattern_cnt < self.m_currPatternIdx) then
         self.m_currPatternIdx = 1
 
-        if (not self.m_triggerHpPercent) or (not self.m_triggerHpPercent) then
+        if (not self.m_triggerHpPercent) then
             -- 다시 랜덤
             local pattern_script_name = self.m_patternScriptName
             local script = TABLE:loadJsonTable(pattern_script_name)
             local pattern_list = script[pattern_script_name]
-            self.m_tCurrPattern = pattern_list[math_random(1, #pattern_list)]
+            self.m_tOrgPattern = pattern_list[math_random(1, #pattern_list)]
         end
-    end
 
-    -- 쿨타이머 설정
-    if (self.m_coolTimeTime == nil) then
-        local cool_time = 0
-        local idx = self.m_currPatternIdx
-        while true do
-            if (not self.m_tCurrPattern[idx]) then
-                break
-            end
-            local l_str = seperate(self.m_tCurrPattern[idx], ';')
-
-            local type = l_str[1]
-            local value_1 = l_str[2]
-
-            if (type == 'w') then
-                local _cool = tonumber(value_1) or 1
-                cool_time = (cool_time + _cool)
-            elseif (type == 'a') then
-                break
-            end
-
-            idx = (idx + 1)
-        end
-        self.m_coolTimeTime = cool_time
-        self.m_coolTimeTimer = 0
+        self.m_tCurrPattern = self.m_tOrgPattern
     end
 
     return self.m_tCurrPattern[self.m_currPatternIdx]

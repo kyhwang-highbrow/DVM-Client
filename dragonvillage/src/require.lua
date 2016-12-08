@@ -322,6 +322,7 @@ local t_module = {
 
     'DragonCard',
     'TriggerHpPercent',
+    'TriggerTime',
     'EffectTimer',
 
     -- Data
