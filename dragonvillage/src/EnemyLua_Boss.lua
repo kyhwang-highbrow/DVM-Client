@@ -242,7 +242,6 @@ end
 -- @param idx
 -------------------------------------
 function EnemyLua_Boss:doPattern(pattern)
-    cclog('EnemyLua_Boss:doPattern pattern = ' .. pattern)
     local l_str = seperate(pattern, ';')
 
     local type = l_str[1]
@@ -293,6 +292,10 @@ function EnemyLua_Boss:doPattern(pattern)
     else
         error()
     end
+
+	if PRINT_BOSS_PATTERN then 
+		self:printBossPattern(pattern, type, value_1)
+	end
 end
 
 -------------------------------------
@@ -345,4 +348,20 @@ function EnemyLua_Boss:getBasePatternList()
     end
     
     return ret
+end
+
+-------------------------------------
+-- function printBossPattern
+-------------------------------------
+function EnemyLua_Boss:printBossPattern(pattern, type, value_1)
+	local boss_name = self.m_charTable['t_name']
+	local add_str = ''
+	if (type == 'a') then
+		local skill_id = self.m_charTable['skill_' .. value_1]
+		local table_name = self.m_charType .. '_skill'
+		local table_skill = TABLE:get(table_name)
+		local t_skill = table_skill[skill_id]
+		add_str = t_skill['t_name']
+	end
+	cclog(boss_name .. ' pattern = ' .. pattern .. ' ' .. add_str)
 end
