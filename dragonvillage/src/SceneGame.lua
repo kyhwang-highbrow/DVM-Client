@@ -15,9 +15,9 @@ SceneGame = class(PerpleScene, {
         m_shakeLayer = 'cc.Node',       -- 화면 떨림 레이어
         m_cameraLayer = 'cc.Node',
         m_worldLayer = 'cc.Node',       -- 월드 레이어 (줌인, 줌아웃 관여)
-        m_gameNode1 = 'cc.Node',        -- 게임 레이어
-        m_gameNode2 = 'cc.Node',        -- 게임 레이어
-        m_gameNode3 = 'cc.Node',        -- 게임 레이어
+        m_gameNode1 = 'cc.Node',        -- 게임 레이어 (배경, 유닛, 미사일 영역)
+        m_gameNode2 = 'cc.Node',        -- 게임 레이어 (이펙트 및 폰트 영역)
+        m_gameNode3 = 'cc.Node',        -- 게임 레이어 (pause, resume 제외하는 이펙트 및 폰트 영역)
         m_feverNode = 'cc.Node',        -- 피버 레이어
         m_gameIndicatorNode = 'cc.Node',
         m_gameHighlightNode = 'cc.Node',
@@ -73,7 +73,7 @@ function SceneGame:init_layer()
             self.m_shakeLayer = cc.Node:create()
             self.m_viewLayer:addChild(self.m_shakeLayer)
 
-			do
+			do -- 카메라 레이어
 				self.m_cameraLayer = cc.Node:create()
 				self.m_shakeLayer:addChild(self.m_cameraLayer)
 
@@ -81,13 +81,15 @@ function SceneGame:init_layer()
 					self.m_worldLayer = cc.Node:create()
 					self.m_cameraLayer:addChild(self.m_worldLayer)
 
-					do -- 게임 레이어
+					do -- 게임 레이어 (배경, 유닛, 미사일 용)
 						self.m_gameNode1 = cc.Node:create()
 						self.m_worldLayer:addChild(self.m_gameNode1)
 
-						-- 게임 레이어
+						-- 게임 레이어 (이펙트 및 폰트 용)
 						self.m_gameNode2 = cc.Node:create()
 						self.m_worldLayer:addChild(self.m_gameNode2)
+
+						-- 게임 레이어 (pause 제외 이펙트 및 폰트 용)
 						self.m_gameNode3 = cc.Node:create()
 						self.m_worldLayer:addChild(self.m_gameNode3)
 
@@ -118,6 +120,7 @@ function SceneGame:init_layer()
         end
     end
 
+	-- 암전용 레이어 (카메라 등의 영향 제외)
     self.m_colorLayerTamerSkill = cc.LayerColor:create()
     self.m_colorLayerTamerSkill:setColor(cc.c3b(255, 255, 255))
     self.m_colorLayerTamerSkill:setOpacity(0)

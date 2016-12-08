@@ -49,6 +49,7 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation)
 
     self:addToUnitList(dragon)
     dragon:makeHPGauge({0, -80})
+	dragon:makeCastingNode()
 
     return dragon
 end
@@ -111,7 +112,8 @@ function GameWorld:makeMonsterNew(monster_id, level)
 
     self:addToUnitList(monster)
     monster:makeHPGauge(hp_ui_offset)
-    
+    monster:makeCastingNode()
+
 	return monster
 end
 

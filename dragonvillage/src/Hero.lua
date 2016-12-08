@@ -466,8 +466,8 @@ end
 -- function makeHPGauge
 -------------------------------------
 function Hero:makeHPGauge(hp_ui_offset)
-    self.m_hpUIOffset = hp_ui_offset
-    self.m_hpUIOffset[1] = self.m_hpUIOffset[1] - 80
+    self.m_unitInfoOffset = hp_ui_offset
+    self.m_unitInfoOffset[1] = self.m_unitInfoOffset[1] - 80
 
     local ui = UI_IngameDragonInfo(self)
     self.m_hpNode = ui.root
@@ -476,13 +476,9 @@ function Hero:makeHPGauge(hp_ui_offset)
 
     self.m_hpGauge = ui.vars['hpGauge']
     self.m_hpGauge2 = ui.vars['hpGauge2']
-
     self.m_castingNode = ui.vars['atkGauge']
-    --self.m_castingGauge = ui.vars['atkGauge']
 
-    --self.m_castingGauge:setPercentage(0)
-
-    self.m_world.m_worldNode:addChild(self.m_hpNode, 5)
+    self.m_world.m_unitInfoNode:addChild(self.m_hpNode, 5)
 
     self.m_infoUI = ui
 end
@@ -494,7 +490,7 @@ function Hero:setPosition(x, y)
     Entity.setPosition(self, x, y)
 
     if self.m_hpNode then
-        self.m_hpNode:setPosition(x + self.m_hpUIOffset[1], y + self.m_hpUIOffset[2])
+        self.m_hpNode:setPosition(x + self.m_unitInfoOffset[1], y + self.m_unitInfoOffset[2])
     end
     
     if self.m_cbChangePos then

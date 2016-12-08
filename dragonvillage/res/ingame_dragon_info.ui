@@ -98,12 +98,12 @@
 			};
 			[4] =
 			{
-				type = 'ProgressTimer';
+				type = 'Sprite';
 				ui_name = '';
-				x = 16.000000;
+				x = 40.000000;
 				y = 4.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
 				width = 66;
 				height = 10;
@@ -121,19 +121,15 @@
 				flip_y = false;
 				src_blend = 770;
 				dest_blend = 771;
-				progress_type = 4;
-				mid_point_x = 0.000000;
-				mid_point_y = 0.000000;
-				percentage = 100;
 			};
 			[5] =
 			{
-				type = 'ProgressTimer';
+				type = 'Sprite';
 				ui_name = '';
-				x = 16.000000;
+				x = 40.000000;
 				y = 4.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
 				width = 66;
 				height = 10;
@@ -151,10 +147,6 @@
 				flip_y = false;
 				src_blend = 770;
 				dest_blend = 771;
-				progress_type = 4;
-				mid_point_x = 0.000000;
-				mid_point_y = 0.000000;
-				percentage = 100;
 			};
 			[6] =
 			{

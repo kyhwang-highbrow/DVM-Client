@@ -16,6 +16,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_groundNode = 'cc.Node',
         m_worldNode = 'cc.Node',
         m_missiledNode = 'cc.Node',
+		m_unitInfoNode = 'cc.Node',
 
         m_lUnitList = 'list',
 		m_lSkillList = 'table',
@@ -130,6 +131,9 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
 
     self.m_missiledNode = cc.Node:create()
     self.m_gameNode1:addChild(self.m_missiledNode)
+	
+	self.m_unitInfoNode = cc.Node:create()
+    self.m_gameNode1:addChild(self.m_unitInfoNode)
 
     self.m_lUnitList = {}
 	self.m_lSkillList = {}

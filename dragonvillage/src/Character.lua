@@ -43,7 +43,7 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_hpNode = '',
         m_hpGauge = '',
         m_hpGauge2 = '',
-        m_hpUIOffset = '',
+        m_unitInfoOffset = '',
 
         -- @casting UI
         m_castingNode = '',
@@ -858,15 +858,14 @@ end
 -------------------------------------
 function Character:setHp(hp)
     self.m_hp = hp
+	local percentage = self.m_hp / self.m_maxHp
 
     if self.m_hpGauge then
-        local percentage = self.m_hp / self.m_maxHp * 100
-        self.m_hpGauge:setPercentage(self.m_hp / self.m_maxHp * 100)
-
-        if self.m_hpGauge2 then
-            local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ProgressTo:create(0.5, percentage))
-            self.m_hpGauge2:runAction(cc.EaseIn:create(action, 2))
-        end
+        self.m_hpGauge:setScaleX(percentage)
+    end
+	if self.m_hpGauge2 then
+        local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, percentage, 1))
+        self.m_hpGauge2:runAction(cc.EaseIn:create(action, 2))
     end
 
     if self.m_hpEventListener then
@@ -931,7 +930,7 @@ end
 -- function makeHPGauge
 -------------------------------------
 function Character:makeHPGauge(hp_ui_offset)
-    self.m_hpUIOffset = hp_ui_offset
+    self.m_unitInfoOffset = hp_ui_offset
     
     local ui = UI_IngameUnitInfo(self)
     self.m_hpNode = ui.root
@@ -941,53 +940,33 @@ function Character:makeHPGauge(hp_ui_offset)
     self.m_hpGauge = ui.vars['hpGauge']
     self.m_hpGauge2 = ui.vars['hpGauge2']
 
-    self.m_world.m_worldNode:addChild(self.m_hpNode, 5)
-    
-    -- casting
+    self.m_world.m_unitInfoNode:addChild(self.m_hpNode)
+end
+
+-------------------------------------
+-- function makeCastingNode
+-------------------------------------
+function Character:makeCastingNode()
+    self.m_castingNode = cc.Node:create()
+    self.m_castingNode:setDockPoint(cc.p(0.5, 0.5))
+    self.m_castingNode:setAnchorPoint(cc.p(0.5, 0.5))
+    self.m_castingNode:setVisible(false)
+    self.m_world.m_worldNode:addChild(self.m_castingNode, 6)
+
+    local ui = UI()
+    ui:load('enemy_skill_speech.ui')
+    self.m_castingNode:addChild(ui.root)
+
+    self.m_castingUI = ui.root
+    self.m_castingMarkGauge = ui.vars['markGauge']
+    self.m_castingSpeechVisual = ui.vars['speechVisual']
+
     do
-        self.m_castingNode = cc.Node:create()
-        self.m_castingNode:setDockPoint(cc.p(0.5, 0.5))
-        self.m_castingNode:setAnchorPoint(cc.p(0.5, 0.5))
-        self.m_castingNode:setVisible(false)
-        self.m_world.m_worldNode:addChild(self.m_castingNode, 6)
-
-
-        local ui = UI()
-        ui:load('enemy_skill_speech.ui')
-        self.m_castingNode:addChild(ui.root)
-
-        self.m_castingUI = ui.root
-        self.m_castingMarkGauge = ui.vars['markGauge']
-        self.m_castingSpeechVisual = ui.vars['speechVisual']
-
-        --
-        do
-            self.m_castingMarkGauge:setVisible(true)
-            self.m_castingSpeechVisual:setVisible(true)
+        self.m_castingMarkGauge:setVisible(true)
+        self.m_castingSpeechVisual:setVisible(true)
         
-            self.m_castingMarkGauge:setPosition(53, 107)
-            self.m_castingSpeechVisual:setPosition(99, 144)
-        end
-        --
-
-        --[[
-        --local img = cc.Sprite:create('res/ui/gauge/ingame_enemy_gg_02.png')
-        local img = cc.Sprite:create('res/ui/gauge/dragon_atk_gg.png')
-        img:setDockPoint(cc.p(0.5, 0.5))
-        img:setAnchorPoint(cc.p(0.5, 0.5))
-
-        local progress = cc.ProgressTimer:create(img)
-        progress:setType(cc.PROGRESS_TIMER_TYPE_BAR)
-        progress:setMidpoint(cc.p(0, 0))
-        progress:setBarChangeRate(cc.p(1, 0))
-        progress:setAnchorPoint(cc.p(0.5,0.5))
-        progress:setDockPoint(cc.p(0.5,0.5))
-        progress:setPercentage(0)
-        progress:setPosition(0, -7)
-        self.m_castingNode:addChild(progress)
-
-        self.m_castingGauge = progress
-        ]]--
+        self.m_castingMarkGauge:setPosition(53, 107)
+        self.m_castingSpeechVisual:setPosition(99, 144)
     end
 end
 
@@ -998,11 +977,11 @@ function Character:setPosition(x, y)
     Entity.setPosition(self, x, y)
 
     if self.m_hpNode then
-        self.m_hpNode:setPosition(x + self.m_hpUIOffset[1], y + self.m_hpUIOffset[2])
+        self.m_hpNode:setPosition(x + self.m_unitInfoOffset[1], y + self.m_unitInfoOffset[2])
     end
 
     if self.m_castingNode then
-        self.m_castingNode:setPosition(x + self.m_hpUIOffset[1], y + self.m_hpUIOffset[2])
+        self.m_castingNode:setPosition(x + self.m_unitInfoOffset[1], y + self.m_unitInfoOffset[2])
     end
 
     if self.m_cbChangePos then
@@ -1111,8 +1090,7 @@ function Character:setTargetEffect(animator)
     self:removeTargetEffect()
     self.m_targetEffect = animator
     if animator then
-        --self.m_rootNode:addChild(animator.m_node)
-        animator:setPosition(-self.m_hpUIOffset[1], -self.m_hpUIOffset[2])
+        animator:setPosition(-self.m_unitInfoOffset[1], -self.m_unitInfoOffset[2])
 
         if self.m_hpNode then
             self.m_hpNode:addChild(animator.m_node)
