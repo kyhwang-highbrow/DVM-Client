@@ -33,6 +33,54 @@
 		{
 			[1] =
 			{
+				[1] =
+				{
+					[1] =
+					{
+						type = 'Visual';
+						ui_name = '';
+						x = 682.000000;
+						y = 318.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 1280;
+						height = 960;
+						scale_x = 0.730000;
+						scale_y = 0.730000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/a2d/dragon_management_bg/dragon_management_bg.a2d';
+						auto_play = true;
+						is_repeat = true;
+						visual_id = 'group;idle';
+						color = { 255; 255; 255; };
+						opacity = 255;
+					};
+					type = 'ClippingNode';
+					ui_name = '';
+					x = -260.000000;
+					y = 31.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 488;
+					height = 426;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					stencil_type = 1;
+					stencil_img = 'ui/frame/manage_bg.png';
+					alpha_threshold = 0.000000;
+					is_invert = false;
+				};
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
@@ -1376,6 +1424,32 @@
 			{
 				[1] =
 				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = 61.000000;
+					y = -142.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 210;
+					height = 24;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frame/mini_bg_06.png';
+					color = { 0; 0; 0; };
+					opacity = 120;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[2] =
+				{
 					[1] =
 					{
 						type = 'LabelTTF';
@@ -1444,7 +1518,7 @@
 					mid_point_y = 0.000000;
 					percentage = 100;
 				};
-				[2] =
+				[3] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -1484,7 +1558,7 @@
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
 				};
-				[3] =
+				[4] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -1524,7 +1598,7 @@
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
 				};
-				[4] =
+				[5] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -1564,7 +1638,7 @@
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
 				};
-				[5] =
+				[6] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -1583,7 +1657,7 @@
 					visible = true;
 					lua_name = 'starNode';
 				};
-				[6] =
+				[7] =
 				{
 					[1] =
 					{
@@ -1628,7 +1702,7 @@
 					visible = true;
 					lua_name = 'rarityFrameNode';
 				};
-				[7] =
+				[8] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -1647,7 +1721,7 @@
 					visible = true;
 					lua_name = 'attrNode';
 				};
-				[8] =
+				[9] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -1666,7 +1740,7 @@
 					visible = true;
 					lua_name = 'charTypeNode';
 				};
-				[9] =
+				[10] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -1685,7 +1759,7 @@
 					visible = true;
 					lua_name = 'rarityNode';
 				};
-				[10] =
+				[11] =
 				{
 					[1] =
 					{
@@ -1751,7 +1825,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[11] =
+				[12] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -1770,7 +1844,7 @@
 					visible = true;
 					lua_name = 'roleNode';
 				};
-				[12] =
+				[13] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -1810,7 +1884,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[13] =
+				[14] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -1850,7 +1924,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[14] =
+				[15] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -1890,7 +1964,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[15] =
+				[16] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -3310,14 +3384,14 @@
 			type = 'Node';
 			ui_name = '';
 			x = -276.000000;
-			y = 0.000000;
+			y = 26.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 100;
 			height = 100;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
+			scale_x = 0.800000;
+			scale_y = 0.800000;
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
