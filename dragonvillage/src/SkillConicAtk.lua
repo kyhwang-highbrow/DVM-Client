@@ -5,11 +5,13 @@ local PARENT = Skill
 -------------------------------------
 SkillConicAtk = class(PARENT, {
 		m_range = 'number',
+		m_maxRange = 'number',
+		m_angle = 'num',
+		m_dir = 'num', 
+
 		m_attackCount = 'number',
 		m_maxAttackCount = 'number',
-
-		m_degree = 'degree',
-
+		
 		m_hitInterval = 'number',
 		m_multiAtkTimer = 'dt',
      })
@@ -25,19 +27,21 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillConicAtk:init_skill(attack_count, range)
+function SkillConicAtk:init_skill(attack_count, range, angle)
     PARENT.init_skill(self)
 
 	-- 멤버 변수
 	self.m_maxAttackCount = attack_count
-    self.m_range = range
-	self.m_degree = getDegree(self.m_owner.pos.x, self.m_owner.pos.y, self.m_targetPos.x, self.m_targetPos.y)
+    self.m_range = 0
+	self.m_maxRange = range
+	self.m_angle = angle
+	self.m_dir = getDegree(self.m_owner.pos.x, self.m_owner.pos.y, self.m_targetPos.x, self.m_targetPos.y)
 
 	-- 위치 설정
 	self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 
 	-- 애니메이션 설정
-    self.m_animator:setRotation(self.m_degree)
+    self.m_animator:setRotation(self.m_dir)
 	self.m_animator:setPosition(self:getAttackPosition())
 end
 
@@ -65,9 +69,13 @@ function SkillConicAtk.st_idle(owner, dt)
 	-- 반복 공격
     owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
     if (owner.m_multiAtkTimer > owner.m_hitInterval) then
+		owner.m_attackCount = owner.m_attackCount + 1
+		
+		-- 공격 range를 조절할 필요가 있다면 사용할법하나... 좀더 고려해야함
+		owner.m_range = owner.m_maxRange --* (owner.m_attackCount / owner.m_maxAttackCount )
+		
         owner:runAttack()
         owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
-		owner.m_attackCount = owner.m_attackCount + 1
     end
 	
 	-- 공격 횟수 초과시 탈출
@@ -86,9 +94,9 @@ function SkillConicAtk:findTarget()
 	local t_data = {}
 	t_data['x'] = self.m_owner.pos.x -- 시작 좌표
 	t_data['y'] = self.m_owner.pos.y
-	t_data['dir'] = self.m_degree -- 방향
+	t_data['dir'] = self.m_dir -- 방향
 	t_data['radius'] = self.m_range -- 거리
-    t_data['angle_range'] = 20 -- 각도 범위
+    t_data['angle_range'] = self.m_angle -- 각도 범위
 
 	local l_target = world:getTargetList(self.m_owner, x, y, 'enemy', 'x', 'fan_shape', t_data)
 
@@ -103,6 +111,7 @@ function SkillConicAtk:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
 	local attack_count = t_skill['hit']
     local range = t_skill['val_1']
+	local angle = t_skill['val_2']
 	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
 
 	-- 인스턴스 생성부
@@ -112,7 +121,7 @@ function SkillConicAtk:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(attack_count, range)
+    skill:init_skill(attack_count, range, angle)
 	skill:initState()
 
 	-- 3. state 시작 

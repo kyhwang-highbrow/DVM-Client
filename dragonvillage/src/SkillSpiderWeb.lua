@@ -76,8 +76,8 @@ end
 -- function update
 -------------------------------------
 function SkillSpiderWeb:update(dt)
-	-- 사망 체크
-    if (self.m_owner.m_bDead) and (self.m_state ~= 'dying') then
+	-- 타겟 사망 체크
+    if (self.m_targetChar.m_bDead) and (self.m_state ~= 'dying') then
         self:changeState('dying')
     end
 	-- 드래곤의 애니와 객체, 스킬 위치 동기화

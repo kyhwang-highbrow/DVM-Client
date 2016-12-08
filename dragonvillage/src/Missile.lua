@@ -395,7 +395,7 @@ function Missile:updateMissileOption(dt)
         end
     end
 
-    -- n초에 걸쳐 리소스 및 충돌박스가 2배로 커짐
+    -- n초에 걸쳐 리소스 및 충돌박스가 SIZE_UP_SCALE배로 커짐
     if self.m_sizeUpTime then
         if self.m_stateTimer == 0 then
             self.m_baseScale = self.m_animator:getScale()

@@ -69,7 +69,7 @@ MAP_FLOATING_ROTATE_TIME = 5
 -- 각 스킬에서 사용하는 상수
 --------------------------------------------
 -- # SkillLaser
-LASER_DELAY = 0.5
+LASER_ATK_DELAY = 0.5
 
 -- # SkillLeafBlade
 LEAF_COLLISION_SIZE = 30

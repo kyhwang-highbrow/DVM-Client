@@ -19,8 +19,8 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillConicAtk_Spread:init_skill(attack_count, range, isSpread)
-    PARENT.init_skill(self, attack_count, range)
+function SkillConicAtk_Spread:init_skill(attack_count, range, angle, isSpread)
+    PARENT.init_skill(self, attack_count, range, angle)
 	
 	self.m_speardCnt = 0
 	self.m_isSpread = isSpread == 1
@@ -30,7 +30,7 @@ end
 -- function runAttack
 -------------------------------------
 function SkillConicAtk_Spread:runAttack()
-    local t_target = self:findTarget(self.m_owner.pos.x, self.m_owner.pos.y, self.m_range, self.m_degree)
+    local t_target = self:findTarget()
 
     for i, target_char in ipairs(t_target) do
         -- 공격
@@ -115,8 +115,9 @@ function SkillConicAtk_Spread:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
 	local attack_count = t_skill['hit']
     local range = t_skill['val_1']
+	local angle = 20 --t_skill['val_2']
+	local is_spread = t_skill['val_3']
 	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
-	local is_spread = t_skill['val_2'] -- 사용하는 인자!
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
@@ -125,7 +126,7 @@ function SkillConicAtk_Spread:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(attack_count, range, is_spread)
+    skill:init_skill(attack_count, range, angle, is_spread)
 	skill:initState()
 
 	-- 3. state 시작 

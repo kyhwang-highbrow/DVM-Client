@@ -57,7 +57,7 @@ function SkillLaser:init_skill(missile_res, hit, thickness)
 	    -- 쿨타임 지정
     self.m_limitTime = duration
     self.m_multiHitTime = self.m_limitTime / hit
-    self.m_multiHitTimer = -LASER_DELAY
+    self.m_multiHitTimer = -LASER_ATK_DELAY
 	
     self.m_clearCount = 0
 	self.m_maxClearCount = hit - 1

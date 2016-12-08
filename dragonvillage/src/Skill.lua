@@ -265,6 +265,16 @@ function Skill:getAttackPosition()
 end
 
 -------------------------------------
+-- function getAttackPositionAtWorld
+-- @brief 캐릭터의 애니메이션상 공격 시작 위치의 offset을 가져온다.
+-------------------------------------
+function Skill:getAttackPositionAtWorld()
+	local pos_x = self.m_owner.pos.x + self.m_attackPosOffsetX
+	local pos_y = self.m_owner.pos.y + self.m_attackPosOffsetY
+    return pos_x, pos_y
+end
+
+-------------------------------------
 -- function removeDestructibleMissile
 -- @brief 월드의 처리 가능한 미사일을 없앤다
 -------------------------------------
