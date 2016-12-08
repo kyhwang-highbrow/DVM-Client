@@ -66,15 +66,18 @@ MAP_FLOATING_ROTATE_SCOPE = 0
 MAP_FLOATING_ROTATE_TIME = 5
 
 --------------------------------------------
--- 각 스킬에서 공유하는 상수
+-- 각 스킬에서 사용하는 상수
 --------------------------------------------
--- # SkillLeafBlade
- LEAF_COLLISION_SIZE = 30
- LEAF_STRAIGHT_ANGLE = 30
- LEAF_INDICATOR_EFFECT_DELAY = 5/1000
+-- # SkillLaser
+LASER_DELAY = 0.5
 
- -- # StatusEffect_PassiveSpatter
- STATUEEFFECT_GLOBAL_COOL = 0.5
+-- # SkillLeafBlade
+LEAF_COLLISION_SIZE = 30
+LEAF_STRAIGHT_ANGLE = 30
+LEAF_INDICATOR_EFFECT_DELAY = 5/1000
+
+-- # StatusEffect_PassiveSpatter
+STATUEEFFECT_GLOBAL_COOL = 0.5
 
 --------------------------------------------
 -- 인디케이터 리소스 경로

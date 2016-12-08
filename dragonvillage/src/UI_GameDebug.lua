@@ -198,29 +198,6 @@ function UI_GameDebug:makeTableView()
         table.insert(item_info, item)
     end
 
-	do -- 피격박스 on/off
-        if g_gameScene.m_gameWorld.m_physWorld then
-            local item = {}
-            item['cb1'] = UI_GameDebug.physDebugButton
-
-            item['cb'] = function()
-                local cb = function(debug_on)
-                    if item['label'] then
-                        if debug_on then
-                            item['label']:setString(Str('피격박스 ON'))
-                        else
-                            item['label']:setString(Str('피격박스 OFF'))
-                        end
-                    end
-                end
-
-                g_gameScene.m_gameWorld.m_physWorld:addDebugChangeCB(self, cb)
-            end
-
-            table.insert(item_info, item)
-        end
-    end
-
     do -- 화면 크기
         local item = {}
         item['cb1'] = UI_GameDebug.worldScaleButton

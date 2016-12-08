@@ -57,7 +57,7 @@ function SkillLaser:init_skill(missile_res, hit, thickness)
 	    -- 쿨타임 지정
     self.m_limitTime = duration
     self.m_multiHitTime = self.m_limitTime / hit
-    self.m_multiHitTimer = 0
+    self.m_multiHitTimer = -LASER_DELAY
 	
     self.m_clearCount = 0
 	self.m_maxClearCount = hit - 1
@@ -138,6 +138,9 @@ function SkillLaser.st_idle(owner, dt)
 		owner:clearCollisionObjectList()
         owner.m_multiHitTimer = owner.m_multiHitTimer - owner.m_multiHitTime
         owner.m_clearCount = owner.m_clearCount + 1
+
+        local t_collision_obj = owner:findTarget()
+		owner:collisionAttack(t_collision_obj)
     end
 
     owner:refresh()
@@ -164,7 +167,7 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function SkillLaser:refresh(force)
+function SkillLaser:refresh()
     local change_start = false
 	
     if self.m_owner then
@@ -188,46 +191,42 @@ function SkillLaser:refresh(force)
             self.m_laserEndPosY = self.m_startPosY + pos['y']
         end
     end
-
-    if (not force) then
-        self:checkCollision()
-    end
 end
 
 -------------------------------------
--- function checkCollision
+-- function findTarget
 -------------------------------------
-function SkillLaser:checkCollision()
-
+function SkillLaser:findTarget()
     local radius = (self.m_laserThickness / 2)
 
     -- 레이저에 충돌된 모든 객체 리턴
     local t_collision_obj = self.m_world.m_physWorld:getLaserCollision(self.m_startPosX, self.m_startPosY,
         self.m_laserEndPosX, self.m_laserEndPosY, radius, self.m_physGroup)
     
-	-- 모든 객체에 공격
-    for i,v in ipairs(t_collision_obj) do
-        self:collisionAttack(v['obj'])
-    end
+	return t_collision_obj
 end
 
 -------------------------------------
 -- function collisionAttack
 -------------------------------------
-function SkillLaser:collisionAttack(target_char)
-    if (not self.t_collision) then
-        return
-    end
+function SkillLaser:collisionAttack(t_collision_obj)
+	if (not self.t_collision) then
+		return
+	end
+	local target_char
+    for i, v in ipairs(t_collision_obj) do
+		target_char = v['obj']
 
-    -- 이미 충돌된 객체라면 리턴
-    if (self.t_collision[target_char.phys_idx]) then
-        return
-    end
+		-- 이미 충돌된 객체라면 리턴
+		if (self.t_collision[target_char.phys_idx]) then
+			return
+		end
 
-    -- 충돌, 공격 처리
-    self.t_collision[target_char.phys_idx] = true
+		-- 충돌, 공격 처리
+		self.t_collision[target_char.phys_idx] = true
 	
-	self:attack(target_char)
+		self:attack(target_char)
+	end
 end
 
 -------------------------------------
