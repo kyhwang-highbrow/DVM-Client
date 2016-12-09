@@ -309,7 +309,9 @@ local t_module = {
     -- UIC (UI Component)
     'UIC_Node',
     'UIC_Button',
+    'UIC_TableViewCore',
     'UIC_TableView',
+    'UIC_TableView_TrainSlotList',
 
     'DamageCalc',
     'IconHelper',

@@ -152,55 +152,20 @@ end
 -------------------------------------
 function UI_DragonManageTrain:int_trainSlotTableView(t_dragon_data)
 
-    -- 새로 개발 중인 테이블 뷰
-    if false then
-        local list_table_node = self.vars['tableViewNode']
-
-        local ui = UIC_TableView(list_table_node)
-
-        local l_item_list = self:makeDragonSlotDataList(t_dragon_data)
-        ui:setItemList(l_item_list)
-        return
-    end
-
+    -- 테이블뷰의 부모 노드
     local list_table_node = self.vars['tableViewNode']
-    list_table_node:removeAllChildren()
 
-    -- 생성
-    local function create_func(item)
-        --[[
-        self:reateDragonCardCB(item)
-        local ui = item['ui']
-        ui.root:setScale(0.7)
+    local ui = UIC_TableView_TrainSlotList(list_table_node)
 
-        local data = item['data']
-        if (self.m_selectDragonOID == data['id']) then
-            self:changeDragonSelectFrame()
-        end
-        --]]
-
-        local ui = item['ui']
-        ui.vars['trainButtonA']:registerScriptTapHandler(function() self:click_trainButton(item, 'a') end)
-        ui.vars['trainButtonB']:registerScriptTapHandler(function() self:click_trainButton(item, 'b') end)
+    local function create_func(ui, data)
+        ui.vars['trainButtonA']:registerScriptTapHandler(function() self:click_trainButton(ui, data, 'a') end)
+        ui.vars['trainButtonB']:registerScriptTapHandler(function() self:click_trainButton(ui, data, 'b') end)
     end
+    ui:setItemUICreateCB(create_func)
 
-    -- 드래곤 클릭 콜백 함수
-    local function click_dragon_item(item)
-        --[[
-        local data = item['data']
-        local dragon_object_id = data['id']
-        self:setSelectDragonData(dragon_object_id)
-        --]]
-    end
-
-    -- 테이블뷰 초기화
-    local table_view_ext = TableViewExtension(list_table_node)
-    table_view_ext:setCellInfo(400, 460)
-    table_view_ext:setItemUIClass(UI_DragonTrainSlot_ListItem, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
-    table_view_ext:setItemInfo(self:makeDragonSlotDataList(t_dragon_data))
-    table_view_ext:update()
-
-    --self.m_tableViewExt = table_view_ext
+    -- 아이템 리스트 설정
+    local l_item_list = self:makeDragonSlotDataList(t_dragon_data)
+    ui:setItemList(l_item_list)
 end
 
 -------------------------------------
@@ -234,10 +199,7 @@ end
 -------------------------------------
 -- function click_trainButton
 -------------------------------------
-function UI_DragonManageTrain:click_trainButton(item, slot_type)
-    local ui = item['ui']
-    local data = item['data']
-
+function UI_DragonManageTrain:click_trainButton(ui, data, slot_type)
     local grade = ui.m_grade
 
     local slot_name = string.format('%.2d_%s', grade, slot_type)

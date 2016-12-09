@@ -1048,6 +1048,12 @@
     <None Include="..\src\UIC_TableView.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\UIC_TableView_TrainSlotList.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
+    <None Include="..\src\UIC_TableViewCore.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -1,21 +1,51 @@
-local PARENT = UIC_TableViewCore
+local PARENT = UIC_Node
+
+VerticalFillOrder = {}
+VerticalFillOrder['TOP_DOWN'] = 0
+VerticalFillOrder['BOTTOM_UP'] = 1
 
 -------------------------------------
--- class UIC_TableView
+-- class UIC_TableViewCore
 -------------------------------------
-UIC_TableView = class(PARENT, {
+UIC_TableViewCore = class(PARENT, {
+        m_scrollView = 'cc.ScrollView',
+        m_itemList = '',
+        m_itemMap = '',
+
+
+        m_defaultCellSize = '', -- cell이 생성되기 전이라면 기본 사이즈를 지정
+
+        _cellsUsed = 'list',
+        _vCellsPositions = 'list',
+
+        _vordering = 'VerticalFillOrder',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UIC_TableView:init(node)
+function UIC_TableViewCore:init(node)
+
+    -- retain된 item들을 release하기 위해
+    node:registerScriptHandler(function(event)
+        if (event == 'cleanup') then
+            self:clearItemList()
+        end
+    end)
+
+    -- 기본값 설정
+    self.m_defaultCellSize = cc.size(100, 100)
+    self._vordering = VerticalFillOrder['BOTTOM_UP']
+
+    -- 스크롤 뷰 생성
+    local content_size = node:getContentSize()
+    self:makeScrollView(content_size)
 end
 
 -------------------------------------
 -- function makeScrollView
 -------------------------------------
-function UIC_TableView:makeScrollView(size)
+function UIC_TableViewCore:makeScrollView(size)
     local scroll_view = cc.ScrollView:create()
     self.m_scrollView = scroll_view
 
@@ -43,7 +73,7 @@ end
 -------------------------------------
 -- function _updateCellPositions
 -------------------------------------
-function UIC_TableView:_updateCellPositions()
+function UIC_TableViewCore:_updateCellPositions()
     local cellsCount = #self.m_itemList
 
     self._vCellsPositions = {}
@@ -73,7 +103,7 @@ end
 -------------------------------------
 -- function _updateContentSize
 -------------------------------------
-function UIC_TableView:_updateContentSize()
+function UIC_TableViewCore:_updateContentSize()
     local size = cc.size(0, 0)
 
     local cellsCount = #self.m_itemList
@@ -101,7 +131,7 @@ end
 -------------------------------------
 -- function scrollViewDidScroll
 -------------------------------------
-function UIC_TableView:scrollViewDidScroll(view)
+function UIC_TableViewCore:scrollViewDidScroll(view)
     local cellsCount = #self.m_itemList
 
     if (0 == cellsCount) then
@@ -214,7 +244,7 @@ end
 -------------------------------------
 -- function tableCellSizeForIndex
 -------------------------------------
-function UIC_TableView:tableCellSizeForIndex(idx)
+function UIC_TableViewCore:tableCellSizeForIndex(idx)
     local t_item = self.m_itemList[idx]
     local ui = t_item['ui']
 
@@ -229,7 +259,7 @@ end
 -------------------------------------
 -- function _indexFromOffset
 -------------------------------------
-function UIC_TableView:_indexFromOffset(offset)
+function UIC_TableViewCore:_indexFromOffset(offset)
     local index = 1
     local  maxIdx = #self.m_itemList
 
@@ -252,7 +282,7 @@ end
 -------------------------------------
 -- function __indexFromOffset
 -------------------------------------
-function UIC_TableView:__indexFromOffset(offset)
+function UIC_TableViewCore:__indexFromOffset(offset)
     local low = 1
     local high = #self.m_itemList
     local search;
@@ -289,14 +319,14 @@ end
 -------------------------------------
 -- function maxContainerOffset
 -------------------------------------
-function UIC_TableView:maxContainerOffset()
+function UIC_TableViewCore:maxContainerOffset()
     return 0, 0
 end
 
 -------------------------------------
 -- function minContainerOffset
 -------------------------------------
-function UIC_TableView:minContainerOffset()
+function UIC_TableViewCore:minContainerOffset()
     local viewSize = self.m_scrollView:getViewSize()
 
     local _container = self.m_scrollView:getContainer()
@@ -308,7 +338,7 @@ function UIC_TableView:minContainerOffset()
     return x, y
 end
 
-function UIC_TableView:_offsetFromIndex(index)
+function UIC_TableViewCore:_offsetFromIndex(index)
     local offset = self:__offsetFromIndex(index)
 
     local cellSize = self:tableCellSizeForIndex(index)
@@ -319,7 +349,7 @@ function UIC_TableView:_offsetFromIndex(index)
     return offset
 end
 
-function UIC_TableView:__offsetFromIndex(index)
+function UIC_TableViewCore:__offsetFromIndex(index)
     local offset = cc.p(0, 0)
     local cellSize = cc.size(0, 0)
 
@@ -336,7 +366,7 @@ function UIC_TableView:__offsetFromIndex(index)
     return offset
 end
 
-function UIC_TableView:updateCellAtIndex(idx)
+function UIC_TableViewCore:updateCellAtIndex(idx)
    local offset = self:_offsetFromIndex(idx)
 
    local ui = self.m_itemList[idx]['ui']
@@ -365,7 +395,7 @@ end
 -- cc.SCROLLVIEW_DIRECTION_VERTICAL = 1
 -- cc.SCROLLVIEW_DIRECTION_BOTH  = 2
 -------------------------------------
-function UIC_TableView:setDirection(direction)
+function UIC_TableViewCore:setDirection(direction)
     self.m_scrollView:setDirection(direction)
 end
 
@@ -373,7 +403,7 @@ end
 -- function setItemList
 -- @brief list는 key값이 고유해야 하며, value로는 UI생성에 필요한 데이터가 있어야 한다
 -------------------------------------
-function UIC_TableView:setItemList(list)
+function UIC_TableViewCore:setItemList(list)
     self:clearItemList()
 
     for key,data in pairs(list) do
@@ -403,7 +433,7 @@ end
 -- function relocateContainerDefault
 -- @brief 시작 위치로 설정
 -------------------------------------
-function UIC_TableView:relocateContainerDefault()
+function UIC_TableViewCore:relocateContainerDefault()
     local direction = self.m_scrollView:getDirection()
     -- 가로
     if (direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
@@ -423,7 +453,7 @@ end
 -------------------------------------
 -- function clearItemList
 -------------------------------------
-function UIC_TableView:clearItemList()
+function UIC_TableViewCore:clearItemList()
     if self.m_itemList then
         for i,v in ipairs(self.m_itemList) do
             if v['ui'] then
@@ -443,7 +473,7 @@ end
 -------------------------------------
 -- function makeItemUI
 -------------------------------------
-function UIC_TableView:makeItemUI(data)
+function UIC_TableViewCore:makeItemUI(data)
     local ui = UI_DragonTrainSlot_ListItem(data)
     ui.root:retain()
     ui.root:setDockPoint(cc.p(0, 0))
