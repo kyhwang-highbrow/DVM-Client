@@ -865,3 +865,44 @@ function RichLabel:release()
     end
     self.m_root = nil
 end
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+-- function RichLabelSample
+-------------------------------------
+function RichLabelSample(parent_node)
+
+    -- 1. getFontName() 함수에서 폰트명을 지정해 주셔야 합니다.
+    -- 2. local UNDER_LINE_PNG = 'res/common/underline.png' 을 지정해 주셔야 합니다. (버튼에서 아래쪽 라인을 그려줄 png)
+    -- 3. local EMPTY_PNG = 'res/common/empty.png' (눈에 보이지 않는 버튼을 생성하기 위한 png)
+
+
+    -- label의 영역을 gl draw로 표시 여부
+    USE_GL_NODE = false
+
+    -- 매개변수 설정
+    local text = '{@#TAN:user:10001}[페이커]{@WHITE}님이 {@#GOLD:champ:10002}[5성 발키리]{@WHITE}를 {@DEEPSKYBLUE}챔피 언진화{@ORANGE}로 획득하셨습니다.'
+    local font_size = 20
+    local dimensions_width = 640
+    local dimensions_height = 320
+    local align_h = TEXT_H_ALIGN_LEFT -- TEXT_H_ALIGN_LEFT, TEXT_H_ALIGN_CENTER, TEXT_H_ALIGN_RIGHT
+    local align_v = TEXT_V_ALIGN_TOP -- TEXT_V_ALIGN_TOP, TEXT_V_ALIGN_CENTER, TEXT_V_ALIGN_BOTTOM
+    local dock_point = cc.p(0.5, 0.5)
+    local is_limit_message = false
+
+    -- 인스턴스 생성
+    local rich_label = RichLabel(text, font_size, dimensions_width, dimensions_height, align_h, align_v, dock_point, is_limit_message)
+
+    -- addChild
+    parent_node:addChild(rich_label.m_root)
+end
