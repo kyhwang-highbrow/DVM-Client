@@ -6,8 +6,85 @@ filter: Linear,Linear
 repeat: none
 elite_gargoyle_earth
   rotate: false
-  xy: 2, 2
+  xy: 2, 125
   size: 266, 380
   orig: 266, 380
+  offset: 0, 0
+  index: -1
+elite_gargoyle_earth_arm_01
+  rotate: false
+  xy: 412, 224
+  size: 73, 114
+  orig: 73, 114
+  offset: 0, 0
+  index: -1
+elite_gargoyle_earth_arm_02
+  rotate: false
+  xy: 261, 40
+  size: 64, 73
+  orig: 64, 73
+  offset: 0, 0
+  index: -1
+elite_gargoyle_earth_arm_03
+  rotate: false
+  xy: 405, 340
+  size: 62, 165
+  orig: 62, 165
+  offset: 0, 0
+  index: -1
+elite_gargoyle_earth_body_01
+  rotate: true
+  xy: 2, 3
+  size: 120, 154
+  orig: 120, 154
+  offset: 0, 0
+  index: -1
+elite_gargoyle_earth_head_01
+  rotate: false
+  xy: 158, 2
+  size: 101, 121
+  orig: 101, 121
+  offset: 0, 0
+  index: -1
+elite_gargoyle_earth_head_02
+  rotate: false
+  xy: 412, 178
+  size: 45, 44
+  orig: 45, 44
+  offset: 0, 0
+  index: -1
+elite_gargoyle_earth_leg_01
+  rotate: false
+  xy: 366, 214
+  size: 44, 118
+  orig: 44, 118
+  offset: 0, 0
+  index: -1
+elite_gargoyle_earth_leg_02
+  rotate: false
+  xy: 327, 38
+  size: 48, 75
+  orig: 48, 75
+  offset: 0, 0
+  index: -1
+elite_gargoyle_earth_tail_01
+  rotate: true
+  xy: 270, 115
+  size: 67, 104
+  orig: 67, 104
+  offset: 0, 0
+  index: -1
+elite_gargoyle_earth_wing_01
+  rotate: false
+  xy: 270, 334
+  size: 133, 171
+  orig: 133, 171
+  offset: 0, 0
+  index: -1
+elite_gargoyle_earth_wing_02
+  rotate: false
+  xy: 270, 184
+  size: 94, 148
+  orig: 94, 148
   offset: 0, 0
   index: -1
