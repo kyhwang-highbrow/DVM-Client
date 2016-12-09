@@ -5,6 +5,7 @@ local PARENT = UI_DragonManage_Base
 -------------------------------------
 UI_DragonManageTrain = class(PARENT,{
         m_bChangeDragonList = 'boolean',
+        m_trainSlotTableView = 'UIC_TableView_TrainSlotList',
     })
 
 -------------------------------------
@@ -67,6 +68,14 @@ function UI_DragonManageTrain:initButton()
     local vars = self.vars
 
     vars['lacteaButton']:registerScriptTapHandler(function() self:click_lacteaButton() end)
+
+    vars['expandBtn']:registerScriptTapHandler(function()
+            if self.m_trainSlotTableView then
+                local b_expanded = (not self.m_trainSlotTableView.m_bExpanded)
+                self.m_trainSlotTableView:setExpand(b_expanded)
+            end
+        end)
+    
 end
 
 -------------------------------------
@@ -154,6 +163,7 @@ function UI_DragonManageTrain:int_trainSlotTableView(t_dragon_data)
 
     -- 테이블뷰의 부모 노드
     local list_table_node = self.vars['tableViewNode']
+    list_table_node:removeAllChildren()
 
     local ui = UIC_TableView_TrainSlotList(list_table_node)
 
@@ -166,6 +176,10 @@ function UI_DragonManageTrain:int_trainSlotTableView(t_dragon_data)
     -- 아이템 리스트 설정
     local l_item_list = self:makeDragonSlotDataList(t_dragon_data)
     ui:setItemList(l_item_list)
+
+    ui:setExpand(false)
+
+    self.m_trainSlotTableView = ui
 end
 
 -------------------------------------

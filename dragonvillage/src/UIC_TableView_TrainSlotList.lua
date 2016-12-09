@@ -5,6 +5,7 @@ local PARENT = UIC_TableView
 -------------------------------------
 UIC_TableView_TrainSlotList = class(PARENT, {
         m_itemUICreateCB = 'function',
+        m_bExpanded = 'boolean',
     })
 
 -------------------------------------
@@ -73,4 +74,80 @@ function UIC_TableView_TrainSlotList:makeItemUI(data)
     end
 
     return ui
+end
+
+-------------------------------------
+-- function setExpand
+-- @param
+-------------------------------------
+function UIC_TableView_TrainSlotList:setExpand(expand, duration)
+    if (self.m_bExpanded == expand) then
+        return
+    end
+
+    self.m_bExpanded = expand
+
+    for i,v in ipairs(self.m_itemList) do
+        local ui = v['ui']
+        ui:setExpand(expand, duration)
+    end
+
+    --self:_updateCellPositions()
+    --self:_updateContentSize()
+    --self:scrollViewDidScroll()
+
+    self:expandTemp(duration)
+
+
+    if (not expand) then
+        self:relocateContainerDefault(true)
+    end
+end
+
+-------------------------------------
+-- function expandTemp
+-- @param
+-------------------------------------
+function UIC_TableView_TrainSlotList:expandTemp(duration)
+    local duration = duration or 0.15
+
+    -- 현재 보여지는 애들 리스트
+    local l_visible_cells = {}
+    for i,v in ipairs(self._cellsUsed) do
+        local idx = v['idx']
+        l_visible_cells[idx] = v
+    end
+
+    self:_updateCellPositions()
+    self:_updateContentSize(true)
+    self:scrollViewDidScroll()
+
+    -- 변경 후 보여질 애들 리스트
+    for i,v in ipairs(self._cellsUsed) do
+        local idx = v['idx']
+        l_visible_cells[idx] = v
+    end
+
+    -- 눈에 보여지도록 추가
+    for i,v in pairs(l_visible_cells) do
+        v['ui']:increaseVisibleCnt()
+        v['ui']:setVisible(true)
+
+        -- 이동 후에는 visible 상태를 체크
+        v['ui'].root:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.CallFunc:create(
+            function()
+                v['ui']:decreaseVisibleCnt()
+            end
+        )))
+    end
+    
+
+    for i,v in ipairs(self.m_itemList) do
+        local ui = self.m_itemList[i]['ui']
+        local offset = self:_offsetFromIndex(i)
+        local action = cc.MoveTo:create(duration, offset)
+        ui.root:runAction(action)
+    end
+
+    
 end

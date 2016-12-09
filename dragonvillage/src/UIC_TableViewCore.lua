@@ -103,7 +103,7 @@ end
 -------------------------------------
 -- function _updateContentSize
 -------------------------------------
-function UIC_TableViewCore:_updateContentSize()
+function UIC_TableViewCore:_updateContentSize(skip_update_cells)
     local size = cc.size(0, 0)
 
     local cellsCount = #self.m_itemList
@@ -123,8 +123,11 @@ function UIC_TableViewCore:_updateContentSize()
 
     self.m_scrollView:setContentSize(size)
 
-    for i=1, cellsCount do
-        self:updateCellAtIndex(i)
+    -- cell들의 위치를 업데이트
+    if (not skip_update_cells) then
+        for i=1, cellsCount do
+            self:updateCellAtIndex(i)
+        end
     end
 end
 
@@ -181,7 +184,7 @@ function UIC_TableViewCore:scrollViewDidScroll(view)
             table.remove(self._cellsUsed, 1)
 
             if cell['ui'] then
-                cell['ui'].root:setVisible(false)
+                cell['ui']:setVisible(false)
             end
 
             if (#self._cellsUsed <= 0) then
@@ -202,7 +205,7 @@ function UIC_TableViewCore:scrollViewDidScroll(view)
             table.remove(self._cellsUsed, #self._cellsUsed)
 
             if cell['ui'] then
-                cell['ui'].root:setVisible(false)
+                cell['ui']:setVisible(false)
             end
 
             if (#self._cellsUsed <= 0) then
@@ -233,7 +236,7 @@ function UIC_TableViewCore:scrollViewDidScroll(view)
                 t_item['ui'].root:setPositionY(pos)
             end
         else
-            t_item['ui'].root:setVisible(true)
+            t_item['ui']:setVisible(true)
         end
 
         table.insert(self._cellsUsed, t_item)
@@ -433,19 +436,19 @@ end
 -- function relocateContainerDefault
 -- @brief 시작 위치로 설정
 -------------------------------------
-function UIC_TableViewCore:relocateContainerDefault()
+function UIC_TableViewCore:relocateContainerDefault(animated)
     local direction = self.m_scrollView:getDirection()
     -- 가로
     if (direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
-        self.m_scrollView:setContentOffset(cc.p(0, 0))
+        self.m_scrollView:setContentOffset(cc.p(0, 0), animated)
 
     -- 세로
     else
         if (self._vordering == VerticalFillOrder['TOP_DOWN']) then
             local min_offset_x, min_offset_y = self:minContainerOffset()
-            self.m_scrollView:setContentOffset(cc.p(0, min_offset_y))
+            self.m_scrollView:setContentOffset(cc.p(0, min_offset_y), animated)
         else
-            self.m_scrollView:setContentOffset(cc.p(0, 0))
+            self.m_scrollView:setContentOffset(cc.p(0, 0), animated)
         end
     end
 end
