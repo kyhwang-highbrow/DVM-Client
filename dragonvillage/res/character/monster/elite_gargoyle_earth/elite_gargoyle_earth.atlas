@@ -1,0 +1,13 @@
+
+elite_gargoyle_earth.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_gargoyle_earth
+  rotate: false
+  xy: 2, 2
+  size: 266, 380
+  orig: 266, 380
+  offset: 0, 0
+  index: -1

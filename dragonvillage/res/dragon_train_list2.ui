@@ -173,10 +173,10 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 130.000000;
+					x = 10.000000;
 					y = -1.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
+					dock_point = { 0.000000; 0.500000; };
+					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
 					width = 80;
 					height = 80;
@@ -279,16 +279,16 @@
 				y = 41.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 362;
-				height = 120;
+				relative_size_type = 3;
+				width = -38;
+				height = -340;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'bMenu';
 			};
 			[3] =
 			{
@@ -402,10 +402,10 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 130.000000;
+					x = 10.000000;
 					y = -1.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
+					dock_point = { 0.000000; 0.500000; };
+					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
 					width = 80;
 					height = 80;
@@ -538,16 +538,16 @@
 				y = -91.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 362;
-				height = 120;
+				relative_size_type = 3;
+				width = -38;
+				height = -340;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'aMenu';
 			};
 			[4] =
 			{
@@ -574,9 +574,9 @@
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 400;
-			height = 460;
+			relative_size_type = 3;
+			width = 0;
+			height = 0;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
