@@ -1045,6 +1045,9 @@
     <None Include="..\src\StatusEffect_Silence.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UIC_TableView.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

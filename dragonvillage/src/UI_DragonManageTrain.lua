@@ -152,6 +152,16 @@ end
 -------------------------------------
 function UI_DragonManageTrain:int_trainSlotTableView(t_dragon_data)
 
+    -- 새로 개발 중인 테이블 뷰
+    if false then
+        local list_table_node = self.vars['tableViewNode']
+
+        local ui = UIC_TableView(list_table_node)
+
+        local l_item_list = self:makeDragonSlotDataList(t_dragon_data)
+        ui:setItemList(l_item_list)
+        return
+    end
 
     local list_table_node = self.vars['tableViewNode']
     list_table_node:removeAllChildren()

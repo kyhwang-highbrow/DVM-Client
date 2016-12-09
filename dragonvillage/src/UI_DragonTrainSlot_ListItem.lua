@@ -6,6 +6,9 @@ local PARENT = UI
 UI_DragonTrainSlot_ListItem = class(PARENT, {
         m_doid = 'string',
         m_grade = 'number',
+
+
+        m_cellSize = 'cc.size',
      })
 
 -------------------------------------
@@ -17,6 +20,8 @@ function UI_DragonTrainSlot_ListItem:init(t_data)
     self.m_grade = t_data['grade']
 
     local vars = self:load('dragon_train_list2.ui')
+
+    self.m_cellSize = self.root:getContentSize()
 
     self:refresh()
 end
@@ -100,4 +105,14 @@ function UI_DragonTrainSlot_ListItem:refresh_slotVars(grade, slot_type, role, re
     -- 현재 상승된 능력치
     local str = table_dragon_train_statue:getTrainSlotDescStr(slot_name, role, level)
     vars['titleLabel' .. suffix]:setString(str)
+end
+
+
+
+-------------------------------------
+-- function getCellSize
+-- @param
+-------------------------------------
+function UI_DragonTrainSlot_ListItem:getCellSize()
+    return self.m_cellSize
 end
