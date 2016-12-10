@@ -184,7 +184,7 @@ function UIC_TableViewCore:scrollViewDidScroll(view)
             table.remove(self._cellsUsed, 1)
 
             if cell['ui'] then
-                cell['ui']:setVisible(false)
+                cell['ui']:setCellVisible(false)
             end
 
             if (#self._cellsUsed <= 0) then
@@ -205,7 +205,7 @@ function UIC_TableViewCore:scrollViewDidScroll(view)
             table.remove(self._cellsUsed, #self._cellsUsed)
 
             if cell['ui'] then
-                cell['ui']:setVisible(false)
+                cell['ui']:setCellVisible(false)
             end
 
             if (#self._cellsUsed <= 0) then
@@ -236,7 +236,7 @@ function UIC_TableViewCore:scrollViewDidScroll(view)
                 t_item['ui'].root:setPositionY(pos)
             end
         else
-            t_item['ui']:setVisible(true)
+            t_item['ui']:setCellVisible(true)
         end
 
         table.insert(self._cellsUsed, t_item)
@@ -471,6 +471,41 @@ function UIC_TableViewCore:clearItemList()
 end
 
 
+-------------------------------------
+-- function expandTemp
+-------------------------------------
+function UIC_TableViewCore:expandTemp(duration)
+    local duration = duration or 0.15
+
+    -- 현재 보여지는 애들 리스트
+    local l_visible_cells = {}
+    for i,v in ipairs(self._cellsUsed) do
+        local idx = v['idx']
+        l_visible_cells[idx] = v
+    end
+
+    self:_updateCellPositions()
+    self:_updateContentSize(true)
+    self:scrollViewDidScroll()
+
+    -- 변경 후 보여질 애들 리스트
+    for i,v in ipairs(self._cellsUsed) do
+        local idx = v['idx']
+        l_visible_cells[idx] = v
+    end
+
+    -- 눈에 보여지도록 추가
+    for i,v in pairs(l_visible_cells) do
+        v['ui']:cellVisibleRetain(duration)
+    end
+
+    -- cell들 이동
+    for i,v in ipairs(self.m_itemList) do
+        local ui = self.m_itemList[i]['ui']
+        local offset = self:_offsetFromIndex(i)
+        ui:cellMoveTo(duration, offset)
+    end
+end
 
 
 -------------------------------------

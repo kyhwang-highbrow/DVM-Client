@@ -1,4 +1,4 @@
-local PARENT = UI
+local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 -------------------------------------
 -- class UI_DragonTrainSlot_ListItem
@@ -7,12 +7,7 @@ UI_DragonTrainSlot_ListItem = class(PARENT, {
         m_doid = 'string',
         m_grade = 'number',
 
-
-        m_cellSize = 'cc.size',
         m_bExpanded = 'boolean',
-
-        m_bOrgVisible = 'boolean',
-        m_visibleRefCnt = 'number',
      })
 
 -------------------------------------
@@ -30,8 +25,6 @@ function UI_DragonTrainSlot_ListItem:init(t_data)
     self:refresh()
 
     self.m_bExpanded = true
-    self.m_bOrgVisible = true
-    self.m_visibleRefCnt = 0
 end
 
 -------------------------------------
@@ -135,71 +128,5 @@ function UI_DragonTrainSlot_ListItem:setExpand(expand, duration)
         target_width = 180
     end
 
-    local node = self.root
-
-    local width, height = node:getNormalSize()
-    local func = function(value)
-        node:setNormalSize(value, height)
-    end
-    local tween = cc.ActionTweenForLua:create(duration, width, target_width, func)
-    node:stopAllActions()
-    node:runAction(tween)
-
-    self.m_cellSize['width'] = target_width
-
-end
-
-
-
-
-
-
-
-
-
-
-
-
-
--------------------------------------
--- function getCellSize
--- @param
--------------------------------------
-function UI_DragonTrainSlot_ListItem:getCellSize()
-    return self.m_cellSize
-end
-
-
--------------------------------------
--- function increaseVisibleCnt
--- @param
--------------------------------------
-function UI_DragonTrainSlot_ListItem:increaseVisibleCnt()
-    self.m_visibleRefCnt = (self.m_visibleRefCnt + 1)
-end
-
--------------------------------------
--- function decreaseVisibleCnt
--- @param
--------------------------------------
-function UI_DragonTrainSlot_ListItem:decreaseVisibleCnt()
-    self.m_visibleRefCnt = (self.m_visibleRefCnt - 1)
-
-    if (self.m_visibleRefCnt <= 0) then
-        self.root:setVisible(self.m_bOrgVisible)
-    end
-end
-
--------------------------------------
--- function setVisible
--- @param
--------------------------------------
-function UI_DragonTrainSlot_ListItem:setVisible(visible)
-    self.m_bOrgVisible = visible
-
-    if (self.m_visibleRefCnt <= 0) then
-        self.root:setVisible(visible)
-    else
-        self.root:setVisible(true)
-    end
+    self:cellWidthTo(duration, target_width)
 end

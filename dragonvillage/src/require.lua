@@ -242,6 +242,14 @@ local t_module = {
     'DynamicWave',
     'ActivityCarrier',
 
+    -- UIC (UI Component)
+    'UIC_Node',
+    'UIC_Button',
+    'UIC_TableViewCore',
+    'UIC_TableView',
+    'UIC_TableViewCell',
+    'UIC_TableView_TrainSlotList',
+
 	-- UI
     'UI_BlockPopup',
     'UI_Network',
@@ -304,14 +312,7 @@ local t_module = {
     'UI_DragonTrainSlot_ListItem',
     'UI_CharacterCard',
     'UI_SkillDetailPopup',
-    'UI_DragonGoodbye',
-
-    -- UIC (UI Component)
-    'UIC_Node',
-    'UIC_Button',
-    'UIC_TableViewCore',
-    'UIC_TableView',
-    'UIC_TableView_TrainSlotList',
+    'UI_DragonGoodbye',    
 
     'DamageCalc',
     'IconHelper',
