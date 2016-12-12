@@ -12,7 +12,7 @@ UIC_TableViewCore = class(PARENT, {
         m_itemList = '',
         m_itemMap = '',
 
-
+        m_bUseEachSize = 'boolean', -- 셀별 개별 크기 적용 여부(사용시 _size세팅 필수!!)
         m_defaultCellSize = '', -- cell이 생성되기 전이라면 기본 사이즈를 지정
 
         _cellsUsed = 'list',
@@ -35,6 +35,7 @@ function UIC_TableViewCore:init(node)
     end)
 
     -- 기본값 설정
+    self.m_bUseEachSize = false
     self.m_defaultCellSize = cc.size(100, 100)
     self._vordering = VerticalFillOrder['BOTTOM_UP']
 
@@ -50,6 +51,9 @@ function UIC_TableViewCore:makeScrollView(size)
     local scroll_view = cc.ScrollView:create()
     self.m_scrollView = scroll_view
 
+    -- 실질적인 테이블 뷰 사이즈 설정
+    scroll_view:setViewSize(size)
+
     scroll_view:setDockPoint(cc.p(0.5, 0.5))
     scroll_view:setAnchorPoint(cc.p(0.5, 0.5))
 
@@ -60,9 +64,6 @@ function UIC_TableViewCore:makeScrollView(size)
         self:scrollViewDidScroll(view)
     end
     scroll_view:registerScriptHandler(scrollViewDidScroll, cc.SCROLLVIEW_SCRIPT_SCROLL)
-
-    -- 실질적인 테이블 뷰 사이즈 설정
-    scroll_view:setViewSize(size)
 
     -- 방향 설정수평 UI
     self:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
@@ -238,6 +239,10 @@ end
 -- function tableCellSizeForIndex
 -------------------------------------
 function UIC_TableViewCore:tableCellSizeForIndex(idx)
+    if (not self.m_bUseEachSize) then
+        return self.m_defaultCellSize
+    end
+
     local t_item = self.m_itemList[idx]
     local ui = t_item['ui']
 
@@ -356,13 +361,13 @@ function UIC_TableViewCore:__offsetFromIndex(index)
 end
 
 function UIC_TableViewCore:updateCellAtIndex(idx)
-   local offset = self:_offsetFromIndex(idx)
+    local offset = self:_offsetFromIndex(idx)
 
-   local ui = self.m_itemList[idx]['ui']
+    local ui = self.m_itemList[idx]['ui']
 
-   if ui then
+    if ui then
         ui.root:setPosition(offset['x'], offset['y'])
-   end
+    end
 end
 
 
@@ -481,6 +486,7 @@ function UIC_TableViewCore:clearItemList()
     if self.m_itemList then
         for i,v in ipairs(self.m_itemList) do
             if v['ui'] then
+                v['ui'].root:removeFromParent()
                 v['ui'].root:release()
             end
         end
@@ -491,6 +497,18 @@ function UIC_TableViewCore:clearItemList()
     self._cellsUsed = {}
 end
 
+-------------------------------------
+-- function clearCellsUsed
+-------------------------------------
+function UIC_TableViewCore:clearCellsUsed()
+    for i,v in ipairs(self._cellsUsed) do
+        if v['ui'] then
+            v['ui']:setCellVisible(false)
+        end
+    end
+
+    self._cellsUsed = {}
+end
 
 -------------------------------------
 -- function expandTemp
@@ -524,8 +542,10 @@ function UIC_TableViewCore:expandTemp(duration)
     for i,v in ipairs(self.m_itemList) do
         local ui = self.m_itemList[i]['ui']
 
-        local offset = self:_offsetFromIndex(i)
-        ui:cellMoveTo(duration, offset)
+        if ui then
+            local offset = self:_offsetFromIndex(i)
+            ui:cellMoveTo(duration, offset)
+        end
     end
 end
 

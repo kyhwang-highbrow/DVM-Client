@@ -138,7 +138,7 @@ function UI_DragonManage_Base:changeDragonSelectFrame()
 
     -- 테이블뷰에서 선택된 드래곤의 카드를 가져옴
     local dragon_object_id = self.m_selectDragonOID
-    local t_item = self.m_tableViewExt.m_mapItem[dragon_object_id]
+    local t_item = self.m_tableViewExt.m_itemMap[dragon_object_id]
     local ui = t_item['ui']
 
     -- addChild 후 액션 실행(깜빡임)
@@ -162,7 +162,7 @@ function UI_DragonManage_Base:setDefaultSelectDragon(doid)
         return
     end
 
-    local item = self.m_tableViewExt.m_lItem[1]
+    local item = self.m_tableViewExt.m_itemList[1]
 
     if (item) then
         local dragon_object_id = item['data']['id']
@@ -176,7 +176,7 @@ end
 -- @brief 특정 드래곤의 object_id로 갱신
 -------------------------------------
 function UI_DragonManage_Base:refresh_dragonIndivisual(dragon_object_id)
-    local item = self.m_tableViewExt.m_mapItem[dragon_object_id]
+    local item = self.m_tableViewExt.m_itemMap[dragon_object_id]
 
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(dragon_object_id)
 
@@ -198,56 +198,38 @@ end
 
 -------------------------------------
 -- function init_dragonTableView
+-- @breif 드래곤 리스트 테이블 뷰
 -------------------------------------
 function UI_DragonManage_Base:init_dragonTableView()
-    local list_table_node = self.vars['listTableNode']
-    list_table_node:removeAllChildren()
 
-    -- 생성
-    local function create_func(item)
-        self:reateDragonCardCB(item)
-        local ui = item['ui']
-        ui.root:setScale(0.7)
+    if (not self.m_tableViewExt) then
+        local list_table_node = self.vars['listTableNode']
 
-        local data = item['data']
-        if (self.m_selectDragonOID == data['id']) then
-            self:changeDragonSelectFrame()
+        local table_view = UIC_TableView(list_table_node)
+        table_view.m_defaultCellSize = cc.size(100, 100)
+        
+        local function create_func(ui, data)
+            self:createDragonCardCB(ui, data)
+
+            ui.root:setScale(0.66)
+
+            ui.vars['clickBtn']:registerScriptTapHandler(function() self:setSelectDragonData(data['id']) end)
         end
+
+        table_view:setCellUIClass(UI_DragonCard, create_func)
+        self.m_tableViewExt = table_view
     end
 
-    -- 드래곤 클릭 콜백 함수
-    local function click_dragon_item(item)
-        local data = item['data']
-        local dragon_object_id = data['id']
-        self:setSelectDragonData(dragon_object_id)
-    end
 
-    -- 테이블뷰 초기화
-    local table_view_ext = TableViewExtension(list_table_node)
-    table_view_ext:setCellInfo(105, 105)
-    table_view_ext:setItemUIClass(UI_DragonCard, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
-    table_view_ext:setItemInfo(g_dragonsData:getDragonsList())
-    --table_view_ext:update()
-
-    -- 정렬
-    local function default_sort_func(a, b)
-        local a = a['data']
-        local b = b['data']
-
-        return a['did'] < b['did']
-    end
-    table_view_ext:insertSortInfo('default', default_sort_func)
-
-    table_view_ext:sortTableView('default')
-
-    self.m_tableViewExt = table_view_ext
+    local l_item_list = g_dragonsData:getDragonsList()
+    self.m_tableViewExt:setItemList(l_item_list)
 end
 
 -------------------------------------
--- function reateDragonCardCB
+-- function createDragonCardCB
 -- @brief 드래곤 생성 콜백
 -------------------------------------
-function UI_DragonManage_Base:reateDragonCardCB(item)
+function UI_DragonManage_Base:createDragonCardCB(ui, data)
 
 end
 

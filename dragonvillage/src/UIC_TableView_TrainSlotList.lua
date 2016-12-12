@@ -15,6 +15,7 @@ function UIC_TableView_TrainSlotList:init(node)
     -- 기본값 설정
     self.m_defaultCellSize = cc.size(100, 100)
     self:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    self.m_bUseEachSize = true
 end
 
 -------------------------------------

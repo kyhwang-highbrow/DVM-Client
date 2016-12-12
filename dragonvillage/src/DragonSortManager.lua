@@ -177,13 +177,18 @@ end
 -------------------------------------
 -- function changeSort
 -------------------------------------
-function DragonSortManager:changeSort()
+function DragonSortManager:changeSort(immediately)
     local function default_sort_func(a, b)
         return self:sortFunc(a, b)
     end
 
     self.m_tableViewExt:insertSortInfo('sort', default_sort_func)
-    self.m_tableViewExt:sortTableView('sort', true)
+
+    if immediately then
+        self.m_tableViewExt:sortImmediately('sort')
+    else
+        self.m_tableViewExt:sortTableView('sort', true)
+    end
 end
 
 
@@ -271,7 +276,7 @@ DragonSortManagerCommon = class(DragonSortManager, {
 -------------------------------------
 function DragonSortManagerCommon:init(vars, table_view_ext, b_ascending_sort, sort_type)
     self:init_commonSotrUI(vars, table_view_ext, b_ascending_sort, sort_type)
-    self:changeSort()
+    self:changeSort(true)
 end
 
 

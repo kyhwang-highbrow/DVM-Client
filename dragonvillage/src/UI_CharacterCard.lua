@@ -1,7 +1,9 @@
+local PARENT = ITableViewCell:getCloneClass()
+
 -------------------------------------
 -- class UI_CharacterCard
 -------------------------------------
-UI_CharacterCard = class({
+UI_CharacterCard = class(PARENT, {
         root = '',
         vars = '',
 

@@ -549,7 +549,7 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
                 self.m_tableViewExt:delItem(odid)
             end
 
-            self.m_tableViewExt:update()
+            self.m_tableViewExt:expandTemp(0.5)
         end
 
         -- 승급된 드래곤 갱신
@@ -632,12 +632,10 @@ function UI_DragonManageUpgrade:click_exitBtn()
 end
 
 -------------------------------------
--- function reateDragonCardCB
+-- function createDragonCardCB
 -- @brief 드래곤 생성 콜백
 -------------------------------------
-function UI_DragonManageUpgrade:reateDragonCardCB(item)
-    local ui = item['ui']
-    local data = item['data']
+function UI_DragonManageUpgrade:createDragonCardCB(ui, data)
     local doid = data['id']
 
     if (not g_dragonsData:canUpgrade(doid)) then

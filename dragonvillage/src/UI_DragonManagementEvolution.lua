@@ -362,12 +362,10 @@ function UI_DragonManagementEvolution:click_exitBtn()
 end
 
 -------------------------------------
--- function reateDragonCardCB
+-- function createDragonCardCB
 -- @brief 드래곤 생성 콜백
 -------------------------------------
-function UI_DragonManagementEvolution:reateDragonCardCB(item)
-    local ui = item['ui']
-    local data = item['data']
+function UI_DragonManagementEvolution:createDragonCardCB(ui, data)
     local doid = data['id']
 
     if g_dragonsData:isMaxEvolution(doid) then

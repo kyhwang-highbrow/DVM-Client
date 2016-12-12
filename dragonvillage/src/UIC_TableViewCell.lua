@@ -100,7 +100,8 @@ function ITableViewCell:cellMoveTo(duration, offset)
         node:stopAction(action)
     end
 
-    action = cc.MoveTo:create(duration, offset)
+    local move_action = cc.MoveTo:create(duration, offset)
+    action = cc.EaseInOut:create(move_action, 2)
     action:setTag(TAG_CELL_MOVE_TO)
     node:runAction(action)
 end
@@ -121,7 +122,8 @@ function ITableViewCell:cellWidthTo(duration, target_width)
         node:setNormalSize(value, height)
     end
 
-    local action = cc.ActionTweenForLua:create(duration, width, target_width, func)
+    local tween = cc.ActionTweenForLua:create(duration, width, target_width, func)
+    action = cc.EaseInOut:create(tween, 2)
     action:setTag(TAG_CELL_WIDTH_TO)
     node:runAction(action)
 
