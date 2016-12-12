@@ -207,7 +207,9 @@ function DragonSortManager:sortFunc(a, b)
 
     -- 덱에 설정된 데이터로 우선 정렬
     if (a_deck_idx ~= b_deck_idx) then
-        return a_deck_idx < b_deck_idx
+        if (a_deck_idx == 999) or (b_deck_idx == 999) then
+            return a_deck_idx < b_deck_idx
+        end
     end
 
     -- 정렬 타입
@@ -241,6 +243,8 @@ function DragonSortManager:sortFunc(a, b)
     if (a_sort_data['lv'] ~= b_sort_data['lv']) then
         return a_sort_data['lv'] > b_sort_data['lv']
     end
+
+    return a_data['id'] < b_data['id']
 end
 
 -------------------------------------
