@@ -202,6 +202,8 @@ end
 -------------------------------------
 function UI_DragonManage_Base:init_dragonTableView()
 
+    local skip_update = false
+
     if (not self.m_tableViewExt) then
         local list_table_node = self.vars['listTableNode']
 
@@ -218,11 +220,13 @@ function UI_DragonManage_Base:init_dragonTableView()
 
         table_view:setCellUIClass(UI_DragonCard, create_func)
         self.m_tableViewExt = table_view
+
+        skip_update = true
     end
 
 
     local l_item_list = g_dragonsData:getDragonsList()
-    self.m_tableViewExt:setItemList(l_item_list, true)
+    self.m_tableViewExt:setItemList(l_item_list, skip_update)
 end
 
 -------------------------------------
