@@ -7,20 +7,20 @@
             <key>bg_forest_1_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1280,1600}}</string>
+                <string>{{2,2},{1282,1600}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{1280,1600}}</string>
+                <string>{{0,0},{1282,1600}}</string>
                 <key>sourceSize</key>
-                <string>{1280,1600}</string>
+                <string>{1282,1600}</string>
             </dict>
             <key>bg_forest_3_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1284,2},{748,948}}</string>
+                <string>{{1286,2},{748,948}}</string>
                 <key>offset</key>
                 <string>{-40,-326}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>bg_forest_bush_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1964,1062},{72,64}}</string>
+                <string>{{1966,1062},{72,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -228,7 +228,7 @@
             <key>bg_forest_leaf_03_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1615,1862},{82,88}}</string>
+                <string>{{1701,1858},{82,88}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -241,11 +241,11 @@
             <key>bg_forest_leaf_03_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1699,1858},{88,84}}</string>
+                <string>{{1615,1862},{88,84}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{108,107},{88,84}}</string>
                 <key>sourceSize</key>
@@ -267,7 +267,7 @@
             <key>bg_forest_light_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1284,952},{678,764}}</string>
+                <string>{{1286,952},{678,764}}</string>
                 <key>offset</key>
                 <string>{-30,-10}</string>
                 <key>rotated</key>
@@ -293,7 +293,7 @@
             <key>bg_forest_mushroom_01_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1964,952},{108,68}}</string>
+                <string>{{1966,952},{108,68}}</string>
                 <key>offset</key>
                 <string>{58,20}</string>
                 <key>rotated</key>
@@ -363,9 +363,9 @@
             <key>realTextureFileName</key>
             <string>forest_2.png</string>
             <key>size</key>
-            <string>{2034,2004}</string>
+            <string>{2036,2004}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:cf86a3f38807e535b97470ca9b1084e7:818216676b13bde6749cc55836483c72:2b2467158aebaf7d4a8291ea44451b34$</string>
+            <string>$TexturePacker:SmartUpdate:5e55cf3e3f144e231176fcab0f1ad63d:83dc500103ad221d452d343e754c217b:2b2467158aebaf7d4a8291ea44451b34$</string>
             <key>textureFileName</key>
             <string>forest_2.png</string>
         </dict>

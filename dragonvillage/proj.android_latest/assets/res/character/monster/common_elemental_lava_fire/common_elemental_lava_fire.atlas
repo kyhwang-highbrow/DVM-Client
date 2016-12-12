@@ -1,0 +1,13 @@
+
+common_elemental_lava_fire.png
+size: 128,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_elemental_lava_fire
+  rotate: false
+  xy: 2, 2
+  size: 106, 86
+  orig: 106, 86
+  offset: 0, 0
+  index: -1

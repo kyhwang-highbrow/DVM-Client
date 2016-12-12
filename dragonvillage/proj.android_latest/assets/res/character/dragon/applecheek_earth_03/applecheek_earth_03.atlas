@@ -53,9 +53,23 @@ applecheek_earth_03_eff_01
   orig: 122, 169
   offset: 0, 0
   index: -1
-applecheek_earth_03_eye_01
+applecheek_earth_03_eff_02
   rotate: false
-  xy: 484, 61
+  xy: 484, 42
+  size: 55, 55
+  orig: 55, 55
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_eye_01
+  rotate: true
+  xy: 484, 2
+  size: 38, 36
+  orig: 38, 36
+  offset: 0, 0
+  index: -1
+applecheek_earth_03_eye_02
+  rotate: true
+  xy: 522, 2
   size: 38, 36
   orig: 38, 36
   offset: 0, 0

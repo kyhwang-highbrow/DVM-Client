@@ -7,505 +7,37 @@
             <key>bg_ocean_2_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1384},{1686,618}}</string>
+                <string>{{2,2},{1668,618}}</string>
                 <key>offset</key>
-                <string>{0,24}</string>
+                <string>{-9,25}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,467},{1686,618}}</string>
+                <string>{{0,466},{1668,618}}</string>
                 <key>sourceSize</key>
                 <string>{1686,1600}</string>
             </dict>
             <key>bg_ocean_4_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1380,1188}}</string>
+                <string>{{622,2},{1376,1170}}</string>
                 <key>offset</key>
-                <string>{0,-206}</string>
+                <string>{-2,-215}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,412},{1380,1188}}</string>
+                <string>{{0,430},{1376,1170}}</string>
                 <key>sourceSize</key>
                 <string>{1380,1600}</string>
-            </dict>
-            <key>bg_ocean_4_a_coral_01.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1958,1602},{37,36}}</string>
-                <key>offset</key>
-                <string>{0,1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{17,17},{37,36}}</string>
-                <key>sourceSize</key>
-                <string>{71,72}</string>
-            </dict>
-            <key>bg_ocean_4_a_coral_02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1728,1266},{46,50}}</string>
-                <key>offset</key>
-                <string>{-16,-26}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{67,107},{46,50}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_a_coral_03.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1970,1482},{34,36}}</string>
-                <key>offset</key>
-                <string>{-7,-37}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{82,125},{34,36}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_a_coral_04.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1756,1656},{60,92}}</string>
-                <key>offset</key>
-                <string>{16,-6}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{92,66},{60,92}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_a_coral_05.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1646,1166},{132,98}}</string>
-                <key>offset</key>
-                <string>{16,-4}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{56,61},{132,98}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_a_coral_06.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1574,1270},{44,96}}</string>
-                <key>offset</key>
-                <string>{-1,-2}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{83,60},{44,96}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_a_coral_07.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1780,1166},{94,124}}</string>
-                <key>offset</key>
-                <string>{-5,6}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{54,38},{94,124}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_a_coral_08.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1864,1546},{92,70}}</string>
-                <key>offset</key>
-                <string>{1,-6}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{61,77},{92,70}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_a_grass_01.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1904,1358},{71,104}}</string>
-                <key>offset</key>
-                <string>{2,1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{28,21},{71,104}}</string>
-                <key>sourceSize</key>
-                <string>{123,148}</string>
-            </dict>
-            <key>bg_ocean_4_a_grass_02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1756,1718},{70,62}}</string>
-                <key>offset</key>
-                <string>{6,-4}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{20,25},{70,62}}</string>
-                <key>sourceSize</key>
-                <string>{98,104}</string>
-            </dict>
-            <key>bg_ocean_4_a_grass_03.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1464,1270},{47,108}}</string>
-                <key>offset</key>
-                <string>{2,-15}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{24,30},{47,108}}</string>
-                <key>sourceSize</key>
-                <string>{91,138}</string>
-            </dict>
-            <key>bg_ocean_4_b_coral_01.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1774,1314},{128,122}}</string>
-                <key>offset</key>
-                <string>{1,11}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{43,34},{128,122}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_b_coral_02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1192,1166},{198,142}}</string>
-                <key>offset</key>
-                <string>{-3,-31}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{4,66},{198,142}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_b_coral_03.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1780,1292},{18,30}}</string>
-                <key>offset</key>
-                <string>{-37,-15}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{60,106},{18,30}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_b_coral_04.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1977,1358},{24,42}}</string>
-                <key>offset</key>
-                <string>{-9,-7}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{85,92},{24,42}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_b_coral_05.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1977,1446},{22,34}}</string>
-                <key>offset</key>
-                <string>{2,-9}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{97,98},{22,34}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_b_coral_06.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1977,1402},{24,42}}</string>
-                <key>offset</key>
-                <string>{-2,-5}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{92,90},{24,42}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_b_coral_07.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1690,1762},{54,74}}</string>
-                <key>offset</key>
-                <string>{-4,-10}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{75,79},{54,74}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_b_coral_08.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1672,1266},{48,54}}</string>
-                <key>offset</key>
-                <string>{-7,-7}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{75,86},{48,54}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_b_coral_09.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1958,1546},{38,54}}</string>
-                <key>offset</key>
-                <string>{6,-16}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{93,95},{38,54}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_b_grass_01.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1690,1572},{64,106}}</string>
-                <key>offset</key>
-                <string>{7,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{81,54},{64,106}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_b_grass_02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1774,1438},{70,104}}</string>
-                <key>offset</key>
-                <string>{-4,-1}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{67,55},{70,104}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_b_grass_03.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1772,1510},{76,90}}</string>
-                <key>offset</key>
-                <string>{-18,-9}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{50,70},{76,90}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_b_grass_04.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1924,1262},{80,94}}</string>
-                <key>offset</key>
-                <string>{-17,-6}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{49,65},{80,94}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_c_coral_01.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1948,1640},{56,74}}</string>
-                <key>offset</key>
-                <string>{-4,-10}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{74,79},{56,74}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_c_coral_02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1690,1480},{80,90}}</string>
-                <key>offset</key>
-                <string>{8,-4}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{74,65},{80,90}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_c_coral_03.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1934,1716},{64,72}}</string>
-                <key>offset</key>
-                <string>{-9,-7}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{65,77},{64,72}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_c_coral_04.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1880,1464},{80,88}}</string>
-                <key>offset</key>
-                <string>{-1,-5}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{65,67},{80,88}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_c_grass_01.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1584,1316},{188,66}}</string>
-                <key>offset</key>
-                <string>{-4,-16}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{8,89},{188,66}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_c_grass_02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1850,1682},{82,58}}</string>
-                <key>offset</key>
-                <string>{13,-29}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{78,106},{82,58}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_c_grass_03.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1690,1384},{82,94}}</string>
-                <key>offset</key>
-                <string>{10,-10}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{75,69},{82,94}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_c_grass_04.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1876,1166},{94,108}}</string>
-                <key>offset</key>
-                <string>{-10,-5}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{49,57},{94,108}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_c_grass_05.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1336,1322},{52,140}}</string>
-                <key>offset</key>
-                <string>{-5,3}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{75,33},{52,140}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_c_grass_06.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1690,1680},{80,64}}</string>
-                <key>offset</key>
-                <string>{8,-15}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{74,89},{80,64}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_c_grass_07.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1850,1618},{62,96}}</string>
-                <key>offset</key>
-                <string>{-3,-4}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{72,62},{62,96}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
-            </dict>
-            <key>bg_ocean_4_c_grass_08.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1756,1588},{66,92}}</string>
-                <key>offset</key>
-                <string>{-2,-7}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{71,67},{66,92}}</string>
-                <key>sourceSize</key>
-                <string>{212,212}</string>
             </dict>
             <key>bg_ocean_4_c_grass_09.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1464,1166},{102,180}}</string>
+                <string>{{494,1672},{102,180}}</string>
                 <key>offset</key>
                 <string>{3,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{58,16},{102,180}}</string>
                 <key>sourceSize</key>
@@ -514,7 +46,7 @@
             <key>bg_ocean_4_c_grass_10.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1336,1166},{126,154}}</string>
+                <string>{{1875,1670},{126,154}}</string>
                 <key>offset</key>
                 <string>{-9,-2}</string>
                 <key>rotated</key>
@@ -524,27 +56,170 @@
                 <key>sourceSize</key>
                 <string>{212,212}</string>
             </dict>
-            <key>bg_ocean_5_a.psd0922.png</key>
+            <key>bg_ocean_4_coral_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1192,2},{1162,812}}</string>
+                <string>{{2,1672},{232,192}}</string>
                 <key>offset</key>
-                <string>{98,-394}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{357,788},{1162,812}}</string>
+                <string>{{103,123},{232,192}}</string>
                 <key>sourceSize</key>
-                <string>{1680,1600}</string>
+                <string>{438,438}</string>
+            </dict>
+            <key>bg_ocean_4_coral_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{374,1672},{192,118}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{123,160},{192,118}}</string>
+                <key>sourceSize</key>
+                <string>{438,438}</string>
+            </dict>
+            <key>bg_ocean_4_coral_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1875,1554},{114,134}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{162,152},{114,134}}</string>
+                <key>sourceSize</key>
+                <string>{438,438}</string>
+            </dict>
+            <key>bg_ocean_4_coral_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1875,1442},{110,136}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{164,151},{110,136}}</string>
+                <key>sourceSize</key>
+                <string>{438,438}</string>
+            </dict>
+            <key>bg_ocean_4_coral_05.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{298,1890},{98,78}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{170,180},{98,78}}</string>
+                <key>sourceSize</key>
+                <string>{438,438}</string>
+            </dict>
+            <key>bg_ocean_4_coral_06.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1875,1174},{150,140}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{144,149},{150,140}}</string>
+                <key>sourceSize</key>
+                <string>{438,438}</string>
+            </dict>
+            <key>bg_ocean_4_coral_07.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{196,1672},{176,216}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{131,111},{176,216}}</string>
+                <key>sourceSize</key>
+                <string>{438,438}</string>
+            </dict>
+            <key>bg_ocean_4_coral_08.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{204,1890},{92,92}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{173,173},{92,92}}</string>
+                <key>sourceSize</key>
+                <string>{438,438}</string>
+            </dict>
+            <key>bg_ocean_4_coral_08_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{398,1866},{146,104}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{146,167},{146,104}}</string>
+                <key>sourceSize</key>
+                <string>{438,438}</string>
+            </dict>
+            <key>bg_ocean_4_coral_09.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,1906},{94,68}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{172,185},{94,68}}</string>
+                <key>sourceSize</key>
+                <string>{438,438}</string>
+            </dict>
+            <key>bg_ocean_4_coral_10.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1875,1826},{154,94}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{142,172},{154,94}}</string>
+                <key>sourceSize</key>
+                <string>{438,438}</string>
+            </dict>
+            <key>bg_ocean_4_shell_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1875,1326},{140,114}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{149,162},{140,114}}</string>
+                <key>sourceSize</key>
+                <string>{438,438}</string>
             </dict>
             <key>bg_ocean_bubble_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1880,1438},{21,23}}</string>
+                <string>{{1971,1826},{21,23}}</string>
                 <key>offset</key>
                 <string>{-2,-2}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{11,15},{21,23}}</string>
                 <key>sourceSize</key>
@@ -553,7 +228,7 @@
             <key>bg_ocean_fish.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1478,1319},{104,62}}</string>
+                <string>{{98,1906},{104,62}}</string>
                 <key>offset</key>
                 <string>{0,4}</string>
                 <key>rotated</key>
@@ -563,14 +238,27 @@
                 <key>sourceSize</key>
                 <string>{146,138}</string>
             </dict>
+            <key>bg_ocean_light_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{622,1174},{1251,801}}</string>
+                <key>offset</key>
+                <string>{-9,-8}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{23,73},{1251,801}}</string>
+                <key>sourceSize</key>
+                <string>{1315,931}</string>
+            </dict>
             <key>bg_ocean_light_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1876,1262},{48,46}}</string>
+                <string>{{546,1854},{48,46}}</string>
                 <key>offset</key>
                 <string>{-5,3}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{44,43},{48,46}}</string>
                 <key>sourceSize</key>
@@ -584,9 +272,9 @@
             <key>realTextureFileName</key>
             <string>ocean_1.png</string>
             <key>size</key>
-            <string>{2006,2004}</string>
+            <string>{2017,1984}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:86f63aa115be0a0c6275341c7ae781be:6c104b53bf07a581a7220a598e0948f3:1afad114d38c1cfdfac9f7beb2c84e74$</string>
+            <string>$TexturePacker:SmartUpdate:58e16d62c36165c16749bb4f9fbe6983:d4fb34c6801351bc1066e63d5dc83e60:1afad114d38c1cfdfac9f7beb2c84e74$</string>
             <key>textureFileName</key>
             <string>ocean_1.png</string>
         </dict>

@@ -34,7 +34,7 @@ applecheek_earth_02_body_01
   index: -1
 applecheek_earth_02_body_02
   rotate: true
-  xy: 1240, 64
+  xy: 1388, 64
   size: 62, 63
   orig: 62, 63
   offset: 0, 0
@@ -53,9 +53,30 @@ applecheek_earth_02_eff_01
   orig: 122, 169
   offset: 0, 0
   index: -1
+applecheek_earth_02_eff_02
+  rotate: true
+  xy: 1240, 69
+  size: 57, 72
+  orig: 57, 72
+  offset: 0, 0
+  index: -1
+applecheek_earth_02_eff_03
+  rotate: true
+  xy: 1314, 69
+  size: 57, 72
+  orig: 57, 72
+  offset: 0, 0
+  index: -1
 applecheek_earth_02_eye_01
   rotate: false
-  xy: 1305, 88
+  xy: 1453, 88
+  size: 49, 38
+  orig: 49, 38
+  offset: 0, 0
+  index: -1
+applecheek_earth_02_eye_02
+  rotate: false
+  xy: 1066, 12
   size: 49, 38
   orig: 49, 38
   offset: 0, 0

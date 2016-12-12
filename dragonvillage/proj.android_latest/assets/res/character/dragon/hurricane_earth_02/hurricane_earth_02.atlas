@@ -1,173 +1,187 @@
 
 hurricane_earth_02.png
-size: 1024,512
+size: 2048,256
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 hurricane_earth_02_arm_01
   rotate: true
-  xy: 675, 337
+  xy: 1702, 102
   size: 55, 73
   orig: 55, 73
   offset: 0, 0
   index: -1
 hurricane_earth_02_arm_02
   rotate: false
-  xy: 608, 326
+  xy: 867, 89
   size: 65, 64
   orig: 65, 64
   offset: 0, 0
   index: -1
 hurricane_earth_02_body_01
-  rotate: false
-  xy: 2, 22
+  rotate: true
+  xy: 1326, 123
   size: 127, 130
   orig: 127, 130
   offset: 0, 0
   index: -1
 hurricane_earth_02_body_02
-  rotate: false
-  xy: 265, 193
+  rotate: true
+  xy: 1914, 160
   size: 90, 98
   orig: 90, 98
   offset: 0, 0
   index: -1
 hurricane_earth_02_body_03
   rotate: false
-  xy: 524, 392
+  xy: 1035, 144
   size: 148, 106
   orig: 148, 106
   offset: 0, 0
   index: -1
 hurricane_earth_02_body_04
   rotate: false
-  xy: 524, 332
+  xy: 1618, 99
   size: 82, 58
   orig: 82, 58
   offset: 0, 0
   index: -1
 hurricane_earth_02_eye_01
   rotate: false
-  xy: 750, 338
+  xy: 934, 99
   size: 65, 54
   orig: 65, 54
   offset: 0, 0
   index: -1
 hurricane_earth_02_hand_01
-  rotate: false
-  xy: 817, 343
+  rotate: true
+  xy: 363, 71
   size: 51, 62
   orig: 51, 62
   offset: 0, 0
   index: -1
 hurricane_earth_02_hand_02
   rotate: false
-  xy: 308, 294
+  xy: 122, 3
   size: 67, 76
   orig: 67, 76
   offset: 0, 0
   index: -1
 hurricane_earth_02_head_01
   rotate: false
-  xy: 815, 407
+  xy: 1458, 159
   size: 110, 91
   orig: 110, 91
   offset: 0, 0
   index: -1
 hurricane_earth_02_head_02
   rotate: false
-  xy: 153, 200
+  xy: 1570, 159
   size: 110, 91
   orig: 110, 91
   offset: 0, 0
   index: -1
 hurricane_earth_02_head_03
   rotate: false
-  xy: 153, 107
+  xy: 1682, 159
   size: 110, 91
   orig: 110, 91
   offset: 0, 0
   index: -1
 hurricane_earth_02_head_04
   rotate: false
-  xy: 450, 332
+  xy: 1544, 88
   size: 72, 69
   orig: 72, 69
   offset: 0, 0
   index: -1
 hurricane_earth_02_head_05
   rotate: false
-  xy: 2, 329
+  xy: 2, 81
   size: 184, 169
   orig: 184, 169
   offset: 0, 0
   index: -1
 hurricane_earth_02_head_06
-  rotate: true
-  xy: 265, 125
+  rotate: false
+  xy: 191, 6
   size: 66, 93
   orig: 66, 93
   offset: 0, 0
   index: -1
 hurricane_earth_02_head_07
   rotate: true
-  xy: 927, 434
+  xy: 259, 35
   size: 64, 95
   orig: 64, 95
   offset: 0, 0
   index: -1
 hurricane_earth_02_head_08
-  rotate: false
-  xy: 377, 317
+  rotate: true
+  xy: 1458, 86
   size: 71, 84
   orig: 71, 84
   offset: 0, 0
   index: -1
 hurricane_earth_02_leg_01
   rotate: true
-  xy: 188, 293
+  xy: 2, 2
   size: 77, 118
   orig: 77, 118
   offset: 0, 0
   index: -1
 hurricane_earth_02_leg_02
   rotate: true
-  xy: 131, 28
+  xy: 1794, 173
   size: 77, 118
   orig: 77, 118
   offset: 0, 0
   index: -1
 hurricane_earth_02_mouth_01
   rotate: false
-  xy: 2, 2
+  xy: 2014, 232
   size: 22, 18
   orig: 22, 18
   offset: 0, 0
   index: -1
 hurricane_earth_02_wing_01
   rotate: true
-  xy: 356, 403
+  xy: 867, 155
   size: 95, 166
   orig: 95, 166
   offset: 0, 0
   index: -1
 hurricane_earth_02_wing_02
   rotate: false
-  xy: 188, 372
+  xy: 363, 124
+  size: 166, 126
+  orig: 166, 126
+  offset: 0, 0
+  index: -1
+hurricane_earth_02_wing_02_01
+  rotate: false
+  xy: 531, 124
+  size: 166, 126
+  orig: 166, 126
+  offset: 0, 0
+  index: -1
+hurricane_earth_02_wing_02_02
+  rotate: false
+  xy: 699, 124
   size: 166, 126
   orig: 166, 126
   offset: 0, 0
   index: -1
 hurricane_earth_02_wing_03
-  rotate: false
-  xy: 2, 154
+  rotate: true
+  xy: 188, 101
   size: 149, 173
   orig: 149, 173
   offset: 0, 0
   index: -1
 hurricane_earth_02_wing_04
   rotate: true
-  xy: 674, 394
+  xy: 1185, 146
   size: 104, 139
   orig: 104, 139
   offset: 0, 0

@@ -57,7 +57,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_charging_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_charging_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -71,7 +71,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_charging_0102.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_charging_0102.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -85,7 +85,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_charging_0103.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_charging_0103.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -99,7 +99,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_charging_0104.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_charging_0104.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -113,7 +113,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_charging_0105.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_charging_0105.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -127,7 +127,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_charging_0106.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_charging_0106.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -295,7 +295,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_talk_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_talk_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -334,7 +334,7 @@
 			"visual_list":
 			[
 				{
-					"name":"normal",
+					"name":"normal_01",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -344,7 +344,35 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_frame_0201.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_frame_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000
+									},
+									{
+										"frame":16, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'charging'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.700000, "sY":0.700000, "mode":"Add"
+									},
+									{
+										"frame":16, "sX":0.700000, "sY":0.700000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_normal'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -354,6 +382,88 @@
 									},
 									{
 										"frame":16
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"normal_02",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_frame_0301.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000
+									},
+									{
+										"frame":16, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'charging'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.700000, "sY":0.700000, "mode":"Add"
+									},
+									{
+										"frame":16, "sX":0.700000, "sY":0.700000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_normal'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000
+									},
+									{
+										"frame":16
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"normal_03",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_frame_0401.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000
+									},
+									{
+										"frame":16, "alpha":0
 									}
 								]
 							},
@@ -399,7 +509,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_frame_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_frame_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -408,7 +518,7 @@
 										"frame":0, "sX":0.800000, "sY":0.800000
 									},
 									{
-										"frame":16
+										"frame":16, "alpha":0
 									}
 								]
 							},
@@ -419,10 +529,10 @@
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.700000, "sY":0.700000, "mode":"Add"
+										"frame":0, "sX":0.900000, "sY":0.900000, "mode":"Add"
 									},
 									{
-										"frame":16, "sX":0.700000, "sY":0.700000, "mode":"Add"
+										"frame":16, "sX":1.100000, "sY":1.100000, "mode":"Add"
 									}
 								]
 							},
@@ -437,6 +547,115 @@
 									},
 									{
 										"frame":16
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"special_open",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":3
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pY":12.000000
+									},
+									{
+										"frame":7, "sX":1.070000, "sY":1.070000, "pY":12.000000
+									},
+									{
+										"frame":9, "pY":12.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_effect_04.png'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":6, "sX":0.503500, "sY":-0.467200, "pY":27.000000
+									},
+									{
+										"frame":8, "pX":8.000000, "pY":66.000000
+									},
+									{
+										"frame":9, "pX":8.000000, "pY":66.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_effect_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "sX":0.550000, "sY":0.530000, "pX":-8.000000, "pY":17.000000, "mode":"Add"
+									},
+									{
+										"frame":5, "sX":1.268190, "sY":1.245129, "pX":-8.000000, "pY":19.000000, "mode":"Add"
+									},
+									{
+										"frame":7, "sX":1.534510, "sY":1.531509, "pX":-8.000000, "pY":19.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_effect_05.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5, "sX":2.370000, "sY":2.110000, "pX":-3.000000, "pY":13.000000
+									},
+									{
+										"frame":9, "sX":1.590000, "sY":1.570000, "pX":-3.000000, "pY":13.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_effect_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":3, "sX":0.590000, "sY":0.600000, "pX":1.000000, "pY":20.000000, "mode":"Add"
+									},
+									{
+										"frame":7, "sX":1.135236, "sY":1.167516, "pX":1.000000, "pY":23.000000, "mode":"Add"
+									},
+									{
+										"frame":9, "sX":1.245726, "sY":1.282098, "pX":1.000000, "pY":20.000000, "alpha":0, "mode":"Add"
 									}
 								]
 							}
@@ -452,7 +671,7 @@
 			"visual_list":
 			[
 				{
-					"name":"normal",
+					"name":"normal_01",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -462,47 +681,19 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_frame_0201.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_frame_0201.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0
+										"frame":0, "sX":0.800000, "sY":0.800000, "pX":-1.000000, "pY":-5.000000
 									},
 									{
-										"frame":8, "cY":2.000000
+										"frame":16, "sX":0.900000, "sY":0.900000, "pX":-1.000000, "pY":-5.000000
 									},
 									{
-										"frame":15
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire_02'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pY":39.000000, "mode":"Add"
-									},
-									{
-										"frame":7, "pY":39.000000, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire_02'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":8, "pY":39.000000, "mode":"Add"
-									},
-									{
-										"frame":15, "pY":39.000000, "mode":"Add"
+										"frame":30, "sX":0.800000, "sY":0.800000, "pX":-1.000000, "pY":-5.000000
 									}
 								]
 							},
@@ -516,7 +707,164 @@
 										"frame":0
 									},
 									{
-										"frame":15
+										"frame":30
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_frame_0201_bg.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000, "pY":-5.000000, "alpha":204, "mode":"Add", "vflip":"V"
+									},
+									{
+										"frame":9, "sX":0.900000, "sY":0.900000, "rotate":-72.000000, "pY":-5.000000, "alpha":204, "mode":"Add", "vflip":"V"
+									},
+									{
+										"frame":16, "sX":0.900000, "sY":0.900000, "rotate":-148.000000, "pY":-5.000000, "alpha":204, "mode":"Add", "vflip":"V"
+									},
+									{
+										"frame":23, "sX":0.900000, "sY":0.900000, "rotate":-241.000000, "pY":-5.000000, "alpha":204, "mode":"Add", "vflip":"V"
+									},
+									{
+										"frame":30, "sX":0.800000, "sY":0.800000, "pY":-5.000000, "alpha":204, "mode":"Add", "vflip":"V"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"normal_02",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_frame_0301.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000, "pX":-1.000000, "pY":-5.000000
+									},
+									{
+										"frame":16, "sX":0.900000, "sY":0.900000, "pX":-1.000000, "pY":-5.000000
+									},
+									{
+										"frame":30, "sX":0.800000, "sY":0.800000, "pX":-1.000000, "pY":-5.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_normal'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":30
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_frame_0301_bg.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000, "pY":-5.000000, "alpha":204, "mode":"Add", "vflip":"V"
+									},
+									{
+										"frame":9, "sX":0.900000, "sY":0.900000, "rotate":-72.000000, "pY":-5.000000, "alpha":204, "mode":"Add", "vflip":"V"
+									},
+									{
+										"frame":16, "sX":0.900000, "sY":0.900000, "rotate":-148.000000, "pY":-5.000000, "alpha":204, "mode":"Add", "vflip":"V"
+									},
+									{
+										"frame":23, "sX":0.900000, "sY":0.900000, "rotate":-241.000000, "pY":-5.000000, "alpha":204, "mode":"Add", "vflip":"V"
+									},
+									{
+										"frame":30, "sX":0.800000, "sY":0.800000, "pY":-5.000000, "alpha":204, "mode":"Add", "vflip":"V"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"normal_03",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_frame_0401.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000, "pX":-1.000000, "pY":-5.000000
+									},
+									{
+										"frame":16, "sX":0.900000, "sY":0.900000, "pX":-1.000000, "pY":-5.000000
+									},
+									{
+										"frame":30, "sX":0.800000, "sY":0.800000, "pX":-1.000000, "pY":-5.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'skill_normal'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":30
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_frame_0401_bg.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000, "pY":-5.000000, "alpha":204, "mode":"Add", "vflip":"V"
+									},
+									{
+										"frame":9, "sX":0.900000, "sY":0.900000, "rotate":-72.000000, "pY":-5.000000, "alpha":204, "mode":"Add", "vflip":"V"
+									},
+									{
+										"frame":16, "sX":0.900000, "sY":0.900000, "rotate":-148.000000, "pY":-5.000000, "alpha":204, "mode":"Add", "vflip":"V"
+									},
+									{
+										"frame":23, "sX":0.900000, "sY":0.900000, "rotate":-241.000000, "pY":-5.000000, "alpha":204, "mode":"Add", "vflip":"V"
+									},
+									{
+										"frame":30, "sX":0.800000, "sY":0.800000, "pY":-5.000000, "alpha":204, "mode":"Add", "vflip":"V"
 									}
 								]
 							}
@@ -534,47 +882,19 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_frame_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_frame_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0
+										"frame":0, "sX":0.800000, "sY":0.800000
 									},
 									{
-										"frame":8, "pY":2.000000
+										"frame":14, "sX":0.900000, "sY":0.900000, "pY":2.000000, "mode":"Add"
 									},
 									{
-										"frame":15
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire_01'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pY":43.000000, "mode":"Add"
-									},
-									{
-										"frame":7, "pY":43.000000, "mode":"Add"
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fire_01'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":8, "pY":43.000000, "mode":"Add"
-									},
-									{
-										"frame":15, "pY":43.000000, "mode":"Add"
+										"frame":30, "alpha":0
 									}
 								]
 							},
@@ -588,7 +908,98 @@
 										"frame":0
 									},
 									{
-										"frame":15
+										"frame":30
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_frame_0101_bg.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000, "pY":2.000000, "mode":"Add"
+									},
+									{
+										"frame":14, "sX":0.960000, "sY":0.896000, "pY":16.000000, "colorRGB":[39,254,238]
+, "mode":"Add"
+									},
+									{
+										"frame":30, "pY":28.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"special_idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":12.000000
+									},
+									{
+										"frame":20, "pY":12.000000
+									},
+									{
+										"frame":39, "pY":12.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_effect_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.822179, "sY":0.859006, "pX":1.000000, "pY":20.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":20, "sX":1.135236, "sY":1.167516, "pX":1.000000, "pY":23.000000, "mode":"Add"
+									},
+									{
+										"frame":39, "sX":0.822179, "sY":0.859006, "pX":1.000000, "pY":20.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_effect_05.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "sX":0.711000, "sY":0.549000, "pX":-12.000000, "pY":3.000000, "alpha":0
+									},
+									{
+										"frame":12, "sX":0.952424, "sY":0.447984, "pX":-12.000000, "pY":4.000000
+									},
+									{
+										"frame":15, "sX":0.660203, "sY":0.569313, "pX":-11.000000, "pY":4.000000, "alpha":0
+									},
+									{
+										"frame":26, "sX":0.790000, "sY":0.610000, "pX":9.000000, "pY":13.000000, "alpha":0
+									},
+									{
+										"frame":31, "sX":1.082300, "sY":0.933300, "pX":9.000000, "pY":13.000000
+									},
+									{
+										"frame":37, "sX":0.660203, "sY":0.569313, "pX":9.000000, "pY":13.000000, "alpha":0
 									}
 								]
 							}
@@ -614,7 +1025,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_frame_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_frame_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -630,7 +1041,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_0101.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -659,7 +1070,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_frame_0201.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_frame_0201.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -675,7 +1086,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_0201.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_0201.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -704,7 +1115,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_frame_0201.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_frame_0201.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -720,7 +1131,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_0202.png'",
+								"res_id":"<azProject>''<azBitmap>'D:\dragonvillage\res\res\ui\a2d\ingame_tamer_skill\ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_0202.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -749,7 +1160,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_frame_0201.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_frame_0201.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -765,7 +1176,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_tamer_skill.plist'<azSprite>'tamer_skill_0203.png'",
+								"res_id":"<azProject>''<azBitmap>'D:\dragonvillage\res\res\ui\a2d\ingame_tamer_skill\ingame_tamer_skill.plist'<azSprite>'ingame_tamer_skill_0203.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -786,7 +1197,7 @@
 			]
 		},
 		{
-			"name":"tamer_talk",
+			"name":"ingame_tamer_talk",
 			"expand":true,
 			"apply":true,
 			"visual_list":

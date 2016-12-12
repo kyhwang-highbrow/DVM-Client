@@ -1,0 +1,13 @@
+
+elite_ifrit_fire.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_ifrit_fire
+  rotate: false
+  xy: 2, 2
+  size: 286, 342
+  orig: 286, 342
+  offset: 0, 0
+  index: -1
