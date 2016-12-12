@@ -249,6 +249,7 @@ local t_module = {
     'UIC_TableView',
     'UIC_TableViewCell',
     'UIC_TableView_TrainSlotList',
+    'UIC_TableViewTD',
 
 	-- UI
     'UI_BlockPopup',

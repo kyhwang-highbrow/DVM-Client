@@ -110,7 +110,7 @@ function UIC_TableView:addItem(unique_id, t_data)
     t_item['data'] = t_data
 
     self.m_itemMap[unique_id] = t_item
-    self.m_itemList[#self.m_lItem + 1] = t_item
+    self.m_itemList[#self.m_itemList + 1] = t_item
 end
 
 -------------------------------------

@@ -175,51 +175,36 @@ end
 -- @brief 드래곤 승급 재료(다른 드래곤) 리스트 테이블 뷰
 -------------------------------------
 function UI_DragonManageUpgrade:init_dragonUpgradeMaterialTableView()
+
     local list_table_node = self.vars['selectListNode']
     list_table_node:removeAllChildren()
 
-    local item_size = 150
-    local item_scale = 0.75
+    -- 리스트 아이템 생성 콜백
+    local function create_func(ui, data)
+        ui.root:setScale(0.7)
 
-    -- 생성
-    local function create_func(item)
-        local ui = item['ui']
-        ui.root:setScale(item_scale)
-
-        local data = item['data']
         local doid = data['id']
         if g_dragonsData:isSameTypeDragon(self.m_selectDragonOID, doid) then
             ui:setSkillSpriteVisible(true)
         end
 
-        self:refresh_materialDragonIndivisual(item['unique_id'])
+        self:refresh_materialDragonIndivisual(doid)
+
+        -- 클릭 버튼 설정
+        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonUpgradeMaterial(ui, data) end)
     end
 
-    -- 드래곤 클릭 콜백 함수
-    local function click_dragon_item(item)
-        self:click_dragonUpgradeMaterial(item)
-    end
+    -- 테이블뷰 생성
+    local table_view_td = UIC_TableViewTD(list_table_node)
+    table_view_td.m_cellSize = cc.size(105, 105)
+    table_view_td.m_nItemPerCell = 5
+    table_view_td:setCellUIClass(UI_DragonCard, create_func)
 
-    -- 테이블뷰 초기화
-    local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.VERTICAL)
-    do -- 아이콘 크기 지정
-        local item_adjust_size = (item_size * item_scale)
-        local nItemPerCell = 4
-        local cell_width = (item_adjust_size * nItemPerCell)
-        local cell_height = item_adjust_size
-        local item_width = item_adjust_size
-        local item_height = item_adjust_size
-        table_view_ext:setCellInfo2(nItemPerCell, cell_width, cell_height, item_width, item_height)
-    end    
-    table_view_ext:setItemUIClass(UI_DragonCard, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
-    
     -- 재료로 사용 가능한 리스트를 얻어옴
     local l_dragon_list = self:getDragonUpgradeMaterialList(self.m_selectDragonOID)
-    table_view_ext:setItemInfo(l_dragon_list)
+    table_view_td:setItemList(l_dragon_list)
 
-    table_view_ext:update()
-
-    self.m_tableViewExtMaterial = table_view_ext
+    self.m_tableViewExtMaterial = table_view_td
 
     do -- 정렬 도우미 도입
         local b_ascending_sort = nil
@@ -230,7 +215,7 @@ function UI_DragonManageUpgrade:init_dragonUpgradeMaterialTableView()
             sort_type = self.m_materialSortMgr.m_currSortType
         end
         
-        self.m_materialSortMgr = DragonSortManagerUpgradeMaterial(self.vars, table_view_ext, self.m_tableViewExtSelectMaterial, b_ascending_sort, sort_type)
+        self.m_materialSortMgr = DragonSortManagerUpgradeMaterial(self.vars, table_view_td, self.m_tableViewExtSelectMaterial, b_ascending_sort, sort_type)
         self.m_materialSortMgr:changeSort()
     end
 end
@@ -288,45 +273,35 @@ end
 -- @brief 선택된 드래곤 승급 재료(다른 드래곤) 리스트 테이블 뷰
 -------------------------------------
 function UI_DragonManageUpgrade:init_dragonUpgradeMaterialSelectTableView()
+
     local list_table_node = self.vars['materialNode']
     list_table_node:removeAllChildren()
 
-    local item_size = 150
-    local item_scale = 0.5
-    local item_adjust_size = (item_size * item_scale)
+    -- 리스트 아이템 생성 콜백
+    local function create_func(ui, data)
+        ui.root:setScale(0.6)
 
-    -- 생성
-    local function create_func(item)
-        local ui = item['ui']
-        ui.root:setScale(item_scale)
-
-        local data = item['data']
         local doid = data['id']
         if g_dragonsData:isSameTypeDragon(self.m_selectDragonOID, doid) then
             ui:setSkillSpriteVisible(true)
         end
+
+        -- 클릭 버튼 설정
+        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonUpgradeMaterial(ui, data) end)
     end
 
-    -- 드래곤 클릭 콜백 함수
-    local function click_dragon_item(item)
-        self:click_dragonUpgradeMaterial(item)
-    end
-
-    -- 테이블뷰 초기화
-    local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.HORIZONTAL)
-    table_view_ext:setCellInfo(item_adjust_size, item_adjust_size)  
-    table_view_ext:setItemUIClass(UI_DragonCard, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
-    table_view_ext:setItemInfo({})
-    table_view_ext:update()
-
-    self.m_tableViewExtSelectMaterial = table_view_ext
+    -- 테이블뷰 생성
+    local table_view = UIC_TableView(list_table_node)
+    table_view.m_defaultCellSize = cc.size(90, 90)
+    table_view:setCellUIClass(UI_DragonCard, create_func)
+    table_view:setItemList({})
+    self.m_tableViewExtSelectMaterial = table_view
 end
 
 -------------------------------------
 -- function click_dragonUpgradeMaterial
 -------------------------------------
-function UI_DragonManageUpgrade:click_dragonUpgradeMaterial(item)
-    local data = item['data']
+function UI_DragonManageUpgrade:click_dragonUpgradeMaterial(ui, data)
     local unique_id = data['id']
 
     local selected_material_item = self.m_tableViewExtSelectMaterial:getItem(unique_id)
@@ -334,7 +309,6 @@ function UI_DragonManageUpgrade:click_dragonUpgradeMaterial(item)
     -- 재료 해제
     if selected_material_item then
         self.m_tableViewExtSelectMaterial:delItem(unique_id)
-        self.m_tableViewExtSelectMaterial:update()
         self:refresh_materialDragonIndivisual(unique_id)
         self:refresh_selectedMaterial()
         self.m_materialSortMgr:changeSort2()
@@ -343,7 +317,6 @@ function UI_DragonManageUpgrade:click_dragonUpgradeMaterial(item)
     -- 재료 추가
     else
         self.m_tableViewExtSelectMaterial:addItem(unique_id, data)
-        self.m_tableViewExtSelectMaterial:update()
         self:refresh_materialDragonIndivisual(unique_id)
         self:refresh_selectedMaterial()
         self.m_materialSortMgr:changeSort2()
@@ -390,7 +363,7 @@ function UI_DragonManageUpgrade:refresh_selectedMaterial()
 
     do -- 재료 분석 (가격 총 경험치 등)
         local doid = self.m_selectDragonOID
-        local l_item = self.m_tableViewExtSelectMaterial.m_lItem
+        local l_item = self.m_tableViewExtSelectMaterial.m_itemList
         t_analyze = self:analyzeSelectedMaterial(doid, l_item)
     end
 
@@ -441,7 +414,7 @@ end
 -- @brief 선택된 재료의 구성이 변경되었을때
 -------------------------------------
 function UI_DragonManageUpgrade:analyzeSelectedMaterial(doid, l_item)
-    --local l_item = self.m_tableViewExtSelectMaterial.m_lItem
+    --local l_item = self.m_tableViewExtSelectMaterial.m_itemList
 
     local t_ret = {}
 
@@ -528,7 +501,7 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
     local doid = self.m_selectDragonOID
     local src_doids = ''
     do
-        for _doid,_ in pairs(self.m_tableViewExtSelectMaterial.m_mapItem) do
+        for _doid,_ in pairs(self.m_tableViewExtSelectMaterial.m_itemMap) do
             if (src_doids == '') then
                 src_doids = tostring(_doid)
             else
