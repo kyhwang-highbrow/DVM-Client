@@ -21,16 +21,6 @@ ITableViewCell = {
 -- function init
 -------------------------------------
 function ITableViewCell:init()
---[[
-    -- root 생성
-    self.root = cc.Node:create()
-    self.root:setDockPoint(cc.p(0.5, 0.5))
-    self.root:setAnchorPoint(cc.p(0.5, 0.5))
-
-    -- vars 초기화
-    self.vars = {}
---]]
-
     -- cell 사이즈 설정 (UI의 실제 사이즈)
     self.m_cellSize = cc.size(100, 100)
 
@@ -47,21 +37,13 @@ function ITableViewCell:getCellSize()
 end
 
 -------------------------------------
--- function retainCellVisible
--- @breif
--------------------------------------
-function ITableViewCell:incCellVisibleCnt()
-end
-
--------------------------------------
 -- function incCellVisibleCnt
 -- @breif
 -------------------------------------
 function ITableViewCell:incCellVisibleCnt()
     self.m_cellVisibleRefCnt = (self.m_cellVisibleRefCnt + 1)
 
-    if (self.m_cellVisibleRefCnt == 1) and (self.m_cellVisibleRefCnt == false) then
-        
+    if (self.m_cellVisibleRefCnt == 1) and (self.m_bOrgCellVisible == false) then        
         self.root:setVisible(true)
     end
 end
@@ -73,7 +55,7 @@ end
 function ITableViewCell:decCellVisibleCnt()
     self.m_cellVisibleRefCnt = (self.m_cellVisibleRefCnt - 1)
 
-    if (self.m_cellVisibleRefCnt <= 0) and (self.m_cellVisibleRefCnt == true) then
+    if (self.m_cellVisibleRefCnt <= 0) and (self.m_bOrgCellVisible == false) then
         self.root:setVisible(false)
     end
 end
@@ -163,4 +145,30 @@ end
 -------------------------------------
 function ITableViewCell:getCloneClass()
 	return class(clone(ITableViewCell))
+end
+
+
+-------------------------------------
+-- class UIC_TableViewCell
+-------------------------------------
+UIC_TableViewCell = class(ITableViewCell:getCloneTable())
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UIC_TableViewCell:init()
+    -- root 생성
+    self.root = cc.Node:create()
+    self.root:setDockPoint(cc.p(0.5, 0.5))
+    self.root:setAnchorPoint(cc.p(0.5, 0.5))
+
+    -- vars 초기화
+    self.vars = {}
+
+    -- cell 사이즈 설정 (UI의 실제 사이즈)
+    self.m_cellSize = cc.size(100, 100)
+
+    -- TableView에서 cell의 visible상태를 관리하기 위한 변수들
+    self.m_bOrgCellVisible = true
+    self.m_cellVisibleRefCnt = 0
 end

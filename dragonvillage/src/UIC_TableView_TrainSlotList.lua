@@ -64,6 +64,6 @@ function UIC_TableView_TrainSlotList:setExpand(expand, duration)
     self:expandTemp(duration)
 
     if (not expand) then
-        self:relocateContainerDefault(true)
+        self:relocateContainer(true)
     end
 end

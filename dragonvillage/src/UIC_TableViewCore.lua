@@ -18,6 +18,7 @@ UIC_TableViewCore = class(PARENT, {
         _cellsUsed = 'list',
         _vCellsPositions = 'list',
 
+        _direction = '',
         _vordering = 'VerticalFillOrder',
     })
 
@@ -78,8 +79,6 @@ function UIC_TableViewCore:_updateCellPositions()
 
     self._vCellsPositions = {}
 
-    local direction = self.m_scrollView:getDirection()
-
     if (cellsCount > 0) then
         local currentPos = 0
         for i=1, cellsCount do
@@ -87,7 +86,7 @@ function UIC_TableViewCore:_updateCellPositions()
             local cellSize = self:tableCellSizeForIndex(i)
 
             -- 가로
-            if (direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+            if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
                 currentPos = currentPos + cellSize['width']
             -- 세로
             else
@@ -111,10 +110,9 @@ function UIC_TableViewCore:_updateContentSize(skip_update_cells)
     local viewSize = self.m_scrollView:getViewSize()
 
     if (cellsCount > 0) then
-        local direction = self.m_scrollView:getDirection()
         local maxPosition = self._vCellsPositions[cellsCount + 1]
 
-        if (direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+        if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
             size = cc.size(maxPosition, viewSize['height'])
         else
             size = cc.size(viewSize['width'], maxPosition)
@@ -134,7 +132,7 @@ end
 -------------------------------------
 -- function scrollViewDidScroll
 -------------------------------------
-function UIC_TableViewCore:scrollViewDidScroll(view)
+function UIC_TableViewCore:scrollViewDidScroll()
     local cellsCount = #self.m_itemList
 
     if (0 == cellsCount) then
@@ -219,22 +217,14 @@ function UIC_TableViewCore:scrollViewDidScroll(view)
 
     -- 눈에 보이는 item들 설정
     self._cellsUsed = {}
-    local direction = self.m_scrollView:getDirection()
     for i=startIdx, endIdx do
         local t_item = self.m_itemList[i]
 
         if (not t_item['ui']) then
             local data = t_item['data']
             t_item['ui'] = self:makeItemUI(data)
-
-            local pos = self._vCellsPositions[i]
-            -- 가로
-            if (direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
-                t_item['ui'].root:setPositionX(pos)
-            -- 세로
-            else
-                t_item['ui'].root:setPositionY(pos)
-            end
+            local idx = t_item['idx']
+            self:updateCellAtIndex(idx)
         else
             t_item['ui']:setCellVisible(true)
         end
@@ -290,9 +280,7 @@ function UIC_TableViewCore:__indexFromOffset(offset)
     local high = #self.m_itemList
     local search;
 
-    local direction = self.m_scrollView:getDirection()
-
-    if (direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+    if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
         search = offset['x']
     else
         search = offset['y']
@@ -356,10 +344,8 @@ function UIC_TableViewCore:__offsetFromIndex(index)
     local offset = cc.p(0, 0)
     local cellSize = cc.size(0, 0)
 
-    local direction = self.m_scrollView:getDirection()
-
     -- 가로
-    if (direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+    if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
         offset['x'] = self._vCellsPositions[index]
     -- 세로
     else
@@ -375,7 +361,7 @@ function UIC_TableViewCore:updateCellAtIndex(idx)
    local ui = self.m_itemList[idx]['ui']
 
    if ui then
-    ui.root:setPosition(offset['x'], offset['y'])
+        ui.root:setPosition(offset['x'], offset['y'])
    end
 end
 
@@ -400,6 +386,7 @@ end
 -------------------------------------
 function UIC_TableViewCore:setDirection(direction)
     self.m_scrollView:setDirection(direction)
+    self._direction = direction
 end
 
 -------------------------------------
@@ -413,6 +400,8 @@ function UIC_TableViewCore:setItemList(list)
         local t_item = {}
         t_item['unique_id'] = key
         t_item['data'] = data
+
+        local idx = #self.m_itemList + 1
 
         -- UI를 미리 생성
         t_item['ui'] = self:makeItemUI(data)
@@ -433,13 +422,45 @@ function UIC_TableViewCore:setItemList(list)
 end
 
 -------------------------------------
+-- function relocateContainer
+-- @brief
+-------------------------------------
+function UIC_TableViewCore:relocateContainer(animated)
+    local scroll_view = self.m_scrollView
+
+    local oldPoint = cc.p(0, 0)
+    local min, max;
+    local newX, newY;
+
+    min = scroll_view:minContainerOffset();
+    max = scroll_view:maxContainerOffset();
+
+    oldPoint.x, oldPoint.y = scroll_view:getContainer():getPosition();
+
+    newX     = oldPoint.x;
+    newY     = oldPoint.y;
+    if (self._direction == cc.SCROLLVIEW_DIRECTION_BOTH or self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+        newX     = math_max(newX, min.x);
+        newX     = math_min(newX, max.x);
+    end
+
+    if (self._direction == cc.SCROLLVIEW_DIRECTION_BOTH or self._direction == cc.SCROLLVIEW_DIRECTION_VERTICAL) then
+        newY     = math_min(newY, max.y);
+        newY     = math_max(newY, min.y);
+    end
+
+    if (newY ~= oldPoint.y or newX ~= oldPoint.x) then
+        scroll_view:setContentOffset(cc.p(newX, newY), animated);
+    end
+end
+
+-------------------------------------
 -- function relocateContainerDefault
 -- @brief 시작 위치로 설정
 -------------------------------------
 function UIC_TableViewCore:relocateContainerDefault(animated)
-    local direction = self.m_scrollView:getDirection()
     -- 가로
-    if (direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+    if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
         self.m_scrollView:setContentOffset(cc.p(0, 0), animated)
 
     -- 세로
@@ -486,7 +507,7 @@ function UIC_TableViewCore:expandTemp(duration)
 
     self:_updateCellPositions()
     self:_updateContentSize(true)
-    self:scrollViewDidScroll()
+    self:scrollViewDidScroll(true)
 
     -- 변경 후 보여질 애들 리스트
     for i,v in ipairs(self._cellsUsed) do
@@ -502,6 +523,7 @@ function UIC_TableViewCore:expandTemp(duration)
     -- cell들 이동
     for i,v in ipairs(self.m_itemList) do
         local ui = self.m_itemList[i]['ui']
+
         local offset = self:_offsetFromIndex(i)
         ui:cellMoveTo(duration, offset)
     end
@@ -512,44 +534,8 @@ end
 -- function makeItemUI
 -------------------------------------
 function UIC_TableViewCore:makeItemUI(data)
-    local ui = UI_DragonTrainSlot_ListItem(data)
+    local ui = UIC_TableViewCell(data)
     ui.root:retain()
-    ui.root:setDockPoint(cc.p(0, 0))
-    ui.root:setAnchorPoint(cc.p(0, 0))
-
-    ui.vars['trainButtonA']:getParent():setSwallowTouch(false)
-    ui.vars['trainButtonA']:registerScriptTapHandler(function()
-        local width, height = ui.root:getNormalSize()
-        local func = function(value)
-            ui.root:setNormalSize(value, height)
-        end
-        local tween = cc.ActionTweenForLua:create(0.15, width, 400, func)
-        ui.root:stopAllActions()
-        ui.root:runAction(tween)
-
-        ui.m_cellSize['width'] = 400
-
-        self:_updateCellPositions()
-        self:_updateContentSize()
-        self:scrollViewDidScroll()
-    end)
-
-    ui.vars['trainButtonB']:getParent():setSwallowTouch(false)
-    ui.vars['trainButtonB']:registerScriptTapHandler(function()
-        local width, height = ui.root:getNormalSize()
-        local func = function(value)
-            ui.root:setNormalSize(value, height)
-        end
-        local tween = cc.ActionTweenForLua:create(0.15, width, 180, func)
-        ui.root:stopAllActions()
-        ui.root:runAction(tween)
-
-        ui.m_cellSize['width'] = 180
-
-        self:_updateCellPositions()
-        self:_updateContentSize()
-        self:scrollViewDidScroll()
-    end)
 
     self.m_scrollView:addChild(ui.root)
 
