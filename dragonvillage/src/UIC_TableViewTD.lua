@@ -20,6 +20,7 @@ UIC_TableViewTD = class(PARENT, {
 
         m_cellUICreateCB = 'function',
         m_nItemPerCell = 'number',
+        m_bFirstLocation = 'boolean',
     })
 
 -------------------------------------
@@ -37,6 +38,7 @@ function UIC_TableViewTD:init(node)
     -- 기본값 설정
     self.m_cellSize = cc.size(100, 100)
     self.m_nItemPerCell = 2
+    self.m_bFirstLocation = true
 
     -- 스크롤 뷰 생성
     local content_size = node:getContentSize()
@@ -122,6 +124,12 @@ function UIC_TableViewTD:_updateContentSize(skip_update_cells)
         for i=1, cellsCount do
             self:updateCellAtIndex(i)
         end
+    end
+
+
+    if self.m_bFirstLocation then
+        self:relocateContainerDefault()
+        self.m_bFirstLocation = false
     end
 end
 
@@ -351,7 +359,7 @@ end
 -- function setItemList
 -- @brief list는 key값이 고유해야 하며, value로는 UI생성에 필요한 데이터가 있어야 한다
 -------------------------------------
-function UIC_TableViewTD:setItemList(list)
+function UIC_TableViewTD:setItemList(list, skip_update)
     self:clearItemList()
 
     for key,data in pairs(list) do
@@ -362,13 +370,17 @@ function UIC_TableViewTD:setItemList(list)
         local idx = #self.m_itemList + 1
 
         -- UI를 미리 생성
-        t_item['ui'] = self:makeItemUI(data)
+        --t_item['ui'] = self:makeItemUI(data)
 
         -- 리스트에 추가
         table.insert(self.m_itemList, t_item)
 
         -- 맵에 등록
         self.m_itemMap[key] = t_item
+    end
+
+    if skip_update then
+        return
     end
 
     self:_updateLinePositions()
@@ -508,6 +520,12 @@ function UIC_TableViewTD:makeItemUI(data)
     if self.m_cellUICreateCB then
         self.m_cellUICreateCB(ui, data)
     end
+
+    local scale = ui.root:getScale()
+    ui.root:setScale(0)
+    local scale_to = cc.ScaleTo:create(0.25, scale)
+    local action = cc.EaseInOut:create(scale_to, 2)
+    ui.root:runAction(action)
 
     return ui
 end

@@ -398,7 +398,7 @@ end
 -- function setItemList
 -- @brief list는 key값이 고유해야 하며, value로는 UI생성에 필요한 데이터가 있어야 한다
 -------------------------------------
-function UIC_TableViewCore:setItemList(list)
+function UIC_TableViewCore:setItemList(list, skip_update)
     self:clearItemList()
 
     for key,data in pairs(list) do
@@ -409,13 +409,17 @@ function UIC_TableViewCore:setItemList(list)
         local idx = #self.m_itemList + 1
 
         -- UI를 미리 생성
-        t_item['ui'] = self:makeItemUI(data)
+        --t_item['ui'] = self:makeItemUI(data)
 
         -- 리스트에 추가
         table.insert(self.m_itemList, t_item)
 
         -- 맵에 등록
         self.m_itemMap[key] = t_item
+    end
+
+    if skip_update then
+        return
     end
 
     self:_updateCellPositions()

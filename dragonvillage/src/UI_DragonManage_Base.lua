@@ -222,7 +222,7 @@ function UI_DragonManage_Base:init_dragonTableView()
 
 
     local l_item_list = g_dragonsData:getDragonsList()
-    self.m_tableViewExt:setItemList(l_item_list)
+    self.m_tableViewExt:setItemList(l_item_list, true)
 end
 
 -------------------------------------

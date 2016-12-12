@@ -46,6 +46,12 @@ function UIC_TableView:makeItemUI(data)
         self.m_cellUICreateCB(ui, data)
     end
 
+    local scale = ui.root:getScale()
+    ui.root:setScale(0)
+    local scale_to = cc.ScaleTo:create(0.25, scale)
+    local action = cc.EaseInOut:create(scale_to, 2)
+    ui.root:runAction(action)
+
     return ui
 end
 

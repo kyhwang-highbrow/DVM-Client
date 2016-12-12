@@ -202,7 +202,7 @@ function UI_DragonManageUpgrade:init_dragonUpgradeMaterialTableView()
 
     -- 재료로 사용 가능한 리스트를 얻어옴
     local l_dragon_list = self:getDragonUpgradeMaterialList(self.m_selectDragonOID)
-    table_view_td:setItemList(l_dragon_list)
+    table_view_td:setItemList(l_dragon_list, true)
 
     self.m_tableViewExtMaterial = table_view_td
 
