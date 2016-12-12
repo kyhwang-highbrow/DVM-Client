@@ -186,7 +186,7 @@ end
 -- @brief 장착여부에 따른 카드 갱신
 -------------------------------------
 function UI_ReadyScene_Deck:refresh_dragonCard(doid)
-    local item = self.m_uiReadyScene.m_tableViewExt.m_mapItem[doid]
+    local item = self.m_uiReadyScene.m_tableViewExt.m_itemMap[doid]
     local is_setted = self.m_tDeckMap[doid]
 
     if (not item) then
@@ -248,7 +248,6 @@ function UI_ReadyScene_Deck:setSlot(idx, doid)
 
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
         self:makeSettedDragonCard(t_dragon_data, idx)
-        self:refresh_dragonCard(doid)
     end
 
     do -- 5명이사이 되는지 확인 후 disableSprite로 표시

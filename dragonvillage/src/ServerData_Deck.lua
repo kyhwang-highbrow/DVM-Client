@@ -41,6 +41,7 @@ function ServerData_Deck:setDeck(type, t_deck)
     end
 
     self.m_serverData:applyServerData(t_deck, 'deck', idx)
+    self:resetDragonDeckInfo()
 end
 
 -------------------------------------

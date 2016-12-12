@@ -136,34 +136,33 @@ function UI_ReadyScene:init_dragonTableView()
     local list_table_node = self.vars['listView']
     list_table_node:removeAllChildren()
 
-    local function create_func(item)
-        local ui = item['ui']
-        local data = item['data']
+    local function create_func(ui, data)
         ui.root:setScale(0.7)
 
         local unique_id = data['id']
         self:refresh_dragonCard(unique_id)
+
+        -- 드래곤 클릭 콜백 함수
+        local function click_dragon_item()
+            local t_dragon_data = data
+            self:click_dragonCard(t_dragon_data)
+            self:setSelectedDragonDoid(unique_id)
+        end
+
+        ui.vars['clickBtn']:registerScriptTapHandler(function() click_dragon_item() end)
     end
 
-    -- 드래곤 클릭 콜백 함수
-    local function click_dragon_item(item)
-        local ui = item['ui']
-        local t_dragon_data = ui.m_dragonData
-        self:click_dragonCard(t_dragon_data)
+    -- 테이블뷰 생성
+    local table_view_td = UIC_TableViewTD(list_table_node)
+    table_view_td.m_cellSize = cc.size(105, 105)
+    table_view_td.m_nItemPerCell = 5
+    table_view_td:setCellUIClass(UI_DragonCard, create_func)
 
-        -- 선택된 드래곤 정보 표시
-        local doid = item['unique_id']
-        self:setSelectedDragonDoid(doid)
-    end
+    -- 리스트 설정
+    local l_dragon_list = g_dragonsData:getDragonsList()
+    table_view_td:setItemList(l_dragon_list)
 
-    -- 테이블뷰 초기화
-    local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.VERTICAL)
-    table_view_ext:setCellInfo2(5, 516, 105, 105, 105)
-    table_view_ext:setItemUIClass(UI_DragonCard, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
-    table_view_ext:setItemInfo(g_dragonsData:getDragonsList())
-    --table_view_ext:update()
-
-    self.m_tableViewExt = table_view_ext
+    self.m_tableViewExt = table_view_td
 end
 
 -------------------------------------
