@@ -1063,6 +1063,9 @@
     <None Include="..\src\UIC_TableViewTD.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\ServerData_NestDungeon.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

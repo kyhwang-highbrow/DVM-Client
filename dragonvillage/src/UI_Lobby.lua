@@ -132,19 +132,12 @@ end
 -- function click_nestBtn
 -------------------------------------
 function UI_Lobby:click_nestBtn()
-    local uid = g_userData:get('uid')
-
-    local function success_cb(ret)
+    local function cb_func()
         local scene = SceneCommon(UI_NestDungeonScene)
         scene:runScene()
     end
 
-    local ui_network = UI_Network()
-    ui_network:setUrl('/game/nest/info')
-    ui_network:setParam('uid', uid)
-    ui_network:setRevocable(true)
-    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
-    ui_network:request()
+    g_nestDungeonData:requestNestDungeonInfo(cb_func)
 end
 
 -------------------------------------

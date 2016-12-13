@@ -269,6 +269,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Buff.lua" />
     <None Include="..\src\Buff_Protection.lua" />
     <None Include="..\src\GameWorld_Unit.lua" />
+    <None Include="..\src\ServerData_NestDungeon.lua" />
     <None Include="..\src\ServerData_Staminas.lua" />
     <None Include="..\src\ResPreloadMgr.lua" />
     <None Include="..\src\ResPreloadHelper.lua" />

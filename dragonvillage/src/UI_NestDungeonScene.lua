@@ -72,7 +72,7 @@ function UI_NestDungeonScene:initUI()
         table_view.m_defaultCellSize = cc.size(230, 438)
         table_view:setCellUIClass(UI_NestDragonDungeonListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-        table_view:setItemList({1,2,3,4,5,6})
+        table_view:setItemList(g_nestDungeonData:getNestDungeonInfo())
 
         self.m_tableView = table_view
     end
@@ -142,7 +142,7 @@ function UI_NestDungeonScene:click_dungeonBtn(ui, data, key)
 end
 
 -------------------------------------
--- function click_dungeonBtn2
+-- function closeSubMenu
 -------------------------------------
 function UI_NestDungeonScene:closeSubMenu()
 
@@ -182,11 +182,13 @@ function UI_NestDungeonScene:closeSubMenu()
     for i,v in ipairs(self.m_tableView.m_itemList) do
         if (v['unique_id'] ~= key) then
             
-            v['ui'].root:setScale(0)
-            local scale_to = cc.ScaleTo:create(0.25, 1)
-            local action = cc.EaseInOut:create(scale_to, 2)
-            local sequence = cc.Sequence:create(cc.DelayTime:create(0.3 + (i-1) * 0.02), action)
-            v['ui'].root:runAction(sequence)
+            if v['ui'] then
+                v['ui'].root:setScale(0)
+                local scale_to = cc.ScaleTo:create(0.25, 1)
+                local action = cc.EaseInOut:create(scale_to, 2)
+                local sequence = cc.Sequence:create(cc.DelayTime:create(0.3 + (i-1) * 0.02), action)
+                v['ui'].root:runAction(sequence)
+            end
         end
     end
 end

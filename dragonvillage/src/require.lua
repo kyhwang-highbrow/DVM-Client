@@ -53,6 +53,7 @@ local t_module = {
     'ServerData_Dragons',
     'ServerData_Deck',
     'ServerData_Staminas',
+    'ServerData_NestDungeon',
     'UserData',
     'DropHelper',
     'DragonAutoSetHelper',
