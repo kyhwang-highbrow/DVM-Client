@@ -47,6 +47,9 @@ Missile = class(PARENT, {
         m_sizeUpTime = 'number',        -- n초에 걸쳐 리소스 및 충돌박스가 10배로 커짐
         m_magnetTime = 'number',        -- n초 후에 영웅 방향으로 빨려들어감
         m_tRotateTime = 'table',        -- 특정 시간마다 특정 각도 회전
+		m_fadeoutTime = 'bool',			-- n초 후에 특정 시간 동안 fade out 으로 소멸
+		m_collisionCheckTime = 'bool',  -- n초 후부터 충돌체크, 이전에는 하지 않음
+
         m_angularVelocity = 'number',   -- 초당 n도씩 회전
         m_tAngularVelocity = 'table',   -- 특정 시간마다 초당 회전각 변경
 
@@ -67,6 +70,7 @@ Missile = class(PARENT, {
 		m_addScriptDead = 'bool',
 		m_lAddScriptTime = 'list',
 		m_fireCnt = '',
+
      })
 
 -------------------------------------
@@ -99,6 +103,8 @@ function Missile:init(file_name, body, ...)
     self.m_afterimageMove = 0
 
 	self.m_isFadeOut = false
+	self.m_fadeoutTime = nil
+	self.m_collisionCheckTime = nil
 
 	self.m_addScript = nil
 	self.m_fireCnt  = 0
@@ -367,6 +373,26 @@ function Missile:updateMissileOption(dt)
             self:changeState('dying')
             return true
         end
+    end
+	
+    -- n초 후에 fade out
+    if self.m_fadeoutTime then
+        if self.m_fadeoutTime <= self.m_stateTimer then
+            self.m_fadeoutTime = nil
+			local removeMissile = cc.CallFunc:create(function() self:changeState('dying') end)
+			self.m_animator.m_node:runAction(cc.Sequence:create(cc.FadeOut:create(MISSILE_FADE_OUT_TIME), removeMissile))
+            return true
+        end
+    end
+
+    -- n초 후 부터 충돌 체크 시작
+    if self.m_collisionCheckTime then
+		if self.m_stateTimer then 
+			self.enable_body = false
+		elseif self.m_collisionCheckTime <= self.m_stateTimer then
+            self.enable_body = true
+        end
+        return true
     end
 
     -- n초 후에 해당 투사체 폭발(반경 50픽셀 데미지)

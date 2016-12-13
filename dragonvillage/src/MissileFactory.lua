@@ -113,6 +113,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     local scale =            t_option['scale'] or 1
     local accel =            t_option['accel'] or 0
     local accel_delay =      t_option['accel_delay'] or nil
+
     local delete_time =      t_option['delete_time'] or nil
     local vanish_time =      t_option['vanish_time'] or nil
     local explosion_time =   t_option['explosion_time'] or nil
@@ -122,6 +123,9 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     local reset_time_delay = t_option['reset_time_delay'] or nil
     local size_up_time =     t_option['size_up_time'] or nil
     local magnet_time =      t_option['magnet_time'] or nil
+    local fadeout_time =		t_option['fadeout_time'] or nil
+    local collision_check_time =t_option['collision_check_time'] or nil
+
     local depth =            t_option['depth'] or 0
     local infection =        t_option['infection'] or nil
     local missile_type =     MISSILE_TYPE[t_option['missile_type']]
@@ -313,7 +317,8 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         if rotate_time then
             missile.m_tRotateTime = clone(rotate_time)
         end
-
+		missile.m_fadeoutTime = fadeout_time
+		missile.m_collisionCheckTime = collision_check_time
 
         -- 각속도 지정
         if angular_velocity and (angular_velocity~=0) then
@@ -326,7 +331,6 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         missile.m_minSpeed = l_limit_speed
         missile.m_maxSpeed = h_limit_speed
 
-        --missile.m_animator:setScale(scale)
         missile.m_rootNode:setScale(scale)
         missile:setDir(dir)
         missile:setRotation(rotation)

@@ -72,7 +72,7 @@ function MissileLauncher:init_missileLauncher(t_skill, object_key, attack_damage
                 self.m_tAttackValueBase[count]['res'] = t_skill['res_'..count]
             end
 			-- 탄막 여부 
-			self.m_tAttackValueBase[count]['bFixedAttack'] = string.find(script_name, 'missile_move_')
+			self.m_tAttackValueBase[count]['bFixedAttack'] = true
             
 			count = count + 1
         end
@@ -330,6 +330,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		t_option['damage_rate'] =		attack_value.damage_rate or self.m_powerRate
 		t_option['accel'] =				attack_value.accel
 		t_option['accel_delay'] =		attack_value.accel_delay
+
 		t_option['delete_time'] =		attack_value.delete_time
 		t_option['vanish_time'] =		attack_value.vanish_time
 		t_option['explosion_time'] =	attack_value.explosion_time
@@ -339,6 +340,9 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		t_option['reset_time_delay'] =	attack_value.reset_time_delay
 		t_option['size_up_time'] =		attack_value.size_up_time
 		t_option['magnet_time'] =		attack_value.magnet_time
+		t_option['fadeout_time'] =		attack_value.fadeout_time
+		t_option['collision_check_time'] =	attack_value.collision_check_time
+
 		t_option['depth'] =				depth
 		t_option['infection'] =			attack_value.infection
 		t_option['missile_type'] =		attack_value.missile_type
