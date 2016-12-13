@@ -164,7 +164,7 @@ function GameWorld:init_wavemaker(deck_type)
 
     do 
         self.m_formationSystem = FormationSystem(self)
-        self:getBattleZone('basic', true)
+        self:setBattleZone('basic', true)
     end
 
     do 

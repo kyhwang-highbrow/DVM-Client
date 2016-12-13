@@ -9,6 +9,9 @@ FORMATION_REAR = 3
 FormationMgr = class(IEventListener:getCloneClass(), {
         m_bLeftFormation = 'boolean',
 
+        m_offsetX = 'number',
+        m_offsetY = 'number',
+
         -- 후방
         m_rearStartX = 'number',
         m_rearEndX = 'number',
@@ -39,6 +42,9 @@ FormationMgr = class(IEventListener:getCloneClass(), {
 -------------------------------------
 function FormationMgr:init(left_formation)
     self.m_bLeftFormation = left_formation
+
+    self.m_offsetX = 0
+    self.m_offsetY = 0
 
     self.m_rearCharList = {}
     self.m_middleCharList = {}
@@ -103,6 +109,9 @@ end
 -- function getFormation
 -------------------------------------
 function FormationMgr:getFormation(x, y)
+    local x = x - self.m_offsetX
+    local y = y - self.m_offsetY
+
     -- 전방 (front)
     if (self.m_frontStartX <= x) and (x <= self.m_frontEndX) then
         return FORMATION_FRONT
@@ -114,6 +123,7 @@ function FormationMgr:getFormation(x, y)
     -- 후방 (rear)
     elseif (self.m_rearStartX <= x) and (x <= self.m_rearEndX) then
         return FORMATION_REAR
+
     end
 end
 
@@ -594,6 +604,15 @@ function FormationMgr:onEvent(event_name, ...)
         -- TODO 나중에 위치를 옮길 것
         local idx = table.find(self.m_globalCharList, char)
         table.remove(self.m_globalCharList, idx)
+
+    -- 카메라 홈 위치가 변경되었을 경우
+    elseif (event_name == 'camera_set_home') then
+        local arg = {...}
+        local x = arg[1]
+        local y = arg[2]
+
+        self.m_offsetX = x
+        self.m_offsetY = y
     end
 end
 

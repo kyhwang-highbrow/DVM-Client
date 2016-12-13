@@ -4,6 +4,7 @@
 -- class SceneGame
 -------------------------------------
 SceneGame = class(PerpleScene, {
+        m_stageType = '',
         m_stageName = '',
         m_stageID = '',
         m_scheduleNode = 'cc.Node',
@@ -42,6 +43,7 @@ SceneGame = class(PerpleScene, {
 -------------------------------------
 function SceneGame:init(game_key, stage_id, stage_name, develop_mode)
     self.m_gameKey = game_key
+    --self.m_stageType = ''
     self.m_stageID = stage_id
     self.m_stageName = stage_name
     self.m_bUseLoadingUI = true
@@ -159,19 +161,8 @@ function SceneGame:prepare()
         -- 레이어 생성
         self:init_layer()
         self.m_gameWorld = GameWorld(self.m_stageID, self.m_stageName, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_feverNode, self.m_inGameUI, self.m_bDevelopMode)
-        self.m_gameWorld:initWaveMgr(self.m_stageName, self.m_bDevelopMode)
-
-        -- 스테이지의 스크립트 정보를 얻어옴
-        local script = TABLE:loadJsonTable(self.m_stageName)
-        local difficult = script['difficult'] or 1
-        difficult = 1 -- 임시 처리
-        local deck_type = 'deck_5'
-        if (difficult == 1) then
-            deck_type = 'deck_5'
-        end
-
-        -- 임시
-        self.m_gameWorld:init_test(deck_type)
+        self.m_gameWorld:initStage(self.m_stageName, self.m_bDevelopMode)
+        self.m_gameWorld:initGame()
 
         -- 스크린 사이즈 초기화
         self:sceneDidChangeViewSize()
@@ -600,4 +591,18 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
         local t_data = {item_id, count}
         table.insert(drop_reward_list, t_data)
     end
+end
+
+-------------------------------------
+-- function isNestDungeon
+-- @brief 네스트 던전 스테이지 여부
+-------------------------------------
+function SceneGame:isNestDungeon()
+    if getStageType(self.m_stageID) == STAGE_TYPE.NEST_DRAGON
+        or getStageType(self.m_stageID) == STAGE_TYPE.NEST_NIGHTMARE
+        or getStageType(self.m_stageID) == STAGE_TYPE.NEST_TREE then
+        return true
+    end
+
+    return false
 end

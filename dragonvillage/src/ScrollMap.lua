@@ -97,6 +97,7 @@ function ScrollMap:setBg(res)
         for _, v in ipairs(script['layer']) do
             local type = v['type'] or 'horizontal'
             local speed = v['speed']
+            local option = v['option']
             local offset_x = 0
             local offset_y = 0
             local interval = 0
@@ -116,14 +117,14 @@ function ScrollMap:setBg(res)
                 local real_offset_x = (data['pos_x'] or 0)
                 local real_offset_y = (data['pos_y'] or 0)
                 local scale = (data['scale'] or 1)
-
+                
                 if type == 'horizontal' then
                     real_offset_x = real_offset_x + offset_x
                 elseif type == 'vertical' then
                     real_offset_y = real_offset_y + offset_y
                 end
                 
-                local map_layer = ScrollMapLayer(self.m_node, type, data['res'], data['animation'], interval, real_offset_x, real_offset_y, scale, speed)
+                local map_layer = ScrollMapLayer(self.m_node, type, data['res'], data['animation'], interval, real_offset_x, real_offset_y, scale, speed, option)
                 table.insert(self.m_tMapLayer, map_layer)
 
                 if type == 'horizontal' then
@@ -170,4 +171,24 @@ end
 -------------------------------------
 function ScrollMap:setSpeed(speed)
     self.m_speed = speed
+end
+
+-------------------------------------
+-- function doOption
+-------------------------------------
+function ScrollMap:doOption(option)
+    for i,v in ipairs(self.m_tMapLayer) do
+        if v.m_option == option then
+            local cameraX, cameraY = 0, 0
+            if self.m_fGetCameraPosition then
+                cameraX, cameraY = self.m_fGetCameraPosition()
+            end
+
+            --local distance = CRITERIA_RESOLUTION_X - cameraX
+            local distance = 3600
+            local action = cc.MoveTo:create(1.5, cc.p(distance, 0))
+            
+            ScrollMapLayer_doAction(v, action)
+        end
+    end
 end

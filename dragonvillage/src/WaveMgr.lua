@@ -190,7 +190,7 @@ function WaveMgr:newScenario()
 	
 	if (wave == 1) or (self.m_bDevelopMode == true) then 
 		-- 카메라 옵션 설정
-		self.m_world:changeCameraOption(t_data['camera'])
+        self.m_world:changeCameraOption(t_data['camera'])
 	end
 
     self:newScenario_dynamicWave(t_data)

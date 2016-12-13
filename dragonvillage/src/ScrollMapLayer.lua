@@ -2,6 +2,7 @@
 -- class ScrollMapLayer
 -------------------------------------
 ScrollMapLayer = class({
+        m_rootNode = 'cc.Node',
         m_type = 'string',          -- 'horizontal' or 'vertical'
         m_tSprite = 'table',        -- 배경 랜더링에 필요한 스프라이트 테이블
         m_interval = 'number',      -- 배경 랜더링 간격
@@ -11,23 +12,29 @@ ScrollMapLayer = class({
         m_offsetX = 'number',       -- X위치
         m_offsetY = 'number',       -- Y위치
         m_visibleSize = 'table',    -- 화면 사이즈
+        m_option = 'number',        -- 별도의 연출 처리를 위한 값
     })
 
 -------------------------------------
 -- class ScrollMapLayer
 -------------------------------------
-function ScrollMapLayer:init(parent, type, res, animation, interval, offset_x, offset_y, scale, speed_scale)
+function ScrollMapLayer:init(parent, type, res, animation, interval, offset_x, offset_y, scale, speed_scale, option)
     self.m_type = type
     self.m_tSprite = {}
     self.m_interval = interval or 960
     self.m_offsetX = offset_x or 0
     self.m_offsetY = offset_y or 0
     self.m_speedScale = speed_scale or 1
+    self.m_option = option
 
     self.m_visibleSize = cc.Director:getInstance():getVisibleSize()
     
     local visible_width = 2048
     local visible_height = 1600
+
+    -- 루트 노드 생성
+    self.m_rootNode = cc.Node:create()
+    parent:addChild(self.m_rootNode)
 
     -- 스프라이트 생성
     local animator = MakeAnimator(res)
@@ -35,11 +42,11 @@ function ScrollMapLayer:init(parent, type, res, animation, interval, offset_x, o
         animator:changeAni(animation, true)
     end
     
-     local sprite = animator.m_node
+    local sprite = animator.m_node
     sprite:setDockPoint(cc.p(0, 0.5))
     sprite:setAnchorPoint(cc.p(0, 0.5))
     sprite:setScale(scale)
-    parent:addChild(sprite)
+    self.m_rootNode:addChild(sprite)
     table.insert(self.m_tSprite, sprite)
 
     if self.m_type == 'horizontal' then
@@ -72,7 +79,7 @@ function ScrollMapLayer:init(parent, type, res, animation, interval, offset_x, o
                 sprite:setDockPoint(cc.p(0, 0.5))
                 sprite:setAnchorPoint(cc.p(0, 0.5))
                 sprite:setScale(scale)
-                parent:addChild(sprite)
+                self.m_rootNode:addChild(sprite)
                 table.insert(self.m_tSprite, sprite)
 
                 if self.m_type == 'horizontal' then
@@ -98,10 +105,10 @@ function ScrollMapLayer_update(self, totalMove, dt, cameraX, cameraY)
 
     if self.m_type == 'horizontal' then
         pos = pos + self.m_offsetX
-        referenceValue = cameraX - (CRITERIA_RESOLUTION_X / 2)
+        referenceValue = -cameraX - (CRITERIA_RESOLUTION_X / 2)
     elseif self.m_type == 'vertical' then
         pos = pos + self.m_offsetY
-        referenceValue = cameraY - (CRITERIA_RESOLUTION_Y / 2)
+        referenceValue = -cameraY - (CRITERIA_RESOLUTION_Y / 2)
     end
 
     local start_pos = pos
@@ -124,4 +131,11 @@ function ScrollMapLayer_update(self, totalMove, dt, cameraX, cameraY)
         end
         start_pos = start_pos + self.m_interval
     end
+end
+
+-------------------------------------
+-- function doAction
+-------------------------------------
+function ScrollMapLayer_doAction(self, action)
+    self.m_rootNode:runAction(action)
 end

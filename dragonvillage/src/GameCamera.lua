@@ -3,7 +3,7 @@ local MAX_SCALE = 4
 -------------------------------------
 -- class GameCamera
 -------------------------------------
-GameCamera = class({
+GameCamera = class(IEventDispatcher:getCloneClass(), {
 	m_world = 'GameWorld',
 	m_node = 'cc.Node',
 	m_cbActionEnd = 'function',
@@ -71,6 +71,8 @@ function GameCamera:setHomeInfo(tParam)
     self.m_homeScale = tParam['scale'] or self.m_homeScale
     self.m_homePosX = tParam['pos_x'] or self.m_homePosX
     self.m_homePosY = tParam['pos_y'] or self.m_homePosY
+
+    self:dispatch('camera_set_home', self.m_homePosX, self.m_homePosY)
 end
 
 -------------------------------------

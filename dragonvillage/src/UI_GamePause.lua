@@ -46,10 +46,13 @@ end
 -------------------------------------
 function UI_GamePause:click_retryButton()
     -- 현재 g_currScene은 SceneGame이어야 한다
-    local stage_id = g_currScene.m_stageID
-
-    local scene = SceneAdventure(stage_id)
-    scene:runScene()
+    if g_currScene:isNestDungeon() then
+        local scene = SceneGame(g_currScene.m_gameKey, g_currScene.m_stageID, g_currScene.m_stageName)
+        scene:runScene()
+    else
+        local scene = SceneAdventure(g_currScene.m_stageID)
+        scene:runScene()
+    end
 end
 
 -------------------------------------

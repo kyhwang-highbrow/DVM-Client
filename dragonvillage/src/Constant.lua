@@ -91,6 +91,15 @@ CENTER_POINT = cc.p(0.5, 0.5)
 MAX_DRAGON_GRADE = 6
 DEV_STAGE_ID = 99999
 
+-- stage type
+STAGE_TYPE =
+{
+    ADVENTURE = 1,
+    NEST_DRAGON = 2,
+    NEST_NIGHTMARE = 3,
+    NEST_TREE = 4,
+}
+
 -- state priority
 PRIORITY =
 {
@@ -211,5 +220,27 @@ function dragonAttributeName(rarity)
         return Str('빛')
     else
         error('rarity: ' .. rarity)
+    end
+end
+
+-------------------------------------
+-- function getStageType
+-- @brief 
+-------------------------------------
+function getStageType(stage_id)
+    local stage_id = tonumber(stage_id)
+
+    if (math_floor(stage_id / 10000) == 1) then
+        return STAGE_TYPE.ADVENTURE
+    else
+        local key =  math_floor(stage_id / 1000)
+
+        if key == 21 then
+            return STAGE_TYPE.NEST_DRAGON
+        elseif key == 22 then
+            return STAGE_TYPE.NEST_NIGHTMARE
+        elseif key == 23 then
+            return STAGE_TYPE.NEST_TREE
+        end
     end
 end

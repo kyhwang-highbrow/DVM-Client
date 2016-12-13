@@ -211,7 +211,7 @@ function SceneWaveMaker:prepare()
         self:init_layer()
 
         self.m_gameWorld = GameWorld(self.m_stageID, self.m_stageName, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
-        self.m_gameWorld:initWaveMgr(self.m_stageName, self.m_bDevelopMode)
+        self.m_gameWorld:initStage(self.m_stageName, self.m_bDevelopMode)
 		        
         local script = TABLE:loadJsonTable(self.m_stageName)
         local difficult = script['difficult'] or 1

@@ -120,9 +120,13 @@ function EnemyLua_Boss.st_dying(owner, dt)
     if (owner.m_stateTimer == 0) then
         -- 효과음
         if owner.m_charTable['rarity'] == 'boss' then
-            local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
+            if g_gameScene:isNestDungeon() then
+
+            else
+                local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
         
-            SoundMgr:playEffect('VOICE', string.format('vo_boss%d_die', chapter))
+                SoundMgr:playEffect('VOICE', string.format('vo_boss%d_die', chapter))
+            end
         end
     end
 
@@ -162,10 +166,13 @@ function EnemyLua_Boss.st_casting(owner, dt)
 
         -- 효과음
         if owner.m_charTable['rarity'] == 'boss' then
-            local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
-            local type = math_random(1, 2)
+            if g_gameScene:isNestDungeon() then
+            else
+                local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
+                local type = math_random(1, 2)
 
-            SoundMgr:playEffect('VOICE', string.format('vo_boss%d_skill_%d', chapter, type))
+                SoundMgr:playEffect('VOICE', string.format('vo_boss%d_skill_%d', chapter, type))
+            end
         end
     end
 end
@@ -318,10 +325,13 @@ function EnemyLua_Boss:cancelSkill()
     
     -- 보스별 음성
     if b and self.m_charTable['rarity'] == 'boss' then
-        local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
-        SoundMgr:stopEffect('VOICE', string.format('vo_boss%d_skill_1', chapter))
-        SoundMgr:stopEffect('VOICE', string.format('vo_boss%d_skill_2', chapter))
-        SoundMgr:playEffect('VOICE', string.format('vo_boss%d_skill_cancel', chapter))
+        if g_gameScene:isNestDungeon() then
+        else
+            local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
+            SoundMgr:stopEffect('VOICE', string.format('vo_boss%d_skill_1', chapter))
+            SoundMgr:stopEffect('VOICE', string.format('vo_boss%d_skill_2', chapter))
+            SoundMgr:playEffect('VOICE', string.format('vo_boss%d_skill_cancel', chapter))
+        end
     end
     
     return b

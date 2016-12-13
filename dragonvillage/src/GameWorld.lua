@@ -223,11 +223,14 @@ function GameWorld:addChild3(node, depth)
 end
 
 -------------------------------------
--- function initWaveMgr
+-- function initStage
 -------------------------------------
-function GameWorld:initWaveMgr(stage_name, develop_mode)
+function GameWorld:initStage(stage_name, develop_mode)
     self.m_waveMgr = WaveMgr(self, stage_name, develop_mode)
     self.m_waveMgr:addListener('change_wave', self)
+
+    -- 배경 생성
+    self:initBG(self.m_waveMgr.m_scriptData)
 end
 
 -------------------------------------
@@ -426,18 +429,13 @@ function GameWorld:makePassiveStartEffect(char, l_str)
 end
 
 -------------------------------------
--- function init_test
+-- function initGame
 -------------------------------------
-function GameWorld:init_test(deck_type)
-    if (deck_type == 'deck_5') then
-        self:changeWorldSize(1)
-    end
-
+function GameWorld:initGame()
+    self:changeWorldSize(1)
+        
     -- 위치 표시 이펙트 생성
     self:init_formation()
-
-    -- 배경 이미지 초기화
-    self:initBG()
 
     -- 덱에 셋팅된 드래곤 생성
     self:makeDragonDeck()
@@ -445,7 +443,7 @@ function GameWorld:init_test(deck_type)
     self.m_inGameUI:doActionReset()
 
     do -- 진형 시스템 초기화
-        self:getBattleZone('basic', true)
+        self:setBattleZone('basic', true)
     end
 
     do -- 스킬 조작계 초기화
@@ -496,8 +494,8 @@ end
 -------------------------------------
 -- function initBG
 -------------------------------------
-function GameWorld:initBG()
-    local t_script_data = self.m_waveMgr.m_scriptData
+function GameWorld:initBG(t_script_data)
+    local t_script_data = t_script_data or self.m_waveMgr.m_scriptData
 
     local bg = t_script_data['bg']
     local bg_type = t_script_data['bg_type'] or 'default'
@@ -510,11 +508,11 @@ function GameWorld:initBG()
         self.m_mapManager:setBg(bg)
         self.m_mapManager:setSpeed(-100)
         self.m_mapManager:setFuncGetCameraPosition(function()
-            return self.m_gameCamera:getPosition()
+            return self.m_gameCamera.m_node:getPosition()
         end)
 
         local difficulty, chapter, stage = parseAdventureID(self.m_stageID)
-        if chapter == 2 then
+        if (chapter == 2 and not g_gameScene:isNestDungeon()) then
             self.m_mapManager:setFloating(2)
         else
             self.m_mapManager:setFloating(1)
@@ -714,7 +712,7 @@ function GameWorld:removeHero(hero)
 			self.m_participants = {}
 			
 			self:makeDragonDeck()
-			self:getBattleZone('basic', true)
+			self:setBattleZone('basic', true)
 			
 			self:killAllEnemy()
 		else
@@ -1148,12 +1146,12 @@ function GameWorld:effectSyncPos(owner, effect, offset_x, offset_y)
 end
 
 -------------------------------------
--- function getBattleZone
--- @brief 전투영역 리턴
+-- function setBattleZone
+-- @brief 전투영역 설정
 -------------------------------------
-function GameWorld:getBattleZone(formation, immediately)
-    --cclog('GameWorld:getBattleZone formation = ' .. formation)
+function GameWorld:setBattleZone(formation, immediately)
     local script = TABLE:loadJsonTable('formation')
+    local t_camera = self.m_waveMgr.m_scriptData['camera']
     
     local start_x = 40
     local end_x = 40 + (80 * 6)
@@ -1173,6 +1171,11 @@ function GameWorld:getBattleZone(formation, immediately)
 
         --cclog('# pos_x, pos_y : ' .. pos_x .. ', ' .. pos_y)
 
+        if t_camera then
+            --pos_x = pos_x + t_camera['pos_x']
+            --pos_y = pos_y + t_camera['pos_y']
+        end
+
         v:setOrgHomePos(pos_x, pos_y)
 
         if immediately then
@@ -1182,6 +1185,11 @@ function GameWorld:getBattleZone(formation, immediately)
         else
             v:changeHomePos(pos_x, pos_y)
         end
+    end
+
+    if t_camera then
+        t_camera['time'] = 0
+        self:changeCameraOption(t_camera)
     end
 end
 
@@ -1378,6 +1386,18 @@ function GameWorld:changeCameraOption(tParam, bKeepHomePos)
 
     if not bKeepHomePos then
         self.m_gameCamera:setHomeInfo(tParam)
+
+        -- 아군 홈 위치를 카메라의 홈위치 기준으로 변경
+        for i, v in ipairs(self:getDragonList()) do
+            if (v.m_bDead == false) then
+                -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
+                local homePosX = v.m_orgHomePosX + tParam['pos_x']
+                local homePosY = v.m_orgHomePosY + tParam['pos_y']
+                local distance = getDistance(v.pos.x, v.pos.y, homePosX, homePosY)
+                
+                v:changeHomePos(homePosX, homePosY, distance / WAVE_INTERMISSION_TIME)
+            end
+        end
 
         -- 미사일 제한 범위 재설정
         self:setMissileRange()

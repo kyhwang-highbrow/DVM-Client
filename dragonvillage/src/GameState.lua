@@ -380,45 +380,21 @@ function GameState:update_wave_intermission(dt)
 	local speed = 0
 
     if (self.m_stateTimer == 0) then
-        local t_wave_data, is_final_wave = world.m_waveMgr:getNextWaveScriptData()
-        local t_camera_info = t_wave_data['camera'] or {}
-		
-		if (world.m_waveMgr.m_bDevelopMode == false) then 
-            local curCameraPosX, curCameraPosY = world.m_gameCamera:getHomePos()
-            local tRandomY = {}
-            for _, v in pairs({-300, 0, 300}) do
-                if v ~= curCameraPosY then
-                    table.insert(tRandomY, v)
-                end
-            end
+        -- 연출(카메라)
+        self:doDirectionForIntermission()
 
-            -- 랜덤하게 카메라 위치를 변경
-			t_camera_info['pos_x'] = curCameraPosX * t_camera_info['scale']
-			t_camera_info['pos_y'] = tRandomY[math_random(1, #tRandomY)] * t_camera_info['scale']
-			t_camera_info['time'] = WAVE_INTERMISSION_TIME
-        end
+        -- 0. 스킬 및 미사일을 날린다
+	    world:removeMissileAndSkill()
 
-        -- 아군
+        -- 변경된 카메라 위치에 맞게 아군 홈 위치 변경 및 이동
         for i, v in ipairs(world:getDragonList()) do
             if (v.m_bDead == false) then
-                -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
-                local homePosX = v.m_orgHomePosX + t_camera_info['pos_x']
-                local homePosY = v.m_orgHomePosY + t_camera_info['pos_y']
-                local distance = getDistance(v.pos.x, v.pos.y, homePosX, homePosY)
-                
-                v:changeHomePos(homePosX, homePosY, distance / WAVE_INTERMISSION_TIME)
                 v:changeStateWithCheckHomePos('idle')
-
+                
                 -- 잔상 연출 활성화
                 v:setAfterImage(true)
             end
         end
-
-        -- 카메라 액션 설정
-        world:changeCameraOption(t_camera_info)
-
-        -- 0. 스킬 및 미사일을 날린다
-	    world:removeMissileAndSkill()
     end
 
 	-- 1. 전환 시간 2/3 지점까지 비교적 완만하게 빨라짐
@@ -1064,6 +1040,49 @@ function GameState:waveChange()
         error()
 
     end
+end
+
+-------------------------------------
+-- function doDirectionForIntermission
+-------------------------------------
+function GameState:doDirectionForIntermission()
+    local world = self.m_world
+    local map_mgr = world.m_mapManager
+
+    local t_wave_data, is_final_wave = world.m_waveMgr:getNextWaveScriptData()
+    local t_camera_info = t_wave_data['camera'] or {}
+    local curCameraPosX, curCameraPosY = world.m_gameCamera:getHomePos()
+		
+	if (world.m_waveMgr.m_bDevelopMode == false) then
+        if g_gameScene:isNestDungeon() then
+            t_camera_info['pos_x'] = t_camera_info['pos_x'] * t_camera_info['scale']
+			t_camera_info['pos_y'] = t_camera_info['pos_y'] * t_camera_info['scale']
+			t_camera_info['time'] = WAVE_INTERMISSION_TIME
+
+            -- 네스트별 연출
+            if getStageType(world.m_stageID) == STAGE_TYPE.NEST_DRAGON then
+                if is_final_wave then
+                    map_mgr:doOption('nest_dragon')
+                end
+            else
+            end
+        else
+            local tRandomY = {}
+            for _, v in pairs({-300, 0, 300}) do
+                if v ~= curCameraPosY then
+                    table.insert(tRandomY, v)
+                end
+            end
+
+            -- 랜덤하게 카메라 위치를 변경
+			t_camera_info['pos_x'] = curCameraPosX * t_camera_info['scale']
+			t_camera_info['pos_y'] = tRandomY[math_random(1, #tRandomY)] * t_camera_info['scale']
+			t_camera_info['time'] = WAVE_INTERMISSION_TIME
+        end
+    end
+        
+    -- 카메라 액션 설정
+    world:changeCameraOption(t_camera_info)
 end
 
 -------------------------------------

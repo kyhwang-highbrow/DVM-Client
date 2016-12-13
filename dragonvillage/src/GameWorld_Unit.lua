@@ -129,6 +129,7 @@ function GameWorld:tryPatternMonster(t_monster, body)
     local script_name = 'pattern_' .. rarity .. '_' .. type    
 
     -- 임시 구현
+    --[[
     if (type == 'giantdragon') then
         local monster = Monster_GiantDragon(t_monster['res'], body)
         monster:initAnimatorMonster(t_monster['res'], t_monster['attr'])
@@ -136,6 +137,7 @@ function GameWorld:tryPatternMonster(t_monster, body)
 
         return monster
     end
+    ]]--
 
     -- 테이블이 없을 경우 return
     local script = TABLE:loadJsonTable(script_name)

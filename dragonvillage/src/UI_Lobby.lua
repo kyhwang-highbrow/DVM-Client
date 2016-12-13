@@ -57,6 +57,7 @@ function UI_Lobby:initButton()
     vars['adventureBtn']:registerScriptTapHandler(function() self:click_adventureBtn() end)
     vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end)
     vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
+    vars['nestButton']:registerScriptTapHandler(function() self:click_nestBtn() end)
 end
 
 -------------------------------------
@@ -143,6 +144,14 @@ end
 -------------------------------------
 function UI_Lobby:click_shopBtn()
     UI_ShopPopup()
+end
+
+-------------------------------------
+-- function click_nestBtn
+-------------------------------------
+function UI_Lobby:click_nestBtn()
+    local scene = SceneGame(nil, 21301, 'stage_21301', false)
+    scene:runScene()
 end
 
 -------------------------------------
