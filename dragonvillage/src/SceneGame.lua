@@ -396,7 +396,7 @@ end
 -- @breif
 -------------------------------------
 function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
-    if (self.m_stageID == DEV_STAGE_ID) then
+    if (self.m_stageID == DEV_STAGE_ID) or self:isNestDungeon() then
         if next_func then
             next_func()
         end
