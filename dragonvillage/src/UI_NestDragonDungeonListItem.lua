@@ -1,4 +1,4 @@
-local PARENT = UI
+local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 -------------------------------------
 -- class UI_NestDragonDungeonListItem
@@ -23,6 +23,7 @@ end
 -- function initUI
 -------------------------------------
 function UI_NestDragonDungeonListItem:initUI(t_data)
+    --[[
     local vars = self.vars
     do -- lockSprite 지정
         vars['lockSprite']:setVisible(not t_data['open'])
@@ -52,6 +53,7 @@ function UI_NestDragonDungeonListItem:initUI(t_data)
         icon:setPositionY(30)
         self.root:addChild(icon)
     end
+    --]]
 end
 
 -------------------------------------

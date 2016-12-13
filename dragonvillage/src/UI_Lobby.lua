@@ -54,10 +54,10 @@ end
 -------------------------------------
 function UI_Lobby:initButton()
     local vars = self.vars
+    vars['nestButton']:registerScriptTapHandler(function() self:click_nestBtn() end)
     vars['adventureBtn']:registerScriptTapHandler(function() self:click_adventureBtn() end)
     vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end)
     vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
-    vars['nestButton']:registerScriptTapHandler(function() self:click_nestBtn() end)
 end
 
 -------------------------------------
@@ -124,6 +124,31 @@ function UI_Lobby:click_adventureBtn()
 end
 
 -------------------------------------
+-- function click_nestBtn
+-------------------------------------
+function UI_Lobby:click_nestBtn()
+    if true then
+        local scene = SceneGame(nil, 21301, 'stage_21301', false)
+        scene:runScene()
+        return
+    end
+
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        local scene = SceneCommon(UI_NestDungeonScene)
+        scene:runScene()
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/nest/info')
+    ui_network:setParam('uid', uid)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
+end
+
+-------------------------------------
 -- function click_dragonManageBtn
 -------------------------------------
 function UI_Lobby:click_dragonManageBtn()
@@ -144,14 +169,6 @@ end
 -------------------------------------
 function UI_Lobby:click_shopBtn()
     UI_ShopPopup()
-end
-
--------------------------------------
--- function click_nestBtn
--------------------------------------
-function UI_Lobby:click_nestBtn()
-    local scene = SceneGame(nil, 21301, 'stage_21301', false)
-    scene:runScene()
 end
 
 -------------------------------------

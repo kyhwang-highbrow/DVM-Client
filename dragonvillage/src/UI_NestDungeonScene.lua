@@ -1,10 +1,12 @@
-local PARENT = UI
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
 -- class UI_NestDungeonScene
 -------------------------------------
-UI_NestDungeonScene = class(PARENT, ITopUserInfo_EventListener:getCloneTable(), {
-})
+UI_NestDungeonScene = class(PARENT, {
+        m_tableView = 'UIC_TableView', -- 네스트 던전의 세부 모드들 리스트
+        m_selectNestDungeonInfo = 'table', -- 현재 선택된 세부 모드
+    })
 
 -------------------------------------
 -- function init
@@ -18,12 +20,14 @@ function UI_NestDungeonScene:init()
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
-    self:doActionReset()
-    self:doAction(nil, false)
+    --self:doActionReset()
+    --self:doAction(nil, false)
 
     self:initUI()
     self:initButton()
     self:refresh()
+
+    self:sceneFadeInAction()
 end
 
 -------------------------------------
@@ -48,7 +52,7 @@ function UI_NestDungeonScene:close()
     end
 
     -- @ui_actions
-    self:doActionReverse(finish_cb, 0.5, false)
+    --self:doActionReverse(finish_cb, 0.5, false)
 end
 
 -------------------------------------
@@ -57,77 +61,22 @@ end
 function UI_NestDungeonScene:initUI()
     local vars = self.vars
 
-    do -- infoLabel
-        vars['infoLabel']:setString(Str('시련에 따라 다른 속성의 진화석을 얻을 수 있습니다.'))
+    do
+        local node = vars['listTableNode']
+
+        local function create_func(ui, data, key)
+            ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dungeonBtn(ui, data, key) end)
+        end
+
+        local table_view = UIC_TableView(node)
+        table_view.m_defaultCellSize = cc.size(230, 438)
+        table_view:setCellUIClass(UI_NestDragonDungeonListItem, create_func)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+        table_view:setItemList({1,2,3,4,5,6})
+
+        self.m_tableView = table_view
     end
 
-    do -- listTableNode
-        local list_table_node = vars['listTableNode']
-
-        -- # 용 던전 개발에 필요함 사항
-        -- 1. 현재 요일을 얻어오는 함수가 필요함
-        -- 2. 던전 오픈 정보가 필요함
-        -- 3. 요일 정보 sunday, monday, tuesday, wednesday, thursday, friday, saturday
-        -- 4. 속성 정보 fire, water, wind, earth, light, dark
-        -- 5. 정렬 정보 (1순위 : 오픈 여부, 2순위 : 정렬 순서)
-
-        local function makeDungeonInfo(sort_idx, attr, open_days, desc, stage_id)
-            local t_dragon_dungeon_info = {}
-            t_dragon_dungeon_info['sort_idx'] = sort_idx
-            t_dragon_dungeon_info['attr'] = attr
-            t_dragon_dungeon_info['open_days'] = open_days
-            t_dragon_dungeon_info['desc'] = desc
-            t_dragon_dungeon_info['stage_id'] = stage_id
-            t_dragon_dungeon_info['open'] = false
-
-            local l_days = {sun=1, mon=2, tue=3, wed=4, thu=5, fri=6, sat=7}
-            local day_of_week = os.date("*t").wday
-
-            for i,v in ipairs(open_days) do
-                if (day_of_week == l_days[v]) then
-                    t_dragon_dungeon_info['open'] = true
-                    break
-                end
-            end
-
-            return t_dragon_dungeon_info
-        end
-
-        local l_dragon_dungeon_info = {}
-        l_dragon_dungeon_info[1] = makeDungeonInfo(1, 'fire', {'tue', 'wed', 'sat'}, Str('화/수/토 오픈'), 11011)
-        l_dragon_dungeon_info[2] = makeDungeonInfo(2, 'water', {'wed', 'thu', 'sun'}, Str('수/목/일 오픈'), 11011)
-        l_dragon_dungeon_info[3] = makeDungeonInfo(3, 'earth', {'mon', 'tue', 'sat'}, Str('월/화/토 오픈'), 11011)
-        l_dragon_dungeon_info[4] = makeDungeonInfo(4, 'wind', {'thu', 'fri', 'sun'}, Str('목/금/일 오픈'), 11011)
-        l_dragon_dungeon_info[5] = makeDungeonInfo(5, 'light', {'sun'}, Str('일요일 오픈'), 11011)
-        l_dragon_dungeon_info[6] = makeDungeonInfo(6, 'dark', {'sat'}, Str('토요일 오픈'), 11011)
-
-        local function click_dragon_item(item)
-            self:click_dragonDungeonBtn(item)
-        end
-
-        -- 테이블뷰 초기화
-        local table_view_ext = TableViewExtension(list_table_node)
-        table_view_ext:setCellInfo(230, 438)
-        table_view_ext:setItemUIClass(UI_NestDragonDungeonListItem, click_dragon_item) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
-        table_view_ext:setItemInfo(l_dragon_dungeon_info)
-        --table_view_ext:update()
-
-        -- 정렬
-        local function default_sort_func(a, b)
-            local a = a['data']
-            local b = b['data']
-
-            -- 1. 오픈된게 우선
-            if (a['open'] ~= b['open']) then
-                return a['open']
-            end
-
-            -- 2. sort_idx가 낮은게 우선
-            return a['sort_idx'] < b['sort_idx']
-        end
-        table_view_ext:insertSortInfo('default', default_sort_func)
-        table_view_ext:sortTableView('default')
-    end
 end
 
 -------------------------------------
@@ -135,9 +84,6 @@ end
 -------------------------------------
 function UI_NestDungeonScene:initButton()
     local vars = self.vars
-    vars['dragonBtn']:setEnabled(false)
-    vars['giantBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"거목 던전" 미구현') end)
-    vars['secretBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"비밀 던전" 미구현') end)
 end
 
 -------------------------------------
@@ -150,22 +96,99 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_NestDungeonScene:click_exitBtn()
+    if self.m_selectNestDungeonInfo then
+        self:closeSubMenu()
+        return
+    end
+
     local scene = SceneLobby()
     scene:runScene()
 end
 
--------------------------------------
--- function click_dragonDungeonBtn
--------------------------------------
-function UI_NestDungeonScene:click_dragonDungeonBtn(item)
-    local t_data = item['data']
 
-    if (t_data['open'] == false) then
-        UIManager:toastNotificationRed(t_data['desc'])
+-------------------------------------
+-- function click_dungeonBtn
+-------------------------------------
+function UI_NestDungeonScene:click_dungeonBtn(ui, data, key)
+    if self.m_selectNestDungeonInfo then
+        self:closeSubMenu()
         return
     end
 
-    UI_NestDungeonStageSelectPopup()
+    local node = ui.root
+
+    local x, y = node:getPosition()
+    local world_pos = node:getParent():convertToWorldSpace(cc.p(x, y))
+
+    local node_pos = self.root:convertToNodeSpace(world_pos)
+
+
+    -- root로 옮김
+    node:retain()
+    node:removeFromParent()
+    node:setPosition(node_pos['x'], node_pos['y'])
+
+    self.root:addChild(node)
+    node:release()
+
+    local t_item = self.m_tableView:getItem(key)
+    t_item['ui'] = nil
+
+    ui:cellMoveTo(0.5, cc.p(150, 246))
+
+    self.vars['listTableNode']:setVisible(false)
+
+    self.m_selectNestDungeonInfo = {ui=ui, key=key}
+end
+
+-------------------------------------
+-- function click_dungeonBtn2
+-------------------------------------
+function UI_NestDungeonScene:closeSubMenu()
+
+    if (not self.m_selectNestDungeonInfo) then
+        return
+    end
+
+    local ui = self.m_selectNestDungeonInfo['ui']
+    local key = self.m_selectNestDungeonInfo['key']
+    self.m_selectNestDungeonInfo = nil
+
+
+    local node = ui.root
+
+    local x, y = node:getPosition()
+    local world_pos = node:getParent():convertToWorldSpace(cc.p(x, y))
+
+    local container = self.m_tableView.m_scrollView:getContainer()
+    local node_pos = container:convertToNodeSpace(world_pos)
+
+    node:retain()
+    node:removeFromParent()
+    node:setPosition(node_pos['x'], node_pos['y'])
+
+    container:addChild(node)
+    node:release()
+
+    local t_item = self.m_tableView:getItem(key)
+    t_item['ui'] = ui
+    local data = t_item['data']
+
+    self.m_tableView:expandTemp(0.5)
+
+    self.vars['listTableNode']:setVisible(true)
+
+
+    for i,v in ipairs(self.m_tableView.m_itemList) do
+        if (v['unique_id'] ~= key) then
+            
+            v['ui'].root:setScale(0)
+            local scale_to = cc.ScaleTo:create(0.25, 1)
+            local action = cc.EaseInOut:create(scale_to, 2)
+            local sequence = cc.Sequence:create(cc.DelayTime:create(0.3 + (i-1) * 0.02), action)
+            v['ui'].root:runAction(sequence)
+        end
+    end
 end
 
 
