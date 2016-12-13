@@ -91,7 +91,7 @@ function UIC_TableViewCore:update(dt)
         if self.m_makeReserveQueue[1] then
             local t_item = self.m_makeReserveQueue[1]
             local data = t_item['data']
-            t_item['ui'] = self:makeItemUI(data)
+            t_item['ui'] = self:makeItemUI(data, t_item['unique_id'])
             local idx = t_item['idx']
             self:updateCellAtIndex(idx)
             
@@ -454,7 +454,7 @@ function UIC_TableViewCore:setItemList(list, skip_update, make_item)
 
         -- UI를 미리 생성
         if make_item then
-            t_item['ui'] = self:makeItemUI(data)
+            t_item['ui'] = self:makeItemUI(data, key)
         end
 
         -- 리스트에 추가
@@ -537,7 +537,7 @@ function UIC_TableViewCore:clearItemList()
         for i,v in ipairs(self.m_itemList) do
             if v['ui'] then
                 v['ui'].root:removeFromParent()
-                v['ui'].root:release()
+                --v['ui'].root:release()
             end
         end
     end
@@ -605,9 +605,9 @@ end
 -------------------------------------
 -- function makeItemUI
 -------------------------------------
-function UIC_TableViewCore:makeItemUI(data)
+function UIC_TableViewCore:makeItemUI(data, key)
     local ui = UIC_TableViewCell(data)
-    ui.root:retain()
+    --ui.root:retain()
 
     self.m_scrollView:addChild(ui.root)
 

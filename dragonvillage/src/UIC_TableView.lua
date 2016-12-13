@@ -33,7 +33,7 @@ end
 -------------------------------------
 -- function makeItemUI
 -------------------------------------
-function UIC_TableView:makeItemUI(data)
+function UIC_TableView:makeItemUI(data, key)
     local ui = self.m_cellUIClass(data)
     ui.root:setSwallowTouch(false)
     ui.root:setDockPoint(cc.p(0, 0))
@@ -43,7 +43,7 @@ function UIC_TableView:makeItemUI(data)
     self.m_scrollView:addChild(ui.root)
 
     if self.m_cellUICreateCB then
-        self.m_cellUICreateCB(ui, data)
+        self.m_cellUICreateCB(ui, data, key)
     end
 
     local scale = ui.root:getScale()
