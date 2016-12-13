@@ -175,7 +175,7 @@ function UI_DragonManageTrain:int_trainSlotTableView(t_dragon_data)
 
     -- 아이템 리스트 설정
     local l_item_list = self:makeDragonSlotDataList(t_dragon_data)
-    ui:setItemList(l_item_list)
+    ui:setItemList(l_item_list, false, true)
 
     ui:setExpand(false)
 

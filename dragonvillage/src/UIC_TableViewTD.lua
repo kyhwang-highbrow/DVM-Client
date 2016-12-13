@@ -21,6 +21,9 @@ UIC_TableViewTD = class(PARENT, {
         m_cellUICreateCB = 'function',
         m_nItemPerCell = 'number',
         m_bFirstLocation = 'boolean',
+
+        m_makeReserveQueue = 'stack',
+        m_makeTimer = 'number',
     })
 
 -------------------------------------
@@ -48,6 +51,10 @@ function UIC_TableViewTD:init(node)
         self.m_lSortInfo = {}
         self.m_currSortType = nil
     end
+
+    -- UI생성 큐
+    self.m_makeReserveQueue = {}
+    self.m_makeTimer = 0
 end
 
 -------------------------------------
@@ -75,6 +82,29 @@ function UIC_TableViewTD:makeScrollView(size)
     scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
     self.m_node:addChild(scroll_view)
+
+    scroll_view:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UIC_TableViewTD:update(dt)
+    self.m_makeTimer = (self.m_makeTimer - dt)
+    if (self.m_makeTimer <= 0) then
+        
+        if self.m_makeReserveQueue[1] then
+            local t_item = self.m_makeReserveQueue[1]
+            local data = t_item['data']
+            t_item['ui'] = self:makeItemUI(data)
+            local idx = t_item['idx']
+            self:updateCellAtIndex(idx)
+            
+            table.remove(self.m_makeReserveQueue, 1)
+        end
+
+        self.m_makeTimer = 0.03
+    end
 end
 
 -------------------------------------
@@ -136,7 +166,7 @@ end
 -------------------------------------
 -- function scrollViewDidScroll
 -------------------------------------
-function UIC_TableViewTD:scrollViewDidScroll()
+function UIC_TableViewTD:scrollViewDidScroll(scroll_view)
     local lineCount = self:getLineCount()
 
     if (0 == lineCount) then
@@ -227,10 +257,22 @@ function UIC_TableViewTD:scrollViewDidScroll()
         local t_item = self.m_itemList[i]
 
         if (not t_item['ui']) then
-            local data = t_item['data']
-            t_item['ui'] = self:makeItemUI(data)
-            local idx = t_item['idx']
-            self:updateCellAtIndex(idx)
+
+            -- 최초 생성 시 즉시 생성
+            --if self.m_bFirstLocation then
+            if false then
+                local data = t_item['data']
+                t_item['ui'] = self:makeItemUI(data)
+                local idx = t_item['idx']
+                self:updateCellAtIndex(idx)
+
+            -- 이후 생성 시
+            else
+                if (not t_item['reserved']) then
+                    table.insert(self.m_makeReserveQueue, t_item)
+                    t_item['reserved'] = true
+                end
+            end
         else
             t_item['ui']:setCellVisible(true)
         end
@@ -318,7 +360,15 @@ function UIC_TableViewTD:_offsetFromIndex(index)
 
     local cellSize = self.m_cellSize
 
-    offset['y'] = self.m_scrollView:getContainer():getContentSize()['height'] - offset['y'] - cellSize['height']
+    local container_size = self.m_scrollView:getContainer():getContentSize()
+
+    offset['y'] = container_size['height'] - offset['y'] - cellSize['height']
+
+    do -- 가운데 정렬을 위해
+        offset['x'] = offset['x'] + (cellSize['width'] / 2)
+        offset['y'] = offset['y'] + (cellSize['height'] / 2)
+    end
+
     return offset
 end
 
@@ -359,7 +409,7 @@ end
 -- function setItemList
 -- @brief list는 key값이 고유해야 하며, value로는 UI생성에 필요한 데이터가 있어야 한다
 -------------------------------------
-function UIC_TableViewTD:setItemList(list, skip_update)
+function UIC_TableViewTD:setItemList(list, skip_update, make_item)
     self:clearItemList()
 
     for key,data in pairs(list) do
@@ -370,7 +420,9 @@ function UIC_TableViewTD:setItemList(list, skip_update)
         local idx = #self.m_itemList + 1
 
         -- UI를 미리 생성
-        --t_item['ui'] = self:makeItemUI(data)
+        if make_item then
+            t_item['ui'] = self:makeItemUI(data)
+        end
 
         -- 리스트에 추가
         table.insert(self.m_itemList, t_item)
@@ -386,9 +438,8 @@ function UIC_TableViewTD:setItemList(list, skip_update)
     self:_updateLinePositions()
     self:_updateContentSize()
 
-    self:relocateContainerDefault()
-
-    self:scrollViewDidScroll()
+    --self:relocateContainerDefault()
+    --self:scrollViewDidScroll()
 end
 
 -------------------------------------
@@ -435,7 +486,7 @@ function UIC_TableViewTD:clearItemList()
         for i,v in ipairs(self.m_itemList) do
             if v['ui'] then
                 v['ui'].root:removeFromParent()
-                v['ui'].root:release()
+                --v['ui'].root:release()
             end
         end
     end
@@ -443,6 +494,7 @@ function UIC_TableViewTD:clearItemList()
     self.m_itemList = {}
     self.m_itemMap = {}
     self._cellsUsed = {}
+    self.m_makeReserveQueue = {}
 end
 
 -------------------------------------
@@ -473,7 +525,11 @@ function UIC_TableViewTD:expandTemp(duration)
 
     self:_updateLinePositions()
     self:_updateContentSize(true)
-    self:scrollViewDidScroll(true)
+
+    -- Item UI를 즉시 생성하기 위해  m_bFirstLocation를 true로 설정
+    self.m_bFirstLocation = true
+    self:scrollViewDidScroll()
+    self.m_bFirstLocation = false
 
     -- 변경 후 보여질 애들 리스트
     for i,v in ipairs(self._cellsUsed) do
@@ -483,7 +539,9 @@ function UIC_TableViewTD:expandTemp(duration)
 
     -- 눈에 보여지도록 추가
     for i,v in pairs(l_visible_cells) do
-        v['ui']:cellVisibleRetain(duration)
+        if v['ui'] then
+            v['ui']:cellVisibleRetain(duration)
+        end
     end
 
     -- cell들 이동
@@ -512,8 +570,8 @@ function UIC_TableViewTD:makeItemUI(data)
     local ui = self.m_cellUIClass(data)
     ui.root:setSwallowTouch(false)
     ui.root:setDockPoint(cc.p(0, 0))
-    ui.root:setAnchorPoint(cc.p(0, 0))
-    ui.root:retain()
+    ui.root:setAnchorPoint(cc.p(0.5, 0.5))
+    --ui.root:retain()
 
     self.m_scrollView:addChild(ui.root)
 
@@ -522,7 +580,7 @@ function UIC_TableViewTD:makeItemUI(data)
     end
 
     local scale = ui.root:getScale()
-    ui.root:setScale(0)
+    ui.root:setScale(scale * 0.2)
     local scale_to = cc.ScaleTo:create(0.25, scale)
     local action = cc.EaseInOut:create(scale_to, 2)
     ui.root:runAction(action)
@@ -617,12 +675,21 @@ function UIC_TableViewTD:delItem(unique_id)
         local ui = t_item['ui']
         if ui then
             ui.root:removeFromParent()
-            ui.root:release()
+            --ui.root:release()
             t_item['ui'] = nil
 
+            -- _cellsUsed에서 삭제
             for i, v in ipairs(self._cellsUsed) do
                 if v['idx'] == t_item['idx'] then
                     table.remove(self._cellsUsed, i)
+                    break
+                end
+            end
+
+            -- 생성 예약 리스트에서 삭제
+            for i, v in ipairs(self.m_makeReserveQueue) do
+                if (t_item == v) then
+                    table.remove(self.m_makeReserveQueue, i)
                     break
                 end
             end

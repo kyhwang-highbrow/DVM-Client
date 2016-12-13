@@ -37,7 +37,7 @@ function UIC_TableView:makeItemUI(data)
     local ui = self.m_cellUIClass(data)
     ui.root:setSwallowTouch(false)
     ui.root:setDockPoint(cc.p(0, 0))
-    ui.root:setAnchorPoint(cc.p(0, 0))
+    ui.root:setAnchorPoint(cc.p(0.5, 0.5))
     ui.root:retain()
 
     self.m_scrollView:addChild(ui.root)
@@ -47,7 +47,7 @@ function UIC_TableView:makeItemUI(data)
     end
 
     local scale = ui.root:getScale()
-    ui.root:setScale(0)
+    ui.root:setScale(scale * 0.2)
     local scale_to = cc.ScaleTo:create(0.25, scale)
     local action = cc.EaseInOut:create(scale_to, 2)
     ui.root:runAction(action)
@@ -148,6 +148,22 @@ function UIC_TableView:delItem(unique_id)
             for i, v in ipairs(self._cellsUsed) do
                 if v['idx'] == t_item['idx'] then
                     table.remove(self._cellsUsed, i)
+                    break
+                end
+            end
+
+            -- _cellsUsed에서 삭제
+            for i, v in ipairs(self._cellsUsed) do
+                if v['idx'] == t_item['idx'] then
+                    table.remove(self._cellsUsed, i)
+                    break
+                end
+            end
+
+            -- 생성 예약 리스트에서 삭제
+            for i, v in ipairs(self.m_makeReserveQueue) do
+                if (t_item == v) then
+                    table.remove(self.m_makeReserveQueue, i)
                     break
                 end
             end

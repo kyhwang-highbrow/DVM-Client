@@ -76,3 +76,29 @@ function Stopwatch:print()
 
     cclog('#######################')
 end
+
+-------------------------------------
+-- function StopwatchSample
+-------------------------------------
+function StopwatchSample()
+    local stopwatch = Stopwatch()
+    stopwatch:start()
+    
+    for i=1, 1000 do
+        local temp = math_random(1, 1000) * math_random(1, 1000)
+        local temp2 = temp * temp
+        cclog(temp2)
+    end
+    stopwatch:record('first')
+
+    for i=1, 1000 do
+        local temp = math_random(1, 1000) * math_random(1, 1000)
+        local temp2 = temp * temp
+        cclog(temp2)
+    end
+    stopwatch:record('seconds')
+
+    stopwatch:stop()
+    stopwatch:print()
+
+end

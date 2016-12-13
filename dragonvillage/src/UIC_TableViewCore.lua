@@ -20,6 +20,9 @@ UIC_TableViewCore = class(PARENT, {
 
         _direction = '',
         _vordering = 'VerticalFillOrder',
+
+        m_makeReserveQueue = 'stack',
+        m_makeTimer = 'number',
     })
 
 -------------------------------------
@@ -42,6 +45,10 @@ function UIC_TableViewCore:init(node)
     -- 스크롤 뷰 생성
     local content_size = node:getContentSize()
     self:makeScrollView(content_size)
+
+    -- UI생성 큐
+    self.m_makeReserveQueue = {}
+    self.m_makeTimer = 0
 end
 
 -------------------------------------
@@ -70,6 +77,29 @@ function UIC_TableViewCore:makeScrollView(size)
     --self:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
     self.m_node:addChild(scroll_view)
+
+    scroll_view:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UIC_TableViewCore:update(dt)
+    self.m_makeTimer = (self.m_makeTimer - dt)
+    if (self.m_makeTimer <= 0) then
+        
+        if self.m_makeReserveQueue[1] then
+            local t_item = self.m_makeReserveQueue[1]
+            local data = t_item['data']
+            t_item['ui'] = self:makeItemUI(data)
+            local idx = t_item['idx']
+            self:updateCellAtIndex(idx)
+            
+            table.remove(self.m_makeReserveQueue, 1)
+        end
+
+        self.m_makeTimer = 0.03
+    end
 end
 
 -------------------------------------
@@ -222,10 +252,18 @@ function UIC_TableViewCore:scrollViewDidScroll()
         local t_item = self.m_itemList[i]
 
         if (not t_item['ui']) then
+
+            if (not t_item['reserved']) then
+                table.insert(self.m_makeReserveQueue, t_item)
+                t_item['reserved'] = true
+            end
+
+            --[[
             local data = t_item['data']
             t_item['ui'] = self:makeItemUI(data)
             local idx = t_item['idx']
             self:updateCellAtIndex(idx)
+            --]]
         else
             t_item['ui']:setCellVisible(true)
         end
@@ -342,6 +380,12 @@ function UIC_TableViewCore:_offsetFromIndex(index)
     if (self._vordering == VerticalFillOrder['TOP_DOWN']) then
         offset['y'] = self.m_scrollView:getContainer():getContentSize()['height'] - offset['y'] - cellSize['height']
     end
+
+    do -- 가운데 정렬을 위해
+        offset['x'] = offset['x'] + (cellSize['width'] / 2)
+        offset['y'] = offset['y'] + (cellSize['height'] / 2)
+    end
+
     return offset
 end
 
@@ -398,7 +442,7 @@ end
 -- function setItemList
 -- @brief list는 key값이 고유해야 하며, value로는 UI생성에 필요한 데이터가 있어야 한다
 -------------------------------------
-function UIC_TableViewCore:setItemList(list, skip_update)
+function UIC_TableViewCore:setItemList(list, skip_update, make_item)
     self:clearItemList()
 
     for key,data in pairs(list) do
@@ -409,7 +453,9 @@ function UIC_TableViewCore:setItemList(list, skip_update)
         local idx = #self.m_itemList + 1
 
         -- UI를 미리 생성
-        --t_item['ui'] = self:makeItemUI(data)
+        if make_item then
+            t_item['ui'] = self:makeItemUI(data)
+        end
 
         -- 리스트에 추가
         table.insert(self.m_itemList, t_item)
@@ -539,7 +585,9 @@ function UIC_TableViewCore:expandTemp(duration)
 
     -- 눈에 보여지도록 추가
     for i,v in pairs(l_visible_cells) do
-        v['ui']:cellVisibleRetain(duration)
+        if v['ui'] then
+            v['ui']:cellVisibleRetain(duration)
+        end
     end
 
     -- cell들 이동

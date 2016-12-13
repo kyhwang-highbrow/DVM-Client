@@ -160,7 +160,7 @@ function UI_ReadyScene:init_dragonTableView()
 
     -- 리스트 설정
     local l_dragon_list = g_dragonsData:getDragonsList()
-    table_view_td:setItemList(l_dragon_list)
+    table_view_td:setItemList(l_dragon_list, true)
 
     self.m_tableViewExt = table_view_td
 end

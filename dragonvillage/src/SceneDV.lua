@@ -20,7 +20,16 @@ end
 -------------------------------------
 function SceneDV:onEnter()
     PerpleScene.onEnter(self)
-	g_currScene:addKeyKeyListener(self)
+	
+    --self:performanceTest()
+    self:tableViewTDDevelopment()
+end
+
+-------------------------------------
+-- function performanceTest
+-------------------------------------
+function SceneDV:performanceTest()
+    g_currScene:addKeyKeyListener(self)
 	self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 	cc.Director:getInstance():setDisplayStats(true)
 end
@@ -128,4 +137,46 @@ function SceneDV:onKeyReleased(keyCode, event)
 		end
 		self.m_lSpineAni = {}
 	end
+end
+
+-------------------------------------
+-- function tableViewTDDevelopment
+-------------------------------------
+function SceneDV:tableViewTDDevelopment()
+
+    -- fps를 활용할 수 있도록
+    cc.Director:getInstance():setDisplayStats(true)
+
+    -- 세이브파일에 저장된 유저데이터를 사용하기 위해서 초기화
+    ServerData:getInstance()
+
+    -- 테이블뷰의 부모노드 생성
+    local parent_node = cc.Scale9Sprite:create('res/ui/frame/base_frame_01.png')
+    parent_node:setDockPoint(cc.p(0.5, 0.5))
+    parent_node:setAnchorPoint(cc.p(0.5, 0.5))
+    self.m_scene:addChild(parent_node)
+    parent_node:setNormalSize(800, 600)
+
+    -- 아이템 리스트
+    local item_list = g_dragonsData:getDragonsList()
+
+    -- 생성 시 함수
+    local function create_func(ui, data)
+    end
+
+    local stopwatch = Stopwatch()
+    stopwatch:start()
+
+    -- 테이블뷰 생성 TD
+    local table_view = UIC_TableViewTD(parent_node)
+    table_view.m_cellSize = cc.size(150, 150)
+    table_view.m_nItemPerCell = 4
+    table_view:setCellUIClass(UI_DragonCard, create_func)
+    table_view:setItemList(item_list)
+
+    stopwatch:stop()
+    stopwatch:print()
+
+    local item_count = table_view:getItemCount()
+    cclog(item_count)
 end

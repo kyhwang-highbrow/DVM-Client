@@ -32,7 +32,7 @@ function UIC_TableView_TrainSlotList:makeItemUI(data)
     local ui = UI_DragonTrainSlot_ListItem(data)
     ui.root:retain()
     ui.root:setDockPoint(cc.p(0, 0))
-    ui.root:setAnchorPoint(cc.p(0, 0))
+    ui.root:setAnchorPoint(cc.p(0.5, 0.5))
 
     ui.vars['trainButtonA']:getParent():setSwallowTouch(false)
     ui.vars['trainButtonB']:getParent():setSwallowTouch(false)
