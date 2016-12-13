@@ -312,6 +312,16 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
     if (not attack_value.dir_array) then
         attack_value.dir_array = {0}
     end
+	
+	-- count 수 만큼 random 하게 dir 생성
+	if (attack_value.dir_array[1] == 'random') then
+		local start_num = attack_value.dir_array[2] or 0
+		local end_num = attack_value.dir_array[3] or 360
+		attack_value.dir_array = {}
+		for i = 1, attack_value.count do
+			table.insert(attack_value.dir_array, math_random(start_num, end_num))
+		end
+	end
 
 	for i=1, #attack_value.dir_array do
 		local t_option = {}
