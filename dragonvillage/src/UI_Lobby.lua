@@ -54,8 +54,13 @@ end
 -------------------------------------
 function UI_Lobby:initButton()
     local vars = self.vars
-    vars['nestButton']:registerScriptTapHandler(function() self:click_nestBtn() end)
+    
     vars['adventureBtn']:registerScriptTapHandler(function() self:click_adventureBtn() end)
+    vars['nestButton']:registerScriptTapHandler(function()
+            local scene = SceneGame(nil, 21301, 'stage_21301', false)
+            scene:runScene()
+        end)
+    vars['nestUIBtn']:registerScriptTapHandler(function() self:click_nestBtn() end)
     vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end)
     vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
 end
@@ -127,12 +132,6 @@ end
 -- function click_nestBtn
 -------------------------------------
 function UI_Lobby:click_nestBtn()
-    if true then
-        local scene = SceneGame(nil, 21301, 'stage_21301', false)
-        scene:runScene()
-        return
-    end
-
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
