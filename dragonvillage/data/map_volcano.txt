@@ -20,18 +20,27 @@
             "list":
             [
                 
-                {"res":"res/bg/volcano/volcano.vrp" "animation":"layer_2_b" "width":1280}
+                {"res":"res/bg/volcano/volcano.vrp" "animation":"layer_2_b" "width":1680}
             ]
         }
         
-        
-        {
+            {
             "name":"중경1"
             "speed":0.5
             "list":
             [
-                {"res":"res/bg/volcano/volcano.vrp" "animation":"layer_3_a" "width":1833}          
-				{"res":"res/bg/volcano/volcano.vrp" "animation":"layer_3_b" "width":1448}
+                
+               {"res":"res/bg/volcano/volcano.vrp" "animation":"layer_3_a" "width":1833} 
+            ]
+        }
+        
+        {
+            "name":"중경2"
+            "speed":0.6
+            "list":
+            [
+                
+				{"res":"res/bg/volcano/volcano.vrp" "animation":"layer_3_b" "width":1648}
             ]
         }
         
@@ -42,9 +51,9 @@
             "speed":0.7
             "list":
             [
-                {"res":"res/bg/volcano/volcano.vrp" "animation":"layer_4_a" "width":1380}
+                {"res":"res/bg/volcano/volcano.vrp" "animation":"layer_4_a" "width":1480}
                 {"res":"res/bg/volcano/volcano.vrp" "animation":"layer_4_b" "width":1380}
-				{"res":"res/bg/volcano/volcano.vrp" "animation":"layer_4_c" "width":1380}
+				{"res":"res/bg/volcano/volcano.vrp" "animation":"layer_4_c" "width":1680}
 		    ]
         }
 		
@@ -53,9 +62,9 @@
             "speed":0.9
             "list":
             [
-                {"res":"res/bg/volcano/volcano.vrp" "animation":"layer_5_a" "width":1038}
+                {"res":"res/bg/volcano/volcano.vrp" "animation":"layer_5_a" "width":1280}
                 {"res":"res/bg/volcano/volcano.vrp" "animation":"layer_5_b" "width":1600}
-				{"res":"res/bg/volcano/volcano.vrp" "animation":"layer_5_c" "width":1600}
+				{"res":"res/bg/volcano/volcano.vrp" "animation":"layer_5_c" "width":1800}
 				
 			]
         }

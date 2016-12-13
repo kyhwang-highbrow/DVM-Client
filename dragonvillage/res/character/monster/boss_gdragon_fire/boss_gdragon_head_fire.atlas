@@ -1,0 +1,13 @@
+
+boss_gdragon_head_fire.png
+size: 1024,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_gdragon_head_fire_01
+  rotate: false
+  xy: 2, 2
+  size: 636, 1324
+  orig: 636, 1324
+  offset: 0, 0
+  index: -1
