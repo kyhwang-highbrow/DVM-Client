@@ -314,7 +314,9 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
     end
 	
 	-- count 수 만큼 random 하게 dir 생성
+	local dir_array_org = nil
 	if (attack_value.dir_array[1] == 'random') then
+		dir_array_org = attack_value.dir_array
 		local start_num = attack_value.dir_array[2] or 0
 		local end_num = attack_value.dir_array[3] or 360
 		attack_value.dir_array = {}
@@ -388,6 +390,10 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		end
 
 		self.m_world.m_missileFactory:makeMissile(t_option, self.m_bHeroMissile)
+	end
+
+	if dir_array_org then 
+		attack_value.dir_array = dir_array_org
 	end
 end
 
