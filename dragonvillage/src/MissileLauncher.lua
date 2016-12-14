@@ -319,10 +319,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		dir_array_org = attack_value.dir_array
 		local start_num = attack_value.dir_array[2] or 0
 		local end_num = attack_value.dir_array[3] or 360
-		attack_value.dir_array = {}
-		for i = 1, attack_value.count do
-			table.insert(attack_value.dir_array, math_random(start_num, end_num))
-		end
+		attack_value.dir_array = {math_random(start_num, end_num)}
 	end
 
 	for i=1, #attack_value.dir_array do
