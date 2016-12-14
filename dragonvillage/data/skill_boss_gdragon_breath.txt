@@ -1,0 +1,36 @@
+{
+	"skill_boss_gdragon_breath":
+	{
+		"ver":2,
+		"attack_value":
+		[							
+			{
+				"idx":1,
+				"res":"res/missile/missile_flame/missile_flame_@.vrp",
+				"body":[0,0,20],
+                "count":50,
+                "period":0.1,
+                "scale":2,
+				"time":0,
+				"speed":800,
+				"accel":1000,
+				"h_limit_speed":2000,
+				"accel_delay":0,
+				"angular_velocity":-40,
+				"offset":[-70,-20],
+				"dir":60,
+				"dir_add":0,
+				"size_up_time":1.5,
+				"missile_type":"pass",
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }				
+			}
+		]
+	}
+}
+

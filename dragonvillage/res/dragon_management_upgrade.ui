@@ -117,7 +117,7 @@
 						relative_size_type = 0;
 						width = 84;
 						height = 34;
-						scale_x = 1.200000;
+						scale_x = 0.980000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
@@ -181,7 +181,7 @@
 						relative_size_type = 0;
 						width = 84;
 						height = 34;
-						scale_x = 1.200000;
+						scale_x = 0.980000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
@@ -268,7 +268,7 @@
 						relative_size_type = 0;
 						width = 84;
 						height = 34;
-						scale_x = 1.200000;
+						scale_x = 0.980000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
@@ -355,7 +355,7 @@
 						relative_size_type = 0;
 						width = 84;
 						height = 34;
-						scale_x = 1.200000;
+						scale_x = 0.980000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
@@ -442,7 +442,7 @@
 						relative_size_type = 0;
 						width = 84;
 						height = 34;
-						scale_x = 1.200000;
+						scale_x = 0.980000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
@@ -529,7 +529,7 @@
 						relative_size_type = 0;
 						width = 84;
 						height = 34;
-						scale_x = 1.200000;
+						scale_x = 0.980000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
@@ -616,7 +616,7 @@
 						relative_size_type = 0;
 						width = 84;
 						height = 34;
-						scale_x = 1.200000;
+						scale_x = 0.980000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
@@ -703,7 +703,7 @@
 						relative_size_type = 0;
 						width = 84;
 						height = 34;
-						scale_x = 1.200000;
+						scale_x = 0.980000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
@@ -807,7 +807,7 @@
 					relative_size_type = 0;
 					width = 60;
 					height = 50;
-					scale_x = 1.200000;
+					scale_x = 0.980000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
@@ -936,9 +936,9 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 200;
+				width = 300;
 				height = 50;
-				scale_x = 1.200000;
+				scale_x = 0.980000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
@@ -952,7 +952,7 @@
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 200;
+				dimension_width = 300;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
 				has_stroke = true;
@@ -1009,14 +1009,14 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 39.000000;
+				x = 23.000000;
 				y = 96.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 154;
 				height = 88;
-				scale_x = 1.200000;
+				scale_x = 0.980000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
@@ -1024,7 +1024,7 @@
 				visible = true;
 				lua_name = 'maxLvLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 30;
+				font_size = 26;
 				text = '최대레벨\n{0}으로 상승';
 				h_alignment = 0;
 				v_alignment = 1;
@@ -1054,9 +1054,9 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 110;
+				width = 150;
 				height = 50;
-				scale_x = 1.200000;
+				scale_x = 0.980000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
@@ -1070,7 +1070,7 @@
 				v_alignment = 1;
 				color = { 255; 215; 0; };
 				opacity = 255;
-				dimension_width = 110;
+				dimension_width = 150;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
 				has_stroke = true;
@@ -1096,7 +1096,7 @@
 				relative_size_type = 0;
 				width = 384;
 				height = 40;
-				scale_x = 1.200000;
+				scale_x = 0.980000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
@@ -1136,7 +1136,7 @@
 				relative_size_type = 0;
 				width = 384;
 				height = 40;
-				scale_x = 1.200000;
+				scale_x = 0.980000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
@@ -1223,14 +1223,14 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -55.000000;
+					x = -63.000000;
 					y = 1.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 93;
+					width = 110;
 					height = 30;
-					scale_x = 1.200000;
+					scale_x = 0.980000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
@@ -1244,7 +1244,7 @@
 					v_alignment = 1;
 					color = { 243; 236; 225; };
 					opacity = 255;
-					dimension_width = 93;
+					dimension_width = 110;
 					dimension_height = 30;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -1263,14 +1263,14 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 80.000000;
-					y = -2.000000;
+					x = 78.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 117;
 					height = 44;
-					scale_x = 1.200000;
+					scale_x = 0.980000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
@@ -1422,7 +1422,7 @@
 				relative_size_type = 0;
 				width = 410;
 				height = 30;
-				scale_x = 1.200000;
+				scale_x = 0.980000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
@@ -1462,7 +1462,7 @@
 				relative_size_type = 0;
 				width = 300;
 				height = 30;
-				scale_x = 1.200000;
+				scale_x = 0.980000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
@@ -1671,13 +1671,13 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 30.000000;
-				y = 235.000000;
+				y = 237.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 417;
 				height = 44;
-				scale_x = 1.200000;
+				scale_x = 0.980000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
@@ -1685,7 +1685,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
+				font_size = 18;
 				text = '승급하면 등급과 최대레벨이 상승해요';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -1883,7 +1883,7 @@
 						relative_size_type = 0;
 						width = 84;
 						height = 34;
-						scale_x = 1.200000;
+						scale_x = 0.980000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
@@ -1947,7 +1947,7 @@
 						relative_size_type = 0;
 						width = 84;
 						height = 34;
-						scale_x = 1.200000;
+						scale_x = 0.980000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
@@ -2034,7 +2034,7 @@
 						relative_size_type = 0;
 						width = 84;
 						height = 34;
-						scale_x = 1.200000;
+						scale_x = 0.980000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
@@ -2121,7 +2121,7 @@
 						relative_size_type = 0;
 						width = 84;
 						height = 34;
-						scale_x = 1.200000;
+						scale_x = 0.980000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
@@ -2208,7 +2208,7 @@
 						relative_size_type = 0;
 						width = 84;
 						height = 34;
-						scale_x = 1.200000;
+						scale_x = 0.980000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
@@ -2295,7 +2295,7 @@
 						relative_size_type = 0;
 						width = 84;
 						height = 34;
-						scale_x = 1.200000;
+						scale_x = 0.980000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
@@ -2382,7 +2382,7 @@
 						relative_size_type = 0;
 						width = 84;
 						height = 34;
-						scale_x = 1.200000;
+						scale_x = 0.980000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
@@ -2469,7 +2469,7 @@
 						relative_size_type = 0;
 						width = 84;
 						height = 34;
-						scale_x = 1.200000;
+						scale_x = 0.980000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
@@ -2573,7 +2573,7 @@
 					relative_size_type = 0;
 					width = 60;
 					height = 50;
-					scale_x = 1.200000;
+					scale_x = 0.980000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;

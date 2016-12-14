@@ -1,0 +1,32 @@
+{
+	"skill_boss_gdragon_1":
+	{
+		"attack_value":
+		[		
+			{
+				"comment":"거대용 공통스킬: 날개 휘두르기",
+				
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,10],
+                "count":5,
+                "scale":1,
+                "period":0.1,
+				"speed":1000,
+				"accel":-2000,
+				"l_limit_speed":500,
+				"accel_delay":0,
+				"angular_velocity":0,
+				"offset":[-200,0],
+                "dir_array":[-30,-20,-10,0,10,20,30],
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}
