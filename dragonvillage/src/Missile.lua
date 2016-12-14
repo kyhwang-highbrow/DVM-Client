@@ -593,8 +593,10 @@ function Missile:fireAddScriptMissile()
 		phys_group = 'missile_e'
     end
 
-    -- AttackDamage 생성
-    local activity_carrier = owner:makeAttackDamageInstance(1005)
+    -- AttackDamage 생성 및 상태효과 복사(테이블의 상태효과를 add_script에도 적용시킴)
+    local activity_carrier = owner:makeAttackDamageInstance(0519)
+	activity_carrier.m_lStatusEffectRate = clone(self.m_activityCarrier.m_lStatusEffectRate)
+
     missile_launcher.m_bHeroMissile = is_hero
     self.m_world:addToUnitList(missile_launcher)
     self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)

@@ -42,10 +42,10 @@ end
 -------------------------------------
 -- function init_missileLauncher
 -------------------------------------
-function MissileLauncher:init_missileLauncher(t_skill, object_key, attack_damage, attack_idx)
+function MissileLauncher:init_missileLauncher(t_skill, object_key, activity_carrier, attack_idx)
     self.m_objectKey = object_key
     self.m_attackIdx = attack_idx or 1
-    self.m_activityCarrier = attack_damage
+    self.m_activityCarrier = activity_carrier
 
     -- 상태 생성
     self:addState('attack', MissileLauncher.st_attack, 'idle', true)
@@ -93,6 +93,9 @@ function MissileLauncher:init_missileLauncher(t_skill, object_key, attack_damage
         table.insert(self.m_tAttackPattern[idx], i)
     end
 
+	-- 상태 효과 적용
+    activity_carrier:insertStatusEffectRate({t_skill['status_effect_1'], t_skill['status_effect_2']})
+
     -- 미사일 패턴 초기화
     self:init_missilePattern(self.m_attackIdx)
 end
@@ -100,10 +103,10 @@ end
 -------------------------------------
 -- function init_missileLauncherByScript
 -------------------------------------
-function MissileLauncher:init_missileLauncherByScript(script_data, object_key, attack_damage, attack_idx)
+function MissileLauncher:init_missileLauncherByScript(script_data, object_key, activity_carrier, attack_idx)
     self.m_objectKey = object_key
     self.m_attackIdx = attack_idx or 1
-    self.m_activityCarrier = attack_damage
+    self.m_activityCarrier = activity_carrier
 
     -- 상태 생성
     self:addState('attack', MissileLauncher.st_attack, 'idle', true)
@@ -117,7 +120,7 @@ function MissileLauncher:init_missileLauncherByScript(script_data, object_key, a
     self.m_tAttackIdxCache = {}
     self.m_tSoundIdxCache = {}
     self.m_missileDepth = 0
-
+	
     -- 탄막 패턴 저장 (self.m_tAttackValueBase는 스크립트상의 'attack_value')
     for i, v in ipairs(self.m_tAttackValueBase) do
         local idx = v.idx or #self.m_tAttackPattern + 1
@@ -125,7 +128,14 @@ function MissileLauncher:init_missileLauncherByScript(script_data, object_key, a
             self.m_tAttackPattern[idx] = {}
         end
         table.insert(self.m_tAttackPattern[idx], i)
+
+		-- script 상의 상태효과 추가
+		if v['status_effect'] then 
+			self.m_activityCarrier:insertStatusEffectRate({v['status_effect']})
+		end
     end
+
+			
 
     -- 미사일 패턴 초기화
     self:init_missilePattern(self.m_attackIdx)
