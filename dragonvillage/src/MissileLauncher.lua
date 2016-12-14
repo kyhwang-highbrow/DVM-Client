@@ -376,9 +376,24 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		t_option['add_script_max'] =	attack_value['add_script_max']
 		t_option['add_script_dead'] =	attack_value['add_script_dead']
 
+		-- accel이 발사된 시간차와 상관없이 동시에 걸림
 		if attack_value.accel_delay_fix then
 			t_option['accel_delay'] = t_option['accel_delay'] or 0
 			t_option['accel_delay'] = t_option['accel_delay'] - time
+		end
+
+		-- 미사일이 사라지는 시간 통일
+		if attack_value.delete_time_fix then
+			t_option['delete_time'] = t_option['delete_time'] or 0
+			t_option['delete_time'] = t_option['delete_time'] - time
+		end
+		if attack_value.vanish_time_fix then
+			t_option['vanish_time'] = t_option['vanish_time'] or 0
+			t_option['vanish_time'] = t_option['vanish_time'] - time
+		end
+		if attack_value.fadeout_time_fix then
+			t_option['fadeout_time'] = t_option['fadeout_time'] or 0
+			t_option['fadeout_time'] = t_option['fadeout_time'] - time
 		end
 
 		-- 런쳐 옵션 체크
