@@ -91,6 +91,11 @@ function MissileLauncher:init_missileLauncher(t_skill, object_key, activity_carr
             self.m_tAttackPattern[idx] = {}
         end
         table.insert(self.m_tAttackPattern[idx], i)
+	
+		-- script 상의 상태효과 추가
+		if v['status_effect'] then 
+			self.m_activityCarrier:insertStatusEffectRate({v['status_effect']})
+		end
     end
 
 	-- 상태 효과 적용
