@@ -496,13 +496,8 @@ end
 -- function click_retryBtn
 -------------------------------------
 function UI_GameResultNew:click_retryBtn()
-    if g_currScene:isNestDungeon() then
-        local scene = SceneGame(g_currScene.m_gameKey, g_currScene.m_stageID, g_currScene.m_stageName)
-        scene:runScene()
-    else
-        local scene = SceneAdventure(g_currScene.m_stageID)
-        scene:runScene()
-    end
+    local scene = SceneAdventure(self.m_stageID)
+    scene:runScene()
 end
 
 -------------------------------------

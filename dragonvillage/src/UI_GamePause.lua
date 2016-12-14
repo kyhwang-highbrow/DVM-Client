@@ -2,6 +2,7 @@
 -- class UI_GamePause
 -------------------------------------
 UI_GamePause = class(UI, {
+        m_stageID = 'number',
         m_startCB = 'function',
         m_endCB = 'function',
      })
@@ -11,7 +12,8 @@ UI_GamePause = class(UI, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function UI_GamePause:init(start_cb, end_cb)
+function UI_GamePause:init(stage_id, start_cb, end_cb)
+    self.m_stageID = stage_id
     self.m_startCB = start_cb
     self.m_endCB = end_cb
 
@@ -45,14 +47,8 @@ end
 -- function click_retryButton
 -------------------------------------
 function UI_GamePause:click_retryButton()
-    -- 현재 g_currScene은 SceneGame이어야 한다
-    if g_currScene:isNestDungeon() then
-        local scene = SceneGame(g_currScene.m_gameKey, g_currScene.m_stageID, g_currScene.m_stageName)
-        scene:runScene()
-    else
-        local scene = SceneAdventure(g_currScene.m_stageID)
-        scene:runScene()
-    end
+    local scene = SceneAdventure(g_currScene.m_stageID)
+    scene:runScene()
 end
 
 -------------------------------------

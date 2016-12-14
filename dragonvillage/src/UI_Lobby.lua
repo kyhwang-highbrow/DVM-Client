@@ -133,7 +133,7 @@ end
 -------------------------------------
 function UI_Lobby:click_nestBtn()
     local function cb_func()
-        local scene = SceneCommon(UI_NestDungeonScene)
+        local scene = SceneNestDungeon()
         scene:runScene()
     end
 

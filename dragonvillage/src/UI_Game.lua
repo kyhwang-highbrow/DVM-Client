@@ -45,7 +45,22 @@ end
 -- function click_pauseButton
 -------------------------------------
 function UI_Game:click_pauseButton()
-    UI_GamePause(function() self.m_gameScene:gamePause() end, function() self.m_gameScene:gameResume() end)
+    local stage_id = self.m_gameScene.m_stageID
+    local game_mode = self.m_gameScene.m_gameMode
+
+    local function start_cb()
+        self.m_gameScene:gamePause()
+    end
+
+    local function end_cb()
+        self.m_gameScene:gameResume()
+    end
+
+    if (game_mode == GAME_MODE_NEST_DUNGEON) then
+        UI_GamePause_NestDungeon(stage_id, start_cb, end_cb)
+    else
+        UI_GamePause(stage_id, start_cb, end_cb)
+    end
 end
 
 -------------------------------------

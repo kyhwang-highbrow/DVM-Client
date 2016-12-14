@@ -1075,6 +1075,15 @@
     <None Include="..\src\ServerData_Stage.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\SceneNestDungeon.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_GamePause_NestDungeon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GameResult_NestDungeon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

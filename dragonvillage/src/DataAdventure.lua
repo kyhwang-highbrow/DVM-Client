@@ -373,9 +373,14 @@ function DataAdventure:setFocusStage(stage_id)
         return
     end
 
-   -- 마지막에 진입한 스테이지 저장
-    self.m_tData['last_stage'] = stage_id
-    g_userDataOld:setDirtyLocalSaveData(true)
+    local game_mode = g_stageData:getGameMode(stage_id)
+
+    -- 모험모드만 저장
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        -- 마지막에 진입한 스테이지 저장
+        self.m_tData['last_stage'] = stage_id
+        g_userDataOld:setDirtyLocalSaveData(true)
+    end
 end
 
 -------------------------------------------------------------------------------------------------------------------

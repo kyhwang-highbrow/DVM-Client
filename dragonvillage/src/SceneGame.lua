@@ -4,9 +4,9 @@
 -- class SceneGame
 -------------------------------------
 SceneGame = class(PerpleScene, {
-        m_stageType = '',
         m_stageName = '',
         m_stageID = '',
+        m_gameMode = 'GAME_MODE_CONSTANT',
         m_scheduleNode = 'cc.Node',
         m_gameWorld = 'GameWorld',
 
@@ -42,9 +42,7 @@ SceneGame = class(PerpleScene, {
 -- function init
 -------------------------------------
 function SceneGame:init(game_key, stage_id, stage_name, develop_mode)
-    self.m_gameKey = game_key
-    --self.m_stageType = ''
-    self.m_stageID = stage_id
+    self.m_gameKey = game_key    
     self.m_stageName = stage_name
     self.m_bUseLoadingUI = true
     self.m_bRemoveCache = true
@@ -55,6 +53,17 @@ function SceneGame:init(game_key, stage_id, stage_name, develop_mode)
     self.m_bShowTopUserInfo = false
 
     self.m_timerTimeScale = 0
+    
+    self:init_gameMode(stage_id)
+end
+
+-------------------------------------
+-- function init_gameMode
+-- @brief 스테이지 ID와 게임 모드 저장
+-------------------------------------
+function SceneGame:init_gameMode(stage_id)
+    self.m_stageID = stage_id
+    self.m_gameMode = g_stageData:getGameMode(stage_id)
 end
 
 -------------------------------------
@@ -396,7 +405,7 @@ end
 -- @breif
 -------------------------------------
 function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
-    if (self.m_stageID == DEV_STAGE_ID) or self:isNestDungeon() then
+    if (self.m_stageID == DEV_STAGE_ID) then
         if next_func then
             next_func()
         end
@@ -598,11 +607,9 @@ end
 -- @brief 네스트 던전 스테이지 여부
 -------------------------------------
 function SceneGame:isNestDungeon()
-    if getStageType(self.m_stageID) == STAGE_TYPE.NEST_DRAGON
-        or getStageType(self.m_stageID) == STAGE_TYPE.NEST_NIGHTMARE
-        or getStageType(self.m_stageID) == STAGE_TYPE.NEST_TREE then
+    if (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
         return true
+    else
+        return false
     end
-
-    return false
 end

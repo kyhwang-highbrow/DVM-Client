@@ -938,7 +938,23 @@ function GameState:makeResultUI(is_success)
     func_ui_result = function()
         local world = self.m_world
         local stage_id = world.m_stageID
-        UI_GameResultNew(stage_id,
+        local game_mode = g_stageData:getGameMode(stage_id)
+
+
+        local game_result_ui_class = nil
+        -- 모험 결과 UI
+        if (game_mode == GAME_MODE_ADVENTURE) then
+            game_result_ui_class = UI_GameResultNew
+
+        -- 네스트 던전 결과 UI
+        elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
+            game_result_ui_class = UI_GameResult_NestDungeon
+
+        else
+            error()
+        end
+
+        game_result_ui_class(stage_id,
             is_success,
             self.m_fightTimer,
             world.m_gold,

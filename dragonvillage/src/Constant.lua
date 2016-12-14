@@ -100,6 +100,15 @@ STAGE_TYPE =
     NEST_TREE = 4,
 }
 
+-- 게임 모드에
+GAME_MODE_ADVENTURE = 1
+GAME_MODE_NEST_DUNGEON = 2
+
+-- 네스트 던전 하위 던전 모드
+NEST_DUNGEON_DRAGON = 1
+NEST_DUNGEON_NIGHTMARE = 2
+NEST_DUNGEON_TREE = 3
+
 -- state priority
 PRIORITY =
 {

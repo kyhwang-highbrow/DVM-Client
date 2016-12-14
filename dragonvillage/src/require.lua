@@ -98,6 +98,7 @@ local t_module = {
     'SceneDV',
     'SceneGame',
     'SceneAdventure',
+    'SceneNestDungeon',
 
     -- Phys
 	'PhysWorld',
@@ -265,7 +266,9 @@ local t_module = {
     'UI_Lobby',
     'UI_Game',
     'UI_GameResultNew',
+    'UI_GameResult_NestDungeon',
     'UI_GamePause',
+    'UI_GamePause_NestDungeon',
     'UI_GameDebug',
 	'UI_GameDebug_RealTime',
     'UI_ReadyScene',

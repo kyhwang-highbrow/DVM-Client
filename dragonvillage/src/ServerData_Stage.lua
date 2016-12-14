@@ -1,7 +1,3 @@
-GAME_MODE_ADVENTURE = 1
-GAME_MODE_NEST_DUNGEON = 2
-
-
 -------------------------------------
 -- class ServerData_Stage
 -------------------------------------
@@ -18,10 +14,18 @@ end
 
 
 -------------------------------------
+-- function getGameMode
+-------------------------------------
+function ServerData_Stage:getGameMode(stage_id)
+    local game_mode = getDigit(stage_id, 10000, 1)
+    return game_mode
+end
+
+-------------------------------------
 -- function getStageName
 -------------------------------------
 function ServerData_Stage:getStageName(stage_id)
-    local game_mode = getDigit(stage_id, 10000, 1)
+    local game_mode = self:getGameMode(stage_id)
 
     local name = ''
 
@@ -45,7 +49,7 @@ end
 -- function isOpenStage
 -------------------------------------
 function ServerData_Stage:isOpenStage(stage_id)
-    local game_mode = getDigit(stage_id, 10000, 1)
+    local game_mode = self:getGameMode(stage_id)
 
     local ret = false
 
