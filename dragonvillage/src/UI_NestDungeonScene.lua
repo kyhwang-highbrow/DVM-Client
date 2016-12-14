@@ -69,6 +69,34 @@ function UI_NestDungeonScene:initUI()
 end
 
 -------------------------------------
+-- function makeNestModeTableView
+-- @brief 네스트 던전 모드 선택했을 때 오른쪽에 나오는 세부 리스트
+-------------------------------------
+function UI_NestDungeonScene:makeNestModeTableView()
+    local node = self.vars['detailTableViewNode']
+
+    local t_data = self.m_selectNestDungeonInfo['data']
+    local nest_dungeon_id = t_data['mode_id']
+    local stage_list = g_nestDungeonData:getNestDungeonInfo_stageList(nest_dungeon_id)
+
+
+    -- 셀 아이템 생성 콜백
+    local function create_func(ui, data, key)
+        --ui.root:setLocalZOrder(100 - key)
+        --ui.vars['enterButton']:registerScriptTapHandler(function() self:click_dungeonBtn(ui, data, key) end)
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(853, 152)
+    table_view:setCellUIClass(UI_NestDragonStageListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(stage_list, false, true)
+
+    --ccdump(stage_list)
+end
+
+-------------------------------------
 -- function initButton
 -------------------------------------
 function UI_NestDungeonScene:initButton()
@@ -127,7 +155,10 @@ function UI_NestDungeonScene:click_dungeonBtn(ui, data, key)
 
     self.vars['tableViewNode']:setVisible(false)
 
-    self.m_selectNestDungeonInfo = {ui=ui, key=key}
+    self.m_selectNestDungeonInfo = {ui=ui, key=key, data=data}
+
+
+    self:makeNestModeTableView()
 end
 
 -------------------------------------
@@ -138,6 +169,9 @@ function UI_NestDungeonScene:closeSubMenu()
     if (not self.m_selectNestDungeonInfo) then
         return
     end
+
+    -- 스테이지 리스트 테이블 뷰 삭제
+    self.vars['detailTableViewNode']:removeAllChildren()
 
     local ui = self.m_selectNestDungeonInfo['ui']
     local key = self.m_selectNestDungeonInfo['key']

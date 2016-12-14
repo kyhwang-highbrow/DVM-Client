@@ -1066,6 +1066,15 @@
     <None Include="..\src\ServerData_NestDungeon.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableDrop.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_NestDragonStageListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_Stage.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

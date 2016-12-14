@@ -69,3 +69,33 @@ function TableClass:filterList(key, value)
 
     return l_ret
 end
+
+-------------------------------------
+-- function filterTable_condition
+-------------------------------------
+function TableClass:filterTable_condition(condition_func)
+    local t_ret = {}
+
+    for i,v in pairs(self.m_orgTable) do
+        if condition_func(v) then
+            t_ret[i] = v
+        end
+    end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function filterList_condition
+-------------------------------------
+function TableClass:filterList_condition(condition_func)
+    local l_ret = {}
+
+    for i,v in pairs(self.m_orgTable) do 
+        if condition_func(v) then
+            table.insert(l_ret, v)
+        end
+    end
+
+    return l_ret
+end

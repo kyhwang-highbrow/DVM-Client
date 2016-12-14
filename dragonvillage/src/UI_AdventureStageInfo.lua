@@ -65,9 +65,8 @@ function UI_AdventureStageInfo:refresh()
     local stage_id = self.m_stageID
 
     do -- 스테이지 이름
-        local difficulty, chapter, stage = parseAdventureID(stage_id)
-        local chapter_name = chapterName(chapter)
-        vars['titleLabel']:setString(chapter_name .. Str(' {1}-{2}', chapter, stage))
+        local stage_name = g_stageData:getStageName(stage_id)
+        vars['titleLabel']:setString(stage_name)
     end
 
     do -- 모험 소비 활동력

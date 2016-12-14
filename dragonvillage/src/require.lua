@@ -51,6 +51,7 @@ local t_module = {
     'ServerData_Deck',
     'ServerData_Staminas',
     'ServerData_NestDungeon',
+    'ServerData_Stage',
     'UserData',
     'DropHelper',
     'DragonAutoSetHelper',
@@ -82,6 +83,7 @@ local t_module = {
     'TableUserLevel',
     'TableDragonTrainInfo',
     'TableDragonTrainStatus',
+    'TableDrop',
 
     -- Interface
     'IEventDispatcher',
@@ -293,6 +295,7 @@ local t_module = {
     'UI_NestDungeonScene',
     'UI_NestDragonDungeonListItem',
     'UI_NestDungeonStageSelectPopup',
+    'UI_NestDragonStageListItem',
     'UI_EditBoxPopup',
     'UI_SettingPopup',
     'UI_SettingPopup_Dev',

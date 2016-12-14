@@ -21,6 +21,8 @@ end
 
 -------------------------------------
 -- function getNestDungeonInfo
+-- @brief 네스트 던전 리스트 항목 얻어옴
+--        거대용, 악몽, 거목
 -------------------------------------
 function ServerData_NestDungeon:getNestDungeonInfo()
     local l_nest_info = self.m_serverData:getRef('nest_info')
@@ -75,3 +77,67 @@ function ServerData_NestDungeon:requestNestDungeonInfo(cb_func)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
 end
+
+-------------------------------------
+-- function getNestDungeonInfo_stageList
+-- @brief 네스트 
+--        거대용, 악몽, 거목
+-------------------------------------
+function ServerData_NestDungeon:getNestDungeonInfo_stageList(nest_dungeon_id)
+    local table_drop = TableDrop()
+
+    local function condition_func(t_table)
+        local stage_id = t_table['stage']
+
+        local nest_dungeon_id = nest_dungeon_id
+
+        -- 악몽던전은 별도 처리
+        if (nest_dungeon_id == 22100) then
+            stage_id = stage_id - (stage_id % 1000)
+            nest_dungeon_id = 22000
+        else
+            stage_id = stage_id - (stage_id % 100)
+        end
+        
+
+        if (stage_id == nest_dungeon_id) then
+            return true
+        else
+            return false
+        end
+    end
+
+    local l_stage_list = table_drop:filterList_condition(condition_func)
+
+    local function sort_func(a, b)
+        return a['stage'] < b['stage']
+    end
+
+    table.sort(l_stage_list, sort_func)
+
+    return l_stage_list
+end
+
+-------------------------------------
+-- function parseNestDungeonID
+-- @brief 네스트 
+--        거대용, 악몽, 거목
+-------------------------------------
+function ServerData_NestDungeon:parseNestDungeonID(stage_id)
+    -- 21101
+    -- 2xxxx 모드 구분 (네스트 던전 모드)
+    --  1xxx 네스트 던전 구분 (거대용, 고목, 악몽)
+    --   1xx 세부 모드 (속성 or role)
+    --    01 티어 (통상적으로 1~10)
+
+    local t_dungeon_id_info = {}
+    t_dungeon_id_info['stage_mode'] = getDigit(stage_id, 10000, 1)
+    t_dungeon_id_info['dungeon_mode'] = getDigit(stage_id, 1000, 1)
+    t_dungeon_id_info['detail_mode'] = getDigit(stage_id, 100, 1)
+    t_dungeon_id_info['tier'] = getDigit(stage_id, 1, 2)
+
+    return t_dungeon_id_info
+end
+
+-- 네스트 던전 리스트
+-- 네스트 던전 스테이지 리스트

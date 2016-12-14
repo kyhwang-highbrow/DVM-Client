@@ -96,9 +96,7 @@ function UI_ReadyScene:refresh()
     local vars = self.vars
 
     do -- 스테이지 이름
-        local difficulty, chapter, stage = parseAdventureID(stage_id)
-        local chapter_name = chapterName(chapter)
-        local str = chapter_name .. Str(' {1}-{2}', chapter, stage)
+        local str = g_stageData:getStageName(stage_id)
         self.m_titleStr = str
         g_topUserInfo:setTitleString(str)
     end
@@ -288,7 +286,7 @@ function UI_ReadyScene:click_startBtn()
     if (self:getDragonCount() <= 0) then
         UIManager:toastNotificationRed('최소 1명 이상은 출전시켜야 합니다.')
 
-    elseif (not g_adventureData:isOpenStage(stage_id)) then
+    elseif (not g_stageData:isOpenStage(stage_id)) then
         MakeSimplePopup(POPUP_TYPE.OK, '{@BLACK}' .. Str('이전 스테이지를 클리어하세요.'))
 
     -- 날개 소모

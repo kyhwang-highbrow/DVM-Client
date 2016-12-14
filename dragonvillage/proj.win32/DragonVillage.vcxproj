@@ -270,6 +270,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Buff_Protection.lua" />
     <None Include="..\src\GameWorld_Unit.lua" />
     <None Include="..\src\ServerData_NestDungeon.lua" />
+    <None Include="..\src\ServerData_Stage.lua" />
     <None Include="..\src\ServerData_Staminas.lua" />
     <None Include="..\src\ResPreloadMgr.lua" />
     <None Include="..\src\ResPreloadHelper.lua" />
@@ -479,6 +480,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableDragonSkill.lua" />
     <None Include="..\src\TableDragonTrainInfo.lua" />
     <None Include="..\src\TableDragonTrainStatus.lua" />
+    <None Include="..\src\TableDrop.lua" />
     <None Include="..\src\TableFriendship.lua" />
     <None Include="..\src\TableFruit.lua" />
     <None Include="..\src\TableMonster.lua" />
@@ -550,6 +552,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_LobbyNew.lua" />
     <None Include="..\src\UI_MonsterCard.lua" />
     <None Include="..\src\UI_NestDragonDungeonListItem.lua" />
+    <None Include="..\src\UI_NestDragonStageListItem.lua" />
     <None Include="..\src\UI_NestDungeonScene.lua" />
     <None Include="..\src\UI_NestDungeonStageSelectPopup.lua" />
     <None Include="..\src\UI_Network.lua" />

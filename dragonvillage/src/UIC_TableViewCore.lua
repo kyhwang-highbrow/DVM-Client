@@ -40,7 +40,7 @@ function UIC_TableViewCore:init(node)
     -- 기본값 설정
     self.m_bUseEachSize = false
     self.m_defaultCellSize = cc.size(100, 100)
-    self._vordering = VerticalFillOrder['BOTTOM_UP']
+    self._vordering = VerticalFillOrder['TOP_DOWN']
 
     -- 스크롤 뷰 생성
     local content_size = node:getContentSize()

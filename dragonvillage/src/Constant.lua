@@ -209,7 +209,7 @@ end
 -------------------------------------
 function dragonAttributeName(rarity)
     if (rarity == 'fire') then
-        return Str('화염')
+        return Str('불')
     elseif (rarity == 'water') then
         return Str('물')
     elseif (rarity == 'earth') then
