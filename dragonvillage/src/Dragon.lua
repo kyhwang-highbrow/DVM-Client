@@ -1,9 +1,9 @@
 local PARENT = Character
 
 -------------------------------------
--- class Hero
+-- class Dragon
 -------------------------------------
-Hero = class(PARENT, {
+Dragon = class(PARENT, {
         -- 기본 정보
         m_dragonID = '',    -- 드래곤의 고유 ID
         m_tDragonInfo = 'table', -- 유저가 보유한 드래곤 정보
@@ -30,7 +30,7 @@ Hero = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function Hero:init(file_name, body, ...)
+function Dragon:init(file_name, body, ...)
     self.m_charType = 'dragon'
 
     self.m_bActive = false
@@ -43,14 +43,14 @@ end
 -------------------------------------
 -- function initAnimator
 -------------------------------------
-function Hero:initAnimator(file_name)
+function Dragon:initAnimator(file_name)
 
 end
 
 -------------------------------------
--- function initAnimatorHero
+-- function initAnimatorDragon
 -------------------------------------
-function Hero:initAnimatorHero(file_name, evolution, attr)
+function Dragon:initAnimatorDragon(file_name, evolution, attr)
     -- Animator 삭제
     if self.m_animator then
         if self.m_animator.m_node then
@@ -70,7 +70,7 @@ end
 -------------------------------------
 -- function update
 -------------------------------------
-function Hero:update(dt)
+function Dragon:update(dt)
     if self.m_bUseSelfAfterImage then
         self:updateAfterImage(dt)
     end
@@ -81,7 +81,7 @@ end
 -------------------------------------
 -- function doAttack
 -------------------------------------
-function Hero:doAttack(x, y)
+function Dragon:doAttack(x, y)
     local basic_skill_id = self.m_reservedSkillId
 
     PARENT.doAttack(self, x, y)
@@ -105,31 +105,31 @@ end
 -------------------------------------
 -- function initState
 -------------------------------------
-function Hero:initState()
+function Dragon:initState()
     PARENT.initState(self)
 
-    self:addState('attack', Hero.st_attack, 'attack', true)
-    self:addState('charge', Hero.st_charge, 'idle', true)
+    self:addState('attack', Dragon.st_attack, 'attack', true)
+    self:addState('charge', Dragon.st_charge, 'idle', true)
     self:addState('casting', PARENT.st_casting, 'skill_appear', true)
 
     --
-    self:addState('skillPrepare', Hero.st_skillPrepare, 'skill_appear', true)
-    self:addState('skillAttack', Hero.st_skillAttack, 'skill_appear', true)
-    self:addState('skillAttack2', Hero.st_skillAttack2, 'skill_idle', false)
-    self:addState('skillDisappear', Hero.st_skillDisappear, 'skill_disappear', false)
+    self:addState('skillPrepare', Dragon.st_skillPrepare, 'skill_appear', true)
+    self:addState('skillAttack', Dragon.st_skillAttack, 'skill_appear', true)
+    self:addState('skillAttack2', Dragon.st_skillAttack2, 'skill_idle', false)
+    self:addState('skillDisappear', Dragon.st_skillDisappear, 'skill_disappear', false)
     --
 
-    self:addState('wait', Hero.st_wait, 'idle', true)
+    self:addState('wait', Dragon.st_wait, 'idle', true)
 
     -- success
-    self:addState('success_pose', Hero.st_success_pose, 'pose_1', false)
-    self:addState('success_move', Hero.st_success_move, 'idle', true)
+    self:addState('success_pose', Dragon.st_success_pose, 'pose_1', false)
+    self:addState('success_move', Dragon.st_success_move, 'idle', true)
 end
 
 -------------------------------------
 -- function st_attack
 -------------------------------------
-function Hero.st_attack(owner, dt)
+function Dragon.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
         -- 원거리 기본 공격에만 이펙트를 추가
         if owner.m_charTable['skill_basic'] == owner.m_reservedSkillId then
@@ -157,7 +157,7 @@ end
 -------------------------------------
 -- function st_charge
 -------------------------------------
-function Hero.st_charge(owner, dt)
+function Dragon.st_charge(owner, dt)
     if (owner.m_stateTimer == 0) then
         local attr = owner.m_charTable['attr']
 
@@ -179,13 +179,13 @@ end
 -------------------------------------
 -- function st_skillPrepare
 -------------------------------------
-function Hero.st_skillPrepare(owner, dt)
+function Dragon.st_skillPrepare(owner, dt)
 end
 
 -------------------------------------
 -- function st_skillAttack
 -------------------------------------
-function Hero.st_skillAttack(owner, dt)
+function Dragon.st_skillAttack(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner.m_bEnableSpasticity = false
 
@@ -197,7 +197,7 @@ end
 -------------------------------------
 -- function st_skillAttack2
 -------------------------------------
-function Hero.st_skillAttack2(owner, dt)
+function Dragon.st_skillAttack2(owner, dt)
     if (owner.m_stateTimer == 0) then
         local active_skill_id = owner:getSkillID('active')
         local table_dragon_skill = TABLE:get('dragon_skill')
@@ -314,7 +314,7 @@ end
 -------------------------------------
 -- function st_skillDisappear
 -------------------------------------
-function Hero.st_skillDisappear(owner, dt)
+function Dragon.st_skillDisappear(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner.m_bEnableSpasticity = true
 
@@ -327,7 +327,7 @@ end
 -------------------------------------
 -- function st_wait
 -------------------------------------
-function Hero.st_wait(owner, dt)
+function Dragon.st_wait(owner, dt)
 
 end
 
@@ -335,7 +335,7 @@ end
 -- function st_success_pose
 -- @brief success 세레머니
 -------------------------------------
-function Hero.st_success_pose(owner, dt)
+function Dragon.st_success_pose(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner:addAniHandler(function()
             owner.m_animator:changeAni('idle', true)
@@ -349,7 +349,7 @@ end
 -- function st_success_move
 -- @brief success 세레머니 후 오른쪽으로 퇴장
 -------------------------------------
-function Hero.st_success_move(owner, dt)
+function Dragon.st_success_move(owner, dt)
     if (owner.m_stateTimer == 0) then
         local add_speed = (owner.pos['y'] / -100) * 100
         owner:setMove(owner.pos.x + 2000, owner.pos.y, 1500 + add_speed)
@@ -392,7 +392,7 @@ end
 -------------------------------------
 -- function release
 -------------------------------------
-function Hero:release()
+function Dragon:release()
     if self.m_world then
         if self.m_bLeftFormation then
             self.m_world:removeHero(self)
@@ -414,7 +414,7 @@ end
 -------------------------------------
 -- function makeSilhouette
 -------------------------------------
-function Hero:makeSilhouette()
+function Dragon:makeSilhouette()
     local res = self.m_animator.m_resName
     local entity = Entity(res)
     entity.m_animator:setSkin('White')
@@ -427,7 +427,7 @@ end
 -------------------------------------
 -- function setActive
 -------------------------------------
-function Hero:setActive(active)
+function Dragon:setActive(active)
     self.m_bActive = active
 
     if self.m_bActive then
@@ -455,7 +455,7 @@ end
 -------------------------------------
 -- function changeHomePos
 -------------------------------------
-function Hero:changeHomePos(x, y, speed)
+function Dragon:changeHomePos(x, y, speed)
     self:setHomePos(x, y)
 
     local speed = speed or 500
@@ -465,7 +465,7 @@ end
 -------------------------------------
 -- function makeHPGauge
 -------------------------------------
-function Hero:makeHPGauge(hp_ui_offset)
+function Dragon:makeHPGauge(hp_ui_offset)
     self.m_unitInfoOffset = hp_ui_offset
     self.m_unitInfoOffset[1] = self.m_unitInfoOffset[1] - 80
 
@@ -486,7 +486,7 @@ end
 -------------------------------------
 -- function setPosition
 -------------------------------------
-function Hero:setPosition(x, y)
+function Dragon:setPosition(x, y)
     Entity.setPosition(self, x, y)
 
     if self.m_hpNode then
@@ -501,7 +501,7 @@ end
 -------------------------------------
 -- function setHp
 -------------------------------------
-function Hero:setHp(hp)
+function Dragon:setHp(hp)
     Character.setHp(self, hp)
 
     self:dispatch('change_hp', self, self.m_hp, self.m_maxHp)
@@ -510,7 +510,7 @@ end
 -------------------------------------
 -- function initStatus
 -------------------------------------
-function Hero:initStatus(t_char, level, grade, evolution, doid)
+function Dragon:initStatus(t_char, level, grade, evolution, doid)
     PARENT.initStatus(self, t_char, level, grade, evolution, doid)
 	
     local t_skill = self:getLevelingSkillByType('active').m_tSkill
@@ -572,7 +572,7 @@ end
 -------------------------------------
 -- function setWaitState
 -------------------------------------
-function Hero:setWaitState(is_wait_state)
+function Dragon:setWaitState(is_wait_state)
     self.m_bWaitState = is_wait_state
 
     if is_wait_state then
@@ -592,7 +592,7 @@ end
 -- @param forced
 -- @return boolean
 -------------------------------------
-function Hero:changeState(state, forced)
+function Dragon:changeState(state, forced)
     if self.m_bWaitState then
         if (not isExistValue(state, 'dying', 'dead')) then
             return PARENT.changeState(self, 'wait', false)
@@ -605,7 +605,7 @@ end
 -------------------------------------
 -- function initActiveSkillCoolTime
 -------------------------------------
-function Hero:initActiveSkillCoolTime()
+function Dragon:initActiveSkillCoolTime()
     -- 액티브 스킬 쿨타임 지정
     local active_skil_id = self:getSkillID('active')
 
@@ -624,7 +624,7 @@ end
 -------------------------------------
 -- function updateActiveSkillCoolTime
 -------------------------------------
-function Hero:updateActiveSkillCoolTime(dt)
+function Dragon:updateActiveSkillCoolTime(dt)
     if (not self.m_activeSkillCoolTime) or (self.m_activeSkillCoolTime == 0) then
         return
     end
@@ -662,7 +662,7 @@ end
 -------------------------------------
 -- function resetActiveSkillCoolTime
 -------------------------------------
-function Hero:resetActiveSkillCoolTime()
+function Dragon:resetActiveSkillCoolTime()
     if self:isEndActiveSkillCoolTime() then
         self.m_activeSkillTimer = 0
         self.m_infoUI.vars['skllFullVisual']:setVisible(false)
@@ -677,42 +677,31 @@ end
 -------------------------------------
 -- function isEndActiveSkillCoolTime
 -------------------------------------
-function Hero:isEndActiveSkillCoolTime()
+function Dragon:isEndActiveSkillCoolTime()
     return (self.m_activeSkillTimer == self.m_activeSkillCoolTime)
 end
 
 -------------------------------------
 -- function checkTarget
 -------------------------------------
-function Hero:checkTarget(t_skill)
-	-- @TODO 임시 처리
-	--[[
-    -- 25%의 확률로 테이머 타겟을 공격
-    if (math_random(1, 100) <= 25) then
-        local target = self.m_world.m_tamer:getTamerTarget()
-        if target then
-            self.m_targetChar = target
-            return
-        end
-    end
-	]]
-    -- 기본 룰로 타겟 지정
+function Dragon:checkTarget(t_skill)
+	-- 기본 룰로 타겟 지정
     PARENT.checkTarget(self, t_skill)
 end
 
 -------------------------------------
 -- function setAfterImage
 -------------------------------------
-function Hero:setAfterImage(b)
+function Dragon:setAfterImage(b)
     self.m_afterimageMove = 0
     self.m_bUseSelfAfterImage = b
 end
 
 -------------------------------------
 -- function updateAfterImage
--- @TODO hero class에 추가 됨에 따라 각각 따로 구현되었던 updateAfterImage 통합 필요
+-- @TODO Dragon class에 추가 됨에 따라 각각 따로 구현되었던 updateAfterImage 통합 필요
 -------------------------------------
-function Hero:updateAfterImage(dt)
+function Dragon:updateAfterImage(dt)
     local speed = self.m_world.m_mapManager.m_speed
 
     -- 에프터이미지
@@ -745,7 +734,7 @@ end
 -------------------------------------
 -- function makeSkillPrepareEffect
 -------------------------------------
-function Hero:makeSkillPrepareEffect()
+function Dragon:makeSkillPrepareEffect()
     if self.m_skillPrepareEffect then return end
 
     local attr = self.m_charTable['attr']
@@ -761,7 +750,7 @@ end
 -------------------------------------
 -- function removeSkillPrepareEffect
 -------------------------------------
-function Hero:removeSkillPrepareEffect()
+function Dragon:removeSkillPrepareEffect()
     if not self.m_skillPrepareEffect then return end
 
     self.m_skillPrepareEffect:release()

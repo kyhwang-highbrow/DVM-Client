@@ -116,7 +116,7 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
             SoundMgr:playEffect('EFFECT', 'skill_touch')
             self:setSelectHero(select_hero)
         
-            self:changeDrakLayerColor(DARK_LAYER_OPACITY, SKILL_INDICATOR_FADE_OUT_DURATION)
+            self:changeDarkLayerColor(DARK_LAYER_OPACITY, SKILL_INDICATOR_FADE_OUT_DURATION)
 
             self.m_firstTouchPos = node_pos
 
@@ -149,7 +149,7 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
         if (distance >= 50) then
             self.m_bSlowMode = true
             self.m_world.m_gameTimeScale:set(SKILL_INDICATOR_SLOW)
-            self:changeDrakLayerColor(DARK_LAYER_OPACITY)
+            self:changeDarkLayerColor(DARK_LAYER_OPACITY)
 
             self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)
         end
@@ -192,7 +192,7 @@ function SkillIndicatorMgr:clear()
         self:setSelectHero(nil)
         self.m_world.m_gameTimeScale:reset()
         self.m_bSlowMode = false
-        self:changeDrakLayerColor(255)
+        self:changeDarkLayerColor(255)
         self:clearHighlightList()
     end
 end
@@ -210,7 +210,7 @@ function SkillIndicatorMgr:update(dt)
             if (0.5 < self.m_startTimer) then
                 self.m_bSlowMode = true
                 self.m_world.m_gameTimeScale:set(SKILL_INDICATOR_SLOW)
-                self:changeDrakLayerColor(DARK_LAYER_OPACITY)
+                self:changeDarkLayerColor(DARK_LAYER_OPACITY)
 
                 self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)
             end
@@ -236,13 +236,17 @@ end
 
 
 -------------------------------------
--- function changeDrakLayerColor
+-- function changeDarkLayerColor
 -------------------------------------
-function SkillIndicatorMgr:changeDrakLayerColor(opacity, duration)
+function SkillIndicatorMgr:changeDarkLayerColor(opacity, duration)
     local dark_layer = self.m_darkLayer
 
     dark_layer:stopAllActions()
 
+    -- 현재 카메라에 따른 위치 변경
+    local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
+    dark_layer:setPosition(cameraHomePosX, cameraHomePosY)
+    
     if (duration) and (duration ~= 0) then
         if (opacity==255) then
             dark_layer:setVisible(true)

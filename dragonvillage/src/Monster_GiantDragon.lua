@@ -1,4 +1,4 @@
-local PARENT = EnemyLua_Boss
+local PARENT = MonsterLua_Boss
 
 -------------------------------------
 -- class Monster_GiantDragon

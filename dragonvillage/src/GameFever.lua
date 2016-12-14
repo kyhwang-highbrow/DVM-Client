@@ -232,6 +232,7 @@ function GameFever:update_appear(dt)
         -- 현재 카메라에 따른 위치 변경
         local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
         self.m_touchNode:setPosition(cameraHomePosX, cameraHomePosY)
+        self.m_colorLayer:setPosition(cameraHomePosX, cameraHomePosY)
         
         -- 피버 모드 시작 연출
         self.m_feverStartVisual:setVisible(true)

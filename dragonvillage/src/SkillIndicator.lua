@@ -21,7 +21,7 @@ SI_STATE_DISAPPEAR = 4
 -------------------------------------
 SkillIndicator = class({
         m_world = 'GameWorld',
-        m_hero = 'Hero',
+        m_hero = 'Dragon',
         m_skillIndicatorMgr = 'SkillIndicatorMgr',
         m_siState = 'number',
 

@@ -315,8 +315,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\EffectHeal.lua" />
     <None Include="..\src\EffectLinearDot.lua" />
     <None Include="..\src\EffectTimer.lua" />
-    <None Include="..\src\Enemy.lua" />
-    <None Include="..\src\EnemyLua_Boss.lua" />
+    <None Include="..\src\Monster.lua" />
+    <None Include="..\src\MonsterLua_Boss.lua" />
     <None Include="..\src\EnemyMovement.lua" />
     <None Include="..\src\Entity.lua" />
     <None Include="..\src\FormationMgr.lua" />
@@ -328,7 +328,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\GameWorld.lua" />
     <None Include="..\src\GameWorld_Formation.lua" />
     <None Include="..\src\GameWorld_Touch.lua" />
-    <None Include="..\src\Hero.lua" />
+    <None Include="..\src\Dragon.lua" />
     <None Include="..\src\IconHelper.lua" />
     <None Include="..\src\IEventDispatcher.lua" />
     <None Include="..\src\ITopUserInfo_EventListener.lua" />

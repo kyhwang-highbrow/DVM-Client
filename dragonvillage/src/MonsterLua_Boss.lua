@@ -1,9 +1,9 @@
-local PARENT = Enemy
+local PARENT = Monster
 
 -------------------------------------
--- class EnemyLua_Boss
+-- class MonsterLua_Boss
 -------------------------------------
-EnemyLua_Boss = class(PARENT, {
+MonsterLua_Boss = class(PARENT, {
         m_tOrgPattern = 'table',    -- 반복되어서 수행될 패턴 리스트
         m_tCurrPattern = 'table',
         m_currPatternIdx = 'number',
@@ -23,14 +23,14 @@ EnemyLua_Boss = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function EnemyLua_Boss:init(file_name, body, ...)
+function MonsterLua_Boss:init(file_name, body, ...)
     self.m_patternTime = 0
 end
 
 -------------------------------------
 -- function initScript
 -------------------------------------
-function EnemyLua_Boss:initScript(pattern_script_name)
+function MonsterLua_Boss:initScript(pattern_script_name)
     self.m_patternScriptName = pattern_script_name
 
     local script = TABLE:loadJsonTable(pattern_script_name)
@@ -62,29 +62,29 @@ function EnemyLua_Boss:initScript(pattern_script_name)
     end
 end
 
-EnemyLua_Boss.st_attack = PARENT.st_attack
+MonsterLua_Boss.st_attack = PARENT.st_attack
 
 -------------------------------------
 -- function initState
 -------------------------------------
-function EnemyLua_Boss:initState()
+function MonsterLua_Boss:initState()
     PARENT.initState(self)
 
-    self:addState('attackDelay', EnemyLua_Boss.st_pattern_idle, 'idle', true)
-    self:addState('charge', EnemyLua_Boss.st_pattern_idle, 'idle', true)
-    self:addState('casting', EnemyLua_Boss.st_casting, 'casting', true)
+    self:addState('attackDelay', MonsterLua_Boss.st_pattern_idle, 'idle', true)
+    self:addState('charge', MonsterLua_Boss.st_pattern_idle, 'idle', true)
+    self:addState('casting', MonsterLua_Boss.st_casting, 'casting', true)
 
-    self:addState('dying', EnemyLua_Boss.st_dying, 'idle', false, PRIORITY.DYING)
+    self:addState('dying', MonsterLua_Boss.st_dying, 'idle', false, PRIORITY.DYING)
     
-    self:addState('pattern_idle', EnemyLua_Boss.st_pattern_idle, 'idle', true)
-    self:addState('pattern_wait', EnemyLua_Boss.st_pattern_wait, 'idle', true)
-    self:addState('pattern_move', EnemyLua_Boss.st_pattern_move, 'idle', true)
+    self:addState('pattern_idle', MonsterLua_Boss.st_pattern_idle, 'idle', true)
+    self:addState('pattern_wait', MonsterLua_Boss.st_pattern_wait, 'idle', true)
+    self:addState('pattern_move', MonsterLua_Boss.st_pattern_move, 'idle', true)
 end
 
 -------------------------------------
 -- function update
 -------------------------------------
-function EnemyLua_Boss:update(dt)
+function MonsterLua_Boss:update(dt)
     if (self.m_state == 'pattern_idle' or self.m_state == 'pattern_wait' or self.m_state == 'pattern_move') then
         self.m_patternTime = self.m_patternTime + dt
         --cclog('self.m_patternTime = ' .. self.m_patternTime)
@@ -100,7 +100,7 @@ end
 -------------------------------------
 -- function st_pattern_idle
 -------------------------------------
-function EnemyLua_Boss.st_pattern_idle(owner, dt)
+function MonsterLua_Boss.st_pattern_idle(owner, dt)
     if owner.m_stateTimer == 0 then
         
         -- 캐스팅 게이지
@@ -116,7 +116,7 @@ end
 -------------------------------------
 -- function st_dying
 -------------------------------------
-function EnemyLua_Boss.st_dying(owner, dt)
+function MonsterLua_Boss.st_dying(owner, dt)
     if (owner.m_stateTimer == 0) then
         -- 효과음
         if owner.m_charTable['rarity'] == 'boss' then
@@ -136,7 +136,7 @@ end
 -------------------------------------
 -- function st_casting
 -------------------------------------
-function EnemyLua_Boss.st_casting(owner, dt)
+function MonsterLua_Boss.st_casting(owner, dt)
     PARENT.st_casting(owner, dt)
 
     if owner.m_state == 'casting' and owner.m_stateTimer == 0 then
@@ -180,7 +180,7 @@ end
 -------------------------------------
 -- function st_pattern_wait
 -------------------------------------
-function EnemyLua_Boss.st_pattern_wait(owner, dt)
+function MonsterLua_Boss.st_pattern_wait(owner, dt)
     if (owner.m_stateTimer >= owner.m_patternWaitTime) then
         owner:changeState('pattern_idle')
     end
@@ -189,7 +189,7 @@ end
 -------------------------------------
 -- function st_pattern_move
 -------------------------------------
-function EnemyLua_Boss.st_pattern_move(owner, dt)
+function MonsterLua_Boss.st_pattern_move(owner, dt)
     if owner:isOverTargetPos() then
         owner:setPosition(owner.m_targetPosX, owner.m_targetPosY)
         owner:setSpeed(0)
@@ -200,7 +200,7 @@ end
 -------------------------------------
 -- function getNextPattern
 -------------------------------------
-function EnemyLua_Boss:getNextPattern()
+function MonsterLua_Boss:getNextPattern()
     local pattern_cnt = #self.m_tCurrPattern
 
     self.m_currPatternIdx = self.m_currPatternIdx + 1
@@ -223,7 +223,7 @@ end
 -- function getAttackAnimationName
 -- @param
 -------------------------------------
-function EnemyLua_Boss:getAttackAnimationName(idx_str)
+function MonsterLua_Boss:getAttackAnimationName(idx_str)
     local default_ani = 'attack'
     local skill_id = self.m_charTable['skill_' .. idx_str]
 
@@ -248,7 +248,7 @@ end
 -- function doPattern
 -- @param idx
 -------------------------------------
-function EnemyLua_Boss:doPattern(pattern)
+function MonsterLua_Boss:doPattern(pattern)
     local l_str = seperate(pattern, ';')
 
     local type = l_str[1]
@@ -308,7 +308,7 @@ end
 -------------------------------------
 -- function setHp
 -------------------------------------
-function EnemyLua_Boss:setHp(hp)
+function MonsterLua_Boss:setHp(hp)
     PARENT.setHp(self, hp)
 
     if self.m_triggerHpPercent then
@@ -320,7 +320,7 @@ end
 -------------------------------------
 -- function cancelSkill
 -------------------------------------
-function EnemyLua_Boss:cancelSkill()
+function MonsterLua_Boss:cancelSkill()
     local b = PARENT.cancelSkill(self)
     
     -- 보스별 음성
@@ -341,7 +341,7 @@ end
 -- function getBasePatternList
 -- @brief 기본 패턴 리스트를 얻음(기본 패턴 리스트가 다수일 경우 랜덤하게 하나만 가져옴)
 -------------------------------------
-function EnemyLua_Boss:getBasePatternList()
+function MonsterLua_Boss:getBasePatternList()
     local pattern_script_name = self.m_patternScriptName
     local script = TABLE:loadJsonTable(pattern_script_name)
     local pattern_list_set = script[pattern_script_name]
@@ -363,7 +363,7 @@ end
 -------------------------------------
 -- function printBossPattern
 -------------------------------------
-function EnemyLua_Boss:printBossPattern(pattern, type, value_1)
+function MonsterLua_Boss:printBossPattern(pattern, type, value_1)
 	local boss_name = self.m_charTable['t_name']
 	local add_str = ''
 	if (type == 'a') then

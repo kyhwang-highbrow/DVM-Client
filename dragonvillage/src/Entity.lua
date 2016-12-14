@@ -140,7 +140,7 @@ end
 
 -------------------------------------
 -- function update
--- @brief GameMgr에서 호출되며 true를 반환 할 경우 release를 호출한다.
+-- @brief GameWorld에서 호출되며 true를 반환 할 경우 release를 호출한다.
 -- @param dt
 -- @return boolean
 -------------------------------------

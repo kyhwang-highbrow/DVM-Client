@@ -1,9 +1,9 @@
 local PARENT = Character
 
 -------------------------------------
--- class Enemy
+-- class Monster
 -------------------------------------
-Enemy = class(PARENT, {
+Monster = class(PARENT, {
         m_bWaitState = 'boolean',
      })
 
@@ -12,7 +12,7 @@ Enemy = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function Enemy:init(file_name, body, ...)
+function Monster:init(file_name, body, ...)
     self.m_charType = 'enemy'
     self.m_bWaitState = false
 end
@@ -20,13 +20,13 @@ end
 -------------------------------------
 -- function initAnimator
 -------------------------------------
-function Enemy:initAnimator(file_name)
+function Monster:initAnimator(file_name)
 end
 
 -------------------------------------
 -- function initAnimatorMonster
 -------------------------------------
-function Enemy:initAnimatorMonster(file_name, attr)
+function Monster:initAnimatorMonster(file_name, attr)
     -- Animator 삭제
     if self.m_animator then
         if self.m_animator.m_node then
@@ -46,19 +46,19 @@ end
 -------------------------------------
 -- function initState
 -------------------------------------
-function Enemy:initState()
+function Monster:initState()
     PARENT.initState(self)
 
-    self:addState('charge', Enemy.st_charge, 'idle', true)
-    self:addState('casting', Enemy.st_casting, 'idle', true)
+    self:addState('charge', Monster.st_charge, 'idle', true)
+    self:addState('casting', Monster.st_casting, 'idle', true)
 
-    self:addState('wait', Enemy.st_wait, 'idle', true)
+    self:addState('wait', Monster.st_wait, 'idle', true)
 end
 
 -------------------------------------
 -- function st_charge
 -------------------------------------
-function Enemy.st_charge(owner, dt)
+function Monster.st_charge(owner, dt)
     if (owner.m_stateTimer == 0) then
 
         -- 차지 이팩트 재생
@@ -87,7 +87,7 @@ end
 -------------------------------------
 -- function st_casting
 -------------------------------------
-function Enemy.st_casting(owner, dt)
+function Monster.st_casting(owner, dt)
     PARENT.st_casting(owner, dt)
 
     if owner.m_state == 'casting' and owner.m_stateTimer == 0 then
@@ -98,7 +98,7 @@ end
 -------------------------------------
 -- function st_wait
 -------------------------------------
-function Enemy.st_wait(owner, dt)
+function Monster.st_wait(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner.speed = 0
     end
@@ -107,7 +107,7 @@ end
 -------------------------------------
 -- function setWaitState
 -------------------------------------
-function Enemy:setWaitState(is_wait_state)
+function Monster:setWaitState(is_wait_state)
     self.m_bWaitState = is_wait_state
 
     if is_wait_state then
@@ -124,7 +124,7 @@ end
 -------------------------------------
 -- function release
 -------------------------------------
-function Enemy:release()
+function Monster:release()
     PARENT.release(self)
 
     if self.m_world then
@@ -138,7 +138,7 @@ end
 -- @param forced
 -- @return boolean
 -------------------------------------
-function Enemy:changeState(state, forced)
+function Monster:changeState(state, forced)
     if self.m_bWaitState then
         if (not isExistValue(state, 'dying', 'dead')) then
             return PARENT.changeState(self, 'wait', false)

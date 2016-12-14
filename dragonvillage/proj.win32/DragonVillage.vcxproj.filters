@@ -271,13 +271,7 @@
     <None Include="..\src\Missile.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\Hero.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\GameWorld_Touch.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\Enemy.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\MissileFactory.lua">
@@ -370,9 +364,6 @@
     <None Include="..\src\StatusCalculatorFormula.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\EnemyMovement.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\CharacterSkill.lua">
       <Filter>lua</Filter>
     </None>
@@ -425,9 +416,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\EffectHeal.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\EnemyLua_Boss.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\FormationMgr_TargetRule.lua">
@@ -1064,6 +1052,18 @@
       <Filter>lua\UIC</Filter>
     </None>
     <None Include="..\src\ServerData_NestDungeon.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\Dragon.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\Monster.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\MonsterLua_Boss.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\EnemyMovement.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\TableDrop.lua">

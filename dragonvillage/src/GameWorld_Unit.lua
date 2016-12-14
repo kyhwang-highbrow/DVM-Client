@@ -19,14 +19,14 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation)
     local evolution = t_dragon_data['evolution'] or 1
 	local attr = t_dragon['attr']
 
-    local dragon = Hero(nil, {0, 0, 20})
+    local dragon = Dragon(nil, {0, 0, 20})
     dragon.m_bLeftFormation = bLeftFormation
 
     dragon:setDragonSkillLevelList(t_dragon_data['skill_0'], t_dragon_data['skill_1'], t_dragon_data['skill_2'], t_dragon_data['skill_3'])
     dragon:initDragonSkillManager('dragon', dragon_id, evolution)
     dragon:initActiveSkillCoolTime() -- 액티브 스킬 쿨타임 지정
     dragon.m_tDragonInfo = t_dragon_data
-    dragon:initAnimatorHero(t_dragon['res'], evolution, attr)
+    dragon:initAnimatorDragon(t_dragon['res'], evolution, attr)
     dragon.m_animator:setScale(0.5 * t_dragon['scale'])
     dragon:initState()
     dragon:initStatus(t_dragon, lv, grade, evolution, doid)
@@ -93,7 +93,7 @@ function GameWorld:makeMonsterNew(monster_id, level)
     -- Monster 생성
     local monster = self:tryPatternMonster(t_monster, body)
     if (not monster) then
-        monster = Enemy(t_monster['res'], body)
+        monster = Monster(t_monster['res'], body)
         monster:initAnimatorMonster(t_monster['res'], t_monster['attr'])
     end
 
@@ -147,7 +147,7 @@ function GameWorld:tryPatternMonster(t_monster, body)
         return nil
     end
 
-    local monster = EnemyLua_Boss(t_monster['res'], body)
+    local monster = MonsterLua_Boss(t_monster['res'], body)
     monster:initAnimatorMonster(t_monster['res'], t_monster['attr'])
     monster:initScript(script_name)
 

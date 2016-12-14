@@ -62,7 +62,7 @@ function MissileFactory:makeMissileEffect(t_option, is_hero)
     --local sync_pos =         t_option['sync_pos'] or false
     local visual =           t_option['visual'] or 'idle'
     local scale =            t_option['scale'] or 1
-    local parent =           t_option['parent'] or GameMgr.m_missileNode
+    local parent =           t_option['parent']
 
     local visual = VrpHelper:createWithParent(parent, pos_x, pos_y, depth, missile_res_name, 'group', visual, false)
     local rotation = (-(dir - 90))
@@ -149,7 +149,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 	local add_script_max =		t_option['add_script_max'] or 1
 	local add_script_dead =		t_option['add_script_dead'] or false
 
-    --local parent =           t_option['parent'] or GameMgr.m_missileNode
+    --local parent =           t_option['parent']
     --local sync_pos =         t_option['sync_pos'] or false
     --local motion_streak =    t_option['motion_streak'] or nil 실 사용하는 곳에서 정의 .. 혼선이 있다.
 

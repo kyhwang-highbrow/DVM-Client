@@ -145,7 +145,7 @@ function MissileDropGuid.st_move_drop_hero(owner, dt)
             local boss_enemy = nil
             local distance = nil
             for i,v in pairs(GameMgr.m_tEnemyList) do
-                if not isInstanceOf(v, Enemy) then
+                if not isInstanceOf(v, Monster) then
                 elseif v.m_bDead then
                 elseif checkDefaultRange(v.pos.x, v.pos.y) then
                 else

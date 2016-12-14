@@ -312,7 +312,7 @@ function Character:doSkill_counteratk(t_skill, is_hero, phys_group, x, y, t_data
 
     local skill = SkillAttributeAmor(nil)
 
-    -- Physics, Node, GameMgr에 등록
+    -- Physics, Node, GameWorld에 등록
     self.m_world.m_worldNode:addChild(skill.m_rootNode, 3)
     self.m_world:addToSkillList(skill)
 
