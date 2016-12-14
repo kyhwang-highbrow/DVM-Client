@@ -12,7 +12,7 @@ UI_NestDungeonScene = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_NestDungeonScene:init()
-    local vars = self:load('nest_dungeon_scene.ui')
+    local vars = self:load('nest_dungeon_scene1.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
@@ -42,34 +42,23 @@ function UI_NestDungeonScene:initParentVariable()
 end
 
 -------------------------------------
--- function close
--------------------------------------
-function UI_NestDungeonScene:close()
-    if not self.enable then return end
-
-    local function finish_cb()
-        UI.close(self)
-    end
-
-    -- @ui_actions
-    --self:doActionReverse(finish_cb, 0.5, false)
-end
-
--------------------------------------
 -- function initUI
 -------------------------------------
 function UI_NestDungeonScene:initUI()
     local vars = self.vars
 
-    do
-        local node = vars['listTableNode']
+    do -- 테이블 뷰 생성
+        local node = vars['tableViewNode']
 
+        -- 셀 아이템 생성 콜백
         local function create_func(ui, data, key)
-            ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dungeonBtn(ui, data, key) end)
+            ui.root:setLocalZOrder(100 - key)
+            ui.vars['enterButton']:registerScriptTapHandler(function() self:click_dungeonBtn(ui, data, key) end)
         end
 
+        -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(230, 438)
+        table_view.m_defaultCellSize = cc.size(380, 670)
         table_view:setCellUIClass(UI_NestDragonDungeonListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
         table_view:setItemList(g_nestDungeonData:getNestDungeonInfo())
@@ -134,9 +123,9 @@ function UI_NestDungeonScene:click_dungeonBtn(ui, data, key)
     local t_item = self.m_tableView:getItem(key)
     t_item['ui'] = nil
 
-    ui:cellMoveTo(0.5, cc.p(150, 246))
+    ui:cellMoveTo(0.5, cc.p(210, 360))
 
-    self.vars['listTableNode']:setVisible(false)
+    self.vars['tableViewNode']:setVisible(false)
 
     self.m_selectNestDungeonInfo = {ui=ui, key=key}
 end
@@ -152,6 +141,7 @@ function UI_NestDungeonScene:closeSubMenu()
 
     local ui = self.m_selectNestDungeonInfo['ui']
     local key = self.m_selectNestDungeonInfo['key']
+    local t_item = self.m_tableView:getItem(key)
     self.m_selectNestDungeonInfo = nil
 
 
@@ -167,16 +157,15 @@ function UI_NestDungeonScene:closeSubMenu()
     node:removeFromParent()
     node:setPosition(node_pos['x'], node_pos['y'])
 
-    container:addChild(node)
+    container:addChild(node, 100 - t_item['idx'])
     node:release()
-
-    local t_item = self.m_tableView:getItem(key)
+    
     t_item['ui'] = ui
     local data = t_item['data']
 
     self.m_tableView:expandTemp(0.5)
 
-    self.vars['listTableNode']:setVisible(true)
+    self.vars['tableViewNode']:setVisible(true)
 
 
     for i,v in ipairs(self.m_tableView.m_itemList) do

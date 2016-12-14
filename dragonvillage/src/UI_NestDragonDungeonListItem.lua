@@ -1,5 +1,17 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable())
 
+local t_nest_dungeon_ani = {}
+t_nest_dungeon_ani[21100] = 'nest_dungeon_dragon_earth' -- 거대용 던전
+t_nest_dungeon_ani[21200] = 'nest_dungeon_dragon_water'
+t_nest_dungeon_ani[21300] = 'nest_dungeon_dragon_fire'
+t_nest_dungeon_ani[21400] = 'nest_dungeon_dragon_light'
+t_nest_dungeon_ani[21500] = 'nest_dungeon_dragon_dark'
+t_nest_dungeon_ani[22100] = 'nest_dungeon_nightmare'    -- 악몽
+t_nest_dungeon_ani[22200] = 'nest_dungeon_nightmare'
+t_nest_dungeon_ani[22300] = 'nest_dungeon_nightmare'
+t_nest_dungeon_ani[22400] = 'nest_dungeon_nightmare'
+t_nest_dungeon_ani[23000] = 'nest_dungeon_tree'         -- 거목
+
 -------------------------------------
 -- class UI_NestDragonDungeonListItem
 -------------------------------------
@@ -10,7 +22,7 @@ UI_NestDragonDungeonListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_NestDragonDungeonListItem:init(t_data)
-    local vars = self:load('nest_dungeon_list_02.ui')
+    local vars = self:load('nest_dungeon_scene1_list.ui')
 
     self:initUI(t_data)
     self:initButton()
@@ -23,6 +35,12 @@ end
 -- function initUI
 -------------------------------------
 function UI_NestDragonDungeonListItem:initUI(t_data)
+
+    local vars = self.vars
+
+    local ani_name = t_nest_dungeon_ani[t_data['mode_id']]
+    vars['dungeonListVisual']:changeAni(ani_name)
+
     --[[
     local vars = self.vars
     do -- lockSprite 지정
