@@ -58,7 +58,7 @@ function UI_NestDungeonScene:initUI()
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(380, 670)
+        table_view.m_defaultCellSize = cc.size(380, 660)
         table_view:setCellUIClass(UI_NestDragonDungeonListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
         table_view:setItemList(g_nestDungeonData:getNestDungeonInfo())
@@ -91,7 +91,7 @@ function UI_NestDungeonScene:makeNestModeTableView()
     table_view.m_defaultCellSize = cc.size(853, 152)
     table_view:setCellUIClass(UI_NestDragonStageListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(stage_list, false, true)
+    table_view:setItemList(stage_list, false, false)
 
     --ccdump(stage_list)
 end
