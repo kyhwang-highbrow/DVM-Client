@@ -13,7 +13,7 @@ Monster = class(PARENT, {
 -- @param body
 -------------------------------------
 function Monster:init(file_name, body, ...)
-    self.m_charType = 'enemy'
+    self.m_charType = 'monster'
     self.m_bWaitState = false
 end
 

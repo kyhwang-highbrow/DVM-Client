@@ -10,7 +10,7 @@ TableMonster = class(PARENT, {
 -- function init
 -------------------------------------
 function TableMonster:init()
-    self.m_tableName = 'enemy'
+    self.m_tableName = 'monster'
     self.m_orgTable = TABLE:get(self.m_tableName)
 end
 

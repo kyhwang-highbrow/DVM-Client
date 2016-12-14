@@ -299,11 +299,6 @@ function Dragon.st_skillAttack2(owner, dt)
 
         -- 공격 타이밍이 있을 경우
         owner.m_animator:setEventHandler(attack_cb)
-
-        -- 효과음
-        if (owner.m_charType == 'dragon') then
-            --SoundMgr:playEffect('EFFECT', 'd_skill')
-        end
     end
 
     if (owner.m_aiParamNum and (owner.m_stateTimer >= owner.m_aiParamNum)) then

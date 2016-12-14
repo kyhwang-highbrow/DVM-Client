@@ -97,7 +97,7 @@ function GameWorld:makeMonsterNew(monster_id, level)
         monster:initAnimatorMonster(t_monster['res'], t_monster['attr'])
     end
 
-    monster:initDragonSkillManager('enemy', monster_id, 6) -- monster는 skill_1~skill_6을 모두 사용
+    monster:initDragonSkillManager('monster', monster_id, 6) -- monster는 skill_1~skill_6을 모두 사용
     monster:initState()
     monster:initStatus(t_monster, level)
     monster:changeState('move')

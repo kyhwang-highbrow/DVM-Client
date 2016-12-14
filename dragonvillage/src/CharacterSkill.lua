@@ -6,7 +6,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 	
     ----------------------------------------------
     --[[
-    if (self.m_charType == 'enemy' ) then
+    if (self.m_charType == 'monster' ) then
         --skill_id = 220031
     else
         --cclog('self.phys_idx ' .. self.phys_idx)
@@ -21,21 +21,21 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
     local y = y or self.m_attackOffsetY or 0
 	local t_data = t_data or {}
 
-    local is_hero = true
+    local is_hero = self.m_bLeftFormation
     local phys_group = 'missile_h'
     local attr = attr or self.m_charTable['attr'] or self.m_charTable['attr_1']
 	local t_skill = nil
 
+    if (not self.m_bLeftFormation) then
+        phys_group = 'missile_e'
+    end
+
     -- 캐릭터 유형별 변수 정리(dragon or enemy)
     if (self.m_charType == 'dragon') then
-        is_hero = true
-        phys_group = 'missile_h'
-		-- @TODO 스킬 레벨이 반영된 테이블 정보 가져옴
+        -- @TODO 스킬 레벨이 반영된 테이블 정보 가져옴
 		t_skill = self:getLevelingSkillById(skill_id)
-    elseif (self.m_charType == 'enemy') then
-        is_hero = false
-        phys_group = 'missile_e'
-		local table_skill = TABLE:get(self.m_charType .. '_skill')
+    elseif (self.m_charType == 'monster') then
+        local table_skill = TABLE:get(self.m_charType .. '_skill')
 		t_skill = table_skill[skill_id]
     else
         error()

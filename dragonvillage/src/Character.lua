@@ -218,7 +218,7 @@ function Character:initStatus(t_char, level, grade, evolution, doid)
         else
             self.m_statusCalc = MakeDragonStatusCalculator(self.m_charTable['did'], level, grade, evolution)
         end
-    elseif (self.m_charType == 'enemy') then
+    elseif (self.m_charType == 'monster') then
         self.m_statusCalc = StatusCalculator(self.m_charType, self.m_charTable['mid'], level, grade, evolution)
     else
         error('self.m_charType : ' .. self.m_charType)
@@ -523,7 +523,7 @@ function Character:getSkillTable(skill_id)
     if (self.m_charType == 'dragon') then
         table_name = 'dragon_skill'
     else
-        table_name = 'enemy_skill'
+        table_name = 'monster_skill'
     end
 
     -- 테이블 정보 가져옴
@@ -665,7 +665,7 @@ function Character:makeDamageFont(damage, x, y, critical, attr_bonus_dmg)
         local label = cc.Label:createWithBMFont('res/font/normal.fnt', comma_value(damage))
         --self:makeDmgFontFadeOut(label)
         
-        if (self.m_charType == 'dragon') then
+        if (self.m_bLeftFormation) then
             label:setColor(cc.c3b(235, 71, 42))
         end
 
@@ -1000,7 +1000,7 @@ function Character:calcAttackPeriod()
     if self.m_bFirstAttack then
         self.m_bFirstAttack = false
 
-        if self.m_charType == 'dragon' then
+        if (self.m_bLeftFormation) then
             self.m_attackPeriod = 0
         else
             self.m_attackPeriod = self.m_statusCalc.m_attackTick * math_random(1, 100) / 100
@@ -1193,7 +1193,7 @@ function Character:setStatusIcon(status_effect, idx)
 	end
 
 	-- 위치 조정 
-	if (self.m_charType == 'dragon') or (self.m_charType == 'tamer') then 
+	if (self.m_bLeftFormation) then 
 		icon.m_icon:setPosition(60 + 18 * (idx - 1), -8 + factor_y)
 	else
 		icon.m_icon:setPosition(-20 + 18 * (idx - 1), -23 + factor_y)

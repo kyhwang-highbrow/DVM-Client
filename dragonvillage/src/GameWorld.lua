@@ -1425,19 +1425,16 @@ end
 function GameWorld:onEvent_character_dead(event_name, ...)
     local arg = {...}
     local char = arg[1]
-    local char_type = char.m_charType
+    local is_hero = char.m_bLeftFormation
 
-    -- 드래곤 사망
-    if (char_type == 'dragon') then
+    -- 아군 사망
+    if (is_hero) then
 
-    -- 몬스터 사망
-    elseif (char_type == 'enemy') then
+    -- 적군 사망
+    else
         self:dropItem(char.pos['x'], char.pos['y'])
         self:dispatch('enemy_dead', char)
 
-    -- 정의되지 않은 캐릭터 타입
-    else
-        error('char.m_charType : ' .. char.m_charType)
     end
 end
 

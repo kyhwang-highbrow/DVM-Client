@@ -278,7 +278,7 @@ function getPreloadList_Stage(stageName)
 
                             -- 스킬
                             for _, k in pairs(t_skillList) do
-                                local t_skill = TABLE:get('enemy_skill')[t_enemy[k]]
+                                local t_skill = TABLE:get('monster_skill')[t_enemy[k]]
                                 if t_skill then
                                     if t_skill['skill_form'] == 'script' then
                                         countSkillResListFromScript(ret, t_skill['type'], attr)

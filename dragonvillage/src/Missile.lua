@@ -583,7 +583,7 @@ function Missile:fireAddScriptMissile()
 	local attr_name = attributeNumToStr(self.m_activityCarrier.m_attribute)
     t_launcher_option['attr_name'] = attr_name
 
-	local is_hero = (owner.m_charType == 'dragon')
+	local is_hero = (owner.m_bLeftFormation)
 	local phys_group = nil 
     if is_hero then
         t_launcher_option['target_pos'] = {start_x + 500, start_y}

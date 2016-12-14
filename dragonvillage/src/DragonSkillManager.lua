@@ -85,8 +85,8 @@ end
 -- function getSkillLevel
 -------------------------------------
 function IDragonSkillManager:getSkillLevel(idx)
-    -- 적 몬스터는 무조건 1로 처리
-    if (self.m_charType == 'enemy') then
+    -- 몬스터는 무조건 1로 처리
+    if (self.m_charType == 'monster') then
         return 1
     end
 

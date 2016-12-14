@@ -2,7 +2,7 @@
 -- class DragonSkillIndivisualInfo
 -------------------------------------
 DragonSkillIndivisualInfo = class({
-        m_charType = 'string',  -- 캐릭터 타입 'dragon', 'enemy'
+        m_charType = 'string',  -- 캐릭터 타입 'dragon', 'monster'
         m_skillID = 'number',   -- 스킬 ID
         m_skillType = 'string',
         m_tSkill = 'table',     -- 스킬 테이블
