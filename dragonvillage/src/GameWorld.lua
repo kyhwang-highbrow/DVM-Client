@@ -507,17 +507,21 @@ function GameWorld:initBG(t_script_data)
         self.m_mapManager = ScrollMap(self.m_bgNode)
         self.m_mapManager:setBg(bg)
         self.m_mapManager:setSpeed(-100)
-        self.m_mapManager:setFuncGetCameraPosition(function()
-            return self.m_gameCamera.m_node:getPosition()
-        end)
+        self.m_mapManager:bindCameraNode(g_gameScene.m_cameraLayer)
 
-        local difficulty, chapter, stage = parseAdventureID(self.m_stageID)
-        if (chapter == 2 and not g_gameScene:isNestDungeon()) then
-            self.m_mapManager:setFloating(2)
-        else
-            self.m_mapManager:setFloating(1)
+        -- 스테이지별 배경 연출 설정
+        do
+            local difficulty, chapter, stage = parseAdventureID(self.m_stageID)
+            if (chapter == 2 and not g_gameScene:isNestDungeon()) then
+                self.m_mapManager:setFloating(2)
+            else
+                self.m_mapManager:setFloating(1)
+            end
+
+            if getStageType(self.m_stageID) == STAGE_TYPE.NEST_DRAGON then
+                self:addListener('nest_dragon_final_wave', self.m_mapManager)
+            end
         end
-
     else
         error('bg_type : ' .. bg_type)
 

@@ -1054,18 +1054,20 @@ function GameState:doDirectionForIntermission()
     local curCameraPosX, curCameraPosY = world.m_gameCamera:getHomePos()
 		
 	if (world.m_waveMgr.m_bDevelopMode == false) then
+        -- 네스트 던전일 경우 웨이브 스크립트에 있는 카메라 정보로 설정
         if g_gameScene:isNestDungeon() then
             t_camera_info['pos_x'] = t_camera_info['pos_x'] * t_camera_info['scale']
 			t_camera_info['pos_y'] = t_camera_info['pos_y'] * t_camera_info['scale']
 			t_camera_info['time'] = WAVE_INTERMISSION_TIME
 
-            -- 네스트별 연출
+            -- 네스트 던전별 연출
             if getStageType(world.m_stageID) == STAGE_TYPE.NEST_DRAGON then
                 if is_final_wave then
-                    map_mgr:doOption('nest_dragon')
+                    world:dispatch('nest_dragon_final_wave')
                 end
             else
             end
+        -- 네스트 던전이 아닐 경우 카메라의 y값만 랜덤하게 설정
         else
             local tRandomY = {}
             for _, v in pairs({-300, 0, 300}) do
@@ -1074,8 +1076,7 @@ function GameState:doDirectionForIntermission()
                 end
             end
 
-            -- 랜덤하게 카메라 위치를 변경
-			t_camera_info['pos_x'] = curCameraPosX * t_camera_info['scale']
+            t_camera_info['pos_x'] = curCameraPosX * t_camera_info['scale']
 			t_camera_info['pos_y'] = tRandomY[math_random(1, #tRandomY)] * t_camera_info['scale']
 			t_camera_info['time'] = WAVE_INTERMISSION_TIME
         end

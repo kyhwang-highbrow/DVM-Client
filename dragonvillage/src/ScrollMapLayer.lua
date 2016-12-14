@@ -12,20 +12,20 @@ ScrollMapLayer = class({
         m_offsetX = 'number',       -- X위치
         m_offsetY = 'number',       -- Y위치
         m_visibleSize = 'table',    -- 화면 사이즈
-        m_option = 'number',        -- 별도의 연출 처리를 위한 값
+        m_group = 'number',           -- ScrollMapLayer들중 특수하게 연출되어야하는 것들을 구분하기 위한 값(스크립트로 설정)
     })
 
 -------------------------------------
 -- class ScrollMapLayer
 -------------------------------------
-function ScrollMapLayer:init(parent, type, res, animation, interval, offset_x, offset_y, scale, speed_scale, option)
+function ScrollMapLayer:init(parent, type, res, animation, interval, offset_x, offset_y, scale, speed_scale, group)
     self.m_type = type
     self.m_tSprite = {}
     self.m_interval = interval or 960
     self.m_offsetX = offset_x or 0
     self.m_offsetY = offset_y or 0
     self.m_speedScale = speed_scale or 1
-    self.m_option = option
+    self.m_group = group or ''
 
     self.m_visibleSize = cc.Director:getInstance():getVisibleSize()
     
@@ -91,13 +91,13 @@ function ScrollMapLayer:init(parent, type, res, animation, interval, offset_x, o
         end
     end
 
-    ScrollMapLayer_update(self, 0, 0)
+    self:update(0, 0)
 end
 
 -------------------------------------
 -- function update
 -------------------------------------
-function ScrollMapLayer_update(self, totalMove, dt, cameraX, cameraY)
+function ScrollMapLayer:update(totalMove, dt, cameraX, cameraY)
     local pos = (totalMove * self.m_speedScale)
     local cameraX = cameraX or 0
     local cameraY = cameraY or 0
@@ -136,6 +136,6 @@ end
 -------------------------------------
 -- function doAction
 -------------------------------------
-function ScrollMapLayer_doAction(self, action)
+function ScrollMapLayer:doAction(action)
     self.m_rootNode:runAction(action)
 end

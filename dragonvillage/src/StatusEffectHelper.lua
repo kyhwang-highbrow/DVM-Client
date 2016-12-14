@@ -208,8 +208,9 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 
 	----------- 필드 체크 필요한 패시브 ------------------
 	elseif (status_effect_type == 'passive_bloodlust') then
+        -- @TODO skim 제대로 동작되는지 확인 필요
 		status_effect = StatusEffect_CheckWorld(res)
-		status_effect:init_checkWorld(char, 'bleed') 
+		status_effect:init_checkWorld(char, 'bleed')
 		
 	----------- 도트 데미지 들어가는 패시브 ------------------
 	elseif (t_status_effect['type'] == 'dot_dmg') then

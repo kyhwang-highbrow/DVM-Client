@@ -68,7 +68,7 @@
 		{
             "name":"드래곤"
             "speed":0
-			"option":"nest_dragon"
+			"group":"nest_dragon_body"
 			"list":
             [
                 {"res":"res/character/monster/boss_gdragon_fire/boss_gdragon_body_fire.png" "pos_x":1280 "pos_y":300 "scale":1.5}

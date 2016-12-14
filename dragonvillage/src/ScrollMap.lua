@@ -1,8 +1,10 @@
 -------------------------------------
 -- class ScrollMap
 -------------------------------------
-ScrollMap = class(MapManager, {
+ScrollMap = class(MapManager, IEventListener:getCloneTable(), {
         m_node = '',
+        m_cameraNode = '',
+
         m_speed = '',
         m_totalMove = '',
         m_tMapLayer = '',
@@ -14,8 +16,6 @@ ScrollMap = class(MapManager, {
         m_colorScale = '',
 
         m_floatingType = 'number',
-
-        m_fGetCameraPosition = 'function',
     })
 
 -------------------------------------
@@ -35,8 +35,14 @@ function ScrollMap:init(node)
     self.m_colorScale = 100
 
     self.m_floatingType = 0
+end
 
-    self.m_fGetCameraPosition = nil
+-------------------------------------
+-- function bindCameraNode
+-- @breif 배경 백판 연출 설정
+-------------------------------------
+function ScrollMap:bindCameraNode(node)
+    self.m_cameraNode = node
 end
 
 -------------------------------------
@@ -97,7 +103,7 @@ function ScrollMap:setBg(res)
         for _, v in ipairs(script['layer']) do
             local type = v['type'] or 'horizontal'
             local speed = v['speed']
-            local option = v['option']
+            local group = v['group']
             local offset_x = 0
             local offset_y = 0
             local interval = 0
@@ -124,7 +130,7 @@ function ScrollMap:setBg(res)
                     real_offset_y = real_offset_y + offset_y
                 end
                 
-                local map_layer = ScrollMapLayer(self.m_node, type, data['res'], data['animation'], interval, real_offset_x, real_offset_y, scale, speed, option)
+                local map_layer = ScrollMapLayer(self.m_node, type, data['res'], data['animation'], interval, real_offset_x, real_offset_y, scale, speed, group)
                 table.insert(self.m_tMapLayer, map_layer)
 
                 if type == 'horizontal' then
@@ -138,13 +144,6 @@ function ScrollMap:setBg(res)
 end
 
 -------------------------------------
--- function setFuncGetCameraPosition
--------------------------------------
-function ScrollMap:setFuncGetCameraPosition(func)
-    self.m_fGetCameraPosition = func
-end
-
--------------------------------------
 -- function update
 -- @param dt
 -------------------------------------
@@ -154,13 +153,14 @@ function ScrollMap:update(dt)
 
     self.m_totalMove = self.m_totalMove + distance
 
+    -- 각 레이어들이 현재의 카메라 위치를 기준으로 루핑되도록 함.
     local cameraX, cameraY = 0, 0
-    if self.m_fGetCameraPosition then
-        cameraX, cameraY = self.m_fGetCameraPosition()
+    if self.m_cameraNode then
+        cameraX, cameraY = self.m_cameraNode:getPosition()
     end
-
+    
     for i,v in ipairs(self.m_tMapLayer) do
-        ScrollMapLayer_update(v, self.m_totalMove, dt, cameraX, cameraY)
+        v:update(self.m_totalMove, dt, cameraX, cameraY)
     end
 
     return self.m_totalMove
@@ -174,21 +174,18 @@ function ScrollMap:setSpeed(speed)
 end
 
 -------------------------------------
--- function doOption
+-- function onEvent
 -------------------------------------
-function ScrollMap:doOption(option)
-    for i,v in ipairs(self.m_tMapLayer) do
-        if v.m_option == option then
-            local cameraX, cameraY = 0, 0
-            if self.m_fGetCameraPosition then
-                cameraX, cameraY = self.m_fGetCameraPosition()
-            end
-
-            --local distance = CRITERIA_RESOLUTION_X - cameraX
-            local distance = 3600
-            local action = cc.MoveTo:create(1.5, cc.p(distance, 0))
+function ScrollMap:onEvent(event_name, ...)
+    -- 거대용 마지막 웨이브 시작시 연출
+    if (event_name == 'nest_dragon_final_wave') then
+        for i,v in ipairs(self.m_tMapLayer) do
+            if v.m_group == 'nest_dragon_body' then
+                local distance = 3600
+                local action = cc.MoveTo:create(1.5, cc.p(distance, 0))
             
-            ScrollMapLayer_doAction(v, action)
+                v:doAction(action)
+            end
         end
     end
 end

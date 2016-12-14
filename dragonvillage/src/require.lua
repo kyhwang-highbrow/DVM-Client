@@ -45,9 +45,6 @@ local t_module = {
     'LevelupDirector',
     'LevelupDirector_GameResult',
     'MapManager',
-    'ScrollMap',
-    'ScrollMapLayer',
-    'AnimationMap',
     'ServerData',
     'ServerData_User',
     'ServerData_Dragons',
@@ -123,7 +120,11 @@ local t_module = {
     'TamerSkillCut',
 	'TamerSkillManager',
 
-	
+    -- MAP
+    'ScrollMap',
+    'ScrollMapLayer',
+    'AnimationMap',
+    	
 	-- MISSILE
 	'Missile',
     'MissileBoomerang',
