@@ -94,12 +94,6 @@ function GameWorld:dropItem(x, y)
 end
 
 -------------------------------------
--- function onEvent_EnemyDead
--------------------------------------
-function SpecialPowerMgr:onEvent_EnemyDead(enemy)
-end
-
--------------------------------------
 -- function init_wavemaker
 -------------------------------------
 function GameWorld:init_wavemaker(deck_type)
@@ -129,28 +123,28 @@ function GameWorld:init_wavemaker(deck_type)
 				local grade = t_dragon_data['grade']
 				local evolution = t_dragon_data['evolution']
 
-				local hero = Hero(nil, {0, 0, 20})
-				hero:initDragonSkillManager(dragon_id, t_dragon_data['grade'])
-				hero.m_tDragonInfo = t_dragon_data
-				hero:initAnimatorHero(t_dragon['res'], t_dragon_data['evolution'])
-				hero.m_animator:setScale(0.5 * t_dragon['scale'])
-				hero.m_skillButtonIndicator = SkillButtonIndicator(hero)
-				hero:initState()
-				hero:initStatus(t_dragon, lv, grade, evolution)
+				local dragon = Dragon(nil, {0, 0, 20})
+				dragon:initDragonSkillManager(dragon_id, t_dragon_data['grade'])
+				dragon.m_tDragonInfo = t_dragon_data
+				dragon:initAnimatorDragon(t_dragon['res'], t_dragon_data['evolution'])
+				dragon.m_animator:setScale(0.5 * t_dragon['scale'])
+				dragon.m_skillButtonIndicator = SkillButtonIndicator(dragon)
+				dragon:initState()
+				dragon:initStatus(t_dragon, lv, grade, evolution)
 
-				self.m_leftFormationMgr:setChangePosCallback(hero)
+				self.m_leftFormationMgr:setChangePosCallback(dragon)
 
-				hero.m_dragonID = dragon_id
-				hero.m_charTable = t_dragon
+				dragon.m_dragonID = dragon_id
+				dragon.m_charTable = t_dragon
 
-				self.m_worldNode:addChild(hero.m_rootNode, 2)
-				self:addToUnitList(hero)
-				self.m_physWorld:addObject('hero', hero)
-				self:addHero(hero, tonumber(i))
+				self.m_worldNode:addChild(dragon.m_rootNode, 2)
+				self:addToUnitList(dragon)
+				self.m_physWorld:addObject('hero', dragon)
+				self:addHero(dragon, tonumber(i))
 
-				hero:makeHPGauge({0, -80}, true)
+				dragon:makeHPGauge({0, -80}, true)
 
-				self:participationHero(hero)
+				self:participationHero(dragon)
 			end
         end
     end
