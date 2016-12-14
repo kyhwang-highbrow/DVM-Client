@@ -2,25 +2,30 @@
 -- table StatusEffectHelper
 -- @brief 상태 효과 핼퍼
 -------------------------------------
-StatusEffectHelper = {}
+StatusEffectHelper = {
+	m_casterActivityCarrier = nil -- damage 가하는 상태효과 위해 설정
+}
 
 -------------------------------------
 -- function statusEffectCheck_onHit
 -- @brief 상태 효과 확인
 -------------------------------------
-function StatusEffectHelper:statusEffectCheck_onHit(attack_damage, defender)
+function StatusEffectHelper:statusEffectCheck_onHit(activity_carrier, defender)
     -- 피격자가 사망했을 경우 리턴
     if (defender.m_bDead == true) then
         return
     end
 
     -- 상태 이펙트 유발 리스트 갯수 확인
-    local count = table.count(attack_damage.m_lStatusEffectRate)
+    local count = table.count(activity_carrier.m_lStatusEffectRate)
     if (count <= 0) then
         return
     end
 
-    for type, t_content in pairs(attack_damage.m_lStatusEffectRate) do
+	-- 캐스터의 acitivity_carrier 저장
+	self:setActivityCarrier(activity_carrier)
+
+    for type, t_content in pairs(activity_carrier.m_lStatusEffectRate) do
 		local value = t_content['value']
 		local rate = t_content['rate']
         StatusEffectHelper:invokeStatusEffect(defender, type, value, rate)
@@ -35,6 +40,9 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
    	-- 피격자가 사망했을 경우 리턴
     if (owner.m_bDead == true) then return end
 	
+	-- 0. 캐스터의 acitivity_carrier 저장
+	self:setActivityCarrier(owner.m_activityCarrier)
+
 	-- 1. 타겟 대상에 상태효과생성
 	local idx = 1
 	local effect_str = nil
@@ -215,7 +223,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	----------- 도트 데미지 들어가는 패시브 ------------------
 	elseif (t_status_effect['type'] == 'dot_dmg') then
 		status_effect = StatusEffect_DotDmg(res)
-		status_effect:init_dotDmg(char, t_status_effect)
+		status_effect:init_dotDmg(char, t_status_effect, status_effect_value, self:getActivityCarrier())
 
 	----------- HP 보호막 ------------------
 	elseif (status_effect_type == 'barrier_protection') then
@@ -512,4 +520,20 @@ function StatusEffectHelper:parsingStatusEffectStr(l_status_effect_str, idx)
 	local t_effect = stringSplit(effect_str, ';')
 
 	return t_effect
+end
+
+-------------------------------------
+-- function setActivityCarrier
+-------------------------------------
+function StatusEffectHelper:setActivityCarrier(activity_carrier)
+	if activity_carrier then 
+		self.m_casterActivityCarrier = activity_carrier:cloneForMissile()
+	end
+end
+
+-------------------------------------
+-- function getActivityCarrier
+-------------------------------------
+function StatusEffectHelper:getActivityCarrier()
+	return self.m_casterActivityCarrier
 end

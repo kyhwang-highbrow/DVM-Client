@@ -4,7 +4,7 @@ local PARENT = StatusEffect
 -- class StatusEffect_DotDmg
 -------------------------------------
 StatusEffect_DotDmg = class(PARENT, {
-		m_dotlRate = '',
+		m_dotDmg = '',
 		m_dotInterval = '',
 		m_dotTimer = '',
     })
@@ -21,9 +21,28 @@ end
 -------------------------------------
 -- function init_dotDmg
 -------------------------------------
-function StatusEffect_DotDmg:init_dotDmg(char, t_status_effect)	
+function StatusEffect_DotDmg:init_dotDmg(char, t_status_effect, status_effect_value, caster_activity_carrier)
 	self.m_owner = char
-	self.m_dotlRate = t_status_effect['dot_dmg'] / 100
+	local damage = 0
+
+	if string.find(t_status_effect['name'], '_abs') then 
+		-- 테이블 값이 절대값
+		damage = t_status_effect['dot_dmg']
+	else
+		-- 데미지 계산
+		local atk_dmg_stat = caster_activity_carrier:getAtkDmgStat()
+		local atk_dmg = caster_activity_carrier:getStat(atk_dmg_stat)
+		local def_pwr = 0 -- 방어 무관
+		local damage_org = math_floor(DamageCalc_P(atk_dmg, def_pwr))
+		-- 속성 효과
+		local t_attr_effect = char:checkAttributeCounter(caster_activity_carrier)
+		if t_attr_effect['damage'] then
+			damage = damage_org * (1 + (t_attr_effect['damage'] / 100))
+		end
+		damage = damage * (t_status_effect['dot_dmg'] / 100)
+	end
+
+	self.m_dotDmg = damage * (status_effect_value / 100)
 	self.m_dotInterval = t_status_effect['dot_interval']
 	
 	-- 첫 틱에 데미지 들어가도록..
@@ -54,8 +73,7 @@ function StatusEffect_DotDmg:update(dt)
 		-- 반복
 		self.m_dotTimer = self.m_dotTimer + dt
 		if (self.m_dotTimer > self.m_dotInterval) then
-			-- 트루퍼뎀 
-			self.m_owner:dealPercent(self.m_dotlRate)
+			self.m_owner:setDamage(nil, self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, self.m_dotDmg, nil)
 			self.m_dotTimer = self.m_dotTimer - self.m_dotInterval
 			self:changeState('start')
 		end
