@@ -110,7 +110,8 @@ end
 -- function update
 -------------------------------------
 function MonsterLua_Boss:update(dt)
-    if (self.m_state == 'pattern_idle' or self.m_state == 'pattern_wait' or self.m_state == 'pattern_move') then
+    --if (self.m_state == 'pattern_idle' or self.m_state == 'pattern_wait' or self.m_state == 'pattern_move') then
+    if (self.m_state ~= 'idle' and self.m_state ~= 'move') then
         self.m_patternTime = self.m_patternTime + dt
         --cclog('self.m_patternTime = ' .. self.m_patternTime)
     
