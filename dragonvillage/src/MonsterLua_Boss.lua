@@ -39,7 +39,7 @@ function MonsterLua_Boss:initScript(pattern_script_name, is_boss)
     local script = TABLE:loadJsonTable(pattern_script_name)
     
     self.m_tOrgPattern = self:getBasePatternList()
-    self.m_tCurrPattern = self.m_tOrgPattern
+    self.m_tCurrPattern = clone(self.m_tOrgPattern)
     self.m_currPatternIdx = 0
 
     -- HP 트리거 생성
