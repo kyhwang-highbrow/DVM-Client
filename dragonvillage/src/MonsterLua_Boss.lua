@@ -228,7 +228,7 @@ function MonsterLua_Boss:getNextPattern()
             self.m_tOrgPattern = self:getBasePatternList()
         end
 
-        self.m_tCurrPattern = self.m_tOrgPattern
+        self.m_tCurrPattern = clone(self.m_tOrgPattern)
     end
 
     local pattern_info = self.m_tCurrPattern[self.m_currPatternIdx]
