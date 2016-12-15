@@ -140,7 +140,7 @@ function EnemyMovement.Basic(owner, luaValue1, luaValue2, luaValue3, luaValue4, 
     owner:setOrgHomePos(pos2.x, pos2.y)
     owner:setHomePos(pos2.x, pos2.y)
     owner:setPosition(pos1.x, pos1.y)
-
+	
     -- 마지막 액션(Enemy를 공격상태로 변경)
     local finish_action = cc.CallFunc:create(function()
         owner:changeState('idle')
@@ -229,4 +229,29 @@ function EnemyMovement.Appear(owner, luaValue1, luaValue2, luaValue3, luaValue4,
 
         owner:dispatch('enemy_appear_done', owner)
     end)))
+end
+
+-------------------------------------
+-- function FadeIn
+-- @brief fadein 하며 등장 
+-- @param value2 = 도착 위치
+-------------------------------------
+function EnemyMovement.FadeIn(owner, luaValue1, luaValue2, luaValue3, luaValue4, luaValue5)
+    -- m_luaValue2 도착 위치
+    local pos2 = getWorldEnemyPos(owner, luaValue2)
+
+    -- 위치 및 알파 세팅
+    owner:setOrgHomePos(pos2.x, pos2.y)
+    owner:setHomePos(pos2.x, pos2.y)
+    owner:setPosition(pos2.x, pos2.y)
+	owner.m_animator:setAlpha(0)
+
+	-- 액션
+	local fade_in = cc.FadeIn:create(1)
+    local finish_action = cc.CallFunc:create(function()
+        owner:changeState('idle')
+        owner:dispatch('enemy_appear_done', owner)
+    end)    
+
+	owner.m_animator:runAction(cc.Sequence:create(fade_in, finish_action))
 end
