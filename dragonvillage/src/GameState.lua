@@ -1071,7 +1071,7 @@ function GameState:doDirectionForIntermission()
 		
 	if (world.m_waveMgr.m_bDevelopMode == false) then
         -- 네스트 던전일 경우 웨이브 스크립트에 있는 카메라 정보로 설정
-        if g_gameScene:isNestDungeon() then
+        if g_gameScene:isNestMode() then
             t_camera_info['pos_x'] = t_camera_info['pos_x'] * t_camera_info['scale']
 			t_camera_info['pos_y'] = t_camera_info['pos_y'] * t_camera_info['scale']
 			t_camera_info['time'] = WAVE_INTERMISSION_TIME

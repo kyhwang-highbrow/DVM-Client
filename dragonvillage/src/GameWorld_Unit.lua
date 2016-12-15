@@ -127,6 +127,7 @@ function GameWorld:tryPatternMonster(t_monster, body)
     local rarity = t_monster['rarity']
     local type = t_monster['type']
     local script_name = 'pattern_' .. rarity .. '_' .. type    
+    local is_boss = (rarity == 'boss')
 
     -- 임시 구현
     --[[
@@ -149,7 +150,7 @@ function GameWorld:tryPatternMonster(t_monster, body)
 
     local monster = MonsterLua_Boss(t_monster['res'], body)
     monster:initAnimatorMonster(t_monster['res'], t_monster['attr'])
-    monster:initScript(script_name)
-
+    monster:initScript(script_name, is_boss)
+    
     return monster
 end

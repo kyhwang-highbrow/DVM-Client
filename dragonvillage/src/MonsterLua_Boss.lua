@@ -16,6 +16,8 @@ MonsterLua_Boss = class(PARENT, {
         m_triggerTime = 'TriggerTime',
 
         m_patternTime = 'number',
+
+        m_tEffectSound = 'table',
      })
 
 -------------------------------------
@@ -25,12 +27,13 @@ MonsterLua_Boss = class(PARENT, {
 -------------------------------------
 function MonsterLua_Boss:init(file_name, body, ...)
     self.m_patternTime = 0
+    self.m_tEffectSound = {}
 end
 
 -------------------------------------
 -- function initScript
 -------------------------------------
-function MonsterLua_Boss:initScript(pattern_script_name)
+function MonsterLua_Boss:initScript(pattern_script_name, is_boss)
     self.m_patternScriptName = pattern_script_name
 
     local script = TABLE:loadJsonTable(pattern_script_name)
@@ -60,7 +63,29 @@ function MonsterLua_Boss:initScript(pattern_script_name)
             self.m_animator.m_node:setMix(aniName1, aniName2, time)
         end
     end
+
+    -- 이펙트 사운드 설정
+    if script['sound'] then
+        self.m_tEffectSound = script['sound']
+
+    -- 모험모드일 경우 보스 사운드 자동 설정
+    elseif is_boss and g_gameScene:isAdventureMode() then
+        local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
+        
+        self.m_tEffectSound['skill_1'] = string.format('vo_boss%d_skill_1', chapter)
+        self.m_tEffectSound['skill_2'] = string.format('vo_boss%d_skill_2', chapter)
+        self.m_tEffectSound['skill_cancel'] = string.format('vo_boss%d_skill_cancel', chapter)
+        self.m_tEffectSound['die'] = string.format('vo_boss%d_die', chapter)
+    end
 end
+
+-------------------------------------
+-- function initSound
+-------------------------------------
+function MonsterLua_Boss:initSound()
+    
+end
+
 
 MonsterLua_Boss.st_attack = PARENT.st_attack
 
@@ -119,14 +144,8 @@ end
 function MonsterLua_Boss.st_dying(owner, dt)
     if (owner.m_stateTimer == 0) then
         -- 효과음
-        if owner.m_charTable['rarity'] == 'boss' then
-            if g_gameScene:isNestDungeon() then
-
-            else
-                local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
-        
-                SoundMgr:playEffect('VOICE', string.format('vo_boss%d_die', chapter))
-            end
+        if owner.m_tEffectSound['die'] then
+            SoundMgr:playEffect('VOICE', owner.m_tEffectSound['die'])
         end
     end
 
@@ -165,14 +184,10 @@ function MonsterLua_Boss.st_casting(owner, dt)
         end
 
         -- 효과음
-        if owner.m_charTable['rarity'] == 'boss' then
-            if g_gameScene:isNestDungeon() then
-            else
-                local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
-                local type = math_random(1, 2)
+        local type = math_random(1, 2)
 
-                SoundMgr:playEffect('VOICE', string.format('vo_boss%d_skill_%d', chapter, type))
-            end
+        if owner.m_tEffectSound['skill_' .. type] then
+            SoundMgr:playEffect('VOICE', owner.m_tEffectSound['skill_' .. type])
         end
     end
 end
@@ -324,13 +339,16 @@ function MonsterLua_Boss:cancelSkill()
     local b = PARENT.cancelSkill(self)
     
     -- 보스별 음성
-    if b and self.m_charTable['rarity'] == 'boss' then
-        if g_gameScene:isNestDungeon() then
-        else
-            local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
-            SoundMgr:stopEffect('VOICE', string.format('vo_boss%d_skill_1', chapter))
-            SoundMgr:stopEffect('VOICE', string.format('vo_boss%d_skill_2', chapter))
-            SoundMgr:playEffect('VOICE', string.format('vo_boss%d_skill_cancel', chapter))
+    if b then
+        if self.m_tEffectSound['skill_cancel'] then
+            if self.m_tEffectSound['skill_1'] then
+                SoundMgr:stopEffect('VOICE', self.m_tEffectSound['skill_1'])
+            end
+            if self.m_tEffectSound['skill_2'] then
+                SoundMgr:stopEffect('VOICE', self.m_tEffectSound['skill_2'])
+            end
+            
+            SoundMgr:playEffect('VOICE', self.m_tEffectSound['skill_cancel'])
         end
     end
     

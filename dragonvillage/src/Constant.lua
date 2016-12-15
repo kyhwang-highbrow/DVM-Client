@@ -103,6 +103,7 @@ STAGE_TYPE =
 -- 게임 모드에
 GAME_MODE_ADVENTURE = 1
 GAME_MODE_NEST_DUNGEON = 2
+GAME_MODE_COLOSSEUM = 3
 
 -- 네스트 던전 하위 던전 모드
 NEST_DUNGEON_DRAGON = 1
@@ -238,18 +239,25 @@ end
 -------------------------------------
 function getStageType(stage_id)
     local stage_id = tonumber(stage_id)
+    local game_mode = g_stageData:getGameMode(stage_id)
+    local stage_type
 
-    if (math_floor(stage_id / 10000) == 1) then
-        return STAGE_TYPE.ADVENTURE
-    else
-        local key =  math_floor(stage_id / 1000)
+    if game_mode == GAME_MODE_ADVENTURE then
+        stage_type = STAGE_TYPE.ADVENTURE
 
-        if key == 21 then
-            return STAGE_TYPE.NEST_DRAGON
-        elseif key == 22 then
-            return STAGE_TYPE.NEST_NIGHTMARE
-        elseif key == 23 then
-            return STAGE_TYPE.NEST_TREE
+    elseif game_mode == GAME_MODE_NEST_DUNGEON then
+        local nest_type = getDigit(stage_id, 1000, 1)
+
+        if nest_type == NEST_DUNGEON_DRAGON then
+            stage_type = STAGE_TYPE.NEST_DRAGON
+        elseif nest_type == NEST_DUNGEON_NIGHTMARE then
+            stage_type = STAGE_TYPE.NEST_NIGHTMARE
+        elseif nest_type == NEST_DUNGEON_TREE then
+            stage_type = STAGE_TYPE.NEST_TREE
         end
+    else
+
     end
+
+    return stage_type
 end

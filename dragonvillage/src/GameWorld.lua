@@ -512,7 +512,7 @@ function GameWorld:initBG(t_script_data)
         -- 스테이지별 배경 연출 설정
         do
             local difficulty, chapter, stage = parseAdventureID(self.m_stageID)
-            if (chapter == 2 and not g_gameScene:isNestDungeon()) then
+            if (chapter == 2 and g_gameScene:isAdventureMode()) then
                 self.m_mapManager:setFloating(2)
             else
                 self.m_mapManager:setFloating(1)

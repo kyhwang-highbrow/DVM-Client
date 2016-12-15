@@ -26,12 +26,9 @@ function UI_Game:init(game_scene)
     vars['goldLabel']:setString('0')
 
     -- 스테이지명 지정
-    if g_gameScene:isNestDungeon() then
-        vars['stageLabel']:setString(Str('네스트 던전'))
-    else
-        local difficulty, chapter, stage = parseAdventureID(game_scene.m_stageID)
-        local chapter_name = chapterName(chapter)
-        vars['stageLabel']:setString(chapter_name .. Str(' {1}-{2}', chapter, stage))
+    do
+        local stage_name = g_stageData:getStageName(game_scene.m_stageID)
+        vars['stageLabel']:setString(stage_name)
     end
 
     --self:doActionReset()

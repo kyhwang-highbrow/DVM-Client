@@ -33,7 +33,6 @@ SceneGame = class(PerpleScene, {
 
         m_bDevelopMode = 'boolean',
 
-        m_timerTimeScale = 'number',
         m_gameKey = 'number', -- 서버에서 넘어오는 고유 Key
         m_resPreloadMgr = 'ResPreloadMgr',
     })
@@ -52,8 +51,6 @@ function SceneGame:init(game_key, stage_id, stage_name, develop_mode)
     self.m_bDevelopMode = develop_mode or false
     self.m_bShowTopUserInfo = false
 
-    self.m_timerTimeScale = 0
-    
     self:init_gameMode(stage_id)
 end
 
@@ -216,14 +213,7 @@ function SceneGame:update(dt)
     if self.m_bPause then
         return
     end
-
-    if self.m_timerTimeScale > 0 then
-        self.m_timerTimeScale = self.m_timerTimeScale - dt
-        if self.m_timerTimeScale <= 0 then
-            self:setTimeScale(1)
-        end
-    end
-    
+        
     local function func()
 		self.m_gameWorld:update(dt)
     end
@@ -294,18 +284,6 @@ function SceneGame:sceneDidChangeViewSize()
         local ease_action = cc.EaseIn:create(scale_action, 2)
         self.m_viewLayer:runAction(ease_action)
     end
-end
-
--------------------------------------
--- function setTimeScaleAction
--- @brief duration 시간동안만 timeScale을 변경시킴
--------------------------------------
-function SceneGame:setTimeScaleAction(timeScale, duration)
-    if timeScale == 0 then return end
-
-    self:setTimeScale(timeScale)
-
-    self.m_timerTimeScale = duration * timeScale
 end
 
 -------------------------------------
@@ -603,10 +581,18 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
 end
 
 -------------------------------------
--- function isNestDungeon
+-- function isAdventureMode
+-- @brief 모험 모드 스테이지 여부
+-------------------------------------
+function SceneGame:isAdventureMode()
+    return (self.m_gameMode == GAME_MODE_ADVENTURE)
+end
+
+-------------------------------------
+-- function isNestMode
 -- @brief 네스트 던전 스테이지 여부
 -------------------------------------
-function SceneGame:isNestDungeon()
+function SceneGame:isNestMode()
     if (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
         return true
     else
