@@ -1,0 +1,40 @@
+{
+    "pattern_boss_treant":
+    [        
+        [
+            "a;basic", "w;3", "a;1", "w;3", "a;2", "w;3", "a;3", "w;3", "a;4", "w;3"
+        ]
+    ],
+	
+    "hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":1,
+                "pattern":
+                [
+                    "a;1"
+                ]
+            },
+			
+            {
+                "hp_percent":1,
+                "pattern":
+                [
+                    "a;1"
+                ]
+            }
+        ]
+    },
+	
+	"ani_mix":
+	[
+        "idle;attack;0.1",
+        "idle;idle;0.1",
+        "attack;idle;0.1",
+		"skill_4_appear;idle;0.1",
+		"idle;skill_4_appear;0.1"
+    ]
+}
