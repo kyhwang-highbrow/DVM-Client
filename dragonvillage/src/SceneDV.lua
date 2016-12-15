@@ -22,7 +22,9 @@ function SceneDV:onEnter()
     PerpleScene.onEnter(self)
 	
     --self:performanceTest()
-    self:tableViewTDDevelopment()
+    --self:tableViewTDDevelopment()
+    --self:dockPointTest()
+    self:expandTest()
 end
 
 -------------------------------------
@@ -179,4 +181,70 @@ function SceneDV:tableViewTDDevelopment()
 
     local item_count = table_view:getItemCount()
     cclog(item_count)
+end
+
+-------------------------------------
+-- function dockPointTest
+-------------------------------------
+function SceneDV:dockPointTest()
+    cclog('## SceneDV:dockPointTest()')
+
+    -- 부모노드 생성
+    local parent_node = cc.Scale9Sprite:create('res/ui/frame/base_frame_01.png')
+    parent_node:setDockPoint(cc.p(0, 0.5))
+    parent_node:setAnchorPoint(cc.p(0, 0.5))
+    self.m_scene:addChild(parent_node)
+    parent_node:setNormalSize(800, 600)
+
+    -- 자식노드 생성
+    local sprite = cc.Sprite:create('res/ui/frame/base_frame_01.png')
+    sprite:setDockPoint(cc.p(0.5, 0.5))
+    sprite:setAnchorPoint(cc.p(0.5, 0.5))
+    parent_node:addChild(sprite)
+
+
+    local width, height = parent_node:getNormalSize()
+    local func = function(value)
+        parent_node:setNormalSize(value, height)
+        parent_node:setUpdateChildrenTransform()
+
+        --[[
+        local stencil = node:getStencil()
+        stencil:clear()
+        local rectangle = {}
+		local white = cc.c4b(1,1,1,1)
+		table.insert(rectangle, cc.p(0, 0))
+		table.insert(rectangle, cc.p(value or 0, 0))
+		table.insert(rectangle, cc.p(value or 0, height or 0))
+		table.insert(rectangle, cc.p(0,height or 0))
+		stencil:drawPolygon(
+				rectangle
+				, 4
+				, white
+				, 1
+				, white
+		)
+        node:setPosition(0, 0)
+        vars['bgSprite']:setPosition(0, 0)
+        vars['bgSprite']:retain()
+        vars['bgSprite']:removeFromParent()
+        node:addChild(vars['bgSprite'])
+        vars['bgSprite']:release()
+
+        --]]
+    end
+
+    local tween = cc.ActionTweenForLua:create(10, width, 200, func)
+    action = cc.EaseInOut:create(tween, 2)
+    --action:setTag(TAG_CELL_WIDTH_TO)
+    parent_node:runAction(action)
+end
+
+-------------------------------------
+-- function expandTest
+-------------------------------------
+function SceneDV:expandTest()
+    local ui = UI_DragonTrainSlot_ListItem({})
+    self.m_scene:addChild(ui.root)
+    ui.vars['clickBtn']:registerScriptTapHandler(function() ui:setExpand((not ui.m_bExpanded), 0.15)  end)
 end

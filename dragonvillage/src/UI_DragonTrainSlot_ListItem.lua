@@ -18,7 +18,10 @@ function UI_DragonTrainSlot_ListItem:init(t_data)
     self.m_doid = t_data['doid']
     self.m_grade = t_data['grade']
 
-    local vars = self:load('dragon_train_list2.ui')
+    local vars = self:load('dragon_train_list_item.ui')
+
+    vars['collapseNode']:setVisible(true)
+    vars['expandNode']:setVisible(true)
 
     self.m_cellSize = self.root:getContentSize()    
 
@@ -34,6 +37,27 @@ end
 function UI_DragonTrainSlot_ListItem:refresh()
     local vars = self.vars
 
+    local t_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_doid)
+    local table_dragon = TableDragon()
+    local t_dragon = table_dragon:get(t_dragon_data['did'])
+
+    do -- 수련 슬롯 등급
+        vars['gradeSealNode']:removeAllChildren()
+
+        local icon = cc.Sprite:create('res/ui/dragon_train/seal010' .. self.m_grade .. '.png')
+        icon:setDockPoint(cc.p(0.5, 0.5))
+        icon:setDockPoint(cc.p(0.5, 0.5))
+        vars['gradeSealNode']:addChild(icon)
+
+        local icon = cc.Sprite:create('res/ui/dragon_train/seal020' .. self.m_grade .. '.png')
+        icon:setDockPoint(cc.p(0.5, 0.5))
+        icon:setDockPoint(cc.p(0.5, 0.5))
+        vars['gradeSealNode']:addChild(icon)
+        vars['gradeSealIcon'] = icon
+    end
+
+
+    --[[
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_doid)
     local table_dragon = TableDragon()
     local t_dragon = table_dragon:get(t_dragon_data['did'])
@@ -55,6 +79,7 @@ function UI_DragonTrainSlot_ListItem:refresh()
 
     -- b슬롯
     self:refresh_slotVars(self.m_grade, 'b', t_dragon['role'], req_lactea)
+    --]]
 end
 
 -------------------------------------
@@ -118,15 +143,90 @@ function UI_DragonTrainSlot_ListItem:setExpand(expand, duration)
     end
 
     self.m_bExpanded = expand
-
-    local target_width = 400
     local duration = duration or 0.15
 
-    if (expand) then
-        target_width = 400
+    if expand then
+        self:listExpand(duration)
     else
-        target_width = 180
+        self:listCollapse(duration)
+    end
+end
+
+-------------------------------------
+-- function listExpand
+-------------------------------------
+function UI_DragonTrainSlot_ListItem:listExpand(duration)
+    local vars = self.vars
+    self:cellWidthTo(duration, 518)
+
+    do -- 배경 사이즈 조정
+        local node = vars['bg']
+        local tween = cca.widthTo(node, duration, 518)
+        action = cc.EaseInOut:create(tween, 2)
+        node:runAction(action)
     end
 
+    local move_to = cc.MoveTo:create(duration, cc.p(-232, 0))
+    local fade_to = cc.FadeTo:create(duration, 255)
+    cca.runAction(vars['left_stick_01'], cc.EaseInOut:create(move_to, 2), true)
+    cca.runAction(vars['left_stick_01'], cc.EaseInOut:create(fade_to, 2))
+
+    local move_to = cc.MoveTo:create(duration, cc.p(-232, 0))
+    local fade_to = cc.FadeTo:create(duration, 0)
+    cca.runAction(vars['left_stick_02'], cc.EaseInOut:create(move_to, 2), true)
+    cca.runAction(vars['left_stick_02'], cc.EaseInOut:create(fade_to, 2))
+
+    local move_to = cc.MoveTo:create(duration, cc.p(232, 0))
+    local fade_to = cc.FadeTo:create(duration, 255)
+    cca.runAction(vars['right_stick_01'], cc.EaseInOut:create(move_to, 2), true)
+    cca.runAction(vars['right_stick_01'], cc.EaseInOut:create(fade_to, 2))
+
+    local move_to = cc.MoveTo:create(duration, cc.p(232, 0))
+    local fade_to = cc.FadeTo:create(duration, 0)
+    cca.runAction(vars['right_stick_02'], cc.EaseInOut:create(move_to, 2), true)
+    cca.runAction(vars['right_stick_02'], cc.EaseInOut:create(fade_to, 2))
+
+    -- 등급 인장(seal)
+    local fade_to = cc.FadeTo:create(duration, 255)
+    cca.runAction(vars['gradeSealIcon'], cc.EaseInOut:create(fade_to, 2), true)
+end
+
+-------------------------------------
+-- function listCollapse
+-------------------------------------
+function UI_DragonTrainSlot_ListItem:listCollapse(duration)
+    local vars = self.vars
+    local target_width = 155
     self:cellWidthTo(duration, target_width)
+
+    do -- 배경 사이즈 조정
+        local node = vars['bg']
+        local tween = cca.widthTo(node, duration, 0)
+        action = cc.EaseInOut:create(tween, 2)
+        node:runAction(action)
+    end
+
+    local move_to = cc.MoveTo:create(duration, cc.p(-35, 0))
+    local fade_to = cc.FadeTo:create(duration, 0)
+    cca.runAction(vars['left_stick_01'], cc.EaseInOut:create(move_to, 2), true)
+    cca.runAction(vars['left_stick_01'], cc.EaseInOut:create(fade_to, 2))
+
+    local move_to = cc.MoveTo:create(duration, cc.p(-35, 0))
+    local fade_to = cc.FadeTo:create(duration, 255)
+    cca.runAction(vars['left_stick_02'], cc.EaseInOut:create(move_to, 2), true)
+    cca.runAction(vars['left_stick_02'], cc.EaseInOut:create(fade_to, 2))
+
+    local move_to = cc.MoveTo:create(duration, cc.p(35, 0))
+    local fade_to = cc.FadeTo:create(duration, 0)
+    cca.runAction(vars['right_stick_01'], cc.EaseInOut:create(move_to, 2), true)
+    cca.runAction(vars['right_stick_01'], cc.EaseInOut:create(fade_to, 2))
+
+    local move_to = cc.MoveTo:create(duration, cc.p(35, 0))
+    local fade_to = cc.FadeTo:create(duration, 255)
+    cca.runAction(vars['right_stick_02'], cc.EaseInOut:create(move_to, 2), true)
+    cca.runAction(vars['right_stick_02'], cc.EaseInOut:create(fade_to, 2))
+
+    -- 등급 인장(seal)
+    local fade_to = cc.FadeTo:create(duration, 0)
+    cca.runAction(vars['gradeSealIcon'], cc.EaseInOut:create(fade_to, 2), true)
 end

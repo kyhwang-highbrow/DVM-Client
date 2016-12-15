@@ -258,6 +258,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <Image Include="res\game.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\src\Action.lua" />
     <None Include="..\src\AnimationMap.lua" />
     <None Include="..\src\Animator.lua" />
     <None Include="..\src\AnimatorHelper.lua" />
@@ -499,6 +500,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TriggerHpPercent.lua" />
     <None Include="..\src\TriggerTime.lua" />
     <None Include="..\src\UIC_Button.lua" />
+    <None Include="..\src\UIC_ClippingNode.lua" />
     <None Include="..\src\UIC_Node.lua" />
     <None Include="..\src\UIC_TableView.lua" />
     <None Include="..\src\UIC_TableViewCell.lua" />

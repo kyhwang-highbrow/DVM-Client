@@ -168,8 +168,9 @@ function UI_DragonManageTrain:int_trainSlotTableView(t_dragon_data)
     local ui = UIC_TableView_TrainSlotList(list_table_node)
 
     local function create_func(ui, data)
-        ui.vars['trainButtonA']:registerScriptTapHandler(function() self:click_trainButton(ui, data, 'a') end)
-        ui.vars['trainButtonB']:registerScriptTapHandler(function() self:click_trainButton(ui, data, 'b') end)
+        ui.root:setSwallowTouch(false)
+        --ui.vars['trainButtonA']:registerScriptTapHandler(function() self:click_trainButton(ui, data, 'a') end)
+        --ui.vars['trainButtonB']:registerScriptTapHandler(function() self:click_trainButton(ui, data, 'b') end)
     end
     ui:setItemUICreateCB(create_func)
 

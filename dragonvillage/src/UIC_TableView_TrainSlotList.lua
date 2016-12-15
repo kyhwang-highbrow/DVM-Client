@@ -13,7 +13,7 @@ UIC_TableView_TrainSlotList = class(PARENT, {
 -------------------------------------
 function UIC_TableView_TrainSlotList:init(node)
     -- 기본값 설정
-    self.m_defaultCellSize = cc.size(100, 100)
+    self.m_defaultCellSize = cc.size(518, 518)
     self:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     self.m_bUseEachSize = true
 end
@@ -34,8 +34,8 @@ function UIC_TableView_TrainSlotList:makeItemUI(data)
     ui.root:setDockPoint(cc.p(0, 0))
     ui.root:setAnchorPoint(cc.p(0.5, 0.5))
 
-    ui.vars['trainButtonA']:getParent():setSwallowTouch(false)
-    ui.vars['trainButtonB']:getParent():setSwallowTouch(false)
+    --ui.vars['trainButtonA']:getParent():setSwallowTouch(false)
+    --ui.vars['trainButtonB']:getParent():setSwallowTouch(false)
 
     self.m_scrollView:addChild(ui.root)
 

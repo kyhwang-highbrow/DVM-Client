@@ -35,6 +35,7 @@ local t_module = {
     'PatchCore',
 
     -- Util
+    'Action',
     'TimeLib',
     'Table',
     'TableClass',
@@ -250,6 +251,7 @@ local t_module = {
     -- UIC (UI Component)
     'UIC_Node',
     'UIC_Button',
+    'UIC_ClippingNode',
     'UIC_TableViewCore',
     'UIC_TableView',
     'UIC_TableViewCell',

@@ -63,3 +63,16 @@ end
 function UIC_Node:stopAllActions()
     return self.m_node:stopAllActions()
 end
+
+function UIC_Node:getNormalSize()
+    return self.m_node:getNormalSize()
+end
+
+function UIC_Node:setNormalSize(width, height)
+    local ret = self.m_node:setNormalSize(width, height)
+
+    -- 자식 node들의 transform을 update(dockpoint의 영향이 있을수 있으므로)
+    self.m_node:setUpdateChildrenTransform()
+
+    return ret
+end

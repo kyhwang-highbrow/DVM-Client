@@ -1084,6 +1084,12 @@
     <None Include="..\src\UI_GameResult_NestDungeon.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UIC_ClippingNode.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
+    <None Include="..\src\Action.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

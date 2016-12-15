@@ -120,6 +120,7 @@ function ITableViewCell:cellWidthTo(duration, target_width)
     local width, height = node:getNormalSize()
     local func = function(value)
         node:setNormalSize(value, height)
+        node:setUpdateChildrenTransform()
     end
 
     local tween = cc.ActionTweenForLua:create(duration, width, target_width, func)

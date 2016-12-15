@@ -471,6 +471,7 @@ local function loadNode(ui, data, vars, parent)
     elseif type == 'ClippingNode' then
         node = cc.ClippingNode:create()
         setPropsForClippingNode(node, data, parent)
+        delegator = UIC_ClippingNode(node)
     elseif type == 'Visual' then
         local res_name = string.sub(data.file_name, 1, string.len(data.file_name) - 4)
         local plist_name = res_name .. '.plist' --string.gsub (data.file_name, ".a2d", ".plist")
