@@ -44,3 +44,12 @@ function cca.runAction(node, action, stop_action)
 
     node:runAction(action)
 end
+
+-------------------------------------
+-- function reserveFunc
+-- @brief 액션을 실행 (일정시간 후 함수 호출)
+-------------------------------------
+function cca.reserveFunc(node, duration, func)
+    local action = cc.Sequence:create(cc.DelayTime:create(duration), cc.CallFunc:create(func))
+    node:runAction(action)
+end

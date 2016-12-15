@@ -118,7 +118,31 @@ function TableDragonTrainStatus:getTrainSlotDescStr(slot_name, dragon_role, leve
     local def = tonumber(t_dragon_train_status[dragon_role .. '_def'])
     local hp = tonumber(t_dragon_train_status[dragon_role .. '_hp'])
    
+    -- 레벨이 없을 경우 텍스트만 출력
+    if (not level) then
+        local str = ''
+        if atk then 
+            str = Str('공격력')
+        end
 
+        if def then
+            if (str ~= '') then
+                str = str .. ', '
+            end
+            str = str .. Str('방어력')
+        end
+
+        if hp then
+            if (str ~= '') then
+                str = str .. ', '
+            end
+            str = str .. Str('체력')
+        end
+
+        return str
+    end
+
+    -- 레벨이 있을 경우
     local str = ''
     if atk then 
         str = Str('공격력 +{1}%', math_floor(atk / 10 * level))
@@ -135,7 +159,7 @@ function TableDragonTrainStatus:getTrainSlotDescStr(slot_name, dragon_role, leve
         if (str ~= '') then
             str = str .. ', '
         end
-        str = str .. Str('방어력 +{1}%', math_floor(hp / 10 * level))
+        str = str .. Str('체력 +{1}%', math_floor(hp / 10 * level))
     end
 
     return str

@@ -5,7 +5,8 @@ local PARENT = UI_DragonManage_Base
 -------------------------------------
 UI_DragonManageTrain = class(PARENT,{
         m_bChangeDragonList = 'boolean',
-        m_trainSlotTableView = 'UIC_TableView_TrainSlotList',
+        m_trainSlotTableView = 'UIC_TableView',
+        m_bExpanded = 'boolean',
     })
 
 -------------------------------------
@@ -18,6 +19,7 @@ function UI_DragonManageTrain:initParentVariable()
     self.m_bVisible = true or false
     self.m_titleStr = Str('수련') or nil
     self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
+    self.m_bExpanded = true
 end
 
 -------------------------------------
@@ -48,6 +50,13 @@ function UI_DragonManageTrain:init(doid, b_ascending_sort, sort_type)
 
     -- 첫 선택 드래곤 지정
     self:setDefaultSelectDragon(doid)
+
+    do -- 1초 후에 리스트를 접음
+        local function func()
+            self:setExpand(false, 0.5)
+        end
+        cca.reserveFunc(self.root, 0.5, func)
+    end
 end
 
 -------------------------------------
@@ -71,8 +80,8 @@ function UI_DragonManageTrain:initButton()
 
     vars['expandBtn']:registerScriptTapHandler(function()
             if self.m_trainSlotTableView then
-                local b_expanded = (not self.m_trainSlotTableView.m_bExpanded)
-                self.m_trainSlotTableView:setExpand(b_expanded)
+                local b_expanded = (not self.m_bExpanded)
+                self:setExpand(b_expanded)
             end
         end)
     
@@ -161,26 +170,37 @@ end
 -------------------------------------
 function UI_DragonManageTrain:int_trainSlotTableView(t_dragon_data)
 
-    -- 테이블뷰의 부모 노드
-    local list_table_node = self.vars['tableViewNode']
-    list_table_node:removeAllChildren()
-
-    local ui = UIC_TableView_TrainSlotList(list_table_node)
-
-    local function create_func(ui, data)
-        ui.root:setSwallowTouch(false)
-        --ui.vars['trainButtonA']:registerScriptTapHandler(function() self:click_trainButton(ui, data, 'a') end)
-        --ui.vars['trainButtonB']:registerScriptTapHandler(function() self:click_trainButton(ui, data, 'b') end)
-    end
-    ui:setItemUICreateCB(create_func)
-
-    -- 아이템 리스트 설정
     local l_item_list = self:makeDragonSlotDataList(t_dragon_data)
-    ui:setItemList(l_item_list, false, true)
 
-    ui:setExpand(false)
+    if (not self.m_trainSlotTableView) then
+        -- 테이블뷰의 부모 노드
+        local list_table_node = self.vars['tableViewNode']
+        list_table_node:removeAllChildren()
 
-    self.m_trainSlotTableView = ui
+        -- 셀 아이템 생성 콜백
+        local function create_func(ui, data)
+            ui.root:setSwallowTouch(false)
+            ui.vars['clickBtn']:registerScriptTapHandler(function() self:setExpand(true) end)
+            ui.vars['trainButtonA']:registerScriptTapHandler(function() self:click_trainButton(ui, data, 'a') end)
+            ui.vars['trainButtonB']:registerScriptTapHandler(function() self:click_trainButton(ui, data, 'b') end)
+        end
+
+        -- 테이블 뷰 인스턴스 생성
+        local table_view = UIC_TableView(list_table_node)
+        table_view.m_defaultCellSize = cc.size(518, 518)
+        table_view.m_bUseEachSize = true
+        table_view:setCellUIClass(UI_DragonTrainSlot_ListItem, create_func)
+        table_view:setItemList(l_item_list, false, true)
+
+        self.m_trainSlotTableView = table_view
+    else
+        for i,v in ipairs(self.m_trainSlotTableView.m_itemList) do
+            v['data'] = l_item_list[i]
+            v['ui'].m_doid = v['data']['doid']
+            v['ui'].m_grade = v['data']['grade']
+            v['ui']:refresh()
+        end
+    end
 end
 
 -------------------------------------
@@ -375,6 +395,33 @@ end
 -------------------------------------
 function UI_DragonManageTrain:click_exitBtn()
     self:close()
+end
+
+-------------------------------------
+-- function setExpand
+-- @param
+-------------------------------------
+function UI_DragonManageTrain:setExpand(expand, duration)
+    if (self.m_bExpanded == expand) then
+        return
+    end
+
+    self.m_bExpanded = expand
+
+    local table_view = self.m_trainSlotTableView
+
+    for i,v in ipairs(table_view.m_itemList) do
+        local ui = v['ui']
+        ui:setExpand(expand, duration)
+    end
+
+    table_view:expandTemp(duration)
+
+    if (not expand) then
+        table_view:relocateContainer(true)
+    end
+
+    self.vars['expandLabel']:setString(expand and Str('접기') or Str('펼치기'))
 end
 
 --@CHECK

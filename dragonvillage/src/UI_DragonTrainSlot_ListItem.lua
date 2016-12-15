@@ -28,6 +28,7 @@ function UI_DragonTrainSlot_ListItem:init(t_data)
     self:refresh()
 
     self.m_bExpanded = true
+    self:listExpand(0)
 end
 
 -------------------------------------
@@ -56,20 +57,6 @@ function UI_DragonTrainSlot_ListItem:refresh()
         vars['gradeSealIcon'] = icon
     end
 
-
-    --[[
-    local t_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_doid)
-    local table_dragon = TableDragon()
-    local t_dragon = table_dragon:get(t_dragon_data['did'])
-
-    do -- 수련 슬롯 등급
-        vars['starNode']:removeAllChildren()
-        local icon = cc.Sprite:create('res/ui/star020' .. self.m_grade .. '.png')
-        icon:setDockPoint(cc.p(0.5, 0.5))
-        icon:setDockPoint(cc.p(0.5, 0.5))
-        vars['starNode']:addChild(icon)
-    end
-
     -- 가격 표시
     local table_dragon_train_info = TableDragonTrainInfo()
     local req_lactea = table_dragon_train_info:getReqLactea(self.m_grade, t_dragon['rarity'])
@@ -79,7 +66,6 @@ function UI_DragonTrainSlot_ListItem:refresh()
 
     -- b슬롯
     self:refresh_slotVars(self.m_grade, 'b', t_dragon['role'], req_lactea)
-    --]]
 end
 
 -------------------------------------
@@ -131,6 +117,12 @@ function UI_DragonTrainSlot_ListItem:refresh_slotVars(grade, slot_type, role, re
     -- 현재 상승된 능력치
     local str = table_dragon_train_statue:getTrainSlotDescStr(slot_name, role, level)
     vars['titleLabel' .. suffix]:setString(str)
+
+    do -- 접힌 상태에서 텍스트
+        local desc = table_dragon_train_statue:getTrainSlotDescStr(slot_name, role)
+        vars['collapseTitleLabel' .. suffix]:setString(desc)
+        vars['collapseTrainGaugeLabel' .. suffix]:setString(Str('{1}/10', level))
+    end
 end
 
 -------------------------------------
@@ -162,14 +154,11 @@ function UI_DragonTrainSlot_ListItem:listExpand(duration)
     do -- 배경 사이즈 조정
         local node = vars['bg']
         local tween = cca.widthTo(node, duration, 518)
-        action = cc.EaseInOut:create(tween, 2)
-        node:runAction(action)
+        cca.runAction(node, cc.EaseInOut:create(tween, 2), true)
     end
 
     local move_to = cc.MoveTo:create(duration, cc.p(-232, 0))
-    local fade_to = cc.FadeTo:create(duration, 255)
     cca.runAction(vars['left_stick_01'], cc.EaseInOut:create(move_to, 2), true)
-    cca.runAction(vars['left_stick_01'], cc.EaseInOut:create(fade_to, 2))
 
     local move_to = cc.MoveTo:create(duration, cc.p(-232, 0))
     local fade_to = cc.FadeTo:create(duration, 0)
@@ -177,9 +166,7 @@ function UI_DragonTrainSlot_ListItem:listExpand(duration)
     cca.runAction(vars['left_stick_02'], cc.EaseInOut:create(fade_to, 2))
 
     local move_to = cc.MoveTo:create(duration, cc.p(232, 0))
-    local fade_to = cc.FadeTo:create(duration, 255)
     cca.runAction(vars['right_stick_01'], cc.EaseInOut:create(move_to, 2), true)
-    cca.runAction(vars['right_stick_01'], cc.EaseInOut:create(fade_to, 2))
 
     local move_to = cc.MoveTo:create(duration, cc.p(232, 0))
     local fade_to = cc.FadeTo:create(duration, 0)
@@ -189,6 +176,31 @@ function UI_DragonTrainSlot_ListItem:listExpand(duration)
     -- 등급 인장(seal)
     local fade_to = cc.FadeTo:create(duration, 255)
     cca.runAction(vars['gradeSealIcon'], cc.EaseInOut:create(fade_to, 2), true)
+
+    do
+        vars['collapseTitleLabelA']:setVisible(false)
+        vars['collapseTitleLabelB']:setVisible(false)
+        vars['collapseTrainGaugeLabelA']:setVisible(false)
+        vars['collapseTrainGaugeLabelB']:setVisible(false)
+        vars['sealBg']:setVisible(false)
+    end
+
+    do
+        local function reserveFunc()
+            vars['titleLabelA']:setVisible(true)
+            vars['dscLabelA']:setVisible(true)
+            vars['trainGaugeA']:setVisible(true)
+            vars['trainButtonA']:setVisible(true)
+            
+            vars['titleLabelB']:setVisible(true)
+            vars['dscLabelB']:setVisible(true)
+            vars['trainGaugeB']:setVisible(true)
+            vars['trainButtonB']:setVisible(true)
+        end
+
+        vars['expandNode']:stopAllActions()
+        cca.reserveFunc(vars['expandNode'], duration, reserveFunc)
+    end
 end
 
 -------------------------------------
@@ -202,14 +214,11 @@ function UI_DragonTrainSlot_ListItem:listCollapse(duration)
     do -- 배경 사이즈 조정
         local node = vars['bg']
         local tween = cca.widthTo(node, duration, 0)
-        action = cc.EaseInOut:create(tween, 2)
-        node:runAction(action)
+        cca.runAction(node, cc.EaseInOut:create(tween, 2), true)
     end
 
     local move_to = cc.MoveTo:create(duration, cc.p(-35, 0))
-    local fade_to = cc.FadeTo:create(duration, 0)
     cca.runAction(vars['left_stick_01'], cc.EaseInOut:create(move_to, 2), true)
-    cca.runAction(vars['left_stick_01'], cc.EaseInOut:create(fade_to, 2))
 
     local move_to = cc.MoveTo:create(duration, cc.p(-35, 0))
     local fade_to = cc.FadeTo:create(duration, 255)
@@ -217,9 +226,7 @@ function UI_DragonTrainSlot_ListItem:listCollapse(duration)
     cca.runAction(vars['left_stick_02'], cc.EaseInOut:create(fade_to, 2))
 
     local move_to = cc.MoveTo:create(duration, cc.p(35, 0))
-    local fade_to = cc.FadeTo:create(duration, 0)
     cca.runAction(vars['right_stick_01'], cc.EaseInOut:create(move_to, 2), true)
-    cca.runAction(vars['right_stick_01'], cc.EaseInOut:create(fade_to, 2))
 
     local move_to = cc.MoveTo:create(duration, cc.p(35, 0))
     local fade_to = cc.FadeTo:create(duration, 255)
@@ -229,4 +236,33 @@ function UI_DragonTrainSlot_ListItem:listCollapse(duration)
     -- 등급 인장(seal)
     local fade_to = cc.FadeTo:create(duration, 0)
     cca.runAction(vars['gradeSealIcon'], cc.EaseInOut:create(fade_to, 2), true)
+
+    do
+        vars['titleLabelA']:setVisible(false)
+        vars['dscLabelA']:setVisible(false)
+        vars['trainGaugeA']:setVisible(false)
+        vars['trainButtonA']:setVisible(false)
+            
+        vars['titleLabelB']:setVisible(false)
+        vars['dscLabelB']:setVisible(false)
+        vars['trainGaugeB']:setVisible(false)
+        vars['trainButtonB']:setVisible(false)
+    end
+
+    do
+        local function reserveFunc()
+            vars['collapseTitleLabelA']:setVisible(true)
+            vars['collapseTitleLabelB']:setVisible(true)
+            vars['collapseTrainGaugeLabelA']:setVisible(true)
+            vars['collapseTrainGaugeLabelB']:setVisible(true)
+
+            vars['sealBg']:stopAllActions()
+            vars['sealBg']:setVisible(true)
+            vars['sealBg']:setOpacity(0)
+            vars['sealBg']:runAction(cc.FadeTo:create(0.1, 255))
+        end
+
+        vars['expandNode']:stopAllActions()
+        cca.reserveFunc(vars['expandNode'], duration, reserveFunc)
+    end
 end

@@ -255,7 +255,6 @@ local t_module = {
     'UIC_TableViewCore',
     'UIC_TableView',
     'UIC_TableViewCell',
-    'UIC_TableView_TrainSlotList',
     'UIC_TableViewTD',
 
 	-- UI

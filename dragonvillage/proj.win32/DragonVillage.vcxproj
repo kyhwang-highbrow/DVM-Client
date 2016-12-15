@@ -506,7 +506,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UIC_TableViewCell.lua" />
     <None Include="..\src\UIC_TableViewCore.lua" />
     <None Include="..\src\UIC_TableViewTD.lua" />
-    <None Include="..\src\UIC_TableView_TrainSlotList.lua" />
     <None Include="..\src\uilib\Notification.lua" />
     <None Include="..\src\uilib\TableView.lua" />
     <None Include="..\src\uilib\UI.lua" />
