@@ -298,7 +298,6 @@ local t_module = {
     'UI_GuidePopup',
     'UI_NestDungeonScene',
     'UI_NestDragonDungeonListItem',
-    'UI_NestDungeonStageSelectPopup',
     'UI_NestDragonStageListItem',
     'UI_EditBoxPopup',
     'UI_SettingPopup',
