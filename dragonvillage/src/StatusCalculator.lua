@@ -14,6 +14,7 @@ L_STATUS_TYPE = {
 		--------------------------------------------
 
 		'dmg_adj_rate',	-- 데미지 조정 계수
+		'attr_adj_rate', -- 속성 조정 계수
     }
 
 -------------------------------------
@@ -128,6 +129,14 @@ function StatusCalculator:getFinalAddStatDisplay(stat_type)
     end
 
     return '(+' .. math_floor(add_stat) .. ')'
+end
+
+
+-------------------------------------
+-- function getAdjustRate
+-------------------------------------
+function StatusCalculator:getAdjustRate(type)
+    return self.m_lPassive[type] or 0
 end
 
 -------------------------------------

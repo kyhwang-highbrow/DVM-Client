@@ -251,7 +251,7 @@ end
 -- function getAttrSynastryEffect
 -- @brief 속성 상성 효과 얻어옴
 -------------------------------------
-function getAttrSynastryEffect(attr1, attr2)
+function getAttrSynastryEffect(attr1, attr2, attr_adj_rate)
     -- attr1이 attr2에 대한 상성 정보를 얻어옴
     local attr_synastry = getCounterAttribute(attr1, attr2)
 
@@ -294,6 +294,15 @@ function getAttrSynastryEffect(attr1, attr2)
         attributeOption(t_attr_synastry_effect, option, value)
     end
     
+	-- 상태 효과에 따른 속성 데미지 수치 조절
+	if (attr_adj_rate > 0) then
+		if (t_attr_synastry_effect['damage'] > 0) then 
+			t_attr_synastry_effect['damage'] = t_attr_synastry_effect['damage'] + attr_adj_rate
+		else
+			t_attr_synastry_effect['damage'] = t_attr_synastry_effect['damage'] - attr_adj_rate
+		end
+	end
+
     return t_attr_synastry_effect
 end
 

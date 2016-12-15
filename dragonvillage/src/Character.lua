@@ -233,14 +233,15 @@ end
 -- function checkAttributeCounter
 -- @brief 속성 상성
 -------------------------------------
-function Character:checkAttributeCounter(attack_damage)
+function Character:checkAttributeCounter(activity_carrier)
     -- 공격자 속성
-    local attacker_attr = attributeNumToStr(attack_damage.m_attribute)
+    local attacker_attr = attributeNumToStr(activity_carrier.m_attribute)
+	local attr_adj_rate = self.m_statusCalc:getAdjustRate('attr_adj_rate')
 
     -- 방어자 속성
     local defender_attr = self.m_charTable['attr']
 
-    local t_attr_effect = getAttrSynastryEffect(attacker_attr, defender_attr)
+    local t_attr_effect = getAttrSynastryEffect(attacker_attr, defender_attr, attr_adj_rate)
 
     return t_attr_effect
 end
@@ -325,7 +326,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
         end
 
 		-- 상태효과에 의한 증감
-		damage_multifly = (damage_multifly + self.m_statusCalc.m_lPassive['dmg_adj_rate'] / 100)
+		damage_multifly = (damage_multifly + self.m_statusCalc:getAdjustRate('dmg_adj_rate') / 100)
 
         damage = (damage * damage_multifly)
     end
