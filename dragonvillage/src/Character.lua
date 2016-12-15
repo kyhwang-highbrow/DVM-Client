@@ -1344,21 +1344,11 @@ function Character:animatorShake()
     end
     ]]--
 
-    -- 실행중인 액션 stop
-    do
-        local action = target_node:getActionByTag(CHARACTER_ACTION_TAG__SHAKE);
-        if action then
-            target_node:stopAction(action)
-            target_node:setPosition(0, 0)
-        end
-    end
-
+    target_node:setPosition(0, 0)
     local start_action = cc.MoveTo:create(0.05, cc.p(x, 0))
     local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.3, cc.p(0, 0)), 0.2)
     local action = cc.Sequence:create(start_action, end_action)
-    action:setTag(CHARACTER_ACTION_TAG__SHAKE)
-
-    target_node:runAction(action)
+    cca.runAction(target_node, action, CHARACTER_ACTION_TAG__SHAKE)
 end
 
 -------------------------------------
@@ -1391,14 +1381,6 @@ function Character:animatorHit(attacker, dir)
             delay = 0.06
         end
 
-        -- 실행중인 액션 stop
-        do
-            local action = target_node:getActionByTag(CHARACTER_ACTION_TAG__SHADER);
-            if action then
-                target_node:stopAction(action)
-            end
-        end
-
         local action = cc.Sequence:create(
             cc.CallFunc:create(function(node)
                 local shader = ShaderCache:getShader(SHADER_CHARACTER_DAMAGED)
@@ -1409,10 +1391,8 @@ function Character:animatorHit(attacker, dir)
                 local shader = ShaderCache:getShader(cc.SHADER_POSITION_TEXTURE_COLOR)
                 self.m_animator.m_node:setGLProgram(shader)
             end)
-        )
-        action:setTag(CHARACTER_ACTION_TAG__SHADER)
-        
-        target_node:runAction(action)
+        )        
+        cca.runAction(target_node, action, CHARACTER_ACTION_TAG__SHADER)
     end
 end
 
@@ -1437,20 +1417,10 @@ function Character:animatorKnockback(dir)
     local pos_x = math_cos(math_rad(dir)) * distance
     local pos_y = math_sin(math_rad(dir)) * distance
 
-    -- 실행중인 액션 stop
-    do
-        local action = target_node:getActionByTag(CHARACTER_ACTION_TAG__KNOCKBACK);
-        if action then
-            target_node:stopAction(action)
-        end
-    end
-
     local start_action = cc.DelayTime:create(SpasticityTime)
     local end_action = cc.MoveTo:create(0.1, cc.p(0, 0))
     local action = cc.Sequence:create(start_action, end_action)
-    action:setTag(CHARACTER_ACTION_TAG__KNOCKBACK)
-
-    target_node:runAction(action)
+    cca.runAction(target_node, action, CHARACTER_ACTION_TAG__KNOCKBACK)
 
     target_node:setPosition(pos_x, pos_y)
 end
@@ -1465,14 +1435,7 @@ function Character:animatorFloating()
         return
     end
 
-    -- 실행중인 액션 stop
-    do
-        local action = target_node:getActionByTag(CHARACTER_ACTION_TAG__FLOATING);
-        if action then
-            target_node:stopAction(action)
-            target_node:setPosition(0, 0)
-        end
-    end
+    target_node:setPosition(0, 0)
 
     local function getTime()
         return math_random(5, 15) * 0.1 * CHARACTER_FLOATING_TIME / 2
@@ -1484,9 +1447,7 @@ function Character:animatorFloating()
     )
 
     local action = cc.RepeatForever:create(sequence)
-    action:setTag(CHARACTER_ACTION_TAG__FLOATING)
-
-    target_node:runAction(action)
+    cca.runAction(target_node, action, CHARACTER_ACTION_TAG__FLOATING)
 end
 
 -------------------------------------

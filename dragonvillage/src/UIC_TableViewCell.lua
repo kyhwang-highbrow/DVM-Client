@@ -95,15 +95,10 @@ end
 -------------------------------------
 function ITableViewCell:cellMoveTo(duration, offset)
     local node = self.root
-    local action = node:getActionByTag(TAG_CELL_MOVE_TO)
-    if action then
-        node:stopAction(action)
-    end
 
     local move_action = cc.MoveTo:create(duration, offset)
     action = cc.EaseInOut:create(move_action, 2)
-    action:setTag(TAG_CELL_MOVE_TO)
-    node:runAction(action)
+    cca.runAction(node, action, TAG_CELL_MOVE_TO)
 end
 
 -------------------------------------
@@ -112,10 +107,6 @@ end
 -------------------------------------
 function ITableViewCell:cellWidthTo(duration, target_width)
     local node = self.root
-    local action = node:getActionByTag(TAG_CELL_WIDTH_TO)
-    if action then
-        node:stopAction(action)
-    end
 
     local width, height = node:getNormalSize()
     local func = function(value)
@@ -125,8 +116,7 @@ function ITableViewCell:cellWidthTo(duration, target_width)
 
     local tween = cc.ActionTweenForLua:create(duration, width, target_width, func)
     action = cc.EaseInOut:create(tween, 2)
-    action:setTag(TAG_CELL_WIDTH_TO)
-    node:runAction(action)
+    cca.runAction(node, action, TAG_CELL_WIDTH_TO)
 
     self.m_cellSize['width'] = target_width
 end
