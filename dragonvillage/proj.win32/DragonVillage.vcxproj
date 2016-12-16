@@ -560,7 +560,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_NestDragonDungeonListItem.lua" />
     <None Include="..\src\UI_NestDragonStageListItem.lua" />
     <None Include="..\src\UI_NestDungeonScene.lua" />
-    <None Include="..\src\UI_NestDungeonStageSelectPopup.lua" />
     <None Include="..\src\UI_Network.lua" />
     <None Include="..\src\UI_NetworkLoading.lua" />
     <None Include="..\src\UI_Popup.lua" />

@@ -164,8 +164,6 @@ function UI_SkillCard:click_clickBtn()
     local tool_tip = UI_Tooltip_Skill(70, -145, str)
 
     -- 자동 위치 지정
-    -- @TODO 임시로 위치 처리
-    --tool_tip:autoPositioning_temp(self.vars['clickBtn'])
     tool_tip:autoPositioning(self.vars['clickBtn'])
 end
 

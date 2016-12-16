@@ -608,3 +608,76 @@ function PrintMemory(str)
 	local str = str or 'CHECK MEMORY'
 	cclog(string.format('### %s : %.2f MB', str, collectgarbage('count') / 1024))
 end
+
+-------------------------------------
+-- function convertToWorldSpace
+-- @breif Node클래스의 convertToWorldSpace는
+--        퍼플랩에서 새로 추가한 DockPoint가
+--        고려되어 있지 않아서 Lua에서 별도로 구현함
+-- @return cc.p 화면의 좌하단을 0, 0으로 하는 좌표의 포지션 리턴
+-------------------------------------
+function convertToWorldSpace(node)
+    local parent = node:getParent()
+
+    if (not parent) then
+        local x, y = node:getPosition()
+        return cc.p(x, y)
+    end
+
+    local x, y = node:getPosition()
+    local dock_point = node:getDockPoint()
+
+    local parent_content_size = parent:getContentSize()
+
+    x = x + (dock_point['x'] * parent_content_size['width'])
+    y = y + (dock_point['y'] * parent_content_size['height'])
+
+    local world_space = parent:convertToWorldSpace(cc.p(x, y))
+
+    return world_space
+end
+
+-------------------------------------
+-- function convertToAnoterParentSpace
+-- @breif 다른 부모 노드의 기준으로 위치를 변경
+--        예를들어 테이블뷰의 하나의 Cell을 클릭했을 때
+--        테이블뷰는 사라지고 해당 Cell만 UI의 root에 붙이고 싶을 때 사용
+-------------------------------------
+function convertToAnoterParentSpace(node, anoter_parent)
+    local world_pos = convertToWorldSpace(node)
+
+    local node_space = anoter_parent:convertToNodeSpace(world_pos)
+
+    local dock_point = node:getDockPoint()
+    local anoter_parent_content_size = anoter_parent:getContentSize()
+
+    node_space['x'] = node_space['x'] - (dock_point['x'] * anoter_parent_content_size['width'])
+    node_space['y'] = node_space['y'] - (dock_point['y'] * anoter_parent_content_size['height'])
+
+    return node_space
+end
+
+
+-------------------------------------
+-- function convertToAnoterNodeSpace
+-- @brief parent가 같고 dock_point가 서로 다른 두개의 Node가 있을 경우
+--        target_node의 position을 node의 dock_point 기준으로 변경해주는 함수
+--        즉, node를 target_node의 위치로 옮기고 싶을 때 사용하면 됨
+-------------------------------------
+function convertToAnoterNodeSpace(node, target_node)
+    local parent = target_node:getParent()
+    local parent_content_size = parent:getContentSize()
+
+    local x, y = target_node:getPosition()
+    local dock_point = target_node:getDockPoint()
+
+    local x = x + (dock_point['x'] * parent_content_size['width'])
+    local y = y + (dock_point['y'] * parent_content_size['height'])
+
+    local dock_point = node:getDockPoint()
+
+    local x = x - (dock_point['x'] * parent_content_size['width'])
+    local y = y - (dock_point['y'] * parent_content_size['height'])
+
+    return cc.p(x, y)
+end

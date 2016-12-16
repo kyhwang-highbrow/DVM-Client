@@ -820,9 +820,6 @@
     <None Include="..\src\UI_NestDungeonScene.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_NestDungeonStageSelectPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_Network.lua">
       <Filter>lua\UI</Filter>
     </None>

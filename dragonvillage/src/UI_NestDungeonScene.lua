@@ -133,12 +133,7 @@ function UI_NestDungeonScene:click_dungeonBtn(ui, data, key)
     end
 
     local node = ui.root
-
-    local x, y = node:getPosition()
-    local world_pos = node:getParent():convertToWorldSpace(cc.p(x, y))
-
-    local node_pos = self.root:convertToNodeSpace(world_pos)
-
+    local node_pos = convertToAnoterParentSpace(node, self.root)
 
     -- root로 옮김
     node:retain()
@@ -151,7 +146,10 @@ function UI_NestDungeonScene:click_dungeonBtn(ui, data, key)
     local t_item = self.m_tableView:getItem(key)
     t_item['ui'] = nil
 
-    ui:cellMoveTo(0.5, cc.p(210, 360))
+
+    local target_pos = convertToAnoterNodeSpace(node, self.vars['dungeonNode'])
+    ui:cellMoveTo(0.5, target_pos)
+    --ui:cellMoveTo(0.5, cc.p(210, 360))
 
     self.vars['tableViewNode']:setVisible(false)
 
@@ -178,14 +176,9 @@ function UI_NestDungeonScene:closeSubMenu()
     local t_item = self.m_tableView:getItem(key)
     self.m_selectNestDungeonInfo = nil
 
-
     local node = ui.root
-
-    local x, y = node:getPosition()
-    local world_pos = node:getParent():convertToWorldSpace(cc.p(x, y))
-
     local container = self.m_tableView.m_scrollView:getContainer()
-    local node_pos = container:convertToNodeSpace(world_pos)
+    local node_pos = convertToAnoterParentSpace(node, container)
 
     node:retain()
     node:removeFromParent()

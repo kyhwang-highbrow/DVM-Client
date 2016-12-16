@@ -76,3 +76,15 @@ function UIC_Node:setNormalSize(width, height)
 
     return ret
 end
+
+function UIC_Node:setDockPoint(dock_point)
+    return self.m_node:setDockPoint(dock_point)
+end
+
+function UIC_Node:getDockPoint()
+    return self.m_node:getDockPoint()
+end
+
+function UIC_Node:getScale()
+    return self.m_node:getScale()
+end
