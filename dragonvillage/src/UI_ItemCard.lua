@@ -18,6 +18,10 @@ function UI_ItemCard:init(item_id, count)
     local table_item = TABLE:get('item')
     local t_item = table_item[item_id]
 
+    if (not t_item) then
+        error('item_id ' .. item_id)
+    end
+
     if (t_item['type'] == 'dragon') then
         self:init_dragonItem(t_item)
     else
