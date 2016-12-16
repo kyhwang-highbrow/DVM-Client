@@ -12,7 +12,7 @@ UI_NestDungeonScene = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_NestDungeonScene:init()
+function UI_NestDungeonScene:init(stage_id)
     local vars = self:load('nest_dungeon_scene1.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -24,7 +24,7 @@ function UI_NestDungeonScene:init()
     --self:doActionReset()
     --self:doAction(nil, false)
 
-    self:initUI()
+    self:initUI(stage_id)
     self:initButton()
     self:refresh()
 
@@ -47,7 +47,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_NestDungeonScene:initUI()
+function UI_NestDungeonScene:initUI(stage_id)
     local vars = self.vars
 
     do -- 테이블 뷰 생성
@@ -70,6 +70,24 @@ function UI_NestDungeonScene:initUI()
         self.m_tableView = table_view
     end
 
+    -- focus할 stage_id가 있을 경우 
+    if stage_id then
+        local dungeon_id = g_nestDungeonData:getDungeonIDFromStateID(stage_id)
+
+        for i,v in pairs(self.m_tableView.m_itemList) do
+            if (dungeon_id == v['data']['mode_id']) then
+                local ui = self.m_tableView:getCellUI(v['unique_id'])
+                self:click_dungeonBtn(ui, v['data'], v['unique_id'])
+
+                -- 테이블 뷰에서 연출을 하기 위해 스케일이 변경된 상태 (원상복구를 위해 액션)
+                local scale_to = cc.ScaleTo:create(0.5, 1)
+                local action = cc.EaseInOut:create(scale_to, 2)
+                ui.root:runAction(action)
+
+                break
+            end
+        end
+    end
 end
 
 -------------------------------------

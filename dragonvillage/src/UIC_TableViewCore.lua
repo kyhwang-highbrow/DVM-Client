@@ -477,6 +477,30 @@ function UIC_TableViewCore:setItemList(list, skip_update, make_item)
 end
 
 -------------------------------------
+-- function getCellUI
+-- @brief
+-------------------------------------
+function UIC_TableViewCore:getCellUI(unique_id)
+    local t_item = self:getItem(unique_id)
+
+    if (not t_item['ui']) then
+        t_item['ui'] = self:makeItemUI(t_item['data'], t_item['unique_id'])
+        local idx = t_item['idx']
+        self:updateCellAtIndex(idx)
+
+        -- 생성 예약 리스트에서 삭제
+        for i, v in ipairs(self.m_makeReserveQueue) do
+            if (t_item == v) then
+                table.remove(self.m_makeReserveQueue, i)
+                break
+            end
+        end
+    end
+
+    return t_item['ui']
+end
+
+-------------------------------------
 -- function relocateContainer
 -- @brief
 -------------------------------------

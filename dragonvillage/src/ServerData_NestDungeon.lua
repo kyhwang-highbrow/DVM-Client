@@ -192,6 +192,21 @@ function ServerData_NestDungeon:parseNestDungeonID(stage_id)
     return t_dungeon_id_info
 end
 
+-------------------------------------
+-- function getDungeonIDFromStateID
+-- @brief
+-------------------------------------
+function ServerData_NestDungeon:getDungeonIDFromStateID(stage_id)
+    local t_dungeon_id_info = self:parseNestDungeonID(stage_id)
+
+    -- 악몽 던전(2)은 별도 처리
+    if (t_dungeon_id_info['dungeon_mode'] == 2) then
+        return 22100
+    else
+        return stage_id - (stage_id % 100)
+    end
+end
+
 
 -------------------------------------
 -- function checkNeedUpdateNestDungeonInfo
