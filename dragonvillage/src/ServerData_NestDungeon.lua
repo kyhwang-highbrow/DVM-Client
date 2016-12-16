@@ -28,6 +28,9 @@ function ServerData_NestDungeon:applyNestDungeonInfo(data)
     for i,v in ipairs(l_nest_info) do
         local dungeon_id = v['mode_id']
         self.m_nestDungeonInfoMap[dungeon_id] = v
+
+        -- 닫히는 시간이 임박했을 때를 위한 테스트 코드 (10초 후 갱신되도록)
+        --v['next_invalid_at'] = (Timer:getServerTime() + 10) * 1000
     end
 
     self.m_bDirtyNestDungeonInfo = false
@@ -100,6 +103,8 @@ function ServerData_NestDungeon:requestNestDungeonInfo(cb_func)
 
     -- 성공 시 콜백
     local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
         if ret['nest_info'] then
             self:applyNestDungeonInfo(ret['nest_info'])
         end
