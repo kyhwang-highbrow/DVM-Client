@@ -5,6 +5,79 @@
 	{
 		[1] =
 		{
+			type = 'Button';
+			ui_name = '';
+			x = 0.000000;
+			y = -300.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 320;
+			height = 60;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'infoButton';
+			enable = true;
+			normal = '';
+			selected = '';
+			disable = '';
+			image_type = 0;
+		};
+		[2] =
+		{
+			type = 'Button';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 320;
+			height = 538;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'enterButton';
+			enable = true;
+			normal = '';
+			selected = '';
+			disable = '';
+			image_type = 0;
+		};
+		[3] =
+		{
+			type = 'Visual';
+			ui_name = '';
+			x = 50.000000;
+			y = 50.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 100;
+			height = 100;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'dungeonListVisual';
+			file_name = 'ui/a2d/nest_dungeon/nest_dungeon.a2d';
+			auto_play = false;
+			is_repeat = false;
+			visual_id = 'group;nest_dungeon_dragon_dark';
+			color = { 255; 255; 255; };
+			opacity = 255;
+		};
+		[4] =
+		{
 			type = 'LabelTTF';
 			ui_name = '';
 			x = 0.000000;
@@ -42,79 +115,6 @@
 			shadow_opacity = 255;
 			shadow_direction = 0;
 			shadow_distance = 5.000000;
-		};
-		[2] =
-		{
-			type = 'Button';
-			ui_name = '';
-			x = 0.000000;
-			y = -300.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 320;
-			height = 60;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = 'infoButton';
-			enable = true;
-			normal = '';
-			selected = '';
-			disable = '';
-			image_type = 0;
-		};
-		[3] =
-		{
-			type = 'Button';
-			ui_name = '';
-			x = 0.000000;
-			y = 0.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 320;
-			height = 538;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = 'enterButton';
-			enable = true;
-			normal = '';
-			selected = '';
-			disable = '';
-			image_type = 0;
-		};
-		[4] =
-		{
-			type = 'Visual';
-			ui_name = '';
-			x = 50.000000;
-			y = 50.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 100;
-			height = 100;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = 'dungeonListVisual';
-			file_name = 'ui/a2d/nest_dungeon/nest_dungeon.a2d';
-			auto_play = false;
-			is_repeat = false;
-			visual_id = 'group;nest_dungeon_dragon_dark';
-			color = { 255; 255; 255; };
-			opacity = 255;
 		};
 		type = 'Menu';
 		ui_name = '';

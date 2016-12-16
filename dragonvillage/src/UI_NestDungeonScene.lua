@@ -6,6 +6,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 UI_NestDungeonScene = class(PARENT, {
         m_tableView = 'UIC_TableView', -- 네스트 던전의 세부 모드들 리스트
         m_selectNestDungeonInfo = 'table', -- 현재 선택된 세부 모드
+        m_bDirtyDungeonList = 'boolean',
     })
 
 -------------------------------------
@@ -13,7 +14,7 @@ UI_NestDungeonScene = class(PARENT, {
 -------------------------------------
 function UI_NestDungeonScene:init()
     local vars = self:load('nest_dungeon_scene1.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_NestDungeonScene')
@@ -28,6 +29,8 @@ function UI_NestDungeonScene:init()
     self:refresh()
 
     self:sceneFadeInAction()
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -49,6 +52,7 @@ function UI_NestDungeonScene:initUI()
 
     do -- 테이블 뷰 생성
         local node = vars['tableViewNode']
+        node:removeAllChildren()
 
         -- 셀 아이템 생성 콜백
         local function create_func(ui, data, key)
@@ -61,7 +65,7 @@ function UI_NestDungeonScene:initUI()
         table_view.m_defaultCellSize = cc.size(380, 660)
         table_view:setCellUIClass(UI_NestDragonDungeonListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-        table_view:setItemList(g_nestDungeonData:getNestDungeonInfo())
+        table_view:setItemList(g_nestDungeonData:getNestDungeonListForUI())
 
         self.m_tableView = table_view
     end
@@ -77,7 +81,7 @@ function UI_NestDungeonScene:makeNestModeTableView()
 
     local t_data = self.m_selectNestDungeonInfo['data']
     local nest_dungeon_id = t_data['mode_id']
-    local stage_list = g_nestDungeonData:getNestDungeonInfo_stageList(nest_dungeon_id)
+    local stage_list = g_nestDungeonData:getNestDungeon_stageListForUI(nest_dungeon_id)
 
 
     -- 셀 아이템 생성 콜백
@@ -207,6 +211,55 @@ function UI_NestDungeonScene:closeSubMenu()
             end
         end
     end
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_NestDungeonScene:update(dt)
+    if (not self.root:isVisible()) then
+        return
+    end
+
+    if (not self.m_bDirtyDungeonList) then
+
+        -- 세부 모드를 선택한 경우 해당 항목만 확인
+        if self.m_selectNestDungeonInfo then
+            local dungeon_id = self.m_selectNestDungeonInfo['data']['mode_id']
+            local t_dungeon_info = g_nestDungeonData:updateNestDungeonTimer(dungeon_id)
+            if t_dungeon_info['dirty_info'] then
+                self.m_bDirtyDungeonList = true
+                self:refreshDungeonList()
+            end
+        else
+            -- 세부 모드를 선택하지 않았을 경우 전체를 확인
+            local dirty_dungeon_list = g_nestDungeonData:checkNeedUpdateNestDungeonInfo()
+            if dirty_dungeon_list then
+                self.m_bDirtyDungeonList = true
+                self:refreshDungeonList()
+            end
+        end
+    end
+    
+end
+
+-------------------------------------
+-- function refreshDungeonList
+-------------------------------------
+function UI_NestDungeonScene:refreshDungeonList()
+    -- 열려있는 서브 메뉴가 있을 경우 닫음
+    self:closeSubMenu()
+
+    -- 새로운 정보로 리스트뷰 새로 생성
+    local function cb_func()
+        self:initUI()
+        self.m_bDirtyDungeonList = false
+
+        UIManager:toastNotificationGreen(Str('네스트 던전 항목이 갱신되었습니다.'))
+    end
+
+    -- 새로운 던전 정보 요청
+    g_nestDungeonData:requestNestDungeonInfo(cb_func)
 end
 
 

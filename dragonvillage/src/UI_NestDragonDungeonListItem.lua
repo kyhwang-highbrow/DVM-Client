@@ -16,12 +16,16 @@ t_nest_dungeon_ani[23000] = 'nest_dungeon_tree'         -- 거목
 -- class UI_NestDragonDungeonListItem
 -------------------------------------
 UI_NestDragonDungeonListItem = class(PARENT, {
-})
+        m_tData = 'nestDungeonInfo',
+        m_remainTimeText = 'string',
+    })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_NestDragonDungeonListItem:init(t_data)
+    self.m_tData = t_data
+
     local vars = self:load('nest_dungeon_scene1_list.ui')
 
     self:initUI(t_data)
@@ -30,6 +34,13 @@ function UI_NestDragonDungeonListItem:init(t_data)
 
     self.root:setDockPoint(cc.p(0, 0))
     self.root:setAnchorPoint(cc.p(0, 0))
+
+    -- UI가 enter로 진입되었을 때 update함수 호출
+    self.root:registerScriptHandler(function(event)
+        if (event == 'enter') then
+            self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+        end
+    end)
 end
 -------------------------------------
 -- function initUI
@@ -38,8 +49,12 @@ function UI_NestDragonDungeonListItem:initUI(t_data)
 
     local vars = self.vars
 
-    local ani_name = t_nest_dungeon_ani[t_data['mode_id']]
+    local dungeon_id = t_data['mode_id']
+    local ani_name = t_nest_dungeon_ani[dungeon_id]
     vars['dungeonListVisual']:changeAni(ani_name)
+
+    -- 남은 시간 얻어오기
+    g_nestDungeonData:getNestDungeonRemainTimeText(dungeon_id)
 
     --[[
     local vars = self.vars
@@ -84,4 +99,25 @@ end
 -- function refresh
 -------------------------------------
 function UI_NestDragonDungeonListItem:refresh()
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_NestDragonDungeonListItem:update(dt)
+    local dungeon_id = self.m_tData['mode_id']
+    local text = g_nestDungeonData:getNestDungeonRemainTimeText(dungeon_id)
+
+    -- 텍스트가 변경되었을 때에만 문자열 변경
+    if (self.m_remainTimeText ~= text) then
+        self.m_remainTimeText = text
+        self.vars['timeLabel']:setString(text)
+
+        do -- 텍스트 변경됨을 알리는 액션
+            self.vars['timeLabel']:stopAllActions()
+            local start_action = cc.MoveTo:create(0.05, cc.p(-20, -242))
+            local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.5, cc.p(0, -242)), 0.2)
+            self.vars['timeLabel']:runAction(cc.Sequence:create(start_action, end_action))
+        end
+    end
 end

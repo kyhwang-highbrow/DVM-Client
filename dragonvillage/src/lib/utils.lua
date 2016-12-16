@@ -52,6 +52,13 @@ function table.merge(t1, t2)
     return t
 end
 
+function table.addList(t1, t2)
+    for i, v in ipairs(t2) do
+        table.insert(t1, v)
+    end
+end
+
+
 function table.getLast(t)
 	return t[table.count(t)]
 end
