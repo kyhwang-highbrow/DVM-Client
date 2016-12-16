@@ -187,106 +187,6 @@ function GameState:update_start(dt)
 end
 
 -------------------------------------
--- function appearDragon
--------------------------------------
-function GameState:appearDragon()
-    -- 드래곤들을 등장
-    local world = self.m_world
-    for i,dragon in ipairs(world:getDragonList()) do
-        if (dragon.m_bDead == false) then
-            dragon.m_rootNode:setVisible(true)
-            dragon.m_hpNode:setVisible(true)
-
-            local effect = MakeAnimator('res/effect/tamer_magic_1/tamer_magic_1.vrp')
-            effect:setPosition(dragon.pos.x, dragon.pos.y)
-            effect:changeAni('bomb', false)
-            effect:setScale(0.8)
-            local duration = effect:getDuration()
-            effect:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.CallFunc:create(function() effect:release() end)))
-            world.m_missiledNode:addChild(effect.m_node)
-        end
-    end
-    
-    self.m_bAppearDragon = true
-end
-
--------------------------------------
--- function fight
--------------------------------------
-function GameState:fight()
-    -- 아군과 적군 전투 시작
-    local world = self.m_world
-
-    for i,dragon in ipairs(world:getDragonList()) do
-        if (dragon.m_bDead == false) then
-            dragon.m_bFirstAttack = true
-            dragon:changeState('attackDelay')
-        end
-    end
-
-    for i,enemy in pairs(world:getEnemyList()) do
-        if (enemy.m_bDead == false) then
-            enemy.m_bFirstAttack = true
-            enemy:changeState('attackDelay')
-        end
-    end
-end
-
--------------------------------------
--- function update_enemy_appear
--------------------------------------
-function GameState:update_enemy_appear(dt)
-    local world = self.m_world
-    local enemy_count = #world:getEnemyList()
-	
-    if (self.m_stateTimer == 0) then
-        local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
-
-        if (enemy_count <= 0) and (dynamic_wave <= 0) then
-            self:waveChange()
-        end
-    
-    -- 모든 적들이 등장이 끝났는지 확인
-    elseif world.m_waveMgr:isEmptyDynamicWaveList() and self.m_nAppearedEnemys >= enemy_count then
-        
-        -- 전투 최초 시작시
-        if world.m_waveMgr:isFirstWave() then
-            world:dispatch('game_start')
-            world:buffActivateAtStartup()
-            world.m_inGameUI:doAction()
-        end
-        
-        -- 웨이브 알림
-        do
-            self.m_waveNoti:setVisible(true)
-            self.m_waveNoti:changeAni('wave', false)
-            self.m_waveNum:setVisual('tag', tostring(world.m_waveMgr.m_currWave))
-            self.m_waveMaxNum:setVisual('tag', tostring(world.m_waveMgr.m_maxWave))
-
-            local duration = self.m_waveNoti:getDuration()
-            self.m_waveNoti:runAction(cc.Sequence:create(
-                cc.DelayTime:create(duration),
-                cc.CallFunc:create(function(node)
-                    node:setVisible(false)
-                    self:fight()
-                    self:changeState(GAME_STATE_FIGHT)
-                end)
-            ))
-
-            g_gameScene.m_inGameUI.vars['waveVisual']:setVisual('wave', string.format('%02d', world.m_waveMgr.m_currWave))
-
-			-- 웨이브 시작 이벤트 전달
-            world:dispatch('wave_start')
-        end
-                
-        self:changeState(GAME_STATE_FIGHT_WAIT)
-    end
-    
-    -- 웨이브 매니져 업데이트
-    world.m_waveMgr:update(dt)
-end
-
--------------------------------------
 -- function update_fight
 -------------------------------------
 function GameState:update_fight(dt)
@@ -429,6 +329,60 @@ function GameState:update_wave_intermission_wait(dt)
     if (b or self.m_stateTimer >= 4) then
         self:changeState(GAME_STATE_WAVE_INTERMISSION)
     end
+end
+
+-------------------------------------
+-- function update_enemy_appear
+-------------------------------------
+function GameState:update_enemy_appear(dt)
+    local world = self.m_world
+    local enemy_count = #world:getEnemyList()
+	
+    if (self.m_stateTimer == 0) then
+        local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
+
+        if (enemy_count <= 0) and (dynamic_wave <= 0) then
+            self:waveChange()
+        end
+    
+    -- 모든 적들이 등장이 끝났는지 확인
+    elseif world.m_waveMgr:isEmptyDynamicWaveList() and self.m_nAppearedEnemys >= enemy_count then
+        
+        -- 전투 최초 시작시
+        if world.m_waveMgr:isFirstWave() then
+            world:dispatch('game_start')
+            world:buffActivateAtStartup()
+            world.m_inGameUI:doAction()
+        end
+        
+        -- 웨이브 알림
+        do
+            self.m_waveNoti:setVisible(true)
+            self.m_waveNoti:changeAni('wave', false)
+            self.m_waveNum:setVisual('tag', tostring(world.m_waveMgr.m_currWave))
+            self.m_waveMaxNum:setVisual('tag', tostring(world.m_waveMgr.m_maxWave))
+
+            local duration = self.m_waveNoti:getDuration()
+            self.m_waveNoti:runAction(cc.Sequence:create(
+                cc.DelayTime:create(duration),
+                cc.CallFunc:create(function(node)
+                    node:setVisible(false)
+                    self:fight()
+                    self:changeState(GAME_STATE_FIGHT)
+                end)
+            ))
+
+            g_gameScene.m_inGameUI.vars['waveVisual']:setVisual('wave', string.format('%02d', world.m_waveMgr.m_currWave))
+
+			-- 웨이브 시작 이벤트 전달
+            world:dispatch('wave_start')
+        end
+                
+        self:changeState(GAME_STATE_FIGHT_WAIT)
+    end
+    
+    -- 웨이브 매니져 업데이트
+    world.m_waveMgr:update(dt)
 end
 
 -------------------------------------
@@ -740,140 +694,56 @@ function GameState:changeState(state)
 end
 
 -------------------------------------
+-- function appearDragon
+-------------------------------------
+function GameState:appearDragon()
+    -- 드래곤들을 등장
+    local world = self.m_world
+    for i,dragon in ipairs(world:getDragonList()) do
+        if (dragon.m_bDead == false) then
+            dragon.m_rootNode:setVisible(true)
+            dragon.m_hpNode:setVisible(true)
+
+            local effect = MakeAnimator('res/effect/tamer_magic_1/tamer_magic_1.vrp')
+            effect:setPosition(dragon.pos.x, dragon.pos.y)
+            effect:changeAni('bomb', false)
+            effect:setScale(0.8)
+            local duration = effect:getDuration()
+            effect:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.CallFunc:create(function() effect:release() end)))
+            world.m_missiledNode:addChild(effect.m_node)
+        end
+    end
+    
+    self.m_bAppearDragon = true
+end
+
+-------------------------------------
+-- function fight
+-------------------------------------
+function GameState:fight()
+    -- 아군과 적군 전투 시작
+    local world = self.m_world
+
+    for i,dragon in ipairs(world:getDragonList()) do
+        if (dragon.m_bDead == false) then
+            dragon.m_bFirstAttack = true
+            dragon:changeState('attackDelay')
+        end
+    end
+
+    for i,enemy in pairs(world:getEnemyList()) do
+        if (enemy.m_bDead == false) then
+            enemy.m_bFirstAttack = true
+            enemy:changeState('attackDelay')
+        end
+    end
+end
+
+-------------------------------------
 -- function isFight
 -------------------------------------
 function GameState:isFight()
     return (self.m_state == GAME_STATE_FIGHT)
-end
-
-
--------------------------------------
--- function dropItem
--------------------------------------
-function GameState:dropItem(finish_cb)
-    local stage_id = self.m_world.m_stageID
-    local drop_helper = DropHelper(stage_id)
-    local box_grade, l_drop_item = drop_helper:dropItem()
-
-    --cclog(luadump(l_drop_item))
-
-    for i,v in ipairs(l_drop_item) do
-        local item_id = v[1]
-        local count = v[2]
-    end
-
-    -- 네트워크 통신
-    self:dropItem_network(l_drop_item, finish_cb)
-
-    return box_grade, l_drop_item
-end
-
--------------------------------------
--- function dropItem_network
--------------------------------------
-function GameState:dropItem_network(l_drop_item, finish_cb)
-    local uid = g_userData:get('uid')
-    local l_drop_item = clone(l_drop_item)
-
-    local do_work
-
-    local ui_network = UI_Network()
-    ui_network:setReuse(true)
-
-    do_work = function(ret)
-        self:dropItem_networkResponse(ret)
-
-        ui_network:softReset()
-
-        local t_drop_data = l_drop_item[1]
-        if t_drop_data then
-            table.remove(l_drop_item, 1)
-
-            local item_id = t_drop_data[1]
-            local count = t_drop_data[2]
-
-            self:dropItem_networkSetRequest(ui_network, item_id, count)
-            ui_network:request()
-        else
-            ui_network:close()
-            finish_cb()
-        end
-    end
-
-    ui_network:setSuccessCB(do_work)
-    do_work()
-end
-
--------------------------------------
--- function dropItem_networkSetRequest
--------------------------------------
-function GameState:dropItem_networkSetRequest(ui_network, item_id, count)
-    local table_item = TABLE:get('item')
-    local t_item = table_item[item_id]
-
-    local type = t_item['type']
-    local val_1 = t_item['val_1']
-    local uid = g_userData:get('uid')
-
-    if (type == 'gold') then
-        ui_network:setUrl('/users/update')
-        ui_network:setParam('uid', uid)
-        ui_network:setParam('act', 'increase')
-        ui_network:setParam('gold', (count * val_1))
-
-    elseif (type == 'cash') then
-        ui_network:setUrl('/users/update')
-        ui_network:setParam('uid', uid)
-        ui_network:setParam('act', 'increase')
-        ui_network:setParam('cash', (count * val_1))
-
-    elseif (type == 'dragon') then
-        local did = t_item['val_1']
-        local evolution = t_item['rarity']
-        ui_network:setUrl('/dragons/add')
-        ui_network:setParam('uid', uid)
-        ui_network:setParam('did', did)
-        ui_network:setParam('evolution', evolution or 1)
-
-    elseif (type == 'fruit') then
-        local fruit_id = t_item['item']
-        ui_network:setUrl('/users/manage')
-        ui_network:setParam('uid', uid)
-        ui_network:setParam('act', 'increase')
-        ui_network:setParam('key', 'fruits')
-        ui_network:setParam('value', tostring(fruit_id) .. ',' .. (count * val_1))
-
-    elseif (type == 'evolution_stone') then
-        local evolution_stone_id = t_item['item']
-        ui_network:setUrl('/users/manage')
-        ui_network:setParam('uid', uid)
-        ui_network:setParam('act', 'increase')
-        ui_network:setParam('key', 'evolution_stones')
-        ui_network:setParam('value', tostring(evolution_stone_id) .. ',' .. (count * val_1))
-    end
-end
-
--------------------------------------
--- function dropItem_networkResponse
--------------------------------------
-function GameState:dropItem_networkResponse(ret)
-    if (not ret) then
-        return
-    end
-
-    -- 획득한 재화 추가 (골드, 캐시, 열매, 진화석)
-    if ret['user'] then
-        g_serverData:applyServerData(ret['user'], 'user')
-    end
-
-    -- 획득한 드래곤 추가
-    if (ret['dragons']) then
-        for _,t_dragon in pairs(ret['dragons']) do
-            g_dragonsData:applyDragonData(t_dragon)
-        end
-    end
-
-    g_topUserInfo:refreshData()
 end
 
 -------------------------------------
@@ -1017,7 +887,7 @@ function GameState:doDirectionForIntermission()
     local t_camera_info = t_wave_data['camera'] or {}
     local curCameraPosX, curCameraPosY = world.m_gameCamera:getHomePos()
 		
-	if (world.m_waveMgr.m_bDevelopMode == false) then
+	if (world.m_bDevelopMode == false) then
         local tRandomY = {}
         for _, v in pairs({-300, 0, 300}) do
             if v ~= curCameraPosY then

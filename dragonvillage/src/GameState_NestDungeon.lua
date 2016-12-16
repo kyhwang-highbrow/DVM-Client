@@ -20,10 +20,10 @@ function GameState_NestDungeon:doDirectionForIntermission()
 		t_camera_info['pos_y'] = t_camera_info['pos_y'] * t_camera_info['scale']
 		t_camera_info['time'] = WAVE_INTERMISSION_TIME
 
-        -- 네스트 던전별 연출
-        local dungeon_mode = g_nestDungeonData:parseNestDungeonID(stage_id)
-        if dungeon_mode == NEST_DUNGEON_DRAGON then
-            if is_final_wave then
+        -- 네스트 던전별 마지막 웨이브 시작 연출
+        if is_final_wave then
+            local dungeon_mode = g_nestDungeonData:parseNestDungeonID(world.m_stageID)
+            if dungeon_mode == NEST_DUNGEON_DRAGON then
                 world:dispatch('nest_dragon_final_wave')
             end
         end

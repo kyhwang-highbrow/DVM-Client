@@ -5,7 +5,7 @@ local GAME_FEVER_STATE_LIVE     = 2
 -------------------------------------
 -- class GameFever
 -------------------------------------
-GameFever = class(IEventListener:getCloneClass(), {
+GameFever = class(IEventListener:getCloneClass(), IEventDispatcher:getCloneTable(), {
         m_world = 'GameWorld',
         m_touchNode = 'cc.Node',
         m_colorLayer = 'cc.LayerColor',
@@ -83,6 +83,9 @@ function GameFever:init(world)
     self.m_tMissile = {}
     
     self:initUI()
+
+    self:addListener('fever_start', self.m_world)
+    self:addListener('fever_end', self.m_world)
 end
 
 
@@ -212,7 +215,7 @@ function GameFever:update_charging(dt)
         self.m_stepPoint = 0
 
         if self.m_curPoint >= 100 then
-            world.m_gameState:changeState(GAME_STATE_FIGHT_FEVER)
+            self:dispatch('fever_start')
         end
     end
 
@@ -325,8 +328,8 @@ function GameFever:onEnd()
     end
     
     self:changeState(GAME_FEVER_STATE_CHARGING)
-    self.m_world.m_gameState:changeState(GAME_STATE_FIGHT)
-
+    self:dispatch('fever_end')
+    
     self.m_feverLabel:setString(Str('{1}%', math_floor(self.m_curPoint)))
 end
 

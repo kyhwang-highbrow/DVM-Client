@@ -1419,6 +1419,8 @@ function GameWorld:onEvent(event_name, ...)
     if (event_name == 'character_dead') then    self:onEvent_character_dead(event_name, ...)
     elseif (event_name == 'change_wave') then   self:onEvent_change_wave(event_name, ...)
     elseif (event_name == 'dragon_skill') then  self:onEvent_dragon_skill(event_name, ...)
+    elseif (event_name == 'fever_start') then   self.m_gameState:changeState(GAME_STATE_FIGHT_FEVER)
+    elseif (event_name == 'fever_end') then     self.m_gameState:changeState(GAME_STATE_FIGHT)
     end
 end
 

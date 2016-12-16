@@ -4,6 +4,14 @@
 GameState_Colosseum = class(GameState, {})
 
 -------------------------------------
+-- function init
+-------------------------------------
+function GameState_Colosseum:init(world)
+    -- 상대편 드래곤들을 생성함
+    
+end
+
+-------------------------------------
 -- function update_start
 -------------------------------------
 function GameState_Colosseum:update_start(dt)
