@@ -9,11 +9,11 @@ IStateHelper = {
     m_state = 'string',
     m_stateTimer = 'number',
 
-    m_step = 'number',		-- 현재 단계(state 하위개념)
-	m_nextStep = 'number',
+    m_stateStep = 'number',		-- 현재 단계(state 하위개념)
+	m_nextStateStep = 'number',
 
-    m_stepTimer = 'number',	-- 현재 연출 단계내에서의 타이머
-	m_stepPrevTime = 'number',	-- 이전 프레임에서의 m_stepTimer값
+    m_stateStepTimer = 'number',	-- 현재 연출 단계내에서의 타이머
+	m_stateStepPrevTime = 'number',	-- 이전 프레임에서의 m_stateStepTimer값
 }
 
 -------------------------------------
@@ -26,11 +26,11 @@ function IStateHelper:init()
     self.m_state = nil
     self.m_stateTimer = 0
 
-    self.m_step = 0
-	self.m_nextStep = 0
+    self.m_stateStep = 0
+	self.m_nextStateStep = 0
 
-    self.m_stepTimer = 0
-	self.m_stepPrevTime = 0
+    self.m_stateStepTimer = 0
+	self.m_stateStepPrevTime = 0
 end
 
 -------------------------------------
@@ -41,15 +41,15 @@ function IStateHelper:updateState()
     if (self.m_prevState ~= self.m_state or self.m_stateTimer == -1) then
         self.m_prevState = self.m_state
 		self.m_stateTimer = 0
-        self.m_step = 0
-	    self.m_nextStep = 0
-        self.m_stepTimer = 0
-	    self.m_stepPrevTime = 0
+        self.m_stateStep = 0
+	    self.m_nextStateStep = 0
+        self.m_stateStepTimer = 0
+	    self.m_stateStepPrevTime = 0
     
-    elseif (self.m_step ~= self.m_nextStep) then
-		self.m_step = self.m_nextStep
-		self.m_stepTimer = 0
-		self.m_stepPrevTime = 0
+    elseif (self.m_stateStep ~= self.m_nextStateStep) then
+		self.m_stateStep = self.m_nextStateStep
+		self.m_stateStepTimer = 0
+		self.m_stateStepPrevTime = 0
 	end
 end
 
@@ -68,8 +68,8 @@ function IStateHelper:updateTimer(dt)
 
     end
 
-    self.m_stepPrevTime = self.m_stepTimer
-	self.m_stepTimer = self.m_stepTimer + dt
+    self.m_stateStepPrevTime = self.m_stateStepTimer
+	self.m_stateStepTimer = self.m_stateStepTimer + dt
 end
 
 -------------------------------------
@@ -85,23 +85,37 @@ end
 -- function nextStep
 -------------------------------------
 function IStateHelper:nextStep()
-	self.m_nextStep = self.m_nextStep + 1
+	self.m_nextStateStep = self.m_nextStateStep + 1
 end
 
 -------------------------------------
 -- function isBeginningStep
 -------------------------------------
-function IStateHelper:isBeginningStep(step)
-	local step = step or self.m_step
+function IStateHelper:isBeginningStep(stateStep)
+	local stateStep = stateStep or self.m_stateStep
 	
-	return (self.m_step == step and self.m_stepTimer == 0)
+	return (self.m_stateStep == stateStep and self.m_stateStepTimer == 0)
 end
 
 -------------------------------------
 -- function isPassedStepTime
 -------------------------------------
 function IStateHelper:isPassedStepTime(time)
-	return (self.m_stepPrevTime <= time and time <= self.m_stepTimer)
+	return (self.m_stateStepPrevTime <= time and time <= self.m_stateStepTimer)
+end
+
+-------------------------------------
+-- function getStep
+-------------------------------------
+function IStateHelper:getStep()
+    return self.m_stateStep
+end
+
+-------------------------------------
+-- function getStepTimer
+-------------------------------------
+function IStateHelper:getStepTimer()
+    return self.m_stateStepTimer
 end
 
 -------------------------------------

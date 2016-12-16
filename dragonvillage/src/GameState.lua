@@ -1,8 +1,7 @@
 GAME_STATE_NONE = 0
 
 GAME_STATE_LOADING = 1  -- Scene전환 후 첫 상태
-GAME_STATE_START_1 = 2  -- 테이머 등장
-GAME_STATE_START_2 = 3  -- 아군 소환
+GAME_STATE_START = 2  -- 테이머 등장 및 아군 소환
 
 GAME_STATE_WAVE_INTERMISSION = 90 -- wave 인터미션
 GAME_STATE_WAVE_INTERMISSION_WAIT = 91
@@ -17,12 +16,9 @@ GAME_STATE_FIGHT_FEVER = 104        -- 피버모드
 
 -- 파이널 웨이브 연출
 GAME_STATE_FINAL_WAVE = 201
-GAME_STATE_FINAL_WAVE2 = 202
 
 -- 보스 웨이브 연출
 GAME_STATE_BOSS_WAVE = 211
-GAME_STATE_BOSS_WAVE2 = 212
-GAME_STATE_BOSS_WAVE3 = 213
 
 GAME_STATE_SUCCESS_WAIT = 300
 GAME_STATE_SUCCESS = 301
@@ -34,10 +30,7 @@ GAME_STATE_FAILURE = 302
 GameState = class(IEventListener:getCloneClass(), IStateHelper:getCloneTable(), {
         m_world = '',
 
-        --m_state = '',
-
         m_stateParam = 'boolean',
-        --m_stateTimer = '',
         m_fightTimer = '',
 
         m_bAppearDragon = 'boolean',
@@ -114,8 +107,7 @@ function GameState:update(dt)
     IStateHelper.updateState(self)
     
     if (self.m_state == GAME_STATE_NONE) then
-    elseif (self.m_state == GAME_STATE_START_1) then    self:update_start1(dt)
-    elseif (self.m_state == GAME_STATE_START_2) then    self:update_start2(dt)
+    elseif (self.m_state == GAME_STATE_START) then    self:update_start(dt)
     elseif (self.m_state == GAME_STATE_WAVE_INTERMISSION) then self:update_wave_intermission(dt)
     elseif (self.m_state == GAME_STATE_WAVE_INTERMISSION_WAIT) then self:update_wave_intermission_wait(dt)
     elseif (self.m_state == GAME_STATE_ENEMY_APPEAR) then self:update_enemy_appear(dt)
@@ -128,13 +120,10 @@ function GameState:update(dt)
 
     -- 마지막 웨이브 연출
     elseif (self.m_state == GAME_STATE_FINAL_WAVE) then self:update_final_wave(dt)
-    elseif (self.m_state == GAME_STATE_FINAL_WAVE2) then self:update_final_wave2(dt)
-
+    
     -- 보스 웨이브 연출
     elseif (self.m_state == GAME_STATE_BOSS_WAVE) then self:update_boss_wave(dt)
-    elseif (self.m_state == GAME_STATE_BOSS_WAVE2) then self:update_boss_wave2(dt)
-    elseif (self.m_state == GAME_STATE_BOSS_WAVE3) then self:update_boss_wave3(dt)
-
+    
     elseif (self.m_state == GAME_STATE_SUCCESS_WAIT) then    self:update_success_wait(dt)
     elseif (self.m_state == GAME_STATE_SUCCESS) then    self:update_success(dt)
     elseif (self.m_state == GAME_STATE_FAILURE) then    self:update_failure(dt)
@@ -144,60 +133,56 @@ function GameState:update(dt)
 end
 
 -------------------------------------
--- function update_start1
+-- function update_start
 -------------------------------------
-function GameState:update_start1(dt)
-    if (self.m_stateTimer == 0) then
-        -- 드래곤들을 숨김
-        local world = self.m_world
-        for i,dragon in ipairs(world:getDragonList()) do
-            if (dragon.m_bDead == false) and (dragon.m_charType == 'dragon') then
-                dragon.m_rootNode:setVisible(false)
-                dragon.m_hpNode:setVisible(false)
-                dragon:changeState('idle')
-            end
-        end
-
-        -- 화면을 빠르게 스크롤
-        if world.m_mapManager then
-            world.m_mapManager:setSpeed(-1000)  
-        end
-
-        SoundMgr:playEffect('VOICE', 'vo_tamer_start')
-        
-	elseif (self.m_stateTimer >= DRAGON_APPEAR_TIME) then
-		self:changeState(GAME_STATE_START_2)
-    end
-
-end
-
--------------------------------------
--- function update_start2
--------------------------------------
-function GameState:update_start2(dt)
+function GameState:update_start(dt)
     local world = self.m_world
     local map_mgr = world.m_mapManager
-    
-	if (self.m_stateTimer == 0) then
-        SoundMgr:playEffect('EFFECT', 'summon')
-        
-        world:dispatch('dragon_summon')
 
-    elseif (self.m_stateTimer >= 0.5) then
-        if not self.m_bAppearDragon then
-            self:appearDragon()
-        end
-
-        local speed = map_mgr.m_speed + (MAP_SCROLL_SPEED_DOWN_ACCEL * dt)
-        if speed >= -300 then
-            speed = -300
-
-            -- 등장 완료일 경우
-            if self.m_bAppearDragon then
-                self:changeState(GAME_STATE_ENEMY_APPEAR)
+    if (self:getStep() == 0) then
+        if (self:isBeginningStep()) then
+            -- 드래곤들을 숨김
+            for i,dragon in ipairs(world:getDragonList()) do
+                if (dragon.m_bDead == false) and (dragon.m_charType == 'dragon') then
+                    dragon.m_rootNode:setVisible(false)
+                    dragon.m_hpNode:setVisible(false)
+                    dragon:changeState('idle')
+                end
             end
+
+            -- 화면을 빠르게 스크롤
+            if map_mgr then
+                map_mgr:setSpeed(-1000)  
+            end
+
+            SoundMgr:playEffect('VOICE', 'vo_tamer_start')
+        
+	    elseif (self:isPassedStepTime(DRAGON_APPEAR_TIME)) then
+		    self:nextStep()
         end
-        map_mgr:setSpeed(speed)
+
+    elseif (self:getStep() == 1) then
+        if (self:isBeginningStep()) then
+            SoundMgr:playEffect('EFFECT', 'summon')
+        
+            world:dispatch('dragon_summon')
+
+        elseif (self:getStepTimer() >= 0.5) then
+            if not self.m_bAppearDragon then
+                self:appearDragon()
+            end
+
+            local speed = map_mgr.m_speed + (MAP_SCROLL_SPEED_DOWN_ACCEL * dt)
+            if (speed >= -300) then
+                speed = -300
+
+                -- 등장 완료일 경우
+                if self.m_bAppearDragon then
+                    self:changeState(GAME_STATE_ENEMY_APPEAR)
+                end
+            end
+            map_mgr:setSpeed(speed)
+        end
     end
 end
 
@@ -327,7 +312,7 @@ function GameState:update_fight(dt)
             return
 
         -- 마지막 웨이브라면 해당 웨이브의 최고 등급 적이 존재하지 않을 경우 클리어 처리
-        elseif ( not m_bDevelopMode and not world.m_bArenaMode and world.m_waveMgr:isFinalWave() ) then
+        elseif ( not m_bDevelopMode and world.m_waveMgr:isFinalWave() ) then
             local highestRariry = world.m_waveMgr:getHighestRariry()
             local bExistBoss = false
             
@@ -577,21 +562,14 @@ end
 -- @brief 파이널 웨이브 연출
 -------------------------------------
 function GameState:update_final_wave(dt)
-    if (self.m_stateTimer == 0) then
+    if (self:isBeginningStep(0)) then
         self.m_waveEffect:setVisible(true)
         self.m_waveEffect:changeAni('final_appear', false)
         self.m_waveEffect:addAniHandler(function()
-            self:changeState(GAME_STATE_FINAL_WAVE2)
+            self:nextStep()
         end)
-    end
-end
-
--------------------------------------
--- function update_final_wave2
--- @brief 파이널 웨이브 연출 2
--------------------------------------
-function GameState:update_final_wave2(dt)
-    if (self.m_stateTimer == 0) then
+    
+    elseif (self:isBeginningStep(1)) then
         self.m_waveEffect:setVisible(true)
         self.m_waveEffect:changeAni('final_disappear', false)
         self.m_waveEffect:addAniHandler(function()
@@ -606,39 +584,26 @@ end
 -- @brief 보스 웨이브 연출
 -------------------------------------
 function GameState:update_boss_wave(dt)
-    if (self.m_stateTimer == 0) then
+    if (self:isBeginningStep(0)) then
         self.m_waveEffect:setVisible(true)
         self.m_waveEffect:changeAni('boss_warning_width_720', false)
         self.m_waveEffect:addAniHandler(function()
-            self:changeState(GAME_STATE_BOSS_WAVE2)
+            self:nextStep()
         end)
 
         SoundMgr:stopBGM()
-    end
-end
+    
 
--------------------------------------
--- function update_boss_wave2
--- @brief 보스 웨이브 연출 2
--------------------------------------
-function GameState:update_boss_wave2(dt)
-    if (self.m_stateTimer == 0) then
+    elseif (self:isBeginningStep(1)) then
         self.m_waveEffect:setVisible(true)
         self.m_waveEffect:changeAni('boss_appear', false)
         self.m_waveEffect:addAniHandler(function()
-            self:changeState(GAME_STATE_BOSS_WAVE3)
+            self:nextStep()
         end)
 
         self.m_world:dispatch('boss_wave')
-    end
-end
 
--------------------------------------
--- function update_boss_wave3
--- @brief 보스 웨이브 연출 3
--------------------------------------
-function GameState:update_boss_wave3(dt)
-    if (self.m_stateTimer == 0) then
+    elseif (self:isBeginningStep(2)) then
         self.m_waveEffect:setVisible(true)
         self.m_waveEffect:changeAni('boss_disappear', false)
         self.m_waveEffect:addAniHandler(function()
@@ -648,6 +613,7 @@ function GameState:update_boss_wave3(dt)
 
         -- 보스 배경음
         SoundMgr:playBGM('bgm_boss')
+
     end
 end
 
@@ -709,7 +675,7 @@ function GameState:update_success(dt)
         -- 한번에 골드 획득
         world:clearGold()
 
-        g_adventureData:clearStage(g_gameScene.m_stageID, 1)
+        g_adventureData:clearStage(world.m_stageID, 1)
         g_gameScene.m_inGameUI:doActionReverse(function()
             g_gameScene.m_inGameUI.root:setVisible(false)
         end)
@@ -935,23 +901,8 @@ function GameState:makeResultUI(is_success)
     func_ui_result = function()
         local world = self.m_world
         local stage_id = world.m_stageID
-        local game_mode = g_stageData:getGameMode(stage_id)
-
-
-        local game_result_ui_class = nil
-        -- 모험 결과 UI
-        if (game_mode == GAME_MODE_ADVENTURE) then
-            game_result_ui_class = UI_GameResultNew
-
-        -- 네스트 던전 결과 UI
-        elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
-            game_result_ui_class = UI_GameResult_NestDungeon
-
-        else
-            error()
-        end
-
-        game_result_ui_class(stage_id,
+        
+        UI_GameResultNew(stage_id,
             is_success,
             self.m_fightTimer,
             world.m_gold,
@@ -1067,32 +1018,17 @@ function GameState:doDirectionForIntermission()
     local curCameraPosX, curCameraPosY = world.m_gameCamera:getHomePos()
 		
 	if (world.m_waveMgr.m_bDevelopMode == false) then
-        -- 네스트 던전일 경우 웨이브 스크립트에 있는 카메라 정보로 설정
-        if g_gameScene:isNestMode() then
-            t_camera_info['pos_x'] = t_camera_info['pos_x'] * t_camera_info['scale']
-			t_camera_info['pos_y'] = t_camera_info['pos_y'] * t_camera_info['scale']
-			t_camera_info['time'] = WAVE_INTERMISSION_TIME
-
-            -- 네스트 던전별 연출
-            if getStageType(world.m_stageID) == STAGE_TYPE.NEST_DRAGON then
-                if is_final_wave then
-                    world:dispatch('nest_dragon_final_wave')
-                end
-            else
+        local tRandomY = {}
+        for _, v in pairs({-300, 0, 300}) do
+            if v ~= curCameraPosY then
+                table.insert(tRandomY, v)
             end
-        -- 네스트 던전이 아닐 경우 카메라의 y값만 랜덤하게 설정
-        else
-            local tRandomY = {}
-            for _, v in pairs({-300, 0, 300}) do
-                if v ~= curCameraPosY then
-                    table.insert(tRandomY, v)
-                end
-            end
-
-            t_camera_info['pos_x'] = curCameraPosX * t_camera_info['scale']
-			t_camera_info['pos_y'] = tRandomY[math_random(1, #tRandomY)] * t_camera_info['scale']
-			t_camera_info['time'] = WAVE_INTERMISSION_TIME
         end
+
+        t_camera_info['pos_x'] = curCameraPosX * t_camera_info['scale']
+		t_camera_info['pos_y'] = tRandomY[math_random(1, #tRandomY)] * t_camera_info['scale']
+		t_camera_info['time'] = WAVE_INTERMISSION_TIME
+        
     end
         
     -- 카메라 액션 설정

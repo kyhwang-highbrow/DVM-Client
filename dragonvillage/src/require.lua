@@ -117,6 +117,8 @@ local t_module = {
     'GameWorld_Formation',
     'GameWorld_Unit',
     'GameState',
+    'GameState_NestDungeon',
+    'GameState_Colosseum',
     'GameFever',
     'GameCamera',
     'GameTimeScale',

@@ -46,6 +46,14 @@ function ScrollMap:bindCameraNode(node)
 end
 
 -------------------------------------
+-- function bindEventDispatcher
+-------------------------------------
+function ScrollMap:bindEventDispatcher(eventDispather)
+    -- 맵 연출 이벤트 등록
+    eventDispather:addListener('nest_dragon_final_wave', self)
+end
+
+-------------------------------------
 -- function setFloating
 -- @breif 배경 백판 연출 설정
 -------------------------------------
@@ -177,8 +185,9 @@ end
 -- function onEvent
 -------------------------------------
 function ScrollMap:onEvent(event_name, ...)
-    -- 거대용 마지막 웨이브 시작시 연출
+    -- 이벤트별 특수한 배경 연출 처리
     if (event_name == 'nest_dragon_final_wave') then
+        -- 거대용 마지막 웨이브 시작시 연출
         for i,v in ipairs(self.m_tMapLayer) do
             if v.m_group == 'nest_dragon_body' then
                 local distance = 3600

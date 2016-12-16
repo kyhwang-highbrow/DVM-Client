@@ -9,16 +9,7 @@ TamerSkillCut = class(IEventListener:getCloneClass(), IStateHelper:getCloneTable
         m_skillLayer = '',
         
         m_bPlaying = 'boolean',
-        --[[
-        -- 연출 진행 상태 관련 정보
-        m_totalTimer = 'number',		-- 전체 타이머
-
-        m_step = 'number',		-- 현재 연출 단계
-	    m_nextStep = 'number',
-
-        m_stepTimer = 'number',	-- 현재 연출 단계내에서의 타이머
-	    m_stepPrevTime = 'number',	-- 이전 프레임에서의 m_stepTimer값
-        ]]--
+        
         -- 연출 정보
         m_type = 'number',
         m_cbEnd = 'function',
@@ -170,14 +161,9 @@ end
 function TamerSkillCut:start(type, cbEnd)
     if self.m_bPlaying then return end
 
+    IStateHelper.init(self)
+
     self.m_bPlaying = true
-
-    self.m_step = 0
-	self.m_nextStep = 0
-
-    self.m_totalTimer = 0
-    self.m_stepTimer = 0
-	self.m_stepPrevTime = 0
 
     self.m_type = type
     self.m_cbEnd = cbEnd or function() end

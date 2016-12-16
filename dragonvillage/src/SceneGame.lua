@@ -166,10 +166,9 @@ function SceneGame:prepare()
 
         -- 레이어 생성
         self:init_layer()
-        self.m_gameWorld = GameWorld(self.m_stageID, self.m_stageName, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_feverNode, self.m_inGameUI, self.m_bDevelopMode)
-        self.m_gameWorld:initStage(self.m_stageName, self.m_bDevelopMode)
-        self.m_gameWorld:initGame()
-
+        self.m_gameWorld = GameWorld(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_feverNode, self.m_inGameUI, self.m_bDevelopMode)
+        self.m_gameWorld:initGame(self.m_stageName)
+        
         -- 스크린 사이즈 초기화
         self:sceneDidChangeViewSize()
     end)
@@ -193,7 +192,7 @@ function SceneGame:prepareDone()
     self.m_scene:addChild(self.m_scheduleNode)
     self.m_scheduleNode:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
     
-    self.m_gameWorld.m_gameState:changeState(GAME_STATE_START_1)
+    self.m_gameWorld.m_gameState:changeState(GAME_STATE_START)
 end
 
 -------------------------------------

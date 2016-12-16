@@ -2,7 +2,7 @@
 -- class GameWorld
 -------------------------------------
 GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable(), {
-        m_stageName = '',
+        m_gameMode = 'number',
         m_stageID = 'number',
         m_inGameUI = 'UI_Game',
 
@@ -48,7 +48,6 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         m_missileRange = 'table',
 
-        m_bArenaMode = 'boolean',
         m_bDevelopMode = 'boolean',
 
         -- callback
@@ -94,8 +93,8 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 -------------------------------------
 -- function init
 -------------------------------------
-function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2, game_node3, fever_node, ui, develop_mode)
-    self.m_stageName = stage_name
+function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, fever_node, ui, develop_mode)
+    self.m_gameMode = game_mode
     self.m_stageID = stage_id
     self.m_inGameUI = ui
     
@@ -107,7 +106,7 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
     self.m_gameNode2 = game_node2
     self.m_gameNode3 = game_node3
     self.m_feverNode = fever_node
-    self.m_bArenaMode = false
+    
     self.m_bDevelopMode = develop_mode or false
 
     self.m_bPreventControl = false
@@ -153,10 +152,24 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
     self.m_worldScale = nil
     
     self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
-    self.m_gameState = GameState(self)
-    self.m_gameFever = GameFever(self)
     self.m_gameTimeScale = GameTimeScale(self)
 
+    if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+        self.m_gameState = GameState(self)
+
+    elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
+        self.m_gameState = GameState_NestDungeon(self)
+
+    elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
+        self.m_gameState = GameState_Colosseum(self)
+
+    else
+        error('invalid game mode : ' .. self.m_gameMode)
+
+    end
+          
+    self.m_gameFever = GameFever(self)
+    
     self.m_missileRange = {}
     self:setMissileRange()
 
@@ -176,6 +189,115 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
 
     self.m_lPassiveEffect = {}
 end
+
+
+-------------------------------------
+-- function initGame
+-------------------------------------
+function GameWorld:initGame(stage_name)
+    -- 웨이브 매니져 생성
+    self.m_waveMgr = WaveMgr(self, stage_name, self.m_bDevelopMode)
+    self.m_waveMgr:addListener('change_wave', self)
+
+    -- 배경 생성
+    self:initBG(self.m_waveMgr.m_scriptData)
+
+    -- 월드 크기 설정
+    self:changeWorldSize(1)
+        
+    -- 위치 표시 이펙트 생성
+    self:init_formation()
+
+    -- 덱에 셋팅된 드래곤 생성
+    self:makeDragonDeck()
+
+    -- UI
+    self.m_inGameUI:doActionReset()
+
+    do -- 진형 시스템 초기화
+        self:setBattleZone('basic', true)
+    end
+
+    do -- 스킬 조작계 초기화
+        self.m_skillIndicatorMgr = SkillIndicatorMgr(self, g_currScene.m_colorLayerForSkill)
+    end
+
+    -- 테이머 생성
+    do
+        self.m_tamerSkillMgr = TamerSkillManager(TAMER_ID, self)
+
+        local t_tamer = self.m_tamerSkillMgr.m_charTable
+
+        -- 스킬 컷씬
+        self.m_tamerSkillCut = TamerSkillCut(self, g_currScene.m_colorLayerTamerSkill, t_tamer)
+
+        -- 테이머 스킬
+        self.m_tamerSkillSystem = TamerSkillSystem(self)
+        self.m_tamerSkillSystem:addListener('tamer_skill', self.m_tamerSkillCut)
+        self.m_tamerSkillSystem:addListener('tamer_special_skill', self.m_tamerSkillCut)
+        
+        self:addListener('game_start', self.m_tamerSkillSystem)
+        
+        for _,char in pairs(self.m_lDragonList) do
+            if (char.m_bLeftFormation) then
+                char:addListener('dragon_skill', self.m_tamerSkillSystem)
+                char:addListener('character_dead', self.m_tamerSkillSystem)
+            end
+        end
+        
+        -- 테이머 대사
+        self.m_tamerSpeechSystem = TamerSpeechSystem(self, t_tamer)
+        self:addListener('dragon_summon', self.m_tamerSpeechSystem)
+        self:addListener('game_start', self.m_tamerSpeechSystem)
+        self:addListener('wave_start', self.m_tamerSpeechSystem)
+        self:addListener('boss_wave', self.m_tamerSpeechSystem)
+        self:addListener('stage_clear', self.m_tamerSpeechSystem)
+
+        for _,char in pairs(self.m_lDragonList) do
+            if (char.m_bLeftFormation) then
+                char:addListener('character_dead', self.m_tamerSpeechSystem)
+                char:addListener('character_weak', self.m_tamerSpeechSystem)
+                char:addListener('character_damaged_skill', self.m_tamerSpeechSystem)
+            end
+        end
+    end
+end
+
+-------------------------------------
+-- function initBG
+-------------------------------------
+function GameWorld:initBG(t_script_data)
+    local t_script_data = t_script_data or self.m_waveMgr.m_scriptData
+
+    local bg = t_script_data['bg']
+    local bg_type = t_script_data['bg_type'] or 'default'
+
+    if (bg_type == 'animation') then
+        self.m_mapManager = AnimationMap(self.m_bgNode, bg)
+
+    elseif (bg_type == 'default') then
+        self.m_mapManager = ScrollMap(self.m_bgNode)
+        self.m_mapManager:setBg(bg)
+        self.m_mapManager:setSpeed(-100)
+        self.m_mapManager:bindCameraNode(g_gameScene.m_cameraLayer)
+
+        -- 스테이지별 배경 연출 설정(차후 스크립트에서 설정하도록 해야할듯...)
+        do
+            local difficulty, chapter, stage = parseAdventureID(self.m_stageID)
+            if (chapter == 2 and g_gameScene:isAdventureMode()) then
+                self.m_mapManager:setFloating(2)
+            else
+                self.m_mapManager:setFloating(1)
+            end
+
+            self.m_mapManager:bindEventDispatcher(self)
+        end
+    else
+        error('bg_type : ' .. bg_type)
+
+    end
+end
+
 
 local counter = Counter()
 
@@ -220,17 +342,6 @@ end
 -------------------------------------
 function GameWorld:addChild3(node, depth)
     self.m_gameNode3:addChild(node, depth or 0)
-end
-
--------------------------------------
--- function initStage
--------------------------------------
-function GameWorld:initStage(stage_name, develop_mode)
-    self.m_waveMgr = WaveMgr(self, stage_name, develop_mode)
-    self.m_waveMgr:addListener('change_wave', self)
-
-    -- 배경 생성
-    self:initBG(self.m_waveMgr.m_scriptData)
 end
 
 -------------------------------------
@@ -426,106 +537,6 @@ function GameWorld:makePassiveStartEffect(char, l_str)
     root_node:scheduleUpdateWithPriorityLua(function(dt) 
         root_node:setPosition(char.pos.x, char.pos.y)
     end, 0)
-end
-
--------------------------------------
--- function initGame
--------------------------------------
-function GameWorld:initGame()
-    self:changeWorldSize(1)
-        
-    -- 위치 표시 이펙트 생성
-    self:init_formation()
-
-    -- 덱에 셋팅된 드래곤 생성
-    self:makeDragonDeck()
-
-    self.m_inGameUI:doActionReset()
-
-    do -- 진형 시스템 초기화
-        self:setBattleZone('basic', true)
-    end
-
-    do -- 스킬 조작계 초기화
-        self.m_skillIndicatorMgr = SkillIndicatorMgr(self, g_currScene.m_colorLayerForSkill)
-    end
-
-    -- 테이머 생성
-    self:makeTamerSkillManager(TAMER_ID)
-    local t_tamer = self.m_tamerSkillMgr.m_charTable
-
-    do
-        self.m_tamerSkillCut = TamerSkillCut(self, g_currScene.m_colorLayerTamerSkill, t_tamer)
-    end
-
-    do
-        self.m_tamerSkillSystem = TamerSkillSystem(self)
-        self.m_tamerSkillSystem:addListener('tamer_skill', self.m_tamerSkillCut)
-        self.m_tamerSkillSystem:addListener('tamer_special_skill', self.m_tamerSkillCut)
-        
-        self:addListener('game_start', self.m_tamerSkillSystem)
-        
-        for _,char in pairs(self.m_lDragonList) do
-            if (char.m_bLeftFormation) then
-                char:addListener('dragon_skill', self.m_tamerSkillSystem)
-                char:addListener('character_dead', self.m_tamerSkillSystem)
-            end
-        end
-    end
-
-    do
-        self.m_tamerSpeechSystem = TamerSpeechSystem(self, t_tamer)
-        self:addListener('dragon_summon', self.m_tamerSpeechSystem)
-        self:addListener('game_start', self.m_tamerSpeechSystem)
-        self:addListener('wave_start', self.m_tamerSpeechSystem)
-        self:addListener('boss_wave', self.m_tamerSpeechSystem)
-        self:addListener('stage_clear', self.m_tamerSpeechSystem)
-
-        for _,char in pairs(self.m_lDragonList) do
-            if (char.m_bLeftFormation) then
-                char:addListener('character_dead', self.m_tamerSpeechSystem)
-                char:addListener('character_weak', self.m_tamerSpeechSystem)
-                char:addListener('character_damaged_skill', self.m_tamerSpeechSystem)
-            end
-        end
-    end
-end
-
--------------------------------------
--- function initBG
--------------------------------------
-function GameWorld:initBG(t_script_data)
-    local t_script_data = t_script_data or self.m_waveMgr.m_scriptData
-
-    local bg = t_script_data['bg']
-    local bg_type = t_script_data['bg_type'] or 'default'
-
-    if (bg_type == 'animation') then
-        self.m_mapManager = AnimationMap(self.m_bgNode, bg)
-
-    elseif (bg_type == 'default') then
-        self.m_mapManager = ScrollMap(self.m_bgNode)
-        self.m_mapManager:setBg(bg)
-        self.m_mapManager:setSpeed(-100)
-        self.m_mapManager:bindCameraNode(g_gameScene.m_cameraLayer)
-
-        -- 스테이지별 배경 연출 설정
-        do
-            local difficulty, chapter, stage = parseAdventureID(self.m_stageID)
-            if (chapter == 2 and g_gameScene:isAdventureMode()) then
-                self.m_mapManager:setFloating(2)
-            else
-                self.m_mapManager:setFloating(1)
-            end
-
-            if getStageType(self.m_stageID) == STAGE_TYPE.NEST_DRAGON then
-                self:addListener('nest_dragon_final_wave', self.m_mapManager)
-            end
-        end
-    else
-        error('bg_type : ' .. bg_type)
-
-    end
 end
 
 -------------------------------------
@@ -790,13 +801,6 @@ function GameWorld:makeDragonDeck()
             end
         end
     end
-end
-
--------------------------------------
--- function makeTamer
--------------------------------------
-function GameWorld:makeTamerSkillManager(tamer_id)
-    self.m_tamerSkillMgr = TamerSkillManager(tamer_id, self)
 end
 
 -------------------------------------
