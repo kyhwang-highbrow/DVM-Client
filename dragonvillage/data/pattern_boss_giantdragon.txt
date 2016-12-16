@@ -2,7 +2,8 @@
     "pattern_boss_giantdragon":
     [        
         [
-            "a;basic", "w;3", "a;1", "w;3", "a;2", "w;3", "a;3", "w;3", "a;4", "w;3"
+            "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1", "w;2",
+			"w;2", "a;basic", "w;2", "a;basic", "w;2", "a;4", "w;2"
         ]
     ],
 	
@@ -12,22 +13,101 @@
         "list":
         [
             {
-                "hp_percent":1,
+                "hp_percent":50,
                 "pattern":
                 [
-                    "a;1"
+                    "a;3", 
+					"w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1", "w;2", "a;2", "w;3"
                 ]
             },
 			
-            {
-                "hp_percent":1,
+			{
+                "hp_percent":25,
                 "pattern":
                 [
-                    "a;4"
+                    "a;3", "w;2", "a;3", "w;2", "a;4", "w;2", "a;1", "w;2", "a;1", "w;2"
                 ]
             }
         ]
-
+    },
+	
+	"time_trriger":
+    {
+        "priority":2,
+        "list":
+        [
+            {
+                "time":0,
+                "pattern":
+                [
+                    "a;3", "w;1"
+                ]
+            },
+			
+			{
+                "time":10,
+                "pattern":
+                [
+                    "m;RB24;200", "a;2", "w;3", "m;RM24;200", "w;1"
+                ]
+            },
+			
+			{
+                "time":40,
+                "pattern":
+                [
+                    "m;RB22;200", "a;2", "w;3", "m;RM24;200", "w;1"
+                ]
+            },
+			
+			{
+                "time":70,
+                "pattern":
+                [
+                    "m;RB26;200", "a;2", "w;3", "m;RM24;200", "w;1"
+                ]
+            },
+			
+			{
+                "time":100,
+                "pattern":
+                [
+                    "a;3", "w;5", "a;4", "w;3"
+                ]
+            },
+			
+			{
+                "time":130,
+                "pattern":
+                [
+                    "m;RB24;200", "a;2", "w;3", "m;RM24;200", "w;1"
+                ]
+            },
+			
+			{
+                "time":160,
+                "pattern":
+                [
+                    "m;RB22;200", "a;2", "w;3", "m;RM24;200", "w;1"
+                ]
+            },
+			
+			{
+                "time":190,
+                "pattern":
+                [
+                    "m;RB26;200", "a;2", "w;3", "m;RM24;200", "w;1"
+                ]
+            },
+			
+			{
+                "time":200,
+                "pattern":
+                [
+                    "a;3", "w;5", "a;4", "w;3"
+                ]
+            }
+        ]
     },
 	
 	"ani_mix":
