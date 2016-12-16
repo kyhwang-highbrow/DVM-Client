@@ -2,7 +2,7 @@ GAME_STATE_NONE = 0
 
 GAME_STATE_LOADING = 1  -- Scene전환 후 첫 상태
 GAME_STATE_START_1 = 2  -- 테이머 등장
-GAME_STATE_START_2 = 3  -- 테이머 등장
+GAME_STATE_START_2 = 3  -- 아군 소환
 
 GAME_STATE_WAVE_INTERMISSION = 90 -- wave 인터미션
 GAME_STATE_WAVE_INTERMISSION_WAIT = 91
@@ -31,13 +31,13 @@ GAME_STATE_FAILURE = 302
 -------------------------------------
 -- class GameState
 -------------------------------------
-GameState = class(IEventListener:getCloneClass(), {
+GameState = class(IEventListener:getCloneClass(), IStateHelper:getCloneTable(), {
         m_world = '',
 
-        m_state = '',
+        --m_state = '',
 
         m_stateParam = 'boolean',
-        m_stateTimer = '',
+        --m_stateTimer = '',
         m_fightTimer = '',
 
         m_bAppearDragon = 'boolean',
@@ -111,11 +111,7 @@ end
 -- function update
 -------------------------------------
 function GameState:update(dt)
-    if (self.m_stateTimer == -1) then
-        self.m_stateTimer = 0
-    else
-        self.m_stateTimer = self.m_stateTimer + dt
-    end
+    IStateHelper.updateState(self)
     
     if (self.m_state == GAME_STATE_NONE) then
     elseif (self.m_state == GAME_STATE_START_1) then    self:update_start1(dt)
@@ -143,6 +139,8 @@ function GameState:update(dt)
     elseif (self.m_state == GAME_STATE_SUCCESS) then    self:update_success(dt)
     elseif (self.m_state == GAME_STATE_FAILURE) then    self:update_failure(dt)
     end
+
+    IStateHelper.updateTimer(self, dt)
 end
 
 -------------------------------------
@@ -762,10 +760,9 @@ function GameState:changeState(state)
     if isExistValue(self.m_state, GAME_STATE_SUCCESS, GAME_STATE_FAILURE) then
         return
     end
-
+    
     local prev_state = self.m_state
-    self.m_state = state
-    self.m_stateTimer = -1
+    IStateHelper.changeState(self, state)
 
     if (prev_state == GAME_STATE_FIGHT) then
          self.m_world:setWaitAllCharacter(true)

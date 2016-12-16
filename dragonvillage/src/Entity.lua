@@ -1,21 +1,18 @@
 -------------------------------------
 -- class Entity
 -------------------------------------
-Entity = class(PhysObject, {
+Entity = class(PhysObject, IStateHelper:getCloneTable(), {
         m_world = '',
 
         m_rootNode = '',
         m_animator = '',
 
         -- state 관련 변수
-        m_state = 'string',                    -- 현재 state
-        m_prevState = 'string',                -- 이전 프레임의 state
         m_tStateFunc = 'table[function]',    -- state별 동작 함수
         m_tStateAni = 'table[string]',        -- state별 animation명
         m_tStateAniLoop = 'table[boolean]',    -- state별 animation loop 여부
         m_tStatePriority = 'table[number]',    -- state별 우선순위
-        m_stateTimer = 'number',            -- 현재 state를 지속하고 있는 시간(단위:초)
-
+        
         -- 타겟 포지션
         m_targetPosX = 'number',
         m_targetPosY = 'number',
@@ -41,13 +38,12 @@ function Entity:init(file_name, body)
     self:initAnimator(file_name)
 
     -- state 관련 변수
-    self.m_state = nil
-    self.m_prevState = nil
+    --IStateHelper.init(self)
+
     self.m_tStateFunc = {}
     self.m_tStateAni = {}
     self.m_tStateAniLoop = {}
     self.m_tStatePriority = {}
-    self.m_stateTimer = 0
 end
 
 -------------------------------------
@@ -145,7 +141,7 @@ end
 -- @return boolean
 -------------------------------------
 function Entity:update(dt)
-    local prev_state = self.m_state
+    IStateHelper.updateState(self)
 
     -- state함
     if self.m_tStateFunc[self.m_state] then
@@ -154,15 +150,7 @@ function Entity:update(dt)
         end
     end
 
-    -- coroutine
-    --self:updateCoroutine(dt)
-
-    -- 이전 상태와 현재 상태가 같을 경우 m_stateTimer 증가
-    if self.m_stateTimer == -1 then
-        self.m_stateTimer = 0
-    elseif prev_state == self.m_state then
-        self.m_stateTimer = self.m_stateTimer + dt
-    end
+    IStateHelper.updateTimer(self, dt)
 
     return false
 end
@@ -210,16 +198,15 @@ function Entity:changeState(state, forced)
 
     local changed = false
     if forced or ((self.m_tStatePriority[self.m_state] or 0) <= (self.m_tStatePriority[state] or 0)) then
-        self.m_prevState = self.m_state
-        self.m_state = state
-
+        IStateHelper.changeState(self, state)
+        
         -- idle 애니메이션에 한해서 중복 체크
         local check = (state == 'idle') or (state == 'attackDelay') or (state == 'pattern_wait')
 
         if self.m_animator then
             self.m_animator:changeAni(self.m_tStateAni[state], self.m_tStateAniLoop[state], check)
         end
-        self.m_stateTimer = 0
+        
         changed = true
     end
 

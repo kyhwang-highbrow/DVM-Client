@@ -1087,6 +1087,12 @@
     <None Include="..\src\Action.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\GameState_Colosseum.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\IStateHelper.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

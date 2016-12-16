@@ -88,6 +88,7 @@ local t_module = {
 
     -- Interface
     'IEventDispatcher',
+    'IStateHelper',
     'ITopUserInfo_EventListener',
 
     -- Scene

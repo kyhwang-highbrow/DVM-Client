@@ -4,21 +4,21 @@ local TAMER_SKILL_CUT_TYPE__SPECIAL = 2
 -------------------------------------
 -- class TamerSkillCut
 -------------------------------------
-TamerSkillCut = class(IEventListener:getCloneClass(), {
+TamerSkillCut = class(IEventListener:getCloneClass(), IStateHelper:getCloneTable(), {
         m_world = 'GameWrold',
         m_skillLayer = '',
         
         m_bPlaying = 'boolean',
-
+        --[[
         -- 연출 진행 상태 관련 정보
-        m_timer = 'number',		-- 전체 타이머
+        m_totalTimer = 'number',		-- 전체 타이머
 
         m_step = 'number',		-- 현재 연출 단계
 	    m_nextStep = 'number',
 
         m_stepTimer = 'number',	-- 현재 연출 단계내에서의 타이머
 	    m_stepPrevTime = 'number',	-- 이전 프레임에서의 m_stepTimer값
-
+        ]]--
         -- 연출 정보
         m_type = 'number',
         m_cbEnd = 'function',
@@ -67,11 +67,7 @@ end
 function TamerSkillCut:update(dt)
     if not self.m_bPlaying then return end
 
-    if self.m_step ~= self.m_nextStep then
-		self.m_step = self.m_nextStep
-		self.m_stepTimer = 0
-		self.m_stepPrevTime = 0
-	end
+    IStateHelper.updateState(self)
     
     if self.m_type == TAMER_SKILL_CUT_TYPE__NORMAL then
         self:update_normal(dt)
@@ -81,7 +77,7 @@ function TamerSkillCut:update(dt)
 
     end
 
-    self:updateTimer(dt)
+    IStateHelper.updateTimer(self, dt)
 end
 
 -------------------------------------
@@ -89,12 +85,12 @@ end
 -- @brief 테이머 스킬
 -------------------------------------
 function TamerSkillCut:update_normal(dt)
-    if self:isBeginningInStep(0) then
+    if self:isBeginningStep(0) then
         g_gameScene:flashIn({color = cc.c3b(0, 0, 0), opacity = 100, time = 0.2, cbEnd = function()
             self:nextStep()
         end})
 
-    elseif self:isBeginningInStep(1) then
+    elseif self:isBeginningStep(1) then
         g_gameScene:gamePause()
 
         self.m_bgVisual:changeAni('skill_1', false)
@@ -109,14 +105,14 @@ function TamerSkillCut:update_normal(dt)
         SoundMgr:playEffect('VOICE', 'vo_tamer_basic')
         SoundMgr:playEffect('EFFECT', 'skill_tamer_basic')
         
-    elseif self:isBeginningInStep(2) then
+    elseif self:isBeginningStep(2) then
         self.m_bgVisual:setVisible(false)
         
         g_gameScene:flashOut({color = cc.c3b(255, 255, 255), time = 0.1, cbEnd = function()
             self:nextStep()
         end})     
 
-    elseif self:isBeginningInStep(3) then
+    elseif self:isBeginningStep(3) then
         g_gameScene:gameResume()
         self:onEnd()
     end
@@ -127,14 +123,14 @@ end
 -- @brief 테이머 궁극기
 -------------------------------------
 function TamerSkillCut:update_special(dt)
-    if self:isBeginningInStep(0) then
+    if self:isBeginningStep(0) then
         g_gameScene:gamePause()
 
         g_gameScene:flashIn({color = cc.c3b(0, 0, 0), time = 0.3, cbEnd = function()
             self:nextStep()
         end})
 
-    elseif self:isBeginningInStep(1) then
+    elseif self:isBeginningStep(1) then
         self.m_bgVisual:changeAni('skill_2', false)
         self.m_bgVisual:setVisible(true)
         self.m_bgVisual:addAniHandler(function()
@@ -147,51 +143,18 @@ function TamerSkillCut:update_special(dt)
         SoundMgr:playEffect('VOICE', 'vo_tamer_special')
         SoundMgr:playEffect('EFFECT', 'skill_tamer_special')
 
-    elseif self:isBeginningInStep(2) then
+    elseif self:isBeginningStep(2) then
         self.m_bgVisual:setVisible(false)
         
         g_gameScene:flashOut({color = cc.c3b(255, 255, 255), time = 0.3, cbEnd = function()
             self:nextStep()
         end})
         
-    elseif self:isBeginningInStep(3) then
+    elseif self:isBeginningStep(3) then
         g_gameScene:gameResume()
 
         self:onEnd()
     end
-end
-
--------------------------------------
--- function updateTimer
--------------------------------------
-function TamerSkillCut:updateTimer(dt)
-	self.m_timer = self.m_timer + dt
-
-	self.m_stepPrevTime = self.m_stepTimer
-	self.m_stepTimer = self.m_stepTimer + dt
-end
-
--------------------------------------
--- function nextStep
--------------------------------------
-function TamerSkillCut:nextStep()
-	self.m_nextStep = self.m_nextStep + 1
-end
-
--------------------------------------
--- function isBeginningInStep
--------------------------------------
-function TamerSkillCut:isBeginningInStep(step)
-	local step = step or self.m_step
-	
-	return (self.m_step == step and self.m_stepTimer == 0)
-end
-
--------------------------------------
--- function isPassedStepTime
--------------------------------------
-function TamerSkillCut:isPassedStepTime(time)
-	return (self.m_stepPrevTime <= time and time <= self.m_stepTimer)
 end
 
 -------------------------------------
@@ -212,7 +175,7 @@ function TamerSkillCut:start(type, cbEnd)
     self.m_step = 0
 	self.m_nextStep = 0
 
-    self.m_timer = 0
+    self.m_totalTimer = 0
     self.m_stepTimer = 0
 	self.m_stepPrevTime = 0
 
