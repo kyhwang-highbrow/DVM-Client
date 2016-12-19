@@ -127,8 +127,6 @@ function ScrollMap:setBg(res)
                 end
             end
 
-            cclog('interval = ' .. interval)
-            
             for i, data in ipairs(v['list']) do
                 local real_offset_x = (data['pos_x'] or 0)
                 local real_offset_y = (data['pos_y'] or 0)

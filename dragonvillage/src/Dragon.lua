@@ -677,14 +677,6 @@ function Dragon:isEndActiveSkillCoolTime()
 end
 
 -------------------------------------
--- function checkTarget
--------------------------------------
-function Dragon:checkTarget(t_skill)
-	-- 기본 룰로 타겟 지정
-    PARENT.checkTarget(self, t_skill)
-end
-
--------------------------------------
 -- function setAfterImage
 -------------------------------------
 function Dragon:setAfterImage(b)
