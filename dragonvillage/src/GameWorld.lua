@@ -160,7 +160,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
         self.m_gameState = GameState_NestDungeon(self)
 
-    elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
+    elseif (self.m_gameMode == GAME_MODE_COLOSSEUM) then
         self.m_gameState = GameState_Colosseum(self)
 
     else
@@ -267,10 +267,10 @@ end
 -- function initBG
 -------------------------------------
 function GameWorld:initBG()
-    if (self.m_gameMode == GAME_MODE_COLOSSEUM) then
+    --if (self.m_gameMode == GAME_MODE_COLOSSEUM) then
         -- 콜로세움 배경은 따로 처리
         
-    else
+    --else
         local t_script_data = self.m_waveMgr.m_scriptData
         if not t_script_data then return end
 
@@ -301,7 +301,7 @@ function GameWorld:initBG()
             error('bg_type : ' .. bg_type)
 
         end
-    end
+    --end
 end
 
 
@@ -1400,6 +1400,8 @@ function GameWorld:changeCameraOption(tParam, bKeepHomePos)
     local tParam = tParam or {}
     self.m_gameCamera:setAction(tParam)
 
+    local scale = self.m_gameCamera:getScale()
+    
     if not bKeepHomePos then
         self.m_gameCamera:setHomeInfo(tParam)
 
@@ -1409,6 +1411,12 @@ function GameWorld:changeCameraOption(tParam, bKeepHomePos)
                 -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
                 local homePosX = v.m_orgHomePosX + tParam['pos_x']
                 local homePosY = v.m_orgHomePosY + tParam['pos_y']
+
+                -- 카메라가 줌아웃된 상태라면 아군 위치 조정
+                if (scale == 0.6) then
+                    homePosX = homePosX - 200
+                end
+
                 local distance = getDistance(v.pos.x, v.pos.y, homePosX, homePosY)
                 
                 v:changeHomePos(homePosX, homePosY, distance / WAVE_INTERMISSION_TIME)

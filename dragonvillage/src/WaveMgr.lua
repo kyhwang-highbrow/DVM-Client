@@ -30,15 +30,19 @@ function WaveMgr:init(world, stage_name, develop_mode)
     self.m_scriptData = script
 
     self.m_currWave = 0
-    self.m_maxWave = #self.m_scriptData['wave']
+    self.m_maxWave = 0
     self.m_waveTimer = -1
     self.m_lDynamicWave = {}
 	self.m_lSummonWave = {}
 
     self.m_bDevelopMode = develop_mode or (stage_name == 'stage_dev') or false
 
-    -- 소환 몬스터 정보
-	self:setSummonData(script)
+    if self.m_scriptData then
+        self.m_maxWave = #self.m_scriptData['wave']
+        
+        -- 소환 몬스터 정보
+	    self:setSummonData(self.m_scriptData)
+    end
 end
 
 -------------------------------------

@@ -583,6 +583,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ValidationAssistant.lua" />
     <None Include="..\src\ValidationDragon.lua" />
     <None Include="..\src\WaveMgr.lua" />
+    <None Include="..\src\WaveMgr_Colosseum.lua" />
     <None Include="..\src_tool\entry_ui_viewer.lua" />
     <None Include="..\src_tool\entry_viewer.lua" />
     <None Include="..\src_tool\entry_wave_maker.lua" />

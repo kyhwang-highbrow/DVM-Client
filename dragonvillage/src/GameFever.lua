@@ -270,7 +270,7 @@ function GameFever:update_live(dt)
     end
 
     -- 적이 모두 죽었거나 제한시간이 다 되었을 경우 종료 처리
-    if (enemy_count <= 0) and (world.m_waveMgr:isEmptyDynamicWaveList()) then
+    if (enemy_count <= 0) then
         self:onEnd()
 
     elseif (self.m_stateTimer >= FEVER_KEEP_TIME) then

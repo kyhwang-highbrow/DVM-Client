@@ -40,6 +40,9 @@ function ServerData_Stage:getStageName(stage_id)
         local table_drop = TableDrop()
         local t_drop = table_drop:get(stage_id)
         name = Str(t_drop['t_name'])
+    -- 콜로세움 모드
+    elseif (game_mode == GAME_MODE_COLOSSEUM) then
+        name = Str('콜로세움')
     end
 
     return name

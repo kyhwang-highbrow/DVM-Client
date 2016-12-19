@@ -49,18 +49,52 @@ function GameState_Colosseum:update_start(dt)
         elseif (self:getStepTimer() >= 0.5) then
             if not self.m_bAppearDragon then
                 self:appearDragon()
-            end
 
-            local speed = map_mgr.m_speed + (MAP_SCROLL_SPEED_DOWN_ACCEL * dt)
-            if (speed >= -300) then
-                speed = -300
-
-                -- 등장 완료일 경우
-                if self.m_bAppearDragon then
-                    self:changeState(GAME_STATE_ENEMY_APPEAR)
-                end
+                self:nextStep()
             end
-            map_mgr:setSpeed(speed)
         end
+
+    elseif (self:getStep() == 2) then
+        if (self:isBeginningStep()) then
+        elseif (self:getStepTimer() >= 1) then
+            world:dispatch('game_start')
+            world:buffActivateAtStartup()
+            world.m_inGameUI:doAction()
+
+            self:fight()
+            self:changeState(GAME_STATE_FIGHT)
+        end
+
     end
+end
+
+-------------------------------------
+-- function update_fight
+-------------------------------------
+function GameState_Colosseum:update_fight(dt)
+    self.m_fightTimer = self.m_fightTimer + dt
+    local world = self.m_world
+
+    local hero_count = #world:getDragonList()
+    local enemy_count = #world:getEnemyList()
+
+    -- 클리어 여부 체크
+    --if (enemy_count <= 0) then
+    if false then
+        self:changeState(GAME_STATE_SUCCESS_WAIT)
+    elseif hero_count <= 0 then
+        self:changeState(GAME_STATE_FAILURE)
+    end
+end
+
+-------------------------------------
+-- function waveChange
+-------------------------------------
+function GameState_Colosseum:waveChange()
+end
+
+-------------------------------------
+-- function doDirectionForIntermission
+-------------------------------------
+function GameState_Colosseum:doDirectionForIntermission()
 end
