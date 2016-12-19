@@ -200,7 +200,7 @@ function GameWorld:initGame(stage_name)
     self.m_waveMgr:addListener('change_wave', self)
 
     -- 배경 생성
-    self:initBG(self.m_waveMgr.m_scriptData)
+    self:initBG()
 
     -- 월드 크기 설정
     self:changeWorldSize(1)
@@ -266,35 +266,41 @@ end
 -------------------------------------
 -- function initBG
 -------------------------------------
-function GameWorld:initBG(t_script_data)
-    local t_script_data = t_script_data or self.m_waveMgr.m_scriptData
-
-    local bg = t_script_data['bg']
-    local bg_type = t_script_data['bg_type'] or 'default'
-
-    if (bg_type == 'animation') then
-        self.m_mapManager = AnimationMap(self.m_bgNode, bg)
-
-    elseif (bg_type == 'default') then
-        self.m_mapManager = ScrollMap(self.m_bgNode)
-        self.m_mapManager:setBg(bg)
-        self.m_mapManager:setSpeed(-100)
-        self.m_mapManager:bindCameraNode(g_gameScene.m_cameraLayer)
-
-        -- 스테이지별 배경 연출 설정(차후 스크립트에서 설정하도록 해야할듯...)
-        do
-            local difficulty, chapter, stage = parseAdventureID(self.m_stageID)
-            if (chapter == 2 and g_gameScene:isAdventureMode()) then
-                self.m_mapManager:setFloating(2)
-            else
-                self.m_mapManager:setFloating(1)
-            end
-
-            self.m_mapManager:bindEventDispatcher(self)
-        end
+function GameWorld:initBG()
+    if (self.m_gameMode == GAME_MODE_COLOSSEUM) then
+        -- 콜로세움 배경은 따로 처리
+        
     else
-        error('bg_type : ' .. bg_type)
+        local t_script_data = self.m_waveMgr.m_scriptData
+        if not t_script_data then return end
 
+        local bg = t_script_data['bg']
+        local bg_type = t_script_data['bg_type'] or 'default'
+
+        if (bg_type == 'animation') then
+            self.m_mapManager = AnimationMap(self.m_bgNode, bg)
+
+        elseif (bg_type == 'default') then
+            self.m_mapManager = ScrollMap(self.m_bgNode)
+            self.m_mapManager:setBg(bg)
+            self.m_mapManager:setSpeed(-100)
+            self.m_mapManager:bindCameraNode(g_gameScene.m_cameraLayer)
+
+            -- 스테이지별 배경 연출 설정(차후 스크립트에서 설정하도록 해야할듯...)
+            do
+                local difficulty, chapter, stage = parseAdventureID(self.m_stageID)
+                if (chapter == 2 and g_gameScene:isAdventureMode()) then
+                    self.m_mapManager:setFloating(2)
+                else
+                    self.m_mapManager:setFloating(1)
+                end
+
+                self.m_mapManager:bindEventDispatcher(self)
+            end
+        else
+            error('bg_type : ' .. bg_type)
+
+        end
     end
 end
 
@@ -674,6 +680,8 @@ function GameWorld:killAllEnemy()
             v:changeState('dying')
         end
     end
+
+    self.m_waveMgr:clearDynamicWave()
 end
 
 -------------------------------------
@@ -721,13 +729,13 @@ function GameWorld:removeHero(hero)
     -- 게임 종료 체크(모든 영웅이 죽었을 경우)
     local hero_count = table.count(self.m_lDragonList)
     if (hero_count <= 0) then
-		if (self.m_waveMgr.m_bDevelopMode) then 
+		if (self.m_bDevelopMode) then 
 			-- 개발 스테이지에서는 드래곤이 전부 죽을 시 드래곤을 되살리고 스테이지 초기화 한다 
 			self.m_lDragonList = {}
 			self.m_participants = {}
 			
 			self:makeDragonDeck()
-			self:setBattleZone('basic', true)
+			--self:setBattleZone('basic', true)
 			
 			self:killAllEnemy()
 		else

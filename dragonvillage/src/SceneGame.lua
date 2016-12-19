@@ -60,7 +60,12 @@ end
 -------------------------------------
 function SceneGame:init_gameMode(stage_id)
     self.m_stageID = stage_id
-    self.m_gameMode = g_stageData:getGameMode(stage_id)
+
+    if (self.m_stageID == DEV_STAGE_ID) then
+        self.m_gameMode = GAME_MODE_ADVENTURE
+    else
+        self.m_gameMode = g_stageData:getGameMode(self.m_stageID)
+    end
 end
 
 -------------------------------------

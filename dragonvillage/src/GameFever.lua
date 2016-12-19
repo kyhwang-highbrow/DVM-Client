@@ -256,8 +256,7 @@ end
 function GameFever:update_live(dt)
     local world = self.m_world
     local enemy_count = #world:getEnemyList()
-    local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
-
+    
     if (self.m_stateTimer == 0) then
         -- 피버 모드 연출
         --self.m_feverNode:setVisible(false)
@@ -271,7 +270,7 @@ function GameFever:update_live(dt)
     end
 
     -- 적이 모두 죽었거나 제한시간이 다 되었을 경우 종료 처리
-    if (enemy_count <= 0) and (dynamic_wave <= 0) then
+    if (enemy_count <= 0) and (world.m_waveMgr:isEmptyDynamicWaveList()) then
         self:onEnd()
 
     elseif (self.m_stateTimer >= FEVER_KEEP_TIME) then

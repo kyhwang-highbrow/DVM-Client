@@ -14,7 +14,7 @@ function GameState_NestDungeon:doDirectionForIntermission()
     local t_camera_info = t_wave_data['camera'] or {}
     local curCameraPosX, curCameraPosY = world.m_gameCamera:getHomePos()
 		
-	if (world.m_waveMgr.m_bDevelopMode == false) then
+	if (world.m_bDevelopMode == false) then
         -- 네스트 던전일 경우 웨이브 스크립트에 있는 카메라 정보로 설정
         t_camera_info['pos_x'] = t_camera_info['pos_x'] * t_camera_info['scale']
 		t_camera_info['pos_y'] = t_camera_info['pos_y'] * t_camera_info['scale']
@@ -22,8 +22,8 @@ function GameState_NestDungeon:doDirectionForIntermission()
 
         -- 네스트 던전별 마지막 웨이브 시작 연출
         if is_final_wave then
-            local dungeon_mode = g_nestDungeonData:parseNestDungeonID(world.m_stageID)
-            if dungeon_mode == NEST_DUNGEON_DRAGON then
+            local t_dungeon = g_nestDungeonData:parseNestDungeonID(world.m_stageID)
+            if t_dungeon and t_dungeon['dungeon_mode'] == NEST_DUNGEON_DRAGON then
                 world:dispatch('nest_dragon_final_wave')
             end
         end

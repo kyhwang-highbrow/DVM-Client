@@ -194,10 +194,9 @@ function GameState:update_fight(dt)
     local world = self.m_world
 
     local enemy_count = #world:getEnemyList()
-    local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
-
+    
     -- 해당 웨이브의 모든 적이 등장한 상태일 경우
-    if (dynamic_wave <= 0) then
+    if (world.m_waveMgr:isEmptyDynamicWaveList()) then
 
         -- 클리어 여부 체크
         if (enemy_count <= 0) then
@@ -212,7 +211,7 @@ function GameState:update_fight(dt)
             return
 
         -- 마지막 웨이브라면 해당 웨이브의 최고 등급 적이 존재하지 않을 경우 클리어 처리
-        elseif ( not m_bDevelopMode and world.m_waveMgr:isFinalWave() ) then
+        elseif ( not world.m_bDevelopMode and world.m_waveMgr:isFinalWave() ) then
             local highestRariry = world.m_waveMgr:getHighestRariry()
             local bExistBoss = false
             
