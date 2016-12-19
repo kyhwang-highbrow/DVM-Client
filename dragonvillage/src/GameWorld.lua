@@ -877,13 +877,13 @@ function GameWorld:setMissileRange()
 
     scale = scale * cameraScale
 
-    self.m_missileRange['min_x'] = 0 - 200
-    self.m_missileRange['max_x'] = (CRITERIA_RESOLUTION_X / scale) + 200
-    self.m_missileRange['min_y'] = (-GAME_RESOLUTION_X / 2 / scale) - 200
-    self.m_missileRange['max_y'] = (GAME_RESOLUTION_X / 2 / scale) + 200
+    self.m_missileRange['min_x'] = (-CRITERIA_RESOLUTION_X / 2 - 200) / scale 
+    self.m_missileRange['max_x'] = (CRITERIA_RESOLUTION_X / 2 + 200) / scale
+    self.m_missileRange['min_y'] = (-GAME_RESOLUTION_X / 2 - 200) / scale
+    self.m_missileRange['max_y'] = (GAME_RESOLUTION_X / 2 + 200) / scale
 
-    self.m_missileRange['min_x'] = self.m_missileRange['min_x'] + cameraHomePosX
-    self.m_missileRange['max_x'] = self.m_missileRange['max_x'] + cameraHomePosX
+    self.m_missileRange['min_x'] = self.m_missileRange['min_x'] + cameraHomePosX + (CRITERIA_RESOLUTION_X / 2)
+    self.m_missileRange['max_x'] = self.m_missileRange['max_x'] + cameraHomePosX + (CRITERIA_RESOLUTION_X / 2)
     self.m_missileRange['min_y'] = self.m_missileRange['min_y'] + cameraHomePosY
     self.m_missileRange['max_y'] = self.m_missileRange['max_y'] + cameraHomePosY
 end

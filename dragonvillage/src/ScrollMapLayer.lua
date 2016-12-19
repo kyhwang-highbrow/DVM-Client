@@ -29,7 +29,7 @@ function ScrollMapLayer:init(parent, type, res, animation, interval, offset_x, o
 
     self.m_visibleSize = cc.Director:getInstance():getVisibleSize()
     
-    local visible_width = 2048
+    local visible_width = 2176
     local visible_height = 1600
 
     -- 루트 노드 생성
