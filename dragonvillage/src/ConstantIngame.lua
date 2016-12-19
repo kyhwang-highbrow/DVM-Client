@@ -9,7 +9,7 @@ TAMER_ID = 110001
 PARTICIPATE_DRAGON_CNT = 5
 
 -- # 공용탄 미사일이 목표를 지나치고 난 후 사라지는 시간
-MISSILE_FADE_OUT_TIME = 0.3
+MISSILE_FADE_OUT_TIME = 0.2
 
 -- # 공용탄 미사일 발사 주기, (발사 주기 / 미사일 발사 수 = 발사 간격)
 FIRE_LIMIT_TIME = 0.5
