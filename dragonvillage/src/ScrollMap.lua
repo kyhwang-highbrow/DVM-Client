@@ -126,6 +126,8 @@ function ScrollMap:setBg(res)
                     end
                 end
             end
+
+            cclog('interval = ' .. interval)
             
             for i, data in ipairs(v['list']) do
                 local real_offset_x = (data['pos_x'] or 0)
@@ -163,12 +165,14 @@ function ScrollMap:update(dt)
 
     -- 각 레이어들이 현재의 카메라 위치를 기준으로 루핑되도록 함.
     local cameraX, cameraY = 0, 0
+    local cameraScale = 1
     if self.m_cameraNode then
         cameraX, cameraY = self.m_cameraNode:getPosition()
+        cameraScale = self.m_cameraNode:getScale()
     end
     
     for i,v in ipairs(self.m_tMapLayer) do
-        v:update(self.m_totalMove, dt, cameraX, cameraY)
+        v:update(self.m_totalMove, dt, cameraX, cameraY, cameraScale)
     end
 
     return self.m_totalMove

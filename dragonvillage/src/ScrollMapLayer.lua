@@ -63,9 +63,9 @@ function ScrollMapLayer:init(parent, type, res, animation, interval, offset_x, o
         local count
 
         if self.m_type == 'horizontal' then
-            count = math_ceil(visible_width / self.m_interval) + 1
+            count = math_ceil(visible_width / self.m_interval) + 2
         elseif self.m_type == 'vertical' then
-            count = math_ceil(visible_height / self.m_interval) + 1
+            count = math_ceil(visible_height / self.m_interval) + 2
         end
 
         if count then
@@ -97,15 +97,17 @@ end
 -------------------------------------
 -- function update
 -------------------------------------
-function ScrollMapLayer:update(totalMove, dt, cameraX, cameraY)
+function ScrollMapLayer:update(totalMove, dt, cameraX, cameraY, cameraScale)
     local pos = (totalMove * self.m_speedScale)
     local cameraX = cameraX or 0
     local cameraY = cameraY or 0
+    local cameraScale = cameraScale or 1
     local referenceValue
 
     if self.m_type == 'horizontal' then
         pos = pos + self.m_offsetX
         referenceValue = -cameraX - (CRITERIA_RESOLUTION_X / 2)
+        --referenceValue = -cameraX
     elseif self.m_type == 'vertical' then
         pos = pos + self.m_offsetY
         referenceValue = -cameraY - (CRITERIA_RESOLUTION_Y / 2)
