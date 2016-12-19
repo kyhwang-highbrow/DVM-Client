@@ -20,17 +20,13 @@ end
 -------------------------------------
 function SceneDV:onEnter()
     PerpleScene.onEnter(self)
-	
-    --self:performanceTest()
-    --self:tableViewTDDevelopment()
-    --self:dockPointTest()
-    self:expandTest()
+	self:doUpdate()
 end
 
 -------------------------------------
--- function performanceTest
+-- function doUpdate
 -------------------------------------
-function SceneDV:performanceTest()
+function SceneDV:doUpdate()
     g_currScene:addKeyKeyListener(self)
 	self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 	cc.Director:getInstance():setDisplayStats(true)
@@ -92,13 +88,6 @@ end
 -------------------------------------
 function SceneDV:update(dt)
 	PerpleScene.update(self, dt)
-	for i, v in pairs(self.m_lSpineAni) do
-		cclog('ani #'..i)
-		for i = 1, 10000 do
-			local temp = i * 3 + 10 - 99
-		end
-		
-	end
 end
 
 -------------------------------------
@@ -115,25 +104,32 @@ end
 -- function onKeyReleased
 -------------------------------------
 function SceneDV:onKeyReleased(keyCode, event)
-	if keyCode == KEY_F then
-		local rand_x = math_random(0, 960)
-		local rand_y = math_random(0, 500)
-		local json_name = 'res/missile/missile_arrow/missile_arrow.png'
-		self:setAni(json_name, rand_x, rand_y)
-
-	elseif keyCode == KEY_S then
-		local rand_x = math_random(0, 960)
-		local rand_y = math_random(0, 500)
+	if keyCode == KEY_A then
+		local rand_x = math_random(100, 900)
+		local rand_y = math_random(200, 600)
 		local json_name = 'res/character/dragon/spine_earth_01/spine_earth_01.json'
 		self:setAni(json_name, rand_x, rand_y)
 
-	elseif keyCode == KEY_D then
-		local rand_x = math_random(0, 960)
-		local rand_y = math_random(0, 500)
+	elseif keyCode == KEY_S then
+		local rand_x = math_random(100, 900)
+		local rand_y = math_random(200, 600)
 		local res_name = 'res/missile/missile_giantdragon_basic_fire/missile_giantdragon_basic_fire.vrp'
 		self:setAni(res_name, rand_x, rand_y)
+	
+	elseif keyCode == KEY_D then
+		local rand_x = math_random(100, 900)
+		local rand_y = math_random(200, 600)
+		local json_name = 'res/ui/icon/cha/lightningdragon_03.png'
+		self:setAni(json_name, rand_x, rand_y)
 
-	elseif keyCode == KEY_A then
+	elseif keyCode == KEY_Q then
+		self:shaderTest_sample()
+	elseif keyCode == KEY_W then
+		self:shaderTest_blur()
+	elseif keyCode == KEY_E then
+		self:shaderTest_a2d()
+
+	elseif keyCode == KEY_F then
 		for i, v in pairs(self.m_lSpineAni) do
 			v:release()
 		end
@@ -247,4 +243,38 @@ function SceneDV:expandTest()
     local ui = UI_DragonTrainSlot_ListItem({})
     self.m_scene:addChild(ui.root)
     ui.vars['clickBtn']:registerScriptTapHandler(function() ui:setExpand((not ui.m_bExpanded), 0.15)  end)
+end
+
+-------------------------------------
+-- function shaderTest_sample
+-------------------------------------
+function SceneDV:shaderTest_sample()
+	local shader = ShaderCache:getShader(SHADER_CHARACTER_DAMAGED)
+	for i, ani in pairs(self.m_lSpineAni) do 
+		ani.m_node:setGLProgram(shader)
+	end
+end
+
+-------------------------------------
+-- function shaderTest_blur
+-------------------------------------
+function SceneDV:shaderTest_blur()
+	local shader = ShaderCache:getShader(SHADER_MAP_BLUR)
+	for i, ani in pairs(self.m_lSpineAni) do 
+		ani.m_node:setGLProgram(shader)
+		ani.m_node:getGLProgramState():setUniformVec2('resolution', cc.p(100, 100))
+		ani.m_node:getGLProgramState():setUniformFloat('blurRadius', 2.0)
+		ani.m_node:getGLProgramState():setUniformFloat('sampleNum', 5.0)
+	end
+end
+
+-------------------------------------
+-- function shaderTest
+-------------------------------------
+function SceneDV:shaderTest_a2d()
+	for i, ani in pairs(self.m_lSpineAni) do 
+		if ani.m_type == ANIMATOR_TYPE_VRP then 
+			ani.m_node:setCustomShader(3,3)
+		end
+	end
 end
