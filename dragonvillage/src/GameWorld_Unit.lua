@@ -148,7 +148,14 @@ function GameWorld:tryPatternMonster(t_monster, body)
         return nil
     end
 
-    local monster = MonsterLua_Boss(t_monster['res'], body)
+    local monster
+
+    if type == 'giantdragon' then
+        monster = Monster_GiantDragon(t_monster['res'], body)
+    else
+        monster = MonsterLua_Boss(t_monster['res'], body)
+    end
+
     monster:initAnimatorMonster(t_monster['res'], t_monster['attr'])
     monster:initScript(script_name, is_boss)
     

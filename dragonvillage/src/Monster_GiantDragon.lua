@@ -15,22 +15,46 @@ function Monster_GiantDragon:init(file_name, body, ...)
 end
 
 -------------------------------------
--- function initAnimatorMonster
+-- function initState
 -------------------------------------
-function Monster_GiantDragon:initAnimatorMonster(file_name, attr)
-    PARENT.initAnimatorMonster(self, file_name, attr)
+function Monster_GiantDragon:initState()
+    PARENT.initState(self)
 
-    local animator = self.m_animator
+    self:addState('attack', Monster_GiantDragon.st_attack, 'attack', false)
+end
 
-    do
-        local horn_animator = AnimatorHelper:makeMonsterAnimator(file_name, attr)
-        horn_animator:changeAni('tail_idle')
-        animator.m_node:bindSpine('tail', horn_animator.m_node)
-    end
+-------------------------------------
+-- function st_attack
+-------------------------------------
+function Monster_GiantDragon.st_attack(owner, dt)
+    PARENT.st_attack(owner)
 
-    do
-        local horn_animator = AnimatorHelper:makeMonsterAnimator(file_name, attr)
-        horn_animator:changeAni('horn_idle')
-        animator.m_node:bindSpine('horn', horn_animator.m_node)
+    if (owner.m_stateTimer == 0) then
+        -- 브레스 스킬 사용시 차지 이펙트
+        if (owner.m_animator.m_currAnimation == 'skill_3') then
+            local attr = owner.m_charTable['attr']
+            local res = string.format('res/effect/effect_breath_charge/effect_breath_charge_%s.vrp', attr)
+            local animator = MakeAnimator(res)
+            animator:changeAni('idle', false)
+            animator:setScale(2)
+            animator.m_node:setRotation(-90)
+            animator:setPosition(-600, 200)
+            owner.m_rootNode:addChild(animator.m_node)
+
+            local duration = animator:getDuration()
+            --animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+
+            local sequence = cc.Sequence:create(
+                cc.DelayTime:create(duration),
+                cc.RemoveSelf:create()
+            )
+
+            local sequence2 = cc.Sequence:create(
+                cc.MoveBy:create(1, cc.p(150, 250))
+            )
+
+            local spawn = cc.Spawn:create(sequence, sequence2)
+            animator:runAction(spawn)
+        end
     end
 end
