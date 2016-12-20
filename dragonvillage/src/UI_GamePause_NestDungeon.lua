@@ -18,14 +18,24 @@ end
 -- function click_homeButton
 -------------------------------------
 function UI_GamePause_NestDungeon:click_homeButton()
-    local scene = SceneNestDungeon()
-    scene:runScene()
+    if g_nestDungeonData:isExistData() then
+        local scene = SceneNestDungeon()
+        scene:runScene()
+    else
+        local scene = SceneLobby()
+        scene:runScene()
+    end
 end
 
 -------------------------------------
 -- function click_retryButton
 -------------------------------------
 function UI_GamePause_NestDungeon:click_retryButton()
-    local scene = SceneNestDungeon(self.m_stageID)
-    scene:runScene()
+    if g_nestDungeonData:isExistData() then
+        local scene = SceneNestDungeon(self.m_stageID)
+        scene:runScene()
+    else
+        local scene = SceneGame(nil, self.m_stageID, 'stage_' .. self.m_stageID, false)
+        scene:runScene()
+    end
 end

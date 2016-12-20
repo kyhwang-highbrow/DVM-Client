@@ -121,7 +121,8 @@ function FormationMgr:getFormation(x, y)
         return FORMATION_MIDDLE
 
     -- 후방 (rear)
-    elseif (self.m_rearStartX <= x) and (x <= self.m_rearEndX) then
+    --elseif (self.m_rearStartX <= x) and (x <= self.m_rearEndX) then
+    else
         return FORMATION_REAR
 
     end

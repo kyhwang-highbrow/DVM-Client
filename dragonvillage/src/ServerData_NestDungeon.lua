@@ -307,3 +307,11 @@ function ServerData_NestDungeon:getNestDungeonRemainTimeText(dungeon_id)
 
     return text, t_dungeon_info['dirty_info']
 end
+
+-------------------------------------
+-- function getNestDungeonRemainTimeText
+-- @brief 데이터 존재 여부를 체크(로비에서 임시 버튼으로 즉시 진입하는 경우엔 데이터가 없음)
+-------------------------------------
+function ServerData_NestDungeon:isExistData()
+    return (self.m_nestDungeonInfoMap ~= nil)
+end

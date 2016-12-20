@@ -192,10 +192,14 @@ function ScrollMap:onEvent(event_name, ...)
         -- 거대용 마지막 웨이브 시작시 연출
         for i,v in ipairs(self.m_tMapLayer) do
             if v.m_group == 'nest_dragon_body' then
+                --v.m_tSprite[1]:changeAni('end_wave_2', false)
+
                 local distance = 3600
+
                 local action = cc.MoveTo:create(1.5, cc.p(distance, 0))
             
                 v:doAction(action)
+                --v:doAction(cc.Sequence:create())
             end
         end
     end
