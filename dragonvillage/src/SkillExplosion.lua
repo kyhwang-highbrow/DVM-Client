@@ -128,7 +128,7 @@ function SkillExplosion.st_attack(owner, dt)
 		-- 공격
 		local attackFunc = cc.CallFunc:create(function() 
 			owner:runAttack()
-			owner.m_world.m_shakeMgr:ShakeBySpeed(owner.movement_theta, 1500)
+			owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 1500)
 		end)
 
 		-- 1바퀴 돌면서 되돌아가는 액션

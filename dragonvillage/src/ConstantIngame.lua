@@ -31,6 +31,11 @@ TAMER_SKILL_GLOBAL_COOLTIME = 1
 -- # 화면 떨림 연출 시간
 SHAKE_DURATION = 0.5
 
+-- # 스크립트 제어 화면 떨림 변수
+SHAKE_CUSTOM_DURATION = 0.3
+SHAKE_CUSTOM_MIN_POS = 5
+SHAKE_CUSTOM_MAX_POS = 50
+
 --------------------------------------------
 -- 피버모드
 --------------------------------------------

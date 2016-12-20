@@ -123,7 +123,7 @@ function SkillCrash.st_comeback(owner, dt)
         owner:releaseCrashPhsyObject()
 
         -- 화면 떨림 연출
-        owner.m_world.m_shakeMgr:ShakeBySpeed(char.movement_theta, 1500)
+        owner.m_world.m_shakeMgr:shakeBySpeed(char.movement_theta, 1500)
 
         -- 충격파 발생
         local x = char.pos.x

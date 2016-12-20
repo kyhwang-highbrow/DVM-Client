@@ -371,7 +371,7 @@ end
 function GameFever:doAttack()
     local world = self.m_world
 
-	world.m_shakeMgr:ShakeBySpeed(math_random(100, 300), math_random(100, 300))
+	world.m_shakeMgr:shakeBySpeed(math_random(100, 300), math_random(100, 300))
 
     local hero = self:getRandomHero()
     if not hero then return end

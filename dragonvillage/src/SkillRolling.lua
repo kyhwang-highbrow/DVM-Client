@@ -149,7 +149,7 @@ function SkillRolling.st_attack(owner, dt)
     if (owner.m_multiAtkTimer > owner.m_hitInterval) then
 		-- 첫공격시에만 화면 쉐이크
 		if (owner.m_attackCnt == 0) then 
-			owner.m_world.m_shakeMgr:ShakeBySpeed(owner.movement_theta, 300) 
+			owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 300) 
 		end
 		owner:runAttack(true) -- @TODO 구조 개선 필요
 
@@ -213,7 +213,7 @@ function SkillRolling.st_move_attack(owner, dt)
 				animator.m_node:setPosition(owner.m_owner.pos.x, owner.m_owner.pos.y)
 				owner.m_world.m_missiledNode:addChild(animator.m_node)
 
-				owner.m_world.m_shakeMgr:ShakeBySpeed(owner.movement_theta, 300)
+				owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 300)
 
 				owner:runAttack(true) -- @TODO 구조 개선 필요
 				owner.m_bMoving = false

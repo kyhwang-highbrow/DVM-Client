@@ -227,7 +227,7 @@ end
 -- function runAttack
 -------------------------------------
 function TamerSpecialSkillCombination:runAttack()
-	self.m_world.m_shakeMgr:ShakeBySpeed(math_random(300, 500), math_random(500, 1500))
+	self.m_world.m_shakeMgr:shakeBySpeed(math_random(300, 500), math_random(500, 1500))
     for i,target_char in ipairs(self.m_tTarget) do
         -- 공격
 		self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)

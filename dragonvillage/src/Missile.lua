@@ -391,7 +391,7 @@ function Missile:updateMissileOption(dt)
 	-- n초 후까지 map shake
     if self.m_mapShakeTime then
 		if self.m_stateTimer == 0 then
-			self.m_world.m_shakeMgr:doShake(50, 10, 0.2, true)
+			self.m_world.m_shakeMgr:doShakeForScript()
         elseif (self.m_mapShakeTime <= self.m_stateTimer) or (self.m_state == 'dying') then
             self.m_mapShakeTime = nil
 			self.m_world.m_shakeMgr:stopShake()

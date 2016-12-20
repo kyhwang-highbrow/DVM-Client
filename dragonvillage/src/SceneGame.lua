@@ -237,7 +237,8 @@ function SceneGame:gamePause()
     local function f_pause(node)
         node:pause()
     end
-
+	
+	self.m_shakeLayer:pause()
     doAllChildren(self.m_gameNode1, f_pause)
     doAllChildren(self.m_gameNode2, f_pause)
     doAllChildren(self.m_feverNode, f_pause)
@@ -253,6 +254,7 @@ function SceneGame:gameResume()
         node:resume()
     end
 
+	self.m_shakeLayer:resume()
     doAllChildren(self.m_gameNode1, f_resume)
     doAllChildren(self.m_gameNode2, f_resume)
     doAllChildren(self.m_feverNode, f_resume)

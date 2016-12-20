@@ -41,7 +41,7 @@ function ShakeManager:doShake(x, y, duration, is_repeat)
 end
 
 -------------------------------------
--- function doShake
+-- function stopShake
 -- @brief 화면 떨림 연출 중지
 -------------------------------------
 function ShakeManager:stopShake()
@@ -49,19 +49,29 @@ function ShakeManager:stopShake()
 end
 
 -------------------------------------
--- function ShakeByDistance
+-- function shakeByDistance
 -- @brief 거리 기반 
 -------------------------------------
-function ShakeManager:ShakeByDistance(dir, distance)
+function ShakeManager:shakeByDistance(dir, distance)
     local pos = getPointFromAngleAndDistance(dir, distance)
     self:doShake(pos['x'], pos['y'])
 end
 
 -------------------------------------
--- function ShakeBySpeed
+-- function shakeBySpeed
 -- @brief 속도 기반
 -------------------------------------
-function ShakeManager:ShakeBySpeed(dir, speed)
+function ShakeManager:shakeBySpeed(dir, speed)
     local distance = math_clamp(speed / 20, 5, 50)
-    self:ShakeByDistance(dir, distance)
+    self:shakeByDistance(dir, distance)
+end
+
+-------------------------------------
+-- function doShakeForScript
+-- @brief script missile 용 shake
+-------------------------------------
+function ShakeManager:doShakeForScript()
+	local random1 = math_random(SHAKE_CUSTOM_MIN_POS, SHAKE_CUSTOM_MAX_POS)
+	local random2 = math_random(SHAKE_CUSTOM_MIN_POS, SHAKE_CUSTOM_MAX_POS)
+	self:doShake(random1, random2, SHAKE_CUSTOM_DURATION, true)
 end
