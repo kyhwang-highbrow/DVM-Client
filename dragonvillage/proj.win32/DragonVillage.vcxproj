@@ -283,6 +283,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\shader\position_texture_color_noMvp_vertex.vsh" />
     <None Include="..\src\shader\shaderBlur.fsh" />
     <None Include="..\src\ShakeManager.lua" />
+    <None Include="..\src\SkillBurst.lua" />
     <None Include="..\src\SkillSpiderWeb.lua" />
     <None Include="..\src\StatusEffect_Barrier.lua" />
     <None Include="..\src\Camera.lua" />

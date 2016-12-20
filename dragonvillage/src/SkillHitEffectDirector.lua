@@ -33,9 +33,12 @@ end
 
 -------------------------------------
 -- function doWork
--- @brief 필요한 행위들을 묶어서 실행..
+-- @brief 필요한 행위들을 묶어서 실행.. public으로 사용
 -------------------------------------
 function SkillHitEffectDirector:doWork()
+	-- dragon이 아닐시 탈출
+	if not isInstanceOf(self.m_owner, Dragon) then return end
+
 	self:addHit()
 	self:displayHitCnt()
 	self:displayComboBuff()

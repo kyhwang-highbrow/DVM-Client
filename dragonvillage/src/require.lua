@@ -231,6 +231,7 @@ local t_module = {
 	'SkillAddAttack',
 	'SkillCounterAttack',
 	'SkillSpiderWeb',
+	'SkillBurst',
 
     -- SKILL INDICATOR
     'SkillIndicatorMgr',

@@ -209,7 +209,11 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 		elseif (type == 'skill_spider_web') then
             SkillSpiderWeb:makeSkillInstance(self, t_skill, t_data)
             return true
-            
+
+		elseif (type == 'skill_status_effect_burst') then
+            SkillBurst:makeSkillInstance(self, t_skill, t_data)
+            return true
+
 		-- 특수 스킬들
 		elseif (type == 'skill_summon') then
             return SkillSummon:makeSkillInstance(self, t_skill, t_data)

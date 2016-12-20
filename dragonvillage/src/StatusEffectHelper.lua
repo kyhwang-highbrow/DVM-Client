@@ -422,7 +422,7 @@ end
 
 -------------------------------------
 -- function releaseStatusEffect
--- @brief 특정 타입의 상태효과 해제
+-- @brief 테이블에서의 상태효과 string을 파싱하여 해당 타입의 상태효과 해제
 -------------------------------------
 function StatusEffectHelper:releaseStatusEffect(char, t_status_effect_str)
     -- 타입 있는지 검사
@@ -452,6 +452,28 @@ function StatusEffectHelper:releaseStatusEffect(char, t_status_effect_str)
 		end
 
 		idx = idx + 1
+	end
+end
+
+-------------------------------------
+-- function releaseStatusEffect
+-- @brief 특정 타입의 상태효과 해제
+-------------------------------------
+function StatusEffectHelper:releaseStatusEffectByType(char, status_effect_type)
+    -- 타입 있는지 검사
+    if (not status_effect_type) or (status_effect_type == 'x') then return end
+
+	-- 피격자가 사망했을 경우 리턴
+    if (char.m_bDead == true) then return end
+
+	-- 특정 타입 해제
+	-- @TODO 타입명 말고 phys_key로 해제하려면... 해제 주체가 status effect 에 있어야 하는데 아닌 경우도 있어 임시로 처리
+	for type, tar_status_effect in pairs(char:getStatusEffectList()) do
+		if (status_effect_type == type) then 
+			tar_status_effect:changeState('end')
+			char:removeStatusEffect(tar_status_effect)
+			break
+		end
 	end
 end
 
