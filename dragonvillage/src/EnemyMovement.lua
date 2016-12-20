@@ -256,3 +256,46 @@ function EnemyMovement.FadeIn(owner, luaValue1, luaValue2, luaValue3, luaValue4,
 
 	owner.m_animator:runAction(cc.Sequence:create(fade_in, finish_action))
 end
+
+-------------------------------------
+-- function NestDragon
+-- @brief 등장 후 죽을때까지 전투
+-- @param value1 = 출발 위치
+-- @param value2 = 도착 위치
+-- @prarm value3 = 등장 시간(duration)
+-------------------------------------
+function EnemyMovement.NestDragon(owner, luaValue1, luaValue2, luaValue3, luaValue4, luaValue5)
+    -- m_luaValue1 출발 위치
+    -- m_luaValue2 도착 위치
+    -- m_luaValue3 등장 시간
+    local pos1 = getWorldEnemyPos(owner, luaValue1)
+    local pos2 = getWorldEnemyPos(owner, luaValue2)
+    local duration = luaValue3 or 1
+
+    -- 출발 위치 지정
+    owner:setOrgHomePos(pos2.x, pos2.y)
+    owner:setHomePos(pos2.x, pos2.y)
+    owner:setPosition(pos1.x, pos1.y)
+    
+    local function appearDragon()
+        owner:setPosition(pos2.x, pos2.y)
+
+        owner.m_animator:changeAni('startwave_3', false)
+        owner.m_animator:addAniHandler(function()
+            owner.m_animator:changeAni('idle', true)
+
+            owner:dispatch('enemy_appear_done', owner)
+        end)
+    end
+
+    owner.m_animator:runAction(cc.Sequence:create(
+        cc.DelayTime:create(1),
+        cc.CallFunc:create(function()
+            appearDragon()
+        end),
+        cc.DelayTime:create(0.6),
+        cc.CallFunc:create(function()
+            owner.m_world.m_shakeMgr:doShake(50, 50, 1)
+        end)
+    ))
+end

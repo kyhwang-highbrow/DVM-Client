@@ -196,8 +196,8 @@ function ScrollMap:onEvent(event_name, ...)
                 animator:changeAni('end_wave_2', false)
                                 
                 v:doAction(cc.Sequence:create(
-                    cc.MoveTo:create(1, cc.p(-700, 0)),
-                    cc.MoveTo:create(1, cc.p(4000, 0))
+                    cc.EaseOut:create(cc.MoveTo:create(1, cc.p(-700, 0)), 2),
+                    cc.EaseIn:create(cc.MoveTo:create(1.5, cc.p(4000, 0)), 2)
                 ))
                 
             end

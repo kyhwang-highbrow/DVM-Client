@@ -1,7 +1,9 @@
+local PARENT = GameState
+
 -------------------------------------
 -- class GameState_NestDungeon
 -------------------------------------
-GameState_NestDungeon = class(GameState, {})
+GameState_NestDungeon = class(PARENT, {})
 
 -------------------------------------
 -- function doDirectionForIntermission

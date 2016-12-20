@@ -11,10 +11,10 @@
 				"body":[0,0,0],
                 "count":1,
                 "period":0,
-                "scale":2,
+                "scale":1,
 				"time":0.2,
 				"speed":0,
-				"offset":[-450,200],
+				"offset":[-550,100],
 				"dir":-90,
 				"angular_velocity":0,
 				"delete_time":3.5
@@ -28,10 +28,10 @@
 				"body":[0,0,0],
                 "count":1,
                 "period":0,
-                "scale":2,
+                "scale":1,
 				"time":0.2,
 				"speed":0,
-				"offset":[-450,-200],
+				"offset":[-550,-320],
 				"dir":-90,
 				"angular_velocity":0,
 				"delete_time":3.5
@@ -52,12 +52,12 @@
 				"h_limit_speed":2000,
 				"accel_delay":0,
 				"angular_velocity":-40,
-				"offset":[-500,200],
+				"offset":[-650,100],
 				"dir":0,
 				"dir_add":0,
 				"size_up_time":1.5,
 				"missile_type":"pass",
-				"fadeout_time":0.3,
+				"fadeout_time":0.2,
 				
                 "effect":
                 {
@@ -82,12 +82,12 @@
 				"h_limit_speed":2000,
 				"accel_delay":0,
 				"angular_velocity":-40,
-				"offset":[-500,-200],
+				"offset":[-650,-320],
 				"dir":0,
 				"dir_add":0,
 				"size_up_time":1.5,
 				"missile_type":"pass",
-				"fadeout_time":0.3,
+				"fadeout_time":0.2,
 				
                 "effect":
                 {
