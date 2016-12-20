@@ -1,6 +1,6 @@
 {
     "difficult":2,
-    "bg":"map_nest_fire",
+    "bg":"map_nest_ether",
 	"camera":
 	{
 		"scale":1,

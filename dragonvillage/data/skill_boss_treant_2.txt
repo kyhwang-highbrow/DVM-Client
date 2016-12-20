@@ -4,7 +4,7 @@
 		"attack_value":
 		[		
 			{
-				"comment":"거목 공통스킬: 충격반사",
+				"comment":"거목 공통스킬: 충격파",
 				
 				"idx":1,
 				"res":"res/missile/missile_dot/missile_dot_@.png",
@@ -23,7 +23,7 @@
 				"dir_array":[0],
                 "dir_add":4,
 				"size_up_time":2.3,
-				"delete_time":3,
+				"fadeout_time":2,
 				
                 "effect":
                 {
@@ -34,7 +34,7 @@
 			},
 			
 			{
-				"comment":"거목 공통스킬: 충격반사",
+				"comment":"거목 공통스킬: 충격파",
 				
 				"idx":1,
 				"res":"res/missile/missile_dot/missile_dot_@.png",
@@ -53,7 +53,7 @@
 				"dir_array":[0],
                 "dir_add":4,
 				"size_up_time":2.3,
-				"delete_time":3,
+				"fadeout_time":2,
 				
                 "effect":
                 {
@@ -64,7 +64,7 @@
 			},
 			
 			{
-				"comment":"거목 공통스킬: 충격반사",
+				"comment":"거목 공통스킬: 충격파",
 				
 				"idx":1,
 				"res":"res/missile/missile_dot/missile_dot_@.png",
@@ -83,7 +83,7 @@
 				"dir_array":[0],
                 "dir_add":4,
 				"size_up_time":2.3,
-				"delete_time":3,
+				"fadeout_time":2,
 				
                 "effect":
                 {
@@ -112,7 +112,7 @@
 				"dir_array":['random'],
                 "dir_add":10,
 				"size_up_time":2.3,
-				"delete_time":2.3,
+				"fadeout_time":2,
 				
                 "effect":
                 {

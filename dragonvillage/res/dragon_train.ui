@@ -285,12 +285,12 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -36.000000;
-				y = -95.000000;
+				x = -52.000000;
+				y = -94.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 290;
+				width = 124;
 				height = 56;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -306,7 +306,7 @@
 				v_alignment = 1;
 				color = { 87; 64; 34; };
 				opacity = 255;
-				dimension_width = 290;
+				dimension_width = 124;
 				dimension_height = 56;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -339,6 +339,32 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'dragonNode';
+			};
+			[9] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 25.000000;
+				y = -96.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 56;
+				height = 56;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/icon/lactea.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
 			};
 			type = 'Menu';
 			ui_name = '';

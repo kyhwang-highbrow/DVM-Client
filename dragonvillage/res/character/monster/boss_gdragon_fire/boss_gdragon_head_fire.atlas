@@ -11,6 +11,20 @@ boss_gdragon_fire_body_01
   orig: 1348, 688
   offset: 0, 0
   index: -1
+boss_gdragon_fire_eff_01
+  rotate: false
+  xy: 1352, 1382
+  size: 111, 102
+  orig: 111, 102
+  offset: 0, 0
+  index: -1
+boss_gdragon_fire_eye_01
+  rotate: false
+  xy: 1352, 1486
+  size: 588, 552
+  orig: 588, 552
+  offset: 0, 0
+  index: -1
 boss_gdragon_fire_hand_02
   rotate: false
   xy: 2, 512
@@ -20,7 +34,7 @@ boss_gdragon_fire_hand_02
   index: -1
 boss_gdragon_fire_head_01
   rotate: false
-  xy: 1352, 1486
+  xy: 596, 796
   size: 588, 552
   orig: 588, 552
   offset: 0, 0
@@ -34,7 +48,7 @@ boss_gdragon_fire_head_02
   index: -1
 boss_gdragon_fire_jaw_01
   rotate: false
-  xy: 596, 1074
+  xy: 596, 520
   size: 294, 274
   orig: 294, 274
   offset: 0, 0

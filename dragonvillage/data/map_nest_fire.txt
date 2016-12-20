@@ -71,7 +71,7 @@
 			"group":"nest_dragon_body"
 			"list":
             [
-                {"res":"res/character/monster/boss_gdragon_fire/boss_gdragon_body_fire.png" "pos_x":1280 "pos_y":300 "scale":1.5}
+                {"res":"res/character/monster/boss_gdragon_fire/boss_gdragon_body_fire.spine" "animation":"Idle" "pos_x":3712 "pos_y":300 "scale":1.5}
             ]
         }
     ]

@@ -7,7 +7,7 @@
 			{
 				"idx":1,
 				"res":"res/missile/missile_flame/missile_flame_@.vrp",
-				"body":[0,0,20],
+				"body":[0,0,50],
                 "count":50,
                 "period":0.1,
                 "scale":1.5,
@@ -17,12 +17,12 @@
 				"h_limit_speed":2000,
 				"accel_delay":0,
 				"angular_velocity":-40,
-				"offset":[-70,-20],
-				"dir":60,
+				"offset":[-100,-50],
+				"dir":20,
 				"dir_add":0,
 				"size_up_time":1.5,
 				"missile_type":"pass",
-				"vanish_time":0.8,
+				"fadeout_time":1,
 				
                 "effect":
                 {

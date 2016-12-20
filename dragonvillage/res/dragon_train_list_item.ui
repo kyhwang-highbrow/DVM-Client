@@ -180,12 +180,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = -13.000000;
+						x = -11.000000;
 						y = -34.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 70;
+						width = 53;
 						height = 30;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -201,7 +201,7 @@
 						v_alignment = 1;
 						color = { 255; 255; 255; };
 						opacity = 255;
-						dimension_width = 70;
+						dimension_width = 53;
 						dimension_height = 30;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -215,6 +215,32 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+					};
+					[4] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 27.000000;
+						y = -35.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 56;
+						height = 56;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icon/lactea.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
 					};
 					type = 'Button';
 					ui_name = '';
@@ -439,12 +465,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = -13.000000;
+						x = -11.000000;
 						y = -34.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 70;
+						width = 53;
 						height = 30;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -460,7 +486,7 @@
 						v_alignment = 1;
 						color = { 255; 255; 255; };
 						opacity = 255;
-						dimension_width = 70;
+						dimension_width = 53;
 						dimension_height = 30;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -474,6 +500,32 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+					};
+					[4] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 27.000000;
+						y = -35.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 56;
+						height = 56;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icon/lactea.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
 					};
 					type = 'Button';
 					ui_name = '';

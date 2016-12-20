@@ -9,13 +9,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{19,0}</string>
+                <string>{0,1}</string>
                 <key>spriteSize</key>
-                <string>{414,664}</string>
+                <string>{370,636}</string>
                 <key>spriteSourceSize</key>
                 <string>{460,670}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{414,664}}</string>
+                <string>{{1,1},{370,636}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -24,43 +24,43 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{19,0}</string>
+                <string>{0,1}</string>
                 <key>spriteSize</key>
-                <string>{414,664}</string>
+                <string>{370,636}</string>
                 <key>spriteSourceSize</key>
                 <string>{460,670}</string>
                 <key>textureRect</key>
-                <string>{{1,667},{414,664}}</string>
+                <string>{{1,639},{370,636}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>nest_dungeon_dragon_fire.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{19,0}</string>
+                <string>{0,1}</string>
                 <key>spriteSize</key>
-                <string>{414,664}</string>
+                <string>{370,636}</string>
                 <key>spriteSourceSize</key>
                 <string>{460,670}</string>
                 <key>textureRect</key>
-                <string>{{417,1},{414,664}}</string>
+                <string>{{373,1},{370,636}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>nest_dungeon_dragon_light.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{19,0}</string>
+                <string>{0,1}</string>
                 <key>spriteSize</key>
-                <string>{414,664}</string>
+                <string>{370,636}</string>
                 <key>spriteSourceSize</key>
                 <string>{460,670}</string>
                 <key>textureRect</key>
-                <string>{{417,417},{414,664}}</string>
+                <string>{{639,639},{370,636}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -69,28 +69,28 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{19,0}</string>
+                <string>{0,1}</string>
                 <key>spriteSize</key>
-                <string>{414,664}</string>
+                <string>{370,636}</string>
                 <key>spriteSourceSize</key>
                 <string>{460,670}</string>
                 <key>textureRect</key>
-                <string>{{417,833},{414,664}}</string>
+                <string>{{745,1},{370,636}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>nest_dungeon_nightmare.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,1}</string>
                 <key>spriteSize</key>
-                <string>{374,664}</string>
+                <string>{370,636}</string>
                 <key>spriteSourceSize</key>
                 <string>{460,670}</string>
                 <key>textureRect</key>
-                <string>{{1083,1},{374,664}}</string>
+                <string>{{1117,1},{370,636}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -99,13 +99,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,1}</string>
                 <key>spriteSize</key>
-                <string>{374,664}</string>
+                <string>{370,636}</string>
                 <key>spriteSourceSize</key>
                 <string>{460,670}</string>
                 <key>textureRect</key>
-                <string>{{1083,667},{374,664}}</string>
+                <string>{{1489,1},{370,636}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -114,16 +114,12 @@
         <dict>
             <key>format</key>
             <integer>3</integer>
-            <key>pixelFormat</key>
-            <string>RGBA8888</string>
-            <key>premultiplyAlpha</key>
-            <false/>
             <key>realTextureFileName</key>
             <string>nest_dungeon.png</string>
             <key>size</key>
-            <string>{1458,1332}</string>
+            <string>{1860,1010}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:a53ca564d4d87881fb2623c5c781eb7b:1f25b39bf59cb451e4c2a5bb65c34234:8263ee2cc1cda43d9fc71852f28cbc26$</string>
+            <string>$TexturePacker:SmartUpdate:89cda5e576676f8a718ef5732207f8f3:dd3932c41ef5b5ec0020bca93b31e9e5:8263ee2cc1cda43d9fc71852f28cbc26$</string>
             <key>textureFileName</key>
             <string>nest_dungeon.png</string>
         </dict>

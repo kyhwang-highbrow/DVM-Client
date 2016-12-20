@@ -1,6 +1,6 @@
 {
     "difficult":2,
-    "bg":"map_nest_fire",
+    "bg":"map_nest_ether",
 	"camera":
 	{
 		"scale":1,
@@ -28,7 +28,8 @@
 				"120071;1;Basic;RO04;RM16;1"
 				]
             }
-		}
+		},
+		
 		{
 			"idx":2,
 			"camera":
@@ -47,12 +48,13 @@
 				"120071;1;Basic;RO04;RM16;1"
 				]
             }
-		}
+		},
+		
 		{
             "idx":3,
 			"camera":
             {
-                "scale":0.8,
+                "scale":0.6,
                 "pos_x":3280,
                 "pos_y":200
             },
@@ -63,7 +65,7 @@
 				
 				0:
 				[
-				"135013;16;Basic;BOSS;RM24;2"
+				"135013;16;Basic;BOSS;NEST;2"
 				]
             }
         }
