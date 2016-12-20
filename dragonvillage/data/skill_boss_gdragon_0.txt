@@ -18,7 +18,7 @@
 				"accel_delay":0,
 				"angular_velocity":0,
 				"offset":[-300,80],
-                "dir_array":[-15,-10,-5,0,5,10,15],
+                "dir_array":[-20,-15,-10,-5,0,5,10,15,20],
 				
                 "effect":
                 {

@@ -65,7 +65,7 @@
 				
 				0:
 				[
-				"135013;16;NestDragon;BOSS;NEST;2"
+				"135013;1;NestDragon;BOSS;NEST;2"
 				]
             }
         }

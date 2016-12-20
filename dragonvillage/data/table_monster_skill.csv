@@ -98,19 +98,19 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 234002,script,skill_boss_spider_queen_5,거미새끼 소환,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,0,atk,10,1,0,0,0,0,0,x,x,x,0,x,x
 234003,code,trigger_skill,트리거에 의해 발동되는 스킬 테스트,x,x,x,skill_1,instant,magical,0,trigger,dead,enemy_distance_line,0,atk,1,1,230002,0,0,0,0,x,x,x,0,x,x
 234004,script,skill_boss_spider_queen_6,거미줄,x,x,x,skill_2,instant,magical,0,basic_turn,1,enemy_distance_line,0,atk,0,1,0,0,0,0,0,x,aspd_down;target;15;100;30,x,0,x,x
-235000,script,skill_boss_gdragon_0,거대용 공통: 일반공격,x,x,x,x,instant,physical,-2,basic,1,enemy_distance_line,-1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
-235001,script,skill_boss_gdragon_1,거대용 공통: 불똥,x,x,x,skill_1,instant,magical,-2,basic_turn,1,enemy_distance_line,1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
-235002,script,skill_boss_gdragon_2,거대용 공통: 용의 분노,x,x,x,skill_1,instant,physical,-2,basic_turn,2,enemy_distance_line,3,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
-235003,script,skill_boss_gdragon_3,거대용 공통: 화륜,x,x,x,skill_2,instant,physical,-2,basic_turn,2,enemy_distance_line,3,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
-235111,script,skill_boss_gdragon_breath,땅의 거대용: 브레스(skill_1),res/missile/missile_flame/missile_flame_@.vrp,res/effect/effect_breath_charge_@/effect_breath_charge_@.vrp,x,skill_3,instant,magical,-2,basic_turn,3,enemy_distance_line,0,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
+235000,script,skill_boss_gdragon_0,거대용 공통: 일반공격,x,x,x,x,instant,physical,-2,basic,1,enemy_distance_line,-1,atk,20,1,0,0,0,0,0,x,x,x,0,x,x
+235001,script,skill_boss_gdragon_1,거대용 공통: 불똥,x,x,x,skill_1,instant,magical,-2,basic_turn,1,enemy_distance_line,1,atk,20,1,0,0,0,0,0,x,x,x,0,x,x
+235002,script,skill_boss_gdragon_2,거대용 공통: 용의 분노,x,x,x,skill_1,instant,physical,-2,basic_turn,2,enemy_distance_line,3,atk,300,1,0,0,0,0,0,x,x,x,0,x,x
+235003,script,skill_boss_gdragon_3,거대용 공통: 화륜,x,x,x,skill_2,instant,physical,-2,basic_turn,2,enemy_distance_line,3,atk,10,1,0,0,0,0,0,x,x,x,0,x,x
+235111,script,skill_boss_gdragon_breath,땅의 거대용: 브레스(skill_1),res/missile/missile_flame/missile_flame_@.vrp,res/effect/effect_breath_charge_@/effect_breath_charge_@.vrp,x,skill_3,instant,magical,-2,basic_turn,3,enemy_distance_line,0,atk,10,1,0,0,0,0,0,x,x,x,0,x,x
 235112,status_effect,skill_boss_gdragon_earth_2,땅의 거대용: 웅크리기(skill_2),x,x,x,skill_2,instant,magical,-2,basic_turn,4,self,1,atk,1,1,0,0,0,0,0,x,def_up;target;15;100;100,x,0,x,x
-235121,script,skill_boss_gdragon_breath,물의 거대용: 브레스(skill_1),res/missile/missile_flame/missile_flame_@.vrp,res/effect/effect_breath_charge_@/effect_breath_charge_@.vrp,x,skill_3,instant,magical,-2,basic_turn,3,enemy_distance_line,0,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
+235121,script,skill_boss_gdragon_breath,물의 거대용: 브레스(skill_1),res/missile/missile_flame/missile_flame_@.vrp,res/effect/effect_breath_charge_@/effect_breath_charge_@.vrp,x,skill_3,instant,magical,-2,basic_turn,3,enemy_distance_line,0,atk,10,1,0,0,0,0,0,x,x,x,0,x,x
 235122,code,skill_heal_single,물의 거대용: 생명의 근원(skill_2),res/effect/skill_heal_monster/skill_heal_monster.vrp,x,x,skill_2,instant,magical,-1,basic_turn,4,self,5,atk,1000,1,0,0,0,0,0,x,x,x,0,x,x
-235131,script,skill_boss_gdragon_breath,불의 거대용: 브레스(skill_1),res/missile/missile_flame/missile_flame_@.vrp,res/effect/effect_breath_charge_@/effect_breath_charge_@.vrp,x,skill_3,instant,magical,-2,basic_turn,3,enemy_distance_line,0,atk,1,1,0,0,0,0,0,x,burn;target;15;100;100,x,0,x,x
-235132,script,skill_boss_gdragon_fire_2,불의 거대용: 영원한 고통(skill_2),res/missile/effect_burst/effect_burst_@.vrp,x,x,skill_2,instant,magical,-2,basic_turn,4,enemy_distance_line,1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
-235141,script,skill_boss_gdragon_breath,빛의 거대용: 브레스(skill_1),res/missile/missile_flame/missile_flame_@.vrp,res/effect/effect_breath_charge_@/effect_breath_charge_@.vrp,x,skill_3,instant,magical,-2,basic_turn,3,enemy_distance_line,0,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
+235131,script,skill_boss_gdragon_breath,불의 거대용: 브레스(skill_1),res/missile/missile_flame/missile_flame_@.vrp,res/effect/effect_breath_charge_@/effect_breath_charge_@.vrp,x,skill_3,instant,magical,-2,basic_turn,3,enemy_distance_line,0,atk,10,1,0,0,0,0,0,x,burn;target;15;100;100,x,0,x,x
+235132,script,skill_boss_gdragon_fire_2,불의 거대용: 영원한 고통(skill_2),res/missile/effect_burst/effect_burst_@.vrp,x,x,skill_2,instant,magical,-2,basic_turn,4,enemy_distance_line,1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
+235141,script,skill_boss_gdragon_breath,빛의 거대용: 브레스(skill_1),res/missile/missile_flame/missile_flame_@.vrp,res/effect/effect_breath_charge_@/effect_breath_charge_@.vrp,x,skill_3,instant,magical,-2,basic_turn,3,enemy_distance_line,0,atk,10,1,0,0,0,0,0,x,x,x,0,x,x
 235142,status_effect,skill_boss_gdragon_light_2,빛의 거대용: 눈부신 광명(skill_2),x,x,x,skill_2,instant,magical,-2,basic_turn,4,self,1,atk,1,1,0,0,0,0,0,x,avoid;target;15;100;100,x,0,x,x
-235151,script,skill_boss_gdragon_breath,어둠의 거대용: 브레스(skill_1),res/missile/missile_flame/missile_flame_@.vrp,res/effect/effect_breath_charge_@/effect_breath_charge_@.vrp,x,skill_3,instant,magical,-2,basic_turn,3,enemy_distance_line,0,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
+235151,script,skill_boss_gdragon_breath,어둠의 거대용: 브레스(skill_1),res/missile/missile_flame/missile_flame_@.vrp,res/effect/effect_breath_charge_@/effect_breath_charge_@.vrp,x,skill_3,instant,magical,-2,basic_turn,3,enemy_distance_line,0,atk,10,1,0,0,0,0,0,x,x,x,0,x,x
 235152,status_effect,skill_boss_gdragon_dark_2,어둠의 거대용: 어둠의 분노(skill_2),x,x,x,skill_2,instant,magical,-2,basic_turn,4,self,1,atk,1,1,0,0,0,0,0,x,atk_up;target;15;100;100,x,0,x,x
 235200,code,missile_move_straight,거목 일반공격,res/missile/missile_ball/missile_ball_@.vrp,x,x,x,instant,physical,-2,basic,1,enemy_distance_line,-1,atk,1,1,0,0,0,0,0,x,x,x,0,x,x
 235201,code,missile_move_high_angle,거목: 묶기(skill_1),res/missile/missile_ball/missile_ball_@.vrp,x,x,x,instant,magical,-2,basic_turn,1,enemy_random,1,atk,1,3,250,20,0,0,0,x,aspd_down;target;15;100;100,x,0,x,x

@@ -23,6 +23,8 @@
 				"size_up_time":1.5,
 				"missile_type":"pass",
 				"fadeout_time":1,
+
+				"map_shake_time":0.1,
 				
                 "effect":
                 {

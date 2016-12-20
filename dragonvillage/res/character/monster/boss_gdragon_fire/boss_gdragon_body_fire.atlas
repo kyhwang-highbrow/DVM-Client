@@ -39,6 +39,13 @@ boss_gdragon_fire_hand_02
   orig: 592, 836
   offset: 0, 0
   index: -1
+boss_gdragon_fire_jaw_02
+  rotate: false
+  xy: 692, 2
+  size: 489, 300
+  orig: 489, 300
+  offset: 0, 0
+  index: -1
 boss_gdragon_fire_wing_01
   rotate: false
   xy: 2, 1560
@@ -57,6 +64,13 @@ boss_gdragon_fire_foot_02
   xy: 2, 2
   size: 644, 650
   orig: 644, 650
+  offset: 0, 0
+  index: -1
+boss_gdragon_fire_head_01
+  rotate: false
+  xy: 1322, 100
+  size: 588, 552
+  orig: 588, 552
   offset: 0, 0
   index: -1
 boss_gdragon_fire_wing_02

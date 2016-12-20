@@ -44,6 +44,7 @@
 				"angular_velocity":60,
 				"offset":[-350,100],
                 "dir_array":['random',-10,-40],
+				"map_shake_time":0.5,
 				
                 "effect":
                 {
