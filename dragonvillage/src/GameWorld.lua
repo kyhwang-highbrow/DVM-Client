@@ -86,6 +86,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_gold = 'number',
 
         m_mapManager = 'MapManager',
+		m_shakeMgr = 'ShakeManager',
 
         m_lPassiveEffect = 'list',
     })
@@ -194,10 +195,13 @@ end
 -------------------------------------
 -- function initGame
 -------------------------------------
-function GameWorld:initGame(stage_name)
+function GameWorld:initGame(stage_name, shake_layer)
     -- 웨이브 매니져 생성
     self.m_waveMgr = WaveMgr(self, stage_name, self.m_bDevelopMode)
     self.m_waveMgr:addListener('change_wave', self)
+
+	-- shake manager 생성
+	self.m_shakeMgr = ShakeManager(self, shake_layer)
 
     -- 배경 생성
     self:initBG()

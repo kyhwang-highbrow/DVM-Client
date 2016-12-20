@@ -106,11 +106,13 @@ local t_module = {
 	'PhysWorld',
     'PhysObject',
 
+	-- Animator
     'Animator',
     'AnimatorPng',
     'AnimatorSpine',
     'AnimatorVrp',
 
+	-- Entity GameWorld
     'Entity',
     'GameWorld',
     'GameWorld_Touch',
@@ -122,7 +124,10 @@ local t_module = {
     'GameFever',
     'GameCamera',
     'GameTimeScale',
-    'TamerSpeechSystem',
+	'ShakeManager',
+    
+	-- TAMER
+	'TamerSpeechSystem',
     'TamerSkillSystem',
     'TamerSkillCut',
 	'TamerSkillManager',

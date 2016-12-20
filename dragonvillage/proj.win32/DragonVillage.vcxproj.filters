@@ -1093,7 +1093,19 @@
     <None Include="..\src\GameState_NestDungeon.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\shader\characterDamaged.fsh">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\src\shader\position_texture_color_noMvp_vertex.vsh">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\src\shader\shaderBlur.fsh">
+      <Filter>shader</Filter>
+    </None>
     <None Include="..\src\WaveMgr_Colosseum.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\ShakeManager.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>
@@ -1139,6 +1151,9 @@
     </Filter>
     <Filter Include="lua_tool">
       <UniqueIdentifier>{1e095777-9941-4d5a-bba9-fbab8cd680b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{d7237c92-762d-43d6-9f44-e6871d5a460b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

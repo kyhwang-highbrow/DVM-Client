@@ -365,6 +365,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		t_option['size_up_time'] =		attack_value.size_up_time
 		t_option['magnet_time'] =		attack_value.magnet_time
 		t_option['fadeout_time'] =		attack_value.fadeout_time
+		t_option['map_shake_time'] =	attack_value.map_shake_time
 		t_option['collision_check_time'] =	attack_value.collision_check_time
 
 		t_option['depth'] =				depth

@@ -172,7 +172,7 @@ function SceneGame:prepare()
         -- 레이어 생성
         self:init_layer()
         self.m_gameWorld = GameWorld(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_feverNode, self.m_inGameUI, self.m_bDevelopMode)
-        self.m_gameWorld:initGame(self.m_stageName)
+        self.m_gameWorld:initGame(self.m_stageName, self.m_shakeLayer)
         
         -- 스크린 사이즈 초기화
         self:sceneDidChangeViewSize()
@@ -291,21 +291,6 @@ function SceneGame:sceneDidChangeViewSize()
 end
 
 -------------------------------------
--- function setShakeAction
--- @brief 화면 떨림 연출
--------------------------------------
-function SceneGame:setShakeAction(x, y)
-    local timeScale = cc.Director:getInstance():getScheduler():getTimeScale()
-    local duration = 0.5 * timeScale
-
-    self.m_shakeLayer:stopAllActions()
-    local start_action = cc.MoveTo:create(0, cc.p(x, y))
-    local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(duration, cc.p(0, 0)), 0.2)
-    self.m_shakeLayer:runAction(cc.Sequence:create(start_action, end_action))
-end
-
-
--------------------------------------
 -- function flashIn
 -- @brief 테이머 스킬 칼라 레이어를 페이드인
 -------------------------------------
@@ -348,38 +333,6 @@ function SceneGame:flashOut(tParam)
 			end
 		end)
 	))
-end
-
--------------------------------------
--- function Shake
--- @brief 화면 떨림 연출
--------------------------------------
-function Shake(x, y)
-    if g_gameScene then
-        g_gameScene:setShakeAction(x, y)
-    end
-end
-
--------------------------------------
--- function ShakeDir
--- @brief 화면 떨림 연출
--------------------------------------
-function ShakeDir(dir, distance)
-    if g_gameScene then
-        local pos = getPointFromAngleAndDistance(dir, distance)
-        g_gameScene:setShakeAction(pos['x'], pos['y'])
-    end
-end
-
--------------------------------------
--- function ShakeDir2
--- @brief 화면 떨림 연출
--------------------------------------
-function ShakeDir2(dir, speed)
-    if g_gameScene then
-        local distance = math_clamp(speed / 20, 5, 50)
-        ShakeDir(dir, distance)
-    end
 end
 
 -------------------------------------

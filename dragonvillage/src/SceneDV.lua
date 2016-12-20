@@ -113,7 +113,7 @@ function SceneDV:onKeyReleased(keyCode, event)
 	elseif keyCode == KEY_S then
 		local rand_x = math_random(100, 900)
 		local rand_y = math_random(200, 600)
-		local res_name = 'res/missile/missile_giantdragon_basic_fire/missile_giantdragon_basic_fire.vrp'
+		local res_name = 'res/effect/skill_thunder_cloud/skill_thunder_cloud_fire.vrp'
 		self:setAni(res_name, rand_x, rand_y)
 	
 	elseif keyCode == KEY_D then
@@ -274,7 +274,7 @@ end
 function SceneDV:shaderTest_a2d()
 	for i, ani in pairs(self.m_lSpineAni) do 
 		if ani.m_type == ANIMATOR_TYPE_VRP then 
-			ani.m_node:setCustomShader(3,3)
+			ani.m_node:setCustomShader(5,2)
 		end
 	end
 end

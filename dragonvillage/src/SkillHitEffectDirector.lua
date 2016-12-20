@@ -53,7 +53,7 @@ end
 -- @brief 스킬 hit count 연출
 -------------------------------------
 function SkillHitEffectDirector:displayHitCnt()
-	ShakeDir2(math_random(335-20, 335+20), math_random(500, 1500))
+	self.m_owner.m_world.m_shakeMgr:ShakeBySpeed(math_random(335-20, 335+20), math_random(500, 1500))
     --SoundMgr:playEffect('EFFECT', 'option_thunderbolt_3')
 
     self.m_inGameUI.vars['hitLabel']:setString(self.m_hitCount)

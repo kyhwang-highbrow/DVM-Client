@@ -450,7 +450,7 @@ function Character:cancelSkill()
     self.m_world.m_gameTimeScale:set(timeScale, 0.3)
 
     -- 화면 흔듬
-    ShakeDir2(math_random(335-20, 335+20), 1500)
+    self.m_world.m_shakeMgr:ShakeBySpeed(math_random(335-20, 335+20), 1500)
 
     self:changeState('attackDelay')
 
