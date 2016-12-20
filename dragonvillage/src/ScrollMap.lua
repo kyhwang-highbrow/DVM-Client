@@ -193,8 +193,8 @@ function ScrollMap:onEvent(event_name, ...)
         for i,v in ipairs(self.m_tMapLayer) do
             if v.m_group == 'nest_dragon_body' then
                 local animator = v.m_tAnimator[1]
-                animator:changeAni('end_wave_2', false)
-                                
+                animator:changeAni('endwave_2', false)
+                                                
                 v:doAction(cc.Sequence:create(
                     cc.EaseOut:create(cc.MoveTo:create(1, cc.p(-700, 0)), 2),
                     cc.EaseIn:create(cc.MoveTo:create(1.5, cc.p(4000, 0)), 2)

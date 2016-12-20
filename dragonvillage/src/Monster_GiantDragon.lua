@@ -38,12 +38,10 @@ function Monster_GiantDragon.st_attack(owner, dt)
             animator:changeAni('idle', false)
             animator:setScale(2)
             animator.m_node:setRotation(-90)
-            animator:setPosition(-600, 200)
+            animator:setPosition(-600, 300)
             owner.m_rootNode:addChild(animator.m_node)
 
             local duration = animator:getDuration()
-            --animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
-
             local sequence = cc.Sequence:create(
                 cc.DelayTime:create(duration),
                 cc.RemoveSelf:create()
