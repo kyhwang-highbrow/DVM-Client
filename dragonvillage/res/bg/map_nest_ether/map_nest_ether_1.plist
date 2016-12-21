@@ -7,15 +7,28 @@
             <key>map_nest_ether_1_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1920,1600}}</string>
+                <string>{{2,2},{1922,1600}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{1920,1600}}</string>
+                <string>{{0,0},{1922,1600}}</string>
                 <key>sourceSize</key>
-                <string>{1920,1600}</string>
+                <string>{1922,1600}</string>
+            </dict>
+            <key>map_nest_ether_2_b.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,1604},{1922,402}}</string>
+                <key>offset</key>
+                <string>{0,-85}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,684},{1922,402}}</string>
+                <key>sourceSize</key>
+                <string>{1922,1600}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -25,9 +38,9 @@
             <key>realTextureFileName</key>
             <string>map_nest_ether_1.png</string>
             <key>size</key>
-            <string>{1604,1924}</string>
+            <string>{1926,2008}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:58d8fbf1c4f43a46b29e1118e0b2d399:5f440c4bfd12dce3d8d9bba4e3789534:338e2ae3a5acc88899f5bdb951787794$</string>
+            <string>$TexturePacker:SmartUpdate:a5fbc89144d1cd55c13f6ce2742943b8:fddd7473481b85b91131b2b8535e5dc9:9f4092d07518b968531c67123a2fd637$</string>
             <key>textureFileName</key>
             <string>map_nest_ether_1.png</string>
         </dict>

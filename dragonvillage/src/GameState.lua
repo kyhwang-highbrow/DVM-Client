@@ -743,6 +743,10 @@ function GameState:fight()
         if (enemy.m_bDead == false) then
             enemy.m_bFirstAttack = true
             enemy:changeState('attackDelay')
+
+            if enemy.m_hpNode then
+                enemy.m_hpNode:setVisible(true)
+            end
         end
     end
 end

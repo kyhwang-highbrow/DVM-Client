@@ -16,11 +16,13 @@
         
         {
             "name":"원경"
-            "speed":6
+            "speed":3.5
             "list":
             [
                 {"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_2_a" "width":1138}
 				{"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_2_b" "width":1880}
+				{"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_2_c" "width":1238}
+				{"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_2_d" "width":1780}
 				
             ]
         }
@@ -28,25 +30,28 @@
         
         {
             "name":"중경1"
-            "speed":9
+            "speed":4
             "list":
             [
 			    {"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_3_a" "width":880}
                 {"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_3_b" "width":1300}
 				{"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_3_c" "width":1140}
-                
+				{"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_3_d" "width":1280}
+                {"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_3_e" "width":1600}
+				
             ]
         }
         
 		
 		{
             "name":"중경2"
-            "speed":12
+            "speed":4.5
             "list":
             [
                 {"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_4_a" "width":1038}
 				{"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_4_b" "width":1138}
 				{"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_4_c" "width":1280}
+				{"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_4_d" "width":1680}
 				
 
 		    ]
@@ -55,16 +60,30 @@
 		
 		{
             "name":"근경"
-            "speed":15
+            "speed":5
             "list":
             [
                {"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_5_a" "width":1138}
-			   {"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_5_b" "width":1138}
-			   {"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_5_c" "width":1138}
+			   {"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_5_b" "width":1638}
+			   {"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_5_c" "width":2000}
 
                 
             ]
         }
+		
+		{
+            "name":"근경"
+            "speed":6
+            "list":
+            [
+               {"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_6_a" "width":3600}
+			   
+
+                
+            ]
+        }
+		
+		
 		{
             "name":"드래곤"
             "speed":0

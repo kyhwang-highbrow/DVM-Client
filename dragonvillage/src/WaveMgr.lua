@@ -139,7 +139,7 @@ end
 -- function summonEnemy
 -------------------------------------
 function WaveMgr:summonEnemy(dynamic_wave)
-	self:spawnEnemy_dynamic(
+	local enemy = self:spawnEnemy_dynamic(
 		dynamic_wave.m_enemyID, 
 		dynamic_wave.m_enemyLevel, 
 		dynamic_wave.m_movement,
@@ -149,6 +149,10 @@ function WaveMgr:summonEnemy(dynamic_wave)
 		dynamic_wave.m_luaValue4,
 		dynamic_wave.m_luaValue5
 		)
+
+    if enemy and enemy.m_hpNode then
+        enemy.m_hpNode:setVisible(true)
+    end
 end
 
 -------------------------------------

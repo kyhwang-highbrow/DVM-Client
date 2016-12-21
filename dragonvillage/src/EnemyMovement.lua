@@ -286,6 +286,8 @@ function EnemyMovement.NestDragon(owner, luaValue1, luaValue2, luaValue3, luaVal
 
             owner:dispatch('enemy_appear_done', owner)
         end)
+
+        SoundMgr:playEffect('EFFECT', 'gdragon_appear')
     end
 
     owner.m_animator:runAction(cc.Sequence:create(

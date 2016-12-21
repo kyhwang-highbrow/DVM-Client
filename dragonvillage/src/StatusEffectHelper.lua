@@ -177,6 +177,10 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 			enemy:setPosition(pos_x, pos_y)
 			enemy:setHomePos(pos_x, pos_y)
 
+            if enemy.m_hpNode then
+                enemy.m_hpNode:setVisible(true)
+            end
+
 			char.m_world:addInstantEffect(effect_res, 'idle', pos_x, pos_y)
 		end
 	elseif (t_skill['type'] == 'trigger_skill') then

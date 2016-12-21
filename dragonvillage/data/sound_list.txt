@@ -57,6 +57,9 @@
         "summon":   			{"res":"sound/summon.mp3"}
         "exp_gauge":   			{"res":"sound/exp_gauge.mp3"}
 		
+		"gdragon_appear":   	{"res":"sound/gdragon_appear.mp3"}
+		"gdragon_breath":   	{"res":"sound/gdragon_breath.mp3"}
+		
 		"monster_skill_cast":	{"res":"sound/monster_skill_cast.mp3"}
 	},
 	
