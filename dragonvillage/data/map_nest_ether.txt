@@ -38,7 +38,7 @@
 				{"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_3_c" "width":1140}
 				{"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_3_d" "width":1280}
                 {"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_3_e" "width":1600}
-				
+				{"res":"res/bg/map_nest_ether/map_nest_ether.vrp" "animation":"layer_2_c" "width":1100}
             ]
         }
         
