@@ -68,7 +68,7 @@ end
 -- function st_dying
 -------------------------------------
 function Monster_GiantDragon.st_dying(owner, dt)
-    if (owner.m_stateTimer == 0) then
+    if (owner:isBeginningStep()) then
         if owner.m_hpNode then
             owner.m_hpNode:setVisible(false)
         end
@@ -82,36 +82,73 @@ function Monster_GiantDragon.st_dying(owner, dt)
             SoundMgr:playEffect('VOICE', owner.m_tEffectSound['die'])
         end
 
-        -- È­¸é Á¡¸ê 2È¸
-        g_gameScene:flashInOut({cbEnd = function()
-            g_gameScene:flashInOut({time = 1, cbEnd = function()
-                owner:setMove(owner.pos.x, owner.pos.y - 1000, 600)
-                owner:animatorDying()
-            end})
-        end})
+        owner:animatorSpot()
 
-        --
-        owner:addAniHandler(function()
-            owner:changeState('dead')
-        end)
+    elseif (owner:isPassedStepTime(1)) then
+        owner:animatorShake()        
+
+    elseif (owner:isPassedStepTime(3)) then
+        local action = cc.EaseIn:create(cc.MoveTo:create(3, cc.p(0, -2000)), 2)
+        owner.m_animator.m_node:stopActionByTag(CHARACTER_ACTION_TAG__DYING)
+        owner.m_animator.m_node:runAction(action)
+
+    elseif (owner:isPassedStepTime(6)) then
+        owner:changeState('dead')
+        
     end
 end
 
 -------------------------------------
--- function animatorDying
+-- function animatorSpot
 -------------------------------------
-function Monster_GiantDragon:animatorDying()
+function Monster_GiantDragon:animatorSpot()
     local target_node = self.m_animator.m_node
     if (not target_node) then
         return
     end
 
-    local shake_action = cc.Sequence:create(
+    local spotAction = cc.Sequence:create(
+        -- Á¡¸ê
+        cc.CallFunc:create(function(node)
+            local shader = ShaderCache:getShader(SHADER_CHARACTER_DAMAGED)
+            self.m_animator.m_node:setGLProgram(shader)
+        end),
+        cc.DelayTime:create(0.1),
+        cc.CallFunc:create(function(node)
+            local shader = ShaderCache:getShader(cc.SHADER_POSITION_TEXTURE_COLOR)
+            self.m_animator.m_node:setGLProgram(shader)
+        end),
+        cc.DelayTime:create(0.3),
+        cc.CallFunc:create(function(node)
+            local shader = ShaderCache:getShader(SHADER_CHARACTER_DAMAGED)
+            self.m_animator.m_node:setGLProgram(shader)
+        end),
+        cc.DelayTime:create(0.2),
+        cc.CallFunc:create(function(node)
+            local shader = ShaderCache:getShader(cc.SHADER_POSITION_TEXTURE_COLOR)
+            self.m_animator.m_node:setGLProgram(shader)
+        end)
+    )
+
+    cca.runAction(target_node, spotAction, CHARACTER_ACTION_TAG__DYING)
+end
+
+-------------------------------------
+-- function animatorShake
+-------------------------------------
+function Monster_GiantDragon:animatorShake()
+    local target_node = self.m_animator.m_node
+    if (not target_node) then
+        return
+    end
+
+    local action = cc.Sequence:create(
+        -- shake
         cc.MoveTo:create(0.05, cc.p(-20, 0)),
         cc.MoveTo:create(0.05, cc.p(0, 20)),
         cc.MoveTo:create(0.05, cc.p(20, 0)),
         cc.MoveTo:create(0.05, cc.p(0, -20))
     )
 
-    cca.runAction(target_node, cc.RepeatForever:create(shake_action), CHARACTER_ACTION_TAG__DYING)
+    cca.runAction(target_node, cc.RepeatForever:create(action), CHARACTER_ACTION_TAG__DYING)
 end

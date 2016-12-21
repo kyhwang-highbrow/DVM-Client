@@ -1408,6 +1408,17 @@ end
 -------------------------------------
 function GameWorld:changeCameraOption(tParam, bKeepHomePos)
     local tParam = tParam or {}
+
+    -- 스케일에 따라 카메라의 y값은 제한되어야함(배경 사이즈 문제)
+    if tParam['pos_y'] then
+        local scale = tParam['scale'] or self.m_gameCamera:getScale()
+        local scope = (1600 * scale - 960) / 2
+
+        if tParam['pos_y'] < -scope then    tParam['pos_y'] = -scope
+        elseif tParam['pos_y'] > scope then tParam['pos_y'] = scope
+        end
+    end
+
     self.m_gameCamera:setAction(tParam)
 
     local scale = self.m_gameCamera:getScale()

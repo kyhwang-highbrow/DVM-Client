@@ -199,7 +199,7 @@ function ScrollMap:onEvent(event_name, ...)
                 v.m_rootNode:setPosition(-7000, 0)
                 
                 v:doAction(cc.Sequence:create(
-                    cc.EaseIn:create(cc.MoveTo:create(2, cc.p(0, 0)), 2),
+                    cc.EaseIn:create(cc.MoveTo:create(1.5, cc.p(0, 0)), 2),
                     cc.CallFunc:create(cbFunction)
                 ))
                 
