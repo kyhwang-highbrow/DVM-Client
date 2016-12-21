@@ -140,8 +140,6 @@ function MissileLauncher:init_missileLauncherByScript(script_data, object_key, a
 		end
     end
 
-			
-
     -- 미사일 패턴 초기화
     self:init_missilePattern(self.m_attackIdx)
 end
@@ -178,7 +176,7 @@ function MissileLauncher.st_attack(owner, dt, pattern_idx)
             local time = cache[1]
             if owner.m_stateTimer >= time then
                 local sound = cache[2]
-                --SoundMgr:playEffect('GAME', sound)
+                SoundMgr:playEffect('EFFECT', sound)
                 table.remove(owner.m_tSoundIdxCache, 1)
             else
                 break
