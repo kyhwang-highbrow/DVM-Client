@@ -132,5 +132,8 @@ PRINT_BOSS_PATTERN = false
 -- # 보호막량을 인게임에 표시한다.
 DISPLAY_SHIELD_HP = false
 
+-- # 체력을 인게임에 숫자로 표시한다.
+DISPLAY_UNIT_HP = false
+
 -- # 메모리 사용량 등 각종 디버깅 정보를 인게임에 출력한다
 DISPLAY_DEBUG_INFO = false

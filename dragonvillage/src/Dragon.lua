@@ -12,7 +12,6 @@ Dragon = class(PARENT, {
 
         m_skillIndicator = '',
 
-        m_infoUI = 'UI_IngameDragonInfo',
         m_bWaitState = 'boolean',
 
         m_activeSkillTimer = 'number',

@@ -43,7 +43,9 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_hpNode = '',
         m_hpGauge = '',
         m_hpGauge2 = '',
-        m_unitInfoOffset = '',
+        m_unitInfoOffset = 'UI_IngameDragonInfo/UI_IngameUnitInfo',
+		
+		m_infoUI = '',
 
         -- @casting UI
         m_castingNode = '',
@@ -943,6 +945,8 @@ function Character:makeHPGauge(hp_ui_offset)
     self.m_hpGauge2 = ui.vars['hpGauge2']
 
     self.m_world.m_unitInfoNode:addChild(self.m_hpNode)
+
+	self.m_infoUI = ui
 end
 
 -------------------------------------
@@ -1039,6 +1043,11 @@ function Character:update(dt)
 
     self:updateMove(dt)
 	self:updateStatusIcon(dt)
+
+	-- 디버깅용 체력 디스플레이
+	if DISPLAY_UNIT_HP then 
+		self.m_infoUI.m_label:setString(string.format('%d/%d\n(%d%%)',self.m_hp, self.m_maxHp, self.m_hp/self.m_maxHp*100))
+	end
 
     return Entity.update(self, dt)
 end

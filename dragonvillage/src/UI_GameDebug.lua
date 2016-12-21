@@ -197,6 +197,15 @@ function UI_GameDebug:makeTableView()
         table.insert(item_info, item)
     end
 
+	do -- 체력 표시 
+        local item = {}
+		item['str'] = Str('체력 표시')
+        item['cb1'] = function()
+			DISPLAY_UNIT_HP = not DISPLAY_UNIT_HP
+        end
+        table.insert(item_info, item)
+    end
+
     do -- 화면 크기
         local item = {}
         item['cb1'] = UI_GameDebug.worldScaleButton
