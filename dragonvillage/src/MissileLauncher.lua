@@ -367,7 +367,6 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		t_option['collision_check_time'] =	attack_value.collision_check_time
 
 		t_option['depth'] =				depth
-		t_option['infection'] =			attack_value.infection
 		t_option['missile_type'] =		attack_value.missile_type
 		t_option['visual'] =			attack_value.visual
 		t_option['gold'] =				attack_value.gold

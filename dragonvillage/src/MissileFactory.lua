@@ -128,8 +128,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     local collision_check_time =t_option['collision_check_time'] or nil
 
     local depth =            t_option['depth'] or 0
-    local infection =        t_option['infection'] or nil
-    local missile_type =     MISSILE_TYPE[t_option['missile_type']]
+    local missile_type =     MISSILE_TYPE[t_option['misslie_type']]
     local visual =           t_option['visual'] or nil
     local target =           t_option['target']
     local rotate_time =      t_option['rotate_time'] or nil
