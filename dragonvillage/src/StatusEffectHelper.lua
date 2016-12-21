@@ -403,8 +403,8 @@ function StatusEffectHelper:invokeStatusEffectForDev(char, res)
     local status_effect = StatusEffect(res)
 
     -- 시간 지정
-    status_effect.m_duration = 5
-    status_effect.m_durationTimer = 5
+    status_effect.m_duration = 10
+    status_effect.m_durationTimer = 10
 
     status_effect.m_owner = char
     status_effect.m_statusEffectName = 'burn'

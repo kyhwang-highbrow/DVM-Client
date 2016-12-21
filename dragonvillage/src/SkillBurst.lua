@@ -63,6 +63,7 @@ function SkillBurst:runAttack()
 		for type, status_effect in pairs(target_char:getStatusEffectList()) do
 			if (status_effect.m_statusEffectName == self.m_targetStatusEffectType) then 
 				multiply_value = self.m_multiplyDamageRate
+				has_target_status_effect = true 
 				break
 			end
 		end
@@ -76,14 +77,14 @@ function SkillBurst:runAttack()
 		-- 이펙트 생성
 		self:makeEffect(target_char.pos.x, target_char.pos.y, has_target_status_effect)
 
-		-- shake
-		self.m_owner.m_world.m_shakeMgr:shakeBySpeed(math_random(335-20, 335+20), math_random(500, 1500))
-
 		-- 해당 상태효과 해제해야 할시 해제
 		if (self.m_isExtinguish) and has_target_status_effect then 
 			StatusEffectHelper:releaseStatusEffectByType(target_char, self.m_targetStatusEffectType)
 		end 
     end
+	
+	-- shake
+	self.m_owner.m_world.m_shakeMgr:shakeBySpeed(math_random(335-20, 335+20), math_random(500, 1500))
 
 	-- 스킬이 제거할 수 있는 미사일 제거
 	self:removeDestructibleMissile()

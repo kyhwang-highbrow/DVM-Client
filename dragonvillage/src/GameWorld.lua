@@ -991,6 +991,12 @@ function GameWorld:onKeyReleased(keyCode, event)
 			end
         end
 
+	-- 아군한테 상태효과 걸기
+    elseif (keyCode == KEY_Y) then    
+        for i,v in ipairs(self:getDragonList()) do
+			StatusEffectHelper:invokeStatusEffectForDev(v, STATUS_EFFECT_RES)
+        end
+
     -- 피버 모드 발동
     elseif (keyCode == KEY_F) then    
         if not self.m_gameFever:isActive() then
