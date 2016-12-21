@@ -15,45 +15,72 @@
 			"camera":
             {
                 "scale":1,
-                "pos_x":1280,
-                "pos_y":400
-            },
-            "wave":
-            {
-				0:
-				[
-				"120071;1;Basic;RO04;RM14;1"
-				"120071;1;Basic;RO04;RM12;1"
-				"120071;1;Basic;RO04;RB14;1"
-				"120071;1;Basic;RO04;RM16;1"
-				]
-            }
-		}
-		{
-			"idx":2,
-			"camera":
-            {
-                "scale":0.8,
-                "pos_x":3280,
+                "pos_x":2280,
                 "pos_y":200
             },
             "wave":
             {
 				0:
 				[
-				"120071;1;Basic;RO04;RM14;1"
-				"120071;1;Basic;RO04;RM12;1"
-				"120071;1;Basic;RO04;RB14;1"
-				"120071;1;Basic;RO04;RM16;1"
+					"130035;1;Basic2;RM17;RF15;1.5"
+					"130035;1;Basic2;RF13;RM11;1.5"
+					"130035;1;Basic2;RB25;RM27;1.5"
+					"130035;1;Basic2;RM21;RB23;1.5"
+					"130035;1;Basic2;RF26;RF22;1.5"
+					"130035;1;Basic2;RB16;RF26;1.5"
+					"130035;1;Basic2;RF22;RB12;1.5"
+					"130035;1;Basic2;RB12;RB16;1.5"
+				],
+
+				2:
+				[
+					"131045;1;Appear;RO04;RM14;2"
+					"131045;1;Appear;RO04;RM24;2"
 				]
             }
-		}
+		},
+		
+		{
+			"idx":2,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":5080,
+                "pos_y":200
+            },
+            "wave":
+            {
+				0:
+				[
+					"130065;1;Appear;RO04;RF24;0.5"
+					"130035;1;Appear;RO03;RM13;0.5"
+					"130035;1;Appear;RO05;RM15;0.5"
+					"130035;1;Appear;RO03;RM23;0.5"
+					"130035;1;Appear;RO05;RM25;0.5"
+					"130055;1;Appear;RO04;RB14;0.5"
+				],
+				
+				0.5:
+				[
+					"130015;1;Basic;RM13;RF11;1"
+					"130015;1;Basic;RM13;RF22;1"
+					"130015;1;Basic;RM15;RF17;1"
+					"130015;1;Basic;RM15;RF26;1"
+					
+					"130025;1;Basic;RM23;RB12;1"
+					"130025;1;Basic;RM23;RB21;1"
+					"130025;1;Basic;RM25;RB16;1"
+					"130025;1;Basic;RM25;RB27;1"
+				]
+            }
+		},
+		
 		{
             "idx":3,
 			"camera":
             {
-                "scale":0.8,
-                "pos_x":3280,
+                "scale":0.6,
+                "pos_x":5080,
                 "pos_y":200
             },
             "direction":"boss_wave",
@@ -63,7 +90,7 @@
 				
 				0:
 				[
-				"135015;1;Basic;BOSS;RM24;2"
+				"135015;1;Basic;BOSS;NEST;2"
 				]
             }
         }

@@ -34,7 +34,7 @@
 			
 			{
 				"idx":1,
-				"res":"res/effect/effect_screen/effect_screen_@.vrp",
+				"res":"res/effect/effect_screen/effect_screen_fire.vrp",
 				"visual":"idle",
 				"body":[0,0,0],
                 "count":1,
