@@ -45,7 +45,6 @@ end
 function SkillBurst.st_attack(owner, dt)
 	if (owner.m_stateTimer == 0) then
 		owner:runAttack()
-		cclog('ATTACK BURSTER')
 	else
 		owner:changeState('dying')
 	end
