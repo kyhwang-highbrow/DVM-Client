@@ -105,6 +105,8 @@ end
 -------------------------------------
 function GameState:update(dt)
     IStateHelper.updateState(self)
+
+    self:_update(dt)
     
     if (self.m_state == GAME_STATE_NONE) then
     elseif (self.m_state == GAME_STATE_START) then    self:update_start(dt)
@@ -130,6 +132,13 @@ function GameState:update(dt)
     end
 
     IStateHelper.updateTimer(self, dt)
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function GameState:_update(dt)
+    
 end
 
 -------------------------------------

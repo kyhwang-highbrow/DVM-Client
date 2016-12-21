@@ -94,7 +94,7 @@ function UI_AdventureFirstRewardPopup:click_receiveBtn()
         MakeSimplePopup(POPUP_TYPE.OK, Str('{@BLACK}' ..'보상을 수령하였습니다.'))
     end
 
-    GameState:dropItem_network(l_reward_item, finish_cb)
+    self:dropItem_network(l_reward_item, finish_cb)
 
     --[[
     g_adventureData:optainFirstReward(self.m_stageID)
@@ -114,4 +114,112 @@ end
 -------------------------------------
 function UI_AdventureFirstRewardPopup:click_exitBtn()
     self:close()
+end
+
+-------------------------------------
+-- function dropItem_network
+-------------------------------------
+function UI_AdventureFirstRewardPopup:dropItem_network(l_drop_item, finish_cb)
+    local uid = g_userData:get('uid')
+    local l_drop_item = clone(l_drop_item)
+
+    local do_work
+
+    local ui_network = UI_Network()
+    ui_network:setReuse(true)
+
+    do_work = function(ret)
+        self:dropItem_networkResponse(ret)
+
+        ui_network:softReset()
+
+        local t_drop_data = l_drop_item[1]
+        if t_drop_data then
+            table.remove(l_drop_item, 1)
+
+            local item_id = t_drop_data[1]
+            local count = t_drop_data[2]
+
+            self:dropItem_networkSetRequest(ui_network, item_id, count)
+            ui_network:request()
+        else
+            ui_network:close()
+            finish_cb()
+        end
+    end
+
+    ui_network:setSuccessCB(do_work)
+    do_work()
+end
+
+-------------------------------------
+-- function dropItem_networkSetRequest
+-------------------------------------
+function UI_AdventureFirstRewardPopup:dropItem_networkSetRequest(ui_network, item_id, count)
+    local table_item = TABLE:get('item')
+    local t_item = table_item[item_id]
+
+    local type = t_item['type']
+    local val_1 = t_item['val_1']
+    local uid = g_userData:get('uid')
+
+    if (type == 'gold') then
+        ui_network:setUrl('/users/update')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('act', 'increase')
+        ui_network:setParam('gold', (count * val_1))
+
+    elseif (type == 'cash') then
+        ui_network:setUrl('/users/update')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('act', 'increase')
+        ui_network:setParam('cash', (count * val_1))
+
+    elseif (type == 'dragon') then
+        local did = t_item['val_1']
+        local evolution = t_item['rarity']
+        ui_network:setUrl('/dragons/add')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('did', did)
+        ui_network:setParam('evolution', evolution or 1)
+
+    elseif (type == 'fruit') then
+        local fruit_id = t_item['item']
+        ui_network:setUrl('/users/manage')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('act', 'increase')
+        ui_network:setParam('key', 'fruits')
+        ui_network:setParam('value', tostring(fruit_id) .. ',' .. (count * val_1))
+
+    elseif (type == 'evolution_stone') then
+        local evolution_stone_id = t_item['item']
+        ui_network:setUrl('/users/manage')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('act', 'increase')
+        ui_network:setParam('key', 'evolution_stones')
+        ui_network:setParam('value', tostring(evolution_stone_id) .. ',' .. (count * val_1))
+    end
+end
+
+-------------------------------------
+-- function dropItem_networkResponse
+-------------------------------------
+function UI_AdventureFirstRewardPopup:dropItem_networkResponse(ret)
+    if (not ret) then
+        return
+    end
+
+    -- 획득한 재화 추가 (골드, 캐시, 열매, 진화석)
+    if ret['user'] then
+        g_serverData:applyServerData(ret['user'], 'user')
+    end
+
+    -- 획득한 드래곤 추가
+    if (ret['dragons']) then
+        for _,t_dragon in pairs(ret['dragons']) do
+            g_dragonsData:applyDragonData(t_dragon)
+        end
+    end
+
+    g_topUserInfo:refreshData()
 end

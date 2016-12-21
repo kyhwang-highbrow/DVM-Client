@@ -50,6 +50,7 @@ end
 -------------------------------------
 function ScrollMap:bindEventDispatcher(eventDispather)
     -- 맵 연출 이벤트 등록
+    eventDispather:addListener('nest_dragon_start', self)
     eventDispather:addListener('nest_dragon_final_wave', self)
 end
 
@@ -187,17 +188,35 @@ end
 -- function onEvent
 -------------------------------------
 function ScrollMap:onEvent(event_name, ...)
+    local arg = {...}
+    local cbFunction = arg[1] or function() end
+
     -- 이벤트별 특수한 배경 연출 처리
-    if (event_name == 'nest_dragon_final_wave') then
+    if (event_name == 'nest_dragon_start') then
+        -- 거대용 던전 시작시 연출
+        for i, v in ipairs(self.m_tMapLayer) do
+            if v.m_group == 'nest_dragon_body' then
+                v.m_rootNode:setPosition(-7000, 0)
+                
+                v:doAction(cc.Sequence:create(
+                    cc.EaseIn:create(cc.MoveTo:create(2, cc.p(0, 0)), 2),
+                    cc.CallFunc:create(cbFunction)
+                ))
+                
+            end
+        end
+
+    elseif (event_name == 'nest_dragon_final_wave') then
         -- 거대용 마지막 웨이브 시작시 연출
-        for i,v in ipairs(self.m_tMapLayer) do
+        for i, v in ipairs(self.m_tMapLayer) do
             if v.m_group == 'nest_dragon_body' then
                 local animator = v.m_tAnimator[1]
                 animator:changeAni('endwave_2', false)
                                                 
                 v:doAction(cc.Sequence:create(
                     cc.EaseOut:create(cc.MoveTo:create(1, cc.p(-700, 0)), 2),
-                    cc.EaseIn:create(cc.MoveTo:create(1.5, cc.p(4000, 0)), 2)
+                    cc.EaseIn:create(cc.MoveTo:create(1.5, cc.p(4000, 0)), 2),
+                    cc.CallFunc:create(cbFunction)
                 ))
                 
             end

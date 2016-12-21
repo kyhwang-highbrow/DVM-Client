@@ -3,7 +3,97 @@ local PARENT = GameState
 -------------------------------------
 -- class GameState_NestDungeon
 -------------------------------------
-GameState_NestDungeon = class(PARENT, {})
+GameState_NestDungeon = class(PARENT, {
+    m_dungeonMode = 'number',
+})
+
+-------------------------------------
+-- function init
+-------------------------------------
+function GameState_NestDungeon:init(world)
+    local t_dungeon = g_nestDungeonData:parseNestDungeonID(world.m_stageID)
+    
+    self.m_dungeonMode = t_dungeon['dungeon_mode']
+end
+
+
+-------------------------------------
+-- function update_start
+-------------------------------------
+function GameState_NestDungeon:update_start(dt)
+    local world = self.m_world
+    local map_mgr = world.m_mapManager
+
+    if (self:getStep() == 0) then
+        if (self:isBeginningStep()) then
+            -- 드래곤들을 숨김
+            for i,dragon in ipairs(world:getDragonList()) do
+                if (dragon.m_bDead == false) and (dragon.m_charType == 'dragon') then
+                    dragon.m_rootNode:setVisible(false)
+                    dragon.m_hpNode:setVisible(false)
+                    dragon:changeState('idle')
+                end
+            end
+
+            -- 화면을 빠르게 스크롤
+            if map_mgr then
+                map_mgr:setSpeed(-1000)  
+            end
+
+            SoundMgr:playEffect('VOICE', 'vo_tamer_start')
+        
+	    elseif (self:isPassedStepTime(DRAGON_APPEAR_TIME)) then
+		    self:nextStep()
+        end
+
+    elseif (self:getStep() == 1) then
+        if (self:isBeginningStep()) then
+            SoundMgr:playEffect('EFFECT', 'summon')
+        
+            world:dispatch('dragon_summon')
+
+        elseif (self:getStepTimer() >= 0.5) then
+            if not self.m_bAppearDragon then
+                self:appearDragon()
+            end
+
+            local speed = map_mgr.m_speed + (MAP_SCROLL_SPEED_DOWN_ACCEL * dt)
+            if (speed >= -300) then
+                speed = -300
+
+                -- 등장 완료일 경우
+                if self.m_bAppearDragon then
+                    self:nextStep()
+                end
+            end
+            map_mgr:setSpeed(speed)
+        end
+
+    elseif (self:getStep() == 2) then
+        -- 화면 흔들림 & 포효
+        if (self:isBeginningStep()) then
+            world.m_shakeMgr:doShake(50, 50, 1)
+
+        elseif (self:getStepTimer() >= 2) then
+            self:nextStep()
+        end
+
+    elseif (self:getStep() == 3) then
+        -- 화면 흔들림 & 드래곤이 지나감
+        if (self:isBeginningStep()) then
+            world:dispatch('nest_dragon_start', function() self:nextStep() end)
+
+        elseif (self:isPassedStepTime(0.6)) then
+            world.m_shakeMgr:doShake(50, 50, 1)
+        end
+
+    elseif (self:getStep() == 4) then
+        if (self:isBeginningStep()) then
+            self:changeState(GAME_STATE_ENEMY_APPEAR)
+        end
+    end
+end
+
 
 -------------------------------------
 -- function doDirectionForIntermission
@@ -24,8 +114,7 @@ function GameState_NestDungeon:doDirectionForIntermission()
 
         -- 네스트 던전별 마지막 웨이브 시작 연출
         if is_final_wave then
-            local t_dungeon = g_nestDungeonData:parseNestDungeonID(world.m_stageID)
-            if t_dungeon and t_dungeon['dungeon_mode'] == NEST_DUNGEON_DRAGON then
+            if (self.m_dungeonMode == NEST_DUNGEON_DRAGON) then
                 world:dispatch('nest_dragon_final_wave')
             end
         end
@@ -74,3 +163,9 @@ function GameState_NestDungeon:makeResultUI(is_success)
     -- 최초 실행
     func_network_game_finish()
 end
+
+
+-------------------------------------
+-- function doDirectionForIntermission
+-------------------------------------
+--function GameState_NestDungeon:doDirectionForIntermission()
