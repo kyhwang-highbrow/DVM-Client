@@ -385,8 +385,17 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         end
     end
 
+    -- 모드별 API 주소 분기처리
+    local api_url = ''
+    local game_mode = self.m_gameMode
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        api_url = '/game/stage/finish'
+    elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
+        api_url = '/game/nest/finish'
+    end
+
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/stage/finish')
+    ui_network:setUrl(api_url)
     ui_network:setParam('uid', uid)
     ui_network:setParam('stage', self.m_stageID)
     ui_network:setParam('clear_type', t_param['clear_type'])
