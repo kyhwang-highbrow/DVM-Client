@@ -106,6 +106,9 @@ function UI_NestDungeonScene:makeNestModeTableView()
     local function create_func(ui, data, key)
         --ui.root:setLocalZOrder(100 - key)
         --ui.vars['enterButton']:registerScriptTapHandler(function() self:click_dungeonBtn(ui, data, key) end)
+
+
+        return true
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -115,7 +118,14 @@ function UI_NestDungeonScene:makeNestModeTableView()
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(stage_list, false, false)
 
-    --ccdump(stage_list)
+    local content_size = node:getContentSize()
+    table_view.m_cellUIAppearCB = function(ui)
+        local x, y = ui.root:getPosition()
+        local new_x = x + content_size['width']
+        ui.root:setPosition(new_x, y)
+
+        ui:cellMoveTo(0.25, cc.p(x, y))
+    end
 end
 
 -------------------------------------
@@ -177,8 +187,9 @@ function UI_NestDungeonScene:click_dungeonBtn(ui, data, key)
 
     self.m_selectNestDungeonInfo = {ui=ui, key=key, data=data}
 
-
-    self:makeNestModeTableView()
+    -- 0.5초 후 실행
+    self.vars['detailTableViewNode']:stopAllActions()
+    cca.reserveFunc(self.vars['detailTableViewNode'], 0.25, function() self:makeNestModeTableView() end)
 end
 
 -------------------------------------
@@ -189,6 +200,9 @@ function UI_NestDungeonScene:closeSubMenu()
     if (not self.m_selectNestDungeonInfo) then
         return
     end
+
+    -- 액션 stop
+    self.vars['detailTableViewNode']:stopAllActions()
 
     -- 스테이지 리스트 테이블 뷰 삭제
     self.vars['detailTableViewNode']:removeAllChildren()

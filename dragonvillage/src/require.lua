@@ -261,7 +261,6 @@ local t_module = {
     'UIC_Node',
     'UIC_Button',
     'UIC_ClippingNode',
-    'UIC_TableViewCore',
     'UIC_TableView',
     'UIC_TableViewCell',
     'UIC_TableViewTD',

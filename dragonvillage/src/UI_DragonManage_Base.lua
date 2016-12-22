@@ -207,23 +207,19 @@ function UI_DragonManage_Base:init_dragonTableView()
     if (not self.m_tableViewExt) then
         local list_table_node = self.vars['listTableNode']
 
-        local table_view = UIC_TableView(list_table_node)
-        table_view.m_defaultCellSize = cc.size(100, 100)
-        
         local function create_func(ui, data)
             self:createDragonCardCB(ui, data)
-
             ui.root:setScale(0.66)
-
             ui.vars['clickBtn']:registerScriptTapHandler(function() self:setSelectDragonData(data['id']) end)
         end
 
+        local table_view = UIC_TableView(list_table_node)
+        table_view.m_defaultCellSize = cc.size(100, 100)
         table_view:setCellUIClass(UI_DragonCard, create_func)
         self.m_tableViewExt = table_view
 
         skip_update = true
     end
-
 
     local l_item_list = g_dragonsData:getDragonsList()
     self.m_tableViewExt:setItemList(l_item_list, skip_update)
@@ -234,7 +230,6 @@ end
 -- @brief 드래곤 생성 콜백
 -------------------------------------
 function UI_DragonManage_Base:createDragonCardCB(ui, data)
-
 end
 
 -------------------------------------
