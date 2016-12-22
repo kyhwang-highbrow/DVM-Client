@@ -97,6 +97,22 @@ function UI_DragonTrainSlot_ListItem:refresh_slotVars(grade, slot_type, role, re
     -- luaname을 위해 대문자로 변경
     local suffix = string.upper(slot_type)
 
+    
+    do -- 버튼 상태
+        vars['completeSprite' .. suffix]:setVisible(false)
+        vars['rewardBtn' .. suffix]:setVisible(false)
+        vars['trainButton' .. suffix]:setVisible(false)
+
+        if (is_max_level == true) and (reward_receive == true) then
+            vars['completeSprite' .. suffix]:setVisible(true)
+        elseif (is_max_level == true) and (reward_receive == false) then
+            vars['rewardBtn' .. suffix]:setVisible(true)
+        else
+            vars['trainButton' .. suffix]:setVisible(true)
+        end
+
+    end
+
     -- 가격 표시
     if (is_max_level == true) and (reward_receive == true) then
         vars['priceLabel' .. suffix]:setString(Str('MAX'))
@@ -187,15 +203,8 @@ function UI_DragonTrainSlot_ListItem:listExpand(duration)
 
     do
         local function reserveFunc()
-            vars['titleLabelA']:setVisible(true)
-            vars['dscLabelA']:setVisible(true)
-            vars['trainGaugeA']:setVisible(true)
-            vars['trainButtonA']:setVisible(true)
-            
-            vars['titleLabelB']:setVisible(true)
-            vars['dscLabelB']:setVisible(true)
-            vars['trainGaugeB']:setVisible(true)
-            vars['trainButtonB']:setVisible(true)
+            vars['expandMenuA']:setVisible(true)
+            vars['expandMenuB']:setVisible(true)
         end
 
         vars['expandNode']:stopAllActions()
@@ -238,15 +247,8 @@ function UI_DragonTrainSlot_ListItem:listCollapse(duration)
     cca.runAction(vars['gradeSealIcon'], cc.EaseInOut:create(fade_to, 2), true)
 
     do
-        vars['titleLabelA']:setVisible(false)
-        vars['dscLabelA']:setVisible(false)
-        vars['trainGaugeA']:setVisible(false)
-        vars['trainButtonA']:setVisible(false)
-            
-        vars['titleLabelB']:setVisible(false)
-        vars['dscLabelB']:setVisible(false)
-        vars['trainGaugeB']:setVisible(false)
-        vars['trainButtonB']:setVisible(false)
+        vars['expandMenuA']:setVisible(false)
+        vars['expandMenuB']:setVisible(false)
     end
 
     do

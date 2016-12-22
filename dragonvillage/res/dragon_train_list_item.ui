@@ -519,7 +519,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'expandMenuB';
 			};
 			[5] =
 			{
@@ -934,7 +934,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'expandMenuA';
 			};
 			type = 'Menu';
 			ui_name = '펼쳐짐';

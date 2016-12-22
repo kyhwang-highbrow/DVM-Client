@@ -83,7 +83,7 @@ function UI_DragonDetailPopup:refresh()
 
     do -- 드래곤 등급
         vars['starNode']:removeAllChildren()
-        local star_res = 'res/ui/star010' .. t_dragon_data['grade'] .. '.png'
+        local star_res = 'res/ui/icon/star030' .. t_dragon_data['grade'] .. '.png'
         local star_icon = cc.Sprite:create(star_res)
         star_icon:setDockPoint(cc.p(0.5, 0.5))
         star_icon:setAnchorPoint(cc.p(0.5, 0.5))

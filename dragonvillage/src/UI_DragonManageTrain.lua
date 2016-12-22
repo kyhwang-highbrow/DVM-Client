@@ -182,7 +182,9 @@ function UI_DragonManageTrain:int_trainSlotTableView(t_dragon_data)
             ui.root:setSwallowTouch(false)
             ui.vars['clickBtn']:registerScriptTapHandler(function() self:setExpand(true) end)
             ui.vars['trainButtonA']:registerScriptTapHandler(function() self:click_trainButton(ui, data, 'a') end)
+            ui.vars['rewardBtnA']:registerScriptTapHandler(function() self:click_trainButton(ui, data, 'a') end)
             ui.vars['trainButtonB']:registerScriptTapHandler(function() self:click_trainButton(ui, data, 'b') end)
+            ui.vars['rewardBtnB']:registerScriptTapHandler(function() self:click_trainButton(ui, data, 'b') end)
         end
 
         -- 테이블 뷰 인스턴스 생성
