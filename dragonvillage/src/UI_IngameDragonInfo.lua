@@ -28,7 +28,7 @@ function UI_IngameDragonInfo:init(hero)
 
     vars['skillGauge']:setPercentage(0)
 
-	-- µð¹ö±ë Ã¼·ÂÇ¥½Ã¿ë label
+	-- ë””ë²„ê¹… ì²´ë ¥í‘œì‹œìš© label
     local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 18, 2, cc.size(250, 100), 1, 1)
     label:setPosition(70, 0)
     label:setDockPoint(cc.p(0.5, 0.5))

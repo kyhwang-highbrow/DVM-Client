@@ -33,7 +33,7 @@ function Monster_GiantDragon.st_attack(owner, dt)
     PARENT.st_attack(owner)
 
     if (owner.m_stateTimer == 0) then
-        -- ºê·¹½º ½ºÅ³ »ç¿ë½Ã Â÷Áö ÀÌÆåÆ®
+        -- ë¸Œë ˆìŠ¤ ìŠ¤í‚¬ ì‚¬ìš©ì‹œ ì°¨ì§€ ì´í™íŠ¸
         if (owner.m_animator.m_currAnimation == 'skill_3') then
             local attr = owner.m_charTable['attr']
             --local res = string.format('res/effect/effect_breath_charge/effect_breath_charge_%s.vrp', attr)
@@ -77,7 +77,7 @@ function Monster_GiantDragon.st_dying(owner, dt)
             owner.m_castingNode:setVisible(false)
         end
 
-        -- È¿°úÀ½
+        -- íš¨ê³¼ìŒ
         if owner.m_tEffectSound['die'] then
             SoundMgr:playEffect('VOICE', owner.m_tEffectSound['die'])
         end
@@ -108,7 +108,7 @@ function Monster_GiantDragon:animatorSpot()
     end
 
     local spotAction = cc.Sequence:create(
-        -- Á¡¸ê
+        -- ì ë©¸
         cc.CallFunc:create(function(node)
             local shader = ShaderCache:getShader(SHADER_CHARACTER_DAMAGED)
             self.m_animator.m_node:setGLProgram(shader)

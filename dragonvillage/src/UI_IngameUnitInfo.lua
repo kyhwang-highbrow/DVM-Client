@@ -20,7 +20,7 @@ function UI_IngameUnitInfo:init(enemy)
         vars['attrNode']:addChild(icon)
     end
 
-	-- µð¹ö±ë Ã¼·ÂÇ¥½Ã¿ë label
+	-- ë””ë²„ê¹… ì²´ë ¥í‘œì‹œìš© label
     local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 17, 2, cc.size(250, 100), 1, 1)
     label:setPosition(0, 0)
     label:setDockPoint(cc.p(0.5, 0.5))
