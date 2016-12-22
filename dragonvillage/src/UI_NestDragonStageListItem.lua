@@ -63,7 +63,7 @@ function UI_NestDragonStageListItem:refresh()
                 local ui = UI_ItemCard(item_id)
                 vars['rewardNode' .. i]:addChild(ui.root)
                 ui.root:setSwallowTouch(false)
-                ui.root:setScale(0.45)
+                ui.root:setScale(0.55)
             end
         end
     end

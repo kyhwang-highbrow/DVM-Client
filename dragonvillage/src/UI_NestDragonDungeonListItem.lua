@@ -99,6 +99,59 @@ end
 -- function refresh
 -------------------------------------
 function UI_NestDragonDungeonListItem:refresh()
+    local vars = self.vars
+    vars['dayLabel']:setString('')
+
+    -- 요일 정보 출력
+    self:refresh_dayLabel(self.m_tData['days'], self.m_tData['mode'])
+end
+
+-------------------------------------
+-- function refresh_dayLabel
+-------------------------------------
+function UI_NestDragonDungeonListItem:refresh_dayLabel(days, mode)
+    local vars = self.vars
+
+    local l_days = seperate(days, ',')
+
+    -- 거대용 던전이 아닌 경우
+    --if (#l_days >= 7) then
+    if (mode ~= 1) then
+        vars['dayLabel']:setString('')
+        return
+    end
+
+    local t_days = {}
+    t_days['mon'] = {day='mon', name='월', idx=1}
+    t_days['tue'] = {day='tue', name='화', idx=2}
+    t_days['wed'] = {day='wed', name='수', idx=3}
+    t_days['thu'] = {day='thu', name='목', idx=4}
+    t_days['fri'] = {day='fri', name='금', idx=5}
+    t_days['sat'] = {day='sat', name='토', idx=6}
+    t_days['sun'] = {day='sun', name='일', idx=7}
+
+    local l_days_sort = {}
+    for i, v in ipairs(l_days) do
+        local t_day = t_days[v]
+        table.insert(l_days_sort, t_day)
+    end
+
+    local function sort_func(a, b)
+        return a['idx'] < b['idx']
+    end
+
+    table.sort(l_days_sort, sort_func)
+
+    local str = ''
+
+    for i, v in ipairs(l_days_sort) do
+        if (i ~= 1) then
+            str = str .. ', '
+        end
+        str = str .. v['name']
+    end
+
+    vars['dayLabel']:setString(str)
 end
 
 -------------------------------------
@@ -115,8 +168,8 @@ function UI_NestDragonDungeonListItem:update(dt)
 
         do -- 텍스트 변경됨을 알리는 액션
             self.vars['timeLabel']:stopAllActions()
-            local start_action = cc.MoveTo:create(0.05, cc.p(-20, -242))
-            local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.5, cc.p(0, -242)), 0.2)
+            local start_action = cc.MoveTo:create(0.05, cc.p(-20, -223))
+            local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.5, cc.p(0, -223)), 0.2)
             self.vars['timeLabel']:runAction(cc.Sequence:create(start_action, end_action))
         end
     end
