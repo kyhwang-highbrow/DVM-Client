@@ -1,0 +1,80 @@
+{
+    "difficult":2,
+    "bg":"map_nest_tree",
+		
+	"wave":
+	[
+        {
+			"idx":1,
+			"camera":
+            {
+                "scale":0.6,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+				"130011;1;Basic;RO04;RF14;0.5"
+
+				],
+				
+				0.5:
+				[
+				"130021;1;Basic;RO02;RM12;0.5"
+				"130031;1;Basic;RO04;RB14;0.5"
+				"130021;1;Basic;RO06;RM16;0.5"
+				]
+            }
+		},
+		
+		{
+			"idx":2,
+			"camera":
+            {
+                "scale":0.6,
+                "pos_x":0,
+                "pos_y":2560
+            },
+            "wave":
+            {
+				0:
+				[
+				"130011;1;Basic;RO02;RF12;2"
+				"130011;1;Basic;RO06;RF16;2"
+				],
+				
+				0.3:
+				[
+				"130021;1;Basic;RO04;RF24;0.5"
+				"130021;1;Basic;RO02;RM11;0.5"
+				"130021;1;Basic;RO06;RM17;0.5"
+				],
+				
+				0.6:
+				[
+				"130051;1;Basic;RO04;RB14;0.5"
+				]
+            }
+		},
+		
+		{
+            "idx":3,
+			"camera":
+            {
+                "scale":0.6,
+                "pos_x":0,
+                "pos_y":5120
+            },
+            "direction":"boss_wave",
+            "wave":
+            {				
+				0:
+				[
+				"135011;1;NestDragon;BOSS;NEST;2"
+				]
+            }
+        }
+    ]
+}

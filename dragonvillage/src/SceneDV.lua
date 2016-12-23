@@ -134,6 +134,16 @@ function SceneDV:onKeyReleased(keyCode, event)
 			v:release()
 		end
 		self.m_lSpineAni = {}
+
+    elseif keyCode == KEY_T then
+		local animator = MakeAnimator('res/character/monster/boss_gdragon_fire/boss_gdragon_head_fire.json')
+        animator:setPosition(400, 200)
+		self.m_scene:addChild(animator.m_node)
+
+        animator:changeAni('skill_3', true)
+
+        local shader = ShaderCache:getShader(SHADER_CHARACTER_DAMAGED)
+        animator.m_node:setGLProgram(shader)
 	end
 end
 

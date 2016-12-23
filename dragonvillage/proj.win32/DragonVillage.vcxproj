@@ -270,7 +270,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Buff.lua" />
     <None Include="..\src\Buff_Protection.lua" />
     <None Include="..\src\GameState_Colosseum.lua" />
-    <None Include="..\src\GameState_NestDungeon.lua" />
+    <None Include="..\src\GameState_NestDungeon_Dragon.lua" />
+    <None Include="..\src\GameState_NestDungeon_Tree.lua" />
     <None Include="..\src\GameWorld_Unit.lua" />
     <None Include="..\src\IStateHelper.lua" />
     <None Include="..\src\SceneNestDungeon.lua" />

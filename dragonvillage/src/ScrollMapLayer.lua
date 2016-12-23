@@ -108,8 +108,8 @@ function ScrollMapLayer:update(totalMove, dt, cameraX, cameraY, cameraScale)
         maxValue = cameraX + (CRITERIA_RESOLUTION_X / 2)
     elseif self.m_type == 'vertical' then
         pos = pos + self.m_offsetY
-        minValue = cameraY - CRITERIA_RESOLUTION_Y
-        maxValue = cameraY + CRITERIA_RESOLUTION_Y
+        minValue = cameraY - (CRITERIA_RESOLUTION_Y / 2)
+        maxValue = cameraY + (CRITERIA_RESOLUTION_Y / 2)
     end
 
     local start_pos = pos

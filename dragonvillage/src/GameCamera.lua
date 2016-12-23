@@ -1,4 +1,5 @@
-local MAX_SCALE = 4
+local MAX_SCALE = 1
+local MIN_SCALE = 0.6
 
 -------------------------------------
 -- class GameCamera
@@ -20,6 +21,8 @@ GameCamera = class(IEventDispatcher:getCloneClass(), {
     m_curScale = 'number',
     m_curPosX = 'number',
     m_curPosY = 'number',
+
+    m_range = 'table',  -- 카메라 이동 제한 범위(nil값인 경우 무제한)
 })
 
 -------------------------------------
@@ -40,6 +43,8 @@ function GameCamera:init(world, node)
     self.m_curScale = 1
     self.m_curPosX = 0
     self.m_curPosY = 0
+
+    self:setRange(nil)
 
 	self:reset()
 end
@@ -68,10 +73,13 @@ end
 -- function setHomeInfo
 -------------------------------------
 function GameCamera:setHomeInfo(tParam)
-    self.m_homeScale = tParam['scale'] or self.m_homeScale
-    self.m_homePosX = tParam['pos_x'] or self.m_homePosX
-    self.m_homePosY = tParam['pos_y'] or self.m_homePosY
+    local homeScale = tParam['scale'] or self.m_homeScale
+    local homePosX = tParam['pos_x'] or self.m_homePosX
+    local homePosY = tParam['pos_y'] or self.m_homePosY
 
+    self.m_homeScale = self:adjustScale(homeScale)
+    self.m_homePosX, self.m_homePosY = self:adjustPos(homePosX, homePosY)
+    
     self:dispatch('camera_set_home', self.m_homePosX, self.m_homePosY)
 end
 
@@ -218,8 +226,8 @@ end
 -- function adjustScale
 -------------------------------------
 function GameCamera:adjustScale(scale)
-	--scale = math_min(scale, MAX_SCALE)
-	--scale = math_max(scale, 1)
+	scale = math_min(scale, MAX_SCALE)
+	scale = math_max(scale, MIN_SCALE)
 
 	return scale
 end
@@ -229,18 +237,36 @@ end
 -- @brief 게임 화면 안으로 들어오도록 위치 조절
 -------------------------------------
 function GameCamera:adjustPos(x, y, scale)
-    --[[
-	local scale = scale or self.m_node:setScale()
+    
+    local scale = scale or self.m_node:getScale()
 
-	local maxX = CRITERIA_RESOLUTION_X / 2 * (scale - 1)
-	local minX = -maxX
-	local maxY = CRITERIA_RESOLUTION_Y / 2 * (scale - 1)
-	local minY = -maxY
+    local minX = self.m_range['minX']
+    local maxX = self.m_range['maxX']
+    local minY = self.m_range['minY']
+    local maxY = self.m_range['maxY']
 
-	x = math_min(x, maxX)
-	x = math_max(x, minX)
-	y = math_min(y, maxY)
-	y = math_max(y, minY)
-    ]]--
+    if minX then
+        x = math_max(x, minX * scale)
+    end
+    if maxX then
+	    x = math_min(x, maxX * scale)
+    end
+    if minY then
+        y = math_max(y, minY * scale)
+    end
+    if maxY then
+	    y = math_min(y, maxY * scale)
+    end
+	
 	return x, y, scale
+end
+
+-------------------------------------
+-- function setRange
+-------------------------------------
+function GameCamera:setRange(t)
+    -- 모드에 따라 범위가 다르게 설정되어야함!!!!
+    self.m_range = t or {}
+
+    cclog('GameCamera:setRange range = ' .. luadump(self.m_range))
 end

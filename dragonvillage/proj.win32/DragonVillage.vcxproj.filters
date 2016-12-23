@@ -1081,9 +1081,6 @@
     <None Include="..\src\IStateHelper.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\GameState_NestDungeon.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\shader\characterDamaged.fsh">
       <Filter>shader</Filter>
     </None>
@@ -1100,6 +1097,12 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillBurst.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\GameState_NestDungeon_Dragon.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\GameState_NestDungeon_Tree.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\UI_NestDungeonListItem.lua">

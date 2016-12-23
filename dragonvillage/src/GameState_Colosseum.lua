@@ -47,11 +47,9 @@ function GameState_Colosseum:update_start(dt)
             world:dispatch('dragon_summon')
 
         elseif (self:getStepTimer() >= 0.5) then
-            if not self.m_bAppearDragon then
-                self:appearDragon()
+            self:appearDragon()
 
-                self:nextStep()
-            end
+            self:nextStep()
         end
 
     elseif (self:getStep() == 2) then

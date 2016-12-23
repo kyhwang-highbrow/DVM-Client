@@ -1,0 +1,23 @@
+{
+    "layer":
+    [        
+        {
+            "name":"배경"
+			"tgype":"vertical"
+            "speed":0
+            "list":
+            [
+                {"res":"res/bg/map_ancient_forest.png" "pos_x":-426 "pos_y":1600 "scale":1.67}
+					
+            ]
+        }
+		{
+            "name":"거목"
+            "speed":0
+			"list":
+            [
+                {"res":"res/bg/map_ancient_forest_bgtree.png" "pos_x":-426 "pos_y":1600 "scale":1.67}
+            ]
+        }
+    ]
+}

@@ -177,10 +177,8 @@ function GameState:update_start(dt)
             world:dispatch('dragon_summon')
 
         elseif (self:getStepTimer() >= 0.5) then
-            if not self.m_bAppearDragon then
-                self:appearDragon()
-            end
-
+            self:appearDragon()
+            
             local speed = map_mgr.m_speed + (MAP_SCROLL_SPEED_DOWN_ACCEL * dt)
             if (speed >= -300) then
                 speed = -300
@@ -705,6 +703,8 @@ end
 -- function appearDragon
 -------------------------------------
 function GameState:appearDragon()
+    if self.m_bAppearDragon then return end
+
     -- 드래곤들을 등장
     local world = self.m_world
     for i,dragon in ipairs(world:getDragonList()) do

@@ -156,10 +156,25 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_gameTimeScale = GameTimeScale(self)
 
     if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+        self.m_gameCamera:setRange({minY = -300, maxY = 300})
+
         self.m_gameState = GameState(self)
 
     elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
-        self.m_gameState = GameState_NestDungeon(self)
+        local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
+        local dungeonMode = t_dungeon['dungeon_mode']
+
+        if (dungeonMode == NEST_DUNGEON_DRAGON) then
+            self.m_gameCamera:setRange({minY = -300, maxY = 300})
+
+            self.m_gameState = GameState_NestDungeon_Dragon(self)
+
+        elseif (dungeonMode == NEST_DUNGEON_TREE) then
+            self.m_gameCamera:setRange({minX = -300, maxX = 300})
+
+            self.m_gameState = GameState_NestDungeon_Tree(self)
+
+        end
 
     elseif (self.m_gameMode == GAME_MODE_COLOSSEUM) then
         self.m_gameState = GameState_Colosseum(self)
@@ -1408,32 +1423,23 @@ end
 -------------------------------------
 function GameWorld:changeCameraOption(tParam, bKeepHomePos)
     local tParam = tParam or {}
-
-    -- 스케일에 따라 카메라의 y값은 제한되어야함(배경 사이즈 문제)
-    if tParam['pos_y'] then
-        local scale = tParam['scale'] or self.m_gameCamera:getScale()
-        local scope = (1600 * scale - 960) / 2
-
-        if tParam['pos_y'] < -scope then    tParam['pos_y'] = -scope
-        elseif tParam['pos_y'] > scope then tParam['pos_y'] = scope
-        end
-    end
-
+    
     self.m_gameCamera:setAction(tParam)
 
-    local scale = self.m_gameCamera:getScale()
-    
     if not bKeepHomePos then
         self.m_gameCamera:setHomeInfo(tParam)
+
+        local scale = self.m_gameCamera:getScale()
+        local cameraHomePosX, cameraHomePosY = self.m_gameCamera:getHomePos()
 
         -- 아군 홈 위치를 카메라의 홈위치 기준으로 변경
         for i, v in ipairs(self:getDragonList()) do
             if (v.m_bDead == false) then
                 -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
-                local homePosX = v.m_orgHomePosX + tParam['pos_x']
-                local homePosY = v.m_orgHomePosY + tParam['pos_y']
+                local homePosX = v.m_orgHomePosX + cameraHomePosX
+                local homePosY = v.m_orgHomePosY + cameraHomePosY
 
-                -- 카메라가 줌아웃된 상태라면 아군 위치 조정
+                -- 카메라가 줌아웃된 상태라면 아군 위치 조정(차후 정리)
                 if (scale == 0.6) then
                     homePosX = homePosX - 200
                 end
