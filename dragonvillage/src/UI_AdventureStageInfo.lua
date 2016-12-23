@@ -92,6 +92,46 @@ function UI_AdventureStageInfo:refresh()
         local desc = table_stage_desc:getStageDesc(stage_id)
         vars['dscLabel']:setString(desc)
     end
+
+    -- 스테이조 난이도 뱃지
+    self:refresh_difficultyBadge()
+end
+
+-------------------------------------
+-- function refresh_difficultyBadge
+-- @brief 스테이지 난이도 (모험모드에 한함)
+-------------------------------------
+function UI_AdventureStageInfo:refresh_difficultyBadge()
+    local vars = self.vars
+    local stage_id = self.m_stageID
+
+    local game_mode = g_stageData:getGameMode(stage_id)
+
+    -- 모험 모드
+    if (game_mode ~= GAME_MODE_ADVENTURE) then
+        vars['difficultySprite']:setVisible(false)
+        vars['difficultyLabel']:setVisible(false)
+        return
+    end
+
+    vars['difficultySprite']:setVisible(true)
+    vars['difficultyLabel']:setVisible(true)
+
+    local difficulty, chapter, stage = parseAdventureID(stage_id)
+
+    if (difficulty == 1) then
+        vars['difficultySprite']:setColor(cc.c3b(121, 186, 58))
+        vars['difficultyLabel']:setString(Str('쉬움'))
+
+    elseif (difficulty == 2) then
+        vars['difficultySprite']:setColor(cc.c3b(46, 162, 196))
+        vars['difficultyLabel']:setString(Str('보통'))
+
+    elseif (difficulty == 3) then
+        vars['difficultySprite']:setColor(cc.c3b(196, 74, 46))
+        vars['difficultyLabel']:setString(Str('어려움'))
+
+    end
 end
 
 -------------------------------------
@@ -112,7 +152,7 @@ function UI_AdventureStageInfo:refresh_monsterList()
 
         local list_table_node = self.vars['monsterListNode']
         local cardUIClass = UI_MonsterCard
-        local cardUISize = 0.8
+        local cardUISize = 0.6
         local width, height = cardUIClass:getCardSize(cardUISize)
 
         -- 리스트 아이템 생성 콜백
@@ -150,7 +190,7 @@ function UI_AdventureStageInfo:refresh_rewardInfo()
         local ui = item['ui']
         ui.root:setDockPoint(cc.p(0, 0))
         ui.root:setAnchorPoint(cc.p(0, 0))
-        ui.root:setScale(0.8)
+        ui.root:setScale(0.6)
     end
 
     -- 클릭 콜백 함수
@@ -161,7 +201,7 @@ function UI_AdventureStageInfo:refresh_rewardInfo()
 
     -- 테이블뷰 초기화
     local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.HORIZONTAL)
-    table_view_ext:setCellInfo(120, 120)
+    table_view_ext:setCellInfo(90, 90)
     table_view_ext:setItemUIClass(UI_ItemCard, click_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
     table_view_ext:setItemInfo(l_item_list)
     table_view_ext:update()
