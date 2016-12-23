@@ -55,38 +55,6 @@ function UI_NestDungeonListItem:initUI(t_data)
 
     -- 남은 시간 얻어오기
     g_nestDungeonData:getNestDungeonRemainTimeText(dungeon_id)
-
-    --[[
-    local vars = self.vars
-    do -- lockSprite 지정
-        vars['lockSprite']:setVisible(not t_data['open'])
-        vars['lockSprite']:setLocalZOrder(1)
-    end
-
-    do -- titleLabel 지정
-        local attr = t_data['attr']
-        local str = ''
-        if (attr == 'fire') then str = Str('불의 시련')
-        elseif (attr == 'water') then str = Str('물의 시련')
-        elseif (attr == 'earth') then str = Str('땅의 시련')
-        elseif (attr == 'wind') then str = Str('바람의 시련')
-        elseif (attr == 'light') then str = Str('빛의 시련')
-        elseif (attr == 'dark') then str = Str('어둠의 시련')
-        else error('attr : ' .. attr) end
-
-        vars['titleLabel']:setString(str)
-    end
-
-    do -- openTimeLabel 지정
-        vars['openTimeLabel']:setString(t_data['desc'])
-    end
-
-    do -- 아이콘 생성
-        local icon = IconHelper:getAttributeIcon(t_data['attr'])
-        icon:setPositionY(30)
-        self.root:addChild(icon)
-    end
-    --]]
 end
 
 -------------------------------------
@@ -104,6 +72,9 @@ function UI_NestDungeonListItem:refresh()
 
     -- 요일 정보 출력
     self:refresh_dayLabel(self.m_tData['days'], self.m_tData['mode'])
+
+    -- 보너스 정보 출력
+    self:refresh_bonusInfo()
 end
 
 -------------------------------------
@@ -152,6 +123,23 @@ function UI_NestDungeonListItem:refresh_dayLabel(days, mode)
     end
 
     vars['dayLabel']:setString(str)
+end
+
+-------------------------------------
+-- function refresh_bonusInfo
+-- @brief "고목 던전"에서 해당하는 요일에 추가 보상을 준다는 것을 알려줌
+-------------------------------------
+function UI_NestDungeonListItem:refresh_bonusInfo()
+    local vars = self.vars
+
+    -- @TODO sgkim hotTimeSprite가 아닌 bonus reward와 같은 형태로 UI가 변경되어야 함
+    local bonus_rate = self.m_tData['bonus_rate'] or 0
+    if (bonus_rate <= 0) then
+        vars['hotTimeSprite']:setVisible(false)
+        return
+    end
+
+    vars['hotTimeSprite']:setVisible(true)
 end
 
 -------------------------------------
