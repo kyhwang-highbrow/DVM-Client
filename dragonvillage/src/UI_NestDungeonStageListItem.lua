@@ -1,17 +1,17 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 -------------------------------------
--- class UI_NestDragonStageListItem
+-- class UI_NestDungeonStageListItem
 -------------------------------------
-UI_NestDragonStageListItem = class(PARENT, {
+UI_NestDungeonStageListItem = class(PARENT, {
         m_stageTable = 'table',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_NestDragonStageListItem:init(t_data)
-    local vars = self:load('nest_dungeon_scene2_list.ui')
+function UI_NestDungeonStageListItem:init(t_data)
+    local vars = self:load('nest_dungeon_stage_list_item.ui')
 
     self.m_stageTable = t_data
 
@@ -25,14 +25,14 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_NestDragonStageListItem:initUI(t_data)
+function UI_NestDungeonStageListItem:initUI(t_data)
     local vars = self.vars
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_NestDragonStageListItem:initButton()
+function UI_NestDungeonStageListItem:initButton()
     local vars = self.vars
     vars['enterButton']:registerScriptTapHandler(function() self:enterButton() end)
 end
@@ -40,7 +40,7 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_NestDragonStageListItem:refresh()
+function UI_NestDungeonStageListItem:refresh()
     local vars = self.vars
     vars['lockNode']:setVisible(false)
 
@@ -84,7 +84,7 @@ end
 -------------------------------------
 -- function enterButton
 -------------------------------------
-function UI_NestDragonStageListItem:enterButton()
+function UI_NestDungeonStageListItem:enterButton()
     local stage_id = self.m_stageTable['stage']
     UI_AdventureStageInfo(stage_id)
 end

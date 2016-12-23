@@ -814,9 +814,6 @@
     <None Include="..\src\UI_LobbyNew.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_NestDragonDungeonListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_NestDungeonScene.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1060,9 +1057,6 @@
     <None Include="..\src\TableDrop.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_NestDragonStageListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\ServerData_Stage.lua">
       <Filter>lua</Filter>
     </None>
@@ -1107,6 +1101,12 @@
     </None>
     <None Include="..\src\SkillBurst.lua">
       <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_NestDungeonListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_NestDungeonStageListItem.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

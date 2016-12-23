@@ -13,7 +13,7 @@ UI_NestDungeonScene = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_NestDungeonScene:init(stage_id)
-    local vars = self:load('nest_dungeon_scene1.ui')
+    local vars = self:load('nest_dungeon_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -63,7 +63,7 @@ function UI_NestDungeonScene:initUI(stage_id)
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(380, 660)
-        table_view:setCellUIClass(UI_NestDragonDungeonListItem, create_func)
+        table_view:setCellUIClass(UI_NestDungeonListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
         table_view:setItemList(g_nestDungeonData:getNestDungeonListForUI())
 
@@ -114,7 +114,7 @@ function UI_NestDungeonScene:makeNestModeTableView()
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(886, 152)
-    table_view:setCellUIClass(UI_NestDragonStageListItem, create_func)
+    table_view:setCellUIClass(UI_NestDungeonStageListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(stage_list, false, false)
 

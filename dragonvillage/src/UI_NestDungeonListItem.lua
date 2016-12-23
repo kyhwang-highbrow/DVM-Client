@@ -13,9 +13,9 @@ t_nest_dungeon_ani[22400] = 'nest_dungeon_nightmare'
 t_nest_dungeon_ani[23000] = 'nest_dungeon_tree'         -- 거목
 
 -------------------------------------
--- class UI_NestDragonDungeonListItem
+-- class UI_NestDungeonListItem
 -------------------------------------
-UI_NestDragonDungeonListItem = class(PARENT, {
+UI_NestDungeonListItem = class(PARENT, {
         m_tData = 'nestDungeonInfo',
         m_remainTimeText = 'string',
     })
@@ -23,10 +23,10 @@ UI_NestDragonDungeonListItem = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_NestDragonDungeonListItem:init(t_data)
+function UI_NestDungeonListItem:init(t_data)
     self.m_tData = t_data
 
-    local vars = self:load('nest_dungeon_scene1_list.ui')
+    local vars = self:load('nest_dungeon_list_item.ui')
 
     self:initUI(t_data)
     self:initButton()
@@ -45,7 +45,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_NestDragonDungeonListItem:initUI(t_data)
+function UI_NestDungeonListItem:initUI(t_data)
 
     local vars = self.vars
 
@@ -92,13 +92,13 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_NestDragonDungeonListItem:initButton()
+function UI_NestDungeonListItem:initButton()
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_NestDragonDungeonListItem:refresh()
+function UI_NestDungeonListItem:refresh()
     local vars = self.vars
     vars['dayLabel']:setString('')
 
@@ -109,7 +109,7 @@ end
 -------------------------------------
 -- function refresh_dayLabel
 -------------------------------------
-function UI_NestDragonDungeonListItem:refresh_dayLabel(days, mode)
+function UI_NestDungeonListItem:refresh_dayLabel(days, mode)
     local vars = self.vars
 
     local l_days = seperate(days, ',')
@@ -157,7 +157,7 @@ end
 -------------------------------------
 -- function update
 -------------------------------------
-function UI_NestDragonDungeonListItem:update(dt)
+function UI_NestDungeonListItem:update(dt)
     local dungeon_id = self.m_tData['mode_id']
     local text = g_nestDungeonData:getNestDungeonRemainTimeText(dungeon_id)
 
