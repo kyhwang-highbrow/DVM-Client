@@ -42,8 +42,6 @@ end
 -------------------------------------
 function UI_NestDungeonStageListItem:refresh()
     local vars = self.vars
-    vars['lockNode']:setVisible(false)
-
 
     do -- 스테이지 이름
         local name = Str(self.m_stageTable['t_name'])
@@ -78,6 +76,14 @@ function UI_NestDungeonStageListItem:refresh()
     do -- 스태미나 갯수 표시
         local cost_value = self.m_stageTable['cost_value']
         vars['actingPowerLabel']:setString(comma_value(cost_value))
+    end
+
+    do -- 오픈 여부
+        local stage_id = self.m_stageTable['stage']
+        local is_open = g_stageData:isOpenStage(stage_id)
+
+        vars['lockNode']:setVisible(not is_open)
+        vars['enterButton']:setVisible(is_open)
     end
 end
 

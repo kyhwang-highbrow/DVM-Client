@@ -62,7 +62,27 @@ function ServerData_Stage:isOpenStage(stage_id)
 
     -- 네스트 던전 모드
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
-        ret = true
+        ret = g_nestDungeonData:isOpenStage(stage_id)
+    end
+
+    return ret
+end
+
+-------------------------------------
+-- function getNextStage
+-------------------------------------
+function ServerData_Stage:getNextStage(stage_id)
+    local game_mode = self:getGameMode(stage_id)
+
+    local ret = nil
+
+    -- 모험 모드
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        ret = g_adventureData:getNextStageID(stage_id)
+
+    -- 네스트 던전 모드
+    elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
+        ret = g_nestDungeonData:getNextStageID(stage_id)
     end
 
     return ret

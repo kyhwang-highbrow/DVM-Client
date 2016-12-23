@@ -309,9 +309,109 @@ function ServerData_NestDungeon:getNestDungeonRemainTimeText(dungeon_id)
 end
 
 -------------------------------------
--- function getNestDungeonRemainTimeText
--- @brief 데이터 존재 여부를 체크(로비에서 임시 버튼으로 즉시 진입하는 경우엔 데이터가 없음)
+-- function requestNestDungeonStageList
+-- @brief 서버로부터 네스트던전 스테이지 리스트를 받아옴
 -------------------------------------
-function ServerData_NestDungeon:isExistData()
-    return (self.m_nestDungeonInfoMap ~= nil)
+function ServerData_NestDungeon:requestNestDungeonStageList(cb_func)
+    local uid = g_userData:get('uid')
+
+    -- 성공 시 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
+        if ret['stage_list'] then
+            self:applyNestDungeonStageList(ret['stage_list'])
+        end
+
+        if cb_func then
+            cb_func()
+        end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/stage/list')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('type', 2)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
 end
+
+-------------------------------------
+-- function applyNestDungeonStageList
+-- @brief 서버에서 전달받은 데이터를 클라이언트에 적용
+-------------------------------------
+function ServerData_NestDungeon:applyNestDungeonStageList(data)
+    self.m_serverData:applyServerData(data, 'nest_dungeon_stage_list')
+end
+
+-------------------------------------
+-- function getNestDungeonStageClearInfo
+-- @brief
+-------------------------------------
+function ServerData_NestDungeon:getNestDungeonStageClearInfo(stage_id)
+    local t_stage_clear_info = self:getNestDungeonStageClearInfoRef(stage_id)
+    return clone(t_stage_clear_info)
+end
+
+-------------------------------------
+-- function getNestDungeonStageClearInfoRef
+-- @brief
+-------------------------------------
+function ServerData_NestDungeon:getNestDungeonStageClearInfoRef(stage_id)
+    local t_stage_clear_info = self.m_serverData:getRef('nest_dungeon_stage_list', tostring(stage_id))
+
+    if (not t_stage_clear_info) then
+        t_stage_clear_info = {}
+        t_stage_clear_info['clear_cnt'] = 0
+        self.m_serverData:applyServerData(t_stage_clear_info, 'nest_dungeon_stage_list', tostring(stage_id))
+    end
+
+    return t_stage_clear_info
+end
+
+-------------------------------------
+-- function isOpenStage
+-- @brief
+-------------------------------------
+function ServerData_NestDungeon:isOpenStage(stage_id)
+    local prev_stage_id = self:getPrevStageID(stage_id)
+
+    if (not prev_stage_id) then
+        return true
+    else
+        local t_dungeon_id_info = g_nestDungeonData:getNestDungeonStageClearInfo(prev_stage_id)
+        local is_open = (0 < t_dungeon_id_info['clear_cnt'])
+        return is_open
+    end
+end
+
+-------------------------------------
+-- function getPrevStageID
+-- @brief
+-------------------------------------
+function ServerData_NestDungeon:getPrevStageID(stage_id)
+    local t_dungeon_id_info = g_nestDungeonData:parseNestDungeonID(stage_id)
+    
+    if (t_dungeon_id_info['tier'] <= 1) then
+        return nil
+    else
+        return (stage_id - 1)
+    end
+end
+
+-------------------------------------
+-- function getNextStageID
+-- @brief
+-------------------------------------
+function ServerData_NestDungeon:getNextStageID(stage_id)
+    local table_drop = TableDrop()
+    local t_drop = table_drop:get(stage_id + 1)
+
+    if t_drop then
+        return stage_id + 1
+    else
+        return nil
+    end
+end
+
