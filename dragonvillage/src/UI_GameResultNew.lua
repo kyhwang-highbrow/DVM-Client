@@ -44,9 +44,9 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     -- 스테이지를 클리어했을 경우 다음 스테이지 ID 지정
     if (is_success == true) then
         local stage_id = self.m_stageID
-        local next_stage_id = g_adventureData:getNextStageID(stage_id)
+        local next_stage_id = g_stageData:getNextStage(stage_id)
         if next_stage_id then
-            g_adventureData:setFocusStage(next_stage_id)
+            g_stageData:setFocusStage(next_stage_id)
         end
     end
 
@@ -506,9 +506,9 @@ end
 function UI_GameResultNew:click_nextBtn()
     -- 다음 스테이지 ID 지정
     local stage_id = self.m_stageID
-    local next_stage_id = g_adventureData:getNextStageID(stage_id)
+    local next_stage_id = g_stageData:getNextStage(stage_id)
     if next_stage_id then
-        g_adventureData:setFocusStage(next_stage_id)
+        g_stageData:setFocusStage(next_stage_id)
     end
 
     local scene = SceneAdventure()

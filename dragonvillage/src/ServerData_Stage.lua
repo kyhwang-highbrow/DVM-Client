@@ -87,3 +87,16 @@ function ServerData_Stage:getNextStage(stage_id)
 
     return ret
 end
+
+-------------------------------------
+-- function setFocusStage
+-------------------------------------
+function ServerData_Stage:setFocusStage(stage_id)
+    local game_mode = self:getGameMode(stage_id)
+
+    -- 모험 모드
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        g_adventureData:setFocusStage(stage_id)
+    end
+end
+

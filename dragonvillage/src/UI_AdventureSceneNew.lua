@@ -281,7 +281,7 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
 
     do -- 마지막에 진입한 스테이지 저장
         local stage_id = makeAdventureID(self.m_currDifficulty, chapter, stage)
-        g_adventureData:setFocusStage(stage_id)
+        g_stageData:setFocusStage(stage_id)
     end
 end
 
@@ -396,7 +396,7 @@ function UI_AdventureSceneNew:focusStageButton(idx, immediately, b_force)
 
     do -- 마지막에 진입한 스테이지 저장
         local stage_id = makeAdventureID(self.m_currDifficulty, self.m_currChapter, idx)
-        g_adventureData:setFocusStage(stage_id)
+        g_stageData:setFocusStage(stage_id)
     end
 end
 
