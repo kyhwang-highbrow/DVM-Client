@@ -53,3 +53,50 @@ function cca.reserveFunc(node, duration, func)
     local action = cc.Sequence:create(cc.DelayTime:create(duration), cc.CallFunc:create(func))
     node:runAction(action)
 end
+
+
+-------------------------------------
+-- function getRipple3D
+-------------------------------------
+function cca.getRipple3D(type, duration)
+    local type = type or 1
+	local length, wave, amp
+
+	if (type == 1) then 
+		length, wave, amp = 128, 16, 32
+	elseif (type == 2) then 
+		length, wave, amp = 128, 4, 32
+	elseif (type == 3) then 
+		length, wave, amp = 64, 16, 32
+	elseif (type == 4) then 
+		length, wave, amp = 16, 4, 64
+	elseif (type == 5) then 
+		length, wave, amp = 16, 2, 128
+	end
+
+	local scr_size = cc.Director:getInstance():getWinSize()
+    return cc.Ripple3D:create(duration, {width = length, height = length}, {x = scr_size.width/2, y = scr_size.height/2}, scr_size.width, wave, amp)
+end
+
+-------------------------------------
+-- function getShaky3D
+-- @strength 클수록 자글자글해진다
+-------------------------------------
+function cca.getShaky3D(strength, duration)
+	local strength = strength or 3
+	local length, range
+	
+	if (strength == 1) then
+		length, range = 8, 4 
+	elseif (strength == 2) then 
+		length, range = 16, 8
+	elseif (strength == 3) then 
+		length, range = 32, 16 
+	elseif (strength == 4) then 
+		length, range = 64, 32
+	elseif (strength == 5) then 
+		length, range = 128, 64
+	end
+
+    return cc.Shaky3D:create(duration, {width = length, height = length}, range, false)
+end
