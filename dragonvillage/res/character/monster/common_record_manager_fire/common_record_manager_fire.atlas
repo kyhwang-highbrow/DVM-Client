@@ -1,13 +1,13 @@
 
 common_record_manager_fire.png
-size: 128,128
+size: 256,256
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 common_record_manager_fire_00
   rotate: false
   xy: 2, 2
-  size: 112, 112
-  orig: 112, 112
+  size: 167, 157
+  orig: 167, 157
   offset: 0, 0
   index: -1
