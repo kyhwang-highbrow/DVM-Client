@@ -142,6 +142,24 @@ function AnimatorSpine:getEventList(animation_name, event_name)
 end
 
 -------------------------------------
+-- function getSlotList
+-------------------------------------
+function AnimatorSpine:getSlotList()
+    local node = self.m_node
+
+    local content = node:getSlotNameListLuaTable()
+    local data = loadstring('return ' .. content)()
+
+    local ret_data = {}
+    for i,v in ipairs(data) do
+        local name = v['name']
+        table.insert(ret_data, name)
+    end
+
+    return ret_data
+end
+
+-------------------------------------
 -- function getDuration
 -------------------------------------
 function AnimatorSpine:getDuration()

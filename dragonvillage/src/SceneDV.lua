@@ -139,7 +139,7 @@ function SceneDV:onKeyReleased(keyCode, event)
 		end
 		self.m_lSpineAni = {}
 
-    elseif keyCode == KEY_T then
+    elseif keyCode == KEY_1 then
 		local animator = MakeAnimator('res/character/monster/boss_gdragon_fire/boss_gdragon_head_fire.json')
         animator:setPosition(400, 200)
 		self.m_scene:addChild(animator.m_node)
@@ -148,6 +148,26 @@ function SceneDV:onKeyReleased(keyCode, event)
 
         local shader = ShaderCache:getShader(SHADER_CHARACTER_DAMAGED)
         animator.m_node:setGLProgram(shader)
+
+        local slotList = animator:getSlotList()
+        cclog('slotList = ' .. luadump(slotList))
+
+        animator.m_node:setSlotGLProgramName('boss_gdragon_fire_eff_01', cc.SHADER_POSITION_TEXTURE_COLOR)
+
+    elseif keyCode == KEY_2 then
+		local animator = MakeAnimator('res/character/monster/boss_drake_water/boss_drake_water.json')
+        animator:setPosition(400, 200)
+		self.m_scene:addChild(animator.m_node)
+
+        animator:changeAni('skill_3', true)
+
+        local shader = ShaderCache:getShader(SHADER_CHARACTER_DAMAGED)
+        animator.m_node:setGLProgram(shader)
+
+        for i = 1, 11 do
+            animator.m_node:setSlotGLProgramName(string.format('boss_drake_water_effect_%02d', i), cc.SHADER_POSITION_TEXTURE_COLOR)
+        end
+        animator.m_node:setSlotGLProgramName('boss_drake_water_effect_9', cc.SHADER_POSITION_TEXTURE_COLOR)
 	end
 end
 

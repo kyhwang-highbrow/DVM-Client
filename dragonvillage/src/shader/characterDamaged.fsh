@@ -13,7 +13,11 @@ void main()
 	
 	if (alpha > 0.0)
 	{
-		result = vec4(1.0, 1.0, 1.0, alpha);
+		color.r = color.r + ((1.0 - color.r) * 0.7);
+		color.g = color.g + ((1.0 - color.g) * 0.7);
+		color.b = color.b + ((1.0 - color.b) * 0.7);
+		
+		result = vec4(color.r, color.g, color.b, alpha);
 	}
 
     gl_FragColor = vec4(result.r, result.g, result.b, alpha);
