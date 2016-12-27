@@ -22,7 +22,7 @@ end
 function Monster_GiantDragon:initAnimatorMonster(file_name, attr)
     PARENT.initAnimatorMonster(self, file_name, attr)
 
-    self.m_animator.m_node:setSlotGLProgramName('boss_gdragon_fire_eff_01', cc.SHADER_POSITION_TEXTURE_COLOR)
+    --self.m_animator.m_node:setSlotGLProgramNamea('boss_gdragon_fire_eff_01', cc.SHADER_POSITION_TEXTURE_COLOR)
 end
 
 -------------------------------------
