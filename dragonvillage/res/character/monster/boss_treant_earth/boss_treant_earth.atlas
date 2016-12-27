@@ -7,7 +7,7 @@ repeat: none
 boss_treant_earth_01
   rotate: false
   xy: 2, 2
-  size: 1280, 1482
-  orig: 1280, 1482
+  size: 1280, 1623
+  orig: 1280, 1623
   offset: 0, 0
   index: -1
