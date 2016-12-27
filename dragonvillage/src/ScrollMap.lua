@@ -55,10 +55,10 @@ function ScrollMap:bindEventDispatcher(eventDispather)
 end
 
 -------------------------------------
--- function setFloating
+-- function setDirecting
 -- @breif 배경 백판 연출 설정
 -------------------------------------
-function ScrollMap:setFloating(type)
+function ScrollMap:setDirecting(type)
     self.m_bgDirectingType = type
 
     local time = MAP_FLOATING_TIME / 4
@@ -98,17 +98,27 @@ function ScrollMap:setFloating(type)
 			cc.DelayTime:create(duration*100000)
         )
 		
+		-- 별도로 암전 효과 및 그레이스케일 적용
 		for _, map_layer in pairs(self.m_tMapLayer) do
 			for _, animator in pairs(map_layer.m_tAnimator) do
 				animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
 				animator.m_node:setCustomShader(6,0)
 			end
 		end
-		
+
+	elseif (type == 'burning') then
+		local duration = 0.001
+		sequence = cc.Sequence:create(
+			cca.getShaky3D(2, duration),
+			cc.DelayTime:create(duration*100000)
+        )
+
     end
 
     if sequence then
         self.m_node:runAction(cc.RepeatForever:create(sequence))
+	else
+		cclog('잘못된 배경 연출 타입입니다. ' .. type)
     end
 end
 
@@ -157,13 +167,23 @@ function ScrollMap:setBg(res)
                 local map_layer = ScrollMapLayer(self.m_node, type, data['res'], data['animation'], interval, real_offset_x, real_offset_y, scale, speed, group)
                 table.insert(self.m_tMapLayer, map_layer)
 
-                if type == 'horizontal' then
+				if type == 'horizontal' then
                     offset_x = offset_x + (data['width'] or 0)
                 elseif type == 'vertical' then
                     offset_y = offset_y + (data['height'] or 0)
                 end
+	
+				-- layer별 연출 처리								
+				if (v['directing']) then 
+					map_layer:setDirecting(v['directing'])
+				end
             end
         end
+
+		-- 연출 처리
+		if (script['directing']) then 
+			self:setDirecting(script['directing'])
+		end
     end
 end
 

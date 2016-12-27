@@ -305,7 +305,6 @@ function GameWorld:initBG()
             self.m_mapManager:setBg(bg)
             self.m_mapManager:setSpeed(-100)
             self.m_mapManager:bindCameraNode(g_gameScene.m_cameraLayer)
-		    self.m_mapManager:setFloating(bg_directing)
             self.m_mapManager:bindEventDispatcher(self)
         else
             error('bg_type : ' .. bg_type)

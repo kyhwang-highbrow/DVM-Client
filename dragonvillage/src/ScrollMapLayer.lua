@@ -2,7 +2,7 @@
 -- class ScrollMapLayer
 -------------------------------------
 ScrollMapLayer = class({
-        m_rootNode = 'cc.Node',
+        m_rootNode = 'cc.NodeGrid',
         m_type = 'string',          -- 'horizontal' or 'vertical'
         m_tAnimator = 'table',      -- 배경 랜더링에 필요한 Animator 테이블
         m_interval = 'number',      -- 배경 랜더링 간격
@@ -34,7 +34,7 @@ function ScrollMapLayer:init(parent, type, res, animation, interval, offset_x, o
     local visible_height = 1600
 
     -- 루트 노드 생성
-    self.m_rootNode = cc.Node:create()
+    self.m_rootNode = cc.NodeGrid:create()
     parent:addChild(self.m_rootNode)
 
     -- 스프라이트 생성
@@ -49,7 +49,7 @@ function ScrollMapLayer:init(parent, type, res, animation, interval, offset_x, o
     sprite:setScale(scale)
     self.m_rootNode:addChild(sprite)
     table.insert(self.m_tAnimator, animator)
-    
+
     if self.m_type == 'horizontal' then
         sprite:setPositionY(self.m_offsetY)
     elseif self.m_type == 'vertical' then
@@ -68,27 +68,50 @@ function ScrollMapLayer:init(parent, type, res, animation, interval, offset_x, o
         if count then
             for i = 2, count do
                 local animator = MakeAnimator(res)
-                if animation then
-                    animator:changeAni(animation, true)
-                end
+				if animation then
+					animator:changeAni(animation, true)
+				end
 
-                local sprite = animator.m_node
-                sprite:setDockPoint(cc.p(0.0, 0.5))
-                sprite:setAnchorPoint(cc.p(0.0, 0.5))
-                sprite:setScale(scale)
-                self.m_rootNode:addChild(sprite)
-                table.insert(self.m_tAnimator, animator)
+				local sprite = animator.m_node
+				sprite:setDockPoint(cc.p(0.0, 0.5))
+				sprite:setAnchorPoint(cc.p(0.0, 0.5))
+				sprite:setScale(scale)
+				self.m_rootNode:addChild(sprite)
+				table.insert(self.m_tAnimator, animator)
 
-                if self.m_type == 'horizontal' then
-                    sprite:setPositionY(self.m_offsetY)
-                elseif self.m_type == 'vertical' then
-                    sprite:setPositionX(self.m_offsetX)
-                end
+				if self.m_type == 'horizontal' then
+					sprite:setPositionY(self.m_offsetY)
+				elseif self.m_type == 'vertical' then
+					sprite:setPositionX(self.m_offsetX)
+				end
             end
         end
     end
 
     self:update(0, 0)
+end
+
+-------------------------------------
+-- function init_layer
+-------------------------------------
+function ScrollMapLayer:init_layer(res, scale)
+	local animator = MakeAnimator(res)
+	if animation then
+		animator:changeAni(animation, true)
+	end
+
+	local sprite = animator.m_node
+	sprite:setDockPoint(cc.p(0.0, 0.5))
+	sprite:setAnchorPoint(cc.p(0.0, 0.5))
+	sprite:setScale(scale)
+	self.m_rootNode:addChild(sprite)
+	table.insert(self.m_tAnimator, animator)
+
+	if self.m_type == 'horizontal' then
+		sprite:setPositionY(self.m_offsetY)
+	elseif self.m_type == 'vertical' then
+		sprite:setPositionX(self.m_offsetX)
+	end
 end
 
 -------------------------------------
@@ -141,4 +164,37 @@ end
 -------------------------------------
 function ScrollMapLayer:doAction(action)
     self.m_rootNode:runAction(action)
+end
+-------------------------------------
+-- function setDirecting
+-- @breif 배경 백판 연출 설정
+-------------------------------------
+function ScrollMapLayer:setDirecting(type)
+    local sequence
+	
+	if (type == 'nightmare') then 
+		local duration = 0.001
+		sequence = cc.Sequence:create(
+			cca.getShaky3D(3, duration),
+			cc.DelayTime:create(duration*100000)
+        )
+		
+		-- 별도로 암전 및 그레이스케일 효과 적용
+		for _, animator in pairs(self.m_tAnimator) do
+			animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
+			animator.m_node:setCustomShader(6,0)
+		end
+	elseif (type == 'burning') then
+		local duration = 0.001
+		sequence = cc.Sequence:create(
+			cca.getShaky3D(2, duration),
+			cc.DelayTime:create(duration*100000)
+        )
+    end
+
+    if sequence then
+        self.m_rootNode:runAction(cc.RepeatForever:create(sequence))
+	else
+		cclog('잘못된 배경 연출 타입입니다. ' .. type)
+    end
 end
