@@ -55,6 +55,7 @@ enum {
     kShaderType_CustomEmboss,
     kShaderType_CustomEraser,
     kShaderType_CustomDissolve,
+	kShaderType_CustomBlur,
     kShaderType_MAX,
 };
 
@@ -220,6 +221,9 @@ void GLProgramCache::loadDefaultGLPrograms()
     loadDefaultGLProgram(p, kShaderType_CustomDissolve);
     _programs.insert(std::make_pair(GLProgram::SHADER_NAME_CUSTOM_DISSOLVE, p));
 
+	p = new GLProgram();
+	loadDefaultGLProgram(p, kShaderType_CustomBlur);
+	_programs.insert(std::make_pair(GLProgram::SHADER_NAME_CUSTOM_BLUR, p));
 }
 
 void GLProgramCache::reloadDefaultGLPrograms()
@@ -333,6 +337,9 @@ void GLProgramCache::reloadDefaultGLPrograms()
     p->reset();
     loadDefaultGLProgram(p, kShaderType_CustomDissolve);
 
+	p = getGLProgram(GLProgram::SHADER_NAME_CUSTOM_BLUR);
+	p->reset();
+	loadDefaultGLProgram(p, kShaderType_CustomBlur);
 }
 
 void GLProgramCache::loadDefaultGLProgram(GLProgram *p, int type)
@@ -404,6 +411,9 @@ void GLProgramCache::loadDefaultGLProgram(GLProgram *p, int type)
         case kShaderType_CustomDissolve:
             p->initWithByteArrays(ccCustomDissolve_vert, ccCustomDissolve_frag);
             break;
+		case kShaderType_CustomBlur:
+			p->initWithByteArrays(ccPositionTextureColor_noMVP_vert, ccCustomBlur_frag);
+			break;
         default:
             CCLOG("cocos2d: %s:%d, error shader type", __FUNCTION__, __LINE__);
             return;

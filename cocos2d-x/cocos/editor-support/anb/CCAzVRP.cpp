@@ -1400,6 +1400,11 @@ void AzVRP::setCustomShader(int customShaderType, float arg)
         _customShader->setUniformTexture("u_colorRampTexture", texture->getName(), false);
         break;
 
+	case 5:
+		_customShader = GLProgramState::getOrCreateWithGLProgramName(GLProgram::SHADER_NAME_CUSTOM_BLUR);
+		_customShader->setUniformFloat("blurRadius", arg);
+		break;
+
     default:
         _customShader = GLProgramState::getOrCreateWithGLProgramName(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP);
         _customShaderType = 0;

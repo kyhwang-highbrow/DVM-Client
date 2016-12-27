@@ -78,6 +78,7 @@ const char* GLProgram::SHADER_NAME_CUSTOM_COLOR_RAMP = "ShaderCustomColorRamp";
 const char* GLProgram::SHADER_NAME_CUSTOM_EMBOSS = "ShaderCustomEmboss";
 const char* GLProgram::SHADER_NAME_CUSTOM_ERASER = "ShaderCustomEraser";
 const char* GLProgram::SHADER_NAME_CUSTOM_DISSOLVE = "ShaderCustomDissolve";
+const char* GLProgram::SHADER_NAME_CUSTOM_BLUR = "ShaderCustomBlur";
 
 
 // uniform names

@@ -81,6 +81,7 @@ extern CC_DLL const GLchar * ccCustomEraser_vert;
 extern CC_DLL const GLchar * ccCustomEraser_frag;
 extern CC_DLL const GLchar * ccCustomDissolve_vert;
 extern CC_DLL const GLchar * ccCustomDissolve_frag;
+extern CC_DLL const GLchar * ccCustomBlur_frag;
 // end of shaders group
 /// @}
 
