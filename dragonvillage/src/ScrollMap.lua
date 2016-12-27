@@ -16,6 +16,7 @@ ScrollMap = class(MapManager, IEventListener:getCloneTable(), {
         m_colorScale = '',
 
         m_bgDirectingType = 'number',
+		m_shakyType = 'number'
     })
 
 -------------------------------------
@@ -34,7 +35,8 @@ function ScrollMap:init(node)
 
     self.m_colorScale = 100
 
-    self.m_bgDirectingType = 0
+    self.m_bgDirectingType = 'floating_1'
+	self.m_shakyType = 3
 end
 
 -------------------------------------
@@ -94,8 +96,8 @@ function ScrollMap:setDirecting(type)
 	elseif (self.m_bgDirectingType == 'nightmare') then 
 		local duration = 0.001
 		sequence = cc.Sequence:create(
-			cca.getShaky3D(3, duration),
-			cc.DelayTime:create(duration*100000)
+			cca.getShaky3D(self.m_shakyType, duration),
+			cc.DelayTime:create(1024)
         )
 		
 		-- 별도로 암전 효과 및 그레이스케일 적용

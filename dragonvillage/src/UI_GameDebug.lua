@@ -118,20 +118,21 @@ function UI_GameDebug:makeTableView()
     self.vars['bgNode']:addChild(node)
 
     -- 셀 추가
-    node:setCellInfo(1, cc.size(260, 100))
+	local size_width, size_height = 260, 50 
+    node:setCellInfo(1, cc.size(size_width, size_height))
     node:setItemInfo({}, function(tParam)
 
         local cell_node = cc.Node:create()
-        cell_node:setNormalSize(260, 100)
+        cell_node:setNormalSize(size_width, size_height)
         cell_node:setPosition(0, 0)
         tParam.cell:addChild(cell_node)
 
         local cell_menu = cc.Menu:create()
         cell_menu:setDockPoint(cc.p(0.5, 0.5))
         cell_menu:setAnchorPoint(cc.p(0.5, 0.5))
-        cell_menu:setNormalSize(260, 100)
+        cell_menu:setNormalSize(size_width, size_height)
         cell_menu:setPosition(0, 0)
-        cell_menu:setSwallowTouch(false)
+        cell_menu:setSwallowTouch(true)
         cell_node:addChild(cell_menu)
 
         local item = tParam['item']
@@ -206,47 +207,6 @@ function UI_GameDebug:makeTableView()
         table.insert(item_info, item)
     end
 
-    do -- 화면 크기
-        local item = {}
-        item['cb1'] = UI_GameDebug.worldScaleButton
-        item['cb2'] = UI_GameDebug.worldScaleButton
-        --item['str'] = Str('월드 크기 X 1')
-
-        item['cb'] = function()
-            local cb = function(scale)
-                if item['label'] then
-                    item['label']:setString(Str('월드 크기 X ' .. tostring(scale)))
-                end
-            end
-
-            g_gameScene.m_gameWorld:addWorldScaleChangeCB(self, cb)
-        end
-
-        table.insert(item_info, item)
-    end
-
-    do -- 화면 밝기
-        if g_gameScene.m_gameWorld.m_mapManager then
-            local item = {}
-            item['cb1'] = UI_GameDebug.brightnessButton
-            item['cb2'] = UI_GameDebug.brightnessButton  
-            item['str'] = '배경 밝기 ' .. g_gameScene.m_gameWorld.m_mapManager.m_colorScale .. ' %'
-
-            table.insert(item_info, item)
-        end
-    end
-
-    do -- Time Sacle
-        if g_gameScene.m_gameWorld.m_gameTimeScale then
-            local item = {}
-            item['cb1'] = UI_GameDebug.timeScaleButton
-            item['cb2'] = UI_GameDebug.timeScaleButton
-            item['str'] = '게임 배속 X ' .. g_gameScene.m_gameWorld.m_gameTimeScale:getBase()
-
-            table.insert(item_info, item)
-        end
-    end
-
     do -- 저사양모드
         local item = {}
         item['cb1'] = UI_GameDebug.lowEndModeButton
@@ -302,6 +262,56 @@ function UI_GameDebug:makeTableView()
         else
             item['str'] = Str('Memory OFF')
         end
+
+        table.insert(item_info, item)
+    end
+	
+    do -- 화면 크기
+        local item = {}
+        item['cb1'] = UI_GameDebug.worldScaleButton
+        item['cb2'] = UI_GameDebug.worldScaleButton
+        --item['str'] = Str('월드 크기 X 1')
+
+        item['cb'] = function()
+            local cb = function(scale)
+                if item['label'] then
+                    item['label']:setString(Str('월드 크기 X ' .. tostring(scale)))
+                end
+            end
+
+            g_gameScene.m_gameWorld:addWorldScaleChangeCB(self, cb)
+        end
+
+        table.insert(item_info, item)
+    end
+
+    do -- 화면 밝기
+        if g_gameScene.m_gameWorld.m_mapManager then
+            local item = {}
+            item['cb1'] = UI_GameDebug.brightnessButton
+            item['cb2'] = UI_GameDebug.brightnessButton  
+            item['str'] = '배경 밝기 ' .. g_gameScene.m_gameWorld.m_mapManager.m_colorScale .. ' %'
+
+            table.insert(item_info, item)
+        end
+    end
+
+    do -- Time Sacle
+        if g_gameScene.m_gameWorld.m_gameTimeScale then
+            local item = {}
+            item['cb1'] = UI_GameDebug.timeScaleButton
+            item['cb2'] = UI_GameDebug.timeScaleButton
+            item['str'] = '게임 배속 X ' .. g_gameScene.m_gameWorld.m_gameTimeScale:getBase()
+
+            table.insert(item_info, item)
+        end
+    end
+
+	do -- BG effect change
+        local item = {}
+        item['cb1'] = UI_GameDebug.nigthmareBgButton
+        item['cb2'] = UI_GameDebug.nigthmareBgButton
+		item['str'] = '악몽던전 배경효과 : ' .. g_gameScene.m_gameWorld.m_mapManager.m_shakyType
 
         table.insert(item_info, item)
     end
@@ -366,6 +376,31 @@ function UI_GameDebug.timeScaleButton(self, item, idx)
     g_gameScene.m_gameWorld.m_gameTimeScale:setBase(scale)
 
     item['label']:setString('게임 배속 X ' .. scale)
+end
+
+-------------------------------------
+-- function nigthmareBgButton
+-------------------------------------
+function UI_GameDebug.nigthmareBgButton(self, item, idx)
+    local add_value = nil
+    if (idx == 1) then
+        add_value = 1
+    elseif (idx == 2) then
+        add_value = -1
+    end
+
+    local type = g_gameScene.m_gameWorld.m_mapManager.m_shakyType + add_value
+
+	if (type > 5) then
+		type = 1
+	elseif (type < 1) then
+		type = 5
+	end
+	g_gameScene.m_gameWorld.m_mapManager.m_shakyType = type
+	g_gameScene.m_gameWorld.m_mapManager.m_node:stopAllActions()
+    g_gameScene.m_gameWorld.m_mapManager:setDirecting('nightmare')
+
+    item['label']:setString('악몽던전 배경효과 : ' .. type)
 end
 
 -------------------------------------
