@@ -78,6 +78,11 @@ public:
 	void setBonesToSetupPose ();
 	void setSlotsToSetupPose ();
 
+    /* For slot-specific shader application */
+    const char* getSlotGLProgramName(const std::string& glProgramName) const;
+    void setSlotGLProgramName(const std::string& slotName, const std::string& glProgramName);
+    std::string getSlotNameListLuaTable();
+
 	/* Returns 0 if the bone was not found. */
 	spBone* findBone (const std::string& boneName) const;
 	/* Returns 0 if the slot was not found. */
@@ -137,6 +142,9 @@ protected:
 	bool _debugBones;
     bool m_bIgnoreLowEndMode;
     static bool s_bLowEndMode;
+        
+    /* For slot-specific shader application */
+    std::unordered_map<std::string, std::string> m_mapGLProgramName;
 };
 
 }

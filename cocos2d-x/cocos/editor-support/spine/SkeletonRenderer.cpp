@@ -71,7 +71,7 @@ void SkeletonRenderer::initialize () {
 	_blendFunc = BlendFunc::ALPHA_PREMULTIPLIED;
 	setOpacityModifyRGB(true);
 
-	setGLProgram(ShaderCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR));
+    setGLProgram(ShaderCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR));
 }
 
 void SkeletonRenderer::setSkeletonData (spSkeletonData *skeletonData, bool ownsSkeletonData) {
@@ -152,6 +152,8 @@ void SkeletonRenderer::draw(Renderer* renderer, const Mat4& transform, bool tran
 
 void SkeletonRenderer::drawSkeleton(const Mat4 &transform, bool transformFlags) {
 	getGLProgramState()->apply(transform);
+    GLProgram *baseGlProgram = getGLProgramState()->getGLProgram();
+    GLProgram *curGlProgram = nullptr;
 
 	Color3B nodeColor = getColor();
 	_skeleton->r = nodeColor.r / (float)255;
@@ -166,9 +168,33 @@ void SkeletonRenderer::drawSkeleton(const Mat4 &transform, bool transformFlags) 
 	const int* triangles = nullptr;
 	int trianglesCount = 0;
 	float r = 0, g = 0, b = 0, a = 0;
-	for (int i = 0, n = _skeleton->slotsCount; i < n; i++) {
-		spSlot* slot = _skeleton->drawOrder[i];
-		if (!slot->attachment) continue;
+
+    for (int i = 0, n = _skeleton->slotsCount; i < n; i++) {
+        spSlot* slot = _skeleton->drawOrder[i];
+        if (!slot->attachment) continue;
+
+        // For slot-specific shader application
+        const char* slotGlProgramName = getSlotGLProgramName(std::string(slot->data->name));
+        if (slotGlProgramName) {
+            GLProgram* slotGlProgram = ShaderCache::getInstance()->getGLProgram(std::string(slotGlProgramName));
+            if (slotGlProgram) {
+                if (slotGlProgram != curGlProgram) {
+                    _batch->flush();
+
+                    curGlProgram = slotGlProgram;
+
+                    setGLProgram(slotGlProgram);
+                    getGLProgramState()->apply(transform);
+                }
+            }
+        }
+        else if (curGlProgram) {
+            _batch->flush();
+            setGLProgram(baseGlProgram);
+            curGlProgram = nullptr;
+        }
+        //
+        
 		Texture2D *texture = nullptr;
 		switch (slot->attachment->type) {
 		case SP_ATTACHMENT_REGION: {
@@ -219,9 +245,10 @@ void SkeletonRenderer::drawSkeleton(const Mat4 &transform, bool transformFlags) 
 		if (texture) {
             if ((m_bIgnoreLowEndMode == true) || (s_bLowEndMode == false) || (slot->data->blendMode == SP_BLEND_MODE_NORMAL))
             {
-			    if (slot->data->blendMode != blendMode) {
+                if (slot->data->blendMode != blendMode) {
 				    _batch->flush();
-				    blendMode = slot->data->blendMode;
+
+                    blendMode = slot->data->blendMode;
 				    switch (slot->data->blendMode) {
 				    case SP_BLEND_MODE_ADDITIVE:
 					    GL::blendFunc(_premultipliedAlpha ? GL_ONE : GL_SRC_ALPHA, GL_ONE);
@@ -357,6 +384,37 @@ void SkeletonRenderer::setBonesToSetupPose () {
 }
 void SkeletonRenderer::setSlotsToSetupPose () {
 	spSkeleton_setSlotsToSetupPose(_skeleton);
+}
+
+const char* SkeletonRenderer::getSlotGLProgramName(const std::string& glProgramName) const
+{
+    auto it = m_mapGLProgramName.find(glProgramName);
+    if (it != m_mapGLProgramName.end())
+        return it->second.c_str();
+    return nullptr;
+}
+
+void SkeletonRenderer::setSlotGLProgramName(const std::string& slotName, const std::string& glProgramName)
+{
+    m_mapGLProgramName.insert(std::make_pair(slotName, glProgramName));
+}
+
+std::string SkeletonRenderer::getSlotNameListLuaTable()
+{
+    std::stringstream s;
+
+    s << "{" << std::endl;
+    std::string name;
+
+    for (int i = 0; i < _skeleton->slotsCount; ++i) {
+        spSlot* slot = _skeleton->slots[i];
+
+        s << "[" << i + 1 << "] = { name = '" << slot->data->name << "'; };" << std::endl;
+    }
+
+    s << "}" << std::endl;
+
+    return s.str();
 }
 
 spBone* SkeletonRenderer::findBone (const std::string& boneName) const {

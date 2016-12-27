@@ -950,6 +950,109 @@ int lua_cocos2dx_spine_SkeletonRenderer_createWithFile(lua_State* tolua_S)
 #endif
     return 0;
 }
+int lua_cocos2dx_spine_SkeletonRenderer_setSlotGLProgramName(lua_State* tolua_S)
+{
+    int argc = 0;
+    spine::SkeletonRenderer* cobj = nullptr;
+    bool ok = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S, 1, "sp.SkeletonRenderer", 0, &tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (spine::SkeletonRenderer*)tolua_tousertype(tolua_S, 1, 0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj)
+    {
+        tolua_error(tolua_S, "invalid 'cobj' in function 'lua_cocos2dx_spine_SkeletonRenderer_setSlotGLProgramName'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+    if (argc == 2)
+    {
+        std::string arg0;
+        ok &= luaval_to_std_string(tolua_S, 2, &arg0);
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_spine_SkeletonRenderer_setSlotGLProgramKey'", nullptr);
+            return 0;
+        }
+        std::string arg1;
+        ok &= luaval_to_std_string(tolua_S, 3, &arg1);
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_spine_SkeletonRenderer_setSlotGLProgramKey'", nullptr);
+            return 0;
+        }
+        
+        cobj->setSlotGLProgramName(arg0, arg1);
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "sp.SkeletonRenderer:setSlotGLProgramKey", argc, 2);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+tolua_lerror:
+    tolua_error(tolua_S, "#ferror in function 'lua_cocos2dx_spine_SkeletonRenderer_setSlotGLProgramName'.", &tolua_err);
+#endif
+
+    return 0;
+}
+
+int lua_cocos2dx_spine_SkeletonRenderer_getSlotNameListLuaTable(lua_State* tolua_S)
+{
+    int argc = 0;
+    spine::SkeletonRenderer* cobj = nullptr;
+    bool ok = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S, 1, "sp.SkeletonRenderer", 0, &tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (spine::SkeletonRenderer*)tolua_tousertype(tolua_S, 1, 0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj)
+    {
+        tolua_error(tolua_S, "invalid 'cobj' in function 'lua_cocos2dx_spine_SkeletonRenderer_getSlotNameListLuaTable'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+    if (argc == 0)
+    {
+        if (!ok)
+            return 0;
+        std::string ret = cobj->getSlotNameListLuaTable();
+        tolua_pushcppstring(tolua_S, ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getSlotNameListLuaTable", argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+tolua_lerror:
+    tolua_error(tolua_S, "#ferror in function 'lua_cocos2dx_spine_SkeletonRenderer_getSlotNameListLuaTable'.", &tolua_err);
+#endif
+
+    return 0;
+}
+
 int lua_cocos2dx_spine_SkeletonRenderer_constructor(lua_State* tolua_S)
 {
     int argc = 0;
@@ -1133,6 +1236,8 @@ int lua_register_cocos2dx_spine_SkeletonRenderer(lua_State* tolua_S)
         tolua_function(tolua_S,"setSkin",lua_cocos2dx_spine_SkeletonRenderer_setSkin);
         tolua_function(tolua_S,"getSkeleton",lua_cocos2dx_spine_SkeletonRenderer_getSkeleton);
         tolua_function(tolua_S,"createWithFile", lua_cocos2dx_spine_SkeletonRenderer_createWithFile);
+        tolua_function(tolua_S, "setSlotGLProgramName", lua_cocos2dx_spine_SkeletonRenderer_setSlotGLProgramName);
+        tolua_function(tolua_S, "getSlotNameListLuaTable", lua_cocos2dx_spine_SkeletonRenderer_getSlotNameListLuaTable);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(spine::SkeletonRenderer).name();
     g_luaType[typeName] = "sp.SkeletonRenderer";
