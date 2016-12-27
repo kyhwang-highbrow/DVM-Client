@@ -1,6 +1,6 @@
 {
     "init_cfg": {
-        "appVer": "0.0.6",
+        "appVer": "0.0.7",
         "name": "Galaxy S5 - 16:9 (1280x720)",
         "width": 1280,
         "height": 720,
@@ -11,7 +11,7 @@
         "isTestMode": true,
         "usePatch": true,
         "useLuaExtension": false,
-        "entry": "entry_patch.lua"
+        "entry": "entry_main.lua"
     },
     "gcsdk_login": {
         "localPlayerID_EVA" : "G:8455620284",

@@ -1,0 +1,13 @@
+
+elite_light_orb_light.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_light_orb_light_00
+  rotate: false
+  xy: 2, 2
+  size: 360, 292
+  orig: 360, 292
+  offset: 0, 0
+  index: -1
