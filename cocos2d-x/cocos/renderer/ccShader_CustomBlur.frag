@@ -7,7 +7,7 @@ precision mediump float;
 varying vec4 v_fragmentColor;
 varying vec2 v_texCoord;
 
-uniform float blurRadius = 2.0;
+uniform float blurRadius;
 
 const vec2 resolution = vec2(100, 100);
 const float sampleNum = 5.0;
