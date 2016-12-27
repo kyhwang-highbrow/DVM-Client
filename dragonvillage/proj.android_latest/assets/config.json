@@ -11,7 +11,7 @@
         "isTestMode": true,
         "usePatch": true,
         "useLuaExtension": false,
-        "entry": "entry_main.lua"
+        "entry": "entry_patch.lua"
     },
     "gcsdk_login": {
         "localPlayerID_EVA" : "G:8455620284",
