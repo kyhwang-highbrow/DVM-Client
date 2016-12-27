@@ -169,11 +169,18 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 
             self.m_gameState = GameState_NestDungeon_Dragon(self)
 
+		elseif (dungeonMode == NEST_DUNGEON_NIGHTMARE) then
+		    self.m_gameCamera:setRange({minY = -300, maxY = 300})
+
+			self.m_gameState = GameState(self)
+
         elseif (dungeonMode == NEST_DUNGEON_TREE) then
             self.m_gameCamera:setRange({minX = -300, maxX = 300})
 
             self.m_gameState = GameState_NestDungeon_Tree(self)
 
+		else
+			error('네스트 던전 아이디가 잘못되어있습니다. 확인해주세요. ' .. self.m_stageID)
         end
 
     elseif (self.m_gameMode == GAME_MODE_COLOSSEUM) then
