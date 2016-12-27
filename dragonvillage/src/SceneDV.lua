@@ -5,6 +5,7 @@ DV_SCENE_ACTIVE = false
 -------------------------------------
 SceneDV = class(PerpleScene, {
 		m_lSpineAni = {},
+		m_gridNode = 'nodeGrid',
     })
 
 -------------------------------------
@@ -13,6 +14,8 @@ SceneDV = class(PerpleScene, {
 function SceneDV:init()
     self.m_bShowTopUserInfo = false
 	self.m_lSpineAni = {}
+	self.m_gridNode = cc.NodeGrid:create()
+	self.m_scene:addChild(self.m_gridNode)
 end
 
 -------------------------------------
@@ -97,7 +100,7 @@ function SceneDV:setAni(res_name, x, y)
 	local ani = MakeAnimator(res_name)
 	ani:setPosition(x, y)
 	table.insert(self.m_lSpineAni, ani)
-	self.m_scene:addChild(ani.m_node)
+	self.m_gridNode:addChild(ani.m_node)
 end
 
 -------------------------------------
@@ -127,8 +130,9 @@ function SceneDV:onKeyReleased(keyCode, event)
 	elseif keyCode == KEY_W then
 		self:shaderTest_blur()
 	elseif keyCode == KEY_E then
-		self:shaderTest_a2d()
-
+		self:shaderTest_gray()
+	elseif keyCode == KEY_P then 
+		self:effect3DTest()
 	elseif keyCode == KEY_F then
 		for i, v in pairs(self.m_lSpineAni) do
 			v:release()
@@ -269,12 +273,22 @@ end
 -- function shaderTest_blur
 -------------------------------------
 function SceneDV:shaderTest_blur()
-	local shader = ShaderCache:getShader(SHADER_MAP_BLUR)
+	local shader = ShaderCache:getShader(SHADER_BLUR)
 	for i, ani in pairs(self.m_lSpineAni) do 
 		ani.m_node:setGLProgram(shader)
 		ani.m_node:getGLProgramState():setUniformVec2('resolution', cc.p(100, 100))
 		ani.m_node:getGLProgramState():setUniformFloat('blurRadius', 2.0)
 		ani.m_node:getGLProgramState():setUniformFloat('sampleNum', 5.0)
+	end
+end
+
+-------------------------------------
+-- function shaderTest_sample
+-------------------------------------
+function SceneDV:shaderTest_gray()
+	local shader = ShaderCache:getShader(SHADER_GRAY)
+	for i, ani in pairs(self.m_lSpineAni) do 
+		ani.m_node:setGLProgram(shader)
 	end
 end
 
@@ -287,4 +301,14 @@ function SceneDV:shaderTest_a2d()
 			ani.m_node:setCustomShader(5,2)
 		end
 	end
+end
+
+-------------------------------------
+-- function effect3DTest
+-------------------------------------
+function SceneDV:effect3DTest()
+	local scr_size = cc.Director:getInstance():getWinSize()
+	--local action = cc.Ripple3D:create(3, {width = 32, height = 24}, scr_size, 200, 4, 160)
+	local action = cc.Shaky3D:create(3, {width = 10, height = 10}, 5, false)
+	self.m_gridNode:runAction(action)
 end

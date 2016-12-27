@@ -1,7 +1,8 @@
 ShaderCache = {}
 
 SHADER_CHARACTER_DAMAGED = 'character_damaged'
-SHADER_MAP_BLUR = 'shader_blur'
+SHADER_BLUR = 'shader_blur'
+SHADER_GRAY = 'shader_gray'
 
 POSITION_TEXTURE_COLOR_NO_MVP_VERTEX = 'shader/position_texture_color_noMvp_vertex.vsh'
 
@@ -10,8 +11,9 @@ POSITION_TEXTURE_COLOR_NO_MVP_VERTEX = 'shader/position_texture_color_noMvp_vert
 -------------------------------------
 function ShaderCache:init()
     -- 커스텀 쉐이더 등록
-	self:addShader(SHADER_MAP_BLUR, POSITION_TEXTURE_COLOR_NO_MVP_VERTEX, 'shader/shaderBlur.fsh')
+	self:addShader(SHADER_BLUR, POSITION_TEXTURE_COLOR_NO_MVP_VERTEX, 'shader/shaderBlur.fsh')
     self:addShader(SHADER_CHARACTER_DAMAGED, POSITION_TEXTURE_COLOR_NO_MVP_VERTEX, 'shader/characterDamaged.fsh')
+	self:addShader(SHADER_GRAY, POSITION_TEXTURE_COLOR_NO_MVP_VERTEX, 'shader/gray.fsh')
 end
 
 -------------------------------------

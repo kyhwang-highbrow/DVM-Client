@@ -15,14 +15,14 @@ ScrollMap = class(MapManager, IEventListener:getCloneTable(), {
 
         m_colorScale = '',
 
-        m_floatingType = 'number',
+        m_bgDirectingType = 'number',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function ScrollMap:init(node)
-    self.m_node = cc.Node:create()
+    self.m_node = cc.NodeGrid:create()
     self.m_parentNode:addChild(self.m_node)
     self.m_speed = 0
     self.m_totalMove = 0
@@ -34,7 +34,7 @@ function ScrollMap:init(node)
 
     self.m_colorScale = 100
 
-    self.m_floatingType = 0
+    self.m_bgDirectingType = 0
 end
 
 -------------------------------------
@@ -59,12 +59,12 @@ end
 -- @breif 배경 백판 연출 설정
 -------------------------------------
 function ScrollMap:setFloating(type)
-    self.m_floatingType = type
+    self.m_bgDirectingType = type
 
     local time = MAP_FLOATING_TIME / 4
     local sequence
-
-    if self.m_floatingType == 1 then
+	
+    if (self.m_bgDirectingType == 'floating_1') then
         -- 위아래 흔들림
         sequence = cc.Sequence:create(
             cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, MAP_FLOATING_Y_SCOPE)), 2),
@@ -74,7 +74,7 @@ function ScrollMap:setFloating(type)
         )
         
 
-    elseif self.m_floatingType == 2 then
+    elseif (self.m_bgDirectingType == 'floating_2') then
         -- 회전 쏠림
         local move_action = cc.Sequence:create(
             cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, MAP_FLOATING_Y_SCOPE)), 2),
@@ -90,6 +90,21 @@ function ScrollMap:setFloating(type)
         )
         
         sequence = cc.Spawn:create(move_action, rotate_action)
+
+	elseif (self.m_bgDirectingType == 'nightmare') then 
+		local duration = 0.001
+		sequence = cc.Sequence:create(
+			cca.getShaky3D(3, duration),
+			cc.DelayTime:create(duration*100000)
+        )
+		
+		for _, map_layer in pairs(self.m_tMapLayer) do
+			for _, animator in pairs(map_layer.m_tAnimator) do
+				animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
+				animator.m_node:setCustomShader(6,0)
+			end
+		end
+		
     end
 
     if sequence then

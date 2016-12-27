@@ -100,3 +100,27 @@ function cca.getShaky3D(strength, duration)
 
     return cc.Shaky3D:create(duration, {width = length, height = length}, range, false)
 end
+
+-------------------------------------
+-- function repeatTintTo
+-------------------------------------
+function cca.repeatTintTo(duration, tar_r, tar_g, tar_b)
+	return cc.RepeatForever:create(
+		cc.Sequence:create(
+			cc.TintTo:create(duration, tar_r, tar_g, tar_b),
+			cc.TintTo:create(duration-1, 255, 255, 255)
+		)
+	)
+end
+
+-------------------------------------
+-- function repeatTintToMoreDark
+-------------------------------------
+function cca.repeatTintToMoreDark(duration, tar_r, tar_g, tar_b)
+	return cc.RepeatForever:create(
+		cc.Sequence:create(
+			cc.TintTo:create(duration, tar_r, tar_g, tar_b),
+			cc.TintTo:create(duration-1, 200, 200, 200)
+		)
+	)
+end

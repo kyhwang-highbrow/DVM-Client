@@ -295,6 +295,7 @@ function GameWorld:initBG()
 
         local bg = t_script_data['bg']
         local bg_type = t_script_data['bg_type'] or 'default'
+		local bg_directing = t_script_data['bg_directing'] or 'floating_1'
 
         if (bg_type == 'animation') then
             self.m_mapManager = AnimationMap(self.m_bgNode, bg)
@@ -304,21 +305,10 @@ function GameWorld:initBG()
             self.m_mapManager:setBg(bg)
             self.m_mapManager:setSpeed(-100)
             self.m_mapManager:bindCameraNode(g_gameScene.m_cameraLayer)
-
-            -- 스테이지별 배경 연출 설정(차후 스크립트에서 설정하도록 해야할듯...)
-            do
-                local difficulty, chapter, stage = parseAdventureID(self.m_stageID)
-                if (chapter == 2 and g_gameScene:isAdventureMode()) then
-                    self.m_mapManager:setFloating(2)
-                else
-                    self.m_mapManager:setFloating(1)
-                end
-
-                self.m_mapManager:bindEventDispatcher(self)
-            end
+		    self.m_mapManager:setFloating(bg_directing)
+            self.m_mapManager:bindEventDispatcher(self)
         else
             error('bg_type : ' .. bg_type)
-
         end
     --end
 end

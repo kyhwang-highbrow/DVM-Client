@@ -281,6 +281,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ResPreloadMgr.lua" />
     <None Include="..\src\ResPreloadHelper.lua" />
     <None Include="..\src\shader\characterDamaged.fsh" />
+    <None Include="..\src\shader\gray.fsh" />
     <None Include="..\src\shader\position_texture_color_noMvp_vertex.vsh" />
     <None Include="..\src\shader\shaderBlur.fsh" />
     <None Include="..\src\ShakeManager.lua" />

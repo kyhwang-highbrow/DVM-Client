@@ -1111,6 +1111,9 @@
     <None Include="..\src\UI_NestDungeonStageListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\shader\gray.fsh">
+      <Filter>shader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
