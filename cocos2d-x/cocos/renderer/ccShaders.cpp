@@ -85,5 +85,6 @@ NS_CC_BEGIN
 #include "ccShader_CustomDissolve.vert"
 #include "ccShader_CustomDissolve.frag"
 #include "ccShader_CustomBlur.frag"
+#include "ccShader_CustomGray.frag"
 
 NS_CC_END

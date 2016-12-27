@@ -56,6 +56,7 @@ enum {
     kShaderType_CustomEraser,
     kShaderType_CustomDissolve,
 	kShaderType_CustomBlur,
+	kShaderType_CustomGray,
     kShaderType_MAX,
 };
 
@@ -224,6 +225,10 @@ void GLProgramCache::loadDefaultGLPrograms()
 	p = new GLProgram();
 	loadDefaultGLProgram(p, kShaderType_CustomBlur);
 	_programs.insert(std::make_pair(GLProgram::SHADER_NAME_CUSTOM_BLUR, p));
+
+	p = new GLProgram();
+	loadDefaultGLProgram(p, kShaderType_CustomGray);
+	_programs.insert(std::make_pair(GLProgram::SHADER_NAME_CUSTOM_GRAY, p));
 }
 
 void GLProgramCache::reloadDefaultGLPrograms()
@@ -340,6 +345,10 @@ void GLProgramCache::reloadDefaultGLPrograms()
 	p = getGLProgram(GLProgram::SHADER_NAME_CUSTOM_BLUR);
 	p->reset();
 	loadDefaultGLProgram(p, kShaderType_CustomBlur);
+
+	p = getGLProgram(GLProgram::SHADER_NAME_CUSTOM_GRAY);
+	p->reset();
+	loadDefaultGLProgram(p, kShaderType_CustomGray);
 }
 
 void GLProgramCache::loadDefaultGLProgram(GLProgram *p, int type)
@@ -413,6 +422,9 @@ void GLProgramCache::loadDefaultGLProgram(GLProgram *p, int type)
             break;
 		case kShaderType_CustomBlur:
 			p->initWithByteArrays(ccPositionTextureColor_noMVP_vert, ccCustomBlur_frag);
+			break;
+		case kShaderType_CustomGray:
+			p->initWithByteArrays(ccPositionTextureColor_noMVP_vert, ccCustomGray_frag);
 			break;
         default:
             CCLOG("cocos2d: %s:%d, error shader type", __FUNCTION__, __LINE__);

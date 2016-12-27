@@ -136,6 +136,7 @@ public:
     static const char* SHADER_NAME_CUSTOM_ERASER;
     static const char* SHADER_NAME_CUSTOM_DISSOLVE;
 	static const char* SHADER_NAME_CUSTOM_BLUR;
+	static const char* SHADER_NAME_CUSTOM_GRAY;
 	
     // uniform names
     static const char* UNIFORM_NAME_P_MATRIX;
