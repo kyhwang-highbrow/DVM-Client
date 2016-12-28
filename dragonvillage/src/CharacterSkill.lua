@@ -45,7 +45,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
     if (not t_skill) then
         error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 테이블이 없습니다')
     end
-
+	
     self:checkTarget(t_skill)
 
     if (not self.m_targetChar) then
@@ -212,6 +212,10 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 
 		elseif (type == 'skill_status_effect_burst') then
             SkillBurst:makeSkillInstance(self, t_skill, t_data)
+            return true
+
+		elseif (type == 'skill_status_effect_field_check') then
+            SkillFieldCheck:makeSkillInstance(self, t_skill, t_data)
             return true
 
 		-- 특수 스킬들

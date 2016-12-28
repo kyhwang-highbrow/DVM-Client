@@ -214,7 +214,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	local status_effect = nil
 
 	------------ 힐 --------------------------
-    if isExistValue(status_effect_type, 'passive_recovery', 'heal', 'heal_per_atk', 'tamer_heal') then
+    if isExistValue(status_effect_type, 'passive_recovery', 'heal', 'heal_per_atk', 'tamer_heal', 'heal_overlab') then
         status_effect = StatusEffect_Heal(res)
 		status_effect:init_heal(char, t_status_effect, status_effect_value, duration)
 
@@ -411,7 +411,7 @@ function StatusEffectHelper:invokeStatusEffectForDev(char, res)
     status_effect.m_durationTimer = 10
 
     status_effect.m_owner = char
-    status_effect.m_statusEffectName = 'burn'
+    status_effect.m_statusEffectName = 'poison'
 
     -- 객체 생성
     local world = char.m_world

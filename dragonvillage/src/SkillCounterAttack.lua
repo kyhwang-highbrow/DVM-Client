@@ -8,6 +8,7 @@ SkillCounterAttack = class(PARENT, {
 		m_invokeSkillId = 'num',
 		m_duration = 'num',
 		m_triggerName = 'str',
+		m_animationName = 'str', 
 
 		m_attackCount = 'num',
      })
@@ -24,12 +25,13 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillCounterAttack:init_skill(invoke_skill_id, duration)
+function SkillCounterAttack:init_skill(invoke_skill_id, duration, animation_name, trigger_name)
     PARENT.init_skill(self)
 	self.m_invokeSkillId = invoke_skill_id
 	self.m_duration = duration
 	
-	self.m_triggerName = 'undergo_attack'
+	self.m_animationName = animation_name
+	self.m_triggerName = trigger_name
 	self.m_attackCount = 0
 
 	self.m_owner:addListener(self.m_triggerName, self)
@@ -56,7 +58,7 @@ function SkillCounterAttack.st_appear(owner, dt)
 		-- attack -> idle -> skill_1_appear로 진행
 		owner.m_owner.m_animator:changeAni('idle', false) 
 		local cbFunc = function () 
-			owner.m_owner.m_animator:changeAni('skill_1_appear', false) 
+			owner.m_owner.m_animator:changeAni(owner.m_animationName .. '_appear', false) 
 			local cbFunc2 = function () 
 				owner:changeState('idle')
 			end
@@ -77,7 +79,7 @@ function SkillCounterAttack.st_idle(owner, dt)
     end
 
     if (owner.m_stateTimer == 0) then
-		owner.m_owner.m_animator:changeAni('skill_1_idle', true) 
+		owner.m_owner.m_animator:changeAni(owner.m_animationName .. '_idle', true) 
 	elseif (owner.m_stateTimer > owner.m_duration) then
 		owner:changeState('disappear')
     end
@@ -89,7 +91,7 @@ end
 function SkillCounterAttack.st_disappear(owner, dt)
     if (owner.m_stateTimer == 0) then
 		if owner.m_owner.m_animator then 
-			owner.m_owner.m_animator:changeAni('skill_1_disappear', false) 
+			owner.m_owner.m_animator:changeAni(owner.m_animationName .. '_disappear', false) 
 		end
 		local cbFunc = function () 
 			owner.m_owner:changeState('attackDelay')
@@ -104,10 +106,12 @@ end
 -- function onEvent
 -------------------------------------
 function SkillCounterAttack:onEvent(event_name, ...)
+	if (not event_name == self.m_triggerName) then return end
+	
 	local args = {...}
 	local attacker = args[1]
 	local defender = self.m_owner
-    if (event_name == self.m_triggerName) and (self.m_stateTimer > self.m_attackCount) then
+    if (self.m_stateTimer > self.m_attackCount) then
 		-- 1초에 한번씩만 실행된다.
 		defender:doSkill(self.m_invokeSkillId, nil, 0, 0, {})
 		self.m_attackCount = self.m_attackCount + 1
@@ -131,6 +135,8 @@ function SkillCounterAttack:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
     local invoke_skill_id = t_skill['val_1']
 	local duration = t_skill['val_2']
+	local animation_name = t_skill['animation']
+	local trigger_name = t_skill['chance_value']
 	
 	-- 인스턴스 생성부
 	------------------------------------------------------
@@ -139,7 +145,7 @@ function SkillCounterAttack:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(invoke_skill_id, duration)
+    skill:init_skill(invoke_skill_id, duration, animation_name, trigger_name)
 	skill:initState()
 
 	-- 3. state 시작 

@@ -233,6 +233,7 @@ local t_module = {
 	'SkillCounterAttack',
 	'SkillSpiderWeb',
 	'SkillBurst',
+	'SkillFieldCheck',
 
     -- SKILL INDICATOR
     'SkillIndicatorMgr',
