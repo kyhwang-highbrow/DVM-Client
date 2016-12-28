@@ -8,7 +8,7 @@
 			"idx":1,
 			"camera":
             {
-                "scale":0.6,
+                "scale":1,
                 "pos_x":0,
                 "pos_y":0
             },
@@ -33,7 +33,7 @@
 			"idx":2,
 			"camera":
             {
-                "scale":0.6,
+                "scale":1,
                 "pos_x":0,
                 "pos_y":2560
             },
@@ -72,7 +72,7 @@
             {				
 				0:
 				[
-				"135011;1;NestDragon;BOSS;NEST;2"
+				"135021;1;NestDragon;BOSS;NEST;2"
 				]
             }
         }

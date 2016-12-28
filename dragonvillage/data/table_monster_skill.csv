@@ -3,7 +3,7 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 230002,code,missile_move_straight,화살 공격,res/missile/missile_arrow/missile_arrow.vrp,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,직선으로 이동하는 원거리 공격
 230003,code,missile_move_straight,마법 공격,res/missile/missile_magicshot_earth/missile_magicshot_earth.vrp,x,x,x,instant,magical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 230004,code,missile_move_release,마법 스킬,res/missile/missile_magicshot/missile_magicshot.vrp,x,x,x,instant,magical,-1,basic_turn,2,enemy_distance_line,4,atk,100,2,0,0,0,0,0,x,x,x,0,x,공격력의 300% 피해를 주는 공격
-230005,code,missile_move_high_angle,창 공격,res/missile/missile_spear/missile_spear.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,100,20,0,0,0,x,x,x,0,x,x
+230005,code,missile_move_high_angle,창 공격,res/missile/missile_spear/missile_spear.png,x,x,x,instant,physical,-1,basic,1,enemy_random,-1,atk,100,1,100,20,0,0,0,x,x,x,0,x,x
 230006,code,missile_move_high_angle,창 스킬,res/missile/missile_spear/missile_spear.png,res/missile/motion_streak/motion_streak_line_@.png,x,x,instant,physical,-1,basic_turn,2,enemy_hp_low,4,atk,400,1,100,20,0,0,0,x,x,x,0,x,공격력의 300% 피해를 주는 공격
 230007,code,skill_heal_single,회복 스킬,res/effect/skill_heal_monster/skill_heal_monster.vrp,x,x,x,instant,magical,-1,basic_turn,3,ally_hp_low,5,atk,400,1,0,0,0,0,0,x,x,x,0,x,공격력의 400% 회복
 230008,code,missile_move_high_angle	,폭탄 공격,res/missile/missile_bomb_@/missile_bomb_@.spine,x,res/effect/effect_hit_bomb_@/effect_hit_bomb_@.spine,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,100,200,0,0,0,x,x,x,0,x,x
