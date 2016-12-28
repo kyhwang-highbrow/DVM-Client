@@ -9,7 +9,7 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 230008,code,missile_move_high_angle	,폭탄 공격,res/missile/missile_bomb_@/missile_bomb_@.spine,x,res/effect/effect_hit_bomb_@/effect_hit_bomb_@.spine,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,100,200,0,0,0,x,x,x,0,x,x
 230009,code,missile_move_straight,독침,res/missile/missile_sting/missile_sting.png,x,x,attack,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,100,100,poison,poison;target;30;100;100,x,0,x,x
 230010,code,missile_move_straight,가시,res/missile/missile_thorn/missile_thorn.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
-230011,code,skill_counterattack,반격,res/missile/missile_thorn/missile_thorn.png,x,x,x,instant,physical,-1,basic_turn,1,enemy_distance_line,4,atk,100,1,230012,10,0,0,0,x,x,x,0,x,x
+230011,code,skill_counterattack,반격,res/missile/missile_thorn/missile_thorn.png,x,x,skill_1,instant,physical,-1,basic_turn,1,enemy_distance_line,4,atk,100,1,230012,10,0,0,0,x,x,x,0,x,x
 230012,script,skill_missile_thorns,가시 폭풍,res/missile/missile_thorn/missile_thorn.png,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,0,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 230013,code,missile_move_straight,깃털 공격,res/missile/missile_feather/missile_feather.png,res/missile/motion_streak/motion_streak_line_@.png,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 230014,script,skill_missile_feather,깃털 방사,res/missile/missile_feather/missile_feather.png,res/missile/motion_streak/motion_streak_line_@.png,x,x,instant,physical,-2,basic_turn,3,enemy_distance_line,4,atk,150,1,0,0,0,0,0,x,x,x,0,x,x
@@ -134,7 +134,7 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 235152,status_effect,skill_boss_gdragon_dark_2,어둠의 거대용: 어둠의 분노(skill_2),x,x,x,skill_2,instant,magical,-2,basic_turn,4,self,1,atk,1,1,0,0,0,0,0,x,atk_up;target;15;100;100,x,0,x,x
 235200,code,missile_move_high_angle,거목: 일반공격 씨앗 심기,res/missile/missile_seed/missile_seed.png,res/missile/motion_streak/motion_streak_seed.png,x,x,instant,physical,-2,basic,1,enemy_random,-1,atk,0,1,250,20,0,0,0,x,poison;target;30;100;100,x,0,x,x
 235201,code,skill_status_effect_burst_effect,거목: 생명력 흡수(skill_1),res/effect/effect_drain/effect_drain.vrp,x,x,x,instant,magical,-2,basic_turn,1,enemy_all,0,atk,100,3,poison,0,100,0,0,x,heal_overlab;self;15;100;10,x,0,x,타겟 타입의 대상의 버프를 체크하여 status_effect의 대상에게 사용.
-235202,code,skill_counterattack,거목: 숲의 굳건함(skill_2),x,x,x,x,instant,physical,-2,basic_turn,1,enemy_distance_line,0,atk,1,1,235203,5,1,0,0,x,x,x,0,x,"기존의 카운터 어택을 수정해 val_3의 값에 따라 전체 반응(0), 액티브 스킬에만 반응(1) 형태로 수정함"
+235202,code,skill_counterattack,거목: 숲의 굳건함(skill_2),x,x,x,skill_2,instant,physical,-2,basic_turn,1,enemy_distance_line,0,atk,1,1,235203,5,1,0,0,x,x,x,0,x,"기존의 카운터 어택을 수정해 val_3의 값에 따라 전체 반응(0), 액티브 스킬에만 반응(1) 형태로 수정함"
 235203,status_effect,skill_boss_treant_2,거목: 숲의 굳건함:방어 버프(skill_2),res/effect/effect_defensive/effect_defensive.vrp,x,x,x,instant,magical,-2,basic_turn,1,self,0,atk,100,1,0,0,0,0,0,x,def_up_overlab;self;5;100;10,x,0,x,x
 235204,code,skill_status_effect_burst_effect,거목: 균형(skill_3),res/effect/effect_offensive/effect_offensive.vrp,x,x,x,instant,physical,-2,basic_turn,1,self,0,atk,1,1,def_up_overlab,1,100,0,0,x,atk_up_overlab;self;5;100;10,x,0,x,x
 235205,script,skill_boss_treant_4,거목: 방출(skill_4),x,x,x,x,instant,physical,-2,basic_turn,1,enemy_distance_line,0,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
