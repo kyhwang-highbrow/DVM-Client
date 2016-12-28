@@ -59,7 +59,7 @@ function GameState:init(world)
     self.m_stateTimer = -1
     self.m_fightTimer = 0
     self.m_bAppearDragon = false
-
+    
     self.m_waveEffect = MakeAnimator('res/ui/a2d/ui_boss_warning/ui_boss_warning.vrp')
     self.m_waveEffect:setVisible(false)
     g_gameScene.m_containerLayer:addChild(self.m_waveEffect.m_node)
@@ -266,6 +266,7 @@ end
 function GameState:update_wave_intermission(dt)
 	local world = self.m_world
 	local map_mgr = world.m_mapManager
+    local intermissionTime = getInGameConstant(WAVE_INTERMISSION_TIME)
 	local speed = 0
 
     if (self.m_stateTimer == 0) then
@@ -287,18 +288,18 @@ function GameState:update_wave_intermission(dt)
     end
 
 	-- 1. 전환 시간 2/3 지점까지 비교적 완만하게 빨라짐
-	if (self.m_stateTimer < WAVE_INTERMISSION_TIME * 2 / 3) then
+	if (self.m_stateTimer < intermissionTime * 2 / 3) then
 		speed = map_mgr.m_speed - (WAVE_INTERMISSION_MAP_SPEED * dt)
 		map_mgr:setSpeed(speed)
 
 	-- 2. 전환 시간 까지 비교적 빠르게 느려짐
-	elseif (self.m_stateTimer > WAVE_INTERMISSION_TIME * 2 / 3) then
+	elseif (self.m_stateTimer > intermissionTime * 2 / 3) then
 		speed = map_mgr.m_speed + (WAVE_INTERMISSION_MAP_SPEED * 1.9 * dt)
 		map_mgr:setSpeed(speed)
 	end
 	
 	-- 3. 전환 시간 이후 속도 고정시키고 전환
-	if (self.m_stateTimer >= WAVE_INTERMISSION_TIME) then
+	if (self.m_stateTimer >= intermissionTime) then
         map_mgr:setSpeed(-300)
 
         for _,dragon in pairs(world:getDragonList()) do
@@ -909,7 +910,7 @@ function GameState:doDirectionForIntermission()
 
         t_camera_info['pos_x'] = curCameraPosX * t_camera_info['scale']
 		t_camera_info['pos_y'] = tRandomY[math_random(1, #tRandomY)] * t_camera_info['scale']
-		t_camera_info['time'] = WAVE_INTERMISSION_TIME
+		t_camera_info['time'] = getInGameConstant(WAVE_INTERMISSION_TIME)
         
     end
         

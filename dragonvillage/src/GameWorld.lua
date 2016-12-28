@@ -1427,6 +1427,7 @@ function GameWorld:changeCameraOption(tParam, bKeepHomePos)
 
         local scale = self.m_gameCamera:getScale()
         local cameraHomePosX, cameraHomePosY = self.m_gameCamera:getHomePos()
+        local intermissionTime = getInGameConstant(WAVE_INTERMISSION_TIME)
 
         -- 아군 홈 위치를 카메라의 홈위치 기준으로 변경
         for i, v in ipairs(self:getDragonList()) do
@@ -1442,7 +1443,7 @@ function GameWorld:changeCameraOption(tParam, bKeepHomePos)
 
                 local distance = getDistance(v.pos.x, v.pos.y, homePosX, homePosY)
                 
-                v:changeHomePos(homePosX, homePosY, distance / WAVE_INTERMISSION_TIME)
+                v:changeHomePos(homePosX, homePosY, distance / intermissionTime)
             end
         end
 

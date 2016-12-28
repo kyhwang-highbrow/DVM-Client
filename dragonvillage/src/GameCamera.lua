@@ -268,5 +268,5 @@ function GameCamera:setRange(t)
     -- 모드에 따라 범위가 다르게 설정되어야함!!!!
     self.m_range = t or {}
 
-    cclog('GameCamera:setRange range = ' .. luadump(self.m_range))
+    --cclog('GameCamera:setRange range = ' .. luadump(self.m_range))
 end
