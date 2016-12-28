@@ -17,5 +17,5 @@ function SceneLobby:onEnter()
     PerpleScene.onEnter(self)
     SoundMgr:playBGM('bgm_title')
 
-    UI_Lobby()
+    UI_LobbyOld()
 end

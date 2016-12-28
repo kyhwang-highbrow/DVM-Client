@@ -1,9 +1,9 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
--- class UI_Lobby
+-- class UI_LobbyOld
 -------------------------------------
-UI_Lobby = class(PARENT,{
+UI_LobbyOld = class(PARENT,{
         m_tamerAnimator = 'Animator',
         m_tamerIdleAniCount = 'number',
     })
@@ -12,9 +12,9 @@ UI_Lobby = class(PARENT,{
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
 -------------------------------------
-function UI_Lobby:initParentVariable()
+function UI_LobbyOld:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_Lobby'
+    self.m_uiName = 'UI_LobbyOld'
     self.m_bVisible = true
     self.m_titleStr = nil
     self.m_bUseExitBtn = false
@@ -23,12 +23,12 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Lobby:init()
+function UI_LobbyOld:init()
     local vars = self:load('lobby_temp.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_Lobby')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_LobbyOld')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
@@ -45,14 +45,14 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_Lobby:initUI()
+function UI_LobbyOld:initUI()
     self:makeTamerAnimator()
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_Lobby:initButton()
+function UI_LobbyOld:initButton()
     local vars = self.vars
     
     vars['adventureBtn']:registerScriptTapHandler(function() self:click_adventureBtn() end)
@@ -64,7 +64,7 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_Lobby:refresh()
+function UI_LobbyOld:refresh()
 
     -- 유저 정보 갱신
     self:refresh_userInfo()
@@ -74,7 +74,7 @@ end
 -- function refresh_userInfo
 -- @brief 유저 정보 갱신
 -------------------------------------
-function UI_Lobby:refresh_userInfo()
+function UI_LobbyOld:refresh_userInfo()
    local vars = self.vars
 
     -- TODO 어떤 기준으로 출력??
@@ -115,7 +115,7 @@ end
 -------------------------------------
 -- function click_adventureBtn
 -------------------------------------
-function UI_Lobby:click_adventureBtn()
+function UI_LobbyOld:click_adventureBtn()
     local func = function()
         local scene = SceneAdventure()
         scene:runScene()
@@ -127,7 +127,7 @@ end
 -------------------------------------
 -- function click_nestBtn
 -------------------------------------
-function UI_Lobby:click_nestBtn()
+function UI_LobbyOld:click_nestBtn()
     local request_nest_dungeon_info
     local request_nest_dungeon_stage_list
     local replace_scene
@@ -154,7 +154,7 @@ end
 -------------------------------------
 -- function click_dragonManageBtn
 -------------------------------------
-function UI_Lobby:click_dragonManageBtn()
+function UI_LobbyOld:click_dragonManageBtn()
     local func = function()
         local ui = UI_DragonManageInfo()
         local function close_cb()
@@ -170,14 +170,14 @@ end
 -------------------------------------
 -- function click_shopBtn
 -------------------------------------
-function UI_Lobby:click_shopBtn()
+function UI_LobbyOld:click_shopBtn()
     UI_ShopPopup()
 end
 
 -------------------------------------
 -- function click_exitBtn
 -------------------------------------
-function UI_Lobby:click_exitBtn()
+function UI_LobbyOld:click_exitBtn()
     local function yes_cb()
         cc.Director:getInstance():endToLua()
     end
@@ -190,7 +190,7 @@ end
 -------------------------------------
 -- function makeTamerAnimator
 -------------------------------------
-function UI_Lobby:makeTamerAnimator()
+function UI_LobbyOld:makeTamerAnimator()
     local vars = self.vars
     if vars['tamerSprite'] then
         vars['tamerSprite']:setVisible(false)
@@ -220,7 +220,7 @@ end
 -------------------------------------
 -- function changeTamerAniHandler
 -------------------------------------
-function UI_Lobby:changeTamerAniHandler()
+function UI_LobbyOld:changeTamerAniHandler()
     if (self.m_tamerIdleAniCount <= 0) then
         self.m_tamerAnimator:changeAni('lobby_pose', false)
         self.m_tamerIdleAniCount = math_random(3, 4)
@@ -235,4 +235,4 @@ end
 ---------------------------------------------------------------------
 
 --@CHECK
-UI:checkCompileError(UI_Lobby)
+UI:checkCompileError(UI_LobbyOld)
