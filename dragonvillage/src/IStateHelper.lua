@@ -14,6 +14,9 @@ IStateHelper = {
 
     m_stateStepTimer = 'number',	-- 현재 연출 단계내에서의 타이머
 	m_stateStepPrevTime = 'number',	-- 이전 프레임에서의 m_stateStepTimer값
+
+    m_tStateFunc = 'table[function]',    -- state별 동작 함수
+    m_tStatePriority = 'table[number]',    -- state별 우선순위
 }
 
 -------------------------------------
@@ -31,6 +34,30 @@ function IStateHelper:init()
 
     self.m_stateStepTimer = 0
 	self.m_stateStepPrevTime = 0
+
+    self.m_tStateFunc = {}
+    self.m_tStatePriority = {}
+end
+
+-------------------------------------
+-- function update
+-- @brief GameWorld에서 호출되며 true를 반환 할 경우 release를 호출한다.
+-- @param dt
+-- @return boolean
+-------------------------------------
+function IStateHelper:update(dt)
+    self:updateState()
+
+    -- state함
+    if self.m_tStateFunc[self.m_state] then
+        if self.m_tStateFunc[self.m_state](self, dt) then
+            return true
+        end
+    end
+
+    self:updateTimer(dt)
+
+    return false
 end
 
 -------------------------------------
@@ -73,12 +100,41 @@ function IStateHelper:updateTimer(dt)
 end
 
 -------------------------------------
--- function changeState
+-- function addState
+-- @param state : string
+-- @param func : function
+-- @param priority : number
 -------------------------------------
-function IStateHelper:changeState(state)
-    self.m_prevState = self.m_state
-    self.m_state = state
-    self.m_stateTimer = -1
+function IStateHelper:addState(state, func, priority)
+    local loop = loop and true
+
+    self.m_tStateFunc[state] = func
+    self.m_tStatePriority[state] = priority or 1
+end
+
+-------------------------------------
+-- function changeState
+-- @return bool state 변경 여부 리턴
+-------------------------------------
+function IStateHelper:changeState(state, forced)
+    local can_change = forced
+
+    -- priority 체크
+    if (not can_change) then
+        local prev_priority = (self.m_tStatePriority[self.m_state] or 0)
+        local next_priority = (self.m_tStatePriority[state] or 0)
+        can_change = (prev_priority <= next_priority)
+    end
+
+    -- state가 변경 가능한 상태일 경우 변경
+    if can_change then
+        self.m_prevState = self.m_state
+        self.m_state = state
+        self.m_stateTimer = -1
+        return true
+    else
+        return false
+    end
 end
 
 -------------------------------------

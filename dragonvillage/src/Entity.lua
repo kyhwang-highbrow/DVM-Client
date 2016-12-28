@@ -1,17 +1,17 @@
+local PARENT = class(PhysObject, IStateHelper:getCloneTable())
+
 -------------------------------------
 -- class Entity
 -------------------------------------
-Entity = class(PhysObject, IStateHelper:getCloneTable(), {
+Entity = class(PARENT, {
         m_world = '',
 
         m_rootNode = '',
         m_animator = '',
 
         -- state 관련 변수
-        m_tStateFunc = 'table[function]',    -- state별 동작 함수
         m_tStateAni = 'table[string]',        -- state별 animation명
         m_tStateAniLoop = 'table[boolean]',    -- state별 animation loop 여부
-        m_tStatePriority = 'table[number]',    -- state별 우선순위
         
         -- 타겟 포지션
         m_targetPosX = 'number',
@@ -38,12 +38,8 @@ function Entity:init(file_name, body)
     self:initAnimator(file_name)
 
     -- state 관련 변수
-    --IStateHelper.init(self)
-
-    self.m_tStateFunc = {}
     self.m_tStateAni = {}
     self.m_tStateAniLoop = {}
-    self.m_tStatePriority = {}
 end
 
 -------------------------------------
@@ -135,27 +131,6 @@ function Entity:release()
 end
 
 -------------------------------------
--- function update
--- @brief GameWorld에서 호출되며 true를 반환 할 경우 release를 호출한다.
--- @param dt
--- @return boolean
--------------------------------------
-function Entity:update(dt)
-    IStateHelper.updateState(self)
-
-    -- state함
-    if self.m_tStateFunc[self.m_state] then
-        if self.m_tStateFunc[self.m_state](self, dt) then
-            return true
-        end
-    end
-
-    IStateHelper.updateTimer(self, dt)
-
-    return false
-end
-
--------------------------------------
 -- function addState
 -- @param state : string
 -- @param func : function
@@ -166,15 +141,14 @@ end
 function Entity:addState(state, func, ani, loop, priority)
     local loop = loop and true
 
-    self.m_tStateFunc[state] = func
-    self.m_tStatePriority[state] = priority or 1
-
     if ani then    
         self.m_tStateAni[state] = ani
     else
         self.m_tStateAni[state] = nil
     end
     self.m_tStateAniLoop[state] = loop
+
+    PARENT.addState(self, state, func, priority)
 end
 
 -------------------------------------
@@ -192,22 +166,18 @@ end
 -------------------------------------
 function Entity:changeState(state, forced)
     -- 지정되지 않은 상태일 경우
-    if not self.m_tStateFunc[state] then
+    if (not self.m_tStateFunc[state]) then
         error(string.format('"%s" can not be found.', state))
     end
 
-    local changed = false
-    if forced or ((self.m_tStatePriority[self.m_state] or 0) <= (self.m_tStatePriority[state] or 0)) then
-        IStateHelper.changeState(self, state)
-        
-        -- idle 애니메이션에 한해서 중복 체크
-        local check = (state == 'idle') or (state == 'attackDelay') or (state == 'pattern_wait')
+    local changed = PARENT.changeState(self, state, forced)
 
+    if changed then
         if self.m_animator then
+            -- idle 애니메이션에 한해서 중복 체크
+            local check = isExistValue(state, 'idle', 'attackDelay', 'pattern_wait')
             self.m_animator:changeAni(self.m_tStateAni[state], self.m_tStateAniLoop[state], check)
         end
-        
-        changed = true
     end
 
     return changed
