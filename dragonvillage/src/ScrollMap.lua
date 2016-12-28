@@ -63,50 +63,73 @@ end
 function ScrollMap:setDirecting(type)
     self.m_bgDirectingType = type
 
-    local time = getInGameConstant(MAP_FLOATING_TIME) / 4
-    local yScope = getInGameConstant(MAP_FLOATING_Y_SCOPE)
-    local sequence
-
+    local time = MAP_FLOATING_TIME / 4
+    local sequencez
 	
     if (self.m_bgDirectingType == 'floating_1') then
         -- 위아래 흔들림
         sequence = cc.Sequence:create(
-            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, yScope)), 2),
+            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, MAP_FLOATING_Y_SCOPE)), 2),
             cc.EaseIn:create(cc.MoveTo:create(time, cc.p(0, 0)), 2),
-            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, -yScope)), 2),
+            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, -MAP_FLOATING_Y_SCOPE)), 2),
             cc.EaseIn:create(cc.MoveTo:create(time, cc.p(0, 0)), 2)
         )
+        
 
     elseif (self.m_bgDirectingType == 'floating_2') then
         -- 회전 쏠림
-        local rotateTime = getInGameConstant(MAP_FLOATING_ROTATE_TIME) / 2
-        local rotateScope = getInGameConstant(MAP_FLOATING_ROTATE_SCOPE)
-
         local move_action = cc.Sequence:create(
-            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, yScope)), 2),
+            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, MAP_FLOATING_Y_SCOPE)), 2),
             cc.EaseIn:create(cc.MoveTo:create(time, cc.p(0, 0)), 2),
-            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, -yScope)), 2),
+            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, -MAP_FLOATING_Y_SCOPE)), 2),
             cc.EaseIn:create(cc.MoveTo:create(time, cc.p(0, 0)), 2)
         )
 
+        local rotate_time = MAP_FLOATING_ROTATE_TIME / 2
         local rotate_action = cc.Sequence:create(
-            cc.RotateTo:create(rotateTime, rotateScope),
-            cc.RotateTo:create(rotateTime, -rotateScope)
+            cc.RotateTo:create(rotate_time, MAP_FLOATING_ROTATE_SCOPE),
+            cc.RotateTo:create(rotate_time, -MAP_FLOATING_ROTATE_SCOPE)
         )
         
         sequence = cc.Spawn:create(move_action, rotate_action)
 
 	elseif (self.m_bgDirectingType == 'nightmare') then 
+		-- shaky3d + tintto + gray shader 
+		-- 저사양 모드에선 gray shader 만 사용
 		local duration = 0.001
-		sequence = cc.Sequence:create(
-			cca.getShaky3D(self.m_shakyType, duration),
-			cc.DelayTime:create(1024)
-        )
-		
+		if (not isLowEndMode()) then 
+			sequence = cc.Sequence:create(
+				cca.getShaky3D(self.m_shakyType, duration),
+				cc.DelayTime:create(duration*100)
+			)
+		end
+
 		-- 별도로 암전 효과 및 그레이스케일 적용
 		for _, map_layer in pairs(self.m_tMapLayer) do
 			for _, animator in pairs(map_layer.m_tAnimator) do
-				animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
+				if (not isLowEndMode()) then 
+					animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
+				end
+				animator.m_node:setCustomShader(6,0)
+			end
+		end
+
+	elseif (self.m_bgDirectingType == 'nightmare2') then 
+		-- shaky3d + tintto + gray shader 
+		-- 저사양 모드에선 gray shader 만 사용
+		local duration = 10
+		if (not isLowEndMode()) then 
+			sequence = cc.Sequence:create(
+				cca.getRipple3D(self.m_shakyType - 5, duration)
+			)
+		end
+
+		-- 별도로 암전 효과 및 그레이스케일 적용
+		for _, map_layer in pairs(self.m_tMapLayer) do
+			for _, animator in pairs(map_layer.m_tAnimator) do
+				if (not isLowEndMode()) then 
+					animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
+				end
 				animator.m_node:setCustomShader(6,0)
 			end
 		end

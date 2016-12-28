@@ -391,14 +391,18 @@ function UI_GameDebug.nigthmareBgButton(self, item, idx)
 
     local type = g_gameScene.m_gameWorld.m_mapManager.m_shakyType + add_value
 
-	if (type > 5) then
+	if (type > 10) then
 		type = 1
 	elseif (type < 1) then
-		type = 5
+		type = 10
 	end
 	g_gameScene.m_gameWorld.m_mapManager.m_shakyType = type
 	g_gameScene.m_gameWorld.m_mapManager.m_node:stopAllActions()
-    g_gameScene.m_gameWorld.m_mapManager:setDirecting('nightmare')
+	if (type > 5) then 
+	    g_gameScene.m_gameWorld.m_mapManager:setDirecting('nightmare2')
+	else
+		g_gameScene.m_gameWorld.m_mapManager:setDirecting('nightmare')
+	end
 
     item['label']:setString('악몽던전 배경효과 : ' .. type)
 end
