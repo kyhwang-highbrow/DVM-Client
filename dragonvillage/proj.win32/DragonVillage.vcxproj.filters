@@ -1114,6 +1114,9 @@
     <None Include="..\src\UI_LobbyOld.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_Lobby.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

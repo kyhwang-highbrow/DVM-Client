@@ -274,6 +274,7 @@ local t_module = {
     'UI_TitleSceneLoading',
     'UI_LobbyNew',
     'UI_LobbyOld',
+    'UI_Lobby',
     'UI_Game',
     'UI_GameResultNew',
     'UI_GameResult_NestDungeon',
