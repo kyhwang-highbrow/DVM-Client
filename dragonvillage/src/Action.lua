@@ -63,19 +63,19 @@ function cca.getRipple3D(type, duration)
 	local length, wave, amp
 
 	if (type == 1) then 
-		length, wave, amp = 128, 16, 32
+		length, wave, amp = 128, 16, 128
 	elseif (type == 2) then 
-		length, wave, amp = 128, 4, 32
+		length, wave, amp = 128, 8, 64
 	elseif (type == 3) then 
-		length, wave, amp = 64, 16, 32
+		length, wave, amp = 64, 16, 128
 	elseif (type == 4) then 
-		length, wave, amp = 16, 4, 64
+		length, wave, amp = 16, 8, 64
 	elseif (type == 5) then 
-		length, wave, amp = 16, 2, 128
+		length, wave, amp = 16, 4, 128
 	end
 
 	local scr_size = cc.Director:getInstance():getWinSize()
-    return cc.Ripple3D:create(duration, {width = length, height = length}, {x = scr_size.width/2, y = scr_size.height/2}, scr_size.width, wave, amp)
+    return cc.Ripple3D:create(duration, {width = length, height = length}, {x = scr_size.width/2, y = scr_size.height/2}, scr_size.height - 200, wave, amp)
 end
 
 -------------------------------------
