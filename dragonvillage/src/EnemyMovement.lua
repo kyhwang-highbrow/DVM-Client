@@ -236,6 +236,7 @@ end
 -- function FadeIn
 -- @brief fadein 하며 등장 
 -- @param value2 = 도착 위치
+-- @prarm value3 = 등장 시간(duration)
 -------------------------------------
 function EnemyMovement.FadeIn(owner, luaValue1, luaValue2, luaValue3, luaValue4, luaValue5)
     -- m_luaValue2 도착 위치
@@ -248,7 +249,7 @@ function EnemyMovement.FadeIn(owner, luaValue1, luaValue2, luaValue3, luaValue4,
 	owner.m_animator:setAlpha(0)
 
 	-- 액션
-	local fade_in = cc.FadeIn:create(1)
+	local fade_in = cc.FadeIn:create(luaValue3)
     local finish_action = cc.CallFunc:create(function()
         owner:changeState('idle')
         owner:dispatch('enemy_appear_done', owner)
