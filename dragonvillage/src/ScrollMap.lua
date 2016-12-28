@@ -63,32 +63,34 @@ end
 function ScrollMap:setDirecting(type)
     self.m_bgDirectingType = type
 
-    local time = MAP_FLOATING_TIME / 4
-    local sequencez
+    local time = getInGameConstant(MAP_FLOATING_TIME) / 4
+    local yScope = getInGameConstant(MAP_FLOATING_Y_SCOPE)
+    local sequence
 	
     if (self.m_bgDirectingType == 'floating_1') then
         -- 위아래 흔들림
         sequence = cc.Sequence:create(
-            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, MAP_FLOATING_Y_SCOPE)), 2),
+            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, yScope)), 2),
             cc.EaseIn:create(cc.MoveTo:create(time, cc.p(0, 0)), 2),
-            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, -MAP_FLOATING_Y_SCOPE)), 2),
+            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, -yScope)), 2),
             cc.EaseIn:create(cc.MoveTo:create(time, cc.p(0, 0)), 2)
         )
-        
 
     elseif (self.m_bgDirectingType == 'floating_2') then
         -- 회전 쏠림
+        local rotateTime = getInGameConstant(MAP_FLOATING_ROTATE_TIME) / 2
+        local rotateScope = getInGameConstant(MAP_FLOATING_ROTATE_SCOPE)
+
         local move_action = cc.Sequence:create(
-            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, MAP_FLOATING_Y_SCOPE)), 2),
+            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, yScope)), 2),
             cc.EaseIn:create(cc.MoveTo:create(time, cc.p(0, 0)), 2),
-            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, -MAP_FLOATING_Y_SCOPE)), 2),
+            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, -yScope)), 2),
             cc.EaseIn:create(cc.MoveTo:create(time, cc.p(0, 0)), 2)
         )
 
-        local rotate_time = MAP_FLOATING_ROTATE_TIME / 2
         local rotate_action = cc.Sequence:create(
-            cc.RotateTo:create(rotate_time, MAP_FLOATING_ROTATE_SCOPE),
-            cc.RotateTo:create(rotate_time, -MAP_FLOATING_ROTATE_SCOPE)
+            cc.RotateTo:create(rotateTime, rotateScope),
+            cc.RotateTo:create(rotateTime, -rotateScope)
         )
         
         sequence = cc.Spawn:create(move_action, rotate_action)
