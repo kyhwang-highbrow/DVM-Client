@@ -286,6 +286,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\shader\shaderBlur.fsh" />
     <None Include="..\src\ShakeManager.lua" />
     <None Include="..\src\SkillBurst.lua" />
+    <None Include="..\src\SkillFieldCheck.lua" />
     <None Include="..\src\SkillSpiderWeb.lua" />
     <None Include="..\src\StatusEffect_Barrier.lua" />
     <None Include="..\src\Camera.lua" />
@@ -600,7 +601,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src_tool\SceneWaveMaker.lua" />
     <None Include="..\src_tool\Scene_UIViewer.lua" />
     <None Include="..\src_tool\UI_WaveMaker.lua" />
-    <None Include="build-cfg.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

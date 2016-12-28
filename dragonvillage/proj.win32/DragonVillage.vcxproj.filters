@@ -90,7 +90,6 @@
     <Image Include="res\game.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="build-cfg.json" />
     <None Include="..\src\main.lua">
       <Filter>lua</Filter>
     </None>
@@ -1116,6 +1115,9 @@
     </None>
     <None Include="..\src\UI_Lobby.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\SkillFieldCheck.lua">
+      <Filter>lua</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
