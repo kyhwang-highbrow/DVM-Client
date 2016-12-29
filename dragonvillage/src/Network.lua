@@ -61,10 +61,11 @@ end
 -- function Network_login
 -- @breif 로그인
 -------------------------------------
-function Network_login(uid, success_cb, fail_cb)
+function Network_login(uid, nickname, success_cb, fail_cb)
     -- 파라미터 셋팅
     local t_data = {}
     t_data['uid'] = uid
+    t_data['nickname'] = nickname
     t_data['hashed_uid'] = nil
     t_data['imei'] = nil
     t_data['market'] = nil
