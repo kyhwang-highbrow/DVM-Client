@@ -99,3 +99,20 @@ function TableClass:filterList_condition(condition_func)
 
     return l_ret
 end
+
+-------------------------------------
+-- function getRandomRow
+-------------------------------------
+function TableClass:getRandomRow()
+    local cnt = table.count(self.m_orgTable)
+    local rand_num = math_random(1, cnt)
+
+    local idx = 1
+    for i,v in pairs(self.m_orgTable) do
+        if (idx == rand_num) then
+            return clone(v)
+        end
+
+        idx = (idx + 1)
+    end
+end

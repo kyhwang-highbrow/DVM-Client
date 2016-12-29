@@ -89,6 +89,28 @@ function LobbyMap:onTouchEnded(touches, event)
     self.m_bPress = false
 end
 
+-------------------------------------
+-- function getGroundRange
+-------------------------------------
+function LobbyMap:getGroundRange()
+    local left = -1740
+    local right = 1920 - 50
+    local bottom = -320
+    local top = -80
+
+    return left, right, bottom, top
+end
+
+-------------------------------------
+-- function getLobbyMapRandomPos
+-------------------------------------
+function LobbyMap:getLobbyMapRandomPos()
+    local left, right, bottom, top = self:getGroundRange()
+    local x = math_random(left, right)
+    local y = math_random(bottom, top)
+
+    return x, y
+end
 
 -------------------------------------
 -- function update
@@ -101,8 +123,10 @@ function LobbyMap:update(dt)
     if self.m_bPress then
         local node_pos = self.m_groudNode:convertToNodeSpace(self.m_touchPosition)
 
-        node_pos['x'] = math_clamp(node_pos['x'], -1740, 1920 - 50)
-        node_pos['y'] = math_clamp(node_pos['y'], -320, -80)
+        local left, right, bottom, top = self:getGroundRange()
+
+        node_pos['x'] = math_clamp(node_pos['x'], left, right)
+        node_pos['y'] = math_clamp(node_pos['y'], bottom, top)
 
         self.m_targetTamer:setMove(node_pos['x'], node_pos['y'], 400)
         self.m_lobbyIndicator:setPosition(node_pos['x'], node_pos['y'])

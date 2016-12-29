@@ -110,7 +110,7 @@ end
 -------------------------------------
 -- function initDragonAnimator
 -------------------------------------
-function LobbyTamer:initDragonAnimator(file_name)
+function LobbyTamer:initDragonAnimator(file_name, flip)
     -- Animator 삭제
     self:releaseDragonAnimator()
 
@@ -119,7 +119,10 @@ function LobbyTamer:initDragonAnimator(file_name)
     if self.m_dragonAnimator.m_node then
         self.m_rootNode:addChild(self.m_dragonAnimator.m_node, 1)
         self.m_dragonAnimator.m_node:setScale(0.5)
-        self.m_dragonAnimator.m_node:setPosition(-100, 150)
+
+        local x = flip and 100 or -100
+        self.m_dragonAnimator.m_node:setPosition(x, 150)
+        self.m_dragonAnimator:setFlip(flip)
 
         self.m_dragonAnimator.m_node:setMix('idle', 'skill_idle', 0.1)
         self.m_dragonAnimator.m_node:setMix('skill_idle', 'idle', 0.1)
@@ -247,6 +250,10 @@ end
 -------------------------------------
 function LobbyTamer:onMove()
     self:syncShadow()
+
+    -- Y위치에 따라 ZOrder를 변경
+    local z_order = 100 + (10000 - self.m_rootNode:getPositionY())
+    self.m_rootNode:setLocalZOrder(z_order)
 end
 
 -------------------------------------

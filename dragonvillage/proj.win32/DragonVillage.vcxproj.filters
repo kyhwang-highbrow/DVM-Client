@@ -1123,6 +1123,9 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\shader\sepia.fsh" />
+    <None Include="..\src\LobbyTamerBot.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\LobbyTamer.lua">
       <Filter>lua</Filter>
     </None>

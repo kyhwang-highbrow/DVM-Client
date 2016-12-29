@@ -75,13 +75,17 @@ function UI_Lobby:initCamera()
         tamer:initState()
         tamer:changeState('idle')
         tamer:initSchedule()
-        tamer:setPosition(0, -150)
         tamer:initShadow(lobby_ground, 10)
         tamer:initDragonAnimator('res/character/dragon/powerdragon_earth_01/powerdragon_earth_01.spine')
-        lobby_ground:addChild(tamer.m_rootNode, 100)
+        lobby_ground:addChild(tamer.m_rootNode)
+        tamer:setPosition(0, -150)
 
         camera.m_groudNode = lobby_ground
         camera.m_targetTamer = tamer
+    end
+
+    for i=1, 9 do
+        self:makeLobbyTamerBot(camera, lobby_ground)
     end
 
     camera:setMoveStartCB(function()
@@ -93,6 +97,45 @@ function UI_Lobby:initCamera()
         self:doAction()
         g_topUserInfo:doAction()
     end)
+end
+
+-------------------------------------
+-- function makeLobbyTamerBot
+-------------------------------------
+function UI_Lobby:makeLobbyTamerBot(lobby_map, lobby_ground)
+    local tamer = LobbyTamerBot()
+    if (math_random(1, 2) == 1) then
+        tamer:initAnimator('res/character/tamer/leon/leon.spine')
+    else
+        tamer:initAnimator('res/character/tamer/nuri/nuri.spine')
+    end
+
+    local flip = (math_random(1, 2) == 1) and true or false
+
+    tamer:initState()
+    tamer:changeState('idle')
+    tamer:initSchedule()
+    tamer:initShadow(lobby_ground, 10)
+
+    do
+        local table_dragon = TableDragon()
+        local t_dragon = table_dragon:getRandomRow()
+        local res = AnimatorHelper:getDragonResName(t_dragon['res'], 1, t_dragon['attr'])
+
+        tamer:initDragonAnimator(res, flip)
+    end
+    
+    lobby_ground:addChild(tamer.m_rootNode)
+
+    local x, y = lobby_map:getLobbyMapRandomPos()
+    tamer:setPosition(x, y)
+
+    tamer.m_animator:setFlip(flip)
+
+
+    tamer.m_funcGetRandomPos = function()
+        return lobby_map:getLobbyMapRandomPos()
+    end
 end
 
 -------------------------------------
