@@ -63,7 +63,7 @@ function UI_Lobby:initCamera()
     camera:addLayer(self:makeLobbyLayer(2), 0.9)
 
     local lobby_ground = self:makeLobbyLayer(1)
-    camera:addLayer(lobby_ground, 1)
+    camera:addLayer_lobbyGround(lobby_ground, 1)
 
     do
         local tamer = LobbyTamer()
@@ -76,9 +76,9 @@ function UI_Lobby:initCamera()
         tamer:changeState('idle')
         tamer:initSchedule()
         tamer:setPosition(0, -150)
-        tamer:initShadow(lobby_ground, 0)
-        tamer:initDragonAnimator('res/character/dragon/powerdragon_earth_03/powerdragon_earth_03.spine')
-        lobby_ground:addChild(tamer.m_rootNode, 1)
+        tamer:initShadow(lobby_ground, 10)
+        tamer:initDragonAnimator('res/character/dragon/powerdragon_earth_01/powerdragon_earth_01.spine')
+        lobby_ground:addChild(tamer.m_rootNode, 100)
 
         camera.m_groudNode = lobby_ground
         camera.m_targetTamer = tamer

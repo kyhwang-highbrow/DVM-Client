@@ -148,6 +148,10 @@ function LobbyTamer:syncDragon(flip, duration, dt)
         return
     end
 
+    if (self.m_dragonAnimator.m_bFlip == flip) then
+        return
+    end
+
     self.m_dragonAnimator:setFlip(flip)
 
     local x, y = self.m_dragonAnimator.m_node:getPosition()
@@ -204,7 +208,13 @@ function LobbyTamer.st_move(self, dt)
         action:step(dt)
 
         -- 방향 지정
-        local flip = (cur_x >= tar_x)
+        local flip
+        if (cur_x == tar_x) then
+            flip = self.m_animator.m_bFlip
+        else
+            flip = (cur_x > tar_x)
+        end
+
         self.m_animator:setFlip(flip)
         self:syncDragon(flip, duration, dt)
     end
@@ -216,9 +226,6 @@ end
 -- function setMove
 -------------------------------------
 function LobbyTamer:setMove(x, y, speed)
-    x = math_clamp(x, -1740, 1920 - 50)
-    y = math_clamp(y, -320, -80)
-
     self.m_moveX = x
     self.m_moveY = y
 

@@ -9,12 +9,15 @@ LobbyMap = class(PARENT, {
         m_targetTamer = '',
 
         m_bPress = 'bool',
+        m_touchPosition = 'cc.p',
         m_nodePosition = 'cc.p',
 
         m_bMoveState = 'bool',
 
         m_cbMoveStart = 'function',
         m_cbMoveEnd = 'function',
+
+        m_lobbyIndicator = 'Animator',
     })
 
 -------------------------------------
@@ -23,6 +26,18 @@ LobbyMap = class(PARENT, {
 function LobbyMap:init(parent, z_order)
     self:makeTouchLayer(self.m_rootNode)
     self.m_bMoveState = false
+end
+
+-------------------------------------
+-- function addLayer_lobbyGround
+-- @brief 터치 레이어 생성
+-------------------------------------
+function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_ratio_y)
+    self:addLayer(node, perspective_ratio, perspective_ratio_y)
+
+    self.m_lobbyIndicator = MakeAnimator('res/ui/a2d/lobby_indicator/lobby_indicator.vrp')
+    self.m_lobbyIndicator:changeAni('idle', true)
+    node:addChild(self.m_lobbyIndicator.m_node, 0)
 end
 
 -------------------------------------
@@ -48,10 +63,14 @@ end
 -------------------------------------
 function LobbyMap:onTouchBegan(touches, event)
     local location = touches[1]:getLocation()
-    local node_pos = self.m_groudNode:convertToNodeSpace(location)
-    self.m_nodePosition = node_pos
+    self.m_touchPosition = location
 
     self.m_bPress = true
+
+    self.m_lobbyIndicator:changeAni('appear', false)
+    self.m_lobbyIndicator:addAniHandler(function()
+            self.m_lobbyIndicator:changeAni('idle', true)
+        end)
 end
 
 -------------------------------------
@@ -59,8 +78,8 @@ end
 -------------------------------------
 function LobbyMap:onTouchMoved(touches, event)
     local location = touches[1]:getLocation()
-    local node_pos = self.m_groudNode:convertToNodeSpace(location)
-    self.m_nodePosition = node_pos
+    self.m_touchPosition = location
+    
 end
 
 -------------------------------------
@@ -80,10 +99,14 @@ function LobbyMap:update(dt)
     end
 
     if self.m_bPress then
-        self.m_targetTamer:setMove(self.m_nodePosition['x'], self.m_nodePosition['y'], 400)
-    end
+        local node_pos = self.m_groudNode:convertToNodeSpace(self.m_touchPosition)
 
-    
+        node_pos['x'] = math_clamp(node_pos['x'], -1740, 1920 - 50)
+        node_pos['y'] = math_clamp(node_pos['y'], -320, -80)
+
+        self.m_targetTamer:setMove(node_pos['x'], node_pos['y'], 400)
+        self.m_lobbyIndicator:setPosition(node_pos['x'], node_pos['y'])
+    end
 
     local x, y = self.m_targetTamer.m_rootNode:getPosition()
 
@@ -98,6 +121,14 @@ function LobbyMap:update(dt)
     else
         self:setMoveState(true)
         self:setPosition(x, y, true)
+    end
+
+    do -- 이펙트위치 체크
+        if (self.m_targetTamer.m_state == 'move') then
+            self.m_lobbyIndicator:setVisible(true)
+        else
+            self.m_lobbyIndicator:setVisible(false)
+        end
     end
 end
 
