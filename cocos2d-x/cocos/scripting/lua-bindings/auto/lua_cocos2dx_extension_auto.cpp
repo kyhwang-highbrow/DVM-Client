@@ -10115,7 +10115,12 @@ int lua_cocos2dx_extension_ScrollView_pause(lua_State* tolua_S)
 #endif
 
     argc = lua_gettop(tolua_S)-1;
-    if (argc == 1) 
+    if (argc == 0)
+    {
+        cobj->pause(NULL);
+        return 0;
+    }
+    else if (argc == 1)
     {
         cocos2d::Ref* arg0;
 
@@ -10581,7 +10586,12 @@ int lua_cocos2dx_extension_ScrollView_resume(lua_State* tolua_S)
 #endif
 
     argc = lua_gettop(tolua_S)-1;
-    if (argc == 1) 
+    if (argc == 0)
+    {
+        cobj->resume(NULL);
+        return 0;
+    }
+    else if (argc == 1) 
     {
         cocos2d::Ref* arg0;
 
