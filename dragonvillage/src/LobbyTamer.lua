@@ -16,6 +16,7 @@ LobbyTamer = class(PARENT, {
         m_moveSpeed = '',
 
         m_shadowSprite = 'cc.Sprite',
+        m_dragonAnimator = 'Animator',
      })
 
 -------------------------------------
@@ -47,7 +48,7 @@ function LobbyTamer:initAnimator(file_name)
     -- Animator 생성
     self.m_animator = AnimatorHelper:makeTamerAnimator(file_name)
     if self.m_animator.m_node then
-        self.m_rootNode:addChild(self.m_animator.m_node)
+        self.m_rootNode:addChild(self.m_animator.m_node, 2)
         self.m_animator.m_node:setScale(0.6)
         self.m_animator.m_node:setPositionY(50)
 
@@ -107,6 +108,68 @@ function LobbyTamer:syncShadow()
 end
 
 -------------------------------------
+-- function initDragonAnimator
+-------------------------------------
+function LobbyTamer:initDragonAnimator(file_name)
+    -- Animator 삭제
+    self:releaseDragonAnimator()
+
+    -- Animator 생성
+    self.m_dragonAnimator = AnimatorHelper:makeDragonAnimator(file_name)
+    if self.m_dragonAnimator.m_node then
+        self.m_rootNode:addChild(self.m_dragonAnimator.m_node, 1)
+        self.m_dragonAnimator.m_node:setScale(0.5)
+        self.m_dragonAnimator.m_node:setPosition(-100, 150)
+
+        self.m_dragonAnimator.m_node:setMix('idle', 'skill_idle', 0.1)
+        self.m_dragonAnimator.m_node:setMix('skill_idle', 'idle', 0.1)
+    end
+end
+
+-------------------------------------
+-- function releaseDragonAnimator
+-------------------------------------
+function LobbyTamer:releaseDragonAnimator()
+    -- Animator 삭제
+    if self.m_dragonAnimator then
+        if self.m_dragonAnimator.m_node then
+            self.m_dragonAnimator.m_node:removeFromParent(true)
+            self.m_dragonAnimator.m_node = nil
+        end
+        self.m_dragonAnimator = nil
+    end
+end
+
+-------------------------------------
+-- function syncDragon
+-------------------------------------
+function LobbyTamer:syncDragon(flip, duration, dt)
+    if (not self.m_dragonAnimator) then
+        return
+    end
+
+    self.m_dragonAnimator:setFlip(flip)
+
+    local x, y = self.m_dragonAnimator.m_node:getPosition()
+
+    -- 왼쪽
+    if flip then
+        x = 100
+
+    -- 오른쪽
+    else
+        x = -100
+    end
+
+    duration = math_max(duration, 0.8)
+
+    local action = cc.MoveTo:create(duration, cc.p(x, y))
+    action = cc.EaseInOut:create(action, 2)
+    cca.runAction(self.m_dragonAnimator.m_node, action, 100)
+    action:step(dt)
+end
+
+-------------------------------------
 -- function initState
 -- @brief 상태(state)별 동작 함수 추가
 -------------------------------------
@@ -141,11 +204,9 @@ function LobbyTamer.st_move(self, dt)
         action:step(dt)
 
         -- 방향 지정
-        if (cur_x <= tar_x) then
-            self.m_animator:setFlip(false)
-        else
-            self.m_animator:setFlip(true)
-        end
+        local flip = (cur_x >= tar_x)
+        self.m_animator:setFlip(flip)
+        self:syncDragon(flip, duration, dt)
     end
 
     self:onMove()
@@ -228,6 +289,8 @@ end
 -------------------------------------
 function LobbyTamer:release()
     self:releaseAnimator()
+    self:releaseShadow()
+    self:releaseDragonAnimator()
 
     if self.m_rootNode then
         self.m_rootNode:removeFromParent(true)

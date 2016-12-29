@@ -65,12 +65,17 @@ function UI_Lobby:initCamera()
 
     do
         local tamer = LobbyTamer()
-        tamer:initAnimator('character/tamer/leon/leon.spine')
+        if (math_random(1, 2) == 1) then
+            tamer:initAnimator('res/character/tamer/leon/leon.spine')
+        else
+            tamer:initAnimator('res/character/tamer/nuri/nuri.spine')
+        end
         tamer:initState()
         tamer:changeState('idle')
         tamer:initSchedule()
         tamer:setPosition(0, -150)
         tamer:initShadow(lobby_ground, 0)
+        tamer:initDragonAnimator('res/character/dragon/powerdragon_earth_03/powerdragon_earth_03.spine')
         lobby_ground:addChild(tamer.m_rootNode, 1)
 
         camera.m_groudNode = lobby_ground
