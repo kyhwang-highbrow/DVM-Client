@@ -53,13 +53,30 @@ end
 -------------------------------------
 function UI_Lobby:initCamera()
     local vars = self.vars
-    local camera = Camera(vars['cameraNode'])
+    local camera = LobbyMap(vars['cameraNode'])
     camera:setContainerSize(1280*3, 720)
     
     camera:addLayer(self:makeLobbyLayer(4), 0.7)
     camera:addLayer(self:makeLobbyLayer(3), 0.8)
     camera:addLayer(self:makeLobbyLayer(2), 0.9)
-    camera:addLayer(self:makeLobbyLayer(1), 1)
+
+    local lobby_ground = self:makeLobbyLayer(1)
+    camera:addLayer(lobby_ground, 1)
+
+    do
+        local tamer = LobbyTamer()
+        tamer:initAnimator('character/tamer/leon/leon.spine')
+        tamer:initState()
+        tamer:changeState('idle')
+        tamer:initSchedule()
+        tamer:setPosition(0, -150)
+        tamer:initShadow(lobby_ground, 0)
+        lobby_ground:addChild(tamer.m_rootNode, 1)
+
+        camera.m_groudNode = lobby_ground
+        camera.m_targetTamer = tamer
+    end
+
 end
 
 -------------------------------------

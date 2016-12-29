@@ -71,7 +71,7 @@ function Camera:init(parent, z_order)
 
     self.m_bDoingAction = false
 
-    self.m_touchHandler = CameraTouchHandler(self, self.m_rootNode)
+    --self.m_touchHandler = CameraTouchHandler(self, self.m_rootNode)
 end
 
 -------------------------------------
@@ -328,8 +328,10 @@ function Camera:stopAction()
     self.m_bDoingAction = false
 
     -- 자동 이동하는 속도 초기화
-    self.m_touchHandler.m_velocityX = nil
-    self.m_touchHandler.m_velocityY = nil
+    if self.m_touchHandler then
+        self.m_touchHandler.m_velocityX = nil
+        self.m_touchHandler.m_velocityY = nil
+    end
 end
 
 -------------------------------------

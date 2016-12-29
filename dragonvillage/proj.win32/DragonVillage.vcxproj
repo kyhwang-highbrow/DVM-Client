@@ -274,6 +274,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\GameState_NestDungeon_Tree.lua" />
     <None Include="..\src\GameWorld_Unit.lua" />
     <None Include="..\src\IStateHelper.lua" />
+    <None Include="..\src\LobbyMap.lua" />
     <None Include="..\src\SceneNestDungeon.lua" />
     <None Include="..\src\ServerData_NestDungeon.lua" />
     <None Include="..\src\ServerData_Stage.lua" />
@@ -531,6 +532,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_AdventureStageInfo.lua" />
     <None Include="..\src\UI_BlockPopup.lua" />
     <None Include="..\src\UI_CharacterCard.lua" />
+    <None Include="..\src\LobbyTamer.lua" />
     <None Include="..\src\UI_ClassForm.lua" />
     <None Include="..\src\UI_ClassFormUseTopUserInfo.lua" />
     <None Include="..\src\UI_DragonDetailPopup.lua" />

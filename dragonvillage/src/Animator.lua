@@ -311,7 +311,7 @@ function Animator:setFlip(flip)
     end
 
     self.m_bFlip = flip
-    local scale_x = self.m_node:getScaleX()
+    local scale_x = math_abs(self.m_node:getScaleX())
 
     if self.m_bFlip then 
         self.m_node:setScaleX(-scale_x)

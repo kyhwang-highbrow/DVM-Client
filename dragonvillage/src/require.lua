@@ -277,6 +277,8 @@ local t_module = {
     'UI_LobbyNew',
     'UI_LobbyOld',
     'UI_Lobby',
+    'LobbyMap',
+    'LobbyTamer',
     'UI_Game',
     'UI_GameResultNew',
     'UI_GameResult_NestDungeon',
