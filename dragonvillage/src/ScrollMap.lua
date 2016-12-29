@@ -54,6 +54,7 @@ function ScrollMap:bindEventDispatcher(eventDispather)
     -- 맵 연출 이벤트 등록
     eventDispather:addListener('nest_dragon_start', self)
     eventDispather:addListener('nest_dragon_final_wave', self)
+    eventDispather:addListener('nest_tree_appear', self)
 end
 
 -------------------------------------
@@ -166,47 +167,86 @@ function ScrollMap:setBg(res)
     if script then        
         for _, v in ipairs(script['layer']) do
             local type = v['type'] or 'horizontal'
-            local speed = v['speed']
+            local speed = v['speed'] or 0
+            local camera_rate = v['camera_rate']
             local group = v['group']
-            local offset_x = 0
-            local offset_y = 0
-            local interval = 0
+            local bFixedLayer = (speed == 0) -- 속도값이 0일 경우 반복되지 않는 맵으로 간주
 
-            -- 속도값이 0일 경우 반복되지 않는 맵으로 간주
-            if speed ~= 0 then
+            if (bFixedLayer) then
                 for i, data in ipairs(v['list']) do
-                    if type == 'horizontal' then
+                    local real_offset_x = (data['pos_x'] or 0)
+                    local real_offset_y = (data['pos_y'] or 0)
+                    local scale = (data['scale'] or 1)
+                    local bFlip = (data['flip'] or false)
+                
+                    local map_layer = ScrollMapLayerFixed(self.m_node, {
+                        res = data['res'],
+                        animation = data['animation'],
+                        offset_x = real_offset_x,
+                        offset_y = real_offset_y,
+                        scale = scale,
+                        group = group,
+                        camera_rate = camera_rate,
+                        is_flip = bFlip
+                    })
+                    table.insert(self.m_tMapLayer, map_layer)
+
+				    -- layer별 연출 처리								
+				    if (v['directing']) then 
+					    map_layer:setDirecting(v['directing'])
+				    end
+                end
+
+            else
+                local offset_x = 0
+                local offset_y = 0
+                local interval = 0
+
+                -- 반복되서 나오는 맵의 경우 반복 주기 크기를 계산
+                for i, data in ipairs(v['list']) do
+                    if (type == 'horizontal') then
                         interval = interval + (data['width'] or 0)
-                    elseif type == 'vertical' then
+                    elseif (type == 'vertical') then
                         interval = interval + (data['height'] or 0)
                     end
                 end
-            end
-
-            for i, data in ipairs(v['list']) do
-                local real_offset_x = (data['pos_x'] or 0)
-                local real_offset_y = (data['pos_y'] or 0)
-                local scale = (data['scale'] or 1)
+            
+                for i, data in ipairs(v['list']) do
+                    local real_offset_x = (data['pos_x'] or 0)
+                    local real_offset_y = (data['pos_y'] or 0)
+                    local scale = (data['scale'] or 1)
                 
-                if type == 'horizontal' then
-                    real_offset_x = real_offset_x + offset_x
-                elseif type == 'vertical' then
-                    real_offset_y = real_offset_y + offset_y
-                end
+                    if type == 'horizontal' then
+                        real_offset_x = real_offset_x + offset_x
+                    elseif type == 'vertical' then
+                        real_offset_y = real_offset_y + offset_y
+                    end
                 
-                local map_layer = ScrollMapLayer(self.m_node, type, data['res'], data['animation'], interval, real_offset_x, real_offset_y, scale, speed, group)
-                table.insert(self.m_tMapLayer, map_layer)
+                    local map_layer = ScrollMapLayer(self.m_node, {
+                        type = type,
+                        res = data['res'],
+                        animation = data['animation'],
+                        interval = interval,
+                        offset_x = real_offset_x,
+                        offset_y = real_offset_y,
+                        scale = scale,
+                        group = group,
+                        camera_rate = camera_rate,
+                        speed_scale = speed
+                    })
+                    table.insert(self.m_tMapLayer, map_layer)
 
-				if type == 'horizontal' then
-                    offset_x = offset_x + (data['width'] or 0)
-                elseif type == 'vertical' then
-                    offset_y = offset_y + (data['height'] or 0)
-                end
+				    if type == 'horizontal' then
+                        offset_x = offset_x + (data['width'] or 0)
+                    elseif type == 'vertical' then
+                        offset_y = offset_y + (data['height'] or 0)
+                    end
 	
-				-- layer별 연출 처리								
-				if (v['directing']) then 
-					map_layer:setDirecting(v['directing'])
-				end
+				    -- layer별 연출 처리								
+				    if (v['directing']) then 
+					    map_layer:setDirecting(v['directing'])
+				    end
+                end
             end
         end
 
@@ -236,7 +276,12 @@ function ScrollMap:update(dt)
     end
     
     for i,v in ipairs(self.m_tMapLayer) do
-        v:update(self.m_totalMove, dt, cameraX, cameraY, cameraScale)
+        v:update(dt, {
+            totalMove = self.m_totalMove,
+            cameraX = cameraX,
+            cameraY = cameraY,
+            cameraScale = cameraScale
+        })
     end
 
     return self.m_totalMove
@@ -275,7 +320,7 @@ function ScrollMap:onEvent(event_name, ...)
         -- 거대용 마지막 웨이브 시작시 연출
         for i, v in ipairs(self.m_tMapLayer) do
             if v.m_group == 'nest_dragon_body' then
-                local animator = v.m_tAnimator[1]
+                local animator = v.m_animator
                 animator:changeAni('endwave_2', false)
                                                 
                 v:doAction(cc.Sequence:create(
@@ -284,6 +329,21 @@ function ScrollMap:onEvent(event_name, ...)
                     cc.CallFunc:create(cbFunction)
                 ))
                 
+            end
+        end
+
+    elseif (event_name == 'nest_tree_appear') then
+        -- 거목 마지막 웨이브 시작시 연출
+        for i, v in ipairs(self.m_tMapLayer) do
+            if v.m_group == 'nest_tree' then
+                local animator = v.m_animator
+                animator:setVisible(false)
+                                              
+                v:doAction(cc.Sequence:create(
+                    cc.EaseOut:create(cc.MoveTo:create(1, cc.p(-700, 0)), 2),
+                    cc.EaseIn:create(cc.MoveTo:create(1.5, cc.p(4000, 0)), 2),
+                    cc.CallFunc:create(cbFunction)
+                ))
             end
         end
     end

@@ -3,21 +3,64 @@
 	"layer":
     [        
         {
-            "name":"배경"
-			"tgype":"vertical"
-            "speed":0
-            "list":
+            "name":"배경1"
+			"type":"vertical"
+			"speed":0
+            "camera_rate":1
+			"list":
             [
-                {"res":"res/bg/map_ancient_forest.png" "pos_x":-426 "pos_y":1600 "scale":1.67}
+                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_1_a" "pos_x":640 "pos_y":-800 "scale":2}
+					
+            ]
+        }
+		{
+            "name":"배경2"
+			"type":"vertical"
+			"speed":0
+            "camera_rate":0.8
+			"list":
+            [
+                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_2_a" "pos_x":640 "pos_y":-800 "scale":2}
+					
+            ]
+        }
+		{
+            "name":"배경3"
+			"type":"vertical"
+			"speed":0
+            "camera_rate":0.6
+			"list":
+            [
+                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_3_a" "pos_x":640 "pos_y":-800 "scale":2}
+					
+            ]
+        }
+		{
+            "name":"배경4"
+			"type":"vertical"
+			"speed":0
+            "camera_rate":0
+			"list":
+            [
+                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_4_a" "pos_x":640 "pos_y":-800 "scale":2}
 					
             ]
         }
 		{
             "name":"거목"
-            "speed":0
+			"speed":0
 			"list":
             [
-                {"res":"res/bg/map_ancient_forest_bgtree.png" "pos_x":-426 "pos_y":1600 "scale":1.67}
+                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"bg_tree_idle" "pos_x":745 "pos_y":636 "scale":1.5}
+            ]
+        }
+		{
+            "name":"거목보스"
+			"group":"nest_tree"
+			"speed":0
+			"list":
+            [
+                {"res":"res/character/monster/boss_treant_earth/boss_treant_earth.spine" "animation":"idle" "pos_x":1025 "pos_y":3460 "flip":true "scale":1.5}
             ]
         }
     ]

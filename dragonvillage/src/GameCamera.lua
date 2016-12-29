@@ -60,8 +60,7 @@ function GameCamera:update(dt)
 
 	if self.m_target then
 		x = (-self.m_target.pos.x + (CRITERIA_RESOLUTION_X / 2)) * scale
-		--y = -self.m_target.pos.y * scale
-        y = -self.m_target.pos.y * scale + 80
+		y = -self.m_target.pos.y * scale + 80
 	end
 
 	x, y = self:adjustPos(x, y, scale)

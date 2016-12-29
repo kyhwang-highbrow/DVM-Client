@@ -8,7 +8,7 @@
 			"idx":1,
 			"camera":
             {
-                "scale":1,
+                "scale":0.6,
                 "pos_x":0,
                 "pos_y":0
             },
@@ -33,9 +33,9 @@
 			"idx":2,
 			"camera":
             {
-                "scale":1,
+                "scale":0.8,
                 "pos_x":0,
-                "pos_y":1560
+                "pos_y":1872
             },
             "wave":
             {
@@ -65,14 +65,14 @@
             {
                 "scale":0.6,
                 "pos_x":0,
-                "pos_y":5120
+                "pos_y":3360
             },
             "direction":"boss_wave",
             "wave":
             {				
 				0:
 				[
-				"135021;1;NestDragon;BOSS;NEST;2"
+				"135021;1;NestTree;BOSS;RM24;2"
 				]
             }
         }

@@ -156,7 +156,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_gameTimeScale = GameTimeScale(self)
 
     if (self.m_gameMode == GAME_MODE_ADVENTURE) then
-        self.m_gameCamera:setRange({minY = -300, maxY = 300})
+        self.m_gameCamera:setRange({minY = -160, maxY = 160})
 
         self.m_gameState = GameState(self)
 
@@ -165,17 +165,18 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
         local dungeonMode = t_dungeon['dungeon_mode']
 
         if (dungeonMode == NEST_DUNGEON_DRAGON) then
-            self.m_gameCamera:setRange({minY = -300, maxY = 300})
+            self.m_gameCamera:setRange({minY = -160, maxY = 160})
 
             self.m_gameState = GameState_NestDungeon_Dragon(self)
 
 		elseif (dungeonMode == NEST_DUNGEON_NIGHTMARE) then
-		    self.m_gameCamera:setRange({minY = -300, maxY = 300})
+		    self.m_gameCamera:setRange({minY = -160, maxY = 160})
 
 			self.m_gameState = GameState(self)
 
         elseif (dungeonMode == NEST_DUNGEON_TREE) then
-            self.m_gameCamera:setRange({minX = -300, maxX = 300})
+            self.m_gameCamera:setRange({minX = -640, maxX = 640})
+            --self.m_gameCamera:setRange({minX = -480, maxX = 480})
 
             self.m_gameState = GameState_NestDungeon_Tree(self)
 
@@ -1048,6 +1049,14 @@ function GameWorld:onKeyReleased(keyCode, event)
                     v:changeState('dying')
                 end
             end
+        end
+
+    -- pause
+    elseif (keyCode == KEY_A) then
+        if g_gameScene.m_bPause then
+            g_gameScene:gameResume()
+        else
+            g_gameScene:gamePause()
         end
 
     -- 카메라 이동

@@ -893,8 +893,8 @@ function GameState:doDirectionForIntermission()
             end
         end
 
-        t_camera_info['pos_x'] = curCameraPosX * t_camera_info['scale']
-		t_camera_info['pos_y'] = tRandomY[math_random(1, #tRandomY)] * t_camera_info['scale']
+        t_camera_info['pos_x'] = curCameraPosX
+		t_camera_info['pos_y'] = tRandomY[math_random(1, #tRandomY)]
 		t_camera_info['time'] = getInGameConstant(WAVE_INTERMISSION_TIME)
         
     end
