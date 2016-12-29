@@ -1,7 +1,9 @@
+local PARENT = GameState
+
 -------------------------------------
 -- class GameState_Colosseum
 -------------------------------------
-GameState_Colosseum = class(GameState, {})
+GameState_Colosseum = class(PARENT, {})
 
 -------------------------------------
 -- function init
@@ -14,7 +16,7 @@ end
 -------------------------------------
 -- function update_start
 -------------------------------------
-function GameState_Colosseum:update_start(dt)
+function GameState_Colosseum.update_start(self, dt)
     local world = self.m_world
     local map_mgr = world.m_mapManager
 
@@ -69,7 +71,7 @@ end
 -------------------------------------
 -- function update_fight
 -------------------------------------
-function GameState_Colosseum:update_fight(dt)
+function GameState_Colosseum.update_fight(self, dt)
     self.m_fightTimer = self.m_fightTimer + dt
     local world = self.m_world
 

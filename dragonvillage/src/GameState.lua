@@ -1,3 +1,5 @@
+local PARENT = class(IEventListener:getCloneClass(), IStateHelper:getCloneTable())
+
 GAME_STATE_NONE = 0
 
 GAME_STATE_LOADING = 1  -- Scene전환 후 첫 상태
@@ -27,7 +29,7 @@ GAME_STATE_FAILURE = 302
 -------------------------------------
 -- class GameState
 -------------------------------------
-GameState = class(IEventListener:getCloneClass(), IStateHelper:getCloneTable(), {
+GameState = class(PARENT, {
         m_world = '',
 
         m_stateParam = 'boolean',
@@ -98,53 +100,36 @@ function GameState:init(world)
 	self.m_skillDescLabel:setColor(cc.c3b(220,220,220))
     self.m_skillDescLabel:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
     descNode:addChild(self.m_skillDescLabel)
+
+    self:initState()
 end
 
 -------------------------------------
--- function update
+-- function initState
+-- @brief 상태(state)별 동작 함수 추가
 -------------------------------------
-function GameState:update(dt)
-    IStateHelper.updateState(self)
-
-    self:_update(dt)
-    
-    if (self.m_state == GAME_STATE_NONE) then
-    elseif (self.m_state == GAME_STATE_START) then    self:update_start(dt)
-    elseif (self.m_state == GAME_STATE_WAVE_INTERMISSION) then self:update_wave_intermission(dt)
-    elseif (self.m_state == GAME_STATE_WAVE_INTERMISSION_WAIT) then self:update_wave_intermission_wait(dt)
-    elseif (self.m_state == GAME_STATE_ENEMY_APPEAR) then self:update_enemy_appear(dt)
-    elseif (self.m_state == GAME_STATE_FIGHT) then      self:update_fight(dt)
-    elseif (self.m_state == GAME_STATE_FIGHT_DRAGON_SKILL) then self:update_fight_dragon_skill(dt)
-    elseif (self.m_state == GAME_STATE_FIGHT_TAMER_SKILL) then self:update_fight_tamer_skill(dt)
-    elseif (self.m_state == GAME_STATE_FIGHT_WAIT) then self:update_fight_wait(dt)
-
-    elseif (self.m_state == GAME_STATE_FIGHT_FEVER) then      self:update_fight_fever(dt)
-
-    -- 마지막 웨이브 연출
-    elseif (self.m_state == GAME_STATE_FINAL_WAVE) then self:update_final_wave(dt)
-    
-    -- 보스 웨이브 연출
-    elseif (self.m_state == GAME_STATE_BOSS_WAVE) then self:update_boss_wave(dt)
-    
-    elseif (self.m_state == GAME_STATE_SUCCESS_WAIT) then    self:update_success_wait(dt)
-    elseif (self.m_state == GAME_STATE_SUCCESS) then    self:update_success(dt)
-    elseif (self.m_state == GAME_STATE_FAILURE) then    self:update_failure(dt)
-    end
-
-    IStateHelper.updateTimer(self, dt)
-end
-
--------------------------------------
--- function update
--------------------------------------
-function GameState:_update(dt)
-    
+function GameState:initState()
+    self:addState(GAME_STATE_NONE,                   function(self, dt) end)
+    self:addState(GAME_STATE_START,                  GameState.update_start)
+    self:addState(GAME_STATE_WAVE_INTERMISSION,      GameState.update_wave_intermission)
+    self:addState(GAME_STATE_WAVE_INTERMISSION_WAIT, GameState.update_wave_intermission_wait)
+    self:addState(GAME_STATE_ENEMY_APPEAR,           GameState.update_enemy_appear)
+    self:addState(GAME_STATE_FIGHT,                  GameState.update_fight)
+    self:addState(GAME_STATE_FIGHT_DRAGON_SKILL,     GameState.update_fight_dragon_skill)
+    self:addState(GAME_STATE_FIGHT_TAMER_SKILL,      GameState.update_fight_tamer_skill)
+    self:addState(GAME_STATE_FIGHT_WAIT,             GameState.update_fight_wait)
+    self:addState(GAME_STATE_FIGHT_FEVER,            GameState.update_fight_fever)
+    self:addState(GAME_STATE_FINAL_WAVE,             GameState.update_final_wave) -- 마지막 웨이브 연출
+    self:addState(GAME_STATE_BOSS_WAVE,              GameState.update_boss_wave)  -- 보스 웨이브 연출
+    self:addState(GAME_STATE_SUCCESS_WAIT,           GameState.update_success_wait)
+    self:addState(GAME_STATE_SUCCESS,                GameState.update_success)
+    self:addState(GAME_STATE_FAILURE,                GameState.update_failure)
 end
 
 -------------------------------------
 -- function update_start
 -------------------------------------
-function GameState:update_start(dt)
+function GameState.update_start(self, dt)
     local world = self.m_world
     local map_mgr = world.m_mapManager
 
@@ -196,7 +181,7 @@ end
 -------------------------------------
 -- function update_fight
 -------------------------------------
-function GameState:update_fight(dt)
+function GameState.update_fight(self, dt)
     self.m_fightTimer = self.m_fightTimer + dt
     local world = self.m_world
 
@@ -263,7 +248,7 @@ end
 -------------------------------------
 -- function update_wave_intermission
 -------------------------------------
-function GameState:update_wave_intermission(dt)
+function GameState.update_wave_intermission(self, dt)
 	local world = self.m_world
 	local map_mgr = world.m_mapManager
     local intermissionTime = getInGameConstant(WAVE_INTERMISSION_TIME)
@@ -315,7 +300,7 @@ end
 -------------------------------------
 -- function update_wave_intermission_wait
 -------------------------------------
-function GameState:update_wave_intermission_wait(dt)
+function GameState.update_wave_intermission_wait(self, dt)
     local world = self.m_world
 
     if (self.m_stateTimer == 0) then
@@ -341,7 +326,7 @@ end
 -------------------------------------
 -- function update_enemy_appear
 -------------------------------------
-function GameState:update_enemy_appear(dt)
+function GameState.update_enemy_appear(self, dt)
     local world = self.m_world
     local enemy_count = #world:getEnemyList()
 	
@@ -395,7 +380,7 @@ end
 -------------------------------------
 -- function update_fight_dragon_skill
 -------------------------------------
-function GameState:update_fight_dragon_skill(dt)
+function GameState.update_fight_dragon_skill(self, dt)
     local dragon = self.m_world.m_currFocusingDragon
     local timeScale = 0.1
     local delayTime = 1
@@ -466,7 +451,7 @@ end
 -------------------------------------
 -- function update_fight_tamer_skill
 -------------------------------------
-function GameState:update_fight_tamer_skill(dt)
+function GameState.update_fight_tamer_skill(self, dt)
     local world = self.m_world
 
     if (self.m_stateTimer == 0) then
@@ -480,7 +465,7 @@ end
 -------------------------------------
 -- function update_fight_fever
 -------------------------------------
-function GameState:update_fight_fever(dt)
+function GameState.update_fight_fever(self, dt)
     local world = self.m_world
         
     if (self.m_stateTimer == 0) then
@@ -513,7 +498,7 @@ end
 -------------------------------------
 -- function update_fight_wait
 -------------------------------------
-function GameState:update_fight_wait(dt)
+function GameState.update_fight_wait(self, dt)
     if (self.m_stateTimer == 0) then
     end
 end
@@ -522,7 +507,7 @@ end
 -- function update_final_wave
 -- @brief 파이널 웨이브 연출
 -------------------------------------
-function GameState:update_final_wave(dt)
+function GameState.update_final_wave(self, dt)
     if (self:isBeginningStep(0)) then
         self.m_waveEffect:setVisible(true)
         self.m_waveEffect:changeAni('final_appear', false)
@@ -544,7 +529,7 @@ end
 -- function update_boss_wave
 -- @brief 보스 웨이브 연출
 -------------------------------------
-function GameState:update_boss_wave(dt)
+function GameState.update_boss_wave(self, dt)
     if (self:isBeginningStep(0)) then
         self.m_waveEffect:setVisible(true)
         self.m_waveEffect:changeAni('boss_warning_width_720', false)
@@ -581,7 +566,7 @@ end
 -------------------------------------
 -- function update_success_wait
 -------------------------------------
-function GameState:update_success_wait(dt)
+function GameState.update_success_wait(self, dt)
     local world = self.m_world
 
     if (self.m_stateTimer == 0) then
@@ -610,7 +595,7 @@ end
 -------------------------------------
 -- function update_success
 -------------------------------------
-function GameState:update_success(dt)
+function GameState.update_success(self, dt)
     
     if (self.m_stateTimer == 0) then
         local world = self.m_world
@@ -656,7 +641,7 @@ end
 -------------------------------------
 -- function update_failure
 -------------------------------------
-function GameState:update_failure(dt)
+function GameState.update_failure(self, dt)
     if (self.m_stateTimer == 0) then
 
         local world = self.m_world
@@ -689,7 +674,7 @@ function GameState:changeState(state)
     end
     
     local prev_state = self.m_state
-    IStateHelper.changeState(self, state)
+    PARENT.changeState(self, state)
 
     if (prev_state == GAME_STATE_FIGHT) then
          self.m_world:setWaitAllCharacter(true)

@@ -3,12 +3,22 @@ local PARENT = GameState
 -------------------------------------
 -- class GameState_NestDungeon_Dragon
 -------------------------------------
-GameState_NestDungeon_Dragon = class(PARENT, {})
+GameState_NestDungeon_Dragon = class(PARENT, {
+    })
+
+-------------------------------------
+-- function initState
+-- @brief 상태(state)별 동작 함수 추가
+-------------------------------------
+function GameState_NestDungeon_Dragon:initState()
+    PARENT.initState(self)
+    self:addState(GAME_STATE_START, GameState_NestDungeon_Dragon.update_start)
+end
 
 -------------------------------------
 -- function update_start
 -------------------------------------
-function GameState_NestDungeon_Dragon:update_start(dt)
+function GameState_NestDungeon_Dragon.update_start(self, dt)
     local world = self.m_world
     local map_mgr = world.m_mapManager
 

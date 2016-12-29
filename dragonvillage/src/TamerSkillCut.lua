@@ -1,17 +1,19 @@
+local PARENT = class(IEventListener:getCloneClass(), IStateHelper:getCloneTable())
+
+local TAMER_SKILL_CUT_TYPE__IDLE = 0
 local TAMER_SKILL_CUT_TYPE__NORMAL = 1
 local TAMER_SKILL_CUT_TYPE__SPECIAL = 2
 
 -------------------------------------
 -- class TamerSkillCut
 -------------------------------------
-TamerSkillCut = class(IEventListener:getCloneClass(), IStateHelper:getCloneTable(), {
+TamerSkillCut = class(PARENT, {
         m_world = 'GameWrold',
         m_skillLayer = '',
         
         m_bPlaying = 'boolean',
         
         -- 연출 정보
-        m_type = 'number',
         m_cbEnd = 'function',
 
         --
@@ -50,32 +52,41 @@ function TamerSkillCut:init(world, skill_layer, t_tamer)
                 
         socketNode:addChild(self.m_tamerAnimator.m_node)
     end
+
+    self:initState()
+    self:changeState(TAMER_SKILL_CUT_TYPE__IDLE)
 end
 
 -------------------------------------
--- function update
+-- function initState
+-- @brief 상태(state)별 동작 함수 추가
 -------------------------------------
-function TamerSkillCut:update(dt)
-    if not self.m_bPlaying then return end
+function TamerSkillCut:initState()
+    self:addState(TAMER_SKILL_CUT_TYPE__IDLE, TamerSkillCut.update_idle)
+    self:addState(TAMER_SKILL_CUT_TYPE__NORMAL, TamerSkillCut.update_normal)
+    self:addState(TAMER_SKILL_CUT_TYPE__SPECIAL, TamerSkillCut.update_special)
+end
 
-    IStateHelper.updateState(self)
-    
-    if self.m_type == TAMER_SKILL_CUT_TYPE__NORMAL then
-        self:update_normal(dt)
-
-    elseif self.m_type == TAMER_SKILL_CUT_TYPE__SPECIAL then
-        self:update_special(dt)
-
+-------------------------------------
+-- function update_idle
+-- @brief
+-------------------------------------
+function TamerSkillCut.update_idle(self, dt)
+    if (self.m_stateTimer == 0) then
+        self.m_bPlaying = false
+        
+        if self.m_cbEnd then
+            self.m_cbEnd()
+            self.m_cbEnd = nil
+        end
     end
-
-    IStateHelper.updateTimer(self, dt)
 end
 
 -------------------------------------
 -- function update_normal
 -- @brief 테이머 스킬
 -------------------------------------
-function TamerSkillCut:update_normal(dt)
+function TamerSkillCut.update_normal(self, dt)
     if self:isBeginningStep(0) then
         g_gameScene:flashIn({color = cc.c3b(0, 0, 0), opacity = 100, time = 0.2, cbEnd = function()
             self:nextStep()
@@ -105,7 +116,7 @@ function TamerSkillCut:update_normal(dt)
 
     elseif self:isBeginningStep(3) then
         g_gameScene:gameResume()
-        self:onEnd()
+        self:changeState(TAMER_SKILL_CUT_TYPE__IDLE)
     end
 end
 
@@ -113,7 +124,7 @@ end
 -- function update_special
 -- @brief 테이머 궁극기
 -------------------------------------
-function TamerSkillCut:update_special(dt)
+function TamerSkillCut.update_special(self, dt)
     if self:isBeginningStep(0) then
         g_gameScene:gamePause()
 
@@ -143,8 +154,7 @@ function TamerSkillCut:update_special(dt)
         
     elseif self:isBeginningStep(3) then
         g_gameScene:gameResume()
-
-        self:onEnd()
+        self:changeState(TAMER_SKILL_CUT_TYPE__IDLE)
     end
 end
 
@@ -161,21 +171,10 @@ end
 function TamerSkillCut:start(type, cbEnd)
     if self.m_bPlaying then return end
 
-    IStateHelper.init(self)
-
     self.m_bPlaying = true
 
-    self.m_type = type
+    self:changeState(type)
     self.m_cbEnd = cbEnd or function() end
-end
-
--------------------------------------
--- function onEnd
--------------------------------------
-function TamerSkillCut:onEnd()
-    self.m_bPlaying = false
-
-    self.m_cbEnd()
 end
 
 -------------------------------------

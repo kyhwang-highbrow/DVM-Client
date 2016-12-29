@@ -6,9 +6,19 @@ local PARENT = GameState
 GameState_NestDungeon_Tree = class(PARENT, {})
 
 -------------------------------------
+-- function initState
+-- @brief 상태(state)별 동작 함수 추가
+-------------------------------------
+function GameState_NestDungeon_Tree:initState()
+    PARENT.initState(self)
+    self:addState(GAME_STATE_START, GameState_NestDungeon_Tree.update_start)
+end
+
+
+-------------------------------------
 -- function update_start
 -------------------------------------
-function GameState_NestDungeon_Tree:update_start(dt)
+function GameState_NestDungeon_Tree.update_start(self, dt)
     local world = self.m_world
     local map_mgr = world.m_mapManager
 
