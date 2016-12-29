@@ -332,7 +332,11 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         missile.m_minSpeed = l_limit_speed
         missile.m_maxSpeed = h_limit_speed
 
-        missile.m_rootNode:setScale(scale)
+		if (type(scale) == 'table') then
+			missile.m_rootNode:setScale(scale[1], scale[2])
+		else
+			missile.m_rootNode:setScale(scale)
+		end
         missile:setDir(dir)
         missile:setRotation(rotation)
         missile:setPosition(pos_x, pos_y)

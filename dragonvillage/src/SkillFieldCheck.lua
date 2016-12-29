@@ -5,6 +5,7 @@ local PARENT = Skill
 -------------------------------------
 SkillFieldCheck = class(PARENT, {
 		m_tarRes = 'str',
+		m_drainRes = 'str',
 		m_fieldType = 'str',
 		m_targetStatusEffectType = 'str',
 		m_isReleaseStatusEffect = 'bool',
@@ -21,11 +22,12 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillFieldCheck:init_skill(tar_res, field_type, target_status_effect_type, is_release_status_effect)
+function SkillFieldCheck:init_skill(tar_res, drain_res, field_type, target_status_effect_type, is_release_status_effect)
     PARENT.init_skill(self)
 
 	-- 멤버 변수
-    self.m_tarRes = nil --tar_res 
+    self.m_tarRes = tar_res 
+	self.m_drainRes = drain_res
     self.m_fieldType = field_type
 	self.m_targetStatusEffectType = target_status_effect_type
 	self.m_isReleaseStatusEffect = is_release_status_effect
@@ -61,8 +63,14 @@ function SkillFieldCheck:runAttack()
 	for _, target_char in pairs(l_target) do
 		for type, status_effect in pairs(target_char:getStatusEffectList()) do
 			if (status_effect.m_statusEffectName == self.m_targetStatusEffectType) then 
+				
 				-- 이펙트 생성
 				self:makeEffect(target_char.pos.x, target_char.pos.y)
+
+				-- 흡수 이펙트
+				for i = 1, 5 do
+					self:makeDrainEffect(target_char.pos.x, target_char.pos.y)
+				end
 		
 				-- 상태효과 시전
 				for i = 1, status_effect.m_overlabCnt do 
@@ -87,7 +95,8 @@ end
 -- @breif 추가 이펙트 생성 .. 현재는 같은 리소스 사용
 -------------------------------------
 function SkillFieldCheck:makeEffect(x, y, is_target_status_effect)
-	if (not self.m_tarRes) then return end
+	-- 리소스 없을시 탈출
+	if (not self.m_tarRes == 'x') then return end
 
     -- 이팩트 생성
     local effect = MakeAnimator(self.m_tarRes)
@@ -101,12 +110,40 @@ function SkillFieldCheck:makeEffect(x, y, is_target_status_effect)
 end
 
 -------------------------------------
+-- function makeDrainEffect
+-- @breif 추가 이펙트 생성 .. 현재는 같은 리소스 사용
+-------------------------------------
+function SkillFieldCheck:makeDrainEffect(x, y, is_target_status_effect)
+	if (not self.m_drainRes == 'x') then return end
+
+    -- 이팩트 생성
+    local effect = MakeAnimator(self.m_drainRes)
+    effect:setPosition(x, y)
+	
+	local world = self.m_owner.m_world
+    world.m_missiledNode:addChild(effect.m_node, 0)
+    --effect:setMotionStreak(world.m_missiledNode, 'res/missile/motion_streak/motion_streak_rose.png')
+
+	local jump_height = math_random(100, 200)
+	local duration = math_random(10, 20)/10
+	if (math_random(1, 2) == 1) then
+		jump_height = -jump_height
+	end
+
+	local target_pos = cc.p(self.m_owner.pos.x, self.m_owner.pos.y)
+    local action = cc.JumpTo:create(duration, target_pos, jump_height, 1)
+	local action2 = cc.RemoveSelf:create()
+	effect.m_node:runAction(cc.Sequence:create(cc.EaseIn:create(action, 2), action2))
+end
+
+-------------------------------------
 -- function makeSkillInstance
 -------------------------------------
 function SkillFieldCheck:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local tar_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+	local drain_res = string.gsub(t_skill['res_2'], '@', owner:getAttribute())
 
     local field_type = t_skill['val_1']
 	local target_status_effect_type = t_skill['val_2']
@@ -119,7 +156,7 @@ function SkillFieldCheck:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(tar_res, field_type, target_status_effect_type, is_release_status_effect)
+    skill:init_skill(tar_res, drain_res, field_type, target_status_effect_type, is_release_status_effect)
 	skill:initState()
 
 	-- 3. state 시작 
