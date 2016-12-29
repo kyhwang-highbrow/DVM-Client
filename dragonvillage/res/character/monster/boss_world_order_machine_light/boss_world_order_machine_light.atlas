@@ -1,0 +1,13 @@
+
+boss_world_order_machine_light.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_world_order_machine_light_00
+  rotate: false
+  xy: 2, 2
+  size: 707, 690
+  orig: 707, 690
+  offset: 0, 0
+  index: -1
