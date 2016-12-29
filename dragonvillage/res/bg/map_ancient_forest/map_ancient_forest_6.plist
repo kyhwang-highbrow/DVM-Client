@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>map_ancient_forest_tree_up.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{880,1184}}</string>
+                <key>offset</key>
+                <string>{200,-368}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{400,736},{880,1184}}</string>
+                <key>sourceSize</key>
+                <string>{1280,1920}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>map_ancient_forest_6.png</string>
+            <key>size</key>
+            <string>{884,1188}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:829f49a988abbfbc8b79def5e09d1ecd:6614ec6c2c29897d0d706fae0f3a3000:8d12c4509ab4df414a51a97b4e495513$</string>
+            <key>textureFileName</key>
+            <string>map_ancient_forest_6.png</string>
+        </dict>
+    </dict>
+</plist>

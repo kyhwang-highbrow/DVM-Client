@@ -2,28 +2,59 @@
     "pattern_boss_treant":
     [        
         [
-            "a;5", "w;3"
+            "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1", "w;4"
         ]
     ],
 	
-    "hp_trriger":
+	"time_trriger":
     {
         "priority":1,
+        "list":
+        [
+            {
+                "time":15,
+                "pattern":
+                [
+                    "a;2", "w;5", "a;3", "w;1", "a;4", "w;5"
+                ]
+            }, 
+			
+			{
+                "time":30,
+                "pattern":
+                [
+                    "a;2", "w;5", "a;3", "w;1", "a;5", "w;5"
+                ]
+            },
+			
+			{
+                "time":45,
+                "pattern":
+                [
+                    "a;2", "w;5", "a;3", "w;1", "a;4", "w;5"
+                ]
+            },
+			
+			{
+                "time":60,
+                "pattern":
+                [
+                    "a;2", "w;5", "a;3", "w;1", "a;5", "w;5"
+                ]
+            }
+        ]
+    },
+	
+    "hp_trriger":
+    {
+        "priority":2,
         "list":
         [
             {
                 "hp_percent":1,
                 "pattern":
                 [
-                    "a;1", "w;3", "a;1", "w;3", "a;2", "w;3", "a;3", "w;3", "a;4", "w;3"
-                ]
-            },
-			
-            {
-                "hp_percent":1,
-                "pattern":
-                [
-                    "a;1"
+                    "a;5"
                 ]
             }
         ]

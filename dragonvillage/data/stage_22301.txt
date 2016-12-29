@@ -1,6 +1,6 @@
 {
     "difficult":2,
-    "bg":"map_forest",
+    "bg":"map_nightmare",
 	"wave":
 	[
         {
@@ -15,17 +15,17 @@
             {
 				0:
 				[
-				"130011;2;Basic;RO02;RF22;0.5"
-				"130011;2;Basic;RO04;RF14;0.5"
-				"130011;2;Basic;RO06;RF26;0.5"
+				"130011;2;FadeIn;RO02;RF22;2"
+				"130011;2;FadeIn;RO04;RF14;2"
+				"130011;2;FadeIn;RO06;RF26;2"
 				],
 				
 				0.5:
 				[
-				"130031;2;Appear;RO04;RM24;0.5"
-				"131031;2;Appear;RO03;RB13;0.5"
-				"131031;2;Appear;RO05;RB15;0.5"
-				"130031;2;Appear;RO04;RB24;0.5"
+				"130031;2;Appear;RO04;RM24;2"
+				"131031;2;Appear;RO03;RB13;2"
+				"131031;2;Appear;RO05;RB15;2"
+				"130031;2;Appear;RO04;RB24;2"
 				]
             }
         },
@@ -41,18 +41,18 @@
             {
                 0:
                 [
-				"130011;2;Appear;RO04;RF14;0.5"
-				"130011;2;Appear;RO02;RF22;0.5"
-				"130011;2;Appear;RO06;RF26;0.5"
+				"130011;2;Appear;RO04;RF14;2"
+				"130011;2;Appear;RO02;RF22;2"
+				"130011;2;Appear;RO06;RF26;2"
 				],
 				
 				0.2:
 				[
-				"130031;2;Appear;RO04;RM24;0.5"
-				"130041;2;Appear;RO03;RB13;0.5"
-				"130041;2;Appear;RO05;RB15;0.5"
-				"131031;2;Appear;RO02;RB22;0.5"
-				"131031;2;Appear;RO06;RB26;0.5"
+				"130031;2;Appear;RO04;RM24;2"
+				"130041;2;Appear;RO03;RB13;2"
+				"130041;2;Appear;RO05;RB15;2"
+				"131031;2;Appear;RO02;RB22;2"
+				"131031;2;Appear;RO06;RB26;2"
                 ]		
             }
         },
@@ -71,20 +71,20 @@
 				
 				0:
 				[
-				"130011;2;Basic;BOSS;RF24;2"
+				"130011;2;FadeIn;BOSS;RF24;2"
 				],				
 				
 				0.3:
 				[
-				"130011;2;Appear;RO03;RF13;0.5"
-				"130011;2;Appear;RO05;RF15;0.5"
-				"131031;2;Appear;RO02;RM12;0.5"
-				"131031;2;Appear;RO06;RM16;0.5"
+				"130011;2;Appear;RO03;RF13;2"
+				"130011;2;Appear;RO05;RF15;2"
+				"131031;2;Appear;RO02;RM12;2"
+				"131031;2;Appear;RO06;RM16;2"
 				],
 				
 				0.6:
 				[
-				"132031;2;Appear;RO04;RB14;0.5"
+				"132031;2;Appear;RO04;RB14;2"
 				]
             }
         }

@@ -1,6 +1,6 @@
 {
     "difficult":2,
-    "bg":"map_nest_ether",
+    "bg":"map_nightmare",
 	"camera":
 	{
 		"scale":1,
@@ -22,27 +22,27 @@
             {
 				0:
 				[
-					"130015;1;Appear;RO02;RF12;0.5"
-					"130015;1;Appear;RO01;RF21;0.5"
-					"130015;1;Appear;RO03;RF23;0.5"
-					"130015;1;Appear;RO02;RM12;0.5"
+					"130015;1;Appear;RO02;RF12;2"
+					"130015;1;Appear;RO01;RF21;2"
+					"130015;1;Appear;RO03;RF23;2"
+					"130015;1;Appear;RO02;RM12;2"
 
 				],
 				
 				1:
 				[
-					"130025;1;Appear;RO04;RM24;0.5"
-					"130025;1;Appear;RO03;RB13;0.5"
-					"130025;1;Appear;RO05;RB15;0.5"
-					"130025;1;Appear;RO04;RB24;0.5"
+					"130025;1;Appear;RO04;RM24;2"
+					"130025;1;Appear;RO03;RB13;2"
+					"130025;1;Appear;RO05;RB15;2"
+					"130025;1;Appear;RO04;RB24;2"
 				],
 				
 				2:
 				[
-					"130035;1;Appear;RO06;RF16;0.5"
-					"130035;1;Appear;RO05;RF25;0.5"
-					"130035;1;Appear;RO07;RF27;0.5"
-					"130035;1;Appear;RO06;RM16;0.5"
+					"130035;1;Appear;RO06;RF16;2"
+					"130035;1;Appear;RO05;RF25;2"
+					"130035;1;Appear;RO07;RF27;2"
+					"130035;1;Appear;RO06;RM16;2"
 				]
             }
 		},
@@ -59,40 +59,40 @@
             {
 				0:
                 [
-					"130065;1;Basic;RO04;RB24;0.5"
+					"130065;1;FadeIn;RO04;RB24;2"
 				],
 				
 				0.2:
 				[	
-					"130025;1;Basic;RB24;RB13;0.5"
-					"130025;1;Basic;RB24;RB15;0.5"
+					"130025;1;FadeIn;RB24;RB13;2"
+					"130025;1;FadeIn;RB24;RB15;2"
 				],
 				
 				0.4:
 				[
-					"130025;1;Basic;RB13;RM22;0.5"
-					"130025;1;Basic;RB15;RM26;0.5"
+					"130025;1;FadeIn;RB13;RM22;2"
+					"130025;1;FadeIn;RB15;RM26;2"
 				],
 				
 				0.6:
 				[	
-					"130055;1;Basic;RM22;RM11;0.5"
-					"130055;1;Appear;RO04;RM14;0.5"
-					"130055;1;Basic;RM26;RM17;0.5"
+					"130055;1;FadeIn;RM22;RM11;2"
+					"130055;1;Appear;RO04;RM14;2"
+					"130055;1;FadeIn;RM26;RM17;2"
 				],
 				
 				0.8:
 				[	
-					"131035;1;Basic;RM11;RF21;0.5"
-					"131035;1;Basic;RM14;RF24;0.5"
-					"131035;1;Basic;RM17;RF27;0.5"
+					"131035;1;FadeIn;RM11;RF21;2"
+					"131035;1;FadeIn;RM14;RF24;2"
+					"131035;1;FadeIn;RM17;RF27;2"
 				],
 				
 				1:
 				[	
-					"130015;1;Basic;RF21;RF11;0.5"
-					"130015;1;Basic;RF24;RF14;0.5"
-					"130015;1;Basic;RF27;RF17;0.5"
+					"130015;1;FadeIn;RF21;RF11;2"
+					"130015;1;FadeIn;RF24;RF14;2"
+					"130015;1;FadeIn;RF27;RF17;2"
                 ]
             }
 		},
@@ -112,7 +112,7 @@
 				
 				0:
 				[
-				"135015;1;Basic;BOSS;NEST;2"
+				"135015;1;FadeIn;BOSS;NEST;2"
 				]
             }
         }
@@ -122,8 +122,8 @@
     {
         0:
         [
-			"131023;15;Appear;RO02;RF12;0.5"
-			"131023;15;Appear;RO06;RF16;0.5"
+			"131023;15;Appear;RO02;RF12;2"
+			"131023;15;Appear;RO06;RF16;2"
 		]
     }
 }
