@@ -87,14 +87,14 @@
             {
                 "scale":0.6,
                 "pos_x":0,
-                "pos_y":2400
+                "pos_y":2560
             },
             "direction":"boss_wave",
             "wave":
             {				
 				0:
 				[
-				"135021;1;NestTree;BOSS;RM24;2"
+				"135021;1;NestTree;BOSS;NEST;2"
 				]
             }
         }

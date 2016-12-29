@@ -1,6 +1,6 @@
 {
     "difficult":2,
-    "bg":"map_volcano",
+    "bg":"map_nest_ether",
 	"wave":
 	[
         {
@@ -15,7 +15,7 @@
             {
 				0:
                 [
-					"139021;100;Basic;BO10;RB24;1"
+					"132024;100;Basic;BO10;RM24;1"
 				]
             }
         },

@@ -51,7 +51,8 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 230050,script,skill_ancient_word_b,고대문자 B,x,x,x,x,instant,magical,0,basic_turn,1,enemy_distance_line,0,atk,100,1,0,0,0,0,0,0,def_down;target;10;100;100,x,0,x,x
 230051,script,skill_ancient_word_c,고대문자 C,x,x,x,x,instant,magical,0,basic_turn,1,ally_all,0,atk,100,1,0,0,0,0,0,0,aspd_up;target;10;100;100,x,0,x,x
 230052,script,skill_record_manager_1,기록 삭제,x,x,x,x,instant,magical,0,basic_turn,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,0,x,x,0,x,x
-230052,script,skill_missile_mandragora_1,초음파,x,x,x,x,instant,magical,-1,basic_turn,1,enemy_distance_line,1,atk,100,1,0,0,0,0,0,0,stun;target;2;50;100,x,0,x,x
+230053,code,skill_melee_atk,만드라고라:일반 공격,x,x,x,x,instant,magical,0,basic,1,enemy_distance_line,-1,atk,100,1,5000,10000,200,0,0,0,x,x,0,x,x
+230054,script,skill_missile_mandragora_1,초음파,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,0,atk,100,1,0,0,0,0,0,0,stun;target;2;50;100,x,0,x,x
 231000,script,skill_elite_0,엘리트_0,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 231001,script,skill_elite_1,엘리트_1,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 231002,script,skill_elite_2,엘리트_2,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
@@ -62,7 +63,7 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 231007,script,skill_elite_lizard_man_shaman_1,엘리트_도마뱀 인간 주술사,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,150,1,0,0,0,0,0,x,x,x,0,x,x
 231008,script,skill_elite_gargoyle_1,엘리트_가고일,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,70,1,0,0,0,0,0,x,x,x,0,x,x
 231009,script,skill_elite_pixie_queen_1,엘리트_픽시퀸1,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
-231010,script,skill_elite_pixie_queen_2,엘리트_픽시퀸2,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
+231010,script,skill_elite_pixie_queen_2,엘리트_픽시퀸2,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,blind;target;10;10;100,x,0,x,x
 231011,script,skill_elite_light_orb_1,엘리트_라이트 오브1,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 231012,script,skill_elite_light_orb_2,엘리트_라이트 오브2,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 231013,script,skill_elite_beholder_1,엘리트_감시자1,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
@@ -133,7 +134,7 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 235142,status_effect,skill_boss_gdragon_light_2,빛의 거대용: 눈부신 광명(skill_2),x,x,x,skill_2,instant,magical,-2,basic_turn,4,self,1,atk,1,1,0,0,0,0,0,x,avoid;target;15;100;100,x,0,x,x
 235151,script,skill_boss_gdragon_breath,어둠의 거대용: 브레스(skill_1),res/missile/missile_flame/missile_flame_@.vrp,res/effect/effect_breath_charge/effect_breath_charge_fire.vrp,x,skill_3,instant,magical,-2,basic_turn,3,enemy_distance_line,0,atk,10,1,0,0,0,0,0,x,x,x,0,x,x
 235152,status_effect,skill_boss_gdragon_dark_2,어둠의 거대용: 어둠의 분노(skill_2),x,x,x,skill_2,instant,magical,-2,basic_turn,4,self,1,atk,1,1,0,0,0,0,0,x,atk_up;target;15;100;100,x,0,x,x
-235200,code,missile_move_high_angle,거목: 일반공격 씨앗 심기,res/missile/missile_seed/missile_seed.png,res/missile/motion_streak/motion_streak_seed.png,x,x,instant,physical,-2,basic,1,enemy_random,-1,atk,0,1,250,20,0,0,0,x,poison;target;30;100;100,x,0,x,x
+235200,code,missile_move_high_angle,거목: 일반공격 씨앗 심기,res/missile/missile_seed/missile_seed.png,res/missile/motion_streak/motion_streak_seed.png,res/effect/effect_sprout/effect_sprout.vrp,x,instant,physical,-2,basic,1,enemy_random,-1,atk,0,1,250,20,0,0,0,x,poison;target;30;100;100,x,0,x,x
 235201,code,skill_status_effect_field_check,거목: 생명력 흡수(skill_1),res/effect/effect_drain/effect_drain.vrp,x,x,x,instant,magical,-2,basic_turn,1,enemy,0,atk,100,3,enemy,poison,0,0,0,x,heal_overlab;self;15;100;10,x,0,x,타겟 타입의 대상의 버프를 체크하여 status_effect의 대상에게 사용.
 235202,code,skill_counterattack,거목: 숲의 굳건함(skill_2),x,x,x,skill_2,instant,physical,-2,basic_turn,1,enemy_distance_line,0,atk,1,1,235203,5,1,0,0,x,x,x,0,x,"기존의 카운터 어택을 수정해 val_3의 값에 따라 전체 반응(0), 액티브 스킬에만 반응(1) 형태로 수정함"
 235203,status_effect,skill_boss_treant_2,거목: 숲의 굳건함:방어 버프(skill_2),res/effect/effect_defensive/effect_defensive.vrp,x,x,x,instant,magical,-2,basic_turn,1,self,0,atk,100,1,0,0,0,0,0,x,def_up_overlab;self;5;100;10,x,0,x,x

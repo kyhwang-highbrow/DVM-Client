@@ -233,10 +233,6 @@ ScrollMapLayerFixed = class(IScrollMapLayer, {
 
         local is_flip = tParam['is_flip'] or false
 
-        if is_flip then
-            cclog('ScrollMapLayerFixed flip')
-        end
-
         self.m_animator:setFlip(is_flip)
         self:update(0)
     end
@@ -252,7 +248,8 @@ ScrollMapLayerFixed = class(IScrollMapLayer, {
 
         local posX = self.m_offsetX - (self.m_cameraRate * cameraX / cameraScale)
         local posY = self.m_offsetY - (self.m_cameraRate * cameraY / cameraScale)
-    
+        
+
         self.m_animator.m_node:setPositionX(posX)
         self.m_animator.m_node:setPositionY(posY)
     end
