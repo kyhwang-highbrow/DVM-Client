@@ -30,8 +30,10 @@ function UI_Lobby:init()
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
-    --self:doActionReset()
-    --self:doAction(nil, false)
+    self:doActionReset()
+    self:doAction(nil, false)
+    g_topUserInfo:doActionReset()
+    g_topUserInfo:doAction()
 
     self:sceneFadeInAction()
 
@@ -54,7 +56,7 @@ end
 function UI_Lobby:initCamera()
     local vars = self.vars
     local camera = LobbyMap(vars['cameraNode'])
-    camera:setContainerSize(1280*3, 720)
+    camera:setContainerSize(1280*3, 960)
     
     camera:addLayer(self:makeLobbyLayer(4), 0.7)
     camera:addLayer(self:makeLobbyLayer(3), 0.8)
@@ -82,6 +84,15 @@ function UI_Lobby:initCamera()
         camera.m_targetTamer = tamer
     end
 
+    camera:setMoveStartCB(function()
+        self:doActionReverse()
+        g_topUserInfo:doActionReverse()
+    end)
+
+    camera:setMoveEndCB(function()
+        self:doAction()
+        g_topUserInfo:doAction()
+    end)
 end
 
 -------------------------------------

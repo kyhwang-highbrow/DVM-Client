@@ -29,6 +29,7 @@ UIC_Button = class(PARENT, {
 -------------------------------------
 function UIC_Button:init(node)
     self.m_clickSoundName = 'touch_basic'
+    self.m_buttonState = UIC_BUTTON_NORMAL
     self.m_node:registerScriptTapHandler(function() UIC_Button.tapHandler(self) end)
     
     self:setOriginData()

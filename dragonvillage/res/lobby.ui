@@ -394,6 +394,10 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			action_type = 3;
+			action_delay_1 = 0.000000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
 			lua_name = 'userInfoNode';
 		};
 		[3] =
@@ -453,6 +457,10 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			action_type = 4;
+			action_delay_1 = 0.000000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
 			lua_name = 'adventureBtn';
 			enable = true;
 			normal = 'ui/btn/sub_0101.png';
@@ -517,6 +525,10 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			action_type = 4;
+			action_delay_1 = 0.100000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
 			lua_name = 'nestUIBtn';
 			enable = true;
 			normal = 'ui/btn/sub_0101.png';
@@ -581,6 +593,10 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			action_type = 4;
+			action_delay_1 = 0.000000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
 			lua_name = 'dragonManageBtn';
 			enable = true;
 			normal = 'ui/btn/sub_0101.png';
@@ -645,6 +661,10 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			action_type = 4;
+			action_delay_1 = 0.100000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
 			lua_name = 'shopBtn';
 			enable = true;
 			normal = 'ui/btn/sub_0101.png';
