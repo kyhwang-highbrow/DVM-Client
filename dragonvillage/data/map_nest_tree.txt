@@ -51,7 +51,7 @@
 			"speed":0
 			"list":
             [
-                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"bg_tree_idle" "pos_x":745 "pos_y":636 "scale":1.5}
+                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"bg_tree_idle" "pos_x":936 "pos_y":300 "scale":1.2}
             ]
         }
 		{
@@ -60,7 +60,7 @@
 			"speed":0
 			"list":
             [
-                {"res":"res/character/monster/boss_treant_earth/boss_treant_earth.spine" "animation":"idle" "pos_x":1025 "pos_y":3460 "flip":true "scale":1.5}
+                {"res":"res/character/monster/boss_treant_earth/boss_treant_earth.spine" "animation":"idle" "pos_x":1200 "pos_y":2460 "flip":true "scale":1.2}
             ]
         }
     ]
