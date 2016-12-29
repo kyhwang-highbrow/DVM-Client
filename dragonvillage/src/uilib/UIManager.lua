@@ -142,12 +142,17 @@ function UIManager:open(ui, mode, bNotBlendBGLayer)
         end
     end
 
+    local function f_pause(node)
+        node:pause()
+    end
+
     -- 다른 UI들은 off
     if (mode == UIManager.SCENE) then
         local childs = self.m_uiLayer:getChildren()
         for _,child in ipairs(childs) do
             if child:isVisible() then
                 child:setVisible(false)
+                doAllChildren(child, f_pause)
                 table.insert(ui.m_lHideUIList, child)
             end
         end
@@ -244,11 +249,16 @@ function UIManager:close(ui)
     self.m_uiLayer:removeChild(ui.root, true)
     table.remove(list, idx)
 
+    local function f_resume(node)
+        node:resume()
+    end
+
     -- 숨김처리된 UI 다시 살림
     local childs = self.m_uiLayer:getChildren()
     for _,child in ipairs(ui.m_lHideUIList) do
         for _,child_ in ipairs(childs) do
             if (child == child_) then
+                doAllChildren(child, f_resume)
                 child:setVisible(true)
             end
         end
