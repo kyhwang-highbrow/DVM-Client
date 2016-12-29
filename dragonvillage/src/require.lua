@@ -225,6 +225,7 @@ local t_module = {
 	'SkillDispelMagic',
     'SkillSpatter',
 	'SkillAoERound',
+	'SkillLeap',
 	'SkillExplosion',
 	'SkillConicAtk',
 	'SkillConicAtk_Spread',

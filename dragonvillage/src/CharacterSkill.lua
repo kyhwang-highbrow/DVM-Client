@@ -150,6 +150,10 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
             SkillConicAtk_Spread:makeSkillInstance(self, t_skill, t_data)
 			return true
 
+		elseif (type == 'skill_leap_atk') then
+            SkillLeap:makeSkillInstance(self, t_skill, t_data)
+            return true
+
 		elseif (type == 'skill_aoe_round_jump') then
             SkillExplosion:makeSkillInstance(self, t_skill, t_data)
 			return true
