@@ -250,7 +250,7 @@ function UI_TitleScene:workGameLogin()
     self.m_loadingUI:showLoading(Str('게임 서버에 로그인 중...'))
 
     local uid = g_serverData:get('local', 'uid')
-    local nickname = g_userData:get('nickname') or g_serverData:get('local', 'idfa')
+    local nickname = g_userData:get('nick') or g_serverData:get('local', 'idfa')
 
     local success_cb = function(ret)
         g_serverData:applyServerData(ret['user'], 'user')

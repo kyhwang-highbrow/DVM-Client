@@ -155,7 +155,7 @@ function UI_Lobby:refresh_userInfo()
     vars['userTitleLabel']:setString(Str('수습테이머'))
 
     -- 닉네임
-    local nickname = g_userData:get('nickname') or g_serverData:get('local', 'idfa')
+    local nickname = g_userData:get('nick')
     vars['userNameLabel']:setString(nickname)
 
     -- 레벨

@@ -109,7 +109,7 @@ function UI_SettingPopup:refresh_infoTap()
     local vars = self.vars
 
     local uid = g_userData:get('uid')
-    local nickname = g_userData:get('nickname') or g_serverData:get('local', 'idfa')
+    local nickname = g_userData:get('nick')
     local version_str = PatchData:getInstance():getAppVersionAndPatchIdxString()
 
     vars['userIdLabel']:setString(Str('유저 ID : ') .. uid)

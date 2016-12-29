@@ -58,7 +58,7 @@ function UI_DragonManageFriendshipResult:initUI(grade, t_prev_dragon_data, t_cur
         vars['conditionLabel']:setString(Str(t_friendship['t_name']))
 
         -- 친밀도 단계 설명
-        local nickname = g_serverData:get('local', 'idfa')
+        local nickname = g_userData:get('nick')
         vars['conditionInfoLabel']:setString(string.format('[%s]', nickname) .. Str(t_friendship['t_desc']))
     end
 
