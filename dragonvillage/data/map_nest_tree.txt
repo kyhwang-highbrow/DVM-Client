@@ -6,7 +6,7 @@
             "name":"배경1"
 			"type":"vertical"
 			"speed":0
-            "camera_rate":1
+            "camera_app_rate":1
 			"list":
             [
                 {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_1_a" "pos_x":640 "pos_y":-800 "scale":2}
@@ -17,7 +17,7 @@
             "name":"배경2"
 			"type":"vertical"
 			"speed":0
-            "camera_rate":0.8
+            "camera_app_rate":0.8
 			"list":
             [
                 {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_2_a" "pos_x":640 "pos_y":-800 "scale":2}
@@ -28,7 +28,7 @@
             "name":"배경3"
 			"type":"vertical"
 			"speed":0
-            "camera_rate":0.6
+            "camera_app_rate":0.6
 			"list":
             [
                 {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_3_a" "pos_x":640 "pos_y":-800 "scale":2}
@@ -39,7 +39,7 @@
             "name":"배경4"
 			"type":"vertical"
 			"speed":0
-            "camera_rate":0
+            "camera_app_rate":0
 			"list":
             [
                 {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_4_a" "pos_x":640 "pos_y":-800 "scale":2}

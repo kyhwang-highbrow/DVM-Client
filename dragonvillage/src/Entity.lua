@@ -296,3 +296,21 @@ function Entity:setMotionStreak(parent_node, res, z_order)
         parent_node:addChild(self.m_motionStreak, z_order)
     end
 end
+
+-------------------------------------
+-- function blockMatchingSlotShader
+-- @brief 특정 네이밍 패턴을 가지는 슬롯들을 각종 쉐이더 효과 시 무시시킴
+-------------------------------------
+function Entity:blockMatchingSlotShader(str)
+    if (not self.m_animator or not isInstanceOf(self.m_animator, AnimatorSpine)) then
+        return
+    end
+     
+    local slotList = self.m_animator:getSlotList()
+
+    for i, slotName in ipairs(slotList) do
+        if startsWith(slotName, str) then
+            self.m_animator.m_node:setSlotGLProgramName(slotName, cc.SHADER_POSITION_TEXTURE_COLOR)
+        end
+    end
+end

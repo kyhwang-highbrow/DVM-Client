@@ -41,6 +41,9 @@ function Monster:initAnimatorMonster(file_name, attr)
     if self.m_animator.m_node then
         self.m_rootNode:addChild(self.m_animator.m_node)
     end
+
+    -- 각종 쉐이더 효과 시 예외 처리할 슬롯 설정(Spine)
+    self:blockMatchingSlotShader('effect_')
 end
 
 -------------------------------------

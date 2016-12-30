@@ -164,97 +164,105 @@ function ScrollMap:setBg(res)
 
     -- 스크립트로 맵 생성
     local script = TABLE:loadJsonTable(res)
-    if script then        
-        for _, v in ipairs(script['layer']) do
-            local type = v['type'] or 'horizontal'
-            local speed = v['speed'] or 0
-            local camera_rate = v['camera_rate']
-            local group = v['group']
-            local bFixedLayer = (speed == 0) -- 속도값이 0일 경우 반복되지 않는 맵으로 간주
+    if not script then return end
+    
+    for _, v in ipairs(script['layer']) do
+        local type = v['type'] or 'horizontal'
+        local speed = v['speed'] or 0                   -- 이동 속도 배율
+        local camera_app_rate = v['camera_app_rate']    -- 카메라 적용 배율
+        local group = v['group']
 
-            if (bFixedLayer) then
-                for i, data in ipairs(v['list']) do
-                    local real_offset_x = (data['pos_x'] or 0)
-                    local real_offset_y = (data['pos_y'] or 0)
-                    local scale = (data['scale'] or 1)
-                    local bFlip = (data['flip'] or false)
-                
-                    local map_layer = ScrollMapLayerFixed(self.m_node, {
-                        res = data['res'],
-                        animation = data['animation'],
-                        offset_x = real_offset_x,
-                        offset_y = real_offset_y,
-                        scale = scale,
-                        group = group,
-                        camera_rate = camera_rate,
-                        is_flip = bFlip
-                    })
-                    table.insert(self.m_tMapLayer, map_layer)
+        local bFixedLayer = (speed == 0) -- 속도값이 0일 경우 반복되지 않는 맵으로 간주
 
-				    -- layer별 연출 처리								
-				    if (v['directing']) then 
-					    map_layer:setDirecting(v['directing'])
-				    end
+        if (bFixedLayer) then
+            for i, data in ipairs(v['list']) do
+                local real_offset_x = (data['pos_x'] or 0)
+                local real_offset_y = (data['pos_y'] or 0)
+                local scale = (data['scale'] or 1)
+                local bFlip = (data['flip'] or false)
+
+                self:makeLayer({
+                    res = data['res'],
+                    animation = data['animation'],
+                    offset_x = real_offset_x,
+                    offset_y = real_offset_y,
+                    scale = scale,
+                    group = group,
+                    camera_app_rate = camera_app_rate,
+                    is_flip = bFlip
+                }, true)
+            end
+
+        else
+            local offset_x = 0
+            local offset_y = 0
+            local interval = 0
+
+            -- 반복되서 나오는 맵의 경우 반복 주기 크기를 계산
+            for i, data in ipairs(v['list']) do
+                if (type == 'horizontal') then
+                    interval = interval + (data['width'] or 0)
+                elseif (type == 'vertical') then
+                    interval = interval + (data['height'] or 0)
                 end
-
-            else
-                local offset_x = 0
-                local offset_y = 0
-                local interval = 0
-
-                -- 반복되서 나오는 맵의 경우 반복 주기 크기를 계산
-                for i, data in ipairs(v['list']) do
-                    if (type == 'horizontal') then
-                        interval = interval + (data['width'] or 0)
-                    elseif (type == 'vertical') then
-                        interval = interval + (data['height'] or 0)
-                    end
-                end
+            end
             
-                for i, data in ipairs(v['list']) do
-                    local real_offset_x = (data['pos_x'] or 0)
-                    local real_offset_y = (data['pos_y'] or 0)
-                    local scale = (data['scale'] or 1)
+            for i, data in ipairs(v['list']) do
+                local real_offset_x = (data['pos_x'] or 0)
+                local real_offset_y = (data['pos_y'] or 0)
+                local scale = (data['scale'] or 1)
                 
-                    if type == 'horizontal' then
-                        real_offset_x = real_offset_x + offset_x
-                    elseif type == 'vertical' then
-                        real_offset_y = real_offset_y + offset_y
-                    end
-                
-                    local map_layer = ScrollMapLayer(self.m_node, {
-                        type = type,
-                        res = data['res'],
-                        animation = data['animation'],
-                        interval = interval,
-                        offset_x = real_offset_x,
-                        offset_y = real_offset_y,
-                        scale = scale,
-                        group = group,
-                        camera_rate = camera_rate,
-                        speed_scale = speed
-                    })
-                    table.insert(self.m_tMapLayer, map_layer)
+                if type == 'horizontal' then
+                    real_offset_x = real_offset_x + offset_x
+                elseif type == 'vertical' then
+                    real_offset_y = real_offset_y + offset_y
+                end
 
-				    if type == 'horizontal' then
-                        offset_x = offset_x + (data['width'] or 0)
-                    elseif type == 'vertical' then
-                        offset_y = offset_y + (data['height'] or 0)
-                    end
-	
-				    -- layer별 연출 처리								
-				    if (v['directing']) then 
-					    map_layer:setDirecting(v['directing'])
-				    end
+                self:makeLayer({
+                    type = type,
+                    res = data['res'],
+                    animation = data['animation'],
+                    interval = interval,
+                    offset_x = real_offset_x,
+                    offset_y = real_offset_y,
+                    scale = scale,
+                    group = group,
+                    camera_app_rate = camera_app_rate,
+                    speed_scale = speed,
+                    directing = v['directing']
+                }, false)
+                    
+                if type == 'horizontal' then
+                    offset_x = offset_x + (data['width'] or 0)
+                elseif type == 'vertical' then
+                    offset_y = offset_y + (data['height'] or 0)
                 end
             end
         end
-
-		-- 연출 처리
-		if (script['directing']) then 
-			self:setDirecting(script['directing'])
-		end
     end
+
+	-- 연출 처리
+	if (script['directing']) then 
+		self:setDirecting(script['directing'])
+	end
+end
+
+-------------------------------------
+-- function setBg
+-------------------------------------
+function ScrollMap:makeLayer(tParam, bFixedLayer)
+    local map_layer
+
+    if bFixedLayer then
+        map_layer = ScrollMapLayerFixed(self.m_node, tParam)
+
+    else
+        map_layer = ScrollMapLayer(self.m_node, tParam)
+    end
+
+    table.insert(self.m_tMapLayer, map_layer)
+
+	return map_layer
 end
 
 -------------------------------------
