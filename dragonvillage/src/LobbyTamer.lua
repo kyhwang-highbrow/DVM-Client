@@ -4,6 +4,8 @@ local PARENT = class(IStateHelper:getCloneClass(), IEventDispatcher:getCloneTabl
 -- class LobbyTamer
 -------------------------------------
 LobbyTamer = class(PARENT, {
+        m_userData = '',
+
         m_rootNode = 'cc.Node',
         m_animator = 'Animator',
 
@@ -21,7 +23,9 @@ LobbyTamer = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function LobbyTamer:init()
+function LobbyTamer:init(user_data)
+    self.m_userData = user_data
+
     -- rootNode 생성
     self.m_rootNode = cc.Node:create()
 
@@ -264,4 +268,31 @@ function LobbyTamer:release()
     end
     
     self.m_rootNode = nil
+end
+
+-------------------------------------
+-- function showEmotionEffect
+-- @brief 감정 이펙트 연출
+-------------------------------------
+function LobbyTamer:showEmotionEffect()
+    local animator = MakeAnimator('res/ui/a2d/emotion/emotion.vrp')
+
+    do -- 에니메이션 지정
+        local sum_random = SumRandom()
+        sum_random:addItem(1, 'curious')
+        sum_random:addItem(2, 'exciting')
+        sum_random:addItem(2, 'like')
+        sum_random:addItem(2, 'love')
+        local ani_name = sum_random:getRandomValue()     
+        animator:changeAni(ani_name, false)
+    end
+
+    -- 위치 지정
+    animator:setPosition(-70, 200)
+    
+    -- 재생 후 삭제
+    local duration = animator.m_node:getDuration()
+    animator:setScale(0.7)
+    animator.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+    self.m_rootNode:addChild(animator.m_node, 3)
 end

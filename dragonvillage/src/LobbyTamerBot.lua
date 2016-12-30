@@ -11,7 +11,7 @@ LobbyTamerBot = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function LobbyTamerBot:init()
+function LobbyTamerBot:init(user_data)
 end
 
 -------------------------------------

@@ -19,6 +19,11 @@ LobbyMap = class(PARENT, {
         m_lobbyIndicator = 'Animator',
         m_lLobbyTamer = 'list',
         m_lLobbyTamerBotOnly = 'list',
+
+        -- 유저 주변의 테이머 갱신을 위한 변수들
+        m_bUserPosDirty = 'bool',
+        m_lChangedPosTamers = 'list',
+        m_lNearUserList = 'list',
     })
 
 -------------------------------------
@@ -29,6 +34,9 @@ function LobbyMap:init(parent, z_order)
     self.m_bMoveState = false
     self.m_lLobbyTamer = {}
     self.m_lLobbyTamerBotOnly = {}
+    self.m_bUserPosDirty = true
+    self.m_lChangedPosTamers = {}
+    self.m_lNearUserList = {}
 end
 
 -------------------------------------
@@ -177,6 +185,8 @@ function LobbyMap:update(dt)
             self.m_lobbyIndicator:setVisible(false)
         end
     end
+
+    self:updateUserTamerArea()
 end
 
 -------------------------------------
@@ -225,9 +235,9 @@ function LobbyMap:makeLobbyTamerBot(t_user_info)
     local tamer
     
     if is_bot then
-        tamer = LobbyTamerBot()
+        tamer = LobbyTamerBot(t_user_info)
     else
-        tamer = LobbyTamer()
+        tamer = LobbyTamer(t_user_info)
     end
 
     if (math_random(1, 2) == 1) then
@@ -343,6 +353,13 @@ function LobbyMap:onEvent(event_name, ...)
         local scale = self:getScaleAtYPosY(y)
         lobby_tamer.m_rootNode:setScale(scale)
 
+        local uid = g_userData:get('uid')
+        if (tostring(uid) == lobby_tamer.m_userData['uid']) then
+            self.m_bUserPosDirty = true
+        else
+            table.insert(self.m_lChangedPosTamers, lobby_tamer)
+        end
+
     -- 그림자의 위치가 변경되었을 경우
     elseif (event_name == 'lobby_shadow_move') then
         local arg = {...}
@@ -354,4 +371,52 @@ function LobbyMap:onEvent(event_name, ...)
         local scale = self:getScaleAtYPosY(y)
         lobby_shadow.m_rootNode:setScale(scale)
     end
+end
+
+-------------------------------------
+-- function updateUserTamerArea
+-- @brief 유저의 테이머와 상대위치가 특정 거리 이내로 들어온 테이머 봇을 체크
+-------------------------------------
+function LobbyMap:updateUserTamerArea()
+    
+    local target_list
+
+    -- 유저가 이동하였을 경우 전체 테이머들을 대상
+    if self.m_bUserPosDirty then
+        target_list = self.m_lLobbyTamerBotOnly
+    else
+        target_list = self.m_lChangedPosTamers
+    end
+
+    -- 확인할 리스트가 없으면 리턴
+    if (#target_list <= 0) then
+        return
+    end
+
+    -- 유저 테이머의 위치
+    local user_x, user_y = self.m_targetTamer.m_rootNode:getPosition()
+    
+    -- 확인해야 할 테이머들과의 거리를 확인
+    for i,bot in ipairs(target_list) do
+        local bot_x, bot_y = bot.m_rootNode:getPosition()
+        local uid = bot.m_userData['uid']
+        local distance = getDistance(user_x, user_y, bot_x, bot_y)
+
+        if (distance <= 150) then
+            if (not self.m_lNearUserList[uid]) then
+                --cclog('가까이 들어옴!!! ' .. uid)
+                bot:showEmotionEffect()
+            end
+            self.m_lNearUserList[uid] = bot
+        else
+            if (self.m_lNearUserList[uid]) then
+                --cclog('######## 멀어짐!!! ' .. uid)
+            end
+            self.m_lNearUserList[uid] = nil
+        end
+    end
+
+
+    self.m_bUserPosDirty = false
+    self.m_lChangedPosTamers = {}
 end
