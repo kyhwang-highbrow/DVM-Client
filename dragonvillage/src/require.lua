@@ -280,6 +280,7 @@ local t_module = {
     'LobbyMap',
     'LobbyTamer',
     'LobbyTamerBot',
+    'LobbyShadow',
     'UI_Game',
     'UI_GameResultNew',
     'UI_GameResult_NestDungeon',

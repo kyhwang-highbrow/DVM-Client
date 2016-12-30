@@ -1,4 +1,4 @@
-local PARENT = IStateHelper:getCloneClass()
+local PARENT = class(IStateHelper:getCloneClass(), IEventDispatcher:getCloneTable())
 
 -------------------------------------
 -- class LobbyTamer
@@ -15,7 +15,6 @@ LobbyTamer = class(PARENT, {
         m_moveY = '',
         m_moveSpeed = '',
 
-        m_shadowSprite = 'cc.Sprite',
         m_dragonAnimator = 'Animator',
      })
 
@@ -69,42 +68,6 @@ function LobbyTamer:releaseAnimator()
         end
         self.m_animator = nil
     end
-end
-
--------------------------------------
--- function initShadow
--------------------------------------
-function LobbyTamer:initShadow(parent, z_order)
-    self:releaseShadow()
-
-    self.m_shadowSprite = cc.Sprite:create('res/character/char_shadow.png')
-    self.m_shadowSprite:setDockPoint(cc.p(0.5, 0.5))
-    self.m_shadowSprite:setAnchorPoint(cc.p(0.5, 0.5))
-    parent:addChild(self.m_shadowSprite, z_order or 0)
-
-    self:syncShadow()
-end
-
--------------------------------------
--- function releaseShadow
--------------------------------------
-function LobbyTamer:releaseShadow()
-    if self.m_shadowSprite then
-        self.m_shadowSprite:removeFromParent(true)
-        self.m_shadowSprite = nil
-    end
-end
-
--------------------------------------
--- function syncShadow
--------------------------------------
-function LobbyTamer:syncShadow()
-    if (not self.m_shadowSprite) then
-        return
-    end
-
-    local x, y = self.m_rootNode:getPosition()
-    self.m_shadowSprite:setPosition(x, y)
 end
 
 -------------------------------------
@@ -198,7 +161,8 @@ function LobbyTamer.st_move(self, dt)
     if (self.m_stateTimer == 0) then
 
         local function finich_cb()
-            self:onMove()
+            local x, y = self.m_rootNode:getPosition()
+            self:dispatch('lobby_tamer_move', self, x, y)
             self:changeState('idle')
         end
 
@@ -222,7 +186,8 @@ function LobbyTamer.st_move(self, dt)
         self:syncDragon(flip, duration, dt)
     end
 
-    self:onMove()
+    local x, y = self.m_rootNode:getPosition()
+    self:dispatch('lobby_tamer_move', self, x, y)
 end
 
 -------------------------------------
@@ -242,18 +207,7 @@ end
 -------------------------------------
 function LobbyTamer:setPosition(x, y)
     self.m_rootNode:setPosition(x, y)
-    self:onMove()
-end
-
--------------------------------------
--- function onMove
--------------------------------------
-function LobbyTamer:onMove()
-    self:syncShadow()
-
-    -- Y위치에 따라 ZOrder를 변경
-    local z_order = 100 + (10000 - self.m_rootNode:getPositionY())
-    self.m_rootNode:setLocalZOrder(z_order)
+    self:dispatch('lobby_tamer_move', self, x, y)
 end
 
 -------------------------------------
@@ -303,7 +257,6 @@ end
 -------------------------------------
 function LobbyTamer:release()
     self:releaseAnimator()
-    self:releaseShadow()
     self:releaseDragonAnimator()
 
     if self.m_rootNode then

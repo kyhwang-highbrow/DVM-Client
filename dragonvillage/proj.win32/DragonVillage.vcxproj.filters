@@ -1129,6 +1129,9 @@
     <None Include="..\src\LobbyTamer.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\LobbyShadow.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

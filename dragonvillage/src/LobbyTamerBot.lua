@@ -28,7 +28,7 @@ end
 -------------------------------------
 function LobbyTamerBot.st_idle(self, dt)
     if (self.m_stateTimer == 0) then
-        self.m_randomTime = math_random(30, 150) / 10
+        self.m_randomTime = math_random(10, 300) / 10
 
     elseif (self.m_randomTime <= self.m_stateTimer) then
         local x, y = self:getRandomPos()
