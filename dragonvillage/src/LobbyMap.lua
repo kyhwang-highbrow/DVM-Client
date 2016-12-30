@@ -47,6 +47,7 @@ function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_rati
     self:addLayer(node, perspective_ratio, perspective_ratio_y)
 
     self.m_lobbyIndicator = MakeAnimator('res/ui/a2d/lobby_indicator/lobby_indicator.vrp')
+    self.m_lobbyIndicator:setVisible(false)
     self.m_lobbyIndicator:changeAni('idle', true)
     node:addChild(self.m_lobbyIndicator.m_node, 0)
 end
@@ -178,14 +179,6 @@ function LobbyMap:update(dt)
         self:setPosition(x, y, true)
     end
 
-    do -- 이펙트위치 체크
-        if (self.m_targetTamer.m_state == 'move') then
-            self.m_lobbyIndicator:setVisible(true)
-        else
-            self.m_lobbyIndicator:setVisible(false)
-        end
-    end
-
     self:updateUserTamerArea()
 end
 
@@ -315,6 +308,12 @@ function LobbyMap:addLobbyTamer(tamer, is_bot, t_user_info)
         tamer:addListener('lobby_tamer_move', lobby_user_status_ui)
     end
 
+    -- 유저 테이머에만 추가
+    if (not is_bot) then
+        tamer:addListener('lobby_tamer_move_start', self)
+        tamer:addListener('lobby_tamer_move_end', self)
+    end
+
     -- 테이머가 이동했을 때 LobbyMap에서 ZOrder와 Scale을 변경
     tamer:addListener('lobby_tamer_move', self)
 end
@@ -370,6 +369,13 @@ function LobbyMap:onEvent(event_name, ...)
         -- Y위치에 따라 Scale을 변경
         local scale = self:getScaleAtYPosY(y)
         lobby_shadow.m_rootNode:setScale(scale)
+    
+    -- 유저 테이머 이동 시작/종료
+    elseif (event_name == 'lobby_tamer_move_start') then
+        self.m_lobbyIndicator:setVisible(true)
+    elseif (event_name == 'lobby_tamer_move_end') then
+        self.m_lobbyIndicator:setVisible(false)
+        
     end
 end
 

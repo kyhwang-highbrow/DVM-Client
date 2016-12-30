@@ -164,6 +164,8 @@ end
 function LobbyTamer.st_move(self, dt)
     if (self.m_stateTimer == 0) then
 
+        self:dispatch('lobby_tamer_move_start', self)
+
         local function finich_cb()
             local x, y = self.m_rootNode:getPosition()
             self:dispatch('lobby_tamer_move', self, x, y)
@@ -247,10 +249,16 @@ function LobbyTamer:changeState(state, forced)
         error(string.format('"%s" can not be found.', state))
     end
 
+    local prev_state = self.m_state
     local changed = PARENT.changeState(self, state, forced)
 
     if (changed and self.m_animator) then
         self.m_animator:changeAni(self.m_tStateAni[state], self.m_tStateAniLoop[state], true)
+    end
+
+    -- 이동이 종료되었을 경우
+    if (changed and (prev_state == 'move') and (state ~= 'move')) then
+        self:dispatch('lobby_tamer_move_end', self)
     end
 
     return changed
