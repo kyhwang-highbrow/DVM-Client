@@ -41,6 +41,9 @@ function ServerData:getInstance()
     -- 스테이지 관련 유틸
     g_stageData = ServerData_Stage(g_serverData)
 
+    -- 로비 유저 리스트
+    g_lobbyUserListData = ServerData_LobbyUserList(g_serverData)
+
     return g_serverData
 end
 

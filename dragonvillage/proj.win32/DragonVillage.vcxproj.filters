@@ -1132,6 +1132,12 @@
     <None Include="..\src\LobbyShadow.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\ServerData_LobbyUserList.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\LobbyUserStatusUI.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

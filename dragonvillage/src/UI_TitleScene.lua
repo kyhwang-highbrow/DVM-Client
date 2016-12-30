@@ -104,6 +104,7 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workPlatformLogin')
     table.insert(self.m_lWorkList, 'workGameLogin')
     table.insert(self.m_lWorkList, 'workGetDeck')
+    table.insert(self.m_lWorkList, 'workLobbyUserList')
     table.insert(self.m_lWorkList, 'workFinish')
     
 end
@@ -293,6 +294,28 @@ function UI_TitleScene:workGetDeck()
     Network_get_deck(uid, success_cb, fail_cb)
 end
 function UI_TitleScene:workGetDeck_click()
+end
+
+-------------------------------------
+-- function workLobbyUserList
+-- @brief
+-------------------------------------
+function UI_TitleScene:workLobbyUserList()
+    self.m_loadingUI:showLoading(Str('광장에 들어가고 있습니다...'))
+
+    local uid = g_serverData:get('local', 'uid')
+
+    local success_cb = function(ret)
+        self:doNextWork()
+    end
+
+    local fail_cb = function(ret)
+        self:makeFailPopup(nil, ret)
+    end
+
+    g_lobbyUserListData:requestLobbyUserList(uid, success_cb, fail_cb)
+end
+function UI_TitleScene:workLobbyUserList_click()
 end
 
 -------------------------------------

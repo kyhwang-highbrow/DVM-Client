@@ -215,11 +215,21 @@ end
 -------------------------------------
 -- function makeLobbyTamerBot
 -------------------------------------
-function LobbyMap:makeLobbyTamerBot()
+function LobbyMap:makeLobbyTamerBot(t_user_info)
     local lobby_map = self
     local lobby_ground = self.m_groudNode
+    local uid = g_serverData:get('local', 'uid')
+    local is_bot = (tostring(uid) ~= t_user_info['uid'])
 
-    local tamer = LobbyTamerBot()
+
+    local tamer
+    
+    if is_bot then
+        tamer = LobbyTamerBot()
+    else
+        tamer = LobbyTamer()
+    end
+
     if (math_random(1, 2) == 1) then
         tamer:initAnimator('res/character/tamer/leon/leon.spine')
     else
@@ -242,25 +252,31 @@ function LobbyMap:makeLobbyTamerBot()
     
     lobby_ground:addChild(tamer.m_rootNode)
 
-    
-
     tamer.m_animator:setFlip(flip)
 
 
-    tamer.m_funcGetRandomPos = function()
-        return lobby_map:getLobbyMapRandomPos()
+
+
+    self:addLobbyTamer(tamer, is_bot, t_user_info)
+
+
+    if is_bot then
+        local x, y = lobby_map:getLobbyMapRandomPos()
+        tamer:setPosition(x, y)
+
+        tamer.m_funcGetRandomPos = function()
+            return lobby_map:getLobbyMapRandomPos()
+        end
+    else
+        self.m_targetTamer = tamer
+        tamer:setPosition(0, -150)
     end
-
-    self:addLobbyTamer(tamer, true)
-
-    local x, y = lobby_map:getLobbyMapRandomPos()
-    tamer:setPosition(x, y)
 end
 
 -------------------------------------
 -- function addLobbyTamer
 -------------------------------------
-function LobbyMap:addLobbyTamer(tamer, is_bot)
+function LobbyMap:addLobbyTamer(tamer, is_bot, t_user_info)
     table.insert(self.m_lLobbyTamer, tamer)
 
     if (is_bot) then
@@ -271,11 +287,22 @@ function LobbyMap:addLobbyTamer(tamer, is_bot)
         local lobby_shadow = LobbyShadow(1)
         self.m_groudNode:addChild(lobby_shadow.m_rootNode)
 
-        -- 그림자가 이동 이벤트 등록
+        -- 그림자 이동 이벤트 등록
         lobby_shadow:addListener('lobby_shadow_move', self)
 
         -- 테이머가 이동하면 그림자도 함께 이동
         tamer:addListener('lobby_tamer_move', lobby_shadow)
+    end
+
+    do -- UI 생성
+        local lobby_user_status_ui = LobbyUserStatusUI(t_user_info)
+        self.m_groudNode:addChild(lobby_user_status_ui.m_rootNode, 100000)
+
+        -- 그림자 이동 이벤트 등록
+        lobby_user_status_ui:addListener('lobby_user_status_ui_move', self)
+
+        -- 테이머가 이동하면 UI도 함께 이동
+        tamer:addListener('lobby_tamer_move', lobby_user_status_ui)
     end
 
     -- 테이머가 이동했을 때 LobbyMap에서 ZOrder와 Scale을 변경
@@ -287,7 +314,22 @@ end
 -------------------------------------
 function LobbyMap:onEvent(event_name, ...)
     -- 테이머의 위치가 변경되었을 경우
-    if (event_name == 'lobby_tamer_move') then
+    if (event_name == 'lobby_user_status_ui_move') then
+        local arg = {...}
+        local lobby_user_status_ui = arg[1]
+        local x = arg[2]
+        local y = arg[3]
+
+        -- Y위치에 따라 ZOrder를 변경
+        local z_order = 100 + (100000 - y)
+        lobby_user_status_ui.m_rootNode:setLocalZOrder(z_order)
+
+        -- Y위치에 따라 Scale을 변경
+        local scale = self:getScaleAtYPosY(y)
+        lobby_user_status_ui.m_rootNode:setScale(scale)
+
+    -- 테이머의 위치가 변경되었을 경우
+    elseif (event_name == 'lobby_tamer_move') then
         local arg = {...}
         local lobby_tamer = arg[1]
         local x = arg[2]

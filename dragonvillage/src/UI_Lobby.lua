@@ -64,29 +64,13 @@ function UI_Lobby:initCamera()
 
     local lobby_ground = self:makeLobbyLayer(1)
     camera:addLayer_lobbyGround(lobby_ground, 1)
+    camera.m_groudNode = lobby_ground
 
-    do
-        local tamer = LobbyTamer()
-        if (math_random(1, 2) == 1) then
-            tamer:initAnimator('res/character/tamer/leon/leon.spine')
-        else
-            tamer:initAnimator('res/character/tamer/nuri/nuri.spine')
-        end
-        tamer:initState()
-        tamer:changeState('idle')
-        tamer:initSchedule()
-        tamer:initDragonAnimator('res/character/dragon/powerdragon_earth_01/powerdragon_earth_01.spine')
-        lobby_ground:addChild(tamer.m_rootNode)
+    local l_lobby_user_list = g_lobbyUserListData:getLobbyUserList()
+    local uid = g_serverData:get('local', 'uid')
 
-        camera.m_groudNode = lobby_ground
-        camera.m_targetTamer = tamer
-        camera:addLobbyTamer(tamer)
-
-        tamer:setPosition(0, -150)
-    end
-
-    for i=1, 9 do
-        camera:makeLobbyTamerBot()
+    for i,user_info in ipairs(l_lobby_user_list) do
+        camera:makeLobbyTamerBot(user_info)
     end
 
     camera:setMoveStartCB(function()
