@@ -214,7 +214,7 @@ PRINT_DRAGON_SKILL = false
 PRINT_ATTACK_INFO = false
 
 -- # 보스 패턴 정보를 콘솔에 출력한다
-PRINT_BOSS_PATTERN = true
+PRINT_BOSS_PATTERN = false
 
 -- # 보호막량을 인게임에 표시한다.
 DISPLAY_SHIELD_HP = false

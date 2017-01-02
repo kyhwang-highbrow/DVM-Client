@@ -96,7 +96,7 @@ end
 -------------------------------------
 function SkillFieldCheck:makeEffect(x, y, is_target_status_effect)
 	-- 리소스 없을시 탈출
-	if (not self.m_tarRes == 'x') then return end
+	if (self.m_tarRes == 'x') then return end
 
     -- 이팩트 생성
     local effect = MakeAnimator(self.m_tarRes)
@@ -114,7 +114,7 @@ end
 -- @breif 추가 이펙트 생성 .. 현재는 같은 리소스 사용
 -------------------------------------
 function SkillFieldCheck:makeDrainEffect(x, y, is_target_status_effect)
-	if (not self.m_drainRes == 'x') then return end
+	if (self.m_drainRes == 'x') then return end
 
     -- 이팩트 생성
     local effect = MakeAnimator(self.m_drainRes)
