@@ -9,7 +9,7 @@ SkillCounterAttack = class(PARENT, {
 		m_duration = 'num',
 		m_triggerName = 'str',
 		m_animationName = 'str', 
-		m_effect = 'str',
+		m_effect = 'Animator',
 		m_attackCount = 'num',
      })
 
@@ -56,15 +56,6 @@ end
 -------------------------------------
 function SkillCounterAttack.st_appear(owner, dt)
     if (owner.m_stateTimer == 0) then
-		-- 이펙트
-		if (owner.m_effect) then 
-			owner.m_effect:setVisible(true)
-			owner.m_effect:changeAni('appear', false)
-			owner.m_effect:addAniHandler(function () 
-				owner.m_effect:changeAni('idle', true)
-			end)	  
-		end
-
 		-- 캐릭터
 		owner.m_owner.m_animator:changeAni(owner.m_animationName .. '_appear', false) 
 		owner.m_owner.m_animator:addAniHandler(function () 
@@ -81,10 +72,22 @@ function SkillCounterAttack.st_idle(owner, dt)
     -- 종료
     if (not owner.m_owner) or owner.m_owner.m_bDead then
         owner:changeState('dying')
+		if (owner.m_effect) then 
+			owner.m_effect:release()
+		end
         return
     end
     
 	if (owner.m_stateTimer == 0) then
+		-- 이펙트
+		if (owner.m_effect) then 
+			owner.m_effect:setVisible(true)
+			owner.m_effect:changeAni('appear', false)
+			owner.m_effect:addAniHandler(function () 
+				owner.m_effect:changeAni('idle', true)
+			end)	  
+		end
+
 		-- 캐릭터
 		owner.m_owner.m_animator:changeAni(owner.m_animationName .. '_idle', true) 
 
