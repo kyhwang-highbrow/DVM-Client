@@ -9,7 +9,7 @@ SkillCounterAttack = class(PARENT, {
 		m_duration = 'num',
 		m_triggerName = 'str',
 		m_animationName = 'str', 
-
+		m_effect = 'str',
 		m_attackCount = 'num',
      })
 
@@ -25,15 +25,16 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillCounterAttack:init_skill(invoke_skill_id, duration, animation_name, trigger_name)
+function SkillCounterAttack:init_skill(invoke_skill_id, duration, animation_name, trigger_name, effect_res)
     PARENT.init_skill(self)
 	self.m_invokeSkillId = invoke_skill_id
 	self.m_duration = duration
 	
 	self.m_animationName = animation_name
+	self.m_effect = self:makeEffect(effect_res, self.m_owner.pos)
 	self.m_triggerName = trigger_name
 	self.m_attackCount = 0
-
+	
 	self.m_owner:addListener(self.m_triggerName, self)
 	
 	self.m_owner:changeState('delegate')
@@ -55,17 +56,22 @@ end
 -------------------------------------
 function SkillCounterAttack.st_appear(owner, dt)
     if (owner.m_stateTimer == 0) then
-		-- attack -> idle -> skill_1_appear로 진행
-		owner.m_owner.m_animator:changeAni('idle', false) 
-		local cbFunc = function () 
-			owner.m_owner.m_animator:changeAni(owner.m_animationName .. '_appear', false) 
-			local cbFunc2 = function () 
-				owner:changeState('idle')
-			end
-			owner.m_owner:addAniHandler(cbFunc2)	
+		-- 이펙트
+		if (owner.m_effect) then 
+			owner.m_effect:setVisible(true)
+			owner.m_effect:changeAni('appear', false)
+			owner.m_effect:addAniHandler(function () 
+				owner.m_effect:changeAni('idle', true)
+			end)	  
 		end
-		owner.m_owner:addAniHandler(cbFunc)
-    end
+
+		-- 캐릭터
+		owner.m_owner.m_animator:changeAni(owner.m_animationName .. '_appear', false) 
+		owner.m_owner.m_animator:addAniHandler(function () 
+			owner:changeState('idle')
+		end)	  
+
+	end  
 end
 
 -------------------------------------
@@ -77,9 +83,11 @@ function SkillCounterAttack.st_idle(owner, dt)
         owner:changeState('dying')
         return
     end
-
-    if (owner.m_stateTimer == 0) then
+    
+	if (owner.m_stateTimer == 0) then
+		-- 캐릭터
 		owner.m_owner.m_animator:changeAni(owner.m_animationName .. '_idle', true) 
+
 	elseif (owner.m_stateTimer > owner.m_duration) then
 		owner:changeState('disappear')
     end
@@ -90,14 +98,17 @@ end
 -------------------------------------
 function SkillCounterAttack.st_disappear(owner, dt)
     if (owner.m_stateTimer == 0) then
-		if owner.m_owner.m_animator then 
-			owner.m_owner.m_animator:changeAni(owner.m_animationName .. '_disappear', false) 
+		-- 이펙트
+		if (owner.m_effect) then
+			owner.m_effect:changeAni('disappear', false)
 		end
-		local cbFunc = function () 
+		
+		-- 캐릭터
+		owner.m_owner.m_animator:changeAni(owner.m_animationName .. '_disappear', false) 
+		owner.m_owner.m_animator:addAniHandler(function () 
 			owner.m_owner:changeState('attackDelay')
 			owner:changeState('dying')
-		end
-		owner.m_owner:addAniHandler(cbFunc)
+		end)
     end
 end
 
@@ -119,6 +130,23 @@ function SkillCounterAttack:onEvent(event_name, ...)
 end
 
 -------------------------------------
+-- function makeEffect
+-- @breif 추가 이펙트 생성 .. 현재는 같은 리소스 사용
+-------------------------------------
+function SkillCounterAttack:makeEffect(res, pos)
+	-- 리소스 없을시 탈출
+	if (res == 'x') then return end
+	
+    -- 이팩트 생성
+    local effect = MakeAnimator(res)
+    effect:setPosition(pos.x, pos.y)
+	effect:setVisible(false)
+    self.m_owner.m_world.m_missiledNode:addChild(effect.m_node, 0)
+	
+	return effect
+end
+
+-------------------------------------
 -- function release
 -------------------------------------
 function SkillCounterAttack:release()
@@ -129,14 +157,15 @@ end
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------
---function SkillCounterAttack:makeSkillInstance(invoke_skill_id, duration, ...)
 function SkillCounterAttack:makeSkillInstance(owner, t_skill, t_data)
+	
 	-- 변수 선언부
 	------------------------------------------------------
     local invoke_skill_id = t_skill['val_1']
 	local duration = t_skill['val_2']
 	local animation_name = t_skill['animation']
 	local trigger_name = t_skill['chance_value']
+	local effect_res = t_skill['res_1']
 	
 	-- 인스턴스 생성부
 	------------------------------------------------------
@@ -145,7 +174,7 @@ function SkillCounterAttack:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(invoke_skill_id, duration, animation_name, trigger_name)
+    skill:init_skill(invoke_skill_id, duration, animation_name, trigger_name, effect_res)
 	skill:initState()
 
 	-- 3. state 시작 

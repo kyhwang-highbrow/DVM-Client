@@ -32,7 +32,6 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 
     -- 캐릭터 유형별 변수 정리(dragon or enemy)
     if (self.m_charType == 'dragon') then
-        -- @TODO 스킬 레벨이 반영된 테이블 정보 가져옴
 		t_skill = self:getLevelingSkillById(skill_id)
     elseif (self.m_charType == 'monster') then
         local table_skill = TABLE:get(self.m_charType .. '_skill')

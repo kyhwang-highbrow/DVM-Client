@@ -92,9 +92,9 @@ end
 
 -------------------------------------
 -- function makeEffect
--- @breif 추가 이펙트 생성 .. 현재는 같은 리소스 사용
+-- @breif 대상에게 생성되는 추가 이펙트 생성
 -------------------------------------
-function SkillFieldCheck:makeEffect(x, y, is_target_status_effect)
+function SkillFieldCheck:makeEffect(x, y)
 	-- 리소스 없을시 탈출
 	if (self.m_tarRes == 'x') then return end
 
@@ -111,25 +111,26 @@ end
 
 -------------------------------------
 -- function makeDrainEffect
--- @breif 추가 이펙트 생성 .. 현재는 같은 리소스 사용
+-- @breif 흡수하는 투사체 이펙트 생성 
 -------------------------------------
-function SkillFieldCheck:makeDrainEffect(x, y, is_target_status_effect)
+function SkillFieldCheck:makeDrainEffect(x, y)
 	if (self.m_drainRes == 'x') then return end
 
     -- 이팩트 생성
     local effect = MakeAnimator(self.m_drainRes)
     effect:setPosition(x, y)
-	
 	local world = self.m_owner.m_world
     world.m_missiledNode:addChild(effect.m_node, 0)
-    --effect:setMotionStreak(world.m_missiledNode, 'res/missile/motion_streak/motion_streak_rose.png')
 
+	-- random요소 - 점프 높이, 방향, 지속시간, 스케일
 	local jump_height = math_random(100, 200)
 	local duration = math_random(10, 20)/10
 	if (math_random(1, 2) == 1) then
 		jump_height = -jump_height
 	end
+	effect.m_node:setScale(duration)
 
+	-- 액션 실행
 	local target_pos = cc.p(self.m_owner.pos.x, self.m_owner.pos.y)
     local action = cc.JumpTo:create(duration, target_pos, jump_height, 1)
 	local action2 = cc.RemoveSelf:create()
