@@ -18,7 +18,11 @@ LobbyTamer = class(PARENT, {
         m_moveSpeed = '',
 
         m_dragonAnimator = 'Animator',
+
+        m_attackTarget = '',
      })
+
+LobbyTamer.MOVE_ACTION = 100
 
 -------------------------------------
 -- function init
@@ -49,7 +53,7 @@ function LobbyTamer:initAnimator(file_name)
     self:releaseAnimator()
 
     -- Animator 생성
-    self.m_animator = AnimatorHelper:makeTamerAnimator(file_name)
+    self.m_animator = MakeAnimator(file_name)--AnimatorHelper:makeTamerAnimator(file_name)
     if self.m_animator.m_node then
         self.m_rootNode:addChild(self.m_animator.m_node, 2)
         self.m_animator.m_node:setScale(0.6)
@@ -150,6 +154,7 @@ end
 function LobbyTamer:initState()
     self:addState('idle', LobbyTamer.st_idle, 'idle', true)
     self:addState('move', LobbyTamer.st_move, 'skill_idle', true)
+    self:addState('attack', LobbyTamer.st_attack, 'attack_hack', false)
 end
 
 -------------------------------------
@@ -169,7 +174,12 @@ function LobbyTamer.st_move(self, dt)
         local function finich_cb()
             local x, y = self.m_rootNode:getPosition()
             self:dispatch('lobby_tamer_move', self, x, y)
-            self:changeState('idle')
+            
+            if self.m_attackTarget then
+                self:changeState('attack')
+            else
+                self:changeState('idle')
+            end
         end
 
         local cur_x, cur_y = self.m_rootNode:getPosition()
@@ -177,7 +187,7 @@ function LobbyTamer.st_move(self, dt)
         local distance = getDistance(cur_x, cur_y, tar_x, tar_y)
         local duration = (distance / self.m_moveSpeed)
         local action = cc.Sequence:create(cc.MoveTo:create(duration, cc.p(tar_x, tar_y)), cc.CallFunc:create(finich_cb))
-        cca.runAction(self.m_rootNode, action, 100)
+        cca.runAction(self.m_rootNode, action, LobbyTamer.MOVE_ACTION)
         action:step(dt)
 
         -- 방향 지정
@@ -197,15 +207,69 @@ function LobbyTamer.st_move(self, dt)
 end
 
 -------------------------------------
+-- function st_attack
+-------------------------------------
+function LobbyTamer.st_attack(self, dt)
+    if (self.m_stateTimer == 0) then
+
+        local user_x, user_y = self.m_rootNode:getPosition()
+        local box_x, box_y = self.m_attackTarget.m_rootNode:getPosition()
+
+        if (user_x ~= box_x) then
+            local flip = (box_x < user_x)
+            self.m_animator:setFlip(flip)
+        end
+
+        self.m_animator:addAniHandler(function()
+            if self.m_attackTarget then
+                self:changeState('attack')
+            else
+                self:changeState('idle')
+            end
+        end)
+    end
+end
+
+-------------------------------------
 -- function setMove
 -------------------------------------
 function LobbyTamer:setMove(x, y, speed)
+    self.m_attackTarget = nil
+
     self.m_moveX = x
     self.m_moveY = y
 
     self.m_moveSpeed = speed
-
+    
     self:changeState('move')
+end
+
+-------------------------------------
+-- function setAttack
+-------------------------------------
+function LobbyTamer:setAttack(target)
+    local user_x, user_y = self.m_rootNode:getPosition()
+    local box_x, box_y = target.m_rootNode:getPosition()
+
+    local distance = getDistance(user_x, user_y, box_x, box_y)
+    if (distance <= 150) then
+        if (self.m_attackTarget == target) then
+            if (self.m_state == 'attack') then
+   
+            else
+                self:changeState('attack')
+            end
+        end
+    else
+        self.m_moveX = box_x + 100
+        self.m_moveY = box_y
+
+        self.m_moveSpeed = 400
+    
+        self:changeState('move')
+    end
+
+    self.m_attackTarget = target
 end
 
 -------------------------------------
@@ -253,11 +317,12 @@ function LobbyTamer:changeState(state, forced)
     local changed = PARENT.changeState(self, state, forced)
 
     if (changed and self.m_animator) then
-        self.m_animator:changeAni(self.m_tStateAni[state], self.m_tStateAniLoop[state], true)
+        self.m_animator:changeAni(self.m_tStateAni[state], self.m_tStateAniLoop[state], false)
     end
 
     -- 이동이 종료되었을 경우
     if (changed and (prev_state == 'move') and (state ~= 'move')) then
+        cca.stopAction(self.m_rootNode, LobbyTamer.MOVE_ACTION)
         self:dispatch('lobby_tamer_move_end', self)
     end
 

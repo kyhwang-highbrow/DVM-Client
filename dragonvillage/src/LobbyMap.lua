@@ -24,6 +24,9 @@ LobbyMap = class(PARENT, {
         m_bUserPosDirty = 'bool',
         m_lChangedPosTamers = 'list',
         m_lNearUserList = 'list',
+
+        -- 아이템 박스
+        m_lItemBox = 'list',
     })
 
 -------------------------------------
@@ -37,6 +40,7 @@ function LobbyMap:init(parent, z_order)
     self.m_bUserPosDirty = true
     self.m_lChangedPosTamers = {}
     self.m_lNearUserList = {}
+    self.m_lItemBox = {} 
 end
 
 -------------------------------------
@@ -77,6 +81,10 @@ function LobbyMap:onTouchBegan(touches, event)
     local location = touches[1]:getLocation()
     self.m_touchPosition = location
 
+    if (self:onTouchBegan_touchBox() == true) then
+        return
+    end
+
     self.m_bPress = true
 
     self.m_lobbyIndicator:changeAni('appear', false)
@@ -86,12 +94,11 @@ function LobbyMap:onTouchBegan(touches, event)
 end
 
 -------------------------------------
--- function onTouchBegan
+-- function onTouchMoved
 -------------------------------------
 function LobbyMap:onTouchMoved(touches, event)
     local location = touches[1]:getLocation()
     self.m_touchPosition = location
-    
 end
 
 -------------------------------------
@@ -99,6 +106,36 @@ end
 -------------------------------------
 function LobbyMap:onTouchEnded(touches, event)
     self.m_bPress = false
+end
+
+-------------------------------------
+-- function onTouchBegan_touchBox
+-------------------------------------
+function LobbyMap:onTouchBegan_touchBox()
+    local node_pos = self.m_groudNode:convertToNodeSpace(self.m_touchPosition)
+
+    -- item_box 순회
+    for i,v in ipairs(self.m_lItemBox) do
+        -- item_box의 센터위치 얻어옴
+        local x, y = v.m_rootNode:getPosition()
+        y = y + 40
+
+        -- 터치된 item_box가 있을 경우
+        local distance = getDistance(node_pos['x'], node_pos['y'], x, y)
+        if (distance <= 80) then
+            self:onTouchBox(v)
+            return true
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function onTouchBox
+-------------------------------------
+function LobbyMap:onTouchBox(item_box)
+    self.m_targetTamer:setAttack(item_box)
 end
 
 -------------------------------------
@@ -130,7 +167,7 @@ end
 function LobbyMap:getScaleAtYPosY(pos_y)
     local left, right, bottom, top = self:getGroundRange()
 
-    local max_scale = 1.05
+    local max_scale = 1.0
     local min_scale = 0.8
     local max_y = top
     local min_y = bottom
@@ -425,4 +462,31 @@ function LobbyMap:updateUserTamerArea()
 
     self.m_bUserPosDirty = false
     self.m_lChangedPosTamers = {}
+end
+
+-------------------------------------
+-- function tempItemBox
+-- @brief
+-------------------------------------
+function LobbyMap:tempItemBox()
+    local item_box = LobbyItemBox()
+    item_box:initAnimator('res/ui/a2d/ui_dropbox/ui_dropbox.vrp')
+    item_box.m_animator:changeAni('ui_box_rainbow_idle', true)
+
+    local x, y = self:getLobbyMapRandomPos()
+
+    -- Y위치에 따라 ZOrder를 변경
+    local z_order = 100 + (10000 - y)
+    
+    self.m_groudNode:addChild(item_box.m_rootNode, z_order)
+    item_box.m_rootNode:setPosition(x, y)
+
+    local lobby_shadow = LobbyShadow(1)
+    self.m_groudNode:addChild(lobby_shadow.m_rootNode, 0)
+    lobby_shadow.m_rootNode:setPosition(x, y)
+   
+   
+   self.m_lItemBox = {} 
+
+   table.insert(self.m_lItemBox, item_box)
 end

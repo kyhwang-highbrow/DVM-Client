@@ -17,6 +17,16 @@ function cca.widthTo(node, duration, width)
     return tween
 end
 
+-------------------------------------
+-- function stopAction
+-- @brief 액션을 정지
+-------------------------------------
+function cca.stopAction(node, stop_action)
+    local _action = node:getActionByTag(stop_action)
+    if _action then
+        node:stopAction(_action)
+    end
+end
 
 -------------------------------------
 -- function runAction

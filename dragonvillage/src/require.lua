@@ -283,6 +283,7 @@ local t_module = {
     'LobbyTamerBot',
     'LobbyShadow',
     'LobbyUserStatusUI',
+    'LobbyItemBox',
     'UI_Game',
     'UI_GameResultNew',
     'UI_GameResult_NestDungeon',
