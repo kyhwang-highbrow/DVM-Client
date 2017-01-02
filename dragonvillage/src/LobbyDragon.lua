@@ -15,6 +15,7 @@ LobbyDragon = class(PARENT, {
 LobbyDragon.MOVE_ACTION = 100
 LobbyDragon.DELAY_ACTION = 200
 LobbyDragon.SPEED = 400
+LobbyDragon.Y_OFFSET = 150
 
 -------------------------------------
 -- function init
@@ -35,9 +36,10 @@ function LobbyDragon:initAnimator(file_name)
     if self.m_animator.m_node then
         self.m_rootNode:addChild(self.m_animator.m_node, 1)
         self.m_animator.m_node:setScale(0.5)
-        self.m_animator.m_node:setPosition(0, 150)
-        --self.m_animator:setFlip(flip)
+        self.m_animator.m_node:setPosition(0, LobbyDragon.Y_OFFSET)
     end
+
+    --SimplePrimitivesDraw(self.m_rootNode, 0, LobbyDragon.Y_OFFSET, 80)
 end
 
 -------------------------------------

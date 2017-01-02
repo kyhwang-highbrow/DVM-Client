@@ -296,6 +296,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\shader\sepia.fsh" />
     <None Include="..\src\shader\shaderBlur.fsh" />
     <None Include="..\src\ShakeManager.lua" />
+    <None Include="..\src\SimplePrimitivesDraw.lua" />
     <None Include="..\src\SkillBurst.lua" />
     <None Include="..\src\SkillFieldCheck.lua" />
     <None Include="..\src\SkillSpiderWeb.lua" />

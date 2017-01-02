@@ -74,6 +74,7 @@ local t_module = {
     'AreaOfEffectHelper',
     'ShaderCache',
     'DragonSortManager',
+    'SimplePrimitivesDraw',
 
     -- Table
     'TableStageDesc',

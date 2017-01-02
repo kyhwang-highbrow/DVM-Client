@@ -1150,6 +1150,9 @@
     <None Include="..\src\LobbyCharacter.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\SimplePrimitivesDraw.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
