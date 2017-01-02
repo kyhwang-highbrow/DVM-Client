@@ -170,6 +170,8 @@ function ScrollMap:setBg(res)
         local type = v['type'] or 'horizontal'
         local speed = v['speed'] or 0                   -- 이동 속도 배율
         local camera_app_rate = v['camera_app_rate']    -- 카메라 적용 배율
+        local camera_app_rate_x = v['camera_app_rate_x'] or camera_app_rate -- 카메라 적용 배율
+        local camera_app_rate_y = v['camera_app_rate_y'] or camera_app_rate -- 카메라 적용 배율
         local group = v['group']
 
         local bFixedLayer = (speed == 0) -- 속도값이 0일 경우 반복되지 않는 맵으로 간주
@@ -183,13 +185,15 @@ function ScrollMap:setBg(res)
                 local bPause = (data['pause'] or false)
 
                 self:makeLayer({
+                    type = type,
                     res = data['res'],
                     animation = data['animation'],
                     offset_x = real_offset_x,
                     offset_y = real_offset_y,
                     scale = scale,
                     group = group,
-                    camera_app_rate = camera_app_rate,
+                    camera_app_rate_x = camera_app_rate_x,
+                    camera_app_rate_y = camera_app_rate_y,
                     is_flip = bFlip,
                     is_pause = bPause
                 }, true)
@@ -229,7 +233,6 @@ function ScrollMap:setBg(res)
                     offset_y = real_offset_y,
                     scale = scale,
                     group = group,
-                    camera_app_rate = camera_app_rate,
                     speed_scale = speed,
                     directing = v['directing']
                 }, false)

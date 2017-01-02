@@ -1,6 +1,12 @@
 {
     "difficult":2,
     "bg":"map_nest_tree",
+	"camera":
+	{
+		"scale":0.8,
+		"pos_x":0,
+		"pos_y":0
+	},
 		
 	"wave":
 	[
@@ -8,7 +14,7 @@
 			"idx":1,
 			"camera":
             {
-                "scale":1,
+                "scale":0.8,
                 "pos_x":0,
                 "pos_y":0
             },
@@ -50,7 +56,7 @@
 			"idx":2,
 			"camera":
             {
-                "scale":0.8,
+                "scale":0.7,
                 "pos_x":0,
                 "pos_y":1200
             },
