@@ -322,25 +322,17 @@ function EnemyMovement.NestTree(owner, luaValue1, luaValue2, luaValue3, luaValue
 
     owner.m_world:dispatch('nest_tree_appear')
 
-    local function appearTree()
-        owner.m_animator:changeAni('startwave_3', false)
-        owner.m_animator:addAniHandler(function()
-            owner.m_animator:changeAni('idle', true)
+    owner.m_animator:changeAni('boss_appear', false)
+    owner.m_animator:addAniHandler(function()
+        owner.m_animator:changeAni('idle', true)
 
-            owner:dispatch('enemy_appear_done', owner)
-        end)
-
-        --SoundMgr:playEffect('EFFECT', 'gdragon_appear')
-    end
+        owner:dispatch('enemy_appear_done', owner)
+    end)
 
     owner.m_animator:runAction(cc.Sequence:create(
-        cc.DelayTime:create(1),
+        cc.DelayTime:create(2.5),
         cc.CallFunc:create(function()
-            appearTree()
-        end),
-        cc.DelayTime:create(0.6),
-        cc.CallFunc:create(function()
-            --owner.m_world.m_shakeMgr:doShake(50, 50, 1)
+            owner.m_world.m_shakeMgr:doShake(50, 50, 1)
         end)
     ))
 end

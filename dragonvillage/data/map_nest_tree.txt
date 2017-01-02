@@ -60,7 +60,7 @@
 			"speed":0
 			"list":
             [
-                {"res":"res/character/monster/boss_treant_earth/boss_treant_earth.spine" "animation":"idle" "pos_x":1280 "pos_y":2560 "flip":true "scale":1.2}
+                {"res":"res/character/monster/boss_treant_earth/boss_treant_earth.spine" "animation":"boss_appear" "pos_x":1280 "pos_y":2560 "flip":true "pause":true "scale":1.2}
             ]
         }
     ]

@@ -1,0 +1,49 @@
+local PARENT = MonsterLua_Boss
+
+-------------------------------------
+-- class Monster_Tree
+-------------------------------------
+Monster_Tree = class(PARENT, {
+     })
+
+-------------------------------------
+-- function init
+-- @param file_name
+-- @param body
+-------------------------------------
+function Monster_Tree:init(file_name, body, ...)
+end
+
+-------------------------------------
+-- function initState
+-------------------------------------
+function Monster_Tree:initState()
+    PARENT.initState(self)
+
+    self:addState('dying', Monster_Tree.st_dying, 'boss_die', false, PRIORITY.DYING)
+end
+
+
+-------------------------------------
+-- function st_dying
+-------------------------------------
+function Monster_Tree.st_dying(owner, dt)
+    if (owner:isBeginningStep()) then
+        if owner.m_hpNode then
+            owner.m_hpNode:setVisible(false)
+        end
+
+        if owner.m_castingNode then
+            owner.m_castingNode:setVisible(false)
+        end
+
+        -- 효과음
+        if owner.m_tEffectSound['die'] then
+            SoundMgr:playEffect('VOICE', owner.m_tEffectSound['die'])
+        end
+
+        owner.m_animator:addAniHandler(function()
+            owner:changeState('dead')
+        end)
+    end
+end

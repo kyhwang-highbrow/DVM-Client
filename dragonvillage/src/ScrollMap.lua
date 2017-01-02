@@ -180,6 +180,7 @@ function ScrollMap:setBg(res)
                 local real_offset_y = (data['pos_y'] or 0)
                 local scale = (data['scale'] or 1)
                 local bFlip = (data['flip'] or false)
+                local bPause = (data['pause'] or false)
 
                 self:makeLayer({
                     res = data['res'],
@@ -189,7 +190,8 @@ function ScrollMap:setBg(res)
                     scale = scale,
                     group = group,
                     camera_app_rate = camera_app_rate,
-                    is_flip = bFlip
+                    is_flip = bFlip,
+                    is_pause = bPause
                 }, true)
             end
 
@@ -346,12 +348,8 @@ function ScrollMap:onEvent(event_name, ...)
             if v.m_group == 'nest_tree' then
                 local animator = v.m_animator
                 animator:setVisible(false)
-                                              
-                v:doAction(cc.Sequence:create(
-                    cc.EaseOut:create(cc.MoveTo:create(1, cc.p(-700, 0)), 2),
-                    cc.EaseIn:create(cc.MoveTo:create(1.5, cc.p(4000, 0)), 2),
-                    cc.CallFunc:create(cbFunction)
-                ))
+
+                v:doAction(cc.CallFunc:create(cbFunction))
             end
         end
     end

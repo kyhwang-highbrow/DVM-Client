@@ -129,17 +129,6 @@ function GameWorld:tryPatternMonster(t_monster, body)
     local script_name = 'pattern_' .. rarity .. '_' .. type    
     local is_boss = (rarity == 'boss')
 
-    -- 임시 구현
-    --[[
-    if (type == 'giantdragon') then
-        local monster = Monster_GiantDragon(t_monster['res'], body)
-        monster:initAnimatorMonster(t_monster['res'], t_monster['attr'])
-        monster:initScript(script_name)
-
-        return monster
-    end
-    ]]--
-
     -- 테이블이 없을 경우 return
     local script = TABLE:loadJsonTable(script_name)
 	local is_pattern_ignore = (t_monster['pattern'] == 'ignore')
@@ -152,6 +141,9 @@ function GameWorld:tryPatternMonster(t_monster, body)
 
     if type == 'giantdragon' then
         monster = Monster_GiantDragon(t_monster['res'], body)
+    elseif type == 'treant' then
+        cclog('Monster_Tree')
+        monster = Monster_Tree(t_monster['res'], body)
     else
         monster = MonsterLua_Boss(t_monster['res'], body)
     end

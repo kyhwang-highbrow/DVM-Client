@@ -233,8 +233,14 @@ ScrollMapLayerFixed = class(IScrollMapLayer, {
         self.m_cameraAppRate = tParam['camera_app_rate'] or 0
 
         local is_flip = tParam['is_flip'] or false
+        local is_pause = tParam['is_pause'] or false
 
         self.m_animator:setFlip(is_flip)
+
+        if is_pause then
+            self.m_animator.m_node:pause()
+        end
+
         self:update(0)
     end
 

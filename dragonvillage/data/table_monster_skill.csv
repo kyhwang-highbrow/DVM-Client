@@ -47,9 +47,9 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 230046,code,trigger_skill,자폭,x,x,x,skill_1,instant,magical,0,trigger,dead,enemy_distance_line,0,atk,0,1,230047,0,0,0,0,x,x,x,0,x,x
 230047,script,skill_common_01,폭파,x,x,x,x,instant,magical,0,basic_turn,5,enemy_distance_line,0,atk,400,1,0,0,0,0,0,x,burn;target;20;100;100,def_down;target;10;100;100,0,x,x
 230048,code,missile_move_straight,픽시라이트,res/missile/missile_ball/missile_ball_@.vrp,x,x,x,instant,magical,0,basic,1,enemy_distance_y,-1,atk,100,1,0,0,0,0,0,0,blind;target;10;20;100,x,0,x,x
-230049,script,skill_ancient_word_a,고대문자 A,x,x,x,x,instant,magical,0,basic_turn,1,ally_all,0,atk,100,1,0,0,0,0,0,0,atk_up;target;10;100;100,x,0,x,x
-230050,script,skill_ancient_word_b,고대문자 B,x,x,x,x,instant,magical,0,basic_turn,1,enemy_distance_line,0,atk,100,1,0,0,0,0,0,0,def_down;target;10;100;100,x,0,x,x
-230051,script,skill_ancient_word_c,고대문자 C,x,x,x,x,instant,magical,0,basic_turn,1,ally_all,0,atk,100,1,0,0,0,0,0,0,aspd_up;target;10;100;100,x,0,x,x
+230049,script,skill_ancient_word_a,고대문자 A,x,x,x,x,instant,magical,0,basic_turn,1,ally_all,0,atk,100,1,0,0,0,0,0,0,atk_down;target;10;100;50,x,0,x,x
+230050,script,skill_ancient_word_b,고대문자 B,x,x,x,x,instant,magical,0,basic_turn,1,enemy_distance_line,0,atk,100,1,0,0,0,0,0,0,def_down;target;10;100;50,x,0,x,x
+230051,script,skill_ancient_word_c,고대문자 C,x,x,x,x,instant,magical,0,basic_turn,1,ally_all,0,atk,100,1,0,0,0,0,0,0,aspd_down;target;10;100;50,x,0,x,x
 230052,script,skill_record_manager_1,기록 삭제,x,x,x,x,instant,magical,0,basic_turn,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,0,x,x,0,x,x
 230053,code,skill_melee_atk,만드라고라:일반 공격,x,x,x,x,instant,magical,0,basic,1,enemy_distance_line,-1,atk,100,1,5000,10000,200,0,0,0,x,x,0,x,x
 230054,script,skill_missile_mandragora_1,초음파,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,0,atk,100,1,0,0,0,0,0,0,stun;target;2;50;100,x,0,x,x
@@ -62,12 +62,13 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,animation,motion_type,dmg_type,dir,
 231006,script,skill_elite_ifrit_1,엘리트_이프리트,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 231007,script,skill_elite_lizard_man_shaman_1,엘리트_도마뱀 인간 주술사,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,150,1,0,0,0,0,0,x,x,x,0,x,x
 231008,script,skill_elite_gargoyle_1,엘리트_가고일,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,70,1,0,0,0,0,0,x,x,x,0,x,x
-231009,script,skill_elite_pixie_queen_1,엘리트_픽시퀸1,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
-231010,script,skill_elite_pixie_queen_2,엘리트_픽시퀸2,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,blind;target;10;10;100,x,0,x,x
-231011,script,skill_elite_light_orb_1,엘리트_라이트 오브1,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
-231012,script,skill_elite_light_orb_2,엘리트_라이트 오브2,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
-231013,script,skill_elite_beholder_1,엘리트_감시자1,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
-231014,script,skill_elite_beholder_2,엘리트_감시자2,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
+231009,script,skill_elite_pixie_queen_1,엘리트_픽시퀸1,x,x,x,x,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,10,1,0,0,0,0,0,x,sleep;target;10;50;100,x,0,x,x
+231010,script,skill_elite_pixie_queen_2,엘리트_픽시퀸2,x,x,x,x,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
+231011,script,skill_elite_light_orb_0,엘리트_라이트 오브 일반 공격,x,x,x,x,instant,physical,-1,basic,1,enemy,-1,atk,50,1,0,0,0,0,0,x,x,x,0,x,x
+231012,script,skill_elite_light_orb_1,엘리트_라이트 오브1,x,x,x,x,instant,physical,0,basic_turn,3,enemy,3,atk,10,1,0,0,0,0,0,x,bleed;target;10;10;100,x,0,x,x
+231013,script,skill_elite_light_orb_2,엘리트_라이트 오브2,x,x,x,x,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
+231014,script,skill_elite_beholder_1,엘리트_감시자1,x,x,x,x,instant,physical,0,basic_turn,3,enemy,3,atk,20,1,0,0,0,0,0,x,x,x,0,x,x
+231015,script,skill_elite_beholder_2,엘리트_감시자2,x,x,x,x,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 232011,script,skill_subboss_mushqueen_1,여왕버섯,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
 232012,script,skill_subboss_mushqueen_2,여왕버섯,x,x,x,skill_1,instant,physical,0,basic_turn,4,enemy_distance_line,3,atk,50,1,0,0,0,0,0,x,x,x,0,x,x
 232013,script,skill_subboss_mushqueen_3,여왕버섯,x,x,x,skill_1,instant,physical,0,basic_turn,5,enemy_distance_line,5,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
