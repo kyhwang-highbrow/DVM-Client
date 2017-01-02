@@ -7,7 +7,7 @@
             <key>effect_sprout_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{72,590},{53,50}}</string>
+                <string>{{57,590},{53,50}}</string>
                 <key>offset</key>
                 <string>{3,-75}</string>
                 <key>rotated</key>
@@ -20,11 +20,11 @@
             <key>effect_sprout_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,635},{53,68}}</string>
+                <string>{{2,556},{53,68}}</string>
                 <key>offset</key>
                 <string>{3,-66}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{64,154},{53,68}}</string>
                 <key>sourceSize</key>
@@ -124,13 +124,13 @@
             <key>effect_sprout_10.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,556},{50,77}}</string>
+                <string>{{2,642},{32,73}}</string>
                 <key>offset</key>
-                <string>{0,0}</string>
+                <string>{1,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{50,77}}</string>
+                <string>{{10,2},{32,73}}</string>
                 <key>sourceSize</key>
                 <string>{50,77}</string>
             </dict>
@@ -155,9 +155,9 @@
             <key>realTextureFileName</key>
             <string>effect_sprout.png</string>
             <key>size</key>
-            <string>{128,690}</string>
+            <string>{128,676}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:ef392275a522b9cc5cef098f297149ee:9d4fdf1aab8b55682909a94f5b0a5c9d:d5051b658e08dff03af574095f01d80f$</string>
+            <string>$TexturePacker:SmartUpdate:0b9b4c90dc461d7d25accd7a68ea3747:7668be7b54a0b24ec77cc4333a4eb9ff:d5051b658e08dff03af574095f01d80f$</string>
             <key>textureFileName</key>
             <string>effect_sprout.png</string>
         </dict>

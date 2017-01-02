@@ -1,0 +1,8 @@
+{
+	"pattern_boss_world_order_machine":
+	[			
+		[
+			"w;1"
+		]
+    ]
+}
