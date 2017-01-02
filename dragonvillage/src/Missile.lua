@@ -70,6 +70,7 @@ Missile = class(PARENT, {
 		m_addScriptTerm = '',
 		m_addScriptMax = '',
 		m_addScriptDead = 'bool',
+		m_addScriptRelative = 'bool',
 		m_lAddScriptTime = 'list',
 		m_fireCnt = '',
 
@@ -614,7 +615,7 @@ function Missile:fireAddScriptMissile()
     missile_launcher.m_bHeroMissile = is_hero
     self.m_world:addToUnitList(missile_launcher)
     self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
-    missile_launcher:init_missileLauncherByScript(self.m_addScript, phys_group, activity_carrier, 1)
+    missile_launcher:init_missileLauncherByScript(self.m_addScript, phys_group, activity_carrier, self.m_addScriptRelative, self.movement_theta)
     missile_launcher.m_animator:changeAni('animation', true)
     missile_launcher:setPosition(start_x, start_y)
 

@@ -148,6 +148,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 	local add_script_term =		t_option['add_script_term'] or 5
 	local add_script_max =		t_option['add_script_max'] or 1
 	local add_script_dead =		t_option['add_script_dead'] or false
+	local add_script_relative = t_option['add_script_relative']
 
     --local parent =           t_option['parent']
     --local sync_pos =         t_option['sync_pos'] or false
@@ -388,6 +389,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 			missile.m_addScriptTerm = add_script_term
 			missile.m_addScriptMax = add_script_max
 			missile.m_addScriptDead = add_script_dead
+			missile.m_addScriptRelative = add_script_relative
 			missile.m_lAddScriptTime = {}
 			local time = 0
 			for i = 1, add_script_max do

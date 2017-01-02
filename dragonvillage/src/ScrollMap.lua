@@ -36,7 +36,7 @@ function ScrollMap:init(node)
     self.m_colorScale = 100
 
     self.m_bgDirectingType = 'floating_1'
-	self.m_shakyType = 3
+	self.m_shakyType = 10
 end
 
 -------------------------------------

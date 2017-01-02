@@ -108,9 +108,9 @@ end
 -------------------------------------
 -- function init_missileLauncherByScript
 -------------------------------------
-function MissileLauncher:init_missileLauncherByScript(script_data, object_key, activity_carrier, attack_idx)
+function MissileLauncher:init_missileLauncherByScript(script_data, object_key, activity_carrier, is_relative_dir, parent_dir)
     self.m_objectKey = object_key
-    self.m_attackIdx = attack_idx or 1
+    self.m_attackIdx = 1
     self.m_activityCarrier = activity_carrier
 
     -- 상태 생성
@@ -132,6 +132,13 @@ function MissileLauncher:init_missileLauncherByScript(script_data, object_key, a
         if (not self.m_tAttackPattern[idx]) then
             self.m_tAttackPattern[idx] = {}
         end
+
+		-- 상대 각도 조정
+		if (is_relative_dir) then 
+			local dir = getAdjustDegree(parent_dir)
+			v['dir'] = dir
+		end
+
         table.insert(self.m_tAttackPattern[idx], i)
 
 		-- script 상의 상태효과 추가
@@ -388,6 +395,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		t_option['add_script_term'] =	attack_value['add_script_term']
 		t_option['add_script_max'] =	attack_value['add_script_max']
 		t_option['add_script_dead'] =	attack_value['add_script_dead']
+		t_option['add_script_relative'] =	attack_value['add_script_relative']
 
 		-- accel이 발사된 시간차와 상관없이 동시에 걸림
 		if attack_value.accel_delay_fix then
