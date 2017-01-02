@@ -47,6 +47,20 @@ function Animator:changeAni(animation_name, loop, checking)
 end
 
 -------------------------------------
+-- function changeAni2
+-- @brief animation_name1에니 1번 재생 후 animation_name2를 재생하는 함수
+-------------------------------------
+function Animator:changeAni2(animation_name1, animation_name2, loop)
+    self:changeAni(animation_name1, false)
+
+    local function ani_handler()
+        self:changeAni(animation_name2, loop)
+    end
+
+    self:addAniHandler(ani_handler)
+end
+
+-------------------------------------
 -- function aniHandlerChain
 -------------------------------------
 function Animator:aniHandlerChain(...)

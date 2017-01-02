@@ -307,6 +307,7 @@ local t_module = {
     'UI_IngameUnitInfo',
     'UI_Popup',
     'UI_SimplePopup',
+    'UI_SimpleDragonInfoPopup',
     'UI_DragonDetailPopup',
     'UI_Tooltip',
 	'UI_Tooltip_Indicator',

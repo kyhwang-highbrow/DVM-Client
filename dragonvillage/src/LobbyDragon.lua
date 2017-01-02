@@ -39,7 +39,7 @@ function LobbyDragon:initAnimator(file_name)
         self.m_animator.m_node:setPosition(0, LobbyDragon.Y_OFFSET)
     end
 
-    --SimplePrimitivesDraw(self.m_rootNode, 0, LobbyDragon.Y_OFFSET, 80)
+    --SimplePrimitivesDraw(self.m_rootNode, 0, LobbyDragon.Y_OFFSET, 70)
 end
 
 -------------------------------------

@@ -27,6 +27,9 @@ LobbyMap = class(PARENT, {
 
         -- 아이템 박스
         m_lItemBox = 'list',
+
+        m_touchTamer = '',
+        m_dragonTouchIndicator = '',
     })
 
 -------------------------------------
@@ -54,6 +57,11 @@ function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_rati
     self.m_lobbyIndicator:setVisible(false)
     self.m_lobbyIndicator:changeAni('idle', true)
     node:addChild(self.m_lobbyIndicator.m_node, 0)
+
+    self.m_dragonTouchIndicator = MakeAnimator('res/indicator/indicator_effect_target/indicator_effect_target.vrp')
+    self.m_dragonTouchIndicator:setVisible(false)
+    self.m_dragonTouchIndicator:changeAni('idle_ally', true)
+    node:addChild(self.m_dragonTouchIndicator.m_node, 0)
 end
 
 -------------------------------------
@@ -85,6 +93,10 @@ function LobbyMap:onTouchBegan(touches, event)
         return
     end
 
+    if (self:onTouchBegan_touchDragon() == true) then
+        return
+    end
+
     self.m_bPress = true
 
     self.m_lobbyIndicator:changeAni('appear', false)
@@ -99,6 +111,10 @@ end
 function LobbyMap:onTouchMoved(touches, event)
     local location = touches[1]:getLocation()
     self.m_touchPosition = location
+
+    if self.m_touchTamer then
+        self:onTouchBegan_touchDragon()
+    end
 end
 
 -------------------------------------
@@ -106,6 +122,16 @@ end
 -------------------------------------
 function LobbyMap:onTouchEnded(touches, event)
     self.m_bPress = false
+
+    if self.m_touchTamer then
+        if self:checkDragonTouch(touches[1]:getLocation(), self.m_touchTamer) then
+            self.m_touchTamer:showEmotionEffect()
+            UI_SimpleDragonInfoPopup()
+        end
+        self.m_touchTamer = nil
+    end
+
+    self.m_dragonTouchIndicator:setVisible(false)
 end
 
 -------------------------------------
@@ -137,6 +163,56 @@ end
 function LobbyMap:onTouchBox(item_box)
     self.m_targetTamer:setAttack(item_box)
 end
+
+-------------------------------------
+-- function onTouchBegan_touchDragon
+-------------------------------------
+function LobbyMap:onTouchBegan_touchDragon()
+    local touch_pos = self.m_touchPosition
+
+    for i,v in ipairs(self.m_lLobbyTamer) do
+        if (self.m_touchTamer ~= v) and self:checkDragonTouch(touch_pos, v) then
+            self.m_touchTamer = v
+
+            -- 드래곤 터치 이펙트 출력
+            self.m_dragonTouchIndicator.m_node:retain()
+            self.m_dragonTouchIndicator.m_node:removeFromParent()
+            self.m_touchTamer.m_dragon.m_rootNode:addChild(self.m_dragonTouchIndicator.m_node, 5)
+            self.m_dragonTouchIndicator.m_node:release()
+            self.m_dragonTouchIndicator:setVisible(true)
+            self.m_dragonTouchIndicator:setPosition(0, 150)
+            self.m_dragonTouchIndicator:changeAni2('appear_ally', 'idle_ally', true)
+
+            return true
+        end
+    end
+
+    return false 
+end
+
+-------------------------------------
+-- function checkDragonTouch
+-------------------------------------
+function LobbyMap:checkDragonTouch(touch_pos, tamer)
+    local dragon = tamer.m_dragon
+    --dragon.m_rootNode:getPosition()
+    local world_pos = convertToWorldSpace(dragon.m_animator.m_node)
+
+    -- 화면상에 보이는 Y스케일을 얻어옴
+    local transform = dragon.m_rootNode:getNodeToWorldTransform()
+    local scale_y = transform[5 + 1]
+
+    local std_distance = (70 * scale_y)
+
+    local distance = getDistance(touch_pos['x'], touch_pos['y'], world_pos['x'], world_pos['y'])
+
+    if (distance <= std_distance) then
+        return true
+    else
+        return false
+    end
+end
+
 
 -------------------------------------
 -- function getGroundRange
@@ -378,6 +454,8 @@ function LobbyMap:addLobbyDragon(tamer, t_user_info, flip)
 
     -- 드래곤이 이동했을 때 LobbyMap에서 ZOrder와 Scale을 변경
     lobby_dragon:addListener('lobby_character_move', self)
+
+    tamer.m_dragon = lobby_dragon
 end
 
 -------------------------------------

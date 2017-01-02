@@ -6,6 +6,7 @@ local PARENT = LobbyCharacter
 LobbyTamer = class(PARENT, {
         m_userData = '',
         m_attackTarget = '',
+        m_dragon = '',
      })
 
 LobbyTamer.MOVE_ACTION = 100
