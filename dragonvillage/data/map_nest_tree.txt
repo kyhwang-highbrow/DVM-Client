@@ -9,7 +9,7 @@
             "camera_app_rate":1
 			"list":
             [
-                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_1_a" "pos_x":640 "pos_y":-640 "scale":1.2}
+                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_1_a" "pos_x":640 "pos_y":-640 "scale":1.1}
 					
             ]
         }
@@ -21,7 +21,7 @@
             "camera_app_rate_y":0.6
 			"list":
             [
-                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_2_a" "pos_x":640 "pos_y":-640 "scale":1.2}
+                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_2_a" "pos_x":640 "pos_y":-640 "scale":1.1}
 					
             ]
         }
@@ -33,7 +33,7 @@
             "camera_app_rate_y":0.4
 			"list":
             [
-                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_3_a" "pos_x":640 "pos_y":-640 "scale":1.2}
+                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_3_a" "pos_x":640 "pos_y":-640 "scale":1.1}
 					
             ]
         }
@@ -45,7 +45,7 @@
             "camera_app_rate_y":0
 			"list":
             [
-                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_4_a" "pos_x":640 "pos_y":-640 "scale":1.2}
+                {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_4_a" "pos_x":640 "pos_y":-640 "scale":1.1}
 					
             ]
         }
