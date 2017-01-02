@@ -64,6 +64,16 @@ function cca.reserveFunc(node, duration, func)
     node:runAction(action)
 end
 
+-------------------------------------
+-- function reserveFuncWithTag
+-- @brief 액션을 실행 (일정시간 후 함수 호출)
+-------------------------------------
+function cca.reserveFuncWithTag(node, duration, func, tag)
+    local action = cc.Sequence:create(cc.DelayTime:create(duration), cc.CallFunc:create(func))
+    action:setTag(tag)
+    node:runAction(action)
+end
+
 
 -------------------------------------
 -- function getRipple3D

@@ -20,6 +20,7 @@ function LobbyShadow:init(scale)
     self.m_shadowSprite:setDockPoint(cc.p(0.5, 0.5))
     self.m_shadowSprite:setAnchorPoint(cc.p(0.5, 0.5))
     self.m_shadowSprite:setScale(scale)
+    self.m_shadowSprite:setOpacity(0.7 * 255)
     self.m_rootNode:addChild(self.m_shadowSprite)
 end
 
@@ -27,7 +28,7 @@ end
 -- function onEvent
 -------------------------------------
 function LobbyShadow:onEvent(event_name, ...)
-    if (event_name == 'lobby_tamer_move') then
+    if (event_name == 'lobby_character_move') then
         local arg = {...}
         local lobby_tamer = arg[1]
         local x = arg[2]

@@ -1144,6 +1144,12 @@
     <None Include="..\src\LobbyItemBox.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\LobbyDragon.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\LobbyCharacter.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

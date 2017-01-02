@@ -24,7 +24,7 @@ end
 -- function onEvent
 -------------------------------------
 function LobbyUserStatusUI:onEvent(event_name, ...)
-    if (event_name == 'lobby_tamer_move') then
+    if (event_name == 'lobby_character_move') then
         local arg = {...}
         local lobby_tamer = arg[1]
         local x = arg[2]
