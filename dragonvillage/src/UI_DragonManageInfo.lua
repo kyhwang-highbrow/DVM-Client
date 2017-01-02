@@ -530,10 +530,19 @@ function UI_DragonManageInfo:click_leaderBtn()
         local uid = g_userData:get('uid')
 
         local function success_cb(ret)
-            if ret['leader_dragon'] then
-                local doid = ret['leader_dragon']
-                g_dragonsData:setLeaderDragon(doid)
+
+            -- 서버에서 넘어온 드래곤 정보 저장
+            if (ret['modified_dragons']) then
+                for _,t_dragon in ipairs(ret['modified_dragons']) do
+                    g_dragonsData:applyDragonData(t_dragon)
+                end
             end
+
+            -- 서버레 리더 정보 저장
+            if (ret['leaders']) then
+                g_userData:applyServerData(ret['leaders'], 'leaders')
+            end
+
             UIManager:toastNotificationGreen(Str('대표 드래곤으로 설정되었습니다.'))
         end
 
