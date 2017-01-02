@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>ingame_btn_idle.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,-2}</string>
+                <key>spriteSize</key>
+                <string>{52,52}</string>
+                <key>spriteSourceSize</key>
+                <string>{80,80}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{52,52}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>ingame_btn.png</string>
+            <key>size</key>
+            <string>{54,54}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:15386de79d664fd465b9f7eabf92565d:1394df2f784ec561400d0d41e3818e47:ce14db38d7e3885d010e29391a279102$</string>
+            <key>textureFileName</key>
+            <string>ingame_btn.png</string>
+        </dict>
+    </dict>
+</plist>

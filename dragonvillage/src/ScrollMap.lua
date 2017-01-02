@@ -55,6 +55,7 @@ function ScrollMap:bindEventDispatcher(eventDispather)
     eventDispather:addListener('nest_dragon_start', self)
     eventDispather:addListener('nest_dragon_final_wave', self)
     eventDispather:addListener('nest_tree_appear', self)
+    eventDispather:addListener('nest_tree_die', self)
 end
 
 -------------------------------------
@@ -169,9 +170,9 @@ function ScrollMap:setBg(res)
     for _, v in ipairs(script['layer']) do
         local type = v['type'] or 'horizontal'
         local speed = v['speed'] or 0                   -- 이동 속도 배율
-        local camera_app_rate = v['camera_app_rate']    -- 카메라 적용 배율
-        local camera_app_rate_x = v['camera_app_rate_x'] or camera_app_rate -- 카메라 적용 배율
-        local camera_app_rate_y = v['camera_app_rate_y'] or camera_app_rate -- 카메라 적용 배율
+        local camera_app_rate_x = v['camera_app_rate_x'] or 1 -- 카메라 적용 배율
+        local camera_app_rate_y = v['camera_app_rate_y'] or 1
+        local camera_app_rate_scale = v['camera_app_rate_scale'] or 1
         local group = v['group']
 
         local bFixedLayer = (speed == 0) -- 속도값이 0일 경우 반복되지 않는 맵으로 간주
@@ -185,7 +186,6 @@ function ScrollMap:setBg(res)
                 local bPause = (data['pause'] or false)
 
                 self:makeLayer({
-                    type = type,
                     res = data['res'],
                     animation = data['animation'],
                     offset_x = real_offset_x,
@@ -194,6 +194,7 @@ function ScrollMap:setBg(res)
                     group = group,
                     camera_app_rate_x = camera_app_rate_x,
                     camera_app_rate_y = camera_app_rate_y,
+                    camera_app_rate_scale = camera_app_rate_scale,
                     is_flip = bFlip,
                     is_pause = bPause
                 }, true)
@@ -351,9 +352,21 @@ function ScrollMap:onEvent(event_name, ...)
             if v.m_group == 'nest_tree' then
                 local animator = v.m_animator
                 animator:setVisible(false)
-
-                v:doAction(cc.CallFunc:create(cbFunction))
             end
         end
+
+    elseif (event_name == 'nest_tree_die') then
+        -- 거목 마지막 웨이브 시작시 연출
+        for i, v in ipairs(self.m_tMapLayer) do
+            if v.m_group == 'nest_tree_bg' then
+                local xPos = v.m_rootNode:getPositionX()
+
+                v:doAction(cc.Sequence:create(
+                    cc.DelayTime:create(1),
+                    cc.MoveTo:create(3, cc.p(xPos, -1500))
+                ))
+            end
+        end
+
     end
 end

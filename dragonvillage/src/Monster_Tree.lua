@@ -42,6 +42,8 @@ function Monster_Tree.st_dying(owner, dt)
             SoundMgr:playEffect('VOICE', owner.m_tEffectSound['die'])
         end
 
+        owner.m_world:dispatch('nest_tree_die')
+
         owner.m_animator:addAniHandler(function()
             owner:changeState('dead')
         end)

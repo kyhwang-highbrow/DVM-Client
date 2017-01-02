@@ -223,18 +223,18 @@ ScrollMapLayer = class(IScrollMapLayer, {
 -- class ScrollMapLayerFixed
 -------------------------------------
 ScrollMapLayerFixed = class(IScrollMapLayer, {
-    m_type = 'string',
     m_cameraAppRateX = 'number', -- 카메라 적용 배율
     m_cameraAppRateY = 'number',
+    m_cameraAppRateScale = 'number',
 })
 
     -------------------------------------
     -- function init
     -------------------------------------
     function ScrollMapLayerFixed:init(parent, tParam)
-        self.m_type = tParam['type'] or 'normal'
-        self.m_cameraAppRateX = tParam['camera_app_rate_x'] or 0
-        self.m_cameraAppRateY = tParam['camera_app_rate_y'] or 0
+        self.m_cameraAppRateX = tParam['camera_app_rate_x'] or 1
+        self.m_cameraAppRateY = tParam['camera_app_rate_y'] or 1
+        self.m_cameraAppRateScale = tParam['camera_app_rate_scale'] or 1
 
         local is_flip = tParam['is_flip'] or false
         local is_pause = tParam['is_pause'] or false
@@ -257,16 +257,19 @@ ScrollMapLayerFixed = class(IScrollMapLayer, {
         local cameraY = tParam['cameraY'] or 0
         local cameraScale = tParam['cameraScale'] or 1
 
-                    local posX = self.m_offsetX - (self.m_cameraAppRateX * cameraX)
-        local posY = self.m_offsetY - (self.m_cameraAppRateY * cameraY)
+        local posX = self.m_offsetX - ((1 - self.m_cameraAppRateX) * cameraX)
+        local posY = self.m_offsetY - ((1 - self.m_cameraAppRateY) * cameraY)
         
         self.m_animator.m_node:setPositionX(posX)
         self.m_animator.m_node:setPositionY(posY)
 
-        if (self.m_type == 'fixed') then
+        if (self.m_cameraAppRateScale == 0) then
             self.m_rootNode:setScale(1 / cameraScale)
 
             local width = CRITERIA_RESOLUTION_X / cameraScale
             self.m_rootNode:setPositionX((CRITERIA_RESOLUTION_X - width) / 2)
+
+        else
+            
         end
     end

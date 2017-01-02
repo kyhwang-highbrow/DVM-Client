@@ -4,9 +4,10 @@
     [        
         {
             "name":"배경1"
-			"type":"fixed"
 			"speed":0
-            "camera_app_rate":1
+            "camera_app_rate_x":0
+			"camera_app_rate_y":0
+			"camera_app_rate_scale":0
 			"list":
             [
                 {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_1_a" "pos_x":640 "pos_y":-640 "scale":1.1}
@@ -15,10 +16,10 @@
         }
 		{
             "name":"배경2"
-			"type":"fixed"
 			"speed":0
-			"camera_app_rate_x":1
-            "camera_app_rate_y":0.6
+			"camera_app_rate_x":0
+            "camera_app_rate_y":0.4
+			"camera_app_rate_scale":0
 			"list":
             [
                 {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_2_a" "pos_x":640 "pos_y":-640 "scale":1.1}
@@ -27,10 +28,10 @@
         }
 		{
             "name":"배경3"
-			"type":"fixed"
 			"speed":0
-			"camera_app_rate_x":1
-            "camera_app_rate_y":0.4
+			"camera_app_rate_x":0
+            "camera_app_rate_y":0.6
+			"camera_app_rate_scale":0
 			"list":
             [
                 {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_3_a" "pos_x":640 "pos_y":-640 "scale":1.1}
@@ -39,10 +40,10 @@
         }
 		{
             "name":"배경4"
-			"type":"fixed"
 			"speed":0
-			"camera_app_rate_x":1
-            "camera_app_rate_y":0
+			"camera_app_rate_x":0
+            "camera_app_rate_y":1.2
+			"camera_app_rate_scale":0
 			"list":
             [
                 {"res":"res/bg/map_ancient_forest/map_ancient_forest.vrp" "animation":"layer_4_a" "pos_x":640 "pos_y":-640 "scale":1.1}
@@ -51,6 +52,7 @@
         }
 		{
             "name":"거목"
+			"group":"nest_tree_bg"
 			"speed":0
 			"list":
             [

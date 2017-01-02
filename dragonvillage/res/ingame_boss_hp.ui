@@ -284,7 +284,7 @@
 			relative_size_type = 0;
 			width = 1270;
 			height = 24;
-			scale_x = 1.000000;
+			scale_x = 0.750000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
 			skew_y = 0.000000;
