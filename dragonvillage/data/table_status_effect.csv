@@ -17,8 +17,8 @@ blessing,buff,축복,res/effect/effect_blessing/effect_blessing.vrp,res/ui/icon/
 quickly,buff,회피,res/effect/effect_quickly/effect_quickly.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,20,0,0,0,0,0,10,20,0,0,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
 attr_strengthen,buff,속성 강화,res/effect/effect_attr_strengthen/effect_attr_strengthen.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,0,0,30,0,0,0,10,20,0,0,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
 attr_weaken,buff,속성 약화,res/effect/effect_attr_weaken/effect_attr_weaken.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,0,0,-30,0,0,0,10,20,0,0,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
-def_up_overlab,buff,방어력 증가 오버랩,res/effect/effect_defensive/effect_defensive.vrp,res/ui/icon/status_effect/def_up.png,x,false,10,5,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
-atk_up_overlab,buff,공격력 증가 오버랩,res/effect/effect_offensive/effect_offensive.vrp,res/ui/icon/status_effect/atk_up.png,x,false,10,5,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,x,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
+def_up_overlab,buff,방어력 증가 오버랩,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,10,5,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
+atk_up_overlab,buff,공격력 증가 오버랩,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,10,5,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,x,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
 tamer_atk_up,buff,공격력 증가,res/effect/effect_tamer_combat/effect_tamer_combat.vrp,res/ui/icon/status_effect/atk_up.png,x,false,1,15,100,0,0,0,0,0,0,0,0,0,0,0,0,0,15,100,0,0,15,100,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
 tamer_def_up,buff,방어력 증가,res/effect/effect_tamer_defense/effect_tamer_defense.vrp,res/ui/icon/status_effect/def_up.png,x,false,1,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 tamer_heal,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,0,100,hp_target,0,0,0,x,x,x,x,x,x
