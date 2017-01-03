@@ -191,6 +191,7 @@ void SkeletonRenderer::drawSkeleton(const Mat4 &transform, bool transformFlags) 
         else if (curGlProgram) {
             _batch->flush();
             setGLProgram(baseGlProgram);
+            getGLProgramState()->apply(transform);
             curGlProgram = nullptr;
         }
         //
