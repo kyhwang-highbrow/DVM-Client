@@ -16,6 +16,8 @@ function UI_Game:init(game_scene)
 
     vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
 	vars['feverButton']:registerScriptTapHandler(function() self:click_feverButton() end)    
+    vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
+    vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
 
     local label = cc.Label:createWithBMFont('res/font/hit_font.fnt', tostring(999))
     label:setDockPoint(cc.p(0.5, 0.5))
@@ -68,6 +70,20 @@ function UI_Game:click_feverButton()
     if not game_fever:isActive() then
         game_fever:addFeverPoint(100)
     end
+end
+
+-------------------------------------
+-- function click_autoButton
+-------------------------------------
+function UI_Game:click_autoButton()
+	UIManager:toastNotificationRed('"자동" 미구현')
+end
+
+-------------------------------------
+-- function click_speedButton
+-------------------------------------
+function UI_Game:click_speedButton()
+	UIManager:toastNotificationRed('"X2" 미구현')
 end
 
 -------------------------------------

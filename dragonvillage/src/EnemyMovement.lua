@@ -330,9 +330,9 @@ function EnemyMovement.NestTree(owner, luaValue1, luaValue2, luaValue3, luaValue
     end)
 
     owner.m_animator:runAction(cc.Sequence:create(
-        cc.DelayTime:create(2.5),
+        cc.DelayTime:create(2.8),
         cc.CallFunc:create(function()
-            owner.m_world.m_shakeMgr:doShake(50, 50, 1)
+            owner.m_world.m_shakeMgr:doShake(50, 50, 2)
         end)
     ))
 end
