@@ -18,18 +18,19 @@ end
 -- function doShake
 -- @brief 화면 떨림 연출
 -------------------------------------
-function ShakeManager:doShake(x, y, duration, is_repeat)
+function ShakeManager:doShake(x, y, duration, is_repeat, interval)
 	-- 1. 변수 설정
     local timeScale = cc.Director:getInstance():getScheduler():getTimeScale()
     local duration = duration or SHAKE_DURATION * timeScale
 	local is_repeat = is_repeat or false
+    local interval =  interval or 0.2
 
 	-- 2. 기존에 있던 액션 중지
     self:stopShake()
 
 	-- 3. 새로운 액션 설정 
     local start_action = cc.MoveTo:create(0, cc.p(x, y))
-    local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(duration, cc.p(0, 0)), 0.2)
+    local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(duration, cc.p(0, 0)), interval)
 	local sequence_action = cc.Sequence:create(start_action, end_action)
 
 	-- 4. 실행
