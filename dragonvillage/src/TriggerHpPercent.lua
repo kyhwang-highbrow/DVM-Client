@@ -66,7 +66,7 @@ function TriggerHpPercent:checkTrigger(hp_percent)
         local tCurrPattern = clone(self.m_owner.m_tCurrPattern)
 
         for i, pattern_info in ipairs(tCurrPattern) do
-            if pattern_info['priority'] < self.m_priority then
+            if pattern_info['priority'] <= self.m_priority then
                 table.insert(t_remove, 1, i)
             end
         end
