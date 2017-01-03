@@ -1156,6 +1156,9 @@
     <None Include="..\src\UI_SimpleDragonInfoPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\LobbyMapSpotMgr.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

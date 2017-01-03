@@ -1,4 +1,4 @@
-local PARENT = class(Camera, IEventListener:getCloneTable())
+local PARENT = class(Camera, IEventListener:getCloneTable(), LobbyMapSpotMgr:getCloneTable())
 
 -------------------------------------
 -- class LobbyMap
@@ -61,7 +61,7 @@ function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_rati
     self.m_dragonTouchIndicator = MakeAnimator('res/indicator/indicator_effect_target/indicator_effect_target.vrp')
     self.m_dragonTouchIndicator:setVisible(false)
     self.m_dragonTouchIndicator:changeAni('idle_ally', true)
-    node:addChild(self.m_dragonTouchIndicator.m_node, 0)
+    node:addChild(self.m_dragonTouchIndicator.m_node, 1)
 end
 
 -------------------------------------
@@ -366,15 +366,19 @@ function LobbyMap:makeLobbyTamerBot(t_user_info)
     self:addLobbyDragon(tamer, t_user_info, flip)
 
     if is_bot then
-        local x, y = lobby_map:getLobbyMapRandomPos()
-        tamer:setPosition(x, y)
+        --local x, y = lobby_map:getLobbyMapRandomPos()
+        --tamer:setPosition(x, y)
 
         tamer.m_funcGetRandomPos = function()
-            return lobby_map:getLobbyMapRandomPos()
+            local ret_pos = self:getRandomSpot(t_user_info['uid'])
+            return ret_pos[1], ret_pos[2]
+            --return lobby_map:getLobbyMapRandomPos()
         end
+        tamer:changeState('first_idle')
     else
         self.m_targetTamer = tamer
         tamer:setPosition(0, -150)
+        tamer:changeState('idle')
     end
 end
 
@@ -390,7 +394,7 @@ function LobbyMap:addLobbyTamer(tamer, is_bot, t_user_info)
 
     do -- 그림자 생성
         local lobby_shadow = LobbyShadow(1)
-        self.m_groudNode:addChild(lobby_shadow.m_rootNode)
+        self.m_groudNode:addChild(lobby_shadow.m_rootNode, 1)
 
         -- 그림자 이동 이벤트 등록
         lobby_shadow:addListener('lobby_shadow_move', self)
@@ -440,7 +444,7 @@ function LobbyMap:addLobbyDragon(tamer, t_user_info, flip)
 
     do -- 그림자 생성
         local lobby_shadow = LobbyShadow(0.5)
-        self.m_groudNode:addChild(lobby_shadow.m_rootNode)
+        self.m_groudNode:addChild(lobby_shadow.m_rootNode, 1)
 
         -- 그림자 이동 이벤트 등록
         lobby_shadow:addListener('lobby_shadow_move', self)
@@ -601,4 +605,22 @@ function LobbyMap:tempItemBox()
    self.m_lItemBox = {} 
 
    table.insert(self.m_lItemBox, item_box)
+end
+
+
+-------------------------------------
+-- function startPositioning
+-- @brief
+-------------------------------------
+function LobbyMap:startPositioning()
+    local center_x = 270 + 50
+    local center_y = -190
+    local range_x = 300
+    local range_y = 100
+
+    for i, v in pairs(self.m_lLobbyTamerBotOnly) do
+        local x = math_random(center_x - range_x, center_x + range_x)
+        local y = math_random(center_y - range_y, center_y + range_y)
+        v:setPosition(x, y)
+    end
 end

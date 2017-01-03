@@ -52,3 +52,24 @@ end
 function ServerData_LobbyUserList:getLobbyUserList()
     return self.m_serverData:get('lobby_user_list')
 end
+
+-------------------------------------
+-- function getLobbyUser_playerOnly
+-- @brief 플레이어 유저의 정보만 리턴
+-------------------------------------
+function ServerData_LobbyUserList:getLobbyUser_playerOnly()
+     local l_lobby_user_list = self.m_serverData:get('lobby_user_list')
+
+     local player_user_info = nil
+
+     local uid = g_userData:get('uid')
+
+     for i,v in ipairs(l_lobby_user_list) do
+        if (v['uid'] == uid) then
+            player_user_info = v
+            break
+        end
+     end
+
+     return player_user_info
+end

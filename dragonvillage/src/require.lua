@@ -280,6 +280,7 @@ local t_module = {
     'UI_LobbyNew',
     'UI_LobbyOld',
     'UI_Lobby',
+    'LobbyMapSpotMgr',
     'LobbyMap',
     'LobbyCharacter',
     'LobbyTamer',

@@ -55,30 +55,38 @@ end
 -------------------------------------
 function UI_Lobby:initCamera()
     local vars = self.vars
-    local camera = LobbyMap(vars['cameraNode'])
-    camera:setContainerSize(1280*3, 960)
+    local lobby_map = LobbyMap(vars['cameraNode'])
+    lobby_map:setContainerSize(1280*3, 960)
     
-    camera:addLayer(self:makeLobbyLayer(4), 0.7)
-    camera:addLayer(self:makeLobbyLayer(3), 0.8)
-    camera:addLayer(self:makeLobbyLayer(2), 0.9)
+    lobby_map:addLayer(self:makeLobbyLayer(4), 0.7)
+    lobby_map:addLayer(self:makeLobbyLayer(3), 0.8)
+    lobby_map:addLayer(self:makeLobbyLayer(2), 0.9)
 
     local lobby_ground = self:makeLobbyLayer(1)
-    camera:addLayer_lobbyGround(lobby_ground, 1)
-    camera.m_groudNode = lobby_ground
+    lobby_map:addLayer_lobbyGround(lobby_ground, 1)
+    lobby_map.m_groudNode = lobby_ground
 
-    local l_lobby_user_list = g_lobbyUserListData:getLobbyUserList()
-    local uid = g_serverData:get('local', 'uid')
+    -- 플레이어 유저의 Tamer만 생성하고 싶을 경우 true로 설정하세요.
+    local user_only = false
 
-    for i,user_info in ipairs(l_lobby_user_list) do
-        camera:makeLobbyTamerBot(user_info)
+    if user_only then
+        local user_info = g_lobbyUserListData:getLobbyUser_playerOnly()
+        lobby_map:makeLobbyTamerBot(user_info)
+    else
+        local l_lobby_user_list = g_lobbyUserListData:getLobbyUserList()
+        for i,user_info in ipairs(l_lobby_user_list) do
+            lobby_map:makeLobbyTamerBot(user_info)
+        end
     end
 
-    camera:setMoveStartCB(function()
+    lobby_map:startPositioning()
+
+    lobby_map:setMoveStartCB(function()
         self:doActionReverse()
         g_topUserInfo:doActionReverse()
     end)
 
-    camera:setMoveEndCB(function()
+    lobby_map:setMoveEndCB(function()
         self:doAction()
         g_topUserInfo:doAction()
     end)
