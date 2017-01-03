@@ -459,7 +459,11 @@ local function loadNode(ui, data, vars, parent)
         setPropsForTableView(node, data)
     elseif type == 'Sprite' then
         UILoader.checkTranslate(data)
-        node = cc.Sprite:create(uiRoot .. data.file_name)
+        local res = uiRoot .. data.file_name
+        node = cc.Sprite:create(res)
+        if (not node) then
+            error(string.format('"%s"이(가) 없습니다.', res))
+        end
         setPropsForSprite(node, data)
     elseif type == 'ProgressTimer' then
         UILoader.checkTranslate(data)
