@@ -20,21 +20,7 @@ end
 -------------------------------------
 function LobbyTamerBot:initState()
     PARENT.initState(self)
-    self:addState('first_idle', LobbyTamerBot.st_first_idle, 'idle', true)
     self:addState('idle', LobbyTamerBot.st_idle, 'idle', true)
-end
-
--------------------------------------
--- function st_first_idle
--------------------------------------
-function LobbyTamerBot.st_first_idle(self, dt)
-    if (self.m_stateTimer == 0) then
-        self.m_randomTime = math_random(5, 15) / 10
-
-    elseif (self.m_randomTime <= self.m_stateTimer) then
-        local x, y = self:getRandomPos()
-        self:setMove(x, y, 400)
-    end
 end
 
 -------------------------------------

@@ -79,8 +79,6 @@ function UI_Lobby:initCamera()
         end
     end
 
-    lobby_map:startPositioning()
-
     lobby_map:setMoveStartCB(function()
         self:doActionReverse()
         g_topUserInfo:doActionReverse()

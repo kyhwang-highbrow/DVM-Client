@@ -374,15 +374,13 @@ function LobbyMap:makeLobbyTamerBot(t_user_info)
     self:addLobbyDragon(tamer, t_user_info, flip)
 
     if is_bot then
-        --local x, y = lobby_map:getLobbyMapRandomPos()
-        --tamer:setPosition(x, y)
+        local pos = self:getRandomSpot(t_user_info['uid'])
+        tamer:setPosition(pos[1], pos[2])
 
         tamer.m_funcGetRandomPos = function()
             local ret_pos = self:getRandomSpot(t_user_info['uid'])
             return ret_pos[1], ret_pos[2]
-            --return lobby_map:getLobbyMapRandomPos()
         end
-        tamer:changeState('first_idle')
     else
         self.m_targetTamer = tamer
         tamer:setPosition(0, -150)
@@ -624,25 +622,6 @@ function LobbyMap:tempItemBox()
 
    table.insert(self.m_lItemBox, item_box)
 end
-
-
--------------------------------------
--- function startPositioning
--- @brief
--------------------------------------
-function LobbyMap:startPositioning()
-    local center_x = 270 + 50
-    local center_y = -190
-    local range_x = 300
-    local range_y = 100
-
-    for i, v in pairs(self.m_lLobbyTamerBotOnly) do
-        local x = math_random(center_x - range_x, center_x + range_x)
-        local y = math_random(center_y - range_y, center_y + range_y)
-        v:setPosition(x, y)
-    end
-end
-
 
 -------------------------------------
 -- function makeLobbyMapZorder
