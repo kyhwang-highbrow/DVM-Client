@@ -1,0 +1,54 @@
+{
+	"skill_subboss_fallen_angel_0":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_wedge/missile_wedge_@.vrp",
+				"body":[0,0,20],
+                "count":1,
+                "scale":1,
+                "period":0,
+				"speed":0,
+				"accel":0,
+				"h_limit_speed":0,
+				"accel_delay":1,
+				"angular_velocity":0,
+				"offset":[0,0],
+				
+				"add_script":
+				[
+					{
+						"idx":1,
+						"res":"res/missile/missile_wedge/missile_wedge_@.vrp",
+						"body":[0,0,20],
+						"count":5,
+						"scale":1,
+						"period":0.1,
+						"speed":500,
+						"accel":1000,
+						"h_limit_speed":1500,
+						"accel_delay":0,
+						"angular_velocity":0,
+						"offset":[0,0],
+						"dir_array":['random',10,-10]
+					}
+				],
+				
+				"add_script_start":0.5,
+				"add_script_term":0,
+				"add_script_max":1,
+				"add_script_relative":true,
+				"add_script_dead":true,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}

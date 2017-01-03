@@ -1,0 +1,133 @@
+{
+	"skill_missile_record_manager_1":
+	{
+		"attack_value":
+		[		
+			{				
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,0],
+                "count":5,
+				"time":0,
+                "scale":1,
+                "period":0.1,
+				"speed":500,
+				"offset":[0,0],
+				"dir_array":[0,45,90,135,180,225,270,315],
+				"dir_add":2,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{				
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,0],
+                "count":5,
+				"time":0.5,
+                "scale":1,
+                "period":0.1,
+				"speed":600,
+				"offset":[0,0],
+				"dir_array":[0,45,90,135,180,225,270,315],
+				"dir_add":-2,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{				
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,0],
+                "count":5,
+				"time":1,
+                "scale":1,
+                "period":0.1,
+				"speed":700,
+				"offset":[0,0],
+				"dir_array":[0,45,90,135,180,225,270,315],
+				"dir_add":2,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{				
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,0],
+                "count":5,
+				"time":1.5,
+                "scale":1,
+                "period":0.1,
+				"speed":800,
+				"offset":[0,0],
+				"dir_array":[0,45,90,135,180,225,270,315],
+				"dir_add":-2,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{				
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,0],
+                "count":5,
+				"time":2,
+                "scale":1,
+                "period":0.1,
+				"speed":900,
+				"offset":[0,0],
+				"dir_array":[0,45,90,135,180,225,270,315],
+				"dir_add":2,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{				
+				"idx":1,
+				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"body":[0,0,0],
+                "count":5,
+				"time":2.5,
+                "scale":1,
+                "period":0.1,
+				"speed":1000,
+				"offset":[0,0],
+				"dir_array":[0,45,90,135,180,225,270,315],
+				"dir_add":-2,
+				
+                "effect":
+                {
+                    "motion_streak":"",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}

@@ -1,0 +1,23 @@
+{
+	"pattern_subboss_fallen_angel":
+	[			
+		[
+			"a;basic", "w;3", "a;1", "w;5", "a;2", "w;5", "a;3", "w;5"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":1,
+                "pattern":
+                [
+					"w;1"
+                ]
+            }
+        ]
+    }
+}
