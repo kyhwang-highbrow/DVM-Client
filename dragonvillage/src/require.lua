@@ -171,6 +171,7 @@ local t_module = {
     'MonsterLua_Boss',
     'Monster_GiantDragon',
     'Monster_Tree',
+	'Monster_WorldOrderMachine',
     'require_EnemyLua',
     'EnemyMovement',
     'MissileFactory',

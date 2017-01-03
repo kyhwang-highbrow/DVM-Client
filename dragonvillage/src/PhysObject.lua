@@ -314,9 +314,10 @@ end
 
 -------------------------------------
 -- function addPhysObject
--- @breif PhysObject 추가
+-- @breif PhysObject 추가 
+-- @comment 여기서는 리스트에만 추가해두고 world에 addObject 할시에 리스트를 불러와 같이 등록한다.
 -------------------------------------
-function PhysObject:addPhysObject(object_key, t_body)
+function PhysObject:addPhysObject(object_key, t_body, adj_x, adj_y, object_cb_func)
     if (not self.m_bInitAdditionalPhysObject) then
         self:init_AdditionalPhysObject()
     end
@@ -324,18 +325,9 @@ function PhysObject:addPhysObject(object_key, t_body)
     -- PhysObject 생성
     local phys_obj = PhysObject()
     PhysObject_initPhys(phys_obj, t_body)
-    --phys_obj.m_ownerObject = self
-    
-    -- 최초 위치 지정
-    local pos_x = self.pos.x
-    local pos_y = self.pos.y
-    phys_obj:setPosition(pos_x, pos_y)
-
-    -- PhysWorld에 추가
-    self.m_physWorld:addObject(object_key, phys_obj)
 
     -- 리스트에 추가
-    table.insert(self.m_lAdditionalPhysObject, phys_obj)
+	self.m_lAdditionalPhysObject[phys_obj] = {x = adj_x, y = adj_y, cb_func = object_cb_func}
 
     return phys_obj
 end
@@ -362,8 +354,8 @@ function PhysObject:posUpdateAdditionalPhysObject(x, y)
     if (not self.m_bInitAdditionalPhysObject) then
         return
     end
-    
-    for _,phys_obj in pairs(self.m_lAdditionalPhysObject) do
-        phys_obj:setPosition(x, y)
+
+    for phys_obj, adj_pos in pairs(self.m_lAdditionalPhysObject) do
+        phys_obj:setPosition(self.pos.x + adj_pos.x, self.pos.y + adj_pos.y)
     end
 end
