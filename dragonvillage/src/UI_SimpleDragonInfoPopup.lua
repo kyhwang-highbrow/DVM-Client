@@ -84,15 +84,7 @@ end
 function UI_SimpleDragonInfoPopup:refresh_status()
     local vars = self.vars
 
-    local t_dragon_data = self.m_tDragonData
-    local dragon_id = t_dragon_data['did']
-    local lv = t_dragon_data['lv']
-    local grade = t_dragon_data['grade']
-    local evolution = t_dragon_data['evolution']
-    local l_friendship_bonus = {}
-    local l_train_bonus = {}
-
-    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, l_friendship_bonus, l_train_bonus)
+    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(self.m_tDragonData)
 
     vars['atk_p_label']:setString(status_calc:getFinalStatDisplay('atk'))
     vars['atk_spd_label']:setString(status_calc:getFinalStatDisplay('aspd'))

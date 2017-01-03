@@ -197,6 +197,16 @@ end
 function MakeOwnDragonStatusCalculator(dragon_object_id)
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(dragon_object_id)
 
+    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
+
+    return status_calc
+end
+
+-------------------------------------
+-- function MakeDragonStatusCalculator_fromDragonDataTable
+-- @brief
+-------------------------------------
+function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
     local dragon_id = t_dragon_data['did']
     local lv = t_dragon_data['lv']
     local grade = t_dragon_data['grade']
@@ -204,14 +214,13 @@ function MakeOwnDragonStatusCalculator(dragon_object_id)
 
     -- 친밀도 보너스
     local l_friendship_bonus = {}
-    l_friendship_bonus['atk'] = t_dragon_data['atk']
-    l_friendship_bonus['def'] = t_dragon_data['def']
-    l_friendship_bonus['hp'] = t_dragon_data['hp']
+    l_friendship_bonus['atk'] = t_dragon_data['atk'] or 0
+    l_friendship_bonus['def'] = t_dragon_data['def'] or 0
+    l_friendship_bonus['hp'] = t_dragon_data['hp'] or 0
 
     -- 수련 보너스
     local table_dragon_train_status = TableDragonTrainStatus()
-    local l_train_bonus = table_dragon_train_status:getTrainStatus(t_dragon_data['did'], t_dragon_data['train_slot'])
-
+    local l_train_bonus = table_dragon_train_status:getTrainStatus(t_dragon_data['did'], t_dragon_data['train_slot'] or {})
 
     local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, l_friendship_bonus, l_train_bonus)
 
