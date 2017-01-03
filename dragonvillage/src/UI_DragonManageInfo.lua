@@ -132,7 +132,7 @@ function UI_DragonManageInfo:refresh()
     self:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
 
     -- 드래곤 스킬 정보 갱신
-    self:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
+    self:refresh_dragonSkillsInfo(t_dragon_data, t_dragon, function() self:click_skillDetailBtn() end)
 
     -- 아이콘 갱신
     self:refresh_icons(t_dragon_data, t_dragon)
@@ -148,9 +148,15 @@ end
 function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
     local vars = self.vars
 
-    do -- 드래곤 이름
+    -- 드래곤 이름
+    if vars['nameLabel'] then
+        vars['nameLabel']:setString(Str(t_dragon['t_name']))
+    end
+
+    -- 진화도 이름
+    if vars['evolutionLabel'] then
         local evolution_lv = t_dragon_data['evolution']
-        vars['nameLabel']:setString(Str(t_dragon['t_name']) .. '-' .. evolutionName(evolution_lv))
+        vars['evolutionLabel']:setString(evolutionName(evolution_lv))
     end
 
     do -- 드래곤 등급
@@ -162,7 +168,8 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
         vars['starNode']:addChild(star_icon)
     end
 
-    do -- 드래곤 실리소스
+    -- 드래곤 실리소스
+    if vars['dragonNode'] then
         local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], t_dragon_data['evolution'], t_dragon['attr'])
         animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
         animator.m_node:setDockPoint(cc.p(0.5, 0.5))
@@ -202,12 +209,14 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
         
     end
 
-    do -- 승급 경험치
+    -- 승급 경험치
+    if vars['upgradeLabel'] then
         vars['upgradeLabel']:setString('')
         vars['upgradeGauge']:setPercentage(0)
     end
 
-    do -- 친밀도
+    -- 친밀도
+    if vars['friendshipLabel'] then
         vars['friendshipLabel']:setString(Str('무관심'))
         vars['friendshipGauge']:setPercentage(0)
     end
@@ -227,12 +236,11 @@ end
 -- function refresh_dragonSkillsInfo
 -- @brief 드래곤 스킬 정보 갱신
 -------------------------------------
-function UI_DragonManageInfo:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
+function UI_DragonManageInfo:refresh_dragonSkillsInfo(t_dragon_data, t_dragon, func_skill_detail_btn)
     local vars = self.vars
-    local doid = t_dragon_data['id']
 
     do -- 스킬 아이콘 생성
-        local skill_mgr = MakeDragonSkillFromDoid(doid)
+        local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
         local l_skill_icon = skill_mgr:getDragonSkillIconList()
         for i=0, MAX_DRAGON_EVOLUTION do
             if l_skill_icon[i] then
@@ -243,7 +251,7 @@ function UI_DragonManageInfo:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
                 local skill_lv = skill_mgr:getSkillLevel(i)
                 vars['skllLvLabel' .. i]:setString(tostring(skill_lv))
 
-                l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function() self:click_skillDetailBtn() end)
+                l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(func_skill_detail_btn)
             end
         end
     end

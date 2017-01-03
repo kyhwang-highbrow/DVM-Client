@@ -4,6 +4,7 @@ local PARENT = LobbyCharacter
 -- class LobbyDragon
 -------------------------------------
 LobbyDragon = class(PARENT, {
+        m_dragonID = 'number',
         m_bAwake = 'bool',
         m_bWating = 'bool',
         m_targetX = '',
@@ -20,7 +21,8 @@ LobbyDragon.Y_OFFSET = 150
 -------------------------------------
 -- function init
 -------------------------------------
-function LobbyDragon:init()
+function LobbyDragon:init(did)
+    self.m_dragonID = did
     self.m_bInitFirstPos = false
 end
 

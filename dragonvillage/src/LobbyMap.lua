@@ -56,7 +56,7 @@ function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_rati
     self.m_lobbyIndicator = MakeAnimator('res/ui/a2d/lobby_indicator/lobby_indicator.vrp')
     self.m_lobbyIndicator:setVisible(false)
     self.m_lobbyIndicator:changeAni('idle', true)
-    node:addChild(self.m_lobbyIndicator.m_node, 0)
+    node:addChild(self.m_lobbyIndicator.m_node, 1)
 
     self.m_dragonTouchIndicator = MakeAnimator('res/indicator/indicator_effect_target/indicator_effect_target.vrp')
     self.m_dragonTouchIndicator:setVisible(false)
@@ -126,7 +126,7 @@ function LobbyMap:onTouchEnded(touches, event)
     if self.m_touchTamer then
         if self:checkDragonTouch(touches[1]:getLocation(), self.m_touchTamer) then
             self.m_touchTamer:showEmotionEffect()
-            UI_SimpleDragonInfoPopup()
+            UI_SimpleDragonInfoPopup(self.m_touchTamer.m_dragon.m_dragonID)
         end
         self.m_touchTamer = nil
     end
@@ -430,11 +430,19 @@ end
 function LobbyMap:addLobbyDragon(tamer, t_user_info, flip)
     -- 임시 랜덤 드래곤
     local table_dragon = TableDragon()
-    local t_dragon = table_dragon:getRandomRow()
+    local t_dragon = nil
+
+    -- 리더가 지정되어 있을 경우(lobby leader)
+    if t_user_info['leader'] then
+        t_dragon = table_dragon:get(t_user_info['leader']['did'])
+    else
+        t_dragon = table_dragon:getRandomRow()
+    end
+
     local res = AnimatorHelper:getDragonResName(t_dragon['res'], 1, t_dragon['attr'])
 
     -- 드래곤 생성
-    local lobby_dragon = LobbyDragon()
+    local lobby_dragon = LobbyDragon(t_dragon['did'])
     lobby_dragon:initAnimator(res)
     self.m_groudNode:addChild(lobby_dragon.m_rootNode)
 

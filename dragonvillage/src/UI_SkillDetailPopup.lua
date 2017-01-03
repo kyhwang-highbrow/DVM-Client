@@ -69,6 +69,9 @@ function UI_SkillDetailPopup:refresh()
 
             -- 이름
             vars['skillNameLabel' .. i]:setString(t_skill['t_name'])
+
+            -- 스킬 레벨
+            vars['skillLevelLabel' .. i]:setString(Str('레벨 {1}', t_dragon_data['skill_' .. i]))
         end
     end
 end
