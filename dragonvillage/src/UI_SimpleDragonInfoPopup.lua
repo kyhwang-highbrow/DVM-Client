@@ -5,13 +5,15 @@ local PARENT = UI
 -------------------------------------
 UI_SimpleDragonInfoPopup = class(PARENT, {
         m_tDragonData = 'table',
+        m_tableDragon = 'TableDragon',
+        m_idx = 'number',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_SimpleDragonInfoPopup:init(did)
-    self.m_tDragonData = self:makeDragonData(did)
+    self.m_tableDragon = TableDragon()
 
     local vars = self:load('dragon_management_info_mini.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -26,7 +28,9 @@ function UI_SimpleDragonInfoPopup:init(did)
 
     self:initUI()
     self:initButton()
-    self:refresh()
+
+    local idx = self.m_tableDragon:getIllustratedDragonIdx(did)
+    self:setIdx(idx)
 end
 
 -------------------------------------
@@ -42,6 +46,8 @@ end
 function UI_SimpleDragonInfoPopup:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    vars['prevBtn']:registerScriptTapHandler(function() self:setIdx(self.m_idx - 1) end)
+    vars['nextBtn']:registerScriptTapHandler(function() self:setIdx(self.m_idx + 1) end)
 end
 
 -------------------------------------
@@ -128,4 +134,27 @@ function UI_SimpleDragonInfoPopup:click_skillDetailBtn()
     local ui = UI_SkillDetailPopup(t_dragon_data)
 
     ui.vars['upgradeBtn']:setVisible(false)
+end
+
+-------------------------------------
+-- function setIdx
+-------------------------------------
+function UI_SimpleDragonInfoPopup:setIdx(idx)
+    if (self.m_idx == idx) then
+        return
+    end
+
+    local illustrated_dragon_list = self.m_tableDragon:getIllustratedDragonList()
+    local min = 1
+    local max = #illustrated_dragon_list
+    idx = math_clamp(idx, min, max)
+
+    self.m_idx = idx
+    local t_dragon = self.m_tableDragon:getIllustratedDragon(idx)
+    self.m_tDragonData = self:makeDragonData(t_dragon['did'])
+    self:refresh()
+
+    local vars = self.vars
+    vars['prevBtn']:setVisible(min < idx)
+    vars['nextBtn']:setVisible(idx < max)
 end

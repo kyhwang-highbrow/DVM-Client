@@ -4,6 +4,8 @@ local PARENT = TableClass
 -- class TableDragon
 -------------------------------------
 TableDragon = class(PARENT, {
+        m_lIllustratedDragonList = 'list', -- 드래곤 도감 리스트
+        m_mIllustratedDragonIdx = 'table',
     })
 
 -------------------------------------
@@ -20,4 +22,74 @@ end
 function TableDragon:getDragonRole(key)
     local t_skill = self:get(key)
     return t_skill['role']
+end
+
+-------------------------------------
+-- function initIllustratedDragonList
+-- @breif 도감 리스트 초기화
+-------------------------------------
+function TableDragon:initIllustratedDragonList()
+    if (self.m_lIllustratedDragonList and self.m_mIllustratedDragonIdx) then
+        return
+    end
+
+    -- 드래곤 테이블에서 test값이 1인 드래곤만 추출
+    self.m_lIllustratedDragonList = self:filterList('test', 1)
+
+    -- did순으로 정렬
+    table.sort(self.m_lIllustratedDragonList, function(a, b)
+        return a['did'] < b['did']
+    end)
+
+    -- 해당 did가 어떤 idx에 있는지 저장
+    self.m_mIllustratedDragonIdx = {}
+    for i,v in ipairs(self.m_lIllustratedDragonList) do
+        self.m_mIllustratedDragonIdx[v['did']] = i
+    end
+end
+
+-------------------------------------
+-- function getIllustratedDragonList
+-- @breif 도감 리스트
+-------------------------------------
+function TableDragon:getIllustratedDragonList()
+    self:initIllustratedDragonList()
+    return self.m_lIllustratedDragonList
+end
+
+-------------------------------------
+-- function getIllustratedDragonIdx
+-- @breif 도감 리스트
+-------------------------------------
+function TableDragon:getIllustratedDragonIdx(did)
+    self:initIllustratedDragonList()
+    return self.m_mIllustratedDragonIdx[did]
+end
+
+-------------------------------------
+-- function getIllustratedDragon
+-- @breif 도감 리스트
+-------------------------------------
+function TableDragon:getIllustratedDragon(idx)
+    local illustrated_dragon_list = self:getIllustratedDragonList()
+    return illustrated_dragon_list[idx]
+end
+
+-------------------------------------
+-- function getRandomRow
+-------------------------------------
+function TableDragon:getRandomRow()
+    local l_list = self:filterList('test', 1)
+
+    local cnt = table.count(l_list)
+    local rand_num = math_random(1, cnt)
+
+    local idx = 1
+    for i,v in pairs(l_list) do
+        if (idx == rand_num) then
+            return clone(v)
+        end
+
+        idx = (idx + 1)
+    end
 end
