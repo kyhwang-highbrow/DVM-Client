@@ -168,6 +168,21 @@ function SceneDV:onKeyReleased(keyCode, event)
             animator.m_node:setSlotGLProgramName(string.format('boss_drake_water_effect_%02d', i), cc.SHADER_POSITION_TEXTURE_COLOR)
         end
         animator.m_node:setSlotGLProgramName('boss_drake_water_effect_9', cc.SHADER_POSITION_TEXTURE_COLOR)
+
+    elseif keyCode == KEY_3 then
+		local animator = MakeAnimator('res/character/monster/boss_spider_queen_fire/boss_spider_queen_fire.json')
+        animator:setPosition(400, 200)
+		self.m_scene:addChild(animator.m_node)
+
+        animator:changeAni('idle', true)
+
+        local shader = ShaderCache:getShader(SHADER_CHARACTER_DAMAGED)
+        animator.m_node:setGLProgram(shader)
+
+        animator.m_node:setSlotGLProgramName('effect_01', cc.SHADER_POSITION_TEXTURE_COLOR)
+
+        local slotList = animator:getSlotList()
+        --cclog('slotList = ' .. luadump(slotList))
 	end
 end
 

@@ -25,10 +25,10 @@ function StatusEffectIcon:init(char, status_effect)
 	local status_effect_type = status_effect:getTypeName()
 	self.m_statusEffectName = status_effect_type
 
-	do 
+	if (char.m_statusNode) then
 		local icon = IconHelper:getStatusEffectIcon(status_effect_type)
 		icon:setScale(0.375)
-		char.m_statusNode:addChild(icon, 0)
+        char.m_statusNode:addChild(icon, 0)
 		self.m_icon = icon
 	end
 

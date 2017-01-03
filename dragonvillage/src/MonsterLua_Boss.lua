@@ -201,7 +201,7 @@ end
 function MonsterLua_Boss.st_pattern_wait(owner, dt)
     if(owner.m_stateTimer == 0) then
         -- 이미 게이지가 찬 상태라면 즉시 다음 패턴 실행
-        if owner.m_actionGauge:getPercentage() >= 100 then
+        if owner.m_actionGauge and owner.m_actionGauge:getPercentage() >= 100 then
             owner:changeState('pattern_idle')
         end
     end
@@ -303,7 +303,9 @@ function MonsterLua_Boss:doPattern(pattern)
             self:changeState('attack')
         end
 
-        self.m_actionGauge:setPercentage(0)
+        if (self.m_actionGauge) then
+            self.m_actionGauge:setPercentage(0)
+        end
 
         --cclog('MonsterLua_Boss:doPattern pattern = ' .. pattern)
 
@@ -320,7 +322,9 @@ function MonsterLua_Boss:doPattern(pattern)
         self:setSpeed(speed)
         self:changeState('pattern_move')
 
-        self.m_actionGauge:setPercentage(0)
+        if (self.m_actionGauge) then
+            self.m_actionGauge:setPercentage(0)
+        end
 
     -- 대기 명령
     elseif (type == 'w') then

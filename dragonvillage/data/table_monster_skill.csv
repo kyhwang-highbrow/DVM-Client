@@ -50,7 +50,7 @@ sid,skill_form,type,t_name,res_icon,res_1,res_2,res_3,animation,motion_type,dmg_
 230049,status_effect,skill_ancient_word_a,고대문자 A,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,0,basic_turn,3,ally_random,3,atk,100,1,0,0,0,0,0,0,atk_up;target;10;100;20,x,0,x,x
 230050,status_effect,skill_ancient_word_b,고대문자 B,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,0,basic_turn,3,ally_random,3,atk,100,1,0,0,0,0,0,0,def_up;target;10;100;20,x,0,x,x
 230051,status_effect,skill_ancient_word_c,고대문자 C,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,0,basic_turn,3,ally_random,3,atk,100,1,0,0,0,0,0,0,aspd_up;target;10;100;50,x,0,x,x
-230052,script,skill_missile_record_manager_1,기록 삭제,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,0,basic_turn,3,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,0,x,x,0,x,x
+230052,script,skill_missile_record_manager_1,기록 삭제,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,0,basic_turn,3,enemy_distance_line,-1,atk,10,1,0,0,0,0,0,0,x,x,0,x,x
 230053,code,skill_leap_atk,만드라고라:일반 공격,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,0,basic,3,enemy_distance_line,-1,atk,100,1,5000,10000,200,0,0,0,x,x,0,x,x
 230054,script,skill_missile_mandragora_1,초음파,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,0,atk,100,1,0,0,0,0,0,0,stun;target;2;50;100,x,0,x,x
 231000,script,skill_elite_0,엘리트_0,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
@@ -112,12 +112,12 @@ sid,skill_form,type,t_name,res_icon,res_1,res_2,res_3,animation,motion_type,dmg_
 233403,code,skill_spider_web,용암거미 여왕 : 옭아매기,res/ui/icon/skill/test.png,res/effect/effect_spider_web_skein/effect_spider_web_skein.vrp,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_status_not_stun,1,atk,100,1,0,0,0,0,0,x,stun;target;10;100;100,x,0,x,x
 233404,script,skill_boss_spider_queen_4,용암거미 여왕 : 맹독결계,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,3,atk,50,1,0,0,0,0,0,x,poison;target;30;100;100,x,0,x,x
 233405,code,skill_summon,용암거미 여왕 : 거미알 소환,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,magical,0,basic_turn,1,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
-233500,script,skill_boss_world_order_machine_0,질서 유지장치 : 일반 공격,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,physical,-1,basic_turn,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
+233500,script,skill_boss_world_order_machine_0,질서 유지장치 : 일반 공격,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,physical,-1,basic_turn,1,enemy_distance_line,-1,atk,50,1,0,0,0,0,0,x,x,x,0,x,x
 233501,script,skill_boss_world_order_machine_1,질서 유지장치 : 스위치 패턴,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,physical,0,basic_turn,4,enemy_distance_line,1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
-233502,script,skill_boss_world_order_machine_2,질서 유지장치 : 기어 브레이크,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,physical,-2,basic_turn,4,enemy_distance_line,1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
-233503,script,skill_boss_world_order_machine_3,질서 유지장치 : 시간 제어,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,physical,-1,basic_turn,4,enemy_distance_line,1,atk,100,1,0,0,0,0,0,x,aspd_down;target;10;100;100,x,0,x,x
-233504,script,skill_boss_world_order_machine_4,질서 유지장치 : 광역 공격1,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,physical,-1,basic_turn,4,enemy_distance_line,1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
-233505,script,skill_boss_world_order_machine_5,질서 유지장치 : 광역 공격2,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,physical,-1,basic_turn,4,enemy_distance_line,0,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
+233502,script,skill_boss_world_order_machine_2,질서 유지장치 : 기어 브레이크,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,physical,-2,basic_turn,4,enemy_distance_line,1,atk,150,1,0,0,0,0,0,x,x,x,0,x,x
+233503,script,skill_boss_world_order_machine_3,질서 유지장치 : 시간 제어,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,physical,-1,basic_turn,4,enemy_distance_line,1,atk,70,1,0,0,0,0,0,x,aspd_down;target;10;100;100,x,0,x,x
+233504,script,skill_boss_world_order_machine_4,질서 유지장치 : 광역 공격1,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,physical,-1,basic_turn,4,enemy_distance_line,1,atk,20,1,0,0,0,0,0,x,x,x,0,x,x
+233505,script,skill_boss_world_order_machine_5,질서 유지장치 : 광역 공격2,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,physical,-1,basic_turn,4,enemy_distance_line,0,atk,40,1,0,0,0,0,0,x,x,x,0,x,x
 234001,script,skill_subboss_griffin_3,그리핀(무캐스팅),res/ui/icon/skill/test.png,x,x,x,skill_2,instant,magical,-2,basic_turn,10,enemy_distance_line,0,atk,100,1,0,0,0,0,0,x,x,x,0,x,x
 234002,script,skill_boss_spider_queen_5,거미새끼 소환,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,0,atk,10,1,0,0,0,0,0,x,x,x,0,x,x
 234003,code,trigger_skill,트리거에 의해 발동되는 스킬 테스트,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,0,trigger,dead,enemy_distance_line,0,atk,1,1,230002,0,0,0,0,x,x,x,0,x,x
