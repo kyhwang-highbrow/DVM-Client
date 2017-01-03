@@ -82,7 +82,9 @@ function TriggerHpPercent:checkTrigger(hp_percent)
         self.m_owner.m_tCurrPattern = tCurrPattern
     end
 
-    --cclog('##############################################################')
-    --cclog('## checkTrigger() HP ' .. t_data['hp_percent'] .. ' 패턴 발동!')
-    --cclog('##############################################################')
+    if PRINT_BOSS_PATTERN then 
+        cclog('##############################################################')
+        cclog('## checkTrigger() HP ' .. t_data['hp_percent'] .. ' 패턴 발동!')
+        cclog('##############################################################')
+    end
 end
