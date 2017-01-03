@@ -28,7 +28,7 @@ function StatusEffectIcon:init(char, status_effect)
 	do 
 		local icon = IconHelper:getStatusEffectIcon(status_effect_type)
 		icon:setScale(0.375)
-		char.m_hpNode:addChild(icon, 0)
+		char.m_statusNode:addChild(icon, 0)
 		self.m_icon = icon
 	end
 

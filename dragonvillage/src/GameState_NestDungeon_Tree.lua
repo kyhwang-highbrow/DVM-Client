@@ -55,7 +55,6 @@ function GameState_NestDungeon_Tree.update_start(self, dt)
 
     elseif (self:getStep() == 2) then
         if (self:isBeginningStep()) then
-            cclog('GAME_STATE_ENEMY_APPEAR')
             self:changeState(GAME_STATE_ENEMY_APPEAR)
         end
 

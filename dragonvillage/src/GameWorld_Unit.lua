@@ -111,9 +111,11 @@ function GameWorld:makeMonsterNew(monster_id, level)
     end)
 
     self:addToUnitList(monster)
+
+
     monster:makeHPGauge(hp_ui_offset)
     monster:makeCastingNode()
-
+    
 	return monster
 end
 

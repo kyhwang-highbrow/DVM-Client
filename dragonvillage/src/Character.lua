@@ -47,6 +47,9 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
 		
 		m_infoUI = '',
 
+        -- @status UI
+        m_statusNode = '',
+
         -- @casting UI
         m_castingNode = '',
         m_castingGauge = '',
@@ -907,6 +910,8 @@ function Character:release()
     self.m_hpNode = nil
     self.m_hpGauge = nil
 
+    self.m_statusNode = nil
+
     self.m_castingNode = nil
     self.m_castingGauge = nil
 
@@ -943,6 +948,8 @@ function Character:makeHPGauge(hp_ui_offset)
 
     self.m_hpGauge = ui.vars['hpGauge']
     self.m_hpGauge2 = ui.vars['hpGauge2']
+
+    self.m_statusNode = self.m_hpNode
 
     self.m_world.m_unitInfoNode:addChild(self.m_hpNode)
 
@@ -1196,19 +1203,13 @@ function Character:setStatusIcon(status_effect, idx)
 		icon = StatusEffectIcon(self, status_effect)
 	end
 
-	-- 4개를 넘어가면 y 값 조정
-	local factor_y = 0
-	if idx > 4 then 
-		idx = idx - 4
-		factor_y = -20
-	end
+    if self.m_infoUI then
+        local x, y = self.m_infoUI:getPositionForStatusIcon(self.m_bLeftFormation, idx)
+        local scale = self.m_infoUI:getScaleForStatusIcon()
 
-	-- 위치 조정 
-	if (self.m_bLeftFormation) then 
-		icon.m_icon:setPosition(60 + 18 * (idx - 1), -8 + factor_y)
-	else
-		icon.m_icon:setPosition(-20 + 18 * (idx - 1), -23 + factor_y)
-	end
+        icon.m_icon:setPosition(x, y)
+        icon.m_icon:setScale(scale)
+    end
 end
 
 -------------------------------------

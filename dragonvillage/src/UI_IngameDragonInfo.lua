@@ -1,15 +1,24 @@
+local PARENT = UI_IngameUnitInfo
+
 -------------------------------------
 -- class UI_IngameDragonInfo
 -------------------------------------
-UI_IngameDragonInfo = class(UI, {
-		m_label = '',
-     })
+UI_IngameDragonInfo = class(PARENT, {})
 
 -------------------------------------
--- function init
+-- function loadUI
 -------------------------------------
-function UI_IngameDragonInfo:init(hero)
+function UI_IngameDragonInfo:loadUI()
     local vars = self:load('ingame_dragon_info.ui')
+    return vars
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_IngameDragonInfo:initUI()
+    local vars = self.vars
+    local hero = self.m_owner
 
     if (hero.m_tDragonInfo) then
         vars['levelLabel']:setString(hero.m_tDragonInfo['lv'])
@@ -35,4 +44,5 @@ function UI_IngameDragonInfo:init(hero)
     label:setAnchorPoint(cc.p(0.5, 0.5))
     self.root:addChild(label)
     self.m_label = label
+
 end

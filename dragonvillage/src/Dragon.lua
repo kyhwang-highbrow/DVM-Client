@@ -473,8 +473,9 @@ function Dragon:makeHPGauge(hp_ui_offset)
 
     self.m_hpGauge = ui.vars['hpGauge']
     self.m_hpGauge2 = ui.vars['hpGauge2']
-    self.m_castingNode = ui.vars['atkGauge']
 
+    self.m_statusNode = self.m_hpNode
+    
     self.m_world.m_unitInfoNode:addChild(self.m_hpNode, 5)
 
     self.m_infoUI = ui

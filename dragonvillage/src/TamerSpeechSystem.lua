@@ -17,7 +17,14 @@ function TamerSpeechSystem:init(world, t_tamer)
 
     self.m_bLockTamerTalkAni = false
     
-    local ui = world.m_inGameUI
+    self:initUI()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function TamerSpeechSystem:initUI()
+    local ui = self.m_world.m_inGameUI
 
     -- 테이머
     do
