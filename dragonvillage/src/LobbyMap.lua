@@ -32,6 +32,10 @@ LobbyMap = class(PARENT, {
         m_dragonTouchIndicator = '',
     })
 
+LobbyMap.Z_ORDER_TYPE_TAMER = 1
+LobbyMap.Z_ORDER_TYPE_DRAGON = 2
+LobbyMap.Z_ORDER_TYPE_UI = 3
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -482,7 +486,7 @@ function LobbyMap:onEvent(event_name, ...)
         local y = arg[3]
 
         -- Y위치에 따라 ZOrder를 변경
-        local z_order = 100 + (100000 - y)
+        local z_order = self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_UI, y)
         lobby_user_status_ui.m_rootNode:setLocalZOrder(z_order)
 
         -- Y위치에 따라 Scale을 변경
@@ -500,9 +504,11 @@ function LobbyMap:onEvent(event_name, ...)
         local is_dragon = isInstanceOf(lobby_tamer, LobbyDragon)
 
         -- Y위치에 따라 ZOrder를 변경
-        local z_order = 100 + (10000 - y)
+        local z_order
         if is_dragon then
-            z_order = (z_order - 1)
+            z_order = self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_TAMER, y)
+        else
+            z_order = self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_DRAGON, y)
         end
         lobby_tamer.m_rootNode:setLocalZOrder(z_order)
 
@@ -600,7 +606,7 @@ function LobbyMap:tempItemBox()
     local x, y = self:getLobbyMapRandomPos()
 
     -- Y위치에 따라 ZOrder를 변경
-    local z_order = 100 + (10000 - y)
+    local z_order = self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_TAMER, y)
     
     self.m_groudNode:addChild(item_box.m_rootNode, z_order)
     item_box.m_rootNode:setPosition(x, y)
@@ -631,4 +637,36 @@ function LobbyMap:startPositioning()
         local y = math_random(center_y - range_y, center_y + range_y)
         v:setPosition(x, y)
     end
+end
+
+
+-------------------------------------
+-- function makeLobbyMapZorder
+-------------------------------------
+function LobbyMap:makeLobbyMapZorder(type, pos_y, unique_idx)
+    unique_idx = (unique_idx or math_random(0, 999))
+
+    -- 기본 z_order
+    local z_order = 0
+
+    -- 드래곤
+    if (type == LobbyMap.Z_ORDER_TYPE_TAMER) then
+        z_order = 1000 - 1
+
+    elseif (type == LobbyMap.Z_ORDER_TYPE_DRAGON) then
+        z_order = 1000
+
+    elseif (type == LobbyMap.Z_ORDER_TYPE_UI) then
+        z_order = 10000
+    end
+
+    -- Y위치가 낮을 수록 위쪽으로 표현
+    z_order = (z_order - pos_y)
+
+
+    -- unique_idx를 적용하기 위해 1000을 곱함 (unique_idx는 0~999까지 사용 가능)
+    z_order = (z_order * 1000)
+    z_order = (z_order + unique_idx)
+
+    return z_order
 end
