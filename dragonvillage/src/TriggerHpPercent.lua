@@ -86,5 +86,7 @@ function TriggerHpPercent:checkTrigger(hp_percent)
         cclog('##############################################################')
         cclog('## checkTrigger() HP ' .. t_data['hp_percent'] .. ' 패턴 발동!')
         cclog('##############################################################')
+
+        cclog('현재 패턴 정보 : ' .. luadump(self.m_owner.m_tCurrPattern))
     end
 end
