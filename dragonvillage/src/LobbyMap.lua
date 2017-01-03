@@ -130,7 +130,11 @@ function LobbyMap:onTouchEnded(touches, event)
     if self.m_touchTamer then
         if self:checkDragonTouch(touches[1]:getLocation(), self.m_touchTamer) then
             self.m_touchTamer:showEmotionEffect()
-            UI_SimpleDragonInfoPopup(self.m_touchTamer.m_dragon.m_dragonID)
+            local t_dragon_data = self.m_touchTamer.m_userData['leader']
+            if (not t_dragon_data) then
+                t_dragon_data = UI_SimpleDragonInfoPopup:makeDragonData(self.m_touchTamer.m_dragon.m_dragonID)
+            end
+            UI_SimpleDragonInfoPopup(t_dragon_data)
         end
         self.m_touchTamer = nil
     end
@@ -174,7 +178,7 @@ end
 function LobbyMap:onTouchBegan_touchDragon()
     local touch_pos = self.m_touchPosition
 
-    for i,v in ipairs(self.m_lLobbyTamer) do
+    for i,v in ipairs(self.m_lLobbyTamerBotOnly) do
         if (self.m_touchTamer ~= v) and self:checkDragonTouch(touch_pos, v) then
             self.m_touchTamer = v
 

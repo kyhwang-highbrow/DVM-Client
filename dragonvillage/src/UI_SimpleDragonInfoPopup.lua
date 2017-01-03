@@ -12,8 +12,10 @@ UI_SimpleDragonInfoPopup = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SimpleDragonInfoPopup:init(did)
+function UI_SimpleDragonInfoPopup:init(t_dragon_data)
     self.m_tableDragon = TableDragon()
+
+    self.m_tDragonData = t_dragon_data
 
     local vars = self:load('dragon_management_info_mini.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -28,9 +30,10 @@ function UI_SimpleDragonInfoPopup:init(did)
 
     self:initUI()
     self:initButton()
+    self:refresh()
 
-    local idx = self.m_tableDragon:getIllustratedDragonIdx(did)
-    self:setIdx(idx)
+    --local idx = self.m_tableDragon:getIllustratedDragonIdx(did)
+    --self:setIdx(idx)
 end
 
 -------------------------------------
@@ -46,8 +49,10 @@ end
 function UI_SimpleDragonInfoPopup:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-    vars['prevBtn']:registerScriptTapHandler(function() self:setIdx(self.m_idx - 1) end)
-    vars['nextBtn']:registerScriptTapHandler(function() self:setIdx(self.m_idx + 1) end)
+    vars['prevBtn']:setVisible(false)
+    vars['nextBtn']:setVisible(false)
+    --vars['prevBtn']:registerScriptTapHandler(function() self:setIdx(self.m_idx - 1) end)
+    --vars['nextBtn']:registerScriptTapHandler(function() self:setIdx(self.m_idx + 1) end)
 end
 
 -------------------------------------
