@@ -4,6 +4,8 @@ local PARENT = Monster
 -- class MonsterLua_Boss
 -------------------------------------
 MonsterLua_Boss = class(PARENT, {
+        m_actionGauge = '',
+
         m_tOrgPattern = 'table',    -- 반복되어서 수행될 패턴 리스트
         m_tCurrPattern = 'table',
         m_currPatternIdx = 'number',
@@ -15,7 +17,7 @@ MonsterLua_Boss = class(PARENT, {
         m_triggerHpPercent = 'TriggerHpPercent',
         m_triggerTime = 'TriggerTime',
 
-        m_patternTime = 'number',
+        m_patternTime = 'number',   -- TimeTrigger 발동시간 체크를 위한 누적 시간
 
         m_tEffectSound = 'table',
      })
@@ -26,6 +28,8 @@ MonsterLua_Boss = class(PARENT, {
 -- @param body
 -------------------------------------
 function MonsterLua_Boss:init(file_name, body, ...)
+    self.m_actionGauge = nil
+
     self.m_patternTime = 0
     self.m_tEffectSound = {}
 end
@@ -110,11 +114,9 @@ end
 -- function update
 -------------------------------------
 function MonsterLua_Boss:update(dt)
-    --if (self.m_state == 'pattern_idle' or self.m_state == 'pattern_wait' or self.m_state == 'pattern_move') then
     if (self.m_state ~= 'idle' and self.m_state ~= 'move') then
         self.m_patternTime = self.m_patternTime + dt
-        --cclog('self.m_patternTime = ' .. self.m_patternTime)
-    
+            
         if self.m_triggerTime then
             self.m_triggerTime:checkTrigger(self.m_patternTime)
         end
@@ -197,6 +199,19 @@ end
 -- function st_pattern_wait
 -------------------------------------
 function MonsterLua_Boss.st_pattern_wait(owner, dt)
+    if(owner.m_stateTimer == 0) then
+        -- 이미 게이지가 찬 상태라면 즉시 다음 패턴 실행
+        if owner.m_actionGauge:getPercentage() >= 100 then
+            owner:changeState('pattern_idle')
+        end
+    end
+
+    if (owner.m_actionGauge) then
+        local percentage = (owner.m_stateTimer / owner.m_patternWaitTime) * 100
+
+        owner.m_actionGauge:setPercentage(percentage)
+    end
+
     if (owner.m_stateTimer >= owner.m_patternWaitTime) then
         owner:changeState('pattern_idle')
     end
@@ -288,6 +303,10 @@ function MonsterLua_Boss:doPattern(pattern)
             self:changeState('attack')
         end
 
+        self.m_actionGauge:setPercentage(0)
+
+        --cclog('MonsterLua_Boss:doPattern pattern = ' .. pattern)
+
     -- 이동 명령
     elseif (type == 'm') then
         local speed = 300
@@ -300,6 +319,8 @@ function MonsterLua_Boss:doPattern(pattern)
 		self:setHomePos(pos['x'], pos['y'])
         self:setSpeed(speed)
         self:changeState('pattern_move')
+
+        self.m_actionGauge:setPercentage(0)
 
     -- 대기 명령
     elseif (type == 'w') then
@@ -330,6 +351,49 @@ function MonsterLua_Boss:setHp(hp)
     if self.m_triggerHpPercent then
         local percent = (self.m_hp / self.m_maxHp * 100)
         self.m_triggerHpPercent:checkTrigger(percent)
+    end
+end
+
+
+-------------------------------------
+-- function makeHPGauge
+-------------------------------------
+function MonsterLua_Boss:makeHPGauge(hp_ui_offset)
+    if self.m_charTable['rarity'] == 'boss' then
+        self.m_unitInfoOffset = hp_ui_offset
+
+        -- 보스 UI
+        local ui = UI_IngameBossInfo(self)
+        self.m_hpNode = ui.root
+        self.m_hpNode:setDockPoint(cc.p(0.5, 0.5))
+        self.m_hpNode:setAnchorPoint(cc.p(0.5, 0.5))
+        self.m_hpNode:setVisible(false)
+
+        self.m_hpGauge = ui.vars['bossHpGauge1']
+        self.m_hpGauge2 = ui.vars['bossHpGauge2']
+
+        self.m_statusNode = ui.vars['bossStatusNode']
+
+        self.m_actionGauge = ui.vars['bossSKillGauge']
+        
+        self.m_world.m_inGameUI.root:addChild(self.m_hpNode)
+
+        self.m_infoUI = ui
+    else
+        PARENT.makeHPGauge(self, hp_ui_offset)
+    end
+end
+
+-------------------------------------
+-- function setPosition
+-------------------------------------
+function MonsterLua_Boss:setPosition(x, y)
+    PARENT.setPosition(self, x, y)
+
+    if self.m_charTable['rarity'] == 'boss' then
+        if self.m_hpNode then
+            self.m_hpNode:setPosition(0, 0)
+        end
     end
 end
 

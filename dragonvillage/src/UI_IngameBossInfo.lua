@@ -14,6 +14,17 @@ function UI_IngameBossInfo:loadUI()
 end
 
 -------------------------------------
+-- function initUI
+-------------------------------------
+function UI_IngameBossInfo:initUI()
+    PARENT.initUI(self)
+
+    local vars = self.vars
+
+    vars['bossSKillGauge']:setPercentage(0)
+end
+
+-------------------------------------
 -- function getPositionForStatusIcon
 -------------------------------------
 function UI_IngameBossInfo:getPositionForStatusIcon(bLeftFormation, idx)
