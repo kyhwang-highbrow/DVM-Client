@@ -1,5 +1,5 @@
 
-boss_world_order_machine_light.png
+boss_world_order_machine_light_1.png
 size: 2048,1024
 format: RGBA8888
 filter: Linear,Linear
@@ -30,6 +30,13 @@ boss_world_order_machine_light_bead_01
   xy: 1735, 332
   size: 175, 163
   orig: 175, 163
+  offset: 0, 0
+  index: -1
+boss_world_order_machine_light_bead_02
+  rotate: false
+  xy: 1937, 756
+  size: 27, 27
+  orig: 27, 27
   offset: 0, 0
   index: -1
 boss_world_order_machine_light_body_01
@@ -116,9 +123,16 @@ boss_world_order_machine_light_gem_02
   orig: 200, 327
   offset: 0, 0
   index: -1
+boss_world_order_machine_light_gem_03
+  rotate: false
+  xy: 580, 141
+  size: 92, 63
+  orig: 92, 63
+  offset: 0, 0
+  index: -1
 boss_world_order_machine_light_needle_01
-  rotate: true
-  xy: 580, 155
+  rotate: false
+  xy: 1735, 28
   size: 49, 98
   orig: 49, 98
   offset: 0, 0

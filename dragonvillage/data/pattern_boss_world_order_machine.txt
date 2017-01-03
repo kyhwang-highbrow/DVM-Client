@@ -1,8 +1,32 @@
 {
-	"pattern_boss_world_order_machine":
-	[			
-		[
-			"w;1"
-		]
+    "pattern_boss_world_order_machine":
+    [        
+        [
+            "a;basic", "w;5", "a;2", "w;5", "a;3", "w;5", "a;4", "w;10", "a;5", "w;10"
+        ]
+    ],
+	
+    "hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":1,
+                "pattern":
+                [
+                    "w;2"
+                ]
+            }
+        ]
+    },
+	
+	"ani_mix":
+	[
+        "idle;attack;0.1",
+        "idle;idle;0.1",
+        "attack;idle;0.1",
+		"skill_4_appear;idle;0.1",
+		"idle;skill_4_appear;0.1"
     ]
 }

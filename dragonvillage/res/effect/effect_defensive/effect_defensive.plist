@@ -4,44 +4,18 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>effect_defensive_01.png</key>
+            <key>effect_defensive_07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{420,2},{314,304}}</string>
+                <string>{{2,2},{266,428}}</string>
                 <key>offset</key>
-                <string>{-3,-8}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{46,47},{314,304}}</string>
-                <key>sourceSize</key>
-                <string>{412,382}</string>
-            </dict>
-            <key>effect_defensive_02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,2},{328,324}}</string>
-                <key>offset</key>
-                <string>{4,-15}</string>
+                <string>{-84,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{46,44},{328,324}}</string>
+                <string>{{88,72},{266,428}}</string>
                 <key>sourceSize</key>
-                <string>{412,382}</string>
-            </dict>
-            <key>effect_defensive_03.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{332,2},{86,316}}</string>
-                <key>offset</key>
-                <string>{125,-12}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{288,45},{86,316}}</string>
-                <key>sourceSize</key>
-                <string>{412,382}</string>
+                <string>{610,572}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -51,9 +25,9 @@
             <key>realTextureFileName</key>
             <string>effect_defensive.png</string>
             <key>size</key>
-            <string>{726,328}</string>
+            <string>{270,432}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:011f903897d1f425bfb2b0b881cc5154:76e7be1e49bd131fb941a94e58d668bf:7b01bea176099b61eeb3942f0241c97a$</string>
+            <string>$TexturePacker:SmartUpdate:f347f7240bdbd756872ac09d44e5ccd6:f865d49cce18c5bc7ab1dfef8a38dbf1:7b01bea176099b61eeb3942f0241c97a$</string>
             <key>textureFileName</key>
             <string>effect_defensive.png</string>
         </dict>
