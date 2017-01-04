@@ -31,8 +31,13 @@ function SkillMeleeHack:init_skill(move_speed, comeback_speed)
     local char = self.m_owner
     local target_x = self.m_targetPos.x
     local target_y = self.m_targetPos.y
-	
+    if char.m_bLeftFormation then
+	    target_x = target_x - 100
+    else
+        target_x = target_x + 100
+    end
     char:setMove(target_x, target_y, self.m_moveSpeed)
+
 
     -- StateDelegate 적용
     char:setStateDelegate(self)
