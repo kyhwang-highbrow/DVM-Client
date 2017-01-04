@@ -67,19 +67,11 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
 
     do
         -- 스테이지 이름
-        local difficulty, chapter, stage = parseAdventureID(stage_id)
-        local chapter_name = chapterName(chapter)
-        local str = chapter_name .. Str(' {1}-{2}', chapter, stage)
+        local str = g_stageData:getStageName(stage_id)
         vars['titleLabel']:setString(str)
 
-        -- 난이도
-        if (difficulty == 1) then
-            vars['gradeLabel']:setString(Str('쉬움'))
-        elseif (difficulty == 2) then
-            vars['gradeLabel']:setString(Str('보통'))
-        elseif (difficulty == 3) then
-            vars['gradeLabel']:setString(Str('어려움'))
-        end
+        -- 스테이지 난이도를 표시
+        self:init_difficultyIcon(stage_id)
     end
     
     -- 유저 레벨, 경험치
@@ -105,6 +97,31 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     -- @brief work초기화 용도로 사용함
     self:setWorkList()
     self:doNextWork()
+end
+
+-------------------------------------
+-- function init_difficultyIcon
+-- @brief 스테이지 난이도를 표시
+-------------------------------------
+function UI_GameResultNew:init_difficultyIcon(stage_id)
+    local vars = self.vars
+
+    local difficulty, chapter, stage = parseAdventureID(stage_id)
+
+    -- 난이도
+    if (difficulty == 1) then
+        vars['difficultySprite']:setColor(cc.c3b(121, 186, 58))
+        vars['gradeLabel']:setString(Str('쉬움'))
+
+    elseif (difficulty == 2) then
+        vars['difficultySprite']:setColor(cc.c3b(46, 162, 196))
+        vars['gradeLabel']:setString(Str('보통'))
+
+    elseif (difficulty == 3) then
+        vars['difficultySprite']:setColor(cc.c3b(196, 74, 46))
+        vars['gradeLabel']:setString(Str('어려움'))
+
+    end
 end
 
 -------------------------------------

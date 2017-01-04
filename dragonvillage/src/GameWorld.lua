@@ -172,7 +172,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 		elseif (dungeonMode == NEST_DUNGEON_NIGHTMARE) then
 		    self.m_gameCamera:setRange({minY = -160, maxY = 160})
 
-			self.m_gameState = GameState(self)
+			self.m_gameState = GameState_NestDungeon_Nightmare(self)
 
         elseif (dungeonMode == NEST_DUNGEON_TREE) then
             self.m_gameCamera:setRange({minX = -640, maxX = 640})
