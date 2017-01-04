@@ -363,7 +363,7 @@ end
 -- function makeHPGauge
 -------------------------------------
 function MonsterLua_Boss:makeHPGauge(hp_ui_offset)
-    if self.m_charTable['rarity'] == 'boss' then
+    if (self.m_charTable['rarity'] == 'boss') then
         self.m_unitInfoOffset = hp_ui_offset
 
         -- 보스 UI
@@ -394,7 +394,7 @@ end
 function MonsterLua_Boss:setPosition(x, y)
     PARENT.setPosition(self, x, y)
 
-    if self.m_charTable['rarity'] == 'boss' then
+    if (self.m_charTable['rarity'] == 'boss') then
         if self.m_hpNode then
             self.m_hpNode:setPosition(0, 0)
         end

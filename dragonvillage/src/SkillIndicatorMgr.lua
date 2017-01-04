@@ -294,7 +294,7 @@ function SkillIndicatorMgr:addHighlightList(char, zorder)
     node:release()
 
     -- UI 노드
-	if (char.m_hpNode) then 
+    if (char.m_hpNode) and (char.m_charTable['rarity'] ~= 'boss') then 
 		t_data['ui_parent'] = char.m_hpNode:getParent()
 		t_data['ui_zorder'] = char.m_hpNode:getLocalZOrder()
 		char.m_hpNode:retain()
