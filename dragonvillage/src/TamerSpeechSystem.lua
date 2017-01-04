@@ -7,6 +7,7 @@ TamerSpeechSystem = class(IEventListener:getCloneClass(), {
         m_bLockTamerTalkAni = 'boolean',
         m_tamerAnimator = 'Animator',
         m_speechLabel = 'cc.Label',
+        m_speechNode = 'cc.Node',
      })
 
 -------------------------------------
@@ -49,17 +50,21 @@ function TamerSpeechSystem:initUI()
         self.m_speechLabel:setAnchorPoint(cc.p(0.5, 0.5))
 	    self.m_speechLabel:setDockPoint(cc.p(0, 0))
 	    self.m_speechLabel:setColor(cc.c3b(50, 40, 30))
-        --self.m_speechLabel:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
 
+        self.m_speechNode = cc.Node:create()
+        self.m_speechNode:setScale(0.7)
+        self.m_speechNode:setVisible(false)
+               
         local socketNode = ui.vars['tamerTalkVisual'].m_node:getSocketNode('talk_label')
         socketNode:addChild(self.m_speechLabel)
+        socketNode:addChild(self.m_speechNode)
     end
 end
 
 -------------------------------------
 -- function showSpeech
 -------------------------------------
-function TamerSpeechSystem:showSpeech(msg, ani, loop)
+function TamerSpeechSystem:showSpeech(msg, ani, loop, cbEnd)
     local loop = loop
     if loop == nil then loop = true end
 
@@ -68,6 +73,9 @@ function TamerSpeechSystem:showSpeech(msg, ani, loop)
 
     -- 대사
     if msg then
+        self.m_speechNode:setVisible(false)
+
+        ui.vars['tamerTalkVisual']:setColor(cc.c3b(255, 255, 255))
         ui.vars['tamerTalkVisual']:setVisible(true)
         ui.vars['tamerTalkVisual']:setVisual('ingame_tamer_talk', '01')
         ui.vars['tamerTalkVisual']:addAniHandler(function()
@@ -77,6 +85,8 @@ function TamerSpeechSystem:showSpeech(msg, ani, loop)
             self.m_tamerAnimator:changeAni('idle', true, true)
 
             self.m_bLockTamerTalkAni = false
+
+            if cbEnd then cbEnd() end
         end)
 
         self.m_speechLabel:setString(msg)
@@ -84,6 +94,46 @@ function TamerSpeechSystem:showSpeech(msg, ani, loop)
         self.m_bLockTamerTalkAni = true
     end
 
+    -- 테이머
+    local ani = ani or 'idle'
+    self.m_tamerAnimator:changeAni(ani, loop, true)
+
+    if not loop then
+        self.m_tamerAnimator:addAniHandler(function() self.m_tamerAnimator:changeAni('idle', true) end)
+    end
+end
+
+-------------------------------------
+-- function showSpeechNode
+-------------------------------------
+function TamerSpeechSystem:showSpeechNode(ani, loop, cbEnd)
+    local ani = ani or 'happiness'
+    local loop = loop
+    if loop == nil then loop = true end
+
+    local ui = self.m_world.m_inGameUI
+    
+    -- 대사
+    self.m_speechNode:setVisible(true)
+
+    ui.vars['tamerTalkVisual']:setColor(cc.c3b(67, 218, 236))
+    ui.vars['tamerTalkVisual']:setVisible(true)
+    ui.vars['tamerTalkVisual']:setVisual('ingame_tamer_talk', '01')
+    ui.vars['tamerTalkVisual']:addAniHandler(function()
+        ui.vars['tamerTalkVisual']:setVisible(false)
+        self.m_speechLabel:setVisible(true)
+
+        -- 대사 종료 후 idle 애니메이션으로
+        self.m_tamerAnimator:changeAni('idle', true, true)
+
+        self.m_bLockTamerTalkAni = false
+
+        if cbEnd then cbEnd() end
+    end)
+    self.m_speechLabel:setVisible(false)
+
+    self.m_bLockTamerTalkAni = true
+    
     -- 테이머
     local ani = ani or 'idle'
     self.m_tamerAnimator:changeAni(ani, loop, true)
@@ -109,7 +159,7 @@ function TamerSpeechSystem:onEvent(event_name, ...)
         else
             self:showSpeech(Str('이번에도 잘 부탁해 얘들아!'), 'idle')
         end
-
+        
     -- 드래곤 사망 5점
     elseif (event_name == 'character_dead') then
         local arg = {...}
@@ -156,7 +206,7 @@ function TamerSpeechSystem:onEvent(event_name, ...)
     elseif (event_name == 'character_casting_cancel') then
         local arg = {...}
         local dragon = arg[1]
-
+        
         if (math_random(1, 2) == 1) then
             self:showSpeech(Str('잘했어! {1}', dragon.m_charTable['t_name']), 'happiness')
         else

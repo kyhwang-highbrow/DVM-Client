@@ -112,30 +112,7 @@ function GameFever:initUI()
     self.m_feverLabel:setPosition(0, 14)
     self.m_feverNode:addChild(self.m_feverLabel)
     
-
-    -- 피버 포인트 추가 알림을 위한 라벨 생성
-    --[[
-    self.m_notiLabel1 = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 34, 3, cc.size(400, 100), 1, 1)
-    self.m_notiLabel2 = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 40, 3, cc.size(400, 100), 1, 1)
-    self.m_notiLabel1:setColor(cc.c3b(255,246,0))
-    self.m_notiLabel1:setStrokeType(0)
-    self.m_notiLabel1:setStrokeDetailLevel(0)
-    self.m_notiLabel1:enableShadow(cc.c4b(0, 0, 0, 255), cc.size(0, -4), 0)
-    self.m_notiLabel1:enableOutline(cc.c4b(0, 0, 0, 255), 3)
-    self.m_notiLabel1:setSharpTextInCustomStroke(true)
-    self.m_notiLabel2:setColor(cc.c3b(255,246,0))
-    self.m_notiLabel2:setStrokeType(0)
-    self.m_notiLabel2:setStrokeDetailLevel(0)
-    self.m_notiLabel2:enableShadow(cc.c4b(0, 0, 0, 255), cc.size(0, -4), 0)
-    self.m_notiLabel2:enableOutline(cc.c4b(0, 0, 0, 255), 3)
-    self.m_notiLabel2:setSharpTextInCustomStroke(true)
-
-    local socketNode1 = self.m_skillCancelVisual.m_node:getSocketNode('skill_cancel_01')
-    socketNode1:addChild(self.m_notiLabel1)
-    local socketNode2 = self.m_skillCancelVisual.m_node:getSocketNode('skill_cancel_02')
-    socketNode2:addChild(self.m_notiLabel2)
-    ]]--
-
+        
     self.m_feverNode:setVisible(false)
     self.m_feverTutVisual:setVisible(false)
     self.m_feverTutVisual:setRepeat(true)
@@ -259,7 +236,6 @@ function GameFever:update_live(dt)
     
     if (self.m_stateTimer == 0) then
         -- 피버 모드 연출
-        --self.m_feverNode:setVisible(false)
         self.m_feverStartVisual:setVisible(false)
         self.m_feverIdleVisual:setVisual('fever', 'idle_02')
         self.m_feverIdleVisual:setRepeat(true)
@@ -496,6 +472,7 @@ function GameFever:addFeverPoint(point)
     self.m_stepPoint = self.m_realPoint - self.m_curPoint
 
     -- 획득시마다 게이지 표시
+    --[[
     self.m_feverNode:setVisible(true)
     
     local function action(node)
@@ -507,6 +484,10 @@ function GameFever:addFeverPoint(point)
         ))
     end
     doAllChildren(self.m_feverNode, action)
+    ]]--
+    if self.m_world.m_tamerSpeechSystem then
+        self.m_world.m_tamerSpeechSystem:showSpeechNode()
+    end
 end
 
 -------------------------------------
@@ -538,6 +519,20 @@ function GameFever:showNoti(point)
 end
 
 -------------------------------------
+-- function getPointFromCastingPercentage
+-------------------------------------
+function GameFever:getPointFromCastingPercentage(percentage)
+    local point = 0
+
+    if percentage >= 90 then     point = PERFECT_SKILL_CANCEL_FEVER_POINT
+    elseif percentage >= 70 then point = GREAT_SKILL_CANCEL_FEVER_POINT
+    else                         point = GOOD_SKILL_CANCEL_FEVER_POINT
+    end
+
+    return point
+end
+
+-------------------------------------
 -- function isActive
 -------------------------------------
 function GameFever:isActive()
@@ -552,14 +547,25 @@ function GameFever:onEvent(event_name, ...)
         local arg = {...}
         local castingPercentage = arg[2]
 
-        local point = 0
-
-        if castingPercentage >= 90 then     point = PERFECT_SKILL_CANCEL_FEVER_POINT
-        elseif castingPercentage >= 70 then point = GREAT_SKILL_CANCEL_FEVER_POINT
-        else                                point = GOOD_SKILL_CANCEL_FEVER_POINT
-        end
+        local point = self:getPointFromCastingPercentage(castingPercentage)
 
         self:addFeverPoint(point)
         --self:showNoti(point)
     end
+end
+
+-------------------------------------
+-- function replaceRootNode
+-------------------------------------
+function GameFever:replaceRootNode(node)
+    self.m_feverNode:retain()
+    self.m_feverNode:removeFromParent(false)
+
+    node:addChild(self.m_feverNode)
+
+    self.m_feverNode:setAnchorPoint(cc.p(0.5, 0.5))
+	self.m_feverNode:setDockPoint(cc.p(0, 0))
+
+    self.m_feverNode:release()
+    self.m_feverNode:setVisible(true)
 end

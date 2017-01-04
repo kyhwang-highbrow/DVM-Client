@@ -274,6 +274,8 @@ function GameWorld:initGame(stage_name, shake_layer)
         
         -- 테이머 대사
         self.m_tamerSpeechSystem = TamerSpeechSystem(self, t_tamer)
+        self.m_gameFever:replaceRootNode(self.m_tamerSpeechSystem.m_speechNode)
+
         self:addListener('dragon_summon', self.m_tamerSpeechSystem)
         self:addListener('game_start', self.m_tamerSpeechSystem)
         self:addListener('wave_start', self.m_tamerSpeechSystem)
