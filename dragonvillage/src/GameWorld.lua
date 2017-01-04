@@ -692,13 +692,14 @@ end
 -------------------------------------
 function GameWorld:killAllEnemy()
     for i,v in pairs(self:getEnemyList()) do
+		cclog('KILL ALL ' .. v:getName())
         if (not v.m_bDead) then
             v:setDead()
             v:setEnableBody(false)
             v:changeState('dying')
         end
     end
-
+	
     self.m_waveMgr:clearDynamicWave()
 end
 
@@ -1060,6 +1061,11 @@ function GameWorld:onKeyReleased(keyCode, event)
         else
             g_gameScene:gamePause()
         end
+
+	-- formation list 확인
+    elseif (keyCode == KEY_H) then
+        self.m_leftFormationMgr:printCharList()
+        self.m_rightFormationMgr:printCharList()
 
     -- 카메라 이동
     elseif (keyCode == KEY_LEFT_ARROW) then

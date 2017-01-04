@@ -8,8 +8,11 @@ local MAGIC_STATE_INTERVAL = {10, 1, 5}
 local MAGIC_STATE_VALUE = {300, 6, 'stun;target;10;100;100'}
 local MAGIC_STATE_SHAKE_FACTOR = {700, 100, 300}
 
-local HUGE_ATTACK_RES = 'res/effect/skill_lightning/skill_lightning_fire.vrp'
 local WORLD_ORDER_RES = 'res/character/monster/boss_world_order_machine_light/boss_world_order_machine_light_'
+
+local HUGE_EFFECT_RES = 'res/effect/skill_lightning/skill_lightning_fire.vrp'
+local BABY_EFFECT_RES = 'res/effect/effect_magic_gas/effect_magic_gas.vrp'
+local STUN_EFFECT_RES = 'res/effect/effect_gear_drop/effect_gear_drop.vrp'
 
 -------------------------------------
 -- class Monster_WorldOrderMachine
@@ -55,9 +58,27 @@ function Monster_WorldOrderMachine:setAddPhysObject()
 	formation_mgr:setChangePosCallback(phys_obj, formation)
 
 	-- 추가 object 일반 타겟 예외 처리
+	-- -- Character class 에서 복사해올때 임시로 처리
 
 	-- 갈아끼울 이미지 리스트 생성
 	self:setAnimationList()
+end
+
+-------------------------------------
+-- function st_dying
+-------------------------------------
+function Monster_WorldOrderMachine.st_dying(owner, dt)
+    if (owner.m_stateTimer == 0) then
+		cclog('STATE DYING')
+		if self.m_bInitAdditionalPhysObject then
+			for phys_obj, _  in pairs(self.m_lAdditionalPhysObject) do 
+				cclog('ADD OBJECT DYING')
+				phys_obj:changeState('dying')
+			end
+		end
+    end
+
+    PARENT.st_dying(owner, dt)
 end
 
 -------------------------------------
@@ -70,11 +91,18 @@ function Monster_WorldOrderMachine:setAnimationList()
 	-- ani 리스트 생성
 	local ani = nil
 	for i = 1, 3 do 
-		ani = AnimatorHelper:makeMonsterAnimator(WORLD_ORDER_RES .. i .. '.spine', attr)
-		ani:setFlip(true)
-		ani:setVisible(false)
-		ani.m_node:retain()
+		if (i == 1) then 
+			ani = self.m_animator
+		else
+			ani = AnimatorHelper:makeMonsterAnimator(WORLD_ORDER_RES .. i .. '.spine', attr)
+			ani:setFlip(true)
+			ani:setVisible(false)
+		end
+		
 		table.insert(self.m_lAnimator, ani)
+
+		-- 생성후 유지되도록 ref_cnt retain 해준다
+		ani.m_node:retain()
 	end
 end
 
@@ -82,7 +110,7 @@ end
 -- function threeWonderMagic
 -------------------------------------
 function Monster_WorldOrderMachine:threeWonderMagic()
-	self.m_animator.m_node:retain() 
+	--self.m_animator.m_node:retain() 
 	self.m_animator.m_node:removeFromParent(true)
 	self.m_animator:setVisible(false)
 
@@ -134,7 +162,7 @@ function Monster_WorldOrderMachine:doMagicAttack()
 		self:attack(target_char)
 		
 		-- effect
-		self:makeEffect(HUGE_ATTACK_RES, target_char.pos.x, target_char.pos.y)
+		self:makeEffect(HUGE_EFFECT_RES, target_char.pos.x, target_char.pos.y)
 
 	elseif (state == STATE_BABY_ATTACK) then 
 		-- activity carrier
@@ -145,11 +173,16 @@ function Monster_WorldOrderMachine:doMagicAttack()
 			self:attack(target_char)
 		end
 
+		-- effect
+		self:makeEffect(BABY_EFFECT_RES, 320, 0)
+
 	elseif (state == STATE_STUN_ATTACK) then 
 		-- status effect
 		local target_char = l_dragon[math_random(1, table.count(l_dragon))]
 		StatusEffectHelper:doStatusEffectByStr(self, {target_char}, {self:getValue()})
 
+		-- effect
+		self:makeEffect(STUN_EFFECT_RES, target_char.pos.x, target_char.pos.y)
 	end
 			
 	-- shake
@@ -223,9 +256,10 @@ end
 -- function release
 -------------------------------------
 function Monster_WorldOrderMachine:release()
-	-- reference count 조절
 	for i, ani in paisr(self.m_lAnimator) do
+		-- reference count 내려줘야한다
 		ani.m_node:release()
+		ani:release()
 	end
 
     PARENT.release(self)

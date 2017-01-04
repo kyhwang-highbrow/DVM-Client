@@ -618,6 +618,25 @@ function FormationMgr:onEvent(event_name, ...)
 end
 
 -------------------------------------
+-- function printSpawnedList
+-------------------------------------
+function FormationMgr:printCharList()
+	cclog('FRONT ######################')
+	for i, v in pairs(self.m_frontCharList) do
+		cclog(v:getName())
+	end
+	cclog('MIDDLE ######################')
+	for i, v in pairs(self.m_middleCharList) do
+		cclog(v:getName())
+	end
+	cclog('REAR ######################')
+	for i, v in pairs(self.m_rearCharList) do
+		cclog(v:getName())
+	end
+	cclog('#########################################################----')
+end
+
+-------------------------------------
 -- class FormationMgrDelegate
 -- @brief 전방(front), 중간(middle), 후방(rear)
 -------------------------------------
