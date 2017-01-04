@@ -1668,7 +1668,7 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 518;
+						width = 524;
 						height = 446;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -1692,7 +1692,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 518;
+					width = 524;
 					height = 446;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -1706,8 +1706,8 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -207.000000;
-					y = -170.000000;
+					x = -210.000000;
+					y = -171.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1725,27 +1725,8 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 225.000000;
-					y = -170.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 46;
-					height = 46;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'charTypeNode';
-				};
-				[10] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = 225.000000;
-					y = 170.000000;
+					x = 222.000000;
+					y = -171.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1758,6 +1739,25 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'rarityNode';
+				};
+				[10] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 225.000000;
+					y = -170.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 46;
+					height = 46;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'charTypeNode';
 				};
 				[11] =
 				{
@@ -2085,7 +2085,7 @@
 			enable = true;
 			normal = 'ui/btn/bookmark_0201.png';
 			selected = 'ui/btn/bookmark_0202.png';
-			disable = '';
+			disable = 'ui/btn/bookmark_0203.png';
 			image_type = 0;
 		};
 		[4] =
