@@ -529,7 +529,7 @@ function UI_DragonManageInfo:click_leaderBtn()
     end
 
     local leader_dragon = g_dragonsData:getLeaderDragon()
-    if (leader_dragon['id'] == self.m_selectDragonOID) then
+    if (leader_dragon and (leader_dragon['id'] == self.m_selectDragonOID)) then
         UIManager:toastNotificationRed(Str('이미 대표 드래곤으로 설정되어 있습니다.'))
         return
     end
