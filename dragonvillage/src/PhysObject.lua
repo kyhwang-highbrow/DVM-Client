@@ -65,6 +65,8 @@ function PhysObject_initPhys(self, body)
 	
     self.m_dirtyPos = false
 
+	self.m_lAdditionalPhysObject = {}
+
     self.m_posIndexMinX = 1
     self.m_posIndexMaxX = 1
     self.m_posIndexMinY = 1

@@ -326,6 +326,26 @@ function SkillIndicatorMgr:removeHighlightList(char)
     char:removeTargetEffect()
     local t_data = self.m_lHighlightList[char]
 
+	-- @TODO slave character 가 있을 때 처리 
+	if (char.m_isSlaveCharacter) then 
+		for tar_char, _ in pairs(self.m_lHighlightList) do
+			if (char.m_masterCharacter == tar_char) then
+				self.m_lHighlightList[char] = nil
+				return
+			end
+		end
+	end
+	if (char.m_bInitAdditionalPhysObject) then
+		for tar_char, _ in pairs(self.m_lHighlightList) do
+			for slave_char, _  in pairs(char.m_lAdditionalPhysObject) do 
+				if (slave_char == tar_char) then
+					self.m_lHighlightList[char] = nil
+					return
+				end
+			end
+		end
+	end
+
     if (char.m_bDead == true) then
         self.m_lHighlightList[char] = nil
     else
