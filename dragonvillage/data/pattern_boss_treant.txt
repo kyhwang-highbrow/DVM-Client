@@ -1,20 +1,12 @@
 {
     "pattern_boss_treant":
-    [        
-        [
-            "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1", "w;1", "a;2", "w;1"
+    [
+		[
+            "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1", "w;1"
         ],
 		
 		[
-            "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1", "w;1", "a;2", "w;1"
-        ],
-		
-		[
-            "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1", "w;1", "a;2", "w;1"
-        ],
-		
-		[
-            "a;basic", "w;2", "a;basic", "w;2", "a;1", "w;1", "a;2", "w;1"
+            "a;basic", "w;2", "a;basic", "w;2", "a;1", "w;1"
         ]
     ],
 	
@@ -52,6 +44,38 @@
                 "pattern":
                 [
                     "a;2", "w;5", "a;3", "w;1", "a;5", "w;5"
+                ]
+            },
+			
+			{
+                "time":150,
+                "pattern":
+                [
+                    "a;2", "w;5", "a;3", "w;1", "a;4", "w;5"
+                ]
+            },
+			
+			{
+                "time":180,
+                "pattern":
+                [
+                    "a;2", "w;5", "a;3", "w;1", "a;5", "w;5"
+                ]
+            },
+			
+			{
+                "time":210,
+                "pattern":
+                [
+                    "a;2", "w;5", "a;3", "w;1", "a;4", "w;5"
+                ]
+            },
+			
+			{
+                "time":240,
+                "pattern":
+                [
+                    "a;2", "w;5", "a;3", "w;1", "a;4", "a;4", "a;5"
                 ]
             }
         ]

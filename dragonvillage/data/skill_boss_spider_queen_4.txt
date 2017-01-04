@@ -58,6 +58,7 @@
 					}
 				],
 				
+				"add_script_relative":true,
 				"add_script_start":0.5,
 				"add_script_term":0.1,
 				"add_script_max":8,
