@@ -86,6 +86,11 @@ function UI_NestDungeonListItem:refresh_dayLabel(major_day, days, mode)
     -- 거대용 던전이 아닌 경우
     if (mode ~= 1) then
         vars['dayLabel']:setString('')
+        
+        if vars['timeNode'] then
+            vars['timeNode']:setVisible(false)
+        end
+        vars['timeLabel']:setVisible(false)
         return
     end
     
