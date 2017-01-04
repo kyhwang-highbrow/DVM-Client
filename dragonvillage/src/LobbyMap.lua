@@ -32,9 +32,11 @@ LobbyMap = class(PARENT, {
         m_dragonTouchIndicator = '',
     })
 
-LobbyMap.Z_ORDER_TYPE_TAMER = 1
-LobbyMap.Z_ORDER_TYPE_DRAGON = 2
-LobbyMap.Z_ORDER_TYPE_UI = 3
+LobbyMap.Z_ORDER_TYPE_SHADOW = 1
+LobbyMap.Z_ORDER_TYPE_INDICATOR = 2
+LobbyMap.Z_ORDER_TYPE_TAMER = 3
+LobbyMap.Z_ORDER_TYPE_DRAGON = 4
+LobbyMap.Z_ORDER_TYPE_UI = 5
 
 -------------------------------------
 -- function init
@@ -60,7 +62,7 @@ function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_rati
     self.m_lobbyIndicator = MakeAnimator('res/ui/a2d/lobby_indicator/lobby_indicator.vrp')
     self.m_lobbyIndicator:setVisible(false)
     self.m_lobbyIndicator:changeAni('idle', true)
-    node:addChild(self.m_lobbyIndicator.m_node, 1)
+    node:addChild(self.m_lobbyIndicator.m_node, self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_INDICATOR))
 
     self.m_dragonTouchIndicator = MakeAnimator('res/indicator/indicator_effect_target/indicator_effect_target.vrp')
     self.m_dragonTouchIndicator:setVisible(false)
@@ -400,7 +402,7 @@ function LobbyMap:addLobbyTamer(tamer, is_bot, t_user_info)
 
     do -- 그림자 생성
         local lobby_shadow = LobbyShadow(1)
-        self.m_groudNode:addChild(lobby_shadow.m_rootNode, 1)
+        self.m_groudNode:addChild(lobby_shadow.m_rootNode, self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_SHADOW))
 
         -- 그림자 이동 이벤트 등록
         lobby_shadow:addListener('lobby_shadow_move', self)
@@ -458,7 +460,7 @@ function LobbyMap:addLobbyDragon(tamer, t_user_info, flip)
 
     do -- 그림자 생성
         local lobby_shadow = LobbyShadow(0.5)
-        self.m_groudNode:addChild(lobby_shadow.m_rootNode, 1)
+        self.m_groudNode:addChild(lobby_shadow.m_rootNode, self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_SHADOW))
 
         -- 그림자 이동 이벤트 등록
         lobby_shadow:addListener('lobby_shadow_move', self)
@@ -614,7 +616,7 @@ function LobbyMap:tempItemBox()
     item_box.m_rootNode:setPosition(x, y)
 
     local lobby_shadow = LobbyShadow(1)
-    self.m_groudNode:addChild(lobby_shadow.m_rootNode, 0)
+    self.m_groudNode:addChild(lobby_shadow.m_rootNode, self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_SHADOW))
     lobby_shadow.m_rootNode:setPosition(x, y)
    
    
@@ -627,6 +629,13 @@ end
 -- function makeLobbyMapZorder
 -------------------------------------
 function LobbyMap:makeLobbyMapZorder(type, pos_y, unique_idx)
+    -- 그림자와 바닥 인디게이터는 즉시 리턴
+    if (type == LobbyMap.Z_ORDER_TYPE_SHADOW) then
+        return 1
+    elseif (type == LobbyMap.Z_ORDER_TYPE_INDICATOR) then
+        return 2
+    end
+
     unique_idx = (unique_idx or math_random(0, 999))
 
     -- 기본 z_order
