@@ -109,6 +109,10 @@ function Monster_WorldOrderMachine:threeWonderMagic()
 	if self.m_animator then 
 		self.m_animator.m_node:removeFromParent(true)
 		self.m_animator:setVisible(false)
+
+		-- @TODO shader 원복이 안되는 경우
+		local shader = ShaderCache:getShader(cc.SHADER_POSITION_TEXTURE_COLOR)
+        self.m_animator.m_node:setGLProgram(shader)
 	end
 
 	-- 다음 state의 animation을 박는다
