@@ -41,26 +41,26 @@ end
 -- function setAddPhysObject
 -------------------------------------
 function Monster_WorldOrderMachine:setAddPhysObject()
-	-- Ãß°¡ object Ãß°¡
+	-- ì¶”ê°€ object ì¶”ê°€
 	local add_body = {0, 0, 50}
 	local phys_obj = self:addPhysObject(self, add_body, -220, -220, nil)
 	
-    -- ÇÇ°İ Ã³¸®
+    -- í”¼ê²© ì²˜ë¦¬
     phys_obj:addDefCallback(function(attacker, defender, i_x, i_y)
 		if (attacker.m_activityCarrier:getAttackType() == 'active') then 
 			self:threeWonderMagic()
 		end
     end)
 
-	-- Ãß°¡ object formation µî·Ï
+	-- ì¶”ê°€ object formation ë“±ë¡
 	local formation_mgr = self:getFormationMgr()
 	local formation = formation_mgr:getFormation(self.pos.x, self.pos.y) 
 	formation_mgr:setChangePosCallback(phys_obj, formation)
 
-	-- Ãß°¡ object ÀÏ¹İ Å¸°Ù ¿¹¿Ü Ã³¸®
-	-- -- Character class ¿¡¼­ º¹»çÇØ¿Ã¶§ ÀÓ½Ã·Î Ã³¸®
+	-- ì¶”ê°€ object ì¼ë°˜ íƒ€ê²Ÿ ì˜ˆì™¸ ì²˜ë¦¬
+	-- -- Character class ì—ì„œ ë³µì‚¬í•´ì˜¬ë•Œ ì„ì‹œë¡œ ì²˜ë¦¬
 
-	-- °¥¾Æ³¢¿ï ÀÌ¹ÌÁö ¸®½ºÆ® »ı¼º
+	-- ê°ˆì•„ë¼ìš¸ ì´ë¯¸ì§€ ë¦¬ìŠ¤íŠ¸ ìƒì„±
 	self:setAnimationList()
 end
 
@@ -68,10 +68,10 @@ end
 -- function setAnimationList
 -------------------------------------
 function Monster_WorldOrderMachine:setAnimationList()
-	-- ¼Ó¼º °¡Á®¿È
+	-- ì†ì„± ê°€ì ¸ì˜´
 	local attr = self:getAttribute()
 
-	-- ani ¸®½ºÆ® »ı¼º
+	-- ani ë¦¬ìŠ¤íŠ¸ ìƒì„±
 	local ani = nil
 	for i = 1, 3 do 
 		if (i == 1) then 
@@ -84,7 +84,7 @@ function Monster_WorldOrderMachine:setAnimationList()
 		
 		table.insert(self.m_lAnimator, ani)
 
-		-- »ı¼ºÈÄ À¯ÁöµÇµµ·Ï ref_cnt retain ÇØÁØ´Ù
+		-- ìƒì„±í›„ ìœ ì§€ë˜ë„ë¡ ref_cnt retain í•´ì¤€ë‹¤
 		ani.m_node:retain()
 	end
 end
@@ -93,24 +93,24 @@ end
 -- function threeWonderMagic
 -------------------------------------
 function Monster_WorldOrderMachine:threeWonderMagic()
-	-- ÇöÀç animationÀº ¶¼¾î³õ´Â´Ù
+	-- í˜„ì¬ animationì€ ë–¼ì–´ë†“ëŠ”ë‹¤
 	if self.m_animator then 
 		self.m_animator.m_node:removeFromParent(true)
 		self.m_animator:setVisible(false)
 	end
 
-	-- ´ÙÀ½ stateÀÇ animationÀ» ¹Ú´Â´Ù
+	-- ë‹¤ìŒ stateì˜ animationì„ ë°•ëŠ”ë‹¤
 	self.m_animator = self.m_lAnimator[self:getMagicState()]
 	self.m_animator:setVisible(true)
 	if self.m_animator.m_node then
         self.m_rootNode:addChild(self.m_animator.m_node)
     end
 
-	-- state °ü·Ã ¼öÄ¡¸¦ ÃÊ±âÈ­ ÇÑ´Ù
+	-- state ê´€ë ¨ ìˆ˜ì¹˜ë¥¼ ì´ˆê¸°í™” í•œë‹¤
 	self.m_magicAtkInterval = self:getInterval()
 	self.m_magicStateTimer = 0
 
-	-- °¢Á¾ ½¦ÀÌ´õ È¿°ú ½Ã ¿¹¿Ü Ã³¸®ÇÒ ½½·Ô ¼³Á¤(Spine)
+	-- ê°ì¢… ì‰ì´ë” íš¨ê³¼ ì‹œ ì˜ˆì™¸ ì²˜ë¦¬í•  ìŠ¬ë¡¯ ì„¤ì •(Spine)
     self:blockMatchingSlotShader('effect_')
 end
 
@@ -184,20 +184,20 @@ end
 -- function attack
 -------------------------------------
 function Monster_WorldOrderMachine:attack(target_char)
-    -- °ø°İ
+    -- ê³µê²©
     self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
     target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
 end
 
 -------------------------------------
 -- function makeEffect
--- @breif ´ë»ó¿¡°Ô »ı¼ºµÇ´Â Ãß°¡ ÀÌÆåÆ® »ı¼º
+-- @breif ëŒ€ìƒì—ê²Œ ìƒì„±ë˜ëŠ” ì¶”ê°€ ì´í™íŠ¸ ìƒì„±
 -------------------------------------
 function Monster_WorldOrderMachine:makeEffect(res, x, y)
-	-- ¸®¼Ò½º ¾øÀ»½Ã Å»Ãâ
+	-- ë¦¬ì†ŒìŠ¤ ì—†ì„ì‹œ íƒˆì¶œ
 	if (not res) or (res == 'x') then return end
 
-    -- ÀÌÆÑÆ® »ı¼º
+    -- ì´íŒ©íŠ¸ ìƒì„±
     local effect = MakeAnimator(res)
     effect:setPosition(x, y)
 	effect:changeAni('effect', false)
