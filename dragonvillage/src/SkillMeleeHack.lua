@@ -29,34 +29,9 @@ function SkillMeleeHack:init_skill(move_speed, comeback_speed)
 	self.m_afterimageMove = 0
 
     local char = self.m_owner
-
     local target_x = self.m_targetPos.x
     local target_y = self.m_targetPos.y
-
-    if (not target_x) or (not target_y) then
-        if char.m_targetChar then
-            target_x = char.m_targetChar.pos.x
-            target_y = char.m_targetChar.pos.y
-
-			self.m_target = char.m_targetChar
-        else
-            local add_x = 0
-            if char.m_bLeftFormation then
-                add_x = 300
-            else 
-                add_x = -300
-            end
-            target_x = char.pos.x + add_x
-            target_y = char.pos.y
-        end
-    end
-
-    if char.m_bLeftFormation then
-        target_x = target_x - 100
-    else
-        target_x = target_x + 100
-    end
-
+	
     char:setMove(target_x, target_y, self.m_moveSpeed)
 
     -- StateDelegate 적용

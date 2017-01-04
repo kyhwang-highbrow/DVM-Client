@@ -209,7 +209,21 @@ end
 -------------------------------------
 function Skill:getDefaultTarget()
     local l_target = self.m_owner:getTargetListByType(self.m_targetType)
-	return l_target[1]
+	local target = nil
+
+	for i, v in pairs(l_target) do
+		-- @TODO 추가된 오브젝트 일단 제외 
+		if (not v.m_bAddedPhysObject) then 
+			target = v
+			break
+		end
+	end
+
+    if (not target) then
+	    cclog('Skill : Can not find target')
+    end
+
+	return target
 end
 
 -------------------------------------

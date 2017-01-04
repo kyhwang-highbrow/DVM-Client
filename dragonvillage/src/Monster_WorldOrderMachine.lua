@@ -6,6 +6,10 @@ local STATE_STUN_ATTACK = 3
 
 local MAGIC_STATE_INTERVAL = {10, 1, 5}
 local MAGIC_STATE_VALUE = {300, 6, 'stun;target;10;100;100'}
+local MAGIC_STATE_SHAKE_FACTOR = {700, 100, 300}
+
+local HUGE_ATTACK_RES = 'res/effect/skill_lightning/skill_lightning_fire.vrp'
+local WORLD_ORDER_RES = 'res/character/monster/boss_world_order_machine_light/boss_world_order_machine_light_'
 
 -------------------------------------
 -- class Monster_WorldOrderMachine
@@ -66,7 +70,7 @@ function Monster_WorldOrderMachine:setAnimationList()
 	-- ani 리스트 생성
 	local ani = nil
 	for i = 1, 3 do 
-		ani = AnimatorHelper:makeMonsterAnimator('res/character/monster/boss_world_order_machine_light/boss_world_order_machine_light_' .. i .. '.spine', attr)
+		ani = AnimatorHelper:makeMonsterAnimator(WORLD_ORDER_RES .. i .. '.spine', attr)
 		ani:setFlip(true)
 		ani:setVisible(false)
 		ani.m_node:retain()
@@ -99,6 +103,8 @@ end
 -- function update
 -------------------------------------
 function Monster_WorldOrderMachine:update(dt)
+	if (self.m_bDead) then return false end 
+
 	self.m_magicStateTimer = self.m_magicStateTimer + dt
 	
 	if (self.m_magicStateTimer > self.m_magicAtkInterval) then
@@ -117,7 +123,6 @@ function Monster_WorldOrderMachine:doMagicAttack()
 
 	local world = self.m_world
 	local l_dragon = world.m_participants
-	local shake_factor = 0
 
 	local state = self.m_magicState
 	if (state == STATE_HUGE_ATTACK) then 
@@ -129,10 +134,7 @@ function Monster_WorldOrderMachine:doMagicAttack()
 		self:attack(target_char)
 		
 		-- effect
-		self:makeEffect('res/effect/skill_lightning/skill_lightning_fire.vrp',target_char.pos.x, target_char.pos.y)
-
-		-- shake
-		shake_factor = 500
+		self:makeEffect(HUGE_ATTACK_RES, target_char.pos.x, target_char.pos.y)
 
 	elseif (state == STATE_BABY_ATTACK) then 
 		-- activity carrier
@@ -143,19 +145,15 @@ function Monster_WorldOrderMachine:doMagicAttack()
 			self:attack(target_char)
 		end
 
-		-- shake
-		shake_factor = 100
-
 	elseif (state == STATE_STUN_ATTACK) then 
 		-- status effect
 		local target_char = l_dragon[math_random(1, table.count(l_dragon))]
 		StatusEffectHelper:doStatusEffectByStr(self, {target_char}, {self:getValue()})
 
-		-- shake
-		shake_factor = 300
 	end
 			
 	-- shake
+	local shake_factor = self:getShakeFactor()
 	world.m_shakeMgr:shakeBySpeed(math_random(355-20, 355+20), math_random(shake_factor, shake_factor*3))
 end
 
@@ -212,6 +210,13 @@ end
 -------------------------------------
 function Monster_WorldOrderMachine:getValue()
 	return MAGIC_STATE_VALUE[self.m_magicState]
+end
+
+-------------------------------------
+-- function getShakeFactor
+-------------------------------------
+function Monster_WorldOrderMachine:getShakeFactor()
+	return MAGIC_STATE_SHAKE_FACTOR[self.m_magicState]
 end
 
 -------------------------------------
