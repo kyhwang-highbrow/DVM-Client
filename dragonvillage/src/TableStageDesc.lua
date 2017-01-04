@@ -41,6 +41,22 @@ function TableStageDesc:getMonsterIconList(stage_id)
 end
 
 -------------------------------------
+-- function getLastMonsterIcon
+-- @brief 스테이지에 등장하는 마지막 몬스터 아이콘 리턴
+-------------------------------------
+function TableStageDesc:getLastMonsterIcon(stage_id)
+    local l_moster_id = self:getMonsterIDList(stage_id)
+
+    local monster_id = l_moster_id[#l_moster_id]
+    if (not monster_id) then
+        return nil
+    end
+
+    local icon = UI_MonsterCard(monster_id)
+    return icon
+end
+
+-------------------------------------
 -- function getMonsterIDList
 -- @brief 스테이지에 등장하는 몬스터 ID 리스트를 리턴
 -------------------------------------
