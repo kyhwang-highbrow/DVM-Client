@@ -52,6 +52,7 @@ function Monster_WorldOrderMachine:setAddPhysObject()
     -- 피격 처리
     phys_obj:addDefCallback(function(attacker, defender, i_x, i_y)
 		if (attacker.m_activityCarrier:getAttackType() == 'active') then 
+			--[[
 			self.m_isMagieStateChanging = true
 			self.m_animator:changeAni('skill_1')
 			self.m_animator:addAniHandler(function()
@@ -59,6 +60,8 @@ function Monster_WorldOrderMachine:setAddPhysObject()
 				self.m_animator:changeAni('idle', true)
 				self:threeWonderMagic()
 			end)
+			]]
+			self:threeWonderMagic()
 		end
     end)
 
