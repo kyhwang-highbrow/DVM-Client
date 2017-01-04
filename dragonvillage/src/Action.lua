@@ -114,8 +114,10 @@ function cca.getShaky3D(strength, duration)
 		length, range = 32, 16 
 	elseif (strength == 4) then 
 		length, range = 64, 32
-	elseif (strength == 5) then 
+	elseif (strength >= 5) then 
 		length, range = 128, 64
+    else
+        error('cca.getShaky3D wrong strength(' .. strength .. ')')
 	end
 
     return cc.Shaky3D:create(duration, {width = length, height = length}, range, false)
