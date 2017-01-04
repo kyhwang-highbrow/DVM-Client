@@ -114,6 +114,16 @@ function CommonMissile:getRandomTargetByRule()
 end
 
 -------------------------------------
+-- function getDir()
+-------------------------------------
+function CommonMissile:getDir()
+	if (not self.m_target) then 
+		return self:getDefaultDir() 
+	end
+	return getDegree(self.m_attackPos.x, self.m_attackPos.y, self.m_target.m_homePosX, self.m_target.m_homePosY) or self:getDefaultDir()
+end
+
+-------------------------------------
 -- function getDefaultDir()
 -- @brief 타겟을 못가져왔을 때 
 -------------------------------------
@@ -154,7 +164,7 @@ function CommonMissile:initAttackPos()
     end
 
 	-- 4. 정리
-    local l_str = seperate(string_value, ',')
+    local l_str = seperate(string_value, ',') or {0, 0}
     local scale = animator:getScale()
     local offset_x = (l_str[1] * scale)
     local offset_y = (l_str[2] * scale)
@@ -182,6 +192,8 @@ end
 -- function fireMissile
 -------------------------------------
 function CommonMissile:fireMissile()
+	if (not self.m_target) then return end
+
     local world = self.m_world
 	local t_option = self.m_missileOption
 	

@@ -1638,5 +1638,8 @@ function Character:referenceForAddPhysObject(t_body, adj_x, adj_y)
 
 	char.m_bAddedPhysObject = true
 
+    char:addState('dying', Character.st_dying, 'idle', false, PRIORITY.DYING)
+    char:addState('dead', Character.st_dead, nil, nil, PRIORITY.DEAD)
+
 	return char
 end

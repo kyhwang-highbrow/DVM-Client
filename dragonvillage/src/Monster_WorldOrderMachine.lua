@@ -65,23 +65,6 @@ function Monster_WorldOrderMachine:setAddPhysObject()
 end
 
 -------------------------------------
--- function st_dying
--------------------------------------
-function Monster_WorldOrderMachine.st_dying(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		cclog('STATE DYING')
-		if self.m_bInitAdditionalPhysObject then
-			for phys_obj, _  in pairs(self.m_lAdditionalPhysObject) do 
-				cclog('ADD OBJECT DYING')
-				phys_obj:changeState('dying')
-			end
-		end
-    end
-
-    PARENT.st_dying(owner, dt)
-end
-
--------------------------------------
 -- function setAnimationList
 -------------------------------------
 function Monster_WorldOrderMachine:setAnimationList()
@@ -110,16 +93,20 @@ end
 -- function threeWonderMagic
 -------------------------------------
 function Monster_WorldOrderMachine:threeWonderMagic()
-	--self.m_animator.m_node:retain() 
-	self.m_animator.m_node:removeFromParent(true)
-	self.m_animator:setVisible(false)
+	-- 현재 animation은 떼어놓는다
+	if self.m_animator then 
+		self.m_animator.m_node:removeFromParent(true)
+		self.m_animator:setVisible(false)
+	end
 
+	-- 다음 state의 animation을 박는다
 	self.m_animator = self.m_lAnimator[self:getMagicState()]
 	self.m_animator:setVisible(true)
 	if self.m_animator.m_node then
         self.m_rootNode:addChild(self.m_animator.m_node)
     end
 
+	-- state 관련 수치를 초기화 한다
 	self.m_magicAtkInterval = self:getInterval()
 	self.m_magicStateTimer = 0
 
@@ -131,8 +118,6 @@ end
 -- function update
 -------------------------------------
 function Monster_WorldOrderMachine:update(dt)
-	if (self.m_bDead) then return false end 
-
 	self.m_magicStateTimer = self.m_magicStateTimer + dt
 	
 	if (self.m_magicStateTimer > self.m_magicAtkInterval) then
@@ -147,6 +132,8 @@ end
 -- function doMagicAttack
 -------------------------------------
 function Monster_WorldOrderMachine:doMagicAttack()
+	if (self.m_bDead) then return end 
+
 	self.m_activityCarrier = self:makeAttackDamageInstance()
 
 	local world = self.m_world
@@ -179,10 +166,13 @@ function Monster_WorldOrderMachine:doMagicAttack()
 	elseif (state == STATE_STUN_ATTACK) then 
 		-- status effect
 		local target_char = l_dragon[math_random(1, table.count(l_dragon))]
-		StatusEffectHelper:doStatusEffectByStr(self, {target_char}, {self:getValue()})
 
 		-- effect
-		self:makeEffect(STUN_EFFECT_RES, target_char.pos.x, target_char.pos.y)
+		local effect = self:makeEffect(STUN_EFFECT_RES, target_char.pos.x, target_char.pos.y)
+		effect:addAniHandler(function() 
+			StatusEffectHelper:doStatusEffectByStr(self, {target_char}, {self:getValue()})
+			effect.m_node:runAction(cc.RemoveSelf:create())
+		end)
 	end
 			
 	-- shake
@@ -216,6 +206,8 @@ function Monster_WorldOrderMachine:makeEffect(res, x, y)
 	effect:addAniHandler(function() 
 		effect.m_node:runAction(cc.RemoveSelf:create())
 	end)
+
+	return effect
 end
 
 -------------------------------------
@@ -256,9 +248,8 @@ end
 -- function release
 -------------------------------------
 function Monster_WorldOrderMachine:release()
-	for i, ani in paisr(self.m_lAnimator) do
-		-- reference count 내려줘야한다
-		ani.m_node:release()
+	for i, ani in pairs(self.m_lAnimator) do
+		cclog('WORLD RELEASE ' .. ani.m_node:getReferenceCount())
 		ani:release()
 	end
 

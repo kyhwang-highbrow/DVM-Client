@@ -34,7 +34,7 @@ function CommonMissile_Shotgun:setMissile()
 	-- 수정 가능 부분
 	-----------------------------------------------------------------------------------
 
-	t_option['dir'] = getDegree(self.m_attackPos.x, self.m_attackPos.y, self.m_target.m_homePosX, self.m_target.m_homePosY)
+	t_option['dir'] = self:getDir()
 	t_option['rotation'] = t_option['dir']
 
     t_option['missile_res_name'] = self.m_missileRes -- 테이블에서 가져오나 하드코딩 가능 

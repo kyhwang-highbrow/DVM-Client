@@ -10,11 +10,19 @@ end
 -------------------------------------
 function Character.st_dying(owner, dt)
     if (owner.m_stateTimer == 0) then
-
+		
         owner:setSpeed(0)
         if (owner.m_bDead == false) then
             owner:setDead()
         end
+		
+		if owner.m_bInitAdditionalPhysObject then
+			for phys_obj, _  in pairs(owner.m_lAdditionalPhysObject) do 
+				phys_obj:dispatch('dead', phys_obj)
+				phys_obj:setDead()
+				phys_obj:changeState('dying')
+			end
+		end
 
         local action = cc.Sequence:create(cc.FadeTo:create(0.5, 0), cc.CallFunc:create(function()
             owner:changeState('dead')
