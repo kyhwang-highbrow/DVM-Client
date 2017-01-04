@@ -97,7 +97,7 @@ end
 -------------------------------------
 function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_effect_value, status_effect_rate, duration)
 	-- char validation
-	if (char.m_bAddedPhysObject) then 
+	if (char.m_isSlaveCharacter) then 
 		return nil
 	end
     -- status effect validation

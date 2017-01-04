@@ -99,8 +99,8 @@ function CommonMissile:getRandomTargetByRule()
     local target = nil
 
 	for i, v in pairs(l_target) do 
-		-- @TODO 추가된 오브젝트 일단 제외
-		if (not v.m_bAddedPhysObject) then 
+		-- @TODO 추가된 캐릭터 일단 제외
+		if (not v.m_isSlaveCharacter) then 
 			target = v
 			break
 		end

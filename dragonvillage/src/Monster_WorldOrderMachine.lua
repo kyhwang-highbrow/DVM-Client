@@ -4,8 +4,8 @@ local STATE_HUGE_ATTACK = 1
 local STATE_BABY_ATTACK = 2
 local STATE_STUN_ATTACK = 3
 
-local MAGIC_STATE_INTERVAL = {10, 1, 5}
-local MAGIC_STATE_VALUE = {300, 6, 'stun;target;10;100;100'}
+local MAGIC_STATE_INTERVAL = {15, 1, 10}
+local MAGIC_STATE_VALUE = {450, 6, 'stun;target;10;100;100'}
 local MAGIC_STATE_SHAKE_FACTOR = {700, 100, 300}
 
 local WORLD_ORDER_RES = 'res/character/monster/boss_world_order_machine_light/boss_world_order_machine_light_'
@@ -249,9 +249,7 @@ end
 -------------------------------------
 function Monster_WorldOrderMachine:release()
 	for i, ani in pairs(self.m_lAnimator) do
-		cclog('WORLD RELEASE ' .. ani.m_node:getReferenceCount())
 		ani:release()
 	end
-
     PARENT.release(self)
 end

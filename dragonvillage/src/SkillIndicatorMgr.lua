@@ -277,7 +277,7 @@ function SkillIndicatorMgr:addHighlightList(char, zorder)
         return
     end
 	
-    local node = char.m_rootNode
+    local node = char:getRootNode()
 
     if (not node) or (self.m_lHighlightList[char]) then
         return
@@ -330,7 +330,7 @@ function SkillIndicatorMgr:removeHighlightList(char)
     else
 		-- 루트 노드
 		if (t_data['parent']) then 
-			local node = char.m_rootNode
+			local node = char:getRootNode()
 			node:retain()
 			node:removeFromParent(false)
 			t_data['parent']:addChild(node, t_data['zorder'])

@@ -108,6 +108,9 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
 		m_isSilence = 'boolean',
 
         m_activityCarrier = 'ActivityCarrier',
+
+		m_isSlaveCharacter = 'boolean', -- 이 물리객체가 다른 객체에 추가된 것인지 여부
+		m_masterCharacter = 'Character', -- 이 물리객체를 가진 Character 
      })
 
 local SpasticityTime = 0.2
@@ -136,6 +139,9 @@ function Character:init(file_name, body, ...)
     self.m_delaySpasticity = 0
 
 	self.m_isSilence = false
+
+	self.m_isSlaveCharacter = false
+	self.m_masterCharacter = nil
 end
 
 -------------------------------------
@@ -1110,16 +1116,14 @@ function Character:setTargetEffect(animator)
     self:removeTargetEffect()
     self.m_targetEffect = animator
     if animator then
-		-- @TODO 보스는 hp ui offset 으로 지정된 위치에 박을수 없음.. 통일해야할듯
-		if (self.m_charTable['rarity'] == 'boss') then 
-			animator:setPosition(self.pos.x, self.pos.y)
+		local root_node = self:getRootNode()
+		if (self.m_isSlaveCharacter) then 
+			animator:setPosition(self.m_unitInfoOffset[1], self.m_unitInfoOffset[2])
+			root_node:addChild(animator.m_node)
 		else
-			animator:setPosition(-self.m_unitInfoOffset[1], -self.m_unitInfoOffset[2])
+			animator:setPosition(0,0)
+			root_node:addChild(animator.m_node)
 		end
-
-        if self.m_hpNode then
-            self.m_hpNode:addChild(animator.m_node)
-        end
     end
 end
 
@@ -1615,9 +1619,20 @@ function Character:setSilence(b)
 end
 
 -------------------------------------
--- function referenceForAddPhysObject
+-- function getRootNode
 -------------------------------------
-function Character:referenceForAddPhysObject(t_body, adj_x, adj_y)
+function Character:getRootNode()
+	if (self.m_isSlaveCharacter) then 
+		return self.m_masterCharacter.m_rootNode
+	else
+		return self.m_rootNode
+	end
+end
+
+-------------------------------------
+-- function referenceForSlaveCharacter
+-------------------------------------
+function Character:referenceForSlaveCharacter(t_body, adj_x, adj_y)
 	local char = Character(nil, t_body)
 
 	char.m_hp = self.m_hp
@@ -1628,15 +1643,17 @@ function Character:referenceForAddPhysObject(t_body, adj_x, adj_y)
 	char.m_castingUI = nil
 	char.m_castingNode = nil
 	char.m_unitInfoOffset = {0, 0}
-	char.m_charTable = {attr = self:getAttribute()}
-
+	char.m_charTable = {attr = self:getAttribute(), rarity = self.m_charTable['rarity']}
+	
 	char.m_bLeftFormation = self.m_bLeftFormation
 	char.m_hpEventListener = self.m_hpEventListener
     char.m_undergoAttackEventListener = self.m_undergoAttackEventListener
     char.m_damagedEventListener = self.m_damagedEventListener
 	char.m_cbChangePos = self.m_cbChangePos
 
-	char.m_bAddedPhysObject = true
+	char.m_isSlaveCharacter = true
+	char.m_masterCharacter = self
+	char.m_unitInfoOffset = {adj_x, adj_y}
 
     char:addState('dying', Character.st_dying, 'idle', false, PRIORITY.DYING)
     char:addState('dead', Character.st_dead, nil, nil, PRIORITY.DEAD)

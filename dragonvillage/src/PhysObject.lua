@@ -35,8 +35,6 @@ PhysObject = class({
 		-- 추가된 바디
         m_lAdditionalPhysObject = 'list(PhysObject)',
         m_bInitAdditionalPhysObject = 'boolean',
-
-		m_bAddedPhysObject = 'boolean', -- 이 물리객체가 다른 객체에 추가된 것인지 여ㅂ
     })
 
 -------------------------------------
@@ -64,7 +62,7 @@ function PhysObject_initPhys(self, body)
     self.phys_idx = -1
     self.phys_key = nil
     self.t_collision = {}
-	self.m_bAddedPhysObject = false
+	
     self.m_dirtyPos = false
 
     self.m_posIndexMinX = 1
@@ -319,7 +317,7 @@ end
 
 -------------------------------------
 -- function addPhysObject
--- @breif PhysObject 추가 
+-- @breif PhysObject 추가 -> 타겟팅이 되어야 하는 이슈로 Character Class로 래핑
 -- @comment 여기서는 리스트에만 추가해두고 world에 addObject 할시에 리스트를 불러와 같이 등록한다.
 -------------------------------------
 function PhysObject:addPhysObject(char, t_body, adj_x, adj_y, object_cb_func)
@@ -327,8 +325,8 @@ function PhysObject:addPhysObject(char, t_body, adj_x, adj_y, object_cb_func)
         self:init_AdditionalPhysObject()
     end
 
-    -- PhysObject 생성
-    local phys_obj = char:referenceForAddPhysObject(t_body, adj_x, adj_y)
+    -- Slave Character 생성
+    local phys_obj = char:referenceForSlaveCharacter(t_body, adj_x, adj_y)
 	
 	-- PhysWorld에 추가
     self.m_physWorld:addObject(char.phys_key, phys_obj)
