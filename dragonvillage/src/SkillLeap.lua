@@ -165,7 +165,15 @@ end
 -------------------------------------
 function SkillLeap:getDefaultTargetPos()
     local l_target = self.m_owner:getTargetListByType(self.m_targetType)
-    local target = l_target[1]
+    local target = nil
+
+	for i, v in pairs(l_target) do
+		-- @TODO 추가된 캐릭터 일단 제외 
+		if (not v.m_isSlaveCharacter) then 
+			target = v
+			break
+		end
+	end
 
     if target then
         return target.pos.x, target.pos.y

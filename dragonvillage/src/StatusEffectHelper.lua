@@ -41,7 +41,7 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
     if (owner.m_bDead == true) then return end
 	
 	-- 0. 캐스터의 acitivity_carrier 저장
-	self:setActivityCarrier(owner.m_activityCarrier)
+	self:setActivityCarrier(owner:makeAttackDamageInstance())
 
 	-- 1. 타겟 대상에 상태효과생성
 	local idx = 1
