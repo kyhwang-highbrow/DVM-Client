@@ -282,12 +282,13 @@ function SkillIndicatorMgr:addHighlightList(char, zorder)
     if (not node) or (self.m_lHighlightList[char]) then
         return
     end
-	
+	 
     local t_data = {}
-    t_data['parent'] = node:getParent()
+    t_data['parent'] = char.m_world.m_worldNode
     t_data['zorder'] = node:getLocalZOrder()
     self.m_lHighlightList[char] = t_data
-
+		
+	-- root 노드
     node:retain()
     node:removeFromParent(false)
     g_gameScene.m_gameHighlightNode:addChild(node, zorder or 0)
@@ -366,6 +367,7 @@ function SkillIndicatorMgr:clearHighlightList()
     for i,_ in pairs(self.m_lHighlightList) do
         self:removeHighlightList(i)
     end
+	--g_gameScene.m_gameHighlightNode:removeAllChildren()
 end
 
 -------------------------------------

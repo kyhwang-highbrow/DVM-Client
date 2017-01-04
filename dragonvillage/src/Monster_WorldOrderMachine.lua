@@ -161,7 +161,7 @@ function Monster_WorldOrderMachine:doMagicAttack()
 		end
 
 		-- effect
-		self:makeEffect(BABY_EFFECT_RES, 320, 0)
+		self:makeEffect(BABY_EFFECT_RES, 320, self.m_homePosY)
 
 	elseif (state == STATE_STUN_ATTACK) then 
 		-- status effect
