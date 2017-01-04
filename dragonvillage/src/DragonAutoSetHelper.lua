@@ -4,6 +4,10 @@
 DragonAutoSetHelper = class({
         m_stageID = 'number',
         m_lDragonList = 'list',
+
+        m_lAdvantageDragonList = 'list',
+        m_lNormalDragonList = 'list',
+        m_lDisadvantageDragonList = 'list',
     })
 
 -------------------------------------
@@ -30,6 +34,67 @@ end
 -- function getAutoDeck
 -------------------------------------
 function DragonAutoSetHelper:getAutoDeck()
+    if true then
+        return self:getAutoDeckOld()
+    end
+
+    self:initDragonList()
+
+    return {}
+end
+
+-------------------------------------
+-- function initDragonList
+-- @breif 해당 스테이지의 속성에 유리한, 
+-------------------------------------
+function DragonAutoSetHelper:initDragonList()
+    -- 스테이지 정보 얻어옴
+    local table_stage_desc = TableStageDesc()
+    local t_stage_desc = table_stage_desc:get(self.m_stageID)
+
+    -- 스테이지의 속성을 얻어옴
+    local attr = t_stage_desc['attr']
+
+    -- 유저가 플레이하기에 상성이 좋은 속성을 얻어옴
+    local advantage_attr = getAttrAdvantage(attr)
+
+    -- 유저가 플레이하기에 상성이 안좋은 속성을 얻어옴
+    local disadvantage_attr = getAttrDisadvantage(attr)
+
+    local table_dragon = TableDragon()
+
+    self.m_lAdvantageDragonList = {}
+    self.m_lNormalDragonList = {}
+    self.m_lDisadvantageDragonList = {}
+
+    -- 유리, 일반, 불리한 드래곤 리스트
+    for i,v in pairs(self.m_lDragonList) do
+        local did = v['did']
+        local t_dragon = table_dragon:get(did)
+
+        if (t_dragon['attr'] == advantage_attr) then
+            table.insert(self.m_lAdvantageDragonList, v)
+
+        elseif (t_dragon['attr'] == disadvantage_attr) then
+            table.insert(self.m_lDisadvantageDragonList, v)
+
+        else
+            table.insert(self.m_lNormalDragonList, v)
+
+        end
+    end
+
+    --cclog('self.m_lDragonList ' .. table.count(self.m_lDragonList))
+    --cclog('self.m_lAdvantageDragonList ' .. #self.m_lAdvantageDragonList)
+    --cclog('self.m_lDisadvantageDragonList ' .. #self.m_lDisadvantageDragonList)
+    --cclog('self.m_lNormalDragonList ' .. #self.m_lNormalDragonList)
+end
+
+
+-------------------------------------
+-- function getAutoDeckOld
+-------------------------------------
+function DragonAutoSetHelper:getAutoDeckOld()
     local stage_id = self.m_stageID
     local l_dragon_list = self.m_lDragonList
     local l_deck = {}

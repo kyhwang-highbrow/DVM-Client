@@ -107,6 +107,15 @@ function getAttrAdvantageList(attr)
 end
 
 -------------------------------------
+-- function getAttrAdvantage
+-- @brief attr이 공격을 당했을 때 attr입장에서 상성이 좋은(데미지를 덜 입는) 속성을 리턴
+-------------------------------------
+function getAttrAdvantage(attr)
+    local l_attr = getAttrAdvantageList(attr)
+    return l_attr[1]
+end
+
+-------------------------------------
 -- function getAttrDisadvantageList
 -- @brief attr이 공격을 당했을 때 attr입장에서 상성이 좋지 않은(데미지를 더 입는) 속성리스트를 리턴
 -------------------------------------
@@ -120,6 +129,15 @@ function getAttrDisadvantageList(attr)
     end
 
     return t_attr_disadvantage[attr]
+end
+
+-------------------------------------
+-- function getAttrDisadvantage
+-- @brief attr이 공격을 당했을 때 attr입장에서 상성이 좋지 않은(데미지를 더 입는) 속성을 리턴
+-------------------------------------
+function getAttrDisadvantage(attr)
+    local l_attr = getAttrDisadvantageList(attr)
+    return l_attr[1]
 end
 
 -------------------------------------
