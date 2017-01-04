@@ -159,13 +159,13 @@ end
 -- @brief 
 -------------------------------------
 function dragonRoleName(role_type)
-    if (role_type == 'dealer') then
+    if (role_type == 'dealer') or (role_type == 1) then
         return Str('공격')
-    elseif (role_type == 'tanker') then
+    elseif (role_type == 'tanker') or (role_type == 2) then
         return Str('방어')
-    elseif (role_type == 'supporter') then
+    elseif (role_type == 'supporter') or (role_type == 3) then
         return Str('지원')
-    elseif (role_type == 'healer') then
+    elseif (role_type == 'healer') or (role_type == 4) then
         return Str('회복')
     else
         error('role_type: ' .. role_type)
