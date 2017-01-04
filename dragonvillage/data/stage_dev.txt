@@ -7,15 +7,15 @@
             "idx":1,
 			"camera":
             {
-                "scale":0.8,
+                "scale":0.6,
                 "pos_x":0,
                 "pos_y":0
             },
             "wave":
             {
 				0:
-                [
-					"134014;100;Basic;BO10;RM24;1"
+				[
+					"139021;100;Basic;RO04;NEST;3"
 				]
             }
         },
