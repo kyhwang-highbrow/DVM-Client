@@ -21,7 +21,7 @@ end
 function ShakeManager:doShake(x, y, duration, is_repeat, interval)
 	-- 1. 변수 설정
     local timeScale = cc.Director:getInstance():getScheduler():getTimeScale()
-    local duration = duration or SHAKE_DURATION * timeScale
+    local duration = (duration or SHAKE_DURATION) * timeScale
 	local is_repeat = is_repeat or false
     local interval =  interval or 0.2
 
@@ -39,6 +39,34 @@ function ShakeManager:doShake(x, y, duration, is_repeat, interval)
 	else
 		self.m_shakeLayer:runAction(sequence_action)
 	end
+end
+
+-------------------------------------
+-- function doShake2
+-- @brief 화면 떨림 연출
+-------------------------------------
+function ShakeManager:doShake2(duration, level)
+	local level = level or 1
+	local duration = duration or 0.5
+
+	self.m_shakeLayer:stopAllActions()
+
+	local shake_action = cc.RepeatForever:create(cc.Sequence:create(
+		cc.MoveTo:create( 0.1, cc.p(0, -level) ),
+		cc.MoveTo:create( 0.1, cc.p(0, level) )
+	))
+
+	local time_action = cc.Sequence:create(
+		cc.DelayTime:create(duration),
+		cc.CallFunc:create(function()
+			self.m_shakeLayer:stopAllActions()
+			self.m_shakeLayer:setRotation(0)
+		end)
+	)
+
+	self.m_shakeLayer:runAction(shake_action)
+	self.m_shakeLayer:runAction(time_action)
+
 end
 
 -------------------------------------

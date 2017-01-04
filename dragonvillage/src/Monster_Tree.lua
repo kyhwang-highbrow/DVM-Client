@@ -42,9 +42,16 @@ function Monster_Tree.st_dying(owner, dt)
             SoundMgr:playEffect('VOICE', owner.m_tEffectSound['die'])
         end
 
+        -- 화면 쉐이킹
+        owner.m_world.m_shakeMgr:doShake2(25, 10)
+
         owner.m_world:dispatch('nest_tree_die')
 
         owner.m_animator:addAniHandler(function()
+            
+            -- 화면 쉐이킹 멈춤
+            owner.m_world.m_shakeMgr:stopShake()
+
             owner:changeState('dead')
         end)
     end

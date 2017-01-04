@@ -348,41 +348,13 @@ end
 -------------------------------------
 function Dragon.st_success_move(owner, dt)
     if (owner.m_stateTimer == 0) then
-        local add_speed = (owner.pos['y'] / -100) * 100
+        --local add_speed = (owner.pos['y'] / -100) * 100
+        local add_speed = math_random(-2, 2) * 100
         owner:setMove(owner.pos.x + 2000, owner.pos.y, 1500 + add_speed)
 
         owner.m_afterimageMove = 0
-    end
 
-    do -- 에프터이미지
-        local self = owner
-        self.m_afterimageMove = self.m_afterimageMove + (self.speed * dt)
-
-        --local interval = self.body.size * 0.5 -- 반지름이기 때문에 2배
-        local interval = 50
-
-        if (self.m_afterimageMove >= interval) then
-            self.m_afterimageMove = self.m_afterimageMove - interval
-            -- cclog('출력 출력 출력')
-
-            local duration = (interval / self.speed) * 1.5 -- 3개의 잔상이 보일 정도
-            duration = math_clamp(duration, 0.3, 0.7)
-
-            local res = self.m_animator.m_resName
-            local rotation = self.m_animator:getRotation()
-            local accidental = MakeAnimator(res)
-            --accidental.m_node:setRotation(rotation)
-            accidental:changeAni(self.m_animator.m_currAnimation)
-            local parent = self.m_rootNode:getParent()
-            --parent:addChild(accidental.m_node)
-            self.m_world.m_worldNode:addChild(accidental.m_node, 2)
-            accidental:setScale(self.m_animator:getScale())
-            accidental:setFlip(self.m_animator.m_bFlip)
-            accidental.m_node:setOpacity(255 * 0.3)
-            accidental.m_node:setPosition(self.pos.x, self.pos.y)
-            accidental.m_node:runAction(cc.Sequence:create(cc.FadeTo:create(duration, 0), cc.RemoveSelf:create()))
-
-        end
+        owner:setAfterImage(true)
     end
 end
 
