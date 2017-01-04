@@ -19,7 +19,7 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillLeap:init_skill(jump_res, range, isIgnoreDef)
+function SkillLeap:init_skill(jump_res, range)
 	PARENT.init_skill(self)
 	
 	-- 멤버 변수 

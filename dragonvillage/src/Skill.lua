@@ -52,7 +52,6 @@ function Skill:init_skill()
 
 	self.m_skillHitEffctDirector = SkillHitEffectDirector(self.m_owner)
 	
-
 	if (not self.m_targetChar) then
 		self.m_targetChar = self:getDefaultTarget()
 	end
@@ -65,7 +64,7 @@ end
 -------------------------------------
 -- function initActvityCarrier
 -------------------------------------
-function Skill:initActvityCarrier(power_rate)    
+function Skill:initActvityCarrier(power_rate)
     -- 공격력 계산을 위해
     self.m_activityCarrier = self.m_owner:makeAttackDamageInstance()
     self.m_activityCarrier.m_skillCoefficient = (power_rate / 100)

@@ -107,7 +107,7 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
 		-- 스킬 사용 불가 상태
 		m_isSilence = 'boolean',
 
-        m_activityCarrier = 'AttackDamage',
+        m_activityCarrier = 'ActivityCarrier',
      })
 
 local SpasticityTime = 0.2

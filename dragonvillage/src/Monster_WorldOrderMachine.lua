@@ -115,25 +115,48 @@ end
 function Monster_WorldOrderMachine:doMagicAttack()
 	self.m_activityCarrier = self:makeAttackDamageInstance()
 
-	local l_dragon = self.m_world.m_participants
+	local world = self.m_world
+	local l_dragon = world.m_participants
+	local shake_factor = 0
 
 	local state = self.m_magicState
 	if (state == STATE_HUGE_ATTACK) then 
+		-- activity carrier
 		self.m_activityCarrier.m_skillCoefficient = (self:getValue() / 100)
+		
+		-- attack
 		local target_char = l_dragon[math_random(1, table.count(l_dragon))]
 		self:attack(target_char)
+		
+		-- effect
+		self:makeEffect('res/effect/skill_lightning/skill_lightning_fire.vrp',target_char.pos.x, target_char.pos.y)
+
+		-- shake
+		shake_factor = 500
 
 	elseif (state == STATE_BABY_ATTACK) then 
+		-- activity carrier
 		self.m_activityCarrier.m_skillCoefficient = (self:getValue() / 100)
+
+		-- attack
 		for i, target_char in pairs(l_dragon) do 
 			self:attack(target_char)
 		end
 
-	elseif (state == STATE_STUN_ATTACK) then 
-		local target_char = l_dragon[math_random(1, table.count(l_dragon))]
-		StatusEffectHelper:doStatusEffectByStr(self.m_owner, {target_char}, self:getValue())
+		-- shake
+		shake_factor = 100
 
+	elseif (state == STATE_STUN_ATTACK) then 
+		-- status effect
+		local target_char = l_dragon[math_random(1, table.count(l_dragon))]
+		StatusEffectHelper:doStatusEffectByStr(self, {target_char}, {self:getValue()})
+
+		-- shake
+		shake_factor = 300
 	end
+			
+	-- shake
+	world.m_shakeMgr:shakeBySpeed(math_random(355-20, 355+20), math_random(shake_factor, shake_factor*3))
 end
 
 -------------------------------------
@@ -143,6 +166,25 @@ function Monster_WorldOrderMachine:attack(target_char)
     -- 공격
     self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
     target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
+end
+
+-------------------------------------
+-- function makeEffect
+-- @breif 대상에게 생성되는 추가 이펙트 생성
+-------------------------------------
+function Monster_WorldOrderMachine:makeEffect(res, x, y)
+	-- 리소스 없을시 탈출
+	if (not res) or (res == 'x') then return end
+
+    -- 이팩트 생성
+    local effect = MakeAnimator(res)
+    effect:setPosition(x, y)
+	effect:changeAni('effect', false)
+
+    self.m_world.m_missiledNode:addChild(effect.m_node, 0)
+	effect:addAniHandler(function() 
+		effect.m_node:runAction(cc.RemoveSelf:create())
+	end)
 end
 
 -------------------------------------
