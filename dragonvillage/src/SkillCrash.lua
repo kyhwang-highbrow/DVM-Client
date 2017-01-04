@@ -204,7 +204,7 @@ function SkillCrash:makeCrashPhsyObject()
         object_key = 'missile_e'
     end
 
-    local phys_object = char:addPhysObject(object_key, {0, 0, 20})
+    local phys_object = char:addPhysObject(char, {0, 0, 20}, 0, 0)
 
     phys_object:addAtkCallback(function(attacker, defender, i_x, i_y)
         self.m_collisionChar = defender

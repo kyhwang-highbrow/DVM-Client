@@ -24,7 +24,7 @@ Monster_WorldOrderMachine = class(PARENT, {
 		m_magicStateTimer = 'num',
 		m_magicAtkInterval = 'num',
 
-		m_isMagieStateChanging = 'bool',
+		m_isMagicStateChanging = 'bool',
      })
 
 -------------------------------------
@@ -38,7 +38,7 @@ function Monster_WorldOrderMachine:init(file_name, body, ...)
 	self.m_magicStateTimer = 0
 	self.m_magicAtkInterval = self:getInterval()
 
-	self.m_isMagieStateChanging = false
+	self.m_isMagicStateChanging = false
 end
 
 -------------------------------------
@@ -52,16 +52,15 @@ function Monster_WorldOrderMachine:setAddPhysObject()
     -- 피격 처리
     phys_obj:addDefCallback(function(attacker, defender, i_x, i_y)
 		if (attacker.m_activityCarrier:getAttackType() == 'active') then 
-			--[[
-			self.m_isMagieStateChanging = true
+			
+			self.m_isMagicStateChanging = true
 			self.m_animator:changeAni('skill_1')
 			self.m_animator:addAniHandler(function()
-				self.m_isMagieStateChanging = false
-				self.m_animator:changeAni('idle', true)
+				self.m_isMagicStateChanging = false
+				self:changeState('attackDelay')
 				self:threeWonderMagic()
 			end)
-			]]
-			self:threeWonderMagic()
+			
 		end
     end)
 
@@ -106,7 +105,7 @@ end
 -- function threeWonderMagic
 -------------------------------------
 function Monster_WorldOrderMachine:threeWonderMagic()
-	if (self.m_isMagieStateChanging) then return end
+	if (self.m_isMagicStateChanging) then return end
 
 	-- 현재 animation은 떼어놓는다
 	if self.m_animator then 

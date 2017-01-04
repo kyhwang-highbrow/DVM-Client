@@ -5,6 +5,7 @@ local PARENT = SkillLeap
 -------------------------------------
 SkillExplosion = class(PARENT, {
 		m_isIgnoreDef= '',
+		m_explosionRes = '',
      })
 
 -------------------------------------
@@ -18,11 +19,11 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillExplosion:init_skill(jump_res, range, isIgnoreDef)
+function SkillExplosion:init_skill(explosion_res, jump_res, range, isIgnoreDef)
 	self.m_isIgnoreDef = isIgnoreDef
     
 	PARENT.init_skill(self, jump_res, range)
-	
+	self.m_explosionRes = explosion_res
 		-- 특정 드래곤 전용 
 	self:boombaSideEffect()
 
@@ -53,12 +54,44 @@ end
 -------------------------------------
 function SkillExplosion:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillExplosion.st_move, 'move', true)
-    self:addState('attack', SkillExplosion.st_attack, 'idle', false)
-	self:addState('comeback', SkillExplosion.st_comeback, 'move', true)
+    self:addState('start', SkillExplosion.st_move, nil, true)
+    self:addState('attack', SkillExplosion.st_attack, nil, false)
+	self:addState('comeback', SkillExplosion.st_comeback, nil, true)
 	
 	-- 영웅을 제어하는 스킬은 dying state를 별도로 정의
 	self:addState('dying', IStateDelegate.st_dying, nil, nil, 10)
+end
+
+-------------------------------------
+-- function st_attack
+-------------------------------------
+function SkillExplosion.st_attack(owner, dt)
+    if (owner.m_stateTimer == 0) then
+		-- 공격
+		owner:makeEffect(owner.m_targetPos.x, owner.m_targetPos.y)
+		owner:runAttack()
+		owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 1500)
+		owner:changeState('comeback')
+    end
+end
+
+-------------------------------------
+-- function makeEffect
+-- @breif 대상에게 생성되는 추가 이펙트 생성
+-------------------------------------
+function SkillExplosion:makeEffect(x, y)
+	-- 리소스 없을시 탈출
+	if (self.m_explosionRes == 'x') then return end
+
+    -- 이팩트 생성
+    local effect = MakeAnimator(self.m_explosionRes)
+    effect:setPosition(x, y)
+	effect:changeAni('idle', false)
+
+    self.m_owner.m_world.m_missiledNode:addChild(effect.m_node, 0)
+	effect:addAniHandler(function() 
+		effect.m_node:runAction(cc.RemoveSelf:create())
+	end)
 end
 
 -------------------------------------
@@ -67,7 +100,7 @@ end
 function SkillExplosion:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-    local missile_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
+    local explosion_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
 	local jump_res = t_skill['res_2']
     local range = t_skill['val_1']
 	local isIgnoreDef = t_skill['val_2'] == 1
@@ -75,11 +108,11 @@ function SkillExplosion:makeSkillInstance(owner, t_skill, t_data)
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = SkillExplosion(missile_res)
+    local skill = SkillExplosion(nil)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(jump_res, range, isIgnoreDef)
+    skill:init_skill(explosion_res, jump_res, range, isIgnoreDef)
 	skill:initState()
 
 	-- 3. state 시작 
