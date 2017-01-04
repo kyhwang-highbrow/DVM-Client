@@ -32,11 +32,11 @@ PhysObject = class({
         m_posIndexMinY = '',
         m_posIndexMaxY = '',
 
-        m_activityCarrier = 'AttackDamage',
-
-        -- 추가된 바디
+		-- 추가된 바디
         m_lAdditionalPhysObject = 'list(PhysObject)',
         m_bInitAdditionalPhysObject = 'boolean',
+
+		m_bAddedPhysObject = 'boolean', -- 이 물리객체가 다른 객체에 추가된 것인지 여ㅂ
     })
 
 -------------------------------------
@@ -64,7 +64,7 @@ function PhysObject_initPhys(self, body)
     self.phys_idx = -1
     self.phys_key = nil
     self.t_collision = {}
-
+	self.m_bAddedPhysObject = false
     self.m_dirtyPos = false
 
     self.m_posIndexMinX = 1
@@ -295,9 +295,14 @@ function PhysObject:release()
     if self.m_physWorld then
         self.m_physWorld:removeObject(self)
     end
+
+	-- 추가 오브젝트 순회하며 release
+	if self.m_bInitAdditionalPhysObject then
+		for phys_obj, _  in pairs(self.m_lAdditionalPhysObject) do 
+			self.m_physWorld:removeObject(phys_obj)
+		end
+	end
 end
-
-
 
 -------------------------------------
 -- function init_AdditionalPhysObject
@@ -317,19 +322,28 @@ end
 -- @breif PhysObject 추가 
 -- @comment 여기서는 리스트에만 추가해두고 world에 addObject 할시에 리스트를 불러와 같이 등록한다.
 -------------------------------------
-function PhysObject:addPhysObject(object_key, t_body, adj_x, adj_y, object_cb_func)
+function PhysObject:addPhysObject(char, t_body, adj_x, adj_y, object_cb_func)
     if (not self.m_bInitAdditionalPhysObject) then
         self:init_AdditionalPhysObject()
     end
 
     -- PhysObject 생성
-    local phys_obj = PhysObject()
-    PhysObject_initPhys(phys_obj, t_body)
+    local phys_obj = char:referenceForAddPhysObject(t_body, adj_x, adj_y)
+	
+	-- PhysWorld에 추가
+    self.m_physWorld:addObject(char.phys_key, phys_obj)
 
     -- 리스트에 추가
 	self.m_lAdditionalPhysObject[phys_obj] = {x = adj_x, y = adj_y, cb_func = object_cb_func}
 
     return phys_obj
+end
+
+-------------------------------------
+-- function setAddPhysObject
+-- @breif 오버라이드 해서 사용
+-------------------------------------
+function PhysObject:setAddPhysObject()
 end
 
 -------------------------------------
@@ -348,14 +362,18 @@ end
 
 -------------------------------------
 -- function posUpdateAdditionalPhysObject
--- @breif PhysObject 추가
+-- @breif PhysObject 추가 된 body 위치 갱신
 -------------------------------------
 function PhysObject:posUpdateAdditionalPhysObject(x, y)
     if (not self.m_bInitAdditionalPhysObject) then
         return
     end
-
+	local pos_x, pos_y = nil, nil
     for phys_obj, adj_pos in pairs(self.m_lAdditionalPhysObject) do
-        phys_obj:setPosition(self.pos.x + adj_pos.x, self.pos.y + adj_pos.y)
+		pos_x = self.pos.x + adj_pos.x
+		pos_y = self.pos.y + adj_pos.y
+		phys_obj:setOrgHomePos(pos_x, pos_y)
+		phys_obj:setHomePos(pos_x, pos_y)
+		phys_obj:setPosition(pos_x, pos_y)
     end
 end

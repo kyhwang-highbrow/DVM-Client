@@ -82,6 +82,9 @@ end
 function DynamicWave:update(dt)
     -- 예약된 소환이 없을 경우 종료
     if (#self.m_lScheduledSpawn <= 0) then
+		if PRINT_SPAWN_LIST then
+			self:printSpawnedList()
+		end
         return true
     end
 
@@ -104,4 +107,24 @@ function DynamicWave:update(dt)
             self.m_luaValue5)
     end
 
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function DynamicWave:printSpawnedList()
+	local formation_mgr = self.m_waveMgr.m_world.m_rightFormationMgr
+	cclog('FRONT ######################')
+	for i, v in pairs(formation_mgr.m_frontCharList) do
+		cclog(v:getName())
+	end
+	cclog('MIDDLE ######################')
+	for i, v in pairs(formation_mgr.m_middleCharList) do
+		cclog(v:getName())
+	end
+	cclog('REAR ######################')
+	for i, v in pairs(formation_mgr.m_rearCharList) do
+		cclog(v:getName())
+	end
+	cclog('#########################################################----')
 end

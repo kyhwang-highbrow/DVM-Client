@@ -133,16 +133,6 @@ function PhysWorld:addObject(key, object)
         object.phys_key = key
         object.phys_idx = self.m_objIdx
         self.m_objIdx = self.m_objIdx + 1
-
-		-- 하나의 Entity에 귀속되는 추가 Object 등록
-		if object.m_bInitAdditionalPhysObject then
-			for add_object, _ in pairs(object.m_lAdditionalPhysObject) do
-			    table.insert(self.m_group[key], add_object)
-				add_object.phys_key = key
-				add_object.phys_idx = self.m_objIdx
-				self.m_objIdx = self.m_objIdx + 1
-			end
-		end
     else
         cclog('Phys Group key : ' .. key .. ' is not exist!')
     end

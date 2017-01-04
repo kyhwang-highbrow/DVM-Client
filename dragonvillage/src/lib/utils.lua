@@ -457,16 +457,6 @@ function getDegreeFromChar(char1, char2)
 end
 
 -------------------------------------
--- function getDegree
--------------------------------------
-function getDegree(curr_x, curr_y, dest_x, dest_y)
-    local dx, dy = dest_x - curr_x, dest_y - curr_y
-    local rad = math_atan2(dy, dx)
-    local deg = math_deg(rad)
-    return deg
-end
-
--------------------------------------
 -- function bezierat
 -- @breif bezier 좌표 계산
 -------------------------------------

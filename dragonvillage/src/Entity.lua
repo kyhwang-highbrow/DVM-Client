@@ -29,6 +29,8 @@ function Entity:init(file_name, body)
     
     -- rootNode 생성
     self.m_rootNode = cc.Node:create()
+	-- @TODO 
+	self.m_rootNode:retain()
 
     -- PhysBody 초기화
     local body = body or {0,0,50}
@@ -119,6 +121,7 @@ function Entity:release()
     self:releaseAnimator()
 
     if self.m_rootNode then
+		self.m_rootNode:release()
         self.m_rootNode:removeFromParent(true)
     end
     

@@ -251,45 +251,36 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, movement, value1, value2, v
 
     local enemy
 
+    -- Enemy 생성
     if isMonster(enemy_id) then
-        -- Enemy 생성
         enemy = self.m_world:makeMonsterNew(enemy_id, level)
-        enemy:setPosition(1000, 0)
-        
-        self.m_world.m_worldNode:addChild(enemy.m_rootNode, 1)
-        self.m_world.m_physWorld:addObject('enemy', enemy)
-        self.m_world:addEnemy(enemy)
-
-        self.m_world.m_rightFormationMgr:setChangePosCallback(enemy)
-
-        -- 패시브 실행
-	    local l_passive = enemy.m_lSkillIndivisualInfo['passive']
-        for i,skill_info in pairs(l_passive) do
-            local skill_id = skill_info.m_skillID
-            enemy:doSkill(skill_id, nil, 0, 0)
-        end
-
-        if EnemyMovement[movement] then
-            EnemyMovement[movement](enemy, value1, value2, value3, value4, value5)
-        end
 
     elseif isDragon(enemy_id) then
-        -- 드래곤일 경우 등급 및 진화, 친밀도의 데이터도 추가 정리 필요
+        -- @TODO 드래곤일 경우 등급 및 진화, 친밀도의 데이터도 추가 정리 필요
         enemy = self.m_world:makeDragonNew({
             did = enemy_id,
             lv = level,
             skill_0 = 1
         }, true)
-                        
-        self.m_world.m_worldNode:addChild(enemy.m_rootNode, 1)
-        self.m_world.m_physWorld:addObject('enemy', enemy)
-        self.m_world:addEnemy(enemy)
+    end
+	                        
+    self.m_world.m_worldNode:addChild(enemy.m_rootNode, 1)
+    self.m_world.m_physWorld:addObject('enemy', enemy)
+    self.m_world:addEnemy(enemy)
 
-        self.m_world.m_rightFormationMgr:setChangePosCallback(enemy)
+	enemy:setAddPhysObject()
 
-        if EnemyMovement[movement] then
-            EnemyMovement[movement](enemy, value1, value2, value3, value4, value5)
-        end
+    self.m_world.m_rightFormationMgr:setChangePosCallback(enemy)
+
+	-- 패시브 실행
+	local l_passive = enemy.m_lSkillIndivisualInfo['passive']
+    for i,skill_info in pairs(l_passive) do
+        local skill_id = skill_info.m_skillID
+        enemy:doSkill(skill_id, nil, 0, 0)
+    end
+
+    if EnemyMovement[movement] then
+        EnemyMovement[movement](enemy, value1, value2, value3, value4, value5)
     end
 
 	return enemy

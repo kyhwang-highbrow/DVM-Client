@@ -210,7 +210,9 @@ function Character.st_casting(owner, dt)
 						end
 					end
 					-- 이벤트가 존재할 시에만 setPosition 된다.
-					owner.m_castingEffect:setPosition(x, y)
+					if owner.m_castingEffect then 
+						owner.m_castingEffect:setPosition(x, y)
+					end
 				end
 			end
 			owner.m_animator:setEventHandler(casting_cb)

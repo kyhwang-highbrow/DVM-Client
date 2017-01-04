@@ -59,6 +59,11 @@ end
 -- @param dest_y
 -------------------------------------
 function getDegree(curr_x, curr_y, dest_x, dest_y)
+	if (not curr_x) then return nil end
+	if (not curr_y) then return nil end
+	if (not dest_x) then return nil end
+	if (not dest_y) then return nil end
+
     local dx, dy = dest_x - curr_x, dest_y - curr_y
     local rad = math_atan2(dy, dx)
     local deg = math_deg(rad)

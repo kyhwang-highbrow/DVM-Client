@@ -276,13 +276,13 @@ function SkillIndicatorMgr:addHighlightList(char, zorder)
     if (char.m_bDead == true) then
         return
     end
-
+	
     local node = char.m_rootNode
 
     if (not node) or (self.m_lHighlightList[char]) then
         return
     end
-
+	
     local t_data = {}
     t_data['parent'] = node:getParent()
     t_data['zorder'] = node:getLocalZOrder()
@@ -293,20 +293,25 @@ function SkillIndicatorMgr:addHighlightList(char, zorder)
     g_gameScene.m_gameHighlightNode:addChild(node, zorder or 0)
     node:release()
 
-    -- UI노드
-    t_data['ui_parent'] = char.m_hpNode:getParent()
-    t_data['ui_zorder'] = char.m_hpNode:getLocalZOrder()
-    char.m_hpNode:retain()
-    char.m_hpNode:removeFromParent(false)
-    g_gameScene.m_gameHighlightNode:addChild(char.m_hpNode, t_data['ui_zorder'])
-    char.m_hpNode:release()
+    -- UI 노드
+	if (char.m_hpNode) then 
+		t_data['ui_parent'] = char.m_hpNode:getParent()
+		t_data['ui_zorder'] = char.m_hpNode:getLocalZOrder()
+		char.m_hpNode:retain()
+		char.m_hpNode:removeFromParent(false)
+		g_gameScene.m_gameHighlightNode:addChild(char.m_hpNode, t_data['ui_zorder'])
+		char.m_hpNode:release()
+	end
 
-    t_data['ui_casting_parent'] = char.m_castingNode:getParent()
-    t_data['ui_casting_zorder'] = char.m_castingNode:getLocalZOrder()
-    char.m_castingNode:retain()
-    char.m_castingNode:removeFromParent(false)
-    g_gameScene.m_gameHighlightNode:addChild(char.m_castingNode, t_data['ui_casting_zorder'])
-    char.m_castingNode:release()
+	-- 캐스팅 노드
+	if (char.m_castingNode) then 
+		t_data['ui_casting_parent'] = char.m_castingNode:getParent()
+		t_data['ui_casting_zorder'] = char.m_castingNode:getLocalZOrder()
+		char.m_castingNode:retain()
+		char.m_castingNode:removeFromParent(false)
+		g_gameScene.m_gameHighlightNode:addChild(char.m_castingNode, t_data['ui_casting_zorder'])
+		char.m_castingNode:release()
+	end
 end
 
 -------------------------------------
@@ -323,24 +328,32 @@ function SkillIndicatorMgr:removeHighlightList(char)
     if (char.m_bDead == true) then
         self.m_lHighlightList[char] = nil
     else
-        local node = char.m_rootNode
-        node:retain()
-        node:removeFromParent(false)
-        t_data['parent']:addChild(node, t_data['zorder'])
-        node:release()
+		-- 루트 노드
+		if (t_data['parent']) then 
+			local node = char.m_rootNode
+			node:retain()
+			node:removeFromParent(false)
+			t_data['parent']:addChild(node, t_data['zorder'])
+			node:release()
+		end
 
-        -- UI노드
-        local node = char.m_hpNode
-        node:retain()
-        node:removeFromParent(false)
-        t_data['ui_parent']:addChild(node, t_data['ui_zorder'])
-        node:release()
+        -- UI 노드
+		if (t_data['ui_parent']) then 
+			local node = char.m_hpNode
+			node:retain()
+			node:removeFromParent(false)
+			t_data['ui_parent']:addChild(node, t_data['ui_zorder'])
+			node:release()
+		end
 
-        local node = char.m_castingNode
-        node:retain()
-        node:removeFromParent(false)
-        t_data['ui_casting_parent']:addChild(node, t_data['ui_casting_zorder'])
-        node:release()
+		-- 캐스팅 노드
+		if (t_data['ui_casting_parent']) then 
+			local node = char.m_castingNode
+			node:retain()
+			node:removeFromParent(false)
+			t_data['ui_casting_parent']:addChild(node, t_data['ui_casting_zorder'])
+			node:release()
+		end
 
         self.m_lHighlightList[char] = nil
     end

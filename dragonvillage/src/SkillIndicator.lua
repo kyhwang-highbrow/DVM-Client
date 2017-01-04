@@ -233,7 +233,7 @@ function SkillIndicator:setHighlightEffect(t_collision_obj)
         old_target_count = #self.m_highlightList
     end
 
-    for i,target in ipairs(t_collision_obj) do            
+    for i,target in ipairs(t_collision_obj) do      
         if (not target.m_targetEffect) then
             skill_indicator_mgr:addHighlightList(target)
 

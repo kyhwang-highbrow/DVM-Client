@@ -1122,7 +1122,6 @@
     <None Include="..\src\LobbyMap.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\shader\sepia.fsh" />
     <None Include="..\src\LobbyTamerBot.lua">
       <Filter>lua</Filter>
     </None>
@@ -1160,6 +1159,15 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\LobbyMapSpotMgr.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\Monster_WorldOrderMachine.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\shader\sepia.fsh">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\src\SkillLeap.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>

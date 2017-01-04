@@ -216,6 +216,9 @@ PRINT_ATTACK_INFO = false
 -- # 보스 패턴 정보를 콘솔에 출력한다
 PRINT_BOSS_PATTERN = false
 
+-- # 진형별로 소환된 리스트의 이름을 출력
+PRINT_SPAWN_LIST = false
+
 -- # 보호막량을 인게임에 표시한다.
 DISPLAY_SHIELD_HP = false
 
@@ -224,7 +227,6 @@ DISPLAY_UNIT_HP = false
 
 -- # 메모리 사용량 등 각종 디버깅 정보를 인게임에 출력한다
 DISPLAY_DEBUG_INFO = false
-
 
 --------------------------------------------
 function getInGameConstant(type)

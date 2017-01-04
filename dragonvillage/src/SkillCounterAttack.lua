@@ -142,10 +142,12 @@ function SkillCounterAttack:makeEffect(res, pos)
 	
     -- 이팩트 생성
     local effect = MakeAnimator(res)
-    effect:setPosition(pos.x, pos.y)
+    
+	effect:setPosition(pos.x, pos.y)
+
 	effect:setVisible(false)
     self.m_owner.m_world.m_missiledNode:addChild(effect.m_node, 0)
-	
+
 	return effect
 end
 

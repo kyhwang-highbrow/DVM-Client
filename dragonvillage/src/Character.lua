@@ -106,6 +106,8 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
 
 		-- 스킬 사용 불가 상태
 		m_isSilence = 'boolean',
+
+        m_activityCarrier = 'AttackDamage',
      })
 
 local SpasticityTime = 0.2
@@ -987,7 +989,7 @@ end
 -- function setPosition
 -------------------------------------
 function Character:setPosition(x, y)
-    Entity.setPosition(self, x, y)
+	Entity.setPosition(self, x, y)
 
     if self.m_hpNode then
         self.m_hpNode:setPosition(x + self.m_unitInfoOffset[1], y + self.m_unitInfoOffset[2])
@@ -1108,7 +1110,12 @@ function Character:setTargetEffect(animator)
     self:removeTargetEffect()
     self.m_targetEffect = animator
     if animator then
-        animator:setPosition(-self.m_unitInfoOffset[1], -self.m_unitInfoOffset[2])
+		-- @TODO 보스는 hp ui offset 으로 지정된 위치에 박을수 없음.. 통일해야할듯
+		if (self.m_charTable['rarity'] == 'boss') then 
+			animator:setPosition(self.pos.x, self.pos.y)
+		else
+			animator:setPosition(-self.m_unitInfoOffset[1], -self.m_unitInfoOffset[2])
+		end
 
         if self.m_hpNode then
             self.m_hpNode:addChild(animator.m_node)
@@ -1222,6 +1229,7 @@ end
 
 -------------------------------------
 -- function getFormationMgr
+-- @param is_opposite : true 일때 같은 진형을 선택
 -------------------------------------
 function Character:getFormationMgr(is_opposite)
     if self.m_bLeftFormation then
@@ -1243,7 +1251,8 @@ end
 -- function getName
 -------------------------------------
 function Character:getName()
-	if self.m_charTable then 
+	if (self.m_charTable) 
+	and (self.m_charTable['t_name']) then 
 		return self.m_charTable['t_name']
 	else
 		return '까미'
@@ -1258,7 +1267,7 @@ function Character:getAttribute()
 end
 
 -------------------------------------
--- function getAttribute
+-- function getCharType
 -- @return 'dragon' or 'enemy'
 -------------------------------------
 function Character:getCharType()
@@ -1603,4 +1612,31 @@ end
 -------------------------------------
 function Character:setSilence(b)
 	self.m_isSilence = b
+end
+
+-------------------------------------
+-- function referenceForAddPhysObject
+-------------------------------------
+function Character:referenceForAddPhysObject(t_body, adj_x, adj_y)
+	local char = Character(nil, t_body)
+
+	char.m_hp = self.m_hp
+	char.m_maxHp = self.m_maxHp
+	
+	char.m_infoUI = nil
+	char.m_hpNode = nil
+	char.m_castingUI = nil
+	char.m_castingNode = nil
+	char.m_unitInfoOffset = {0, 0}
+	char.m_charTable = {attr = self:getAttribute()}
+
+	char.m_bLeftFormation = self.m_bLeftFormation
+	char.m_hpEventListener = self.m_hpEventListener
+    char.m_undergoAttackEventListener = self.m_undergoAttackEventListener
+    char.m_damagedEventListener = self.m_damagedEventListener
+	char.m_cbChangePos = self.m_cbChangePos
+
+	char.m_bAddedPhysObject = true
+
+	return char
 end

@@ -301,6 +301,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SimplePrimitivesDraw.lua" />
     <None Include="..\src\SkillBurst.lua" />
     <None Include="..\src\SkillFieldCheck.lua" />
+    <None Include="..\src\SkillLeap.lua" />
     <None Include="..\src\SkillSpiderWeb.lua" />
     <None Include="..\src\StatusEffect_Barrier.lua" />
     <None Include="..\src\Camera.lua" />

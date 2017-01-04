@@ -98,6 +98,11 @@ function CommonMissile:getRandomTargetByRule()
     local l_target = self.m_owner:getTargetListByType(self.m_targetType)
     local target = l_target[1]
 
+	-- @TODO 추가된 오브젝트 일단 제외
+	if (target.m_bAddedPhysObject) then 
+		target = l_target[2]
+	end
+
     if (not target) then
 	    return nil
     end

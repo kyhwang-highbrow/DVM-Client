@@ -115,7 +115,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_skillType = t_skill['chance_type']
 	self.m_skillName = t_skill['type']
 	self.m_targetPos = {x = t_data.x, y = t_data.y}
-	self.m_targetChar = t_data.target
+	self.m_targetChar = t_data.target or self.m_targetChar
 end
 
 -------------------------------------

@@ -190,16 +190,11 @@ end
 -------------------------------------
 function SkillIndicator_LeafBlade:findTargetList(x, y)
     local world = self:getWorld()
-    local target_formation_mgr = nil
+    local target_formation_mgr = self.m_hero:getFormationMgr(true)
 	
 	self.m_target_1 = nil 
 	self.m_target_2 = nil
 
-    if self.m_hero.m_bLeftFormation then
-        target_formation_mgr = world.m_rightFormationMgr
-    else
-        target_formation_mgr = world.m_leftFormationMgr
-    end
     local pos_x = self.m_hero.pos.x
     local pos_y = self.m_hero.pos.y
 
