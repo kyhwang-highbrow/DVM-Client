@@ -71,7 +71,7 @@ function UI_NestDungeonListItem:refresh()
     vars['dayLabel']:setString('')
 
     -- 요일 정보 출력
-    self:refresh_dayLabel(self.m_tData['days'], self.m_tData['mode'])
+    self:refresh_dayLabel(self.m_tData['major_day'], self.m_tData['days'], self.m_tData['mode'])
 
     -- 보너스 정보 출력
     self:refresh_bonusInfo()
@@ -80,18 +80,37 @@ end
 -------------------------------------
 -- function refresh_dayLabel
 -------------------------------------
-function UI_NestDungeonListItem:refresh_dayLabel(days, mode)
+function UI_NestDungeonListItem:refresh_dayLabel(major_day, days, mode)
     local vars = self.vars
 
-    local l_days = seperate(days, ',')
-
     -- 거대용 던전이 아닌 경우
-    --if (#l_days >= 7) then
     if (mode ~= 1) then
         vars['dayLabel']:setString('')
         return
     end
+    
+    -- major_day가 없을 경우 가장 빠른 요일로 처리
+    if (not major_day) then
+        local t_days = {}
+        t_days['mon'] = 1
+        t_days['tue'] = 2
+        t_days['wed'] = 3
+        t_days['thu'] = 4
+        t_days['fri'] = 5
+        t_days['sat'] = 6
+        t_days['sun'] = 7
+    
 
+        local l_days = seperate(days, ',')
+        table.sort(l_days, function(a, b)
+            return t_days[a] < t_days[b]
+        end)
+
+        major_day = l_days[1]
+    end
+
+    --[[
+    -- 모든 요일 표시 코드
     local t_days = {}
     t_days['mon'] = {day='mon', name='월', idx=1}
     t_days['tue'] = {day='tue', name='화', idx=2}
@@ -120,6 +139,17 @@ function UI_NestDungeonListItem:refresh_dayLabel(days, mode)
             str = str .. ', '
         end
         str = str .. v['name']
+    end
+    --]]
+
+    local str = ''
+    if     (major_day == 'mon') then str = Str('월요일')
+    elseif (major_day == 'tue') then str = Str('화요일')
+    elseif (major_day == 'wed') then str = Str('수요일')
+    elseif (major_day == 'thu') then str = Str('목요일')
+    elseif (major_day == 'fri') then str = Str('금요일')
+    elseif (major_day == 'sat') then str = Str('토요일')
+    elseif (major_day == 'sun') then str = Str('일요일')
     end
 
     vars['dayLabel']:setString(str)
