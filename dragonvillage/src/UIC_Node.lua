@@ -85,6 +85,14 @@ function UIC_Node:getDockPoint()
     return self.m_node:getDockPoint()
 end
 
+function UIC_Node:setAnchorPoint(anchor_point)
+    return self.m_node:setAnchorPoint(anchor_point)
+end
+
+function UIC_Node:getAnchorPoint()
+    return self.m_node:getAnchorPoint()
+end
+
 function UIC_Node:getScale()
     return self.m_node:getScale()
 end

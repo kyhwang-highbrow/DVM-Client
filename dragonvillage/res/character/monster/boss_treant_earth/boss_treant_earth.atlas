@@ -122,6 +122,13 @@ boss_treant_earth_eff_01
   orig: 753, 744
   offset: 0, 0
   index: -1
+boss_treant_earth_eff_04
+  rotate: false
+  xy: 613, 72
+  size: 127, 127
+  orig: 127, 127
+  offset: 0, 0
+  index: -1
 boss_treant_earth_finger_01
   rotate: false
   xy: 1394, 114

@@ -2,7 +2,9 @@
 	"pattern_elite_light_orb":
 	[			
 		[
-			"a;basic", "w;1", "a;1", "w;5"
+			"m;RF22;700", "a;basic", "a;basic", "m;RF26;700", "a;basic", "a;basic",
+			"m;RB22;700", "a;basic", "a;basic", "m;RB26;700", "a;basic", "a;basic",
+			"m;RM24;700", "a;1", "w;5"
 		]
     ],
 	
@@ -15,7 +17,7 @@
                 "hp_percent":1,
                 "pattern":
                 [
-					"w;1"
+					"a;1"
                 ]
             }
         ]

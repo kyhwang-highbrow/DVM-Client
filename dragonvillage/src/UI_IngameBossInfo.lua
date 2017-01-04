@@ -3,10 +3,19 @@ local PARENT = UI_IngameUnitInfo
 -------------------------------------
 -- class UI_IngameBossInfo
 -------------------------------------
-UI_IngameBossInfo = class(PARENT, {})
+UI_IngameBossInfo = class(PARENT, {
+    m_uiTooltip = ''
+})
 
 -------------------------------------
 -- function init
+-------------------------------------
+function UI_IngameBossInfo:init()
+    self.m_uiTooltip = nil
+end
+
+-------------------------------------
+-- function loadUI
 -------------------------------------
 function UI_IngameBossInfo:loadUI()
     local vars = self:load('ingame_boss_hp.ui')
@@ -31,7 +40,7 @@ function UI_IngameBossInfo:initUI()
         if (skill_id == 'x') then break end
             
         local button = self:makeSkillButton(skill_id)
-        local x = -110 * (i - 1)
+        local x = -120 * (i - 1)
         local y = 0
 
         button:setPosition(x, y)
@@ -42,26 +51,35 @@ end
 -- function initUI
 -------------------------------------
 function UI_IngameBossInfo:makeSkillButton(skill_id)
-    cclog('makeSkillButton skill_id = ' .. skill_id)
     local vars = self.vars
+    local t_skill = TABLE:get('monster_skill')[skill_id]
+        
+    local node = cc.MenuItemImage:create(t_skill['res_icon'], t_skill['res_icon'], 1)
+    local button = UIC_Button(node)
 
-    local t_skill = TABLE:get('monster_skill')
-    
-    --[[
-    local button = cc.MenuItemImage:create(t_skill['res_icon'], t_skill['res_icon'], 1)
     button:setDockPoint(cc.p(0.5, 0.5))
     button:setAnchorPoint(cc.p(0.5, 0.5))
     button:registerScriptTapHandler(function()
-        cclog('skillButton!!')
+        self:click_skillButton(button, skill_id)
     end)
-
-    vars['bossSkillNode']:addChild(button)
-    ]]--
-
-    local button = IconHelper:getSkillIcon('monster', skill_id)
-    vars['bossSkillNode']:addChild(button)
-
+    
+    vars['bossSkillNode']:addChild(button.m_node)
+        
     return button
+end
+
+-------------------------------------
+-- function click_skillButton
+-------------------------------------
+function UI_IngameBossInfo:click_skillButton(button, skill_id)
+    local str = UI_Tooltip_Skill:getSkillDescStr('monster', skill_id)
+    local tool_tip = UI_Tooltip_Skill(0, 0, str)
+
+    -- 자동 위치 지정
+    tool_tip:autoPositioning(button)
+
+    -- 자동 닫힘 처리
+    tool_tip:autoRelease(3)
 end
 
 -------------------------------------

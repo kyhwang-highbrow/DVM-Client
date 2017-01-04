@@ -2,7 +2,11 @@
 	"pattern_elite_beholder":
 	[			
 		[
-			"a;basic", "w;1", "a;1", "w;5"
+			"a;basic", "w;1", "a;basic", "w;1", "a;1", "w;5", 
+			"m;RM22;300", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;5",
+			"m;RM27;300", "a;basic", "w;1", "a;basic", "w;1", "a;1", "w;5",
+			"m;RB12;500", "a;3", "w;1", "m;RB16;500", "a;3", "w;1",
+			"m;RM24;300", "a;1", "w;3", "a;4", "w;1"
 		]
     ],
 	
@@ -12,10 +16,10 @@
         "list":
         [
             {
-                "hp_percent":1,
+                "hp_percent":5,
                 "pattern":
                 [
-					"w;1"
+					"a;1"
                 ]
             }
         ]
