@@ -4,6 +4,7 @@ local PARENT = UI_GameResultNew
 -- class UI_GameResult_NestDungeon
 -------------------------------------
 UI_GameResult_NestDungeon = class(PARENT, {
+        m_nestDungeonInfo = 'table',
      })
 
 -------------------------------------
@@ -12,6 +13,9 @@ UI_GameResult_NestDungeon = class(PARENT, {
 -- @param body
 -------------------------------------
 function UI_GameResult_NestDungeon:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list)
+    
+    -- 서버에서 받아온 네스트 던전의 정보
+    self.m_nestDungeonInfo = g_nestDungeonData:getNestDungeonInfoIndividual(stage_id)
 end
 
 -------------------------------------
@@ -49,4 +53,31 @@ function UI_GameResult_NestDungeon:click_nextBtn()
     local next_stage_id = g_stageData:getNextStage(self.m_stageID) or self.m_stageID
     local scene = SceneNestDungeon(next_stage_id)
     scene:runScene()
+end
+
+-------------------------------------
+-- function makeRewardItem
+-------------------------------------
+function UI_GameResult_NestDungeon:makeRewardItem(i, v)
+    local item_card = PARENT.makeRewardItem(self, i, v)
+
+    -- 등록된 보너스 아이템이 없을 경우 리턴
+    local l_bonus_value = seperate(self.m_nestDungeonInfo['bonus_value'], ',')
+    if (#l_bonus_value <= 0) then
+        return item_card
+    end
+
+    local item_id = v[1]
+
+    -- 보너스 보상 비율 표시
+    for i,v in ipairs(l_bonus_value) do
+        if (item_id == tonumber(v)) then
+            item_card.vars['bonusSprite']:setVisible(true)
+            local bonus_rate = 1 + (self.m_nestDungeonInfo['bonus_rate'] / 100)
+            item_card.vars['bonusLabel']:setString('X' .. bonus_rate)
+            break
+        end
+    end
+
+    return item_card
 end

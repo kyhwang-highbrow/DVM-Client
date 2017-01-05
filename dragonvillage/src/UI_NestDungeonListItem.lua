@@ -162,19 +162,35 @@ end
 
 -------------------------------------
 -- function refresh_bonusInfo
--- @brief "고목 던전"에서 해당하는 요일에 추가 보상을 준다는 것을 알려줌
+-- @brief "거목 던전"에서 해당하는 요일에 추가 보상을 준다는 것을 알려줌
 -------------------------------------
 function UI_NestDungeonListItem:refresh_bonusInfo()
     local vars = self.vars
 
-    -- @TODO sgkim hotTimeSprite가 아닌 bonus reward와 같은 형태로 UI가 변경되어야 함
+    -- 보너스가 없을 경우 리턴 
     local bonus_rate = self.m_tData['bonus_rate'] or 0
     if (bonus_rate <= 0) then
-        vars['hotTimeSprite']:setVisible(false)
         return
     end
 
-    vars['hotTimeSprite']:setVisible(true)
+    -- 등록된 보너스 아이템이 없을 경우 리턴
+    local l_bonus_value = seperate(self.m_tData['bonus_value'], ',')
+    if (#l_bonus_value <= 0) then
+        return
+    end
+
+    vars['bonusSprite']:setVisible(true)
+
+    -- 첫 번째 아이템의 속성을 얻어옴
+    local table_item = TABLE:get('item')
+    local first_bonus_item = tonumber(l_bonus_value[1])
+    local t_item = table_item[first_bonus_item]
+    local attr = t_item['attr']
+
+    -- 속성에 따라 문구 결정
+    local attr_str = dragonAttributeName(attr)
+    local str = Str('{1}의 열매 추가 제공 중!', attr_str)
+    vars['bonusLabel']:setString(str)
 end
 
 -------------------------------------

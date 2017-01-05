@@ -48,6 +48,25 @@ function ServerData_NestDungeon:getNestDungeonInfo()
 end
 
 -------------------------------------
+-- function getNestDungeonInfoIndividual
+-- @brief 네스트 던전 리스트 항목 얻어옴
+--        거대용, 악몽, 거목
+-------------------------------------
+function ServerData_NestDungeon:getNestDungeonInfoIndividual(stage_id)
+    local dungeon_id = self:getDungeonIDFromStateID(stage_id)
+    
+    local l_dungeon_list = self:getNestDungeonInfo()
+
+    for i,v in ipairs(l_dungeon_list) do
+        if (v['mode_id'] == dungeon_id) then
+            return v
+        end
+    end
+
+    return nil
+end
+
+-------------------------------------
 -- function getNestDungeonListForUI
 -- @brief 네스트 던전 리스트 항목 얻어옴 (UI 전용)
 -------------------------------------
@@ -414,4 +433,3 @@ function ServerData_NestDungeon:getNextStageID(stage_id)
         return nil
     end
 end
-

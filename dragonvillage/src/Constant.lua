@@ -208,18 +208,18 @@ end
 -- function dragonAttributeName
 -- @brief 
 -------------------------------------
-function dragonAttributeName(rarity)
-    if (rarity == 'fire') then
+function dragonAttributeName(attr)
+    if (attr == 'fire') then
         return Str('불')
-    elseif (rarity == 'water') then
+    elseif (attr == 'water') then
         return Str('물')
-    elseif (rarity == 'earth') then
+    elseif (attr == 'earth') then
         return Str('땅')
-    elseif (rarity == 'dark') then
+    elseif (attr == 'dark') then
         return Str('어둠')
-    elseif (rarity == 'light') then
+    elseif (attr == 'light') then
         return Str('빛')
     else
-        error('rarity: ' .. rarity)
+        error('rarity: ' .. attr)
     end
 end

@@ -568,6 +568,8 @@ function UI_GameResultNew:makeRewardItem(i, v)
             item_card.vars[lua_name]:setVisible(true)
         end
     end
+
+    return item_card
 end
 
 -------------------------------------
