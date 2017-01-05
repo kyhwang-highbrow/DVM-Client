@@ -440,6 +440,11 @@ function LobbyMap:addLobbyDragon(tamer, t_user_info, flip)
     local table_dragon = TableDragon()
     local t_dragon = nil
 
+    local evolution = 1
+    if g_userDataOld.m_userData['evolution_random'] then
+        evolution = math_random(1, 3)
+    end
+
     -- 리더가 지정되어 있을 경우(lobby leader)
     if t_user_info['leader'] then
         t_dragon = table_dragon:get(t_user_info['leader']['did'])
@@ -447,7 +452,7 @@ function LobbyMap:addLobbyDragon(tamer, t_user_info, flip)
         t_dragon = table_dragon:getRandomRow()
     end
 
-    local res = AnimatorHelper:getDragonResName(t_dragon['res'], 1, t_dragon['attr'])
+    local res = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, t_dragon['attr'])
 
     -- 드래곤 생성
     local lobby_dragon = LobbyDragon(t_dragon['did'])
