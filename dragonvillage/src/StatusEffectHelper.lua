@@ -125,20 +125,8 @@ function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_
         -- 상태 효과 생성
         status_effect = StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, status_effect_value, status_effect_rate, duration)
     end
-
-    if (t_status_effect['overlab'] > 0) then
-        char.m_tOverlabStatusEffect[status_effect_type] = status_effect
-    end
-	
-	-- groggy 옵션이 있다면 stun 상태로 바꾼다. 이외의 부가적인 효과는 개별적으로 구현
-	if (t_status_effect['groggy'] == 'true') then 
-		char:changeState('stun')
-	end	
-
-	-- character에 status_effect 저장
-	char:insertStatusEffect(status_effect)
-
-    return status_effect
+    
+	return status_effect
 end
 
 -------------------------------------
@@ -421,8 +409,6 @@ function StatusEffectHelper:invokeStatusEffectForDev(char, res)
     local world = char.m_world
     world.m_worldNode:addChild(status_effect.m_rootNode, 10)
     world:addToUnitList(status_effect)
-
-	char:insertStatusEffect(status_effect)
 
 	status_effect:initState()
     status_effect:changeState('start')

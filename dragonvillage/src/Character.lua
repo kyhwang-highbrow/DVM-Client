@@ -1212,6 +1212,8 @@ function Character:setStatusIcon(status_effect, idx)
 		icon = self.m_lStatusIcon[status_effect_type]
 	else
 		icon = StatusEffectIcon(self, status_effect)
+
+        self.m_lStatusIcon[status_effect_type] = icon
 	end
 
     if self.m_infoUI then

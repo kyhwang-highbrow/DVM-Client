@@ -190,6 +190,20 @@ function StatusEffect:statusEffectApply()
 
     self:statusEffectApply_()
 
+    local t_status_effect = TABLE:get('status_effect')[self.m_statusEffectName]
+
+    if (t_status_effect['overlab'] > 0) then
+        self.m_owner.m_tOverlabStatusEffect[self.m_statusEffectName] = self
+    end
+	
+	-- groggy 옵션이 있다면 stun 상태로 바꾼다. 이외의 부가적인 효과는 개별적으로 구현
+	if (t_status_effect['groggy'] == 'true') then 
+		self.m_owner:changeState('stun')
+	end
+
+    -- character에 status_effect 저장
+	self.m_owner:insertStatusEffect(self)
+
     self.m_bApply = true
 
     return true
@@ -200,7 +214,7 @@ end
 -------------------------------------
 function StatusEffect:statusEffectApply_()
     local tar_char = self.m_owner
-
+    
     -- %능력치 적용
     for key,value in pairs(self.m_lStatus) do
         tar_char.m_statusCalc.m_lPassive[key] = tar_char.m_statusCalc.m_lPassive[key] + value
@@ -241,7 +255,7 @@ function StatusEffect:statusEffectReset()
 
 	-- 대상이 들고 있는 상태효과 리스트에서 제거
 	self.m_owner:removeStatusEffect(self)
-
+    
     self.m_bReset = true
 
     return true
@@ -270,6 +284,10 @@ end
 -- function statusEffectOverlab
 -------------------------------------
 function StatusEffect:statusEffectOverlab()
+    if (self.m_state == 'end' or self.m_state == 'dying') then
+        self:changeState('start')
+    end
+
     -- 지속 시간 초기화
     self.m_durationTimer = self.m_duration
 

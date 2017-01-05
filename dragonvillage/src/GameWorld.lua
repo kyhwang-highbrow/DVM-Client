@@ -979,10 +979,12 @@ function GameWorld:onKeyReleased(keyCode, event)
         end
 
 	elseif (keyCode == KEY_Z) then
-		cclog('#### 아군 드래곤의 버프, 디버프 및 패시브 적용 확인 ')
+		cclog('#### 아군 드래곤의 상태, 버프, 디버프 및 패시브 적용 확인 ')
         for _,v in ipairs(self:getDragonList()) do
 			cclog('---------------')
 			cclog(' DRAGON : ' .. v.m_charTable['t_name'])
+            cclog('state = ' .. v.m_state)
+            cclog('------status list')
             for type, se in pairs(v:getStatusEffectList()) do
 				cclog(type, se.m_overlabCnt)
 			end

@@ -19,6 +19,11 @@ end
 -- function runSpatter
 -------------------------------------
 function StatusEffect_Trigger_Release:onTrigger()
-	self:changeState('end')
-	return true
+    if (not self.m_bApply and not self.m_bReset) then
+        -- 생성된 이후 아직 미적용 상태인 경우
+
+    else
+	    self:changeState('end')
+	    return true
+    end
 end

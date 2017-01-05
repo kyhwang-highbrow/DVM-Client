@@ -32,7 +32,7 @@ function StatusEffectIcon:init(char, status_effect)
 		self.m_icon = icon
 	end
 
-	char.m_lStatusIcon[status_effect_type] = self
+	--char.m_lStatusIcon[status_effect_type] = self
 	
 	do
 		local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 40, 0)
@@ -69,6 +69,14 @@ end
 -- function checkDuration
 -------------------------------------
 function StatusEffectIcon:checkDuration()
+    -- 주체 대상이 해당 statusEffect를 가지고 있지 않은 상태라면 삭제 시킴
+    if (self.m_char.m_lStatusEffect[self.m_statusEffectName] == nil) then
+        self:release()
+		self.m_char:removeStatusIcon(self.m_statusEffect)
+		self.m_bDelete = true 
+        return
+    end
+
 	-- 1. 제한 시간이 있는 상태 효과 
 	if (self.m_statusEffect.m_duration ~= -1) then 
 		-- 2. 남은 시간이 3초 이상인데 점멸 상태인 경우 -> 점멸 해제
