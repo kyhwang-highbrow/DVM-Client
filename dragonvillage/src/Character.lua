@@ -487,6 +487,10 @@ end
 -- function setDamage
 -------------------------------------
 function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
+	if (defender:getCharType() == 'dragon') and PLAYER_DRAGON_INVINCLBLE then 
+		return
+	end
+
     if self.m_bDead then
         return
     end

@@ -228,6 +228,9 @@ DISPLAY_UNIT_HP = false
 -- # 메모리 사용량 등 각종 디버깅 정보를 인게임에 출력한다
 DISPLAY_DEBUG_INFO = false
 
+-- # 플레이어 무적
+PLAYER_DRAGON_INVINCLBLE = false
+
 --------------------------------------------
 function getInGameConstant(type)
     local ret = 0

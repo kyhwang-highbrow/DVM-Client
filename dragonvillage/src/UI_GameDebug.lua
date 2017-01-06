@@ -209,6 +209,17 @@ function UI_GameDebug:makeTableView()
         end
         table.insert(item_info, item)
     end
+	
+	do -- 플레이어 무적
+        local item = {}
+        item['cb1'] = UI_GameDebug.playerInvincible
+        if PLAYER_DRAGON_INVINCLBLE then
+            item['str'] = '플레이어 무적 ON'
+        else
+            item['str'] = '플레이어 무적 OFF'
+        end
+        table.insert(item_info, item)
+    end
 
     do -- 저사양모드
         local item = {}
@@ -448,7 +459,7 @@ function UI_GameDebug.fpsButton(self, item, idx)
 end
 
 -------------------------------------
--- function fpsButton
+-- function realtimeDebugButton
 -------------------------------------
 function UI_GameDebug.realtimeDebugButton(self, item, idx)
     DISPLAY_DEBUG_INFO = not DISPLAY_DEBUG_INFO
@@ -460,5 +471,18 @@ function UI_GameDebug.realtimeDebugButton(self, item, idx)
         item['label']:setString(Str('Memory ON'))
     else
         item['label']:setString(Str('Memory OFF'))
+    end
+end
+
+-------------------------------------
+-- function playerInvincible
+-------------------------------------
+function UI_GameDebug.playerInvincible(self, item, idx)
+    PLAYER_DRAGON_INVINCLBLE = not PLAYER_DRAGON_INVINCLBLE
+
+    if PLAYER_DRAGON_INVINCLBLE then
+        item['label']:setString(Str('플레이어 무적 ON'))
+    else
+        item['label']:setString(Str('플레이어 무적 OFF'))
     end
 end
