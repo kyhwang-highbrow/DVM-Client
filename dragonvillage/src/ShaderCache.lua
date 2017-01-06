@@ -4,6 +4,10 @@ SHADER_CHARACTER_DAMAGED = 'character_damaged'
 SHADER_BLUR = 'shader_blur'
 SHADER_GRAY = 'shader_gray'
 
+SHADER_RED = 'shader_red'
+SHADER_GREEN = 'shader_green'
+SHADER_BLUE = 'shader_blue'
+
 POSITION_TEXTURE_COLOR_NO_MVP_VERTEX = 'shader/position_texture_color_noMvp_vertex.vsh'
 
 -------------------------------------
@@ -14,6 +18,10 @@ function ShaderCache:init()
 	self:addShader(SHADER_BLUR, POSITION_TEXTURE_COLOR_NO_MVP_VERTEX, 'shader/shaderBlur.fsh')
     self:addShader(SHADER_CHARACTER_DAMAGED, POSITION_TEXTURE_COLOR_NO_MVP_VERTEX, 'shader/characterDamaged.fsh')
 	self:addShader(SHADER_GRAY, POSITION_TEXTURE_COLOR_NO_MVP_VERTEX, 'shader/gray.fsh')
+
+    self:addShader(SHADER_RED, POSITION_TEXTURE_COLOR_NO_MVP_VERTEX, 'shader/red.fsh')
+    self:addShader(SHADER_GREEN, POSITION_TEXTURE_COLOR_NO_MVP_VERTEX, 'shader/green.fsh')
+    self:addShader(SHADER_BLUE, POSITION_TEXTURE_COLOR_NO_MVP_VERTEX, 'shader/blue.fsh')
 end
 
 -------------------------------------

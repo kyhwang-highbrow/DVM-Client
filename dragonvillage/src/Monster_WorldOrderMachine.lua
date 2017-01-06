@@ -18,8 +18,6 @@ local STUN_EFFECT_RES = 'res/effect/effect_gear_drop/effect_gear_drop.vrp'
 -- class Monster_WorldOrderMachine
 -------------------------------------
 Monster_WorldOrderMachine = class(PARENT, {
-		m_lAnimator = 'list',
-
 		m_magicState = 'num',
 		m_magicStateTimer = 'num',
 		m_magicAtkInterval = 'num',
@@ -33,12 +31,20 @@ Monster_WorldOrderMachine = class(PARENT, {
 -- @param body
 -------------------------------------
 function Monster_WorldOrderMachine:init(file_name, body, ...)
-	self.m_lAnimator = {}
-	self.m_magicState = STATE_HUGE_ATTACK
+	self.m_magicState = STATE_STUN_ATTACK
 	self.m_magicStateTimer = 0
 	self.m_magicAtkInterval = self:getInterval()
 
 	self.m_isMagicStateChanging = false
+end
+
+-------------------------------------
+-- function initAnimatorMonster
+-------------------------------------
+function Monster_WorldOrderMachine:initAnimatorMonster(file_name, attr)
+    PARENT.initAnimatorMonster(self, file_name, attr)
+
+    self:threeWonderMagic()
 end
 
 -------------------------------------
@@ -71,65 +77,24 @@ function Monster_WorldOrderMachine:setAddPhysObject()
 
 	-- 추가 object 일반 타겟 예외 처리
 	-- -- Character class 에서 복사해올때 임시로 처리
-
-	-- 갈아끼울 이미지 리스트 생성
-	self:setAnimationList()
 end
 
--------------------------------------
--- function setAnimationList
--------------------------------------
-function Monster_WorldOrderMachine:setAnimationList()
-	-- 속성 가져옴
-	local attr = self:getAttribute()
-
-	-- ani 리스트 생성
-	local ani = nil
-	for i = 1, 3 do 
-		if (i == 1) then 
-			ani = self.m_animator
-		else
-			ani = AnimatorHelper:makeMonsterAnimator(WORLD_ORDER_RES .. i .. '.spine', attr)
-			ani:setFlip(true)
-			ani:setVisible(false)
-		end
-		
-		table.insert(self.m_lAnimator, ani)
-
-		-- 생성후 유지되도록 ref_cnt retain 해준다
-		ani.m_node:retain()
-	end
-end
-
--------------------------------------
--- function threeWonderMagic
--------------------------------------
 function Monster_WorldOrderMachine:threeWonderMagic()
 	if (self.m_isMagicStateChanging) then return end
 
-	-- 현재 animation은 떼어놓는다
-	if self.m_animator then 
-		self.m_animator.m_node:removeFromParent(true)
-		self.m_animator:setVisible(false)
-
-		-- @TODO shader 원복이 안되는 경우
-		local shader = ShaderCache:getShader(cc.SHADER_POSITION_TEXTURE_COLOR)
-        self.m_animator.m_node:setGLProgram(shader)
-	end
-
-	-- 다음 state의 animation을 박는다
-	self.m_animator = self.m_lAnimator[self:getMagicState()]
-	self.m_animator:setVisible(true)
-	if self.m_animator.m_node then
-        self.m_rootNode:addChild(self.m_animator.m_node)
-    end
+    self:changeMagicState()
 
 	-- state 관련 수치를 초기화 한다
 	self.m_magicAtkInterval = self:getInterval()
 	self.m_magicStateTimer = 0
 
-	-- 각종 쉐이더 효과 시 예외 처리할 슬롯 설정(Spine)
-    self:blockMatchingSlotShader('effect_')
+    if (self.m_magicState == STATE_HUGE_ATTACK) then
+        self:setMatchingSlotShader('color_', SHADER_RED)
+    elseif (self.m_magicState == STATE_BABY_ATTACK) then
+        self:setMatchingSlotShader('color_', SHADER_GREEN)
+    elseif (self.m_magicState == STATE_STUN_ATTACK) then
+        self:setMatchingSlotShader('color_', SHADER_BLUE)
+    end
 end
 
 -------------------------------------
@@ -229,6 +194,17 @@ function Monster_WorldOrderMachine:makeEffect(res, x, y)
 end
 
 -------------------------------------
+-- function changeMagicState
+-------------------------------------
+function Monster_WorldOrderMachine:changeMagicState()
+	self.m_magicState = self.m_magicState + 1
+
+	if (self.m_magicState > 3) then
+		self.m_magicState = 1
+	end
+end
+
+-------------------------------------
 -- function getMagicState
 -------------------------------------
 function Monster_WorldOrderMachine:getMagicState()
@@ -260,14 +236,4 @@ end
 -------------------------------------
 function Monster_WorldOrderMachine:getShakeFactor()
 	return MAGIC_STATE_SHAKE_FACTOR[self.m_magicState]
-end
-
--------------------------------------
--- function release
--------------------------------------
-function Monster_WorldOrderMachine:release()
-	for i, ani in pairs(self.m_lAnimator) do
-		ani:release()
-	end
-    PARENT.release(self)
 end

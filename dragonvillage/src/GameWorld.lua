@@ -156,8 +156,8 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_gameTimeScale = GameTimeScale(self)
 
     if (self.m_gameMode == GAME_MODE_ADVENTURE) then
-        self.m_gameCamera:setRange({minY = -160, maxY = 160})
-
+        --self.m_gameCamera:setRange({minY = -160, maxY = 160})
+        
         self.m_gameState = GameState(self)
 
     elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
@@ -165,19 +165,18 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
         local dungeonMode = t_dungeon['dungeon_mode']
 
         if (dungeonMode == NEST_DUNGEON_DRAGON) then
-            self.m_gameCamera:setRange({minY = -160, maxY = 160})
+            --self.m_gameCamera:setRange({minY = -160, maxY = 160})
 
             self.m_gameState = GameState_NestDungeon_Dragon(self)
 
 		elseif (dungeonMode == NEST_DUNGEON_NIGHTMARE) then
-		    self.m_gameCamera:setRange({minY = -160, maxY = 160})
+		    --self.m_gameCamera:setRange({minY = -160, maxY = 160})
 
 			self.m_gameState = GameState_NestDungeon_Nightmare(self)
 
         elseif (dungeonMode == NEST_DUNGEON_TREE) then
             self.m_gameCamera:setRange({minX = -640, maxX = 640})
-            --self.m_gameCamera:setRange({minX = -480, maxX = 480})
-
+            
             self.m_gameState = GameState_NestDungeon_Tree(self)
 
 		else

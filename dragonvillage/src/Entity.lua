@@ -317,3 +317,25 @@ function Entity:blockMatchingSlotShader(str)
         end
     end
 end
+
+-------------------------------------
+-- function blockMatchingSlotShader
+-- @brief 특정 네이밍 패턴을 가지는 슬롯들의 쉐이더를 설정
+-------------------------------------
+function Entity:setMatchingSlotShader(str, shaderKey)
+    if (not self.m_animator or not isInstanceOf(self.m_animator, AnimatorSpine)) then
+        return
+    end
+
+    if (not shaderKey) then
+        return
+    end
+     
+    local slotList = self.m_animator:getSlotList()
+
+    for i, slotName in ipairs(slotList) do
+        if startsWith(slotName, str) then
+            self.m_animator.m_node:setSlotGLProgramName(slotName, shaderKey)
+        end
+    end
+end
