@@ -24,7 +24,7 @@ function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolu
 
 	-- 2-1. 공방체 스탯만 레벨에 따라 증가시키고 나머지는 고정값이다. 
 	if isExistValue(status_name, 'atk', 'def', 'hp') then 
-		lv_stat = (max_lv_value / 60) * lv
+		lv_stat = (max_lv_value / 70) * lv
 	else
 		lv_stat = t_char[status_name]
 	end
