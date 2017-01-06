@@ -8,6 +8,8 @@ LobbyTamer = class(PARENT, {
         m_attackTarget = '',
         m_dragon = '',
         m_ui = '',
+        m_idleTimer = 'number', -- 5초동안 정지 상태일 때 'pose_1'을 재생
+        m_idleMotionCnt = 'number',
      })
 
 LobbyTamer.MOVE_ACTION = 100
@@ -17,6 +19,7 @@ LobbyTamer.MOVE_ACTION = 100
 -------------------------------------
 function LobbyTamer:init(user_data)
     self.m_userData = user_data
+    self.m_idleTimer = 0
 end
 
 -------------------------------------
@@ -52,6 +55,43 @@ end
 -- function st_idle
 -------------------------------------
 function LobbyTamer.st_idle(self, dt)
+    if (self.m_stateTimer == 0) then
+        self.m_idleTimer = self:getRandomIdleTime()
+        self.m_idleMotionCnt = 0
+    end
+
+    if (self.m_idleTimer ~= nil) then
+        self.m_idleTimer = (self.m_idleTimer - dt)
+        if (self.m_idleTimer <= 0) then
+            self.m_idleTimer = nil
+
+            -- idle 중 모션을 몇 번 했는지 체크
+            self.m_idleMotionCnt = (self.m_idleMotionCnt + 1)
+
+            if (self.m_idleMotionCnt % 3 == 0) then
+                local sum_random = SumRandom()
+                sum_random:addItem(1, 'random_1')
+                sum_random:addItem(1, 'random_2')
+                sum_random:addItem(1, 'random_3')
+                local ani_name = sum_random:getRandomValue()
+                self.m_animator:changeAni(ani_name, false)
+            else
+                self.m_animator:changeAni('pose_1', false)
+            end
+            self.m_animator:addAniHandler(function()
+                self.m_animator:changeAni('idle', true)
+                self.m_idleTimer = self:getRandomIdleTime()
+            end)
+        end
+    end
+end
+
+-------------------------------------
+-- function getRandomIdleTime
+-------------------------------------
+function LobbyTamer:getRandomIdleTime()
+    local time = math_random(40, 60) / 10
+    return time
 end
 
 -------------------------------------

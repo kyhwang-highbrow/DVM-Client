@@ -34,6 +34,8 @@ function LobbyTamerBot.st_idle(self, dt)
         local x, y = self:getRandomPos()
         self:setMove(x, y, 400)
     end
+
+    LobbyTamer.st_idle(self, dt)
 end
 
 -------------------------------------
