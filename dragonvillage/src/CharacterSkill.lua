@@ -193,6 +193,14 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
             SkillLaser:makeSkillInstance(self, t_skill, t_data) 
             return true
 
+        elseif (type == 'skill_laser_lightning') then
+            SkillLaser_Lightning:makeSkillInstance(self, t_skill, t_data) 
+            return true
+
+        elseif (type == 'skill_lightning') then
+            SkillChainLightning:makeSkillInstance(self, t_skill, t_data) 
+            return true
+
 		elseif (type == 'skill_dispel_harm') then
             SkillDispelMagic:makeSkillInstance(self, t_skill, t_data)
             return true
