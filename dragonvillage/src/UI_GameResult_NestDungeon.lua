@@ -63,7 +63,7 @@ function UI_GameResult_NestDungeon:makeRewardItem(i, v)
 
     -- 등록된 보너스 아이템이 없을 경우 리턴
     local l_bonus_value = seperate(self.m_nestDungeonInfo['bonus_value'], ',')
-    if (#l_bonus_value <= 0) then
+    if (not l_bonus_value) or (#l_bonus_value <= 0) then
         return item_card
     end
 
