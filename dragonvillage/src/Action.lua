@@ -78,19 +78,19 @@ end
 -------------------------------------
 -- function getRipple3D
 -------------------------------------
-function cca.getRipple3D(type, duration)
-    local type = type or 1
+function cca.getRipple3D(strength, duration)
+    local strength = tonumber(strength) or 1
 	local length, wave, amp
 
-	if (type == 1) then 
+	if (strength == 1) then 
 		length, wave, amp = 128, 16, 128
-	elseif (type == 2) then 
+	elseif (strength == 2) then 
 		length, wave, amp = 128, 8, 64
-	elseif (type == 3) then 
+	elseif (strength == 3) then 
 		length, wave, amp = 64, 16, 128
-	elseif (type == 4) then 
+	elseif (strength == 4) then 
 		length, wave, amp = 16, 8, 64
-	elseif (type == 5) then 
+	elseif (strength == 5) then 
 		length, wave, amp = 16, 4, 128
 	end
 
@@ -103,7 +103,7 @@ end
 -- @strength 클수록 자글자글해진다
 -------------------------------------
 function cca.getShaky3D(strength, duration)
-	local strength = strength or 3
+	local strength = tonumber(strength) or 3
 	local length, range
 	
 	if (strength == 1) then

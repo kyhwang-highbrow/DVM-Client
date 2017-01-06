@@ -62,8 +62,8 @@ end
 -- function setDirecting
 -- @breif 배경 백판 연출 설정
 -------------------------------------
-function ScrollMap:setDirecting(type)
-    self.m_bgDirectingType = type
+function ScrollMap:setDirecting(directing_type)
+    self.m_bgDirectingType = directing_type
 
     local time = getInGameConstant(MAP_FLOATING_TIME) / 4
     local yScope = getInGameConstant(MAP_FLOATING_Y_SCOPE)
@@ -97,52 +97,65 @@ function ScrollMap:setDirecting(type)
         
         sequence = cc.Spawn:create(move_action, rotate_action)
 
-	elseif (self.m_bgDirectingType == 'nightmare') then 
-		-- shaky3d + tintto + gray shader 
-		-- 저사양 모드에선 gray shader 만 사용
-		local duration = 0.001
-		if (not isLowEndMode()) then 
-			sequence = cc.Sequence:create(
-				cca.getShaky3D(self.m_shakyType, duration),
-				cc.DelayTime:create(duration*100)
-			)
-		end
+	elseif (string.find(self.m_bgDirectingType, 'nightmare')) then 
+		local effect_type = string.match(self.m_bgDirectingType, '%d')
+		local is_low_mode = isLowEndMode()
+		if (string.find(self.m_bgDirectingType, 'shaky')) then 
+			-- shaky3d + tintto + gray shader 
+			-- 저사양 모드에선 gray shader 만 사용
+			local duration = 0.001
+			if (not is_low_mode) then 
+				sequence = cc.Sequence:create(
+					cca.getShaky3D(effect_type, duration),
+					cc.DelayTime:create(duration*100)
+				)
+			end
 
-		-- 별도로 암전 효과 및 그레이스케일 적용
-		for _, map_layer in pairs(self.m_tMapLayer) do
-			for _, animator in pairs(map_layer.m_tAnimator) do
-				if (not isLowEndMode()) then 
-					animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
+			-- 별도로 암전 효과 및 그레이스케일 적용
+			for _, map_layer in pairs(self.m_tMapLayer) do
+				for _, animator in pairs(map_layer.m_tAnimator) do
+					if (not is_low_mode) then 
+						animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
+					end
+					animator.m_node:setCustomShader(6,0)
 				end
-				animator.m_node:setCustomShader(6,0)
+			end
+
+		elseif (string.find(self.m_bgDirectingType == 'ripple')) then 
+			-- ripple3d + tintto + gray shader 
+			-- 저사양 모드에선 gray shader 만 사용
+			local duration = 10
+			if (not is_low_mode) then 
+				sequence = cc.Sequence:create(
+					cca.getRipple3D(effect_type , duration)
+				)
+			end
+
+			-- 별도로 암전 효과 및 그레이스케일 적용
+			for _, map_layer in pairs(self.m_tMapLayer) do
+				for _, animator in pairs(map_layer.m_tAnimator) do
+					if (not is_low_mode) then 
+						animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
+					end
+					animator.m_node:setCustomShader(6,0)
+				end
 			end
 		end
-
-	elseif (self.m_bgDirectingType == 'nightmare2') then 
-		-- shaky3d + tintto + gray shader 
-		-- 저사양 모드에선 gray shader 만 사용
-		local duration = 10
-		if (not isLowEndMode()) then 
-			sequence = cc.Sequence:create(
-				cca.getRipple3D(self.m_shakyType - 5, duration)
-			)
-		end
-
-		-- 별도로 암전 효과 및 그레이스케일 적용
-		for _, map_layer in pairs(self.m_tMapLayer) do
-			for _, animator in pairs(map_layer.m_tAnimator) do
-				if (not isLowEndMode()) then 
-					animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
-				end
-				animator.m_node:setCustomShader(6,0)
-			end
-		end
-
-	elseif (type == 'burning') then
+	elseif (string.find(self.m_bgDirectingType, 'shaky')) then
+		local effect_type = tring.match(self.m_bgDirectingType, '%d')
+		cclog(effect_type, type(effect_type))
 		local duration = 0.001
 		sequence = cc.Sequence:create(
-			cca.getShaky3D(2, duration),
+			cca.getShaky3D(effect_type, duration),
 			cc.DelayTime:create(duration*100000)
+        )
+
+
+	elseif (string.find(self.m_bgDirectingType , 'ripple')) then
+		local effect_type = string.match(self.m_bgDirectingType, '%d')
+		local duration = 10
+		sequence = cc.Sequence:create(
+			cca.getRipple3D(effect_type, duration)
         )
 
     end

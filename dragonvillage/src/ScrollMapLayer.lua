@@ -192,25 +192,68 @@ ScrollMapLayer = class(IScrollMapLayer, {
     function ScrollMapLayer:setDirecting(type)
         local sequence
 	
-	    if (type == 'nightmare') then 
-		    local duration = 0.001
-		    sequence = cc.Sequence:create(
-			    cca.getShaky3D(3, duration),
-			    cc.DelayTime:create(duration*100000)
-            )
-		
-		    -- 별도로 암전 및 그레이스케일 효과 적용
-		    for _, animator in pairs(self.m_tAnimator) do
-			    animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
-			    animator.m_node:setCustomShader(6,0)
-		    end
-	    elseif (type == 'burning') then
-		    local duration = 0.001
-		    sequence = cc.Sequence:create(
-			    cca.getShaky3D(2, duration),
-			    cc.DelayTime:create(duration*100000)
-            )
-        end
+		if (string.find(type, 'nightmare')) then 
+			local effect_type = string.match(type, '%d')
+			local is_low_mode = isLowEndMode()
+			if (string.find(type, 'shaky')) then 
+				-- shaky3d + tintto + gray shader 
+				-- 저사양 모드에선 gray shader 만 사용
+				local duration = 0.001
+				if (not is_low_mode) then 
+					sequence = cc.Sequence:create(
+						cca.getShaky3D(effect_type, duration),
+						cc.DelayTime:create(duration*100)
+					)
+				end
+
+				-- 별도로 암전 효과 및 그레이스케일 적용
+				for _, map_layer in pairs(self.m_tMapLayer) do
+					for _, animator in pairs(map_layer.m_tAnimator) do
+						if (not is_low_mode) then 
+							animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
+						end
+						animator.m_node:setCustomShader(6,0)
+					end
+				end
+
+			elseif (string.find(type == 'ripple')) then 
+				-- ripple3d + tintto + gray shader 
+				-- 저사양 모드에선 gray shader 만 사용
+				local duration = 10
+				if (not is_low_mode) then 
+					sequence = cc.Sequence:create(
+						cca.getRipple3D(effect_type , duration)
+					)
+				end
+
+				-- 별도로 암전 효과 및 그레이스케일 적용
+				for _, map_layer in pairs(self.m_tMapLayer) do
+					for _, animator in pairs(map_layer.m_tAnimator) do
+						if (not is_low_mode) then 
+							animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
+						end
+						animator.m_node:setCustomShader(6,0)
+					end
+				end
+			end
+
+		elseif (string.find(type,'shaky')) then
+			local effect_type = string.match(type, '%d')
+			local duration = 0.001
+			sequence = cc.Sequence:create(
+				cca.getShaky3D(effect_type, duration),
+				cc.DelayTime:create(duration*100000)
+			)
+
+		elseif (string.find(type,'ripple')) then
+			local effect_type = string.match(type, '%d')
+			local duration = 10
+			sequence = cc.Sequence:create(
+				cca.getRipple3D(effect_type, duration),
+				cc.DelayTime:create(duration)
+			)
+
+		end
 
         if sequence then
             self.m_rootNode:runAction(cc.RepeatForever:create(sequence))
