@@ -10,6 +10,8 @@ UI_GameDebug = class(UI,{
         m_height = 'number',    -- UI 높이
 
 		m_world = 'GameWorld',
+
+		m_directStrength = 'num', -- 배경 이펙트 에서 사용
     })
 
 -------------------------------------
@@ -33,6 +35,7 @@ function UI_GameDebug:init()
 
     -- 변수 초기화
     self.vars = {}
+	self.m_directStrength = 0 
 
     do -- UI아래쪽은 터치되지 않도록 임의 버튼 생성
         local node = cc.MenuItemImage:create(EMPTY_PNG, nil, nil, 1)
@@ -311,7 +314,7 @@ function UI_GameDebug:makeTableView()
         local item = {}
         item['cb1'] = UI_GameDebug.nigthmareBgButton
         item['cb2'] = UI_GameDebug.nigthmareBgButton
-		item['str'] = '악몽던전 배경효과 : ' .. g_gameScene.m_gameWorld.m_mapManager.m_shakyType
+		item['str'] = '악몽던전 배경효과 : ' .. self.m_directStrength
 
         table.insert(item_info, item)
     end
@@ -389,22 +392,22 @@ function UI_GameDebug.nigthmareBgButton(self, item, idx)
         add_value = -1
     end
 
-    local type = g_gameScene.m_gameWorld.m_mapManager.m_shakyType + add_value
+    local strength = self.m_directStrength + add_value
 
-	if (type > 10) then
-		type = 1
-	elseif (type < 1) then
-		type = 10
+	if (strength > 20) then
+		strength = 1
+	elseif (strength < 1) then
+		strength = 20
 	end
-	g_gameScene.m_gameWorld.m_mapManager.m_shakyType = type
+	self.m_directStrength = strength
+
+	local l_direction = {'shaky', 'ripple', 'nightmare_shaky', 'nightmare_ripple'}
+	local direct_type = math_ceil(strength / 5)
+	local direct_stregth = (strength - ((direct_type - 1) * 5))
+
 	g_gameScene.m_gameWorld.m_mapManager.m_node:stopAllActions()
-	if (type > 5) then 
-	    g_gameScene.m_gameWorld.m_mapManager:setDirecting('nightmare2')
-	else
-		g_gameScene.m_gameWorld.m_mapManager:setDirecting('nightmare')
-	end
-
-    item['label']:setString('악몽던전 배경효과 : ' .. type)
+	g_gameScene.m_gameWorld.m_mapManager:setDirecting(l_direction[direct_type] .. direct_stregth)
+    item['label']:setString('악몽던전 배경효과 : ' .. strength)
 end
 
 -------------------------------------

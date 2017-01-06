@@ -16,7 +16,6 @@ ScrollMap = class(MapManager, IEventListener:getCloneTable(), {
         m_colorScale = '',
 
         m_bgDirectingType = 'number',
-		m_shakyType = 'number'
     })
 
 -------------------------------------
@@ -36,7 +35,6 @@ function ScrollMap:init(node)
     self.m_colorScale = 100
 
     self.m_bgDirectingType = 'floating_1'
-	self.m_shakyType = 10
 end
 
 -------------------------------------
@@ -121,7 +119,7 @@ function ScrollMap:setDirecting(directing_type)
 				end
 			end
 
-		elseif (string.find(self.m_bgDirectingType == 'ripple')) then 
+		elseif (string.find(self.m_bgDirectingType, 'ripple')) then 
 			-- ripple3d + tintto + gray shader 
 			-- 저사양 모드에선 gray shader 만 사용
 			local duration = 10
@@ -142,8 +140,7 @@ function ScrollMap:setDirecting(directing_type)
 			end
 		end
 	elseif (string.find(self.m_bgDirectingType, 'shaky')) then
-		local effect_type = tring.match(self.m_bgDirectingType, '%d')
-		cclog(effect_type, type(effect_type))
+		local effect_type = string.match(self.m_bgDirectingType, '%d')
 		local duration = 0.001
 		sequence = cc.Sequence:create(
 			cca.getShaky3D(effect_type, duration),
@@ -163,7 +160,7 @@ function ScrollMap:setDirecting(directing_type)
     if sequence then
         self.m_node:runAction(cc.RepeatForever:create(sequence))
 	else
-		cclog('잘못된 배경 연출 타입입니다. ' .. type)
+		cclog('잘못된 배경 연출 타입입니다. ' .. self.m_bgDirectingType)
     end
 end
 
