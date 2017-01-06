@@ -387,9 +387,9 @@ void SkeletonRenderer::setSlotsToSetupPose () {
 	spSkeleton_setSlotsToSetupPose(_skeleton);
 }
 
-const char* SkeletonRenderer::getSlotGLProgramName(const std::string& glProgramName) const
+const char* SkeletonRenderer::getSlotGLProgramName(const std::string& slotName) const
 {
-    auto it = m_mapGLProgramName.find(glProgramName);
+    auto it = m_mapGLProgramName.find(slotName);
     if (it != m_mapGLProgramName.end())
         return it->second.c_str();
     return nullptr;
@@ -397,6 +397,7 @@ const char* SkeletonRenderer::getSlotGLProgramName(const std::string& glProgramN
 
 void SkeletonRenderer::setSlotGLProgramName(const std::string& slotName, const std::string& glProgramName)
 {
+    m_mapGLProgramName.erase(slotName);
     m_mapGLProgramName.insert(std::make_pair(slotName, glProgramName));
 }
 

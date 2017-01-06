@@ -79,7 +79,7 @@ public:
 	void setSlotsToSetupPose ();
 
     /* For slot-specific shader application */
-    const char* getSlotGLProgramName(const std::string& glProgramName) const;
+    const char* getSlotGLProgramName(const std::string& slotName) const;
     void setSlotGLProgramName(const std::string& slotName, const std::string& glProgramName);
     std::string getSlotNameListLuaTable();
 
