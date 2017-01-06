@@ -52,6 +52,17 @@ function IEventDispatcher:dispatch(event_name, ...)
 end
 
 -------------------------------------
+-- function release_EventDispatcher
+-------------------------------------
+function IEventDispatcher:release_EventDispatcher()
+    for event_name, listeners in pairs(self.m_lEventListener) do
+        for i,listener in pairs(listeners) do
+            self:removeListener(event_name, listener)
+        end
+    end
+end
+
+-------------------------------------
 -- function getCloneTable
 -------------------------------------
 function IEventDispatcher:getCloneTable()
@@ -98,9 +109,9 @@ function IEventListener:onEvent(event_name, ...)
 end
 
 -------------------------------------
--- function release
+-- function release_EventListener
 -------------------------------------
-function IEventListener:release_listener()
+function IEventListener:release_EventListener()
     for event_name, dispatcher in pairs(self.m_lEventDispatcher) do
         dispatcher:removeListener(event_name, self)
     end
