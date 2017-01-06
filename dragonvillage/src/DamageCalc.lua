@@ -1,4 +1,4 @@
-local CONST_REDUNCTION_RATIO_P = 4
+local CONST_REDUNCTION_RATIO_P = 8
 
 -------------------------------------
 -- function DamageCalc_P
