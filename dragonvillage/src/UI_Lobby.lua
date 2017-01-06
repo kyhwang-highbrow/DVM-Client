@@ -149,13 +149,10 @@ function UI_Lobby:refresh()
     -- 유저 정보 갱신
     self:refresh_userInfo()
 
-    -- 로비 정보 갱신
-    if g_lobbyUserListData:checkNeedUpdate_LobbyUserList() then
-        self:refresh_lobbyUsers()
-    end
-
-    if (not self.m_lobbyUserFirstMake) then
-        self:refresh_lobbyUsers()
+    -- 로비 정보 갱신 (최초로 생성하거나 lobby_user_list정보의 업데이트가 필요한 경우)
+    if (not self.m_lobbyUserFirstMake) or (g_lobbyUserListData:checkNeedUpdate_LobbyUserList() == true) then
+        local cb_func = function() self:refresh_lobbyUsers() end
+        g_lobbyUserListData:requestLobbyUserList_UseUI(cb_func)
     end
 end
 

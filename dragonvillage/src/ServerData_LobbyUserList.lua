@@ -50,6 +50,37 @@ function ServerData_LobbyUserList:requestLobbyUserList(uid, success_cb, fail_cb)
 end
 
 -------------------------------------
+-- function requestLobbyUserList_UseUI
+-------------------------------------
+function ServerData_LobbyUserList:requestLobbyUserList_UseUI(cb_func)
+    if (self:checkNeedUpdate_LobbyUserList() == false) then
+        if cb_func then
+            cb_func()
+        end
+        return
+    end
+
+    local uid = g_userData:get('uid')
+
+    -- 성공 시 콜백
+    local function success_cb(ret)
+        self:applyLobbyUserInfo(ret['lobby_user_info'])
+        self.m_validateTime = ret['validate_time']
+
+        if cb_func then
+            cb_func()
+        end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/lobby_user_list')
+    ui_network:setParam('uid', uid)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
+end
+
+-------------------------------------
 -- function applyLobbyUserInfo
 -------------------------------------
 function ServerData_LobbyUserList:applyLobbyUserInfo(lobby_user_info)
