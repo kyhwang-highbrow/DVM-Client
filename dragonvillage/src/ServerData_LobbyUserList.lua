@@ -3,6 +3,8 @@
 -------------------------------------
 ServerData_LobbyUserList = class({
         m_serverData = 'ServerData',
+        m_lobbyLeaderDoid = 'doid',
+        m_validateTime = 'number', -- 로비 유저 정보의 유효시간(타임 스탬프)
     })
 
 -------------------------------------
@@ -35,7 +37,8 @@ function ServerData_LobbyUserList:requestLobbyUserList(uid, success_cb, fail_cb)
 
     -- 성공 시 콜백 함수
     t_request['success'] = function(ret)
-        self.m_serverData:applyServerData(ret['lobby_user_info'], 'lobby_user_list')
+        self:applyLobbyUserInfo(ret['lobby_user_info'])
+        self.m_validateTime = ret['validate_time']
         success_cb(ret)
     end
 
@@ -44,6 +47,22 @@ function ServerData_LobbyUserList:requestLobbyUserList(uid, success_cb, fail_cb)
 
     -- 네트워크 통신
     Network:SimpleRequest(t_request)
+end
+
+-------------------------------------
+-- function applyLobbyUserInfo
+-------------------------------------
+function ServerData_LobbyUserList:applyLobbyUserInfo(lobby_user_info)
+    self.m_serverData:applyServerData(lobby_user_info, 'lobby_user_list')
+
+    -- 플레이어의 리더(lobby)드래곤의 doid를 저장
+    local player_user_info = self:getLobbyUser_playerOnly()
+
+    if player_user_info['leader'] then
+        self.m_lobbyLeaderDoid = player_user_info['leader']['id']
+    else
+        self.m_lobbyLeaderDoid = nil
+    end
 end
 
 -------------------------------------
@@ -72,4 +91,41 @@ function ServerData_LobbyUserList:getLobbyUser_playerOnly()
      end
 
      return player_user_info
+end
+
+-------------------------------------
+-- function checkNeedUpdate_LobbyUserList
+-- @brief 로비 유저 리스트 정보를 갱신해야 하는지 확인하는 함수
+-------------------------------------
+function ServerData_LobbyUserList:checkNeedUpdate_LobbyUserList()
+    
+    do -- 0. 정보가 없는지 확인
+        local l_lobby_user_list = self.m_serverData:get('lobby_user_list')
+        if (not l_lobby_user_list) then
+            return true
+        end
+    end
+
+    do -- 1. 리더 드래곤 변경 확인
+        local doid = nil
+        local t_dragon_data = g_dragonsData:getLeaderDragon('lobby')
+        if t_dragon_data then
+            doid = t_dragon_data['id']
+        end
+
+        if (self.m_lobbyLeaderDoid ~= doid) then
+            return true
+        end
+    end
+
+    do -- 2. 데이터 유효시간 체크
+        -- 서버상의 시간을 얻어옴
+        local server_time = Timer:getServerTime()
+        local validate_time = (self.m_validateTime / 1000)
+        if (validate_time <= server_time) then
+            return true
+        end
+    end
+
+    return false
 end

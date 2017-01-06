@@ -14,6 +14,8 @@ LobbyCharacter = class(PARENT, {
         m_moveX = 'number',
         m_moveY = 'number',
         m_moveSpeed = 'number',
+
+        m_shadow = '',
      })
 
 LobbyCharacter.MOVE_ACTION = 100
@@ -207,6 +209,14 @@ function LobbyCharacter:release()
     end
     
     self.m_rootNode = nil
+
+    if self.m_shadow then
+        self.m_shadow:release()
+        self.m_shadow = nil
+    end
+
+    PARENT.release_EventDispatcher(self)
+    PARENT.release_EventListener(self)
 end
 
 -------------------------------------

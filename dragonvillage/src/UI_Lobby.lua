@@ -4,6 +4,8 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -- class UI_Lobby
 -------------------------------------
 UI_Lobby = class(PARENT,{
+        m_lobbyMap = '',
+        m_lobbyUserFirstMake = 'bool',
     })
 
 -------------------------------------
@@ -40,14 +42,13 @@ function UI_Lobby:init()
     self:initUI()
     self:initButton()
     self:refresh()
-
-    self:initCamera()
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
 function UI_Lobby:initUI()
+    self:initCamera()
 end
 
 -------------------------------------
@@ -56,6 +57,7 @@ end
 function UI_Lobby:initCamera()
     local vars = self.vars
     local lobby_map = LobbyMap(vars['cameraNode'])
+    self.m_lobbyMap = lobby_map
     lobby_map:setContainerSize(1280*3, 960)
     
     lobby_map:addLayer(self:makeLobbyLayer(4), 0.7)
@@ -66,19 +68,6 @@ function UI_Lobby:initCamera()
     lobby_map:addLayer_lobbyGround(lobby_ground, 1)
     lobby_map.m_groudNode = lobby_ground
 
-    -- 플레이어 유저의 Tamer만 생성하고 싶을 경우 true로 설정하세요.
-    local user_only = false
-
-    if user_only then
-        local user_info = g_lobbyUserListData:getLobbyUser_playerOnly()
-        lobby_map:makeLobbyTamerBot(user_info)
-    else
-        local l_lobby_user_list = g_lobbyUserListData:getLobbyUserList()
-        for i,user_info in ipairs(l_lobby_user_list) do
-            lobby_map:makeLobbyTamerBot(user_info)
-        end
-    end
-
     lobby_map:setMoveStartCB(function()
         self:doActionReverse()
         g_topUserInfo:doActionReverse()
@@ -88,6 +77,28 @@ function UI_Lobby:initCamera()
         self:doAction()
         g_topUserInfo:doAction()
     end)
+end
+
+-------------------------------------
+-- function refresh_lobbyUsers
+-------------------------------------
+function UI_Lobby:refresh_lobbyUsers()
+    self.m_lobbyMap:clearAllUser()
+
+    -- 플레이어 유저의 Tamer만 생성하고 싶을 경우 true로 설정하세요.
+    local user_only = false
+
+    if user_only then
+        local user_info = g_lobbyUserListData:getLobbyUser_playerOnly()
+        self.m_lobbyMap:makeLobbyTamerBot(user_info)
+    else
+        local l_lobby_user_list = g_lobbyUserListData:getLobbyUserList()
+        for i,user_info in ipairs(l_lobby_user_list) do
+            self.m_lobbyMap:makeLobbyTamerBot(user_info)
+        end
+    end
+
+    self.m_lobbyUserFirstMake = true
 end
 
 -------------------------------------
@@ -137,6 +148,15 @@ function UI_Lobby:refresh()
 
     -- 유저 정보 갱신
     self:refresh_userInfo()
+
+    -- 로비 정보 갱신
+    if g_lobbyUserListData:checkNeedUpdate_LobbyUserList() then
+        self:refresh_lobbyUsers()
+    end
+
+    if (not self.m_lobbyUserFirstMake) then
+        self:refresh_lobbyUsers()
+    end
 end
 
 -------------------------------------
@@ -231,7 +251,7 @@ function UI_Lobby:click_dragonManageBtn()
         local ui = UI_DragonManageInfo()
         local function close_cb()
             self:sceneFadeInAction()
-            self:refresh_userInfo()
+            self:refresh()
         end
         ui:setCloseCB(close_cb)
     end

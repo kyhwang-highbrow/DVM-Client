@@ -7,6 +7,7 @@ LobbyTamer = class(PARENT, {
         m_userData = '',
         m_attackTarget = '',
         m_dragon = '',
+        m_ui = '',
      })
 
 LobbyTamer.MOVE_ACTION = 100
@@ -128,4 +129,21 @@ end
 function LobbyTamer:setMove(x, y, speed)
     self.m_attackTarget = nil
     PARENT.setMove(self, x, y, speed)
+end
+
+-------------------------------------
+-- function release
+-------------------------------------
+function LobbyTamer:release()
+    if self.m_dragon then
+        self.m_dragon:release()
+        self.m_dragon = nil
+    end
+
+    if self.m_ui then
+        self.m_ui:release()
+        self.m_ui = nil
+    end
+
+    PARENT.release(self)
 end

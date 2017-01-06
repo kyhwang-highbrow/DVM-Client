@@ -57,3 +57,17 @@ function LobbyUserStatusUI:init_statusUI()
     label:setPosition(0, 180)
     self.m_rootNode:addChild(label)
 end
+
+-------------------------------------
+-- function release
+-------------------------------------
+function LobbyUserStatusUI:release()
+    if self.m_rootNode then
+        self.m_rootNode:removeFromParent(true)
+    end
+    
+    self.m_rootNode = nil
+
+    PARENT.release_EventDispatcher(self)
+    PARENT.release_EventListener(self)
+end

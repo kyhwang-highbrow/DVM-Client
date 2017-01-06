@@ -39,3 +39,17 @@ function LobbyShadow:onEvent(event_name, ...)
         self:dispatch('lobby_shadow_move', self, x, y)
     end
 end
+
+-------------------------------------
+-- function release
+-------------------------------------
+function LobbyShadow:release()
+    if self.m_rootNode then
+        self.m_rootNode:removeFromParent(true)
+    end
+    
+    self.m_rootNode = nil
+
+    PARENT.release_EventDispatcher(self)
+    PARENT.release_EventListener(self)
+end

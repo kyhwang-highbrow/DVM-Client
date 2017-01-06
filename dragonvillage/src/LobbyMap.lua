@@ -403,6 +403,7 @@ function LobbyMap:addLobbyTamer(tamer, is_bot, t_user_info)
     do -- 그림자 생성
         local lobby_shadow = LobbyShadow(1)
         self.m_groudNode:addChild(lobby_shadow.m_rootNode, self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_SHADOW))
+        tamer.m_shadow = lobby_shadow
 
         -- 그림자 이동 이벤트 등록
         lobby_shadow:addListener('lobby_shadow_move', self)
@@ -420,6 +421,8 @@ function LobbyMap:addLobbyTamer(tamer, is_bot, t_user_info)
 
         -- 테이머가 이동하면 UI도 함께 이동
         tamer:addListener('lobby_character_move', lobby_user_status_ui)
+
+        tamer.m_ui = lobby_user_status_ui
     end
 
     -- 유저 테이머에만 추가
@@ -466,6 +469,7 @@ function LobbyMap:addLobbyDragon(tamer, t_user_info, flip)
     do -- 그림자 생성
         local lobby_shadow = LobbyShadow(0.5)
         self.m_groudNode:addChild(lobby_shadow.m_rootNode, self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_SHADOW))
+        lobby_dragon.m_shadow = lobby_shadow
 
         -- 그림자 이동 이벤트 등록
         lobby_shadow:addListener('lobby_shadow_move', self)
@@ -623,6 +627,7 @@ function LobbyMap:tempItemBox()
     local lobby_shadow = LobbyShadow(1)
     self.m_groudNode:addChild(lobby_shadow.m_rootNode, self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_SHADOW))
     lobby_shadow.m_rootNode:setPosition(x, y)
+    item_box.m_shadow = lobby_shadow
    
    
    self.m_lItemBox = {} 
@@ -666,4 +671,32 @@ function LobbyMap:makeLobbyMapZorder(type, pos_y, unique_idx)
     z_order = (z_order + unique_idx)
 
     return z_order
+end
+
+-------------------------------------
+-- function clearAllUser
+-------------------------------------
+function LobbyMap:clearAllUser()
+
+    for i,v in ipairs(self.m_lLobbyTamer) do
+        v:release()
+    end
+
+    self.m_targetTamer = nil
+
+    self.m_lLobbyTamer = {}
+    self.m_lLobbyTamerBotOnly = {}
+
+    self.m_touchTamer = nil
+
+    -- 유저 주변의 테이머 갱신을 위한 변수들
+    self.m_bUserPosDirty = true
+    self.m_lChangedPosTamers = {}
+    self.m_lNearUserList = {}
+
+    -- 드래곤 터치 이펙트 출력
+    self.m_dragonTouchIndicator.m_node:retain()
+    self.m_dragonTouchIndicator.m_node:removeFromParent()
+    self.m_rootNode:addChild(self.m_dragonTouchIndicator.m_node, 1)
+    self.m_dragonTouchIndicator.m_node:release()
 end
