@@ -63,6 +63,13 @@ IScrollMapLayer = class({
     function IScrollMapLayer:setDirecting(type)
     end
 
+    -------------------------------------
+    -- function resume
+    -------------------------------------
+    function IScrollMapLayer:resume()
+        self.m_animator.m_node:resume()
+    end
+
 
 -------------------------------------
 -- class ScrollMapLayer
@@ -269,6 +276,7 @@ ScrollMapLayerFixed = class(IScrollMapLayer, {
     m_cameraAppRateX = 'number', -- 카메라 적용 배율
     m_cameraAppRateY = 'number',
     m_cameraAppRateScale = 'number',
+    m_bPause = 'boolean'
 })
 
     -------------------------------------
@@ -278,10 +286,9 @@ ScrollMapLayerFixed = class(IScrollMapLayer, {
         self.m_cameraAppRateX = tParam['camera_app_rate_x'] or 1
         self.m_cameraAppRateY = tParam['camera_app_rate_y'] or 1
         self.m_cameraAppRateScale = tParam['camera_app_rate_scale'] or 1
+        self.m_bPause = tParam['is_pause'] or false
 
         local is_flip = tParam['is_flip'] or false
-        local is_pause = tParam['is_pause'] or false
-
         self.m_animator:setFlip(is_flip)
 
         if (is_pause) then
@@ -315,4 +322,17 @@ ScrollMapLayerFixed = class(IScrollMapLayer, {
         else
             
         end
+
+        if self.m_bPause then
+            self.m_animator.m_node:pause()
+        end
+    end
+
+    -------------------------------------
+    -- function resume
+    -------------------------------------
+    function ScrollMapLayerFixed:resume()
+        IScrollMapLayer.resume(self)
+
+        self.m_bPause = false
     end
