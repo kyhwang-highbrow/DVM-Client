@@ -2246,7 +2246,7 @@
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 224;
-			height = 90;
+			height = 80;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -2255,8 +2255,8 @@
 			visible = true;
 			lua_name = 'nextBtn';
 			enable = true;
-			normal = 'ui/btn/base_0201.png';
-			selected = 'ui/btn/base_0202.png';
+			normal = 'ui/btn/btn_0401.png';
+			selected = 'ui/btn/btn_0402.png';
 			disable = '';
 			image_type = 1;
 		};
@@ -2336,7 +2336,7 @@
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 224;
-			height = 90;
+			height = 80;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -2345,8 +2345,8 @@
 			visible = true;
 			lua_name = 'againBtn';
 			enable = true;
-			normal = 'ui/btn/base_0201.png';
-			selected = 'ui/btn/base_0202.png';
+			normal = 'ui/btn/btn_0401.png';
+			selected = 'ui/btn/btn_0402.png';
 			disable = '';
 			image_type = 1;
 		};
@@ -2426,7 +2426,7 @@
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 224;
-			height = 90;
+			height = 80;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -2435,8 +2435,8 @@
 			visible = true;
 			lua_name = 'homeBtn';
 			enable = true;
-			normal = 'ui/btn/base_0201.png';
-			selected = 'ui/btn/base_0202.png';
+			normal = 'ui/btn/btn_0401.png';
+			selected = 'ui/btn/btn_0402.png';
 			disable = '';
 			image_type = 1;
 		};

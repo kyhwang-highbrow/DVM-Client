@@ -10,9 +10,9 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 5.000000;
-				y = 11.000000;
-				dock_point = { 0.500000; 0.000000; };
-				anchor_point = { 0.500000; 0.000000; };
+				y = 2.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 162;
 				height = 61;
@@ -50,7 +50,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = -66.000000;
-				y = 7.000000;
+				y = 2.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -72,7 +72,7 @@
 			anchor_point = { 0.500000; 0.000000; };
 			relative_size_type = 0;
 			width = 226;
-			height = 74;
+			height = 80;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -81,8 +81,8 @@
 			visible = true;
 			lua_name = 'mainBtn';
 			enable = true;
-			normal = 'ui/btn/base_0101.png';
-			selected = 'ui/btn/base_0102.png';
+			normal = 'ui/btn/btn_0101.png';
+			selected = 'ui/btn/btn_0102.png';
 			disable = 'ui/btn/base_0105.png';
 			image_type = 1;
 		};

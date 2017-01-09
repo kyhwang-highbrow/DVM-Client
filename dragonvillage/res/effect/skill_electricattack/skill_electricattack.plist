@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>skill_electricattck_effect_01.png</key>
+            <key>skill_electricattack_effect_01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{232,234}}</string>
@@ -17,7 +17,7 @@
                 <key>sourceSize</key>
                 <string>{300,300}</string>
             </dict>
-            <key>skill_electricattck_effect_05.png</key>
+            <key>skill_electricattack_effect_05.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{190,460},{124,128}}</string>
@@ -30,7 +30,7 @@
                 <key>sourceSize</key>
                 <string>{128,128}</string>
             </dict>
-            <key>skill_electricattck_light_01.png</key>
+            <key>skill_electricattack_light_01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{464,152},{46,92}}</string>
@@ -43,7 +43,7 @@
                 <key>sourceSize</key>
                 <string>{70,164}</string>
             </dict>
-            <key>skill_electricattck_light_01_02.png</key>
+            <key>skill_electricattack_light_01_02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,380},{590,186}}</string>
@@ -56,7 +56,7 @@
                 <key>sourceSize</key>
                 <string>{590,186}</string>
             </dict>
-            <key>skill_electricattck_light_effect_01_1.png</key>
+            <key>skill_electricattack_light_effect_01_1.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{238,152},{224,148}}</string>
@@ -69,7 +69,7 @@
                 <key>sourceSize</key>
                 <string>{400,400}</string>
             </dict>
-            <key>skill_electricattck_light_effect_01_2.png</key>
+            <key>skill_electricattack_light_effect_01_2.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{238,2},{228,148}}</string>
@@ -82,7 +82,7 @@
                 <key>sourceSize</key>
                 <string>{400,400}</string>
             </dict>
-            <key>skill_electricattck_light_effect_01_3.png</key>
+            <key>skill_electricattack_light_effect_01_3.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,236},{224,142}}</string>
@@ -95,7 +95,7 @@
                 <key>sourceSize</key>
                 <string>{400,400}</string>
             </dict>
-            <key>skill_electricattck_light_effect_01_4.png</key>
+            <key>skill_electricattack_light_effect_01_4.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{228,302},{222,156}}</string>
@@ -114,13 +114,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>skill_electricattck.png</string>
+            <string>skill_electricattack.png</string>
             <key>size</key>
             <string>{512,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:e5ebbe78b4edb43c0191bb1ce0fb6ab5$</string>
+            <string>$TexturePacker:SmartUpdate:21f4a34a0442a86102047128b6baeca9$</string>
             <key>textureFileName</key>
-            <string>skill_electricattck.png</string>
+            <string>skill_electricattack.png</string>
         </dict>
     </dict>
 </plist>

@@ -500,8 +500,8 @@
 			visible = true;
 			lua_name = 'sortOrderBtn';
 			enable = true;
-			normal = 'ui/btn/sub_0101.png';
-			selected = 'ui/btn/sub_0102.png';
+			normal = 'ui/btn/sub_btn_0101.png';
+			selected = 'ui/btn/sub_btn_0102.png';
 			disable = '';
 			image_type = 1;
 		};
@@ -1282,8 +1282,8 @@
 			visible = true;
 			lua_name = 'sortBtn';
 			enable = true;
-			normal = 'ui/btn/sub_0101.png';
-			selected = 'ui/btn/sub_0102.png';
+			normal = 'ui/btn/sub_btn_0101.png';
+			selected = 'ui/btn/sub_btn_0102.png';
 			disable = '';
 			image_type = 1;
 		};
@@ -1346,8 +1346,8 @@
 			visible = true;
 			lua_name = 'manageBtn';
 			enable = true;
-			normal = 'ui/btn/sub_0101.png';
-			selected = 'ui/btn/sub_0102.png';
+			normal = 'ui/btn/sub_btn_0101.png';
+			selected = 'ui/btn/sub_btn_0102.png';
 			disable = '';
 			image_type = 1;
 		};
@@ -1401,7 +1401,7 @@
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 124;
-			height = 66;
+			height = 72;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -1410,8 +1410,8 @@
 			visible = true;
 			lua_name = 'autoBtn';
 			enable = true;
-			normal = 'ui/btn/base_0103.png';
-			selected = 'ui/btn/base_0104.png';
+			normal = 'ui/btn/btn_0201.png';
+			selected = 'ui/btn/btn_0202.png';
 			disable = '';
 			image_type = 1;
 		};
@@ -1571,7 +1571,7 @@
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 364;
-			height = 66;
+			height = 72;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -1580,8 +1580,8 @@
 			visible = true;
 			lua_name = 'startBtn';
 			enable = true;
-			normal = 'ui/btn/base_0101.png';
-			selected = 'ui/btn/base_0102.png';
+			normal = 'ui/btn/btn_0101.png';
+			selected = 'ui/btn/btn_0102.png';
 			disable = '';
 			image_type = 1;
 		};

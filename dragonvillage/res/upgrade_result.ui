@@ -249,7 +249,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 5.000000;
+				y = 2.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -277,9 +277,9 @@
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 54; 118; 120; };
+				stroke_color = { 85; 67; 51; };
 				has_shadow = true;
-				shadow_color = { 0; 0; 0; };
+				shadow_color = { 85; 67; 51; };
 				shadow_opacity = 100;
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
@@ -292,7 +292,7 @@
 			anchor_point = { 1.000000; 0.000000; };
 			relative_size_type = 0;
 			width = 140;
-			height = 90;
+			height = 80;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -301,8 +301,8 @@
 			visible = true;
 			lua_name = 'okBtn';
 			enable = true;
-			normal = 'ui/btn/base_0201.png';
-			selected = 'ui/btn/base_0202.png';
+			normal = 'ui/btn/btn_0401.png';
+			selected = 'ui/btn/btn_0402.png';
 			disable = '';
 			image_type = 1;
 		};
@@ -339,9 +339,9 @@
 			stroke_detail_level = 0;
 			is_sharp_text = true;
 			stroke_tickness = 2.000000;
-			stroke_color = { 0; 0; 0; };
+			stroke_color = { 85; 67; 51; };
 			has_shadow = true;
-			shadow_color = { 0; 0; 0; };
+			shadow_color = { 85; 67; 51; };
 			shadow_opacity = 255;
 			shadow_direction = 0;
 			shadow_distance = 3.000000;

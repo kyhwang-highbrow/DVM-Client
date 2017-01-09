@@ -229,8 +229,8 @@
 				visible = true;
 				lua_name = 'infoBtn';
 				enable = true;
-				normal = 'ui/btn/sub_0101.png';
-				selected = 'ui/btn/sub_0102.png';
+				normal = 'ui/btn/sub_btn_0101.png';
+				selected = 'ui/btn/sub_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -293,8 +293,8 @@
 				visible = true;
 				lua_name = 'requestBtn';
 				enable = true;
-				normal = 'ui/btn/sub_0103.png';
-				selected = 'ui/btn/sub_0104.png';
+				normal = 'ui/btn/sub_btn_0101.png';
+				selected = 'ui/btn/sub_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};

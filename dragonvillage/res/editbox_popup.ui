@@ -92,8 +92,8 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 500;
-			height = 400;
+			width = 569;
+			height = 463;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -101,7 +101,7 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'ui/frame/popup_frame_01.png';
+			file_name = 'ui/frame/frame_auto_start_set.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			center_rect_x = 0;
@@ -159,7 +159,7 @@
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 190;
-			height = 90;
+			height = 80;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -168,8 +168,8 @@
 			visible = true;
 			lua_name = 'okBtn';
 			enable = true;
-			normal = 'ui/btn/base_0201.png';
-			selected = 'ui/btn/base_0202.png';
+			normal = 'ui/btn/btn_0101.png';
+			selected = 'ui/btn/btn_0102.png';
 			disable = '';
 			image_type = 1;
 		};
@@ -204,9 +204,9 @@
 			placeholder_font_name = 'font/common_font_01.ttf';
 			placeholder_font_size = 24;
 			placeholder_font_color = { 255; 255; 255; };
-			normal_bg = 'ui/frame/list_frame_01.png';
-			pressed_bg = 'ui/frame/list_frame_02.png';
-			disabled_bg = 'ui/frame/list_frame_02.png';
+			normal_bg = 'ui/btn/base_0401.png';
+			pressed_bg = 'ui/btn/base_0401.png';
+			disabled_bg = 'ui/btn/base_0401.png';
 		};
 		type = 'Menu';
 		ui_name = '';

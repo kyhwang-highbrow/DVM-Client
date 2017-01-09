@@ -488,7 +488,7 @@
 					visible = true;
 					lua_name = 'titleLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 40;
+					font_size = 38;
 					text = 'TITLE';
 					h_alignment = 0;
 					v_alignment = 1;

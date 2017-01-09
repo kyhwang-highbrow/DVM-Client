@@ -1471,7 +1471,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 236;
-				height = 54;
+				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1480,8 +1480,8 @@
 				visible = true;
 				lua_name = 'devStageBtn';
 				enable = true;
-				normal = 'ui/btn/sub_0101.png';
-				selected = 'ui/btn/sub_0102.png';
+				normal = 'ui/btn/btn_0401.png';
+				selected = 'ui/btn/btn_0402.png';
 				disable = '';
 				image_type = 1;
 			};
