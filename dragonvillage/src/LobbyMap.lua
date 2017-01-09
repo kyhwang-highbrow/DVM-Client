@@ -30,6 +30,8 @@ LobbyMap = class(PARENT, {
 
         m_touchTamer = '',
         m_dragonTouchIndicator = '',
+
+        m_lLobbyObject = '',
     })
 
 LobbyMap.Z_ORDER_TYPE_SHADOW = 1
@@ -56,7 +58,7 @@ end
 -- function addLayer_lobbyGround
 -- @brief 터치 레이어 생성
 -------------------------------------
-function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_ratio_y)
+function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_ratio_y, ui_lobby)
     self:addLayer(node, perspective_ratio, perspective_ratio_y)
 
     self.m_lobbyIndicator = MakeAnimator('res/ui/a2d/lobby_indicator/lobby_indicator.vrp')
@@ -68,6 +70,15 @@ function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_rati
     self.m_dragonTouchIndicator:setVisible(false)
     self.m_dragonTouchIndicator:changeAni('idle_ally', true)
     node:addChild(self.m_dragonTouchIndicator.m_node, 1)
+
+    do -- 오브젝트 버튼
+        self.m_lLobbyObject = {}
+        table.insert(self.m_lLobbyObject, MakeLobbyObjectUI(node, ui_lobby, UI_LobbyObject.ADVENTURE))
+        table.insert(self.m_lLobbyObject, MakeLobbyObjectUI(node, ui_lobby, UI_LobbyObject.BOARD))
+        table.insert(self.m_lLobbyObject, MakeLobbyObjectUI(node, ui_lobby, UI_LobbyObject.DRAGON_MANAGE))
+        table.insert(self.m_lLobbyObject, MakeLobbyObjectUI(node, ui_lobby, UI_LobbyObject.SHIP))
+        table.insert(self.m_lLobbyObject, MakeLobbyObjectUI(node, ui_lobby, UI_LobbyObject.SHOP))
+    end
 end
 
 -------------------------------------
@@ -285,6 +296,8 @@ function LobbyMap:update(dt)
 
         self.m_targetTamer:setMove(node_pos['x'], node_pos['y'], 400)
         self.m_lobbyIndicator:setPosition(node_pos['x'], node_pos['y'])
+        g_lobbyUserListData.m_posX = node_pos['x']
+        g_lobbyUserListData.m_posY = node_pos['y']
     end
 
     local x, y = self.m_targetTamer.m_rootNode:getPosition()
@@ -302,6 +315,7 @@ function LobbyMap:update(dt)
         self:setPosition(x, y, true)
     end
 
+    self:updateLobbyObjectArea()
     self:updateUserTamerArea()
 end
 
@@ -385,7 +399,11 @@ function LobbyMap:makeLobbyTamerBot(t_user_info)
         end
     else
         self.m_targetTamer = tamer
-        tamer:setPosition(0, -150)
+        local x, y = 0, -150
+        if (g_lobbyUserListData.m_posX and g_lobbyUserListData.m_posY) then
+            x, y = g_lobbyUserListData.m_posX, g_lobbyUserListData.m_posY
+        end
+        tamer:setPosition(x, y)
         tamer:changeState('idle')
     end
 end
@@ -550,6 +568,34 @@ function LobbyMap:onEvent(event_name, ...)
     elseif (event_name == 'lobby_character_move_end') then
         self.m_lobbyIndicator:setVisible(false)
         
+    end
+end
+
+-------------------------------------
+-- function updateLobbyObjectArea
+-- @brief
+-------------------------------------
+function LobbyMap:updateLobbyObjectArea()
+    if (not self.m_bUserPosDirty) then
+        return
+    end
+
+    -- 유저 테이머의 위치
+    local user_x, user_y = self.m_targetTamer.m_rootNode:getPosition()
+
+    for i,v in ipairs(self.m_lLobbyObject) do
+        local x, y = v.root:getPosition()
+        local distance = math_abs(user_x - x)
+
+        if (distance <= 600) then
+            local min = 300
+            local max = 550
+            distance = math_clamp(distance, min, max)
+            local n = (distance - min)
+            local range = (max-min)
+            local opacity = 255 * ((range-n) / range)
+            v.vars['image']:setOpacity(opacity)
+        end
     end
 end
 

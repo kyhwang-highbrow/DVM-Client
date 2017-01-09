@@ -354,7 +354,8 @@ local t_module = {
     'UI_DragonTrainSlot_ListItem',
     'UI_CharacterCard',
     'UI_SkillDetailPopup',
-    'UI_DragonGoodbye',    
+    'UI_DragonGoodbye',   
+    'UI_LobbyObject', 
 
     'DamageCalc',
     'IconHelper',

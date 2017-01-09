@@ -65,7 +65,7 @@ function UI_Lobby:initCamera()
     lobby_map:addLayer(self:makeLobbyLayer(2), 0.9)
 
     local lobby_ground = self:makeLobbyLayer(1)
-    lobby_map:addLayer_lobbyGround(lobby_ground, 1)
+    lobby_map:addLayer_lobbyGround(lobby_ground, 1, 1, self)
     lobby_map.m_groudNode = lobby_ground
 
     lobby_map:setMoveStartCB(function()

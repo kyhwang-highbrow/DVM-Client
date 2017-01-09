@@ -5,6 +5,9 @@ ServerData_LobbyUserList = class({
         m_serverData = 'ServerData',
         m_lobbyLeaderDoid = 'doid',
         m_validateTime = 'number', -- 로비 유저 정보의 유효시간(타임 스탬프)
+
+        m_posX = '',
+        m_posY = '',
     })
 
 -------------------------------------

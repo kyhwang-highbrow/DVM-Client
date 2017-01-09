@@ -162,6 +162,7 @@ function UI_TopUserInfo:changeOwnerUI(ui)
     end
 
     self:refreshData()
+    self:doAction()
 end
 
 -------------------------------------
