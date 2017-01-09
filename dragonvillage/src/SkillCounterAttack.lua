@@ -27,16 +27,17 @@ end
 -------------------------------------
 function SkillCounterAttack:init_skill(invoke_skill_id, duration, animation_name, trigger_name, effect_res)
     PARENT.init_skill(self)
+
+	-- 멤버 변수
 	self.m_invokeSkillId = invoke_skill_id
 	self.m_duration = duration
-	
 	self.m_animationName = animation_name
 	self.m_effect = self:makeEffect(effect_res, self.m_owner.pos)
 	self.m_triggerName = trigger_name
 	self.m_attackCount = 0
 	
+	-- 스킬 캐스터 이벤트 처리
 	self.m_owner:addListener(self.m_triggerName, self)
-	
 	self.m_owner:changeState('delegate')
 end
 
@@ -163,13 +164,12 @@ end
 -- function makeSkillInstance
 -------------------------------------
 function SkillCounterAttack:makeSkillInstance(owner, t_skill, t_data)
-	
 	-- 변수 선언부
 	------------------------------------------------------
     local invoke_skill_id = t_skill['val_1']
 	local duration = t_skill['val_2']
+	local trigger_name = t_skill['val_3']
 	local animation_name = t_skill['animation']
-	local trigger_name = t_skill['chance_value']
 	local effect_res = t_skill['res_1']
 	
 	-- 인스턴스 생성부
