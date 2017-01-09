@@ -45,6 +45,7 @@ function UI_LobbyObject:init(type)
     self:positioning()
 
     --self:makeKeypad(self.root)
+    self.vars['labelNode']:setScale(0)
 end
 
 -------------------------------------
@@ -55,6 +56,20 @@ function UI_LobbyObject:positioning()
 
     local pos = t_object_pos[type]
     self.root:setPosition(pos['x'], pos['y'])
+end
+
+-------------------------------------
+-- function setActive
+-------------------------------------
+function UI_LobbyObject:setActive(active)
+    local action = nil
+    if active then
+        action = cc.EaseInOut:create(cc.ScaleTo:create(0.15, 1), 2)
+    else
+        action = cc.EaseInOut:create(cc.ScaleTo:create(0.15, 0), 2)
+    end
+
+    cca.runAction(self.vars['labelNode'], action, 100)
 end
 
 -------------------------------------

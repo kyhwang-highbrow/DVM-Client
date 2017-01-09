@@ -32,6 +32,7 @@ LobbyMap = class(PARENT, {
         m_dragonTouchIndicator = '',
 
         m_lLobbyObject = '',
+        m_lNearLobbyObjectList = 'list',
     })
 
 LobbyMap.Z_ORDER_TYPE_SHADOW = 1
@@ -52,6 +53,7 @@ function LobbyMap:init(parent, z_order)
     self.m_lChangedPosTamers = {}
     self.m_lNearUserList = {}
     self.m_lItemBox = {} 
+    self.m_lNearLobbyObjectList = {}
 end
 
 -------------------------------------
@@ -586,6 +588,19 @@ function LobbyMap:updateLobbyObjectArea()
     for i,v in ipairs(self.m_lLobbyObject) do
         local x, y = v.root:getPosition()
         local distance = math_abs(user_x - x)
+
+        if (distance <= 600) then
+            if (not self.m_lNearLobbyObjectList[v.m_type]) then
+                v:setActive(true)
+            end
+            self.m_lNearLobbyObjectList[v.m_type] = v
+        else
+            if (self.m_lNearLobbyObjectList[v.m_type]) then
+                v:setActive(false)
+            end
+            self.m_lNearLobbyObjectList[v.m_type] = nil
+        end
+        
 
         if (distance <= 600) then
             local min = 300

@@ -49,7 +49,7 @@ function UI_LobbyUserInfoPopup:initButton(t_user_info)
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn(t_user_info) end)
-    vars['requestBtn']:registerScriptTapHandler(function() end)
+    vars['requestBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('"친구 신청"은 준비 중입니다.')) end)
 end
 
 -------------------------------------
