@@ -78,7 +78,7 @@ end
 -------------------------------------
 function MakeLobbyObjectUI(parent, ui_lobby, type)
     local ui = UI_LobbyObject(type)
-    parent:addChild(ui.root)
+    parent:addChild(ui.root, 5)
 
     if (type == UI_LobbyObject.ADVENTURE) then
         ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_adventureBtn() end)

@@ -698,9 +698,9 @@ end
 function LobbyMap:makeLobbyMapZorder(type, pos_y, unique_idx)
     -- 그림자와 바닥 인디게이터는 즉시 리턴
     if (type == LobbyMap.Z_ORDER_TYPE_SHADOW) then
-        return 1
+        return 10
     elseif (type == LobbyMap.Z_ORDER_TYPE_INDICATOR) then
-        return 2
+        return 20
     end
 
     unique_idx = (unique_idx or math_random(0, 999))
