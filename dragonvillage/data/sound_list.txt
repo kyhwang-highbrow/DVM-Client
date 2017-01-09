@@ -33,6 +33,7 @@
 		"skill_serpentdragon":  {"res":"sound/skill_serpentdragon.mp3"}
 		"skill_crescentdragon": {"res":"sound/skill_crescentdragon.mp3"}
 		"skill_boomba":   		{"res":"sound/skill_boomba.mp3"}
+		"skill_lightningdragon":	{"res":"sound/skill_lightningdragon.mp3"}
 		
 		"skill_touch":   		{"res":"sound/skill_touch.mp3"}
 		"skill_ready":   		{"res":"sound/skill_ready.mp3"}

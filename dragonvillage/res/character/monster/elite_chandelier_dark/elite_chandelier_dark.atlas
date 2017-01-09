@@ -1,0 +1,13 @@
+
+elite_chandelier_dark.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_chandelier_dark
+  rotate: false
+  xy: 2, 2
+  size: 292, 365
+  orig: 292, 365
+  offset: 0, 0
+  index: -1

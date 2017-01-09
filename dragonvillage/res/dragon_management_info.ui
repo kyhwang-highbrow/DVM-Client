@@ -191,7 +191,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 30;
-					text = '장비';
+					text = '룬';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
@@ -226,7 +226,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'equipmentBtn';
+				lua_name = 'runeBtn';
 				enable = true;
 				normal = 'ui/btn/bookmark_0101.png';
 				selected = 'ui/btn/bookmark_0102.png';
@@ -2020,6 +2020,30 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'leftNode';
+			};
+			[9] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = -54.000000;
+				y = 188.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 80;
+				height = 80;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'equipmentBtn';
+				enable = true;
+				normal = 'ui/btn/info_0101.png';
+				selected = 'ui/btn/info_0102.png';
+				disable = '';
+				image_type = 0;
 			};
 			type = 'Menu';
 			ui_name = 'book';

@@ -1,0 +1,13 @@
+
+subboss_dullahan_dark.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+subboss_dullahan_dark_00
+  rotate: false
+  xy: 2, 2
+  size: 717, 766
+  orig: 717, 766
+  offset: 0, 0
+  index: -1
