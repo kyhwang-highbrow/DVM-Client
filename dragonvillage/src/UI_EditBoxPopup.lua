@@ -52,7 +52,7 @@ function UI_EditBoxPopup:initUI()
 
     local vars = self.vars
 
-    vars['editBox']:setMaxLength(8)
+    vars['editBox']:setMaxLength(9)
 
     -- began
     -- changed
