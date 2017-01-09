@@ -296,6 +296,9 @@ function Dragon.st_skillAttack2(owner, dt)
             elseif (type == 'serpentdragon') then
                 SoundMgr:playEffect('EFFECT', 'skill_serpentdragon')
 
+            elseif (type == 'lightningdragon') then
+                SoundMgr:playEffect('EFFECT', 'skill_lightningdragon')
+
             end
         end
 

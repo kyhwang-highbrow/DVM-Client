@@ -4,10 +4,14 @@ local PARENT = SkillLaser
 -- class SkillLaser_Lightning
 -------------------------------------
 SkillLaser_Lightning = class(PARENT, {
+		m_lightningRes = 'str',
         m_lightingDmgRate = 'num', 
 
 		m_tEffectList = 'EffectLink',
 		m_tTargetList = 'Monster',
+
+		m_collisionNum = 'num',
+		m_lightningCount = 'num',
      })
 
 -------------------------------------
@@ -21,11 +25,17 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillLaser_Lightning:init_skill(missile_res, hit, thickness, lighting_dmg)
+function SkillLaser_Lightning:init_skill(missile_res, hit, thickness, lightning_res, lighting_dmg)
 	PARENT.init_skill(self, missile_res, hit, thickness)
+
+	-- 멤버 변수 
+	self.m_lightningRes = lightning_res
 	self.m_lightingDmgRate = (lighting_dmg / 100)
 	self.m_tEffectList = {}
 	self.m_tTargetList = {}
+
+	self.m_collisionNum = 0
+	self.m_lightningCount = 0
 end
 
 -------------------------------------
@@ -42,7 +52,11 @@ end
 -- function st_idle
 -------------------------------------
 function SkillLaser_Lightning.st_idle(owner, dt)
-    
+	-- 0타임에 충돌 적 수 체크 -> 추가공격 횟수로 사용
+    if (owner.m_stateTimer == 0) then
+		owner.m_collisionNum = table.count(owner:findTarget())
+	end
+
     owner.m_multiHitTimer = owner.m_multiHitTimer + dt
     if (owner.m_multiHitTimer >= owner.m_multiHitTime) and
         (owner.m_clearCount < owner.m_maxClearCount) then
@@ -51,13 +65,19 @@ function SkillLaser_Lightning.st_idle(owner, dt)
         owner.m_multiHitTimer = owner.m_multiHitTimer - owner.m_multiHitTime
         owner.m_clearCount = owner.m_clearCount + 1
 
+		-- 번개고룡 power rate 공격시마다 갱신
 		owner.m_activityCarrier.m_skillCoefficient = owner.m_powerRate
 
         local t_collision_obj = owner:findTarget()
 		owner:collisionAttack(t_collision_obj)
 
-		owner.m_tTargetList = owner.m_world:getEnemyList()
-		owner:runAttack()
+		-- 번개고룡 궁극 뇌룡포 추가 공격, 공격 주기는 multiHitTime
+		if (owner.m_collisionNum > owner.m_lightningCount) then 
+			owner.m_tTargetList = owner.m_world:getEnemyList()
+			table.randomSort(owner.m_tTargetList)
+			owner:runAttack()
+			owner.m_lightningCount = owner.m_lightningCount + 1
+		end
     end
 
 	owner:updatePos()
@@ -91,7 +111,7 @@ end
 -- function makeEffect
 -------------------------------------
 function SkillLaser_Lightning:makeEffect(idx, res)
-    local file_name = 'res/missile/shot_thunder_light/shot_thunder_light.spine'
+    local file_name = self.m_lightningRes
     local start_ani = 'start_idle'
     local link_ani = 'bar_idle'
     local end_ani = 'end_idle'
@@ -144,6 +164,7 @@ function SkillLaser_Lightning:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
     local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+	local lightning_res = string.gsub(t_skill['res_2'], '@', owner:getAttribute())
 	local hit = t_skill['hit']
 	local thickness = t_skill['val_1']
 	local lighting_dmg = t_skill['val_2']
@@ -155,7 +176,7 @@ function SkillLaser_Lightning:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(missile_res, hit, thickness, lighting_dmg)
+    skill:init_skill(missile_res, hit, thickness, lightning_res, lighting_dmg)
 	skill:initState()
 
 	-- 3. state 시작 

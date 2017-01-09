@@ -58,7 +58,6 @@ function table.addList(t1, t2)
     end
 end
 
-
 function table.getLast(t)
 	return t[table.count(t)]
 end
@@ -71,6 +70,24 @@ function iterTwo(t, i)
     elseif v1 then
         return i, v1, v1
     end
+end
+
+-- 인덱스 테이블만 가능
+function table.randomSort(t)
+	local v1, v2 = nil, nil
+	local temp = nil
+	local max = #t
+
+	for i = 1, 100 do 
+		v1 = math_random(1, max)
+		v2 = math_random(1, max)
+		
+		temp = t[v1]
+		t[v1] = t[v2]
+		t[v2] = temp
+	end
+	
+	return t
 end
 
 -------------------------------------
