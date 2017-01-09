@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>lobby_sign_01.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{130,150}</string>
+                <key>spriteSourceSize</key>
+                <string>{130,150}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{130,150}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>lobby_sign.png</string>
+            <key>size</key>
+            <string>{132,152}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:98b050788e7ebd5a83f33c00df77b378:d1727f5dc527286a1ca0bb412e078a91:483ad7255fa4b2d95164e23efdbd27bb$</string>
+            <key>textureFileName</key>
+            <string>lobby_sign.png</string>
+        </dict>
+    </dict>
+</plist>
