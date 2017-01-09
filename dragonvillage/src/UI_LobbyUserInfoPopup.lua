@@ -22,7 +22,7 @@ function UI_LobbyUserInfoPopup:init(t_user_info)
     self:doAction(nil, false)
 
     self:initUI()
-    self:initButton()
+    self:initButton(t_user_info)
     self:refresh(t_user_info)
 end
 
@@ -45,9 +45,11 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_LobbyUserInfoPopup:initButton()
+function UI_LobbyUserInfoPopup:initButton(t_user_info)
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn(t_user_info) end)
+    vars['requestBtn']:registerScriptTapHandler(function() end)
 end
 
 -------------------------------------
@@ -71,6 +73,15 @@ function UI_LobbyUserInfoPopup:refresh(t_user_info)
         UI_SimpleDragonInfoPopup(t_dragon_data)
     end)
 
+end
+
+-------------------------------------
+-- function click_infoBtn
+-- @brief
+-------------------------------------
+function UI_LobbyUserInfoPopup:click_infoBtn(t_user_info)
+    local uid = t_user_info['uid']
+    RequestUserDeckInfoPopup(uid)
 end
 
 --@CHECK
