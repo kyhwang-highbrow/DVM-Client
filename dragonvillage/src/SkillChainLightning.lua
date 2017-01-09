@@ -45,6 +45,10 @@ function SkillChainLightning:init_skill(missile_res, target_count, add_damage)
     self.m_tTargetList = self:getTargetList(target_count)
     self.m_tEffectList = {}
 	self.m_addDmgRate = (add_damage/100)
+
+	-- 체인 라이트닝 기본 공격 처리
+	self.m_activityCarrier:setAttackType('basic')
+	self.m_bSkillHitEffect = false
 end
 
 -------------------------------------
@@ -136,9 +140,6 @@ function SkillChainLightning:makeEffect(idx, res)
 
     local link_effect = EffectLink(file_name, link_ani, start_ani, end_ani, 200, 200)
     link_effect.m_bRotateEndEffect = false
-	
-    link_effect.m_startPointNode:setScale(0.15)
-    link_effect.m_endPointNode:setScale(0.3)
 
     if (idx == 1) then
         link_effect.m_effectNode:addAniHandler(function()

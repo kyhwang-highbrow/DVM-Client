@@ -97,6 +97,7 @@ function SkillLaser_Lightning:runAttack()
     for i, target_char in ipairs(self.m_tTargetList) do
 		
 		self.m_activityCarrier.m_skillCoefficient = self.m_lightingDmgRate
+		self.m_activityCarrier:setAttackType('basic')
 				
         -- 공격
         self:attack(target_char)
@@ -119,9 +120,6 @@ function SkillLaser_Lightning:makeEffect(idx, res)
     local link_effect = EffectLink(file_name, link_ani, start_ani, end_ani, 200, 200)
     link_effect.m_bRotateEndEffect = false
 	
-    link_effect.m_startPointNode:setScale(0.15)
-    link_effect.m_endPointNode:setScale(0.3)
-
     if (idx == 1) then
         link_effect.m_effectNode:addAniHandler(function()
 			self:changeState('dying')

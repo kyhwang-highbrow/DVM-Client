@@ -1335,9 +1335,8 @@ function Character:makeAttackDamageInstance(forced_skill_id)
     -- 데미지 타입 지정
     activity_carrier.m_damageType = DMG_TYPE_STR[self.m_charTable['char_type']]
 
-    local t_skill = TABLE:get(self.m_charType .. '_skill')[self.m_reservedSkillId]
-    
 	if (self.m_charTable['skill_basic'] == self.m_reservedSkillId) then
+		-- skill_basic 뿐만 아니라 다른 아이디도 basic 인지 검증해봐야 한다.
         activity_carrier:setAttackType('basic')
 	elseif (forced_skill_id) then
 		--@TODO 임시 처리 .. 일반적인 경우로 호출되지 않는 스킬은 어떻게 처리해야할까

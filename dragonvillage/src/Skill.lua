@@ -31,6 +31,7 @@ Skill = class(PARENT, {
 
 		-- 스킬 연출 관리자 - 디렉터
 		m_skillHitEffctDirector = 'SkillHitEffectDirector',
+		m_bSkillHitEffect = 'bool', -- 사용 여부
      })
 
 -------------------------------------
@@ -115,6 +116,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_skillName = t_skill['type']
 	self.m_targetPos = {x = t_data.x, y = t_data.y}
 	self.m_targetChar = t_data.target or self.m_targetChar
+	self.m_bSkillHitEffect = true
 end
 
 -------------------------------------
@@ -172,7 +174,9 @@ function Skill:attack(target_char)
     target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
 
 	-- 연출
-	self.m_skillHitEffctDirector:doWork()
+	if (self.m_bSkillHitEffect) then 
+		self.m_skillHitEffctDirector:doWork()
+	end
 end
 
 -------------------------------------
