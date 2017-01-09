@@ -306,7 +306,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 		-- 방어 무시 체크
 		if (attacker.m_activityCarrier:isIgnoreDef()) then def_pwr = 0 end
 
-        damage = math_floor(DamageCalc_P(atk_dmg, def_pwr))
+        damage = DamageCalc_P(atk_dmg, def_pwr)
     end
 
     do -- 크리티컬(치명타) 계산

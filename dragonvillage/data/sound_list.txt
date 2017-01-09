@@ -61,6 +61,9 @@
 		"gdragon_appear":   	{"res":"sound/gdragon_appear.mp3"}
 		"gdragon_breath":   	{"res":"sound/gdragon_breath.mp3"}
 		
+		"treant_appear":		{"res":"sound/treant_appear.mp3"}
+		"treant_die":   		{"res":"sound/treant_die.mp3"}
+		
 		"monster_skill_cast":	{"res":"sound/monster_skill_cast.mp3"}
 	},
 	

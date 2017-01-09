@@ -39,7 +39,11 @@ function Monster_Tree.st_dying(owner, dt)
 
         -- 효과음
         if owner.m_tEffectSound['die'] then
-            SoundMgr:playEffect('VOICE', owner.m_tEffectSound['die'])
+            local category = 'EFFECT'
+            if startsWith(owner.m_tEffectSound['die'], 'vo_') then
+                category = 'VOICE'
+            end
+            SoundMgr:playEffect(category, owner.m_tEffectSound['die'])
         end
 
         -- 화면 쉐이킹

@@ -104,4 +104,9 @@
 		"skill_4_appear;idle;0.1",
 		"idle;skill_4_appear;0.1"
     ]
+	
+	"sound":
+	{
+		"die":"treant_die"
+	}
 }
