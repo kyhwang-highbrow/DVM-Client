@@ -46,6 +46,7 @@ function UI_LobbyObject:init(type)
 
     --self:makeKeypad(self.root)
     self.vars['labelNode']:setScale(0)
+    self.vars['labelNode']:setVisible(false) -- 시연 버전을 위해 임시로 off
 end
 
 -------------------------------------
