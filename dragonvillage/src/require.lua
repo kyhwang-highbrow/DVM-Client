@@ -337,6 +337,7 @@ local t_module = {
     'UI_InvenDevApiPopup',
     'UI_MonsterCard',
     'UI_FruitFeedPress',
+    'UI_LobbyUserInfoPopup',
 
     -- UI 드래곤 관리 관련
     'UI_DragonManage_Base',

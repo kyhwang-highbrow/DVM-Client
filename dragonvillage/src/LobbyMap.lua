@@ -448,13 +448,7 @@ function LobbyMap:addLobbyDragon(tamer, t_user_info, flip)
         evolution = math_random(1, 3)
     end
 
-    -- 리더가 지정되어 있을 경우(lobby leader)
-    if t_user_info['leader'] then
-        t_dragon = table_dragon:get(t_user_info['leader']['did'])
-    else
-        t_dragon = table_dragon:getRandomRow()
-    end
-
+    t_dragon = table_dragon:get(t_user_info['leader']['did'])
     local res = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, t_dragon['attr'])
 
     -- 드래곤 생성
@@ -592,11 +586,13 @@ function LobbyMap:updateUserTamerArea()
             if (not self.m_lNearUserList[uid]) then
                 --cclog('가까이 들어옴!!! ' .. uid)
                 bot:showEmotionEffect()
+                bot.m_ui:setActive(true)
             end
             self.m_lNearUserList[uid] = bot
         else
             if (self.m_lNearUserList[uid]) then
                 --cclog('######## 멀어짐!!! ' .. uid)
+                bot.m_ui:setActive(false)
             end
             self.m_lNearUserList[uid] = nil
         end

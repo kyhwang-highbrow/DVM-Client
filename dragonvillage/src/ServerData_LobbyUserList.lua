@@ -37,6 +37,9 @@ function ServerData_LobbyUserList:requestLobbyUserList(uid, success_cb, fail_cb)
 
     -- 성공 시 콜백 함수
     t_request['success'] = function(ret)
+        
+        self:setDefaultLobbyUserData(ret['lobby_user_info'])
+
         self:applyLobbyUserInfo(ret['lobby_user_info'])
         self.m_validateTime = ret['validate_time']
         success_cb(ret)
@@ -159,4 +162,66 @@ function ServerData_LobbyUserList:checkNeedUpdate_LobbyUserList()
     end
 
     return false
+end
+
+-------------------------------------
+-- function setDefaultLobbyUserData
+-- @brief 데이터가 없는 유저 초기화
+-------------------------------------
+function ServerData_LobbyUserList:setDefaultLobbyUserData(l_lobby_user_list)
+    for i,v in ipairs(l_lobby_user_list) do
+        -- 닉네임
+        if (not v['nick']) then
+            v['nick'] = Str('닉네임미지정')
+        end
+
+        -- 레벨
+        if (not v['lv']) then
+            v['lv'] = 1
+        end
+
+        -- 길드
+        if (not v['guild']) then
+            local sum_random = SumRandom()
+            sum_random:addItem(1, '천지창조')
+            sum_random:addItem(1, '카오스')
+            sum_random:addItem(1, 'SKT T1')
+            sum_random:addItem(1, 'TSM')
+            sum_random:addItem(1, '최강역삼초등학교')
+            sum_random:addItem(1, '서울대학교')
+            sum_random:addItem(1, '퍼플랩')
+            v['guild'] = sum_random:getRandomValue()
+        end
+
+        --리더 드래곤 (lobby leader)
+        if (not v['leader']) then
+            local table_dragon = TableDragon()
+
+            -- test값이 1인 데이터만 사용
+            local function condition_func(t_table)
+                if (t_table['test'] == 1) then
+                    return true
+                else
+                    return false
+                end
+            end
+
+            local l_valid_dragons = table_dragon:filterList_condition(condition_func)
+            local rand_idx = math_random(1, #l_valid_dragons)
+            local t_dragon = l_valid_dragons[rand_idx]
+
+            local t_dragon_data = {}
+            t_dragon_data['did'] = t_dragon['did']
+            t_dragon_data['evolution'] = 1
+            t_dragon_data['grade'] = 1
+            t_dragon_data['lv'] = 1
+            t_dragon_data['exp'] = 1
+            t_dragon_data['skill_0'] = 1
+            t_dragon_data['skill_1'] = 1
+            t_dragon_data['skill_2'] = 0
+            t_dragon_data['skill_3'] = 0
+            
+            v['leader'] = t_dragon_data
+        end
+    end
 end

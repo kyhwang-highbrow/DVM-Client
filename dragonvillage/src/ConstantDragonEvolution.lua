@@ -14,7 +14,7 @@ function evolutionName(evolution_lv)
     elseif (evolution_lv == 3) then
         return Str('성룡')
     else
-        error()
+        error('evolution_lv : ' .. evolution_lv)
     end
 end
 
@@ -30,7 +30,7 @@ function getEvolutionWeightStatus(evolution_lv)
     elseif (evolution_lv == 3) then
         return 8
     else
-        error()
+        error('evolution_lv : ' .. evolution_lv)
     end
 end
 
@@ -52,6 +52,6 @@ function dragonMaxLevel(dragon_grade)
     elseif (dragon_grade == 6) then
         return 70
     else
-        error()
+        error('dragon_grade : ' .. dragon_grade)
     end
 end

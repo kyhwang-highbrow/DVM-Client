@@ -1,4 +1,4 @@
-local PARENT = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable())
+local PARENT = class(UI, IEventDispatcher:getCloneTable(), IEventListener:getCloneTable())
 
 -------------------------------------
 -- class LobbyUserStatusUI
@@ -12,11 +12,17 @@ LobbyUserStatusUI = class(PARENT, {
 -- function init
 -------------------------------------
 function LobbyUserStatusUI:init(t_user_info)
+
+    self:load('lobby_user_info_01.ui')
+
     -- rootNode 생성
     self.m_rootNode = cc.Node:create()
+    self.m_rootNode:addChild(self.root)
+    self.root:setPositionY(180)
 
     self.m_tUserInfo = t_user_info
 
+    self.vars['infoBtn']:registerScriptTapHandler(function() UI_LobbyUserInfoPopup(t_user_info) end)
     self:init_statusUI()
 end
 
@@ -42,20 +48,29 @@ end
 function LobbyUserStatusUI:init_statusUI()
     local t_user_info = self.m_tUserInfo
 
-    local nickname = t_user_info['nick'] or Str('닉네임미지정')
+    local vars = self.vars
 
-    -- 폰트 지정
-    local font = 'res/font/common_font_01.ttf'
-    --font = Translate:getFontPath()
+    -- 닉네임
+    local nickname = t_user_info['nick']
+    vars['nameLabel']:setString(nickname)
 
-    -- label 생성
-    local label = cc.Label:createWithTTF(nickname, font, 22, 0)
-    label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-    label:setAnchorPoint(cc.p(0.5, 0.5))
-    label:setDockPoint(cc.p(0.5, 0.5))
-    label:enableOutline(cc.c4b(0, 0, 0, 255), 2)
-    label:setPosition(0, 180)
-    self.m_rootNode:addChild(label)
+    -- 길드 이름
+    local guild_name = t_user_info['guild']
+    vars['guildLabel']:setString(guild_name)
+end
+
+-------------------------------------
+-- function setActive
+-------------------------------------
+function LobbyUserStatusUI:setActive(active)
+    local vars = self.vars
+    local node = vars['infoBtn']
+
+    if active then
+        node:setVisible(true)
+    else
+        node:setVisible(false)
+    end
 end
 
 -------------------------------------

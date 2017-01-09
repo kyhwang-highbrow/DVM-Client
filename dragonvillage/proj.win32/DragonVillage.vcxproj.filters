@@ -1182,6 +1182,9 @@
     <None Include="..\src\SkillLaser_Lightning.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_LobbyUserInfoPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
