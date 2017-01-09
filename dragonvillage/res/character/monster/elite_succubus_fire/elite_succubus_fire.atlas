@@ -1,0 +1,13 @@
+
+elite_succubus_fire.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_succubus_fire
+  rotate: false
+  xy: 2, 2
+  size: 290, 365
+  orig: 290, 365
+  offset: 0, 0
+  index: -1

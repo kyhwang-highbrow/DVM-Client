@@ -1,0 +1,13 @@
+
+common_flying_skull_fire.png
+size: 128,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_flying_skull_fire
+  rotate: false
+  xy: 2, 2
+  size: 111, 108
+  orig: 111, 108
+  offset: 0, 0
+  index: -1
