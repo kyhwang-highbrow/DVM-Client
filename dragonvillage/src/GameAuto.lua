@@ -24,18 +24,28 @@ GameAuto = class(IEventListener:getCloneClass(), IEventDispatcher:getCloneTable(
         m_skillType = 'number', -- 스킬 타입
         m_useType = 'number',   -- 사용 타입
         m_targetType = 'number',-- 타겟 타입
+
+        m_aiDelayTime = 'number',       -- 스킬 사용 직후 일정 시간 뒤 다음 스킬을 사용하도록 하기 위한 딜레이 시간
+
+        m_tCastingEnemyList = 'table',  -- 시전 중인 적 리스트
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function GameAuto:init(world)
+function GameAuto:init(world, bLeftFormation)
     self.m_world = world
+    self.m_bLeftFormation = (bLeftFormation ~= nil) and bLeftFormation or true
+
     self.m_bActive = false
 
     self.m_skillType = GAME_AUTO_AI_SKILL__ATTACK
     self.m_useType = GAME_AUTO_AI_USE__COOLTIME
     self.m_targetType = GAME_AUTO_AI_TARGET__ALLY
+
+    self.m_aiDelayTime = 0
+
+    self.m_tCastingEnemyList = {}
 
     self:addListener('auto_start', self.m_world)
     self:addListener('auto_end', self.m_world)
@@ -48,10 +58,18 @@ function GameAuto:update(dt)
     if (not self.m_bActive) then return end
 
     for i, dragon in ipairs(self.m_world:getDragonList()) do
-        -- 스킬 사용 조건 체크
-        if (self:checkSkill(dragon)) then
-            -- 대상 조건 체크
-            local target = self:findTarget(dragon)
+        local isPossibleSkill = false
+        local target = nil
+
+        -- 스킬 사용 여부 체크
+        isPossibleSkill, target = self:checkSkill(dragon)
+
+        if (isPossibleSkill) then
+            if (not target) then
+                -- 대상을 찾는다
+                target = self:findTarget(dragon)
+            end
+
             if (target) then
                 -- 스킬 사용
                 owner.m_skillIndicator:getIndicatorData()
@@ -59,6 +77,7 @@ function GameAuto:update(dt)
                 -- 경직 중이라면 즉시 해제
                 self.m_selectHero:setSpasticity(false)
 
+                -- 스킬 쿹타임 초기상태로
                 self.m_selectHero:resetActiveSkillCoolTime()
 
                 local active_skill_id = self.m_selectHero:getSkillID('active')
@@ -68,6 +87,12 @@ function GameAuto:update(dt)
                     self.m_selectHero:changeState('casting')
                 else
                     self.m_selectHero:changeState('skillAttack')
+                end
+
+                -- 해당 대상을 리스트에서 제외시킴(한 대상에게 여러번 스킬 사용이 되지 않도록 하기 위함)
+                local idx = table.find(self.m_tCastingEnemyList, target)
+                if idx then
+                    table.remove(self.m_tCastingEnemyList, idx)
                 end
             end
         end
@@ -88,7 +113,24 @@ function GameAuto:checkSkill(dragon)
 
     elseif (self.m_useType == GAME_AUTO_AI_USE__ENEMY_SKILL) then
         -- 캐스팅 중인 적 존재 여부에 따라 스킬 사용
-        -- 적 스킬 캐스팅 이벤트로 체크
+        local enemyList = self.m_tCastingEnemyList
+        local t_remove = {}
+
+        for i, enemy in ipairs(enemyList) do
+            if enemy:isCasting() then
+                return true, enemy
+            else
+                table.insert(t_remove, i)
+            end
+        end
+
+        if #t_remove > 1 then
+            table.sort(t_remove, function(a, b) return a > b end)
+        end
+
+        for i, idx in ipairs(t_remove) do
+            table.remove(enemyList, idx)
+        end
     end
 
     return false
@@ -116,7 +158,7 @@ function GameAuto:findTarget(dragon)
 
     elseif (self.m_useType == GAME_AUTO_AI_USE__ENEMY_SKILL) then
         -- 스킬 캐스팅 중인 적을 선택
-
+        -- 스킬 사용 조건 체크중 이미 통과됨...
     end
 
     return target
@@ -154,13 +196,12 @@ function GameAuto:onEvent(event_name, ...)
         self:onEnd()
 
     elseif (event_name == 'hero_casting_start') then
-        if (not self.m_bActive) then return end
-
+        
     elseif (event_name == 'enemy_casting_start') then
-        if (not self.m_bActive) then return end
-
         local arg = {...}
         local enemy = arg[1]
+
+        table.insert(self.m_tCastingEnemyList, enemy)
 
     end
 end

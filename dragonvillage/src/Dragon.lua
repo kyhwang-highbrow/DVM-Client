@@ -575,8 +575,6 @@ function Dragon:updateActiveSkillCoolTime(dt)
             self.m_infoUI.vars['skllFullVisual2']:setVisual('skill_gauge', 'idle_s_' .. attr)
             self.m_infoUI.vars['skllFullVisual2']:setVisible(true)
         end)
-
-        --
     end
 
     self.m_infoUI.vars['skillGauge']:setPercentage(self.m_activeSkillTimer / self.m_activeSkillCoolTime * 100)
@@ -603,6 +601,10 @@ end
 -- function isPossibleSkill
 -------------------------------------
 function Dragon:isPossibleSkill()
+    if (self.m_bDead) then
+		return false
+	end
+
 	if (not self:isEndActiveSkillCoolTime()) then
 		return false
 	end

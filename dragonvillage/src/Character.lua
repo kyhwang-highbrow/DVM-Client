@@ -493,7 +493,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 		return
 	end
 
-    if self.m_bDead then
+    if (self.m_bDead) then
         return
     end
 
@@ -1623,6 +1623,13 @@ end
 -------------------------------------
 function Character:setSilence(b)
 	self.m_isSilence = b
+end
+
+-------------------------------------
+-- function isCasting
+-------------------------------------
+function Character:isCasting()
+    return (self.m_state == 'casting')
 end
 
 -------------------------------------

@@ -676,9 +676,9 @@ function GameWorld:addEnemy(enemy)
     -- 등장 완료 콜백 등록
     enemy:addListener('enemy_appear_done', self.m_gameState)
 
-    -- 스킬 캐스팅 시
+    -- 스킬 캐스팅
     enemy:addListener('enemy_casting_start', self.m_gameAuto)
-
+    
     -- 스킬 캐스팅 중 취소시 콜백 등록
     enemy:addListener('character_casting_cancel', self.m_tamerSpeechSystem)
     enemy:addListener('character_casting_cancel', self.m_gameFever)
@@ -739,7 +739,7 @@ function GameWorld:addHero(hero, idx)
     hero:addListener('dragon_skill', self)
     hero:addListener('active_skill', self.m_gameState)
 
-    -- 스킬 캐스팅 시
+    -- 스킬 캐스팅
     hero:addListener('hero_casting_start', self.m_gameAuto)
 end
 
@@ -1069,10 +1069,10 @@ function GameWorld:onKeyReleased(keyCode, event)
 
     -- pause
     elseif (keyCode == KEY_A) then
-        if g_gameScene.m_bPause then
-            g_gameScene:gameResume()
+        if (self.m_gameAuto:isActive()) then
+            self.m_gameAuto:onEnd()
         else
-            g_gameScene:gamePause()
+            self.m_gameAuto:onStart()
         end
 
 	-- formation list 확인
