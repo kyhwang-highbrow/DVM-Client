@@ -54,6 +54,7 @@ local t_module = {
     'ServerData_NestDungeon',
     'ServerData_Stage',
     'ServerData_LobbyUserList',
+    'ServerData_AutoPlaySetting',
     'UserData',
     'DropHelper',
     'DragonAutoSetHelper',
@@ -92,6 +93,7 @@ local t_module = {
     'IEventDispatcher',
     'IStateHelper',
     'ITopUserInfo_EventListener',
+    'ITabUI',
 
     -- Scene
     'SceneCommon',
@@ -275,6 +277,7 @@ local t_module = {
     'UIC_TableView',
     'UIC_TableViewCell',
     'UIC_TableViewTD',
+    'UIC_RadioButton',
 
 	-- UI
     'UI_BlockPopup',
@@ -339,6 +342,7 @@ local t_module = {
     'UI_FruitFeedPress',
     'UI_LobbyUserInfoPopup',
     'UI_UserDeckInfoPopup',
+    'UI_AutoPlaySettingPopup',
 
     -- UI 드래곤 관리 관련
     'UI_DragonManage_Base',

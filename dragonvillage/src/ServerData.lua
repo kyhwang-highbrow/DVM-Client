@@ -44,6 +44,9 @@ function ServerData:getInstance()
     -- 로비 유저 리스트
     g_lobbyUserListData = ServerData_LobbyUserList(g_serverData)
 
+    -- 자동 플레이 설정
+    g_autoPlaySetting = ServerData_AutoPlaySetting(g_serverData)
+
     return g_serverData
 end
 

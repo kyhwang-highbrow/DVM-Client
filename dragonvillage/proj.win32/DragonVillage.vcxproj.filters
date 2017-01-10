@@ -1191,6 +1191,18 @@
     <None Include="..\src\UI_LobbyObject.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_AutoPlaySettingPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_AutoPlaySetting.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\ITabUI.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UIC_RadioButton.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

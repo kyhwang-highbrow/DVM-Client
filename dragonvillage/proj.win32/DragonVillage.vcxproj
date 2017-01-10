@@ -276,6 +276,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\GameState_NestDungeon_Tree.lua" />
     <None Include="..\src\GameWorld_Unit.lua" />
     <None Include="..\src\IStateHelper.lua" />
+    <None Include="..\src\ITabUI.lua" />
     <None Include="..\src\LobbyCharacter.lua" />
     <None Include="..\src\LobbyDragon.lua" />
     <None Include="..\src\LobbyItemBox.lua" />
@@ -288,6 +289,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Monster_Tree.lua" />
     <None Include="..\src\Monster_WorldOrderMachine.lua" />
     <None Include="..\src\SceneNestDungeon.lua" />
+    <None Include="..\src\ServerData_AutoPlaySetting.lua" />
     <None Include="..\src\ServerData_LobbyUserList.lua" />
     <None Include="..\src\ServerData_NestDungeon.lua" />
     <None Include="..\src\ServerData_Stage.lua" />
@@ -532,6 +534,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UIC_Button.lua" />
     <None Include="..\src\UIC_ClippingNode.lua" />
     <None Include="..\src\UIC_Node.lua" />
+    <None Include="..\src\UIC_RadioButton.lua" />
     <None Include="..\src\UIC_TableView.lua" />
     <None Include="..\src\UIC_TableViewCell.lua" />
     <None Include="..\src\UIC_TableViewTD.lua" />
@@ -547,6 +550,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_AdventureSceneNew.lua" />
     <None Include="..\src\UI_AdventureStageButton.lua" />
     <None Include="..\src\UI_AdventureStageInfo.lua" />
+    <None Include="..\src\UI_AutoPlaySettingPopup.lua" />
     <None Include="..\src\UI_BlockPopup.lua" />
     <None Include="..\src\UI_CharacterCard.lua" />
     <None Include="..\src\UI_ClassForm.lua" />

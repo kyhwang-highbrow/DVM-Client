@@ -22,7 +22,12 @@ UIC_Button = class(PARENT, {
         m_buttonState = 'number',
 
         m_clickSoundName = 'string',
+
+        m_actionType = '',
     })
+
+UIC_Button.ACTION_TYPE_NORMAL = 1
+UIC_Button.ACTION_TYPE_WITHOUT_SCAILING = 2
 
 -------------------------------------
 -- function init
@@ -30,6 +35,7 @@ UIC_Button = class(PARENT, {
 function UIC_Button:init(node)
     self.m_clickSoundName = 'touch_basic'
     self.m_buttonState = UIC_BUTTON_NORMAL
+    self.m_actionType = UIC_Button.ACTION_TYPE_NORMAL
     self.m_node:registerScriptTapHandler(function() UIC_Button.tapHandler(self) end)
     
     self:setOriginData()
@@ -40,6 +46,13 @@ function UIC_Button:init(node)
             self.m_node:scheduleUpdateWithPriorityLua(function() self:update() end, 0)
         end
     end)
+end
+
+-------------------------------------
+-- function setActionType
+-------------------------------------
+function UIC_Button:setActionType(action_type)
+    self.m_actionType = action_type
 end
 
 -------------------------------------
@@ -154,13 +167,24 @@ function UIC_Button:onButtonStateChange(button_state)
     -- 눌려진 상태
     elseif (button_state == UIC_BUTTON_SELECTED) then
         node:setPosition(self.m_originPosX, self.m_originPosY)
-        node:setScale(self.m_originScaleX * 0.9, self.m_originScaleY * 0.9)
+
+        if (self.m_actionType ~= UIC_Button.ACTION_TYPE_WITHOUT_SCAILING) then
+            node:setScale(self.m_originScaleX * 0.9, self.m_originScaleY * 0.9)
+        end
 
         -- 눌려진 액션
-        local sequence = cc.Sequence:create(cc.MoveTo:create(0.05, cc.p(self.m_originPosX-2, self.m_originPosY)),
-            cc.MoveTo:create(0.05, cc.p(self.m_originPosX, self.m_originPosY)),
-            cc.MoveTo:create(0.05, cc.p(self.m_originPosX + 2, self.m_originPosY)),
-            cc.MoveTo:create(0.05, cc.p(self.m_originPosX, self.m_originPosY)))
+        local sequence
+        if (math_random(1, 2) == 1) then
+            sequence = cc.Sequence:create(cc.MoveTo:create(0.05, cc.p(self.m_originPosX - 2, self.m_originPosY)),
+                cc.MoveTo:create(0.05, cc.p(self.m_originPosX, self.m_originPosY)),
+                cc.MoveTo:create(0.05, cc.p(self.m_originPosX + 2, self.m_originPosY)),
+                cc.MoveTo:create(0.05, cc.p(self.m_originPosX, self.m_originPosY)))
+        else
+            sequence = cc.Sequence:create(cc.MoveTo:create(0.05, cc.p(self.m_originPosX + 2, self.m_originPosY)),
+                cc.MoveTo:create(0.05, cc.p(self.m_originPosX, self.m_originPosY)),
+                cc.MoveTo:create(0.05, cc.p(self.m_originPosX - 2, self.m_originPosY)),
+                cc.MoveTo:create(0.05, cc.p(self.m_originPosX, self.m_originPosY)))
+        end
         local action = cc.RepeatForever:create(sequence)
         action:setTag(UIC_BUTTON_ACTION_TAG)
         node:runAction(action)
@@ -168,7 +192,10 @@ function UIC_Button:onButtonStateChange(button_state)
     -- 클릭된 상태
     elseif (button_state == UIC_BUTTON_CLICK) then
         node:setPosition(self.m_originPosX, self.m_originPosY)
-        node:setScale(self.m_originScaleX * 0.9, self.m_originScaleY * 0.9)
+
+        if (self.m_actionType ~= UIC_Button.ACTION_TYPE_WITHOUT_SCAILING) then
+            node:setScale(self.m_originScaleX * 0.9, self.m_originScaleY * 0.9)
+        end
 
         -- 클릭 액션
         local action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, self.m_originScaleX, self.m_originScaleY), 0.3)
