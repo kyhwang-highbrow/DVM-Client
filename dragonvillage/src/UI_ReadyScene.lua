@@ -66,6 +66,9 @@ function UI_ReadyScene:init(stage_id)
         self.m_dragonSortMgr:setIsSettedDragonFunc(func)
         self.m_dragonSortMgr:changeSort()
     end
+
+    -- 자동 전투 off
+    g_autoPlaySetting.m_bAutoPlay = false
 end
 
 -------------------------------------
@@ -90,6 +93,9 @@ function UI_ReadyScene:initButton()
     vars['autoStartOnBtn'] = UIC_CheckBox(vars['autoStartOnBtn'].m_node, vars['autoStartOnSprite'], false)
     vars['autoStartOnBtn']:setManualMode(true)
     vars['autoStartOnBtn']:registerScriptTapHandler(function() self:click_autoStartOnBtn() end)
+
+    vars['fomationBtn']:registerScriptTapHandler(function() self:click_fomationBtn() end)
+    vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
 end
 
 -------------------------------------
@@ -311,8 +317,26 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadyScene:click_autoStartOnBtn()
-    UI_AutoPlaySettingPopup()
+    local ui = UI_AutoPlaySettingPopup()
+    ui:setCloseCB(function() self.vars['autoStartOnBtn']:setChecked(g_autoPlaySetting.m_bAutoPlay) end)
 end
+
+-------------------------------------
+-- function click_fomationBtn
+-- @breif
+-------------------------------------
+function UI_ReadyScene:click_fomationBtn()
+    UIManager:toastNotificationRed('"진형 선택"은 준비 중입니다.')
+end
+
+-------------------------------------
+-- function click_tamerBtn
+-- @breif
+-------------------------------------
+function UI_ReadyScene:click_tamerBtn()
+    UIManager:toastNotificationRed('"테이머 설정"은 준비 중입니다.')
+end
+
 
 -------------------------------------
 -- function replaceGameScene

@@ -4,6 +4,9 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -- class UI_AutoPlaySettingPopup
 -------------------------------------
 UI_AutoPlaySettingPopup = class(PARENT, {
+        m_radioButton_dragonAtkSkill = 'UIC_RadioButton',
+        m_radioButton_dragonHealSkill = 'UIC_RadioButton',
+        m_radioButton_dragonTamerSkill = 'UIC_RadioButton',
     })
 
 UI_AutoPlaySettingPopup.TAB_SKILL = 1
@@ -68,27 +71,28 @@ function UI_AutoPlaySettingPopup:initButton(t_user_info)
     vars['autoStartBtn5'] = UIC_CheckBox(vars['autoStartBtn5'].m_node, vars['autoStartSprite5'], false)
 
     local radio_button = UIC_RadioButton()
+    self.m_radioButton_dragonAtkSkill = radio_button
     vars['skillBtn1']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
     vars['skillBtn2']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
-    radio_button:addButton('1', vars['skillBtn1'], vars['skillSprite1'])
-    radio_button:addButton('2', vars['skillBtn2'], vars['skillSprite2'])
-    radio_button:setSelectedButton('1')
+    radio_button:addButton('at_cool', vars['skillBtn1'], vars['skillSprite1'])
+    radio_button:addButton('at_event', vars['skillBtn2'], vars['skillSprite2'])
 
     local radio_button = UIC_RadioButton()
+    self.m_radioButton_dragonHealSkill = radio_button
     vars['skillBtn3']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
     vars['skillBtn4']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
-    radio_button:addButton('3', vars['skillBtn3'], vars['skillSprite3'])
-    radio_button:addButton('4', vars['skillBtn4'], vars['skillSprite4'])
-    radio_button:setSelectedButton('3')
+    radio_button:addButton('at_cool', vars['skillBtn3'], vars['skillSprite3'])
+    radio_button:addButton('at_event', vars['skillBtn4'], vars['skillSprite4'])
 
     local radio_button = UIC_RadioButton()
+    self.m_radioButton_dragonTamerSkill = radio_button
     vars['skillBtn5']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
     vars['skillBtn6']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
     vars['skillBtn7']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
-    radio_button:addButton('5', vars['skillBtn5'], vars['skillSprite5'])
-    radio_button:addButton('6', vars['skillBtn6'], vars['skillSprite6'])
-    radio_button:addButton('7', vars['skillBtn7'], vars['skillSprite7'])
-    radio_button:setSelectedButton('5')
+    radio_button:addButton(1, vars['skillBtn5'], vars['skillSprite5'])
+    radio_button:addButton(2, vars['skillBtn6'], vars['skillSprite6'])
+    radio_button:addButton(3, vars['skillBtn7'], vars['skillSprite7'])
+    
 
     vars['autoStartOnBtn'] = UIC_CheckBox(vars['autoStartOnBtn'].m_node, vars['autoStartOnSprite'], false)
 end
@@ -99,7 +103,41 @@ end
 -------------------------------------
 function UI_AutoPlaySettingPopup:refresh(t_user_info)
     local vars = self.vars
+
+    vars['autoStartBtn1']:setChecked(g_autoPlaySetting:get('stop_condition_lose'))
+    vars['autoStartBtn2']:setChecked(g_autoPlaySetting:get('stop_condition_dragon_lv_max'))
+    vars['autoStartBtn3']:setChecked(g_autoPlaySetting:get('stop_condition_dragon_inventory_max'))
+    vars['autoStartBtn4']:setChecked(g_autoPlaySetting:get('stop_condition_rune_inventory_max'))
+    vars['autoStartBtn5']:setChecked(g_autoPlaySetting:get('stop_condition_raid_appeared'))
+
+    self.m_radioButton_dragonAtkSkill:setSelectedButton(g_autoPlaySetting:get('dragon_atk_skill'))
+    self.m_radioButton_dragonHealSkill:setSelectedButton(g_autoPlaySetting:get('dragon_heal_skill'))
+    self.m_radioButton_dragonTamerSkill:setSelectedButton(g_autoPlaySetting:get('tamer_skill'))
+
+    vars['autoStartOnBtn']:setChecked(g_autoPlaySetting.m_bAutoPlay)
 end
+
+-------------------------------------
+-- function close
+-------------------------------------
+function UI_AutoPlaySettingPopup:close()
+    local vars = self.vars
+
+    g_autoPlaySetting:set('stop_condition_lose', vars['autoStartBtn1']:isChecked())
+    g_autoPlaySetting:set('stop_condition_dragon_lv_max', vars['autoStartBtn2']:isChecked())
+    g_autoPlaySetting:set('stop_condition_dragon_inventory_max', vars['autoStartBtn3']:isChecked())
+    g_autoPlaySetting:set('stop_condition_rune_inventory_max', vars['autoStartBtn4']:isChecked())
+    g_autoPlaySetting:set('stop_condition_raid_appeared', vars['autoStartBtn5']:isChecked())
+
+    g_autoPlaySetting:set('dragon_atk_skill', self.m_radioButton_dragonAtkSkill.m_selectedButton)
+    g_autoPlaySetting:set('dragon_heal_skill', self.m_radioButton_dragonHealSkill.m_selectedButton)
+    g_autoPlaySetting:set('tamer_skill', self.m_radioButton_dragonTamerSkill.m_selectedButton)
+
+    g_autoPlaySetting.m_bAutoPlay = vars['autoStartOnBtn']:isChecked()
+
+    PARENT.close(self)
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_AutoPlaySettingPopup)
