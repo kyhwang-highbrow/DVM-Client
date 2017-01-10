@@ -30,7 +30,7 @@ function SkillLaser_Lightning:init_skill(missile_res, hit, thickness, lightning_
 
 	-- 멤버 변수 
 	self.m_lightningRes = lightning_res
-	self.m_lightingDmgRate = (lighting_dmg / 100)
+	self.m_lightingDmgRate = (lighting_dmg / 100) 
 	self.m_tEffectList = {}
 	self.m_tTargetList = {}
 
@@ -66,7 +66,7 @@ function SkillLaser_Lightning.st_idle(owner, dt)
         owner.m_clearCount = owner.m_clearCount + 1
 
 		-- 번개고룡 power rate 공격시마다 갱신
-		owner.m_activityCarrier.m_skillCoefficient = owner.m_powerRate
+		owner.m_activityCarrier.m_skillCoefficient = (owner.m_powerRate / 100)
 
         local t_collision_obj = owner:findTarget()
 		owner:collisionAttack(t_collision_obj)
@@ -103,15 +103,16 @@ function SkillLaser_Lightning:runAttack()
         self:attack(target_char)
 
         -- 이펙트 생성
-        local effect = self:makeEffect(i)
+        local effect = self:makeLightningEffect(i)
+		effect.m_node:setVisible(false)
         table.insert(self.m_tEffectList, effect)
     end
 end
 
 -------------------------------------
--- function makeEffect
+-- function makeLightningEffect
 -------------------------------------
-function SkillLaser_Lightning:makeEffect(idx, res)
+function SkillLaser_Lightning:makeLightningEffect(idx, res)
     local file_name = self.m_lightningRes
     local start_ani = 'start_idle'
     local link_ani = 'bar_idle'
@@ -119,13 +120,6 @@ function SkillLaser_Lightning:makeEffect(idx, res)
 
     local link_effect = EffectLink(file_name, link_ani, start_ani, end_ani, 200, 200)
     link_effect.m_bRotateEndEffect = false
-	
-    if (idx == 1) then
-        link_effect.m_effectNode:addAniHandler(function()
-			self:changeState('dying')
-        end)
-    end
-
     self.m_rootNode:addChild(link_effect.m_node)
 
     return link_effect
@@ -135,18 +129,25 @@ end
 -- function updatePos
 -------------------------------------
 function SkillLaser_Lightning:updatePos()
+	local std_x = self.pos.x
+	local std_y = self.pos.y
+
     local x = 0
     local y = 0
 
-    for i,v in ipairs(self.m_tTargetList) do
+    for i, target in ipairs(self.m_tTargetList) do
         local effect = self.m_tEffectList[i]
 		if (nil == effect) then return end 
 
         -- 상대좌표 사용
-        local tar_x = (v.pos.x - self.pos.x)
-        local tar_y = (v.pos.y - self.pos.y)
+        local tar_x = (target.pos.x - std_x)
+        local tar_y = (target.pos.y - std_y)
 
-		EffectLink_refresh(effect, x, y, tar_x, tar_y)
+		-- 번개고룡으로부터 뻗어가나는 이펙트는 제외
+		if not (i == 1) then 
+			effect.m_node:setVisible(true)
+			EffectLink_refresh(effect, x, y, tar_x, tar_y)
+		end
 
         x = tar_x
         y = tar_y

@@ -134,16 +134,16 @@ end
 -------------------------------------
 function SkillChainLightning:makeEffect(idx, res)
     local file_name = res
-    local start_ani = 'start_idle'
-    local link_ani = 'bar_idle'
-    local end_ani = 'end_idle'
+    local start_ani = nil --'start_idle'
+    local link_ani = nil --'bar_idle'
+    local end_ani = nil --'end_idle'
 
     local link_effect = EffectLink(file_name, link_ani, start_ani, end_ani, 200, 200)
     link_effect.m_bRotateEndEffect = false
 
     if (idx == 1) then
         link_effect.m_effectNode:addAniHandler(function()
-			self:changeState('dying')
+			link_effect:changeCommonAni('disappear', false, function() self:changeState('dying') end)
         end)
     end
 

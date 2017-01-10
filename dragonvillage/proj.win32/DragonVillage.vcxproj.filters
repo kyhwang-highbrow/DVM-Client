@@ -1209,6 +1209,9 @@
     <None Include="..\src\UIC_CheckBox.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\EffectLauncher.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

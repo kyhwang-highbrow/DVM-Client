@@ -207,9 +207,10 @@ local t_module = {
 
 	-- EFFECT
 	'EffectLink',
-	'EffectHeal',
     'EffectBezierLink',
     'EffectLinearDot',
+	'EffectHeal',
+	'EffectLauncher',
     
 	-- SKILL HELPER
 	'SkillHitEffectDirector',
