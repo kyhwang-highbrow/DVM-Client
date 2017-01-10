@@ -37,6 +37,8 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_waveMgr = '',
 
         m_gameState = '',
+
+        m_gameAuto = '',
         m_gameFever = '',
         m_gameCamera = '',
         m_gameTimeScale = '',
@@ -190,7 +192,11 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
         error('invalid game mode : ' .. self.m_gameMode)
 
     end
-          
+
+    self.m_gameAuto = GameAuto(self)
+    self.m_gameAuto:addListener('auto_start', self)
+    self.m_gameAuto:addListener('auto_end', self)
+
     self.m_gameFever = GameFever(self)
     
     self.m_missileRange = {}
@@ -235,7 +241,7 @@ function GameWorld:initGame(stage_name, shake_layer)
     self:init_formation()
 
     -- 덱에 셋팅된 드래곤 생성
-    self:makeDragonDeck()
+    self:makeHeroDeck()
 
     -- UI
     self.m_inGameUI:doActionReset()
@@ -670,6 +676,9 @@ function GameWorld:addEnemy(enemy)
     -- 등장 완료 콜백 등록
     enemy:addListener('enemy_appear_done', self.m_gameState)
 
+    -- 스킬 캐스팅 시
+    enemy:addListener('enemy_casting_start', self.m_gameAuto)
+
     -- 스킬 캐스팅 중 취소시 콜백 등록
     enemy:addListener('character_casting_cancel', self.m_tamerSpeechSystem)
     enemy:addListener('character_casting_cancel', self.m_gameFever)
@@ -721,14 +730,17 @@ end
 
 
 -------------------------------------
--- function addDragon
+-- function addHero
 -------------------------------------
-function GameWorld:addDragon(dragon, idx)
-    self.m_lDragonList[idx] = dragon
+function GameWorld:addHero(hero, idx)
+    self.m_lDragonList[idx] = hero
 
-    dragon:addListener('character_dead', self)
-    dragon:addListener('dragon_skill', self)
-    dragon:addListener('active_skill', self.m_gameState)
+    hero:addListener('character_dead', self)
+    hero:addListener('dragon_skill', self)
+    hero:addListener('active_skill', self.m_gameState)
+
+    -- 스킬 캐스팅 시
+    hero:addListener('hero_casting_start', self.m_gameAuto)
 end
 
 -------------------------------------
@@ -752,7 +764,7 @@ function GameWorld:removeHero(hero)
 			self.m_lDragonList = {}
 			self.m_participants = {}
 			
-			self:makeDragonDeck()
+			self:makeHeroDeck()
 			--self:setBattleZone('basic', true)
 			
 			self:killAllEnemy()
@@ -807,9 +819,9 @@ function GameWorld:standbyHero(hero)
 end
 
 -------------------------------------
--- function makeDragonDeck
+-- function makeHeroDeck
 -------------------------------------
-function GameWorld:makeDragonDeck()
+function GameWorld:makeHeroDeck()
     -- 서버에 저장된 드래곤 덱 사용
     local l_deck = g_deckData:getDeck('1')
     for i,v in pairs(l_deck) do
@@ -819,7 +831,7 @@ function GameWorld:makeDragonDeck()
             if hero then
                 self.m_worldNode:addChild(hero.m_rootNode, 2)
                 self.m_physWorld:addObject('hero', hero)
-                self:addDragon(hero, tonumber(i))
+                self:addHero(hero, tonumber(i))
 
                 self:participationHero(hero)
 
@@ -1141,7 +1153,7 @@ function GameWorld:buffActivateAtStartup()
             local table_skill = TABLE:get('dragon_skill')
             local t_skill = table_skill[skill_id]
             if t_skill and (t_skill['chance_type'] == 'passive') then
-                dragon:doSkill(skill_id, nil, 0, 0)
+                dragon:doSkill(skill_id, 0, 0)
             end
         end
     end
@@ -1150,7 +1162,7 @@ function GameWorld:buffActivateAtStartup()
         local l_passive = dragon.m_lSkillIndivisualInfo['passive']
         for i,skill_info in pairs(l_passive) do
             local skill_id = skill_info.m_skillID
-            dragon:doSkill(skill_id, nil, 0, 0)
+            dragon:doSkill(skill_id, 0, 0)
         end
     end
 end

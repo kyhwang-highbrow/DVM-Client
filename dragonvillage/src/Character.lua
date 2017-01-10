@@ -211,6 +211,8 @@ end
 function Character:checkTarget(t_skill)
     local t_ret = self:getTargetList(t_skill)
     self.m_targetChar = t_ret[1]
+
+    return (self.m_targetChar ~= nil)
 end
 
 
@@ -557,12 +559,12 @@ end
 function Character:doAttack(x, y)
     local skill_id = self.m_reservedSkillId
     if skill_id then
-        local b_run_skill = self:doSkill(skill_id, nil, x, y)
+        local b_run_skill = self:doSkill(skill_id, x, y)
 
         -- 지정된 스킬이 발동되지 않았을 경우 또는 basic_turn, rate 인 경우 기본 스킬 발동
         if self.m_isAddSkill or (not b_run_skill) then
             local basic_skill_id = self:getSkillID('basic')
-            self:doSkill(basic_skill_id, nil, x, y)
+            self:doSkill(basic_skill_id, x, y)
         end
     end
 

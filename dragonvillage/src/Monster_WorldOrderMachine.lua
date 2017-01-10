@@ -8,8 +8,6 @@ local MAGIC_STATE_INTERVAL = {15, 1, 10}
 local MAGIC_STATE_VALUE = {450, 6, 'stun;target;10;100;100'}
 local MAGIC_STATE_SHAKE_FACTOR = {700, 100, 300}
 
-local WORLD_ORDER_RES = 'res/character/monster/boss_world_order_machine_light/boss_world_order_machine_light_'
-
 local HUGE_EFFECT_RES = 'res/effect/skill_lightning/skill_lightning_fire.vrp'
 local BABY_EFFECT_RES = 'res/effect/effect_magic_gas/effect_magic_gas.vrp'
 local STUN_EFFECT_RES = 'res/effect/effect_gear_drop/effect_gear_drop.vrp'

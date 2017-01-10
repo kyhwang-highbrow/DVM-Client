@@ -128,6 +128,7 @@ local t_module = {
     'GameState_NestDungeon_Nightmare',
     'GameState_NestDungeon_Tree',
     'GameState_Colosseum',
+    'GameAuto',
     'GameFever',
     'GameCamera',
     'GameTimeScale',

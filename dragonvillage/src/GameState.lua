@@ -136,11 +136,11 @@ function GameState.update_start(self, dt)
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
             -- 드래곤들을 숨김
-            for i,dragon in ipairs(world:getDragonList()) do
-                if (dragon.m_bDead == false) and (dragon.m_charType == 'dragon') then
-                    dragon.m_rootNode:setVisible(false)
-                    dragon.m_hpNode:setVisible(false)
-                    dragon:changeState('idle')
+            for i, hero in ipairs(world:getDragonList()) do
+                if (hero.m_bDead == false) then
+                    hero.m_rootNode:setVisible(false)
+                    hero.m_hpNode:setVisible(false)
+                    hero:changeState('idle')
                 end
             end
 
@@ -236,6 +236,10 @@ function GameState.update_fight(self, dt)
 
     if world.m_gameFever then
         world.m_gameFever:update(dt)
+    end
+
+    if world.m_gameAuto then
+        world.m_gameAuto:update(dt)
     end
 
     do -- 드래곤 액티브 스킬 쿨타임 증가

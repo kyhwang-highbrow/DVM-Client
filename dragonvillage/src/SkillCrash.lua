@@ -337,7 +337,7 @@ function SkillCrash:doManualSkill(add_seconds)
 	
     for _,skill_id in ipairs(l_skill_id) do
         local t_data = {add_duration = add_seconds}
-        char:doSkill(skill_id, nil, 0, 0, t_data)
+        char:doSkill(skill_id, 0, 0, t_data)
     end
 end
 

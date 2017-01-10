@@ -46,11 +46,11 @@ function SkillIndicator_LeafBlade:onTouchMoved(x, y)
     -- 1. 각도 제한
 	local dir = getAdjustDegree(getDegree(pos_x, pos_y, tar_x, tar_y))
     local isChangeDegree = false
-	if (dir > 30) and (dir < 180) then 
-        dir = 30
+	if (dir > 60) and (dir < 180) then 
+        dir = 60
         isChangeDegree = true
-	elseif (dir < 330) and (dir > 180) then
-        dir = 330
+	elseif (dir < 300) and (dir > 180) then
+        dir = 300
         isChangeDegree = true
 	end
 

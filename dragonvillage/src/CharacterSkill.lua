@@ -2,7 +2,7 @@
 -- function doSkill
 -- @brief 스킬 실행
 -------------------------------------
-function Character:doSkill(skill_id, attr, x, y, t_data)
+function Character:doSkill(skill_id, x, y, t_data)
 	
     ----------------------------------------------
     --[[
@@ -23,7 +23,7 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 
     local is_hero = self.m_bLeftFormation
     local phys_group = 'missile_h'
-    local attr = attr or self.m_charTable['attr'] or self.m_charTable['attr_1']
+    local attr = self.m_charTable['attr'] or self.m_charTable['attr_1']
 	local t_skill = nil
 
     if (not self.m_bLeftFormation) then
@@ -87,18 +87,13 @@ function Character:doSkill(skill_id, attr, x, y, t_data)
 				SkillShield:makeSkillInstance(self, t_skill, t_data)
 				return true
 			else
-				local char = self
-				local t_skill = t_skill
-				return StatusEffectHelper:invokePassive(char, t_skill)
+				return StatusEffectHelper:invokePassive(self, t_skill)
 			end
 
 
 		-- 트리거 설정하는 패시브
 		elseif (chance_type == 'trigger') then
-			local char = self
-			local t_skill = t_skill
-			return StatusEffectHelper:setTriggerPassive(char, t_skill)
-		
+			return StatusEffectHelper:setTriggerPassive(self, t_skill)
 
 		-- 공용탄 영역
         elseif (type == 'missile_move_ray') then

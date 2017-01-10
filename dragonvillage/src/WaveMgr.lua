@@ -276,7 +276,7 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, movement, value1, value2, v
 	local l_passive = enemy.m_lSkillIndivisualInfo['passive']
     for i,skill_info in pairs(l_passive) do
         local skill_id = skill_info.m_skillID
-        enemy:doSkill(skill_id, nil, 0, 0)
+        enemy:doSkill(skill_id, 0, 0)
     end
 
     if EnemyMovement[movement] then

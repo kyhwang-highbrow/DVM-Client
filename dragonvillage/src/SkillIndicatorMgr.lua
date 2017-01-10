@@ -112,7 +112,7 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
 
     if select_hero then
         -- 드래곤 클릭
-        if select_hero:isEndActiveSkillCoolTime() then
+        if select_hero:isPossibleSkill() then
             SoundMgr:playEffect('EFFECT', 'skill_touch')
             self:setSelectHero(select_hero)
         

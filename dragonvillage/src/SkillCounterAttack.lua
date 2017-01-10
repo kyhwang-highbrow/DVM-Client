@@ -128,7 +128,7 @@ function SkillCounterAttack:onEvent(event_name, ...)
 	local defender = self.m_owner
     if (self.m_stateTimer > self.m_attackCount) then
 		-- 1초에 한번씩만 실행된다.
-		defender:doSkill(self.m_invokeSkillId, nil, 0, 0, {})
+		defender:doSkill(self.m_invokeSkillId, 0, 0, {})
 		self.m_attackCount = self.m_attackCount + 1
     end
 end

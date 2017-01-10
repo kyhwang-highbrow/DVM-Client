@@ -242,63 +242,13 @@ function Dragon.st_skillAttack2(owner, dt)
             -- 액티브 스킬 사용 이벤트 발생
             owner:dispatch('active_skill')
             local active_skill_id = owner:getSkillID('active')
-            owner:doSkill(active_skill_id, nil, x, y, owner.m_skillIndicator:getIndicatorData())
+            owner:doSkill(active_skill_id, x, y, owner.m_skillIndicator:getIndicatorData())
             owner.m_animator:setEventHandler(nil)
 
             -- 사운드
-            local type = owner.m_charTable['type']
-
-            if (type == 'powerdragon') then
-                SoundMgr:playEffect('EFFECT', 'skill_powerdragon')
-
-            elseif (type == 'lambgon') then
-                SoundMgr:playEffect('EFFECT', 'skill_lambgon')
-
-            elseif (type == 'applecheek') then
-                SoundMgr:playEffect('EFFECT', 'skill_applecheek')
-
-            elseif (type == 'spine') then
-                SoundMgr:playEffect('EFFECT', 'skill_spine')
-
-            elseif (type == 'leafdragon') then
-                SoundMgr:playEffect('EFFECT', 'skill_leafdragon')
-
-            elseif (type == 'taildragon') then
-                SoundMgr:playEffect('EFFECT', 'skill_taildragon')
-
-            elseif (type == 'purplelipsdragon') then
-                SoundMgr:playEffect('EFFECT', 'skill_purplelipsdragon')
-
-            elseif (type == 'pinkbell') then
-                SoundMgr:playEffect('EFFECT', 'skill_pinkbell')
-
-            elseif (type == 'bluedragon') then
-                SoundMgr:playEffect('EFFECT', 'skill_bluedragon')
-
-            elseif (type == 'littio') then
-                SoundMgr:playEffect('EFFECT', 'skill_littio')
-
-            elseif (type == 'hurricane') then
-                SoundMgr:playEffect('EFFECT', 'skill_hurricane')
-
-            elseif (type == 'garuda') then
-                SoundMgr:playEffect('EFFECT', 'skill_garuda')
-
-            elseif (type == 'boomba') then
-                SoundMgr:playEffect('EFFECT', 'skill_boomba')
-
-            elseif (type == 'godaeshinryong') then
-                SoundMgr:playEffect('EFFECT', 'skill_godaeshinryong')
-
-            elseif (type == 'crescentdragon') then
-                SoundMgr:playEffect('EFFECT', 'skill_crescentdragon')
-
-            elseif (type == 'serpentdragon') then
-                SoundMgr:playEffect('EFFECT', 'skill_serpentdragon')
-
-            elseif (type == 'lightningdragon') then
-                SoundMgr:playEffect('EFFECT', 'skill_lightningdragon')
-
+            local sound_name = owner:getSoundNameForSkill(owner.m_charTable['type'])
+            if sound_name then
+                SoundMgr:playEffect('EFFECT', sound_name)
             end
         end
 
@@ -625,6 +575,8 @@ function Dragon:updateActiveSkillCoolTime(dt)
             self.m_infoUI.vars['skllFullVisual2']:setVisual('skill_gauge', 'idle_s_' .. attr)
             self.m_infoUI.vars['skllFullVisual2']:setVisible(true)
         end)
+
+        --
     end
 
     self.m_infoUI.vars['skillGauge']:setPercentage(self.m_activeSkillTimer / self.m_activeSkillCoolTime * 100)
@@ -645,6 +597,21 @@ function Dragon:resetActiveSkillCoolTime()
     else
         return false
     end
+end
+
+-------------------------------------
+-- function isPossibleSkill
+-------------------------------------
+function Dragon:isPossibleSkill()
+	if (not self:isEndActiveSkillCoolTime()) then
+		return false
+	end
+
+    if (self.m_isSilence) then
+		return false
+	end
+
+	return true
 end
 
 -------------------------------------
@@ -720,4 +687,66 @@ function Dragon:removeSkillPrepareEffect()
 
     self.m_skillPrepareEffect:release()
     self.m_skillPrepareEffect = nil
+end
+
+-------------------------------------
+-- function getSoundNameForSkill
+-------------------------------------
+function Dragon:getSoundNameForSkill(type)
+    local sound_name
+
+    if (type == 'powerdragon') then
+        sound_name = 'skill_powerdragon'
+
+    elseif (type == 'lambgon') then
+        sound_name = 'skill_lambgon'
+        
+    elseif (type == 'applecheek') then
+        sound_name = 'skill_applecheek'
+        
+    elseif (type == 'spine') then
+        sound_name = 'skill_spine'
+        
+    elseif (type == 'leafdragon') then
+        sound_name = 'skill_leafdragon'
+        
+    elseif (type == 'taildragon') then
+        sound_name = 'skill_taildragon'
+        
+    elseif (type == 'purplelipsdragon') then
+        sound_name = 'skill_purplelipsdragon'
+        
+    elseif (type == 'pinkbell') then
+        sound_name = 'skill_pinkbell'
+        
+    elseif (type == 'bluedragon') then
+        sound_name = 'skill_bluedragon'
+        
+    elseif (type == 'littio') then
+        sound_name = 'skill_littio'
+        
+    elseif (type == 'hurricane') then
+        sound_name = 'skill_hurricane'
+        
+    elseif (type == 'garuda') then
+        sound_name = 'skill_garuda'
+        
+    elseif (type == 'boomba') then
+        sound_name = 'skill_boomba'
+        
+    elseif (type == 'godaeshinryong') then
+        sound_name = 'skill_godaeshinryong'
+        
+    elseif (type == 'crescentdragon') then
+        sound_name = 'skill_crescentdragon'
+        
+    elseif (type == 'serpentdragon') then
+        sound_name = 'skill_serpentdragon'
+        
+    elseif (type == 'lightningdragon') then
+        sound_name = 'skill_lightningdragon'
+        
+    end
+
+    return sound_name
 end

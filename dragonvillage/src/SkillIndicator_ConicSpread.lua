@@ -34,11 +34,11 @@ function SkillIndicator_ConicSpread:onTouchMoved(x, y)
 
 	-- 1. 각도 제한
     local isChangeDegree = true
-	if (dir > 30) and (dir < 180) then 
-        dir = 30
+	if (dir > 60) and (dir < 180) then 
+        dir = 60
         isChangeDegree = false
-	elseif (dir < 330) and (dir > 180) then
-        dir = 330
+	elseif (dir < 300) and (dir > 180) then
+        dir = 300
         isChangeDegree = false
 	end
 

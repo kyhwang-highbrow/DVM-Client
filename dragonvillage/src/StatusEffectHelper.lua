@@ -178,7 +178,7 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 	elseif (t_skill['type'] == 'trigger_skill') then
 		event_function = function()
 			local skill_id = t_skill['val_1']
-			char:doSkill(skill_id, nil, nil, nil)
+			char:doSkill(skill_id, nil, nil)
 		end
 	end
 		
