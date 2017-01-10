@@ -327,7 +327,12 @@ function UI_CharacterCard:setSkillSpriteVisible(visible)
 end
 
 function UI_DragonCard(t_dragon_data)
-    return UI_CharacterCard(t_dragon_data)
+    local ui = UI_CharacterCard(t_dragon_data)
+    local function func()
+        UI_SimpleDragonInfoPopup(t_dragon_data)
+    end
+    ui.vars['clickBtn']:registerScriptPressHandler(func)
+    return ui
 end
 
 -------------------------------------
@@ -339,6 +344,10 @@ function MakeSimpleDragonCard(did)
     t_dragon_data['lv'] = nil
     t_dragon_data['evolution'] = 3
     t_dragon_data['grade'] = nil
+    t_dragon_data['skill_0'] = 1
+    t_dragon_data['skill_1'] = 1
+    t_dragon_data['skill_2'] = 0
+    t_dragon_data['skill_3'] = 0
 
     return UI_DragonCard(t_dragon_data)
 end

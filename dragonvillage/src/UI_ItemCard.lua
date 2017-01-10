@@ -67,6 +67,10 @@ function UI_ItemCard:init_dragonItem(t_item)
     t_dragon_data['did'] = t_item['val_1']
     t_dragon_data['evolution'] = t_item['rarity']
     t_dragon_data['grade'] = 1
+    t_dragon_data['skill_0'] = 1
+    t_dragon_data['skill_1'] = 1
+    t_dragon_data['skill_2'] = 0
+    t_dragon_data['skill_3'] = 0
 
     local dragon_card = UI_DragonCard(t_dragon_data)
     self.root = dragon_card.root

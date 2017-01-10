@@ -184,6 +184,10 @@ end
 -- @brief
 -------------------------------------
 function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, l_friendship_bonus, l_train_bonus)
+    lv = (lv or 1)
+    grade = (grade or 1)
+    evolution = (evolution or 1)
+
     local status_calc = StatusCalculator('dragon', dragon_id, lv, grade, evolution)
     status_calc:applyFriendshipBonus(l_friendship_bonus)
     status_calc:applyTrainBonus(l_train_bonus)

@@ -41,7 +41,7 @@ end
 function UI_ReadyScene:init(stage_id)
     self:init_MemberVariable(stage_id)
 
-    local vars = self:load('ready_scene.ui')
+    local vars = self:load('ready_scene_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- 씬 전환 효과

@@ -183,18 +183,21 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
     end
 
     do -- 레벨
-        local lv_str = Str('{1}/{2}', t_dragon_data['lv'], dragonMaxLevel(t_dragon_data['grade']))
+        local lv = (t_dragon_data['lv'] or 1)
+        local grade = (t_dragon_data['grade'] or 1)
+        local lv_str = Str('{1}/{2}', lv, dragonMaxLevel(grade))
         vars['lvLabel']:setString(lv_str)
     end
 
     do -- 경혐치 exp
-        local lv = t_dragon_data['lv']
+        local lv = (t_dragon_data['lv'] or 1)
+        local exp = (t_dragon_data['exp'] or 0)
         local table_exp = TABLE:get('exp_dragon')
         local t_exp = table_exp[lv] 
         local max_exp = t_exp['exp_d']
 
         if (max_exp > 0) then
-            local percentage = (t_dragon_data['exp'] / max_exp) * 100
+            local percentage = (exp / max_exp) * 100
             percentage = math_floor(percentage)
             vars['expLabel']:setString(Str('{1}%', percentage))
 
@@ -252,6 +255,7 @@ function UI_DragonManageInfo:refresh_dragonSkillsInfo(t_dragon_data, t_dragon, f
                 vars['skllLvLabel' .. i]:setString(tostring(skill_lv))
 
                 l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(func_skill_detail_btn)
+                l_skill_icon[i].vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
             end
         end
     end
