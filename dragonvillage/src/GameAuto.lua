@@ -19,6 +19,7 @@ GAME_AUTO_AI_TARGET__ALL    = 2
 GameAuto = class(IEventListener:getCloneClass(), IEventDispatcher:getCloneTable(), {
         m_world = 'GameWorld',
         
+        m_bLeftFormation = 'boolean',
         m_bActive = 'boolean',
 
         m_skillType = 'number', -- 스킬 타입
