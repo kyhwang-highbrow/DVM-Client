@@ -86,6 +86,10 @@ function UI_ReadyScene:initButton()
     vars['dragonInfoBtn']:registerScriptTapHandler(function() self:click_dragonInfoBtn() end)
     vars['autoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+
+    vars['autoStartOnBtn'] = UIC_CheckBox(vars['autoStartOnBtn'].m_node, vars['autoStartOnSprite'], false)
+    vars['autoStartOnBtn']:setManualMode(true)
+    vars['autoStartOnBtn']:registerScriptTapHandler(function() self:click_autoStartOnBtn() end)
 end
 
 -------------------------------------
@@ -300,6 +304,14 @@ function UI_ReadyScene:click_startBtn()
 
         self:checkChangeDeck(next_func)
     end
+end
+
+-------------------------------------
+-- function click_autoStartOnBtn
+-- @breif
+-------------------------------------
+function UI_ReadyScene:click_autoStartOnBtn()
+    UI_AutoPlaySettingPopup()
 end
 
 -------------------------------------

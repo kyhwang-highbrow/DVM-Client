@@ -6,6 +6,7 @@ local PARENT = UIC_Button
 UIC_CheckBox = class(PARENT, {
         m_bChecked = 'boolean',
         m_spriteNode = '',
+        m_manualMode = 'boolean',
     })
 
 -------------------------------------
@@ -15,6 +16,7 @@ function UIC_CheckBox:init(node, sprite_node, checked)
     self.m_spriteNode = sprite_node
     self.m_node:registerScriptTapHandler(function() UIC_CheckBox.tapHandler(self) end)
     self:setChecked(checked)
+    self.m_manualMode = false
 end
 
 -------------------------------------
@@ -28,7 +30,9 @@ end
 -- function tapHandler
 -------------------------------------
 function UIC_CheckBox.tapHandler(self)
-    self:setChecked(not self.m_bChecked)
+    if (self.m_manualMode == false) then
+        self:setChecked(not self.m_bChecked)
+    end
     UIC_Button.tapHandler(self)
 end
 
@@ -44,4 +48,11 @@ function UIC_CheckBox:setChecked(checked)
     if self.m_spriteNode then
         self.m_spriteNode:setVisible(checked)
     end
+end
+
+-------------------------------------
+-- function setManualMode
+-------------------------------------
+function UIC_CheckBox:setManualMode(manual_mode)
+    self.m_manualMode = manual_mode
 end
