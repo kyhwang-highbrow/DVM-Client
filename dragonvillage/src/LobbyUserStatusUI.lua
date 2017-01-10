@@ -63,10 +63,6 @@ end
 -- function setActive
 -------------------------------------
 function LobbyUserStatusUI:setActive(active)
-    -- 시연 버전을 위해서 기능 off
-    if true then
-        return
-    end
     local vars = self.vars
     local node = vars['infoBtn']
 
