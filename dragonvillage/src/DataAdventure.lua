@@ -316,6 +316,15 @@ function DataAdventure:getNextStageID(stage_id)
         return next_stage_id
     end
 
+    if (3 == difficulty) then
+        if (chapter < MAX_ADVENTURE_CHAPTER) then
+            local next_stage_id = makeAdventureID(difficulty, chapter + 1, 1)
+            return next_stage_id
+        else
+            return stage_id
+        end
+    end
+
     if (1 == difficulty) and (chapter < MAX_ADVENTURE_CHAPTER) then
         local next_stage_id = makeAdventureID(difficulty, chapter + 1, 1)
         return next_stage_id
@@ -371,6 +380,7 @@ function DataAdventure:setFocusStage(stage_id)
     if (stage_id == DEV_STAGE_ID) then
         return
     end
+
 
     local game_mode = g_stageData:getGameMode(stage_id)
 

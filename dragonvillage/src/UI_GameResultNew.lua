@@ -197,6 +197,7 @@ function UI_GameResultNew:direction_start()
     vars['homeBtn']:setVisible(false)
     vars['againBtn']:setVisible(false)
     vars['nextBtn']:setVisible(false)
+    vars['quickBtn']:setVisible(false)
 
     vars['skipLabel']:setVisible(false)
     vars['retryBtn']:setVisible(false)
@@ -331,6 +332,9 @@ function UI_GameResultNew:direction_dropItem()
     vars['homeBtn']:setVisible(true)
     vars['againBtn']:setVisible(true)
     vars['nextBtn']:setVisible(true)
+    vars['quickBtn']:setVisible(true)
+
+    self:checkAutoPlay()
 end
 
 -------------------------------------
@@ -600,4 +604,40 @@ function UI_GameResultNew:getBoxVisualName(grade, type)
     end
 
     return ret_str
+end
+
+-------------------------------------
+-- function checkAutoPlay
+-- @brief
+-------------------------------------
+function UI_GameResultNew:checkAutoPlay()
+    if (not g_autoPlaySetting.m_bAutoPlay) then
+        return
+    end
+
+    -- 패배 시 연속 전투 종료
+    if g_autoPlaySetting:get(stop_condition_lose) then
+        if (not self.m_bSuccess) then
+            cclog('패배 시 연속 전투 종료')
+        end
+    end
+
+    do -- 드래곤의 현재 승급 상태 중 레벨MAX가 되면 연속 모험 종료
+        local stop = false
+        for i,v in pairs(self.m_lDragonList) do
+            if v['levelup_data']['is_max_level'] then
+                if (v['levelup_data']['prev_lv'] < v['levelup_data']['curr_lv'])then
+                    stop = true
+                    cclog('드래곤 맥스 레벨')
+                end
+            end
+        end
+    end
+
+    -- 활동력 체크
+    local stage_id = self.m_stageID
+    local can_play, deficiency = g_staminasData:checkStageStamina(stage_id)
+    if (not can_play) then
+        cclog('날개 부족')
+    end
 end

@@ -72,7 +72,7 @@ end
 function ServerData_Staminas:hasStaminaCount(stamina_type, req_count)
     local cnt = self:getStaminaCount(stamina_type)
     local ret = (req_count <= cnt)
-    return ret
+    return ret, (req_count - cnt)
 end
 
 -------------------------------------
@@ -198,4 +198,19 @@ function ServerData_Staminas:isActive()
     else
         return false
     end
+end
+
+-------------------------------------
+-- function checkStageStamina
+-------------------------------------
+function ServerData_Staminas:checkStageStamina(stage_id)
+    local table_drop = TABLE:get('drop')
+    local t_drop = table_drop[stage_id]
+
+    -- 'stamina' 추후에 타입별 stamina 사용 예정
+    --local stamina_type = t_drop['cost_type']
+    local stamina_type = 'st'
+    local req_count = t_drop['cost_value']
+
+    return self:hasStaminaCount(stamina_type, req_count)
 end
