@@ -1997,7 +1997,7 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = -52.000000;
-				y = 6.000000;
+				y = 2.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -2023,12 +2023,12 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 25.000000;
-				y = 5.000000;
+				y = 2.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 119;
-				height = 50;
+				height = 72;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -2044,14 +2044,14 @@
 				color = { 243; 236; 225; };
 				opacity = 255;
 				dimension_width = 119;
-				dimension_height = 50;
+				dimension_height = 72;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 54; 118; 120; };
+				stroke_color = { 0; 0; 0; };
 				has_shadow = true;
 				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 100;
@@ -2060,13 +2060,13 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = 205.000000;
-			y = -303.000000;
+			x = 200.000000;
+			y = -300.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 224;
-			height = 90;
+			height = 80;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -2075,8 +2075,8 @@
 			visible = false;
 			lua_name = 'returnBtn';
 			enable = true;
-			normal = 'ui/btn/base_0201.png';
-			selected = 'ui/btn/base_0202.png';
+			normal = 'ui/btn/btn_0401.png';
+			selected = 'ui/btn/btn_0402.png';
 			disable = '';
 			image_type = 1;
 		};
@@ -2087,7 +2087,7 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = -52.000000;
-				y = 6.000000;
+				y = 2.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -2113,12 +2113,12 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 25.000000;
-				y = 5.000000;
+				y = 2.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 119;
-				height = 50;
+				height = 72;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -2134,7 +2134,7 @@
 				color = { 243; 236; 225; };
 				opacity = 255;
 				dimension_width = 119;
-				dimension_height = 50;
+				dimension_height = 72;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -2150,13 +2150,13 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = -41.000000;
-			y = -303.000000;
+			x = -40.000000;
+			y = -300.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 224;
-			height = 90;
+			height = 80;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -2165,8 +2165,8 @@
 			visible = false;
 			lua_name = 'retryBtn';
 			enable = true;
-			normal = 'ui/btn/base_0203.png';
-			selected = 'ui/btn/base_0204.png';
+			normal = 'ui/btn/btn_0101.png';
+			selected = 'ui/btn/btn_0102.png';
 			disable = '';
 			image_type = 1;
 		};
@@ -2177,7 +2177,7 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = -52.000000;
-				y = 6.000000;
+				y = 2.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -2203,12 +2203,12 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 25.000000;
-				y = 5.000000;
+				y = 2.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 119;
-				height = 50;
+				height = 72;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -2224,14 +2224,14 @@
 				color = { 243; 236; 225; };
 				opacity = 255;
 				dimension_width = 119;
-				dimension_height = 50;
+				dimension_height = 72;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 54; 118; 120; };
+				stroke_color = { 0; 0; 0; };
 				has_shadow = true;
 				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 100;
@@ -2240,12 +2240,12 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = 323.000000;
-			y = -303.000000;
+			x = 400.000000;
+			y = -300.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 224;
+			width = 170;
 			height = 80;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -2267,7 +2267,7 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = -52.000000;
-				y = 6.000000;
+				y = 2.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -2293,12 +2293,102 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 25.000000;
-				y = 5.000000;
+				y = 2.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 119;
-				height = 50;
+				height = 72;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 28;
+				text = '바로\n재시작';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 243; 236; 225; };
+				opacity = 255;
+				dimension_width = 119;
+				dimension_height = 72;
+				letter_spacing = 0.000000;
+				has_stroke = true;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = true;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 100;
+				shadow_direction = 0;
+				shadow_distance = 3.000000;
+			};
+			type = 'Button';
+			ui_name = '';
+			x = 200.000000;
+			y = -300.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 170;
+			height = 80;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'quickBtn';
+			enable = true;
+			normal = 'ui/btn/btn_0401.png';
+			selected = 'ui/btn/btn_0402.png';
+			disable = '';
+			image_type = 1;
+		};
+		[10] =
+		{
+			[1] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = -52.000000;
+				y = 2.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 80;
+				height = 80;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/btn_result_icon_01.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[2] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 25.000000;
+				y = 2.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 119;
+				height = 72;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -2314,14 +2404,14 @@
 				color = { 243; 236; 225; };
 				opacity = 255;
 				dimension_width = 119;
-				dimension_height = 50;
+				dimension_height = 72;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 54; 118; 120; };
+				stroke_color = { 0; 0; 0; };
 				has_shadow = true;
 				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 100;
@@ -2330,12 +2420,12 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = 78.000000;
-			y = -303.000000;
+			x = 0.000000;
+			y = -300.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 224;
+			width = 170;
 			height = 80;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -2350,14 +2440,14 @@
 			disable = '';
 			image_type = 1;
 		};
-		[10] =
+		[11] =
 		{
 			[1] =
 			{
 				type = 'Sprite';
 				ui_name = '';
 				x = -52.000000;
-				y = 6.000000;
+				y = 2.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -2383,12 +2473,12 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 25.000000;
-				y = 5.000000;
+				y = 2.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 119;
-				height = 50;
+				height = 72;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -2404,14 +2494,14 @@
 				color = { 243; 236; 225; };
 				opacity = 255;
 				dimension_width = 119;
-				dimension_height = 50;
+				dimension_height = 72;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 54; 118; 120; };
+				stroke_color = { 0; 0; 0; };
 				has_shadow = true;
 				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 100;
@@ -2420,12 +2510,12 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = -168.000000;
-			y = -303.000000;
+			x = -200.000000;
+			y = -300.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 224;
+			width = 170;
 			height = 80;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -2440,7 +2530,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[11] =
+		[12] =
 		{
 			[1] =
 			{
@@ -2506,7 +2596,7 @@
 			center_rect_width = 0;
 			center_rect_height = 0;
 		};
-		[12] =
+		[13] =
 		{
 			type = 'LabelTTF';
 			ui_name = '';
@@ -2546,7 +2636,7 @@
 			shadow_direction = 0;
 			shadow_distance = 3.000000;
 		};
-		[13] =
+		[14] =
 		{
 			type = 'Visual';
 			ui_name = '';
