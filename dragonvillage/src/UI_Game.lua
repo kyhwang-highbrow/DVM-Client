@@ -14,6 +14,7 @@ function UI_Game:init(game_scene)
     local vars = self:load('ingame_scene_new.ui')
     UIManager:open(self, UIManager.NORMAL)
 
+    vars['autoStartButton']:registerScriptTapHandler(function() self:click_autoStartButton() end)
     vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
 	vars['feverButton']:registerScriptTapHandler(function() self:click_feverButton() end)    
     vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
@@ -38,6 +39,20 @@ function UI_Game:init(game_scene)
 
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_pauseButton() end, 'UI_Game')
+end
+
+-------------------------------------
+-- function click_autoStartButton
+-------------------------------------
+function UI_Game:click_autoStartButton()
+    self.m_gameScene:gamePause()
+
+    local function close_cb()
+        self.m_gameScene:gameResume()
+    end
+
+    local ui = UI_AutoPlaySettingPopup()
+    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------
