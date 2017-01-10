@@ -100,3 +100,42 @@ function ServerData_Stage:setFocusStage(stage_id)
     end
 end
 
+
+-------------------------------------
+-- function requestGameStart
+-------------------------------------
+function ServerData_Stage:requestGameStart(stage_id, finish_cb)
+    -- 활동력 체크
+    local can_play, deficiency = g_staminasData:checkStageStamina(stage_id)
+    if (not can_play) then
+        MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup)
+    end
+
+    local uid = g_userData:get('uid')
+
+    -- 모드별 API 주소 분기처리
+    local api_url = ''
+    local game_mode = g_stageData:getGameMode(stage_id)
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        api_url = '/game/stage/start'
+    elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
+        api_url = '/game/nest/start'
+    end
+
+    local function success_cb(ret)
+        -- server_info, staminas 정보를 갱신
+        g_serverData:networkCommonRespone(ret)
+
+        local game_key = ret['gamekey']
+        finish_cb(game_key)
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl(api_url)
+    ui_network:setRevocable(true)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', stage_id)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
+
+end

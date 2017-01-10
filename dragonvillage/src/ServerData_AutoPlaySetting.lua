@@ -4,6 +4,7 @@
 ServerData_AutoPlaySetting = class({
         m_serverData = 'ServerData',
         m_bAutoPlay = 'boolean',
+        m_autoPlayCnt = 'number',
     })
 
 -------------------------------------
@@ -42,6 +43,7 @@ function ServerData_AutoPlaySetting:init(server_data)
     end
 
     self.m_bAutoPlay = false
+    self.m_autoPlayCnt = 1
 end
 
 -------------------------------------
@@ -56,4 +58,14 @@ end
 -------------------------------------
 function ServerData_AutoPlaySetting:set(key, data)
     return self.m_serverData:applyServerData(data, 'auto_play_setting', key)
+end
+
+-------------------------------------
+-- function setAutoPlay
+-------------------------------------
+function ServerData_AutoPlaySetting:setAutoPlay(auto_play)
+    self.m_bAutoPlay = auto_play
+    if auto_play then
+        self.m_autoPlayCnt = 1
+    end
 end

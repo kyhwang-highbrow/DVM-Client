@@ -68,7 +68,7 @@ function UI_ReadyScene:init(stage_id)
     end
 
     -- 자동 전투 off
-    g_autoPlaySetting.m_bAutoPlay = false
+    g_autoPlaySetting:setAutoPlay(false)
 end
 
 -------------------------------------
@@ -355,32 +355,10 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadyScene:networkGameStart()
-    local uid = g_userData:get('uid')
-
-    -- 모드별 API 주소 분기처리
-    local api_url = ''
-    local game_mode = g_stageData:getGameMode(self.m_stageID)
-    if (game_mode == GAME_MODE_ADVENTURE) then
-        api_url = '/game/stage/start'
-    elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
-        api_url = '/game/nest/start'
-    end
-
-    local function success_cb(ret)
-        -- server_info, staminas 정보를 갱신
-        g_serverData:networkCommonRespone(ret)
-
-        local game_key = ret['gamekey']
+    local function finish_cb(game_key)
         self:replaceGameScene(game_key)
     end
-
-    local ui_network = UI_Network()
-    ui_network:setUrl(api_url)
-    ui_network:setRevocable(true)
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('stage', self.m_stageID)
-    ui_network:setSuccessCB(success_cb)
-    ui_network:request()
+    g_stageData:requestGameStart(self.m_stageID, finish_cb)
 end
 
 -------------------------------------

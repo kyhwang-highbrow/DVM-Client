@@ -133,7 +133,7 @@ function UI_AutoPlaySettingPopup:close()
     g_autoPlaySetting:set('dragon_heal_skill', self.m_radioButton_dragonHealSkill.m_selectedButton)
     g_autoPlaySetting:set('tamer_skill', self.m_radioButton_dragonTamerSkill.m_selectedButton)
 
-    g_autoPlaySetting.m_bAutoPlay = vars['autoStartOnBtn']:isChecked()
+    g_autoPlaySetting:setAutoPlay(vars['autoStartOnBtn']:isChecked())
 
     PARENT.close(self)
 end

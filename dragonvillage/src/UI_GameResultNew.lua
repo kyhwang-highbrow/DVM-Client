@@ -56,6 +56,7 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
 
     vars['retryBtn']:registerScriptTapHandler(function() self:click_retryBtn() end)
     vars['returnBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+    vars['quickBtn']:registerScriptTapHandler(function() self:click_quickBtn() end)
 
     vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
 
@@ -244,8 +245,12 @@ function UI_GameResultNew:direction_end()
     end
 
     if (is_success == true) then
+        local duration = 2
+        if g_autoPlaySetting.m_bAutoPlay then
+            duration = 0.5
+        end
         -- 2초 후 자동으로 이동
-        self.root:runAction(cc.Sequence:create(cc.DelayTime:create(2), cc.CallFunc:create(function()
+        self.root:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.CallFunc:create(function()
                 self:doNextWork()
             end)))
     else
@@ -254,6 +259,8 @@ function UI_GameResultNew:direction_end()
 
         vars['retryBtn']:setVisible(true)
         vars['returnBtn']:setVisible(true)
+
+        self:checkAutoPlay()
     end
 end
 
@@ -283,6 +290,11 @@ function UI_GameResultNew:direction_showBox()
     vars['boxVisual']:setVisible(true)
     local visual_name = self:getBoxVisualName(self.m_boxGrade, 'idle')
     vars['boxVisual']:changeAni(visual_name, true)
+
+    -- 연속 전투일 경우 상자 바로 오픈
+    if g_autoPlaySetting.m_bAutoPlay then
+        self:doNextWork()
+    end
 end
 
 -------------------------------------
@@ -506,6 +518,26 @@ function UI_GameResultNew:click_backBtn()
 end
 
 -------------------------------------
+-- function click_quickBtn
+-------------------------------------
+function UI_GameResultNew:click_quickBtn()
+    local function finish_cb(game_key)
+
+        -- 연속 전투일 경우 횟수 증가
+        if (g_autoPlaySetting.m_bAutoPlay == true) then
+            g_autoPlaySetting.m_autoPlayCnt = (g_autoPlaySetting.m_autoPlayCnt + 1)
+        end
+
+        local stage_id = self.m_stageID
+
+        local stage_name = 'stage_' .. stage_id
+        local scene = SceneGame(game_key, stage_id, stage_name, false)
+        scene:runScene()
+    end
+    g_stageData:requestGameStart(self.m_stageID, finish_cb)
+end
+
+-------------------------------------
 -- function click_homeBtn
 -------------------------------------
 function UI_GameResultNew:click_homeBtn()
@@ -615,10 +647,24 @@ function UI_GameResultNew:checkAutoPlay()
         return
     end
 
+    local auto_play_stop = false
+
+    local msg = nil
+
+    -- 연속 전투 20회 제한
+    local max_cnt = 20
+    if (g_autoPlaySetting.m_autoPlayCnt >= max_cnt) then
+        auto_play_stop = true
+        if (not msg) then
+            msg = Str('연속 전투 {1}회가 종료되었습니다.', max_cnt)
+        end
+    end
+
     -- 패배 시 연속 전투 종료
     if g_autoPlaySetting:get(stop_condition_lose) then
         if (not self.m_bSuccess) then
-            cclog('패배 시 연속 전투 종료')
+            auto_play_stop = true
+            msg = Str('패배로 인해 연속 전투가 종료되었습니다.')
         end
     end
 
@@ -628,16 +674,18 @@ function UI_GameResultNew:checkAutoPlay()
             if v['levelup_data']['is_max_level'] then
                 if (v['levelup_data']['prev_lv'] < v['levelup_data']['curr_lv'])then
                     stop = true
-                    cclog('드래곤 맥스 레벨')
+                    auto_play_stop = true
+                    msg = Str('최대레벨에 도달한 드래곤이 있어서\n연속 전투가 종료되었습니다.')
                 end
             end
         end
     end
 
-    -- 활동력 체크
-    local stage_id = self.m_stageID
-    local can_play, deficiency = g_staminasData:checkStageStamina(stage_id)
-    if (not can_play) then
-        cclog('날개 부족')
+    if (auto_play_stop == true) then
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return
     end
+
+    -- 빠른 재시작
+    self:click_quickBtn()
 end
