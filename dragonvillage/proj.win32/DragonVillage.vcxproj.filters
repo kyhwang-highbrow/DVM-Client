@@ -1203,6 +1203,9 @@
     <None Include="..\src\UIC_RadioButton.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\UIC_CheckBox.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
