@@ -417,7 +417,7 @@
 		{
 			[1] =
 			{
-				type = 'LayerColor';
+				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
 				y = 0.000000;
@@ -433,10 +433,13 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
+				file_name = 'ui/frame/list_frame_01.png';
 				color = { 255; 255; 255; };
-				opacity = 150;
-				src_blend = 770;
-				dest_blend = 771;
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
 			};
 			[2] =
 			{
@@ -457,11 +460,11 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
+				font_size = 24;
 				text = '다음 랭킹';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 71; 36; 20; };
 				opacity = 255;
 				dimension_width = 580;
 				dimension_height = 80;
@@ -523,7 +526,7 @@
 		{
 			[1] =
 			{
-				type = 'LayerColor';
+				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
 				y = 0.000000;
@@ -539,10 +542,13 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
+				file_name = 'ui/frame/list_frame_01.png';
 				color = { 255; 255; 255; };
-				opacity = 150;
-				src_blend = 770;
-				dest_blend = 771;
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
 			};
 			[2] =
 			{
@@ -563,11 +569,11 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
+				font_size = 24;
 				text = '이전 랭킹';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 71; 36; 20; };
 				opacity = 255;
 				dimension_width = 580;
 				dimension_height = 80;
