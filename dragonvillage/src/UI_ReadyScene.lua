@@ -274,7 +274,7 @@ function UI_ReadyScene:click_autoBtn()
 
     -- 2. 덱을 채움
     for i,t_dragon_data in pairs(l_auto_deck) do
-        self.m_readySceneDeck.m_focusDeckSlot = i
+        self.m_readySceneDeck:setFocusDeckSlotEffect(i)
         self:click_dragonCard(t_dragon_data)
     end
 end

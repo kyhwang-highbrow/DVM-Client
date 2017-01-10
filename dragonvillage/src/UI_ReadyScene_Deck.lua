@@ -58,6 +58,8 @@ function UI_ReadyScene_Deck:click_dragonCard(t_dragon_data)
     else
         self:setSlot(self.m_focusDeckSlot, doid)
     end
+
+    self:refreshFocusDeckSlot()
 end
 
 -------------------------------------
@@ -73,6 +75,32 @@ function UI_ReadyScene_Deck:getFocusDeckSlotEffect()
 
     self.m_focusDeckSlotEffect:retain()
     return self.m_focusDeckSlotEffect
+end
+
+-------------------------------------
+-- function refreshFocusDeckSlot
+-- @brief
+-------------------------------------
+function UI_ReadyScene_Deck:refreshFocusDeckSlot()
+    local count = table.count(self.m_tDeckMap)
+    if (count >= 5) then
+        return
+    end
+
+    -- 가장 빠른 slot으로 설정
+    local idx = 1
+    for i=1, 9 do
+        if (not self.m_lDeckList[i]) then
+            idx = i
+            break
+        end
+    end
+
+    if (self.m_focusDeckSlot == idx) then
+        return
+    end
+
+    self:setFocusDeckSlotEffect(idx)
 end
 
 -------------------------------------
@@ -144,17 +172,8 @@ function UI_ReadyScene_Deck:init_deck()
         self:setSlot(idx, doid)
     end
 
-    
-    do -- 가장 빠른 slot으로 설정
-        local idx = 1
-        for i=1, 9 do
-            if self.m_lDeckList[i] then
-                idx = i
-                break
-            end
-        end
-        self:setFocusDeckSlotEffect(idx)
-    end
+    -- focus deck
+    self:refreshFocusDeckSlot()
 end
 
 -------------------------------------
