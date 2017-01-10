@@ -202,6 +202,49 @@ function EnemyMovement.Basic2(owner, luaValue1, luaValue2, luaValue3, luaValue4,
     owner.m_rootNode:runAction(sequence)
 end
 
+-------------------------------------
+-- function Burn
+-- @brief 등장 후 죽을때까지 전투 + 등장시 등장 이펙트 추가
+-- @param value1 = 출발 위치
+-- @param value2 = 도착 위치
+-- @prarm value3 = 등장 시간(duration)
+-------------------------------------
+function EnemyMovement.Burn(owner, luaValue1, luaValue2, luaValue3, luaValue4, luaValue5)
+    -- m_luaValue1 출발 위치
+    -- m_luaValue2 도착 위치
+    -- m_luaValue3 등장 시간
+    local pos1 = getWorldEnemyPos(owner, luaValue1)
+    local pos2 = getWorldEnemyPos(owner, luaValue2)
+    local duration = luaValue3 or 1
+
+    -- 출발 위치 지정
+    owner:setOrgHomePos(pos2.x, pos2.y)
+    owner:setHomePos(pos2.x, pos2.y)
+    owner:setPosition(pos1.x, pos1.y)
+
+    -- 이펙트 재생 후 AI 동작
+    local res = 'res/effect/effect_burn/effect_burn.vrp'
+    local effect = MakeAnimator(res)
+    owner.m_rootNode:addChild(effect.m_node)
+    effect:changeAni('center_idle', false)
+    local effect_duration = effect:getDuration()
+
+    -- 마지막 액션(Enemy를 공격상태로 변경)
+    local finish_action = cc.CallFunc:create(function()
+        owner:changeState('idle')
+        effect:release()
+        owner:dispatch('enemy_appear_done', owner)
+    end)    
+
+    -- 액션 생성
+	local delay = cc.DelayTime:create(effect_duration)
+    local action = cc.MoveTo:create(duration, cc.p(pos2.x, pos2.y))
+    local ease_in = cc.EaseIn:create(action, 0.8)
+    local sequence = cc.Sequence:create(delay, ease_in, finish_action)
+
+    -- 액션 실행
+    owner.m_rootNode:runAction(sequence)
+end
 
 -------------------------------------
 -- function Appear
