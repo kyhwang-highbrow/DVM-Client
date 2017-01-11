@@ -23,7 +23,7 @@ function UI_DragonManageUpgrade:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_DragonManageUpgrade'
     self.m_bVisible = true or false
-    self.m_titleStr = Str('승급') or nil
+    self.m_titleStr = -1
     self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
     self.m_bOpenMaterial = false
 end
@@ -190,6 +190,11 @@ function UI_DragonManageUpgrade:refresh_upgrade(table_dragon, t_dragon_data)
         vars['nextTextLabel']:setString(Str('등급 상승'))
     end
 
+    do -- 설명
+        vars['infoLabel']:setString(Str('승급하면 등급과 최대레벨이 상승해요'))
+        vars['infoLabel2']:setString(Str('동일 드래곤을 재료로 사용하면 스킬이 레벨업 됩니다'))
+    end
+
     vars['selectLabel']:setVisible(true)
     vars['selectLabel']:setString(Str('선택재료 {1} / {2}', 0, MAX_DRAGON_UPGRADE_MATERIAL_MAX))
 end
@@ -212,6 +217,11 @@ function UI_DragonManageUpgrade:refresh_skill_lv_up(table_dragon, t_dragon_data)
     -- 레벨 표시
     vars['maxLvLabel']:setString(Str(''))
 
+    do -- 설명
+        vars['infoLabel']:setString(Str('스킬 레벨업을 하면 스킬의 효과가 상승해요'))
+        vars['infoLabel2']:setString(Str('동일 드래곤을 재료로 사용하면 스킬이 레벨업 됩니다'))
+    end
+
     vars['nextTextLabel']:setString(Str('스킬 레벨업'))
 
     vars['selectLabel']:setVisible(true)
@@ -226,6 +236,14 @@ function UI_DragonManageUpgrade:refresh_eclv_up(table_dragon, t_dragon_data)
 
     g_topUserInfo:setTitleString(Str('초월'))
 
+    do -- 드래곤 다음 초월 정보 카드
+        vars['maxIconNode']:removeAllChildren()
+        local t_next_dragon_data = clone(t_dragon_data)
+        t_next_dragon_data['eclv'] = (t_next_dragon_data['eclv'] + 1)
+        local dragon_card = UI_DragonCard(t_next_dragon_data)
+        vars['maxIconNode']:addChild(dragon_card.root)
+    end
+
     do -- 승급 경험치 UI
         vars['upgradeGauge']:setVisible(false)
         vars['upgradeGauge1']:setVisible(false)
@@ -238,6 +256,10 @@ function UI_DragonManageUpgrade:refresh_eclv_up(table_dragon, t_dragon_data)
         vars['maxLvLabel']:setString(Str('최대레벨\n{1} > {2}', max_lv, max_lv + 2))
     end
     
+    do -- 설명
+        vars['infoLabel']:setString(Str('초월할 때마다 최대 레벨이 2씩 상승해요'))
+        vars['infoLabel2']:setString(Str('초월에는 동일 드래곤이 필요합니다'))
+    end
 
     vars['nextTextLabel']:setString(Str('초월'))
 
@@ -260,9 +282,12 @@ function UI_DragonManageUpgrade:init_dragonUpgradeMaterialTableView()
     local function create_func(ui, data)
         ui.root:setScale(0.7)
 
-        local doid = data['id']
-        if g_dragonsData:isSameTypeDragon(self.m_selectDragonOID, doid) then
-            ui:setSkillSpriteVisible(true)
+        -- 승급, 스킬 레벨업 모드에서는 skill icon 표시
+        if isExistValue(self.m_upgradeMode, 'upgrade', 'skill_lv_up') then
+            local doid = data['id']
+            if g_dragonsData:isSameTypeDragon(self.m_selectDragonOID, doid) then
+                ui:setSkillSpriteVisible(true)
+            end
         end
 
         self:refresh_materialDragonIndivisual(doid)
@@ -312,7 +337,6 @@ end
 -- @brief 드래곤 승급 재료(다른 드래곤) 리스트
 -------------------------------------
 function UI_DragonManageUpgrade:getDragonUpgradeMaterialList(doid)
-
     if (not doid) then
         return
     end
@@ -322,14 +346,10 @@ function UI_DragonManageUpgrade:getDragonUpgradeMaterialList(doid)
         return
     end
 
-    -- 최대 등급인지 확인
-    local is_max_grade = (t_dragon_data['grade'] >= MAX_DRAGON_GRADE)
+    local upgrade_mode = g_dragonsData:getUpgradeMode(doid)
 
-    -- 남은 드래곤 스킬 레벨 갯수
-    local num_of_remin_skill_level = g_dragonsData:getNumberOfRemainingSkillLevel(doid)
-
-    -- 1. 최대 등급, 최대 스킬 레벨일 경우 모든 드래곤 제외
-    if (is_max_grade and num_of_remin_skill_level) then
+    -- 승급, 진화, 스킬 레벨업, 초월이 모두 끝난지 체크
+    if (upgrade_mode == 'max') then
         return {}
     end
 
@@ -337,8 +357,8 @@ function UI_DragonManageUpgrade:getDragonUpgradeMaterialList(doid)
     local l_dragon_list = g_dragonsData:getDragonsList()-- clone된 데이터를 사용
     l_dragon_list[doid] = nil
 
-    -- 3. 최대 등급일 경우 원종이 다른 드래곤 제외
-    if is_max_grade then
+    -- 3. 원종이 다른 드래곤 제외
+    if (upgrade_mode == 'skill_lv_up') or (upgrade_mode == 'eclv_up') then
         local table_dragon = TABLE:get('dragon')
         local t_dragon = table_dragon[t_dragon_data['did']]
         local dragon_type = t_dragon['type']
@@ -367,9 +387,12 @@ function UI_DragonManageUpgrade:init_dragonUpgradeMaterialSelectTableView()
     local function create_func(ui, data)
         ui.root:setScale(0.6)
 
-        local doid = data['id']
-        if g_dragonsData:isSameTypeDragon(self.m_selectDragonOID, doid) then
-            ui:setSkillSpriteVisible(true)
+        -- 승급, 스킬 레벨업 모드에서는 skill icon 표시
+        if isExistValue(self.m_upgradeMode, 'upgrade', 'skill_lv_up') then
+            local doid = data['id']
+            if g_dragonsData:isSameTypeDragon(self.m_selectDragonOID, doid) then
+                ui:setSkillSpriteVisible(true)
+            end
         end
 
         -- 클릭 버튼 설정
@@ -388,22 +411,43 @@ end
 -- function click_dragonUpgradeMaterial
 -------------------------------------
 function UI_DragonManageUpgrade:click_dragonUpgradeMaterial(ui, data)
-    local unique_id = data['id']
+    local doid = data['id']
 
-    local selected_material_item = self.m_tableViewExtSelectMaterial:getItem(unique_id)
+    local selected_material_item = self.m_tableViewExtSelectMaterial:getItem(doid)
 
     -- 재료 해제
     if selected_material_item then
-        self.m_tableViewExtSelectMaterial:delItem(unique_id)
-        self:refresh_materialDragonIndivisual(unique_id)
+        self.m_tableViewExtSelectMaterial:delItem(doid)
+        self:refresh_materialDragonIndivisual(doid)
         self:refresh_selectedMaterial()
         self.m_materialSortMgr:changeSort2()
         return
 
     -- 재료 추가
     else
-        self.m_tableViewExtSelectMaterial:addItem(unique_id, data)
-        self:refresh_materialDragonIndivisual(unique_id)
+        local material_count = self.m_tableViewExtSelectMaterial:getItemCount()
+        
+        -- 초월 시 1마리 초과 선택 확인
+        if (self.m_upgradeMode == 'eclv_up') then
+            if (material_count >= 1) then
+                UIManager:toastNotificationRed(Str('초월은 한 번에 1마리만 가능합니다.'))
+                return
+            end
+
+        -- 최대 재료 갯수 체크
+        elseif (material_count >= MAX_DRAGON_UPGRADE_MATERIAL_MAX) then
+            UIManager:toastNotificationRed(Str('한 번에 최대 {1}마리까지 가능합니다.', MAX_DRAGON_UPGRADE_MATERIAL_MAX))
+            return
+        end
+
+        -- 리더 설정 여부 확인
+        if (g_dragonsData:isLeaderDragon(doid)) then
+            UIManager:toastNotificationRed(Str('리더로 설정된 드래곤은 재료로 사용될 수 없습니다.'))
+            return
+        end
+
+        self.m_tableViewExtSelectMaterial:addItem(doid, data)
+        self:refresh_materialDragonIndivisual(doid)
         self:refresh_selectedMaterial()
         self.m_materialSortMgr:changeSort2()
         return
@@ -445,22 +489,46 @@ function UI_DragonManageUpgrade:refresh_selectedMaterial()
     
     local vars = self.vars
 
+    -- 재료 분석 (가격 총 경험치 등)
     local t_analyze
-
-    do -- 재료 분석 (가격 총 경험치 등)
+    do 
         local doid = self.m_selectDragonOID
         local l_item = self.m_tableViewExtSelectMaterial.m_itemList
         t_analyze = self:analyzeSelectedMaterial(doid, l_item)
     end
 
-    -- 재료 갯수 출력
-    vars['selectLabel']:setString(Str('선택재료 {1} / {2}', t_analyze['count'], MAX_DRAGON_UPGRADE_MATERIAL_MAX))
+    if isExistValue(self.m_upgradeMode, 'upgrade', 'skill_lv_up') then
+        -- 재료 갯수 출력
+        vars['selectLabel']:setString(Str('선택재료 {1} / {2}', t_analyze['count'], MAX_DRAGON_UPGRADE_MATERIAL_MAX))
 
-    -- 가격 출력
-    vars['priceLabel']:setString(comma_value(t_analyze['total_price']))
+        -- 가격 출력
+        local price_str = comma_value(t_analyze['total_price'])
 
-    -- 선택된 재료로 인한 경험치 상승
-    self:refresh_selectedMaterialExp(t_analyze['total_exp'])
+        if (self.m_upgradeMode == 'upgrade') then
+            vars['priceLabel']:setString(price_str)
+        elseif (self.m_upgradeMode == 'skill_lv_up') then
+            vars['skillUpPriceLabel']:setString(price_str)
+        end
+
+        -- 선택된 재료로 인한 경험치 상승
+        self:refresh_selectedMaterialExp(t_analyze['total_exp'])
+
+    elseif (self.m_upgradeMode == 'eclv_up') then
+        -- 가격 출력
+        local price_str = comma_value(t_analyze['total_price'])
+        vars['transcendPriceLabel']:setString(price_str)
+    end
+   
+
+    -- 갯수에 따라 설명 출력
+    local material_count = self.m_tableViewExtSelectMaterial:getItemCount()
+    if (material_count <= 0) then
+        vars['infoLabel1']:setVisible(true)
+        vars['infoLabel2']:setVisible(true)
+    else
+        vars['infoLabel1']:setVisible(false)
+        vars['infoLabel2']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -724,12 +792,6 @@ function UI_DragonManageUpgrade:upgradeDirecting(doid, t_prev_dragon_data, t_nex
         -- 결과 팝업
         if (t_prev_dragon_data['grade'] < t_next_dragon_data['grade']) then
             UI_DragonManageUpgradeResult(t_next_dragon_data)
-
-            -- 최대 승급을 달성했을 경우(스킬까지 모두 다)
-            if (not g_dragonsData:canUpgrade(doid)) then
-                self:close()
-                return
-            end
         end
 
         -- UI 갱신
@@ -753,7 +815,7 @@ end
 function UI_DragonManageUpgrade:createDragonCardCB(ui, data)
     local doid = data['id']
 
-    if (not g_dragonsData:canUpgrade(doid)) then
+    if (g_dragonsData:getUpgradeMode(doid) == 'max') then
         if ui then
             ui:setShadowSpriteVisible(true)
         end

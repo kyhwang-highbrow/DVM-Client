@@ -129,6 +129,22 @@ function ServerData_Dragons:getLeaderDragon(type)
 end
 
 -------------------------------------
+-- function isLeaderDragon
+-- @brief 리더드래곤으로 설정되어있는지 여부 체크
+-------------------------------------
+function ServerData_Dragons:isLeaderDragon(doid)
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+
+    if (not t_dragon_data) then
+        return false, {}
+    end
+
+    local cnt = table.count(t_dragon_data['leader'])
+    local is_leader = (0 < cnt)
+    return is_leader, t_dragon_data['leader']
+end
+
+-------------------------------------
 -- function getNumberOfRemainingSkillLevel
 -- @brief 남은 드래곤 스킬 레벨 갯수 리턴
 -------------------------------------
@@ -195,20 +211,6 @@ function ServerData_Dragons:isMaxEclv(dragon_object_id)
     local t_dragon_data = self:getDragonDataFromUid(dragon_object_id)
     local is_max_eclv = (t_dragon_data['eclv'] >= MAX_DRAGON_ECLV)
     return is_max_eclv
-end
-
--------------------------------------
--- function canUpgrade
--- @brief 업그레이드 가능 여부
--------------------------------------
-function ServerData_Dragons:canUpgrade(dragon_object_id)
-    -- 최대 등급 여부
-    local is_max_grade = self:isMaxGrade(dragon_object_id)
-    
-    -- 남은 드래곤 스킬 레벨 갯수
-    local num_of_remin_skill_level = self:getNumberOfRemainingSkillLevel(dragon_object_id)    
-
-    return (not is_max_grade) or (0 < num_of_remin_skill_level)
 end
 
 -------------------------------------

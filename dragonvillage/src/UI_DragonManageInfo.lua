@@ -386,9 +386,9 @@ end
 function UI_DragonManageInfo:click_upgradeBtn()
     local doid = self.m_selectDragonOID
 
-    do -- 최대 친밀도인지 확인
-        if (not g_dragonsData:canUpgrade(doid)) then
-            UIManager:toastNotificationGreen(Str('최대 승급단계의 드래곤입니다.'))
+    do -- 최대 등급(스킬레벨, 초월)인지 확인
+        if (g_dragonsData:getUpgradeMode(doid) == 'max') then
+            UIManager:toastNotificationGreen(Str('최대 초월단계의 드래곤입니다.'))
             return
         end
     end
@@ -429,7 +429,7 @@ end
 -- @brief 초월 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_transcendBtn()
-    UIManager:toastNotificationRed('"초월"은 준비 중입니다.')
+    self:click_upgradeBtn()
 end
 
 

@@ -142,7 +142,9 @@ function UI_TopUserInfo:changeOwnerUI(ui)
     local vars = self.vars
     vars['exitBtn']:setVisible(ui.m_bUseExitBtn)
 
-    if ui.m_titleStr then
+    if (ui.m_titleStr == -1) then
+        vars['titleLabel']:setVisible(true)
+    elseif ui.m_titleStr then
         --vars['titleBgSprite']:setVisible(true)
         vars['titleLabel']:setVisible(true)
         vars['titleLabel']:setString(ui.m_titleStr)
