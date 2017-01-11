@@ -10,6 +10,8 @@ UI_DragonManageUpgrade = class(PARENT,{
         m_tableViewExtSelectMaterial = 'TableViewExtension', -- 선택된 재료
 
         m_materialSortMgr = 'DragonSortManagerUpgradeMaterial',
+
+        m_bOpenMaterial = 'boolean',
     })
 
 -------------------------------------
@@ -22,6 +24,7 @@ function UI_DragonManageUpgrade:initParentVariable()
     self.m_bVisible = true or false
     self.m_titleStr = Str('승급') or nil
     self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
+    self.m_bOpenMaterial = false
 end
 
 -------------------------------------
@@ -63,6 +66,9 @@ function UI_DragonManageUpgrade:initUI()
 
     self:init_dragonTableView()
     --self:setDefaultSelectDragon()
+
+    vars['leftMenu']:setVisible(false)
+    vars['rightMenu']:setPositionX(0)
 end
 
 -------------------------------------
@@ -71,6 +77,7 @@ end
 -------------------------------------
 function UI_DragonManageUpgrade:initButton()
     local vars = self.vars
+    vars['materialBtn']:registerScriptTapHandler(function() self:click_materialBtn() end)
     vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
 end
 
@@ -155,7 +162,7 @@ function UI_DragonManageUpgrade:refresh()
         else
             vars['maxLvLabel']:setVisible(true)
             local next_max_lv = t_next_grade_info['max_lv']
-            vars['maxLvLabel']:setString(Str('최대레벨 {1} > {2}', max_lv, next_max_lv))
+            vars['maxLvLabel']:setString(Str('최대레벨\n{1} > {2}', max_lv, next_max_lv))
         end
     end
 
@@ -164,9 +171,12 @@ function UI_DragonManageUpgrade:refresh()
     -- 선택된 재료 리스트 갱신
     self:init_dragonUpgradeMaterialSelectTableView()
 
-    -- 재료 리스트 갱신
-    self:init_dragonUpgradeMaterialTableView()
+    if self.m_bOpenMaterial then
+        -- 재료 리스트 갱신
+        self:init_dragonUpgradeMaterialTableView()
+    end
 
+    self:refresh_btnState()
     self:refresh_selectedMaterial()
 end
 
@@ -175,6 +185,10 @@ end
 -- @brief 드래곤 승급 재료(다른 드래곤) 리스트 테이블 뷰
 -------------------------------------
 function UI_DragonManageUpgrade:init_dragonUpgradeMaterialTableView()
+
+    -- 최초로 leftMenu가 등장했을 때 예약된 함수 제거
+    cca.stopAction(self.vars['leftMenu'], 100)
+    
 
     local list_table_node = self.vars['selectListNode']
     list_table_node:removeAllChildren()
@@ -484,6 +498,58 @@ function UI_DragonManageUpgrade:analyzeSelectedMaterial(doid, l_item)
 
 
     return t_ret
+end
+
+-------------------------------------
+-- function refresh_btnState
+-- @brief
+-------------------------------------
+function UI_DragonManageUpgrade:refresh_btnState()
+    local vars = self.vars
+
+    if (not self.m_bOpenMaterial) then
+        vars['materialBtn']:setVisible(true)
+        vars['upgradeBtn']:setVisible(false)
+    else
+        vars['materialBtn']:setVisible(false)
+        vars['upgradeBtn']:setVisible(true)
+    end
+
+    --[[
+    vars['materialBtn']:setVisible(false)
+    vars['upgradeBtn']:setVisible(true)
+
+    -- 임시로 사용하지 않음
+    vars['skillUpgradeBtn']:setVisible(false)
+    vars['transcendBtn']:setVisible(false)
+    --]]
+end
+
+-------------------------------------
+-- function click_materialBtn
+-- @brief "재료 선택" 버튼 클릭
+--        재료 리스트가 등장하고, 승급(or 초월) 버튼 등장
+-------------------------------------
+function UI_DragonManageUpgrade:click_materialBtn()
+    if (self.m_bOpenMaterial == true) then
+        return
+    end
+
+    self.m_bOpenMaterial = true
+    self:refresh_btnState()
+
+    local vars = self.vars
+    
+    local visibleSize = cc.Director:getInstance():getVisibleSize()
+    local pos_x, pos_y = vars['leftMenu']:getPosition()
+    vars['leftMenu']:setPositionX(pos_x - visibleSize['width'])
+    local action = cc.EaseInOut:create(cc.MoveTo:create(0.5, cc.p(pos_x, pos_y)), 2)
+    cca.runAction(vars['leftMenu'], action)
+
+    cca.reserveFuncWithTag(vars['leftMenu'], 0.5, function() self:init_dragonUpgradeMaterialTableView() end, 100)
+
+    vars['leftMenu']:setVisible(true)
+    vars['rightMenu']:runAction(cc.EaseInOut:create(cc.MoveTo:create(0.5, cc.p(320, 69)), 2))
 end
 
 -------------------------------------
