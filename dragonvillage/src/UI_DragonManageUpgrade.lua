@@ -80,6 +80,7 @@ function UI_DragonManageUpgrade:initButton()
     vars['materialBtn']:registerScriptTapHandler(function() self:click_materialBtn() end)
     vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
     vars['skillUpgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
+    vars['transcendBtn']:registerScriptTapHandler(function() self:click_transcendBtn() end)
 end
 
 -------------------------------------
@@ -515,7 +516,7 @@ function UI_DragonManageUpgrade:refresh_selectedMaterial()
 
     elseif (self.m_upgradeMode == 'eclv_up') then
         -- 가격 출력
-        local price_str = comma_value(t_analyze['total_price'])
+        local price_str = comma_value(t_analyze['total_price_eclv'])
         vars['transcendPriceLabel']:setString(price_str)
     end
    
@@ -590,13 +591,18 @@ function UI_DragonManageUpgrade:analyzeSelectedMaterial(doid, l_item)
 
     -- 재료들을 모두 사용하여 승급할 때 필요한 골드
     local total_price = 0
+    local total_price_eclv = 0
     for i,v in pairs(l_item) do
         local data = v['data']
         local grade = data['grade']
         local req_gold = table_grade_info[grade]['req_gold']
         total_price = (total_price + req_gold)
+
+        local eclv_req_gold = table_grade_info[grade]['eclv_req_gold']
+        total_price_eclv = (total_price_eclv + eclv_req_gold)
     end
     t_ret['total_price'] = total_price
+    t_ret['total_price_eclv'] = total_price
 
     -- 스킬들의 레벨업 가능한 갯수
     local num_of_remin_skill_level = g_dragonsData:getNumberOfRemainingSkillLevel(doid)
@@ -725,17 +731,27 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
 
         -- 재료로 사용된 드래곤 삭제
         if ret['deleted_dragons_oid'] then
-            for _,odid in pairs(ret['deleted_dragons_oid']) do
-                g_dragonsData:delDragonData(odid)
+            for _,doid in pairs(ret['deleted_dragons_oid']) do
+                g_dragonsData:delDragonData(doid)
 
                 -- 드래곤 리스트 갱신
-                self.m_tableViewExt:delItem(odid)
+                self.m_tableViewExt:delItem(doid)
             end
 
             self.m_tableViewExt:expandTemp(0.5)
         end
 
-        -- 승급된 드래곤 갱신
+        -- 재료로 사용된 드래곤 삭제
+        if ret['deleted_dragon'] then
+            local doid = ret['deleted_dragon']['id']
+            g_dragonsData:delDragonData(doid)
+
+            -- 드래곤 리스트 갱신
+            self.m_tableViewExt:delItem(doid)
+            self.m_tableViewExt:expandTemp(0.5)
+        end
+
+        -- 승급(or 초월)된 드래곤 갱신
         if ret['dragon'] then
             g_dragonsData:applyDragonData(ret['dragon'])
         end
@@ -754,15 +770,35 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
         self:upgradeDirecting(doid, t_prev_dragon_data, t_next_dragon_data)
     end
 
-    local ui_network = UI_Network()
-    ui_network:setUrl('/dragons/upgrade')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('doid', doid)
-    ui_network:setParam('src_doids', src_doids)
-    ui_network:setRevocable(true)
-    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
-    ui_network:request()
+    -- 승급(스킬 레벨업)
+    if isExistValue(self.m_upgradeMode, 'upgrade', 'skill_lv_up') then
+        local ui_network = UI_Network()
+        ui_network:setUrl('/dragons/upgrade')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('doid', doid)
+        ui_network:setParam('src_doids', src_doids)
+        ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+        ui_network:request()
+
+    -- 초월
+    elseif (self.m_upgradeMode == 'eclv_up') then
+        local ui_network = UI_Network()
+        ui_network:setUrl('/dragons/exceed')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('doid', doid)
+        ui_network:setParam('src_doid', src_doids)
+        ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+        ui_network:request()
+    end
 end
+
+-------------------------------------
+-- function click_transcendBtn
+-------------------------------------
+function UI_DragonManageUpgrade:click_transcendBtn()
+    self:click_upgradeBtn()
+end
+
 
 -------------------------------------
 -- function upgradeDirecting
