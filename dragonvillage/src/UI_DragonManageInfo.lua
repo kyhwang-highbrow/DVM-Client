@@ -591,6 +591,7 @@ function UI_DragonManageInfo:click_leaderBtn()
 
             -- 서버에서 넘어온 드래곤 정보 저장
             if (ret['modified_dragons']) then
+                self:refreshLeaderIcon(ret['modified_dragons'])
                 for _,t_dragon in ipairs(ret['modified_dragons']) do
                     g_dragonsData:applyDragonData(t_dragon)
                 end
@@ -615,6 +616,25 @@ function UI_DragonManageInfo:click_leaderBtn()
     end
 
     MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('대표 드래곤으로 설정하시겠습니까?'), yes_cb)
+end
+
+-------------------------------------
+-- function refreshLeaderIcon
+-- @brief 대표드래곤이 변경되었을 때
+-------------------------------------
+function UI_DragonManageInfo:refreshLeaderIcon(modified_dragons)
+    for i,v in pairs(modified_dragons) do
+        local doid = v['id']
+        local item = self.m_tableViewExt:getItem(doid)
+
+        if item then
+            item['data'] = clone(v)
+            if item['ui'] then
+                item['ui'].m_dragonData = clone(v)
+                item['ui']:refresh_LeaderIcon()
+            end
+        end
+    end
 end
 
 -------------------------------------

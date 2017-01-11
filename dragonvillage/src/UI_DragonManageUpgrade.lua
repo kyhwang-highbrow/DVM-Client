@@ -846,7 +846,12 @@ function UI_DragonManageUpgrade:upgradeDirecting(doid, t_prev_dragon_data, t_nex
         self:refresh_dragonIndivisual(doid)
     end
 
-    directing_animation()
+    -- 초월의 경우 즉시 연출 시작
+    if (self.m_upgradeMode == 'eclv_up') then
+        directing_result()
+    else
+        directing_animation()
+    end
 end
 
 -------------------------------------

@@ -58,16 +58,17 @@ function UI_CharacterCard:refreshDragonInfo()
         self:makeDragonIcon(t_dragon_data, t_dragon)
     end
 
+    do -- 리더 여부
+        self:refresh_LeaderIcon()
+    end
+        
     do -- 속성 아이콘 생성
         local res = 'character_card_attr_' .. t_dragon['attr'] .. '.png'
         self:makeAttrIcon(res)
     end
 
     do -- 등급 아이콘 생성
-        if t_dragon_data['grade'] then
-            local res = 'character_card_star0' .. t_dragon_data['grade'] .. '.png'
-            self:makeStarIcon(res)
-        end
+        self:refresh_gradeIcon()
     end
 
     do -- 레벨 지정
@@ -154,6 +155,35 @@ function UI_CharacterCard:makeDragonIcon(t_dragon_data, t_dragon)
 end
 
 -------------------------------------
+-- function refresh_LeaderIcon
+-- @brief 리더 아이콘
+-------------------------------------
+function UI_CharacterCard:refresh_LeaderIcon()
+    local vars = self.vars
+    local t_dragon_data = self.m_dragonData
+
+    local is_leader = (t_dragon_data['leader'] and (0 < table.count(t_dragon_data['leader'])))
+
+    if is_leader then
+        if vars['leaderIcon'] then
+            vars['leaderIcon']:setVisible(true)
+        else
+            local sprite = cc.Sprite:createWithSpriteFrameName('character_card_leader_icon.png')
+            sprite:setPosition(-46, 9)
+            sprite:setDockPoint(CENTER_POINT)
+            sprite:setAnchorPoint(CENTER_POINT)
+            self.vars['clickBtn']:addChild(sprite, 2)
+            vars['leaderIcon'] = sprite
+        end
+
+    else
+        if vars['leaderIcon'] then
+            vars['leaderIcon']:setVisible(false)
+        end
+    end
+end
+
+-------------------------------------
 -- function makeAttrIcon
 -- @brief 속성 아이콘 생성
 -------------------------------------
@@ -174,15 +204,26 @@ function UI_CharacterCard:makeAttrIcon(res)
     sprite:setAnchorPoint(CENTER_POINT)
     sprite:setScale(1.1)
     sprite:setPosition(-46, 46)
-    self.vars['clickBtn']:addChild(sprite, 2)
+    self.vars['clickBtn']:addChild(sprite, 3)
     vars['attrIcon'] = sprite
 end
 
 -------------------------------------
--- function makeStarIcon
--- @brief 등급 아이콘 생성
+-- function refresh_gradeIcon
+-- @brief 등급 아이콘
 -------------------------------------
-function UI_CharacterCard:makeStarIcon(res)
+function UI_CharacterCard:refresh_gradeIcon()
+    local t_dragon_data = self.m_dragonData
+
+    local res = ''
+    local grade = (t_dragon_data['grade'] or 1)
+    local eclv = (t_dragon_data['eclv'] or 0)
+    if (0 < eclv) then
+        res = string.format('character_card_eclv_%.2d.png', eclv)
+    else
+        res = 'character_card_star0' .. grade .. '.png'
+    end
+
     if (self.m_starIconRes == res) then
         return
     end
@@ -198,7 +239,7 @@ function UI_CharacterCard:makeStarIcon(res)
     sprite:setDockPoint(CENTER_POINT)
     sprite:setAnchorPoint(CENTER_POINT)
     sprite:setPosition(0, -52)
-    self.vars['clickBtn']:addChild(sprite, 3)
+    self.vars['clickBtn']:addChild(sprite, 4)
     vars['starIcon'] = sprite
 end
 
@@ -222,7 +263,7 @@ function UI_CharacterCard:setLevelText(level)
         lvSprite1 = MakeAnimator('res/ui/a2d/character_card/character_card.vrp')
         lvSprite1:setDockPoint(CENTER_POINT)
         lvSprite1:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(lvSprite1.m_node, 3)
+        self.vars['clickBtn']:addChild(lvSprite1.m_node, 5)
         vars['lvSprite1'] = lvSprite1
         lvSprite1:changeAni('digit_0')
     end
@@ -231,7 +272,7 @@ function UI_CharacterCard:setLevelText(level)
         lvSprite2 = MakeAnimator('res/ui/a2d/character_card/character_card.vrp')
         lvSprite2:setDockPoint(CENTER_POINT)
         lvSprite2:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(lvSprite2.m_node, 3)
+        self.vars['clickBtn']:addChild(lvSprite2.m_node, 5)
         vars['lvSprite2'] = lvSprite2
         lvSprite2:changeAni('digit_5')
     end
@@ -240,13 +281,13 @@ function UI_CharacterCard:setLevelText(level)
         lvSprite3 = MakeAnimator('res/ui/a2d/character_card/character_card.vrp')
         lvSprite3:setDockPoint(CENTER_POINT)
         lvSprite3:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(lvSprite3.m_node, 3)
+        self.vars['clickBtn']:addChild(lvSprite3.m_node, 5)
         vars['lvSprite3'] = lvSprite3
         lvSprite3:changeAni('digit_5')
     end
 
     local pos_x = -60
-    local pos_y = 0
+    local pos_y = -27
     local font_size = 15
     if (level < 10) then
         lvSprite1:setVisible(true)
