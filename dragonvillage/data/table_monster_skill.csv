@@ -52,7 +52,10 @@ sid,skill_form,type,t_name,r_comment,res_icon,res_1,res_2,res_3,animation,motion
 230051,status_effect,skill_ancient_word_c,고대문자 C,x,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,0,basic_turn,3,ally_random,3,atk,100,1,0,0,0,0,0,0,aspd_up;target;10;100;50,x,0,x,x,x,x,x,x,x
 230052,script,skill_missile_record_manager_1,기록 삭제,x,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,0,basic_turn,3,enemy_distance_line,-1,atk,10,1,0,0,0,0,0,0,x,x,0,x,x,x,x,x,x,x
 230053,code,skill_leap_atk,점프 공격,만드라고라:일반 공격,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,0,basic,3,enemy_distance_line,-1,atk,100,1,5000,10000,200,0,0,0,x,x,0,x,x,x,x,x,x,x
-230054,script,skill_missile_mandragora_1,초음파,x,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,3,atk,20,1,0,0,0,0,0,0,stun;target;2;50;100,x,0,x,x,x,x,x,x,x
+230054,script,skill_missile_mandragora_1,초음파,만드라고라,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,3,atk,20,1,0,0,0,0,0,0,stun;target;2;50;100,x,0,x,x,x,x,x,x,x
+230055,script,skill_missile_lumiere_1,도깨비불,루미에,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,3,atk,20,1,0,0,0,0,0,0,x,x,0,x,x,x,x,x,x,x
+230056,script,skill_missile_flying_skull_1,뜨거워,플라잉 스컬,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,3,atk,20,1,0,0,0,0,0,0,x,x,0,x,x,x,x,x,x,x
+230057,code,skill_missile_minion_1,마지막 선물,미니언,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,0,basic_turn,3,enemy_distance_line,3,atk,20,1,0,0,0,0,0,0,x,x,0,x,x,x,x,x,x,x
 231000,script,skill_elite_0,엘리트_0,엘리트_0,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 231001,script,skill_elite_1,엘리트_1,엘리트_1,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 231002,script,skill_elite_2,엘리트_2,엘리트_2,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
@@ -69,6 +72,12 @@ sid,skill_form,type,t_name,r_comment,res_icon,res_1,res_2,res_3,animation,motion
 231013,script,skill_elite_light_orb_2,엘리트_라이트 오브2,엘리트_라이트 오브2,res/ui/icon/skill/test.png,x,x,x,x,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 231014,script,skill_elite_beholder_1,섬뜩한 시선,엘리트_감시자1,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy,3,atk,20,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 231015,script,skill_elite_beholder_2,엘리트_감시자2,엘리트_감시자2,res/ui/icon/skill/test.png,x,x,x,x,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
+231016,script,skill_elite_chandelier_0,일반 공격,샹들리에,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
+231017,script,skill_elite_chandelier_1,환영 불꽃,샹들리에,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,2,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
+231019,script,skill_elite_skeleton_knight_1,서리 일격,해골 기사,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
+231020,script,skill_elite_succubus_0,일반 공격,서큐버스,res/ui/icon/skill/test.png,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
+231021,script,skill_elite_succubus_1,정기 흡수,서큐버스,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
+231022,script,skill_elite_succubus_2,유혹,서큐버스,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,5,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 232011,script,skill_subboss_mushqueen_1,포자살포,여왕버섯,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,40,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 232012,script,skill_subboss_mushqueen_2,여왕의 힘,여왕버섯,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,0,basic_turn,4,enemy_distance_line,3,atk,50,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 232013,script,skill_subboss_mushqueen_3,버섯 폭탄,여왕버섯,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,0,basic_turn,5,enemy_distance_line,5,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
@@ -89,7 +98,11 @@ sid,skill_form,type,t_name,r_comment,res_icon,res_1,res_2,res_3,animation,motion
 232054,script,skill_subboss_fallen_angel_0,일반 공격,타천사: 일반 공격,res/ui/icon/skill/test.png,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 232055,script,skill_subboss_fallen_angel_1,빛의 분노,타천사: 레이저,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,-2,basic_turn,4,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 232056,script,skill_subboss_fallen_angel_2,빛의 격노,타천사: 연발 레이저,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,physical,-2,basic_turn,4,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
-232057,script,skill_subboss_fallen_angel_3,심판,타천사: 백린탄,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,-2,basic_turn,4,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,burn;target;30;10;100,x,0,x,x,x,x,x,x,x
+232057,script,skill_subboss_fallen_angel_3,심판,타천사: ,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,-2,basic_turn,4,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,burn;target;30;10;100,x,0,x,x,x,x,x,x,x
+232070,code,skill_melee_atk,일반 공격,듀라한,res/ui/icon/skill/test.png,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
+232071,script,skill_subboss_dullahan_1,어둠의 기둥,듀라한,res/ui/icon/skill/test.png,x,x,x,x,instant,physical,-1,basic_turn,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
+232072,code,skill_subboss_dullahan_2,군마 돌진,듀라한,res/ui/icon/skill/test.png,x,x,x,x,instant,physical,-1,basic_turn,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
+232073,script,skill_subboss_dullahan_3,어둠의 나락,듀라한,res/ui/icon/skill/test.png,x,x,x,x,instant,physical,-1,basic_turn,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 233100,script,skill_boss_queenssnake_0,일반 공격,퀸즈스네이크 : 일반 공격 (attack),res/ui/icon/skill/test.png,x,x,x,attack,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,25,x,x,x,x,공격력의 {1}% 피해를 주는 미니비 4마리를 소환해 공격,x
 233101,script,skill_boss_queenssnake_1,벌집 던지기,퀸즈스네이크 : 벌집 던지기 (우측상단 집중공격),res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,-1,atk,40,1,0,0,0,0,0,x,x,x,0,20,x,x,x,x,"미니비가 살고 있는 벌통을 던져, 공격력의 {1}% 피해를 주는 미니비를 다수 쏟아냄",x
 233102,script,skill_boss_queenssnake_2,벌집 탄막,퀸즈스네이크 : 벌집 탄막 (skill_2_loop),res/ui/icon/skill/test.png,x,x,x,skill_2,maintain,physical,-2,basic_turn,1,enemy_distance_line,4,atk,40,1,0,0,0,0,0,x,x,x,0,10,x,x,x,x,공격력의 {1}%의 데미지를 주는 많은 날카로운 비늘을 사방으로 날림,x
@@ -118,6 +131,12 @@ sid,skill_form,type,t_name,r_comment,res_icon,res_1,res_2,res_3,animation,motion
 233503,script,skill_boss_world_order_machine_3,시간 제어,질서 유지장치 : 시간 제어,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,physical,-1,basic_turn,4,enemy_distance_line,1,atk,70,1,0,0,0,0,0,x,aspd_down;target;10;100;100,x,0,x,x,x,x,x,임시 데이터입니다. table_monster_skill을 수정하세요.,x
 233504,script,skill_boss_world_order_machine_4,기어 웨이브,질서 유지장치 : 광역 공격1,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,physical,-1,basic_turn,4,enemy_distance_line,1,atk,20,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,임시 데이터입니다. table_monster_skill을 수정하세요.,x
 233505,script,skill_boss_world_order_machine_5,빛무리,질서 유지장치 : 광역 공격2,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,physical,-1,basic_turn,4,enemy_distance_line,0,atk,40,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,임시 데이터입니다. table_monster_skill을 수정하세요.,x
+233600,script,skill_boss_darknix_0,일반 공격,다크닉스,res/ui/icon/skill/test.png,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,임시 데이터입니다. table_monster_skill을 수정하세요.,x
+233601,code,skill_boss_darknix_1,파멸의 고동,다크닉스,res/ui/icon/skill/test.png,x,x,x,x,instant,physical,-1,basic_turn,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,임시 데이터입니다. table_monster_skill을 수정하세요.,x
+233602,code,skill_boss_darknix_2,경질화,다크닉스,res/ui/icon/skill/test.png,x,x,x,x,instant,physical,-1,basic_turn,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,임시 데이터입니다. table_monster_skill을 수정하세요.,x
+233603,script,skill_boss_darknix_3,살의의 파동,다크닉스,res/ui/icon/skill/test.png,x,x,x,x,instant,physical,-1,basic_turn,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,임시 데이터입니다. table_monster_skill을 수정하세요.,x
+233604,script,skill_boss_darknix_4,차원 가르기,다크닉스,res/ui/icon/skill/test.png,x,x,x,x,instant,physical,-1,basic_turn,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,임시 데이터입니다. table_monster_skill을 수정하세요.,x
+233605,script,skill_boss_darknix_5,종말,다크닉스,res/ui/icon/skill/test.png,x,x,x,x,instant,physical,-1,basic_turn,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,임시 데이터입니다. table_monster_skill을 수정하세요.,x
 234001,script,skill_subboss_griffin_3,벼락,그리핀(무캐스팅),res/ui/icon/skill/test.png,x,x,x,skill_2,instant,magical,-2,basic_turn,10,enemy_distance_line,0,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,임시 데이터입니다. table_monster_skill을 수정하세요.,x
 234002,script,skill_boss_spider_queen_5,거미새끼 소환,거미새끼 소환,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,0,basic_turn,1,enemy_distance_line,0,atk,10,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,임시 데이터입니다. table_monster_skill을 수정하세요.,x
 234003,code,trigger_skill,트리거에 의해 발동되는 스킬 테스트,트리거에 의해 발동되는 스킬 테스트,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,0,trigger,dead,enemy_distance_line,0,atk,1,1,230002,0,0,0,0,x,x,x,0,x,x,x,x,x,임시 데이터입니다. table_monster_skill을 수정하세요.,x

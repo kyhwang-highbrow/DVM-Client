@@ -1,0 +1,23 @@
+{
+	"pattern_boss_darknix":
+	[			
+		[
+			"a;basic"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":5,
+                "pattern":
+                [
+					"a;basic"
+                ]
+            }
+        ]
+    }
+}

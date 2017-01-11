@@ -1,0 +1,23 @@
+{
+	"pattern_elite_skeleton_knight":
+	[			
+		[
+			"a;basic"
+		]
+    ],
+	
+	"hp_trriger":
+    {
+        "priority":1,
+        "list":
+        [
+            {
+                "hp_percent":5,
+                "pattern":
+                [
+					"a;basic"
+                ]
+            }
+        ]
+    }
+}
