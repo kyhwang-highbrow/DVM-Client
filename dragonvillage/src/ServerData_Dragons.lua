@@ -188,6 +188,16 @@ function ServerData_Dragons:isMaxGrade(dragon_object_id)
 end
 
 -------------------------------------
+-- function isMaxEclv
+-- @brief 최대 초월 드래곤인지 확인
+-------------------------------------
+function ServerData_Dragons:isMaxEclv(dragon_object_id)
+    local t_dragon_data = self:getDragonDataFromUid(dragon_object_id)
+    local is_max_eclv = (t_dragon_data['eclv'] >= MAX_DRAGON_ECLV)
+    return is_max_eclv
+end
+
+-------------------------------------
 -- function canUpgrade
 -- @brief 업그레이드 가능 여부
 -------------------------------------
@@ -199,6 +209,29 @@ function ServerData_Dragons:canUpgrade(dragon_object_id)
     local num_of_remin_skill_level = self:getNumberOfRemainingSkillLevel(dragon_object_id)    
 
     return (not is_max_grade) or (0 < num_of_remin_skill_level)
+end
+
+-------------------------------------
+-- function getUpgradeMode
+-- @brief 업그레이드 모드 리턴 (승급, 스킬 레벨업, 초월)
+-------------------------------------
+function ServerData_Dragons:getUpgradeMode(doid)
+    local mode = 'max'
+
+    -- 승급 (최대 등급이 아닐 경우)
+    if (not self:isMaxGrade(doid)) then
+        mode = 'upgrade'
+
+    -- 스킬 레벨업 (레벨업 가능한 스킬이 남았을 경우)
+    elseif (0 < self:getNumberOfRemainingSkillLevel(doid)) then
+        mode = 'skill_lv_up'
+
+    -- 초월 (최대등급, 스킬만렙일 경우 초월 가능)
+    elseif (not self:isMaxEclv(doid)) then
+        mode = 'eclv_up'
+    end
+
+    return mode
 end
 
 -------------------------------------

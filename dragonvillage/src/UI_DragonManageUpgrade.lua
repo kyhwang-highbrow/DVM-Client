@@ -12,6 +12,7 @@ UI_DragonManageUpgrade = class(PARENT,{
         m_materialSortMgr = 'DragonSortManagerUpgradeMaterial',
 
         m_bOpenMaterial = 'boolean',
+        m_upgradeMode = 'string',
     })
 
 -------------------------------------
@@ -63,12 +64,11 @@ end
 function UI_DragonManageUpgrade:initUI()
     local vars = self.vars
     vars['upgradeGauge']:setPercentage(0)
-
-    self:init_dragonTableView()
-    --self:setDefaultSelectDragon()
-
     vars['leftMenu']:setVisible(false)
     vars['rightMenu']:setPositionX(0)
+
+    self:init_dragonTableView()
+    self:init_dragonUpgradeMaterialSelectTableView()
 end
 
 -------------------------------------
@@ -79,6 +79,7 @@ function UI_DragonManageUpgrade:initButton()
     local vars = self.vars
     vars['materialBtn']:registerScriptTapHandler(function() self:click_materialBtn() end)
     vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
+    vars['skillUpgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
 end
 
 -------------------------------------
@@ -92,19 +93,14 @@ function UI_DragonManageUpgrade:refresh()
         return
     end
 
+    -- 승급 상태
+    self.m_upgradeMode = g_dragonsData:getUpgradeMode(t_dragon_data['id'])
+
     local vars = self.vars
 
     -- 드래곤 테이블
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[t_dragon_data['did']]
-
-    -- 등급 테이블
-    local table_grade_info = TABLE:get('grade_info')
-    local t_grade_info = table_grade_info[t_dragon_data['grade']]
-    local t_next_grade_info = table_grade_info[t_dragon_data['grade'] + 1]
-
-    -- 최대 등급인지 여부
-    local is_max_grade = (t_dragon_data['grade'] >= MAX_DRAGON_GRADE)
 
     do -- 드래곤 이름
         vars['nameLabel']:setString(Str(t_dragon['t_name']))
@@ -116,68 +112,136 @@ function UI_DragonManageUpgrade:refresh()
         vars['termsIconNode']:addChild(dragon_card.root)
     end
 
-    do -- 드래곤 다음 등급 정보 카드
-        vars['maxIconNode']:removeAllChildren()
-
-        if is_max_grade then
-            
-        else
-            local t_next_dragon_data = clone(t_dragon_data)
-            t_next_dragon_data['grade'] = (t_next_dragon_data['grade'] + 1)
-            local dragon_card = UI_DragonCard(t_next_dragon_data)
-            vars['maxIconNode']:addChild(dragon_card.root)
-        end
-    end
+    -- 드래곤 다음 등급 정보 카드
+    vars['maxIconNode']:removeAllChildren()
     
     -- 등급 업이 될 때 표시 스프라이트
     vars['gradeUpSprite']:setVisible(false)
 
     -- 스킬 업이 될 때 표시 스프라이트
     vars['skillUpSprite']:setVisible(false)
-    
-    do -- 승급 경험치
-        if is_max_grade then
-            vars['upgradeExpLabel']:setString(Str('승급 경험치 MAX'))
-            vars['upgradeGauge']:stopAllActions()
-            vars['upgradeGauge']:runAction(cc.ProgressTo:create(0.3, 100)) 
-        else
-            local req_exp = t_grade_info['req_exp']
-            local curr_exp = t_dragon_data['gexp']
-            local percentage = (curr_exp / req_exp) * 100
+     
+    -- 업그레이드 모드 별 refresh
+    if (self.m_upgradeMode == 'upgrade') then
+        self:refresh_upgrade(table_dragon, t_dragon_data)
 
-            vars['upgradeExpLabel']:setString(Str('승급 경험치 {1}%', math_floor(percentage)))
-            vars['upgradeGauge']:stopAllActions()
-            vars['upgradeGauge']:runAction(cc.ProgressTo:create(0.3, percentage)) 
-        end
+    elseif (self.m_upgradeMode == 'skill_lv_up') then
+        self:refresh_skill_lv_up(table_dragon, t_dragon_data)
+
+    elseif (self.m_upgradeMode == 'eclv_up') then
+        self:refresh_eclv_up(table_dragon, t_dragon_data)
     end
 
-    -- 레벨 표시
-    do
-        local curr_lv = t_dragon_data['lv']
-        local max_lv = t_grade_info['max_lv']
-        vars['termsLvLabel']:setString(Str('조건레벨 {1}/{2}', curr_lv, max_lv))
-
-        if is_max_grade then
-            vars['maxLvLabel']:setVisible(false)
-        else
-            vars['maxLvLabel']:setVisible(true)
-            local next_max_lv = t_next_grade_info['max_lv']
-            vars['maxLvLabel']:setString(Str('최대레벨\n{1} > {2}', max_lv, next_max_lv))
-        end
+    -- 재료 리스트 갱신
+    if self.m_bOpenMaterial then
+        self:refresh_dragonUpgradeMaterialTableView()
     end
-
-    vars['selectLabel']:setString(Str('선택재료 {1} / 30', 0))
 
     -- 선택된 재료 리스트 갱신
-    self:init_dragonUpgradeMaterialSelectTableView()
-
-    if self.m_bOpenMaterial then
-        -- 재료 리스트 갱신
-        self:init_dragonUpgradeMaterialTableView()
-    end
+    self.m_tableViewExtSelectMaterial:clearItemList()
 
     self:refresh_btnState()
     self:refresh_selectedMaterial()
+end
+
+-------------------------------------
+-- function refresh_upgrade
+-------------------------------------
+function UI_DragonManageUpgrade:refresh_upgrade(table_dragon, t_dragon_data)
+    local vars = self.vars
+
+    g_topUserInfo:setTitleString(Str('승급'))
+
+    -- 등급 테이블
+    local table_grade_info = TABLE:get('grade_info')
+    local t_grade_info = table_grade_info[t_dragon_data['grade']]
+    local t_next_grade_info = table_grade_info[t_dragon_data['grade'] + 1]
+
+    do -- 드래곤 다음 등급 정보 카드
+        vars['maxIconNode']:removeAllChildren()
+        local t_next_dragon_data = clone(t_dragon_data)
+        t_next_dragon_data['grade'] = (t_next_dragon_data['grade'] + 1)
+        local dragon_card = UI_DragonCard(t_next_dragon_data)
+        vars['maxIconNode']:addChild(dragon_card.root)
+    end
+
+    do -- 승급 경험치 UI
+        vars['upgradeGauge']:setVisible(true)
+        vars['upgradeGauge1']:setVisible(true)
+        vars['upgradeGauge2']:setVisible(true)
+        vars['upgradeExpLabel']:setVisible(true)
+    end
+
+    do -- 승급 경험치
+        local req_exp = t_grade_info['req_exp']
+        local curr_exp = t_dragon_data['gexp']
+        local percentage = (curr_exp / req_exp) * 100
+
+        vars['upgradeExpLabel']:setString(Str('승급 경험치 {1}%', math_floor(percentage)))
+        vars['upgradeGauge']:stopAllActions()
+        vars['upgradeGauge']:runAction(cc.ProgressTo:create(0.3, percentage)) 
+    end
+
+    do -- 레벨 표시
+        local max_lv = t_grade_info['max_lv']
+        local next_max_lv = t_next_grade_info['max_lv']
+        vars['maxLvLabel']:setString(Str('최대레벨\n{1} > {2}', max_lv, next_max_lv))
+
+        vars['nextTextLabel']:setString(Str('등급 상승'))
+    end
+
+    vars['selectLabel']:setVisible(true)
+    vars['selectLabel']:setString(Str('선택재료 {1} / {2}', 0, MAX_DRAGON_UPGRADE_MATERIAL_MAX))
+end
+
+-------------------------------------
+-- function refresh_skill_lv_up
+-------------------------------------
+function UI_DragonManageUpgrade:refresh_skill_lv_up(table_dragon, t_dragon_data)
+    local vars = self.vars
+
+    g_topUserInfo:setTitleString(Str('스킬 레벨업'))
+
+    do -- 승급 경험치 UI
+        vars['upgradeGauge']:setVisible(false)
+        vars['upgradeGauge1']:setVisible(false)
+        vars['upgradeGauge2']:setVisible(false)
+        vars['upgradeExpLabel']:setVisible(false)
+    end
+
+    -- 레벨 표시
+    vars['maxLvLabel']:setString(Str(''))
+
+    vars['nextTextLabel']:setString(Str('스킬 레벨업'))
+
+    vars['selectLabel']:setVisible(true)
+    vars['selectLabel']:setString(Str('선택재료 {1} / {2}', 0, MAX_DRAGON_UPGRADE_MATERIAL_MAX))
+end
+
+-------------------------------------
+-- function refresh_eclv_up
+-------------------------------------
+function UI_DragonManageUpgrade:refresh_eclv_up(table_dragon, t_dragon_data)
+    local vars = self.vars
+
+    g_topUserInfo:setTitleString(Str('초월'))
+
+    do -- 승급 경험치 UI
+        vars['upgradeGauge']:setVisible(false)
+        vars['upgradeGauge1']:setVisible(false)
+        vars['upgradeGauge2']:setVisible(false)
+        vars['upgradeExpLabel']:setVisible(false)
+    end
+
+    do -- 레벨 표시
+        local max_lv = 70 + (t_dragon_data['eclv'] * 2)
+        vars['maxLvLabel']:setString(Str('최대레벨\n{1} > {2}', max_lv, max_lv + 2))
+    end
+    
+
+    vars['nextTextLabel']:setString(Str('초월'))
+
+    vars['selectLabel']:setVisible(false)
 end
 
 -------------------------------------
@@ -189,7 +253,6 @@ function UI_DragonManageUpgrade:init_dragonUpgradeMaterialTableView()
     -- 최초로 leftMenu가 등장했을 때 예약된 함수 제거
     cca.stopAction(self.vars['leftMenu'], 100)
     
-
     local list_table_node = self.vars['selectListNode']
     list_table_node:removeAllChildren()
 
@@ -213,12 +276,11 @@ function UI_DragonManageUpgrade:init_dragonUpgradeMaterialTableView()
     table_view_td.m_cellSize = cc.size(105, 105)
     table_view_td.m_nItemPerCell = 5
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
+    self.m_tableViewExtMaterial = table_view_td
 
     -- 재료로 사용 가능한 리스트를 얻어옴
     local l_dragon_list = self:getDragonUpgradeMaterialList(self.m_selectDragonOID)
-    table_view_td:setItemList(l_dragon_list, true)
-
-    self.m_tableViewExtMaterial = table_view_td
+    self.m_tableViewExtMaterial:setItemList(l_dragon_list, true)
 
     do -- 정렬 도우미 도입
         local b_ascending_sort = nil
@@ -231,7 +293,18 @@ function UI_DragonManageUpgrade:init_dragonUpgradeMaterialTableView()
         
         self.m_materialSortMgr = DragonSortManagerUpgradeMaterial(self.vars, table_view_td, self.m_tableViewExtSelectMaterial, b_ascending_sort, sort_type)
         self.m_materialSortMgr:changeSort()
+
+        -- 정렬
+        self.m_materialSortMgr:changeSort()  
     end
+end
+
+-------------------------------------
+-- function refresh_dragonUpgradeMaterialTableView
+-- @brief 드래곤 승급 재료(다른 드래곤) 리스트 테이블 뷰
+-------------------------------------
+function UI_DragonManageUpgrade:refresh_dragonUpgradeMaterialTableView()
+    self:init_dragonUpgradeMaterialTableView()
 end
 
 -------------------------------------
@@ -287,7 +360,6 @@ end
 -- @brief 선택된 드래곤 승급 재료(다른 드래곤) 리스트 테이블 뷰
 -------------------------------------
 function UI_DragonManageUpgrade:init_dragonUpgradeMaterialSelectTableView()
-
     local list_table_node = self.vars['materialNode']
     list_table_node:removeAllChildren()
 
@@ -507,22 +579,26 @@ end
 function UI_DragonManageUpgrade:refresh_btnState()
     local vars = self.vars
 
-    if (not self.m_bOpenMaterial) then
-        vars['materialBtn']:setVisible(true)
-        vars['upgradeBtn']:setVisible(false)
-    else
-        vars['materialBtn']:setVisible(false)
-        vars['upgradeBtn']:setVisible(true)
-    end
-
-    --[[
-    vars['materialBtn']:setVisible(false)
-    vars['upgradeBtn']:setVisible(true)
-
-    -- 임시로 사용하지 않음
+    vars['upgradeBtn']:setVisible(false)
     vars['skillUpgradeBtn']:setVisible(false)
     vars['transcendBtn']:setVisible(false)
-    --]]
+
+    if (not self.m_bOpenMaterial) then
+        vars['materialBtn']:setVisible(true)
+    else
+        vars['materialBtn']:setVisible(false)
+
+        if (self.m_upgradeMode == 'upgrade') then
+            vars['upgradeBtn']:setVisible(true)
+
+        elseif (self.m_upgradeMode == 'skill_lv_up') then
+            vars['skillUpgradeBtn']:setVisible(true)
+
+        elseif (self.m_upgradeMode == 'eclv_up') then
+            vars['transcendBtn']:setVisible(true)
+
+        end
+    end
 end
 
 -------------------------------------
@@ -546,7 +622,7 @@ function UI_DragonManageUpgrade:click_materialBtn()
     local action = cc.EaseInOut:create(cc.MoveTo:create(0.5, cc.p(pos_x, pos_y)), 2)
     cca.runAction(vars['leftMenu'], action)
 
-    cca.reserveFuncWithTag(vars['leftMenu'], 0.5, function() self:init_dragonUpgradeMaterialTableView() end, 100)
+    cca.reserveFuncWithTag(vars['leftMenu'], 0.5, function() self:refresh_dragonUpgradeMaterialTableView() end, 100)
 
     vars['leftMenu']:setVisible(true)
     vars['rightMenu']:runAction(cc.EaseInOut:create(cc.MoveTo:create(0.5, cc.p(320, 69)), 2))
@@ -689,11 +765,14 @@ end
 -- @brief 선택이 가능한 드래곤인지 여부
 -------------------------------------
 function UI_DragonManageUpgrade:checkDragonSelect(doid)
-    if (not g_dragonsData:canUpgrade(doid)) then
-        UIManager:toastNotificationGreen(Str('최대 승급단계의 드래곤입니다.'))
+    local upgrade_mode = g_dragonsData:getUpgradeMode(doid)
+
+    if (upgrade_mode == 'max') then
+        UIManager:toastNotificationGreen(Str('최대 초월단계의 드래곤입니다.'))
         return false
+    else
+        return true
     end
-    return true
 end
 
 --@CHECK

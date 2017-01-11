@@ -259,5 +259,13 @@ end
 -- @brief
 -------------------------------------
 function UIC_Button:setNormalImage(node)
-    return self.m_node:setNormalSpriteFrame(node)
+    return self.m_node:setNormalImage(node)
+end
+
+-------------------------------------
+-- function setSelectedImage
+-- @brief
+-------------------------------------
+function UIC_Button:setSelectedImage(node)
+    return self.m_node:setSelectedImage(node)
 end
