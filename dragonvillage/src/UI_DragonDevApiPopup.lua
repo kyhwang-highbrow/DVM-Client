@@ -15,6 +15,8 @@ UI_DragonDevApiPopup = class(PARENT, {
         m_skill2 = 'number',
         m_skill3 = 'number',
 
+        m_eclv = 'number',
+
         m_bChangeSkill = 'boolean',
      })
 
@@ -60,6 +62,7 @@ function UI_DragonDevApiPopup:initUI()
     self.m_evolution = t_dragon_data['evolution']
     self.m_grade = t_dragon_data['grade']
     self.m_level = t_dragon_data['lv']
+    self.m_eclv = t_dragon_data['eclv']
 
     self.m_skill0 = t_dragon_data['skill_0']
     self.m_skill1 = t_dragon_data['skill_1']
@@ -76,6 +79,7 @@ function UI_DragonDevApiPopup:initButton()
     local max_evolution = 3
     local max_grade = 6
     local max_level = 70
+    local max_eclv = MAX_DRAGON_ECLV
 
     vars['evolutionUpBtn']:registerScriptTapHandler(function() self.m_evolution = math_clamp(self.m_evolution + 1, 1, max_evolution) self:refresh() end)
     vars['evolutionDownBtn']:registerScriptTapHandler(function() self.m_evolution = math_clamp(self.m_evolution - 1, 1, max_evolution) self:refresh() end)
@@ -86,8 +90,9 @@ function UI_DragonDevApiPopup:initButton()
     vars['levelUpBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level + 1, 1, max_level) self:refresh() end)
     vars['levelDownBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level - 1, 1, max_level) self:refresh() end)
 
-    vars['levelUpBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level + 1, 1, max_level) self:refresh() end)
-    vars['levelDownBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level - 1, 1, max_level) self:refresh() end)
+    -- 초월
+    vars['eclvUpBtn']:registerScriptTapHandler(function() self.m_eclv = math_clamp(self.m_eclv + 1, 1, max_eclv) self:refresh() end)
+    vars['eclvDownBtn']:registerScriptTapHandler(function() self.m_eclv = math_clamp(self.m_eclv - 1, 1, max_eclv) self:refresh() end)
 
     -- 스킬 레벨들
     vars['skillUpBtn0']:registerScriptTapHandler(function() self.m_skill0 = math_clamp(self.m_skill0 + 1, 1, 10) self:networkSkillLevel(0) end)
@@ -121,6 +126,8 @@ function UI_DragonDevApiPopup:refresh()
     vars['skillLabel1']:setString('스킬 1 레벨 : ' .. self.m_skill1)
     vars['skillLabel2']:setString('스킬 2 레벨 : ' .. self.m_skill2)
     vars['skillLabel3']:setString('스킬 3 레벨 : ' .. self.m_skill3)
+
+    vars['eclvLabel']:setString('초월 : ' .. self.m_eclv)
 end
 
 -------------------------------------
@@ -184,6 +191,10 @@ function UI_DragonDevApiPopup:click_closeBtn()
         is_change = true
     end
 
+    if (t_dragon_data['eclv'] ~= self.m_eclv) then
+        is_change = true
+    end
+
     if is_change then
         local function success_cb(ret)
             if ret and ret['dragon'] then
@@ -207,6 +218,7 @@ function UI_DragonDevApiPopup:click_closeBtn()
         ui_network:setParam('skills', '1,' .. self.m_skill1)
         ui_network:setParam('skills', '2,' .. self.m_skill2)
         ui_network:setParam('skills', '3,' .. self.m_skill3)
+        ui_network:setParam('eclv', self.m_eclv)
         ui_network:setSuccessCB(success_cb)
         ui_network:request()
 
