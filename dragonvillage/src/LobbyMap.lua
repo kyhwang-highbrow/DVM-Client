@@ -372,8 +372,11 @@ function LobbyMap:makeLobbyTamerBot(t_user_info)
         tamer = LobbyTamer(t_user_info)
     end
 
-    if (math_random(1, 2) == 1) then
+	local dice = math_random(1, 3)
+    if (dice == 1) then
         tamer:initAnimator('res/character/tamer/leon/leon.spine')
+	elseif (dice == 2) then
+		tamer:initAnimator('res/character/tamer/goni/goni.spine')
     else
         tamer:initAnimator('res/character/tamer/nuri/nuri.spine')
     end
