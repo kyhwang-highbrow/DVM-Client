@@ -156,71 +156,17 @@ function getMonsterSlicePerDamageRate(rarity_num)
 end
 
 -------------------------------------
--- function dragonRoleName
--- @brief 
+-- function isDragon
+-- @brief id를 가지고 dragon인지 판별
 -------------------------------------
-function dragonRoleName(role_type)
-    if (role_type == 'dealer') or (role_type == 1) then
-        return Str('공격')
-    elseif (role_type == 'tanker') or (role_type == 2) then
-        return Str('방어')
-    elseif (role_type == 'supporter') or (role_type == 3) then
-        return Str('지원')
-    elseif (role_type == 'healer') or (role_type == 4) then
-        return Str('회복')
-    else
-        error('role_type: ' .. role_type)
-    end
+function isDragon(id)
+    return ( math_floor(id / 10000) == 12 )
 end
 
 -------------------------------------
--- function dragonAttackTypeName
--- @brief 
+-- function isMonster
+-- @brief id를 가지고 monster인지 판별
 -------------------------------------
-function dragonAttackTypeName(attack_type)
-    if (attack_type == 'physical') then
-        return Str('물리')
-    elseif (attack_type == 'magical') then
-        return Str('마법')
-    else
-        error('attack_type: ' .. attack_type)
-    end
-end
-
--------------------------------------
--- function dragonRarityName
--- @brief 
--------------------------------------
-function dragonRarityName(rarity)
-    if (rarity == 'common') then
-        return Str('일반')
-    elseif (rarity == 'rare') then
-        return Str('희귀')
-    elseif (rarity == 'hero') then
-        return Str('영웅')
-    elseif (rarity == 'legend') then
-        return Str('전설')
-    else
-        error('rarity: ' .. rarity)
-    end
-end
-
--------------------------------------
--- function dragonAttributeName
--- @brief 
--------------------------------------
-function dragonAttributeName(attr)
-    if (attr == 'fire') then
-        return Str('불')
-    elseif (attr == 'water') then
-        return Str('물')
-    elseif (attr == 'earth') then
-        return Str('땅')
-    elseif (attr == 'dark') then
-        return Str('어둠')
-    elseif (attr == 'light') then
-        return Str('빛')
-    else
-        error('rarity: ' .. attr)
-    end
+function isMonster(id)
+    return ( math_floor(id / 10000) == 13 )
 end

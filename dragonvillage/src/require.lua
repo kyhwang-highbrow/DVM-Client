@@ -21,18 +21,22 @@ local t_module = {
     'perpleLib/PerpleScene',
     'perpleLib/PerpleScene',
     'fixed_constant',
-    'Constant',
-    'ConstantForArt',
-	'ConstantIngame',
-    'ConstantDragonEvolution',
-    'ConstantDragonGrade',
-    'ConstantAttribute',
-    'ConstantString',
     'SoundMgr',
     'SoundMgrController',
     'SoundMgrProtected',
     'PatchData',
     'PatchCore',
+
+	-- CONSTANT 
+    'Constant',
+    'ConstantForArt',
+	'ConstantIngame',
+	'ConstantDebug',
+	'ConstantGameMode',
+    'ConstantDragonEvolution',
+    'ConstantDragonGrade',
+    'ConstantAttribute',
+    'ConstantString',
 
     -- Util
     'Action',
@@ -247,6 +251,7 @@ local t_module = {
 	'SkillSpiderWeb',
 	'SkillBurst',
 	'SkillFieldCheck',
+	'SkillVoltesX',
 
     -- SKILL INDICATOR
     'SkillIndicatorMgr',

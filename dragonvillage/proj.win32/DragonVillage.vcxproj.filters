@@ -1212,6 +1212,15 @@
     <None Include="..\src\EffectLauncher.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\SkillVoltesX.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\ConstantDebug.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\ConstantGameMode.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

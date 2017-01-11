@@ -269,6 +269,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ActivityCarrier.lua" />
     <None Include="..\src\Buff.lua" />
     <None Include="..\src\Buff_Protection.lua" />
+    <None Include="..\src\ConstantDebug.lua" />
+    <None Include="..\src\ConstantGameMode.lua" />
     <None Include="..\src\EffectLauncher.lua" />
     <None Include="..\src\GameAuto.lua" />
     <None Include="..\src\GameState_Colosseum.lua" />
@@ -311,6 +313,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillLaser_Lightning.lua" />
     <None Include="..\src\SkillLeap.lua" />
     <None Include="..\src\SkillSpiderWeb.lua" />
+    <None Include="..\src\SkillVoltesX.lua" />
     <None Include="..\src\StatusEffect_Barrier.lua" />
     <None Include="..\src\Camera.lua" />
     <None Include="..\src\CameraTouchHandler.lua" />
