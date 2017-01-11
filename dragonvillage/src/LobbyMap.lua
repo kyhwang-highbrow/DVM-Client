@@ -463,10 +463,7 @@ function LobbyMap:addLobbyDragon(tamer, t_user_info, flip)
     local table_dragon = TableDragon()
     local t_dragon = nil
 
-    local evolution = 1
-    if g_userDataOld.m_userData['evolution_random'] then
-        evolution = math_random(1, 3)
-    end
+    local evolution = t_user_info['leader']['evolution']
 
     t_dragon = table_dragon:get(t_user_info['leader']['did'])
     local res = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, t_dragon['attr'])
