@@ -57,6 +57,11 @@ function LobbyUserStatusUI:init_statusUI()
     -- 길드 이름
     local guild_name = t_user_info['guild']
     vars['guildLabel']:setString(guild_name)
+
+    -- 길드가 존재하지 않을 경우 정렬
+    if (guild_name == '') or (guild_name == nil) then
+        vars['nameLabel']:setPositionY(0)
+    end
 end
 
 -------------------------------------

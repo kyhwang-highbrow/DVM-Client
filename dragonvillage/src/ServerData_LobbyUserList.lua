@@ -199,6 +199,7 @@ function ServerData_LobbyUserList:setDefaultLobbyUserData(l_lobby_user_list)
             sum_random:addItem(1, '서울대학교')
             sum_random:addItem(1, '퍼플랩')
             v['guild'] = sum_random:getRandomValue()
+            v['guild'] = ''
         end
 
         --리더 드래곤 (lobby leader)
