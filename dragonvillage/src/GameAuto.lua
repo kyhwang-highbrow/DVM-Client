@@ -11,18 +11,21 @@ local GAME_AUTO_AI_TAMER__SKILL_1 = 1
 local GAME_AUTO_AI_TAMER__SKILL_2 = 2
 local GAME_AUTO_AI_TAMER__SKILL_3 = 3
 
-local AI_DELAY_TIME = 3
+local AI_DELAY_TIME = 2.5
+local AI_FEVER_DELAY_TIME = 0.5
 
 -------------------------------------
 -- class GameAuto
 -------------------------------------
 GameAuto = class(IEventListener:getCloneClass(), IEventDispatcher:getCloneTable(), {
         m_world = 'GameWorld',
+        m_gameFever = 'GameFever',
         
         m_bLeftFormation = 'boolean',
         m_bActive = 'boolean',
 
         m_aiDelayTime = 'number',       -- 스킬 사용 직후 일정 시간 뒤 다음 스킬을 사용하도록 하기 위한 딜레이 시간
+        m_aiFeverDelayTime = 'number',  -- 피버 모드 공격 딜레이 시간
 
         m_tCastingEnemyList = 'table',  -- 시전 중인 적 리스트
      })
@@ -32,21 +35,58 @@ GameAuto = class(IEventListener:getCloneClass(), IEventDispatcher:getCloneTable(
 -------------------------------------
 function GameAuto:init(world, bLeftFormation)
     self.m_world = world
-    self.m_bLeftFormation = (bLeftFormation ~= nil) and bLeftFormation or true
 
+    self.m_gameFever = nil
+    self.m_bLeftFormation = (bLeftFormation ~= nil) and bLeftFormation or true
     self.m_bActive = false
 
     self.m_aiDelayTime = AI_DELAY_TIME
+    self.m_aiFeverDelayTime = AI_FEVER_DELAY_TIME
 
     self.m_tCastingEnemyList = {}
+end
+
+-------------------------------------
+-- function init
+-------------------------------------
+function GameAuto:bindGameFever(gameFever)
+    self.m_gameFever = gameFever
+    self.m_gameFever:addListener('fever_attack', self)
 end
 
 -------------------------------------
 -- function update
 -------------------------------------
 function GameAuto:update(dt)
-    if (not self.m_bActive) then return end
+    if (not self:isActive()) then return end
 
+    if (self.m_gameFever and self.m_gameFever:isActive()) then
+        -- 피버모드가 활성화된 상태일 경우
+        self:update_fever(dt)
+    else
+        self:update_fight(dt)
+    end
+end
+
+-------------------------------------
+-- function update_fever
+-------------------------------------
+function GameAuto:update_fever(dt)
+    if (self.m_aiFeverDelayTime > 0) then
+        self.m_aiFeverDelayTime = self.m_aiFeverDelayTime - dt
+
+        if (self.m_aiFeverDelayTime < 0) then
+            self.m_aiFeverDelayTime = 0
+        end
+    else
+        self.m_gameFever:doAttack()
+    end
+end
+
+-------------------------------------
+-- function update_fight
+-------------------------------------
+function GameAuto:update_fight(dt)
     if (self.m_aiDelayTime > 0) then
         self.m_aiDelayTime = self.m_aiDelayTime - dt
 
@@ -55,6 +95,19 @@ function GameAuto:update(dt)
         end
 
     else
+        -- 테이머
+        local tamerSkillSystem = self.m_world.m_tamerSkillSystem
+        local tamerSkillIdx = g_autoPlaySetting:get('tamer_skill')
+        if (tamerSkillSystem:isEndSkillCoolTime(tamerSkillIdx)) then
+            tamerSkillSystem:click_tamerSkillBtn(tamerSkillIdx)
+
+            -- AI 딜레이 시간 설정
+            self.m_aiDelayTime = AI_DELAY_TIME
+
+            return
+        end
+
+        -- 드래곤
         for i, dragon in ipairs(self.m_world:getDragonList()) do
             local skill_id = dragon:getSkillID('active')
             local t_skill = dragon:getLevelingSkillById(skill_id)
@@ -272,6 +325,9 @@ function GameAuto:onEvent(event_name, ...)
         self.m_aiDelayTime = AI_DELAY_TIME
 
     elseif (event_name == 'enemy_active_skill') then
+
+    elseif (event_name == 'fever_attack') then
+        self.m_aiFeverDelayTime = AI_FEVER_DELAY_TIME
 
     end
 end

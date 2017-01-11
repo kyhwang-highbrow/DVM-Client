@@ -106,7 +106,7 @@ end
 -------------------------------------
 -- function click_tamerSkillBtn
 -------------------------------------
-function TamerSkillSystem:click_tamerSkillBtn(idx, b)
+function TamerSkillSystem:click_tamerSkillBtn(idx)
     if not self.m_world:isPossibleControl() then return end
     
 	-- 1. 사용할 스킬 테이블 가져온다.
@@ -299,9 +299,17 @@ function TamerSkillSystem:resetCoolTime()
 end
 
 -------------------------------------
+-- function showSpeech
+-- @debuging
+-------------------------------------
+function TamerSkillSystem:isEndSkillCoolTime(idx)
+    return (self.m_lTamerSkillCoolTime[idx] == 0)
+end
+
+-------------------------------------
 -- function isWaitingGlobalCoolTime
 -- @debuging
 -------------------------------------
 function TamerSkillSystem:isWaitingGlobalCoolTime()
-    return self.m_tamerSkillCooltimeGlobal > 0
+    return (self.m_tamerSkillCooltimeGlobal > 0)
 end

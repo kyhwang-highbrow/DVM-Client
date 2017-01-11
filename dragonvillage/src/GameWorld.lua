@@ -193,12 +193,13 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 
     end
 
+    self.m_gameFever = GameFever(self)
+
     self.m_gameAuto = GameAuto(self)
+    self.m_gameAuto:bindGameFever(self.m_gameFever)
     self:addListener('auto_start', self.m_gameAuto)
     self:addListener('auto_end', self.m_gameAuto)
 
-    self.m_gameFever = GameFever(self)
-    
     self.m_missileRange = {}
     self:setMissileRange()
 

@@ -140,7 +140,7 @@ function GameFever:onTouches(touches, event, type)
     if (self.m_state ~= GAME_FEVER_STATE_LIVE) then return false end
 
     if type == cc.Handler.EVENT_TOUCHES_BEGAN then
-		self:doAttack()
+        self:doAttack()
         return true
 		
 	end
@@ -345,12 +345,14 @@ end
 -- function doAttack
 -------------------------------------
 function GameFever:doAttack()
+    if (self.m_state ~= GAME_FEVER_STATE_LIVE) then return end
+
     local world = self.m_world
 
-	world.m_shakeMgr:shakeBySpeed(math_random(100, 300), math_random(100, 300))
-
-    local hero = self:getRandomHero()
+	local hero = self:getRandomHero()
     if not hero then return end
+
+    world.m_shakeMgr:shakeBySpeed(math_random(100, 300), math_random(100, 300))
 
     hero.m_animator:setTimeScale(3)
     hero.m_animator:changeAni('attack', false)
@@ -374,6 +376,9 @@ function GameFever:doAttack()
     hero:animatorShake()
 	hero:runAtkCallback(enemy, enemy.pos.x, enemy.pos.y)
 	enemy:runDefCallback(self, enemy.pos.x, enemy.pos.y)
+
+    -- 이벤트
+    self:dispatch('fever_attack')
 
     -- 효과음
     SoundMgr:playEffect('EFFECT', 'fever_touch')

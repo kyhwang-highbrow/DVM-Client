@@ -497,6 +497,10 @@ function GameState.update_fight_fever(self, dt)
     if world.m_gameFever then
         world.m_gameFever:update(dt)
     end
+
+    if world.m_gameAuto then
+        world.m_gameAuto:update(dt)
+    end
 end
 
 -------------------------------------
