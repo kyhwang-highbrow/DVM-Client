@@ -307,6 +307,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
         atk_dmg = attacker.m_activityCarrier:getStat(atk_dmg_stat)
         def_pwr = self.m_statusCalc:getFinalStat('def')
 
+        -- 스킬 추가 공격력 적용 적용
+        atk_dmg = atk_dmg + attacker.m_activityCarrier.m_skillAddAtk
+
 		-- 방어 무시 체크
 		if (attacker.m_activityCarrier:isIgnoreDef()) then def_pwr = 0 end
 
@@ -348,7 +351,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
         damage = (damage * damage_multifly)
     end
 
-    -- 스킬계수 적용
+    -- 스킬 계수 적용
     attr_bonus_dmg = math_floor(attr_bonus_dmg * attacker.m_activityCarrier.m_skillCoefficient)
     damage = math_floor(damage * attacker.m_activityCarrier.m_skillCoefficient)
 

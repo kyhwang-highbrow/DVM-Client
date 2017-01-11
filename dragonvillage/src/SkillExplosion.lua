@@ -33,8 +33,8 @@ end
 -------------------------------------
 -- function initActvityCarrier
 -------------------------------------
-function SkillExplosion:initActvityCarrier(power_rate)    
-    PARENT.initActvityCarrier(self, power_rate)    
+function SkillExplosion:initActvityCarrier(power_rate, power_abs)    
+    PARENT.initActvityCarrier(self, power_rate, power_abs)    
 	self.m_activityCarrier:setIgnoreDef(self.m_isIgnoreDef)
 end
 

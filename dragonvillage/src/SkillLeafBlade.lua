@@ -36,10 +36,8 @@ end
 -------------------------------------
 -- function initActvityCarrier
 -------------------------------------
-function SkillLeafBlade:initActvityCarrier(power_rate)    
-    -- 공격력 계산을 위해
-    self.m_activityCarrier = self.m_owner:makeAttackDamageInstance()
-    self.m_activityCarrier.m_skillCoefficient = (power_rate / 100)
+function SkillLeafBlade:initActvityCarrier(power_rate, power_abs)
+    PARENT.initActvityCarrier(self, power_rate, power_abs)
 
 	-- 상태효과도 담음
     self.m_activityCarrier:insertStatusEffectRate(self.m_lStatusEffectStr)

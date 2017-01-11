@@ -12,6 +12,9 @@ ActivityCarrier = class({
         -- 스킬 계수
         m_skillCoefficient = 'number',
 
+        -- 스킬 추가 공격력
+        m_skillAddAtk = 'number',
+
         -- 상태이상 유발
         m_lStatusEffectRate = 'table',
 
@@ -31,6 +34,7 @@ ActivityCarrier = class({
 function ActivityCarrier:init()
     self.m_lFinalStat = {}
     self.m_skillCoefficient = 1
+    self.m_skillAddAtk = 0
     self.m_lStatusEffectRate = {}
 	self.m_damagedInfo = {}
 	self.m_atkDmgStat = 'atk'
