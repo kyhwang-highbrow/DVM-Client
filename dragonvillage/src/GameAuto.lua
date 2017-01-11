@@ -87,6 +87,10 @@ end
 -- function update_fight
 -------------------------------------
 function GameAuto:update_fight(dt)
+    if (self.m_world.m_skillIndicatorMgr:isControlling()) then
+        return
+    end
+
     if (self.m_aiDelayTime > 0) then
         self.m_aiDelayTime = self.m_aiDelayTime - dt
 

@@ -433,3 +433,10 @@ function SkillIndicatorMgr:updateToolTipUI(hero_pos_x, hero_pos_y, touch_pos_x, 
 	end
 	self.m_uiToolTip.root:setPosition(x, y)
 end
+
+-------------------------------------
+-- function isControlling
+-------------------------------------
+function SkillIndicatorMgr:isControlling()
+    return (self.m_selectHero ~= nil)
+end

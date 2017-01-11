@@ -635,6 +635,11 @@ function Dragon:isPossibleSkill()
 		return false
 	end
 
+    -- 이미 스킬을 사용하기 위한 상태일 경우
+    if (isExistValue(self.m_state, 'skillPrepare', 'skillAttack', 'skillAttack2')) then
+        return false
+    end
+
 	return true
 end
 
