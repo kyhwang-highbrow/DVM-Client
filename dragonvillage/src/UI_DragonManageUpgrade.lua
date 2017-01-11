@@ -777,6 +777,7 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
         ui_network:setParam('uid', uid)
         ui_network:setParam('doid', doid)
         ui_network:setParam('src_doids', src_doids)
+        ui_network:setRevocable(true)
         ui_network:setSuccessCB(function(ret) success_cb(ret) end)
         ui_network:request()
 
@@ -787,6 +788,7 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
         ui_network:setParam('uid', uid)
         ui_network:setParam('doid', doid)
         ui_network:setParam('src_doid', src_doids)
+        ui_network:setRevocable(true)
         ui_network:setSuccessCB(function(ret) success_cb(ret) end)
         ui_network:request()
     end
@@ -825,9 +827,19 @@ function UI_DragonManageUpgrade:upgradeDirecting(doid, t_prev_dragon_data, t_nex
     directing_result = function()
         block_ui:close()
 
-        -- 결과 팝업
+        -- 결과 팝업 (승급)
         if (t_prev_dragon_data['grade'] < t_next_dragon_data['grade']) then
             UI_DragonManageUpgradeResult(t_next_dragon_data)
+
+        -- 결과 팝업 (초월)
+        elseif (t_prev_dragon_data['eclv'] < t_next_dragon_data['eclv']) then
+            local ui = UI_DragonManageUpgradeResult(t_next_dragon_data)
+            if (t_next_dragon_data['eclv'] >= MAX_DRAGON_ECLV) then
+                local function close_cb()
+                    self:close()
+                end
+                ui:setCloseCB(close_cb)
+            end
         end
 
         -- UI 갱신
