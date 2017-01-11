@@ -113,6 +113,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     local scale =            t_option['scale'] or 1
     local accel =            t_option['accel'] or 0
     local accel_delay =      t_option['accel_delay'] or nil
+	local accel_reverse_time=t_option['accel_reverse_time'] or nil
 
     local delete_time =      t_option['delete_time'] or nil
     local vanish_time =      t_option['vanish_time'] or nil
@@ -305,6 +306,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         missile:setSpeed(speed)
         missile.m_acceleration = accel
         missile.m_accelDelay = accel_delay
+		missile.m_accelReverseInterval = accel_reverse_time
 
         missile.m_deleteTime = delete_time
         missile.m_vanishTime = vanish_time

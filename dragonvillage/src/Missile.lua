@@ -37,6 +37,7 @@ Missile = class(PARENT, {
         m_baseBodySize = '',
 
         m_accelDelay = 'number',        -- n초 후에만 accel 적용(n초 동안은 speed만 적용)
+		m_accelReverseInterval = 'number',	-- n초마다 accel * -1
         m_deleteTime = 'number',        -- n초 후에 해당 투사체 순식간에 작아지며 소멸
         m_vanishTime = 'number',        -- n초 후에 갑자기 사라짐
         m_explosionTime = 'number',     -- n초 후에 해당 투사체 폭발(반경 50픽셀 데미지)
@@ -90,6 +91,7 @@ function Missile:init(file_name, body, ...)
     self.m_resetTimer = nil
 
     self.m_accelDelay = nil
+	self.m_accelReverseInterval = nil
     self.m_deleteTime = nil
     self.m_vanishTime = nil
     self.m_explosionTime = nil
@@ -197,6 +199,12 @@ function Missile.st_move(owner, dt)
         speed = owner:getAdjustSpeed(speed)
         owner:setSpeed(speed)
     end
+
+	-- n초마다 accel을 역전해 버림.
+	if (owner.m_accelReverseInterval) and (owner.m_stateTimer >= owner.m_accelReverseInterval) then
+		owner.m_stateTimer = owner.m_stateTimer - owner.m_accelReverseInterval
+		owner.speed = -owner.speed
+	end
 
     -- 옵션 체크
     owner:updateMissileOption(dt)

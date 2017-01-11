@@ -364,6 +364,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		t_option['damage_rate'] =		attack_value.damage_rate or self.m_powerRate
 		t_option['accel'] =				attack_value.accel
 		t_option['accel_delay'] =		attack_value.accel_delay
+		t_option['accel_reverse_time']=	attack_value.accel_reverse_time
 
 		t_option['delete_time'] =		attack_value.delete_time
 		t_option['vanish_time'] =		attack_value.vanish_time
