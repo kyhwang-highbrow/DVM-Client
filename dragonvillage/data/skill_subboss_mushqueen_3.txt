@@ -31,20 +31,6 @@
 			
 			{
 				"idx":1,
-				"res":"res/indicator/warning_sign/warning_sign.vrp",
-				"visual":"warning_circle"
-				"body":[0,0,0],
-                "count":1,
-                "scale":1.5,
-                "period":0,
-				"speed":0,
-				"offset":[-400,0],
-                "dir":90,
-				"vanish_time":5.5
-			},
-			
-			{
-				"idx":1,
 				"res":"res/effect/skill_explosion/skill_explosion_fire.vrp",
 				"visual":"idle"
 				"body":[0,0,350],

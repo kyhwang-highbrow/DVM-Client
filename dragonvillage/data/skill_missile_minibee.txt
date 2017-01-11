@@ -117,24 +117,6 @@
                     "rotation":false,
                     "afterimage":false
                 }				
-			},
-			
-			{
-				"idx":1,
-				"res":"res/indicator/warning_sign/warning_sign.vrp",
-				"visual":"warning_square"
-				"body":[0,0,0],
-                "count":1,
-                "scale":1,
-				"offset":[0,0],
-				"movement":"instant",
-				
-                "effect":
-                {
-                    "motion_streak":"res/missile/motion_streak/motion_streak_killerbee.png",
-                    "rotation":false,
-                    "afterimage":false
-                }				
 			}
 		]
 	}
