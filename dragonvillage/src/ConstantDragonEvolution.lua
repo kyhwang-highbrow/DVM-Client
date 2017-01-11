@@ -38,7 +38,7 @@ end
 -- function dragonMaxLevel
 -- @brief 드래곤 승급(grade)별 최대 레벨
 -------------------------------------
-function dragonMaxLevel(dragon_grade)
+function dragonMaxLevel(dragon_grade, eclv)
     if (dragon_grade == 1) then
         return 20
     elseif (dragon_grade == 2) then
@@ -50,7 +50,7 @@ function dragonMaxLevel(dragon_grade)
     elseif (dragon_grade == 5) then
         return 60
     elseif (dragon_grade == 6) then
-        return 70
+        return 70 + (eclv * 2)
     else
         error('dragon_grade : ' .. dragon_grade)
     end

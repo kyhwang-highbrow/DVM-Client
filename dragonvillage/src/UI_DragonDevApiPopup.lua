@@ -78,7 +78,7 @@ function UI_DragonDevApiPopup:initButton()
 
     local max_evolution = 3
     local max_grade = 6
-    local max_level = 70
+    local max_level = 70 + (MAX_DRAGON_ECLV * 2)
     local max_eclv = MAX_DRAGON_ECLV
 
     vars['evolutionUpBtn']:registerScriptTapHandler(function() self.m_evolution = math_clamp(self.m_evolution + 1, 1, max_evolution) self:refresh() end)

@@ -91,7 +91,7 @@ function UI_DragonDetailPopup:refresh()
     end
 
     do -- level
-        local lv_str = Str('{1} / {2}', t_dragon_data['lv'], dragonMaxLevel(t_dragon_data['grade']))
+        local lv_str = Str('{1} / {2}', t_dragon_data['lv'], dragonMaxLevel(t_dragon_data['grade'], t_dragon_data['eclv']))
         vars['lvLabel']:setString(lv_str)
     end
 

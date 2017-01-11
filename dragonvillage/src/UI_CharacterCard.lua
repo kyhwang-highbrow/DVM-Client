@@ -216,6 +216,7 @@ function UI_CharacterCard:setLevelText(level)
 
     local lvSprite1 = vars['lvSprite1']
     local lvSprite2 = vars['lvSprite2']
+    local lvSprite3 = vars['lvSprite3']
 
     if (not lvSprite1) then
         lvSprite1 = MakeAnimator('res/ui/a2d/character_card/character_card.vrp')
@@ -235,6 +236,15 @@ function UI_CharacterCard:setLevelText(level)
         lvSprite2:changeAni('digit_5')
     end
 
+    if (not lvSprite3) then
+        lvSprite3 = MakeAnimator('res/ui/a2d/character_card/character_card.vrp')
+        lvSprite3:setDockPoint(CENTER_POINT)
+        lvSprite3:setAnchorPoint(CENTER_POINT)
+        self.vars['clickBtn']:addChild(lvSprite3.m_node, 3)
+        vars['lvSprite3'] = lvSprite3
+        lvSprite3:changeAni('digit_5')
+    end
+
     local pos_x = -60
     local pos_y = 0
     local font_size = 15
@@ -243,7 +253,8 @@ function UI_CharacterCard:setLevelText(level)
         lvSprite1:changeAni('digit_' .. level)
         lvSprite1:setPosition(pos_x + (font_size/2), pos_y)
         lvSprite2:setVisible(false)
-    else
+        lvSprite3:setVisible(false)
+    elseif (level < 100) then
         lvSprite1:setVisible(true)
         lvSprite1:changeAni('digit_' ..  math_floor(level / 10))
         lvSprite1:setPosition(pos_x + (font_size/2), pos_y)
@@ -251,6 +262,19 @@ function UI_CharacterCard:setLevelText(level)
         lvSprite2:setVisible(true)
         lvSprite2:changeAni('digit_' .. level % 10)
         lvSprite2:setPosition(pos_x + (font_size/2) + font_size, pos_y)
+        lvSprite3:setVisible(false)
+    else
+        lvSprite1:setVisible(true)
+        lvSprite1:changeAni('digit_' ..  math_floor(level / 100))
+        lvSprite1:setPosition(pos_x + (font_size/2), pos_y)
+
+        lvSprite2:setVisible(true)
+        lvSprite2:changeAni('digit_' .. math_floor(level % 100 / 10))
+        lvSprite2:setPosition(pos_x + (font_size/2) + font_size, pos_y)
+        
+        lvSprite3:setVisible(true)
+        lvSprite3:changeAni('digit_' .. math_floor(level % 10))
+        lvSprite3:setPosition(pos_x + (font_size/2) + font_size + font_size, pos_y)
     end
 end
 

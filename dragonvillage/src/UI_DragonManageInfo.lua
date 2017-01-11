@@ -221,7 +221,8 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
     do -- 레벨
         local lv = (t_dragon_data['lv'] or 1)
         local grade = (t_dragon_data['grade'] or 1)
-        local lv_str = Str('{1}/{2}', lv, dragonMaxLevel(grade))
+        local eclv = (t_dragon_data['eclv'] or 0)
+        local lv_str = Str('{1}/{2}', lv, dragonMaxLevel(grade, eclv))
         vars['lvLabel']:setString(lv_str)
     end
 

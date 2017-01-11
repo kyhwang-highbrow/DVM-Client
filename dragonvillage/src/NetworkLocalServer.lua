@@ -169,7 +169,7 @@ function CalcDragonExp(t_dragon_data, add_exp)
     local real_add_exp = 0
 
     -- 최대 레벨
-    local max_level = dragonMaxLevel(t_dragon_data['grade'])
+    local max_level = dragonMaxLevel(t_dragon_data['grade'], t_dragon_data['eclv'])
 
     while true do
         local t_exp = table_exp[curr_lv]
