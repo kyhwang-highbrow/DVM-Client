@@ -275,11 +275,9 @@ function Dragon.st_skillAttack2(owner, dt)
         owner.m_animator:setEventHandler(attack_cb)
     
     elseif (owner.m_aiParamNum and (owner.m_stateTimer >= owner.m_aiParamNum)) then
-        if (not owner.m_bFinishAttack) then
-            attack_cb()
+        if (owner.m_bFinishAttack) then
+            owner:changeState('skillDisappear')
         end
-
-        owner:changeState('skillDisappear')
     end
 end
 
