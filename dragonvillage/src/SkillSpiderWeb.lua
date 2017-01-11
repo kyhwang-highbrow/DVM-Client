@@ -5,6 +5,7 @@ local PARENT = Skill
 -------------------------------------
 SkillSpiderWeb = class(PARENT, {
 		m_statusDuration = 'num',
+		m_statusName = 'str', 
 	})
 
 -------------------------------------
@@ -22,6 +23,7 @@ function SkillSpiderWeb:init_skill()
 	PARENT.init_skill(self)
 	local t_effect = StatusEffectHelper:parsingStatusEffectStr(self.m_lStatusEffectStr, 1)
 	self.m_statusDuration = tonumber(t_effect[3])
+	self.m_statusName = t_effect[1]
 
 	self:setPosition(self.m_targetChar.pos.x, self.m_targetChar.pos.y)
 	self.m_animator:setVisible(false) 
@@ -76,10 +78,25 @@ end
 -- function update
 -------------------------------------
 function SkillSpiderWeb:update(dt)
-	-- 타겟 사망 체크
-    if (self.m_targetChar.m_bDead) and (self.m_state ~= 'dying') then
-        self:changeState('dying')
-    end
+	if (self.m_state ~= 'dying') then
+		-- 타겟 사망 체크
+		if (self.m_targetChar.m_bDead) then
+			self:changeState('end')
+		end
+	end
+	if (self.m_state == 'idle') then 
+		-- 해당 상태효과가 제거되었는지 체크
+		local isExist = false
+		for i, v  in pairs(self.m_targetChar:getStatusEffectList()) do 
+			if (self.m_statusName == v:getTypeName()) then 
+				isExist = true
+			end 
+		end
+		if (not isExist) then
+			self:changeState('end')
+		end
+	end
+
 	-- 드래곤의 애니와 객체, 스킬 위치 동기화
 	self.m_targetChar:syncAniAndPhys()
 	self:setPosition(self.m_targetChar.pos.x, self.m_targetChar.pos.y)
