@@ -194,8 +194,8 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     end
 
     self.m_gameAuto = GameAuto(self)
-    self.m_gameAuto:addListener('auto_start', self)
-    self.m_gameAuto:addListener('auto_end', self)
+    self:addListener('auto_start', self.m_gameAuto)
+    self:addListener('auto_end', self.m_gameAuto)
 
     self.m_gameFever = GameFever(self)
     

@@ -39,9 +39,6 @@ function GameAuto:init(world, bLeftFormation)
     self.m_aiDelayTime = AI_DELAY_TIME
 
     self.m_tCastingEnemyList = {}
-
-    self:addListener('auto_start', self.m_world)
-    self:addListener('auto_end', self.m_world)
 end
 
 -------------------------------------
@@ -214,7 +211,7 @@ function GameAuto:findTarget(dragon, t_skill)
             end
         end
 
-    elseif startsWith(target_type, 'enemy_') then
+    elseif startsWith(target_type, 'enemy_') or startsWith(target_type, 'all_') then
         -- 공격형
         if (aiAttackType == GAME_AUTO_AI_ATTACK__COOLTIME) then
             -- 기본 대상을 선택
@@ -226,10 +223,6 @@ function GameAuto:findTarget(dragon, t_skill)
             -- 스킬 캐스팅 중인 적을 선택
             -- 스킬 사용 조건 체크중 이미 통과됨...
         end
-
-    elseif startsWith(target_type, 'all_') then
-        -- 랜덤 대상에게 사용(?)
-        -- 아군과 적군 포함해서 랜덤인지 여부 확인 필요...
 
     end
 

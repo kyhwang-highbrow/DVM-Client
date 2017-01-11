@@ -206,19 +206,14 @@ function Dragon.st_skillAttack2(owner, dt)
         local t_dragon_skill = table_dragon_skill[active_skill_id]
         local motion_type = t_dragon_skill['motion_type']
 
-        -- 모션 타입 처리
-        if (motion_type == 'instant') then
-            owner.m_aiParamNum = nil
-            owner:addAniHandler(function()
-                owner:changeState('skillDisappear')
-            end)
-        elseif (motion_type == 'maintain') then
-            owner.m_aiParamNum = (owner.m_statusCalc.m_attackTick / 2)
-        else
-            error('스킬 테이블 motion_type이 ['.. motion_type .. '] 라고 잘못들어갔네요...')
-        end
+        -- 변수 초기화
+        owner.m_bLuanchMissile = false
+        owner.m_bFinishAttack = false
+        owner.m_bFinishAnimation = false
 
         local function attack_cb(event)
+            owner.m_bLuanchMissile = true
+
             local x, y = 0, 0
 
             if event then
@@ -242,6 +237,7 @@ function Dragon.st_skillAttack2(owner, dt)
             local active_skill_id = owner:getSkillID('active')
             owner:doSkill(active_skill_id, x, y, owner.m_skillIndicator:getIndicatorData())
             owner.m_animator:setEventHandler(nil)
+            owner.m_bFinishAttack = true
 
             -- 액티브 스킬 사용 이벤트 발생
             if (owner.m_bLeftFormation) then
@@ -257,11 +253,32 @@ function Dragon.st_skillAttack2(owner, dt)
             end
         end
 
+        -- 모션 타입 처리
+        if (motion_type == 'instant') then
+            owner.m_aiParamNum = nil
+            owner:addAniHandler(function()
+                owner.m_bFinishAnimation = true
+
+                if (not owner.m_bFinishAttack) then
+                    attack_cb()
+                end
+
+                owner:changeState('skillDisappear')
+            end)
+        elseif (motion_type == 'maintain') then
+            owner.m_aiParamNum = (owner.m_statusCalc.m_attackTick / 2)
+        else
+            error('스킬 테이블 motion_type이 ['.. motion_type .. '] 라고 잘못들어갔네요...')
+        end
+
         -- 공격 타이밍이 있을 경우
         owner.m_animator:setEventHandler(attack_cb)
-    end
+    
+    elseif (owner.m_aiParamNum and (owner.m_stateTimer >= owner.m_aiParamNum)) then
+        if (not owner.m_bFinishAttack) then
+            attack_cb()
+        end
 
-    if (owner.m_aiParamNum and (owner.m_stateTimer >= owner.m_aiParamNum)) then
         owner:changeState('skillDisappear')
     end
 end

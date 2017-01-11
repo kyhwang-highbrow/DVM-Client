@@ -53,6 +53,9 @@ function UI_Game:click_autoStartButton()
 
     local ui = UI_AutoPlaySettingPopup()
     ui:setCloseCB(close_cb)
+
+    -- 연속 및 자동 전투 팝업과 동시에 자동전투를 활성화 시킴
+    
 end
 
 -------------------------------------
@@ -91,14 +94,38 @@ end
 -- function click_autoButton
 -------------------------------------
 function UI_Game:click_autoButton()
-	UIManager:toastNotificationRed('"자동" 미구현')
+	--UIManager:toastNotificationRed('"자동" 미구현')
+
+    local gameAuto = self.m_gameScene.m_gameWorld.m_gameAuto
+
+    if (gameAuto:isActive()) then
+        UIManager:toastNotificationGreen('자동전투 비활성화')
+
+        gameAuto:onEnd()
+    else
+        UIManager:toastNotificationGreen('자동전투 활성화')
+
+        gameAuto:onStart()
+    end
 end
 
 -------------------------------------
 -- function click_speedButton
 -------------------------------------
 function UI_Game:click_speedButton()
-	UIManager:toastNotificationRed('"X2" 미구현')
+	--UIManager:toastNotificationRed('"X2" 미구현')
+
+    local gameTimeScale = self.m_gameScene.m_gameWorld.m_gameTimeScale
+
+    if (gameTimeScale:getBase() >= 2) then
+        UIManager:toastNotificationGreen('X2 비활성화')
+
+        gameTimeScale:setBase(1)
+    else
+        UIManager:toastNotificationGreen('X2 활성화')
+
+        gameTimeScale:setBase(2)
+    end
 end
 
 -------------------------------------
