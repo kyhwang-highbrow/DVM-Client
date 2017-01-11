@@ -218,12 +218,12 @@ end
 -------------------------------------
 -- function doAction
 -------------------------------------
-function UI:doAction(complete_func, no_action)
+function UI:doAction(complete_func, no_action, rate)
     local no_action = (no_action or false) or not self.do_action_enter
     if no_action then
         self:doActionResetCancel()
     end
-    self:doAction_(false, complete_func, nil, no_action)
+    self:doAction_(false, complete_func, rate, no_action)
 end
 
 -------------------------------------

@@ -74,8 +74,8 @@ function UI_Lobby:initCamera()
     end)
 
     lobby_map:setMoveEndCB(function()
-        self:doAction()
-        g_topUserInfo:doAction()
+        self:doAction(nil, nil, 0.5)
+        g_topUserInfo:doAction(nil, nil, 0.5)
     end)
 end
 
