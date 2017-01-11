@@ -207,9 +207,6 @@
     <None Include="..\src\require.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\Constant.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\RichLabel.lua">
       <Filter>lua</Filter>
     </None>
@@ -435,9 +432,6 @@
     <None Include="..\src\SkillHealingWind.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\ConstantString.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\CharacterEvent.lua">
       <Filter>lua</Filter>
     </None>
@@ -453,16 +447,7 @@
     <None Include="..\src\ITopUserInfo_EventListener.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\ConstantDragonGrade.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\ConstantDragonEvolution.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\DropHelper.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\ConstantAttribute.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\DragonCard.lua">
@@ -568,9 +553,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\StatusEffect.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\ConstantForArt.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\StatusEffect_PassiveSpatter.lua">
@@ -694,9 +676,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\StatusEffect_Protection.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\ConstantIngame.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\NetworkLocalServer.lua">
@@ -1215,11 +1194,32 @@
     <None Include="..\src\SkillVoltesX.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\Constant.lua">
+      <Filter>lua\constant</Filter>
+    </None>
+    <None Include="..\src\ConstantAttribute.lua">
+      <Filter>lua\constant</Filter>
+    </None>
     <None Include="..\src\ConstantDebug.lua">
-      <Filter>lua</Filter>
+      <Filter>lua\constant</Filter>
+    </None>
+    <None Include="..\src\ConstantDragonEvolution.lua">
+      <Filter>lua\constant</Filter>
+    </None>
+    <None Include="..\src\ConstantDragonGrade.lua">
+      <Filter>lua\constant</Filter>
+    </None>
+    <None Include="..\src\ConstantForArt.lua">
+      <Filter>lua\constant</Filter>
     </None>
     <None Include="..\src\ConstantGameMode.lua">
-      <Filter>lua</Filter>
+      <Filter>lua\constant</Filter>
+    </None>
+    <None Include="..\src\ConstantIngame.lua">
+      <Filter>lua\constant</Filter>
+    </None>
+    <None Include="..\src\ConstantString.lua">
+      <Filter>lua\constant</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1267,6 +1267,9 @@
     </Filter>
     <Filter Include="shader">
       <UniqueIdentifier>{d7237c92-762d-43d6-9f44-e6871d5a460b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua\constant">
+      <UniqueIdentifier>{5a74b4d1-1db2-4afc-9ef1-16484d8c55df}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
