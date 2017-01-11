@@ -65,10 +65,7 @@ function UI_DragonManageEvolutionResult:refresh()
 
     do -- 등급 별 표시
         vars['starNode']:removeAllChildren()
-        local star_res = 'res/ui/star020' .. t_dragon_data['grade'] .. '.png'
-        local star_icon = cc.Sprite:create(star_res)
-        star_icon:setDockPoint(cc.p(0.5, 0.5))
-        star_icon:setAnchorPoint(cc.p(0.5, 0.5))
+        local star_icon = IconHelper:getDragonGradeIcon(t_dragon_data['grade'], t_dragon_data['eclv'], 2)
         vars['starNode']:addChild(star_icon)
     end
 

@@ -23,7 +23,7 @@ end
 -------------------------------------
 -- function getDragonIconFromDid
 -------------------------------------
-function IconHelper:getDragonIconFromDid(dragon_id, evolution, grade)
+function IconHelper:getDragonIconFromDid(dragon_id, evolution, grade, eclv)
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[dragon_id]
 
@@ -35,17 +35,46 @@ function IconHelper:getDragonIconFromDid(dragon_id, evolution, grade)
     local sprite = IconHelper:getHeroIcon(res_name, evolution, attr)
 
     -- 등급 정보가 있을 경우
-    if grade then
-        local grade_res = 'res/ui/icon/star010' .. grade .. '.png'
-        local grade_sprite = cc.Sprite:create(grade_res)
+    if (grade and eclv) then
+        local grade_sprite = self:getDragonGradeIcon(grade, eclv, 1)
         if grade_sprite then
-            grade_sprite:setAnchorPoint(cc.p(0.5, 0.5))
-            grade_sprite:setDockPoint(cc.p(0.5, 0.5))
             grade_sprite:setScale(0.38)
             grade_sprite:setPositionY(-50)
             sprite:addChild(grade_sprite)
         end
     end
+
+    return sprite
+end
+
+-------------------------------------
+-- function getDragonGradeIcon
+-------------------------------------
+function IconHelper:getDragonGradeIcon(grade, eclv, type)
+    grade = (grade or 1)
+    eclv = (eclv or 0)
+    type = (type or 1)
+    
+    local res = ''
+    if (type == 1) then
+        if (0 < eclv) then
+            res = string.format('res/ui/icon/character_eclv_%.2d.png', eclv)
+        else
+            res = string.format('res/ui/icon/star01%.2d.png', grade)
+        end
+        
+    elseif (type == 2) then
+        if (0 < eclv) then
+            res = string.format('res/ui/icon/character_eclv_%.2d.png', eclv)
+        else
+            res = string.format('res/ui/icon/star02%.2d.png', grade)
+        end
+
+    end
+
+    local sprite = cc.Sprite:create(res)
+    sprite:setAnchorPoint(cc.p(0.5, 0.5))
+    sprite:setDockPoint(cc.p(0.5, 0.5))
 
     return sprite
 end
@@ -71,7 +100,8 @@ function IconHelper:getItemIcon(item_id)
         local dragon_id = t_item['val_1']
         local evolution = t_item['rarity']
         local grade = 1
-        sprite = IconHelper:getDragonIconFromDid(dragon_id, evolution, grade)
+        local eclv = 0
+        sprite = IconHelper:getDragonIconFromDid(dragon_id, evolution, grade, eclv)
     else
         local type_str = t_item['full_type']
         local res_name = 'res/ui/icon/item/' .. type_str .. '.png'
