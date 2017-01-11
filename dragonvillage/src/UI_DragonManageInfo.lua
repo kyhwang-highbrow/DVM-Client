@@ -59,6 +59,9 @@ function UI_DragonManageInfo:initButton()
         -- 승급
         vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
 
+        -- 초월
+        vars['transcendBtn']:registerScriptTapHandler(function() self:click_transcendBtn() end)
+
         -- 진화
         vars['evolutionBtn']:registerScriptTapHandler(function() self:click_evolutionBtn() end)
 
@@ -139,6 +142,39 @@ function UI_DragonManageInfo:refresh()
 
     -- 능력치 정보 갱신
     self:refresh_status(t_dragon_data, t_dragon)
+
+
+    do -- 승급, 초월 중 선택
+        -- 6성 3진화 모든 스킬 최대 레벨 달성하면 초월 가능
+        local can_transcend = true
+        if (t_dragon_data['grade'] < 6) then
+            can_transcend = false
+        end
+        if (t_dragon_data['evolution'] < 3) then
+            can_transcend = false
+        end
+        if (t_dragon_data['skill_0'] < 10) then
+            can_transcend = false
+        end
+        if (t_dragon_data['skill_1'] < 10) then
+            can_transcend = false
+        end
+        if (t_dragon_data['skill_2'] < 10) then
+            can_transcend = false
+        end
+        if (t_dragon_data['skill_3'] < 1) then
+            can_transcend = false
+        end
+
+        if can_transcend then
+            vars['transcendBtn']:setVisible(true)
+            vars['upgradeBtn']:setVisible(false)
+        else
+            vars['transcendBtn']:setVisible(false)
+            vars['upgradeBtn']:setVisible(true)
+        end
+    end
+    
 end
 
 -------------------------------------
@@ -387,6 +423,15 @@ function UI_DragonManageInfo:click_upgradeBtn()
     end
     ui:setCloseCB(close_cb)
 end
+
+-------------------------------------
+-- function click_transcendBtn
+-- @brief 초월 버튼
+-------------------------------------
+function UI_DragonManageInfo:click_transcendBtn()
+    UIManager:toastNotificationRed('"초월"은 준비 중입니다.')
+end
+
 
 -------------------------------------
 -- function click_evolutionBtn
