@@ -239,11 +239,16 @@ function Dragon.st_skillAttack2(owner, dt)
                 end
             end
 
-            -- 액티브 스킬 사용 이벤트 발생
-            owner:dispatch('active_skill')
             local active_skill_id = owner:getSkillID('active')
             owner:doSkill(active_skill_id, x, y, owner.m_skillIndicator:getIndicatorData())
             owner.m_animator:setEventHandler(nil)
+
+            -- 액티브 스킬 사용 이벤트 발생
+            if (owner.m_bLeftFormation) then
+                owner:dispatch('hero_active_skill')
+            else
+                owner:dispatch('enemy_active_skill')
+            end
 
             -- 사운드
             local sound_name = owner:getSoundNameForSkill(owner.m_charTable['type'])

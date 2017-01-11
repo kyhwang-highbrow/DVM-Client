@@ -278,6 +278,21 @@ function SkillIndicator:onChangeTargetCount(old_target_count, cur_target_count)
 end
 
 -------------------------------------
+-- function setIndicatorDataByChar
+-------------------------------------
+function SkillIndicator:setIndicatorDataByChar(char)
+    local pos_x, pos_y = self:getAttackPosition()
+    --local pos_x, pos_y = self.m_hero.pos.x, self.m_hero.pos.y
+    local x, y = char:getPosition()
+    local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
+    
+    self.m_targetDir = dir
+    self.m_targetPosX = x
+    self.m_targetPosY = y
+    self.m_targetChar = char
+end
+
+-------------------------------------
 -- function getIndicatorData
 -------------------------------------
 function SkillIndicator:getIndicatorData()
@@ -346,7 +361,14 @@ end
 -- @brief
 -------------------------------------
 function SkillIndicator:getAttackPosition()
-    local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
+    local pos_x, pos_y
+
+    if (self.m_indicatorRootNode) then
+        pos_x, pos_y = self.m_indicatorRootNode:getPosition()
+    else
+        pos_x, pos_y = self.m_hero.pos.x, self.m_hero.pos.y
+    end
+
     pos_x = (pos_x + self.m_attackPosOffsetX)
     pos_y = (pos_y + self.m_attackPosOffsetY)
     return pos_x, pos_y

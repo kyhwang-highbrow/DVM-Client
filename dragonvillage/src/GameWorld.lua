@@ -25,8 +25,8 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         
         -- 출전중인 hero 
         m_participants = '',
-		m_tEnemyList = 'EnemyList',
-        m_lDragonList = 'DragonList',
+		m_tEnemyList = 'EnemyList', -- 적군 리스트(드래곤이라도 적 진형이라면 여기에 추가됨)
+        m_lDragonList = 'HeroList', -- 아군 리스트(맵 형식 리스트)
 
         m_physWorld = 'PhysWorld',
 
@@ -682,6 +682,11 @@ function GameWorld:addEnemy(enemy)
     -- 스킬 캐스팅 중 취소시 콜백 등록
     enemy:addListener('character_casting_cancel', self.m_tamerSpeechSystem)
     enemy:addListener('character_casting_cancel', self.m_gameFever)
+
+    if (enemy.m_charType == 'dragon') then
+        enemy:addListener('enemy_active_skill', self.m_gameState)
+        enemy:addListener('enemy_active_skill', self.m_gameAuto)
+    end
 end
 
 -------------------------------------
@@ -737,10 +742,11 @@ function GameWorld:addHero(hero, idx)
 
     hero:addListener('character_dead', self)
     hero:addListener('dragon_skill', self)
-    hero:addListener('active_skill', self.m_gameState)
+    hero:addListener('hero_active_skill', self.m_gameState)
 
     -- 스킬 캐스팅
     hero:addListener('hero_casting_start', self.m_gameAuto)
+    hero:addListener('hero_active_skill', self.m_gameAuto)
 end
 
 -------------------------------------
