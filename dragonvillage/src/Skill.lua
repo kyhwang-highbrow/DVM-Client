@@ -8,6 +8,7 @@ Skill = class(PARENT, {
         m_activityCarrier = 'ActivityCarrier',
 		m_range = 'num',
 		m_powerRate = 'num',
+		m_powerSource = 'str',
 		m_preDelay = 'num',
 		m_resScale = 'str',
 
@@ -47,7 +48,7 @@ end
 -- @brief actvityCarrier, AttackOffset, defualt target, default target pos를 설정한다. 
 -------------------------------------
 function Skill:init_skill()
-	self:initActvityCarrier(self.m_powerRate)
+	self:initActvityCarrier()
 	self:initAttackPosOffset()
 	self:adjustAnimator()
 
@@ -65,10 +66,11 @@ end
 -------------------------------------
 -- function initActvityCarrier
 -------------------------------------
-function Skill:initActvityCarrier(power_rate)
+function Skill:initActvityCarrier()
     -- 공격력 계산을 위해
     self.m_activityCarrier = self.m_owner:makeAttackDamageInstance()
-    self.m_activityCarrier.m_skillCoefficient = (power_rate / 100)
+	self.m_activityCarrier:setAtkDmgStat(self.m_powerSource)
+    self.m_activityCarrier.m_skillCoefficient = (self.m_powerRate / 100)
 end
 
 -------------------------------------
@@ -108,6 +110,7 @@ end
 function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_owner = owner
 	self.m_powerRate = t_skill['power_rate']
+	self.m_powerSource  = t_skill['power_source'] or 'atk'
 	self.m_targetType = t_skill['target_type']
 	self.m_preDelay = t_skill['pre_delay'] or 0
 	self.m_resScale = t_skill['res_scale']

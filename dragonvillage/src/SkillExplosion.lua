@@ -35,8 +35,6 @@ end
 -------------------------------------
 function SkillExplosion:initActvityCarrier(power_rate)    
     PARENT.initActvityCarrier(self, power_rate)    
-
-	self.m_activityCarrier:setAtkDmgStat('def')
 	self.m_activityCarrier:setIgnoreDef(self.m_isIgnoreDef)
 end
 

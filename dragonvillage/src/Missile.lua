@@ -538,7 +538,9 @@ function Missile:updateMissileOption(dt)
         end
 
 		-- fade out 처리, motion streak 는 fade out 불가..
-		if (isPassedTarget) and (not self.m_isFadeOut) then 
+		if (isPassedTarget) and 
+		(not self.m_isFadeOut) and
+		(self.m_animator.m_node) then 
 			local removeMissile = cc.CallFunc:create(function() self:changeState('dying') end)
 			self.m_animator.m_node:runAction( cc.Sequence:create(cc.FadeOut:create(MISSILE_FADE_OUT_TIME), removeMissile))
 			self.m_isFadeOut = true
