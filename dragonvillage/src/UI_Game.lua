@@ -30,8 +30,19 @@ function UI_Game:init(game_scene)
 
     -- 스테이지명 지정
     do
-        local stage_name = g_stageData:getStageName(game_scene.m_stageID)
+        local stage_name = g_stageData:getStageName(self.m_gameScene.m_stageID)
         vars['stageLabel']:setString(stage_name)
+    end
+
+    -- 연속 전투 정보
+    do
+        self:setAutoPlayUI()
+    end
+
+    -- 2배속
+    do
+        -- TODO: 저장된 데이터가 있다면 그 값으로 세팅되도록 수정해야함.
+        vars['speedVisual']:setVisible(false)
     end
 
     --self:doActionReset()
@@ -48,14 +59,14 @@ function UI_Game:click_autoStartButton()
     self.m_gameScene:gamePause()
 
     local function close_cb()
+        -- 설정된 정보로 UI 변경
+        self:setAutoPlayUI()
+
         self.m_gameScene:gameResume()
     end
 
     local ui = UI_AutoPlaySettingPopup()
     ui:setCloseCB(close_cb)
-
-    -- 연속 및 자동 전투 팝업과 동시에 자동전투를 활성화 시킴
-    
 end
 
 -------------------------------------
@@ -126,6 +137,8 @@ function UI_Game:click_speedButton()
 
         gameTimeScale:setBase(2)
     end
+
+    self.vars['speedVisual']:setVisible((gameTimeScale:getBase() >= 2))
 end
 
 -------------------------------------
@@ -155,4 +168,16 @@ function UI_Game:setGold(gold)
         local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.5, cc.p(x, y)), 0.2)
         action_node:runAction(cc.Sequence:create(start_action, end_action))
     end
+end
+
+-------------------------------------
+-- function setAutoPlayUI
+-- @brief 연속 전투 정보 UI
+-------------------------------------
+function UI_Game:setAutoPlayUI()
+    local vars = self.vars
+
+    vars['autoStartNode']:setVisible(g_autoPlaySetting:isAutoPlay())
+    vars['autoStartNumberLabel']:setString(Str('{1}/20', g_autoPlaySetting:getAutoPlayCnt()))
+    vars['autoStartVisual']:setVisible(g_autoPlaySetting:isAutoPlay())
 end

@@ -69,3 +69,17 @@ function ServerData_AutoPlaySetting:setAutoPlay(auto_play)
         self.m_autoPlayCnt = 1
     end
 end
+
+-------------------------------------
+-- function isAutoPlay
+-------------------------------------
+function ServerData_AutoPlaySetting:isAutoPlay()
+    return self.m_bAutoPlay
+end
+
+-------------------------------------
+-- function getAutoPlayCnt
+-------------------------------------
+function ServerData_AutoPlaySetting:getAutoPlayCnt()
+    return self.m_autoPlayCnt
+end

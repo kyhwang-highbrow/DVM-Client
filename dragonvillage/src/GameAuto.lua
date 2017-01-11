@@ -28,6 +28,9 @@ GameAuto = class(IEventListener:getCloneClass(), IEventDispatcher:getCloneTable(
         m_aiFeverDelayTime = 'number',  -- 피버 모드 공격 딜레이 시간
 
         m_tCastingEnemyList = 'table',  -- 시전 중인 적 리스트
+
+        -- UI
+        m_autoVisual = '',
      })
 
 -------------------------------------
@@ -44,6 +47,23 @@ function GameAuto:init(world, bLeftFormation)
     self.m_aiFeverDelayTime = AI_FEVER_DELAY_TIME
 
     self.m_tCastingEnemyList = {}
+
+    if (self.m_bLeftFormation) then
+        self:initUI()
+    end
+
+    if (g_autoPlaySetting:isAutoPlay()) then
+        self:onStart()
+    end
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function GameAuto:initUI()
+    local ui = self.m_world.m_inGameUI
+
+    self.m_autoVisual = ui.vars['autoVisual']
 end
 
 -------------------------------------
@@ -291,6 +311,10 @@ end
 -------------------------------------
 function GameAuto:onStart()
     self.m_bActive = true
+
+    if (self.m_autoVisual) then
+        self.m_autoVisual:setVisible(true)
+    end
 end
 
 -------------------------------------
@@ -298,6 +322,10 @@ end
 -------------------------------------
 function GameAuto:onEnd()
     self.m_bActive = false
+
+    if (self.m_autoVisual) then
+        self.m_autoVisual:setVisible(false)
+    end
 end
 
 -------------------------------------

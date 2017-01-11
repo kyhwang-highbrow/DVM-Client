@@ -2212,6 +2212,10 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = false;
+			action_type = 3;
+			action_delay_1 = 0.000000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
 			lua_name = 'autoStartVisual';
 			file_name = 'ui/a2d/ingame_btn/ingame_btn.a2d';
 			auto_play = true;
@@ -2237,6 +2241,10 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = false;
+			action_type = 3;
+			action_delay_1 = 0.000000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
 			lua_name = 'autoVisual';
 			file_name = 'ui/a2d/ingame_btn/ingame_btn.a2d';
 			auto_play = true;
@@ -2262,6 +2270,10 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = false;
+			action_type = 3;
+			action_delay_1 = 0.000000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
 			lua_name = 'speedVisual';
 			file_name = 'ui/a2d/ingame_btn/ingame_btn.a2d';
 			auto_play = true;
@@ -2392,7 +2404,11 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = false;
+			visible = true;
+			action_type = 1;
+			action_delay_1 = 0.000000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
 			lua_name = 'autoStartNode';
 		};
 		type = 'Menu';
