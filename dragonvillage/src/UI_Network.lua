@@ -170,25 +170,25 @@ function UI_Network:statusHandler(ret)
     end
 
     -- not enough fruit
-    if (status == -6) then
+    if (status == -2104) then
         self:makeCommonPopup(Str('열매가 부족합니다.'))
         return true
     end
 
     -- not enough gold (골드가 부족할 때)
-    if (status == -7) then
+    if (status == -2101) then
         self:makeShopPopup(Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), ret)
         return true
     end
 
-    -- not enough material (드래곤 진화 재료가 부족할 때)
-    if (status == -11) then
+    -- not enough evolution stones (드래곤 진화 재료가 부족할 때)
+    if (status == -2104) then
         self:makeCommonPopup(Str('진화재료가 부족합니다.'))
         return true
     end
 
     -- not enough stamina (날개가 부족할 때)
-    if (status == -12) then
+    if (status == -2103) then
         self:makeShopPopup(Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), ret)
         return true
     end
