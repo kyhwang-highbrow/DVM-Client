@@ -39,11 +39,7 @@ function CommonMissile_Bounce:setMissile()
     t_option['pos_y'] = self.m_attackPos.y
     t_option['attack_damage'] = self.m_activityCarrier
 	t_option['bFixedAttack'] = false
-    if (self.m_owner.phys_key == 'hero') then
-        t_option['object_key'] = 'missile_h'
-    else
-        t_option['object_key'] = 'missile_e'
-    end
+    t_option['object_key'] = self.m_owner:getAttackPhysGroup()
 
 	-- 수정 가능 부분
 	-----------------------------------------------------------------------------------

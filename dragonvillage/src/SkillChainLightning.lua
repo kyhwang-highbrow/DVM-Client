@@ -31,21 +31,13 @@ end
 function SkillChainLightning:init_skill(missile_res, target_count, add_damage)
 	PARENT.init_skill(self)
 
-    -- 캐릭터 유형별 변수 정리(dragon or enemy)
-    if (self.m_owner.phys_key == 'hero') then
-        is_hero = true
-        self.m_physGroup = 'missile_h'
-    else
-        is_hero = false
-        self.m_physGroup = 'missile_e'
-    end
-	
 	-- 멤버 변수 초기화
 	self.m_lightningRes = missile_res
+	self.m_physGroup = self.m_owner:getAttackPhysGroup()
     self.m_tTargetList = self:getTargetList(target_count)
     self.m_tEffectList = {}
 	self.m_addDmgRate = (add_damage/100)
-
+	
 	-- 체인 라이트닝 기본 공격 처리
 	self.m_activityCarrier:setAttackType('basic')
 	self.m_bSkillHitEffect = false
@@ -82,11 +74,13 @@ end
 function SkillChainLightning:getTargetList(count)
     local world = self.m_owner.m_world
 
-    local target_type = 'enemy' or 'hero'
-    if (self.m_physGroup == 'missile_h') then
-        target_type = 'enemy'
-    elseif (self.m_physGroup == 'missile_e') then
-        target_type = 'hero'
+    local target_type = nil
+    if (self.m_physGroup == PHYS.MISSILE.HERO) then
+        target_type = PHYS.ENEMY
+    elseif (self.m_physGroup == PHYS.MISSILE.ENEMY) then
+        target_type = PHYS.HERO
+	else
+		error('m_physGroup이 이상하다')
     end
 
     local t_target_list = {}
@@ -106,7 +100,7 @@ function SkillChainLightning:getTargetList(count)
             y = target.pos.y
         end
     end
-
+	
     return t_target_list
 end
 

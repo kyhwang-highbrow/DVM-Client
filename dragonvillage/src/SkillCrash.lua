@@ -196,16 +196,9 @@ function SkillCrash:makeCrashPhsyObject()
     end
 
     local char = self.m_owner
-    local object_key = nil
-
-    if (char.phys_key == 'hero') then
-        object_key = 'missile_h'
-    else
-        object_key = 'missile_e'
-    end
+    local object_key = char:getAttackPhysGroup()
 
     local phys_object = char:addPhysObject(char, {0, 0, 20}, 0, 0)
-
     phys_object:addAtkCallback(function(attacker, defender, i_x, i_y)
         self.m_collisionChar = defender
         self:changeState('comeback')

@@ -163,11 +163,7 @@ function SkillAttributeAmor:fireMissile()
         t_option['physics_body'] = {0, 0, 0}
         t_option['attack_damage'] = self.m_activityCarrier
 
-        if (char.phys_key == 'hero') then
-            t_option['object_key'] = 'missile_h'
-        else
-            t_option['object_key'] = 'missile_e'
-        end
+        t_option['object_key'] = char:getAttackPhysGroup()
 
         t_option['missile_res_name'] = self.m_missileRes
 		t_option['attr_name'] = self.m_owner:getAttribute()

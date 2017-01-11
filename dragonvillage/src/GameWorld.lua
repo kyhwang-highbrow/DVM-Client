@@ -597,7 +597,7 @@ end
 -- function findTarget
 -------------------------------------
 function GameWorld:findTarget(type, x, y, l_remove)
-    if (type == 'enemy') then
+    if (type == PHYS.ENEMY) then
         local enemy = nil
         local distance = nil
 
@@ -614,7 +614,7 @@ function GameWorld:findTarget(type, x, y, l_remove)
         end
 
         return enemy
-    elseif (type == 'hero') then
+    elseif (type == PHYS.HERO) then
         local hero = nil
         local distance = nil
 
@@ -837,7 +837,7 @@ function GameWorld:makeHeroDeck()
             local hero = self:makeDragonNew(t_dragon_data)
             if hero then
                 self.m_worldNode:addChild(hero.m_rootNode, 2)
-                self.m_physWorld:addObject('hero', hero)
+                self.m_physWorld:addObject(PHYS.HERO, hero)
                 self:addHero(hero, tonumber(i))
 
                 self:participationHero(hero)

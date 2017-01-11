@@ -221,18 +221,19 @@ function SkillIndicator_LeafBlade:findTargetList(x, y)
 
     local std_dist = 1000
 	local degree = getDegree(pos_x, pos_y, x, y)
+	local phys_group = self.m_hero:getAttackPhysGroup()
 
     -- 직선에 의한 충돌 리스트 (상)
     local rad = math_rad(degree + LEAF_STRAIGHT_ANGLE)
     local factor_y = math.tan(rad)
     local t_target_line_1 = self.m_world.m_physWorld:getLaserCollision(x, y,
-        x + std_dist, y + std_dist * factor_y, LEAF_COLLISION_SIZE, 'missile_h')
+        x + std_dist, y + std_dist * factor_y, LEAF_COLLISION_SIZE, phys_group)
 
     -- 직선에 의한 충돌 리스트 (하)
     rad = math_rad(degree - LEAF_STRAIGHT_ANGLE)
     factor_y = math.tan(rad)
     local t_target_line_2 = self.m_world.m_physWorld:getLaserCollision(x, y,
-        x + std_dist, y + std_dist * factor_y, LEAF_COLLISION_SIZE, 'missile_h')
+        x + std_dist, y + std_dist * factor_y, LEAF_COLLISION_SIZE, phys_group)
     
     -- getLaserCollision는 반환값이 특정 테이블이기때문에 Character 클래스만 꺼내와서 정리한다.
 	-- 00. 무관통 탄의 경우 첫번째 오브젝트만 가져간다.

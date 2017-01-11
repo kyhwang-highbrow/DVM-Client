@@ -129,9 +129,11 @@ function SkillIndicator_Laser:findTarget(pos_x, pos_y, dir)
     local end_x = pos_x + end_pos['x']
     local end_y = pos_y + end_pos['y']
 
+	local phys_group = self.m_hero:getAttackPhysGroup()
+
     -- 레이저에 충돌된 모든 객체 리턴
     local t_collision_obj = self.m_world.m_physWorld:getLaserCollision(pos_x, pos_y,
-        end_x, end_y, self.m_thickness/2, 'missile_h')
+        end_x, end_y, self.m_thickness/2, phys_group)
 
     local t_ret = {}
 

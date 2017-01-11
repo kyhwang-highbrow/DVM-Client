@@ -22,13 +22,10 @@ function Character:doSkill(skill_id, x, y, t_data)
 	local t_data = t_data or {}
 
     local is_hero = self.m_bLeftFormation
-    local phys_group = 'missile_h'
     local attr = self.m_charTable['attr'] or self.m_charTable['attr_1']
 	local t_skill = nil
 
-    if (not self.m_bLeftFormation) then
-        phys_group = 'missile_e'
-    end
+    local phys_group = self:getAttackPhysGroup()
 
     -- 캐릭터 유형별 변수 정리(dragon or enemy)
     if (self.m_charType == 'dragon') then
@@ -48,6 +45,7 @@ function Character:doSkill(skill_id, x, y, t_data)
     self:checkTarget(t_skill)
 
     if (not self.m_targetChar) then
+		cclog('타겟이 없습니다 ID : ' .. skill_id)
         return false
     end
 
@@ -61,7 +59,6 @@ function Character:doSkill(skill_id, x, y, t_data)
     local chance_type = t_skill['chance_type']
 
     ----------------------------------------------
-
     -- 탄막 공격 (스크립트에서 읽어와 미사일 탄막 생성)
     if (skill_form == 'script') then
         self:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_data)
@@ -81,6 +78,7 @@ function Character:doSkill(skill_id, x, y, t_data)
 
     -- 코드형 스킬
     elseif (skill_form == 'code') then
+
 		-- 패시브
 		if (chance_type == 'passive') then 
 			if (type == 'skill_shield') then
@@ -89,7 +87,6 @@ function Character:doSkill(skill_id, x, y, t_data)
 			else
 				return StatusEffectHelper:invokePassive(self, t_skill)
 			end
-
 
 		-- 트리거 설정하는 패시브
 		elseif (chance_type == 'trigger') then
@@ -222,6 +219,10 @@ function Character:doSkill(skill_id, x, y, t_data)
 
 		elseif (type == 'skill_status_effect_field_check') then
             SkillFieldCheck:makeSkillInstance(self, t_skill, t_data)
+            return true
+
+		elseif (type == 'skill_voltes_x') then
+            SkillVoltesX:makeSkillInstance(self, t_skill, t_data)
             return true
 
 		-- 특수 스킬들

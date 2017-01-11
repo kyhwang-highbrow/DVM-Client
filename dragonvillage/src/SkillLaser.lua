@@ -41,14 +41,7 @@ end
 function SkillLaser:init_skill(missile_res, hit, thickness)
 	PARENT.init_skill(self)
 
-    -- 캐릭터 유형별 변수 정리(dragon or enemy)
-    if (self.m_owner.phys_key == 'hero') then
-        is_hero = true
-        self.m_physGroup = 'missile_h'
-    else
-        is_hero = false
-        self.m_physGroup = 'missile_e'
-    end
+    self.m_physGroup = self.m_owner:getAttackPhysGroup()
 
     local duration = (self.m_owner.m_statusCalc.m_attackTick / 2)
     local hit = math_max(hit, 1)

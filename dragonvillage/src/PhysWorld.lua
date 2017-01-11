@@ -466,13 +466,13 @@ end
 -------------------------------------
 function PhysWorld:initGroup()
     -- 왼쪽이 방어자, 오른쪽이 공격자
-    self:addGroup('hero', {'missile_e'}, {0, 255, 0, 127})
-    self:addGroup('enemy', {'missile_h'}, {0, 255, 0, 127})
+    self:addGroup(PHYS.HERO, {PHYS.MISSILE.ENEMY}, {0, 255, 0, 127})
+    self:addGroup(PHYS.ENEMY, {PHYS.MISSILE.HERO}, {0, 255, 200, 127})
     
-    self:addGroup('missile_h', {}, {255, 0, 0, 127})
-    self:addGroup('missile_e', {}, {255, 0, 0, 127})    
+    self:addGroup(PHYS.MISSILE.HERO, {}, {255, 0, 0, 127})
+    self:addGroup(PHYS.MISSILE.ENEMY, {}, {255, 0, 200, 127})    
 
-    self:addGroup('effect', {}, {0, 0, 255, 127})
+    self:addGroup(PHYS.EFFECT, {}, {0, 0, 255, 127})
 end
 
 
@@ -705,7 +705,7 @@ end
 -- @brief phys_key와 충돌처리가 되는 key의 리스트를 리턴
 -------------------------------------
 function PhysWorld:getTargetPhysKey(phys_key)
-    -- ex) self:addGroup('hero', {'missile_e'}, {0, 255, 0, 127})
+    -- ex) self:addGroup(PHYS.HERO, {PHYS.MISSILE.ENEMY}, {0, 255, 0, 127})
 
     local t_target_key = {}
     for key, l_group in pairs(self.m_collisionGroup) do

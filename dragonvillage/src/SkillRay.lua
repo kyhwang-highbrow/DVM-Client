@@ -63,11 +63,7 @@ function SkillRay:init_skill(missile_res, hit)
     self.m_endPosX = 0
     self.m_endPosY = 0
 
-	if (self.m_owner.phys_key == 'hero') then
-        self.m_physGroup = 'missile_h'
-    else
-        self.m_physGroup = 'missile_e'
-    end
+	self.m_physGroup = self.m_owner:getAttackPhysGroup()
 
     -- 저사양모드 ignore
     self.m_linkEffect:setIgnoreLowEndMode(true)

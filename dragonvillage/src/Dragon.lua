@@ -504,6 +504,10 @@ function Dragon:initStatus(t_char, level, grade, evolution, doid)
 	elseif (type == 'cone_spread') then
 		self.m_skillIndicator = SkillIndicator_ConicSpread(self, t_skill)
 
+	-- 볼테스X (볼테스X)
+	elseif (type == 'voltes_x') then
+		self.m_skillIndicator = SkillIndicator_Target(self, t_skill, true)
+
 	-- 미정의 인디케이터
 	else
 		self.m_skillIndicator = SkillIndicator_Target(self, t_skill, false)

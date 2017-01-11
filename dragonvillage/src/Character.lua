@@ -1633,6 +1633,18 @@ function Character:isCasting()
 end
 
 -------------------------------------
+-- function getAttackPhysGroup
+-- @brief 해당 캐릭터가 쏠 미사일의 PhysGruop 가져온다.
+-------------------------------------
+function Character:getAttackPhysGroup()
+    if (self.phys_key == PHYS.HERO) then
+        return PHYS.MISSILE.HERO
+    else
+        return PHYS.MISSILE.ENEMY
+    end
+end
+
+-------------------------------------
 -- function getRootNode
 -------------------------------------
 function Character:getRootNode()

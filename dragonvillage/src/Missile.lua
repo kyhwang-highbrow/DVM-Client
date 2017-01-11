@@ -599,13 +599,11 @@ function Missile:fireAddScriptMissile()
     t_launcher_option['attr_name'] = attr_name
 
 	local is_hero = (owner.m_bLeftFormation)
-	local phys_group = nil 
+	local phys_group = owner:getAttackPhysGroup()
     if is_hero then
         t_launcher_option['target_pos'] = {start_x + 500, start_y}
-		phys_group = 'missile_h'
     else
         t_launcher_option['target_pos'] = {start_x - 500, start_y}
-		phys_group = 'missile_e'
     end
 
     -- AttackDamage 생성 및 상태효과 복사(테이블의 상태효과를 add_script에도 적용시킴)
