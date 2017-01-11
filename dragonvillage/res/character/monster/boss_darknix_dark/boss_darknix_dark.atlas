@@ -1,0 +1,13 @@
+
+boss_darknix_dark.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_darknix_dark_01
+  rotate: false
+  xy: 2, 2
+  size: 867, 781
+  orig: 867, 781
+  offset: 0, 0
+  index: -1
