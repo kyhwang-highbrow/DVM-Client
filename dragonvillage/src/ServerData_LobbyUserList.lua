@@ -40,11 +40,7 @@ function ServerData_LobbyUserList:requestLobbyUserList(uid, success_cb, fail_cb)
 
     -- 성공 시 콜백 함수
     t_request['success'] = function(ret)
-        
-        self:setDefaultLobbyUserData(ret['lobby_user_info'])
-
-        self:applyLobbyUserInfo(ret['lobby_user_info'])
-        self.m_validateTime = ret['validate_time']
+        self:requestLobbyUserList_successCB(ret)
         success_cb(ret)
     end
 
@@ -70,8 +66,7 @@ function ServerData_LobbyUserList:requestLobbyUserList_UseUI(cb_func)
 
     -- 성공 시 콜백
     local function success_cb(ret)
-        self:applyLobbyUserInfo(ret['lobby_user_info'])
-        self.m_validateTime = ret['validate_time']
+        self:requestLobbyUserList_successCB(ret)
 
         if cb_func then
             cb_func()
@@ -84,6 +79,16 @@ function ServerData_LobbyUserList:requestLobbyUserList_UseUI(cb_func)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
+end
+
+-------------------------------------
+-- function requestLobbyUserList_successCB
+-------------------------------------
+function ServerData_LobbyUserList:requestLobbyUserList_successCB(ret)
+    self:setDefaultLobbyUserData(ret['lobby_user_info'])
+
+    self:applyLobbyUserInfo(ret['lobby_user_info'])
+    self.m_validateTime = ret['validate_time']
 end
 
 -------------------------------------
