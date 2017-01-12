@@ -6,63 +6,70 @@ filter: Linear,Linear
 repeat: none
 psykerdragon_water_03_arm_01
   rotate: false
-  xy: 556, 676
+  xy: 556, 683
   size: 182, 211
   orig: 182, 211
   offset: 0, 0
   index: -1
 psykerdragon_water_03_body_01
   rotate: false
-  xy: 2, 529
+  xy: 2, 536
   size: 552, 358
   orig: 552, 358
   offset: 0, 0
   index: -1
+psykerdragon_water_03_effect_01
+  rotate: false
+  xy: 556, 599
+  size: 49, 82
+  orig: 49, 82
+  offset: 0, 0
+  index: -1
 psykerdragon_water_03_eye_01
   rotate: false
-  xy: 154, 112
+  xy: 352, 412
   size: 16, 17
   orig: 16, 17
   offset: 0, 0
   index: -1
 psykerdragon_water_03_eye_02
   rotate: false
-  xy: 2, 2
+  xy: 154, 123
   size: 37, 13
   orig: 37, 13
   offset: 0, 0
   index: -1
 psykerdragon_water_03_eye_03
   rotate: false
-  xy: 740, 867
+  xy: 2, 2
   size: 43, 20
   orig: 43, 20
   offset: 0, 0
   index: -1
 psykerdragon_water_03_eye_04
   rotate: false
-  xy: 556, 640
+  xy: 740, 860
   size: 60, 34
   orig: 60, 34
   offset: 0, 0
   index: -1
 psykerdragon_water_03_head_01
   rotate: false
-  xy: 2, 131
+  xy: 2, 138
   size: 348, 396
   orig: 348, 396
   offset: 0, 0
   index: -1
 psykerdragon_water_03_mouth_01
   rotate: false
-  xy: 352, 424
+  xy: 352, 431
   size: 149, 103
   orig: 149, 103
   offset: 0, 0
   index: -1
 psykerdragon_water_03_wing_01
   rotate: false
-  xy: 2, 17
+  xy: 2, 24
   size: 150, 112
   orig: 150, 112
   offset: 0, 0

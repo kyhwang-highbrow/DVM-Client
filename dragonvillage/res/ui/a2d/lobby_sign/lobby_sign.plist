@@ -9,13 +9,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,1}</string>
                 <key>spriteSize</key>
-                <string>{130,150}</string>
+                <string>{132,150}</string>
                 <key>spriteSourceSize</key>
-                <string>{130,150}</string>
+                <string>{132,152}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{130,150}}</string>
+                <string>{{1,1},{132,150}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -31,9 +31,9 @@
             <key>realTextureFileName</key>
             <string>lobby_sign.png</string>
             <key>size</key>
-            <string>{132,152}</string>
+            <string>{134,152}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:98b050788e7ebd5a83f33c00df77b378:d1727f5dc527286a1ca0bb412e078a91:483ad7255fa4b2d95164e23efdbd27bb$</string>
+            <string>$TexturePacker:SmartUpdate:3ce6a201e2d95b7e83500c660bfbc4fc:2d7f504d37b241964991e4c221a51692:483ad7255fa4b2d95164e23efdbd27bb$</string>
             <key>textureFileName</key>
             <string>lobby_sign.png</string>
         </dict>
