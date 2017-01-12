@@ -196,7 +196,7 @@ function SkillVoltesX:makeSkillInstance(owner, t_skill, t_data)
 	local attack_count = t_skill['hit']
 	local has_final_attack = (t_skill['val_1'] == 1)
 	local final_attack_count = t_skill['val_2']
-	t_skill['power_rate'] = 1
+	
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
