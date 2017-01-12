@@ -358,7 +358,7 @@ end
 function Missile:updateMissileOption(dt)
 	
 	-- n초마다 accel 역전.
-	if (owner.m_accelReverseInterval) then
+	if (self.m_accelReverseInterval) then
 	    -- 초기화
 		if (not self.m_accelReverseTimer) then
             self.m_accelReverseTimer = 0
@@ -368,14 +368,14 @@ function Missile:updateMissileOption(dt)
 		self.m_accelReverseTimer = self.m_accelReverseTimer + dt
 		
 		-- 조건 충족시 처리
-		if (owner.m_accelReverseTimer >= owner.m_accelReverseInterval) then
-			owner.m_accelReverseTimer = owner.m_accelReverseTimer - owner.m_accelReverseInterval
-			owner.m_acceleration = -owner.m_acceleration
+		if (self.m_accelReverseTimer >= self.m_accelReverseInterval) then
+			self.m_accelReverseTimer = self.m_accelReverseTimer - self.m_accelReverseInterval
+			self.m_acceleration = -self.m_acceleration
 		end
 	end
 
 	-- n초마다 speed 역전.
-	if (owner.m_speedReverseInterval) then
+	if (self.m_speedReverseInterval) then
 	    -- 초기화
 		if (not self.m_speedReverseTimer) then
             self.m_speedReverseTimer = 0
@@ -385,9 +385,9 @@ function Missile:updateMissileOption(dt)
 		self.m_speedReverseTimer = self.m_speedReverseTimer + dt
 		
 		-- 조건 충족시 처리
-		if (owner.m_speedReverseTimer >= owner.m_speedReverseInterval) then
-			owner.m_speedReverseTimer = owner.m_speedReverseTimer - owner.m_speedReverseInterval
-			owner.speed = -owner.speed
+		if (self.m_speedReverseTimer >= self.m_speedReverseInterval) then
+			self.m_speedReverseTimer = self.m_speedReverseTimer - self.m_speedReverseInterval
+			self.speed = -self.speed
 		end
 	end
 
