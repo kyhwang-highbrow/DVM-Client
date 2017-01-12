@@ -11,6 +11,27 @@ boss_darknix_dark_body_01
   orig: 538, 630
   offset: 0, 0
   index: -1
+boss_darknix_dark_eff_01
+  rotate: false
+  xy: 1968, 1965
+  size: 66, 66
+  orig: 66, 66
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_eff_04
+  rotate: false
+  xy: 1354, 1213
+  size: 111, 102
+  orig: 111, 102
+  offset: 0, 0
+  index: -1
+boss_darknix_dark_eye_01
+  rotate: false
+  xy: 1968, 1922
+  size: 41, 41
+  orig: 41, 41
+  offset: 0, 0
+  index: -1
 boss_darknix_dark_finger_01
   rotate: true
   xy: 1105, 21

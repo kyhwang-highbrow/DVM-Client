@@ -1,0 +1,107 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)dragon_transcend.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"result_title",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_transcend.plist'<azSprite>'dragon_transcend_result_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":3, "sX":1.300000
+									},
+									{
+										"frame":6, "sY":1.300000
+									},
+									{
+										"frame":9, "sX":1.200000, "sY":1.000000
+									},
+									{
+										"frame":12, "sY":1.200000
+									},
+									{
+										"frame":15, "sX":1.100000, "sY":1.000000
+									},
+									{
+										"frame":18, "sY":1.100000
+									},
+									{
+										"frame":21, "sY":1.000000
+									},
+									{
+										"frame":80
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_transcend.plist'<azSprite>'dragon_transcend_result_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":40, "alpha":0
+									},
+									{
+										"frame":50
+									},
+									{
+										"frame":80, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}
