@@ -103,15 +103,19 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     local object_key =       t_option['object_key'] or PHYS.MISSILE.ENEMY
     local missile_res_name = t_option['missile_res_name'] or ''
     local physics_body =    (t_option['physics_body'] and clone(t_option['physics_body']))
-    local speed =            t_option['speed'] or 0
+    
+	local speed =            t_option['speed'] or 0
+	local speed_reverse_time=t_option['speed_reverse_time'] or nil
     local l_limit_speed =    t_option['l_limit_speed']
     local h_limit_speed =    t_option['h_limit_speed']
-    local dir =              t_option['dir'] or 270
+    
+	local dir =              t_option['dir'] or 270
     local rotation =         t_option['rotation'] or 270
     local pos_x =            t_option['pos_x'] or 320
     local pos_y =            t_option['pos_y'] or 400
     local scale =            t_option['scale'] or 1
-    local accel =            t_option['accel'] or 0
+    
+	local accel =            t_option['accel'] or 0
     local accel_delay =      t_option['accel_delay'] or nil
 	local accel_reverse_time=t_option['accel_reverse_time'] or nil
 
@@ -304,6 +308,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         end
 
         missile:setSpeed(speed)
+		missile.m_speedReverseInterval = speed_reverse_time
         missile.m_acceleration = accel
         missile.m_accelDelay = accel_delay
 		missile.m_accelReverseInterval = accel_reverse_time

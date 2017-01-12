@@ -356,6 +356,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		t_option['pos_x'] =				pos_x
 		t_option['pos_y'] =				pos_y
 		t_option['speed'] =				speed
+		t_option['speed_reverse_time']=	attack_value.speed_reverse_time
 		t_option['l_limit_speed'] =		attack_value.l_limit_speed
 		t_option['h_limit_speed'] =		attack_value.h_limit_speed
 		t_option['scale'] =				attack_value.scale
