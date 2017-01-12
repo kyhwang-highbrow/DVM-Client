@@ -26,7 +26,7 @@ function SkillVoltesX:init_skill(attack_count, has_final_attack)
     PARENT.init_skill(self)
 	self.m_physGroup = self.m_owner:getAttackPhysGroup()
 	self.m_attackStep = 0
-	self.m_hasFinalAttack = true --has_final_attack
+	self.m_hasFinalAttack = has_final_attack
 
 	if (self.m_hasFinalAttack) then
 		self.m_skillAniName = 'idle_02'
