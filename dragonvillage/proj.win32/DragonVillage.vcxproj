@@ -307,9 +307,11 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\shader\shaderBlur.fsh" />
     <None Include="..\src\ShakeManager.lua" />
     <None Include="..\src\SimplePrimitivesDraw.lua" />
+    <None Include="..\src\SkillAoESquareWidth.lua" />
     <None Include="..\src\SkillBurst.lua" />
     <None Include="..\src\SkillChainLightning.lua" />
     <None Include="..\src\SkillFieldCheck.lua" />
+    <None Include="..\src\SkillIndicator_StraightWidth.lua" />
     <None Include="..\src\SkillLaser_Lightning.lua" />
     <None Include="..\src\SkillLeap.lua" />
     <None Include="..\src\SkillSpiderWeb.lua" />

@@ -93,6 +93,8 @@ RES_INDICATOR =
 
 	BEZIER = 'res/indicator/indicator_bezier/indicator_bezier.vrp',
 	HEALING_WIND = 'res/indicator/indicator_healing_wind/indicator_healing_wind.vrp',
+
+    STRAIGHT_WIDTH = 'res/indicator/indicator_type_straight_wide/indicator_type_straight_wide.vrp',
 }
 
 RES_RANGE = 'res/effect/skill_range/skill_range.vrp'

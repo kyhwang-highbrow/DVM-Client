@@ -506,6 +506,10 @@ function Dragon:initStatus(t_char, level, grade, evolution, doid)
 	elseif (type == 'voltes_x') then
 		self.m_skillIndicator = SkillIndicator_Target(self, t_skill, true)
 
+    -- 굵은 가로형 직사각형 (사이커)
+    elseif (type == 'square_width') then
+		self.m_skillIndicator = SkillIndicator_StraightWidth(self, t_skill, true)
+
 	-- 미정의 인디케이터
 	else
 		self.m_skillIndicator = SkillIndicator_Target(self, t_skill, false)

@@ -252,6 +252,7 @@ local t_module = {
 	'SkillBurst',
 	'SkillFieldCheck',
 	'SkillVoltesX',
+    'SkillAoESquareWidth',
 
     -- SKILL INDICATOR
     'SkillIndicatorMgr',
@@ -265,6 +266,7 @@ local t_module = {
 	'SkillIndicator_AoERound',
 	'SkillIndicator_Conic',
 	'SkillIndicator_ConicSpread',
+    'SkillIndicator_StraightWidth',
     
 	-- BUFF
 	'Buff',
