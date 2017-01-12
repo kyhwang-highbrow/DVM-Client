@@ -128,17 +128,17 @@ function UI_Game:click_speedButton()
 
     local gameTimeScale = self.m_gameScene.m_gameWorld.m_gameTimeScale
 
-    if (gameTimeScale:getBase() >= 2) then
-        UIManager:toastNotificationGreen('X2 비활성화')
+    if (gameTimeScale:getBase() >= 1.5) then
+        UIManager:toastNotificationGreen('빠른모드 비활성화')
 
         gameTimeScale:setBase(1)
     else
-        UIManager:toastNotificationGreen('X2 활성화')
+        UIManager:toastNotificationGreen('빠른모드 활성화')
 
-        gameTimeScale:setBase(2)
+        gameTimeScale:setBase(1.5)
     end
 
-    self.vars['speedVisual']:setVisible((gameTimeScale:getBase() >= 2))
+    self.vars['speedVisual']:setVisible((gameTimeScale:getBase() >= 1.5))
 end
 
 -------------------------------------

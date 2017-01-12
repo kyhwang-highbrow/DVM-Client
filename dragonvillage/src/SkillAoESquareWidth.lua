@@ -111,8 +111,7 @@ function SkillAoESquareWidth:fireMissile()
 	t_option['speed'] = 1400
 	    
 	t_option['cbFunction'] = function()
-        cclog('SkillAoESquareWidth hit!!')
-		self.m_skillHitEffctDirector:doWork()
+        self.m_skillHitEffctDirector:doWork()
 	end
 
     local missile = world.m_missileFactory:makeMissile(t_option)

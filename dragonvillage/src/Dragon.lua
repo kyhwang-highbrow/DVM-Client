@@ -233,7 +233,7 @@ function Dragon.st_skillIdle(owner, dt)
                     end
                 end
             end
-
+            
             local active_skill_id = owner:getSkillID('active')
             owner:doSkill(active_skill_id, x, y, owner.m_skillIndicator:getIndicatorData())
             owner.m_animator:setEventHandler(nil)
@@ -267,6 +267,13 @@ function Dragon.st_skillIdle(owner, dt)
             end)
         elseif (motion_type == 'maintain') then
             owner.m_aiParamNum = (owner.m_statusCalc.m_attackTick / 2)
+            owner:addAniHandler(function()
+                owner.m_bFinishAnimation = true
+
+                if (not owner.m_bFinishAttack) then
+                    attack_cb()
+                end
+            end)
         else
             error('스킬 테이블 motion_type이 ['.. motion_type .. '] 라고 잘못들어갔네요...')
         end
