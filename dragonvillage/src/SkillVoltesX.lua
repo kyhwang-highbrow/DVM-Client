@@ -1,5 +1,10 @@
 local PARENT = Skill
 
+local VOLTES_ATK_STEP_1 = 1
+local VOLTES_ATK_STEP_2 = VOLTES_ATK_STEP_1 + 1
+local VOLTES_ATK_STEP_FINAL = VOLTES_ATK_STEP_2 + 1
+local VOLTES_ATK_STEP_END = VOLTES_ATK_STEP_FINAL + 1
+
 -------------------------------------
 -- class SkillVoltesX
 -------------------------------------
@@ -9,6 +14,13 @@ SkillVoltesX = class(PARENT, {
 		m_attackStep = 'num',
 		m_hasFinalAttack = 'bool',
 		m_skillAniName = 'str',
+
+		m_multiAtkTimer = 'dt',
+        m_hitInterval = 'number',
+
+		m_attackCnt = 'number',
+		m_maxAttackCnt = 'number',
+		m_maxFinalAttackCnt = 'number',
      })
 
 -------------------------------------
@@ -22,17 +34,30 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillVoltesX:init_skill(attack_count, has_final_attack)
+function SkillVoltesX:init_skill(attack_count, has_final_attack, final_attack_count)
     PARENT.init_skill(self)
-	self.m_physGroup = self.m_owner:getAttackPhysGroup()
-	self.m_attackStep = 0
-	self.m_hasFinalAttack = has_final_attack
 
+	-- 멤버변수 초기화
+	self.m_physGroup = self.m_owner:getAttackPhysGroup()
+	self.m_attackStep = VOLTES_ATK_STEP_1
+	self.m_hasFinalAttack = has_final_attack
+	
+	self.m_maxAttackCnt = attack_count 
+	self.m_maxFinalAttackCnt = final_attack_count
+	self.m_attackCnt = 0
+
+	self.m_hitInterval = ONE_FRAME * 5
+	self.m_multiAtkTimer = self.m_hitInterval
+
+	-- 궁극기 여부에 따라 애니메이션 이름 설정
 	if (self.m_hasFinalAttack) then
 		self.m_skillAniName = 'idle_02'
 	else
 		self.m_skillAniName = 'idle_01'
 	end
+
+	-- 스킬 위치 타겟 위치로 
+	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
 end
 
 -------------------------------------
@@ -40,7 +65,7 @@ end
 -------------------------------------
 function SkillVoltesX:initState()
 	self:setCommonState(self)
-	self:addState('start', SkillVoltesX.st_idle, self.m_skillAniName, true)
+	self:addState('start', SkillVoltesX.st_idle, self.m_skillAniName, false)
 end
 
 -------------------------------------
@@ -48,30 +73,65 @@ end
 -------------------------------------
 function SkillVoltesX.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
-		owner:setPosition(owner.m_targetPos.x, owner.m_targetPos.y)
-		owner.m_animator:addAniHandler(function() 
-			owner:changeState('dying')
-		end)
 
-	elseif (owner.m_stateTimer > VOLTES_ATTACK_INTERVAL) and (owner.m_attackStep == 0) then
-		owner:runAttack(1)
-		owner.m_attackStep = owner.m_attackStep + 1
+	-- ATK STEP 1
+	elseif (owner.m_stateTimer > VOLTES_ATTACK_INTERVAL) and (owner.m_attackStep == VOLTES_ATK_STEP_1) then
+		owner:updateLoopAttack({1}, dt)
 
-	elseif (owner.m_stateTimer > VOLTES_ATTACK_INTERVAL*2) and (owner.m_attackStep == 1) then
-		owner:runAttack(2)
-		owner.m_attackStep = owner.m_attackStep + 1
+	-- ATK STEP 2
+	elseif (owner.m_stateTimer > VOLTES_ATTACK_INTERVAL*2) and (owner.m_attackStep == VOLTES_ATK_STEP_2) then
+		owner:updateLoopAttack({2}, dt)
+
     end
 	
+	-- 궁극 강화 여부에 따라 나뉨
 	if (owner.m_hasFinalAttack) then 
-		if (owner.m_stateTimer > VOLTES_FINAL_ATTACK_TIME) and (owner.m_attackStep == 2) then
-			owner:runAttack(1)
-			owner:runAttack(2)
-			owner.m_attackStep = owner.m_attackStep + 1
+		-- ATK STEP FINAL
+		if (owner.m_stateTimer > VOLTES_FINAL_ATTACK_TIME) and (owner.m_attackStep == VOLTES_ATK_STEP_FINAL) then
+			owner.m_maxAttackCnt = owner.m_maxFinalAttackCnt
+			owner:updateLoopAttack({1, 2}, dt)
 
-		elseif (owner.m_attackStep == 3) then
-			owner.m_world.m_shakeMgr:doShakeUpDown(0.5, 30)
-			owner.m_attackStep = owner.m_attackStep + 1
+		-- ATK STEP END
+		elseif (owner.m_attackStep == VOLTES_ATK_STEP_END) then
+			owner:changeState('dying')
 		end
+	else
+		-- 일반 스킬이라면 ATK STEP FINAL 일떄 탈출
+		if (owner.m_attackStep == VOLTES_ATTACK_STEP_FINAL) then 
+			owner:changeState('dying')
+		end	
+	end
+end
+
+
+-------------------------------------
+-- function doLoopAttack
+-- @breif 반복공격을 실행한다
+-------------------------------------
+function SkillVoltesX:initLoopAttack()
+	self.m_multiAtkTimer = self.m_hitInterval
+	self.m_attackCnt = 0
+end
+
+-------------------------------------
+-- function updateLoopAttack
+-- @breif 반복공격용 update
+-------------------------------------
+function SkillVoltesX:updateLoopAttack(t_idx, dt)
+	self.m_multiAtkTimer = self.m_multiAtkTimer + dt
+		
+	if (self.m_multiAtkTimer > self.m_hitInterval) then
+		for _, idx in pairs(t_idx) do 
+			self:runAttack(idx)
+		end
+		self.m_multiAtkTimer = self.m_multiAtkTimer - self.m_hitInterval
+		self.m_attackCnt = self.m_attackCnt + 1
+	end
+
+	-- 공격 횟수 초과시 초기화 하면서 탈출
+	if (self.m_maxAttackCnt <= self.m_attackCnt) then
+		self:initLoopAttack()
+		self.m_attackStep = self.m_attackStep + 1
 	end
 end
 
@@ -135,7 +195,8 @@ function SkillVoltesX:makeSkillInstance(owner, t_skill, t_data)
 	local missile_res = 'res/effect/skill_optatio_x/skill_optatio_x_water.vrp' --string.gsub(t_skill['res_1'], '@', owner:getAttribute())
 	local attack_count = t_skill['hit']
 	local has_final_attack = (t_skill['val_1'] == 1)
-
+	local final_attack_count = t_skill['val_2']
+	t_skill['power_rate'] = 1
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
@@ -143,7 +204,7 @@ function SkillVoltesX:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(attack_count, has_final_attack)
+    skill:init_skill(attack_count, has_final_attack, final_attack_count)
 	skill:initState()
 
 	-- 3. state 시작 

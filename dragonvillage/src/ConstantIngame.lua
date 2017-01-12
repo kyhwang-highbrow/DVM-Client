@@ -17,6 +17,9 @@ PHYS = {
 -- # 게임에 등장하는 테이머 ID
 TAMER_ID = 110001
 
+-- # 1 frame
+ONE_FRAME = 1/30
+
 -- # 게임에 참여하는 드래곤 수
 PARTICIPATE_DRAGON_CNT = 5
 
