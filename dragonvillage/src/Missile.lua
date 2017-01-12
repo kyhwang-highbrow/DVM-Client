@@ -199,7 +199,6 @@ end
 -- function st_move
 -------------------------------------
 function Missile.st_move(owner, dt)
----[[
     -- 가속 여부(가속도가 양수이고, 가속 딜레이가 없거나, 가속 딜레이의 시간이 지났을 경우
     local can_accel = (owner.m_acceleration ~= 0) and ((not owner.m_accelDelay) or (owner.m_stateTimer >= owner.m_accelDelay))
 
@@ -319,6 +318,8 @@ function Missile.st_magnet(owner, dt)
         owner.apply_force = false
     end
 
+	--[[
+	-- 드히코드가 그대로 있음
     -- 영웅의 방향으로 이동
     local hero = GameMgr:getCurHero()
     local hero_x, hero_y = hero:getCenterPos()
@@ -328,6 +329,7 @@ function Missile.st_magnet(owner, dt)
     else
         owner:changeState('move')
     end
+	]]
 end
 
 -------------------------------------
@@ -349,8 +351,6 @@ function Missile.st_hole(owner, dt)
         return
     end
 end
-
-
 
 -------------------------------------
 -- function updateMissileOption
@@ -406,34 +406,6 @@ function Missile:updateMissileOption(dt)
         end
     end
 
-    -- n초 후에 해당 투사체 순식간에 작아지며 소멸
-    if self.m_deleteTime then
-        if self.m_deleteTime <= self.m_stateTimer then
-            self.m_deleteTime = nil
-            self:changeState('delete')
-            return true
-        end
-    end
-
-    -- n초 후에 갑자기 사라짐
-    if self.m_vanishTime then
-        if self.m_vanishTime <= self.m_stateTimer then
-            self.m_vanishTime = nil
-            self:changeState('dying')
-            return true
-        end
-    end
-	
-    -- n초 후에 fade out
-    if self.m_fadeoutTime then
-        if (self.m_fadeoutTime <= self.m_stateTimer) then
-            self.m_fadeoutTime = nil
-			local removeMissile = cc.CallFunc:create(function() self:changeState('dying') end)
-			self.m_animator.m_node:runAction(cc.Sequence:create(cc.FadeOut:create(MISSILE_FADE_OUT_TIME), removeMissile))
-            return true
-        end
-    end
-	
 	-- n초 후까지 map shake
     if self.m_mapShakeTime then
 		if self.m_stateTimer == 0 then
@@ -441,46 +413,18 @@ function Missile:updateMissileOption(dt)
         elseif (self.m_mapShakeTime <= self.m_stateTimer) or (self.m_state == 'dying') then
             self.m_mapShakeTime = nil
 			self.m_world.m_shakeMgr:stopShake()
-            return true
         end
     end
 
     -- n초 후 부터 충돌 체크 시작
     if self.m_collisionCheckTime then
-		if self.m_stateTimer then 
+		if (self.m_stateTimer <= self.m_collisionCheckTime) then 
 			self.enable_body = false
-		elseif (self.m_collisionCheckTime <= self.m_stateTimer) then
+		else
             self.enable_body = true
         end
-        return true
     end
 
-    -- n초 후에 해당 투사체 폭발(반경 50픽셀 데미지)
-    if self.m_explosionTime then
-        if self.m_explosionTime <= self.m_stateTimer then
-            self.m_explosionTime = nil
-            self:changeState('explosion')
-            return true
-        end
-    end
-
-    -- n초 후에 해당 투사체 폭발(반경 75픽셀 데미지)
-    if self.m_explosionTime2 then
-        if self.m_explosionTime2 <= self.m_stateTimer then
-            self.m_explosionTime2 = nil
-            self:changeState('explosion2')
-            return true
-        end
-    end
-
-    -- n초 후에 해당 투사체 폭발(반경 150픽셀 데미지)
-    if self.m_explosionTime3 then
-        if self.m_explosionTime3 <= self.m_stateTimer then
-            self.m_explosionTime3 = nil
-            self:changeState('explosion3')
-            return true
-        end
-    end
 
     -- n초에 걸쳐 리소스 및 충돌박스가 SIZE_UP_SCALE배로 커짐
     if self.m_sizeUpTime then
@@ -501,14 +445,7 @@ function Missile:updateMissileOption(dt)
         end
     end
 
-    if self.m_magnetTime then
-        if self.m_magnetTime <= self.m_stateTimer then
-            self.m_magnetTime = nil
-            self:changeState('magnet')
-            return true
-        end
-    end
-
+	-- 특정 시간마다 특정 각도 회전
     if self.m_tRotateTime and self.m_tRotateTime[1] then
         if self.m_tRotateTime[1][1] <= self.m_stateTimer then
             local dir = self.movement_theta + self.m_tRotateTime[1][2]
@@ -518,6 +455,7 @@ function Missile:updateMissileOption(dt)
         end
     end
 
+	-- 특정 시간마다 초당 회전각 변경
     if self.m_tAngularVelocity and self.m_tAngularVelocity[1] then
         if self.m_tAngularVelocity[1][1] <= self.m_stateTimer then
             self.m_angularVelocity = self.m_tAngularVelocity[1][2]
@@ -525,6 +463,7 @@ function Missile:updateMissileOption(dt)
         end
     end
 
+	-- 초당 n도씩 회전
     if self.m_angularVelocity then
         local dir = self.movement_theta + (self.m_angularVelocity * dt)
         local dir = getAdjustDegree(dir)
@@ -532,9 +471,7 @@ function Missile:updateMissileOption(dt)
         self:setRotation(dir)
     end
 
-
-    -- 바디 사이즈의 간격으로 잔상 생성
-    -- 잔상은 3개 정도 보이도록 유지
+    -- 바디 사이즈의 간격으로 잔상 생성, 잔상은 3개 정도 보이도록 유지
     if self.m_bAfterimage then
         self.m_afterimageMove = self.m_afterimageMove + (self.speed * dt)
 
@@ -608,6 +545,77 @@ function Missile:updateMissileOption(dt)
 			end
 		end
 	end
+
+	----------------------------------------------------------------------------------------------------------------------
+	-- # State가 변경되는 옵션들은 하위로 몰아둔다.
+	----------------------------------------------------------------------------------------------------------------------
+    -- n초 후에 영웅 방향으로 빨려들어감
+	if self.m_magnetTime then
+        if self.m_magnetTime <= self.m_stateTimer then
+            self.m_magnetTime = nil
+            self:changeState('magnet')
+            return true
+        end
+    end
+
+	
+    -- n초 후에 해당 투사체 폭발(반경 50픽셀 데미지)
+    if self.m_explosionTime then
+        if self.m_explosionTime <= self.m_stateTimer then
+            self.m_explosionTime = nil
+            self:changeState('explosion')
+            return true
+        end
+    end
+
+    -- n초 후에 해당 투사체 폭발(반경 75픽셀 데미지)
+    if self.m_explosionTime2 then
+        if self.m_explosionTime2 <= self.m_stateTimer then
+            self.m_explosionTime2 = nil
+            self:changeState('explosion2')
+            return true
+        end
+    end
+
+    -- n초 후에 해당 투사체 폭발(반경 150픽셀 데미지)
+    if self.m_explosionTime3 then
+        if self.m_explosionTime3 <= self.m_stateTimer then
+            self.m_explosionTime3 = nil
+            self:changeState('explosion3')
+            return true
+        end
+    end
+
+    -- n초 후에 해당 투사체 순식간에 작아지며 소멸
+    if self.m_deleteTime then
+        if self.m_deleteTime <= self.m_stateTimer then
+            self.m_deleteTime = nil
+            self:changeState('delete')
+            return true
+        end
+    end
+
+    -- n초 후에 갑자기 사라짐
+    if self.m_vanishTime then
+        if self.m_vanishTime <= self.m_stateTimer then
+            self.m_vanishTime = nil
+            self:changeState('dying')
+            return true
+        end
+    end
+	
+    -- n초 후에 fade out
+    if self.m_fadeoutTime then
+        if (self.m_fadeoutTime <= self.m_stateTimer) then
+            self.m_fadeoutTime = nil
+			local removeMissile = cc.CallFunc:create(function() 
+				self:changeState('dying') 
+			end)
+			self.m_animator.m_node:runAction(cc.Sequence:create(cc.FadeOut:create(MISSILE_FADE_OUT_TIME), removeMissile))
+            return true
+        end
+    end
+	
     return false
 end
 
