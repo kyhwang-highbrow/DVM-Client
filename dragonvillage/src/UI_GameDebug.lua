@@ -213,7 +213,7 @@ function UI_GameDebug:makeTableView()
 	do -- 플레이어 무적
         local item = {}
         item['cb1'] = UI_GameDebug.playerInvincible
-        if PLAYER_DRAGON_INVINCLBLE then
+        if PLAYER_DRAGON_INVINCIBLE then
             item['str'] = '플레이어 무적 ON'
         else
             item['str'] = '플레이어 무적 OFF'
@@ -478,9 +478,9 @@ end
 -- function playerInvincible
 -------------------------------------
 function UI_GameDebug.playerInvincible(self, item, idx)
-    PLAYER_DRAGON_INVINCLBLE = not PLAYER_DRAGON_INVINCLBLE
+    PLAYER_DRAGON_INVINCIBLE = not PLAYER_DRAGON_INVINCIBLE
 
-    if PLAYER_DRAGON_INVINCLBLE then
+    if PLAYER_DRAGON_INVINCIBLE then
         item['label']:setString(Str('플레이어 무적 ON'))
     else
         item['label']:setString(Str('플레이어 무적 OFF'))
