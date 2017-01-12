@@ -78,6 +78,10 @@ LEAF_INDICATOR_EFFECT_DELAY = 5/1000
 -- # StatusEffect_PassiveSpatter
 STATUEEFFECT_GLOBAL_COOL = 0.5
 
+-- # SkillVoltesX
+VOLTES_ATTACK_INTERVAL = 0.3
+VOLTES_FINAL_ATTACK_TIME = 2
+
 --------------------------------------------
 -- 인디케이터 리소스 경로
 --------------------------------------------

@@ -47,7 +47,7 @@ function Monster_Tree.st_dying(owner, dt)
         end
 
         -- 화면 쉐이킹
-        owner.m_world.m_shakeMgr:doShake2(25, 10)
+        owner.m_world.m_shakeMgr:doShakeUpDown(25, 10)
 
         owner.m_world:dispatch('nest_tree_die')
 

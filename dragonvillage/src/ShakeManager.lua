@@ -42,10 +42,11 @@ function ShakeManager:doShake(x, y, duration, is_repeat, interval)
 end
 
 -------------------------------------
--- function doShake2
--- @brief 화면 떨림 연출
+-- function doShakeUpDown
+-- @param duration 지속시간
+-- @param level 강도
 -------------------------------------
-function ShakeManager:doShake2(duration, level)
+function ShakeManager:doShakeUpDown(duration, level)
 	local level = level or 1
 	local duration = duration or 0.5
 
