@@ -265,7 +265,7 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, movement, value1, value2, v
     end
 	                        
     self.m_world.m_worldNode:addChild(enemy.m_rootNode, 1)
-    self.m_world.m_physWorld:addObject('enemy', enemy)
+    self.m_world.m_physWorld:addObject(PHYS.ENEMY, enemy)
     self.m_world:addEnemy(enemy)
 
 	enemy:setAddPhysObject()

@@ -4,7 +4,7 @@ local PARENT = Skill
 -- class SkillVoltesX
 -------------------------------------
 SkillVoltesX = class(PARENT, {
-
+		m_physGroup = 'str',
      })
 
 -------------------------------------
@@ -20,6 +20,7 @@ end
 -------------------------------------
 function SkillVoltesX:init_skill(attack_count, range, angle)
     PARENT.init_skill(self)
+	self.m_physGroup = self.m_owner:getAttackPhysGroup()
 end
 
 -------------------------------------
@@ -37,31 +38,46 @@ function SkillVoltesX.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
 		owner:setPosition(owner.m_targetPos.x, owner.m_targetPos.y)
 		owner.m_animator:addAniHandler(function() 
+			owner:runAttack()
 			owner:changeState('dying')
 		end)
-
-		
     end
-	
-
 end
 
 -------------------------------------
 -- function findTarget
 -------------------------------------
 function SkillVoltesX:findTarget()
+	local t_collision_obj = nil
+	local t_ret = {}
+	
     local radius = 20
+	local std_width = (1280 / 2)
+	local std_height = (720 / 2)
+	
+	local target_x, target_y = self.m_targetPos.x, self.m_targetPos.y
+	local start_x, start_y = nil, nil
+	local end_x, end_y = nil, nil
 
-    -- 레이저에 충돌된 모든 객체 리턴
-    local t_collision_obj = self.m_world.m_physWorld:getLaserCollision(
-		self.m_startPosX, self.m_startPosY,
-        self.m_laserEndPosX, self.m_laserEndPosY, radius, self.m_physGroup)
-    
-	local t_collision_obj2 = self.m_world.m_physWorld:getLaserCollision(
-		self.m_startPosX, self.m_startPosY,
-        self.m_laserEndPosX, self.m_laserEndPosY, radius, self.m_physGroup)
-
-	return table.merge(t_collision_obj, t_collision_obj2)
+	-- 레이저에 충돌된 모든 객체 리턴
+	for i = 1, 2 do 
+		
+		start_x = target_x - std_width
+		start_y = target_y - (std_height * (math_pow(-1, i)))
+		
+		end_x = target_x + std_width
+		end_y = target_y + (std_height * (math_pow(-1, i)))
+		
+		t_collision_obj = self.m_world.m_physWorld:getLaserCollision(
+			start_x, start_y,
+			end_x, end_y, radius, self.m_physGroup)
+		
+		for i, obj in pairs(t_collision_obj) do 
+			table.insert(t_ret, obj['obj'])
+		end
+    end
+	
+	return t_ret
 end
 
 -------------------------------------

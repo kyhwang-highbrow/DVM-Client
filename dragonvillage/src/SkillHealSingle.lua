@@ -71,7 +71,7 @@ function SkillHealSingle:doHeal()
         effect_heal:changeState('move')
         effect_heal:init_EffectHeal(self.pos.x, self.pos.y, target)
 
-        self.m_world.m_physWorld:addObject('effect', effect_heal)
+        self.m_world.m_physWorld:addObject(PHYS.EFFECT, effect_heal)
         self.m_world.m_worldNode:addChild(effect_heal.m_rootNode, 0)
         self.m_world:addToUnitList(effect_heal)
     end

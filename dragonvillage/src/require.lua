@@ -267,6 +267,7 @@ local t_module = {
 	'SkillIndicator_Conic',
 	'SkillIndicator_ConicSpread',
     'SkillIndicator_StraightWidth',
+	'SkillIndicator_X',
     
 	-- BUFF
 	'Buff',

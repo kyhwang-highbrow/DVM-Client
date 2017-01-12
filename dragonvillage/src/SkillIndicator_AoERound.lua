@@ -1,7 +1,9 @@
+local PARENT = SkillIndicator
+
 -------------------------------------
 -- class SkillIndicator_AoERound
 -------------------------------------
-SkillIndicator_AoERound = class(SkillIndicator, {
+SkillIndicator_AoERound = class(PARENT, {
         m_indicatorAddEffect = '',
         m_range = 'num',            -- 반지름
         m_isFixedOnTarget = 'bool', 

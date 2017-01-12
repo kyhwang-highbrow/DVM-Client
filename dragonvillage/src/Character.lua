@@ -494,10 +494,6 @@ end
 -- function setDamage
 -------------------------------------
 function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
-	if (defender:getCharType() == 'dragon') and PLAYER_DRAGON_INVINCLBLE then 
-		return
-	end
-
     if (self.m_bDead) then
         return
     end
@@ -518,8 +514,10 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     self:makeDamageFont(damage, i_x, i_y, t_info['critical'], t_info['attr_bonus_dmg'])
 
     -- 데미지 적용
-    local damage = math_min(damage, self.m_hp)
-    self:setHp(self.m_hp - damage)
+	if not ((defender:getCharType() == 'dragon') and PLAYER_DRAGON_INVINCLBLE) then 
+		local damage = math_min(damage, self.m_hp)
+		self:setHp(self.m_hp - damage)
+	end
 
     -- 죽음 체크
     if (self.m_hp <= 0) and (self.m_bDead == false) then

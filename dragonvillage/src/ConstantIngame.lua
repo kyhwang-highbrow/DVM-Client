@@ -84,17 +84,17 @@ STATUEEFFECT_GLOBAL_COOL = 0.5
 RES_INDICATOR = 
 {
 	STRAIGHT = 'res/indicator/indicator_type_straight/indicator_type_straight.vrp',
-	TARGET = 'res/indicator/indicator_type_target/indicator_type_target.vrp',
+    STRAIGHT_WIDTH = 'res/indicator/indicator_type_straight_wide/indicator_type_straight_wide.vrp',
 	CONE20 = 'res/indicator/indicator_type_cone_20/indicator_type_cone_20.vrp',
 	CONE30 = 'res/indicator/indicator_type_cone_30/indicator_type_cone_30.vrp',
 	RANGE = 'res/indicator/indicator_type_range/indicator_type_range.vrp',
-	COMMON = 'res/indicator/indicator_common/indicator_common.vrp',
-	EFFECT = 'res/indicator/indicator_effect_target/indicator_effect_target.vrp',
-
 	BEZIER = 'res/indicator/indicator_bezier/indicator_bezier.vrp',
 	HEALING_WIND = 'res/indicator/indicator_healing_wind/indicator_healing_wind.vrp',
+	X = 'res/indicator/indicator_type_x/indicator_type_x.vrp',
 
-    STRAIGHT_WIDTH = 'res/indicator/indicator_type_straight_wide/indicator_type_straight_wide.vrp',
+	COMMON = 'res/indicator/indicator_common/indicator_common.vrp',
+	TARGET = 'res/indicator/indicator_type_target/indicator_type_target.vrp',
+	EFFECT = 'res/indicator/indicator_effect_target/indicator_effect_target.vrp',
 }
 
 RES_RANGE = 'res/effect/skill_range/skill_range.vrp'
