@@ -165,7 +165,7 @@ function GameAuto:update_fight(dt)
                     if (t_skill['casting_time'] > 0) then
                         dragon:changeState('casting')
                     else
-                        dragon:changeState('skillAttack')
+                        dragon:changeState('skillAppear')
                     end
 
                     -- AI 딜레이 시간 설정

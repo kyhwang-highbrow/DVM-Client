@@ -116,8 +116,8 @@ function Dragon:initState()
 
     --
     self:addState('skillPrepare', Dragon.st_skillPrepare, 'skill_appear', true)
-    self:addState('skillAttack', Dragon.st_skillAttack, 'skill_appear', true)
-    self:addState('skillAttack2', Dragon.st_skillAttack2, 'skill_idle', false)
+    self:addState('skillAppear', Dragon.st_skillAppear, 'skill_appear', true)
+    self:addState('skillIdle', Dragon.st_skillIdle, 'skill_idle', false)
     self:addState('skillDisappear', Dragon.st_skillDisappear, 'skill_disappear', false)
     --
 
@@ -185,10 +185,10 @@ function Dragon.st_skillPrepare(owner, dt)
 end
 
 -------------------------------------
--- function st_skillAttack
+-- function st_skillAppear
 -------------------------------------
-function Dragon.st_skillAttack(owner, dt)
-    if (owner.m_stateTimer == 0) then
+function Dragon.st_skillAppear(owner, dt)
+    if (owner.m_stateTimer == 0) then	
         owner.m_bEnableSpasticity = false
 
         -- 이벤트
@@ -197,9 +197,9 @@ function Dragon.st_skillAttack(owner, dt)
 end
 
 -------------------------------------
--- function st_skillAttack2
+-- function st_skillIdle
 -------------------------------------
-function Dragon.st_skillAttack2(owner, dt)
+function Dragon.st_skillIdle(owner, dt)
     if (owner.m_stateTimer == 0) then
         local active_skill_id = owner:getSkillID('active')
         local table_dragon_skill = TABLE:get('dragon_skill')
@@ -639,7 +639,7 @@ function Dragon:isPossibleSkill()
 	end
 
     -- 이미 스킬을 사용하기 위한 상태일 경우
-    if (isExistValue(self.m_state, 'skillPrepare', 'skillAttack', 'skillAttack2')) then
+    if (isExistValue(self.m_state, 'skillPrepare', 'skillAppear', 'skillIdle')) then
         return false
     end
 

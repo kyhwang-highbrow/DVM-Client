@@ -175,7 +175,7 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
         if t_skill['casting_time'] > 0 then
             self.m_selectHero:changeState('casting')
         else
-            self.m_selectHero:changeState('skillAttack')
+            self.m_selectHero:changeState('skillAppear')
         end
 
         self:clear()

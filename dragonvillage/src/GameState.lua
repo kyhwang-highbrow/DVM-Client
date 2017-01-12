@@ -442,7 +442,7 @@ function GameState.update_fight_dragon_skill(self, dt)
         self.m_world.m_gameTimeScale:set(1)
 
         -- 드래곤 스킬 애니메이션
-        dragon:changeState('skillAttack2')
+        dragon:changeState('skillIdle')
         dragon.m_animator:setTimeScale(1)
 
         -- 카메라 줌아웃

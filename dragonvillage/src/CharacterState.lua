@@ -269,8 +269,8 @@ function Character.st_casting(owner, dt)
     end
 
     if (owner.m_reservedSkillCastTime <= owner.m_stateTimer) then
-        if owner.m_tStateFunc['skillAttack'] then
-            owner:changeState('skillAttack')
+        if owner.m_tStateFunc['skillAppear'] then
+            owner:changeState('skillAppear')
         else
             owner:changeState('attack')
         end
