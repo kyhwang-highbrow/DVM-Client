@@ -109,6 +109,7 @@ local t_module = {
     'SceneGame',
     'SceneAdventure',
     'SceneNestDungeon',
+    'SceneColosseum',
 
     -- Phys
 	'PhysWorld',
@@ -355,6 +356,7 @@ local t_module = {
     'UI_UserDeckInfoPopup',
     'UI_AutoPlaySettingPopup',
     'UI_BattleMenu',
+    'UI_Colosseum',
 
     -- UI 드래곤 관리 관련
     'UI_DragonManage_Base',

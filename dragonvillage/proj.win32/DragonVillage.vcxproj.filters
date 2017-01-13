@@ -1236,6 +1236,12 @@
     <None Include="..\src\UI_BattleMenu.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_Colosseum.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\SceneColosseum.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -1,0 +1,78 @@
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
+
+-------------------------------------
+-- class UI_Colosseum
+-------------------------------------
+UI_Colosseum = class(PARENT, {
+     })
+
+-------------------------------------
+-- function initParentVariable
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_Colosseum:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_Colosseum'
+    self.m_bVisible = true
+    self.m_titleStr = Str('콜로세움')
+    self.m_bUseExitBtn = true
+end
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_Colosseum:init()
+    local vars = self:load('colosseum.ui')
+    UIManager:open(self, UIManager.SCENE)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_Colosseum')
+
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    self:initUI()
+    self:initButton()
+    self:refresh()
+
+    self:sceneFadeInAction()
+end
+
+-------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_Colosseum:click_exitBtn()
+    local scene = SceneLobby()
+    scene:runScene()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_Colosseum:initUI()
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_Colosseum:initButton()
+    local vars = self.vars
+    vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_Colosseum:refresh()
+end
+
+-------------------------------------
+-- function click_secretBtn
+-------------------------------------
+function UI_Colosseum:click_readyBtn()
+    UIManager:toastNotificationRed('"콜로세움"은 준비 중입니다.')
+end
+
+--@CHECK
+UI:checkCompileError(UI_Colosseum)
