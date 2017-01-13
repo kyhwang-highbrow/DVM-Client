@@ -266,8 +266,8 @@ end
 function LobbyMap:getScaleAtYPosY(pos_y)
     local left, right, bottom, top = self:getGroundRange()
 
-    local max_scale = 1.0
-    local min_scale = 0.9
+    local max_scale = 1.2
+    local min_scale = 0.85
     local max_y = top
     local min_y = bottom
 
