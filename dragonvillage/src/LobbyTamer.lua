@@ -33,13 +33,10 @@ function LobbyTamer:initAnimator(file_name)
     self.m_animator = MakeAnimator(file_name)--AnimatorHelper:makeTamerAnimator(file_name)
     if self.m_animator.m_node then
 		self.m_rootNode:addChild(self.m_animator.m_node, 2)
-        self.m_animator.m_node:setPositionY(50)
-		-- @TODO 민석님 확인하도록 임시 처리
-        if not(string.find(file_name, 'goni')) then 
-			self.m_animator.m_node:setScale(0.6)
-		end
-        self.m_animator.m_node:setMix('idle', 'skill_idle', 0.1)
-        self.m_animator.m_node:setMix('skill_idle', 'idle', 0.1)
+        self.m_animator.m_node:setPositionY(105)
+        self.m_animator.m_node:setScale(1)
+        self.m_animator.m_node:setMix('idle', 'move', 0.1)
+        self.m_animator.m_node:setMix('move', 'idle', 0.1)
     end
 end
 

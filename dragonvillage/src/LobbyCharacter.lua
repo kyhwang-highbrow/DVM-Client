@@ -186,7 +186,8 @@ function LobbyCharacter:changeState(state, forced)
     local changed = PARENT.changeState(self, state, forced)
 
     if (changed and self.m_animator) then
-        self.m_animator:changeAni(self.m_tStateAni[state], self.m_tStateAniLoop[state], false)
+        local check = (self.m_tStateAni[state] == 'move')
+        self.m_animator:changeAni(self.m_tStateAni[state], self.m_tStateAniLoop[state], check)
     end
 
     -- 이동이 종료되었을 경우

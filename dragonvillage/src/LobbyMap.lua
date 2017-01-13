@@ -267,7 +267,7 @@ function LobbyMap:getScaleAtYPosY(pos_y)
     local left, right, bottom, top = self:getGroundRange()
 
     local max_scale = 1.0
-    local min_scale = 0.8
+    local min_scale = 0.9
     local max_y = top
     local min_y = bottom
 
@@ -372,14 +372,7 @@ function LobbyMap:makeLobbyTamerBot(t_user_info)
         tamer = LobbyTamer(t_user_info)
     end
 
-	local dice = math_random(1, 3)
-    if (not is_bot) or (dice == 1) then
-		tamer:initAnimator('res/character/tamer/goni/goni.spine')
-	elseif (dice == 2) then
-        tamer:initAnimator('res/character/tamer/leon/leon.spine')
-    else
-        tamer:initAnimator('res/character/tamer/nuri/nuri.spine')
-    end
+	tamer:initAnimator('res/character/tamer/goni/goni.spine')
 
     local flip = (math_random(1, 2) == 1) and true or false
 

@@ -18,7 +18,7 @@ function LobbyUserStatusUI:init(t_user_info)
     -- rootNode 생성
     self.m_rootNode = cc.Node:create()
     self.m_rootNode:addChild(self.root)
-    self.root:setPositionY(180)
+    self.root:setPositionY(280)
 
     self.m_tUserInfo = t_user_info
 
