@@ -1230,6 +1230,9 @@
     <None Include="..\src\ConstantString.lua">
       <Filter>lua\constant</Filter>
     </None>
+    <None Include="..\src\UI_DragonExceedResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

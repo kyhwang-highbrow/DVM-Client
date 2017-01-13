@@ -833,7 +833,7 @@ function UI_DragonManageUpgrade:upgradeDirecting(doid, t_prev_dragon_data, t_nex
 
         -- 결과 팝업 (초월)
         elseif (t_prev_dragon_data['eclv'] < t_next_dragon_data['eclv']) then
-            local ui = UI_DragonManageUpgradeResult(t_next_dragon_data)
+            local ui = UI_DragonExceedResult(t_next_dragon_data)
             if (t_next_dragon_data['eclv'] >= MAX_DRAGON_ECLV) then
                 local function close_cb()
                     self:close()

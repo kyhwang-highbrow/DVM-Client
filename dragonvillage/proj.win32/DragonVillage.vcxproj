@@ -566,6 +566,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ClassFormUseTopUserInfo.lua" />
     <None Include="..\src\UI_DragonDetailPopup.lua" />
     <None Include="..\src\UI_DragonDevApiPopup.lua" />
+    <None Include="..\src\UI_DragonExceedResult.lua" />
     <None Include="..\src\UI_DragonGachaResult.lua" />
     <None Include="..\src\UI_DragonGoodbye.lua" />
     <None Include="..\src\UI_DragonManageEvolutionResult.lua" />
