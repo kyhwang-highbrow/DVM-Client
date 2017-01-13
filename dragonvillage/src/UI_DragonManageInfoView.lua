@@ -25,7 +25,7 @@ function UI_DragonManageInfoView:init(l_dragon_id_list, idx)
     self:initButton()
     self:refresh()
 
-    local swipe = Camera_LobbySwipe(self.root, function(type) self:onSwipeEvent(type) end)
+    local swipe = SwipeGesture(self.root, function(type) self:onSwipeEvent(type) end)
     swipe.m_sensitivity = 0.025
 
     self:sceneFadeInAction()

@@ -507,13 +507,7 @@
     <None Include="..\src\ValidationDragon.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\Camera_Lobby.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\CameraTouchHandler_Lobby.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\Camera_LobbySwipe.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\IEventDispatcher.lua">
@@ -778,9 +772,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_ItemCard.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_LobbyNew.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_NestDungeonScene.lua">
@@ -1083,9 +1074,6 @@
     <None Include="..\src\shader\gray.fsh">
       <Filter>shader</Filter>
     </None>
-    <None Include="..\src\UI_LobbyOld.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_Lobby.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1255,6 +1243,9 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillIndicator_AoESquare_Height.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\SwipeGesture.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>

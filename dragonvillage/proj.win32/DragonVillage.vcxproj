@@ -324,8 +324,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Camera.lua" />
     <None Include="..\src\CameraTouchHandler.lua" />
     <None Include="..\src\CameraTouchHandler_Lobby.lua" />
-    <None Include="..\src\Camera_Lobby.lua" />
-    <None Include="..\src\Camera_LobbySwipe.lua" />
     <None Include="..\src\Character.lua" />
     <None Include="..\src\CharacterEvent.lua" />
     <None Include="..\src\CharacterSkill.lua" />
@@ -520,6 +518,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StatusEffect_Trigger_Release.lua" />
     <None Include="..\src\Stopwatch.lua" />
     <None Include="..\src\SumRandom.lua" />
+    <None Include="..\src\SwipeGesture.lua" />
     <None Include="..\src\Table.lua" />
     <None Include="..\src\TableDragon.lua" />
     <None Include="..\src\TableDragonSkill.lua" />
@@ -603,9 +602,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_InvenDevApiPopup.lua" />
     <None Include="..\src\UI_ItemCard.lua" />
     <None Include="..\src\UI_Lobby.lua" />
-    <None Include="..\src\UI_LobbyNew.lua" />
     <None Include="..\src\UI_LobbyObject.lua" />
-    <None Include="..\src\UI_LobbyOld.lua" />
     <None Include="..\src\UI_LobbyUserInfoPopup.lua" />
     <None Include="..\src\UI_MonsterCard.lua" />
     <None Include="..\src\UI_NestDungeonListItem.lua" />

@@ -1,8 +1,8 @@
 -------------------------------------
--- class Camera_LobbySwipe
+-- class SwipeGesture
 -- @brief 카메라
 -------------------------------------
-Camera_LobbySwipe = class({
+SwipeGesture = class({
         m_bTouchDown = 'boolean',
 
         m_initialTouchPosX = 'number',
@@ -19,7 +19,7 @@ Camera_LobbySwipe = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function Camera_LobbySwipe:init(target_node, cb_swipe_event)
+function SwipeGesture:init(target_node, cb_swipe_event)
     self.m_cbSwipeEvent = cb_swipe_event
 
     self.m_visibleSize = cc.Director:getInstance():getVisibleSize()
@@ -34,7 +34,7 @@ end
 -- function makeTouchLayer
 -- @brief 터치 레이어 생성
 -------------------------------------
-function Camera_LobbySwipe:makeTouchLayer(target_node)
+function SwipeGesture:makeTouchLayer(target_node)
     local listener = cc.EventListenerTouchOneByOne:create()
     listener:registerScriptHandler(function(touch, event) return self:onTouchBegan(touch, event) end, cc.Handler.EVENT_TOUCH_BEGAN)
     listener:registerScriptHandler(function(touch, event) return self:onTouchMoved(touch, event) end, cc.Handler.EVENT_TOUCH_MOVED)
@@ -49,7 +49,7 @@ end
 -------------------------------------
 -- function onTouchBegan
 -------------------------------------
-function Camera_LobbySwipe:onTouchBegan(touch, event)
+function SwipeGesture:onTouchBegan(touch, event)
     local location = touch:getLocation()
     self.m_initialTouchPosX = location['x']
     self.m_initialTouchPosY = location['y']
@@ -64,7 +64,7 @@ end
 -------------------------------------
 -- function onTouchMoved
 -------------------------------------
-function Camera_LobbySwipe:onTouchMoved(touch, event)
+function SwipeGesture:onTouchMoved(touch, event)
     local location = touch:getLocation()
     self.m_currTouchPosX = location['x']
     self.m_currTouchPosY = location['y']
@@ -73,14 +73,14 @@ end
 -------------------------------------
 -- function onTouchEnded
 -------------------------------------
-function Camera_LobbySwipe:onTouchEnded(touch, event)
+function SwipeGesture:onTouchEnded(touch, event)
     self.m_bTouchDown = false
 end
 
 -------------------------------------
 -- function update
 -------------------------------------
-function Camera_LobbySwipe:update(dt)
+function SwipeGesture:update(dt)
     if (not self.m_bTouchDown) then
         return
     end
@@ -111,7 +111,7 @@ end
 -------------------------------------
 -- function event
 -------------------------------------
-function Camera_LobbySwipe:event(type)
+function SwipeGesture:event(type)
     if (not self.m_cbSwipeEvent) then
         return
     end
