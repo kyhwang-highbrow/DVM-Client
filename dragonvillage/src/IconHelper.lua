@@ -58,7 +58,7 @@ function IconHelper:getDragonGradeIcon(grade, eclv, type)
     local res = ''
     if (type == 1) then
         if (0 < eclv) then
-            res = string.format('res/ui/icon/character_eclv_%.2d.png', eclv)
+            res = string.format('res/ui/icon/character_card_eclv_%.2d.png', eclv)
         else
             res = string.format('res/ui/icon/star01%.2d.png', grade)
         end
