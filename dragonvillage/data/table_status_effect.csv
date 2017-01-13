@@ -21,6 +21,7 @@ attr_weaken,buff,속성 약화,res/effect/effect_attr_weaken/effect_attr_weaken.
 def_up_overlab,buff,방어력 증가 오버랩,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,20,5,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 atk_up_overlab,buff,공격력 증가 오버랩,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,20,5,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,x,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
 def_up_psyker,buff,대양의 기운,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,1,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,def,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
+def_up_fairy,buff,튼튼,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,3,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,def,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 tamer_atk_up,buff,공격력 증가,res/effect/effect_tamer_combat/effect_tamer_combat.vrp,res/ui/icon/status_effect/atk_up.png,x,false,1,15,100,0,0,0,0,0,0,0,0,0,0,0,0,0,15,100,0,0,15,100,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
 tamer_def_up,buff,방어력 증가,res/effect/effect_tamer_defense/effect_tamer_defense.vrp,res/ui/icon/status_effect/def_up.png,x,false,1,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 tamer_heal,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,0,100,hp_target,0,0,0,x,x,x,x,x,x
