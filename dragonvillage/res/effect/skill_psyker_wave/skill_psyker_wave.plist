@@ -7,7 +7,7 @@
             <key>skill_psyker_wave_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,648},{136,346}}</string>
+                <string>{{780,432},{136,346}}</string>
                 <key>offset</key>
                 <string>{-1,1}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>skill_psyker_wave_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{644,234}}</string>
+                <string>{{2,1390},{644,234}}</string>
                 <key>offset</key>
                 <string>{-1,1}</string>
                 <key>rotated</key>
@@ -30,6 +30,123 @@
                 <key>sourceSize</key>
                 <string>{772,280}</string>
             </dict>
+            <key>skill_psyker_wave_s_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1564,910},{284,282}}</string>
+                <key>offset</key>
+                <string>{-293,-4}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{103,230},{284,282}}</string>
+                <key>sourceSize</key>
+                <string>{1076,734}</string>
+            </dict>
+            <key>skill_psyker_wave_s_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1730,496},{412,310}}</string>
+                <key>offset</key>
+                <string>{-281,2}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{51,210},{412,310}}</string>
+                <key>sourceSize</key>
+                <string>{1076,734}</string>
+            </dict>
+            <key>skill_psyker_wave_s_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1750,2},{492,286}}</string>
+                <key>offset</key>
+                <string>{-219,-8}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{73,232},{492,286}}</string>
+                <key>sourceSize</key>
+                <string>{1076,734}</string>
+            </dict>
+            <key>skill_psyker_wave_s_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{918,670},{644,240}}</string>
+                <key>offset</key>
+                <string>{-85,-24}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{131,271},{644,240}}</string>
+                <key>sourceSize</key>
+                <string>{1076,734}</string>
+            </dict>
+            <key>skill_psyker_wave_s_05.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{924,398},{804,270}}</string>
+                <key>offset</key>
+                <string>{-18,-11}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{118,243},{804,270}}</string>
+                <key>sourceSize</key>
+                <string>{1076,734}</string>
+            </dict>
+            <key>skill_psyker_wave_s_06.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{920,428}}</string>
+                <key>offset</key>
+                <string>{-12,62}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{66,91},{920,428}}</string>
+                <key>sourceSize</key>
+                <string>{1076,734}</string>
+            </dict>
+            <key>skill_psyker_wave_s_07.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{924,2},{824,394}}</string>
+                <key>offset</key>
+                <string>{14,48}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{140,122},{824,394}}</string>
+                <key>sourceSize</key>
+                <string>{1076,734}</string>
+            </dict>
+            <key>skill_psyker_wave_s_08.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,432},{776,466}}</string>
+                <key>offset</key>
+                <string>{104,43}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{254,91},{776,466}}</string>
+                <key>sourceSize</key>
+                <string>{1076,734}</string>
+            </dict>
+            <key>skill_psyker_wave_s_09.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{780,780},{608,64}}</string>
+                <key>offset</key>
+                <string>{109,-103}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{343,438},{608,64}}</string>
+                <key>sourceSize</key>
+                <string>{1076,734}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -38,9 +155,9 @@
             <key>realTextureFileName</key>
             <string>skill_psyker_wave.png</string>
             <key>size</key>
-            <string>{256,1024}</string>
+            <string>{2048,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:4896dfa98913e4f10b09e4520e37c30d$</string>
+            <string>$TexturePacker:SmartUpdate:605ef5061eda8c38fedaf7e181965e7d$</string>
             <key>textureFileName</key>
             <string>skill_psyker_wave.png</string>
         </dict>
