@@ -2,7 +2,7 @@ local PARENT = StatusEffect_Trigger
 
 -------------------------------------
 -- class StatusEffect_PassiveSpatter
--- @TODO »ç¿ë ¾ÈÇÏ´Â Áß ..setTriggerPassive ¿¡¼­ ºĞ±â Ã³¸®Çß´Âµ¥ °Å±â¼­ ³íÀÇ°¡ ÇÊ¿ä
+-- @TODO ì‚¬ìš© ì•ˆí•˜ëŠ” ì¤‘ ..setTriggerPassive ì—ì„œ ë¶„ê¸° ì²˜ë¦¬í–ˆëŠ”ë° ê±°ê¸°ì„œ ë…¼ì˜ê°€ í•„ìš”
 -------------------------------------
 StatusEffect_PassiveSpatter = class(PARENT, {
     })
