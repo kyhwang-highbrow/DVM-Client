@@ -8,8 +8,9 @@ cri_avoid_up,buff,치명 방어율 증가,res/effect/effect_defense_up/effect_de
 avoid_up,buff,회피율 증가,res/effect/effect_tactics_up/effect_tactics_up.vrp,res/ui/icon/status_effect/avoid_up.png,x,false,1,15,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 회피 증가,퍼센트+퍼센트 (합연산)
 hit_rate_up,buff,적중률 증가,res/effect/effect_tactics_up/effect_tactics_up.vrp,res/ui/icon/status_effect/hit_rate_up.png,x,false,1,15,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 적중 증가,퍼센트+퍼센트 (합연산)
 cri_dmg_up,buff,치명 피해 증가,res/effect/effect_tactics_up/effect_tactics_up.vrp,res/ui/icon/status_effect/cri_dmg_up.png,x,false,1,15,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 치명 피해 증가,퍼센트+퍼센트 (합연산)
-p_resist,buff,물리 저항,res/effect/effect_shield/effect_shield.spine,res/ui/icon/status_effect/p_resist.png,x,false,1,10,0,0,0,0,0,0,0,0,0,-50,0,0,0,0,50,0,0,0,10,x,x,x,{1}초 동안 받는 물리 피해 {2}% 감소,최종 데미지에서 곱연산
-m_resist,buff,마법 저항,res/effect/effect_shield/effect_shield.spine,res/ui/icon/status_effect/m_resist.png,x,false,1,10,0,0,0,0,0,0,0,0,0,-50,0,0,0,0,50,0,0,0,10,x,x,x,{duration}초 동안 받는 마법 피해 {1}% 감소,최종 데미지에서 곱연산
+p_resist,buff,물리 저항,res/effect/effect_shield/effect_shield.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,10,0,0,0,0,0,0,0,0,0,-50,0,0,0,0,50,0,0,0,10,x,x,x,{1}초 동안 받는 물리 피해 {2}% 감소,최종 데미지에서 곱연산
+m_resist,buff,마법 저항,res/effect/effect_shield/effect_shield.vrp,res/ui/icon/status_effect/m_resist.png,x,false,1,10,0,0,0,0,0,0,0,0,0,-50,0,0,0,0,50,0,0,0,10,x,x,x,{duration}초 동안 받는 마법 피해 {1}% 감소,최종 데미지에서 곱연산
+resist,buff,피해 저항,res/effect/effect_shield/effect_shield.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,10,0,0,0,0,0,0,0,0,0,-100,0,0,0,0,100,0,0,0,10,x,x,x,{duration}초 동안 받는 피해 {1}% 감소,최종 데미지에서 곱연산
 fury,buff,분노,res/effect/effect_fury/effect_fury.vrp,res/ui/icon/status_effect/atk_up.png,o,false,1,10,200,-50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,x,x,x,"{duration}초 동안 공격력 {atk}% 증가, 방어력 감소",x
 endure,buff,인내,res/effect/effect_shield/effect_shield.spine,res/ui/icon/status_effect/p_resist.png,o,false,1,10,-50,200,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,x,x,x,"{duration}초 동안 방어력 {def}% 증가, 공격력 감소",x
 hit_the_mark,buff,적중,res/effect/effect_hit_the_mark/effect_hit_the_mark.vrp,res/ui/icon/status_effect/hit_rate_up.png,o,false,1,10,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,10,x,x,x,{duration}초 동안 적중률 {hit_rate}% 증가,x
@@ -19,6 +20,7 @@ attr_strengthen,buff,속성 강화,res/effect/effect_attr_strengthen/effect_attr
 attr_weaken,buff,속성 약화,res/effect/effect_attr_weaken/effect_attr_weaken.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,0,0,-30,0,0,0,10,20,0,0,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
 def_up_overlab,buff,방어력 증가 오버랩,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,20,5,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 atk_up_overlab,buff,공격력 증가 오버랩,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,20,5,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,x,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
+def_up_psyker,buff,대양의 기운,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,1,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,def,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 tamer_atk_up,buff,공격력 증가,res/effect/effect_tamer_combat/effect_tamer_combat.vrp,res/ui/icon/status_effect/atk_up.png,x,false,1,15,100,0,0,0,0,0,0,0,0,0,0,0,0,0,15,100,0,0,15,100,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
 tamer_def_up,buff,방어력 증가,res/effect/effect_tamer_defense/effect_tamer_defense.vrp,res/ui/icon/status_effect/def_up.png,x,false,1,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 tamer_heal,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,0,100,hp_target,0,0,0,x,x,x,x,x,x

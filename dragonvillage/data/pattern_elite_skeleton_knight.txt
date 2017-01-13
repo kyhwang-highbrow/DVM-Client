@@ -2,7 +2,7 @@
 	"pattern_elite_skeleton_knight":
 	[			
 		[
-			"a;basic"
+			"a;1", "w;5"
 		]
     ],
 	
@@ -12,7 +12,7 @@
         "list":
         [
             {
-                "hp_percent":5,
+                "hp_percent":1,
                 "pattern":
                 [
 					"a;basic"

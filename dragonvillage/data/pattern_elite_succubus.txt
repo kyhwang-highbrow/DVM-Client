@@ -2,7 +2,7 @@
 	"pattern_elite_succubus":
 	[			
 		[
-			"a;basic"
+			"a;1", "w;9", "a;2", "w;9"
 		]
     ],
 	
@@ -12,10 +12,10 @@
         "list":
         [
             {
-                "hp_percent":5,
+                "hp_percent":1,
                 "pattern":
                 [
-					"a;basic"
+					"a;1"
                 ]
             }
         ]

@@ -2,7 +2,7 @@
 	"pattern_elite_chandelier":
 	[			
 		[
-			"a;basic"
+			"a;1", "w;10"
 		]
     ],
 	
@@ -12,10 +12,10 @@
         "list":
         [
             {
-                "hp_percent":5,
+                "hp_percent":1,
                 "pattern":
                 [
-					"a;basic"
+					"a;1"
                 ]
             }
         ]

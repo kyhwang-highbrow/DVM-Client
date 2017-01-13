@@ -1,13 +1,13 @@
 {
     "difficult":2,
-    "bg":"map_nest_ether",
+    "bg":"map_forest",
 	"wave":
 	[
         {
             "idx":1,
 			"camera":
             {
-                "scale":0.6,
+                "scale":0.8,
                 "pos_x":0,
                 "pos_y":0
             },
@@ -15,7 +15,7 @@
             {
 				0:
 				[
-					"139021;100;Basic;RO04;NEST;3"
+					"132015;20;Basic;RO04;RM24;3"
 				]
             }
         },
@@ -32,13 +32,13 @@
             {
 				0:
 				[
-					"139013;100;Basic;RO04;RB14;1"
+					"132062;100;Basic;RO04;RM24;3"
 				]
             }
 		},
 		
 		{
-			"idx":2,
+			"idx":3,
 			"camera":
             {
                 "scale":0.8,
@@ -49,8 +49,41 @@
             {
 				0:
 				[
-					"133021;14;Basic;RO02;RM11;1"
-					"133022;14;Basic;RO06;RM17;1"
+					"132033;100;Basic;RO04;RM24;3"
+				]
+            }
+		},
+		
+		{
+			"idx":4,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"133015;100;Basic;RO04;RM24;3"
+				]
+            }
+		},
+		
+		{
+			"idx":5,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"134015;100;Basic;RO04;RM24;3"
 				]
             }
 		}
