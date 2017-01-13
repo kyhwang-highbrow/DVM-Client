@@ -176,7 +176,7 @@
 			file_name = 'ui/a2d/star/star.a2d';
 			auto_play = true;
 			is_repeat = false;
-			visual_id = 'group;transcend_result_0101';
+			visual_id = 'group;eclv_01';
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
