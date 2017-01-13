@@ -228,6 +228,10 @@ function Character:doSkill(skill_id, x, y, t_data)
         elseif (type == 'skill_aoe_square_width') then
             SkillAoESquareWidth:makeSkillInstance(self, t_skill, t_data)
             return true
+	
+	    elseif (type == 'skill_aoe_square_height') then
+            SkillHealingWind:makeSkillInstance(self, t_skill, t_data)
+            return true
 
 		-- 특수 스킬들
 		elseif (type == 'skill_summon') then

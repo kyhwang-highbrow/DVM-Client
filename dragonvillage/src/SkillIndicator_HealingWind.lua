@@ -2,15 +2,17 @@
 -- class SkillIndicator_HealingWind
 -------------------------------------
 SkillIndicator_HealingWind = class(SkillIndicator, {
-		m_indicatorAddEffect = 'a2d',
         m_skillWidth = 'number',
+		m_skillHeight = 'number',
+		m_indicatorAddEffect = 'a2d',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function SkillIndicator_HealingWind:init(hero, t_skill)
-    self.m_skillWidth = t_skill['val_2']
+    self.m_skillWidth = t_skill['val_1']
+	self.m_skillHeight = t_skill['val_2']
 	self.m_indicatorScale = t_skill['res_scale']
 end
 
@@ -30,7 +32,7 @@ function SkillIndicator_HealingWind:onTouchMoved(x, y)
     self.m_targetPosY = y
 
     -- 이펙트 조정
-    self.m_indicatorEffect:setPosition(x - pos_x, 0)
+    self.m_indicatorEffect:setPosition(x - pos_x, -CRITERIA_RESOLUTION_Y/2)
     self.m_indicatorAddEffect:setPosition(x - pos_x, y - pos_y)
 
 	-- 하이라이트 갱신
@@ -54,10 +56,8 @@ function SkillIndicator_HealingWind:initIndicatorNode()
 		indicator.m_node:setColor(COLOR_CYAN)
         self.m_indicatorEffect = indicator
 
-		--@TODO 스킬 인디케이터 스케일 전면 수정 해야함
-        local scale_x = (self.m_skillWidth / 360)
+        local scale_x = self.m_indicatorScale
         indicator.m_node:setScaleX(scale_x)
-
     end
 
 	do -- 커서 이펙트
@@ -73,21 +73,19 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_HealingWind:findTarget(x, y)
-    local world = self:getWorld()
+    local world = self.m_world
 
     local l_target = world:getTargetList(nil, x, y, 'all', 'x', 'distance_x')
     
     local l_ret = {}
 
-    local half_skill_width = (self.m_skillWidth / 2)
+    local std_width = (self.m_skillWidth / 2)
+	local std_height = (self.m_skillHeight / 2)
 
     for i,v in ipairs(l_target) do
-        local distance = math_abs(v.pos.x - x)
-        if (distance <= half_skill_width) then
+		if isCollision_Rect(x, y, v, std_width, std_height) then
             table.insert(l_ret, v)
-        else
-            break
-        end
+		end
     end
 
     return l_ret

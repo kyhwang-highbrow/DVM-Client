@@ -161,8 +161,8 @@ function SkillVoltesX:findTarget(idx)
 	local t_ret = {}
 	
     local radius = 20
-	local std_width = (1280 / 2)
-	local std_height = (720 / 2)
+	local std_width = (CRITERIA_RESOLUTION_X / 2)
+	local std_height = (CRITERIA_RESOLUTION_Y / 2)
 	
 	local target_x, target_y = self.m_targetPos.x, self.m_targetPos.y
 	local start_x, start_y = nil, nil

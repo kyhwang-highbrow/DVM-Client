@@ -125,8 +125,7 @@ function SkillAoESquareWidth:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
-    --local skill_height = t_skill['val_1']   -- 공격 반경
-    local skill_height = 360
+    local skill_height = t_skill['val_1']   -- 공격 반경
 	
 	-- 인스턴스 생성부
 	------------------------------------------------------
@@ -135,10 +134,6 @@ function SkillAoESquareWidth:makeSkillInstance(owner, t_skill, t_data)
 	
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-	
-	--@TODO 스킬 리소스 스케일 조정 문제
-	skill.m_resScale = skill_height / 360
-    
 	skill:init_skill(skill_height)
 	skill:initState()
 

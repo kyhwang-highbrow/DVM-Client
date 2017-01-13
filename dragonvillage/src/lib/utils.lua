@@ -561,8 +561,8 @@ end
 function isCollision_Rect(x, y, target, range_x, range_y)
 	local target_x = target.pos.x
 	local target_y = target.pos.y
-	return (math_abs(target_x - x) < range_x) and (math_abs(target_y - y) < range_y)
-end
+	local body_size = target.body['size']
+	return (math_abs(target_x - x) - body_size < range_x) and (math_abs(target_y - y) - body_size  < range_y)end
 
 -------------------------------------
 -- function addChild

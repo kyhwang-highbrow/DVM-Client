@@ -2,11 +2,14 @@ local PARENT = StatusEffect_Trigger
 
 -------------------------------------
 -- class StatusEffect_Protection
--- @breif HP있는 실드 보호막
+-- @breif HP있는 실드 보호막 + resist 보호막
 -------------------------------------
 StatusEffect_Protection = class(PARENT, {
 		m_StatusEffect_ProtectionHP = 'number', -- 실드로 보호될 데미지 량
         m_StatusEffect_ProtectionHPOrg = 'number',
+
+		m_isInvincible = 'bool', 
+		m_resistRate = 'number', 
 
 		m_label = 'cc.Label',
      })
@@ -40,10 +43,12 @@ end
 -------------------------------------
 -- function init_buff
 -------------------------------------
-function StatusEffect_Protection:init_buff(char, shield_hp)
-    self.m_StatusEffect_ProtectionHP = shield_hp
-    self.m_StatusEffect_ProtectionHPOrg = shield_hp
+function StatusEffect_Protection:init_buff(char, shield_hp, is_invincible, resist_rate)
+    self.m_StatusEffect_ProtectionHP = shield_hp or 519
+    self.m_StatusEffect_ProtectionHPOrg = shield_hp or 519
 	self.m_triggerName = 'hit_shield'
+	self.m_isInvincible = is_invincible or false
+	self.m_resistRate = resist_rate or 0
 
     -- 콜백 함수 등록
     char:addListener(self.m_triggerName, self)
@@ -124,14 +129,22 @@ end
 -- function onTrigger
 -------------------------------------
 function StatusEffect_Protection:onTrigger(char, damage)
+	local damage = damage or 0
+
 	-- 1. 방어막 유지 여부 계산
     if (self.m_StatusEffect_ProtectionHP <= 0) then
         self:changeState('end')
         return false, damage
     end
 	
-	-- 2. 실드 에너지 데미지 적용
-    self.m_StatusEffect_ProtectionHP = self.m_StatusEffect_ProtectionHP - damage
+	-- 2-0. isInvincible 의 경우 데미지를 직접 경감하고 반환
+	if (self.m_isInvincible) then 
+		damage = damage * (1 - self.m_resistRate/100)
+		return true, damage
+	end
+
+	-- 2. 실드 에너지 데미지 적용 // 
+	self.m_StatusEffect_ProtectionHP = self.m_StatusEffect_ProtectionHP - damage
 
 	-- 3. 데미지 계산 후 방어막 유지 여부 계산
     if (self.m_StatusEffect_ProtectionHP <= 0) then

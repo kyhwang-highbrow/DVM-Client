@@ -82,15 +82,13 @@ end
 function Skill:adjustAnimator()    
 	if (not self.m_animator) then return end
 
-	if self.m_resScale then 
-		-- res_scale 의 경우 ;가 있으면 x,y 각각 개별로 들어간다...
-		if string.find(self.m_resScale, ';') then
-			local l_scale = stringSplit(self.m_resScale, ';')
-			self.m_animator.m_node:setScaleX(l_scale[1])
-			self.m_animator.m_node:setScaleY(l_scale[2])
-		else
- 			self.m_animator:setScale(self.m_resScale)
-		end
+	-- res_scale 의 경우 ;가 있으면 x,y 각각 개별로 들어간다...
+	if string.find(self.m_resScale, ';') then
+		local l_scale = stringSplit(self.m_resScale, ';')
+		self.m_animator.m_node:setScaleX(l_scale[1])
+		self.m_animator.m_node:setScaleY(l_scale[2])
+	else
+ 		self.m_animator:setScale(self.m_resScale)
 	end
 end
 
@@ -116,7 +114,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_powerSource  = t_skill['power_source'] or 'atk'
 	self.m_targetType = t_skill['target_type']
 	self.m_preDelay = t_skill['pre_delay'] or 0
-	self.m_resScale = t_skill['res_scale']
+	self.m_resScale = t_skill['res_scale'] or 1
 	self.m_lStatusEffectStr = {t_skill['status_effect_1'], t_skill['status_effect_2']}
 	self.m_skillType = t_skill['chance_type']
 	self.m_skillName = t_skill['type']

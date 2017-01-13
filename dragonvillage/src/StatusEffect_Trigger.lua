@@ -6,6 +6,8 @@ local PARENT = StatusEffect
 StatusEffect_Trigger = class(PARENT, IEventListener:getCloneTable(), {
 		m_triggerName = '',
 		m_eventFunction = '',
+
+		m_preActedTime = '',
     })
 
 -------------------------------------
@@ -15,6 +17,7 @@ StatusEffect_Trigger = class(PARENT, IEventListener:getCloneTable(), {
 -------------------------------------
 function StatusEffect_Trigger:init(file_name, body)
 	self.m_eventFunction = nil
+	self.m_preActedTime = 0
 end
 
 -------------------------------------
@@ -34,7 +37,15 @@ end
 -------------------------------------
 function StatusEffect_Trigger:onEvent(event_name, ...)
     if (event_name == self.m_triggerName) then
-        return self:onTrigger(...)
+		if (self.m_preActedTime == 0) then
+			self.m_preActedTime = self.m_stateTimer
+			return self:onTrigger(...)
+
+		elseif (self.m_stateTimer > self.m_preActedTime + STATUEEFFECT_GLOBAL_COOL) then
+			self.m_preActedTime = self.m_stateTimer
+			return self:onTrigger(...)
+
+		end
     end
 end
 

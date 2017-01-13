@@ -147,11 +147,9 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 	-- 클래스 종류가 다른 경우
 	if (status_effect_type == 'passive_add_attack') then
         status_effect = StatusEffect_addAttack(res)
-	elseif (status_effect_type == 'passive_spatter') then
-        status_effect = StatusEffect_PassiveSpatter(res)
-		char.m_world:addToUnitList(status_effect)
 	else
 		status_effect = StatusEffect_Trigger(res)
+		char.m_world:addToUnitList(status_effect)
 	end
 	
 	-- @TODO trigger function을 여기서 전달할건지 클래스로 파일을 분리할건지..
@@ -179,6 +177,16 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 		event_function = function()
 			local skill_id = t_skill['val_1']
 			char:doSkill(skill_id, nil, nil)
+		end
+	elseif (t_skill['sid'] == 220531) then
+		event_function = function()
+			local ally = char.m_world:getDragonList()
+			local rand = math_random(1, #ally)
+			self:doStatusEffectByStr(char, {ally[rand]}, {t_skill['status_effect_1'], t_skill['status_effect_2']})
+		end
+	elseif (status_effect_type == 'passive_spatter') then 
+		event_function = function()
+			SkillSpatter:makeSkillInstance(char, t_skill)
 		end
 	end
 		
@@ -225,7 +233,14 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	elseif (status_effect_type == 'barrier_protection') then
 		status_effect = StatusEffect_Protection(res)
 		local shield_hp = char.m_maxHp * (t_status_effect['val_1'] / 100)
-		status_effect:init_buff(char, shield_hp)
+		status_effect:init_buff(char, shield_hp, nil, nil)
+	
+	----------- 절대 보호막 ------------------
+	elseif (status_effect_type == 'resist') then
+		status_effect = StatusEffect_Protection(res)
+		local is_invincible = true
+		local resist_rate = t_status_effect['dmg_adj_rate']
+		status_effect:init_buff(char, nil, is_invincible, resist_rate)
 
 	----------- 특이한 해제 조건을 가진 것들 ------------------
 	elseif isExistValue(status_effect_type, 'sleep') then

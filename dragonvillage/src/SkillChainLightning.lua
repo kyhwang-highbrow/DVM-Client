@@ -137,7 +137,9 @@ function SkillChainLightning:makeEffect(idx, res)
 
     if (idx == 1) then
         link_effect.m_effectNode:addAniHandler(function()
-			link_effect:changeCommonAni('disappear', false, function() self:changeState('dying') end)
+			link_effect:changeCommonAni('idle', false, function() 
+				link_effect:changeCommonAni('disappear', false, function() self:changeState('dying') end)
+			end)
         end)
     end
 
