@@ -12,6 +12,8 @@ SkillAoESquare = class(PARENT, {
 
 		m_attackCnt = 'number',
 		m_maxAttackCnt = 'number',
+
+		m_idleAniName = 'idle',
      })
 
 -------------------------------------
@@ -37,6 +39,8 @@ function SkillAoESquare:init_skill(skill_width, skill_height, hit)
     self.m_hitInterval = ONE_FRAME * 7
 	self.m_multiAtkTimer = self.m_hitInterval
 	
+	self.m_idleAniName = 'idle'
+
 	-- 위치 설정
 	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
 end
@@ -46,7 +50,7 @@ end
 -------------------------------------
 function SkillAoESquare:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillAoESquare.st_attack, 'tornado', true)
+    self:addState('start', SkillAoESquare.st_attack, self.m_idleAniName, true)
 end
 
 -------------------------------------

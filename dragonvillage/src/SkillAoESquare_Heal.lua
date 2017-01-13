@@ -1,11 +1,10 @@
 local PARENT = SkillAoESquare
 
 -------------------------------------
--- class SkillHealingWind
+-- class SkillAoESquare_Heal
 -------------------------------------
-SkillHealingWind = class(PARENT, {
+SkillAoESquare_Heal = class(PARENT, {
 		m_healRate = 'number',
-		m_lTarget = 'Character', -- @TODO status effect 담으려고 사용 임시
      })
 
 -------------------------------------
@@ -13,17 +12,18 @@ SkillHealingWind = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function SkillHealingWind:init(file_name, body, ...)    
+function SkillAoESquare_Heal:init(file_name, body, ...)    
 end
 
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillHealingWind:init_skill(skill_width, skill_height, hit, heal_rate)
+function SkillAoESquare_Heal:init_skill(skill_width, skill_height, hit, heal_rate)
     PARENT.init_skill(self, skill_width, skill_height, hit)
 	
 	-- 멤버 변수
 	self.m_healRate = heal_rate
+	self.m_idleAniName = 'tornado'
 
 	-- 위치 설정
 	self:setPosition(self.m_targetPos.x, 0) -- Y좌표값은 화면의 중심으로 세팅
@@ -32,7 +32,7 @@ end
 -------------------------------------
 -- function escapeAttack
 -------------------------------------
-function SkillHealingWind:escapeAttack()
+function SkillAoESquare_Heal:escapeAttack()
     PARENT.escapeAttack(self)
 
 	-- 상태효과
@@ -43,7 +43,7 @@ end
 -------------------------------------
 -- function attack
 -------------------------------------
-function SkillHealingWind:attack(target_char)
+function SkillAoESquare_Heal:attack(target_char)
 	if (not target_char) then return end
 
     if (self.m_owner.m_bLeftFormation == target_char.m_bLeftFormation) then
@@ -64,7 +64,7 @@ end
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------
-function SkillHealingWind:makeSkillInstance(owner, t_skill, t_data)
+function SkillAoESquare_Heal:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
@@ -78,7 +78,7 @@ function SkillHealingWind:makeSkillInstance(owner, t_skill, t_data)
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = SkillHealingWind(missile_res)
+    local skill = SkillAoESquare_Heal(missile_res)
 	
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)

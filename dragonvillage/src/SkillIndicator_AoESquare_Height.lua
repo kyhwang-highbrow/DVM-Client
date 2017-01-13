@@ -1,7 +1,9 @@
+local PARENT = SkillIndicator
+
 -------------------------------------
--- class SkillIndicator_HealingWind
+-- class SkillIndicator_AoESquare_Height
 -------------------------------------
-SkillIndicator_HealingWind = class(SkillIndicator, {
+SkillIndicator_AoESquare_Height = class(PARENT, {
         m_skillWidth = 'number',
 		m_skillHeight = 'number',
 		m_indicatorAddEffect = 'a2d',
@@ -10,7 +12,7 @@ SkillIndicator_HealingWind = class(SkillIndicator, {
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillIndicator_HealingWind:init(hero, t_skill)
+function SkillIndicator_AoESquare_Height:init(hero, t_skill)
     self.m_skillWidth = t_skill['val_1']
 	self.m_skillHeight = t_skill['val_2']
 	self.m_indicatorScale = t_skill['res_scale']
@@ -19,7 +21,7 @@ end
 -------------------------------------
 -- function onTouchMoved
 -------------------------------------
-function SkillIndicator_HealingWind:onTouchMoved(x, y)
+function SkillIndicator_AoESquare_Height:onTouchMoved(x, y)
     if (self.m_siState == SI_STATE_READY) then
         return
     end
@@ -42,7 +44,7 @@ end
 -------------------------------------
 -- function initIndicatorNode
 -------------------------------------
-function SkillIndicator_HealingWind:initIndicatorNode()
+function SkillIndicator_AoESquare_Height:initIndicatorNode()
     if (not SkillIndicator.initIndicatorNode(self)) then
         return
     end
@@ -56,7 +58,7 @@ function SkillIndicator_HealingWind:initIndicatorNode()
 		indicator.m_node:setColor(COLOR_CYAN)
         self.m_indicatorEffect = indicator
 
-        local scale_x = self.m_indicatorScale
+        local scale_x = self.m_skillWidth/360 --@TODO 리소스를 고치자 답이 없음
         indicator.m_node:setScaleX(scale_x)
     end
 
@@ -72,7 +74,7 @@ end
 -------------------------------------
 -- function findTarget
 -------------------------------------
-function SkillIndicator_HealingWind:findTarget(x, y)
+function SkillIndicator_AoESquare_Height:findTarget(x, y)
     local world = self.m_world
 
     local l_target = world:getTargetList(nil, x, y, 'all', 'x', 'distance_x')

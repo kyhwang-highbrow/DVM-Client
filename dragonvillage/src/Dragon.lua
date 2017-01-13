@@ -499,7 +499,7 @@ function Dragon:initStatus(t_char, level, grade, evolution, doid)
 	
 	-- 힐링윈드 (핑크벨)
 	elseif (type == 'square') then
-		self.m_skillIndicator = SkillIndicator_HealingWind(self, t_skill)
+		self.m_skillIndicator = SkillIndicator_AoESquare_Height(self, t_skill)
 	
 	-- 리프블레이드 (리프드래곤)
 	elseif (type == 'curve_twin') then

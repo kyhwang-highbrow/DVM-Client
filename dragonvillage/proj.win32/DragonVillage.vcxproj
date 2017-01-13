@@ -310,6 +310,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SimplePrimitivesDraw.lua" />
     <None Include="..\src\SkillAoESquare.lua" />
     <None Include="..\src\SkillAoESquareWidth.lua" />
+    <None Include="..\src\SkillAoESquare_Fairy.lua" />
     <None Include="..\src\SkillBurst.lua" />
     <None Include="..\src\SkillChainLightning.lua" />
     <None Include="..\src\SkillFieldCheck.lua" />
@@ -480,7 +481,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillConicAtk.lua" />
     <None Include="..\src\SkillCrash.lua" />
     <None Include="..\src\SkillHealAround.lua" />
-    <None Include="..\src\SkillHealingWind.lua" />
+    <None Include="..\src\SkillAoESquare_Heal.lua" />
     <None Include="..\src\SkillHealSingle.lua" />
     <None Include="..\src\SkillIndicator.lua" />
     <None Include="..\src\SkillIndicatorMgr.lua" />
@@ -488,7 +489,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillIndicator_Conic.lua" />
     <None Include="..\src\SkillIndicator_ConicSpread.lua" />
     <None Include="..\src\SkillIndicator_Crash.lua" />
-    <None Include="..\src\SkillIndicator_HealingWind.lua" />
+    <None Include="..\src\SkillIndicator_AoESquare_Height.lua" />
     <None Include="..\src\SkillIndicator_LeafBlade.lua" />
     <None Include="..\src\SkillIndicator_Range.lua" />
     <None Include="..\src\SkillIndicator_Target.lua" />

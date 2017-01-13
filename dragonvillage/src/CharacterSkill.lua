@@ -174,7 +174,7 @@ function Character:doSkill(skill_id, x, y, t_data)
             return true
 
         elseif (type == 'skill_aoe_square_heal_dmg') then
-			SkillHealingWind:makeSkillInstance(self, t_skill, t_data)
+			SkillAoESquare_Heal:makeSkillInstance(self, t_skill, t_data)
             return true
 		
 		elseif (type == 'skill_crash') then
@@ -230,7 +230,7 @@ function Character:doSkill(skill_id, x, y, t_data)
             return true
 	
 	    elseif (type == 'skill_aoe_square_height') then
-            SkillHealingWind:makeSkillInstance(self, t_skill, t_data)
+            SkillAoESquare_Fairy:makeSkillInstance(self, t_skill, t_data)
             return true
 
 		-- 특수 스킬들

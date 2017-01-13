@@ -426,12 +426,6 @@
     <None Include="..\src\SceneAdventure.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SkillIndicator_HealingWind.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\SkillHealingWind.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\CharacterEvent.lua">
       <Filter>lua</Filter>
     </None>
@@ -1250,6 +1244,18 @@
     </None>
     <None Include="..\src\UI_TamerSelectItem.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\SkillAoESquare.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\SkillAoESquare_Fairy.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\SkillAoESquare_Heal.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\SkillIndicator_AoESquare_Height.lua">
+      <Filter>lua</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
