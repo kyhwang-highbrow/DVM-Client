@@ -20,7 +20,7 @@ function LobbyShadow:init(scale)
     self.m_shadowSprite:setDockPoint(cc.p(0.5, 0.5))
     self.m_shadowSprite:setAnchorPoint(cc.p(0.5, 0.5))
     self.m_shadowSprite:setScale(scale)
-    self.m_shadowSprite:setOpacity(0.7 * 255)
+    self.m_shadowSprite:setOpacity(0.5 * 255)
     self.m_rootNode:addChild(self.m_shadowSprite)
 end
 
