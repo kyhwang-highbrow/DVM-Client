@@ -1233,6 +1233,9 @@
     <None Include="..\src\UI_DragonExceedResult.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_BattleMenu.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

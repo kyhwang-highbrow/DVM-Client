@@ -22,6 +22,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				action_type = 4;
+				action_delay_1 = 0.000000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.300000;
 				lua_name = 'nestBtn';
 				enable = true;
 				normal = 'ui/btn/battle_nest.png';
@@ -46,6 +50,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				action_type = 4;
+				action_delay_1 = 0.050000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.300000;
 				lua_name = 'colosseumBtn';
 				enable = true;
 				normal = 'ui/btn/battle_colosseum.png';
@@ -55,6 +63,32 @@
 			};
 			[3] =
 			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 284;
+					height = 495;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/btn/battle_secret.png';
+					color = { 0; 0; 0; };
+					opacity = 150;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Button';
 				ui_name = '';
 				x = 144.000000;
@@ -70,6 +104,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				action_type = 4;
+				action_delay_1 = 0.100000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.300000;
 				lua_name = 'secretBtn';
 				enable = true;
 				normal = 'ui/btn/battle_secret.png';
@@ -79,32 +117,32 @@
 			};
 			[4] =
 			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 144.000000;
-				y = -30.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 284;
-				height = 495;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/btn/battle_secret.png';
-				color = { 0; 0; 0; };
-				opacity = 150;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[5] =
-			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 284;
+					height = 495;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/btn/battle_raid.png';
+					color = { 0; 0; 0; };
+					opacity = 150;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Button';
 				ui_name = '';
 				x = 432.000000;
@@ -120,38 +158,16 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				action_type = 4;
+				action_delay_1 = 0.150000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.300000;
 				lua_name = 'raidBtn';
 				enable = true;
 				normal = 'ui/btn/battle_raid.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
-			};
-			[6] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 432.000000;
-				y = -30.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 284;
-				height = 495;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/btn/battle_raid.png';
-				color = { 0; 0; 0; };
-				opacity = 150;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
 			};
 			type = 'Menu';
 			ui_name = '';

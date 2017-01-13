@@ -354,6 +354,7 @@ local t_module = {
     'UI_LobbyUserInfoPopup',
     'UI_UserDeckInfoPopup',
     'UI_AutoPlaySettingPopup',
+    'UI_BattleMenu',
 
     -- UI 드래곤 관리 관련
     'UI_DragonManage_Base',

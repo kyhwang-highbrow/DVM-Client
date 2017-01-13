@@ -449,7 +449,7 @@
 			action_delay_1 = 0.100000;
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
-			lua_name = 'nestUIBtn';
+			lua_name = 'battleBtn';
 			enable = true;
 			normal = 'ui/btn/lobby_battle_01.png';
 			selected = 'ui/btn/lobby_battle_02.png';

@@ -136,7 +136,7 @@ function UI_Lobby:initButton()
     local vars = self.vars
     
     vars['adventureBtn']:registerScriptTapHandler(function() self:click_adventureBtn() end)
-    vars['nestUIBtn']:registerScriptTapHandler(function() self:click_nestBtn() end)
+    vars['battleBtn']:registerScriptTapHandler(function() self:click_battleBtn() end)
     vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end)
     vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
 end
@@ -212,31 +212,11 @@ function UI_Lobby:click_adventureBtn()
 end
 
 -------------------------------------
--- function click_nestBtn
--- @brief 네스트 던전 버튼
+-- function click_battleBtn
+-- @brief "전투" 버튼
 -------------------------------------
-function UI_Lobby:click_nestBtn()
-    local request_nest_dungeon_info
-    local request_nest_dungeon_stage_list
-    local replace_scene
-
-    -- 네스트 던전 리스트 정보 얻어옴
-    request_nest_dungeon_info = function()
-        g_nestDungeonData:requestNestDungeonInfo(request_nest_dungeon_stage_list)
-    end
-
-    -- 네스트 던전 스테이지 리스트 얻어옴
-    request_nest_dungeon_stage_list = function()
-        g_nestDungeonData:requestNestDungeonStageList(replace_scene)
-    end
-
-    -- 네스트 던전 씬으로 전환
-    replace_scene = function()
-        local scene = SceneNestDungeon()
-        scene:runScene()
-    end
-
-    request_nest_dungeon_info()
+function UI_Lobby:click_battleBtn()
+    UI_BattleMenu()
 end
 
 -------------------------------------
