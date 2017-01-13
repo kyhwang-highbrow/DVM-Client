@@ -173,17 +173,20 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 
 			char.m_world:addInstantEffect(effect_res, 'idle', pos_x, pos_y)
 		end
+
 	elseif (t_skill['type'] == 'trigger_skill') then
 		event_function = function()
 			local skill_id = t_skill['val_1']
 			char:doSkill(skill_id, nil, nil)
 		end
+
 	elseif (t_skill['sid'] == 220531) then
 		event_function = function()
 			local ally = char.m_world:getDragonList()
 			local rand = math_random(1, #ally)
 			self:doStatusEffectByStr(char, {ally[rand]}, {t_skill['status_effect_1'], t_skill['status_effect_2']})
 		end
+
 	elseif (status_effect_type == 'passive_spatter') then 
 		event_function = function()
 			SkillSpatter:makeSkillInstance(char, t_skill)
@@ -488,19 +491,22 @@ end
 
 -------------------------------------
 -- function releaseHarmfulStatusEffect
--- @brief 해로운 상태효과 해제
+-- @brief 해로운 상태효과 1가지 해제
+-- @return 해제 여부 boolean
 -------------------------------------
 function StatusEffectHelper:releaseHarmfulStatusEffect(char)
 	-- 피격자가 사망했을 경우 리턴
-    if (char.m_bDead == true) then return end
+    if (char.m_bDead == true) then return false end
 
 	-- 해제
 	for type, status_effect in pairs(char:getStatusEffectList()) do
 		if isExistValue(status_effect.m_type, 'debuff', 'cc', 'dot_dmg') then 
 			status_effect:changeState('end')
-			break
+			return true
 		end
 	end
+
+	return false
 end
 
 -------------------------------------
@@ -541,14 +547,22 @@ end
 
 -------------------------------------
 -- function parsingStatusEffectStr
--- @brief 상태효과 타입 파싱해서 가져옴
+-- @brief 특정 인덱스 상태효과 타입 파싱해서 가져옴
 -------------------------------------
 function StatusEffectHelper:parsingStatusEffectStr(l_status_effect_str, idx)
 	local effect_str = l_status_effect_str[idx]
-	if (not effect_str) or (effect_str == 'x') then 
+	return self:parsingStr(effect_str)
+end
+
+-------------------------------------
+-- function parsingStr
+-- @brief 상태효과 타입 파싱해서 테이블 반환
+-------------------------------------
+function StatusEffectHelper:parsingStr(status_effect_str)
+	if (not status_effect_str) or (status_effect_str == 'x') then 
 		return nil 
 	end
-	local t_effect = stringSplit(effect_str, ';')
+	local t_effect = stringSplit(status_effect_str, ';')
 
 	return t_effect
 end

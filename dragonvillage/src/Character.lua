@@ -1659,6 +1659,17 @@ function Character:getRootNode()
 end
 
 -------------------------------------
+-- function getFriendList
+-------------------------------------
+function Character:getFellowList()
+	if (self.m_bLeftFormation) then 
+		return self.m_world:getDragonList()
+	else
+		return self.m_world:getEnemyList()
+	end
+end
+
+-------------------------------------
 -- function referenceForSlaveCharacter
 -------------------------------------
 function Character:referenceForSlaveCharacter(t_body, adj_x, adj_y)

@@ -20,6 +20,7 @@ end
 function SkillAoESquare_Fairy:init_skill(skill_width, skill_height, hit)
     PARENT.init_skill(self, skill_width, skill_height, hit)
 	
+	-- 왜 한프레임 튀는지 알수없음
 	self.m_animator:setVisible(false) 
 
 	-- 위치 설정
@@ -40,10 +41,32 @@ end
 function SkillAoESquare_Fairy.st_attack(owner, dt)
 	if (owner.m_stateTimer == 0) then
 		owner.m_animator:addAniHandler(function()
+			owner:doFairySideEffect()
 			owner:runAttack()
 			owner:escapeAttack()
 		end)
 	end
+end
+
+-------------------------------------
+-- function doFairySideEffect
+-------------------------------------
+function SkillAoESquare_Fairy:doFairySideEffect()
+	-- 적을 맞출 횟수
+	local release_cnt = #(self:findTarget(self.pos.x, self.pos.y))
+
+	-- 동료 리스트
+	local l_fellow = self.m_owner:getFellowList()
+	
+	-- 해제
+	for i = 1, release_cnt do 
+		for _, fellow in pairs(l_fellow) do 
+			if StatusEffectHelper:releaseHarmfulStatusEffect(fellow) then 
+				break
+			end
+		end
+	end
+
 end
 
 -------------------------------------
