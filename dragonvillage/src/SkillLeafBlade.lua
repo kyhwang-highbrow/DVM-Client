@@ -34,16 +34,6 @@ function SkillLeafBlade:init_skill(missile_res, motionstreak_res, target_count, 
 end
 
 -------------------------------------
--- function initActvityCarrier
--------------------------------------
-function SkillLeafBlade:initActvityCarrier(power_rate, power_abs)
-    PARENT.initActvityCarrier(self, power_rate, power_abs)
-
-	-- 상태효과도 담음
-    self.m_activityCarrier:insertStatusEffectRate(self.m_lStatusEffectStr)
-end
-
--------------------------------------
 -- function initState
 -------------------------------------
 function SkillLeafBlade:initState()

@@ -21,13 +21,13 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillAoESquareWidth:init_skill(skill_height)
+function SkillAoESquareWidth:init_skill()
     PARENT.init_skill(self)
 
     local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
     
 	-- 멤버 변수
-    self.m_skillHeight = skill_height
+    self.m_skillHeight = 300
 
     if (self.m_owner.m_bLeftFormation) then
         self.m_missileStartPosX = cameraHomePosX
@@ -42,16 +42,6 @@ function SkillAoESquareWidth:init_skill(skill_height)
     if (not self.m_owner.m_bLeftFormation) then
         self.m_animator:setFlip(true)
     end
-end
-
--------------------------------------
--- function initActvityCarrier
--------------------------------------
-function SkillAoESquareWidth:initActvityCarrier(power_rate, power_abs)
-    PARENT.initActvityCarrier(self, power_rate, power_abs)
-
-	-- 상태효과도 담음
-    self.m_activityCarrier:insertStatusEffectRate(self.m_lStatusEffectStr)
 end
 
 -------------------------------------
@@ -105,12 +95,12 @@ function SkillAoESquareWidth:fireMissile()
     t_option['movement'] ='normal'
 	t_option['missile_type'] = 'PASS'
 
-    t_option['dir'] = 0
+    t_option['dir'] = self.m_missileDir
 	
 	t_option['scale'] = self.m_resScale
-	t_option['speed'] = 1400
-	    
-	t_option['cbFunction'] = function(attacker, defender, x, y)
+    t_option['speed'] = 1400
+
+    t_option['cbFunction'] = function(attacker, defender, x, y)
         self.m_skillHitEffctDirector:doWork()
 
         -- 나에게로부터 상대에게 가는 버프 이펙트 생성
@@ -134,8 +124,7 @@ function SkillAoESquareWidth:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
-    local skill_height = t_skill['val_1']   -- 공격 반경
-	
+    	
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
@@ -143,7 +132,7 @@ function SkillAoESquareWidth:makeSkillInstance(owner, t_skill, t_data)
 	
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-	skill:init_skill(skill_height)
+	skill:init_skill()
 	skill:initState()
 
 	-- 3. state 시작 
