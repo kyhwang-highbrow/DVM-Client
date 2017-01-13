@@ -34,7 +34,7 @@ end
 -- function init_effect
 -------------------------------------
 function EffectLauncher:init_effect(world, effect_res, motion_streak_res, target, x, y)
-	-- ¸â¹ö º¯¼ö ÃÊ±âÈ­
+	-- ë©¤ë²„ ë³€ìˆ˜ ì´ˆê¸°í™”
 	self.m_world = world
 	self.m_orgX = x
 	self.m_orgY = y
@@ -63,16 +63,16 @@ end
 
 -------------------------------------
 -- function makeEffect
--- @breif ´ë»ó¿¡°Ô »ı¼ºµÇ´Â Ãß°¡ ÀÌÆåÆ® »ı¼º
+-- @breif ëŒ€ìƒì—ê²Œ ìƒì„±ë˜ëŠ” ì¶”ê°€ ì´í™íŠ¸ ìƒì„±
 -------------------------------------
 function EffectLauncher:makeEffect()
-    -- ÀÌÆÑÆ® »ı¼º
+    -- ì´íŒ©íŠ¸ ìƒì„±
     local effect = Entity(self.m_effectRes, {0, 0, 0})
     effect:setPosition(self.m_orgX, self.m_orgY)
 
     self.m_world.m_missiledNode:addChild(effect.m_rootNode, 0)
 
-	-- ¸ğ¼Ç½ºÆ®¸¯(MotionStreak) È¿°ú
+	-- ëª¨ì…˜ìŠ¤íŠ¸ë¦­(MotionStreak) íš¨ê³¼
     if self.m_motionStreakRes then
         effect:setMotionStreak(self.m_world.m_missiledNode, self.m_motionStreakRes)
     end
