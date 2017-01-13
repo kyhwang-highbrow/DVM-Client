@@ -49,6 +49,7 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
 	local t_effect = nil
 	local type = nil 
 	local target_type = nil 
+    local start_con = nil
 	local duration = nil
 	local rate = nil
 	local value_1 = nil
@@ -65,18 +66,26 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
 		t_effect = stringSplit(effect_str, ';')
 		type = t_effect[1]
 		target_type = t_effect[2]
-		duration = t_effect[3]
-		rate = t_effect[4] 
-		value_1 = t_effect[5]
-		--value_2 = t_effect[4]
+        start_con = t_effect[3]
+		duration = t_effect[4]
+		rate = t_effect[5] 
+		value_1 = t_effect[6]
+		
 		
 		-- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
 		if (target_type == 'self') then 
 			StatusEffectHelper:invokeStatusEffect(owner, type, value_1, rate, duration)
-		elseif (target_type == 'target') then 
+
+		elseif (target_type == 'target') then
+            -- 타겟 리스트가 없는 경우 상대진형 모두를 가져옴
+            if (not t_target) then
+                t_target = owner.m_world:getOpponentsCharList(owner.m_bLeftFormation)
+            end
+
 			for _, target in ipairs(t_target) do
 				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
 			end
+
 		elseif (target_type == 'ally') then 
 			-- @TODO 피아 구분해서 가져오도록..
 			local ally = owner.m_world:getDragonList()
@@ -312,7 +321,8 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 	local effect_str = nil
 	local t_effect = nil
 	local type = nil 
-	local target_type = nil 
+	local target_type = nil
+    local start_con = nil
 	local duration = nil
 	local rate = nil
 	local value_1 = nil
@@ -330,11 +340,11 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 		t_effect = stringSplit(effect_str, ';')
 		type = t_effect[1]
 		target_type = t_effect[2]
-		duration = t_effect[3]
-		rate = t_effect[4] 
-		value_1 = t_effect[5]
-		--value_2 = t_effect[4]
-		
+        start_con = t_effect[3]
+		duration = t_effect[4]
+		rate = t_effect[5] 
+		value_1 = t_effect[6]
+				
 		t_status_effect = table_status_effect[type]
 					
 		-- 3. 타겟 리스트 순회하며 상태효과 걸어준다.

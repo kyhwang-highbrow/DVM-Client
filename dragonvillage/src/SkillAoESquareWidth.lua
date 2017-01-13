@@ -110,8 +110,17 @@ function SkillAoESquareWidth:fireMissile()
 	t_option['scale'] = self.m_resScale
 	t_option['speed'] = 1400
 	    
-	t_option['cbFunction'] = function()
+	t_option['cbFunction'] = function(attacker, defender, x, y)
         self.m_skillHitEffctDirector:doWork()
+
+        -- 나에게로부터 상대에게 가는 버프 이펙트 생성
+        if (char.m_bLeftFormation) then
+            for i, hero in ipairs(world:getDragonList()) do
+                if (not hero.m_bDead) then
+                    EffectMotionStreak(world, x, y, hero.pos.x, hero.pos.y, 'res/effect/motion_streak/motion_streak_fire.png')
+                end
+            end
+        end
 	end
 
     local missile = world.m_missileFactory:makeMissile(t_option)

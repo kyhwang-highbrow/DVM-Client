@@ -21,7 +21,7 @@
 				"dir_array":['random',10,-40],
                 "dir_add":0,
 				
-				"status_effect":"poison;target;30;100;300",
+				"status_effect":"poison;target;hit;30;100;300",
 				
                 "effect":
                 {

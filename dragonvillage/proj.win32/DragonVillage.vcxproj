@@ -271,7 +271,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Buff_Protection.lua" />
     <None Include="..\src\ConstantDebug.lua" />
     <None Include="..\src\ConstantGameMode.lua" />
+    <None Include="..\src\ConstantStatusEffect.lua" />
     <None Include="..\src\EffectLauncher.lua" />
+    <None Include="..\src\EffectMotionStreak.lua" />
     <None Include="..\src\GameAuto.lua" />
     <None Include="..\src\GameState_Colosseum.lua" />
     <None Include="..\src\GameState_NestDungeon.lua" />
@@ -290,6 +292,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\LobbyTamer.lua" />
     <None Include="..\src\LobbyTamerBot.lua" />
     <None Include="..\src\LobbyUserStatusUI.lua" />
+    <None Include="..\src\Monster_DarkNix.lua" />
     <None Include="..\src\Monster_Tree.lua" />
     <None Include="..\src\Monster_WorldOrderMachine.lua" />
     <None Include="..\src\SceneColosseum.lua" />

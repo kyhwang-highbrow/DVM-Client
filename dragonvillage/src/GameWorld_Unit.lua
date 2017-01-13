@@ -147,6 +147,8 @@ function GameWorld:tryPatternMonster(t_monster, body)
         monster = Monster_Tree(t_monster['res'], body)
 	elseif (type == 'world_order_machine') then
 		monster = Monster_WorldOrderMachine(t_monster['res'], body)
+    elseif (type == 'darknix') then
+		monster = Monster_DarkNix(t_monster['res'], body)
     else
         monster = MonsterLua_Boss(t_monster['res'], body)
     end

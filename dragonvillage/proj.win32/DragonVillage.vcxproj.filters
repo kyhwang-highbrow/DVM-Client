@@ -207,6 +207,9 @@
     <None Include="..\src\require.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\Constant.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\RichLabel.lua">
       <Filter>lua</Filter>
     </None>
@@ -426,6 +429,9 @@
     <None Include="..\src\SceneAdventure.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\ConstantString.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\CharacterEvent.lua">
       <Filter>lua</Filter>
     </None>
@@ -441,7 +447,16 @@
     <None Include="..\src\ITopUserInfo_EventListener.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\ConstantDragonGrade.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\ConstantDragonEvolution.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\DropHelper.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\ConstantAttribute.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\DragonCard.lua">
@@ -541,6 +556,9 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\StatusEffect.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\ConstantForArt.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\StatusEffect_PassiveSpatter.lua">
@@ -664,6 +682,9 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\StatusEffect_Protection.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\ConstantIngame.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\NetworkLocalServer.lua">
@@ -1176,6 +1197,12 @@
     <None Include="..\src\SkillVoltesX.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\ConstantDebug.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\ConstantGameMode.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\SkillIndicator_StraightWidth.lua">
       <Filter>lua</Filter>
     </None>
@@ -1185,32 +1212,11 @@
     <None Include="..\src\SkillIndicator_X.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\Constant.lua">
-      <Filter>lua\constant</Filter>
+    <None Include="..\src\Monster_DarkNix.lua">
+      <Filter>lua</Filter>
     </None>
-    <None Include="..\src\ConstantAttribute.lua">
-      <Filter>lua\constant</Filter>
-    </None>
-    <None Include="..\src\ConstantDebug.lua">
-      <Filter>lua\constant</Filter>
-    </None>
-    <None Include="..\src\ConstantDragonEvolution.lua">
-      <Filter>lua\constant</Filter>
-    </None>
-    <None Include="..\src\ConstantDragonGrade.lua">
-      <Filter>lua\constant</Filter>
-    </None>
-    <None Include="..\src\ConstantForArt.lua">
-      <Filter>lua\constant</Filter>
-    </None>
-    <None Include="..\src\ConstantGameMode.lua">
-      <Filter>lua\constant</Filter>
-    </None>
-    <None Include="..\src\ConstantIngame.lua">
-      <Filter>lua\constant</Filter>
-    </None>
-    <None Include="..\src\ConstantString.lua">
-      <Filter>lua\constant</Filter>
+    <None Include="..\src\EffectMotionStreak.lua">
+      <Filter>lua</Filter>
     </None>
     <None Include="..\src\UI_DragonExceedResult.lua">
       <Filter>lua\UI</Filter>
@@ -1234,6 +1240,9 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\SkillAoESquare.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\ConstantStatusEffect.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillAoESquare_Fairy.lua">
@@ -1294,9 +1303,6 @@
     </Filter>
     <Filter Include="shader">
       <UniqueIdentifier>{d7237c92-762d-43d6-9f44-e6871d5a460b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="lua\constant">
-      <UniqueIdentifier>{f89c44b2-c83c-4dc2-bbef-1f36b2c94f58}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

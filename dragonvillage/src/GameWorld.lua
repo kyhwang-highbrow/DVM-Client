@@ -653,12 +653,12 @@ end
 -- @param  team 'ally' or 'enemy'
 -- @return table
 -------------------------------------
-function GameWorld:getOpponentsCharList(team)
-    if (team == 'ally') then
-        return self:getCharList('enemy')
+function GameWorld:getOpponentsCharList(bLeftFormation)
+    if (bLeftFormation) then
+        return self:getEnemyList()
 
-    elseif (team == 'enemy') then
-        return self:getCharList('ally')
+    else
+        return self:getDragonList()
     end
 end
 

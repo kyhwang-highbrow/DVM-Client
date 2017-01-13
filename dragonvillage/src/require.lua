@@ -37,6 +37,7 @@ local t_module = {
     'ConstantDragonGrade',
     'ConstantAttribute',
     'ConstantString',
+    'ConstantStatusEffect',
 
     -- Util
     'Action',
@@ -182,6 +183,7 @@ local t_module = {
     'Monster_GiantDragon',
     'Monster_Tree',
 	'Monster_WorldOrderMachine',
+    'Monster_DarkNix',
     'require_EnemyLua',
     'EnemyMovement',
     'MissileFactory',
@@ -216,6 +218,7 @@ local t_module = {
     'EffectLinearDot',
 	'EffectHeal',
 	'EffectLauncher',
+    'EffectMotionStreak',
     
 	-- SKILL HELPER
 	'SkillHitEffectDirector',

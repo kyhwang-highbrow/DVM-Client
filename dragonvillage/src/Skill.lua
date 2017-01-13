@@ -50,7 +50,7 @@ end
 -------------------------------------
 function Skill:init_skill()
 	self:initActvityCarrier(self.m_powerRate, self.m_powerAbs)
-	self:initAttackPosOffset()
+    self:initAttackPosOffset()
 	self:adjustAnimator()
 
 	self.m_skillHitEffctDirector = SkillHitEffectDirector(self.m_owner)
@@ -73,6 +73,19 @@ function Skill:initActvityCarrier(power_rate, power_abs)
 	self.m_activityCarrier:setAtkDmgStat(self.m_powerSource)
     self.m_activityCarrier.m_skillCoefficient = (self.m_powerRate / 100)
     self.m_activityCarrier.m_skillAddAtk = power_abs or 0
+
+    -- 피격시 상태효과가 있다면 activityCarrier에 추가
+    do
+        local lStatusEffect = self:getStatusEffectListByStartCondition({
+            SE_CON__SKILL_HIT,
+            SE_CON__SKILL_HIT_CRI,
+            SE_CON__SKILL_SLAIN
+        })
+
+        if (#lStatusEffect > 0) then
+            self.m_activityCarrier:insertStatusEffectRate(lStatusEffect)
+        end
+    end
 end
 
 -------------------------------------
@@ -136,6 +149,12 @@ function Skill.st_delay(owner, dt)
 	elseif (owner.m_stateTimer > owner.m_preDelay) then
 		owner.m_animator:setVisible(true) 
 		owner:changeState('start')
+
+        -- 스킬 사용시 발동되는 status effect를 적용
+        local lStatusEffect = owner:getStatusEffectListByStartCondition({ SE_CON__SKILL_START })
+        if (#lStatusEffect > 0) then
+            StatusEffectHelper:doStatusEffectByStr(owner.m_owner, nil, lStatusEffect)
+        end
     end
 end
 
@@ -145,6 +164,13 @@ end
 function Skill.st_dying(owner, dt)
     if (owner.m_stateTimer == 0) then
 		owner.m_owner:restore()
+
+        -- 스킬 종료시 발동되는 status effect를 적용
+        local lStatusEffect = owner:getStatusEffectListByStartCondition({ SE_CON__SKILL_END })
+        if (#lStatusEffect > 0) then
+            StatusEffectHelper:doStatusEffectByStr(owner.m_owner, nil, lStatusEffect)
+        end
+
 		return true
     end
 end
@@ -293,6 +319,26 @@ function Skill:getAttackPositionAtWorld()
 	local pos_x = self.m_owner.pos.x + self.m_attackPosOffsetX
 	local pos_y = self.m_owner.pos.y + self.m_attackPosOffsetY
     return pos_x, pos_y
+end
+
+-------------------------------------
+-- function getAttackPosition
+-- @brief 시작 조건에 해당하는 status effect 리스트를 얻음
+-- @param l_start_con : 시작 조건을 지칭하는 스트링값 리스트 ex) { 'skill_action', 'hit' }
+-------------------------------------
+function Skill:getStatusEffectListByStartCondition(l_start_con)
+    local lStatusEffect = {}
+    
+    for i, str in ipairs(self.m_lStatusEffectStr) do
+        for _, con in ipairs(l_start_con) do
+            if (string.match(str, con)) then
+                table.insert(lStatusEffect, str)
+                break
+            end
+        end
+    end
+
+    return lStatusEffect
 end
 
 -------------------------------------
