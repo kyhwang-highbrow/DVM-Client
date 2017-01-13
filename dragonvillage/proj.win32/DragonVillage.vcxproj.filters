@@ -1242,8 +1242,14 @@
     <None Include="..\src\SceneColosseum.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SkillAoESquare.lua">
+    <None Include="..\src\TableTamer.lua">
       <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_TamerSelectPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_TamerSelectItem.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

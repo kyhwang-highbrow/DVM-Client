@@ -92,6 +92,7 @@ local t_module = {
     'TableDragonTrainInfo',
     'TableDragonTrainStatus',
     'TableDrop',
+    'TableTamer',
 
     -- Interface
     'IEventDispatcher',
@@ -358,6 +359,8 @@ local t_module = {
     'UI_AutoPlaySettingPopup',
     'UI_BattleMenu',
     'UI_Colosseum',
+    'UI_TamerSelectPopup',
+    'UI_TamerSelectItem',
 
     -- UI 드래곤 관리 관련
     'UI_DragonManage_Base',

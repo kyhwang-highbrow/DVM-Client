@@ -96,3 +96,7 @@ end
 function UIC_Node:getScale()
     return self.m_node:getScale()
 end
+
+function UIC_Node:removeAllChildren(cleanup)
+    return self.m_node:removeAllChildren(cleanup)
+end

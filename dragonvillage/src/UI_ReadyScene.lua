@@ -96,6 +96,7 @@ function UI_ReadyScene:initButton()
 
     vars['fomationBtn']:registerScriptTapHandler(function() self:click_fomationBtn() end)
     vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
+    vars['tamerBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
 end
 
 -------------------------------------
@@ -135,6 +136,23 @@ function UI_ReadyScene:refresh()
             end
         end
     end
+
+    self:refresh_tamer()
+end
+
+-------------------------------------
+-- function refresh_tamer
+-------------------------------------
+function UI_ReadyScene:refresh_tamer()
+    local vars = self.vars
+
+    vars['tamerNode']:removeAllChildren()
+
+    local icon = cc.Sprite:create('res/ui/icon/cha/tamer_goni.png')
+    icon:setDockPoint(cc.p(0.5, 0.5))
+    icon:setAnchorPoint(cc.p(0.5, 0.5))
+    vars['tamerNode']:addChild(icon)
+    
 end
 
 -------------------------------------
@@ -334,7 +352,7 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadyScene:click_tamerBtn()
-    UIManager:toastNotificationRed('"테이머 설정"은 준비 중입니다.')
+    UI_TamerSelectPopup()
 end
 
 
