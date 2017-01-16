@@ -10,8 +10,7 @@ SkillIndicator_StraightWidth = class(SkillIndicator, {
 -- function init
 -------------------------------------
 function SkillIndicator_StraightWidth:init(hero, t_skill)
-    --self.m_skillHeight = t_skill['val_2']
-    self.m_skillHeight = 280
+    self.m_skillHeight = t_skill['val_1']
 	self.m_indicatorScale = t_skill['res_scale']
 end
 
@@ -57,9 +56,8 @@ function SkillIndicator_StraightWidth:initIndicatorNode()
         self.m_indicatorEffect = indicator
 
 		--@TODO 스킬 인디케이터 스케일 전면 수정 해야함
-        local scale_y = (self.m_skillHeight / 280)
+        local scale_y = (self.m_skillHeight / 300)
         indicator.m_node:setScaleY(scale_y)
-
     end
 
 	do -- 커서 이펙트
