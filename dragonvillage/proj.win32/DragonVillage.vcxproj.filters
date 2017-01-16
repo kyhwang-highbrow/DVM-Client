@@ -630,9 +630,6 @@
     <None Include="..\src\StatusEffectIcon.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SkillMeleeHack_Specific.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SkillCounterAttack.lua">
       <Filter>lua</Filter>
     </None>

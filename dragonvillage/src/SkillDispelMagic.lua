@@ -43,7 +43,8 @@ function SkillDispelMagic.st_idle(owner, dt)
 		-- 상태이상 헤제
 		StatusEffectHelper:releaseHarmfulStatusEffect(owner.m_targetChar)
 		-- 추가 버프 
-		StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {owner.m_targetChar}, owner.m_lStatusEffectStr)
+		--StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {owner.m_targetChar}, owner.m_lStatusEffectStr)
+        owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_HIT }, {owner.m_targetChar})
 		
 		owner.m_animator:addAniHandler(function()
 			owner:changeState('dying')
@@ -52,6 +53,13 @@ function SkillDispelMagic.st_idle(owner, dt)
 
 	-- 위치 동기화
 	owner:setPosition(owner.m_targetChar.pos.x, owner.m_targetChar.pos.y)
+end
+
+-------------------------------------
+-- function findTarget
+-------------------------------------
+function SkillDispelMagic:findTarget(x, y, range)
+    return {self.m_targetChar}
 end
 
 -------------------------------------

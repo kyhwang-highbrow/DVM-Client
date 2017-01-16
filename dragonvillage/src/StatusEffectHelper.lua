@@ -79,7 +79,8 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
 		elseif (target_type == 'target') then
             -- 타겟 리스트가 없는 경우 상대진형 모두를 가져옴
             if (not t_target) then
-                t_target = owner.m_world:getOpponentsCharList(owner.m_bLeftFormation)
+                error('doStatusEffectByStr no t_target')
+                --t_target = owner.m_world:getOpponentsCharList(owner.m_bLeftFormation)
             end
 
 			for _, target in ipairs(t_target) do
@@ -114,7 +115,7 @@ function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_
         return nil
     end
 	-- 확률 검사
-	if (math_random(1, 1000) > status_effect_rate * 10) then 
+    if (math_random(1, 1000) > status_effect_rate * 10) then 
 		return nil
 	end
 
@@ -134,8 +135,8 @@ function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_
         -- 상태 효과 생성
         status_effect = StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, status_effect_value, status_effect_rate, duration)
     end
-    
-	return status_effect
+
+    return status_effect
 end
 
 -------------------------------------
@@ -249,10 +250,14 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	
 	----------- 절대 보호막 ------------------
 	elseif (status_effect_type == 'resist') then
-		status_effect = StatusEffect_Protection(res)
-		local is_invincible = true
-		local resist_rate = t_status_effect['dmg_adj_rate']
-		status_effect:init_buff(char, nil, is_invincible, resist_rate)
+        if (tonumber(status_effect_value) >= 100) then
+            status_effect = StatusEffect_Protection(res)
+		    local is_invincible = true
+		    local resist_rate = t_status_effect['dmg_adj_rate']
+		    status_effect:init_buff(char, nil, is_invincible, resist_rate)
+        else
+            status_effect = StatusEffect(res)
+        end
 
 	----------- 특이한 해제 조건을 가진 것들 ------------------
 	elseif isExistValue(status_effect_type, 'sleep') then

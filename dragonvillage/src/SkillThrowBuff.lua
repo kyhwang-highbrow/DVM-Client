@@ -83,7 +83,11 @@ function SkillThrowBuff.st_obtain(owner, dt)
 		if (not owner.m_isAddedBuff) then 
 			owner.m_lStatusEffectStr[2] = nil
 		end
-		StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {owner.m_targetChar}, owner.m_lStatusEffectStr)
+		--StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {owner.m_targetChar}, owner.m_lStatusEffectStr)
+        owner:doStatusEffect({
+            STATUS_EFFECT_CON__SKILL_HIT,
+            STATUS_EFFECT_CON__SKILL_HIT_CRI
+        }, {owner.m_targetChar})
 
 		owner.m_animator:setPosition(0, 100)
 		owner.m_animator:addAniHandler(function()

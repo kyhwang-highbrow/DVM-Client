@@ -73,7 +73,7 @@ function SkillLaser:init_skill(missile_res, hit, thickness)
     self:makeLaserLinkEffect(missile_res, thickness)
 	
 	-- 상태효과 (고대신룡 힐)
-	StatusEffectHelper:doStatusEffectByStr(self.m_owner, {}, self.m_lStatusEffectStr)
+	--StatusEffectHelper:doStatusEffectByStr(self.m_owner, {}, self.m_lStatusEffectStr)
 end
 
 -------------------------------------

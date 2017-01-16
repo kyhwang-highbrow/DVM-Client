@@ -496,7 +496,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillIndicator_Target.lua" />
     <None Include="..\src\SkillLeafBlade.lua" />
     <None Include="..\src\SkillMeleeHack.lua" />
-    <None Include="..\src\SkillMeleeHack_Specific.lua" />
     <None Include="..\src\SkillProtection.lua" />
     <None Include="..\src\SkillRolling.lua" />
     <None Include="..\src\SkillShield.lua" />

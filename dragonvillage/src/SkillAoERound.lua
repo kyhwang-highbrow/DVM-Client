@@ -90,7 +90,8 @@ function SkillAoERound.st_attack(owner, dt)
 	-- 공격 횟수 초과시 탈출
     if (owner.m_maxAttackCnt <= owner.m_attackCnt) then
 		-- 상태효과 (self만 가능)
-		StatusEffectHelper:doStatusEffectByStr(owner.m_owner, owner.m_lTarget, owner.m_lStatusEffectStr)
+        --StatusEffectHelper:doStatusEffectByStr(owner.m_owner, owner.m_lTarget, owner.m_lStatusEffectStr)
+        owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_HIT }, owner.m_lTarget)
         owner:changeState('disappear')
     end
 end

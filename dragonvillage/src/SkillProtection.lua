@@ -38,7 +38,7 @@ function SkillProtection.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
 		-- 기본 타겟에 실드
 		--StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {owner.m_targetChar}, owner.m_lStatusEffectStr)
-        self:doStatusEffect({
+        owner:doStatusEffect({
             STATUS_EFFECT_CON__SKILL_HIT,
             STATUS_EFFECT_CON__SKILL_HIT_CRI,
             STATUS_EFFECT_CON__SKILL_SLAIN
@@ -49,14 +49,10 @@ function SkillProtection.st_idle(owner, dt)
 end
 
 -------------------------------------
--- function doStatusEffect
--- @brief l_start_con 조건에 해당하는 statusEffect를 적용
+-- function findTarget
 -------------------------------------
-function SkillProtection:doStatusEffect(l_start_con)
-    local lStatusEffect = self:getStatusEffectListByStartCondition(l_start_con)
-    if (#lStatusEffect > 0) then
-        StatusEffectHelper:doStatusEffectByStr(self.m_owner, {self.m_targetChar}, lStatusEffect)
-    end
+function SkillProtection:findTarget()
+    return {self.m_targetChar}
 end
 
 -------------------------------------

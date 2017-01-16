@@ -44,7 +44,12 @@ end
 -------------------------------------
 function SkillSpiderWeb.st_appear(owner, dt)
 	if (owner.m_stateTimer == 0) then
-		StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {owner.m_targetChar}, owner.m_lStatusEffectStr)
+		--StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {owner.m_targetChar}, owner.m_lStatusEffectStr)
+        owner:doStatusEffect({
+            STATUS_EFFECT_CON__SKILL_HIT,
+            STATUS_EFFECT_CON__SKILL_HIT_CRI
+        }, {owner.m_targetChar})
+
 		owner.m_animator:addAniHandler(function()
 			owner.m_targetChar.m_animator:setVisible(false)
 			owner:changeState('idle')

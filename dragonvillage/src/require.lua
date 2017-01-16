@@ -238,7 +238,6 @@ local t_module = {
     'SkillShield',
     'SkillAttributeAmor',
     'SkillMeleeHack',
-	'SkillMeleeHack_Specific',
 	'SkillHealAround',
 	'SkillAoERound',
     'SkillAoESquare',

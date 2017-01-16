@@ -173,10 +173,11 @@ end
 -- function doStatusEffect
 -- @brief l_start_con 조건에 해당하는 statusEffect를 적용
 -------------------------------------
-function Skill:doStatusEffect(l_start_con)
+function Skill:doStatusEffect(l_start_con, t_target)
     local lStatusEffect = self:getStatusEffectListByStartCondition(l_start_con)
     if (#lStatusEffect > 0) then
-        StatusEffectHelper:doStatusEffectByStr(self.m_owner, nil, lStatusEffect)
+        local t_target = t_target or self:findTarget()
+        StatusEffectHelper:doStatusEffectByStr(self.m_owner, t_target, lStatusEffect)
     end
 end
 
@@ -195,7 +196,10 @@ function Skill:runAttack(bNoStatusEffect)
 
 	-- 상태효과
 	if not bNoStatusEffect then
-		StatusEffectHelper:doStatusEffectByStr(self.m_owner, t_target, self.m_lStatusEffectStr)
+        self:doStatusEffect({
+            STATUS_EFFECT_CON__SKILL_HIT,
+            STATUS_EFFECT_CON__SKILL_HIT_CRI
+        }, t_target)
 	end
 end
 

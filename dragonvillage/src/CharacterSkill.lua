@@ -162,12 +162,8 @@ function Character:doSkill(skill_id, x, y, t_data)
             return true
             
 		elseif (type == 'skill_melee_atk') then
-			if isExistValue(skill_id, 210982, 210112, 210212) then -- 램곤, 애플칙, 붐버
-				SkillMeleeHack_Specific:makeSkillInstance(self, t_skill, t_data)
-			else
-				SkillMeleeHack:makeSkillInstance(self, t_skill, t_data)
-			end
-            return true
+			SkillMeleeHack:makeSkillInstance(self, t_skill, t_data)
+			return true
 
         elseif (type == 'skill_protection') then
             SkillProtection:makeSkillInstance(self, t_skill, t_data)
