@@ -442,11 +442,12 @@ function StatusEffectHelper:invokeStatusEffectForDev(char, res)
     local status_effect = StatusEffect(res)
 
     -- 시간 지정
-    status_effect.m_duration = 10
-    status_effect.m_durationTimer = 10
+    status_effect.m_duration = 100
+    status_effect.m_durationTimer = 100
 
     status_effect.m_owner = char
     status_effect.m_statusEffectName = 'poison'
+	status_effect.m_type = 'dot_dmg'
 
     -- 객체 생성
     local world = char.m_world

@@ -22,10 +22,10 @@ Skill = class(PARENT, {
 		
 		-- 상태 효과 관련 변수들
 		m_lStatusEffectStr = '',
+		m_tSpecialTarget = '', -- 임시 처리
 
-		-- 스킬 타입 명 ex) skill_expolosion 
-		m_skillName = 'str',
-		m_skillType = 'str', 
+		m_skillName = 'str',  -- 스킬 타입 명 ex) skill_expolosion 
+		m_skillType = 'str',  -- 스킬 종류.. active or basic etc.
 
 		-- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset
         m_attackPosOffsetX = 'number',
@@ -42,7 +42,6 @@ Skill = class(PARENT, {
 -- @param body
 -------------------------------------
 function Skill:init(file_name, body, ...)
-    self.m_range = 0    
 end
 
 -------------------------------------
@@ -63,6 +62,9 @@ function Skill:init_skill()
         local x, y = self:getDefaultTargetPos()
 		self.m_targetPos = {x = x, y = y}
     end
+
+	self.m_range = 0    
+	self.m_tSpecialTarget = {}
 end
 
 -------------------------------------
@@ -177,7 +179,13 @@ end
 function Skill:doStatusEffect(l_start_con, t_target)
     local lStatusEffect = self:getStatusEffectListByStartCondition(l_start_con)
     if (#lStatusEffect > 0) then
-        local t_target = t_target or self:findTarget()
+        local t_target = nil
+		if (#self.m_tSpecialTarget > 0) then 
+			-- type이 target이고 해당 테이블에 대상이 담겨있을때 적용하게됨
+			t_target = self.m_tSpecialTarget
+		else
+			t_target = t_target or self:findTarget()
+		end
         StatusEffectHelper:doStatusEffectByStr(self.m_owner, t_target, lStatusEffect)
     end
 end

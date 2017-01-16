@@ -62,6 +62,8 @@ function SkillAoESquare_Fairy:doFairySideEffect()
 	for i = 1, release_cnt do 
 		for _, fellow in pairs(l_fellow) do 
 			if StatusEffectHelper:releaseHarmfulStatusEffect(fellow) then 
+				-- 로직화 할수 없는것들은 별도로 테이블에 담고 처리 하는것도 괜찮을것같다
+				table.insert(self.m_tSpecialTarget, fellow)
 				break
 			end
 		end
