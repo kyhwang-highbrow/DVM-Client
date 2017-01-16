@@ -30,7 +30,7 @@ function StatusEffect_Heal:init_heal(char, t_status_effect, status_effect_value,
 	self.m_healTimer = self.m_healInterval
 
 	-- 절대수치 힐의 경우
-	if (self.m_healType == 'heal_abs') then
+	if (self.m_healType == 'hp_abs') then
 		self.m_healAbs = t_status_effect['dot_heal'] * (status_effect_value/100)
 	end
 end
@@ -76,7 +76,7 @@ function StatusEffect_Heal:doHeal()
 		heal = (heal * self.m_healRate)
 		self.m_owner:healAbs(heal)
 	
-	elseif (self.m_healType == 'heal_abs') then 
+	elseif (self.m_healType == 'hp_abs') then 
 		self.m_owner:healAbs(self.m_healAbs)
 	end
 end

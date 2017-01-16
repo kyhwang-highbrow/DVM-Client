@@ -88,11 +88,20 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
 			end
 
 		elseif (target_type == 'ally') then 
-			-- @TODO 피아 구분해서 가져오도록..
-			local ally = owner.m_world:getDragonList()
-			for _, target in pairs(ally) do
+			for _, target in pairs(owner:getFellowList()) do
 				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
 			end
+
+		elseif (target_type == 'ally_low_hp') then 
+			local ally = owner:getFellowList()
+			table.sort(ally, function(a, b)
+				return (a.m_hp/a.m_maxHp) < (b.m_hp/b.m_maxHp)
+			end)
+			local target = ally[1]
+			if target then
+				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
+			end
+
 		end
 
 		-- 4. 인덱스 증가
@@ -227,7 +236,8 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	local status_effect = nil
 
 	------------ 힐 --------------------------
-    if isExistValue(status_effect_type, 'passive_recovery', 'heal', 'heal_per_atk', 'tamer_heal', 'heal_overlab') then
+    if isExistValue(status_effect_type, 'passive_recovery') or
+		string.find(status_effect_type, 'heal') then
         status_effect = StatusEffect_Heal(res)
 		status_effect:init_heal(char, t_status_effect, status_effect_value, duration)
 

@@ -1659,7 +1659,7 @@ function Character:getRootNode()
 end
 
 -------------------------------------
--- function getFriendList
+-- function getFellowList
 -------------------------------------
 function Character:getFellowList()
 	if (self.m_bLeftFormation) then 
