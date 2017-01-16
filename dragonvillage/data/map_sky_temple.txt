@@ -42,7 +42,7 @@
             "list":
             [
                 {"res":"res/bg/sky_temple/sky_temple.vrp" "animation":"layer_2_cloud_a" "width":1280}
-				{"res":"res/bg/sky_temple/sky_temple.vrp" "animation":"layer_2_cloud_b" "width":1280}
+				{"res":"res/bg/sky_temple/sky_temple.vrp" "animation":"layer_2_cloud_b" "width":1680}
 									
             ]
         }
@@ -88,8 +88,8 @@
             "list":
             [
                 {"res":"res/bg/sky_temple/sky_temple.vrp" "animation":"layer_4_cloud_a" "width":1280}
-				{"res":"res/bg/sky_temple/sky_temple.vrp" "animation":"layer_4_cloud_b" "width":1480}
-				{"res":"res/bg/sky_temple/sky_temple.vrp" "animation":"layer_4_cloud_c" "width":1680}
+				{"res":"res/bg/sky_temple/sky_temple.vrp" "animation":"layer_4_cloud_b" "width":1580}
+				{"res":"res/bg/sky_temple/sky_temple.vrp" "animation":"layer_4_cloud_c" "width":1780}
 				{"res":"res/bg/sky_temple/sky_temple.vrp" "animation":"layer_4_cloud_d" "width":2048}
 									
             ]
@@ -111,8 +111,7 @@
             "list":
             [
 		
-                {"res":"res/bg/sky_temple/sky_temple.vrp" "animation":"layer_5_cloud_a" "width":1280}
-				{"res":"res/bg/sky_temple/sky_temple.vrp" "animation":"layer_5_cloud_b" "width":1280}
+               	{"res":"res/bg/sky_temple/sky_temple.vrp" "animation":"layer_5_cloud_b" "width":1280}
 												
             ]
         }
