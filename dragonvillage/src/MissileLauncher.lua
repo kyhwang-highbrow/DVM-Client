@@ -353,6 +353,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		t_option['missile_res_name'] =	attack_value['res']
 		t_option['dir'] =				attack_value.dir_array[i] + dir_add
 		t_option['rotation'] =			attack_value.dir_array[i] + dir_add
+		t_option['no_rotate'] =			attack_value.no_rotate or false
 		t_option['pos_x'] =				pos_x
 		t_option['pos_y'] =				pos_y
 		t_option['speed'] =				speed

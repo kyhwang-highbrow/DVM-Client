@@ -111,6 +111,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     
 	local dir =              t_option['dir'] or 270
     local rotation =         t_option['rotation'] or 270
+	local no_rotate =        t_option['no_rotate'] or false
     local pos_x =            t_option['pos_x'] or 320
     local pos_y =            t_option['pos_y'] or 400
     local scale =            t_option['scale'] or 1
@@ -346,7 +347,9 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 			missile.m_rootNode:setScale(scale)
 		end
         missile:setDir(dir)
-        missile:setRotation(rotation)
+		if (not no_rotate) then 
+			missile:setRotation(rotation)
+		end
         missile:setPosition(pos_x, pos_y)
 
         if attack_damage then
