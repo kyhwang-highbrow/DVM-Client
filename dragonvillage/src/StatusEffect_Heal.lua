@@ -6,6 +6,7 @@ local PARENT = StatusEffect
 StatusEffect_Heal = class(PARENT, {
 		m_healType = '',
 		m_healRate = '',
+		m_healAbs = '', 
 		m_healInterval = '',
 		m_healTimer = '',
     })
@@ -25,6 +26,7 @@ function StatusEffect_Heal:init_heal(char, t_status_effect, status_effect_value,
 	self.m_owner = char
 	self.m_healType = t_status_effect['val_1']
 	self.m_healRate = (t_status_effect['dot_heal']/100) * (status_effect_value/100)
+	self.m_healAbs = t_status_effect['val_2'] or 0
 	self.m_healInterval = t_status_effect['dot_interval']
 	self.m_healTimer = self.m_healInterval
 end
@@ -69,5 +71,8 @@ function StatusEffect_Heal:doHeal()
 		local heal = HealCalc_M(atk_dmg)
 		heal = (heal * self.m_healRate)
 		self.m_owner:healAbs(heal)
+	
+	elseif (self.m_healType == 'heal_abs') then 
+		self.m_owner:healAbs(self.m_healAbs)
 	end
 end

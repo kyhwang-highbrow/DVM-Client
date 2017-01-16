@@ -75,17 +75,17 @@ function ActivityCarrier:insertStatusEffectRate(l_status_effect_str)
 	for i = 1, 2 do 
 		local l_effect = StatusEffectHelper:parsingStatusEffectStr(l_status_effect_str, i)
 		if l_effect then 
-			local type = l_effect[1]
-            local _start_con = l_effect[3]
-			local _rate = l_effect[5]
-            local _value = l_effect[6]
+			local type = l_effect['type']
+            local _start_con = l_effect['start_con']
+			local _rate = l_effect['rate']
+            local _value = l_effect['value_1']
 
 			if (not self.m_lStatusEffectRate[type]) then
 				self.m_lStatusEffectRate[type] = {value = 0, rate = 0}
 			end
 			local value = self.m_lStatusEffectRate[type]['value']
 			local rate = self.m_lStatusEffectRate[type]['rate']
-			self.m_lStatusEffectRate[type] = { value = _value + value, rate = _rate + rate, start_con = _start_con }
+			self.m_lStatusEffectRate[type] = { value = value + _value, rate = rate + _rate, start_con = _start_con }
 		end
 	end
 end

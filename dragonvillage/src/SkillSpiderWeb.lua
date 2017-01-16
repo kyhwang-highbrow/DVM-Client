@@ -22,8 +22,8 @@ end
 function SkillSpiderWeb:init_skill()
 	PARENT.init_skill(self)
 	local t_effect = StatusEffectHelper:parsingStatusEffectStr(self.m_lStatusEffectStr, 1)
-	self.m_statusDuration = tonumber(t_effect[4])
-	self.m_statusName = t_effect[1]
+	self.m_statusDuration = tonumber(t_effect['duration'])
+	self.m_statusName = t_effect['type']
 
 	self:setPosition(self.m_targetChar.pos.x, self.m_targetChar.pos.y)
 	self.m_animator:setVisible(false) 

@@ -63,13 +63,13 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
 		end
 
 		-- 2. 파싱하여 규칙에 맞게 분배
-		t_effect = stringSplit(effect_str, ';')
-		type = t_effect[1]
-		target_type = t_effect[2]
-        start_con = t_effect[3]
-		duration = t_effect[4]
-		rate = t_effect[5] 
-		value_1 = t_effect[6]
+		t_effect = self:parsingStr(effect_str)
+		type = t_effect['type']
+		target_type = t_effect['target_type']
+        start_con = t_effect['start_con']
+		duration = t_effect['duration']
+		rate = t_effect['rate'] 
+		value_1 = t_effect['value_1']
 		
 		
 		-- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
@@ -143,7 +143,7 @@ end
 -------------------------------------
 function StatusEffectHelper:setTriggerPassive(char, t_skill)
     local table_status_effect = TABLE:get('status_effect')
-	local status_effect_type = self:getStatusEffectTypeFromSkillTable(t_skill, 1)
+	local status_effect_type = self:getStatusEffectTableFromSkillTable(t_skill, 1)['type']
     local t_status_effect = table_status_effect[status_effect_type] or {}
     
     local res = t_status_effect['res']
@@ -337,13 +337,13 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 		end
 
 		-- 2. 파싱하여 규칙에 맞게 분배
-		t_effect = stringSplit(effect_str, ';')
-		type = t_effect[1]
-		target_type = t_effect[2]
-        start_con = t_effect[3]
-		duration = t_effect[4]
-		rate = t_effect[5] 
-		value_1 = t_effect[6]
+		t_effect = self:parsingStr(effect_str)
+		type = t_effect['type']
+		target_type = t_effect['target_type']
+        start_con = t_effect['start_con']
+		duration = t_effect['duration']
+		rate = t_effect['rate'] 
+		value_1 = t_effect['value_1']
 				
 		t_status_effect = table_status_effect[type]
 					
@@ -460,9 +460,10 @@ function StatusEffectHelper:releaseStatusEffect(char, t_status_effect_str)
 		if (not effect_str) or (effect_str == 'x') then 
 			break 
 		end
-		
-		local t_effect = stringSplit(effect_str, ';')
-		local status_effect_type = t_effect[1]
+
+		value_1 = t_effect['value_1']
+		local t_effect = self:parsingStr(effect_str)
+		local status_effect_type = t_effect['type']
 
 		-- @TODO 타입명 말고 phys_key로 해제하려면... 해제 주체가 status effect 에 있어야 하는데 아닌 경우도 있어 임시로 처리
 		for type, tar_status_effect in pairs(char:getStatusEffectList()) do
@@ -543,16 +544,7 @@ function StatusEffectHelper:getStatusEffectTableFromSkillTable(t_skill, idx)
 	if (not effect_str) or (effect_str == 'x') then 
 		return {}
 	end
-	return stringSplit(effect_str, ';')
-end
-
--------------------------------------
--- function getStatusEffectTypeFromSkillTable
--- @brief 상태효과 타입 파싱해서 가져옴
--------------------------------------
-function StatusEffectHelper:getStatusEffectTypeFromSkillTable(t_skill, idx)
-	local t_effect = self:getStatusEffectTableFromSkillTable(t_skill, idx)
-	return t_effect[1]
+	return self:parsingStr(effect_str)
 end
 
 -------------------------------------
@@ -574,7 +566,14 @@ function StatusEffectHelper:parsingStr(status_effect_str)
 	end
 	local t_effect = stringSplit(status_effect_str, ';')
 
-	return t_effect
+	return {
+		type = t_effect[1],
+		target_type = t_effect[2],
+        start_con = t_effect[3],
+		duration = t_effect[4],
+		rate = t_effect[5],
+		value_1 = t_effect[6]
+	}
 end
 
 -------------------------------------
