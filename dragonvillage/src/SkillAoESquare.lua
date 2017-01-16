@@ -76,7 +76,7 @@ end
 -- function runAttack
 -------------------------------------
 function SkillAoESquare:runAttack()
-    local t_target = self:findTarget(self.pos.x, self.pos.y)
+    local t_target = self:findTarget()
 
     for i, target_char in ipairs(t_target) do
 		self:attack(target_char)	
@@ -96,7 +96,10 @@ end
 -------------------------------------
 -- function findTarget
 -------------------------------------
-function SkillAoESquare:findTarget(x, y)
+function SkillAoESquare:findTarget()
+    local x = self.pos.x
+	local y = self.pos.y
+
     local world = self.m_world
 
     local l_target = world:getTargetList(nil, x, y, 'all', 'x', 'distance_x')

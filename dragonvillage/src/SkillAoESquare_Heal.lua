@@ -36,7 +36,7 @@ function SkillAoESquare_Heal:escapeAttack()
     PARENT.escapeAttack(self)
 
 	-- 상태효과
-	local t_target = self:findTarget(self.pos.x, self.pos.y)
+	local t_target = self:findTarget()
     --StatusEffectHelper:doStatusEffectByStr(self.m_owner, t_target, self.m_lStatusEffectStr)
     self:doStatusEffect({ STATUS_EFFECT_CON__SKILL_HIT }, t_target)
 end

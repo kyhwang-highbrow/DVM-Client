@@ -135,6 +135,17 @@ function SkillVoltesX:updateLoopAttack(t_idx, dt)
 	end
 end
 
+
+-------------------------------------
+-- function doStatusEffect
+-- @brief l_start_con 조건에 해당하는 statusEffect를 적용
+-------------------------------------
+function SkillVoltesX:doStatusEffect(l_start_con, t_target)
+    if (not t_target) then return end
+    
+    Skill.doStatusEffect(self, l_start_con, t_target)
+end
+
 -------------------------------------
 -- function runAttack
 -- @brief findtarget으로 찾은 적에게 공격을 실행한다. 

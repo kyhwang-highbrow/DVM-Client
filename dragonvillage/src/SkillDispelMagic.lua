@@ -58,7 +58,7 @@ end
 -------------------------------------
 -- function findTarget
 -------------------------------------
-function SkillDispelMagic:findTarget(x, y, range)
+function SkillDispelMagic:findTarget()
     return {self.m_targetChar}
 end
 

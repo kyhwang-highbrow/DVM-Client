@@ -53,7 +53,7 @@ end
 -------------------------------------
 function SkillAoESquare_Fairy:doFairySideEffect()
 	-- 적을 맞출 횟수
-	local release_cnt = #(self:findTarget(self.pos.x, self.pos.y))
+	local release_cnt = #(self:findTarget())
 
 	-- 동료 리스트
 	local l_fellow = self.m_owner:getFellowList()

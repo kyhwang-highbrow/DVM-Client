@@ -41,7 +41,8 @@ Skill = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function Skill:init(file_name, body, ...)    
+function Skill:init(file_name, body, ...)
+    self.m_range = 0    
 end
 
 -------------------------------------
@@ -223,10 +224,10 @@ end
 -- @brief 모든 공격 대상 찾음
 -- @default 직선거리에서 범위를 기준으로 충돌여부 판단
 -------------------------------------
-function Skill:findTarget(x, y, range)
-	local x = x or self.m_targetPos.x
-	local y = y or self.m_targetPos.y
-	local range = range or self.m_range
+function Skill:findTarget()
+	local x = self.m_targetPos.x
+	local y = self.m_targetPos.y
+	local range = self.m_range
 
     local world = self.m_world
 	local l_target = world:getTargetList(self.m_owner, x, y, 'enemy', 'x', 'distance_line')
