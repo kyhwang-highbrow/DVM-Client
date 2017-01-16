@@ -77,9 +77,9 @@ function Skill:initActvityCarrier(power_rate, power_abs)
     -- 피격시 상태효과가 있다면 activityCarrier에 추가
     do
         local lStatusEffect = self:getStatusEffectListByStartCondition({
-            SE_CON__SKILL_HIT,
-            SE_CON__SKILL_HIT_CRI,
-            SE_CON__SKILL_SLAIN
+            STATUS_EFFECT_CON__SKILL_HIT,
+            STATUS_EFFECT_CON__SKILL_HIT_CRI,
+            STATUS_EFFECT_CON__SKILL_SLAIN
         })
 
         if (#lStatusEffect > 0) then
@@ -151,10 +151,7 @@ function Skill.st_delay(owner, dt)
 		owner:changeState('start')
 
         -- 스킬 사용시 발동되는 status effect를 적용
-        local lStatusEffect = owner:getStatusEffectListByStartCondition({ SE_CON__SKILL_START })
-        if (#lStatusEffect > 0) then
-            StatusEffectHelper:doStatusEffectByStr(owner.m_owner, nil, lStatusEffect)
-        end
+        owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_START })
     end
 end
 
@@ -166,12 +163,20 @@ function Skill.st_dying(owner, dt)
 		owner.m_owner:restore()
 
         -- 스킬 종료시 발동되는 status effect를 적용
-        local lStatusEffect = owner:getStatusEffectListByStartCondition({ SE_CON__SKILL_END })
-        if (#lStatusEffect > 0) then
-            StatusEffectHelper:doStatusEffectByStr(owner.m_owner, nil, lStatusEffect)
-        end
-
+        owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_END })
+        
 		return true
+    end
+end
+
+-------------------------------------
+-- function doStatusEffect
+-- @brief l_start_con 조건에 해당하는 statusEffect를 적용
+-------------------------------------
+function Skill:doStatusEffect(l_start_con)
+    local lStatusEffect = self:getStatusEffectListByStartCondition(l_start_con)
+    if (#lStatusEffect > 0) then
+        StatusEffectHelper:doStatusEffectByStr(self.m_owner, nil, lStatusEffect)
     end
 end
 
