@@ -1260,6 +1260,9 @@
     <None Include="..\src\TableStatus.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\SkillCharge.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

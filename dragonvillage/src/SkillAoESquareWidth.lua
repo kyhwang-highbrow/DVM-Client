@@ -24,11 +24,10 @@ end
 function SkillAoESquareWidth:init_skill(skill_height)
     PARENT.init_skill(self)
 
-    local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
-    
 	-- 멤버 변수
     self.m_skillHeight = skill_height
 
+    local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
     if (self.m_owner.m_bLeftFormation) then
         self.m_missileStartPosX = cameraHomePosX
         self.m_missileDir = 0

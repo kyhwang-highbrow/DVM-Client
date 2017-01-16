@@ -322,16 +322,16 @@ end
 -- @breif PhysObject 추가 -> 타겟팅이 되어야 하는 이슈로 Character Class로 래핑
 -- @comment 여기서는 리스트에만 추가해두고 world에 addObject 할시에 리스트를 불러와 같이 등록한다.
 -------------------------------------
-function PhysObject:addPhysObject(char, t_body, adj_x, adj_y, object_cb_func)
+function PhysObject:addPhysObject(char, object_key, t_body, adj_x, adj_y, object_cb_func)
     if (not self.m_bInitAdditionalPhysObject) then
         self:init_AdditionalPhysObject()
     end
 
     -- Slave Character 생성
     local phys_obj = char:referenceForSlaveCharacter(t_body, adj_x, adj_y)
-	
+	local object_key = object_key or char.phys_key
 	-- PhysWorld에 추가
-    self.m_physWorld:addObject(char.phys_key, phys_obj)
+    self.m_physWorld:addObject(object_key, phys_obj)
 
     -- 리스트에 추가
 	self.m_lAdditionalPhysObject[phys_obj] = {x = adj_x, y = adj_y, cb_func = object_cb_func}

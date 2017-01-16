@@ -260,6 +260,7 @@ local t_module = {
 	'SkillBurst',
 	'SkillFieldCheck',
 	'SkillVoltesX',
+	'SkillCharge',
 
     -- SKILL INDICATOR
     'SkillIndicatorMgr',

@@ -198,7 +198,7 @@ function SkillCrash:makeCrashPhsyObject()
     local char = self.m_owner
     local object_key = char:getAttackPhysGroup()
 
-    local phys_object = char:addPhysObject(char, {0, 0, 20}, 0, 0)
+    local phys_object = char:addPhysObject(char, object_key, {0, 0, 20}, 0, 0)
     phys_object:addAtkCallback(function(attacker, defender, i_x, i_y)
         self.m_collisionChar = defender
         self:changeState('comeback')

@@ -134,7 +134,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_skillName = t_skill['type']
 	self.m_targetPos = {x = t_data.x, y = t_data.y}
 	self.m_targetChar = t_data.target or self.m_targetChar
-	self.m_bSkillHitEffect = true
+	self.m_bSkillHitEffect = owner.m_bLeftFormation
 end
 
 -------------------------------------
@@ -262,8 +262,8 @@ function Skill:getDefaultTarget()
 			break
 		end
 	end
-
-    if (not target) then
+    
+	if (not target) then
 	    cclog('Skill : Can not find target')
     end
 
