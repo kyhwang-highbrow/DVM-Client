@@ -97,6 +97,26 @@ function UIC_Node:getScale()
     return self.m_node:getScale()
 end
 
+function UIC_Node:getScaleX()
+    return self.m_node:getScaleX()
+end
+
+function UIC_Node:getScaleY()
+    return self.m_node:getScaleY()
+end
+
 function UIC_Node:removeAllChildren(cleanup)
     return self.m_node:removeAllChildren(cleanup)
+end
+
+function UIC_Node:setOpacity(opacity)
+    return self.m_node:setOpacity(opacity)
+end
+
+function UIC_Node:getColor()
+    return self.m_node:getColor()
+end
+
+function UIC_Node:setColor(color)
+    return self.m_node:setColor(color)
 end

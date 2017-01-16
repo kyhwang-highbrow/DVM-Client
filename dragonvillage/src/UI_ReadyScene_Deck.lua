@@ -13,6 +13,7 @@ UI_ReadyScene_Deck = class({
 
         --
         m_lSettedDragonCard = 'list',
+        m_currFormation = '',
     })
 
 -------------------------------------
@@ -33,8 +34,16 @@ function UI_ReadyScene_Deck:init_button()
 
     for i=1, 9 do
         local btn_name = 'chBtn' .. string.format('%.2d', i)
-        vars[btn_name]:registerScriptTapHandler(function() self:click_chBtn(i) end)
+        if vars[btn_name] then
+            vars[btn_name]:registerScriptTapHandler(function() self:click_chBtn(i) end)
+        end
     end
+
+    -- 진형 선택 버튼
+    vars['aFomationBtn']:registerScriptTapHandler(function() self:setFormation('attack') end)
+    vars['bFomationBtn']:registerScriptTapHandler(function() self:setFormation('balance') end)
+    vars['cFomationBtn']:registerScriptTapHandler(function() self:setFormation('defence') end)
+    vars['dFomationBtn']:registerScriptTapHandler(function() self:setFormation('protect') end)
 end
 
 -------------------------------------
@@ -163,7 +172,8 @@ function UI_ReadyScene_Deck:init_deck()
         self.m_lSettedDragonCard = {}
     end
 
-    local l_deck = g_deckData:getDeck('1')
+    local l_deck, formation = g_deckData:getDeck('1')
+    l_deck = self:convertSimpleDeck(l_deck)
 
     self.m_lDeckList = {}
     self.m_tDeckMap = {}
@@ -174,6 +184,48 @@ function UI_ReadyScene_Deck:init_deck()
 
     -- focus deck
     self:refreshFocusDeckSlot()
+
+    self:setFormation(formation)
+end
+
+-------------------------------------
+-- function convertSimpleDeck
+-- @brief 기존 1~9번의 index를 쓰던 것에서 1~5만 사용하는 것으로 변경
+-------------------------------------
+function UI_ReadyScene_Deck:convertSimpleDeck(l_deck)
+    -- 변경이 필요한지 체크
+    local need_convert = false
+    for idx, doid in pairs(l_deck) do
+        if (tonumber(idx) > 5) then
+            need_convert = true
+            break
+        end
+    end
+
+    -- 변경이 필요 없으면 기존 덱 리턴
+    if (not need_convert) then
+        return l_deck
+    end
+
+    -- 정렬을 위한 임시 테이블 셋팅
+    local l_deck_for_sort = {}
+    for idx, doid in pairs(l_deck) do
+        table.insert(l_deck_for_sort, {idx=idx, doid=doid})
+    end
+
+    -- idx가 낮은 순으로 정렬
+    local function sort_func(a, b)
+        return a['idx'] < b['idx']
+    end
+    table.sort(l_deck_for_sort, sort_func)
+
+    -- 리턴할 덱 생성
+    local l_deck = {}
+    for i,v in ipairs(l_deck_for_sort) do
+        l_deck[i] = v['doid']
+    end
+
+    return l_deck
 end
 
 -------------------------------------
@@ -274,7 +326,7 @@ end
 -- function checkChangeDeck
 -------------------------------------
 function UI_ReadyScene_Deck:checkChangeDeck(next_func)
-    local l_deck = g_deckData:getDeck('1')
+    local l_deck, formation = g_deckData:getDeck('1')
 
     local b_change = false
 
@@ -298,6 +350,11 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
         end
     end
 
+    -- 진형이 변경되었을 경우
+    if (self.m_currFormation ~= formation) then
+        b_change = true
+    end
+
     if (b_change) then
         local uid = g_userData:get('uid')
 
@@ -318,6 +375,7 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
         ui_network:setRevocable(true)
         ui_network:setParam('uid', uid)
         ui_network:setParam('deckname', 1)
+        ui_network:setParam('formation', self.m_currFormation)
         ui_network:setParam('edoid1', self.m_lDeckList[1] and self.m_lDeckList[1] or nil)
         ui_network:setParam('edoid2', self.m_lDeckList[2] and self.m_lDeckList[2] or nil)
         ui_network:setParam('edoid3', self.m_lDeckList[3] and self.m_lDeckList[3] or nil)
@@ -340,4 +398,82 @@ end
 function UI_ReadyScene_Deck:getDragonCount()
     local count = table.count(self.m_lDeckList)
     return count
+end
+
+-------------------------------------
+-- function setFormation
+-------------------------------------
+function UI_ReadyScene_Deck:setFormation(formation)
+    if (self.m_currFormation == formation) then
+        return
+    end
+
+    local update_immediately = false
+    if (not self.m_currFormation) then
+        update_immediately = true
+    end
+
+    self.m_currFormation = formation
+    self:updateFormation(formation, update_immediately)
+end
+
+-------------------------------------
+-- function updateFormation
+-------------------------------------
+function UI_ReadyScene_Deck:updateFormation(formation, immediately)
+    local vars = self.m_uiReadyScene.vars
+
+    local min_x = -122
+    local max_x = 122
+    local min_y = -122
+    local max_y = 122
+    local l_pos_list = TableFormation:getFormationPositionList(formation, min_x, max_x, min_y, max_y)
+
+    local table_formation = TableFormation()
+
+    if immediately then
+        for i,v in ipairs(l_pos_list) do
+            vars['chNode' .. i]:setPosition(v['x'], v['y'])
+        end
+    else
+        for i,v in ipairs(l_pos_list) do
+            local action = cca.makeBasicEaseMove(0.3, v['x'], v['y'])
+            cca.runAction(vars['chNode' .. i], action, 100)
+        end
+    end
+
+    do -- 진형 아이콘
+        local node = vars['fomationIconNode']
+        node:removeAllChildren()
+        local icon = table_formation:makeFormationIcon(formation)
+        cca.uiReaction(icon, scale_x, scale_y)
+        node:addChild(icon)
+    end
+
+    -- 진형 이름
+    local t_formation = table_formation:get(formation)
+    vars['fomationLabel']:setString(Str(t_formation['t_name']))
+
+    -- 버프 설명
+    local l_buff_str = table_formation:getBuffStrList(formation)
+    for i=1, 10 do
+        local node = vars['fomationdscLabel' .. i]
+        local t_data = l_buff_str[i]
+        if (node and t_data) then
+            local str = t_data['str']
+            node:setString(str)
+
+            --local out_line_size = node:getOutlineSize()
+            local out_line_size = 1
+            local color_str = t_data['color']
+            local color = COLOR_4[color_str]
+            node:enableOutline(color)
+            node:enableShadow(color)
+
+        elseif (node) then
+            node:setString('')
+        else
+            break
+        end
+    end
 end

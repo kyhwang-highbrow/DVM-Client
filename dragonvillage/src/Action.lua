@@ -146,3 +146,24 @@ function cca.repeatTintToMoreDark(duration, tar_r, tar_g, tar_b)
 		)
 	)
 end
+
+-------------------------------------
+-- function makeBasicEaseMove
+-------------------------------------
+function cca.makeBasicEaseMove(duration, x, y)
+    local move_to = cc.MoveTo:create(duration, cc.p(x, y))
+    local action = cc.EaseInOut:create(move_to, 2)
+    return action
+end
+
+-------------------------------------
+-- function uiReaction
+-------------------------------------
+function cca.uiReaction(node, scale_x, scale_y)
+    local scale_x = (scale_x or 1)
+    local scale_y = (scale_y or scale_x)
+
+    node:setScale(scale_x * 0.9, scale_y * 0.9)
+    local action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, scale_x, scale_y), 0.3)
+    cca.runAction(node, action, nil)
+end

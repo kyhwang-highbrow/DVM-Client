@@ -52,9 +52,11 @@ function ServerData_Deck:getDeck(type)
     local l_deck = self.m_serverData:get('deck')
 
     local t_deck = nil
+    local formation = nil
     for i,value in ipairs(l_deck) do
         if (value['deckname'] == type) then
             t_deck = value['deck']
+            formation = value['formation']
         end
     end
 
@@ -66,10 +68,22 @@ function ServerData_Deck:getDeck(type)
             end
         end
         
-        return t_ret
+        return t_ret, self:adjustFormationName(formation)
     end
 
-    return {}
+    return {}, self:adjustFormationName('default')
+end
+
+-------------------------------------
+-- function adjustFormationName
+-- @brief
+-------------------------------------
+function ServerData_Deck:adjustFormationName(formation)
+    if (not formation) or (formation == 'default') then
+        return 'attack'
+    end
+
+    return formation
 end
 
 -------------------------------------

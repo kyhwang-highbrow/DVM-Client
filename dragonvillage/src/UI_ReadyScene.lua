@@ -303,6 +303,7 @@ function UI_ReadyScene:click_autoBtn()
     helper:setDragonList(l_dragon_list)
 
     local l_auto_deck = helper:getAutoDeck()
+    l_auto_deck = UI_ReadyScene_Deck:convertSimpleDeck(l_auto_deck)
 
     -- 1. 덱을 비움
     self.m_readySceneDeck:clear_deck()

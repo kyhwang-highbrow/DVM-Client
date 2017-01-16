@@ -27,6 +27,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_participants = '',
 		m_tEnemyList = 'EnemyList', -- 적군 리스트(드래곤이라도 적 진형이라면 여기에 추가됨)
         m_lDragonList = 'HeroList', -- 아군 리스트(맵 형식 리스트)
+        m_deckFormation = 'string',
 
         m_physWorld = 'PhysWorld',
 
@@ -248,7 +249,7 @@ function GameWorld:initGame(stage_name, shake_layer)
     self.m_inGameUI:doActionReset()
 
     do -- 진형 시스템 초기화
-        self:setBattleZone('basic', true)
+        self:setBattleZone(self.m_deckFormation, true)
     end
 
     do -- 스킬 조작계 초기화
@@ -830,7 +831,8 @@ end
 -------------------------------------
 function GameWorld:makeHeroDeck()
     -- 서버에 저장된 드래곤 덱 사용
-    local l_deck = g_deckData:getDeck('1')
+    local l_deck, formation = g_deckData:getDeck('1')
+    self.m_deckFormation = formation
     for i,v in pairs(l_deck) do
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(v)
         if t_dragon_data then
@@ -1224,31 +1226,37 @@ end
 -- @brief 전투영역 설정
 -------------------------------------
 function GameWorld:setBattleZone(formation, immediately)
-    local script = TABLE:loadJsonTable('formation')
-    local t_camera = self.m_waveMgr.m_scriptData['camera']
-    
-    local start_x = 40
-    local end_x = 40 + (80 * 6)
 
-    local start_y = -360 + 40
-    local end_y = 360 - 40
+    local rage = (80 * 6)
 
-    local t_formation = script[formation]
+    -- 실제 사각형 영역
+    local min_x = 40
+    local max_x = 40 + rage
+    local min_y = -(rage / 2)
+    local max_y = (rage / 2)
+
+    -- 드래곤의 포지션 영역 padding처리
+    local padding_x = 20
+    local padding_y = 56
+    min_x = (min_x + padding_x)
+    max_x = (max_x - padding_x)
+    min_y = (min_y + padding_y)
+    max_y = (max_y - padding_y)
+
+    -- offset 지정(카메라 역할)
+    local offset_x = 60
+    local offset_y = 30
+    min_x = (min_x + offset_x)
+    max_x = (max_x - offset_x)
+    min_y = (min_y + offset_y)
+    max_y = (max_y + offset_y)
+
+    local l_pos_list = TableFormation:getFormationPositionList(formation, min_x, max_x, min_y, max_y)
 
     for i,v in pairs(self.m_lDragonList) do
-        local t_data = t_formation[tostring(i)]
-        local x_rate = t_data[1]
-        local y_rate = t_data[2]
-
-        local pos_x = start_x + ((end_x - start_x) * (x_rate/100))
-        local pos_y = start_y + ((end_y - start_y) * (y_rate/100))
-
-        --cclog('# pos_x, pos_y : ' .. pos_x .. ', ' .. pos_y)
-
-        if t_camera then
-            --pos_x = pos_x + t_camera['pos_x']
-            --pos_y = pos_y + t_camera['pos_y']
-        end
+        
+        local pos_x = l_pos_list[i]['x']
+        local pos_y = l_pos_list[i]['y']
 
         v:setOrgHomePos(pos_x, pos_y)
 
@@ -1261,9 +1269,12 @@ function GameWorld:setBattleZone(formation, immediately)
         end
     end
 
-    if t_camera then
-        t_camera['time'] = 0
-        self:changeCameraOption(t_camera)
+    do -- 카메라 설정 (이건 코드 위치를 변경해야 할 듯?!) 170116 Seong-goo Kim
+        local t_camera = self.m_waveMgr.m_scriptData['camera']
+        if t_camera then
+            t_camera['time'] = 0
+            self:changeCameraOption(t_camera)
+        end
     end
 end
 

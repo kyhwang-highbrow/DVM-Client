@@ -383,6 +383,9 @@ local function loadNode(ui, data, vars, parent)
             )
         end
         setPropsForLabel(node, data)
+
+        delegator = UIC_LabelTTF(node)
+
 		-- STROKE
         if data.has_stroke then
             node:setStrokeType(data.stroke_type or 0)
@@ -390,7 +393,8 @@ local function loadNode(ui, data, vars, parent)
             node:setSharpTextInCustomStroke(data.is_sharp_text or true)
             local r,g,b = unpack(data.stroke_color)
             local a = data.opacity
-            node:enableOutline(cc.c4b(r,g,b,a), data.stroke_tickness)
+            --node:enableOutline(cc.c4b(r,g,b,a), data.stroke_tickness)
+            delegator:enableOutline(cc.c4b(r,g,b,a), data.stroke_tickness)
         end
 		-- SHADOW
 		if data.has_shadow then
@@ -407,12 +411,14 @@ local function loadNode(ui, data, vars, parent)
             else
                 shadow_size = cc.size(0, 0)
             end
-			node:enableShadow(cc.c4b(r,g,b,a), shadow_size, 0) -- // enableShadow(shadowColor = Color4B::BLACK, offset = Size(2,-2),int 	blurRadius = 0)
+			--node:enableShadow(cc.c4b(r,g,b,a), shadow_size, 0) -- // enableShadow(shadowColor = Color4B::BLACK, offset = Size(2,-2),int 	blurRadius = 0)
+            delegator:enableShadow(cc.c4b(r,g,b,a), shadow_size, 0) -- // enableShadow(shadowColor = Color4B::BLACK, offset = Size(2,-2),int 	blurRadius = 0)
 		end
 		-- SPACE BETWEEN LETTER
 		if data['letter_spacing'] and data['letter_spacing'] ~= 0 then
 			node:setAdditionalKerning(data['letter_spacing'])
 		end
+
     elseif type == 'EditBox' then
         UILoader.checkTranslate(data)
         if (data.normal == nil) or (data.normal == '') then

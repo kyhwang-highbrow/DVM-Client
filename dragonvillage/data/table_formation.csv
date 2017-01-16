@@ -1,0 +1,8 @@
+fmid,t_name,font_color,pos_01,pos_02,pos_03,pos_04,pos_05,buff_targets_01,buff_type_01,buff_value_01,buff_targets_02,buff_type_02,buff_value_02
+attack,공격 진형,,"100,100","100,0","50,50","0,100","0,0",3,atk_up,15,,,
+balance,밸런스 진형,,"100,50","50,100","50,50","50,0","0,50",1,def_up,10,5,atk_up,5
+defence,방어 진형,,"100,100","100,50","100,0","50,50","0,50","1,2,3",def_up,10,,,
+protect,보호 진형,,"50,80","50,20","0,100","0,50","0,0","1,2",def_up,10,"3,4,5",atk_down,3
+buff_atk_up,공격력 {1}% 증가,red,,,,,,,,,,,
+buff_atk_down,공격력 {1}% 감소,black,,,,,,,,,,,
+buff_def_up,방어력 {1}% 증가,blue,,,,,,,,,,,

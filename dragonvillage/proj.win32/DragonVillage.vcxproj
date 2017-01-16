@@ -528,6 +528,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableDragonTrainInfo.lua" />
     <None Include="..\src\TableDragonTrainStatus.lua" />
     <None Include="..\src\TableDrop.lua" />
+    <None Include="..\src\TableFormation.lua" />
     <None Include="..\src\TableFriendship.lua" />
     <None Include="..\src\TableFruit.lua" />
     <None Include="..\src\TableGradeInfo.lua" />
@@ -550,6 +551,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UIC_Button.lua" />
     <None Include="..\src\UIC_CheckBox.lua" />
     <None Include="..\src\UIC_ClippingNode.lua" />
+    <None Include="..\src\UIC_LabelTTF.lua" />
     <None Include="..\src\UIC_Node.lua" />
     <None Include="..\src\UIC_RadioButton.lua" />
     <None Include="..\src\UIC_TableView.lua" />

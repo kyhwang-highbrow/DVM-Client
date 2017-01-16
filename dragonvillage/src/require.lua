@@ -95,6 +95,7 @@ local t_module = {
     'TableTamer',
     'TableGradeInfo',
     'TableStatus',
+    'TableFormation',
 
     -- Interface
     'IEventDispatcher',
@@ -297,6 +298,7 @@ local t_module = {
     'UIC_TableViewCell',
     'UIC_TableViewTD',
     'UIC_RadioButton',
+    'UIC_LabelTTF',
 
 	-- UI
     'UI_BlockPopup',

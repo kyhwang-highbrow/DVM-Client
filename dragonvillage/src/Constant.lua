@@ -82,6 +82,17 @@ COLOR_GREEN = cc.c3b(0, 0, 255)
 COLOR_BALCK = cc.c3b(0, 0, 0)
 COLOR_WHITE = cc.c3b(255, 255, 255)
 
+COLOR_3 = {}
+COLOR_3['white'] = COLOR_WHITE
+COLOR_3['red'] = COLOR_RED
+COLOR_3['blue'] = cc.c3b(0, 0, 255)
+
+COLOR_4 = {}
+COLOR_4['white'] = cc.c4b(255, 255, 255, 255)
+COLOR_4['red'] = cc.c4b(255, 0, 0, 255)
+COLOR_4['blue'] = cc.c4b(0, 0, 255, 255)
+COLOR_4['black'] = cc.c4b(0, 0, 0, 255)
+
 -- TEMP
 UNDER_LINE_PNG = 'res/common/underline.png'
 EMPTY_PNG = 'res/common/empty.png'
