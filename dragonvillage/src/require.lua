@@ -93,6 +93,7 @@ local t_module = {
     'TableDragonTrainStatus',
     'TableDrop',
     'TableTamer',
+    'TableGradeInfo',
 
     -- Interface
     'IEventDispatcher',

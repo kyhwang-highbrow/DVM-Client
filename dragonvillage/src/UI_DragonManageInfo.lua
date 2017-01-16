@@ -248,8 +248,15 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
 
     -- 승급 경험치
     if vars['upgradeLabel'] then
-        vars['upgradeLabel']:setString('')
+        local t_grade_exp_info = TableGradeInfo:getDragonGradeAndExpInfo(t_dragon_data)
+        if t_grade_exp_info['is_max'] then
+            vars['upgradeLabel']:setString('MAX')
+        else
+            vars['upgradeLabel']:setString(Str('{1} %', t_grade_exp_info['percentage']))
+        end
+        vars['upgradeGauge']:stopAllActions()
         vars['upgradeGauge']:setPercentage(0)
+        vars['upgradeGauge']:runAction(cc.ProgressTo:create(0.2, t_grade_exp_info['percentage'])) 
     end
 
     -- 친밀도

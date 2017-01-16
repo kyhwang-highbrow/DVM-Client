@@ -530,6 +530,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableDrop.lua" />
     <None Include="..\src\TableFriendship.lua" />
     <None Include="..\src\TableFruit.lua" />
+    <None Include="..\src\TableGradeInfo.lua" />
     <None Include="..\src\TableMonster.lua" />
     <None Include="..\src\TableStageDesc.lua" />
     <None Include="..\src\TableTamer.lua" />

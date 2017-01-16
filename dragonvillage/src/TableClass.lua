@@ -41,6 +41,19 @@ function TableClass:get(key)
 end
 
 -------------------------------------
+-- function getValue
+-------------------------------------
+function TableClass:getValue(primary, column)
+    local t_table = self:get(primary)
+
+    if t_table then
+        return t_table[column]
+    end
+
+    return nil
+end
+
+-------------------------------------
 -- function filterTable
 -------------------------------------
 function TableClass:filterTable(key, value)

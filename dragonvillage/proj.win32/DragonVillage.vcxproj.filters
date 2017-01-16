@@ -1257,6 +1257,9 @@
     <None Include="..\src\SwipeGesture.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableGradeInfo.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

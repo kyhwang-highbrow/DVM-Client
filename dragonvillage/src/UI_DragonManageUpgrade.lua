@@ -154,9 +154,9 @@ function UI_DragonManageUpgrade:refresh_upgrade(table_dragon, t_dragon_data)
     g_topUserInfo:setTitleString(Str('승급'))
 
     -- 등급 테이블
-    local table_grade_info = TABLE:get('grade_info')
-    local t_grade_info = table_grade_info[t_dragon_data['grade']]
-    local t_next_grade_info = table_grade_info[t_dragon_data['grade'] + 1]
+    local table_grade_info = TableGradeInfo()
+    local t_grade_info = table_grade_info:get(t_dragon_data['grade'])
+    local t_next_grade_info = table_grade_info:get(t_dragon_data['grade'] + 1)
 
     do -- 드래곤 다음 등급 정보 카드
         vars['maxIconNode']:removeAllChildren()
@@ -545,8 +545,8 @@ function UI_DragonManageUpgrade:refresh_selectedMaterialExp(total_exp)
     local is_max_grade = (t_dragon_data['grade'] >= MAX_DRAGON_GRADE)
 
     -- 등급 테이블
-    local table_grade_info = TABLE:get('grade_info')
-    local t_grade_info = table_grade_info[t_dragon_data['grade']]
+    local table_grade_info = TableGradeInfo()
+    local t_grade_info = table_grade_info:get(t_dragon_data['grade'])
 
     if is_max_grade then
         return
@@ -574,13 +574,13 @@ function UI_DragonManageUpgrade:analyzeSelectedMaterial(doid, l_item)
     local t_ret = {}
 
     local t_dragon_Data = g_dragonsData:getDragonDataFromUid(doid)
-    local table_grade_info = TABLE:get('grade_info')
+    local table_grade_info = TableGradeInfo()
     local table_dragon = TABLE:get('dragon')
 
     -- 최대 등급까지 필요한 경험치 총 량 계산
     local total_remain_exp = 0
     for grade=t_dragon_Data['grade'], MAX_DRAGON_GRADE do
-        local t_grade_info = table_grade_info[grade]
+        local t_grade_info = table_grade_info:get(grade)
         if (grade == t_dragon_Data['grade']) then
             total_remain_exp = total_remain_exp + (t_grade_info['req_exp'] - t_dragon_Data['gexp'])
         else
@@ -595,10 +595,10 @@ function UI_DragonManageUpgrade:analyzeSelectedMaterial(doid, l_item)
     for i,v in pairs(l_item) do
         local data = v['data']
         local grade = data['grade']
-        local req_gold = table_grade_info[grade]['req_gold']
+        local req_gold = table_grade_info:getValue(grade, 'req_gold')
         total_price = (total_price + req_gold)
 
-        local eclv_req_gold = table_grade_info[grade]['eclv_req_gold']
+        local eclv_req_gold = table_grade_info:getValue(grade, 'eclv_req_gold')
         total_price_eclv = (total_price_eclv + eclv_req_gold)
     end
     t_ret['total_price'] = total_price
@@ -637,7 +637,7 @@ function UI_DragonManageUpgrade:analyzeSelectedMaterial(doid, l_item)
         elseif (evolution == 3) then
             evolution_str = 'adult_exp'
         end
-        local exp = table_grade_info[grade][evolution_str]
+        local exp = table_grade_info:getValue(grade, evolution_str)
         total_exp = (total_exp + exp)
     end
     t_ret['total_exp'] = total_exp
