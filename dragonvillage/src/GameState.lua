@@ -892,10 +892,17 @@ function GameState:doDirectionForIntermission()
     local t_wave_data, is_final_wave = world.m_waveMgr:getNextWaveScriptData()
     local t_camera_info = t_wave_data['camera'] or {}
     local curCameraPosX, curCameraPosY = world.m_gameCamera:getHomePos()
+    local scr_size = cc.Director:getInstance():getWinSize()
+    local scr_ratio = math_max(scr_size['width'], scr_size['height']) / math_min(scr_size['width'], scr_size['height'])
+    local moveY = 300
+
+    if (scr_ratio < (16 / 9)) then
+        moveY = 180
+    end
 		
 	if (world.m_bDevelopMode == false) then
         local tRandomY = {}
-        for _, v in pairs({-300, 0, 300}) do
+        for _, v in pairs({-moveY, 0, moveY}) do
             if v ~= curCameraPosY then
                 table.insert(tRandomY, v)
             end
