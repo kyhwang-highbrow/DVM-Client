@@ -2,7 +2,7 @@
 	"pattern_elite_skeleton_knight":
 	[			
 		[
-			"a;1", "w;5"
+			"a;basic", "w;3", "a;1", "w;5"
 		]
     ],
 	

@@ -2,7 +2,7 @@
 	"pattern_elite_chandelier":
 	[			
 		[
-			"a;1", "w;10"
+			"a;basic", "w;3", "a;1", "w;10"
 		]
     ],
 	
