@@ -1263,6 +1263,12 @@
     <None Include="..\src\SkillCharge.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableFormation.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UIC_LabelTTF.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
