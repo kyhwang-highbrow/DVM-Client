@@ -178,6 +178,32 @@ function StatusCalculator:applyTrainBonus(l_bonus)
 end
 
 
+-------------------------------------
+-- function getCombatPower
+-- @brief 드래곤의 최종 전투력을 얻어옴
+--        UI에서 사용되는 함수이므로 패시브 발동은 제외
+-------------------------------------
+function StatusCalculator:getCombatPower()
+    local total_combat_power = 0
+    local table_status = TableStatus()
+
+    -- 능력치별 전투력 계수를 곱해서 전투력 합산
+    for stat_name,t_status in pairs(self.m_lStatusList) do
+
+        -- 모든 연산이 끝난 후의 능력치 얻어옴 (패시브로 실시간 적용되는 부분은 제외)
+        local final_stat = t_status['final']
+
+        -- 능력치별 계수(coef)를 얻어옴
+        local coef = table_status:getValue(stat_name, 'combat_power_coef') or 0
+
+        -- 능력치별 전투력 계산
+        local combat_power = (final_stat * coef)
+        total_combat_power = (total_combat_power + combat_power)
+    end
+
+    return math_floor(total_combat_power)
+end
+
 
 -------------------------------------
 -- function MakeDragonStatusCalculator

@@ -94,6 +94,7 @@ local t_module = {
     'TableDrop',
     'TableTamer',
     'TableGradeInfo',
+    'TableStatus',
 
     -- Interface
     'IEventDispatcher',
