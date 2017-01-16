@@ -87,3 +87,44 @@ function TableFormation:getBuffStrList(formation)
     
     return l_buff_str
 end
+
+-------------------------------------
+-- function getBuffList
+-- @breif 특정 포메이션 특정 슬롯이 가지는 버프 리스트 리턴
+-------------------------------------
+function TableFormation:getBuffList(formation, slot_idx)
+    if (self == TableFormation) then
+        self = TableFormation()
+    end
+
+    local t_formation = self:get(formation)
+
+    local slot_idx = tonumber(slot_idx)
+
+    local l_buff = {}
+
+    for i=1, 10 do
+        local buff_targets = t_formation[string.format('buff_targets_%.2d', i)]
+        if (buff_targets and (buff_targets ~= '')) then
+            local l_targets = seperate(buff_targets, ',')
+
+            -- l_targets가 nil일 경우 리스트가 1개이므로 테이블을 생성해준다
+            if (not l_targets) then
+                l_targets = {buff_targets}
+            end
+
+            -- 타겟 대상에 포함되어 있을 경우
+            for _,target_idx in ipairs(l_targets) do
+                if (tonumber(target_idx) == slot_idx) then
+                    local buff_type = t_formation[string.format('buff_type_%.2d', i)]
+                    local buff_value = t_formation[string.format('buff_value_%.2d', i)]
+
+                    -- 버프 리스트에 추가
+                    table.insert(l_buff, {buff_type=buff_type, buff_value=buff_value})
+                end
+            end
+        end
+    end
+
+    return l_buff
+end

@@ -845,6 +845,10 @@ function GameWorld:makeHeroDeck()
                 self:participationHero(hero)
 
                 self.m_leftFormationMgr:setChangePosCallback(hero)
+
+                -- 진형 버프 적용
+                hero.m_statusCalc:applyFormationBonus(formation, i)
+                --ccdump(hero.m_statusCalc.m_lPassive)
             end
         end
     end

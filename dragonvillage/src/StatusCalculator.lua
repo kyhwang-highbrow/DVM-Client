@@ -177,6 +177,37 @@ function StatusCalculator:applyTrainBonus(l_bonus)
     end
 end
 
+-------------------------------------
+-- function applyFormationBonus
+-- @brief 진형 버프 적용 (다른 status effect처럼 패시브 형태로 동작함)
+-------------------------------------
+function StatusCalculator:applyFormationBonus(formation, slot_idx)
+    local l_buff = TableFormation:getBuffList(formation, slot_idx)
+
+    for i,v in ipairs(l_buff) do
+        local buff_type = v['buff_type']
+        local buff_value = v['buff_value']
+
+        if (buff_type == '') then
+        
+        -- 공격력 상승
+        elseif (buff_type == 'atk_up') then
+            self.m_lPassive['atk'] = (self.m_lPassive['atk'] + buff_value)
+
+        -- 방어력 상승
+        elseif (buff_type == 'def_up') then
+            self.m_lPassive['def'] = (self.m_lPassive['def'] + buff_value)
+        
+        -- 공격력 하락
+        elseif (buff_type == 'atk_down') then
+            self.m_lPassive['atk'] = (self.m_lPassive['atk'] - buff_value)
+
+        else
+            error('buff_type : ' .. buff_type)
+        end
+    end
+end
+
 
 -------------------------------------
 -- function getCombatPower
