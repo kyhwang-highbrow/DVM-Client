@@ -3287,10 +3287,10 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 102; 88; 71; };
+					stroke_color = { 69; 51; 63; };
 					has_shadow = true;
-					shadow_color = { 102; 88; 71; };
-					shadow_opacity = 255;
+					shadow_color = { 69; 51; 63; };
+					shadow_opacity = 180;
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};

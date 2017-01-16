@@ -16,8 +16,8 @@ endure,buff,인내,res/effect/effect_shield/effect_shield.spine,res/ui/icon/stat
 hit_the_mark,buff,적중,res/effect/effect_hit_the_mark/effect_hit_the_mark.vrp,res/ui/icon/status_effect/hit_rate_up.png,o,false,1,10,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,10,x,x,x,{duration}초 동안 적중률 {hit_rate}% 증가,x
 blessing,buff,축복,res/effect/effect_blessing/effect_blessing.vrp,res/ui/icon/status_effect/blessing.png,o,false,1,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,x,x,x,"{duration}초 동안 공격력, 방어력, 생명력 10%만큼 증가",x
 quickly,buff,회피,res/effect/effect_quickly/effect_quickly.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,20,0,0,0,0,0,10,20,0,0,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
-attr_strengthen,buff,속성 강화,res/effect/effect_attr_strengthen/effect_attr_strengthen.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,0,0,30,0,0,0,10,20,0,0,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
-attr_weaken,buff,속성 약화,res/effect/effect_attr_weaken/effect_attr_weaken.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,0,0,-30,0,0,0,10,20,0,0,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
+attr_strengthen,buff,속성 강화,res/effect/effect_attr_strengthen/effect_attr_strengthen.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,0,0,100,0,0,0,10,20,0,0,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
+attr_weaken,buff,속성 약화,res/effect/effect_attr_weaken/effect_attr_weaken.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,10,20,0,0,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
 def_up_overlab,buff,방어력 증가 오버랩,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,20,5,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 atk_up_overlab,buff,공격력 증가 오버랩,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,20,5,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,x,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
 def_up_psyker,buff,대양의 기운,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,1,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,def,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
@@ -48,6 +48,7 @@ bleed,dot_dmg,출혈,res/effect/effect_bleed/effect_bleed.vrp,res/ui/icon/status
 poison,dot_dmg,중독,res/effect/effect_poison/effect_poison.vrp,res/ui/icon/status_effect/poison.png,x,false,1,30,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,x,x,x,x,{duration}초 동안 {dot_interval}초마다 공격력의 {dot_dmg}%의 데미지를 줌.,"속성 영향 받지 않음.(트루뎀), 보스 1/10뎀,"
 burn,dot_dmg,화상,res/effect/effect_burn/effect_burn.vrp,res/ui/icon/status_effect/burn.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,3,0,10,0,0,0,x,x,x,x,"즉시 공격력의 {1}% 피해를 주고, {duration}초 동안 {dot_interval}초마다 공격력의 {dot_dmg}% 데미지를 줌.","속성 영향 받지 않음.(트루뎀), 보스 1/10뎀,"
 heal,dot_heal,회복,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,0,100,hp_target,0,0,0,x,x,x,x,x,x
+heal_abs,dot_heal,회복,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,0,100,hp_abs,0,0,0,x,x,x,x,x,x
 heal_per_atk,dot_heal,회복,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,0,100,atk,0,0,0,x,x,x,x,x,x
 heal_overlab,dot_heal,회복 오버랩,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,5,15,0,0,0,0,0,0,0,0,0,0,0,3,0,100,atk,0,0,0,x,x,x,x,x,x
 barrier_protection,barrier,보호막,res/effect/effect_protection/effect_protection.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성

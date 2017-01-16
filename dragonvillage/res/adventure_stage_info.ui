@@ -178,7 +178,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 2.000000;
+				y = 1.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -246,9 +246,9 @@
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 85; 67; 51; };
+				stroke_color = { 61; 50; 27; };
 				has_shadow = false;
-				shadow_color = { 85; 67; 51; };
+				shadow_color = { 61; 50; 27; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 3.000000;

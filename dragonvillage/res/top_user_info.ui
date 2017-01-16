@@ -24,8 +24,8 @@
 				visible = true;
 				lua_name = 'settingBtn';
 				enable = true;
-				normal = 'ui/temp/temp_setting_btn_0101.png';
-				selected = 'ui/temp/temp_setting_btn_0102.png';
+				normal = 'ui/btn/sub_setting_0101.png';
+				selected = 'ui/btn/sub_setting_0102.png';
 				disable = '';
 				image_type = 0;
 			};

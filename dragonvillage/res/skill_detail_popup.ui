@@ -154,10 +154,10 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 134; 50; 33; };
+					stroke_color = { 69; 51; 63; };
 					has_shadow = true;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 100;
+					shadow_color = { 69; 51; 63; };
+					shadow_opacity = 180;
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};

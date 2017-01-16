@@ -10,7 +10,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 162.000000;
+				y = 149.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -38,10 +38,10 @@
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 47; 38; 31; };
+				stroke_color = { 69; 51; 63; };
 				has_shadow = true;
-				shadow_color = { 0; 0; 0; };
-				shadow_opacity = 100;
+				shadow_color = { 69; 51; 63; };
+				shadow_opacity = 180;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
@@ -144,10 +144,10 @@
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 54; 118; 120; };
+				stroke_color = { 69; 51; 63; };
 				has_shadow = true;
-				shadow_color = { 0; 0; 0; };
-				shadow_opacity = 100;
+				shadow_color = { 69; 51; 63; };
+				shadow_opacity = 180;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
