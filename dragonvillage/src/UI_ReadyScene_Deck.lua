@@ -14,6 +14,7 @@ UI_ReadyScene_Deck = class({
         --
         m_lSettedDragonCard = 'list',
         m_currFormation = '',
+        m_radioButtonFormation = '',
     })
 
 -------------------------------------
@@ -22,8 +23,8 @@ UI_ReadyScene_Deck = class({
 function UI_ReadyScene_Deck:init(ui_ready_scene)
     self.m_uiReadyScene = ui_ready_scene
 
-    self:init_deck()
     self:init_button()
+    self:init_deck()
 end
 
 -------------------------------------
@@ -40,10 +41,12 @@ function UI_ReadyScene_Deck:init_button()
     end
 
     -- 진형 선택 버튼
-    vars['aFomationBtn']:registerScriptTapHandler(function() self:setFormation('attack') end)
-    vars['bFomationBtn']:registerScriptTapHandler(function() self:setFormation('balance') end)
-    vars['cFomationBtn']:registerScriptTapHandler(function() self:setFormation('defence') end)
-    vars['dFomationBtn']:registerScriptTapHandler(function() self:setFormation('protect') end)
+    local radio_button = UIC_RadioButton()
+    self.m_radioButtonFormation = radio_button
+    radio_button:addButton('attack', vars['aFomationBtn'], vars['aFomationUseSprite'], function() self:setFormation('attack') end)
+    radio_button:addButton('balance', vars['bFomationBtn'], vars['bFomationUseSprite'], function() self:setFormation('balance') end)
+    radio_button:addButton('defence', vars['cFomationBtn'], vars['cFomationUseSprite'], function() self:setFormation('defence') end)
+    radio_button:addButton('protect', vars['dFomationBtn'], vars['dFomationUseSprite'], function() self:setFormation('protect') end)
 end
 
 -------------------------------------
@@ -186,6 +189,8 @@ function UI_ReadyScene_Deck:init_deck()
     self:refreshFocusDeckSlot()
 
     self:setFormation(formation)
+
+    self.m_radioButtonFormation:setSelectedButton(formation)
 end
 
 -------------------------------------
