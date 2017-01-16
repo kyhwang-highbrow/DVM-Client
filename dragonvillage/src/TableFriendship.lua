@@ -21,3 +21,45 @@ function TableFriendship:isMaxFriendshipLevel(flv)
     local t_friendship = self:get(flv)
     return (t_friendship['req_exp'] == 0)
 end
+
+-------------------------------------
+-- function getFriendshipLvAndExpInfo
+-- @brief 
+-------------------------------------
+function TableFriendship:getFriendshipLvAndExpInfo(t_dragon_data)
+    if (self == TableFriendship) then
+        self = TableFriendship()
+    end
+
+    local flv = (t_dragon_data['flv'] or 1)
+    local exp = (t_dragon_data['fexp'] or 0)
+
+    local t_table = self:get(flv)
+    local req_exp = t_table['req_exp']
+    local percentage
+    local percentage_str
+    local is_max
+
+    -- MAX ëąę¸
+    if (not req_exp) or (req_exp == 0) then
+        percentage = 100
+        is_max = true
+        percentage_str = 'MAX'
+    else
+        percentage = (exp / req_exp) * 100
+        percentage = math_clamp(percentage, 0, 100)
+        is_max = false
+        percentage_str = Str('{1} %', percentage)
+    end
+    percentage = math_floor(percentage)
+
+    local t_friendship_info = {}
+    t_friendship_info['name'] = Str(t_table['t_name'])
+    t_friendship_info['percentage'] = percentage
+    t_friendship_info['percentage_str'] = percentage_str
+    t_friendship_info['exp'] = exp
+    t_friendship_info['req_exp'] = req_exp
+    t_friendship_info['is_max'] = is_max
+
+    return t_friendship_info
+end

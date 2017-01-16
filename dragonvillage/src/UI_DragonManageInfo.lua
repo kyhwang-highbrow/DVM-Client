@@ -261,8 +261,9 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
 
     -- 친밀도
     if vars['friendshipLabel'] then
-        vars['friendshipLabel']:setString(Str('무관심'))
-        vars['friendshipGauge']:setPercentage(0)
+        local t_friendship_info = TableFriendship:getFriendshipLvAndExpInfo(t_dragon_data)
+        vars['friendshipLabel']:setString(t_friendship_info['name'])
+        vars['friendshipGauge']:setPercentage(t_friendship_info['percentage'])
     end
 
     do -- 희귀도
