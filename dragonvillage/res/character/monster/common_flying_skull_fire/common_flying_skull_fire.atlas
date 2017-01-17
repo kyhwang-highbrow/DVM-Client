@@ -32,3 +32,10 @@ common_flying_skull_fire_effect_02
   orig: 94, 130
   offset: 0, 0
   index: -1
+common_flying_skull_fire_effect_03
+  rotate: false
+  xy: 451, 69
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1

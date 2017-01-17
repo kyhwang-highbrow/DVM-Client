@@ -31,15 +31,15 @@
 		};
 		[2] =
 		{
-			type = 'Sprite';
+			type = 'Scale9Sprite';
 			ui_name = '';
 			x = 0.000000;
-			y = 0.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
+			y = -38.000000;
+			dock_point = { 0.000000; 0.500000; };
+			anchor_point = { 0.000000; 0.500000; };
 			relative_size_type = 0;
-			width = 1280;
-			height = 720;
+			width = 641;
+			height = 652;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -47,15 +47,40 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'ui/frame/sell_frame.png';
+			file_name = 'ui/frame/frame_upgrade_02.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
-			flip_x = false;
-			flip_y = false;
-			src_blend = 770;
-			dest_blend = 771;
+			center_rect_x = 0;
+			center_rect_y = 0;
+			center_rect_width = 0;
+			center_rect_height = 0;
 		};
 		[3] =
+		{
+			type = 'Visual';
+			ui_name = '';
+			x = 363.000000;
+			y = 68.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 100;
+			height = 100;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'lacreaVisual';
+			file_name = 'ui/a2d/dragon_lacrea/dragon_lacrea.a2d';
+			auto_play = true;
+			is_repeat = true;
+			visual_id = 'group;lecrea_idle';
+			color = { 255; 255; 255; };
+			opacity = 255;
+		};
+		[4] =
 		{
 			[1] =
 			{
@@ -925,7 +950,7 @@
 			visible = true;
 			lua_name = '';
 		};
-		[4] =
+		[5] =
 		{
 			[1] =
 			{
@@ -1035,17 +1060,17 @@
 				dimension_width = 300;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
-				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
-				shadow_opacity = 255;
+				stroke_tickness = 2.000000;
+				stroke_color = { 61; 50; 27; };
+				has_shadow = true;
+				shadow_color = { 61; 50; 27; };
+				shadow_opacity = 180;
 				shadow_direction = 0;
-				shadow_distance = 5.000000;
+				shadow_distance = 3.000000;
 			};
 			[4] =
 			{
@@ -1075,15 +1100,15 @@
 				dimension_width = 300;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
-				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
-				shadow_opacity = 255;
+				stroke_tickness = 2.000000;
+				stroke_color = { 61; 50; 27; };
+				has_shadow = true;
+				shadow_color = { 61; 50; 27; };
+				shadow_opacity = 180;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
@@ -1091,12 +1116,12 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 15.000000;
-				y = -185.000000;
+				x = 8.000000;
+				y = -188.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 509;
+				width = 499;
 				height = 86;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -1110,8 +1135,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -259.000000;
-				y = -197.000000;
+				x = -110.000000;
+				y = -131.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1129,7 +1154,7 @@
 				text = '{0} / 30';
 				h_alignment = 0;
 				v_alignment = 1;
-				color = { 74; 55; 39; };
+				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 126;
 				dimension_height = 32;
@@ -1181,17 +1206,17 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 89; 28; 19; };
+					stroke_color = { 61; 50; 27; };
 					has_shadow = true;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 120;
+					shadow_color = { 61; 50; 27; };
+					shadow_opacity = 180;
 					shadow_direction = 0;
-					shadow_distance = 2.000000;
+					shadow_distance = 3.000000;
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -19.000000;
-				y = -275.000000;
+				x = -6.000000;
+				y = -277.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1238,8 +1263,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -259.000000;
-				y = -174.000000;
+				x = -193.000000;
+				y = -131.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1257,7 +1282,7 @@
 				text = '선택 드래곤';
 				h_alignment = 0;
 				v_alignment = 1;
-				color = { 74; 55; 39; };
+				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 126;
 				dimension_height = 32;
@@ -1276,7 +1301,7 @@
 			};
 			type = 'Menu';
 			ui_name = '';
-			x = 320.000000;
+			x = 324.000000;
 			y = -38.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };

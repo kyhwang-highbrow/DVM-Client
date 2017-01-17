@@ -5,7 +5,8 @@
 		[
 			{
 				"idx":1,
-				"res":"res/missile/missile_dot/missile_dot_@.png",
+				"res":"res/missile/missile_heart/missile_heart.vrp",
+				"visual":"idle1",
 				"body":[0,0,0],
 				"count":1,
 				"scale":2,
@@ -15,12 +16,14 @@
 				"offset":[0,0],
 				"dir_array":[300],
 				"dir_add":0,
+				"no_rotate":true,
 				
 				"add_script":
 				[
 					{
 						"idx":1,
-						"res":"res/missile/missile_dot/missile_dot_@.png",
+						"res":"res/missile/missile_heart/missile_heart.vrp",
+						"visual":"idle1",
 						"body":[0,0,0],
 						"count":1,
 						"scale":2,
@@ -35,12 +38,14 @@
 						"offset":[0,0],
 						"dir_array":[180],
 						"dir_add":0,
+						"no_rotate":true,
 						
 						"add_script":
 						[
 							{
 								"idx":1,
-								"res":"res/missile/missile_dot/missile_dot_@.png",
+								"res":"res/missile/missile_heart/missile_heart.vrp",
+								"visual":"idle3",
 								"body":[0,0,10],
 								"count":2,
 								"scale":1,
@@ -55,6 +60,7 @@
 								"dir_add":0,
 								"movement":"guid",
 								"delete_time":5,
+								"no_rotate":true,
 								
 								"effect":
 								{
