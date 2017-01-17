@@ -48,7 +48,7 @@ function TriggerTime:checkTrigger(time)
     self.m_currIdx = self.m_currIdx + 1
 
     do -- 변경된 패턴을 패턴 리스트에 추가
-        local idx = self.m_owner.m_currPatternIdx
+        local idx = 1
 
         for i, v in ipairs(t_data['pattern']) do
             local pattern_info = {
@@ -58,5 +58,13 @@ function TriggerTime:checkTrigger(time)
 
             table.insert(self.m_owner.m_tCurrPattern, idx + i, pattern_info)
         end
+    end
+
+    if PRINT_BOSS_PATTERN then 
+        cclog('##############################################################')
+        cclog('## checkTrigger() Time ' .. t_data['time'] .. ' 패턴 발동!')
+        cclog('##############################################################')
+
+        cclog('현재 패턴 정보 : ' .. luadump(self.m_owner.m_tCurrPattern))
     end
 end

@@ -48,7 +48,6 @@ function TriggerHpPercent:checkTrigger(hp_percent)
     self.m_currIdx = self.m_currIdx + 1
 
     do -- 변경된 패턴 지정
-        self.m_owner.m_currPatternIdx = 0
         self.m_owner.m_tOrgPattern = {}
         
         -- 원본 패턴 리스트(반복을 위한) 변경

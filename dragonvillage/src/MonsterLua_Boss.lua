@@ -8,7 +8,6 @@ MonsterLua_Boss = class(PARENT, {
 
         m_tOrgPattern = 'table',    -- 반복되어서 수행될 패턴 리스트
         m_tCurrPattern = 'table',
-        m_currPatternIdx = 'number',
         m_patternWaitTime = 'number',
         
         m_patternAtkIdx = 'number',
@@ -44,8 +43,7 @@ function MonsterLua_Boss:initScript(pattern_script_name, is_boss)
     
     self.m_tOrgPattern = self:getBasePatternList()
     self.m_tCurrPattern = clone(self.m_tOrgPattern)
-    self.m_currPatternIdx = 0
-
+    
     -- HP 트리거 생성
     if script['hp_trriger'] then
         self.m_triggerHpPercent = TriggerHpPercent(self, clone(script['hp_trriger']))
@@ -234,10 +232,7 @@ end
 function MonsterLua_Boss:getNextPattern()
     local pattern_cnt = #self.m_tCurrPattern
 
-    self.m_currPatternIdx = self.m_currPatternIdx + 1
-    if (pattern_cnt < self.m_currPatternIdx) then
-        self.m_currPatternIdx = 1
-
+    if (pattern_cnt == 0) then
         if (not self.m_triggerHpPercent) then
             -- 다시 랜덤
             self.m_tOrgPattern = self:getBasePatternList()
@@ -246,7 +241,7 @@ function MonsterLua_Boss:getNextPattern()
         self.m_tCurrPattern = clone(self.m_tOrgPattern)
     end
 
-    local pattern_info = self.m_tCurrPattern[self.m_currPatternIdx]
+    local pattern_info = table.remove(self.m_tCurrPattern, 1)
     return pattern_info['pattern']
 end
 
