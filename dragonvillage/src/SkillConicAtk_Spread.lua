@@ -79,7 +79,7 @@ function SkillConicAtk_Spread:spreadStatusEffect(target_char, status_effect_type
 			effect1.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
 				
 			-- 4. 같은 상태효과를 적용 시킨다.
-			local l_status_effect_str = {'burn;target;30;100;100'}
+			local l_status_effect_str = {'burn;target;hit;30;100;100'}
 			StatusEffectHelper:doStatusEffectByStr(self.m_owner, l_target, l_status_effect_str)
 		end)
 				

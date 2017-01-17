@@ -109,13 +109,28 @@ end
 -- function makeEffect
 -------------------------------------
 function SkillHeartOfRuin:makeEffect()
-    -- 연출 이펙트 생성
-    local effect = AnimatorVrp(self.m_resFileName)
-    effect:changeAni('front', false)
-    effect:addAniHandler(function() effect:runAction(cc.RemoveSelf:create()) end)
-    effect:setPosition(self.m_owner.pos.x + self.m_attackPosOffsetX, self.m_owner.pos.y + self.m_attackPosOffsetY)
+    local world = self.m_owner.m_world
+    -- 연출 배경 생성
+    do
+        local effect = AnimatorVrp('res/effect/effect_scene_effect_01/effect_scene_effect_01.vrp')
+        effect:changeAni('idle', false)
+        effect:addAniHandler(function() effect:runAction(cc.RemoveSelf:create()) end)
+        world.m_bgNode:addChild(effect.m_node)
+
+        local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
+        effect:setPosition(cameraHomePosX + (CRITERIA_RESOLUTION_X / 2), cameraHomePosY)
+        effect:setScale(0.6)
+    end
     
-    self.m_owner.m_world.m_worldNode:addChild(effect.m_node, 3)
+    -- 연출 이펙트 생성
+    do
+        local effect = AnimatorVrp(self.m_resFileName)
+        effect:changeAni('front', false)
+        effect:addAniHandler(function() effect:runAction(cc.RemoveSelf:create()) end)
+        effect:setPosition(self.m_owner.pos.x + self.m_attackPosOffsetX, self.m_owner.pos.y + self.m_attackPosOffsetY)
+    
+        world.m_worldNode:addChild(effect.m_node, 3)
+    end
 end
 
 -------------------------------------
