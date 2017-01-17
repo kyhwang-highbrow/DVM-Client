@@ -258,6 +258,7 @@ local t_module = {
 	'SkillAddAttack',
 	'SkillCounterAttack',
 	'SkillSpiderWeb',
+    'SkillHeartOfRuin',
 	'SkillBurst',
 	'SkillFieldCheck',
 	'SkillVoltesX',

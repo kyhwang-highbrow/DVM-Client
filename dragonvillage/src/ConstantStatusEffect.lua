@@ -6,16 +6,16 @@
 -- #    wave_start: 웨이브 시작 시 발동
 
 -- #    skill_action: 스킬 사용시 발동
-STATUS_EFFECT_CON__SKILL_START = 'skill_action'
+STATUS_EFFECT_CON__SKILL_START = ';skill_action;'
 -- #    skill_end: 스킬이 종료된 후 발동
-STATUS_EFFECT_CON__SKILL_END = 'skill_end'
+STATUS_EFFECT_CON__SKILL_END = ';skill_end;'
 
 -- #    hit: 자신의 공격이 적에게 적중 했을 때 발동
-STATUS_EFFECT_CON__SKILL_HIT = 'hit'
+STATUS_EFFECT_CON__SKILL_HIT = ';hit;'
 -- #    hit_cri: 자신의 공격이 치명타로 적중 했을 때 발동
-STATUS_EFFECT_CON__SKILL_HIT_CRI = 'hit_cri'
+STATUS_EFFECT_CON__SKILL_HIT_CRI = ';hit_cri;'
 -- #    slain: 자신의 공격으로 적 처치 시 발동
-STATUS_EFFECT_CON__SKILL_SLAIN = 'slain'
+STATUS_EFFECT_CON__SKILL_SLAIN = ';slain;'
 
 -- #    undergo_attack: 자신이 공격 당했을 때 발동
 -- #    dead: 자신이 죽을 경우 발동

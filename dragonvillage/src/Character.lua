@@ -1114,6 +1114,8 @@ end
 -- @brief m_rootNode의 위치로 클래스의 위치 동기화
 -------------------------------------
 function Character:syncAniAndPhys()
+    if (not self.m_rootNode) then return end
+
 	local x, y = self.m_rootNode:getPosition()
 	self:setPosition(x, y)
 end

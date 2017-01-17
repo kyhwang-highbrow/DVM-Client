@@ -237,6 +237,10 @@ function Character:doSkill(skill_id, x, y, t_data)
 		elseif (type == 'skill_summon') then
             return SkillSummon:makeSkillInstance(self, t_skill, t_data)
 
+        elseif (type == 'skill_heart_of_ruin') then
+            SkillHeartOfRuin:makeSkillInstance(self, t_skill, t_data)
+            return true
+
         end
     end
 
