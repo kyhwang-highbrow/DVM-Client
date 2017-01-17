@@ -106,7 +106,7 @@ function SkillAoESquareWidth:fireMissile()
         if (char.m_bLeftFormation) then
             for i, hero in ipairs(world:getDragonList()) do
                 if (not hero.m_bDead) then
-                    EffectMotionStreak(world, x, y, hero.pos.x, hero.pos.y, 'res/effect/motion_streak/motion_streak_fire.png')
+                    EffectMotionStreak(world, x, y, hero.pos.x, hero.pos.y, 'res/effect/motion_streak/motion_streak_emblem_tree.png')
                 end
             end
         end

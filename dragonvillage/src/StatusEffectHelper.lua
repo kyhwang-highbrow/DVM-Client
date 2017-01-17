@@ -36,9 +36,11 @@ end
 -- function doStatusEffectByStr
 -- @brief statuseffect 배열 사용함
 -------------------------------------
-function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect_str)
+function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect_str, cb_invoke)
    	-- 피격자가 사망했을 경우 리턴
     if (owner.m_bDead == true) then return end
+
+    local cb_invoke = cb_invoke or function() end
 	
 	-- 0. 캐스터의 acitivity_carrier 저장
 	self:setActivityCarrier(owner:makeAttackDamageInstance())
@@ -74,7 +76,9 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
 		
 		-- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
 		if (target_type == 'self') then 
-			StatusEffectHelper:invokeStatusEffect(owner, type, value_1, rate, duration)
+			if(StatusEffectHelper:invokeStatusEffect(owner, type, value_1, rate, duration)) then
+                cb_invoke(owner)
+            end
 
 		elseif (target_type == 'target') then
             -- 타겟 리스트가 없는 경우 상대진형 모두를 가져옴
@@ -83,12 +87,16 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
             end
 
 			for _, target in ipairs(t_target) do
-				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
+				if(StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
+                    cb_invoke(target)
+                end
 			end
 
-		elseif (target_type == 'ally') then 
+		elseif (target_type == 'ally' or target_type == 'ally_all') then 
 			for _, target in pairs(owner:getFellowList()) do
-				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
+				if(StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
+                    cb_invoke(target)
+                end
 			end
 
 		elseif (target_type == 'ally_low_hp') then 
@@ -98,7 +106,9 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
 			end)
 			local target = ally[1]
 			if target then
-				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
+				if(StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
+                    cb_invoke(target)
+                end
 			end
 
 		end
@@ -126,7 +136,7 @@ function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_
     if (math_random(1, 1000) > status_effect_rate * 10) then 
 		return nil
 	end
-
+    
     local table_status_effect = TABLE:get('status_effect')
     local t_status_effect = table_status_effect[status_effect_type]
 
@@ -204,6 +214,22 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 			local rand = math_random(1, #ally)
 			self:doStatusEffectByStr(char, {ally[rand]}, {t_skill['status_effect_1'], t_skill['status_effect_2']})
 		end
+
+    elseif (t_skill['sid'] == 220501) then
+        -- 번개고룡 패시브 : 번개의 권능
+        event_function = function(defender)
+            local defender = defender
+            local ally
+            if (char.m_bLeftFormation) then
+                ally = char.m_world:getDragonList()
+            else
+                ally = char.m_world:getEnemyList()
+            end
+
+            self:doStatusEffectByStr(char, ally, {t_skill['status_effect_1'], t_skill['status_effect_2']}, function(target)
+                EffectMotionStreak(target.m_world, defender.pos.x, defender.pos.y, target.pos.x, target.pos.y, 'res/effect/motion_streak/motion_streak_emblem_tree.png')
+            end)
+        end
 
 	elseif (status_effect_type == 'passive_spatter') then 
 		event_function = function()
