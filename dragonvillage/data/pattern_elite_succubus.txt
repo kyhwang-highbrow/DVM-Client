@@ -2,7 +2,13 @@
 	"pattern_elite_succubus":
 	[			
 		[
-			"a;basic", "w;3", "a;1", "w;9", "a;2", "w;9"
+			"m;RM24;300", "a;basic", "w;2",
+			"m;RF22;300", "a;basic", "w;2",
+			"m;RB23;300", "a;basic", "w;2",
+			"m;RF24;300", "a;1", "w;9",
+			"m;RB25;300", "a;basic", "w;2",
+			"m;RF26;300", "a;basic", "w;2",
+			"m;RM24;300", "a;2", "w;3"
 		]
     ],
 	
@@ -12,10 +18,10 @@
         "list":
         [
             {
-                "hp_percent":1,
+                "hp_percent":25,
                 "pattern":
                 [
-					"a;1"
+					"m;RF24;300", "a;1", "w;3", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2"
                 ]
             }
         ]

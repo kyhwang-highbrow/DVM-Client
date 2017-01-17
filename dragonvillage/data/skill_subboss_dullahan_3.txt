@@ -16,7 +16,7 @@
 				"accel":0,
 				"accel_delay":0,
 				"angular_velocity":0,
-				"offset":[-550,-700],
+				"offset":[-600,-700],
 				"dir_array":[270],
 				"dir_add":0
 				
@@ -38,6 +38,7 @@
 						"dir_array":[0],
 						"dir_add":0,
 						"map_shake_time":0.2,
+						
 						"add_script":
 						[
 							{
@@ -59,7 +60,7 @@
 							}
 						],
 						
-						"add_script_start":1,
+						"add_script_start":0.5,
 						"add_script_term":0,
 						"add_script_max":1,
 						"add_script_relative":true,
@@ -111,7 +112,7 @@
 				"accel":0,
 				"accel_delay":0,
 				"angular_velocity":0,
-				"offset":[-700,-700],
+				"offset":[-750,-700],
 				"dir_array":[270],
 				"dir_add":0
 				
@@ -206,7 +207,7 @@
 				"accel":0,
 				"accel_delay":0,
 				"angular_velocity":0,
-				"offset":[-850,-700],
+				"offset":[-900,-700],
 				"dir_array":[270],
 				"dir_add":0
 				
@@ -302,7 +303,7 @@
 				"accel":0,
 				"accel_delay":0,
 				"angular_velocity":0,
-				"offset":[-700,-2000],
+				"offset":[-750,-2000],
 				"dir_array":[270],
 				"dir_add":0
 				

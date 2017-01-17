@@ -1499,6 +1499,161 @@
 							}
 						]
 					}
+				},
+				{
+					"name":"skill_levelup_frame",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_lighting'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":18, "sX":2.000000, "sY":2.000000, "pY":-161.000000, "alpha":0
+									},
+									{
+										"frame":24, "pY":-161.000000
+									},
+									{
+										"frame":25, "sX":0.900000, "sY":0.900000, "pY":-161.000000
+									},
+									{
+										"frame":27, "pY":-161.000000
+									},
+									{
+										"frame":31, "pX":33.000000, "pY":-148.000000
+									},
+									{
+										"frame":33, "pX":32.000000, "pY":-95.000000
+									},
+									{
+										"frame":35, "pY":-78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'re_light'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":7.000000, "pY":-170.000000
+									},
+									{
+										"frame":29, "pX":7.000000, "pY":-170.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_material_frame'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.860000, "pX":-4.000000, "pY":-175.000000
+									},
+									{
+										"frame":15, "sX":0.860000, "pX":-4.000000, "pY":-175.000000
+									},
+									{
+										"frame":24, "sX":0.860000, "pX":-4.000000, "pY":-175.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'upgrade_line_fx_00.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":35, "sX":-0.200000, "sY":1.200000, "pX":1.000000, "pY":-77.000000, "mode":"Add"
+									},
+									{
+										"frame":37, "sX":0.800000, "sY":1.200000, "pX":1.000000, "pY":-77.000000, "mode":"Add"
+									},
+									{
+										"frame":59, "sX":0.800000, "sY":1.200000, "pX":1.000000, "pY":-77.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"skill_levelup_text",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'skill_levelup_text_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":3, "sX":1.300000
+									},
+									{
+										"frame":6, "sY":1.300000
+									},
+									{
+										"frame":9, "sX":1.200000
+									},
+									{
+										"frame":12, "sY":1.200000
+									},
+									{
+										"frame":15, "sX":1.100000
+									},
+									{
+										"frame":18, "sY":1.100000
+									},
+									{
+										"frame":21
+									},
+									{
+										"frame":90
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_upgrade.plist'<azSprite>'skill_levelup_text_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":40, "alpha":0
+									},
+									{
+										"frame":50
+									},
+									{
+										"frame":70, "alpha":0
+									}
+								]
+							}
+						]
+					}
 				}
 			]
 		}

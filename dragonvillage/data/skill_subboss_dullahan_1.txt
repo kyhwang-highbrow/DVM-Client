@@ -60,7 +60,7 @@
 							}
 						],
 						
-						"add_script_start":1,
+						"add_script_start":0.5,
 						"add_script_term":0,
 						"add_script_max":1,
 						"add_script_relative":true,
