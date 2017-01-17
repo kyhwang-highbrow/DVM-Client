@@ -225,6 +225,12 @@ end
 -- @brief 감정 이펙트 연출
 -------------------------------------
 function LobbyCharacter:showEmotionEffect()
+
+    -- 향후 다른 용도로 사용 예정 2017-01-17 Seong-goo Kim
+    if true then
+        return
+    end
+
     local animator = MakeAnimator('res/ui/a2d/emotion/emotion.vrp')
 
     do -- 에니메이션 지정
