@@ -578,11 +578,15 @@ function LobbyMap:updateLobbyObjectArea()
     -- 유저 테이머의 위치
     local user_x, user_y = self.m_targetTamer.m_rootNode:getPosition()
 
+    local reaction_distance = 600 / 2
+    local opacity_reaction_distance_min = 300 / 2
+    local opacity_reaction_distance_max = 550 / 2
+
     for i,v in ipairs(self.m_lLobbyObject) do
         local x, y = v.root:getPosition()
         local distance = math_abs(user_x - x)
 
-        if (distance <= 600) then
+        if (distance <= reaction_distance) then
             if (not self.m_lNearLobbyObjectList[v.m_type]) then
                 v:setActive(true)
             end
@@ -595,9 +599,9 @@ function LobbyMap:updateLobbyObjectArea()
         end
         
 
-        if (distance <= 600) then
-            local min = 300
-            local max = 550
+        if (distance <= reaction_distance) then
+            local min = opacity_reaction_distance_min
+            local max = opacity_reaction_distance_max
             distance = math_clamp(distance, min, max)
             local n = (distance - min)
             local range = (max-min)
