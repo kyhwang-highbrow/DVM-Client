@@ -15,6 +15,7 @@ UI_CharacterCard = class(PARENT, {
         m_starIconRes = 'string',
         m_charFrameRes = 'string',
         m_charLevelNumber = 'number',
+        m_attrSynastry = 'Animator', -- 속성 상성 이펙트
     })
 
 -------------------------------------
@@ -390,6 +391,39 @@ function UI_CharacterCard:setSkillSpriteVisible(visible)
         self.vars['skillSprite'] = sprite
     end
 end
+
+-------------------------------------
+-- function setAttrSynastry
+-- @brief 속성 상속 아이콘
+-- @param type "advantage", "disadvantage", nil
+-------------------------------------
+function UI_CharacterCard:setAttrSynastry(attr_synastry)
+    local animator = self.vars['attrSynastry']
+    
+    if (not animator) then
+        animator = MakeAnimator('res/ui/a2d/character_card/character_card.vrp')
+        animator:setDockPoint(CENTER_POINT)
+        animator:setAnchorPoint(CENTER_POINT)
+        animator:setPosition(-15, 46)
+        self.vars['clickBtn']:addChild(animator.m_node, 15)
+        self.vars['attrSynastry'] = animator
+    end
+
+    if (attr_synastry == 0) then
+        animator:setVisible(false)
+    else
+        animator:setVisible(true)
+
+        if (attr_synastry == 1) then
+            animator:changeAni('attr_up', true)
+
+        elseif (attr_synastry == -1) then
+            animator:changeAni('attr_down', true)
+        end
+    end
+end
+
+
 
 function UI_DragonCard(t_dragon_data)
     local ui = UI_CharacterCard(t_dragon_data)

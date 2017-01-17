@@ -5,6 +5,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -------------------------------------
 UI_ReadyScene = class(PARENT,{
         m_stageID = 'number',
+        m_stageAttr = 'attr',
         m_tableViewExt = 'TableViewExtension',
 
         -- UI_ReadyScene_Deck 관련 변수
@@ -33,6 +34,7 @@ end
 -------------------------------------
 function UI_ReadyScene:init_MemberVariable(stage_id)
     self.m_stageID = stage_id
+    self.m_stageAttr = TableDrop():getValue(stage_id, 'attr')
 end
 
 -------------------------------------
@@ -177,6 +179,11 @@ function UI_ReadyScene:init_dragonTableView()
         end
 
         ui.vars['clickBtn']:registerScriptTapHandler(function() click_dragon_item() end)
+
+        -- 상성
+        local dragon_attr = TableDragon():getValue(data['did'], 'attr')
+        local stage_attr = self.m_stageAttr
+        ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
     end
 
     -- 테이블뷰 생성

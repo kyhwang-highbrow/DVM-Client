@@ -255,6 +255,11 @@ function UI_ReadyScene_Deck:makeSettedDragonCard(t_dragon_data, idx)
 
     -- 장착된 드래곤
     self:refresh_dragonCard(t_dragon_data['id'])
+
+    -- 상성
+    local dragon_attr = TableDragon():getValue(t_dragon_data['did'], 'attr')
+    local stage_attr = self.m_uiReadyScene.m_stageAttr
+    ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
 end
 
 -------------------------------------
