@@ -194,6 +194,7 @@ function GameState.update_fight(self, dt)
         if (enemy_count <= 0) then
             -- 스킬 다 날려 버리자
             world:cleanupSkill()
+            world:removeHeroDebuffs()
 		    
 		    if world.m_waveMgr:isFinalWave() == false then
 		        self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
@@ -217,6 +218,7 @@ function GameState.update_fight(self, dt)
             if not bExistBoss then
                 -- 스킬 다 날려 버리자
 		        world:cleanupSkill()
+                world:removeHeroDebuffs()
 
                 -- 모든 적들을 죽임
                 world:killAllEnemy()

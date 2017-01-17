@@ -537,6 +537,22 @@ function StatusEffectHelper:releaseHarmfulStatusEffect(char)
 end
 
 -------------------------------------
+-- function releaseStatusEffectDebuff
+-- @brief 모든 debuff 상태효과 해제
+-------------------------------------
+function StatusEffectHelper:releaseStatusEffectDebuff(char)
+	-- 피격자가 사망했을 경우 리턴
+    if (char.m_bDead == true) then return end
+
+	-- 해제
+	for type, status_effect in pairs(char:getStatusEffectList()) do
+        if isExistValue(status_effect.m_type, 'debuff', 'cc', 'dot_dmg') then 
+		    status_effect:changeState('end')
+        end
+	end
+end
+
+-------------------------------------
 -- function releaseStatusEffectAll
 -- @brief 모든 상태효과 해제
 -------------------------------------

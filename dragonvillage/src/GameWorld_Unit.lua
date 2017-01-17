@@ -158,3 +158,14 @@ function GameWorld:tryPatternMonster(t_monster, body)
     
     return monster
 end
+
+-------------------------------------
+-- function removeHeroDebuffs
+-------------------------------------
+function GameWorld:removeHeroDebuffs()
+    for i, hero in ipairs(self:getDragonList()) do
+        if (not hero.m_bDead) then
+            StatusEffectHelper:releaseStatusEffectDebuff(hero)
+        end
+    end
+end
