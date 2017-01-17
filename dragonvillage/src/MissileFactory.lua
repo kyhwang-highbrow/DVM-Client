@@ -326,6 +326,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         if rotate_time then
             missile.m_tRotateTime = clone(rotate_time)
         end
+		missile.m_bNoRotate = no_rotate
 		missile.m_fadeoutTime = fadeout_time
 		missile.m_collisionCheckTime = collision_check_time
 		missile.m_mapShakeTime = map_shake_time

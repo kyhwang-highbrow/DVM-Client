@@ -59,6 +59,7 @@ Missile = class(PARENT, {
 
         m_angularVelocity = 'number',   -- 초당 n도씩 회전
         m_tAngularVelocity = 'table',   -- 특정 시간마다 초당 회전각 변경
+		m_bNoRotate = 'boolean',		-- 미사일 리소스 회전 여부
 
         m_passSpeed = 'number',         -- 관통형 미사일이 충돌되었을 때 0.08초간 멈추기 직전의 이동 속도
         -------------------------------------------------------
@@ -111,6 +112,7 @@ function Missile:init(file_name, body, ...)
     self.m_tRotateTime = nil
     self.m_angularVelocity = nil
     self.m_tAngularVelocity = nil
+	self.m_bNoRotate = nil
     -------------------------------------------------------
 
     -- 드래곤빌리지에서 추가
@@ -450,7 +452,9 @@ function Missile:updateMissileOption(dt)
         if self.m_tRotateTime[1][1] <= self.m_stateTimer then
             local dir = self.movement_theta + self.m_tRotateTime[1][2]
             self:setDir(dir)
-            self:setRotation(dir)
+			if (not self.m_bNoRotate) then 
+				self:setRotation(dir)
+			end
             table.remove(self.m_tRotateTime, 1)
         end
     end
@@ -468,7 +472,9 @@ function Missile:updateMissileOption(dt)
         local dir = self.movement_theta + (self.m_angularVelocity * dt)
         local dir = getAdjustDegree(dir)
         self:setDir(dir)
-        self:setRotation(dir)
+		if (not self.m_bNoRotate) then 
+			self:setRotation(dir)
+		end
     end
 
     -- 바디 사이즈의 간격으로 잔상 생성, 잔상은 3개 정도 보이도록 유지
