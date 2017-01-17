@@ -6,7 +6,7 @@
 			{
 				"idx":1,
 				"res":"",
-				"body":[0,0,600],
+				"body":[0,0,400],
                 "count":1,
                 "scale":5,
                 "period":0,
@@ -15,11 +15,12 @@
 				"h_limit_speed":2000,
 				"accel_delay":0,
 				"angular_velocity":0,
-				"offset":[-650,0],
+				"offset":[-200,0],
                 "dir_array":[90],
                 "dir_add":0,
 				"missile_type":"pass",
 				"delete_time":1,
+				"map_shake_time":0.5,
 				
                 "effect":
                 {
@@ -41,7 +42,7 @@
 				"h_limit_speed":0,
 				"accel_delay":0,
 				"angular_velocity":0,
-				"offset":[-400,0],
+				"offset":[-200,0],
                 "dir_array":[-110],
 				"fadeout_time":4,
 				"res_depth":"bottom",

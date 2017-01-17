@@ -1,5 +1,5 @@
 {
-	"skill_elite_chandelier_0":
+	"skill_missile_lumiere_0":
 	{
 		"attack_value":
 		[		
@@ -25,6 +25,7 @@
                     "rotation":false,
                     "afterimage":false
                 }
+				
 			}
 		]
 	}

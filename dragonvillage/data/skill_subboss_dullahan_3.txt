@@ -5,13 +5,13 @@
 		[
 			{
 				"idx":1,
-				"res":"res/effect/skill_laser/skill_laser_dark.spine",
-				"visual":"bar_appear",
+				"res":"res/effect/effect_pillar_dark/effect_pillar_dark.vrp",
+				"visual":"appear",
 				"body":[0,0,0],
 				"count":1,
-				"scale":2,
+				"scale":1,
 				"period":1.5,
-				"time":0.5,
+				"time":0,
 				"speed":0,
 				"accel":0,
 				"accel_delay":0,
@@ -24,11 +24,11 @@
 				[
 					{
 						"idx":1,
-						"res":"res/effect/skill_laser/skill_laser_dark.spine",
-						"visual":"bar_idle",
+						"res":"res/effect/effect_pillar_dark/effect_pillar_dark.vrp",
+						"visual":"idle",
 						"body":[0,0,0],
 						"count":1,
-						"scale":2,
+						"scale":1,
 						"period":0,
 						"speed":0,
 						"accel":0,
@@ -38,13 +38,38 @@
 						"dir_array":[0],
 						"dir_add":0,
 						"map_shake_time":0.2,
-						"delete_time":0.5
+						"add_script":
+						[
+							{
+								"idx":1,
+								"res":"res/effect/effect_pillar_dark/effect_pillar_dark.vrp",
+								"visual":"disappear",
+								"body":[0,0,0],
+								"count":1,
+								"scale":1,
+								"period":0,
+								"speed":0,
+								"accel":0,
+								"accel_delay":0,
+								"angular_velocity":0,
+								"offset":[0,0],
+								"dir_array":[0],
+								"dir_add":0,
+								"fadeout_time":0.3
+							}
+						],
+						
+						"add_script_start":1,
+						"add_script_term":0,
+						"add_script_max":1,
+						"add_script_relative":true,
+						"add_script_dead":true
 					},
 					
 					{
 						"idx":1,
 						"res":"",
-						"body":[0,0,60],
+						"body":[0,0,100],
 						"count":1,
 						"scale":2,
 						"period":0,
@@ -75,13 +100,13 @@
 			
 			{
 				"idx":1,
-				"res":"res/effect/skill_laser/skill_laser_dark.spine",
-				"visual":"bar_appear",
+				"res":"res/effect/effect_pillar_dark/effect_pillar_dark.vrp",
+				"visual":"appear",
 				"body":[0,0,0],
 				"count":1,
-				"scale":2,
-				"period":0.9,
-				"time":0,
+				"scale":1,
+				"period":1.5,
+				"time":0.5,
 				"speed":0,
 				"accel":0,
 				"accel_delay":0,
@@ -94,11 +119,11 @@
 				[
 					{
 						"idx":1,
-						"res":"res/effect/skill_laser/skill_laser_dark.spine",
-						"visual":"bar_idle",
+						"res":"res/effect/effect_pillar_dark/effect_pillar_dark.vrp",
+						"visual":"idle",
 						"body":[0,0,0],
 						"count":1,
-						"scale":2,
+						"scale":1,
 						"period":0,
 						"speed":0,
 						"accel":0,
@@ -108,13 +133,38 @@
 						"dir_array":[0],
 						"dir_add":0,
 						"map_shake_time":0.2,
-						"delete_time":0.5
+						"add_script":
+						[
+							{
+								"idx":1,
+								"res":"res/effect/effect_pillar_dark/effect_pillar_dark.vrp",
+								"visual":"disappear",
+								"body":[0,0,0],
+								"count":1,
+								"scale":1,
+								"period":0,
+								"speed":0,
+								"accel":0,
+								"accel_delay":0,
+								"angular_velocity":0,
+								"offset":[0,0],
+								"dir_array":[0],
+								"dir_add":0,
+								"fadeout_time":0.3
+							}
+						],
+						
+						"add_script_start":1,
+						"add_script_term":0,
+						"add_script_max":1,
+						"add_script_relative":true,
+						"add_script_dead":true
 					},
 					
 					{
 						"idx":1,
 						"res":"",
-						"body":[0,0,60],
+						"body":[0,0,100],
 						"count":1,
 						"scale":2,
 						"period":0,
@@ -145,12 +195,12 @@
 			
 			{
 				"idx":1,
-				"res":"res/effect/skill_laser/skill_laser_dark.spine",
-				"visual":"bar_appear",
+				"res":"res/effect/effect_pillar_dark/effect_pillar_dark.vrp",
+				"visual":"appear",
 				"body":[0,0,0],
 				"count":1,
-				"scale":2,
-				"period":1.2,
+				"scale":1,
+				"period":1.5,
 				"time":1,
 				"speed":0,
 				"accel":0,
@@ -164,11 +214,11 @@
 				[
 					{
 						"idx":1,
-						"res":"res/effect/skill_laser/skill_laser_dark.spine",
-						"visual":"bar_idle",
+						"res":"res/effect/effect_pillar_dark/effect_pillar_dark.vrp",
+						"visual":"idle",
 						"body":[0,0,0],
 						"count":1,
-						"scale":2,
+						"scale":1,
 						"period":0,
 						"speed":0,
 						"accel":0,
@@ -178,13 +228,39 @@
 						"dir_array":[0],
 						"dir_add":0,
 						"map_shake_time":0.2,
-						"delete_time":0.5
+						
+						"add_script":
+						[
+							{
+								"idx":1,
+								"res":"res/effect/effect_pillar_dark/effect_pillar_dark.vrp",
+								"visual":"disappear",
+								"body":[0,0,0],
+								"count":1,
+								"scale":1,
+								"period":0,
+								"speed":0,
+								"accel":0,
+								"accel_delay":0,
+								"angular_velocity":0,
+								"offset":[0,0],
+								"dir_array":[0],
+								"dir_add":0,
+								"fadeout_time":0.3
+							}
+						],
+						
+						"add_script_start":1,
+						"add_script_term":0,
+						"add_script_max":1,
+						"add_script_relative":true,
+						"add_script_dead":true
 					},
 					
 					{
 						"idx":1,
 						"res":"",
-						"body":[0,0,60],
+						"body":[0,0,100],
 						"count":1,
 						"scale":2,
 						"period":0,
@@ -215,18 +291,18 @@
 			
 			{
 				"idx":1,
-				"res":"res/effect/skill_laser/skill_laser_dark.spine",
-				"visual":"bar_appear",
+				"res":"res/effect/effect_pillar_dark/effect_pillar_dark.vrp",
+				"visual":"appear",
 				"body":[0,0,0],
 				"count":1,
-				"scale":9,
+				"scale":3,
 				"period":0,
 				"time":2.5,
 				"speed":0,
 				"accel":0,
 				"accel_delay":0,
 				"angular_velocity":0,
-				"offset":[-700,-700],
+				"offset":[-700,-2000],
 				"dir_array":[270],
 				"dir_add":0
 				
@@ -234,11 +310,11 @@
 				[
 					{
 						"idx":1,
-						"res":"res/effect/skill_laser/skill_laser_dark.spine",
-						"visual":"bar_idle",
+						"res":"res/effect/effect_pillar_dark/effect_pillar_dark.vrp",
+						"visual":"idle",
 						"body":[0,0,0],
 						"count":1,
-						"scale":9,
+						"scale":3,
 						"period":0,
 						"speed":0,
 						"accel":0,
@@ -248,7 +324,33 @@
 						"dir_array":[0],
 						"dir_add":0,
 						"map_shake_time":2,
-						"delete_time":2
+						
+						"add_script":
+						[
+							{
+								"idx":1,
+								"res":"res/effect/effect_pillar_dark/effect_pillar_dark.vrp",
+								"visual":"disappear",
+								"body":[0,0,0],
+								"count":1,
+								"scale":3,
+								"period":0,
+								"speed":0,
+								"accel":0,
+								"accel_delay":0,
+								"angular_velocity":0,
+								"offset":[0,0],
+								"dir_array":[0],
+								"dir_add":0,
+								"fadeout_time":0.3
+							}
+						],
+						
+						"add_script_start":2,
+						"add_script_term":0,
+						"add_script_max":1,
+						"add_script_relative":true,
+						"add_script_dead":true
 					},
 					
 					{
@@ -262,7 +364,7 @@
 						"accel":0,
 						"accel_delay":0,
 						"angular_velocity":0,
-						"offset":[0,700],
+						"offset":[0,2000],
 						"dir_array":[0],
 						"dir_add":0,
 						"missile_type":"pass",
