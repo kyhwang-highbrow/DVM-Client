@@ -220,16 +220,18 @@ function StatusCalculator:getCombatPower()
 
     -- 능력치별 전투력 계수를 곱해서 전투력 합산
     for stat_name,t_status in pairs(self.m_lStatusList) do
+        
+        if (not isExistValue(stat_name, 'dmg_adj_rate', 'attr_adj_rate')) then
+            -- 모든 연산이 끝난 후의 능력치 얻어옴 (패시브로 실시간 적용되는 부분은 제외)
+            local final_stat = t_status['final']
 
-        -- 모든 연산이 끝난 후의 능력치 얻어옴 (패시브로 실시간 적용되는 부분은 제외)
-        local final_stat = t_status['final']
+            -- 능력치별 계수(coef)를 얻어옴
+            local coef = table_status:getValue(stat_name, 'combat_power_coef') or 0
 
-        -- 능력치별 계수(coef)를 얻어옴
-        local coef = table_status:getValue(stat_name, 'combat_power_coef') or 0
-
-        -- 능력치별 전투력 계산
-        local combat_power = (final_stat * coef)
-        total_combat_power = (total_combat_power + combat_power)
+            -- 능력치별 전투력 계산
+            local combat_power = (final_stat * coef)
+            total_combat_power = (total_combat_power + combat_power)
+        end
     end
 
     return math_floor(total_combat_power)

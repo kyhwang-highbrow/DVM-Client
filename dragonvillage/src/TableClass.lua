@@ -129,3 +129,27 @@ function TableClass:getRandomRow()
         idx = (idx + 1)
     end
 end
+
+-------------------------------------
+-- function getCommaSeparatedValues
+-------------------------------------
+function TableClass:getCommaSeparatedValues(primary, column)
+    local t_table = self:get(primary)
+
+    if (not t_table) then
+        return nil
+    end
+
+    local str = t_table[column]
+
+    if (str == nil) or (str == '') then
+        return {}
+    end
+
+    local l_values = seperate(str, ',')
+    if (not l_values) then
+        return {str}
+    end
+
+    return l_values
+end

@@ -277,12 +277,10 @@ end
 -------------------------------------
 function UI_ReadyScene:click_autoBtn()
     local stage_id = self.m_stageID
+    local formation = self.m_readySceneDeck.m_currFormation
     local l_dragon_list = g_dragonsData:getDragonsList()
 
-    local helper = DragonAutoSetHelper()
-    helper:setStageID(stage_id)
-    helper:setDragonList(l_dragon_list)
-
+    local helper = DragonAutoSetHelper(stage_id, formation, l_dragon_list)
     local l_auto_deck = helper:getAutoDeck()
     l_auto_deck = UI_ReadyScene_Deck:convertSimpleDeck(l_auto_deck)
 

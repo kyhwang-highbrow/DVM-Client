@@ -44,3 +44,10 @@ function UIC_LabelTTF:enableShadow(color, shadow_offset, blurRadius)
 
     return self.m_node:enableShadow(color, shadow_offset, blurRadius)
 end
+
+-------------------------------------
+-- function setAlignment
+-------------------------------------
+function UIC_LabelTTF:setAlignment(text_alignment_h, text_alignment_v)
+    return self.m_node:setAlignment(text_alignment_h, text_alignment_v)
+end

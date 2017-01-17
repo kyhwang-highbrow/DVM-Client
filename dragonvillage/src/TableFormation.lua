@@ -128,3 +128,19 @@ function TableFormation:getBuffList(formation, slot_idx)
 
     return l_buff
 end
+
+-------------------------------------
+-- function getLocationInfo
+-------------------------------------
+function TableFormation:getLocationInfo(formation)
+    if (self == TableFormation) then
+        self = TableFormation()
+    end
+
+    local t_ret = {}
+    t_ret['front'] = self:getCommaSeparatedValues(formation, 'front')
+    t_ret['middle'] = self:getCommaSeparatedValues(formation, 'middle')
+    t_ret['rear'] = self:getCommaSeparatedValues(formation, 'rear')
+    
+    return t_ret
+end
