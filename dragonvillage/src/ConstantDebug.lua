@@ -24,3 +24,6 @@ DISPLAY_DEBUG_INFO = false
 
 -- # 플레이어 무적
 PLAYER_DRAGON_INVINCIBLE = false
+
+-- # 보스가 특정 패턴만 실행하게 한다. false or 숫자
+TEST_PATTERN = false

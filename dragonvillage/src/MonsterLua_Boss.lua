@@ -282,12 +282,18 @@ end
 function MonsterLua_Boss:doPattern(pattern)
     local l_str = seperate(pattern, ';')
 
-    local type = l_str[1]
+    local pattern_type = l_str[1]
     local value_1 = l_str[2]
     local value_2 = l_str[3]
+	
+	-- 특정 공격 패턴만 반복하여 테스트
+	if (type(TEST_PATTERN) == 'number') then
+		pattern_type = 'a'
+		value_1 = TEST_PATTERN
+	end
 
     -- 공격 명령
-    if (type == 'a') then
+    if (pattern_type == 'a') then
         self.m_patternAtkIdx = value_1
 
         -- 에니메이션 변경
@@ -310,7 +316,7 @@ function MonsterLua_Boss:doPattern(pattern)
         --cclog('MonsterLua_Boss:doPattern pattern = ' .. pattern)
 
     -- 이동 명령
-    elseif (type == 'm') then
+    elseif (pattern_type == 'm') then
         local speed = 300
         if value_2 then
             speed = tonumber(value_2)
@@ -327,7 +333,7 @@ function MonsterLua_Boss:doPattern(pattern)
         end
 
     -- 대기 명령
-    elseif (type == 'w') then
+    elseif (pattern_type == 'w') then
         local wait_time = nil
         if value_1 then
             wait_time = tonumber(value_1)
@@ -342,7 +348,7 @@ function MonsterLua_Boss:doPattern(pattern)
     end
 
 	if PRINT_BOSS_PATTERN then 
-		self:printBossPattern(pattern, type, value_1)
+		self:printBossPattern(pattern, pattern_type, value_1)
 	end
 end
 
