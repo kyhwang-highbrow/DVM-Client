@@ -50,7 +50,7 @@ function ShakeManager:doShakeUpDown(duration, level)
 	local level = level or 1
 	local duration = duration or 0.5
 
-	self.m_shakeLayer:stopAllActions()
+	self:stopShake()
 
 	local shake_action = cc.RepeatForever:create(cc.Sequence:create(
 		cc.MoveTo:create( 0.1, cc.p(0, -level) ),
@@ -60,14 +60,36 @@ function ShakeManager:doShakeUpDown(duration, level)
 	local time_action = cc.Sequence:create(
 		cc.DelayTime:create(duration),
 		cc.CallFunc:create(function()
-			self.m_shakeLayer:stopAllActions()
+			self:stopShake()
 			self.m_shakeLayer:setRotation(0)
 		end)
 	)
 
 	self.m_shakeLayer:runAction(shake_action)
 	self.m_shakeLayer:runAction(time_action)
+end
 
+-------------------------------------
+-- function doShakeGrowling
+-- @param duration 지속시간
+-- @param level_low  강도
+-------------------------------------
+function ShakeManager:doShakeGrowling(duration, level_low, level_high, repeat_time)
+	local duration = duration or 0.2
+	local repeat_time = repeat_time or 4
+
+	-- Stop Shake
+	self:stopShake()
+	
+	-- 고 중 저 순으로 쉐이크
+	local sequence_action = cc.Sequence:create(
+		self:getStandardShake(duration, level_high, repeat_time*2), 
+		self:getStandardShake(duration, (level_low + level_high)/2, repeat_time), 
+		self:getStandardShake(duration, level_low, repeat_time*2)
+	)
+
+	-- Run Shake
+	self.m_shakeLayer:runAction(sequence_action)
 end
 
 -------------------------------------
@@ -104,4 +126,21 @@ function ShakeManager:doShakeForScript()
 	local random1 = math_random(SHAKE_CUSTOM_MIN_POS, SHAKE_CUSTOM_MAX_POS)
 	local random2 = math_random(SHAKE_CUSTOM_MIN_POS, SHAKE_CUSTOM_MAX_POS)
 	self:doShake(random1, random2, SHAKE_CUSTOM_DURATION, true)
+end
+
+-------------------------------------
+-- function getStandardShake
+-- @brief 표준 쉐이크를 반환
+-------------------------------------
+function ShakeManager:getStandardShake(duration, level, repeat_time)
+	local interval = 0.2
+	local rand_x = math_random(level-10, level)
+	local rand_y = math_random(level-10, level)
+
+	local sequence_action = cc.Sequence:create(
+		cc.EaseIn:create(cc.MoveTo:create(duration, cc.p(rand_x, rand_y)), interval), 
+		cc.EaseOut:create(cc.MoveTo:create(duration, cc.p(-rand_x, -rand_y)), interval)
+	)
+
+	return cc.Repeat:create(sequence_action, repeat_time)
 end

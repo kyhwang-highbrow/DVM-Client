@@ -58,9 +58,10 @@ function SkillHeartOfRuin.st_idle(owner, dt)
             STATUS_EFFECT_CON__SKILL_HIT_CRI
         }, {})
 
+        local world = owner.m_world
+
         -- 배경 연출
         if owner.m_statusEffectType then
-            local world = owner.m_world
             local level = 1
             local list = owner.m_owner:getStatusEffectList()
             local statusEffect = list[owner.m_statusEffectType]
@@ -75,6 +76,7 @@ function SkillHeartOfRuin.st_idle(owner, dt)
             world.m_mapManager.m_node:stopAllActions()
                 world.m_mapManager:setDirecting('nightmare_shaky' .. level)
         end
+		world.m_shakeMgr:doShakeGrowling(0.05, 10, 35)
 
         owner.m_animator:addAniHandler(function()
 			owner:changeState('dying')
