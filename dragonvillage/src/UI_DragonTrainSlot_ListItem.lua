@@ -55,6 +55,9 @@ function UI_DragonTrainSlot_ListItem:refresh()
         icon:setDockPoint(cc.p(0.5, 0.5))
         vars['gradeSealNode']:addChild(icon)
         vars['gradeSealIcon'] = icon
+
+        local is_opened = (self.m_grade <= t_dragon_data['grade'])
+        icon:setVisible(is_opened)
     end
 
     -- 가격 표시
@@ -189,10 +192,6 @@ function UI_DragonTrainSlot_ListItem:listExpand(duration)
     cca.runAction(vars['right_stick_02'], cc.EaseInOut:create(move_to, 2), true)
     cca.runAction(vars['right_stick_02'], cc.EaseInOut:create(fade_to, 2))
 
-    -- 등급 인장(seal)
-    local fade_to = cc.FadeTo:create(duration, 255)
-    cca.runAction(vars['gradeSealIcon'], cc.EaseInOut:create(fade_to, 2), true)
-
     do
         vars['collapseTitleLabelA']:setVisible(false)
         vars['collapseTitleLabelB']:setVisible(false)
@@ -241,10 +240,6 @@ function UI_DragonTrainSlot_ListItem:listCollapse(duration)
     local fade_to = cc.FadeTo:create(duration, 255)
     cca.runAction(vars['right_stick_02'], cc.EaseInOut:create(move_to, 2), true)
     cca.runAction(vars['right_stick_02'], cc.EaseInOut:create(fade_to, 2))
-
-    -- 등급 인장(seal)
-    local fade_to = cc.FadeTo:create(duration, 0)
-    cca.runAction(vars['gradeSealIcon'], cc.EaseInOut:create(fade_to, 2), true)
 
     do
         vars['expandMenuA']:setVisible(false)
