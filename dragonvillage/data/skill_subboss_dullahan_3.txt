@@ -37,6 +37,7 @@
 						"offset":[0,0],
 						"dir_array":[0],
 						"dir_add":0,
+						"map_shake_time":0.2,
 						"delete_time":0.5
 					},
 					
@@ -106,6 +107,7 @@
 						"offset":[0,0],
 						"dir_array":[0],
 						"dir_add":0,
+						"map_shake_time":0.2,
 						"delete_time":0.5
 					},
 					
@@ -175,6 +177,7 @@
 						"offset":[0,0],
 						"dir_array":[0],
 						"dir_add":0,
+						"map_shake_time":0.2,
 						"delete_time":0.5
 					},
 					
@@ -244,6 +247,7 @@
 						"offset":[0,0],
 						"dir_array":[0],
 						"dir_add":0,
+						"map_shake_time":2,
 						"delete_time":2
 					},
 					

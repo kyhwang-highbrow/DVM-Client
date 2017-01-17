@@ -4,7 +4,7 @@
         "name": "Galaxy S5 - 16:9 (1280x720)",
         "width": 1280,
         "height": 720,
-        "scale": 0.8,
+        "scale": 1,
         "useIdeDebug": false,
         "useDebugConsole": true,
         "isLandscape": true,

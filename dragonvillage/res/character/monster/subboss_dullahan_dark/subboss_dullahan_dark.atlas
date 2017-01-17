@@ -172,6 +172,13 @@ subboss_dullahan_dark_effect_08
   orig: 346, 333
   offset: 0, 0
   index: -1
+subboss_dullahan_dark_effect_09
+  rotate: false
+  xy: 1043, 373
+  size: 19, 39
+  orig: 19, 39
+  offset: 0, 0
+  index: -1
 subboss_dullahan_dark_foot_01
   rotate: false
   xy: 367, 101

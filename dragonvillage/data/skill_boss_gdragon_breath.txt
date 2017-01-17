@@ -34,12 +34,12 @@
 			
 			{
 				"idx":1,
-				"res":"res/effect/effect_screen/effect_screen_fire.vrp",
+				"res":"res/effect/effect_screen/effect_screen_@.vrp",
 				"visual":"idle",
 				"body":[0,0,0],
                 "count":1,
                 "period":0,
-                "scale":3,
+                "scale":30,
 				"time":0.1,
 				"speed":0,
 				"offset":[-400,-200],

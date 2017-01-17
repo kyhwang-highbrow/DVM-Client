@@ -4,7 +4,7 @@
 	"wave":
 	[
         {
-            "idx":4,
+            "idx":5,
 			"camera":
             {
                 "scale":0.8,
@@ -55,7 +55,7 @@
 		},
 		
 		{
-			"idx":1,
+			"idx":4,
 			"camera":
             {
                 "scale":0.8,
@@ -72,10 +72,10 @@
 		},
 		
 		{
-			"idx":5,
+			"idx":1,
 			"camera":
             {
-                "scale":0.8,
+                "scale":0.6,
                 "pos_x":0,
                 "pos_y":0
             },

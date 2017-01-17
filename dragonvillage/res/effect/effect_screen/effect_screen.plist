@@ -17,10 +17,49 @@
                 <key>sourceSize</key>
                 <string>{128,160}</string>
             </dict>
-            <key>effect_screen_fire_01.png</key>
+            <key>effect_screen_earth_01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{132,2},{128,160}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{128,160}}</string>
+                <key>sourceSize</key>
+                <string>{128,160}</string>
+            </dict>
+            <key>effect_screen_fire_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{262,2},{128,160}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{128,160}}</string>
+                <key>sourceSize</key>
+                <string>{128,160}</string>
+            </dict>
+            <key>effect_screen_light_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{392,2},{128,160}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{128,160}}</string>
+                <key>sourceSize</key>
+                <string>{128,160}</string>
+            </dict>
+            <key>effect_screen_water_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{522,2},{128,160}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -38,9 +77,9 @@
             <key>realTextureFileName</key>
             <string>effect_screen.png</string>
             <key>size</key>
-            <string>{262,164}</string>
+            <string>{652,164}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:cbd2235a71cb6eb95494056dffdfbd85:beb320ee1f46e5c3ba31333a78a0b9ca:23e85d459961dc247594b31baebd28b0$</string>
+            <string>$TexturePacker:SmartUpdate:3560387042f0254e36338c47de75a412:1e2a648031cd5954f0128704eadd5f94:23e85d459961dc247594b31baebd28b0$</string>
             <key>textureFileName</key>
             <string>effect_screen.png</string>
         </dict>

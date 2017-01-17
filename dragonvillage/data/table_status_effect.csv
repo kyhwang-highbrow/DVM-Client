@@ -16,24 +16,25 @@ endure,buff,인내,res/effect/effect_shield/effect_shield.spine,res/ui/icon/stat
 hit_the_mark,buff,적중,res/effect/effect_hit_the_mark/effect_hit_the_mark.vrp,res/ui/icon/status_effect/hit_rate_up.png,o,false,1,10,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,10,x,x,x,{duration}초 동안 적중률 {hit_rate}% 증가,x
 blessing,buff,축복,res/effect/effect_blessing/effect_blessing.vrp,res/ui/icon/status_effect/blessing.png,o,false,1,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,x,x,x,"{duration}초 동안 공격력, 방어력, 생명력 10%만큼 증가",x
 quickly,buff,회피,res/effect/effect_quickly/effect_quickly.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,20,0,0,0,0,0,10,20,0,0,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
-attr_strengthen,buff,속성 강화,res/effect/effect_attr_strengthen/effect_attr_strengthen.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,0,0,100,0,0,0,10,20,0,0,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
-attr_weaken,buff,속성 약화,res/effect/effect_attr_weaken/effect_attr_weaken.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,10,20,0,0,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
+attr_strengthen,buff,속성 강화,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,0,0,100,0,0,0,10,20,0,0,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
+attr_weaken,buff,속성 약화,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,10,20,0,0,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
 def_up_overlab,buff,방어력 증가 오버랩,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,20,5,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 atk_up_overlab,buff,공격력 증가 오버랩,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,20,5,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,x,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
 def_up_psyker,buff,대양의 기운,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,1,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,def,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 def_up_fairy,buff,튼튼,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,3,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,def,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
+darknix,buff,파멸의 고동,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,99,999,20,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,20,10,x,x,공격력 {1}% 증가. 치명 확률 {2}% 증가,
 tamer_atk_up,buff,공격력 증가,res/effect/effect_tamer_combat/effect_tamer_combat.vrp,res/ui/icon/status_effect/atk_up.png,x,false,1,15,100,0,0,0,0,0,0,0,0,0,0,0,0,0,15,100,0,0,15,100,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
 tamer_def_up,buff,방어력 증가,res/effect/effect_tamer_defense/effect_tamer_defense.vrp,res/ui/icon/status_effect/def_up.png,x,false,1,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 tamer_heal,dot_heal,회복,res/effect/effect_tamer_heal/effect_tamer_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,0,100,hp_target,0,0,0,x,x,x,x,x,x
-atk_down,debuff,공격력 감소,res/effect/effect_combat_down/effect_combat_down.vrp,res/ui/icon/status_effect/atk_down.png,x,false,1,20,-20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,x,x,x,{1}초 동안 {2}만큼 공격력 감소,정수x퍼센트 (곱연산)
-aspd_down,debuff,공격 속도 감소,res/effect/effect_combat_down/effect_combat_down.vrp,res/ui/icon/status_effect/aspd_down.png,x,false,1,20,0,0,0,-20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,x,x,{1}초 동안 {2}만큼 공격 속도 감소,퍼센트+퍼센트 (합연산)
-cri_chance_down,debuff,치명 확률 감소,res/effect/effect_combat_down/effect_combat_down.vrp,res/ui/icon/status_effect/cri_chance_down.png,x,false,1,20,0,0,0,0,-20,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,{1}초 동안 {2}만큼 치명 확률 감소,퍼센트+퍼센트 (합연산)
-def_down,debuff,방어력 감소,res/effect/effect_defense_down/effect_defense_down.vrp,res/ui/icon/status_effect/def_down.png,x,false,1,20,0,-20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,{1}초 동안 {2}만큼 방어력 감소,정수x퍼센트 (곱연산)
-hp_down,debuff,생명력 감소,res/effect/effect_defense_down/effect_defense_down.vrp,res/ui/icon/status_effect/hp_down.png,x,false,1,20,0,0,-20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,{1}초 동안 {2}만큼 생명력 감소,정수x퍼센트 (곱연산)
-cri_avoid_down,debuff,치명 방어율 감소,res/effect/effect_defense_down/effect_defense_down.vrp,res/ui/icon/status_effect/cri_avoid_down.png,x,false,1,20,0,0,0,0,0,0,-20,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,{1}초 동안 {2}만큼 치명 방어 감소,퍼센트+퍼센트 (합연산)
-avoid_down,debuff,회피율 감소,res/effect/effect_tactics_down/effect_tactics_down.vrp,res/ui/icon/status_effect/avoid_down.png,x,false,1,20,0,0,0,0,0,0,0,0,-20,0,0,0,0,0,0,0,0,0,x,x,x,x,{1}초 동안 {2}만큼 회피 감소,퍼센트+퍼센트 (합연산)
-hit_rate_down,debuff,적중률 감소,res/effect/effect_tactics_down/effect_tactics_down.vrp,res/ui/icon/status_effect/hit_rate_down.png,x,false,1,20,0,0,0,0,0,0,0,-20,0,0,0,0,0,0,0,0,0,0,x,x,x,x,{1}초 동안 {2}만큼 적중 감소,퍼센트+퍼센트 (합연산)
-cri_dmg_down,debuff,치명 피해 감소,res/effect/effect_tactics_down/effect_tactics_down.vrp,res/ui/icon/status_effect/cri_chance_down.png,x,false,1,20,0,0,0,0,0,-20,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,{1}초 동안 {2}만큼 치명 피해 감소,퍼센트+퍼센트 (합연산)
+atk_down,debuff,공격력 감소,res/effect/effect_combat_down/effect_combat_down.vrp,res/ui/icon/status_effect/atk_down.png,x,false,1,20,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,x,x,x,{1}초 동안 {2}만큼 공격력 감소,정수x퍼센트 (곱연산)
+aspd_down,debuff,공격 속도 감소,res/effect/effect_combat_down/effect_combat_down.vrp,res/ui/icon/status_effect/aspd_down.png,x,false,1,20,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,x,x,{1}초 동안 {2}만큼 공격 속도 감소,퍼센트+퍼센트 (합연산)
+cri_chance_down,debuff,치명 확률 감소,res/effect/effect_combat_down/effect_combat_down.vrp,res/ui/icon/status_effect/cri_chance_down.png,x,false,1,20,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,{1}초 동안 {2}만큼 치명 확률 감소,퍼센트+퍼센트 (합연산)
+def_down,debuff,방어력 감소,res/effect/effect_defense_down/effect_defense_down.vrp,res/ui/icon/status_effect/def_down.png,x,false,1,20,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,{1}초 동안 {2}만큼 방어력 감소,정수x퍼센트 (곱연산)
+hp_down,debuff,생명력 감소,res/effect/effect_defense_down/effect_defense_down.vrp,res/ui/icon/status_effect/hp_down.png,x,false,1,20,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,{1}초 동안 {2}만큼 생명력 감소,정수x퍼센트 (곱연산)
+cri_avoid_down,debuff,치명 방어율 감소,res/effect/effect_defense_down/effect_defense_down.vrp,res/ui/icon/status_effect/cri_avoid_down.png,x,false,1,20,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,{1}초 동안 {2}만큼 치명 방어 감소,퍼센트+퍼센트 (합연산)
+avoid_down,debuff,회피율 감소,res/effect/effect_tactics_down/effect_tactics_down.vrp,res/ui/icon/status_effect/avoid_down.png,x,false,1,20,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,x,x,x,x,{1}초 동안 {2}만큼 회피 감소,퍼센트+퍼센트 (합연산)
+hit_rate_down,debuff,적중률 감소,res/effect/effect_tactics_down/effect_tactics_down.vrp,res/ui/icon/status_effect/hit_rate_down.png,x,false,1,20,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,x,x,x,x,{1}초 동안 {2}만큼 적중 감소,퍼센트+퍼센트 (합연산)
+cri_dmg_down,debuff,치명 피해 감소,res/effect/effect_tactics_down/effect_tactics_down.vrp,res/ui/icon/status_effect/cri_chance_down.png,x,false,1,20,0,0,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,{1}초 동안 {2}만큼 치명 피해 감소,퍼센트+퍼센트 (합연산)
 plague,debuff,전염병,res/effect/effect_plague/effect_plague.vrp,x,o,false,1,20,-20,0,0,0,0,0,0,0,0,0,0,3,0,0,150,3,0,0,x,x,x,x,{duration}초 동안 공격력 {atk}% 감소. 매 {2}초 마다 전이,반경 {1}px 범위 안에 있는 대상에게 전이 됨
 curse,debuff,저주,res/effect/effect_curse/effect_curse.vrp,x,o,false,1,20,0,-5,0,0,0,0,0,0,0,0,0,1,0,0,5,50,0,0,x,x,x,x,{duration}초 동안 {def}%만큼 방어력 감소 매 {1}초 마다 {def}%만큼 감소량 증가 최대치는 {2},dot류 처럼 인터벌 있음
 blind,debuff,실명,res/effect/effect_blind/effect_blind.vrp,res/ui/icon/status_effect/blind.png,o,false,1,10,0,0,0,0,0,0,0,-100,0,0,0,1,0,0,10,100,1,10,x,x,x,x,{1}초 동안 {2}만큼 적중 감소 매 {3} 마다 {4}만큼 적중 회복,dot류 처럼 인터벌 있음
@@ -52,8 +53,8 @@ heal_abs,dot_heal,회복,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/stat
 heal_per_atk,dot_heal,회복,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,0,100,atk,0,0,0,x,x,x,x,x,x
 heal_overlab,dot_heal,회복 오버랩,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,5,15,0,0,0,0,0,0,0,0,0,0,0,3,0,100,atk,0,0,0,x,x,x,x,x,x
 barrier_protection,barrier,보호막,res/effect/effect_protection/effect_protection.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
-passive_spatter,passive,퐁당퐁당,x,x,x,false,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,200,3,,5,x,x,x,x,회피 시 반경 {1}px 범위 내 아군 {2}명의 체력을 퍼플립스 드래곤의 체력 {3}%만큼  회복.,(퍼플립스 4성 패시브)
-passive_recovery,passive,지속 치유,x,x,x,false,1,-1,0,0,0,0,0,0,0,0,0,0,0,1,0,100,hp_target,0,0,0,x,x,x,x,{1}초 마다 리티오 전체 생명력의 {dot_heal}% 만큼 아군 전체의 생명력을 회복.,(리티오 4성 패시브)
+passive_spatter,passive,퐁당퐁당,x,x,x,false,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,200,3,0,5,x,x,x,x,회피 시 반경 {1}px 범위 내 아군 {2}명의 체력을 퍼플립스 드래곤의 체력 {3}%만큼  회복.,(퍼플립스 4성 패시브)
+passive_recovery,passive,지속 치유,x,x,x,false,1,-1,0,0,0,0,0,0,0,0,0,0,0,10,0,100,hp_target,0,0,0,x,x,x,x,{1}초 마다 리티오 전체 생명력의 {dot_heal}% 만큼 아군 전체의 생명력을 회복.,(리티오 4성 패시브)
 passive_bloodlust,passive,피의 맛,x,x,x,false,5,20,20,0,0,20,0,0,0,0,0,0,0,0,0,0,20,0,0,0,x,x,x,x,"공격력, 공격속도 {1}% 증가",
 passive_atk_up,passive,공격력 증가,x,x,x,false,1,15,100,0,0,0,0,0,0,0,0,0,0,0,0,0,15,100,0,0,x,x,x,x,공격력 {1}증가,
 passive_aspd_up,passive,공격 속도 증가,x,x,x,false,1,15,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,x,
@@ -64,3 +65,4 @@ passive_cri_avoid_up,passive,치명 방어율 증가,x,x,x,false,1,15,0,0,0,0,0,
 passive_avoid_up,passive,회피율 증가,x,x,x,false,1,15,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,x,x,x,x,x,
 passive_hit_rate_up,passive,적중률 증가,x,x,x,false,1,15,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,x,x,x,x,x,
 passive_cri_dmg_up,passive,치명 피해 증가,x,x,x,false,1,15,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,x,
+passive_aspd_down,passive,공격 속도 감소,x,x,x,false,1,20,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,x,x,{1}초 동안 {2}만큼 공격 속도 감소,퍼센트+퍼센트 (합연산)

@@ -2200,7 +2200,7 @@
 			type = 'Visual';
 			ui_name = '';
 			x = -550.000000;
-			y = 373.000000;
+			y = 372.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -2229,7 +2229,7 @@
 			type = 'Visual';
 			ui_name = '';
 			x = -480.000000;
-			y = 373.000000;
+			y = 372.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -2258,7 +2258,7 @@
 			type = 'Visual';
 			ui_name = '';
 			x = -410.000000;
-			y = 373.000000;
+			y = 372.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
