@@ -77,14 +77,6 @@ function UI_DragonManageTrain:initButton()
     local vars = self.vars
 
     vars['lacteaButton']:registerScriptTapHandler(function() self:click_lacteaButton() end)
-
-    vars['expandBtn']:registerScriptTapHandler(function()
-            if self.m_trainSlotTableView then
-                local b_expanded = (not self.m_bExpanded)
-                self:setExpand(b_expanded)
-            end
-        end)
-    
 end
 
 -------------------------------------
@@ -180,7 +172,7 @@ function UI_DragonManageTrain:int_trainSlotTableView(t_dragon_data)
         -- 셀 아이템 생성 콜백
         local function create_func(ui, data)
             ui.root:setSwallowTouch(false)
-            ui.vars['clickBtn']:registerScriptTapHandler(function() self:setExpand(true) end)
+            ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_expandBtn() end)
             ui.vars['trainButtonA']:registerScriptTapHandler(function() self:click_trainButton(ui, data, 'a') end)
             ui.vars['rewardBtnA']:registerScriptTapHandler(function() self:click_trainButton(ui, data, 'a') end)
             ui.vars['trainButtonB']:registerScriptTapHandler(function() self:click_trainButton(ui, data, 'b') end)
@@ -231,6 +223,16 @@ function UI_DragonManageTrain:click_lacteaButton()
         self:sceneFadeInAction()
     end
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_expandBtn
+-------------------------------------
+function UI_DragonManageTrain:click_expandBtn()
+    if self.m_trainSlotTableView then
+        local b_expanded = (not self.m_bExpanded)
+        self:setExpand(b_expanded)
+    end
 end
 
 -------------------------------------
@@ -422,8 +424,6 @@ function UI_DragonManageTrain:setExpand(expand, duration)
     if (not expand) then
         table_view:relocateContainer(true)
     end
-
-    self.vars['expandLabel']:setString(expand and Str('접기') or Str('펼치기'))
 end
 
 --@CHECK
