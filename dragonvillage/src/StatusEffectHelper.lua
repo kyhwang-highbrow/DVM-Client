@@ -172,7 +172,9 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
     local res = t_status_effect['res']
 	if (res) then 
 		res = string.gsub(res, '@', char:getAttribute())
-	elseif (res == 'x') then 
+	end
+	-- nil 처리
+	if (res == 'x') then 
 		res = nil 
 	end
 
@@ -271,7 +273,9 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
     local res = t_status_effect['res']
 	if (res) then 
 		res = string.gsub(res, '@', char:getAttribute())
-	elseif (res == 'x') then 
+	end
+	-- nil 처리
+	if (res == 'x') then 
 		res = nil 
 	end
 
