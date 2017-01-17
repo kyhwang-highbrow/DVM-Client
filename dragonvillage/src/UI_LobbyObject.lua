@@ -14,11 +14,11 @@ UI_LobbyObject.SHIP = 4
 UI_LobbyObject.SHOP = 5
 
 t_object_pos = {}
-t_object_pos[UI_LobbyObject.ADVENTURE] = {x=-1665, y=64}
-t_object_pos[UI_LobbyObject.BOARD] = {x=694, y=94}
-t_object_pos[UI_LobbyObject.DRAGON_MANAGE] = {x=1704, y=71}
-t_object_pos[UI_LobbyObject.SHIP] = {x=-1210, y=92}
-t_object_pos[UI_LobbyObject.SHOP] = {x=1125, y=98}
+t_object_pos[UI_LobbyObject.ADVENTURE] = {x=-1679, y=40.5}
+t_object_pos[UI_LobbyObject.BOARD] = {x=652.5, y=96}
+t_object_pos[UI_LobbyObject.DRAGON_MANAGE] = {x=1784.5, y=54}
+t_object_pos[UI_LobbyObject.SHIP] = {x=-1212, y=93}
+t_object_pos[UI_LobbyObject.SHOP] = {x=1081.5, y=94}
 
 -------------------------------------
 -- function init
@@ -44,7 +44,7 @@ function UI_LobbyObject:init(type)
     vars['image']:setOpacity(0)
     self:positioning()
 
-    --self:makeKeypad(self.root)
+    self:makeKeypad(self.root)
     self.vars['labelNode']:setScale(0)
 end
 
