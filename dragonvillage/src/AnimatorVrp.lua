@@ -179,6 +179,9 @@ end
 function AnimatorVrp:setRepeat(loop)
     return self.m_node:setRepeat(loop)
 end
+function AnimatorVrp:setFrame(frame)
+    return self.m_node:setFrame(frame)
+end
 -------------------------------------
 -------------------------------------
 

@@ -4,6 +4,8 @@ local PARENT = Skill
 -- class SkillHeartOfRuin
 -------------------------------------
 SkillHeartOfRuin = class(PARENT, {
+        m_resFileName = 'string',
+        
         m_statusEffectType = 'string',  -- 중첩별 연출을 위해 참조될 스테이터스 이펙트 타입
 	})
 
@@ -13,6 +15,7 @@ SkillHeartOfRuin = class(PARENT, {
 -- @param body
 -------------------------------------
 function SkillHeartOfRuin:init(file_name, body, ...)
+    self.m_resFileName = file_name
 end
 
 -------------------------------------
@@ -21,7 +24,7 @@ end
 function SkillHeartOfRuin:init_skill()
 	PARENT.init_skill(self)
 
-    -- 멤버 변수
+    -- 위치 조정
     if (self.m_owner.m_bLeftFormation) then
         self.m_attackPosOffsetX = -100
     else
@@ -29,6 +32,7 @@ function SkillHeartOfRuin:init_skill()
     end
     self.m_attackPosOffsetY = 0
 
+    -- 스테이터스 이펙트 타입명 저장
     local statusEffectStr = self.m_lStatusEffectStr[1]
     if statusEffectStr then
         local t_effect = StatusEffectHelper:parsingStr(statusEffectStr)
@@ -36,7 +40,7 @@ function SkillHeartOfRuin:init_skill()
         self.m_statusEffectType = t_effect.type
     end
 
-    self:setPosition(self.m_owner.pos.x + self.m_attackPosOffsetX, self.m_owner.pos.y + self.m_attackPosOffsetY)
+    self:setPosition(self.m_owner.pos.x + self.m_attackPosOffsetX, self.m_owner.pos.y + self.m_attackPosOffsetY)    
 end
 
 -------------------------------------
@@ -44,7 +48,7 @@ end
 -------------------------------------
 function SkillHeartOfRuin:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillHeartOfRuin.st_idle, 'idle', false)
+    self:addState('start', SkillHeartOfRuin.st_idle, 'back', false)
 end
 
 -------------------------------------
@@ -52,6 +56,9 @@ end
 -------------------------------------
 function SkillHeartOfRuin.st_idle(owner, dt)
 	if (owner.m_stateTimer == 0) then
+        -- 연출 이펙트
+        owner:makeEffect()
+
         -- 버프 적용
         owner:doStatusEffect({
             STATUS_EFFECT_CON__SKILL_HIT,
@@ -74,7 +81,7 @@ function SkillHeartOfRuin.st_idle(owner, dt)
             end
 
             world.m_mapManager.m_node:stopAllActions()
-                world.m_mapManager:setDirecting('nightmare_shaky' .. level)
+            world.m_mapManager:setDirecting('darknix_shaky' .. level)
         end
 
 		-- shake 연출
@@ -96,6 +103,19 @@ function SkillHeartOfRuin.st_idle(owner, dt)
 			owner:changeState('dying')
 		end)
 	end
+end
+
+-------------------------------------
+-- function makeEffect
+-------------------------------------
+function SkillHeartOfRuin:makeEffect()
+    -- 연출 이펙트 생성
+    local effect = AnimatorVrp(self.m_resFileName)
+    effect:changeAni('front', false)
+    effect:addAniHandler(function() effect:runAction(cc.RemoveSelf:create()) end)
+    effect:setPosition(self.m_owner.pos.x + self.m_attackPosOffsetX, self.m_owner.pos.y + self.m_attackPosOffsetY)
+    
+    self.m_owner.m_world.m_worldNode:addChild(effect.m_node, 3)
 end
 
 -------------------------------------

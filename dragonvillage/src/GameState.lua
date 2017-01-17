@@ -596,6 +596,7 @@ function GameState.update_success_wait(self, dt)
 
     -- 스킬과 미사일도 다 날려 버리자
 	world:removeMissileAndSkill()
+    world:removeHeroDebuffs()
 
     if (b or self.m_stateTimer >= 4) then
         self:changeState(GAME_STATE_SUCCESS)

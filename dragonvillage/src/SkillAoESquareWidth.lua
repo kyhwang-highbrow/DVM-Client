@@ -96,7 +96,7 @@ function SkillAoESquareWidth:fireMissile()
 
     t_option['dir'] = self.m_missileDir
 	
-	t_option['scale'] = self.m_resScale
+	t_option['scale'] = tonumber(self.m_resScale)
     t_option['speed'] = 1400
 
     t_option['cbFunction'] = function(attacker, defender, x, y)
