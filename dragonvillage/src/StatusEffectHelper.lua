@@ -155,7 +155,7 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 	local status_effect_type = self:getStatusEffectTableFromSkillTable(t_skill, 1)['type']
     local t_status_effect = table_status_effect[status_effect_type] or {}
     
-    local res = t_status_effect['res']
+    local res = string.gsub(t_status_effect['res'], '@', char:getAttribute())
     if (res == 'x') then res = nil end
 
 	local status_effect = nil
@@ -226,7 +226,7 @@ end
 function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, status_effect_value, status_effect_rate, duration)
     local table_status_effect = TABLE:get('status_effect')
     local t_status_effect = table_status_effect[status_effect_type]
-    local res = t_status_effect['res']
+    local res = string.gsub(t_status_effect['res'], '@', char:getAttribute())
 	
     if (res == 'x') then
         res = nil
