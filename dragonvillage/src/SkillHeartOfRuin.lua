@@ -60,20 +60,20 @@ function SkillHeartOfRuin.st_idle(owner, dt)
 
         -- 배경 연출
         if owner.m_statusEffectType then
+            local world = owner.m_world
+            local level = 1
             local list = owner.m_owner:getStatusEffectList()
             local statusEffect = list[owner.m_statusEffectType]
+
             if statusEffect then
-                local world = owner.m_world
-                local level = 1
-                
-                if statusEffect.m_overlabCnt > 6 then       level = 5
-                elseif statusEffect.m_overlabCnt > 3 then   level = 3
+                if statusEffect.m_overlabCnt > 6 then       level = 3
+                elseif statusEffect.m_overlabCnt > 3 then   level = 2
                 else                                        level = 1
                 end
-
-                world.m_mapManager.m_node:stopAllActions()
-                world.m_mapManager:setDirecting('nightmare_ripple' .. level)
             end
+
+            world.m_mapManager.m_node:stopAllActions()
+                world.m_mapManager:setDirecting('nightmare_shaky' .. level)
         end
 
         owner.m_animator:addAniHandler(function()

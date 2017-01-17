@@ -80,7 +80,6 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
             -- 타겟 리스트가 없는 경우 상대진형 모두를 가져옴
             if (not t_target) then
                 error('doStatusEffectByStr no t_target')
-                --t_target = owner.m_world:getOpponentsCharList(owner.m_bLeftFormation)
             end
 
 			for _, target in ipairs(t_target) do
@@ -93,7 +92,7 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
 			end
 
 		elseif (target_type == 'ally_low_hp') then 
-			local ally = owner:getFellowList()
+            local ally = owner:getFellowList()
 			table.sort(ally, function(a, b)
 				return (a.m_hp/a.m_maxHp) < (b.m_hp/b.m_maxHp)
 			end)
