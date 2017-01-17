@@ -51,8 +51,8 @@ end
 function Monster_WorldOrderMachine:setAddPhysObject()
 	-- 추가 object 추가
 	local add_body = {0, 0, 50}
-	local phys_obj = self:addPhysObject(self, self:getAttackPhysGroup(), add_body, -220, -220, nil)
-	
+	local phys_obj = self:addPhysObject(self, PHYS.ENEMY, add_body, -220, -220, nil)
+    	
     -- 피격 처리
     phys_obj:addDefCallback(function(attacker, defender, i_x, i_y)
 		if (attacker.m_activityCarrier:getAttackType() == 'active') then 
