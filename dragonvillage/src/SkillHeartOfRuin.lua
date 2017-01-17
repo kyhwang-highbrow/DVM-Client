@@ -22,16 +22,21 @@ function SkillHeartOfRuin:init_skill()
 	PARENT.init_skill(self)
 
     -- 멤버 변수
+    if (self.m_owner.m_bLeftFormation) then
+        self.m_attackPosOffsetX = -100
+    else
+        self.m_attackPosOffsetX = 100
+    end
+    self.m_attackPosOffsetY = 0
+
     local statusEffectStr = self.m_lStatusEffectStr[1]
     if statusEffectStr then
         local t_effect = StatusEffectHelper:parsingStr(statusEffectStr)
         
         self.m_statusEffectType = t_effect.type
-
-        cclog('self.m_statusEffectType = ' .. self.m_statusEffectType)
     end
 
-    self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
+    self:setPosition(self.m_owner.pos.x + self.m_attackPosOffsetX, self.m_owner.pos.y + self.m_attackPosOffsetY)
 end
 
 -------------------------------------
@@ -61,15 +66,13 @@ function SkillHeartOfRuin.st_idle(owner, dt)
                 local world = owner.m_world
                 local level = 1
                 
-                if statusEffect.m_overlabCnt <= 3 then      level = 1
-                elseif statusEffect.m_overlabCnt <= 6 then  level = 2
-                else                                        level = 3
+                if statusEffect.m_overlabCnt > 6 then       level = 5
+                elseif statusEffect.m_overlabCnt > 3 then   level = 3
+                else                                        level = 1
                 end
 
-                cclog('level = ' .. level)
-
                 world.m_mapManager.m_node:stopAllActions()
-                world.m_mapManager:setDirecting('ripple' .. level)
+                world.m_mapManager:setDirecting('nightmare_ripple' .. level)
             end
         end
 
@@ -102,6 +105,6 @@ function SkillHeartOfRuin:makeSkillInstance(owner, t_skill, t_data)
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world
-    world.m_missiledNode:addChild(skill.m_rootNode, 0)
+    world.m_worldNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
 end

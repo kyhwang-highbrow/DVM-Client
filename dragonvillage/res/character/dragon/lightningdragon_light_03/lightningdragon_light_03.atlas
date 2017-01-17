@@ -1,118 +1,118 @@
 
 lightningdragon_light_03.png
-size: 1024,1024
+size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 lightningdragon_light_03_arm_01
   rotate: false
-  xy: 464, 404
-  size: 78, 74
-  orig: 78, 74
+  xy: 404, 507
+  size: 98, 93
+  orig: 98, 93
   offset: 0, 0
   index: -1
 lightningdragon_light_03_arm_02
   rotate: false
-  xy: 324, 207
-  size: 58, 99
-  orig: 58, 99
+  xy: 2, 2
+  size: 72, 124
+  orig: 72, 124
   offset: 0, 0
   index: -1
 lightningdragon_light_03_body_01
   rotate: false
-  xy: 646, 852
-  size: 149, 170
-  orig: 149, 170
+  xy: 806, 1333
+  size: 186, 213
+  orig: 186, 213
   offset: 0, 0
   index: -1
 lightningdragon_light_03_body_02
   rotate: false
-  xy: 646, 728
-  size: 137, 122
-  orig: 137, 122
+  xy: 806, 1178
+  size: 171, 153
+  orig: 171, 153
   offset: 0, 0
   index: -1
 lightningdragon_light_03_body_03
   rotate: false
-  xy: 545, 488
-  size: 88, 212
-  orig: 88, 212
+  xy: 404, 602
+  size: 110, 265
+  orig: 110, 265
   offset: 0, 0
   index: -1
 lightningdragon_light_03_effect_01_1
   rotate: false
-  xy: 2, 702
-  size: 320, 320
-  orig: 320, 320
+  xy: 2, 1146
+  size: 400, 400
+  orig: 400, 400
   offset: 0, 0
   index: -1
 lightningdragon_light_03_effect_01_2
   rotate: false
-  xy: 2, 380
-  size: 320, 320
-  orig: 320, 320
+  xy: 2, 744
+  size: 400, 400
+  orig: 400, 400
   offset: 0, 0
   index: -1
 lightningdragon_light_03_effect_01_3
   rotate: false
-  xy: 324, 702
-  size: 320, 320
-  orig: 320, 320
+  xy: 404, 1146
+  size: 400, 400
+  orig: 400, 400
   offset: 0, 0
   index: -1
 lightningdragon_light_03_effect_01_4
   rotate: false
-  xy: 2, 58
-  size: 320, 320
-  orig: 320, 320
+  xy: 2, 342
+  size: 400, 400
+  orig: 400, 400
   offset: 0, 0
   index: -1
 lightningdragon_light_03_foot_01
-  rotate: true
-  xy: 133, 11
-  size: 45, 112
-  orig: 45, 112
+  rotate: false
+  xy: 176, 200
+  size: 56, 140
+  orig: 56, 140
   offset: 0, 0
   index: -1
 lightningdragon_light_03_hand_01
-  rotate: true
-  xy: 2, 2
-  size: 54, 129
-  orig: 54, 129
+  rotate: false
+  xy: 994, 1385
+  size: 67, 161
+  orig: 67, 161
   offset: 0, 0
   index: -1
 lightningdragon_light_03_hand_02
   rotate: false
-  xy: 797, 895
-  size: 88, 127
-  orig: 88, 127
+  xy: 680, 985
+  size: 110, 159
+  orig: 110, 159
   offset: 0, 0
   index: -1
 lightningdragon_light_03_head_01
   rotate: false
-  xy: 324, 308
-  size: 138, 170
-  orig: 138, 170
+  xy: 2, 128
+  size: 172, 212
+  orig: 172, 212
   offset: 0, 0
   index: -1
 lightningdragon_light_03_head_02
   rotate: false
-  xy: 797, 857
-  size: 46, 36
-  orig: 46, 36
+  xy: 680, 938
+  size: 58, 45
+  orig: 58, 45
   offset: 0, 0
   index: -1
 lightningdragon_light_03_leg_01
   rotate: false
-  xy: 887, 935
-  size: 52, 87
-  orig: 52, 87
+  xy: 516, 758
+  size: 65, 109
+  orig: 65, 109
   offset: 0, 0
   index: -1
 lightningdragon_light_03_wing_01
   rotate: false
-  xy: 324, 480
-  size: 219, 220
-  orig: 219, 220
+  xy: 404, 869
+  size: 274, 275
+  orig: 274, 275
   offset: 0, 0
   index: -1

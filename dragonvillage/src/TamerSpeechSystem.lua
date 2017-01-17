@@ -69,10 +69,13 @@ function TamerSpeechSystem:showSpeech(msg, ani, loop, cbEnd)
     if loop == nil then loop = true end
 
     local ui = self.m_world.m_inGameUI
-    if self.m_bLockTamerTalkAni then return end
+    if (self.m_bLockTamerTalkAni) then return end
+
+    -- 이미 나왔던 대사일 경우 스킵
+    if (msg == self.m_speechLabel:getString()) then return end
 
     -- 대사
-    if msg then
+    if (msg) then
         self.m_speechNode:setVisible(false)
 
         ui.vars['tamerTalkVisual']:setColor(cc.c3b(255, 255, 255))
@@ -98,7 +101,7 @@ function TamerSpeechSystem:showSpeech(msg, ani, loop, cbEnd)
     local ani = ani or 'idle'
     self.m_tamerAnimator:changeAni(ani, loop, true)
 
-    if not loop then
+    if (not loop) then
         self.m_tamerAnimator:addAniHandler(function() self.m_tamerAnimator:changeAni('idle', true) end)
     end
 end
@@ -128,7 +131,7 @@ function TamerSpeechSystem:showSpeechNode(ani, loop, cbEnd)
 
         self.m_bLockTamerTalkAni = false
 
-        if cbEnd then cbEnd() end
+        if (cbEnd) then cbEnd() end
     end)
     self.m_speechLabel:setVisible(false)
 
@@ -138,7 +141,7 @@ function TamerSpeechSystem:showSpeechNode(ani, loop, cbEnd)
     local ani = ani or 'idle'
     self.m_tamerAnimator:changeAni(ani, loop, true)
 
-    if not loop then
+    if (not loop) then
         self.m_tamerAnimator:addAniHandler(function() self.m_tamerAnimator:changeAni('idle', true) end)
     end
 end

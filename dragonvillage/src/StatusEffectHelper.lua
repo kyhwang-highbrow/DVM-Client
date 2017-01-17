@@ -266,7 +266,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 		    local resist_rate = t_status_effect['dmg_adj_rate']
 		    status_effect:init_buff(char, nil, is_invincible, resist_rate)
         else
-            status_effect = StatusEffect(res)
+            status_effect = StatusEffect_Protection(res)
         end
 
 	----------- 특이한 해제 조건을 가진 것들 ------------------
