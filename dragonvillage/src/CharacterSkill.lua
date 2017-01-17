@@ -84,6 +84,9 @@ function Character:doSkill(skill_id, x, y, t_data)
 			if (type == 'skill_shield') then
 				SkillShield:makeSkillInstance(self, t_skill, t_data)
 				return true
+			elseif (type == 'passive_continuous') then
+				SkillContinuous:makeSkillInstance(self, t_skill, t_data)
+				return true
 			else
 				return StatusEffectHelper:invokePassive(self, t_skill)
 			end

@@ -2,6 +2,7 @@ local PARENT = StatusEffect
 
 -------------------------------------
 -- class StatusEffect_CheckWorld
+-- @brief 미사용, 단순 보관중
 -------------------------------------
 StatusEffect_CheckWorld = class(PARENT, {
 		m_statusEffectType = 'str',
@@ -38,5 +39,5 @@ function StatusEffect_CheckWorld:update(dt)
 		end
 	end
 
-    PARENT.update(self, dt)
+    return PARENT.update(self, dt)
 end

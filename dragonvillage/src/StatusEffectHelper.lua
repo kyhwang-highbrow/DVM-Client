@@ -240,12 +240,6 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 		string.find(status_effect_type, 'heal') then
         status_effect = StatusEffect_Heal(res)
 		status_effect:init_heal(char, t_status_effect, status_effect_value, duration)
-
-	----------- 필드 체크 필요한 패시브 ------------------
-	elseif (status_effect_type == 'passive_bloodlust') then
-        -- @TODO skim 제대로 동작되는지 확인 필요
-		status_effect = StatusEffect_CheckWorld(res)
-		status_effect:init_checkWorld(char, 'bleed')
 		
 	----------- 도트 데미지 들어가는 패시브 ------------------
 	elseif (t_status_effect['type'] == 'dot_dmg') then
@@ -367,23 +361,27 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 		if (target_type == 'self') then 
 			StatusEffectHelper:invokeStatusEffect(char, type, value_1, rate, duration)
 
-			local world = char.m_world
-			-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
-			if (not world.m_lPassiveEffect[char]) then
-				world.m_lPassiveEffect[char] = {}
+			do
+				local world = char.m_world
+				-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
+				if (not world.m_lPassiveEffect[char]) then
+					world.m_lPassiveEffect[char] = {}
+				end
+				table.insert(world.m_lPassiveEffect[char], t_status_effect['t_name'])
 			end
-			table.insert(world.m_lPassiveEffect[char], t_status_effect['t_name'])
 
 		elseif (target_type == 'target') then 
 			for _, target in ipairs(l_target) do
 				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
 
-				local world = target.m_world
-				-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
-				if (not world.m_lPassiveEffect[target]) then
-					world.m_lPassiveEffect[target] = {}
+				do
+					local world = target.m_world
+					-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
+					if (not world.m_lPassiveEffect[target]) then
+						world.m_lPassiveEffect[target] = {}
+					end
+					table.insert(world.m_lPassiveEffect[target], t_status_effect['t_name'])
 				end
-				table.insert(world.m_lPassiveEffect[target], t_status_effect['t_name'])
 			end
 		end
 

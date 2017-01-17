@@ -1246,22 +1246,24 @@ end
 
 -------------------------------------
 -- function getFormationMgr
--- @param is_opposite : true 일때 같은 진형을 선택
+-- @param is_opposite : true 일때 상대 진형을 선택
 -------------------------------------
 function Character:getFormationMgr(is_opposite)
-    if self.m_bLeftFormation then
-		if is_opposite then
+	if is_opposite then 
+		-- 상대 진형 선택
+		if self.m_bLeftFormation then
 			return self.m_world.m_rightFormationMgr
 		else
 			return self.m_world.m_leftFormationMgr
 		end
-    else
-        if is_opposite then
+	else
+		-- 아군 진형 선택
+		if self.m_bLeftFormation then
 			return self.m_world.m_leftFormationMgr
 		else
 			return self.m_world.m_rightFormationMgr
 		end
-    end
+	end
 end
 
 -------------------------------------

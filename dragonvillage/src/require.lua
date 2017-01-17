@@ -206,7 +206,6 @@ local t_module = {
     'StatusEffect_Trigger',
 	'StatusEffect_Trigger_Release',
     'StatusEffect_PassiveSpatter',
-	'StatusEffect_CheckWorld',
 	'StatusEffect_Heal',
 	'StatusEffect_DotDmg',
 	'StatusEffect_addAttack',
@@ -263,6 +262,7 @@ local t_module = {
 	'SkillFieldCheck',
 	'SkillVoltesX',
 	'SkillCharge',
+	'SkillContinuous',
 
     -- SKILL INDICATOR
     'SkillIndicatorMgr',

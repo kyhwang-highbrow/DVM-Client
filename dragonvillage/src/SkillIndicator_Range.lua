@@ -106,7 +106,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_Range:findTarget(x, y, range, count)
-    local target_formation_mgr = self.m_hero:getFormationMgr()
+    local target_formation_mgr = self.m_hero:getFormationMgr(true)
     local l_target = target_formation_mgr:findNearTarget(x, y, range, count, {})
     
     return l_target

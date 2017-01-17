@@ -129,7 +129,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_AoERound:_findTarget(x, y, range)
-    local target_formation_mgr = self.m_hero:getFormationMgr()
+    local target_formation_mgr = self.m_hero:getFormationMgr(true)
     local l_target = target_formation_mgr:findNearTarget(x, y, range, 1, EMPTY_TABLE)
     
     return l_target[1]

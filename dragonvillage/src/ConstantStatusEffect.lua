@@ -21,3 +21,6 @@ STATUS_EFFECT_CON__SKILL_SLAIN = ';slain;'
 -- #    dead: 자신이 죽을 경우 발동
 
 -- #    avoid: 적의 공격을 회피 했을 때 발동
+
+-- #    none : 발동하지 않음
+STATUS_EFFECT_CON__NONE = 'none'
