@@ -1272,6 +1272,9 @@
     <None Include="..\src\UIC_LabelTTF.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\SkillContinuous.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -513,6 +513,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StatusEffectIcon.lua" />
     <None Include="..\src\StatusEffect_addAttack.lua" />
     <None Include="..\src\StatusEffect_CheckWorld.lua" />
+    <None Include="..\src\SkillContinuous.lua" />
     <None Include="..\src\StatusEffect_DotDmg.lua" />
     <None Include="..\src\StatusEffect_PassiveSpatter.lua" />
     <None Include="..\src\StatusEffect_Protection.lua" />
