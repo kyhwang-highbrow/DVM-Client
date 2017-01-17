@@ -10,8 +10,6 @@ UI_ReadyScene = class(PARENT,{
         -- UI_ReadyScene_Deck 관련 변수
         m_readySceneDeck = 'UI_ReadyScene_Deck',
 
-        m_selectedDragonDoid = 'string',
-
         -- 정렬 도우미
         m_dragonSortMgr = 'DragonSortManager',
 
@@ -78,7 +76,6 @@ end
 -------------------------------------
 function UI_ReadyScene:initUI()
     self:init_dragonTableView()
-    self:setSelectedDragonDoid_default()
     self:init_monsterTableView()
     self:initFormationUI()
 end
@@ -89,7 +86,6 @@ end
 function UI_ReadyScene:initButton()
     local vars = self.vars
     vars['manageBtn']:registerScriptTapHandler(function() self:click_manageBtn() end)
-    vars['dragonInfoBtn']:registerScriptTapHandler(function() self:click_dragonInfoBtn() end)
     vars['autoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
 
@@ -178,7 +174,6 @@ function UI_ReadyScene:init_dragonTableView()
         local function click_dragon_item()
             local t_dragon_data = data
             self:click_dragonCard(t_dragon_data)
-            self:setSelectedDragonDoid(unique_id)
         end
 
         ui.vars['clickBtn']:registerScriptTapHandler(function() click_dragon_item() end)
@@ -274,20 +269,6 @@ function UI_ReadyScene:click_manageBtn()
 
     -- 덱 저장 후 이동
     self:checkChangeDeck(next_func)
-end
-
--------------------------------------
--- function click_dragonInfoBtn
--- @breif 드래곤 상세보기 버튼
--------------------------------------
-function UI_ReadyScene:click_dragonInfoBtn()
-    if (not self.m_selectedDragonDoid) then
-        return
-    end
-
-    local t_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_selectedDragonDoid)
-
-    UI_DragonDetailPopup(t_dragon_data)
 end
 
 -------------------------------------
@@ -431,103 +412,6 @@ end
 function UI_ReadyScene:getDragonCount()
     return self.m_readySceneDeck:getDragonCount()
 end
-
--------------------------------------
--- function setSelectedDragonDoid
--------------------------------------
-function UI_ReadyScene:setSelectedDragonDoid(doid)
-    if (self.m_selectedDragonDoid == doid) then
-        return
-    end
-
-    self.m_selectedDragonDoid = doid
-    local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
-
-
-    local vars = self.vars
-    do -- 초기화 
-        vars['dragonNameLabel']:setString('')
-
-        vars['atkLabel']:setString('0')
-        vars['defLabel']:setString('0')
-        vars['hpLabel']:setString('0')
-
-        vars['selectDragonNode']:removeAllChildren()
-
-        vars['attrNode']:removeAllChildren()
-        vars['roleNode']:removeAllChildren()
-        vars['atkTypeNode']:removeAllChildren()
-    end
-
-    if (not t_dragon_data) then
-        return
-    end
-
-    local did = t_dragon_data['did']
-    local table_dragon = TABLE:get('dragon')
-    local t_dragon = table_dragon[did]
-    
-    do -- 드래곤 이름
-        local evolution = t_dragon_data['evolution']
-        vars['dragonNameLabel']:setString(Str(t_dragon['t_name']) .. '-' .. evolutionName(evolution))
-    end
-
-    do -- 드래곤 아이콘
-        vars['selectDragonNode']:removeAllChildren()
-        local dragon_card = UI_DragonCard(t_dragon_data)
-        vars['selectDragonNode']:addChild(dragon_card.root)
-    end
-
-    do -- 희귀도
-        local rarity = t_dragon['rarity']
-        vars['rarityNode']:removeAllChildren()
-        local icon = IconHelper:getRarityIcon(rarity)
-        vars['rarityNode']:addChild(icon)
-    end
-
-    do -- 드래곤 속성
-        local attr = t_dragon['attr']
-        vars['attrNode']:removeAllChildren()
-        local icon = IconHelper:getAttributeIcon(attr)
-        vars['attrNode']:addChild(icon)
-    end
-
-    do -- 드래곤 역할(role)
-        local role_type = t_dragon['role']
-        vars['roleNode']:removeAllChildren()
-        local icon = IconHelper:getRoleIcon(role_type)
-        vars['roleNode']:addChild(icon)
-    end
-
-    do -- 드래곤 공격 타입(char_type)
-        local attack_type = t_dragon['char_type']
-        vars['atkTypeNode']:removeAllChildren()
-        local icon = IconHelper:getAttackTypeIcon(attack_type)
-        vars['atkTypeNode']:addChild(icon)
-    end
-
-    do -- 능력치 계산기
-        local doid = t_dragon_data['id']
-        local status_calc = MakeOwnDragonStatusCalculator(doid)
-
-        vars['atkLabel']:setString(status_calc:getFinalStatDisplay('atk'))
-        vars['defLabel']:setString(status_calc:getFinalStatDisplay('def'))
-        vars['hpLabel']:setString(status_calc:getFinalStatDisplay('hp'))
-    end
-end
-
--------------------------------------
--- function setSelectedDragonDoid_default
--------------------------------------
-function UI_ReadyScene:setSelectedDragonDoid_default()
-    local t_dragon_data = g_dragonsData:getLeaderDragon()
-
-    if t_dragon_data then
-        local doid = t_dragon_data['id']
-        self:setSelectedDragonDoid(t_dragon_data['id'])
-    end
-end
-
 
 -------------------------------------
 -- function init_monsterTableView
