@@ -161,19 +161,20 @@ end
 -- function setTriggerPassive
 -------------------------------------
 function StatusEffectHelper:setTriggerPassive(char, t_skill)
-    local table_status_effect = TABLE:get('status_effect')
+	-- 상태효과 타입
 	local status_effect_type = self:getStatusEffectTableFromSkillTable(t_skill, 1)['type']
-    local t_status_effect = table_status_effect[status_effect_type]
-    if (not t_status_effect) then
-        if (not status_effect_type) then
-            cclog('no status_effect t_skill : ' .. luadump(t_skill))
-        else
-            error('no status_effect table : ' .. status_effect_type)
-        end
-    end
+    
+	-- 테이블에서 가져옴
+	local table_status_effect = TABLE:get('status_effect')
+    local t_status_effect = table_status_effect[status_effect_type] or {}
 
-    local res = string.gsub(t_status_effect['res'], '@', char:getAttribute())
-    if (res == 'x') then res = nil end
+	-- res attr parsing
+    local res = t_status_effect['res']
+	if (res) then 
+		res = string.gsub(res, '@', char:getAttribute())
+	elseif (res == 'x') then 
+		res = nil 
+	end
 
 	local status_effect = nil
 	local trigger_name = t_skill['chance_value'] or 'undergo_attack'
@@ -257,17 +258,22 @@ end
 -- @comment 일반 status effect의 경우 rate가 필요없지만 패시브의 경우 실행 시점에서 확률체크하는 경우가 있다.
 -------------------------------------
 function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, status_effect_value, status_effect_rate, duration)
-    local table_status_effect = TABLE:get('status_effect')
+    -- 테이블 가져옴
+	local table_status_effect = TABLE:get('status_effect')
     local t_status_effect = table_status_effect[status_effect_type]
+
+	-- 여기서는 상태효과가 없으면 에러를 발생시켜야함
     if (not t_status_effect) then
         error('no status_effect table : ' .. status_effect_type)
     end
 
-    local res = string.gsub(t_status_effect['res'], '@', char:getAttribute())
-	
-    if (res == 'x') then
-        res = nil
-    end
+	-- res attr parsing
+    local res = t_status_effect['res']
+	if (res) then 
+		res = string.gsub(res, '@', char:getAttribute())
+	elseif (res == 'x') then 
+		res = nil 
+	end
 
 	local status_effect = nil
 
