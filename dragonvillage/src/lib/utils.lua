@@ -652,6 +652,22 @@ function convertToWorldSpace(node)
 end
 
 -------------------------------------
+-- function convertToNodeSpace
+-- @breif
+-------------------------------------
+function convertToNodeSpace(node, location, dock_point)
+    local node_space = node:convertToNodeSpace(location)
+    local dock_point = (dock_point or cc.p(0.5, 0.5))
+
+    local content_size = node:getContentSize()
+
+    node_space['x'] = node_space['x'] - (dock_point['x'] * content_size['width'])
+    node_space['y'] = node_space['y'] - (dock_point['y'] * content_size['height'])
+
+    return node_space
+end
+
+-------------------------------------
 -- function convertToAnoterParentSpace
 -- @breif 다른 부모 노드의 기준으로 위치를 변경
 --        예를들어 테이블뷰의 하나의 Cell을 클릭했을 때

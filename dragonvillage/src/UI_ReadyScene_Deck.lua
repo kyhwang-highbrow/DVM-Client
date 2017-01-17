@@ -15,6 +15,10 @@ UI_ReadyScene_Deck = class({
         m_lSettedDragonCard = 'list',
         m_currFormation = '',
         m_radioButtonFormation = '',
+
+        -- 드래그로 이동
+        m_selectedDragonSlotIdx = 'number',
+        m_selectedDragonCard = 'UI_DragonCard',
     })
 
 -------------------------------------
@@ -25,6 +29,7 @@ function UI_ReadyScene_Deck:init(ui_ready_scene)
 
     self:init_button()
     self:init_deck()
+    self:makeTouchLayer_formation(self.m_uiReadyScene.vars['formationNode'])
 end
 
 -------------------------------------
@@ -37,6 +42,7 @@ function UI_ReadyScene_Deck:init_button()
         local btn_name = 'chBtn' .. string.format('%.2d', i)
         if vars[btn_name] then
             vars[btn_name]:registerScriptTapHandler(function() self:click_chBtn(i) end)
+            vars[btn_name]:setEnabled(false) -- 드래그로 개편
         end
     end
 
@@ -53,7 +59,6 @@ end
 -- function click_chBtn
 -------------------------------------
 function UI_ReadyScene_Deck:click_chBtn(idx)
-    local vars = self.m_uiReadyScene.vars
     self:setFocusDeckSlotEffect(idx)
 end
 
@@ -241,6 +246,9 @@ function UI_ReadyScene_Deck:makeSettedDragonCard(t_dragon_data, idx)
     local vars = self.m_uiReadyScene.vars
 
     local ui = UI_DragonCard(t_dragon_data)
+
+    cca.uiReactionSlow(ui.root, 1, 1, 0.7)
+    
     
     -- 설정된 드래곤 표시 없애기
     ui:setReadySpriteVisible(false)
@@ -249,6 +257,7 @@ function UI_ReadyScene_Deck:makeSettedDragonCard(t_dragon_data, idx)
 
     self.m_lSettedDragonCard[idx] = ui
 
+    ui.vars['clickBtn']:setEnabled(false) -- 드래그로 개편
     ui.vars['clickBtn']:registerScriptTapHandler(function()
         self:click_dragonCard(t_dragon_data)
     end)
@@ -279,6 +288,8 @@ function UI_ReadyScene_Deck:refresh_dragonCard(doid)
     if (not ui) then
         return
     end
+
+    cca.uiReactionSlow(ui.root, 0.7, 0.7, 0.7 * 0.7)
 
     if is_setted then
         ui:setReadySpriteVisible(true)
@@ -329,6 +340,11 @@ function UI_ReadyScene_Deck:setSlot(idx, doid)
 
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
         self:makeSettedDragonCard(t_dragon_data, idx)
+    end
+
+    -- 즉시 정렬
+    if self.m_uiReadyScene.m_dragonSortMgr then
+        self.m_uiReadyScene.m_dragonSortMgr:changeSort()
     end
 end
 
@@ -486,4 +502,174 @@ function UI_ReadyScene_Deck:updateFormation(formation, immediately)
             break
         end
     end
+end
+
+
+
+
+
+-------------------------------------
+-- function makeTouchLayer
+-- @brief 터치 레이어 생성
+-------------------------------------
+function UI_ReadyScene_Deck:makeTouchLayer_formation(target_node)
+    local listener = cc.EventListenerTouchOneByOne:create()
+    --listener:setSwallowTouches(false)
+    listener:registerScriptHandler(function(touch, event) return self:onTouchBegan(touch, event) end, cc.Handler.EVENT_TOUCH_BEGAN)
+    listener:registerScriptHandler(function(touch, event) return self:onTouchMoved(touch, event) end, cc.Handler.EVENT_TOUCH_MOVED)
+    listener:registerScriptHandler(function(touch, event) return self:onTouchEnded(touch, event) end, cc.Handler.EVENT_TOUCH_ENDED)
+    listener:registerScriptHandler(function(touch, event) return self:onTouchEnded(touch, event) end, cc.Handler.EVENT_TOUCH_CANCELLED)
+                
+    local eventDispatcher = target_node:getEventDispatcher()
+    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, target_node)
+end
+
+-------------------------------------
+-- function onTouchBegan
+-------------------------------------
+function UI_ReadyScene_Deck:onTouchBegan(touch, event)
+    local vars = self.m_uiReadyScene.vars
+    local location = touch:getLocation()
+
+    -- 진형을 설정하는 영역을 벗어났는지 체크
+    local bounding_box = vars['formationNode']:getBoundingBox()
+    local local_location = vars['formationNode']:getParent():convertToNodeSpace(location)
+    local is_contain = cc.rectContainsPoint(bounding_box, local_location)
+    if (not is_contain) then
+        return false
+    end
+
+    -- 버튼 체크
+    local select_idx = nil
+    for i=1, 5 do
+        local btn_name = 'chNode' .. string.format('%d', i)
+        local btn_bounding_box = vars[btn_name]:getBoundingBox()
+
+        local local_location = vars['formationNode']:convertToNodeSpace(location)
+        local is_contain = cc.rectContainsPoint(btn_bounding_box, local_location)
+
+        if (is_contain == true) then
+            select_idx = i
+            break
+        end
+    end
+
+    if (not select_idx) then
+        --cclog('선택된 슬롯 없음')
+        return false
+    end
+
+    if (not self.m_lDeckList[select_idx]) then
+        --cclog('비어있는 슬롯 ' .. select_idx)
+        self:click_chBtn(select_idx)
+        return false
+    end
+
+    do -- 드래곤 선택
+        self.m_selectedDragonSlotIdx = select_idx
+        self.m_selectedDragonCard = self.m_lSettedDragonCard[select_idx]
+
+        local node = self.m_selectedDragonCard.root
+        node:setScale(0.7)
+
+        local local_pos = convertToAnoterParentSpace(node, vars['formationNode'])
+        node:setPosition(local_pos['x'], local_pos['y'])
+
+        -- root로 옮김
+        node:retain()
+        node:removeFromParent()
+        vars['formationNode']:addChild(node)
+        node:release()
+    end
+
+    return true
+end
+
+-------------------------------------
+-- function onTouchMoved
+-------------------------------------
+function UI_ReadyScene_Deck:onTouchMoved(touch, event)
+    self:moveSelectDragonCard(touch, event)
+end
+
+-------------------------------------
+-- function onTouchEnded
+-------------------------------------
+function UI_ReadyScene_Deck:onTouchEnded(touch, event)
+    self:moveSelectDragonCard(touch, event)
+
+    local vars = self.m_uiReadyScene.vars
+    local location = touch:getLocation()
+
+    -- 진형을 설정하는 영역을 벗어났는지 체크
+    local bounding_box = vars['formationNode']:getBoundingBox()
+    local local_location = vars['formationNode']:getParent():convertToNodeSpace(location)
+    local is_contain = cc.rectContainsPoint(bounding_box, local_location)
+    if (not is_contain) then
+        
+        -- 장착 해제
+        local doid = self.m_lDeckList[self.m_selectedDragonSlotIdx]
+        local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+        self:click_dragonCard(t_dragon_data)
+
+        return false
+    end
+
+
+    -- 가장 가까운 버튼 찾기
+    local near_idx = nil
+    local near_distance = nil
+    local local_location = convertToNodeSpace(vars['formationNode'], location)
+    for i=1, 5 do
+        local btn_name = 'chNode' .. string.format('%d', i)
+        local slot_pos_x, slot_pos_y = vars[btn_name]:getPosition()
+
+        local distance = getDistance(slot_pos_x, slot_pos_y, local_location['x'], local_location['y'])
+
+        if (near_distance == nil) or (distance < near_distance) then
+            near_distance = distance
+            near_idx = i
+        end
+    end
+
+    -- 같은 자리일 경우
+    if (near_idx == self.m_selectedDragonSlotIdx) then
+        local node = self.m_selectedDragonCard.root
+        node:setScale(1)
+        node:setPosition(0, 0)
+
+        -- root로 옮김
+        node:retain()
+        node:removeFromParent()
+        vars['chNode' .. near_idx]:addChild(node)
+        node:release()
+
+        self:setFocusDeckSlotEffect(self.m_selectedDragonSlotIdx)
+    else
+        local near_idx_doid = self.m_lDeckList[self.m_selectedDragonSlotIdx]
+        local selected_idx_doid = self.m_lDeckList[near_idx]
+
+        -- 둘 다 해제
+        self:setSlot(near_idx, nil)
+        self:setSlot(self.m_selectedDragonSlotIdx, nil)
+
+        -- 다시 입력
+        self:setSlot(near_idx, near_idx_doid)
+        self:setSlot(self.m_selectedDragonSlotIdx, selected_idx_doid)
+
+        self:refreshFocusDeckSlot()
+    end
+end
+
+-------------------------------------
+-- function moveSelectDragonCard
+-------------------------------------
+function UI_ReadyScene_Deck:moveSelectDragonCard(touch, event)
+    local vars = self.m_uiReadyScene.vars
+    
+    local location = touch:getLocation()
+    local local_location = convertToNodeSpace(vars['formationNode'], location)
+
+    local node = self.m_selectedDragonCard.root
+    node:setPosition(local_location['x'], local_location['y'])
 end

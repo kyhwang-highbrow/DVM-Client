@@ -159,11 +159,25 @@ end
 -------------------------------------
 -- function uiReaction
 -------------------------------------
-function cca.uiReaction(node, scale_x, scale_y)
+function cca.uiReaction(node, scale_x, scale_y, action_scale)
     local scale_x = (scale_x or 1)
     local scale_y = (scale_y or scale_x)
+    local action_scale = (action_scale or 0.9)
 
-    node:setScale(scale_x * 0.9, scale_y * 0.9)
+    node:setScale(scale_x * action_scale, scale_y * action_scale)
     local action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, scale_x, scale_y), 0.3)
+    cca.runAction(node, action, nil)
+end
+
+-------------------------------------
+-- function uiReactionSlow
+-------------------------------------
+function cca.uiReactionSlow(node, scale_x, scale_y, action_scale)
+    local scale_x = (scale_x or 1)
+    local scale_y = (scale_y or scale_x)
+    local action_scale = (action_scale or 0.9)
+
+    node:setScale(scale_x * action_scale, scale_y * action_scale)
+    local action = cc.EaseElasticOut:create(cc.ScaleTo:create(1, scale_x, scale_y), 0.3)
     cca.runAction(node, action, nil)
 end
