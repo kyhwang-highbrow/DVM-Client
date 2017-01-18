@@ -305,6 +305,21 @@ function getPrevStageID(stage_id)
 end
 
 -------------------------------------
+-- function getSimplePrevStageID
+-- @brief 같은 챕터 안에서 이전 스테이지
+-------------------------------------
+function DataAdventure:getSimplePrevStageID(stage_id)
+    local difficulty, chapter, stage = parseAdventureID(stage_id)
+
+    if (1 < stage) then
+        local next_stage_id = makeAdventureID(difficulty, chapter, stage - 1)
+        return next_stage_id
+    end
+
+    return nil
+end
+
+-------------------------------------
 -- function getNextStageID
 -- @brief
 -------------------------------------
@@ -332,6 +347,21 @@ function DataAdventure:getNextStageID(stage_id)
 
     if (1 < difficulty) then
         local next_stage_id = makeAdventureID(difficulty + 1, chapter, 1)
+        return next_stage_id
+    end
+
+    return nil
+end
+
+-------------------------------------
+-- function getSimpleNextStageID
+-- @brief 같은 챕터 안에서 다음 스테이지
+-------------------------------------
+function DataAdventure:getSimpleNextStageID(stage_id)
+    local difficulty, chapter, stage = parseAdventureID(stage_id)
+
+    if (stage < MAX_ADVENTURE_STAGE) then
+        local next_stage_id = makeAdventureID(difficulty, chapter, stage + 1)
         return next_stage_id
     end
 

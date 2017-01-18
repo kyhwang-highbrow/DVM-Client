@@ -55,6 +55,9 @@ function UI_AdventureStageInfo:initButton()
     vars['enemyInfoBtn']:registerScriptTapHandler(function() self:click_tabBtn('monster') end)
     vars['enterBtn']:registerScriptTapHandler(function() self:click_enterBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+
+    vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
+    vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
 end
 
 -------------------------------------
@@ -95,6 +98,15 @@ function UI_AdventureStageInfo:refresh()
 
     -- 스테이조 난이도 뱃지
     self:refresh_difficultyBadge()
+
+
+    do -- 이전, 다음 버튼
+        local prev_stage = g_stageData:getSimplePrevStage(stage_id)
+        vars['prevBtn']:setVisible(prev_stage ~= nil)
+
+        local next_stage = g_stageData:getSimpleNextStage(stage_id)
+        vars['nextBtn']:setVisible(next_stage ~= nil)
+    end
 end
 
 -------------------------------------
@@ -164,6 +176,7 @@ function UI_AdventureStageInfo:refresh_monsterList()
         local l_monster_id = table_stage_desc:getMonsterIDList(stage_id)
 
         local list_table_node = self.vars['monsterListNode']
+        list_table_node:removeAllChildren()
         local cardUIClass = UI_MonsterCard
         local cardUISize = 0.6
         local width, height = cardUIClass:getCardSize(cardUISize)
@@ -197,6 +210,7 @@ function UI_AdventureStageInfo:refresh_rewardInfo()
     local l_item_list = drop_helper:getDisplayItemList()
 
     local list_table_node = self.vars['dropListNode']
+    list_table_node:removeAllChildren()
 
     -- 리스트 아이템 생성 콜백
     local function create_func(item)
@@ -242,8 +256,8 @@ end
 -- function click_tabBtn
 -- @brief '획득 가능 보상', '출현 정보'
 -------------------------------------
-function UI_AdventureStageInfo:click_tabBtn(tab_type)
-    if (self.m_currTab == tab_type) then
+function UI_AdventureStageInfo:click_tabBtn(tab_type, force)
+    if (not force) and (self.m_currTab == tab_type) then
         return
     end
 
@@ -278,6 +292,47 @@ function UI_AdventureStageInfo:click_tabBtn(tab_type)
         error('self.m_currTab : ' .. self.m_currTab)
     end
 end
+
+-------------------------------------
+-- function click_prevBtn
+-- @brief
+-------------------------------------
+function UI_AdventureStageInfo:click_prevBtn()
+    local stage_id = g_stageData:getSimplePrevStage(self.m_stageID)
+    self:changeStageID(stage_id)
+end
+
+-------------------------------------
+-- function click_nextBtn
+-- @brief
+-------------------------------------
+function UI_AdventureStageInfo:click_nextBtn()
+    local stage_id = g_stageData:getSimpleNextStage(self.m_stageID)
+    self:changeStageID(stage_id)
+end
+
+
+-------------------------------------
+-- function changeStageID
+-------------------------------------
+function UI_AdventureStageInfo:changeStageID(stage_id)
+    if (self.m_stageID == stage_id) then
+        return
+    end
+
+    if (not g_stageData:isOpenStage(stage_id)) then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('이전 스테이지를 클리어하세요.'))
+        return
+    end
+
+    self.m_stageID = stage_id
+    self:refresh()
+
+    self.m_bInitItemTableView = false
+    self.m_bInitMonsterTableView = false
+    self:click_tabBtn(self.m_currTab, true)
+end
+
 
 
 --@CHECK

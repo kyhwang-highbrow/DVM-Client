@@ -89,6 +89,48 @@ function ServerData_Stage:getNextStage(stage_id)
 end
 
 -------------------------------------
+-- function getSimpleNextStage
+-- @brief 같은 챕터 안에서 다음 스테이지
+-------------------------------------
+function ServerData_Stage:getSimpleNextStage(stage_id)
+    local game_mode = self:getGameMode(stage_id)
+
+    local ret = nil
+
+    -- 모험 모드
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        ret = g_adventureData:getSimpleNextStageID(stage_id)
+
+    -- 네스트 던전 모드
+    elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
+        ret = g_nestDungeonData:getSimpleNextStageID(stage_id)
+    end
+
+    return ret
+end
+
+-------------------------------------
+-- function getSimplePrevStage
+-- @brief 같은 챕터 안에서 이전 스테이지
+-------------------------------------
+function ServerData_Stage:getSimplePrevStage(stage_id)
+    local game_mode = self:getGameMode(stage_id)
+
+    local ret = nil
+
+    -- 모험 모드
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        ret = g_adventureData:getSimplePrevStageID(stage_id)
+
+    -- 네스트 던전 모드
+    elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
+        ret = g_nestDungeonData:getSimplePrevStageID(stage_id)
+    end
+
+    return ret
+end
+
+-------------------------------------
 -- function setFocusStage
 -------------------------------------
 function ServerData_Stage:setFocusStage(stage_id)

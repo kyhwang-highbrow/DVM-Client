@@ -420,10 +420,39 @@ function ServerData_NestDungeon:getPrevStageID(stage_id)
 end
 
 -------------------------------------
+-- function getSimplePrevStageID
+-- @brief 같은 종류의 네스트 던전에서 티어만 내려간 스테이지
+-------------------------------------
+function ServerData_NestDungeon:getSimplePrevStageID(stage_id)
+    local t_dungeon_id_info = g_nestDungeonData:parseNestDungeonID(stage_id)
+    
+    if (t_dungeon_id_info['tier'] <= 1) then
+        return nil
+    else
+        return (stage_id - 1)
+    end
+end
+
+-------------------------------------
 -- function getNextStageID
 -- @brief
 -------------------------------------
 function ServerData_NestDungeon:getNextStageID(stage_id)
+    local table_drop = TableDrop()
+    local t_drop = table_drop:get(stage_id + 1)
+
+    if t_drop then
+        return stage_id + 1
+    else
+        return nil
+    end
+end
+
+-------------------------------------
+-- function getSimpleNextStageID
+-- @brief 같은 종류의 네스트 던전에서 티어만 올라간 스테이지
+-------------------------------------
+function ServerData_NestDungeon:getSimpleNextStageID(stage_id)
     local table_drop = TableDrop()
     local t_drop = table_drop:get(stage_id + 1)
 
