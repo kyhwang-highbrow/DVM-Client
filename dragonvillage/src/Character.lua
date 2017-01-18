@@ -403,7 +403,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 	
 	damage = t_event['damage']
 
-	if (damage == 0) then 
+	if (t_event['is_handled']) and (damage == 0) then 
 		self:makeShieldFont(i_x, i_y)
 		return
 	end

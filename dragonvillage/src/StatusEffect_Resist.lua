@@ -20,13 +20,8 @@ end
 -- function init_buff
 -------------------------------------
 function StatusEffect_Resist:init_buff(char, resist_rate)
-    self.m_StatusEffect_ProtectionHP = shield_hp or '519'
-    self.m_StatusEffect_ProtectionHPOrg = shield_hp or '519'
-	self.m_triggerName = 'hit_shield'
+	PARENT.init_buff(self, char, nil)
 	self.m_resistRate = resist_rate/100 or 0
-    
-	-- 콜백 함수 등록
-    char:addListener(self.m_triggerName, self)
 end
 
 -------------------------------------
@@ -39,4 +34,5 @@ function StatusEffect_Resist:onTrigger(t_event)
 	local damage = t_event['damage']
    	damage = damage * (1 + self.m_resistRate)
 	t_event['damage'] = damage
+	t_event['is_handled'] = true
 end

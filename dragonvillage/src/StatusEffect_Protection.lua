@@ -5,8 +5,8 @@ local PARENT = StatusEffect_Trigger
 -- @breif HP있는 실드 보호막 + resist 보호막
 -------------------------------------
 StatusEffect_Protection = class(PARENT, {
-		m_StatusEffect_ProtectionHP = 'number', -- 실드로 보호될 데미지 량
-        m_StatusEffect_ProtectionHPOrg = 'number',
+		m_shieldHP = 'number', -- 실드로 보호될 데미지 량
+        m_shieldHPOrg = 'number',
 
 		m_label = 'cc.Label',
      })
@@ -43,8 +43,8 @@ end
 -- function init_buff
 -------------------------------------
 function StatusEffect_Protection:init_buff(char, shield_hp)
-    self.m_StatusEffect_ProtectionHP = shield_hp or 519
-    self.m_StatusEffect_ProtectionHPOrg = shield_hp or 519
+    self.m_shieldHP = shield_hp or 519
+    self.m_shieldHPOrg = shield_hp or 519
 	self.m_triggerName = 'hit_shield'
 
     -- 콜백 함수 등록
@@ -67,7 +67,7 @@ end
 -------------------------------------
 function StatusEffect_Protection:update(dt)
 	if DISPLAY_SHIELD_HP then	
-		self.m_label:setString(string.format('%.1f / %.1f', self.m_StatusEffect_ProtectionHP, self.m_StatusEffect_ProtectionHPOrg))
+		self.m_label:setString(string.format('%.1f / %.1f', self.m_shieldHP, self.m_shieldHPOrg))
 	end
 	if (self.m_state == 'idle') then
 		-- 1. 종료 : 시간 초과
@@ -125,25 +125,21 @@ end
 -------------------------------------
 -- function onTrigger
 -------------------------------------
-function StatusEffect_Protection:onTrigger(t_event, char, damage)
-	local damage = damage or 0
+function StatusEffect_Protection:onTrigger(t_event)
+	local damage = t_event['damage']
 
-	-- 1. 방어막 유지 여부 계산
-    if (self.m_StatusEffect_ProtectionHP <= 0) then
-        self:changeState('end')
-        return false, damage
-    end
+	if (self.m_shieldHP > damage) then
+		-- 데미지를 전부 방어하고 hit effect
+		self.m_shieldHP = self.m_shieldHP - damage
+		damage = 0
+		self:changeState('hit')
+	else
+		-- 데미지를 일부만 방어하고 end
+		damage = damage - self.m_shieldHP
+		self.m_shieldHP = 0
+		self:changeState('end')
+	end
 
-	-- 2. 실드 에너지 데미지 적용 // 
-	self.m_StatusEffect_ProtectionHP = self.m_StatusEffect_ProtectionHP - damage
-
-	-- 3. 데미지 계산 후 방어막 유지 여부 계산
-    if (self.m_StatusEffect_ProtectionHP <= 0) then
-        self:changeState('end')
-        return false, damage + self.m_StatusEffect_ProtectionHP
-    end
-
-    self:changeState('hit')
-
-    return true, 0
+	t_event['damage'] = damage
+	t_event['is_handled'] = true
 end
