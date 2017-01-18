@@ -246,7 +246,7 @@ function UI_GameResultNew:direction_end()
 
     if (is_success == true) then
         local duration = 2
-        if g_autoPlaySetting.m_bAutoPlay then
+        if g_autoPlaySetting:isAutoPlay() then
             duration = 0.5
         end
         -- 2초 후 자동으로 이동
@@ -292,7 +292,7 @@ function UI_GameResultNew:direction_showBox()
     vars['boxVisual']:changeAni(visual_name, true)
 
     -- 연속 전투일 경우 상자 바로 오픈
-    if g_autoPlaySetting.m_bAutoPlay then
+    if g_autoPlaySetting:isAutoPlay() then
         self:doNextWork()
     end
 end
@@ -521,7 +521,7 @@ function UI_GameResultNew:click_quickBtn()
     local function finish_cb(game_key)
 
         -- 연속 전투일 경우 횟수 증가
-        if (g_autoPlaySetting.m_bAutoPlay == true) then
+        if (g_autoPlaySetting:isAutoPlay()) then
             g_autoPlaySetting.m_autoPlayCnt = (g_autoPlaySetting.m_autoPlayCnt + 1)
         end
 
@@ -640,7 +640,7 @@ end
 -- @brief
 -------------------------------------
 function UI_GameResultNew:checkAutoPlay()
-    if (not g_autoPlaySetting.m_bAutoPlay) then
+    if (not g_autoPlaySetting:isAutoPlay()) then
         return
     end
 

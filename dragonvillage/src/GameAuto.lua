@@ -52,7 +52,7 @@ function GameAuto:init(world, bLeftFormation)
         self:initUI()
     end
 
-    if (g_autoPlaySetting:isAutoPlay()) then
+    if (g_autoPlaySetting:isAutoPlay() or g_autoPlaySetting:get('auto_mode')) then
         self:onStart()
     end
 end

@@ -114,7 +114,7 @@ function UI_AutoPlaySettingPopup:refresh(t_user_info)
     self.m_radioButton_dragonHealSkill:setSelectedButton(g_autoPlaySetting:get('dragon_heal_skill'))
     self.m_radioButton_dragonTamerSkill:setSelectedButton(g_autoPlaySetting:get('tamer_skill'))
 
-    vars['autoStartOnBtn']:setChecked(g_autoPlaySetting.m_bAutoPlay)
+    vars['autoStartOnBtn']:setChecked(g_autoPlaySetting:isAutoPlay())
 end
 
 -------------------------------------

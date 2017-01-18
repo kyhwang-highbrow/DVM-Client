@@ -115,7 +115,7 @@ function SkillHeartOfRuin:makeEffect()
         local effect = AnimatorVrp('res/effect/effect_scene_effect_01/effect_scene_effect_01.vrp')
         effect:changeAni('idle', false)
         effect:addAniHandler(function() effect:runAction(cc.RemoveSelf:create()) end)
-        world.m_bgNode:addChild(effect.m_node)
+        world.m_worldNode:addChild(effect.m_node, 4)
 
         local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
         effect:setPosition(cameraHomePosX + (CRITERIA_RESOLUTION_X / 2), cameraHomePosY)

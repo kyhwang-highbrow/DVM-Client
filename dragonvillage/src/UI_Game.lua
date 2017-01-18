@@ -41,8 +41,7 @@ function UI_Game:init(game_scene)
 
     -- 2배속
     do
-        -- TODO: 저장된 데이터가 있다면 그 값으로 세팅되도록 수정해야함.
-        vars['speedVisual']:setVisible(false)
+        vars['speedVisual']:setVisible(g_autoPlaySetting:get('quick_mode'))
     end
 
     --self:doActionReset()
@@ -113,10 +112,14 @@ function UI_Game:click_autoButton()
         UIManager:toastNotificationGreen('자동전투 비활성화')
 
         gameAuto:onEnd()
+
+        g_autoPlaySetting:set('auto_mode', false)
     else
         UIManager:toastNotificationGreen('자동전투 활성화')
 
         gameAuto:onStart()
+
+        g_autoPlaySetting:set('auto_mode', true)
     end
 end
 
@@ -132,10 +135,14 @@ function UI_Game:click_speedButton()
         UIManager:toastNotificationGreen('빠른모드 비활성화')
 
         gameTimeScale:setBase(1)
+
+         g_autoPlaySetting:set('quick_mode', false)
     else
         UIManager:toastNotificationGreen('빠른모드 활성화')
 
         gameTimeScale:setBase(1.5)
+
+        g_autoPlaySetting:set('quick_mode', true)
     end
 
     self.vars['speedVisual']:setVisible((gameTimeScale:getBase() >= 1.5))

@@ -3,7 +3,7 @@
 -------------------------------------
 ServerData_AutoPlaySetting = class({
         m_serverData = 'ServerData',
-        m_bAutoPlay = 'boolean',
+        m_bAutoPlay = 'boolean',        -- 연속 모드
         m_autoPlayCnt = 'number',
     })
 
@@ -39,6 +39,13 @@ function ServerData_AutoPlaySetting:init(server_data)
             -- 테이머 스킬 사용
             t_auto_play_setting['tamer_skill'] = 1 or 2 or 3
         end
+
+        -- 자동 모드 사용
+        t_auto_play_setting['auto_mode'] = false
+
+        -- 빠른 모드 사용
+        t_auto_play_setting['quick_mode'] = false
+
         self.m_serverData:applyServerData(t_auto_play_setting, 'auto_play_setting')
     end
 
