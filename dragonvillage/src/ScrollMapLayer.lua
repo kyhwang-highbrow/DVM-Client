@@ -30,6 +30,7 @@ IScrollMapLayer = class({
         parent:addChild(self.m_rootNode)
 
         -- 스프라이트 생성
+        --string.gsub(res, '@', owner:getAttribute())
         self.m_animator = MakeAnimator(res)
         self.m_animator.m_node:setDockPoint(cc.p(0.0, 0.5))
         self.m_animator.m_node:setAnchorPoint(cc.p(0.0, 0.5))
