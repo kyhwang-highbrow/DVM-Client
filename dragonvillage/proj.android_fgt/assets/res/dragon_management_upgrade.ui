@@ -31,38 +31,38 @@
 		};
 		[2] =
 		{
-			type = 'Sprite';
-			ui_name = '';
-			x = 0.000000;
-			y = 46.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 1280;
-			height = 607;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = '';
-			file_name = 'ui/frame/upgrade_frame_01.png';
-			color = { 255; 255; 255; };
-			opacity = 255;
-			flip_x = false;
-			flip_y = false;
-			src_blend = 770;
-			dest_blend = 771;
-		};
-		[3] =
-		{
 			[1] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 653;
+				height = 544;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frame/frame_upgrade_02.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[2] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 5.000000;
-				y = -21.000000;
+				x = -38.000000;
+				y = 2.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -76,7 +76,7 @@
 				visible = true;
 				lua_name = 'selectListNode';
 			};
-			[2] =
+			[3] =
 			{
 				[1] =
 				{
@@ -779,8 +779,8 @@
 				};
 				type = 'Menu';
 				ui_name = '';
-				x = 91.000000;
-				y = -41.000000;
+				x = 48.000000;
+				y = -18.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -794,14 +794,14 @@
 				visible = false;
 				lua_name = 'sortSelectNode';
 			};
-			[3] =
+			[4] =
 			{
 				[1] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -2.000000;
+					y = 2.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -838,8 +838,8 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 91.000000;
-				y = 177.000000;
+				x = 48.000000;
+				y = 200.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -853,19 +853,19 @@
 				visible = true;
 				lua_name = 'sortSelectBtn';
 				enable = true;
-				normal = 'ui/btn/sub_0101.png';
-				selected = 'ui/btn/sub_0102.png';
+				normal = 'ui/btn/sub_btn_0101.png';
+				selected = 'ui/btn/sub_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
-			[4] =
+			[5] =
 			{
 				[1] =
 				{
 					type = 'Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = 0.000000;
+					y = 2.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -888,8 +888,8 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 204.000000;
-				y = 177.000000;
+				x = 161.000000;
+				y = 200.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -903,36 +903,218 @@
 				visible = true;
 				lua_name = 'sortSelectOrderBtn';
 				enable = true;
-				normal = 'ui/btn/sub_0101.png';
-				selected = 'ui/btn/sub_0102.png';
+				normal = 'ui/btn/sub_btn_0101.png';
+				selected = 'ui/btn/sub_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
 			type = 'Menu';
-			ui_name = 'left';
-			x = -351.000000;
-			y = 37.000000;
+			ui_name = '';
+			x = -312.000000;
+			y = 14.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 534;
-			height = 398;
+			width = 653;
+			height = 544;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = '';
+			lua_name = 'leftMenu';
 		};
-		[4] =
+		[3] =
 		{
 			[1] =
 			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 618;
+				height = 452;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frame/frame_upgrade_01.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[2] =
+			{
+				type = 'ProgressTimer';
+				ui_name = '';
+				x = 1.000000;
+				y = -77.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 512;
+				height = 22;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'upgradeGauge';
+				file_name = 'ui/gauge/upgarde_gg_01.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+				progress_type = 4;
+				mid_point_x = 0.000000;
+				mid_point_y = 0.000000;
+				percentage = 0;
+			};
+			[3] =
+			{
+				type = 'ProgressTimer';
+				ui_name = '';
+				x = 1.000000;
+				y = -77.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 512;
+				height = 22;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'upgradeGauge1';
+				file_name = 'ui/gauge/upgarde_gg_02.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+				progress_type = 4;
+				mid_point_x = 0.000000;
+				mid_point_y = 0.000000;
+				percentage = 0;
+			};
+			[4] =
+			{
+				type = 'ProgressTimer';
+				ui_name = '';
+				x = 1.000000;
+				y = -77.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 512;
+				height = 22;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'upgradeGauge2';
+				file_name = 'ui/gauge/upgarde_gg_01.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+				progress_type = 4;
+				mid_point_x = 0.000000;
+				mid_point_y = 0.000000;
+				percentage = 0;
+			};
+			[5] =
+			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -147.000000;
-				y = -8.000000;
+				x = 0.000000;
+				y = -80.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 410;
+				height = 30;
+				scale_x = 0.980000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'upgradeExpLabel';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 20;
+				text = '승급 경험치    {0}%';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 255; 255; 255; };
+				opacity = 255;
+				dimension_width = 410;
+				dimension_height = 30;
+				letter_spacing = 0.000000;
+				has_stroke = true;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 69; 51; 63; };
+				has_shadow = true;
+				shadow_color = { 69; 51; 63; };
+				shadow_opacity = 180;
+				shadow_direction = 0;
+				shadow_distance = 2.000000;
+			};
+			[6] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = -66.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 610;
+				height = 76;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'transcendSprite';
+				file_name = 'ui/frame/frame_upgrade_03.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[7] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = -172.000000;
+				y = -39.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -967,12 +1149,12 @@
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
 			};
-			[2] =
+			[8] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -147.000000;
-				y = 99.000000;
+				x = -172.000000;
+				y = 68.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -986,12 +1168,12 @@
 				visible = true;
 				lua_name = 'termsIconNode';
 			};
-			[3] =
+			[9] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 193.000000;
-				y = 99.000000;
+				x = 168.000000;
+				y = 68.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1005,16 +1187,16 @@
 				visible = true;
 				lua_name = 'maxIconNode';
 			};
-			[4] =
+			[10] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 23.000000;
-				y = 96.000000;
+				x = -15.000000;
+				y = 65.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 154;
+				width = 127;
 				height = 88;
 				scale_x = 0.980000;
 				scale_y = 1.000000;
@@ -1024,13 +1206,13 @@
 				visible = true;
 				lua_name = 'maxLvLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 24;
 				text = '최대레벨\n{0}으로 상승';
-				h_alignment = 0;
+				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 154;
+				dimension_width = 127;
 				dimension_height = 88;
 				letter_spacing = 0.000000;
 				has_stroke = true;
@@ -1045,12 +1227,12 @@
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
 			};
-			[5] =
+			[11] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 194.000000;
-				y = -8.000000;
+				x = 169.000000;
+				y = -39.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1062,7 +1244,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'nextTextLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 28;
 				text = '등급 상승';
@@ -1085,12 +1267,12 @@
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
 			};
-			[6] =
+			[12] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 40.000000;
-				y = -133.000000;
+				x = 15.000000;
+				y = -164.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1102,7 +1284,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'infoLabel1';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 28;
 				text = '재료를 선택해주세요';
@@ -1125,12 +1307,12 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[7] =
+			[13] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 37.000000;
-				y = -158.000000;
+				x = 12.000000;
+				y = -189.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1142,7 +1324,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'infoLabel2';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
 				text = '동일 드래곤을 재료로 사용하면 스킬이 레벨업 됩니다';
@@ -1165,14 +1347,14 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[8] =
+			[14] =
 			{
 				[1] =
 				{
 					type = 'Scale9Sprite';
 					ui_name = '';
-					x = -42.000000;
-					y = 0.000000;
+					x = -54.000000;
+					y = 2.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1197,8 +1379,8 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = 20.000000;
-					y = 0.000000;
+					x = 8.000000;
+					y = 2.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1223,8 +1405,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -63.000000;
-					y = -2.000000;
+					x = -75.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1263,20 +1445,20 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 78.000000;
-					y = -2.000000;
+					x = 84.000000;
+					y = 2.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 117;
-					height = 44;
+					height = 80;
 					scale_x = 0.980000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'upgradeBtnLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 30;
 					text = '승급';
@@ -1285,7 +1467,7 @@
 					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 117;
-					dimension_height = 44;
+					dimension_height = 80;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -1301,13 +1483,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 22.000000;
-				y = -235.000000;
+				x = -3.000000;
+				y = -266.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 272;
-				height = 66;
+				width = 300;
+				height = 80;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1316,147 +1498,393 @@
 				visible = true;
 				lua_name = 'upgradeBtn';
 				enable = true;
-				normal = 'ui/btn/base_0101.png';
-				selected = 'ui/btn/base_0102.png';
+				normal = 'ui/btn/btn_0101.png';
+				selected = 'ui/btn/btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
-			[9] =
+			[15] =
 			{
-				type = 'ProgressTimer';
+				[1] =
+				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = -54.000000;
+					y = 2.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 158;
+					height = 36;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frame/mini_bg_07.png';
+					color = { 0; 0; 0; };
+					opacity = 150;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[2] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 8.000000;
+					y = 2.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 46;
+					height = 46;
+					scale_x = 0.800000;
+					scale_y = 0.800000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/icon_gold.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[3] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -75.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 110;
+					height = 34;
+					scale_x = 0.980000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'skillUpPriceLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 20;
+					text = '{0}';
+					h_alignment = 2;
+					v_alignment = 1;
+					color = { 243; 236; 225; };
+					opacity = 255;
+					dimension_width = 110;
+					dimension_height = 34;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 69; 51; 63; };
+					has_shadow = true;
+					shadow_color = { 69; 51; 63; };
+					shadow_opacity = 180;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[4] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 84.000000;
+					y = 2.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 117;
+					height = 80;
+					scale_x = 0.980000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 30;
+					text = '스킬\n레벨업';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 117;
+					dimension_height = 80;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 89; 28; 19; };
+					has_shadow = true;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 120;
+					shadow_direction = 0;
+					shadow_distance = 2.000000;
+				};
+				type = 'Button';
 				ui_name = '';
-				x = 26.000000;
-				y = -46.000000;
+				x = -3.000000;
+				y = -266.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 512;
-				height = 22;
+				width = 300;
+				height = 80;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'upgradeGauge2';
-				file_name = 'ui/gauge/upgarde_gg_01.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-				progress_type = 4;
-				mid_point_x = 0.000000;
-				mid_point_y = 0.000000;
-				percentage = 0;
+				lua_name = 'skillUpgradeBtn';
+				enable = true;
+				normal = 'ui/btn/btn_0101.png';
+				selected = 'ui/btn/btn_0102.png';
+				disable = '';
+				image_type = 1;
 			};
-			[10] =
+			[16] =
 			{
-				type = 'ProgressTimer';
+				[1] =
+				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = -54.000000;
+					y = 2.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 158;
+					height = 36;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frame/mini_bg_07.png';
+					color = { 0; 0; 0; };
+					opacity = 150;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[2] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 8.000000;
+					y = 2.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 46;
+					height = 46;
+					scale_x = 0.800000;
+					scale_y = 0.800000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/icon_gold.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[3] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -75.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 110;
+					height = 34;
+					scale_x = 0.980000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'transcendPriceLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 20;
+					text = '{0}';
+					h_alignment = 2;
+					v_alignment = 1;
+					color = { 243; 236; 225; };
+					opacity = 255;
+					dimension_width = 110;
+					dimension_height = 34;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 69; 51; 63; };
+					has_shadow = true;
+					shadow_color = { 69; 51; 63; };
+					shadow_opacity = 180;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[4] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 84.000000;
+					y = 2.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 117;
+					height = 80;
+					scale_x = 0.980000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 30;
+					text = '초월';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 117;
+					dimension_height = 80;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 89; 28; 19; };
+					has_shadow = true;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 120;
+					shadow_direction = 0;
+					shadow_distance = 2.000000;
+				};
+				type = 'Button';
 				ui_name = '';
-				x = 26.000000;
-				y = -46.000000;
+				x = -3.000000;
+				y = -266.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 512;
-				height = 22;
+				width = 300;
+				height = 80;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'transcendBtn';
+				enable = true;
+				normal = 'ui/btn/btn_0301.png';
+				selected = 'ui/btn/btn_0302.png';
+				disable = '';
+				image_type = 1;
+			};
+			[17] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 2.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 150;
+					height = 50;
+					scale_x = 0.980000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 30;
+					text = '재료 선택';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 150;
+					dimension_height = 50;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 89; 28; 19; };
+					has_shadow = true;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 120;
+					shadow_direction = 0;
+					shadow_distance = 2.000000;
+				};
+				type = 'Button';
+				ui_name = '';
+				x = -3.000000;
+				y = -266.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 300;
+				height = 80;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'upgradeGauge1';
-				file_name = 'ui/gauge/upgarde_gg_02.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-				progress_type = 4;
-				mid_point_x = 0.000000;
-				mid_point_y = 0.000000;
-				percentage = 0;
+				lua_name = 'materialBtn';
+				enable = true;
+				normal = 'ui/btn/btn_0201.png';
+				selected = 'ui/btn/btn_0202.png';
+				disable = '';
+				image_type = 1;
 			};
-			[11] =
-			{
-				type = 'ProgressTimer';
-				ui_name = '';
-				x = 26.000000;
-				y = -46.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 512;
-				height = 22;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'upgradeGauge';
-				file_name = 'ui/gauge/upgarde_gg_01.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-				progress_type = 4;
-				mid_point_x = 0.000000;
-				mid_point_y = 0.000000;
-				percentage = 0;
-			};
-			[12] =
+			[18] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 25.000000;
-				y = -49.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 410;
-				height = 30;
-				scale_x = 0.980000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'upgradeExpLabel';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
-				text = '승급 경험치    {0}%';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 255; 255; 255; };
-				opacity = 255;
-				dimension_width = 410;
-				dimension_height = 30;
-				letter_spacing = 0.000000;
-				has_stroke = true;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 69; 51; 63; };
-				has_shadow = true;
-				shadow_color = { 69; 51; 63; };
-				shadow_opacity = 180;
-				shadow_direction = 0;
-				shadow_distance = 2.000000;
-			};
-			[13] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = -34.000000;
-				y = -86.000000;
+				x = -59.000000;
+				y = -117.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1491,12 +1919,12 @@
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
 			};
-			[14] =
+			[19] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 42.000000;
-				y = -144.000000;
+				x = 17.000000;
+				y = -175.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1510,168 +1938,12 @@
 				visible = true;
 				lua_name = 'materialNode';
 			};
-			[15] =
-			{
-				[1] =
-				{
-					type = 'Scale9Sprite';
-					ui_name = '';
-					x = -54.000000;
-					y = 5.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 158;
-					height = 40;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/frame/mini_bg_07.png';
-					color = { 20; 72; 85; };
-					opacity = 255;
-					center_rect_x = 0;
-					center_rect_y = 0;
-					center_rect_width = 0;
-					center_rect_height = 0;
-				};
-				[2] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 7.000000;
-					y = 5.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 46;
-					height = 46;
-					scale_x = 0.800000;
-					scale_y = 0.800000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/icon_gold.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[3] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = -67.000000;
-					y = 6.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 117;
-					height = 30;
-					scale_x = 0.920000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'skillUpPriceLabel';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
-					text = '{0}';
-					h_alignment = 2;
-					v_alignment = 1;
-					color = { 243; 236; 225; };
-					opacity = 255;
-					dimension_width = 117;
-					dimension_height = 30;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 85; 67; 51; };
-					has_shadow = true;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 100;
-					shadow_direction = 0;
-					shadow_distance = 3.000000;
-				};
-				[4] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 76.000000;
-					y = 6.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 117;
-					height = 44;
-					scale_x = 0.920000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 28;
-					text = '스킬레벨업';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 243; 236; 225; };
-					opacity = 255;
-					dimension_width = 117;
-					dimension_height = 44;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 54; 118; 120; };
-					has_shadow = true;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 100;
-					shadow_direction = 0;
-					shadow_distance = 3.000000;
-				};
-				type = 'Button';
-				ui_name = '';
-				x = 0.000000;
-				y = -180.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 300;
-				height = 72;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'skillUpgradeBtn';
-				enable = true;
-				normal = 'ui/btn/base_0101.png';
-				selected = 'ui/btn/base_0102.png';
-				disable = '';
-				image_type = 1;
-			};
-			[16] =
+			[20] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 30.000000;
-				y = 237.000000;
+				x = 5.000000;
+				y = 206.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1683,7 +1955,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'infoLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 18;
 				text = '승급하면 등급과 최대레벨이 상승해요';
@@ -1707,28 +1979,28 @@
 				shadow_distance = 3.000000;
 			};
 			type = 'Menu';
-			ui_name = 'right';
-			x = 297.000000;
-			y = 37.000000;
+			ui_name = '';
+			x = 320.000000;
+			y = 69.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 584;
-			height = 444;
+			width = 618;
+			height = 452;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = '';
+			lua_name = 'rightMenu';
 		};
-		[5] =
+		[4] =
 		{
 			type = 'Visual';
 			ui_name = '';
-			x = 304.000000;
-			y = 1.000000;
+			x = 370.000000;
+			y = 119.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -1748,7 +2020,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[6] =
+		[5] =
 		{
 			[1] =
 			{
@@ -1799,7 +2071,7 @@
 					type = 'Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = 0.000000;
+					y = 2.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1837,8 +2109,8 @@
 				visible = true;
 				lua_name = 'sortOrderBtn';
 				enable = true;
-				normal = 'ui/btn/sub_0101.png';
-				selected = 'ui/btn/sub_0102.png';
+				normal = 'ui/btn/sub_btn_0101.png';
+				selected = 'ui/btn/sub_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -2567,7 +2839,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -2.000000;
+					y = 2.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -2619,8 +2891,8 @@
 				visible = true;
 				lua_name = 'sortBtn';
 				enable = true;
-				normal = 'ui/btn/sub_0101.png';
-				selected = 'ui/btn/sub_0102.png';
+				normal = 'ui/btn/sub_btn_0101.png';
+				selected = 'ui/btn/sub_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -2641,7 +2913,7 @@
 			visible = true;
 			lua_name = '';
 		};
-		[7] =
+		[6] =
 		{
 			type = 'Sprite';
 			ui_name = '';
@@ -2667,7 +2939,7 @@
 			src_blend = 770;
 			dest_blend = 771;
 		};
-		[8] =
+		[7] =
 		{
 			type = 'Sprite';
 			ui_name = '';
@@ -2692,46 +2964,6 @@
 			flip_y = false;
 			src_blend = 770;
 			dest_blend = 771;
-		};
-		[9] =
-		{
-			type = 'LabelTTF';
-			ui_name = '';
-			x = 166.304443;
-			y = 96.999969;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 174;
-			height = 30;
-			scale_x = 0.920000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = false;
-			lua_name = 'termsLvLabel';
-			font_name = 'font/common_font_01.ttf';
-			font_size = 20;
-			text = '조건레벨 {0}/{0}';
-			h_alignment = 1;
-			v_alignment = 1;
-			color = { 102; 88; 71; };
-			opacity = 255;
-			dimension_width = 174;
-			dimension_height = 30;
-			letter_spacing = 0.000000;
-			has_stroke = false;
-			stroke_type = 0;
-			stroke_detail_level = 0;
-			is_sharp_text = true;
-			stroke_tickness = 2.000000;
-			stroke_color = { 0; 0; 0; };
-			has_shadow = false;
-			shadow_color = { 0; 0; 0; };
-			shadow_opacity = 255;
-			shadow_direction = 0;
-			shadow_distance = 3.000000;
 		};
 		type = 'Menu';
 		ui_name = '';

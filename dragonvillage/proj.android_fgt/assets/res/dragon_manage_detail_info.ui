@@ -1568,8 +1568,8 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = 852.000000;
-				y = 159.000000;
+				x = 782.000000;
+				y = 208.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -1583,8 +1583,8 @@
 				visible = true;
 				lua_name = 'closeBtn';
 				enable = true;
-				normal = 'ui/btn/bookmark_0301.png';
-				selected = 'ui/btn/bookmark_0302.png';
+				normal = 'ui/btn/bookmark_0303.png';
+				selected = 'ui/btn/bookmark_0304.png';
 				disable = '';
 				image_type = 0;
 			};

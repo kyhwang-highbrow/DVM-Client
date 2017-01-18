@@ -2095,7 +2095,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 123;
-				height = 30;
+				height = 40;
 				scale_x = 0.980000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -2111,7 +2111,7 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 123;
-				dimension_height = 30;
+				dimension_height = 40;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -2166,8 +2166,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 78;
-					height = 30;
+					width = 80;
+					height = 40;
 					scale_x = 0.980000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -2182,8 +2182,8 @@
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 78;
-					dimension_height = 30;
+					dimension_width = 80;
+					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -2302,8 +2302,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 78;
-					height = 30;
+					width = 80;
+					height = 40;
 					scale_x = 0.980000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -2318,8 +2318,8 @@
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 78;
-					dimension_height = 30;
+					dimension_width = 80;
+					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -2438,8 +2438,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 78;
-					height = 30;
+					width = 80;
+					height = 40;
 					scale_x = 0.980000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -2454,8 +2454,8 @@
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 78;
-					dimension_height = 30;
+					dimension_width = 80;
+					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -2697,7 +2697,7 @@
 					type = 'Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = 0.000000;
+					y = 2.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -2735,8 +2735,8 @@
 				visible = true;
 				lua_name = 'sortOrderBtn';
 				enable = true;
-				normal = 'ui/btn/sub_0101.png';
-				selected = 'ui/btn/sub_0102.png';
+				normal = 'ui/btn/sub_btn_0101.png';
+				selected = 'ui/btn/sub_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -3517,8 +3517,8 @@
 				visible = true;
 				lua_name = 'sortBtn';
 				enable = true;
-				normal = 'ui/btn/sub_0101.png';
-				selected = 'ui/btn/sub_0102.png';
+				normal = 'ui/btn/sub_btn_0101.png';
+				selected = 'ui/btn/sub_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};

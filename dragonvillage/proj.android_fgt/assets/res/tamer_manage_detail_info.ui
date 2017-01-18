@@ -14,8 +14,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 3;
-				width = 0;
-				height = 0;
+				width = 150;
+				height = 63;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/manage_detail_info_frame_01.png';
+				file_name = 'ui/frame/frame_auto_start_set.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -788,8 +788,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 63;
-					height = 63;
+					width = 46;
+					height = 46;
 					scale_x = 0.540000;
 					scale_y = 0.540000;
 					skew_x = 0.000000;
@@ -840,8 +840,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 63;
-					height = 63;
+					width = 46;
+					height = 46;
 					scale_x = 0.540000;
 					scale_y = 0.540000;
 					skew_x = 0.000000;
@@ -892,8 +892,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 63;
-					height = 63;
+					width = 46;
+					height = 46;
 					scale_x = 0.540000;
 					scale_y = 0.540000;
 					skew_x = 0.000000;
@@ -944,8 +944,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 63;
-					height = 63;
+					width = 46;
+					height = 46;
 					scale_x = 0.540000;
 					scale_y = 0.540000;
 					skew_x = 0.000000;
@@ -996,8 +996,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 63;
-					height = 63;
+					width = 46;
+					height = 46;
 					scale_x = 0.540000;
 					scale_y = 0.540000;
 					skew_x = 0.000000;
@@ -1048,8 +1048,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 63;
-					height = 63;
+					width = 46;
+					height = 46;
 					scale_x = 0.540000;
 					scale_y = 0.540000;
 					skew_x = 0.000000;
@@ -1661,7 +1661,7 @@
 				text = '테이머 상세 능력치';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 243; 236; 225; };
+				color = { 102; 88; 71; };
 				opacity = 255;
 				dimension_width = 500;
 				dimension_height = 54;
@@ -1682,8 +1682,8 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = 293.000000;
-				y = 198.000000;
+				x = 339.000000;
+				y = 221.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1697,8 +1697,8 @@
 				visible = true;
 				lua_name = 'closeBtn';
 				enable = true;
-				normal = 'ui/btn/close_01.png';
-				selected = 'ui/btn/close_02.png';
+				normal = 'ui/btn/bookmark_0303.png';
+				selected = 'ui/btn/bookmark_0304.png';
 				disable = '';
 				image_type = 0;
 			};
