@@ -7,7 +7,7 @@
 				"comment":"거대용 일반공격",
 				
 				"idx":1,
-				"res":"res/missile/missile_gdragon_basic/missile_gdragon_basic_fire.vrp",
+				"res":"res/missile/missile_gdragon_basic/missile_gdragon_basic_@.vrp",
 				"body":[0,0,15],
                 "count":5,
                 "scale":1,

@@ -7,7 +7,7 @@
 				"comment":"거대용 공통스킬: 용의 분노(모으기)",
 				
 				"idx":1,
-				"res":"res/effect/effect_charge_line/effect_charge_line_fire.vrp",
+				"res":"res/effect/effect_charge_line/effect_charge_line_@.vrp",
 				"visual":"idle",
 				"body":[0,0,0],
                 "count":1,
@@ -25,7 +25,7 @@
 				"comment":"거대용 공통스킬: 용의 분노",
 				
 				"idx":1,
-				"res":"res/effect/skill_gdragon_laser/skill_gdragon_laser_fire.vrp",
+				"res":"res/effect/skill_gdragon_laser/skill_gdragon_laser_@.vrp",
 				"visual":"idle",
 				"body":[0,0,0],
                 "count":1,

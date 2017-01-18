@@ -402,7 +402,7 @@
 			enable = true;
 			normal = 'ui/btn/sub_btn_0101.png';
 			selected = 'ui/btn/sub_btn_0102.png';
-			disable = 'ui/btn/sub_0103.png';
+			disable = 'ui/btn/sub_btn_0104.png';
 			image_type = 1;
 		};
 		[5] =
@@ -466,7 +466,7 @@
 			enable = true;
 			normal = 'ui/btn/sub_btn_0101.png';
 			selected = 'ui/btn/sub_btn_0102.png';
-			disable = 'ui/btn/sub_0103.png';
+			disable = 'ui/btn/sub_btn_0104.png';
 			image_type = 1;
 		};
 		[6] =

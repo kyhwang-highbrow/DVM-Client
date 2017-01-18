@@ -90,7 +90,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 540;
+			width = 526;
 			height = 352;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -2083,7 +2083,7 @@
 				enable = true;
 				normal = 'ui/btn/sub_btn_0101.png';
 				selected = 'ui/btn/sub_btn_0102.png';
-				disable = 'ui/btn/sub_0103.png';
+				disable = 'ui/btn/sub_btn_0104.png';
 				image_type = 1;
 			};
 			[7] =
@@ -2267,7 +2267,7 @@
 				enable = true;
 				normal = 'ui/btn/sub_btn_0101.png';
 				selected = 'ui/btn/sub_btn_0102.png';
-				disable = 'ui/btn/sub_0103.png';
+				disable = 'ui/btn/sub_btn_0104.png';
 				image_type = 1;
 			};
 			[11] =
@@ -2451,7 +2451,7 @@
 				enable = true;
 				normal = 'ui/btn/sub_btn_0101.png';
 				selected = 'ui/btn/sub_btn_0102.png';
-				disable = 'ui/btn/sub_0103.png';
+				disable = 'ui/btn/sub_btn_0104.png';
 				image_type = 1;
 			};
 			[15] =
@@ -2635,7 +2635,7 @@
 				enable = true;
 				normal = 'ui/btn/sub_btn_0101.png';
 				selected = 'ui/btn/sub_btn_0102.png';
-				disable = 'ui/btn/sub_0103.png';
+				disable = 'ui/btn/sub_btn_0104.png';
 				image_type = 1;
 			};
 			[19] =
