@@ -1275,6 +1275,9 @@
     <None Include="..\src\SkillContinuous.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\StatusEffect_Resist.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

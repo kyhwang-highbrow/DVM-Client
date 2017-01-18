@@ -296,19 +296,13 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	elseif (status_effect_type == 'barrier_protection') then
 		status_effect = StatusEffect_Protection(res)
 		local shield_hp = char.m_maxHp * (t_status_effect['val_1'] / 100)
-		status_effect:init_buff(char, shield_hp, nil, nil)
+		status_effect:init_buff(char, shield_hp)
 	
-	----------- 절대 보호막 ------------------
+	----------- 데미지 경감 보호막 ------------------
 	elseif (status_effect_type == 'resist') then
-        if (tonumber(status_effect_value) >= 100) then
-            status_effect = StatusEffect_Protection(res)
-		    local is_invincible = true
-		    local resist_rate = t_status_effect['dmg_adj_rate']
-		    status_effect:init_buff(char, nil, is_invincible, resist_rate)
-        else
-            status_effect = StatusEffect_Protection(res)
-            status_effect:init_buff(char, nil, false)
-        end
+		status_effect = StatusEffect_Resist(res)
+		local resist_rate = (t_status_effect['dmg_adj_rate'] * status_effect_value / 100)
+		status_effect:init_buff(char, resist_rate)
 
 	----------- 특이한 해제 조건을 가진 것들 ------------------
 	elseif isExistValue(status_effect_type, 'sleep') then
