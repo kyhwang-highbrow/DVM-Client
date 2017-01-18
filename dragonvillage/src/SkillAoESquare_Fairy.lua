@@ -32,7 +32,20 @@ end
 -------------------------------------
 function SkillAoESquare_Fairy:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillAoESquare_Fairy.st_attack, self.m_idleAniName, true)
+	self:addState('start', SkillAoESquare_Fairy.st_appear, 'appear', false)
+    self:addState('attack', SkillAoESquare_Fairy.st_attack, self.m_idleAniName, true)
+	self:addState('disappear', SkillAoESquare_Fairy.st_disappear, 'disappear', false)
+end
+
+-------------------------------------
+-- function st_appear
+-------------------------------------
+function SkillAoESquare_Fairy.st_appear(owner, dt)
+    if (owner.m_stateTimer == 0) then
+		owner.m_animator:addAniHandler(function()
+			owner:changeState('attack')
+		end)
+    end
 end
 
 -------------------------------------
@@ -40,13 +53,25 @@ end
 -------------------------------------
 function SkillAoESquare_Fairy.st_attack(owner, dt)
 	if (owner.m_stateTimer == 0) then
+		owner:runAttack()
+		owner:doFairySideEffect()
 		owner.m_animator:addAniHandler(function()
-			owner:doFairySideEffect()
-			owner:runAttack()
-			owner:escapeAttack()
+			owner:changeState('disappear')
 		end)
 	end
 end
+
+-------------------------------------
+-- function st_disappear
+-------------------------------------
+function SkillAoESquare_Fairy.st_disappear(owner, dt)
+    if (owner.m_stateTimer == 0) then
+		owner.m_animator:addAniHandler(function()
+			owner:changeState('dying')
+		end)
+    end
+end
+
 
 -------------------------------------
 -- function doFairySideEffect
