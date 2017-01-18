@@ -880,9 +880,13 @@ end
 -- function setHp
 -------------------------------------
 function Character:setHp(hp)
+	-- 죽었을시 탈출
+	if (self.m_bDead) then return end
+
     self.m_hp = hp
 	local percentage = self.m_hp / self.m_maxHp
 
+	-- 체력바 가감 연출
     if self.m_hpGauge then
         self.m_hpGauge:setScaleX(percentage)
     end
@@ -891,6 +895,7 @@ function Character:setHp(hp)
         self.m_hpGauge2:runAction(cc.EaseIn:create(action, 2))
     end
 
+	-- 리스너에 전달
     if self.m_hpEventListener then
         for i, v in pairs(self.m_hpEventListener) do
             v:changeHpCB(self, self.m_hp, self.m_maxHp)
