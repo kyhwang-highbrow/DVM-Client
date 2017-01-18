@@ -112,6 +112,16 @@ end
 -------------------------------------
 function ScenePatch:refreshPatchIdxLabel()
     local patch_idx_str = PatchData:getInstance():getAppVersionAndPatchIdxString()
+
+
+    if (TARGET_SERVER == nil) then
+        patch_idx_str = patch_idx_str
+    elseif (TARGET_SERVER == 'FGT') then
+        patch_idx_str = patch_idx_str .. ' (FGT server)'
+    else
+        error('TARGET_SERVER : ' .. TARGET_SERVER)
+    end
+
     self.m_vars['patchIdxLabel']:setString(patch_idx_str)
 end
 

@@ -42,8 +42,18 @@ function UI_TitleScene:initUI()
     vars['messageLabel']:setVisible(false)
     vars['downloadLabel']:setVisible(false)
 
-    -- 앱버전과 패치 정보를 출력
-    vars['patchIdxLabel']:setString(PatchData:getInstance():getAppVersionAndPatchIdxString())
+    do -- 앱버전과 패치 정보를 출력
+        local patch_idx_str = PatchData:getInstance():getAppVersionAndPatchIdxString()
+        if (TARGET_SERVER == nil) then
+            patch_idx_str = patch_idx_str
+        elseif (TARGET_SERVER == 'FGT') then
+            patch_idx_str = patch_idx_str .. ' (FGT server)'
+        else
+            error('TARGET_SERVER : ' .. TARGET_SERVER)
+        end
+
+        vars['patchIdxLabel']:setString(patch_idx_str)
+    end    
 
     self.m_loadingUI = UI_TitleSceneLoading()
     self.m_loadingUI:hideLoading()

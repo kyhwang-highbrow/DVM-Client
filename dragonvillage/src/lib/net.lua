@@ -373,6 +373,15 @@ function Network:getApiUrl()
 
     local api_url = 'http://dv-test.perplelab.com:9003' --/get_patch_info?app_ver=0.0.0
 
+    -- nil == default
+    if (TARGET_SERVER == nil) then
+        api_url = 'http://dv-test.perplelab.com:9003'
+    elseif (TARGET_SERVER == 'FGT') then
+        api_url = 'http://dv-test.perplelab.com:9004'
+    else
+        error('TARGET_SERVER : ' .. TARGET_SERVER)
+    end
+
     return api_url
 end
 
