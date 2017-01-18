@@ -242,7 +242,10 @@ end
 -------------------------------------
 function UI_DragonGoodbye:goodbyeNetworkRequest(uid, src_doids)
     local function success_cb(ret)
-        self:goodbyeNetworkResponse(ret)
+        local function cb()
+            self:goodbyeNetworkResponse(ret)
+        end
+        self:goodbyeDirecting(cb)
     end
 
     local ui_network = UI_Network()
@@ -286,6 +289,12 @@ end
 -- function addMaterial
 -------------------------------------
 function UI_DragonGoodbye:addMaterial(doid)
+
+    if (g_dragonsData:isLeaderDragon(doid) == true) then
+        UIManager:toastNotificationRed(Str('리더로 설정된 드래곤은 작별할 수 없습니다.'))
+        return
+    end
+
     local item_cnt = self.m_tableViewExtSelectMaterial:getItemCount()
     if (item_cnt >= MAX_DRAGON_GOODBYE_MATERIAL_MAX) then
         UIManager:toastNotificationRed(Str('한 번에 최대 {1}마리만 작별할 수 있습니다.', MAX_DRAGON_GOODBYE_MATERIAL_MAX))
@@ -365,6 +374,39 @@ function UI_DragonGoodbye:onChangeSelectedDragons(doid)
     vars['lacreaLabel2']:setString(Str('+{1}', comma_value(self.m_addLactea)))
     local selected_dragon_cnt = self.m_tableViewExtSelectMaterial and self.m_tableViewExtSelectMaterial:getItemCount() or 0
     vars['selectLabel']:setString(Str('{1} / {2}', selected_dragon_cnt, MAX_DRAGON_GOODBYE_MATERIAL_MAX))
+end
+
+-------------------------------------
+-- function goodbyeDirecting
+-------------------------------------
+function UI_DragonGoodbye:goodbyeDirecting(cb)
+    -- 하위 UI의 터치를 막기 위해 사용
+    local block_ui = UI_BlockPopup()
+
+    local directing_animation
+    local directing_result
+
+    -- 에니메이션 연출
+    directing_animation = function()
+        local animator = self.vars['lacreaVisual']
+
+        local function ani_handler()
+            animator:changeAni('lecrea_idle', true)
+            directing_result()
+        end
+        
+        animator:changeAni('lecrea_on', false)
+        animator:addAniHandler(ani_handler)
+        SoundMgr:playEffect('EFFECT', 'exp_gauge')
+    end
+
+    -- 결과 연출
+    directing_result = function()
+        block_ui:close()
+        cb()
+    end
+
+    directing_animation()
 end
 
 --@CHECK
