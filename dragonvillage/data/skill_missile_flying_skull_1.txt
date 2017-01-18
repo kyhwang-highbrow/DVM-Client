@@ -10,7 +10,7 @@
 				"count":1,
 				"scale":0.5,
 				"period":3,
-				"speed":1000,
+				"speed":1500,
 				"accel":-1000,
 				"accel_delay":2.2,
 				"l_limit_speed":0,
