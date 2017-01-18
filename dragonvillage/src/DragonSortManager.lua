@@ -207,9 +207,9 @@ function DragonSortManager:sortFunc(a, b)
 
     -- 덱에 설정된 데이터로 우선 정렬
     if (a_deck_idx ~= b_deck_idx) then
-        if (a_deck_idx == 999) or (b_deck_idx == 999) then
+        --if (a_deck_idx == 999) or (b_deck_idx == 999) then -- 설정된 덱 안에서도 정렬을 하고싶을 때 사용
             return a_deck_idx < b_deck_idx
-        end
+        --end
     end
 
     -- 정렬 타입
