@@ -101,8 +101,10 @@ end
 -------------------------------------
 function SkillAoERound.st_disappear(owner, dt)
     if (owner.m_stateTimer == 0) then
-		owner.m_rangeEffect:changeAni('disappear', false)
-		owner.m_rangeEffect:addAniHandler(function()
+		-- 타격범위 이펙트
+		owner.m_rangeEffect:changeAni('disappear', true)
+
+		owner.m_animator:addAniHandler(function()
 			owner:changeState('dying')
 		end)
     end
@@ -116,6 +118,7 @@ function SkillAoERound:runAttack()
 	self.m_lTarget = t_target
 
     for i, target_char in ipairs(t_target) do
+
 		-- @TODO 중독 추가 데미지 임시 구현!!!
 		local add_value = 0
 		if string.find(self.m_addDamage, ';') then	
@@ -135,10 +138,8 @@ function SkillAoERound:runAttack()
         -- 공격
         self:attack(target_char)
 		
-		-- @TODO 낙뢰와 같은 경우 타겟 마다 이펙트 생성 임시 구현
-		if (self.m_maxAttackCnt == 1) then 
-			self:makeEffect(target_char.pos.x, target_char.pos.y)
-		end 
+		-- 타겟별 리소스
+		self:makeEffect(target_char.pos.x, target_char.pos.y)
     end
 
 	-- 스킬이 제거할 수 있는 미사일 제거
@@ -150,6 +151,8 @@ end
 -- @breif 추가 이펙트 생성 .. 현재는 같은 리소스 사용
 -------------------------------------
 function SkillAoERound:makeEffect(x, y)
+	if (self.m_aoeRes == 'x') then return end
+
     -- 이팩트 생성
     local effect = MakeAnimator(self.m_aoeRes)
     effect:setPosition(x, y)
@@ -168,20 +171,18 @@ function SkillAoERound:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
 	local attack_count = t_skill['hit']	  -- 공격 횟수
     local range = t_skill['val_1']		  -- 공격 반경
-	local aoe_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())	  -- 광역 스킬 리소스
-
 	local add_damage = t_skill['val_2'] -- 추가데미지 필드
+	
+	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())	-- 스킬 본연의 리소스
+	local aoe_res = string.gsub(t_skill['res_2'], '@', owner:getAttribute())		-- 개별 타겟 이펙트 리소스
+	if (missile_res == 'x') then 
+		missile_res = nil
+	end
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = nil
-	-- 리소스를 개별적으로 찍어야 하는 경우에 기본 생성을 하지 않는다. 조건은 좀 더 고려해봐야함  
-	if (attack_count == 1) then 
-		skill = SkillAoERound(nil)
-	else
-		skill = SkillAoERound(aoe_res)
-	end
+    local skill = SkillAoERound(missile_res)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)

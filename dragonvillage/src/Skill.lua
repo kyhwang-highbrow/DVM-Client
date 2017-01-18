@@ -20,6 +20,8 @@ Skill = class(PARENT, {
 		m_targetType = 'str', -- 타겟 선택하는 룰
 		m_targetPos = 'pos', -- 타겟 위치 정보 빠르게 접근하기 위해..~
 		
+		m_findTargetType = 'str', -- 타겟 선택하는 룰을 온전히 사용하기 전 임시로 사용
+
 		-- 상태 효과 관련 변수들
 		m_lStatusEffectStr = '',
 		m_tSpecialTarget = '', -- 임시 처리
@@ -63,8 +65,10 @@ function Skill:init_skill()
 		self.m_targetPos = {x = x, y = y}
     end
 
+	-- 고유값 가지는 멤버 변수 
 	self.m_range = 0    
 	self.m_tSpecialTarget = {}
+	self.m_findTargetType = 'enemy'
 end
 
 -------------------------------------
@@ -97,6 +101,9 @@ end
 -------------------------------------
 function Skill:adjustAnimator()    
 	if (not self.m_animator) then return end
+	
+	-- delay state 종료시 켜준다.
+	self.m_animator:setVisible(false) 
 
 	-- res_scale 의 경우 ;가 있으면 x,y 각각 개별로 들어간다...
 	if string.find(self.m_resScale, ';') then
@@ -144,7 +151,6 @@ end
 -------------------------------------
 function Skill.st_delay(owner, dt)
     if (owner.m_stateTimer == 0) then
-		owner.m_animator:setVisible(false) 
 		if (not owner.m_targetChar) then 
 			owner:printTargetIsNotExist()
 			owner:changeState('dying') 
@@ -238,7 +244,7 @@ function Skill:findTarget()
 	local range = self.m_range
 
     local world = self.m_world
-	local l_target = world:getTargetList(self.m_owner, x, y, 'enemy', 'x', 'distance_line')
+	local l_target = world:getTargetList(self.m_owner, x, y, self.m_findTargetType, 'x', 'distance_line')
     
 	local l_ret = {}
     local distance = 0

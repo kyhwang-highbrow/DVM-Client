@@ -245,6 +245,7 @@ local t_module = {
     'SkillMeleeHack',
 	'SkillHealAround',
 	'SkillAoERound',
+	'SkillAoERound_Egg',
     'SkillAoESquare',
     'SkillAoESquare_Heal',
 	'SkillAoESquare_Fairy',

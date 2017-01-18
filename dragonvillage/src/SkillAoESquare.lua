@@ -14,8 +14,6 @@ SkillAoESquare = class(PARENT, {
 		m_maxAttackCnt = 'number',
 
 		m_idleAniName = 'idle',
-
-		m_findTargetType = 'str'
      })
 
 -------------------------------------
@@ -43,7 +41,6 @@ function SkillAoESquare:init_skill(skill_width, skill_height, hit)
 	
 	-- 하드코딩..
 	self.m_idleAniName = 'idle'
-	self.m_findTargetType = 'enemy'
 
 	-- 위치 설정
 	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)

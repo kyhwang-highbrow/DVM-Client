@@ -133,7 +133,11 @@ function Character:doSkill(skill_id, x, y, t_data)
             return true
 
 		elseif (type == 'skill_aoe_round') then
-            SkillAoERound:makeSkillInstance(self, t_skill, t_data)
+			if (self.m_charTable['type'] == 'mutanteggdragon') then 
+				SkillAoERound_Egg:makeSkillInstance(self, t_skill, t_data)
+			else
+				SkillAoERound:makeSkillInstance(self, t_skill, t_data)
+			end
             return true
 
 		elseif (type == 'skill_conic') then
