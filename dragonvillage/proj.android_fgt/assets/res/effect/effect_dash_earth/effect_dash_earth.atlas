@@ -1,0 +1,20 @@
+
+effect_dash_earth.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_dash_earth_01
+  rotate: false
+  xy: 2, 252
+  size: 680, 432
+  orig: 680, 432
+  offset: 0, 0
+  index: -1
+effect_dash_earth_02
+  rotate: false
+  xy: 2, 2
+  size: 776, 248
+  orig: 776, 248
+  offset: 0, 0
+  index: -1

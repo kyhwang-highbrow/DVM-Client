@@ -1,0 +1,97 @@
+
+common_honeybee_earth.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+honeybee_body_01
+  rotate: false
+  xy: 2, 38
+  size: 79, 79
+  orig: 79, 79
+  offset: 0, 0
+  index: -1
+honeybee_body_02
+  rotate: false
+  xy: 83, 44
+  size: 74, 73
+  orig: 74, 73
+  offset: 0, 0
+  index: -1
+honeybee_body_03
+  rotate: true
+  xy: 214, 17
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+honeybee_body_04
+  rotate: true
+  xy: 159, 64
+  size: 53, 79
+  orig: 53, 79
+  offset: 0, 0
+  index: -1
+honeybee_eye_01
+  rotate: false
+  xy: 258, 22
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+honeybee_eye_02
+  rotate: false
+  xy: 68, 2
+  size: 18, 34
+  orig: 18, 34
+  offset: 0, 0
+  index: -1
+honeybee_head_01
+  rotate: false
+  xy: 240, 59
+  size: 70, 58
+  orig: 70, 58
+  offset: 0, 0
+  index: -1
+honeybee_wing_01
+  rotate: false
+  xy: 380, 64
+  size: 45, 53
+  orig: 45, 53
+  offset: 0, 0
+  index: -1
+honeybee_wing_02
+  rotate: false
+  xy: 427, 64
+  size: 45, 53
+  orig: 45, 53
+  offset: 0, 0
+  index: -1
+honeybee_wing_03
+  rotate: true
+  xy: 159, 17
+  size: 45, 53
+  orig: 45, 53
+  offset: 0, 0
+  index: -1
+honeybee_wing_04
+  rotate: false
+  xy: 312, 54
+  size: 66, 63
+  orig: 66, 63
+  offset: 0, 0
+  index: -1
+honeybeer_ear_01
+  rotate: true
+  xy: 2, 2
+  size: 34, 64
+  orig: 34, 64
+  offset: 0, 0
+  index: -1
+honeybeer_ear_02
+  rotate: false
+  xy: 474, 60
+  size: 35, 57
+  orig: 35, 57
+  offset: 0, 0
+  index: -1

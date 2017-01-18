@@ -1,0 +1,41 @@
+
+missile_minibee.png
+size: 512,64
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+missile_minibee_03
+  rotate: false
+  xy: 72, 2
+  size: 53, 49
+  orig: 53, 49
+  offset: 0, 0
+  index: -1
+missile_minibee_04
+  rotate: false
+  xy: 231, 13
+  size: 43, 38
+  orig: 43, 38
+  offset: 0, 0
+  index: -1
+missile_minibee_05
+  rotate: false
+  xy: 2, 5
+  size: 68, 46
+  orig: 68, 46
+  offset: 0, 0
+  index: -1
+missile_minibee_06
+  rotate: true
+  xy: 127, 4
+  size: 47, 50
+  orig: 47, 50
+  offset: 0, 0
+  index: -1
+missile_minibee_07
+  rotate: true
+  xy: 179, 4
+  size: 47, 50
+  orig: 47, 50
+  offset: 0, 0
+  index: -1

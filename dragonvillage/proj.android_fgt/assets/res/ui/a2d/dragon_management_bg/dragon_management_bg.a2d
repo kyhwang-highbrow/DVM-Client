@@ -1,0 +1,610 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)dragon_management_bg.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_door.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":120
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_management_bg_light_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-465.000000, "pY":15.000000, "alpha":51
+									},
+									{
+										"frame":60, "sX":2.608320, "sY":1.689480, "rotate":-9.000000, "pX":-465.000000, "pY":15.000000, "alpha":128
+									},
+									{
+										"frame":120, "pX":-465.000000, "pY":15.000000, "alpha":51
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_management_bg_light_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-465.000000, "pY":15.000000, "alpha":51, "mode":"Add"
+									},
+									{
+										"frame":60, "sX":1.337600, "sY":1.778400, "rotate":-9.000000, "pX":-465.000000, "pY":15.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":120, "pX":-465.000000, "pY":15.000000, "alpha":51, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_management_bg_light_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-349.000000, "pY":-59.000000, "alpha":0
+									},
+									{
+										"frame":61, "sX":1.050000, "sY":1.450000, "pX":-349.000000, "pY":-59.000000
+									},
+									{
+										"frame":120, "pX":-349.000000, "pY":-59.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_management_bg_light_03'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000, "pX":-458.000000, "pY":87.000000
+									},
+									{
+										"frame":120, "sX":0.800000, "sY":0.800000, "pX":-623.000000, "pY":-6.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_management_bg_light_03_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000, "rotate":-131.000000, "pX":-467.000000, "pY":65.000000
+									},
+									{
+										"frame":120, "sX":0.800000, "sY":0.800000, "rotate":-131.000000, "pX":-591.000000, "pY":-85.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_management_bg_light_03_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.800000, "sY":0.800000, "pX":-460.000000, "pY":180.000000, "alpha":204
+									},
+									{
+										"frame":120, "sX":0.800000, "sY":0.800000, "pX":-599.000000, "pY":242.000000, "alpha":204
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_wooddoor.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":120
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_light_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-609.000000, "pY":-213.000000, "alpha":204
+									},
+									{
+										"frame":60, "sX":1.160000, "sY":0.980000, "pX":-633.000000, "pY":-213.000000, "alpha":204
+									},
+									{
+										"frame":120, "pX":-609.000000, "pY":-213.000000, "alpha":204
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name":"res",
+			"expand":true,
+			"apply":false,
+			"visual_list":
+			[
+				{
+					"name":"dragon_management_bg_light_01",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":470.000000, "pY":-12.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dragon_management_bg_light_02",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_light_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":348.000000, "pY":58.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dragon_management_bg_light_03",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":48, "pX":-23.000000, "pY":13.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":53, "sX":1.166667, "sY":1.166667, "pX":-23.000000, "pY":13.000000, "cX":350.000000, "cY":-197.999985, "mode":"Add"
+									},
+									{
+										"frame":63, "sX":1.500000, "sY":1.500000, "pX":-23.000000, "pY":13.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":74, "sX":1.133333, "sY":1.133333, "pX":-23.000000, "pY":13.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":78, "pX":-23.000000, "pY":13.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":5, "sX":1.166667, "sY":1.166667, "cX":350.000000, "cY":-197.999985, "mode":"Add"
+									},
+									{
+										"frame":15, "sX":1.500000, "sY":1.500000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":26, "sX":1.133333, "sY":1.133333, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":30, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":70, "sX":0.800000, "sY":0.800000, "pX":-17.000000, "pY":-11.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":73, "sX":0.900000, "sY":0.900000, "pX":-16.000000, "pY":-11.000000, "cX":350.000000, "cY":-198.000015, "mode":"Add"
+									},
+									{
+										"frame":85, "sX":1.300000, "sY":1.300000, "pX":-17.000000, "pY":-11.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":95, "sX":0.966667, "sY":0.966667, "pX":-17.000000, "pY":-11.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":100, "sX":0.800000, "sY":0.800000, "pX":-17.000000, "pY":-11.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":23, "sX":0.500000, "sY":0.500000, "pX":-41.000000, "pY":-31.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":26, "sX":0.600000, "sY":0.600000, "pX":-41.000000, "pY":-31.000002, "cX":350.000000, "cY":-198.000015, "mode":"Add"
+									},
+									{
+										"frame":38, "pX":-41.000000, "pY":-31.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":49, "sX":0.633333, "sY":0.633333, "pX":-41.000000, "pY":-31.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":53, "sX":0.500000, "sY":0.500000, "pX":-41.000000, "pY":-31.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dragon_management_bg_light_03_01",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":5, "sX":1.166667, "sY":1.166667, "cX":350.000000, "cY":-197.999985, "mode":"Add"
+									},
+									{
+										"frame":15, "sX":1.500000, "sY":1.500000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":26, "sX":1.133333, "sY":1.133333, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":30, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":38, "sX":0.300000, "sY":0.300000, "pX":-18.000000, "pY":32.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":41, "sX":0.400000, "sY":0.400000, "pX":-18.000000, "pY":32.000000, "cX":350.000000, "cY":-198.000015, "mode":"Add"
+									},
+									{
+										"frame":53, "sX":0.800000, "sY":0.800000, "pX":-18.000000, "pY":32.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":63, "sX":0.466667, "sY":0.466667, "pX":-18.000000, "pY":32.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":68, "sX":0.300000, "sY":0.300000, "pX":-18.000000, "pY":32.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":70, "pX":-4.000000, "pY":56.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":73, "sX":1.100000, "sY":1.100000, "pX":-4.000000, "pY":56.000000, "cX":350.000000, "cY":-198.000015, "mode":"Add"
+									},
+									{
+										"frame":85, "sX":1.500000, "sY":1.500000, "pX":-4.000000, "pY":56.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":95, "sX":1.166667, "sY":1.166667, "pX":-4.000000, "pY":56.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":100, "pX":-4.000000, "pY":56.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":16, "sX":0.500000, "sY":0.500000, "pX":-41.000000, "pY":-31.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":19, "sX":0.600000, "sY":0.600000, "pX":-41.000000, "pY":-31.000002, "cX":350.000000, "cY":-198.000015, "mode":"Add"
+									},
+									{
+										"frame":31, "pX":-41.000000, "pY":-31.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":42, "sX":0.633333, "sY":0.633333, "pX":-41.000000, "pY":-31.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":46, "sX":0.500000, "sY":0.500000, "pX":-41.000000, "pY":-31.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":37, "pX":-89.000000, "pY":27.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":40, "sX":1.100000, "sY":1.100000, "pX":-89.000000, "pY":26.000000, "cX":350.000000, "cY":-198.000015, "mode":"Add"
+									},
+									{
+										"frame":52, "sX":1.500000, "sY":1.500000, "pX":-89.000000, "pY":27.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":63, "sX":1.133333, "sY":1.133333, "pX":-89.000000, "pY":27.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":67, "pX":-89.000000, "pY":27.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dragon_management_bg_light_03_02",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":5, "sX":1.166667, "sY":1.166667, "cX":350.000000, "cY":-197.999985, "mode":"Add"
+									},
+									{
+										"frame":15, "sX":1.500000, "sY":1.500000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":26, "sX":1.133333, "sY":1.133333, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":30, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":27, "sX":0.300000, "sY":0.300000, "pX":-18.000000, "pY":32.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":0.400000, "sY":0.400000, "pX":-18.000000, "pY":32.000000, "cX":350.000000, "cY":-198.000015, "mode":"Add"
+									},
+									{
+										"frame":42, "sX":0.800000, "sY":0.800000, "pX":-18.000000, "pY":32.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":52, "sX":0.466667, "sY":0.466667, "pX":-18.000000, "pY":32.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":57, "sX":0.300000, "sY":0.300000, "pX":-18.000000, "pY":32.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":70, "pX":-6.000000, "pY":-26.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":73, "sX":1.100000, "sY":1.100000, "pX":-6.000000, "pY":-26.000000, "cX":350.000000, "cY":-198.000015, "mode":"Add"
+									},
+									{
+										"frame":85, "sX":1.500000, "sY":1.500000, "pX":-6.000000, "pY":-26.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":95, "sX":1.166667, "sY":1.166667, "pX":-6.000000, "pY":-26.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":100, "pX":-6.000000, "pY":-26.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":16, "sX":0.500000, "sY":0.500000, "pX":-63.000000, "pY":-7.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":19, "sX":0.600000, "sY":0.600000, "pX":-63.000000, "pY":-7.000000, "cX":350.000000, "cY":-198.000015, "mode":"Add"
+									},
+									{
+										"frame":31, "pX":-63.000000, "pY":-7.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":42, "sX":0.633333, "sY":0.633333, "pX":-63.000000, "pY":-7.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":46, "sX":0.500000, "sY":0.500000, "pX":-63.000000, "pY":-7.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_management_bg.plist'<azSprite>'dragon_management_bg_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":57, "pX":-59.000000, "pY":-8.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":60, "sX":1.100000, "sY":1.100000, "pX":-59.000000, "pY":-9.000000, "cX":350.000000, "cY":-198.000015, "mode":"Add"
+									},
+									{
+										"frame":72, "sX":1.500000, "sY":1.500000, "pX":-59.000000, "pY":-8.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":83, "sX":1.133333, "sY":1.133333, "pX":-59.000000, "pY":-8.000000, "cX":350.000000, "cY":-198.000000, "mode":"Add"
+									},
+									{
+										"frame":87, "pX":-59.000000, "pY":-8.000000, "cX":350.000000, "cY":-198.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

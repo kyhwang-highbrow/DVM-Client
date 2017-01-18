@@ -1,0 +1,13 @@
+
+common_ancient_word_c_fire.png
+size: 128,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_ancient_word_c_fire
+  rotate: false
+  xy: 2, 2
+  size: 97, 137
+  orig: 97, 137
+  offset: 0, 0
+  index: -1

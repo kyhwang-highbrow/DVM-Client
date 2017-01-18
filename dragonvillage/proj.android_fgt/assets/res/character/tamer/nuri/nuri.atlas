@@ -1,0 +1,272 @@
+
+nuri.png
+size: 2048,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+nuri_arm_01
+  rotate: true
+  xy: 1774, 96
+  size: 30, 43
+  orig: 30, 43
+  offset: 0, 0
+  index: -1
+nuri_arm_02
+  rotate: true
+  xy: 2005, 96
+  size: 30, 33
+  orig: 30, 33
+  offset: 0, 0
+  index: -1
+nuri_bag_01
+  rotate: false
+  xy: 873, 2
+  size: 38, 46
+  orig: 38, 46
+  offset: 0, 0
+  index: -1
+nuri_body_01
+  rotate: false
+  xy: 1452, 69
+  size: 48, 57
+  orig: 48, 57
+  offset: 0, 0
+  index: -1
+nuri_body_02
+  rotate: false
+  xy: 1502, 69
+  size: 48, 57
+  orig: 48, 57
+  offset: 0, 0
+  index: -1
+nuri_body_03
+  rotate: false
+  xy: 1552, 69
+  size: 48, 57
+  orig: 48, 57
+  offset: 0, 0
+  index: -1
+nuri_effect_01
+  rotate: true
+  xy: 778, 54
+  size: 72, 125
+  orig: 72, 125
+  offset: 0, 0
+  index: -1
+nuri_effect_03
+  rotate: true
+  xy: 302, 8
+  size: 118, 125
+  orig: 118, 125
+  offset: 0, 0
+  index: -1
+nuri_effect_04
+  rotate: false
+  xy: 1330, 62
+  size: 65, 64
+  orig: 65, 64
+  offset: 0, 0
+  index: -1
+nuri_eye_01
+  rotate: true
+  xy: 1819, 96
+  size: 30, 35
+  orig: 30, 35
+  offset: 0, 0
+  index: -1
+nuri_eye_02
+  rotate: true
+  xy: 149, 2
+  size: 22, 28
+  orig: 22, 28
+  offset: 0, 0
+  index: -1
+nuri_foot_01
+  rotate: true
+  xy: 706, 5
+  size: 34, 66
+  orig: 34, 66
+  offset: 0, 0
+  index: -1
+nuri_foot_02
+  rotate: true
+  xy: 1666, 93
+  size: 33, 57
+  orig: 33, 57
+  offset: 0, 0
+  index: -1
+nuri_hair_01
+  rotate: false
+  xy: 2, 19
+  size: 145, 107
+  orig: 145, 107
+  offset: 0, 0
+  index: -1
+nuri_hair_02
+  rotate: false
+  xy: 652, 41
+  size: 124, 85
+  orig: 124, 85
+  offset: 0, 0
+  index: -1
+nuri_hair_03
+  rotate: true
+  xy: 905, 50
+  size: 76, 78
+  orig: 76, 78
+  offset: 0, 0
+  index: -1
+nuri_hair_04
+  rotate: true
+  xy: 1602, 83
+  size: 43, 62
+  orig: 43, 62
+  offset: 0, 0
+  index: -1
+nuri_hair_05
+  rotate: true
+  xy: 1856, 100
+  size: 26, 39
+  orig: 26, 39
+  offset: 0, 0
+  index: -1
+nuri_hair_06
+  rotate: false
+  xy: 149, 26
+  size: 151, 100
+  orig: 151, 100
+  offset: 0, 0
+  index: -1
+nuri_hand_01
+  rotate: false
+  xy: 913, 13
+  size: 54, 35
+  orig: 54, 35
+  offset: 0, 0
+  index: -1
+nuri_hand_02
+  rotate: false
+  xy: 1725, 96
+  size: 47, 30
+  orig: 47, 30
+  offset: 0, 0
+  index: -1
+nuri_head_01
+  rotate: false
+  xy: 538, 19
+  size: 112, 107
+  orig: 112, 107
+  offset: 0, 0
+  index: -1
+nuri_leg_01
+  rotate: true
+  xy: 1070, 73
+  size: 53, 88
+  orig: 53, 88
+  offset: 0, 0
+  index: -1
+nuri_leg_02
+  rotate: true
+  xy: 1246, 86
+  size: 40, 82
+  orig: 40, 82
+  offset: 0, 0
+  index: -1
+nuri_monsterbody_01
+  rotate: false
+  xy: 429, 11
+  size: 107, 115
+  orig: 107, 115
+  offset: 0, 0
+  index: -1
+nuri_monsterbody_02
+  rotate: false
+  xy: 1160, 72
+  size: 84, 54
+  orig: 84, 54
+  offset: 0, 0
+  index: -1
+nuri_monsterbody_03
+  rotate: false
+  xy: 828, 2
+  size: 43, 50
+  orig: 43, 50
+  offset: 0, 0
+  index: -1
+nuri_monsterbody_04
+  rotate: true
+  xy: 1897, 94
+  size: 32, 34
+  orig: 32, 34
+  offset: 0, 0
+  index: -1
+nuri_monstereye_01
+  rotate: false
+  xy: 652, 2
+  size: 52, 37
+  orig: 52, 37
+  offset: 0, 0
+  index: -1
+nuri_monstereye_02
+  rotate: true
+  xy: 1933, 94
+  size: 32, 34
+  orig: 32, 34
+  offset: 0, 0
+  index: -1
+nuri_monstereye_04
+  rotate: true
+  xy: 1969, 94
+  size: 32, 34
+  orig: 32, 34
+  offset: 0, 0
+  index: -1
+nuri_monstereye_05
+  rotate: false
+  xy: 208, 3
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: -1
+nuri_monsterface_01
+  rotate: false
+  xy: 179, 3
+  size: 27, 21
+  orig: 27, 21
+  offset: 0, 0
+  index: -1
+nuri_monsterface_02
+  rotate: false
+  xy: 985, 67
+  size: 83, 59
+  orig: 83, 59
+  offset: 0, 0
+  index: -1
+nuri_monsterfoot_01
+  rotate: false
+  xy: 1397, 62
+  size: 53, 64
+  orig: 53, 64
+  offset: 0, 0
+  index: -1
+nuri_monsterfoot_02
+  rotate: false
+  xy: 778, 2
+  size: 48, 50
+  orig: 48, 50
+  offset: 0, 0
+  index: -1
+nuri_mouth_01
+  rotate: false
+  xy: 913, 2
+  size: 12, 9
+  orig: 12, 9
+  offset: 0, 0
+  index: -1
+nuri_mouth_02
+  rotate: false
+  xy: 985, 41
+  size: 26, 24
+  orig: 26, 24
+  offset: 0, 0
+  index: -1

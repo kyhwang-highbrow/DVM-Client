@@ -1,0 +1,204 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)ingame_enemy.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"attr",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"adv_arrow",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_adv_arrow'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":14
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"disadv_arrow",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_disadv_arrow'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":19
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name":"res",
+			"expand":true,
+			"apply":false,
+			"visual_list":
+			[
+				{
+					"name":"res_adv_arrow",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_enemy.plist'<azSprite>'attr_adv_arrow.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000, "pY":-5.000000, "alpha":0
+									},
+									{
+										"frame":9, "pX":-26.000000, "pY":-1.896552
+									},
+									{
+										"frame":20, "pX":-26.000000, "pY":1.896552
+									},
+									{
+										"frame":29, "pX":-26.000000, "pY":5.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_enemy.plist'<azSprite>'attr_adv_text.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":6.000000
+									},
+									{
+										"frame":9, "sY":1.100000, "pX":6.000000
+									},
+									{
+										"frame":20, "sX":1.100000, "pX":6.000000
+									},
+									{
+										"frame":29, "pX":6.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_disadv_arrow",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_enemy.plist'<azSprite>'attr_disadv_arrow.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-26.000000, "pY":5.000000, "alpha":0
+									},
+									{
+										"frame":9, "pX":-26.000000, "pY":1.896552
+									},
+									{
+										"frame":20, "pX":-26.000000, "pY":-1.896552
+									},
+									{
+										"frame":29, "pX":-26.000000, "pY":-5.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_enemy.plist'<azSprite>'attr_disadv_text.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":6.000000
+									},
+									{
+										"frame":29, "pX":6.000000
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

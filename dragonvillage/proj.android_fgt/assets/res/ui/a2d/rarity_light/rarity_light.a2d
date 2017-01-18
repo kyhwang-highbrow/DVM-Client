@@ -1,0 +1,505 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)rarity_light.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"common",
+					"apply":true,
+					"fps":20,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'common'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":60
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"hero",
+					"apply":true,
+					"fps":20,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'hero'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":60
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"legend",
+					"apply":true,
+					"fps":20,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'legend'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":60
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"rare",
+					"apply":true,
+					"fps":20,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'resource'<azVisual>'rare'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":60
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name":"resource",
+			"expand":true,
+			"apply":false,
+			"visual_list":
+			[
+				{
+					"name":"common",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)rarity_light.plist'<azSprite>'small.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.600000, "sY":0.600000, "mode":"Add"
+									},
+									{
+										"frame":30, "rotate":-90.000000, "mode":"Add"
+									},
+									{
+										"frame":60, "sX":0.600000, "sY":0.600000, "rotate":-180.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)rarity_light.plist'<azSprite>'small.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":60, "rotate":180.000000, "alpha":128, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)rarity_light.plist'<azSprite>'light1.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":1.200000, "sY":1.200000, "rotate":90.000000, "mode":"Add"
+									},
+									{
+										"frame":60, "rotate":180.000000, "alpha":128, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)rarity_light.plist'<azSprite>'light1.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":1.200000, "sY":1.200000, "rotate":-90.000000, "mode":"Add"
+									},
+									{
+										"frame":60, "rotate":-180.000000, "alpha":128, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"hero",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)rarity_light.plist'<azSprite>'small.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.600000, "sY":0.600000, "colorRGB":[255,185,187]
+, "mode":"Add"
+									},
+									{
+										"frame":30, "rotate":-90.000000, "colorRGB":[255,185,187]
+, "mode":"Add"
+									},
+									{
+										"frame":60, "sX":0.600000, "sY":0.600000, "rotate":-180.000000, "colorRGB":[255,185,187]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)rarity_light.plist'<azSprite>'small.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":60, "rotate":180.000000, "alpha":128, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)rarity_light.plist'<azSprite>'light1.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":128, "colorRGB":[188,49,255]
+, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":1.200000, "sY":1.200000, "rotate":90.000000, "colorRGB":[188,49,255]
+, "mode":"Add"
+									},
+									{
+										"frame":60, "rotate":180.000000, "alpha":128, "colorRGB":[188,49,255]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)rarity_light.plist'<azSprite>'light1.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":128, "colorRGB":[102,71,250]
+, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":1.200000, "sY":1.200000, "rotate":-90.000000, "colorRGB":[102,71,250]
+, "mode":"Add"
+									},
+									{
+										"frame":60, "rotate":-180.000000, "alpha":128, "colorRGB":[102,71,250]
+, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"legend",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)rarity_light.plist'<azSprite>'small.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.600000, "sY":0.600000, "colorRGB":[255,202,104]
+, "mode":"Add"
+									},
+									{
+										"frame":30, "rotate":-90.000000, "colorRGB":[255,202,104]
+, "mode":"Add"
+									},
+									{
+										"frame":38, "sX":0.893333, "sY":0.893333, "rotate":-114.000000, "colorRGB":[255,202,104]
+, "mode":"Add"
+									},
+									{
+										"frame":49, "sX":0.746667, "sY":0.746667, "rotate":-147.000000, "colorRGB":[255,202,104]
+, "mode":"Add"
+									},
+									{
+										"frame":60, "sX":0.600000, "sY":0.600000, "rotate":-180.000000, "colorRGB":[255,202,104]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)rarity_light.plist'<azSprite>'small.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":60, "rotate":180.000000, "alpha":128, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)rarity_light.plist'<azSprite>'light1.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":128, "colorRGB":[0,0,0]
+, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":1.200000, "sY":1.200000, "rotate":90.000000, "colorRGB":[0,0,0]
+, "mode":"Add"
+									},
+									{
+										"frame":60, "rotate":180.000000, "alpha":128, "colorRGB":[0,0,0]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)rarity_light.plist'<azSprite>'light1.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":128, "colorRGB":[255,214,49]
+, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":1.200000, "sY":1.200000, "rotate":-90.000000, "colorRGB":[255,214,49]
+, "mode":"Add"
+									},
+									{
+										"frame":60, "rotate":-180.000000, "alpha":128, "colorRGB":[255,214,49]
+, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"rare",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)rarity_light.plist'<azSprite>'small.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.600000, "sY":0.600000, "colorRGB":[186,222,254]
+, "mode":"Add"
+									},
+									{
+										"frame":30, "rotate":-90.000000, "colorRGB":[186,222,254]
+, "mode":"Add"
+									},
+									{
+										"frame":60, "sX":0.600000, "sY":0.600000, "rotate":-180.000000, "colorRGB":[186,222,254]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)rarity_light.plist'<azSprite>'small.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":60, "rotate":180.000000, "alpha":128, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)rarity_light.plist'<azSprite>'light1.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":128, "colorRGB":[55,152,249]
+, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":1.200000, "sY":1.200000, "rotate":90.000000, "colorRGB":[55,152,249]
+, "mode":"Add"
+									},
+									{
+										"frame":60, "rotate":180.000000, "alpha":128, "colorRGB":[55,152,249]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)rarity_light.plist'<azSprite>'light1.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":128, "colorRGB":[55,152,249]
+, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":1.200000, "sY":1.200000, "rotate":-90.000000, "colorRGB":[55,152,249]
+, "mode":"Add"
+									},
+									{
+										"frame":60, "rotate":-180.000000, "alpha":128, "colorRGB":[55,152,249]
+, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

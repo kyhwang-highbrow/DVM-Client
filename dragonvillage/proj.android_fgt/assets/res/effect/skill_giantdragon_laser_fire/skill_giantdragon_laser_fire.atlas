@@ -1,0 +1,48 @@
+
+skill_giantdragon_laser_fire.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skill_giantdragon_laser_fire_01
+  rotate: true
+  xy: 401, 19
+  size: 228, 97
+  orig: 228, 97
+  offset: 0, 0
+  index: -1
+skill_giantdragon_laser_fire_05
+  rotate: true
+  xy: 2, 3
+  size: 76, 144
+  orig: 76, 144
+  offset: 0, 0
+  index: -1
+skill_giantdragon_laser_fire_06
+  rotate: false
+  xy: 218, 89
+  size: 181, 158
+  orig: 181, 158
+  offset: 0, 0
+  index: -1
+skill_giantdragon_laser_fire_07
+  rotate: false
+  xy: 2, 81
+  size: 214, 166
+  orig: 214, 166
+  offset: 0, 0
+  index: -1
+skill_giantdragon_laser_fire_08
+  rotate: true
+  xy: 218, 2
+  size: 85, 86
+  orig: 85, 86
+  offset: 0, 0
+  index: -1
+skill_giantdragon_laser_fire_09
+  rotate: true
+  xy: 306, 2
+  size: 85, 86
+  orig: 85, 86
+  offset: 0, 0
+  index: -1
