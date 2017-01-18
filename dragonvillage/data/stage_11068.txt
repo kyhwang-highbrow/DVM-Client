@@ -1,6 +1,6 @@
 {
     "difficult":2,
-    "bg":"map_nest_ether",
+    "bg":"map_world_end",
 	"wave":
 	[
         {

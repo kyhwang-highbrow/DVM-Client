@@ -22,15 +22,15 @@ item,t_name,t_desc,type,full_type,attr,rarity,val_1
 701151,하급 어둠의 정기,어둠속성 드래곤 진화 재료,evolution_stone,evolution_stone_dark_02,dark,1,1
 701152,중급 어둠의 정기,어둠속성 드래곤 진화 재료,evolution_stone,evolution_stone_dark_03,dark,2,1
 701153,상급 어둠의 정기,어둠속성 드래곤 진화 재료,evolution_stone,evolution_stone_dark_04,dark,3,1
-701210,운석 잔해,방어형 드래곤의 진화 재료,evolution_stone,evolution_stone_tanker_01,tanker,1,1
-701211,응축 원기,방어형 드래곤의 진화 재료,evolution_stone,evolution_stone_tanker_02,tanker,2,1
-701212,이계의 알,방어형 드래곤의 진화 재료,evolution_stone,evolution_stone_tanker_03,tanker,3,1
-701220,식지않는 용암,공격형 드래곤의 진화 재료,evolution_stone,evolution_stone_dealer_01,dealer,1,1
+701210,이계의 알,방어형 드래곤의 진화 재료,evolution_stone,evolution_stone_tanker_03,tanker,1,1
+701211,운석 잔해,방어형 드래곤의 진화 재료,evolution_stone,evolution_stone_tanker_01,tanker,2,1
+701212,응축 원기,방어형 드래곤의 진화 재료,evolution_stone,evolution_stone_tanker_02,tanker,3,1
+701220,고대의 열매,공격형 드래곤의 진화 재료,evolution_stone,evolution_stone_dealer_03,dealer,1,1
 701221,세계수의 씨앗,공격형 드래곤의 진화 재료,evolution_stone,evolution_stone_dealer_02,dealer,2,1
-701222,고대의 열매,공격형 드래곤의 진화 재료,evolution_stone,evolution_stone_dealer_03,dealer,3,1
-701230,바람의 결정,보조형 드래곤의 진화 재료,evolution_stone,evolution_stone_supporter_01,supporter,1,1
+701222,식지않는 용암,공격형 드래곤의 진화 재료,evolution_stone,evolution_stone_dealer_01,dealer,3,1
+701230,영롱한 바위,보조형 드래곤의 진화 재료,evolution_stone,evolution_stone_supporer_03,supporter,1,1
 701231,수정 사과,보조형 드래곤의 진화 재료,evolution_stone,evolution_stone_supporter_02,supporter,2,1
-701232,영롱한 바위,보조형 드래곤의 진화 재료,evolution_stone,evolution_stone_supporer_03,supporter,3,1
+701232,바람의 결정,보조형 드래곤의 진화 재료,evolution_stone,evolution_stone_supporter_01,supporter,3,1
 701240,고대 양모,회복형 드래곤의 진화 재료,evolution_stone,evolution_stone_healer_01,healer,1,1
 701241,수정 용상,회복형 드래곤의 진화 재료,evolution_stone,evolution_stone_healer_02,healer,2,1
 701242,치유의 성배,회복형 드래곤의 진화 재료,evolution_stone,evolution_stone_healer_03,healer,3,1

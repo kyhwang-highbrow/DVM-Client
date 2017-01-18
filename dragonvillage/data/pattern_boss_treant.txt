@@ -107,6 +107,6 @@
 	
 	"sound":
 	{
-		"die":"vo_treant_die"
+		"die":"treant_die"
 	}
 }
