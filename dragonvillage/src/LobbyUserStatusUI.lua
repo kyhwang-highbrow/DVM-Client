@@ -24,6 +24,7 @@ function LobbyUserStatusUI:init(t_user_info)
 
     self.vars['infoBtn']:registerScriptTapHandler(function() UI_LobbyUserInfoPopup(t_user_info) end)
     self:init_statusUI()
+    self:setActive(false)
 end
 
 -------------------------------------
