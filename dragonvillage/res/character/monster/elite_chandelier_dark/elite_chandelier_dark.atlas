@@ -88,6 +88,13 @@ elite_chandelier_dark_eye_01
   orig: 56, 25
   offset: 0, 0
   index: -1
+elite_chandelier_dark_eye_02
+  rotate: false
+  xy: 1164, 49
+  size: 56, 25
+  orig: 56, 25
+  offset: 0, 0
+  index: -1
 elite_chandelier_dark_hand_01
   rotate: false
   xy: 1279, 143
@@ -145,8 +152,15 @@ elite_chandelier_dark_head_05
   offset: 0, 0
   index: -1
 elite_chandelier_dark_mouth_01
-  rotate: true
-  xy: 1164, 40
+  rotate: false
+  xy: 1555, 101
+  size: 34, 40
+  orig: 34, 40
+  offset: 0, 0
+  index: -1
+elite_chandelier_dark_mouth_02
+  rotate: false
+  xy: 1591, 101
   size: 34, 40
   orig: 34, 40
   offset: 0, 0

@@ -18,6 +18,7 @@
         {
             "name":"원경"
             "speed":0.4
+			"directing":"shaky_2"
             "list":
             [
                 {"res":"res/bg/ocean/ocean.vrp" "animation":"layer_2_a" "width":908}
@@ -29,6 +30,7 @@
         {
             "name":"중경1"
             "speed":0.5
+			"directing":"shaky_2"
             "list":
             [
                 {"res":"res/bg/ocean/ocean.vrp" "animation":"layer_3_a" "width":1448}          
@@ -39,6 +41,7 @@
 		{
             "name":"중경2"
             "speed":0.6
+			"directing":"shaky_2"
             "list":
             [
                 {"res":"res/bg/ocean/ocean.vrp" "animation":"layer_3_b" "width":2000}		
@@ -48,6 +51,7 @@
 		{
             "name":"근경1"
             "speed":0.7
+			"directing":"shaky_1"
             "list":
             [
                 {"res":"res/bg/ocean/ocean.vrp" "animation":"layer_4_a" "width":1380}
@@ -59,6 +63,7 @@
 		{
             "name":"초근경1"
             "speed":0.9
+			"directing":"shaky_2"
             "list":
             [
                 {"res":"res/bg/ocean/ocean.vrp" "animation":"layer_5_a" "width":1038}
