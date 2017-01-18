@@ -538,7 +538,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
-					y = 79.000000;
+					y = 120.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -972,7 +972,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
-					y = 79.000000;
+					y = 120.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1406,7 +1406,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
-					y = 79.000000;
+					y = 120.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1840,7 +1840,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
-					y = 79.000000;
+					y = 120.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -2274,7 +2274,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
-					y = 79.000000;
+					y = 120.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;

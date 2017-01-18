@@ -100,7 +100,7 @@ sid,skill_form,type,t_name,r_comment,res_icon,res_1,res_2,res_3,animation,motion
 232055,script,skill_subboss_fallen_angel_1,빛의 분노,타천사: 레이저,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,-2,basic_turn,4,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 232056,script,skill_subboss_fallen_angel_2,빛의 격노,타천사: 연발 레이저,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,physical,-2,basic_turn,4,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 232057,script,skill_subboss_fallen_angel_3,심판,타천사: ,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,-2,basic_turn,4,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,burn;target;hit;30;10;100,x,0,x,x,x,x,x,x,x
-232070,code,skill_melee_atk,일반 공격,듀라한,res/ui/icon/skill/test.png,x,x,x,attack,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
+232070,code,skill_melee_atk,일반 공격,듀라한,res/ui/icon/skill/test.png,x,x,x,attack,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,5000,10000,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 232071,script,skill_subboss_dullahan_1,어둠의 기둥,듀라한,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,1,atk,100,1,0,0,0,0,0,x,def_down;target;hit;10;10;20,x,0,x,x,x,x,x,x,x
 232072,code,skill_charge,군마 돌진,듀라한,res/ui/icon/skill/test.png,x,x,x,skill_2,instant,physical,-2,basic_turn,1,enemy_distance_line,3,atk,100,5,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 232073,script,skill_subboss_dullahan_3,어둠의 나락,듀라한,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,-2,basic_turn,1,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,def_down;target;hit;10;10;20,x,0,x,x,x,x,x,x,x
