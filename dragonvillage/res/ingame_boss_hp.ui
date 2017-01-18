@@ -14,8 +14,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 946;
-				height = 46;
+				width = 836;
+				height = 45;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -35,12 +35,12 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = 27.000000;
+				x = 82.000000;
 				y = 6.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 892;
+				width = 782;
 				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -65,12 +65,12 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = 27.000000;
+				x = 82.000000;
 				y = 6.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 892;
+				width = 782;
 				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -95,12 +95,12 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = 27.000000;
+				x = 82.000000;
 				y = 6.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 892;
+				width = 782;
 				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -125,12 +125,12 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = 26.000000;
+				x = 81.000000;
 				y = 6.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 892;
+				width = 782;
 				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -155,12 +155,12 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = 26.000000;
+				x = 81.000000;
 				y = 6.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 892;
+				width = 782;
 				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -185,12 +185,12 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = 26.000000;
+				x = 81.000000;
 				y = 6.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 892;
+				width = 782;
 				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -215,12 +215,12 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = 46.000000;
+				x = 101.000000;
 				y = -13.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 854;
+				width = 744;
 				height = 5;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -245,7 +245,7 @@
 			{
 				type = 'Menu';
 				ui_name = '';
-				x = 43.000000;
+				x = 100.000000;
 				y = -48.000000;
 				dock_point = { 0.000000; 1.000000; };
 				anchor_point = { 0.000000; 1.000000; };
@@ -264,7 +264,7 @@
 			{
 				type = 'Menu';
 				ui_name = '';
-				x = -43.000000;
+				x = -100.000000;
 				y = -48.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 1.000000; 1.000000; };

@@ -344,7 +344,7 @@
 		{
 			"name":"res",
 			"expand":true,
-			"apply":true,
+			"apply":false,
 			"visual_list":
 			[
 				{
@@ -1382,7 +1382,7 @@
 								"key_list":
 								[
 									{
-										"frame":0, "alpha":128, "mode":"Add"
+										"frame":0, "alpha":0, "mode":"Add"
 									}
 								]
 							},

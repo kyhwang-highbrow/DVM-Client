@@ -835,7 +835,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -23.000000;
+					x = -19.000000;
 					y = -402.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -875,7 +875,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -22.000000;
+					x = -18.000000;
 					y = -364.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1055,8 +1055,8 @@
 				{
 					type = 'Button';
 					ui_name = '';
-					x = 155.000000;
-					y = -25.000000;
+					x = 153.000000;
+					y = -13.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1079,8 +1079,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 98.000000;
-					y = -54.000000;
+					x = 96.000000;
+					y = -42.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 1.000000; 0.500000; };
 					relative_size_type = 0;
@@ -1119,8 +1119,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 99.000000;
-					y = -25.000000;
+					x = 97.000000;
+					y = -13.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 1.000000; 0.500000; };
 					relative_size_type = 0;
@@ -1159,8 +1159,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 98.000000;
-					y = 3.000000;
+					x = 96.000000;
+					y = 15.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 1.000000; 0.500000; };
 					relative_size_type = 0;
@@ -1199,8 +1199,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -63.000000;
-					y = 4.000000;
+					x = -65.000000;
+					y = 16.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
@@ -1239,8 +1239,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -63.000000;
-					y = -25.000000;
+					x = -65.000000;
+					y = -13.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
@@ -1279,8 +1279,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -63.000000;
-					y = -54.000000;
+					x = -65.000000;
+					y = -42.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
@@ -1319,8 +1319,8 @@
 				{
 					type = 'Button';
 					ui_name = '';
-					x = 164.000000;
-					y = 111.000000;
+					x = 159.000000;
+					y = 110.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1343,8 +1343,8 @@
 				{
 					type = 'Button';
 					ui_name = '';
-					x = 58.000000;
-					y = 111.000000;
+					x = 59.000000;
+					y = 110.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1367,8 +1367,8 @@
 				{
 					type = 'Button';
 					ui_name = '';
-					x = -48.000000;
-					y = 111.000000;
+					x = -41.000000;
+					y = 110.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1407,7 +1407,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 26;
-					text = '장비';
+					text = '룬';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 217; 181; 115; };

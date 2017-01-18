@@ -38,7 +38,7 @@
 			dock_point = { 0.000000; 0.500000; };
 			anchor_point = { 0.000000; 0.500000; };
 			relative_size_type = 0;
-			width = 641;
+			width = 680;
 			height = 652;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -59,7 +59,7 @@
 		{
 			type = 'Visual';
 			ui_name = '';
-			x = 363.000000;
+			x = 383.000000;
 			y = 68.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
@@ -87,12 +87,12 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = -30.000000;
+				y = -37.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 530;
-				height = 436;
+				width = 550;
+				height = 450;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -804,8 +804,8 @@
 				};
 				type = 'Menu';
 				ui_name = '';
-				x = 91.000000;
-				y = -41.000000;
+				x = 96.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -863,7 +863,7 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 80.000000;
+				x = 96.000000;
 				y = 223.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -913,7 +913,7 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 193.000000;
+				x = 209.000000;
 				y = 223.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -935,12 +935,12 @@
 			};
 			type = 'Menu';
 			ui_name = '';
-			x = -352.000000;
+			x = -341.000000;
 			y = -5.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 554;
+			width = 550;
 			height = 520;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -1117,7 +1117,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 8.000000;
-				y = -188.000000;
+				y = -184.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1301,7 +1301,7 @@
 			};
 			type = 'Menu';
 			ui_name = '';
-			x = 324.000000;
+			x = 344.000000;
 			y = -38.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };

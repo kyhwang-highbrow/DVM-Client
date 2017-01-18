@@ -54,7 +54,7 @@ sid,skill_form,type,t_name,r_comment,res_icon,res_1,res_2,res_3,animation,motion
 230053,code,skill_leap_atk,점프 공격,만드라고라:일반 공격,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,0,basic,3,enemy_distance_line,-1,atk,100,1,5000,10000,200,0,0,0,x,x,0,x,x,x,x,x,x,x
 230054,script,skill_missile_mandragora_1,초음파,만드라고라,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,3,atk,20,1,0,0,0,0,0,0,stun;target;hit;2;50;100,x,0,x,x,x,x,x,x,x
 230055,script,skill_missile_lumiere_0,불꽃,x,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
-230056,script,skill_missile_lumiere_1,도깨비불,루미에,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,3,atk,20,1,0,0,0,0,0,0,blind;target;hit;5;20;10,x,0,x,x,x,x,x,x,x
+230056,script,skill_missile_lumiere_1,도깨비불,루미에,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,3,atk,20,1,0,0,0,0,0,0,blind;target;hit;5;50;10,x,0,x,x,x,x,x,x,x
 230057,script,skill_missile_flying_skull_1,뜨거워,플라잉 스컬,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,3,atk,20,1,0,0,0,0,0,0,x,x,0,x,x,x,x,x,x,x
 230058,code,skill_missile_minion_1,마지막 선물,미니언,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,0,trigger,dead,enemy_distance_line,3,atk,20,1,0,0,0,0,0,0,atk_up;ally;dead;10;100;20,x,0,x,x,x,x,x,x,x
 231000,script,skill_elite_0,엘리트_0,엘리트_0,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
@@ -74,9 +74,9 @@ sid,skill_form,type,t_name,r_comment,res_icon,res_1,res_2,res_3,animation,motion
 231014,script,skill_elite_beholder_1,섬뜩한 시선,엘리트_감시자1,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy,3,atk,20,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 231015,script,skill_elite_beholder_2,엘리트_감시자2,엘리트_감시자2,res/ui/icon/skill/test.png,x,x,x,x,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 231016,script,skill_elite_chandelier_0,일반 공격,샹들리에,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
-231017,script,skill_elite_chandelier_1,환영 불꽃,샹들리에,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,2,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
+231017,script,skill_elite_chandelier_1,환영 불꽃,샹들리에,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy,2,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 231019,script,skill_elite_skeleton_knight_1,서리 일격,해골 기사,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-2,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
-231020,script,skill_elite_succubus_0,일반 공격,서큐버스,res/ui/icon/skill/test.png,x,x,x,x,instant,physical,-1,basic,1,enemy_distance_line,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
+231020,script,skill_elite_succubus_0,일반 공격,서큐버스,res/ui/icon/skill/test.png,x,x,x,x,instant,physical,-1,basic,1,enemy,-1,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 231021,script,skill_elite_succubus_1,정기 흡수,서큐버스,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-2,basic_turn,3,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
 231022,script,skill_elite_succubus_2,유혹,서큐버스,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-2,basic_turn,5,enemy_distance_line,3,atk,100,1,0,0,0,0,0,x,atk_down;target;hit;5;15;20,x,0,x,x,x,x,x,x,x
 232011,script,skill_subboss_mushqueen_1,포자살포,여왕버섯,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,3,atk,40,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
