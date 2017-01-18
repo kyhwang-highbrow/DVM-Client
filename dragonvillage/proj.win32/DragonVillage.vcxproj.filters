@@ -1284,6 +1284,9 @@
     <None Include="..\src\EventCarrier.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\SkillAoERound_Egg.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
