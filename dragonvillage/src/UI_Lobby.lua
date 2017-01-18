@@ -60,11 +60,11 @@ function UI_Lobby:initCamera()
     self.m_lobbyMap = lobby_map
     lobby_map:setContainerSize(1280*3, 960)
     
-    lobby_map:addLayer(self:makeLobbyLayer(4), 0.7)
-    lobby_map:addLayer(self:makeLobbyLayer(3), 0.8)
-    lobby_map:addLayer(self:makeLobbyLayer(2), 0.9)
+    lobby_map:addLayer(self:makeLobbyLayer(4), 0.7) -- 하늘
+    lobby_map:addLayer(self:makeLobbyLayer(3), 0.8) -- 마을
+    lobby_map:addLayer(self:makeLobbyLayer(2), 0.9) -- 분수
 
-    local lobby_ground = self:makeLobbyLayer(1)
+    local lobby_ground = self:makeLobbyLayer(1) -- 땅
     lobby_map:addLayer_lobbyGround(lobby_ground, 1, 1, self)
     lobby_map.m_groudNode = lobby_ground
 
