@@ -87,6 +87,7 @@ function SoundMgr:playEffect(category, sound, loop)
 
     local loop = loop or false
     local category, sound_info, res = self:getSoundInfo(category, sound)
+    if (PASS_NO_SOUND_FILE and not res) then return end
 
     self:scheduleSfx(sound_info, res, loop)
 end

@@ -35,6 +35,7 @@ function SoundMgr:getSoundInfo(category, sound)
     local category_ = self.m_soundList[category]
     if not category_ then
         cclog('ERROR : SoundMgr:getSoundInfo() - category "' .. category .. '" 가 존재하지 않습니다.')
+        if PASS_NO_SOUND_FILE then return end
     end
     self:assert(category_)
 
@@ -42,6 +43,7 @@ function SoundMgr:getSoundInfo(category, sound)
     local sound_info_ = category_[sound]
     if not sound_info_ then
         cclog('ERROR : SoundMgr:getSoundInfo() - category.sound "' .. category .. '.' .. sound .. '" 가 존재하지 않습니다.')
+        if PASS_NO_SOUND_FILE then return end
     end
     self:assert(sound_info_)
 
@@ -49,6 +51,7 @@ function SoundMgr:getSoundInfo(category, sound)
     local res_ = self:getResName(sound_info_)
     if not res_ then
         cclog('ERROR : SoundMgr:getSoundInfo() - res "' .. res_ .. '" 가 존재하지 않습니다.')
+        if PASS_NO_SOUND_FILE then return end
     end
     self:assert(res_)
 

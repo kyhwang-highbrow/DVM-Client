@@ -21,6 +21,9 @@ MIN_RESOLUTION_Y = 720
 -- (1280 / 1080) * 810
 GAME_RESOLUTION_X = 960
 
+-- 사운드 파일이 없을 경우 그냥 넘어감
+PASS_NO_SOUND_FILE = true
+
 -- For Debuging
 CHECK_UI_LOAD_TIME = false
 
