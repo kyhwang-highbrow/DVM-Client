@@ -1093,6 +1093,17 @@ function GameWorld:onKeyReleased(keyCode, event)
         self.m_leftFormationMgr:printCharList()
         self.m_rightFormationMgr:printCharList()
 
+    -- 보스 패턴 확인
+    elseif (keyCode == KEY_E) then
+        for i, v in ipairs(self:getEnemyList()) do
+            if not v.m_bDead then
+                if (isInstanceOf(v, MonsterLua_Boss)) then
+                    v:printCurBossPatternList()
+                end
+                
+            end
+        end
+
     -- 카메라 이동
     elseif (keyCode == KEY_LEFT_ARROW) then
         local curCameraPosX, curCameraPosY = self.m_gameCamera:getPosition()

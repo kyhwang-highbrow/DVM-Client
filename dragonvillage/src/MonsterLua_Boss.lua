@@ -463,3 +463,14 @@ function MonsterLua_Boss:printBossPattern(pattern, type, value_1)
 	end
 	cclog(boss_name .. ' pattern = ' .. pattern .. ' ' .. add_str)
 end
+
+-------------------------------------
+-- function printBossPattern
+-------------------------------------
+function MonsterLua_Boss:printCurBossPatternList()
+    cclog('##############################################################')
+    cclog('## printBossPattern()')
+    cclog('##############################################################')
+
+    cclog('현재 패턴 정보 : ' .. luadump(self.m_tCurrPattern))
+end
