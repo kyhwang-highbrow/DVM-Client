@@ -76,7 +76,7 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
 		
 		-- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
 		if (target_type == 'self') then 
-			if(StatusEffectHelper:invokeStatusEffect(owner, type, value_1, rate, duration)) then
+			if (StatusEffectHelper:invokeStatusEffect(owner, type, value_1, rate, duration)) then
                 cb_invoke(owner)
             end
 
@@ -87,17 +87,25 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
             end
 
 			for _, target in ipairs(t_target) do
-				if(StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
+				if (StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
                     cb_invoke(target)
                 end
 			end
 
 		elseif (target_type == 'ally' or target_type == 'ally_all') then 
 			for _, target in pairs(owner:getFellowList()) do
-				if(StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
+				if (StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
                     cb_invoke(target)
                 end
 			end
+
+		elseif (target_type == 'ally_random') then 
+			local l_target = owner:getFellowList()
+			local target = l_target[math_random(1, #l_target)]
+
+			if (StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
+                cb_invoke(target)
+            end
 
 		elseif (target_type == 'ally_low_hp') then 
             local ally = owner:getFellowList()
@@ -106,7 +114,7 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
 			end)
 			local target = ally[1]
 			if target then
-				if(StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
+				if (StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
                     cb_invoke(target)
                 end
 			end
@@ -299,7 +307,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 		status_effect:init_buff(char, shield_hp)
 	
 	----------- 데미지 경감 보호막 ------------------
-	elseif (status_effect_type == 'resist') then
+	elseif isExistValue(status_effect_type, 'resist', 'barrier_protection_darknix') then
 		status_effect = StatusEffect_Resist(res)
 		local resist_rate = (t_status_effect['dmg_adj_rate'] * status_effect_value / 100)
 		status_effect:init_buff(char, resist_rate)
