@@ -66,6 +66,8 @@
         "exp_gauge":   			{"res":"sound/exp_gauge.mp3"}
 		
 		"monster_skill_cast":	{"res":"sound/monster_skill_cast.mp3"}
+		
+		"darknix_shout":   		{"res":"sound/boss_shout.mp3"}
 	},
 	
 	"VOICE":
