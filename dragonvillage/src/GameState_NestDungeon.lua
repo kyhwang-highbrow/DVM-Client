@@ -7,6 +7,56 @@ GameState_NestDungeon = class(PARENT, {
     })
 
 -------------------------------------
+-- function initState
+-- @brief 상태(state)별 동작 함수 추가
+-------------------------------------
+function GameState_NestDungeon:initState()
+    PARENT.initState(self)
+    self:addState(GAME_STATE_BOSS_WAVE, GameState_NestDungeon.update_boss_wave)
+end
+
+-------------------------------------
+-- function update_boss_wave
+-- @brief 보스 웨이브 연출
+-------------------------------------
+function GameState_NestDungeon.update_boss_wave(self, dt)
+    if (self:isBeginningStep(0)) then
+        self.m_waveEffect:setVisible(true)
+        self.m_waveEffect:changeAni('boss_warning_width_720', false)
+        self.m_waveEffect:addAniHandler(function()
+            self:nextStep()
+        end)
+
+        SoundMgr:stopBGM()
+    
+
+    elseif (self:isBeginningStep(1)) then
+        self.m_waveEffect:setVisible(true)
+        self.m_waveEffect:changeAni('boss_appear', false)
+        self.m_waveEffect:addAniHandler(function()
+            self:nextStep()
+        end)
+
+        self.m_world:dispatch('boss_wave')
+
+    elseif (self:isBeginningStep(2)) then
+        self.m_waveEffect:setVisible(true)
+        self.m_waveEffect:changeAni('boss_disappear', false)
+        self.m_waveEffect:addAniHandler(function()
+            self.m_waveEffect:setVisible(false)
+            self:changeState(GAME_STATE_ENEMY_APPEAR)
+        end)
+
+        -- 보스 배경음
+        SoundMgr:playBGM('bgm_nest_boss')
+
+        -- 웨이브 표시 숨김
+        g_gameScene.m_inGameUI.vars['waveVisual']:setVisible(false)
+
+    end
+end
+
+-------------------------------------
 -- function makeResultUI
 -------------------------------------
 function GameState_NestDungeon:makeResultUI(is_success)

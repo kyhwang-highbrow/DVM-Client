@@ -149,7 +149,12 @@ end
 function SceneGame:onEnter()
     g_gameScene = self
     PerpleScene.onEnter(self)
-    SoundMgr:playBGM('bgm_battle')
+
+    if (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
+        SoundMgr:playBGM('bgm_nest_battle')
+    else
+        SoundMgr:playBGM('bgm_battle')
+    end
 
     self.m_inGameUI = UI_Game(self)
     self.m_resPreloadMgr = ResPreloadMgr()
