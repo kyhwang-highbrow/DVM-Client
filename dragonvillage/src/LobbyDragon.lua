@@ -71,7 +71,7 @@ LobbyDragon.st_move = LobbyCharacter.st_move
 -------------------------------------
 -- function onEvent
 -------------------------------------
-function LobbyDragon:onEvent(event_name, ...)
+function LobbyDragon:onEvent(event_name, t_event, ...)
     if (event_name == 'lobby_character_move') then
         local arg = {...}
         local lobby_tamer = arg[1]

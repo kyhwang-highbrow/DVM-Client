@@ -79,7 +79,7 @@ function GameCamera:setHomeInfo(tParam)
     self.m_homeScale = self:adjustScale(homeScale)
     self.m_homePosX, self.m_homePosY = self:adjustPos(homePosX, homePosY)
     
-    self:dispatch('camera_set_home', self.m_homePosX, self.m_homePosY)
+    self:dispatch('camera_set_home', {}, self.m_homePosX, self.m_homePosY)
 end
 
 -------------------------------------

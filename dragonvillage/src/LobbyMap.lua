@@ -505,7 +505,7 @@ end
 -------------------------------------
 -- function onEvent
 -------------------------------------
-function LobbyMap:onEvent(event_name, ...)
+function LobbyMap:onEvent(event_name, t_event, ...)
     -- 테이머의 위치가 변경되었을 경우
     if (event_name == 'lobby_user_status_ui_move') then
         local arg = {...}

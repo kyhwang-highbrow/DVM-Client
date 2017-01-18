@@ -18,7 +18,7 @@ function Character.st_dying(owner, dt)
 		
 		if owner.m_bInitAdditionalPhysObject then
 			for phys_obj, _  in pairs(owner.m_lAdditionalPhysObject) do 
-				phys_obj:dispatch('dead', phys_obj)
+				phys_obj:dispatch('dead', {}, phys_obj)
 				phys_obj:setDead()
 				phys_obj:changeState('dying')
 			end
@@ -262,9 +262,9 @@ function Character.st_casting(owner, dt)
 
         -- 스킬 캐스팅 이벤트
         if (owner.m_bLeftFormation) then
-            owner:dispatch('hero_casting_start', owner)
+            owner:dispatch('hero_casting_start', {}, owner)
         else
-            owner:dispatch('enemy_casting_start', owner)
+            owner:dispatch('enemy_casting_start', {}, owner)
         end
     end
 

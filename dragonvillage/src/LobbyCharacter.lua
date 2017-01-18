@@ -87,11 +87,11 @@ end
 function LobbyCharacter.st_move(self, dt)
     if (self.m_stateTimer == 0) then
 
-        self:dispatch('lobby_character_move_start', self)
+        self:dispatch('lobby_character_move_start', {}, self)
 
         local function finich_cb()
             local x, y = self.m_rootNode:getPosition()
-            self:dispatch('lobby_character_move', self, x, y)
+            self:dispatch('lobby_character_move', {}, self, x, y)
             
             if (self:onMoveEnd() == true) then
                 return
@@ -120,7 +120,7 @@ function LobbyCharacter.st_move(self, dt)
     end
 
     local x, y = self.m_rootNode:getPosition()
-    self:dispatch('lobby_character_move', self, x, y)
+    self:dispatch('lobby_character_move', {}, self, x, y)
 end
 
 -------------------------------------
@@ -146,7 +146,7 @@ end
 -------------------------------------
 function LobbyCharacter:setPosition(x, y)
     self.m_rootNode:setPosition(x, y)
-    self:dispatch('lobby_character_move', self, x, y)
+    self:dispatch('lobby_character_move', {}, self, x, y)
 end
 
 -------------------------------------
@@ -193,7 +193,7 @@ function LobbyCharacter:changeState(state, forced)
     -- 이동이 종료되었을 경우
     if (changed and (prev_state == 'move') and (state ~= 'move')) then
         cca.stopAction(self.m_rootNode, LobbyCharacter.MOVE_ACTION)
-        self:dispatch('lobby_character_move_end', self)
+        self:dispatch('lobby_character_move_end', {}, self)
     end
 
     return changed

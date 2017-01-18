@@ -595,7 +595,7 @@ end
 -------------------------------------
 -- function onEvent
 -------------------------------------
-function FormationMgr:onEvent(event_name, ...)
+function FormationMgr:onEvent(event_name, t_event, ...)
     -- 캐릭터 사망
     if (event_name == 'character_dead') then
         local arg = {...}

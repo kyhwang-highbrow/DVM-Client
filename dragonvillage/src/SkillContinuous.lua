@@ -22,7 +22,7 @@ end
 function SkillContinuous:init_skill()
     PARENT.init_skill(self)
 
-	-- ¸â¹ö º¯¼ö
+	-- ë©¤ë²„ ë³€ìˆ˜
    	self.m_interval = 1
 end
 
@@ -51,23 +51,23 @@ end
 -- function makeSkillInstance
 -------------------------------------
 function SkillContinuous:makeSkillInstance(owner, t_skill, t_data)
-	-- º¯¼ö ¼±¾ğºÎ
+	-- ë³€ìˆ˜ ì„ ì–¸ë¶€
 	------------------------------------------------------
 
-	-- ÀÎ½ºÅÏ½º »ı¼ººÎ
+	-- ì¸ìŠ¤í„´ìŠ¤ ìƒì„±ë¶€
 	------------------------------------------------------
-	-- 1. ½ºÅ³ »ı¼º
+	-- 1. ìŠ¤í‚¬ ìƒì„±
     local skill = SkillContinuous(nil)
 
-	-- 2. ÃÊ±âÈ­ °ü·Ã ÇÔ¼ö
+	-- 2. ì´ˆê¸°í™” ê´€ë ¨ í•¨ìˆ˜
 	skill:setSkillParams(owner, t_skill, t_data)
     skill:init_skill()
 	skill:initState()
 
-	-- 3. state ½ÃÀÛ 
+	-- 3. state ì‹œì‘ 
     skill:changeState('delay')
 
-    -- 4. Physics, Node, GameMgr¿¡ µî·Ï
+    -- 4. Physics, Node, GameMgrì— ë“±ë¡
     local world = skill.m_owner.m_world
     world.m_missiledNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)

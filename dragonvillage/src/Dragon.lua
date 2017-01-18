@@ -192,7 +192,7 @@ function Dragon.st_skillAppear(owner, dt)
         owner.m_bEnableSpasticity = false
 
         -- 이벤트
-        owner:dispatch('dragon_skill', owner)
+        owner:dispatch('dragon_skill', {}, owner)
     end
 end
 
@@ -454,7 +454,7 @@ end
 function Dragon:setHp(hp)
     Character.setHp(self, hp)
 
-    self:dispatch('change_hp', self, self.m_hp, self.m_maxHp)
+    self:dispatch('change_hp', {}, self, self.m_hp, self.m_maxHp)
 end
 
 -------------------------------------

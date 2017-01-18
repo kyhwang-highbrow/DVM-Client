@@ -274,6 +274,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ConstantStatusEffect.lua" />
     <None Include="..\src\EffectLauncher.lua" />
     <None Include="..\src\EffectMotionStreak.lua" />
+    <None Include="..\src\EventCarrier.lua" />
     <None Include="..\src\GameAuto.lua" />
     <None Include="..\src\GameState_Colosseum.lua" />
     <None Include="..\src\GameState_NestDungeon.lua" />

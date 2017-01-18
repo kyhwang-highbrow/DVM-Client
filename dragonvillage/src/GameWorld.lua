@@ -1518,10 +1518,10 @@ end
 -------------------------------------
 -- function onEvent
 -------------------------------------
-function GameWorld:onEvent(event_name, ...)
-    if (event_name == 'character_dead') then    self:onEvent_character_dead(event_name, ...)
-    elseif (event_name == 'change_wave') then   self:onEvent_change_wave(event_name, ...)
-    elseif (event_name == 'dragon_skill') then  self:onEvent_dragon_skill(event_name, ...)
+function GameWorld:onEvent(event_name, t_event, ...)
+    if (event_name == 'character_dead') then    self:onEvent_character_dead(event_name, t_event, ...)
+    elseif (event_name == 'change_wave') then   self:onEvent_change_wave(event_name, t_event, ...)
+    elseif (event_name == 'dragon_skill') then  self:onEvent_dragon_skill(event_name, t_event, ...)
     elseif (event_name == 'fever_start') then   self.m_gameState:changeState(GAME_STATE_FIGHT_FEVER)
     elseif (event_name == 'fever_end') then     self.m_gameState:changeState(GAME_STATE_FIGHT)
     end
@@ -1531,7 +1531,7 @@ end
 -- function onEvent_character_dead
 -- @brief 캐릭터 사망
 -------------------------------------
-function GameWorld:onEvent_character_dead(event_name, ...)
+function GameWorld:onEvent_character_dead(event_name, t_event, ...)
     local arg = {...}
     local char = arg[1]
     local is_hero = char.m_bLeftFormation
@@ -1542,7 +1542,7 @@ function GameWorld:onEvent_character_dead(event_name, ...)
     -- 적군 사망
     else
         self:dropItem(char.pos['x'], char.pos['y'])
-        self:dispatch('enemy_dead', char)
+        self:dispatch('enemy_dead', {}, char)
 
     end
 end
@@ -1551,7 +1551,7 @@ end
 -- function onEvent_change_wave
 -- @brief 웨이브 변경
 -------------------------------------
-function GameWorld:onEvent_change_wave(event_name, ...)
+function GameWorld:onEvent_change_wave(event_name, t_event, ...)
     local arg = {...}
     local wave = arg[1]
 
@@ -1569,7 +1569,7 @@ end
 -- function onEvent_dragon_skill
 -- @brief 드래곤 스킬 사용
 -------------------------------------
-function GameWorld:onEvent_dragon_skill(event_name, ...)
+function GameWorld:onEvent_dragon_skill(event_name, t_event, ...)
     local arg = {...}
     local dragon = arg[1]
 

@@ -355,7 +355,7 @@ end
 -------------------------------------
 -- function onEvent
 -------------------------------------
-function ScrollMap:onEvent(event_name, ...)
+function ScrollMap:onEvent(event_name, t_event, ...)
     local arg = {...}
     local cbFunction = arg[1] or function() end
 

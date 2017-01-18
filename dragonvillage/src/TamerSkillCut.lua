@@ -180,7 +180,7 @@ end
 -------------------------------------
 -- function onEvent
 -------------------------------------
-function TamerSkillCut:onEvent(event_name, ...)
+function TamerSkillCut:onEvent(event_name, t_event, ...)
     local arg = {...}
     local cbEnd = arg[1]
 

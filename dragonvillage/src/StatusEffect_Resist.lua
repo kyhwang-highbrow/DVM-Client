@@ -32,12 +32,11 @@ end
 -------------------------------------
 -- function onTrigger
 -------------------------------------
-function StatusEffect_Resist:onTrigger(char, damage)
+function StatusEffect_Resist:onTrigger(t_event)
     self:changeState('hit')
 
-	-- 1. 데미지를 직접 경감하고 반환
-	local damage = damage or 0
+	-- 1. 데미지를 직접 경감
+	local damage = t_event['damage']
    	damage = damage * (1 + self.m_resistRate)
-	
-	return false, damage
+	t_event['damage'] = damage
 end

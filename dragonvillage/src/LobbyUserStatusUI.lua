@@ -30,7 +30,7 @@ end
 -------------------------------------
 -- function onEvent
 -------------------------------------
-function LobbyUserStatusUI:onEvent(event_name, ...)
+function LobbyUserStatusUI:onEvent(event_name, t_event, ...)
     if (event_name == 'lobby_character_move') then
         local arg = {...}
         local lobby_tamer = arg[1]
@@ -39,7 +39,7 @@ function LobbyUserStatusUI:onEvent(event_name, ...)
 
         self.m_rootNode:setPosition(x, y)
 
-        self:dispatch('lobby_user_status_ui_move', self, x, y)
+        self:dispatch('lobby_user_status_ui_move', {}, self, x, y)
     end
 end
 

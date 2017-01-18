@@ -149,7 +149,7 @@ end
 -------------------------------------
 -- function onEvent
 -------------------------------------
-function TamerSpeechSystem:onEvent(event_name, ...)
+function TamerSpeechSystem:onEvent(event_name, t_event, ...)
 
     -- 드래곤 소환 시
     if (event_name == 'dragon_summon') then

@@ -2,7 +2,7 @@ local PARENT = StatusEffect
 
 -------------------------------------
 -- class StatusEffect_CheckWorld
--- @brief ¹Ì»ç¿ë, ´Ü¼ø º¸°üÁß
+-- @brief ë¯¸ì‚¬ìš©, ë‹¨ìˆœ ë³´ê´€ì¤‘
 -------------------------------------
 StatusEffect_CheckWorld = class(PARENT, {
 		m_statusEffectType = 'str',

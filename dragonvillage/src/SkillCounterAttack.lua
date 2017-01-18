@@ -120,7 +120,7 @@ end
 -------------------------------------
 -- function onEvent
 -------------------------------------
-function SkillCounterAttack:onEvent(event_name, ...)
+function SkillCounterAttack:onEvent(event_name, t_event, ...)
 	if (not event_name == self.m_triggerName) then return end
 	
 	local args = {...}

@@ -112,7 +112,7 @@ end
 -------------------------------------
 -- function onEvent
 -------------------------------------
-function SkillAttributeAmor:onEvent(event_name, ...)
+function SkillAttributeAmor:onEvent(event_name, t_event, ...)
 	local args = {...}
 	local attacker = args[1]
 	local defender = self.m_owner

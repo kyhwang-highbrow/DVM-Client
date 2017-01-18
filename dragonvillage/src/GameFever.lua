@@ -547,7 +547,7 @@ end
 -------------------------------------
 -- function onEvent
 -------------------------------------
-function GameFever:onEvent(event_name, ...)
+function GameFever:onEvent(event_name, t_event, ...)
     if (event_name == 'character_casting_cancel') then
         local arg = {...}
         local castingPercentage = arg[2]

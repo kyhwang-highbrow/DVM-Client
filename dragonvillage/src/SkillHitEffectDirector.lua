@@ -118,8 +118,8 @@ end
 -------------------------------------
 function SkillHitEffectDirector:onEnd()
     if self.m_isExhibit2nd then
-        self:dispatch('skill_combo_2', self.m_owner)
+        self:dispatch('skill_combo_2', {}, self.m_owner)
     elseif self.m_isExhibit1st then
-        self:dispatch('skill_combo_1', self.m_owner)
+        self:dispatch('skill_combo_1', {}, self.m_owner)
     end
 end

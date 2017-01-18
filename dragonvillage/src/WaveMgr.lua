@@ -203,7 +203,7 @@ function WaveMgr:newScenario()
 
     self:newScenario_dynamicWave(t_data)
 
-    self:dispatch('change_wave', self.m_currWave)
+    self:dispatch('change_wave', {}, self.m_currWave)
 end
 
 -------------------------------------
@@ -314,14 +314,14 @@ end
 -------------------------------------
 -- function dispatch
 -------------------------------------
-function WaveMgr:dispatch(event_name, ...)
+function WaveMgr:dispatch(event_name, t_event, ...)
     if (event_name == 'change_wave') then
         -- garg[1] = 웨이브
     else
         error('event_name : ' .. event_name)
     end
 
-    return IEventDispatcher.dispatch(self, event_name, ...)
+    return IEventDispatcher.dispatch(self, event_name, t_event, ...)
 end
 
 -------------------------------------

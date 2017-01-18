@@ -146,7 +146,7 @@ function EnemyMovement.Basic(owner, luaValue1, luaValue2, luaValue3, luaValue4, 
         owner:changeState('idle')
         owner:setPosition(pos2.x, pos2.y)
 
-        owner:dispatch('enemy_appear_done', owner)
+        owner:dispatch('enemy_appear_done', {}, owner)
     end)    
 
     -- 액션 생성
@@ -189,7 +189,7 @@ function EnemyMovement.Basic2(owner, luaValue1, luaValue2, luaValue3, luaValue4,
     local finish_action = cc.CallFunc:create(function()
         owner:changeState('idle')
         effect:release()
-        owner:dispatch('enemy_appear_done', owner)
+        owner:dispatch('enemy_appear_done', {}, owner)
     end)    
 
     -- 액션 생성
@@ -233,7 +233,7 @@ function EnemyMovement.Burn(owner, luaValue1, luaValue2, luaValue3, luaValue4, l
     local finish_action = cc.CallFunc:create(function()
         owner:changeState('idle')
         effect:release()
-        owner:dispatch('enemy_appear_done', owner)
+        owner:dispatch('enemy_appear_done', {}, owner)
     end)    
 
     -- 액션 생성
@@ -271,7 +271,7 @@ function EnemyMovement.Appear(owner, luaValue1, luaValue2, luaValue3, luaValue4,
         owner:changeState('idle')
         effect:release()
 
-        owner:dispatch('enemy_appear_done', owner)
+        owner:dispatch('enemy_appear_done', {}, owner)
     end)))
 end
 
@@ -295,7 +295,7 @@ function EnemyMovement.FadeIn(owner, luaValue1, luaValue2, luaValue3, luaValue4,
 	local fade_in = cc.FadeIn:create(luaValue3)
     local finish_action = cc.CallFunc:create(function()
         owner:changeState('idle')
-        owner:dispatch('enemy_appear_done', owner)
+        owner:dispatch('enemy_appear_done', {}, owner)
     end)    
 
 	owner.m_animator:runAction(cc.Sequence:create(fade_in, finish_action))
@@ -327,7 +327,7 @@ function EnemyMovement.NestDragon(owner, luaValue1, luaValue2, luaValue3, luaVal
         owner.m_animator:addAniHandler(function()
             owner.m_animator:changeAni('idle', true)
 
-            owner:dispatch('enemy_appear_done', owner)
+            owner:dispatch('enemy_appear_done', {}, owner)
         end)
 
         SoundMgr:playEffect('EFFECT', 'gdragon_appear')
@@ -369,7 +369,7 @@ function EnemyMovement.NestTree(owner, luaValue1, luaValue2, luaValue3, luaValue
     owner.m_animator:addAniHandler(function()
         owner.m_animator:changeAni('idle', true)
 
-        owner:dispatch('enemy_appear_done', owner)
+        owner:dispatch('enemy_appear_done', {}, owner)
     end)
 
     owner.m_animator:runAction(cc.Sequence:create(

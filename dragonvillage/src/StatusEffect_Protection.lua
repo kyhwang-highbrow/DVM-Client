@@ -17,8 +17,10 @@ StatusEffect_Protection = class(PARENT, {
 -- @param body
 -------------------------------------
 function StatusEffect_Protection:init(file_name, body, ...)
-    self:initState()
+	-- 보호막은 트리거 쿨타임을 적용하지 않는다.
+	self.m_statusEffectInterval = 0
 
+    self:initState()
 	do
         local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 20, 2, cc.size(250, 100), 1, 1)
         label:setPosition(0, -100)
@@ -123,7 +125,7 @@ end
 -------------------------------------
 -- function onTrigger
 -------------------------------------
-function StatusEffect_Protection:onTrigger(char, damage)
+function StatusEffect_Protection:onTrigger(t_event, char, damage)
 	local damage = damage or 0
 
 	-- 1. 방어막 유지 여부 계산

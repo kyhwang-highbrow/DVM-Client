@@ -338,7 +338,7 @@ end
 -------------------------------------
 -- function onEvent
 -------------------------------------
-function GameAuto:onEvent(event_name, ...)
+function GameAuto:onEvent(event_name, t_event, ...)
     if (event_name == 'auto_start') then
         self:onStart()
 

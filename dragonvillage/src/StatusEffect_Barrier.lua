@@ -110,15 +110,12 @@ end
 -------------------------------------
 -- function onTrigger
 -------------------------------------
-function StatusEffect_Barrier:onTrigger(char, damage)
+function StatusEffect_Barrier:onTrigger(t_event, char, damage)
     self.m_defCount = self.m_defCount - 1
 	
 	if (self.m_defCount <= 0) then
         self:changeState('end')
-        return false
+    else
+		self:changeState('hit')
     end
-
-    self:changeState('hit')
-
-    return true, 0
 end

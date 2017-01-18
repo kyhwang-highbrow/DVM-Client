@@ -79,7 +79,7 @@ function GameState_NestDungeon_Dragon.update_start(self, dt)
     elseif (self:getStep() == 3) then
         -- 화면 흔들림 & 드래곤이 지나감
         if (self:isBeginningStep()) then
-            world:dispatch('nest_dragon_start', function() self:nextStep() end)
+            world:dispatch('nest_dragon_start', {}, function() self:nextStep() end)
 
         elseif (self:isPassedStepTime(0.6)) then
             world.m_shakeMgr:doShake(50, 50, 1)

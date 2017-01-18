@@ -42,15 +42,14 @@ end
 --        event_name의 항목을 검증하는 코드를 넣도록 한다.
 --        event_name에 따른 매개변수를 함수로 적도록 한다.
 -------------------------------------
-function IEventDispatcher:dispatch(event_name, ...)
+function IEventDispatcher:dispatch(event_name, t_event, ...)
     local l_listener = self.m_lEventListener[event_name]
     if (not l_listener) then
         return
     end
 
     for i,v in pairs(l_listener) do
-        local bool = v:onEvent(event_name, ...)
-		if bool then return bool end
+        v:onEvent(event_name, t_event, ...)
     end
 end
 
@@ -108,7 +107,7 @@ end
 -------------------------------------
 -- function onEvent
 -------------------------------------
-function IEventListener:onEvent(event_name, ...)
+function IEventListener:onEvent(event_name, t_event, ...)
 end
 
 -------------------------------------

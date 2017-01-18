@@ -80,7 +80,7 @@ local t_module = {
     'ShaderCache',
     'DragonSortManager',
     'SimplePrimitivesDraw',
-
+    	
     -- Table
     'TableStageDesc',
     'TableDragon',
@@ -143,6 +143,10 @@ local t_module = {
     'GameTimeScale',
 	'ShakeManager',
     
+	-- CARRIER
+	'ActivityCarrier',
+	'EventCarrier',
+	
 	-- TAMER
 	'TamerSpeechSystem',
     'TamerSkillSystem',
@@ -289,7 +293,6 @@ local t_module = {
 
 	'WaveMgr',
     'DynamicWave',
-    'ActivityCarrier',
 
     -- UIC (UI Component)
     'UIC_Node',

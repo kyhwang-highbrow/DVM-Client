@@ -171,7 +171,7 @@ end
 -------------------------------------
 function Character:setDead()
     self.m_bDead = true
-    self:dispatch('character_dead', self)
+    self:dispatch('character_dead', {}, self)
 
     -- 사망 처리 시 StateDelegate Kill!
     self:killStateDelegate()
@@ -392,24 +392,21 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
         self:dispatch('avoid')
         return
     end
-
+	
+	local t_event = clone(EVENT_HIT_CARRIER)
+	t_event['damage'] = damage
+	
 	-- 방어 이벤트 (에너지실드)
-	local skipByShield, damage2 = self:dispatch('hit_shield', self, damage)
-	if skipByShield then 
+	self:dispatch('hit_shield', t_event, self, damage)
+	-- 방어 이벤트 (횟수)
+	self:dispatch('hit_barrier', t_event)
+	
+	damage = t_event['damage']
+
+	if (damage == 0) then 
 		self:makeShieldFont(i_x, i_y)
 		return
 	end
-	if damage2 and damage2 > 0 then 
-		damage = damage2
-	end 
-
-	-- 방어 이벤트 (횟수)
-	local skipByBarrier = self:dispatch('hit_barrier')
-	if skipByBarrier then 
-		self:makeShieldFont(i_x, i_y)
-		return 
-	end
-
     -- 스킬 공격으로 피격되였다면 캐스팅 중이던 스킬을 취소시킴
     local attackType = attacker.m_activityCarrier:getAttackType()
     if (attackType ~= 'basic' and attackType ~= 'fever') then
@@ -423,12 +420,12 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
                     percentage = self.m_castingMarkGauge:getPercentage()
                 end
 
-                self:dispatch('character_casting_cancel', attackerCharacter, percentage)
+                self:dispatch('character_casting_cancel', {}, attackerCharacter, percentage)
             end
         end
 
         -- 적 스킬 공격에 피격시
-        self:dispatch('character_damaged_skill', self)
+        self:dispatch('character_damaged_skill', {}, self)
 
         -- 효과음
         if self.m_bLeftFormation then
@@ -462,30 +459,30 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
     StatusEffectHelper:statusEffectCheck_onHit(attacker.m_activityCarrier, self)
 
     -- 방어자 피격 이벤트 
-    self:dispatch('undergo_attack', attacker.m_activityCarrier.m_activityCarrierOwner)
+    self:dispatch('undergo_attack', {}, attacker.m_activityCarrier.m_activityCarrierOwner)
 
     -- 남은 체력이 20%이하일 경우 이벤트 발생
     if (damage > 0) then
         if ((self.m_hp / self.m_maxHp) <= 0.2) then
-            self:dispatch('character_weak', self)
+            self:dispatch('character_weak', {}, self)
         end
     end
 	
 	-- 시전자 이벤트 
 	if attacker.m_activityCarrier.m_activityCarrierOwner then
-		attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit', self)
+		attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit', {}, self)
 
 		-- 적처치시 
 		if self.m_bDead then 
-			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('slain', self)
+			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('slain', {}, self)
 		
 		-- 일반 공격시
 		elseif (attacker.m_activityCarrier:getAttackType() == 'basic') then 
-			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit_basic', self, attacker.m_activityCarrier)
+			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit_basic', {}, self, attacker.m_activityCarrier)
 
 		-- 액티브 공격시
 		else
-			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit_active', self)
+			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit_active', {}, self)
 		end
 	end
 end
@@ -521,7 +518,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 
     -- 죽음 체크
     if (self.m_hp <= 0) and (self.m_bDead == false) then
-		self:dispatch('dead', self)
+		self:dispatch('dead', {}, self)
         self:setDead()
         self:changeState('dying')
     end

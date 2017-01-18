@@ -20,5 +20,4 @@ end
 -------------------------------------
 function StatusEffect_PassiveSpatter:onTrigger()
 	SkillSpatter:makeSkillInstance(self.m_owner, self.m_subData)
-	return true
 end

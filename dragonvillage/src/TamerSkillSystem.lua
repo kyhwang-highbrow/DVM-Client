@@ -122,7 +122,7 @@ function TamerSkillSystem:click_tamerSkillBtn(idx)
     end
 
 	-- 3. 쿨타임이 돌았다면 스킬 실행
-    self:dispatch('tamer_skill', function()
+    self:dispatch('tamer_skill', {}, function()
         self.m_world.m_tamerSkillMgr:doTamerSkill(idx)
     end, idx)
     
@@ -158,7 +158,7 @@ function TamerSkillSystem:click_specialSkillBtn()
 
     -- 3. 스킬 실행
     self.m_world.m_inGameUI.root:setVisible(false)
-    self:dispatch('tamer_special_skill', function()
+    self:dispatch('tamer_special_skill', {}, function()
         self.m_world.m_inGameUI.root:setVisible(true)
         self.m_world.m_tamerSkillMgr:doTamerSkill(4)
     end)
@@ -269,7 +269,7 @@ end
 -------------------------------------
 -- function onEvent
 -------------------------------------
-function TamerSkillSystem:onEvent(event_name, ...)
+function TamerSkillSystem:onEvent(event_name, t_event, ...)
 
     if (event_name == 'game_start') then
 

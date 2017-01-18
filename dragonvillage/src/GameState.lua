@@ -955,7 +955,7 @@ end
 -- function onEvent
 -- @brief
 -------------------------------------
-function GameState:onEvent(event_name, ...)
+function GameState:onEvent(event_name, t_event, ...)
     
     -- 적군이 전투 위치로 도착
     if (event_name == 'enemy_appear_done') then
