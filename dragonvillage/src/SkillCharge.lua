@@ -219,6 +219,9 @@ function SkillCharge:doChargeAttack(defender)
 
 		-- 충돌 시간 저장
 		self.m_preCollisionTime = self.m_stateTimer
+	else
+		-- 공격 대상이 없다면 정상 속도로 이동
+		self.m_owner:setMove(self.m_chargePos.x ,self.m_chargePos.y, SPEED_MOVE)
     end
 end
 
