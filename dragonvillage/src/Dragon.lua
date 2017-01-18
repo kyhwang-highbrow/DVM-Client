@@ -490,17 +490,17 @@ function Dragon:initStatus(t_char, level, grade, evolution, doid)
 	-- 레이저
 	elseif (type == 'bar') then
 		self.m_skillIndicator = SkillIndicator_Laser(self, t_skill)
-
+	
+	-- 세로로 긴 직사각형 인디케이터
+	elseif (type == 'square') then
+		local target_type = (t_char['type'] == 'pinkbell') and 'all' or 'enemy'
+		self.m_skillIndicator = SkillIndicator_AoESquare_Height(self, t_skill, target_type)
+	
 	------------------ 특수한 인디케이터들 ------------------
 	
 	-- 크래쉬(가루다)
 	elseif (type == 'target_cone') then
 		self.m_skillIndicator = SkillIndicator_Crash(self, t_skill)
-	
-	-- 힐링윈드 (핑크벨)
-	elseif (type == 'square') then
-		self.m_skillIndicator = SkillIndicator_AoESquare_Height(self, t_skill)
-	
 	-- 리프블레이드 (리프드래곤)
 	elseif (type == 'curve_twin') then
 		self.m_skillIndicator = SkillIndicator_LeafBlade(self, t_skill)

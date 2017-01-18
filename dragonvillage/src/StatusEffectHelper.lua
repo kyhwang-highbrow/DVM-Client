@@ -576,6 +576,7 @@ function StatusEffectHelper:releaseHarmfulStatusEffect(char)
 	for type, status_effect in pairs(char:getStatusEffectList()) do
 		if isExistValue(status_effect.m_type, 'debuff', 'cc', 'dot_dmg') then 
 			status_effect:changeState('end')
+			char:removeStatusEffect(status_effect)
 			return true
 		end
 	end

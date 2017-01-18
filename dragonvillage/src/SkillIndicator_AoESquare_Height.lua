@@ -7,15 +7,17 @@ SkillIndicator_AoESquare_Height = class(PARENT, {
         m_skillWidth = 'number',
 		m_skillHeight = 'number',
 		m_indicatorAddEffect = 'a2d',
+		m_targetType = 'str', 
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillIndicator_AoESquare_Height:init(hero, t_skill)
+function SkillIndicator_AoESquare_Height:init(hero, t_skill, target_type)
     self.m_skillWidth = t_skill['val_1']
 	self.m_skillHeight = t_skill['val_2']
 	self.m_indicatorScale = t_skill['res_scale']
+	self.m_targetType = target_type or 'enemy'
 end
 
 -------------------------------------
@@ -76,8 +78,8 @@ end
 -------------------------------------
 function SkillIndicator_AoESquare_Height:findTarget(x, y)
     local world = self.m_world
-
-    local l_target = world:getTargetList(nil, x, y, 'all', 'x', 'distance_x')
+	
+    local l_target = world:getTargetList(self.m_hero, x, y, self.m_targetType, 'x', 'distance_x')
     
     local l_ret = {}
 
