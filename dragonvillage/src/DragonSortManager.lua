@@ -23,18 +23,28 @@ DragonSortManager = class({
 
         -- 내부에서 별도로 사용하는 vars
         m_vars = 'table',
+
+        m_bUseGlobalSetting = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function DragonSortManager:init()
+    self.m_bUseGlobalSetting = true
 end
 
 -------------------------------------
 -- function init_commonSotrUI
 -------------------------------------
 function DragonSortManager:init_commonSotrUI(vars, table_view_ext, b_ascending_sort, sort_type)
+
+    -- 글로벌 설정을 사용할 경우
+    if self.m_bUseGlobalSetting then
+        b_ascending_sort = g_serverData:get('local', 'dragon_sort_ascending') or false
+        sort_type = g_serverData:get('local', 'dragon_sort_type') or 'atk'
+    end
+
     self.vars = vars
     self.m_tableViewExt = table_view_ext
 
@@ -189,6 +199,12 @@ function DragonSortManager:changeSort(immediately)
     else
         self.m_tableViewExt:sortTableView('sort', true)
     end
+
+    -- 글로벌 설정을 사용할 경우
+    if self.m_bUseGlobalSetting then
+        g_serverData:applyServerData(self.m_bAscendingSort, 'local', 'dragon_sort_ascending')
+        g_serverData:applyServerData(self.m_currSortType, 'local', 'dragon_sort_type')
+    end
 end
 
 
@@ -316,6 +332,7 @@ DragonSortManagerUpgradeMaterial = class(DragonSortManager, {
 -- function init
 -------------------------------------
 function DragonSortManagerUpgradeMaterial:init(vars, table_view_ext, table_view_ext2, b_ascending_sort, sort_type)
+    self.m_bUseGlobalSetting = false
     self:init_commonSotrUI(vars, table_view_ext, b_ascending_sort, sort_type)
     self.m_tableViewExt2 = table_view_ext2
 end
