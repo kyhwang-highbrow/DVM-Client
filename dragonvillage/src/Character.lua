@@ -435,8 +435,10 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
         end
     else
         -- 효과음
-        if not self.m_bLeftFormation then
+        if self.m_bLeftFormation then
             SoundMgr:playEffect('EFFECT', 'hit_damage_n')
+        else
+            SoundMgr:playEffect('EFFECT', 'hit_damage_m')
         end
     end
         	

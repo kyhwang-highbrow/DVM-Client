@@ -50,13 +50,21 @@ function TriggerTime:checkTrigger(time)
     do -- 변경된 패턴을 패턴 리스트에 추가
         local idx = 1
 
+        if (#self.m_owner.m_tCurrPattern == 0) then
+            idx = 0
+        end
+
         for i, v in ipairs(t_data['pattern']) do
             local pattern_info = {
                 priority = self.m_priority,
                 pattern = v
             }
 
-            table.insert(self.m_owner.m_tCurrPattern, idx + i, pattern_info)
+            if (idx == 0) then
+                table.insert(self.m_owner.m_tCurrPattern, pattern_info)
+            else
+                table.insert(self.m_owner.m_tCurrPattern, idx + i, pattern_info)
+            end
         end
     end
 
