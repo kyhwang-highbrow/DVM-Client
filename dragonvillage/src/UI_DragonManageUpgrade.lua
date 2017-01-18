@@ -829,7 +829,7 @@ function UI_DragonManageUpgrade:upgradeDirecting(doid, t_prev_dragon_data, t_nex
 
         -- 결과 팝업 (승급)
         if (t_prev_dragon_data['grade'] < t_next_dragon_data['grade']) then
-            UI_DragonManageUpgradeResult(t_next_dragon_data)
+            UI_DragonManageUpgradeResult(t_next_dragon_data, t_prev_dragon_data)
 
         -- 결과 팝업 (초월)
         elseif (t_prev_dragon_data['eclv'] < t_next_dragon_data['eclv']) then
@@ -840,6 +840,11 @@ function UI_DragonManageUpgrade:upgradeDirecting(doid, t_prev_dragon_data, t_nex
                 end
                 ui:setCloseCB(close_cb)
             end
+
+        -- 스킬 레벨업
+        else
+            UI_DragonSkillLevelUpResult:checkSkillLevelUp(t_prev_dragon_data, t_next_dragon_data)
+
         end
 
         -- UI 갱신

@@ -10,7 +10,7 @@ UI_DragonManageUpgradeResult = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonManageUpgradeResult:init(t_dragon_data)
+function UI_DragonManageUpgradeResult:init(t_dragon_data, t_prev_dragon_data)
     self.m_tDragonData = t_dragon_data
 
     local vars = self:load('upgrade_result.ui')
@@ -25,7 +25,10 @@ function UI_DragonManageUpgradeResult:init(t_dragon_data)
 
     SoundMgr:playEffect('EFFECT', 'success_starup')
 
-    self:sceneFadeInAction()
+    local function finish_fun()
+        UI_DragonSkillLevelUpResult:checkSkillLevelUp(t_prev_dragon_data, t_dragon_data)
+    end
+    self:sceneFadeInAction(nil, finish_fun, 1)
 end
 
 -------------------------------------

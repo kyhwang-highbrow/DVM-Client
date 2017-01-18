@@ -386,6 +386,7 @@ local t_module = {
     'UI_DragonGoodbye',   
     'UI_LobbyObject', 
     'UI_DragonExceedResult',
+    'UI_DragonSkillLevelUpResult',
 
     'DamageCalc',
     'IconHelper',

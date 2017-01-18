@@ -374,14 +374,16 @@ end
 -- function sceneFadeInAction
 -- @brief Scene 전환 페이드인 효과
 -------------------------------------
-function UI:sceneFadeInAction(func)
-    local func = (func or function() end)
+function UI:sceneFadeInAction(func, finish_func, duration)
+    func = (func or function() end)
+    finish_func = (finish_func or function() end)
+    duration = (duration or 0.25)
 
     local layerColor = cc.LayerColor:create( cc.c4b(0,0,0,255) )
     layerColor:setDockPoint(cc.p(0.5, 0.5))
     layerColor:setAnchorPoint(cc.p(0.5, 0.5))
     layerColor:setRelativeSizeAndType(cc.size(1280, 960), 1, false)
-    layerColor:runAction(cc.Sequence:create(cc.CallFunc:create(func), cc.FadeOut:create(0.25), cc.RemoveSelf:create()))
+    layerColor:runAction(cc.Sequence:create(cc.CallFunc:create(func), cc.FadeOut:create(duration), cc.CallFunc:create(finish_func), cc.RemoveSelf:create()))
     self.root:addChild(layerColor, 100)
 end
 
