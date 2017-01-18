@@ -19,7 +19,7 @@ void cocos_android_app_init (JNIEnv* env, jobject thiz) {
 extern "C"
 {
 
-bool Java_com_perplelab_dragonvillage_AppActivity_nativeIsLandScape(JNIEnv *env, jobject thisz)
+bool Java_com_perplelab_dvfgt_AppActivity_nativeIsLandScape(JNIEnv *env, jobject thisz)
 {
     if (!ConfigParser::getInstance()->isInit())
     {
@@ -28,7 +28,7 @@ bool Java_com_perplelab_dragonvillage_AppActivity_nativeIsLandScape(JNIEnv *env,
     return ConfigParser::getInstance()->isLandscape();
 }
 
-bool Java_com_perplelab_dragonvillage_AppActivity_nativeIsDebug(JNIEnv *env, jobject thisz)
+bool Java_com_perplelab_dvfgt_AppActivity_nativeIsDebug(JNIEnv *env, jobject thisz)
 {
     #ifdef NDEBUG
         return false;
@@ -37,7 +37,7 @@ bool Java_com_perplelab_dragonvillage_AppActivity_nativeIsDebug(JNIEnv *env, job
     #endif
 }
 
-bool Java_com_perplelab_dragonvillage_AppActivity_nativeIsTestMode(JNIEnv *env, jobject thisz)
+bool Java_com_perplelab_dvfgt_AppActivity_nativeIsTestMode(JNIEnv *env, jobject thisz)
 {
     if (!ConfigParser::getInstance()->isInit())
     {
@@ -46,7 +46,7 @@ bool Java_com_perplelab_dragonvillage_AppActivity_nativeIsTestMode(JNIEnv *env, 
     return ConfigParser::getInstance()->isTestMode();
 }
 
-int Java_com_perplelab_dragonvillage_AppActivity_nativeLoginPlatform(JNIEnv *env, jobject thisz)
+int Java_com_perplelab_dvfgt_AppActivity_nativeLoginPlatform(JNIEnv *env, jobject thisz)
 {
     #if (LOGIN_PLATFORM == LOGIN_PLATFORM_PATISDK)
         return 1;
@@ -57,7 +57,7 @@ int Java_com_perplelab_dragonvillage_AppActivity_nativeLoginPlatform(JNIEnv *env
     #endif
 }
 
-void Java_com_perplelab_dragonvillage_AppActivity_nativeSDKEventResult(JNIEnv *env, jobject thisz, jstring id, jstring result, jstring info)
+void Java_com_perplelab_dvfgt_AppActivity_nativeSDKEventResult(JNIEnv *env, jobject thisz, jstring id, jstring result, jstring info)
 {
     jboolean isCopy1;
     jboolean isCopy2;
