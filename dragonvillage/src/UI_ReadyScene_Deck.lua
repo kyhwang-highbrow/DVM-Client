@@ -165,6 +165,11 @@ function UI_ReadyScene_Deck:clear_deck()
     end
 
     self:setFocusDeckSlotEffect(1)
+
+    -- 즉시 정렬
+    if self.m_uiReadyScene.m_dragonSortMgr then
+        self.m_uiReadyScene.m_dragonSortMgr:changeSort()
+    end
 end
 
 -------------------------------------

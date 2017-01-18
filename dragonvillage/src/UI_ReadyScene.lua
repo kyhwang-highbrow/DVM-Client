@@ -89,6 +89,7 @@ function UI_ReadyScene:initButton()
     local vars = self.vars
     vars['manageBtn']:registerScriptTapHandler(function() self:click_manageBtn() end)
     vars['autoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
+    vars['removeBtn']:registerScriptTapHandler(function() self:click_removeBtn() end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
 
     vars['autoStartOnBtn'] = UIC_CheckBox(vars['autoStartOnBtn'].m_node, vars['autoStartOnSprite'], false)
@@ -282,6 +283,14 @@ function UI_ReadyScene:click_autoBtn()
         self.m_readySceneDeck:setFocusDeckSlotEffect(i)
         self:click_dragonCard(t_dragon_data)
     end
+end
+
+-------------------------------------
+-- function click_removeBtn
+-- @breif
+-------------------------------------
+function UI_ReadyScene:click_removeBtn()
+    self.m_readySceneDeck:clear_deck()
 end
 
 -------------------------------------
