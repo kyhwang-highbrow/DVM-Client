@@ -7,7 +7,6 @@ T_CHAPTER_MAP_RES[4] = 'res/bg/map_volcano/map_volcano.vrp'
 T_CHAPTER_MAP_RES[5] = 'res/bg/world_map/chapter_03.png'
 T_CHAPTER_MAP_RES[6] = 'res/bg/world_map/chapter_03.png'
 
-
 -------------------------------------
 -- class UI_AdventureSceneNew
 -------------------------------------
@@ -20,6 +19,7 @@ UI_AdventureSceneNew = class(UI, ITopUserInfo_EventListener:getCloneTable(), {
         m_adventureShipAnimator = 'Animator',
         m_lStageButton = 'list[UI_AdventureStageButton]',
         m_speechBallonLabel = 'RichLabel',
+        m_adventureStageInfoPopup = 'UI_AdventureStageInfo',
      })
 
 -------------------------------------
@@ -51,7 +51,7 @@ function UI_AdventureSceneNew:init(stage_id)
     vars['hardBtn']:registerScriptTapHandler(function() self:click_selectDifficultyBtn(3) end)
 
     vars['devStageBtn']:registerScriptTapHandler(function()
-            UI_AdventureStageInfo(DEV_STAGE_ID)
+            self:openAdventureStageInfoPopup(DEV_STAGE_ID)
         end)
 
     vars['bgSprite']:setLocalZOrder(-2)
@@ -90,7 +90,7 @@ end
 -- function moveShipObject
 -- @brief 비공정 오브젝트 이동
 -------------------------------------
-function UI_AdventureSceneNew:moveShipObject(x, y, immediately)
+function UI_AdventureSceneNew:moveShipObject(x, y, immediately, stage_id)
     self.m_adventureShip:stopAllActions()
 
     if immediately then
@@ -114,8 +114,35 @@ function UI_AdventureSceneNew:moveShipObject(x, y, immediately)
             self.m_adventureShipAnimator.m_node:setScaleX(1)
         end
 
-        self.m_adventureShip:runAction(cc.EaseInOut:create(cc.MoveTo:create(0.5, cc.p(x, y)), 2))
+        local duration = 0.5
+        local action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(x, y)), 2)
+        self.m_adventureShip:runAction(action)
+
+        -- stage_id가 지정되었을 경우 비행선 도착 시 팝업
+        if stage_id then
+            local function func()
+                self:openAdventureStageInfoPopup(stage_id)
+            end
+            action = cc.Sequence:create(action, cc.CallFunc:create(func))
+            cca.reserveFunc(self.m_adventureShip, duration, func)
+        end
     end
+end
+
+-------------------------------------
+-- function openAdventureStageInfoPopup
+-------------------------------------
+function UI_AdventureSceneNew:openAdventureStageInfoPopup(stage_id)
+    if (self.m_adventureStageInfoPopup) then
+        return
+    end
+
+    local function close_cb()
+        self.m_adventureStageInfoPopup = nil
+    end
+
+    self.m_adventureStageInfoPopup = UI_AdventureStageInfo(stage_id)
+    self.m_adventureStageInfoPopup:setCloseCB(close_cb)
 end
 
 -------------------------------------
@@ -344,13 +371,13 @@ function UI_AdventureSceneNew:click_stageBtn(stage_id, is_open)
 
     -- 스테이지 시작
     if (self.m_focusStageIdx == stage) and is_open then
-        UI_AdventureStageInfo(stage_id)
+        self:openAdventureStageInfoPopup(stage_id)
         return
     end
 
     -- 열린 스테이지는 포커싱
     if is_open then
-        self:focusStageButton(stage)
+        self:focusStageButton(stage, nil, nil, stage_id)
     else
         -- 잠긴 스테이지는 알림
         local node = self.m_lStageButton[stage].root
@@ -366,7 +393,7 @@ end
 -------------------------------------
 -- function focusStageButton
 -------------------------------------
-function UI_AdventureSceneNew:focusStageButton(idx, immediately, b_force)
+function UI_AdventureSceneNew:focusStageButton(idx, immediately, b_force, stage_id)
     if (not b_force) and (self.m_focusStageIdx == idx) then
         return
     end
@@ -389,7 +416,7 @@ function UI_AdventureSceneNew:focusStageButton(idx, immediately, b_force)
 
         -- 배의 위치를 조절
         local x, y = next_btn.root:getParent():getPosition()
-        self:moveShipObject(x, y + 50, immediately)
+        self:moveShipObject(x, y + 50, immediately, stage_id)
     end
 
     self.m_focusStageIdx = idx
