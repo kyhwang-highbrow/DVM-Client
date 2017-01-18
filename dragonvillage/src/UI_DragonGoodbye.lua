@@ -106,60 +106,39 @@ end
 -- @brief 드래곤 작별 재료 리스트 테이블 뷰
 -------------------------------------
 function UI_DragonGoodbye:init_dragonMaterialTableView()
+    -- 기존에 노드들 삭제
     local list_table_node = self.vars['selectListNode']
     list_table_node:removeAllChildren()
 
+    -- cell_size 지정
     local item_size = 150
     local item_scale = 0.71
+    local cell_size = cc.size(item_size*item_scale, item_size*item_scale)
 
-    -- 생성
-    local function create_func(item)
-        local ui = item['ui']
+    -- 리스트 아이템 생성 콜백
+    local function create_func(ui, data)
         ui.root:setScale(item_scale)
-
-        self:refresh_materialDragonIndivisual(item['unique_id'])
-    end
-
-    -- 드래곤 클릭 콜백 함수
-    local function click_dragon_item(item)
-        self:click_dragonCard(item)
-    end
-
-    -- 테이블뷰 초기화
-    local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.VERTICAL)
-    do -- 아이콘 크기 지정
-        local item_adjust_size = (item_size * item_scale)
-        local nItemPerCell = 5
-        local cell_width = (item_adjust_size * nItemPerCell)
-        local cell_height = item_adjust_size
-        local item_width = item_adjust_size
-        local item_height = item_adjust_size
-        table_view_ext:setCellInfo2(nItemPerCell, cell_width, cell_height, item_width, item_height)
-    end    
-    table_view_ext:setItemUIClass(UI_DragonCard, click_dragon_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
-    
-    -- 재료로 사용 가능한 리스트를 얻어옴
-    local l_dragon_list = g_dragonsData:getDragonsList()--self:getDragonUpgradeMaterialList(self.m_selectDragonOID)
-    table_view_ext:setItemInfo(l_dragon_list)
-
-    table_view_ext:update()
-
-    self.m_tableViewExtMaterial = table_view_ext
-
-    --[[
-    do -- 정렬 도우미 도입
-        local b_ascending_sort = nil
-        local sort_type = nil
-
-        if self.m_materialSortMgr then
-            b_ascending_sort = self.m_materialSortMgr.m_bAscendingSort
-            sort_type = self.m_materialSortMgr.m_currSortType
-        end
         
-        self.m_materialSortMgr = DragonSortManagerUpgradeMaterial(self.vars, table_view_ext, self.m_tableViewExtSelectMaterial, b_ascending_sort, sort_type)
-        self.m_materialSortMgr:changeSort()
+        -- 드래곤 클릭 콜백 함수
+        local function click_dragon_item()
+            local doid = data['id']
+            self:click_dragonCard(doid)
+        end
+
+        ui.vars['clickBtn']:registerScriptTapHandler(click_dragon_item)
     end
-    --]]
+
+    -- 2차원 테이블 뷰 생성
+    local table_view_td = UIC_TableViewTD(list_table_node)
+    table_view_td.m_cellSize = cell_size
+    table_view_td.m_nItemPerCell = 5
+    table_view_td:setCellUIClass(UI_DragonCard, create_func)
+
+    -- 리스트 설정
+    local l_item_list = g_dragonsData:getDragonsList()
+    table_view_td:setItemList(l_item_list)
+
+    self.m_tableViewExtMaterial = table_view_td
 end
 
 -------------------------------------
@@ -182,7 +161,7 @@ function UI_DragonGoodbye:init_dragonUMaterialSelectTableView()
 
     -- 드래곤 클릭 콜백 함수
     local function click_dragon_item(item)
-        self:click_dragonCard(item)
+        self:click_dragonCard(item['data']['id'])
     end
 
     -- 테이블뷰 초기화
@@ -198,10 +177,7 @@ end
 -------------------------------------
 -- function click_dragonCard
 -------------------------------------
-function UI_DragonGoodbye:click_dragonCard(item)
-    local data = item['data']
-    local doid = data['id']
-
+function UI_DragonGoodbye:click_dragonCard(doid)
     local selected_material_item = self.m_tableViewExtSelectMaterial:getItem(doid)
 
     -- 재료 해제
@@ -270,7 +246,9 @@ function UI_DragonGoodbye:goodbyeNetworkResponse(ret)
             self.m_tableViewExtMaterial:delItem(odid)
         end
 
-        self.m_tableViewExtMaterial:update()
+        -- 리스트 뷰의 아이템 위치를 다시 잡고 영역을 벗어났는지 확인
+        self.m_tableViewExtMaterial:expandTemp(0.5)
+        self.m_tableViewExtMaterial:relocateContainer(true)
     end
 
     -- 라테아 갱신
