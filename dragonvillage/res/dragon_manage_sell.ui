@@ -72,11 +72,11 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = 'lacreaVisual';
-			file_name = 'ui/a2d/dragon_lacrea/dragon_lacrea.a2d';
+			lua_name = 'lacteaVisual';
+			file_name = 'ui/a2d/dragon_lactea/dragon_lactea.a2d';
 			auto_play = true;
 			is_repeat = true;
-			visual_id = 'group;lecrea_idle';
+			visual_id = 'group;lectea_idle';
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};

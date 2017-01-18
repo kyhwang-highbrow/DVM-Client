@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>lacrea_effect_01.png</key>
+            <key>lactea_effect_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -19,7 +19,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_effect_02.png</key>
+            <key>lactea_effect_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -34,7 +34,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_effect_03.png</key>
+            <key>lactea_effect_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -49,7 +49,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_effect_04.png</key>
+            <key>lactea_effect_04.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -64,7 +64,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_effect_05.png</key>
+            <key>lactea_effect_05.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -79,7 +79,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_effect_06.png</key>
+            <key>lactea_effect_06.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -94,7 +94,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_frame_01.png</key>
+            <key>lactea_frame_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -109,7 +109,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_frame_02.png</key>
+            <key>lactea_frame_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -124,7 +124,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_frame_03.png</key>
+            <key>lactea_frame_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -139,7 +139,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_fx_01.png</key>
+            <key>lactea_fx_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -154,7 +154,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_fx_02.png</key>
+            <key>lactea_fx_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -169,7 +169,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_fx_03.png</key>
+            <key>lactea_fx_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -184,7 +184,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_fx_04.png</key>
+            <key>lactea_fx_04.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -199,7 +199,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_fx_05.png</key>
+            <key>lactea_fx_05.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -214,7 +214,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_fx_06.png</key>
+            <key>lactea_fx_06.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -229,7 +229,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_fx_07.png</key>
+            <key>lactea_fx_07.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -244,7 +244,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_fx_08.png</key>
+            <key>lactea_fx_08.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -259,7 +259,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_fx_09.png</key>
+            <key>lactea_fx_09.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -274,7 +274,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_fx_10.png</key>
+            <key>lactea_fx_10.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -289,7 +289,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_fx_11.png</key>
+            <key>lactea_fx_11.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -304,7 +304,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_fx_12.png</key>
+            <key>lactea_fx_12.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -319,7 +319,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_fx_13.png</key>
+            <key>lactea_fx_13.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -334,7 +334,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_fx_14.png</key>
+            <key>lactea_fx_14.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -349,7 +349,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_fx_15.png</key>
+            <key>lactea_fx_15.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -364,7 +364,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_fx_16.png</key>
+            <key>lactea_fx_16.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -379,7 +379,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_fx_17.png</key>
+            <key>lactea_fx_17.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -394,7 +394,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_fx_18.png</key>
+            <key>lactea_fx_18.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -409,7 +409,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_fx_19.png</key>
+            <key>lactea_fx_19.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -424,7 +424,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_fx_20.png</key>
+            <key>lactea_fx_20.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -439,7 +439,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_fx_21.png</key>
+            <key>lactea_fx_21.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -454,7 +454,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_fx_22.png</key>
+            <key>lactea_fx_22.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -469,7 +469,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_fx_23.png</key>
+            <key>lactea_fx_23.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -484,7 +484,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_fx_24.png</key>
+            <key>lactea_fx_24.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -499,7 +499,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_fx_25.png</key>
+            <key>lactea_fx_25.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -514,7 +514,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_fx_26.png</key>
+            <key>lactea_fx_26.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -529,7 +529,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_fx_27.png</key>
+            <key>lactea_fx_27.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -544,7 +544,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_fx_28.png</key>
+            <key>lactea_fx_28.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -559,7 +559,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_fx_29.png</key>
+            <key>lactea_fx_29.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -574,7 +574,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_fx_30.png</key>
+            <key>lactea_fx_30.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -589,7 +589,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_fx_frame.png</key>
+            <key>lactea_fx_frame.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -604,7 +604,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_fx_shape.png</key>
+            <key>lactea_fx_shape.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -619,7 +619,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_light_01.png</key>
+            <key>lactea_light_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -634,7 +634,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_light_02.png</key>
+            <key>lactea_light_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -649,7 +649,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_light_03.png</key>
+            <key>lactea_light_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -664,7 +664,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_light_04.png</key>
+            <key>lactea_light_04.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -679,7 +679,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_point_01.png</key>
+            <key>lactea_point_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -694,7 +694,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_point_02.png</key>
+            <key>lactea_point_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -709,7 +709,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_point_03.png</key>
+            <key>lactea_point_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -724,7 +724,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>lacrea_point_04.png</key>
+            <key>lactea_point_04.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -739,7 +739,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lacrea_point_05.png</key>
+            <key>lactea_point_05.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -764,13 +764,13 @@
             <key>premultiplyAlpha</key>
             <false/>
             <key>realTextureFileName</key>
-            <string>dragon_lacrea.png</string>
+            <string>dragon_lactea.png</string>
             <key>size</key>
             <string>{2027,1727}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:e8bd7f243a7f0886fee5a3ef8d15906e:132a77fc855770e2e47a14f60518437f:e67f48cc0bc289d19520b2e9c76351a3$</string>
+            <string>$TexturePacker:SmartUpdate:9f227af214eb58364b7e8417ed9a3bc5:132a77fc855770e2e47a14f60518437f:2b351b2b297e40c2eeea0b3318f01762$</string>
             <key>textureFileName</key>
-            <string>dragon_lacrea.png</string>
+            <string>dragon_lactea.png</string>
         </dict>
     </dict>
 </plist>
