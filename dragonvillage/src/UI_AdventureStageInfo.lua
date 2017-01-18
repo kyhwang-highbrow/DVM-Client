@@ -111,26 +111,39 @@ function UI_AdventureStageInfo:refresh_difficultyBadge()
     if (game_mode ~= GAME_MODE_ADVENTURE) then
         vars['difficultySprite']:setVisible(false)
         vars['difficultyLabel']:setVisible(false)
-        return
+
+    -- 기타 모드(170118기준으로 네스트 던전이 해당)
+    else
+        vars['difficultySprite']:setVisible(true)
+        vars['difficultyLabel']:setVisible(true)
+
+        local difficulty, chapter, stage = parseAdventureID(stage_id)
+
+        if (difficulty == 1) then
+            vars['difficultySprite']:setColor(cc.c3b(121, 186, 58))
+            vars['difficultyLabel']:setString(Str('쉬움'))
+
+        elseif (difficulty == 2) then
+            vars['difficultySprite']:setColor(cc.c3b(46, 162, 196))
+            vars['difficultyLabel']:setString(Str('보통'))
+
+        elseif (difficulty == 3) then
+            vars['difficultySprite']:setColor(cc.c3b(196, 74, 46))
+            vars['difficultyLabel']:setString(Str('어려움'))
+        end
     end
 
-    vars['difficultySprite']:setVisible(true)
-    vars['difficultyLabel']:setVisible(true)
-
-    local difficulty, chapter, stage = parseAdventureID(stage_id)
-
-    if (difficulty == 1) then
-        vars['difficultySprite']:setColor(cc.c3b(121, 186, 58))
-        vars['difficultyLabel']:setString(Str('쉬움'))
-
-    elseif (difficulty == 2) then
-        vars['difficultySprite']:setColor(cc.c3b(46, 162, 196))
-        vars['difficultyLabel']:setString(Str('보통'))
-
-    elseif (difficulty == 3) then
-        vars['difficultySprite']:setColor(cc.c3b(196, 74, 46))
-        vars['difficultyLabel']:setString(Str('어려움'))
-
+    do -- 정렬
+        if (game_mode ~= GAME_MODE_ADVENTURE) then
+            vars['titleLabel']:setPositionX(0)
+        else
+            local difficulty_width = vars['difficultySprite']:getContentSize()['width']
+            local title_width = vars['titleLabel']:getStringWidth()
+            
+            local total_width = (title_width + difficulty_width)
+            vars['difficultySprite']:setPositionX(-(total_width / 2) + (difficulty_width/2))
+            vars['titleLabel']:setPositionX(-(total_width / 2) + difficulty_width + (title_width/2))
+        end
     end
 end
 

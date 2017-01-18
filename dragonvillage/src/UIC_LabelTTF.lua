@@ -51,3 +51,10 @@ end
 function UIC_LabelTTF:setAlignment(text_alignment_h, text_alignment_v)
     return self.m_node:setAlignment(text_alignment_h, text_alignment_v)
 end
+
+-------------------------------------
+-- function getStringWidth
+-------------------------------------
+function UIC_LabelTTF:getStringWidth()
+    return self.m_node:getStringWidth()
+end
