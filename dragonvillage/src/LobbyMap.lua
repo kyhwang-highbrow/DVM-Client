@@ -75,7 +75,7 @@ function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_rati
 
     do -- 오브젝트 버튼
         self.m_lLobbyObject = {}
-        table.insert(self.m_lLobbyObject, MakeLobbyObjectUI(node, ui_lobby, UI_LobbyObject.ADVENTURE))
+        table.insert(self.m_lLobbyObject, MakeLobbyObjectUI(node, ui_lobby, UI_LobbyObject.BATTLE))
         table.insert(self.m_lLobbyObject, MakeLobbyObjectUI(node, ui_lobby, UI_LobbyObject.BOARD))
         table.insert(self.m_lLobbyObject, MakeLobbyObjectUI(node, ui_lobby, UI_LobbyObject.DRAGON_MANAGE))
         table.insert(self.m_lLobbyObject, MakeLobbyObjectUI(node, ui_lobby, UI_LobbyObject.SHIP))
@@ -461,7 +461,15 @@ function LobbyMap:addLobbyDragon(tamer, t_user_info, flip)
 
     local evolution = t_user_info['leader']['evolution']
 
-    t_dragon = table_dragon:get(t_user_info['leader']['did'])
+    local did = t_user_info['leader']['did']
+
+    -- 서버에서 오류로 인해 did가 0으로 넘어오는 이슈가 있어서 예외처리함
+    if (did == 0) then
+        local t_random_data = table_dragon:getRandomRow()
+        did = t_random_data['did']
+    end
+
+    t_dragon = table_dragon:get(did)
     local res = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, t_dragon['attr'])
 
     -- 드래곤 생성

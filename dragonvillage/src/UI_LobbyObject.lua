@@ -7,14 +7,14 @@ UI_LobbyObject = class(PARENT, {
         m_type = 'number',
      })
 
-UI_LobbyObject.ADVENTURE = 1
+UI_LobbyObject.BATTLE = 1
 UI_LobbyObject.BOARD = 2
 UI_LobbyObject.DRAGON_MANAGE = 3
 UI_LobbyObject.SHIP = 4
 UI_LobbyObject.SHOP = 5
 
 t_object_pos = {}
-t_object_pos[UI_LobbyObject.ADVENTURE] = {x=-1679, y=40.5}
+t_object_pos[UI_LobbyObject.BATTLE] = {x=-1679, y=40.5}
 t_object_pos[UI_LobbyObject.BOARD] = {x=652.5, y=96}
 t_object_pos[UI_LobbyObject.DRAGON_MANAGE] = {x=1784.5, y=54}
 t_object_pos[UI_LobbyObject.SHIP] = {x=-1212, y=93}
@@ -28,8 +28,8 @@ function UI_LobbyObject:init(type)
 
     local ui_name = ''
 
-    if (type == UI_LobbyObject.ADVENTURE) then
-        ui_name = 'lobby_adventure.ui'
+    if (type == UI_LobbyObject.BATTLE) then
+        ui_name = 'lobby_battle.ui'
     elseif (type == UI_LobbyObject.BOARD) then
         ui_name = 'lobby_board.ui'
     elseif (type == UI_LobbyObject.DRAGON_MANAGE) then
@@ -79,8 +79,8 @@ function MakeLobbyObjectUI(parent, ui_lobby, type)
     local ui = UI_LobbyObject(type)
     parent:addChild(ui.root, 5)
 
-    if (type == UI_LobbyObject.ADVENTURE) then
-        ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_adventureBtn() end)
+    if (type == UI_LobbyObject.BATTLE) then
+        ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_battleBtn() end)
 
     elseif (type == UI_LobbyObject.BOARD) then
         ui.vars['clickBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('"퀘스트"는 준비 중입니다.'))  end)
@@ -89,7 +89,7 @@ function MakeLobbyObjectUI(parent, ui_lobby, type)
         ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_dragonManageBtn() end)
 
     elseif (type == UI_LobbyObject.SHIP) then
-        ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_nestBtn() end)
+        ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_adventureBtn() end)
 
     elseif (type == UI_LobbyObject.SHOP) then
         ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_shopBtn() end)
