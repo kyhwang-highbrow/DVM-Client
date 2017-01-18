@@ -25,6 +25,7 @@ CommonMissile = class(PARENT, {
 		m_missileFireTerm = 'time',
 		m_fireCnt = 'num',
 		m_maxFireCnt = 'num',
+		m_missileSpeed = 'num',
      })
 
 -------------------------------------
@@ -50,6 +51,13 @@ function CommonMissile:initCommonMissile(owner, t_skill)
 	self.m_targetType = t_skill['target_type']
 	self.m_maxFireCnt = t_skill['hit']
 	self.m_fireCnt = 0
+
+	-- 탄 속도
+	if (not t_skill['val_3']) or (t_skill['val_3'] == 0) then
+		self.m_missileSpeed = 1000
+	else
+		self.m_missileSpeed = t_skill['val_3']
+	end
 
 	self.m_target = self:getRandomTargetByRule()
 	self.m_missileTimer = 0

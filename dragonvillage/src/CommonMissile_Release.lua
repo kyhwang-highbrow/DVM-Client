@@ -56,7 +56,7 @@ function CommonMissile_Release:setMissile()
 	
 	t_option['scale'] = self.m_resScale
 	t_option['count'] = 2
-	t_option['speed'] = 200
+	t_option['speed'] = self.m_missileSpeed
 	t_option['accel'] = 2000
 	t_option['h_limit_speed'] = 10000
 	t_option['accel_delay'] = 1

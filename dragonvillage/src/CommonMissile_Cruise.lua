@@ -44,7 +44,7 @@ function CommonMissile_Cruise:setMissile()
 	
 	t_option['scale'] = self.m_resScale
 	t_option['count'] = 1
-	t_option['speed'] = 300
+	t_option['speed'] = self.m_missileSpeed
 	t_option['h_limit_speed'] = 2000
 	t_option['accel'] = 10000
 	t_option['accel_delay'] = 1

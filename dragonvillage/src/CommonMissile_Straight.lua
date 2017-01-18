@@ -45,7 +45,7 @@ function CommonMissile_Straight:setMissile()
 	
 	t_option['scale'] = self.m_resScale
 	t_option['count'] = 1
-	t_option['speed'] = 800
+	t_option['speed'] = self.m_missileSpeed
 	t_option['h_limit_speed'] = 2000
     t_option['angular_velocity'] = 0
 	t_option['dir_add'] = 0
