@@ -117,6 +117,17 @@ function SoundMgr:loadSoundList()
 end
 
 -------------------------------------
+-- function isExistSound
+-- @param category
+-- @param sound
+-------------------------------------
+function SoundMgr:isExistSound(category, sound)
+    if (not self.m_soundList[category]) then return false end
+
+    return (self.m_soundList[category][sound] ~= nil)
+end
+
+-------------------------------------
 -- function update
 -- @param dt
 -------------------------------------

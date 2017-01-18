@@ -159,7 +159,7 @@ end
 function MonsterLua_Boss.st_casting(owner, dt)
     PARENT.st_casting(owner, dt)
 
-    if owner.m_state == 'casting' and owner.m_stateTimer == 0 then
+    if (owner.m_state == 'casting' and owner.m_stateTimer == 0) then
         local eventList = owner.m_animator:getEventList('casting', 'casting')
         local eventData = eventList[1]
         if eventData then
@@ -184,12 +184,14 @@ function MonsterLua_Boss.st_casting(owner, dt)
             end
         end
 
+    elseif (owner.m_state == 'attack') then
         -- 효과음
         local type = math_random(1, 2)
 
         if owner.m_tEffectSound['skill_' .. type] then
             SoundMgr:playEffect('VOICE', owner.m_tEffectSound['skill_' .. type])
         end
+
     end
 end
 

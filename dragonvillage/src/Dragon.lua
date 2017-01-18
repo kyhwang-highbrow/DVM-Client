@@ -788,6 +788,18 @@ function Dragon:getSoundNameForSkill(type)
         
     elseif (type == 'lightningdragon') then
         sound_name = 'skill_lightningdragon'
+
+    elseif (type == 'optatio') then
+        sound_name = 'skill_optatio'
+
+    elseif (type == 'psykerdragon') then
+        sound_name = 'skill_psykerdragon'
+
+    elseif (type == 'mutanteggdragon') then
+        sound_name = 'skill_mutanteggdragon'
+
+    elseif (type == 'fairydragon') then
+        sound_name = 'skill_fairydragon'
         
     end
 

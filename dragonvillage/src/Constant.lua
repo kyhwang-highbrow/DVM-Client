@@ -184,3 +184,17 @@ end
 function isMonster(id)
     return ( math_floor(id / 10000) == 13 )
 end
+
+-------------------------------------
+-- function playDragonVoice
+-- @brief id를 가지고 dragon인지 판별
+-------------------------------------
+function playDragonVoice(type)
+    local name = 'vo_' .. type
+
+    if (SoundMgr:isExistSound('VOICE', name)) then
+        SoundMgr:playEffect('VOICE', name)
+    else
+        SoundMgr:playEffect('VOICE', 'vo_silent')
+    end
+end

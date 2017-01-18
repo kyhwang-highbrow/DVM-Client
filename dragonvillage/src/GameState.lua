@@ -437,7 +437,7 @@ function GameState.update_fight_dragon_skill(self, dt)
         SoundMgr:playEffect('EFFECT', 'skill_ready')
 
         -- 음성
-        SoundMgr:playEffect('VOICE', 'vo_' .. dragon.m_charTable['type'])
+        playDragonVoice(dragon.m_charTable['type'])
     
     elseif (self.m_stateTimer >= timeScale * delayTime) then
         -- 게임 조작 막음 해제
