@@ -36,7 +36,8 @@ function SkillIndicator_AoESquare_Height:onTouchMoved(x, y)
     self.m_targetPosY = y
 
     -- 이펙트 조정
-    self.m_indicatorEffect:setPosition(x - pos_x, -CRITERIA_RESOLUTION_Y/2)
+	local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+    self.m_indicatorEffect:setPosition(x - pos_x, cameraHomePosY - pos_y)
     self.m_indicatorAddEffect:setPosition(x - pos_x, y - pos_y)
 
 	-- 하이라이트 갱신

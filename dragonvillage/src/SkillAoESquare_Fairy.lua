@@ -19,12 +19,10 @@ end
 -------------------------------------
 function SkillAoESquare_Fairy:init_skill(skill_width, skill_height, hit)
     PARENT.init_skill(self, skill_width, skill_height, hit)
-	
-	-- 왜 한프레임 튀는지 알수없음
-	self.m_animator:setVisible(false) 
 
 	-- 위치 설정
-	self:setPosition(self.m_targetPos.x, 0) -- Y좌표값은 화면의 중심으로 세팅
+	local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+	self:setPosition(self.m_targetPos.x, cameraHomePosY) -- Y좌표값은 화면의 중심으로 세팅
 end
 
 -------------------------------------

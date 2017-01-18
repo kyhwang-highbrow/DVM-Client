@@ -14,6 +14,8 @@ SkillAoESquare = class(PARENT, {
 		m_maxAttackCnt = 'number',
 
 		m_idleAniName = 'idle',
+
+		m_findTargetType = 'str'
      })
 
 -------------------------------------
@@ -39,7 +41,9 @@ function SkillAoESquare:init_skill(skill_width, skill_height, hit)
     self.m_hitInterval = ONE_FRAME * 7
 	self.m_multiAtkTimer = self.m_hitInterval
 	
+	-- 하드코딩..
 	self.m_idleAniName = 'idle'
+	self.m_findTargetType = 'enemy'
 
 	-- 위치 설정
 	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
@@ -102,7 +106,7 @@ function SkillAoESquare:findTarget()
 
     local world = self.m_world
 
-    local l_target = world:getTargetList(nil, x, y, 'all', 'x', 'distance_x')
+    local l_target = world:getTargetList(self.m_owner, x, y, self.m_findTargetType, 'x', 'distance_x')
     
     local l_ret = {}
 

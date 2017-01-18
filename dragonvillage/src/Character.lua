@@ -306,14 +306,17 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 		end
         atk_dmg = attacker.m_activityCarrier:getStat(atk_dmg_stat)
         def_pwr = self.m_statusCalc:getFinalStat('def')
-
-        -- 스킬 추가 공격력 적용 적용
+		
+		-- 스킬 계수 적용
+		atk_dmg = atk_dmg * attacker.m_activityCarrier.m_skillCoefficient
+        
+		-- 스킬 추가 공격력 적용
         atk_dmg = atk_dmg + attacker.m_activityCarrier.m_skillAddAtk
-
+		
 		-- 방어 무시 체크
 		if (attacker.m_activityCarrier:isIgnoreDef()) then def_pwr = 0 end
-
-        damage = DamageCalc_P(atk_dmg, def_pwr)
+        
+		damage = DamageCalc_P(atk_dmg, def_pwr)
     end
 
     do -- 크리티컬(치명타) 계산
@@ -351,11 +354,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
         damage = (damage * damage_multifly)
     end
 
-    -- 스킬 계수 적용
+    -- 속성 추가 데미지 별도로 사용하기 위해 ..! (과거에 인게임 화면에 출력)
     attr_bonus_dmg = math_floor(attr_bonus_dmg * attacker.m_activityCarrier.m_skillCoefficient)
-    damage = math_floor(damage * attacker.m_activityCarrier.m_skillCoefficient)
-
-    attr_bonus_dmg = math_min(attr_bonus_dmg, damage)
+	attr_bonus_dmg = math_min(attr_bonus_dmg, damage)
 		
 	if PRINT_ATTACK_INFO then
 		cclog('######################################################')
