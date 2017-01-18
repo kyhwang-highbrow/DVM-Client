@@ -70,7 +70,7 @@ function GameState_NestDungeon_Dragon.update_start(self, dt)
         if (self:isBeginningStep()) then
             world.m_shakeMgr:doShake(50, 50, 1)
 
-            SoundMgr:playEffect('EFFECT', 'gdragon_appear')
+            SoundMgr:playEffect('VOICE', 'vo_gdragon_appear')
 
         elseif (self:getStepTimer() >= 2) then
             self:nextStep()
@@ -84,7 +84,7 @@ function GameState_NestDungeon_Dragon.update_start(self, dt)
         elseif (self:isPassedStepTime(0.6)) then
             world.m_shakeMgr:doShake(50, 50, 1)
 
-            SoundMgr:playEffect('EFFECT', 'gdragon_appear')
+            SoundMgr:playEffect('VOICE', 'vo_gdragon_appear')
         end
 
     elseif (self:getStep() == 4) then
@@ -116,7 +116,7 @@ function GameState_NestDungeon_Dragon:doDirectionForIntermission()
         if is_final_wave then
             world:dispatch('nest_dragon_final_wave')
 
-            SoundMgr:playEffect('EFFECT', 'gdragon_appear')
+            SoundMgr:playEffect('VOICE', 'vo_gdragon_appear')
         end
     end
         

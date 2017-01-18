@@ -30,7 +30,8 @@ function SkillIndicator_StraightWidth:onTouchMoved(x, y)
     self.m_targetPosY = y
 
     -- 이펙트 조정
-    self.m_indicatorEffect:setPosition(-(CRITERIA_RESOLUTION_X / 2), y - pos_y)
+    local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+    self.m_indicatorEffect:setPosition(cameraHomePosX - pos_x, y - pos_y)
     self.m_indicatorAddEffect:setPosition(x - pos_x, y - pos_y)
 
 	-- 하이라이트 갱신

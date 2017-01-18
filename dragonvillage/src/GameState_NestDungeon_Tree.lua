@@ -79,7 +79,7 @@ function GameState_NestDungeon_Tree:doDirectionForIntermission()
 
         -- 마지막 웨이브 시작 연출
         if is_final_wave then
-            --SoundMgr:playEffect('EFFECT', 'gdragon_appear')
+            --SoundMgr:playEffect('VOICE', 'vo_gdragon_appear')
         end
     end
         
