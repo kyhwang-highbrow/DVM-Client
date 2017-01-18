@@ -30,7 +30,6 @@ IScrollMapLayer = class({
         parent:addChild(self.m_rootNode)
 
         -- 스프라이트 생성
-        --string.gsub(res, '@', owner:getAttribute())
         self.m_animator = MakeAnimator(res)
         self.m_animator.m_node:setDockPoint(cc.p(0.0, 0.5))
         self.m_animator.m_node:setAnchorPoint(cc.p(0.0, 0.5))
@@ -55,6 +54,33 @@ IScrollMapLayer = class({
     -------------------------------------
     function IScrollMapLayer:doAction(action)
         self.m_rootNode:runAction(action)
+    end
+
+    -------------------------------------
+    -- function doActionFromAnimator
+    -------------------------------------
+    function IScrollMapLayer:doActionFromAnimator(action)
+        if self.m_animator then
+            self.m_animator.m_node:runAction(action)
+        end
+    end
+
+    -------------------------------------
+    -- function setColor
+    -------------------------------------
+    function IScrollMapLayer:setColor(color)
+        if self.m_animator then
+            self.m_animator.m_node:setColor(color)
+        end
+    end
+
+    -------------------------------------
+    -- function setCustomShader
+    -------------------------------------
+    function IScrollMapLayer:setCustomShader(v1, v2)
+        if self.m_animator then
+            self.m_animator.m_node:setCustomShader(v1, v2)
+        end
     end
 
     -------------------------------------
@@ -194,6 +220,33 @@ ScrollMapLayer = class(IScrollMapLayer, {
     end
 
     -------------------------------------
+    -- function doActionFromAnimator
+    -------------------------------------
+    function ScrollMapLayer:doActionFromAnimator(action)
+        for _, animator in pairs(self.m_tAnimator) do
+            animator.m_node:runAction(action)
+        end
+    end
+
+    -------------------------------------
+    -- function setColor
+    -------------------------------------
+    function ScrollMapLayer:setColor(color)
+        for _, animator in pairs(self.m_tAnimator) do
+            animator.m_node:setColor(color)
+        end
+    end
+
+    -------------------------------------
+    -- function setCustomShader
+    -------------------------------------
+    function ScrollMapLayer:setCustomShader(v1, v2)
+        for _, animator in pairs(self.m_tAnimator) do
+            animator.m_node:setCustomShader(v1, v2)
+        end
+    end
+
+    -------------------------------------
     -- function setDirecting
     -- @breif 배경 백판 연출 설정
     -------------------------------------
@@ -203,6 +256,7 @@ ScrollMapLayer = class(IScrollMapLayer, {
 		if (string.find(type, 'nightmare')) then 
 			local effect_type = string.match(type, '%d')
 			local is_low_mode = isLowEndMode()
+
 			if (string.find(type, 'shaky')) then 
 				-- shaky3d + tintto + gray shader 
 				-- 저사양 모드에선 gray shader 만 사용
@@ -215,13 +269,11 @@ ScrollMapLayer = class(IScrollMapLayer, {
 				end
 
 				-- 별도로 암전 효과 및 그레이스케일 적용
-				for _, map_layer in pairs(self.m_tMapLayer) do
-					for _, animator in pairs(map_layer.m_tAnimator) do
-						if (not is_low_mode) then 
-							animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
-						end
-						animator.m_node:setCustomShader(6,0)
+				for _, animator in pairs(self.m_tAnimator) do
+					if (not is_low_mode) then 
+						animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
 					end
+					animator.m_node:setCustomShader(6,0)
 				end
 
 			elseif (string.find(type == 'ripple')) then 
@@ -235,13 +287,11 @@ ScrollMapLayer = class(IScrollMapLayer, {
 				end
 
 				-- 별도로 암전 효과 및 그레이스케일 적용
-				for _, map_layer in pairs(self.m_tMapLayer) do
-					for _, animator in pairs(map_layer.m_tAnimator) do
-						if (not is_low_mode) then 
-							animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
-						end
-						animator.m_node:setCustomShader(6,0)
+				for _, animator in pairs(self.m_tAnimator) do
+					if (not is_low_mode) then 
+						animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
 					end
+					animator.m_node:setCustomShader(6,0)
 				end
 			end
 

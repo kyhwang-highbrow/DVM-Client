@@ -96,7 +96,6 @@ function ScrollMap:setDirecting(directing_type)
         sequence = cc.Spawn:create(move_action, rotate_action)
 
     elseif (string.find(self.m_bgDirectingType, 'darknix')) then
-        cclog('darknix')
         local effect_type = string.match(self.m_bgDirectingType, '%d')
 		local is_low_mode = isLowEndMode()
 
@@ -112,8 +111,7 @@ function ScrollMap:setDirecting(directing_type)
             )
 
         elseif (string.find(self.m_bgDirectingType, 'shaky')) then
-            cclog('darknix shaky')
-			-- shaky3d + tintto + gray shader 
+            -- shaky3d + tintto + gray shader 
 			-- 저사양 모드에선 gray shader 만 사용
 			local duration = 0.001
 			if (not is_low_mode) then 
@@ -125,11 +123,8 @@ function ScrollMap:setDirecting(directing_type)
 
 			-- 별도로 배경 색 전환
 			for _, map_layer in pairs(self.m_tMapLayer) do
-				for _, animator in pairs(map_layer.m_tAnimator) do
-					local value = (3 - effect_type) * 80
-                    animator.m_node:setColor(cc.c3b(255, value, value))
-					
-				end
+                local value = (3 - effect_type) * 80
+                map_layer:setColor(cc.c3b(255, value, value))
 			end
         end
         
@@ -151,12 +146,10 @@ function ScrollMap:setDirecting(directing_type)
 
 			-- 별도로 암전 효과 및 그레이스케일 적용
 			for _, map_layer in pairs(self.m_tMapLayer) do
-				for _, animator in pairs(map_layer.m_tAnimator) do
-					if (not is_low_mode) then 
-						animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
-					end
-					animator.m_node:setCustomShader(6,0)
-				end
+                if (not is_low_mode) then 
+                    map_layer:doActionFromAnimator(cca.repeatTintToMoreDark(5, 100, 100, 100))
+                end
+                map_layer:setCustomShader(6,0)
 			end
 
 		elseif (string.find(self.m_bgDirectingType, 'ripple')) then 
@@ -171,12 +164,10 @@ function ScrollMap:setDirecting(directing_type)
 
 			-- 별도로 암전 효과 및 그레이스케일 적용
 			for _, map_layer in pairs(self.m_tMapLayer) do
-				for _, animator in pairs(map_layer.m_tAnimator) do
-					if (not is_low_mode) then 
-						animator.m_node:runAction(cca.repeatTintToMoreDark(5, 100, 100, 100))
-					end
-					animator.m_node:setCustomShader(6,0)
-				end
+                if (not is_low_mode) then 
+                    map_layer:doActionFromAnimator(cca.repeatTintToMoreDark(5, 100, 100, 100))
+                end
+                map_layer:setCustomShader(6,0)
 			end
 		end
 	elseif (string.find(self.m_bgDirectingType, 'shaky')) then

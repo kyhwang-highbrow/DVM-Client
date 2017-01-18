@@ -570,6 +570,9 @@ function GameState.update_boss_wave(self, dt)
         -- 보스 배경음
         SoundMgr:playBGM('bgm_boss')
 
+        -- 웨이브 표시 숨김
+        g_gameScene.m_inGameUI.vars['waveVisual']:setVisible(false)
+
     end
 end
 
