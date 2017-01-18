@@ -388,14 +388,14 @@ function UI_DragonGoodbye:goodbyeDirecting(cb)
 
     -- 에니메이션 연출
     directing_animation = function()
-        local animator = self.vars['lacreaVisual']
+        local animator = self.vars['lacteaVisual']
 
         local function ani_handler()
-            animator:changeAni('lecrea_idle', true)
+            animator:changeAni2('lectea_on_after', 'lectea_idle', false)
             directing_result()
         end
         
-        animator:changeAni('lecrea_on', false)
+        animator:changeAni('lectea_on', false)
         animator:addAniHandler(ani_handler)
         SoundMgr:playEffect('EFFECT', 'exp_gauge')
     end
