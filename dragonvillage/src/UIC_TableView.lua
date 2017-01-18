@@ -31,6 +31,9 @@ UIC_TableView = class(PARENT, {
 
         m_cellUICreateCB = 'function',
         m_cellUIAppearCB = 'function',
+
+        -- 리스트 내 개수 부족 시 가운데 정렬
+        m_bAlignCenterInInsufficient = 'boolean',
     })
 
 -------------------------------------
@@ -393,6 +396,25 @@ function UIC_TableView:_offsetFromIndex(index)
     do -- 가운데 정렬을 위해
         offset['x'] = offset['x'] + (cellSize['width'] / 2)
         offset['y'] = offset['y'] + (cellSize['height'] / 2)
+    end
+
+    
+    -- 리스트 내 개수 부족 시 가운데 정렬
+    if self.m_bAlignCenterInInsufficient then
+        local viewSize = self.m_scrollView:getViewSize()
+        local container_size = self._vCellsPositions[#self._vCellsPositions]
+
+        -- 가로
+        if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+            if (container_size < viewSize['width']) then
+                offset['x'] = offset['x'] + (viewSize['width'] - container_size) / 2
+            end
+        -- 세로
+        else
+            if (container_size < viewSize['height']) then
+                offset['y'] = offset['y'] + (viewSize['height'] - container_size) / 2
+            end
+        end
     end
 
     return offset
