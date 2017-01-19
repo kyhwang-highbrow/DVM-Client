@@ -1,0 +1,37 @@
+key,mopt_1,mopt_2,t_name,alphabet_idx
+atk&,atk,,공격의,1
+def&,def,,방어의,2
+hp&,hp,,체력의,3
+aspd&,aspd,,공속의,4
+cri_chance&,cri_chance,,치명의,5
+cri_dmg&,cri_dmg,,치명 피해의,6
+cri_avoid&,cri_avoid,,치명 회피의,7
+hit_rate&,hit_rate,,적중의,8
+avoid&,avoid,,회피의,9
+atk&aspd,atk,aspd,맹렬의,10
+atk&cri_chance,atk,cri_chance,강력한,11
+atk&hit_rate,atk,hit_rate,예리한,12
+def&hp,def,hp,튼튼한,13
+def&avoid,def,avoid,생존의,14
+def&cri_avoid,def,cri_avoid,행운의,15
+hp&aspd,hp,aspd,근성의,16
+hp&cri_chance,hp,cri_chance,희망의,17
+hp&cri_dmg,hp,cri_dmg,절망의,18
+hp&cri_avoid,hp,cri_avoid,맷집의,19
+hp&hit_rate,hp,hit_rate,노력의,20
+hp&avoid,hp,avoid,노련한,21
+aspd&cri_chance,aspd,cri_chance,재빠른,22
+aspd&cri_dmg,aspd,cri_dmg,민첩의,23
+aspd&cri_avoid,aspd,cri_avoid,쾌속의,24
+aspd&hit_rate,aspd,hit_rate,신속의,25
+aspd&avoid,aspd,avoid,날렵한,26
+cri_chance&cri_dmg,cri_chance,cri_dmg,파괴의,27
+cri_chance&cri_avoid,cri_chance,cri_avoid,극한의,28
+cri_chance&hit_rate,cri_chance,hit_rate,정교한,29
+cri_chance&avoid,cri_chance,avoid,기교의,30
+cri_dmg&cri_avoid,cri_dmg,cri_avoid,혐오의,31
+cri_dmg&hit_rate,cri_dmg,hit_rate,괴력의,32
+cri_dmg&avoid,cri_dmg,avoid,증오의,33
+cri_avoid&hit_rate,cri_avoid,hit_rate,고뇌의,34
+cri_avoid&avoid,cri_avoid,avoid,신중한,35
+hit_rate&avoid,hit_rate,avoid,꾸준한,36

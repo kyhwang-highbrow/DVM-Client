@@ -20,7 +20,6 @@ function ServerData_Runes:getRuneData(roid)
     local l_runes = self.m_serverData:get('runes')
 
     for _,v in pairs(l_runes) do
-        cclog('check ' .. roid .. ' ' .. v['id'])
         if (roid == v['id']) then
             return clone(v)
         end
@@ -31,7 +30,7 @@ end
 
 -------------------------------------
 -- function getRuneInfomation
--- @brief rune object id∑Œ ∑È¿« ¡§∫∏ ∫–ºÆ
+-- @brief rune object idÎ°ú Î£¨Ïùò Ï†ïÎ≥¥ Î∂ÑÏÑù
 -------------------------------------
 function ServerData_Runes:getRuneInfomation(roid)
     local t_rune_data = self:getRuneData(roid)
