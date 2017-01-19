@@ -176,6 +176,7 @@ end
 -------------------------------------
 function Character:setDead()
     self.m_bDead = true
+    self.m_cbChangePos = nil
     self:dispatch('character_dead', {}, self)
 
     -- 사망 처리 시 StateDelegate Kill!
