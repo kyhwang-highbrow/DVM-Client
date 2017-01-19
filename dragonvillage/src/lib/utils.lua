@@ -95,6 +95,9 @@ end
 -- @brief 문자열을 sep문자 기준으로 분리
 -------------------------------------
 function stringSplit(inputstr, sep)
+	if (not inputstr) then 
+		return nil
+	end
     if sep == nil then
         sep = "%s"
     end

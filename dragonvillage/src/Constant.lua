@@ -125,6 +125,13 @@ PRIORITY =
 	DEAD = 10,
 }
 
+-- World Z-Order Priority
+WORLD_Z_ORDER = 
+{
+	MISSILE = 0,
+	UNIT = 10	
+}
+
 -------------------------------------
 -- function monsterRarityStrToNum
 -- @brief 

@@ -579,19 +579,25 @@ end
 
 -------------------------------------
 -- function addMissile
+-- @param res_depth : 어느 노드에 addchild 할지 결정한다. ;를 사용하여 z-order를 명시할수도 있다. ex) 'res_depth':'bottom;1'
 -------------------------------------
 function GameWorld:addMissile(missile, object_key, res_depth)
     self:addToMissileList(missile)
     self.m_physWorld:addObject(object_key, missile)
     
+	local t_res_depth = stringSplit(res_depth, ';') or {}
+
+	local depth_type = t_res_depth[1]
+	local z_order = t_res_depth[2] or WORLD_Z_ORDER.MISSILE
+
 	local target_node = nil
-	if (res_depth == 'bottom') then
+	if (depth_type == 'bottom') then
 		target_node = self.m_worldNode
 	else
 		target_node = self.m_missiledNode
 	end	
 
-	target_node:addChild(missile.m_rootNode)
+	target_node:addChild(missile.m_rootNode, z_order)
 end
 
 -------------------------------------
@@ -838,7 +844,7 @@ function GameWorld:makeHeroDeck()
         if t_dragon_data then
             local hero = self:makeDragonNew(t_dragon_data)
             if hero then
-                self.m_worldNode:addChild(hero.m_rootNode, 2)
+                self.m_worldNode:addChild(hero.m_rootNode, WORLD_Z_ORDER.UNIT)
                 self.m_physWorld:addObject(PHYS.HERO, hero)
                 self:addHero(hero, tonumber(i))
 
@@ -1103,6 +1109,10 @@ function GameWorld:onKeyReleased(keyCode, event)
                 
             end
         end
+
+	-- 미사일 범위 확인
+    elseif (keyCode == KEY_W) then
+		ccdump(self.m_missileRange)
 
     -- 카메라 이동
     elseif (keyCode == KEY_LEFT_ARROW) then
