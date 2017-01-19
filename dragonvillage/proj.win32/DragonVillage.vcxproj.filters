@@ -1287,6 +1287,18 @@
     <None Include="..\src\SkillAoERound_Egg.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\ServerData_Runes.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_DragonMgrRunes.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\TableRune.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\TableRuneNamingRule.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

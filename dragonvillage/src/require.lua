@@ -60,6 +60,7 @@ local t_module = {
     'ServerData_Stage',
     'ServerData_LobbyUserList',
     'ServerData_AutoPlaySetting',
+    'ServerData_Runes',
     'UserData',
     'DropHelper',
     'DragonAutoSetHelper',
@@ -96,6 +97,8 @@ local t_module = {
     'TableGradeInfo',
     'TableStatus',
     'TableFormation',
+    'TableRune',
+    'TableRuneNamingRule',
 
     -- Interface
     'IEventDispatcher',
@@ -391,6 +394,7 @@ local t_module = {
     'UI_LobbyObject', 
     'UI_DragonExceedResult',
     'UI_DragonSkillLevelUpResult',
+    'UI_DragonMgrRunes',
 
     'DamageCalc',
     'IconHelper',

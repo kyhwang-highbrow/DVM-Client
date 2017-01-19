@@ -68,8 +68,8 @@ function UI_DragonManageInfo:initButton()
         -- 친밀도
         vars['friendshipBtn']:registerScriptTapHandler(function() self:click_friendshipBtn() end)
 
-        -- 장비
-        vars['equipmentBtn']:registerScriptTapHandler(function() self:click_equipmentBtn() end)
+        -- 룬
+        vars['runeBtn']:registerScriptTapHandler(function() self:click_runeBtn() end)
 
         -- 수련
         vars['trainBtn']:registerScriptTapHandler(function() self:click_trainBtn() end)
@@ -114,6 +114,9 @@ function UI_DragonManageInfo:initButton()
         vars['equipSlotBtn1']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"장비" 미구현') end)
         vars['equipSlotBtn2']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"장비" 미구현') end)
         vars['equipSlotBtn3']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"장비" 미구현') end)
+
+        -- 장비
+        vars['equipmentBtn']:registerScriptTapHandler(function() self:click_equipmentBtn() end)
     end
 end
 
@@ -522,8 +525,47 @@ function UI_DragonManageInfo:click_friendshipBtn()
 end
 
 -------------------------------------
+-- function click_runeBtn
+-- @brief 룬 버튼
+-------------------------------------
+function UI_DragonManageInfo:click_runeBtn()
+    if (TARGET_SERVER == 'FGT') then
+        UIManager:toastNotificationRed('"룬"은 준비 중입니다.')
+        return
+    end
+
+    -- 선탠된 드래곤과 정렬 설정
+    local doid = self.m_selectDragonOID
+    local ui = UI_DragonMgrRunes(doid)
+
+    -- UI종료 후 콜백
+    local function close_cb()
+        if ui.m_bChangeDragonList then
+            self:init_dragonTableView()
+            local dragon_object_id = ui.m_selectDragonOID
+            local b_force = true
+            self:setSelectDragonData(dragon_object_id, b_force)
+        else
+            if (self.m_selectDragonOID ~= ui.m_selectDragonOID) then
+                local b_force = true
+                self:setSelectDragonData(ui.m_selectDragonOID, b_force)
+            end
+        end
+
+        do -- 정렬
+            self.m_dragonSortMgr:click_sortOrderBtn(ui.m_dragonSortMgr.m_bAscendingSort, true)
+            self.m_dragonSortMgr:click_sortTypeBtn(ui.m_dragonSortMgr.m_currSortType, true)
+            self.m_dragonSortMgr:changeSort()
+        end
+
+        self:sceneFadeInAction()
+    end
+    ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
 -- function click_equipmentBtn
--- @brief 장비 버튼 (임시로 드래곤 개발 API 팝업 호출)
+-- @brief (임시로 드래곤 개발 API 팝업 호출)
 -------------------------------------
 function UI_DragonManageInfo:click_equipmentBtn()
     if (not self.m_selectDragonOID) then

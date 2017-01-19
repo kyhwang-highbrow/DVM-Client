@@ -235,6 +235,7 @@ end
 -------------------------------------
 -- function checkDragonSelect
 -- @brief 선택이 가능한 드래곤인지 여부
+-- @return boolean false를 리턴하면 해당 드래곤을 선택할 수 없음
 -------------------------------------
 function UI_DragonManage_Base:checkDragonSelect(doid)
     return true

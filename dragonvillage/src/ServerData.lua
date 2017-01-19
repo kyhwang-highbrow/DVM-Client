@@ -47,6 +47,9 @@ function ServerData:getInstance()
     -- 자동 플레이 설정
     g_autoPlaySetting = ServerData_AutoPlaySetting(g_serverData)
 
+    -- 룬
+    g_runesData = ServerData_Runes(g_serverData)
+
     return g_serverData
 end
 

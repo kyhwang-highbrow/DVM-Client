@@ -266,6 +266,7 @@ function UI_TitleScene:workGameLogin()
     local success_cb = function(ret)
         g_serverData:applyServerData(ret['user'], 'user')
         g_serverData:applyServerData(ret['dragons'], 'dragons')
+        g_serverData:applyServerData(ret['runes'], 'runes')
 
         -- server_info 정보를 갱신
         g_serverData:networkCommonRespone(ret)
