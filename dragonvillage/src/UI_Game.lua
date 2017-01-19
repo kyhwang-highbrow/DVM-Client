@@ -59,6 +59,7 @@ function UI_Game:click_autoStartButton()
 
     local function close_cb()
         -- 설정된 정보로 UI 변경
+        self:setAutoMode(g_autoPlaySetting:get('auto_mode'))
         self:setAutoPlayUI()
 
         self.m_gameScene:gameResume()
@@ -104,32 +105,16 @@ end
 -- function click_autoButton
 -------------------------------------
 function UI_Game:click_autoButton()
-	--UIManager:toastNotificationRed('"자동" 미구현')
-
     local gameAuto = self.m_gameScene.m_gameWorld.m_gameAuto
 
-    if (gameAuto:isActive()) then
-        UIManager:toastNotificationGreen('자동전투 비활성화')
-
-        gameAuto:onEnd()
-
-        g_autoPlaySetting:set('auto_mode', false)
-    else
-        UIManager:toastNotificationGreen('자동전투 활성화')
-
-        gameAuto:onStart()
-
-        g_autoPlaySetting:set('auto_mode', true)
-    end
+    self:setAutoMode(not gameAuto:isActive())
 end
 
 -------------------------------------
 -- function click_speedButton
 -------------------------------------
 function UI_Game:click_speedButton()
-	--UIManager:toastNotificationRed('"X2" 미구현')
-
-    local gameTimeScale = self.m_gameScene.m_gameWorld.m_gameTimeScale
+	local gameTimeScale = self.m_gameScene.m_gameWorld.m_gameTimeScale
 
     if (gameTimeScale:getBase() >= QUICK_MODE_TIME_SCALE) then
         UIManager:toastNotificationGreen('빠른모드 비활성화')
@@ -174,6 +159,30 @@ function UI_Game:setGold(gold)
         local start_action = cc.MoveTo:create(0.05, cc.p(x, y + 10))
         local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.5, cc.p(x, y)), 0.2)
         action_node:runAction(cc.Sequence:create(start_action, end_action))
+    end
+end
+
+-------------------------------------
+-- function setAutoMode
+-- @brief 자동 모드 설정
+-------------------------------------
+function UI_Game:setAutoMode(b)
+    local gameAuto = self.m_gameScene.m_gameWorld.m_gameAuto
+    if (gameAuto:isActive() == b) then return end
+    
+    if (b) then
+        UIManager:toastNotificationGreen('자동전투 활성화')
+
+        gameAuto:onStart()
+
+        g_autoPlaySetting:set('auto_mode', true)
+
+    else
+        UIManager:toastNotificationGreen('자동전투 비활성화')
+
+        gameAuto:onEnd()
+
+        g_autoPlaySetting:set('auto_mode', false)
     end
 end
 

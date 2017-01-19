@@ -74,6 +74,9 @@ function ServerData_AutoPlaySetting:setAutoPlay(auto_play)
     self.m_bAutoPlay = auto_play
     if auto_play then
         self.m_autoPlayCnt = 1
+
+        -- 연속 전투가 활성화되면 자동모드도 같이 활성화시킴
+        self:set('auto_mode', true)
     end
 end
 

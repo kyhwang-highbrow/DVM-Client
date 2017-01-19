@@ -142,6 +142,11 @@ function Character:init(file_name, body, ...)
 
 	self.m_isSlaveCharacter = false
 	self.m_masterCharacter = nil
+
+    self.m_orgHomePosX = 0
+    self.m_orgHomePosY = 0
+    self.m_homePosX = 0
+    self.m_homePosY = 0
 end
 
 -------------------------------------
