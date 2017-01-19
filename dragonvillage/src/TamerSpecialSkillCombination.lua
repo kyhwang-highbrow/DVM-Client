@@ -113,7 +113,9 @@ function TamerSpecialSkillCombination.st_start(owner, dt)
 		
 		-- 타겟도 정지
 		for _, target in pairs(owner.m_tTarget) do 
-			target:changeState('delegate')
+            if (not target.m_bDead and not isInstanceOf(target, MonsterLua_Boss)) then
+			    target:changeState('delegate')
+            end
 		end
 
         -- 게임 조작 막음
@@ -209,7 +211,7 @@ function TamerSpecialSkillCombination.st_end(owner, dt)
 		end
 		-- 3. 타겟 스테이트 attackDelay
 		for _, target in pairs(owner.m_tTarget) do 
-			if (not target.m_bDead) then 
+			if (not target.m_bDead and not isInstanceOf(target, MonsterLua_Boss)) then
 				target:changeState('attackDelay')
 			end
 		end

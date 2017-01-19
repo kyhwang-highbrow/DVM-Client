@@ -55,8 +55,6 @@ function Character.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner.m_bEnableSpasticity = false
 
-        owner:dispatch('basic_skill')
-
         -- 변수 초기화
         owner.m_bLuanchMissile = false
         owner.m_bFinishAttack = false
@@ -122,7 +120,9 @@ function Character.st_attack(owner, dt)
 
         owner.m_bEnableSpasticity = true
 
-        owner:changeState('attackDelay')
+        if (owner.m_state ~= 'delegate') then
+            owner:changeState('attackDelay')
+        end
     end
 end
 

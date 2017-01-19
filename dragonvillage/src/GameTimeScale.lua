@@ -20,7 +20,7 @@ function GameTimeScale:init(world)
     self.m_remainKeepTime = 0
 
     if (g_autoPlaySetting:get('quick_mode')) then
-        self.m_baseTimeScale = 1.5
+        self.m_baseTimeScale = QUICK_MODE_TIME_SCALE
     end
 
     self:modify()

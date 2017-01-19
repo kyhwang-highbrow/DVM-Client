@@ -263,7 +263,7 @@ function Dragon.st_skillIdle(owner, dt)
                     attack_cb()
                 end
 
-                owner:changeState('skillDisappear')
+                owner.m_aiParamNum = 0
             end)
         elseif (motion_type == 'maintain') then
             owner.m_aiParamNum = (owner.m_statusCalc.m_attackTick / 2)
@@ -283,7 +283,9 @@ function Dragon.st_skillIdle(owner, dt)
     
     elseif (owner.m_aiParamNum and (owner.m_stateTimer >= owner.m_aiParamNum)) then
         if (owner.m_bFinishAttack) then
-            owner:changeState('skillDisappear')
+            if (owner.m_state ~= 'delegate') then
+                owner:changeState('skillDisappear')
+            end
         end
     end
 end

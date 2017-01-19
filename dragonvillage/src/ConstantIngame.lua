@@ -53,6 +53,9 @@ SHAKE_CUSTOM_DURATION = 0.3
 SHAKE_CUSTOM_MIN_POS = 5
 SHAKE_CUSTOM_MAX_POS = 50
 
+-- # 빠른 모드시 배속
+QUICK_MODE_TIME_SCALE = 1.5
+
 --------------------------------------------
 -- 피버모드
 --------------------------------------------
