@@ -16,7 +16,7 @@
 				"offset":[0,0],
 				"dir":0,
 				"dir_add":0,
-				"res_depth":"bottom",
+				"res_depth":"bottom;0",
 				"fadeout_time":20,
 				
                 "effect":

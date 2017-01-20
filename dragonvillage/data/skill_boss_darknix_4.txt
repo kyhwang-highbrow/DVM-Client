@@ -72,7 +72,7 @@
 				"offset":[-200,0],
                 "dir_array":[-110],
 				"fadeout_time":4,
-				"res_depth":"bottom",
+				"res_depth":"bottom;1",
 				"map_shake_time":0.5,
 				
                 "effect":
