@@ -203,11 +203,10 @@ function UI_SettingPopup:click_allRuneBtn()
             UIManager:toastNotificationGreen('모든 룬 추가!')
             UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
             --self.m_bRestart = true
+        end
 
-            -- 한 번에 저장
-            if (ret and ret['runes']) then
-                g_runesData:applyRuneData_list(ret['runes'])
-            end
+        if (ret and ret['runes']) then
+            g_runesData:applyRuneData_list(ret['runes'])
         end
     end
     ui_network:setSuccessCB(do_work)

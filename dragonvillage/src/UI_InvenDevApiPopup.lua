@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_InvenDevApiPopup = class(PARENT, {
         m_lTabNameList = 'list',
+        m_lInitData = 'list',
         m_currTabName = 'string',
      })
 
@@ -18,7 +19,8 @@ function UI_InvenDevApiPopup:init()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_InvenDevApiPopup')
 
-    self.m_lTabNameList = {'dragon', 'evolutionStone', 'fruit'}
+    self.m_lTabNameList = {'dragon', 'evolutionStone', 'fruit', 'rune'}
+    self.m_lInitData = {}
 
     self:initUI()
     self:initButton()
@@ -30,11 +32,6 @@ end
 -------------------------------------
 function UI_InvenDevApiPopup:initUI()
     local vars = self.vars
-
-    self:init_dragonTableView()
-    self:init_fruitTableView()
-    self:init_evolutionStoneTableView()
-
     self:click_tabBtn('dragon')
 end
 
@@ -62,6 +59,17 @@ function UI_InvenDevApiPopup:click_tabBtn(tab_name)
         local lua_name = v .. 'ListNode'
         vars[lua_name]:setVisible(tab_name == v)
     end
+
+
+    if (tab_name == 'dragon') then
+        self:init_dragonTableView()
+    elseif (tab_name == 'fruit') then
+        self:init_fruitTableView()
+    elseif (tab_name == 'evolutionStone') then
+        self:init_evolutionStoneTableView()
+    elseif (tab_name == 'rune') then
+        self:init_runeTableView()
+    end
 end
 
 -------------------------------------
@@ -76,6 +84,11 @@ end
 -- @brief 드래곤 테이블 리스트
 -------------------------------------
 function UI_InvenDevApiPopup:init_dragonTableView()
+    if self.m_lInitData['dragon'] then
+        return
+    end
+    self.m_lInitData['dragon'] = true
+
     local list_table_node = self.vars['dragonListNode']
     list_table_node:removeAllChildren()
 
@@ -177,6 +190,11 @@ end
 -- @brief 열매 테이블 리스트
 -------------------------------------
 function UI_InvenDevApiPopup:init_fruitTableView()
+    if self.m_lInitData['fruit'] then
+        return
+    end
+    self.m_lInitData['fruit'] = true
+
     local list_table_node = self.vars['fruitListNode']
     list_table_node:removeAllChildren()
 
@@ -294,6 +312,11 @@ end
 -- @brief 진화 재료 리스트
 -------------------------------------
 function UI_InvenDevApiPopup:init_evolutionStoneTableView()
+    if self.m_lInitData['evolutionStone'] then
+        return
+    end
+    self.m_lInitData['evolutionStone'] = true
+
     local list_table_node = self.vars['evolutionStoneListNode']
     list_table_node:removeAllChildren()
 
@@ -393,6 +416,98 @@ function UI_InvenDevApiPopup:network_addEvolutionStone(esid, item)
     ui_network:setParam('value', tostring(esid) .. ',' .. tostring(10))
 
     local msg = '"' .. table_evolution_stone[esid]['t_name'] .. '" 10개 추가 중...'
+    ui_network:setLoadingMsg(msg)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function init_runeTableView
+-- @brief 룬 리스트
+-------------------------------------
+function UI_InvenDevApiPopup:init_runeTableView()
+    if self.m_lInitData['rune'] then
+        return
+    end
+    self.m_lInitData['rune'] = true
+
+    local list_table_node = self.vars['runeListNode']
+    list_table_node:removeAllChildren()
+
+    local l_item_list = self:getRuneItemList()
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+        ui.vars['clickBtn']:registerScriptTapHandler(function()
+            local rune_id = data
+            self:network_addRune(rune_id)
+        end)
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view_td = UIC_TableViewTD(list_table_node)
+    table_view_td.m_cellSize = cc.size(150, 150)
+    table_view_td.m_nItemPerCell = 5
+    table_view_td:setCellUIClass(UI_ItemCard, create_func)
+    table_view_td:setItemList(l_item_list, false, true)
+end
+
+-------------------------------------
+-- function getRuneItemList
+-- @brief 룬 리스트
+-------------------------------------
+function UI_InvenDevApiPopup:getRuneItemList()
+    -- 아이템 테이블에서 rune정보만 얻어옴
+    local table_rune = TableItem()
+    local l_rune_item_list = table_rune:filterList('type', 'rune')
+
+    -- 정렬
+    table.sort(l_rune_item_list, function(a, b)
+        -- 슬롯 정렬
+        if (a['t_name'] ~= b['t_name']) then
+            return a['t_name'] < b['t_name']
+        end
+
+        -- 색상 정렬
+        if (a['attr'] ~= b['attr']) then
+            return a['attr'] < b['attr']
+        end
+
+        -- 등급 정렬
+        return a['rarity'] < b['rarity']
+    end)
+
+    -- item_id만 들어가는 리스트 생성
+    local l_item_list = {}
+    for _,v in ipairs(l_rune_item_list) do
+        table.insert(l_item_list, v['item'])
+    end
+
+    return l_item_list
+end
+
+-------------------------------------
+-- function network_addRune
+-- @brief 룬 추가
+-------------------------------------
+function UI_InvenDevApiPopup:network_addRune(rune_id)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        if ret['runes'] then
+            g_runesData:applyRuneData_list(ret['runes'])
+        end
+
+        UIManager:toastNotificationRed('룬 1개가 추가되었습니다.')
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setRevocable(true)
+    ui_network:setUrl('/runes/add')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('rid', rune_id)
+
+    local msg = '룬 추가 중'
     ui_network:setLoadingMsg(msg)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()

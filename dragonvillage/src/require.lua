@@ -99,6 +99,7 @@ local t_module = {
     'TableFormation',
     'TableRune',
     'TableRuneNamingRule',
+    'TableItem',
 
     -- Interface
     'IEventDispatcher',

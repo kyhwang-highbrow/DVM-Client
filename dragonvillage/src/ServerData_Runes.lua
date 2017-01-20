@@ -34,6 +34,7 @@ end
 -------------------------------------
 function ServerData_Runes:applyRuneData_list(l_rune_data)
     for i,v in pairs(l_rune_data) do
+        local t_rune_data = v
         self:applyRuneData(t_rune_data)
     end
 end
@@ -59,7 +60,7 @@ function ServerData_Runes:applyRuneData(t_rune_data)
         self.m_serverData:applyServerData(t_rune_data, 'runes', idx)
     -- 기존에 없던 룬이면 추가
     else
-        self.m_serverData:applyServerData(t_rune_data, 'runes', idx + 1)
+        self.m_serverData:applyServerData(t_rune_data, 'runes', #l_runes + 1)
     end
 end
 
