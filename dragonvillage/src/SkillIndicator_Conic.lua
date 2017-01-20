@@ -6,6 +6,7 @@ local PARENT = SkillIndicator
 SkillIndicator_Conic = class(SkillIndicator, {
 		m_indicatorAddEffectList = '',
 		m_skillRadius = 'num',
+		m_skillAngle = 'num',
     })
 
 -------------------------------------
@@ -15,6 +16,7 @@ function SkillIndicator_Conic:init(hero, t_skill)
 	PARENT.init(self, hero)
 	
 	self.m_skillRadius = t_skill['val_1']
+	self.m_skillAngle = t_skill['val_2']
 	self.m_indicatorScale = t_skill['res_scale']
 end
 
@@ -63,7 +65,7 @@ function SkillIndicator_Conic:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do -- 캐스팅 이펙트
-        local indicator = MakeAnimator(RES_INDICATOR['CONE20'])
+        local indicator = MakeAnimator(RES_INDICATOR['CONE'..self.m_skillAngle])
         root_node:addChild(indicator.m_node)
 		indicator:setPosition(self:getAttackPosition())
 		indicator:setScale(self.m_indicatorScale)

@@ -95,11 +95,14 @@ RES_INDICATOR =
 {
 	STRAIGHT = 'res/indicator/indicator_type_straight/indicator_type_straight.vrp',
     STRAIGHT_WIDTH = 'res/indicator/indicator_type_straight_wide/indicator_type_straight_wide.vrp',
+	HEALING_WIND = 'res/indicator/indicator_healing_wind/indicator_healing_wind.vrp',
+	
 	CONE20 = 'res/indicator/indicator_type_cone_20/indicator_type_cone_20.vrp',
 	CONE30 = 'res/indicator/indicator_type_cone_30/indicator_type_cone_30.vrp',
-	RANGE = 'res/indicator/indicator_type_range/indicator_type_range.vrp',
+	CONE40 = 'res/indicator/indicator_type_cone_30/indicator_type_cone_40.vrp',
+
+	RANGE = 'res/indicator/indicator_type_range/indicator_type_range.vrp', --> 과거에 서펀트 드래곤이 사정거리 표시할때 사용하던 인디케이터
 	BEZIER = 'res/indicator/indicator_bezier/indicator_bezier.vrp',
-	HEALING_WIND = 'res/indicator/indicator_healing_wind/indicator_healing_wind.vrp',
 	X = 'res/indicator/indicator_type_x/indicator_type_x.vrp',
 
 	COMMON = 'res/indicator/indicator_common/indicator_common.vrp',
@@ -107,4 +110,5 @@ RES_INDICATOR =
 	EFFECT = 'res/indicator/indicator_effect_target/indicator_effect_target.vrp',
 }
 
+-- 스킬 시전후 스킬 시전 범위 나타내는 이펙트..빨간색
 RES_RANGE = 'res/effect/skill_range/skill_range.vrp'
