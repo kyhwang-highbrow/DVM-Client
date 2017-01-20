@@ -15,6 +15,7 @@ end
 -------------------------------------
 UI_DragonMgrRunes = class(PARENT,{
         m_bChangeDragonList = 'boolean',
+        m_selectedRuneData = 'table',
     })
 
 -------------------------------------
@@ -79,8 +80,11 @@ end
 
 -------------------------------------
 -- function onChangeTab
+-- @brief 룬 슬롯 탭이 변경되었을 때
+--        'bellaria', 'tutamen', 'cimelium'
 -------------------------------------
 function UI_DragonMgrRunes:onChangeTab(tab)
+    local rune_slot_type = tab
     local t_dragon_data = self.m_selectDragonData
 
     if (not t_dragon_data) then
@@ -88,7 +92,7 @@ function UI_DragonMgrRunes:onChangeTab(tab)
     end
 
     local t_runes = t_dragon_data['runes']
-    local roid = t_runes[tab]
+    local roid = t_runes[rune_slot_type]
 
     local vars = self.vars
 
@@ -102,6 +106,50 @@ function UI_DragonMgrRunes:onChangeTab(tab)
     else
         vars['useMenu']:setVisible(false)
     end
+
+    -- 재료 리스트뷰 초기화
+    self:init_runeTableView(rune_slot_type)
+end
+
+
+function UI_RuneCard(t_rune_data)
+    local rid = t_rune_data['rid']
+    local roid = t_rune_data['id']
+    local t_rune_information = g_runesData:getRuneInfomation(roid)
+    local item_count = 1
+    local ui = UI_ItemCard(rid, item_count, t_rune_information)
+    return ui
+end
+
+-------------------------------------
+-- function init_runeTableView
+-------------------------------------
+function UI_DragonMgrRunes:init_runeTableView(rune_slot_type)
+    local node = self.vars['selectListNode']
+    node:removeAllChildren()
+
+    local l_item_list = g_runesData:getUnequippedRuneList(rune_slot_type)
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+        ui.root:setScale(0.66)
+        ui.vars['clickBtn']:registerScriptTapHandler(function()
+            local t_rune_data = data
+            self:setSelectedRuneData(t_rune_data)
+        end)
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view_td = UIC_TableViewTD(node)
+    table_view_td.m_cellSize = cc.size(103, 103)
+    table_view_td.m_nItemPerCell = 4
+    table_view_td:setCellUIClass(UI_RuneCard, create_func)
+    table_view_td:setItemList(l_item_list)
+
+    -- 첫 번째 룬을 선택 (자동)
+    local t_first_item = table_view_td.m_itemList[1]
+    local t_first_rune_data = (t_first_item and t_first_item['data'])
+    self:setSelectedRuneData(t_first_rune_data)
 end
 
 -------------------------------------
@@ -111,6 +159,7 @@ end
 function UI_DragonMgrRunes:initButton()
     local vars = self.vars
     --vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
+    vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
 end
 
 -------------------------------------
@@ -138,7 +187,6 @@ function UI_DragonMgrRunes:refresh()
     
     do -- 룬 아이콘
         local t_runes = t_dragon_data['runes']
-
         
         for i,slot_name in ipairs(l_rune_slot_name) do
             local roid = t_runes[slot_name]
@@ -147,8 +195,8 @@ function UI_DragonMgrRunes:refresh()
 
             if roid then
                 local t_rune_infomation = g_runesData:getRuneInfomation(roid)
-                --ccdump(t_rune_infomation)
                 local item_card = UI_ItemCard(t_rune_infomation['rid'], 1, t_rune_infomation)
+                item_card.vars['clickBtn']:setEnabled(false)
                 vars['runeSlot' .. i]:addChild(item_card.root)
             end
         end
@@ -156,6 +204,55 @@ function UI_DragonMgrRunes:refresh()
 
     self:refreshCurrTab()
 end
+
+-------------------------------------
+-- function setSelectedRuneData
+-- @brief 인벤상에서 선택된 룬
+-------------------------------------
+function UI_DragonMgrRunes:setSelectedRuneData(t_rune_data)
+    self.m_selectedRuneData = t_rune_data
+    self:refresh_selectMenu(t_rune_data)
+end
+
+-------------------------------------
+-- function refresh_selectMenu
+-- @brief 인벤상에서 선택된 룬의 정보 표시
+-------------------------------------
+function UI_DragonMgrRunes:refresh_selectMenu(t_rune_data)
+    local vars = self.vars
+
+    if t_rune_data then
+        vars['selectMenu']:setVisible(true)
+    else
+        vars['selectMenu']:setVisible(false)
+        return
+    end
+
+
+    do -- 룬 아이콘
+        vars['selectRuneNode']:removeAllChildren()
+        local icon = UI_RuneCard(t_rune_data)
+        vars['selectRuneNode']:addChild(icon.root)
+
+        cca.uiReactionSlow(icon.root)
+    end
+
+    do -- 룬 풀 네임
+        local roid = t_rune_data['id']
+        local t_rune_infomation = g_runesData:getRuneInfomation(roid)
+        vars['removeRuneNameLabel']:setString(t_rune_infomation['full_name'])
+    end
+
+    -- selectLockSprite
+    -- selectLockBtn
+    -- equipBtn
+    -- selectEnhance
+    -- selectSubOptionLabel
+    -- selectMainOptionLabel
+    -- selectRuneSetLabel
+    -- removeRuneNameLabel
+end
+
 
 -------------------------------------
 -- function refresh_currDragonInfo
@@ -170,6 +267,35 @@ end
 -------------------------------------
 function UI_DragonMgrRunes:click_exitBtn()
     self:close()
+end
+
+-------------------------------------
+-- function click_equipBtn
+-- @brief 인벤에 있는 룬을 장착
+-------------------------------------
+function UI_DragonMgrRunes:click_equipBtn()
+    local t_dragon_data = self.m_selectDragonData
+    local t_rune_data = self.m_selectedRuneData
+
+    if (not t_dragon_data) or (not t_rune_data) then
+        return
+    end
+    
+    local doid = t_dragon_data['id']
+    local roid = t_rune_data['id']
+
+    local function cb_func(ret)
+
+        -- 갱신
+        if ret['dragon'] then
+            local doid = ret['dragon']['id']
+            local b_force = true
+            self:setSelectDragonData(doid, b_force)
+        end
+        --self:refresh()
+    end
+
+    g_runesData:requestRuneEquip(doid, roid, cb_func)
 end
 
 --@CHECK

@@ -87,3 +87,69 @@ function ServerData_Runes:getRuneInfomation(roid)
 
     return t_rune_infomation
 end
+
+-------------------------------------
+-- function getUnequippedRuneList
+-- @brief 장착되지 않은 룬 리스트
+-- @paran type string : 'nil = all', 'bellaria', 'tutamen', 'cimelium'
+-------------------------------------
+function ServerData_Runes:getUnequippedRuneList(slot_type)
+    if (not slot_type) then
+        slot_type = 'all'
+    end
+
+    local l_runes = self.m_serverData:get('runes')
+
+    local l_ret = {}
+
+    for i,v in pairs(l_runes) do
+        -- 이 룬을 장착한 드래곤이 없을 경우
+        if (not v['odoid']) then
+            -- 슬롯 확인
+            if (slot_type == 'all') or (v['type'] == slot_type) then
+                local roid = v['id']
+                l_ret[roid] = v
+            end
+        end
+    end
+
+    return l_ret
+end
+
+-------------------------------------
+-- function requestRuneEquip
+-- @brief 룬 장착
+-------------------------------------
+function ServerData_Runes:requestRuneEquip(doid, roid, cb_func)
+    local uid = g_userData:get('uid')
+
+    -- 성공 시 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
+
+        if (ret['dragon']) then
+            g_dragonsData:applyDragonData(ret['dragon'])
+        end
+
+
+        if (ret['modified_runes']) then
+            g_runesData:applyRuneData_list(ret['modified_runes'])
+        end
+        
+
+        if cb_func then
+            cb_func(ret)
+        end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/runes/equip')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('roid', roid)
+    ui_network:setParam('act', 'exchange') -- 'overwrite'는 덮어쓰기
+    ui_network:setRevocable(true) -- 통신 실패 시 재시도 여부
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
+end
