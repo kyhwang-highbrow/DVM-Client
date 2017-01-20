@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>missile_pierrot_effect_01.png</key>
+            <key>missile_clowndragon_effect_01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{74,104}}</string>
@@ -23,13 +23,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>missile_pierrot.png</string>
+            <string>missile_clowndragon.png</string>
             <key>size</key>
             <string>{128,128}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:47151329bce8904c46fb3ac91986a8f7$</string>
+            <string>$TexturePacker:SmartUpdate:65b5662a5124a9512a141d1672286876$</string>
             <key>textureFileName</key>
-            <string>missile_pierrot.png</string>
+            <string>missile_clowndragon.png</string>
         </dict>
     </dict>
 </plist>

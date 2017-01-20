@@ -16,7 +16,7 @@
             {
                 "scale":1,
                 "pos_x":2280,
-                "pos_y":200
+                "pos_y":0
             },
             "wave":
             {
@@ -41,7 +41,7 @@
             {
                 "scale":0.8,
                 "pos_x":5080,
-                "pos_y":200
+                "pos_y":0
             },
             "wave":
             {
@@ -71,7 +71,7 @@
             {
                 "scale":0.6,
                 "pos_x":5080,
-                "pos_y":200
+                "pos_y":0
             },
             "direction":"boss_wave",
             "wave":
