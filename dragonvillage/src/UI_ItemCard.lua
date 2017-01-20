@@ -6,12 +6,15 @@ local PARENT = UI
 UI_ItemCard = class(PARENT, {
         m_itemID = 'number',
         m_itemCount = 'number',
+        m_tSubData = 'number',
+
+        m_itemName = 'string',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ItemCard:init(item_id, count)
+function UI_ItemCard:init(item_id, count, t_sub_data)
     self.m_itemID = item_id
     self.m_itemCount = count
 
@@ -24,6 +27,8 @@ function UI_ItemCard:init(item_id, count)
 
     if (t_item['type'] == 'dragon') then
         self:init_dragonItem(t_item)
+    elseif (t_item['type'] == 'rune') then
+        self:init_runeItem(t_item, t_sub_data)
     else
         self:init_commonItem(t_item)
     end
@@ -34,12 +39,12 @@ end
 -------------------------------------
 -- function init_commonItem
 -------------------------------------
-function UI_ItemCard:init_commonItem(t_item)
+function UI_ItemCard:init_commonItem(t_item, t_sub_data)
     local item_id = self.m_itemID
 
     local vars = self:load('drop_item.ui')
 
-    local icon = IconHelper:getItemIcon(item_id)
+    local icon = IconHelper:getItemIcon(item_id, t_sub_data)
     vars['stoneNode']:addChild(icon)
 
     if (not count) or (count == 0) then
@@ -60,7 +65,7 @@ end
 -------------------------------------
 -- function init_dragonItem
 -------------------------------------
-function UI_ItemCard:init_dragonItem(t_item)
+function UI_ItemCard:init_dragonItem(t_item, t_sub_data)
     local item_id = self.m_itemID
 
     local t_dragon_data = {}
@@ -76,6 +81,38 @@ function UI_ItemCard:init_dragonItem(t_item)
     self.root = dragon_card.root
     self.vars = dragon_card.vars
     local vars = dragon_card.vars
+end
+
+-------------------------------------
+-- function init_runeItem
+-------------------------------------
+function UI_ItemCard:init_runeItem(t_item, t_sub_data)
+    local item_id = self.m_itemID
+
+    local vars = self:load('drop_item.ui')
+
+    local icon = IconHelper:getItemIcon(item_id, t_sub_data)
+    vars['stoneNode']:addChild(icon)
+
+    vars['numberLabel']:setVisible(false)
+
+    self.m_itemName = (t_sub_data and t_sub_data['full_name'] or nil)
+
+    --[[
+    if (not count) or (count == 0) then
+        vars['numberLabel']:setString('')
+    else
+        vars['numberLabel']:setString(Str('X{1}', comma_value(count)))
+    end
+
+    vars['disableSprite']:setVisible(false)
+
+    -- 레어도 표시
+    local table_item = TABLE:get('item')
+    local t_item = table_item[item_id]
+    local rarity_str = evolutionStoneRarityNumToStr(t_item['rarity'])
+    vars['rarityVisual']:setVisual('group', rarity_str)
+    --]]
 end
 
 -------------------------------------
@@ -133,6 +170,9 @@ function UI_ItemCard:getToolTipDesc()
         desc = t_item['t_desc']
     end
 
-    local str = '{@SKILL_NAME} ' .. t_item['t_name'] .. '\n {@SKILL_DESC}' .. desc
+    -- 설정된 별도의 이름이 있으면 우선 사용
+    local name = (self.m_itemName or t_item['t_name'])
+
+    local str = '{@SKILL_NAME} ' .. name .. '\n {@SKILL_DESC}' .. desc
     return str
 end

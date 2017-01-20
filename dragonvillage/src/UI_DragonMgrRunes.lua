@@ -148,6 +148,8 @@ function UI_DragonMgrRunes:refresh()
             if roid then
                 local t_rune_infomation = g_runesData:getRuneInfomation(roid)
                 --ccdump(t_rune_infomation)
+                local item_card = UI_ItemCard(t_rune_infomation['rid'], 1, t_rune_infomation)
+                vars['runeSlot' .. i]:addChild(item_card.root)
             end
         end
     end

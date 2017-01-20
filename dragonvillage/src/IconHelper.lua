@@ -83,7 +83,7 @@ end
 -- function getItemIcon
 -- @brief item테이블의 item id로 아이콘 생성
 -------------------------------------
-function IconHelper:getItemIcon(item_id)
+function IconHelper:getItemIcon(item_id, t_sub_data)
 
     local table_item = TABLE:get('item')
     local t_item = table_item[item_id]
@@ -96,12 +96,23 @@ function IconHelper:getItemIcon(item_id)
 
     -- 타입별 아이콘 별도 처리
     local item_type = t_item['type']
+
+    -- 드래곤 아이콘 생성
     if (item_type == 'dragon') then
         local dragon_id = t_item['val_1']
         local evolution = t_item['rarity']
         local grade = 1
         local eclv = 0
         sprite = IconHelper:getDragonIconFromDid(dragon_id, evolution, grade, eclv)
+
+    -- 룬 아이콘 생성
+    elseif (item_type == 'rune') then
+        local rune_type = t_item['full_type']
+        local rune_grade = t_item['rarity']
+        local rune_alphabet_index = t_sub_data and t_sub_data['alphabet_idx'] or nil
+        sprite = IconHelper:getRuneIcon(rune_type, rune_alphabet_index, rune_grade)
+
+    -- 기타 아이템 아이콘 생성
     else
         local type_str = t_item['full_type']
         local res_name = 'res/ui/icon/item/' .. type_str .. '.png'
@@ -117,6 +128,43 @@ function IconHelper:getItemIcon(item_id)
     sprite:setAnchorPoint(cc.p(0.5, 0.5))
 
     return sprite
+end
+
+-------------------------------------
+-- function getRuneIcon
+-- @brief 룬 아이콘 생성
+-------------------------------------
+function IconHelper:getRuneIcon(rune_type, rune_alphabet_index, rune_grade)
+
+    local type_sprite = cc.Sprite:create(string.format('res/ui/icon/rune/%s.png', rune_type))
+
+    if (not type_sprite) then
+        type_sprite = cc.Sprite:create('res/ui/icon/item/developing.png')
+    end
+
+    type_sprite:setDockPoint(cc.p(0.5, 0.5))
+    type_sprite:setAnchorPoint(cc.p(0.5, 0.5))
+
+    -- 룬문자
+    if (rune_alphabet_index) then
+        local alphabet_sprite = cc.Sprite:create(string.format('res/ui/icon/rune/rune_alphabet_%.2d.png', rune_alphabet_index))
+        if alphabet_sprite then
+            alphabet_sprite:setDockPoint(cc.p(0.5, 0.5))
+            alphabet_sprite:setAnchorPoint(cc.p(0.5, 0.5))
+            type_sprite:addChild(alphabet_sprite)
+        end
+    end
+
+    -- 룬 등급 (1성~5성)
+    local grade_sprite = cc.Sprite:create(string.format('res/ui/icon/rune/rune_star_%.2d.png', rune_grade))
+    if grade_sprite then
+        grade_sprite:setDockPoint(cc.p(0.5, 0.5))
+        grade_sprite:setAnchorPoint(cc.p(0.5, 0.5))
+        grade_sprite:setPosition(0, -50)
+        type_sprite:addChild(grade_sprite)
+    end
+
+    return type_sprite
 end
 
 -------------------------------------

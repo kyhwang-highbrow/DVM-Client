@@ -29,6 +29,7 @@ function TableRuneNamingRule:getRunePrefix(mopt_1_type, mopt_2_type)
 
     local t_table = self:get(key)
     local prefix = Str(t_table['t_name'])
+    local alphabet_idx = t_table['alphabet_idx']
 
-    return prefix
+    return prefix, alphabet_idx
 end

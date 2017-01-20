@@ -30,7 +30,7 @@ function TableRune:getRuneFullName(rid, mopt_1_type, mopt_2_type, rarity)
     local grade = t_table['grade']
 
     -- 접두어
-    local prefix = TableRuneNamingRule:getRunePrefix(mopt_1_type, mopt_2_type)
+    local prefix, alphabet_idx = TableRuneNamingRule:getRunePrefix(mopt_1_type, mopt_2_type)
     
     -- 슬롯 타입
     local t_name = t_table['t_name']
@@ -41,5 +41,5 @@ function TableRune:getRuneFullName(rid, mopt_1_type, mopt_2_type, rarity)
     -- 룬의 풀 네임 조합
     local full_name = Str('{1}성 {2} {3} {4}', grade, prefix, t_name, rarity)
 
-    return full_name
+    return full_name, alphabet_idx
 end
