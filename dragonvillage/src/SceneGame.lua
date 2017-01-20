@@ -190,7 +190,10 @@ function SceneGame:prepare()
     end)
     
     self:addLoading(function()
-        self.m_inGameUI:init_debugUI()
+		-- FGT 에서는 디버그 기능을 제한한다
+		if (not (TARGET_SERVER == 'FGT')) then 
+			self.m_inGameUI:init_debugUI()
+		end
     end)
 end
 
