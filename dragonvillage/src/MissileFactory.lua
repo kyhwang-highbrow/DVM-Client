@@ -148,6 +148,8 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 	local missile_cbFunction =	t_option['cbFunction']	-- 이것은 lua상에서 짜여진 스크립트 탄 또는 코드 스킬에서 전달.. 
 	local missile_event =		t_option['events']
 	local res_depth =			t_option['res_depth']
+	local is_abs_pos =			t_option['is_abs_pos'] 
+
 
 	local add_script =			t_option['add_script']
 	local add_script_start =	t_option['add_script_start'] or 0
@@ -351,7 +353,14 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 		if (not no_rotate) then 
 			missile:setRotation(rotation)
 		end
-        missile:setPosition(pos_x, pos_y)
+
+		if (is_abs_pos) then
+			-- 절대 좌표 사용중이라면 카메라에 맞게 보정해준다.
+			local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
+			missile:setPosition(pos_x + cameraHomePosX, pos_y + cameraHomePosY)
+		else
+			missile:setPosition(pos_x, pos_y)
+		end
 
         if attack_damage then
             missile.m_activityCarrier = attack_damage

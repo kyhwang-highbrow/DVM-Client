@@ -320,6 +320,12 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
     local pos_x = owner.pos.x + attack_value['offset'][1]
     local pos_y = owner.pos.y + attack_value['offset'][2]
 
+	-- 카메라 기준이라면 캐릭터 위치를 받아오지 않는다.
+	if (attack_value['is_abs_pos']) then
+		pos_x = attack_value['offset'][1]
+		pos_y = attack_value['offset'][2]
+	end
+
     if offset_add then
         pos_x = pos_x + offset_add[1]
         pos_y = pos_y + offset_add[2]
@@ -397,6 +403,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		t_option['bFixedAttack'] =		attack_value['bFixedAttack']
 		t_option['events'] =			attack_value['events']
 		t_option['res_depth'] =			attack_value['res_depth']
+		t_option['is_abs_pos'] =		attack_value['is_abs_pos'] or false
 
 		t_option['add_script'] =		attack_value['add_script']
 		t_option['add_script_start'] =	attack_value['add_script_start']
