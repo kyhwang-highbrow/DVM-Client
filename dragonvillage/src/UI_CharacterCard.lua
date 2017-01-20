@@ -149,6 +149,10 @@ function UI_CharacterCard:makeDragonIcon(t_dragon_data, t_dragon)
     end
     
     local sprite = cc.Sprite:create(res)
+    
+    if (not sprite) then
+        sprite = cc.Sprite:create('res/ui/icon/cha/developing.png')
+    end
     sprite:setDockPoint(CENTER_POINT)
     sprite:setAnchorPoint(CENTER_POINT)
     self.vars['clickBtn']:addChild(sprite, 1)

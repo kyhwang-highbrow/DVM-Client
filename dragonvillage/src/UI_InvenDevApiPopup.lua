@@ -449,7 +449,7 @@ function UI_InvenDevApiPopup:init_runeTableView()
     table_view_td.m_cellSize = cc.size(150, 150)
     table_view_td.m_nItemPerCell = 5
     table_view_td:setCellUIClass(UI_ItemCard, create_func)
-    table_view_td:setItemList(l_item_list, false, true)
+    table_view_td:setItemList(l_item_list)
 end
 
 -------------------------------------
