@@ -1302,6 +1302,9 @@
     <None Include="..\src\TableItem.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\SkillIndicator_Panetration.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
