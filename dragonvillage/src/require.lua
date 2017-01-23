@@ -98,6 +98,7 @@ local t_module = {
     'TableStatus',
     'TableFormation',
     'TableRune',
+    'TableRuneGrade',
     'TableRuneNamingRule',
     'TableItem',
 

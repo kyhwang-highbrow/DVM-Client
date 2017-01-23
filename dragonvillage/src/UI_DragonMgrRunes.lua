@@ -182,9 +182,11 @@ function UI_DragonMgrRunes:init_runeTableView(rune_slot_type)
 
     -- 첫 번째 룬을 선택 (자동)
     local table_view_td = self.m_mTableViewListMap[rune_slot_type]
-    local t_first_item = table_view_td.m_itemList[1]
-    local t_first_rune_data = (t_first_item and t_first_item['data'])
-    self:setSelectedRuneData(t_first_rune_data)
+    if (not self.m_selectedRuneData) or (not table_view_td:getItem(self.m_selectedRuneData['id'])) then
+        local t_first_item = table_view_td.m_itemList[1]
+        local t_first_rune_data = (t_first_item and t_first_item['data'])
+        self:setSelectedRuneData(t_first_rune_data)
+    end
 end
 
 -------------------------------------
@@ -288,7 +290,6 @@ function UI_DragonMgrRunes:refresh_selectMenu(t_rune_data)
         return
     end
 
-
     do -- 룬 아이콘
         vars['selectRuneNode']:removeAllChildren()
         local icon = UI_RuneCard(t_rune_data)
@@ -342,9 +343,11 @@ function UI_DragonMgrRunes:click_equipBtn()
     if (not t_dragon_data) or (not t_rune_data) then
         return
     end
-    
+
     local doid = t_dragon_data['id']
     local roid = t_rune_data['id']
+    local rid = t_rune_data['rid']
+    local slot = t_rune_data['type']
 
     local function cb_func(ret)
         -- 장착으로 인해 변경된 룬 정보 처리
@@ -355,7 +358,28 @@ function UI_DragonMgrRunes:click_equipBtn()
         self:refresh()
     end
 
-    g_runesData:requestRuneEquip(doid, roid, cb_func)
+    -- 슬롯이 비어있으면 "장착"
+    if (not t_dragon_data['runes'][slot]) or (t_dragon_data['runes'][slot] == '') then
+        g_runesData:requestRuneEquip(doid, roid, cb_func)
+
+    -- 슬롯이 비어있지 않으면 "교체"
+    else
+        local fee = TableRune:getRuneUnequipFee(rid)
+
+        -- 캐시가 부족할 경우
+        if (g_userData:get('cash') < fee) then
+            local msg = Str('캐시가 부족합니다.\n상점으로 이동하시겠습니까?')
+            MakeSimplePopup(POPUP_TYPE.YES_NO, msg, openShopPopup)
+
+        -- 캐시가 부족하지 않은 경우
+        else
+            local function yes_cb()
+                g_runesData:requestRuneEquip(doid, roid, cb_func)
+            end
+            local msg = Str('룬을 교체하여 장착하려면\n{1}개의 자수정이 소모됩니다.\n교체하시겠습니까?', fee)
+            MakeSimplePopup(POPUP_TYPE.YES_NO, msg, yes_cb)
+        end
+    end
 end
 
 -------------------------------------
@@ -372,6 +396,7 @@ function UI_DragonMgrRunes:click_removeBtn()
     
     local doid = t_dragon_data['id']
     local roid = t_rune_data['id']
+    local rid = t_rune_data['rid']
     local slot = t_rune_data['type']
 
     local function cb_func(ret)
@@ -383,8 +408,21 @@ function UI_DragonMgrRunes:click_removeBtn()
         self:refresh()
     end
 
-    g_runesData:requestRuneUnequip(doid, roid, slot, cb_func)
+    local fee = TableRune:getRuneUnequipFee(rid)
 
+    -- 캐시가 부족할 경우
+    if (g_userData:get('cash') < fee) then
+        local msg = Str('캐시가 부족합니다.\n상점으로 이동하시겠습니까?')
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, openShopPopup)
+
+    -- 캐시가 부족하지 않은 경우
+    else
+        local function yes_cb()
+            g_runesData:requestRuneUnequip(doid, roid, slot, cb_func)
+        end
+        local msg = Str('룬을 장착 해제하려면\n{1}개의 자수정이 소모됩니다.\n해제하시겠습니까?', fee)
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, yes_cb)
+    end
 end
 
 -------------------------------------

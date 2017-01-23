@@ -43,3 +43,20 @@ function TableRune:getRuneFullName(rid, mopt_1_type, mopt_2_type, rarity)
 
     return full_name, alphabet_idx
 end
+
+-------------------------------------
+-- function getRuneUnequipFee
+-- @brief 룬 장착 해제 가격 리턴
+-------------------------------------
+function TableRune:getRuneUnequipFee(rid)
+    if (self == TableRune) then
+        self = TableRune()
+    end
+
+    local grade = self:getValue(rid, 'grade')
+
+    local table_rune_grade = TableRuneGrade()
+    local fee = table_rune_grade:getValue(grade, 'off_fee')
+
+    return fee
+end
