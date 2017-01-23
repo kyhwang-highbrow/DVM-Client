@@ -65,15 +65,15 @@ end
 -------------------------------------
 -- function click_dragonCard
 -------------------------------------
-function UI_ReadyScene_Deck:click_dragonCard(t_dragon_data)
+function UI_ReadyScene_Deck:click_dragonCard(t_dragon_data, skip_sort)
     local doid = t_dragon_data['id']
 
     if self.m_tDeckMap[doid] then
         local idx = self.m_tDeckMap[doid]
-        self:setSlot(idx, nil)
+        self:setSlot(idx, nil, skip_sort)
         self:setFocusDeckSlotEffect(idx)
     else
-        self:setSlot(self.m_focusDeckSlot, doid)
+        self:setSlot(self.m_focusDeckSlot, doid, skip_sort)
     end
 
     self:refreshFocusDeckSlot()
@@ -144,7 +144,7 @@ end
 -------------------------------------
 -- function clear_deck
 -------------------------------------
-function UI_ReadyScene_Deck:clear_deck()
+function UI_ReadyScene_Deck:clear_deck(skip_sort)
     do -- UI 정리
         if self.m_lSettedDragonCard then
             for _,ui in pairs(self.m_lSettedDragonCard) do
@@ -167,7 +167,7 @@ function UI_ReadyScene_Deck:clear_deck()
     self:setFocusDeckSlotEffect(1)
 
     -- 즉시 정렬
-    if self.m_uiReadyScene.m_dragonSortMgr then
+    if (not skip_sort) and self.m_uiReadyScene.m_dragonSortMgr then
         self.m_uiReadyScene.m_dragonSortMgr:changeSort()
     end
 end
