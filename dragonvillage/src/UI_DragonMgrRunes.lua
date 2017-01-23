@@ -15,6 +15,7 @@ end
 -------------------------------------
 UI_DragonMgrRunes = class(PARENT,{
         m_bChangeDragonList = 'boolean',
+        m_useRuneData = 'table',
         m_selectedRuneData = 'table',
 
         -- 테이블 뷰
@@ -76,6 +77,12 @@ function UI_DragonMgrRunes:initUI()
 
     -- 룬 Tab 설정
     self:initUI_runeTab()
+
+
+    -- 미구현인 부분 visible off
+    vars['selectLockBtn']:setVisible(false)
+    vars['useLockBtn']:setVisible(false)
+    vars['binBtn']:setVisible(false)
 end
 
 -------------------------------------
@@ -122,8 +129,11 @@ function UI_DragonMgrRunes:onChangeTab(tab)
 
             cca.uiReactionSlow(icon.root)
         end
+        self.m_useRuneData = t_rune_data
 
+        cca.uiReactionSlow(vars['useMenu'], 1, 1, 0.98)
     else
+        self.m_useRuneData = nil
         vars['useMenu']:setVisible(false)
     end
 
@@ -262,14 +272,12 @@ end
 -- @brief 인벤상에서 선택된 룬의 정보 표시
 -------------------------------------
 function UI_DragonMgrRunes:refresh_selectMenu(t_rune_data)
-    if (not t_rune_data) then
-        return
-    end
+    local roid = (t_rune_data and t_rune_data['id'] or nil)
 
-    if (self.m_refreshFlag_selectedRoid == t_rune_data['id']) then
+    if (self.m_refreshFlag_selectedRoid == roid) then
         return
     end
-    self.m_refreshFlag_selectedRoid = t_rune_data['id']
+    self.m_refreshFlag_selectedRoid = roid
 
     local vars = self.vars
 
@@ -294,6 +302,8 @@ function UI_DragonMgrRunes:refresh_selectMenu(t_rune_data)
         local t_rune_infomation = g_runesData:getRuneInfomation(roid)
         vars['removeRuneNameLabel']:setString(t_rune_infomation['full_name'])
     end
+
+    cca.uiReactionSlow(vars['selectMenu'], 1, 1, 0.98)
 
     -- selectLockSprite
     -- selectLockBtn
@@ -354,7 +364,7 @@ end
 -------------------------------------
 function UI_DragonMgrRunes:click_removeBtn()
     local t_dragon_data = self.m_selectDragonData
-    local t_rune_data = self.m_selectedRuneData
+    local t_rune_data = self.m_useRuneData
 
     if (not t_dragon_data) or (not t_rune_data) then
         return
