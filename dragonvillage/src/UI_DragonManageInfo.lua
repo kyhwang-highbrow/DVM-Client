@@ -568,6 +568,10 @@ end
 -- @brief (임시로 드래곤 개발 API 팝업 호출)
 -------------------------------------
 function UI_DragonManageInfo:click_equipmentBtn()
+    if (TARGET_SERVER == 'FGT') then
+        return
+    end
+
     if (not self.m_selectDragonOID) then
         return
     end

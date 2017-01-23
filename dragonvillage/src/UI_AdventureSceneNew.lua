@@ -53,6 +53,9 @@ function UI_AdventureSceneNew:init(stage_id)
     vars['devStageBtn']:registerScriptTapHandler(function()
             self:openAdventureStageInfoPopup(DEV_STAGE_ID)
         end)
+    if (TARGET_SERVER == 'FGT') then
+        vars['devStageBtn']:setVisible(false)
+    end
 
     vars['bgSprite']:setLocalZOrder(-2)
     vars['chapterNode']:setLocalZOrder(-1)
