@@ -5,7 +5,7 @@
 ITabUI = {
         m_bInitDefaultTab = 'boolean',
         m_currTab = 'any_type',
-        m_tabDataMap = 'amp',
+        m_mTabData = 'map',
     }
 
 -------------------------------------
@@ -14,20 +14,23 @@ ITabUI = {
 function ITabUI:init()
     self.m_bInitDefaultTab = false
     self.m_currTab = nil
-    self.m_tabDataMap = {}
+    self.m_mTabData = {}
 end
 
 -------------------------------------
 -- function addTab
+-- @breif 탭 추가
+-- @param tab       탭의 이름
+-- @param button    탭으로 사용될 버튼
+-- @param ...       탭 전환 시 on/off될 UI들
 -------------------------------------
-function ITabUI:addTab(tab, button, tab_node, tab_node2)
+function ITabUI:addTab(tab, button, ...)
     local t_tab_data = {}
     t_tab_data['tab'] = tab
     t_tab_data['button'] = button
-    t_tab_data['tab_node'] = tab_node
-    t_tab_data['tab_node2'] = tab_node2
+    t_tab_data['tab_node_list'] = {...}
 
-    self.m_tabDataMap[tab] = t_tab_data
+    self.m_mTabData[tab] = t_tab_data
 
     button:registerScriptTapHandler(function() self:setTab(tab) end)
 end
@@ -39,9 +42,10 @@ function ITabUI:setTab(tab, force)
     if (not force) and (self.m_currTab == tab) then
         return
     end
-
+    
+    -- 기본 탭이 설정되어있지 않은 경우 초기화
     if (self.m_bInitDefaultTab == false) then
-        for i,v in pairs(self.m_tabDataMap) do
+        for i,v in pairs(self.m_mTabData) do
             if (i ~= tab) then
                 self:deactivate(i)
             end
@@ -72,17 +76,13 @@ end
 -- function deactivate
 -------------------------------------
 function ITabUI:deactivate(tab)
-    local t_tab_data = self.m_tabDataMap[tab]
+    local t_tab_data = self.m_mTabData[tab]
 
     local button = t_tab_data['button']
     button:setEnabled(true)
 
-    if t_tab_data['tab_node'] then
-        t_tab_data['tab_node']:setVisible(false)
-    end
-
-    if t_tab_data['tab_node2'] then
-        t_tab_data['tab_node2']:setVisible(false)
+    for i,v in ipairs(t_tab_data['tab_node_list']) do
+        v:setVisible(false)
     end
 end
 
@@ -94,17 +94,13 @@ function ITabUI:activate(tab)
         return
     end
 
-    local t_tab_data = self.m_tabDataMap[tab]
+    local t_tab_data = self.m_mTabData[tab]
 
     local button = t_tab_data['button']
     button:setEnabled(false)
 
-    if t_tab_data['tab_node'] then
-        t_tab_data['tab_node']:setVisible(true)
-    end
-
-    if t_tab_data['tab_node2'] then
-        t_tab_data['tab_node2']:setVisible(true)
+    for i,v in ipairs(t_tab_data['tab_node_list']) do
+        v:setVisible(true)
     end
 end
 
