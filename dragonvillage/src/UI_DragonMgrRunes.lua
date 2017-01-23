@@ -366,12 +366,12 @@ function UI_DragonMgrRunes:click_equipBtn()
     else
         local fee = TableRune:getRuneUnequipFee(rid)
 
-        -- 캐시가 부족할 경우
+        -- 자수정이 부족할 경우
         if (g_userData:get('cash') < fee) then
-            local msg = Str('캐시가 부족합니다.\n상점으로 이동하시겠습니까?')
+            local msg = Str('자수정이 부족합니다.\n상점으로 이동하시겠습니까?')
             MakeSimplePopup(POPUP_TYPE.YES_NO, msg, openShopPopup)
 
-        -- 캐시가 부족하지 않은 경우
+        -- 자수정이 부족하지 않은 경우
         else
             local function yes_cb()
                 g_runesData:requestRuneEquip(doid, roid, cb_func)
@@ -412,12 +412,12 @@ function UI_DragonMgrRunes:click_removeBtn()
 
     local fee = TableRune:getRuneUnequipFee(rid)
 
-    -- 캐시가 부족할 경우
+    -- 자수정이 부족할 경우
     if (g_userData:get('cash') < fee) then
-        local msg = Str('캐시가 부족합니다.\n상점으로 이동하시겠습니까?')
+        local msg = Str('자수정이 부족합니다.\n상점으로 이동하시겠습니까?')
         MakeSimplePopup(POPUP_TYPE.YES_NO, msg, openShopPopup)
 
-    -- 캐시가 부족하지 않은 경우
+    -- 자수정이 부족하지 않은 경우
     else
         local function yes_cb()
             g_runesData:requestRuneUnequip(doid, roid, slot, cb_func)

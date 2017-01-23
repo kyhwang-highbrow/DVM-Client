@@ -209,7 +209,7 @@ function UI_AdventureFirstRewardPopup:dropItem_networkResponse(ret)
         return
     end
 
-    -- 획득한 재화 추가 (골드, 캐시, 열매, 진화석)
+    -- 획득한 재화 추가 (골드, 자수정, 열매, 진화석)
     if ret['user'] then
         g_serverData:applyServerData(ret['user'], 'user')
     end

@@ -68,7 +68,7 @@ function UI_ProductButton:makeValueName(t_shop)
     if (value_type == 'x') then
 
     elseif (value_type == 'cash') then
-        str = Str('{1} 캐시', value_str)
+        str = Str('{1} 자수정', value_str)
 
     elseif (value_type == 'gold') then
         str = Str('{1} 골드', value_str)
@@ -102,7 +102,7 @@ function UI_ProductButton:makePriceName(t_shop)
         str = Str('[무료]')
 
     elseif (price_type == 'cash') then
-        str = Str('{1} 캐시', price_str)
+        str = Str('{1} 자수정', price_str)
 
     elseif (price_type == 'gold') then
         str = Str('{1} 골드', price_str)
