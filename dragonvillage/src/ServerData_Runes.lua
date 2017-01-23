@@ -153,3 +153,43 @@ function ServerData_Runes:requestRuneEquip(doid, roid, cb_func)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
 end
+
+-------------------------------------
+-- function requestRuneUnequip
+-- @brief 룬 해제
+-------------------------------------
+function ServerData_Runes:requestRuneUnequip(doid, roid, slot, cb_func)
+    local uid = g_userData:get('uid')
+
+    -- 성공 시 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
+        if (ret['dragon']) then
+            g_dragonsData:applyDragonData(ret['dragon'])
+        end
+
+        if (ret['modified_runes']) then
+            g_runesData:applyRuneData_list(ret['modified_runes'])
+        end
+
+        -- @TODO sgkim 'modified_rune'으로 변경할 것
+        if (ret['rune']) then
+            g_runesData:applyRuneData(ret['rune'])
+        end
+
+        if cb_func then
+            cb_func(ret)
+        end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/runes/unequip')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('roid', roid)
+    ui_network:setParam('slot', slot)
+    ui_network:setRevocable(true) -- 통신 실패 시 재시도 여부
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
+end

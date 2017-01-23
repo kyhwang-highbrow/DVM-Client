@@ -108,7 +108,7 @@ function UI_DragonMgrRunes:onChangeTab(tab)
 
     local vars = self.vars
 
-    if roid then
+    if roid and (roid ~= '') then
         vars['useMenu']:setVisible(true)
 
         local t_rune_infomation, t_rune_data = g_runesData:getRuneInfomation(roid)
@@ -145,34 +145,33 @@ end
 -- function init_runeTableView
 -------------------------------------
 function UI_DragonMgrRunes:init_runeTableView(rune_slot_type)
-    if (self.m_mTableViewListMap[rune_slot_type]) then
-        return
+    if (not self.m_mTableViewListMap[rune_slot_type]) then
+        local node = self.vars[rune_slot_type .. 'TableViewNode']
+        --node:removeAllChildren()
+
+        local l_item_list = g_runesData:getUnequippedRuneList(rune_slot_type)
+
+        -- 생성 콜백
+        local function create_func(ui, data)
+            ui.root:setScale(0.66)
+            ui.vars['clickBtn']:registerScriptTapHandler(function()
+                local t_rune_data = data
+                self:setSelectedRuneData(t_rune_data)
+            end)
+        end
+
+        -- 테이블 뷰 인스턴스 생성
+        local table_view_td = UIC_TableViewTD(node)
+        table_view_td.m_cellSize = cc.size(103, 103)
+        table_view_td.m_nItemPerCell = 4
+        table_view_td:setCellUIClass(UI_RuneCard, create_func)
+        table_view_td:setItemList(l_item_list)
+
+        self.m_mTableViewListMap[rune_slot_type] = table_view_td
     end
-
-    local node = self.vars[rune_slot_type .. 'TableViewNode']
-    --node:removeAllChildren()
-
-    local l_item_list = g_runesData:getUnequippedRuneList(rune_slot_type)
-
-    -- 생성 콜백
-    local function create_func(ui, data)
-        ui.root:setScale(0.66)
-        ui.vars['clickBtn']:registerScriptTapHandler(function()
-            local t_rune_data = data
-            self:setSelectedRuneData(t_rune_data)
-        end)
-    end
-
-    -- 테이블 뷰 인스턴스 생성
-    local table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size(103, 103)
-    table_view_td.m_nItemPerCell = 4
-    table_view_td:setCellUIClass(UI_RuneCard, create_func)
-    table_view_td:setItemList(l_item_list)
-
-    self.m_mTableViewListMap[rune_slot_type] = table_view_td
 
     -- 첫 번째 룬을 선택 (자동)
+    local table_view_td = self.m_mTableViewListMap[rune_slot_type]
     local t_first_item = table_view_td.m_itemList[1]
     local t_first_rune_data = (t_first_item and t_first_item['data'])
     self:setSelectedRuneData(t_first_rune_data)
@@ -184,8 +183,16 @@ end
 -------------------------------------
 function UI_DragonMgrRunes:initButton()
     local vars = self.vars
-    --vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
+    
+    -- 장착
     vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
+
+    -- 장착 해제
+    vars['removeBtn']:registerScriptTapHandler(function() self:click_removeBtn() end)
+
+    -- 강화 버튼
+    --vars['useEnhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
+    --vars['selectEnhance']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
 end
 
 -------------------------------------
@@ -224,7 +231,7 @@ function UI_DragonMgrRunes:refresh()
             if (self.m_refreshFlag_mRuneSlotDoid[slot_name] ~= roid) then
                 vars['runeSlot' .. i]:removeAllChildren()
 
-                if roid then
+                if roid and (roid ~= '') then
                     local t_rune_infomation = g_runesData:getRuneInfomation(roid)
                     local item_card = UI_ItemCard(t_rune_infomation['rid'], 1, t_rune_infomation)
                     item_card.vars['clickBtn']:setEnabled(false)
@@ -255,6 +262,10 @@ end
 -- @brief 인벤상에서 선택된 룬의 정보 표시
 -------------------------------------
 function UI_DragonMgrRunes:refresh_selectMenu(t_rune_data)
+    if (not t_rune_data) then
+        return
+    end
+
     if (self.m_refreshFlag_selectedRoid == t_rune_data['id']) then
         return
     end
@@ -326,21 +337,44 @@ function UI_DragonMgrRunes:click_equipBtn()
     local roid = t_rune_data['id']
 
     local function cb_func(ret)
-
-        -- 갱신
-        if ret['dragon'] then
-            local doid = ret['dragon']['id']
-            local b_force = true
-        end
-
         -- 장착으로 인해 변경된 룬 정보 처리
         self:solveModifiedRunes_tableView(ret['modified_runes'])
 
+        -- 드래곤 정보 갱신
         self:setSelectDragonDataRefresh()
         self:refresh()
     end
 
     g_runesData:requestRuneEquip(doid, roid, cb_func)
+end
+
+-------------------------------------
+-- function click_removeBtn
+-- @brief 인벤에 있는 룬을 장착
+-------------------------------------
+function UI_DragonMgrRunes:click_removeBtn()
+    local t_dragon_data = self.m_selectDragonData
+    local t_rune_data = self.m_selectedRuneData
+
+    if (not t_dragon_data) or (not t_rune_data) then
+        return
+    end
+    
+    local doid = t_dragon_data['id']
+    local roid = t_rune_data['id']
+    local slot = t_rune_data['type']
+
+    local function cb_func(ret)
+        -- 장착으로 인해 변경된 룬 정보 처리
+        self:solveModifiedRunes_tableView({ret['rune']})
+
+        -- 드래곤 정보 갱신
+        self:setSelectDragonDataRefresh()
+        self:refresh()
+    end
+
+    g_runesData:requestRuneUnequip(doid, roid, slot, cb_func)
+
 end
 
 -------------------------------------
@@ -354,16 +388,19 @@ function UI_DragonMgrRunes:solveModifiedRunes_tableView(l_modified_runes)
 
     local l_modified_slot = {}
 
+    -- 변경된 룬을 테이블 뷰에서 삽입, 제거
     for i,v in ipairs(l_modified_runes) do
+
+        -- 슬롯 타입
         local slot_type = v['type']
+
+        -- 장착 여부
         local is_equiped = (v['odoid'] ~= nil) and (v['odoid'] ~= '')
 
         if self.m_mTableViewListMap[slot_type] then
             if is_equiped then
-                cclog('룬 장착됨')
                 self.m_mTableViewListMap[slot_type]:delItem(v['id'])
             else
-                cclog('룬 해제됨')
                 self.m_mTableViewListMap[slot_type]:addItem(v['id'], v)
             end
 
@@ -371,10 +408,8 @@ function UI_DragonMgrRunes:solveModifiedRunes_tableView(l_modified_runes)
         end
     end
 
+    -- 변경된 룬 타입의 테이블뷰를 갱신
     for slot_type,_ in pairs(l_modified_slot) do
-        -- 리스트 뷰의 아이템 위치를 다시 잡고 영역을 벗어났는지 확인
-        cclog('slot_type ' .. slot_type)
-
         local table_view_td = self.m_mTableViewListMap[slot_type]
         table_view_td:expandTemp(0.5)
         table_view_td:relocateContainer(true)
