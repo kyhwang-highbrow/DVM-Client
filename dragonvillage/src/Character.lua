@@ -68,6 +68,7 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_damagedEventListener = 'list',   -- 데미지를 입었을 때 이벤트
 
         -- @ 위치 관련(전투 중 기본 위치)
+        m_posIdx = 'number',  -- 덱진형에서의 위치 인덱스
         m_orgHomePosX = 'number',
         m_orgHomePosY = 'number',
         m_homePosX = 'number',
@@ -143,6 +144,7 @@ function Character:init(file_name, body, ...)
 	self.m_isSlaveCharacter = false
 	self.m_masterCharacter = nil
 
+    self.m_posIdx = 0
     self.m_orgHomePosX = 0
     self.m_orgHomePosY = 0
     self.m_homePosX = 0
@@ -169,6 +171,21 @@ function Character:initState()
 	self:addState('stun', Character.st_stun, 'idle', true, PRIORITY.STUN)
 	self:addState('stun_esc', Character.st_stun_esc, 'idle', true, PRIORITY.STUN_ESC)
     self:addState('comeback', Character.st_comeback, 'idle', true)
+end
+
+-------------------------------------
+-- function getPosIdx
+-------------------------------------
+function Character:getPosIdx()
+    return self.m_posIdx
+end
+
+-------------------------------------
+-- function setPosIdx
+-- @brief 덱진형에서의 위치 인덱스 값을 저장
+-------------------------------------
+function Character:setPosIdx(posIdx)
+    self.m_posIdx = posIdx
 end
 
 -------------------------------------
@@ -992,7 +1009,7 @@ function Character:makeCastingNode()
     self.m_castingNode:setDockPoint(cc.p(0.5, 0.5))
     self.m_castingNode:setAnchorPoint(cc.p(0.5, 0.5))
     self.m_castingNode:setVisible(false)
-    self.m_world.m_worldNode:addChild(self.m_castingNode, 6)
+    self.m_world.m_worldNode:addChild(self.m_castingNode, WORLD_Z_ORDER.CASTING)
 
     local ui = UI()
     ui:load('enemy_skill_speech.ui')

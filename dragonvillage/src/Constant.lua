@@ -104,6 +104,8 @@ CENTER_POINT = cc.p(0.5, 0.5)
 
 MAX_DRAGON_GRADE = 6
 MAX_DRAGON_ECLV = 15
+
+COLOSSEUM_STAGE_ID = 90000
 DEV_STAGE_ID = 99999
 
 -- 게임 모드
@@ -129,7 +131,8 @@ PRIORITY =
 WORLD_Z_ORDER = 
 {
 	MISSILE = 0,
-	UNIT = 10	
+	UNIT = 10,
+    CASTING = 12,
 }
 
 -------------------------------------
