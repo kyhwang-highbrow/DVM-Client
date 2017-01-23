@@ -307,6 +307,18 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadyScene:click_teamBtn(deck_name)
+    local function next_func()
+        self:changeTeam(deck_name)
+    end
+
+    self:checkChangeDeck(next_func)
+end
+
+-------------------------------------
+-- function changeTeam
+-- @breif
+-------------------------------------
+function UI_ReadyScene:changeTeam(deck_name)
     -- 재료에서 "출전" 중 이라고 표시된 드래곤 해제
     for i,v in pairs(self.m_readySceneDeck.m_lDeckList) do
         local doid = v
@@ -319,7 +331,7 @@ function UI_ReadyScene:click_teamBtn(deck_name)
     -- 선택된 덱 변경
     g_deckData:setSelectedDeck(deck_name)
 
-
+    -- 변경된 덱으로 다시 초기화
     self.m_readySceneDeck:init_deck()
 
     -- 즉시 정렬
