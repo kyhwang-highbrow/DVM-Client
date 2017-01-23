@@ -77,13 +77,15 @@ function ServerData_Runes:getRuneInfomation(roid)
     local mopt_1_type = t_rune_data['mopt']['1']
     local mopt_2_type = t_rune_data['mopt']['2']
     local rarity = t_rune_data['rarity']
+    local lv = t_rune_data['lv']
 
-    local full_name, alphabet_idx = table_rune:getRuneFullName(rid, mopt_1_type, mopt_2_type, rarity)
+    local full_name, alphabet_idx = table_rune:getRuneFullName(rid, mopt_1_type, mopt_2_type, rarity, lv)
 
     local t_rune_infomation = {}
     t_rune_infomation['rid'] = rid
     t_rune_infomation['full_name'] = full_name
     t_rune_infomation['alphabet_idx'] = alphabet_idx
+    t_rune_infomation['lv'] = lv
 
     return t_rune_infomation, t_rune_data
 end

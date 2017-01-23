@@ -111,7 +111,8 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
         local rune_grade = t_item['rarity']
         local rune_alphabet_index = t_sub_data and t_sub_data['alphabet_idx'] or nil
         local rune_color = t_item['attr']
-        sprite = IconHelper:getRuneIcon(rune_type, rune_alphabet_index, rune_grade, rune_color)
+        local lv = t_sub_data and t_sub_data['lv'] or nil
+        sprite = IconHelper:getRuneIcon(rune_type, rune_alphabet_index, rune_grade, rune_color, lv)
 
     -- 기타 아이템 아이콘 생성
     else
@@ -135,7 +136,7 @@ end
 -- function getRuneIcon
 -- @brief 룬 아이콘 생성
 -------------------------------------
-function IconHelper:getRuneIcon(rune_type, rune_alphabet_index, rune_grade, rune_color)
+function IconHelper:getRuneIcon(rune_type, rune_alphabet_index, rune_grade, rune_color, lv)
 
     local type_sprite = cc.Sprite:create(string.format('res/ui/icon/rune/%s.png', rune_type))
 
@@ -171,6 +172,16 @@ function IconHelper:getRuneIcon(rune_type, rune_alphabet_index, rune_grade, rune
         grade_sprite:setAnchorPoint(cc.p(0.5, 0.5))
         grade_sprite:setPosition(0, -50)
         type_sprite:addChild(grade_sprite)
+    end
+
+    -- 강화도 표시
+    if lv then
+        local str = Str('+{1}', lv)
+        local label = cc.Label:createWithTTF(str, 'res/font/common_font_01.ttf', 26, 2, cc.size(250, 100), cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        label:setPosition(-60, -30)
+        label:setDockPoint(cc.p(0.5, 0.5))
+        label:setAnchorPoint(cc.p(0, 0.5))
+        type_sprite:addChild(label)
     end
 
     return type_sprite

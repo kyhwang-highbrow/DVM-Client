@@ -18,7 +18,7 @@ end
 -- function getRuneFullName
 -- @brief 룬의 풀 네임 리턴
 -------------------------------------
-function TableRune:getRuneFullName(rid, mopt_1_type, mopt_2_type, rarity)
+function TableRune:getRuneFullName(rid, mopt_1_type, mopt_2_type, rarity, lv)
     if (self == TableRune) then
         self = TableRune()
     end
@@ -39,7 +39,8 @@ function TableRune:getRuneFullName(rid, mopt_1_type, mopt_2_type, rarity)
     local rarity = string.upper(rarity or 'D')
 
     -- 룬의 풀 네임 조합
-    local full_name = Str('{1}성 {2} {3} {4}', grade, prefix, t_name, rarity)
+    --local full_name = Str('{1}성 {2} {3} {4} +{5}', grade, prefix, t_name, rarity, lv)
+    local full_name = Str('{2} {3} {4} +{5}', grade, prefix, t_name, rarity, lv)
 
     return full_name, alphabet_idx
 end
