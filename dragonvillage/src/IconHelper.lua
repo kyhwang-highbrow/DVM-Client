@@ -110,7 +110,8 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
         local rune_type = t_item['full_type']
         local rune_grade = t_item['rarity']
         local rune_alphabet_index = t_sub_data and t_sub_data['alphabet_idx'] or nil
-        sprite = IconHelper:getRuneIcon(rune_type, rune_alphabet_index, rune_grade)
+        local rune_color = t_item['attr']
+        sprite = IconHelper:getRuneIcon(rune_type, rune_alphabet_index, rune_grade, rune_color)
 
     -- 기타 아이템 아이콘 생성
     else
@@ -134,7 +135,7 @@ end
 -- function getRuneIcon
 -- @brief 룬 아이콘 생성
 -------------------------------------
-function IconHelper:getRuneIcon(rune_type, rune_alphabet_index, rune_grade)
+function IconHelper:getRuneIcon(rune_type, rune_alphabet_index, rune_grade, rune_color)
 
     local type_sprite = cc.Sprite:create(string.format('res/ui/icon/rune/%s.png', rune_type))
 
@@ -152,6 +153,14 @@ function IconHelper:getRuneIcon(rune_type, rune_alphabet_index, rune_grade)
             alphabet_sprite:setDockPoint(cc.p(0.5, 0.5))
             alphabet_sprite:setAnchorPoint(cc.p(0.5, 0.5))
             type_sprite:addChild(alphabet_sprite)
+
+            if (rune_color == 'blue') then          alphabet_sprite:setColor(cc.c3b(183, 249, 252))
+            elseif (rune_color == 'purple') then    alphabet_sprite:setColor(cc.c3b(255, 77, 228))
+            elseif (rune_color == 'red') then       alphabet_sprite:setColor(cc.c3b(255, 77, 77))
+            elseif (rune_color == 'orange') then    alphabet_sprite:setColor(cc.c3b(255, 215, 66))
+            elseif (rune_color == 'yellow') then    alphabet_sprite:setColor(cc.c3b(246, 255, 33))
+            elseif (rune_color == 'green') then     alphabet_sprite:setColor(cc.c3b(218, 255, 44))
+            end
         end
     end
 
