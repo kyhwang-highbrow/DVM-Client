@@ -10,4 +10,5 @@ DEVELOPMENT_KMS = false
 -- 김성진 버전
 DEVELOPMENT_KSJ = false
 
-TARGET_SERVER = nil -- 'FGT'
+TARGET_SERVER = nil
+--TARGET_SERVER = 'FGT'
