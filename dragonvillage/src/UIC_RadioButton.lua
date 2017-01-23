@@ -65,10 +65,12 @@ function UIC_RadioButton:deactivate(button_name)
     local t_button_data = self.m_buttonMap[button_name]
 
     local button = t_button_data['button']
-    --button:setEnabled(true)
+    button:setEnabled(true)
 
     local sprite = t_button_data['sprite']
-    sprite:setVisible(false)
+    if sprite then
+        sprite:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -78,8 +80,10 @@ function UIC_RadioButton:activate(button_name)
     local t_button_data = self.m_buttonMap[button_name]
 
     local button = t_button_data['button']
-    --button:setEnabled(false)
+    button:setEnabled(false)
 
     local sprite = t_button_data['sprite']
-    sprite:setVisible(true)
+    if sprite then
+        sprite:setVisible(true)
+    end
 end

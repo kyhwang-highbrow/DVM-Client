@@ -211,7 +211,7 @@ function getPreloadList_Hero()
 
     local t_skillList = { 'skill_basic', 'skill_active', 'skill_1', 'skill_3' }
 
-    local l_deck = g_deckData:getDeck('1')
+    local l_deck = g_deckData:getDeck()
     for _, v in pairs(l_deck) do
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(v)
         if t_dragon_data then

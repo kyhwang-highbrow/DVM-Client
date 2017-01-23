@@ -531,7 +531,9 @@ function UI_GameResultNew:click_quickBtn()
         local scene = SceneGame(game_key, stage_id, stage_name, false)
         scene:runScene()
     end
-    g_stageData:requestGameStart(self.m_stageID, finish_cb)
+
+    local deck_name = g_deckData:getSelectedDeckName()
+    g_stageData:requestGameStart(self.m_stageID, deck_name, finish_cb)
 end
 
 -------------------------------------

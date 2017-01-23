@@ -827,6 +827,10 @@ function GameState:makeGameFinishParam(is_success)
         t_param['gold'] = 0
     end
 
+    do-- 사용한 덱 이름
+        t_param['deck_name'] = g_deckData:getSelectedDeckName()
+    end
+
     return t_param
 end
 

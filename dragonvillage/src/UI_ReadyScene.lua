@@ -102,6 +102,15 @@ function UI_ReadyScene:initButton()
     -- 진형 관린
     vars['fomationBtn']:registerScriptTapHandler(function() self:click_fomationBtn() end)
     vars['fomationSetColseBtn']:registerScriptTapHandler(function() self:click_fomationSetColseBtn() end)
+
+    -- 1, 2, 3 팀
+    do
+        local radio_button = UIC_RadioButton()
+        radio_button:addButton('1', vars['deckBtn1'], nil, function() self:click_teamBtn('1') end)
+        radio_button:addButton('2', vars['deckBtn2'], nil, function() self:click_teamBtn('2') end)
+        radio_button:addButton('3', vars['deckBtn3'], nil, function() self:click_teamBtn('3') end)
+        radio_button:setSelectedButton(g_deckData:getSelectedDeckName())
+    end
 end
 
 -------------------------------------
@@ -294,6 +303,32 @@ function UI_ReadyScene:click_removeBtn()
 end
 
 -------------------------------------
+-- function click_teamBtn
+-- @breif
+-------------------------------------
+function UI_ReadyScene:click_teamBtn(deck_name)
+    -- 재료에서 "출전" 중 이라고 표시된 드래곤 해제
+    for i,v in pairs(self.m_readySceneDeck.m_lDeckList) do
+        local doid = v
+        local item = self.m_tableViewExt:getItem(doid)
+        if (item and item['ui']) then
+            item['ui']:setReadySpriteVisible(false)
+        end
+    end
+
+    -- 선택된 덱 변경
+    g_deckData:setSelectedDeck(deck_name)
+
+
+    self.m_readySceneDeck:init_deck()
+
+    -- 즉시 정렬
+    if self.m_dragonSortMgr then
+        self.m_dragonSortMgr:changeSort()
+    end
+end
+
+-------------------------------------
 -- function click_startBtn
 -- @breif
 -------------------------------------
@@ -381,7 +416,9 @@ function UI_ReadyScene:networkGameStart()
     local function finish_cb(game_key)
         self:replaceGameScene(game_key)
     end
-    g_stageData:requestGameStart(self.m_stageID, finish_cb)
+
+    local deck_name = g_deckData:getSelectedDeckName()
+    g_stageData:requestGameStart(self.m_stageID, deck_name, finish_cb)
 end
 
 -------------------------------------

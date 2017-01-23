@@ -185,14 +185,15 @@ function UI_ReadyScene_Deck:init_deck()
         self.m_lSettedDragonCard = {}
     end
 
-    local l_deck, formation = g_deckData:getDeck('1')
+    local l_deck, formation = g_deckData:getDeck()
     l_deck = self:convertSimpleDeck(l_deck)
 
     self.m_lDeckList = {}
     self.m_tDeckMap = {}
 
     for idx,doid in pairs(l_deck) do
-        self:setSlot(idx, doid)
+        local skip_sort = true
+        self:setSlot(idx, doid, skip_sort)
     end
 
     -- focus deck
@@ -306,7 +307,7 @@ end
 -------------------------------------
 -- function setSlot
 -------------------------------------
-function UI_ReadyScene_Deck:setSlot(idx, doid)
+function UI_ReadyScene_Deck:setSlot(idx, doid, skip_sort)
 
     do -- 갯수 체크
         local count = table.count(self.m_tDeckMap)
@@ -348,7 +349,7 @@ function UI_ReadyScene_Deck:setSlot(idx, doid)
     end
 
     -- 즉시 정렬
-    if self.m_uiReadyScene.m_dragonSortMgr then
+    if (not skip_sort) and self.m_uiReadyScene.m_dragonSortMgr then
         self.m_uiReadyScene.m_dragonSortMgr:changeSort()
     end
 end
@@ -357,7 +358,7 @@ end
 -- function checkChangeDeck
 -------------------------------------
 function UI_ReadyScene_Deck:checkChangeDeck(next_func)
-    local l_deck, formation = g_deckData:getDeck('1')
+    local l_deck, formation, deckname = g_deckData:getDeck()
 
     local b_change = false
 
@@ -405,7 +406,7 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
         ui_network:setHmac(false)
         ui_network:setRevocable(true)
         ui_network:setParam('uid', uid)
-        ui_network:setParam('deckname', 1)
+        ui_network:setParam('deckname', deckname)
         ui_network:setParam('formation', self.m_currFormation)
         ui_network:setParam('edoid1', self.m_lDeckList[1] and self.m_lDeckList[1] or nil)
         ui_network:setParam('edoid2', self.m_lDeckList[2] and self.m_lDeckList[2] or nil)

@@ -5,6 +5,8 @@ ServerData_Deck = class({
         m_serverData = 'ServerData',
 
         m_mapDragonDeckInfo = 'map',
+
+        m_selectedDeck = 'string', -- 현재 선택되어 있는 덱
     })
 
 -------------------------------------
@@ -12,6 +14,7 @@ ServerData_Deck = class({
 -------------------------------------
 function ServerData_Deck:init(server_data)
     self.m_serverData = server_data
+    self.m_selectedDeck = self.m_serverData:get('local', 'selected_deck') or '1'
 end
 
 -------------------------------------
@@ -49,6 +52,7 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Deck:getDeck(type)
+    type = type or self.m_selectedDeck or '1'
     local l_deck = self.m_serverData:get('deck')
 
     local t_deck = nil
@@ -68,10 +72,10 @@ function ServerData_Deck:getDeck(type)
             end
         end
         
-        return t_ret, self:adjustFormationName(formation)
+        return t_ret, self:adjustFormationName(formation), type
     end
 
-    return {}, self:adjustFormationName('default')
+    return {}, self:adjustFormationName('default'), type
 end
 
 -------------------------------------
@@ -93,7 +97,7 @@ end
 function ServerData_Deck:resetDragonDeckInfo()
     self.m_mapDragonDeckInfo = {}
 
-    local l_deck = self:getDeck('1')
+    local l_deck = self:getDeck()
 
     for i,v in pairs(l_deck) do
         self.m_mapDragonDeckInfo[v] = i
@@ -114,4 +118,19 @@ function ServerData_Deck:isSettedDragon(doid)
     else
         return false
     end
+end
+
+-------------------------------------
+-- function getSelectedDeckName
+-------------------------------------
+function ServerData_Deck:getSelectedDeckName()
+    return self.m_selectedDeck
+end
+
+-------------------------------------
+-- function setSelectedDeck
+-------------------------------------
+function ServerData_Deck:setSelectedDeck(deck_name)
+    self.m_serverData:applyServerData(deck_name, 'local', 'selected_deck')
+    self.m_selectedDeck = deck_name
 end

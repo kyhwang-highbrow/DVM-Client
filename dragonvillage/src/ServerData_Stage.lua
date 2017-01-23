@@ -146,7 +146,7 @@ end
 -------------------------------------
 -- function requestGameStart
 -------------------------------------
-function ServerData_Stage:requestGameStart(stage_id, finish_cb)
+function ServerData_Stage:requestGameStart(stage_id, deck_name, finish_cb)
     -- 활동력 체크
     local can_play, deficiency = g_staminasData:checkStageStamina(stage_id)
     if (not can_play) then
@@ -177,6 +177,7 @@ function ServerData_Stage:requestGameStart(stage_id, finish_cb)
     ui_network:setRevocable(true)
     ui_network:setParam('uid', uid)
     ui_network:setParam('stage', stage_id)
+    ui_network:setParam('deck_name', deck_name)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
 
