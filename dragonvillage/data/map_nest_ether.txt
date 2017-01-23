@@ -91,7 +91,7 @@
 			"group":"nest_dragon_body"
 			"list":
             [
-                {"res":"res/character/monster/boss_gdragon_@/boss_gdragon_body_@.spine" "animation":"Idle" "pos_x":4712 "pos_y":300 "scale":2}
+                {"res":"res/character/monster/boss_gdragon_@/boss_gdragon_body_@.spine" "animation":"Idle" "pos_x":4712 "pos_y":100 "scale":2}
             ]
         }
     ]
