@@ -175,6 +175,12 @@ function UI_Network:statusHandler(ret)
         return true
     end
 
+    -- not enough cash (캐시가 부족할 때)
+    if (status == -2100) then
+        self:makeShopPopup(Str('캐시가 부족합니다.\n상점으로 이동하시겠습니까?'), ret)
+        return true
+    end
+
     -- not enough gold (골드가 부족할 때)
     if (status == -2101) then
         self:makeShopPopup(Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), ret)

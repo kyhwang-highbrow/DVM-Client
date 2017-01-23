@@ -20,11 +20,12 @@ end
 -------------------------------------
 -- function addTab
 -------------------------------------
-function ITabUI:addTab(tab, button, tab_node)
+function ITabUI:addTab(tab, button, tab_node, tab_node2)
     local t_tab_data = {}
     t_tab_data['tab'] = tab
     t_tab_data['button'] = button
     t_tab_data['tab_node'] = tab_node
+    t_tab_data['tab_node2'] = tab_node2
 
     self.m_tabDataMap[tab] = t_tab_data
 
@@ -76,9 +77,12 @@ function ITabUI:deactivate(tab)
     local button = t_tab_data['button']
     button:setEnabled(true)
 
-    local tab_node = t_tab_data['tab_node']
-    if tab_node then
-        tab_node:setVisible(false)
+    if t_tab_data['tab_node'] then
+        t_tab_data['tab_node']:setVisible(false)
+    end
+
+    if t_tab_data['tab_node2'] then
+        t_tab_data['tab_node2']:setVisible(false)
     end
 end
 
@@ -95,9 +99,12 @@ function ITabUI:activate(tab)
     local button = t_tab_data['button']
     button:setEnabled(false)
 
-    local tab_node = t_tab_data['tab_node']
-    if tab_node then
-        tab_node:setVisible(true)
+    if t_tab_data['tab_node'] then
+        t_tab_data['tab_node']:setVisible(true)
+    end
+
+    if t_tab_data['tab_node2'] then
+        t_tab_data['tab_node2']:setVisible(true)
     end
 end
 

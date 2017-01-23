@@ -85,7 +85,7 @@ function ServerData_Runes:getRuneInfomation(roid)
     t_rune_infomation['full_name'] = full_name
     t_rune_infomation['alphabet_idx'] = alphabet_idx
 
-    return t_rune_infomation
+    return t_rune_infomation, t_rune_data
 end
 
 -------------------------------------
@@ -104,7 +104,7 @@ function ServerData_Runes:getUnequippedRuneList(slot_type)
 
     for i,v in pairs(l_runes) do
         -- 이 룬을 장착한 드래곤이 없을 경우
-        if (not v['odoid']) then
+        if (not v['odoid']) or (v['odoid'] == '') then
             -- 슬롯 확인
             if (slot_type == 'all') or (v['type'] == slot_type) then
                 local roid = v['id']
