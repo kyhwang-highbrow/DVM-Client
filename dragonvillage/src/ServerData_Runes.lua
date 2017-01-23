@@ -193,3 +193,19 @@ function ServerData_Runes:requestRuneUnequip(doid, roid, slot, cb_func)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
 end
+
+-------------------------------------
+-- function getSlotName
+-- @brief
+-------------------------------------
+function ServerData_Runes:getSlotName(slot_idx)
+    if (slot_idx == 1) then
+        return 'bellaria'
+    elseif (slot_idx == 2) then
+        return 'tutamen'
+    elseif (slot_idx == 3) then
+        return 'cimelium'
+    else
+        error('slot_idx : ' .. slot_idx)
+    end
+end

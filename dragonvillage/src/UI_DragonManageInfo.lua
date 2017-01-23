@@ -111,9 +111,9 @@ function UI_DragonManageInfo:initButton()
         vars['detailBtn']:registerScriptTapHandler(function() self:click_detailBtn() end)
 
         -- 장비 개별 버튼 1~3
-        vars['equipSlotBtn1']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"장비" 미구현') end)
-        vars['equipSlotBtn2']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"장비" 미구현') end)
-        vars['equipSlotBtn3']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"장비" 미구현') end)
+        vars['equipSlotBtn1']:registerScriptTapHandler(function() self:click_runeBtn(1) end)
+        vars['equipSlotBtn2']:registerScriptTapHandler(function() self:click_runeBtn(2) end)
+        vars['equipSlotBtn3']:registerScriptTapHandler(function() self:click_runeBtn(3) end)
 
         -- 장비
         vars['equipmentBtn']:registerScriptTapHandler(function() self:click_equipmentBtn() end)
@@ -175,6 +175,24 @@ function UI_DragonManageInfo:refresh()
         else
             vars['transcendBtn']:setVisible(false)
             vars['upgradeBtn']:setVisible(true)
+        end
+    end
+
+
+    do -- 장착된 룬 표시
+        local t_runes = t_dragon_data['runes']
+        for i=1, 3 do
+            vars['runeSlotNode' .. i]:removeAllChildren()
+            local slot = ServerData_Runes:getSlotName(i)
+
+            local roid = t_runes[slot]
+            if (roid and (roid ~= '')) then
+                local t_rune_infomation, t_rune_data = g_runesData:getRuneInfomation(roid)
+
+                local rid = t_rune_data['rid']
+                local icon = IconHelper:getItemIcon(rid, t_rune_infomation)
+                vars['runeSlotNode' .. i]:addChild(icon)
+            end
         end
     end
     
@@ -528,7 +546,7 @@ end
 -- function click_runeBtn
 -- @brief 룬 버튼
 -------------------------------------
-function UI_DragonManageInfo:click_runeBtn()
+function UI_DragonManageInfo:click_runeBtn(slot_idx)
     if (TARGET_SERVER == 'FGT') then
         UIManager:toastNotificationRed('"룬"은 준비 중입니다.')
         return
@@ -536,7 +554,7 @@ function UI_DragonManageInfo:click_runeBtn()
 
     -- 선탠된 드래곤과 정렬 설정
     local doid = self.m_selectDragonOID
-    local ui = UI_DragonMgrRunes(doid)
+    local ui = UI_DragonMgrRunes(doid, slot_idx)
 
     -- UI종료 후 콜백
     local function close_cb()

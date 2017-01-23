@@ -42,7 +42,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonMgrRunes:init(doid)
+function UI_DragonMgrRunes:init(doid, slot_idx)
     self.m_bChangeDragonList = false
     self.m_mTableViewListMap = {}
     self.m_refreshFlag_selectedDoid = nil
@@ -58,6 +58,7 @@ function UI_DragonMgrRunes:init(doid)
     self:sceneFadeInAction()
 
     self:initUI()
+    self:initUI_runeTab(slot_idx) -- 룬 Tab 설정
     self:initButton()
     self:refresh()
 
@@ -75,10 +76,6 @@ function UI_DragonMgrRunes:initUI()
     local vars = self.vars
     self:init_dragonTableView()
 
-    -- 룬 Tab 설정
-    self:initUI_runeTab()
-
-
     -- 미구현인 부분 visible off
     vars['selectLockBtn']:setVisible(false)
     vars['useLockBtn']:setVisible(false)
@@ -89,12 +86,13 @@ end
 -- function initUI_runeTab
 -- @brief 룰 슬롯 버튼 처리
 -------------------------------------
-function UI_DragonMgrRunes:initUI_runeTab()
+function UI_DragonMgrRunes:initUI_runeTab(slot_idx)
     local vars = self.vars
+    slot_idx = slot_idx or 1
     self:addTab(l_rune_slot_name[1], vars['runeSlotBtn1'], vars['runeSlotSelectSprite1'], vars[l_rune_slot_name[1] .. 'TableViewNode'])
     self:addTab(l_rune_slot_name[2], vars['runeSlotBtn2'], vars['runeSlotSelectSprite2'], vars[l_rune_slot_name[2] .. 'TableViewNode'])
     self:addTab(l_rune_slot_name[3], vars['runeSlotBtn3'], vars['runeSlotSelectSprite3'], vars[l_rune_slot_name[3] .. 'TableViewNode'])
-    self:setTab(l_rune_slot_name[1])
+    self:setTab(l_rune_slot_name[slot_idx])
 end
 
 -------------------------------------
@@ -334,7 +332,7 @@ end
 
 -------------------------------------
 -- function click_equipBtn
--- @brief 인벤에 있는 룬을 장착
+-- @brief 인벤에 있는 룬을 장착 (혹은 교체)
 -------------------------------------
 function UI_DragonMgrRunes:click_equipBtn()
     local t_dragon_data = self.m_selectDragonData
@@ -356,6 +354,8 @@ function UI_DragonMgrRunes:click_equipBtn()
         -- 드래곤 정보 갱신
         self:setSelectDragonDataRefresh()
         self:refresh()
+
+        self.m_bChangeDragonList = true
     end
 
     -- 슬롯이 비어있으면 "장착"
@@ -384,7 +384,7 @@ end
 
 -------------------------------------
 -- function click_removeBtn
--- @brief 인벤에 있는 룬을 장착
+-- @brief 룬 장착 해제
 -------------------------------------
 function UI_DragonMgrRunes:click_removeBtn()
     local t_dragon_data = self.m_selectDragonData
@@ -406,6 +406,8 @@ function UI_DragonMgrRunes:click_removeBtn()
         -- 드래곤 정보 갱신
         self:setSelectDragonDataRefresh()
         self:refresh()
+
+        self.m_bChangeDragonList = true
     end
 
     local fee = TableRune:getRuneUnequipFee(rid)
