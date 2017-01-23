@@ -75,9 +75,9 @@ Missile = class(PARENT, {
 		m_addScriptStart = '',
 		m_addScriptTerm = '',
 		m_addScriptMax = '',
-		m_addScriptDead = 'bool',
-		m_addScriptRelative = 'bool',
-		m_lAddScriptTime = 'list',
+		m_addScriptDead = 'bool',			-- add된 탄을 다쏘면 부모 미사일을 죽임.
+		m_addScriptRelative = 'bool',		-- 상대 각도 
+		m_lAddScriptTime = 'list',			-- 탄 발사 시간을 저장해놓아 프레임 저하가 있어도 전부 발사되도록함
 		m_fireCnt = '',
 
      })
@@ -411,10 +411,8 @@ function Missile:updateMissileOption(dt)
 	-- n초 후까지 map shake
     if self.m_mapShakeTime then
 		if self.m_stateTimer == 0 then
-			self.m_world.m_shakeMgr:doShakeForScript()
-        elseif (self.m_mapShakeTime <= self.m_stateTimer) or (self.m_state == 'dying') then
+			self.m_world.m_shakeMgr:doShakeForScript(self.m_mapShakeTime)
             self.m_mapShakeTime = nil
-			self.m_world.m_shakeMgr:stopShake()
         end
     end
 

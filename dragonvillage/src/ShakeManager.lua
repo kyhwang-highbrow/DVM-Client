@@ -15,6 +15,23 @@ function ShakeManager:init(world, shake_layer)
 end
 
 -------------------------------------
+-- function getStandardShake
+-- @brief 표준 쉐이크를 반환
+-------------------------------------
+function ShakeManager:getStandardShake(duration, level, repeat_time)
+	local interval = 0.2
+	local rand_x = math_random(level-10, level)
+	local rand_y = math_random(level-10, level)
+
+	local sequence_action = cc.Sequence:create(
+		cc.EaseIn:create(cc.MoveTo:create(duration, cc.p(rand_x, rand_y)), interval), 
+		cc.EaseOut:create(cc.MoveTo:create(duration, cc.p(-rand_x, -rand_y)), interval)
+	)
+
+	return cc.Repeat:create(sequence_action, repeat_time)
+end
+
+-------------------------------------
 -- function doShake
 -- @brief 화면 떨림 연출
 -------------------------------------
@@ -122,25 +139,17 @@ end
 -- function doShakeForScript
 -- @brief script missile 용 shake
 -------------------------------------
-function ShakeManager:doShakeForScript()
-	local random1 = math_random(SHAKE_CUSTOM_MIN_POS, SHAKE_CUSTOM_MAX_POS)
-	local random2 = math_random(SHAKE_CUSTOM_MIN_POS, SHAKE_CUSTOM_MAX_POS)
-	self:doShake(random1, random2, SHAKE_CUSTOM_DURATION, true)
-end
+function ShakeManager:doShakeForScript(repeat_time)
+	-- Stop Shake
+	self:stopShake()
+	
+	local rand = math_random(SHAKE_CUSTOM_MIN_POS, SHAKE_CUSTOM_MAX_POS)
+	local duration = 0.05
+	local repeat_time = repeat_time or 0.2
+	local repeat_cnt = repeat_time/duration
+	
+	local shake_action = self:getStandardShake(duration, rand, repeat_cnt)
 
--------------------------------------
--- function getStandardShake
--- @brief 표준 쉐이크를 반환
--------------------------------------
-function ShakeManager:getStandardShake(duration, level, repeat_time)
-	local interval = 0.2
-	local rand_x = math_random(level-10, level)
-	local rand_y = math_random(level-10, level)
-
-	local sequence_action = cc.Sequence:create(
-		cc.EaseIn:create(cc.MoveTo:create(duration, cc.p(rand_x, rand_y)), interval), 
-		cc.EaseOut:create(cc.MoveTo:create(duration, cc.p(-rand_x, -rand_y)), interval)
-	)
-
-	return cc.Repeat:create(sequence_action, repeat_time)
+	-- Run Shake
+	self.m_shakeLayer:runAction(shake_action)
 end
