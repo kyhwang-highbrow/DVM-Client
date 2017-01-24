@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/list_frame_0101.png';
+				file_name = 'ui/frame/list_frame_0102.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -54,7 +54,7 @@
 				text = 'questLabel';
 				h_alignment = 0;
 				v_alignment = 1;
-				color = { 106; 61; 40; };
+				color = { 255; 222; 0; };
 				opacity = 255;
 				dimension_width = 555;
 				dimension_height = 50;
@@ -94,7 +94,7 @@
 				text = '{0}/{0}';
 				h_alignment = 2;
 				v_alignment = 1;
-				color = { 206; 69; 9; };
+				color = { 240; 85; 13; };
 				opacity = 255;
 				dimension_width = 200;
 				dimension_height = 50;
@@ -133,7 +133,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 26;
-					text = '바로가기';
+					text = '진행중';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
@@ -155,10 +155,10 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 474.000000;
+				x = -16.000000;
 				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
 				width = 180;
 				height = 80;
@@ -168,11 +168,11 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'questLinkBtn';
-				enable = true;
+				lua_name = '';
+				enable = false;
 				normal = 'ui/btn/base_btn_0101.png';
 				selected = 'ui/btn/base_btn_0102.png';
-				disable = '';
+				disable = 'ui/btn/base_btn_0102.png';
 				image_type = 1;
 			};
 			[5] =
@@ -257,7 +257,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/sub_frame_0102.png';
+				file_name = 'ui/frame/sub_frame_0103.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -283,7 +283,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/sub_frame_0102.png';
+				file_name = 'ui/frame/sub_frame_0103.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -309,7 +309,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/sub_frame_0102.png';
+				file_name = 'ui/frame/sub_frame_0103.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -674,7 +674,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = '';
+			lua_name = 'questRewadMenu';
 		};
 		type = 'Menu';
 		ui_name = '';
@@ -683,8 +683,8 @@
 		dock_point = { 0.500000; 0.500000; };
 		anchor_point = { 0.500000; 0.500000; };
 		relative_size_type = 3;
-		width = -120;
-		height = -612;
+		width = 0;
+		height = 0;
 		scale_x = 1.000000;
 		scale_y = 1.000000;
 		skew_x = 0.000000;
