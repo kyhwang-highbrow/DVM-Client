@@ -4,20 +4,13 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -- class UI_QuestPopup
 -------------------------------------
 UI_QuestPopup = class(PARENT, {
-		m_tableQuest = 'TableQuest',
 		m_tIsOpenOnce = 'table<bool>',
-
-		------------Class type-----------------------
-		TAB_CHALLENGE = 'challenge',
-		TAB_DAILY = 'daily',
-		TAB_NEWBIE = 'newbie'
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_QuestPopup:init()
-	self.m_tableQuest = TableQuest()
 	self.m_tIsOpenOnce = {}
 
     local vars = self:load('quest.ui')
@@ -59,10 +52,10 @@ end
 -------------------------------------
 function UI_QuestPopup:initTab()
     local vars = self.vars
-    self:addTab(UI_QuestPopup.TAB_CHALLENGE, vars['challengeBtn'], vars['challengeListNode'])
-    self:addTab(UI_QuestPopup.TAB_DAILY, vars['dailyBtn'], vars['dailyListNode'])
-	self:addTab(UI_QuestPopup.TAB_NEWBIE, vars['newbieBtn'], vars['newbieListNode'])
-    self:setTab(UI_QuestPopup.TAB_CHALLENGE)
+    self:addTab(TableQuest.CHALLENGE, vars['challengeBtn'], vars['challengeListNode'])
+    self:addTab(TableQuest.DAILY, vars['dailyBtn'], vars['dailyListNode'])
+	self:addTab(TableQuest.NEWBIE, vars['newbieBtn'], vars['newbieListNode'])
+    self:setTab(TableQuest.CHALLENGE)
 end
 
 -------------------------------------
@@ -100,7 +93,8 @@ end
 function UI_QuestPopup:makeQuestTableView(tab, node)
     local vars = self.vars
 
-	local t_quest = self.m_tableQuest:getQuestListByType(tab)
+	-- 퀘스트 뭉치
+	local t_quest = g_questData:getQuestListByType(tab)
 	
     do -- 테이블 뷰 생성
         node:removeAllChildren()
@@ -135,9 +129,9 @@ function UI_QuestPopup:setAllClearListItem(tab)
 	local node = self.vars['allClearNode']
 	node:removeAllChildren()
 
-	if (tab == UI_QuestPopup.TAB_CHALLENGE) then return end
+	if (tab == TableQuest.CHALLENGE) then return end
 
-	local t_quest = self.m_tableQuest:getAllClearQuestTable(tab)
+	local t_quest = g_questData:getAllClearQuestTable(tab)
 	local ui = UI_QuestListItem(t_quest, true)
 	node:addChild(ui.root)
 end
