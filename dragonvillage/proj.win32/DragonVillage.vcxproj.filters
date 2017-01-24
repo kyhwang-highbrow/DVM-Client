@@ -1311,6 +1311,21 @@
     <None Include="..\src\TableRuneStatus.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\ServerData_Quest.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\TableQuest.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_QuestListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_QuestPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_RewardCard.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

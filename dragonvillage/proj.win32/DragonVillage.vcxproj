@@ -301,6 +301,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_AutoPlaySetting.lua" />
     <None Include="..\src\ServerData_LobbyUserList.lua" />
     <None Include="..\src\ServerData_NestDungeon.lua" />
+    <None Include="..\src\ServerData_Quest.lua" />
     <None Include="..\src\ServerData_Runes.lua" />
     <None Include="..\src\ServerData_Stage.lua" />
     <None Include="..\src\ServerData_Staminas.lua" />
@@ -541,6 +542,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableGradeInfo.lua" />
     <None Include="..\src\TableItem.lua" />
     <None Include="..\src\TableMonster.lua" />
+    <None Include="..\src\TableQuest.lua" />
     <None Include="..\src\TableRune.lua" />
     <None Include="..\src\TableRuneGrade.lua" />
     <None Include="..\src\TableRuneNamingRule.lua" />
@@ -632,9 +634,12 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_NetworkLoading.lua" />
     <None Include="..\src\UI_Popup.lua" />
     <None Include="..\src\UI_ProductButton.lua" />
+    <None Include="..\src\UI_QuestListItem.lua" />
+    <None Include="..\src\UI_QuestPopup.lua" />
     <None Include="..\src\UI_ReadyScene.lua" />
     <None Include="..\src\UI_ReadyScene_Deck.lua" />
     <None Include="..\src\UI_DragonMgrRunes.lua" />
+    <None Include="..\src\UI_RewardCard.lua" />
     <None Include="..\src\UI_SettingPopup.lua" />
     <None Include="..\src\UI_SettingPopup_Dev.lua" />
     <None Include="..\src\UI_ShopPopup.lua" />

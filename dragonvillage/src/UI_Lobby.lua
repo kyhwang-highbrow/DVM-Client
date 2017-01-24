@@ -139,6 +139,7 @@ function UI_Lobby:initButton()
     vars['battleBtn']:registerScriptTapHandler(function() self:click_battleBtn() end)
     vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end)
     vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
+	vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end)
 
     -- FGT버전에서 퀘스트 기능 숨김
     if (TARGET_SERVER == 'FGT') then
@@ -252,6 +253,14 @@ end
 -------------------------------------
 function UI_Lobby:click_shopBtn()
     UI_ShopPopup()
+end
+
+-------------------------------------
+-- function click_questBtn
+-- @brief 퀘스트 버튼
+-------------------------------------
+function UI_Lobby:click_questBtn()
+    UI_QuestPopup()
 end
 
 -------------------------------------

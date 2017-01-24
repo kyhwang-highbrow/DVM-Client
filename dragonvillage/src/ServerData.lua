@@ -55,6 +55,9 @@ function ServerData:getInstance()
     -- 룬
     g_runesData = ServerData_Runes(g_serverData)
 
+	-- 퀘스트
+    g_questData = ServerData_Quest(g_serverData)
+
     return g_serverData
 end
 

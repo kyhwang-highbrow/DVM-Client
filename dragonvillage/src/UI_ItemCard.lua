@@ -17,18 +17,26 @@ UI_ItemCard = class(PARENT, {
 function UI_ItemCard:init(item_id, count, t_sub_data)
     self.m_itemID = item_id
     self.m_itemCount = count
+	self.m_tSubData = t_sub_data
 
-    local table_item = TABLE:get('item')
-    local t_item = table_item[item_id]
+	self:setItemData()
+end
+
+-------------------------------------
+-- function setItemData
+-------------------------------------
+function UI_ItemCard:setItemData()
+	local table_item = TABLE:get('item')
+    local t_item = table_item[self.m_itemID]
 
     if (not t_item) then
-        error('item_id ' .. item_id)
+        error('item_id ' .. self.m_itemID)
     end
-
+	
     if (t_item['type'] == 'dragon') then
         self:init_dragonItem(t_item)
     elseif (t_item['type'] == 'rune') then
-        self:init_runeItem(t_item, t_sub_data)
+        self:init_runeItem(t_item, self.m_tSubData)
     else
         self:init_commonItem(t_item)
     end
@@ -41,6 +49,7 @@ end
 -------------------------------------
 function UI_ItemCard:init_commonItem(t_item, t_sub_data)
     local item_id = self.m_itemID
+	local count = self.m_itemCount
 
     local vars = self:load('drop_item.ui')
 

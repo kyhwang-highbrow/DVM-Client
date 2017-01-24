@@ -1,0 +1,153 @@
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
+
+-------------------------------------
+-- class UI_QuestPopup
+-------------------------------------
+UI_QuestPopup = class(PARENT, {
+		m_tableQuest = 'TableQuest',
+		m_tIsOpenOnce = 'table<bool>',
+
+		------------Class type-----------------------
+		TAB_CHALLENGE = 'challenge',
+		TAB_DAILY = 'daily',
+		TAB_NEWBIE = 'newbie'
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_QuestPopup:init()
+	self.m_tableQuest = TableQuest()
+	self.m_tIsOpenOnce = {}
+
+    local vars = self:load('quest.ui')
+    UIManager:open(self, UIManager.SCENE)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_QuestPopup')
+
+    -- @UI_ACTION
+    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    self:initUI()
+	self:initTab()
+    self:initButton()
+    self:refresh()
+end
+
+-------------------------------------
+-- function initParentVariable
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_QuestPopup:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_QuestPopup'
+    self.m_bUseExitBtn = true
+    self.m_titleStr = Str('퀘스트')
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_QuestPopup:initUI()
+end
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_QuestPopup:initTab()
+    local vars = self.vars
+    self:addTab(UI_QuestPopup.TAB_CHALLENGE, vars['challengeBtn'], vars['challengeListNode'])
+    self:addTab(UI_QuestPopup.TAB_DAILY, vars['dailyBtn'], vars['dailyListNode'])
+	self:addTab(UI_QuestPopup.TAB_NEWBIE, vars['newbieBtn'], vars['newbieListNode'])
+    self:setTab(UI_QuestPopup.TAB_CHALLENGE)
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_QuestPopup:initButton()
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_QuestPopup:refresh()
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_QuestPopup:onChangeTab(tab)
+	local vars = self.vars
+	local node = vars[tab .. 'ListNode']
+	
+	-- 최초 생성만 실행
+	if (not self.m_tIsOpenOnce[tab]) then 
+		self:makeQuestTableView(tab, node)
+		self.m_tIsOpenOnce[tab] = true
+	end
+
+	-- all clear 는 따로 보여준다
+	self:setAllClearListItem(tab)
+end
+
+-------------------------------------
+-- function makeQuestTableView
+-------------------------------------
+function UI_QuestPopup:makeQuestTableView(tab, node)
+    local vars = self.vars
+
+	local t_quest = self.m_tableQuest:getQuestListByType(tab)
+	
+    do -- 테이블 뷰 생성
+        node:removeAllChildren()
+
+        -- 셀 아이템 생성 콜백
+        local function create_func(ui, data, key)
+        end
+
+        -- 테이블 뷰 인스턴스 생성
+        local table_view = UIC_TableView(node)
+        table_view.m_defaultCellSize = cc.size(1160, 108)
+        table_view:setCellUIClass(UI_QuestListItem, create_func)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+        table_view:setItemList(t_quest)
+
+		-- 오른쪽에서 등장하는 연출
+		local content_size = node:getContentSize()
+		table_view.m_cellUIAppearCB = function(ui)
+			local x, y = ui.root:getPosition()
+			local new_x = x + content_size['width']
+			ui.root:setPosition(new_x, y)
+
+			ui:cellMoveTo(0.5, cc.p(x, y))
+		end
+    end
+end
+
+-------------------------------------
+-- function setAllClearListItem
+-------------------------------------
+function UI_QuestPopup:setAllClearListItem(tab)
+	local node = self.vars['allClearNode']
+	node:removeAllChildren()
+
+	if (tab == UI_QuestPopup.TAB_CHALLENGE) then return end
+
+	local t_quest = self.m_tableQuest:getAllClearQuestTable(tab)
+	local ui = UI_QuestListItem(t_quest, true)
+	node:addChild(ui.root)
+end
+
+-------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_QuestPopup:click_exitBtn()
+    self:close()
+end
+
+--@CHECK
+UI:checkCompileError(UI_QuestPopup)

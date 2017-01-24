@@ -39,6 +39,8 @@ local TableInfo = {
         status_effect     = {'table_status_effect',         'name',         false},
         formation         = {'table_formation',             'fmid',         false},
 
+		quest			  = {'table_quest',					'qid',			false},
+
         -- 드래곤 관리 관련
         grade_info           = {'table_dragon_grade_info',  'grade',        false},
         dragon_evolution     = {'table_dragon_evolution',    'did',          false},

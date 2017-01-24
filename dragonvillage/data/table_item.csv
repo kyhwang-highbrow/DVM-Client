@@ -226,3 +226,7 @@ item,t_name,t_desc,type,full_type,attr,rarity,val_1
 790193,푸리티오,푸리티오 성룡,dragon,x,x,3,120193
 790213,가루다,가루다 성룡,dragon,x,x,3,120213
 790273,붐버,붐버 성룡,dragon,x,x,3,120273
+900001,골드,골드 획득,gold_r,gold_01,x,1,1
+900002,캐쉬,캐쉬 획득,cash_r,cash_01,x,1,1
+900003,라테아,라테아 획득,lactea_r,x,x,1,1
+900004,모험모드 활동력,활동력 획득,staminas_st_r,x,x,1,1

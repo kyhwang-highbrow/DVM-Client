@@ -61,6 +61,7 @@ local t_module = {
     'ServerData_LobbyUserList',
     'ServerData_AutoPlaySetting',
     'ServerData_Runes',
+	'ServerData_Quest',
     'UserData',
     'DropHelper',
     'DragonAutoSetHelper',
@@ -102,6 +103,7 @@ local t_module = {
     'TableRuneStatus',
     'TableRuneNamingRule',
     'TableItem',
+	'TableQuest',
 
     -- Interface
     'IEventDispatcher',
@@ -356,6 +358,7 @@ local t_module = {
     'UI_TopUserInfo',
     'UI_ShopPopup',
     'UI_ItemCard',
+	'UI_RewardCard',
     'UI_ProductButton',
     'UI_SkillCard',
     'UI_DragonSkillCard',
@@ -379,6 +382,8 @@ local t_module = {
     'UI_Colosseum',
     'UI_TamerSelectPopup',
     'UI_TamerSelectItem',
+	'UI_QuestPopup',
+    'UI_QuestListItem',
 
     -- UI 드래곤 관리 관련
     'UI_DragonManage_Base',
