@@ -306,3 +306,49 @@ T_DRAGON_SORT['lv'] = function(a, b)
 
     return false
 end
+
+
+-------------------------------------
+-- function getRuneBonusList
+-- @brief 능력치 계산을 위해 doid에 해당하는 드래곤이 장착한
+--        룬의 메인옵션, 서브옵션의 능력치를 합산한 테이블을 리턴
+-------------------------------------
+function ServerData_Dragons:getRuneBonusList(doid)
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+
+    local l_runes = t_dragon_data['runes']
+
+    local l_rune_bonus = {}
+
+    for i,v in pairs(l_runes) do
+        local roid = v
+        if (roid ~= '') then
+            local t_rune_data = g_runesData:getRuneData(roid)
+            local t_rune_information = t_rune_data['information']
+
+            -- 메인 옵션의 능력치 합산
+            for _,data in pairs(t_rune_information['status']['mopt']) do
+                local category = data['category']
+                local value = data['value']
+
+                if (not l_rune_bonus[category]) then
+                    l_rune_bonus[category] = 0
+                end
+                l_rune_bonus[category] = (l_rune_bonus[category] + value)
+            end
+
+            -- 서브 옵션의 능력치 합산
+            for _,data in pairs(t_rune_information['status']['sopt']) do
+                local category = data['category']
+                local value = data['value']
+
+                if (not l_rune_bonus[category]) then
+                    l_rune_bonus[category] = 0
+                end
+                l_rune_bonus[category] = (l_rune_bonus[category] + value)
+            end
+        end
+    end
+
+    return l_rune_bonus
+end
