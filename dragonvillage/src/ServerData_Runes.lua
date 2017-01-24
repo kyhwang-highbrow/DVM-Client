@@ -305,3 +305,29 @@ function ServerData_Runes:getSlotName(slot_idx)
         error('slot_idx : ' .. slot_idx)
     end
 end
+
+-------------------------------------
+-- function requestRuneEnchant
+-- @brief
+-------------------------------------
+function ServerData_Runes:requestRuneEnchant(roid, src_roids, cb_func)
+    local uid = g_userData:get('uid')
+
+    -- 성공 시 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
+        if cb_func then
+            cb_func(ret)
+        end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/runes/enchant')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('roid', roid)
+    ui_network:setParam('src_roids', src_roids)
+    ui_network:setRevocable(true) -- 통신 실패 시 재시도 여부
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
+end

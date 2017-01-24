@@ -25,6 +25,8 @@ UI_DragonMgrRunes = class(PARENT,{
         m_refreshFlag_selectedDoid = 'string',
         m_refreshFlag_mRuneSlotDoid = 'map',
         m_refreshFlag_selectedRoid = 'string',
+
+        m_runeSortManager = 'RuneSortManager',
     })
 
 -------------------------------------
@@ -56,6 +58,9 @@ function UI_DragonMgrRunes:init(doid, slot_idx)
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonMgrRunes')
 
     self:sceneFadeInAction()
+
+    -- 정렬
+    self.m_runeSortManager = RuneSortManager()
 
     self:initUI()
     self:initUI_runeTab(slot_idx) -- 룬 Tab 설정
@@ -153,6 +158,13 @@ function UI_DragonMgrRunes:onChangeTab(tab)
 
     -- 재료 리스트뷰 초기화
     self:init_runeTableView(rune_slot_type)
+
+    
+    do
+        local table_view = self.m_mTableViewListMap[rune_slot_type]
+        self.m_runeSortManager:clearTableView(table_view)
+        self.m_runeSortManager:changeSort()
+    end
 end
 
 
@@ -189,7 +201,8 @@ function UI_DragonMgrRunes:init_runeTableView(rune_slot_type)
         table_view_td.m_cellSize = cc.size(103, 103)
         table_view_td.m_nItemPerCell = 4
         table_view_td:setCellUIClass(UI_RuneCard, create_func)
-        table_view_td:setItemList(l_item_list)
+        local skip_update = true
+        table_view_td:setItemList(l_item_list, skip_update)
 
         self.m_mTableViewListMap[rune_slot_type] = table_view_td
     end
@@ -512,7 +525,8 @@ function UI_DragonMgrRunes:solveModifiedRunes_tableView(l_modified_runes)
     -- 변경된 룬 타입의 테이블뷰를 갱신
     for slot_type,_ in pairs(l_modified_slot) do
         local table_view_td = self.m_mTableViewListMap[slot_type]
-        table_view_td:expandTemp(0.5)
+        --table_view_td:expandTemp(0.5)
+        self.m_runeSortManager:changeSort()
         table_view_td:relocateContainer(true)
 
         -- 첫 번째 룬을 선택 (자동)

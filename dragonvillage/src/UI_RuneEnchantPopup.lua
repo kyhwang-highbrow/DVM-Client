@@ -1,11 +1,16 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
+local MAX_RUNE_ENCHANT_MATERIAL_MAX = 30 -- 한 번에 사용 가능한 재료 수
+
 -------------------------------------
 -- class UI_RuneEnchantPopup
 -------------------------------------
 UI_RuneEnchantPopup = class(PARENT, {
         m_tRuneData = 'table',
         m_tableViewMaterials = 'UIC_TableViewTD',
+        m_tableViewSelectedMaterials = 'UIC_TableView',
+        m_runeSortManager = 'RuneSotrManager',
+        m_runeEnchantHelper = 'RuneEnchantHelper',
     })
 
 -------------------------------------
@@ -13,6 +18,7 @@ UI_RuneEnchantPopup = class(PARENT, {
 -------------------------------------
 function UI_RuneEnchantPopup:init(t_rune_data)
     self.m_tRuneData = t_rune_data
+    self.m_runeEnchantHelper = RuneEnchantHelper(t_rune_data)
 
     local vars = self:load('dragon_rune_enhance.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -57,6 +63,14 @@ end
 -------------------------------------
 function UI_RuneEnchantPopup:initUI()
     self:init_runeEnchantMaterials()
+    self:init_runeEnchantSelectedMaterials()
+
+    -- 정렬
+    self.m_runeSortManager = RuneSortManager()
+    self.m_runeSortManager:addTableView(self.m_tableViewMaterials)
+    self.m_runeSortManager:addTableView(self.m_tableViewSelectedMaterials)
+    self.m_runeSortManager.m_bAscendingSort = true -- 오름차순으로 정렬
+    self.m_runeSortManager:changeSort()
 end
 
 -------------------------------------
@@ -82,9 +96,36 @@ function UI_RuneEnchantPopup:init_runeEnchantMaterials()
     table_view_td.m_cellSize = cc.size(105, 105)
     table_view_td.m_nItemPerCell = 5
     table_view_td:setCellUIClass(UI_RuneCard, create_func)
-    table_view_td:setItemList(g_runesData:getRuneEnchantMaterials(roid))
+    local skip_update = true -- 정렬 후 업데이트하기 위해
+    table_view_td:setItemList(g_runesData:getRuneEnchantMaterials(roid), skip_update)
 
     self.m_tableViewMaterials = table_view_td
+end
+
+-------------------------------------
+-- function init_runeEnchantSelectedMaterials
+-------------------------------------
+function UI_RuneEnchantPopup:init_runeEnchantSelectedMaterials()
+    local node = self.vars['materialNode']
+
+    -- 리스트 아이템 생성 콜백
+    local function create_func(ui, data)
+        ui.root:setScale(0.6)
+        
+        local function click_func()
+            local t_rune_data = data
+            self:click_enchantMaterial(t_rune_data)
+        end
+        ui.vars['clickBtn']:registerScriptTapHandler(click_func)
+    end
+
+    -- 테이블뷰 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(90, 90)
+    table_view:setCellUIClass(UI_RuneCard, create_func)
+    table_view:setItemList({})
+
+    self.m_tableViewSelectedMaterials = table_view
 end
 
 -------------------------------------
@@ -92,9 +133,7 @@ end
 -------------------------------------
 function UI_RuneEnchantPopup:initButton()
     local vars = self.vars
-    --vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
-
-    --enhanceBtn
+    vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
 end
 
 -------------------------------------
@@ -142,6 +181,40 @@ function UI_RuneEnchantPopup:refresh()
 
     -- 세트 효과
     vars['runeSetLabel']:setVisible(false)
+
+    self:refresh_selectedMaterials()
+end
+
+-------------------------------------
+-- function refresh_selectedMaterials
+-- @brief
+-------------------------------------
+function UI_RuneEnchantPopup:refresh_selectedMaterials()
+    local vars = self.vars
+    local material_count = self.m_tableViewSelectedMaterials:getItemCount()
+    vars['selectLabel']:setVisible(true)
+    vars['selectLabel']:setString(Str('선택재료 {1} / {2}', material_count, MAX_RUNE_ENCHANT_MATERIAL_MAX))
+
+    -- 재료 분석
+    local l_rune_material = {}
+    for i,v in ipairs(self.m_tableViewSelectedMaterials.m_itemList) do
+        local t_rune_data = v['data']
+        table.insert(l_rune_material, t_rune_data)
+    end
+
+    -- 갯수에 따라 설명 출력
+    if (material_count <= 0) then
+        vars['infoLabel1']:setVisible(true)
+        vars['infoLabel2']:setVisible(true)
+    else
+        vars['infoLabel1']:setVisible(false)
+        vars['infoLabel2']:setVisible(false)
+    end
+
+    do -- 강화 비용 출력
+        local req_gold = comma_value(self.m_runeEnchantHelper.m_enchantReqGold)
+        vars['enhancePriceLabel']:setString(req_gold)
+    end
 end
 
 -------------------------------------
@@ -149,8 +222,60 @@ end
 -- @brief 룬 강화 재료 클릭
 -------------------------------------
 function UI_RuneEnchantPopup:click_enchantMaterial(t_rune_data)
-    ccdump(t_rune_data)
+    local roid = t_rune_data['id']
+
+    local material_item = self.m_tableViewMaterials:getItem(roid)
+    local item = self.m_tableViewSelectedMaterials:getItem(roid)
+
+    -- 해제
+    if item then
+        material_item['ui'].vars['disableSprite']:setVisible(false)
+        self.m_tableViewSelectedMaterials:delItem(roid)
+
+        -- 해제
+        self.m_runeEnchantHelper:removeRuneEnchantMaterial(roid)
+
+    -- 추가
+    else
+        -- 선택된 재료 갯수
+        local material_count = self.m_tableViewSelectedMaterials:getItemCount()
+
+        -- 최대 재료 갯수 체크
+        if (material_count >= MAX_RUNE_ENCHANT_MATERIAL_MAX) then
+            UIManager:toastNotificationRed(Str('한 번에 최대 {1}개까지 가능합니다.', MAX_RUNE_ENCHANT_MATERIAL_MAX))
+            return
+        end
+
+        -- 추가
+        self.m_runeEnchantHelper:addRuneEnchantMaterial(t_rune_data)
+
+        material_item['ui'].vars['disableSprite']:setVisible(true)
+        self.m_tableViewSelectedMaterials:addItem(roid, t_rune_data)
+        self.m_tableViewSelectedMaterials:expandTemp(0.5)
+    end
+
+    self.m_runeSortManager:changeSort()
+    self:refresh_selectedMaterials()
 end
+
+-------------------------------------
+-- function click_enhanceBtn
+-- @brief
+-------------------------------------
+function UI_RuneEnchantPopup:click_enhanceBtn()
+    if (self.m_runeEnchantHelper.m_materialCnt <= 0) then
+        UIManager:toastNotificationRed(Str('재료 룬을 선택해주세요!'))
+        return
+    end
+
+    local function cb_func(ret)
+        ccdump(ret)
+    end
+
+    local roid, src_roids = self.m_runeEnchantHelper:getRuneEnchantRequestParams()
+    --g_runesData:requestRuneEnchant(roid, src_roids, cb_func)
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_RuneEnchantPopup)

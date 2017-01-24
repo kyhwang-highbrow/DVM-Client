@@ -82,6 +82,8 @@ local t_module = {
     'AreaOfEffectHelper',
     'ShaderCache',
     'DragonSortManager',
+    'RuneSortManager',
+    'RuneEnchantHelper',
     'SimplePrimitivesDraw',
     	
     -- Table

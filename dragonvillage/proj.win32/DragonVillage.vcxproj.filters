@@ -1342,6 +1342,13 @@
     <None Include="..\src\UI_RuneEnchantPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableRuneGrade.lua" />
+    <None Include="..\src\RuneSortManager.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\RuneEnchantHelper.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
