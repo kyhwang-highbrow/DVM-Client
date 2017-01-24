@@ -1,0 +1,13 @@
+
+blackdragon_dark_01.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blackdragon_dark_01_body_01
+  rotate: false
+  xy: 2, 2
+  size: 298, 446
+  orig: 298, 446
+  offset: 0, 0
+  index: -1
