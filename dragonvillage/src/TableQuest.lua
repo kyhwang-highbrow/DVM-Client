@@ -21,7 +21,7 @@ end
 function TableQuest:getQuestListByType(quest_type)
     local l_quest = self:filterList('type', quest_type)
 
-	-- qid ÀÛÀº ¼ø¼­´ë·Î Á¤·Ä
+	-- qid ì‘ì€ ìˆœì„œëŒ€ë¡œ ì •ë ¬
 	table.sort(l_quest, function(a, b) 
 		return tonumber(a['qid']) < tonumber(b['qid'])
 	end)

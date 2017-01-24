@@ -19,10 +19,10 @@ end
 
 -------------------------------------
 -- function addTab
--- @breif ÅÇ Ãß°¡
--- @param tab       ÅÇÀÇ ÀÌ¸§
--- @param button    ÅÇÀ¸·Î »ç¿ëµÉ ¹öÆ°
--- @param ...       ÅÇ ÀüÈ¯ ½Ã on/offµÉ UIµé
+-- @breif íƒ­ ì¶”ê°€
+-- @param tab       íƒ­ì˜ ì´ë¦„
+-- @param button    íƒ­ìœ¼ë¡œ ì‚¬ìš©ë  ë²„íŠ¼
+-- @param ...       íƒ­ ì „í™˜ ì‹œ on/offë  UIë“¤
 -------------------------------------
 function ITabUI:addTab(tab, button, ...)
     local t_tab_data = {}
@@ -43,7 +43,7 @@ function ITabUI:setTab(tab, force)
         return
     end
     
-    -- ±âº» ÅÇÀÌ ¼³Á¤µÇ¾îÀÖÁö ¾ÊÀº °æ¿ì ÃÊ±âÈ­
+    -- ê¸°ë³¸ íƒ­ì´ ì„¤ì •ë˜ì–´ìˆì§€ ì•Šì€ ê²½ìš° ì´ˆê¸°í™”
     if (self.m_bInitDefaultTab == false) then
         for i,v in pairs(self.m_mTabData) do
             if (i ~= tab) then

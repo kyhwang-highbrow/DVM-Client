@@ -16,7 +16,7 @@ end
 
 -------------------------------------
 -- function getRewardItem
--- @brief º¸»ó¿ë ¾ÆÀÌÅÛ ID¸¦ Ã£´Â´Ù
+-- @brief ë³´ìƒìš© ì•„ì´í…œ IDë¥¼ ì°¾ëŠ”ë‹¤
 -------------------------------------
 function TableItem:getRewardItem(reward_type)
 	local reward_item_type = reward_type .. '_r'

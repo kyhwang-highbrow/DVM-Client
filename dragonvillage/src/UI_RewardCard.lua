@@ -9,7 +9,7 @@ UI_RewardCard = class(PARENT, {
 
 -------------------------------------
 -- function init
--- @param1 type : item type -> ½ºÆ®¸µÀ¸·Î ¹Ş°í setItemData ¿¡¼­ item_id ·Î ¹Ù²ãÁØ´Ù
+-- @param1 type : item type -> ìŠ¤íŠ¸ë§ìœ¼ë¡œ ë°›ê³  setItemData ì—ì„œ item_id ë¡œ ë°”ê¿”ì¤€ë‹¤
 -------------------------------------
 function UI_RewardCard:init(type, count)
 	self.m_itemType = type

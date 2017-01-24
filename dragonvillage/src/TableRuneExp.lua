@@ -18,7 +18,7 @@ end
 
 -------------------------------------
 -- function getRuneMaxLevel
--- @brief ·éÀÇ µî±Şº° ÃÖ´ë ·¹º§À» ¾ò¾î¿È
+-- @brief ë£¬ì˜ ë“±ê¸‰ë³„ ìµœëŒ€ ë ˆë²¨ì„ ì–»ì–´ì˜´
 -------------------------------------
 function TableRuneExp:getRuneMaxLevel(grade)
     if (not self.m_lMaxLevel) then
