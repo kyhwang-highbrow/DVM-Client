@@ -698,6 +698,9 @@ function UIC_TableViewTD:delItem(unique_id)
 
     if idx then
         table.remove(self.m_itemList, idx)
+        return true
+    else
+        return false
     end
 end
 

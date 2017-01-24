@@ -77,6 +77,42 @@ function ServerData_Runes:applyRuneData(t_rune_data)
 end
 
 -------------------------------------
+-- function deleteRuneData_list
+-- @brief 서버에서 넘어오는 룬 삭제
+-------------------------------------
+function ServerData_Runes:deleteRuneData_list(l_rune_roid)
+    g_serverData:lockSaveData()
+    for i,v in pairs(l_rune_roid) do
+        local roid = v
+        self:deleteRuneData(roid)
+    end
+    g_serverData:unlockSaveData()
+end
+
+-------------------------------------
+-- function deleteRuneData
+-- @brief 서버에서 넘어오는 룬 삭제
+-------------------------------------
+function ServerData_Runes:deleteRuneData(roid)
+    -- 보유중인 룬에서 t_rune_data정보가 있는지 확인
+    local l_runes = self.m_serverData:getRef('runes')
+
+    local idx = nil
+    if l_runes then
+        for i,v in pairs(l_runes) do
+            if (roid == v['id']) then
+                idx = i
+                break
+            end
+        end
+    end
+
+    if idx then
+        self.m_serverData:applyServerData(nil, 'runes', idx)
+    end
+end
+
+-------------------------------------
 -- function makeRuneInfomation
 -- @brief
 -------------------------------------
@@ -316,6 +352,15 @@ function ServerData_Runes:requestRuneEnchant(roid, src_roids, cb_func)
     -- 성공 시 콜백
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
+
+        
+        if (ret['deleted_rune_oid']) then -- @TODO sgkim 'deleted_rune_oids' or 'deleted_runes_oid' 으로 변경할 것
+            g_runesData:deleteRuneData_list(ret['deleted_rune_oid'])
+        end
+
+        if (ret['rune']) then -- @TODO sgkim 'modified_rune'으로 변경할 것
+            g_runesData:applyRuneData(ret['rune'])
+        end
 
         if cb_func then
             cb_func(ret)

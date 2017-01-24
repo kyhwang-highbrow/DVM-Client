@@ -11,6 +11,9 @@ UI_RuneEnchantPopup = class(PARENT, {
         m_tableViewSelectedMaterials = 'UIC_TableView',
         m_runeSortManager = 'RuneSotrManager',
         m_runeEnchantHelper = 'RuneEnchantHelper',
+
+        m_bDirtyRuneData = 'boolean', -- 강화를 시도하여 정보가 변경되었는지 여ㅂ
+        m_lDeletedRuneRoid = 'list', -- 재료로 사용되어 삭제된 룬 리스트
     })
 
 -------------------------------------
@@ -19,6 +22,8 @@ UI_RuneEnchantPopup = class(PARENT, {
 function UI_RuneEnchantPopup:init(t_rune_data)
     self.m_tRuneData = t_rune_data
     self.m_runeEnchantHelper = RuneEnchantHelper(t_rune_data)
+    self.m_bDirtyRuneData = false
+    self.m_lDeletedRuneRoid = {}
 
     local vars = self:load('dragon_rune_enhance.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -165,7 +170,11 @@ function UI_RuneEnchantPopup:refresh()
     vars['mainOptionLabel']:setString(str)
     str = TableRuneStatus:makeRuneOptionStr(t_rune_information['status']['mopt'], 'value')
     vars['mainOptionStatusLabel']:setString(str)
-    do -- 다음 레벨의 메인 옵션
+
+    -- 다음 레벨의 메인 옵션
+    if t_rune_information['is_max_lv'] then
+        vars['mainOptionStatusUpLabel']:setString('')
+    else 
         local next_lv_t_rune_data = clone(t_rune_data)
         next_lv_t_rune_data['lv'] = (next_lv_t_rune_data['lv'] + 1)
         local l_next_lv_rune_status = ServerData_Runes:makeRuneStatus(next_lv_t_rune_data)
@@ -269,11 +278,38 @@ function UI_RuneEnchantPopup:click_enhanceBtn()
     end
 
     local function cb_func(ret)
-        ccdump(ret)
+        -- 강화를 시도하여 정보가 갱신되었음
+        self.m_bDirtyRuneData = true
+
+        -- 재료 리스트에서 사용된 아이템 삭제
+        for i,v in ipairs(ret['deleted_rune_oid']) do
+            local roid = v
+            self.m_tableViewMaterials:delItem(roid)
+
+            -- 삭제된 roid를 저장
+            table.insert(self.m_lDeletedRuneRoid, roid)
+        end
+
+        self.m_tableViewSelectedMaterials:clearItemList()
+        self.m_runeSortManager:changeSort()
+
+        local roid = ret['rune']['id']
+        self.m_tRuneData = g_runesData:getRuneData(roid)
+        self.m_runeEnchantHelper = RuneEnchantHelper(self.m_tRuneData)
+        self:refresh()
+
+        local t_rune_data = g_runesData:getRuneData(roid)
+        if t_rune_data['information']['is_max_lv'] then
+            self:close()
+
+            local full_name = t_rune_data['information']['full_name']
+            local msg = Str('축하합니다.\n"{1}"의 최대 강화 단계를 달성하였습니다.', full_name)
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+        end
     end
 
     local roid, src_roids = self.m_runeEnchantHelper:getRuneEnchantRequestParams()
-    --g_runesData:requestRuneEnchant(roid, src_roids, cb_func)
+    g_runesData:requestRuneEnchant(roid, src_roids, cb_func)
 end
 
 

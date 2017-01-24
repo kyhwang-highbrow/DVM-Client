@@ -63,7 +63,6 @@ function UI_DragonMgrRunes:init(doid, slot_idx)
     self.m_runeSortManager = RuneSortManager()
 
     self:initUI()
-    self:initUI_runeTab(slot_idx) -- 룬 Tab 설정
     self:initButton()
     self:refresh()
 
@@ -72,6 +71,8 @@ function UI_DragonMgrRunes:init(doid, slot_idx)
 
     -- 첫 선택 드래곤 지정
     self:setDefaultSelectDragon(doid)
+
+    self:initUI_runeTab(slot_idx) -- 룬 Tab 설정
 end
 
 -------------------------------------
@@ -118,52 +119,20 @@ function UI_DragonMgrRunes:onChangeTab(tab)
 
     local vars = self.vars
 
-    if roid and (roid ~= '') then
-        vars['useMenu']:setVisible(true)
-
-        local t_rune_infomation, t_rune_data = g_runesData:getRuneInfomation(roid)
-        vars['useRuneNameLabel']:setString(t_rune_infomation['full_name'])
-
-        do -- 룬 아이콘
-            vars['useRuneNode']:removeAllChildren()
-            local icon = UI_RuneCard(t_rune_data)
-            vars['useRuneNode']:addChild(icon.root)
-
-            cca.uiReactionSlow(icon.root)
-        end
-
-        local t_rune_information = t_rune_data['information']
-
-        -- 주옵션 문자열
-        local main_option_str = TableRuneStatus:makeRuneOptionStr(t_rune_information['status']['mopt'])
-        vars['useMainOptionLabel']:setString(main_option_str)
-
-        -- 부옵션 문자열
-        local sub_option_str = TableRuneStatus:makeRuneOptionStr(t_rune_information['status']['sopt'])
-        vars['useSubOptionLabel']:setString(sub_option_str)
-
-        -- 세트 효과
-        vars['useRuneSetLabel']:setVisible(false)
-
-        -- 강화 버튼
-        vars['useEnhanceBtn']:setVisible(not t_rune_information['is_max_lv'])
-
-        self.m_usedRuneData = t_rune_data
-
-        cca.uiReactionSlow(vars['useMenu'], 1, 1, 0.98)
-    else
-        self.m_usedRuneData = nil
-        vars['useMenu']:setVisible(false)
-    end
-
     -- 재료 리스트뷰 초기화
     self:init_runeTableView(rune_slot_type)
 
-    
+    -- 장착중인 룬 정보 갱신
+    self:refresh_useMenu()
+
+    -- 선택중인 룬 정보 갱신
+    self:setSelectedRuneData(nil)
+
     do
         local table_view = self.m_mTableViewListMap[rune_slot_type]
         self.m_runeSortManager:clearTableView(table_view)
         self.m_runeSortManager:changeSort()
+        table_view:relocateContainer(false)
     end
 end
 
@@ -194,6 +163,11 @@ function UI_DragonMgrRunes:init_runeTableView(rune_slot_type)
                 local t_rune_data = data
                 self:setSelectedRuneData(t_rune_data)
             end)
+
+            -- 선택중인 아이콘일 경우 하일라이트
+            if self.m_selectedRuneData and (self.m_selectedRuneData['id'] == data['id']) then
+                ui.vars['highlightSprite']:setVisible(true)
+            end
         end
 
         -- 테이블 뷰 인스턴스 생성
@@ -207,6 +181,7 @@ function UI_DragonMgrRunes:init_runeTableView(rune_slot_type)
         self.m_mTableViewListMap[rune_slot_type] = table_view_td
     end
 
+    --[[
     -- 첫 번째 룬을 선택 (자동)
     local table_view_td = self.m_mTableViewListMap[rune_slot_type]
     if (not self.m_selectedRuneData) or (not table_view_td:getItem(self.m_selectedRuneData['id'])) then
@@ -214,6 +189,7 @@ function UI_DragonMgrRunes:init_runeTableView(rune_slot_type)
         local t_first_rune_data = (t_first_item and t_first_item['data'])
         self:setSelectedRuneData(t_first_rune_data)
     end
+    --]]
 end
 
 -------------------------------------
@@ -283,8 +259,21 @@ function UI_DragonMgrRunes:refresh()
             end
         end
     end
+end
 
-    self:refreshCurrTab()
+-------------------------------------
+-- function getRuneIconInMaterialTableView
+-- @brief
+-------------------------------------
+function UI_DragonMgrRunes:getRuneIconInMaterialTableView(roid)
+    for slot_type,table_view in pairs(self.m_mTableViewListMap) do
+        local item = table_view:getItem(roid)
+        if item then
+            return item['ui']
+        end
+    end
+
+    return nil
 end
 
 -------------------------------------
@@ -292,8 +281,82 @@ end
 -- @brief 인벤상에서 선택된 룬
 -------------------------------------
 function UI_DragonMgrRunes:setSelectedRuneData(t_rune_data)
+    -- 선택 아이콘 제거
+    if self.m_selectedRuneData then
+        local roid = self.m_selectedRuneData['id']
+        local ui = self:getRuneIconInMaterialTableView(roid)
+        if ui then
+            ui.vars['highlightSprite']:setVisible(false)
+        end
+    end
+
     self.m_selectedRuneData = t_rune_data
     self:refresh_selectMenu(t_rune_data)
+
+    -- 선택 아이콘 표시
+    if self.m_selectedRuneData then
+        local roid = self.m_selectedRuneData['id']
+        local ui = self:getRuneIconInMaterialTableView(roid)
+        if ui then
+            ui.vars['highlightSprite']:setVisible(true)
+        end
+    end
+end
+
+-------------------------------------
+-- function refresh_useMenu
+-- @brief 드래곤에 장착된 룬의 정보 표시
+-------------------------------------
+function UI_DragonMgrRunes:refresh_useMenu()
+    local t_dragon_data = self.m_selectDragonData
+
+    if (not t_dragon_data) then
+        return
+    end
+
+    local t_runes = t_dragon_data['runes']
+    local rune_slot_type = self.m_currTab
+    local roid = t_runes[rune_slot_type]
+
+    local vars = self.vars
+
+    if roid and (roid ~= '') then
+        vars['useMenu']:setVisible(true)
+
+        local t_rune_infomation, t_rune_data = g_runesData:getRuneInfomation(roid)
+        vars['useRuneNameLabel']:setString(t_rune_infomation['full_name'])
+
+        do -- 룬 아이콘
+            vars['useRuneNode']:removeAllChildren()
+            local icon = UI_RuneCard(t_rune_data)
+            vars['useRuneNode']:addChild(icon.root)
+
+            cca.uiReactionSlow(icon.root)
+        end
+
+        local t_rune_information = t_rune_data['information']
+
+        -- 주옵션 문자열
+        local main_option_str = TableRuneStatus:makeRuneOptionStr(t_rune_information['status']['mopt'])
+        vars['useMainOptionLabel']:setString(main_option_str)
+
+        -- 부옵션 문자열
+        local sub_option_str = TableRuneStatus:makeRuneOptionStr(t_rune_information['status']['sopt'])
+        vars['useSubOptionLabel']:setString(sub_option_str)
+
+        -- 세트 효과
+        vars['useRuneSetLabel']:setVisible(false)
+
+        -- 강화 버튼
+        vars['useEnhanceBtn']:setVisible(not t_rune_information['is_max_lv'])
+
+        self.m_usedRuneData = t_rune_data
+
+        cca.uiReactionSlow(vars['useMenu'], 1, 1, 0.98)
+    else
+        self.m_usedRuneData = nil
+        vars['useMenu']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -303,9 +366,7 @@ end
 function UI_DragonMgrRunes:refresh_selectMenu(t_rune_data)
     local roid = (t_rune_data and t_rune_data['id'] or nil)
 
-    if (self.m_refreshFlag_selectedRoid == roid) then
-        return
-    end
+    local prev_roid = self.m_refreshFlag_selectedRoid
     self.m_refreshFlag_selectedRoid = roid
 
     local vars = self.vars
@@ -314,6 +375,10 @@ function UI_DragonMgrRunes:refresh_selectMenu(t_rune_data)
         vars['selectMenu']:setVisible(true)
     else
         vars['selectMenu']:setVisible(false)
+        return
+    end
+
+    if (prev_roid == roid) then
         return
     end
 
@@ -400,6 +465,10 @@ function UI_DragonMgrRunes:click_equipBtn()
         self:setSelectDragonDataRefresh()
         self:refresh()
 
+        self:refresh_useMenu()
+        self:setSelectedRuneData(nil)
+        
+
         self.m_bChangeDragonList = true
     end
 
@@ -452,6 +521,12 @@ function UI_DragonMgrRunes:click_removeBtn()
         self:setSelectDragonDataRefresh()
         self:refresh()
 
+        self:refresh_useMenu()
+
+        -- 장착 해제한 룬을 선택
+        local t_rune_data = g_runesData:getRuneData(roid)
+        self:setSelectedRuneData(t_rune_data)
+
         self.m_bChangeDragonList = true
     end
 
@@ -489,6 +564,72 @@ function UI_DragonMgrRunes:click_enhanceBtn(type)
 
     end
     
+    local function close_cb()
+        self:enchantFinishCB(ui, type)
+    end
+
+    ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function enchantFinishCB
+-- @brief 룬 강화 UI 종료 콜백
+-------------------------------------
+function UI_DragonMgrRunes:enchantFinishCB(ui, type)
+    if (not ui.m_bDirtyRuneData) then
+        return
+    end
+    
+    -- 삭제된 룬 테이블 뷰에서 삭제
+    self:solveDeletedRunes_tableView(ui.m_lDeletedRuneRoid)
+
+    -- 장착되어있는 룬 정보 갱신을 위해 초기화
+    if (type == 'used') then
+        local slot_type = self.m_usedRuneData['type']
+        self.m_refreshFlag_mRuneSlotDoid[slot_type] = nil
+        self:refresh_useMenu()
+
+    elseif (type == 'selected') then
+        self.m_refreshFlag_selectedRoid = nil
+
+        local roid = self.m_selectedRuneData['id']
+        local t_rune_data = g_runesData:getRuneData(roid)
+        self:setSelectedRuneData(t_rune_data)
+        self:refresh_materialTableViewRuneIcon(t_rune_data)
+
+    else
+        error('type : ' .. type)
+    end
+
+    -- 드래곤 정보 갱신
+    self:setSelectDragonDataRefresh()
+    self:refresh()
+
+    self.m_bChangeDragonList = true
+end
+
+-------------------------------------
+-- function refresh_materialTableViewRuneIcon
+-- @brief
+-------------------------------------
+function UI_DragonMgrRunes:refresh_materialTableViewRuneIcon(t_rune_data)
+    local roid = t_rune_data['id']
+
+    local l_modified_slot = {}
+
+    for slot_type,table_view in pairs(self.m_mTableViewListMap) do
+        local item = table_view:getItem(roid)
+        if item then
+            table_view:addItem(t_rune_data['id'], t_rune_data)
+            l_modified_slot[slot_type] = true
+        end
+    end
+
+    -- 변경된 룬 타입의 테이블뷰를 갱신
+    for slot_type,_ in pairs(l_modified_slot) do
+        local table_view_td = self.m_mTableViewListMap[slot_type]
+        self.m_runeSortManager:changeSort()
+    end
 end
 
 -------------------------------------
@@ -525,14 +666,46 @@ function UI_DragonMgrRunes:solveModifiedRunes_tableView(l_modified_runes)
     -- 변경된 룬 타입의 테이블뷰를 갱신
     for slot_type,_ in pairs(l_modified_slot) do
         local table_view_td = self.m_mTableViewListMap[slot_type]
-        --table_view_td:expandTemp(0.5)
         self.m_runeSortManager:changeSort()
         table_view_td:relocateContainer(true)
 
+        --[[
         -- 첫 번째 룬을 선택 (자동)
         local t_first_item = table_view_td.m_itemList[1]
         local t_first_rune_data = (t_first_item and t_first_item['data'])
         self:setSelectedRuneData(t_first_rune_data)
+        --]]
+    end
+end
+
+-------------------------------------
+-- function solveDeletedRunes_tableView
+-- @brief
+-------------------------------------
+function UI_DragonMgrRunes:solveDeletedRunes_tableView(l_deleted_runes)
+    local l_modified_slot = {}
+
+    for i,v in ipairs(l_deleted_runes) do
+        local roid = v
+        for slot_type,table_view in pairs(self.m_mTableViewListMap) do
+            if table_view:delItem(roid) then
+                l_modified_slot[slot_type] = true
+            end
+        end 
+    end
+
+    -- 변경된 룬 타입의 테이블뷰를 갱신
+    for slot_type,_ in pairs(l_modified_slot) do
+        local table_view_td = self.m_mTableViewListMap[slot_type]
+        self.m_runeSortManager:changeSort()
+        table_view_td:relocateContainer(false)
+
+        --[[
+        -- 첫 번째 룬을 선택 (자동)
+        local t_first_item = table_view_td.m_itemList[1]
+        local t_first_rune_data = (t_first_item and t_first_item['data'])
+        self:setSelectedRuneData(t_first_rune_data)
+        --]]
     end
 end
 

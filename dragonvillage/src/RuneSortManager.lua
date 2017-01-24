@@ -196,7 +196,10 @@ function RuneSortManager:changeSort(immediately)
             table_view:sortImmediately('sort')
         else
             table_view:sortTableView('sort', true)
-        end    
+        end
+
+        -- 컨테이너가 위치를 벗어났을 경우 보정
+        table_view:relocateContainer(true)
     end
 
     -- 글로벌 설정을 사용할 경우

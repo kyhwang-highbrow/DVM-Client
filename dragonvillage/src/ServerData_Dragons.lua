@@ -34,7 +34,7 @@ end
 -- function getDragonsList
 -------------------------------------
 function ServerData_Dragons:getDragonsList()
-    local l_dragons = self.m_serverData:get('dragons')
+    local l_dragons = self.m_serverData:getRef('dragons')
 
     local l_ret = {}
     for _,v in pairs(l_dragons) do
@@ -50,7 +50,7 @@ end
 -- @brief unique id로 드래곤 정보를 얻음
 -------------------------------------
 function ServerData_Dragons:getDragonDataFromUid(unique_id)
-    local l_dragons = self.m_serverData:get('dragons')
+    local l_dragons = self.m_serverData:getRef('dragons')
 
     for _,v in pairs(l_dragons) do
         if (unique_id == v['id']) then
@@ -66,7 +66,7 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Dragons:applyDragonData(t_dragon)
-    local l_dragons = self.m_serverData:get('dragons')
+    local l_dragons = self.m_serverData:getRef('dragons')
     local unique_id = t_dragon['id']
 
     local idx = nil
@@ -95,7 +95,7 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Dragons:delDragonData(dragon_object_id)
-    local l_dragons = self.m_serverData:get('dragons')
+    local l_dragons = self.m_serverData:getRef('dragons')
 
     local idx = nil
 
