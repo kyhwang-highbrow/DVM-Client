@@ -268,8 +268,8 @@ function MissileLua.lua_bounce(owner)
 
 	-- 월드와 적군 리스트 세팅
 	local world = owner.m_owner.m_world
-	local l_target = world:getEnemyList()
-    
+	local l_target = owner.m_owner:getOpponentList()
+        
 	-- 필요한 변수 선언
 	local duration = 0.7
 	local loop = 1

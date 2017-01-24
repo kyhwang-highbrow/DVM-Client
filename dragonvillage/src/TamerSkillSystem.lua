@@ -74,6 +74,11 @@ function TamerSkillSystem:initTamerSkillBtn(i)
     end
 
     ui.vars['timeGauge' .. i]:setPercentage(0)
+
+    -- 콜로세움일 경우 버튼 숨김
+    if(self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
+         ui.vars['tamerSkillBtn' .. i]:getParent():setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -105,6 +110,11 @@ function TamerSkillSystem:initTamerSpecialSkillBtn()
 
 	-- 사용 가능한 상태로 세팅
     ui.vars['specialTimeGauge']:setPercentage(0)
+
+    -- 콜로세움일 경우 버튼 숨김
+    if(self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
+         ui.vars['specialSkillBtn']:getParent():setVisible(false)
+    end
 end
 
 -------------------------------------

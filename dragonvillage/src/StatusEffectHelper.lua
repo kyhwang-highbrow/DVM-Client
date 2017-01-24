@@ -228,23 +228,18 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 
 	elseif (t_skill['sid'] == 220531) then
 		event_function = function()
-			local ally = char.m_world:getDragonList()
-			local rand = math_random(1, #ally)
-			self:doStatusEffectByStr(char, {ally[rand]}, {t_skill['status_effect_1'], t_skill['status_effect_2']})
+			local allyList = char:getFellowList()
+			local rand = math_random(1, #allyList)
+			self:doStatusEffectByStr(char, {allyList[rand]}, {t_skill['status_effect_1'], t_skill['status_effect_2']})
 		end
 
     elseif (t_skill['sid'] == 220501) then
         -- 번개고룡 패시브 : 번개의 권능
         event_function = function(defender)
             local defender = defender
-            local ally
-            if (char.m_bLeftFormation) then
-                ally = char.m_world:getDragonList()
-            else
-                ally = char.m_world:getEnemyList()
-            end
-
-            self:doStatusEffectByStr(char, ally, {t_skill['status_effect_1'], t_skill['status_effect_2']}, function(target)
+            local allyList = char:getOpponentList()
+            
+            self:doStatusEffectByStr(char, allyList, {t_skill['status_effect_1'], t_skill['status_effect_2']}, function(target)
                 EffectMotionStreak(target.m_world, defender.pos.x, defender.pos.y, target.pos.x, target.pos.y, 'res/effect/motion_streak/motion_streak_emblem_tree.png')
             end)
         end
@@ -464,7 +459,7 @@ function StatusEffectHelper:checkPassiveActivation(char, chance_value, t_status_
 
 		-- characterlist 순회
 		-- @TODO list 가져오는것 수정해야함
-		for i, character in pairs(char.m_world:getDragonList()) do
+		for i, character in pairs(char:getFellowList()) do
 			if (character:getAttribute() == attr) then
 				match_count = match_count + 1
 			end

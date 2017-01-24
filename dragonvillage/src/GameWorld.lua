@@ -227,7 +227,11 @@ end
 -------------------------------------
 function GameWorld:initGame(stage_name)
     -- 웨이브 매니져 생성
-    self.m_waveMgr = WaveMgr(self, stage_name, self.m_bDevelopMode)
+    if (self.m_gameMode == GAME_MODE_COLOSSEUM) then
+        self.m_waveMgr = WaveMgr_Colosseum(self, stage_name, self.m_bDevelopMode)
+    else
+        self.m_waveMgr = WaveMgr(self, stage_name, self.m_bDevelopMode)
+    end
     
 	-- 배경 생성
     self:initBG(self.m_waveMgr)
@@ -656,22 +660,6 @@ function GameWorld:getCharList(team)
 end
 
 -------------------------------------
--- function getOpponentsCharList
--- @brief 상대편팀 캐릭터 리스트 리턴
--- @param  team 'ally' or 'enemy'
--- @return table
--------------------------------------
-function GameWorld:getOpponentsCharList(bLeftFormation)
-    if (bLeftFormation) then
-        return self:getEnemyList()
-
-    else
-        return self:getDragonList()
-    end
-end
-
-
--------------------------------------
 -- function addEnemy
 -- @param enemy
 -------------------------------------
@@ -782,17 +770,22 @@ function GameWorld:removeHero(hero)
     -- 게임 종료 체크(모든 영웅이 죽었을 경우)
     local hero_count = table.count(self.m_mHeroList)
     if (hero_count <= 0) then
-		if (self.m_bDevelopMode) then 
-			-- 개발 스테이지에서는 드래곤이 전부 죽을 시 드래곤을 되살리고 스테이지 초기화 한다 
-			self.m_mHeroList = {}
-			self.m_participants = {}
+        if (self.m_gameMode == GAME_MODE_COLOSSEUM) then
+            self.m_gameState:changeState(GAME_STATE_FAILURE)
+        else
+		    if (self.m_bDevelopMode) then 
+			    -- 개발 스테이지에서는 드래곤이 전부 죽을 시 드래곤을 되살리고 스테이지 초기화 한다 
+			    self.m_mHeroList = {}
+			    self.m_participants = {}
 			
-			self:makeHeroDeck()
+			    self:makeHeroDeck()
 						
-			self:killAllEnemy()
-		else
-			self.m_gameState:changeState(GAME_STATE_FAILURE)
-		end
+			    self:killAllEnemy()
+		    else
+			    self.m_gameState:changeState(GAME_STATE_FAILURE)
+		    end
+        end
+
 	-- 대기 및 친구 드래곤 구현시 살림 @ms 16.11.25
 	--[[
     else
@@ -977,8 +970,10 @@ function GameWorld:onKeyReleased(keyCode, event)
         for _,dragon in pairs(self:getDragonList()) do
             dragon:updateActiveSkillCoolTime(100)
         end
-        self.m_tamerSkillSystem.m_isUseSpecialSkill = false
-		self.m_tamerSkillSystem:resetCoolTime()
+        if (self.m_tamerSkillSystem) then
+            self.m_tamerSkillSystem.m_isUseSpecialSkill = false
+		    self.m_tamerSkillSystem:resetCoolTime()
+        end
 
 	-- 미션 성공
     elseif (keyCode == KEY_V) then
@@ -1021,6 +1016,24 @@ function GameWorld:onKeyReleased(keyCode, event)
         for _,v in ipairs(self:getDragonList()) do
 			cclog('---------------')
 			cclog(' DRAGON : ' .. v.m_charTable['t_name'])
+            cclog('state = ' .. v.m_state)
+            cclog('------status list')
+            for type, se in pairs(v:getStatusEffectList()) do
+				cclog(type, se.m_overlabCnt)
+			end
+			cclog('------overlab list')
+			for type, se in pairs(v.m_tOverlabStatusEffect) do
+				cclog(type)
+			end
+			cclog('=============================')
+
+        end
+
+    elseif (keyCode == KEY_X) then
+		cclog('#### 적군의 상태, 버프, 디버프 및 패시브 적용 확인 ')
+        for _,v in ipairs(self:getEnemyList()) do
+			cclog('---------------')
+			cclog(' ENEMY : ' .. v.m_charTable['t_name'])
             cclog('state = ' .. v.m_state)
             cclog('------status list')
             for type, se in pairs(v:getStatusEffectList()) do

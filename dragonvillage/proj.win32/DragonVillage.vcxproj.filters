@@ -1335,6 +1335,10 @@
     <None Include="..\src\TableRuneExp.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableRuneGrade.lua" />
+    <None Include="..\src\UI_GameColosseum.lua">
+      <Filter>lua\UI</Filter>
+    </None>
     <None Include="..\src\UI_RuneEnchantPopup.lua">
       <Filter>lua\UI</Filter>
     </None>

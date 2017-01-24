@@ -589,7 +589,7 @@ end
 -------------------------------------
 -- function initActiveSkillCoolTime
 -------------------------------------
-function Dragon:initActiveSkillCoolTime()
+function Dragon:initActiveSkillCoolTime(percentage)
     -- 액티브 스킬 쿨타임 지정
     local active_skil_id = self:getSkillID('active')
 
@@ -603,6 +603,14 @@ function Dragon:initActiveSkillCoolTime()
     self.m_activeSkillCoolTime = tonumber(t_skill['cooldown'])
     
     self.m_activeSkillTimer = 100
+
+    if (percentage) then
+        self.m_activeSkillTimer = self.m_activeSkillCoolTime * percentage / 100
+    end
+
+    if (self.m_infoUI) then
+        self.m_infoUI.vars['skillGauge']:setPercentage(self.m_activeSkillTimer / self.m_activeSkillCoolTime * 100)
+    end
 end
 
 -------------------------------------

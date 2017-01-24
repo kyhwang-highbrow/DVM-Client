@@ -16,6 +16,8 @@ end
 -- function addListener
 -------------------------------------
 function IEventDispatcher:addListener(event_name, listener)
+    if (not listener) then return end
+
     if (not self.m_lEventListener[event_name]) then
         self.m_lEventListener[event_name] = {}
     end
@@ -29,6 +31,8 @@ end
 -- function removeListener
 -------------------------------------
 function IEventDispatcher:removeListener(event_name, listener)
+    if (not listener) then return end
+
     if (not self.m_lEventListener[event_name]) then
         error('removeListener no event_name : ' .. event_name)
     end

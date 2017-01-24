@@ -306,6 +306,7 @@ local t_module = {
 	'TamerSpecialSkillCombination',
 
 	'WaveMgr',
+    'WaveMgr_Colosseum',
     'DynamicWave',
 
     -- UIC (UI Component)
@@ -336,6 +337,7 @@ local t_module = {
     'LobbyUserStatusUI',
     'LobbyItemBox',
     'UI_Game',
+    'UI_GameColosseum',
     'UI_GameResultNew',
     'UI_GameResult_NestDungeon',
     'UI_GamePause',

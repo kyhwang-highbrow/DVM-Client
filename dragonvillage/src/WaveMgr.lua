@@ -38,15 +38,12 @@ function WaveMgr:init(world, stage_name, develop_mode)
     self.m_bDevelopMode = develop_mode or (stage_name == 'stage_dev') or false
 
     if self.m_scriptData then
-        if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
-            self.m_maxWave = 1
-            
-        else
+        if (self.m_scriptData['wave']) then
             self.m_maxWave = #self.m_scriptData['wave']
-        
-            -- 소환 몬스터 정보
-	        self:setSummonData(self.m_scriptData)
         end
+        
+        -- 소환 몬스터 정보
+	    self:setSummonData(self.m_scriptData)
     end
 
     -- 리스너 등록

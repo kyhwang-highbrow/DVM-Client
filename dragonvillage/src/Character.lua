@@ -1061,7 +1061,11 @@ function Character:calcAttackPeriod()
         if (self.m_bLeftFormation) then
             self.m_attackPeriod = 0
         else
-            self.m_attackPeriod = self.m_statusCalc.m_attackTick * math_random(1, 100) / 100
+            if (self.m_charType == 'dragon') then
+                self.m_attackPeriod = 0
+            else
+                self.m_attackPeriod = self.m_statusCalc.m_attackTick * math_random(1, 100) / 100
+            end
         end
     else
         self.m_attackPeriod = self.m_statusCalc.m_attackTick
@@ -1701,6 +1705,17 @@ function Character:getFellowList()
 		return self.m_world:getDragonList()
 	else
 		return self.m_world:getEnemyList()
+	end
+end
+
+-------------------------------------
+-- function getOpponentList
+-------------------------------------
+function Character:getOpponentList()
+	if (self.m_bLeftFormation) then 
+		return self.m_world:getEnemyList()
+	else
+		return self.m_world:getDragonList()
 	end
 end
 

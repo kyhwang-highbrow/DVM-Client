@@ -23,6 +23,8 @@ function GameState_Colosseum:initState()
     PARENT.initState(self)
     self:addState(GAME_STATE_START, GameState_Colosseum.update_start)
     self:addState(GAME_STATE_FIGHT, GameState_Colosseum.update_fight)
+    self:addState(GAME_STATE_SUCCESS, GameState_Colosseum.update_success)
+    self:addState(GAME_STATE_FAILURE, GameState_Colosseum.update_failure)
 end
 
 -------------------------------------
@@ -105,5 +107,73 @@ function GameState_Colosseum.update_fight_fever(self, dt)
 
     if self.m_gameAutoEnemy then
         self.m_gameAutoEnemy:update(dt) 
+    end
+end
+
+-------------------------------------
+-- function update_success
+-------------------------------------
+function GameState_Colosseum.update_success(self, dt)
+    
+    if (self.m_stateTimer == 0) then
+        local world = self.m_world
+
+        -- 모든 적들을 죽임
+        world:killAllEnemy()
+
+        world:setWaitAllCharacter(false) -- 포즈 연출을 위해 wait에서 해제
+
+        for i,dragon in ipairs(world:getDragonList()) do
+            if (dragon.m_bDead == false) then
+                dragon:killStateDelegate()
+                dragon:changeState('success_pose') -- 포즈 후 오른쪽으로 사라짐
+            end
+        end
+
+        g_gameScene.m_inGameUI:doActionReverse(function()
+            g_gameScene.m_inGameUI.root:setVisible(false)
+        end)
+
+        self.m_stateParam = true
+
+        self.m_world:dispatch('stage_clear')
+
+    elseif (self.m_stateTimer >= 3.5) then
+        if self.m_stateParam then
+            self.m_stateParam = false
+
+            local scene = SceneAdventure()
+            scene:runScene()
+        end
+    end
+end
+
+-------------------------------------
+-- function update_failure
+-------------------------------------
+function GameState_Colosseum.update_failure(self, dt)
+    if (self.m_stateTimer == 0) then
+
+        local world = self.m_world
+        
+        for i,enemy in ipairs(world:getEnemyList()) do
+            if (enemy.m_bDead == false) then
+                enemy.m_animator:changeAni('pose_1', true)
+            end
+        end
+
+        g_gameScene.m_inGameUI:doActionReverse(function()
+            g_gameScene.m_inGameUI.root:setVisible(false)
+        end)
+
+        self.m_stateParam = true
+
+    elseif (self.m_stateTimer >= 3.5) then
+        if self.m_stateParam then
+            self.m_stateParam = false
+
+            local scene = SceneAdventure()
+            scene:runScene()
+        end
     end
 end

@@ -14,6 +14,7 @@ SceneGameColosseum = class(PARENT, {})
 -------------------------------------
 function SceneGameColosseum:init(game_key, stage_id, stage_name, develop_mode)
     self.m_stageName = 'stage_colosseum'
+    self.m_bDevelopMode = true
 end
 
 -------------------------------------
@@ -34,7 +35,7 @@ function SceneGameColosseum:onEnter()
 
     SoundMgr:playBGM('bgm_nest_battle')
     
-    self.m_inGameUI = UI_Game(self)
+    self.m_inGameUI = UI_GameColosseum(self)
     self.m_resPreloadMgr = ResPreloadMgr()
 end
 

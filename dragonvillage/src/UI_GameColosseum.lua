@@ -1,14 +1,14 @@
 -------------------------------------
--- class UI_Game
+-- class UI_GameColosseum
 -------------------------------------
-UI_Game = class(UI, {
+UI_GameColosseum = class(UI, {
         m_gameScene = '',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Game:init(game_scene)
+function UI_GameColosseum:init(game_scene)
     self.m_gameScene = game_scene
 
     local vars = self:load('ingame_scene_new.ui')
@@ -26,37 +26,32 @@ function UI_Game:init(game_scene)
     --label:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
     vars['hitNode']:addChild(label)
     vars['hitLabel'] = label
-    vars['goldLabel']:setString('0')
-
-    -- 스테이지명 지정
-    local stage_name = g_stageData:getStageName(self.m_gameScene.m_stageID)
-    vars['stageLabel']:setString(stage_name)
     
-    -- 연속 전투 정보
-    do
-        self:setAutoPlayUI()
-    end
-
     -- 2배속
     do
         vars['speedVisual']:setVisible(g_autoPlaySetting:get('quick_mode'))
     end
 
     -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_pauseButton() end, 'UI_Game')
+    --g_currScene:pushBackKeyListener(self, function() self:click_pauseButton() end, 'UI_GameColosseum')
+    vars['pauseButton']:setVisible(false)
+
+    vars['autoStartNode']:setVisible(false)
+    vars['autoStartButton']:setVisible(false)
+    vars['waveVisual']:setVisible(false)
+    vars['goldNode']:setVisible(false)
 end
 
 -------------------------------------
 -- function click_autoStartButton
 -------------------------------------
-function UI_Game:click_autoStartButton()
+function UI_GameColosseum:click_autoStartButton()
     self.m_gameScene:gamePause()
 
     local function close_cb()
         -- 설정된 정보로 UI 변경
         self:setAutoMode(g_autoPlaySetting:get('auto_mode'))
-        self:setAutoPlayUI()
-
+        
         self.m_gameScene:gameResume()
     end
 
@@ -67,7 +62,7 @@ end
 -------------------------------------
 -- function click_pauseButton
 -------------------------------------
-function UI_Game:click_pauseButton()
+function UI_GameColosseum:click_pauseButton()
     local stage_id = self.m_gameScene.m_stageID
     local game_mode = self.m_gameScene.m_gameMode
 
@@ -89,7 +84,7 @@ end
 -------------------------------------
 -- function click_feverButton
 -------------------------------------
-function UI_Game:click_feverButton()
+function UI_GameColosseum:click_feverButton()
 	local game_fever = self.m_gameScene.m_gameWorld.m_gameFever
     if not game_fever:isActive() then
         game_fever:addFeverPoint(100)
@@ -99,7 +94,7 @@ end
 -------------------------------------
 -- function click_autoButton
 -------------------------------------
-function UI_Game:click_autoButton()
+function UI_GameColosseum:click_autoButton()
     local gameAuto = self.m_gameScene.m_gameWorld.m_gameAuto
 
     self:setAutoMode(not gameAuto:isActive())
@@ -108,7 +103,7 @@ end
 -------------------------------------
 -- function click_speedButton
 -------------------------------------
-function UI_Game:click_speedButton()
+function UI_GameColosseum:click_speedButton()
 	local gameTimeScale = self.m_gameScene.m_gameWorld.m_gameTimeScale
 
     if (gameTimeScale:getBase() >= QUICK_MODE_TIME_SCALE) then
@@ -133,7 +128,7 @@ end
 -- @brief 인게임에서 실시간으로 각종 설정을 할 수 있도록 하는 UI생성
 --        모든 기능은 UI_GameDebug안에서 구현
 -------------------------------------
-function UI_Game:init_debugUI()
+function UI_GameColosseum:init_debugUI()
     local debug_ui = UI_GameDebug()
     self.root:addChild(debug_ui.root)
 end
@@ -142,7 +137,7 @@ end
 -- function setGold
 -- @brief 
 -------------------------------------
-function UI_Game:setGold(gold)    
+function UI_GameColosseum:setGold(gold)    
     self.vars['goldLabel']:setString(comma_value(gold))
 
     local action_node = self.vars['goldNode']
@@ -161,7 +156,7 @@ end
 -- function setAutoMode
 -- @brief 자동 모드 설정
 -------------------------------------
-function UI_Game:setAutoMode(b)
+function UI_GameColosseum:setAutoMode(b)
     local gameAuto = self.m_gameScene.m_gameWorld.m_gameAuto
     if (gameAuto:isActive() == b) then return end
     
@@ -179,16 +174,4 @@ function UI_Game:setAutoMode(b)
 
         g_autoPlaySetting:set('auto_mode', false)
     end
-end
-
--------------------------------------
--- function setAutoPlayUI
--- @brief 연속 전투 정보 UI
--------------------------------------
-function UI_Game:setAutoPlayUI()
-    local vars = self.vars
-
-    vars['autoStartNode']:setVisible(g_autoPlaySetting:isAutoPlay())
-    vars['autoStartNumberLabel']:setString(Str('{1}/20', g_autoPlaySetting:getAutoPlayCnt()))
-    vars['autoStartVisual']:setVisible(g_autoPlaySetting:isAutoPlay())
 end

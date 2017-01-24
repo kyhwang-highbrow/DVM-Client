@@ -73,8 +73,8 @@ function SkillLaser_Lightning.st_idle(owner, dt)
 
 		-- 번개고룡 궁극 뇌룡포 추가 공격, 공격 주기는 multiHitTime
 		if (owner.m_collisionNum > owner.m_lightningCount) then 
-			owner.m_tTargetList = owner.m_world:getEnemyList()
-			table.randomSort(owner.m_tTargetList)
+			owner.m_tTargetList = owner.m_owner:getOpponentList()
+            table.randomSort(owner.m_tTargetList)
 			owner:runAttack()
 			owner.m_lightningCount = owner.m_lightningCount + 1
 		end

@@ -166,6 +166,7 @@ function GameWorld:makeHeroDeck()
     -- 서버에 저장된 드래곤 덱 사용
     local l_deck, formation = g_deckData:getDeck('1')
     self.m_deckFormation = formation
+
     for i, unique_id in pairs(l_deck) do
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(unique_id)
         if (t_dragon_data) then
@@ -197,6 +198,7 @@ function GameWorld:makeEnemyDeck()
     -- 서버에 저장된 드래곤 덱 사용
     local l_deck, formation = g_deckData:getDeck('1')
     self.m_deckFormation = formation
+
     for i, unique_id in pairs(l_deck) do
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(unique_id)
         if (t_dragon_data) then
@@ -214,6 +216,16 @@ function GameWorld:makeEnemyDeck()
                 enemy.m_statusCalc:applyFormationBonus(formation, i)
                 --ccdump(enemy.m_statusCalc.m_lPassive)
             end
+        end
+    end
+
+    -- 상대편 드래곤들은 게이지를 조정
+    do
+        local t_percentage = clone(COLOSSEUM__ENEMY_START_GAUGE_LIST)
+        t_percentage = randomShuffle(t_percentage)
+
+        for i, dragon in ipairs(self:getEnemyList()) do
+            dragon:initActiveSkillCoolTime(t_percentage[i])
         end
     end
 end
