@@ -1,0 +1,7 @@
+set,t_name,key_grade1,act_grade1,value_grade1,key_grade2,act_grade2,value_grade2,key_grade3,act_grade3,value_grade3,key_grade4,act_grade4,value_grade4,key_grade5,act_grade5,value_grade5
+green,대자연,max_hp,multiply,0.05,max_hp,multiply,0.05,max_hp; def,multiply; multiply,0.1; 0.05,max_hp; def,multiply; multiply,0.1; 0.07,max_hp; def,multiply; multiply,0.1; 0.1
+orange,석양,atk,multiply,0.05,atk,multiply,0.07,atk; max_hp,multiply; multiply,0.1; 0.05,atk; max_hp,multiply; multiply,0.1; 0.07,atk; max_hp,multiply; multiply,0.1; 0.1
+red,선홍,atk,multiply,0.05,atk,multiply,0.07,atk; cri_chance,multiply; add,0.1; 0.03,atk; cri_chance,multiply; add,0.1; 0.05,atk; cri_chance,multiply; add,0.1; 0.07
+blue,창공,hit_rate,add,0.03,hit_rate,add,0.05,hit_rate; atk,add; multiply,0.07; 0.05,hit_rate; atk,add; multiply,0.07; 0.07,hit_rate; atk,add; multiply,0.07; 0.1
+yellow,사막,avoid,add,0.03,avoid,add,0.05,avoid; max_hp,add; multiply,0.07; 0.05,avoid; max_hp,add; multiply,0.07; 0.07,avoid; max_hp,add; multiply,0.07; 0.1
+purple,왕가,cri_chance,add,0.03,cri_chance,add,0.05,cri_chance; cri_dmg,add; add,0.07; 0.03,cri_chance; cri_dmg,add; add,0.07; 0.05,cri_chance; cri_dmg,add; add,0.07; 0.07

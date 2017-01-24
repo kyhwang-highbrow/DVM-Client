@@ -53,7 +53,7 @@ local TableInfo = {
         rune_status          = {'table_rune_status',        'vid',          false},
         rune_naming_rule     = {'table_rune_naming_rule',   'key',          false},
         rune_exp             = {'table_rune_exp',           'rune_lv',      false},
-        
+        rune_set             = {'table_rune_set',           'set',          false},        
     }
 
 -------------------------------------

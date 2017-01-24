@@ -106,6 +106,7 @@ local t_module = {
     'TableRuneStatus',
     'TableRuneNamingRule',
     'TableRuneExp',
+    'TableRuneSet',
     'TableItem',
 	'TableQuest',
 

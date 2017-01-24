@@ -133,7 +133,7 @@ end
 -------------------------------------
 -- function getCommaSeparatedValues
 -------------------------------------
-function TableClass:getCommaSeparatedValues(primary, column)
+function TableClass:getCommaSeparatedValues(primary, column, apply_trim)
     local t_table = self:get(primary)
 
     if (not t_table) then
@@ -141,14 +141,43 @@ function TableClass:getCommaSeparatedValues(primary, column)
     end
 
     local str = t_table[column]
+    return self:seperate(str, ',', trim_execution)
+end
 
+-------------------------------------
+-- function getSemicolonSeparatedValues
+-------------------------------------
+function TableClass:getSemicolonSeparatedValues(primary, column, trim_execution)
+    local t_table = self:get(primary)
+
+    if (not t_table) then
+        return nil
+    end
+
+    local str = t_table[column]
+    return self:seperate(str, ';', trim_execution)
+end
+
+-------------------------------------
+-- function seperate
+-------------------------------------
+function TableClass:seperate(str, divider, trim_execution)
     if (str == nil) or (str == '') then
         return {}
     end
 
-    local l_values = seperate(str, ',')
+    local l_values = seperate(str, divider)
     if (not l_values) then
+        if trim_execution then
+            str = trim(str)
+        end
         return {str}
+    end
+
+    if trim_execution then
+        for i,v in ipairs(l_values) do
+            l_values[i] = trim(v)
+        end
     end
 
     return l_values
