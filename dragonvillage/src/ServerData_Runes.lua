@@ -185,6 +185,34 @@ function ServerData_Runes:getUnequippedRuneList(slot_type)
 end
 
 -------------------------------------
+-- function getRuneEnchantMaterials
+-- @brief 룬 강화 재료 리스트 리턴
+-------------------------------------
+function ServerData_Runes:getRuneEnchantMaterials(enchant_roid)
+    if (not slot_type) then
+        slot_type = 'all'
+    end
+
+    local l_runes = self.m_serverData:getRef('runes')
+
+    local l_ret = {}
+
+    for i,v in pairs(l_runes) do
+        -- 이 룬을 장착한 드래곤이 없을 경우
+        if (not v['odoid']) or (v['odoid'] == '') then
+            local roid = v['id']
+
+            -- 강화 대상 룬은 제외
+            if (enchant_roid ~= roid) then
+                l_ret[roid] = clone(v)
+            end
+        end
+    end
+
+    return l_ret
+end
+
+-------------------------------------
 -- function requestRuneEquip
 -- @brief 룬 장착
 -------------------------------------

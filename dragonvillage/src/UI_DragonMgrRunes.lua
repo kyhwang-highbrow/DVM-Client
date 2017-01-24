@@ -464,7 +464,18 @@ end
 -- @brief 룬 강화
 -------------------------------------
 function UI_DragonMgrRunes:click_enhanceBtn(type)
-    UI_RuneEnchantPopup()
+    local ui
+    if (type == 'used') then
+        ui = UI_RuneEnchantPopup(self.m_usedRuneData)
+
+    elseif (type == 'selected') then
+        ui = UI_RuneEnchantPopup(self.m_selectedRuneData)
+
+    else
+        error('type : ' .. type)
+
+    end
+    
 end
 
 -------------------------------------

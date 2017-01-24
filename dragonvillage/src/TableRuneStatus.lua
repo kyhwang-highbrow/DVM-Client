@@ -59,10 +59,50 @@ function TableRuneStatus:getSubOptionStatus(grade, category, rarity)
 end
 
 -------------------------------------
+-- function getCategoryStr
+-- @brief
+-------------------------------------
+function TableRuneStatus:getCategoryStr(category)
+    local str = ''
+    if (category == 'atk') then             str = Str('공격력')
+    elseif (category == 'def') then         str = Str('방어력')
+    elseif (category == 'hp') then          str = Str('체력')
+    elseif (category == 'aspd') then        str = Str('공격속도')
+    elseif (category == 'cri_chance') then  str = Str('치명타 확률')
+    elseif (category == 'cri_dmg') then     str = Str('치명타 피해량')
+    elseif (category == 'cri_avoid') then   str = Str('치명타 회피율')
+    elseif (category == 'hit_rate') then    str = Str('적중률')
+    elseif (category == 'avoid') then       str = Str('회피율')
+    else                                    error('category : ' .. category)
+    end
+    return str
+end
+
+-------------------------------------
+-- function getStatusValueStr
+-- @brief
+-------------------------------------
+function TableRuneStatus:getStatusValueStr(category, value)
+    local str = ''
+    if (category == 'atk') then             str = Str('+{1}', value)
+    elseif (category == 'def') then         str = Str('+{1}', value)
+    elseif (category == 'hp') then          str = Str('+{1}', value)
+    elseif (category == 'aspd') then        str = Str('+{1}', value)
+    elseif (category == 'cri_chance') then  str = Str('+{1}%', value)
+    elseif (category == 'cri_dmg') then     str = Str('+{1}%', value)
+    elseif (category == 'cri_avoid') then   str = Str('+{1}%', value)
+    elseif (category == 'hit_rate') then    str = Str('+{1}%', value)
+    elseif (category == 'avoid') then       str = Str('+{1}%', value)
+    else                                    error('category : ' .. category)
+    end
+    return str
+end
+
+-------------------------------------
 -- function makeRuneOptionStr
 -- @brief 룬의 옵션 문자열 생성 (주옵션 or 부옵션)
 -------------------------------------
-function TableRuneStatus:makeRuneOptionStr(l_mopt)
+function TableRuneStatus:makeRuneOptionStr(l_mopt, type)
     local str = ''
 
     for i,v in ipairs(l_mopt) do
@@ -73,33 +113,16 @@ function TableRuneStatus:makeRuneOptionStr(l_mopt)
             str = (str .. '\n')
         end
 
-        if (category == 'atk') then
-            str = str .. Str('공격력 +{1}', value)
-
-        elseif (category == 'def') then
-            str = str .. Str('방어력 +{1}', value)
-
-        elseif (category == 'hp') then
-            str = str .. Str('체력 +{1}', value)
-
-        elseif (category == 'aspd') then
-            str = str .. Str('공격속도 +{1}', value)
-
-        elseif (category == 'cri_chance') then
-            str = str .. Str('치명타 확률 +{1}%', value)
-
-        elseif (category == 'cri_dmg') then
-            str = str .. Str('치명타 피해량 +{1}%', value)
-
-        elseif (category == 'cri_avoid') then
-            str = str .. Str('치명타 회피율 +{1}%', value)
-
-        elseif (category == 'hit_rate') then
-            str = str .. Str('적중률 +{1}%', value)
-
-        elseif (category == 'avoid') then
-            str = str .. Str('회피율 +{1}%', value)
-
+        if (type == nil) then
+            str = str .. TableRuneStatus:getCategoryStr(category) .. ' ' .. TableRuneStatus:getStatusValueStr(category, value)
+        elseif (type == 'category') then
+            str = str .. TableRuneStatus:getCategoryStr(category)
+        elseif (type == 'value') then
+            str = str .. TableRuneStatus:getStatusValueStr(category, value)
+        elseif (type == 'next_value') then
+            str = str .. '▶ ' .. TableRuneStatus:getStatusValueStr(category, value)
+        else
+            error('type : ' .. type)
         end
     end
 
