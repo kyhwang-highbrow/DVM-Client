@@ -323,7 +323,11 @@ end
 -- function st_wait
 -------------------------------------
 function Dragon.st_wait(owner, dt)
-
+    if (owner.m_stateTimer == 0) then
+        if owner.m_castingNode then
+            owner.m_castingNode:setVisible(false)
+        end
+    end
 end
 
 -------------------------------------

@@ -589,6 +589,10 @@ function GameState.update_success_wait(self, dt)
         if world.m_skillIndicatorMgr then
             world.m_skillIndicatorMgr:clear()
         end
+
+        -- 스킬과 미사일도 다 날려 버리자
+	    world:removeMissileAndSkill()
+        world:removeHeroDebuffs()
     end
 
     -- 드래곤 상태 체크
@@ -599,10 +603,6 @@ function GameState.update_success_wait(self, dt)
             b = false
         end
     end
-
-    -- 스킬과 미사일도 다 날려 버리자
-	world:removeMissileAndSkill()
-    world:removeHeroDebuffs()
 
     if (b or self.m_stateTimer >= 4) then
         self:changeState(GAME_STATE_SUCCESS)
@@ -673,6 +673,10 @@ function GameState.update_failure(self, dt)
                 enemy:changeState('idle', true)
             end
         end
+
+        -- 스킬과 미사일도 다 날려 버리자
+	    world:removeMissileAndSkill()
+        world:removeEnemyDebuffs()
 
         g_gameScene.m_inGameUI:doActionReverse(function()
             g_gameScene.m_inGameUI.root:setVisible(false)

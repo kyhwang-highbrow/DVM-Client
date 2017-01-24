@@ -99,15 +99,6 @@ function Monster.st_casting(owner, dt)
 end
 
 -------------------------------------
--- function st_wait
--------------------------------------
-function Monster.st_wait(owner, dt)
-    if (owner.m_stateTimer == 0) then
-        owner.speed = 0
-    end
-end
-
--------------------------------------
 -- function setWaitState
 -------------------------------------
 function Monster:setWaitState(is_wait_state)

@@ -152,28 +152,49 @@ end
 -- function update_failure
 -------------------------------------
 function GameState_Colosseum.update_failure(self, dt)
-    if (self.m_stateTimer == 0) then
+    local world = self.m_world
 
-        local world = self.m_world
+    if (self:getStep() == 0) then
+        if (self:isBeginningStep()) then
+            if world.m_skillIndicatorMgr then
+                world.m_skillIndicatorMgr:clear()
+            end
+
+            g_gameScene.m_inGameUI:doActionReverse(function()
+                g_gameScene.m_inGameUI.root:setVisible(false)
+            end)
+
+            -- 스킬과 미사일도 다 날려 버리자
+	        world:removeMissileAndSkill()
+            world:removeEnemyDebuffs()
+        end
         
-        for i,enemy in ipairs(world:getEnemyList()) do
-            if (enemy.m_bDead == false) then
-                enemy.m_animator:changeAni('pose_1', true)
+        -- 적군 상태 체크
+        local b = true
+
+        for _, enemy in pairs(world:getEnemyList()) do
+            if (not enemy.m_bDead and enemy.m_state ~= 'wait') then
+                b = false
             end
         end
 
-        g_gameScene.m_inGameUI:doActionReverse(function()
-            g_gameScene.m_inGameUI.root:setVisible(false)
-        end)
-
-        self.m_stateParam = true
-
-    elseif (self.m_stateTimer >= 3.5) then
-        if self.m_stateParam then
-            self.m_stateParam = false
-
+        if (b or self:getStepTimer() >= 4) then
+            self:nextStep()
+        end
+    
+    elseif (self:getStep() == 1) then
+        if (self:isBeginningStep()) then
+            for i,enemy in ipairs(world:getEnemyList()) do
+                if (enemy.m_bDead == false) then
+                    enemy:killStateDelegate()
+                    enemy.m_animator:changeAni('pose_1', true)
+                end
+            end
+        
+        elseif (self:getStepTimer() >= 3.5) then
             local scene = SceneAdventure()
             scene:runScene()
+
         end
     end
 end

@@ -109,13 +109,13 @@ function UI_GameColosseum:click_speedButton()
     if (gameTimeScale:getBase() >= QUICK_MODE_TIME_SCALE) then
         UIManager:toastNotificationGreen('빠른모드 비활성화')
 
-        gameTimeScale:setBase(1)
+        gameTimeScale:setBase(COLOSSEUM__TIME_SCALE)
 
          g_autoPlaySetting:set('quick_mode', false)
     else
         UIManager:toastNotificationGreen('빠른모드 활성화')
 
-        gameTimeScale:setBase(QUICK_MODE_TIME_SCALE)
+        gameTimeScale:setBase(COLOSSEUM__TIME_SCALE * QUICK_MODE_TIME_SCALE)
 
         g_autoPlaySetting:set('quick_mode', true)
     end

@@ -196,27 +196,52 @@ end
 -------------------------------------
 function GameWorld:makeEnemyDeck()
     -- 서버에 저장된 드래곤 덱 사용
-    local l_deck, formation = g_deckData:getDeck('1')
-    self.m_deckFormation = formation
+    if (COLOSSEUM__ENEMY_EQUAL_HERO) then
+        local l_deck, formation = g_deckData:getDeck('1')
 
-    for i, unique_id in pairs(l_deck) do
-        local t_dragon_data = g_dragonsData:getDragonDataFromUid(unique_id)
-        if (t_dragon_data) then
-            local enemy = self:makeDragonNew(t_dragon_data, true)
-            if (enemy) then
-                enemy:setPosIdx(tonumber(i))
+        for i, unique_id in pairs(l_deck) do
+            local t_dragon_data = g_dragonsData:getDragonDataFromUid(unique_id)
+            if (t_dragon_data) then
+                local enemy = self:makeDragonNew(t_dragon_data, true)
+                if (enemy) then
+                    enemy:setPosIdx(tonumber(i))
 
-                self.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.UNIT)
-                self.m_physWorld:addObject(PHYS.ENEMY, enemy)
-                self:addEnemy(enemy, tonumber(i))
+                    self.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.UNIT)
+                    self.m_physWorld:addObject(PHYS.ENEMY, enemy)
+                    self:addEnemy(enemy, tonumber(i))
 
-                self.m_rightFormationMgr:setChangePosCallback(enemy)
+                    self.m_rightFormationMgr:setChangePosCallback(enemy)
 
-                -- 진형 버프 적용
-                enemy.m_statusCalc:applyFormationBonus(formation, i)
-                --ccdump(enemy.m_statusCalc.m_lPassive)
+                    -- 진형 버프 적용
+                    enemy.m_statusCalc:applyFormationBonus(formation, i)
+                    --ccdump(enemy.m_statusCalc.m_lPassive)
+                end
             end
         end
+
+    else
+        local l_dragon_data, formation = COLOSSEUM__ENEMY, COLOSSEUM__ENEMY_FORMATION
+        self.m_deckFormation = formation
+
+        for i, t_dragon_data in pairs(l_dragon_data) do
+            if (t_dragon_data) then
+                local enemy = self:makeDragonNew(t_dragon_data, true)
+                if (enemy) then
+                    enemy:setPosIdx(tonumber(i))
+
+                    self.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.UNIT)
+                    self.m_physWorld:addObject(PHYS.ENEMY, enemy)
+                    self:addEnemy(enemy, tonumber(i))
+
+                    self.m_rightFormationMgr:setChangePosCallback(enemy)
+
+                    -- 진형 버프 적용
+                    enemy.m_statusCalc:applyFormationBonus(formation, i)
+                    --ccdump(enemy.m_statusCalc.m_lPassive)
+                end
+            end
+        end
+
     end
 
     -- 상대편 드래곤들은 게이지를 조정
@@ -237,6 +262,17 @@ function GameWorld:removeHeroDebuffs()
     for i, hero in ipairs(self:getDragonList()) do
         if (not hero.m_bDead) then
             StatusEffectHelper:releaseStatusEffectDebuff(hero)
+        end
+    end
+end
+
+-------------------------------------
+-- function removeEnemyDebuffs
+-------------------------------------
+function GameWorld:removeEnemyDebuffs()
+    for i, enemy in ipairs(self:getEnemyList()) do
+        if (not enemy.m_bDead) then
+            StatusEffectHelper:releaseStatusEffectDebuff(enemy)
         end
     end
 end

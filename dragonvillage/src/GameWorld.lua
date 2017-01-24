@@ -196,6 +196,8 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
         self:initGoldUnit(stage_id)
 
     elseif (self.m_gameMode == GAME_MODE_COLOSSEUM) then
+        self.m_gameTimeScale:setBase(COLOSSEUM__TIME_SCALE)
+
         self.m_gameState = GameState_Colosseum(self)
 
     else
@@ -760,6 +762,7 @@ function GameWorld:removeHero(hero)
     if (hero_count <= 0) then
         if (self.m_gameMode == GAME_MODE_COLOSSEUM) then
             self.m_gameState:changeState(GAME_STATE_FAILURE)
+
         else
 		    if (self.m_bDevelopMode) then 
 			    -- 개발 스테이지에서는 드래곤이 전부 죽을 시 드래곤을 되살리고 스테이지 초기화 한다 

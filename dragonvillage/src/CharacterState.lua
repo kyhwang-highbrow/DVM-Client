@@ -293,6 +293,10 @@ end
 function Character.st_delegate(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner.m_bEnableSpasticity = false
+
+        if owner.m_castingNode then
+            owner.m_castingNode:setVisible(false)
+        end
     end
 end
 
@@ -342,5 +346,18 @@ function Character.st_move(owner, dt)
     if (owner.pos.x ~= x) or (owner.pos.y ~= y) then
         owner:setHomePos(x, y)
         owner:setPosition(x, y)
+    end
+end
+
+-------------------------------------
+-- function st_wait
+-------------------------------------
+function Character.st_wait(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        owner.speed = 0
+
+        if owner.m_castingNode then
+            owner.m_castingNode:setVisible(false)
+        end
     end
 end
