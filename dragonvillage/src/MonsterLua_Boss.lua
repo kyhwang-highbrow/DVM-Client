@@ -71,13 +71,15 @@ function MonsterLua_Boss:initScript(pattern_script_name, is_boss)
         self.m_tEffectSound = script['sound']
 
     -- 모험모드일 경우 보스 사운드 자동 설정
-    elseif is_boss and g_gameScene:isAdventureMode() then
-        local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
+    elseif (g_gameScene.m_gameMode == GAME_MODE_ADVENTURE) then
+        if (is_boss) then
+            local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
         
-        self.m_tEffectSound['skill_1'] = string.format('vo_boss%d_skill_1', chapter)
-        self.m_tEffectSound['skill_2'] = string.format('vo_boss%d_skill_2', chapter)
-        self.m_tEffectSound['skill_cancel'] = string.format('vo_boss%d_skill_cancel', chapter)
-        self.m_tEffectSound['die'] = string.format('vo_boss%d_die', chapter)
+            self.m_tEffectSound['skill_1'] = string.format('vo_boss%d_skill_1', chapter)
+            self.m_tEffectSound['skill_2'] = string.format('vo_boss%d_skill_2', chapter)
+            self.m_tEffectSound['skill_cancel'] = string.format('vo_boss%d_skill_cancel', chapter)
+            self.m_tEffectSound['die'] = string.format('vo_boss%d_die', chapter)
+        end
     end
 end
 

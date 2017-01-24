@@ -1,15 +1,15 @@
 -- 공격 스킬 사용 방식
-local GAME_AUTO_AI_ATTACK__COOLTIME    = 'at_cool'
-local GAME_AUTO_AI_ATTACK__ENEMY_SKILL = 'at_event'
+GAME_AUTO_AI_ATTACK__COOLTIME    = 'at_cool'
+GAME_AUTO_AI_ATTACK__ENEMY_SKILL = 'at_event'
 
 -- 치유 스킬 사용 방식
-local GAME_AUTO_AI_HEAL__COOLTIME = 'at_cool'
-local GAME_AUTO_AI_HEAL__LOW_HP   = 'at_event'
+GAME_AUTO_AI_HEAL__COOLTIME = 'at_cool'
+GAME_AUTO_AI_HEAL__LOW_HP   = 'at_event'
 
 -- 타겟 설정 방식
-local GAME_AUTO_AI_TAMER__SKILL_1 = 1
-local GAME_AUTO_AI_TAMER__SKILL_2 = 2
-local GAME_AUTO_AI_TAMER__SKILL_3 = 3
+GAME_AUTO_AI_TAMER__SKILL_1 = 1
+GAME_AUTO_AI_TAMER__SKILL_2 = 2
+GAME_AUTO_AI_TAMER__SKILL_3 = 3
 
 local AI_DELAY_TIME = 2.5
 local AI_FEVER_DELAY_TIME = 0.5
@@ -40,7 +40,7 @@ function GameAuto:init(world, bLeftFormation)
     self.m_world = world
 
     self.m_gameFever = nil
-    self.m_bLeftFormation = (bLeftFormation ~= nil) and bLeftFormation or true
+    self.m_bLeftFormation = (bLeftFormation == nil) and true or bLeftFormation
     self.m_bActive = false
 
     self.m_aiDelayTime = AI_DELAY_TIME
@@ -50,15 +50,15 @@ function GameAuto:init(world, bLeftFormation)
 
     if (self.m_bLeftFormation) then
         self:initUI()
-    end
+    
+        if (g_autoPlaySetting:isAutoPlay()) then
+            -- 연속 전투가 활성화되어있다면 즉시 자동모드를 활성화시킴
+            g_autoPlaySetting:set('auto_mode', true)
+        end
 
-    if (g_autoPlaySetting:isAutoPlay()) then
-        -- 연속 전투가 활성화되어있다면 즉시 자동모드를 활성화시킴
-        g_autoPlaySetting:set('auto_mode', true)
-    end
-
-    if (g_autoPlaySetting:get('auto_mode')) then
-        self:onStart()
+        if (g_autoPlaySetting:get('auto_mode')) then
+            self:onStart()
+        end
     end
 end
 
@@ -72,7 +72,7 @@ function GameAuto:initUI()
 end
 
 -------------------------------------
--- function init
+-- function bindGameFever
 -------------------------------------
 function GameAuto:bindGameFever(gameFever)
     self.m_gameFever = gameFever
@@ -112,7 +112,7 @@ end
 -- function update_fight
 -------------------------------------
 function GameAuto:update_fight(dt)
-    if (self.m_world.m_skillIndicatorMgr:isControlling()) then
+    if (self.m_bLeftFormation and self.m_world.m_skillIndicatorMgr:isControlling()) then
         return
     end
 
@@ -124,25 +124,29 @@ function GameAuto:update_fight(dt)
         end
 
     else
-        -- 테이머
-        local tamerSkillSystem = self.m_world.m_tamerSkillSystem
-        local tamerSkillIdx = g_autoPlaySetting:get('tamer_skill')
-        if (tamerSkillSystem:isEndSkillCoolTime(tamerSkillIdx)) then
-            tamerSkillSystem:click_tamerSkillBtn(tamerSkillIdx)
+        if (self.m_world.m_gameMode ~= GAME_MODE_COLOSSEUM and self.m_bLeftFormation) then
+            -- 테이머
+            local tamerSkillSystem = self.m_world.m_tamerSkillSystem
+            local tamerSkillIdx = g_autoPlaySetting:get('tamer_skill')
+            if (tamerSkillSystem:isEndSkillCoolTime(tamerSkillIdx)) then
+                tamerSkillSystem:click_tamerSkillBtn(tamerSkillIdx)
 
-            -- AI 딜레이 시간 설정
-            self.m_aiDelayTime = AI_DELAY_TIME
+                -- AI 딜레이 시간 설정
+                self.m_aiDelayTime = AI_DELAY_TIME
 
-            return
+                return
+            end
         end
 
         -- 드래곤
-        for i, dragon in ipairs(self.m_world:getDragonList()) do
+        local allyList = self:getUnitList()
+
+        for i, dragon in ipairs(allyList) do
             local skill_id = dragon:getSkillID('active')
             local t_skill = dragon:getLevelingSkillById(skill_id)
             local isPossibleSkill = false
             local target = nil
-
+            
             -- 스킬 사용 여부 체크
             isPossibleSkill, target = self:checkSkill(dragon, t_skill)
 
@@ -153,25 +157,8 @@ function GameAuto:update_fight(dt)
                 end
 
                 if (target) then
-                    -- 인디게이터에 스킬 사용 정보 설정
-                    dragon.m_skillIndicator:setIndicatorDataByChar(target)
-                    
-                    -- 경직 중이라면 즉시 해제
-                    dragon:setSpasticity(false)
-
-                    -- 스킬 쿹타임 초기상태로
-                    dragon:resetActiveSkillCoolTime()
-
-                    local active_skill_id = dragon:getSkillID('active')
-                    local t_skill = TABLE:get('dragon_skill')[active_skill_id]
-
-                    dragon:reserveSkill(t_skill['sid'])
-
-                    if (t_skill['casting_time'] > 0) then
-                        dragon:changeState('casting')
-                    else
-                        dragon:changeState('skillAppear')
-                    end
+                    -- 스킬 사용
+                    self:doSkill(dragon, t_skill, target)
 
                     -- AI 딜레이 시간 설정
                     self.m_aiDelayTime = AI_DELAY_TIME
@@ -194,12 +181,12 @@ end
 -- function checkSkill
 -- @brief 스킬 사용 여부를 확인
 -------------------------------------
-function GameAuto:checkSkill(dragon, t_skill)
+function GameAuto:checkSkill(dragon, t_skill, aiAttack, aiHeal)
     if (not dragon:isPossibleSkill()) then return false end
 
     local target_type = t_skill['target_type']
-    local aiAttack = g_autoPlaySetting:get('dragon_atk_skill')
-    local aiHeal = g_autoPlaySetting:get('dragon_heal_skill')
+    local aiAttack = aiAttack or g_autoPlaySetting:get('dragon_atk_skill')
+    local aiHeal = aiHeal or g_autoPlaySetting:get('dragon_heal_skill')
 
     if startsWith(target_type, 'ally_') then
         -- 회복형
@@ -209,13 +196,13 @@ function GameAuto:checkSkill(dragon, t_skill)
 
         elseif (aiHeal == GAME_AUTO_AI_HEAL__LOW_HP) then
             -- HP가 75%이하인 아군이 있다면 사용
-            local heroList = self.m_world:getDragonList()
+            local allyList = self:getUnitList()
 
-            for i, hero in pairs(heroList) do
-                if (not hero.m_bDead) then
-                    local hpRate = hero.m_hp / hero.m_maxHp
+            for i, ally in pairs(allyList) do
+                if (not ally.m_bDead) then
+                    local hpRate = ally.m_hp / ally.m_maxHp
                     if (hpRate <= 0.75) then
-                        return true, hero
+                        return true, ally
                     end
                 end
             end
@@ -265,6 +252,29 @@ function GameAuto:checkSkill(dragon, t_skill)
 end
 
 -------------------------------------
+-- function doSkill
+-- @brief 스킬 사용
+-------------------------------------
+function GameAuto:doSkill(dragon, t_skill, target)
+    -- 인디게이터에 스킬 사용 정보 설정
+    dragon.m_skillIndicator:setIndicatorDataByChar(target)
+                    
+    -- 경직 중이라면 즉시 해제
+    dragon:setSpasticity(false)
+
+    -- 스킬 쿹타임 초기상태로
+    dragon:resetActiveSkillCoolTime()
+
+    dragon:reserveSkill(t_skill['sid'])
+
+    if (t_skill['casting_time'] > 0) then
+        dragon:changeState('casting')
+    else
+        dragon:changeState('skillAppear')
+    end
+end
+
+-------------------------------------
 -- function findTarget
 -- @brief 타겟을 찾는다
 -------------------------------------
@@ -279,16 +289,16 @@ function GameAuto:findTarget(dragon, t_skill)
         -- 회복형
 
         -- HP가 가장 낮은 아군에게 사용
-        local heroList = self.m_world:getDragonList()
+        local allyList = self:getUnitList()
         local lowest = 100
 
-        for i, hero in pairs(heroList) do
-            if (not hero.m_bDead) then
-                local hpRate = hero.m_hp / hero.m_maxHp
+        for i, ally in pairs(allyList) do
+            if (not ally.m_bDead) then
+                local hpRate = ally.m_hp / ally.m_maxHp
                 
                 if (hpRate < lowest) then
                     lowest = hpRate
-                    target = hero
+                    target = ally
                 end
             end
         end
@@ -336,6 +346,17 @@ end
 -------------------------------------
 -- function isActive
 -------------------------------------
+function GameAuto:getUnitList()
+    if (self.m_bLeftFormation) then
+        return self.m_world:getDragonList()
+    else
+        return self.m_world:getEnemyList()
+    end
+end
+
+-------------------------------------
+-- function isActive
+-------------------------------------
 function GameAuto:isActive()
     return self.m_bActive
 end
@@ -356,15 +377,24 @@ function GameAuto:onEvent(event_name, t_event, ...)
         local arg = {...}
         local enemy = arg[1]
 
-        table.insert(self.m_tCastingEnemyList, enemy)
+        if (self.m_bLeftFormation) then
+            table.insert(self.m_tCastingEnemyList, enemy)
+        end
 
     elseif (event_name == 'hero_active_skill') then
-        self.m_aiDelayTime = AI_DELAY_TIME
+        if (self.m_bLeftFormation) then
+            self.m_aiDelayTime = AI_DELAY_TIME
+        end
 
     elseif (event_name == 'enemy_active_skill') then
+        if (not self.m_bLeftFormation) then
+            self.m_aiDelayTime = AI_DELAY_TIME
+        end
 
     elseif (event_name == 'fever_attack') then
-        self.m_aiFeverDelayTime = AI_FEVER_DELAY_TIME
+        if (self.m_bLeftFormation) then
+            self.m_aiFeverDelayTime = AI_FEVER_DELAY_TIME
+        end
 
     end
 end

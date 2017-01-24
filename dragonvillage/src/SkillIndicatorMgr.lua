@@ -97,7 +97,7 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
     local near_distance = nil
     local select_hero = nil
     for i, v in pairs(self.m_world:getDragonList()) do
-		if (not v.m_isSilence) then 
+        if (v:isPossibleSkill()) then
 			local x, y = v:getCenterPos()
 			local distance = math_distance(x, y, node_pos['x'], node_pos['y'])
 
@@ -112,23 +112,21 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
 
     if select_hero then
         -- 드래곤 클릭
-        if select_hero:isPossibleSkill() then
-            SoundMgr:playEffect('EFFECT', 'skill_touch')
-            self:setSelectHero(select_hero)
+        SoundMgr:playEffect('EFFECT', 'skill_touch')
+        self:setSelectHero(select_hero)
         
-            self:changeDarkLayerColor(DARK_LAYER_OPACITY, SKILL_INDICATOR_FADE_OUT_DURATION)
+        self:changeDarkLayerColor(DARK_LAYER_OPACITY, SKILL_INDICATOR_FADE_OUT_DURATION)
 
-            self.m_firstTouchPos = node_pos
+        self.m_firstTouchPos = node_pos
 
-            select_hero.m_skillIndicator:changeSIState(SI_STATE_READY)
+        select_hero.m_skillIndicator:changeSIState(SI_STATE_READY)
 
-            self:addHighlightList(select_hero, 5)
-            event:stopPropagation()
+        self:addHighlightList(select_hero, 5)
+        event:stopPropagation()
 
-            self.m_selectHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
-            self.m_selectHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
-            return true
-        end
+        self.m_selectHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
+        self.m_selectHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
+        return true
     end
 
     return false

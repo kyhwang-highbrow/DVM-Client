@@ -269,6 +269,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ActivityCarrier.lua" />
     <None Include="..\src\Buff.lua" />
     <None Include="..\src\Buff_Protection.lua" />
+    <None Include="..\src\ConstantColosseum.lua" />
     <None Include="..\src\ConstantDebug.lua" />
     <None Include="..\src\ConstantGameMode.lua" />
     <None Include="..\src\ConstantStatusEffect.lua" />
@@ -276,6 +277,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\EffectMotionStreak.lua" />
     <None Include="..\src\EventCarrier.lua" />
     <None Include="..\src\GameAuto.lua" />
+    <None Include="..\src\GameAuto_Colosseum.lua" />
     <None Include="..\src\GameState_Colosseum.lua" />
     <None Include="..\src\GameState_NestDungeon.lua" />
     <None Include="..\src\GameState_NestDungeon_Dragon.lua" />
@@ -297,6 +299,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Monster_Tree.lua" />
     <None Include="..\src\Monster_WorldOrderMachine.lua" />
     <None Include="..\src\SceneColosseum.lua" />
+    <None Include="..\src\SceneGameColosseum.lua" />
     <None Include="..\src\SceneNestDungeon.lua" />
     <None Include="..\src\ServerData_AutoPlaySetting.lua" />
     <None Include="..\src\ServerData_LobbyUserList.lua" />

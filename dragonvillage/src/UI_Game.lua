@@ -29,7 +29,9 @@ function UI_Game:init(game_scene)
     vars['goldLabel']:setString('0')
 
     -- 스테이지명 지정
-    do
+    if (self.m_gameScene.m_gameMode == GAME_MODE_COLOSSEUM) then
+        vars['stageLabel']:setString('')
+    else
         local stage_name = g_stageData:getStageName(self.m_gameScene.m_stageID)
         vars['stageLabel']:setString(stage_name)
     end

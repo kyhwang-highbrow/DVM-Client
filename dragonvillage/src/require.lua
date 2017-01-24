@@ -38,6 +38,7 @@ local t_module = {
     'ConstantAttribute',
     'ConstantString',
     'ConstantStatusEffect',
+    'ConstantColosseum',
 
     -- Util
     'Action',
@@ -120,6 +121,7 @@ local t_module = {
     'SceneLobby',
     'SceneDV',
     'SceneGame',
+    'SceneGameColosseum',
     'SceneAdventure',
     'SceneNestDungeon',
     'SceneColosseum',
@@ -147,6 +149,7 @@ local t_module = {
     'GameState_NestDungeon_Tree',
     'GameState_Colosseum',
     'GameAuto',
+    'GameAuto_Colosseum',
     'GameFever',
     'GameCamera',
     'GameTimeScale',

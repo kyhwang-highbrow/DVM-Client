@@ -192,7 +192,11 @@ function Dragon.st_skillAppear(owner, dt)
         owner.m_bEnableSpasticity = false
 
         -- 이벤트
-        owner:dispatch('dragon_skill', {}, owner)
+        if (owner.m_bLeftFormation) then
+            owner:dispatch('dragon_skill', {}, owner)
+        else
+            owner:changeState('skillIdle')
+        end
     end
 end
 
@@ -280,6 +284,18 @@ function Dragon.st_skillIdle(owner, dt)
 
         -- 공격 타이밍이 있을 경우
         owner.m_animator:setEventHandler(attack_cb)
+
+        -- 캐스팅 게이지
+        if owner.m_castingUI then
+            owner.m_castingUI:stopAllActions()
+        end
+
+        if owner.m_castingSpeechVisual then
+            owner.m_castingSpeechVisual:changeAni('success', false)
+            owner.m_castingSpeechVisual:registerScriptLoopHandler(function() owner.m_castingNode:setVisible(false) end)
+        elseif owner.m_castingNode then
+            owner.m_castingNode:setVisible(false)
+        end
     
     elseif (owner.m_aiParamNum and (owner.m_stateTimer >= owner.m_aiParamNum)) then
         if (owner.m_bFinishAttack) then
@@ -436,17 +452,21 @@ function Dragon:makeHPGauge(hp_ui_offset)
 end
 
 -------------------------------------
--- function setPosition
+-- function makeCastingNode
 -------------------------------------
-function Dragon:setPosition(x, y)
-    Entity.setPosition(self, x, y)
+function Dragon:makeCastingNode()
+    PARENT.makeCastingNode(self)
 
-    if self.m_hpNode then
-        self.m_hpNode:setPosition(x + self.m_unitInfoOffset[1], y + self.m_unitInfoOffset[2])
-    end
+    local x, y
     
-    if self.m_cbChangePos then
-        self.m_cbChangePos(self)
+    do
+        x, y = self.m_castingMarkGauge:getPosition()
+        self.m_castingMarkGauge:setPosition(x + 80, y)
+    end
+
+    do
+        x, y = self.m_castingSpeechVisual:getPosition()
+        self.m_castingSpeechVisual:setPosition(x + 80, y)
     end
 end
 
@@ -454,7 +474,7 @@ end
 -- function setHp
 -------------------------------------
 function Dragon:setHp(hp)
-    Character.setHp(self, hp)
+    PARENT.setHp(self, hp)
 
     self:dispatch('change_hp', {}, self, self.m_hp, self.m_maxHp)
 end
@@ -654,6 +674,11 @@ function Dragon:isPossibleSkill()
     if (self.m_isSilence) then
 		return false
 	end
+
+    -- 스킬 사용 불가 상태
+    if (isExistValue(self.m_state, 'delegate', 'stun')) then
+        return false
+    end
 
     -- 이미 스킬을 사용하기 위한 상태일 경우
     if (isExistValue(self.m_state, 'skillPrepare', 'skillAppear', 'skillIdle')) then

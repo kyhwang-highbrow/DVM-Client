@@ -198,9 +198,7 @@ end
 -------------------------------------
 -- function setBg
 -------------------------------------
-function ScrollMap:setBg(res)
-    local attr = TableDrop():getValue(g_gameScene.m_stageID, 'attr')
-
+function ScrollMap:setBg(res, attr)
     -- 초기화
     self.m_node:removeAllChildren();
     self.m_tMapLayer = {}
@@ -221,12 +219,16 @@ function ScrollMap:setBg(res)
 
         if (bFixedLayer) then
             for i, data in ipairs(v['list']) do
-                local res = string.gsub(data['res'], '@', attr)
+                local res = data['res']
                 local real_offset_x = (data['pos_x'] or 0)
                 local real_offset_y = (data['pos_y'] or 0)
                 local scale = (data['scale'] or 1)
                 local bFlip = (data['flip'] or false)
                 local bPause = (data['pause'] or false)
+
+                if (attr) then
+                    res = string.gsub(res, '@', attr)
+                end
 
                 self:makeLayer({
                     res = res,

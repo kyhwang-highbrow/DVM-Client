@@ -1651,6 +1651,9 @@ function Character:restore(restore_speed)
 	if (self.m_animator) and (not self.m_animator:isVisible()) then
 		self.m_animator:setVisible(true)
 	end
+
+    -- 경직 가능 상태 설정
+    self.m_bEnableSpasticity = true
 end
 
 -------------------------------------

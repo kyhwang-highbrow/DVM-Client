@@ -96,6 +96,22 @@ function Skill:initActvityCarrier(power_rate, power_abs)
 end
 
 -------------------------------------
+-- function update
+-------------------------------------
+function Skill:update(dt)
+    -- 스킬 멈춤 여부 체크
+    if (isInstanceOf(self, IStateDelegate)) then
+        if (self.m_state ~= 'dying') then
+	        if (self.m_owner:checkToStopSkill()) then
+                self:changeState('dying')
+            end
+        end
+    end
+
+    return PARENT.update(self, dt)
+end
+
+-------------------------------------
 -- function adjustAnimator
 -- @breif animator 조정하는 부분
 -------------------------------------
@@ -169,7 +185,7 @@ end
 -------------------------------------
 function Skill.st_dying(owner, dt)
     if (owner.m_stateTimer == 0) then
-		owner.m_owner:restore()
+        owner.m_owner:restore()
 
         -- 스킬 종료시 발동되는 status effect를 적용
         owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_END })
@@ -325,6 +341,10 @@ function Skill:initAttackPosOffset()
     local scale = animator:getScale()
     self.m_attackPosOffsetX = (l_str[1] * scale)
     self.m_attackPosOffsetY = (l_str[2] * scale)
+
+    if (animator.m_bFlip) then
+        self.m_attackPosOffsetX = -self.m_attackPosOffsetX
+    end
 end
 
 -------------------------------------

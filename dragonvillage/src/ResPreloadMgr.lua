@@ -72,6 +72,41 @@ function ResPreloadMgr:loadFromStageName(stageName)
 end
 
 -------------------------------------
+-- function loadForColosseum
+--@brief 콜로세움 관련 리소스를 프리로드
+-------------------------------------
+function ResPreloadMgr:loadForColosseum(t_enemy)
+    if (self.m_bCompletedPreload) then
+        -- 이미 프리로드된 경우
+        return true
+    end
+
+    if (not self.m_bPreparedPreloadList) then
+        self.m_bCompletedPreload = false
+        self.m_bPreparedPreloadList = true
+
+        -- 프리로드 리스트 초기화
+        self.m_tPreloadList = {}
+
+        -- 스테이지에 관련된 것들을 제외한 나머지 리소스들을 추가
+        do
+            local basePreloadList = makeResListForGame()
+            self.m_tPreloadList = basePreloadList
+        end
+
+        -- @DOTO: 상대편 유닛에 대한 리소스를 추가
+
+        
+        --cclog('self.m_tPreloadList = ' .. luadump(self.m_tPreloadList))
+
+        return false
+    end
+
+    self.m_bCompletedPreload = self:_loadRes()
+    return self.m_bCompletedPreload
+end
+
+-------------------------------------
 -- function _loadRes
 -------------------------------------
 function ResPreloadMgr:_loadRes()

@@ -160,6 +160,65 @@ function GameWorld:tryPatternMonster(t_monster, body)
 end
 
 -------------------------------------
+-- function makeHeroDeck
+-------------------------------------
+function GameWorld:makeHeroDeck()
+    -- 서버에 저장된 드래곤 덱 사용
+    local l_deck, formation = g_deckData:getDeck('1')
+    self.m_deckFormation = formation
+    for i, unique_id in pairs(l_deck) do
+        local t_dragon_data = g_dragonsData:getDragonDataFromUid(unique_id)
+        if (t_dragon_data) then
+            local hero = self:makeDragonNew(t_dragon_data)
+            if (hero) then
+                hero:setPosIdx(tonumber(i))
+
+                self.m_worldNode:addChild(hero.m_rootNode, WORLD_Z_ORDER.UNIT)
+                self.m_physWorld:addObject(PHYS.HERO, hero)
+                self:addHero(hero, tonumber(i))
+
+                self:participationHero(hero)
+
+                self.m_leftFormationMgr:setChangePosCallback(hero)
+
+                -- 진형 버프 적용
+                hero.m_statusCalc:applyFormationBonus(formation, i)
+                --ccdump(hero.m_statusCalc.m_lPassive)
+            end
+        end
+    end
+end
+
+-------------------------------------
+-- function makeEnemyDeck
+-- @TODO 상대편 덱 정보를 받아서 생성해야함
+-------------------------------------
+function GameWorld:makeEnemyDeck()
+    -- 서버에 저장된 드래곤 덱 사용
+    local l_deck, formation = g_deckData:getDeck('1')
+    self.m_deckFormation = formation
+    for i, unique_id in pairs(l_deck) do
+        local t_dragon_data = g_dragonsData:getDragonDataFromUid(unique_id)
+        if (t_dragon_data) then
+            local enemy = self:makeDragonNew(t_dragon_data, true)
+            if (enemy) then
+                enemy:setPosIdx(tonumber(i))
+
+                self.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.UNIT)
+                self.m_physWorld:addObject(PHYS.ENEMY, enemy)
+                self:addEnemy(enemy, tonumber(i))
+
+                self.m_rightFormationMgr:setChangePosCallback(enemy)
+
+                -- 진형 버프 적용
+                enemy.m_statusCalc:applyFormationBonus(formation, i)
+                --ccdump(enemy.m_statusCalc.m_lPassive)
+            end
+        end
+    end
+end
+
+-------------------------------------
 -- function removeHeroDebuffs
 -------------------------------------
 function GameWorld:removeHeroDebuffs()

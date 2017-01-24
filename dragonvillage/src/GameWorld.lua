@@ -23,10 +23,11 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 		m_lMissileList = 'table',
 		m_lSpecailMissileList = 'table',
         
-        -- 출전중인 hero 
-        m_participants = '',
+        -- unit
+        m_participants = '',        -- 전투에 참여중인 아군
 		m_tEnemyList = 'EnemyList', -- 적군 리스트(드래곤이라도 적 진형이라면 여기에 추가됨)
-        m_lDragonList = 'HeroList', -- 아군 리스트(맵 형식 리스트)
+        m_mHeroList = 'HeroListMap',   -- 아군 리스트(맵 형식 리스트)
+        
         m_deckFormation = 'string',
 
         m_physWorld = 'PhysWorld',
@@ -121,10 +122,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_groundNode = cc.Node:create()
     self.m_gameNode1:addChild(self.m_groundNode)
 
-	-- 모션 스트릭 터치 영역 
-    --self.makeTouchLayer_GameWorld(self, world_node)
-
-    -- 그리드 노드
+	-- 그리드 노드
     self.m_gridNode = cc.Node:create()
     self.m_gridNode:setVisible(false)
     self.m_gameNode1:addChild(self.m_gridNode)
@@ -142,40 +140,49 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 	self.m_lSkillList = {}
 	self.m_lMissileList = {}
 	self.m_lSpecailMissileList = {}
-    self.m_tEnemyList = {}
-
+    
     self.m_physWorld = PhysWorld(self.m_gameNode1, false)
     self.m_physWorld:initGroup()
 
-    self.m_lDragonList = {}
     self.m_participants = {}
-
+    self.m_tEnemyList = {}
+    self.m_mHeroList = {}
+    
     self.m_missileFactory = MissileFactory(self)
 
     self.m_worldSize = nil
     self.m_worldScale = nil
+
+    self.m_dropGoldList = {}
+    self.m_dropGoldIdx = 0
     
     self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
     self.m_gameTimeScale = GameTimeScale(self)
+    
+    self.m_gameFever = GameFever(self)
+
+    self.m_gameAuto = GameAuto(self)
+    self.m_gameAuto:bindGameFever(self.m_gameFever)
+    self:addListener('auto_start', self.m_gameAuto)
+    self:addListener('auto_end', self.m_gameAuto)
+
+    -- shake manager 생성
+	self.m_shakeMgr = ShakeManager(self, g_gameScene.m_shakeLayer)
 
     if (self.m_gameMode == GAME_MODE_ADVENTURE) then
-        --self.m_gameCamera:setRange({minY = -160, maxY = 160})
-        
         self.m_gameState = GameState(self)
+
+        self:initGoldUnit(stage_id)
 
     elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
         local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
         local dungeonMode = t_dungeon['dungeon_mode']
 
         if (dungeonMode == NEST_DUNGEON_DRAGON) then
-            --self.m_gameCamera:setRange({minY = -160, maxY = 160})
-
             self.m_gameState = GameState_NestDungeon_Dragon(self)
 
 		elseif (dungeonMode == NEST_DUNGEON_NIGHTMARE) then
-		    --self.m_gameCamera:setRange({minY = -160, maxY = 160})
-
-			self.m_gameState = GameState_NestDungeon_Nightmare(self)
+		    self.m_gameState = GameState_NestDungeon_Nightmare(self)
 
         elseif (dungeonMode == NEST_DUNGEON_TREE) then
             self.m_gameCamera:setRange({minX = -640, maxX = 640})
@@ -186,6 +193,8 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 			error('네스트 던전 아이디가 잘못되어있습니다. 확인해주세요. ' .. self.m_stageID)
         end
 
+        self:initGoldUnit(stage_id)
+
     elseif (self.m_gameMode == GAME_MODE_COLOSSEUM) then
         self.m_gameState = GameState_Colosseum(self)
 
@@ -193,13 +202,6 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
         error('invalid game mode : ' .. self.m_gameMode)
 
     end
-
-    self.m_gameFever = GameFever(self)
-
-    self.m_gameAuto = GameAuto(self)
-    self.m_gameAuto:bindGameFever(self.m_gameFever)
-    self:addListener('auto_start', self.m_gameAuto)
-    self:addListener('auto_end', self.m_gameAuto)
 
     self.m_missileRange = {}
     self:setMissileRange()
@@ -209,14 +211,12 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 
     g_currScene:addKeyKeyListener(self)
 
-    self:init_dropGold()
-
-    self.init_motionStreak(self)
+    -- 모션 스트릭 터치 영역 
+    --self.makeTouchLayer_GameWorld(self, world_node)
+    --self.init_motionStreak(self)
 
     self.m_touchPrevPos = nil
     self.m_tCollisionTime = {}
-
-    self:initGoldUnit(stage_id)
 
     self.m_lPassiveEffect = {}
 end
@@ -225,16 +225,12 @@ end
 -------------------------------------
 -- function initGame
 -------------------------------------
-function GameWorld:initGame(stage_name, shake_layer)
+function GameWorld:initGame(stage_name)
     -- 웨이브 매니져 생성
     self.m_waveMgr = WaveMgr(self, stage_name, self.m_bDevelopMode)
-    self.m_waveMgr:addListener('change_wave', self)
-
-	-- shake manager 생성
-	self.m_shakeMgr = ShakeManager(self, shake_layer)
-
-    -- 배경 생성
-    self:initBG()
+    
+	-- 배경 생성
+    self:initBG(self.m_waveMgr)
 
     -- 월드 크기 설정
     self:changeWorldSize(1)
@@ -242,91 +238,96 @@ function GameWorld:initGame(stage_name, shake_layer)
     -- 위치 표시 이펙트 생성
     self:init_formation()
 
+    -- 테이머 생성
+    self:initTamer()
+
     -- 덱에 셋팅된 드래곤 생성
     self:makeHeroDeck()
-
-    -- UI
-    self.m_inGameUI:doActionReset()
 
     do -- 진형 시스템 초기화
         self:setBattleZone(self.m_deckFormation, true)
     end
 
+    if (self.m_gameMode == GAME_MODE_COLOSSEUM) then
+        self:makeEnemyDeck()
+
+        -- TODO: 연출 진행중에 등장해야함
+        --[[
+        for _, enemy in ipairs(self:getEnemyList()) do
+            EnemyMovement['Colosseum'](enemy, value1, value2, value3, value4, value5)
+        end
+        ]]--
+
+        self:setBattleZone(self.m_deckFormation, true, true)
+    end
+    
     do -- 스킬 조작계 초기화
         self.m_skillIndicatorMgr = SkillIndicatorMgr(self, g_currScene.m_colorLayerForSkill)
     end
 
-    -- 테이머 생성
-    do
-        self.m_tamerSkillMgr = TamerSkillManager(TAMER_ID, self)
-
-        local t_tamer = self.m_tamerSkillMgr.m_charTable
-
-        -- 스킬 컷씬
-        self.m_tamerSkillCut = TamerSkillCut(self, g_currScene.m_colorLayerTamerSkill, t_tamer)
-
-        -- 테이머 스킬
-        self.m_tamerSkillSystem = TamerSkillSystem(self)
-        self.m_tamerSkillSystem:addListener('tamer_skill', self.m_tamerSkillCut)
-        self.m_tamerSkillSystem:addListener('tamer_special_skill', self.m_tamerSkillCut)
-        
-        self:addListener('game_start', self.m_tamerSkillSystem)
-        
-        for _,char in pairs(self.m_lDragonList) do
-            if (char.m_bLeftFormation) then
-                char:addListener('dragon_skill', self.m_tamerSkillSystem)
-                char:addListener('character_dead', self.m_tamerSkillSystem)
-            end
-        end
-        
-        -- 테이머 대사
-        self.m_tamerSpeechSystem = TamerSpeechSystem(self, t_tamer)
-        self.m_gameFever:replaceRootNode(self.m_tamerSpeechSystem.m_speechNode)
-
-        self:addListener('dragon_summon', self.m_tamerSpeechSystem)
-        self:addListener('game_start', self.m_tamerSpeechSystem)
-        self:addListener('wave_start', self.m_tamerSpeechSystem)
-        self:addListener('boss_wave', self.m_tamerSpeechSystem)
-        self:addListener('stage_clear', self.m_tamerSpeechSystem)
-
-        for _,char in pairs(self.m_lDragonList) do
-            if (char.m_bLeftFormation) then
-                char:addListener('character_dead', self.m_tamerSpeechSystem)
-                char:addListener('character_weak', self.m_tamerSpeechSystem)
-                char:addListener('character_damaged_skill', self.m_tamerSpeechSystem)
-            end
+    do -- 카메라 초기 위치 설정이 있다면 적용
+        local t_camera = self.m_waveMgr:getBaseCameraScriptData()
+        if t_camera then
+            t_camera['time'] = 0
+            self:changeCameraOption(t_camera)
         end
     end
+
+    -- UI
+    self.m_inGameUI:doActionReset()
 end
 
 -------------------------------------
 -- function initBG
 -------------------------------------
-function GameWorld:initBG()
-    --if (self.m_gameMode == GAME_MODE_COLOSSEUM) then
-        -- 콜로세움 배경은 따로 처리
+function GameWorld:initBG(waveMgr)
+    local t_script_data = waveMgr.m_scriptData
+    if not t_script_data then return end
+
+    local bg_res = t_script_data['bg']
+    local bg_type = t_script_data['bg_type'] or 'default'
+	local bg_directing = t_script_data['bg_directing'] or 'floating_1'
+    local attr = TableDrop():getValue(self.m_stageID, 'attr')
+
+    if (bg_type == 'animation') then
+        self.m_mapManager = AnimationMap(self.m_bgNode, bg_res)
+
+    elseif (bg_type == 'default') then
+        self.m_mapManager = ScrollMap(self.m_bgNode)
+        self.m_mapManager:setBg(bg_res, attr)
+        self.m_mapManager:setSpeed(-100)
+        self.m_mapManager:bindCameraNode(g_gameScene.m_cameraLayer)
+        self.m_mapManager:bindEventDispatcher(self)
+    else
+        error('bg_type : ' .. bg_type)
+    end
+end
+
+-------------------------------------
+-- function initTamer
+-------------------------------------
+function GameWorld:initTamer()
+    -- 테이머 생성
+    self.m_tamerSkillMgr = TamerSkillManager(TAMER_ID, self)
+
+    local t_tamer = self.m_tamerSkillMgr.m_charTable
+
+    -- 스킬 컷씬
+    self.m_tamerSkillCut = TamerSkillCut(self, g_gameScene.m_colorLayerTamerSkill, t_tamer)
+
+    -- 테이머 스킬
+    self.m_tamerSkillSystem = TamerSkillSystem(self, self.m_tamerSkillCut)
+    self:addListener('game_start', self.m_tamerSkillSystem)
         
-    --else
-        local t_script_data = self.m_waveMgr.m_scriptData
-        if not t_script_data then return end
+    -- 테이머 대사
+    self.m_tamerSpeechSystem = TamerSpeechSystem(self, t_tamer)
+    self.m_gameFever:replaceRootNode(self.m_tamerSpeechSystem.m_speechNode)
 
-        local bg = t_script_data['bg']
-        local bg_type = t_script_data['bg_type'] or 'default'
-		local bg_directing = t_script_data['bg_directing'] or 'floating_1'
-
-        if (bg_type == 'animation') then
-            self.m_mapManager = AnimationMap(self.m_bgNode, bg)
-
-        elseif (bg_type == 'default') then
-            self.m_mapManager = ScrollMap(self.m_bgNode)
-            self.m_mapManager:setBg(bg)
-            self.m_mapManager:setSpeed(-100)
-            self.m_mapManager:bindCameraNode(g_gameScene.m_cameraLayer)
-            self.m_mapManager:bindEventDispatcher(self)
-        else
-            error('bg_type : ' .. bg_type)
-        end
-    --end
+    self:addListener('dragon_summon', self.m_tamerSpeechSystem)
+    self:addListener('game_start', self.m_tamerSpeechSystem)
+    self:addListener('wave_start', self.m_tamerSpeechSystem)
+    self:addListener('boss_wave', self.m_tamerSpeechSystem)
+    self:addListener('stage_clear', self.m_tamerSpeechSystem)
 end
 
 
@@ -675,6 +676,7 @@ end
 -- @param enemy
 -------------------------------------
 function GameWorld:addEnemy(enemy)
+    
     table.insert(self.m_tEnemyList, enemy)
     --cclog('GameWorld:addEnemy(enemy) cnt : ' .. #self.m_tEnemyList)
 
@@ -725,11 +727,11 @@ function GameWorld:killAllEnemy()
 end
 
 -------------------------------------
--- function killAllDragon
+-- function killAllHero
 -- @brief
 -------------------------------------
-function GameWorld:killAllDragon()
-    for i,v in pairs(self.m_lDragonList) do
+function GameWorld:killAllHero()
+    for i,v in pairs(self.m_mHeroList) do
         if (not v.m_bDead) then
             v:setDead()
             v:setEnableBody(false)
@@ -746,24 +748,31 @@ end
 -- function addHero
 -------------------------------------
 function GameWorld:addHero(hero, idx)
-    self.m_lDragonList[idx] = hero
+    self.m_mHeroList[idx] = hero
 
     hero:addListener('character_dead', self)
-    hero:addListener('dragon_skill', self)
-    hero:addListener('hero_active_skill', self.m_gameState)
+    hero:addListener('character_dead', self.m_tamerSkillSystem)
+    hero:addListener('character_dead', self.m_tamerSpeechSystem)
 
-    -- 스킬 캐스팅
-    hero:addListener('hero_casting_start', self.m_gameAuto)
+    hero:addListener('dragon_skill', self)
+    hero:addListener('dragon_skill', self.m_tamerSkillSystem)
+
+    hero:addListener('hero_active_skill', self.m_gameState)
     hero:addListener('hero_active_skill', self.m_gameAuto)
+        
+    hero:addListener('hero_casting_start', self.m_gameAuto)
+       
+    hero:addListener('character_weak', self.m_tamerSpeechSystem)
+    hero:addListener('character_damaged_skill', self.m_tamerSpeechSystem)
 end
 
 -------------------------------------
 -- function removeHero
 -------------------------------------
 function GameWorld:removeHero(hero)
-    for i,v in pairs(self.m_lDragonList) do
+    for i,v in pairs(self.m_mHeroList) do
         if (v == hero) then
-            self.m_lDragonList[i] = nil
+            self.m_mHeroList[i] = nil
             break
         end
     end
@@ -771,16 +780,15 @@ function GameWorld:removeHero(hero)
     self:standbyHero(hero)
 
     -- 게임 종료 체크(모든 영웅이 죽었을 경우)
-    local hero_count = table.count(self.m_lDragonList)
+    local hero_count = table.count(self.m_mHeroList)
     if (hero_count <= 0) then
 		if (self.m_bDevelopMode) then 
 			-- 개발 스테이지에서는 드래곤이 전부 죽을 시 드래곤을 되살리고 스테이지 초기화 한다 
-			self.m_lDragonList = {}
+			self.m_mHeroList = {}
 			self.m_participants = {}
 			
 			self:makeHeroDeck()
-			--self:setBattleZone('basic', true)
-			
+						
 			self:killAllEnemy()
 		else
 			self.m_gameState:changeState(GAME_STATE_FAILURE)
@@ -986,7 +994,7 @@ function GameWorld:onKeyReleased(keyCode, event)
 
 	-- 배경 초기화
     elseif (keyCode == KEY_M) then
-        self:initBG()
+        self:initBG(self.m_waveMgr)
 
 	-- 강제로 wait 상태로 걸어버림
     elseif (keyCode == KEY_O) then
@@ -1168,9 +1176,8 @@ end
 function GameWorld:dropItem(x, y)
     local rand = math_random(2, 4)
     for i=1, rand do
-		--@TODO 골드 안떨어지도록 임시 처리
 		self:obtainGold(1)
-        --self:addDropGold(x, y)
+        self:addDropGold(x, y)
     end
 end
 
@@ -1179,24 +1186,25 @@ end
 -- @brief 시작 시 버프 발동
 -------------------------------------
 function GameWorld:buffActivateAtStartup()
-    local l_tar_skill_type = {'basic', 'normal'}
+    for _, list in ipairs({self:getDragonList(), self:getEnemyList()}) do
+        local l_tar_skill_type = {'basic', 'normal'}
 
-    for _,dragon in pairs(self:getDragonList()) do
-        for _,skill_type in pairs(l_tar_skill_type) do
-            local skill_id = dragon:getSkillID(skill_type)
-            local table_skill = TABLE:get('dragon_skill')
-            local t_skill = table_skill[skill_id]
-            if t_skill and (t_skill['chance_type'] == 'passive') then
-                dragon:doSkill(skill_id, 0, 0)
+        for _, unit in pairs(list) do
+            for _,skill_type in pairs(l_tar_skill_type) do
+                local skill_id = unit:getSkillID(skill_type)
+                local t_skill = unit:getSkillTable(skill_id)
+                if t_skill and (t_skill['chance_type'] == 'passive') then
+                    unit:doSkill(skill_id, 0, 0)
+                end
             end
         end
-    end
 
-    for _,dragon in pairs(self:getDragonList()) do
-        local l_passive = dragon.m_lSkillIndivisualInfo['passive']
-        for i,skill_info in pairs(l_passive) do
-            local skill_id = skill_info.m_skillID
-            dragon:doSkill(skill_id, 0, 0)
+        for _, unit in pairs(list) do
+            local l_passive = unit.m_lSkillIndivisualInfo['passive']
+            for i,skill_info in pairs(l_passive) do
+                local skill_id = skill_info.m_skillID
+                unit:doSkill(skill_id, 0, 0)
+            end
         end
     end
 end
@@ -1250,13 +1258,13 @@ end
 -- function setBattleZone
 -- @brief 전투영역 설정
 -------------------------------------
-function GameWorld:setBattleZone(formation, immediately)
+function GameWorld:setBattleZone(formation, immediately, is_right)
 
-    local rage = (80 * 6)
+    local rage = (70 * 5)
 
     -- 실제 사각형 영역
-    local min_x = 40
-    local max_x = 40 + rage
+    local min_x = 0
+    local max_x = rage
     local min_y = -(rage / 2)
     local max_y = (rage / 2)
 
@@ -1269,36 +1277,41 @@ function GameWorld:setBattleZone(formation, immediately)
     max_y = (max_y - padding_y)
 
     -- offset 지정(카메라 역할)
-    local offset_x = 60
-    local offset_y = 30
+    local cameraHomePosX, cameraHomePosY = self.m_gameCamera:getHomePos()
+    local offset_x
+    local offset_y
+    local lUnitList
+
+    if (is_right) then
+        offset_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) + 150
+        offset_y = cameraHomePosY + 30
+        lUnitList = self.m_tEnemyList
+    else
+        offset_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) - 150 - rage
+        offset_y = cameraHomePosY + 30
+        lUnitList = self.m_participants
+    end
+    
     min_x = (min_x + offset_x)
-    max_x = (max_x - offset_x)
+    max_x = (max_x + offset_x)
     min_y = (min_y + offset_y)
     max_y = (max_y + offset_y)
 
-    local l_pos_list = TableFormation:getFormationPositionList(formation, min_x, max_x, min_y, max_y)
+    local l_pos_list = TableFormation:getFormationPositionList(formation, min_x, max_x, min_y, max_y, is_right)
 
-    for i,v in pairs(self.m_lDragonList) do
-        
-        local pos_x = l_pos_list[i]['x']
-        local pos_y = l_pos_list[i]['y']
+    for _, unit in pairs(lUnitList) do
+        local pos_idx = unit:getPosIdx()
+        local pos_x = l_pos_list[pos_idx]['x']
+        local pos_y = l_pos_list[pos_idx]['y']
 
-        v:setOrgHomePos(pos_x, pos_y)
+        unit:setOrgHomePos(pos_x, pos_y)
 
         if immediately then
-            v:setOrgHomePos(pos_x, pos_y)
-            v:setHomePos(pos_x, pos_y)
-            v:setPosition(pos_x, pos_y)
+            unit:setOrgHomePos(pos_x, pos_y)
+            unit:setHomePos(pos_x, pos_y)
+            unit:setPosition(pos_x, pos_y)
         else
-            v:changeHomePos(pos_x, pos_y)
-        end
-    end
-
-    do -- 카메라 설정 (이건 코드 위치를 변경해야 할 듯?!) 170116 Seong-goo Kim
-        local t_camera = self.m_waveMgr.m_scriptData['camera']
-        if t_camera then
-            t_camera['time'] = 0
-            self:changeCameraOption(t_camera)
+            unit:changeHomePos(pos_x, pos_y)
         end
     end
 end
@@ -1425,14 +1438,6 @@ function GameWorld:isOnFight()
 end
 
 -------------------------------------
--- function init_dropGold
--------------------------------------
-function GameWorld:init_dropGold()
-    self.m_dropGoldList = {}	-- 'list[ObjectGold]'
-    self.m_dropGoldIdx = 0		-- 'number', -- 골드마다 고유한 idx를 가짐
-end
-
--------------------------------------
 -- function addDropGold
 -------------------------------------
 function GameWorld:addDropGold(x, y)
@@ -1551,7 +1556,7 @@ function GameWorld:onEvent_character_dead(event_name, t_event, ...)
 
     -- 적군 사망
     else
-        self:dropItem(char.pos['x'], char.pos['y'])
+        --self:dropItem(char.pos['x'], char.pos['y'])
         self:dispatch('enemy_dead', {}, char)
 
     end

@@ -180,6 +180,17 @@ function Animator:setPosition(x, y)
 end
 
 -------------------------------------
+-- function getPosition
+-------------------------------------
+function Animator:getPosition()
+    if (not self.m_node) then
+        return
+    end
+
+    return self.m_node:getPosition()
+end
+
+-------------------------------------
 -- function setPositionX
 -------------------------------------
 function Animator:setPositionX(x)

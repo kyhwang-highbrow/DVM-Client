@@ -1,0 +1,14 @@
+{
+	"layer":
+    [
+    
+        {
+            "name":"배경"
+            "speed":0
+            "list":           
+			[
+                {"res":"res/bg/map_colosseum.png" "width":1920 "pos_x":-512 "scale":1.2}
+            ]
+        }
+    ]
+}

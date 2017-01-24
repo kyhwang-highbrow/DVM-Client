@@ -171,7 +171,7 @@ function getEnemyPos(key)
     local pos = clone(ENEMY_POS[key])
 
     if (not pos) then
-        cclog('ERROE! 존재하지 않는 key : ' .. tostring(key))
+        error('ERROE! 존재하지 않는 key : ' .. tostring(key))
         pos = { x = 0, y = 0 }
     end
 
@@ -189,7 +189,7 @@ end
 -------------------------------------
 function getWorldEnemyPos(enemy, key)
     if (not ENEMY_POS[key]) then
-        cclog('ERROE! 존재하지 않는 key : ' .. tostring(key))
+        error('ERROE! 존재하지 않는 key : ' .. tostring(key))
         return {x=0, y=0}
     end
 

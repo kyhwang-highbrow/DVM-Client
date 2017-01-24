@@ -51,10 +51,17 @@ function UI_AdventureSceneNew:init(stage_id)
     vars['hardBtn']:registerScriptTapHandler(function() self:click_selectDifficultyBtn(3) end)
 
     vars['devStageBtn']:registerScriptTapHandler(function()
-            self:openAdventureStageInfoPopup(DEV_STAGE_ID)
+            if COLOSSEUM_SCENE_ACTIVE then
+                local scene = SceneGameColosseum()
+                scene:runScene()
+            else
+                self:openAdventureStageInfoPopup(DEV_STAGE_ID)
+            end
         end)
     if (TARGET_SERVER == 'FGT') then
-        vars['devStageBtn']:setVisible(false)
+        if (not DEVELOPMENT_KSJ) then
+            vars['devStageBtn']:setVisible(false)
+        end
     end
 
     vars['bgSprite']:setLocalZOrder(-2)

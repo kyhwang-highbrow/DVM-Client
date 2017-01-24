@@ -56,8 +56,8 @@ function TamerSpeechSystem:initUI()
         self.m_speechNode:setVisible(false)
                
         local socketNode = ui.vars['tamerTalkVisual'].m_node:getSocketNode('talk_label')
-        socketNode:addChild(self.m_speechLabel)
-        socketNode:addChild(self.m_speechNode)
+        socketNode:addChild(self.m_speechLabel, 1)
+        socketNode:addChild(self.m_speechNode, 2)
     end
 end
 

@@ -74,6 +74,9 @@ function SkillLaser:init_skill(missile_res, hit, thickness)
 	
 	-- 상태효과 (고대신룡 힐)
 	--StatusEffectHelper:doStatusEffectByStr(self.m_owner, {}, self.m_lStatusEffectStr)
+
+    -- character를 delegate상태로 변경
+    self.m_owner:setStateDelegate(self)
 end
 
 -------------------------------------
@@ -117,6 +120,9 @@ function SkillLaser:initState()
 	self:setCommonState(self)
     self:addState('start', SkillLaser.st_idle, 'idle', true)
     self:addState('disappear', SkillLaser.st_disappear, 'idle', true)
+
+    -- 영웅을 제어하는 스킬은 dying state를 별도로 정의
+	self:addState('dying', IStateDelegate.st_dying, nil, nil, 10)
 end
 
 -------------------------------------

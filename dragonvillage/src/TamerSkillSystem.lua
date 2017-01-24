@@ -26,7 +26,7 @@ TamerSkillSystem = class(IEventDispatcher:getCloneClass(), IEventListener:getClo
 -------------------------------------
 -- function init
 -------------------------------------
-function TamerSkillSystem:init(world)
+function TamerSkillSystem:init(world, tamerSkillCut)
     self.m_world = world
     self.m_tamerSkillCooltimeGlobal = 0
     self.m_lTamerSkillCoolTime = {}
@@ -41,6 +41,10 @@ function TamerSkillSystem:init(world)
 	self:initTamerSpecialSkillBtn()
 
     self.m_world.m_inGameUI.vars['characterMenu']:setVisible(false)
+
+    -- 리스너 등록
+    self:addListener('tamer_skill', tamerSkillCut)
+    self:addListener('tamer_special_skill', tamerSkillCut)
 end
 
 -------------------------------------

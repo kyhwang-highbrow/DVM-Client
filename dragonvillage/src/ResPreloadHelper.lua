@@ -88,7 +88,7 @@ function makeResListForGame(stageName, bOnlyStage)
 
     -- 아군 관련 리소스
     if not bOnlyStage then
-        local tList = getPreloadList_Hero()
+        local tList = getPreloadList_HeroDeck()
         for _, k in ipairs(tList) do
             temp[k] = true
         end
@@ -204,9 +204,9 @@ function getPreloadList_Tamer()
 end
 
 -------------------------------------
--- function getPreloadList_Hero
+-- function getPreloadList_HeroDeck
 -------------------------------------
-function getPreloadList_Hero()
+function getPreloadList_HeroDeck()
     local ret = {}
 
     local t_skillList = { 'skill_basic', 'skill_active', 'skill_1', 'skill_3' }
@@ -214,30 +214,46 @@ function getPreloadList_Hero()
     local l_deck = g_deckData:getDeck()
     for _, v in pairs(l_deck) do
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(v)
-        if t_dragon_data then
-            local t_dragon = TABLE:get('dragon')[t_dragon_data['did']]
-            if t_dragon then
-                -- 영웅
-                local evolution = t_dragon_data['evolution']
-	            local attr = t_dragon['attr']
+        if (t_dragon_data) then
+            local list = getPreloadList_Dragon(t_dragon_data['did'], t_dragon_data['evolution'])
+            for i, v in ipairs(list) do
+                table.insert(ret, v)
+            end
+        end
+    end
 
-                local res_name = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, attr)
-                table.insert(ret, res_name)
-                
-                -- 스킬
-                for _, k in pairs(t_skillList) do
-                    local t_skill = TABLE:get('dragon_skill')[t_dragon[k]]
-                    if t_skill then
-                        if t_skill['skill_form'] == 'script' then
-                            countSkillResListFromScript(ret, t_skill['type'], attr)
-                        else
-                            for i = 1, 3 do
-                                if (t_skill['res_' .. i] ~= 'x') then
-                                    local res_name = string.gsub(t_skill['res_' .. i], '@', attr)
-                                    table.insert(ret, res_name)
-                                end
-                            end
-                        end
+    return ret
+end
+
+-------------------------------------
+-- function getPreloadList_Dragon
+-------------------------------------
+function getPreloadList_Dragon(did, evolution)
+    local ret = {}
+
+    -- 영웅
+    local t_dragon = TABLE:get('dragon')[did]
+    if t_dragon then return ret end
+
+    local evolution = evolution or 1
+    local attr = t_dragon['attr']
+
+    local res_name = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, attr)
+    table.insert(ret, res_name)
+     
+    -- 스킬
+    local t_skillList = { 'skill_basic', 'skill_active', 'skill_1', 'skill_3' }
+
+    for _, k in pairs(t_skillList) do
+        local t_skill = TABLE:get('dragon_skill')[t_dragon[k]]
+        if t_skill then
+            if t_skill['skill_form'] == 'script' then
+                countSkillResListFromScript(ret, t_skill['type'], attr)
+            else
+                for i = 1, 3 do
+                    if (t_skill['res_' .. i] ~= 'x') then
+                        local res_name = string.gsub(t_skill['res_' .. i], '@', attr)
+                        table.insert(ret, res_name)
                     end
                 end
             end

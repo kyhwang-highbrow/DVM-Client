@@ -17,7 +17,7 @@ end
 -------------------------------------
 -- function getFormationPositionList
 -------------------------------------
-function TableFormation:getFormationPositionList(formation, min_x, max_x, min_y, max_y)
+function TableFormation:getFormationPositionList(formation, min_x, max_x, min_y, max_y, is_right)
     if (self == TableFormation) then
         self = TableFormation()
     end
@@ -28,6 +28,7 @@ function TableFormation:getFormationPositionList(formation, min_x, max_x, min_y,
     local gap_y = (max_y - min_y)
 
     local l_pos_list = {}
+
     for i=1, 5 do
         local pos_str = t_table[string.format('pos_%.2d', i)]
         local l_pos = seperate(pos_str, ',')
@@ -38,7 +39,12 @@ function TableFormation:getFormationPositionList(formation, min_x, max_x, min_y,
         local pos = {}
         pos['x'] = min_x + (gap_x * rate_x)
         pos['y'] = min_y + (gap_y * rate_y)
-        l_pos_list[i] = pos
+
+        if (is_right) then
+            l_pos_list[6 - i] = pos
+        else
+            l_pos_list[i] = pos
+        end
     end
     
     return l_pos_list

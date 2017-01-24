@@ -489,3 +489,24 @@ function Character:cancelSkill()
 
     return true
 end
+
+-------------------------------------
+-- function checkToStopSkill
+-- @brief 진행 중인 스킬을 멈춰야하는지 여부
+-------------------------------------
+function Character:checkToStopSkill()
+    if (self.m_bDead) then
+		return true
+	end
+
+    if (self.m_isSilence) then
+		return true
+	end
+
+    -- 스킬 사용 불가 상태
+    if (isExistValue(self.m_state, 'stun')) then
+        return true
+    end
+
+    return false
+end

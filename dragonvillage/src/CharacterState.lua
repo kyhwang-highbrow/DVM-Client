@@ -291,7 +291,9 @@ end
 -- function st_delegate
 -------------------------------------
 function Character.st_delegate(owner, dt)
-
+    if (owner.m_stateTimer == 0) then
+        owner.m_bEnableSpasticity = false
+    end
 end
 
 -------------------------------------

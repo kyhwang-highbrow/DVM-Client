@@ -177,7 +177,7 @@ function SceneGame:prepare()
         -- 레이어 생성
         self:init_layer()
         self.m_gameWorld = GameWorld(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_feverNode, self.m_inGameUI, self.m_bDevelopMode)
-        self.m_gameWorld:initGame(self.m_stageName, self.m_shakeLayer)
+        self.m_gameWorld:initGame(self.m_stageName)
         
         -- 스크린 사이즈 초기화
         self:sceneDidChangeViewSize()
@@ -600,25 +600,5 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
     elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
         local t_stage_clear_info = g_nestDungeonData:getNestDungeonStageClearInfoRef(stage_id)
         t_stage_clear_info['clear_cnt'] = ret['stage_clear_info']['cnt']
-    end
-end
-
--------------------------------------
--- function isAdventureMode
--- @brief 모험 모드 스테이지 여부
--------------------------------------
-function SceneGame:isAdventureMode()
-    return (self.m_gameMode == GAME_MODE_ADVENTURE)
-end
-
--------------------------------------
--- function isNestMode
--- @brief 네스트 던전 스테이지 여부
--------------------------------------
-function SceneGame:isNestMode()
-    if (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
-        return true
-    else
-        return false
     end
 end

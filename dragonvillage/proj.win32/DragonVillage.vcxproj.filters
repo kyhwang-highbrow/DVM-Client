@@ -1299,13 +1299,19 @@
     <None Include="..\src\TableRuneNamingRule.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\SceneGameColosseum.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\TableItem.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillIndicator_Panetration.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\TableRuneGrade.lua">
+    <None Include="..\src\GameAuto_Colosseum.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\ConstantColosseum.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\TableRuneStatus.lua">

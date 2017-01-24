@@ -38,11 +38,19 @@ function WaveMgr:init(world, stage_name, develop_mode)
     self.m_bDevelopMode = develop_mode or (stage_name == 'stage_dev') or false
 
     if self.m_scriptData then
-        self.m_maxWave = #self.m_scriptData['wave']
+        if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
+            self.m_maxWave = 1
+            
+        else
+            self.m_maxWave = #self.m_scriptData['wave']
         
-        -- 소환 몬스터 정보
-	    self:setSummonData(self.m_scriptData)
+            -- 소환 몬스터 정보
+	        self:setSummonData(self.m_scriptData)
+        end
     end
+
+    -- 리스너 등록
+    self:addListener('change_wave', self.m_world)
 end
 
 -------------------------------------
@@ -85,6 +93,13 @@ function WaveMgr:getNextWaveScriptData()
     local is_final_wave = (wave == self.m_maxWave)
 
     return t_script_data['wave'][wave], is_final_wave
+end
+
+-------------------------------------
+-- function getBaseCameraScriptData
+-------------------------------------
+function WaveMgr:getBaseCameraScriptData()
+    return self.m_scriptData['camera']
 end
 
 -------------------------------------

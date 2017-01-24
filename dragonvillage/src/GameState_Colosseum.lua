@@ -3,14 +3,26 @@ local PARENT = GameState
 -------------------------------------
 -- class GameState_Colosseum
 -------------------------------------
-GameState_Colosseum = class(PARENT, {})
+GameState_Colosseum = class(PARENT, {
+    m_gameAutoEnemy = 'GameAuto_Colosseum'
+})
 
 -------------------------------------
 -- function init
 -------------------------------------
 function GameState_Colosseum:init(world)
     -- 상대편 드래곤들을 생성함
-    
+    self.m_gameAutoEnemy = GameAuto_Colosseum(world, false)
+end
+
+-------------------------------------
+-- function initState
+-- @brief 상태(state)별 동작 함수 추가
+-------------------------------------
+function GameState_Colosseum:initState()
+    PARENT.initState(self)
+    self:addState(GAME_STATE_START, GameState_Colosseum.update_start)
+    self:addState(GAME_STATE_FIGHT, GameState_Colosseum.update_fight)
 end
 
 -------------------------------------
@@ -72,29 +84,26 @@ end
 -- function update_fight
 -------------------------------------
 function GameState_Colosseum.update_fight(self, dt)
-    self.m_fightTimer = self.m_fightTimer + dt
-    local world = self.m_world
+    GameState.update_fight(self, dt)
+    
+    if self.m_gameAutoEnemy then
+        self.m_gameAutoEnemy:update(dt) 
+    end
 
-    local hero_count = #world:getDragonList()
-    local enemy_count = #world:getEnemyList()
-
-    -- 클리어 여부 체크
-    --if (enemy_count <= 0) then
-    if false then
-        self:changeState(GAME_STATE_SUCCESS_WAIT)
-    elseif hero_count <= 0 then
-        self:changeState(GAME_STATE_FAILURE)
+    do -- 적군 액티브 스킬 쿨타임 증가
+        for _, enemy in pairs(self.m_world:getEnemyList()) do
+            enemy:updateActiveSkillCoolTime(dt)
+        end
     end
 end
 
 -------------------------------------
--- function waveChange
+-- function update_fight_fever
 -------------------------------------
-function GameState_Colosseum:waveChange()
-end
+function GameState_Colosseum.update_fight_fever(self, dt)
+    PARENT.update_fight_fever(self, dt)
 
--------------------------------------
--- function doDirectionForIntermission
--------------------------------------
-function GameState_Colosseum:doDirectionForIntermission()
+    if self.m_gameAutoEnemy then
+        self.m_gameAutoEnemy:update(dt) 
+    end
 end
