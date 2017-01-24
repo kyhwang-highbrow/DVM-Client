@@ -609,41 +609,29 @@ end
 -- function findTarget
 -------------------------------------
 function GameWorld:findTarget(type, x, y, l_remove)
+    local target
+    local unitList
+    local distance = nil
+
     if (type == PHYS.ENEMY) then
-        local enemy = nil
-        local distance = nil
-
-        for i,v in pairs(self:getEnemyList()) do
-            if v.m_bDead then
-            elseif l_remove and table.find(l_remove, v.phys_idx) then
-            else
-                local dist = getDistance(x, y, v.pos.x + v.body.x, v.pos.y + v.body.y)
-                if (not distance) or (dist < distance) then
-                    distance = dist
-                    enemy = v
-                end
-            end
-        end
-
-        return enemy
-    elseif (type == PHYS.HERO) then
-        local hero = nil
-        local distance = nil
-
-        for i,v in pairs(self:getDragonList()) do
-            if v.m_bDead then
-            elseif l_remove and table.find(l_remove, v.phys_idx) then
-            else
-                local dist = getDistance(x, y, v.pos.x + v.body.x, v.pos.y + v.body.y)
-                if (not distance) or (dist < distance) then
-                    distance = dist
-                    hero = v
-                end
-            end
-        end
-
-        return hero
+        unitList = self:getEnemyList()
+    else
+        unitList = self:getDragonList()
     end
+
+    for i,v in pairs(unitList) do
+        if v.m_bDead then
+        elseif l_remove and table.find(l_remove, v.phys_idx) then
+        else
+            local dist = getDistance(x, y, v.pos.x + v.body.x, v.pos.y + v.body.y)
+            if (not distance) or (dist < distance) then
+                distance = dist
+                target = v
+            end
+        end
+    end
+
+    return target
 end
 
 -------------------------------------
@@ -829,34 +817,6 @@ function GameWorld:standbyHero(hero)
         if (v == hero) then
             table.remove(self.m_participants, i)
             break
-        end
-    end
-end
-
--------------------------------------
--- function makeHeroDeck
--------------------------------------
-function GameWorld:makeHeroDeck()
-    -- 서버에 저장된 드래곤 덱 사용
-    local l_deck, formation = g_deckData:getDeck()
-    self.m_deckFormation = formation
-    for i,v in pairs(l_deck) do
-        local t_dragon_data = g_dragonsData:getDragonDataFromUid(v)
-        if t_dragon_data then
-            local hero = self:makeDragonNew(t_dragon_data)
-            if hero then
-                self.m_worldNode:addChild(hero.m_rootNode, WORLD_Z_ORDER.UNIT)
-                self.m_physWorld:addObject(PHYS.HERO, hero)
-                self:addHero(hero, tonumber(i))
-
-                self:participationHero(hero)
-
-                self.m_leftFormationMgr:setChangePosCallback(hero)
-
-                -- 진형 버프 적용
-                hero.m_statusCalc:applyFormationBonus(formation, i)
-                --ccdump(hero.m_statusCalc.m_lPassive)
-            end
         end
     end
 end
@@ -1485,14 +1445,14 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
         return {char}
 
     elseif (team_type == 'ally') then
-        if char.m_bLeftFormation then
+        if (char.m_bLeftFormation) then
             for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr)
         else
             for_mgr_delegate = FormationMgrDelegate(self.m_rightFormationMgr)
         end
 
     elseif (team_type == 'enemy') then
-        if char.m_bLeftFormation then
+        if (char.m_bLeftFormation) then
             for_mgr_delegate = FormationMgrDelegate(self.m_rightFormationMgr)
         else
             for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr)

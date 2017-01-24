@@ -86,10 +86,10 @@ function SkillChainLightning:getTargetList(count)
     local t_target_list = {}
     local t_target_phys_list = {}
 
-    local x = self.pos.x
-    local y = self.pos.y
+    local x = self.m_owner.pos.x
+    local y = self.m_owner.pos.y
 
-	local target = nil 
+    local target = nil 
     for i=1, count do
         target = world:findTarget(target_type, x, y, t_target_phys_list)
         if target then
@@ -100,7 +100,7 @@ function SkillChainLightning:getTargetList(count)
             y = target.pos.y
         end
     end
-	
+
     return t_target_list
 end
 

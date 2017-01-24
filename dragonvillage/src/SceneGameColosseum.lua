@@ -1,7 +1,3 @@
-if (TARGET_SERVER ~= 'FGT') then
-    COLOSSEUM_SCENE_ACTIVE = true
-end
-
 local PARENT = SceneGame
 
 -------------------------------------
