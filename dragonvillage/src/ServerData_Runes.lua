@@ -17,7 +17,7 @@ end
 -- function getRuneData
 -------------------------------------
 function ServerData_Runes:getRuneData(roid)
-    local l_runes = self.m_serverData:get('runes')
+    local l_runes = self.m_serverData:getRef('runes')
 
     for _,v in pairs(l_runes) do
         if (roid == v['id']) then
@@ -33,10 +33,12 @@ end
 -- @brief 서버에서 넘어오는 룬 정보 갱신
 -------------------------------------
 function ServerData_Runes:applyRuneData_list(l_rune_data)
+    g_serverData:lockSaveData()
     for i,v in pairs(l_rune_data) do
         local t_rune_data = v
         self:applyRuneData(t_rune_data)
     end
+    g_serverData:unlockSaveData()
 end
 
 -------------------------------------
@@ -44,33 +46,38 @@ end
 -- @brief 서버에서 넘어오는 룬 정보 갱신
 -------------------------------------
 function ServerData_Runes:applyRuneData(t_rune_data)
-    -- 보유중인 룬에서 t_rune_data정보가 있는지 확인
-    local l_runes = self.m_serverData:get('runes')
-    local roid = t_rune_data['id']
     local idx = nil
-    for i,v in pairs(l_runes) do
-        if (roid == v['id']) then
-            idx = i
-            break
+
+    -- 보유중인 룬에서 t_rune_data정보가 있는지 확인
+    local l_runes = self.m_serverData:getRef('runes')
+
+    if l_runes then
+        local roid = t_rune_data['id']
+        for i,v in pairs(l_runes) do
+            if (roid == v['id']) then
+                idx = i
+                break
+            end
         end
+
+        if (idx == nil) then
+            idx = #l_runes + 1
+        end
+    else
+        idx = 1
     end
 
+    t_rune_data['information'] = self:makeRuneInfomation(t_rune_data)
+
     -- 기존에 있는 룬데이터이면 갱신
-    if idx then
-        self.m_serverData:applyServerData(t_rune_data, 'runes', idx)
-    -- 기존에 없던 룬이면 추가
-    else
-        self.m_serverData:applyServerData(t_rune_data, 'runes', #l_runes + 1)
-    end
+    self.m_serverData:applyServerData(t_rune_data, 'runes', idx)
 end
 
 -------------------------------------
--- function getRuneInfomation
--- @brief rune object id로 룬의 정보 분석
+-- function makeRuneInfomation
+-- @brief
 -------------------------------------
-function ServerData_Runes:getRuneInfomation(roid)
-    local t_rune_data = self:getRuneData(roid)
-
+function ServerData_Runes:makeRuneInfomation(t_rune_data)
     local table_rune = TableRune()
 
     local rid = t_rune_data['rid']
@@ -87,6 +94,57 @@ function ServerData_Runes:getRuneInfomation(roid)
     t_rune_infomation['alphabet_idx'] = alphabet_idx
     t_rune_infomation['lv'] = lv
 
+    t_rune_infomation['status'] = self:makeRuneStatus(t_rune_data)
+
+    return t_rune_infomation
+end
+
+-------------------------------------
+-- function makeRuneStatus
+-- @brief
+-------------------------------------
+function ServerData_Runes:makeRuneStatus(t_rune_data)
+    local grade = t_rune_data['grade']
+    local lv = t_rune_data['lv']
+    local rarity = t_rune_data['rarity']
+
+    local l_mopt = {}
+    local l_sopt = {}
+
+    local table_rune_status = TableRuneStatus()
+
+    -- 메인 옵션
+    for i,v in pairs(t_rune_data['mopt']) do
+        i = tonumber(i)
+        local category = v
+        if (category and category~='') then
+            l_mopt[i] = table_rune_status:getMainOptionStatus(grade, category, lv)
+        end
+    end
+
+    -- 서브 옵션
+    for i,v in pairs(t_rune_data['sopt']) do
+        i = tonumber(i)
+        local category = v
+        if (category and category~='') then
+            l_sopt[i] = table_rune_status:getSubOptionStatus(grade, category, rarity)
+        end
+    end
+
+    local t_rune_status = {}
+    t_rune_status['mopt'] = l_mopt
+    t_rune_status['sopt'] = l_sopt
+
+    return t_rune_status
+end
+
+-------------------------------------
+-- function getRuneInfomation
+-- @brief rune object id로 룬의 정보 분석
+-------------------------------------
+function ServerData_Runes:getRuneInfomation(roid)
+    local t_rune_data = self:getRuneData(roid)
+    local t_rune_infomation = t_rune_data['information']
     return t_rune_infomation, t_rune_data
 end
 
@@ -100,7 +158,7 @@ function ServerData_Runes:getUnequippedRuneList(slot_type)
         slot_type = 'all'
     end
 
-    local l_runes = self.m_serverData:get('runes')
+    local l_runes = self.m_serverData:getRef('runes')
 
     local l_ret = {}
 
@@ -110,7 +168,7 @@ function ServerData_Runes:getUnequippedRuneList(slot_type)
             -- 슬롯 확인
             if (slot_type == 'all') or (v['type'] == slot_type) then
                 local roid = v['id']
-                l_ret[roid] = v
+                l_ret[roid] = clone(v)
             end
         end
     end

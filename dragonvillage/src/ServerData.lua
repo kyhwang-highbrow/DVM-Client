@@ -3,6 +3,9 @@
 -------------------------------------
 ServerData = class({
         m_rootTable = 'table',
+
+        m_bLockSave = 'boolean',
+        m_bDirtyDataTable = 'boolean',
     })
 
 -------------------------------------
@@ -10,6 +13,8 @@ ServerData = class({
 -------------------------------------
 function ServerData:init()
     self.m_rootTable = nil
+    self.m_bLockSave = false
+    self.m_bDirtyDataTable = false
 end
 
 -------------------------------------
@@ -96,6 +101,11 @@ end
 -- function saveServerDataFile
 -------------------------------------
 function ServerData:saveServerDataFile()
+    if self.m_bLockSave then
+        self.m_bDirtyDataTable = true
+        return
+    end
+
     local f = io.open(self:getServerDataSaveFileName(),'w')
     if (not f) then
         return false
@@ -264,4 +274,24 @@ function ServerData:networkCommonRespone(ret)
             g_serverData:applyServerData(ret['evolution_stones'], 'user', 'evolution_stones')
         end
     end
+end
+
+-------------------------------------
+-- function lockSaveData
+-- @breif
+-------------------------------------
+function ServerData:lockSaveData()
+    self.m_bLockSave = true
+end
+
+-------------------------------------
+-- function unlockSaveData
+-- @breif
+-------------------------------------
+function ServerData:unlockSaveData()
+    self.m_bLockSave = false
+    if self.m_bDirtyDataTable then
+        self:saveServerDataFile()
+    end
+    self.m_bDirtyDataTable = false
 end

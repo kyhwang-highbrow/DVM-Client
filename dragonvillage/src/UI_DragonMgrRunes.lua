@@ -80,6 +80,8 @@ function UI_DragonMgrRunes:initUI()
     vars['selectLockBtn']:setVisible(false)
     vars['useLockBtn']:setVisible(false)
     vars['binBtn']:setVisible(false)
+    vars['useEnhanceBtn']:setVisible(false)
+    vars['selectEnhance']:setVisible(false)
 end
 
 -------------------------------------
@@ -117,7 +119,6 @@ function UI_DragonMgrRunes:onChangeTab(tab)
         vars['useMenu']:setVisible(true)
 
         local t_rune_infomation, t_rune_data = g_runesData:getRuneInfomation(roid)
-        --ccdump(t_rune_infomation)
         vars['useRuneNameLabel']:setString(t_rune_infomation['full_name'])
 
         do -- 룬 아이콘
@@ -127,6 +128,20 @@ function UI_DragonMgrRunes:onChangeTab(tab)
 
             cca.uiReactionSlow(icon.root)
         end
+
+        local t_rune_information = t_rune_data['information']
+
+        -- 주옵션 문자열
+        local main_option_str = TableRuneStatus:makeRuneOptionStr(t_rune_information['status']['mopt'])
+        vars['useMainOptionLabel']:setString(main_option_str)
+
+        -- 부옵션 문자열
+        local sub_option_str = TableRuneStatus:makeRuneOptionStr(t_rune_information['status']['sopt'])
+        vars['useSubOptionLabel']:setString(sub_option_str)
+
+        -- 세트 효과
+        vars['useRuneSetLabel']:setVisible(false)
+
         self.m_useRuneData = t_rune_data
 
         cca.uiReactionSlow(vars['useMenu'], 1, 1, 0.98)
@@ -312,6 +327,19 @@ function UI_DragonMgrRunes:refresh_selectMenu(t_rune_data)
     -- selectMainOptionLabel
     -- selectRuneSetLabel
     -- removeRuneNameLabel
+
+    local t_rune_information = t_rune_data['information']
+
+    -- 주옵션 문자열
+    local main_option_str = TableRuneStatus:makeRuneOptionStr(t_rune_information['status']['mopt'])
+    vars['selectMainOptionLabel']:setString(main_option_str)
+
+    -- 부옵션 문자열
+    local sub_option_str = TableRuneStatus:makeRuneOptionStr(t_rune_information['status']['sopt'])
+    vars['selectSubOptionLabel']:setString(sub_option_str)
+
+    -- 세트 효과
+    vars['selectRuneSetLabel']:setVisible(false)
 end
 
 

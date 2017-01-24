@@ -264,9 +264,11 @@ function UI_TitleScene:workGameLogin()
     local nickname = g_userData:get('nick') or g_serverData:get('local', 'idfa')
 
     local success_cb = function(ret)
+        g_serverData:lockSaveData()
         g_serverData:applyServerData(ret['user'], 'user')
         g_serverData:applyServerData(ret['dragons'], 'dragons')
-        g_serverData:applyServerData(ret['runes'], 'runes')
+        g_runesData:applyRuneData_list(ret['runes'])
+        g_serverData:unlockSaveData()
 
         -- server_info 정보를 갱신
         g_serverData:networkCommonRespone(ret)

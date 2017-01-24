@@ -1308,6 +1308,9 @@
     <None Include="..\src\TableRuneGrade.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableRuneStatus.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

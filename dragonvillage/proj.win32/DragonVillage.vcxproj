@@ -544,6 +544,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableRune.lua" />
     <None Include="..\src\TableRuneGrade.lua" />
     <None Include="..\src\TableRuneNamingRule.lua" />
+    <None Include="..\src\TableRuneStatus.lua" />
     <None Include="..\src\TableStageDesc.lua" />
     <None Include="..\src\TableStatus.lua" />
     <None Include="..\src\TableTamer.lua" />

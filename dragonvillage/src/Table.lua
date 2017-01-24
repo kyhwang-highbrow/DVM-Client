@@ -48,6 +48,7 @@ local TableInfo = {
         dragon_train_status  = {'table_dragon_train_status','lsid',         false},
         rune                 = {'table_rune',               'rid',          false},
         rune_grade           = {'table_rune_grade',         'grade',        false},
+        rune_status          = {'table_rune_status',        'vid',          false},
         rune_naming_rule     = {'table_rune_naming_rule',   'key',          false},
         
     }
