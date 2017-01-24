@@ -1,83 +1,118 @@
 
 lightningdragon_fire_01.png
-size: 256,256
+size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 lightningdragon_fire_01_arm_01
-  rotate: true
-  xy: 99, 4
-  size: 39, 42
-  orig: 39, 42
+  rotate: false
+  xy: 404, 507
+  size: 98, 93
+  orig: 98, 93
   offset: 0, 0
   index: -1
 lightningdragon_fire_01_arm_02
-  rotate: true
-  xy: 143, 4
-  size: 39, 42
-  orig: 39, 42
+  rotate: false
+  xy: 2, 2
+  size: 72, 124
+  orig: 72, 124
   offset: 0, 0
   index: -1
 lightningdragon_fire_01_body_01
   rotate: false
-  xy: 2, 2
-  size: 95, 125
-  orig: 95, 125
+  xy: 806, 1333
+  size: 186, 213
+  orig: 186, 213
   offset: 0, 0
   index: -1
 lightningdragon_fire_01_body_02
   rotate: false
-  xy: 121, 173
-  size: 112, 77
-  orig: 112, 77
+  xy: 806, 1178
+  size: 171, 153
+  orig: 171, 153
   offset: 0, 0
   index: -1
-lightningdragon_fire_01_eye_01
+lightningdragon_fire_01_body_03
   rotate: false
-  xy: 187, 5
-  size: 36, 38
-  orig: 36, 38
+  xy: 404, 602
+  size: 110, 265
+  orig: 110, 265
+  offset: 0, 0
+  index: -1
+lightningdragon_fire_01_effect_01_1
+  rotate: false
+  xy: 2, 1146
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+lightningdragon_fire_01_effect_01_2
+  rotate: false
+  xy: 2, 744
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+lightningdragon_fire_01_effect_01_3
+  rotate: false
+  xy: 404, 1146
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+lightningdragon_fire_01_effect_01_4
+  rotate: false
+  xy: 2, 342
+  size: 400, 400
+  orig: 400, 400
   offset: 0, 0
   index: -1
 lightningdragon_fire_01_foot_01
   rotate: false
-  xy: 167, 45
-  size: 42, 62
-  orig: 42, 62
+  xy: 176, 200
+  size: 56, 140
+  orig: 56, 140
+  offset: 0, 0
+  index: -1
+lightningdragon_fire_01_hand_01
+  rotate: false
+  xy: 994, 1385
+  size: 67, 161
+  orig: 67, 161
+  offset: 0, 0
+  index: -1
+lightningdragon_fire_01_hand_02
+  rotate: false
+  xy: 680, 985
+  size: 110, 159
+  orig: 110, 159
   offset: 0, 0
   index: -1
 lightningdragon_fire_01_head_01
   rotate: false
-  xy: 2, 129
-  size: 117, 121
-  orig: 117, 121
+  xy: 2, 128
+  size: 172, 212
+  orig: 172, 212
   offset: 0, 0
   index: -1
 lightningdragon_fire_01_head_02
   rotate: false
-  xy: 189, 109
-  size: 48, 62
-  orig: 48, 62
+  xy: 680, 938
+  size: 58, 45
+  orig: 58, 45
   offset: 0, 0
   index: -1
 lightningdragon_fire_01_leg_01
   rotate: false
-  xy: 121, 109
-  size: 66, 62
-  orig: 66, 62
+  xy: 516, 758
+  size: 65, 109
+  orig: 65, 109
   offset: 0, 0
   index: -1
-lightningdragon_fire_01_leg_02
+lightningdragon_fire_01_wing_01
   rotate: false
-  xy: 99, 45
-  size: 66, 62
-  orig: 66, 62
-  offset: 0, 0
-  index: -1
-lightningdragon_fire_01_mouth_01
-  rotate: true
-  xy: 211, 66
-  size: 41, 31
-  orig: 41, 31
+  xy: 404, 869
+  size: 274, 275
+  orig: 274, 275
   offset: 0, 0
   index: -1

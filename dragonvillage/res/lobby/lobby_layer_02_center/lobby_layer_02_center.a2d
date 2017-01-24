@@ -1,0 +1,157 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)lobby_layer_02_center.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_layer_02_center.plist'<azSprite>'lobby_layer_02_center_00.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":30
+									},
+									{
+										"frame":60
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_layer_02_center.plist'<azSprite>'lobby_layer_02_center_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sY":0.930000, "pX":253.000000, "pY":191.000000
+									},
+									{
+										"frame":30, "sX":0.990000, "sY":0.985800, "pX":253.000000, "pY":188.000000
+									},
+									{
+										"frame":60, "sY":0.930000, "pX":253.000000, "pY":191.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_layer_02_center.plist'<azSprite>'lobby_layer_02_center_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.940000, "sY":0.610000, "pX":252.000000, "pY":172.000000, "alpha":0
+									},
+									{
+										"frame":22, "sX":0.954100, "sY":0.829600, "pX":252.000000, "pY":163.000000
+									},
+									{
+										"frame":39, "sX":0.968200, "sY":1.049200, "pX":252.000000, "pY":154.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_layer_02_center.plist'<azSprite>'lobby_layer_02_center_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.813400, "sY":1.020100, "pX":250.000000, "pY":152.000000, "alpha":0
+									},
+									{
+										"frame":30, "sX":0.980228, "sY":0.959404, "pX":250.000000, "pY":152.000000
+									},
+									{
+										"frame":54, "sX":0.980228, "sY":0.959404, "pX":250.000000, "pY":152.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_layer_02_center.plist'<azSprite>'lobby_layer_02_center_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.880000, "sY":0.680000, "pX":254.000000, "pY":118.000000, "alpha":0
+									},
+									{
+										"frame":30, "sX":0.948396, "sY":0.790444, "pX":254.000000, "pY":117.490189
+									},
+									{
+										"frame":59, "sX":1.014162, "sY":0.896641, "pX":254.000000, "pY":117.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)lobby_layer_02_center.plist'<azSprite>'lobby_layer_02_center_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":32, "sX":0.890000, "sY":0.440000, "pX":252.000000, "pY":168.000000, "alpha":0
+									},
+									{
+										"frame":45, "sX":0.952300, "sY":0.638000, "pX":252.000000, "pY":161.000000
+									},
+									{
+										"frame":60, "sX":0.999915, "sY":0.752840, "pX":252.000000, "pY":151.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

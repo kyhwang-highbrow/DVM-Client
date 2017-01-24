@@ -1,0 +1,62 @@
+
+common_wyvern_light.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_wyvern_light_body_01
+  rotate: true
+  xy: 2, 55
+  size: 70, 127
+  orig: 70, 127
+  offset: 0, 0
+  index: -1
+common_wyvern_light_head_01
+  rotate: false
+  xy: 296, 60
+  size: 64, 65
+  orig: 64, 65
+  offset: 0, 0
+  index: -1
+common_wyvern_light_head_02
+  rotate: true
+  xy: 58, 21
+  size: 32, 44
+  orig: 32, 44
+  offset: 0, 0
+  index: -1
+common_wyvern_light_head_03
+  rotate: false
+  xy: 2, 2
+  size: 28, 12
+  orig: 28, 12
+  offset: 0, 0
+  index: -1
+common_wyvern_light_leg_01
+  rotate: false
+  xy: 362, 81
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+common_wyvern_light_leg_02
+  rotate: true
+  xy: 2, 16
+  size: 37, 54
+  orig: 37, 54
+  offset: 0, 0
+  index: -1
+common_wyvern_light_wing_01
+  rotate: false
+  xy: 131, 41
+  size: 101, 84
+  orig: 101, 84
+  offset: 0, 0
+  index: -1
+common_wyvern_light_wing_02
+  rotate: false
+  xy: 234, 51
+  size: 60, 74
+  orig: 60, 74
+  offset: 0, 0
+  index: -1
