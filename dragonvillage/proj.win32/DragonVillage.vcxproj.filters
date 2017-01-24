@@ -1305,9 +1305,6 @@
     <None Include="..\src\TableItem.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SkillIndicator_Panetration.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\GameAuto_Colosseum.lua">
       <Filter>lua</Filter>
     </None>
@@ -1335,7 +1332,6 @@
     <None Include="..\src\TableRuneExp.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\TableRuneGrade.lua" />
     <None Include="..\src\UI_GameColosseum.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1347,6 +1343,12 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\RuneEnchantHelper.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\SkillIndicator_Penetration.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\TableRuneGrade.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>

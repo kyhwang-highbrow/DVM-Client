@@ -298,7 +298,7 @@ local t_module = {
 	'SkillIndicator_ConicSpread',
     'SkillIndicator_StraightWidth',
 	'SkillIndicator_X',
-	'SkillIndicator_Panetration',
+	'SkillIndicator_Penetration',
     
 	-- BUFF
 	'Buff',

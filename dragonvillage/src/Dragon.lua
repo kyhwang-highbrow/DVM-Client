@@ -520,7 +520,7 @@ function Dragon:initStatus(t_char, level, grade, evolution, doid)
 	
 	-- 여러 다발의 관통형 인디케이터
 	elseif (type == 'penetration') then
-		self.m_skillIndicator = SkillIndicator_Panetration(self, t_skill)
+		self.m_skillIndicator = SkillIndicator_Penetration(self, t_skill)
 
 	------------------ 특수한 인디케이터들 ------------------
 	
