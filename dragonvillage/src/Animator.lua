@@ -401,7 +401,7 @@ end
 -- function MakeAnimator
 -- @breif 파일 확장자에 따라 타입별 Animator 생성
 -------------------------------------
-function MakeAnimator(file_name)
+function MakeAnimator(file_name, skip_error_msg)
     local animator = nil
 
     if (not file_name) or (file_name == '') then
@@ -426,7 +426,7 @@ function MakeAnimator(file_name)
     end
 
     -- 파일 로드 실패 시 로그 출력
-    if file_name and (file_name ~= '') then
+    if file_name and (file_name ~= '') and (not skip_error_msg) then
         if (not animator) or (not animator.m_node) then
             cclog('##############################################################')
             cclog('##############################################################')

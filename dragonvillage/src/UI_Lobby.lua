@@ -109,22 +109,33 @@ function UI_Lobby:makeLobbyLayer(idx)
     node:setDockPoint(cc.p(0.5, 0.5))
     node:setAnchorPoint(cc.p(0.5, 0.5))
 
-    local sprite = cc.Sprite:create(string.format('res/lobby/lobby_layer_%.2d_left.png', idx))
-    sprite:setDockPoint(cc.p(0.5, 0.5))
-    sprite:setAnchorPoint(cc.p(0.5, 0.5))
-    sprite:setPositionX(-1280)
-    node:addChild(sprite)
+    local skip_error_msg = true
 
-    local sprite = cc.Sprite:create(string.format('res/lobby/lobby_layer_%.2d_center.png', idx))
-    sprite:setDockPoint(cc.p(0.5, 0.5))
-    sprite:setAnchorPoint(cc.p(0.5, 0.5))
-    node:addChild(sprite)
+    local animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_left/lobby_layer_%.2d_left.vrp', idx, idx), skip_error_msg)
+    if (not animator.m_node) then
+        animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_left.png', idx))
+    end
+    animator:setDockPoint(cc.p(0.5, 0.5))
+    animator:setAnchorPoint(cc.p(0.5, 0.5))
+    animator:setPositionX(-1280)
+    node:addChild(animator.m_node)
 
-    local sprite = cc.Sprite:create(string.format('res/lobby/lobby_layer_%.2d_right.png', idx))
-    sprite:setDockPoint(cc.p(0.5, 0.5))
-    sprite:setAnchorPoint(cc.p(0.5, 0.5))
-    sprite:setPositionX(1280)
-    node:addChild(sprite)
+    local animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_center/lobby_layer_%.2d_center.vrp', idx, idx), skip_error_msg)
+    if (not animator.m_node) then
+        animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_center.png', idx))
+    end
+    animator:setDockPoint(cc.p(0.5, 0.5))
+    animator:setAnchorPoint(cc.p(0.5, 0.5))
+    node:addChild(animator.m_node)
+
+    local animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_right/lobby_layer_%.2d_right.vrp', idx, idx), skip_error_msg)
+    if (not animator.m_node) then
+        animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_right.png', idx))
+    end
+    animator:setDockPoint(cc.p(0.5, 0.5))
+    animator:setAnchorPoint(cc.p(0.5, 0.5))
+    animator:setPositionX(1280)
+    node:addChild(animator.m_node)
 
     return node
 end
