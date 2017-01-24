@@ -45,9 +45,9 @@ function TableRuneStatus:getSubOptionStatus(grade, category, rarity)
         self = TableRuneStatus()
     end
 
-    -- 10레벨 기준 능력치를 얻어옴
+    -- sub_status 기준 능력치를 얻어옴
     local vid = category .. '_' .. grade
-    local lv_key = 'lv10'
+    local lv_key = 'sub_status'
     local value = self:getValue(vid, lv_key)
 
     -- 희귀도에 따라 가중치 적용
