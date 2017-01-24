@@ -15,7 +15,7 @@ end
 -------------------------------------
 UI_DragonMgrRunes = class(PARENT,{
         m_bChangeDragonList = 'boolean',
-        m_useRuneData = 'table',
+        m_usedRuneData = 'table',
         m_selectedRuneData = 'table',
 
         -- 테이블 뷰
@@ -80,8 +80,6 @@ function UI_DragonMgrRunes:initUI()
     vars['selectLockBtn']:setVisible(false)
     vars['useLockBtn']:setVisible(false)
     vars['binBtn']:setVisible(false)
-    vars['useEnhanceBtn']:setVisible(false)
-    vars['selectEnhance']:setVisible(false)
 end
 
 -------------------------------------
@@ -142,11 +140,14 @@ function UI_DragonMgrRunes:onChangeTab(tab)
         -- 세트 효과
         vars['useRuneSetLabel']:setVisible(false)
 
-        self.m_useRuneData = t_rune_data
+        -- 강화 버튼
+        vars['useEnhanceBtn']:setVisible(not t_rune_information['is_max_lv'])
+
+        self.m_usedRuneData = t_rune_data
 
         cca.uiReactionSlow(vars['useMenu'], 1, 1, 0.98)
     else
-        self.m_useRuneData = nil
+        self.m_usedRuneData = nil
         vars['useMenu']:setVisible(false)
     end
 
@@ -216,8 +217,8 @@ function UI_DragonMgrRunes:initButton()
     vars['removeBtn']:registerScriptTapHandler(function() self:click_removeBtn() end)
 
     -- 강화 버튼
-    --vars['useEnhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
-    --vars['selectEnhance']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
+    vars['useEnhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn('used') end)
+    vars['selectEnhance']:registerScriptTapHandler(function() self:click_enhanceBtn('selected') end)
 end
 
 -------------------------------------
@@ -340,6 +341,9 @@ function UI_DragonMgrRunes:refresh_selectMenu(t_rune_data)
 
     -- 세트 효과
     vars['selectRuneSetLabel']:setVisible(false)
+
+    -- 강화 버튼
+    vars['selectEnhance']:setVisible(not t_rune_information['is_max_lv'])
 end
 
 
@@ -416,7 +420,7 @@ end
 -------------------------------------
 function UI_DragonMgrRunes:click_removeBtn()
     local t_dragon_data = self.m_selectDragonData
-    local t_rune_data = self.m_useRuneData
+    local t_rune_data = self.m_usedRuneData
 
     if (not t_dragon_data) or (not t_rune_data) then
         return
@@ -453,6 +457,14 @@ function UI_DragonMgrRunes:click_removeBtn()
         local msg = Str('룬을 장착 해제하려면\n{1}개의 자수정이 소모됩니다.\n해제하시겠습니까?', fee)
         MakeSimplePopup(POPUP_TYPE.YES_NO, msg, yes_cb)
     end
+end
+
+-------------------------------------
+-- function click_enhanceBtn
+-- @brief 룬 강화
+-------------------------------------
+function UI_DragonMgrRunes:click_enhanceBtn(type)
+    UI_RuneEnchantPopup()
 end
 
 -------------------------------------

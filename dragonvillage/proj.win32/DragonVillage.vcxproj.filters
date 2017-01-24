@@ -1326,6 +1326,12 @@
     <None Include="..\src\UI_RewardCard.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_RuneEnchantPopup.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\TableRuneExp.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

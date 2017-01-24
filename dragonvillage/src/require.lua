@@ -102,6 +102,7 @@ local t_module = {
     'TableRuneGrade',
     'TableRuneStatus',
     'TableRuneNamingRule',
+    'TableRuneExp',
     'TableItem',
 	'TableQuest',
 
@@ -404,6 +405,7 @@ local t_module = {
     'UI_DragonExceedResult',
     'UI_DragonSkillLevelUpResult',
     'UI_DragonMgrRunes',
+    'UI_RuneEnchantPopup',
 
     'DamageCalc',
     'IconHelper',

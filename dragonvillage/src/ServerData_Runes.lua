@@ -3,6 +3,8 @@
 -------------------------------------
 ServerData_Runes = class({
         m_serverData = 'ServerData',
+
+        m_tableRuneExp = 'TableRuneExp',
     })
 
 -------------------------------------
@@ -10,6 +12,7 @@ ServerData_Runes = class({
 -------------------------------------
 function ServerData_Runes:init(server_data)
     self.m_serverData = server_data
+    self.m_tableRuneExp = TableRuneExp()
 end
 
 
@@ -93,6 +96,11 @@ function ServerData_Runes:makeRuneInfomation(t_rune_data)
     t_rune_infomation['full_name'] = full_name
     t_rune_infomation['alphabet_idx'] = alphabet_idx
     t_rune_infomation['lv'] = lv
+
+    -- 최대 레벨 여부
+    local max_level = self.m_tableRuneExp:getRuneMaxLevel(t_rune_data['grade'])
+    --t_rune_infomation['max_lv'] = max_level
+    t_rune_infomation['is_max_lv'] = (max_level <= lv)
 
     t_rune_infomation['status'] = self:makeRuneStatus(t_rune_data)
 
