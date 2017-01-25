@@ -5,11 +5,19 @@ local PARENT = Skill
 -------------------------------------
 SkillPenetration = class(PARENT, {
 		m_missileRes = 'string',
+        m_motionStreakRes = 'string',
 
 		m_skillLineNum = 'num',		-- 공격 하는 직선 갯수
 		m_skillLineSize = 'num',	-- 직선의 두께
 		
 		m_skillLineGap = 'num',		-- 직선 간의 간격
+
+		m_skillTimer = 'time',
+		m_skillInterval = 'time',
+		m_skillCount = 'num',
+
+		m_skillAttackPosList = 'pos list',
+		m_skillDirList = 'dir list',
      })
 
 -------------------------------------
@@ -23,15 +31,22 @@ end
 -------------------------------------
 -- function init_SkillPenetration
 -------------------------------------
-function SkillPenetration:init_skill(missile_res, line_num, line_size)
+function SkillPenetration:init_skill(missile_res, motionstreak_res, line_num, line_size)
 	PARENT.init_skill(self)
 
 	-- 1. 멤버 변수
     self.m_missileRes = missile_res
+	self.m_motionStreakRes = motionstreak_res
 	self.m_skillLineNum = line_num
 	self.m_skillLineSize = line_size
 	
+	self.m_skillTimer = 0
+	self.m_skillInterval = ONE_FRAME * 5
+	self.m_skillCount = 1
+
 	self.m_skillLineGap = nil
+	self.m_skillAttackPosList = nil
+	self.m_skillDirList = nil
 end
 
 -------------------------------------
@@ -46,21 +61,27 @@ end
 -- function st_idle
 -------------------------------------
 function SkillPenetration.st_idle(owner, dt)
-    if (owner.m_stateTimer == 0) then
-        owner:fireMissile()
+	if (owner.m_stateTimer == 0) then
+		owner.m_skillAttackPosList = owner:getAttackPositionList()
+	end
+
+    owner.m_skillTimer = owner.m_skillTimer + dt
+	if (owner.m_skillTimer > owner.m_skillInterval) then
+		owner.m_skillTimer = owner.m_skillTimer - owner.m_skillInterval
+        owner:fireMissile(owner.m_skillCount)
+		owner.m_skillCount = owner.m_skillCount + 1
+	end
+
+	-- 탈출 조건 (모두 발사)
+	if (owner.m_skillCount > owner.m_skillLineNum) then
         owner:changeState('dying')
-    end
+	end
 end
 
 -------------------------------------
 -- function fireMissile
 -------------------------------------
-function SkillPenetration:fireMissile()
-    local targetPos = self.m_targetPos
-    if (not targetPos) then
-        return 
-    end
-
+function SkillPenetration:fireMissile(idx)
     local char = self.m_owner
     local world = self.m_world
 
@@ -68,8 +89,10 @@ function SkillPenetration:fireMissile()
 
     t_option['owner'] = char
 
-    t_option['pos_x'] = 100 --char.pos.x
-    t_option['pos_y'] = 0
+    t_option['pos_x'] = self.m_skillAttackPosList[idx].x
+	t_option['pos_y'] = self.m_skillAttackPosList[idx].y
+	t_option['dir'] = self:getAttackDir(idx)
+	t_option['rotation'] = t_option['dir']
 
     t_option['object_key'] = char:getAttackPhysGroup()
     t_option['physics_body'] = {0, 0, self.m_skillLineSize}
@@ -77,9 +100,9 @@ function SkillPenetration:fireMissile()
 	t_option['attr_name'] = char:getAttribute()
 
     t_option['speed'] = 0
-	t_option['h_limit_speed'] = 3000
+	t_option['h_limit_speed'] = 5000
 	t_option['accel'] = 20000
-	t_option['accel_delay'] = 0.5
+	t_option['accel_delay'] = 1.5 - (self.m_skillInterval * idx)
 
 	t_option['missile_type'] = 'PASS'
     t_option['movement'] ='normal' 
@@ -94,14 +117,7 @@ function SkillPenetration:fireMissile()
 	end
 
 	-- fire!!
-	local l_attack_pos = self:getAttackPositionList()
-	local l_dir = self:getDirList(l_attack_pos)
-    for i = 1, self.m_skillLineNum do 
-		t_option['pos_y'] = l_attack_pos[i].y
-		t_option['dir'] = l_dir[i]
-		t_option['rotation'] = t_option['dir']
-        world.m_missileFactory:makeMissile(t_option)
-    end
+    world.m_missileFactory:makeMissile(t_option)
 
 end
 
@@ -111,33 +127,72 @@ end
 function SkillPenetration:getAttackPositionList()
 	local t_ret = {}
 	
-	local pos_x, pos_y = self:getAttackPosition()
+	-- 홀수인지 판별
+	local is_odd = (self.m_skillLineNum % 2) == 1
 
-	for i = 1, self.m_skillLineNum do
-		table.insert(t_ret, {x = 100, y = -300 + (i * 100)})
+	local pos_x, pos_y = self:getAttackPosition()
+	local touch_x, touch_y = self.m_targetPos.x, self.m_targetPos.y
+	local std_distance = 100
+
+	-- 공격 포인트와 터치지점 사이의 각도
+	local main_angle = getDegree(pos_x, pos_y, touch_x, touch_y)
+	local half_num = math_floor(self.m_skillLineNum/2)
+
+	-- 홀수인 경우 
+	if is_odd then
+		-- 센터 좌표 계산
+		local move_pos = getPointFromAngleAndDistance(main_angle, std_distance)
+		local center_pos = {x = 100, y = 0}
+
+		-- 좌측 좌표
+		for i = 1, half_num do
+			local move_pos = getPointFromAngleAndDistance(main_angle + 90, std_distance * (half_num - i + 1))
+			local each_pos = {x = center_pos.x + move_pos.x, y = center_pos.y + move_pos.y}
+			table.insert(t_ret, each_pos)
+		end
+
+		-- 센터 좌표 추가 (순서 맞추기 위해서 중간에서 추가)
+		table.insert(t_ret, center_pos)
+		
+		-- 우측 좌표
+		for i = 1, half_num do
+			local move_pos = getPointFromAngleAndDistance(main_angle - 90, std_distance * i)
+			local each_pos = {x = center_pos.x + move_pos.x, y = center_pos.y + move_pos.y}
+			table.insert(t_ret, each_pos)
+		end
+
+	else
+		-- 센터 좌표 계산 (추가는 하지 않는다)
+		local center_pos = {x = 100, y = 0}
+
+		-- 좌측 좌표
+		for i = 1, half_num do
+			local move_pos = getPointFromAngleAndDistance(main_angle + 90, std_distance * (half_num - i + 0.5))
+			local each_pos = {x = center_pos.x + move_pos.x, y = center_pos.y + move_pos.y}
+			table.insert(t_ret, each_pos)
+		end
+
+		-- 우측 좌표
+		for i = 1, half_num do
+			local move_pos = getPointFromAngleAndDistance(main_angle - 90, std_distance * (i - 0.5))
+			local each_pos = {x = center_pos.x + move_pos.x, y = center_pos.y + move_pos.y}
+			table.insert(t_ret, each_pos)
+		end
 	end
 
+	
     return t_ret
 end
 
 -------------------------------------
--- function getDirList
+-- function getAttackDir
 -------------------------------------
-function SkillPenetration:getDirList(l_attack_pos)
-	local t_ret = {}
-	
+function SkillPenetration:getAttackDir(idx)
 	local tar_x = self.m_targetPos.x
 	local tar_y = self.m_targetPos.y
-	local l_attack_pos = l_attack_pos or {}
-
-	local start_pos
-	for i = 1, self.m_skillLineNum do
-		start_pos = l_attack_pos[i]
-		dir = getAdjustDegree(getDegree(start_pos.x, start_pos.y, tar_x, tar_y))
-		table.insert(t_ret, dir)
-	end
-
-    return t_ret
+	local start_pos = self.m_skillAttackPosList[idx]
+	
+    return getAdjustDegree(getDegree(start_pos.x, start_pos.y, tar_x, tar_y))
 end
 
 -------------------------------------
@@ -146,8 +201,9 @@ end
 function SkillPenetration:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-    local missile_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
-	
+    local missile_res = 'res/missile/shot_arrow/shot_arrow.vrp' --string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
+	local motionstreak_res = (t_skill['res_2'] == 'x') and nil or string.gsub(t_skill['res_2'], '@', owner.m_charTable['attr'])
+
 	local line_num = t_skill['hit']
 	local line_size = t_skill['val_1']
 
@@ -158,7 +214,7 @@ function SkillPenetration:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(missile_res, line_num, line_size)
+    skill:init_skill(missile_res, motionstreak_res, line_num, line_size)
 	skill:initState()
 
 	-- 3. state 시작 

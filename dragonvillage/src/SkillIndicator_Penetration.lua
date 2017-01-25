@@ -11,8 +11,6 @@ SkillIndicator_Penetration = class(SkillIndicator, {
 		m_skillLineSize = 'num',	-- 직선의 두께
 		
 		m_skillLineGap = 'num',		-- 직선 간의 간격
-
-		m_lAttackPosList = 'pos list',
     })
 
 -------------------------------------
@@ -29,7 +27,6 @@ function SkillIndicator_Penetration:init(hero, t_skill)
 	self.m_indicatorScale = t_skill['res_scale']
 
 	self.m_lIndicatorEffectList = {}
-	self.m_lAttackPosList = self:getAttackPositionList()
 end
 
 -------------------------------------
@@ -50,19 +47,21 @@ function SkillIndicator_Penetration:onTouchMoved(x, y)
 
 	-- 이펙트 조정
 	local l_dir = {}
+	local l_attack_pos = self:getAttackPositionList(touch_x, touch_y)
 	do
 		local pos, dir
 		for i, indicator in pairs(self.m_lIndicatorEffectList) do
-			pos = self.m_lAttackPosList[i]
+			pos = l_attack_pos[i]
 			dir = getAdjustDegree(getDegree(pos.x, pos.y, touch_x, touch_y))
 			indicator:setRotation(dir)
+			indicator:setPosition(pos.x, pos.y)
 			table.insert(l_dir, dir)
 		end
 		self.m_indicatorAddEffect:setPosition(touch_x, touch_y)
 	end
 
 	-- 하이라이트 갱신
-	local t_collision_obj = self:findTarget(l_dir)
+	local t_collision_obj = self:findTarget(l_attack_pos, l_dir)
     self:setHighlightEffect(t_collision_obj)
 end
 
@@ -76,24 +75,22 @@ function SkillIndicator_Penetration:initIndicatorNode()
 
     local root_node = self.m_indicatorRootNode
 	local pos
+	local indicator
 
 	-- 인디케이터 다발
     for i = 1, self.m_skillLineNum do
-        local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
+        indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
         root_node:addChild(indicator.m_node)
 		indicator.m_node:setScale(0.1, 2.5)
 		indicator.m_node:setColor(COLOR_CYAN)
 		indicator:setTimeScale(5)
-		
-		pos =  self.m_lAttackPosList[i]
-		indicator:setPosition(pos.x, pos.y)
 		
 		table.insert(self.m_lIndicatorEffectList, indicator)
     end
 
 	-- 겹치는 부분 가리는 추가 인디케이터
 	do
-        local indicator = MakeAnimator(RES_INDICATOR['RANGE'])
+        indicator = MakeAnimator(RES_INDICATOR['RANGE'])
         indicator:setTimeScale(5)
         indicator:setScale(0.1)
         indicator:changeAni('skill_range_normal', true)
@@ -137,29 +134,75 @@ end
 
 -------------------------------------
 -- function getAttackPositionList
--- 로지컬 하게 짜야함!
 -------------------------------------
-function SkillIndicator_Penetration:getAttackPositionList()
+function SkillIndicator_Penetration:getAttackPositionList(touch_x, touch_y)
 	local t_ret = {}
 	
-	local pos_x, pos_y = self:getAttackPosition()
+	-- 홀수인지 판별
+	local is_odd = (self.m_skillLineNum % 2) == 1
 
-	for i = 1, self.m_skillLineNum do
-		table.insert(t_ret, {x = 100, y = -300 + (i * 100)})
+	local pos_x, pos_y = self:getAttackPosition()
+	local std_distance = 100
+
+	-- 공격 포인트와 터치지점 사이의 각도
+	local main_angle = getDegree(pos_x, pos_y, touch_x, touch_y)
+	local half_num = math_floor(self.m_skillLineNum/2)
+
+	-- 홀수인 경우 
+	if is_odd then
+		-- 센터 좌표 계산
+		local center_pos = {x = 100, y = 0}
+
+		-- 좌측 좌표
+		for i = 1, half_num do
+			local move_pos = getPointFromAngleAndDistance(main_angle + 90, std_distance * (half_num - i + 1))
+			local each_pos = {x = center_pos.x + move_pos.x, y = center_pos.y + move_pos.y}
+			table.insert(t_ret, each_pos)
+		end
+
+		-- 센터 좌표 추가 (순서 맞추기 위해서 중간에서 추가)
+		table.insert(t_ret, center_pos)
+		
+		-- 우측 좌표
+		for i = 1, half_num do
+			local move_pos = getPointFromAngleAndDistance(main_angle - 90, std_distance * i)
+			local each_pos = {x = center_pos.x + move_pos.x, y = center_pos.y + move_pos.y}
+			table.insert(t_ret, each_pos)
+		end
+
+	-- 짝수인 경우
+	else
+		-- 센터 좌표 계산 (추가는 하지 않는다)
+		local center_pos = {x = 100, y = 0}
+
+		-- 좌측 좌표
+		for i = 1, half_num do
+			local move_pos = getPointFromAngleAndDistance(main_angle + 90, std_distance * (half_num - i + 0.5))
+			local each_pos = {x = center_pos.x + move_pos.x, y = center_pos.y + move_pos.y}
+			table.insert(t_ret, each_pos)
+		end
+
+		-- 우측 좌표
+		for i = 1, half_num do
+			local move_pos = getPointFromAngleAndDistance(main_angle - 90, std_distance * (i - 0.5))
+			local each_pos = {x = center_pos.x + move_pos.x, y = center_pos.y + move_pos.y}
+			table.insert(t_ret, each_pos)
+		end
 	end
 
+	
     return t_ret
 end
 
 -------------------------------------
 -- function findTarget
 -------------------------------------
-function SkillIndicator_Penetration:findTarget(l_dir)
+function SkillIndicator_Penetration:findTarget(l_attack_pos, l_dir)
 	local t_ret = {}
 	
 	local t_each
 	for i = 1, self.m_skillLineNum do
-		t_collision_obj = self:findTargetEachLine(self.m_lAttackPosList[i], l_dir[i])
+		t_collision_obj = self:findTargetEachLine(l_attack_pos[i], l_dir[i])
 		for i,v in ipairs(t_collision_obj) do
 			table.insert(t_ret, v['obj'])
 		end
