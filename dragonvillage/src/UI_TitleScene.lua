@@ -266,8 +266,15 @@ function UI_TitleScene:workGameLogin()
     local success_cb = function(ret)
         g_serverData:lockSaveData()
         g_serverData:applyServerData(ret['user'], 'user')
-        g_runesData:applyRuneData_list(ret['runes']) -- 룬 세트 효과 적용을 위해 'dragons'보다 먼저 수행되어야 함
+
+        -- 룬 세트 효과 적용을 위해 'dragons'보다 먼저 수행되어야 함
+        g_serverData:applyServerData({}, 'runes') -- 로컬 세이브 데이터 초기화
+        g_runesData:applyRuneData_list(ret['runes'])
+
+        -- 드래곤 정보 갱신
+        g_serverData:applyServerData({}, 'dragons') -- 로컬 세이브 데이터 초기화
         g_dragonsData:applyDragonData_list(ret['dragons'])
+
         g_serverData:unlockSaveData()
 
         -- server_info 정보를 갱신
