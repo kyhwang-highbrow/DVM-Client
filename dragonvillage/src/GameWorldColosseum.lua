@@ -153,7 +153,11 @@ function GameWorldColosseum:removeHero(hero)
     end
 
     self:standbyHero(hero)
-    self.m_gameState:changeState(GAME_STATE_FAILURE)
+
+    local hero_count = table.count(self.m_mHeroList)
+    if (hero_count <= 0) then
+        self.m_gameState:changeState(GAME_STATE_FAILURE)
+    end
 end
 
 -------------------------------------
@@ -175,35 +179,42 @@ function GameWorldColosseum:changeCameraOption(tParam, bKeepHomePos)
 
     if not bKeepHomePos then
         self.m_gameCamera:setHomeInfo(tParam)
+    end
+end
 
-        local scale = self.m_gameCamera:getScale()
-        local cameraHomePosX, cameraHomePosY = self.m_gameCamera:getHomePos()
-        local intermissionTime = getInGameConstant(WAVE_INTERMISSION_TIME)
+-------------------------------------
+-- function changeEnemyHomePosByCamera
+-------------------------------------
+function GameWorld:changeEnemyHomePosByCamera(offsetX, offsetY, move_time)
+    local scale = self.m_gameCamera:getScale()
+    local cameraHomePosX, cameraHomePosY = self.m_gameCamera:getHomePos()
+    local offsetX = offsetX or 0
+    local offsetY = offsetY or 0
+    local move_time = move_time or getInGameConstant(WAVE_INTERMISSION_TIME)
 
-        local changeHomePos = function(dragon)
-            if (dragon.m_bDead == false) then
-                -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
-                local homePosX = dragon.m_orgHomePosX + cameraHomePosX
-                local homePosY = dragon.m_orgHomePosY + cameraHomePosY
-                local distance = getDistance(dragon.pos.x, dragon.pos.y, homePosX, homePosY)
+    -- 아군 홈 위치를 카메라의 홈위치 기준으로 변경
+    for i, v in ipairs(self:getEnemyList()) do
+        if (v.m_bDead == false) then
+            -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
+            local homePosX = v.m_orgHomePosX + cameraHomePosX + offsetX
+            local homePosY = v.m_orgHomePosY + cameraHomePosY + offsetY
 
-                if (distance > 0) then
-                    dragon:changeHomePos(homePosX, homePosY, distance / intermissionTime)
+            -- 카메라가 줌아웃된 상태라면 적군 위치 조정(차후 정리)
+            if (scale == 0.6) then
+                homePosX = homePosX + 200
+            end
+
+            local distance = getDistance(v.pos.x, v.pos.y, homePosX, homePosY)
+            if (distance > 0) then
+                local speed
+                if (move_time <= 0) then
+                    speed = 9999
+                else
+                    speed = distance / move_time
                 end
+
+                v:changeHomePos(homePosX, homePosY, speed)
             end
         end
-
-        -- 아군 홈 위치를 카메라의 홈위치 기준으로 변경
-        for i, v in ipairs(self:getDragonList()) do
-            changeHomePos(v)
-        end
-
-        -- 적군 홈 위치를 카메라의 홈위치 기준으로 변경
-        for i, v in ipairs(self:getEnemyList()) do
-            changeHomePos(v)
-        end
-
-        -- 미사일 제한 범위 재설정
-        self:setMissileRange()
     end
 end

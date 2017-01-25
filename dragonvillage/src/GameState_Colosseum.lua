@@ -45,20 +45,23 @@ function GameState_Colosseum.update_start(self, dt)
             self:disappearAllDragon()
 
             -- 카메라 초기화
-            self.m_world.m_gameCamera:reset()
+            world.m_gameCamera:reset()
 
         elseif (self:isPassedStepTime(0.5)) then
             
             -- 카메라 줌인
-            self.m_world:changeCameraOption({
+            world:changeCameraOption({
                 pos_x = 0,
-                pos_y = 0,
+                pos_y = -300,
                 scale = 1,
                 time = 2,
                 cb = function()
                     self:nextStep()
                 end
             })
+
+            world:changeHeroHomePosByCamera(-100, 100, 0)
+            world:changeEnemyHomePosByCamera(100, 100, 0)
 	    
         end
 
@@ -67,10 +70,10 @@ function GameState_Colosseum.update_start(self, dt)
             -- 적군 테이머쪽으로 줌인
             self.m_world:changeCameraOption({
                 pos_x = ENEMY_TAMER_POS_X - (CRITERIA_RESOLUTION_X / 2),
-                pos_y = -200,
+                pos_y = -300,
                 scale = 1,
                 time = 1.5
-            }, true)
+            })
 
         elseif (self:isPassedStepTime(2)) then
             self:nextStep()
@@ -99,10 +102,10 @@ function GameState_Colosseum.update_start(self, dt)
             -- 아군 테이머쪽으로 줌인
             self.m_world:changeCameraOption({
                 pos_x = HERO_TAMER_POS_X - (CRITERIA_RESOLUTION_X / 2),
-                pos_y = -200,
+                pos_y = -300,
                 scale = 1,
                 time = 1.5
-            }, true)
+            })
 
         elseif (self:isPassedStepTime(2)) then
             self:nextStep()
@@ -139,7 +142,7 @@ function GameState_Colosseum.update_start(self, dt)
                 cb = function()
                     self:nextStep()
                 end
-            }, true)
+            })
         end
 
     elseif (self:getStep() == 6) then
@@ -317,13 +320,13 @@ function GameState_Colosseum:initTamerAvatar()
     self.m_heroTamerAvatar = MakeAnimator('res/character/tamer/goni/goni.spine')
     self.m_heroTamerAvatar:changeAni('idle', true)
     self.m_heroTamerAvatar:setPosition(HERO_TAMER_POS_X, TAMER_POS_Y)
-    self.m_world:addChildWorld(self.m_heroTamerAvatar.m_node)
+    self.m_world:addChildWorld(self.m_heroTamerAvatar.m_node, WORLD_Z_ORDER.TAMER)
 
     self.m_enemyTamerAvatar = MakeAnimator('res/character/tamer/goni/goni.spine')
     self.m_enemyTamerAvatar:changeAni('idle', true)
     self.m_enemyTamerAvatar:setPosition(ENEMY_TAMER_POS_X, TAMER_POS_Y)
     self.m_enemyTamerAvatar:setFlip(true)
-    self.m_world:addChildWorld(self.m_enemyTamerAvatar.m_node)
+    self.m_world:addChildWorld(self.m_enemyTamerAvatar.m_node, WORLD_Z_ORDER.TAMER)
 end
 
 -------------------------------------
@@ -387,4 +390,7 @@ function GameState_Colosseum:doDirectionForIntermission()
         
     -- 카메라 액션 설정
     self.m_world:changeCameraOption(t_camera_info)
+
+    self.m_world:changeHeroHomePosByCamera()
+    self.m_world:changeEnemyHomePosByCamera()
 end

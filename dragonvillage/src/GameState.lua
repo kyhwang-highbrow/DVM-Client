@@ -933,6 +933,7 @@ function GameState:doDirectionForIntermission()
         
     -- 카메라 액션 설정
     world:changeCameraOption(t_camera_info)
+    world:changeHeroHomePosByCamera()
 end
 
 -------------------------------------
