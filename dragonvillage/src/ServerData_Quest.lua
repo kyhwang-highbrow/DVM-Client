@@ -6,6 +6,8 @@ ServerData_Quest = class({
 		m_tableQuest = 'TableQuest',
 
 		m_workedData = 'table',
+
+		m_bDirtyQuestInfo = 'bool',
     })
 
 -------------------------------------
@@ -16,7 +18,8 @@ function ServerData_Quest:init(server_data)
 	self.m_tableQuest = TableQuest()
 	self.m_workedData = {}
 
-	self:mergeWithSeverData()
+	self.m_bDirtyQuestInfo = true
+
 end
 
 -------------------------------------
@@ -34,7 +37,7 @@ end
 -- function getServerQuest
 -------------------------------------
 function ServerData_Quest:getServerQuest(quset_id)
-	local l_quest = self.m_serverData:get('quests') or {}
+	local l_quest = self.m_serverData:get('quest_info') or {}
 
     for _,v in pairs(l_quest) do
         if (quset_id == v['qid']) then
@@ -42,20 +45,15 @@ function ServerData_Quest:getServerQuest(quset_id)
         end
     end
 
-    return
-	{
-        rewardcnt = 10,
-        clearcnt = 10,
-		rawcnt = 1
-    }
+    return nil
 end
 
 
 -------------------------------------
--- function mergeWithSeverData
+-- function mergeWithServerData
 -- @breif 테이블 데이타와 서버 데이타를 조합해서 UI에서 활용 가능한 퀘스트 데이타 생성
 -------------------------------------
-function ServerData_Quest:mergeWithSeverData()
+function ServerData_Quest:mergeWithServerData()
 	local t_table_quest = clone(self.m_tableQuest.m_orgTable)
 	
 	local qid, t_server_quest
@@ -120,4 +118,49 @@ function ServerData_Quest:getAllClearQuestTable(quest_type)
 	return ret
 end
 
+-------------------------------------
+-- function requestQuestInfo
+-------------------------------------
+function ServerData_Quest:requestQuestInfo(cb_func)
+	--[[
+    if (not self.m_bDirtyQuestInfo) then
+        if cb_func then
+            cb_func()
+        end
+        return
+    end
+	]]
 
+    local uid = g_userData:get('uid')
+
+    -- 성공 시 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+		
+        if ret['quest_info'] then
+            self:applyQuestInfo(ret['quest_info'])
+			self:mergeWithServerData()
+        end
+
+        if cb_func then
+            cb_func()
+        end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/quest/info')
+    ui_network:setParam('uid', uid)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function applyQuestInfo
+-- @breif 서버에서 전달받은 데이터를 클라이언트에 적용
+-------------------------------------
+function ServerData_Quest:applyQuestInfo(data)
+    self.m_serverData:applyServerData(data, 'quest_info')
+
+    self.m_bDirtyQuestInfo = false
+end

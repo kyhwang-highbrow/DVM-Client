@@ -13,21 +13,25 @@ UI_QuestPopup = class(PARENT, {
 function UI_QuestPopup:init()
 	self.m_tIsOpenOnce = {}
 
-    local vars = self:load('quest.ui')
-    UIManager:open(self, UIManager.SCENE)
+	local vars = self:load('quest.ui')
+	UIManager:open(self, UIManager.POPUP)
 
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_QuestPopup')
+	-- backkey 지정
+	g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_QuestPopup')
 
-    -- @UI_ACTION
-    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
-    self:doActionReset()
-    self:doAction(nil, false)
+	-- @UI_ACTION
+	--self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
+	self:doActionReset()
+	self:doAction(nil, false)
 
-    self:initUI()
-	self:initTab()
-    self:initButton()
-    self:refresh()
+	-- 통신 후 UI 출력
+	local cb_func = function()
+		self:initUI()
+		self:initTab()
+		self:initButton()
+		self:refresh()
+	end 
+	g_questData:requestQuestInfo(cb_func)
 end
 
 -------------------------------------

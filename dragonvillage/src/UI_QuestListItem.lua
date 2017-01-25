@@ -44,13 +44,13 @@ function UI_QuestListItem:setQuestData(t_data)
 	if (not t_data) then 
 		return 
 	end
-
+	
     self.m_questData = t_data
 
-	self.m_rawCount = self.m_questData['rawcnt']
-	self.m_clearCount = self.m_questData['clearcnt']
-	self.m_rewardCount = self.m_questData['rewardcnt']
-	self.m_goalCount = self.m_questData['clearcnt'] + 1
+	self.m_rawCount = self.m_questData['rawcnt'] or 0
+	self.m_clearCount = self.m_questData['clearcnt'] or 0
+	self.m_rewardCount = self.m_questData['rewardcnt'] or 0
+	self.m_goalCount = self.m_clearCount + 1
 	if (not (t_data['type'] == TableQuest.CHALLENGE)) then 
 		self.m_goalCount = math_min(self.m_goalCount, 1)
 	end
@@ -71,9 +71,7 @@ end
 function UI_QuestListItem:initButton()
     local vars = self.vars
 	vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
-	if string.find(self.m_questData['type'], '_all') then 
-		vars['doingBtn']:registerScriptTapHandler(function() self:click_doingBtn() end)
-	else
+	if (vars['questLinkBtn']) then
 		vars['questLinkBtn']:registerScriptTapHandler(function() self:click_questLinkBtn() end)
 	end
 end
@@ -177,17 +175,10 @@ function UI_QuestListItem:click_rewardBtn()
 end
 
 -------------------------------------
--- function click_doingBtn
--------------------------------------
-function UI_QuestListItem:click_doingBtn()
-	
-end
-
--------------------------------------
 -- function click_questLinkBtn
 -------------------------------------
 function UI_QuestListItem:click_questLinkBtn()
-	cclog('QUEST')
+	UIManager:toastNotificationRed(Str('"바로가기" 미구현'))
 end
 
 -------------------------------------

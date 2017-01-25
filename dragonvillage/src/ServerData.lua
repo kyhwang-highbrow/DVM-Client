@@ -277,6 +277,11 @@ function ServerData:networkCommonRespone(ret)
             g_serverData:applyServerData(ret['evolution_stones'], 'user', 'evolution_stones')
         end
     end
+
+	-- 퀘스트 갱신
+    if (ret['quest_info']) then
+        self:applyServerData(ret['quest_info'], 'quest_info')
+    end
 end
 
 -------------------------------------
