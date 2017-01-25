@@ -198,6 +198,18 @@ function UI_AdventureFirstRewardPopup:dropItem_networkSetRequest(ui_network, ite
         ui_network:setParam('act', 'increase')
         ui_network:setParam('key', 'evolution_stones')
         ui_network:setParam('value', tostring(evolution_stone_id) .. ',' .. (count * val_1))
+
+    elseif (type == 'rune') then
+        local rune_id = t_item['item']
+        local rune_param = rune_id
+        ui_network:setUrl('/runes/add')
+        ui_network:setParam('uid', uid)
+        if (1 < count) then
+            for i=1, count-1 do
+                rune_param = rune_param .. ',' .. rune_id
+            end
+        end
+        ui_network:setParam('rid', rune_param)
     end
 end
 
@@ -219,6 +231,11 @@ function UI_AdventureFirstRewardPopup:dropItem_networkResponse(ret)
         for _,t_dragon in pairs(ret['dragons']) do
             g_dragonsData:applyDragonData(t_dragon)
         end
+    end
+
+    -- 획득한 룬 추가
+    if ret['runes'] then
+        g_runesData:applyRuneData_list(ret['runes'])
     end
 
     g_topUserInfo:refreshData()
