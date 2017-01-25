@@ -452,6 +452,11 @@ function SceneGame:networkGameFinish_response(ret, t_result_ref)
 
     -- 스테이지 클리어 정보 stage_clear_info
     self:networkGameFinish_response_stage_clear_info(ret)
+
+    -- 추가된 룬 적용
+    if ret['added_runes'] then
+        g_runesData:applyRuneData_list(ret['added_runes'])
+    end
 end
 
 -------------------------------------
