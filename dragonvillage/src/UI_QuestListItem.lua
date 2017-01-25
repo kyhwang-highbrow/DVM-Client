@@ -171,7 +171,7 @@ end
 -- function click_rewardBtn
 -------------------------------------
 function UI_QuestListItem:click_rewardBtn()
-	
+	UIManager:toastNotificationRed(Str('"보상받기" 미구현'))
 end
 
 -------------------------------------

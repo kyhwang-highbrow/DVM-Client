@@ -90,9 +90,14 @@ function ServerData_Quest:getQuestListByType(quest_type)
 		end
 	end
 
+	--[[ 보상 수령 가능한 것을 위로
+	table.sort(l_quest, function(a, b)
+		return a['clearcnt'] > a['rewardcnt']
+	end)]]
+
 	-- qid 작은 순서대로 정렬
 	table.sort(l_quest, function(a, b) 
-		return tonumber(a['qid']) < tonumber(b['qid'])
+		return (tonumber(a['qid']) < tonumber(b['qid']))
 	end)
 
 	return l_quest
@@ -135,8 +140,6 @@ function ServerData_Quest:requestQuestInfo(cb_func)
 
     -- 성공 시 콜백
     local function success_cb(ret)
-        g_serverData:networkCommonRespone(ret)
-		
         if ret['quest_info'] then
             self:applyQuestInfo(ret['quest_info'])
 			self:mergeWithServerData()
@@ -161,6 +164,36 @@ end
 -------------------------------------
 function ServerData_Quest:applyQuestInfo(data)
     self.m_serverData:applyServerData(data, 'quest_info')
-
     self.m_bDirtyQuestInfo = false
+end
+
+-------------------------------------
+-- function requestQuestReward
+-------------------------------------
+function ServerData_Quest:requestQuestReward(qid, cb_func)
+    local uid = g_userData:get('uid')
+	local qid = qid
+	if (not qid) then 
+		error('잘못된 퀘스트 보상 접근')
+	end
+
+    -- 성공 시 콜백
+    local function success_cb(ret)
+        if ret['quest_info'] then
+            self:applyQuestInfo(ret['quest_info'])
+			self:mergeWithServerData()
+        end
+
+        if cb_func then
+            cb_func()
+        end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/quest/get_reward')
+    ui_network:setParam('uid', uid)
+	ui_network:setParam('qid', qid)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
 end
