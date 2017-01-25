@@ -14,6 +14,6 @@ end
 -------------------------------------
 -- function isFinalWave
 -------------------------------------
-function WaveMgr:isFinalWave()
+function WaveMgr_Colosseum:isFinalWave()
 	return true
 end
