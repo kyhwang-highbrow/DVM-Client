@@ -34,7 +34,9 @@ function ServerData_Runes:getRuneData(roid, with_set_data)
             if with_set_data then
                 local doid = v['odoid']
                 local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
-                v['rune_set'] = t_dragon_data['rune_set']
+                if t_dragon_data then
+                    v['rune_set'] = t_dragon_data['rune_set']
+                end
             end
 
             return clone(v)

@@ -259,6 +259,9 @@ function UI_DragonMgrRunes:refresh()
             end
         end
     end
+
+    self:refresh_useMenu()
+    self:refresh_selectRuneSetData(t_dragon_data, self.m_selectedRuneData)
 end
 
 -------------------------------------
@@ -425,10 +428,42 @@ function UI_DragonMgrRunes:refresh_selectMenu(t_rune_data)
     vars['selectSubOptionLabel']:setString(sub_option_str)
 
     -- 세트 효과
-    vars['selectRuneSetLabel']:setVisible(false)
+    local t_dragon_data = self.m_selectDragonData
+    self:refresh_selectRuneSetData(t_dragon_data, t_rune_data)
 
     -- 강화 버튼
     vars['selectEnhance']:setVisible(not t_rune_information['is_max_lv'])
+end
+
+-------------------------------------
+-- function refresh_selectRuneSetData
+-- @brief 인벤상에서 선택된 룬을 장착하면 발동될 세트 효과 체크
+-------------------------------------
+function UI_DragonMgrRunes:refresh_selectRuneSetData(t_dragon_data, t_rune_data)
+    if (not t_rune_data) then
+        return
+    end
+
+    local vars = self.vars
+    local runes_map = clone(t_dragon_data['runes'])
+    
+    local rune_slot = t_rune_data['type']
+    local roid = t_rune_data['id']
+    runes_map[rune_slot] = roid
+
+    local l_rune_roid = {}
+    for i,v in pairs(runes_map) do
+        table.insert(l_rune_roid, v)
+    end
+    local t_rune_set = g_runesData:makeRuneSetData_usingRoid(l_rune_roid[1], l_rune_roid[2], l_rune_roid[3])
+
+    if t_rune_set then
+        vars['selectRuneSetLabel']:setVisible(true)
+        local str = TableRuneStatus:makeRuneSetOptionStr(t_rune_set)
+        vars['selectRuneSetLabel']:setString(str)
+    else
+        vars['selectRuneSetLabel']:setVisible(false)
+    end
 end
 
 -------------------------------------

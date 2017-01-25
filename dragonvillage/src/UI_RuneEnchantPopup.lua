@@ -20,8 +20,11 @@ UI_RuneEnchantPopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_RuneEnchantPopup:init(t_rune_data)
-    self.m_tRuneData = t_rune_data
-    self.m_runeEnchantHelper = RuneEnchantHelper(t_rune_data)
+    local roid = t_rune_data['id']
+    local with_set_data = true
+    self.m_tRuneData = g_runesData:getRuneData(roid, with_set_data)
+
+    self.m_runeEnchantHelper = RuneEnchantHelper(self.m_tRuneData)
     self.m_bDirtyRuneData = false
     self.m_lDeletedRuneRoid = {}
 
@@ -189,7 +192,14 @@ function UI_RuneEnchantPopup:refresh()
     vars['subOptionStatusLabel']:setString(str)
 
     -- 세트 효과
-    vars['runeSetLabel']:setVisible(false)
+    local t_rune_set = t_rune_data['rune_set']
+    if t_rune_set then
+        vars['runeSetLabel']:setVisible(true)
+        local str = TableRuneStatus:makeRuneSetOptionStr(t_rune_set)
+        vars['runeSetLabel']:setString(str)
+    else
+        vars['runeSetLabel']:setVisible(false)
+    end
 
     self:refresh_selectedMaterials()
 end
@@ -294,11 +304,11 @@ function UI_RuneEnchantPopup:click_enhanceBtn()
         self.m_runeSortManager:changeSort()
 
         local roid = ret['rune']['id']
-        self.m_tRuneData = g_runesData:getRuneData(roid)
+        self.m_tRuneData = g_runesData:getRuneData(roid, true)
         self.m_runeEnchantHelper = RuneEnchantHelper(self.m_tRuneData)
         self:refresh()
 
-        local t_rune_data = g_runesData:getRuneData(roid)
+        local t_rune_data = self.m_tRuneData
         if t_rune_data['information']['is_max_lv'] then
             self:close()
 
