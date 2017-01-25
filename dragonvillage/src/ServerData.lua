@@ -104,7 +104,7 @@ end
 -- function saveServerDataFile
 -------------------------------------
 function ServerData:saveServerDataFile()
-    if (self.m_nLockCnt >= 0) then
+    if (self.m_nLockCnt > 0) then
         self.m_bDirtyDataTable = true
         return
     end
