@@ -5,9 +5,14 @@ local PARENT = SkillIndicator
 -------------------------------------
 SkillIndicator_Penetration = class(SkillIndicator, {
 		m_lIndicatorEffectList = 'indicator list',
-		m_skillLineNum = 'num',
-		m_lAttackPosList = 'pos list', 
 		m_indicatorAddEffect = 'Indicator',
+		
+		m_skillLineNum = 'num',		-- 공격 하는 직선 갯수
+		m_skillLineSize = 'num',	-- 직선의 두께
+		
+		m_skillLineGap = 'num',		-- 직선 간의 간격
+
+		m_lAttackPosList = 'pos list',
     })
 
 -------------------------------------
@@ -17,7 +22,12 @@ function SkillIndicator_Penetration:init(hero, t_skill)
 	PARENT.init(self, hero)
 	
 	self.m_skillLineNum = t_skill['hit']
+	self.m_skillLineSize = t_skill['val_1']
+	
+	self.m_skillLineGap = nil
+
 	self.m_indicatorScale = t_skill['res_scale']
+
 	self.m_lIndicatorEffectList = {}
 	self.m_lAttackPosList = self:getAttackPositionList()
 end
@@ -39,18 +49,20 @@ function SkillIndicator_Penetration:onTouchMoved(x, y)
 	self.m_targetPosY = y
 
 	-- 이펙트 조정
+	local l_dir = {}
 	do
 		local pos, dir
 		for i, indicator in pairs(self.m_lIndicatorEffectList) do
 			pos = self.m_lAttackPosList[i]
 			dir = getAdjustDegree(getDegree(pos.x, pos.y, touch_x, touch_y))
 			indicator:setRotation(dir)
+			table.insert(l_dir, dir)
 		end
 		self.m_indicatorAddEffect:setPosition(touch_x, touch_y)
 	end
 
 	-- 하이라이트 갱신
-	local t_collision_obj = self:findTarget(x, y, dir)
+	local t_collision_obj = self:findTarget(l_dir)
     self:setHighlightEffect(t_collision_obj)
 end
 
@@ -142,30 +154,35 @@ end
 -------------------------------------
 -- function findTarget
 -------------------------------------
-function SkillIndicator_Penetration:findTarget(x, y, dir)
+function SkillIndicator_Penetration:findTarget(l_dir)
 	local t_ret = {}
-    return t_ret
+	
+	local t_each
+	for i = 1, self.m_skillLineNum do
+		t_collision_obj = self:findTargetEachLine(self.m_lAttackPosList[i], l_dir[i])
+		for i,v in ipairs(t_collision_obj) do
+			table.insert(t_ret, v['obj'])
+		end
+	end
+
+	return t_ret
 end
 
 -------------------------------------
 -- function findTargetEachLine
 -------------------------------------
-function SkillIndicator_Penetration:findTargetEachLine(x, y, dir)
+function SkillIndicator_Penetration:findTargetEachLine(start_pos, dir)
     local end_pos = getPointFromAngleAndDistance(dir, 2560)    
-    local end_x = pos_x + end_pos['x']
-    local end_y = pos_y + end_pos['y']
+	local start_x = start_pos.x
+	local start_y = start_pos.y
+    local end_x = start_x + end_pos['x']
+    local end_y = start_y + end_pos['y']
 
 	local phys_group = self.m_hero:getAttackPhysGroup()
 
     -- 레이저에 충돌된 모든 객체 리턴
-    local t_collision_obj = self.m_world.m_physWorld:getLaserCollision(pos_x, pos_y,
-        end_x, end_y, self.m_thickness/2, phys_group)
+    local t_collision_obj = self.m_world.m_physWorld:getLaserCollision(start_x, start_y,
+        end_x, end_y, self.m_skillLineSize/2, phys_group)
 
-    local t_ret = {}
-
-    for i,v in ipairs(t_collision_obj) do
-        table.insert(t_ret, v['obj'])
-    end
-
-    return t_ret
+    return t_collision_obj
 end

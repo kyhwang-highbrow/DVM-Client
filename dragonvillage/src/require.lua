@@ -284,6 +284,7 @@ local t_module = {
 	'SkillVoltesX',
 	'SkillCharge',
 	'SkillContinuous',
+	'SkillPenetration',
 
     -- SKILL INDICATOR
     'SkillIndicatorMgr',

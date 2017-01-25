@@ -333,6 +333,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillIndicator_X.lua" />
     <None Include="..\src\SkillLaser_Lightning.lua" />
     <None Include="..\src\SkillLeap.lua" />
+    <None Include="..\src\SkillPenetration.lua" />
     <None Include="..\src\SkillSpiderWeb.lua" />
     <None Include="..\src\SkillVoltesX.lua" />
     <None Include="..\src\StatusEffect_Barrier.lua" />
