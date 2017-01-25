@@ -4,7 +4,7 @@
 ServerData = class({
         m_rootTable = 'table',
 
-        m_bLockSave = 'boolean',
+        m_nLockCnt = 'number',
         m_bDirtyDataTable = 'boolean',
     })
 
@@ -13,7 +13,7 @@ ServerData = class({
 -------------------------------------
 function ServerData:init()
     self.m_rootTable = nil
-    self.m_bLockSave = false
+    self.m_nLockCnt = 0
     self.m_bDirtyDataTable = false
 end
 
@@ -104,7 +104,7 @@ end
 -- function saveServerDataFile
 -------------------------------------
 function ServerData:saveServerDataFile()
-    if self.m_bLockSave then
+    if (self.m_nLockCnt >= 0) then
         self.m_bDirtyDataTable = true
         return
     end
@@ -289,7 +289,7 @@ end
 -- @breif
 -------------------------------------
 function ServerData:lockSaveData()
-    self.m_bLockSave = true
+    self.m_nLockCnt = (self.m_nLockCnt + 1)
 end
 
 -------------------------------------
@@ -297,9 +297,12 @@ end
 -- @breif
 -------------------------------------
 function ServerData:unlockSaveData()
-    self.m_bLockSave = false
-    if self.m_bDirtyDataTable then
-        self:saveServerDataFile()
+    self.m_nLockCnt = (self.m_nLockCnt -1)
+
+    if (self.m_nLockCnt <= 0) then
+        if self.m_bDirtyDataTable then
+            self:saveServerDataFile()
+        end
+        self.m_bDirtyDataTable = false
     end
-    self.m_bDirtyDataTable = false
 end

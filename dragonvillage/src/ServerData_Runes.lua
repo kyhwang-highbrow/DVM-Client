@@ -3,15 +3,21 @@
 -------------------------------------
 ServerData_Runes = class({
         m_serverData = 'ServerData',
-
+        m_tableRune = 'TableRune',
         m_tableRuneExp = 'TableRuneExp',
     })
+
+local l_rune_slot_name = {}
+l_rune_slot_name[1] = 'bellaria'
+l_rune_slot_name[2] = 'tutamen'
+l_rune_slot_name[3] = 'cimelium'
 
 -------------------------------------
 -- function init
 -------------------------------------
 function ServerData_Runes:init(server_data)
     self.m_serverData = server_data
+    self.m_tableRune = TableRune()
     self.m_tableRuneExp = TableRuneExp()
 end
 
@@ -19,11 +25,18 @@ end
 -------------------------------------
 -- function getRuneData
 -------------------------------------
-function ServerData_Runes:getRuneData(roid)
+function ServerData_Runes:getRuneData(roid, with_set_data)
     local l_runes = self.m_serverData:getRef('runes')
 
     for _,v in pairs(l_runes) do
         if (roid == v['id']) then
+
+            if with_set_data then
+                local doid = v['odoid']
+                local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+                v['rune_set'] = t_dragon_data['rune_set']
+            end
+
             return clone(v)
         end
     end
@@ -331,15 +344,11 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Runes:getSlotName(slot_idx)
-    if (slot_idx == 1) then
-        return 'bellaria'
-    elseif (slot_idx == 2) then
-        return 'tutamen'
-    elseif (slot_idx == 3) then
-        return 'cimelium'
-    else
+    if (not l_rune_slot_name[slot_idx]) then
         error('slot_idx : ' .. slot_idx)
     end
+
+    return l_rune_slot_name[slot_idx]
 end
 
 -------------------------------------
@@ -375,4 +384,76 @@ function ServerData_Runes:requestRuneEnchant(roid, src_roids, cb_func)
     ui_network:setRevocable(true) -- 통신 실패 시 재시도 여부
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
+end
+
+-------------------------------------
+-- function makeRuneSetData_usingRoid
+-- @brief
+-------------------------------------
+function ServerData_Runes:makeRuneSetData_usingRoid(roid_1, roid_2, roid_3)
+    local t_rune_data_1 = self:getRuneData(roid_1)
+    local t_rune_data_2 = self:getRuneData(roid_2)
+    local t_rune_data_3 = self:getRuneData(roid_3)
+    return self:makeRuneSetData(t_rune_data_1, t_rune_data_2, t_rune_data_3)
+end
+
+-------------------------------------
+-- function makeRuneSetData
+-- @brief
+-------------------------------------
+function ServerData_Runes:makeRuneSetData(t_rune_data_1, t_rune_data_2, t_rune_data_3)
+    local l_rune_data_list = {}
+
+    -- 룬이 존재하는지 체크
+    if (not t_rune_data_1) then
+        return nil
+    end
+    table.insert(l_rune_data_list, t_rune_data_1)
+
+    if (not t_rune_data_2) then
+        return nil
+    end
+    table.insert(l_rune_data_list, t_rune_data_2)
+
+    if (not t_rune_data_3) then
+        return nil
+    end
+    table.insert(l_rune_data_list, t_rune_data_3)
+
+    -- 룬들 검증
+    local set_color = nil
+    local m_rune_slot = {}
+    local min_grade = nil
+    for i,v in ipairs(l_rune_data_list) do
+        local rid = v['rid']
+        local color = self.m_tableRune:getValue(rid, 'set_color')
+
+        -- 동일한 세트 종류인지 체크
+        if (not set_color) then
+            set_color = color
+        elseif (set_color ~= color) then
+            return nil
+        end
+
+        -- 각 슬롯에 하나씩 있는지 체크
+        local slot_type = v['type']
+        if (not m_rune_slot[slot_type]) then
+            m_rune_slot[slot_type] = true
+        else
+            return nil
+        end
+
+        -- 적용되는 등급 체크
+        local grade = v['grade']
+        if (not min_grade) then
+            min_grade = grade
+        else
+            min_grade = math_min(grade, min_grade)
+        end
+    end
+
+    -- 룬 세트 정보 얻어옴
+    local t_rune_set = TableRuneSet:makeRuneSetData(set_color, min_grade)
+    
+    return t_rune_set
 end

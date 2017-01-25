@@ -62,12 +62,25 @@ function ServerData_Dragons:getDragonDataFromUid(unique_id)
 end
 
 -------------------------------------
+-- function applyDragonData_list
+-- @brief 서버에서 넘어오는 드래곤의 정보 갱신
+-------------------------------------
+function ServerData_Dragons:applyDragonData_list(l_dragon_data)
+    g_serverData:lockSaveData()
+    for i,v in pairs(l_dragon_data) do
+        local t_dragon_data = v
+        self:applyDragonData(t_dragon_data)
+    end
+    g_serverData:unlockSaveData()
+end
+
+-------------------------------------
 -- function applyDragonData
 -- @brief
 -------------------------------------
-function ServerData_Dragons:applyDragonData(t_dragon)
+function ServerData_Dragons:applyDragonData(t_dragon_data)
     local l_dragons = self.m_serverData:getRef('dragons')
-    local unique_id = t_dragon['id']
+    local unique_id = t_dragon_data['id']
 
     local idx = nil
 
@@ -78,16 +91,38 @@ function ServerData_Dragons:applyDragonData(t_dragon)
         end
     end
 
+    -- 룬 효과 체크
+    if t_dragon_data then
+        t_dragon_data['rune_set'] = self:makeDragonRuneSetData(t_dragon_data)
+    end
+
     -- 기존에 있는 드래곤이면 갱신
     if idx then
-        self.m_serverData:applyServerData(t_dragon, 'dragons', idx)
+        self.m_serverData:applyServerData(t_dragon_data, 'dragons', idx)
     -- 기존에 없던 드래곤이면 추가
     else
-        self.m_serverData:applyServerData(t_dragon, 'dragons', #l_dragons + 1)
+        self.m_serverData:applyServerData(t_dragon_data, 'dragons', #l_dragons + 1)
     end
 
     -- 드래곤 정렬 데이터 수정
     self:setDragonsSortData(unique_id)
+end
+
+-------------------------------------
+-- function makeDragonRuneSetData
+-- @brief
+-------------------------------------
+function ServerData_Dragons:makeDragonRuneSetData(t_dragon_data)
+    local runes_map = t_dragon_data['runes']
+
+    local runes_list = {}
+    for i,v in pairs(runes_map) do
+        local roid = v
+        table.insert(runes_list, roid)
+    end
+
+    local t_rune_set = g_runesData:makeRuneSetData_usingRoid(runes_list[1], runes_list[2], runes_list[3])
+    return t_rune_set
 end
 
 -------------------------------------

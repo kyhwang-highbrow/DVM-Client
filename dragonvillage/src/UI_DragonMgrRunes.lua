@@ -323,8 +323,10 @@ function UI_DragonMgrRunes:refresh_useMenu()
     if roid and (roid ~= '') then
         vars['useMenu']:setVisible(true)
 
-        local t_rune_infomation, t_rune_data = g_runesData:getRuneInfomation(roid)
-        vars['useRuneNameLabel']:setString(t_rune_infomation['full_name'])
+        local with_set_data = true
+        local t_rune_data = g_runesData:getRuneData(roid, with_set_data)
+        local t_rune_information = t_rune_data['information']
+        vars['useRuneNameLabel']:setString(t_rune_information['full_name'])
 
         do -- 룬 아이콘
             vars['useRuneNode']:removeAllChildren()
@@ -333,8 +335,6 @@ function UI_DragonMgrRunes:refresh_useMenu()
 
             cca.uiReactionSlow(icon.root)
         end
-
-        local t_rune_information = t_rune_data['information']
 
         -- 주옵션 문자열
         local main_option_str = TableRuneStatus:makeRuneOptionStr(t_rune_information['status']['mopt'])
@@ -345,7 +345,14 @@ function UI_DragonMgrRunes:refresh_useMenu()
         vars['useSubOptionLabel']:setString(sub_option_str)
 
         -- 세트 효과
-        vars['useRuneSetLabel']:setVisible(false)
+        local t_rune_set = t_rune_data['rune_set']
+        if t_rune_set then
+            vars['useRuneSetLabel']:setVisible(true)
+            local str = TableRuneStatus:makeRuneSetOptionStr(t_rune_set)
+            vars['useRuneSetLabel']:setString(str)
+        else
+            vars['useRuneSetLabel']:setVisible(false)
+        end
 
         -- 강화 버튼
         vars['useEnhanceBtn']:setVisible(not t_rune_information['is_max_lv'])
@@ -423,7 +430,6 @@ function UI_DragonMgrRunes:refresh_selectMenu(t_rune_data)
     -- 강화 버튼
     vars['selectEnhance']:setVisible(not t_rune_information['is_max_lv'])
 end
-
 
 -------------------------------------
 -- function refresh_currDragonInfo

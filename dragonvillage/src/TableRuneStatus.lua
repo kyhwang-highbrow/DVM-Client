@@ -99,6 +99,26 @@ function TableRuneStatus:getStatusValueStr(category, value)
 end
 
 -------------------------------------
+-- function getStatusMultiplyValueStr
+-- @brief
+-------------------------------------
+function TableRuneStatus:getStatusMultiplyValueStr(category, value)
+    local str = ''
+    if (category == 'atk') then             str = Str('+{1}%', value)
+    elseif (category == 'def') then         str = Str('+{1}%', value)
+    elseif (category == 'hp') then          str = Str('+{1}%', value)
+    elseif (category == 'aspd') then        str = Str('+{1}%', value)
+    elseif (category == 'cri_chance') then  str = Str('X{1}%', value)   -- ?? 애초에 %로 동작하기때문에 애매함
+    elseif (category == 'cri_dmg') then     str = Str('X{1}%', value)   -- ??
+    elseif (category == 'cri_avoid') then   str = Str('X{1}%', value)   -- ??
+    elseif (category == 'hit_rate') then    str = Str('X{1}%', value)   -- ??
+    elseif (category == 'avoid') then       str = Str('X{1}%', value)   -- ??
+    else                                    error('category : ' .. category)
+    end
+    return str
+end
+
+-------------------------------------
 -- function makeRuneOptionStr
 -- @brief 룬의 옵션 문자열 생성 (주옵션 or 부옵션)
 -------------------------------------
@@ -124,6 +144,25 @@ function TableRuneStatus:makeRuneOptionStr(l_mopt, type)
         else
             error('type : ' .. type)
         end
+    end
+
+    return str
+end
+
+-------------------------------------
+-- function makeRuneSetOptionStr
+-- @brief
+-------------------------------------
+function TableRuneStatus:makeRuneSetOptionStr(t_rune_set)
+    local name = t_rune_set['name']
+    local str = Str('[{1}] 세트 효과', name)
+
+    for category,value in pairs(t_rune_set['add_status']) do
+        str = (str .. '\n') .. TableRuneStatus:getCategoryStr(category) .. ' ' .. TableRuneStatus:getStatusValueStr(category, value)
+    end
+
+    for category,value in pairs(t_rune_set['multiply_status']) do
+        str = (str .. '\n') .. TableRuneStatus:getCategoryStr(category) .. ' ' .. TableRuneStatus:getStatusMultiplyValueStr(category, value)
     end
 
     return str
