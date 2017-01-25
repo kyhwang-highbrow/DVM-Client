@@ -1586,7 +1586,7 @@ function Character:changeStateWithCheckHomePos(state, forced)
     self.m_comebackNextState = state
     self:changeState('comeback', forced)
 end
-
+ 
 -------------------------------------
 -- function reserveSkill
 -- @brief 사용될 스킬을 예약

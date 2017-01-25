@@ -1353,6 +1353,9 @@
     <None Include="..\src\TableRuneSet.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\GameWorldColosseum.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\TableRuneGrade.lua">
       <Filter>lua</Filter>
     </None>

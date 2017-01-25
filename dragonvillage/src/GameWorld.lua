@@ -40,7 +40,8 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         m_gameState = '',
 
-        m_gameAuto = '',
+        m_gameAuto = '',        -- 아군 자동 AI
+        
         m_gameFever = '',
         m_gameCamera = '',
         m_gameTimeScale = '',
@@ -194,15 +195,6 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
         end
 
         self:initGoldUnit(stage_id)
-
-    elseif (self.m_gameMode == GAME_MODE_COLOSSEUM) then
-        self.m_gameTimeScale:setBase(COLOSSEUM__TIME_SCALE)
-
-        self.m_gameState = GameState_Colosseum(self)
-
-    else
-        error('invalid game mode : ' .. self.m_gameMode)
-
     end
 
     self.m_missileRange = {}
@@ -229,12 +221,8 @@ end
 -------------------------------------
 function GameWorld:initGame(stage_name)
     -- 웨이브 매니져 생성
-    if (self.m_gameMode == GAME_MODE_COLOSSEUM) then
-        self.m_waveMgr = WaveMgr_Colosseum(self, stage_name, self.m_bDevelopMode)
-    else
-        self.m_waveMgr = WaveMgr(self, stage_name, self.m_bDevelopMode)
-    end
-    
+    self.m_waveMgr = WaveMgr(self, stage_name, self.m_bDevelopMode)
+        
 	-- 배경 생성
     self:initBG(self.m_waveMgr)
 
@@ -254,19 +242,6 @@ function GameWorld:initGame(stage_name)
         self:setBattleZone(self.m_deckFormation, true)
     end
 
-    if (self.m_gameMode == GAME_MODE_COLOSSEUM) then
-        self:makeEnemyDeck()
-
-        -- TODO: 연출 진행중에 등장해야함
-        --[[
-        for _, enemy in ipairs(self:getEnemyList()) do
-            EnemyMovement['Colosseum'](enemy, value1, value2, value3, value4, value5)
-        end
-        ]]--
-
-        self:setBattleZone(self.m_deckFormation, true, true)
-    end
-    
     do -- 스킬 조작계 초기화
         self.m_skillIndicatorMgr = SkillIndicatorMgr(self, g_currScene.m_colorLayerForSkill)
     end
@@ -1283,7 +1258,6 @@ function GameWorld:setBattleZone(formation, immediately, is_right)
         unit:setOrgHomePos(pos_x, pos_y)
 
         if immediately then
-            unit:setOrgHomePos(pos_x, pos_y)
             unit:setHomePos(pos_x, pos_y)
             unit:setPosition(pos_x, pos_y)
         else
@@ -1497,7 +1471,9 @@ function GameWorld:changeCameraOption(tParam, bKeepHomePos)
 
                 local distance = getDistance(v.pos.x, v.pos.y, homePosX, homePosY)
                 
-                v:changeHomePos(homePosX, homePosY, distance / intermissionTime)
+                if (distance > 0) then
+                    v:changeHomePos(homePosX, homePosY, distance / intermissionTime)
+                end
             end
         end
 

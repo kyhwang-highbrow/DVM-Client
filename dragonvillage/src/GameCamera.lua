@@ -1,4 +1,4 @@
-local MAX_SCALE = 1
+local MAX_SCALE = 1.5
 local MIN_SCALE = 0.6
 
 -------------------------------------

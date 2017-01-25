@@ -1,18 +1,22 @@
 local PARENT = GameState
 
+local HERO_TAMER_POS_X = 320 - 100
+local ENEMY_TAMER_POS_X = 960 + 100
+local TAMER_POS_Y = -500
+
 -------------------------------------
 -- class GameState_Colosseum
 -------------------------------------
 GameState_Colosseum = class(PARENT, {
-    m_gameAutoEnemy = 'GameAuto_Colosseum'
+    m_heroTamerAvatar = 'Animator',     -- 아군 테이머
+    m_enemyTamerAvatar = 'Animator'     -- 적군 테이머
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function GameState_Colosseum:init(world)
-    -- 상대편 드래곤들을 생성함
-    self.m_gameAutoEnemy = GameAuto_Colosseum(world, false)
+    self:initTamerAvatar()
 end
 
 -------------------------------------
@@ -22,6 +26,7 @@ end
 function GameState_Colosseum:initState()
     PARENT.initState(self)
     self:addState(GAME_STATE_START, GameState_Colosseum.update_start)
+    self:addState(GAME_STATE_WAVE_INTERMISSION, GameState_Colosseum.update_wave_intermission)
     self:addState(GAME_STATE_FIGHT, GameState_Colosseum.update_fight)
     self:addState(GAME_STATE_SUCCESS, GameState_Colosseum.update_success)
     self:addState(GAME_STATE_FAILURE, GameState_Colosseum.update_failure)
@@ -36,60 +41,144 @@ function GameState_Colosseum.update_start(self, dt)
 
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
-            -- 드래곤들을 숨김
-            for i,dragon in ipairs(world:getDragonList()) do
-                if (dragon.m_bDead == false) and (dragon.m_charType == 'dragon') then
-                    dragon.m_rootNode:setVisible(false)
-                    dragon.m_hpNode:setVisible(false)
-                    dragon:changeState('idle')
+            -- 아군 적군 드래곤들을 모두 숨김
+            self:disappearAllDragon()
+
+            -- 카메라 초기화
+            self.m_world.m_gameCamera:reset()
+
+        elseif (self:isPassedStepTime(0.5)) then
+            
+            -- 카메라 줌인
+            self.m_world:changeCameraOption({
+                pos_x = 0,
+                pos_y = 0,
+                scale = 1,
+                time = 2,
+                cb = function()
+                    self:nextStep()
                 end
-            end
-
-            -- 화면을 빠르게 스크롤
-            if map_mgr then
-                map_mgr:setSpeed(-1000)  
-            end
-
-            SoundMgr:playEffect('VOICE', 'vo_tamer_start')
-        
-	    elseif (self:isPassedStepTime(DRAGON_APPEAR_TIME)) then
-		    self:nextStep()
+            })
+	    
         end
 
     elseif (self:getStep() == 1) then
         if (self:isBeginningStep()) then
-            SoundMgr:playEffect('EFFECT', 'summon')
-        
-            world:dispatch('dragon_summon')
+            -- 적군 테이머쪽으로 줌인
+            self.m_world:changeCameraOption({
+                pos_x = ENEMY_TAMER_POS_X - (CRITERIA_RESOLUTION_X / 2),
+                pos_y = -200,
+                scale = 1,
+                time = 1.5
+            }, true)
 
-        elseif (self:getStepTimer() >= 0.5) then
-            self:appearDragon()
-
+        elseif (self:isPassedStepTime(2)) then
             self:nextStep()
+
         end
 
     elseif (self:getStep() == 2) then
         if (self:isBeginningStep()) then
-        elseif (self:getStepTimer() >= 1) then
-            world:dispatch('game_start')
-            world:buffActivateAtStartup()
-            world.m_inGameUI:doAction()
+            -- 적군 드래곤 소환
+            self.m_enemyTamerAvatar:changeAni('idle', false)
+            self.m_enemyTamerAvatar:addAniHandler(function()
+                self.m_enemyTamerAvatar:changeAni('idle', true)
+            end)
+        elseif (self:isPassedStepTime(1.5)) then
+            self:appearEnemy()
 
-            self:fight()
-            self:changeState(GAME_STATE_FIGHT)
+            SoundMgr:playEffect('EFFECT', 'summon')
+
+        elseif (self:isPassedStepTime(3)) then
+            self:nextStep()
+
         end
 
+    elseif (self:getStep() == 3) then
+        if (self:isBeginningStep()) then
+            -- 아군 테이머쪽으로 줌인
+            self.m_world:changeCameraOption({
+                pos_x = HERO_TAMER_POS_X - (CRITERIA_RESOLUTION_X / 2),
+                pos_y = -200,
+                scale = 1,
+                time = 1.5
+            }, true)
+
+        elseif (self:isPassedStepTime(2)) then
+            self:nextStep()
+
+        end
+
+    elseif (self:getStep() == 4) then
+        if (self:isBeginningStep()) then
+            -- 아군 드래곤 소환
+            self.m_heroTamerAvatar:changeAni('idle', false)
+            self.m_heroTamerAvatar:addAniHandler(function()
+                self.m_heroTamerAvatar:changeAni('idle', true)
+            end)
+        elseif (self:isPassedStepTime(1.5)) then
+            self:appearHero()
+
+            SoundMgr:playEffect('EFFECT', 'summon')
+        
+            world:dispatch('dragon_summon')
+
+        elseif (self:isPassedStepTime(3)) then
+            self:nextStep()
+
+        end
+
+    elseif (self:getStep() == 5) then
+        if (self:isBeginningStep()) then
+            -- 카메라 초기화
+            self.m_world:changeCameraOption({
+                pos_x = 0,
+                pos_y = 0,
+                scale = 1,
+                time = 2,
+                cb = function()
+                    self:nextStep()
+                end
+            }, true)
+        end
+
+    elseif (self:getStep() == 6) then
+        if (self:isBeginningStep()) then
+            self:changeState(GAME_STATE_WAVE_INTERMISSION)
+        end
     end
 end
 
 -------------------------------------
 -- function update_fight
 -------------------------------------
+function GameState_Colosseum.update_wave_intermission(self, dt)
+    local world = self.m_world
+		
+    if (self.m_stateTimer == 0) then
+        -- 연출(카메라)
+        self:doDirectionForIntermission()
+    end
+    	
+	if (self.m_stateTimer > getInGameConstant(WAVE_INTERMISSION_TIME)) then
+        world:dispatch('game_start')
+        world:buffActivateAtStartup()
+        world.m_inGameUI:doAction()
+
+        self:fight()
+
+		self:changeState(GAME_STATE_FIGHT)
+	end
+end
+
+-------------------------------------
+-- function update_fight
+-------------------------------------
 function GameState_Colosseum.update_fight(self, dt)
-    GameState.update_fight(self, dt)
+    PARENT.update_fight(self, dt)
     
-    if self.m_gameAutoEnemy then
-        self.m_gameAutoEnemy:update(dt) 
+    if self.m_world.m_gameAutoEnemy then
+        self.m_world.m_gameAutoEnemy:update(dt) 
     end
 
     do -- 적군 액티브 스킬 쿨타임 증가
@@ -105,8 +194,8 @@ end
 function GameState_Colosseum.update_fight_fever(self, dt)
     PARENT.update_fight_fever(self, dt)
 
-    if self.m_gameAutoEnemy then
-        self.m_gameAutoEnemy:update(dt) 
+    if self.m_world.m_gameAutoEnemy then
+        self.m_world.m_gameAutoEnemy:update(dt) 
     end
 end
 
@@ -197,4 +286,105 @@ function GameState_Colosseum.update_failure(self, dt)
 
         end
     end
+end
+
+-------------------------------------
+-- function disappearAllDragon
+-------------------------------------
+function GameState_Colosseum:disappearAllDragon()
+    local disappearDragon = function(dragon)
+        if (dragon.m_bDead == false) then
+            dragon.m_rootNode:setVisible(false)
+            dragon.m_hpNode:setVisible(false)
+            dragon:changeState('idle')
+        end
+    end
+    
+    for i, dragon in ipairs(self.m_world:getDragonList()) do
+        disappearDragon(dragon)
+    end
+
+    for i, dragon in ipairs(self.m_world:getEnemyList()) do
+        disappearDragon(dragon)
+    end
+end
+
+-------------------------------------
+-- function makeTamerAvater
+-------------------------------------
+function GameState_Colosseum:initTamerAvatar()
+    -- TODO: 유저의 테이머 정보로 설정되어야함
+    self.m_heroTamerAvatar = MakeAnimator('res/character/tamer/goni/goni.spine')
+    self.m_heroTamerAvatar:changeAni('idle', true)
+    self.m_heroTamerAvatar:setPosition(HERO_TAMER_POS_X, TAMER_POS_Y)
+    self.m_world:addChildWorld(self.m_heroTamerAvatar.m_node)
+
+    self.m_enemyTamerAvatar = MakeAnimator('res/character/tamer/goni/goni.spine')
+    self.m_enemyTamerAvatar:changeAni('idle', true)
+    self.m_enemyTamerAvatar:setPosition(ENEMY_TAMER_POS_X, TAMER_POS_Y)
+    self.m_enemyTamerAvatar:setFlip(true)
+    self.m_world:addChildWorld(self.m_enemyTamerAvatar.m_node)
+end
+
+-------------------------------------
+-- function appearHero
+-------------------------------------
+function GameState_Colosseum:appearHero()
+    -- 드래곤들을 등장
+    local world = self.m_world
+    for i,dragon in ipairs(world:getDragonList()) do
+        if (dragon.m_bDead == false) then
+            dragon.m_rootNode:setVisible(true)
+            dragon.m_hpNode:setVisible(true)
+
+            local effect = MakeAnimator('res/effect/tamer_magic_1/tamer_magic_1.vrp')
+            effect:setPosition(dragon.pos.x, dragon.pos.y)
+            effect:changeAni('bomb', false)
+            effect:setScale(0.8)
+            local duration = effect:getDuration()
+            effect:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.CallFunc:create(function() effect:release() end)))
+            world.m_missiledNode:addChild(effect.m_node)
+        end
+    end
+    
+    self.m_bAppearDragon = true
+end
+
+-------------------------------------
+-- function appearEnemy
+-------------------------------------
+function GameState_Colosseum:appearEnemy()
+    -- 드래곤들을 등장
+    local world = self.m_world
+    for i,dragon in ipairs(world:getEnemyList()) do
+        if (dragon.m_bDead == false) then
+            dragon.m_rootNode:setVisible(true)
+            dragon.m_hpNode:setVisible(true)
+
+            local effect = MakeAnimator('res/effect/tamer_magic_1/tamer_magic_1.vrp')
+            effect:setPosition(dragon.pos.x, dragon.pos.y)
+            effect:changeAni('bomb', false)
+            effect:setScale(0.8)
+            local duration = effect:getDuration()
+            effect:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.CallFunc:create(function() effect:release() end)))
+            world.m_missiledNode:addChild(effect.m_node)
+        end
+    end
+    
+    self.m_bAppearDragon = true
+end
+
+
+-------------------------------------
+-- function doDirectionForIntermission
+-------------------------------------
+function GameState_Colosseum:doDirectionForIntermission()
+    local t_camera_info = {}
+    	
+    t_camera_info['pos_x'] = 0
+	t_camera_info['pos_y'] = 300
+	t_camera_info['time'] = getInGameConstant(WAVE_INTERMISSION_TIME)
+        
+    -- 카메라 액션 설정
+    self.m_world:changeCameraOption(t_camera_info)
 end

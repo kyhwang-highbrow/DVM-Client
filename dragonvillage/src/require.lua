@@ -142,6 +142,7 @@ local t_module = {
 	-- Entity GameWorld
     'Entity',
     'GameWorld',
+    'GameWorldColosseum',
     'GameWorld_Touch',
     'GameWorld_Formation',
     'GameWorld_Unit',

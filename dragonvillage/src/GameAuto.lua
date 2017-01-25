@@ -17,7 +17,7 @@ local AI_FEVER_DELAY_TIME = 0.5
 -------------------------------------
 -- class GameAuto
 -------------------------------------
-GameAuto = class(IEventListener:getCloneClass(), IEventDispatcher:getCloneTable(), {
+GameAuto = class(IEventListener:getCloneClass(), {
         m_world = 'GameWorld',
         m_gameFever = 'GameFever',
         
@@ -124,56 +124,80 @@ function GameAuto:update_fight(dt)
         end
 
     else
-        if (self.m_world.m_gameMode ~= GAME_MODE_COLOSSEUM and self.m_bLeftFormation) then
-            -- 테이머
-            local tamerSkillSystem = self.m_world.m_tamerSkillSystem
-            local tamerSkillIdx = g_autoPlaySetting:get('tamer_skill')
-            if (tamerSkillSystem:isEndSkillCoolTime(tamerSkillIdx)) then
-                tamerSkillSystem:click_tamerSkillBtn(tamerSkillIdx)
+        local b = false
+
+        -- 테이머
+        if (not b) then
+            b = self:proccess_tamer()
+        end
+        
+        -- 드래곤
+        if (not b) then
+            b = self:proccess_dragon()
+        end
+    end
+end
+
+-------------------------------------
+-- function proccess_tamer
+-------------------------------------
+function GameAuto:proccess_tamer()
+    if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
+        return
+    end
+
+    local tamerSkillSystem = self.m_world.m_tamerSkillSystem
+    local tamerSkillIdx = g_autoPlaySetting:get('tamer_skill')
+    if (tamerSkillSystem:isEndSkillCoolTime(tamerSkillIdx)) then
+        tamerSkillSystem:click_tamerSkillBtn(tamerSkillIdx)
+
+        -- AI 딜레이 시간 설정
+        self.m_aiDelayTime = AI_DELAY_TIME
+
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function proccess_dragon
+-------------------------------------
+function GameAuto:proccess_dragon()
+    local allyList = self:getUnitList()
+
+    for i, dragon in ipairs(allyList) do
+        local skill_id = dragon:getSkillID('active')
+        local t_skill = dragon:getLevelingSkillById(skill_id)
+        local isPossibleSkill = false
+        local target = nil
+            
+        -- 스킬 사용 여부 체크
+        isPossibleSkill, target = self:checkSkill(dragon, t_skill)
+
+        if (isPossibleSkill) then
+            if (not target) then
+                -- 대상을 찾는다
+                target = self:findTarget(dragon, t_skill)
+            end
+
+            if (target) then
+                -- 스킬 사용
+                self:doSkill(dragon, t_skill, target)
 
                 -- AI 딜레이 시간 설정
                 self.m_aiDelayTime = AI_DELAY_TIME
 
-                return
+                -- 해당 대상을 리스트에서 제외시킴(한 대상에게 여러번 스킬 사용이 되지 않도록 하기 위함)
+                local idx = table.find(self.m_tCastingEnemyList, target)
+                if (idx) then
+                    table.remove(self.m_tCastingEnemyList, idx)
+                end
+
+                break
             end
         end
 
-        -- 드래곤
-        local allyList = self:getUnitList()
-
-        for i, dragon in ipairs(allyList) do
-            local skill_id = dragon:getSkillID('active')
-            local t_skill = dragon:getLevelingSkillById(skill_id)
-            local isPossibleSkill = false
-            local target = nil
-            
-            -- 스킬 사용 여부 체크
-            isPossibleSkill, target = self:checkSkill(dragon, t_skill)
-
-            if (isPossibleSkill) then
-                if (not target) then
-                    -- 대상을 찾는다
-                    target = self:findTarget(dragon, t_skill)
-                end
-
-                if (target) then
-                    -- 스킬 사용
-                    self:doSkill(dragon, t_skill, target)
-
-                    -- AI 딜레이 시간 설정
-                    self.m_aiDelayTime = AI_DELAY_TIME
-
-                    -- 해당 대상을 리스트에서 제외시킴(한 대상에게 여러번 스킬 사용이 되지 않도록 하기 위함)
-                    local idx = table.find(self.m_tCastingEnemyList, target)
-                    if (idx) then
-                        table.remove(self.m_tCastingEnemyList, idx)
-                    end
-
-                    break
-                end
-            end
-
-        end
     end
 end
 

@@ -127,6 +127,7 @@ function getInGameConstant(type)
 
     -- 콜로세움
     elseif gameMode == GAME_MODE_COLOSSEUM then
+        ret = IN_GAME_CONSTANTS[gameMode][type]
     end
     
     return ret
