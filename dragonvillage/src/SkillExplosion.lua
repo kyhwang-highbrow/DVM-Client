@@ -4,7 +4,6 @@ local PARENT = SkillLeap
 -- class SkillExplosion
 -------------------------------------
 SkillExplosion = class(PARENT, {
-		m_isIgnoreDef= '',
 		m_explosionRes = '',
      })
 
@@ -19,23 +18,15 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillExplosion:init_skill(explosion_res, jump_res, range, isIgnoreDef)
-	self.m_isIgnoreDef = isIgnoreDef
-    
+function SkillExplosion:init_skill(explosion_res, jump_res, range)
 	PARENT.init_skill(self, jump_res, range)
+	
 	self.m_explosionRes = explosion_res
-		-- 특정 드래곤 전용 
+	
+	-- 특정 드래곤 전용 
 	self:boombaSideEffect()
 
 	self:makeRangeEffect(RES_RANGE, range)
-end
-
--------------------------------------
--- function initActvityCarrier
--------------------------------------
-function SkillExplosion:initActvityCarrier(power_rate, power_abs)    
-    PARENT.initActvityCarrier(self, power_rate, power_abs)    
-	self.m_activityCarrier:setIgnoreDef(self.m_isIgnoreDef)
 end
 
 -------------------------------------
@@ -101,7 +92,6 @@ function SkillExplosion:makeSkillInstance(owner, t_skill, t_data)
     local explosion_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
 	local jump_res = t_skill['res_2']
     local range = t_skill['val_1']
-	local isIgnoreDef = t_skill['val_2'] == 1
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
@@ -110,7 +100,7 @@ function SkillExplosion:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(explosion_res, jump_res, range, isIgnoreDef)
+    skill:init_skill(explosion_res, jump_res, range)
 	skill:initState()
 
 	-- 3. state 시작 

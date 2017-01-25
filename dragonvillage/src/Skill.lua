@@ -10,6 +10,7 @@ Skill = class(PARENT, {
 		m_powerRate = 'num',
 		m_powerAbs = 'num',
 		m_powerSource = 'str',
+		m_powerIgnore = 'str',		-- 피격대상 특정 스탯 무시 
 		m_preDelay = 'num',
 		m_resScale = 'str',
 
@@ -18,7 +19,7 @@ Skill = class(PARENT, {
 		-- 타겟 관련 .. 
 		m_targetChar = 'Character', 
 		m_targetType = 'str', -- 타겟 선택하는 룰
-		m_targetPos = 'pos', -- 타겟 위치 정보 빠르게 접근하기 위해..~
+		m_targetPos = 'pos', -- 인디케이터에서 보낸 x, y 좌표
 		
 		m_findTargetType = 'str', -- 타겟 선택하는 룰을 온전히 사용하기 전 임시로 사용
 
@@ -80,8 +81,13 @@ function Skill:initActvityCarrier(power_rate, power_abs)
 	self.m_activityCarrier:setAtkDmgStat(self.m_powerSource)
     self.m_activityCarrier.m_skillCoefficient = (self.m_powerRate / 100)
     self.m_activityCarrier.m_skillAddAtk = power_abs or 0
-
-    -- 피격시 상태효과가 있다면 activityCarrier에 추가
+	
+	-- 방어 무시 -> 차후에 좀더 구조화 해서 늘려나감
+	if (self.m_powerIgnore == 'def') then 
+		self.m_activityCarrier:setIgnoreDef(true)
+	end
+    
+	-- 피격시 상태효과가 있다면 activityCarrier에 추가
     do
         local lStatusEffect = self:getStatusEffectListByStartCondition({
             STATUS_EFFECT_CON__SKILL_HIT,
@@ -151,6 +157,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_powerRate = t_skill['power_rate']
     self.m_powerAbs = t_skill['power_add'] or 0
 	self.m_powerSource  = t_skill['power_source'] or 'atk'
+	self.m_powerIgnore = t_skill['ignore'] or 'def'
 	self.m_targetType = t_skill['target_type']
 	self.m_preDelay = t_skill['pre_delay'] or 0
 	self.m_resScale = t_skill['res_scale'] or 1
