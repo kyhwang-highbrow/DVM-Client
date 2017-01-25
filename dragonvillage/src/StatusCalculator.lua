@@ -193,6 +193,32 @@ function StatusCalculator:applyRuneBonus(l_bonus)
 end
 
 -------------------------------------
+-- function applyRuneSetBonus
+-- @brief 룬의 세트 효과 능력치 적용
+-------------------------------------
+function StatusCalculator:applyRuneSetBonus(t_rune_set)
+    if (not t_rune_set) then
+        return
+    end
+
+    -- 절대값으로 상승하는 보너스
+    local t_add_bonus = t_rune_set['add_status']
+    for key, value in pairs(t_add_bonus) do
+        local t_status = self.m_lStatusList[key]
+        --t_status['rune_set_bonus'] = value -- 정보를 저장하는 의미가 있나 싶어서 추가하지 않음 Seong-goo Kim
+        t_status['final'] = t_status['final'] + value
+        cclog('key : ' .. key .. ', value : ' .. value)
+    end
+
+    -- 비율로 상승하는 보너스
+    local t_multiply_bonus = t_rune_set['multiply_status']
+    for key, value in pairs(t_multiply_bonus) do
+        self.m_lPassive[key] = (self.m_lPassive[key] + value)
+    end
+end
+
+
+-------------------------------------
 -- function applyFormationBonus
 -- @brief 진형 버프 적용 (다른 status effect처럼 패시브 형태로 동작함)
 -------------------------------------
@@ -257,7 +283,7 @@ end
 -- function MakeDragonStatusCalculator
 -- @brief
 -------------------------------------
-function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, l_friendship_bonus, l_train_bonus, l_rune_bonus)
+function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, l_friendship_bonus, l_train_bonus, l_rune_bonus, t_rune_set)
     lv = (lv or 1)
     grade = (grade or 1)
     evolution = (evolution or 1)
@@ -266,6 +292,7 @@ function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, l_friendshi
     status_calc:applyFriendshipBonus(l_friendship_bonus)
     status_calc:applyTrainBonus(l_train_bonus)
     status_calc:applyRuneBonus(l_rune_bonus)
+    status_calc:applyRuneSetBonus(t_rune_set)
     return status_calc
 end
 
@@ -308,7 +335,11 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, l_rune_bo
     -- 룬 보너스
     l_rune_bonus = (l_rune_bonus or nil)
 
-    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, l_friendship_bonus, l_train_bonus, l_rune_bonus)
+    -- 룬 세트 보너스
+    local t_rune_set = t_dragon_data['rune_set']
+
+    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution,
+        l_friendship_bonus, l_train_bonus, l_rune_bonus, t_rune_set)
 
     return status_calc
 end

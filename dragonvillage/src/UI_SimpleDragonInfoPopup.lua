@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_SimpleDragonInfoPopup = class(PARENT, {
         m_tDragonData = 'table',
+        m_dragonObjectID = 'string',
         m_tableDragon = 'TableDragon',
         m_idx = 'number',
      })
@@ -16,6 +17,7 @@ function UI_SimpleDragonInfoPopup:init(t_dragon_data)
     self.m_tableDragon = TableDragon()
 
     self.m_tDragonData = t_dragon_data
+    self.m_dragonObjectID = t_dragon_data['id']
 
     local vars = self:load('dragon_management_info_mini.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -61,12 +63,12 @@ end
 function UI_SimpleDragonInfoPopup:refresh()
     local vars = self.vars
 
-    local did = self.m_tDragonData['did']
+    local t_dragon_data = self:getDragonData()
+
+    local did = t_dragon_data['did']
 
     local table_dragon = TableDragon()
     local t_dragon = table_dragon:get(did)
-
-    local t_dragon_data = self.m_tDragonData
 
     -- 코드 중복을 막기 위해 UI_DragonManageInfo클래스의 기능을 활용
     UI_DragonManageInfo.refresh_dragonBasicInfo(self, t_dragon_data, t_dragon)
@@ -84,7 +86,15 @@ end
 function UI_SimpleDragonInfoPopup:refresh_status()
     local vars = self.vars
 
-    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(self.m_tDragonData)
+    local status_calc
+    
+    if self.m_dragonObjectID then
+        local doid = self.m_dragonObjectID
+        status_calc = MakeOwnDragonStatusCalculator(doid)
+    else
+        local t_dragon_data = self:getDragonData()
+        status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
+    end
 
     vars['atk_p_label']:setString(status_calc:getFinalStatDisplay('atk'))
     vars['atk_spd_label']:setString(status_calc:getFinalStatDisplay('aspd'))
@@ -154,4 +164,15 @@ function UI_SimpleDragonInfoPopup:setIdx(idx)
     local vars = self.vars
     vars['prevBtn']:setVisible(min < idx)
     vars['nextBtn']:setVisible(idx < max)
+end
+
+-------------------------------------
+-- function getDragonData
+-------------------------------------
+function UI_SimpleDragonInfoPopup:getDragonData()
+    if self.m_dragonObjectID then
+        self.m_tDragonData = g_dragonsData:getDragonDataFromUid(self.m_dragonObjectID)
+    end
+
+    return self.m_tDragonData
 end
