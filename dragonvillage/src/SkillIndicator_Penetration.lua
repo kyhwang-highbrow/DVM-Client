@@ -27,6 +27,8 @@ function SkillIndicator_Penetration:init(hero, t_skill)
 	self.m_skillLineGap = nil
 
 	self.m_indicatorScale = t_skill['res_scale']
+	self.m_indicatorAngleLimit = PENERATION_ANGLE_LIMIT
+	self.m_indicatorDistanceLimit = PENERATION_DIST_LIMIT
 
 	self.m_lIndicatorEffectList = {}
 	self.m_lEffectList = {}
@@ -41,21 +43,30 @@ function SkillIndicator_Penetration:onTouchMoved(x, y)
     end
 
 	local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
-	
-	-- root node 상에서 터치된 좌표 위치 환산
-	local touch_x, touch_y = (x - pos_x), (y - pos_y)
-	
-	self.m_targetPosX = x
-	self.m_targetPosY = y
 
-	-- 이펙트 조정
-	local l_dir = {}
-	local l_attack_pos = self:getAttackPositionList(touch_x, touch_y)
-	do
-		local pos, dir
+	-- 1. 각도 제한
+    local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
+	local distance = getDistance(pos_x, pos_y, x, y)
+
+	local t_ret = self:checkIndicatorLimit(dir, distance)
+    dir = t_ret['angle']
+	distance = t_ret['distance']
+
+	if (t_ret['is_change']) then 
+		-- root node 상에서 터치된 좌표 위치 환산
+		local touch_x, touch_y = (x - pos_x), (y - pos_y)
+
+		-- @TODO 여기서 x, y 좌표를 보내게 되면 Skill에서 연산을 할때 위 touch_x, touch_y를 다시 구해야 한다...
+		self.m_targetPosX = x
+		self.m_targetPosY = y
+
+		-- 이펙트 조정
+		local l_dir = {}
+		local l_attack_pos = self:getAttackPositionList(touch_x, touch_y)
+		
 		for i, indicator in pairs(self.m_lIndicatorEffectList) do
-			attack_pos = l_attack_pos[i]
-			dir = getAdjustDegree(getDegree(attack_pos.x, attack_pos.y, touch_x, touch_y))
+			local attack_pos = l_attack_pos[i]
+			local dir = getAdjustDegree(getDegree(attack_pos.x, attack_pos.y, touch_x, touch_y))
 			indicator:setRotation(dir)
 			indicator:setPosition(attack_pos.x, attack_pos.y)
 			table.insert(l_dir, dir)
@@ -64,11 +75,11 @@ function SkillIndicator_Penetration:onTouchMoved(x, y)
 			self.m_lEffectList[i]:setPosition(attack_pos.x, attack_pos.y)
 		end
 		self.m_indicatorAddEffect:setPosition(touch_x, touch_y)
-	end
 
-	-- 하이라이트 갱신
-	local t_collision_obj = self:findTarget(l_attack_pos, l_dir)
-    self:setHighlightEffect(t_collision_obj)
+		-- 하이라이트 갱신
+		local t_collision_obj = self:findTarget(l_attack_pos, l_dir)
+		self:setHighlightEffect(t_collision_obj)
+	end
 end
 
 -------------------------------------
@@ -156,7 +167,6 @@ function SkillIndicator_Penetration:getAttackPositionList(touch_x, touch_y)
 	-- 원점과 터치지점 사이의 각도
 	local main_angle = getDegree(0, 0, touch_x, touch_y)
 	local half_num = math_floor(self.m_skillLineNum/2)
-	
 	local std_distance = PENERATION_TOTAL_LENGTH/self.m_skillLineNum
 
 	-- 홀수인 경우 
@@ -203,7 +213,6 @@ function SkillIndicator_Penetration:getAttackPositionList(touch_x, touch_y)
 		end
 	end
 
-	
     return t_ret
 end
 
@@ -217,23 +226,37 @@ function SkillIndicator_Penetration:findTarget(l_attack_pos, l_dir)
 	for i = 1, self.m_skillLineNum do
 		t_collision_obj = self:findTargetEachLine(l_attack_pos[i], l_dir[i])
 		for i,v in ipairs(t_collision_obj) do
-			table.insert(t_ret, v['obj'])
+			local object = v['obj']
+			-- 중복 제거 위한 처리
+			t_ret[object['phys_idx']] = object
 		end
 	end
-
-	return t_ret
+	
+	-- 인덱스 테이블로 다시 담는다
+	local t_ret_2 = {}
+	for i, object in pairs(t_ret) do 
+		table.insert(t_ret_2, object)
+	end
+	
+	return t_ret_2
 end
 
 -------------------------------------
 -- function findTargetEachLine
 -------------------------------------
 function SkillIndicator_Penetration:findTargetEachLine(start_pos, dir)
-    local end_pos = getPointFromAngleAndDistance(dir, 2560)    
-	local start_x = start_pos.x
-	local start_y = start_pos.y
+    -- 참조하는 좌표
+	local end_pos = getPointFromAngleAndDistance(dir, 2560)
+	local hero_pos = self.m_hero.pos
+
+	-- 실제 사용할 좌표
+	-- 계산한 start_pos는 incator_root_node를 기반(0, 0)으로 한것이므로 영웅 좌표를 더해서 월드에서 계산할수 있도록 한다
+	local start_x = start_pos.x + hero_pos.x
+	local start_y = start_pos.y + hero_pos.y
     local end_x = start_x + end_pos['x']
     local end_y = start_y + end_pos['y']
 
+	-- 충돌 그룹 키
 	local phys_group = self.m_hero:getAttackPhysGroup()
 
     -- 레이저에 충돌된 모든 객체 리턴

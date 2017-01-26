@@ -6,6 +6,9 @@
 --------------------------------------------
 -- 각 스킬에서 사용하는 상수
 --------------------------------------------
+--# Common
+SKILL_ANGLE_LIMIT = 60
+
 -- # SkillLaser
 LASER_ATK_DELAY = 0.5
 
@@ -21,9 +24,9 @@ VOLTES_FINAL_ATTACK_TIME = 2
 -- #SkillPenetration - Sitael
 PENERATION_ATK_START_POS_DIST = 100				-- 드래곤 원점과 스킬 중심좌표 사이의 거리
 PENERATION_TOTAL_LENGTH = 500					-- 발사체를 늘어놓는 전체 거리 (무기간 간격 = 전체거리/발사체 개수)
-PENERATION_ANGLE_LIMIT = 90						-- 시전 각도 제한
+PENERATION_ANGLE_LIMIT = 45						-- 시전 각도 제한
 PENERATION_DIST_LIMIT = 200						-- 시전 거리 제한
-PENERATION_APPEAR_INTERVAR = ONE_FRAME * 5		-- 발사체 등장 간격
+PENERATION_APPEAR_INTERVAR = ONE_FRAME * 2		-- 발사체 등장 간격
 PENERATION_FIRE_DELAY = 0.5						-- 등장 후 발사 딜레이 
 
 --------------------------------------------

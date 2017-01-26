@@ -70,11 +70,17 @@ function getDegree(curr_x, curr_y, dest_x, dest_y)
     return deg
 end
 
+-------------------------------------
+-- function getDistanceFromTwoPoint
+-------------------------------------
 function getDistanceFromTwoPoint(p1, p2)
     local dx, dy = p2.x - p1.x, p2.y - p1.y
     return math_sqrt(dx*dx + dy*dy)
 end
 
+-------------------------------------
+-- function getDistance
+-------------------------------------
 function getDistance(x1, y1, x2, y2)
     local dx, dy = x2 - x1, y2 - y1
     return math_sqrt(dx*dx + dy*dy)

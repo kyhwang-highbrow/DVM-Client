@@ -129,12 +129,12 @@ end
 function SkillPenetration:getAttackPositionList()
 	local t_ret = {}
 	
-	local touch_x, touch_y = self.m_targetPos.x, self.m_targetPos.y
+	local owner_pos = self.m_owner.pos
+	local touch_x, touch_y = (self.m_targetPos.x - owner_pos.x), (self.m_targetPos.y - owner_pos.y)
 	
 	-- 원점과 터치지점 사이의 각도
 	local main_angle = getDegree(0, 0, touch_x, touch_y)
 	local half_num = math_floor(self.m_skillLineNum/2)
-	
 	local std_distance = PENERATION_TOTAL_LENGTH/self.m_skillLineNum
 
 	-- 홀수인 경우 
@@ -180,7 +180,6 @@ function SkillPenetration:getAttackPositionList()
 		end
 	end
 
-	
     return t_ret
 end
 
@@ -188,8 +187,9 @@ end
 -- function getAttackDir
 -------------------------------------
 function SkillPenetration:getAttackDir(idx)
-	local tar_x = self.m_targetPos.x
-	local tar_y = self.m_targetPos.y
+	local owner_pos = self.m_owner.pos
+	local tar_x = self.m_targetPos.x - owner_pos.x
+	local tar_y = self.m_targetPos.y - owner_pos.y
 	local start_pos = self.m_skillAttackPosList[idx]
 	
     return getAdjustDegree(getDegree(start_pos.x, start_pos.y, tar_x, tar_y))

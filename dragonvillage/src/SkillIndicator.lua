@@ -28,6 +28,8 @@ SkillIndicator = class({
         m_indicatorRootNode = 'cc.Node',
         m_indicatorEffect = 'A2D',
 		m_indicatorScale = 'number',
+		m_indicatorAngleLimit = 'number',
+		m_indicatorDistanceLimit = 'number',
 
         m_indicatorTouchPosX = '',
         m_indicatorTouchPosY = '',
@@ -383,3 +385,41 @@ end
 -------------------------------------
 function SkillIndicator:findTarget(x, y)
 end
+
+-------------------------------------
+-- function checkIndicatorLimit
+-------------------------------------
+function SkillIndicator:checkIndicatorLimit(angle, distance)
+	local is_change_angle, is_change_distance = true, true
+
+	-- 1. check angle
+	if (angle) then 
+		if (angle > self.m_indicatorAngleLimit) and (angle < 180) then 
+			angle = self.m_indicatorAngleLimit
+			is_change_angle = false
+		elseif (angle < (360 - self.m_indicatorAngleLimit)) and (angle > 180) then
+			angle = (360 - self.m_indicatorAngleLimit)
+			is_change_angle = false
+		else
+			is_change_angle = true
+		end
+	end
+
+	-- 2. check distance
+	if (distance) then
+		-- 최소 거리
+		if (distance < self.m_indicatorDistanceLimit) then 
+			distance = self.m_indicatorDistanceLimit
+			is_change_distance = false
+		else
+			is_change_distance = true
+		end
+	end
+
+	return {
+		angle = angle, 
+		distance = distance, 
+		is_change = (is_change_angle and is_change_distance)
+	}
+end
+
