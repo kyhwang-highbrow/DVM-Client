@@ -82,6 +82,8 @@ local t_module = {
     'StatusEffectHelper',
     'AreaOfEffectHelper',
     'ShaderCache',
+    'SortManager',
+    'SortManager_Rune',
     'DragonSortManager',
     'RuneSortManager',
     'RuneEnchantHelper',

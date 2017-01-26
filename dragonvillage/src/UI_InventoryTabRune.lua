@@ -63,14 +63,9 @@ function UI_InventoryTabRune:init_runeTableView(rune_slot_type)
     table_view_td:setItemList(l_item_list, skip_update)
 
     -- 정렬
-    local sort_type = 'default'
-    local rune_sort_manager = RuneSortManager()
-    local function sort_func(a, b)
-        return rune_sort_manager:sortFunc(a, b)
-    end
-    table_view_td:insertSortInfo(sort_type, sort_func)
-    local b_force = false
-    table_view_td:sortTableView(sort_type, b_force)
+    local sort_manager_rune = SortManager_Rune()
+    sort_manager_rune:sortExecution(table_view_td.m_itemList)
+    table_view_td:expandTemp(0.5)
 
 
     self.m_mTableViewListMap[rune_slot_type] = table_view_td

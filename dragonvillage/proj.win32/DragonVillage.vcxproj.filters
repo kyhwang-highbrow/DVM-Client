@@ -1383,6 +1383,12 @@
     <None Include="..\src\UI_InventoryTabEvolutionStone.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SortManager.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\SortManager_Rune.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
