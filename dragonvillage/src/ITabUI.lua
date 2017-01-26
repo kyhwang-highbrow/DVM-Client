@@ -6,6 +6,7 @@ ITabUI = {
         m_bInitDefaultTab = 'boolean',
         m_currTab = 'any_type',
         m_mTabData = 'map',
+        m_cbChangeTab = 'function(tab, first)',
     }
 
 -------------------------------------
@@ -29,6 +30,7 @@ function ITabUI:addTab(tab, button, ...)
     t_tab_data['tab'] = tab
     t_tab_data['button'] = button
     t_tab_data['tab_node_list'] = {...}
+    t_tab_data['first'] = true
 
     self.m_mTabData[tab] = t_tab_data
 
@@ -108,8 +110,22 @@ end
 -- function onChangeTab
 -------------------------------------
 function ITabUI:onChangeTab(tab)
-    
+    local first = self.m_mTabData[tab]['first']
+    self.m_mTabData[tab]['first'] = false
+
+    if self.m_cbChangeTab then
+        self.m_cbChangeTab(tab, first)
+    end
 end
+
+-------------------------------------
+-- function setChangeTabCB
+-- @brief cb function(tab, first)
+-------------------------------------
+function ITabUI:setChangeTabCB(cb)
+    self.m_cbChangeTab = cb
+end
+
 
 -------------------------------------
 -- function getCloneTable

@@ -1362,6 +1362,12 @@
     <None Include="..\src\SkillPenetration.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_Inventory.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UIC_TabManager.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

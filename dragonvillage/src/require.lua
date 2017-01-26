@@ -324,6 +324,7 @@ local t_module = {
     'UIC_TableViewTD',
     'UIC_RadioButton',
     'UIC_LabelTTF',
+    'UIC_TabManager',
 
 	-- UI
     'UI_BlockPopup',
@@ -395,6 +396,7 @@ local t_module = {
     'UI_TamerSelectItem',
 	'UI_QuestPopup',
     'UI_QuestListItem',
+    'UI_Inventory',
 
     -- UI 드래곤 관리 관련
     'UI_DragonManage_Base',
