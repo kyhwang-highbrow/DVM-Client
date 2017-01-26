@@ -228,5 +228,7 @@ item,t_name,t_desc,type,full_type,attr,rarity,val_1
 790273,붐버,붐버 성룡,dragon,x,x,3,120273
 700005,골드,골드 획득,gold_r,gold_01,x,1,1
 700006,자수정,자수정 획득,cash_r,cash_01,x,1,1
-700007,라테아,라테아 획득,lactea_r,x,x,1,1
-700008,모험모드 활동력,활동력 획득,staminas_st_r,x,x,1,1
+700007,라테아,라테아 획득,lactea_r,lactea,x,1,1
+700008,모험모드 활동력,활동력 획득,staminas_st_r,staminas_st,x,1,1
+700009,명예코인,명예 코인 획득,honor_r,honor,x,1,1
+700010,콜로세움 입장권,콜로세움 입장권 획득,staminas_pvp_r,staminas_pvp,x,1,1
