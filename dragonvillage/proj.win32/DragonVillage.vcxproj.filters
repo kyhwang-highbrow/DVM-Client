@@ -1371,6 +1371,15 @@
     <None Include="..\src\ConstantSkill.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_InventoryTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_InventoryTabFruit.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_InventoryTabRune.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -23,6 +23,7 @@ RuneSortManager = class({
         m_vars = 'table',
 
         m_bUseGlobalSetting = 'boolean',
+        m_tableRune = 'TableRune',
     })
 
 -------------------------------------
@@ -32,6 +33,7 @@ function RuneSortManager:init()
     self.m_bUseGlobalSetting = false
     self.m_bAscendingSort = false
     self.m_lTableView = {}
+    self.m_tableRune = TableRune()
 end
 
 -------------------------------------
@@ -218,6 +220,20 @@ function RuneSortManager:sortFunc(a, b)
     local b_data = b['data']
 
     local ascending = self.m_bAscendingSort
+
+    local a_rid = a_data['rid']
+    local b_rid = b_data['rid']
+    local t_rune_a = self.m_tableRune:get(a_rid)
+    local t_rune_b = self.m_tableRune:get(b_rid)
+
+    -- 세트 색상
+    if (t_rune_a['set_color'] ~= t_rune_b['set_color']) then
+        if ascending then
+            return t_rune_a['set_color'] < t_rune_b['set_color']
+        else
+            return t_rune_a['set_color'] > t_rune_b['set_color']
+        end
+    end
 
     -- 등급순
     if (a_data['grade'] ~= b_data['grade']) then

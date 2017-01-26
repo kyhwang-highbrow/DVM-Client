@@ -12,6 +12,11 @@ l_rune_slot_name[1] = 'bellaria'
 l_rune_slot_name[2] = 'tutamen'
 l_rune_slot_name[3] = 'cimelium'
 
+local l_rune_slot_idx = {}
+for i,v in pairs(l_rune_slot_name) do
+    l_rune_slot_idx[v] = i
+end
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -352,6 +357,20 @@ function ServerData_Runes:getSlotName(slot_idx)
 
     return l_rune_slot_name[slot_idx]
 end
+
+-------------------------------------
+-- function getSlotIdx
+-- @brief
+-------------------------------------
+function ServerData_Runes:getSlotIdx(slot_type)
+    if (not l_rune_slot_idx[slot_type]) then
+        error('slot_type : ' .. slot_type)
+    end
+
+    return l_rune_slot_idx[slot_type]
+end
+
+
 
 -------------------------------------
 -- function requestRuneEnchant

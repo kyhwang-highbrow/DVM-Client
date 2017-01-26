@@ -5,6 +5,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -------------------------------------
 UI_Inventory = class(PARENT, {
         m_mainTabMgr = 'UIC_TabManager',
+        m_tTabClass = 'table',
      })
 
 -------------------------------------
@@ -39,16 +40,25 @@ end
 function UI_Inventory:initUI()
     local vars = self.vars
 
-    self.m_mainTabMgr = UIC_TabManager()
-    self.m_mainTabMgr:addTab('rune', vars['runeBtn'], vars['runeNode'])
-    self.m_mainTabMgr:addTab('material', vars['materialBtn'], vars['materialNode'])
-    self.m_mainTabMgr:addTab('fruit', vars['fruitBtn'], vars['fruitNode'])
-    self.m_mainTabMgr:addTab('ticket', vars['ticketBtn'], vars['ticketNode'])
+    do
+        self.m_tTabClass = {}
+        self.m_tTabClass['rune'] = UI_InventoryTabRune(self)
+        self.m_tTabClass['fruit'] = UI_InventoryTabFruit(self)
+    end
+
+
+    do
+        self.m_mainTabMgr = UIC_TabManager()
+        self.m_mainTabMgr:addTab('rune', vars['runeBtn'], vars['runeNode'])
+        self.m_mainTabMgr:addTab('material', vars['materialBtn'], vars['materialNode'])
+        self.m_mainTabMgr:addTab('fruit', vars['fruitBtn'], vars['fruitNode'])
+        self.m_mainTabMgr:addTab('ticket', vars['ticketBtn'], vars['ticketNode'])
     
 
-    self.m_mainTabMgr:setChangeTabCB(function(tab, first) self:onChangeMainTab(tab, first) end)
+        self.m_mainTabMgr:setChangeTabCB(function(tab, first) self:onChangeMainTab(tab, first) end)
 
-    self.m_mainTabMgr:setTab('rune')
+        self.m_mainTabMgr:setTab('rune')
+    end
 end
 
 -------------------------------------
@@ -77,5 +87,9 @@ end
 -- function onChangeMainTab
 -------------------------------------
 function UI_Inventory:onChangeMainTab(tab, first)
-    cclog(tab, tostring(first))
+    if (not self.m_tTabClass[tab]) then
+        return
+    end
+
+    self.m_tTabClass[tab]:onEnterInventoryTab(first)
 end

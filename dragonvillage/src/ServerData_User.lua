@@ -20,10 +20,39 @@ function ServerData_User:get(...)
 end
 
 -------------------------------------
+-- function getRef
+-------------------------------------
+function ServerData_User:getRef(...)
+    return self.m_serverData:getRef('user', ...)
+end
+
+-------------------------------------
 -- function applyServerData
 -------------------------------------
 function ServerData_User:applyServerData(data, ...)
     return self.m_serverData:applyServerData(data, 'user', ...)
+end
+
+-------------------------------------
+-- function getFruitList
+-- @brief 보유중인 열매 리스트 리턴(인벤토리에서 사용)
+-------------------------------------
+function ServerData_User:getFruitList()
+    local l_fruis = self:getRef('fruits')
+
+    -- key가 item_id(=fruit_id)이고 value가 count인 리스트 생성
+    local l_ret = {}
+    for i,v in pairs(l_fruis) do
+        local fruit_id = tonumber(i)
+        local count = v
+
+        local t_data = {}
+        t_data['fid'] = fruit_id
+        t_data['count'] = count
+        table.insert(l_ret, t_data)
+    end
+
+    return l_ret
 end
 
 -------------------------------------

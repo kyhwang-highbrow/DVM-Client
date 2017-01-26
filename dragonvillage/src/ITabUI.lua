@@ -63,7 +63,10 @@ function ITabUI:setTab(tab, force)
 
     self:activate(tab)
 
-    self:onChangeTab(self.m_currTab)
+    local first = self.m_mTabData[self.m_currTab]['first']
+    self.m_mTabData[self.m_currTab]['first'] = false
+
+    self:onChangeTab(self.m_currTab, first)
 end
 
 -------------------------------------
@@ -109,10 +112,7 @@ end
 -------------------------------------
 -- function onChangeTab
 -------------------------------------
-function ITabUI:onChangeTab(tab)
-    local first = self.m_mTabData[tab]['first']
-    self.m_mTabData[tab]['first'] = false
-
+function ITabUI:onChangeTab(tab, first)
     if self.m_cbChangeTab then
         self.m_cbChangeTab(tab, first)
     end
