@@ -13,6 +13,7 @@ SkillPenetration = class(PARENT, {
 		m_skillLineGap = 'num',		-- 직선 간의 간격
 
 		m_skillTimer = 'time',
+		m_skillTotalTime = 'time',	-- 적절하게 계산된 총 등장 시간
 		m_skillInterval = 'time',
 		m_skillCount = 'num',
 
@@ -40,8 +41,9 @@ function SkillPenetration:init_skill(missile_res, motionstreak_res, line_num, li
 	self.m_skillLineNum = line_num
 	self.m_skillLineSize = line_size
 	
+	self.m_skillInterval = PENERATION_APPEAR_INTERVAR
+	self.m_skillTotalTime = (self.m_skillLineNum * self.m_skillInterval) + PENERATION_FIRE_DELAY
 	self.m_skillTimer = 0
-	self.m_skillInterval = ONE_FRAME * 5
 	self.m_skillCount = 1
 
 	self.m_skillLineGap = nil
@@ -89,8 +91,8 @@ function SkillPenetration:fireMissile(idx)
 
     t_option['owner'] = char
 
-    t_option['pos_x'] = self.m_skillAttackPosList[idx].x
-	t_option['pos_y'] = self.m_skillAttackPosList[idx].y
+    t_option['pos_x'] = char.pos.x + self.m_skillAttackPosList[idx].x
+	t_option['pos_y'] = char.pos.y + self.m_skillAttackPosList[idx].y
 	t_option['dir'] = self:getAttackDir(idx)
 	t_option['rotation'] = t_option['dir']
 
@@ -102,7 +104,7 @@ function SkillPenetration:fireMissile(idx)
     t_option['speed'] = 0
 	t_option['h_limit_speed'] = 5000
 	t_option['accel'] = 20000
-	t_option['accel_delay'] = 1.5 - (self.m_skillInterval * idx)
+	t_option['accel_delay'] = self.m_skillTotalTime - (self.m_skillInterval * idx)
 
 	t_option['missile_type'] = 'PASS'
     t_option['movement'] ='normal' 
@@ -133,12 +135,12 @@ function SkillPenetration:getAttackPositionList()
 	local main_angle = getDegree(0, 0, touch_x, touch_y)
 	local half_num = math_floor(self.m_skillLineNum/2)
 	
-	local std_distance = PENERATION_STD_DIST
+	local std_distance = PENERATION_TOTAL_LENGTH/self.m_skillLineNum
 
 	-- 홀수인 경우 
 	if ((self.m_skillLineNum % 2) == 1) then
 		-- 센터 좌표 계산
-		local move_pos = getPointFromAngleAndDistance(main_angle, std_distance)
+		local move_pos = getPointFromAngleAndDistance(main_angle, PENERATION_ATK_START_POS_DIST)
 		local center_pos = move_pos
 
 		-- 좌측 좌표
@@ -160,7 +162,7 @@ function SkillPenetration:getAttackPositionList()
 
 	else
 		-- 센터 좌표 계산 (추가는 하지 않는다)
-		local move_pos = getPointFromAngleAndDistance(main_angle, std_distance)
+		local move_pos = getPointFromAngleAndDistance(main_angle, PENERATION_ATK_START_POS_DIST)
 		local center_pos = move_pos
 
 		-- 좌측 좌표

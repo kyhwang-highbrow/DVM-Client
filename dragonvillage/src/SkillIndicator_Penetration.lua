@@ -157,12 +157,12 @@ function SkillIndicator_Penetration:getAttackPositionList(touch_x, touch_y)
 	local main_angle = getDegree(0, 0, touch_x, touch_y)
 	local half_num = math_floor(self.m_skillLineNum/2)
 	
-	local std_distance = PENERATION_STD_DIST
+	local std_distance = PENERATION_TOTAL_LENGTH/self.m_skillLineNum
 
 	-- 홀수인 경우 
 	if ((self.m_skillLineNum % 2) == 1) then
 		-- 센터 좌표 계산
-		local move_pos = getPointFromAngleAndDistance(main_angle, std_distance)
+		local move_pos = getPointFromAngleAndDistance(main_angle, PENERATION_ATK_START_POS_DIST)
 		local center_pos = move_pos
 
 		-- 좌측 좌표
@@ -185,7 +185,7 @@ function SkillIndicator_Penetration:getAttackPositionList(touch_x, touch_y)
 	-- 짝수인 경우
 	else
 		-- 센터 좌표 계산 (추가는 하지 않는다)
-		local move_pos = getPointFromAngleAndDistance(main_angle, std_distance)
+		local move_pos = getPointFromAngleAndDistance(main_angle, PENERATION_ATK_START_POS_DIST)
 		local center_pos = move_pos
 
 		-- 좌측 좌표
