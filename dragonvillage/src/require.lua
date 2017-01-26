@@ -85,6 +85,7 @@ local t_module = {
     'SortManager',
     'SortManager_Rune',
     'SortManager_Fruit',
+    'SortManager_EvolutionStone',
     'DragonSortManager',
     'RuneSortManager',
     'RuneEnchantHelper',

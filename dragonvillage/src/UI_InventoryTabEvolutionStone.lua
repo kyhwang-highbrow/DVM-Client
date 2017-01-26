@@ -4,7 +4,8 @@ local PARENT = UI_InventoryTab
 -- class UI_InventoryTabEvolutionStone
 -------------------------------------
 UI_InventoryTabEvolutionStone = class(PARENT, {
-        m_fruitsTableView = 'UIC_TableViewTD',
+        m_evolutionStoneTableView = 'UIC_TableViewTD',
+        m_evolutionStoneSortManager = 'SortManager_EvolutionStone',
      })
 
 -------------------------------------
@@ -18,7 +19,7 @@ end
 -- function init_evolutionStoneTableView
 -------------------------------------
 function UI_InventoryTabEvolutionStone:init_evolutionStoneTableView()
-    if self.m_fruitsTableView then
+    if self.m_evolutionStoneTableView then
         return
     end
 
@@ -44,39 +45,17 @@ function UI_InventoryTabEvolutionStone:init_evolutionStoneTableView()
     table_view_td.m_cellSize = cc.size(108, 108)
     table_view_td.m_nItemPerCell = 7
     table_view_td:setCellUIClass(EvolutionStoneCard, create_func)
-    local skip_update = false
+    local skip_update = true --정렬 시 update되기 때문에 skip
     table_view_td:setItemList(l_item_list, skip_update)
 
-    --[[
     -- 정렬
-    local sort_type = 'default'
-    local table_item = TableItem()
-    local function sort_func(a, b)
-        local a_data = a['data']
-        local b_data = b['data']
+    local sort_manager = SortManager_EvolutionStone()
+    sort_manager:sortExecution(table_view_td.m_itemList)
+    table_view_td:expandTemp(0.5)
+    self.m_evolutionStoneSortManager = sort_manager
+    
 
-        local a_item = table_item:get(a_data['fid'])
-        local b_item = table_item:get(b_data['fid'])
-
-        -- 열매 속성
-        if (a_item['attr'] ~= b_item['attr']) then
-            return a_item['attr'] > b_item['attr']
-        end
-
-        -- 열매 등급
-        if (a_item['rarity'] ~= b_item['rarity']) then
-            return a_item['rarity'] > b_item['rarity']
-        end
-
-        return a_data['fid'] < b_data['fid']
-    end
-    table_view_td:insertSortInfo(sort_type, sort_func)
-    local b_force = false
-    table_view_td:sortTableView(sort_type, b_force)
-    --]]
-
-
-    self.m_fruitsTableView = table_view_td
+    self.m_evolutionStoneTableView = table_view_td
 end
 
 -------------------------------------
@@ -95,4 +74,20 @@ end
 -------------------------------------
 function UI_InventoryTabEvolutionStone:onChangeSortAscending()
     PARENT.onChangeSortAscending(self)
+end
+
+-------------------------------------
+-- function onChangeSortAscending
+-- @brief 오름차순, 내림차순이 변경되었을 때
+-------------------------------------
+function UI_InventoryTabEvolutionStone:onChangeSortAscending(ascending)
+    PARENT.onChangeSortAscending(self)
+
+    local table_view_td = self.m_evolutionStoneTableView
+    local sort_manager = self.m_evolutionStoneSortManager
+
+    -- 오름차순, 내림차순 정렬 변경
+    sort_manager:setAllAscending(ascending)
+    sort_manager:sortExecution(table_view_td.m_itemList)
+    table_view_td:expandTemp(0.5)    
 end
