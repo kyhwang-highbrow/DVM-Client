@@ -45,6 +45,9 @@ function SkillLaser_Lightning:initState()
 	self:setCommonState(self)
     self:addState('start', SkillLaser_Lightning.st_idle, 'idle', true)
     self:addState('disappear', SkillLaser_Lightning.st_disappear, 'idle', true)
+
+    -- 영웅을 제어하는 스킬은 dying state를 별도로 정의
+	self:addState('dying', IStateDelegate.st_dying, nil, nil, 10)
 end
 
 
