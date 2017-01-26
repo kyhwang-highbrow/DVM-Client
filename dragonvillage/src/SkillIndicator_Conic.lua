@@ -4,7 +4,6 @@ local PARENT = SkillIndicator
 -- class SkillIndicator_Conic
 -------------------------------------
 SkillIndicator_Conic = class(SkillIndicator, {
-		m_indicatorAddEffectList = '',
 		m_skillRadius = 'num',
 		m_skillAngle = 'num',
     })
@@ -30,13 +29,13 @@ function SkillIndicator_Conic:onTouchMoved(x, y)
     end
 
     local pos_x, pos_y = self:getAttackPosition()
-    local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
-    local is_change_dir
+	local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
 	
 	-- 1. 각도 제한
-	dir, is_change_dir = self:checkAngleLimit(dir, is_change_degree)
+	local t_ret = self:checkIndicatorLimit(dir, nil)
+    dir = t_ret['angle']
 
-	if (is_change_dir) then 
+	if (t_ret['is_change']) then 
 		self.m_targetPosX = x
 		self.m_targetPosY = y
 	end

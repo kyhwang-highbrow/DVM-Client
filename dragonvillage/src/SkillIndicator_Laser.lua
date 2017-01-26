@@ -37,7 +37,7 @@ function SkillIndicator_Laser:onTouchMoved(x, y)
 
 	-- 각도 제한
     local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
-	local t_ret = self:checkIndicatorLimit(dir, distance)
+	local t_ret = self:checkIndicatorLimit(dir, nil)
     dir = t_ret['angle']
 
     self.m_targetPosX = x

@@ -140,7 +140,7 @@ function Character:doSkill(skill_id, x, y, t_data)
 			end
             return true
 
-		elseif (type == 'skill_conic') then
+		elseif (type == 'skill_aoe_cone') then
             SkillConicAtk:makeSkillInstance(self, t_skill, t_data)
 			return true
 

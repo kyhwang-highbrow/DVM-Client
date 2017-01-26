@@ -179,11 +179,6 @@ function ServerData_Quest:requestQuestReward(qid, cb_func)
 
     -- 성공 시 콜백
     local function success_cb(ret)
-        if ret['quest_info'] then
-            self:applyQuestInfo(ret['quest_info'])
-			self:mergeWithServerData()
-        end
-
         if cb_func then
             cb_func()
         end
