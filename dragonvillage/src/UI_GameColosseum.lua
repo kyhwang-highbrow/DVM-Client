@@ -11,10 +11,9 @@ UI_GameColosseum = class(UI, {
 function UI_GameColosseum:init(game_scene)
     self.m_gameScene = game_scene
 
-    local vars = self:load('ingame_scene_new.ui')
+    local vars = self:load('ingame_colosseum.ui')
     UIManager:open(self, UIManager.NORMAL)
 
-    vars['autoStartButton']:registerScriptTapHandler(function() self:click_autoStartButton() end)
     vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
 	vars['feverButton']:registerScriptTapHandler(function() self:click_feverButton() end)    
     vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
@@ -35,28 +34,20 @@ function UI_GameColosseum:init(game_scene)
     -- 백키 지정
     --g_currScene:pushBackKeyListener(self, function() self:click_pauseButton() end, 'UI_GameColosseum')
     vars['pauseButton']:setVisible(false)
-
-    vars['autoStartNode']:setVisible(false)
-    vars['autoStartButton']:setVisible(false)
-    vars['waveVisual']:setVisible(false)
-    vars['goldNode']:setVisible(false)
 end
 
 -------------------------------------
--- function click_autoStartButton
+-- function setHeroHpGauge
 -------------------------------------
-function UI_GameColosseum:click_autoStartButton()
-    self.m_gameScene:gamePause()
+function UI_GameColosseum:setHeroHpGauge(percentage)
+    self.vars['hpGauge1']:runAction(cc.ProgressTo:create(0.2, percentage)) 
+end
 
-    local function close_cb()
-        -- 설정된 정보로 UI 변경
-        self:setAutoMode(g_autoPlaySetting:get('auto_mode'))
-        
-        self.m_gameScene:gameResume()
-    end
-
-    local ui = UI_AutoPlaySettingPopup()
-    ui:setCloseCB(close_cb)
+-------------------------------------
+-- function setEnemyHpGauge
+-------------------------------------
+function UI_GameColosseum:setEnemyHpGauge(percentage)
+    self.vars['hpGauge2']:runAction(cc.ProgressTo:create(0.2, percentage)) 
 end
 
 -------------------------------------

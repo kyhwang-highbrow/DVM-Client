@@ -27,8 +27,10 @@ function SkillHitEffectDirector:init(owner)
 	self.m_isExhibit2nd = false
 
     -- 이벤트 리스너 등록
-    self:addListener('skill_combo_1', self.m_owner.m_world.m_tamerSkillSystem)
-    self:addListener('skill_combo_2', self.m_owner.m_world.m_tamerSkillSystem)
+    if (self.m_owner.m_world.m_tamerSpeechSystem) then
+        self:addListener('skill_combo_1', self.m_owner.m_world.m_tamerSpeechSystem)
+        self:addListener('skill_combo_2', self.m_owner.m_world.m_tamerSpeechSystem)
+    end
 end
 
 -------------------------------------

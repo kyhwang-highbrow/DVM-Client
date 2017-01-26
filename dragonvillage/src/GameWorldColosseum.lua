@@ -11,8 +11,14 @@ GameWorldColosseum = class(PARENT, {
 -- function init
 -------------------------------------
 function GameWorldColosseum:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, fever_node, ui, develop_mode)
+    -- 타임 스케일 설정
+    local baseTimeScale = COLOSSEUM__TIME_SCALE
+    if (g_autoPlaySetting:get('quick_mode')) then
+        baseTimeScale = baseTimeScale * QUICK_MODE_TIME_SCALE
+    end
     self.m_gameTimeScale:setBase(COLOSSEUM__TIME_SCALE)
 
+    -- 적군 AI
     self.m_gameAutoEnemy = GameAuto_Colosseum(self, false)
 
     self.m_gameState = GameState_Colosseum(self)
@@ -76,10 +82,6 @@ function GameWorldColosseum:initTamer()
     -- 스킬 컷씬
     self.m_tamerSkillCut = TamerSkillCut(self, g_gameScene.m_colorLayerTamerSkill, t_tamer)
 
-    -- 테이머 스킬
-    self.m_tamerSkillSystem = TamerSkillSystem(self, self.m_tamerSkillCut)
-    self:addListener('game_start', self.m_tamerSkillSystem)
-        
     -- 테이머 대사
     self.m_tamerSpeechSystem = TamerSpeechSystem(self, t_tamer)
     self.m_gameFever:replaceRootNode(self.m_tamerSpeechSystem.m_speechNode)
@@ -117,6 +119,9 @@ function GameWorldColosseum:addEnemy(enemy)
         enemy:addListener('enemy_active_skill', self.m_gameState)
         enemy:addListener('enemy_active_skill', self.m_gameAuto)
     end
+
+    -- HP 변경시 콜백 등록
+    enemy:addListener('character_set_hp', self)
 end
 
 -------------------------------------
@@ -126,12 +131,10 @@ function GameWorldColosseum:addHero(hero, idx)
     self.m_mHeroList[idx] = hero
 
     hero:addListener('character_dead', self)
-    hero:addListener('character_dead', self.m_tamerSkillSystem)
     hero:addListener('character_dead', self.m_tamerSpeechSystem)
 
     hero:addListener('dragon_skill', self)
-    hero:addListener('dragon_skill', self.m_tamerSkillSystem)
-
+    
     hero:addListener('hero_active_skill', self.m_gameState)
     hero:addListener('hero_active_skill', self.m_gameAuto)
         
@@ -139,6 +142,9 @@ function GameWorldColosseum:addHero(hero, idx)
        
     hero:addListener('character_weak', self.m_tamerSpeechSystem)
     hero:addListener('character_damaged_skill', self.m_tamerSpeechSystem)
+
+    -- HP 변경시 콜백 등록
+    hero:addListener('character_set_hp', self)
 end
 
 -------------------------------------
@@ -170,6 +176,23 @@ function GameWorldColosseum:setBattleZone(formation, immediately)
 end
 
 -------------------------------------
+-- function isPossibleControl
+-------------------------------------
+function GameWorldColosseum:isPossibleControl()
+    -- 강제적 조작 막음
+    if (self.m_bPreventControl) then
+        return false
+    end
+
+    -- 전투 중일 때에만
+    if (not self.m_gameState:isFight()) then
+        return false
+    end
+
+    return true
+end
+
+-------------------------------------
 -- function changeCameraOption
 -------------------------------------
 function GameWorldColosseum:changeCameraOption(tParam, bKeepHomePos)
@@ -185,7 +208,7 @@ end
 -------------------------------------
 -- function changeEnemyHomePosByCamera
 -------------------------------------
-function GameWorld:changeEnemyHomePosByCamera(offsetX, offsetY, move_time)
+function GameWorldColosseum:changeEnemyHomePosByCamera(offsetX, offsetY, move_time)
     local scale = self.m_gameCamera:getScale()
     local cameraHomePosX, cameraHomePosY = self.m_gameCamera:getHomePos()
     local offsetX = offsetX or 0
@@ -215,6 +238,42 @@ function GameWorld:changeEnemyHomePosByCamera(offsetX, offsetY, move_time)
 
                 v:changeHomePos(homePosX, homePosY, speed)
             end
+        end
+    end
+end
+
+-------------------------------------
+-- function onEvent
+-------------------------------------
+function GameWorldColosseum:onEvent(event_name, t_event, ...)
+    GameWorld.onEvent(self, event_name, t_event, ...)
+
+    if (event_name == 'character_set_hp') then
+        local arg = {...}
+        local char = arg[1]
+        local unitList
+
+        if (char.m_bLeftFormation) then
+            unitList = self:getDragonList()
+        else
+            unitList = self:getEnemyList()
+        end
+
+        -- 진형에 따라 HP게이지 갱신
+        local totalHp = 0
+        local totalMaxHp = 0
+        
+        for i, v in ipairs(unitList) do
+            totalHp = totalHp + v.m_hp
+            totalMaxHp = totalMaxHp + v.m_maxHp
+        end
+
+        local percentage = (totalHp / totalMaxHp) * 100
+
+        if (char.m_bLeftFormation) then
+            self.m_inGameUI:setHeroHpGauge(percentage)
+        else
+            self.m_inGameUI:setEnemyHpGauge(percentage)
         end
     end
 end

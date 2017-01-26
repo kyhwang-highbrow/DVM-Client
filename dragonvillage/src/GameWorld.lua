@@ -299,8 +299,9 @@ function GameWorld:initTamer()
 
     -- 테이머 스킬
     self.m_tamerSkillSystem = TamerSkillSystem(self, self.m_tamerSkillCut)
-    self:addListener('game_start', self.m_tamerSkillSystem)
-        
+    self.m_tamerSkillSystem:addListener('tamer_skill', self.m_gameState)
+    self.m_tamerSkillSystem:addListener('tamer_special_skill', self.m_gameState)
+            
     -- 테이머 대사
     self.m_tamerSpeechSystem = TamerSpeechSystem(self, t_tamer)
     self.m_gameFever:replaceRootNode(self.m_tamerSpeechSystem.m_speechNode)
@@ -705,12 +706,10 @@ function GameWorld:addHero(hero, idx)
     self.m_mHeroList[idx] = hero
 
     hero:addListener('character_dead', self)
-    hero:addListener('character_dead', self.m_tamerSkillSystem)
     hero:addListener('character_dead', self.m_tamerSpeechSystem)
 
     hero:addListener('dragon_skill', self)
-    hero:addListener('dragon_skill', self.m_tamerSkillSystem)
-
+    
     hero:addListener('hero_active_skill', self.m_gameState)
     hero:addListener('hero_active_skill', self.m_gameAuto)
         
@@ -1374,7 +1373,7 @@ function GameWorld:isPossibleControl()
     end
 
     -- 글로벌 쿨타임 중일 경우
-    if (self.m_tamerSkillSystem:isWaitingGlobalCoolTime()) then
+    if (self.m_gameState:isWaitingGlobalCoolTime()) then
         return false
     end
 

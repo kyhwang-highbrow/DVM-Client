@@ -2,7 +2,7 @@ local PARENT = GameState
 
 local HERO_TAMER_POS_X = 320 - 100
 local ENEMY_TAMER_POS_X = 960 + 100
-local TAMER_POS_Y = -500
+local TAMER_POS_Y = -550
 
 -------------------------------------
 -- class GameState_Colosseum
@@ -60,70 +60,31 @@ function GameState_Colosseum.update_start(self, dt)
                 end
             })
 
-            world:changeHeroHomePosByCamera(-100, 100, 0)
-            world:changeEnemyHomePosByCamera(100, 100, 0)
+            world:changeHeroHomePosByCamera(0, 100, 0)
+            world:changeEnemyHomePosByCamera(0, 100, 0)
 	    
         end
 
     elseif (self:getStep() == 1) then
-        if (self:isBeginningStep()) then
-            -- 적군 테이머쪽으로 줌인
-            self.m_world:changeCameraOption({
-                pos_x = ENEMY_TAMER_POS_X - (CRITERIA_RESOLUTION_X / 2),
-                pos_y = -300,
-                scale = 1,
-                time = 1.5
-            })
-
-        elseif (self:isPassedStepTime(2)) then
-            self:nextStep()
-
-        end
-
-    elseif (self:getStep() == 2) then
-        if (self:isBeginningStep()) then
-            -- 적군 드래곤 소환
-            self.m_enemyTamerAvatar:changeAni('idle', false)
-            self.m_enemyTamerAvatar:addAniHandler(function()
-                self.m_enemyTamerAvatar:changeAni('idle', true)
-            end)
-        elseif (self:isPassedStepTime(1.5)) then
-            self:appearEnemy()
-
-            SoundMgr:playEffect('EFFECT', 'summon')
-
-        elseif (self:isPassedStepTime(3)) then
-            self:nextStep()
-
-        end
-
-    elseif (self:getStep() == 3) then
-        if (self:isBeginningStep()) then
-            -- 아군 테이머쪽으로 줌인
-            self.m_world:changeCameraOption({
-                pos_x = HERO_TAMER_POS_X - (CRITERIA_RESOLUTION_X / 2),
-                pos_y = -300,
-                scale = 1,
-                time = 1.5
-            })
-
-        elseif (self:isPassedStepTime(2)) then
-            self:nextStep()
-
-        end
-
-    elseif (self:getStep() == 4) then
         if (self:isBeginningStep()) then
             -- 아군 드래곤 소환
             self.m_heroTamerAvatar:changeAni('idle', false)
             self.m_heroTamerAvatar:addAniHandler(function()
                 self.m_heroTamerAvatar:changeAni('idle', true)
             end)
+
+            -- 적군 드래곤 소환
+            self.m_enemyTamerAvatar:changeAni('idle', false)
+            self.m_enemyTamerAvatar:addAniHandler(function()
+                self.m_enemyTamerAvatar:changeAni('idle', true)
+            end)
+
         elseif (self:isPassedStepTime(1.5)) then
             self:appearHero()
+            self:appearEnemy()
 
             SoundMgr:playEffect('EFFECT', 'summon')
-        
+
             world:dispatch('dragon_summon')
 
         elseif (self:isPassedStepTime(3)) then
@@ -131,7 +92,7 @@ function GameState_Colosseum.update_start(self, dt)
 
         end
 
-    elseif (self:getStep() == 5) then
+    elseif (self:getStep() == 2) then
         if (self:isBeginningStep()) then
             -- 카메라 초기화
             self.m_world:changeCameraOption({
@@ -145,7 +106,7 @@ function GameState_Colosseum.update_start(self, dt)
             })
         end
 
-    elseif (self:getStep() == 6) then
+    elseif (self:getStep() == 3) then
         if (self:isBeginningStep()) then
             self:changeState(GAME_STATE_WAVE_INTERMISSION)
         end
@@ -215,10 +176,10 @@ function GameState_Colosseum.update_success(self, dt)
 
         world:setWaitAllCharacter(false) -- 포즈 연출을 위해 wait에서 해제
 
-        for i,dragon in ipairs(world:getDragonList()) do
-            if (dragon.m_bDead == false) then
-                dragon:killStateDelegate()
-                dragon:changeState('success_pose') -- 포즈 후 오른쪽으로 사라짐
+        for i, hero in ipairs(world:getDragonList()) do
+            if (hero.m_bDead == false) then
+                hero:killStateDelegate()
+                hero.m_animator:changeAni('pose_1', true)
             end
         end
 

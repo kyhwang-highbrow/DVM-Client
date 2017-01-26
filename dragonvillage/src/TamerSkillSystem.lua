@@ -14,7 +14,6 @@ end
 TamerSkillSystem = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable(), {
         m_world = 'GameWrold',
 
-        m_tamerSkillCooltimeGlobal = 'number',
         m_lTamerSkillCoolTime = 'list[number]',
 
         m_specialPowerPoint = 'number', -- 100이 되면 스킬 사용 가능
@@ -28,7 +27,6 @@ TamerSkillSystem = class(IEventDispatcher:getCloneClass(), IEventListener:getClo
 -------------------------------------
 function TamerSkillSystem:init(world, tamerSkillCut)
     self.m_world = world
-    self.m_tamerSkillCooltimeGlobal = 0
     self.m_lTamerSkillCoolTime = {}
     self.m_isUseSpecialSkill = false
 
@@ -121,14 +119,17 @@ end
 -- function click_tamerSkillBtn
 -------------------------------------
 function TamerSkillSystem:click_tamerSkillBtn(idx)
-    if not self.m_world:isPossibleControl() then return end
+    local world = self.m_world
+    if not world:isPossibleControl() then return end
+
+    local globalCoolTime = world.m_gameState:getGlobalCoolTime() 
     
 	-- 1. 사용할 스킬 테이블 가져온다.
-    local t_skill = self.m_world.m_tamerSkillMgr.m_skill_list[idx]
+    local t_skill = world.m_tamerSkillMgr.m_skill_list[idx]
     local skill_id = t_skill['sid']
 
 	-- 2. 쿨타임을 계산하여 처리
-    local remain_time = math_max(self.m_lTamerSkillCoolTime[idx], self.m_tamerSkillCooltimeGlobal)
+    local remain_time = math_max(self.m_lTamerSkillCoolTime[idx], globalCoolTime)
     if (remain_time > 0) then
         local str = '[' .. Str(t_skill['t_name']) .. ']' .. Str('{1}초 후 사용할 수 있습니다.', math_floor(remain_time + 0.5))
         UIManager:toastNotificationRed(str)
@@ -137,11 +138,10 @@ function TamerSkillSystem:click_tamerSkillBtn(idx)
 
 	-- 3. 쿨타임이 돌았다면 스킬 실행
     self:dispatch('tamer_skill', {}, function()
-        self.m_world.m_tamerSkillMgr:doTamerSkill(idx)
+        world.m_tamerSkillMgr:doTamerSkill(idx)
     end, idx)
     
 	-- 4. 쿨타임 정산
-    self.m_tamerSkillCooltimeGlobal = TAMER_SKILL_GLOBAL_COOLTIME
     self.m_lTamerSkillCoolTime[idx] = t_skill['cooldown']
     self:update(0)
 
@@ -149,8 +149,6 @@ function TamerSkillSystem:click_tamerSkillBtn(idx)
     do
         showToolTip(skill_id)
     end
-
-    self:onEvent('tamer_skill')
 end
 
 -------------------------------------
@@ -179,7 +177,6 @@ function TamerSkillSystem:click_specialSkillBtn()
 
     -- 4. 후처리
     self.m_isUseSpecialSkill = true
-    self.m_tamerSkillCooltimeGlobal = 5
 end
 
 -------------------------------------
@@ -188,15 +185,6 @@ end
 function TamerSkillSystem:update(dt)
     local ui = self.m_world.m_inGameUI
     
-    -- 글로벌 쿨타임 계산
-    if (0 < self.m_tamerSkillCooltimeGlobal) then
-        self.m_tamerSkillCooltimeGlobal = (self.m_tamerSkillCooltimeGlobal - dt)
-
-        if (0 > self.m_tamerSkillCooltimeGlobal) then
-            self.m_tamerSkillCooltimeGlobal = 0
-        end
-    end
-
     for i = 1, 3 do
         self:updateSkillBtn(i, dt)
     end
@@ -215,11 +203,12 @@ function TamerSkillSystem:updateSkillBtn(i, dt)
         self.m_lTamerSkillCoolTime[i] = math_max(self.m_lTamerSkillCoolTime[i] - dt, 0)
     end
 
+    local globalCoolTime = self.m_world.m_gameState:getGlobalCoolTime()
     local prev_percentage = ui.vars['timeGauge' .. i]:getPercentage()
     local percentage = 0
 
-    if (self.m_tamerSkillCooltimeGlobal > self.m_lTamerSkillCoolTime[i]) then
-        percentage = (self.m_tamerSkillCooltimeGlobal / TAMER_SKILL_GLOBAL_COOLTIME) * 100
+    if (globalCoolTime > self.m_lTamerSkillCoolTime[i]) then
+        percentage = (globalCoolTime / SKILL_GLOBAL_COOLTIME) * 100
     else
         percentage = (self.m_lTamerSkillCoolTime[i] / t_skill['cooldown']) * 100
     end
@@ -249,6 +238,7 @@ end
 function TamerSkillSystem:updateSpecialSkillBtn(dt)
     local ui = self.m_world.m_inGameUI
     local visual = ui.vars['specialSkillVisual']
+    local globalCoolTime = self.m_world.m_gameState:getGlobalCoolTime()
     local percentage = 0
 
     -- 이미 궁극기를 사용한 경우 항상 비활성화 표시
@@ -257,7 +247,7 @@ function TamerSkillSystem:updateSpecialSkillBtn(dt)
             
     -- 궁극기를 사용 가능한 경우에는 클로벌 쿨타임을 표시
     else
-        percentage = (self.m_tamerSkillCooltimeGlobal / TAMER_SKILL_GLOBAL_COOLTIME) * 100
+        percentage = (globalCoolTime / SKILL_GLOBAL_COOLTIME) * 100
     end
     ui.vars['specialTimeGauge']:setPercentage(percentage)
     
@@ -284,18 +274,6 @@ end
 -- function onEvent
 -------------------------------------
 function TamerSkillSystem:onEvent(event_name, t_event, ...)
-
-    if (event_name == 'game_start') then
-
-    elseif (event_name == 'dragon_skill') then
-        -- 글로벌 쿨타임
-        self.m_tamerSkillCooltimeGlobal = TAMER_SKILL_GLOBAL_COOLTIME
-
-    elseif (event_name == 'character_dead') then
-
-    elseif (event_name == 'tamer_skill') then
-
-    end
 end
 
 -------------------------------------
@@ -303,9 +281,7 @@ end
 -- @debuging
 -------------------------------------
 function TamerSkillSystem:resetCoolTime()
-    self.m_tamerSkillCooltimeGlobal = 0
-
-	for i = 1, 3 do
+    for i = 1, 3 do
 		self.m_lTamerSkillCoolTime[i] = 0
 	end
 
@@ -318,12 +294,4 @@ end
 -------------------------------------
 function TamerSkillSystem:isEndSkillCoolTime(idx)
     return (self.m_lTamerSkillCoolTime[idx] == 0)
-end
-
--------------------------------------
--- function isWaitingGlobalCoolTime
--- @debuging
--------------------------------------
-function TamerSkillSystem:isWaitingGlobalCoolTime()
-    return (self.m_tamerSkillCooltimeGlobal > 0)
 end

@@ -919,6 +919,8 @@ function Character:setHp(hp)
     end
 
 	-- 리스너에 전달
+    self:dispatch('character_set_hp', {}, self)
+
     if self.m_hpEventListener then
         for i, v in pairs(self.m_hpEventListener) do
             v:changeHpCB(self, self.m_hp, self.m_maxHp)

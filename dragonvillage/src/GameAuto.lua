@@ -147,6 +147,8 @@ function GameAuto:proccess_tamer()
     end
 
     local tamerSkillSystem = self.m_world.m_tamerSkillSystem
+    if (not tamerSkillSystem) then return end
+
     local tamerSkillIdx = g_autoPlaySetting:get('tamer_skill')
     if (tamerSkillSystem:isEndSkillCoolTime(tamerSkillIdx)) then
         tamerSkillSystem:click_tamerSkillBtn(tamerSkillIdx)

@@ -13,7 +13,6 @@ GAME_STATE_ENEMY_APPEAR = 99  -- 적 등장
 GAME_STATE_FIGHT = 100
 GAME_STATE_FIGHT_WAIT = 101
 GAME_STATE_FIGHT_DRAGON_SKILL = 102 -- 드래곤 스킬
-GAME_STATE_FIGHT_TAMER_SKILL = 103  -- 테이머 스킬
 GAME_STATE_FIGHT_FEVER = 104        -- 피버모드
 
 -- 파이널 웨이브 연출
@@ -34,6 +33,7 @@ GameState = class(PARENT, {
 
         m_stateParam = 'boolean',
         m_fightTimer = '',
+        m_globalCoolTime = 'number',
 
         m_bAppearDragon = 'boolean',
         m_nAppearedEnemys = 'number',
@@ -60,6 +60,7 @@ function GameState:init(world)
     self.m_state = GAME_STATE_LOADING
     self.m_stateTimer = -1
     self.m_fightTimer = 0
+    self.m_globalCoolTime = 0
     self.m_bAppearDragon = false
     
     self.m_waveEffect = MakeAnimator('res/ui/a2d/ui_boss_warning/ui_boss_warning.vrp')
@@ -116,7 +117,6 @@ function GameState:initState()
     self:addState(GAME_STATE_ENEMY_APPEAR,           GameState.update_enemy_appear)
     self:addState(GAME_STATE_FIGHT,                  GameState.update_fight)
     self:addState(GAME_STATE_FIGHT_DRAGON_SKILL,     GameState.update_fight_dragon_skill)
-    self:addState(GAME_STATE_FIGHT_TAMER_SKILL,      GameState.update_fight_tamer_skill)
     self:addState(GAME_STATE_FIGHT_WAIT,             GameState.update_fight_wait)
     self:addState(GAME_STATE_FIGHT_FEVER,            GameState.update_fight_fever)
     self:addState(GAME_STATE_FINAL_WAVE,             GameState.update_final_wave) -- 마지막 웨이브 연출
@@ -124,6 +124,22 @@ function GameState:initState()
     self:addState(GAME_STATE_SUCCESS_WAIT,           GameState.update_success_wait)
     self:addState(GAME_STATE_SUCCESS,                GameState.update_success)
     self:addState(GAME_STATE_FAILURE,                GameState.update_failure)
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function GameState:update(dt)
+    -- 글로벌 쿨타임 계산
+    if (self.m_globalCoolTime > 0) then
+        self.m_globalCoolTime = (self.m_globalCoolTime - dt)
+
+        if (self.m_globalCoolTime < 0) then
+            self.m_globalCoolTime = 0
+        end
+    end
+
+    return PARENT.update(self, dt)
 end
 
 -------------------------------------
@@ -454,20 +470,6 @@ function GameState.update_fight_dragon_skill(self, dt)
         self.m_world.m_gameCamera:reset()
         
         self:changeState(GAME_STATE_FIGHT)
-    end
-end
-
--------------------------------------
--- function update_fight_tamer_skill
--------------------------------------
-function GameState.update_fight_tamer_skill(self, dt)
-    local world = self.m_world
-
-    if (self.m_stateTimer == 0) then
-        for i,v in ipairs(world:getDragonList()) do
-            v:setWaitState(false)
-            v:changeState('idle')
-        end
     end
 end
 
@@ -982,8 +984,26 @@ function GameState:onEvent(event_name, t_event, ...)
         self.m_world.m_gameCamera:reset()
 
     -- 테이머 스킬 사용 이벤트
+    elseif (event_name == 'tamer_skill') then
+        self.m_globalCoolTime = SKILL_GLOBAL_COOLTIME
+        
+    -- 테이머 궁극기 사용 이벤트
     elseif (event_name == 'tamer_special_skill') then
-        self:changeState(GAME_STATE_FIGHT_TAMER_SKILL)
+        self.m_globalCoolTime = 5
     
     end
+end
+
+-------------------------------------
+-- function onEvent
+-------------------------------------
+function GameState:getGlobalCoolTime()
+    return self.m_globalCoolTime
+end
+
+-------------------------------------
+-- function isWaitingGlobalCoolTime
+-------------------------------------
+function GameState:isWaitingGlobalCoolTime()
+    return (self.m_globalCoolTime > 0)
 end
