@@ -5,6 +5,7 @@ local PARENT = class(UI_InventoryTab, ITabUI:getCloneTable())
 -------------------------------------
 UI_InventoryTabRune = class(PARENT, {
         m_mTableViewListMap = 'map',
+        m_mSortManagerMap = 'map',
      })
 
 -------------------------------------
@@ -12,6 +13,7 @@ UI_InventoryTabRune = class(PARENT, {
 -------------------------------------
 function UI_InventoryTabRune:init(inventory_ui)
     self.m_mTableViewListMap = {}
+    self.m_mSortManagerMap = {}
 
     local vars = self.vars
 
@@ -63,11 +65,11 @@ function UI_InventoryTabRune:init_runeTableView(rune_slot_type)
     table_view_td:setItemList(l_item_list, skip_update)
 
     -- 정렬
-    local sort_manager_rune = SortManager_Rune()
-    sort_manager_rune:sortExecution(table_view_td.m_itemList)
+    local sort_manager = SortManager_Rune()
+    sort_manager:sortExecution(table_view_td.m_itemList)
     table_view_td:expandTemp(0.5)
 
-
+    self.m_mSortManagerMap[rune_slot_type] = sort_manager
     self.m_mTableViewListMap[rune_slot_type] = table_view_td
 end
 
@@ -78,5 +80,24 @@ function UI_InventoryTabRune:onEnterInventoryTab(first)
     if first then
         local default_tab = g_runesData:getSlotName(1)
         self:setTab(default_tab)
+    end
+
+    PARENT.onEnterInventoryTab(self, first)
+end
+
+-------------------------------------
+-- function onChangeSortAscending
+-- @brief 오름차순, 내림차순이 변경되었을 때
+-------------------------------------
+function UI_InventoryTabRune:onChangeSortAscending(ascending)
+    PARENT.onChangeSortAscending(self)
+
+    -- 내부 슬롯별 탭 정렬
+    for rune_slot_type,table_view_td in pairs(self.m_mTableViewListMap) do
+        local sort_manager = self.m_mSortManagerMap[rune_slot_type]
+        
+        sort_manager:setAllAscending(ascending)
+        sort_manager:sortExecution(table_view_td.m_itemList)
+        table_view_td:expandTemp(0.5)    
     end
 end

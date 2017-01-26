@@ -86,4 +86,13 @@ function UI_InventoryTabEvolutionStone:onEnterInventoryTab(first)
     if first then
         self:init_evolutionStoneTableView()
     end
+
+    PARENT.onEnterInventoryTab(self, first)
+end
+
+-------------------------------------
+-- function onChangeSortAscending
+-------------------------------------
+function UI_InventoryTabEvolutionStone:onChangeSortAscending()
+    PARENT.onChangeSortAscending(self)
 end

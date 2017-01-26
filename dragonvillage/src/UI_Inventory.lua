@@ -68,6 +68,7 @@ end
 function UI_Inventory:initButton()
     local vars = self.vars
     --vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['sortBtn']:registerScriptTapHandler(function() self:click_sortBtn() end)
 end
 
 -------------------------------------
@@ -82,6 +83,20 @@ end
 -------------------------------------
 function UI_Inventory:click_exitBtn()
     self:close()
+end
+
+-------------------------------------
+-- function click_sortBtn
+-- @brief "정렬" 버튼 클릭
+-------------------------------------
+function UI_Inventory:click_sortBtn()
+    local tab = self.m_mainTabMgr.m_currTab
+    if (not self.m_tTabClass[tab]) then
+        return
+    end
+
+    -- 현재 탭의 click_sortBtn을 호출
+    self.m_tTabClass[tab]:click_sortBtn()
 end
 
 -------------------------------------

@@ -84,6 +84,7 @@ local t_module = {
     'ShaderCache',
     'SortManager',
     'SortManager_Rune',
+    'SortManager_Fruit',
     'DragonSortManager',
     'RuneSortManager',
     'RuneEnchantHelper',

@@ -92,3 +92,13 @@ end
 function SortManager:setDefaultSortFunc(sort_func)
     self.m_defaultSortFunc = sort_func
 end
+
+-------------------------------------
+-- function setAllAscending
+-- @brief 모든 정렬 타입의 오름차순(내림차순)을 설정
+-------------------------------------
+function SortManager:setAllAscending(ascending)
+    for _,t_sort_type in pairs(self.m_mSortType) do
+        t_sort_type['ascending'] = ascending
+    end
+end

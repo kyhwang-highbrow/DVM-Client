@@ -339,6 +339,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillSpiderWeb.lua" />
     <None Include="..\src\SkillVoltesX.lua" />
     <None Include="..\src\SortManager.lua" />
+    <None Include="..\src\SortManager_Fruit.lua" />
     <None Include="..\src\SortManager_Rune.lua" />
     <None Include="..\src\StatusEffect_Barrier.lua" />
     <None Include="..\src\Camera.lua" />

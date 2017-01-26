@@ -51,7 +51,7 @@ end
 
 -------------------------------------
 -- function mergeWithServerData
--- @breif Å×ÀÌºí µ¥ÀÌÅ¸¿Í ¼­¹ö µ¥ÀÌÅ¸¸¦ Á¶ÇÕÇØ¼­ UI¿¡¼­ È°¿ë °¡´ÉÇÑ Äù½ºÆ® µ¥ÀÌÅ¸ »ı¼º
+-- @breif í…Œì´ë¸” ë°ì´íƒ€ì™€ ì„œë²„ ë°ì´íƒ€ë¥¼ ì¡°í•©í•´ì„œ UIì—ì„œ í™œìš© ê°€ëŠ¥í•œ í€˜ìŠ¤íŠ¸ ë°ì´íƒ€ ìƒì„±
 -------------------------------------
 function ServerData_Quest:mergeWithServerData()
 	local t_table_quest = clone(self.m_tableQuest.m_orgTable)
@@ -63,13 +63,13 @@ function ServerData_Quest:mergeWithServerData()
 		t_server_quest = self:getServerQuest(qid)
 
 		if (t_server_quest) then 
-			-- server data°¡ ÀÖ´Ù¸é ³²¾ÆÀÖ´Â Äù½ºÆ®
+			-- server dataê°€ ìˆë‹¤ë©´ ë‚¨ì•„ìˆëŠ” í€˜ìŠ¤íŠ¸
 			t_quest['is_cleared'] = false
 			for i, v in pairs(t_server_quest) do 
 				t_quest[i] = v
 			end
 		else
-			-- server data°¡ ¾ø´Ù¸é Å¬¸®¾î ÇÑ°Í
+			-- server dataê°€ ì—†ë‹¤ë©´ í´ë¦¬ì–´ í•œê²ƒ
 			t_quest['is_cleared'] = true
 		end
 	end
@@ -83,19 +83,19 @@ end
 function ServerData_Quest:getQuestListByType(quest_type)
     local l_quest = {}
 
-	-- type¿¡ ÇØ´çÇÏ´Â Äù½ºÆ® »Ì¾Æ³¿
+	-- typeì— í•´ë‹¹í•˜ëŠ” í€˜ìŠ¤íŠ¸ ë½‘ì•„ëƒ„
 	for i, quest in pairs(self.m_workedData) do 
 		if (quest['type'] == quest_type) then
 			table.insert(l_quest, quest)
 		end
 	end
 
-	--[[ º¸»ó ¼ö·É °¡´ÉÇÑ °ÍÀ» À§·Î
+	--[[ ë³´ìƒ ìˆ˜ë ¹ ê°€ëŠ¥í•œ ê²ƒì„ ìœ„ë¡œ
 	table.sort(l_quest, function(a, b)
 		return a['clearcnt'] > a['rewardcnt']
 	end)]]
 
-	-- qid ÀÛÀº ¼ø¼­´ë·Î Á¤·Ä
+	-- qid ì‘ì€ ìˆœì„œëŒ€ë¡œ ì •ë ¬
 	table.sort(l_quest, function(a, b) 
 		return (tonumber(a['qid']) < tonumber(b['qid']))
 	end)
@@ -106,7 +106,7 @@ end
 
 -------------------------------------
 -- function getAllClearQuestTable
--- @brief getQuestListByType¿Í °°Àº ±â´ÉÀÌÁö¸¸ °æ·®È­
+-- @brief getQuestListByTypeì™€ ê°™ì€ ê¸°ëŠ¥ì´ì§€ë§Œ ê²½ëŸ‰í™”
 -------------------------------------
 function ServerData_Quest:getAllClearQuestTable(quest_type)
 	local all_clear_type = quest_type .. '_all'
@@ -138,7 +138,7 @@ function ServerData_Quest:requestQuestInfo(cb_func)
 
     local uid = g_userData:get('uid')
 
-    -- ¼º°ø ½Ã Äİ¹é
+    -- ì„±ê³µ ì‹œ ì½œë°±
     local function success_cb(ret)
         if ret['quest_info'] then
             self:applyQuestInfo(ret['quest_info'])
@@ -160,7 +160,7 @@ end
 
 -------------------------------------
 -- function applyQuestInfo
--- @breif ¼­¹ö¿¡¼­ Àü´Ş¹ŞÀº µ¥ÀÌÅÍ¸¦ Å¬¶óÀÌ¾ğÆ®¿¡ Àû¿ë
+-- @breif ì„œë²„ì—ì„œ ì „ë‹¬ë°›ì€ ë°ì´í„°ë¥¼ í´ë¼ì´ì–¸íŠ¸ì— ì ìš©
 -------------------------------------
 function ServerData_Quest:applyQuestInfo(data)
     self.m_serverData:applyServerData(data, 'quest_info')
@@ -174,10 +174,10 @@ function ServerData_Quest:requestQuestReward(qid, cb_func)
     local uid = g_userData:get('uid')
 	local qid = qid
 	if (not qid) then 
-		error('Àß¸øµÈ Äù½ºÆ® º¸»ó Á¢±Ù')
+		error('ì˜ëª»ëœ í€˜ìŠ¤íŠ¸ ë³´ìƒ ì ‘ê·¼')
 	end
 
-    -- ¼º°ø ½Ã Äİ¹é
+    -- ì„±ê³µ ì‹œ ì½œë°±
     local function success_cb(ret)
         if ret['quest_info'] then
             self:applyQuestInfo(ret['quest_info'])
