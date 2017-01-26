@@ -695,12 +695,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 60.000000;
+					x = 21.000000;
 					y = 4.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 206;
+					width = 99;
 					height = 60;
 					scale_x = 0.960000;
 					scale_y = 1.000000;
@@ -710,13 +710,13 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 40;
-					text = '모험 준비';
+					font_size = 30;
+					text = '연속';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 243; 236; 225; };
 					opacity = 255;
-					dimension_width = 206;
+					dimension_width = 99;
 					dimension_height = 60;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -735,7 +735,123 @@
 				{
 					type = 'Scale9Sprite';
 					ui_name = '';
-					x = -89.000000;
+					x = -30.000000;
+					y = 3.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 36;
+					height = 36;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/btn/sub_01.png';
+					color = { 0; 0; 0; };
+					opacity = 100;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[3] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = -28.000000;
+					y = 6.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 32;
+					height = 33;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'autoStartOnSprite';
+					file_name = 'ui/btn/check_0101.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Button';
+				ui_name = '';
+				x = 142.000000;
+				y = 56.000000;
+				dock_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 120;
+				height = 80;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'autoStartOnBtn';
+				enable = true;
+				normal = 'ui/btn/btn_0101.png';
+				selected = 'ui/btn/btn_0102.png';
+				disable = 'ui/btn/btn_0102.png';
+				image_type = 1;
+			};
+			[17] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 60.000000;
+					y = 4.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 166;
+					height = 60;
+					scale_x = 0.960000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 40;
+					text = '모험 준비';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 243; 236; 225; };
+					opacity = 255;
+					dimension_width = 166;
+					dimension_height = 60;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 134; 50; 33; };
+					has_shadow = true;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 100;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[2] =
+				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = -68.000000;
 					y = 3.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -761,13 +877,13 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -75.000000;
+					x = -54.000000;
 					y = 3.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 72;
-					height = 34;
+					height = 64;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -776,14 +892,14 @@
 					visible = true;
 					lua_name = 'actingPowerLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 30;
 					text = '10';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 72;
-					dimension_height = 34;
+					dimension_height = 64;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -827,7 +943,7 @@
 					};
 					type = 'Node';
 					ui_name = '';
-					x = -132.000000;
+					x = -111.000000;
 					y = 3.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -844,12 +960,12 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 444.000000;
+				x = 353.000000;
 				y = 56.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 330;
+				width = 280;
 				height = 80;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -864,13 +980,13 @@
 				disable = 'ui/btn/btn_0102.png';
 				image_type = 1;
 			};
-			[17] =
+			[18] =
 			{
 				[1] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 25.000000;
+					x = 21.000000;
 					y = 4.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -886,7 +1002,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 30;
-					text = '연속';
+					text = '친구';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 243; 236; 225; };
@@ -910,7 +1026,7 @@
 				{
 					type = 'Scale9Sprite';
 					ui_name = '';
-					x = -42.000000;
+					x = -32.000000;
 					y = 3.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -936,8 +1052,8 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = -40.000000;
-					y = 6.999992;
+					x = -30.000000;
+					y = 6.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -949,7 +1065,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
-					lua_name = 'autoStartOnSprite';
+					lua_name = 'friendOnSprite';
 					file_name = 'ui/btn/check_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
@@ -960,12 +1076,12 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 180.000000;
+				x = 560.000000;
 				y = 56.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 160;
+				width = 120;
 				height = 80;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -973,14 +1089,14 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'autoStartOnBtn';
+				lua_name = 'friendBtn';
 				enable = true;
 				normal = 'ui/btn/btn_0101.png';
 				selected = 'ui/btn/btn_0102.png';
 				disable = 'ui/btn/btn_0102.png';
 				image_type = 1;
 			};
-			[18] =
+			[19] =
 			{
 				[1] =
 				{
@@ -1084,7 +1200,7 @@
 				visible = true;
 				lua_name = '';
 			};
-			[19] =
+			[20] =
 			{
 				[1] =
 				{
@@ -1172,7 +1288,7 @@
 				visible = true;
 				lua_name = '';
 			};
-			[20] =
+			[21] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -1212,7 +1328,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[21] =
+			[22] =
 			{
 				[1] =
 				{
@@ -1930,7 +2046,7 @@
 				visible = false;
 				lua_name = 'sortNode';
 			};
-			[22] =
+			[23] =
 			{
 				[1] =
 				{
@@ -1994,7 +2110,7 @@
 				disable = '';
 				image_type = 1;
 			};
-			[23] =
+			[24] =
 			{
 				[1] =
 				{
@@ -2044,7 +2160,7 @@
 				disable = '';
 				image_type = 1;
 			};
-			[24] =
+			[25] =
 			{
 				[1] =
 				{
@@ -3217,7 +3333,7 @@
 				visible = false;
 				lua_name = 'fomationSetmenu';
 			};
-			[25] =
+			[26] =
 			{
 				[1] =
 				{
