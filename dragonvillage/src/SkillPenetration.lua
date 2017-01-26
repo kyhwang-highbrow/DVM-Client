@@ -127,22 +127,19 @@ end
 function SkillPenetration:getAttackPositionList()
 	local t_ret = {}
 	
-	-- 홀수인지 판별
-	local is_odd = (self.m_skillLineNum % 2) == 1
-
-	local pos_x, pos_y = self:getAttackPosition()
 	local touch_x, touch_y = self.m_targetPos.x, self.m_targetPos.y
-	local std_distance = 100
-
-	-- 공격 포인트와 터치지점 사이의 각도
-	local main_angle = getDegree(pos_x, pos_y, touch_x, touch_y)
+	
+	-- 원점과 터치지점 사이의 각도
+	local main_angle = getDegree(0, 0, touch_x, touch_y)
 	local half_num = math_floor(self.m_skillLineNum/2)
+	
+	local std_distance = PENERATION_STD_DIST
 
 	-- 홀수인 경우 
-	if is_odd then
+	if ((self.m_skillLineNum % 2) == 1) then
 		-- 센터 좌표 계산
 		local move_pos = getPointFromAngleAndDistance(main_angle, std_distance)
-		local center_pos = {x = 100, y = 0}
+		local center_pos = move_pos
 
 		-- 좌측 좌표
 		for i = 1, half_num do
@@ -163,7 +160,8 @@ function SkillPenetration:getAttackPositionList()
 
 	else
 		-- 센터 좌표 계산 (추가는 하지 않는다)
-		local center_pos = {x = 100, y = 0}
+		local move_pos = getPointFromAngleAndDistance(main_angle, std_distance)
+		local center_pos = move_pos
 
 		-- 좌측 좌표
 		for i = 1, half_num do
@@ -201,7 +199,7 @@ end
 function SkillPenetration:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-    local missile_res = 'res/missile/shot_arrow/shot_arrow.vrp' --string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
+    local missile_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
 	local motionstreak_res = (t_skill['res_2'] == 'x') and nil or string.gsub(t_skill['res_2'], '@', owner.m_charTable['attr'])
 
 	local line_num = t_skill['hit']

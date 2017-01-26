@@ -11,6 +11,8 @@ SkillIndicator_Penetration = class(SkillIndicator, {
 		m_skillLineSize = 'num',	-- 직선의 두께
 		
 		m_skillLineGap = 'num',		-- 직선 간의 간격
+
+		m_lEffectList = 'Effect',
     })
 
 -------------------------------------
@@ -27,6 +29,7 @@ function SkillIndicator_Penetration:init(hero, t_skill)
 	self.m_indicatorScale = t_skill['res_scale']
 
 	self.m_lIndicatorEffectList = {}
+	self.m_lEffectList = {}
 end
 
 -------------------------------------
@@ -51,11 +54,14 @@ function SkillIndicator_Penetration:onTouchMoved(x, y)
 	do
 		local pos, dir
 		for i, indicator in pairs(self.m_lIndicatorEffectList) do
-			pos = l_attack_pos[i]
-			dir = getAdjustDegree(getDegree(pos.x, pos.y, touch_x, touch_y))
+			attack_pos = l_attack_pos[i]
+			dir = getAdjustDegree(getDegree(attack_pos.x, attack_pos.y, touch_x, touch_y))
 			indicator:setRotation(dir)
-			indicator:setPosition(pos.x, pos.y)
+			indicator:setPosition(attack_pos.x, attack_pos.y)
 			table.insert(l_dir, dir)
+			
+			--@TEST
+			self.m_lEffectList[i]:setPosition(attack_pos.x, attack_pos.y)
 		end
 		self.m_indicatorAddEffect:setPosition(touch_x, touch_y)
 	end
@@ -74,28 +80,37 @@ function SkillIndicator_Penetration:initIndicatorNode()
     end
 
     local root_node = self.m_indicatorRootNode
-	local pos
-	local indicator
 
 	-- 인디케이터 다발
     for i = 1, self.m_skillLineNum do
-        indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
-        root_node:addChild(indicator.m_node)
+        local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
 		indicator.m_node:setScale(0.1, 2.5)
 		indicator.m_node:setColor(COLOR_CYAN)
 		indicator:setTimeScale(5)
+        root_node:addChild(indicator.m_node)
 		
 		table.insert(self.m_lIndicatorEffectList, indicator)
     end
 
 	-- 겹치는 부분 가리는 추가 인디케이터
 	do
-        indicator = MakeAnimator(RES_INDICATOR['RANGE'])
+        local indicator = MakeAnimator(RES_INDICATOR['RANGE'])
         indicator:setTimeScale(5)
         indicator:setScale(0.1)
         indicator:changeAni('skill_range_normal', true)
         root_node:addChild(indicator.m_node)
         self.m_indicatorAddEffect = indicator
+    end
+
+	-- @TEST 좌표 확인용
+    for i = 1, self.m_skillLineNum do
+        local indicator = MakeAnimator(RES_INDICATOR['RANGE'])
+        indicator:setTimeScale(5)
+        indicator:setScale(0.1)
+        indicator:changeAni('skill_range_normal', true)
+		root_node:addChild(indicator.m_node)
+		
+		table.insert(self.m_lEffectList, indicator)
     end
 
 	return true
@@ -137,21 +152,18 @@ end
 -------------------------------------
 function SkillIndicator_Penetration:getAttackPositionList(touch_x, touch_y)
 	local t_ret = {}
-	
-	-- 홀수인지 판별
-	local is_odd = (self.m_skillLineNum % 2) == 1
 
-	local pos_x, pos_y = self:getAttackPosition()
-	local std_distance = 100
-
-	-- 공격 포인트와 터치지점 사이의 각도
-	local main_angle = getDegree(pos_x, pos_y, touch_x, touch_y)
+	-- 원점과 터치지점 사이의 각도
+	local main_angle = getDegree(0, 0, touch_x, touch_y)
 	local half_num = math_floor(self.m_skillLineNum/2)
+	
+	local std_distance = PENERATION_STD_DIST
 
 	-- 홀수인 경우 
-	if is_odd then
+	if ((self.m_skillLineNum % 2) == 1) then
 		-- 센터 좌표 계산
-		local center_pos = {x = 100, y = 0}
+		local move_pos = getPointFromAngleAndDistance(main_angle, std_distance)
+		local center_pos = move_pos
 
 		-- 좌측 좌표
 		for i = 1, half_num do
@@ -173,7 +185,8 @@ function SkillIndicator_Penetration:getAttackPositionList(touch_x, touch_y)
 	-- 짝수인 경우
 	else
 		-- 센터 좌표 계산 (추가는 하지 않는다)
-		local center_pos = {x = 100, y = 0}
+		local move_pos = getPointFromAngleAndDistance(main_angle, std_distance)
+		local center_pos = move_pos
 
 		-- 좌측 좌표
 		for i = 1, half_num do
