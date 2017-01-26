@@ -168,6 +168,7 @@ local t_module = {
 	
 	-- TAMER
 	'TamerSpeechSystem',
+    'TamerSpeechSystemColosseum',
     'TamerSkillSystem',
     'TamerSkillCut',
 	'TamerSkillManager',

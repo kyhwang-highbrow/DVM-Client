@@ -1383,6 +1383,9 @@
     <None Include="..\src\UI_InventoryTabEvolutionStone.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TamerSpeechSystemColosseum.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\SortManager.lua">
       <Filter>lua</Filter>
     </None>

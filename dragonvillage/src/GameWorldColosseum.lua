@@ -80,16 +80,8 @@ end
 -- function initTamer
 -------------------------------------
 function GameWorldColosseum:initTamer()
-    -- 테이머 생성
-    self.m_tamerSkillMgr = TamerSkillManager(TAMER_ID, self)
-
-    local t_tamer = self.m_tamerSkillMgr.m_charTable
-
-    -- 스킬 컷씬
-    self.m_tamerSkillCut = TamerSkillCut(self, g_gameScene.m_colorLayerTamerSkill, t_tamer)
-
     -- 테이머 대사
-    self.m_tamerSpeechSystem = TamerSpeechSystem(self, t_tamer)
+    self.m_tamerSpeechSystem = TamerSpeechSystemColosseum(self)
     self.m_gameFever:replaceRootNode(self.m_tamerSpeechSystem.m_speechNode)
 
     self:addListener('dragon_summon', self.m_tamerSpeechSystem)
