@@ -44,7 +44,7 @@ function SkillIndicator_Penetration:onTouchMoved(x, y)
 
 	local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
 
-	-- 1. 각도 제한
+	-- 1. 각도 및 거리 제한
     local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
 	local distance = getDistance(pos_x, pos_y, x, y)
 

@@ -21,6 +21,8 @@ function SkillIndicator_Laser:init(hero, t_skill)
     else
         error('size : ' .. size)
     end
+
+	self.m_indicatorAngleLimit = SKILL_ANGLE_LIMIT
 end
 
 -------------------------------------
@@ -32,17 +34,11 @@ function SkillIndicator_Laser:onTouchMoved(x, y)
     end
     
     local pos_x, pos_y = self:getAttackPosition()
-    local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
 
 	-- 각도 제한
-    local isChangeDegree = false
-	if (dir > 60) and (dir < 180) then 
-        dir = 60
-        isChangeDegree = true
-	elseif (dir < 300) and (dir > 180) then
-        dir = 300
-        isChangeDegree = true
-	end
+    local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
+	local t_ret = self:checkIndicatorLimit(dir, distance)
+    dir = t_ret['angle']
 
     self.m_targetPosX = x
     self.m_targetPosY = y
@@ -52,7 +48,7 @@ function SkillIndicator_Laser:onTouchMoved(x, y)
     self.m_indicatorEffect:setRotation(dir)
     self.m_indicatorAddEffect:setRotation(dir)
 
-    if isChangeDegree then
+    if (not t_ret['is_change']) then
         local adjust_pos = getPointFromAngleAndDistance(dir, 500)
         local ap1 = {x=pos_x, y=pos_y}
         local ap2 = {x=pos_x+adjust_pos['x'], y=pos_y+adjust_pos['y']}
@@ -71,8 +67,6 @@ function SkillIndicator_Laser:onTouchMoved(x, y)
 	local t_collision_obj = self:findTarget(pos_x, pos_y, dir)
 	self:setHighlightEffect(t_collision_obj)
 end
-
-
 
 -------------------------------------
 -- function initIndicatorNode

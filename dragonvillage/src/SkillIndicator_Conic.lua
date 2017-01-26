@@ -18,6 +18,7 @@ function SkillIndicator_Conic:init(hero, t_skill)
 	self.m_skillRadius = t_skill['val_1']
 	self.m_skillAngle = t_skill['val_2']
 	self.m_indicatorScale = t_skill['res_scale']
+	self.m_indicatorAngleLimit = SKILL_ANGLE_LIMIT
 end
 
 -------------------------------------
@@ -30,18 +31,12 @@ function SkillIndicator_Conic:onTouchMoved(x, y)
 
     local pos_x, pos_y = self:getAttackPosition()
     local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
+    local is_change_dir
 	
 	-- 1. 각도 제한
-    local isChangeDegree = true
-	if (dir > 60) and (dir < 180) then 
-        dir = 60
-        isChangeDegree = false
-	elseif (dir < 300) and (dir > 180) then
-        dir = 300
-        isChangeDegree = false
-	end
+	dir, is_change_dir = self:checkAngleLimit(dir, is_change_degree)
 
-	if (isChangeDegree) then 
+	if (is_change_dir) then 
 		self.m_targetPosX = x
 		self.m_targetPosY = y
 	end
@@ -100,7 +95,7 @@ function SkillIndicator_Conic:findTargetList(x, y, dir)
     t_data['x'] = self.m_hero.pos.x
     t_data['y'] = self.m_hero.pos.y
     t_data['dir'] = dir
-    t_data['angle_range'] = 20 
+    t_data['angle_range'] = self.m_skillAngle
     t_data['radius'] = self.m_skillRadius
 
     return world:getTargetList(self.m_hero, self.m_hero.pos.x, self.m_hero.pos.y, 'enemy', 'x', 'fan_shape', t_data)

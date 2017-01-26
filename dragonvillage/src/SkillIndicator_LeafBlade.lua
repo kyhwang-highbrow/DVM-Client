@@ -29,6 +29,9 @@ function SkillIndicator_LeafBlade:init(hero, t_skill)
 	self.m_isCollision = false
 	self.m_target_1 = nil
 	self.m_target_2 = nil
+
+	self.m_indicatorAngleLimit = LEAF_ANGLE_LIMIT
+	self.m_indicatorDistanceLimit = LEAF_DIST_LIMIT
 end
 
 -------------------------------------
@@ -43,27 +46,15 @@ function SkillIndicator_LeafBlade:onTouchMoved(x, y)
     local pos_x = self.m_hero.pos.x
     local pos_y = self.m_hero.pos.y
 
-    -- 1. 각도 제한
+    -- 1. 각도 및 거리 제한
 	local dir = getAdjustDegree(getDegree(pos_x, pos_y, tar_x, tar_y))
-    local isChangeDegree = false
-	if (dir > 60) and (dir < 180) then 
-        dir = 60
-        isChangeDegree = true
-	elseif (dir < 300) and (dir > 180) then
-        dir = 300
-        isChangeDegree = true
-	end
-
-	-- 2. 최소 거리 제한
 	local distance = getDistance(tar_x, tar_y, pos_x, pos_y)
-	local isChangeDistance = false
-	if (distance < 400) then
-        distance = 400
-		isChangeDistance = true
-	end
+	local t_ret = self:checkIndicatorLimit(dir, distance)
+    dir = t_ret['angle']
+	distance = t_ret['distance']
 
 	-- 3. 각도와 거리 체크하여 타겟 좌표 수정
-	if isChangeDegree or isChangeDistance then
+	if (not t_ret['is_change']) then
         local adj_pos = getPointFromAngleAndDistance(dir, distance)
         tar_x, tar_y = adj_pos.x + pos_x, adj_pos.y + pos_y
     end
