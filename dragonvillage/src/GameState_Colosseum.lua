@@ -1,7 +1,7 @@
 local PARENT = GameState
 
-local HERO_TAMER_POS_X = 320 - 100
-local ENEMY_TAMER_POS_X = 960 + 100
+local HERO_TAMER_POS_X = 320 - 50
+local ENEMY_TAMER_POS_X = 960 + 50
 local TAMER_POS_Y = -550
 
 -------------------------------------

@@ -5,12 +5,18 @@ local PARENT = GameWorld
 -------------------------------------
 GameWorldColosseum = class(PARENT, {
         m_gameAutoEnemy = '',   -- 적군 자동 AI
+
+        m_diedHeroTotalMaxHp = 'number',    -- 죽은 아군들의 총 maxHp(죽었을때 상태로 저장)
+        m_diedEnemyTotalMaxHp = 'number',    -- 죽은 적군들의 총 maxHp(죽었을때 상태로 저장)
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function GameWorldColosseum:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, fever_node, ui, develop_mode)
+    self.m_diedHeroTotalMaxHp = 0
+    self.m_diedEnemyTotalMaxHp = 0
+
     -- 타임 스케일 설정
     local baseTimeScale = COLOSSEUM__TIME_SCALE
     if (g_autoPlaySetting:get('quick_mode')) then
@@ -100,8 +106,7 @@ end
 function GameWorldColosseum:addEnemy(enemy)
     
     table.insert(self.m_tEnemyList, enemy)
-    --cclog('GameWorld:addEnemy(enemy) cnt : ' .. #self.m_tEnemyList)
-
+    
     -- 죽음 콜백 등록
     enemy:addListener('character_dead', self)
 
@@ -123,6 +128,19 @@ function GameWorldColosseum:addEnemy(enemy)
     -- HP 변경시 콜백 등록
     enemy:addListener('character_set_hp', self)
 end
+
+
+-------------------------------------
+-- function removeEnemy
+-- @param enemy
+-------------------------------------
+function GameWorldColosseum:removeEnemy(enemy)
+    self.m_diedEnemyTotalMaxHp = self.m_diedEnemyTotalMaxHp + enemy.m_maxHp
+
+    local idx = table.find(self.m_tEnemyList, enemy)
+    table.remove(self.m_tEnemyList, idx)
+end
+
 
 -------------------------------------
 -- function addHero
@@ -151,6 +169,8 @@ end
 -- function removeHero
 -------------------------------------
 function GameWorldColosseum:removeHero(hero)
+    self.m_diedHeroTotalMaxHp = self.m_diedHeroTotalMaxHp + hero.m_maxHp
+
     for i,v in pairs(self.m_mHeroList) do
         if (v == hero) then
             self.m_mHeroList[i] = nil
@@ -252,17 +272,18 @@ function GameWorldColosseum:onEvent(event_name, t_event, ...)
         local arg = {...}
         local char = arg[1]
         local unitList
+        local totalHp = 0
+        local totalMaxHp = 0
 
         if (char.m_bLeftFormation) then
             unitList = self:getDragonList()
+            totalMaxHp = self.m_diedHeroTotalMaxHp
         else
             unitList = self:getEnemyList()
+            totalMaxHp = self.m_diedEnemyTotalMaxHp
         end
 
         -- 진형에 따라 HP게이지 갱신
-        local totalHp = 0
-        local totalMaxHp = 0
-        
         for i, v in ipairs(unitList) do
             totalHp = totalHp + v.m_hp
             totalMaxHp = totalMaxHp + v.m_maxHp
