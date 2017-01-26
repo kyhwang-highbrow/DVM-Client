@@ -84,6 +84,28 @@ function ServerData_User:getResetFruitID()
 end
 
 -------------------------------------
+-- function getEvolutionStoneList
+-- @brief 보유중인 진화석 리스트 리턴(인벤토리에서 사용)
+-------------------------------------
+function ServerData_User:getEvolutionStoneList()
+    local l_evolution_stone = self:getRef('evolution_stones')
+
+    -- key가 item_id(=esid)이고 value가 count인 리스트 생성
+    local l_ret = {}
+    for i,v in pairs(l_evolution_stone) do
+        local evolution_stone_id = tonumber(i)
+        local count = v
+
+        local t_data = {}
+        t_data['esid'] = evolution_stone_id
+        t_data['count'] = count
+        table.insert(l_ret, t_data)
+    end
+
+    return l_ret
+end
+
+-------------------------------------
 -- function getEvolutionStoneCount
 -- @brief 보유중인 진화재료 갯수 리턴
 -------------------------------------

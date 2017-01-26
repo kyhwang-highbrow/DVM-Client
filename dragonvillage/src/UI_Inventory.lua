@@ -43,6 +43,7 @@ function UI_Inventory:initUI()
     do
         self.m_tTabClass = {}
         self.m_tTabClass['rune'] = UI_InventoryTabRune(self)
+        self.m_tTabClass['material'] = UI_InventoryTabEvolutionStone(self)
         self.m_tTabClass['fruit'] = UI_InventoryTabFruit(self)
     end
 

@@ -401,6 +401,7 @@ local t_module = {
     'UI_InventoryTab',
     'UI_InventoryTabRune',
     'UI_InventoryTabFruit',
+    'UI_InventoryTabEvolutionStone',
 
     -- UI 드래곤 관리 관련
     'UI_DragonManage_Base',

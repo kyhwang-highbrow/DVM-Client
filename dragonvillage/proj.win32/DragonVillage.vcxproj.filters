@@ -1380,6 +1380,9 @@
     <None Include="..\src\UI_InventoryTabRune.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_InventoryTabEvolutionStone.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
