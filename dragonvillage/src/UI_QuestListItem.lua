@@ -32,7 +32,7 @@ function UI_QuestListItem:init(t_data, isHighlight)
     self:initUI()
     self:initButton()
     self:refresh()
-
+	
 	--self:printQuestDebug()
 end
 
@@ -47,15 +47,11 @@ function UI_QuestListItem:setQuestData(t_data)
 	
     self.m_questData = t_data
 
-	self.m_rawCount = self.m_questData['rawcnt'] or 0
-	self.m_clearCount = self.m_questData['clearcnt'] or 0
-	self.m_rewardCount = self.m_questData['rewardcnt'] or 0
-	self.m_goalCount = self.m_clearCount + 1
-	if (not (t_data['type'] == TableQuest.CHALLENGE)) then 
-		self.m_goalCount = math_min(self.m_goalCount, 1)
-	end
-		
-	self.m_isCleared = self:getIsCleared()
+	self.m_rawCount = self.m_questData['rawcnt']
+	self.m_clearCount = self.m_questData['clearcnt']
+	self.m_rewardCount = self.m_questData['rewardcnt']
+	self.m_goalCount = self.m_questData['goal_cnt']
+	self.m_isCleared = self.m_questData['is_cleared'] or self:getIsCleared()
 end
 
 -------------------------------------
@@ -80,51 +76,50 @@ end
 -- function refresh
 -------------------------------------
 function UI_QuestListItem:refresh()
-    local vars = self.vars
-
-	-- 완료 표시 -> server 에서 값주면 max_cnt와 비교
 	self:setVarsVisible()
-	 
-	-- desc -> server 에서 주는 clear_cnt 반영하여 다음것 넣어줘야함
 	self:setQuestDescLabel()
-
-	-- 보상
 	self:setRewardCard()
-
-	-- 진행도 -> ..
 	self:setQuestProgress()
 end
 
 -------------------------------------
 -- function setVarsVisible
+-- @brief 퀘스트 진행 상태에 따라 visible on/off
 -------------------------------------
 function UI_QuestListItem:setVarsVisible()
     local vars = self.vars
 	
+	-- 퀘스트 보상까지 전부 수령시 표시
 	vars['questCompletNode']:setVisible(self.m_isCleared)
 
-	local is_activated_reward = self.m_rewardCount < self.m_clearCount
+	-- 보상 수령 가능시
+	local is_activated_reward = (self.m_rewardCount < self.m_clearCount)
 	vars['rewardBtn']:setVisible(is_activated_reward)
+
+	-- 평시
+	local is_temp = (not self.m_isCleared) and (not is_activated_reward)
 	if string.find(self.m_questData['type'], '_all') then 
-		vars['doingBtn']:setVisible(not is_activated_reward)
+		vars['doingBtn']:setVisible(is_temp)
 	else
-		vars['questLinkBtn']:setVisible(not is_activated_reward)
+		vars['questLinkBtn']:setVisible(is_temp)
 	end
 end
 
 -------------------------------------
 -- function setQuestDescLabel
+-- @brief 퀘스트 설명 표시
 -------------------------------------
 function UI_QuestListItem:setQuestDescLabel()
     local vars = self.vars
 	local t_data = self.m_questData
 	local goal_cnt = t_data['unit'] * self.m_goalCount
 
-	vars['questLabel']:setString(Str(t_data['t_desc'], goal_cnt))
+	vars['questLabel']:setString(t_data['qid'] .. '.' .. Str(t_data['t_desc'], goal_cnt))
 end
 
 -------------------------------------
 -- function setRewardCard
+-- @brief 보상 아이콘 표시
 -------------------------------------
 function UI_QuestListItem:setRewardCard()
     local vars = self.vars
@@ -148,6 +143,7 @@ end
 
 -------------------------------------
 -- function setQuestProgress
+-- @brief 퀘스트 진행도 표시
 -------------------------------------
 function UI_QuestListItem:setQuestProgress()
     local vars = self.vars
@@ -171,7 +167,13 @@ end
 -- function click_rewardBtn
 -------------------------------------
 function UI_QuestListItem:click_rewardBtn()
-	UIManager:toastNotificationRed(Str('"보상받기" 미구현'))
+	local qid = self.m_questData['qid']
+	local cb_function = function()
+		self:refresh()
+		self.parent:refresh()
+	end
+
+	g_questData:requestQuestReward(qid, cb_func)
 end
 
 -------------------------------------

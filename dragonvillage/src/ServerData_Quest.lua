@@ -62,15 +62,32 @@ function ServerData_Quest:mergeWithServerData()
 		qid = t_quest['qid']
 		t_server_quest = self:getServerQuest(qid)
 
+        -- server data가 있다면 남아있는 퀘스트
 		if (t_server_quest) then 
-			-- server data가 있다면 남아있는 퀘스트
-			t_quest['is_cleared'] = false
-			for i, v in pairs(t_server_quest) do 
+			-- 서버에서 주는것
+            for i, v in pairs(t_server_quest) do 
 				t_quest[i] = v
 			end
+
+            -- 클라에서 만들어 사용하는것
+			t_quest['is_cleared'] = false
+            if (t_quest['clearcnt'] > t_quest['rewardcnt']) then
+                -- 아직 보상을 수령하지 않았다면 다음 목표를 노출하지 않는다.
+                t_quest['goal_cnt'] = t_quest['clearcnt']
+            else
+                t_quest['goal_cnt'] = t_quest['clearcnt'] + 1
+            end
+
+        -- server data가 없다면 클리어 한것
 		else
-			-- server data가 없다면 클리어 한것
-			t_quest['is_cleared'] = true
+            -- 서버에서 주는것
+            t_quest['clearcnt'] = t_quest['max_cnt']
+            t_quest['rewardcnt'] = t_quest['max_cnt']
+            t_quest['rawcnt'] = (t_quest['max_cnt'] * t_quest['unit'])
+            
+            -- 클라에서 만들어 사용하는것
+            t_quest['is_cleared'] = true
+            t_quest['goal_cnt'] = t_quest['max_cnt']
 		end
 	end
 
@@ -90,23 +107,27 @@ function ServerData_Quest:getQuestListByType(quest_type)
 		end
 	end
 
-	--[[ 보상 수령 가능한 것을 위로
-	table.sort(l_quest, function(a, b)
-		return a['clearcnt'] > a['rewardcnt']
-	end)]]
+    -- qid 순으로 정렬    
+    table.sort(l_quest, function(a, b)
+        return (tonumber(a['qid']) < tonumber(b['qid']))
+	end)
 
-	-- qid 작은 순서대로 정렬
-	table.sort(l_quest, function(a, b) 
-		return (tonumber(a['qid']) < tonumber(b['qid']))
+	-- 보상 수령 가능한 것을 위로
+	table.sort(l_quest, function(a, b)
+        if (a['clearcnt'] > a['rewardcnt'])
+            and (b['clearcnt'] == b['rewardcnt']) then
+            return true
+        else
+            return (tonumber(a['qid']) < tonumber(b['qid']))
+        end
 	end)
 
 	return l_quest
 end
 
-
 -------------------------------------
 -- function getAllClearQuestTable
--- @brief getQuestListByType와 같은 기능이지만 경량화
+-- @brief getQuestListByType와 같은 기능이지만 특정 타입 찾는 용으로 경량화
 -------------------------------------
 function ServerData_Quest:getAllClearQuestTable(quest_type)
 	local all_clear_type = quest_type .. '_all'
@@ -124,18 +145,32 @@ function ServerData_Quest:getAllClearQuestTable(quest_type)
 end
 
 -------------------------------------
+-- function hasRewardableQuest
+-- @brief 보상 수령 가능한 퀘스트가 있는지 찾는다.
+-- @return boolean
+-------------------------------------
+function ServerData_Quest:hasRewardableQuest(quest_type)
+    local is_exist = false
+
+	-- type에 해당하는 퀘스트 뽑아냄
+	for i, quest in pairs(self.m_workedData) do 
+		if (quest['type'] == quest_type) then
+            -- 보상 수령 가능한 상태
+			if (quest['clearcnt'] > quest['rewardcnt']) then
+                is_exist = true
+                break
+            end
+		end
+	end
+
+	return is_exist
+end
+
+-------------------------------------
 -- function requestQuestInfo
+-- @brief 서버에 퀘스트 정보 요청
 -------------------------------------
 function ServerData_Quest:requestQuestInfo(cb_func)
-	--[[
-    if (not self.m_bDirtyQuestInfo) then
-        if cb_func then
-            cb_func()
-        end
-        return
-    end
-	]]
-
     local uid = g_userData:get('uid')
 
     -- 성공 시 콜백
@@ -169,6 +204,7 @@ end
 
 -------------------------------------
 -- function requestQuestReward
+-- @brief 서버에 퀘스트 보상 수령 요청
 -------------------------------------
 function ServerData_Quest:requestQuestReward(qid, cb_func)
     local uid = g_userData:get('uid')
