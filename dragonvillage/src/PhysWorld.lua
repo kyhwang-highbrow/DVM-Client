@@ -212,7 +212,7 @@ function PhysWorld:update(dt)
         for _, object in ipairs(l_object) do
 		
 			-- 단일 타겟만 충돌 체크
-			if (object.bFixedAttack)  then 
+			if (object.bFixedAttack) then
 				if isInstanceOf(object, Missile) then
 					body = object.body
 					target = object.m_target
@@ -222,10 +222,10 @@ function PhysWorld:update(dt)
 					if target then 
 						ret = isCollision(x, y, target, 20)
 					end
+                    -- 충돌 콜백 실행
                     if ret and target then
-						-- 충돌 콜백 실행
-                        target:runAtkCallback(object, target.pos.x, target.pos.y)
-                        object:runDefCallback(target, x, y)
+                        object:runAtkCallback(target, target.pos.x, target.pos.y)
+                        target:runDefCallback(object, x, y)
                     end
 				end
 
@@ -287,13 +287,6 @@ function PhysWorld:update(dt)
             end
         end
     end
-
-    --[[
-    if DebugConst.USE_UI_DEBUG_LOG then
-        local str = 'phys_work_cnt : ' .. work_cnt
-        UIManager:setDebugText('phys_work', str)
-    end
-    --]]
 end
 
 -------------------------------------

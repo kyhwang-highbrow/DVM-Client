@@ -292,6 +292,7 @@ local t_module = {
 	'SkillCharge',
 	'SkillContinuous',
 	'SkillPenetration',
+    'SkillRapidShot',
 
     -- SKILL INDICATOR
     'SkillIndicatorMgr',

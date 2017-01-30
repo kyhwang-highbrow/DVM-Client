@@ -243,6 +243,10 @@ function Character:doSkill(skill_id, x, y, t_data)
 	    elseif (type == 'skill_penetration_fan') then
 			SkillPenetration:makeSkillInstance(self, t_skill, t_data)
             return true
+    
+        elseif (type == 'skill_rapid_shot') then
+            SkillRapidShot:makeSkillInstance(self, t_skill, t_data)
+            return true
 
 		-- 특수 스킬들
 		elseif (type == 'skill_summon') then

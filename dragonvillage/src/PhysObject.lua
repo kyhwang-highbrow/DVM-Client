@@ -281,11 +281,10 @@ end
 
 -------------------------------------
 -- function setEnableBody
--- @param enabled
--- @param release_appended
 -------------------------------------
 function PhysObject:setFixedAttack(bool)
     self.bFixedAttack = bool
+    self.enable_body = not bool
 end
 
 -------------------------------------
