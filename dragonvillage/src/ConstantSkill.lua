@@ -33,7 +33,7 @@ PENERATION_FIRE_DELAY = 0.5						-- 등장 후 발사 딜레이
 
 -- #SkillRapidShot
 RAPIDSHOT_Y_POS_RANGE = 50
-RAPIDSHOT_INTERVAL = ONE_FRAME * 6
+RAPIDSHOT_INTERVAL = ONE_FRAME * 3
 RAPIDSHOT_FIRE_DELAY = 0.5
 
 --------------------------------------------
