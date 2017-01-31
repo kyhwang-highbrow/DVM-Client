@@ -32,7 +32,9 @@ PENERATION_APPEAR_INTERVAR = ONE_FRAME * 2		-- 발사체 등장 간격
 PENERATION_FIRE_DELAY = 0.5						-- 등장 후 발사 딜레이 
 
 -- #SkillRapidShot
+RAPIDSHOT_Y_POS_RANGE = 50
 RAPIDSHOT_INTERVAL = ONE_FRAME * 6
+RAPIDSHOT_FIRE_DELAY = 0.5
 
 --------------------------------------------
 -- 인디케이터 리소스 경로

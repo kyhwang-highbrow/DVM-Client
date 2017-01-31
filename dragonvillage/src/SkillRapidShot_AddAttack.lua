@@ -42,7 +42,7 @@ function SkillRapidShot_AddAttack.st_idle(owner, dt)
     owner.m_skillTimer = owner.m_skillTimer + dt
 	if (owner.m_skillTimer > owner.m_skillInterval) then
 		owner.m_skillTimer = owner.m_skillTimer - owner.m_skillInterval
-        owner:fireMissile(owner.m_targetChar, true)
+        owner:fireMissile(owner.m_targetChar, false)
 		owner.m_skillCount = owner.m_skillCount + 1
 	end
 
@@ -56,10 +56,9 @@ end
 -------------------------------------
 -- function fireMissile
 -------------------------------------
-function SkillRapidShot_AddAttack:fireMissile(target, is_origin)
+function SkillRapidShot_AddAttack:fireMissile(target, is_add_attack)
     local char = self.m_owner
     local world = self.m_world
-	local attack_pos_x, attack_pos_y = self:getAttackPosition()
 
     local t_option = {}
 
@@ -71,19 +70,23 @@ function SkillRapidShot_AddAttack:fireMissile(target, is_origin)
     t_option['object_key'] = char:getAttackPhysGroup()
 	t_option['attr_name'] = self.m_owner:getAttribute()
 
-	if (is_origin) then
-		t_option['pos_x'] = char.pos.x + attack_pos_x
-		t_option['pos_y'] = char.pos.y + attack_pos_y + math_random(-50, 50)
-		t_option['accel_delay'] = 0.5
-		t_option['attack_damage']:setAttackType('active')
-		t_option['cbFunction'] = function()
-			self.m_skillHitEffctDirector:doWork()
-			self:ultimateActiveForClownDragon()
-		end
-	else
+	if (is_add_attack) then
 		t_option['pos_x'] = self.m_targetChar.m_homePosX
 		t_option['pos_y'] = self.m_targetChar.m_homePosY
 		t_option['attack_damage']:setAttackType('basic')
+	else
+		local attack_pos_x, attack_pos_y = self:getAttackPosition()
+		t_option['pos_x'] = char.pos.x + attack_pos_x
+		t_option['pos_y'] = char.pos.y + attack_pos_y + math_random(-RAPIDSHOT_Y_POS_RANGE, RAPIDSHOT_Y_POS_RANGE)
+		t_option['accel_delay'] = RAPIDSHOT_FIRE_DELAY
+		t_option['attack_damage']:setAttackType('active')
+	end
+
+	t_option['cbFunction'] = function()
+		self.m_skillHitEffctDirector:doWork()
+		if (not is_add_attack) then
+			self:ultimateActiveForClownDragon()
+		end
 	end
 
 	t_option['dir'] = getDegree(t_option['pos_x'], t_option['pos_y'], target.m_homePosX, target.m_homePosY)
@@ -112,11 +115,24 @@ end
 -------------------------------------
 function SkillRapidShot_AddAttack:ultimateActiveForClownDragon()
 	local l_target = self.m_world:getEnemyList()
-	local target = table.getRandom(l_target)
+	
+	-- 주 타겟은 리스트에서 제외한다.
+	for i, target in pairs(l_target) do 
+		if (target == self.m_targetChar) then
+			table.remove(l_target, i)
+			break
+		end
+	end
 
+	local target = table.getRandom(l_target)
 	if target then 
-		self:fireMissile(target, false)
+		self:fireMissile(target, true)
 		StatusEffectHelper:doStatusEffectByStr(self.m_owner, {target}, {self.m_addAttackStatusEffect})
+	end
+
+	-- 제외했던 주 타겟을 다시 넣는다.
+	if (not self.m_targetChar.m_bDead) then
+		table.insert(l_target, self.m_targetChar)
 	end
 end
 

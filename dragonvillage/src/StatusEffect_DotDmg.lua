@@ -23,7 +23,7 @@ end
 -------------------------------------
 function StatusEffect_DotDmg:init_dotDmg(char, t_status_effect, status_effect_value, caster_activity_carrier)
 	self.m_owner = char
-	local damage = 0
+	local damage
 
 	-- 절대값 적용 
 	if string.find(t_status_effect['name'], '_abs') then 
@@ -40,11 +40,15 @@ function StatusEffect_DotDmg:init_dotDmg(char, t_status_effect, status_effect_va
 		local t_attr_effect = char:checkAttributeCounter(caster_activity_carrier)
 		if t_attr_effect['damage'] then
 			damage = damage_org * (1 + (t_attr_effect['damage'] / 100))
+		else
+			damage = damage_org
 		end
+		-- 상태효과 타입별 데미지 계산
 		damage = damage * (t_status_effect['dot_dmg'] / 100)
 	end
 
-	self.m_dotDmg = damage * (status_effect_value / 100)
+	-- 가중치 적용 시키면서 최소 데미지는 1로 세팅
+	self.m_dotDmg = math_max(1, damage * (status_effect_value / 100))
 	self.m_dotInterval = t_status_effect['dot_interval']
 	
 	-- 첫 틱에 데미지 들어가도록..
