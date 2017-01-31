@@ -52,7 +52,7 @@ end
 -------------------------------------
 function UI_AcquisitionRegionListItem:initButton(t_user_info)
     local vars = self.vars
-    --vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
+    vars['locationBtn']:registerScriptTapHandler(function() self:click_locationBtn() end)
 end
 
 -------------------------------------
@@ -61,4 +61,13 @@ end
 -------------------------------------
 function UI_AcquisitionRegionListItem:refresh(t_user_info)
     local vars = self.vars
+end
+
+-------------------------------------
+-- function click_locationBtn
+-- @brief
+-------------------------------------
+function UI_AcquisitionRegionListItem:click_locationBtn()
+    local stage_id = tonumber(self.m_region)
+    g_stageData:goToStage(stage_id)
 end

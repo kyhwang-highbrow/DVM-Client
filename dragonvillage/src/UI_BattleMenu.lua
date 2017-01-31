@@ -71,27 +71,7 @@ end
 -- function click_nestBtn
 -------------------------------------
 function UI_BattleMenu:click_nestBtn()
-    local request_nest_dungeon_info
-    local request_nest_dungeon_stage_list
-    local replace_scene
-
-    -- 네스트 던전 리스트 정보 얻어옴
-    request_nest_dungeon_info = function()
-        g_nestDungeonData:requestNestDungeonInfo(request_nest_dungeon_stage_list)
-    end
-
-    -- 네스트 던전 스테이지 리스트 얻어옴
-    request_nest_dungeon_stage_list = function()
-        g_nestDungeonData:requestNestDungeonStageList(replace_scene)
-    end
-
-    -- 네스트 던전 씬으로 전환
-    replace_scene = function()
-        local scene = SceneNestDungeon()
-        scene:runScene()
-    end
-
-    request_nest_dungeon_info()
+    g_nestDungeonData:goToNestDungeonScene()
 end
 
 -------------------------------------

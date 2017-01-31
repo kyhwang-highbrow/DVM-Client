@@ -464,6 +464,19 @@ function ServerData_NestDungeon:getSimpleNextStageID(stage_id)
 end
 
 -------------------------------------
+-- function getStageName
+-------------------------------------
+function ServerData_NestDungeon:getStageName(stage_id)
+    local t_dungeon_id_info = self:parseNestDungeonID(stage_id)
+
+    local table_drop = TableDrop()
+    local t_drop = table_drop:get(stage_id)
+    local name = Str(t_drop['t_name']) .. ' ' .. Str('{1}단계', t_dungeon_id_info['tier'])
+
+    return name
+end
+
+-------------------------------------
 -- function getStageCategoryStr
 -- @brief
 -------------------------------------
@@ -489,4 +502,31 @@ function ServerData_NestDungeon:getStageCategoryStr(stage_id)
     
 
     return '네스트던전' .. ' > ' .. mode_str
+end
+
+-------------------------------------
+-- function goToNestDungeonScene
+-------------------------------------
+function ServerData_NestDungeon:goToNestDungeonScene(stage_id)
+    local request_nest_dungeon_info
+    local request_nest_dungeon_stage_list
+    local replace_scene
+
+    -- 네스트 던전 리스트 정보 얻어옴
+    request_nest_dungeon_info = function()
+        g_nestDungeonData:requestNestDungeonInfo(request_nest_dungeon_stage_list)
+    end
+
+    -- 네스트 던전 스테이지 리스트 얻어옴
+    request_nest_dungeon_stage_list = function()
+        g_nestDungeonData:requestNestDungeonStageList(replace_scene)
+    end
+
+    -- 네스트 던전 씬으로 전환
+    replace_scene = function()
+        local scene = SceneNestDungeon(stage_id)
+        scene:runScene()
+    end
+
+    request_nest_dungeon_info()
 end

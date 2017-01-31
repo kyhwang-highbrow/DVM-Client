@@ -37,9 +37,8 @@ function ServerData_Stage:getStageName(stage_id)
 
     -- 네스트 던전 모드
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
-        local table_drop = TableDrop()
-        local t_drop = table_drop:get(stage_id)
-        name = Str(t_drop['t_name'])
+        name = g_nestDungeonData:getStageName(stage_id)
+
     -- 콜로세움 모드
     elseif (game_mode == GAME_MODE_COLOSSEUM) then
         name = Str('콜로세움')
@@ -202,4 +201,26 @@ function ServerData_Stage:getStageCategoryStr(stage_id)
     end
 
     return ret
+end
+
+-------------------------------------
+-- function goToStage
+-------------------------------------
+function ServerData_Stage:goToStage(stage_id)
+    local game_mode = self:getGameMode(stage_id)
+
+    if (self:isOpenStage(stage_id) == false) then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('아직은 진입할 수 없습니다.'))
+        return
+    end
+
+    -- 모험 모드
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        local scene = SceneAdventure(stage_id)
+        scene:runScene()
+        
+    -- 네스트 던전 모드
+    elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
+        g_nestDungeonData:goToNestDungeonScene(stage_id)
+    end
 end
