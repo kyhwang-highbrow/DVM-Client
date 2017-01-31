@@ -248,6 +248,10 @@ function Character:doSkill(skill_id, x, y, t_data)
             SkillRapidShot:makeSkillInstance(self, t_skill, t_data)
             return true
 
+        elseif (type == 'skill_rapid_shot_add_attack') then
+            SkillRapidShot_AddAttack:makeSkillInstance(self, t_skill, t_data)
+            return true
+
 		-- 특수 스킬들
 		elseif (type == 'skill_summon') then
             return SkillSummon:makeSkillInstance(self, t_skill, t_data)

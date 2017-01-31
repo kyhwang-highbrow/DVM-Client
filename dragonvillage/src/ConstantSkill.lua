@@ -31,6 +31,9 @@ PENERATION_DIST_LIMIT = 200						-- 시전 거리 제한
 PENERATION_APPEAR_INTERVAR = ONE_FRAME * 2		-- 발사체 등장 간격
 PENERATION_FIRE_DELAY = 0.5						-- 등장 후 발사 딜레이 
 
+-- #SkillRapidShot
+RAPIDSHOT_INTERVAL = ONE_FRAME * 6
+
 --------------------------------------------
 -- 인디케이터 리소스 경로
 --------------------------------------------

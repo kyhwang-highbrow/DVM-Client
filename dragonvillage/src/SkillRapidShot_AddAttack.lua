@@ -1,16 +1,10 @@
-local PARENT = Skill
+local PARENT = SkillRapidShot
 
 -------------------------------------
--- class SkillRapidShot
+-- class SkillRapidShot_AddAttack
 -------------------------------------
-SkillRapidShot = class(PARENT, {
-		m_missileRes = 'string',
-		m_motionStreakRes = 'string',
-		m_attackCount = 'number',
-
-		m_skillTimer = 'time',
-		m_skillInterval = 'time',
-		m_skillCount = 'num',
+SkillRapidShot_AddAttack = class(PARENT, {
+		m_addAttackStatusEffect= 'str',
      })
 
 -------------------------------------
@@ -18,44 +12,37 @@ SkillRapidShot = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function SkillRapidShot:init(file_name, body, ...)
+function SkillRapidShot_AddAttack:init(file_name, body, ...)
 end
 
 -------------------------------------
--- function init_SkillRapidShot
+-- function init_SkillRapidShot_AddAttack
 -------------------------------------
-function SkillRapidShot:init_skill(missile_res, motionstreak_res, target_count)
-	PARENT.init_skill(self)
+function SkillRapidShot_AddAttack:init_skill(missile_res, motionstreak_res, target_count, add_attack_status_effect)
+	PARENT.init_skill(self, missile_res, motionstreak_res, target_count)
 
-	-- 1. 멤버 변수
-    self.m_missileRes = missile_res
-    self.m_motionStreakRes = motionstreak_res
-    self.m_attackCount = target_count
-
-	self.m_skillInterval = RAPIDSHOT_INTERVAL
-	self.m_skillTimer = 0
-	self.m_skillCount = 1
+	self.m_addAttackStatusEffect = add_attack_status_effect
 end
 
 -------------------------------------
 -- function initState
 -------------------------------------
-function SkillRapidShot:initState()
+function SkillRapidShot_AddAttack:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillRapidShot.st_idle, 'idle', true)
+    self:addState('start', SkillRapidShot_AddAttack.st_idle, 'idle', true)
 end
 
 -------------------------------------
 -- function st_idle
 -------------------------------------
-function SkillRapidShot.st_idle(owner, dt)
+function SkillRapidShot_AddAttack.st_idle(owner, dt)
 	if (owner.m_stateTimer == 0) then
 	end
 
     owner.m_skillTimer = owner.m_skillTimer + dt
 	if (owner.m_skillTimer > owner.m_skillInterval) then
 		owner.m_skillTimer = owner.m_skillTimer - owner.m_skillInterval
-        owner:fireMissile()
+        owner:fireMissile(owner.m_targetChar, true)
 		owner.m_skillCount = owner.m_skillCount + 1
 	end
 
@@ -69,31 +56,42 @@ end
 -------------------------------------
 -- function fireMissile
 -------------------------------------
-function SkillRapidShot:fireMissile()
+function SkillRapidShot_AddAttack:fireMissile(target, is_origin)
     local char = self.m_owner
     local world = self.m_world
-	local target = self.m_targetChar
 	local attack_pos_x, attack_pos_y = self:getAttackPosition()
 
     local t_option = {}
 
     t_option['owner'] = char
-    t_option['pos_x'] = char.pos.x + attack_pos_x
-    t_option['pos_y'] = char.pos.y + attack_pos_y + math_random(-50, 50)
 	t_option['target'] = target
-
-	t_option['dir'] = getDegree(t_option['pos_x'], t_option['pos_y'], target.m_homePosX, target.m_homePosY)
-	t_option['rotation'] = t_option['dir']
-
-    t_option['physics_body'] = {0, 0, 40}
+	
+    t_option['physics_body'] = {0, 0, 20}
     t_option['attack_damage'] = self.m_activityCarrier
     t_option['object_key'] = char:getAttackPhysGroup()
 	t_option['attr_name'] = self.m_owner:getAttribute()
 
+	if (is_origin) then
+		t_option['pos_x'] = char.pos.x + attack_pos_x
+		t_option['pos_y'] = char.pos.y + attack_pos_y + math_random(-50, 50)
+		t_option['accel_delay'] = 0.5
+		t_option['attack_damage']:setAttackType('active')
+		t_option['cbFunction'] = function()
+			self.m_skillHitEffctDirector:doWork()
+			self:ultimateActiveForClownDragon()
+		end
+	else
+		t_option['pos_x'] = self.m_targetChar.m_homePosX
+		t_option['pos_y'] = self.m_targetChar.m_homePosY
+		t_option['attack_damage']:setAttackType('basic')
+	end
+
+	t_option['dir'] = getDegree(t_option['pos_x'], t_option['pos_y'], target.m_homePosX, target.m_homePosY)
+	t_option['rotation'] = t_option['dir']
+
 	t_option['speed'] = 0
 	t_option['h_limit_speed'] = 2000
 	t_option['accel'] = 20000
-	t_option['accel_delay'] = 0.5
 	t_option['movement'] ='normal'
 	t_option['missile_type'] = 'NORMAL'
 	t_option['bFixedAttack'] = true
@@ -104,32 +102,43 @@ function SkillRapidShot:fireMissile()
 	t_option['effect'] = {}
     t_option['effect']['motion_streak'] = self.m_motionStreakRes
 
-	t_option['cbFunction'] = function()
-		self.m_skillHitEffctDirector:doWork()
-	end
-
     -- 발사
 	world.m_missileFactory:makeMissile(t_option)
 end
 
 -------------------------------------
+-- function ultimateActiveForClownDragon
+-- @TODO 임시 코드
+-------------------------------------
+function SkillRapidShot_AddAttack:ultimateActiveForClownDragon()
+	local l_target = self.m_world:getEnemyList()
+	local target = table.getRandom(l_target)
+
+	if target then 
+		self:fireMissile(target, false)
+		StatusEffectHelper:doStatusEffectByStr(self.m_owner, {target}, {self.m_addAttackStatusEffect})
+	end
+end
+
+-------------------------------------
 -- function makeSkillInstance
 -------------------------------------
-function SkillRapidShot:makeSkillInstance(owner, t_skill, t_data)
+function SkillRapidShot_AddAttack:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
     local missile_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
 	local motionstreak_res = (t_skill['res_2'] == 'x') and nil or string.gsub(t_skill['res_2'], '@', owner.m_charTable['attr'])
 	local attack_count = t_skill['hit']
+	local add_attack_status_effect = t_skill['val_1']
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = SkillRapidShot(nil)
+    local skill = SkillRapidShot_AddAttack(nil)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(missile_res, motionstreak_res, attack_count)
+    skill:init_skill(missile_res, motionstreak_res, attack_count, add_attack_status_effect)
 	skill:initState()
 
 	-- 3. state 시작

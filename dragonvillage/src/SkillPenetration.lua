@@ -102,7 +102,7 @@ function SkillPenetration:fireMissile(idx)
 	t_option['attr_name'] = char:getAttribute()
 
     t_option['speed'] = 0
-	t_option['h_limit_speed'] = 5000
+	t_option['h_limit_speed'] = 2000
 	t_option['accel'] = 20000
 	t_option['accel_delay'] = self.m_skillTotalTime - (self.m_skillInterval * idx)
 
@@ -110,7 +110,7 @@ function SkillPenetration:fireMissile(idx)
     t_option['movement'] ='normal' 
 
     t_option['missile_res_name'] = self.m_missileRes
-	t_option['scale'] = 0.5 --self.m_resScale
+	t_option['scale'] = self.m_resScale
 	t_option['effect'] = {}
     t_option['effect']['motion_streak'] = self.m_motionStreakRes
     
@@ -120,7 +120,6 @@ function SkillPenetration:fireMissile(idx)
 
 	-- fire!!
     world.m_missileFactory:makeMissile(t_option)
-
 end
 
 -------------------------------------

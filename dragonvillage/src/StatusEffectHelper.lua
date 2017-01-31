@@ -100,8 +100,7 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
 			end
 
 		elseif (target_type == 'ally_random') then 
-			local l_target = owner:getFellowList()
-			local target = l_target[math_random(1, #l_target)]
+			local target = table.getRandom(owner:getFellowList())
 
 			if (StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
                 cb_invoke(target)

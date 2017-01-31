@@ -294,6 +294,7 @@ local t_module = {
 	'SkillContinuous',
 	'SkillPenetration',
     'SkillRapidShot',
+	'SkillRapidShot_AddAttack',
 
     -- SKILL INDICATOR
     'SkillIndicatorMgr',

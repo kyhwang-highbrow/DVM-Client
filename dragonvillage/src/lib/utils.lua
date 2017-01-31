@@ -1,9 +1,6 @@
-function math.sign(num)
-    if     num > 0 then return 1
-    elseif num < 0 then return -1
-    end
-    return 0
-end
+--###############################################
+-- utility funciton : table
+--###############################################
 
 -- only for indexed tables!
 function table.reverse ( tab )
@@ -58,10 +55,6 @@ function table.addList(t1, t2)
     end
 end
 
-function table.getLast(t)
-	return t[table.count(t)]
-end
-
 function iterTwo(t, i)
     local v1, v2 = t[i], t[i + 1]
     i = i + 2
@@ -72,13 +65,16 @@ function iterTwo(t, i)
     end
 end
 
--- 인덱스 테이블만 가능
+-------------------------------------
+-- function randomSort
+-- @brief 인덱스 테이블을 랜덤하게 정렬
+-------------------------------------
 function table.randomSort(t)
 	local v1, v2 = nil, nil
 	local temp = nil
 	local max = #t
 
-	for i = 1, 100 do 
+	for i = 1, 1000 do 
 		v1 = math_random(1, max)
 		v2 = math_random(1, max)
 		
@@ -90,7 +86,18 @@ function table.randomSort(t)
 	return t
 end
 
--- 인덱스 테이블만 가능
+-------------------------------------
+-- function getRandom
+-- @brief 인덱스 테이블에서 랜덤 값 리턴
+-------------------------------------
+function table.getRandom(t)
+	return t[math_random(1, #t)]
+end
+
+-------------------------------------
+-- function getFirst
+-- @brief 인덱스 테이블 처음값 리턴
+-------------------------------------
 function table.getFirst(t)
     for i,v in ipairs(t) do
         return v
@@ -98,26 +105,17 @@ function table.getFirst(t)
 end
 
 -------------------------------------
--- function strSplit
--- @brief 문자열을 sep문자 기준으로 분리
+-- function getLast
+-- @brief 인덱스 테이블 마지막값 리턴
 -------------------------------------
-function stringSplit(inputstr, sep)
-	if (not inputstr) then 
-		return nil
-	end
-    if sep == nil then
-        sep = "%s"
-    end
-    local t = {}
-	local i = 1
-    for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-        t[i] = str
-        i = i + 1
-    end
-    return t
+function table.getLast(t)
+	return t[table.count(t)]
 end
 
 
+--###############################################
+-- utility funciton : datetime
+--###############################################
 datetime = {}
 function datetime.getTimeZoneOffset()
     local now = os.time()
@@ -191,6 +189,34 @@ function datetime.strformat(t)
     return os.date('%Y-%m-%d %H:%M', t)
 end
 
+--###############################################
+-- utility funciton : Stack
+--###############################################
+--add stack(2012/11/08 by jjo)
+Stack={}
+function Stack:new(t)
+    return setmetatable(t or {}, {__index = Stack})
+end
+function Stack:push(...)
+    for _,v in ipairs{...} do
+        self[#self+1] = v
+    end
+end
+function Stack:pop(n)
+    local n = n or 1
+    if n > #self then
+        return nil
+    end
+    local ret = {}
+    for i = n,1,-1 do
+        ret[#ret+1] = table.remove(self)
+    end
+    return unpack(ret)
+end
+
+--###############################################
+-- utility funciton : Queue
+--###############################################
 Queue = {}
 function Queue.new()
     local q = { first = 0, last = -1 }
@@ -213,6 +239,11 @@ end
 function Queue:empty()
     return self.first > self.last
 end
+
+
+--###############################################
+-- utility funciton : others
+--###############################################
 
 -- 코루틴을 한 번 실행하고, s, r을 리턴한다.
 -- s: 코루틴이 살아 있으면 true, 죽었으면 false (에러가 없어도 실행이 종료되었으면 false이다)
@@ -347,28 +378,6 @@ function convertToParentCoord(parent, target)
     return CCPoint(x, y)
 end
 
---add stack(2012/11/08 by jjo)
-Stack={}
-function Stack:new(t)
-    return setmetatable(t or {}, {__index = Stack})
-end
-function Stack:push(...)
-    for _,v in ipairs{...} do
-        self[#self+1] = v
-    end
-end
-function Stack:pop(n)
-    local n = n or 1
-    if n > #self then
-        return nil
-    end
-    local ret = {}
-    for i = n,1,-1 do
-        ret[#ret+1] = table.remove(self)
-    end
-    return unpack(ret)
-end
-
 --add number format(2012/11/13 by jjo)
 function comma_value(n) -- credit http://richard.warburton.it
     local left,num,right = string.match(n,'^([^%d]*%d)(%d*)(.-)$')
@@ -395,6 +404,26 @@ function formatMessage(str, ...)
         str = str:gsub('{'..(i)..'}', tostring(string.gsub(args[i], '\n', ' ')))
     end
     return str
+end
+
+-------------------------------------
+-- function strSplit
+-- @brief 문자열을 sep문자 기준으로 분리
+-------------------------------------
+function stringSplit(inputstr, sep)
+	if (not inputstr) then 
+		return nil
+	end
+    if sep == nil then
+        sep = "%s"
+    end
+    local t = {}
+	local i = 1
+    for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+        t[i] = str
+        i = i + 1
+    end
+    return t
 end
 
 function doAllChildren(node, func)
