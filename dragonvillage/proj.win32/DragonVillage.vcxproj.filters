@@ -1398,6 +1398,9 @@
     <None Include="..\src\SortManager_EvolutionStone.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\SkillRapidShot.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
