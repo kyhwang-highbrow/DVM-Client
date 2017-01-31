@@ -75,7 +75,14 @@ function ServerData_Quest:mergeWithServerData()
                 -- 아직 보상을 수령하지 않았다면 다음 목표를 노출하지 않는다.
                 t_quest['goal_cnt'] = t_quest['clearcnt']
             else
-                t_quest['goal_cnt'] = t_quest['clearcnt'] + 1
+				-- 혹시 그래도 서버에서 정보를 보낼 경우를 위한 처리
+				if (t_quest['rewardcnt'] >= t_quest['max_cnt']) then 
+					-- 퀘스트를 전부 완료한 상태
+					t_quest['is_cleared'] = true
+					t_quest['goal_cnt'] = t_quest['clearcnt']
+				else
+					t_quest['goal_cnt'] = t_quest['clearcnt'] + 1
+				end
             end
 
         -- server data가 없다면 클리어 한것
@@ -98,31 +105,45 @@ end
 -- function getQuestListByType
 -------------------------------------
 function ServerData_Quest:getQuestListByType(quest_type)
-    local l_quest = {}
-
 	-- type에 해당하는 퀘스트 뽑아냄
+    local l_quest = {}
 	for i, quest in pairs(self.m_workedData) do 
 		if (quest['type'] == quest_type) then
 			table.insert(l_quest, quest)
 		end
 	end
+	
+	-- 보상 있는 퀘스트, 완료한 퀘스트만 추출
+	local l_reward_quest = {}
+	local l_completed_quest = {}
+	for i, quest in pairs(l_quest) do
+		-- 보상 있는 퀘스트
+		if (quest['clearcnt'] > quest['rewardcnt']) then
+			table.insert(l_reward_quest ,quest)
+			table.remove(l_quest, i)
+		-- 완료한 퀘스트
+		elseif (quest['rewardcnt'] == quest['max_cnt']) then
+			table.insert(l_completed_quest, quest)
+			table.remove(l_quest, i)
+		end
+	end
 
-    -- qid 순으로 정렬    
-    table.sort(l_quest, function(a, b)
+    -- 전부 qid 순으로 정렬    
+    table.sort(l_reward_quest, function(a, b)
+        return (tonumber(a['qid']) < tonumber(b['qid']))
+	end)
+	table.sort(l_quest, function(a, b)
+        return (tonumber(a['qid']) < tonumber(b['qid']))
+	end)
+	table.sort(l_completed_quest, function(a, b)
         return (tonumber(a['qid']) < tonumber(b['qid']))
 	end)
 
-	-- 보상 수령 가능한 것을 위로
-	table.sort(l_quest, function(a, b)
-        if (a['clearcnt'] > a['rewardcnt'])
-            and (b['clearcnt'] == b['rewardcnt']) then
-            return true
-        else
-            return (tonumber(a['qid']) < tonumber(b['qid']))
-        end
-	end)
-
-	return l_quest
+	-- merge 해서 리턴
+	local t_ret = table.merge(l_reward_quest, l_quest)
+	t_ret = table.merge(t_ret, l_completed_quest)
+	
+	return t_ret
 end
 
 -------------------------------------
@@ -215,6 +236,11 @@ function ServerData_Quest:requestQuestReward(qid, cb_func)
 
     -- 성공 시 콜백
     local function success_cb(ret)
+        if ret['quest_info'] then
+		    self:applyQuestInfo(ret['quest_info'])
+			self:mergeWithServerData()
+        end
+
         if cb_func then
             cb_func()
         end

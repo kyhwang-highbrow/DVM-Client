@@ -94,14 +94,16 @@ function UI_QuestListItem:setVarsVisible()
 
 	-- 보상 수령 가능시
 	local is_activated_reward = (self.m_rewardCount < self.m_clearCount)
-	vars['rewardBtn']:setVisible(is_activated_reward)
+	vars['rewardBtn']:setVisible(true) --is_activated_reward)
+	vars['rewardBtn']:setEnabled(is_activated_reward)
 
 	-- 평시
 	local is_temp = (not self.m_isCleared) and (not is_activated_reward)
 	if string.find(self.m_questData['type'], '_all') then 
 		vars['doingBtn']:setVisible(is_temp)
 	else
-		vars['questLinkBtn']:setVisible(is_temp)
+		-- @TODO 퀘스트 바로가기 막음
+		vars['questLinkBtn']:setVisible(false) --is_temp)
 	end
 end
 
@@ -168,12 +170,17 @@ end
 -------------------------------------
 function UI_QuestListItem:click_rewardBtn()
 	local qid = self.m_questData['qid']
-	local cb_function = function()
+
+	local cb_refresh = function()
 		self:refresh()
 		self.parent:refresh()
 	end
 
-	g_questData:requestQuestReward(qid, cb_func)
+	local cb_function = function()
+		MakeSimplePopup(POPUP_TYPE.OK, Str('{@BLACK}' ..'보상을 수령하였습니다.'), cb_refresh)
+	end
+
+	g_questData:requestQuestReward(qid, cb_function)
 end
 
 -------------------------------------

@@ -72,7 +72,9 @@ end
 -- function refresh
 -------------------------------------
 function UI_QuestPopup:refresh()
+	-- 받을수 있는 보상이 있는지 검사하여 UI에 표시
 	self:setNotiRewardable()
+	-- @TODO 현재 테이블뷰를 다시 만든다.
 	self:onChangeTab(self.m_currTab, true)
 end
 
