@@ -239,7 +239,12 @@ function Dragon.st_skillIdle(owner, dt)
             end
             
             local active_skill_id = owner:getSkillID('active')
-            owner:doSkill(active_skill_id, x, y, owner.m_skillIndicator:getIndicatorData())
+            local indicatorData
+            if (owner.m_bLeftFormation) then
+                indicatorData = owner.m_skillIndicator:getIndicatorData()
+            end
+
+            owner:doSkill(active_skill_id, x, y, indicatorData)
             owner.m_animator:setEventHandler(nil)
             owner.m_bFinishAttack = true
 

@@ -164,7 +164,7 @@ end
 -------------------------------------
 function GameWorld:makeHeroDeck()
     -- 서버에 저장된 드래곤 덱 사용
-    local l_deck, formation = g_deckData:getDeck('1')
+    local l_deck, formation = g_deckData:getDeck()
     self.m_deckFormation = formation
 
     for i, unique_id in pairs(l_deck) do
@@ -197,7 +197,7 @@ end
 function GameWorld:makeEnemyDeck()
     -- 서버에 저장된 드래곤 덱 사용
     if (COLOSSEUM__ENEMY_EQUAL_HERO) then
-        local l_deck, formation = g_deckData:getDeck('1')
+        local l_deck, formation = g_deckData:getDeck()
 
         for i, unique_id in pairs(l_deck) do
             local t_dragon_data = g_dragonsData:getDragonDataFromUid(unique_id)
