@@ -55,6 +55,10 @@ function ServerData_Colosseum:response_colosseumStart(ret, cb)
     self.m_vsDeckInfo = ret['vs_deck']
     self.m_vsRunes = ret['vs_runes']
     self.m_vsDragons = ret['vs_dragons']
+
+    for _,t_rune_data in pairs(self.m_vsRunes) do
+        t_rune_data['information'] = g_runesData:makeRuneInfomation(t_rune_data)
+    end
     
     if cb then
         cb(ret)
@@ -72,6 +76,10 @@ function ServerData_Colosseum:setTestColosseumDeck()
     self.m_vsDeckInfo = ret['vs_deck']
     self.m_vsRunes = ret['vs_runes']
     self.m_vsDragons = ret['vs_dragons']
+
+    for _,t_rune_data in pairs(self.m_vsRunes) do
+        t_rune_data['information'] = g_runesData:makeRuneInfomation(t_rune_data)
+    end
 end
 
 -------------------------------------
