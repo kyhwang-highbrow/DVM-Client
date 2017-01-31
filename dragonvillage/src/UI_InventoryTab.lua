@@ -65,6 +65,13 @@ function UI_InventoryTab:onChangeSelectedItem(ui, data)
 end
 
 -------------------------------------
+-- function refresh_tableView
+-------------------------------------
+function UI_InventoryTab:refresh_tableView()
+    cclog('자식 UI class 에서 구현하세요. refresh_tableView')
+end
+
+-------------------------------------
 -- function openAcuisitionRegionInformation
 -- @brief 획득 장소 안내 팝업
 -------------------------------------

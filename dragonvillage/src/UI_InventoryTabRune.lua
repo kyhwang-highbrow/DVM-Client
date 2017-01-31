@@ -111,13 +111,6 @@ function UI_InventoryTabRune:onChangeSortAscending(ascending)
 end
 
 -------------------------------------
--- function click_runeItem
--- @brief
--------------------------------------
-function UI_InventoryTabRune:click_runeItem(data)
-end
-
--------------------------------------
 -- function onChangeSelectedItem
 -------------------------------------
 function UI_InventoryTabRune:onChangeSelectedItem(ui, data)
@@ -163,5 +156,76 @@ function UI_InventoryTabRune:onChangeSelectedItem(ui, data)
         vars['runeSetLabel']:setString(str)
     else
         vars['runeSetLabel']:setVisible(false)
+    end
+    
+    -- 판매 버튼
+    vars['sellBtn']:setVisible(true)
+    vars['sellBtn']:registerScriptTapHandler(function() self:sellBtn(t_rune_data) end)
+end
+
+-------------------------------------
+-- function sellBtn
+-- @brief
+-------------------------------------
+function UI_InventoryTabRune:sellBtn(t_rune_data)
+    local ask_item_sell
+    local request_item_sell
+    
+    -- 판매 여부 묻는 팝업
+    ask_item_sell = function()
+        local item_name = t_rune_data['information']['full_name']
+        local item_price = TableItem():getValue(t_rune_data['rid'], 'sale_price')
+        local msg = Str('[{1}]을(를) {2}골드에 판매하시겠습니까?', item_name, comma_value(item_price))
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, request_item_sell)
+    end
+
+    -- 서버에 판매 요청
+    request_item_sell = function()
+        local rune_oids = t_rune_data['id']
+        local evolution_stones = nil
+        local fruits = nil
+
+        -- 선택된 룬이 판매되었으니 선택 해제
+        local function cb(ret)
+            self.m_inventoryUI:clearSelectedItem()
+        end
+
+        self.m_inventoryUI:request_itemSell(rune_oids, evolution_stones, fruits, cb)
+    end
+
+    ask_item_sell()
+end
+
+-------------------------------------
+-- function refresh_tableView
+-------------------------------------
+function UI_InventoryTabRune:refresh_tableView(l_deleted_rune_oids)
+
+    -- roid로 바로 찾기위해 map형태로 변환
+    local l_deleted_rune_oids_map = {}
+    for i,v in pairs(l_deleted_rune_oids) do
+        l_deleted_rune_oids_map[v] = true
+    end
+
+    -- 룬 슬롯 타입 세개 순회
+    for i,v in pairs(self.m_mTableViewListMap) do
+        local rune_slot_type = i
+        local table_view = v
+        
+        local dirty = false
+
+        -- 테이블뷰 아이템들 중 없어진 아이템 삭제
+        for roid,_ in pairs(table_view.m_itemMap) do
+            if (l_deleted_rune_oids_map[roid] == true) then
+                table_view:delItem(roid)
+                dirty = true
+            end
+        end
+
+        -- 테이블뷰의 변경사항이 있을 경우
+        if dirty then
+            table_view:expandTemp(0.5)
+            table_view:relocateContainer(true)
+        end
     end
 end
