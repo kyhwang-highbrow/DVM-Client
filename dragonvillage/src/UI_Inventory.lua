@@ -6,6 +6,8 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 UI_Inventory = class(PARENT, {
         m_mainTabMgr = 'UIC_TabManager',
         m_tTabClass = 'table',
+        m_selectedItemUI = '',
+        m_selectedItemData = '',
      })
 
 -------------------------------------
@@ -76,6 +78,7 @@ end
 -------------------------------------
 function UI_Inventory:refresh()
     local vars = self.vars
+    self:clearItemInfo()
 end
 
 -------------------------------------
@@ -107,5 +110,56 @@ function UI_Inventory:onChangeMainTab(tab, first)
         return
     end
 
+    self:setSelectedItem(nil, nil)
     self.m_tTabClass[tab]:onEnterInventoryTab(first)
+end
+
+-------------------------------------
+-- function clearItemInfo
+-- @brief
+-------------------------------------
+function UI_Inventory:clearItemInfo()
+    local vars = self.vars
+
+    vars['lockSprite']:setVisible(false)
+    vars['lockBtn']:setVisible(false)
+    vars['itemDscLabel']:setVisible(false)
+    vars['runeSetLabel']:setVisible(false)
+    vars['runeSubOptionLabel']:setVisible(false)
+    vars['runeMainOptionLabel']:setVisible(false)
+    vars['itemNameLabel']:setVisible(false)
+    vars['sellBtn']:setVisible(false)
+    vars['enhanceBtn']:setVisible(false)
+    vars['locationBtn']:setVisible(false)
+
+    vars['itemNode']:removeAllChildren()
+    vars['itemNode']:setVisible(false)
+end
+
+-------------------------------------
+-- function setSelectedItem
+-- @brief
+-------------------------------------
+function UI_Inventory:setSelectedItem(ui, data)
+    if self.m_selectedItemUI then
+        self.m_selectedItemUI.vars['highlightSprite']:setVisible(false)
+    end
+
+    self.m_selectedItemUI = ui
+    self.m_selectedItemData = data
+
+    self:clearItemInfo()
+
+    if (ui == nil) then
+        return
+    end
+
+    local tab = self.m_mainTabMgr.m_currTab
+    if (not self.m_tTabClass[tab]) then
+        return
+    end
+
+    self.m_tTabClass[tab]:onChangeSelectedItem(ui, data)
+
+    ui.vars['highlightSprite']:setVisible(true)
 end

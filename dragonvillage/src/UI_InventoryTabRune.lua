@@ -38,6 +38,8 @@ function UI_InventoryTabRune:onChangeTab(tab, first)
         local animated = false
         table_view_td:relocateContainerDefault(animated)
     end
+
+    self.m_inventoryUI:setSelectedItem(nil, nil)
 end
 
 -------------------------------------
@@ -54,6 +56,12 @@ function UI_InventoryTabRune:init_runeTableView(rune_slot_type)
     -- 생성 콜백
     local function create_func(ui, data)
         ui.root:setScale(0.72)
+        
+        local function click_func()
+            self.m_inventoryUI:setSelectedItem(ui, data)
+        end
+
+        ui.vars['clickBtn']:registerScriptTapHandler(click_func)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -99,5 +107,57 @@ function UI_InventoryTabRune:onChangeSortAscending(ascending)
         sort_manager:setAllAscending(ascending)
         sort_manager:sortExecution(table_view_td.m_itemList)
         table_view_td:expandTemp(0.5)    
+    end
+end
+
+-------------------------------------
+-- function click_runeItem
+-- @brief
+-------------------------------------
+function UI_InventoryTabRune:click_runeItem(data)
+end
+
+-------------------------------------
+-- function onChangeSelectedItem
+-------------------------------------
+function UI_InventoryTabRune:onChangeSelectedItem(ui, data)
+    local vars = self.vars
+    local t_rune_data = data
+
+    do-- 아이콘 표시
+        vars['itemNode']:setVisible(true)
+        local item = UI_RuneCard(t_rune_data)
+        vars['itemNode']:addChild(item.root)
+
+        -- UI 반응 액션
+        cca.uiReactionSlow(item.root)
+    end
+
+    local t_rune_information = t_rune_data['information']
+
+    do -- 아이템 이름
+        vars['itemNameLabel']:setVisible(true)
+        local name = t_rune_information['full_name']
+        vars['itemNameLabel']:setString(name)
+    end
+
+    -- 주옵션 문자열
+    local main_option_str = TableRuneStatus:makeRuneOptionStr(t_rune_information['status']['mopt'])
+    vars['runeMainOptionLabel']:setVisible(true)
+    vars['runeMainOptionLabel']:setString(main_option_str)
+
+    -- 부옵션 문자열
+    local sub_option_str = TableRuneStatus:makeRuneOptionStr(t_rune_information['status']['sopt'])
+    vars['runeSubOptionLabel']:setVisible(true)
+    vars['runeSubOptionLabel']:setString(sub_option_str)
+
+    -- 세트 효과
+    local t_rune_set = t_rune_data['rune_set']
+    if t_rune_set then
+        vars['runeSetLabel']:setVisible(true)
+        local str = TableRuneStatus:makeRuneSetOptionStr(t_rune_set)
+        vars['runeSetLabel']:setString(str)
+    else
+        vars['runeSetLabel']:setVisible(false)
     end
 end

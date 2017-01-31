@@ -54,5 +54,12 @@ end
 -- function onChangeSortAscending
 -------------------------------------
 function UI_InventoryTab:onChangeSortAscending(ascending)
+    cclog('자식 UI class 에서 구현하세요. onChangeSortAscending')
+end
 
+-------------------------------------
+-- function onChangeSelectedItem
+-------------------------------------
+function UI_InventoryTab:onChangeSelectedItem(ui, data)
+    cclog('자식 UI class 에서 구현하세요. onChangeSelectedItem')
 end

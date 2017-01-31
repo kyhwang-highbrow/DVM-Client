@@ -31,6 +31,12 @@ function UI_InventoryTabFruit:init_fruitTableView()
     -- 생성 콜백
     local function create_func(ui, data)
         ui.root:setScale(0.72)
+
+        local function click_func()
+            self.m_inventoryUI:setSelectedItem(ui, data)
+        end
+
+        ui.vars['clickBtn']:registerScriptTapHandler(click_func)
     end
 
     -- 열매 아이콘 생성 함수(내부에서 Item Card)
@@ -83,4 +89,34 @@ function UI_InventoryTabFruit:onChangeSortAscending(ascending)
     sort_manager:setAllAscending(ascending)
     sort_manager:sortExecution(table_view_td.m_itemList)
     table_view_td:expandTemp(0.5)    
+end
+
+-------------------------------------
+-- function onChangeSelectedItem
+-------------------------------------
+function UI_InventoryTabFruit:onChangeSelectedItem(ui, data)
+    local vars = self.vars
+
+    do-- 아이콘 표시
+        -- 열매 아이콘 생성 함수(내부에서 Item Card)
+        local function FruitCard(t_data)
+            local item_id = t_data['fid']
+            local count = t_data['count']
+            return UI_ItemCard(item_id, count)
+        end
+
+        vars['itemNode']:setVisible(true)
+        local item = FruitCard(data)
+        vars['itemNode']:addChild(item.root)
+
+        -- UI 반응 액션
+        cca.uiReactionSlow(item.root)
+    end
+
+    do -- 아이템 설명
+        vars['itemDscLabel']:setVisible(true)
+        local fid = data['fid']
+        local desc = TableItem():getValue(fid, 't_desc')
+        vars['itemDscLabel']:setString(desc)
+    end
 end
