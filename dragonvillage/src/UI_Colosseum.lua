@@ -51,6 +51,17 @@ end
 -- function initUI
 -------------------------------------
 function UI_Colosseum:initUI()
+    local vars = self.vars
+
+    vars['myTierLabel']:setString('')
+    vars['myRankLabel']:setString('')
+    vars['myPointLabel']:setString('')
+    vars['myWinRateLabel']:setString('')
+    vars['myWinstreakLabel']:setString('')
+    vars['timeLabel']:setString('')
+
+    vars['rewardInfoBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"보상 정보" 준비 중') end)
+    vars['honorShopBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"명예 상점" 준비 중') end)
 end
 
 -------------------------------------

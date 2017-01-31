@@ -37,7 +37,17 @@ function UI_ColosseumResult:initUI(is_win)
         vars['failedNode']:setVisible(true)
     end
     
-    
+    do -- 테이머
+        local animator = MakeAnimator('res/character/tamer/goni_i/goni_i.spine')
+        animator:setAnchorPoint(cc.p(0.5, 0.5))
+        animator:setDockPoint(cc.p(0.5, 0.5))
+        vars['tamerNode']:addChild(animator.m_node)
+    end
+
+    vars['fightScoreLabel']:setString('')
+    vars['getScoreLabel']:setString('')
+    vars['bonusScoreLabel']:setString('')
+    vars['honorLabel']:setString('')
 end
 
 -------------------------------------
