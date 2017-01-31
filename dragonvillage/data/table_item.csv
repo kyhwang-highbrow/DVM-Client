@@ -1,234 +1,234 @@
-item,t_name,t_desc,type,full_type,attr,rarity,val_1
-700001,100골드,100 골드 획득,gold,gold_01,x,1,100
-700002,1000골드,1000 골드 획득,gold,gold_02,x,2,1000
-700003,10000골드,10000 골드 획득,gold,gold_03,x,3,10000
-700004,100000골드,100000 골드 획득,gold,gold_04,x,4,100000
-701010,운석 잔해,일반 등급 드래곤의 진화 재료,evolution_stone,evolution_stone_common_01,common,1,1
-701020,세계수의 씨앗,희귀 등급 드래곤의 진화 재료,evolution_stone,evolution_stone_rare_01,rare,1,1
-701030,영롱한 바위,영웅 등급 드래곤의 진화 재료,evolution_stone,evolution_stone_hero_01,hero,1,1
-701040,수정 용상,전설 등급 드래곤의 진화 재료,evolution_stone,evolution_stone_legend_01,legend,1,1
-701111,하급 땅의정기,땅속성 드래곤 진화 재료,evolution_stone,evolution_stone_earth_02,earth,1,1
-701112,중급 땅의정기,땅속성 드래곤 진화 재료,evolution_stone,evolution_stone_earth_03,earth,2,1
-701113,상급 땅의 정기,땅속성 드래곤 진화 재료,evolution_stone,evolution_stone_earth_04,earth,3,1
-701121,하급 물의 정기,물속성 드래곤 진화 재료,evolution_stone,evolution_stone_water_02,water,1,1
-701122,중급 물의 정기,물속성 드래곤 진화 재료,evolution_stone,evolution_stone_water_03,water,2,1
-701123,상급 물의 정기,물속성 드래곤 진화 재료,evolution_stone,evolution_stone_water_04,water,3,1
-701131,하급 불의 정기,불속성 드래곤 진화 재료,evolution_stone,evolution_stone_fire_02,fire,1,1
-701132,중급 불의 정기,불속성 드래곤 진화 재료,evolution_stone,evolution_stone_fire_03,fire,2,1
-701133,상급 불의 정기,불속성 드래곤 진화 재료,evolution_stone,evolution_stone_fire_04,fire,3,1
-701141,하급 빛의 정기,빛속성 드래곤 진화 재료,evolution_stone,evolution_stone_light_02,light,1,1
-701142,중급 빛의 정기,빛속성 드래곤 진화 재료,evolution_stone,evolution_stone_light_03,light,2,1
-701143,상급 빛의 정기,빛속성 드래곤 진화 재료,evolution_stone,evolution_stone_light_04,light,3,1
-701151,하급 어둠의 정기,어둠속성 드래곤 진화 재료,evolution_stone,evolution_stone_dark_02,dark,1,1
-701152,중급 어둠의 정기,어둠속성 드래곤 진화 재료,evolution_stone,evolution_stone_dark_03,dark,2,1
-701153,상급 어둠의 정기,어둠속성 드래곤 진화 재료,evolution_stone,evolution_stone_dark_04,dark,3,1
-701210,이계의 알,방어형 드래곤의 진화 재료,evolution_stone,evolution_stone_tanker_03,tanker,1,1
-701211,운석 잔해,방어형 드래곤의 진화 재료,evolution_stone,evolution_stone_tanker_01,tanker,2,1
-701212,응축 원기,방어형 드래곤의 진화 재료,evolution_stone,evolution_stone_tanker_02,tanker,3,1
-701220,고대의 열매,공격형 드래곤의 진화 재료,evolution_stone,evolution_stone_dealer_03,dealer,1,1
-701221,세계수의 씨앗,공격형 드래곤의 진화 재료,evolution_stone,evolution_stone_dealer_02,dealer,2,1
-701222,식지않는 용암,공격형 드래곤의 진화 재료,evolution_stone,evolution_stone_dealer_01,dealer,3,1
-701230,영롱한 바위,보조형 드래곤의 진화 재료,evolution_stone,evolution_stone_supporer_03,supporter,1,1
-701231,수정 사과,보조형 드래곤의 진화 재료,evolution_stone,evolution_stone_supporter_02,supporter,2,1
-701232,바람의 결정,보조형 드래곤의 진화 재료,evolution_stone,evolution_stone_supporter_01,supporter,3,1
-701240,고대 양모,회복형 드래곤의 진화 재료,evolution_stone,evolution_stone_healer_01,healer,1,1
-701241,수정 용상,회복형 드래곤의 진화 재료,evolution_stone,evolution_stone_healer_02,healer,2,1
-701242,치유의 성배,회복형 드래곤의 진화 재료,evolution_stone,evolution_stone_healer_03,healer,3,1
-702013,하급 불의 열매,하급 화속성 열매. 친밀도를 100상승 시킵니다. 화속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_fire_01,fire,1,1
-702023,중급 불의 열매,중급 화속성 열매. 친밀도를 200상승 시킵니다. 화속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_fire_02,fire,2,1
-702033,상급 불의 열매,상급 화속성 열매. 친밀도를 350상승 시킵니다. 화속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_fire_03,fire,3,1
-702043,특급 불의 열매,특급 화속성 열매. 친밀도를 500상승 시킵니다. 화속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_fire_04,fire,4,1
-702012,하급 물의 열매,하급 수속성 열매. 친밀도를 100상승 시킵니다. 수속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_water_01,water,1,1
-702022,중급 물의 열매,중급 수속성 열매. 친밀도를 200상승 시킵니다. 수속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_water_02,water,2,1
-702032,상급 물의 열매,상급 수속성 열매. 친밀도를 350상승 시킵니다. 수속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_water_03,water,3,1
-702042,특급 물의 열매,특급 수속성 열매. 친밀도를 500상승 시킵니다. 수속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_water_04,water,4,1
-702011,하급 땅의 열매,하급 지속성 열매. 친밀도를 100상승 시킵니다. 지속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_earth_01,earth,1,1
-702021,중급 땅의 열매,중급 지속성 열매. 친밀도를 200상승 시킵니다. 지속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_earth_02,earth,2,1
-702031,상급 땅의 열매,상급 지속성 열매. 친밀도를 350상승 시킵니다. 지속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_earth_03,earth,3,1
-702041,특급 땅의 열매,특급 지속성 열매. 친밀도를 500상승 시킵니다. 지속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_earth_04,earth,4,1
-702014,하급 빛의 열매,하급 빛속성 열매. 친밀도를 100상승 시킵니다. 빛속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_light_01,light,1,1
-702024,중급 빛의 열매,중급 빛속성 열매. 친밀도를 200상승 시킵니다. 빛속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_light_02,light,2,1
-702034,상급 빛의 열매,상급 빛속성 열매. 친밀도를 350상승 시킵니다. 빛속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_light_03,light,3,1
-702044,특급 빛의 열매,특급 빛속성 열매. 친밀도를 500상승 시킵니다. 빛속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_light_04,light,4,1
-702015,하급 어둠의 열매,하급 암속성 열매. 친밀도를 100상승 시킵니다. 암속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_dark_01,dark,1,1
-702025,중급 어둠의 열매,중급 암속성 열매. 친밀도를 200상승 시킵니다. 암속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_dark_02,dark,2,1
-702035,상급 어둠의 열매,상급 암속성 열매. 친밀도를 350상승 시킵니다. 암속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_dark_03,dark,3,1
-702045,특급 어둠의 열매,특급 암속성 열매. 친밀도를 500상승 시킵니다. 암속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_dark_04,dark,4,1
-702019,하급 공통의 열매,하급 공통속성 열매. 친밀도를 150상승 시킵니다.,fruit,fruit_global_01,global,1,1
-702029,중급 공통의 열매,중급 공통속성 열매. 친밀도를 300상승 시킵니다.,fruit,fruit_global_02,global,2,1
-702039,상급 공통의 열매,상급 공통속성 열매. 친밀도를 525상승 시킵니다.,fruit,fruit_global_03,global,3,1
-702049,특급 공통의 열매,특급 공통속성 열매. 친밀도를 750상승 시킵니다.,fruit,fruit_global_04,global,4,1
-702009,망각의 열매,상승한 친밀도 레벨을 한단계 이전으로 돌립니다,fruit,fruit_reset_01,reset,1,1
-702091,하급 열매들,모든 속성의 하급 열매들을 얻을 수 있습니다.,fruit,fruit_bundle_01,display,1,1
-702092,중급 열매들,모든 속성의 중급 열매들을 얻을 수 있습니다.,fruit,fruit_bundle_02,display,2,1
-702093,상급 열매들,모든 속성의 상급 열매들을 얻을 수 있습니다.,fruit,fruit_bundle_03,display,3,1
-702094,특급 열매들,모든 속성의 특급 열매들을 얻을 수 있습니다.,fruit,fruit_bundle_04,display,4,1
-703001,캐쉬 일반,특별한 거래에 사용되는 진귀한 보석,cash,cash_01,x,1,1
-703002,캐쉬 희귀,특별한 거래에 사용되는 진귀한 보석,cash,cash_02,x,2,5
-703003,캐쉬 영웅,특별한 거레에 사용되는 진귀한 보석,cash,cash_03,x,3,9
-703004,캐쉬 전설,특별한 거레에 사용되는 진귀한 보석,cash,cash_04,x,4,13
-703005,클리어보상,아이템 설명 임시,cash,clear_reward_01,x,1,5
-703006,클리어보상,아이템 설명 임시,cash,clear_reward_02,x,2,10
-703007,클리어보상,아이템 설명 임시,cash,clear_reward_03,x,3,20
-711101,벨라리아,벨라리아_1등급_세트 : green,rune,rune_bellaria_green_01,green,1,1
-711102,벨라리아,벨라리아_1등급_세트 : red,rune,rune_bellaria_red_01,red,1,1
-711103,벨라리아,벨라리아_1등급_세트 : blue,rune,rune_bellaria_blue_01,blue,1,1
-711104,벨라리아,벨라리아_1등급_세트 : yellow,rune,rune_bellaria_yellow_01,yellow,1,1
-711105,벨라리아,벨라리아_1등급_세트 : purple,rune,rune_bellaria_purple_01,purple,1,1
-711106,벨라리아,벨라리아_1등급_세트 : orange,rune,rune_bellaria_orange_01,orange,1,1
-711201,벨라리아,벨라리아_2등급_세트 : green,rune,rune_bellaria_green_02,green,2,1
-711202,벨라리아,벨라리아_2등급_세트 : red,rune,rune_bellaria_red_02,red,2,1
-711203,벨라리아,벨라리아_2등급_세트 : blue,rune,rune_bellaria_blue_02,blue,2,1
-711204,벨라리아,벨라리아_2등급_세트 : yellow,rune,rune_bellaria_yellow_02,yellow,2,1
-711205,벨라리아,벨라리아_2등급_세트 : purple,rune,rune_bellaria_purple_02,purple,2,1
-711206,벨라리아,벨라리아_2등급_세트 : orange,rune,rune_bellaria_orange_02,orange,2,1
-711301,벨라리아,벨라리아_3등급_세트 : green,rune,rune_bellaria_green_03,green,3,1
-711302,벨라리아,벨라리아_3등급_세트 : red,rune,rune_bellaria_red_03,red,3,1
-711303,벨라리아,벨라리아_3등급_세트 : blue,rune,rune_bellaria_blue_03,blue,3,1
-711304,벨라리아,벨라리아_3등급_세트 : yellow,rune,rune_bellaria_yellow_03,yellow,3,1
-711305,벨라리아,벨라리아_3등급_세트 : purple,rune,rune_bellaria_purple_03,purple,3,1
-711306,벨라리아,벨라리아_3등급_세트 : orange,rune,rune_bellaria_orange_03,orange,3,1
-711401,벨라리아,벨라리아_4등급_세트 : green,rune,rune_bellaria_green_04,green,4,1
-711402,벨라리아,벨라리아_4등급_세트 : red,rune,rune_bellaria_red_04,red,4,1
-711403,벨라리아,벨라리아_4등급_세트 : blue,rune,rune_bellaria_blue_04,blue,4,1
-711404,벨라리아,벨라리아_4등급_세트 : yellow,rune,rune_bellaria_yellow_04,yellow,4,1
-711405,벨라리아,벨라리아_4등급_세트 : purple,rune,rune_bellaria_purple_04,purple,4,1
-711406,벨라리아,벨라리아_4등급_세트 : orange,rune,rune_bellaria_orange_04,orange,4,1
-711501,벨라리아,벨라리아_5등급_세트 : green,rune,rune_bellaria_green_05,green,5,1
-711502,벨라리아,벨라리아_5등급_세트 : red,rune,rune_bellaria_red_05,red,5,1
-711503,벨라리아,벨라리아_5등급_세트 : blue,rune,rune_bellaria_blue_05,blue,5,1
-711504,벨라리아,벨라리아_5등급_세트 : yellow,rune,rune_bellaria_yellow_05,yellow,5,1
-711505,벨라리아,벨라리아_5등급_세트 : purple,rune,rune_bellaria_purple_05,purple,5,1
-711506,벨라리아,벨라리아_5등급_세트 : orange,rune,rune_bellaria_orange_05,orange,5,1
-712101,투타멘,투타멘_1등급_세트 : green,rune,rune_tutamen_green_01,green,1,1
-712102,투타멘,투타멘_1등급_세트 : red,rune,rune_tutamen_red_01,red,1,1
-712103,투타멘,투타멘_1등급_세트 : blue,rune,rune_tutamen_blue_01,blue,1,1
-712104,투타멘,투타멘_1등급_세트 : yellow,rune,rune_tutamen_yellow_01,yellow,1,1
-712105,투타멘,투타멘_1등급_세트 : purple,rune,rune_tutamen_purple_01,purple,1,1
-712106,투타멘,투타멘_1등급_세트 : orange,rune,rune_tutamen_orange_01,orange,1,1
-712201,투타멘,투타멘_2등급_세트 : green,rune,rune_tutamen_green_02,green,2,1
-712202,투타멘,투타멘_2등급_세트 : red,rune,rune_tutamen_red_02,red,2,1
-712203,투타멘,투타멘_2등급_세트 : blue,rune,rune_tutamen_blue_02,blue,2,1
-712204,투타멘,투타멘_2등급_세트 : yellow,rune,rune_tutamen_yellow_02,yellow,2,1
-712205,투타멘,투타멘_2등급_세트 : purple,rune,rune_tutamen_purple_02,purple,2,1
-712206,투타멘,투타멘_2등급_세트 : orange,rune,rune_tutamen_orange_02,orange,2,1
-712301,투타멘,투타멘_3등급_세트 : green,rune,rune_tutamen_green_03,green,3,1
-712302,투타멘,투타멘_3등급_세트 : red,rune,rune_tutamen_red_03,red,3,1
-712303,투타멘,투타멘_3등급_세트 : blue,rune,rune_tutamen_blue_03,blue,3,1
-712304,투타멘,투타멘_3등급_세트 : yellow,rune,rune_tutamen_yellow_03,yellow,3,1
-712305,투타멘,투타멘_3등급_세트 : purple,rune,rune_tutamen_purple_03,purple,3,1
-712306,투타멘,투타멘_3등급_세트 : orange,rune,rune_tutamen_orange_03,orange,3,1
-712401,투타멘,투타멘_4등급_세트 : green,rune,rune_tutamen_green_04,green,4,1
-712402,투타멘,투타멘_4등급_세트 : red,rune,rune_tutamen_red_04,red,4,1
-712403,투타멘,투타멘_4등급_세트 : blue,rune,rune_tutamen_blue_04,blue,4,1
-712404,투타멘,투타멘_4등급_세트 : yellow,rune,rune_tutamen_yellow_04,yellow,4,1
-712405,투타멘,투타멘_4등급_세트 : purple,rune,rune_tutamen_purple_04,purple,4,1
-712406,투타멘,투타멘_4등급_세트 : orange,rune,rune_tutamen_orange_04,orange,4,1
-712501,투타멘,투타멘_5등급_세트 : green,rune,rune_tutamen_green_05,green,5,1
-712502,투타멘,투타멘_5등급_세트 : red,rune,rune_tutamen_red_05,red,5,1
-712503,투타멘,투타멘_5등급_세트 : blue,rune,rune_tutamen_blue_05,blue,5,1
-712504,투타멘,투타멘_5등급_세트 : yellow,rune,rune_tutamen_yellow_05,yellow,5,1
-712505,투타멘,투타멘_5등급_세트 : purple,rune,rune_tutamen_purple_05,purple,5,1
-712506,투타멘,투타멘_5등급_세트 : orange,rune,rune_tutamen_orange_05,orange,5,1
-713101,키멜리움,키멜리움_1등급_세트 : green,rune,rune_cimelium_green_01,green,1,1
-713102,키멜리움,키멜리움_1등급_세트 : red,rune,rune_cimelium_red_01,red,1,1
-713103,키멜리움,키멜리움_1등급_세트 : blue,rune,rune_cimelium_blue_01,blue,1,1
-713104,키멜리움,키멜리움_1등급_세트 : yellow,rune,rune_cimelium_yellow_01,yellow,1,1
-713105,키멜리움,키멜리움_1등급_세트 : purple,rune,rune_cimelium_purple_01,purple,1,1
-713106,키멜리움,키멜리움_1등급_세트 : orange,rune,rune_cimelium_orange_01,orange,1,1
-713201,키멜리움,키멜리움_2등급_세트 : green,rune,rune_cimelium_green_02,green,2,1
-713202,키멜리움,키멜리움_2등급_세트 : red,rune,rune_cimelium_red_02,red,2,1
-713203,키멜리움,키멜리움_2등급_세트 : blue,rune,rune_cimelium_blue_02,blue,2,1
-713204,키멜리움,키멜리움_2등급_세트 : yellow,rune,rune_cimelium_yellow_02,yellow,2,1
-713205,키멜리움,키멜리움_2등급_세트 : purple,rune,rune_cimelium_purple_02,purple,2,1
-713206,키멜리움,키멜리움_2등급_세트 : orange,rune,rune_cimelium_orange_02,orange,2,1
-713301,키멜리움,키멜리움_3등급_세트 : green,rune,rune_cimelium_green_03,green,3,1
-713302,키멜리움,키멜리움_3등급_세트 : red,rune,rune_cimelium_red_03,red,3,1
-713303,키멜리움,키멜리움_3등급_세트 : blue,rune,rune_cimelium_blue_03,blue,3,1
-713304,키멜리움,키멜리움_3등급_세트 : yellow,rune,rune_cimelium_yellow_03,yellow,3,1
-713305,키멜리움,키멜리움_3등급_세트 : purple,rune,rune_cimelium_purple_03,purple,3,1
-713306,키멜리움,키멜리움_3등급_세트 : orange,rune,rune_cimelium_orange_03,orange,3,1
-713401,키멜리움,키멜리움_4등급_세트 : green,rune,rune_cimelium_green_04,green,4,1
-713402,키멜리움,키멜리움_4등급_세트 : red,rune,rune_cimelium_red_04,red,4,1
-713403,키멜리움,키멜리움_4등급_세트 : blue,rune,rune_cimelium_blue_04,blue,4,1
-713404,키멜리움,키멜리움_4등급_세트 : yellow,rune,rune_cimelium_yellow_04,yellow,4,1
-713405,키멜리움,키멜리움_4등급_세트 : purple,rune,rune_cimelium_purple_04,purple,4,1
-713406,키멜리움,키멜리움_4등급_세트 : orange,rune,rune_cimelium_orange_04,orange,4,1
-713501,키멜리움,키멜리움_5등급_세트 : green,rune,rune_cimelium_green_05,green,5,1
-713502,키멜리움,키멜리움_5등급_세트 : red,rune,rune_cimelium_red_05,red,5,1
-713503,키멜리움,키멜리움_5등급_세트 : blue,rune,rune_cimelium_blue_05,blue,5,1
-713504,키멜리움,키멜리움_5등급_세트 : yellow,rune,rune_cimelium_yellow_05,yellow,5,1
-713505,키멜리움,키멜리움_5등급_세트 : purple,rune,rune_cimelium_purple_05,purple,5,1
-713506,키멜리움,키멜리움_5등급_세트 : orange,rune,rune_cimelium_orange_05,orange,5,1
-770021,램곤,램곤 해치,dragon,x,x,1,120021
-770051,애플칙,애플칙 해치,dragon,x,x,1,120051
-770071,스파인,스파인 해치,dragon,x,x,1,120071
-770081,리프 드래곤,리프 드래곤 해치,dragon,x,x,1,120081
-770161,짐라벨,짐라벨 해치,dragon,x,x,1,120161
-770191,솔리티오,솔리티오 해치,dragon,x,x,1,120191
-770271,레기온붐버,레기온붐버 해치,dragon,x,x,1,120271
-770294,고대 신룡,고대 신룡 해치,dragon,x,x,1,120294
-770052,라임칙,라임칙 해치,dragon,x,x,1,120052
-770082,아쿠리프 드래곤,아쿠리프 드래곤 해치,dragon,x,x,1,120082
-770092,테일 드래곤,테일 드래곤 해치,dragon,x,x,1,120092
-770142,퍼플립스 드래곤,퍼플립스 드래곤 해치,dragon,x,x,1,120142
-770162,바디벨,바디벨 해치,dragon,x,x,1,120162
-770192,오리티오,오리티오 해치,dragon,x,x,1,120192
-770272,라고붐버,라고붐버 해치,dragon,x,x,1,120272
-770322,바디크레센트 드래곤,바디크레센트 드래곤 해치,dragon,x,x,1,120322
-770012,아쿠아 파워곤,아쿠아 파워곤 해치,dragon,x,x,1,120012
-770023,이그니램곤,이그니램곤 해치,dragon,x,x,1,120023
-770183,이그블루 드래곤,이그블루 드래곤 해치,dragon,x,x,1,120183
-770193,푸리티오,푸리티오 해치,dragon,x,x,1,120193
-770213,가루다,가루다 해치,dragon,x,x,1,120213
-770273,붐버,붐버 해치,dragon,x,x,1,120273
-780021,램곤,램곤 해츨링,dragon,x,x,2,120021
-780051,애플칙,애플칙 해츨링,dragon,x,x,2,120051
-780071,스파인,스파인 해츨링,dragon,x,x,2,120071
-780081,리프 드래곤,리프 드래곤 해츨링,dragon,x,x,2,120081
-780161,짐라벨,짐라벨 해츨링,dragon,x,x,2,120161
-780191,솔리티오,솔리티오 해츨링,dragon,x,x,2,120191
-780271,레기온붐버,레기온붐버 해츨링,dragon,x,x,2,120271
-780294,고대 신룡,고대 신룡 해츨링,dragon,x,x,2,120294
-780052,라임칙,라임칙 해츨링,dragon,x,x,2,120052
-780082,아쿠리프 드래곤,아쿠리프 드래곤 해츨링,dragon,x,x,2,120082
-780092,테일 드래곤,테일 드래곤 해츨링,dragon,x,x,2,120092
-780142,퍼플립스 드래곤,퍼플립스 드래곤 해츨링,dragon,x,x,2,120142
-780162,바디벨,바디벨 해츨링,dragon,x,x,2,120162
-780192,오리티오,오리티오 해츨링,dragon,x,x,2,120192
-780272,라고붐버,라고붐버 해츨링,dragon,x,x,2,120272
-780322,바디크레센트 드래곤,바디크레센트 드래곤 해츨링,dragon,x,x,2,120322
-780012,아쿠아 파워곤,아쿠아 파워곤 해츨링,dragon,x,x,2,120012
-780023,이그니램곤,이그니램곤 해츨링,dragon,x,x,2,120023
-780183,이그블루 드래곤,이그블루 드래곤 해츨링,dragon,x,x,2,120183
-780193,푸리티오,푸리티오 해츨링,dragon,x,x,2,120193
-780213,가루다,가루다 해츨링,dragon,x,x,2,120213
-780273,붐버,붐버 해츨링,dragon,x,x,2,120273
-790021,램곤,램곤 성룡,dragon,x,x,3,120021
-790051,애플칙,애플칙 성룡,dragon,x,x,3,120051
-790071,스파인,스파인 성룡,dragon,x,x,3,120071
-790081,리프 드래곤,리프 드래곤 성룡,dragon,x,x,3,120081
-790161,짐라벨,짐라벨 성룡,dragon,x,x,3,120161
-790191,솔리티오,솔리티오 성룡,dragon,x,x,3,120191
-790271,레기온붐버,레기온붐버 성룡,dragon,x,x,3,120271
-790294,고대 신룡,고대 신룡 성룡,dragon,x,x,3,120294
-790052,라임칙,라임칙 성룡,dragon,x,x,3,120052
-790082,아쿠리프 드래곤,아쿠리프 드래곤 성룡,dragon,x,x,3,120082
-790092,테일 드래곤,테일 드래곤 성룡,dragon,x,x,3,120092
-790142,퍼플립스 드래곤,퍼플립스 드래곤 성룡,dragon,x,x,3,120142
-790162,바디벨,바디벨 성룡,dragon,x,x,3,120162
-790192,오리티오,오리티오 성룡,dragon,x,x,3,120192
-790272,라고붐버,라고붐버 성룡,dragon,x,x,3,120272
-790322,바디크레센트 드래곤,바디크레센트 드래곤 성룡,dragon,x,x,3,120322
-790012,아쿠아 파워곤,아쿠아 파워곤 성룡,dragon,x,x,3,120012
-790023,이그니램곤,이그니램곤 성룡,dragon,x,x,3,120023
-790183,이그블루 드래곤,이그블루 드래곤 성룡,dragon,x,x,3,120183
-790193,푸리티오,푸리티오 성룡,dragon,x,x,3,120193
-790213,가루다,가루다 성룡,dragon,x,x,3,120213
-790273,붐버,붐버 성룡,dragon,x,x,3,120273
-700005,골드,골드 획득,gold_r,gold_01,x,1,1
-700006,자수정,자수정 획득,cash_r,cash_01,x,1,1
-700007,라테아,라테아 획득,lactea_r,lactea,x,1,1
-700008,모험모드 활동력,활동력 획득,staminas_st_r,staminas_st,x,1,1
-700009,명예코인,명예 코인 획득,honor_r,honor,x,1,1
-700010,콜로세움 입장권,콜로세움 입장권 획득,staminas_pvp_r,staminas_pvp,x,1,1
+item,t_name,t_desc,type,full_type,attr,rarity,val_1,sale_price,get_region
+700001,100골드,100 골드 획득,gold,gold_01,x,1,100,100,
+700002,1000골드,1000 골드 획득,gold,gold_02,x,2,1000,101,
+700003,10000골드,10000 골드 획득,gold,gold_03,x,3,10000,102,
+700004,100000골드,100000 골드 획득,gold,gold_04,x,4,100000,103,
+701010,운석 잔해,일반 등급 드래곤의 진화 재료,evolution_stone,evolution_stone_common_01,common,1,1,104,
+701020,세계수의 씨앗,희귀 등급 드래곤의 진화 재료,evolution_stone,evolution_stone_rare_01,rare,1,1,105,
+701030,영롱한 바위,영웅 등급 드래곤의 진화 재료,evolution_stone,evolution_stone_hero_01,hero,1,1,106,
+701040,수정 용상,전설 등급 드래곤의 진화 재료,evolution_stone,evolution_stone_legend_01,legend,1,1,107,
+701111,하급 땅의정기,땅속성 드래곤 진화 재료,evolution_stone,evolution_stone_earth_02,earth,1,1,108,11011;21101;21102
+701112,중급 땅의정기,땅속성 드래곤 진화 재료,evolution_stone,evolution_stone_earth_03,earth,2,1,109,21102;21103;21104
+701113,상급 땅의 정기,땅속성 드래곤 진화 재료,evolution_stone,evolution_stone_earth_04,earth,3,1,110,21105;21106;21107
+701121,하급 물의 정기,물속성 드래곤 진화 재료,evolution_stone,evolution_stone_water_02,water,1,1,111,11021;21201;21202
+701122,중급 물의 정기,물속성 드래곤 진화 재료,evolution_stone,evolution_stone_water_03,water,2,1,112,21202;21203;21204
+701123,상급 물의 정기,물속성 드래곤 진화 재료,evolution_stone,evolution_stone_water_04,water,3,1,113,21205;21206;21207
+701131,하급 불의 정기,불속성 드래곤 진화 재료,evolution_stone,evolution_stone_fire_02,fire,1,1,114,11011;11031;21301
+701132,중급 불의 정기,불속성 드래곤 진화 재료,evolution_stone,evolution_stone_fire_03,fire,2,1,115,21302;21303;21304
+701133,상급 불의 정기,불속성 드래곤 진화 재료,evolution_stone,evolution_stone_fire_04,fire,3,1,116,21305;21306;21307
+701141,하급 빛의 정기,빛속성 드래곤 진화 재료,evolution_stone,evolution_stone_light_02,light,1,1,117,11031;11041;21401
+701142,중급 빛의 정기,빛속성 드래곤 진화 재료,evolution_stone,evolution_stone_light_03,light,2,1,118,21402;21403;21404
+701143,상급 빛의 정기,빛속성 드래곤 진화 재료,evolution_stone,evolution_stone_light_04,light,3,1,119,21405;21406;21407
+701151,하급 어둠의 정기,어둠속성 드래곤 진화 재료,evolution_stone,evolution_stone_dark_02,dark,1,1,120,11021;21501
+701152,중급 어둠의 정기,어둠속성 드래곤 진화 재료,evolution_stone,evolution_stone_dark_03,dark,2,1,121,21502;21503;21504
+701153,상급 어둠의 정기,어둠속성 드래곤 진화 재료,evolution_stone,evolution_stone_dark_04,dark,3,1,122,21505;21506;21507
+701210,이계의 알,방어형 드래곤의 진화 재료,evolution_stone,evolution_stone_tanker_03,tanker,1,1,123,22201;22202
+701211,운석 잔해,방어형 드래곤의 진화 재료,evolution_stone,evolution_stone_tanker_01,tanker,2,1,124,22202;22203
+701212,응축 원기,방어형 드래곤의 진화 재료,evolution_stone,evolution_stone_tanker_02,tanker,3,1,125,22203
+701220,고대의 열매,공격형 드래곤의 진화 재료,evolution_stone,evolution_stone_dealer_03,dealer,1,1,126,22101;22102
+701221,세계수의 씨앗,공격형 드래곤의 진화 재료,evolution_stone,evolution_stone_dealer_02,dealer,2,1,127,22102;22103
+701222,식지않는 용암,공격형 드래곤의 진화 재료,evolution_stone,evolution_stone_dealer_01,dealer,3,1,128,22103
+701230,영롱한 바위,보조형 드래곤의 진화 재료,evolution_stone,evolution_stone_supporer_03,supporter,1,1,129,22301;22302
+701231,수정 사과,보조형 드래곤의 진화 재료,evolution_stone,evolution_stone_supporter_02,supporter,2,1,130,22302;22303
+701232,바람의 결정,보조형 드래곤의 진화 재료,evolution_stone,evolution_stone_supporter_01,supporter,3,1,131,22303
+701240,고대 양모,회복형 드래곤의 진화 재료,evolution_stone,evolution_stone_healer_01,healer,1,1,132,22401;22402
+701241,수정 용상,회복형 드래곤의 진화 재료,evolution_stone,evolution_stone_healer_02,healer,2,1,133,22402;22403
+701242,치유의 성배,회복형 드래곤의 진화 재료,evolution_stone,evolution_stone_healer_03,healer,3,1,134,22403
+702013,하급 불의 열매,하급 화속성 열매. 친밀도를 100상승 시킵니다. 화속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_fire_01,fire,1,1,135,23001;23002;23003
+702023,중급 불의 열매,중급 화속성 열매. 친밀도를 200상승 시킵니다. 화속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_fire_02,fire,2,1,136,23002;23003;23004
+702033,상급 불의 열매,상급 화속성 열매. 친밀도를 350상승 시킵니다. 화속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_fire_03,fire,3,1,137,23005;23006;23007
+702043,특급 불의 열매,특급 화속성 열매. 친밀도를 500상승 시킵니다. 화속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_fire_04,fire,4,1,138,23008;23009;23010
+702012,하급 물의 열매,하급 수속성 열매. 친밀도를 100상승 시킵니다. 수속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_water_01,water,1,1,139,23001;23002;23003
+702022,중급 물의 열매,중급 수속성 열매. 친밀도를 200상승 시킵니다. 수속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_water_02,water,2,1,140,23002;23003;23004
+702032,상급 물의 열매,상급 수속성 열매. 친밀도를 350상승 시킵니다. 수속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_water_03,water,3,1,141,23005;23006;23007
+702042,특급 물의 열매,특급 수속성 열매. 친밀도를 500상승 시킵니다. 수속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_water_04,water,4,1,142,23008;23009;23010
+702011,하급 땅의 열매,하급 지속성 열매. 친밀도를 100상승 시킵니다. 지속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_earth_01,earth,1,1,143,23001;23002;23003
+702021,중급 땅의 열매,중급 지속성 열매. 친밀도를 200상승 시킵니다. 지속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_earth_02,earth,2,1,144,23002;23003;23004
+702031,상급 땅의 열매,상급 지속성 열매. 친밀도를 350상승 시킵니다. 지속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_earth_03,earth,3,1,145,23005;23006;23007
+702041,특급 땅의 열매,특급 지속성 열매. 친밀도를 500상승 시킵니다. 지속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_earth_04,earth,4,1,146,23008;23009;23010
+702014,하급 빛의 열매,하급 빛속성 열매. 친밀도를 100상승 시킵니다. 빛속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_light_01,light,1,1,147,23001;23002;23003
+702024,중급 빛의 열매,중급 빛속성 열매. 친밀도를 200상승 시킵니다. 빛속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_light_02,light,2,1,148,23002;23003;23004
+702034,상급 빛의 열매,상급 빛속성 열매. 친밀도를 350상승 시킵니다. 빛속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_light_03,light,3,1,149,23005;23006;23007
+702044,특급 빛의 열매,특급 빛속성 열매. 친밀도를 500상승 시킵니다. 빛속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_light_04,light,4,1,150,23008;23009;23010
+702015,하급 어둠의 열매,하급 암속성 열매. 친밀도를 100상승 시킵니다. 암속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_dark_01,dark,1,1,151,23001;23002;23003
+702025,중급 어둠의 열매,중급 암속성 열매. 친밀도를 200상승 시킵니다. 암속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_dark_02,dark,2,1,152,23002;23003;23004
+702035,상급 어둠의 열매,상급 암속성 열매. 친밀도를 350상승 시킵니다. 암속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_dark_03,dark,3,1,153,23005;23006;23007
+702045,특급 어둠의 열매,특급 암속성 열매. 친밀도를 500상승 시킵니다. 암속성 드래곤에게 먹일시 50% 추가 효과,fruit,fruit_dark_04,dark,4,1,154,23008;23009;23010
+702019,하급 공통의 열매,하급 공통속성 열매. 친밀도를 150상승 시킵니다.,fruit,fruit_global_01,global,1,1,155,23001;23002;23003
+702029,중급 공통의 열매,중급 공통속성 열매. 친밀도를 300상승 시킵니다.,fruit,fruit_global_02,global,2,1,156,23002;23003;23004
+702039,상급 공통의 열매,상급 공통속성 열매. 친밀도를 525상승 시킵니다.,fruit,fruit_global_03,global,3,1,157,23005;23006;23007
+702049,특급 공통의 열매,특급 공통속성 열매. 친밀도를 750상승 시킵니다.,fruit,fruit_global_04,global,4,1,158,23007;23008;23009
+702009,망각의 열매,상승한 친밀도 레벨을 한단계 이전으로 돌립니다,fruit,fruit_reset_01,reset,1,1,159,23008;23009;23010
+702091,하급 열매들,모든 속성의 하급 열매들을 얻을 수 있습니다.,fruit,fruit_bundle_01,display,1,1,160,
+702092,중급 열매들,모든 속성의 중급 열매들을 얻을 수 있습니다.,fruit,fruit_bundle_02,display,2,1,161,
+702093,상급 열매들,모든 속성의 상급 열매들을 얻을 수 있습니다.,fruit,fruit_bundle_03,display,3,1,162,
+702094,특급 열매들,모든 속성의 특급 열매들을 얻을 수 있습니다.,fruit,fruit_bundle_04,display,4,1,163,
+703001,캐쉬 일반,특별한 거래에 사용되는 진귀한 보석,cash,cash_01,x,1,1,164,
+703002,캐쉬 희귀,특별한 거래에 사용되는 진귀한 보석,cash,cash_02,x,2,5,165,
+703003,캐쉬 영웅,특별한 거레에 사용되는 진귀한 보석,cash,cash_03,x,3,9,166,
+703004,캐쉬 전설,특별한 거레에 사용되는 진귀한 보석,cash,cash_04,x,4,13,167,
+703005,클리어보상,아이템 설명 임시,cash,clear_reward_01,x,1,5,168,
+703006,클리어보상,아이템 설명 임시,cash,clear_reward_02,x,2,10,169,
+703007,클리어보상,아이템 설명 임시,cash,clear_reward_03,x,3,20,170,
+711101,벨라리아,벨라리아_1등급_세트 : green,rune,rune_bellaria_green_01,green,1,1,171,
+711102,벨라리아,벨라리아_1등급_세트 : red,rune,rune_bellaria_red_01,red,1,1,172,
+711103,벨라리아,벨라리아_1등급_세트 : blue,rune,rune_bellaria_blue_01,blue,1,1,173,
+711104,벨라리아,벨라리아_1등급_세트 : yellow,rune,rune_bellaria_yellow_01,yellow,1,1,174,
+711105,벨라리아,벨라리아_1등급_세트 : purple,rune,rune_bellaria_purple_01,purple,1,1,175,
+711106,벨라리아,벨라리아_1등급_세트 : orange,rune,rune_bellaria_orange_01,orange,1,1,176,
+711201,벨라리아,벨라리아_2등급_세트 : green,rune,rune_bellaria_green_02,green,2,1,177,
+711202,벨라리아,벨라리아_2등급_세트 : red,rune,rune_bellaria_red_02,red,2,1,178,
+711203,벨라리아,벨라리아_2등급_세트 : blue,rune,rune_bellaria_blue_02,blue,2,1,179,
+711204,벨라리아,벨라리아_2등급_세트 : yellow,rune,rune_bellaria_yellow_02,yellow,2,1,180,
+711205,벨라리아,벨라리아_2등급_세트 : purple,rune,rune_bellaria_purple_02,purple,2,1,181,
+711206,벨라리아,벨라리아_2등급_세트 : orange,rune,rune_bellaria_orange_02,orange,2,1,182,
+711301,벨라리아,벨라리아_3등급_세트 : green,rune,rune_bellaria_green_03,green,3,1,183,
+711302,벨라리아,벨라리아_3등급_세트 : red,rune,rune_bellaria_red_03,red,3,1,184,
+711303,벨라리아,벨라리아_3등급_세트 : blue,rune,rune_bellaria_blue_03,blue,3,1,185,
+711304,벨라리아,벨라리아_3등급_세트 : yellow,rune,rune_bellaria_yellow_03,yellow,3,1,186,
+711305,벨라리아,벨라리아_3등급_세트 : purple,rune,rune_bellaria_purple_03,purple,3,1,187,
+711306,벨라리아,벨라리아_3등급_세트 : orange,rune,rune_bellaria_orange_03,orange,3,1,188,
+711401,벨라리아,벨라리아_4등급_세트 : green,rune,rune_bellaria_green_04,green,4,1,189,
+711402,벨라리아,벨라리아_4등급_세트 : red,rune,rune_bellaria_red_04,red,4,1,190,
+711403,벨라리아,벨라리아_4등급_세트 : blue,rune,rune_bellaria_blue_04,blue,4,1,191,
+711404,벨라리아,벨라리아_4등급_세트 : yellow,rune,rune_bellaria_yellow_04,yellow,4,1,192,
+711405,벨라리아,벨라리아_4등급_세트 : purple,rune,rune_bellaria_purple_04,purple,4,1,193,
+711406,벨라리아,벨라리아_4등급_세트 : orange,rune,rune_bellaria_orange_04,orange,4,1,194,
+711501,벨라리아,벨라리아_5등급_세트 : green,rune,rune_bellaria_green_05,green,5,1,195,
+711502,벨라리아,벨라리아_5등급_세트 : red,rune,rune_bellaria_red_05,red,5,1,196,
+711503,벨라리아,벨라리아_5등급_세트 : blue,rune,rune_bellaria_blue_05,blue,5,1,197,
+711504,벨라리아,벨라리아_5등급_세트 : yellow,rune,rune_bellaria_yellow_05,yellow,5,1,198,
+711505,벨라리아,벨라리아_5등급_세트 : purple,rune,rune_bellaria_purple_05,purple,5,1,199,
+711506,벨라리아,벨라리아_5등급_세트 : orange,rune,rune_bellaria_orange_05,orange,5,1,200,
+712101,투타멘,투타멘_1등급_세트 : green,rune,rune_tutamen_green_01,green,1,1,201,
+712102,투타멘,투타멘_1등급_세트 : red,rune,rune_tutamen_red_01,red,1,1,202,
+712103,투타멘,투타멘_1등급_세트 : blue,rune,rune_tutamen_blue_01,blue,1,1,203,
+712104,투타멘,투타멘_1등급_세트 : yellow,rune,rune_tutamen_yellow_01,yellow,1,1,204,
+712105,투타멘,투타멘_1등급_세트 : purple,rune,rune_tutamen_purple_01,purple,1,1,205,
+712106,투타멘,투타멘_1등급_세트 : orange,rune,rune_tutamen_orange_01,orange,1,1,206,
+712201,투타멘,투타멘_2등급_세트 : green,rune,rune_tutamen_green_02,green,2,1,207,
+712202,투타멘,투타멘_2등급_세트 : red,rune,rune_tutamen_red_02,red,2,1,208,
+712203,투타멘,투타멘_2등급_세트 : blue,rune,rune_tutamen_blue_02,blue,2,1,209,
+712204,투타멘,투타멘_2등급_세트 : yellow,rune,rune_tutamen_yellow_02,yellow,2,1,210,
+712205,투타멘,투타멘_2등급_세트 : purple,rune,rune_tutamen_purple_02,purple,2,1,211,
+712206,투타멘,투타멘_2등급_세트 : orange,rune,rune_tutamen_orange_02,orange,2,1,212,
+712301,투타멘,투타멘_3등급_세트 : green,rune,rune_tutamen_green_03,green,3,1,213,
+712302,투타멘,투타멘_3등급_세트 : red,rune,rune_tutamen_red_03,red,3,1,214,
+712303,투타멘,투타멘_3등급_세트 : blue,rune,rune_tutamen_blue_03,blue,3,1,215,
+712304,투타멘,투타멘_3등급_세트 : yellow,rune,rune_tutamen_yellow_03,yellow,3,1,216,
+712305,투타멘,투타멘_3등급_세트 : purple,rune,rune_tutamen_purple_03,purple,3,1,217,
+712306,투타멘,투타멘_3등급_세트 : orange,rune,rune_tutamen_orange_03,orange,3,1,218,
+712401,투타멘,투타멘_4등급_세트 : green,rune,rune_tutamen_green_04,green,4,1,219,
+712402,투타멘,투타멘_4등급_세트 : red,rune,rune_tutamen_red_04,red,4,1,220,
+712403,투타멘,투타멘_4등급_세트 : blue,rune,rune_tutamen_blue_04,blue,4,1,221,
+712404,투타멘,투타멘_4등급_세트 : yellow,rune,rune_tutamen_yellow_04,yellow,4,1,222,
+712405,투타멘,투타멘_4등급_세트 : purple,rune,rune_tutamen_purple_04,purple,4,1,223,
+712406,투타멘,투타멘_4등급_세트 : orange,rune,rune_tutamen_orange_04,orange,4,1,224,
+712501,투타멘,투타멘_5등급_세트 : green,rune,rune_tutamen_green_05,green,5,1,225,
+712502,투타멘,투타멘_5등급_세트 : red,rune,rune_tutamen_red_05,red,5,1,226,
+712503,투타멘,투타멘_5등급_세트 : blue,rune,rune_tutamen_blue_05,blue,5,1,227,
+712504,투타멘,투타멘_5등급_세트 : yellow,rune,rune_tutamen_yellow_05,yellow,5,1,228,
+712505,투타멘,투타멘_5등급_세트 : purple,rune,rune_tutamen_purple_05,purple,5,1,229,
+712506,투타멘,투타멘_5등급_세트 : orange,rune,rune_tutamen_orange_05,orange,5,1,230,
+713101,키멜리움,키멜리움_1등급_세트 : green,rune,rune_cimelium_green_01,green,1,1,231,
+713102,키멜리움,키멜리움_1등급_세트 : red,rune,rune_cimelium_red_01,red,1,1,232,
+713103,키멜리움,키멜리움_1등급_세트 : blue,rune,rune_cimelium_blue_01,blue,1,1,233,
+713104,키멜리움,키멜리움_1등급_세트 : yellow,rune,rune_cimelium_yellow_01,yellow,1,1,234,
+713105,키멜리움,키멜리움_1등급_세트 : purple,rune,rune_cimelium_purple_01,purple,1,1,235,
+713106,키멜리움,키멜리움_1등급_세트 : orange,rune,rune_cimelium_orange_01,orange,1,1,236,
+713201,키멜리움,키멜리움_2등급_세트 : green,rune,rune_cimelium_green_02,green,2,1,237,
+713202,키멜리움,키멜리움_2등급_세트 : red,rune,rune_cimelium_red_02,red,2,1,238,
+713203,키멜리움,키멜리움_2등급_세트 : blue,rune,rune_cimelium_blue_02,blue,2,1,239,
+713204,키멜리움,키멜리움_2등급_세트 : yellow,rune,rune_cimelium_yellow_02,yellow,2,1,240,
+713205,키멜리움,키멜리움_2등급_세트 : purple,rune,rune_cimelium_purple_02,purple,2,1,241,
+713206,키멜리움,키멜리움_2등급_세트 : orange,rune,rune_cimelium_orange_02,orange,2,1,242,
+713301,키멜리움,키멜리움_3등급_세트 : green,rune,rune_cimelium_green_03,green,3,1,243,
+713302,키멜리움,키멜리움_3등급_세트 : red,rune,rune_cimelium_red_03,red,3,1,244,
+713303,키멜리움,키멜리움_3등급_세트 : blue,rune,rune_cimelium_blue_03,blue,3,1,245,
+713304,키멜리움,키멜리움_3등급_세트 : yellow,rune,rune_cimelium_yellow_03,yellow,3,1,246,
+713305,키멜리움,키멜리움_3등급_세트 : purple,rune,rune_cimelium_purple_03,purple,3,1,247,
+713306,키멜리움,키멜리움_3등급_세트 : orange,rune,rune_cimelium_orange_03,orange,3,1,248,
+713401,키멜리움,키멜리움_4등급_세트 : green,rune,rune_cimelium_green_04,green,4,1,249,
+713402,키멜리움,키멜리움_4등급_세트 : red,rune,rune_cimelium_red_04,red,4,1,250,
+713403,키멜리움,키멜리움_4등급_세트 : blue,rune,rune_cimelium_blue_04,blue,4,1,251,
+713404,키멜리움,키멜리움_4등급_세트 : yellow,rune,rune_cimelium_yellow_04,yellow,4,1,252,
+713405,키멜리움,키멜리움_4등급_세트 : purple,rune,rune_cimelium_purple_04,purple,4,1,253,
+713406,키멜리움,키멜리움_4등급_세트 : orange,rune,rune_cimelium_orange_04,orange,4,1,254,
+713501,키멜리움,키멜리움_5등급_세트 : green,rune,rune_cimelium_green_05,green,5,1,255,
+713502,키멜리움,키멜리움_5등급_세트 : red,rune,rune_cimelium_red_05,red,5,1,256,
+713503,키멜리움,키멜리움_5등급_세트 : blue,rune,rune_cimelium_blue_05,blue,5,1,257,
+713504,키멜리움,키멜리움_5등급_세트 : yellow,rune,rune_cimelium_yellow_05,yellow,5,1,258,
+713505,키멜리움,키멜리움_5등급_세트 : purple,rune,rune_cimelium_purple_05,purple,5,1,259,
+713506,키멜리움,키멜리움_5등급_세트 : orange,rune,rune_cimelium_orange_05,orange,5,1,260,
+770021,램곤,램곤 해치,dragon,x,x,1,120021,261,
+770051,애플칙,애플칙 해치,dragon,x,x,1,120051,262,
+770071,스파인,스파인 해치,dragon,x,x,1,120071,263,
+770081,리프 드래곤,리프 드래곤 해치,dragon,x,x,1,120081,264,
+770161,짐라벨,짐라벨 해치,dragon,x,x,1,120161,265,
+770191,솔리티오,솔리티오 해치,dragon,x,x,1,120191,266,
+770271,레기온붐버,레기온붐버 해치,dragon,x,x,1,120271,267,
+770294,고대 신룡,고대 신룡 해치,dragon,x,x,1,120294,268,
+770052,라임칙,라임칙 해치,dragon,x,x,1,120052,269,
+770082,아쿠리프 드래곤,아쿠리프 드래곤 해치,dragon,x,x,1,120082,270,
+770092,테일 드래곤,테일 드래곤 해치,dragon,x,x,1,120092,271,
+770142,퍼플립스 드래곤,퍼플립스 드래곤 해치,dragon,x,x,1,120142,272,
+770162,바디벨,바디벨 해치,dragon,x,x,1,120162,273,
+770192,오리티오,오리티오 해치,dragon,x,x,1,120192,274,
+770272,라고붐버,라고붐버 해치,dragon,x,x,1,120272,275,
+770322,바디크레센트 드래곤,바디크레센트 드래곤 해치,dragon,x,x,1,120322,276,
+770012,아쿠아 파워곤,아쿠아 파워곤 해치,dragon,x,x,1,120012,277,
+770023,이그니램곤,이그니램곤 해치,dragon,x,x,1,120023,278,
+770183,이그블루 드래곤,이그블루 드래곤 해치,dragon,x,x,1,120183,279,
+770193,푸리티오,푸리티오 해치,dragon,x,x,1,120193,280,
+770213,가루다,가루다 해치,dragon,x,x,1,120213,281,
+770273,붐버,붐버 해치,dragon,x,x,1,120273,282,
+780021,램곤,램곤 해츨링,dragon,x,x,2,120021,283,
+780051,애플칙,애플칙 해츨링,dragon,x,x,2,120051,284,
+780071,스파인,스파인 해츨링,dragon,x,x,2,120071,285,
+780081,리프 드래곤,리프 드래곤 해츨링,dragon,x,x,2,120081,286,
+780161,짐라벨,짐라벨 해츨링,dragon,x,x,2,120161,287,
+780191,솔리티오,솔리티오 해츨링,dragon,x,x,2,120191,288,
+780271,레기온붐버,레기온붐버 해츨링,dragon,x,x,2,120271,289,
+780294,고대 신룡,고대 신룡 해츨링,dragon,x,x,2,120294,290,
+780052,라임칙,라임칙 해츨링,dragon,x,x,2,120052,291,
+780082,아쿠리프 드래곤,아쿠리프 드래곤 해츨링,dragon,x,x,2,120082,292,
+780092,테일 드래곤,테일 드래곤 해츨링,dragon,x,x,2,120092,293,
+780142,퍼플립스 드래곤,퍼플립스 드래곤 해츨링,dragon,x,x,2,120142,294,
+780162,바디벨,바디벨 해츨링,dragon,x,x,2,120162,295,
+780192,오리티오,오리티오 해츨링,dragon,x,x,2,120192,296,
+780272,라고붐버,라고붐버 해츨링,dragon,x,x,2,120272,297,
+780322,바디크레센트 드래곤,바디크레센트 드래곤 해츨링,dragon,x,x,2,120322,298,
+780012,아쿠아 파워곤,아쿠아 파워곤 해츨링,dragon,x,x,2,120012,299,
+780023,이그니램곤,이그니램곤 해츨링,dragon,x,x,2,120023,300,
+780183,이그블루 드래곤,이그블루 드래곤 해츨링,dragon,x,x,2,120183,301,
+780193,푸리티오,푸리티오 해츨링,dragon,x,x,2,120193,302,
+780213,가루다,가루다 해츨링,dragon,x,x,2,120213,303,
+780273,붐버,붐버 해츨링,dragon,x,x,2,120273,304,
+790021,램곤,램곤 성룡,dragon,x,x,3,120021,305,
+790051,애플칙,애플칙 성룡,dragon,x,x,3,120051,306,
+790071,스파인,스파인 성룡,dragon,x,x,3,120071,307,
+790081,리프 드래곤,리프 드래곤 성룡,dragon,x,x,3,120081,308,
+790161,짐라벨,짐라벨 성룡,dragon,x,x,3,120161,309,
+790191,솔리티오,솔리티오 성룡,dragon,x,x,3,120191,310,
+790271,레기온붐버,레기온붐버 성룡,dragon,x,x,3,120271,311,
+790294,고대 신룡,고대 신룡 성룡,dragon,x,x,3,120294,312,
+790052,라임칙,라임칙 성룡,dragon,x,x,3,120052,313,
+790082,아쿠리프 드래곤,아쿠리프 드래곤 성룡,dragon,x,x,3,120082,314,
+790092,테일 드래곤,테일 드래곤 성룡,dragon,x,x,3,120092,315,
+790142,퍼플립스 드래곤,퍼플립스 드래곤 성룡,dragon,x,x,3,120142,316,
+790162,바디벨,바디벨 성룡,dragon,x,x,3,120162,317,
+790192,오리티오,오리티오 성룡,dragon,x,x,3,120192,318,
+790272,라고붐버,라고붐버 성룡,dragon,x,x,3,120272,319,
+790322,바디크레센트 드래곤,바디크레센트 드래곤 성룡,dragon,x,x,3,120322,320,
+790012,아쿠아 파워곤,아쿠아 파워곤 성룡,dragon,x,x,3,120012,321,
+790023,이그니램곤,이그니램곤 성룡,dragon,x,x,3,120023,322,
+790183,이그블루 드래곤,이그블루 드래곤 성룡,dragon,x,x,3,120183,323,
+790193,푸리티오,푸리티오 성룡,dragon,x,x,3,120193,324,
+790213,가루다,가루다 성룡,dragon,x,x,3,120213,325,
+790273,붐버,붐버 성룡,dragon,x,x,3,120273,326,
+700005,골드,골드 획득,gold_r,gold_01,x,1,1,327,
+700006,자수정,자수정 획득,cash_r,cash_01,x,1,1,328,
+700007,라테아,라테아 획득,lactea_r,lactea,x,1,1,329,
+700008,모험모드 활동력,활동력 획득,staminas_st_r,staminas_st,x,1,1,330,
+700009,명예코인,명예 코인 획득,honor_r,honor,x,1,1,331,
+700010,콜로세움 입장권,콜로세움 입장권 획득,staminas_pvp_r,staminas_pvp,x,1,1,332,

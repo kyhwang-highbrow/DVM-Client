@@ -69,7 +69,6 @@ end
 -------------------------------------
 function UI_Inventory:initButton()
     local vars = self.vars
-    --vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
     vars['sortBtn']:registerScriptTapHandler(function() self:click_sortBtn() end)
 end
 

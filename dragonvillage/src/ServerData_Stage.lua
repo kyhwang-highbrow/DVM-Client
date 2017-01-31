@@ -182,3 +182,24 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, finish_cb)
     ui_network:request()
 
 end
+
+-------------------------------------
+-- function getStageCategoryStr
+-- @brief
+-------------------------------------
+function ServerData_Stage:getStageCategoryStr(stage_id)
+    local game_mode = self:getGameMode(stage_id)
+
+    local ret = nil
+
+    -- 모험 모드
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        ret = g_adventureData:getStageCategoryStr(stage_id)
+
+    -- 네스트 던전 모드
+    elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
+        ret = g_nestDungeonData:getStageCategoryStr(stage_id)
+    end
+
+    return ret
+end

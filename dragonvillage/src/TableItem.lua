@@ -32,3 +32,18 @@ function TableItem:getRewardItem(reward_type)
 
 	return ret
 end
+
+-------------------------------------
+-- function getRegionList
+-- @brief
+-------------------------------------
+function TableItem:getRegionList(item_id)
+    if (self == TableItem) then
+        self = TableItem()
+    end
+
+    local trim_execution = true
+    local l_region = self:getSemicolonSeparatedValues(item_id, 'get_region', trim_execution)
+
+    return l_region
+end

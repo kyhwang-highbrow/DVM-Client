@@ -120,6 +120,16 @@ function UI_InventoryTabEvolutionStone:onChangeSelectedItem(ui, data)
         cca.uiReactionSlow(item.root)
     end
 
+    -- 획득 지역 안내
+    vars['locationBtn']:setVisible(true)
+    vars['locationBtn']:registerScriptTapHandler(function() self:openAcuisitionRegionInformation(data['esid']) end)
+
+    do -- 아이템 이름
+        vars['itemNameLabel']:setVisible(true)
+        local name = TableItem():getValue(data['esid'], 't_name')
+        vars['itemNameLabel']:setString(name)
+    end
+
     do -- 아이템 설명
         vars['itemDscLabel']:setVisible(true)
         local esid = data['esid']

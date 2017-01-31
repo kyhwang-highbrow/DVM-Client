@@ -133,6 +133,10 @@ function UI_InventoryTabRune:onChangeSelectedItem(ui, data)
         cca.uiReactionSlow(item.root)
     end
 
+    -- 획득 지역 안내
+    vars['locationBtn']:setVisible(true)
+    vars['locationBtn']:registerScriptTapHandler(function() self:openAcuisitionRegionInformation(t_rune_data['rid']) end)
+
     local t_rune_information = t_rune_data['information']
 
     do -- 아이템 이름

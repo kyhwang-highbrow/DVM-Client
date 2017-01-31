@@ -369,6 +369,31 @@ function DataAdventure:getSimpleNextStageID(stage_id)
 end
 
 -------------------------------------
+-- function getStageCategoryStr
+-- @brief
+-------------------------------------
+function DataAdventure:getStageCategoryStr(stage_id)
+    local difficulty, chapter, stage = parseAdventureID(stage_id)
+
+    local difficulty_str = ''
+    if (difficulty == 1) then
+        difficulty_str = Str('쉬움')
+
+    elseif (difficulty == 2) then
+        difficulty_str = Str('보통')
+
+    elseif (difficulty == 3) then
+        difficulty_str = Str('어려움')
+
+    else
+        error('difficulty : ' .. difficulty)
+
+    end
+
+    return Str('모험') .. ' > ' .. difficulty_str
+end
+
+-------------------------------------
 -- function allStageClear
 -- @TEST
 -- stage_id

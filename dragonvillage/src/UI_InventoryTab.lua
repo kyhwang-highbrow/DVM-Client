@@ -63,3 +63,11 @@ end
 function UI_InventoryTab:onChangeSelectedItem(ui, data)
     cclog('자식 UI class 에서 구현하세요. onChangeSelectedItem')
 end
+
+-------------------------------------
+-- function openAcuisitionRegionInformation
+-- @brief 획득 장소 안내 팝업
+-------------------------------------
+function UI_InventoryTab:openAcuisitionRegionInformation(item_id)
+    UI_AcquisitionRegionInformation(item_id)
+end

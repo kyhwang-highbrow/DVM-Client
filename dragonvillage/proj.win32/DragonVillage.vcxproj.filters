@@ -1416,6 +1416,12 @@
     <None Include="..\src\SkillRapidShot_AddAttack.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_AcquisitionRegionInformation.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AcquisitionRegionListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

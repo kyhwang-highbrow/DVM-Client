@@ -596,6 +596,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\uilib\UILoader.lua" />
     <None Include="..\src\uilib\UIManager.lua" />
     <None Include="..\src\UILua.lua" />
+    <None Include="..\src\UI_AcquisitionRegionInformation.lua" />
+    <None Include="..\src\UI_AcquisitionRegionListItem.lua" />
     <None Include="..\src\UI_AdventureChapterButton.lua" />
     <None Include="..\src\UI_AdventureChapterSelectPopup.lua" />
     <None Include="..\src\UI_AdventureFirstRewardPopup.lua" />

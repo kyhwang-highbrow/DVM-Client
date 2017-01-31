@@ -462,3 +462,31 @@ function ServerData_NestDungeon:getSimpleNextStageID(stage_id)
         return nil
     end
 end
+
+-------------------------------------
+-- function getStageCategoryStr
+-- @brief
+-------------------------------------
+function ServerData_NestDungeon:getStageCategoryStr(stage_id)
+    local t_dungeon_id_info = self:parseNestDungeonID(stage_id)
+
+    -- 네스트 세부 모드
+    local dungeon_mode = t_dungeon_id_info['dungeon_mode']
+    local mode_str = ''
+    if (dungeon_mode == 1) then
+        mode_str = Str('거대용 격추')
+
+    elseif (dungeon_mode == 2) then
+        mode_str = Str('악몽 던전')
+
+    elseif (dungeon_mode == 3) then
+        mode_str = Str('거목 던전')
+
+    else
+        error('dungeon_mode : ' .. dungeon_mode)
+    end
+
+    
+
+    return '네스트던전' .. ' > ' .. mode_str
+end
