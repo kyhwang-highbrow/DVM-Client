@@ -194,9 +194,7 @@ function GameState_Colosseum.update_success(self, dt)
     elseif (self.m_stateTimer >= 3.5) then
         if self.m_stateParam then
             self.m_stateParam = false
-
-            local scene = SceneAdventure()
-            scene:runScene()
+            self:makeResultUI(true)
         end
     end
 end
@@ -245,9 +243,7 @@ function GameState_Colosseum.update_failure(self, dt)
             end
         
         elseif (self:getStepTimer() >= 3.5) then
-            local scene = SceneAdventure()
-            scene:runScene()
-
+            self:makeResultUI(false)
         end
     end
 end
@@ -354,4 +350,26 @@ function GameState_Colosseum:doDirectionForIntermission()
 
     self.m_world:changeHeroHomePosByCamera()
     self.m_world:changeEnemyHomePosByCamera()
+end
+
+-------------------------------------
+-- function makeResultUI
+-------------------------------------
+function GameState_Colosseum:makeResultUI(is_win)
+    -- 작업 함수들
+    local func_network_game_finish
+    local func_ui_result
+
+    -- 1. 네트워크 통신
+    func_network_game_finish = function()
+        g_colosseumData:request_colosseumFinish(func_ui_result, is_win)
+    end
+
+    -- 2. UI 생성
+    func_ui_result = function()
+        UI_ColosseumResult(is_win)
+    end
+
+    -- 최초 실행
+    func_network_game_finish()
 end

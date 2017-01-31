@@ -401,6 +401,7 @@ local t_module = {
     'UI_BattleMenu',
     'UI_Colosseum',
     'UI_ColosseumLoading',
+    'UI_ColosseumResult',
     'UI_TamerSelectPopup',
     'UI_TamerSelectItem',
 	'UI_QuestPopup',

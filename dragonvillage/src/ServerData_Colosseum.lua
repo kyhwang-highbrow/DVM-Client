@@ -103,7 +103,7 @@ end
 -------------------------------------
 function ServerData_Colosseum:response_colosseumStart(ret, cb)
 
-    self.m_colosseumGameKey = ret['m_colosseumGameKey']
+    self.m_colosseumGameKey = ret['pvp_id']
     self.m_vsInfo = ret['vs_info']
     self.m_vsDeckInfo = ret['vs_deck']
     self.m_vsRunes = ret['vs_runes']
@@ -113,6 +113,43 @@ function ServerData_Colosseum:response_colosseumStart(ret, cb)
         t_rune_data['information'] = g_runesData:makeRuneInfomation(t_rune_data)
     end
     
+    if cb then
+        cb(ret)
+    end
+end
+
+-------------------------------------
+-- function request_colosseumFinish
+-------------------------------------
+function ServerData_Colosseum:request_colosseumFinish(cb, is_win)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+    local vs_uid = self.m_vsInfo['uid']
+    local is_win = is_win and 1 or 0
+    local pvp_id = self.m_colosseumGameKey
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        self:response_colosseumFinish(ret, cb)
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/pvp/ladder/finish')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('vs_uid', vs_uid)
+    ui_network:setParam('is_win', is_win)
+    ui_network:setParam('pvp_id', pvp_id)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function response_colosseumFinish
+-------------------------------------
+function ServerData_Colosseum:response_colosseumFinish(ret, cb)    
     if cb then
         cb(ret)
     end
