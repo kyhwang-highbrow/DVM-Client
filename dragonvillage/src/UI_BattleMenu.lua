@@ -98,8 +98,7 @@ end
 -- function click_colosseumBtn
 -------------------------------------
 function UI_BattleMenu:click_colosseumBtn()
-    local scene = SceneColosseum()
-    scene:runScene()
+    g_colosseumData:goToColosseumScene()
 end
 
 -------------------------------------

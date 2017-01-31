@@ -43,13 +43,12 @@ function UI_ColosseumLoading:init_playerInfo()
     animator:changeAni('idle', true)
     vars['dragonNode1']:addChild(animator.m_node)
     
+    local user_info = g_colosseumData.m_playerInfo
+    vars['nameLabel1']:setString(user_info['nickname'])
 
-    vars['nameLabel1']:setString('sdfsdf')
-    
-    --pointLabel1
-    --nameLabel1
-    --tierLabel1
-    --dragonNode1
+    vars['pointLabel1']:setString(comma_value(user_info['rp']))
+
+    vars['tierLabel1']:setString(self:getTierName(user_info['tier']))
 end
 
 -------------------------------------

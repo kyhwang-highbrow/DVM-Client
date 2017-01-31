@@ -4,6 +4,9 @@
 ServerData_Colosseum = class({
         m_serverData = 'ServerData',
 
+        -- 내 정보
+        m_playerInfo = '',
+
         -- 상대방 정보
         m_vsInfo = '',
         m_vsDeckInfo = '',
@@ -19,6 +22,56 @@ ServerData_Colosseum = class({
 -------------------------------------
 function ServerData_Colosseum:init(server_data)
     self.m_serverData = server_data
+end
+
+-------------------------------------
+-- function goToColosseumScene
+-------------------------------------
+function ServerData_Colosseum:goToColosseumScene()
+    local function cb()
+        local scene = SceneColosseum()
+        scene:runScene()
+    end
+
+    g_colosseumData:request_colosseumInfo(cb)
+end
+
+-------------------------------------
+-- function request_colosseumInfo
+-------------------------------------
+function ServerData_Colosseum:request_colosseumInfo(cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        self:response_colosseumInfo(ret, cb)
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/pvp/info')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function response_colosseumInfo
+-------------------------------------
+function ServerData_Colosseum:response_colosseumInfo(ret, cb)    
+    self.m_playerInfo = ret
+
+    self.m_playerInfo['nickname'] = g_userData:get('nick')
+    if (not self.m_playerInfo['rp']) then
+        self.m_playerInfo['rp'] = self.m_playerInfo['score'] or 0
+    end
+
+    if cb then
+        cb(ret)
+    end
 end
 
 -------------------------------------
