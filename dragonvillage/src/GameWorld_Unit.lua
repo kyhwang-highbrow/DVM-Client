@@ -193,51 +193,29 @@ function GameWorld:makeHeroDeck()
     end
 end
 
+
 -------------------------------------
--- function makeEnemyDeck
--- @TODO 상대편 덱 정보를 받아서 생성해야함
+-- function makeFriendHero
 -------------------------------------
-function GameWorld:makeEnemyDeck()
-
-    -- 테스트용 상대방 덱 설정
-    if COLOSSEUM__USE_TEST_ENEMY_DECK then
-        g_colosseumData:setTestColosseumDeck()
-    end
-
-    -- 상대방의 덱 정보를 얻어옴
-    local l_deck, formation = g_colosseumData:getOpponentDeck()
-
-    -- 덱에 배치된 드래곤들 생성
-    for i, doid in pairs(l_deck) do
-        local t_dragon_data = g_colosseumData:getOpponentDragon(doid)
-        if (t_dragon_data) then
-            local status_calc = g_colosseumData:makeOpponentDragonStatusCalculator(doid)
-            local is_right = true
-            local enemy = self:makeDragonNew(t_dragon_data, is_right, status_calc)
-            if (enemy) then
-                enemy:setPosIdx(tonumber(i))
-
-                self.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.UNIT)
-                self.m_physWorld:addObject(PHYS.ENEMY, enemy)
-                self:addEnemy(enemy, tonumber(i))
-
-                self.m_rightFormationMgr:setChangePosCallback(enemy)
-
-                -- 진형 버프 적용
-                enemy.m_statusCalc:applyFormationBonus(formation, i)
-                --ccdump(enemy.m_statusCalc.m_lPassive)
-            end
-        end
-    end
-
+function GameWorld:makeFriendHero(posIdx)
     
-    -- 상대편 드래곤들은 게이지를 조정
-    do
-        local t_percentage = clone(COLOSSEUM__ENEMY_START_GAUGE_LIST)
-        t_percentage = randomShuffle(t_percentage)
+    local t_dragon_data = FRIEND_HERO
+    if (t_dragon_data) then
+        local hero = self:makeDragonNew(t_dragon_data)
+        if (hero) then
+            hero:setPosIdx(posIdx)
 
-        for i, dragon in ipairs(self:getEnemyList()) do
-            dragon:initActiveSkillCoolTime(t_percentage[i])
+            self.m_worldNode:addChild(hero.m_rootNode, WORLD_Z_ORDER.UNIT)
+            self.m_physWorld:addObject(PHYS.HERO, hero)
+            self:addHero(hero, posIdx)
+
+            self:participationHero(hero)
+
+            self.m_leftFormationMgr:setChangePosCallback(hero)
+
+            -- 진형 버프 적용
+            hero.m_statusCalc:applyFormationBonus(formation, posIdx)
+            --ccdump(hero.m_statusCalc.m_lPassive)
         end
     end
 end
@@ -260,6 +238,18 @@ function GameWorld:removeEnemyDebuffs()
     for i, enemy in ipairs(self:getEnemyList()) do
         if (not enemy.m_bDead) then
             StatusEffectHelper:releaseStatusEffectDebuff(enemy)
+        end
+    end
+end
+
+-------------------------------------
+-- function buffActivateAtStartup
+-- @brief 시작 시 버프 발동
+-------------------------------------
+function GameWorld:buffActivateAtStartup()
+    for _, list in ipairs({self:getDragonList(), self:getEnemyList()}) do
+        for _, unit in pairs(list) do
+            unit:doSkill_passive()
         end
     end
 end

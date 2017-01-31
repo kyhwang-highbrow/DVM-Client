@@ -24,9 +24,9 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 		m_lSpecailMissileList = 'table',
         
         -- unit
-        m_participants = '',        -- 전투에 참여중인 아군
-		m_tEnemyList = 'EnemyList', -- 적군 리스트(드래곤이라도 적 진형이라면 여기에 추가됨)
-        m_mHeroList = 'HeroListMap',   -- 아군 리스트(맵 형식 리스트)
+        m_participants = 'HeroList',    -- 전투에 참여중인 아군
+		m_tEnemyList = 'EnemyList',     -- 적군 리스트(드래곤이라도 적 진형이라면 여기에 추가됨)
+        m_mHeroList = 'HeroListMap',    -- 아군 리스트(맵 형식 리스트)
         
         m_deckFormation = 'string',
 
@@ -94,6 +94,8 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 		m_shakeMgr = 'ShakeManager',
 
         m_lPassiveEffect = 'list',
+
+        m_bUsedFriend = 'boolean',
     })
 
 -------------------------------------
@@ -213,6 +215,8 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_tCollisionTime = {}
 
     self.m_lPassiveEffect = {}
+
+    self.m_bUsedFriend = false
 end
 
 
@@ -735,42 +739,24 @@ function GameWorld:removeHero(hero)
     -- 게임 종료 체크(모든 영웅이 죽었을 경우)
     local hero_count = table.count(self.m_mHeroList)
     if (hero_count <= 0) then
-        if (self.m_gameMode == GAME_MODE_COLOSSEUM) then
-            self.m_gameState:changeState(GAME_STATE_FAILURE)
-
-        else
-		    if (self.m_bDevelopMode) then 
-			    -- 개발 스테이지에서는 드래곤이 전부 죽을 시 드래곤을 되살리고 스테이지 초기화 한다 
-			    self.m_mHeroList = {}
-			    self.m_participants = {}
+        if (self.m_bDevelopMode) then 
+			-- 개발 스테이지에서는 드래곤이 전부 죽을 시 드래곤을 되살리고 스테이지 초기화 한다 
+			self.m_mHeroList = {}
+			self.m_participants = {}
 			
-			    self:makeHeroDeck()
+			self:makeHeroDeck()
 						
-			    self:killAllEnemy()
-		    else
-			    self.m_gameState:changeState(GAME_STATE_FAILURE)
-		    end
-        end
+			self:killAllEnemy()
+		else
+			self.m_gameState:changeState(GAME_STATE_FAILURE)
+		end
+    end
 
-	-- 대기 및 친구 드래곤 구현시 살림 @ms 16.11.25
-	--[[
-    else
-		local l_dragon = self:getDragonList()
-        if #l_dragon <= 0 then
-            for i= 1, 10 do
-                local hero = l_dragon[i]
-                if hero then
-                    cclog('hero.m_bDead ' .. tostring(hero.m_bDead))
-                    cclog('hero.m_bActive ' .. tostring(hero.m_bActive))
-                end
-                if hero and (hero.m_bDead == false) and (hero.m_bActive == false) then
-                    hero:changeState('attack')
-                    self:participationHero(hero)
-                    break
-                end
-            end
+    -- 친구 드래곤
+    if (not self.m_bUsedFriend) then
+        if FRIEND_HERO then
+            self:makeFriendHero()
         end
-		]]--
     end
 end
 
@@ -1129,34 +1115,6 @@ function GameWorld:dropItem(x, y)
     for i=1, rand do
 		self:obtainGold(1)
         self:addDropGold(x, y)
-    end
-end
-
--------------------------------------
--- function buffActivateAtStartup
--- @brief 시작 시 버프 발동
--------------------------------------
-function GameWorld:buffActivateAtStartup()
-    for _, list in ipairs({self:getDragonList(), self:getEnemyList()}) do
-        local l_tar_skill_type = {'basic', 'normal'}
-
-        for _, unit in pairs(list) do
-            for _,skill_type in pairs(l_tar_skill_type) do
-                local skill_id = unit:getSkillID(skill_type)
-                local t_skill = unit:getSkillTable(skill_id)
-                if t_skill and (t_skill['chance_type'] == 'passive') then
-                    unit:doSkill(skill_id, 0, 0)
-                end
-            end
-        end
-
-        for _, unit in pairs(list) do
-            local l_passive = unit.m_lSkillIndivisualInfo['passive']
-            for i,skill_info in pairs(l_passive) do
-                local skill_id = skill_info.m_skillID
-                unit:doSkill(skill_id, 0, 0)
-            end
-        end
     end
 end
 
