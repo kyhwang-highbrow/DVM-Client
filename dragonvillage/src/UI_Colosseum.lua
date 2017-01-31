@@ -71,7 +71,12 @@ end
 -- function click_secretBtn
 -------------------------------------
 function UI_Colosseum:click_readyBtn()
-    UIManager:toastNotificationRed('"콜로세움"은 준비 중입니다.')
+    local function cb(ret)
+        local scene = SceneGameColosseum()
+        scene:runScene()
+    end
+
+    g_colosseumData:request_colosseumStart(cb)
 end
 
 --@CHECK

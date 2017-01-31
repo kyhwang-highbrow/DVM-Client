@@ -353,12 +353,30 @@ function ServerData_Dragons:getRuneBonusList(doid)
 
     local l_runes = t_dragon_data['runes']
 
+    local l_rune_obj_map = {}
+    for i,v in pairs(l_runes) do
+        local roid = v
+        local t_rune_data = g_runesData:getRuneData(roid)
+        l_rune_obj_map[roid] = t_rune_data
+    end
+
+    return self:makeRuneBonusList(t_dragon_data, l_rune_obj_map)
+end
+
+-------------------------------------
+-- function makeRuneBonusList
+-- @brief 능력치 계산을 위해 doid에 해당하는 드래곤이 장착한
+--        룬의 메인옵션, 서브옵션의 능력치를 합산한 테이블을 리턴
+-------------------------------------
+function ServerData_Dragons:makeRuneBonusList(t_dragon_data, l_rune_obj_map)
+    local l_runes = t_dragon_data['runes']
+
     local l_rune_bonus = {}
 
     for i,v in pairs(l_runes) do
         local roid = v
         if (roid ~= '') then
-            local t_rune_data = g_runesData:getRuneData(roid)
+            local t_rune_data = l_rune_obj_map[roid]
             local t_rune_information = t_rune_data['information']
 
             -- 메인 옵션의 능력치 합산

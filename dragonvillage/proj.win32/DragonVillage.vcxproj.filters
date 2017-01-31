@@ -1401,6 +1401,9 @@
     <None Include="..\src\SkillRapidShot.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\ServerData_Colosseum.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

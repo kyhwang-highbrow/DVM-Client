@@ -1,7 +1,7 @@
 -------------------------------------
 -- function makeDragonNew
 -------------------------------------
-function GameWorld:makeDragonNew(t_dragon_data, bRightFormation)
+function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
     -- 유저가 보유하고있는 드래곤의 정보
     local t_dragon_data = t_dragon_data
     local bLeftFormation = true
@@ -29,6 +29,7 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation)
     dragon:initAnimatorDragon(t_dragon['res'], evolution, attr)
     dragon.m_animator:setScale(0.5 * t_dragon['scale'])
     dragon:initState()
+    dragon:setStatusCalc(status_calc)
     dragon:initStatus(t_dragon, lv, grade, evolution, doid)
 
     -- 기본 정보 저장
@@ -167,10 +168,12 @@ function GameWorld:makeHeroDeck()
     local l_deck, formation = g_deckData:getDeck()
     self.m_deckFormation = formation
 
-    for i, unique_id in pairs(l_deck) do
-        local t_dragon_data = g_dragonsData:getDragonDataFromUid(unique_id)
+    for i, doid in pairs(l_deck) do
+        local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
         if (t_dragon_data) then
-            local hero = self:makeDragonNew(t_dragon_data)
+            local status_calc = MakeOwnDragonStatusCalculator(doid)
+            local is_right = false
+            local hero = self:makeDragonNew(t_dragon_data, is_right, status_calc)
             if (hero) then
                 hero:setPosIdx(tonumber(i))
 
@@ -195,55 +198,39 @@ end
 -- @TODO 상대편 덱 정보를 받아서 생성해야함
 -------------------------------------
 function GameWorld:makeEnemyDeck()
-    -- 서버에 저장된 드래곤 덱 사용
-    if (COLOSSEUM__ENEMY_EQUAL_HERO) then
-        local l_deck, formation = g_deckData:getDeck()
 
-        for i, unique_id in pairs(l_deck) do
-            local t_dragon_data = g_dragonsData:getDragonDataFromUid(unique_id)
-            if (t_dragon_data) then
-                local enemy = self:makeDragonNew(t_dragon_data, true)
-                if (enemy) then
-                    enemy:setPosIdx(tonumber(i))
-
-                    self.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.UNIT)
-                    self.m_physWorld:addObject(PHYS.ENEMY, enemy)
-                    self:addEnemy(enemy, tonumber(i))
-
-                    self.m_rightFormationMgr:setChangePosCallback(enemy)
-
-                    -- 진형 버프 적용
-                    enemy.m_statusCalc:applyFormationBonus(formation, i)
-                    --ccdump(enemy.m_statusCalc.m_lPassive)
-                end
-            end
-        end
-
-    else
-        local l_dragon_data, formation = COLOSSEUM__ENEMY, COLOSSEUM__ENEMY_FORMATION
-        self.m_deckFormation = formation
-
-        for i, t_dragon_data in pairs(l_dragon_data) do
-            if (t_dragon_data) then
-                local enemy = self:makeDragonNew(t_dragon_data, true)
-                if (enemy) then
-                    enemy:setPosIdx(tonumber(i))
-
-                    self.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.UNIT)
-                    self.m_physWorld:addObject(PHYS.ENEMY, enemy)
-                    self:addEnemy(enemy, tonumber(i))
-
-                    self.m_rightFormationMgr:setChangePosCallback(enemy)
-
-                    -- 진형 버프 적용
-                    enemy.m_statusCalc:applyFormationBonus(formation, i)
-                    --ccdump(enemy.m_statusCalc.m_lPassive)
-                end
-            end
-        end
-
+    -- 테스트용 상대방 덱 설정
+    if COLOSSEUM__USE_TEST_ENEMY_DECK then
+        g_colosseumData:setTestColosseumDeck()
     end
 
+    -- 상대방의 덱 정보를 얻어옴
+    local l_deck, formation = g_colosseumData:getOpponentDeck()
+
+    -- 덱에 배치된 드래곤들 생성
+    for i, doid in pairs(l_deck) do
+        local t_dragon_data = g_colosseumData:getOpponentDragon(doid)
+        if (t_dragon_data) then
+            local status_calc = g_colosseumData:makeOpponentDragonStatusCalculator(doid)
+            local is_right = true
+            local enemy = self:makeDragonNew(t_dragon_data, is_right, status_calc)
+            if (enemy) then
+                enemy:setPosIdx(tonumber(i))
+
+                self.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.UNIT)
+                self.m_physWorld:addObject(PHYS.ENEMY, enemy)
+                self:addEnemy(enemy, tonumber(i))
+
+                self.m_rightFormationMgr:setChangePosCallback(enemy)
+
+                -- 진형 버프 적용
+                enemy.m_statusCalc:applyFormationBonus(formation, i)
+                --ccdump(enemy.m_statusCalc.m_lPassive)
+            end
+        end
+    end
+
+    
     -- 상대편 드래곤들은 게이지를 조정
     do
         local t_percentage = clone(COLOSSEUM__ENEMY_START_GAUGE_LIST)

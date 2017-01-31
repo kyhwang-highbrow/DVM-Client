@@ -279,13 +279,20 @@ end
 
 -- 네트워크 통신 테스트
 function UI_NetworkTest()
+    -- 파라미터
     local uid = g_userData:get('uid')
 
+    -- 콜백 함수
+    local function success_cb(ret)
+
+    end
+
+    -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
     ui_network:setUrl('/login')
     ui_network:setParam('uid', uid)
-    ui_network:setSuccessCB(function(ret) ccdump(ret) end)
-    ui_network:setRevocable(true)
-    ui_network:setReuse(true)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(false) -- 통신 실패 시 취소 가능 여부
+    ui_network:setReuse(false) -- 재사용 여부
     ui_network:request()
 end

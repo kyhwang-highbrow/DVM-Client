@@ -489,11 +489,44 @@ function Dragon:setHp(hp)
 end
 
 -------------------------------------
+-- function setStatusCalc
+-------------------------------------
+function Dragon:setStatusCalc(status_calc)
+    self.m_statusCalc = status_calc
+
+    if (not self.m_statusCalc) then
+        return
+    end
+
+    -- hp 설정
+    local hp = self.m_statusCalc:getFinalStat('hp')
+    self.m_maxHp = hp
+    self.m_hp = hp
+end
+
+-------------------------------------
 -- function initStatus
 -------------------------------------
 function Dragon:initStatus(t_char, level, grade, evolution, doid)
-    PARENT.initStatus(self, t_char, level, grade, evolution, doid)
-	
+    -- 캐릭터 테이블 설정
+    self.m_charTable = t_char
+
+    -- 능력치 설정이 되지 않은 경우
+    if (not self.m_statusCalc) then
+        local status_calc = MakeDragonStatusCalculator(self.m_charTable['did'], level, grade, evolution)
+        self:setStatusCalc(status_calc)
+    end
+
+    -- 스킬 인디케이터 초기화
+    self:init_skillIndicator()
+end
+
+-------------------------------------
+-- function init_skillIndicator
+-- @brief 스킬 인디케이터 초기화
+-------------------------------------
+function Dragon:init_skillIndicator()
+    local t_char = self.m_charTable
     local t_skill = self:getLevelingSkillByType('active').m_tSkill
 
 	local type = t_skill['indicator']
@@ -559,7 +592,6 @@ function Dragon:initStatus(t_char, level, grade, evolution, doid)
 		cclog('## 인디케이터 정의 되지 않은 스킬 : ' .. t_skill['type'])
 		cclog('###############################################')
 	end
-
 end
 
 -------------------------------------

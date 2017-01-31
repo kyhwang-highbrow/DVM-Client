@@ -64,6 +64,7 @@ local t_module = {
     'ServerData_AutoPlaySetting',
     'ServerData_Runes',
 	'ServerData_Quest',
+    'ServerData_Colosseum',
     'UserData',
     'DropHelper',
     'DragonAutoSetHelper',

@@ -207,7 +207,6 @@ function StatusCalculator:applyRuneSetBonus(t_rune_set)
         local t_status = self.m_lStatusList[key]
         --t_status['rune_set_bonus'] = value -- 정보를 저장하는 의미가 있나 싶어서 추가하지 않음 Seong-goo Kim
         t_status['final'] = t_status['final'] + value
-        cclog('key : ' .. key .. ', value : ' .. value)
     end
 
     -- 비율로 상승하는 보너스

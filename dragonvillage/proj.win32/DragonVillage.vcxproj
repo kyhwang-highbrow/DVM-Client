@@ -306,6 +306,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SceneGameColosseum.lua" />
     <None Include="..\src\SceneNestDungeon.lua" />
     <None Include="..\src\ServerData_AutoPlaySetting.lua" />
+    <None Include="..\src\ServerData_Colosseum.lua" />
     <None Include="..\src\ServerData_LobbyUserList.lua" />
     <None Include="..\src\ServerData_NestDungeon.lua" />
     <None Include="..\src\ServerData_Quest.lua" />

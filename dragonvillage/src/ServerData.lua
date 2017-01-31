@@ -58,6 +58,9 @@ function ServerData:getInstance()
 	-- 퀘스트
     g_questData = ServerData_Quest(g_serverData)
 
+    -- 콜로세움
+    g_colosseumData = ServerData_Colosseum(g_serverData)
+
     return g_serverData
 end
 
