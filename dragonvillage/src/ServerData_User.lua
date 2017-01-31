@@ -49,7 +49,7 @@ function ServerData_User:getFruitList()
         local t_data = {}
         t_data['fid'] = fruit_id
         t_data['count'] = count
-        if (count ~= 0) then
+        if (count > 0) then
             table.insert(l_ret, t_data)
         end
     end
@@ -101,7 +101,9 @@ function ServerData_User:getEvolutionStoneList()
         local t_data = {}
         t_data['esid'] = evolution_stone_id
         t_data['count'] = count
-        table.insert(l_ret, t_data)
+        if (count > 0) then
+            table.insert(l_ret, t_data)
+        end
     end
 
     return l_ret

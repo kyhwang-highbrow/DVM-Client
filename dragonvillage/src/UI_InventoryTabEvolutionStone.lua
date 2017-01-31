@@ -136,4 +136,79 @@ function UI_InventoryTabEvolutionStone:onChangeSelectedItem(ui, data)
         local desc = TableItem():getValue(esid, 't_desc')
         vars['itemDscLabel']:setString(desc)
     end
+
+    -- 판매 버튼
+    vars['sellBtn']:setVisible(true)
+    vars['sellBtn']:registerScriptTapHandler(function() self:sellBtn(data) end)
+end
+
+-------------------------------------
+-- function sellBtn
+-- @brief
+-------------------------------------
+function UI_InventoryTabEvolutionStone:sellBtn(data)
+    local item_id = data['esid']
+    local count = data['count']
+
+    local function sell_cb(ret)
+        self.m_inventoryUI:response_itemSell(ret)
+        
+        local item = nil
+        for i,v in pairs(self.m_evolutionStoneTableView.m_itemMap) do
+            if (v['data']['esid'] == item_id) then
+                item = v
+                break
+            end
+        end
+
+        self.m_inventoryUI:clearSelectedItem()
+        if item then
+            self.m_inventoryUI:setSelectedItem(item['ui'], item['data'])
+        end
+    end
+
+    UI_InventorySellItems(item_id, count, sell_cb)
+end
+
+-------------------------------------
+-- function refresh_tableView
+-------------------------------------
+function UI_InventoryTabEvolutionStone:refresh_tableView()
+    if (not self.m_evolutionStoneTableView) then
+        return
+    end
+
+    local l_item_list = g_userData:getEvolutionStoneList()
+    local l_item_map = {}
+    for i,v in pairs(l_item_list) do
+        local esid = tonumber(v['esid'])
+        local count = v['count']
+        l_item_map[esid] = count
+    end
+
+    local dirty = false
+    local table_view = self.m_evolutionStoneTableView
+
+
+    for idx,item in pairs(table_view.m_itemMap) do
+        local esid = tonumber(item['data']['esid'])
+        if (not l_item_map[esid]) or (l_item_map[esid] == 0) then
+            table_view:delItem(idx)
+            dirty = true
+        else
+            local count = l_item_map[esid]
+            if (item['data']['count'] ~= count) then
+                item['data']['count'] = count
+                if item['ui'] then
+                    item['ui']:setString(Str('X{1}', comma_value(count)))
+                end
+            end
+        end
+    end
+
+    -- 테이블뷰의 변경사항이 있을 경우
+    if dirty then
+        table_view:expandTemp(0.5)
+        table_view:relocateContainer(true)
+    end
 end

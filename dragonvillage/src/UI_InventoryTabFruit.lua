@@ -167,6 +167,9 @@ end
 -- function refresh_tableView
 -------------------------------------
 function UI_InventoryTabFruit:refresh_tableView()
+    if (not self.m_fruitsTableView) then
+        return
+    end
 
     local l_item_list = g_userData:getFruitList()
     local l_item_map = {}
@@ -187,8 +190,12 @@ function UI_InventoryTabFruit:refresh_tableView()
             dirty = true
         else
             local count = l_item_map[fid]
-            item['data']['count'] = count
-            item['ui']:setString(Str('X{1}', comma_value(count)))
+            if (item['data']['count'] ~= count) then
+                item['data']['count'] = count
+                if item['ui'] then
+                    item['ui']:setString(Str('X{1}', comma_value(count)))
+                end
+            end
         end
     end
 
