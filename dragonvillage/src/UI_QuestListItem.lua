@@ -152,7 +152,7 @@ function UI_QuestListItem:setQuestProgress()
 	local goal_cnt = t_data['unit'] * self.m_goalCount
 	local cur_cnt = self.m_rawCount
 	
-	vars['questGauge']:setPercentage((cur_cnt / goal_cnt) * 100)
+	vars['questGauge']:runAction(cc.ProgressTo:create(0.5, (cur_cnt / goal_cnt) * 100)) 
 	vars['questGaugeLabel']:setString(cur_cnt .. ' / ' .. goal_cnt)
 end
 
