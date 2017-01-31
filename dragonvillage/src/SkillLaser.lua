@@ -169,7 +169,7 @@ end
 function SkillLaser:refresh(force)
     local change_start = false
 	
-    if self.m_owner then
+    if (self.m_owner) then
         if (self.m_owner.pos.x ~= self.m_startPosX) or (self.m_owner.pos.y ~= self.m_startPosY) then
             change_start = true
             self.m_startPosX = self.m_owner.pos.x + (self.m_attackPosOffsetX * math.max(self.m_thickness/2, 1))
@@ -178,10 +178,10 @@ function SkillLaser:refresh(force)
         end
     end
 
-    if force or change_start then
+    if (force or change_start) then
         local dir = getDegree(self.m_startPosX, self.m_startPosY, self.m_targetPos.x, self.m_targetPos.y)
 
-        if (self.m_laserDir ~= dir) then
+        if (force or self.m_laserDir ~= dir) then
             self.m_laserDir = dir
             local pos = getPointFromAngleAndDistance(dir, 2560)    
             EffectLink_refresh(self.m_linkEffect, 0, 0, pos['x'], pos['y'])

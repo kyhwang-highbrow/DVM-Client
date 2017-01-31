@@ -46,7 +46,7 @@ function GameState_NestDungeon_Tree.update_start(self, dt)
             world:dispatch('dragon_summon')
 
         elseif (self:isPassedStepTime(0.5)) then
-            self:appearDragon()
+            self:appearHero()
             
         elseif (self:getStepTimer() >= 2) then
             self:nextStep()

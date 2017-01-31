@@ -37,7 +37,7 @@ GameState = class(PARENT, {
         m_fightTimer = '',
         m_globalCoolTime = 'number',
 
-        m_bAppearDragon = 'boolean',
+        m_bAppearHero = 'boolean',
         m_nAppearedEnemys = 'number',
 
         m_waveEffect = 'Animator',
@@ -63,7 +63,7 @@ function GameState:init(world)
     self.m_stateTimer = -1
     self.m_fightTimer = 0
     self.m_globalCoolTime = 0
-    self.m_bAppearDragon = false
+    self.m_bAppearHero = false
     
     self.m_waveEffect = MakeAnimator('res/ui/a2d/ui_boss_warning/ui_boss_warning.vrp')
     self.m_waveEffect:setVisible(false)
@@ -180,14 +180,14 @@ function GameState.update_start(self, dt)
             world:dispatch('dragon_summon')
 
         elseif (self:getStepTimer() >= 0.5) then
-            self:appearDragon()
+            self:appearHero()
             
             local speed = map_mgr.m_speed + (MAP_SCROLL_SPEED_DOWN_ACCEL * dt)
             if (speed >= -300) then
                 speed = -300
 
                 -- 등장 완료일 경우
-                if self.m_bAppearDragon then
+                if self.m_bAppearHero then
                     self:changeState(GAME_STATE_ENEMY_APPEAR)
                 end
             end
@@ -711,10 +711,10 @@ function GameState:changeState(state)
 end
 
 -------------------------------------
--- function appearDragon
+-- function appearHero
 -------------------------------------
-function GameState:appearDragon()
-    if self.m_bAppearDragon then return end
+function GameState:appearHero()
+    if self.m_bAppearHero then return end
 
     -- 드래곤들을 등장
     local world = self.m_world
@@ -722,7 +722,7 @@ function GameState:appearDragon()
         dragon:doAppear()
     end
     
-    self.m_bAppearDragon = true
+    self.m_bAppearHero = true
 end
 
 -------------------------------------

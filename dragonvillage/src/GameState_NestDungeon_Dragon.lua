@@ -51,14 +51,14 @@ function GameState_NestDungeon_Dragon.update_start(self, dt)
             world:dispatch('dragon_summon')
 
         elseif (self:getStepTimer() >= 0.5) then
-            self:appearDragon()
+            self:appearHero()
             
             local speed = map_mgr.m_speed + (MAP_SCROLL_SPEED_DOWN_ACCEL * dt)
             if (speed >= -300) then
                 speed = -300
 
                 -- 등장 완료일 경우
-                if self.m_bAppearDragon then
+                if self.m_bAppearHero then
                     self:nextStep()
                 end
             end

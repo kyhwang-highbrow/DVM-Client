@@ -300,51 +300,14 @@ function GameState_Colosseum:initTamerAvatar()
 end
 
 -------------------------------------
--- function appearHero
--------------------------------------
-function GameState_Colosseum:appearHero()
-    -- 드래곤들을 등장
-    local world = self.m_world
-    for i,dragon in ipairs(world:getDragonList()) do
-        if (dragon.m_bDead == false) then
-            dragon.m_rootNode:setVisible(true)
-            dragon.m_hpNode:setVisible(true)
-
-            local effect = MakeAnimator('res/effect/tamer_magic_1/tamer_magic_1.vrp')
-            effect:setPosition(dragon.pos.x, dragon.pos.y)
-            effect:changeAni('bomb', false)
-            effect:setScale(0.8)
-            local duration = effect:getDuration()
-            effect:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.CallFunc:create(function() effect:release() end)))
-            world.m_missiledNode:addChild(effect.m_node)
-        end
-    end
-    
-    self.m_bAppearDragon = true
-end
-
--------------------------------------
 -- function appearEnemy
 -------------------------------------
 function GameState_Colosseum:appearEnemy()
     -- 드래곤들을 등장
     local world = self.m_world
     for i,dragon in ipairs(world:getEnemyList()) do
-        if (dragon.m_bDead == false) then
-            dragon.m_rootNode:setVisible(true)
-            dragon.m_hpNode:setVisible(true)
-
-            local effect = MakeAnimator('res/effect/tamer_magic_1/tamer_magic_1.vrp')
-            effect:setPosition(dragon.pos.x, dragon.pos.y)
-            effect:changeAni('bomb', false)
-            effect:setScale(0.8)
-            local duration = effect:getDuration()
-            effect:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.CallFunc:create(function() effect:release() end)))
-            world.m_missiledNode:addChild(effect.m_node)
-        end
+        dragon:doAppear()
     end
-    
-    self.m_bAppearDragon = true
 end
 
 
