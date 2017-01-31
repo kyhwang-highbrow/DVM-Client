@@ -5,7 +5,7 @@ ServerData_Colosseum = class({
         m_serverData = 'ServerData',
 
         -- 상대방 정보
-        m_vsUid = '',
+        m_vsInfo = '',
         m_vsDeckInfo = '',
         m_vsDragons = '',
         m_vsRunes = '',
@@ -51,7 +51,7 @@ end
 function ServerData_Colosseum:response_colosseumStart(ret, cb)
 
     self.m_colosseumGameKey = ret['m_colosseumGameKey']
-    self.m_vsUid = ret['pvp_id']
+    self.m_vsInfo = ret['vs_info']
     self.m_vsDeckInfo = ret['vs_deck']
     self.m_vsRunes = ret['vs_runes']
     self.m_vsDragons = ret['vs_dragons']

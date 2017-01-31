@@ -400,6 +400,7 @@ local t_module = {
     'UI_AutoPlaySettingPopup',
     'UI_BattleMenu',
     'UI_Colosseum',
+    'UI_ColosseumLoading',
     'UI_TamerSelectPopup',
     'UI_TamerSelectItem',
 	'UI_QuestPopup',

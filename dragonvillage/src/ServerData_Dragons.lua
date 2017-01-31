@@ -405,3 +405,37 @@ function ServerData_Dragons:makeRuneBonusList(t_dragon_data, l_rune_obj_map)
 
     return l_rune_bonus
 end
+
+-------------------------------------
+-- function getDragonAnimator
+-- @brief 클래스의 기능을 빌리고 맴버 변수를 활용하는 함수(get)
+-------------------------------------
+function ServerData_Dragons:getDragonAnimator(doid)
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+    local animator = self:makeDragonAnimator(t_dragon_data)
+
+    return animator
+end
+
+
+-------------------------------------
+-- function makeDragonAnimator
+-- @brief 클래스의 기능을 빌리지 않고 순수 파라미터로 동작하는 함수(make)
+-------------------------------------
+function ServerData_Dragons:makeDragonAnimator(t_dragon_data)
+    local did = t_dragon_data['did']
+    local evolution = t_dragon_data['evolution']
+
+    local table_dragon = TableDragon()
+    local t_dragon = table_dragon:get(did)
+
+    local res = t_dragon['res']
+    local attr = t_dragon['attr']
+
+    local animator = AnimatorHelper:makeDragonAnimator(res, evolution, attr)
+
+    animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+    animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
+
+    return animator
+end

@@ -90,6 +90,13 @@ function table.randomSort(t)
 	return t
 end
 
+-- 인덱스 테이블만 가능
+function table.getFirst(t)
+    for i,v in ipairs(t) do
+        return v
+    end
+end
+
 -------------------------------------
 -- function strSplit
 -- @brief 문자열을 sep문자 기준으로 분리

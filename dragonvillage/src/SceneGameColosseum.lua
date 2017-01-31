@@ -3,7 +3,9 @@ local PARENT = SceneGame
 -------------------------------------
 -- class SceneGameColosseum
 -------------------------------------
-SceneGameColosseum = class(PARENT, {})
+SceneGameColosseum = class(PARENT, {
+        m_colosseumLoadingUI = '',
+    })
 
 -------------------------------------
 -- function init
@@ -28,6 +30,8 @@ end
 function SceneGameColosseum:onEnter()
     g_gameScene = self
     PerpleScene.onEnter(self)
+
+    self.m_colosseumLoadingUI:initUI()
 
     SoundMgr:playBGM('bgm_nest_battle')
     
@@ -272,4 +276,29 @@ function SceneGameColosseum:networkGameFinish_response_stage_clear_info(ret)
         local t_stage_clear_info = g_nestDungeonData:getNestDungeonStageClearInfoRef(stage_id)
         t_stage_clear_info['clear_cnt'] = ret['stage_clear_info']['cnt']
     end
+end
+
+
+-------------------------------------
+-- function makeLoadingUI
+-- @brief scene전환 중 로딩화면 생성
+-------------------------------------
+function SceneGameColosseum:makeLoadingUI()
+    -- 검은색 레이어 생성
+    local layer = cc.LayerColor:create()
+    layer:setAnchorPoint(cc.p(0, 0))
+    layer:setColor(cc.c3b(0, 0, 0))
+    layer:setOpacity(255)
+
+    if (self.m_loadingUIDuration > 0) then
+        -- 화면 사이즈 크기로 설정
+        local visibleSize = cc.Director:getInstance():getVisibleSize()
+        layer:setContentSize(visibleSize.width, visibleSize.height)
+
+        local ui = UI_ColosseumLoading()
+        self.m_colosseumLoadingUI = ui
+        layer:addChild(ui.root)
+    end
+
+    return layer
 end
