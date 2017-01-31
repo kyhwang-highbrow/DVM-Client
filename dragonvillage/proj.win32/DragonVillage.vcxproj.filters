@@ -1410,6 +1410,9 @@
     <None Include="..\src\UI_ColosseumResult.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SkillRapidShot_AddAttack.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
