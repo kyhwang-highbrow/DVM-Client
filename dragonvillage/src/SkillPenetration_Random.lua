@@ -45,8 +45,8 @@ function SkillPenetration_Random:fireMissile(idx)
     t_option['owner'] = char
 	t_option['target'] = self.m_lRandomTargetList[idx]
 
-    t_option['pos_x'] = char.pos.x + self.m_skillAttackPosList[idx].x
-	t_option['pos_y'] = char.pos.y + self.m_skillAttackPosList[idx].y
+    t_option['pos_x'] = char.pos.x
+	t_option['pos_y'] = char.pos.y
 	
     t_option['object_key'] = char:getAttackPhysGroup()
     t_option['physics_body'] = {0, 0, self.m_skillLineSize}
@@ -54,12 +54,14 @@ function SkillPenetration_Random:fireMissile(idx)
 	t_option['attr_name'] = char:getAttribute()
 
 	t_option['missile_type'] = 'NORMAL'
-    t_option['movement'] ='lua_angle' 
+    t_option['movement'] ='lua_arrange_curve' 
 	t_option['bFixedAttack'] = true
 
     t_option['lua_param'] = {}
     t_option['lua_param']['value1'] = math_random(-P_RANDOM_HEIGHT_RANGE, P_RANDOM_HEIGHT_RANGE)
-	t_option['lua_param']['value4'] = P_RANDOM_FIRE_DELAY
+	t_option['lua_param']['value2'] = P_RANDOM_SPEED
+	t_option['lua_param']['value3'] = P_RANDOM_FIRE_DELAY
+	t_option['lua_param']['value4'] = self.m_skillAttackPosList[idx]
 
     t_option['missile_res_name'] = self.m_missileRes
 	t_option['scale'] = self.m_resScale
@@ -94,6 +96,16 @@ function SkillPenetration_Random:getRandomTargetList()
 	end
 
 	return l_ret
+end
+
+-------------------------------------
+-- function getAttackPositionList
+-- @override
+-------------------------------------
+function SkillPenetration_Random:getAttackPositionList()
+	local l_attack_pos = P_RANDOM_PENTAGON_POS
+
+	return l_attack_pos
 end
 
 -------------------------------------
