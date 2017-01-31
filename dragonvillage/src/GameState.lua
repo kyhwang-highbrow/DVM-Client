@@ -25,6 +25,8 @@ GAME_STATE_SUCCESS_WAIT = 300
 GAME_STATE_SUCCESS = 301
 GAME_STATE_FAILURE = 302
 
+GAME_STATE_RESULT = 400
+
 -------------------------------------
 -- class GameState
 -------------------------------------
@@ -692,7 +694,7 @@ end
 -------------------------------------
 function GameState:changeState(state)
     -- 이미 Success, Failure상태가 되었을 때 상태를 변경할 수 없도록 처리
-    if isExistValue(self.m_state, GAME_STATE_SUCCESS, GAME_STATE_FAILURE) then
+    if isExistValue(self.m_state, GAME_STATE_SUCCESS, GAME_STATE_FAILURE) and (state ~= GAME_STATE_RESULT) then
         return
     end
     

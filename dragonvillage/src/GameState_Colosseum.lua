@@ -8,9 +8,10 @@ local TAMER_POS_Y = -550
 -- class GameState_Colosseum
 -------------------------------------
 GameState_Colosseum = class(PARENT, {
-    m_heroTamerAvatar = 'Animator',     -- 아군 테이머
-    m_enemyTamerAvatar = 'Animator'     -- 적군 테이머
-})
+        m_heroTamerAvatar = 'Animator',     -- 아군 테이머
+        m_enemyTamerAvatar = 'Animator',    -- 적군 테이머
+        m_bWin = 'boolean',
+    })
 
 -------------------------------------
 -- function init
@@ -30,6 +31,7 @@ function GameState_Colosseum:initState()
     self:addState(GAME_STATE_FIGHT, GameState_Colosseum.update_fight)
     self:addState(GAME_STATE_SUCCESS, GameState_Colosseum.update_success)
     self:addState(GAME_STATE_FAILURE, GameState_Colosseum.update_failure)
+    self:addState(GAME_STATE_RESULT, GameState_Colosseum.update_result)
 end
 
 -------------------------------------
@@ -194,7 +196,8 @@ function GameState_Colosseum.update_success(self, dt)
     elseif (self.m_stateTimer >= 3.5) then
         if self.m_stateParam then
             self.m_stateParam = false
-            self:makeResultUI(true)
+            self.m_bWin = true
+            self:changeState(GAME_STATE_RESULT)
         end
     end
 end
@@ -243,8 +246,18 @@ function GameState_Colosseum.update_failure(self, dt)
             end
         
         elseif (self:getStepTimer() >= 3.5) then
-            self:makeResultUI(false)
+            self.m_bWin = false
+            self:changeState(GAME_STATE_RESULT)
         end
+    end
+end
+
+-------------------------------------
+-- function update_result
+-------------------------------------
+function GameState_Colosseum.update_result(self, dt)
+    if (self.m_stateTimer == 0) then
+        self:makeResultUI(self.m_bWin)
     end
 end
 
