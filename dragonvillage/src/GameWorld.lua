@@ -95,7 +95,11 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         m_lPassiveEffect = 'list',
 
+        -- 친구 영웅 관련
         m_bUsedFriend = 'boolean',
+
+        m_friendHero = 'Dragon',
+
     })
 
 -------------------------------------
@@ -217,6 +221,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_lPassiveEffect = {}
 
     self.m_bUsedFriend = false
+    self.m_friendHero = nil
 end
 
 
@@ -241,6 +246,9 @@ function GameWorld:initGame(stage_name)
 
     -- 덱에 셋팅된 드래곤 생성
     self:makeHeroDeck()
+
+    -- 친구 드래곤 생성
+    self:makeFriendHero()
 
     do -- 진형 시스템 초기화
         self:setBattleZone(self.m_deckFormation, true)
@@ -736,6 +744,26 @@ function GameWorld:removeHero(hero)
 
     self:standbyHero(hero)
 
+    -- 친구 드래곤을 추가 시킴
+    if (not self.m_bUsedFriend and self.m_friendHero) then
+        self:joinFriendHero(hero:getPosIdx())
+
+        self.m_friendHero:setOrgHomePos(hero.m_orgHomePosX, hero.m_orgHomePosY)
+        self.m_friendHero:setHomePos(hero.m_homePosX, hero.m_homePosY)
+        self.m_friendHero:setPosition(hero.m_homePosX, hero.m_homePosY)
+
+        -- 패시브 즉시 적용
+        self.m_friendHero:doSkill_passive()
+
+        -- 등장시킴
+        self.m_friendHero:doAppear()
+
+        self.m_friendHero.m_bFirstAttack = true
+        self.m_friendHero:changeState('attackDelay')
+        
+        self.m_bUsedFriend = true
+    end
+
     -- 게임 종료 체크(모든 영웅이 죽었을 경우)
     local hero_count = table.count(self.m_mHeroList)
     if (hero_count <= 0) then
@@ -750,13 +778,6 @@ function GameWorld:removeHero(hero)
 		else
 			self.m_gameState:changeState(GAME_STATE_FAILURE)
 		end
-    end
-
-    -- 친구 드래곤
-    if (not self.m_bUsedFriend) then
-        if FRIEND_HERO then
-            self:makeFriendHero()
-        end
     end
 end
 
@@ -1343,6 +1364,13 @@ end
 -------------------------------------
 function GameWorld:isOnFight()
     return self.m_gameState:isFight()
+end
+
+-------------------------------------
+-- function isParticipantMaxCount
+-------------------------------------
+function GameWorld:isParticipantMaxCount()
+    return (#self.m_participants >= PARTICIPATE_DRAGON_CNT)
 end
 
 -------------------------------------

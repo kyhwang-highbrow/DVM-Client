@@ -1,6 +1,6 @@
 -- # 개발 스테이지 진입시 콜로세움 활성화 여부
 if (TARGET_SERVER ~= 'FGT') then
-    COLOSSEUM_SCENE_ACTIVE = true
+    COLOSSEUM_SCENE_ACTIVE = false
 end
 
 -- # 콜로세움 게임 속도
@@ -13,4 +13,4 @@ COLOSSEUM__ENEMY_CASTING_TIME = 2
 COLOSSEUM__ENEMY_START_GAUGE_LIST = { 80, 60, 40, 20, 0 }
 
 -- # 콜로세움 적군의 테스트용 덱을 사용
-COLOSSEUM__USE_TEST_ENEMY_DECK = false
+COLOSSEUM__USE_TEST_ENEMY_DECK = true

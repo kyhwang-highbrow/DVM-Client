@@ -193,31 +193,58 @@ function GameWorld:makeHeroDeck()
     end
 end
 
-
 -------------------------------------
 -- function makeFriendHero
 -------------------------------------
-function GameWorld:makeFriendHero(posIdx)
-    
+function GameWorld:makeFriendHero()
     local t_dragon_data = FRIEND_HERO
-    if (t_dragon_data) then
-        local hero = self:makeDragonNew(t_dragon_data)
-        if (hero) then
-            hero:setPosIdx(posIdx)
+    if (not t_dragon_data) then return end
 
-            self.m_worldNode:addChild(hero.m_rootNode, WORLD_Z_ORDER.UNIT)
-            self.m_physWorld:addObject(PHYS.HERO, hero)
-            self:addHero(hero, posIdx)
+    self.m_friendHero = self:makeDragonNew(t_dragon_data)
 
-            self:participationHero(hero)
+    if (self.m_friendHero) then
+        self.m_friendHero:setActive(false)
 
-            self.m_leftFormationMgr:setChangePosCallback(hero)
+        self.m_worldNode:addChild(self.m_friendHero.m_rootNode, WORLD_Z_ORDER.UNIT)
+    
+        -- 현재 덱에 빈자리가 있다면 즉시 추가
+        if (not self:isParticipantMaxCount()) then
+            local temp = {}
 
-            -- 진형 버프 적용
-            hero.m_statusCalc:applyFormationBonus(formation, posIdx)
-            --ccdump(hero.m_statusCalc.m_lPassive)
+            for i = 1, PARTICIPATE_DRAGON_CNT do
+                table.insert(temp, i)
+            end
+        
+            for i, _ in pairs(self.m_mHeroList) do
+                local idx = table.find(temp, i)
+                table.remove(temp, idx)
+            end
+
+            temp = randomShuffle(temp)
+
+            self:joinFriendHero(temp[1])
+
+            self.m_bUsedFriend = true
         end
     end
+end
+
+-------------------------------------
+-- function joinFriendHero
+-------------------------------------
+function GameWorld:joinFriendHero(posIdx)
+    if (not self.m_friendHero) then return end
+
+    self.m_friendHero:setPosIdx(posIdx)
+
+    self.m_physWorld:addObject(PHYS.HERO, self.m_friendHero)
+    self:addHero(self.m_friendHero, posIdx)
+    self:participationHero(self.m_friendHero)
+
+    self.m_leftFormationMgr:setChangePosCallback(self.m_friendHero)
+
+    -- 진형 버프 적용
+    self.m_friendHero.m_statusCalc:applyFormationBonus(self.m_deckFormation, posIdx)
 end
 
 -------------------------------------

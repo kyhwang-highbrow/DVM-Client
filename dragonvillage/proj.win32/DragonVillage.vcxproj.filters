@@ -1404,6 +1404,9 @@
     <None Include="..\src\ServerData_Colosseum.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_GamePause_Colosseum.lua">
+      <Filter>lua\UI</Filter>
+    </None>
     <None Include="..\src\UI_ColosseumLoading.lua">
       <Filter>lua\UI</Filter>
     </None>

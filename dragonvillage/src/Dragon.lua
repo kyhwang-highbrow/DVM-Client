@@ -81,6 +81,27 @@ function Dragon:update(dt)
 end
 
 -------------------------------------
+-- function doAppear
+-------------------------------------
+function Dragon:doAppear()
+    if (self.m_bDead) then return end
+
+    self.m_rootNode:setVisible(true)
+    self.m_hpNode:setVisible(true)
+
+    -- 등장 이펙트
+    local effect = MakeAnimator('res/effect/tamer_magic_1/tamer_magic_1.vrp')
+    effect:setPosition(self.pos.x, self.pos.y)
+    effect:changeAni('bomb', false)
+    effect:setScale(0.8)
+
+    local duration = effect:getDuration()
+    effect:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.CallFunc:create(function() effect:release() end)))
+
+    self.m_world.m_missiledNode:addChild(effect.m_node)
+end
+
+-------------------------------------
 -- function doAttack
 -------------------------------------
 function Dragon:doAttack(x, y)

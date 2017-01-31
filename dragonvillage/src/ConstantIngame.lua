@@ -76,3 +76,19 @@ GOOD_SKILL_CANCEL_FEVER_POINT = 15
 
 -- #  피버모드 데미지 배율
 FEVER_ATTACK_DAMAGE_RATE = 0.8
+
+--------------------------------------------
+-- 친구 드래곤(임시)
+--------------------------------------------
+FRIEND_HERO = {
+    skill_0 = 1,
+    skill_1 = 1,
+    skill_2 = 1,
+    skill_3 = 1,
+    eclv = 0,
+	runes = {},
+	lv = 10,
+	evolution = 3,
+	grade = 1,
+	did = 120011
+}

@@ -43,6 +43,9 @@ function ResPreloadMgr:loadFromStageName(stageName)
             self.m_tPreloadList = basePreloadList
         end
 
+        -- @DOTO: 친구 유닛에 대한 리소스를 추가
+        
+
         -- 해당 스테이지 관련 리소스 추가
         do
             local stagePreloadList = loadPreloadFile()

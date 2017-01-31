@@ -32,8 +32,7 @@ function UI_GameColosseum:init(game_scene)
     end
 
     -- 백키 지정
-    --g_currScene:pushBackKeyListener(self, function() self:click_pauseButton() end, 'UI_GameColosseum')
-    vars['pauseButton']:setVisible(false)
+    g_currScene:pushBackKeyListener(self, function() self:click_pauseButton() end, 'UI_GameColosseum')
 end
 
 -------------------------------------
@@ -65,11 +64,7 @@ function UI_GameColosseum:click_pauseButton()
         self.m_gameScene:gameResume()
     end
 
-    if (game_mode == GAME_MODE_NEST_DUNGEON) then
-        UI_GamePause_NestDungeon(stage_id, start_cb, end_cb)
-    else
-        UI_GamePause(stage_id, start_cb, end_cb)
-    end
+    UI_GamePause_Colosseum(stage_id, start_cb, end_cb)
 end
 
 -------------------------------------
