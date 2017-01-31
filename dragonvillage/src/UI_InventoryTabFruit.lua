@@ -129,4 +129,72 @@ function UI_InventoryTabFruit:onChangeSelectedItem(ui, data)
         local desc = TableItem():getValue(fid, 't_desc')
         vars['itemDscLabel']:setString(desc)
     end
+
+    -- 판매 버튼
+    vars['sellBtn']:setVisible(true)
+    vars['sellBtn']:registerScriptTapHandler(function() self:sellBtn(data) end)
+end
+
+-------------------------------------
+-- function sellBtn
+-- @brief
+-------------------------------------
+function UI_InventoryTabFruit:sellBtn(data)
+    local item_id = data['fid']
+    local count = data['count']
+
+    local function sell_cb(ret)
+        self.m_inventoryUI:response_itemSell(ret)
+        
+        local item = nil
+        for i,v in pairs(self.m_fruitsTableView.m_itemMap) do
+            if (v['data']['fid'] == item_id) then
+                item = v
+                break
+            end
+        end
+
+        self.m_inventoryUI:clearSelectedItem()
+        if item then
+            self.m_inventoryUI:setSelectedItem(item['ui'], item['data'])
+        end
+    end
+
+    UI_InventorySellItems(item_id, count, sell_cb)
+end
+
+-------------------------------------
+-- function refresh_tableView
+-------------------------------------
+function UI_InventoryTabFruit:refresh_tableView()
+
+    local l_item_list = g_userData:getFruitList()
+    local l_item_map = {}
+    for i,v in pairs(l_item_list) do
+        local fid = tonumber(v['fid'])
+        local count = v['count']
+        l_item_map[fid] = count
+    end
+
+    local dirty = false
+    local table_view = self.m_fruitsTableView
+
+
+    for idx,item in pairs(table_view.m_itemMap) do
+        local fid = tonumber(item['data']['fid'])
+        if (not l_item_map[fid]) or (l_item_map[fid] == 0) then
+            table_view:delItem(idx)
+            dirty = true
+        else
+            local count = l_item_map[fid]
+            item['data']['count'] = count
+            item['ui']:setString(Str('X{1}', comma_value(count)))
+        end
+    end
+
+    -- 테이블뷰의 변경사항이 있을 경우
+    if dirty then
+        table_view:expandTemp(0.5)
+        table_view:relocateContainer(true)
+    end
 end

@@ -307,6 +307,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SceneNestDungeon.lua" />
     <None Include="..\src\ServerData_AutoPlaySetting.lua" />
     <None Include="..\src\ServerData_Colosseum.lua" />
+    <None Include="..\src\ServerData_Inventory.lua" />
     <None Include="..\src\ServerData_LobbyUserList.lua" />
     <None Include="..\src\ServerData_NestDungeon.lua" />
     <None Include="..\src\ServerData_Quest.lua" />
@@ -649,6 +650,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_IngameUnitInfo.lua" />
     <None Include="..\src\UI_InvenDevApiPopup.lua" />
     <None Include="..\src\UI_Inventory.lua" />
+    <None Include="..\src\UI_InventorySellItems.lua" />
     <None Include="..\src\UI_InventoryTab.lua" />
     <None Include="..\src\UI_InventoryTabEvolutionStone.lua" />
     <None Include="..\src\UI_InventoryTabFruit.lua" />

@@ -187,10 +187,11 @@ function UI_InventoryTabRune:sellBtn(t_rune_data)
 
         -- 선택된 룬이 판매되었으니 선택 해제
         local function cb(ret)
+            self.m_inventoryUI:response_itemSell(ret)
             self.m_inventoryUI:clearSelectedItem()
         end
 
-        self.m_inventoryUI:request_itemSell(rune_oids, evolution_stones, fruits, cb)
+        g_inventoryData:request_itemSell(rune_oids, evolution_stones, fruits, cb)
     end
 
     ask_item_sell()

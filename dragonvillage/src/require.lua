@@ -65,6 +65,7 @@ local t_module = {
     'ServerData_Runes',
 	'ServerData_Quest',
     'ServerData_Colosseum',
+    'ServerData_Inventory',
     'UserData',
     'DropHelper',
     'DragonAutoSetHelper',
@@ -414,6 +415,7 @@ local t_module = {
     'UI_InventoryTabRune',
     'UI_InventoryTabFruit',
     'UI_InventoryTabEvolutionStone',
+    'UI_InventorySellItems',
     'UI_AcquisitionRegionInformation',
     'UI_AcquisitionRegionListItem',
 

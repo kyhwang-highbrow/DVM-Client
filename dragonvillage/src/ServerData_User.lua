@@ -49,7 +49,9 @@ function ServerData_User:getFruitList()
         local t_data = {}
         t_data['fid'] = fruit_id
         t_data['count'] = count
-        table.insert(l_ret, t_data)
+        if (count ~= 0) then
+            table.insert(l_ret, t_data)
+        end
     end
 
     return l_ret
