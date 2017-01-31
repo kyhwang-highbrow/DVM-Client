@@ -1422,6 +1422,9 @@
     <None Include="..\src\UI_AcquisitionRegionListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SkillPenetration_Random.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

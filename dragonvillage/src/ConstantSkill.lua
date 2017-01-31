@@ -32,9 +32,15 @@ PENERATION_APPEAR_INTERVAR = ONE_FRAME * 2		-- 발사체 등장 간격
 PENERATION_FIRE_DELAY = 0.5						-- 등장 후 발사 딜레이 
 
 -- #SkillRapidShot
-RAPIDSHOT_Y_POS_RANGE = 50
-RAPIDSHOT_INTERVAL = ONE_FRAME * 3
-RAPIDSHOT_FIRE_DELAY = 0.5
+RAPIDSHOT_Y_POS_RANGE = 50						-- 발사체를 y 좌표 상에서 랜덤하게 등장시킬 범위
+RAPIDSHOT_INTERVAL = ONE_FRAME * 3				-- 발사체 등장 간격 
+RAPIDSHOT_FIRE_DELAY = 0.5						-- 등장 후 발사 딜레이
+
+-- #SkillPenetration_Random -- 삐에로 드래곤
+P_RANDOM_HEIGHT_RANGE = 250						-- 발사체를 y 좌표 상에서 랜덤하게 등장시킬 범위
+P_RANDOM_INTERVAL = ONE_FRAME * 5				-- 발사체 등장 간격 
+P_RANDOM_FIRE_DELAY = 0.7						-- 등장 후 발사 딜레이
+
 
 --------------------------------------------
 -- 인디케이터 리소스 경로

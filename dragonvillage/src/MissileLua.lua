@@ -177,11 +177,12 @@ function MissileLua.lua_angle(owner)
     local pos_x = owner.pos.x
     local pos_y = owner.pos.y
 
-    local duration = 0.7
-    local target_x = (pos_x - 640)
+    local duration = 0.5
+    local loop = 1
+    
+	local target_x = (pos_x - 640)
     local target_y = (pos_y - 50)
     
-    local loop = 1
     if (owner.m_target) then
         target_x = owner.m_target.m_homePosX
         target_y = owner.m_target.m_homePosY
@@ -191,20 +192,28 @@ function MissileLua.lua_angle(owner)
 	local height = owner.m_value1
 	local explosion_res = owner.m_value2
 	local explosion_size = owner.m_value3
-	local power_rate = owner.m_value4
+	local delay_time = owner.m_value4
 
 	-- 폭발 콜백
 	local cbFunction = cc.CallFunc:create(function()
-	if (explosion_res == 'x') then
+		-- size 혹은 res 가 없다면 폭발을 시키지 않음
+		if (not explosion_size) or (not explosion_res) then
+			return 
+		end
+
+		-- 리소스가 x인것은 테이블상 오류일 가능성이 크므로 진행
+		if (explosion_res == 'x') then
 			explosion_res = nil
 		end
-		local attr = owner.m_owner.m_charTable['attr'] or ''
+
+		local attr = owner.m_owner:getAttribute() or ''
 		owner.m_world.m_missileFactory:makeInstantMissile(explosion_res, 'center_idle', target_x, target_y, explosion_size, owner, {attr_name = attr})
 		owner:changeState('dying')	
 	end)
 
-    local action = cc.JumpTo:create(duration, cc.p(target_x, target_y), height, loop)
-    owner.m_rootNode:runAction(cc.Sequence:create(action, cbFunction))
+	local delay_action = cc.DelayTime:create(delay_time)
+    local jump_action = cc.JumpTo:create(duration, cc.p(target_x, target_y), height, loop)
+    owner.m_rootNode:runAction(cc.Sequence:create(delay_action, jump_action, cbFunction))
 end
 
 -------------------------------------

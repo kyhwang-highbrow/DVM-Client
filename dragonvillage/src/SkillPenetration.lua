@@ -9,8 +9,6 @@ SkillPenetration = class(PARENT, {
 
 		m_skillLineNum = 'num',		-- 공격 하는 직선 갯수
 		m_skillLineSize = 'num',	-- 직선의 두께
-		
-		m_skillLineGap = 'num',		-- 직선 간의 간격
 
 		m_skillTimer = 'time',
 		m_skillTotalTime = 'time',	-- 적절하게 계산된 총 등장 시간
@@ -46,7 +44,6 @@ function SkillPenetration:init_skill(missile_res, motionstreak_res, line_num, li
 	self.m_skillTimer = 0
 	self.m_skillCount = 1
 
-	self.m_skillLineGap = nil
 	self.m_skillAttackPosList = nil
 	self.m_skillDirList = nil
 end

@@ -244,6 +244,10 @@ function Character:doSkill(skill_id, x, y, t_data)
 			SkillPenetration:makeSkillInstance(self, t_skill, t_data)
             return true
     
+		elseif (type == 'skill_penetration_random') then
+			SkillPenetration_Random:makeSkillInstance(self, t_skill, t_data)
+            return true
+
         elseif (type == 'skill_rapid_shot') then
             SkillRapidShot:makeSkillInstance(self, t_skill, t_data)
             return true

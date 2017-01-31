@@ -7,6 +7,7 @@ CommonMissile_High = class(PARENT, {
 		m_jumpHeight = 'num',
 		m_explosionSize = 'num',
 		m_explosionRes = 'str',
+		m_delayTime = 'num',
      })
 
 -------------------------------------
@@ -26,6 +27,7 @@ function CommonMissile_High:initCommonMissile(owner, t_skill)
 	self.m_jumpHeight = t_skill['val_1']
 	self.m_explosionSize = t_skill['val_2']
 	self.m_explosionRes  = string.gsub(t_skill['res_3'], '@', attr)
+	self.m_delayTime = 0
 end
 
 -------------------------------------
@@ -70,7 +72,7 @@ function CommonMissile_High:setMissile()
     t_option['lua_param']['value1'] = self.m_jumpHeight
 	t_option['lua_param']['value2'] = self.m_explosionRes
 	t_option['lua_param']['value3'] = self.m_explosionSize
-	t_option['lua_param']['value4'] = self.m_powerRate
+	t_option['lua_param']['value4'] = self.m_delayTime
 
 	-----------------------------------------------------------------------------------
 

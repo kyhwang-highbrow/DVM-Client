@@ -293,6 +293,7 @@ local t_module = {
 	'SkillCharge',
 	'SkillContinuous',
 	'SkillPenetration',
+	'SkillPenetration_Random',
     'SkillRapidShot',
 	'SkillRapidShot_AddAttack',
 
