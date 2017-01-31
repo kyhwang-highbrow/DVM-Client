@@ -166,7 +166,7 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function SkillLaser:refresh()
+function SkillLaser:refresh(force)
     local change_start = false
 	
     if self.m_owner then

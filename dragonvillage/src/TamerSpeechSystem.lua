@@ -168,7 +168,9 @@ function TamerSpeechSystem:onEvent(event_name, t_event, ...)
         local arg = {...}
         local dragon = arg[1]
         
-        self:showSpeech(Str('아.. 안돼 {1}', dragon.m_charTable['t_name']), 'pain')
+        if (not self.m_world:hasFriendHero()) then
+            self:showSpeech(Str('아.. 안돼 {1}', dragon.m_charTable['t_name']), 'pain')
+        end
 
     -- 웨이브 시작시
     elseif (event_name == 'wave_start') then
@@ -229,6 +231,13 @@ function TamerSpeechSystem:onEvent(event_name, t_event, ...)
         local dragon = arg[1]
 
         self:showSpeech(Str('{1}만 믿으면 되겠는걸!', dragon.m_charTable['t_name']), 'happiness')
-        
+    
+    -- 친구 영웅 등장시    
+    elseif (event_name == 'friend_dragon_appear') then
+        local arg = {...}
+        local dragon = arg[1]
+
+        self:showSpeech(Str('안돼... 도와줘! {1}', dragon.m_charTable['t_name']), 'pain')
+    
     end
 end

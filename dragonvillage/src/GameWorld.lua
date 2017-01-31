@@ -323,6 +323,7 @@ function GameWorld:initTamer()
     self:addListener('wave_start', self.m_tamerSpeechSystem)
     self:addListener('boss_wave', self.m_tamerSpeechSystem)
     self:addListener('stage_clear', self.m_tamerSpeechSystem)
+    self:addListener('friend_dragon_appear', self.m_tamerSpeechSystem)
 end
 
 
@@ -760,6 +761,8 @@ function GameWorld:removeHero(hero)
 
         self.m_friendHero.m_bFirstAttack = true
         self.m_friendHero:changeState('attackDelay')
+
+        self:dispatch('friend_dragon_appear', {}, self.m_friendHero)
         
         self.m_bUsedFriend = true
     end
@@ -1371,6 +1374,13 @@ end
 -------------------------------------
 function GameWorld:isParticipantMaxCount()
     return (#self.m_participants >= PARTICIPATE_DRAGON_CNT)
+end
+
+-------------------------------------
+-- function hasFriendHero
+-------------------------------------
+function GameWorld:hasFriendHero()
+    return (not self.m_bUsedFriend and self.m_friendHero)
 end
 
 -------------------------------------
