@@ -91,7 +91,7 @@ slid,sid,lv,t_name,col_01,mod_01,val_01,col_02,mod_02,val_02,col_03,mod_03,val_0
 22008108,220081,8,아침에 사과,status_effect_1,exchange,atk_up;self;wave_start;10;100;41,x,x,0,x,x,0,x,x,0,x,x,0,41,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
 22008109,220081,9,아침에 사과,status_effect_1,exchange,atk_up;self;wave_start;10;100;44,x,x,0,x,x,0,x,x,0,x,x,0,44,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
 22008110,220081,10,아침에 사과,status_effect_1,exchange,atk_up;self;wave_start;10;100;50,x,x,0,x,x,0,x,x,0,x,x,0,50,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
-22009101,220091,1,금사과,status_effect_2,exchange,cri_chance_up;target;hit;10;100;50,va1_1,exchange,50,x,x,0,x,x,0,x,x,0,60,50,x,x,x,스킬 사용시 {1}% 확률로 금사과를 던져 대상의 치명확률 {2}% 추가 증가
+22009101,220091,1,금사과,status_effect_2,exchange,cri_chance_up;target;hit;10;100;50,val_1,exchange,50,x,x,0,x,x,0,x,x,0,60,50,x,x,x,스킬 사용시 {1}% 확률로 금사과를 던져 대상의 치명확률 {2}% 추가 증가
 20011201,200112,1,레몬드립니다,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,30,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
 20011202,200112,2,레몬드립니다,status_effect_1,exchange,atk_up;target;hit;15;100;33,x,x,0,x,x,0,x,x,0,x,x,0,33,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
 20011203,200112,3,레몬드립니다,status_effect_1,exchange,atk_up;target;hit;15;100;36,x,x,0,x,x,0,x,x,0,x,x,0,36,x,x,x,x,대상의 공격력을 15초간 {1}% 증가
@@ -112,7 +112,7 @@ slid,sid,lv,t_name,col_01,mod_01,val_01,col_02,mod_02,val_02,col_03,mod_03,val_0
 22008208,220082,8,아침에 라임,status_effect_1,exchange,atk_up;self;wave_start;10;100;41,x,x,0,x,x,0,x,x,0,x,x,0,41,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
 22008209,220082,9,아침에 라임,status_effect_1,exchange,atk_up;self;wave_start;10;100;44,x,x,0,x,x,0,x,x,0,x,x,0,44,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
 22008210,220082,10,아침에 라임,status_effect_1,exchange,atk_up;self;wave_start;10;100;50,x,x,0,x,x,0,x,x,0,x,x,0,50,x,x,x,x,웨이브 시작 시 10초간 공격력 {1}% 증가
-22009201,220092,1,금라임,status_effect_2,exchange,cri_chance_up;target;hit;10;100;50,va1_1,exchange,50,x,x,0,x,x,0,x,x,0,60,50,x,x,x,스킬 사용시 {1}% 확률로 금라임을 던져 대상의 치명확률 {2}% 추가 증가
+22009201,220092,1,금라임,status_effect_2,exchange,cri_chance_up;target;hit;10;100;50,val_1,exchange,50,x,x,0,x,x,0,x,x,0,60,50,x,x,x,스킬 사용시 {1}% 확률로 금라임을 던져 대상의 치명확률 {2}% 추가 증가
 20016101,200161,1,가시의 별,x,x,0,x,x,0,x,x,0,x,x,0,x,x,0,1000,x,x,x,x,대상에게 공격력의 {1}% 피해. 적이 죽을 경우 다른 대상에게 추가 공격
 20016102,200161,2,가시의 별,power_rate,add,10,x,x,0,x,x,0,x,x,0,x,x,0,1010,x,x,x,x,대상에게 공격력의 {1}% 피해. 적이 죽을 경우 다른 대상에게 추가 공격
 20016103,200161,3,가시의 별,power_rate,add,10,x,x,0,x,x,0,x,x,0,x,x,0,1020,x,x,x,x,대상에게 공격력의 {1}% 피해. 적이 죽을 경우 다른 대상에게 추가 공격
