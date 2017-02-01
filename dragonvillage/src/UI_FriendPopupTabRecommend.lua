@@ -50,7 +50,7 @@ function UI_FriendPopupTabRecommend:click_findBtn()
 
     -- 친구 검색 완료
     local function finish_cb(ret)
-        local l_user_list = ret['user_lists']
+        local l_user_list = ret['users_list']
         local t_friend_info = l_user_list[1]
 
         if (not t_friend_info) then
