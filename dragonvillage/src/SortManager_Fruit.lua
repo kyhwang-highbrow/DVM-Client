@@ -16,7 +16,7 @@ function SortManager_Fruit:init()
 
     self:addSortType('rarity', false, function(a, b, ascending) return self:sort_rarity(a, b, ascending) end)
     self:addSortType('attr', false, function(a, b, ascending) return self:sort_attr(a, b, ascending) end)
-    self:setDefaultSortFunc(function(a, b, ascending) self:sort_fid(a, b, ascending) end)
+    self:setDefaultSortFunc(function(a, b, ascending) return self:sort_fid(a, b, ascending) end)
 end
 
 

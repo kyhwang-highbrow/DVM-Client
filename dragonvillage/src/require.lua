@@ -90,7 +90,6 @@ local t_module = {
     'SortManager_Fruit',
     'SortManager_EvolutionStone',
     'DragonSortManager',
-    'RuneSortManager',
     'RuneEnchantHelper',
     'SimplePrimitivesDraw',
     	
@@ -425,6 +424,7 @@ local t_module = {
     'UI_FriendPopup',
     'UI_FriendPopupTab',
     'UI_FriendPopupTabFriends',
+    'UI_FriendPopupTabRecommend',
     'UI_FriendListItem',
 
     -- UI 드래곤 관리 관련

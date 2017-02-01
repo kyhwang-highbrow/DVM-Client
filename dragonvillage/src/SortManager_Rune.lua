@@ -17,7 +17,7 @@ function SortManager_Rune:init()
     self:addSortType('grade', false, function(a, b, ascending) return self:sort_grade(a, b, ascending) end)
     self:addSortType('set_color', false, function(a, b, ascending) return self:sort_set_color(a, b, ascending) end)
     self:addSortType('lv', false, function(a, b, ascending) return self:sort_lv(a, b, ascending) end)
-    self:setDefaultSortFunc(function(a, b, ascending) self:sort_roid(a, b, ascending) end)
+    self:setDefaultSortFunc(function(a, b, ascending) return self:sort_roid(a, b, ascending) end)
 end
 
 

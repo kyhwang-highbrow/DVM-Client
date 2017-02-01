@@ -16,7 +16,7 @@ function SortManager_EvolutionStone:init()
 
     self:addSortType('rarity', false, function(a, b, ascending) return self:sort_rarity(a, b, ascending) end)
     self:addSortType('attr', false, function(a, b, ascending) return self:sort_attr(a, b, ascending) end)
-    self:setDefaultSortFunc(function(a, b, ascending) self:sort_esid(a, b, ascending) end)
+    self:setDefaultSortFunc(function(a, b, ascending) return self:sort_esid(a, b, ascending) end)
 end
 
 

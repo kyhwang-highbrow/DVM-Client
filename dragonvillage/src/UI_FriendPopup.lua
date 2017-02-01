@@ -79,13 +79,13 @@ end
 function UI_FriendPopup:initFrinedPopupTab()
     self.m_tTabClass = {}
     self.m_tTabClass['friends'] = UI_FriendPopupTabFriends(self)
-    self.m_tTabClass['recommend'] = UI_FriendPopupTab(self)
+    self.m_tTabClass['recommend'] = UI_FriendPopupTabRecommend(self)
     self.m_tTabClass['request'] = UI_FriendPopupTab(self)
     self.m_tTabClass['invite'] = UI_FriendPopupTab(self)
 
     local vars = self.vars
     self:addTab('friends', vars['listBtn'], vars['listMenu'])
-    self:addTab('recommend', vars['recommendBtn'], vars['recommendNode1'], vars['recommendNode2'])
+    self:addTab('recommend', vars['recommendBtn'], vars['recommendNode1'], vars['recommendMenu2'])
     self:addTab('request', vars['requestBtn'], vars['requestNode'])
     self:addTab('invite', vars['inviteBtn'], vars['inviteNode'])
 

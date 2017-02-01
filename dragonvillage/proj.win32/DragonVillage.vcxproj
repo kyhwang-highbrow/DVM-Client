@@ -301,7 +301,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Monster_Tree.lua" />
     <None Include="..\src\Monster_WorldOrderMachine.lua" />
     <None Include="..\src\RuneEnchantHelper.lua" />
-    <None Include="..\src\RuneSortManager.lua" />
     <None Include="..\src\SceneColosseum.lua" />
     <None Include="..\src\SceneGameColosseum.lua" />
     <None Include="..\src\SceneNestDungeon.lua" />
@@ -640,6 +639,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_FriendPopup.lua" />
     <None Include="..\src\UI_FriendPopupTab.lua" />
     <None Include="..\src\UI_FriendPopupTabFriends.lua" />
+    <None Include="..\src\UI_FriendPopupTabRecommend.lua" />
     <None Include="..\src\UI_FruitFeedPress.lua" />
     <None Include="..\src\UI_Game.lua" />
     <None Include="..\src\UI_GameColosseum.lua" />

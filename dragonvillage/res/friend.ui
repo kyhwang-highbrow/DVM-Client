@@ -686,7 +686,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'listMenu';
 				};
 				[2] =
@@ -778,6 +778,25 @@
 				{
 					[1] =
 					{
+						type = 'Node';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 570;
+						height = 424;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'recommendNode2';
+					};
+					[2] =
+					{
 						[1] =
 						{
 							type = 'LabelTTF';
@@ -847,7 +866,7 @@
 								font_name = 'Helvetica';
 								font_size = 20;
 								font_color = { 255; 255; 255; };
-								placeholder = '텍스트를 입력하세요.';
+								placeholder = '친구 검색';
 								placeholder_font_name = 'Helvetica';
 								placeholder_font_size = 20;
 								placeholder_font_color = { 255; 255; 255; };
@@ -879,30 +898,6 @@
 							center_rect_width = 0;
 							center_rect_height = 0;
 						};
-						[3] =
-						{
-							type = 'Button';
-							ui_name = '';
-							x = 260.000000;
-							y = 0.000000;
-							dock_point = { 0.500000; 0.500000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 0;
-							width = 44;
-							height = 44;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = true;
-							lua_name = 'findBtn';
-							enable = true;
-							normal = 'ui/btn/base_btn_0101.png';
-							selected = '';
-							disable = '';
-							image_type = 1;
-						};
 						type = 'Scale9Sprite';
 						ui_name = '';
 						x = 0.000000;
@@ -927,7 +922,31 @@
 						center_rect_width = 0;
 						center_rect_height = 0;
 					};
-					type = 'Node';
+					[3] =
+					{
+						type = 'Button';
+						ui_name = '';
+						x = 260.000000;
+						y = 244.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 44;
+						height = 44;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'findBtn';
+						enable = true;
+						normal = 'ui/btn/base_btn_0101.png';
+						selected = '';
+						disable = '';
+						image_type = 1;
+					};
+					type = 'Menu';
 					ui_name = '';
 					x = 290.000000;
 					y = -28.000000;
@@ -941,8 +960,8 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = false;
-					lua_name = 'recommendNode2';
+					visible = true;
+					lua_name = 'recommendMenu2';
 				};
 				[4] =
 				{

@@ -9,7 +9,11 @@ UI_RuneEnchantPopup = class(PARENT, {
         m_tRuneData = 'table',
         m_tableViewMaterials = 'UIC_TableViewTD',
         m_tableViewSelectedMaterials = 'UIC_TableView',
-        m_runeSortManager = 'RuneSotrManager',
+
+        -- 정렬
+        m_sortManagerRune = 'SortManagerRune', -- 룬 정렬 도우미
+        m_bAscending = 'boolean', -- 오름차순 여부
+
         m_runeEnchantHelper = 'RuneEnchantHelper',
 
         m_bDirtyRuneData = 'boolean', -- 강화를 시도하여 정보가 변경되었는지 여ㅂ
@@ -73,12 +77,15 @@ function UI_RuneEnchantPopup:initUI()
     self:init_runeEnchantMaterials()
     self:init_runeEnchantSelectedMaterials()
 
+
     -- 정렬
-    self.m_runeSortManager = RuneSortManager()
-    self.m_runeSortManager:addTableView(self.m_tableViewMaterials)
-    self.m_runeSortManager:addTableView(self.m_tableViewSelectedMaterials)
-    self.m_runeSortManager.m_bAscendingSort = true -- 오름차순으로 정렬
-    self.m_runeSortManager:changeSort()
+    self.m_bAscending = true
+    local sort_manager = SortManager_Rune()
+    sort_manager:pushSortOrder('set_color')
+    sort_manager:pushSortOrder('lv')
+    sort_manager:pushSortOrder('grade')
+    self.m_sortManagerRune = sort_manager
+    self:tableViewSortAndRefresh()
 end
 
 -------------------------------------
@@ -142,6 +149,26 @@ end
 function UI_RuneEnchantPopup:initButton()
     local vars = self.vars
     vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
+    vars['sortSelectBtn']:setVisible(false)
+    vars['sortSelectOrderBtn']:registerScriptTapHandler(function() self:setAscending(not self.m_bAscending) end)
+end
+
+-------------------------------------
+-- function setAscending
+-------------------------------------
+function UI_RuneEnchantPopup:setAscending(ascending)
+    self.m_bAscending = ascending
+
+    local vars = self.vars
+
+    if ascending then
+        vars['sortSelectOrderSprite']:setScaleY(-1)
+    else
+        vars['sortSelectOrderSprite']:setScaleY(1)
+    end
+   
+    -- 내부 슬롯별 탭 정렬
+    self:tableViewSortAndRefresh()
 end
 
 -------------------------------------
@@ -273,7 +300,7 @@ function UI_RuneEnchantPopup:click_enchantMaterial(t_rune_data)
         self.m_tableViewSelectedMaterials:expandTemp(0.5)
     end
 
-    self.m_runeSortManager:changeSort()
+    self:tableViewSortAndRefresh()
     self:refresh_selectedMaterials()
 end
 
@@ -301,7 +328,7 @@ function UI_RuneEnchantPopup:click_enhanceBtn()
         end
 
         self.m_tableViewSelectedMaterials:clearItemList()
-        self.m_runeSortManager:changeSort()
+        self:tableViewSortAndRefresh()
 
         local roid = ret['rune']['id']
         self.m_tRuneData = g_runesData:getRuneData(roid, true)
@@ -322,6 +349,19 @@ function UI_RuneEnchantPopup:click_enhanceBtn()
     g_runesData:requestRuneEnchant(roid, src_roids, cb_func)
 end
 
+-------------------------------------
+-- function tableViewSortAndRefresh
+-- @brief 테이블 뷰 정렬, 갱신
+-------------------------------------
+function UI_RuneEnchantPopup:tableViewSortAndRefresh()
+    local sort_manager = self.m_sortManagerRune
+    sort_manager:setAllAscending(self.m_bAscending)
+    sort_manager:sortExecution(self.m_tableViewMaterials.m_itemList)
+    sort_manager:sortExecution(self.m_tableViewSelectedMaterials.m_itemList)
+
+    self.m_tableViewMaterials:expandTemp(0.5)
+    self.m_tableViewSelectedMaterials:expandTemp(0.5)
+end
 
 --@CHECK
 UI:checkCompileError(UI_RuneEnchantPopup)

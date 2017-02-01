@@ -15,6 +15,7 @@ SortManager = class({
         m_mSortType = 'map[t_sort_type]',
         m_lSortOrder = 'list',
         m_defaultSortFunc = 'function',
+        m_defaultSortAscending ='boolean',
     })
 
 -------------------------------------
@@ -83,14 +84,15 @@ function SortManager:sortFunction(a, b)
         end
     end
 
-    return self.m_defaultSortFunc(a, b, ascending)
+    return self.m_defaultSortFunc(a, b, self.m_defaultSortAscending)
 end
 
 -------------------------------------
 -- function setDefaultSortFunc
 -------------------------------------
-function SortManager:setDefaultSortFunc(sort_func)
+function SortManager:setDefaultSortFunc(sort_func, ascending)
     self.m_defaultSortFunc = sort_func
+    self.m_defaultSortAscending = (ascending or false)
 end
 
 -------------------------------------
@@ -101,4 +103,6 @@ function SortManager:setAllAscending(ascending)
     for _,t_sort_type in pairs(self.m_mSortType) do
         t_sort_type['ascending'] = ascending
     end
+
+    self.m_defaultSortAscending = ascending
 end
