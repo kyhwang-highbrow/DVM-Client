@@ -48,6 +48,13 @@ end
 -------------------------------------
 function UI_FriendPopup:initUI()
     self:initFrinedPopupTab()
+
+    -- 임시 비활성
+    local vars = self.vars
+    vars['inviteBtn']:setVisible(false)
+    vars['drawBtn']:setVisible(false)
+    vars['manageBtn']:setVisible(false)
+    vars['sendAllBtn']:setVisible(false)
 end
 
 -------------------------------------

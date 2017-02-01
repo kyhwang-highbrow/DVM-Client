@@ -29,6 +29,9 @@ function UI_FriendPopupTabRequest:onEnterFriendPopupTab(first)
 
         local function finish_cb()
             self:init_tableView()
+
+            local count = self.m_tableView:getItemCount()
+            self.vars['requestLabel1']:setString(Str('{1} / {2}', count, 100))
         end
 
         local force = true

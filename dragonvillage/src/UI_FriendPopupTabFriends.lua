@@ -20,6 +20,10 @@ function UI_FriendPopupTabFriends:onEnterFriendPopupTab(first)
     --if first then
         local function finish_cb(ret)
             self:init_tableView()
+
+            -- 친구 명수
+            local count = g_friendData:getFriendCount()
+            self.vars['listLabel']:setString(Str('{1} / {2}명', count, 20))
         end
         local force = true
         g_friendData:request_friendList(finish_cb, force)

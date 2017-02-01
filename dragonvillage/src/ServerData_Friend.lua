@@ -175,6 +175,21 @@ function ServerData_Friend:getFriendList()
 end
 
 -------------------------------------
+-- function getFriendCount
+-- @brief 친구 갯수 받아옴
+-------------------------------------
+function ServerData_Friend:getFriendCount(type)
+    type = type or 'all'
+    local count = 0
+
+    for i,v in pairs(self.m_lFriendUserList) do
+        count = (count + 1)
+    end
+
+    return count
+end
+
+-------------------------------------
 -- function setSelectedShareFriendData
 -- @brief
 -------------------------------------

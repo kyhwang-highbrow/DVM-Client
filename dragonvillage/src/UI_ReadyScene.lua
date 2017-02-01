@@ -399,7 +399,10 @@ end
 -------------------------------------
 function UI_ReadyScene:click_friendBtn()
     local ui = UI_FriendSelectPopup()
-    --ui:setCloseCB(function() self.vars['autoStartOnBtn']:setChecked(g_autoPlaySetting:isAutoPlay()) end)
+    ui:setCloseCB(function()
+        local check = (g_friendData.m_selectedShareFriendData ~= nil)
+        self.vars['friendBtn']:setChecked(check)
+    end)
 end
 
 -------------------------------------
