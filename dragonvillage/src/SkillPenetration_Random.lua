@@ -87,7 +87,7 @@ end
 -------------------------------------
 function SkillPenetration_Random:getRandomTargetList()
 	local world = self.m_owner.m_world
-	local l_target = world:getEnemyList()
+	local l_target = self.m_owner:getOpponentList()
 	local l_ret = {}
 
 	for i = 1, self.m_skillLineNum do

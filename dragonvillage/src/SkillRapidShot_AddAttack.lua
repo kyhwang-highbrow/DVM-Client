@@ -114,25 +114,24 @@ end
 -- @TODO 임시 코드
 -------------------------------------
 function SkillRapidShot_AddAttack:ultimateActiveForClownDragon()
-	local l_target = self.m_world:getEnemyList()
-	
-	-- 주 타겟은 리스트에서 제외한다.
-	for i, target in pairs(l_target) do 
-		if (target == self.m_targetChar) then
-			table.remove(l_target, i)
-			break
-		end
-	end
+	local l_target = self.m_owner:getOpponentList()
+    local count = #l_target
+    if (count <= 1) then return end
 
-	local target = table.getRandom(l_target)
-	if target then 
+    -- 주 타겟은 제외한 랜덤한 대상을 얻는다
+    local randomIdx = math_random(1, count - 1)
+    local target
+
+    for i, v in pairs(l_target) do
+        if (v ~= self.m_targetChar and i >= randomIdx) then
+            target = v
+            break
+        end
+    end
+
+    if target then 
 		self:fireMissile(target, true)
 		StatusEffectHelper:doStatusEffectByStr(self.m_owner, {target}, {self.m_addAttackStatusEffect})
-	end
-
-	-- 제외했던 주 타겟을 다시 넣는다.
-	if (not self.m_targetChar.m_bDead) then
-		table.insert(l_target, self.m_targetChar)
 	end
 end
 
