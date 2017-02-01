@@ -95,7 +95,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'drawLabel';
+					lua_name = 'gachaLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 30;
 					text = 'drawLabel';
