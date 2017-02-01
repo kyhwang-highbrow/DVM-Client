@@ -38,8 +38,6 @@ function TamerSkillSystem:init(world, tamerSkillCut)
     -- 궁극기
 	self:initTamerSpecialSkillBtn()
 
-    self.m_world.m_inGameUI.vars['characterMenu']:setVisible(false)
-
     -- 리스너 등록
     self:addListener('tamer_skill', tamerSkillCut)
     self:addListener('tamer_special_skill', tamerSkillCut)

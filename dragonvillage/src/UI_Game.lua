@@ -35,6 +35,10 @@ function UI_Game:init(game_scene)
     
     -- 연속 전투 정보
     do
+        vars['autoStartVisual'].m_node:setLocalZOrder(1)
+        vars['autoVisual'].m_node:setLocalZOrder(1)
+        vars['speedVisual'].m_node:setLocalZOrder(1)
+
         self:setAutoPlayUI()
     end
 
