@@ -31,11 +31,11 @@ function TableQuest:arrangeData()
 		-- reward parsing
 		reward_str = t_quest['reward']
 		t_reward = seperate(reward_str, ',')
-		
+		t_quest['t_reward'] = {}
 		for i, each_reward in pairs(t_reward) do 
 			reward_iv = seperate(each_reward, ':')
-			t_quest['reward_type_'..i] = reward_iv[1]
-			t_quest['reward_unit_'..i] = reward_iv[2]
+			t_quest['t_reward']['reward_type_'..i] = reward_iv[1]
+			t_quest['t_reward']['reward_unit_'..i] = reward_iv[2]
 		end
 	end
 end

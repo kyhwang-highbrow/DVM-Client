@@ -128,10 +128,11 @@ function UI_QuestListItem:setRewardCard()
 	local t_data = self.m_questData
 
 	local reward_type, reward_unit, reward_card, reward_count = nil
+	local t_reward = t_data['t_reward']
 
 	for i = 1, 3 do 
-		reward_type = t_data['reward_type_' .. i]
-		reward_unit = t_data['reward_unit_' .. i]
+		reward_type = t_reward['reward_type_' .. i]
+		reward_unit = t_reward['reward_unit_' .. i]
 		reward_count = reward_unit * math_min(self.m_goalCount, t_data['reward_max_cnt'])
 		if (reward_type) then
 		    reward_card = UI_RewardCard(reward_type, reward_count)
