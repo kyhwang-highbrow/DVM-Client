@@ -5,6 +5,10 @@ ServerData_Friend = class({
         m_serverData = 'ServerData',
 
         m_lRecommendUserList = 'list',
+        m_lFriendUserList = 'list',
+
+        -- 선택된 공유 친구 데이터
+        m_selectedShareFriendData = '',
     })
 
 -------------------------------------
@@ -31,7 +35,7 @@ function ServerData_Friend:request_recommend(finish_cb, force)
 
     -- 콜백 함수
     local function success_cb(ret)
-        self.m_lRecommendUserList = ret['user_lists']
+        self.m_lRecommendUserList = ret['users_list']
         if finish_cb then
             finish_cb()
         end
@@ -76,7 +80,8 @@ function ServerData_Friend:request_invite(friend_uid, finish_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/socials/invite')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('friend', friend_uid)
+    ui_network:setParam('friends', friend_uid)
+    ui_network:setParam('type', 1) -- 1친구, 2베스트 프렌드, 3소울메이트
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
@@ -120,4 +125,70 @@ function ServerData_Friend:request_find(friend_nick, finish_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+end
+
+-------------------------------------
+-- function request_friendList
+-- @brief 친구 리스트 받아옴
+-------------------------------------
+function ServerData_Friend:request_friendList(finish_cb, force)
+    if self.m_lFriendUserList and (not force) then
+        if finish_cb then
+            finish_cb()
+        end
+        return
+    end
+
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        self.m_lFriendUserList = ret['users_list']
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/socials/recommend')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function getFriendList
+-- @brief 친구 리스트 받아옴
+-------------------------------------
+function ServerData_Friend:getFriendList()
+    return self.m_lFriendUserList
+end
+
+-------------------------------------
+-- function setSelectedShareFriendData
+-- @brief
+-------------------------------------
+function ServerData_Friend:setSelectedShareFriendData(t_friend_info)
+    self.m_selectedShareFriendData = t_friend_info
+end
+
+-------------------------------------
+-- function getParticipationFriendDragon
+-- @brief
+-------------------------------------
+function ServerData_Friend:getParticipationFriendDragon()
+    local t_friend_info = self.m_selectedShareFriendData
+
+    if (not t_friend_info) then
+        return nil
+    end
+
+    self.m_selectedShareFriendData = nil
+
+    return t_friend_info['leader']
 end

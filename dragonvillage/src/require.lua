@@ -431,6 +431,9 @@ local t_module = {
     'UI_FriendPopupTabRecommend',
     'UI_FriendListItem',
     'UI_FriendRecommendUserListItem',
+    -- 친구 드래곤 선택
+    'UI_FriendSelectPopup',
+    'UI_FriendSelectListItem',
 
     -- UI 드래곤 관리 관련
     'UI_DragonManage_Base',

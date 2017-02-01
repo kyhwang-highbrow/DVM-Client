@@ -204,7 +204,8 @@ end
 -- function makeFriendHero
 -------------------------------------
 function GameWorld:makeFriendHero()
-    local t_dragon_data = FRIEND_HERO
+    local t_dragon_data = g_friendData:getParticipationFriendDragon()
+    --local t_dragon_data = FRIEND_HERO
     if (not t_dragon_data) then return end
 
     self.m_friendHero = self:makeDragonNew(t_dragon_data)

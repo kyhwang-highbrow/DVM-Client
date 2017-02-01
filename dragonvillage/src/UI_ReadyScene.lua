@@ -111,6 +111,12 @@ function UI_ReadyScene:initButton()
         radio_button:addButton('3', vars['deckBtn3'], nil, function() self:click_teamBtn('3') end)
         radio_button:setSelectedButton(g_deckData:getSelectedDeckName())
     end
+
+    do -- 친구 선택
+        vars['friendBtn'] = UIC_CheckBox(vars['friendBtn'].m_node, vars['friendOnSprite'], false)
+        vars['friendBtn']:setManualMode(true)
+        vars['friendBtn']:registerScriptTapHandler(function() self:click_friendBtn() end)
+    end
 end
 
 -------------------------------------
@@ -385,6 +391,15 @@ end
 function UI_ReadyScene:click_autoStartOnBtn()
     local ui = UI_AutoPlaySettingPopup()
     ui:setCloseCB(function() self.vars['autoStartOnBtn']:setChecked(g_autoPlaySetting:isAutoPlay()) end)
+end
+
+-------------------------------------
+-- function click_friendBtn
+-- @breif
+-------------------------------------
+function UI_ReadyScene:click_friendBtn()
+    local ui = UI_FriendSelectPopup()
+    --ui:setCloseCB(function() self.vars['autoStartOnBtn']:setChecked(g_autoPlaySetting:isAutoPlay()) end)
 end
 
 -------------------------------------
