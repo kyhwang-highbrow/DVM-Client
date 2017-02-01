@@ -225,7 +225,7 @@ end
 -- @brief 친구 요청 리스트
 -------------------------------------
 function ServerData_Friend:request_inviteList(finish_cb)
-    if self.m_lRecommendUserList and (not force) then
+    if self.m_lFriendInviteList and (not force) then
         if finish_cb then
             finish_cb()
         end
