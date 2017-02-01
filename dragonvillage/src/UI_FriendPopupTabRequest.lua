@@ -59,6 +59,11 @@ function UI_FriendPopupTabRequest:init_tableView()
         end
 
         ui.vars['acceptBtn']:registerScriptTapHandler(click_func)
+
+        local function click_refuseBtn()
+            self:click_inviteRefuseBtn(data)
+        end
+        ui.vars['refuseBtn']:registerScriptTapHandler(click_refuseBtn)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -101,4 +106,28 @@ function UI_FriendPopupTabRequest:click_inviteAcceptBtn(data)
     end
     
     g_friendData:request_inviteAccept(friend_uid, finish_cb)
+end
+
+-------------------------------------
+-- function click_inviteRefuseBtn
+-- @brief 친구 요청 거절
+-------------------------------------
+function UI_FriendPopupTabRequest:click_inviteRefuseBtn(data)
+
+    local friend_uid = data['uid']
+    local friend_nick = data['nick']
+
+    local function finish_cb(ret)
+        if (ret['status'] == 0) then
+            table_view = self.m_tableView
+            table_view:delItem(friend_uid)
+            table_view:expandTemp(0.5)
+            table_view:relocateContainer(true)
+
+            local msg = Str('[{1}]님의 요청을 거절하였습니다.', friend_nick)
+            UIManager:toastNotificationGreen(msg)
+        end
+    end
+    
+    g_friendData:request_inviteReject(friend_uid, finish_cb)
 end

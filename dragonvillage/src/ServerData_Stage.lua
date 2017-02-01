@@ -171,12 +171,18 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, finish_cb)
         finish_cb(game_key)
     end
 
+    local friend_uid = nil
+    if g_friendData.m_selectedShareFriendData then
+        friend_uid = g_friendData.m_selectedShareFriendData['uid']
+    end
+
     local ui_network = UI_Network()
     ui_network:setUrl(api_url)
     ui_network:setRevocable(true)
     ui_network:setParam('uid', uid)
     ui_network:setParam('stage', stage_id)
     ui_network:setParam('deck_name', deck_name)
+    ui_network:setParam('friend', friend_uid)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
 
