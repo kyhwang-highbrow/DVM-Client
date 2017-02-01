@@ -224,6 +224,15 @@ function ServerData_Quest:applyQuestInfo(data)
 end
 
 -------------------------------------
+-- function applyQuestInfo
+-- @breif 서버에서 전달받은 데이터를 클라이언트에 적용
+-------------------------------------
+function ServerData_Quest:applyGoods(data, key)
+    self.m_serverData:applyServerData(data, 'user', key)
+    self.m_bDirtyQuestInfo = false
+end
+
+-------------------------------------
 -- function requestQuestReward
 -- @brief 서버에 퀘스트 보상 수령 요청
 -------------------------------------
@@ -236,12 +245,36 @@ function ServerData_Quest:requestQuestReward(qid, cb_func)
 
     -- 성공 시 콜백
     local function success_cb(ret)
-        if ret['quest_info'] then
-		    self:applyQuestInfo(ret['quest_info'])
-			self:mergeWithServerData()
-        end
+		local isDirtyData = false
 
-        if cb_func then
+		-- 받은 정보 갱신 
+        if (ret['quest_info']) then
+		    self:applyQuestInfo(ret['quest_info'])
+			isDirtyData = true
+        end
+		if (ret['gold']) then
+			self:applyGoods(ret['gold'], 'gold')
+			isDirtyData = true
+		end
+		if (ret['cash']) then
+			self:applyGoods(ret['cash'], 'cash')
+			isDirtyData = true
+		end
+		if (ret['staminas']) then 
+			self:applyGoods(ret['staminas'], 'staminas')
+			isDirtyData = true
+		end
+		if (ret['lactea']) then
+			self:applyGoods(ret['lactea'], 'lactea')
+			isDirtyData = true
+		end
+		
+		-- 퀘스트 정보 테이블 새로 만듬 -> 추후에는 갱신할수 있도록....
+		if (isDirtyData) then 
+			self:mergeWithServerData()
+		end
+
+        if (cb_func) then
             cb_func()
         end
     end

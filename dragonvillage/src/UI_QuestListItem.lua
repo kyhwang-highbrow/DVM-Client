@@ -178,6 +178,7 @@ function UI_QuestListItem:click_rewardBtn()
 	local cb_refresh = function()
 		self:refresh()
 		self.parent:refresh()
+		g_topUserInfo:refreshData()
 	end
 
 	local cb_function = function()
