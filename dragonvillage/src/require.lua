@@ -67,6 +67,7 @@ local t_module = {
     'ServerData_Colosseum',
     'ServerData_Inventory',
     'ServerData_Friend',
+	'ServerData_Shop',
     'UserData',
     'DropHelper',
     'DragonAutoSetHelper',
