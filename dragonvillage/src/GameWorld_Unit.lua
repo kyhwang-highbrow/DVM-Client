@@ -188,6 +188,13 @@ function GameWorld:makeHeroDeck()
                 -- 진형 버프 적용
                 hero.m_statusCalc:applyFormationBonus(formation, i)
                 --ccdump(hero.m_statusCalc.m_lPassive)
+
+                -- 친구 버프 적용
+                if (g_friendBuff) then
+                    local t_friend_buff = g_friendBuff:getBuffData()
+
+                    hero.m_statusCalc:applyFriendBuff(t_friend_buff)
+                end
             end
         end
     end
@@ -245,6 +252,13 @@ function GameWorld:joinFriendHero(posIdx)
 
     -- 진형 버프 적용
     self.m_friendHero.m_statusCalc:applyFormationBonus(self.m_deckFormation, posIdx)
+
+    -- 친구 버프 적용
+    if (g_friendBuff) then
+        local t_friend_buff = g_friendBuff:getBuffData()
+
+        self.m_friendHero.m_statusCalc:applyFriendBuff(t_friend_buff)
+    end
 end
 
 -------------------------------------
@@ -279,4 +293,7 @@ function GameWorld:buffActivateAtStartup()
             unit:doSkill_passive()
         end
     end
+
+    -- 친구 버프
+
 end

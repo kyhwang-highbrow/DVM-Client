@@ -1428,6 +1428,12 @@
     <None Include="..\src\ServerData_Inventory.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableFriendBuff.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\FriendBuffManager.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\UI_FriendPopup.lua">
       <Filter>lua\UI</Filter>
     </None>

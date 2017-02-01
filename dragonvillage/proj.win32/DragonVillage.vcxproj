@@ -277,6 +277,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\EffectLauncher.lua" />
     <None Include="..\src\EffectMotionStreak.lua" />
     <None Include="..\src\EventCarrier.lua" />
+    <None Include="..\src\FriendBuffManager.lua" />
     <None Include="..\src\GameAuto.lua" />
     <None Include="..\src\GameAuto_Colosseum.lua" />
     <None Include="..\src\GameState_Colosseum.lua" />
@@ -554,6 +555,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableDragonTrainStatus.lua" />
     <None Include="..\src\TableDrop.lua" />
     <None Include="..\src\TableFormation.lua" />
+    <None Include="..\src\TableFriendBuff.lua" />
     <None Include="..\src\TableFriendship.lua" />
     <None Include="..\src\TableFruit.lua" />
     <None Include="..\src\TableGradeInfo.lua" />

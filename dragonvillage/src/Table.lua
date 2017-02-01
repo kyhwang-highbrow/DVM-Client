@@ -29,6 +29,7 @@ local TableInfo = {
         item              = {'table_item',                  'item',         false},
         fruit             = {'table_fruit',                 'fid',          false},
         friendship        = {'table_dragon_friendship',     'friendship',   false},
+        friendbuff        = {'table_dragon_friendbuff',     'rarity',       false},
 
         item_sort_by_type = {'table_item',                  'full_type',    false},
         shop              = {'table_shop',                  'product_id',   false},

@@ -248,6 +248,29 @@ function StatusCalculator:applyFormationBonus(formation, slot_idx)
     end
 end
 
+-------------------------------------
+-- function applyFriendBuff
+-- @brief 친구 버프 적용
+-------------------------------------
+function StatusCalculator:applyFriendBuff(t_friend_buff)
+    if (not t_friend_buff) then
+        return
+    end
+
+    -- 절대값으로 상승하는 보너스
+    local t_add_bonus = t_friend_buff['add_status']
+    for key, value in pairs(t_add_bonus) do
+        local t_status = self.m_lStatusList[key]
+        t_status['final'] = t_status['final'] + value
+    end
+
+    -- 비율로 상승하는 보너스
+    local t_multiply_bonus = t_friend_buff['multiply_status']
+    for key, value in pairs(t_multiply_bonus) do
+        self.m_lPassive[key] = (self.m_lPassive[key] + value)
+    end
+end
+
 
 -------------------------------------
 -- function getCombatPower
