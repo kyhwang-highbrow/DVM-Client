@@ -429,8 +429,10 @@ local t_module = {
     'UI_FriendPopupTab',
     'UI_FriendPopupTabFriends',
     'UI_FriendPopupTabRecommend',
+    'UI_FriendPopupTabRequest',
     'UI_FriendListItem',
     'UI_FriendRecommendUserListItem',
+    'UI_FriendRequestListItem',
     -- 친구 드래곤 선택
     'UI_FriendSelectPopup',
     'UI_FriendSelectListItem',

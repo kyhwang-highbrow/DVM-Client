@@ -6,6 +6,7 @@ ServerData_Friend = class({
 
         m_lRecommendUserList = 'list',
         m_lFriendUserList = 'list',
+        m_lFriendInviteList = 'list',
 
         -- 선택된 공유 친구 데이터
         m_selectedShareFriendData = '',
@@ -217,4 +218,45 @@ function ServerData_Friend:makeFriendDragonStatusCalculator(t_dragon_data)
     local l_rune_bonus = ServerData_Dragons:makeRuneBonusList(t_dragon_data, l_rune_obj_map)
 
     local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, l_rune_bonus)
+end
+
+-------------------------------------
+-- function request_inviteList
+-- @brief 친구 요청 리스트
+-------------------------------------
+function ServerData_Friend:request_inviteList(finish_cb)
+    if self.m_lRecommendUserList and (not force) then
+        if finish_cb then
+            finish_cb()
+        end
+        return
+    end
+
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        self.m_lFriendInviteList = ret['invites_list']
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/socials/invite_list')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function getFriendInviteList
+-- @brief 친구 요청 리스트
+-------------------------------------
+function ServerData_Friend:getFriendInviteList()
+    return self.m_lFriendInviteList
 end
