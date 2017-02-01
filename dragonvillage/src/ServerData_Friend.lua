@@ -95,6 +95,11 @@ end
 -------------------------------------
 function ServerData_Friend:applyInvitedRecommendUser(friend_uid)
     local l_user_list = self:getRecommendUserList()
+
+    if (not l_user_list) then
+        return
+    end
+
     for i,v in ipairs(l_user_list) do
         if (v['uid'] == friend_uid ) then
             v['invited'] = true
