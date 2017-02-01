@@ -86,15 +86,7 @@ end
 function UI_SimpleDragonInfoPopup:refresh_status()
     local vars = self.vars
 
-    local status_calc
-    
-    if self.m_dragonObjectID then
-        local doid = self.m_dragonObjectID
-        status_calc = MakeOwnDragonStatusCalculator(doid)
-    else
-        local t_dragon_data = self:getDragonData()
-        status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
-    end
+    local status_calc = self:getStatusCalculator()
 
     vars['atk_p_label']:setString(status_calc:getFinalStatDisplay('atk'))
     vars['atk_spd_label']:setString(status_calc:getFinalStatDisplay('aspd'))
@@ -171,8 +163,31 @@ end
 -------------------------------------
 function UI_SimpleDragonInfoPopup:getDragonData()
     if self.m_dragonObjectID then
-        self.m_tDragonData = g_dragonsData:getDragonDataFromUid(self.m_dragonObjectID)
+        local t_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_dragonObjectID)
+
+        if t_dragon_data then
+            self.m_tDragonData = t_dragon_data
+        end
     end
 
     return self.m_tDragonData
+end
+
+-------------------------------------
+-- function getStatusCalculator
+-------------------------------------
+function UI_SimpleDragonInfoPopup:getStatusCalculator()
+    local status_calc
+
+    if self.m_dragonObjectID then
+        local doid = self.m_dragonObjectID
+        status_calc = MakeOwnDragonStatusCalculator(doid)
+    end
+
+    if (not status_calc) then
+        local t_dragon_data = self:getDragonData()
+        status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
+    end
+
+    return status_calc
 end

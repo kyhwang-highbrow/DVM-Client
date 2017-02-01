@@ -329,6 +329,10 @@ end
 function MakeOwnDragonStatusCalculator(doid)
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
 
+    if (not t_dragon_data) then
+        return nil
+    end
+
     -- 룬은 친밀도, 수련과 달리 Rune Object가 별도로 존재하여
     -- 외부의 함수를 통해 룬 보너스 리스트를 얻어옴
     local l_rune_bonus = g_dragonsData:getRuneBonusList(doid)

@@ -4,6 +4,7 @@ local PARENT = UI_FriendPopupTab
 -- class UI_FriendPopupTabRecommend
 -------------------------------------
 UI_FriendPopupTabRecommend = class(PARENT, {
+        m_tableView = 'UIC_TableView',
      })
 
 -------------------------------------
@@ -26,6 +27,12 @@ end
 function UI_FriendPopupTabRecommend:onEnterFriendPopupTab(first)
     if first then
         self:initFirst()
+
+        local function finish_cb()
+            self:init_tableView()
+        end
+
+        g_friendData:request_recommend(finish_cb)
     end
 end
 
@@ -43,4 +50,43 @@ function UI_FriendPopupTabRecommend:click_findBtn()
 
     local t_user_info = {}
     --UI_LobbyUserInfoPopup(t_user_info)
+end
+
+-------------------------------------
+-- function init_tableView
+-------------------------------------
+function UI_FriendPopupTabRecommend:init_tableView()
+    if self.m_tableView then
+        return
+    end
+
+    local node = self.vars['recommendNode2']
+    --node:removeAllChildren()
+
+    local l_item_list = g_friendData:getRecommendUserList()
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+        local function click_func()
+        end
+
+        --ui.vars['clickBtn']:registerScriptTapHandler(click_func)
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(564, 108)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setCellUIClass(UI_FriendRecommendUserListItem, create_func)
+    local skip_update = false --정렬 시 update되기 때문에 skip
+    table_view:setItemList(l_item_list, skip_update)
+
+    --[[
+    -- 정렬
+    local sort_manager = SortManager_Fruit()
+    sort_manager:sortExecution(table_view.m_itemList)
+    table_view:expandTemp(0.5)
+    --]]
+
+    self.m_tableView = table_view
 end

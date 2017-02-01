@@ -1458,6 +1458,9 @@
     <None Include="..\src\UI_ShopListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_FriendRecommendUserListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
