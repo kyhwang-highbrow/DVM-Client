@@ -67,6 +67,9 @@ function ServerData:getInstance()
     -- 친구
     g_friendData = ServerData_Friend(g_serverData)
 
+	-- 상점 및 가차
+    g_shopData = ServerData_Shop(g_serverData)
+
     return g_serverData
 end
 

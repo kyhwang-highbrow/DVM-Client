@@ -71,8 +71,22 @@ end
 -- function refresh
 -------------------------------------
 function UI_ShopPopup:refresh()
-
+	self:setGachaMilProgress()
 end
+
+-------------------------------------
+-- function setQuestProgress
+-- @brief 가차 마일리지 표시
+-------------------------------------
+function UI_ShopPopup:setGachaMilProgress()
+    local vars = self.vars
+	local t_data = g_shopData
+	local curr_mileage = math_random(0, 150)
+	local max_mileage = 150
+	vars['mileageGuage']:setPercentage(0)
+	vars['mileageGuage']:runAction(cc.ProgressTo:create(0.5, (curr_mileage / max_mileage) * 100)) 
+end
+
 
 -------------------------------------
 -- function onChangeTab
@@ -94,10 +108,9 @@ end
 function UI_ShopPopup:makeQuestTableView(tab, node)
     local vars = self.vars
 
-	-- shop table --> serverdata_shop 만들면 전역변수로 대체 하는게 좋을듯
-	local table_shop = TableShop()
-	local t_shop = table_shop:filterList('product_type', tab)
-	ccdump(t_shop)
+	-- product 타입에 따른 상품 뭉치
+	local l_ProductList = g_shopData:getProductList(tab)
+
 	-- cell size 분기 
 	local cell_size
 	if (tab == TableShop.GACHA) then
@@ -119,7 +132,7 @@ function UI_ShopPopup:makeQuestTableView(tab, node)
         table_view.m_defaultCellSize = cell_size
         table_view:setCellUIClass(UI_ShopListItem, create_cb_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-        table_view:setItemList(t_shop)
+        table_view:setItemList(l_ProductList)
 		table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
     end
 end
