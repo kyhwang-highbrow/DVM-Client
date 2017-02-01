@@ -95,4 +95,3 @@ end
 
 -- TODO: 임시 처리... 차후 ServerData_Friend 같은 곳에서 관리 되어야할듯
 g_friendBuff = FriendBuffManager()
-g_friendBuff:setParticipationFriendDragon(FRIEND_HERO)

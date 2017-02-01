@@ -205,10 +205,14 @@ end
 -------------------------------------
 function GameWorld:makeFriendHero()
     local t_dragon_data = g_friendData:getParticipationFriendDragon()
-    --local t_dragon_data = FRIEND_HERO
     if (not t_dragon_data) then return end
 
-    self.m_friendHero = self:makeDragonNew(t_dragon_data)
+    g_friendBuff:setParticipationFriendDragon(t_dragon_data)
+
+    local status_calc = g_friendData:makeFriendDragonStatusCalculator(t_dragon_data)
+    local is_right = false
+
+    self.m_friendHero = self:makeDragonNew(t_dragon_data, is_right, status_calc)
 
     if (self.m_friendHero) then
         self.m_friendHero:setActive(false)
