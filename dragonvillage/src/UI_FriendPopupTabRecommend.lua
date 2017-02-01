@@ -42,14 +42,26 @@ end
 function UI_FriendPopupTabRecommend:click_findBtn()
     local vars = self.vars
 
-    local str = vars['findEditBox']:getText()
-    if (str == '') then
+    local nick = vars['findEditBox']:getText()
+    if (nick == '') then
         MakeSimplePopup(POPUP_TYPE.OK, Str('검색할 친구의 닉네임을 입력하세요.'))
         return
     end
 
-    local t_user_info = {}
-    --UI_LobbyUserInfoPopup(t_user_info)
+    -- 친구 검색 완료
+    local function finish_cb(ret)
+        local l_user_list = ret['user_lists']
+        local t_friend_info = l_user_list[1]
+
+        if (not t_friend_info) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('[{1}]님을 찾지 못하였습니다.', nick))
+        else
+            UI_LobbyUserInfoPopup(t_friend_info)
+        end
+    end
+
+    -- 친구 검색
+    g_friendData:request_find(nick, finish_cb)
 end
 
 -------------------------------------

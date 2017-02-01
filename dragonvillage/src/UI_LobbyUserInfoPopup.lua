@@ -49,7 +49,7 @@ function UI_LobbyUserInfoPopup:initButton(t_user_info)
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn(t_user_info) end)
-    vars['requestBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('"친구 신청"은 준비 중입니다.')) end)
+    vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn(t_user_info) end)
 end
 
 -------------------------------------
@@ -66,8 +66,6 @@ function UI_LobbyUserInfoPopup:refresh(t_user_info)
     local t_dragon_data = t_user_info['leader']
     local dragon_card = UI_DragonCard(t_dragon_data)
     vars['dragonNode']:addChild(dragon_card.root)
-
-
     
     dragon_card.vars['clickBtn']:registerScriptTapHandler(function()
         UI_SimpleDragonInfoPopup(t_dragon_data)
@@ -82,6 +80,22 @@ end
 function UI_LobbyUserInfoPopup:click_infoBtn(t_user_info)
     local uid = t_user_info['uid']
     RequestUserDeckInfoPopup(uid)
+end
+
+-------------------------------------
+-- function click_requestBtn
+-- @brief 친구 요청
+-------------------------------------
+function UI_LobbyUserInfoPopup:click_requestBtn(t_user_info)
+    local t_friend_info = t_user_info
+
+    local function finish_cb(ret)
+        local msg = Str('[{1}]에게 친구 요청을 하였습니다.', t_friend_info['nick'])
+        UIManager:toastNotificationGreen(msg)
+    end
+
+    local friend_ui = t_friend_info['uid']
+    g_friendData:request_invite(friend_ui, finish_cb)
 end
 
 --@CHECK
