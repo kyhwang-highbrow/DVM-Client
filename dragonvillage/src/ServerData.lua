@@ -64,6 +64,9 @@ function ServerData:getInstance()
     -- 인벤토리
     g_inventoryData = ServerData_Inventory(g_serverData)
 
+    -- 친구
+    g_friendData = ServerData_Friend(g_serverData)
+
     return g_serverData
 end
 

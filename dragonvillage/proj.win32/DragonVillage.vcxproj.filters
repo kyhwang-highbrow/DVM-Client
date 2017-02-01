@@ -1431,6 +1431,21 @@
     <None Include="..\src\ServerData_Inventory.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_FriendPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_Friend.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_FriendPopupTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_FriendPopupTabFriends.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_FriendListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

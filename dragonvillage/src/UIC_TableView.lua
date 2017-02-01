@@ -669,6 +669,9 @@ end
 function UIC_TableView:makeItemUI(data, key)
     local ui = self.m_cellUIClass(data)
     ui.root:setSwallowTouch(false)
+    if ui.vars['swallowTouchMenu'] then
+        ui.vars['swallowTouchMenu']:setSwallowTouch(false)
+    end
     ui.root:setDockPoint(cc.p(0, 0))
     ui.root:setAnchorPoint(cc.p(0.5, 0.5))
 

@@ -397,6 +397,25 @@
 				{
 					[1] =
 					{
+						type = 'Node';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 1160;
+						height = 424;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'listNode';
+					};
+					[2] =
+					{
 						[1] =
 						{
 							type = 'LabelTTF';
@@ -461,7 +480,7 @@
 						center_rect_width = 0;
 						center_rect_height = 0;
 					};
-					[2] =
+					[3] =
 					{
 						[1] =
 						{
@@ -525,7 +544,7 @@
 						disable = '';
 						image_type = 1;
 					};
-					[3] =
+					[4] =
 					{
 						[1] =
 						{
@@ -589,7 +608,7 @@
 						disable = 'ui/btn/base_btn_0102.png';
 						image_type = 1;
 					};
-					[4] =
+					[5] =
 					{
 						[1] =
 						{
@@ -653,7 +672,7 @@
 						disable = '';
 						image_type = 1;
 					};
-					type = 'Node';
+					type = 'Menu';
 					ui_name = '';
 					x = 0.000000;
 					y = -28.000000;
@@ -667,8 +686,8 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = false;
-					lua_name = 'listNode';
+					visible = true;
+					lua_name = 'listMenu';
 				};
 				[2] =
 				{
@@ -803,7 +822,7 @@
 						{
 							[1] =
 							{
-								type = 'TextFieldTTF';
+								type = 'EditBox';
 								ui_name = '';
 								x = 0.000000;
 								y = 0.000000;
@@ -818,19 +837,23 @@
 								skew_y = 0.000000;
 								rotation = 0.000000;
 								visible = true;
-								lua_name = 'findTextField';
-								font_name = 'font/common_font_01.ttf';
-								font_size = 24;
-								text = '친구 검색';
-								h_alignment = 0;
-								v_alignment = 1;
-								color = { 46; 30; 25; };
-								opacity = 255;
-								dimension_width = 274;
-								dimension_height = 25;
-								has_stroke = false;
-								stroke_tickness = 1.000000;
-								stroke_color = { 255; 255; 255; };
+								lua_name = 'findEditBox';
+								enable = false;
+								input_mode = 6;
+								input_flag = 4;
+								return_type = 0;
+								max_length = 0;
+								text = '';
+								font_name = 'Helvetica';
+								font_size = 20;
+								font_color = { 255; 255; 255; };
+								placeholder = '텍스트를 입력하세요.';
+								placeholder_font_name = 'Helvetica';
+								placeholder_font_size = 20;
+								placeholder_font_color = { 255; 255; 255; };
+								normal_bg = '';
+								pressed_bg = '';
+								disabled_bg = '';
 							};
 							type = 'Scale9Sprite';
 							ui_name = '';

@@ -152,6 +152,7 @@ function UI_Lobby:initButton()
     vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
 	vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end)
     vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
+    vars['friendBtn']:registerScriptTapHandler(function() self:click_friendBtn() end)
 
     -- FGT버전에서 퀘스트 기능 숨김
     if (TARGET_SERVER == 'FGT') then
@@ -281,6 +282,14 @@ end
 -------------------------------------
 function UI_Lobby:click_inventoryBtn()
     UI_Inventory()
+end
+
+-------------------------------------
+-- function click_friendBtn
+-- @brief 친구
+-------------------------------------
+function UI_Lobby:click_friendBtn()
+    UI_FriendPopup()
 end
 
 -------------------------------------

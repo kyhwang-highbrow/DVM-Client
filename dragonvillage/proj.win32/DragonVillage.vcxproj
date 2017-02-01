@@ -307,6 +307,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SceneNestDungeon.lua" />
     <None Include="..\src\ServerData_AutoPlaySetting.lua" />
     <None Include="..\src\ServerData_Colosseum.lua" />
+    <None Include="..\src\ServerData_Friend.lua" />
     <None Include="..\src\ServerData_Inventory.lua" />
     <None Include="..\src\ServerData_LobbyUserList.lua" />
     <None Include="..\src\ServerData_NestDungeon.lua" />
@@ -634,6 +635,10 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonSkillLevelUpResult.lua" />
     <None Include="..\src\UI_DragonTrainSlot_ListItem.lua" />
     <None Include="..\src\UI_EditBoxPopup.lua" />
+    <None Include="..\src\UI_FriendListItem.lua" />
+    <None Include="..\src\UI_FriendPopup.lua" />
+    <None Include="..\src\UI_FriendPopupTab.lua" />
+    <None Include="..\src\UI_FriendPopupTabFriends.lua" />
     <None Include="..\src\UI_FruitFeedPress.lua" />
     <None Include="..\src\UI_Game.lua" />
     <None Include="..\src\UI_GameColosseum.lua" />

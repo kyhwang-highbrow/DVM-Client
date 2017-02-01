@@ -66,6 +66,7 @@ local t_module = {
 	'ServerData_Quest',
     'ServerData_Colosseum',
     'ServerData_Inventory',
+    'ServerData_Friend',
     'UserData',
     'DropHelper',
     'DragonAutoSetHelper',
@@ -418,6 +419,12 @@ local t_module = {
     'UI_InventorySellItems',
     'UI_AcquisitionRegionInformation',
     'UI_AcquisitionRegionListItem',
+
+    -- 친구 시스템 관련
+    'UI_FriendPopup',
+    'UI_FriendPopupTab',
+    'UI_FriendPopupTabFriends',
+    'UI_FriendListItem',
 
     -- UI 드래곤 관리 관련
     'UI_DragonManage_Base',
