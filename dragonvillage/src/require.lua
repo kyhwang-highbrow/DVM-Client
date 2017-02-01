@@ -117,6 +117,7 @@ local t_module = {
     'TableRuneSet',
     'TableItem',
 	'TableQuest',
+	'TableShop',
 
     -- Interface
     'IEventDispatcher',
