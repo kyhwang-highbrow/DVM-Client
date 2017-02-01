@@ -7,20 +7,20 @@
             <key>lobby_layer_02_center_00.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1034,414}}</string>
+                <string>{{2,2},{946,414}}</string>
                 <key>offset</key>
-                <string>{123,91}</string>
+                <string>{167,91}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{246,182},{1034,414}}</string>
+                <string>{{334,182},{946,414}}</string>
                 <key>sourceSize</key>
                 <string>{1280,960}</string>
             </dict>
             <key>lobby_layer_02_center_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1038,87},{17,17}}</string>
+                <string>{{87,950},{17,17}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,11 +33,11 @@
             <key>lobby_layer_02_center_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1038,2},{83,40}}</string>
+                <string>{{2,950},{83,40}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,3},{83,40}}</string>
                 <key>sourceSize</key>
@@ -46,11 +46,11 @@
             <key>lobby_layer_02_center_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1038,106},{149,13}}</string>
+                <string>{{106,950},{149,13}}</string>
                 <key>offset</key>
                 <string>{1,-2}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{6,8},{149,13}}</string>
                 <key>sourceSize</key>
@@ -59,11 +59,11 @@
             <key>lobby_layer_02_center_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1057,87},{230,15}}</string>
+                <string>{{87,969},{230,15}}</string>
                 <key>offset</key>
                 <string>{-2,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{7,7},{230,15}}</string>
                 <key>sourceSize</key>
@@ -77,9 +77,9 @@
             <key>realTextureFileName</key>
             <string>lobby_layer_02_center.png</string>
             <key>size</key>
-            <string>{1080,418}</string>
+            <string>{418,992}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:e93d7e7d9469ad912a6635d7658a9317:fc5896f4829ae0f5bf60c883c6610dd0:2e3400b8a56923057b372c4721a94b0a$</string>
+            <string>$TexturePacker:SmartUpdate:48fcc8abc1e9aef9ac051da423ab8776:28cb583b8983052dbe583896f6692ab4:2e3400b8a56923057b372c4721a94b0a$</string>
             <key>textureFileName</key>
             <string>lobby_layer_02_center.png</string>
         </dict>
