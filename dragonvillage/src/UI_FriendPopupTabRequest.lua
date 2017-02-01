@@ -51,9 +51,10 @@ function UI_FriendPopupTabRequest:init_tableView()
     -- 생성 콜백
     local function create_func(ui, data)
         local function click_func()
+            self:click_inviteAcceptBtn(data)
         end
 
-        --ui.vars['clickBtn']:registerScriptTapHandler(click_func)
+        ui.vars['acceptBtn']:registerScriptTapHandler(click_func)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -72,4 +73,28 @@ function UI_FriendPopupTabRequest:init_tableView()
     --]]
 
     self.m_tableView = table_view
+end
+
+-------------------------------------
+-- function click_inviteAcceptBtn
+-- @brief 친구 요청 수락
+-------------------------------------
+function UI_FriendPopupTabRequest:click_inviteAcceptBtn(data)
+
+    local friend_uid = data['uid']
+    local friend_nick = data['nick']
+
+    local function finish_cb(ret)
+        if (ret['status'] == 0) then
+            table_view = self.m_tableView
+            table_view:delItem(friend_uid)
+            table_view:expandTemp(0.5)
+            table_view:relocateContainer(true)
+
+            local msg = Str('[{1}]님과 친구가 되었습니다.', friend_nick)
+            UIManager:toastNotificationGreen(msg)
+        end
+    end
+    
+    g_friendData:request_inviteAccept(friend_uid, finish_cb)
 end

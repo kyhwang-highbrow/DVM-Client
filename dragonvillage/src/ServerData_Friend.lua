@@ -237,7 +237,13 @@ function ServerData_Friend:request_inviteList(finish_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
-        self.m_lFriendInviteList = ret['invites_list']
+        self.m_lFriendInviteList = {}
+
+        for i,v in ipairs(ret['invites_list']) do
+            local uid = v['uid']
+            self.m_lFriendInviteList[uid] = v
+        end
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -259,4 +265,33 @@ end
 -------------------------------------
 function ServerData_Friend:getFriendInviteList()
     return self.m_lFriendInviteList
+end
+
+-------------------------------------
+-- function request_inviteAccept
+-- @brief 친구 요청 수락
+-------------------------------------
+function ServerData_Friend:request_inviteAccept(friend_uid, finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        
+        self.m_lFriendInviteList[friend_uid] = nil
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/socials/invite_accept')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('friends', friend_uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
 end
