@@ -103,7 +103,7 @@ function SkillAoESquareWidth:fireMissile()
         self.m_skillHitEffctDirector:doWork()
 
         -- 나에게로부터 상대에게 가는 버프 이펙트 생성
-        local allyList = char:getOpponentList()
+        local allyList = char:getFellowList()
         for i, ally in ipairs(allyList) do
             if (not ally.m_bDead) then
                 EffectMotionStreak(world, x, y, ally.pos.x, ally.pos.y, 'res/effect/motion_streak/motion_streak_emblem_tree.png')
