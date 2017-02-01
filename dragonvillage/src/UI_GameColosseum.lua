@@ -31,6 +31,15 @@ function UI_GameColosseum:init(game_scene)
         vars['speedVisual']:setVisible(g_autoPlaySetting:get('quick_mode'))
     end
 
+    -- 닉네임
+    do
+        local user_info = g_colosseumData.m_playerInfo
+        vars['userNameLabel1']:setString(user_info['nickname'])
+
+        user_info = g_colosseumData.m_vsInfo
+        vars['userNameLabel2']:setString(user_info['nickname'])
+    end
+
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_pauseButton() end, 'UI_GameColosseum')
 end
