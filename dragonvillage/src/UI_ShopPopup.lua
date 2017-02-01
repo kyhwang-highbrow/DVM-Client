@@ -53,7 +53,7 @@ end
 -------------------------------------
 function UI_ShopPopup:initTab()
     local vars = self.vars
-    self:addTab(TableShop.GACHA, vars['drawBtn'], vars['drawNode'])
+    self:addTab(TableShop.GACHA, vars['gachaBtn'], vars['gachaContainerNode'])
     self:addTab(TableShop.CASH, vars['cashBtn'], vars['cashNode'])
 	self:addTab(TableShop.GOLD, vars['goldBtn'], vars['goldNode'])
 	self:addTab(TableShop.STAMINA, vars['staminaBtn'], vars['staminaNode'])
@@ -94,10 +94,10 @@ end
 function UI_ShopPopup:makeQuestTableView(tab, node)
     local vars = self.vars
 
-	-- shop table
+	-- shop table --> serverdata_shop 만들면 전역변수로 대체 하는게 좋을듯
 	local table_shop = TableShop()
-	local t_shop = table_shop:filterTable('value_type', tab)
-	
+	local t_shop = table_shop:filterList('product_type', tab)
+	ccdump(t_shop)
 	-- cell size 분기 
 	local cell_size
 	if (tab == TableShop.GACHA) then
@@ -120,6 +120,7 @@ function UI_ShopPopup:makeQuestTableView(tab, node)
         table_view:setCellUIClass(UI_ShopListItem, create_cb_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
         table_view:setItemList(t_shop)
+		table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
     end
 end
 

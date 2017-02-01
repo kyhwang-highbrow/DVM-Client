@@ -6,7 +6,7 @@ local PARENT = TableClass
 TableShop = class(PARENT, {
 		
 		------------Shop type-----------------------
-		GACHA = 'draw',
+		GACHA = 'gacha',
 		CASH = 'cash',
 		GOLD = 'gold',
 		STAMINA = 'stamina'
@@ -23,7 +23,7 @@ function TableShop:init()
 end
 
 -------------------------------------
--- function makeShopData
+-- func1?tion makeShopData
 -- @brief 데이터를 UI에서 사용하기 쉽게 가공한다
 -------------------------------------
 function TableShop:makeShopData()
@@ -61,8 +61,11 @@ function TableShop:makeProductName(t_shop)
     elseif (value_type == 'stamina') then
         str = Str('날개 {1}개', value_str)
 
-    elseif (value_type == 'card') then
-        str = Str('드래곤 카드 {1}팩', value_str)
+	elseif (value_type == 'dragon_normal') then
+        str = Str('일반 드래곤 소환 X{1}', value_str)
+
+	elseif (value_type == 'dragon_premium') then
+        str = Str('고급 드래곤 소환 X{1}', value_str)
 
     else
         error('value_type : ' .. value_type)
@@ -87,16 +90,17 @@ function TableShop:makePriceName(t_shop)
         str = Str('[무료]')
 
     elseif (price_type == 'cash') then
-        str = Str('{1} 자수정', price_str)
+        str = Str('$ {1}', price_str)
 
     elseif (price_type == 'gold') then
-        str = Str('{1} 골드', price_str)
+        str = Str('{1} G', price_str)
 
     elseif (price_type == 'stamina') then
         str = Str('날개 {1}개', price_str)
 
-    elseif (price_type == 'card') then
-        str = Str('드래곤카드 {1}팩', price_str)
+	elseif (value_type == 'dragon_normal') then
+
+	elseif (value_type == 'dragon_premium') then
 
     else
         error('price_str : ' .. price_str)
@@ -125,7 +129,9 @@ function TableShop:makePriceIconRes(t_shop)
     elseif (price_type == 'stamina') then
         res = 'res/ui/icon_actingpower.png'
 
-    elseif (price_type == 'card') then
+	elseif (value_type == 'dragon_normal') then
+
+	elseif (value_type == 'dragon_premium') then
 
     else
         error('price_type : ' .. price_type)

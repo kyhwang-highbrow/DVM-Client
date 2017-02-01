@@ -19,16 +19,19 @@ UI_QuestListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_QuestListItem:init(t_data, isHighlight)
-    local ui_name = nil 
+	-- 멤버 변수
+	self:setQuestData(t_data)
+    
+	-- UI load
+	local ui_name = nil 
 	if (isHighlight) then 
 		ui_name = 'quest_list_highlight.ui'
 	else
 		ui_name = 'quest_list.ui'
 	end
-	local vars = self:load(ui_name)
+	self:load(ui_name)
 
-	self:setQuestData(t_data)
-
+	-- initialize
     self:initUI()
     self:initButton()
     self:refresh()
