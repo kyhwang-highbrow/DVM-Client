@@ -20,7 +20,7 @@ function FriendBuffManager:init()
 end
 
 -------------------------------------
--- function init
+-- function getBuffData
 -------------------------------------
 function FriendBuffManager:getBuffData()
     -- 버프 정보를 새로 생성
@@ -55,24 +55,34 @@ function FriendBuffManager:getBuffStr()
     local t_friend_buff = self:getBuffData()
     local bExistBuff = false
 
-    local str = '{@SKILL_NAME}친구 버프 효과'
+    local str = '{@SKILL_DESC}'
 
     if (t_friend_buff['add_status']) then
         for category, value in pairs(t_friend_buff['add_status']) do
-            str = (str .. '\n') .. '{@SKILL_DESC}' .. TableRuneStatus:getCategoryStr(category) .. ' ' .. TableRuneStatus:getStatusValueStr(category, value)
+            if (bExistBuff) then
+                str = (str .. '\n') .. TableRuneStatus:getCategoryStr(category) .. ' ' .. TableRuneStatus:getStatusValueStr(category, value)
+            else
+                str = str .. TableRuneStatus:getCategoryStr(category) .. ' ' .. TableRuneStatus:getStatusValueStr(category, value)
+            end
+
             bExistBuff = true
         end
     end
 
     if (t_friend_buff['add_status']) then
         for category, value in pairs(t_friend_buff['multiply_status']) do
-            str = (str .. '\n') .. '{@SKILL_DESC}' .. TableRuneStatus:getCategoryStr(category) .. ' ' .. TableRuneStatus:getStatusMultiplyValueStr(category, value)
+            if (bExistBuff) then
+                str = (str .. '\n') .. TableRuneStatus:getCategoryStr(category) .. ' ' .. TableRuneStatus:getStatusMultiplyValueStr(category, value)
+            else
+                str = str .. TableRuneStatus:getCategoryStr(category) .. ' ' .. TableRuneStatus:getStatusMultiplyValueStr(category, value)
+            end
+
             bExistBuff = true
         end
     end
 
     if(not bExistBuff) then
-        str = (str .. '\n') .. '{@SKILL_DESC}' .. Str('없음')
+        str = str .. Str('없음')
     end
 
     return str
@@ -86,6 +96,23 @@ function FriendBuffManager:setParticipationFriendDragon(t_friend_dragon_data)
     self.m_tFriendDragonData = t_friend_dragon_data
 
     self.m_bCalculated = false
+end
+
+-------------------------------------
+-- function isExistBuff
+-------------------------------------
+function FriendBuffManager:isExistBuff()
+    local t_friend_buff = self:getBuffData()
+    
+    if (t_friend_buff['add_status'] and table.count(t_friend_buff['add_status']) > 0) then
+        return true
+    end
+
+    if (t_friend_buff['multiply_status'] and table.count(t_friend_buff['multiply_status']) > 0) then
+        return true
+    end
+
+    return false
 end
 
 

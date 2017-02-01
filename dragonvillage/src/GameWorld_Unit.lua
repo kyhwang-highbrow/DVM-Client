@@ -207,8 +207,6 @@ function GameWorld:makeFriendHero()
     local t_dragon_data = g_friendData:getParticipationFriendDragon()
     if (not t_dragon_data) then return end
 
-    g_friendBuff:setParticipationFriendDragon(t_dragon_data)
-
     local status_calc = g_friendData:makeFriendDragonStatusCalculator(t_dragon_data)
     local is_right = false
 

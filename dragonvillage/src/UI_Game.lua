@@ -43,6 +43,11 @@ function UI_Game:init(game_scene)
         vars['speedVisual']:setVisible(g_autoPlaySetting:get('quick_mode'))
     end
 
+    -- 버프 정보
+    do
+        vars['buffBtn']:setVisible(g_friendBuff:isExistBuff())
+    end
+    
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_pauseButton() end, 'UI_Game')
 end
@@ -137,7 +142,7 @@ function UI_Game:click_buffButton()
 
     local str = g_friendBuff:getBuffStr()
 
-    local tool_tip = UI_Tooltip_Skill(0, 0, str, true)
+    local tool_tip = UI_Tooltip_Buff(0, 0, str, true)
 
     -- 자동 위치 지정
     tool_tip:autoPositioning(self.vars['buffBtn'])

@@ -771,6 +771,13 @@ function RichLabel:getStringHeight()
 end
 
 -------------------------------------
+-- function getLineCount
+-------------------------------------
+function RichLabel:getLineCount()
+    return self.m_lineCount
+end
+
+-------------------------------------
 -- function calcMsgWidth
 -------------------------------------
 function RichLabel:calcMsgWidth(label)
