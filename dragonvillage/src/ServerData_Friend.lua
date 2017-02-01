@@ -145,7 +145,11 @@ function ServerData_Friend:request_friendList(finish_cb, force)
 
     -- 콜백 함수
     local function success_cb(ret)
-        self.m_lFriendUserList = ret['users_list']
+        self.m_lFriendUserList = {}
+        for i,v in pairs(ret['friends_list']) do
+            local uid = v['uid']
+            self.m_lFriendUserList[uid] = v
+        end
 
         if finish_cb then
             finish_cb(ret)
@@ -154,7 +158,7 @@ function ServerData_Friend:request_friendList(finish_cb, force)
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
-    ui_network:setUrl('/socials/recommend')
+    ui_network:setUrl('/socials/friend_list')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
@@ -224,7 +228,7 @@ end
 -- function request_inviteList
 -- @brief 친구 요청 리스트
 -------------------------------------
-function ServerData_Friend:request_inviteList(finish_cb)
+function ServerData_Friend:request_inviteList(finish_cb, force)
     if self.m_lFriendInviteList and (not force) then
         if finish_cb then
             finish_cb()

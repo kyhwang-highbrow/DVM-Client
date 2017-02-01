@@ -823,3 +823,33 @@ function UIC_TableView:getItemCount()
     local count = table.count(self.m_itemList)
     return count
 end
+
+-------------------------------------
+-- function mergeItemList
+-- @breif
+-------------------------------------
+function UIC_TableView:mergeItemList(list)
+    local dirty = false
+
+    -- 새로 생긴 데이터 추가
+    for i,v in pairs(list) do
+        if (not self.m_itemMap[i]) then
+            self:addItem(i, v)
+            dirty = true
+        end
+    end
+
+    -- 사라진 데이터 삭제
+    for i,v in pairs(self.m_itemMap) do
+        if (not list[i]) then
+            self:delItem(i)
+            dirty = false
+        end
+    end
+
+    -- 갱신
+    if dirty then
+        self:expandTemp(0.5)
+        self:relocateContainer(animated)
+    end
+end

@@ -32,7 +32,8 @@ function UI_FriendPopupTabRecommend:onEnterFriendPopupTab(first)
             self:init_tableView()
         end
 
-        g_friendData:request_recommend(finish_cb)
+        local force = true
+        g_friendData:request_recommend(finish_cb, force)
     end
 end
 

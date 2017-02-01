@@ -31,7 +31,8 @@ function UI_FriendPopupTabRequest:onEnterFriendPopupTab(first)
             self:init_tableView()
         end
 
-        g_friendData:request_inviteList(finish_cb)
+        local force = true
+        g_friendData:request_inviteList(finish_cb, force)
     end
 end
 

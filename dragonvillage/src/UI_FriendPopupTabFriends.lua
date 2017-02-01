@@ -17,9 +17,13 @@ end
 -- function onEnterFriendPopupTab
 -------------------------------------
 function UI_FriendPopupTabFriends:onEnterFriendPopupTab(first)
-    if first then
-        self:init_tableView()
-    end
+    --if first then
+        local function finish_cb(ret)
+            self:init_tableView()
+        end
+        local force = true
+        g_friendData:request_friendList(finish_cb, force)
+    --end
 end
 
 -------------------------------------
@@ -27,13 +31,16 @@ end
 -------------------------------------
 function UI_FriendPopupTabFriends:init_tableView()
     if self.m_tableView then
+        local l_item_list = g_friendData:getFriendList()
+        self.m_tableView:mergeItemList(l_item_list)
+        self.m_tableView:relocateContainer(false)
         return
     end
 
     local node = self.vars['listNode']
     --node:removeAllChildren()
 
-    local l_item_list = {1,2,3,4,5,6,7,8,9,10}
+    local l_item_list = g_friendData:getFriendList()
 
     -- 생성 콜백
     local function create_func(ui, data)
