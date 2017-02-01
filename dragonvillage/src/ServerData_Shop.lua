@@ -30,10 +30,10 @@ end
 -- @brief 구매 가능 여부 검사
 -------------------------------------
 function ServerData_Shop:canBuyProduct(t_product)
-    local t_shop = self.m_shopData
+    local t_product = t_product
 
-    local price_type = t_shop['price_type']
-    local price_value = t_shop['price']
+    local price_type = t_product['price_type']
+    local price_value = t_product['price']
     local user_price = 0
 
     -- 지불 재화 개수 저장
@@ -52,8 +52,8 @@ function ServerData_Shop:canBuyProduct(t_product)
 
     -- 개수 확인
     if (price_value <= user_price) then
-        local msg = '{@TAN}[' .. t_shop['t_ui_info']['product_name'] .. ']{@BLACK}상품을 \n {@DEEPSKYBLUE}'
-        msg = msg .. t_shop['t_ui_info']['price_name'] .. '{@BLACK}를 소비하여 구매합니다.\n구매하시겠습니까?'
+        local msg = '{@TAN}[' .. t_product['t_ui_info']['product_name'] .. ']{@BLACK}상품을 \n {@DEEPSKYBLUE}'
+        msg = msg .. t_product['t_ui_info']['price_name'] .. '{@BLACK}를 소비하여 구매합니다.\n구매하시겠습니까?'
         return true, msg
     else
         local need_price_str = comma_value(price_value - user_price)
@@ -75,18 +75,18 @@ end
 -- function network_ProductPay
 -- @brief 상품 가격 지불
 -------------------------------------
-function ServerData_Shop:network_ProductPay(finish_cb)
-    local t_shop = self.m_shopData
+function ServerData_Shop:network_ProductPay(t_product, finish_cb)
+    local t_product = t_product
 
-    local value_type = t_shop['value_type']
-    local value = t_shop['value']
+    local value_type = t_product['value_type']
+    local value = t_product['value']
 
     local cash = g_userData:get('cash')
     local gold = g_userData:get('gold')
 
     do -- 재화 사용
-        local price_type = t_shop['price_type']
-        local price_value = t_shop['price']
+        local price_type = t_product['price_type']
+        local price_value = t_product['price']
 
         -- 지불
         if (price_type == 'x') then
@@ -113,11 +113,11 @@ end
 -- function network_ProductReceive
 -- @brief 상품 받기
 -------------------------------------
-function ServerData_Shop:network_ProductReceive(finish_cb)
-    local t_shop = self.m_shopData
+function ServerData_Shop:network_ProductReceive(t_product, finish_cb)
+    local t_product = t_product
 
-    local value_type = t_shop['value_type']
-    local value = t_shop['value']
+    local value_type = t_product['value_type']
+    local value = t_product['value']
 
     local cash = g_userData:get('cash')
     local gold = g_userData:get('gold')
@@ -138,7 +138,7 @@ function ServerData_Shop:network_ProductReceive(finish_cb)
         g_topUserInfo:refreshData()
         return
 
-    elseif (value_type == 'card') then
+    elseif string.find(value_type, 'dragon') then
         local count = value
         local l_dragon_list = self:tempGacha(count)
         return self:network_gacha_AddDragons(l_dragon_list, finish_cb)
@@ -221,9 +221,9 @@ end
 -- function tempBuy
 -- @brief 임시 구매
 -------------------------------------
-function ServerData_Shop:tempBuy()
-    local t_shop = self.m_shopData
-    local value_type = t_shop['value_type']
+function ServerData_Shop:tempBuy(t_product)
+    local t_product = t_product
+    local value_type = t_product['value_type']
 
     if (value_type == 'stamina') then
         UIManager:toastNotificationRed(Str('날개 구매는 상점 개편 후에 제공될 예정입니다.'))
@@ -236,17 +236,17 @@ function ServerData_Shop:tempBuy()
 
     -- 상품 가격 지불
     func_pay = function()
-        self:network_ProductPay(func_receive)
+        self:network_ProductPay(t_product, func_receive)
     end
 
     -- 상품 받기
     func_receive = function()
-        self:network_ProductReceive(func_show_result)
+        self:network_ProductReceive(t_product, func_show_result)
     end
 
     -- 결과 팝업
     func_show_result = function(t_data)
-        if (value_type == 'card') then
+        if string.find(value_type, 'dragon') then
             local l_dragon_list = t_data
             UI_DragonGachaResult(l_dragon_list)
         end

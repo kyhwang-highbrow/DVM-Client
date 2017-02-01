@@ -11,10 +11,10 @@ UI_ShopListItem = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ShopListItem:init(t_data)
+function UI_ShopListItem:init(t_product)
 	-- 멤버변수
-	self.m_isGachaProd = (t_data['product_type'] == TableShop.GACHA)
-	self.m_productData = t_data
+	self.m_isGachaProd = (t_product['product_type'] == TableShop.GACHA)
+	self.m_productData = t_product
 	
 	-- UI load
 	local ui_name
@@ -86,10 +86,11 @@ end
 -- @brief 상품 버튼 클릭
 -------------------------------------
 function UI_ShopListItem:click_buyBtn()
-    local can_buy, msg = self:canBuyProduct()
+	local t_product = self.m_productData
+    local can_buy, msg = g_shopData:canBuyProduct(t_product)
 
     if can_buy then
-        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, function() self:tempBuy() end)
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, function() g_shopData:tempBuy(t_product) end)
     else
         UIManager:toastNotificationRed(msg)
         self:nagativeAction()
