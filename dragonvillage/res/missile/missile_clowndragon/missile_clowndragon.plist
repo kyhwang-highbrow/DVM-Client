@@ -7,15 +7,15 @@
             <key>missile_clowndragon_effect_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{74,104}}</string>
+                <string>{{2,2},{37,52}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{74,104}}</string>
+                <string>{{0,0},{37,52}}</string>
                 <key>sourceSize</key>
-                <string>{74,104}</string>
+                <string>{37,52}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -25,9 +25,9 @@
             <key>realTextureFileName</key>
             <string>missile_clowndragon.png</string>
             <key>size</key>
-            <string>{128,128}</string>
+            <string>{64,64}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:65b5662a5124a9512a141d1672286876$</string>
+            <string>$TexturePacker:SmartUpdate:a7e6def7e9d7fe903f84ee323f670c42$</string>
             <key>textureFileName</key>
             <string>missile_clowndragon.png</string>
         </dict>

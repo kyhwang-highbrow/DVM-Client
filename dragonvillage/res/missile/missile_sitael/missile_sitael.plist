@@ -7,15 +7,15 @@
             <key>missile_sitael_eff_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{103,392}}</string>
+                <string>{{2,2},{28,127}}</string>
                 <key>offset</key>
-                <string>{0,0}</string>
+                <string>{-1,1}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{103,392}}</string>
+                <string>{{1,11},{28,127}}</string>
                 <key>sourceSize</key>
-                <string>{103,392}</string>
+                <string>{32,151}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -25,9 +25,9 @@
             <key>realTextureFileName</key>
             <string>missile_sitael.png</string>
             <key>size</key>
-            <string>{128,512}</string>
+            <string>{32,256}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b7721815ae4c883287c004215dc3ed38$</string>
+            <string>$TexturePacker:SmartUpdate:0dacc2f9627ab123bb595c133d161c9b$</string>
             <key>textureFileName</key>
             <string>missile_sitael.png</string>
         </dict>
