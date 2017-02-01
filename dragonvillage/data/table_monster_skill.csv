@@ -50,11 +50,11 @@ sid,skill_form,type,t_name,r_comment,res_icon,res_1,res_2,res_3,animation,motion
 230049,status_effect,skill_ancient_word_a,고대문자 A,x,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,0,basic_turn,3,ally_random,3,4.5,atk,100,x,1,0,0,0,0,0,0,atk_up;target;hit;10;100;20,x,0,x,x,x,x,x,x,x
 230050,status_effect,skill_ancient_word_b,고대문자 B,x,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,0,basic_turn,3,ally_random,3,4.5,atk,100,x,1,0,0,0,0,0,0,def_up;target;hit;10;100;20,x,0,x,x,x,x,x,x,x
 230051,status_effect,skill_ancient_word_c,고대문자 C,x,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,0,basic_turn,3,ally_random,3,4.5,atk,100,x,1,0,0,0,0,0,0,aspd_up;target;hit;10;100;50,x,0,x,x,x,x,x,x,x
-230052,script,skill_missile_record_manager_1,기록 삭제,x,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,0,basic_turn,3,enemy_distance_line,-1,-1,atk,10,x,1,0,0,0,0,0,0,x,x,0,x,x,x,x,x,x,x
+230052,script,skill_missile_record_manager_1,기록 삭제,x,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,0,basic_turn,3,enemy_distance_line,3,4.5,atk,10,x,1,0,0,0,0,0,0,x,x,0,x,x,x,x,x,x,x
 230053,code,skill_leap_atk,점프 공격,만드라고라:일반 공격,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,0,basic,3,enemy_distance_line,-1,-1,atk,100,x,1,5000,10000,200,0,0,0,x,x,0,x,x,x,x,x,x,x
 230054,script,skill_missile_mandragora_1,초음파,만드라고라,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,3,4.5,atk,20,x,1,0,0,0,0,0,0,stun;target;hit;2;50;100,x,0,x,x,x,x,x,x,x
 230055,script,skill_missile_lumiere_0,불꽃,x,res/ui/icon/skill/test.png,x,x,x,x,instant,magical,-1,basic,1,enemy_distance_line,-1,-1,atk,100,x,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
-230056,script,skill_missile_lumiere_1,도깨비불,루미에,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,3,4.5,atk,20,x,1,0,0,0,0,0,0,blind;target;hit;5;50;10,x,0,x,x,x,x,x,x,x
+230056,script,skill_missile_lumiere_1,도깨비불,루미에,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-2,basic_turn,3,enemy_distance_line,3,4.5,atk,20,x,1,0,0,0,0,0,0,blind;target;hit;5;50;10,x,0,x,x,x,x,x,x,x
 230057,script,skill_missile_flying_skull_1,뜨거워,플라잉 스컬,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,-1,basic_turn,3,enemy_distance_line,3,4.5,atk,20,x,1,0,0,0,0,0,0,x,x,0,x,x,x,x,x,x,x
 230058,code,skill_missile_minion_1,마지막 선물,미니언,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,magical,0,trigger,dead,enemy_distance_line,3,4.5,atk,20,x,1,0,0,0,0,0,0,atk_up;ally;dead;10;100;20,x,0,x,x,x,x,x,x,x
 231000,script,skill_elite_0,엘리트_0,엘리트_0,res/ui/icon/skill/test.png,x,x,x,skill_1,instant,physical,0,basic_turn,3,enemy_distance_line,-1,-1,atk,100,x,1,0,0,0,0,0,x,x,x,0,x,x,x,x,x,x,x
