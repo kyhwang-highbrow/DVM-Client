@@ -70,18 +70,18 @@ function GameState_Colosseum.update_start(self, dt)
     elseif (self:getStep() == 1) then
         if (self:isBeginningStep()) then
             -- 아군 드래곤 소환
-            self.m_heroTamerAvatar:changeAni('idle', false)
+            self.m_heroTamerAvatar:changeAni('summon', false)
             self.m_heroTamerAvatar:addAniHandler(function()
                 self.m_heroTamerAvatar:changeAni('idle', true)
             end)
 
             -- 적군 드래곤 소환
-            self.m_enemyTamerAvatar:changeAni('idle', false)
+            self.m_enemyTamerAvatar:changeAni('summon', false)
             self.m_enemyTamerAvatar:addAniHandler(function()
                 self.m_enemyTamerAvatar:changeAni('idle', true)
             end)
 
-        elseif (self:isPassedStepTime(1.5)) then
+        elseif (self:isPassedStepTime(1)) then
             self:appearHero()
             self:appearEnemy()
 
