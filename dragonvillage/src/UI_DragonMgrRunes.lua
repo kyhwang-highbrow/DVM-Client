@@ -18,15 +18,17 @@ UI_DragonMgrRunes = class(PARENT,{
         m_usedRuneData = 'table',
         m_selectedRuneData = 'table',
 
+        -- 정렬(오름차순, 내림차순)
+        m_bAscending = 'boolean',
+
         -- 테이블 뷰
         m_mTableViewListMap = 'map',
+        m_mSortManagerMap = 'map',
 
         -- 갱신 여부 확인용
         m_refreshFlag_selectedDoid = 'string',
         m_refreshFlag_mRuneSlotDoid = 'map',
         m_refreshFlag_selectedRoid = 'string',
-
-        m_runeSortManager = 'RuneSortManager',
     })
 
 -------------------------------------
@@ -47,9 +49,11 @@ end
 function UI_DragonMgrRunes:init(doid, slot_idx)
     self.m_bChangeDragonList = false
     self.m_mTableViewListMap = {}
+    self.m_mSortManagerMap = {}
     self.m_refreshFlag_selectedDoid = nil
     self.m_refreshFlag_mRuneSlotDoid = {}
     self.m_refreshFlag_selectedRoid = nil
+    self.m_bAscending = false
 
     local vars = self:load('dragon_rune.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -58,9 +62,6 @@ function UI_DragonMgrRunes:init(doid, slot_idx)
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonMgrRunes')
 
     self:sceneFadeInAction()
-
-    -- 정렬
-    self.m_runeSortManager = RuneSortManager()
 
     self:initUI()
     self:initButton()
@@ -128,10 +129,8 @@ function UI_DragonMgrRunes:onChangeTab(tab)
     -- 선택중인 룬 정보 갱신
     self:setSelectedRuneData(nil)
 
-    do
+    do -- 정렬
         local table_view = self.m_mTableViewListMap[rune_slot_type]
-        self.m_runeSortManager:clearTableView(table_view)
-        self.m_runeSortManager:changeSort()
         table_view:relocateContainer(false)
     end
 end
@@ -178,6 +177,13 @@ function UI_DragonMgrRunes:init_runeTableView(rune_slot_type)
         local skip_update = true
         table_view_td:setItemList(l_item_list, skip_update)
 
+        -- 정렬
+        local sort_manager = SortManager_Rune()
+        sort_manager:setAllAscending(self.m_bAscending)
+        sort_manager:sortExecution(table_view_td.m_itemList)
+        table_view_td:expandTemp(0.5)
+
+        self.m_mSortManagerMap[rune_slot_type] = sort_manager
         self.m_mTableViewListMap[rune_slot_type] = table_view_td
     end
 
@@ -208,6 +214,34 @@ function UI_DragonMgrRunes:initButton()
     -- 강화 버튼
     vars['useEnhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn('used') end)
     vars['selectEnhance']:registerScriptTapHandler(function() self:click_enhanceBtn('selected') end)
+
+    -- 정렬 버튼
+    vars['sortSelectBtn']:setVisible(false)
+    vars['sortSelectOrderBtn']:registerScriptTapHandler(function() self:setAscending(not self.m_bAscending) end)
+end
+
+-------------------------------------
+-- function setAscending
+-------------------------------------
+function UI_DragonMgrRunes:setAscending(ascending)
+    self.m_bAscending = ascending
+
+    local vars = self.vars
+
+    if ascending then
+        vars['sortSelectOrderSprite']:setScaleY(-1)
+    else
+        vars['sortSelectOrderSprite']:setScaleY(1)
+    end
+   
+    -- 내부 슬롯별 탭 정렬
+    for rune_slot_type,table_view_td in pairs(self.m_mTableViewListMap) do
+        local sort_manager = self.m_mSortManagerMap[rune_slot_type]
+        
+        sort_manager:setAllAscending(ascending)
+        sort_manager:sortExecution(table_view_td.m_itemList)
+        table_view_td:expandTemp(0.5)    
+    end 
 end
 
 -------------------------------------
@@ -659,7 +693,7 @@ function UI_DragonMgrRunes:refresh_materialTableViewRuneIcon(t_rune_data)
     -- 변경된 룬 타입의 테이블뷰를 갱신
     for slot_type,_ in pairs(l_modified_slot) do
         local table_view_td = self.m_mTableViewListMap[slot_type]
-        self.m_runeSortManager:changeSort()
+        table_view_td:expandTemp(0.5)
     end
 end
 
@@ -697,7 +731,7 @@ function UI_DragonMgrRunes:solveModifiedRunes_tableView(l_modified_runes)
     -- 변경된 룬 타입의 테이블뷰를 갱신
     for slot_type,_ in pairs(l_modified_slot) do
         local table_view_td = self.m_mTableViewListMap[slot_type]
-        self.m_runeSortManager:changeSort()
+        table_view_td:expandTemp(0.5)
         table_view_td:relocateContainer(true)
 
         --[[
@@ -728,7 +762,7 @@ function UI_DragonMgrRunes:solveDeletedRunes_tableView(l_deleted_runes)
     -- 변경된 룬 타입의 테이블뷰를 갱신
     for slot_type,_ in pairs(l_modified_slot) do
         local table_view_td = self.m_mTableViewListMap[slot_type]
-        self.m_runeSortManager:changeSort()
+        table_view_td:expandTemp(0.5)
         table_view_td:relocateContainer(false)
 
         --[[
