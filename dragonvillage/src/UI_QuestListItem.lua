@@ -119,7 +119,7 @@ function UI_QuestListItem:setQuestDescLabel()
 	local t_data = self.m_questData
 	local goal_cnt = t_data['unit'] * self.m_goalCount
 
-	vars['questLabel']:setString(t_data['qid'] .. '.' .. Str(t_data['t_desc'], goal_cnt))
+	vars['questLabel']:setString(Str(t_data['t_desc'], goal_cnt))
 end
 
 -------------------------------------
