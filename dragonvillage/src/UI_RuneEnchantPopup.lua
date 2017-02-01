@@ -77,7 +77,6 @@ function UI_RuneEnchantPopup:initUI()
     self:init_runeEnchantMaterials()
     self:init_runeEnchantSelectedMaterials()
 
-
     -- 정렬
     self.m_bAscending = true
     local sort_manager = SortManager_Rune()
@@ -86,6 +85,10 @@ function UI_RuneEnchantPopup:initUI()
     sort_manager:pushSortOrder('grade')
     self.m_sortManagerRune = sort_manager
     self:tableViewSortAndRefresh()
+
+    local vars = self.vars
+    vars['enhanceGauge']:setVisible(true)
+    vars['enhanceGauge']:setPercentage(0)
 end
 
 -------------------------------------
@@ -261,6 +264,20 @@ function UI_RuneEnchantPopup:refresh_selectedMaterials()
         local req_gold = comma_value(self.m_runeEnchantHelper.m_enchantReqGold)
         vars['enhancePriceLabel']:setString(req_gold)
     end
+
+    do -- 경험치
+        local grade = t_rune_data['grade']
+        local lv = t_rune_data['lv']
+        local max_exp = TableRuneExp:getReqExp(grade, lv)
+
+        local exp = t_rune_data['exp'] + self.m_runeEnchantHelper.m_exp
+        local percentage = math_floor((exp / max_exp) * 100)
+        percentage = math_clamp(percentage, 0, 100)
+
+        vars['enhanceExpLabel']:setString(Str('강화 경험치 {1}%', percentage))
+        vars['enhanceGauge']:stopAllActions()
+        vars['enhanceGauge']:runAction(cc.ProgressTo:create(0.3, percentage)) 
+    end
 end
 
 -------------------------------------
@@ -330,19 +347,32 @@ function UI_RuneEnchantPopup:click_enhanceBtn()
         self.m_tableViewSelectedMaterials:clearItemList()
         self:tableViewSortAndRefresh()
 
+        local before_lv = self.m_tRuneData['lv']
+
         local roid = ret['rune']['id']
         self.m_tRuneData = g_runesData:getRuneData(roid, true)
         self.m_runeEnchantHelper = RuneEnchantHelper(self.m_tRuneData)
-        self:refresh()
+
+        local next_lv = self.m_tRuneData['lv']
 
         local t_rune_data = self.m_tRuneData
         if t_rune_data['information']['is_max_lv'] then
             self:close()
 
             local full_name = t_rune_data['information']['full_name']
-            local msg = Str('축하합니다.\n"{1}"의 최대 강화 단계를 달성하였습니다.', full_name)
+            local msg = Str('축하합니다.\n[{1}]의 최대 강화 단계를 달성하였습니다.', full_name)
             MakeSimplePopup(POPUP_TYPE.OK, msg)
+        elseif (before_lv < next_lv) then
+            local full_name = t_rune_data['information']['full_name']
+            local msg = Str('축하합니다.\n[{1}]이\n{2}단계로 강화되었습니다.', full_name, next_lv)
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+
+            local vars = self.vars
+            vars['enhanceGauge']:stopAllActions()
+            vars['enhanceGauge']:setPercentage(0)
         end
+
+        self:refresh()
     end
 
     local roid, src_roids = self.m_runeEnchantHelper:getRuneEnchantRequestParams()
@@ -361,6 +391,10 @@ function UI_RuneEnchantPopup:tableViewSortAndRefresh()
 
     self.m_tableViewMaterials:expandTemp(0.5)
     self.m_tableViewSelectedMaterials:expandTemp(0.5)
+
+    local animated = true
+    self.m_tableViewMaterials:relocateContainer(animated)
+    self.m_tableViewSelectedMaterials:relocateContainer(animated)
 end
 
 --@CHECK

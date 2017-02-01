@@ -39,3 +39,22 @@ function TableRuneExp:getRuneMaxLevel(grade)
     local max_level = self.m_lMaxLevel[grade]
     return max_level
 end
+
+-------------------------------------
+-- function getReqExp
+-- @brief 필요 경험치를 얻어옴
+-------------------------------------
+function TableRuneExp:getReqExp(grade, lv)
+    if (self == TableRuneExp) then
+        self = TableRuneExp()
+    end
+
+    local max_exp = self:getValue(lv, 'req_exp_grade' .. grade)
+
+    -- 최대레벨의 경우
+    if (max_exp == '') or (max_exp == 'x') then
+        max_exp = 0
+    end
+
+    return max_exp
+end

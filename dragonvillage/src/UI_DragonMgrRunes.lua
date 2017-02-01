@@ -694,6 +694,8 @@ function UI_DragonMgrRunes:refresh_materialTableViewRuneIcon(t_rune_data)
     for slot_type,_ in pairs(l_modified_slot) do
         local table_view_td = self.m_mTableViewListMap[slot_type]
         table_view_td:expandTemp(0.5)
+        local animated = true
+        table_view_td:relocateContainer(animated)
     end
 end
 

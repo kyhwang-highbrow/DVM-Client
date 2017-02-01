@@ -61,3 +61,22 @@ function TableRune:getRuneUnequipFee(rid)
 
     return fee
 end
+
+-------------------------------------
+-- function getEnchantMaterialExp
+-- @brief 룬 강화의 재료로 사용될 때 경험치
+-------------------------------------
+function TableRune:getMaterialExp(rid)
+    if (self == TableRune) then
+        self = TableRune()
+    end
+
+    rid = tonumber(rid)
+    local exp = self:getValue(rid, 'exp')
+    if (exp == '') or (exp == 'x') then
+        local grade = self:getValue(rid, 'grade')
+        exp = TableRuneGrade():getValue(grade, 'exp')
+    end
+
+    return exp
+end

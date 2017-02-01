@@ -8,6 +8,7 @@ RuneEnchantHelper = class({
 
         m_materialCnt = 'number',       -- 재료 갯수
         m_enchantReqGold = 'number',    -- 강화에 필요한 골드
+        m_exp = 'number',               -- 경험치
 
         -- private
         m_tableRuneGrade = 'TableRuneGrade',
@@ -22,6 +23,7 @@ function RuneEnchantHelper:init(t_rune_data)
 
     self.m_materialCnt = 0
     self.m_enchantReqGold = 0
+    self.m_exp = 0
 
     -- private
     self.m_tableRuneGrade = TableRuneGrade()
@@ -46,6 +48,12 @@ function RuneEnchantHelper:addRuneEnchantMaterial(t_rune_data)
         self.m_enchantReqGold = (self.m_enchantReqGold + req_gold)
     end
 
+    do -- 경험치
+        local rid = t_rune_data['rid']
+        local exp = TableRune:getMaterialExp(rid)
+        self.m_exp = (self.m_exp + exp)
+    end
+
     self:print()
 end
 
@@ -64,6 +72,12 @@ function RuneEnchantHelper:removeRuneEnchantMaterial(roid)
         local grade = t_rune_data['grade']
         local req_gold = self.m_tableRuneGrade:getValue(grade, 'req_gold')
         self.m_enchantReqGold = (self.m_enchantReqGold - req_gold)
+    end
+
+    do -- 경험치
+        local rid = t_rune_data['rid']
+        local exp = TableRune:getMaterialExp(rid)
+        self.m_exp = (self.m_exp - exp)
     end
 
     self:print()
