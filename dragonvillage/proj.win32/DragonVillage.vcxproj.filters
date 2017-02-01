@@ -1467,6 +1467,9 @@
     <None Include="..\src\UI_FriendSelectListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_Tooltip_Buff.lua">
+      <Filter>lua\UI</Filter>
+    </None>
     <None Include="..\src\UI_FriendPopupTabRequest.lua">
       <Filter>lua\UI</Filter>
     </None>
