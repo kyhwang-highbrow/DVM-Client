@@ -26,7 +26,7 @@ function TableFriendBuff:makeFriendBuffData(did, rarity, attr)
     local l_multiplay_status = {}
     local apply_trim = true
     
-    -- did¿¡ ÇØ´çÇÏ´Â À¯´ÏÅ© ¹öÇÁ Á¤º¸¸¦ °¡Á®¿È
+    -- didì— í•´ë‹¹í•˜ëŠ” ìœ ë‹ˆí¬ ë²„í”„ ì •ë³´ë¥¼ ê°€ì ¸ì˜´
     if (self.m_orgTable['rarity'] == tostring(did)) then
         local l_status = self:getSemicolonSeparatedValues(did, 'unique_status', apply_trim)
         local l_action = self:getSemicolonSeparatedValues(did, 'unique_action', apply_trim)
@@ -54,7 +54,7 @@ function TableFriendBuff:makeFriendBuffData(did, rarity, attr)
         end
     end
 
-    -- rarity¿Í attr¿¡ ÇØ´çÇÏ´Â ¹öÇÁ Á¤º¸¸¦ °¡Á®¿È
+    -- rarityì™€ attrì— í•´ë‹¹í•˜ëŠ” ë²„í”„ ì •ë³´ë¥¼ ê°€ì ¸ì˜´
     do
         local l_status = self:getSemicolonSeparatedValues(rarity, attr .. '_status', apply_trim)
         local l_action = self:getSemicolonSeparatedValues(rarity, attr .. '_action', apply_trim)

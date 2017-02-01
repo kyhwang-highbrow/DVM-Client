@@ -19,6 +19,7 @@ function UI_Game:init(game_scene)
 	vars['feverButton']:registerScriptTapHandler(function() self:click_feverButton() end)    
     vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
     vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
+    vars['buffBtn']:registerScriptTapHandler(function() self:click_buffButton() end)
 
     local label = cc.Label:createWithBMFont('res/font/hit_font.fnt', tostring(999))
     label:setDockPoint(cc.p(0.5, 0.5))
@@ -126,6 +127,22 @@ function UI_Game:click_speedButton()
     end
 
     self.vars['speedVisual']:setVisible((gameTimeScale:getBase() >= QUICK_MODE_TIME_SCALE))
+end
+
+-------------------------------------
+-- function click_buffButton
+-------------------------------------
+function UI_Game:click_buffButton()
+    if (not g_friendBuff) then return end
+
+    local str = g_friendBuff:getBuffStr()
+
+    local tool_tip = UI_Tooltip_Skill(0, 0, str, true)
+
+    -- 자동 위치 지정
+    tool_tip:autoPositioning(self.vars['buffBtn'])
+
+    tool_tip:autoRelease(3)
 end
 
 -------------------------------------
