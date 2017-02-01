@@ -300,7 +300,7 @@ function ServerData_Runes:requestRuneEquip(doid, roid, cb_func)
     ui_network:setParam('uid', uid)
     ui_network:setParam('doid', doid)
     ui_network:setParam('roid', roid)
-    ui_network:setParam('act', 'exchange') -- 'overwrite'는 덮어쓰기
+    ui_network:setParam('act', 'overwrite') -- 'exchange'는 교체
     ui_network:setRevocable(true) -- 통신 실패 시 재시도 여부
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()

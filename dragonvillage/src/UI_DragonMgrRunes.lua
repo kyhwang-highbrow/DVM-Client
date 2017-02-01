@@ -519,21 +519,11 @@ function UI_DragonMgrRunes:click_equipBtn()
 
     -- 슬롯이 비어있지 않으면 "교체"
     else
-        local fee = TableRune:getRuneUnequipFee(rid)
-
-        -- 자수정이 부족할 경우
-        if (g_userData:get('cash') < fee) then
-            local msg = Str('자수정이 부족합니다.\n상점으로 이동하시겠습니까?')
-            MakeSimplePopup(POPUP_TYPE.YES_NO, msg, openShopPopup)
-
-        -- 자수정이 부족하지 않은 경우
-        else
-            local function yes_cb()
-                g_runesData:requestRuneEquip(doid, roid, cb_func)
-            end
-            local msg = Str('룬을 교체하여 장착하려면\n{1}개의 자수정이 소모됩니다.\n교체하시겠습니까?', fee)
-            MakeSimplePopup(POPUP_TYPE.YES_NO, msg, yes_cb)
+        local function yes_cb()
+            g_runesData:requestRuneEquip(doid, roid, cb_func)
         end
+        local msg = Str('새로운 룬을 장착하면\n착용되어 있는 룬은 파괴됩니다.\n\n장착하시겠습니까?')
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, yes_cb)
     end
 end
 
