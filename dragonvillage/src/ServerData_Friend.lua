@@ -147,6 +147,7 @@ function ServerData_Friend:request_friendList(finish_cb, force)
     local function success_cb(ret)
         self.m_lFriendUserList = {}
         for i,v in pairs(ret['friends_list']) do
+            self:makeNextShareTime(v)
             local uid = v['uid']
             self.m_lFriendUserList[uid] = v
         end
@@ -164,6 +165,22 @@ function ServerData_Friend:request_friendList(finish_cb, force)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+end
+
+-------------------------------------
+-- function makeNextShareTime
+-- @brief
+-------------------------------------
+function ServerData_Friend:makeNextShareTime(t_friend_info)
+    local used_time = t_friend_info['used_time']
+    local server_time = Timer:getServerTime()
+
+    if (used_time == 0) then
+        t_friend_info['next_invalid_time'] = server_time
+    else
+        t_friend_info['next_invalid_time'] = (used_time / 1000) + (60 * 60 * 12)
+    end
+
 end
 
 -------------------------------------
