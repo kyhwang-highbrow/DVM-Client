@@ -4,6 +4,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -- class UI_ShopPopup
 -------------------------------------
 UI_ShopPopup = class(PARENT, {
+		m_tIsOpenOnce = 'bool',
      })
 
 -------------------------------------
@@ -20,6 +21,10 @@ function UI_ShopPopup:init()
 	self:doActionReset()
 	self:doAction(nil, false)
 
+	-- 멤버 변수 초기화 
+	self.m_tIsOpenOnce = {}
+
+	-- 초기화 함수 실행
 	self:initUI()
 	self:initTab()
 	self:initButton()
@@ -51,7 +56,7 @@ function UI_ShopPopup:initTab()
     self:addTab(TableShop.GACHA, vars['drawBtn'], vars['drawNode'])
     self:addTab(TableShop.CASH, vars['cashBtn'], vars['cashNode'])
 	self:addTab(TableShop.GOLD, vars['goldBtn'], vars['goldNode'])
-	self:addTab(TableShop.STAMINA, vars['wingBtn'], vars['wingNode'])
+	self:addTab(TableShop.STAMINA, vars['staminaBtn'], vars['staminaNode'])
 
     self:setTab(TableShop.GACHA)
 end
@@ -73,23 +78,48 @@ end
 -- function onChangeTab
 -------------------------------------
 function UI_ShopPopup:onChangeTab(tab)
+	local vars = self.vars
+	local node = vars[tab .. 'Node']
+	
+	-- 최초 생성만 실행
+	if (not self.m_tIsOpenOnce[tab]) then 
+		self:makeQuestTableView(tab, node)
+		self.m_tIsOpenOnce[tab] = true
+	end
 end
 
 -------------------------------------
--- function initProductList
--- @brief
+-- function makeQuestTableView
 -------------------------------------
-function UI_ShopPopup:initProductList()
-    local table_shop = TABLE:get('shop')
+function UI_ShopPopup:makeQuestTableView(tab, node)
+    local vars = self.vars
 
-    local l_pos = getSortPosList(260, #table_shop)
+	-- shop table
+	local table_shop = TableShop()
+	local t_shop = table_shop:filterTable('value_type', tab)
+	
+	-- cell size 분기 
+	local cell_size
+	if (tab == TableShop.GACHA) then
+		cell_size = cc.size(260, 402)
+	else
+		cell_size = cc.size(260, 464)
+	end
 
-    for i,v in ipairs(table_shop) do
-        local product_button = UI_ProductButton(self, i)
-        self.root:addChild(product_button.root)
+    do -- 테이블 뷰 생성
+        node:removeAllChildren()
 
-        local pos_x = l_pos[i]
-        product_button.root:setPositionX(pos_x)
+		-- 퀘스트 팝업 자체를 각 아이템이 가지기 위한 생성 콜백
+		local create_cb_func = function(ui)
+			ui:setParent(self)
+		end
+
+        -- 테이블 뷰 인스턴스 생성
+        local table_view = UIC_TableView(node)
+        table_view.m_defaultCellSize = cell_size
+        table_view:setCellUIClass(UI_ShopListItem, create_cb_func)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+        table_view:setItemList(t_shop)
     end
 end
 

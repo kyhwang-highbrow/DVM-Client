@@ -384,7 +384,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'wingBtn';
+				lua_name = 'staminaBtn';
 				enable = true;
 				normal = 'ui/btn/base_tab_0101.png';
 				selected = 'ui/btn/base_tab_0102.png';
@@ -1012,7 +1012,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
-					lua_name = 'wingNode';
+					lua_name = 'staminaNode';
 				};
 				type = 'Scale9Sprite';
 				ui_name = '';

@@ -384,6 +384,7 @@ local t_module = {
 	'UI_Tooltip_Indicator',
     'UI_TopUserInfo',
     'UI_ShopPopup',
+	'UI_ShopListItem',
     'UI_ItemCard',
 	'UI_RewardCard',
     'UI_ProductButton',

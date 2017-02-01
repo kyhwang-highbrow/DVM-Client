@@ -684,6 +684,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_RuneEnchantPopup.lua" />
     <None Include="..\src\UI_SettingPopup.lua" />
     <None Include="..\src\UI_SettingPopup_Dev.lua" />
+    <None Include="..\src\UI_ShopListItem.lua" />
     <None Include="..\src\UI_ShopPopup.lua" />
     <None Include="..\src\UI_SimpleDragonInfoPopup.lua" />
     <None Include="..\src\UI_SimplePopup.lua" />
