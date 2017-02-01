@@ -224,7 +224,7 @@ function ServerData_Quest:applyQuestInfo(data)
 end
 
 -------------------------------------
--- function applyQuestInfo
+-- function applyGoods
 -- @breif 서버에서 전달받은 데이터를 클라이언트에 적용
 -------------------------------------
 function ServerData_Quest:applyGoods(data, key)
@@ -252,6 +252,8 @@ function ServerData_Quest:requestQuestReward(qid, cb_func)
 		    self:applyQuestInfo(ret['quest_info'])
 			isDirtyData = true
         end
+
+		-- @TODO 재화를 통일적으로 처리하는 방식 찾거나 만들어야함
 		if (ret['gold']) then
 			self:applyGoods(ret['gold'], 'gold')
 			isDirtyData = true

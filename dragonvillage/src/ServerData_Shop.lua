@@ -138,11 +138,6 @@ function ServerData_Shop:network_ProductReceive(t_product, finish_cb)
         g_topUserInfo:refreshData()
         return
 
-    elseif string.find(value_type, 'dragon') then
-        local count = value
-        local l_dragon_list = self:tempGacha(count)
-        return self:network_gacha_AddDragons(l_dragon_list, finish_cb)
-
     else
         error('value_type : ' .. value_type)
     end
@@ -173,49 +168,6 @@ function ServerData_Shop:network_updateGoldAndCash(gold, cash, finish_cb, b_revo
     ui_network:setRevocable(b_revocable)
     ui_network:request()
 end
-
--------------------------------------
--- function network_gacha_AddDragons
--- @brief 드래곤들 추가
--------------------------------------
-function ServerData_Shop:network_gacha_AddDragons(l_dragon_id, finish_cb)
-    local uid = g_userData:get('uid')
-    local table_dragon = TABLE:get('dragon')
-    local t_list = clone(l_dragon_id)
-    local do_work
-
-    local ui_network = UI_Network()
-    ui_network:setReuse(true)
-    ui_network:setUrl('/dragons/add')
-    ui_network:setParam('uid', uid)
-
-    do_work = function(ret)
-        if (ret and ret['dragons']) then
-            for _,t_dragon in pairs(ret['dragons']) do
-                g_dragonsData:applyDragonData(t_dragon)
-            end
-        end
-
-        local t_dragon = t_list[1]
-        
-        if t_dragon then
-            table.remove(t_list, 1)
-            local did = t_dragon['did']
-            local evolution = t_dragon['evolution']
-            --local msg = '"' .. table_dragon[did]['t_name'] .. '"드래곤 추가 중...'
-            --ui_network:setLoadingMsg(msg)
-            ui_network:setParam('did', did)
-            ui_network:setParam('evolution', evolution or 1)
-            ui_network:request()
-        else
-            ui_network:close()
-            finish_cb(l_dragon_id)
-        end
-    end
-    ui_network:setSuccessCB(do_work)
-    do_work()
-end
-
 
 -------------------------------------
 -- function tempBuy
@@ -252,49 +204,72 @@ function ServerData_Shop:tempBuy(t_product)
         end
     end
 
-    func_pay()
+	if (t_product['product_type'] == TableShop.GACHA) then
+		self:request_gacha_dragons(value_type, t_product['value'], func_show_result)
+	else
+		func_pay()
+	end
 end
 
 -------------------------------------
--- function tempGacha
--- @brief
+-- function applyQuestInfo
+-- @breif 서버에서 전달받은 데이터를 클라이언트에 적용
 -------------------------------------
-function ServerData_Shop:tempGacha(count)
-    local table_gacha = TABLE:get('gacha')
-    local t_ret = {}
+function ServerData_Shop:applyGoods(data, key)
+    self.m_serverData:applyServerData(data, 'user', key)
+end
 
-    -- 랜덤 클래스 생성
-    local sum_random = SumRandom()
-    for i,v in pairs(table_gacha) do
-        if (v['test'] == 1) then
-            --local did = v['did']
-            local table_idx = i
-            local rate = v['rate']
-            sum_random:addItem(rate, table_idx)
+-------------------------------------
+-- function request_gacha_dragons
+-- @brief 드래곤 가차를 요청한다
+-------------------------------------
+function ServerData_Shop:request_gacha_dragons(product_type, product_value, finish_cb)
+	-- 파라미터 세팅
+    local uid = g_userData:get('uid')
+	local gacha_url
+	if (product_type == 'dragon_normal') then
+		gacha_url = '/shop/gacha/general_dragon'
+	elseif (product_type == 'dragon_premium') then
+		gacha_url = '/shop/gacha/unique_dragon'
+	end
+	local gacha_type
+	if (product_value == 1) then 
+		gacha_type = 'single'
+	elseif (product_value == 11) then 
+		gacha_type = 'bundle'
+	end
+
+	-- 성공 시 콜백
+	local cb_func = function(ret)
+		local isDirtyData = false
+
+		-- 받은 정보 갱신
+        if (ret and ret['added_dragons']) then
+			for _, t_dragon in ipairs(ret['added_dragons']) do
+				g_dragonsData:applyDragonData(t_dragon)
+			end
         end
+
+		-- @TODO 재화를 통일적으로 처리하는 방식 찾거나 만들어야함
+		if (ret['gold']) then
+			self:applyGoods(ret['gold'], 'gold')
+			isDirtyData = true
+		end
+		if (ret['cash']) then
+			self:applyGoods(ret['cash'], 'cash')
+			isDirtyData = true
+		end
+
+		-- 데이터 변동시에 콜백 실행
+		if (isDirtyData) then 
+			finish_cb(ret['added_dragons'])
+		end
     end
 
-    -- 뽑힌 드래곤 저장
-    local l_dragon_gatch = {} -- {did, evolution}
-    for i=1, count do
-        -- 드래곤 ID
-        local table_idx = sum_random:getRandomValue()
-        local t_gacha = table_gacha[table_idx]
-        local did = t_gacha['did']
-
-        -- 진화도 랜덤
-        local evolution
-        do
-            local sum_random_evolution = SumRandom()
-            sum_random_evolution:addItem(t_gacha['hatch_rate'], 1)
-            sum_random_evolution:addItem(t_gacha['hatcling_rate'], 2)
-            sum_random_evolution:addItem(t_gacha['adult_rate'], 3)
-            evolution = sum_random_evolution:getRandomValue()     
-        end
-
-        -- 테이블에 추가
-        table.insert(t_ret, {did=did, evolution=evolution})
-    end
-
-    return t_ret
+    local ui_network = UI_Network()
+    ui_network:setUrl(gacha_url)
+    ui_network:setParam('uid', uid)
+	ui_network:setParam('type', gacha_type)
+    ui_network:setSuccessCB(cb_func)
+	ui_network:request()
 end

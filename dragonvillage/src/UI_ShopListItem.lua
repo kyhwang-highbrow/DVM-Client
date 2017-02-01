@@ -61,7 +61,7 @@ function UI_ShopListItem:initUI()
     vars['priceLabel']:setString(t_product['t_ui_info']['price_name'])
 
 	if (self.m_isGachaProd) then
-		vars['gachaLabel']:setString(Str('{1} 회', math_random(1, 5)))
+		vars['gachaLabel']:setString(Str('{1} 회', t_product['value']))
 	end
 end                                              
 

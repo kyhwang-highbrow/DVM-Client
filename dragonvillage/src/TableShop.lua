@@ -53,19 +53,19 @@ function TableShop:makeProductName(t_shop)
     if (value_type == 'x') then
 
     elseif (value_type == 'cash') then
-        str = Str('{1} 자수정', value_str)
+        str = Str('자수정 {1}개', value_str)
 
     elseif (value_type == 'gold') then
-        str = Str('{1} 골드', value_str)
+        str = Str('골드 {1}개', value_str)
 
     elseif (value_type == 'stamina') then
         str = Str('날개 {1}개', value_str)
 
 	elseif (value_type == 'dragon_normal') then
-        str = Str('일반 드래곤 소환 X{1}', value_str)
+        str = Str('일반 드래곤 소환')
 
 	elseif (value_type == 'dragon_premium') then
-        str = Str('고급 드래곤 소환 X{1}', value_str)
+        str = Str('고급 드래곤 소환')
 
     else
         error('value_type : ' .. value_type)
@@ -90,13 +90,13 @@ function TableShop:makePriceName(t_shop)
         str = Str('[무료]')
 
     elseif (price_type == 'cash') then
-        str = Str('$ {1}', price_str)
+        str = Str('{1}개', price_str)
 
     elseif (price_type == 'gold') then
-        str = Str('{1} G', price_str)
+        str = Str('{1}개', price_str)
 
     elseif (price_type == 'stamina') then
-        str = Str('날개 {1}개', price_str)
+        str = Str('{1}개', price_str)
 
 	elseif (value_type == 'dragon_normal') then
 
@@ -121,13 +121,13 @@ function TableShop:makePriceIconRes(t_shop)
     if (price_type == 'x') then
 
     elseif (price_type == 'cash') then
-        res = 'res/ui/icon_ruby.png'
+        res = 'res/ui/icon/inbox/inbox_cash.png'
 
     elseif (price_type == 'gold') then
-        res = 'res/ui/icon_gold.png'
+        res = 'res/ui/icon/inbox/inbox_gold.png'
 
     elseif (price_type == 'stamina') then
-        res = 'res/ui/icon_actingpower.png'
+        res = 'res/ui/icon/inbox/inbox_staminas_st.png'
 
 	elseif (value_type == 'dragon_normal') then
 

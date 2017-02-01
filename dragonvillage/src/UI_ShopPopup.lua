@@ -83,6 +83,7 @@ function UI_ShopPopup:setGachaMilProgress()
 	local t_data = g_shopData
 	local curr_mileage = math_random(0, 150)
 	local max_mileage = 150
+	vars['mileageLabel']:setString(Str('{1} 회', curr_mileage))
 	vars['mileageGuage']:setPercentage(0)
 	vars['mileageGuage']:runAction(cc.ProgressTo:create(0.5, (curr_mileage / max_mileage) * 100)) 
 end
@@ -114,9 +115,9 @@ function UI_ShopPopup:makeQuestTableView(tab, node)
 	-- cell size 분기 
 	local cell_size
 	if (tab == TableShop.GACHA) then
-		cell_size = cc.size(260, 402)
+		cell_size = cc.size(270, 402)
 	else
-		cell_size = cc.size(260, 464)
+		cell_size = cc.size(270, 464)
 	end
 
     do -- 테이블 뷰 생성
