@@ -237,21 +237,21 @@ function ServerData_Friend:getParticipationFriendDragon()
 
     self.m_selectedShareFriendData = nil
 
-    return t_friend_info['leader']
+    return t_friend_info['leader'], t_friend_info['runes']
 end
 
 -------------------------------------
 -- function makeFriendDragonStatusCalculator
 -- @brief
 -------------------------------------
-function ServerData_Friend:makeFriendDragonStatusCalculator(t_dragon_data)
+function ServerData_Friend:makeFriendDragonStatusCalculator(t_dragon_data, t_runes_data)
     
     -- 드래곤 룬 정보
     local l_runes = t_dragon_data['runes']
     local l_rune_obj_map = {}
     local l_runes_for_set = {}
     for _,roid in pairs(l_runes) do
-        local t_rune_data = self:getOpponentRuneData(roid)
+        local t_rune_data = t_runes_data[roid]
         l_rune_obj_map[roid] = t_rune_data
         table.insert(l_runes_for_set, t_rune_data)
     end
