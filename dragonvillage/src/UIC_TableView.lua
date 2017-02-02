@@ -34,6 +34,8 @@ UIC_TableView = class(PARENT, {
 
         -- 리스트 내 개수 부족 시 가운데 정렬
         m_bAlignCenterInInsufficient = 'boolean',
+
+        m_bFirstLocation = 'boolean',
     })
 
 -------------------------------------
@@ -44,6 +46,7 @@ function UIC_TableView:init(node)
     self.m_bUseEachSize = false
     self.m_defaultCellSize = cc.size(100, 100)
     self._vordering = VerticalFillOrder['TOP_DOWN']
+    self.m_bFirstLocation = true
 
     -- 스크롤 뷰 생성
     local content_size = node:getContentSize()
@@ -169,6 +172,11 @@ function UIC_TableView:_updateContentSize(skip_update_cells)
         for i=1, cellsCount do
             self:updateCellAtIndex(i)
         end
+    end
+
+    if self.m_bFirstLocation then
+        self:relocateContainerDefault()
+        self.m_bFirstLocation = false
     end
 end
 
@@ -630,6 +638,11 @@ function UIC_TableView:expandTemp(duration, animated)
     self:_updateCellPositions()
     self:_updateContentSize(true)
     self:scrollViewDidScroll(true)
+
+    -- Item UI를 즉시 생성하기 위해  m_bFirstLocation를 true로 설정
+    self.m_bFirstLocation = true
+    self:scrollViewDidScroll()
+    self.m_bFirstLocation = false
 
     -- 변경 후 보여질 애들 리스트
     for i,v in ipairs(self._cellsUsed) do
