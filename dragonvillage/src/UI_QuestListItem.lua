@@ -182,7 +182,9 @@ function UI_QuestListItem:click_rewardBtn()
 	end
 
 	local cb_function = function()
-		MakeSimplePopup(POPUP_TYPE.OK, Str('{@BLACK}' ..'보상을 수령하였습니다.'), cb_refresh)
+		local t_reward = clone(self.m_questData['t_reward'])
+		t_reward['reward_cnt'] = self.m_rewardCount
+		UI_RewardPopup(t_reward, cb_refresh)
 	end
 
 	g_questData:requestQuestReward(qid, cb_function)

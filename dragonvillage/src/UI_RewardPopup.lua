@@ -5,7 +5,6 @@ local PARENT = UI
 -------------------------------------
 UI_RewardPopup = class(PARENT,{
 		m_lRewardTable = 'Reward Table List',
-        m_cbOKBtn = 'function',
     })
 
 -------------------------------------
@@ -13,10 +12,14 @@ UI_RewardPopup = class(PARENT,{
 -------------------------------------
 function UI_RewardPopup:init(l_tReward, ok_btn_cb)
     self.m_lRewardTable = l_tReward
-    self.m_cbOKBtn = ok_btn_cb
 
-    local vars = self:load('popup_reward.ui')
-    UIManager:open(self, UIManager.POPUP)
+    local vars = self:load('popup_toast.ui')
+    UIManager:open(self, UIManager.NORMAL)
+	
+	-- @UI_ACTION
+    self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
+    self:doActionReset()
+    self:doAction(nil, false)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_backKey() end, 'UI_RewardPopup')
@@ -30,20 +33,22 @@ end
 -- function initUI
 -------------------------------------
 function UI_RewardPopup:initUI()
-	local vars = self.vars
-    
-	vars['titleLabel']:setString(Str('보상 수령'))
+	local cb_func = function()
+		self:close()
+	end
 
-    self:setRewardCard()
+	self.root:runAction(
+		cc.Sequence:create(
+			cc.DelayTime:create(1.5),
+			cc.CallFunc:create(cb_func)
+		)
+	)
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
 function UI_RewardPopup:initButton()
-    local vars = self.vars
-
-    vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
 end
 
 -------------------------------------
@@ -51,58 +56,38 @@ end
 -------------------------------------
 function UI_RewardPopup:refresh()
 	local vars = self.vars
+
+	local toast_msg = self:getRewardStr()
+	vars['messageLabel']:setString(toast_msg)
 end
 
 -------------------------------------
--- function setRewardCard
--- @brief 보상 아이콘 표시
+-- function getRewardStr
 -------------------------------------
-function UI_RewardPopup:setRewardCard()
-    local vars = self.vars
-	
-	local reward_type, reward_unit, reward_card, reward_count = nil
-	local t_reward = self.m_lRewardTable
-	local t_card = {}
-	for i = 1, 3 do 
-		reward_type = t_reward['reward_type_' .. i]
-		reward_unit = t_reward['reward_unit_' .. i]
-		reward_count = reward_unit * t_reward['reward_cnt']
-		if (reward_type) then
-		    reward_card = UI_RewardCard(reward_type, reward_count)
-			table.insert(t_card, reward_type)
-		end
+function UI_RewardPopup:getRewardStr()
+	local ret_str
+
+	if (false) then 
+
+	else
+		ret_str = Str('보상을 수령하였습니다')
 	end
 
-	-- 퀘스트 팝업 자체를 각 아이템이 가지기 위한 생성 콜백
-	local create_cb_func = function(ui)
-		ui:setParent(self)
-	end
-
-    -- 테이블 뷰 인스턴스 생성
-	local node = vars['rewardNode']
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(150, 150)
-	table_view:setCellUIClass(UI_RewardCard, create_func)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-    table_view:setItemList(t_card)
+	return ret_str
 end
 
 -------------------------------------
--- function click_backKey
+-- function close
 -------------------------------------
-function UI_RewardPopup:click_backKey()
-    self:click_okBtn()
-end
+function UI_RewardPopup:close()
+    if not self.enable then return end
 
--------------------------------------
--- function click_okBtn
--------------------------------------
-function UI_RewardPopup:click_okBtn()
-    if self.m_cbOKBtn then
-        self.m_cbOKBtn()
+    local function finish_cb()
+        UI.close(self)
     end
 
-    self:close()
+    -- @ui_actions
+    self:doActionReverse(finish_cb, 1, false)
 end
 
 --@CHECK
