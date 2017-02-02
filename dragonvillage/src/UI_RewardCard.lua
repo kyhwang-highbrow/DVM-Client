@@ -13,6 +13,9 @@ UI_RewardCard = class(PARENT, {
 -------------------------------------
 function UI_RewardCard:init(type, count)
 	self.m_itemType = type
+
+	-- ItemCard도 항상 swallowTouch 하지 않는게 좋을거 같은데... 고려중
+	self.root:setSwallowTouch(false)
 end
 
 -------------------------------------
