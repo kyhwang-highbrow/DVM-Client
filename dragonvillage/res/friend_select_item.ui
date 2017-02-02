@@ -33,6 +33,32 @@
 			};
 			[2] =
 			{
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 500;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'selectSprite';
+				file_name = 'ui/frame/list_frame_0103.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
+			[3] =
+			{
 				[1] =
 				{
 					type = 'LabelTTF';
@@ -73,31 +99,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				type = 'Button';
-				ui_name = '';
-				x = -10.000000;
-				y = 0.000000;
-				dock_point = { 1.000000; 0.500000; };
-				anchor_point = { 1.000000; 0.500000; };
-				relative_size_type = 0;
-				width = 84;
-				height = 84;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'selectBtn';
-				enable = true;
-				normal = 'ui/btn/base_btn_0101.png';
-				selected = 'ui/btn/base_btn_0102.png';
-				disable = 'ui/btn/base_btn_0102.png';
-				image_type = 1;
-			};
-			[3] =
-			{
-				[1] =
+				[2] =
 				{
 					[1] =
 					{
@@ -141,7 +143,7 @@
 					};
 					type = 'Scale9Sprite';
 					ui_name = '';
-					x = -10.000000;
+					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 1.000000; 0.500000; };
 					anchor_point = { 1.000000; 0.500000; };
@@ -153,8 +155,8 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
+					visible = false;
+					lua_name = 'selectSprite2';
 					file_name = 'ui/btn/base_btn_0104.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
@@ -163,29 +165,27 @@
 					center_rect_width = 0;
 					center_rect_height = 0;
 				};
-				type = 'Scale9Sprite';
+				type = 'Button';
 				ui_name = '';
-				x = 0.000000;
+				x = -10.000000;
 				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 3;
-				width = 0;
-				height = 0;
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 1.000000; 0.500000; };
+				relative_size_type = 0;
+				width = 84;
+				height = 84;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
-				lua_name = 'selectSprite';
-				file_name = 'ui/frame/list_frame_0103.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
+				visible = true;
+				lua_name = 'selectBtn';
+				enable = true;
+				normal = 'ui/btn/base_btn_0101.png';
+				selected = 'ui/btn/base_btn_0102.png';
+				disable = 'ui/btn/base_btn_0102.png';
+				image_type = 1;
 			};
 			[4] =
 			{
@@ -367,7 +367,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = '';
+			lua_name = 'swallowTouchMenu';
 		};
 		type = 'Menu';
 		ui_name = '';

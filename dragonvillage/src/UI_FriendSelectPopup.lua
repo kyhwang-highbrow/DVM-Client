@@ -6,6 +6,8 @@ local PARENT = UI
 -------------------------------------
 UI_FriendSelectPopup = class(PARENT, {
         m_tableView = 'UIC_TableView',
+        m_selectedFriendUid = '',
+        m_selectedFriendInfo = '',
     })
 
 -------------------------------------
@@ -26,6 +28,12 @@ function UI_FriendSelectPopup:init()
 	self:initUI()
 	self:initButton()
 	self:refresh()
+
+    -- 선택되어 있는 친구
+    self.m_selectedFriendInfo = g_friendData:getSelectedShareFriendData()
+    if self.m_selectedFriendInfo then
+        self.m_selectedFriendUid = self.m_selectedFriendInfo['uid']
+    end
 
     local function finish_cb(ret)
         self:init_tableView()
@@ -55,6 +63,9 @@ function UI_FriendSelectPopup:init_tableView()
 
     -- 생성 콜백
     local function create_func(ui, data)
+        local uid = data['uid']
+        self:refresh_listItemSelectSprite(uid, ui)
+
         local function click_func()
             self:click_selectBtn(data)
         end
@@ -67,15 +78,13 @@ function UI_FriendSelectPopup:init_tableView()
     table_view.m_defaultCellSize = cc.size(500, 100)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setCellUIClass(UI_FriendSelectListItem, create_func)
-    local skip_update = false --정렬 시 update되기 때문에 skip
+    local skip_update = true --정렬 시 update되기 때문에 skip
     table_view:setItemList(l_item_list, skip_update)
 
-    --[[
     -- 정렬
-    local sort_manager = SortManager_Fruit()
-    sort_manager:sortExecution(table_view.m_itemList)
-    table_view:expandTemp(0.5)
-    --]]
+    g_friendData:sortForFriendDragonSelectList(table_view.m_itemList)
+    local animated = false
+    table_view:expandTemp(0.5, animated)
 
     self.m_tableView = table_view
 end
@@ -105,9 +114,52 @@ end
 -- function click_selectBtn
 -------------------------------------
 function UI_FriendSelectPopup:click_selectBtn(data)
+    local prev_uid = self.m_selectedFriendUid
+   
     local t_friend_info = data
-    g_friendData:setSelectedShareFriendData(t_friend_info)
-    self:close()
+
+    local uid = t_friend_info['uid']
+
+    if (self.m_selectedFriendUid == uid) then
+        uid = nil
+        self.m_selectedFriendInfo = nil
+    else
+        self.m_selectedFriendInfo = t_friend_info
+    end
+
+    self.m_selectedFriendUid = uid
+    self:refresh_listItemSelectSprite(prev_uid)
+    self:refresh_listItemSelectSprite(self.m_selectedFriendUid)
+end
+
+-------------------------------------
+-- function refresh_listItemSelectSprite
+-------------------------------------
+function UI_FriendSelectPopup:refresh_listItemSelectSprite(uid, ui)
+    if (not uid) then
+        return
+    end
+
+    local is_selected = (self.m_selectedFriendUid == uid)
+
+    if (not ui) then
+        local item = self.m_tableView:getItem(uid)
+        ui = item and item['ui']
+        if (not ui) then
+            return
+        end
+    end
+
+    ui.vars['selectSprite']:setVisible(is_selected)
+    ui.vars['selectSprite2']:setVisible(is_selected)
+end
+
+-------------------------------------
+-- function close
+-------------------------------------
+function UI_FriendSelectPopup:close()
+    g_friendData:setSelectedShareFriendData(self.m_selectedFriendInfo)
+    PARENT.close(self)
 end
 
 --@CHECK

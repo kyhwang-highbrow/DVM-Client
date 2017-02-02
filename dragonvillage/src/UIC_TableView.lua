@@ -617,7 +617,7 @@ end
 -------------------------------------
 -- function expandTemp
 -------------------------------------
-function UIC_TableView:expandTemp(duration)
+function UIC_TableView:expandTemp(duration, animated)
     local duration = duration or 0.15
 
     -- 현재 보여지는 애들 리스트
@@ -653,6 +653,13 @@ function UIC_TableView:expandTemp(duration)
             ui:cellMoveTo(duration, offset)
         end
     end
+
+    if (animated == nil) then
+        animated = true
+    else
+        animated = false
+    end
+    self:relocateContainer(animated)
 end
 
 -------------------------------------

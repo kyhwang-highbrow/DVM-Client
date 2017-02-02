@@ -34,22 +34,6 @@ function UI_FriendListItem:initUI()
     vars['timeLabel']:setString('')
     vars['nameLabel']:setString(t_friend_info['nick'])
     vars['levelLabel']:setString(Str('Lv. {1}', t_friend_info['lv']))
-
-    do-- 시간
-        local next_invalid_time = t_friend_info['next_invalid_time']
-        local server_time = Timer:getServerTime()
-        
-        if (server_time < next_invalid_time) then
-            local gap = (next_invalid_time - server_time)
-            local showSeconds = true
-            local firstOnly = false
-            local text = datetime.makeTimeDesc(gap, showSeconds, firstOnly)
-            local msg = Str('{1} 후 사용 가능', text)
-            vars['timeLabel']:setString(msg)
-        else
-            vars['timeLabel']:setString('즉시 사용 가능')
-        end
-    end
 end
 
 -------------------------------------

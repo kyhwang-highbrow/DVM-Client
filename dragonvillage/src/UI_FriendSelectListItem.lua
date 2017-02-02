@@ -48,6 +48,9 @@ function UI_FriendSelectListItem:initUI()
             local text = datetime.makeTimeDesc(gap, showSeconds, firstOnly)
             local msg = Str('{1} 후 사용 가능', text)
             vars['timeLabel']:setString(msg)
+
+            -- 비활성화
+            vars['disableSprite']:setVisible(true)
         end
     end
 end

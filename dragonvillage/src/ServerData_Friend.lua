@@ -70,8 +70,6 @@ function ServerData_Friend:request_invite(friend_uid, finish_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
-        self:applyInvitedRecommendUser(friend_uid)
-
         if finish_cb then
             finish_cb(ret)
         end
@@ -193,6 +191,10 @@ end
 -- @brief 친구 리스트 받아옴
 -------------------------------------
 function ServerData_Friend:getFriendList()
+
+    -- 친구 드래곤 사용 시간 값 갱신
+    self:updateFriendUserList_usedTime()
+
     return self.m_lFriendUserList
 end
 
@@ -222,6 +224,14 @@ function ServerData_Friend:setSelectedShareFriendData(t_friend_info)
         local t_dragon_data = self.m_selectedShareFriendData['leader']
         g_friendBuff:setParticipationFriendDragon(t_dragon_data)
     end
+end
+
+-------------------------------------
+-- function getSelectedShareFriendData
+-- @brief
+-------------------------------------
+function ServerData_Friend:getSelectedShareFriendData()
+    return self.m_selectedShareFriendData
 end
 
 -------------------------------------
@@ -371,3 +381,117 @@ function ServerData_Friend:request_inviteReject(friend_uid, finish_cb)
     ui_network:request()
 end
 
+-------------------------------------
+-- function updateFriendUserList_usedTime
+-- @brief 친구 드래곤 사용 시간 업데이트
+-------------------------------------
+function ServerData_Friend:updateFriendUserList_usedTime()
+    for i, v in pairs(self.m_lFriendUserList) do
+        local t_friend_info = v
+        self:updateFriendUser_usedTime(t_friend_info)
+    end
+end
+
+-------------------------------------
+-- function updateFriendUser_usedTime
+-- @brief 친구 드래곤 사용 시간 업데이트
+-- t_friend_info['used_time'] 친구 드래곤을 사용한 시간 타임스탬프
+-- t_friend_info['next_invalid_time'] 친구 드래곤을 사용 가능한 다음 시간
+-- t_friend_info['next_invalid_remain_time'] 친구 드래곤을 사용 가능한 다음 시간까지 남은 시간
+-------------------------------------
+function ServerData_Friend:updateFriendUser_usedTime(t_friend_info)
+    local server_time = Timer:getServerTime()
+
+    -- 사용 시간을 millisecond에서 second로 변경
+    local used_time = (t_friend_info['used_time'] / 1000)
+
+    -- 사용 시간이 0일 경우 사용하지 않음
+    if (used_time == 0) then
+        t_friend_info['next_invalid_time'] = server_time
+        t_friend_info['next_invalid_remain_time'] = 0
+        return
+    end
+
+    local friendtype = t_friend_info['friendtype']
+
+    -- 쿨타임 (단위 : 시간)
+    local cooltime = 0
+
+    -- 일반 친구
+    if (friendtype == 1) then
+        cooltime = 0.0833333333333333--12 -- 임시로 5분으로 처리
+
+    -- 베스트 프렌드
+    elseif (friendtype == 2) then
+        cooltime = 0.0833333333333333--6 -- 임시로 5분으로 처리
+
+    -- 소울메이트
+    elseif (friendtype == 3) then
+        cooltime = 0
+
+    else
+        error('friendtype : ' .. friendtype)
+    end
+
+    -- 다음 사용 가능 시간 저장
+    t_friend_info['next_invalid_time'] = used_time + (60 * 60 * cooltime)
+    t_friend_info['next_invalid_remain_time'] = (t_friend_info['next_invalid_time'] - server_time)
+end
+
+-------------------------------------
+-- function sortForFriendDragonSelectList
+-- @brief 친구 드래곤 선택 리스트에서 정렬
+-------------------------------------
+function ServerData_Friend:sortForFriendDragonSelectList(sort_target_list)
+    local sort_manager = SortManager()
+
+    -- 드래곤의 레벨로 정렬
+    sort_manager:addSortType('level', true, function(a, b, ascending)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            local a_dragon = a_data['leader']
+            local b_dragon = b_data['leader']
+
+            -- 레벨 높은 순서
+            if (a_dragon['lv'] ~= b_dragon['lv']) then
+                return a_dragon['lv'] > b_dragon['lv']
+
+            -- 등급 높은 순서
+            elseif (a_dragon['grade'] ~= b_dragon['grade']) then
+                return a_dragon['grade'] > b_dragon['grade']
+
+            -- 진화단계 높은 순서
+            else
+                return a_dragon['evolution'] > b_dragon['evolution']
+            end
+        end)
+
+    -- 사용 가능한 드래곤부터 정렬
+    sort_manager:addSortType('time', true, function(a, b, ascending)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            local can_use_a = (a_data['next_invalid_remain_time'] <= 0)
+            local can_use_b = (b_data['next_invalid_remain_time'] <= 0)
+
+            -- 비교하는 두 대상 중 하나만 사용 가능할 경우
+            if (can_use_a ~= can_use_b) then
+                if can_use_a then
+                    return true
+                else
+                    return false
+                end
+
+            -- 두 대상이 모두 쿨타임인 경우 남은 시간이 적은 순서대로 리턴
+            elseif (can_use_a == false) and (can_use_b == false) then
+                return a_data['next_invalid_remain_time'] < b_data['next_invalid_remain_time']
+
+            -- 두 대상이 모두 사용 가능한 상태이면 다음 정렬로 넘김
+            else
+                return nil
+            end
+        end)
+
+    sort_manager:sortExecution(sort_target_list)
+end
