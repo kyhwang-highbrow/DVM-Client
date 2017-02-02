@@ -50,10 +50,10 @@ end
 
 
 -------------------------------------
--- function mergeWithServerData
+-- function makeQuestFullData
 -- @breif 테이블 데이타와 서버 데이타를 조합해서 UI에서 활용 가능한 퀘스트 데이타 생성
 -------------------------------------
-function ServerData_Quest:mergeWithServerData()
+function ServerData_Quest:makeQuestFullData()
 	local t_table_quest = clone(self.m_tableQuest.m_orgTable)
 	
 	local qid, t_server_quest
@@ -116,15 +116,17 @@ function ServerData_Quest:getQuestListByType(quest_type)
 	-- 보상 있는 퀘스트, 완료한 퀘스트만 추출
 	local l_reward_quest = {}
 	local l_completed_quest = {}
+	local l_normal_quest = {}
 	for i, quest in pairs(l_quest) do
 		-- 보상 있는 퀘스트
 		if (quest['clearcnt'] > quest['rewardcnt']) then
 			table.insert(l_reward_quest ,quest)
-			table.remove(l_quest, i)
 		-- 완료한 퀘스트
 		elseif (quest['rewardcnt'] == quest['max_cnt']) then
 			table.insert(l_completed_quest, quest)
-			table.remove(l_quest, i)
+		-- 남아있는 퀘스트
+		else
+			table.insert(l_normal_quest, quest)
 		end
 	end
 
@@ -132,7 +134,7 @@ function ServerData_Quest:getQuestListByType(quest_type)
     table.sort(l_reward_quest, function(a, b)
         return (tonumber(a['qid']) < tonumber(b['qid']))
 	end)
-	table.sort(l_quest, function(a, b)
+	table.sort(l_normal_quest, function(a, b)
         return (tonumber(a['qid']) < tonumber(b['qid']))
 	end)
 	table.sort(l_completed_quest, function(a, b)
@@ -140,7 +142,7 @@ function ServerData_Quest:getQuestListByType(quest_type)
 	end)
 
 	-- merge 해서 리턴
-	local t_ret = table.merge(l_reward_quest, l_quest)
+	local t_ret = table.merge(l_reward_quest, l_normal_quest)
 	t_ret = table.merge(t_ret, l_completed_quest)
 	
 	return t_ret
@@ -198,7 +200,7 @@ function ServerData_Quest:requestQuestInfo(cb_func)
     local function success_cb(ret)
         if ret['quest_info'] then
             self:applyQuestInfo(ret['quest_info'])
-			self:mergeWithServerData()
+			self:makeQuestFullData()
         end
 
         if cb_func then
@@ -273,7 +275,7 @@ function ServerData_Quest:requestQuestReward(qid, cb_func)
 		
 		-- 퀘스트 정보 테이블 새로 만듬 -> 추후에는 갱신할수 있도록....
 		if (isDirtyData) then 
-			self:mergeWithServerData()
+			self:makeQuestFullData()
 		end
 
         if (cb_func) then
