@@ -228,7 +228,7 @@ function UI_SettingPopup:click_clearBtn()
 
     -- 3. 로컬 세이브 데이터 삭제 후 어플 재시작
     claer = function()
-        LocalData:getInstance():clearServerDataFile()
+        LocalData:getInstance():clearLocalDataFile()
         ServerData:getInstance():clearServerDataFile()
         UserData:getInstance():clearServerDataFile()
 

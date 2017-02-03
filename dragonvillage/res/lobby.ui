@@ -446,7 +446,7 @@
 			rotation = 0.000000;
 			visible = true;
 			action_type = 4;
-			action_delay_1 = 0.100000;
+			action_delay_1 = 0.010000;
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
 			lua_name = 'battleBtn';
@@ -582,7 +582,7 @@
 			rotation = 0.000000;
 			visible = true;
 			action_type = 4;
-			action_delay_1 = 0.100000;
+			action_delay_1 = 0.010000;
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
 			lua_name = 'shopBtn';
@@ -650,7 +650,7 @@
 			rotation = 0.000000;
 			visible = true;
 			action_type = 4;
-			action_delay_1 = 0.200000;
+			action_delay_1 = 0.020000;
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
 			lua_name = 'questBtn';
@@ -718,7 +718,7 @@
 			rotation = 0.000000;
 			visible = true;
 			action_type = 4;
-			action_delay_1 = 0.300000;
+			action_delay_1 = 0.030000;
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
 			lua_name = 'inventoryBtn';
@@ -786,7 +786,7 @@
 			rotation = 0.000000;
 			visible = true;
 			action_type = 4;
-			action_delay_1 = 0.400000;
+			action_delay_1 = 0.040000;
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
 			lua_name = 'friendBtn';
