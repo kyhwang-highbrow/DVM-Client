@@ -13,22 +13,15 @@ common_octopus_water_body_01
   index: -1
 common_octopus_water_body_02
   rotate: false
-  xy: 110, 64
-  size: 67, 44
-  orig: 67, 44
+  xy: 110, 74
+  size: 44, 34
+  orig: 44, 34
   offset: 0, 0
   index: -1
-common_octopus_water_eye_01
+common_octopus_water_body_03
   rotate: false
-  xy: 110, 41
-  size: 41, 21
-  orig: 41, 21
-  offset: 0, 0
-  index: -1
-common_octopus_water_mouth_01
-  rotate: false
-  xy: 179, 82
-  size: 27, 26
-  orig: 27, 26
+  xy: 110, 38
+  size: 44, 34
+  orig: 44, 34
   offset: 0, 0
   index: -1
