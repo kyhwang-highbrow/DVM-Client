@@ -131,6 +131,8 @@ function UI_InventorySelectSellItems:click_sellBtn()
     local evolution_stones
     local fruits
 
+    local total_price = 0
+
     local table_item = TableItem()
     for i,v in pairs(self.m_selectedItemUIMap) do
         local ui = v['ui']
@@ -138,6 +140,8 @@ function UI_InventorySelectSellItems:click_sellBtn()
         local item_id = ui.m_itemID
 
         local item_type = table_item:getValue(item_id, 'type')
+        local price = table_item:getValue(item_id, 'sale_price')
+        local item_count = 1
 
         -- 룬 판매
         if (item_type == 'rune') then
@@ -150,7 +154,8 @@ function UI_InventorySelectSellItems:click_sellBtn()
         
         -- 진화석 판매
         elseif (item_type == 'evolution_stone') then
-            local str = tostring(item_id) .. ':' .. data['count']
+            item_count = data['count']
+            local str = tostring(item_id) .. ':' .. item_count
             if (not evolution_stones) then
                 evolution_stones = str
             else
@@ -159,7 +164,8 @@ function UI_InventorySelectSellItems:click_sellBtn()
         
         -- 열매 판매
         elseif (item_type == 'fruit') then
-            local str = tostring(item_id) .. ':' .. data['count']
+            item_count = data['count']
+            local str = tostring(item_id) .. ':' .. item_count
             if (not fruits) then
                 fruits = str
             else
@@ -167,6 +173,8 @@ function UI_InventorySelectSellItems:click_sellBtn()
             end
 
         end
+
+        total_price = total_price + (price * item_count)
     end
 
     -- 선택된 룬이 판매되었으니 선택 해제
@@ -178,5 +186,10 @@ function UI_InventorySelectSellItems:click_sellBtn()
         self:setActive(false)
     end
 
-    g_inventoryData:request_itemSell(rune_oids, evolution_stones, fruits, cb)
+    local function request_item_sell()
+        g_inventoryData:request_itemSell(rune_oids, evolution_stones, fruits, cb)
+    end
+
+    local msg = Str('{1}개의 아이템을 {2}골드에 판매하시겠습니까?', count, comma_value(total_price))
+    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, request_item_sell)
 end

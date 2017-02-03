@@ -261,14 +261,21 @@ function UI_RuneBulkSalePopup:click_sellBtn()
         return
     end
 
+    local table_item = TableItem()
+    local total_price = 0
+
     local rune_oids = nil
     for i,v in ipairs(self.m_tableView.m_itemList) do
         local roid = v['data']['id']
+        local rid = v['data']['rid']
         if (not rune_oids) then
             rune_oids = tostring(roid)
         else
             rune_oids = (rune_oids .. ',' .. tostring(roid))
         end
+
+        local price = table_item:getValue(rid, 'sale_price')
+        total_price = total_price + price
     end
 
     local evolution_stones = nil
@@ -282,7 +289,12 @@ function UI_RuneBulkSalePopup:click_sellBtn()
         self:refresh()
     end
 
-    g_inventoryData:request_itemSell(rune_oids, evolution_stones, fruits, cb)
+    local function request_item_sell()
+        g_inventoryData:request_itemSell(rune_oids, evolution_stones, fruits, cb)
+    end
+
+    local msg = Str('{1}개의 룬을 {2}골드에 판매하시겠습니까?', selected_item_count, comma_value(total_price))
+    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, request_item_sell)
 end
 
 -------------------------------------
