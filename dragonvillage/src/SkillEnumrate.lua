@@ -15,11 +15,11 @@ SkillEnumrate = class(PARENT, {
 		m_skillInterval = 'time',
 		m_skillCount = 'num',
 
-		m_skillAttackPosList = 'pos list',
-		m_skillDirList = 'dir list',
-
-		m_enumTargetType = '',
-		m_enumPosType = '',
+		m_enumTargetType = '',		-- 공격 대상의 타입 - enemy_random : 각 탄별로 랜덤한 적, - target : 지정된 대상의 적 
+		m_enumPosType = '',			-- 탄 배치 타입 - linear : 일직선, pentagon : 오각형 ...
+		
+		m_skillStartPosList = 'pos list',
+		m_skillTargetList = 'character list',
      })
 
 -------------------------------------
@@ -47,8 +47,8 @@ function SkillEnumrate:init_skill(missile_res, motionstreak_res, line_num, line_
 	self.m_skillTimer = 0
 	self.m_skillCount = 1
 
-	self.m_skillAttackPosList = nil
-	self.m_skillDirList = nil
+	self.m_skillStartPosList = nil
+	self.m_skillTargetList = nil
 end
 
 -------------------------------------
@@ -64,7 +64,9 @@ end
 -------------------------------------
 function SkillEnumrate.st_idle(owner, dt)
 	if (owner.m_stateTimer == 0) then
-		owner.m_skillAttackPosList = owner:getAttackPositionList()
+		-- idle state 진입함과 동시에 탄 배치 좌표 및 공격 대상 리스트를 구한다.
+		owner.m_skillStartPosList = owner:getStartPosList()
+		owner.m_skillTargetList = owner:getSkillTargetList()
 	end
 
     owner.m_skillTimer = owner.m_skillTimer + dt
@@ -91,19 +93,19 @@ end
 -- function fireMissile
 -- @brief Public / 공격 대상 리스트 가져옴
 -------------------------------------
-function SkillEnumrate:getAttackTargetList()
+function SkillEnumrate:getSkillTargetList()
 	if (self.m_enumTargetType == 'enemy_random') then
-		return self:getAttackTargetList_Random()
+		return self:getSkillTargetList_Random()
 	else
 		return {self.m_targetChar}
 	end	
 end
 
 -------------------------------------
--- function getAttackTargetList_Random
+-- function getSkillTargetList_Random
 -- @brief 공격 횟수에 맞춰 랜덤한 타겟 리스트를 생성한다.
 -------------------------------------
-function SkillEnumrate:getAttackTargetList_Random()
+function SkillEnumrate:getSkillTargetList_Random()
 	local world = self.m_owner.m_world
 	local l_target = self.m_owner:getOpponentList()
 	local l_ret = {}
@@ -117,33 +119,33 @@ function SkillEnumrate:getAttackTargetList_Random()
 end
 
 -------------------------------------
--- function getAttackPositionList
+-- function getStartPosList
 -------------------------------------
-function SkillEnumrate:getAttackPositionList(idx)
+function SkillEnumrate:getStartPosList(idx)
 	if (self.m_enumPosType == 'linear') then
-		return self:getAttackPositionList_Linear()
+		return self:getStartPosList_Linear()
 	elseif (self.m_enumPosType == 'pentagon') then
-		return self:getAttackPositionList_Pentagon()
+		return self:getStartPosList_Pentagon()
 	else
 		error()
 	end	
 end
 
 -------------------------------------
--- function getAttackPositionList_Pentagon
+-- function getStartPosList_Pentagon
 -- @brief 오각형 모양의 공격 시작 좌표 리턴
 -------------------------------------
-function SkillEnumrate:getAttackPositionList_Pentagon()
+function SkillEnumrate:getStartPosList_Pentagon()
 	local l_attack_pos = P_RANDOM_PENTAGON_POS
 
 	return l_attack_pos
 end
 
 -------------------------------------
--- function getAttackPositionList_Linear
+-- function getStartPosList_Linear
 -- @brief 직선의 공격 시작 좌표 리턴
 -------------------------------------
-function SkillEnumrate:getAttackPositionList_Linear()
+function SkillEnumrate:getStartPosList_Linear()
 	local t_ret = {}
 	
 	local owner_pos = self.m_owner.pos
@@ -207,7 +209,7 @@ function SkillEnumrate:getAttackDir(idx)
 	local owner_pos = self.m_owner.pos
 	local tar_x = self.m_targetPos.x - owner_pos.x
 	local tar_y = self.m_targetPos.y - owner_pos.y
-	local start_pos = self.m_skillAttackPosList[idx]
+	local start_pos = self.m_skillStartPosList[idx]
 	
     return getAdjustDegree(getDegree(start_pos.x, start_pos.y, tar_x, tar_y))
 end

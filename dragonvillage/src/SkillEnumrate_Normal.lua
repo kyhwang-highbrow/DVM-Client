@@ -4,19 +4,6 @@ local PARENT = SkillEnumrate
 -- class   
 -------------------------------------
 SkillEnumrate_Normal = class(PARENT, {
-		m_missileRes = 'string',
-        m_motionStreakRes = 'string',
-
-		m_skillLineNum = 'num',		-- 공격 하는 직선 갯수
-		m_skillLineSize = 'num',	-- 직선의 두께
-
-		m_skillTimer = 'time',
-		m_skillTotalTime = 'time',	-- 적절하게 계산된 총 등장 시간
-		m_skillInterval = 'time',
-		m_skillCount = 'num',
-
-		m_skillAttackPosList = 'pos list',
-		m_skillDirList = 'dir list',
      })
 
 -------------------------------------
@@ -34,8 +21,7 @@ function SkillEnumrate_Normal:init_skill(missile_res, motionstreak_res, line_num
 	PARENT.init_skill(self, missile_res, motionstreak_res, line_num, line_size)
 
 	-- 1. 멤버 변수
-	self.m_skillInterval = P_RANDOM_INTERVAL
-	self.m_lRandomTargetList = self:getRandomTargetList()
+	self.m_skillInterval = PENERATION_APPEAR_INTERVAR
 	self.m_enumTargetType = 'target'
 	self.m_enumPosType = 'linear'
 end
@@ -44,7 +30,44 @@ end
 -- function fireMissile
 -------------------------------------
 function SkillEnumrate_Normal:fireMissile(idx)
+    local char = self.m_owner
+    local world = self.m_world
 
+    local t_option = {}
+
+    t_option['owner'] = char
+	t_option['target'] = self.m_skillTargetList[1]	-- @TODO 타겟 random 처리가 안됨
+
+    t_option['pos_x'] = char.pos.x + self.m_skillAttackPosList[idx].x
+	t_option['pos_y'] = char.pos.y + self.m_skillAttackPosList[idx].y
+	t_option['dir'] = self:getAttackDir(idx)
+	t_option['rotation'] = t_option['dir']
+
+    t_option['object_key'] = char:getAttackPhysGroup()
+    t_option['physics_body'] = {0, 0, self.m_skillLineSize}
+    t_option['attack_damage'] = self.m_activityCarrier
+	t_option['attr_name'] = char:getAttribute()
+
+    t_option['speed'] = 0
+	t_option['h_limit_speed'] = 2000
+	t_option['accel'] = 20000
+	t_option['accel_delay'] = self.m_skillTotalTime - (self.m_skillInterval * idx)
+
+	t_option['missile_type'] = 'NORMAL'
+    t_option['movement'] ='normal' 
+	t_option['bFixedAttack'] = true
+
+    t_option['missile_res_name'] = self.m_missileRes
+	t_option['scale'] = self.m_resScale
+	t_option['effect'] = {}
+    t_option['effect']['motion_streak'] = self.m_motionStreakRes
+    
+	t_option['cbFunction'] = function()
+		self.m_skillHitEffctDirector:doWork()
+	end
+
+	-- fire!!
+    world.m_missileFactory:makeMissile(t_option)
 end
 
 -------------------------------------

@@ -4,19 +4,6 @@ local PARENT = SkillEnumrate
 -- class SkillEnumrate_Penetration
 -------------------------------------
 SkillEnumrate_Penetration = class(PARENT, {
-		m_missileRes = 'string',
-        m_motionStreakRes = 'string',
-
-		m_skillLineNum = 'num',		-- 공격 하는 직선 갯수
-		m_skillLineSize = 'num',	-- 직선의 두께
-
-		m_skillTimer = 'time',
-		m_skillTotalTime = 'time',	-- 적절하게 계산된 총 등장 시간
-		m_skillInterval = 'time',
-		m_skillCount = 'num',
-
-		m_skillAttackPosList = 'pos list',
-		m_skillDirList = 'dir list',
      })
 
 -------------------------------------
@@ -34,8 +21,7 @@ function SkillEnumrate_Penetration:init_skill(missile_res, motionstreak_res, lin
 	PARENT.init_skill(self, missile_res, motionstreak_res, line_num, line_size)
 
 	-- 1. 멤버 변수
-	self.m_skillInterval = P_RANDOM_INTERVAL
-	self.m_lRandomTargetList = self:getRandomTargetList()
+	self.m_skillInterval = PENERATION_APPEAR_INTERVAR
 	self.m_enumTargetType = 'target'
 	self.m_enumPosType = 'linear'
 end
@@ -51,8 +37,8 @@ function SkillEnumrate_Penetration:fireMissile(idx)
 
     t_option['owner'] = char
 
-    t_option['pos_x'] = char.pos.x + self.m_skillAttackPosList[idx].x
-	t_option['pos_y'] = char.pos.y + self.m_skillAttackPosList[idx].y
+    t_option['pos_x'] = char.pos.x + self.m_skillStartPosList[idx].x
+	t_option['pos_y'] = char.pos.y + self.m_skillStartPosList[idx].y
 	t_option['dir'] = self:getAttackDir(idx)
 	t_option['rotation'] = t_option['dir']
 

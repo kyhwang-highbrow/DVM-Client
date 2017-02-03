@@ -29,7 +29,6 @@ function SkillEnumrate_Curve:init_skill(missile_res, motionstreak_res, line_num,
 
 	-- 1. 멤버 변수
 	self.m_skillInterval = P_RANDOM_INTERVAL
-	self.m_lRandomTargetList = self:getRandomTargetList()
 	self.m_enumTargetType = 'enemy_random'
 	self.m_enumPosType = 'pentagon'
 end
@@ -45,7 +44,7 @@ function SkillEnumrate_Curve:fireMissile(idx)
     local t_option = {}
 
     t_option['owner'] = char
-	t_option['target'] = self.m_lRandomTargetList[idx]
+	t_option['target'] = self.m_skillTargetList[idx]
 
     t_option['pos_x'] = char.pos.x
 	t_option['pos_y'] = char.pos.y
@@ -63,7 +62,7 @@ function SkillEnumrate_Curve:fireMissile(idx)
     t_option['lua_param']['value1'] = math_random(-P_RANDOM_HEIGHT_RANGE, P_RANDOM_HEIGHT_RANGE)
 	t_option['lua_param']['value2'] = P_RANDOM_SPEED
 	t_option['lua_param']['value3'] = P_RANDOM_FIRE_DELAY
-	t_option['lua_param']['value4'] = self.m_skillAttackPosList[idx]
+	t_option['lua_param']['value4'] = self.m_skillStartPosList[idx]
 
     t_option['missile_res_name'] = self.m_missileRes
 	t_option['scale'] = self.m_resScale
