@@ -1,0 +1,13 @@
+
+pharaohdragon_light_03.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+pharaohdragon_light_03_body_01
+  rotate: false
+  xy: 2, 2
+  size: 397, 460
+  orig: 397, 460
+  offset: 0, 0
+  index: -1

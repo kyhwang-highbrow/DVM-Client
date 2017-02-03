@@ -1,0 +1,13 @@
+
+ladydragon_fire_02.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ladydragon_fire_02_body_01
+  rotate: false
+  xy: 2, 64
+  size: 356, 294
+  orig: 356, 294
+  offset: 0, 0
+  index: -1
