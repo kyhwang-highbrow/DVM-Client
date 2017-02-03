@@ -195,6 +195,7 @@ function SceneDV:tableViewTDDevelopment()
     cc.Director:getInstance():setDisplayStats(true)
 
     -- 세이브파일에 저장된 유저데이터를 사용하기 위해서 초기화
+    LocalData:getInstance()
     ServerData:getInstance()
 
     -- 테이블뷰의 부모노드 생성

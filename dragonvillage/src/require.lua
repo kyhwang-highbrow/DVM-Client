@@ -53,6 +53,7 @@ local t_module = {
     'LevelupDirector',
     'LevelupDirector_GameResult',
     'MapManager',
+    'LocalData',
     'ServerData',
     'ServerData_User',
     'ServerData_Dragons',

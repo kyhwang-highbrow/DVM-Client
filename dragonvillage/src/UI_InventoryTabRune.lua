@@ -240,6 +240,12 @@ end
 -- @brief "일괄 판매" 버튼 클릭
 -------------------------------------
 function UI_InventoryTabRune:click_bulkSellBtn()
-    UI_RuneBulkSalePopup()
+    local ui = UI_RuneBulkSalePopup()
+
+    local function cb(ret)
+        self.m_inventoryUI:response_itemSell(ret)
+        self.m_inventoryUI:clearSelectedItem()
+    end
+    ui:setSellCallback(cb)
 end
 

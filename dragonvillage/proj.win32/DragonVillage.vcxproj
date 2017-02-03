@@ -298,6 +298,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\LobbyTamer.lua" />
     <None Include="..\src\LobbyTamerBot.lua" />
     <None Include="..\src\LobbyUserStatusUI.lua" />
+    <None Include="..\src\LocalData.lua" />
     <None Include="..\src\Monster_DarkNix.lua" />
     <None Include="..\src\Monster_Tree.lua" />
     <None Include="..\src\Monster_WorldOrderMachine.lua" />
