@@ -132,3 +132,37 @@ function ServerData_User:getUserLevelInfo()
 
     return lv, exp, percentage
 end
+
+-------------------------------------
+-- function getFruitPackCount
+-- @brief 인벤에서 슬롯을 차지하는 열매 갯수
+-------------------------------------
+function ServerData_User:getFruitPackCount()
+    local l_evolution_stone = self:getRef('fruits')
+
+    local count = 0
+    for i,v in pairs(l_evolution_stone) do
+        if (0 < v) then
+            count = (count + 1)
+        end
+    end
+
+    return count
+end
+
+-------------------------------------
+-- function getEvolutionStonePackCount
+-- @brief 인벤에서 슬롯을 차지하는 진화석 갯수
+-------------------------------------
+function ServerData_User:getEvolutionStonePackCount()
+    local l_evolution_stone = self:getRef('evolution_stones')
+
+    local count = 0
+    for i,v in pairs(l_evolution_stone) do
+        if (0 < v) then
+            count = (count + 1)
+        end
+    end
+
+    return count
+end

@@ -65,6 +65,9 @@ function UI_Inventory:initUI()
 
         self.m_mainTabMgr:setTab('rune')
     end
+
+    local item_count = g_inventoryData:getItemCount()
+    self.vars['inventoryLabel']:setString(Str('{1}/{2}', item_count, 100))
 end
 
 -------------------------------------
@@ -197,4 +200,7 @@ function UI_Inventory:response_itemSell(ret)
             v:refresh_tableView()
         end
     end
+
+    local item_count = g_inventoryData:getItemCount()
+    self.vars['inventoryLabel']:setString(Str('{1}/{2}', item_count, 100))
 end

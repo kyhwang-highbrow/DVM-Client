@@ -3,6 +3,9 @@
 -------------------------------------
 ServerData_Inventory = class({
         m_serverData = 'ServerData',
+
+        m_bItemCountDirty = 'boolean',
+        m_itemCount = 'number',
     })
 
 -------------------------------------
@@ -10,6 +13,8 @@ ServerData_Inventory = class({
 -------------------------------------
 function ServerData_Inventory:init(server_data)
     self.m_serverData = server_data
+    self.m_bItemCountDirty = true
+    self.m_itemCount = 0
 end
 
 -------------------------------------
@@ -53,4 +58,28 @@ function ServerData_Inventory:response_itemSell(ret, cb)
     if cb then
         cb(ret)
     end
+end
+
+-------------------------------------
+-- function getItemCount
+-------------------------------------
+function ServerData_Inventory:getItemCount()
+    if self.m_bItemCountDirty then
+        self:calcItemCount()
+    end
+
+    self.m_bItemCountDirty = true
+    return self.m_itemCount
+end
+
+-------------------------------------
+-- function calcItemCount
+-------------------------------------
+function ServerData_Inventory:calcItemCount()
+    local rune_count = g_runesData:getUnequippedRuneCount()
+    local fruit_count = g_userData:getFruitPackCount()
+    local evolution_stone_count = g_userData:getEvolutionStonePackCount()
+
+    self.m_itemCount = (rune_count + fruit_count + evolution_stone_count)
+    --self.m_bItemCountDirty = true
 end

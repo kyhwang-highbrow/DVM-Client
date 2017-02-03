@@ -241,6 +241,24 @@ function ServerData_Runes:getUnequippedRuneList(slot_type)
 end
 
 -------------------------------------
+-- function getUnequippedRuneCount
+-- @brief 장착되지 않은 룬 갯수
+-------------------------------------
+function ServerData_Runes:getUnequippedRuneCount()
+    local l_runes = self.m_serverData:getRef('runes')
+
+    local count = 0
+    for i,v in pairs(l_runes) do
+        -- 이 룬을 장착한 드래곤이 없을 경우
+        if (not v['odoid']) or (v['odoid'] == '') then
+            count = count + 1
+        end
+    end
+
+    return count
+end
+
+-------------------------------------
 -- function getRuneEnchantMaterials
 -- @brief 룬 강화 재료 리스트 리턴
 -------------------------------------
