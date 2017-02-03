@@ -4,23 +4,36 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>map_sky_temple_sky.png</key>
+            <key>map_sky_temple_land.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1534,940}}</string>
+                <string>{{2,2},{1252,752}}</string>
                 <key>offset</key>
-                <string>{-1,-33}</string>
+                <string>{-25,-34}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{256,587},{1534,940}}</string>
+                <string>{{373,682},{1252,752}}</string>
+                <key>sourceSize</key>
+                <string>{2048,2048}</string>
+            </dict>
+            <key>map_sky_temple_light_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1256,2},{626,626}}</string>
+                <key>offset</key>
+                <string>{-298,64}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{413,647},{626,626}}</string>
                 <key>sourceSize</key>
                 <string>{2048,2048}</string>
             </dict>
             <key>map_sky_temple_sky_cloud_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,944},{1386,590}}</string>
+                <string>{{2,756},{1386,590}}</string>
                 <key>offset</key>
                 <string>{-10,-141}</string>
                 <key>rotated</key>
@@ -38,9 +51,9 @@
             <key>realTextureFileName</key>
             <string>map_sky_temple_2.png</string>
             <key>size</key>
-            <string>{1538,1536}</string>
+            <string>{1884,1348}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:8e1a210b46fd1995a1b03cc35d9c8f6f:6ab3b46403789a57308a16be3c2b28f5:151d66b2ecab51377d45a678a9512e32$</string>
+            <string>$TexturePacker:SmartUpdate:4515031eb9e07ffa1ae05b244df7947a:fb2b3f877ee4056c6b938e2ee26f96b2:151d66b2ecab51377d45a678a9512e32$</string>
             <key>textureFileName</key>
             <string>map_sky_temple_2.png</string>
         </dict>
