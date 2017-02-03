@@ -1,4 +1,4 @@
-local PARENT = SkillPenetration
+local PARENT = SkillEnumrate
 --[[ 
 @TODO 타겟을 늘어놓고 순차적으로 공격하는 것을 공유하기 위해서 SkillPenetartion을 상속
 SkillPenetration은 직선 공격을 의미하므로 SkillEnumrate를 만들고 
@@ -7,9 +7,9 @@ SkillEnumrate_Pnetartion, SkillEnumrate_Curve, SkillEnumrate_Curve_Random 등으
 ]]
 
 -------------------------------------
--- class SkillPenetration_Random
+-- class SkillEnumrate_Curve
 -------------------------------------
-SkillPenetration_Random = class(PARENT, {
+SkillEnumrate_Curve = class(PARENT, {
 		m_lRandomTargetList = 'character list',
      })
 
@@ -18,25 +18,27 @@ SkillPenetration_Random = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function SkillPenetration_Random:init(file_name, body, ...)
+function SkillEnumrate_Curve:init(file_name, body, ...)
 end
 
 -------------------------------------
--- function init_SkillPenetration_Random
+-- function init_SkillEnumrate_Curve
 -------------------------------------
-function SkillPenetration_Random:init_skill(missile_res, motionstreak_res, line_num, line_size)
+function SkillEnumrate_Curve:init_skill(missile_res, motionstreak_res, line_num, line_size)
 	PARENT.init_skill(self, missile_res, motionstreak_res, line_num, line_size)
 
 	-- 1. 멤버 변수
 	self.m_skillInterval = P_RANDOM_INTERVAL
 	self.m_lRandomTargetList = self:getRandomTargetList()
+	self.m_enumTargetType = 'enemy_random'
+	self.m_enumPosType = 'pentagon'
 end
 
 -------------------------------------
 -- function fireMissile
 -- @override
 -------------------------------------
-function SkillPenetration_Random:fireMissile(idx)
+function SkillEnumrate_Curve:fireMissile(idx)
     local char = self.m_owner
     local world = self.m_world
 
@@ -82,36 +84,9 @@ function SkillPenetration_Random:fireMissile(idx)
 end
 
 -------------------------------------
--- function getRandomTargetList
--- @brief 공격 횟수에 맞춰 랜덤한 타겟 리스트를 생성한다.
--------------------------------------
-function SkillPenetration_Random:getRandomTargetList()
-	local world = self.m_owner.m_world
-	local l_target = self.m_owner:getOpponentList()
-	local l_ret = {}
-
-	for i = 1, self.m_skillLineNum do
-		local target = table.getRandom(l_target)
-		table.insert(l_ret, target)	
-	end
-
-	return l_ret
-end
-
--------------------------------------
--- function getAttackPositionList
--- @override
--------------------------------------
-function SkillPenetration_Random:getAttackPositionList()
-	local l_attack_pos = P_RANDOM_PENTAGON_POS
-
-	return l_attack_pos
-end
-
--------------------------------------
 -- function makeSkillInstance
 -------------------------------------
-function SkillPenetration_Random:makeSkillInstance(owner, t_skill, t_data)
+function SkillEnumrate_Curve:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
     local missile_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
@@ -123,7 +98,7 @@ function SkillPenetration_Random:makeSkillInstance(owner, t_skill, t_data)
 	-- 인스턴스 생성부
 	------------------------------------------------------ 
 	-- 1. 스킬 생성
-    local skill = SkillPenetration_Random(nil)
+    local skill = SkillEnumrate_Curve(nil)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)

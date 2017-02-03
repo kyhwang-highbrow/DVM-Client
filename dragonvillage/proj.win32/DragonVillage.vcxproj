@@ -333,6 +333,10 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillBurst.lua" />
     <None Include="..\src\SkillChainLightning.lua" />
     <None Include="..\src\SkillCharge.lua" />
+    <None Include="..\src\SkillEnumrate.lua" />
+    <None Include="..\src\SkillEnumrate_Curve.lua" />
+    <None Include="..\src\SkillEnumrate_Normal.lua" />
+    <None Include="..\src\SkillEnumrate_Penetration.lua" />
     <None Include="..\src\SkillFieldCheck.lua" />
     <None Include="..\src\SkillHeartOfRuin.lua" />
     <None Include="..\src\SkillIndicator_Penetration.lua" />
@@ -340,8 +344,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillIndicator_X.lua" />
     <None Include="..\src\SkillLaser_Lightning.lua" />
     <None Include="..\src\SkillLeap.lua" />
-    <None Include="..\src\SkillPenetration.lua" />
-    <None Include="..\src\SkillPenetration_Random.lua" />
     <None Include="..\src\SkillRapidShot.lua" />
     <None Include="..\src\SkillRapidShot_AddAttack.lua" />
     <None Include="..\src\SkillSpiderWeb.lua" />

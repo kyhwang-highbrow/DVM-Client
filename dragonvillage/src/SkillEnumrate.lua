@@ -1,9 +1,9 @@
 local PARENT = Skill
 
 -------------------------------------
--- class SkillPenetration
+-- class SkillEnumrate
 -------------------------------------
-SkillPenetration = class(PARENT, {
+SkillEnumrate = class(PARENT, {
 		m_missileRes = 'string',
         m_motionStreakRes = 'string',
 
@@ -17,6 +17,9 @@ SkillPenetration = class(PARENT, {
 
 		m_skillAttackPosList = 'pos list',
 		m_skillDirList = 'dir list',
+
+		m_enumTargetType = '',
+		m_enumPosType = '',
      })
 
 -------------------------------------
@@ -24,13 +27,13 @@ SkillPenetration = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function SkillPenetration:init(file_name, body, ...)
+function SkillEnumrate:init(file_name, body, ...)
 end
 
 -------------------------------------
--- function init_SkillPenetration
+-- function init_SkillEnumrate
 -------------------------------------
-function SkillPenetration:init_skill(missile_res, motionstreak_res, line_num, line_size)
+function SkillEnumrate:init_skill(missile_res, motionstreak_res, line_num, line_size)
 	PARENT.init_skill(self)
 
 	-- 1. 멤버 변수
@@ -51,15 +54,15 @@ end
 -------------------------------------
 -- function initState
 -------------------------------------
-function SkillPenetration:initState()
+function SkillEnumrate:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillPenetration.st_idle, 'idle', true)
+    self:addState('start', SkillEnumrate.st_idle, 'idle', true)
 end
 
 -------------------------------------
 -- function st_idle
 -------------------------------------
-function SkillPenetration.st_idle(owner, dt)
+function SkillEnumrate.st_idle(owner, dt)
 	if (owner.m_stateTimer == 0) then
 		owner.m_skillAttackPosList = owner:getAttackPositionList()
 	end
@@ -80,49 +83,67 @@ end
 -------------------------------------
 -- function fireMissile
 -------------------------------------
-function SkillPenetration:fireMissile(idx)
-    local char = self.m_owner
-    local world = self.m_world
+function SkillEnumrate:fireMissile(idx)
+	error()
+end
 
-    local t_option = {}
+-------------------------------------
+-- function fireMissile
+-- @brief Public / 공격 대상 리스트 가져옴
+-------------------------------------
+function SkillEnumrate:getAttackTargetList()
+	if (self.m_enumTargetType == 'enemy_random') then
+		return self:getAttackTargetList_Random()
+	else
+		return {self.m_targetChar}
+	end	
+end
 
-    t_option['owner'] = char
+-------------------------------------
+-- function getAttackTargetList_Random
+-- @brief 공격 횟수에 맞춰 랜덤한 타겟 리스트를 생성한다.
+-------------------------------------
+function SkillEnumrate:getAttackTargetList_Random()
+	local world = self.m_owner.m_world
+	local l_target = self.m_owner:getOpponentList()
+	local l_ret = {}
 
-    t_option['pos_x'] = char.pos.x + self.m_skillAttackPosList[idx].x
-	t_option['pos_y'] = char.pos.y + self.m_skillAttackPosList[idx].y
-	t_option['dir'] = self:getAttackDir(idx)
-	t_option['rotation'] = t_option['dir']
-
-    t_option['object_key'] = char:getAttackPhysGroup()
-    t_option['physics_body'] = {0, 0, self.m_skillLineSize}
-    t_option['attack_damage'] = self.m_activityCarrier
-	t_option['attr_name'] = char:getAttribute()
-
-    t_option['speed'] = 0
-	t_option['h_limit_speed'] = 2000
-	t_option['accel'] = 20000
-	t_option['accel_delay'] = self.m_skillTotalTime - (self.m_skillInterval * idx)
-
-	t_option['missile_type'] = 'PASS'
-    t_option['movement'] ='normal' 
-
-    t_option['missile_res_name'] = self.m_missileRes
-	t_option['scale'] = self.m_resScale
-	t_option['effect'] = {}
-    t_option['effect']['motion_streak'] = self.m_motionStreakRes
-    
-	t_option['cbFunction'] = function()
-		self.m_skillHitEffctDirector:doWork()
+	for i = 1, self.m_skillLineNum do
+		local target = table.getRandom(l_target)
+		table.insert(l_ret, target)	
 	end
 
-	-- fire!!
-    world.m_missileFactory:makeMissile(t_option)
+	return l_ret
 end
 
 -------------------------------------
 -- function getAttackPositionList
 -------------------------------------
-function SkillPenetration:getAttackPositionList()
+function SkillEnumrate:getAttackPositionList(idx)
+	if (self.m_enumPosType == 'linear') then
+		return self:getAttackPositionList_Linear()
+	elseif (self.m_enumPosType == 'pentagon') then
+		return self:getAttackPositionList_Pentagon()
+	else
+		error()
+	end	
+end
+
+-------------------------------------
+-- function getAttackPositionList_Pentagon
+-- @brief 오각형 모양의 공격 시작 좌표 리턴
+-------------------------------------
+function SkillEnumrate:getAttackPositionList_Pentagon()
+	local l_attack_pos = P_RANDOM_PENTAGON_POS
+
+	return l_attack_pos
+end
+
+-------------------------------------
+-- function getAttackPositionList_Linear
+-- @brief 직선의 공격 시작 좌표 리턴
+-------------------------------------
+function SkillEnumrate:getAttackPositionList_Linear()
 	local t_ret = {}
 	
 	local owner_pos = self.m_owner.pos
@@ -182,7 +203,7 @@ end
 -------------------------------------
 -- function getAttackDir
 -------------------------------------
-function SkillPenetration:getAttackDir(idx)
+function SkillEnumrate:getAttackDir(idx)
 	local owner_pos = self.m_owner.pos
 	local tar_x = self.m_targetPos.x - owner_pos.x
 	local tar_y = self.m_targetPos.y - owner_pos.y
@@ -194,7 +215,7 @@ end
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------
-function SkillPenetration:makeSkillInstance(owner, t_skill, t_data)
+function SkillEnumrate:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
     local missile_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
@@ -206,7 +227,7 @@ function SkillPenetration:makeSkillInstance(owner, t_skill, t_data)
 	-- 인스턴스 생성부
 	------------------------------------------------------ 
 	-- 1. 스킬 생성
-    local skill = SkillPenetration(nil)
+    local skill = SkillEnumrate(nil)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)

@@ -298,10 +298,12 @@ local t_module = {
 	'SkillVoltesX',
 	'SkillCharge',
 	'SkillContinuous',
-	'SkillPenetration',
-	'SkillPenetration_Random',
     'SkillRapidShot',
 	'SkillRapidShot_AddAttack',
+	'SkillEnumrate',
+	'SkillEnumrate_Curve',
+	'SkillEnumrate_Normal',
+	'SkillEnumrate_Penetration',
 
     -- SKILL INDICATOR
     'SkillIndicatorMgr',
