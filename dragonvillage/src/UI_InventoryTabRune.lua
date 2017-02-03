@@ -93,7 +93,9 @@ function UI_InventoryTabRune:onEnterInventoryTab(first)
     PARENT.onEnterInventoryTab(self, first)
 
     -- "일괄 판매" 버튼
-    self.vars['bulkSellBtn']:setVisible(true)
+    if self.m_inventoryUI.m_selectSellItemsUI and (not self.m_inventoryUI.m_selectSellItemsUI.m_bActive) then
+        self.vars['bulkSellBtn']:setVisible(true)
+    end
     self.vars['bulkSellBtn']:registerScriptTapHandler(function() self:click_bulkSellBtn() end)
 end
 
@@ -163,7 +165,9 @@ function UI_InventoryTabRune:onChangeSelectedItem(ui, data)
     end
     
     -- 판매 버튼
-    vars['sellBtn']:setVisible(true)
+    if self.m_inventoryUI.m_selectSellItemsUI and (not self.m_inventoryUI.m_selectSellItemsUI.m_bActive) then
+        vars['sellBtn']:setVisible(true)
+    end
     vars['sellBtn']:registerScriptTapHandler(function() self:sellBtn(t_rune_data) end)
 end
 

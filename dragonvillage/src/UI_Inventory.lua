@@ -8,6 +8,7 @@ UI_Inventory = class(PARENT, {
         m_tTabClass = 'table',
         m_selectedItemUI = '',
         m_selectedItemData = '',
+        m_selectSellItemsUI = 'UI_InventorySelectSellItems',
      })
 
 -------------------------------------
@@ -23,6 +24,8 @@ function UI_Inventory:init()
     self:initUI()
     self:initButton()
     self:refresh()
+
+    self.m_selectSellItemsUI = UI_InventorySelectSellItems(self)
 end
 
 -------------------------------------
@@ -173,6 +176,9 @@ function UI_Inventory:setSelectedItem(ui, data)
     cca.uiReactionSlow(ui.root, 0.72, 0.72)
 
     ui.vars['highlightSprite']:setVisible(true)
+
+    -- 선택 판매 시 사용
+    self.m_selectSellItemsUI:setSelectedItem(ui, data)
 end
 
 -------------------------------------

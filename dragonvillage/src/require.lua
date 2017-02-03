@@ -421,6 +421,7 @@ local t_module = {
 	'UI_QuestPopup',
     'UI_QuestListItem',
     'UI_Inventory',
+    'UI_InventorySelectSellItems',
     'UI_InventoryTab',
     'UI_InventoryTabRune',
     'UI_InventoryTabFruit',
