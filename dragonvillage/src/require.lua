@@ -423,6 +423,7 @@ local t_module = {
     'UI_InventoryTabFruit',
     'UI_InventoryTabEvolutionStone',
     'UI_InventorySellItems',
+    'UI_RuneBulkSalePopup',
     'UI_AcquisitionRegionInformation',
     'UI_AcquisitionRegionListItem',
 

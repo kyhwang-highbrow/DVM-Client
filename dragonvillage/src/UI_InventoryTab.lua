@@ -18,9 +18,14 @@ end
 
 -------------------------------------
 -- function onEnterInventoryTab
+-- @brief 인벤토리 탭에 진입하였을 때 호출
 -------------------------------------
 function UI_InventoryTab:onEnterInventoryTab(first)
     self:setSortAscending(self.m_bAscending)
+    
+    -- 공용으로 사용하지 않는 UI 숨김
+    local vars = self.vars
+    vars['bulkSellBtn']:setVisible(false)
 end
 
 -------------------------------------

@@ -91,6 +91,10 @@ function UI_InventoryTabRune:onEnterInventoryTab(first)
     end
 
     PARENT.onEnterInventoryTab(self, first)
+
+    -- "일괄 판매" 버튼
+    self.vars['bulkSellBtn']:setVisible(true)
+    self.vars['bulkSellBtn']:registerScriptTapHandler(function() self:click_bulkSellBtn() end)
 end
 
 -------------------------------------
@@ -230,3 +234,12 @@ function UI_InventoryTabRune:refresh_tableView(l_deleted_rune_oids)
         end
     end
 end
+
+-------------------------------------
+-- function click_bulkSellBtn
+-- @brief "일괄 판매" 버튼 클릭
+-------------------------------------
+function UI_InventoryTabRune:click_bulkSellBtn()
+    UI_RuneBulkSalePopup()
+end
+
