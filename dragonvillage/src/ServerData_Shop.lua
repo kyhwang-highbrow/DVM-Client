@@ -24,7 +24,6 @@ function ServerData_Shop:getProductList(product_type)
 	return self.m_tableShop:filterList('product_type', product_type)
 end
 
-
 -------------------------------------
 -- function canBuyProduct
 -- @brief 구매 가능 여부 검사
@@ -69,104 +68,6 @@ function ServerData_Shop:canBuyProduct(t_product)
         end
         return false, msg
     end
-end
-
--------------------------------------
--- function network_ProductPay
--- @brief 상품 가격 지불
--------------------------------------
-function ServerData_Shop:network_ProductPay(t_product, finish_cb)
-    local t_product = t_product
-
-    local value_type = t_product['value_type']
-    local value = t_product['value']
-
-    local cash = g_userData:get('cash')
-    local gold = g_userData:get('gold')
-
-    do -- 재화 사용
-        local price_type = t_product['price_type']
-        local price_value = t_product['price']
-
-        -- 지불
-        if (price_type == 'x') then
-            finish_cb()
-            return
-
-        elseif (price_type == 'cash') then
-            cash = (cash - price_value)
-
-        elseif (price_type == 'gold') then
-            gold = (gold - price_value)
-
-        else
-            error('price_type : ' .. price_type)
-        end
-    end
-
-    -- Network
-    local b_revocable = true
-    return self:network_updateGoldAndCash(gold, cash, finish_cb, b_revocable)
-end
-
--------------------------------------
--- function network_ProductReceive
--- @brief 상품 받기
--------------------------------------
-function ServerData_Shop:network_ProductReceive(t_product, finish_cb)
-    local t_product = t_product
-
-    local value_type = t_product['value_type']
-    local value = t_product['value']
-
-    local cash = g_userData:get('cash')
-    local gold = g_userData:get('gold')
-
-    -- 구매 상품 추가
-    if (value_type == 'x') then
-
-    elseif (value_type == 'cash') then
-        cash = (cash + value)
-        return self:network_updateGoldAndCash(gold, cash, finish_cb, false)
-
-    elseif (value_type == 'gold') then
-        gold = (gold + value)
-        return self:network_updateGoldAndCash(gold, cash, finish_cb, false)
-
-    elseif (value_type == 'stamina') then
-        -- @TODO 스태미너 추가
-        g_topUserInfo:refreshData()
-        return
-
-    else
-        error('value_type : ' .. value_type)
-    end
-end
-
--------------------------------------
--- function network_updateGoldAndCash
--- @brief 골드, 캐시 동기화
--------------------------------------
-function ServerData_Shop:network_updateGoldAndCash(gold, cash, finish_cb, b_revocable)
-    local uid = g_userData:get('uid')
-
-    local function success_cb(ret)
-        if ret['user'] then
-            g_serverData:applyServerData(ret['user'], 'user')
-        end
-        g_topUserInfo:refreshData()
-        finish_cb()
-    end
-
-    local ui_network = UI_Network()
-    ui_network:setUrl('/users/update')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('act', 'update')
-    ui_network:setParam('gold', gold)
-    ui_network:setParam('cash', cash)
-    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
-    ui_network:setRevocable(b_revocable)
-    ui_network:request()
 end
 
 -------------------------------------
@@ -272,4 +173,106 @@ function ServerData_Shop:request_gacha_dragons(product_type, product_value, fini
 	ui_network:setParam('type', gacha_type)
     ui_network:setSuccessCB(cb_func)
 	ui_network:request()
+end
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+-- 아래 코드들은 임시
+
+-------------------------------------
+-- function network_ProductPay
+-- @brief 상품 가격 지불
+-------------------------------------
+function ServerData_Shop:network_ProductPay(t_product, finish_cb)
+    local t_product = t_product
+
+    local value_type = t_product['value_type']
+    local value = t_product['value']
+
+    local cash = g_userData:get('cash')
+    local gold = g_userData:get('gold')
+
+    do -- 재화 사용
+        local price_type = t_product['price_type']
+        local price_value = t_product['price']
+
+        -- 지불
+        if (price_type == 'x') then
+            finish_cb()
+            return
+
+        elseif (price_type == 'cash') then
+            cash = (cash - price_value)
+
+        elseif (price_type == 'gold') then
+            gold = (gold - price_value)
+
+        else
+            error('price_type : ' .. price_type)
+        end
+    end
+
+    -- Network
+    local b_revocable = true
+    return self:network_updateGoldAndCash(gold, cash, finish_cb, b_revocable)
+end
+
+-------------------------------------
+-- function network_ProductReceive
+-- @brief 상품 받기
+-------------------------------------
+function ServerData_Shop:network_ProductReceive(t_product, finish_cb)
+    local t_product = t_product
+
+    local value_type = t_product['value_type']
+    local value = t_product['value']
+
+    local cash = g_userData:get('cash')
+    local gold = g_userData:get('gold')
+
+    -- 구매 상품 추가
+    if (value_type == 'x') then
+
+    elseif (value_type == 'cash') then
+        cash = (cash + value)
+        return self:network_updateGoldAndCash(gold, cash, finish_cb, false)
+
+    elseif (value_type == 'gold') then
+        gold = (gold + value)
+        return self:network_updateGoldAndCash(gold, cash, finish_cb, false)
+
+    elseif (value_type == 'stamina') then
+        -- @TODO 스태미너 추가
+        g_topUserInfo:refreshData()
+        return
+
+    else
+        error('value_type : ' .. value_type)
+    end
+end
+
+-------------------------------------
+-- function network_updateGoldAndCash
+-- @brief 골드, 캐시 동기화
+-------------------------------------
+function ServerData_Shop:network_updateGoldAndCash(gold, cash, finish_cb, b_revocable)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        if ret['user'] then
+            g_serverData:applyServerData(ret['user'], 'user')
+        end
+        g_topUserInfo:refreshData()
+        finish_cb()
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/update')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('act', 'update')
+    ui_network:setParam('gold', gold)
+    ui_network:setParam('cash', cash)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:setRevocable(b_revocable)
+    ui_network:request()
 end
