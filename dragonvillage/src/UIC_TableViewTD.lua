@@ -685,8 +685,10 @@ function UIC_TableViewTD:delItem(unique_id)
                     break
                 end
             end
+        end
 
-            -- 생성 예약 리스트에서 삭제
+        -- 생성 예약 리스트에서 삭제
+        if t_item['reserved'] then
             for i, v in ipairs(self.m_makeReserveQueue) do
                 if (t_item == v) then
                     table.remove(self.m_makeReserveQueue, i)
@@ -746,6 +748,37 @@ function UIC_TableViewTD:getLineCount()
     local cellsCount = #self.m_itemList
     local lineCount = self:calcLineIdx(cellsCount)
     return lineCount
+end
+
+-------------------------------------
+-- function mergeItemList
+-- @breif
+-------------------------------------
+function UIC_TableViewTD:mergeItemList(list, skip_refresh)
+    local dirty = false
+
+    -- 새로 생긴 데이터 추가
+    for i,v in pairs(list) do
+        if (not self.m_itemMap[i]) then
+            self:addItem(i, v)
+            dirty = true
+        end
+    end
+
+    -- 사라진 데이터 삭제
+    for i,v in pairs(self.m_itemMap) do
+        if (not list[i]) then
+            self:delItem(i)
+            dirty = false
+        end
+    end
+
+    -- 갱신
+    if dirty and (not skip_refresh) then
+        self:expandTemp(0.5)
+        local animated = true
+        self:relocateContainer(animated)
+    end
 end
 
 -- _swallowTouch가 false일 경우 CCMenu 클래스의 onTouchBegan함수에서

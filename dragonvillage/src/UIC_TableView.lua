@@ -816,8 +816,10 @@ function UIC_TableView:delItem(unique_id)
                     break
                 end
             end
+        end
 
-            -- 생성 예약 리스트에서 삭제
+        -- 생성 예약 리스트에서 삭제
+        if t_item['reserved'] then
             for i, v in ipairs(self.m_makeReserveQueue) do
                 if (t_item == v) then
                     table.remove(self.m_makeReserveQueue, i)
@@ -848,7 +850,7 @@ end
 -- function mergeItemList
 -- @breif
 -------------------------------------
-function UIC_TableView:mergeItemList(list)
+function UIC_TableView:mergeItemList(list, skip_refresh)
     local dirty = false
 
     -- 새로 생긴 데이터 추가
@@ -868,8 +870,9 @@ function UIC_TableView:mergeItemList(list)
     end
 
     -- 갱신
-    if dirty then
+    if dirty and (not skip_refresh) then
         self:expandTemp(0.5)
+        local animated = true
         self:relocateContainer(animated)
     end
 end
