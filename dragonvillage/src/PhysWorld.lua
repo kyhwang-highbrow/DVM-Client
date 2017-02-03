@@ -493,7 +493,7 @@ function PhysWorld:primitivesDraw(transform, transformUpdated)
         cc.DrawPrimitives.drawColor4B(color[1], color[2], color[3], color[4])
 
         for _, object in ipairs(l_object) do
-            if object.enable_body then
+            if (object.enable_body) or (object.bFixedAttack) then
                 local x = object.pos.x + object.body.x
                 local y = object.pos.y + object.body.y
                 local radius = object.body.size
