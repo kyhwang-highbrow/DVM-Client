@@ -120,3 +120,7 @@ end
 function UIC_Node:setColor(color)
     return self.m_node:setColor(color)
 end
+
+function UIC_Node:setScale(scale)
+    return self.m_node:setScale(scale)
+end
