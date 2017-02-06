@@ -131,6 +131,10 @@ function UIC_TableViewTD:update(dt)
                 cca.uiReactionSlow(self.m_emptyDescLabel)
             end
         end
+
+        -- 정렬
+        local animated = true
+        self:expandTemp(0.5, animated)
     end
 end
 
@@ -173,7 +177,11 @@ function UIC_TableViewTD:_updateContentSize(skip_update_cells)
         size = cc.size(viewSize['width'], maxPosition)
     end
 
-    self.m_scrollView:setContentSize(size)
+    do -- 컨테이너의 사이즈를 다시 지정
+        self.m_scrollView:setContentSize(size)
+        -- 자식 node들의 transform을 update(dockpoint의 영향이 있을수 있으므로)
+        self.m_scrollView:setUpdateChildrenTransform()
+    end
 
     -- cell들의 위치를 업데이트
     local cellsCount = #self.m_itemList
@@ -459,16 +467,6 @@ function UIC_TableViewTD:setItemList(list, skip_update, make_item)
     end
 
     self.m_bDirtyItemList = true
-
-    if skip_update then
-        return
-    end
-
-    self:_updateLinePositions()
-    self:_updateContentSize()
-
-    --self:relocateContainerDefault()
-    --self:scrollViewDidScroll()
 end
 
 -------------------------------------
@@ -638,8 +636,7 @@ function UIC_TableViewTD:sortTableView(sort_type, b_force)
     local sort_func = self.m_lSortInfo[sort_type]
     table.sort(self.m_itemList, sort_func)
 
-    --
-    self:expandTemp(0.5)
+    self.m_bDirtyItemList = true
 end
 
 -------------------------------------
@@ -786,7 +783,7 @@ end
 -- function mergeItemList
 -- @breif
 -------------------------------------
-function UIC_TableViewTD:mergeItemList(list, skip_refresh)
+function UIC_TableViewTD:mergeItemList(list)
     local dirty = false
 
     -- 새로 생긴 데이터 추가
@@ -803,13 +800,6 @@ function UIC_TableViewTD:mergeItemList(list, skip_refresh)
             self:delItem(i)
             dirty = false
         end
-    end
-
-    -- 갱신
-    if dirty and (not skip_refresh) then
-        self:expandTemp(0.5)
-        local animated = true
-        self:relocateContainer(animated)
     end
 
     if dirty then
