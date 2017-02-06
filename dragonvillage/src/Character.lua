@@ -393,44 +393,63 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
     end
 
     -- 회피 계산
-    local hit_rate = attacker.m_activityCarrier:getStat('hit_rate')
+	do
+		local hit_rate = attacker.m_activityCarrier:getStat('hit_rate')
 
-    do -- 속성 상성 옵션 적용
-        local hit_rates_multifly = 1
+		-- 속성 상성 옵션 적용
+		do 
+			local hit_rates_multifly = 1
 
-        -- 적중률
-        if t_attr_effect['hit_rate'] then
-            hit_rates_multifly = (hit_rates_multifly + (t_attr_effect['hit_rate']/100))
-        end
+			-- 적중률
+			if t_attr_effect['hit_rate'] then
+				hit_rates_multifly = (hit_rates_multifly + (t_attr_effect['hit_rate']/100))
+			end
 
-        hit_rate = (hit_rate * hit_rates_multifly)
-    end
+			hit_rate = (hit_rate * hit_rates_multifly)
+		end
 
-    local avoid = self.m_statusCalc:getFinalStat('avoid')
-    local avoid_rates = CalcAvoidChance(hit_rate, avoid)
+		local avoid = self.m_statusCalc:getFinalStat('avoid')
+		local avoid_rates = CalcAvoidChance(hit_rate, avoid)
 
-    -- 회피율을 퍼밀 단위로 랜덤 연산
-    if (math_random(1, 1000) <= (avoid_rates * 10)) then
-        --cclog('MISS ' .. avoid_rates)
-        self:makeMissFont(i_x, i_y)
-        self:dispatch('avoid')
-        return
-    end
+		-- 회피율을 퍼밀 단위로 랜덤 연산
+		if (math_random(1, 1000) <= (avoid_rates * 10)) then
+			--cclog('MISS ' .. avoid_rates)
+			self:makeMissFont(i_x, i_y)
+			self:dispatch('avoid')
+			return
+		end
+	end
 	
+	-- Evnet Carrier 세팅
 	local t_event = clone(EVENT_HIT_CARRIER)
 	t_event['damage'] = damage
-	
-	-- 방어 이벤트 (에너지실드)
-	self:dispatch('hit_shield', t_event, self, damage)
-	-- 방어 이벤트 (횟수)
-	self:dispatch('hit_barrier', t_event)
-	
-	damage = t_event['damage']
+	t_event['attacker'] = attacker.m_activityCarrier.m_activityCarrierOwner
+	t_event['defender'] = self
+	t_event['is_critical'] = critical
 
-	if (t_event['is_handled']) and (damage == 0) then 
-		self:makeShieldFont(i_x, i_y)
-		return
+	-- 방어와 관련된 이벤트 처리후 데미지 계산
+	do	
+		-- 방어 이벤트 (에너지실드)
+		self:dispatch('hit_shield', t_event, self, damage)
+
+		-- 방어 이벤트 (횟수)
+		self:dispatch('hit_barrier', t_event)
+	
+		damage = t_event['damage']
+		
+		-- 방어 처리 후 데미지 0이라면 방어 성공 처리
+		if (t_event['is_handled']) and (damage == 0) then 
+			self:makeShieldFont(i_x, i_y)
+			return
+		end
 	end
+
+	-- linked 효과 관련 이벤트 처리
+	do	
+		self:dispatch('undergo_attack_linked_owner', t_event)
+		self:dispatch('undergo_attack_linked_target', t_event)
+	end
+
     -- 스킬 공격으로 피격되였다면 캐스팅 중이던 스킬을 취소시킴
     local attackType = attacker.m_activityCarrier:getAttackType()
     if (attackType ~= 'basic' and attackType ~= 'fever') then
@@ -476,10 +495,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
     self:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 
 	-- 공격받을 시점에서의 상태 정보 저장
-	local t_damaged_info = {}
-	t_damaged_info['isDead'] = self.m_bDead
-    t_damaged_info['critical'] = critical
-	attacker.m_activityCarrier:setDamagedInfo(t_damaged_info)
+	t_event['isDead'] = self.m_bDead
+	attacker.m_activityCarrier:setEventInfo(t_event)
 
     -- 상태이상 체크
     StatusEffectHelper:statusEffectCheck_onHit(attacker.m_activityCarrier, self)

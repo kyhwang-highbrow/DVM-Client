@@ -19,7 +19,7 @@ ActivityCarrier = class({
         m_lStatusEffectRate = 'table',
 
 		-- @ 공격시점에서의 공격 대상의 상태 정보
-		m_damagedInfo = '',
+		m_tEventInfo = '',
 
 		m_atkDmgStat = 'str',
 		m_bIgnoreDef = 'bool',
@@ -36,7 +36,7 @@ function ActivityCarrier:init()
     self.m_skillCoefficient = 1
     self.m_skillAddAtk = 0
     self.m_lStatusEffectRate = {}
-	self.m_damagedInfo = {}
+	self.m_tEventInfo = {}
 	self.m_atkDmgStat = 'atk'
 	self.m_bIgnoreDef = false
     self.m_lFlag = {}
@@ -112,19 +112,19 @@ end
 --------------------------------------------------------------------------
 
 -------------------------------------
--- function setDamagedInfo
+-- function setEventInfo
 -------------------------------------
-function ActivityCarrier:setDamagedInfo(info)
-	if type(info) == 'table' then 
-		self.m_damagedInfo = info 
+function ActivityCarrier:setEventInfo(info)
+	if (type(info) == 'table') then 
+		self.m_tEventInfo = info 
 	end
 end
 
 -------------------------------------
--- function getDamagedInfo
+-- function getEventInfo
 -------------------------------------
-function ActivityCarrier:getDamagedInfo()
-	return self.m_damagedInfo or {}
+function ActivityCarrier:getEventInfo()
+	return self.m_tEventInfo or {}
 end
 
 -------------------------------------

@@ -1,17 +1,19 @@
-local PARENT = Skill
+local PARENT = class(Skill, IEventListener:getCloneTable())
 
 -------------------------------------
 -- class SkillLinkedSoul
 -------------------------------------
 SkillLinkedSoul = class(PARENT, {
         m_duration = 'num',
-        m_target = 'Character',
+        m_targetChar = 'Character',
 		m_res = 'string',
 
         m_shieldEffect = 'Animator',
         m_barEffect = 'EffectLink',
         m_barrierEffect1 = 'Animator',
         m_barrierEffect2 = 'Animator',
+
+		m_bDirtyPos = 'boolean', -- 위치가 변경되어 이펙트 수정이 필요한 경우
      })
 
 -------------------------------------
@@ -25,21 +27,20 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillLinkedSoul:init_skill(duration, def_up_rate, res)
+function SkillLinkedSoul:init_skill(duration, res)
 	PARENT.init_skill(self)
 
 	-- 멤버 변수
 	self.m_duration = duration
 	self.m_res = res
-
-	self:initRes(res)
 end
 
 
 -------------------------------------
 -- function initRes
 -------------------------------------
-function SkillLinkedSoul:initRes(res)
+function SkillLinkedSoul:initRes()
+	local res = self.m_res
 
     -- 연결 이펙트 -- @TODO groundnode..? 여기서만 사용중
     self.m_barEffect = EffectLink(res, 'bar_appear', '', '', 512, 256)
@@ -81,11 +82,8 @@ end
 -- function st_start
 -------------------------------------
 function SkillLinkedSoul.st_start(owner, dt)
-    if owner:checkDead() then
-        return
-    end
-
     if (owner.m_stateTimer == 0) then
+		owner:initRes()
         owner:onStart()
 
         local function func()
@@ -102,10 +100,6 @@ end
 -- function st_idle
 -------------------------------------
 function SkillLinkedSoul.st_idle(owner, dt)
-    if owner:checkDead() then
-        return
-    end
-
     SkillLinkedSoul.st_common(owner, dt)
 end
 
@@ -136,6 +130,9 @@ end
 -- function st_common
 -------------------------------------
 function SkillLinkedSoul.st_common(owner, dt)    
+	if (owner.m_owner.m_bDead) then
+		owner:changeState('end')
+	end
     if (owner.m_duration == -1) then
         return
     end
@@ -145,31 +142,23 @@ function SkillLinkedSoul.st_common(owner, dt)
     if (owner.m_duration <= 0) then
         owner.m_duration = 0
         owner:changeState('end')
+	else
+		-- 위치 갱신이 필요한지 확인
+		owner:checkBuffPosDirty()
+
+		-- 위치 변경 처리
+		if owner.m_bDirtyPos then
+			owner:updateBuffPos()
+		end
     end
-end
-
--------------------------------------
--- function update
--------------------------------------
-function SkillLinkedSoul:update(dt)
-
-    local ret = PARENT.update(self, dt)
-    
-    -- 위치 갱신이 필요한지 확인
-    self:checkBuffPosDirty()
-
-    -- 위치 변경 처리
-    if self.m_bDirtyPos then
-        self:updateBuffPos()
-    end
-
-    return ret
 end
 
 -------------------------------------
 -- function onStart
 -------------------------------------
 function SkillLinkedSoul:onStart()
+	self.m_owner:addListener('undergo_attack_linked_owner', self)
+	self.m_targetChar:addListener('undergo_attack_linked_target', self)
 end
 
 -------------------------------------
@@ -199,6 +188,18 @@ function SkillLinkedSoul:onEnd()
 end
 
 -------------------------------------
+-- function onEvent
+-------------------------------------
+function SkillLinkedSoul:onEvent(event_name, t_event, ...)
+	
+	if (event_name == 'undergo_attack_linked_owner') then 
+		cclog('############## OWNER HIT!!!')
+	elseif (event_name == 'undergo_attack_linked_target') then 
+		cclog('@@@@@@@@@@@@@ TARGET HIT!!!')
+	end
+end
+
+-------------------------------------
 -- function checkBuffPosDirty
 -------------------------------------
 function SkillLinkedSoul:checkBuffPosDirty()
@@ -209,8 +210,8 @@ function SkillLinkedSoul:checkBuffPosDirty()
     end
 
     -- 베리어 대상자 변경 확인
-    local x = self.m_target.pos.x - self.pos.x
-    local y = self.m_target.pos.y - self.pos.y
+    local x = self.m_targetChar.pos.x - self.pos.x
+    local y = self.m_targetChar.pos.y - self.pos.y
     if (self.m_barrierEffect2.m_posX ~= x) or (self.m_barrierEffect2.m_posY ~= y) then
         self.m_bDirtyPos = true
         return
@@ -223,12 +224,12 @@ end
 function SkillLinkedSoul:updateBuffPos()
     self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 
-    local x = self.m_target.pos.x - self.pos.x
-    local y = self.m_target.pos.y - self.pos.y
+    local x = self.m_targetChar.pos.x - self.pos.x
+    local y = self.m_targetChar.pos.y - self.pos.y
     self.m_barrierEffect2:setPosition(x, y)
     self.m_shieldEffect:setPosition(x, y)
 
-    EffectLink_refresh(self.m_barEffect, self.pos.x, self.pos.y, self.m_target.pos.x, self.m_target.pos.y)
+    EffectLink_refresh(self.m_barEffect, self.pos.x, self.pos.y, self.m_targetChar.pos.x, self.m_targetChar.pos.y)
 
     self.m_bDirtyPos = false
 end
@@ -262,7 +263,7 @@ function SkillLinkedSoul:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(duration, def_up_rate, res)
+    skill:init_skill(duration, res)
 	skill:initState()
 
 	-- 3. state 시작 
