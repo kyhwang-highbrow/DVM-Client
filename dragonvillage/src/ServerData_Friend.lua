@@ -438,11 +438,11 @@ function ServerData_Friend:updateFriendUser_usedTime(t_friend_info)
 
     -- 일반 친구
     if (friendtype == 1) then
-        cooltime = 0.0833333333333333--12 -- 임시로 5분으로 처리
+        cooltime = 12 -- 12시간
 
     -- 베스트 프렌드
     elseif (friendtype == 2) then
-        cooltime = 0.0833333333333333--6 -- 임시로 5분으로 처리
+        cooltime = 6 -- 6시간
 
     -- 소울메이트
     elseif (friendtype == 3) then

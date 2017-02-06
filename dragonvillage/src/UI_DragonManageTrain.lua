@@ -184,8 +184,7 @@ function UI_DragonManageTrain:int_trainSlotTableView(t_dragon_data)
         table_view.m_defaultCellSize = cc.size(518, 518)
         table_view.m_bUseEachSize = true
         table_view:setCellUIClass(UI_DragonTrainSlot_ListItem, create_func)
-        local make_item = true
-        table_view:setItemList(l_item_list, make_item)
+        table_view:setItemList3(l_item_list)
 
         self.m_trainSlotTableView = table_view
     else

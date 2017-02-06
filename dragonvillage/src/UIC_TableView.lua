@@ -113,7 +113,25 @@ function UIC_TableView:update(dt)
         if self.m_makeReserveQueue[1] then
             local t_item = self.m_makeReserveQueue[1]
             local data = t_item['data']
-            t_item['ui'] = self:makeItemUI(data, t_item['unique_id'])
+            local key = t_item['unique_id']
+
+            if t_item['generated_ui'] then
+                t_item['ui'] = t_item['generated_ui']
+                t_item['generated_ui'] = nil
+                t_item['ui'].root:setVisible(true)
+            else
+                t_item['ui'] = self:makeItemUI(data, t_item['unique_id'])
+            end
+
+            do -- 액션 수행 위치 수정
+                local ui = t_item['ui']
+                local scale = ui.root:getScale()
+                ui.root:setScale(scale * 0.2)
+                local scale_to = cc.ScaleTo:create(0.25, scale)
+                local action = cc.EaseInOut:create(scale_to, 2)
+                ui.root:runAction(action)
+            end
+
             local idx = t_item['idx']
             self:updateCellAtIndex(idx)
             
@@ -531,7 +549,8 @@ function UIC_TableView:setItemList(list, make_item)
 
         -- UI를 미리 생성
         if make_item then
-            t_item['ui'] = self:makeItemUI(data, key)
+            t_item['generated_ui'] = self:makeItemUI(data, key)
+            t_item['generated_ui'].root:setVisible(false)
         end
 
         -- 리스트에 추가
@@ -545,6 +564,78 @@ function UIC_TableView:setItemList(list, make_item)
         self:_updateCellPositions()
         self:_updateContentSize()
     end
+
+    self:setDirtyItemList()
+end
+
+-------------------------------------
+-- function setItemList2
+-- @brief list는 key값이 고유해야 하며, value로는 UI생성에 필요한 데이터가 있어야 한다
+-------------------------------------
+function UIC_TableView:setItemList2(list)
+    self:clearItemList()
+
+    for key,data in pairs(list) do
+        local t_item = {}
+        t_item['unique_id'] = key
+        t_item['data'] = data
+
+        local idx = #self.m_itemList + 1
+
+        -- UI를 미리 생성
+        t_item['generated_ui'] = self:makeItemUI(data, key)
+        t_item['generated_ui'].root:setVisible(false)
+
+        -- 리스트에 추가
+        table.insert(self.m_itemList, t_item)
+
+        -- 맵에 등록
+        self.m_itemMap[key] = t_item
+    end
+
+    self:_updateCellPositions()
+    self:_updateContentSize()
+    self:setDirtyItemList()
+end
+
+-------------------------------------
+-- function setItemList3
+-- @brief
+-------------------------------------
+function UIC_TableView:setItemList3(list)
+    self:clearItemList()
+
+    for key,data in pairs(list) do
+        local t_item = {}
+        t_item['unique_id'] = key
+        t_item['data'] = data
+
+        local idx = #self.m_itemList + 1
+
+        -- UI를 미리 생성
+        t_item['ui'] = self:makeItemUI(data, key)
+
+        -- 리스트에 추가
+        table.insert(self.m_itemList, t_item)
+
+        -- 맵에 등록
+        self.m_itemMap[key] = t_item
+
+        --[[
+        do -- 액션 수행 위치 수정
+            local ui = t_item['ui']
+            local scale = ui.root:getScale()
+            ui.root:setScale(scale * 0.2)
+            local scale_to = cc.ScaleTo:create(0.25, scale)
+            local action = cc.EaseInOut:create(scale_to, 2)
+            ui.root:runAction(action)
+        end
+        --]]
+    end
+
+    self:_updateCellPositions()
+    self:_updateContentSize()
+    self:scrollViewDidScroll()
 
     self:setDirtyItemList()
 end
@@ -732,17 +823,8 @@ function UIC_TableView:makeItemUI(data, key)
     self.m_scrollView:addChild(ui.root)
 
     if self.m_cellUICreateCB then
-        -- true를 리턴했을 경우 연출을 사용하지 않겠다는 뜻으로 즉시 리턴
-        if self.m_cellUICreateCB(ui, data, key) then
-            return ui
-        end
+        self.m_cellUICreateCB(ui, data, key)
     end
-
-    local scale = ui.root:getScale()
-    ui.root:setScale(scale * 0.2)
-    local scale_to = cc.ScaleTo:create(0.25, scale)
-    local action = cc.EaseInOut:create(scale_to, 2)
-    ui.root:runAction(action)
 
     return ui
 end

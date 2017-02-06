@@ -66,7 +66,7 @@ function UI_NestDungeonScene:initUI(stage_id)
         table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
         table_view:setCellUIClass(UI_NestDungeonListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-        table_view:setItemList(g_nestDungeonData:getNestDungeonListForUI())
+        table_view:setItemList2(g_nestDungeonData:getNestDungeonListForUI())
 
         self.m_tableView = table_view
     end
