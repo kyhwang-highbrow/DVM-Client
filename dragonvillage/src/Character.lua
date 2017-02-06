@@ -299,7 +299,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
         return
     end
 
-	-- SkillProtection defender check
+	-- Buff_Protection(SkillGuardian) defender check
     if (not is_protection) and self.m_lProtectionList and (table.count(self.m_lProtectionList) > 0) then
         for i,v in pairs(self.m_lProtectionList) do
             v:onHit()
@@ -536,7 +536,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     end
     self:makeDamageFont(damage, i_x, i_y, t_info['critical'], t_info['attr_bonus_dmg'])
 
-    -- 데미지 적용
+    -- 무적 체크 후 데미지 적용
 	if not ((defender:getCharType() == 'dragon') and PLAYER_DRAGON_INVINCIBLE) then 
 		local damage = math_min(damage, self.m_hp)
 		self:setHp(self.m_hp - damage)

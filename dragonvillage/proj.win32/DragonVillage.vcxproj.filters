@@ -1497,6 +1497,9 @@
     <None Include="..\src\SkillEnumrate_Penetration_Jaryong.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\IEventListener.lua">
+      <Filter>lua</Filter>
+ 	</None>
     <None Include="..\src\UIC_TableViewProtocol.lua">
       <Filter>lua\UIC</Filter>
     </None>
