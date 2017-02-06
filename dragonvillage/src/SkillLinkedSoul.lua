@@ -8,6 +8,8 @@ SkillLinkedSoul = class(PARENT, {
         m_targetChar = 'Character',
 		m_res = 'string',
 
+		m_healRate = 'number',
+
         m_shieldEffect = 'Animator',
         m_barEffect = 'EffectLink',
         m_barrierEffect1 = 'Animator',
@@ -27,46 +29,15 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillLinkedSoul:init_skill(duration, res)
+function SkillLinkedSoul:init_skill(duration, res, heal_rate)
 	PARENT.init_skill(self)
 
 	-- 멤버 변수
 	self.m_duration = duration
 	self.m_res = res
+	self.m_healRate = (heal_rate/100)
 end
 
-
--------------------------------------
--- function initRes
--------------------------------------
-function SkillLinkedSoul:initRes()
-	local res = self.m_res
-
-    -- 연결 이펙트 -- @TODO groundnode..? 여기서만 사용중
-    self.m_barEffect = EffectLink(res, 'bar_appear', '', '', 512, 256)
-    self.m_world.m_groundNode:addChild(self.m_barEffect.m_node)
-    self.m_barEffect.m_startPointNode:setVisible(false)
-    self.m_barEffect.m_endPointNode:setVisible(false)
-    self.m_barEffect.m_effectNode:addAniHandler(function() self.m_barEffect.m_effectNode:changeAni('bar_idle', true) end)
-
-    -- 베리어 이펙트
-    self.m_barrierEffect1 = MakeAnimator(res)
-    self.m_barrierEffect1:changeAni('barrier_appear', false)
-    self.m_barrierEffect1:addAniHandler(function() self.m_barrierEffect1:changeAni('barrier_idle', true) end)
-    self.m_rootNode:addChild(self.m_barrierEffect1.m_node)
-
-    -- 베리어 이펙트
-    self.m_barrierEffect2 = MakeAnimator(res)
-    self.m_barrierEffect2:changeAni('barrier_appear', false)
-    self.m_barrierEffect2:addAniHandler(function() self.m_barrierEffect2:changeAni('barrier_idle', true) end)
-    self.m_rootNode:addChild(self.m_barrierEffect2.m_node)
-
-    -- 방패 이펙트
-    self.m_shieldEffect = MakeAnimator(res)
-    self.m_shieldEffect:changeAni('shield_appear', false)
-    self.m_shieldEffect:addAniHandler(function() self.m_shieldEffect:changeAni('shield_idle', true) end)
-    self.m_rootNode:addChild(self.m_shieldEffect.m_node)
-end
 
 -------------------------------------
 -- function initState
@@ -83,7 +54,7 @@ end
 -------------------------------------
 function SkillLinkedSoul.st_start(owner, dt)
     if (owner.m_stateTimer == 0) then
-		owner:initRes()
+		owner:makeEffectLink()
         owner:onStart()
 
         local function func()
@@ -154,6 +125,38 @@ function SkillLinkedSoul.st_common(owner, dt)
 end
 
 -------------------------------------
+-- function makeEffectLink
+-------------------------------------
+function SkillLinkedSoul:makeEffectLink()
+	local res = self.m_res
+
+    -- 연결 이펙트 -- @TODO groundnode..? 여기서만 사용중
+    self.m_barEffect = EffectLink(res, 'bar_appear', '', '', 512, 256)
+    self.m_world.m_groundNode:addChild(self.m_barEffect.m_node)
+    self.m_barEffect.m_startPointNode:setVisible(false)
+    self.m_barEffect.m_endPointNode:setVisible(false)
+    self.m_barEffect.m_effectNode:addAniHandler(function() self.m_barEffect.m_effectNode:changeAni('bar_idle', true) end)
+
+    -- 베리어 이펙트
+    self.m_barrierEffect1 = MakeAnimator(res)
+    self.m_barrierEffect1:changeAni('barrier_appear', false)
+    self.m_barrierEffect1:addAniHandler(function() self.m_barrierEffect1:changeAni('barrier_idle', true) end)
+    self.m_rootNode:addChild(self.m_barrierEffect1.m_node)
+
+    -- 베리어 이펙트
+    self.m_barrierEffect2 = MakeAnimator(res)
+    self.m_barrierEffect2:changeAni('barrier_appear', false)
+    self.m_barrierEffect2:addAniHandler(function() self.m_barrierEffect2:changeAni('barrier_idle', true) end)
+    self.m_rootNode:addChild(self.m_barrierEffect2.m_node)
+
+    -- 방패 이펙트
+    self.m_shieldEffect = MakeAnimator(res)
+    self.m_shieldEffect:changeAni('shield_appear', false)
+    self.m_shieldEffect:addAniHandler(function() self.m_shieldEffect:changeAni('shield_idle', true) end)
+    self.m_rootNode:addChild(self.m_shieldEffect.m_node)
+end
+
+-------------------------------------
 -- function onStart
 -------------------------------------
 function SkillLinkedSoul:onStart()
@@ -185,6 +188,8 @@ end
 -- function onEnd
 -------------------------------------
 function SkillLinkedSoul:onEnd()
+	self.m_owner:removeListener('undergo_attack_linked_owner', self)
+	self.m_targetChar:removeListener('undergo_attack_linked_target', self)
 end
 
 -------------------------------------
@@ -192,11 +197,54 @@ end
 -------------------------------------
 function SkillLinkedSoul:onEvent(event_name, t_event, ...)
 	
-	if (event_name == 'undergo_attack_linked_owner') then 
-		cclog('############## OWNER HIT!!!')
-	elseif (event_name == 'undergo_attack_linked_target') then 
-		cclog('@@@@@@@@@@@@@ TARGET HIT!!!')
+	if (event_name == 'undergo_attack_linked_owner') then
+		-- 타격 연출
+		self:onHit()
+		
+		-- 감소된 데미지 만큼 링크 대상 힐
+		local reduced_damage = t_event['reduced_damage']
+		self:doHeal(reduced_damage)
+
+		-- 피해 나눔 
+		self:seperateDamage()
+
+		-- 광역 힐 시전
+
+	elseif (event_name == 'undergo_attack_linked_target') then
+		-- 타격 연출
+		self:onHit()
+
+		-- 피해 나눔
+		self:seperateDamage()
 	end
+end
+
+-------------------------------------
+-- function doHeal
+-------------------------------------
+function SkillLinkedSoul:doHeal(healAbs)
+	local target = self.m_targetChar
+    -- 타겟에 회복 수행, 이팩트 생성
+    if target and (not target.m_bDead) then
+        target:healAbs(healAbs * self.m_healRate)
+
+		-- 나에게로부터 상대에게 가는 힐 이펙트 생성
+        local effect_heal = EffectHeal(self.m_res, {0,0,0})
+        effect_heal:initState()
+        effect_heal:changeState('move')
+        effect_heal:init_EffectHeal(self.pos.x, self.pos.y, target)
+
+        self.m_world.m_physWorld:addObject(PHYS.EFFECT, effect_heal)
+        self.m_world.m_worldNode:addChild(effect_heal.m_rootNode, 0)
+        self.m_world:addToUnitList(effect_heal)
+    end
+end
+
+-------------------------------------
+-- function seperateDamage
+-------------------------------------
+function SkillLinkedSoul:seperateDamage()
+	cclog('WEEKEND!')
 end
 
 -------------------------------------
@@ -252,8 +300,8 @@ end
 function SkillLinkedSoul:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-    local duration = t_skill['val_1']
-    local def_up_rate = t_skill['val_2']
+    local duration = (-1) --t_skill['val_1']
+    local heal_rate = 10 --t_skill['val_2']
 	local res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
 
 	-- 인스턴스 생성부
@@ -263,7 +311,7 @@ function SkillLinkedSoul:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(duration, res)
+    skill:init_skill(duration, res, heal_rate)
 	skill:initState()
 
 	-- 3. state 시작 

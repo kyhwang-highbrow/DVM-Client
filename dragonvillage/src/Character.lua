@@ -319,6 +319,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
     local def_pwr = 0
 
     local damage = 0
+	local reduced_damage = 0
 
     -- 데미지 계산
     do
@@ -340,6 +341,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 		if (attacker.m_activityCarrier:isIgnoreDef()) then def_pwr = 0 end
         
 		damage = DamageCalc_P(atk_dmg, def_pwr)
+
+		-- 방어에 의해 감소된 피해량 계산
+		reduced_damage = atk_dmg - damage
     end
 
     do -- 크리티컬(치명타) 계산
@@ -423,6 +427,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 	-- Evnet Carrier 세팅
 	local t_event = clone(EVENT_HIT_CARRIER)
 	t_event['damage'] = damage
+	t_event['reduced_damage'] = reduced_damage
 	t_event['attacker'] = attacker.m_activityCarrier.m_activityCarrierOwner
 	t_event['defender'] = self
 	t_event['is_critical'] = critical
