@@ -1499,12 +1499,15 @@
     </None>
     <None Include="..\src\IEventListener.lua">
       <Filter>lua</Filter>
- 	</None>
+    </None>
     <None Include="..\src\UIC_TableViewProtocol.lua">
       <Filter>lua\UIC</Filter>
     </None>
     <None Include="..\src\UIC_Factory.lua">
       <Filter>lua\UIC</Filter>
+    </None>
+    <None Include="..\src\SkillLinkedSoul.lua">
+      <Filter>lua</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

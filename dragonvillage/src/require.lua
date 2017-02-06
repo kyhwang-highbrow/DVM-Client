@@ -306,6 +306,7 @@ local t_module = {
 	'SkillEnumrate_Normal',
 	'SkillEnumrate_Penetration',
 	'SkillEnumrate_Penetration_Jaryong',
+	'SkillLinkedSoul',
 
     -- SKILL INDICATOR
     'SkillIndicatorMgr',
