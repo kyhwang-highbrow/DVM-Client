@@ -1790,12 +1790,133 @@
 						};
 						[11] =
 						{
+							type = 'Node';
+							ui_name = '';
+							x = -20.000000;
+							y = -18.000000;
+							dock_point = { 1.000000; 0.500000; };
+							anchor_point = { 1.000000; 0.500000; };
+							relative_size_type = 0;
+							width = 21;
+							height = 21;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = 'timeIconNode1';
+						};
+						[12] =
+						{
+							type = 'Node';
+							ui_name = '';
+							x = -20.000000;
+							y = -54.000000;
+							dock_point = { 1.000000; 0.500000; };
+							anchor_point = { 1.000000; 0.500000; };
+							relative_size_type = 0;
+							width = 21;
+							height = 21;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = 'timeIconNode2';
+						};
+						[13] =
+						{
+							type = 'Node';
+							ui_name = '';
+							x = -20.000000;
+							y = -90.000000;
+							dock_point = { 1.000000; 0.500000; };
+							anchor_point = { 1.000000; 0.500000; };
+							relative_size_type = 0;
+							width = 21;
+							height = 21;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = 'timeIconNode3';
+						};
+						[14] =
+						{
+							type = 'Node';
+							ui_name = '';
+							x = -20.000000;
+							y = -126.000000;
+							dock_point = { 1.000000; 0.500000; };
+							anchor_point = { 1.000000; 0.500000; };
+							relative_size_type = 0;
+							width = 21;
+							height = 21;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = 'timeIconNode4';
+						};
+						[15] =
+						{
+							type = 'Scale9Sprite';
+							ui_name = '';
+							x = 0.000000;
+							y = 116.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 140;
+							height = 140;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							file_name = 'ui/frame/base_frame_06.png';
+							color = { 255; 255; 255; };
+							opacity = 50;
+							center_rect_x = 0;
+							center_rect_y = 0;
+							center_rect_width = 0;
+							center_rect_height = 0;
+						};
+						[16] =
+						{
+							type = 'Node';
+							ui_name = '';
+							x = 0.000000;
+							y = 116.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 150;
+							height = 150;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = 'dragonNode';
+						};
+						[17] =
+						{
 							[1] =
 							{
 								type = 'LabelTTF';
 								ui_name = '';
-								x = -95.000000;
-								y = 66.000000;
+								x = 0.000000;
+								y = 4.000000;
 								dock_point = { 0.500000; 0.500000; };
 								anchor_point = { 0.500000; 0.500000; };
 								relative_size_type = 0;
@@ -1832,13 +1953,13 @@
 							};
 							type = 'Sprite';
 							ui_name = '';
-							x = 0.000000;
-							y = 121.000000;
+							x = -94.000000;
+							y = 168.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 259;
-							height = 210;
+							width = 70;
+							height = 74;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -1846,89 +1967,13 @@
 							rotation = 0.000000;
 							visible = true;
 							lua_name = '';
-							file_name = 'ui/icon/friend_support_image.png';
+							file_name = 'ui/icon/bubble_0101.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
 							flip_y = false;
 							src_blend = 770;
 							dest_blend = 771;
-						};
-						[12] =
-						{
-							type = 'Node';
-							ui_name = '';
-							x = -20.000000;
-							y = -18.000000;
-							dock_point = { 1.000000; 0.500000; };
-							anchor_point = { 1.000000; 0.500000; };
-							relative_size_type = 0;
-							width = 21;
-							height = 21;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = true;
-							lua_name = 'timeIconNode1';
-						};
-						[13] =
-						{
-							type = 'Node';
-							ui_name = '';
-							x = -20.000000;
-							y = -54.000000;
-							dock_point = { 1.000000; 0.500000; };
-							anchor_point = { 1.000000; 0.500000; };
-							relative_size_type = 0;
-							width = 21;
-							height = 21;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = true;
-							lua_name = 'timeIconNode2';
-						};
-						[14] =
-						{
-							type = 'Node';
-							ui_name = '';
-							x = -20.000000;
-							y = -90.000000;
-							dock_point = { 1.000000; 0.500000; };
-							anchor_point = { 1.000000; 0.500000; };
-							relative_size_type = 0;
-							width = 21;
-							height = 21;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = true;
-							lua_name = 'timeIconNode3';
-						};
-						[15] =
-						{
-							type = 'Node';
-							ui_name = '';
-							x = -20.000000;
-							y = -126.000000;
-							dock_point = { 1.000000; 0.500000; };
-							anchor_point = { 1.000000; 0.500000; };
-							relative_size_type = 0;
-							width = 21;
-							height = 21;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = true;
-							lua_name = 'timeIconNode4';
 						};
 						type = 'Menu';
 						ui_name = '';

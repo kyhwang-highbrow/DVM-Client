@@ -1,262 +1,262 @@
 
-nuri.png
+mokoji.png
 size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-nuri_acc_01
+mokoji_acc_01
   rotate: false
   xy: 2, 2
   size: 30, 41
   orig: 30, 41
   offset: 0, 0
   index: -1
-nuri_acc_02
+mokoji_acc_02
   rotate: true
   xy: 337, 781
   size: 14, 30
   orig: 14, 30
   offset: 0, 0
   index: -1
-nuri_acc_03
+mokoji_acc_03
   rotate: false
   xy: 34, 26
   size: 17, 17
   orig: 17, 17
   offset: 0, 0
   index: -1
-nuri_arm_01
+mokoji_arm_01
   rotate: false
   xy: 95, 373
   size: 51, 70
   orig: 51, 70
   offset: 0, 0
   index: -1
-nuri_arm_02
+mokoji_arm_02
   rotate: true
   xy: 488, 869
   size: 41, 53
   orig: 41, 53
   offset: 0, 0
   index: -1
-nuri_body_01
+mokoji_body_01
   rotate: true
   xy: 868, 962
   size: 49, 60
   orig: 49, 60
   offset: 0, 0
   index: -1
-nuri_body_02
+mokoji_body_02
   rotate: false
   xy: 65, 287
   size: 23, 55
   orig: 23, 55
   offset: 0, 0
   index: -1
-nuri_body_03
+mokoji_body_03
   rotate: false
   xy: 330, 749
   size: 14, 30
   orig: 14, 30
   offset: 0, 0
   index: -1
-nuri_body_04
+mokoji_body_04
   rotate: false
   xy: 95, 348
   size: 26, 23
   orig: 26, 23
   offset: 0, 0
   index: -1
-nuri_brow_01
+mokoji_brow_01
   rotate: true
   xy: 248, 561
   size: 22, 17
   orig: 22, 17
   offset: 0, 0
   index: -1
-nuri_brow_02
+mokoji_brow_02
   rotate: false
   xy: 793, 943
   size: 15, 11
   orig: 15, 11
   offset: 0, 0
   index: -1
-nuri_effect_01
+mokoji_effect_01
   rotate: false
   xy: 2, 445
   size: 146, 138
   orig: 146, 138
   offset: 0, 0
   index: -1
-nuri_eye_01
+mokoji_eye_01
   rotate: false
   xy: 193, 511
   size: 21, 23
   orig: 21, 23
   offset: 0, 0
   index: -1
-nuri_eye_02
+mokoji_eye_02
   rotate: false
   xy: 543, 887
   size: 21, 23
   orig: 21, 23
   offset: 0, 0
   index: -1
-nuri_eye_03
+mokoji_eye_03
   rotate: false
   xy: 639, 912
   size: 45, 17
   orig: 45, 17
   offset: 0, 0
   index: -1
-nuri_face_01
+mokoji_face_01
   rotate: false
   xy: 2, 344
   size: 91, 99
   orig: 91, 99
   offset: 0, 0
   index: -1
-nuri_foot_01
+mokoji_foot_01
   rotate: false
   xy: 150, 502
   size: 41, 81
   orig: 41, 81
   offset: 0, 0
   index: -1
-nuri_foot_02
+mokoji_foot_02
   rotate: true
   xy: 199, 585
   size: 41, 68
   orig: 41, 68
   offset: 0, 0
   index: -1
-nuri_hair_01
+mokoji_hair_01
   rotate: false
   xy: 2, 259
   size: 61, 83
   orig: 61, 83
   offset: 0, 0
   index: -1
-nuri_hair_02
+mokoji_hair_02
   rotate: false
   xy: 150, 452
   size: 41, 48
   orig: 41, 48
   offset: 0, 0
   index: -1
-nuri_hand_01
+mokoji_hand_01
   rotate: true
   xy: 269, 603
   size: 23, 55
   orig: 23, 55
   offset: 0, 0
   index: -1
-nuri_head_01
+mokoji_head_01
   rotate: true
   xy: 488, 912
   size: 99, 149
   orig: 99, 149
   offset: 0, 0
   index: -1
-nuri_i_effect_01
+mokoji_i_effect_01
   rotate: false
   xy: 2, 781
   size: 333, 230
   orig: 333, 230
   offset: 0, 0
   index: -1
-nuri_i_effect_02
+mokoji_i_effect_02
   rotate: false
   xy: 337, 864
   size: 149, 147
   orig: 149, 147
   offset: 0, 0
   index: -1
-nuri_i_effect_05
+mokoji_i_effect_05
   rotate: false
   xy: 639, 931
   size: 84, 80
   orig: 84, 80
   offset: 0, 0
   index: -1
-nuri_i_effect_06
+mokoji_i_effect_06
   rotate: false
   xy: 725, 941
   size: 66, 70
   orig: 66, 70
   offset: 0, 0
   index: -1
-nuri_i_effect_08
+mokoji_i_effect_08
   rotate: true
   xy: 337, 797
   size: 65, 142
   orig: 65, 142
   offset: 0, 0
   index: -1
-nuri_i_effect_15
+mokoji_i_effect_15
   rotate: false
   xy: 2, 585
   size: 195, 194
   orig: 195, 194
   offset: 0, 0
   index: -1
-nuri_leg_01
+mokoji_leg_01
   rotate: false
   xy: 2, 182
   size: 58, 75
   orig: 58, 75
   offset: 0, 0
   index: -1
-nuri_leg_02
+mokoji_leg_02
   rotate: false
   xy: 2, 45
   size: 49, 60
   orig: 49, 60
   offset: 0, 0
   index: -1
-nuri_leg_03
+mokoji_leg_03
   rotate: false
   xy: 974, 989
   size: 15, 22
   orig: 15, 22
   offset: 0, 0
   index: -1
-nuri_leg_04
+mokoji_leg_04
   rotate: false
   xy: 65, 263
   size: 15, 22
   orig: 15, 22
   offset: 0, 0
   index: -1
-nuri_lowbody_01
+mokoji_lowbody_01
   rotate: false
   xy: 199, 628
   size: 129, 151
   orig: 129, 151
   offset: 0, 0
   index: -1
-nuri_lowbody_02
+mokoji_lowbody_02
   rotate: false
   xy: 793, 956
   size: 73, 55
   orig: 73, 55
   offset: 0, 0
   index: -1
-nuri_lowbody_03
+mokoji_lowbody_03
   rotate: true
   xy: 2, 107
   size: 73, 55
   orig: 73, 55
   offset: 0, 0
   index: -1
-nuri_wepon_01
+mokoji_wepon_01
   rotate: false
   xy: 193, 536
   size: 53, 47
   orig: 53, 47
   offset: 0, 0
   index: -1
-nuri_wepon_02
+mokoji_wepon_02
   rotate: false
   xy: 930, 974
   size: 42, 37
