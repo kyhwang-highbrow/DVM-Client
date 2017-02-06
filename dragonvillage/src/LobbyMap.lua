@@ -363,16 +363,20 @@ function LobbyMap:makeLobbyTamerBot(t_user_info)
     local uid = g_serverData:get('local', 'uid')
     local is_bot = (tostring(uid) ~= t_user_info['uid'])
 
+    local sum_random = SumRandom()
+    sum_random:addItem(1, 'res/character/tamer/dede/dede.spine')
+    sum_random:addItem(1, 'res/character/tamer/goni/goni.spine')
+    local res = sum_random:getRandomValue()
 
     local tamer
-    
     if is_bot then
         tamer = LobbyTamerBot(t_user_info)
     else
         tamer = LobbyTamer(t_user_info)
+        res = 'res/character/tamer/dede/dede.spine'
     end
 
-	tamer:initAnimator('res/character/tamer/goni/goni.spine')
+	tamer:initAnimator(res)
 
     local flip = (math_random(1, 2) == 1) and true or false
 
