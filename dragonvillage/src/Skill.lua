@@ -257,6 +257,13 @@ function Skill:attack(target_char)
 end
 
 -------------------------------------
+-- function doSpecailEffect
+-- @brief 로직화 할 수 없는 특수 효과들은 이함수를 통해서 실행 시키고 특정 상위 수준에서 실행한다
+-------------------------------------
+function Skill:doSpecailEffect()
+end
+
+-------------------------------------
 -- function findTarget
 -- @brief 모든 공격 대상 찾음
 -- @default 직선거리에서 범위를 기준으로 충돌여부 판단

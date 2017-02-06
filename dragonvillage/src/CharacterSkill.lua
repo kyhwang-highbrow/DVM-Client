@@ -240,8 +240,12 @@ function Character:doSkill(skill_id, x, y, t_data)
             SkillCharge:makeSkillInstance(self, t_skill, t_data)
             return true
 
-	    elseif (type == 'skill_penetration_fan') then
-			SkillEnumrate_Penetration:makeSkillInstance(self, t_skill, t_data)
+	    elseif (type == 'skill_penetration') then
+			if (self.m_charTable['type'] == 'jaryoung') then 
+				SkillEnumrate_Penetration_Jaryong:makeSkillInstance(self, t_skill, t_data)
+			else
+				SkillEnumrate_Penetration:makeSkillInstance(self, t_skill, t_data)
+			end
             return true
     
 		elseif (type == 'skill_penetration_random') then

@@ -62,6 +62,7 @@ function SkillEnumrate_Penetration:fireMissile(idx)
     
 	t_option['cbFunction'] = function()
 		self.m_skillHitEffctDirector:doWork()
+		self:doSpecailEffect()
 	end
 
 	-- fire!!
