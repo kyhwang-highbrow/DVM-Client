@@ -32,15 +32,14 @@ function SkillLinkedSoul:init_skill(duration, def_up_rate, res)
 	self.m_duration = duration
 	self.m_res = res
 
-	self:initRes()
+	self:initRes(res)
 end
 
 
 -------------------------------------
--- function init_buff
+-- function initRes
 -------------------------------------
-function SkillLinkedSoul:initRes()
-	local res = self.m_res
+function SkillLinkedSoul:initRes(res)
 
     -- 연결 이펙트 -- @TODO groundnode..? 여기서만 사용중
     self.m_barEffect = EffectLink(res, 'bar_appear', '', '', 512, 256)
@@ -68,7 +67,6 @@ function SkillLinkedSoul:initRes()
     self.m_rootNode:addChild(self.m_shieldEffect.m_node)
 end
 
-
 -------------------------------------
 -- function initState
 -------------------------------------
@@ -88,7 +86,7 @@ function SkillLinkedSoul.st_start(owner, dt)
     end
 
     if (owner.m_stateTimer == 0) then
-        owner:startBuff()
+        owner:onStart()
 
         local function func()
             owner:changeState('idle')
@@ -97,7 +95,7 @@ function SkillLinkedSoul.st_start(owner, dt)
         owner:addAniHandler(func)
     end
 
-    Buff.st_common(owner, dt)
+    SkillLinkedSoul.st_common(owner, dt)
 end
 
 -------------------------------------
@@ -108,7 +106,7 @@ function SkillLinkedSoul.st_idle(owner, dt)
         return
     end
 
-    Buff.st_common(owner, dt)
+    SkillLinkedSoul.st_common(owner, dt)
 end
 
 
@@ -117,7 +115,7 @@ end
 -------------------------------------
 function SkillLinkedSoul.st_end(owner, dt)
     if (owner.m_stateTimer == 0) then
-        owner:endBuff()
+        owner:onEnd()
 
         -- 방패 이팩트
         owner.m_shieldEffect:changeAni('shield_disappear', false)
@@ -137,7 +135,7 @@ end
 -------------------------------------
 -- function st_common
 -------------------------------------
-function Buff.st_common(owner, dt)    
+function SkillLinkedSoul.st_common(owner, dt)    
     if (owner.m_duration == -1) then
         return
     end
