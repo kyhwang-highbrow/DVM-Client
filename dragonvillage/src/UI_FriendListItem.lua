@@ -5,6 +5,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_FriendListItem = class(PARENT, {
         m_tFriendInfo = '',
+        m_bManageMode = 'boolean',
     })
 
 -------------------------------------
@@ -12,6 +13,7 @@ UI_FriendListItem = class(PARENT, {
 -------------------------------------
 function UI_FriendListItem:init(t_friend_info)
     self.m_tFriendInfo = t_friend_info
+    self.m_bManageMode = false
     local vars = self:load('friend_list_01.ui')
 
     self:initUI()
@@ -49,4 +51,15 @@ end
 -- function refresh
 -------------------------------------
 function UI_FriendListItem:refresh()
+    local vars = self.vars
+
+    local is_manage_mode = self.m_bManageMode
+
+    if is_manage_mode then
+        vars['sendBtn']:setVisible(false)
+        vars['deleteBtn']:setVisible(true)
+    else
+        vars['sendBtn']:setVisible(true)
+        vars['deleteBtn']:setVisible(false)
+    end
 end

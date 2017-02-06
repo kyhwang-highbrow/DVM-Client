@@ -5,13 +5,18 @@ local PARENT = UI_FriendPopupTab
 -------------------------------------
 UI_FriendPopupTabFriends = class(PARENT, {
         m_tableView = 'UIC_TableView',
+        m_bManageMode = 'boolean',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_FriendPopupTabFriends:init(friend_popup_ui)
-    self.vars['listLabel']:setString('')
+    self.m_bManageMode = false
+
+    local vars = self.vars
+    vars['listLabel']:setString('')
+    vars['manageBtn']:registerScriptTapHandler(function() self:click_manageBtn() end)
 end
 
 -------------------------------------
@@ -49,10 +54,14 @@ function UI_FriendPopupTabFriends:init_tableView()
 
     -- 생성 콜백
     local function create_func(ui, data)
-        local function click_func()
-        end
 
-        --ui.vars['clickBtn']:registerScriptTapHandler(click_func)
+        -- 친구 삭제
+        local function click_deleteBtn()
+            self:click_deleteBtn(ui, data)
+        end
+        ui.vars['deleteBtn']:registerScriptTapHandler(click_deleteBtn)
+
+        self:refresh_friendListItem(ui, data)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -74,4 +83,64 @@ function UI_FriendPopupTabFriends:init_tableView()
     --]]
 
     self.m_tableView = table_view
+end
+
+-------------------------------------
+-- function click_manageBtn
+-------------------------------------
+function UI_FriendPopupTabFriends:click_manageBtn()
+    self.m_bManageMode = (not self.m_bManageMode)
+
+    for i,v in ipairs(self.m_tableView.m_itemList) do
+        local ui = v['ui']
+        self:refresh_friendListItem(ui, data)
+    end
+end
+
+-------------------------------------
+-- function refresh_friendListItem
+-------------------------------------
+function UI_FriendPopupTabFriends:refresh_friendListItem(ui, data)
+    if (not ui) then
+        return
+    end
+
+    ui.m_bManageMode = self.m_bManageMode
+    ui:refresh()
+end
+
+-------------------------------------
+-- function click_deleteBtn
+-------------------------------------
+function UI_FriendPopupTabFriends:click_deleteBtn(ui, data)
+    local friend_uid = data['uid']
+    local friend_type = data['friendtype']
+    local is_cash = false
+
+    local ask_popup
+    local request_bye_friend
+    local success_cb
+
+    -- 작별 시행 여부를 확인함
+    ask_popup = function()
+        local massage = Str('일반 친구 작별은 하루에 최대 {1}회까지 할 수 있습니다.\n현재 작별 횟수는 {2}회입니다.\n[{3}]님과 작별하시겠습니까?')
+        MakeSimplePopup(POPUP_TYPE.YES_NO, massage, request_bye_friend)
+    end
+
+    -- 서버에 작별 요청
+    request_bye_friend = function()
+        g_friendData:request_byeFriends(friend_uid, friend_type, is_cash, success_cb)
+    end
+
+    -- 작별 후 안내 메세지
+    success_cb = function(ret)
+        local message = Str('[{1}]님과 작별하였습니다.\n오늘 일반 친구 작별 횟수는\n{2}/{3}회 입니다.', data['nick'])
+        --UIManager:toastNotificationGreen(message)
+        MakeSimplePopup(POPUP_TYPE.OK, message)
+
+        self.m_tableView:delItem(friend_uid)
+        --self.m_tableView:expandTemp(0.5, false)
+    end
+
+    ask_popup()
 end

@@ -547,3 +547,39 @@ function ServerData_Friend:sortForFriendDragonSelectList(sort_target_list)
 
     sort_manager:sortExecution(sort_target_list)
 end
+
+-------------------------------------
+-- function request_byeFriends
+-- @brief 친구 삭제
+-------------------------------------
+function ServerData_Friend:request_byeFriends(friend_uid, friend_type, is_cash, finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        if ret['friends_bye_list'] then
+            for i,v in ipairs(ret['friends_bye_list']) do
+                local uid = v
+                self.m_lFriendUserList[uid] = nil
+            end
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/socials/bye_friends')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('friends', friend_uid)
+    ui_network:setParam('type', friend_type)
+    ui_network:setParam('is_cash', is_cash and 1 or 0)
+
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
