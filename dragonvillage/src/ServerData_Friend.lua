@@ -193,7 +193,7 @@ end
 function ServerData_Friend:getFriendList()
 
     -- 친구 드래곤 사용 시간 값 갱신
-    self:updateFriendUserList_usedTime()
+    self:updateFriendUserList_time()
 
     return self.m_lFriendUserList
 end
@@ -396,13 +396,18 @@ function ServerData_Friend:request_inviteReject(friend_uid, finish_cb)
 end
 
 -------------------------------------
--- function updateFriendUserList_usedTime
--- @brief 친구 드래곤 사용 시간 업데이트
+-- function updateFriendUserList_time
+-- @brief 친구 드래곤 시간 관련 업데이트
 -------------------------------------
-function ServerData_Friend:updateFriendUserList_usedTime()
+function ServerData_Friend:updateFriendUserList_time()
     for i, v in pairs(self.m_lFriendUserList) do
         local t_friend_info = v
+
+        -- 친구 드래곤 사용 시간
         self:updateFriendUser_usedTime(t_friend_info)
+
+        -- 친구 유저 마지막 활동 시간
+        self:updateFriendUser_activeTime(t_friend_info)
     end
 end
 
@@ -450,6 +455,39 @@ function ServerData_Friend:updateFriendUser_usedTime(t_friend_info)
     -- 다음 사용 가능 시간 저장
     t_friend_info['next_invalid_time'] = used_time + (60 * 60 * cooltime)
     t_friend_info['next_invalid_remain_time'] = (t_friend_info['next_invalid_time'] - server_time)
+end
+
+-------------------------------------
+-- function updateFriendUser_activeTime
+-- @brief 친구 유저 접속 시간
+-------------------------------------
+function ServerData_Friend:updateFriendUser_activeTime(t_friend_info)
+    local server_time = Timer:getServerTime()
+
+    -- 최종 활동 시간을 millisecond에서 second로 변경
+    local last_active = (t_friend_info['last_active'] / 1000)
+
+    -- 마지막 활동 시간이 없을 경우
+    if (last_active == 0) then
+        t_friend_info['last_active_past_time'] = -1
+        return
+    end
+
+    -- 마지막 활동에서 지난 시간
+    t_friend_info['last_active_past_time'] = (last_active - server_time)
+end
+
+-------------------------------------
+-- function getPastActiveTimeStr
+-- @brief 최종 접속 시간(지나간 시간 출력)
+-------------------------------------
+function ServerData_Friend:getPastActiveTimeStr(t_friend_info)
+    local last_active_past_time = t_friend_info['last_active_past_time']
+    if (last_active_past_time == -1) then
+        return Str('접속정보 없음')
+    else
+        return Str('최종접속 : {1} 전', datetime.makeTimeDesc(last_active_past_time))
+    end
 end
 
 -------------------------------------

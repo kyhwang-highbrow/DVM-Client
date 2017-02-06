@@ -11,6 +11,7 @@ UI_FriendPopupTabFriends = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_FriendPopupTabFriends:init(friend_popup_ui)
+    self.vars['listLabel']:setString('')
 end
 
 -------------------------------------

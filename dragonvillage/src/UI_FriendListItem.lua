@@ -31,9 +31,11 @@ function UI_FriendListItem:initUI()
     local card = UI_DragonCard(t_dragon_data)
     vars['userNode']:addChild(card.root)
 
-    vars['timeLabel']:setString('')
     vars['nameLabel']:setString(t_friend_info['nick'])
-    vars['levelLabel']:setString(Str('Lv. {1}', t_friend_info['lv']))
+    vars['levelLabel']:setString(Str('레벨 {1}', t_friend_info['lv']))
+
+    -- 최종 접속 시간(지나간 시간 출력)
+    vars['timeLabel']:setString(g_friendData:getPastActiveTimeStr(t_friend_info))
 end
 
 -------------------------------------
