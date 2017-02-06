@@ -117,7 +117,7 @@ function UI_NestDungeonScene:makeNestModeTableView()
     table_view.m_defaultCellSize = cc.size(886, 152)
     table_view:setCellUIClass(UI_NestDungeonStageListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(stage_list, false, false)
+    table_view:setItemList(stage_list)
 
     local content_size = node:getContentSize()
     table_view.m_cellUIAppearCB = function(ui)
@@ -227,7 +227,7 @@ function UI_NestDungeonScene:closeSubMenu()
     t_item['ui'] = ui
     local data = t_item['data']
 
-    self.m_tableView:expandTemp(0.5)
+    self.m_tableView:setDirtyItemList()
 
     self.vars['tableViewNode']:setVisible(true)
 

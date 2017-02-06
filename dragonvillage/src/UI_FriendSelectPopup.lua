@@ -78,13 +78,10 @@ function UI_FriendSelectPopup:init_tableView()
     table_view.m_defaultCellSize = cc.size(500, 100)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setCellUIClass(UI_FriendSelectListItem, create_func)
-    local skip_update = true --정렬 시 update되기 때문에 skip
-    table_view:setItemList(l_item_list, skip_update)
+    table_view:setItemList(l_item_list)
 
     -- 정렬
     g_friendData:sortForFriendDragonSelectList(table_view.m_itemList)
-    local animated = false
-    table_view:expandTemp(0.5, animated)
 
     self.m_tableView = table_view
 end

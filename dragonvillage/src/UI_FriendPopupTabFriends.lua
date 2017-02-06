@@ -43,7 +43,6 @@ function UI_FriendPopupTabFriends:init_tableView()
     if self.m_tableView then
         local l_item_list = g_friendData:getFriendList()
         self.m_tableView:mergeItemList(l_item_list)
-        self.m_tableView:relocateContainer(false)
         return
     end
 
@@ -69,8 +68,7 @@ function UI_FriendPopupTabFriends:init_tableView()
     table_view.m_defaultCellSize = cc.size(1160, 108)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setCellUIClass(UI_FriendListItem, create_func)
-    local skip_update = false --정렬 시 update되기 때문에 skip
-    table_view:setItemList(l_item_list, skip_update)
+    table_view:setItemList(l_item_list)
 
     -- 리스트가 비었을 때
     table_view:makeDefaultEmptyDescLabel(Str('친구가 한명도 없어요 T.T'))
@@ -79,7 +77,7 @@ function UI_FriendPopupTabFriends:init_tableView()
     -- 정렬
     local sort_manager = SortManager_Fruit()
     sort_manager:sortExecution(table_view.m_itemList)
-    table_view:expandTemp(0.5)
+    table_view:setDirtyItemList()
     --]]
 
     self.m_tableView = table_view
@@ -139,7 +137,6 @@ function UI_FriendPopupTabFriends:click_deleteBtn(ui, data)
         MakeSimplePopup(POPUP_TYPE.OK, message)
 
         self.m_tableView:delItem(friend_uid)
-        --self.m_tableView:expandTemp(0.5, false)
     end
 
     ask_popup()

@@ -184,7 +184,8 @@ function UI_DragonManageTrain:int_trainSlotTableView(t_dragon_data)
         table_view.m_defaultCellSize = cc.size(518, 518)
         table_view.m_bUseEachSize = true
         table_view:setCellUIClass(UI_DragonTrainSlot_ListItem, create_func)
-        table_view:setItemList(l_item_list, false, true)
+        local make_item = true
+        table_view:setItemList(l_item_list, make_item)
 
         self.m_trainSlotTableView = table_view
     else
@@ -419,11 +420,8 @@ function UI_DragonManageTrain:setExpand(expand, duration)
         ui:setExpand(expand, duration)
     end
 
-    table_view:expandTemp(duration)
-
-    if (not expand) then
-        table_view:relocateContainer(true)
-    end
+    table_view.m_refreshDuration = duration
+    table_view:setDirtyItemList()
 end
 
 --@CHECK

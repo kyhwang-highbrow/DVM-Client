@@ -51,14 +51,12 @@ function UI_InventoryTabEvolutionStone:init_evolutionStoneTableView()
     table_view_td.m_cellSize = cc.size(108, 108)
     table_view_td.m_nItemPerCell = 7
     table_view_td:setCellUIClass(EvolutionStoneCard, create_func)
-    local skip_update = true --정렬 시 update되기 때문에 skip
-    table_view_td:setItemList(l_item_list, skip_update)
+    table_view_td:setItemList(l_item_list)
     table_view_td:makeDefaultEmptyDescLabel(Str('진화석 인벤토리가 비어있습니다.\n다양한 전투를 통해 진화석을 획득해보세요!'))
 
     -- 정렬
     local sort_manager = SortManager_EvolutionStone()
     sort_manager:sortExecution(table_view_td.m_itemList)
-    table_view_td:expandTemp(0.5)
     self.m_evolutionStoneSortManager = sort_manager
     
 
@@ -96,7 +94,7 @@ function UI_InventoryTabEvolutionStone:onChangeSortAscending(ascending)
     -- 오름차순, 내림차순 정렬 변경
     sort_manager:setAllAscending(ascending)
     sort_manager:sortExecution(table_view_td.m_itemList)
-    table_view_td:expandTemp(0.5)    
+    table_view_td:setDirtyItemList()
 end
 
 -------------------------------------
@@ -189,15 +187,12 @@ function UI_InventoryTabEvolutionStone:refresh_tableView()
         l_item_map[esid] = count
     end
 
-    local dirty = false
     local table_view = self.m_evolutionStoneTableView
-
 
     for idx,item in pairs(table_view.m_itemMap) do
         local esid = tonumber(item['data']['esid'])
         if (not l_item_map[esid]) or (l_item_map[esid] == 0) then
             table_view:delItem(idx)
-            dirty = true
         else
             local count = l_item_map[esid]
             if (item['data']['count'] ~= count) then
@@ -207,11 +202,5 @@ function UI_InventoryTabEvolutionStone:refresh_tableView()
                 end
             end
         end
-    end
-
-    -- 테이블뷰의 변경사항이 있을 경우
-    if dirty then
-        table_view:expandTemp(0.5)
-        table_view:relocateContainer(true)
     end
 end

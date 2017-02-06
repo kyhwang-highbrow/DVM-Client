@@ -91,14 +91,13 @@ function UI_FriendPopupTabRecommend:init_tableView()
     table_view.m_defaultCellSize = cc.size(564, 108)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setCellUIClass(UI_FriendRecommendUserListItem, create_func)
-    local skip_update = false --정렬 시 update되기 때문에 skip
-    table_view:setItemList(l_item_list, skip_update)
+    table_view:setItemList(l_item_list)
 
     --[[
     -- 정렬
     local sort_manager = SortManager_Fruit()
     sort_manager:sortExecution(table_view.m_itemList)
-    table_view:expandTemp(0.5)
+    table_view:setDirtyItemList()
     --]]
 
     self.m_tableView = table_view

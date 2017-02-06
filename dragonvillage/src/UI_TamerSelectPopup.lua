@@ -73,7 +73,7 @@ function UI_TamerSelectPopup:makeTamerListView()
     table_view.m_defaultCellSize = cc.size(198, 550)
     table_view:setCellUIClass(UI_TamerSelectItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-    table_view:setItemList({1,2,3,4,5,6}, false, false)
+    table_view:setItemList({1,2,3,4,5,6})
 
     -- 아이템 등장 연출
     local content_size = node:getContentSize()

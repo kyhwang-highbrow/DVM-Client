@@ -128,11 +128,6 @@ function UI_DragonMgrRunes:onChangeTab(tab)
 
     -- 선택중인 룬 정보 갱신
     self:setSelectedRuneData(nil)
-
-    do -- 정렬
-        local table_view = self.m_mTableViewListMap[rune_slot_type]
-        table_view:relocateContainer(false)
-    end
 end
 
 
@@ -174,14 +169,12 @@ function UI_DragonMgrRunes:init_runeTableView(rune_slot_type)
         table_view_td.m_cellSize = cc.size(103, 103)
         table_view_td.m_nItemPerCell = 4
         table_view_td:setCellUIClass(UI_RuneCard, create_func)
-        local skip_update = true
-        table_view_td:setItemList(l_item_list, skip_update)
+        table_view_td:setItemList(l_item_list)
 
         -- 정렬
         local sort_manager = SortManager_Rune()
         sort_manager:setAllAscending(self.m_bAscending)
         sort_manager:sortExecution(table_view_td.m_itemList)
-        table_view_td:expandTemp(0.5)
 
         self.m_mSortManagerMap[rune_slot_type] = sort_manager
         self.m_mTableViewListMap[rune_slot_type] = table_view_td
@@ -240,7 +233,7 @@ function UI_DragonMgrRunes:setAscending(ascending)
         
         sort_manager:setAllAscending(ascending)
         sort_manager:sortExecution(table_view_td.m_itemList)
-        table_view_td:expandTemp(0.5)    
+        table_view_td:setDirtyItemList()
     end 
 end
 
@@ -680,22 +673,11 @@ end
 function UI_DragonMgrRunes:refresh_materialTableViewRuneIcon(t_rune_data)
     local roid = t_rune_data['id']
 
-    local l_modified_slot = {}
-
-    for slot_type,table_view in pairs(self.m_mTableViewListMap) do
+    for _,table_view in pairs(self.m_mTableViewListMap) do
         local item = table_view:getItem(roid)
         if item then
             table_view:addItem(t_rune_data['id'], t_rune_data)
-            l_modified_slot[slot_type] = true
         end
-    end
-
-    -- 변경된 룬 타입의 테이블뷰를 갱신
-    for slot_type,_ in pairs(l_modified_slot) do
-        local table_view_td = self.m_mTableViewListMap[slot_type]
-        table_view_td:expandTemp(0.5)
-        local animated = true
-        table_view_td:relocateContainer(animated)
     end
 end
 
@@ -707,8 +689,6 @@ function UI_DragonMgrRunes:solveModifiedRunes_tableView(l_modified_runes)
     if (not l_modified_runes) then
         return
     end
-
-    local l_modified_slot = {}
 
     -- 변경된 룬을 테이블 뷰에서 삽입, 제거
     for i,v in ipairs(l_modified_runes) do
@@ -725,23 +705,7 @@ function UI_DragonMgrRunes:solveModifiedRunes_tableView(l_modified_runes)
             else
                 self.m_mTableViewListMap[slot_type]:addItem(v['id'], v)
             end
-
-            l_modified_slot[slot_type] = true
         end
-    end
-
-    -- 변경된 룬 타입의 테이블뷰를 갱신
-    for slot_type,_ in pairs(l_modified_slot) do
-        local table_view_td = self.m_mTableViewListMap[slot_type]
-        table_view_td:expandTemp(0.5)
-        table_view_td:relocateContainer(true)
-
-        --[[
-        -- 첫 번째 룬을 선택 (자동)
-        local t_first_item = table_view_td.m_itemList[1]
-        local t_first_rune_data = (t_first_item and t_first_item['data'])
-        self:setSelectedRuneData(t_first_rune_data)
-        --]]
     end
 end
 
@@ -750,29 +714,11 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonMgrRunes:solveDeletedRunes_tableView(l_deleted_runes)
-    local l_modified_slot = {}
-
     for i,v in ipairs(l_deleted_runes) do
         local roid = v
-        for slot_type,table_view in pairs(self.m_mTableViewListMap) do
-            if table_view:delItem(roid) then
-                l_modified_slot[slot_type] = true
-            end
+        for _,table_view in pairs(self.m_mTableViewListMap) do
+            table_view:delItem(roid)
         end 
-    end
-
-    -- 변경된 룬 타입의 테이블뷰를 갱신
-    for slot_type,_ in pairs(l_modified_slot) do
-        local table_view_td = self.m_mTableViewListMap[slot_type]
-        table_view_td:expandTemp(0.5)
-        table_view_td:relocateContainer(false)
-
-        --[[
-        -- 첫 번째 룬을 선택 (자동)
-        local t_first_item = table_view_td.m_itemList[1]
-        local t_first_rune_data = (t_first_item and t_first_item['data'])
-        self:setSelectedRuneData(t_first_rune_data)
-        --]]
     end
 end
 

@@ -245,10 +245,6 @@ function UI_DragonGoodbye:goodbyeNetworkResponse(ret)
             -- 드래곤 리스트 갱신
             self.m_tableViewExtMaterial:delItem(odid)
         end
-
-        -- 리스트 뷰의 아이템 위치를 다시 잡고 영역을 벗어났는지 확인
-        self.m_tableViewExtMaterial:expandTemp(0.5)
-        self.m_tableViewExtMaterial:relocateContainer(true)
     end
 
     -- 라테아 갱신

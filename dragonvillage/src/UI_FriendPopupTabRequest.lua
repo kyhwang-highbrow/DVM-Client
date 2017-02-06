@@ -71,14 +71,13 @@ function UI_FriendPopupTabRequest:init_tableView()
     table_view.m_defaultCellSize = cc.size(1160, 108)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setCellUIClass(UI_FriendRequestListItem, create_func)
-    local skip_update = false --정렬 시 update되기 때문에 skip
-    table_view:setItemList(l_item_list, skip_update)
+    table_view:setItemList(l_item_list)
 
     --[[
     -- 정렬
     local sort_manager = SortManager_Fruit()
     sort_manager:sortExecution(table_view.m_itemList)
-    table_view:expandTemp(0.5)
+    table_view:setDirtyItemList()
     --]]
 
     self.m_tableView = table_view
@@ -97,8 +96,6 @@ function UI_FriendPopupTabRequest:click_inviteAcceptBtn(data)
         if (ret['status'] == 0) then
             table_view = self.m_tableView
             table_view:delItem(friend_uid)
-            table_view:expandTemp(0.5)
-            table_view:relocateContainer(true)
 
             local msg = Str('[{1}]님과 친구가 되었습니다.', friend_nick)
             UIManager:toastNotificationGreen(msg)
@@ -121,8 +118,6 @@ function UI_FriendPopupTabRequest:click_inviteRefuseBtn(data)
         if (ret['status'] == 0) then
             table_view = self.m_tableView
             table_view:delItem(friend_uid)
-            table_view:expandTemp(0.5)
-            table_view:relocateContainer(true)
 
             local msg = Str('[{1}]님의 요청을 거절하였습니다.', friend_nick)
             UIManager:toastNotificationGreen(msg)

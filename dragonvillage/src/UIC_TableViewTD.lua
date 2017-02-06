@@ -9,6 +9,7 @@ UIC_TableViewTD = class(PARENT, {
         m_itemList = '',
         m_itemMap = '',
         m_bDirtyItemList = 'boolean',
+        m_refreshDuration = 'number',
 
         m_cellSize = '', -- cell하나의 사이즈
 
@@ -37,6 +38,7 @@ UIC_TableViewTD = class(PARENT, {
 -------------------------------------
 function UIC_TableViewTD:init(node)
     self.m_tableViewNode = node
+    self.m_refreshDuration = 0.5
 
     -- retain된 item들을 release하기 위해
     node:registerScriptHandler(function(event)
@@ -134,7 +136,7 @@ function UIC_TableViewTD:update(dt)
 
         -- 정렬
         local animated = true
-        self:expandTemp(0.5, animated)
+        self:expandTemp(self.m_refreshDuration, animated)
     end
 end
 
@@ -444,7 +446,7 @@ end
 -- function setItemList
 -- @brief list는 key값이 고유해야 하며, value로는 UI생성에 필요한 데이터가 있어야 한다
 -------------------------------------
-function UIC_TableViewTD:setItemList(list, skip_update, make_item)
+function UIC_TableViewTD:setItemList(list, make_item)
     self:clearItemList()
 
     for key,data in pairs(list) do
@@ -466,7 +468,12 @@ function UIC_TableViewTD:setItemList(list, skip_update, make_item)
         self.m_itemMap[key] = t_item
     end
 
-    self.m_bDirtyItemList = true
+    if (make_item) then
+        self:_updateCellPositions()
+        self:_updateContentSize()
+    end
+
+    self:setDirtyItemList()
 end
 
 -------------------------------------
@@ -540,7 +547,7 @@ end
 -------------------------------------
 -- function expandTemp
 -------------------------------------
-function UIC_TableViewTD:expandTemp(duration)
+function UIC_TableViewTD:expandTemp(duration, animated)
     local duration = duration or 0.15
 
     -- 현재 보여지는 애들 리스트
@@ -580,6 +587,13 @@ function UIC_TableViewTD:expandTemp(duration)
             ui:cellMoveTo(duration, offset)
         end
     end
+
+    if (animated == nil) then
+        animated = true
+    else
+        animated = false
+    end
+    self:relocateContainer(animated)
 end
 
 -------------------------------------
@@ -636,7 +650,7 @@ function UIC_TableViewTD:sortTableView(sort_type, b_force)
     local sort_func = self.m_lSortInfo[sort_type]
     table.sort(self.m_itemList, sort_func)
 
-    self.m_bDirtyItemList = true
+    self:setDirtyItemList()
 end
 
 -------------------------------------
@@ -677,7 +691,7 @@ function UIC_TableViewTD:addItem(unique_id, t_data)
     self.m_itemMap[unique_id] = t_item
     self.m_itemList[#self.m_itemList + 1] = t_item
 
-    self.m_bDirtyItemList = true
+    self:setDirtyItemList()
 end
 
 -------------------------------------
@@ -728,7 +742,7 @@ function UIC_TableViewTD:delItem(unique_id)
 
     if idx then
         table.remove(self.m_itemList, idx)
-        self.m_bDirtyItemList = true
+        self:setDirtyItemList()
         return true
     else
         return false
@@ -803,7 +817,7 @@ function UIC_TableViewTD:mergeItemList(list)
     end
 
     if dirty then
-        self.m_bDirtyItemList = true
+        self:setDirtyItemList()
     end
 end
 
@@ -840,6 +854,13 @@ function UIC_TableViewTD:makeDefaultEmptyDescLabel(text)
     local label = UIC_Factory:MakeTableViewDescLabelTTF(self.m_scrollView, text)
     self.m_tableViewNode:addChild(label.m_node)
     self:setEmptyDescLabel(label)
+end
+
+-------------------------------------
+-- function setDirtyItemList
+-------------------------------------
+function UIC_TableViewTD:setDirtyItemList()
+    self.m_bDirtyItemList = true
 end
 
 -- _swallowTouch가 false일 경우 CCMenu 클래스의 onTouchBegan함수에서

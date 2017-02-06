@@ -13,6 +13,7 @@ UIC_TableView = class(PARENT, {
         m_itemList = '',
         m_itemMap = '',
         m_bDirtyItemList = 'boolean',
+        m_refreshDuration = 'number',
 
         m_bUseEachSize = 'boolean', -- 셀별 개별 크기 적용 여부(사용시 _size세팅 필수!!)
         m_defaultCellSize = '', -- cell이 생성되기 전이라면 기본 사이즈를 지정
@@ -49,6 +50,7 @@ UIC_TableView = class(PARENT, {
 -------------------------------------
 function UIC_TableView:init(node)
     self.m_tableViewNode = node
+    self.m_refreshDuration = 0.5
 
     -- 기본값 설정
     self.m_bUseEachSize = false
@@ -145,7 +147,7 @@ function UIC_TableView:update(dt)
 
         -- 정렬
         local animated = true
-        self:expandTemp(0.5, animated)
+        self:expandTemp(self.m_refreshDuration, animated)
     end
 end
 
@@ -517,7 +519,7 @@ end
 -- function setItemList
 -- @brief list는 key값이 고유해야 하며, value로는 UI생성에 필요한 데이터가 있어야 한다
 -------------------------------------
-function UIC_TableView:setItemList(list, skip_update, make_item)
+function UIC_TableView:setItemList(list, make_item)
     self:clearItemList()
 
     for key,data in pairs(list) do
@@ -539,7 +541,12 @@ function UIC_TableView:setItemList(list, skip_update, make_item)
         self.m_itemMap[key] = t_item
     end
 
-    self.m_bDirtyItemList = true
+    if (make_item) then
+        self:_updateCellPositions()
+        self:_updateContentSize()
+    end
+
+    self:setDirtyItemList()
 end
 
 -------------------------------------
@@ -761,7 +768,7 @@ function UIC_TableView:sortTableView(sort_type, b_force)
     local sort_func = self.m_lSortInfo[sort_type]
     table.sort(self.m_itemList, sort_func)
 
-    self.m_bDirtyItemList = true
+    self:setDirtyItemList()
 end
 
 -------------------------------------
@@ -802,7 +809,7 @@ function UIC_TableView:addItem(unique_id, t_data)
     self.m_itemMap[unique_id] = t_item
     self.m_itemList[#self.m_itemList + 1] = t_item
 
-    self.m_bDirtyItemList = true
+    self:setDirtyItemList()
 end
 
 -------------------------------------
@@ -859,7 +866,7 @@ function UIC_TableView:delItem(unique_id)
 
     if idx then
         table.remove(self.m_itemList, idx)
-        self.m_bDirtyItemList = true
+        self:setDirtyItemList()
         return true
     else
         return false
@@ -899,7 +906,7 @@ function UIC_TableView:mergeItemList(list)
     end
 
     if dirty then
-        self.m_bDirtyItemList = true
+        self:setDirtyItemList()
     end
 end
 
@@ -936,4 +943,11 @@ function UIC_TableView:makeDefaultEmptyDescLabel(text)
     local label = UIC_Factory:MakeTableViewDescLabelTTF(self.m_scrollView, text)
     self.m_tableViewNode:addChild(label.m_node)
     self:setEmptyDescLabel(label)
+end
+
+-------------------------------------
+-- function setDirtyItemList
+-------------------------------------
+function UIC_TableView:setDirtyItemList()
+    self.m_bDirtyItemList = true
 end

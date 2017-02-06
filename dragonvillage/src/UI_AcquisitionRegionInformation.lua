@@ -98,7 +98,7 @@ function UI_AcquisitionRegionInformation:regionListView()
     table_view.m_defaultCellSize = cc.size(520, 100)
     table_view:setCellUIClass(UI_AcquisitionRegionListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_region, false, false)
+    table_view:setItemList(l_region)
 
     -- 아이템 등장 연출
     local content_size = node:getContentSize()

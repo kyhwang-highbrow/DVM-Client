@@ -118,8 +118,7 @@ function UI_RuneBulkSalePopup:init_tableView()
     table_view_td.m_cellSize = cc.size(102, 102)
     table_view_td.m_nItemPerCell = 5
     table_view_td:setCellUIClass(UI_RuneCard, create_func)
-    local skip_update = true -- 정렬 후 업데이트하기 위해
-    table_view_td:setItemList(l_item_list, skip_update)
+    table_view_td:setItemList(l_item_list)
 
     self.m_tableView = table_view_td
 
@@ -139,10 +138,7 @@ function UI_RuneBulkSalePopup:tableViewSortAndRefresh()
     local sort_manager = self.m_sortManagerRune
     sort_manager:sortExecution(self.m_tableView.m_itemList)
 
-    self.m_tableView:expandTemp(0.5)
-
-    local animated = false
-    self.m_tableView:relocateContainerDefault(animated)
+    self.m_tableView:setDirtyItemList()
 
     if (self.m_tableView:getItemCount() <= 0) then
         self.vars['listViewLabel']:setVisible(true)
@@ -191,8 +187,7 @@ function UI_RuneBulkSalePopup:refresh()
     local l_item_list, total_count = self:getRuneList()
     local selected_count = table.count(l_item_list)
 
-    local skip_refresh = true
-    self.m_tableView:mergeItemList(l_item_list, skip_refresh)
+    self.m_tableView:mergeItemList(l_item_list)
     self:tableViewSortAndRefresh()
 
     local total_price = 0

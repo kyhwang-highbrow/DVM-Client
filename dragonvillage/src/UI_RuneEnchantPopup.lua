@@ -114,8 +114,7 @@ function UI_RuneEnchantPopup:init_runeEnchantMaterials()
     table_view_td.m_cellSize = cc.size(105, 105)
     table_view_td.m_nItemPerCell = 5
     table_view_td:setCellUIClass(UI_RuneCard, create_func)
-    local skip_update = true -- 정렬 후 업데이트하기 위해
-    table_view_td:setItemList(g_runesData:getRuneEnchantMaterials(roid), skip_update)
+    table_view_td:setItemList(g_runesData:getRuneEnchantMaterials(roid))
 
     self.m_tableViewMaterials = table_view_td
 end
@@ -314,7 +313,6 @@ function UI_RuneEnchantPopup:click_enchantMaterial(t_rune_data)
 
         material_item['ui'].vars['disableSprite']:setVisible(true)
         self.m_tableViewSelectedMaterials:addItem(roid, t_rune_data)
-        self.m_tableViewSelectedMaterials:expandTemp(0.5)
     end
 
     self:tableViewSortAndRefresh()
@@ -391,12 +389,8 @@ function UI_RuneEnchantPopup:tableViewSortAndRefresh()
     sort_manager:sortExecution(self.m_tableViewMaterials.m_itemList)
     sort_manager:sortExecution(self.m_tableViewSelectedMaterials.m_itemList)
 
-    self.m_tableViewMaterials:expandTemp(0.5)
-    self.m_tableViewSelectedMaterials:expandTemp(0.5)
-
-    local animated = true
-    self.m_tableViewMaterials:relocateContainer(animated)
-    self.m_tableViewSelectedMaterials:relocateContainer(animated)
+    self.m_tableViewMaterials:setDirtyItemList()
+    self.m_tableViewSelectedMaterials:setDirtyItemList()
 end
 
 --@CHECK

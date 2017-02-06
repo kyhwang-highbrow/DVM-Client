@@ -306,7 +306,7 @@ function UI_DragonManageUpgrade:init_dragonUpgradeMaterialTableView()
 
     -- 재료로 사용 가능한 리스트를 얻어옴
     local l_dragon_list = self:getDragonUpgradeMaterialList(self.m_selectDragonOID)
-    self.m_tableViewExtMaterial:setItemList(l_dragon_list, true)
+    self.m_tableViewExtMaterial:setItemList(l_dragon_list)
 
     do -- 정렬 도우미 도입
         local b_ascending_sort = nil
@@ -737,8 +737,6 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
                 -- 드래곤 리스트 갱신
                 self.m_tableViewExt:delItem(doid)
             end
-
-            self.m_tableViewExt:expandTemp(0.5)
         end
 
         -- 재료로 사용된 드래곤 삭제
@@ -748,7 +746,6 @@ function UI_DragonManageUpgrade:click_upgradeBtn()
 
             -- 드래곤 리스트 갱신
             self.m_tableViewExt:delItem(doid)
-            self.m_tableViewExt:expandTemp(0.5)
         end
 
         -- 승급(or 초월)된 드래곤 갱신

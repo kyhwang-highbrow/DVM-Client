@@ -69,14 +69,12 @@ function UI_InventoryTabRune:init_runeTableView(rune_slot_type)
     table_view_td.m_cellSize = cc.size(108, 108)
     table_view_td.m_nItemPerCell = 7
     table_view_td:setCellUIClass(UI_RuneCard, create_func)
-    local skip_update = true --정렬 시 update되기 때문에 skip
-    table_view_td:setItemList(l_item_list, skip_update)
+    table_view_td:setItemList(l_item_list)
     table_view_td:makeDefaultEmptyDescLabel(Str('룬 인벤토리가 비어있습니다.\n다양한 전투를 통해 룬을 획득해보세요!'))
 
     -- 정렬
     local sort_manager = SortManager_Rune()
     sort_manager:sortExecution(table_view_td.m_itemList)
-    table_view_td:expandTemp(0.5)
 
     self.m_mSortManagerMap[rune_slot_type] = sort_manager
     self.m_mTableViewListMap[rune_slot_type] = table_view_td
@@ -113,7 +111,7 @@ function UI_InventoryTabRune:onChangeSortAscending(ascending)
         
         sort_manager:setAllAscending(ascending)
         sort_manager:sortExecution(table_view_td.m_itemList)
-        table_view_td:expandTemp(0.5)    
+        table_view_td:setDirtyItemList()
     end
 end
 
@@ -222,20 +220,11 @@ function UI_InventoryTabRune:refresh_tableView(l_deleted_rune_oids)
         local rune_slot_type = i
         local table_view = v
         
-        local dirty = false
-
         -- 테이블뷰 아이템들 중 없어진 아이템 삭제
         for roid,_ in pairs(table_view.m_itemMap) do
             if (l_deleted_rune_oids_map[roid] == true) then
                 table_view:delItem(roid)
-                dirty = true
             end
-        end
-
-        -- 테이블뷰의 변경사항이 있을 경우
-        if dirty then
-            table_view:expandTemp(0.5)
-            table_view:relocateContainer(true)
         end
     end
 end
