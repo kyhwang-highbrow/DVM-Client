@@ -53,6 +53,7 @@ function UI_InventoryTabFruit:init_fruitTableView()
     table_view_td:setCellUIClass(FruitCard, create_func)
     local skip_update = true --정렬 시 update되기 때문에 skip
     table_view_td:setItemList(l_item_list, skip_update)
+    table_view_td:makeDefaultEmptyDescLabel(Str('열매 인벤토리가 비어있습니다.\n다양한 전투를 통해 열매을 획득해보세요!'))
 
     -- 정렬
     local sort_manager = SortManager_Fruit()

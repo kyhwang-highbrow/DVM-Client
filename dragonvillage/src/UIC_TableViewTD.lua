@@ -4,9 +4,11 @@ local PARENT = UIC_Node
 -- class UIC_TableViewTD
 -------------------------------------
 UIC_TableViewTD = class(PARENT, {
+        m_tableViewNode = 'parent',
         m_scrollView = 'cc.ScrollView',
         m_itemList = '',
         m_itemMap = '',
+        m_bDirtyItemList = 'boolean',
 
         m_cellSize = '', -- cell하나의 사이즈
 
@@ -24,12 +26,17 @@ UIC_TableViewTD = class(PARENT, {
 
         m_makeReserveQueue = 'stack',
         m_makeTimer = 'number',
+
+        -- 리스트가 비어있을 때 표시할 노드
+        m_emptyDescNode = 'cc.Node',
+        m_emptyDescLabel = 'cc.LabelTTF',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UIC_TableViewTD:init(node)
+    self.m_tableViewNode = node
 
     -- retain된 item들을 release하기 위해
     node:registerScriptHandler(function(event)
@@ -42,6 +49,7 @@ function UIC_TableViewTD:init(node)
     self.m_cellSize = cc.size(100, 100)
     self.m_nItemPerCell = 2
     self.m_bFirstLocation = true
+    self.m_bDirtyItemList = false
 
     -- 스크롤 뷰 생성
     local content_size = node:getContentSize()
@@ -104,6 +112,25 @@ function UIC_TableViewTD:update(dt)
         end
 
         self.m_makeTimer = 0.03
+    end
+
+    -- 아이템 리스트가 변경되었을 경우
+    if (self.m_bDirtyItemList == true) then
+        self.m_bDirtyItemList = false
+        local count = self:getItemCount()
+        local is_empty = (count <= 0)
+        if self.m_emptyDescNode then
+            self.m_emptyDescNode:setVisible(is_empty)
+            if is_empty then
+                cca.uiReactionSlow(self.m_emptyDescNode)
+            end
+        end
+        if self.m_emptyDescLabel then
+            self.m_emptyDescLabel:setVisible(is_empty)
+            if is_empty then
+                cca.uiReactionSlow(self.m_emptyDescLabel)
+            end
+        end
     end
 end
 
@@ -431,6 +458,8 @@ function UIC_TableViewTD:setItemList(list, skip_update, make_item)
         self.m_itemMap[key] = t_item
     end
 
+    self.m_bDirtyItemList = true
+
     if skip_update then
         return
     end
@@ -650,6 +679,8 @@ function UIC_TableViewTD:addItem(unique_id, t_data)
 
     self.m_itemMap[unique_id] = t_item
     self.m_itemList[#self.m_itemList + 1] = t_item
+
+    self.m_bDirtyItemList = true
 end
 
 -------------------------------------
@@ -700,6 +731,7 @@ function UIC_TableViewTD:delItem(unique_id)
 
     if idx then
         table.remove(self.m_itemList, idx)
+        self.m_bDirtyItemList = true
         return true
     else
         return false
@@ -779,6 +811,45 @@ function UIC_TableViewTD:mergeItemList(list, skip_refresh)
         local animated = true
         self:relocateContainer(animated)
     end
+
+    if dirty then
+        self.m_bDirtyItemList = true
+    end
+end
+
+-------------------------------------
+-- function setEmptyDescNode
+-- @breif
+-------------------------------------
+function UIC_TableViewTD:setEmptyDescNode(node)
+    self.m_emptyDescNode = node
+end
+
+-------------------------------------
+-- function setEmptyDescLabel
+-- @breif
+-------------------------------------
+function UIC_TableViewTD:setEmptyDescLabel(label)
+    self.m_emptyDescLabel = label
+end
+
+-------------------------------------
+-- function setEmptyDesc
+-- @breif
+-------------------------------------
+function UIC_TableViewTD:setEmptyDesc(desc)
+    local label = self.m_emptyDescLabel
+    label:setString(Str(desc))
+end
+
+-------------------------------------
+-- function makeDefaultEmptyDescLabel
+-- @breif
+-------------------------------------
+function UIC_TableViewTD:makeDefaultEmptyDescLabel(text)
+    local label = UIC_Factory:MakeTableViewDescLabelTTF(self.m_scrollView, text)
+    self.m_tableViewNode:addChild(label.m_node)
+    self:setEmptyDescLabel(label)
 end
 
 -- _swallowTouch가 false일 경우 CCMenu 클래스의 onTouchBegan함수에서

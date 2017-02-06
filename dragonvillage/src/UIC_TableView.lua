@@ -8,9 +8,11 @@ VerticalFillOrder['BOTTOM_UP'] = 1
 -- class UIC_TableView
 -------------------------------------
 UIC_TableView = class(PARENT, {
+        m_tableViewNode = 'parent',
         m_scrollView = 'cc.ScrollView',
         m_itemList = '',
         m_itemMap = '',
+        m_bDirtyItemList = 'boolean',
 
         m_bUseEachSize = 'boolean', -- 셀별 개별 크기 적용 여부(사용시 _size세팅 필수!!)
         m_defaultCellSize = '', -- cell이 생성되기 전이라면 기본 사이즈를 지정
@@ -36,17 +38,24 @@ UIC_TableView = class(PARENT, {
         m_bAlignCenterInInsufficient = 'boolean',
 
         m_bFirstLocation = 'boolean',
+
+        -- 리스트가 비어있을 때 표시할 노드
+        m_emptyDescNode = 'cc.Node',
+        m_emptyDescLabel = 'cc.LabelTTF',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UIC_TableView:init(node)
+    self.m_tableViewNode = node
+
     -- 기본값 설정
     self.m_bUseEachSize = false
     self.m_defaultCellSize = cc.size(100, 100)
     self._vordering = VerticalFillOrder['TOP_DOWN']
     self.m_bFirstLocation = true
+    self.m_bDirtyItemList = false
 
     -- 스크롤 뷰 생성
     local content_size = node:getContentSize()
@@ -114,6 +123,25 @@ function UIC_TableView:update(dt)
         end
 
         self.m_makeTimer = 0.03
+    end
+
+    -- 아이템 리스트가 변경되었을 경우
+    if (self.m_bDirtyItemList == true) then
+        self.m_bDirtyItemList = false
+        local count = self:getItemCount()
+        local is_empty = (count <= 0)
+        if self.m_emptyDescNode then
+            self.m_emptyDescNode:setVisible(is_empty)
+            if is_empty then
+                cca.uiReactionSlow(self.m_emptyDescNode)
+            end
+        end
+        if self.m_emptyDescLabel then
+            self.m_emptyDescLabel:setVisible(is_empty)
+            if is_empty then
+                cca.uiReactionSlow(self.m_emptyDescLabel)
+            end
+        end
     end
 end
 
@@ -503,6 +531,8 @@ function UIC_TableView:setItemList(list, skip_update, make_item)
         self.m_itemMap[key] = t_item
     end
 
+    self.m_bDirtyItemList = true
+
     if skip_update then
         return
     end
@@ -775,6 +805,8 @@ function UIC_TableView:addItem(unique_id, t_data)
 
     self.m_itemMap[unique_id] = t_item
     self.m_itemList[#self.m_itemList + 1] = t_item
+
+    self.m_bDirtyItemList = true
 end
 
 -------------------------------------
@@ -831,6 +863,7 @@ function UIC_TableView:delItem(unique_id)
 
     if idx then
         table.remove(self.m_itemList, idx)
+        self.m_bDirtyItemList = true
         return true
     else
         return false
@@ -875,4 +908,43 @@ function UIC_TableView:mergeItemList(list, skip_refresh)
         local animated = true
         self:relocateContainer(animated)
     end
+
+    if dirty then
+        self.m_bDirtyItemList = true
+    end
+end
+
+-------------------------------------
+-- function setEmptyDescNode
+-- @breif
+-------------------------------------
+function UIC_TableView:setEmptyDescNode(node)
+    self.m_emptyDescNode = node
+end
+
+-------------------------------------
+-- function setEmptyDescLabel
+-- @breif
+-------------------------------------
+function UIC_TableView:setEmptyDescLabel(label)
+    self.m_emptyDescLabel = label
+end
+
+-------------------------------------
+-- function setEmptyDesc
+-- @breif
+-------------------------------------
+function UIC_TableView:setEmptyDesc(desc)
+    local label = self.m_emptyDescLabel
+    label:setString(Str(desc))
+end
+
+-------------------------------------
+-- function makeDefaultEmptyDescLabel
+-- @breif
+-------------------------------------
+function UIC_TableView:makeDefaultEmptyDescLabel(text)
+    local label = UIC_Factory:MakeTableViewDescLabelTTF(self.m_scrollView, text)
+    self.m_tableViewNode:addChild(label.m_node)
+    self:setEmptyDescLabel(label)
 end

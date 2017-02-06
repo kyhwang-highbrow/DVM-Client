@@ -338,12 +338,14 @@ local t_module = {
     'UIC_Button',
     'UIC_CheckBox',
     'UIC_ClippingNode',
+    'UIC_TableViewProtocol',
     'UIC_TableView',
     'UIC_TableViewCell',
     'UIC_TableViewTD',
     'UIC_RadioButton',
     'UIC_LabelTTF',
     'UIC_TabManager',
+    'UIC_Factory',
 
 	-- UI
     'UI_BlockPopup',

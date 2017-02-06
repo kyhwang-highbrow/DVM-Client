@@ -62,6 +62,9 @@ function UI_FriendPopupTabFriends:init_tableView()
     local skip_update = false --정렬 시 update되기 때문에 skip
     table_view:setItemList(l_item_list, skip_update)
 
+    -- 리스트가 비었을 때
+    table_view:makeDefaultEmptyDescLabel(Str('친구가 한명도 없어요 T.T'))
+
     --[[
     -- 정렬
     local sort_manager = SortManager_Fruit()
