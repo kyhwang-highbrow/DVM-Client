@@ -111,6 +111,17 @@ end
 -- function click_deleteBtn
 -------------------------------------
 function UI_FriendPopupTabFriends:click_deleteBtn(ui, data)
+
+
+    local bye_cnt = g_friendData:getByeDailyCnt()
+    local bye_limit = g_friendData:getByeDailyLimit()
+
+    if (bye_cnt >= bye_limit) then
+        UIManager:toastNotificationRed(Str('일반 친구 작별은 하루에 최대 {1}번까지 할 수 있습니다.', bye_limit))
+        return
+    end
+
+
     local friend_uid = data['uid']
     local friend_type = data['friendtype']
     local is_cash = false
@@ -121,7 +132,7 @@ function UI_FriendPopupTabFriends:click_deleteBtn(ui, data)
 
     -- 작별 시행 여부를 확인함
     ask_popup = function()
-        local massage = Str('일반 친구 작별은 하루에 최대 {1}회까지 할 수 있습니다.\n현재 작별 횟수는 {2}회입니다.\n[{3}]님과 작별하시겠습니까?')
+        local massage = Str('일반 친구 작별은 하루에\n최대 {1}회까지 할 수 있습니다.\n현재 작별 횟수는 {2}회입니다.\n[{3}]님과 작별하시겠습니까?', bye_limit, bye_cnt, data['nick'])
         MakeSimplePopup(POPUP_TYPE.YES_NO, massage, request_bye_friend)
     end
 
@@ -132,7 +143,10 @@ function UI_FriendPopupTabFriends:click_deleteBtn(ui, data)
 
     -- 작별 후 안내 메세지
     success_cb = function(ret)
-        local message = Str('[{1}]님과 작별하였습니다.\n오늘 일반 친구 작별 횟수는\n{2}/{3}회 입니다.', data['nick'])
+        local bye_cnt = g_friendData:getByeDailyCnt()
+        local bye_limit = g_friendData:getByeDailyLimit()
+
+        local message = Str('[{1}]님과 작별하였습니다.\n오늘 일반 친구 작별 횟수는\n{2}/{3}회 입니다.', data['nick'], bye_cnt, bye_limit)
         --UIManager:toastNotificationGreen(message)
         MakeSimplePopup(POPUP_TYPE.OK, message)
 

@@ -71,6 +71,8 @@ function UI_LobbyUserInfoPopup:refresh(t_user_info)
         UI_SimpleDragonInfoPopup(t_dragon_data)
     end)
 
+    local uid = t_user_info['uid']
+    vars['requestBtn']:setVisible(not g_friendData.m_mInvitedUerList[uid])
 end
 
 -------------------------------------
@@ -90,6 +92,7 @@ function UI_LobbyUserInfoPopup:click_requestBtn(t_user_info)
     local t_friend_info = t_user_info
 
     local function finish_cb(ret)
+        self.vars['requestBtn']:setVisible(false)
         local msg = Str('[{1}]에게 친구 요청을 하였습니다.', t_friend_info['nick'])
         UIManager:toastNotificationGreen(msg)
     end

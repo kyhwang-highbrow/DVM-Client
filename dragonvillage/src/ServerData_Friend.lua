@@ -4,9 +4,13 @@
 ServerData_Friend = class({
         m_serverData = 'ServerData',
 
+        m_friendSystemStatus = '',
+
         m_lRecommendUserList = 'list',
         m_lFriendUserList = 'list',
         m_lFriendInviteList = 'list',
+
+        m_mInvitedUerList = 'map', -- 클라이언트가 켜져있는 동안 친구초대를 한 유저의 uid 저장
 
         -- 선택된 공유 친구 데이터
         m_selectedShareFriendData = '',
@@ -17,6 +21,7 @@ ServerData_Friend = class({
 -------------------------------------
 function ServerData_Friend:init(server_data)
     self.m_serverData = server_data
+    self.m_mInvitedUerList = {}
 end
 
 -------------------------------------
@@ -70,6 +75,8 @@ function ServerData_Friend:request_invite(friend_uid, finish_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
+        self.m_mInvitedUerList[friend_uid] = true
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -85,24 +92,6 @@ function ServerData_Friend:request_invite(friend_uid, finish_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
-end
-
--------------------------------------
--- function applyInvitedRecommendUser
--- @brief 친구 초대가 완료된 항목 처리
--------------------------------------
-function ServerData_Friend:applyInvitedRecommendUser(friend_uid)
-    local l_user_list = self:getRecommendUserList()
-
-    if (not l_user_list) then
-        return
-    end
-
-    for i,v in ipairs(l_user_list) do
-        if (v['uid'] == friend_uid ) then
-            v['invited'] = true
-        end
-    end
 end
 
 -------------------------------------
@@ -148,6 +137,8 @@ function ServerData_Friend:request_friendList(finish_cb, force)
 
     -- 콜백 함수
     local function success_cb(ret)
+        self:response_friendCommon(ret)
+
         self.m_lFriendUserList = {}
         for i,v in pairs(ret['friends_list']) do
             self:makeNextShareTime(v)
@@ -558,6 +549,8 @@ function ServerData_Friend:request_byeFriends(friend_uid, friend_type, is_cash, 
 
     -- 콜백 함수
     local function success_cb(ret)
+        self:response_friendCommon(ret)
+
         if ret['friends_bye_list'] then
             for i,v in ipairs(ret['friends_bye_list']) do
                 local uid = v
@@ -582,4 +575,35 @@ function ServerData_Friend:request_byeFriends(friend_uid, friend_type, is_cash, 
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+end
+
+-------------------------------------
+-- function response_friendCommon
+-- @brief
+-------------------------------------
+function ServerData_Friend:response_friendCommon(ret)
+    if ret['friend_info'] then
+        self.m_friendSystemStatus = ret['friend_info']
+    end
+
+    ccdump(self.m_friendSystemStatus)
+end
+
+
+-------------------------------------
+-- function getByeDailyCnt
+-- @brief
+-------------------------------------
+function ServerData_Friend:getByeDailyCnt()
+    local cnt = self.m_friendSystemStatus['bye_daily_cnt']
+    return cnt
+end
+
+-------------------------------------
+-- function getByeDailyLimit
+-- @brief
+-------------------------------------
+function ServerData_Friend:getByeDailyLimit()
+    local cnt = 3
+    return cnt
 end

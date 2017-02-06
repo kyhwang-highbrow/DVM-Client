@@ -51,7 +51,8 @@ function UI_FriendRecommendUserListItem:refresh()
     local vars = self.vars
     local t_friend_info = self.m_tFriendInfo
 
-    if (t_friend_info['invited'] == true) then
+    local uid = t_friend_info['uid']
+    if (g_friendData.m_mInvitedUerList[uid] == true) then
         vars['requestBtn']:setVisible(false)
     else
         vars['requestBtn']:setVisible(true)
