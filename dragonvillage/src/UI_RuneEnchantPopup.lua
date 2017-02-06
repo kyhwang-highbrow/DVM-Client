@@ -362,6 +362,8 @@ function UI_RuneEnchantPopup:click_enhanceBtn()
             local full_name = t_rune_data['information']['full_name']
             local msg = Str('축하합니다.\n[{1}]의 최대 강화 단계를 달성하였습니다.', full_name)
             MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return
+
         elseif (before_lv < next_lv) then
             local full_name = t_rune_data['information']['full_name']
             local msg = Str('축하합니다.\n[{1}]이\n{2}단계로 강화되었습니다.', full_name, next_lv)
