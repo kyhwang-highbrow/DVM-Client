@@ -450,16 +450,6 @@ function Dragon:setActive(active)
 end
 
 -------------------------------------
--- function changeHomePos
--------------------------------------
-function Dragon:changeHomePos(x, y, speed)
-    self:setHomePos(x, y)
-
-    local speed = speed or 500
-    self:setMove(x, y, speed)
-end
-
--------------------------------------
 -- function makeHPGauge
 -------------------------------------
 function Dragon:makeHPGauge(hp_ui_offset)

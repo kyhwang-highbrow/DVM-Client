@@ -1029,9 +1029,6 @@
     <None Include="..\src\MonsterLua_Boss.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\EnemyMovement.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\TableDrop.lua">
       <Filter>lua</Filter>
     </None>
@@ -1532,6 +1529,12 @@
     </None>
     <None Include="..\src\UI_MailListItem.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\EnemyMovementMgr.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\EnemyAppear.lua">
+      <Filter>lua</Filter>
     </None>
     <None Include="..\src\UI_FriendPopupTabInvite.lua">
       <Filter>lua\UI</Filter>

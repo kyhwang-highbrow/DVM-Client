@@ -276,6 +276,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ConstantStatusEffect.lua" />
     <None Include="..\src\EffectLauncher.lua" />
     <None Include="..\src\EffectMotionStreak.lua" />
+    <None Include="..\src\EnemyMovementMgr.lua" />
     <None Include="..\src\EventCarrier.lua" />
     <None Include="..\src\FriendBuffManager.lua" />
     <None Include="..\src\GameAuto.lua" />
@@ -399,7 +400,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\EffectTimer.lua" />
     <None Include="..\src\Monster.lua" />
     <None Include="..\src\MonsterLua_Boss.lua" />
-    <None Include="..\src\EnemyMovement.lua" />
+    <None Include="..\src\EnemyAppear.lua" />
     <None Include="..\src\Entity.lua" />
     <None Include="..\src\FormationMgr.lua" />
     <None Include="..\src\FormationMgr_TargetRule.lua" />

@@ -56,10 +56,10 @@ end
 function WaveMgr:getScriptData()
 
     -- 파일에서 웨이브 정보를 얻어옴
-    --if (not self.m_scriptData) then
+    if (not self.m_scriptData) then
         local script = TABLE:loadJsonTable(self.m_stageName)
         self.m_scriptData = script
-    --end
+    end
 
     return self.m_scriptData
 end
@@ -97,6 +97,13 @@ end
 -------------------------------------
 function WaveMgr:getBaseCameraScriptData()
     return self.m_scriptData['camera']
+end
+
+-------------------------------------
+-- function getMovementScriptData
+-------------------------------------
+function WaveMgr:getMovementScriptData()
+    return self.m_scriptData['move']
 end
 
 -------------------------------------
@@ -154,12 +161,11 @@ function WaveMgr:summonEnemy(dynamic_wave)
 	local enemy = self:spawnEnemy_dynamic(
 		dynamic_wave.m_enemyID, 
 		dynamic_wave.m_enemyLevel, 
-		dynamic_wave.m_movement,
+		dynamic_wave.m_appearType,
 		dynamic_wave.m_luaValue1,
 		dynamic_wave.m_luaValue2,
 		dynamic_wave.m_luaValue3,
-		dynamic_wave.m_luaValue4,
-		dynamic_wave.m_luaValue5
+		dynamic_wave.m_movement
 		)
 
     if enemy and enemy.m_hpNode then
@@ -260,7 +266,7 @@ end
 -------------------------------------
 -- function spawnEnemy_dynamic
 -------------------------------------
-function WaveMgr:spawnEnemy_dynamic(enemy_id, level, movement, value1, value2, value3, value4, value5)
+function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2, value3, movement)
 
     local enemy
 
@@ -292,8 +298,18 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, movement, value1, value2, v
         enemy:doSkill(skill_id, 0, 0)
     end
 
-    if EnemyMovement[movement] then
-        EnemyMovement[movement](enemy, value1, value2, value3, value4, value5)
+    -- 등장 움직임 설정
+    if (EnemyAppear[appear_type]) then
+        EnemyAppear[appear_type](enemy, value1, value2, value3)
+    end
+
+    -- 이동 패턴 설정
+    if (self.m_world.m_enemyMovementMgr) then
+        if (not movement) then
+            movement = self.m_currWave
+        end
+
+        self.m_world.m_enemyMovementMgr:addEnemy(movement, enemy)
     end
 
 	return enemy

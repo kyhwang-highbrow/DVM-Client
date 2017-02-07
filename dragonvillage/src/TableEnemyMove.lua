@@ -13,3 +13,27 @@ function TableEnemyMove:init()
     self.m_tableName = 'enemy_move'
     self.m_orgTable = TABLE:get(self.m_tableName)
 end
+
+-------------------------------------
+-- function getMoveTime
+-------------------------------------
+function TableEnemyMove:getMoveTime(type)
+    local t_move = self.m_orgTable[type]
+
+    return t_move['delay']    
+end
+
+-------------------------------------
+-- function getMovePosKey
+-------------------------------------
+function TableEnemyMove:getMovePosKey(type, idx)
+    local t_move = self.m_orgTable[type]
+    if (not t_move) then return end
+
+    local key = t_move[string.format('pos_%02d', idx)]
+    if (key == 'x') then
+        key = nil
+    end
+
+    return key
+end

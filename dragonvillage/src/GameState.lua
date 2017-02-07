@@ -267,6 +267,10 @@ function GameState.update_fight(self, dt)
         world.m_gameAuto:update(dt)
     end
 
+    if world.m_enemyMovementMgr then
+        world.m_enemyMovementMgr:update(dt)
+    end
+
     do -- 드래곤 액티브 스킬 쿨타임 증가
         for _,dragon in pairs(world:getDragonList()) do
             dragon:updateActiveSkillCoolTime(dt)

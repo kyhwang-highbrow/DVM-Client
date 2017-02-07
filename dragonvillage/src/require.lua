@@ -226,7 +226,8 @@ local t_module = {
 	'Monster_WorldOrderMachine',
     'Monster_DarkNix',
     'require_EnemyLua',
-    'EnemyMovement',
+    'EnemyAppear',
+    'EnemyMovementMgr',
     'MissileFactory',
     'MissileLauncher',
     

@@ -1167,6 +1167,36 @@ function Character:resetMove()
 end
 
 -------------------------------------
+-- function changeHomePos
+-------------------------------------
+function Character:changeHomePos(x, y, speed)
+    self:setHomePos(x, y)
+
+    if (self.m_state == 'delegate') then return end
+
+    local speed = speed or 500
+    self:setMove(x, y, speed)
+end
+
+-------------------------------------
+-- function changeHomePos
+-------------------------------------
+function Character:changeHomePosByTime(x, y, time)
+    self:setHomePos(x, y)
+
+    if (self.m_state == 'delegate') then return end
+
+    local time = time or 0.5
+
+    -- 거리를 계산하여 속도를 구함
+    local cur_x, cur_y = self:getPosition()
+    local distance = getDistance(cur_x, cur_y, x, y)
+    local speed = distance / time 
+
+    self:setMove(x, y, speed)
+end
+
+-------------------------------------
 -- function syncAniAndPhys
 -- @brief m_rootNode의 위치로 클래스의 위치 동기화
 -------------------------------------

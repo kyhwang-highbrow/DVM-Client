@@ -63,6 +63,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_rightFormationMgr = '',
 
         m_skillIndicatorMgr = 'SkillIndicatorMgr',
+        m_enemyMovementMgr = 'EnemyMovementMgr',
 
 		-- 테이머 스킬 관련
         m_tamerSkillSystem = 'TamerSkillSystem',
@@ -241,8 +242,8 @@ end
 function GameWorld:initGame(stage_name)
     -- 웨이브 매니져 생성
     self.m_waveMgr = WaveMgr(self, stage_name, self.m_bDevelopMode)
-        
-	-- 배경 생성
+
+    -- 배경 생성
     self:initBG(self.m_waveMgr)
 
     -- 월드 크기 설정
@@ -270,10 +271,18 @@ function GameWorld:initGame(stage_name)
 
     do -- 카메라 초기 위치 설정이 있다면 적용
         local t_camera = self.m_waveMgr:getBaseCameraScriptData()
-        if t_camera then
+        if (t_camera) then
             t_camera['time'] = 0
             self:changeCameraOption(t_camera)
             self:changeHeroHomePosByCamera()
+        end
+    end
+
+    -- 적 이동 처리를 위한 매니져 생성
+    do
+        local t_movement = self.m_waveMgr:getMovementScriptData()
+        if (t_movement) then
+            self.m_enemyMovementMgr = EnemyMovementMgr(self, t_movement)
         end
     end
 
@@ -1118,6 +1127,8 @@ function GameWorld:onKeyReleased(keyCode, event)
             pos_y = curCameraPosY + 300
         }, true)
         
+        self:changeHeroHomePosByCamera()
+
     elseif (keyCode == KEY_DOWN_ARROW) then
         local curCameraPosX, curCameraPosY = self.m_gameCamera:getPosition()
                 
@@ -1125,6 +1136,8 @@ function GameWorld:onKeyReleased(keyCode, event)
             pos_x = curCameraPosX,
             pos_y = curCameraPosY - 300
         }, true)
+        
+        self:changeHeroHomePosByCamera()
     end
 end
 
