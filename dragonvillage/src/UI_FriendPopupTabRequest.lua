@@ -73,6 +73,10 @@ function UI_FriendPopupTabRequest:init_tableView()
     table_view:setCellUIClass(UI_FriendRequestListItem, create_func)
     table_view:setItemList(l_item_list)
 
+    
+    -- 리스트가 비었을 때
+    table_view:makeDefaultEmptyDescLabel(Str('친구 신청 요청이 없습니다.'))
+
     --[[
     -- 정렬
     local sort_manager = SortManager_Fruit()
