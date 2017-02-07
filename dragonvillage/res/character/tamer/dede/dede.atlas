@@ -5,92 +5,92 @@ format: RGBA8888
 filter: Linear,Linear
 repeat: none
 dede_acce_01
-  rotate: true
-  xy: 109, 73
+  rotate: false
+  xy: 192, 155
   size: 24, 21
   orig: 24, 21
   offset: 0, 0
   index: -1
 dede_acce_02
   rotate: false
-  xy: 426, 660
+  xy: 141, 2
   size: 30, 45
   orig: 30, 45
   offset: 0, 0
   index: -1
 dede_acce_03
   rotate: false
-  xy: 426, 613
+  xy: 173, 2
   size: 30, 45
   orig: 30, 45
   offset: 0, 0
   index: -1
 dede_arm_01
   rotate: false
-  xy: 545, 784
+  xy: 109, 33
   size: 30, 64
   orig: 30, 64
   offset: 0, 0
   index: -1
 dede_arm_02
-  rotate: true
-  xy: 233, 500
+  rotate: false
+  xy: 165, 382
   size: 27, 48
   orig: 27, 48
   offset: 0, 0
   index: -1
 dede_arm_03
-  rotate: true
-  xy: 703, 844
+  rotate: false
+  xy: 192, 225
   size: 30, 45
   orig: 30, 45
   offset: 0, 0
   index: -1
 dede_arm_04
-  rotate: true
-  xy: 750, 844
+  rotate: false
+  xy: 192, 178
   size: 30, 45
   orig: 30, 45
   offset: 0, 0
   index: -1
 dede_arm_05
   rotate: false
-  xy: 502, 720
+  xy: 109, 2
   size: 30, 29
   orig: 30, 29
   offset: 0, 0
   index: -1
 dede_body_01
   rotate: false
-  xy: 204, 608
+  xy: 248, 608
   size: 109, 97
   orig: 109, 97
   offset: 0, 0
   index: -1
 dede_body_02
-  rotate: false
-  xy: 629, 814
+  rotate: true
+  xy: 194, 398
   size: 52, 37
   orig: 52, 37
   offset: 0, 0
   index: -1
 dede_cape_01
   rotate: false
-  xy: 233, 529
+  xy: 802, 797
   size: 58, 77
   orig: 58, 77
   offset: 0, 0
   index: -1
 dede_cape_02
   rotate: false
-  xy: 204, 727
+  xy: 194, 375
   size: 24, 21
   orig: 24, 21
   offset: 0, 0
   index: -1
 dede_cape_03
   rotate: false
-  xy: 315, 608
+  xy: 248, 509
   size: 109, 97
   orig: 109, 97
   offset: 0, 0
@@ -125,7 +125,7 @@ dede_effect_04
   index: -1
 dede_effect_05
   rotate: false
-  xy: 232, 707
+  xy: 248, 707
   size: 132, 132
   orig: 132, 132
   offset: 0, 0
@@ -172,79 +172,86 @@ dede_effect_11
   orig: 146, 138
   offset: 0, 0
   index: -1
+dede_effect_12
+  rotate: false
+  xy: 204, 559
+  size: 42, 247
+  orig: 42, 247
+  offset: 0, 0
+  index: -1
 dede_eye_01
   rotate: true
-  xy: 204, 750
+  xy: 165, 324
   size: 56, 25
   orig: 56, 25
   offset: 0, 0
   index: -1
 dede_eye_02
-  rotate: false
-  xy: 366, 707
+  rotate: true
+  xy: 359, 657
   size: 48, 21
   orig: 48, 21
   offset: 0, 0
   index: -1
 dede_eye_03
-  rotate: false
-  xy: 416, 707
+  rotate: true
+  xy: 176, 561
   size: 43, 21
   orig: 43, 21
   offset: 0, 0
   index: -1
 dede_foot_01
   rotate: false
-  xy: 545, 747
+  xy: 359, 573
   size: 30, 35
   orig: 30, 35
   offset: 0, 0
   index: -1
 dede_foot_02
   rotate: false
-  xy: 577, 764
+  xy: 359, 536
   size: 30, 35
   orig: 30, 35
   offset: 0, 0
   index: -1
 dede_hair_01
-  rotate: true
-  xy: 366, 730
+  rotate: false
+  xy: 233, 410
   size: 109, 97
   orig: 109, 97
   offset: 0, 0
   index: -1
 dede_hair_02
-  rotate: true
-  xy: 176, 439
+  rotate: false
+  xy: 134, 101
   size: 58, 45
   orig: 58, 45
   offset: 0, 0
   index: -1
 dede_hair_03
   rotate: true
-  xy: 382, 530
+  xy: 951, 806
   size: 76, 37
   orig: 76, 37
   offset: 0, 0
   index: -1
 dede_hand_01
-  rotate: true
-  xy: 109, 47
+  rotate: false
+  xy: 192, 352
   size: 24, 21
   orig: 24, 21
   offset: 0, 0
   index: -1
 dede_hand_02
-  rotate: true
-  xy: 109, 21
+  rotate: false
+  xy: 192, 329
   size: 24, 21
   orig: 24, 21
   offset: 0, 0
   index: -1
 dede_hand_03
-  rotate: true
-  xy: 465, 719
+  rotate: false
+  xy: 359, 499
   size: 30, 35
   orig: 30, 35
   offset: 0, 0
@@ -264,29 +271,29 @@ dede_hand_05
   offset: 0, 0
   index: -1
 dede_head_01
-  rotate: false
-  xy: 465, 751
+  rotate: true
+  xy: 703, 796
   size: 78, 97
   orig: 78, 97
   offset: 0, 0
   index: -1
 dede_neck_01
   rotate: false
-  xy: 134, 96
+  xy: 141, 49
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 dede_parch_01
-  rotate: false
-  xy: 132, 73
+  rotate: true
+  xy: 194, 129
   size: 24, 21
   orig: 24, 21
   offset: 0, 0
   index: -1
 dede_parch_02
-  rotate: false
-  xy: 132, 50
+  rotate: true
+  xy: 194, 103
   size: 24, 21
   orig: 24, 21
   offset: 0, 0
@@ -300,35 +307,35 @@ dede_reg_01
   index: -1
 dede_reg_02
   rotate: false
-  xy: 176, 499
+  xy: 176, 452
   size: 55, 105
   orig: 55, 105
   offset: 0, 0
   index: -1
 dede_reg_03
   rotate: true
-  xy: 293, 567
+  xy: 862, 843
   size: 39, 87
   orig: 39, 87
   offset: 0, 0
   index: -1
 dede_reg_04
   rotate: true
-  xy: 293, 526
+  xy: 862, 802
   size: 39, 87
   orig: 39, 87
   offset: 0, 0
   index: -1
 dede_sholder_01
   rotate: false
-  xy: 577, 801
+  xy: 165, 272
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 dede_sholder_02
-  rotate: true
-  xy: 797, 844
+  rotate: false
+  xy: 359, 610
   size: 30, 45
   orig: 30, 45
   offset: 0, 0

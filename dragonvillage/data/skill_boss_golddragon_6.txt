@@ -14,7 +14,7 @@
 				"speed":0,
 				"offset":[0,0],
 				"dir":0,
-				"map_shake_time":10
+				"map_shake_time":3
 			},
 			
 			{
@@ -59,7 +59,6 @@
 				"offset":[600,900],
 				"is_abs_pos":true,
                 "dir_array":['random',70,110],
-				"no_rotate":true,
 				
                 "effect":
                 {
@@ -85,14 +84,20 @@
 						"accel_delay":0,
 						"angular_velocity":0,
 						"offset":[0,0],
-						"dir_array":['random',260,280],
-						"no_rotate":true
+						"dir_array":['random',260,280]
+						
+						"effect":
+						{
+							"motion_streak":"",
+							"rotation":true,
+							"afterimage":false
+						}
 					}
 				],
 				
 				"add_script_start":0,
 				"add_script_term":0.3,
-				"add_script_max":30,
+				"add_script_max":20,
 				"add_script_relative":false,
 				"add_script_dead":true
 			},
@@ -114,7 +119,6 @@
 				"offset":[400,900],
 				"is_abs_pos":true,
                 "dir_array":['random',70,110],
-				"no_rotate":true,
 				
                 "effect":
                 {
@@ -140,14 +144,20 @@
 						"accel_delay":0,
 						"angular_velocity":0,
 						"offset":[0,0],
-						"dir_array":['random',260,280],
-						"no_rotate":true
+						"dir_array":['random',260,280]
+						
+						"effect":
+						{
+							"motion_streak":"",
+							"rotation":true,
+							"afterimage":false
+						}
 					}
 				],
 				
 				"add_script_start":0,
 				"add_script_term":0.3,
-				"add_script_max":30,
+				"add_script_max":20,
 				"add_script_relative":false,
 				"add_script_dead":true
 			},
@@ -169,7 +179,6 @@
 				"offset":[200,900],
 				"is_abs_pos":true,
                 "dir_array":['random',70,110],
-				"no_rotate":true,
 				
                 "effect":
                 {
@@ -195,14 +204,20 @@
 						"accel_delay":0,
 						"angular_velocity":0,
 						"offset":[0,0],
-						"dir_array":['random',260,280],
-						"no_rotate":true
+						"dir_array":['random',260,280]
+						
+						"effect":
+						{
+							"motion_streak":"",
+							"rotation":true,
+							"afterimage":false
+						}
 					}
 				],
 				
 				"add_script_start":0,
 				"add_script_term":0.3,
-				"add_script_max":30,
+				"add_script_max":20,
 				"add_script_relative":false,
 				"add_script_dead":true
 			},
@@ -224,7 +239,6 @@
 				"offset":[0,900],
 				"is_abs_pos":true,
                 "dir_array":['random',70,110],
-				"no_rotate":true,
 				
                 "effect":
                 {
@@ -250,14 +264,20 @@
 						"accel_delay":0,
 						"angular_velocity":0,
 						"offset":[0,0],
-						"dir_array":['random',260,280],
-						"no_rotate":true
+						"dir_array":['random',260,280]
+						
+						"effect":
+						{
+							"motion_streak":"",
+							"rotation":true,
+							"afterimage":false
+						}
 					}
 				],
 				
 				"add_script_start":0,
 				"add_script_term":0.3,
-				"add_script_max":30,
+				"add_script_max":20,
 				"add_script_relative":false,
 				"add_script_dead":true
 			},
@@ -279,7 +299,6 @@
 				"offset":[-200,900],
 				"is_abs_pos":true,
                 "dir_array":['random',70,110],
-				"no_rotate":true,
 				
                 "effect":
                 {
@@ -305,14 +324,20 @@
 						"accel_delay":0,
 						"angular_velocity":0,
 						"offset":[0,0],
-						"dir_array":['random',260,280],
-						"no_rotate":true
+						"dir_array":['random',260,280]
+						
+						"effect":
+						{
+							"motion_streak":"",
+							"rotation":true,
+							"afterimage":false
+						}
 					}
 				],
 				
 				"add_script_start":0,
 				"add_script_term":0.3,
-				"add_script_max":30,
+				"add_script_max":20,
 				"add_script_relative":false,
 				"add_script_dead":true
 			}

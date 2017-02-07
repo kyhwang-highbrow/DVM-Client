@@ -2,12 +2,12 @@
     "pattern_boss_test":
     [        
         [
-            "a;basic", "w;5",
-            "a;2", "w;5",
-            "a;3", "w;5",
-            "a;4", "w;5",
-            "a;5", "w;5",
-            "a;6", "w;15"
+			"a;basic", "w;2",
+			"a;2", "w;3", "a;basic", "w;2",
+			"a;3", "w;3", "a;basic", "w;2",
+			"a;4", "w;3", "a;basic", "w;2",
+			"a;5", "w;3", "a;basic", "w;2",
+			"a;6", "w;10"
         ]
     ],
 	
@@ -20,7 +20,12 @@
                 "hp_percent":1,
                 "pattern":
                 [
-                    "a;basic", "w;5"
+                    "a;basic", "w;2",
+					"a;2", "w;3", "a;basic", "w;2",
+					"a;3", "w;3", "a;basic", "w;2",
+					"a;4", "w;3", "a;basic", "w;2",
+					"a;5", "w;3", "a;basic", "w;2",
+					"a;6", "w;10"
                 ]
             }
         ]

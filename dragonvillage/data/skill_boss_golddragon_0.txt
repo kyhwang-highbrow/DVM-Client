@@ -16,7 +16,7 @@
 				"accel_delay":0.1,
 				"angular_velocity":30,
 				"offset":[0,0],
-                "dir_array":['random',-5,-10],
+                "dir_array":['random',-10,-30],
 				
                 "effect":
                 {
