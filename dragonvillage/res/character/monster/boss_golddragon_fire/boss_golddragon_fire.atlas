@@ -53,6 +53,13 @@ boss_golddragon_fire_jaw_01
   orig: 521, 487
   offset: 0, 0
   index: -1
+boss_golddragon_gold_01
+  rotate: true
+  xy: 1476, 738
+  size: 47, 42
+  orig: 47, 42
+  offset: 0, 0
+  index: -1
 
 boss_golddragon_fire2.png
 size: 2048,2048
@@ -61,63 +68,77 @@ filter: Linear,Linear
 repeat: none
 boss_golddragon_acc_01
   rotate: true
-  xy: 1181, 1053
+  xy: 1181, 1090
   size: 435, 361
   orig: 435, 361
   offset: 0, 0
   index: -1
 boss_golddragon_acc_02
-  rotate: false
-  xy: 511, 2
+  rotate: true
+  xy: 1052, 708
   size: 349, 321
   orig: 349, 321
   offset: 0, 0
   index: -1
 boss_golddragon_acc_03
   rotate: false
-  xy: 2, 64
+  xy: 2, 101
   size: 507, 335
   orig: 507, 335
   offset: 0, 0
   index: -1
 boss_golddragon_body_01
   rotate: false
-  xy: 2, 1022
+  xy: 2, 1059
   size: 1177, 985
   orig: 1177, 985
   offset: 0, 0
   index: -1
 boss_golddragon_coin_01
   rotate: false
-  xy: 1546, 1592
+  xy: 1546, 1629
   size: 371, 415
   orig: 371, 415
   offset: 0, 0
   index: -1
+boss_golddragon_eff_01
+  rotate: false
+  xy: 1919, 1877
+  size: 127, 167
+  orig: 127, 167
+  offset: 0, 0
+  index: -1
 boss_golddragon_fire_arm_01
   rotate: false
-  xy: 1181, 1490
+  xy: 1181, 1527
   size: 363, 517
   orig: 363, 517
   offset: 0, 0
   index: -1
 boss_golddragon_fire_foot_01
   rotate: false
-  xy: 2, 401
+  xy: 2, 438
   size: 573, 619
   orig: 573, 619
   offset: 0, 0
   index: -1
 boss_golddragon_fire_hand_01
   rotate: false
-  xy: 577, 685
+  xy: 577, 722
   size: 473, 335
   orig: 473, 335
   offset: 0, 0
   index: -1
 boss_golddragon_fire_hand_02
   rotate: false
-  xy: 577, 325
+  xy: 577, 362
+  size: 411, 358
+  orig: 411, 358
+  offset: 0, 0
+  index: -1
+boss_golddragon_fire_hand_03
+  rotate: false
+  xy: 511, 2
   size: 411, 358
   orig: 411, 358
   offset: 0, 0
