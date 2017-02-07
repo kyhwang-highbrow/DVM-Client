@@ -794,8 +794,6 @@ function UIC_TableView:expandTemp(duration, animated)
 
     if (animated == nil) then
         animated = true
-    else
-        animated = false
     end
     self:relocateContainer(animated)
 end

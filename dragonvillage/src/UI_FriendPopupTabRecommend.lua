@@ -83,9 +83,10 @@ function UI_FriendPopupTabRecommend:init_tableView()
     -- 생성 콜백
     local function create_func(ui, data)
         local function click_func()
+            self:click_requestBtn(data)
         end
 
-        --ui.vars['clickBtn']:registerScriptTapHandler(click_func)
+        ui.vars['requestBtn']:registerScriptTapHandler(click_func)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -136,4 +137,20 @@ function UI_FriendPopupTabRecommend:init_tableViewFacebook()
     table_view:makeDefaultEmptyDescLabel(Str('페이스북 연동이 되어있지 않습니다.'))
 
     self.m_tableViewFacebook = table_view
+end
+
+-------------------------------------
+-- function click_requestBtn
+-------------------------------------
+function UI_FriendPopupTabRecommend:click_requestBtn(t_friend_info)
+    local function finish_cb(ret)
+        local msg = Str('[{1}]에게 친구 요청을 하였습니다.', t_friend_info['nick'])
+        UIManager:toastNotificationGreen(msg)
+
+        local friend_ui = t_friend_info['uid']
+        self.m_tableView:delItem(friend_ui)
+    end
+
+    local friend_ui = t_friend_info['uid']
+    g_friendData:request_invite(friend_ui, finish_cb)
 end

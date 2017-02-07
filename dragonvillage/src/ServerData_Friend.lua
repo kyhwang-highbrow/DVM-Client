@@ -41,7 +41,15 @@ function ServerData_Friend:request_recommend(finish_cb, force)
 
     -- 콜백 함수
     local function success_cb(ret)
-        self.m_lRecommendUserList = ret['users_list']
+        self.m_lRecommendUserList = {}
+
+        for i,v in pairs(ret['users_list']) do
+            local uid = v['uid']
+            if (not self.m_mInvitedUerList[uid]) then
+                self.m_lRecommendUserList[uid] = v
+            end
+        end
+        
         if finish_cb then
             finish_cb()
         end
@@ -76,6 +84,7 @@ function ServerData_Friend:request_invite(friend_uid, finish_cb)
     -- 콜백 함수
     local function success_cb(ret)
         self.m_mInvitedUerList[friend_uid] = true
+        self.m_lRecommendUserList[friend_uid] = nil
 
         if finish_cb then
             finish_cb(ret)
@@ -542,8 +551,8 @@ function ServerData_Friend:sortForFriendDragonSelectList(sort_target_list)
             local a_data = a['data']
             local b_data = b['data']
 
-            local a_type = a_data['friend_type']
-            local b_type = b_data['friend_type']
+            local a_type = a_data['friendtype']
+            local b_type = b_data['friendtype']
 
             -- 소울메이트만 필터링
             if (a_type ~= 3) and (b_type ~= 3) then
@@ -597,8 +606,8 @@ function ServerData_Friend:sortForFriendList(sort_target_list)
             local a_data = a['data']
             local b_data = b['data']
 
-            local a_type = a_data['friend_type']
-            local b_type = b_data['friend_type']
+            local a_type = a_data['friendtype']
+            local b_type = b_data['friendtype']
 
             if (a_type ~= b_type) then
                 return a_type > b_type 
@@ -675,4 +684,12 @@ end
 function ServerData_Friend:getByeDailyLimit()
     local cnt = 3
     return cnt
+end
+
+-------------------------------------
+-- function getDragonSupportRequestList
+-- @brief 드래곤 지원 요청 리스트
+-------------------------------------
+function ServerData_Friend:getDragonSupportRequestList()
+    return {}
 end

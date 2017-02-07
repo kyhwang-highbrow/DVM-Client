@@ -41,7 +41,6 @@ end
 -------------------------------------
 function UI_FriendRecommendUserListItem:initButton()
     local vars = self.vars
-    vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn() end)
 end
 
 -------------------------------------
@@ -57,20 +56,4 @@ function UI_FriendRecommendUserListItem:refresh()
     else
         vars['requestBtn']:setVisible(true)
     end
-end
-
--------------------------------------
--- function click_requestBtn
--------------------------------------
-function UI_FriendRecommendUserListItem:click_requestBtn()
-    local t_friend_info = self.m_tFriendInfo
-
-    local function finish_cb(ret)
-        self:refresh()
-        local msg = Str('[{1}]에게 친구 요청을 하였습니다.', t_friend_info['nick'])
-        UIManager:toastNotificationGreen(msg)
-    end
-
-    local friend_ui = t_friend_info['uid']
-    g_friendData:request_invite(friend_ui, finish_cb)
 end
