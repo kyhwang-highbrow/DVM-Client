@@ -1,61 +1,61 @@
 -------------------------------------
--- class ServerData_NestDungeon
+-- class ServerData_SecretDungeon
 -------------------------------------
-ServerData_NestDungeon = class({
+ServerData_SecretDungeon = class({
         m_serverData = 'ServerData',
-        m_nestDungeonInfoMap = 'table(map)',
-        m_bDirtyNestDungeonInfo = 'boolean',
+        m_secretDungeonInfoMap = 'table(map)',
+        m_bDirtySecretDungeonInfo = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function ServerData_NestDungeon:init(server_data)
+function ServerData_SecretDungeon:init(server_data)
     self.m_serverData = server_data
-    self.m_bDirtyNestDungeonInfo = true
+    self.m_bDirtySecretDungeonInfo = true
 end
 
 -------------------------------------
--- function applyNestDungeonInfo
+-- function applySecretDungeonInfo
 -- @breif 서버에서 전달받은 데이터를 클라이언트에 적용
 -------------------------------------
-function ServerData_NestDungeon:applyNestDungeonInfo(data)
-    self.m_serverData:applyServerData(data, 'nest_info')
+function ServerData_SecretDungeon:applySecretDungeonInfo(data)
+    self.m_serverData:applyServerData(data, 'secret_info')
 
     -- 맵의 형태로 사용
-    local l_nest_info = self.m_serverData:getRef('nest_info')
-    self.m_nestDungeonInfoMap = {}
-    for i,v in ipairs(l_nest_info) do
+    local l_secret_info = self.m_serverData:getRef('secret_info')
+    self.m_secretDungeonInfoMap = {}
+    for i,v in ipairs(l_secret_info) do
         local dungeon_id = v['mode_id']
-        self.m_nestDungeonInfoMap[dungeon_id] = v
+        self.m_secretDungeonInfoMap[dungeon_id] = v
 
         -- 닫히는 시간이 임박했을 때를 위한 테스트 코드 (10초 후 갱신되도록)
         --v['next_invalid_at'] = (Timer:getServerTime() + 10) * 1000
     end
 
-    self.m_bDirtyNestDungeonInfo = false
+    self.m_bDirtySecretDungeonInfo = false
 end
 
 -------------------------------------
--- function getNestDungeonInfo
--- @brief 네스트 던전 리스트 항목 얻어옴
+-- function getSecretDungeonInfo
+-- @brief 비밀 던전 리스트 항목 얻어옴
 --        거대용, 악몽, 거목
 -------------------------------------
-function ServerData_NestDungeon:getNestDungeonInfo()
-    local l_nest_info = self.m_serverData:getRef('nest_info')
-    local l_ret = clone(l_nest_info)
+function ServerData_SecretDungeon:getSecretDungeonInfo()
+    local l_secret_info = self.m_serverData:getRef('secret_info')
+    local l_ret = clone(l_secret_info)
     return l_ret
 end
 
 -------------------------------------
--- function getNestDungeonInfoIndividual
--- @brief 네스트 던전 리스트 항목 얻어옴
+-- function getSecretDungeonInfoIndividual
+-- @brief 비밀 던전 리스트 항목 얻어옴
 --        거대용, 악몽, 거목
 -------------------------------------
-function ServerData_NestDungeon:getNestDungeonInfoIndividual(stage_id)
+function ServerData_SecretDungeon:getSecretDungeonInfoIndividual(stage_id)
     local dungeon_id = self:getDungeonIDFromStateID(stage_id)
     
-    local l_dungeon_list = self:getNestDungeonInfo()
+    local l_dungeon_list = self:getSecretDungeonInfo()
 
     for i,v in ipairs(l_dungeon_list) do
         if (v['mode_id'] == dungeon_id) then
@@ -67,11 +67,11 @@ function ServerData_NestDungeon:getNestDungeonInfoIndividual(stage_id)
 end
 
 -------------------------------------
--- function getNestDungeonListForUI
--- @brief 네스트 던전 리스트 항목 얻어옴 (UI 전용)
+-- function getSecretDungeonListForUI
+-- @brief 비밀 던전 리스트 항목 얻어옴 (UI 전용)
 -------------------------------------
-function ServerData_NestDungeon:getNestDungeonListForUI()
-    local l_dungeon_list = self:getNestDungeonInfo()
+function ServerData_SecretDungeon:getSecretDungeonListForUI()
+    local l_dungeon_list = self:getSecretDungeonInfo()
 
     do -- 악몽(2)던전은 sub_mode가 1인 항목만 포함
        -- 악몽던전에 스테이지 리스트는 공통으로 표시하기 때문
@@ -107,11 +107,11 @@ function ServerData_NestDungeon:getNestDungeonListForUI()
 end
 
 -------------------------------------
--- function requestNestDungeonInfo
--- @brief 서버로부터 네스트던전 open정보를 받아옴
+-- function requestSecretDungeonInfo
+-- @brief 서버로부터 비밀던전 open정보를 받아옴
 -------------------------------------
-function ServerData_NestDungeon:requestNestDungeonInfo(cb_func)
-    if (not self.m_bDirtyNestDungeonInfo) then
+function ServerData_SecretDungeon:requestSecretDungeonInfo(cb_func)
+    if (not self.m_bDirtySecretDungeonInfo) then
         if cb_func then
             cb_func()
         end
@@ -124,8 +124,8 @@ function ServerData_NestDungeon:requestNestDungeonInfo(cb_func)
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
 
-        if ret['nest_info'] then
-            self:applyNestDungeonInfo(ret['nest_info'])
+        if ret['secret_info'] then
+            self:applySecretDungeonInfo(ret['secret_info'])
         end
 
         if cb_func then
@@ -134,7 +134,7 @@ function ServerData_NestDungeon:requestNestDungeonInfo(cb_func)
     end
 
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/nest/info')
+    ui_network:setUrl('/game/secret/info')
     ui_network:setParam('uid', uid)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
@@ -142,18 +142,18 @@ function ServerData_NestDungeon:requestNestDungeonInfo(cb_func)
 end
 
 -------------------------------------
--- function getNestDungeon_stageList
--- @brief 네스트 던전 모드별 스테이지 리스트
+-- function getSecretDungeon_stageList
+-- @brief 비밀 던전 모드별 스테이지 리스트
 -------------------------------------
-function ServerData_NestDungeon:getNestDungeon_stageList(nest_dungeon_id)
+function ServerData_SecretDungeon:getSecretDungeon_stageList(secret_dungeon_id)
     local table_drop = TableDrop()
 
-    -- 네스트던전의 세부 모드별 스테이지 리스트를 조건 체크
+    -- 비밀던전의 세부 모드별 스테이지 리스트를 조건 체크
     local function condition_func(t_table)
         local stage_id = t_table['stage']
         stage_id = stage_id - (stage_id % 100)
         
-        if (stage_id == nest_dungeon_id) then
+        if (stage_id == secret_dungeon_id) then
             return true
         else
             return false
@@ -173,32 +173,32 @@ function ServerData_NestDungeon:getNestDungeon_stageList(nest_dungeon_id)
 end
 
 -------------------------------------
--- function getNestDungeon_stageListForUI
--- @brief 네스트 던전 모드별 스테이지 리스트 (UI 전용)
+-- function getSecretDungeon_stageListForUI
+-- @brief 비밀 던전 모드별 스테이지 리스트 (UI 전용)
 -------------------------------------
-function ServerData_NestDungeon:getNestDungeon_stageListForUI(nest_dungeon_id)
+function ServerData_SecretDungeon:getSecretDungeon_stageListForUI(secret_dungeon_id)
     -- UI상에서 악몽 던전은 스테이지 리스트를 한 리스트로 처리
-    if (nest_dungeon_id == 22100) then
+    if (secret_dungeon_id == 22100) then
         local l_ret = {}
-        table.addList(l_ret, self:getNestDungeon_stageList(22100))
-        table.addList(l_ret, self:getNestDungeon_stageList(22200))
-        table.addList(l_ret, self:getNestDungeon_stageList(22300))
-        table.addList(l_ret, self:getNestDungeon_stageList(22400))
+        table.addList(l_ret, self:getSecretDungeon_stageList(22100))
+        table.addList(l_ret, self:getSecretDungeon_stageList(22200))
+        table.addList(l_ret, self:getSecretDungeon_stageList(22300))
+        table.addList(l_ret, self:getSecretDungeon_stageList(22400))
         return l_ret
     else
-        return self:getNestDungeon_stageList(nest_dungeon_id)
+        return self:getSecretDungeon_stageList(secret_dungeon_id)
     end
 end
 
 -------------------------------------
--- function parseNestDungeonID
--- @brief 네스트 
+-- function parseSecretDungeonID
+-- @brief 비밀 
 --        거대용, 악몽, 거목
 -------------------------------------
-function ServerData_NestDungeon:parseNestDungeonID(stage_id)
+function ServerData_SecretDungeon:parseSecretDungeonID(stage_id)
     -- 21101
-    -- 2xxxx 모드 구분 (네스트 던전 모드)
-    --  1xxx 네스트 던전 구분 (거대용, 고목, 악몽)
+    -- 2xxxx 모드 구분 (비밀 던전 모드)
+    --  1xxx 비밀 던전 구분 (황금, 인연)
     --   1xx 세부 모드 (속성 or role)
     --    01 티어 (통상적으로 1~10)
 
@@ -215,8 +215,8 @@ end
 -- function getDungeonIDFromStateID
 -- @brief
 -------------------------------------
-function ServerData_NestDungeon:getDungeonIDFromStateID(stage_id)
-    local t_dungeon_id_info = self:parseNestDungeonID(stage_id)
+function ServerData_SecretDungeon:getDungeonIDFromStateID(stage_id)
+    local t_dungeon_id_info = self:parseSecretDungeonID(stage_id)
 
     -- 악몽 던전(2)은 별도 처리
     if (t_dungeon_id_info['dungeon_mode'] == 2) then
@@ -228,11 +228,11 @@ end
 
 
 -------------------------------------
--- function checkNeedUpdateNestDungeonInfo
--- @brief 네스트 던전 항목을 갱신해야 하는지 확인하는 함수
+-- function checkNeedUpdateSecretDungeonInfo
+-- @brief 비밀 던전 항목을 갱신해야 하는지 확인하는 함수
 -------------------------------------
-function ServerData_NestDungeon:checkNeedUpdateNestDungeonInfo()
-    local l_dungeon_list = self:getNestDungeonInfo()
+function ServerData_SecretDungeon:checkNeedUpdateSecretDungeonInfo()
+    local l_dungeon_list = self:getSecretDungeonInfo()
 
     local server_time = Timer:getServerTime()
     local time_stamp
@@ -249,7 +249,7 @@ function ServerData_NestDungeon:checkNeedUpdateNestDungeonInfo()
         end
         
         if (time_stamp <= server_time) then
-            self.m_bDirtyNestDungeonInfo = true
+            self.m_bDirtySecretDungeonInfo = true
             return true
         end
     end
@@ -258,11 +258,11 @@ function ServerData_NestDungeon:checkNeedUpdateNestDungeonInfo()
 end
 
 -------------------------------------
--- function updateNestDungeonTimer
+-- function updateSecretDungeonTimer
 -- @brief
 -------------------------------------
-function ServerData_NestDungeon:updateNestDungeonTimer(dungeon_id)
-    local t_dungeon_info = self.m_nestDungeonInfoMap[dungeon_id]
+function ServerData_SecretDungeon:updateSecretDungeonTimer(dungeon_id)
+    local t_dungeon_info = self.m_secretDungeonInfoMap[dungeon_id]
 
     -- 서버상의 시간을 얻어옴
     local server_time = Timer:getServerTime()
@@ -285,7 +285,7 @@ function ServerData_NestDungeon:updateNestDungeonTimer(dungeon_id)
         
         if (time_stamp <= server_time) then
             t_dungeon_info['dirty_info'] = true
-            self.m_bDirtyNestDungeonInfo = true
+            self.m_bDirtySecretDungeonInfo = true
         end
     end
 
@@ -294,14 +294,14 @@ function ServerData_NestDungeon:updateNestDungeonTimer(dungeon_id)
 end
 
 -------------------------------------
--- function getNestDungeonRemainTimeText
+-- function getSecretDungeonRemainTimeText
 -- @brief dungeon_id에 해당하는 던전의 남은 시간 텍스트 리턴
 --        열린 던전일 경우 닫힐 때까지의 시간
 --        닫힌 던전일 경우 열릴 때까지의 시간
 -------------------------------------
-function ServerData_NestDungeon:getNestDungeonRemainTimeText(dungeon_id)
+function ServerData_SecretDungeon:getSecretDungeonRemainTimeText(dungeon_id)
     -- 던전 남은 시간 업데이트
-    local t_dungeon_info = self:updateNestDungeonTimer(dungeon_id)
+    local t_dungeon_info = self:updateSecretDungeonTimer(dungeon_id)
 
     local text = ''
 
@@ -328,10 +328,10 @@ function ServerData_NestDungeon:getNestDungeonRemainTimeText(dungeon_id)
 end
 
 -------------------------------------
--- function requestNestDungeonStageList
--- @brief 서버로부터 네스트던전 스테이지 리스트를 받아옴
+-- function requestSecretDungeonStageList
+-- @brief 서버로부터 비밀던전 스테이지 리스트를 받아옴
 -------------------------------------
-function ServerData_NestDungeon:requestNestDungeonStageList(cb_func)
+function ServerData_SecretDungeon:requestSecretDungeonStageList(cb_func)
     local uid = g_userData:get('uid')
 
     -- 성공 시 콜백
@@ -339,7 +339,7 @@ function ServerData_NestDungeon:requestNestDungeonStageList(cb_func)
         g_serverData:networkCommonRespone(ret)
 
         if ret['stage_list'] then
-            self:applyNestDungeonStageList(ret['stage_list'])
+            self:applySecretDungeonStageList(ret['stage_list'])
         end
 
         if cb_func then
@@ -357,33 +357,33 @@ function ServerData_NestDungeon:requestNestDungeonStageList(cb_func)
 end
 
 -------------------------------------
--- function applyNestDungeonStageList
+-- function applySecretDungeonStageList
 -- @brief 서버에서 전달받은 데이터를 클라이언트에 적용
 -------------------------------------
-function ServerData_NestDungeon:applyNestDungeonStageList(data)
-    self.m_serverData:applyServerData(data, 'nest_dungeon_stage_list')
+function ServerData_SecretDungeon:applySecretDungeonStageList(data)
+    self.m_serverData:applyServerData(data, 'secret_dungeon_stage_list')
 end
 
 -------------------------------------
--- function getNestDungeonStageClearInfo
+-- function getSecretDungeonStageClearInfo
 -- @brief
 -------------------------------------
-function ServerData_NestDungeon:getNestDungeonStageClearInfo(stage_id)
-    local t_stage_clear_info = self:getNestDungeonStageClearInfoRef(stage_id)
+function ServerData_SecretDungeon:getSecretDungeonStageClearInfo(stage_id)
+    local t_stage_clear_info = self:getSecretDungeonStageClearInfoRef(stage_id)
     return clone(t_stage_clear_info)
 end
 
 -------------------------------------
--- function getNestDungeonStageClearInfoRef
+-- function getSecretDungeonStageClearInfoRef
 -- @brief
 -------------------------------------
-function ServerData_NestDungeon:getNestDungeonStageClearInfoRef(stage_id)
-    local t_stage_clear_info = self.m_serverData:getRef('nest_dungeon_stage_list', tostring(stage_id))
+function ServerData_SecretDungeon:getSecretDungeonStageClearInfoRef(stage_id)
+    local t_stage_clear_info = self.m_serverData:getRef('secret_dungeon_stage_list', tostring(stage_id))
 
     if (not t_stage_clear_info) then
         t_stage_clear_info = {}
         t_stage_clear_info['clear_cnt'] = 0
-        self.m_serverData:applyServerData(t_stage_clear_info, 'nest_dungeon_stage_list', tostring(stage_id))
+        self.m_serverData:applyServerData(t_stage_clear_info, 'secret_dungeon_stage_list', tostring(stage_id))
     end
 
     return t_stage_clear_info
@@ -393,13 +393,13 @@ end
 -- function isOpenStage
 -- @brief
 -------------------------------------
-function ServerData_NestDungeon:isOpenStage(stage_id)
+function ServerData_SecretDungeon:isOpenStage(stage_id)
     local prev_stage_id = self:getPrevStageID(stage_id)
 
     if (not prev_stage_id) then
         return true
     else
-        local t_dungeon_id_info = g_nestDungeonData:getNestDungeonStageClearInfo(prev_stage_id)
+        local t_dungeon_id_info = g_secretDungeonData:getSecretDungeonStageClearInfo(prev_stage_id)
         local is_open = (0 < t_dungeon_id_info['clear_cnt'])
         return is_open
     end
@@ -409,8 +409,8 @@ end
 -- function getPrevStageID
 -- @brief
 -------------------------------------
-function ServerData_NestDungeon:getPrevStageID(stage_id)
-    local t_dungeon_id_info = g_nestDungeonData:parseNestDungeonID(stage_id)
+function ServerData_SecretDungeon:getPrevStageID(stage_id)
+    local t_dungeon_id_info = g_secretDungeonData:parseSecretDungeonID(stage_id)
     
     if (t_dungeon_id_info['tier'] <= 1) then
         return nil
@@ -421,10 +421,10 @@ end
 
 -------------------------------------
 -- function getSimplePrevStageID
--- @brief 같은 종류의 네스트 던전에서 티어만 내려간 스테이지
+-- @brief 같은 종류의 비밀 던전에서 티어만 내려간 스테이지
 -------------------------------------
-function ServerData_NestDungeon:getSimplePrevStageID(stage_id)
-    local t_dungeon_id_info = g_nestDungeonData:parseNestDungeonID(stage_id)
+function ServerData_SecretDungeon:getSimplePrevStageID(stage_id)
+    local t_dungeon_id_info = g_secretDungeonData:parseSecretDungeonID(stage_id)
     
     if (t_dungeon_id_info['tier'] <= 1) then
         return nil
@@ -437,7 +437,7 @@ end
 -- function getNextStageID
 -- @brief
 -------------------------------------
-function ServerData_NestDungeon:getNextStageID(stage_id)
+function ServerData_SecretDungeon:getNextStageID(stage_id)
     local table_drop = TableDrop()
     local t_drop = table_drop:get(stage_id + 1)
 
@@ -450,9 +450,9 @@ end
 
 -------------------------------------
 -- function getSimpleNextStageID
--- @brief 같은 종류의 네스트 던전에서 티어만 올라간 스테이지
+-- @brief 같은 종류의 비밀 던전에서 티어만 올라간 스테이지
 -------------------------------------
-function ServerData_NestDungeon:getSimpleNextStageID(stage_id)
+function ServerData_SecretDungeon:getSimpleNextStageID(stage_id)
     local table_drop = TableDrop()
     local t_drop = table_drop:get(stage_id + 1)
 
@@ -466,8 +466,8 @@ end
 -------------------------------------
 -- function getStageName
 -------------------------------------
-function ServerData_NestDungeon:getStageName(stage_id)
-    local t_dungeon_id_info = self:parseNestDungeonID(stage_id)
+function ServerData_SecretDungeon:getStageName(stage_id)
+    local t_dungeon_id_info = self:parseSecretDungeonID(stage_id)
 
     local table_drop = TableDrop()
     local t_drop = table_drop:get(stage_id)
@@ -480,20 +480,17 @@ end
 -- function getStageCategoryStr
 -- @brief
 -------------------------------------
-function ServerData_NestDungeon:getStageCategoryStr(stage_id)
-    local t_dungeon_id_info = self:parseNestDungeonID(stage_id)
+function ServerData_SecretDungeon:getStageCategoryStr(stage_id)
+    local t_dungeon_id_info = self:parseSecretDungeonID(stage_id)
 
-    -- 네스트 세부 모드
+    -- 비밀 세부 모드
     local dungeon_mode = t_dungeon_id_info['dungeon_mode']
     local mode_str = ''
-    if (dungeon_mode == NEST_DUNGEON_DRAGON) then
-        mode_str = Str('거대용 격추')
+    if (dungeon_mode == SECRET_DUNGEON_GOLD) then
+        mode_str = Str('황금 던전')
 
-    elseif (dungeon_mode == NEST_DUNGEON_NIGHTMARE) then
-        mode_str = Str('악몽 던전')
-
-    elseif (dungeon_mode == NEST_DUNGEON_TREE) then
-        mode_str = Str('거목 던전')
+    elseif (dungeon_mode == SECRET_DUNGEON_RELATION) then
+        mode_str = Str('인연 던전')
 
     else
         error('dungeon_mode : ' .. dungeon_mode)
@@ -501,32 +498,32 @@ function ServerData_NestDungeon:getStageCategoryStr(stage_id)
 
     
 
-    return '네스트던전' .. ' > ' .. mode_str
+    return Str('비밀던전') .. ' > ' .. mode_str
 end
 
 -------------------------------------
--- function goToNestDungeonScene
+-- function goToSecretDungeonScene
 -------------------------------------
-function ServerData_NestDungeon:goToNestDungeonScene(stage_id)
-    local request_nest_dungeon_info
-    local request_nest_dungeon_stage_list
+function ServerData_SecretDungeon:goToSecretDungeonScene(stage_id)
+    local request_secret_dungeon_info
+    local request_secret_dungeon_stage_list
     local replace_scene
 
-    -- 네스트 던전 리스트 정보 얻어옴
-    request_nest_dungeon_info = function()
-        g_nestDungeonData:requestNestDungeonInfo(request_nest_dungeon_stage_list)
+    -- 비밀 던전 리스트 정보 얻어옴
+    request_secret_dungeon_info = function()
+        g_secretDungeonData:requestSecretDungeonInfo(request_secret_dungeon_stage_list)
     end
 
-    -- 네스트 던전 스테이지 리스트 얻어옴
-    request_nest_dungeon_stage_list = function()
-        g_nestDungeonData:requestNestDungeonStageList(replace_scene)
+    -- 비밀 던전 스테이지 리스트 얻어옴
+    request_secret_dungeon_stage_list = function()
+        g_secretDungeonData:requestSecretDungeonStageList(replace_scene)
     end
 
-    -- 네스트 던전 씬으로 전환
+    -- 비밀 던전 씬으로 전환
     replace_scene = function()
-        local scene = SceneNestDungeon(stage_id)
+        local scene = SceneSecretDungeon(stage_id)
         scene:runScene()
     end
 
-    request_nest_dungeon_info()
+    request_secret_dungeon_info()
 end

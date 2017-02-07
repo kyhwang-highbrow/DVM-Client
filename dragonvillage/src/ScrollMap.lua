@@ -54,6 +54,7 @@ function ScrollMap:bindEventDispatcher(eventDispather)
     eventDispather:addListener('nest_dragon_final_wave', self)
     eventDispather:addListener('nest_tree_appear', self)
     eventDispather:addListener('nest_tree_die', self)
+    eventDispather:addListener('gold_boss_bg', self)
 end
 
 -------------------------------------
@@ -214,6 +215,7 @@ function ScrollMap:setBg(res, attr)
         local camera_app_rate_y = v['camera_app_rate_y'] or 1
         local camera_app_rate_scale = v['camera_app_rate_scale'] or 1
         local group = v['group']
+        local visible = v['visible']
 
         local bFixedLayer = (speed == 0) -- 속도값이 0일 경우 반복되지 않는 맵으로 간주
 
@@ -241,7 +243,8 @@ function ScrollMap:setBg(res, attr)
                     camera_app_rate_y = camera_app_rate_y,
                     camera_app_rate_scale = camera_app_rate_scale,
                     is_flip = bFlip,
-                    is_pause = bPause
+                    is_pause = bPause,
+                    is_visible = visible
                 }, true)
             end
 
@@ -281,7 +284,8 @@ function ScrollMap:setBg(res, attr)
                     scale = scale,
                     group = group,
                     speed_scale = speed,
-                    directing = v['directing']
+                    directing = v['directing'],
+                    is_visible = visible
                 }, false)
                     
                 if type == 'horizontal' then
@@ -307,10 +311,14 @@ function ScrollMap:makeLayer(tParam, bFixedLayer)
 
     if bFixedLayer then
         map_layer = ScrollMapLayerFixed(self.m_node, tParam)
-
     else
         map_layer = ScrollMapLayer(self.m_node, tParam)
     end
+
+    if (tParam['is_visible'] ~= nil) then
+        map_layer:setVisible(tParam['is_visible'])
+    end
+    
 
     table.insert(self.m_tMapLayer, map_layer)
 
@@ -396,13 +404,14 @@ function ScrollMap:onEvent(event_name, t_event, ...)
         -- 거목 마지막 웨이브 시작시 연출
         for i, v in ipairs(self.m_tMapLayer) do
             if v.m_group == 'nest_tree' then
-                local animator = v.m_animator
-                animator:setVisible(false)
+                --local animator = v.m_animator
+                --animator:setVisible(false)
+                v:setVisible(false)
             end
         end
 
     elseif (event_name == 'nest_tree_die') then
-        -- 거목 마지막 웨이브 시작시 연출
+        -- 거목 마지막 웨이브 클리어시 연출
         for i, v in ipairs(self.m_tMapLayer) do
             if v.m_group == 'nest_tree_bg' then
                 local xPos = v.m_rootNode:getPositionX()
@@ -412,6 +421,12 @@ function ScrollMap:onEvent(event_name, t_event, ...)
                     cc.MoveTo:create(3, cc.p(xPos, -1500))
                 ))
             end
+        end
+
+    elseif (event_name == 'gold_boss_bg') then
+        -- 황금 마지막 웨이브 배경 전환 연출
+        for i, v in ipairs(self.m_tMapLayer) do
+            v:setVisible((v.m_group == 'gold_boss_bg'))
         end
 
     end

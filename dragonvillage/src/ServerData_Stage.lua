@@ -204,6 +204,10 @@ function ServerData_Stage:getStageCategoryStr(stage_id)
     -- 네스트 던전 모드
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
         ret = g_nestDungeonData:getStageCategoryStr(stage_id)
+
+    -- 비밀 던전 모드
+    elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
+        ret = g_secretDungeonData:getStageCategoryStr(stage_id)
     end
 
     return ret

@@ -43,6 +43,9 @@ GameState = class(PARENT, {
         m_waveEffect = 'Animator',
         m_nextWaveDirectionType = 'string',
 
+        -- 보스 bgm
+        m_bgmBoss = 'string',
+
         -- 웨이브
         m_waveNoti = 'Animator',
         m_waveNum = 'Animator',
@@ -64,6 +67,8 @@ function GameState:init(world)
     self.m_fightTimer = 0
     self.m_globalCoolTime = 0
     self.m_bAppearHero = false
+
+    self.m_bgmBoss = 'bgm_boss'
     
     self.m_waveEffect = MakeAnimator('res/ui/a2d/ui_boss_warning/ui_boss_warning.vrp')
     self.m_waveEffect:setVisible(false)
@@ -575,7 +580,7 @@ function GameState.update_boss_wave(self, dt)
         end)
 
         -- 보스 배경음
-        SoundMgr:playBGM('bgm_boss')
+        SoundMgr:playBGM(self.m_bgmBoss)
 
         -- 웨이브 표시 숨김
         g_gameScene.m_inGameUI.vars['waveVisual']:setVisible(false)

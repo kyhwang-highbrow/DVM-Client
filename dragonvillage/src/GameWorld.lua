@@ -179,8 +179,6 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     if (self.m_gameMode == GAME_MODE_ADVENTURE) then
         self.m_gameState = GameState(self)
 
-        self:initGoldUnit(stage_id)
-
     elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
         local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
         local dungeonMode = t_dungeon['dungeon_mode']
@@ -200,7 +198,17 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 			error('네스트 던전 아이디가 잘못되어있습니다. 확인해주세요. ' .. self.m_stageID)
         end
 
-        self:initGoldUnit(stage_id)
+    elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
+        local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
+        local dungeonMode = t_dungeon['dungeon_mode']
+
+        if (dungeonMode == SECRET_DUNGEON_GOLD) then
+            self.m_gameState = GameState_SecretDungeon_Gold(self)
+
+        elseif (dungeonMode == SECRET_DUNGEON_RELATION) then
+            self.m_gameState = GameState_SecretDungeon_Ration(self)
+
+        end
     end
 
     self.m_missileRange = {}
@@ -222,6 +230,8 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 
     self.m_bUsedFriend = false
     self.m_friendHero = nil
+
+    self:initGoldUnit(stage_id)
 end
 
 
@@ -1107,7 +1117,7 @@ function GameWorld:onKeyReleased(keyCode, event)
             pos_x = curCameraPosX,
             pos_y = curCameraPosY + 300
         }, true)
-
+        
     elseif (keyCode == KEY_DOWN_ARROW) then
         local curCameraPosX, curCameraPosY = self.m_gameCamera:getPosition()
                 

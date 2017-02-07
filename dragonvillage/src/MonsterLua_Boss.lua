@@ -231,6 +231,23 @@ function MonsterLua_Boss.st_pattern_move(owner, dt)
 end
 
 -------------------------------------
+-- function changeState
+-- @param state
+-- @param forced
+-- @return boolean
+-------------------------------------
+function MonsterLua_Boss:changeState(state, forced)
+    local prev_state = self.m_state
+    local ret = Entity.changeState(self, state, forced)
+
+    if (ret == true) and (prev_state == 'delegate') then
+        self:killStateDelegate()
+    end
+
+    return ret
+end
+
+-------------------------------------
 -- function getNextPattern
 -------------------------------------
 function MonsterLua_Boss:getNextPattern()

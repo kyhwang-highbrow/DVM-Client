@@ -66,6 +66,15 @@ IScrollMapLayer = class({
     end
 
     -------------------------------------
+    -- function setVisible
+    -------------------------------------
+    function IScrollMapLayer:setVisible(b)
+        if self.m_animator then
+            self.m_animator.m_node:setVisible(b)
+        end
+    end
+
+    -------------------------------------
     -- function setColor
     -------------------------------------
     function IScrollMapLayer:setColor(color)
@@ -225,6 +234,15 @@ ScrollMapLayer = class(IScrollMapLayer, {
     function ScrollMapLayer:doActionFromAnimator(action)
         for _, animator in pairs(self.m_tAnimator) do
             animator.m_node:runAction(action)
+        end
+    end
+
+    -------------------------------------
+    -- function setVisible
+    -------------------------------------
+    function ScrollMapLayer:setVisible(b)
+        for _, animator in pairs(self.m_tAnimator) do
+            animator.m_node:setVisible(b)
         end
     end
 

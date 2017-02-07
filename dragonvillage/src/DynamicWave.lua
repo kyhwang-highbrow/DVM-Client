@@ -35,6 +35,11 @@ function DynamicWave:init(wave_mgr, data, delay)
     local level = l_str[2]   -- 적군 레벨
     local movement = l_str[3]   -- 이동 타입
 
+    if (enemy_id == 'Dragon') then
+        -- 드랍테이블의 r_stage_info로부터 얻어옴
+        -- 가공되어야함
+    end
+
     self.m_enemyID = tonumber(enemy_id)
     self.m_movement = movement
     self.m_enemyLevel = level

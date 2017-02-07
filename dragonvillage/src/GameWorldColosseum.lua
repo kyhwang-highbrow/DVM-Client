@@ -75,6 +75,30 @@ function GameWorldColosseum:initGame(stage_name)
     self.m_inGameUI:doActionReset()
 end
 
+-------------------------------------
+-- function initBG
+-------------------------------------
+function GameWorldColosseum:initBG(waveMgr)
+    local t_script_data = waveMgr.m_scriptData
+    if not t_script_data then return end
+
+    local bg_res = t_script_data['bg']
+    local bg_type = t_script_data['bg_type'] or 'default'
+	local bg_directing = t_script_data['bg_directing'] or 'floating_1'
+    
+    if (bg_type == 'animation') then
+        self.m_mapManager = AnimationMap(self.m_bgNode, bg_res)
+
+    elseif (bg_type == 'default') then
+        self.m_mapManager = ScrollMap(self.m_bgNode)
+        self.m_mapManager:setBg(bg_res)
+        self.m_mapManager:setSpeed(-100)
+        self.m_mapManager:bindCameraNode(g_gameScene.m_cameraLayer)
+        self.m_mapManager:bindEventDispatcher(self)
+    else
+        error('bg_type : ' .. bg_type)
+    end
+end
 
 -------------------------------------
 -- function initTamer
@@ -89,6 +113,14 @@ function GameWorldColosseum:initTamer()
     self:addListener('wave_start', self.m_tamerSpeechSystem)
     self:addListener('boss_wave', self.m_tamerSpeechSystem)
     self:addListener('stage_clear', self.m_tamerSpeechSystem)
+end
+
+-------------------------------------
+-- function initGoldUnit
+-------------------------------------
+function GameWorldColosseum:initGoldUnit()
+    self.m_goldUnit = 0
+    self.m_gold = 0
 end
 
 -------------------------------------

@@ -1476,6 +1476,15 @@
     <None Include="..\src\UI_RuneBulkSalePopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_SecretDungeon.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\SceneSecretDungeon.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\GameState_SecretDungeon_Gold.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\LocalData.lua">
       <Filter>lua</Filter>
     </None>
@@ -1511,6 +1520,9 @@
     </None>
     <None Include="..\src\UI_FriendRecommendUserListItem.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\TableEnemyMove.lua">
+      <Filter>lua</Filter>
     </None>
     <None Include="..\src\ServerData_Mail.lua">
       <Filter>lua</Filter>
