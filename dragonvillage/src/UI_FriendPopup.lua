@@ -53,7 +53,6 @@ function UI_FriendPopup:initUI()
     local vars = self.vars
     vars['inviteBtn']:setVisible(false)
     vars['drawBtn']:setVisible(false)
-    vars['sendAllBtn']:setVisible(false)
 end
 
 -------------------------------------

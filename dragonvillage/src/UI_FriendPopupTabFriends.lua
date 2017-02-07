@@ -17,6 +17,7 @@ function UI_FriendPopupTabFriends:init(friend_popup_ui)
     local vars = self.vars
     vars['listLabel']:setString('')
     vars['manageBtn']:registerScriptTapHandler(function() self:click_manageBtn() end)
+    vars['sendAllBtn']:registerScriptTapHandler(function() self:click_sendAllBtn() end)
 end
 
 -------------------------------------
@@ -60,6 +61,12 @@ function UI_FriendPopupTabFriends:init_tableView()
         end
         ui.vars['deleteBtn']:registerScriptTapHandler(click_deleteBtn)
 
+        -- 우정 포인트 보내기
+        local function click_sendBtn()
+            self:click_sendBtn(ui, data)
+        end
+        ui.vars['sendBtn']:registerScriptTapHandler(click_sendBtn)
+
         self:refresh_friendListItem(ui, data)
     end
 
@@ -93,6 +100,13 @@ function UI_FriendPopupTabFriends:click_manageBtn()
         local ui = v['ui']
         self:refresh_friendListItem(ui, data)
     end
+end
+
+-------------------------------------
+-- function click_sendAllBtn
+-------------------------------------
+function UI_FriendPopupTabFriends:click_sendAllBtn()
+
 end
 
 -------------------------------------
@@ -154,4 +168,10 @@ function UI_FriendPopupTabFriends:click_deleteBtn(ui, data)
     end
 
     ask_popup()
+end
+
+-------------------------------------
+-- function click_sendBtn
+-------------------------------------
+function UI_FriendPopupTabFriends:click_sendBtn(ui, data)
 end
