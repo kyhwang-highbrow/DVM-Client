@@ -171,88 +171,36 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 	-- 상태효과 타입
 	local status_effect_type = self:getStatusEffectTableFromSkillTable(t_skill, 1)['type']
     
-	-- 테이블에서 가져옴
+	-- @TODO TableStatusEffect 도 만들어야함
 	local table_status_effect = TABLE:get('status_effect')
     local t_status_effect = table_status_effect[status_effect_type] or {}
 
 	-- res attr parsing
     local res = t_status_effect['res']
 	if (res) then 
-		res = string.gsub(res, '@', char:getAttribute())
-	end
-	-- nil 처리
-	if (res == 'x') then 
-		res = nil 
+		if (res == 'x') then 
+			res = nil 
+		else
+			res = string.gsub(res, '@', char:getAttribute())
+		end
 	end
 
 	local status_effect = nil
 	local trigger_name = t_skill['chance_value'] or 'undergo_attack'
-	local event_function = nil
 
 	-- 클래스 종류가 다른 경우
 	if (status_effect_type == 'passive_add_attack') then
         status_effect = StatusEffect_addAttack(res)
+
+	elseif (status_effect_type == 'passive_spatter') then
+        status_effect = StatusEffect_Spatter(res)
+
 	else
 		status_effect = StatusEffect_Trigger(res)
 		char.m_world:addToUnitList(status_effect)
 	end
 	
-	-- @TODO trigger function을 여기서 전달할건지 클래스로 파일을 분리할건지..
-	-- 트리거로 발동될 함수 개별 설정
-	if (t_skill['type'] == 'skill_summon_die') then
-		event_function = function()
-			local mid = t_skill['val_1']
-			local lv = t_skill['val_2']
-			local dest = t_skill['val_3']
-			local effect_res = t_skill['res_1']
-			local pos_x = char.pos.x
-			local pos_y = char.pos.y
-
-			local enemy = char.m_world.m_waveMgr:spawnEnemy_dynamic(mid, lv, 'Appear', nil, dest, 0.5)
-			enemy:setPosition(pos_x, pos_y)
-			enemy:setHomePos(pos_x, pos_y)
-
-            if enemy.m_hpNode then
-                enemy.m_hpNode:setVisible(true)
-            end
-
-			char.m_world:addInstantEffect(effect_res, 'idle', pos_x, pos_y)
-		end
-
-	elseif (t_skill['type'] == 'trigger_skill') then
-		event_function = function()
-			local skill_id = t_skill['val_1']
-			char:doSkill(skill_id, nil, nil)
-		end
-
-	elseif (t_skill['sid'] == 220531) then
-		event_function = function()
-			local allyList = char:getFellowList()
-			local rand = math_random(1, #allyList)
-			self:doStatusEffectByStr(char, {allyList[rand]}, {t_skill['status_effect_1'], t_skill['status_effect_2']})
-		end
-
-    elseif (t_skill['sid'] == 220501) then
-        -- 번개고룡 패시브 : 번개의 권능
-        event_function = function(defender)
-            local defender = defender
-            local allyList = char:getOpponentList()
-            
-            self:doStatusEffectByStr(char, allyList, {t_skill['status_effect_1'], t_skill['status_effect_2']}, function(target)
-                EffectMotionStreak(target.m_world, defender.pos.x, defender.pos.y, target.pos.x, target.pos.y, 'res/effect/motion_streak/motion_streak_emblem_tree.png')
-            end)
-        end
-
-	elseif (status_effect_type == 'passive_spatter') then 
-		event_function = function()
-			SkillSpatter:makeSkillInstance(char, t_skill)
-		end
-	end
-		
-	-- 테이블에서 받아온 트리거 네임 설정	
-	status_effect:init_trigger(char, trigger_name, event_function)
-
-    status_effect.m_subData = t_skill
+	status_effect:init_trigger(char, trigger_name, t_skill)
 
     return status_effect
 end
