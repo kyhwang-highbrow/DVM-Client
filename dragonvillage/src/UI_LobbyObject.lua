@@ -83,7 +83,7 @@ function MakeLobbyObjectUI(parent, ui_lobby, type)
         ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_battleBtn() end)
 
     elseif (type == UI_LobbyObject.BOARD) then
-        ui.vars['clickBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('"퀘스트"는 준비 중입니다.'))  end)
+        ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_questBtn() end)
 
     elseif (type == UI_LobbyObject.DRAGON_MANAGE) then
         ui.vars['clickBtn']:registerScriptTapHandler(function() ui_lobby:click_dragonManageBtn() end)
