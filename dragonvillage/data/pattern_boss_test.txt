@@ -2,7 +2,7 @@
     "pattern_boss_test":
     [        
         [
-            "a;basic", "w;5"
+            "a;basic", "w;5", "a;6", "w;15"
         ]
     ],
 	
