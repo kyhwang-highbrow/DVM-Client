@@ -51,7 +51,6 @@ function UI_FriendPopup:initUI()
 
     -- 임시 비활성
     local vars = self.vars
-    vars['inviteBtn']:setVisible(false)
     vars['drawBtn']:setVisible(false)
 end
 
@@ -86,13 +85,13 @@ function UI_FriendPopup:initFrinedPopupTab()
     self.m_tTabClass['friends'] = UI_FriendPopupTabFriends(self)
     self.m_tTabClass['recommend'] = UI_FriendPopupTabRecommend(self)
     self.m_tTabClass['request'] = UI_FriendPopupTabRequest(self)
-    self.m_tTabClass['invite'] = UI_FriendPopupTab(self)
+    self.m_tTabClass['invite'] = UI_FriendPopupTabInvite(self)
 
     local vars = self.vars
     self:addTab('friends', vars['listBtn'], vars['listMenu'])
     self:addTab('recommend', vars['recommendBtn'], vars['recommendNode1'], vars['recommendMenu2'])
     self:addTab('request', vars['requestBtn'], vars['requestNode'])
-    self:addTab('invite', vars['inviteBtn'], vars['inviteNode'])
+    self:addTab('invite', vars['inviteBtn'], vars['inviteMenu'])
 
     self:setTab('friends')
 end

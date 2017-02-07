@@ -448,6 +448,7 @@ local t_module = {
     'UI_FriendPopupTabFriends',
     'UI_FriendPopupTabRecommend',
     'UI_FriendPopupTabRequest',
+    'UI_FriendPopupTabInvite',
     'UI_FriendListItem',
     'UI_FriendRecommendUserListItem',
     'UI_FriendRequestListItem',

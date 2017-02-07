@@ -38,6 +38,25 @@ function UI_FriendListItem:initUI()
 
     -- 최종 접속 시간(지나간 시간 출력)
     vars['timeLabel']:setString(g_friendData:getPastActiveTimeStr(t_friend_info))
+
+    do-- 타입별 차별화
+        local friendtype = t_friend_info['friendtype']
+
+        -- 일반 친구
+        if (friendtype == 1) then
+            
+        -- 베스트프랜드
+        elseif (friendtype == 2) then
+            vars['nameLabel']:setString(t_friend_info['nick'] .. Str(' (베프)'))
+
+        -- 소울메이트
+        elseif (friendtype == 3) then
+            vars['nameLabel']:setString(t_friend_info['nick'] .. Str(' (소울메이트)'))
+
+        else
+            errro('friendtype : ' .. friendtype)
+        end
+    end
 end
 
 -------------------------------------
