@@ -4,15 +4,12 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -- class UI_QuestPopup
 -------------------------------------
 UI_QuestPopup = class(PARENT, {
-		m_tIsOpenOnce = 'table<bool>',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_QuestPopup:init()
-	self.m_tIsOpenOnce = {}
-
 	local vars = self:load('quest.ui')
 	UIManager:open(self, UIManager.POPUP)
 
@@ -60,6 +57,8 @@ function UI_QuestPopup:initTab()
     self:addTab(TableQuest.DAILY, vars['dailyBtn'], vars['dailyListNode'])
 	self:addTab(TableQuest.NEWBIE, vars['newbieBtn'], vars['newbieListNode'])
     self:setTab(TableQuest.CHALLENGE)
+
+	self:setChangeTabCB(function(tab, first) self:onChangeQuestTab(tab, first) end)
 end
 
 -------------------------------------
@@ -79,20 +78,14 @@ function UI_QuestPopup:refresh()
 end
 
 -------------------------------------
--- function onChangeTab
+-- function onChangeQuestTab
 -------------------------------------
-function UI_QuestPopup:onChangeTab(tab, force)
+function UI_QuestPopup:onChangeQuestTab(tab, first)
 	local vars = self.vars
 	local node = vars[tab .. 'ListNode']
 	
 	-- 최초 생성만 실행
-	if (not self.m_tIsOpenOnce[tab]) then 
-		self:makeQuestTableView(tab, node)
-		self.m_tIsOpenOnce[tab] = true
-	end
-
-	-- refresh 할때 강제로 호출
-	if (force == 'force') then 
+	if (first) then 
 		self:makeQuestTableView(tab, node)
 	end
 
