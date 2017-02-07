@@ -89,13 +89,7 @@ end
 -------------------------------------
 function SkillHealAround:findTarget()
     local world = self.m_owner.m_world
-    local target_formation_mgr = nil
-
-    if self.m_owner.m_bLeftFormation then
-        target_formation_mgr = world.m_leftFormationMgr
-    else
-        target_formation_mgr = world.m_rightFormationMgr
-    end
+    local target_formation_mgr = self.m_owner:getFormationMgr() 
 
     local l_remove = {}
     local l_target = target_formation_mgr:findNearTarget(self.pos.x, self.pos.y, self.m_range, -1, l_remove)

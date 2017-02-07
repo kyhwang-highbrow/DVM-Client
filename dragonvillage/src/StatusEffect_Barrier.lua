@@ -110,7 +110,7 @@ end
 -------------------------------------
 -- function onTrigger
 -------------------------------------
-function StatusEffect_Barrier:onTrigger(t_event, char, damage)
+function StatusEffect_Barrier:onTrigger(t_event, ...)
     self.m_defCount = self.m_defCount - 1
 	
 	if (self.m_defCount <= 0) then
