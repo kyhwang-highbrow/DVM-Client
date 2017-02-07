@@ -4,7 +4,6 @@
 UI = class({
     root = 'cc.Menu'
     , vars = 'table'
-    , parent = 'UI'
     , closed = 'boolean'
     , actions = 'table'           -- 각 노드별 액션 정보를 가짐(type, delay, duration ...)
     , action_duration = 'number'  -- 모든 노드들의 액션 수행 시간(delay + duration)
@@ -40,21 +39,6 @@ function UI:load(url, isPermanent)
 		UILoader.setPermanent(url)
 	end
     return self.vars
-end
-
--------------------------------------
--- function setParent
--------------------------------------
-function UI:setParent(parent)
-    if not isInstanceOf(parent, UI) then
-        error('ui parent is not instance of UI')
-    end
-    if parent.root == nil then
-        error('parent not loaded yet')
-    end
-
-    self.parent = parent
-    self.parent.root:retain()
 end
 
 -------------------------------------

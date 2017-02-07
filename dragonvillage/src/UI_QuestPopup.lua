@@ -114,7 +114,10 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
 
 		-- 퀘스트 팝업 자체를 각 아이템이 가지기 위한 생성 콜백
 		local create_cb_func = function(ui)
-			ui:setParent(self)
+			local function click_rewardBtn()
+				ui:click_rewardBtn(self)
+			end
+			ui.vars['rewardBtn']:registerScriptTapHandler(click_rewardBtn)
 		end
 
         -- 테이블 뷰 인스턴스 생성
