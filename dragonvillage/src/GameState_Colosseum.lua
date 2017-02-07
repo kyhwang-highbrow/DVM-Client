@@ -79,7 +79,7 @@ function GameState_Colosseum.update_start(self, dt)
             ]]--
 
             -- 적군 드래곤 소환
-            self.m_heroTamerAvatar.m_node:resume()
+            self.m_enemyTamerAvatar.m_node:resume()
             --[[
             self.m_enemyTamerAvatar:changeAni('summon', false)
             self.m_enemyTamerAvatar:addAniHandler(function()
