@@ -193,7 +193,7 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
         status_effect = StatusEffect_addAttack(res)
 
 	elseif (status_effect_type == 'passive_spatter') then
-        --status_effect = StatusEffect_Spatter(res)
+        status_effect = StatusEffect_PassiveSpatter(res)
 
 	else
 		status_effect = StatusEffect_Trigger(res)
