@@ -1,0 +1,81 @@
+{
+	"skill_boss_golddragon_5":
+	{
+		"attack_value":
+		[		
+			{
+				"idx":1,
+				"res":"res/missile/missile_gold/missile_gold.png",
+				"virtual":"srart",
+				"body":[0,0,40],
+                "count":10,
+                "scale":0.4,
+                "period":0,
+				"speed":3000,
+				"accel":-2000,
+				"l_limit_speed":800,
+				"accel_delay":0.1,
+				"angular_velocity":10,
+				"offset":[0,0],
+                "dir_array":['random',-40,40],
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_white.png",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_gold/missile_gold.png",
+				"virtual":"srart",
+				"body":[0,0,40],
+                "count":10,
+				"time":0.05,
+                "scale":0.4,
+                "period":0,
+				"speed":3000,
+				"accel":-2000,
+				"l_limit_speed":800,
+				"accel_delay":0.1,
+				"angular_velocity":10,
+				"offset":[0,0],
+                "dir_array":['random',-40,40],
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_white.png",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			},
+			
+			{
+				"idx":1,
+				"res":"res/missile/missile_gold/missile_gold.png",
+				"virtual":"srart",
+				"body":[0,0,40],
+                "count":10,
+				"time":0.1,
+                "scale":0.4,
+                "period":0,
+				"speed":3000,
+				"accel":-2000,
+				"l_limit_speed":800,
+				"accel_delay":0.1,
+				"angular_velocity":10,
+				"offset":[0,0],
+                "dir_array":['random',-40,40],
+				
+                "effect":
+                {
+                    "motion_streak":"res/missile/motion_streak/motion_streak_white.png",
+                    "rotation":false,
+                    "afterimage":false
+                }
+			}
+		]
+	}
+}
