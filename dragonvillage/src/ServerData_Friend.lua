@@ -465,7 +465,14 @@ function ServerData_Friend:updateFriendUser_activeTime(t_friend_info)
     end
 
     -- 마지막 활동에서 지난 시간
-    t_friend_info['last_active_past_time'] = (last_active - server_time)
+    t_friend_info['last_active_past_time'] = (server_time - last_active)
+
+    -- 30분 이내에 활동이 있었을 경우 접속 상태로 처리
+    if t_friend_info['last_active_past_time'] <= (60 * 30) then
+        t_friend_info['is_online'] = true
+    else
+        t_friend_info['is_online'] = false
+    end
 end
 
 -------------------------------------
@@ -473,11 +480,16 @@ end
 -- @brief 최종 접속 시간(지나간 시간 출력)
 -------------------------------------
 function ServerData_Friend:getPastActiveTimeStr(t_friend_info)
+    if t_friend_info['is_online'] then
+        return Str('접속 중')
+    end
+
     local last_active_past_time = t_friend_info['last_active_past_time']
     if (last_active_past_time == -1) then
         return Str('접속정보 없음')
     else
-        return Str('최종접속 : {1} 전', datetime.makeTimeDesc(last_active_past_time))
+        local showSeconds = true
+        return Str('최종접속 : {1} 전', datetime.makeTimeDesc(last_active_past_time, showSeconds))
     end
 end
 
