@@ -48,7 +48,6 @@ function StatusEffect_Trigger:onEvent(event_name, t_event, ...)
 		else
 			if (self.m_stateTimer > self.m_statusEffectInterval) then
 				self.m_stateTimer = self.m_stateTimer - self.m_statusEffectInterval
-				self:onTrigger(t_event, ...)
 				if (self.m_triggerFunc) then
 					self.m_triggerFunc(t_event, ...)
 				end
@@ -104,6 +103,15 @@ function StatusEffect_Trigger:getTriggerFunction()
 		trigger_func = function()
 			local skill_id = t_skill['val_1']
 			char:doSkill(skill_id, nil, nil)
+		end
+
+	elseif (t_skill['type'] == 'passive_linked') then
+		-- 모션 스트릭이 첨가된 힐
+		trigger_func = function()
+			local allyList = char:getFellowList()
+			StatusEffectHelper:doStatusEffectByStr(char, allyList, {t_skill['status_effect_1'], t_skill['status_effect_2']}, function(target)
+				EffectMotionStreak(target.m_world, char.pos.x, char.pos.y, target.pos.x, target.pos.y, 'res/effect/motion_streak/motion_streak_emblem_tree.png')
+			end)
 		end
 
 	elseif (status_effect_type == 'passive_spatter') then 
