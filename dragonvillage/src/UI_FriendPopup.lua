@@ -92,6 +92,8 @@ function UI_FriendPopup:initFrinedPopupTab()
     self:addTab('recommend', vars['recommendBtn'], vars['recommendNode1'], vars['recommendMenu2'])
     self:addTab('request', vars['requestBtn'], vars['requestNode'])
     self:addTab('invite', vars['inviteBtn'], vars['inviteMenu'])
+    self:addTab('support', vars['supportBtn'], vars['supportNode'])
+    
 
     self:setTab('friends')
 end

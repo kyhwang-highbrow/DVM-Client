@@ -394,11 +394,11 @@ function ServerData_Friend:updateFriendUserList_time()
     for i, v in pairs(self.m_lFriendUserList) do
         local t_friend_info = v
 
-        -- 친구 드래곤 사용 시간
-        self:updateFriendUser_usedTime(t_friend_info)
-
         -- 친구 유저 마지막 활동 시간
         self:updateFriendUser_activeTime(t_friend_info)
+
+        -- 친구 드래곤 사용 시간
+        self:updateFriendUser_usedTime(t_friend_info)
     end
 end
 
@@ -437,8 +437,12 @@ function ServerData_Friend:updateFriendUser_usedTime(t_friend_info)
 
     -- 소울메이트
     elseif (friendtype == 3) then
-        cooltime = 0
-
+        if t_friend_info['is_online'] then
+            t_friend_info['enable_use'] = true
+        else
+            t_friend_info['enable_use'] = false
+        end
+        return
     else
         error('friendtype : ' .. friendtype)
     end
@@ -446,6 +450,7 @@ function ServerData_Friend:updateFriendUser_usedTime(t_friend_info)
     -- 다음 사용 가능 시간 저장
     t_friend_info['next_invalid_time'] = used_time + (60 * 60 * cooltime)
     t_friend_info['next_invalid_remain_time'] = (t_friend_info['next_invalid_time'] - server_time)
+    t_friend_info['enable_use'] = (t_friend_info['next_invalid_remain_time'] <= 0)
 end
 
 -------------------------------------
@@ -522,30 +527,84 @@ function ServerData_Friend:sortForFriendDragonSelectList(sort_target_list)
             end
         end)
 
-    -- 사용 가능한 드래곤부터 정렬
+    -- 친구 타입 정렬
     sort_manager:addSortType('time', true, function(a, b, ascending)
             local a_data = a['data']
             local b_data = b['data']
 
-            local can_use_a = (a_data['next_invalid_remain_time'] <= 0)
-            local can_use_b = (b_data['next_invalid_remain_time'] <= 0)
+            if (a_data['next_invalid_remain_time'] ~= b_data['next_invalid_remain_time']) then
+                return a_data['next_invalid_remain_time'] < b_data['next_invalid_remain_time']
+            end
+        end)
+
+    -- 친구 타입 정렬
+    sort_manager:addSortType('type', true, function(a, b, ascending)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            local a_type = a_data['friend_type']
+            local b_type = b_data['friend_type']
+
+            -- 소울메이트만 필터링
+            if (a_type ~= 3) and (b_type ~= 3) then
+                return nil
+            end
+
+            if (a_type ~= b_type) then
+                return a_type > b_type
+            end 
+
+            return nil
+        end)
+
+    -- 사용 가능한 드래곤부터 정렬
+    sort_manager:addSortType('enable', true, function(a, b, ascending)
+            local a_data = a['data']
+            local b_data = b['data']
 
             -- 비교하는 두 대상 중 하나만 사용 가능할 경우
-            if (can_use_a ~= can_use_b) then
-                if can_use_a then
+            if (a_data['enable_use'] ~= b_data['enable_use']) then
+                if a_data['enable_use'] then
                     return true
                 else
                     return false
                 end
-
-            -- 두 대상이 모두 쿨타임인 경우 남은 시간이 적은 순서대로 리턴
-            elseif (can_use_a == false) and (can_use_b == false) then
-                return a_data['next_invalid_remain_time'] < b_data['next_invalid_remain_time']
-
-            -- 두 대상이 모두 사용 가능한 상태이면 다음 정렬로 넘김
             else
                 return nil
             end
+        end)
+
+    sort_manager:sortExecution(sort_target_list)
+end
+
+-------------------------------------
+-- function sortForFriendList
+-- @brief 친구 리스트에서 정렬
+-------------------------------------
+function ServerData_Friend:sortForFriendList(sort_target_list)
+    local sort_manager = SortManager()
+
+    -- 드래곤의 레벨로 정렬
+    sort_manager:addSortType('time', true, function(a, b, ascending)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            return a_data['last_active'] > b_data['last_active']
+        end)
+
+    -- 친구 타입 정렬
+    sort_manager:addSortType('type', true, function(a, b, ascending)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            local a_type = a_data['friend_type']
+            local b_type = b_data['friend_type']
+
+            if (a_type ~= b_type) then
+                return a_type > b_type 
+            end
+
+            return nil
         end)
 
     sort_manager:sortExecution(sort_target_list)

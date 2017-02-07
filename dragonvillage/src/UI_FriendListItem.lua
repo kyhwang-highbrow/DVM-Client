@@ -47,11 +47,11 @@ function UI_FriendListItem:initUI()
             
         -- 베스트프랜드
         elseif (friendtype == 2) then
-            vars['nameLabel']:setString(t_friend_info['nick'] .. Str(' (베프)'))
+            vars['bestfriendSprite']:setVisible(true)
 
         -- 소울메이트
         elseif (friendtype == 3) then
-            vars['nameLabel']:setString(t_friend_info['nick'] .. Str(' (소울메이트)'))
+            vars['soulmateSprite']:setVisible(true)
 
         else
             errro('friendtype : ' .. friendtype)

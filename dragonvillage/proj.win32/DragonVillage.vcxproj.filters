@@ -1536,6 +1536,9 @@
     <None Include="..\src\UI_FriendPopupTabInvite.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_FriendPopupTabSupport.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

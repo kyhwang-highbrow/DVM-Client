@@ -80,12 +80,8 @@ function UI_FriendPopupTabFriends:init_tableView()
     -- 리스트가 비었을 때
     table_view:makeDefaultEmptyDescLabel(Str('친구가 한명도 없어요 T.T'))
 
-    --[[
     -- 정렬
-    local sort_manager = SortManager_Fruit()
-    sort_manager:sortExecution(table_view.m_itemList)
-    table_view:setDirtyItemList()
-    --]]
+    g_friendData:sortForFriendList(table_view.m_itemList)
 
     self.m_tableView = table_view
 end
