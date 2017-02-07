@@ -1512,6 +1512,15 @@
     <None Include="..\src\UI_FriendRecommendUserListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_Mail.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_MailPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_MailListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

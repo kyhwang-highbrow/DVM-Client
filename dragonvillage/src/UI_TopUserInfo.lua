@@ -21,7 +21,7 @@ function UI_TopUserInfo:init()
     vars['exitBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['st_ad_btn']:registerScriptTapHandler(function() self:click_st_ad_btn() end)
     vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
-    vars['mailBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"우편함" 미구현') end)
+    vars['mailBtn']:registerScriptTapHandler(function() self:click_mailBtn() end)
     vars['chatBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"채팅" 미구현') end)
     
 
@@ -86,6 +86,13 @@ end
 -------------------------------------
 function UI_TopUserInfo:click_settingBtn()
     UI_SettingPopup()
+end
+
+-------------------------------------
+-- function click_mailBtn
+-------------------------------------
+function UI_TopUserInfo:click_mailBtn()
+    UI_MailPopup()
 end
 
 -------------------------------------

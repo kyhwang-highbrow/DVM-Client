@@ -585,8 +585,6 @@ function ServerData_Friend:response_friendCommon(ret)
     if ret['friend_info'] then
         self.m_friendSystemStatus = ret['friend_info']
     end
-
-    ccdump(self.m_friendSystemStatus)
 end
 
 

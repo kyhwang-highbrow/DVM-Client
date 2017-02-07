@@ -70,6 +70,9 @@ function ServerData:getInstance()
 	-- 상점 및 가차
     g_shopData = ServerData_Shop(g_serverData)
 
+    -- 우편함
+    g_mailData = ServerData_Mail(g_serverData)
+
     return g_serverData
 end
 
