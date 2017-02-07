@@ -74,8 +74,8 @@ boss_golddragon_acc_01
   offset: 0, 0
   index: -1
 boss_golddragon_acc_02
-  rotate: true
-  xy: 1052, 708
+  rotate: false
+  xy: 1544, 946
   size: 349, 321
   orig: 349, 321
   offset: 0, 0
@@ -92,6 +92,13 @@ boss_golddragon_body_01
   xy: 2, 1059
   size: 1177, 985
   orig: 1177, 985
+  offset: 0, 0
+  index: -1
+boss_golddragon_chest_01
+  rotate: true
+  xy: 1052, 745
+  size: 312, 233
+  orig: 312, 233
   offset: 0, 0
   index: -1
 boss_golddragon_coin_01
@@ -139,6 +146,13 @@ boss_golddragon_fire_hand_02
 boss_golddragon_fire_hand_03
   rotate: false
   xy: 511, 2
+  size: 411, 358
+  orig: 411, 358
+  offset: 0, 0
+  index: -1
+boss_golddragon_jewel_01
+  rotate: false
+  xy: 1546, 1269
   size: 411, 358
   orig: 411, 358
   offset: 0, 0
