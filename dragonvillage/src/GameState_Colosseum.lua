@@ -292,7 +292,7 @@ function GameState_Colosseum:initTamerAvatar()
     self.m_heroTamerAvatar:setPosition(HERO_TAMER_POS_X, TAMER_POS_Y)
     self.m_world:addChildWorld(self.m_heroTamerAvatar.m_node, WORLD_Z_ORDER.TAMER)
 
-    self.m_enemyTamerAvatar = MakeAnimator('res/character/tamer/goni/goni.spine')
+    self.m_enemyTamerAvatar = MakeAnimator('res/character/tamer/dede/dede.spine')
     self.m_enemyTamerAvatar:changeAni('idle', true)
     self.m_enemyTamerAvatar:setPosition(ENEMY_TAMER_POS_X, TAMER_POS_Y)
     self.m_enemyTamerAvatar:setFlip(true)
