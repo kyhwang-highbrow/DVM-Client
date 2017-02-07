@@ -70,16 +70,22 @@ function GameState_Colosseum.update_start(self, dt)
     elseif (self:getStep() == 1) then
         if (self:isBeginningStep()) then
             -- 아군 드래곤 소환
+            self.m_heroTamerAvatar.m_node:resume()
+            --[[
             self.m_heroTamerAvatar:changeAni('summon', false)
             self.m_heroTamerAvatar:addAniHandler(function()
                 self.m_heroTamerAvatar:changeAni('idle', true)
             end)
+            ]]--
 
             -- 적군 드래곤 소환
+            self.m_heroTamerAvatar.m_node:resume()
+            --[[
             self.m_enemyTamerAvatar:changeAni('summon', false)
             self.m_enemyTamerAvatar:addAniHandler(function()
                 self.m_enemyTamerAvatar:changeAni('idle', true)
             end)
+            ]]--
 
         elseif (self:isPassedStepTime(1)) then
             self:appearHero()
@@ -288,15 +294,17 @@ end
 function GameState_Colosseum:initTamerAvatar()
     -- TODO: 유저의 테이머 정보로 설정되어야함
     self.m_heroTamerAvatar = MakeAnimator('res/character/tamer/goni/goni.spine')
-    self.m_heroTamerAvatar:changeAni('idle', true)
+    self.m_heroTamerAvatar:changeAni('summon', false)
     self.m_heroTamerAvatar:setPosition(HERO_TAMER_POS_X, TAMER_POS_Y)
     self.m_world:addChildWorld(self.m_heroTamerAvatar.m_node, WORLD_Z_ORDER.TAMER)
+    self.m_heroTamerAvatar.m_node:pause()
 
     self.m_enemyTamerAvatar = MakeAnimator('res/character/tamer/dede/dede.spine')
-    self.m_enemyTamerAvatar:changeAni('idle', true)
+    self.m_enemyTamerAvatar:changeAni('summon', false)
     self.m_enemyTamerAvatar:setPosition(ENEMY_TAMER_POS_X, TAMER_POS_Y)
     self.m_enemyTamerAvatar:setFlip(true)
     self.m_world:addChildWorld(self.m_enemyTamerAvatar.m_node, WORLD_Z_ORDER.TAMER)
+    self.m_enemyTamerAvatar.m_node:pause()
 end
 
 -------------------------------------
