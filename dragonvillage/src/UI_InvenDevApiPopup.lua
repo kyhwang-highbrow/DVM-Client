@@ -469,12 +469,12 @@ function UI_InvenDevApiPopup:getRuneItemList()
         end
 
         -- 색상 정렬
-        if (a['attr'] ~= b['attr']) then
-            return a['attr'] < b['attr']
+        if (a['color'] ~= b['color']) then
+            return a['color'] < b['color']
         end
 
         -- 등급 정렬
-        return a['rarity'] < b['rarity']
+        return a['grade'] < b['grade']
     end)
 
     -- item_id만 들어가는 리스트 생성

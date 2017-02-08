@@ -97,10 +97,15 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
     -- 타입별 아이콘 별도 처리
     local item_type = t_item['type']
 
+    -- 아이콘 리소스가 지정되어 있을 경우
+    if t_item['icon'] and (t_item['icon'] ~= '') then
+        sprite = cc.Sprite:create(t_item['icon'])
+        cclog(t_item['icon'])
+
     -- 드래곤 아이콘 생성
-    if (item_type == 'dragon') then
-        local dragon_id = t_item['val_1']
-        local evolution = t_item['rarity']
+    elseif (item_type == 'dragon') then
+        local dragon_id = t_item['did']
+        local evolution = t_item['evolution']
         local grade = 1
         local eclv = 0
         sprite = IconHelper:getDragonIconFromDid(dragon_id, evolution, grade, eclv)
@@ -108,9 +113,9 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
     -- 룬 아이콘 생성
     elseif (item_type == 'rune') then
         local rune_type = t_item['full_type']
-        local rune_grade = t_item['rarity']
+        local rune_grade = t_item['grade']
         local rune_alphabet_index = t_sub_data and t_sub_data['alphabet_idx'] or nil
-        local rune_color = t_item['attr']
+        local rune_color = t_item['color']
         local lv = t_sub_data and t_sub_data['lv'] or nil
         sprite = IconHelper:getRuneIcon(rune_type, rune_alphabet_index, rune_grade, rune_color, lv)
 

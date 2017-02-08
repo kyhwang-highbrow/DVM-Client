@@ -78,8 +78,8 @@ function UI_ItemCard:init_dragonItem(t_item, t_sub_data)
     local item_id = self.m_itemID
 
     local t_dragon_data = {}
-    t_dragon_data['did'] = t_item['val_1']
-    t_dragon_data['evolution'] = t_item['rarity']
+    t_dragon_data['did'] = t_item['did']
+    t_dragon_data['evolution'] = t_item['evolution']
     t_dragon_data['grade'] = 1
     t_dragon_data['skill_0'] = 1
     t_dragon_data['skill_1'] = 1
@@ -106,22 +106,6 @@ function UI_ItemCard:init_runeItem(t_item, t_sub_data)
     vars['numberLabel']:setVisible(false)
 
     self.m_itemName = (t_sub_data and t_sub_data['full_name'] or nil)
-
-    --[[
-    if (not count) or (count == 0) then
-        vars['numberLabel']:setString('')
-    else
-        vars['numberLabel']:setString(Str('X{1}', comma_value(count)))
-    end
-
-    vars['disableSprite']:setVisible(false)
-
-    -- 레어도 표시
-    local table_item = TABLE:get('item')
-    local t_item = table_item[item_id]
-    local rarity_str = evolutionStoneRarityNumToStr(t_item['rarity'])
-    vars['rarityVisual']:setVisual('group', rarity_str)
-    --]]
 end
 
 -------------------------------------

@@ -160,24 +160,24 @@ function UI_AdventureFirstRewardPopup:dropItem_networkSetRequest(ui_network, ite
     local t_item = table_item[item_id]
 
     local type = t_item['type']
-    local val_1 = t_item['val_1']
+    local item_count = t_item['count']
     local uid = g_userData:get('uid')
 
     if (type == 'gold') then
         ui_network:setUrl('/users/update')
         ui_network:setParam('uid', uid)
         ui_network:setParam('act', 'increase')
-        ui_network:setParam('gold', (count * val_1))
+        ui_network:setParam('gold', (count * item_count))
 
     elseif (type == 'cash') then
         ui_network:setUrl('/users/update')
         ui_network:setParam('uid', uid)
         ui_network:setParam('act', 'increase')
-        ui_network:setParam('cash', (count * val_1))
+        ui_network:setParam('cash', (count * item_count))
 
     elseif (type == 'dragon') then
-        local did = t_item['val_1']
-        local evolution = t_item['rarity']
+        local did = t_item['did']
+        local evolution = t_item['evolution']
         ui_network:setUrl('/dragons/add')
         ui_network:setParam('uid', uid)
         ui_network:setParam('did', did)
@@ -189,7 +189,7 @@ function UI_AdventureFirstRewardPopup:dropItem_networkSetRequest(ui_network, ite
         ui_network:setParam('uid', uid)
         ui_network:setParam('act', 'increase')
         ui_network:setParam('key', 'fruits')
-        ui_network:setParam('value', tostring(fruit_id) .. ',' .. (count * val_1))
+        ui_network:setParam('value', tostring(fruit_id) .. ',' .. (count * item_count))
 
     elseif (type == 'evolution_stone') then
         local evolution_stone_id = t_item['item']
@@ -197,7 +197,7 @@ function UI_AdventureFirstRewardPopup:dropItem_networkSetRequest(ui_network, ite
         ui_network:setParam('uid', uid)
         ui_network:setParam('act', 'increase')
         ui_network:setParam('key', 'evolution_stones')
-        ui_network:setParam('value', tostring(evolution_stone_id) .. ',' .. (count * val_1))
+        ui_network:setParam('value', tostring(evolution_stone_id) .. ',' .. (count * item_count))
 
     elseif (type == 'rune') then
         local rune_id = t_item['item']

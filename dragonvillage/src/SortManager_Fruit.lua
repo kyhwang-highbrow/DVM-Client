@@ -6,6 +6,7 @@ local PARENT = SortManager
 -------------------------------------
 SortManager_Fruit = class(PARENT, {
         m_tableItem = 'TableItem',
+        m_mAttrSortLevel = 'map',
     })
 
 -------------------------------------
@@ -14,7 +15,19 @@ SortManager_Fruit = class(PARENT, {
 function SortManager_Fruit:init()
     self.m_tableItem = TableItem()
 
-    self:addSortType('rarity', false, function(a, b, ascending) return self:sort_rarity(a, b, ascending) end)
+    -- 속성별 정렬 레벨
+    self.m_mAttrSortLevel = {}
+    self.m_mAttrSortLevel[''] = -2
+    self.m_mAttrSortLevel['display'] = -1
+    self.m_mAttrSortLevel['reset'] = 0
+    self.m_mAttrSortLevel['dark'] = 1
+    self.m_mAttrSortLevel['light'] = 2
+    self.m_mAttrSortLevel['earth'] = 3
+    self.m_mAttrSortLevel['water'] = 4
+    self.m_mAttrSortLevel['fire'] = 5
+    self.m_mAttrSortLevel['global'] = 6
+
+    self:addSortType('grade', false, function(a, b, ascending) return self:sort_grade(a, b, ascending) end)
     self:addSortType('attr', false, function(a, b, ascending) return self:sort_attr(a, b, ascending) end)
     self:setDefaultSortFunc(function(a, b, ascending) return self:sort_fid(a, b, ascending) end)
 end
@@ -22,7 +35,7 @@ end
 
 -------------------------------------
 -- function sort_attr
--- @brief 속성으로 정렬
+-- @brief 속성
 -------------------------------------
 function SortManager_Fruit:sort_attr(a, b, ascending)
     local a_data = a['data']
@@ -31,40 +44,47 @@ function SortManager_Fruit:sort_attr(a, b, ascending)
     local a_item = self.m_tableItem:get(a_data['fid'])
     local b_item = self.m_tableItem:get(b_data['fid'])
 
-    -- 속성
-    if (a_item['attr'] == b_item['attr']) then
+    local a_value = a_item['attr']
+    local b_value = b_item['attr']
+
+    a_value = self.m_mAttrSortLevel[a_value]
+    b_value = self.m_mAttrSortLevel[b_value]
+
+    if (a_value == b_value) then
         return nil
     end
 
     -- 오름차순 or 내림차순
     if ascending then
-        return a_item['attr'] < b_item['attr']
+        return a_value < b_value
     else
-        return a_item['attr'] > b_item['attr']
+        return a_value > b_value
     end
 end
 
 -------------------------------------
--- function sort_rarity
--- @brief 등급으로 정렬
+-- function sort_grade
+-- @brief 등급
 -------------------------------------
-function SortManager_Fruit:sort_rarity(a, b, ascending)
+function SortManager_Fruit:sort_grade(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
     local a_item = self.m_tableItem:get(a_data['fid'])
     local b_item = self.m_tableItem:get(b_data['fid'])
 
-    -- 등급
-    if (a_item['rarity'] == b_item['rarity']) then
+    local a_value = a_item['grade']
+    local b_value = b_item['grade']
+
+    if (a_value == b_value) then
         return nil
     end
 
     -- 오름차순 or 내림차순
     if ascending then
-        return a_item['rarity'] < b_item['rarity']
+        return a_value < b_value
     else
-        return a_item['rarity'] > b_item['rarity']
+        return a_value > b_value
     end
 end
 

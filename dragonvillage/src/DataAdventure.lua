@@ -580,18 +580,6 @@ function DataAdventure:optainFirstReward(stage_id)
     local table_first_reward = TABLE:get('first_reward')
     local t_first_reward = table_first_reward[stage_id]
 
-    -- 보상 지급
-    --[[
-    for i=1, 10 do
-        local item_id = t_first_reward['reward_' .. i] or 0
-        local item_cnt = t_first_reward['value_' .. i] or 0
-
-        if (item_id ~= 0) then
-            g_userDataOld:optainItem(item_id, item_cnt)
-        end
-    end
-    --]]
-
     -- 최초 클리어 보상 완료 처리
     local t_stage_data = self:getStageData(stage_id)
     t_stage_data['first_reward'] = self:fristRewardStateStrToNum('finish')
