@@ -403,8 +403,12 @@ function ServerData_Friend:updateFriendUser_usedTime(t_friend_info)
     local server_time = Timer:getServerTime()
 
     -- 소울메이트가 접속 중이면 사용 가능
-    if (t_friend_info['friendtype'] == 3) and (t_friend_info['is_online'] == true) then
-        t_friend_info['enable_use'] = true
+    if (t_friend_info['friendtype'] == 3) then
+        if (t_friend_info['is_online'] == true) then
+            t_friend_info['enable_use'] = true
+        else
+            t_friend_info['enable_use'] = false
+        end        
         return
     end
 
@@ -478,7 +482,9 @@ function ServerData_Friend:getDragonUseCoolStr(t_friend_info)
         local cool_time = (t_friend_info['cool_time'] / 1000)
         local server_time = Timer:getServerTime()
         
-        if (server_time < cool_time) then
+        if (cool_time == 0) then
+            return '미사용'
+        elseif (server_time < cool_time) then
             local gap = (cool_time - server_time)
             local showSeconds = true
             local firstOnly = false
@@ -525,34 +531,19 @@ function ServerData_Friend:sortForFriendDragonSelectList(sort_target_list)
             end
         end)
 
-    -- 친구 타입 정렬
+    -- 시간
     sort_manager:addSortType('time', true, function(a, b, ascending)
             local a_data = a['data']
             local b_data = b['data']
 
-            if (a_data['next_invalid_remain_time'] ~= b_data['next_invalid_remain_time']) then
-                return a_data['next_invalid_remain_time'] < b_data['next_invalid_remain_time']
-            end
-        end)
+            local a_value = a_data['cool_time']
+            local b_value = b_data['cool_time']
 
-    -- 친구 타입 정렬
-    sort_manager:addSortType('type', true, function(a, b, ascending)
-            local a_data = a['data']
-            local b_data = b['data']
-
-            local a_type = a_data['friendtype']
-            local b_type = b_data['friendtype']
-
-            -- 소울메이트만 필터링
-            if (a_type ~= 3) and (b_type ~= 3) then
+            if (a_value == b_value) then
                 return nil
             end
 
-            if (a_type ~= b_type) then
-                return a_type > b_type
-            end 
-
-            return nil
+            return a_value < b_value
         end)
 
     -- 사용 가능한 드래곤부터 정렬
@@ -570,6 +561,21 @@ function ServerData_Friend:sortForFriendDragonSelectList(sort_target_list)
             else
                 return nil
             end
+        end)
+
+    -- 친구 타입 정렬
+    sort_manager:addSortType('type', true, function(a, b, ascending)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            local a_value = a_data['friendtype']
+            local b_value = b_data['friendtype']
+
+            if (a_value == b_value) then
+                return nil
+            end
+           
+            return a_value > b_value
         end)
 
     sort_manager:sortExecution(sort_target_list)
