@@ -431,7 +431,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 	t_event['attacker'] = attacker.m_activityCarrier.m_activityCarrierOwner
 	t_event['defender'] = self
 	t_event['is_critical'] = critical
-	cclog('pre damage ' .. damage)
+	
 	-- 방어와 관련된 이벤트 처리후 데미지 계산
 	do	
 		-- 방어 이벤트 (에너지실드)
@@ -448,14 +448,14 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 			return
 		end
 	end
-	cclog('2nd damage ' .. damage)
+	
 	-- linked 효과 관련 이벤트 처리
 	do
 		self:dispatch('undergo_attack_linked_owner', t_event)
 		self:dispatch('undergo_attack_linked_target', t_event)
 		damage = t_event['damage']
 	end
-	cclog('3rd damage ' .. damage)
+	
     -- 스킬 공격으로 피격되였다면 캐스팅 중이던 스킬을 취소시킴
     local attackType = attacker.m_activityCarrier:getAttackType()
     if (attackType ~= 'basic' and attackType ~= 'fever') then
