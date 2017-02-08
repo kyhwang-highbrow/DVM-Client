@@ -14,32 +14,34 @@ function TableItem:init()
     self.m_orgTable = TABLE:get(self.m_tableName)
 end
 
+-- item테이블의 단순 재화의 item_id 맵
+local ITEM_ID_MAP = {}
+ITEM_ID_MAP['cash']         = 700001
+ITEM_ID_MAP['gold']         = 700002
+ITEM_ID_MAP['fp']           = 700003
+ITEM_ID_MAP['lactea']       = 700004
+ITEM_ID_MAP['honor']        = 700005
+ITEM_ID_MAP['badge']        = 700006
+ITEM_ID_MAP['staminas_st']  = 700101
+ITEM_ID_MAP['staminas_pvp'] = 700102
+
+
+-------------------------------------
+-- function getItemIDFromItemType
+-- @brief item_id를 문자열로 입력된 경우 치환해주는 함수
+-------------------------------------
+function TableItem:getItemIDFromItemType(item_type)
+    local item_id = ITEM_ID_MAP[item_type]
+    return item_id
+end
+
 -------------------------------------
 -- function getRewardItem
 -- @brief 보상용 아이템 ID를 찾는다
 -------------------------------------
 function TableItem:getRewardItem(reward_type)
-
-    local item_id = nil
-
     -- 단순 재화의 id가 지정된 경우
-    if (reward_type == 'cash') then
-        item_id = 700001
-    elseif (reward_type == 'gold') then
-        item_id = 700002
-    elseif (reward_type == 'fp') then
-        item_id = 700003
-    elseif (reward_type == 'lactea') then
-        item_id = 700004
-    elseif (reward_type == 'honor') then
-        item_id = 700005
-    elseif (reward_type == 'badge') then
-        item_id = 700006
-    elseif (reward_type == 'staminas_st') then
-        item_id = 700101
-    elseif (reward_type == 'staminas_pvp') then
-        item_id = 700102
-    end
+    local item_id = self:getItemIDFromItemType(reward_type)
 
     -- 아이템 정보가 유효한 경우(타입 체크)
     if item_id then

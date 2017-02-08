@@ -100,7 +100,6 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
     -- 아이콘 리소스가 지정되어 있을 경우
     if t_item['icon'] and (t_item['icon'] ~= '') then
         sprite = cc.Sprite:create(t_item['icon'])
-        cclog(t_item['icon'])
 
     -- 드래곤 아이콘 생성
     elseif (item_type == 'dragon') then

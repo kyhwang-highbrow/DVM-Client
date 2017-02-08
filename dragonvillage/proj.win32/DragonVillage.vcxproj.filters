@@ -1548,6 +1548,9 @@
     <None Include="..\src\Monster_GoldDragon.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\ServerData_Item.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

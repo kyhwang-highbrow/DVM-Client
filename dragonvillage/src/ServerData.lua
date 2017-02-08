@@ -76,6 +76,9 @@ function ServerData:getInstance()
     -- 우편함
     g_mailData = ServerData_Mail(g_serverData)
 
+    -- 아이템
+    g_itemData = ServerData_Item(g_serverData)
+
     return g_serverData
 end
 

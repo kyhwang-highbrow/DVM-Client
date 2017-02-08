@@ -71,6 +71,7 @@ local t_module = {
     'ServerData_Friend',
 	'ServerData_Shop',
     'ServerData_Mail',
+    'ServerData_Item',
     'UserData',
     'DropHelper',
     'DragonAutoSetHelper',
