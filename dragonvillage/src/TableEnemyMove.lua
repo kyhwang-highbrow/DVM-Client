@@ -15,15 +15,6 @@ function TableEnemyMove:init()
 end
 
 -------------------------------------
--- function getMoveTime
--------------------------------------
-function TableEnemyMove:getMoveTime(type)
-    local t_move = self.m_orgTable[type]
-
-    return t_move['delay']    
-end
-
--------------------------------------
 -- function getMovePosKey
 -------------------------------------
 function TableEnemyMove:getMovePosKey(type, idx)

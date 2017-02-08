@@ -1,5 +1,3 @@
-local ENEMY_MOVEMENT_START_DELAY_TIME = 2
-
 -------------------------------------
 -- class EnemyMovement
 -------------------------------------
@@ -24,7 +22,7 @@ EnemyMovement = class({
         self.m_tPattern = t_pattern
 
         self.m_curIdx = 1
-        self.m_remainTime = ENEMY_MOVEMENT_START_DELAY_TIME
+        self.m_remainTime = 0
         
         self.m_lEnemyList = {}
         self.m_mEnemyList = {}
@@ -83,14 +81,18 @@ EnemyMovement = class({
             self.m_curIdx = 1
         end
 
-        local type = self.m_tPattern[self.m_curIdx]
-        local time = TableEnemyMove():getMoveTime(type)
-
+        -- 패턴 정보 예("wait:0", "move_1:2", "move_2:1")
+        local data = seperate(self.m_tPattern[self.m_curIdx], ';')
+        local type = data[1]
+        local time = tonumber(data[2]) or 1
+        
         for i, enemy in pairs(self.m_mEnemyList) do
             local key = TableEnemyMove():getMovePosKey(type, i)
-            local pos = getWorldEnemyPos(enemy, key)
+            if (key) then
+                local pos = getWorldEnemyPos(enemy, key)
 
-            enemy:changeHomePosByTime(pos.x, pos.y, time)
+                enemy:changeHomePosByTime(pos.x, pos.y, time)
+            end
         end
 
         self.m_remainTime = time
