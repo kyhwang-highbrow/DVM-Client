@@ -150,7 +150,6 @@ function ServerData_Friend:request_friendList(finish_cb, force)
 
         self.m_lFriendUserList = {}
         for i,v in pairs(ret['friends_list']) do
-            self:makeNextShareTime(v)
             local uid = v['uid']
             self.m_lFriendUserList[uid] = v
         end
@@ -168,22 +167,6 @@ function ServerData_Friend:request_friendList(finish_cb, force)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
-end
-
--------------------------------------
--- function makeNextShareTime
--- @brief
--------------------------------------
-function ServerData_Friend:makeNextShareTime(t_friend_info)
-    local used_time = t_friend_info['used_time']
-    local server_time = Timer:getServerTime()
-
-    if (used_time == 0) then
-        t_friend_info['next_invalid_time'] = server_time
-    else
-        t_friend_info['next_invalid_time'] = (used_time / 1000) + (60 * 60 * 12)
-    end
-
 end
 
 -------------------------------------
@@ -414,52 +397,24 @@ end
 -------------------------------------
 -- function updateFriendUser_usedTime
 -- @brief 친구 드래곤 사용 시간 업데이트
--- t_friend_info['used_time'] 친구 드래곤을 사용한 시간 타임스탬프
--- t_friend_info['next_invalid_time'] 친구 드래곤을 사용 가능한 다음 시간
--- t_friend_info['next_invalid_remain_time'] 친구 드래곤을 사용 가능한 다음 시간까지 남은 시간
+-- t_friend_info['cool_time'] 친구 드래곤을 사용 가능한 시점 (타임스템프)
 -------------------------------------
 function ServerData_Friend:updateFriendUser_usedTime(t_friend_info)
     local server_time = Timer:getServerTime()
 
-    -- 사용 시간을 millisecond에서 second로 변경
-    local used_time = (t_friend_info['used_time'] / 1000)
-
-    -- 사용 시간이 0일 경우 사용하지 않음
-    if (used_time == 0) then
-        t_friend_info['next_invalid_time'] = server_time
-        t_friend_info['next_invalid_remain_time'] = 0
+    -- 소울메이트가 접속 중이면 사용 가능
+    if (t_friend_info['friendtype'] == 3) and (t_friend_info['is_online'] == true) then
+        t_friend_info['enable_use'] = true
         return
     end
 
-    local friendtype = t_friend_info['friendtype']
-
-    -- 쿨타임 (단위 : 시간)
-    local cooltime = 0
-
-    -- 일반 친구
-    if (friendtype == 1) then
-        cooltime = 12 -- 12시간
-
-    -- 베스트 프렌드
-    elseif (friendtype == 2) then
-        cooltime = 6 -- 6시간
-
-    -- 소울메이트
-    elseif (friendtype == 3) then
-        if t_friend_info['is_online'] then
-            t_friend_info['enable_use'] = true
-        else
-            t_friend_info['enable_use'] = false
-        end
-        return
+    -- 쿨타임 체크 후 사용 가능 여부표시
+    local cool_time = (t_friend_info['cool_time'] / 1000)
+    if (cool_time == 0) or (cool_time <= server_time) then
+        t_friend_info['enable_use'] = true
     else
-        error('friendtype : ' .. friendtype)
+        t_friend_info['enable_use'] = false
     end
-
-    -- 다음 사용 가능 시간 저장
-    t_friend_info['next_invalid_time'] = used_time + (60 * 60 * cooltime)
-    t_friend_info['next_invalid_remain_time'] = (t_friend_info['next_invalid_time'] - server_time)
-    t_friend_info['enable_use'] = (t_friend_info['next_invalid_remain_time'] <= 0)
 end
 
 -------------------------------------
@@ -504,6 +459,40 @@ function ServerData_Friend:getPastActiveTimeStr(t_friend_info)
     else
         local showSeconds = true
         return Str('최종접속 : {1} 전', datetime.makeTimeDesc(last_active_past_time, showSeconds))
+    end
+end
+
+-------------------------------------
+-- function getDragonUseCoolStr
+-- @brief 드래곤 사용 시간
+-------------------------------------
+function ServerData_Friend:getDragonUseCoolStr(t_friend_info)
+    -- 소울메이트의 경우
+    if (t_friend_info['friendtype'] == 3) then
+        if t_friend_info['is_online'] then
+            return Str('접속 중')
+        else
+            return Str('비접속 (접속 유지 시 사용 가능)')
+        end
+    else
+        local cool_time = (t_friend_info['cool_time'] / 1000)
+        local server_time = Timer:getServerTime()
+        
+        if (server_time < cool_time) then
+            local gap = (cool_time - server_time)
+            local showSeconds = true
+            local firstOnly = false
+            local text = datetime.makeTimeDesc(gap, showSeconds, firstOnly)
+            local str = Str('{1} 후 사용 가능', text)
+            return str
+        else
+            local gap = (server_time - cool_time)
+            local showSeconds = true
+            local firstOnly = false
+            local text = datetime.makeTimeDesc(gap, showSeconds, firstOnly)
+            local str = Str('{1} 전에 사용함', text)
+            return str
+        end
     end
 end
 

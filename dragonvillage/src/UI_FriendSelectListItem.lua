@@ -35,24 +35,12 @@ function UI_FriendSelectListItem:initUI()
     vars['nameLabel']:setString(t_friend_info['nick'])
     vars['levelLabel']:setString(Str('Lv. {1}', t_friend_info['lv']))
 
-    do-- 시간
-        local next_invalid_time = t_friend_info['next_invalid_time']
-        local server_time = Timer:getServerTime()
-        
-        if (server_time < next_invalid_time) then
-            vars['selectBtn']:setVisible(false)
+    local time_str = g_friendData:getDragonUseCoolStr(t_friend_info)
+    vars['timeLabel']:setString(time_str)
 
-            local gap = (next_invalid_time - server_time)
-            local showSeconds = true
-            local firstOnly = false
-            local text = datetime.makeTimeDesc(gap, showSeconds, firstOnly)
-            local msg = Str('{1} 후 사용 가능', text)
-            vars['timeLabel']:setString(msg)
-
-            -- 비활성화
-            vars['disableSprite']:setVisible(true)
-        end
-    end
+    -- 비활성화 여부
+    vars['disableSprite']:setVisible(not t_friend_info['enable_use'])
+    vars['selectBtn']:setVisible(t_friend_info['enable_use'])
 
     do-- 타입별 차별화
         local friendtype = t_friend_info['friendtype']
