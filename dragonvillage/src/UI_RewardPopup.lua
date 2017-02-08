@@ -10,7 +10,7 @@ UI_RewardPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_RewardPopup:init(l_tReward, ok_btn_cb)
+function UI_RewardPopup:init(l_tReward)
     self.m_lRewardTable = l_tReward
 
     local vars = self:load('popup_toast.ui')

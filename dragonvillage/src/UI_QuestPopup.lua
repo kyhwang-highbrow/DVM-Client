@@ -58,7 +58,7 @@ function UI_QuestPopup:initTab()
 	self:addTab(TableQuest.NEWBIE, vars['newbieBtn'], vars['newbieListNode'])
     self:setTab(TableQuest.CHALLENGE)
 
-	self:setChangeTabCB(function(tab, first) self:onChangeQuestTab(tab, first) end)
+	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 end
 
 -------------------------------------
@@ -73,14 +73,14 @@ end
 function UI_QuestPopup:refresh()
 	-- 받을수 있는 보상이 있는지 검사하여 UI에 표시
 	self:setNotiRewardable()
-	-- @TODO 현재 테이블뷰를 다시 만든다.
-	self:onChangeTab(self.m_currTab, 'force')
+	-- 별도 퀘스트 UI는 직접 갱신
+	self:setAllClearListItem(self.m_currTab)
 end
 
 -------------------------------------
--- function onChangeQuestTab
+-- function onChangeTab
 -------------------------------------
-function UI_QuestPopup:onChangeQuestTab(tab, first)
+function UI_QuestPopup:onChangeTab(tab, first)
 	local vars = self.vars
 	local node = vars[tab .. 'ListNode']
 	

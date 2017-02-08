@@ -80,7 +80,11 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_QuestListItem:refresh()
+function UI_QuestListItem:refresh(t_data)
+	if (t_data) then
+		self:setQuestData(t_data)
+	end
+
 	self:setVarsVisible()
 	self:setQuestDescLabel()
 	self:setRewardCard()
@@ -176,17 +180,16 @@ end
 -------------------------------------
 function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
 	local qid = self.m_questData['qid']
-
-	local cb_refresh = function()
-		self:refresh()
-		ui_quest_popup:refresh()
-		g_topUserInfo:refreshData()
-	end
-
-	local cb_function = function()
+	local cb_function = function(t_quest_data)
+		-- 보상 수령 팝업
 		local t_reward = clone(self.m_questData['t_reward'])
 		t_reward['reward_cnt'] = self.m_rewardCount
-		UI_RewardPopup(t_reward, cb_refresh)
+		UI_RewardPopup(t_reward)
+		
+		-- 갱신
+		self:refresh(t_quest_data)
+		ui_quest_popup:refresh()
+		g_topUserInfo:refreshData()
 	end
 
 	g_questData:requestQuestReward(qid, cb_function)

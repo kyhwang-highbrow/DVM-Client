@@ -273,13 +273,14 @@ function ServerData_Quest:requestQuestReward(qid, cb_func)
 			isDirtyData = true
 		end
 		
-		-- 퀘스트 정보 테이블 새로 만듬 -> 추후에는 갱신할수 있도록....
+		-- @TODO 퀘스트 정보 테이블 새로 만듬 -> 추후에는 갱신할수 있도록....
 		if (isDirtyData) then 
 			self:makeQuestFullData()
 		end
 
         if (cb_func) then
-            cb_func()
+			local t_quest_data = self:getQuest(qid)
+            cb_func(t_quest_data)
         end
     end
 
