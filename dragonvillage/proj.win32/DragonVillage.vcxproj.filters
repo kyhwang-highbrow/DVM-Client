@@ -1554,6 +1554,9 @@
     <None Include="..\src\ServerData_Item.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\StatusEffect_AttributeChange.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

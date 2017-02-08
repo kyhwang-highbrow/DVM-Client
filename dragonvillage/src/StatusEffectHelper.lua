@@ -263,6 +263,11 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	elseif (status_effect_type == 'silence') then
 		status_effect = StatusEffect_Silence(res)
 		status_effect:init_status(char)
+	
+	----------- 속성 변경 ------------------
+	elseif (status_effect_type == 'attr_change') then
+		status_effect = StatusEffect_AttributeChange(res)
+		status_effect:init_statusEffect(char)
 
     else
         status_effect = StatusEffect(res)

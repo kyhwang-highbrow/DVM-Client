@@ -80,9 +80,13 @@ end
 -------------------------------------
 function StatusEffect.st_start(owner, dt)
     if (owner.m_stateTimer == 0) then
-        owner:statusEffectApply()
-
-        -- 에니메이션이 0프레임일 경우 즉시 상태를 변경
+        -- status effect 적용
+		owner:statusEffectApply()
+		
+		-- status effect 시작 된 후에 부가적인 효과 설정
+		owner:onStart_StatusEffect()
+        
+		-- 에니메이션이 0프레임일 경우 즉시 상태를 변경
         local duration = owner.m_animator:getDuration()
         if (duration == 0) then
             owner:changeState('idle')
@@ -101,15 +105,32 @@ function StatusEffect.st_idle(owner, dt)
 end
 
 -------------------------------------
--- function st_end
+-- function st_end 
 -------------------------------------
 function StatusEffect.st_end(owner, dt)
     if (owner.m_stateTimer == 0) then
-        owner:statusEffectReset()
+		-- onstart 에서 설정한 부가 효과 해제
+		owner:onEnd_StatusEffect()
+		
+		-- status effect 해제
+		owner:statusEffectReset()
+		
 		owner:addAniHandler(function()
 			owner:changeState('dying')
 		end)
     end
+end
+
+-------------------------------------
+-- function onStart_StatusEffect
+-------------------------------------
+function StatusEffect:onStart_StatusEffect()
+end
+
+-------------------------------------
+-- function onEnd_StatusEffect
+-------------------------------------
+function StatusEffect:onEnd_StatusEffect()
 end
 
 -------------------------------------

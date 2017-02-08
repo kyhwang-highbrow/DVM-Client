@@ -1373,6 +1373,26 @@ function Character:getAttribute()
 end
 
 -------------------------------------
+-- function changeAttribute
+-------------------------------------
+function Character:changeAttribute(tar_attr)
+	-- 대상 속성을 지정하면 그 속성으로 변경한다.
+	if (tar_attr) then
+		-- 원래의 속성을 테이블로.. 저장 (위험한거 같으니 구조를 추후 다시 생각)
+		if (not self.m_charTable['attr_org']) then
+			self.m_charTable['attr_org'] = clone(self.m_charTable['attr'])
+		end
+		self.m_charTable['attr'] = tar_attr
+
+	-- 대상 속성을 지정하지 않는다면 원 속성으로 바꾼다.
+	else
+		if (self.m_charTable['attr_org']) then 
+			self.m_charTable['attr'] = self.m_charTable['attr_org']
+		end
+	end
+end
+
+-------------------------------------
 -- function getCharType
 -- @return 'dragon' or 'enemy'
 -------------------------------------

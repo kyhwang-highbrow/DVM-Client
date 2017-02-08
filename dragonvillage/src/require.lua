@@ -255,7 +255,8 @@ local t_module = {
     'StatusEffect_Protection',
 	'StatusEffect_Resist',
 	'StatusEffect_Silence',
-	
+	'StatusEffect_AttributeChange',
+
 	'StatusEffectIcon',
 
 	-- EFFECT
