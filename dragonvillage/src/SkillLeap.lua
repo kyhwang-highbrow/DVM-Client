@@ -212,7 +212,7 @@ end
 function SkillLeap:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-    local missile_res = nil --string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
+    local missile_res = nil --string.gsub(t_skill['res_1'], '@', owner:getAttribute())
 	local jump_res = nil -- t_skill['res_2']
     local range = 10 -- t_skill['val_1']
 

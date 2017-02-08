@@ -35,7 +35,7 @@ function Monster_GiantDragon.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
         -- 브레스 스킬 사용시 차지 이펙트
         if (owner.m_animator.m_currAnimation == 'skill_3') then
-            local attr = owner.m_charTable['attr']
+            local attr = owner:getAttribute()
             --local res = string.format('res/effect/effect_breath_charge/effect_breath_charge_%s.vrp', attr)
             local res = string.format('res/effect/effect_breath_charge/effect_breath_charge_fire.vrp')
             local animator = MakeAnimator(res)

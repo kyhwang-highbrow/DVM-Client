@@ -26,7 +26,7 @@ function UI_IngameDragonInfo:initUI()
         vars['levelLabel']:setString('')
     end
 
-    local attr_str = hero.m_charTable['attr']
+    local attr_str = hero:getAttribute()
     local res = 'res/ui/icon/attr/attr_' .. attr_str .. '.png'
     local icon = cc.Sprite:create(res)
     if icon then

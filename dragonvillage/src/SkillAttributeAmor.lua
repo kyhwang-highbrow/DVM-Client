@@ -32,7 +32,7 @@ function SkillAttributeAmor:init_skill(owner, res, x, y, t_skill, t_data)
     self.m_owner = owner
 
     self.m_missileRes = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
-    self.m_motionStreakRes = string.gsub(t_skill['res_2'], '@', owner.m_charTable['attr'])
+    self.m_motionStreakRes = string.gsub(t_skill['res_2'], '@', owner:getAttribute())
     self.m_targetCount = t_skill['hit']
     self.m_duration = t_skill['val_1']
 	self.m_triggerName = 'undergo_attack'

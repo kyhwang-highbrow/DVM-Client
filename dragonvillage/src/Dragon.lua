@@ -110,7 +110,7 @@ function Dragon:doAttack(x, y)
     PARENT.doAttack(self, x, y)
 
     -- 원거리 기본 공격에만 이펙트를 추가
-    local attr = self.m_charTable['attr']
+    local attr = self:getAttribute()
     local table_skill = TABLE:get('dragon_skill')
     local t_skill = table_skill[basic_skill_id] or {}
     local type = t_skill['type']
@@ -156,7 +156,7 @@ function Dragon.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
         -- 원거리 기본 공격에만 이펙트를 추가
         if owner.m_charTable['skill_basic'] == owner.m_reservedSkillId then
-            local attr = owner.m_charTable['attr']
+            local attr = owner:getAttribute()
             local table_skill = TABLE:get('dragon_skill')
             local t_skill = table_skill[owner.m_reservedSkillId] or {}
             local type = t_skill['type']
@@ -182,7 +182,7 @@ end
 -------------------------------------
 function Dragon.st_charge(owner, dt)
     if (owner.m_stateTimer == 0) then
-        local attr = owner.m_charTable['attr']
+        local attr = owner:getAttribute()
 
         -- 차지 이팩트 재생
         local res = 'res/effect/effect_melee_charge/effect_melee_charge.vrp'
@@ -688,7 +688,7 @@ function Dragon:updateActiveSkillCoolTime(dt)
         self.m_infoUI.vars['skllFullVisual']:setRepeat(false)
         self.m_infoUI.vars['skllFullVisual']:setVisual('skill_gauge', 'charging')
         self.m_infoUI.vars['skllFullVisual']:registerScriptLoopHandler(function()
-            local attr = self.m_charTable['attr']
+            local attr = self:getAttribute()
 
             self.m_infoUI.vars['skllFullVisual']:setVisual('skill_gauge', 'idle_' .. attr)
             self.m_infoUI.vars['skllFullVisual']:setRepeat(true)
@@ -803,7 +803,7 @@ end
 function Dragon:makeSkillPrepareEffect()
     if self.m_skillPrepareEffect then return end
 
-    local attr = self.m_charTable['attr']
+    local attr = self:getAttribute()
     local res = 'res/effect/effect_skillcasting_dragon/effect_skillcasting_dragon.vrp'
 
     self.m_skillPrepareEffect = MakeAnimator(res)

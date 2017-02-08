@@ -41,7 +41,7 @@ function CommonMissile:initCommonMissile(owner, t_skill)
     -- 변수 초기화
 	self.m_owner = owner
 	
-	local attr = owner.m_charTable['attr'] or ''
+	local attr = owner:getAttribute() or ''
 	self.m_missileRes = string.gsub(t_skill['res_1'], '@', attr)
 	self.m_motionStreakRes = string.gsub(t_skill['res_2'], '@', attr)
 	self.m_resScale = t_skill['res_scale']

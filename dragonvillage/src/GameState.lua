@@ -449,7 +449,7 @@ function GameState.update_fight_dragon_skill(self, dt)
 
         -- 스킬 사용 직전 이펙트
         do
-            local attr = dragon.m_charTable['attr']
+            local attr = dragon:getAttribute()
             local animator = MakeAnimator('res/effect/effect_skillcasting_dragon/effect_skillcasting_dragon.vrp')
             animator:changeAni('idle_' .. attr, false)
             animator:setPosition(0, 80)

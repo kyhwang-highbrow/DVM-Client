@@ -318,7 +318,7 @@ function MissileLua.lua_bounce(owner)
 	local height = owner.m_value1
 	local count = 0
 	local max_count = math_min(owner.m_value2, #l_target)
-	local attr = owner.m_owner.m_charTable['attr'] or ''
+	local attr = owner.m_owner:getAttribute() or ''
 	local after_effect_res = 'res/effect/effect_hit_physical_dark/effect_hit_physical_dark.json'
 
 	-- 바운스 느낌을 살리기 위한 스케일 수치 하드코딩

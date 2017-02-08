@@ -22,7 +22,7 @@ function Character:doSkill(skill_id, x, y, t_data)
 	local t_data = t_data or {}
 
     local is_hero = self.m_bLeftFormation
-    local attr = self.m_charTable['attr'] or self.m_charTable['attr_1']
+    local attr = self:getAttribute() or self.m_charTable['attr_1']
 	local t_skill = nil
 
     local phys_group = self:getAttackPhysGroup()

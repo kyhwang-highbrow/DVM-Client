@@ -89,7 +89,7 @@ end
 function SkillExplosion:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-    local explosion_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
+    local explosion_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
 	local jump_res = t_skill['res_2']
     local range = t_skill['val_1']
 

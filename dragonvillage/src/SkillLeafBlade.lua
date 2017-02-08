@@ -117,8 +117,8 @@ end
 function SkillLeafBlade:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-    local missile_res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
-	local motionstreak_res = (t_skill['res_2'] == 'x') and nil or string.gsub(t_skill['res_2'], '@', owner.m_charTable['attr'])
+    local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+	local motionstreak_res = (t_skill['res_2'] == 'x') and nil or string.gsub(t_skill['res_2'], '@', owner:getAttribute())
 	local target_count = t_skill['hit']
 	local isPass = t_skill['val_1'] == 1
 	local body_size = LEAF_COLLISION_SIZE

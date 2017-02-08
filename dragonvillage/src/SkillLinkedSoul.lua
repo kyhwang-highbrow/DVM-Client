@@ -274,7 +274,9 @@ end
 -------------------------------------
 function SkillLinkedSoul:seperateDamage(damage, linked_char)
 	-- 데미지 감소가 없다면 패시브가 활성되지 않은것으로 간주하여 탈출
-	if (self.m_damageReduceRate == 1) then return end
+	if (self.m_damageReduceRate == 1) then 
+		return damage 
+	end
 
 	-- 감소된 데미지 계산
 	local reduced_damage = (damage * self.m_damageReduceRate)
@@ -356,10 +358,10 @@ end
 function SkillLinkedSoul:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-    local duration = 100 --t_skill['val_1']
-	local damage_ruduce_rate = 50 --t_skill['val_2']
-	local aoe_heal_range = 300 --t_skill['val_3']
-	local res = string.gsub(t_skill['res_1'], '@', owner.m_charTable['attr'])
+    local duration = t_skill['val_1']
+	local damage_ruduce_rate = t_skill['val_2']
+	local aoe_heal_range = t_skill['val_3']
+	local res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
 
 	-- 인스턴스 생성부
 	------------------------------------------------------

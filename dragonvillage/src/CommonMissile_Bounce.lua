@@ -21,7 +21,7 @@ function CommonMissile_Bounce:initCommonMissile(owner, t_skill)
 	PARENT.initCommonMissile(self, owner, t_skill)
 	
 	-- 특수 변수
-	local attr = self.m_owner.m_charTable['attr'] or ''
+	local attr = owner:getAttribute() or ''
 	self.m_jumpHeight = t_skill['val_1']
 	self.m_maxCount = t_skill['val_2']
 end

@@ -33,7 +33,7 @@ function UI_IngameUnitInfo:initUI()
     local enemy = self.m_owner
 
     if vars['attrNode'] then
-        local attr_str = enemy.m_charTable['attr']
+        local attr_str = enemy:getAttribute()
         local res = 'res/ui/icon/attr/attr_' .. attr_str .. '.png'
         local icon = cc.Sprite:create(res)
         if icon then

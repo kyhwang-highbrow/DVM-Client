@@ -340,8 +340,8 @@ end
 -- function makeAttributeEffect
 -------------------------------------
 function SkillIndicator:makeAttributeEffect(target_char, indicator)
-	local attackerAttr = self.m_hero.m_charTable['attr']
-    local defenderAttr = target_char.m_charTable['attr']
+	local attackerAttr = self.m_hero:getAttribute()
+    local defenderAttr = target_char:getAttribute()
     local attr_synastry = getCounterAttribute(attackerAttr, defenderAttr)
     local aniName
 

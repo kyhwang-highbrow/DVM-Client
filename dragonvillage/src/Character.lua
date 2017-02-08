@@ -277,7 +277,7 @@ function Character:checkAttributeCounter(activity_carrier)
 	local attr_adj_rate = self.m_statusCalc:getAdjustRate('attr_adj_rate')
 
     -- 방어자 속성
-    local defender_attr = self.m_charTable['attr']
+    local defender_attr = self:getAttribute()
 
     local t_attr_effect = getAttrSynastryEffect(attacker_attr, defender_attr, attr_adj_rate)
 
@@ -431,7 +431,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 	t_event['attacker'] = attacker.m_activityCarrier.m_activityCarrierOwner
 	t_event['defender'] = self
 	t_event['is_critical'] = critical
-
+	cclog('pre damage ' .. damage)
 	-- 방어와 관련된 이벤트 처리후 데미지 계산
 	do	
 		-- 방어 이벤트 (에너지실드)
@@ -448,14 +448,14 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 			return
 		end
 	end
-
+	cclog('2nd damage ' .. damage)
 	-- linked 효과 관련 이벤트 처리
 	do
 		self:dispatch('undergo_attack_linked_owner', t_event)
 		self:dispatch('undergo_attack_linked_target', t_event)
 		damage = t_event['damage']
 	end
-
+	cclog('3rd damage ' .. damage)
     -- 스킬 공격으로 피격되였다면 캐스팅 중이던 스킬을 취소시킴
     local attackType = attacker.m_activityCarrier:getAttackType()
     if (attackType ~= 'basic' and attackType ~= 'fever') then
@@ -1426,7 +1426,7 @@ function Character:makeAttackDamageInstance(forced_skill_id)
 	activity_carrier.m_activityCarrierOwner = self
 
     -- 속성 지정
-    activity_carrier.m_attribute = attributeStrToNum(self.m_charTable['attr'])
+    activity_carrier.m_attribute = attributeStrToNum(self:getAttribute())
 
     -- 데미지 타입 지정
     activity_carrier.m_damageType = DMG_TYPE_STR[self.m_charTable['char_type']]
