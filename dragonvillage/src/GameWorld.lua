@@ -207,7 +207,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
             self.m_gameState = GameState_SecretDungeon_Gold(self)
 
         elseif (dungeonMode == SECRET_DUNGEON_RELATION) then
-            self.m_gameState = GameState_SecretDungeon_Ration(self)
+            self.m_gameState = GameState_SecretDungeon_Relation(self)
 
         end
     end

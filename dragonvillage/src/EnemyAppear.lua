@@ -388,10 +388,34 @@ end
 -- @param value2 = 도착 위치
 -- @prarm value3 = 등장 시간(duration)
 -------------------------------------
-function EnemyAppear.RelationGold(owner, luaValue1, luaValue2, luaValue3)
-    EnemyAppear.Basic(owner, luaValue1, luaValue2, luaValue3)
+function EnemyAppear.SecretGold(owner, luaValue1, luaValue2, luaValue3)
+    -- m_luaValue1 출발 위치
+    -- m_luaValue2 도착 위치
+    -- m_luaValue3 등장 시간
+    local pos1 = getWorldEnemyPos(owner, luaValue1)
+    local pos2 = getWorldEnemyPos(owner, luaValue2)
+    local duration = luaValue3 or 1
 
-    owner.m_animator:changeAni('boss_appear', true)
+    -- 출발 위치 지정
+    owner:setOrgHomePos(pos2.x, pos2.y)
+    owner:setHomePos(pos2.x, pos2.y)
+    owner:setPosition(pos1.x, pos1.y)
+	
+    -- 등장 애니
+    owner.m_animator:changeAni('boss_appear', false)
+    owner.m_animator:addAniHandler(function()
+        owner.m_animator:changeAni('idle', true)
+        owner:setPosition(pos2.x, pos2.y)
+
+        owner:dispatch('enemy_appear_done', {}, owner)
+    end)
+
+
+    -- 액션 생성
+    local action = cc.EaseIn:create(cc.MoveTo:create(duration, cc.p(pos2.x, pos2.y)), 0.8)
+    
+    -- 액션 실행
+    owner.m_rootNode:runAction(action)
 end
 
 -------------------------------------

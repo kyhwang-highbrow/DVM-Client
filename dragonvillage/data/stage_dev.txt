@@ -84,7 +84,7 @@
             {
 				0:
 				[
-					"139021;99;RelationGold;RO04;RM24;3"
+					"135031;99;SecretGold;RO04;RM24;3"
 				]
             }
 		}

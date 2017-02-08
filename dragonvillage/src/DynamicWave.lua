@@ -37,7 +37,7 @@ function DynamicWave:init(wave_mgr, data, delay)
     if (enemy_id == 'RandomDragon') then
         -- 드랍테이블의 r_stage_info로부터 얻어옴
         -- 가공되어야함
-        
+        enemy_id = 120094
     end
 
     self.m_enemyID = tonumber(enemy_id)

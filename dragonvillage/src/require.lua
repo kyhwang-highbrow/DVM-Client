@@ -170,6 +170,7 @@ local t_module = {
     'GameState_NestDungeon_Nightmare',
     'GameState_NestDungeon_Tree',
     'GameState_SecretDungeon_Gold',
+    'GameState_SecretDungeon_Relation',
     'GameState_Colosseum',
     'GameAuto',
     'GameAuto_Colosseum',
