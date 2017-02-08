@@ -24,6 +24,7 @@ local TableInfo = {
         skill_target      = {'table_skill_target',          'type',         false},
         drop              = {'table_drop',                  'stage',        false},
         stage_desc        = {'table_stage_desc',            'stage',        false},
+        secret_dungeon    = {'table_secret_dungeon',        'type',         true},
         exp_dragon        = {'table_dragon_exp',            'lv_d',         false},
         exp_tamer         = {'table_exp_tamer',             'lv_t',         false},
         item              = {'table_item',                  'item',         false},

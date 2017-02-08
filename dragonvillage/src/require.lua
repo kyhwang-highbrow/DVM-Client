@@ -124,6 +124,7 @@ local t_module = {
     'TableItem',
 	'TableQuest',
 	'TableShop',
+    'TableSecretDungeon',
 
     -- Interface
     'IEventDispatcher',
@@ -222,6 +223,7 @@ local t_module = {
     'Monster',
     'MonsterLua_Boss',
     'Monster_GiantDragon',
+    'Monster_GoldDragon',
     'Monster_Tree',
 	'Monster_WorldOrderMachine',
     'Monster_DarkNix',

@@ -1542,6 +1542,12 @@
     <None Include="..\src\UI_FriendPopupTabSupport.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableSecretDungeon.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\Monster_GoldDragon.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

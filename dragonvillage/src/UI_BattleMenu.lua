@@ -88,7 +88,8 @@ function UI_BattleMenu:click_secretBtn()
     --UIManager:toastNotificationRed('"비밀 던전"은 준비 중입니다.')
     --g_secretDungeonData:goToSecretDungeonScene()
 
-    local scene = SceneGame(nil, 31001, 'stage_31001', false)
+    --local scene = SceneGame(nil, 31001, 'stage_31001', false)
+    local scene = SceneGame(nil, DEV_STAGE_ID, 'stage_dev', true)
     scene:runScene()
     return
 end

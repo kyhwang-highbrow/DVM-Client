@@ -1,0 +1,77 @@
+{
+    "difficult":2,
+    "bg":"map_gold",
+	"wave":
+	[
+        {
+			"idx":2,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"RandomDragon;100;Basic;RO04;RM24;3"
+				]
+            }
+		},
+		
+		{
+			"idx":3,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"RandomDragon;100;Basic;RO04;RM24;3"
+				]
+            }
+		},
+		
+		{
+			"idx":1,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"RandomDragon;30;Basic;RO04;RM24;3"
+				]
+            }
+		}
+    ]
+	
+	"move":
+	{
+		1:
+        [
+			"move_1", "move_2"
+		],
+		2:
+        [
+			"move_2", "move_1"
+		],
+		3:
+        [
+			"move_1", "move_2"
+		],
+		"a":
+		[
+			"move_1", "move_2"
+		]
+	}
+}

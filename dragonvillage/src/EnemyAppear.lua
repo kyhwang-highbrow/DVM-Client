@@ -383,6 +383,18 @@ function EnemyAppear.NestTree(owner, luaValue1, luaValue2, luaValue3)
 end
 
 -------------------------------------
+-- function RelationGold
+-- @param value1 = 출발 위치
+-- @param value2 = 도착 위치
+-- @prarm value3 = 등장 시간(duration)
+-------------------------------------
+function EnemyAppear.RelationGold(owner, luaValue1, luaValue2, luaValue3)
+    EnemyAppear.Basic(owner, luaValue1, luaValue2, luaValue3)
+
+    owner.m_animator:changeAni('boss_appear', true)
+end
+
+-------------------------------------
 -- function Colosseum
 -- @brief 등장 후 죽을때까지 전투 + 등장시 등장 이펙트 추가
 -- @param value1 = 출발 위치

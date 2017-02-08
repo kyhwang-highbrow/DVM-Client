@@ -303,6 +303,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\LobbyUserStatusUI.lua" />
     <None Include="..\src\LocalData.lua" />
     <None Include="..\src\Monster_DarkNix.lua" />
+    <None Include="..\src\Monster_GoldDragon.lua" />
     <None Include="..\src\Monster_Tree.lua" />
     <None Include="..\src\Monster_WorldOrderMachine.lua" />
     <None Include="..\src\RuneEnchantHelper.lua" />
@@ -581,6 +582,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableRuneNamingRule.lua" />
     <None Include="..\src\TableRuneSet.lua" />
     <None Include="..\src\TableRuneStatus.lua" />
+    <None Include="..\src\TableSecretDungeon.lua" />
     <None Include="..\src\TableShop.lua" />
     <None Include="..\src\TableStageDesc.lua" />
     <None Include="..\src\TableStatus.lua" />

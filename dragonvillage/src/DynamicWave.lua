@@ -34,9 +34,10 @@ function DynamicWave:init(wave_mgr, data, delay)
     local level = l_str[2]   -- 적군 레벨
     local appearType = l_str[3]   -- 등장 타입
 
-    if (enemy_id == 'Dragon') then
+    if (enemy_id == 'RandomDragon') then
         -- 드랍테이블의 r_stage_info로부터 얻어옴
         -- 가공되어야함
+        
     end
 
     self.m_enemyID = tonumber(enemy_id)

@@ -142,6 +142,8 @@ function GameWorld:tryPatternMonster(t_monster, body)
 	
     if (type == 'giantdragon') then
         monster = Monster_GiantDragon(t_monster['res'], body)
+    elseif (type == 'golddragon') then
+        monster = Monster_GoldDragon(t_monster['res'], body)
     elseif (type == 'treant') then
         monster = Monster_Tree(t_monster['res'], body)
 	elseif (type == 'world_order_machine') then
