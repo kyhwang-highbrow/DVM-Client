@@ -68,6 +68,9 @@ function StatusEffect_Heal:doHeal()
 	if (self.m_healType == 'hp_target') then 
 		self.m_owner:healPercent(self.m_healRate)
 
+	elseif (self.m_healType == 'hp_abs') then 
+		self.m_owner:healAbs(self.m_healAbs)
+
 	-- 시전자의 데미지의 n% 회복
 	-- @TODO 시전자 가져오려면 구조 개선해야함 
 	elseif (self.m_healType == 'atk') then 
@@ -75,8 +78,6 @@ function StatusEffect_Heal:doHeal()
 		local heal = HealCalc_M(atk_dmg)
 		heal = (heal * self.m_healRate)
 		self.m_owner:healAbs(heal)
-	
-	elseif (self.m_healType == 'hp_abs') then 
-		self.m_owner:healAbs(self.m_healAbs)
+
 	end
 end

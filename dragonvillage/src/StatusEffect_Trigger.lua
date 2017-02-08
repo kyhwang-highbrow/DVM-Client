@@ -114,6 +114,16 @@ function StatusEffect_Trigger:getTriggerFunction()
 			end)
 		end
 
+	elseif (t_skill['type'] == 'passive_vampire') then 
+		-- 가한 dmg에 의하여 자기 자신의 체력 회복 
+		trigger_func = function(t_event)
+			local damage = t_event['damage']
+			if (damage) then 
+				local heal_abs = damage * (t_skill['val_1'] / 100)
+				char:healAbs(heal_abs, true)
+			end
+		end
+
 	elseif (status_effect_type == 'passive_spatter') then 
 		-- 퐁당퐁당
 		trigger_func = function()
@@ -143,9 +153,9 @@ function StatusEffect_Trigger:getTriggerFunction()
 	-- default : 상태효과 시전
 	----------------------------------------------------------------------
 	else
-		trigger_func = function()
-			local t_status_effect_str = {self.m_subData['status_effect_1'], self.m_subData['status_effect_2']}
-			StatusEffectHelper:doStatusEffectByStr(self.m_owner, {defender}, t_status_effect_str)
+		trigger_func = function(t_event)
+			local t_status_effect_str = {t_skill['status_effect_1'], t_skill['status_effect_2']}
+			StatusEffectHelper:doStatusEffectByStr(char, {defender}, t_status_effect_str)
 		end
 	end
 

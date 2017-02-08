@@ -519,19 +519,19 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 	
 	-- 시전자 이벤트 
 	if attacker.m_activityCarrier.m_activityCarrierOwner then
-		attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit', {}, self)
+		attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit', t_event, self)
 
 		-- 적처치시 
 		if self.m_bDead then 
-			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('slain', {}, self)
+			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('slain', t_event, self)
 		
 		-- 일반 공격시
 		elseif (attacker.m_activityCarrier:getAttackType() == 'basic') then 
-			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit_basic', {}, self, attacker.m_activityCarrier)
+			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit_basic', t_event, self, attacker.m_activityCarrier)
 
 		-- 액티브 공격시
 		else
-			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit_active', {}, self)
+			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit_active', t_event, self)
 		end
 	end
 end
