@@ -82,9 +82,11 @@ EnemyMovement = class({
         end
 
         -- 패턴 정보 예("wait:0", "move_1:2", "move_2:1")
-        local data = seperate(self.m_tPattern[self.m_curIdx], ';')
-        local type = data[1]
-        local time = tonumber(data[2]) or 1
+        local pattern = self.m_tPattern[self.m_curIdx]
+        local l_data = stringSplit(pattern, ';')
+
+        local type = l_data[1]
+        local time = tonumber(l_data[2] or 1)
         
         for i, enemy in pairs(self.m_mEnemyList) do
             local key = TableEnemyMove():getMovePosKey(type, i)

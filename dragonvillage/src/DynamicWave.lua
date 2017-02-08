@@ -35,9 +35,9 @@ function DynamicWave:init(wave_mgr, data, delay)
     local appearType = l_str[3]   -- 등장 타입
 
     if (enemy_id == 'RandomDragon') then
-        -- 드랍테이블의 r_stage_info로부터 얻어옴
-        -- 가공되어야함
-        enemy_id = 120094
+        -- 해당 스테이지에서 등장 가능한 드래곤 리스트 중 랜덤하게 결정됨
+        local l_did = TableSecretDungeon():getRandomDragonList()
+        enemy_id = randomShuffle(l_did)
     end
 
     self.m_enemyID = tonumber(enemy_id)
