@@ -347,7 +347,7 @@ function GameWorld:makeEnemyDeck()
             if (enemy) then
                 enemy:setPosIdx(tonumber(i))
 
-                self.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.UNIT)
+                self.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.ENEMY)
                 self.m_physWorld:addObject(PHYS.ENEMY, enemy)
                 self:addEnemy(enemy, tonumber(i))
 

@@ -136,9 +136,10 @@ PRIORITY =
 WORLD_Z_ORDER = 
 {
 	MISSILE = 0,
-	UNIT = 10,
-    TAMER = 11,
-    CASTING = 12,
+	ENEMY = 10,
+    HERO = 11,
+    TAMER = 12,
+    CASTING = 13,
 }
 
 -------------------------------------

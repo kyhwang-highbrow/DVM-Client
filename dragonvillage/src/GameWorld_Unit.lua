@@ -175,7 +175,7 @@ function GameWorld:makeHeroDeck()
             if (hero) then
                 hero:setPosIdx(tonumber(i))
 
-                self.m_worldNode:addChild(hero.m_rootNode, WORLD_Z_ORDER.UNIT)
+                self.m_worldNode:addChild(hero.m_rootNode, WORLD_Z_ORDER.HERO)
                 self.m_physWorld:addObject(PHYS.HERO, hero)
                 self:addHero(hero, tonumber(i))
 
@@ -213,7 +213,7 @@ function GameWorld:makeFriendHero()
     if (self.m_friendHero) then
         self.m_friendHero:setActive(false)
 
-        self.m_worldNode:addChild(self.m_friendHero.m_rootNode, WORLD_Z_ORDER.UNIT)
+        self.m_worldNode:addChild(self.m_friendHero.m_rootNode, WORLD_Z_ORDER.HERO)
     
         -- 현재 덱에 빈자리가 있다면 즉시 추가
         if (not self:isParticipantMaxCount()) then
