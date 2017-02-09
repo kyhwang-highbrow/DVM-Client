@@ -4,6 +4,13 @@ size: 512,256
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+common_mimic_light_acc_01
+  rotate: false
+  xy: 338, 145
+  size: 40, 38
+  orig: 40, 38
+  offset: 0, 0
+  index: -1
 common_mimic_light_body_01
   rotate: false
   xy: 2, 59
