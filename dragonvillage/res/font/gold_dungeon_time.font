@@ -1,0 +1,16 @@
+<gold_dungeon_time>
+  <creation>
+    <sourceFont>gold_dungeon_time</sourceFont>
+    <sourceFontSize>-40</sourceFontSize>
+    <startChar>33</startChar>
+    <endChar>61</endChar>
+  </creation>
+  <generated>
+    <map>system/fonts/gold_dungeon_time.dds</map>
+    <mapDimensions>147 392</mapDimensions>
+    <maxWidth>38</maxWidth>
+    <height>40</height>
+    <uvs>0020009e003a007400570037006d00-100020132002100f40002015a002100d3005100-700390038003b001a0039004c000200f0001e007600020000000200270002004f0017000000020077001d004f001e00270002009f00350000003b002c000200c70031009e0002011c001d00bb</uvs>
+    <widths>000f0021001a0024001e00140015001b001a0012001b000f001d001a0013001a0019001c001a001a001b001c001a001a00190026001a001e</widths>
+  </generated>
+</gold_dungeon_time>

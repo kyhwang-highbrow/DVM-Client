@@ -4,10 +4,10 @@
 	"wave":
 	[
         {
-			"idx":2,
+			"idx":1,
 			"camera":
             {
-                "scale":0.8,
+                "scale":1,
                 "pos_x":0,
                 "pos_y":0
             },
@@ -15,7 +15,34 @@
             {
 				0:
 				[
-					"RandomDragon;100;Basic;RO04;RM24;3"
+					"RandomDragon1;7;Basic;RO04;RB14;0.5"
+					
+					"RandomDragon1;7;Basic;RO04;RF14;0.5"
+					"RandomDragon1;7;Basic;RO02;RF22;0.5"
+					"RandomDragon1;7;Basic;RO06;RF26;0.5"
+				]
+            }
+		},
+		
+		{
+			"idx":2,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"RandomDragon1;14;Basic;RO02;RB12;0.5"
+					"RandomDragon1;14;Basic;RO06;RB16;0.5"
+					
+					"RandomDragon1;14;Appear;RO02;RF12;0.5"
+					"RandomDragon1;14;Appear;RO06;RF16;0.5"
+					"RandomDragon1;14;Appear;RO04;RF24;0.5"
+					"RandomDragon1;14;Appear;RO04;RM24;0.5"
 				]
             }
 		},
@@ -24,7 +51,7 @@
 			"idx":3,
 			"camera":
             {
-                "scale":0.8,
+                "scale":1,
                 "pos_x":0,
                 "pos_y":0
             },
@@ -32,16 +59,24 @@
             {
 				0:
 				[
-					"RandomDragon;100;Basic;RO04;RM24;3"
+					"RandomDragon1;21;Basic;RO04;RB14;0.5"
+					"RandomDragon1;21;Basic;RO02;RB22;0.5"
+					"RandomDragon1;21;Basic;RO06;RB26;0.5"
+					
+					"RandomDragon1;21;Basic;RO04;RF14;0.5"
+					"RandomDragon1;21;Basic;RO03;RF23;0.5"
+					"RandomDragon1;21;Basic;RO05;RF25;0.5"
+					"RandomDragon2;21;Basic;RO02;RM12;0.5"
+					"RandomDragon2;21;Basic;RO06;RM16;0.5"
 				]
             }
 		},
 		
 		{
-			"idx":1,
+			"idx":4,
 			"camera":
             {
-                "scale":0.8,
+                "scale":1,
                 "pos_x":0,
                 "pos_y":0
             },
@@ -49,7 +84,174 @@
             {
 				0:
 				[
-					"RandomDragon;30;Basic;RO04;RM24;3"
+					"RandomDragon2;28;Basic;RO04;RM14;0.5"
+					
+					"RandomDragon1;28;Basic;RO04;RF14;0.5"
+					"RandomDragon1;28;Basic;RO01;RM11;0.5"
+					"RandomDragon1;28;Basic;RO07;RM17;0.5"
+					"RandomDragon1;28;Basic;RO04;RB14;0.5"
+				]
+            }
+		},
+		
+		{
+			"idx":5,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"RandomDragon2;35;Appear;RO02;RM22;0.5"
+					"RandomDragon2;35;Appear;RO06;RM26;0.5"
+					
+					"RandomDragon1;35;Appear;RO02;RF12;0.5"
+					"RandomDragon1;35;Appear;RO06;RF16;0.5"
+					"RandomDragon1;35;Appear;RO01;RF21;0.5"
+					"RandomDragon1;35;Appear;RO03;RF23;0.5"
+					"RandomDragon1;35;Appear;RO05;RF25;0.5"
+					"RandomDragon1;35;Appear;RO07;RF27;0.5"
+				]
+            }
+		},
+		
+		{
+			"idx":6,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"RandomDragon2;42;Basic;RO01;RF11;0.5"
+					"RandomDragon2;42;Basic;RO07;RF17;0.5"
+					"RandomDragon2;42;Basic;RO04;RB24;0.5"
+					
+					"RandomDragon1;42;Basic;RO04;RF14;0.5"
+					"RandomDragon1;42;Basic;RO04;RM14;0.5"
+					"RandomDragon1;42;Basic;RO03;RM23;0.5"
+					"RandomDragon1;42;Basic;RO04;RM24;0.5"
+					"RandomDragon1;42;Basic;RO05;RM25;0.5"
+					"RandomDragon1;42;Basic;RO01;RB21;0.5"
+					"RandomDragon1;42;Basic;RO07;RB27;0.5"
+				]
+            }
+		},
+		
+		{
+			"idx":7,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"RandomDragon1;49;Basic;RO04;RF24;0.5"
+					"RandomDragon2;49;Basic;RO02;RB22;0.5"
+					"RandomDragon2;49;Basic;RO06;RB26;0.5"
+
+					"RandomDragon1;49;Basic;RO02;RF12;0.5"
+					"RandomDragon1;49;Basic;RO06;RF16;0.5"
+					"RandomDragon1;49;Basic;RO01;RM11;0.5"
+					"RandomDragon1;49;Basic;RO07;RM17;0.5"
+					"RandomDragon1;49;Basic;RO04;RM24;0.5"
+				]
+            }
+		},
+		
+		{
+			"idx":8,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"RandomDragon1;56;Appear;RO03;RF23;0.5"
+					"RandomDragon1;56;Appear;RO05;RF25;0.5"
+					"RandomDragon2;56;Appear;RO02;RB12;0.5"
+					"RandomDragon2;56;Appear;RO06;RB16;0.5"
+					
+					"RandomDragon1;56;Appear;RO01;RF11;0.5"
+					"RandomDragon1;56;Appear;RO07;RF17;0.5"
+					"RandomDragon2;56;Appear;RO01;RM21;0.5"
+					"RandomDragon2;56;Appear;RO07;RM27;0.5"
+					"RandomDragon2;56;Appear;RO01;RB21;0.5"
+					"RandomDragon2;56;Appear;RO07;RB27;0.5"
+				]
+            }
+		},
+		
+		{
+			"idx":9,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"RandomDragon1;63;Appear;RO04;RF14;0.5"
+					"RandomDragon2;63;Appear;RO02;RM12;0.5"
+					"RandomDragon2;63;Appear;RO06;RM16;0.5"
+					"RandomDragon3;63;Appear;RO04;RB14;0.5"
+					
+					"RandomDragon1;63;Appear;RO02;RF12;0.5"
+					"RandomDragon1;63;Appear;RO06;RF16;0.5"
+					"RandomDragon2;63;Appear;RO01;RF21;0.5"
+					"RandomDragon2;63;Appear;RO07;RF27;0.5"
+					"RandomDragon2;63;Appear;RO04;RM14;0.5"
+					"RandomDragon2;63;Appear;RO02;RB12;0.5"
+					"RandomDragon2;63;Appear;RO06;RB16;0.5"
+				]
+            }
+		},
+		
+		{
+			"idx":10,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+			"direction":"boss_wave",
+            "wave":
+            {
+				0:
+				[
+					"RandomDragon2;70;Basic;RO03;RF23;0.5"
+					"RandomDragon2;70;Basic;RO05;RF25;0.5"
+					"RandomDragon2;70;Basic;RO04;RM24;0.5"
+					"RandomDragon3;70;Basic;RO04;RB24;0.5"
+
+					"RandomDragon1;70;Basic;RO02;RF12;0.5"
+					"RandomDragon1;70;Basic;RO06;RF16;0.5"
+					"RandomDragon1;70;Basic;RO01;RF21;0.5"
+					"RandomDragon1;70;Basic;RO07;RF27;0.5"
+					"RandomDragon2;70;Basic;RO01;RB11;0.5"
+					"RandomDragon2;70;Basic;RO07;RB17;0.5"
+					"RandomDragon3;70;Basic;RO02;RB22;0.5"
+					"RandomDragon3;70;Basic;RO06;RB26;0.5"
 				]
             }
 		}
@@ -57,18 +259,6 @@
 	
 	"move":
 	{
-		1:
-        [
-			"move_1", "move_2"
-		],
-		2:
-        [
-			"move_2", "move_1"
-		],
-		3:
-        [
-			"move_1", "move_2"
-		],
 		"a":
 		[
 			"move_1", "move_2"
