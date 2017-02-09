@@ -51,31 +51,23 @@ function UI_MailListItem:refresh()
     vars['timeLabel']:setString(g_mailData:getExpireRemainTimeStr(t_mail_data))
 
     -- 아이템 아이콘
-    local icon = self:makeMailItemIcon(t_mail_data)
-    vars['rewardNode']:addChild(icon.root)
-
-    -- 아이템 갯수
-    vars['rewardLabel']:setString('X ' .. comma_value(t_mail_data['cnt']))
+    self:makeMailItemIcons(t_mail_data)
 end
 
 -------------------------------------
--- function makeMailItemIcon
+-- function makeMailItemIcons
 -------------------------------------
-function UI_MailListItem:makeMailItemIcon(t_mail_data)
-    local t_item = t_mail_data['values']
-    local count = t_mail_data['count']
+function UI_MailListItem:makeMailItemIcons(t_mail_data)
+    local l_item_list = t_mail_data['items_list']
 
-    local type = t_mail_data['type']
-    local item_id
+    for i,v in ipairs(l_item_list) do
+        local item_id = v['item_id']
+        local count = v['count']
 
-    if (type == 'rune') then
-        item_id = t_item['rid']
+        local ui = UI_ItemCard(item_id, count)
+        ui.root:setSwallowTouch(false)
+        ui.root:setPositionX((i-1) * -150)
 
-    elseif (type == 'fruit') then
-        item_id = t_item['fid']
+        self.vars['rewardNode']:addChild(ui.root)
     end
-
-    local ui = UI_ItemCard(item_id, count)
-    ui.root:setSwallowTouch(false)
-    return ui
 end

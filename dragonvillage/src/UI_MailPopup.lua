@@ -137,7 +137,15 @@ end
 -- function click_rewardBtn
 -------------------------------------
 function UI_MailPopup:click_rewardBtn(t_mail_data)
-    UIManager:toastNotificationRed('"우편 받기"는 준비 중입니다.')
+
+    local mail_id_list = {t_mail_data['id']}
+    local function finish_cb(ret)
+        if (ret['status'] == 0) then
+            self.m_mTableView[self.m_currTab]:delItem(t_mail_data['id'])
+        end
+    end
+    
+    g_mailData:request_mailRead(mail_id_list, finish_cb)
 end
 
 -------------------------------------

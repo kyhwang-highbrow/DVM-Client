@@ -327,3 +327,63 @@ function ServerData:unlockSaveData()
         self.m_bDirtyDataTable = false
     end
 end
+
+-------------------------------------
+-- function networkCommonRespone_addedItems
+-- @breif 중복되는 코드를 방지하기 위해 ret값에 예약된 데이터를 한번에 처리
+--        아이템 지급 부분
+-------------------------------------
+function ServerData:networkCommonRespone_addedItems(ret)
+    local t_added_items = ret['added_items']
+
+    if (not t_added_items) then
+        return
+    end
+
+
+    -- 캐시 (갱신)
+    if t_added_items['cash'] then
+        self:applyServerData(t_added_items['cash'], 'user', 'cash')    
+    end
+
+    -- 골드 (갱신)
+    if t_added_items['gold'] then
+        self:applyServerData(t_added_items['gold'], 'user', 'gold')    
+    end
+
+    -- 라테아 (갱신)
+    if t_added_items['lactea'] then
+        self:applyServerData(t_added_items['lactea'], 'user', 'lactea')    
+    end
+
+    -- 열매 갯수 (전체 갱신)
+    if t_added_items['fruits'] then
+        self:applyServerData(t_added_items['fruits'], 'user', 'fruits')
+    end
+
+    -- 진화 재료 갱신 (전체 갱신)
+    if t_added_items['evolution_stones'] then
+        self:applyServerData(t_added_items['evolution_stones'], 'user', 'evolution_stones')
+    end
+
+    -- 스태미나 동기화 (전체 갱신)
+    if (t_added_items['staminas']) then
+        self:applyServerData(t_added_items['staminas'], 'user', 'staminas')
+    end
+
+    -- 드래곤 (추가)
+    if t_added_items['dragons'] then
+        g_dragonsData:applyDragonData_list(t_added_items['dragons'])
+    end
+
+    -- 추가된 룬 적용 (추가)
+    if t_added_items['runes'] then
+        g_runesData:applyRuneData_list(t_added_items['runes'])
+    end
+        
+    --t_added_items['badge']
+    --t_added_items['honor']
+    --t_added_items['fp']
+
+    --t_added_items['tickets']
+end

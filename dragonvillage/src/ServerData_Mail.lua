@@ -100,3 +100,57 @@ function ServerData_Mail:getExpireRemainTimeStr(t_mail_data)
     local expire_remain_time = t_mail_data['expire_remain_time']
     return Str('{1} 남음', datetime.makeTimeDesc(expire_remain_time))
 end
+
+function listToCsv(list)
+    local str = nil
+    for i,v in ipairs(list) do
+        if (str == nil) then
+            str = tostring(v)
+        else
+            str = str .. ',' .. tostring(v)
+        end
+    end
+
+    return str
+end
+
+-------------------------------------
+-- function request_mailRead
+-- @brief 우편 읽기 (받기)
+-------------------------------------
+function ServerData_Mail:request_mailRead(mail_id_list, finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+    local mids = listToCsv(mail_id_list)
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        for i,v in ipairs(mail_id_list) do
+            self:deleteMailData(v)
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/mail_read')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('mids', mids)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function deleteMailData
+-------------------------------------
+function ServerData_Mail:deleteMailData(moid)
+    self.m_mMailList_withoutFp[moid] = nil
+    self.m_mFpMailList[moid] = nil
+end
