@@ -884,6 +884,7 @@ end
 -- function checkWaveClear
 -------------------------------------
 function GameState:checkWaveClear()
+    local world = self.m_world
     local enemy_count = #world:getEnemyList()
 
     -- 클리어 여부 체크
