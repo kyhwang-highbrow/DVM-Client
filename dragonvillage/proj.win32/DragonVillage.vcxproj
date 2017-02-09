@@ -361,6 +361,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillSpiderWeb.lua" />
     <None Include="..\src\SkillVoltesX.lua" />
     <None Include="..\src\SortManager.lua" />
+    <None Include="..\src\SortManager_Dragon.lua" />
     <None Include="..\src\SortManager_EvolutionStone.lua" />
     <None Include="..\src\SortManager_Fruit.lua" />
     <None Include="..\src\SortManager_Rune.lua" />
@@ -658,6 +659,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonSkillLevelUpResult.lua" />
     <None Include="..\src\UI_DragonTrainSlot_ListItem.lua" />
     <None Include="..\src\UI_EditBoxPopup.lua" />
+    <None Include="..\src\UI_FriendDragonSupportRequestPopup.lua" />
     <None Include="..\src\UI_FriendListItem.lua" />
     <None Include="..\src\UI_FriendPopup.lua" />
     <None Include="..\src\UI_FriendPopupTab.lua" />

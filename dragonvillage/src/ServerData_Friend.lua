@@ -845,9 +845,9 @@ end
 -- function availabilityOfDragonSupportRequests
 -- @brief 드래곤 지원 요청 가능성
 -------------------------------------
-function ServerData_Friend:availabilityOfDragonSupportRequests(dragon_darity)
-    -- dragon_darity :'common', 'rare', 'hero', 'legend'
-    local time_stamp = self.m_friendSystemStatus['need_dragon_cool_' .. dragon_darity]
+function ServerData_Friend:availabilityOfDragonSupportRequests(dragon_rarity)
+    -- dragon_rarity :'common', 'rare', 'hero', 'legend'
+    local time_stamp = self.m_friendSystemStatus['need_dragon_cool_' .. dragon_rarity]
 
     local server_time = Timer:getServerTime()
     time_stamp = (time_stamp / 1000)
@@ -863,8 +863,8 @@ end
 -- function getDragonSupportRequestCooltimeText
 -- @brief 드래곤 요청 희귀도별 문자열
 -------------------------------------
-function ServerData_Friend:getDragonSupportRequestCooltimeText(dragon_darity)
-    local availability, remain_time = self:availabilityOfDragonSupportRequests(dragon_darity)
+function ServerData_Friend:getDragonSupportRequestCooltimeText(dragon_rarity)
+    local availability, remain_time = self:availabilityOfDragonSupportRequests(dragon_rarity)
 
     if availability then
         return Str('지원 요청 가능')
@@ -872,4 +872,32 @@ function ServerData_Friend:getDragonSupportRequestCooltimeText(dragon_darity)
         local showSeconds = true
         return Str('{1} 남음', datetime.makeTimeDesc(remain_time, showSeconds))
     end
+end
+
+-------------------------------------
+-- function request_setNeedDragon
+-- @brief 드래곤 지원 요청
+-------------------------------------
+function ServerData_Friend:request_setNeedDragon(did, finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        self:response_friendCommon(ret)
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/socials/set_need_dragon')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('did', did)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
 end

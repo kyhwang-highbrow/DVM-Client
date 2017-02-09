@@ -12,6 +12,8 @@ UI_FriendPopupTabSupport = class(PARENT, {
 -------------------------------------
 function UI_FriendPopupTabSupport:init(friend_popup_ui)
     local vars = self.vars
+
+    vars['supportRequestBtn']:registerScriptTapHandler(function() self:click_supportRequestBtn() end)
 end
 
 -------------------------------------
@@ -74,3 +76,17 @@ function UI_FriendPopupTabSupport:refresh()
     end
 end
 
+-------------------------------------
+-- function click_supportRequestBtn
+-------------------------------------
+function UI_FriendPopupTabSupport:click_supportRequestBtn()
+    local ui = UI_FriendDragonSupportRequestPopup()
+
+    local function close_cb()
+        if ui.m_bRequestedSupportDragon then
+            self:refresh()
+        end
+    end
+
+    ui:setCloseCB(close_cb)
+end

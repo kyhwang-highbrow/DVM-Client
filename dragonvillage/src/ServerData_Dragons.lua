@@ -451,7 +451,6 @@ function ServerData_Dragons:makeDragonAnimator(t_dragon_data)
     return animator
 end
 
-
 -------------------------------------
 -- function getNumOfDragonsByDid
 -- @brief
@@ -479,3 +478,27 @@ function ServerData_Dragons:getNumOfDragonsByDid(did)
     return number
 end
 
+
+-------------------------------------
+-- function getDragonSupportRequstTargetList
+-- @brief 희귀도별 드래곤 지원 요청을 할 수 있는 리스트
+--        보유한 드래곤에 한함
+-------------------------------------
+function ServerData_Dragons:getDragonSupportRequstTargetList(dragon_rarity)
+    local l_dragons = self.m_serverData:getRef('dragons')
+
+    local table_dragon = TableDragon()
+
+    local l_ret = {}
+
+    for i,v in pairs(l_dragons) do
+        local did = v['did']
+        local rarity = table_dragon:getValue(did, 'rarity')
+
+        if rarity == dragon_rarity then
+            l_ret[i] =  v
+        end
+    end
+
+    return l_ret
+end

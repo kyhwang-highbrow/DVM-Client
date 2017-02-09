@@ -106,3 +106,11 @@ function SortManager:setAllAscending(ascending)
 
     self.m_defaultSortAscending = ascending
 end
+
+-------------------------------------
+-- function getTopSortingType
+-- @brief 최우선의 정렬 타입 리턴
+-------------------------------------
+function SortManager:getTopSortingType()
+    return self.m_lSortOrder[1]
+end

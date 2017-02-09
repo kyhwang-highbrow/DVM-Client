@@ -1566,6 +1566,12 @@
     <None Include="..\src\GameAuto_Enemy.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\SortManager_Dragon.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_FriendDragonSupportRequestPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
