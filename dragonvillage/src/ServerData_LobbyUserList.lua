@@ -111,7 +111,41 @@ end
 -- function getLobbyUserList
 -------------------------------------
 function ServerData_LobbyUserList:getLobbyUserList()
-    return self.m_serverData:get('lobby_user_list')
+    local l_user_list = self.m_serverData:get('lobby_user_list')
+
+    local t_ret = {}
+
+    local my_uid = g_userData:get('uid')
+
+    -- 내 데이터 삽입
+    for i,v in ipairs(l_user_list) do
+        if (v['uid'] == my_uid) then
+            table.insert(t_ret, v)
+            table.remove(l_user_list, i)
+            break
+        end
+    end
+
+    -- max_count만큼의 유저만 리턴
+    local max_count = 7
+    local count = 1 -- 내 데이터가 있으므로 1로 시작
+    while true do
+        if (max_count <= count) then
+            break
+        end
+
+        local list_cnt = table.count(l_user_list)
+        if (list_cnt <= 0) then
+            break
+        end
+
+        local idx = math_random(1, list_cnt)
+        table.insert(t_ret, l_user_list[idx])
+        table.remove(l_user_list, idx)
+        count = count + 1
+    end
+
+    return t_ret
 end
 
 -------------------------------------
