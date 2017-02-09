@@ -459,6 +459,7 @@ local t_module = {
     'UI_FriendListItem',
     'UI_FriendRecommendUserListItem',
     'UI_FriendRequestListItem',
+    'UI_FriendSupportListItem',
     -- 친구 드래곤 선택
     'UI_FriendSelectPopup',
     'UI_FriendSelectListItem',

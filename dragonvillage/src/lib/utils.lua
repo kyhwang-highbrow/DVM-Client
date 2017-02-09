@@ -24,6 +24,14 @@ function table.find(t, item)
     return nil
 end
 
+function table.isEmpty(t)
+    for _ in pairs(t) do
+        return false
+    end
+
+    return true
+end
+
 function table.count(t)
     local count = 0
     for _ in pairs(t) do count = count + 1 end
@@ -99,9 +107,21 @@ end
 -- @brief 인덱스 테이블 처음값 리턴
 -------------------------------------
 function table.getFirst(t)
-    for i,v in ipairs(t) do
-        return v
+    local first = nil
+    local key = nil
+    first = t[1]
+
+    if (first) then
+        key = 1
+        return first, key
     end
+
+    for i,v in pairs(t) do
+        first = v
+        key = i
+        break
+    end
+    return first, key
 end
 
 -------------------------------------

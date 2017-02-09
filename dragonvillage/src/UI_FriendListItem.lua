@@ -85,7 +85,7 @@ function UI_FriendListItem:refresh()
     vars['timeLabel']:setString(g_friendData:getPastActiveTimeStr(t_friend_info))
 
     -- 보내기 버튼
-    vars['sendBtn']:setVisible(not t_friend_info['sent_fp'])
+    vars['sendBtn']:setVisible(not g_friendData:isSentFp(self.m_friendUid))
 end
 
 -------------------------------------

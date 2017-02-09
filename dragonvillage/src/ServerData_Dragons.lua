@@ -6,6 +6,9 @@ ServerData_Dragons = class({
         m_leaderDragonOdid = 'string', -- 리더 드래곤의 obejct id
 
         m_lSortData = 'list', -- doid를 key값으로 하고, 정렬에 필요한 데이터를 저장
+
+        m_mNumOfDragonsByDid = 'map',
+        m_bDirtyNumOfDragonsByDid = 'boolean',
     })
 
 -------------------------------------
@@ -14,6 +17,8 @@ ServerData_Dragons = class({
 function ServerData_Dragons:init(server_data)
     self.m_serverData = server_data
     self.m_lSortData = {}
+    self.m_mNumOfDragonsByDid = {}
+    self.m_bDirtyNumOfDragonsByDid = true
 end
 
 -------------------------------------
@@ -106,6 +111,9 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
 
     -- 드래곤 정렬 데이터 수정
     self:setDragonsSortData(unique_id)
+
+    -- 드래곤 did별 갯수 갱신 필요
+    self.m_bDirtyNumOfDragonsByDid = true
 end
 
 -------------------------------------
@@ -144,6 +152,9 @@ function ServerData_Dragons:delDragonData(dragon_object_id)
     if idx then
         self.m_serverData:applyServerData(nil, 'dragons', idx)
     end
+
+    -- 드래곤 did별 갯수 갱신 필요
+    self.m_bDirtyNumOfDragonsByDid = true
 end
 
 -------------------------------------
@@ -439,3 +450,32 @@ function ServerData_Dragons:makeDragonAnimator(t_dragon_data)
 
     return animator
 end
+
+
+-------------------------------------
+-- function getNumOfDragonsByDid
+-- @brief
+-------------------------------------
+function ServerData_Dragons:getNumOfDragonsByDid(did)
+    local did = tonumber(did)
+
+    if self.m_bDirtyNumOfDragonsByDid then
+        local l_dragons = self.m_serverData:getRef('dragons')
+
+        for i,v in pairs(l_dragons) do
+            local did_ = tonumber(v['did'])
+
+            if (not self.m_mNumOfDragonsByDid[did_]) then
+                self.m_mNumOfDragonsByDid[did_] = 0
+            end
+
+            self.m_mNumOfDragonsByDid[did_] = (self.m_mNumOfDragonsByDid[did_] + 1)
+        end
+
+        self.m_bDirtyNumOfDragonsByDid = false
+    end
+
+    local number = self.m_mNumOfDragonsByDid[did] or 0
+    return number
+end
+

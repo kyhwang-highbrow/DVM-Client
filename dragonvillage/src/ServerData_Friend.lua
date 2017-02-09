@@ -11,6 +11,7 @@ ServerData_Friend = class({
         m_lFriendInviteList = 'list',
 
         m_mInvitedUerList = 'map', -- 클라이언트가 켜져있는 동안 친구초대를 한 유저의 uid 저장
+        m_mSentFpUserList = 'map', -- 오늘 우정포인트를 보낸 유저 리스트
 
         -- 선택된 공유 친구 데이터
         m_selectedShareFriendData = '',
@@ -22,6 +23,7 @@ ServerData_Friend = class({
 function ServerData_Friend:init(server_data)
     self.m_serverData = server_data
     self.m_mInvitedUerList = {}
+    self.m_mSentFpUserList = {}
 end
 
 -------------------------------------
@@ -668,6 +670,14 @@ function ServerData_Friend:response_friendCommon(ret)
     if ret['friend_info'] then
         self.m_friendSystemStatus = ret['friend_info']
     end
+
+    -- 플레이어가 오늘 우정포인트를 보낸 유저 uid 저장
+    if ret['fpsend'] then
+        self.m_mSentFpUserList = {}
+        for i,v in ipairs(ret['fpsend']) do
+           self.m_mSentFpUserList[v] = true 
+        end
+    end
 end
 
 
@@ -694,7 +704,68 @@ end
 -- @brief 드래곤 지원 요청 리스트
 -------------------------------------
 function ServerData_Friend:getDragonSupportRequestList()
-    return {}
+    local l_friend_map = self:getFriendList()
+
+    local l_request_list = {}
+
+    for i,v in pairs(l_friend_map) do
+        local is_empty = table.isEmpty(v['need_did'])
+        if (not is_empty) then
+            local value, did = table.getFirst(v['need_did'])
+
+            if did and (value == '') then
+                table.insert(l_request_list, v)
+            end
+        end
+    end
+
+    return l_request_list
+end
+
+
+local T_NEED_INFO = {}
+T_NEED_INFO['did'] = nil
+T_NEED_INFO['support_finish'] = false
+T_NEED_INFO['requested_at'] = 0
+T_NEED_INFO['fp_reward'] = 0
+
+-------------------------------------
+-- function parseDragonSupportInfo
+-- @brief 드래곤 지원 정보 분석
+-------------------------------------
+function ServerData_Friend:parseDragonSupportInfo(l_need_info)
+    local t_need_info = clone(T_NEED_INFO)
+
+    if table.isEmpty(l_need_info) then
+        return t_need_info
+    end
+
+    local value, did = table.getFirst(l_need_info)
+    t_need_info['did'] = tonumber(did)
+
+    local rarity = TableDragon():getValue(t_need_info['did'], 'rarity')
+
+    if (rarity == 'common') then
+        t_need_info['fp_reward'] = 100
+
+    elseif (rarity == 'rare') then
+        t_need_info['fp_reward'] = 500
+
+    elseif (rarity == 'hero') then
+        t_need_info['fp_reward'] = 1000
+
+    elseif (rarity == 'legend') then
+        t_need_info['fp_reward']= 5000
+
+    end
+
+    if (value == '') then
+        t_need_info['support_finish'] = false
+    else
+        t_need_info['support_finish'] = true
+    end
+    
+    return t_need_info
 end
 
 -------------------------------------
@@ -708,9 +779,7 @@ function ServerData_Friend:request_sendFp(frined_uid_list, finish_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
-        for i,v in ipairs(frined_uid_list) do
-            self:getFriendInfo(v)['sent_fp'] = true
-        end
+        self:response_friendCommon(ret)
 
         if finish_cb then
             finish_cb(ret)
@@ -737,8 +806,20 @@ function ServerData_Friend:request_sendFpAllFriends(finish_cb)
     local frined_uid_list = {}
     
     for uid,v in pairs(self.m_lFriendUserList) do
-        table.insert(frined_uid_list, uid)
+
+        -- 오늘 우정포인트를 보내지 않은 유저에게만
+        if (not self:isSentFp(uid)) then
+            table.insert(frined_uid_list, uid)
+        end
     end
 
     self:request_sendFp(frined_uid_list, finish_cb)
+end
+
+-------------------------------------
+-- function isSentFp
+-- @brief 해당 uid의 친구에게 오늘 우정포인트를 보냈는지 여부
+-------------------------------------
+function ServerData_Friend:isSentFp(friend_uid)
+    return self.m_mSentFpUserList[friend_uid]
 end
