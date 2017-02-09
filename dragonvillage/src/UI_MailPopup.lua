@@ -91,10 +91,10 @@ end
 -- function makeMailTableView
 -------------------------------------
 function UI_MailPopup:makeMailTableView(tab, node)
-    local vars = self.vars
 
 	local t_item_list = g_mailData:getMailList(tab)
-	
+
+	-- item ui에 보상 수령 함수 등록하는 콜백 함수
 	local create_cb_func = function(ui, data)
         local function click_rewardBtn()
             local t_mail_data = data
@@ -110,6 +110,9 @@ function UI_MailPopup:makeMailTableView(tab, node)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(t_item_list)
     table_view:makeDefaultEmptyDescLabel(Str('우편물이 없습니다.'))
+
+    -- 정렬
+    g_mailData:sortMailList(table_view.m_itemList)
 
     self.m_mTableView[tab] = table_view
 end
