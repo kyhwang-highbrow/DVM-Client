@@ -66,6 +66,8 @@ end
 -- function initButton
 -------------------------------------
 function UI_MailPopup:initButton()
+	local vars = self.vars
+	vars['rewardAllBtn']:registerScriptTapHandler(function() self:click_rewardAllBtn() end)
 end
 
 -------------------------------------
@@ -136,17 +138,41 @@ end
 
 -------------------------------------
 -- function click_rewardBtn
+-- @brief 단일 보상 수령
 -------------------------------------
 function UI_MailPopup:click_rewardBtn(t_mail_data)
 
     local mail_id_list = {t_mail_data['id']}
     local function finish_cb(ret)
         if (ret['status'] == 0) then
+			UI_RewardPopup()
             self.m_mTableView[self.m_currTab]:delItem(t_mail_data['id'])
         end
     end
     
     g_mailData:request_mailRead(mail_id_list, finish_cb)
+end
+
+-------------------------------------
+-- function click_rewardAllBtn
+-- @brief 확정권을 제외한 모든 보상 수령
+-------------------------------------
+function UI_MailPopup:click_rewardAllBtn()
+	
+	local get_all_reward_cb = function() 
+		local function finish_cb(ret, mail_id_list)
+			if (ret['status'] == 0) then
+				UI_RewardPopup()
+				for _, mail_id in pairs(mail_id_list) do
+					self.m_mTableView[self.m_currTab]:delItem(mail_id)
+				end
+			end
+		end
+    
+		g_mailData:request_mailReadAll(self.m_currTab, finish_cb)
+	end
+
+    MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('메일을 전부 받나요? 확정권은 받지 못합니다.'), get_all_reward_cb)
 end
 
 -------------------------------------

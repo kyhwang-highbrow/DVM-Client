@@ -119,7 +119,7 @@ function ServerData_Mail:request_mailRead(mail_id_list, finish_cb)
         end
 
         if finish_cb then
-            finish_cb(ret)
+            finish_cb(ret, mail_id_list)
         end
     end
 
@@ -132,6 +132,22 @@ function ServerData_Mail:request_mailRead(mail_id_list, finish_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+end
+
+-------------------------------------
+-- function request_mailReadAll
+-- @brief 우편 모두 읽기
+-------------------------------------
+function ServerData_Mail:request_mailReadAll(type, finish_cb)
+    -- 적절한 우편 id list 추출
+	local mail_list = self:getMailList_withoutFp()
+	local mail_id_list = {}
+	for i, mail in pairs(mail_list) do 
+		table.insert(mail_id_list, mail['id'])
+	end
+
+	-- api로 보냄
+	g_mailData:request_mailRead(mail_id_list, finish_cb)
 end
 
 -------------------------------------
