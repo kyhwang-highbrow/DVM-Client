@@ -173,7 +173,8 @@ local t_module = {
     'GameState_SecretDungeon_Relation',
     'GameState_Colosseum',
     'GameAuto',
-    'GameAuto_Colosseum',
+    'GameAuto_Hero',
+    'GameAuto_Enemy',
     'GameFever',
     'GameCamera',
     'GameTimeScale',
@@ -342,6 +343,7 @@ local t_module = {
 	'TamerSpecialSkillCombination',
 
 	'WaveMgr',
+    'WaveMgr_SecretRelation',
     'WaveMgr_Colosseum',
     'DynamicWave',
 

@@ -11,72 +11,29 @@ GAME_AUTO_AI_TAMER__SKILL_1 = 1
 GAME_AUTO_AI_TAMER__SKILL_2 = 2
 GAME_AUTO_AI_TAMER__SKILL_3 = 3
 
-local AI_DELAY_TIME = 2.5
-local AI_FEVER_DELAY_TIME = 0.5
+GAME_AUTO_AI_DELAY_TIME = 2.5
 
 -------------------------------------
 -- class GameAuto
 -------------------------------------
 GameAuto = class(IEventListener:getCloneClass(), {
         m_world = 'GameWorld',
-        m_gameFever = 'GameFever',
-        
-        m_bLeftFormation = 'boolean',
         m_bActive = 'boolean',
-
+        m_tCastingEnemyList = 'table',  -- 상대편에서 캐스팅 중인 대상 리스트
         m_aiDelayTime = 'number',       -- 스킬 사용 직후 일정 시간 뒤 다음 스킬을 사용하도록 하기 위한 딜레이 시간
-        m_aiFeverDelayTime = 'number',  -- 피버 모드 공격 딜레이 시간
-
-        m_tCastingEnemyList = 'table',  -- 시전 중인 적 리스트
-
-        -- UI
-        m_autoVisual = '',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function GameAuto:init(world, bLeftFormation)
+function GameAuto:init(world)
     self.m_world = world
 
-    self.m_gameFever = nil
-    self.m_bLeftFormation = (bLeftFormation == nil) and true or bLeftFormation
     self.m_bActive = false
 
-    self.m_aiDelayTime = AI_DELAY_TIME
-    self.m_aiFeverDelayTime = AI_FEVER_DELAY_TIME
+    self.m_aiDelayTime = GAME_AUTO_AI_DELAY_TIME
 
     self.m_tCastingEnemyList = {}
-
-    if (self.m_bLeftFormation) then
-        self:initUI()
-    
-        if (g_autoPlaySetting:isAutoPlay()) then
-            -- 연속 전투가 활성화되어있다면 즉시 자동모드를 활성화시킴
-            g_autoPlaySetting:set('auto_mode', true)
-        end
-
-        if (g_autoPlaySetting:get('auto_mode')) then
-            self:onStart()
-        end
-    end
-end
-
--------------------------------------
--- function initUI
--------------------------------------
-function GameAuto:initUI()
-    local ui = self.m_world.m_inGameUI
-
-    self.m_autoVisual = ui.vars['autoVisual']
-end
-
--------------------------------------
--- function bindGameFever
--------------------------------------
-function GameAuto:bindGameFever(gameFever)
-    self.m_gameFever = gameFever
-    self.m_gameFever:addListener('fever_attack', self)
 end
 
 -------------------------------------
@@ -85,37 +42,13 @@ end
 function GameAuto:update(dt)
     if (not self:isActive()) then return end
 
-    if (self.m_gameFever and self.m_gameFever:isActive()) then
-        -- 피버모드가 활성화된 상태일 경우
-        self:update_fever(dt)
-    else
-        self:update_fight(dt)
-    end
-end
-
--------------------------------------
--- function update_fever
--------------------------------------
-function GameAuto:update_fever(dt)
-    if (self.m_aiFeverDelayTime > 0) then
-        self.m_aiFeverDelayTime = self.m_aiFeverDelayTime - dt
-
-        if (self.m_aiFeverDelayTime < 0) then
-            self.m_aiFeverDelayTime = 0
-        end
-    else
-        self.m_gameFever:doAttack()
-    end
+    self:update_fight(dt)
 end
 
 -------------------------------------
 -- function update_fight
 -------------------------------------
 function GameAuto:update_fight(dt)
-    if (self.m_bLeftFormation and self.m_world.m_skillIndicatorMgr:isControlling()) then
-        return
-    end
-
     if (self.m_aiDelayTime > 0) then
         self.m_aiDelayTime = self.m_aiDelayTime - dt
 
@@ -142,23 +75,6 @@ end
 -- function proccess_tamer
 -------------------------------------
 function GameAuto:proccess_tamer()
-    if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
-        return
-    end
-
-    local tamerSkillSystem = self.m_world.m_tamerSkillSystem
-    if (not tamerSkillSystem) then return end
-
-    local tamerSkillIdx = g_autoPlaySetting:get('tamer_skill')
-    if (tamerSkillSystem:isEndSkillCoolTime(tamerSkillIdx)) then
-        tamerSkillSystem:click_tamerSkillBtn(tamerSkillIdx)
-
-        -- AI 딜레이 시간 설정
-        self.m_aiDelayTime = AI_DELAY_TIME
-
-        return true
-    end
-
     return false
 end
 
@@ -169,37 +85,38 @@ function GameAuto:proccess_dragon()
     local allyList = self:getUnitList()
 
     for i, dragon in ipairs(allyList) do
-        local skill_id = dragon:getSkillID('active')
-        local t_skill = dragon:getLevelingSkillById(skill_id)
-        local isPossibleSkill = false
-        local target = nil
+        if (isInstanceOf(dragon, Dragon)) then
+            local skill_id = dragon:getSkillID('active')
+            local t_skill = dragon:getLevelingSkillById(skill_id)
+            local isPossibleSkill = false
+            local target = nil
             
-        -- 스킬 사용 여부 체크
-        isPossibleSkill, target = self:checkSkill(dragon, t_skill)
+            -- 스킬 사용 여부 체크
+            isPossibleSkill, target = self:checkSkill(dragon, t_skill)
 
-        if (isPossibleSkill) then
-            if (not target) then
-                -- 대상을 찾는다
-                target = self:findTarget(dragon, t_skill)
-            end
-
-            if (target) then
-                -- 스킬 사용
-                self:doSkill(dragon, t_skill, target)
-
-                -- AI 딜레이 시간 설정
-                self.m_aiDelayTime = AI_DELAY_TIME
-
-                -- 해당 대상을 리스트에서 제외시킴(한 대상에게 여러번 스킬 사용이 되지 않도록 하기 위함)
-                local idx = table.find(self.m_tCastingEnemyList, target)
-                if (idx) then
-                    table.remove(self.m_tCastingEnemyList, idx)
+            if (isPossibleSkill) then
+                if (not target) then
+                    -- 대상을 찾는다
+                    target = self:findTarget(dragon, t_skill)
                 end
 
-                break
+                if (target) then
+                    -- 스킬 사용
+                    self:doSkill(dragon, t_skill, target)
+
+                    -- AI 딜레이 시간 설정
+                    self.m_aiDelayTime = GAME_AUTO_AI_DELAY_TIME
+
+                    -- 해당 대상을 리스트에서 제외시킴(한 대상에게 여러번 스킬 사용이 되지 않도록 하기 위함)
+                    local idx = table.find(self.m_tCastingEnemyList, target)
+                    if (idx) then
+                        table.remove(self.m_tCastingEnemyList, idx)
+                    end
+
+                    break
+                end
             end
         end
-
     end
 end
 
@@ -352,10 +269,6 @@ end
 -------------------------------------
 function GameAuto:onStart()
     self.m_bActive = true
-
-    if (self.m_autoVisual) then
-        self.m_autoVisual:setVisible(true)
-    end
 end
 
 -------------------------------------
@@ -363,21 +276,13 @@ end
 -------------------------------------
 function GameAuto:onEnd()
     self.m_bActive = false
-
-    if (self.m_autoVisual) then
-        self.m_autoVisual:setVisible(false)
-    end
 end
 
 -------------------------------------
 -- function isActive
 -------------------------------------
 function GameAuto:getUnitList()
-    if (self.m_bLeftFormation) then
-        return self.m_world:getDragonList()
-    else
-        return self.m_world:getEnemyList()
-    end
+    return {}
 end
 
 -------------------------------------
@@ -391,36 +296,4 @@ end
 -- function onEvent
 -------------------------------------
 function GameAuto:onEvent(event_name, t_event, ...)
-    if (event_name == 'auto_start') then
-        self:onStart()
-
-    elseif (event_name == 'auto_end') then
-        self:onEnd()
-
-    elseif (event_name == 'hero_casting_start') then
-               
-    elseif (event_name == 'enemy_casting_start') then
-        local arg = {...}
-        local enemy = arg[1]
-
-        if (self.m_bLeftFormation) then
-            table.insert(self.m_tCastingEnemyList, enemy)
-        end
-
-    elseif (event_name == 'hero_active_skill') then
-        if (self.m_bLeftFormation) then
-            self.m_aiDelayTime = AI_DELAY_TIME
-        end
-
-    elseif (event_name == 'enemy_active_skill') then
-        if (not self.m_bLeftFormation) then
-            self.m_aiDelayTime = AI_DELAY_TIME
-        end
-
-    elseif (event_name == 'fever_attack') then
-        if (self.m_bLeftFormation) then
-            self.m_aiFeverDelayTime = AI_FEVER_DELAY_TIME
-        end
-
-    end
 end

@@ -299,7 +299,7 @@ function Animator:setScale(scale)
 
     if self.m_bFlip then 
         self.m_node:setScaleX(-scale)
-        self.m_node:setScaleY(-scale)
+        self.m_node:setScaleY(scale)
     else
         self.m_node:setScale(scale)
     end

@@ -280,7 +280,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\EventCarrier.lua" />
     <None Include="..\src\FriendBuffManager.lua" />
     <None Include="..\src\GameAuto.lua" />
-    <None Include="..\src\GameAuto_Colosseum.lua" />
+    <None Include="..\src\GameAuto_Enemy.lua" />
+    <None Include="..\src\GameAuto_Hero.lua" />
     <None Include="..\src\GameState_Colosseum.lua" />
     <None Include="..\src\GameState_SecretDungeon_Gold.lua" />
     <None Include="..\src\GameState_NestDungeon.lua" />
@@ -738,6 +739,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ValidationDragon.lua" />
     <None Include="..\src\WaveMgr.lua" />
     <None Include="..\src\WaveMgr_Colosseum.lua" />
+    <None Include="..\src\WaveMgr_SecretRelation.lua" />
     <None Include="..\src_tool\entry_ui_viewer.lua" />
     <None Include="..\src_tool\entry_viewer.lua" />
     <None Include="..\src_tool\entry_wave_maker.lua" />

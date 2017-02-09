@@ -4,7 +4,7 @@ local PARENT = Monster
 -- class MonsterLua_Boss
 -------------------------------------
 MonsterLua_Boss = class(PARENT, {
-        m_actionGauge = '',
+        --m_actionGauge = '',
 
         m_tOrgPattern = 'table',    -- 반복되어서 수행될 패턴 리스트
         m_tCurrPattern = 'table',
@@ -27,7 +27,7 @@ MonsterLua_Boss = class(PARENT, {
 -- @param body
 -------------------------------------
 function MonsterLua_Boss:init(file_name, body, ...)
-    self.m_actionGauge = nil
+    --self.m_actionGauge = nil
 
     self.m_patternTime = 0
     self.m_tEffectSound = {}
@@ -384,9 +384,19 @@ end
 -------------------------------------
 -- function makeHPGauge
 -------------------------------------
-function MonsterLua_Boss:makeHPGauge(hp_ui_offset)
-    if (self.m_charTable['rarity'] == 'boss') then
+function MonsterLua_Boss:makeHPGauge(hp_ui_offset, force)
+    if (self.m_charTable['rarity'] == 'boss' or force) then
         self.m_unitInfoOffset = hp_ui_offset
+
+        if (self.m_hpNode) then
+            self.m_hpNode:removeFromParent()
+            self.m_hpNode = nil
+            self.m_hpGauge = nil
+            self.m_hpGauge2 = nil
+            self.m_statusNode = nil
+            self.m_actionGauge = nil
+            self.m_infoUI = nil
+        end
 
         -- 보스 UI
         local ui = UI_IngameBossInfo(self)
@@ -405,21 +415,10 @@ function MonsterLua_Boss:makeHPGauge(hp_ui_offset)
         self.m_world.m_inGameUI.root:addChild(self.m_hpNode)
 
         self.m_infoUI = ui
+
+        self.m_bFixedPosHpNode = true
     else
         PARENT.makeHPGauge(self, hp_ui_offset)
-    end
-end
-
--------------------------------------
--- function setPosition
--------------------------------------
-function MonsterLua_Boss:setPosition(x, y)
-    PARENT.setPosition(self, x, y)
-
-    if (self.m_charTable['rarity'] == 'boss') then
-        if self.m_hpNode then
-            self.m_hpNode:setPosition(0, 0)
-        end
     end
 end
 

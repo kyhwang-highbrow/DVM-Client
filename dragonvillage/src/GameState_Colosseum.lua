@@ -144,34 +144,6 @@ function GameState_Colosseum.update_wave_intermission(self, dt)
 end
 
 -------------------------------------
--- function update_fight
--------------------------------------
-function GameState_Colosseum.update_fight(self, dt)
-    PARENT.update_fight(self, dt)
-    
-    if self.m_world.m_gameAutoEnemy then
-        self.m_world.m_gameAutoEnemy:update(dt) 
-    end
-
-    do -- 적군 액티브 스킬 쿨타임 증가
-        for _, enemy in pairs(self.m_world:getEnemyList()) do
-            enemy:updateActiveSkillCoolTime(dt)
-        end
-    end
-end
-
--------------------------------------
--- function update_fight_fever
--------------------------------------
-function GameState_Colosseum.update_fight_fever(self, dt)
-    PARENT.update_fight_fever(self, dt)
-
-    if self.m_world.m_gameAutoEnemy then
-        self.m_world.m_gameAutoEnemy:update(dt) 
-    end
-end
-
--------------------------------------
 -- function update_success
 -------------------------------------
 function GameState_Colosseum.update_success(self, dt)

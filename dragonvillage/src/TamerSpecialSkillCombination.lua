@@ -204,7 +204,7 @@ function TamerSpecialSkillCombination.st_end(owner, dt)
         end
 		-- 2. 드래곤 제자리 및 스테이트 attackDelay, 무적 해제
 		for _, dragon in pairs(owner.m_lDragon) do 
-			dragon:setMove(dragon.m_homePosX, dragon.m_homePosY, SPEED)
+			dragon:setMoveHomePos(SPEED)
 			dragon:changeState('attackDelay')
             dragon:setInvincibility(false)
 			owner.m_lDragonEffect[dragon]:release()

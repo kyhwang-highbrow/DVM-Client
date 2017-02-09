@@ -263,8 +263,12 @@ function GameState.update_fight(self, dt)
         world.m_gameFever:update(dt)
     end
 
-    if world.m_gameAuto then
-        world.m_gameAuto:update(dt)
+    if world.m_gameAutoHero then
+        world.m_gameAutoHero:update(dt)
+    end
+
+    if world.m_gameAutoEnemy then
+        world.m_gameAutoEnemy:update(dt)
     end
 
     if world.m_enemyMovementMgr then
@@ -274,6 +278,14 @@ function GameState.update_fight(self, dt)
     do -- 드래곤 액티브 스킬 쿨타임 증가
         for _,dragon in pairs(world:getDragonList()) do
             dragon:updateActiveSkillCoolTime(dt)
+        end
+    end
+
+    do -- 적군 액티브 스킬 쿨타임 증가
+        for _, enemy in pairs(self.m_world:getEnemyList()) do
+            if (isInstanceOf(enemy, Dragon)) then
+                enemy:updateActiveSkillCoolTime(dt)
+            end
         end
     end
 end
@@ -516,8 +528,12 @@ function GameState.update_fight_fever(self, dt)
         world.m_gameFever:update(dt)
     end
 
-    if world.m_gameAuto then
-        world.m_gameAuto:update(dt)
+    if world.m_gameAutoHero then
+        world.m_gameAutoHero:update(dt)
+    end
+
+    if self.m_world.m_gameAutoEnemy then
+        self.m_world.m_gameAutoEnemy:update(dt) 
     end
 end
 

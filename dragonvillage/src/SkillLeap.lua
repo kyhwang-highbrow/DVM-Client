@@ -71,11 +71,13 @@ function SkillLeap.st_move(owner, dt)
 	owner:updateAfterImage(dt)
 
     if (owner.m_stateTimer == 0) then
+        owner.m_owner:resetMove()
+
 		-- 점프 이펙트
 		local animator = MakeAnimator(owner.m_jumpRes)
 		if animator then 
 			animator:changeAni('idle', false)
-			animator.m_node:setPosition(owner.m_owner.m_homePosX, owner.m_owner.m_homePosY - 40)
+			animator.m_node:setPosition(owner.m_owner.pos.x, owner.m_owner.pos.y - 40)
 			owner.m_owner.m_world.m_missiledNode:addChild(animator.m_node)
 		end 
 

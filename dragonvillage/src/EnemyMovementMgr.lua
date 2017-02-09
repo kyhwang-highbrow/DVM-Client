@@ -1,11 +1,12 @@
 -------------------------------------
 -- class EnemyMovement
 -------------------------------------
-EnemyMovement = class({
+EnemyMovement = class(IEventListener:getCloneClass(), {
     m_key = 'string',
     m_tPattern = 'table',
 
     m_curIdx = 'number',
+    m_curType = 'string',
     m_remainTime = 'number',    -- 다음 패턴까지 남은시간
 
     m_lEnemyList = 'table',     -- 해당 패턴을 사용하는 적군 리스트
@@ -22,6 +23,7 @@ EnemyMovement = class({
         self.m_tPattern = t_pattern
 
         self.m_curIdx = 1
+        self.m_curType = nil
         self.m_remainTime = 0
         
         self.m_lEnemyList = {}
@@ -39,7 +41,7 @@ EnemyMovement = class({
         end
 
         if (self.m_remainTime <= 0) then
-            self:doPattern()
+            self:applyNextPattern()
         end
     end
 
@@ -47,8 +49,26 @@ EnemyMovement = class({
     -- function addEnemy
     -------------------------------------
     function EnemyMovement:addEnemy(enemy)
+        enemy.m_movement = self
+
         table.insert(self.m_lEnemyList, enemy)
 
+        -- 콜백 등록
+        enemy:addListener('character_comeback', self)
+        enemy:addListener('character_dead', self)
+        
+        self.m_bSorted = false
+    end
+
+    -------------------------------------
+    -- function removeEnemy
+    -------------------------------------
+    function EnemyMovement:removeEnemy(enemy)
+        enemy.m_movement = nil
+
+        local idx = table.find(self.m_lEnemyList, enemy)
+        table.remove(self.m_lEnemyList, idx)
+        
         self.m_bSorted = false
     end
 
@@ -70,9 +90,24 @@ EnemyMovement = class({
     end
 
     -------------------------------------
-    -- function doPattern
+    -- function doMove
     -------------------------------------
-    function EnemyMovement:doPattern(x, y, time)
+    function EnemyMovement:doMove(enemy)
+        if (enemy.m_bDead) then return end
+
+        local posIdx = enemy:getPosIdx()
+        local key = TableEnemyMove():getMovePosKey(self.m_curType, posIdx)
+        if (key) then
+            local pos = getWorldEnemyPos(enemy, key)
+
+            enemy:changeHomePosByTime(pos.x, pos.y, self.m_remainTime)
+        end
+    end
+
+    -------------------------------------
+    -- function applyNextPattern
+    -------------------------------------
+    function EnemyMovement:applyNextPattern()
         if (not self.m_bSorted) then
             self:sortEnemyList()
         end
@@ -85,21 +120,32 @@ EnemyMovement = class({
         local pattern = self.m_tPattern[self.m_curIdx]
         local l_data = stringSplit(pattern, ';')
 
-        local type = l_data[1]
-        local time = tonumber(l_data[2] or 1)
+        -- 현재 패턴 정보를 세팅
+        self.m_curType = l_data[1]
+        self.m_remainTime = tonumber(l_data[2] or 1)
         
+        -- 리스트내의 모든 적군을 이동시킴
         for i, enemy in pairs(self.m_mEnemyList) do
-            local key = TableEnemyMove():getMovePosKey(type, i)
-            if (key) then
-                local pos = getWorldEnemyPos(enemy, key)
-
-                enemy:changeHomePosByTime(pos.x, pos.y, time)
-            end
+            self:doMove(enemy)
         end
 
-        self.m_remainTime = time
-
         self.m_curIdx = self.m_curIdx + 1
+    end
+
+    -------------------------------------
+    -- function onEvent
+    -------------------------------------
+    function EnemyMovement:onEvent(event_name, t_event, ...)
+        local arg = {...}
+        local enemy = arg[1]
+
+        if (event_name == 'character_comeback') then
+            self:doMove(enemy)
+            
+        elseif (event_name == 'character_dead') then
+            self:removeEnemy(enemy)
+
+        end
     end
     
 

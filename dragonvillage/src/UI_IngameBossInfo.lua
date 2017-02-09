@@ -52,8 +52,8 @@ end
 -------------------------------------
 function UI_IngameBossInfo:makeSkillButton(skill_id)
     local vars = self.vars
-    local t_skill = TABLE:get('monster_skill')[skill_id]
-        
+    local t_skill = self.m_owner:getSkillTable(skill_id)
+
     local node = cc.MenuItemImage:create(t_skill['res_icon'], t_skill['res_icon'], 1)
     local button = UIC_Button(node)
 
@@ -72,7 +72,7 @@ end
 -- function click_skillButton
 -------------------------------------
 function UI_IngameBossInfo:click_skillButton(button, skill_id)
-    local str = UI_Tooltip_Skill:getSkillDescStr('monster', skill_id)
+    local str = UI_Tooltip_Skill:getSkillDescStr(self.m_owner.m_charType, skill_id)
     local tool_tip = UI_Tooltip_Skill(0, 0, str)
 
     -- 자동 위치 지정

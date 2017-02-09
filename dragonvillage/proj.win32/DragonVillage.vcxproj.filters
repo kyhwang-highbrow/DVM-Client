@@ -1302,9 +1302,6 @@
     <None Include="..\src\TableItem.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\GameAuto_Colosseum.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\ConstantColosseum.lua">
       <Filter>lua</Filter>
     </None>
@@ -1559,6 +1556,15 @@
     </None>
     <None Include="..\src\UI_FriendSupportListItem.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\WaveMgr_SecretRelation.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\GameAuto_Hero.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\GameAuto_Enemy.lua">
+      <Filter>lua</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

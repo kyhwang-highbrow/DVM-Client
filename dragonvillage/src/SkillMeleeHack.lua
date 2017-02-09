@@ -113,7 +113,7 @@ function SkillMeleeHack.st_comeback(owner, dt)
     local char = owner.m_owner
 
     if (owner.m_stateTimer == 0) then
-        char:setMove(char.m_homePosX, char.m_homePosY, owner.m_comebackSpeed)
+        char:setMoveHomePos(owner.m_comebackSpeed)
     elseif (char.m_isOnTheMove == false) then
         owner:changeState('dying')
     end

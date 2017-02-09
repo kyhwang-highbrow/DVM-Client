@@ -110,7 +110,7 @@ end
 -- function click_autoButton
 -------------------------------------
 function UI_Game:click_autoButton()
-    local gameAuto = self.m_gameScene.m_gameWorld.m_gameAuto
+    local gameAuto = self.m_gameScene.m_gameWorld.m_gameAutoHero
 
     self:setAutoMode(not gameAuto:isActive())
 end
@@ -188,7 +188,7 @@ end
 -- @brief 자동 모드 설정
 -------------------------------------
 function UI_Game:setAutoMode(b)
-    local gameAuto = self.m_gameScene.m_gameWorld.m_gameAuto
+    local gameAuto = self.m_gameScene.m_gameWorld.m_gameAutoHero
     if (gameAuto:isActive() == b) then return end
     
     if (b) then

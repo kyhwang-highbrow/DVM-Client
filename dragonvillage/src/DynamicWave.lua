@@ -34,15 +34,9 @@ function DynamicWave:init(wave_mgr, data, delay)
     local level = l_str[2]   -- 적군 레벨
     local appearType = l_str[3]   -- 등장 타입
 
-    if (enemy_id == 'RandomDragon') then
-        -- 해당 스테이지에서 등장 가능한 드래곤 리스트 중 랜덤하게 결정됨
-        local l_did = TableSecretDungeon():getRandomDragonList()
-        enemy_id = randomShuffle(l_did)
-    end
-
     self.m_enemyID = tonumber(enemy_id)
     self.m_appearType = appearType
-    self.m_enemyLevel = level
+    self.m_enemyLevel = tonumber(level)
 
     -- 추가 값
     self.m_luaValue1 = l_str[4]

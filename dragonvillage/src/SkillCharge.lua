@@ -115,7 +115,7 @@ function SkillCharge.st_comeback(owner, dt)
 
     if (owner.m_stateTimer == 0) then
         owner:releaseCrashPhsyObject()
-		char:setMove(char.m_homePosX, char.m_homePosY, SPEED_COMEBACK)
+		char:setMoveHomePos(SPEED_COMEBACK)
 
     elseif (char.m_isOnTheMove == false) then
 		char.m_animator:changeAni(owner.m_animationName .. '_disappear', false) 

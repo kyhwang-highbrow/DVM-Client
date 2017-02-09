@@ -4,8 +4,6 @@ local PARENT = GameWorld
 -- class GameWorld
 -------------------------------------
 GameWorldColosseum = class(PARENT, {
-        m_gameAutoEnemy = '',   -- 적군 자동 AI
-
         m_diedHeroTotalMaxHp = 'number',    -- 죽은 아군들의 총 maxHp(죽었을때 상태로 저장)
         m_diedEnemyTotalMaxHp = 'number',    -- 죽은 적군들의 총 maxHp(죽었을때 상태로 저장)
     })
@@ -25,7 +23,7 @@ function GameWorldColosseum:init(game_mode, stage_id, world_node, game_node1, ga
     self.m_gameTimeScale:setBase(COLOSSEUM__TIME_SCALE)
 
     -- 적군 AI
-    self.m_gameAutoEnemy = GameAuto_Colosseum(self, false)
+    self.m_gameAutoEnemy = GameAuto_Enemy(self, false)
 
     self.m_gameState = GameState_Colosseum(self)
 end
@@ -138,17 +136,16 @@ function GameWorldColosseum:addEnemy(enemy)
     enemy:addListener('enemy_appear_done', self.m_gameState)
 
     -- 스킬 캐스팅
-    enemy:addListener('enemy_casting_start', self.m_gameAuto)
+    enemy:addListener('enemy_casting_start', self.m_gameAutoHero)
     
     -- 스킬 캐스팅 중 취소시 콜백 등록
     enemy:addListener('character_casting_cancel', self.m_tamerSpeechSystem)
     enemy:addListener('character_casting_cancel', self.m_gameFever)
 
-    if (enemy.m_charType == 'dragon') then
-        enemy:addListener('enemy_active_skill', self.m_gameState)
-        enemy:addListener('enemy_active_skill', self.m_gameAuto)
-    end
-
+    -- 액티브 스킬 사용시
+    enemy:addListener('enemy_active_skill', self.m_gameState)
+    enemy:addListener('enemy_active_skill', self.m_gameAutoHero)
+    
     -- HP 변경시 콜백 등록
     enemy:addListener('character_set_hp', self)
 end
@@ -178,9 +175,9 @@ function GameWorldColosseum:addHero(hero, idx)
     hero:addListener('dragon_skill', self)
     
     hero:addListener('hero_active_skill', self.m_gameState)
-    hero:addListener('hero_active_skill', self.m_gameAuto)
+    hero:addListener('hero_active_skill', self.m_gameAutoHero)
         
-    hero:addListener('hero_casting_start', self.m_gameAuto)
+    hero:addListener('hero_casting_start', self.m_gameAutoHero)
        
     hero:addListener('character_weak', self.m_tamerSpeechSystem)
     hero:addListener('character_damaged_skill', self.m_tamerSpeechSystem)

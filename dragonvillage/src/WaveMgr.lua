@@ -229,9 +229,7 @@ end
 -- function newScenario_dynamicWave
 -------------------------------------
 function WaveMgr:newScenario_dynamicWave(t_data)
-    if (not t_data['wave']) then
-        return
-    end
+    if (not t_data['wave']) then return end
 
     self.m_lDynamicWave = {}
     self.m_highestRarity = 'common'

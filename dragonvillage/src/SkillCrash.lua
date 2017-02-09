@@ -130,7 +130,7 @@ function SkillCrash.st_comeback(owner, dt)
         local y = char.pos.y
         owner:attackShockwave(x, y)
 
-        char:setMove(char.m_homePosX, char.m_homePosY, SPEED_COMEBACK)
+        char:setMoveHomePos(SPEED_COMEBACK)
     elseif (char.m_isOnTheMove == false) then
         owner:changeState('dying')
     end

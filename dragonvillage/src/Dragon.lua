@@ -409,19 +409,6 @@ function Dragon:release()
 end
 
 -------------------------------------
--- function makeSilhouette
--------------------------------------
-function Dragon:makeSilhouette()
-    local res = self.m_animator.m_resName
-    local entity = Entity(res)
-    entity.m_animator:setSkin('White')
-    entity.m_animator:changeAni('idle', true)
-    entity.m_rootNode:setScale(self.m_animator:getScale())
-
-    return entity
-end
-
--------------------------------------
 -- function setActive
 -------------------------------------
 function Dragon:setActive(active)
@@ -455,6 +442,15 @@ end
 function Dragon:makeHPGauge(hp_ui_offset)
     self.m_unitInfoOffset = hp_ui_offset
     self.m_unitInfoOffset[1] = self.m_unitInfoOffset[1] - 80
+
+    if (self.m_hpNode) then
+        self.m_hpNode:removeFromParent()
+        self.m_hpNode = nil
+        self.m_hpGauge = nil
+        self.m_hpGauge2 = nil
+        self.m_statusNode = nil
+        self.m_infoUI = nil
+    end
 
     local ui = UI_IngameDragonInfo(self)
     self.m_hpNode = ui.root
@@ -660,7 +656,7 @@ function Dragon:initActiveSkillCoolTime(percentage)
         self.m_activeSkillTimer = self.m_activeSkillCoolTime * percentage / 100
     end
 
-    if (self.m_infoUI) then
+    if (self.m_infoUI and self.m_infoUI.vars['skillGauge']) then
         self.m_infoUI.vars['skillGauge']:setPercentage(self.m_activeSkillTimer / self.m_activeSkillCoolTime * 100)
     end
 end
@@ -684,21 +680,25 @@ function Dragon:updateActiveSkillCoolTime(dt)
     if (self.m_activeSkillCoolTime <= self.m_activeSkillTimer) then
         self.m_activeSkillTimer = self.m_activeSkillCoolTime
 
-        self.m_infoUI.vars['skllFullVisual']:setVisible(true)
-        self.m_infoUI.vars['skllFullVisual']:setRepeat(false)
-        self.m_infoUI.vars['skllFullVisual']:setVisual('skill_gauge', 'charging')
-        self.m_infoUI.vars['skllFullVisual']:registerScriptLoopHandler(function()
-            local attr = self:getAttribute()
+        if (self.m_infoUI.vars['skllFullVisual']) then
+            self.m_infoUI.vars['skllFullVisual']:setVisible(true)
+            self.m_infoUI.vars['skllFullVisual']:setRepeat(false)
+            self.m_infoUI.vars['skllFullVisual']:setVisual('skill_gauge', 'charging')
+            self.m_infoUI.vars['skllFullVisual']:registerScriptLoopHandler(function()
+                local attr = self:getAttribute()
 
-            self.m_infoUI.vars['skllFullVisual']:setVisual('skill_gauge', 'idle_' .. attr)
-            self.m_infoUI.vars['skllFullVisual']:setRepeat(true)
+                self.m_infoUI.vars['skllFullVisual']:setVisual('skill_gauge', 'idle_' .. attr)
+                self.m_infoUI.vars['skllFullVisual']:setRepeat(true)
 
-            self.m_infoUI.vars['skllFullVisual2']:setVisual('skill_gauge', 'idle_s_' .. attr)
-            self.m_infoUI.vars['skllFullVisual2']:setVisible(true)
-        end)
+                self.m_infoUI.vars['skllFullVisual2']:setVisual('skill_gauge', 'idle_s_' .. attr)
+                self.m_infoUI.vars['skllFullVisual2']:setVisible(true)
+            end)
+        end
     end
 
-    self.m_infoUI.vars['skillGauge']:setPercentage(self.m_activeSkillTimer / self.m_activeSkillCoolTime * 100)
+    if (self.m_infoUI.vars['skillGauge']) then
+        self.m_infoUI.vars['skillGauge']:setPercentage(self.m_activeSkillTimer / self.m_activeSkillCoolTime * 100)
+    end
 
     --cclog(' self.m_activeSkillTimer ' .. self.m_activeSkillTimer)
 end
@@ -709,10 +709,13 @@ end
 function Dragon:resetActiveSkillCoolTime()
     if self:isEndActiveSkillCoolTime() then
         self.m_activeSkillTimer = 0
-        self.m_infoUI.vars['skllFullVisual']:setVisual('skill_gauge', 'idle')
-        self.m_infoUI.vars['skllFullVisual']:setVisible(false)
-        self.m_infoUI.vars['skllFullVisual2']:setVisible(false)
-        self.m_infoUI.vars['skillGauge']:setPercentage(0)
+
+        if (self.m_infoUI.vars['skllFullVisual']) then
+            self.m_infoUI.vars['skllFullVisual']:setVisual('skill_gauge', 'idle')
+            self.m_infoUI.vars['skllFullVisual']:setVisible(false)
+            self.m_infoUI.vars['skllFullVisual2']:setVisible(false)
+            self.m_infoUI.vars['skillGauge']:setPercentage(0)
+        end
         return true
     else
         return false

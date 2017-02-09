@@ -306,6 +306,8 @@ end
 function Character.st_comeback(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner:setMove(owner.m_homePosX, owner.m_homePosY, 800)
+
+        owner:dispatch('character_comeback', {}, owner)
     
     elseif (not owner.m_isOnTheMove) then
         owner:changeState(owner.m_comebackNextState)

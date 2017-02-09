@@ -277,6 +277,10 @@ function MissileLua.lua_bezier(owner)
     -- 베지어 곡선 끝난 이후 상대좌표로 직선 운동할 위치
     -- 직선 운동하는 탄막은 베지어 곡선 마지막 두 점의 각도로 이동한다. // 상하 LEAF_STRAIGHT_ANGLE도로 픽스
     local std_dist = 1000
+    if (not owner.m_owner.m_bLeftFormation) then
+        std_dist = -1000
+    end
+
     local degree = getDegree(pos_x, pos_y, tar_x, tar_y) - (LEAF_STRAIGHT_ANGLE * course)
     local rad = math_rad(degree)
     local linear_y = std_dist * math.tan(rad)

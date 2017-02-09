@@ -36,21 +36,22 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
     dragon.m_dragonID = dragon_id
     dragon.m_charTable = t_dragon
 
-    if bLeftFormation then
-        dragon:changeState('idle')
-    else
-        dragon:changeState('move')
-        dragon.m_animator:setFlip(true)
-    end
-    
     -- 피격 처리
     dragon:addDefCallback(function(attacker, defender, i_x, i_y)
         dragon:undergoAttack(attacker, defender, i_x, i_y)
     end)
 
     self:addToUnitList(dragon)
-    dragon:makeHPGauge({0, -80})
-	dragon:makeCastingNode()
+
+    if bLeftFormation then
+        dragon:changeState('idle')
+        dragon:makeHPGauge({0, -80})
+    else
+        dragon:changeState('move')
+        Character.makeHPGauge(dragon, {0, -80})
+        dragon.m_animator:setFlip(true)
+    end
+    dragon:makeCastingNode()
 
     return dragon
 end

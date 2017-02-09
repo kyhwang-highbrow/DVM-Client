@@ -3,6 +3,8 @@ local CHARACTER_ACTION_TAG__KNOCKBACK = 2
 local CHARACTER_ACTION_TAG__SHADER = 3
 local CHARACTER_ACTION_TAG__FLOATING = 4
 
+local SPEED_COMEBACK = 1500
+
 -------------------------------------
 -- class Character
 -------------------------------------
@@ -44,6 +46,8 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_hpGauge = '',
         m_hpGauge2 = '',
         m_unitInfoOffset = 'UI_IngameDragonInfo/UI_IngameUnitInfo',
+
+        m_actionGauge = '',
 		
 		m_infoUI = '',
 
@@ -61,6 +65,7 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
 
         -- @이동 관련
         m_isOnTheMove = 'boolean',
+        m_bFixedPosHpNode = 'boolean',
 
 		-- @TODO - 향후에 삭제 해야 함. 인터페이스로 대체 
         m_hpEventListener = 'list',
@@ -73,6 +78,8 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_orgHomePosY = 'number',
         m_homePosX = 'number',
         m_homePosY = 'number',
+
+        m_movement = 'EnemyMovement',
 
         -- @ 임시 변수()
 
@@ -127,6 +134,7 @@ function Character:init(file_name, body, ...)
     self.m_chargeDuration = 0
     self.m_attackAnimaDuration = 0
     self.m_isOnTheMove = false
+    self.m_bFixedPosHpNode = false
 
 	self.m_undergoAttackEventListener = {}
     self.m_tOverlabStatusEffect = {}
@@ -149,6 +157,8 @@ function Character:init(file_name, body, ...)
     self.m_orgHomePosY = 0
     self.m_homePosX = 0
     self.m_homePosY = 0
+
+    self.m_movement = nil
 end
 
 -------------------------------------
@@ -1009,6 +1019,16 @@ end
 -------------------------------------
 function Character:makeHPGauge(hp_ui_offset)
     self.m_unitInfoOffset = hp_ui_offset
+
+    if (self.m_hpNode) then
+        self.m_hpNode:removeFromParent()
+        self.m_hpNode = nil
+        self.m_hpGauge = nil
+        self.m_hpGauge2 = nil
+        self.m_statusNode = nil
+        self.m_actionGauge = nil
+        self.m_infoUI = nil
+    end
     
     local ui = UI_IngameUnitInfo(self)
     self.m_hpNode = ui.root
@@ -1059,15 +1079,15 @@ end
 function Character:setPosition(x, y)
 	Entity.setPosition(self, x, y)
 
-    if self.m_hpNode then
+    if (self.m_hpNode and not self.m_bFixedPosHpNode) then
         self.m_hpNode:setPosition(x + self.m_unitInfoOffset[1], y + self.m_unitInfoOffset[2])
     end
 
-    if self.m_castingNode then
+    if (self.m_castingNode) then
         self.m_castingNode:setPosition(x + self.m_unitInfoOffset[1], y + self.m_unitInfoOffset[2])
     end
 
-    if self.m_cbChangePos then
+    if (self.m_cbChangePos) then
         self.m_cbChangePos(self)
     end
 end
@@ -1156,6 +1176,15 @@ function Character:setMove(x, y, speed)
     self.m_isOnTheMove = true
     self:setTargetPos(x, y)
     self:setSpeed(speed)
+end
+
+-------------------------------------
+-- function setMoveHomePos
+-------------------------------------
+function Character:setMoveHomePos(speed)
+    local speed = speed or SPEED_COMEBACK
+
+    self:setMove(self.m_homePosX, self.m_homePosY, speed)
 end
 
 -------------------------------------
@@ -1723,7 +1752,7 @@ function Character:restore(restore_speed)
 
     -- 제 위치로 
 	if (self.pos.x ~= self.m_homePosX) then
-		self:setMove(self.m_homePosX, self.m_homePosY, speed)
+		self:setMoveHomePos(speed)
 	end
 
 	-- Visible On

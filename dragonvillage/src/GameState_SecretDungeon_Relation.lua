@@ -20,16 +20,6 @@ end
 -------------------------------------
 function GameState_SecretDungeon_Relation:initState()
     PARENT.initState(self)
-    self:addState(GAME_STATE_WAVE_INTERMISSION, GameState_SecretDungeon_Relation.update_wave_intermission)
-end
-
--------------------------------------
--- function update_wave_intermission
--------------------------------------
-function GameState_SecretDungeon_Relation.update_wave_intermission(self, dt)
-	local world = self.m_world
-	
-    return PARENT.update_wave_intermission(self, dt)
 end
 
 -------------------------------------
@@ -70,32 +60,4 @@ function GameState_SecretDungeon_Relation:makeResultUI(is_success)
 
     -- 최초 실행
     func_network_game_finish()
-end
-
--------------------------------------
--- function doDirectionForIntermission
--------------------------------------
-function GameState_SecretDungeon_Relation:doDirectionForIntermission()
-    local world = self.m_world
-    local map_mgr = world.m_mapManager
-
-    local t_wave_data, is_final_wave = world.m_waveMgr:getNextWaveScriptData()
-    local t_camera_info = t_wave_data['camera'] or {}
-    local curCameraPosX, curCameraPosY = world.m_gameCamera:getHomePos()
-		
-	if (world.m_bDevelopMode == false) then
-        -- 황금 던전일 경우 웨이브 스크립트에 있는 카메라 정보로 설정
-        t_camera_info['pos_x'] = t_camera_info['pos_x'] * t_camera_info['scale']
-		t_camera_info['pos_y'] = t_camera_info['pos_y'] * t_camera_info['scale']
-		t_camera_info['time'] = getInGameConstant(WAVE_INTERMISSION_TIME)
-
-        -- 마지막 웨이브 시작 연출
-        if is_final_wave then
-            world:dispatch('gold_boss_bg')
-        end
-    end
-
-    -- 카메라 액션 설정
-    world:changeCameraOption(t_camera_info)
-    world:changeHeroHomePosByCamera()
 end

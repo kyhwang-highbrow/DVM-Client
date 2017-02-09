@@ -40,7 +40,8 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         m_gameState = '',
 
-        m_gameAuto = '',        -- 아군 자동 AI
+        m_gameAutoHero = '',        -- 아군 자동시 AI
+        m_gameAutoEnemy = '',       -- 적군(드래곤) AI
         
         m_gameFever = '',
         m_gameCamera = '',
@@ -169,10 +170,14 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     
     self.m_gameFever = GameFever(self)
 
-    self.m_gameAuto = GameAuto(self)
-    self.m_gameAuto:bindGameFever(self.m_gameFever)
-    self:addListener('auto_start', self.m_gameAuto)
-    self:addListener('auto_end', self.m_gameAuto)
+    -- 아군 자동시 AI
+    self.m_gameAutoHero = GameAuto_Hero(self)
+    self.m_gameAutoHero:bindGameFever(self.m_gameFever)
+    self:addListener('auto_start', self.m_gameAutoHero)
+    self:addListener('auto_end', self.m_gameAutoHero)
+
+    -- 적군(드래곤) AI
+    self.m_gameAutoEnemy = GameAuto_Enemy(self, false)
 
     -- shake manager 생성
 	self.m_shakeMgr = ShakeManager(self, g_gameScene.m_shakeLayer)
@@ -200,7 +205,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
         end
 
     elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
-        local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
+        local t_dungeon = g_secretDungeonData:parseSecretDungeonID(self.m_stageID)
         local dungeonMode = t_dungeon['dungeon_mode']
 
         if (dungeonMode == SECRET_DUNGEON_GOLD) then
@@ -240,8 +245,15 @@ end
 -- function initGame
 -------------------------------------
 function GameWorld:initGame(stage_name)
+    local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
+    local dungeonMode = t_dungeon['dungeon_mode']
+
     -- 웨이브 매니져 생성
-    self.m_waveMgr = WaveMgr(self, stage_name, self.m_bDevelopMode)
+    if (self.m_gameMode == GAME_MODE_SECRET_DUNGEON and dungeonMode == SECRET_DUNGEON_RELATION) then
+        self.m_waveMgr = WaveMgr_SecretRelation(self, stage_name, self.m_bDevelopMode)
+    else
+        self.m_waveMgr = WaveMgr(self, stage_name, self.m_bDevelopMode)
+    end
 
     -- 배경 생성
     self:initBG(self.m_waveMgr)
@@ -674,7 +686,7 @@ function GameWorld:addEnemy(enemy)
     enemy:addListener('enemy_appear_done', self.m_gameState)
 
     -- 스킬 캐스팅
-    enemy:addListener('enemy_casting_start', self.m_gameAuto)
+    enemy:addListener('enemy_casting_start', self.m_gameAutoHero)
     
     -- 스킬 캐스팅 중 취소시 콜백 등록
     enemy:addListener('character_casting_cancel', self.m_tamerSpeechSystem)
@@ -682,7 +694,7 @@ function GameWorld:addEnemy(enemy)
 
     if (enemy.m_charType == 'dragon') then
         enemy:addListener('enemy_active_skill', self.m_gameState)
-        enemy:addListener('enemy_active_skill', self.m_gameAuto)
+        enemy:addListener('enemy_active_skill', self.m_gameAutoHero)
     end
 end
 
@@ -743,9 +755,9 @@ function GameWorld:addHero(hero, idx)
     hero:addListener('dragon_skill', self)
     
     hero:addListener('hero_active_skill', self.m_gameState)
-    hero:addListener('hero_active_skill', self.m_gameAuto)
+    hero:addListener('hero_active_skill', self.m_gameAutoHero)
         
-    hero:addListener('hero_casting_start', self.m_gameAuto)
+    hero:addListener('hero_casting_start', self.m_gameAutoHero)
        
     hero:addListener('character_weak', self.m_tamerSpeechSystem)
     hero:addListener('character_damaged_skill', self.m_tamerSpeechSystem)
@@ -1076,10 +1088,10 @@ function GameWorld:onKeyReleased(keyCode, event)
 
     -- pause
     elseif (keyCode == KEY_A) then
-        if (self.m_gameAuto:isActive()) then
-            self.m_gameAuto:onEnd()
+        if (self.m_gameAutoHero:isActive()) then
+            self.m_gameAutoHero:onEnd()
         else
-            self.m_gameAuto:onStart()
+            self.m_gameAutoHero:onStart()
         end
 
 	-- formation list 확인
@@ -1541,7 +1553,6 @@ function GameWorld:onEvent_character_dead(event_name, t_event, ...)
     -- 적군 사망
     else
         --self:dropItem(char.pos['x'], char.pos['y'])
-        self:dispatch('enemy_dead', {}, char)
 
     end
 end
