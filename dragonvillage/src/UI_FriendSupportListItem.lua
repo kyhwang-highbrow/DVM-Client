@@ -27,20 +27,23 @@ function UI_FriendSupportListItem:initUI()
 
     local t_friend_info = self:getFriendInfo()
     
-    
-
-    local t_need_info = g_friendData:parseDragonSupportInfo(t_friend_info['need_did'])
-    local card = MakeSimpleDragonCard(t_need_info['did'])
+    -- 지원 요청중인 드래곤 아이콘
+    local t_dragon_support_request_info = g_friendData:parseDragonSupportRequestInfo(t_friend_info['need_did'])
+    local card = MakeSimpleDragonCard(t_dragon_support_request_info['did'])
     vars['dragonNode']:addChild(card.root)
 
+    -- 친구 닉네임
     vars['nameLabel']:setString(t_friend_info['nick'])
 
-    local number = g_dragonsData:getNumOfDragonsByDid(t_need_info['did'])
+    -- 내가 보유한 해당 드래곤의 갯수
+    local number = g_dragonsData:getNumOfDragonsByDid(t_dragon_support_request_info['did'])
     vars['haveLabel']:setString(comma_value(number))
 
-    local fp_reward = t_need_info['fp_reward']
+    -- 드래곤을 지원했을 때 받는 우정포인트
+    local fp_reward = t_dragon_support_request_info['fp_reward']
     vars['fpLabel']:setString(comma_value(fp_reward))
 
+    -- 지원 요청 지난 시간
     vars['timeLabel']:setString('')
 end
 

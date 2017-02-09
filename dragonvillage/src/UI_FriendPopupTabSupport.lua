@@ -21,6 +21,8 @@ function UI_FriendPopupTabSupport:onEnterFriendPopupTab(first)
     if first then
         self:init_tableView()
     end
+
+    self:refresh()
 end
 
 -------------------------------------
@@ -50,3 +52,25 @@ function UI_FriendPopupTabSupport:init_tableView()
 
     self.m_tableView = table_view
 end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_FriendPopupTabSupport:refresh()
+    local vars = self.vars
+
+    -- 드래곤 희귀도별 지원 가능 여부 텍스트 출력
+    vars['timeLabel1']:setString(g_friendData:getDragonSupportRequestCooltimeText('common'))
+    vars['timeLabel2']:setString(g_friendData:getDragonSupportRequestCooltimeText('rare'))
+    vars['timeLabel3']:setString(g_friendData:getDragonSupportRequestCooltimeText('hero'))
+    vars['timeLabel4']:setString(g_friendData:getDragonSupportRequestCooltimeText('legend'))
+
+    -- 지원 요청 중인 드래곤 아이콘
+    vars['dragonNode']:removeAllChildren()
+    local dragon_request_info = g_friendData:getMyDragonSupporRequesttInfo()
+    if (dragon_request_info['did'] and (dragon_request_info['support_finish'] == false)) then
+        local card = MakeSimpleDragonCard(dragon_request_info['did'])
+        vars['dragonNode']:addChild(card.root)
+    end
+end
+

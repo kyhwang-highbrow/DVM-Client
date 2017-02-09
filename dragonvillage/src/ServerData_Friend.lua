@@ -13,6 +13,8 @@ ServerData_Friend = class({
         m_mInvitedUerList = 'map', -- 클라이언트가 켜져있는 동안 친구초대를 한 유저의 uid 저장
         m_mSentFpUserList = 'map', -- 오늘 우정포인트를 보낸 유저 리스트
 
+        m_myDragonSupportRequestInfo = '', -- 플레이어의 드래곤 지원 요청 정보
+
         -- 선택된 공유 친구 데이터
         m_selectedShareFriendData = '',
     })
@@ -678,6 +680,11 @@ function ServerData_Friend:response_friendCommon(ret)
            self.m_mSentFpUserList[v] = true 
         end
     end
+
+    -- 나의 드래곤 지원 요청 정보
+    if ret['my_need_info'] then
+        self.m_myDragonSupportRequestInfo = ret['my_need_info']
+    end
 end
 
 
@@ -730,10 +737,10 @@ T_NEED_INFO['requested_at'] = 0
 T_NEED_INFO['fp_reward'] = 0
 
 -------------------------------------
--- function parseDragonSupportInfo
+-- function parseDragonSupportRequestInfo
 -- @brief 드래곤 지원 정보 분석
 -------------------------------------
-function ServerData_Friend:parseDragonSupportInfo(l_need_info)
+function ServerData_Friend:parseDragonSupportRequestInfo(l_need_info)
     local t_need_info = clone(T_NEED_INFO)
 
     if table.isEmpty(l_need_info) then
@@ -767,6 +774,15 @@ function ServerData_Friend:parseDragonSupportInfo(l_need_info)
     
     return t_need_info
 end
+
+-------------------------------------
+-- function getMyDragonSupporRequesttInfo
+-- @brief 나의 드래곤 요청 정보 분석
+-------------------------------------
+function ServerData_Friend:getMyDragonSupporRequesttInfo()
+    return self:parseDragonSupportRequestInfo(self.m_myDragonSupportRequestInfo)
+end
+
 
 -------------------------------------
 -- function request_sendFp
@@ -822,4 +838,38 @@ end
 -------------------------------------
 function ServerData_Friend:isSentFp(friend_uid)
     return self.m_mSentFpUserList[friend_uid]
+end
+
+
+-------------------------------------
+-- function availabilityOfDragonSupportRequests
+-- @brief 드래곤 지원 요청 가능성
+-------------------------------------
+function ServerData_Friend:availabilityOfDragonSupportRequests(dragon_darity)
+    -- dragon_darity :'common', 'rare', 'hero', 'legend'
+    local time_stamp = self.m_friendSystemStatus['need_dragon_cool_' .. dragon_darity]
+
+    local server_time = Timer:getServerTime()
+    time_stamp = (time_stamp / 1000)
+
+    if (time_stamp == 0) or (time_stamp <= server_time) then
+        return true
+    else
+        return false, time_stamp - server_time
+    end
+end
+
+-------------------------------------
+-- function getDragonSupportRequestCooltimeText
+-- @brief 드래곤 요청 희귀도별 문자열
+-------------------------------------
+function ServerData_Friend:getDragonSupportRequestCooltimeText(dragon_darity)
+    local availability, remain_time = self:availabilityOfDragonSupportRequests(dragon_darity)
+
+    if availability then
+        return Str('지원 요청 가능')
+    else
+        local showSeconds = true
+        return Str('{1} 남음', datetime.makeTimeDesc(remain_time, showSeconds))
+    end
 end
