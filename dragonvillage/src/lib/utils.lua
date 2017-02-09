@@ -750,3 +750,20 @@ function convertToAnoterNodeSpace(node, target_node)
 
     return cc.p(x, y)
 end
+
+-------------------------------------
+-- function listToScv
+-- @brief 리스트 항목을 comma separated value 형태의 문자열로 변환
+-------------------------------------
+function listToCsv(list)
+    local str = nil
+    for i,v in ipairs(list) do
+        if (str == nil) then
+            str = tostring(v)
+        else
+            str = str .. ',' .. tostring(v)
+        end
+    end
+
+    return str
+end

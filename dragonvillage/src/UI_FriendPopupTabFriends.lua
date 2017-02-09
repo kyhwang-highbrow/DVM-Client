@@ -99,13 +99,6 @@ function UI_FriendPopupTabFriends:click_manageBtn()
 end
 
 -------------------------------------
--- function click_sendAllBtn
--------------------------------------
-function UI_FriendPopupTabFriends:click_sendAllBtn()
-
-end
-
--------------------------------------
 -- function refresh_friendListItem
 -------------------------------------
 function UI_FriendPopupTabFriends:refresh_friendListItem(ui, data)
@@ -167,7 +160,44 @@ function UI_FriendPopupTabFriends:click_deleteBtn(ui, data)
 end
 
 -------------------------------------
+-- function click_sendAllBtn
+-------------------------------------
+function UI_FriendPopupTabFriends:click_sendAllBtn()
+    local function finish_cb(ret)
+        local msg = Str('모든 친구에게 우정포인트를 보냈습니다.')
+        UIManager:toastNotificationGreen(msg)
+
+        for i,v in ipairs(self.m_tableView.m_itemList) do
+            local ui = v['ui']
+            if ui then
+                ui:refresh()
+            end
+        end
+    end
+
+    g_friendData:request_sendFpAllFriends(finish_cb)
+end
+
+
+-------------------------------------
 -- function click_sendBtn
 -------------------------------------
 function UI_FriendPopupTabFriends:click_sendBtn(ui, data)
+    local uid = data['uid']
+    local frined_uid_list = {uid}
+
+    local function finish_cb(ret)
+        local nick = data['nick']
+        local msg = Str('[{1}]님에게 우정포인트를 보냈습니다.', nick)
+        UIManager:toastNotificationGreen(msg)
+
+        for i,v in ipairs(self.m_tableView.m_itemList) do
+            local ui = v['ui']
+            if ui then
+                ui:refresh()
+            end
+        end
+    end
+
+    g_friendData:request_sendFp(frined_uid_list, finish_cb)
 end

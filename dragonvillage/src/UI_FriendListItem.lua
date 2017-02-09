@@ -4,7 +4,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_FriendListItem
 -------------------------------------
 UI_FriendListItem = class(PARENT, {
-        m_tFriendInfo = '',
+        m_friendUid = '',
         m_bManageMode = 'boolean',
     })
 
@@ -12,7 +12,7 @@ UI_FriendListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_FriendListItem:init(t_friend_info)
-    self.m_tFriendInfo = t_friend_info
+    self.m_friendUid = t_friend_info['uid']
     self.m_bManageMode = false
     local vars = self:load('friend_list_01.ui')
 
@@ -27,7 +27,7 @@ end
 function UI_FriendListItem:initUI()
     local vars = self.vars
 
-    local t_friend_info = self.m_tFriendInfo
+    local t_friend_info = self:getFriendInfo()
     
     local t_dragon_data = t_friend_info['leader']
     local card = UI_DragonCard(t_dragon_data)
@@ -35,9 +35,6 @@ function UI_FriendListItem:initUI()
 
     vars['nameLabel']:setString(t_friend_info['nick'])
     vars['levelLabel']:setString(Str('레벨 {1}', t_friend_info['lv']))
-
-    -- 최종 접속 시간(지나간 시간 출력)
-    vars['timeLabel']:setString(g_friendData:getPastActiveTimeStr(t_friend_info))
 
     do-- 타입별 차별화
         local friendtype = t_friend_info['friendtype']
@@ -81,4 +78,20 @@ function UI_FriendListItem:refresh()
         vars['sendBtn']:setVisible(true)
         vars['deleteBtn']:setVisible(false)
     end
+
+    local t_friend_info = self:getFriendInfo()
+
+    -- 최종 접속 시간(지나간 시간 출력)
+    vars['timeLabel']:setString(g_friendData:getPastActiveTimeStr(t_friend_info))
+
+    -- 보내기 버튼
+    vars['sendBtn']:setVisible(not t_friend_info['sent_fp'])
+end
+
+-------------------------------------
+-- function getFriendInfo
+-------------------------------------
+function UI_FriendListItem:getFriendInfo()
+    local t_friend_info = g_friendData:getFriendInfo(self.m_friendUid)
+    return t_friend_info
 end

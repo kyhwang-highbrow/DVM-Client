@@ -170,6 +170,14 @@ function ServerData_Friend:request_friendList(finish_cb, force)
 end
 
 -------------------------------------
+-- function getFriendInfo
+-- @brief 친구 데이터를 받아옴
+-------------------------------------
+function ServerData_Friend:getFriendInfo(friend_uid)
+    return self.m_lFriendUserList[friend_uid]
+end
+
+-------------------------------------
 -- function getFriendList
 -- @brief 친구 리스트 받아옴
 -------------------------------------
@@ -687,4 +695,50 @@ end
 -------------------------------------
 function ServerData_Friend:getDragonSupportRequestList()
     return {}
+end
+
+-------------------------------------
+-- function request_sendFp
+-- @brief 우정포인트 보내기
+-------------------------------------
+function ServerData_Friend:request_sendFp(frined_uid_list, finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+    local friends = listToCsv(frined_uid_list)
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        for i,v in ipairs(frined_uid_list) do
+            self:getFriendInfo(v)['sent_fp'] = true
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/socials/send_fp')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('friends', friends)
+
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_sendFpAllFriends
+-- @brief 우정포인트 보내기
+-------------------------------------
+function ServerData_Friend:request_sendFpAllFriends(finish_cb)
+    local frined_uid_list = {}
+    
+    for uid,v in pairs(self.m_lFriendUserList) do
+        table.insert(frined_uid_list, uid)
+    end
+
+    self:request_sendFp(frined_uid_list, finish_cb)
 end

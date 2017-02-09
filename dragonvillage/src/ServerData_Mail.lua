@@ -101,19 +101,6 @@ function ServerData_Mail:getExpireRemainTimeStr(t_mail_data)
     return Str('{1} 남음', datetime.makeTimeDesc(expire_remain_time))
 end
 
-function listToCsv(list)
-    local str = nil
-    for i,v in ipairs(list) do
-        if (str == nil) then
-            str = tostring(v)
-        else
-            str = str .. ',' .. tostring(v)
-        end
-    end
-
-    return str
-end
-
 -------------------------------------
 -- function request_mailRead
 -- @brief 우편 읽기 (받기)
