@@ -210,6 +210,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 
         if (dungeonMode == SECRET_DUNGEON_GOLD) then
             self.m_gameState = GameState_SecretDungeon_Gold(self)
+            self.m_inGameUI:init_goldUI()
 
         elseif (dungeonMode == SECRET_DUNGEON_RELATION) then
             self.m_gameState = GameState_SecretDungeon_Relation(self)
@@ -407,10 +408,13 @@ end
 -- function initGoldUnit
 -------------------------------------
 function GameWorld:initGoldUnit(stage_id)
+    --[[
     local table_drop = TABLE:get('drop')
     local t_drop = table_drop[stage_id]
 
     self.m_goldUnit = t_drop['gold_unit']
+    ]]--
+    self.m_goldUnit = 10
     self.m_gold = 0
 end
 

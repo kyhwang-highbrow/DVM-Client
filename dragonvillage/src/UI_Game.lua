@@ -165,10 +165,30 @@ function UI_Game:init_debugUI()
 end
 
 -------------------------------------
+-- function init_goldUI
+-------------------------------------
+function UI_Game:init_goldUI()
+    local vars = self.vars
+
+    vars['waveVisual']:setVisible(false)
+    vars['goldNode']:setVisible(true)
+
+    -- 금화 갯수 이미지 폰트 생성
+    vars['goldLabel'] = cc.Label:createWithBMFont('res/font/fever_gauge.fnt', tostring(0))
+    vars['goldLabel']:setAnchorPoint(cc.p(0.5, 0.5))
+    vars['goldLabel']:setDockPoint(cc.p(0.5, 0.5))
+    vars['goldLabel']:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    vars['goldLabel']:setAdditionalKerning(0)
+    vars['goldNode']:addChild(vars['goldLabel'])
+end
+
+-------------------------------------
 -- function setGold
 -- @brief 
 -------------------------------------
-function UI_Game:setGold(gold)    
+function UI_Game:setGold(gold)
+    local gold = math_floor(gold)
+
     self.vars['goldLabel']:setString(comma_value(gold))
 
     local action_node = self.vars['goldNode']

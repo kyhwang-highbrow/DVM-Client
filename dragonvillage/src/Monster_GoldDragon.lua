@@ -58,3 +58,33 @@ function Monster_GoldDragon.st_dying(owner, dt)
         end)
     end
 end
+
+-------------------------------------
+-- function setDamage
+-------------------------------------
+function Monster_GoldDragon:setDamage(attacker, defender, i_x, i_y, damage, t_info)
+    PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
+
+    -- TODO: 데미지에 따른 금화 획득
+    self.m_world:obtainGold(damage)
+
+    -- TODO: 금화 떨어지는 이펙트
+    do
+        local res = 'res/effect/effect_hit_gold/effect_hit_gold.vrp'
+        local idx = math_random(1, 3)
+        self.m_world:addInstantEffect(res, 'hit_' .. idx, i_x, i_y)
+    end
+end
+
+-------------------------------------
+-- function setHp
+-------------------------------------
+function Monster_GoldDragon:setHp(hp)
+end
+
+-------------------------------------
+-- function makeHPGauge
+-------------------------------------
+function Monster_GoldDragon:makeHPGauge(hp_ui_offset, force)
+    self.m_unitInfoOffset = hp_ui_offset
+end

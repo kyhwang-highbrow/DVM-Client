@@ -34,7 +34,7 @@ function StatusEffectIcon:init(char, status_effect)
 
 	--char.m_lStatusIcon[status_effect_type] = self
 	
-	do
+	if (self.m_icon) then
 		local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 40, 0)
 		label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 		label:setAnchorPoint(cc.p(0.5, 0.5))
@@ -43,6 +43,8 @@ function StatusEffectIcon:init(char, status_effect)
 		label:enableOutline(cc.c4b(0, 0, 0, 255), 3)
 		self.m_icon:addChild(label)
 		self.m_label = label
+    else
+        error('StatusEffectIcon:init status_effect_type : ' .. status_effect_type)
 	end
 end
 
