@@ -2,36 +2,100 @@
     "pattern_boss_golddragon":
     [        
         [
-			"a;basic", "w;2",
-			"a;1", "w;3", "a;basic", "w;2",
-			"a;2", "w;3", "a;basic", "w;2",
-			"a;3", "w;3", "a;basic", "w;2",
-			"a;4", "w;3", "a;basic", "w;2",
-			"a;5", "w;3", "a;basic", "w;2",
+			"a;basic", "w;2", "a;basic", "w;2",
+			"a;1", "w;3", "a;basic", "w;2", "a;basic", "w;2",
+			"a;2", "w;3", "a;basic", "w;2", "a;basic", "w;2",
+			"a;5", "w;3", "a;basic", "w;2", "a;basic", "w;2",
+			"a;1", "w;3", "a;basic", "w;2", "a;basic", "w;2",
+			"a;3", "w;3", "a;basic", "w;2", "a;basic", "w;2",
+			"a;5", "w;3", "a;basic", "w;2", "a;basic", "w;2",
+			"a;1", "w;3", "a;basic", "w;2", "a;basic", "w;2",
+			"a;4", "w;3", "a;basic", "w;2", "a;basic", "w;2",
+			"a;5", "w;3", "a;basic", "w;2", "a;basic", "w;2",
+			"a;1", "w;3", "a;basic", "w;2", "a;basic", "w;2",
 			"a;6", "w;10"
         ]
     ],
-	
-    "hp_trriger":
-    {
-        "priority":1,
+
+	"time_trriger":
+	{
+		"priority":2,
         "list":
         [
             {
-                "hp_percent":1,
+                "time":30,
                 "pattern":
                 [
-                    "a;basic", "w;2",
-					"a;1", "w;3", "a;basic", "w;2",
-					"a;2", "w;3", "a;basic", "w;2",
-					"a;3", "w;3", "a;basic", "w;2",
-					"a;4", "w;3", "a;basic", "w;2",
-					"a;5", "w;3", "a;basic", "w;2",
-					"a;6", "w;10"
+                    "a;7", "w;3"
+                ]
+            },
+			
+			{
+                "time":45,
+                "pattern":
+                [
+                    "a;7", "w;3"
+                ]
+            },
+			
+			{
+                "time":60,
+                "pattern":
+                [
+                    "a;7", "w;3"
+                ]
+            },
+			
+			{
+                "time":75,
+                "pattern":
+                [
+                    "a;8", "w;3"
+                ]
+            },
+			
+			{
+                "time":120,
+                "pattern":
+                [
+                    "a;8", "w;3"
+                ]
+            },
+			
+			{
+                "time":135,
+                "pattern":
+                [
+                    "a;8", "w;3"
+                ]
+            },
+			
+			{
+                "time":150,
+                "pattern":
+                [
+                    "a;9", "w;3"
+                ]
+            },
+			
+			{
+                "time":165,
+                "pattern":
+                [
+                    "a;9", "w;3"
+                ]
+            },
+			
+			{
+                "time":180,
+                "pattern":
+                [
+                    "a;9", "w;3"
                 ]
             }
-        ]
-    },
+		]
+	},
+
 	"ani_mix":
 	[
         "idle;attack;0.1",

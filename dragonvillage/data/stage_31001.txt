@@ -4,52 +4,26 @@
 	"wave":
 	[
         {
-			"idx":2,
-			"camera":
-            {
-                "scale":0.8,
-                "pos_x":0,
-                "pos_y":0
-            },
-            "wave":
-            {
-				0:
-				[
-					"120014;100;Basic;RO04;RM24;3"
-				]
-            }
-		},
-		
-		{
-			"idx":3,
-			"camera":
-            {
-                "scale":0.8,
-                "pos_x":0,
-                "pos_y":0
-            },
-            "wave":
-            {
-				0:
-				[
-					"132033;100;Basic;RO04;RM24;3"
-				]
-            }
-		},
-		
-		{
 			"idx":1,
 			"camera":
             {
-                "scale":0.8,
+                "scale":0.6,
                 "pos_x":0,
                 "pos_y":0
             },
+			"direction":"boss_wave",
             "wave":
             {
 				0:
 				[
-					"134015;30;Basic;RO04;RM24;3"
+					"135031;30;SecretGold;RO04;RM24;3"
+				],
+				
+				3:
+				[
+					"131044;1;Appear;RO01;RF21;0.5"
+					"131044;1;Appear;RO04;RF14;0.5"
+					"131044;1;Appear;RO07;RF27;0.5"
 				]
             }
 		}
@@ -59,28 +33,28 @@
     {
         0:
         [
-			"131023;13;Appear;RO02;RB11;0.5"
-			"131023;13;Appear;RO06;RB17;0.5"
+			"131044;10;Appear;RO01;RF21;0.5"
+			"131044;10;Appear;RO04;RF14;0.5"
+			"131044;10;Appear;RO07;RF27;0.5"
+		],
+		
+		1:
+        [
+			"131044;30;Appear;RO01;RF21;0.5"
+			"131044;30;Appear;RO04;RF14;0.5"
+			"131044;30;Appear;RO07;RF27;0.5"
+		],
+		
+		2:
+        [
+			"131044;60;Appear;RO01;RF21;0.5"
+			"131044;60;Appear;RO04;RF14;0.5"
+			"131044;60;Appear;RO07;RF27;0.5"
 		]
     }
 	
 	"move":
 	{
-		1:
-        [
-			"move_1", "move_2"
-		],
-		2:
-        [
-			"move_2", "move_1"
-		],
-		3:
-        [
-			"move_1", "move_2"
-		],
-		"a":
-		[
-			"move_1", "move_2"
-		]
+		"a":["move_2;1", "wait;5", "move_1;1", "wait;5"]
 	}
 }
