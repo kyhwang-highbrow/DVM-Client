@@ -7,6 +7,7 @@ ITopUserInfo_EventListener = {
 
     m_bVisible = 'boolean',
     m_bUseExitBtn = 'boolean',
+	m_bUseMailBtn = 'boolean',
     m_titleStr = 'string',
 }
 
@@ -16,6 +17,7 @@ ITopUserInfo_EventListener = {
 function ITopUserInfo_EventListener:init()
     self.m_bVisible = true
     self.m_bUseExitBtn = true
+	self.m_bUseMailBtn = true
     self.m_titleStr = nil
 end
 

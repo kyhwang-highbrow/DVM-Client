@@ -148,6 +148,7 @@ function UI_TopUserInfo:changeOwnerUI(ui)
 
     local vars = self.vars
     vars['exitBtn']:setVisible(ui.m_bUseExitBtn)
+	vars['mailBtn']:setVisible(ui.m_bUseMailBtn)
 
     if (ui.m_titleStr == -1) then
         vars['titleLabel']:setVisible(true)
