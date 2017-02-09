@@ -4,7 +4,8 @@ local PARENT = WaveMgr
 -- class WaveMgr_SecretRelation
 -------------------------------------
 WaveMgr_SecretRelation = class(PARENT, {
-        m_enemyDid = 'number'   -- 지정된 적드래곤 아이디
+        m_enemyDid = 'number',   -- 지정된 적드래곤 아이디
+        m_bBossWave = 'boolean',
     })
 
 -------------------------------------
@@ -17,6 +18,7 @@ function WaveMgr_SecretRelation:init(world, stage_name, develop_mode)
     l_did = randomShuffle(l_did)
 
     self.m_enemyDid = l_did[1]
+    self.m_bBossWave = false
 
     -- RandomDragon으로 들어간 enemy_id값들을 지정된 드래곤 아이디로 치환
     if (self.m_scriptData and self.m_scriptData['wave']) then
@@ -33,28 +35,22 @@ end
 -------------------------------------
 -- function newScenario_dynamicWave
 -------------------------------------
-function WaveMgr:newScenario_dynamicWave(t_data)
+function WaveMgr_SecretRelation:newScenario_dynamicWave(t_data)
     if (not t_data['wave']) then return end
 
-    -- 5웨이브부터 보스 등장
-    local isExistBoss = false
-    if (self:isFinalWave()) then
-        isExistBoss = true
-    end
-
+    self.m_bBossWave = (self.m_currWave >= 9)
     self.m_lDynamicWave = {}
-    self.m_highestRarity = 0
+    self.m_highestRarity = -1
 
     for i, v in pairs(t_data['wave']) do
         for _, data in pairs(v) do
             local dynamic_wave = DynamicWave(self, data, i)
             table.insert(self.m_lDynamicWave, dynamic_wave)
 
-            -- 특정 웨이브에서는 최대 레벨을 가진 적(드래곤)을 찾음
-            if (isExistBoss) then
+            if (self.m_bBossWave) then
                 local level = dynamic_wave.m_enemyLevel
-                
-                if level > self.m_highestRarity then
+
+                if (level > self.m_highestRarity) then
                     self.m_highestRarity = level
                 end
             end
@@ -76,8 +72,8 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
     else
         local evolution = enemy_id % 10
         local enemy_id = math_floor(enemy_id / 10)
-        local isBoss = (evolution == 3 and level == self.m_highestRarity)
-        
+        local isBoss = (level == self.m_highestRarity)
+
         enemy = self.m_world:makeDragonNew({
             did = enemy_id,
             lv = level,
@@ -85,7 +81,7 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
             skill_0 = self.m_currWave,
             skill_1 = self.m_currWave,
             skill_2 = self.m_currWave,
-            skill_3 = self.m_currWave,
+            skill_3 = isBoss and 1 or 0,
         }, true)
 
         if (isBoss) then
@@ -125,4 +121,11 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
     end
 
 	return enemy
+end
+
+-------------------------------------
+-- function isBossWave
+-------------------------------------
+function WaveMgr_SecretRelation:isBossWave()
+    return (self.m_bBossWave)
 end

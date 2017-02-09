@@ -61,3 +61,113 @@ function GameState_SecretDungeon_Relation:makeResultUI(is_success)
     -- 최초 실행
     func_network_game_finish()
 end
+
+
+-------------------------------------
+-- function waveChange
+-------------------------------------
+function GameState_SecretDungeon_Relation:waveChange()
+
+    local world = self.m_world
+    local map_manager = world.m_mapManager
+    local t_wave_data = world.m_waveMgr:getNextWaveScriptData()
+
+    -- 다음 웨이브가 없을 경우 클리어
+    if (not t_wave_data) then
+        self:changeState(GAME_STATE_SUCCESS)
+        return true
+    end
+    
+    self.m_nextWaveDirectionType = t_wave_data['direction']
+    if (not self.m_nextWaveDirectionType) and is_final_wave then
+        self.m_nextWaveDirectionType = 'final_wave'
+    end
+
+    -- 다음 웨이브 생성
+    world.m_waveMgr:newScenario()
+
+    self.m_nAppearedEnemys = 0
+
+    -- 아무런 연출이 없을 경우 GAME_STATE_FIGHT 상태를 유지
+    if (self.m_nextWaveDirectionType == nil) and (t_bg_data == nil) then
+        return false
+
+    -- 웨이브 연출만 있을 경우
+    elseif (self.m_nextWaveDirectionType) and (not t_bg_data) then
+        return self:applyWaveDirection()
+
+    -- 배경 전환이 있을 경우 (GAME_STATE_FIGHT_WAIT상태에서 웨이브 연출을 확인함)
+    elseif (t_bg_data) then
+        local changeNextState = function()
+            if (not self:applyWaveDirection()) then
+                self:changeState(GAME_STATE_ENEMY_APPEAR)
+            end
+        end
+
+        if map_manager:applyWaveScript(t_bg_data) then
+            map_manager.m_finishCB = function()
+                if (not self:applyWaveDirection()) then
+                    changeNextState()
+                end
+            end
+            self:changeState(GAME_STATE_FIGHT_WAIT)
+            return true
+        else
+            map_manager.m_finishCB = nil
+            changeNextState()
+        end
+
+    else
+        error()
+
+    end
+end
+
+
+-------------------------------------
+-- function checkWaveClear
+-------------------------------------
+function GameState_SecretDungeon_Relation:checkWaveClear()
+    local world = self.m_world
+    local enemy_count = #world:getEnemyList()
+
+    -- 클리어 여부 체크
+    if (enemy_count <= 0) then
+        -- 스킬 다 날려 버리자
+        world:cleanupSkill()
+        world:removeHeroDebuffs()
+		    
+		if (not world.m_waveMgr:isFinalWave()) then
+		    self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
+		else
+			self:changeState(GAME_STATE_SUCCESS_WAIT)
+		end
+
+    -- 마지막 웨이브라면 해당 웨이브의 최고 등급 적이 존재하지 않을 경우 클리어 처리
+    elseif (world.m_waveMgr:isBossWave()) then
+        local highestRariry = world.m_waveMgr:getHighestRariry()
+        local bExistBoss = false
+            
+        for _, enemy in ipairs(world:getEnemyList()) do
+            if (enemy.m_tDragonInfo['lv'] == highestRariry) then
+                bExistBoss = true
+                break
+            end
+        end
+
+        if (not bExistBoss) then
+            -- 스킬 다 날려 버리자
+		    world:cleanupSkill()
+            world:removeHeroDebuffs()
+
+            -- 모든 적들을 죽임
+            world:killAllEnemy()
+
+            if (not world.m_waveMgr:isFinalWave()) then
+		        self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
+		    else
+			    self:changeState(GAME_STATE_SUCCESS_WAIT)
+		    end
+        end
+    end
+end

@@ -208,47 +208,10 @@ function GameState.update_fight(self, dt)
     self.m_fightTimer = self.m_fightTimer + dt
     local world = self.m_world
 
-    local enemy_count = #world:getEnemyList()
-    
     -- 해당 웨이브의 모든 적이 등장한 상태일 경우
     if (world.m_waveMgr:isEmptyDynamicWaveList()) then
-
         -- 클리어 여부 체크
-        if (enemy_count <= 0) then
-            -- 스킬 다 날려 버리자
-            world:cleanupSkill()
-            world:removeHeroDebuffs()
-		    
-		    if world.m_waveMgr:isFinalWave() == false then
-		        self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
-		    else
-			    self:changeState(GAME_STATE_SUCCESS_WAIT)
-		    end
-            return
-
-        -- 마지막 웨이브라면 해당 웨이브의 최고 등급 적이 존재하지 않을 경우 클리어 처리
-        elseif ( not world.m_bDevelopMode and world.m_waveMgr:isFinalWave() ) then
-            local highestRariry = world.m_waveMgr:getHighestRariry()
-            local bExistBoss = false
-            
-            for _, enemy in ipairs(world:getEnemyList()) do
-                if (enemy.m_charTable['rarity'] == highestRariry) then
-                    bExistBoss = true
-                    break
-                end
-            end
-
-            if not bExistBoss then
-                -- 스킬 다 날려 버리자
-		        world:cleanupSkill()
-                world:removeHeroDebuffs()
-
-                -- 모든 적들을 죽임
-                world:killAllEnemy()
-                self:changeState(GAME_STATE_SUCCESS_WAIT)
-                return
-            end
-        end
+        self:checkWaveClear()
     end
     
     if world.m_skillIndicatorMgr then
@@ -914,6 +877,50 @@ function GameState:waveChange()
     else
         error()
 
+    end
+end
+
+-------------------------------------
+-- function checkWaveClear
+-------------------------------------
+function GameState:checkWaveClear()
+    local enemy_count = #world:getEnemyList()
+
+    -- 클리어 여부 체크
+    if (enemy_count <= 0) then
+        -- 스킬 다 날려 버리자
+        world:cleanupSkill()
+        world:removeHeroDebuffs()
+		    
+		if world.m_waveMgr:isFinalWave() == false then
+		    self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
+		else
+			self:changeState(GAME_STATE_SUCCESS_WAIT)
+		end
+        return
+
+    -- 마지막 웨이브라면 해당 웨이브의 최고 등급 적이 존재하지 않을 경우 클리어 처리
+    elseif ( not world.m_bDevelopMode and world.m_waveMgr:isFinalWave() ) then
+        local highestRariry = world.m_waveMgr:getHighestRariry()
+        local bExistBoss = false
+            
+        for _, enemy in ipairs(world:getEnemyList()) do
+            if (enemy.m_charTable['rarity'] == highestRariry) then
+                bExistBoss = true
+                break
+            end
+        end
+
+        if not bExistBoss then
+            -- 스킬 다 날려 버리자
+		    world:cleanupSkill()
+            world:removeHeroDebuffs()
+
+            -- 모든 적들을 죽임
+            world:killAllEnemy()
+            self:changeState(GAME_STATE_SUCCESS_WAIT)
+            return
+        end
     end
 end
 
