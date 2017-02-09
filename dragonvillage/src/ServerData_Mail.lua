@@ -55,6 +55,27 @@ function ServerData_Mail:request_mailList(finish_cb)
     ui_network:request()
 end
 
+-------------------------------------
+-- function getMailList
+-- @brief 타입에 해당하는 메일 리스트를 가져온다.
+-------------------------------------
+function ServerData_Mail:getMailList(type)
+	local mali_list
+
+	-- 우편함(우정포인트 우편 제외)
+    if (type == 'mail') then
+        mali_list = self:getMailList_withoutFp()
+
+    -- 우정포인트 우편함
+    elseif (type == 'friend') then
+        mali_list = self:getFpMailList()
+
+    else
+        error('tab : ' .. tab)
+    end
+
+    return mali_list
+end
 
 -------------------------------------
 -- function getMailList_withoutFp

@@ -93,7 +93,7 @@ end
 function UI_MailPopup:makeMailTableView(tab, node)
     local vars = self.vars
 
-	local t_item_list = self:getMailList(tab)
+	local t_item_list = g_mailData:getMailList(tab)
 	
 	local create_cb_func = function(ui, data)
         local function click_rewardBtn()
@@ -112,28 +112,6 @@ function UI_MailPopup:makeMailTableView(tab, node)
     table_view:makeDefaultEmptyDescLabel(Str('우편물이 없습니다.'))
 
     self.m_mTableView[tab] = table_view
-end
-
--------------------------------------
--- function getMailList
--- @brief tab의 타입별 메일리스트 리턴
--------------------------------------
-function UI_MailPopup:getMailList(tab)
-    local item_list
-
-    -- 우편함(우정포인트 우편 제외)
-    if (tab == 'mail') then
-        item_list = g_mailData:getMailList_withoutFp()
-
-    -- 우정포인트 우편함
-    elseif (tab == 'friend') then
-        item_list = g_mailData:getFpMailList()
-
-    else
-        error('tab : ' .. tab)
-    end
-
-    return item_list
 end
 
 -------------------------------------
@@ -159,6 +137,14 @@ end
 -------------------------------------
 function UI_MailPopup:click_rewardAllBtn()
 	
+	-- 우편이 없다면 탈출
+	-- @TODO 확정권 구현 이후에는 확정권을 제외하고 카운트해야함
+	if (self.m_mTableView[self.m_currTab]:getItemCount() == 0) then 
+		UIManager:toastNotificationRed(Str('수령할 메일이 없습니다.'))
+		return
+	end
+
+	-- 우편 모두 받기 콜백
 	local get_all_reward_cb = function() 
 		local function finish_cb(ret, mail_id_list)
 			if (ret['status'] == 0) then
@@ -168,11 +154,11 @@ function UI_MailPopup:click_rewardAllBtn()
 				end
 			end
 		end
-    
 		g_mailData:request_mailReadAll(self.m_currTab, finish_cb)
 	end
 
-    MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('메일을 전부 받나요? 확정권은 받지 못합니다.'), get_all_reward_cb)
+	-- 시작
+    MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('우편을 전부 수령하십니까?\n확정권은 모두 받기에서 제외됩니다.'), get_all_reward_cb)
 end
 
 -------------------------------------
