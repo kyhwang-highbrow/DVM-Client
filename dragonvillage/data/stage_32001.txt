@@ -176,15 +176,14 @@
             {
 				0:
 				[
-					"RandomDragon1;56;Appear;RO03;RF23;0.5"
-					"RandomDragon1;56;Appear;RO05;RF25;0.5"
-					"RandomDragon2;56;Appear;RO02;RB12;0.5"
-					"RandomDragon2;56;Appear;RO06;RB16;0.5"
-					
 					"RandomDragon1;56;Appear;RO01;RF11;0.5"
 					"RandomDragon1;56;Appear;RO07;RF17;0.5"
+					"RandomDragon1;56;Appear;RO03;RF23;0.5"
+					"RandomDragon1;56;Appear;RO05;RF25;0.5"
 					"RandomDragon2;56;Appear;RO01;RM21;0.5"
 					"RandomDragon2;56;Appear;RO07;RM27;0.5"
+					"RandomDragon2;56;Appear;RO02;RB12;0.5"
+					"RandomDragon2;56;Appear;RO06;RB16;0.5"
 					"RandomDragon2;56;Appear;RO01;RB21;0.5"
 					"RandomDragon2;56;Appear;RO07;RB27;0.5"
 				]
@@ -255,9 +254,11 @@
 	{
 		1:
 		[
-			"wait;10", "relation_1_1;0.5", 
-			"wait;10", "relation_1_2;0.5", 
-			"wait;10", "relation_1_0;0.5"
+			"wait;7",
+			"relation_1_1;0.5", "wait;10",
+			"relation_1_2;0.5", "wait;10",
+			"relation_1_0;0.5",
+			"wait;3"
 		],
 		
 		2:
@@ -270,9 +271,9 @@
 		
 		3:
 		[
-			"wait;10", "relation_3_1;0.5", 
-			"wait;10", "relation_3_2;0.5", 
-			"wait;10", "relation_3_0;0.5"
+			"relation_3_1;0.5", "wait;10",
+			"relation_3_2;0.5", "wait;10",
+			"relation_3_0;0.5", "wait;10" 
 		],
 		
 		4:
@@ -285,26 +286,39 @@
 		
 		5:
 		[
-			"wait;10", "relation_5_1;0.5", 
-			"wait;10", "relation_5_2;0.5", 
-			"wait;10", "relation_5_3;0.5",
-			"wait;3", "relation_5_0;0.5"
+			"wait;7",
+			"relation_5_1;0.5", "wait;10",
+			"relation_5_2;0.5", "wait;10",
+			"relation_5_3;0.5", "wait;10",
+			"relation_5_0;0.5", "wait;3"
 		],
 		
 		6:
 		[
-			"wait;10", "relation_6_1;0.5", 
-			"wait;10", "relation_6_2;0.5", 
-			"wait;10", "relation_6_3;0.5",
-			"wait;10", "relation_6_0;0.5"
+			"wait;7",
+			"relation_6_1;0.5", "wait;10",
+			"relation_6_2;0.5", "wait;10",
+			"relation_6_3;0.5", "wait;10",
+			"relation_6_0;0.5", "wait;3"
 		],
 		
 		7:
 		[
-			"wait;10", "relation_7_1;0.5", 
-			"wait;10", "relation_7_2;0.5", 
-			"wait;10", "relation_7_3;0.5",
-			"wait;10", "relation_7_0;0.5"
+			"wait;7",
+			"relation_7_1;0.5", "wait;10",
+			"relation_7_2;0.5", "wait;10",
+			"relation_7_3;0.5", "wait;10",
+			"relation_7_0;0.5", "wait;3"
+		],
+		
+		8:
+		[
+			"wait;7",
+			"relation_8_1;0.5", "wait;10",
+			"relation_8_2;0.5", "wait;10",
+			"relation_8_3;0.5",
+			"relation_8_0;4", "wait;10", 
+			"wait;3"
 		]
 	}
 }
