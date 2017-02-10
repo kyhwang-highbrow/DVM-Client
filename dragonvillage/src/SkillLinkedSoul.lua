@@ -58,9 +58,9 @@ end
 -------------------------------------
 function SkillLinkedSoul:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillLinkedSoul.st_start, 'buff_effect', true)
-    self:addState('idle', SkillLinkedSoul.st_idle, 'idle', true)
-    self:addState('end', SkillLinkedSoul.st_end, 'ready', false)
+    self:addState('start', SkillLinkedSoul.st_start, nil, true)
+    self:addState('idle', SkillLinkedSoul.st_idle, nil, true)
+    self:addState('end', SkillLinkedSoul.st_end, nil, false)
 end
 
 -------------------------------------
@@ -97,7 +97,7 @@ function SkillLinkedSoul.st_end(owner, dt)
         owner:onEnd()
 
         -- 방패 이팩트
-        owner.m_shieldEffect:changeAni('shield_disappear', false)
+        owner.m_shieldEffect:changeAni('heart_disappear', false)
         
         -- 연결 이팩트
         owner.m_barEffect.m_effectNode:changeAni('bar_disappear', false)
@@ -144,12 +144,12 @@ end
 function SkillLinkedSoul:makeEffectLink()
 	local res = self.m_res
 
-    -- 연결 이펙트 -- @TODO groundnode..? 여기서만 사용중
+    -- 연결 이펙트
     self.m_barEffect = EffectLink(res, 'bar_appear', '', '', 512, 256)
-    self.m_world.m_groundNode:addChild(self.m_barEffect.m_node)
     self.m_barEffect.m_startPointNode:setVisible(false)
     self.m_barEffect.m_endPointNode:setVisible(false)
     self.m_barEffect.m_effectNode:addAniHandler(function() self.m_barEffect.m_effectNode:changeAni('bar_idle', true) end)
+    self.m_world.m_groundNode:addChild(self.m_barEffect.m_node)
 
     -- 베리어 이펙트
     self.m_barrierEffect1 = MakeAnimator(res)
@@ -163,11 +163,11 @@ function SkillLinkedSoul:makeEffectLink()
     self.m_barrierEffect2:addAniHandler(function() self.m_barrierEffect2:changeAni('barrier_idle', true) end)
     self.m_rootNode:addChild(self.m_barrierEffect2.m_node)
 
-    -- 방패 이펙트
+    -- 두근 이펙트 -- 백판에 박기 위해 goundNode에 붙임
     self.m_shieldEffect = MakeAnimator(res)
-    self.m_shieldEffect:changeAni('shield_appear', false)
-    self.m_shieldEffect:addAniHandler(function() self.m_shieldEffect:changeAni('shield_idle', true) end)
-    self.m_rootNode:addChild(self.m_shieldEffect.m_node)
+    self.m_shieldEffect:changeAni('heart_appear', false)
+    self.m_shieldEffect:addAniHandler(function() self.m_shieldEffect:changeAni('heart_idle', true) end)
+    self.m_world.m_groundNode:addChild(self.m_shieldEffect.m_node)
 end
 
 -------------------------------------
@@ -184,19 +184,19 @@ end
 -------------------------------------
 function SkillLinkedSoul:onHit()
     -- 방패 이팩트
-    self.m_shieldEffect:changeAni('shield_hit', false)
-    self.m_shieldEffect:addAniHandler(function() self.m_shieldEffect:changeAni('shield_idle', true) end)
+    --self.m_shieldEffect:changeAni('heart_hit', false)
+    --self.m_shieldEffect:addAniHandler(function() self.m_shieldEffect:changeAni('heart_idle', true) end)
         
     -- 연결 이팩트
     self.m_barEffect.m_effectNode:changeAni('bar_hit', false)
     self.m_barEffect.m_effectNode:addAniHandler(function() self.m_barEffect.m_effectNode:changeAni('bar_idle', true) end)
 
     -- 베리어 이팩트
-    self.m_barrierEffect1:changeAni('barrier_hit', false)
-    self.m_barrierEffect1:addAniHandler(function() self.m_barrierEffect1:changeAni('barrier_idle', true) end)
+    --self.m_barrierEffect1:changeAni('barrier_hit', false)
+    --self.m_barrierEffect1:addAniHandler(function() self.m_barrierEffect1:changeAni('barrier_idle', true) end)
 
-    self.m_barrierEffect2:changeAni('barrier_hit', false)
-    self.m_barrierEffect2:addAniHandler(function() self.m_barrierEffect2:changeAni('barrier_idle', true) end)
+    --self.m_barrierEffect2:changeAni('barrier_hit', false)
+    --self.m_barrierEffect2:addAniHandler(function() self.m_barrierEffect2:changeAni('barrier_idle', true) end)
 end
 
 -------------------------------------
@@ -253,18 +253,6 @@ function SkillLinkedSoul:doHeal(target, heal_org)
 		-- 힐은 데미지 경감에 대한 상대치 + 절대치
 		local heal = (heal_org * self.m_healRate) + self.m_healAbs
         target:healAbs(heal, true)
-
-		-- 나에게로부터 상대에게 가는 힐 이펙트 생성 -> res가 없음
-		--[[
-        local effect_heal = EffectHeal('', {0,0,0})
-        effect_heal:initState()
-        effect_heal:changeState('move')
-        effect_heal:init_EffectHeal(self.pos.x, self.pos.y, target)
-		local world = self.m_world
-        world.m_physWorld:addObject(PHYS.EFFECT, effect_heal)
-        world.m_worldNode:addChild(effect_heal.m_rootNode, 0)
-        world:addToUnitList(effect_heal)
-		]]
     end
 end
 
@@ -333,7 +321,7 @@ function SkillLinkedSoul:updateBuffPos()
     local x = self.m_targetChar.pos.x - self.pos.x
     local y = self.m_targetChar.pos.y - self.pos.y
     self.m_barrierEffect2:setPosition(x, y)
-    self.m_shieldEffect:setPosition(x, y)
+    self.m_shieldEffect:setPosition(self.m_targetChar.pos.x, self.m_targetChar.pos.y)
     self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
     EffectLink_refresh(self.m_barEffect, self.pos.x, self.pos.y, self.m_targetChar.pos.x, self.m_targetChar.pos.y)
 

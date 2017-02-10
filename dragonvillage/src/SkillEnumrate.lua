@@ -39,6 +39,7 @@ function SkillEnumrate:init_skill(missile_res, motionstreak_res, line_num, line_
 	-- 1. 멤버 변수
     self.m_missileRes = missile_res
 	self.m_motionStreakRes = motionstreak_res
+
 	self.m_skillLineNum = line_num
 	self.m_skillLineSize = line_size
 	
@@ -85,8 +86,8 @@ end
 -------------------------------------
 -- function fireMissile
 -------------------------------------
-function SkillEnumrate:fireMissile(idx)
-	error()
+function SkillEnumrate:fireMissile()
+	error('SkillEnumrate의 fireMissile은 재정의 되어야 합니다.')
 end
 
 -------------------------------------
@@ -120,14 +121,15 @@ end
 
 -------------------------------------
 -- function getStartPosList
+-- @brief 타입에 따른 공격 시작위치 가져옴
 -------------------------------------
-function SkillEnumrate:getStartPosList(idx)
+function SkillEnumrate:getStartPosList()
 	if (self.m_enumPosType == 'linear') then
 		return self:getStartPosList_Linear()
 	elseif (self.m_enumPosType == 'pentagon') then
 		return self:getStartPosList_Pentagon()
 	else
-		error()
+		error('SkillEnumrate do not have m_enumPosType')
 	end	
 end
 
@@ -161,7 +163,7 @@ function SkillEnumrate:getStartPosList_Linear()
 		-- 센터 좌표 계산
 		local move_pos = getPointFromAngleAndDistance(main_angle, PENERATION_ATK_START_POS_DIST)
 		local center_pos = move_pos
-
+		
 		-- 좌측 좌표
 		for i = 1, half_num do
 			local move_pos = getPointFromAngleAndDistance(main_angle + 90, std_distance * (half_num - i + 1))

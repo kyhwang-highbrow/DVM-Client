@@ -417,6 +417,30 @@ function Skill:removeDestructibleMissile()
 end
 
 -------------------------------------
+-- function makeEffect
+-- @breif 대상에게 생성되는 추가 이펙트 생성
+-------------------------------------
+function Skill:makeEffect(res, x, y, ani_name, cb_function)
+	local ani_name = ani_name or 'idle'
+    -- 이팩트 생성
+    local effect = MakeAnimator(res)
+    effect:setPosition(x, y)
+	effect:changeAni(ani_name, false)
+    self.m_owner.m_world.m_missiledNode:addChild(effect.m_node, 0)
+	
+	-- 1회 재생후 동작
+	local cb_ani = function() 
+		if (cb_function) then 
+			cb_function(effect)
+		end
+		effect.m_node:runAction(cc.RemoveSelf:create())
+	end
+	effect:addAniHandler(cb_ani)
+
+	return effect
+end
+
+-------------------------------------
 -- function makeRangeEffect
 -- @brief range effect를 생성한다.
 -------------------------------------

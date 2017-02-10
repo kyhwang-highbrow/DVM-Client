@@ -19,6 +19,40 @@ end
 -------------------------------------
 function SkillEnumrate_Penetration_Jaryong:init_skill(missile_res, motionstreak_res, line_num, line_size)
 	PARENT.init_skill(self, missile_res, motionstreak_res, line_num, line_size)
+	
+	-- 1. 멤버 변수
+	self.m_skillInterval = 0
+	self.m_enumTargetType = 'target'
+	self.m_enumPosType = 'linear'
+	
+	self.m_skillStartPosList = self:getStartPosList()
+	self.m_skillTargetList = self:getSkillTargetList()
+end
+
+-------------------------------------
+-- function initState
+-------------------------------------
+function SkillEnumrate_Penetration_Jaryong:initState()
+	self:setCommonState(self)
+    self:addState('start', SkillEnumrate_Penetration_Jaryong.st_appear, nil, false)
+	self:addState('idle', SkillEnumrate_Penetration_Jaryong.st_idle, nil, true)
+end
+
+-------------------------------------
+-- function st_appear
+-------------------------------------
+function SkillEnumrate_Penetration_Jaryong.st_appear(owner, dt)
+	if (owner.m_stateTimer == 0) then
+		local pos = {
+			x = owner.m_skillStartPosList[1].x + owner.m_owner.pos.x,
+			y = owner.m_skillStartPosList[1].y + owner.m_owner.pos.y
+		}
+		local cb_function = function() 
+			owner:changeState('idle')
+		end
+		local effect = owner:makeEffect(owner.m_missileRes, pos.x, pos.y, 'appear', cb_function)
+		effect:setRotation(owner:getAttackDir(1))
+	end
 end
 
 -------------------------------------

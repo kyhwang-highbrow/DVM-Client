@@ -241,7 +241,7 @@ function Character:doSkill(skill_id, x, y, t_data)
             return true
 
 	    elseif (type == 'skill_penetration') then
-			if (self.m_charTable['type'] == 'jaryoung') then 
+			if (self.m_charTable['type'] == 'jaryong') then 
 				SkillEnumrate_Penetration_Jaryong:makeSkillInstance(self, t_skill, t_data)
 			else
 				SkillEnumrate_Penetration:makeSkillInstance(self, t_skill, t_data)
