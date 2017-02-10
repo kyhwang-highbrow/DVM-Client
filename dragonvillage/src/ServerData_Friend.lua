@@ -914,6 +914,18 @@ function ServerData_Friend:request_sendNeedDragon(fuid, doid, finish_cb)
     local function success_cb(ret)
         self:response_friendCommon(ret)
 
+        -- 재료로 사용된 드래곤 삭제
+        if ret['deleted_dragons_oid'] then
+            for _,doid in pairs(ret['deleted_dragons_oid']) do
+                g_dragonsData:delDragonData(doid)
+            end
+        end
+
+        -- 지원 드래곤 정보에 내 uid를 입력
+        local t_friend_info = self.m_lFriendUserList[fuid]
+        local first, key = table.getFirst(t_friend_info['need_did'])
+        t_friend_info['need_did'][key] = uid
+
         if finish_cb then
             finish_cb(ret)
         end

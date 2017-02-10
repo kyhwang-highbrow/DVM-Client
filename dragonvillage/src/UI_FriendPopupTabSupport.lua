@@ -114,7 +114,8 @@ function UI_FriendPopupTabSupport:click_supportBtn(t_friend_info)
 
     local ui = UI_FriendDragonSupportPopup(t_friend_info)
     local function close_cb()
-
+        local fuid = t_friend_info['uid']
+        self.m_tableView:delItem(fuid)
     end
     ui:setCloseCB(close_cb)
 end
