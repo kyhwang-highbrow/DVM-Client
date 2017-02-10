@@ -73,7 +73,8 @@ function GameState_SecretDungeon_Gold:makeResultUI(is_success)
     end
 
     -- 최초 실행
-    func_network_game_finish()
+    --func_network_game_finish()
+    func_ui_result()
 end
 
 -------------------------------------

@@ -98,7 +98,7 @@ function UI_Game:click_pauseButton()
 
     if (game_mode == GAME_MODE_NEST_DUNGEON) then
         UI_GamePause_NestDungeon(stage_id, start_cb, end_cb)
-    elseif (game_mode == GAME_MODE_NEST_SECRET) then
+    elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
         UI_GamePause_SecretDungeon(stage_id, start_cb, end_cb)
     else
         UI_GamePause(stage_id, start_cb, end_cb)
