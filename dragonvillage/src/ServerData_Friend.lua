@@ -901,3 +901,32 @@ function ServerData_Friend:request_setNeedDragon(did, finish_cb)
     ui_network:setReuse(false)
     ui_network:request()
 end
+
+-------------------------------------
+-- function request_sendNeedDragon
+-- @brief 드래곤 지원
+-------------------------------------
+function ServerData_Friend:request_sendNeedDragon(fuid, doid, finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        self:response_friendCommon(ret)
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/socials/send_need_dragon')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('fuid', fuid)
+    ui_network:setParam('doid', doid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end

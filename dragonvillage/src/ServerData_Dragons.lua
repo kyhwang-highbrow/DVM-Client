@@ -51,6 +51,23 @@ function ServerData_Dragons:getDragonsList()
 end
 
 -------------------------------------
+-- function getDragonsList_specificDid
+-------------------------------------
+function ServerData_Dragons:getDragonsList_specificDid(did)
+    local l_dragons = self.m_serverData:getRef('dragons')
+
+    local l_ret = {}
+    for _,v in pairs(l_dragons) do
+        if (did == v['did']) then
+            local unique_id = v['id']
+            l_ret[unique_id] = clone(v)
+        end
+    end
+
+    return l_ret
+end
+
+-------------------------------------
 -- function getDragonDataFromUid
 -- @brief unique id로 드래곤 정보를 얻음
 -------------------------------------

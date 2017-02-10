@@ -14,7 +14,7 @@ UI_FriendDragonSupportRequestPopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_FriendDragonSupportRequestPopup:init()
-	local vars = self:load('friend_support_select_popup.ui')
+	local vars = self:load('friend_support_request_popup.ui')
 	UIManager:open(self, UIManager.POPUP)
 
     -- 정렬 매니저

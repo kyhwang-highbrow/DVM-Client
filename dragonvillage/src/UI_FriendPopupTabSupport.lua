@@ -38,6 +38,11 @@ function UI_FriendPopupTabSupport:init_tableView()
 
     -- 생성 콜백
     local function create_func(ui, data)
+        local function click_supportBtn()
+            local t_friend_info = data
+            self:click_supportBtn(t_friend_info)
+        end
+        ui.vars['supportBtn']:registerScriptTapHandler(click_supportBtn)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -88,5 +93,28 @@ function UI_FriendPopupTabSupport:click_supportRequestBtn()
         end
     end
 
+    ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_supportBtn
+-------------------------------------
+function UI_FriendPopupTabSupport:click_supportBtn(t_friend_info)
+    local l_need_info = t_friend_info['need_did']
+    local t_need_info = g_friendData:parseDragonSupportRequestInfo(l_need_info)
+    local did = t_need_info['did']
+
+    local number = g_dragonsData:getNumOfDragonsByDid(did)
+
+    if (number <= 0) then
+        local name = Str(TableDragon():getValue(did, 't_name'))
+        UIManager:toastNotificationRed(Str('{1}을 보유하고 있지 않습니다.', name))
+        return
+    end
+
+    local ui = UI_FriendDragonSupportPopup(t_friend_info)
+    local function close_cb()
+
+    end
     ui:setCloseCB(close_cb)
 end

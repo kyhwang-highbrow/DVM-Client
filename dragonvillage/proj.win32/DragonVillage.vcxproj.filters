@@ -1572,6 +1572,9 @@
     <None Include="..\src\UI_FriendDragonSupportRequestPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_FriendDragonSupportPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
