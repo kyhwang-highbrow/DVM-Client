@@ -98,6 +98,8 @@ function UI_Game:click_pauseButton()
 
     if (game_mode == GAME_MODE_NEST_DUNGEON) then
         UI_GamePause_NestDungeon(stage_id, start_cb, end_cb)
+    elseif (game_mode == GAME_MODE_NEST_SECRET) then
+        UI_GamePause_SecretDungeon(stage_id, start_cb, end_cb)
     else
         UI_GamePause(stage_id, start_cb, end_cb)
     end
@@ -238,9 +240,11 @@ function UI_Game:setTime(sec)
 
     vars['timeLabel']:setString(str)
 
-    -- 10초이하인 경우 붉은색으로 색상 변경
-    if (sec <= 10) then
+    -- 20초이하인 경우 붉은색으로 색상 변경
+    if (sec <= 20) then
         vars['timeLabel']:setColor(cc.c3b(255, 0, 0))
+    else
+        vars['timeLabel']:setColor(cc.c3b(0, 255, 0))
     end
 end
 

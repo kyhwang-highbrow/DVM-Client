@@ -384,6 +384,7 @@ local t_module = {
     'UI_GameResult_NestDungeon',
     'UI_GamePause',
     'UI_GamePause_NestDungeon',
+    'UI_GamePause_SecretDungeon',
     'UI_GamePause_Colosseum',
     'UI_GameDebug',
 	'UI_GameDebug_RealTime',

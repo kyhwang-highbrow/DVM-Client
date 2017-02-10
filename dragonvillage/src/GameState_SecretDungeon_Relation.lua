@@ -23,6 +23,32 @@ function GameState_SecretDungeon_Relation:initState()
 end
 
 -------------------------------------
+-- function fight
+-------------------------------------
+function GameState_SecretDungeon_Relation:fight()
+    -- 아군과 적군 전투 시작
+    local world = self.m_world
+
+    for i,dragon in ipairs(world:getDragonList()) do
+        if (dragon.m_bDead == false) then
+            dragon.m_bFirstAttack = true
+            dragon:changeState('attackDelay')
+        end
+    end
+
+    for i,enemy in pairs(world:getEnemyList()) do
+        if (enemy.m_bDead == false) then
+            enemy.m_bFirstAttack = false
+            enemy:changeState('attackDelay')
+
+            if enemy.m_hpNode then
+                enemy.m_hpNode:setVisible(true)
+            end
+        end
+    end
+end
+
+-------------------------------------
 -- function makeResultUI
 -------------------------------------
 function GameState_SecretDungeon_Relation:makeResultUI(is_success)

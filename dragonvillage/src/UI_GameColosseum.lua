@@ -132,9 +132,11 @@ function UI_GameColosseum:setTime(sec)
 
     vars['timeLabel']:setString(math_floor(sec))
 
-    -- 10초이하인 경우 붉은색으로 색상 변경
-    if (sec <= 10) then
+    -- 20초이하인 경우 붉은색으로 색상 변경
+    if (sec <= 20) then
         vars['timeLabel']:setColor(cc.c3b(255, 0, 0))
+    else
+        vars['timeLabel']:setColor(cc.c3b(0, 255, 0))
     end
 end
 
