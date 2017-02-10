@@ -11,6 +11,13 @@ UI_Game = class(UI, {
 function UI_Game:init(game_scene)
     self.m_gameScene = game_scene
 
+    self:initUI()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_Game:initUI()
     local vars = self:load('ingame_scene_new.ui')
     UIManager:open(self, UIManager.NORMAL)
 

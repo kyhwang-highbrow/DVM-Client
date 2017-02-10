@@ -215,7 +215,6 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 
         elseif (dungeonMode == SECRET_DUNGEON_RELATION) then
             self.m_gameState = GameState_SecretDungeon_Relation(self)
-            self.m_inGameUI:init_timeUI(self.m_gameState.m_limitTime)
 
         end
     end

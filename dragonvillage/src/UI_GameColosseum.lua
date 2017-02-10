@@ -1,16 +1,14 @@
+local PARENT = UI_Game
+
 -------------------------------------
 -- class UI_GameColosseum
 -------------------------------------
-UI_GameColosseum = class(UI, {
-        m_gameScene = '',
-     })
+UI_GameColosseum = class(PARENT, {})
 
 -------------------------------------
--- function init
+-- function initUI
 -------------------------------------
-function UI_GameColosseum:init(game_scene)
-    self.m_gameScene = game_scene
-
+function UI_GameColosseum:initUI()
     local vars = self:load('ingame_colosseum.ui')
     UIManager:open(self, UIManager.NORMAL)
 
@@ -59,6 +57,12 @@ function UI_GameColosseum:setEnemyHpGauge(percentage)
 end
 
 -------------------------------------
+-- function click_autoStartButton
+-------------------------------------
+function UI_GameColosseum:click_autoStartButton()
+end
+
+-------------------------------------
 -- function click_pauseButton
 -------------------------------------
 function UI_GameColosseum:click_pauseButton()
@@ -74,25 +78,6 @@ function UI_GameColosseum:click_pauseButton()
     end
 
     UI_GamePause_Colosseum(stage_id, start_cb, end_cb)
-end
-
--------------------------------------
--- function click_feverButton
--------------------------------------
-function UI_GameColosseum:click_feverButton()
-	local game_fever = self.m_gameScene.m_gameWorld.m_gameFever
-    if not game_fever:isActive() then
-        game_fever:addFeverPoint(100)
-    end
-end
-
--------------------------------------
--- function click_autoButton
--------------------------------------
-function UI_GameColosseum:click_autoButton()
-    local gameAuto = self.m_gameScene.m_gameWorld.m_gameAutoHero
-
-    self:setAutoMode(not gameAuto:isActive())
 end
 
 -------------------------------------
@@ -119,15 +104,10 @@ function UI_GameColosseum:click_speedButton()
 end
 
 -------------------------------------
--- function init_debugUI
--- @brief 인게임에서 실시간으로 각종 설정을 할 수 있도록 하는 UI생성
---        모든 기능은 UI_GameDebug안에서 구현
+-- function init_goldUI
 -------------------------------------
-function UI_GameColosseum:init_debugUI()
-    local debug_ui = UI_GameDebug()
-    self.root:addChild(debug_ui.root)
+function UI_GameColosseum:init_goldUI()
 end
-
 
 -------------------------------------
 -- function init_timeUI
@@ -136,6 +116,12 @@ function UI_GameColosseum:init_timeUI(time)
     if (time) then
         self:setTime(time)
     end
+end
+
+-------------------------------------
+-- function setGold
+-------------------------------------
+function UI_GameColosseum:setGold(gold, prev_gold)
 end
 
 -------------------------------------
@@ -153,25 +139,8 @@ function UI_GameColosseum:setTime(sec)
 end
 
 -------------------------------------
--- function setAutoMode
--- @brief 자동 모드 설정
+-- function setAutoPlayUI
+-- @brief 연속 전투 정보 UI
 -------------------------------------
-function UI_GameColosseum:setAutoMode(b)
-    local gameAuto = self.m_gameScene.m_gameWorld.m_gameAutoHero
-    if (gameAuto:isActive() == b) then return end
-    
-    if (b) then
-        UIManager:toastNotificationGreen('자동전투 활성화')
-
-        gameAuto:onStart()
-
-        g_autoPlaySetting:set('auto_mode', true)
-
-    else
-        UIManager:toastNotificationGreen('자동전투 비활성화')
-
-        gameAuto:onEnd()
-
-        g_autoPlaySetting:set('auto_mode', false)
-    end
+function UI_GameColosseum:setAutoPlayUI()
 end

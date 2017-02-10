@@ -14,8 +14,8 @@ function GameState_SecretDungeon_Gold:init()
     self.m_bgmBoss = 'bgm_nest_boss'
 
     -- 제한 시간 설정
-    local t_dungeon = TableSecretDungeon():get(self.m_world.m_stageID)
-    self.m_limitTime = t_dungeon['playable_time']
+    local t_drop = TableDrop():get(self.m_world.m_stageID)
+    self.m_limitTime = t_drop['time_limit']
 end
 
 -------------------------------------
