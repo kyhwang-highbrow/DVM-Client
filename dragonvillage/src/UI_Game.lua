@@ -174,10 +174,10 @@ function UI_Game:init_goldUI()
     vars['goldNode']:setVisible(true)
 
     -- 금화 갯수 이미지 폰트 생성
-    vars['goldLabel'] = cc.Label:createWithBMFont('res/font/fever_gauge.fnt', tostring(0))
-    vars['goldLabel']:setAnchorPoint(cc.p(0.5, 0.5))
-    vars['goldLabel']:setDockPoint(cc.p(0.5, 0.5))
-    vars['goldLabel']:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    vars['goldLabel'] = cc.Label:createWithBMFont('res/font/gold_dungeon_gold.fnt', tostring(0))
+    vars['goldLabel']:setAnchorPoint(cc.p(1, 0.5))
+    vars['goldLabel']:setDockPoint(cc.p(1, 0.5))
+    vars['goldLabel']:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
     vars['goldLabel']:setAdditionalKerning(0)
     vars['goldNode']:addChild(vars['goldLabel'])
 end
@@ -187,10 +187,16 @@ end
 -- @brief 
 -------------------------------------
 function UI_Game:setGold(gold)
-    local gold = math_floor(gold)
-
-    self.vars['goldLabel']:setString(comma_value(gold))
-
+    local vars = self.vars
+    
+    vars['goldLabel']:setString(comma_value(gold))
+    
+    if (vars['goldbgNode']) then
+        local clippingWidth = 500 - (vars['goldLabel']:getContentSize()['width'])
+        local clippingHeight = 60
+        vars['goldbgNode']:setNormalSize(clippingWidth, clippingHeight)
+    end
+        
     local action_node = self.vars['goldNode']
     local x = -72
     local y = -2

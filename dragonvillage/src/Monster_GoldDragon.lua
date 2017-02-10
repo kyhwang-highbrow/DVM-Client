@@ -69,7 +69,7 @@ function Monster_GoldDragon:setDamage(attacker, defender, i_x, i_y, damage, t_in
     do
         local base_gold, gold_per_damage = TableSecretDungeon():getGoldInfo(self.m_world.m_stageID)
         local gold = base_gold + math_floor(damage / gold_per_damage)
-        self.m_world:obtainGold(damage)
+        self.m_world:obtainGold(gold)
     end
 
     -- TODO: 금화 떨어지는 이펙트
