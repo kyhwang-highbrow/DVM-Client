@@ -17,7 +17,7 @@ ITopUserInfo_EventListener = {
 function ITopUserInfo_EventListener:init()
     self.m_bVisible = true
     self.m_bUseExitBtn = true
-	self.m_bUseMailBtn = true
+	self.m_bUseMailBtn = false
     self.m_titleStr = nil
 end
 
