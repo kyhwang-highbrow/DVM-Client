@@ -87,4 +87,7 @@ end
 -------------------------------------
 function Monster_GoldDragon:makeHPGauge(hp_ui_offset, force)
     self.m_unitInfoOffset = hp_ui_offset
+
+    self.m_statusNode = cc.Node:create()
+    self.m_rootNode:addChild(self.m_statusNode)
 end
