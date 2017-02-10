@@ -18,7 +18,7 @@ end
 -- function getGoldInfo
 -------------------------------------
 function TableSecretDungeon:getGoldInfo(stage_id)
-     local stage_id = stage_id or 32007 -- ÀÓ½Ã
+     local stage_id = stage_id or 32007 -- ì„ì‹œ
 
     local t_dungeon = self.m_orgTable[stage_id]
     if (not t_dungeon) then return end
@@ -31,10 +31,10 @@ end
 
 -------------------------------------
 -- function getRandomDragonList
--- ÆÄ¶ó¹ÌÅÍ(Â÷ÈÄ ÀÛ¾÷µÇ¾î¾ßÇÔ)¿¡ µû¶ó µîÀå °¡´ÉÇÑ µå·¡°ï ¸®½ºÆ®¸¦ ¾òÀ½
+-- íŒŒë¼ë¯¸í„°(ì°¨í›„ ì‘ì—…ë˜ì–´ì•¼í•¨)ì— ë”°ë¼ ë“±ì¥ ê°€ëŠ¥í•œ ë“œë˜ê³¤ ë¦¬ìŠ¤íŠ¸ë¥¼ ì–»ìŒ
 -------------------------------------
 function TableSecretDungeon:getRandomDragonList(stage_id)
-    local stage_id = stage_id or 32007 -- ÀÓ½Ã
+    local stage_id = stage_id or 32007 -- ì„ì‹œ
 
     local t_dungeon = self.m_orgTable[stage_id]
     if (not t_dungeon) then return end

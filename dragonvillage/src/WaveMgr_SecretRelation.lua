@@ -4,7 +4,7 @@ local PARENT = WaveMgr
 -- class WaveMgr_SecretRelation
 -------------------------------------
 WaveMgr_SecretRelation = class(PARENT, {
-        m_enemyDid = 'number',   -- ÁöÁ¤µÈ Àûµå·¡°ï ¾ÆÀÌµğ
+        m_enemyDid = 'number',   -- ì§€ì •ëœ ì ë“œë˜ê³¤ ì•„ì´ë””
         m_bBossWave = 'boolean',
     })
 
@@ -12,15 +12,15 @@ WaveMgr_SecretRelation = class(PARENT, {
 -- function init
 -------------------------------------
 function WaveMgr_SecretRelation:init(world, stage_name, develop_mode)
-    -- ÇØ´ç ½ºÅ×ÀÌÁö¿¡¼­ °¡´ÉÇÑ Àûµå·¡°ïÀ» ÇÏ³ª ÁöÁ¤
-    -- TODO: ½ºÅ×ÀÌÁö Á¤º¸·ÎºÎÅÍ °áÁ¤µÇµµ·Ï Â÷ÈÄ ¼öÁ¤
+    -- í•´ë‹¹ ìŠ¤í…Œì´ì§€ì—ì„œ ê°€ëŠ¥í•œ ì ë“œë˜ê³¤ì„ í•˜ë‚˜ ì§€ì •
+    -- TODO: ìŠ¤í…Œì´ì§€ ì •ë³´ë¡œë¶€í„° ê²°ì •ë˜ë„ë¡ ì°¨í›„ ìˆ˜ì •
     local l_did = TableSecretDungeon():getRandomDragonList(world.m_stageID)
     l_did = randomShuffle(l_did)
 
     self.m_enemyDid = l_did[1]
     self.m_bBossWave = false
 
-    -- RandomDragonÀ¸·Î µé¾î°£ enemy_id°ªµéÀ» ÁöÁ¤µÈ µå·¡°ï ¾ÆÀÌµğ·Î Ä¡È¯
+    -- RandomDragonìœ¼ë¡œ ë“¤ì–´ê°„ enemy_idê°’ë“¤ì„ ì§€ì •ëœ ë“œë˜ê³¤ ì•„ì´ë””ë¡œ ì¹˜í™˜
     if (self.m_scriptData and self.m_scriptData['wave']) then
         for wave, t_data in pairs(self.m_scriptData['wave']) do
             for _, v in pairs(t_data['wave']) do
@@ -65,7 +65,7 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
     
     local enemy
 
-    -- Enemy »ı¼º
+    -- Enemy ìƒì„±
     if isMonster(enemy_id) then
         enemy = self.m_world:makeMonsterNew(enemy_id, level)
 
@@ -99,19 +99,19 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
 
     self.m_world.m_rightFormationMgr:setChangePosCallback(enemy)
 
-	-- ÆĞ½Ãºê ½ÇÇà
+	-- íŒ¨ì‹œë¸Œ ì‹¤í–‰
 	local l_passive = enemy.m_lSkillIndivisualInfo['passive']
     for i,skill_info in pairs(l_passive) do
         local skill_id = skill_info.m_skillID
         enemy:doSkill(skill_id, 0, 0)
     end
 
-    -- µîÀå ¿òÁ÷ÀÓ ¼³Á¤
+    -- ë“±ì¥ ì›€ì§ì„ ì„¤ì •
     if (EnemyAppear[appear_type]) then
         EnemyAppear[appear_type](enemy, value1, value2, value3)
     end
 
-    -- ÀÌµ¿ ÆĞÅÏ ¼³Á¤
+    -- ì´ë™ íŒ¨í„´ ì„¤ì •
     if (self.m_world.m_enemyMovementMgr) then
         if (not movement) then
             movement = self.m_currWave

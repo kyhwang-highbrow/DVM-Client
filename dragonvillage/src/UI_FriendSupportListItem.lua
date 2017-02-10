@@ -27,23 +27,23 @@ function UI_FriendSupportListItem:initUI()
 
     local t_friend_info = self:getFriendInfo()
     
-    -- Áö¿ø ¿äÃ»ÁßÀÎ µå·¡°ï ¾ÆÀÌÄÜ
+    -- ì§€ì› ìš”ì²­ì¤‘ì¸ ë“œë˜ê³¤ ì•„ì´ì½˜
     local t_dragon_support_request_info = g_friendData:parseDragonSupportRequestInfo(t_friend_info['need_did'])
     local card = MakeSimpleDragonCard(t_dragon_support_request_info['did'])
     vars['dragonNode']:addChild(card.root)
 
-    -- Ä£±¸ ´Ğ³×ÀÓ
+    -- ì¹œêµ¬ ë‹‰ë„¤ì„
     vars['nameLabel']:setString(t_friend_info['nick'])
 
-    -- ³»°¡ º¸À¯ÇÑ ÇØ´ç µå·¡°ïÀÇ °¹¼ö
+    -- ë‚´ê°€ ë³´ìœ í•œ í•´ë‹¹ ë“œë˜ê³¤ì˜ ê°¯ìˆ˜
     local number = g_dragonsData:getNumOfDragonsByDid(t_dragon_support_request_info['did'])
     vars['haveLabel']:setString(comma_value(number))
 
-    -- µå·¡°ïÀ» Áö¿øÇßÀ» ¶§ ¹Ş´Â ¿ìÁ¤Æ÷ÀÎÆ®
+    -- ë“œë˜ê³¤ì„ ì§€ì›í–ˆì„ ë•Œ ë°›ëŠ” ìš°ì •í¬ì¸íŠ¸
     local fp_reward = t_dragon_support_request_info['fp_reward']
     vars['fpLabel']:setString(comma_value(fp_reward))
 
-    -- Áö¿ø ¿äÃ» Áö³­ ½Ã°£
+    -- ì§€ì› ìš”ì²­ ì§€ë‚œ ì‹œê°„
     vars['timeLabel']:setString('')
 end
 
