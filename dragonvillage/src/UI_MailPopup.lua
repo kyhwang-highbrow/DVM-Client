@@ -161,7 +161,12 @@ function UI_MailPopup:click_rewardAllBtn()
 	end
 
 	-- 시작
-    MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('우편을 전부 수령하십니까?\n확정권은 모두 받기에서 제외됩니다.'), get_all_reward_cb)
+	if (g_mailData:checkExistTicket()) then
+		-- 확정권이 있는 경우에는 팝업을 띄워준다.
+		MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('우편을 전부 수령하십니까?\n확정권은 모두 받기에서 제외됩니다.'), get_all_reward_cb)
+	else
+		get_all_reward_cb()
+	end
 end
 
 -------------------------------------

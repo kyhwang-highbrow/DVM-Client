@@ -92,25 +92,39 @@ function ServerData_Mail:deleteMailData(moid)
 end
 
 -------------------------------------
+-- function checkExistTicket
+-------------------------------------
+function ServerData_Mail:checkExistTicket()
+	local isExistTicket = false
+
+	-- 메일을 순회하며 확정권 타입이 있는지 검사
+	for i, mail in pairs(self.m_mMailList_withoutFp) do
+		if (mail['type'] == 'ticket') then
+			isExistTicket = true
+			break
+		end
+	end
+
+	return isExistTicket
+end
+
+
+-------------------------------------
 -- function sortMailList
 -------------------------------------
 function ServerData_Mail:sortMailList(sort_target_list)
     local sort_manager = SortManager()
 
-    -- 시간
-    sort_manager:addSortType('time', true, function(a, b, ascending)
+    -- 시간 오름 차순 (얼마 안남은 것부터)
+	sort_manager:setDefaultSortFunc(function(a, b) 
             local a_data = a['data']
             local b_data = b['data']
 
             local a_value = a_data['expired_at']
             local b_value = b_data['expired_at']
 
-            if (a_value == b_value) then
-                return nil
-            end
-
             return a_value < b_value
-        end)
+	end)
 
     sort_manager:sortExecution(sort_target_list)
 end
