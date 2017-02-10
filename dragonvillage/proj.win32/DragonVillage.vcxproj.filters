@@ -1578,6 +1578,9 @@
     <None Include="..\src\UI_GamePause_SecretDungeon.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_NotificationInfoElement.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -451,6 +451,7 @@ local t_module = {
     'UI_RuneBulkSalePopup',
     'UI_AcquisitionRegionInformation',
     'UI_AcquisitionRegionListItem',
+    'UI_NotificationInfoElement',
 
     -- 친구 시스템 관련
     'UI_FriendPopup',

@@ -1,0 +1,137 @@
+local PARENT = ITableViewCell:getCloneClass()
+
+local info_element_max_width = 500
+
+
+-------------------------------------
+-- class UI_NotificationInfoElement
+-------------------------------------
+UI_NotificationInfoElement = class(PARENT, {
+        root = '',
+        vars = '',
+
+        m_width = 'number',
+        m_height = 'number',
+     })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_NotificationInfoElement:init()
+    self.root = cc.Menu:create()
+    --self.root:setNormalSize(150, 150)
+    self.root:setDockPoint(CENTER_POINT)
+    self.root:setAnchorPoint(CENTER_POINT)
+    self.root:setPosition(0, 0)
+
+    self.vars = {}
+
+    local sprite = cc.Scale9Sprite:create('res/ui/frame/base_frame_08.png')
+    sprite:setDockPoint(cc.p(0.5, 0.5))
+    sprite:setAnchorPoint(cc.p(0.5, 0.5))
+    sprite:setRelativeSizeAndType(cc.size(0, 0), 3, true)
+    sprite:setColor(cc.c3b(0, 0, 0))
+    sprite:setOpacity(255 * 0.8)
+    self.root:addChild(sprite)
+
+    self:setIcon()
+end
+
+-------------------------------------
+-- function setElementSize
+-------------------------------------
+function UI_NotificationInfoElement:setElementSize(width, height)
+    self.root:setNormalSize(width, height)
+
+    self.m_width = width
+    self.m_height = height
+end
+
+-------------------------------------
+-- function setIcon
+-------------------------------------
+function UI_NotificationInfoElement:setIcon()
+    local icon = cc.Sprite:create('res/ui/icon/buff_dsc_icon.png')
+    icon:setAnchorPoint(cc.p(0.5, 0.5))
+    icon:setDockPoint(cc.p(0, 1))
+    icon:setPosition(22, -15)
+    self.root:addChild(icon)
+end
+
+-------------------------------------
+-- function makeRichLabel
+-------------------------------------
+function UI_NotificationInfoElement:makeRichLabel(text)
+    local font_size = 16
+    local dimensions_width = info_element_max_width - 20
+    local dimensions_height = 600
+    local align_h = TEXT_H_ALIGN_LEFT
+    local align_v = TEXT_V_ALIGN_CENTER
+    local dock_point = cc.p(0, 1)
+    local is_limit_message = false
+
+    -- RichLabel상에서의 width, height를 얻어온다.
+    local rich_label = RichLabel(text, font_size, dimensions_width, dimensions_height, align_h, align_v, dock_point, is_limit_message)
+    return rich_label
+end
+
+-------------------------------------
+-- function makeContentRichLabel
+-------------------------------------
+function UI_NotificationInfoElement:makeContentRichLabel(text)
+    local font_size = 16
+    local dimensions_width = info_element_max_width - 20
+    local dimensions_height = 600
+    local align_h = TEXT_H_ALIGN_LEFT
+    local align_v = TEXT_V_ALIGN_TOP
+    local dock_point = cc.p(0, 1)
+    local is_limit_message = false
+
+    -- RichLabel상에서의 width, height를 얻어온다.
+    local rich_label = RichLabel(text, font_size, dimensions_width, dimensions_height, align_h, align_v, dock_point, is_limit_message)
+    return rich_label
+end
+
+
+-------------------------------------
+-- function setTitleText
+-------------------------------------
+function UI_NotificationInfoElement:setTitleText(text)
+    local rich_label = self:makeRichLabel(text)
+    rich_label.m_root:setPosition(40, -15)
+    self.root:addChild(rich_label.m_root)
+
+    self:setElementSize(info_element_max_width, 30)
+end
+
+-------------------------------------
+-- function setDescText
+-------------------------------------
+function UI_NotificationInfoElement:setDescText(text)
+    local rich_label = self:makeContentRichLabel(text)
+    rich_label.m_root:setPosition(40, -15 - 15)
+    self.root:addChild(rich_label.m_root)
+
+    self:setElementSize(info_element_max_width, 30 + (rich_label:getStringHeight() + 5))
+end
+
+
+
+
+-------------------------------------
+-- function setDescText
+-------------------------------------
+function UI_NotificationInfoElement:sampleCode()
+    local ui = UI_NotificationInfoElement()
+    ui:setTitleText('{@SKILL_NAME}[베스트프렌드 접속 버프] {@WHITE}(뀨뀨뀨, 김 성 구 접속 중)')
+    ui:setDescText('{@DEEPSKYBLUE}[베스트프렌드의 응원] {@SKILL_DESC}경험치 +3%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%')
+    self.m_scene:addChild(ui.root)
+    --local pos_y = pos_y - (height/2) - 5
+
+
+    local ui = UI_NotificationInfoElement()
+    ui:setTitleText('{@SKILL_NAME}[친구 드래곤 사용 버프] {@SKILL_DESC}체력 +500')
+    --ui:setDescText('{@DEEPSKYBLUE}[베스트프렌드의 응원] {@SKILL_DESC}경험치 +3%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%')
+    self.m_scene:addChild(ui.root)
+    --ui.root:setPosition(0, pos_y/2 - (ui.m_height/2) - 5)
+end
