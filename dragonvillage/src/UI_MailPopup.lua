@@ -1,10 +1,12 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
+local RENEW_INTERVAL = 10
 
 -------------------------------------
 -- class UI_MailPopup
 -------------------------------------
 UI_MailPopup = class(PARENT, {
 		m_mTableView = '',
+		m_preRenewTime = 'time',
     })
 
 -------------------------------------
@@ -12,6 +14,7 @@ UI_MailPopup = class(PARENT, {
 -------------------------------------
 function UI_MailPopup:init()
 	self.m_mTableView = {}
+	self.m_preRenewTime = 0
 
 	local vars = self:load('mail_popup.ui')
 	UIManager:open(self, UIManager.POPUP)
@@ -30,6 +33,7 @@ function UI_MailPopup:init()
 		self:initTab()
 		self:initButton()
 		self:refresh()
+		self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
 	end 
 	g_mailData:request_mailList(cb_func)
 end
@@ -66,6 +70,7 @@ end
 -------------------------------------
 function UI_MailPopup:initButton()
 	local vars = self.vars
+	vars['renewBtn']:registerScriptTapHandler(function() self:click_renewBtn() end)
 	vars['rewardAllBtn']:registerScriptTapHandler(function() self:click_rewardAllBtn() end)
 end
 
@@ -74,6 +79,15 @@ end
 -------------------------------------
 function UI_MailPopup:refresh()
 end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_MailPopup:update(dt)
+	local curr_time = Timer:getServerTime()
+	self.vars['renewBtn']:setEnabled(curr_time - self.m_preRenewTime > RENEW_INTERVAL)
+end
+
 
 -------------------------------------
 -- function onChangeTab
@@ -114,6 +128,23 @@ function UI_MailPopup:makeMailTableView(tab, node)
     g_mailData:sortMailList(table_view.m_itemList)
 
     self.m_mTableView[tab] = table_view
+end
+
+-------------------------------------
+-- function click_renewBtn
+-- @brief 우편 갱신
+-------------------------------------
+function UI_MailPopup:click_renewBtn()
+	local cb_func = function()
+		for tab, table_view in pairs(self.m_mTableView) do 
+			local t_item_list = g_mailData:getMailList(tab)
+			table_view:setItemList(t_item_list)
+			g_mailData:sortMailList(table_view.m_itemList)
+		end
+	end
+	g_mailData:request_mailList(cb_func)
+
+	self.m_preRenewTime = Timer:getServerTime()
 end
 
 -------------------------------------
