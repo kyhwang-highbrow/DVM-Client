@@ -14,7 +14,7 @@ WaveMgr_SecretRelation = class(PARENT, {
 function WaveMgr_SecretRelation:init(world, stage_name, develop_mode)
     -- 해당 스테이지에서 가능한 적드래곤을 하나 지정
     -- TODO: 스테이지 정보로부터 결정되도록 차후 수정
-    local l_did = TableSecretDungeon():getRandomDragonList()
+    local l_did = TableSecretDungeon():getRandomDragonList(world.m_stageID)
     l_did = randomShuffle(l_did)
 
     self.m_enemyDid = l_did[1]

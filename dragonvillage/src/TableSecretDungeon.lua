@@ -15,13 +15,28 @@ function TableSecretDungeon:init()
 end
 
 -------------------------------------
+-- function getGoldInfo
+-------------------------------------
+function TableSecretDungeon:getGoldInfo(stage_id)
+     local stage_id = stage_id or 32007 -- 임시
+
+    local t_dungeon = self.m_orgTable[stage_id]
+    if (not t_dungeon) then return end
+
+    local base_gold = t_dungeon['base_gold'] or 0
+    local gold_per_damage = t_dungeon['gold_per_damage'] or 0
+
+    return base_gold, gold_per_damage
+end
+
+-------------------------------------
 -- function getRandomDragonList
 -- 파라미터(차후 작업되어야함)에 따라 등장 가능한 드래곤 리스트를 얻음
 -------------------------------------
-function TableSecretDungeon:getRandomDragonList(type)
-    local type = type or 'relation_sun' -- 임시
+function TableSecretDungeon:getRandomDragonList(stage_id)
+    local stage_id = stage_id or 32007 -- 임시
 
-    local t_dungeon = self.m_orgTable[type]
+    local t_dungeon = self.m_orgTable[stage_id]
     if (not t_dungeon) then return end
 
     local ret = {}

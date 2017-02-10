@@ -66,7 +66,11 @@ function Monster_GoldDragon:setDamage(attacker, defender, i_x, i_y, damage, t_in
     PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
 
     -- TODO: 데미지에 따른 금화 획득
-    self.m_world:obtainGold(damage)
+    do
+        local base_gold, gold_per_damage = TableSecretDungeon():getGoldInfo(self.m_world.m_stageID)
+        local gold = base_gold + math_floor(damage / gold_per_damage)
+        self.m_world:obtainGold(damage)
+    end
 
     -- TODO: 금화 떨어지는 이펙트
     do
