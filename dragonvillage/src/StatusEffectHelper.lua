@@ -299,7 +299,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
         
 	-- 객체 생성
     local world = char.m_world
-    world.m_worldNode:addChild(status_effect.m_rootNode, 10)
+    world.m_worldNode:addChild(status_effect.m_rootNode, WORLD_Z_ORDER.SE_EFFECT)
     world:addToUnitList(status_effect)
 
     status_effect:initState()
@@ -445,7 +445,7 @@ function StatusEffectHelper:invokeStatusEffectForDev(char, res)
 
     -- 객체 생성
     local world = char.m_world
-    world.m_worldNode:addChild(status_effect.m_rootNode, 10)
+    world.m_worldNode:addChild(status_effect.m_rootNode, WORLD_Z_ORDER.SE_EFFECT)
     world:addToUnitList(status_effect)
 
 	status_effect:initState()
