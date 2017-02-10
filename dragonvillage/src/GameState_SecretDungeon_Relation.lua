@@ -12,6 +12,10 @@ GameState_SecretDungeon_Relation = class(PARENT, {
 -------------------------------------
 function GameState_SecretDungeon_Relation:init()
     self.m_bgmBoss = 'bgm_nest_boss'
+
+    -- 제한 시간 설정
+    local t_dungeon = TableSecretDungeon():get(self.m_world.m_stageID)
+    self.m_limitTime = t_dungeon['playable_time']
 end
 
 -------------------------------------

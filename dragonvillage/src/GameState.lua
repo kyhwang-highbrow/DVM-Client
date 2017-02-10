@@ -35,6 +35,7 @@ GameState = class(PARENT, {
 
         m_stateParam = 'boolean',
         m_fightTimer = '',
+        m_limitTime = 'number',     -- 제한 시간
         m_globalCoolTime = 'number',
 
         m_bAppearHero = 'boolean',
@@ -65,6 +66,7 @@ function GameState:init(world)
     self.m_state = GAME_STATE_LOADING
     self.m_stateTimer = -1
     self.m_fightTimer = 0
+    self.m_limitTime = 0
     self.m_globalCoolTime = 0
     self.m_bAppearHero = false
 
@@ -137,12 +139,30 @@ end
 -- function update
 -------------------------------------
 function GameState:update(dt)
-    -- 글로벌 쿨타임 계산
-    if (self.m_globalCoolTime > 0) then
-        self.m_globalCoolTime = (self.m_globalCoolTime - dt)
+    -- 특정 상태에서만 타임 계산
+    if (isExistValue(self.m_state, GAME_STATE_FIGHT, GAME_STATE_FIGHT_FEVER)) then
+        -- 글로벌 쿨타임 계산
+        if (self.m_globalCoolTime > 0) then
+            self.m_globalCoolTime = (self.m_globalCoolTime - dt)
 
-        if (self.m_globalCoolTime < 0) then
-            self.m_globalCoolTime = 0
+            if (self.m_globalCoolTime < 0) then
+                self.m_globalCoolTime = 0
+            end
+        end
+
+        -- 플레이 시간 계산
+        self.m_fightTimer = self.m_fightTimer + dt
+        
+        -- 제한 시간이 있을 경우 체크
+        if (self.m_limitTime > 0) then
+            if (self.m_fightTimer >= self.m_limitTime) then
+                self.m_fightTimer = self.m_limitTime
+
+                -- TODO: 게임 종료 처리
+                self:changeState(GAME_STATE_FAILURE)
+            end
+
+            self.m_world.m_inGameUI:setTime(self.m_limitTime - self.m_fightTimer)
         end
     end
 
@@ -205,7 +225,6 @@ end
 -- function update_fight
 -------------------------------------
 function GameState.update_fight(self, dt)
-    self.m_fightTimer = self.m_fightTimer + dt
     local world = self.m_world
 
     -- 해당 웨이브의 모든 적이 등장한 상태일 경우
@@ -495,8 +514,12 @@ function GameState.update_fight_fever(self, dt)
         world.m_gameAutoHero:update(dt)
     end
 
-    if self.m_world.m_gameAutoEnemy then
-        self.m_world.m_gameAutoEnemy:update(dt) 
+    if world.m_gameAutoEnemy then
+        world.m_gameAutoEnemy:update(dt) 
+    end
+
+    if world.m_enemyMovementMgr then
+        world.m_enemyMovementMgr:update(dt)
     end
 end
 

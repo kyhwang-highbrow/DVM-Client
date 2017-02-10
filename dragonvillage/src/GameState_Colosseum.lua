@@ -18,6 +18,9 @@ GameState_Colosseum = class(PARENT, {
 -------------------------------------
 function GameState_Colosseum:init(world)
     self:initTamerAvatar()
+
+    -- 콜로세움은 제한시간 5분으로 고정
+    self.m_limitTime = 300
 end
 
 -------------------------------------

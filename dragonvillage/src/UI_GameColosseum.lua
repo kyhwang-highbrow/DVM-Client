@@ -128,22 +128,27 @@ function UI_GameColosseum:init_debugUI()
     self.root:addChild(debug_ui.root)
 end
 
--------------------------------------
--- function setGold
--- @brief 
--------------------------------------
-function UI_GameColosseum:setGold(gold)    
-    self.vars['goldLabel']:setString(comma_value(gold))
 
-    local action_node = self.vars['goldNode']
-    local x = -72
-    local y = -2
+-------------------------------------
+-- function init_timeUI
+-------------------------------------
+function UI_GameColosseum:init_timeUI(time)
+    if (time) then
+        self:setTime(time)
+    end
+end
 
-    if self.m_gameScene.m_gameWorld:isOnFight() then
-        action_node:stopAllActions()
-        local start_action = cc.MoveTo:create(0.05, cc.p(x, y + 10))
-        local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.5, cc.p(x, y)), 0.2)
-        action_node:runAction(cc.Sequence:create(start_action, end_action))
+-------------------------------------
+-- function setTime
+-------------------------------------
+function UI_GameColosseum:setTime(sec)
+    local vars = self.vars
+
+    vars['timeLabel']:setString(math_floor(sec))
+
+    -- 10초이하인 경우 붉은색으로 색상 변경
+    if (sec <= 10) then
+        vars['timeLabel']:setColor(cc.c3b(255, 0, 0))
     end
 end
 

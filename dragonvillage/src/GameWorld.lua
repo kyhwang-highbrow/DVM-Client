@@ -211,9 +211,11 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
         if (dungeonMode == SECRET_DUNGEON_GOLD) then
             self.m_gameState = GameState_SecretDungeon_Gold(self)
             self.m_inGameUI:init_goldUI()
+            self.m_inGameUI:init_timeUI(self.m_gameState.m_limitTime)
 
         elseif (dungeonMode == SECRET_DUNGEON_RELATION) then
             self.m_gameState = GameState_SecretDungeon_Relation(self)
+            self.m_inGameUI:init_timeUI(self.m_gameState.m_limitTime)
 
         end
     end
@@ -424,8 +426,11 @@ end
 function GameWorld:obtainGold(cnt)
     local cnt = (cnt or 1)
     local add_gold = (cnt * self.m_goldUnit)
+    local prev_gold = self.m_gold
+
     self.m_gold = (self.m_gold + add_gold)
-    g_gameScene.m_inGameUI:setGold(self.m_gold)
+
+    g_gameScene.m_inGameUI:setGold(self.m_gold, prev_gold)
 end
 
 -------------------------------------

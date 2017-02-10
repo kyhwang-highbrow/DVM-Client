@@ -183,29 +183,57 @@ function UI_Game:init_goldUI()
 end
 
 -------------------------------------
--- function setGold
--- @brief 
+-- function init_timeUI
 -------------------------------------
-function UI_Game:setGold(gold)
+function UI_Game:init_timeUI(time)
+    local vars = self.vars
+
+    vars['waveVisual']:setVisible(false)
+    vars['timeNode']:setVisible(true)
+
+    -- 시간 이미지 폰트 생성
+    vars['timeLabel'] = cc.Label:createWithBMFont('res/font/gold_dungeon_time.fnt', '00:00')
+    vars['timeLabel']:setAnchorPoint(cc.p(1, 0.5))
+    vars['timeLabel']:setDockPoint(cc.p(1, 0.5))
+    vars['timeLabel']:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    vars['timeLabel']:setAdditionalKerning(0)
+    vars['timeNode']:addChild(vars['timeLabel'])
+
+    if (time) then
+        self:setTime(time)
+    end
+end
+
+-------------------------------------
+-- function setGold
+-------------------------------------
+function UI_Game:setGold(gold, prev_gold)
     local vars = self.vars
     
-    vars['goldLabel']:setString(comma_value(gold))
-    
-    if (vars['goldbgNode']) then
-        local clippingWidth = 500 - (vars['goldLabel']:getContentSize()['width'])
-        local clippingHeight = 60
-        vars['goldbgNode']:setNormalSize(clippingWidth, clippingHeight)
+    local func = function(value, node)
+        node:setString(comma_value(math_floor(value)))
     end
-        
-    local action_node = self.vars['goldNode']
-    local x = -72
-    local y = -2
+    local tween_action = cc.ActionTweenForLua:create(1, prev_gold, gold, func)
 
-    if self.m_gameScene.m_gameWorld:isOnFight() then
-        action_node:stopAllActions()
-        local start_action = cc.MoveTo:create(0.05, cc.p(x, y + 10))
-        local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.5, cc.p(x, y)), 0.2)
-        action_node:runAction(cc.Sequence:create(start_action, end_action))
+    vars['goldLabel']:stopAllActions()
+    vars['goldLabel']:runAction(tween_action)
+end
+
+-------------------------------------
+-- function setTime
+-------------------------------------
+function UI_Game:setTime(sec)
+    local vars = self.vars
+
+    local m = math_floor(sec / 60)
+    local s = sec % 60
+    local str = string.format('%02d:%02d', m, s)
+
+    vars['timeLabel']:setString(str)
+
+    -- 10초이하인 경우 붉은색으로 색상 변경
+    if (sec <= 10) then
+        vars['timeLabel']:setColor(cc.c3b(255, 0, 0))
     end
 end
 
