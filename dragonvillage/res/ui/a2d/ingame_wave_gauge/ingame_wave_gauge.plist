@@ -15,7 +15,7 @@
                 <key>spriteSourceSize</key>
                 <string>{264,42}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{264,42}}</string>
+                <string>{{20,1},{264,42}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -30,7 +30,37 @@
                 <key>spriteSourceSize</key>
                 <string>{264,42}</string>
                 <key>textureRect</key>
-                <string>{{513,1},{90,26}}</string>
+                <string>{{415,36},{90,26}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>wave_frame_0201.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{409,33}</string>
+                <key>spriteSourceSize</key>
+                <string>{409,33}</string>
+                <key>textureRect</key>
+                <string>{{286,1},{409,33}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>wave_frame_0202.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,5}</string>
+                <key>spriteSize</key>
+                <string>{321,21}</string>
+                <key>spriteSourceSize</key>
+                <string>{409,33}</string>
+                <key>textureRect</key>
+                <string>{{541,36},{321,21}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,7 +75,7 @@
                 <key>spriteSourceSize</key>
                 <string>{264,42}</string>
                 <key>textureRect</key>
-                <string>{{467,29},{94,20}}</string>
+                <string>{{943,1},{94,20}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -60,7 +90,7 @@
                 <key>spriteSourceSize</key>
                 <string>{264,42}</string>
                 <key>textureRect</key>
-                <string>{{267,23},{164,20}}</string>
+                <string>{{864,23},{164,20}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -75,7 +105,157 @@
                 <key>spriteSourceSize</key>
                 <string>{264,42}</string>
                 <key>textureRect</key>
-                <string>{{267,1},{244,20}}</string>
+                <string>{{697,1},{244,20}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>wave_gauge_0201.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-169,6}</string>
+                <key>spriteSize</key>
+                <string>{55,17}</string>
+                <key>spriteSourceSize</key>
+                <string>{409,33}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{55,17}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>wave_gauge_0202.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-151,6}</string>
+                <key>spriteSize</key>
+                <string>{93,17}</string>
+                <key>spriteSourceSize</key>
+                <string>{409,33}</string>
+                <key>textureRect</key>
+                <string>{{1512,20},{93,17}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>wave_gauge_0203.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-134,6}</string>
+                <key>spriteSize</key>
+                <string>{127,17}</string>
+                <key>spriteSourceSize</key>
+                <string>{409,33}</string>
+                <key>textureRect</key>
+                <string>{{1420,39},{127,17}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>wave_gauge_0204.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-116,6}</string>
+                <key>spriteSize</key>
+                <string>{163,17}</string>
+                <key>spriteSourceSize</key>
+                <string>{409,33}</string>
+                <key>textureRect</key>
+                <string>{{1347,20},{163,17}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>wave_gauge_0205.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-98,6}</string>
+                <key>spriteSize</key>
+                <string>{199,17}</string>
+                <key>spriteSourceSize</key>
+                <string>{409,33}</string>
+                <key>textureRect</key>
+                <string>{{1219,42},{199,17}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>wave_gauge_0206.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-77,6}</string>
+                <key>spriteSize</key>
+                <string>{241,17}</string>
+                <key>spriteSourceSize</key>
+                <string>{409,33}</string>
+                <key>textureRect</key>
+                <string>{{1320,1},{241,17}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>wave_gauge_0207.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-58,6}</string>
+                <key>spriteSize</key>
+                <string>{279,17}</string>
+                <key>spriteSourceSize</key>
+                <string>{409,33}</string>
+                <key>textureRect</key>
+                <string>{{1039,1},{279,17}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>wave_gauge_0208.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-39,6}</string>
+                <key>spriteSize</key>
+                <string>{315,17}</string>
+                <key>spriteSourceSize</key>
+                <string>{409,33}</string>
+                <key>textureRect</key>
+                <string>{{1030,23},{315,17}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>wave_gauge_0209.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-20,6}</string>
+                <key>spriteSize</key>
+                <string>{353,17}</string>
+                <key>spriteSourceSize</key>
+                <string>{409,33}</string>
+                <key>textureRect</key>
+                <string>{{864,45},{353,17}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>wave_gauge_0210.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,6}</string>
+                <key>spriteSize</key>
+                <string>{393,17}</string>
+                <key>spriteSourceSize</key>
+                <string>{409,33}</string>
+                <key>textureRect</key>
+                <string>{{20,45},{393,17}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -90,7 +270,7 @@
                 <key>spriteSourceSize</key>
                 <string>{26,32}</string>
                 <key>textureRect</key>
-                <string>{{433,23},{26,32}}</string>
+                <string>{{507,36},{26,32}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -106,9 +286,9 @@
             <key>realTextureFileName</key>
             <string>ingame_wave_gauge.png</string>
             <key>size</key>
-            <string>{604,50}</string>
+            <string>{1606,63}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:0003783eb2ceec2b823455906c87ad1f:b80ee99a67d8f2a902fa56fad5678952:9a9f835f9517668d56a1b24ab755fa96$</string>
+            <string>$TexturePacker:SmartUpdate:4477131d0d91e509f10438873724be50:c0f7de492cdf08678db6eb6fd9afab59:9a9f835f9517668d56a1b24ab755fa96$</string>
             <key>textureFileName</key>
             <string>ingame_wave_gauge.png</string>
         </dict>
