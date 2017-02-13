@@ -37,6 +37,7 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_reservedSkillCastTime = 'number',
         m_reservedSkillAniEventTime = 'number', -- 스킬 애니메이션에서의 attack 이벤트 시간
         m_isAddSkill = 'bool', -- 드래곤이 에약한 스킬이 basic_rate나 basic_turn 인 경우
+        m_bActivePassive = 'bool',  -- 패시브 스킬 적용 여부
 
         -- @ target
         m_targetChar = 'Character',
@@ -133,6 +134,8 @@ function Character:init(file_name, body, ...)
 
     self.m_chargeDuration = 0
     self.m_attackAnimaDuration = 0
+
+    self.m_bActivePassive = false
     self.m_isOnTheMove = false
     self.m_bFixedPosHpNode = false
 

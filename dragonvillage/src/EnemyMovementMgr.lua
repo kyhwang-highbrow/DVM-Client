@@ -90,6 +90,16 @@ EnemyMovement = class(IEventListener:getCloneClass(), {
     end
 
     -------------------------------------
+    -- function reset
+    -------------------------------------
+    function EnemyMovement:reset()
+        self.m_curIdx = 1
+        self.m_remainTime = 0
+
+        self.m_bSorted = false
+    end
+
+    -------------------------------------
     -- function doMove
     -------------------------------------
     function EnemyMovement:doMove(enemy)
@@ -195,5 +205,14 @@ EnemyMovementMgr = class({
     function EnemyMovementMgr:addMovement(key, t_pattern)
         if (not self.m_mMovementList[key]) then
             self.m_mMovementList[key] = EnemyMovement(key, t_pattern)
+        end
+    end
+
+    -------------------------------------
+    -- function reset
+    -------------------------------------
+    function EnemyMovementMgr:reset()
+        for k, v in pairs(self.m_mMovementList) do
+            v:reset()
         end
     end

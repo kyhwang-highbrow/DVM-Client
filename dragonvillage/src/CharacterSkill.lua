@@ -390,21 +390,15 @@ end
 -- @brief 패시브 스킬 실행
 -------------------------------------
 function Character:doSkill_passive()
-    local l_tar_skill_type = {'basic', 'normal'}
+    if (self.m_bActivePassive) then return end
 
-    for _, skill_type in pairs(l_tar_skill_type) do
-        local skill_id = self:getSkillID(skill_type)
-        local t_skill = self:getSkillTable(skill_id)
-        if t_skill and (t_skill['chance_type'] == 'passive') then
-            self:doSkill(skill_id, 0, 0)
-        end
-    end
-    
     local l_passive = self.m_lSkillIndivisualInfo['passive']
     for i, skill_info in pairs(l_passive) do
         local skill_id = skill_info.m_skillID
         self:doSkill(skill_id, 0, 0)
     end
+
+    self.m_bActivePassive = true
 end
 
 ------------------------------------------------------------------------------------------------

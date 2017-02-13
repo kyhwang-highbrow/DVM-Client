@@ -359,10 +359,10 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 			do
 				local world = char.m_world
 				-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
-				if (not world.m_lPassiveEffect[char]) then
-					world.m_lPassiveEffect[char] = {}
+				if (not world.m_mPassiveEffect[char]) then
+					world.m_mPassiveEffect[char] = {}
 				end
-				table.insert(world.m_lPassiveEffect[char], t_status_effect['t_name'])
+				world.m_mPassiveEffect[char][t_status_effect['t_name']] = true
 			end
 
 		elseif (target_type == 'target') then 
@@ -372,10 +372,10 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 				do
 					local world = target.m_world
 					-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
-					if (not world.m_lPassiveEffect[target]) then
-						world.m_lPassiveEffect[target] = {}
+					if (not world.m_mPassiveEffect[target]) then
+						world.m_mPassiveEffect[target] = {}
 					end
-					table.insert(world.m_lPassiveEffect[target], t_status_effect['t_name'])
+					world.m_mPassiveEffect[target][t_status_effect['t_name']] = true
 				end
 			end
 		end

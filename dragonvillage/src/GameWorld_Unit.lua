@@ -297,7 +297,6 @@ function GameWorld:buffActivateAtStartup()
             unit:doSkill_passive()
         end
     end
-
+    
     -- 친구 버프
-
 end

@@ -370,9 +370,11 @@ function GameState.update_enemy_appear(self, dt)
         -- 전투 최초 시작시
         if world.m_waveMgr:isFirstWave() then
             world:dispatch('game_start')
-            world:buffActivateAtStartup()
             world.m_inGameUI:doAction()
         end
+
+        -- 패시브 효과 적용
+        world:buffActivateAtStartup()
         
         -- 웨이브 알림
         do
@@ -395,6 +397,11 @@ function GameState.update_enemy_appear(self, dt)
 
 			-- 웨이브 시작 이벤트 전달
             world:dispatch('wave_start')
+        end
+
+        -- 적 이동패턴 정보 초기화
+        if (world.m_enemyMovementMgr) then
+            world.m_enemyMovementMgr:reset()
         end
                 
         self:changeState(GAME_STATE_FIGHT_WAIT)

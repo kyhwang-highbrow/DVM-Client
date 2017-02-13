@@ -95,7 +95,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_mapManager = 'MapManager',
 		m_shakeMgr = 'ShakeManager',
 
-        m_lPassiveEffect = 'list',
+        m_mPassiveEffect = 'list',  -- 게임시작시 발동하는 패시브들의 연출을 위한 테이블
 
         -- 친구 영웅 관련
         m_bUsedFriend = 'boolean',
@@ -234,7 +234,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_touchPrevPos = nil
     self.m_tCollisionTime = {}
 
-    self.m_lPassiveEffect = {}
+    self.m_mPassiveEffect = {}
 
     self.m_bUsedFriend = false
     self.m_friendHero = nil
@@ -559,17 +559,17 @@ function GameWorld:update(dt)
         self.m_gameTimeScale:update(dt)
     end
 
-    for char,l_str in pairs(self.m_lPassiveEffect) do
-        self:makePassiveStartEffect(char, l_str)
+    for char, v in pairs(self.m_mPassiveEffect) do
+        self:makePassiveStartEffect(char, v)
     end
-    self.m_lPassiveEffect = {}
+    self.m_mPassiveEffect = {}
 end
 
 -------------------------------------
 -- function makePassiveStartEffect
 -- @brief
 -------------------------------------
-function GameWorld:makePassiveStartEffect(char, l_str)
+function GameWorld:makePassiveStartEffect(char, str_map)
     local root_node = cc.Node:create()
     self:addChild2(root_node, DEPTH_PASSIVE_FONT)
     root_node:setPosition(char.pos.x, char.pos.y)
@@ -589,12 +589,14 @@ function GameWorld:makePassiveStartEffect(char, l_str)
     node:runAction(cc.MoveTo:create(3, cc.p(0, 160)))
 
     -- 패시브명 label 생성
-    for i,str in ipairs(l_str) do
+    local i = 1
+    for str, _ in  pairs(str_map) do
         local label = cc.Label:createWithTTF(Str(str), 'res/font/common_font_01.ttf', 26, 3, cc.size(200, 50), 1, 1)
         node:addChild(label)
         label:setScale(0.2)
         label:runAction( cc.Sequence:create(cc.ScaleTo:create(0.1, 1.2), cc.ScaleTo:create(0.3, 1), cc.DelayTime:create(1.6), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
         label:setPositionY((i-1) * 30)
+        i = i + 1
     end
 
     -- 2초 후 삭제

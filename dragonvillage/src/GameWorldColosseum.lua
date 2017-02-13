@@ -325,7 +325,7 @@ end
 -- function makeEnemyDeck
 -- @TODO 상대편 덱 정보를 받아서 생성해야함
 -------------------------------------
-function GameWorld:makeEnemyDeck()
+function GameWorldColosseum:makeEnemyDeck()
 
     -- 테스트용 상대방 덱 설정
     if COLOSSEUM__USE_TEST_ENEMY_DECK then

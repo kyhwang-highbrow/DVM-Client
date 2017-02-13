@@ -57,6 +57,24 @@ function Monster_GoldDragon.st_dying(owner, dt)
             owner:changeState('dead')
         end)
     end
+
+    do
+        if (owner:isPassedStepTime(0.3)) then
+            owner:makeEffectGoldDrop(owner.pos.x + 200, owner.pos.y)
+        end
+        if (owner:isPassedStepTime(0.6)) then
+            owner:makeEffectGoldDrop(owner.pos.x + 160, owner.pos.y - 100)
+        end
+        if (owner:isPassedStepTime(0.9)) then
+            owner:makeEffectGoldDrop(owner.pos.x + 120, owner.pos.y - 200)
+        end
+        if (owner:isPassedStepTime(1.2)) then
+            owner:makeEffectGoldDrop(owner.pos.x + 80, owner.pos.y - 300)
+        end
+        if (owner:isPassedStepTime(1.5)) then
+            owner:makeEffectGoldDrop(owner.pos.x + 40, owner.pos.y - 400)
+        end
+    end
 end
 
 -------------------------------------
@@ -74,9 +92,7 @@ function Monster_GoldDragon:setDamage(attacker, defender, i_x, i_y, damage, t_in
 
     -- TODO: 금화 떨어지는 이펙트
     do
-        local res = 'res/effect/effect_hit_gold/effect_hit_gold.vrp'
-        local idx = math_random(1, 3)
-        self.m_world:addInstantEffect(res, 'hit_' .. idx, i_x, i_y)
+        self:makeEffectGoldDrop(i_x, i_y)
     end
 end
 
@@ -94,4 +110,13 @@ function Monster_GoldDragon:makeHPGauge(hp_ui_offset, force)
 
     self.m_statusNode = cc.Node:create()
     self.m_rootNode:addChild(self.m_statusNode)
+end
+
+-------------------------------------
+-- function makeEffectGoldDrop
+-------------------------------------
+function Monster_GoldDragon:makeEffectGoldDrop(x, y)
+    local res = 'res/effect/effect_hit_gold/effect_hit_gold.vrp'
+    local idx = math_random(1, 3)
+    self.m_world:addInstantEffect(res, 'hit_' .. idx, x, y)
 end

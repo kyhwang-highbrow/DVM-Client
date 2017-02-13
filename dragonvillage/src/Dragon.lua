@@ -126,6 +126,26 @@ function Dragon:doAttack(x, y)
 end
 
 -------------------------------------
+-- function doSkill_passive
+-- @brief 패시브 스킬 실행
+-------------------------------------
+function Dragon:doSkill_passive()
+    if (self.m_bActivePassive) then return end
+
+    local l_tar_skill_type = {'basic', 'normal'}
+
+    for _, skill_type in pairs(l_tar_skill_type) do
+        local skill_id = self:getSkillID(skill_type)
+        local t_skill = self:getSkillTable(skill_id)
+        if t_skill and (t_skill['chance_type'] == 'passive') then
+            self:doSkill(skill_id, 0, 0)
+        end
+    end
+
+    PARENT.doSkill_passive(self)
+end
+
+-------------------------------------
 -- function initState
 -------------------------------------
 function Dragon:initState()

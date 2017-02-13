@@ -289,14 +289,7 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
 
     self.m_world.m_rightFormationMgr:setChangePosCallback(enemy)
 
-	-- 패시브 실행
-	local l_passive = enemy.m_lSkillIndivisualInfo['passive']
-    for i,skill_info in pairs(l_passive) do
-        local skill_id = skill_info.m_skillID
-        enemy:doSkill(skill_id, 0, 0)
-    end
-
-    -- 등장 움직임 설정
+	-- 등장 움직임 설정
     if (EnemyAppear[appear_type]) then
         EnemyAppear[appear_type](enemy, value1, value2, value3)
     end
