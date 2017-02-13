@@ -148,16 +148,21 @@ end
 -- @brief 단일 보상 수령
 -------------------------------------
 function UI_MailPopup:click_rewardBtn(t_mail_data)
-
-    local mail_id_list = {t_mail_data['id']}
-    local function finish_cb(ret)
-        if (ret['status'] == 0) then
-			UI_RewardPopup()
-            self.m_mTableView[self.m_currTab]:delItem(t_mail_data['id'])
-        end
-    end
+	local mail_id_list = {t_mail_data['id']}
+	local function finish_cb(ret)
+		if (ret['status'] == 0) then
+			self.m_mTableView[self.m_currTab]:delItem(t_mail_data['id'])
+			
+			if (g_mailData:checkTicket(t_mail_data)) then
+				-- 확정권 사용시
+				UI_DragonGachaResult(ret['added_items']['dragons'])
+			else
+				UI_RewardPopup()
+			end
+		end
+	end
     
-    g_mailData:request_mailRead(mail_id_list, finish_cb)
+	g_mailData:request_mailRead(mail_id_list, finish_cb)
 end
 
 -------------------------------------

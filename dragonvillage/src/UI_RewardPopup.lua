@@ -21,9 +21,6 @@ function UI_RewardPopup:init(l_tReward)
     self:doActionReset()
     self:doAction(nil, false)
 
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_backKey() end, 'UI_RewardPopup')
-
     self:initUI()
     self:initButton()
     self:refresh()
