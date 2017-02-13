@@ -16,14 +16,10 @@ UI_TopUserInfo = class(PARENT,{
 function UI_TopUserInfo:init()
     local vars = self:load('top_user_info.ui')
 
-    --vars['exitBtn']:setVisible(false)
-
     vars['exitBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['st_ad_btn']:registerScriptTapHandler(function() self:click_st_ad_btn() end)
     vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
-    vars['mailBtn']:registerScriptTapHandler(function() self:click_mailBtn() end)
     vars['chatBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"채팅" 미구현') end)
-    
 
     self.m_lNumberLabel = {}
     self.m_lNumberLabel['gold'] = NumberLabel(vars['goldLabel'], 0, 0.3)
@@ -52,9 +48,7 @@ function UI_TopUserInfo:refreshData()
     local cash = g_userData:get('cash')
     local fp = g_userData:get('fp')
     
-    --vars['goldLabel']:setString(comma_value(gold))
     self.m_lNumberLabel['gold']:setNumber(gold)
-    --vars['rubyLabel']:setString(comma_value(cash))
     self.m_lNumberLabel['cash']:setNumber(cash)
 
     -- 모험 스태미너
@@ -91,13 +85,6 @@ end
 -------------------------------------
 function UI_TopUserInfo:click_settingBtn()
     UI_SettingPopup()
-end
-
--------------------------------------
--- function click_mailBtn
--------------------------------------
-function UI_TopUserInfo:click_mailBtn()
-    UI_MailPopup()
 end
 
 -------------------------------------
@@ -153,16 +140,13 @@ function UI_TopUserInfo:changeOwnerUI(ui)
 
     local vars = self.vars
     vars['exitBtn']:setVisible(ui.m_bUseExitBtn)
-	vars['mailBtn']:setVisible(ui.m_bUseMailBtn)
 
     if (ui.m_titleStr == -1) then
         vars['titleLabel']:setVisible(true)
     elseif ui.m_titleStr then
-        --vars['titleBgSprite']:setVisible(true)
         vars['titleLabel']:setVisible(true)
         vars['titleLabel']:setString(ui.m_titleStr)
     else
-        --vars['titleBgSprite']:setVisible(false)
         vars['titleLabel']:setVisible(false)
     end
 

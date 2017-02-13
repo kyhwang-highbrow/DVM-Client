@@ -18,7 +18,6 @@ function UI_Lobby:initParentVariable()
     self.m_bVisible = true
     self.m_titleStr = nil
     self.m_bUseExitBtn = false
-	self.m_bUseMailBtn = true
 end
 
 -------------------------------------
@@ -158,6 +157,7 @@ function UI_Lobby:initButton()
     vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
     vars['friendBtn']:registerScriptTapHandler(function() self:click_friendBtn() end)
     vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end)
+	vars['mailBtn']:registerScriptTapHandler(function() self:click_mailBtn() end)
 
     -- FGT버전에서 퀘스트 기능 숨김
     if (TARGET_SERVER == 'FGT') then
@@ -306,6 +306,14 @@ function UI_Lobby:click_drawBtn()
         UI_GachaDragon()
     end
     g_gachaData:refresh_gachaInfo(func)
+end
+
+-------------------------------------
+-- function click_mailBtn
+-- @brief 우편함
+-------------------------------------
+function UI_Lobby:click_mailBtn()
+    UI_MailPopup()
 end
 
 -------------------------------------
