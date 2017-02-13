@@ -456,6 +456,7 @@ local t_module = {
     'UI_FriendPointGachaPopup',
     'UI_FriendPointGachaResult',
     'UI_GachaDragon',
+    'UI_GachaBox',
 
     -- 친구 시스템 관련
     'UI_FriendPopup',

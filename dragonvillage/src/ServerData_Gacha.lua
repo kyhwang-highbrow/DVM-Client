@@ -123,6 +123,8 @@ function ServerData_Gacha:canFreeGacha(type)
         local remain_time = (free_time - server_time)
         return false, 'cool', remain_time
     end
+
+    return true
 end
 
 -------------------------------------
@@ -359,6 +361,80 @@ function ServerData_Gacha:request_mileageReward(cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/mileage/reward')
     ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_boxGachaNormal
+-------------------------------------
+function ServerData_Gacha:request_boxGachaNormal(is_gold, cb)
+    local is_gold = is_gold and 1 or 0
+
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        -- 공통 응답 처리
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        -- 가챠 정보 갱신
+        local t_gacha_info = ret['gacha_info']
+        if t_gacha_info then
+            local type = t_gacha_info['type']
+            self.m_mGachaInfo[type] = t_gacha_info
+        end
+
+        if cb then
+            cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/box/normal')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('is_gold', is_gold)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_boxGachaPremium
+-------------------------------------
+function ServerData_Gacha:request_boxGachaPremium(is_cash, cb)
+    local is_cash = is_cash and 1 or 0
+
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        -- 공통 응답 처리
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        -- 가챠 정보 갱신
+        local t_gacha_info = ret['gacha_info']
+        if t_gacha_info then
+            local type = t_gacha_info['type']
+            self.m_mGachaInfo[type] = t_gacha_info
+        end
+
+        if cb then
+            cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/box/premium')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('is_cash', is_cash)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
