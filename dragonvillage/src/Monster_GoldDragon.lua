@@ -56,23 +56,11 @@ function Monster_GoldDragon.st_dying(owner, dt)
 
             owner:changeState('dead')
         end)
-    end
 
-    do
-        if (owner:isPassedStepTime(0.3)) then
-            owner:makeEffectGoldDrop(owner.pos.x + 200, owner.pos.y)
-        end
-        if (owner:isPassedStepTime(0.6)) then
-            owner:makeEffectGoldDrop(owner.pos.x + 160, owner.pos.y - 100)
-        end
-        if (owner:isPassedStepTime(0.9)) then
-            owner:makeEffectGoldDrop(owner.pos.x + 120, owner.pos.y - 200)
-        end
-        if (owner:isPassedStepTime(1.2)) then
-            owner:makeEffectGoldDrop(owner.pos.x + 80, owner.pos.y - 300)
-        end
-        if (owner:isPassedStepTime(1.5)) then
-            owner:makeEffectGoldDrop(owner.pos.x + 40, owner.pos.y - 400)
+        -- 금화 떨어지는 연출
+        do
+            local res = 'res/effect/effect_gold_dying/effect_gold_dying.vrp'
+            owner.m_world:addInstantEffect(res, 'idle', owner.pos.x - 200, owner.pos.y + 380)
         end
     end
 end
