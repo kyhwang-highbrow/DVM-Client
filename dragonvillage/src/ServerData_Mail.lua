@@ -32,7 +32,7 @@ function ServerData_Mail:getMailList(type)
         mail_list = self:getFpMailList()
 
     else
-        error('tab : ' .. tab)
+        error('not existed mail type : ' .. type)
     end
 	
     return mail_list
@@ -89,6 +89,24 @@ end
 function ServerData_Mail:deleteMailData(moid)
     self.m_mMailList_withoutFp[moid] = nil
     self.m_mFpMailList[moid] = nil
+end
+
+-------------------------------------
+-- function countMailExceptTicket
+-- @brief 확정권을 제외한 메일 갯수를 파악한다.
+-------------------------------------
+function ServerData_Mail:countMailExceptTicket(type)
+	local mail_list = self:getMailList(type)
+	local mail_count = 0
+
+	for i, mail in pairs(mail_list) do
+		if (self:checkTicket(mail)) then
+			-- ~.~
+		else
+			mail_count = mail_count + 1
+		end
+	end
+	return mail_count 
 end
 
 -------------------------------------

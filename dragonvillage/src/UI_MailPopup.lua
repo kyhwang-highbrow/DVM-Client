@@ -168,8 +168,8 @@ function UI_MailPopup:click_rewardAllBtn()
 	
 	-- 우편이 없다면 탈출
 	-- @TODO 확정권 구현 이후에는 확정권을 제외하고 카운트해야함
-	if (self.m_mTableView[self.m_currTab]:getItemCount() == 0) then 
-		UIManager:toastNotificationRed(Str('수령할 메일이 없습니다.'))
+	if (g_mailData:countMailExceptTicket(self.m_currTab) == 0) then 
+		UIManager:toastNotificationRed(Str('수령할 수 있는 메일이 없습니다.'))
 		return
 	end
 
