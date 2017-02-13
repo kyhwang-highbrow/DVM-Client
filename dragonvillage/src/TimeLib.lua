@@ -6,6 +6,7 @@
 -------------------------------------
 TimeLib = class({
         m_diffServer = 'number',
+        m_dayOfDayChange = ' number', -- 드빌에서 요일이 변경되는 시점
     })
 
 -------------------------------------
@@ -33,6 +34,9 @@ end
 -------------------------------------
 function TimeLib:setServerTime(server_time)
     self.m_diffServer = server_time - os.time()
+
+    -- 다음 새벽 4시(요일 변경 기준)
+    self:setTimeOfDayChange(self:getServerTime())
 end
 
 -------------------------------------
@@ -43,4 +47,32 @@ function TimeLib:getServerTime()
     return server_time
 end
 
+-------------------------------------
+-- function setTimeOfDayChange
+-- @brief 다음 새벽 4시(요일 변경 기준)
+-------------------------------------
+function TimeLib:setTimeOfDayChange(server_time)
+    local t_time = os.date('*t', server_time)
 
+    -- 새벽 4시를 기준으로 한다
+    if (t_time['hour'] < 4) then
+        t_time['hour'] = 4
+        t_time['min'] = 0
+        t_time['sec'] = 0
+    else
+        t_time['day'] = t_time['day'] + 1
+        t_time['hour'] = 4
+        t_time['min'] = 0
+        t_time['sec'] = 0
+    end
+    local time_stamp = os.time(t_time)
+    self.m_dayOfDayChange = time_stamp
+end
+
+-------------------------------------
+-- function getTimeOfDayChange
+-- @brief 다음 새벽 4시(요일 변경 기준)
+-------------------------------------
+function TimeLib:getTimeOfDayChange()
+    return self.m_dayOfDayChange
+end

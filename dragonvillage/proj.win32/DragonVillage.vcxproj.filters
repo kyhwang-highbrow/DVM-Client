@@ -1581,6 +1581,9 @@
     <None Include="..\src\UI_NotificationInfoElement.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_Gacha.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
