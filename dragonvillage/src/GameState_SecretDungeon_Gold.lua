@@ -15,8 +15,8 @@ function GameState_SecretDungeon_Gold:init()
 
     -- 제한 시간 설정
     local t_drop = TableDrop():get(self.m_world.m_stageID)
-    --self.m_limitTime = t_drop['time_limit']
-    self.m_limitTime = 5
+    self.m_limitTime = t_drop['time_limit']
+    
 end
 
 -------------------------------------
