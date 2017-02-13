@@ -10,6 +10,7 @@ T_DRAGON_PREMIUM_MILEAGE['reward_150'] = 703006
 -------------------------------------
 ServerData_Gacha = class({
         m_serverData = 'ServerData',
+        m_bDirtyGachaServerData = 'boolean',
         m_mGachaInfo = '',
         m_dragonPremiumMileage = '',
     })
@@ -19,13 +20,18 @@ ServerData_Gacha = class({
 -------------------------------------
 function ServerData_Gacha:init(server_data)
     self.m_serverData = server_data
+    self.m_bDirtyGachaServerData = true
 end
 
 -------------------------------------
 -- function refresh_gachaInfo
 -------------------------------------
 function ServerData_Gacha:refresh_gachaInfo(cb)
-    self:request_gachaInfo(cb)
+    if self.m_bDirtyGachaServerData then
+        self:request_gachaInfo(cb)
+    else
+        cb()
+    end
 end
 
 -------------------------------------
@@ -71,6 +77,8 @@ function ServerData_Gacha:response_gachaInfo(ret)
     self.m_dragonPremiumMileage['reward_20'] = ret['reward_20']
     self.m_dragonPremiumMileage['reward_50'] = ret['reward_50']
     self.m_dragonPremiumMileage['reward_150'] = ret['reward_150']
+
+    self.m_bDirtyGachaServerData = false
 end
 
 -------------------------------------
@@ -99,4 +107,31 @@ function ServerData_Gacha:canFreeGacha(type)
         local remain_time = (free_time - server_time)
         return false, 'cool', remain_time
     end
+end
+
+-------------------------------------
+-- function request_friendPointGacha
+-------------------------------------
+function ServerData_Gacha:request_friendPointGacha(cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        -- 받은 아이템 처리
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        if cb then
+            cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/box/fpoint')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
 end

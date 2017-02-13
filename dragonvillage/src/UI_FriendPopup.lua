@@ -48,16 +48,14 @@ end
 -------------------------------------
 function UI_FriendPopup:initUI()
     self:initFrinedPopupTab()
-
-    -- 임시 비활성
-    local vars = self.vars
-    vars['drawBtn']:setVisible(false)
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
 function UI_FriendPopup:initButton()
+    local vars = self.vars
+    vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end)
 end
 
 -------------------------------------
@@ -72,6 +70,17 @@ end
 function UI_FriendPopup:click_exitBtn()
     self:close()
 end
+
+-------------------------------------
+-- function click_drawBtn
+-------------------------------------
+function UI_FriendPopup:click_drawBtn()
+    local function func()
+        UI_FriendPointGachaPopup()
+    end
+    g_gachaData:refresh_gachaInfo(func)
+end
+
 
 --------------------------------------------------------------------
 --------------------------------------------------------------------

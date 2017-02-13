@@ -663,6 +663,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_FriendDragonSupportPopup.lua" />
     <None Include="..\src\UI_FriendDragonSupportRequestPopup.lua" />
     <None Include="..\src\UI_FriendListItem.lua" />
+    <None Include="..\src\UI_FriendPointGachaPopup.lua" />
     <None Include="..\src\UI_FriendPopup.lua" />
     <None Include="..\src\UI_FriendPopupTab.lua" />
     <None Include="..\src\UI_FriendPopupTabFriends.lua" />
