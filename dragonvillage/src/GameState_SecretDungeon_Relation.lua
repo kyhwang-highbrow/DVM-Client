@@ -15,14 +15,6 @@ function GameState_SecretDungeon_Relation:init()
 end
 
 -------------------------------------
--- function initState
--- @brief 상태(state)별 동작 함수 추가
--------------------------------------
-function GameState_SecretDungeon_Relation:initState()
-    PARENT.initState(self)
-end
-
--------------------------------------
 -- function fight
 -------------------------------------
 function GameState_SecretDungeon_Relation:fight()
@@ -197,4 +189,11 @@ function GameState_SecretDungeon_Relation:checkWaveClear()
 		    end
         end
     end
+end
+
+-------------------------------------
+-- function setWave
+-------------------------------------
+function GameState_SecretDungeon_Relation:setWave(wave)
+    g_gameScene.m_inGameUI.vars['waveVisual']:setVisual('wave', string.format('10wave_%02d', wave))
 end

@@ -118,6 +118,7 @@ function ServerData_SecretDungeon:requestSecretDungeonInfo(cb_func)
         return
     end
 
+    --[[
     local uid = g_userData:get('uid')
 
     -- 성공 시 콜백
@@ -139,6 +140,11 @@ function ServerData_SecretDungeon:requestSecretDungeonInfo(cb_func)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
+    ]]--
+
+    if cb_func then
+        cb_func()
+    end
 end
 
 -------------------------------------
@@ -151,9 +157,8 @@ function ServerData_SecretDungeon:getSecretDungeon_stageList(secret_dungeon_id)
     -- 비밀던전의 세부 모드별 스테이지 리스트를 조건 체크
     local function condition_func(t_table)
         local stage_id = t_table['stage']
-        stage_id = stage_id - (stage_id % 100)
-        
-        if (stage_id == secret_dungeon_id) then
+        local game_mode = g_stageData:getGameMode(stage_id)
+        if (game_mode == GAME_MODE_SECRET_DUNGEON) then
             return true
         else
             return false
@@ -177,17 +182,7 @@ end
 -- @brief 비밀 던전 모드별 스테이지 리스트 (UI 전용)
 -------------------------------------
 function ServerData_SecretDungeon:getSecretDungeon_stageListForUI(secret_dungeon_id)
-    -- UI상에서 악몽 던전은 스테이지 리스트를 한 리스트로 처리
-    if (secret_dungeon_id == 22100) then
-        local l_ret = {}
-        table.addList(l_ret, self:getSecretDungeon_stageList(22100))
-        table.addList(l_ret, self:getSecretDungeon_stageList(22200))
-        table.addList(l_ret, self:getSecretDungeon_stageList(22300))
-        table.addList(l_ret, self:getSecretDungeon_stageList(22400))
-        return l_ret
-    else
-        return self:getSecretDungeon_stageList(secret_dungeon_id)
-    end
+    return self:getSecretDungeon_stageList(secret_dungeon_id)
 end
 
 -------------------------------------
@@ -525,5 +520,6 @@ function ServerData_SecretDungeon:goToSecretDungeonScene(stage_id)
         scene:runScene()
     end
 
-    request_secret_dungeon_info()
+    --request_secret_dungeon_info()
+    replace_scene()
 end

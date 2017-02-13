@@ -15,7 +15,8 @@ function GameState_SecretDungeon_Gold:init()
 
     -- 제한 시간 설정
     local t_drop = TableDrop():get(self.m_world.m_stageID)
-    self.m_limitTime = t_drop['time_limit']
+    --self.m_limitTime = t_drop['time_limit']
+    self.m_limitTime = 5
 end
 
 -------------------------------------
@@ -25,6 +26,7 @@ end
 function GameState_SecretDungeon_Gold:initState()
     PARENT.initState(self)
     self:addState(GAME_STATE_WAVE_INTERMISSION, GameState_SecretDungeon_Gold.update_wave_intermission)
+    self:addState(GAME_STATE_SUCCESS, GameState_SecretDungeon_Gold.update_success)
 end
 
 -------------------------------------
@@ -34,6 +36,42 @@ function GameState_SecretDungeon_Gold.update_wave_intermission(self, dt)
 	local world = self.m_world
 	
     return PARENT.update_wave_intermission(self, dt)
+end
+
+-------------------------------------
+-- function update_success
+-------------------------------------
+function GameState_SecretDungeon_Gold.update_success(self, dt)
+    
+    if (self.m_stateTimer == 0) then
+        local world = self.m_world
+
+        -- 모든 적들을 죽임
+        world:killAllEnemy()
+
+        world:setWaitAllCharacter(false) -- 포즈 연출을 위해 wait에서 해제
+
+        for i, hero in ipairs(world:getDragonList()) do
+            if (hero.m_bDead == false) then
+                hero:killStateDelegate()
+                hero.m_animator:changeAni('pose_1', true)
+            end
+        end
+
+        g_gameScene.m_inGameUI:doActionReverse(function()
+            g_gameScene.m_inGameUI.root:setVisible(false)
+        end)
+
+        self.m_stateParam = true
+
+        self.m_world:dispatch('stage_clear')
+
+    elseif (self.m_stateTimer >= 3.5) then
+        if self.m_stateParam then
+            self:makeResultUI(true)
+            self.m_stateParam = false
+        end
+    end
 end
 
 -------------------------------------
@@ -103,4 +141,12 @@ function GameState_SecretDungeon_Gold:doDirectionForIntermission()
     -- 카메라 액션 설정
     world:changeCameraOption(t_camera_info)
     world:changeHeroHomePosByCamera()
+end
+
+-------------------------------------
+-- function processTimeOut
+-------------------------------------
+function GameState_SecretDungeon_Gold:processTimeOut()
+    -- 게임 실패 처리
+    self:changeState(GAME_STATE_SUCCESS)
 end

@@ -72,6 +72,14 @@ function GameState:init(world)
 
     self.m_bgmBoss = 'bgm_boss'
     
+    self:initUI()
+    self:initState()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function GameState:initUI()
     self.m_waveEffect = MakeAnimator('res/ui/a2d/ui_boss_warning/ui_boss_warning.vrp')
     self.m_waveEffect:setVisible(false)
     g_gameScene.m_containerLayer:addChild(self.m_waveEffect.m_node)
@@ -110,8 +118,6 @@ function GameState:init(world)
 	self.m_skillDescLabel:setColor(cc.c3b(220,220,220))
     self.m_skillDescLabel:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
     descNode:addChild(self.m_skillDescLabel)
-
-    self:initState()
 end
 
 -------------------------------------
@@ -158,8 +164,7 @@ function GameState:update(dt)
             if (self.m_fightTimer >= self.m_limitTime) then
                 self.m_fightTimer = self.m_limitTime
 
-                -- TODO: 게임 종료 처리
-                self:changeState(GAME_STATE_FAILURE)
+                self:processTimeOut()
             end
 
             self.m_world.m_inGameUI:setTime(self.m_limitTime - self.m_fightTimer)
@@ -393,8 +398,8 @@ function GameState.update_enemy_appear(self, dt)
                 end)
             ))
 
-            g_gameScene.m_inGameUI.vars['waveVisual']:setVisual('wave', string.format('%02d', world.m_waveMgr.m_currWave))
-
+            self:setWave(world.m_waveMgr.m_currWave)
+            
 			-- 웨이브 시작 이벤트 전달
             world:dispatch('wave_start')
         end
@@ -1060,4 +1065,19 @@ end
 -------------------------------------
 function GameState:isWaitingGlobalCoolTime()
     return (self.m_globalCoolTime > 0)
+end
+
+-------------------------------------
+-- function setWave
+-------------------------------------
+function GameState:setWave(wave)
+    g_gameScene.m_inGameUI.vars['waveVisual']:setVisual('wave', string.format('%02d', wave))
+end
+
+-------------------------------------
+-- function processTimeOut
+-------------------------------------
+function GameState:processTimeOut()
+    -- 게임 실패 처리
+    self:changeState(GAME_STATE_FAILURE)
 end

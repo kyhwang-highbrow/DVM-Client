@@ -147,6 +147,7 @@ local t_module = {
     'SceneGameColosseum',
     'SceneAdventure',
     'SceneNestDungeon',
+    'SceneSecretDungeon',
     'SceneColosseum',
 
     -- Phys
@@ -422,6 +423,8 @@ local t_module = {
     'UI_NestDungeonScene',
     'UI_NestDungeonListItem',
     'UI_NestDungeonStageListItem',
+    'UI_SecretDungeonScene',
+    'UI_SecretDungeonStageListItem',
     'UI_EditBoxPopup',
     'UI_SettingPopup',
     'UI_SettingPopup_Dev',
