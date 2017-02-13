@@ -29,6 +29,8 @@ function UI_TopUserInfo:init()
     self.m_lNumberLabel['gold'] = NumberLabel(vars['goldLabel'], 0, 0.3)
     self.m_lNumberLabel['cash'] = NumberLabel(vars['rubyLabel'], 0, 0.3)
     self.m_lNumberLabel['st_ad'] = NumberLabel(vars['actingPowerLabel'], 0, 0.3)
+    self.m_lNumberLabel['fp'] = NumberLabel(vars['fpLabel'], 0, 0.3)
+    
 
     self:clearOwnerUI()
 
@@ -48,6 +50,7 @@ function UI_TopUserInfo:refreshData()
 
     local gold = g_userData:get('gold')
     local cash = g_userData:get('cash')
+    local fp = g_userData:get('fp')
     
     --vars['goldLabel']:setString(comma_value(gold))
     self.m_lNumberLabel['gold']:setNumber(gold)
@@ -60,6 +63,8 @@ function UI_TopUserInfo:refreshData()
 
     local str = g_staminasData:getChargeRemainText('st')
     vars['actingPowerTimeLabel']:setString(str)
+
+    self.m_lNumberLabel['fp']:setNumber(fp)
 end
 
 -------------------------------------
