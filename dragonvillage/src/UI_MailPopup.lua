@@ -128,6 +128,7 @@ function UI_MailPopup:click_renewBtn()
 	-- 갱신 가능 시간인지 체크한다
 	local curr_time = Timer:getServerTime()
 	if (curr_time - self.m_preRenewTime > RENEW_INTERVAL) then
+		-- 갱신 가능하다면 메일리스트를 다시 호출한다.
 		local cb_func = function()
 			for tab, table_view in pairs(self.m_mTableView) do 
 				local t_item_list = g_mailData:getMailList(tab)
@@ -138,6 +139,7 @@ function UI_MailPopup:click_renewBtn()
 		g_mailData:request_mailList(cb_func)
 		self.m_preRenewTime = Timer:getServerTime()
 	else
+		-- 시간이 되지 않았다면 몇초 남았는지 토스트 메세지를 띄운다
 		local ramain_time = math_ceil(RENEW_INTERVAL - (curr_time - self.m_preRenewTime) + 1)
 		UIManager:toastNotificationRed(Str('{1}초 후에 갱신 가능합니다.', ramain_time))
 	end
@@ -154,8 +156,12 @@ function UI_MailPopup:click_rewardBtn(t_mail_data)
 			self.m_mTableView[self.m_currTab]:delItem(t_mail_data['id'])
 			
 			if (g_mailData:checkTicket(t_mail_data)) then
-				-- 확정권 사용시
-				UI_DragonGachaResult(ret['added_items']['dragons'])
+				-- 확정권 사용시 (임시 처리 @TODO)
+				if (#ret['added_items']['dragons'] > 0) then
+					UI_DragonGachaResult(ret['added_items']['dragons'])
+				else
+					UI_RewardPopup(ret['added_items']['runes'])
+				end
 			else
 				UI_RewardPopup()
 			end

@@ -132,7 +132,7 @@ end
 -------------------------------------
 function ServerData_Mail:checkTicket(mail_data)
 	local item_list = mail_data['items_list']
-		ccdump(mail_data)
+		
 	-- 확정권만 들어잇는게 아니라면 패키지이므로 통과
 	if not (table.getn(item_list) == 1) then 
 		return false

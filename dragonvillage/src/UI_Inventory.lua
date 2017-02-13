@@ -60,7 +60,7 @@ function UI_Inventory:initUI()
         self.m_mainTabMgr:addTab('fruit', vars['fruitBtn'], vars['fruitNode'])
         self.m_mainTabMgr:addTab('ticket', vars['ticketBtn'], vars['ticketNode'])
     
-
+		
         self.m_mainTabMgr:setChangeTabCB(function(tab, first) self:onChangeMainTab(tab, first) end)
 
         self.m_mainTabMgr:setTab('rune')
@@ -68,6 +68,9 @@ function UI_Inventory:initUI()
 
     local item_count = g_inventoryData:getItemCount()
     self.vars['inventoryLabel']:setString(Str('{1}/{2}', item_count, 100))
+
+	-- @TODO 인벤토리 확정권 구현전까지
+	vars['ticketBtn']:setVisible(false)
 end
 
 -------------------------------------
