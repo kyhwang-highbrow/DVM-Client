@@ -33,7 +33,6 @@ function UI_MailPopup:init()
 		self:initTab()
 		self:initButton()
 		self:refresh()
-		self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
 	end 
 	g_mailData:request_mailList(cb_func)
 end
@@ -81,15 +80,6 @@ function UI_MailPopup:refresh()
 end
 
 -------------------------------------
--- function update
--------------------------------------
-function UI_MailPopup:update(dt)
-	local curr_time = Timer:getServerTime()
-	self.vars['renewBtn']:setEnabled(curr_time - self.m_preRenewTime > RENEW_INTERVAL)
-end
-
-
--------------------------------------
 -- function onChangeTab
 -------------------------------------
 function UI_MailPopup:onChangeTab(tab, first)
@@ -135,16 +125,22 @@ end
 -- @brief 우편 갱신
 -------------------------------------
 function UI_MailPopup:click_renewBtn()
-	local cb_func = function()
-		for tab, table_view in pairs(self.m_mTableView) do 
-			local t_item_list = g_mailData:getMailList(tab)
-			table_view:setItemList(t_item_list)
-			g_mailData:sortMailList(table_view.m_itemList)
+	-- 갱신 가능 시간인지 체크한다
+	local curr_time = Timer:getServerTime()
+	if (curr_time - self.m_preRenewTime > RENEW_INTERVAL) then
+		local cb_func = function()
+			for tab, table_view in pairs(self.m_mTableView) do 
+				local t_item_list = g_mailData:getMailList(tab)
+				table_view:setItemList(t_item_list)
+				g_mailData:sortMailList(table_view.m_itemList)
+			end
 		end
+		g_mailData:request_mailList(cb_func)
+		self.m_preRenewTime = Timer:getServerTime()
+	else
+		local ramain_time = math_ceil(RENEW_INTERVAL - (curr_time - self.m_preRenewTime) + 1)
+		UIManager:toastNotificationRed(Str('{1}초 후에 갱신 가능합니다.', ramain_time))
 	end
-	g_mailData:request_mailList(cb_func)
-
-	self.m_preRenewTime = Timer:getServerTime()
 end
 
 -------------------------------------
