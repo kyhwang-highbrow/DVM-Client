@@ -50,8 +50,9 @@ end
 -------------------------------------
 -- function setIcon
 -------------------------------------
-function UI_NotificationInfoElement:setIcon()
-    local icon = cc.Sprite:create('res/ui/icon/buff_dsc_icon.png')
+function UI_NotificationInfoElement:setIcon(res)
+    res = res or 'res/ui/icon/buff_dsc_icon.png'
+    local icon = cc.Sprite:create(res)
     icon:setAnchorPoint(cc.p(0.5, 0.5))
     icon:setDockPoint(cc.p(0, 1))
     icon:setPosition(22, -15)
@@ -63,7 +64,7 @@ end
 -------------------------------------
 function UI_NotificationInfoElement:makeRichLabel(text)
     local font_size = 16
-    local dimensions_width = info_element_max_width - 20
+    local dimensions_width = info_element_max_width - 40
     local dimensions_height = 600
     local align_h = TEXT_H_ALIGN_LEFT
     local align_v = TEXT_V_ALIGN_CENTER
@@ -80,7 +81,7 @@ end
 -------------------------------------
 function UI_NotificationInfoElement:makeContentRichLabel(text)
     local font_size = 16
-    local dimensions_width = info_element_max_width - 20
+    local dimensions_width = info_element_max_width - 40
     local dimensions_height = 600
     local align_h = TEXT_H_ALIGN_LEFT
     local align_v = TEXT_V_ALIGN_TOP
@@ -121,17 +122,39 @@ end
 -------------------------------------
 -- function setDescText
 -------------------------------------
-function UI_NotificationInfoElement:sampleCode()
+function UI_NotificationInfoElement:sampleCode(self)
+
+    local pos_y = 0
+    local height = 0
+    local margin = 5
+
     local ui = UI_NotificationInfoElement()
     ui:setTitleText('{@SKILL_NAME}[베스트프렌드 접속 버프] {@WHITE}(뀨뀨뀨, 김 성 구 접속 중)')
     ui:setDescText('{@DEEPSKYBLUE}[베스트프렌드의 응원] {@SKILL_DESC}경험치 +3%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%')
     self.m_scene:addChild(ui.root)
-    --local pos_y = pos_y - (height/2) - 5
+    ui.root:setPositionY(pos_y)
 
+    height = ui.m_height
+    pos_y = pos_y - (height/2) - margin
 
     local ui = UI_NotificationInfoElement()
     ui:setTitleText('{@SKILL_NAME}[친구 드래곤 사용 버프] {@SKILL_DESC}체력 +500')
-    --ui:setDescText('{@DEEPSKYBLUE}[베스트프렌드의 응원] {@SKILL_DESC}경험치 +3%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%')
+    ui:setDescText('{@DEEPSKYBLUE}[베스트프렌드의 응원] {@SKILL_DESC}경험치 +3%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%')
     self.m_scene:addChild(ui.root)
+    height = ui.m_height
+    pos_y = pos_y - (height/2)
+    ui.root:setPosition(0, pos_y)
+    pos_y = pos_y - (height/2) - margin
+
+    local ui = UI_NotificationInfoElement()
+    ui:setTitleText('{@SKILL_NAME}[친구 드래곤 사용 버프] {@SKILL_DESC}체력 +500')
+    ui:setDescText('{@DEEPSKYBLUE}[베스트프렌드의 응원] {@SKILL_DESC}경험치 +3%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%')
+    self.m_scene:addChild(ui.root)
+    height = ui.m_height
+    pos_y = pos_y - (height/2)
+    ui.root:setPosition(0, pos_y)
+    pos_y = pos_y - (height/2) - margin
+
+    
     --ui.root:setPosition(0, pos_y/2 - (ui.m_height/2) - 5)
 end

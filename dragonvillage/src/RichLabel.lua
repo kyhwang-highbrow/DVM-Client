@@ -50,6 +50,7 @@ RichLabel = class({
         m_vNodeList = '',
 
         m_lineCount = '',
+        m_spaceBetweenLines = 'number',
 
         m_carriageReturnType = '',
         m_bLimitMessage = '', -- 한줄로 표시, 지정된 길이가 넘어갈 경우 바로 자름
@@ -65,6 +66,7 @@ RichLabel = class({
 -------------------------------------
 function RichLabel:init(text, font_size, dimensions_width, dimensions_height, align_h, align_v, dock_point, is_limit_message)
     self.m_bLimitMessage = is_limit_message
+    self.m_spaceBetweenLines = 3
 
     -- root node 생성
     self.m_root = cc.Node:create()
@@ -138,7 +140,7 @@ function RichLabel:setString(str)
     local idx_y = 0 -- 현재 출력중인 행(1행, 2행...)
     local pos_x = 0 -- 현재 출력중인 x포지션
     pos_x, idx_y = self:carriageReturn(pos_x, idx_y)
-    local line_height = self.m_fontSize + 3 -- 행간
+    local line_height = self.m_fontSize + self.m_spaceBetweenLines -- 행간
     local outline = 0 -- 폰트의 아웃라인(자간에도 사용됨)
 
     -- 컨텐츠를 순회하면서 생성
@@ -190,7 +192,7 @@ function RichLabel:align()
     -------------------------------------
     do -- 세로 정렬
     -------------------------------------
-        local line_height = self.m_fontSize + 3 -- 행간
+        local line_height = self.m_fontSize + self.m_spaceBetweenLines -- 행간
 
         -- 위쪽 정렬
         if (self.m_alignV == TEXT_V_ALIGN_TOP) then
@@ -500,7 +502,7 @@ function RichLabel:makeContent_makeButton(content, label, x, y, color, idx_y)
         button:setDockPoint(cc.p(0.5, 0.5))
         button:setAnchorPoint(cc.p(0.5, 0.5))
         button:setPosition(x, y)
-        button:setContentSize(str_width, self.m_fontSize + 3)
+        button:setContentSize(str_width, self.m_fontSize + self.m_spaceBetweenLines)
         self.m_menu:addChild(button)
 
         -- 클릭 핸들러 지정
@@ -771,7 +773,7 @@ end
 -- function getStringHeight
 -------------------------------------
 function RichLabel:getStringHeight()
-    local height = (self.m_lineCount * self.m_fontSize) + ((self.m_lineCount-1) * 3)
+    local height = (self.m_lineCount * self.m_fontSize) + ((self.m_lineCount-1) * self.m_spaceBetweenLines)
     return height
 end
 
@@ -803,7 +805,7 @@ end
 function RichLabel:makeAnEllipsis()
     local pos_x = self.m_hTotalLength[1]
 
-    local line_height = self.m_fontSize + 3 -- 행간
+    local line_height = self.m_fontSize + self.m_spaceBetweenLines -- 행간
     local outline = 0 -- 폰트의 아웃라인(자간에도 사용됨)
 
     local label = cc.Label:createWithTTF('...', Translate:getFontPath(), self.m_fontSize, outline)
