@@ -5,6 +5,22 @@ T_DRAGON_PREMIUM_MILEAGE['reward_20'] = 703004 -- item_id
 T_DRAGON_PREMIUM_MILEAGE['reward_50'] = 703005
 T_DRAGON_PREMIUM_MILEAGE['reward_150'] = 703006
 
+--[[
+-- t_gacha_info 예시
+{
+      "price_type":"gold",
+      "free_per_day":5,
+      "category":"box_gacha",
+      "price_value":1000,
+      "free_time":0,
+      "multi_price_value":0,
+      "type":"box_normal",
+      "free_per_cool":10,
+      "multi_num":0,
+      "free_cnt":0
+    }
+--]]
+
 -------------------------------------
 -- class ServerData_Gacha
 -------------------------------------
@@ -138,6 +154,210 @@ function ServerData_Gacha:request_friendPointGacha(cb)
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/box/fpoint')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_dragonGachaNormal
+-------------------------------------
+function ServerData_Gacha:request_dragonGachaNormal(cb)
+    local t_gacha_info = self:getGachaInfo('dragon_normal')
+    local gold = g_userData:get('gold')
+
+    -- 골드가 충분히 있는지 체크
+    if (gold < t_gacha_info['price_value']) then
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_gold)
+        return
+    end
+
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        -- 공통 응답 처리 (골드 갱신을 위해)
+        g_serverData:networkCommonRespone(ret)
+
+        -- 받은 드래곤들 표시
+        g_dragonsData:applyDragonData_list(ret['added_dragons'])
+
+        if cb then
+            cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/gacha/general_dragon')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('type', 'single')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_dragonGachaNormalMulti
+-------------------------------------
+function ServerData_Gacha:request_dragonGachaNormalMulti(cb)
+    local t_gacha_info = self:getGachaInfo('dragon_normal')
+    local gold = g_userData:get('gold')
+
+    -- 골드가 충분히 있는지 체크
+    if (gold < t_gacha_info['multi_price_value']) then
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_gold)
+        return
+    end
+
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        -- 공통 응답 처리 (골드 갱신을 위해)
+        g_serverData:networkCommonRespone(ret)
+
+        -- 받은 드래곤들 표시
+        g_dragonsData:applyDragonData_list(ret['added_dragons'])
+
+        if cb then
+            cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/gacha/general_dragon')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('type', 'bundle')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_dragonGachaPremium
+-------------------------------------
+function ServerData_Gacha:request_dragonGachaPremium(cb)
+    local t_gacha_info = self:getGachaInfo('dragon_premium')
+    local cash = g_userData:get('cash')
+
+    -- 캐시가 충분히 있는지 체크
+    if (cash < t_gacha_info['price_value']) then
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('자수정이 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_cash)
+        return
+    end
+
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        -- 공통 응답 처리 (골드 갱신을 위해)
+        g_serverData:networkCommonRespone(ret)
+
+        -- 받은 드래곤들 표시
+        g_dragonsData:applyDragonData_list(ret['added_dragons'])
+
+        -- 마일리지 갱신
+        self.m_dragonPremiumMileage['mileage'] = ret['mileage']
+
+        if cb then
+            cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/gacha/unique_dragon')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('type', 'single')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_dragonGachaPremiumMulti
+-------------------------------------
+function ServerData_Gacha:request_dragonGachaPremiumMulti(cb)
+    local t_gacha_info = self:getGachaInfo('dragon_premium')
+    local cash = g_userData:get('cash')
+
+    -- 캐시가 충분히 있는지 체크
+    if (cash < t_gacha_info['multi_price_value']) then
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('자수정이 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_cash)
+        return
+    end
+
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        -- 공통 응답 처리 (골드 갱신을 위해)
+        g_serverData:networkCommonRespone(ret)
+
+        -- 받은 드래곤들 표시
+        g_dragonsData:applyDragonData_list(ret['added_dragons'])
+
+        -- 마일리지 갱신
+        self.m_dragonPremiumMileage['mileage'] = ret['mileage']
+
+        if cb then
+            cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/gacha/unique_dragon')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('type', 'bundle')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_mileageReward
+-------------------------------------
+function ServerData_Gacha:request_mileageReward(cb)
+    local mileage = self.m_dragonPremiumMileage['mileage']
+
+    -- 캐시가 충분히 있는지 체크
+    if (mileage < 20) then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('마일리지 획득정도에 따라 다양한 보상을 얻을 수 있습니다.\n최소 20마일리지가 누적되어야 보상을 받을 수 있습니다.'))
+        return
+    end
+
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        -- 공통 응답 처리 (골드 갱신을 위해)
+        g_serverData:networkCommonRespone(ret)
+
+        -- 마일리지 갱신
+        self.m_dragonPremiumMileage['mileage'] = ret['mileage']
+
+        if cb then
+            cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/mileage/reward')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)

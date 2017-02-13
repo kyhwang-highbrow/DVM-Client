@@ -43,6 +43,9 @@ function UI_Lobby:init()
     self:initUI()
     self:initButton()
     self:refresh()
+
+    -- 가챠 관련 정보 갱신
+    g_gachaData:refresh_gachaInfo()
 end
 
 -------------------------------------
@@ -154,6 +157,7 @@ function UI_Lobby:initButton()
 	vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end)
     vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
     vars['friendBtn']:registerScriptTapHandler(function() self:click_friendBtn() end)
+    vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end)
 
     -- FGT버전에서 퀘스트 기능 숨김
     if (TARGET_SERVER == 'FGT') then
@@ -291,6 +295,17 @@ end
 -------------------------------------
 function UI_Lobby:click_friendBtn()
     UI_FriendPopup()
+end
+
+-------------------------------------
+-- function click_drawBtn
+-- @brief 드래곤 소환 (가챠)
+-------------------------------------
+function UI_Lobby:click_drawBtn()
+    local function func()
+        UI_GachaDragon()
+    end
+    g_gachaData:refresh_gachaInfo(func)
 end
 
 -------------------------------------

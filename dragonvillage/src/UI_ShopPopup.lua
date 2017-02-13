@@ -151,3 +151,27 @@ end
 function openShopPopup()
     UI_ShopPopup()
 end
+
+-------------------------------------
+-- function openShopPopup_cash
+-- @brief 외부에서 함수통해 접근 할 때 사용
+-------------------------------------
+function openShopPopup_cash()
+    UI_ShopPopup():setTab(TableShop.CASH)
+end
+
+-------------------------------------
+-- function openShopPopup_gold
+-- @brief 외부에서 함수통해 접근 할 때 사용
+-------------------------------------
+function openShopPopup_gold()
+    UI_ShopPopup():setTab(TableShop.GOLD)
+end
+
+-------------------------------------
+-- function openShopPopup_stamina
+-- @brief 외부에서 함수통해 접근 할 때 사용
+-------------------------------------
+function openShopPopup_stamina()
+    UI_ShopPopup():setTab(TableShop.STAMINA)
+end
