@@ -99,7 +99,7 @@ function ServerData_Mail:checkExistTicket()
 
 	-- 메일을 순회하며 확정권 타입이 있는지 검사
 	for i, mail in pairs(self.m_mMailList_withoutFp) do
-		if (mail['type'] == 'ticket') then
+		if (self:checkTicket(mail)) then
 			isExistTicket = true
 			break
 		end
@@ -108,6 +108,47 @@ function ServerData_Mail:checkExistTicket()
 	return isExistTicket
 end
 
+-------------------------------------
+-- function checkTicket
+-- @brief 아이템 카운트가 1이고 확정권인지 검사한다.
+-------------------------------------
+function ServerData_Mail:checkTicket(mail_data)
+	local item_list = mail_data['items_list']
+		ccdump(mail_data)
+	-- 확정권만 들어잇는게 아니라면 패키지이므로 통과
+	if not (table.getn(item_list) == 1) then 
+		return false
+	end
+
+	-- 확정권인지 체크
+	local item_type = TableItem():getValue(item_list[1]['item_id'], 'type')
+	if (item_type == 'ticket') then
+		return true
+	end
+
+	return false
+end
+
+-------------------------------------
+-- function checkFriendPoint
+-- @brief 아이템 카운트가 1이고 우정포인트인지 검사한다
+-------------------------------------
+function ServerData_Mail:checkFriendPoint(mail_data)
+	local item_list = mail_data['items_list']
+	
+	-- 아이템 카운트 1이 아니라면 친구가 보낸 우정포인트가 아님
+	if not (table.getn(item_list) == 1) then 
+		return false
+	end
+	
+	-- 우정포인트인지 체크
+	local item_type = TableItem():getValue(item_list[1]['item_id'], 'type')
+	if (item_type == 'fp') then
+		return true
+	end
+
+	return false
+end
 
 -------------------------------------
 -- function sortMailList
@@ -140,12 +181,12 @@ function ServerData_Mail:request_mailList(finish_cb)
     -- 콜백 함수
     local function success_cb(ret)
         if ret['mails_list'] then
-            for i,v in pairs(ret['mails_list']) do
+            for i, v in pairs(ret['mails_list']) do
                 local moid = v['id']
-                local type = v['type']
+                local tag = v['tag']
 
 				-- type에 따라 정렬
-                if (type == 'fp') then
+                if (self:checkFriendPoint(v)) then
                     self.m_mFpMailList[moid] = v
                 else
                     self.m_mMailList_withoutFp[moid] = v
@@ -208,10 +249,13 @@ end
 -------------------------------------
 function ServerData_Mail:request_mailReadAll(type, finish_cb)
     -- 적절한 우편 id list 추출
-	local mail_list = self:getMailList_withoutFp()
+	local mail_list = self:getMailList(type)
 	local mail_id_list = {}
-	for i, mail in pairs(mail_list) do 
-		table.insert(mail_id_list, mail['id'])
+	for i, mail in pairs(mail_list) do
+		-- 확정권은 제외 한다.
+		if not (self:checkTicket(mail)) then 
+			table.insert(mail_id_list, mail['id'])
+		end
 	end
 
 	-- api로 보냄
