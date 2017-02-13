@@ -288,6 +288,11 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['gold'], 'user', 'gold')    
         end
 
+        -- 우정포인트
+        if ret['fp'] then
+            self:applyServerData(ret['fp'], 'user', 'fp')
+        end
+
         -- 열매 갯수
         if ret['fruits'] then
             self:applyServerData(ret['fruits'], 'user', 'fruits')
@@ -351,6 +356,21 @@ function ServerData:networkCommonRespone_addedItems(ret)
         self:applyServerData(t_added_items['gold'], 'user', 'gold')    
     end
 
+    -- 우정포인트 (갱신)
+    if t_added_items['fp'] then
+        self:applyServerData(t_added_items['fp'], 'user', 'fp')
+    end
+
+    -- 명예 (갱신)
+    if t_added_items['honor'] then
+        self:applyServerData(t_added_items['honor'], 'user', 'honor')
+    end
+
+    -- 훈장 (갱신)
+    if t_added_items['badge'] then
+        self:applyServerData(t_added_items['badge'], 'user', 'badge')
+    end
+
     -- 라테아 (갱신)
     if t_added_items['lactea'] then
         self:applyServerData(t_added_items['lactea'], 'user', 'lactea')    
@@ -380,10 +400,6 @@ function ServerData:networkCommonRespone_addedItems(ret)
     if t_added_items['runes'] then
         g_runesData:applyRuneData_list(t_added_items['runes'])
     end
-        
-    --t_added_items['badge']
-    --t_added_items['honor']
-    --t_added_items['fp']
 
     --t_added_items['tickets']
 end
