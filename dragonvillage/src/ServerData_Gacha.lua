@@ -113,6 +113,15 @@ end
 -- function request_friendPointGacha
 -------------------------------------
 function ServerData_Gacha:request_friendPointGacha(cb)
+    local t_gacha_info = self:getGachaInfo('friend_normal')
+    local fp = g_userData:get('fp')
+
+    -- 우정포인트가 충분히 있는지 체크
+    if (fp < t_gacha_info['price_value']) then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('우정포인트가 부족합니다.'))
+        return
+    end
+
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -131,7 +140,7 @@ function ServerData_Gacha:request_friendPointGacha(cb)
     ui_network:setUrl('/shop/box/fpoint')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
-    ui_network:setRevocable(false)
+    ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
 end
