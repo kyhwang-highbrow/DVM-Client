@@ -39,6 +39,10 @@ function ServerData_Stage:getStageName(stage_id)
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
         name = g_nestDungeonData:getStageName(stage_id)
 
+    -- 비밀 던전 모드
+    elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
+        name = g_secretDungeonData:getStageName(stage_id)
+
     -- 콜로세움 모드
     elseif (game_mode == GAME_MODE_COLOSSEUM) then
         name = Str('콜로세움')
@@ -62,6 +66,11 @@ function ServerData_Stage:isOpenStage(stage_id)
     -- 네스트 던전 모드
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
         ret = g_nestDungeonData:isOpenStage(stage_id)
+
+    -- 비밀 던전 모드
+    elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
+        ret = g_secretDungeonData:isOpenStage(stage_id)
+
     end
 
     return ret
@@ -82,6 +91,10 @@ function ServerData_Stage:getNextStage(stage_id)
     -- 네스트 던전 모드
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
         ret = g_nestDungeonData:getNextStageID(stage_id)
+
+    -- 비밀 던전 모드
+    elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
+        ret = g_secretDungeonData:getNextStageID(stage_id)
     end
 
     return ret
@@ -103,6 +116,10 @@ function ServerData_Stage:getSimpleNextStage(stage_id)
     -- 네스트 던전 모드
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
         ret = g_nestDungeonData:getSimpleNextStageID(stage_id)
+
+    -- 비밀 던전 모드
+    elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
+        ret = g_secretDungeonData:getSimpleNextStageID(stage_id)
     end
 
     return ret
@@ -124,6 +141,10 @@ function ServerData_Stage:getSimplePrevStage(stage_id)
     -- 네스트 던전 모드
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
         ret = g_nestDungeonData:getSimplePrevStageID(stage_id)
+
+    -- 비밀 던전 모드
+    elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
+        ret = g_secretDungeonData:getSimplePrevStageID(stage_id)
     end
 
     return ret
@@ -161,6 +182,12 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, finish_cb)
         api_url = '/game/stage/start'
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
         api_url = '/game/nest/start'
+    elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
+        --api_url = '/game/secret/start'
+
+        local game_key = 1
+        finish_cb(game_key)
+        return
     end
 
     local function success_cb(ret)
@@ -232,5 +259,9 @@ function ServerData_Stage:goToStage(stage_id)
     -- 네스트 던전 모드
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
         g_nestDungeonData:goToNestDungeonScene(stage_id)
+
+    -- 비밀 던전 모드
+    elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
+        g_secretDungeonData:goToSecretDungeonScene(stage_id)
     end
 end

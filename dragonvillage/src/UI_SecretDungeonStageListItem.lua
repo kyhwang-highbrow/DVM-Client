@@ -5,6 +5,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_SecretDungeonStageListItem = class(PARENT, {
         m_stageTable = 'table',
+        m_remainTimeText = 'string',
     })
 
 -------------------------------------
@@ -19,8 +20,12 @@ function UI_SecretDungeonStageListItem:init(t_data)
     self:initButton()
     self:refresh(t_data)
 
-    --self.root:setDockPoint(cc.p(0, 0))
-    --self.root:setAnchorPoint(cc.p(0, 0))
+    -- UI가 enter로 진입되었을 때 update함수 호출
+    self.root:registerScriptHandler(function(event)
+        if (event == 'enter') then
+            self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+        end
+    end)
 end
 -------------------------------------
 -- function initUI
@@ -60,6 +65,7 @@ function UI_SecretDungeonStageListItem:refresh(t_data)
         vars['lockNode']:setVisible(not is_open)
         vars['enterButton']:setVisible(is_open)
     end
+
     --[[
     do -- 보스 썸네일 표시
         local table_stage_desc = TableStageDesc()
@@ -67,44 +73,32 @@ function UI_SecretDungeonStageListItem:refresh(t_data)
         local icon = table_stage_desc:getLastMonsterIcon(stage_id)
         vars['iconNode']:addChild(icon.root)
     end
-    
-    -- 드랍 아이템 표시
-    self:refresh_dropItem(t_data)
     ]]--
+
+    do -- 제한 인원
+        vars['numberLabel']:setString('0 / 10')
+    end
 end
 
 -------------------------------------
--- function refresh_dropItem
--- @brief 드랍 아이템 표시
+-- function update
 -------------------------------------
-function UI_SecretDungeonStageListItem:refresh_dropItem(t_data)
-    local vars = self.vars
+function UI_SecretDungeonStageListItem:update(dt)
     local stage_id = self.m_stageTable['stage']
+    local text = g_secretDungeonData:getSecretDungeonRemainTimeText(stage_id)
 
-    -- 네스트던전의 보너스 아이템 항목을 얻어옴
-    local secret_dungeon_id = g_secretDungeonData:getDungeonIDFromStateID(stage_id)
-    local t_secret_dungeon_info = g_secretDungeonData.m_secretDungeonInfoMap[secret_dungeon_id]
-    local l_bonus_item = {}
-    if (t_secret_dungeon_info['bonus_rate'] > 0) then
-        l_bonus_item = seperate(t_secret_dungeon_info['bonus_value'], ',')
-    end
-
-    local drop_helper = DropHelper(stage_id)
-    local l_item_list = drop_helper:getDisplayItemList()
-
-    for i=1, 4 do
-        local item_id = l_item_list[i]
-        if item_id then
-            local ui = UI_ItemCard(item_id)
-            vars['rewardNode' .. i]:addChild(ui.root)
-            ui.root:setSwallowTouch(false)
-            ui.root:setScale(0.55)
-
-            -- 보너스 아이템일 경우 @TODO sgkim 보너스 뱃지 붙여줄 것
-            if table.find(l_bonus_item, tostring(item_id)) then
-                --cclog('###### find!! ' .. item_id)
-            end
+    -- 텍스트가 변경되었을 때에만 문자열 변경
+    if (self.m_remainTimeText ~= text) then
+        self.m_remainTimeText = text
+        self.vars['timeLabel']:setString(text)
+        
+        do -- 텍스트 변경됨을 알리는 액션
+            self.vars['timeLabel']:stopAllActions()
+            local start_action = cc.MoveTo:create(0.05, cc.p(-20, -223))
+            local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.5, cc.p(0, -223)), 0.2)
+            self.vars['timeLabel']:runAction(cc.Sequence:create(start_action, end_action))
         end
+        
     end
 end
 

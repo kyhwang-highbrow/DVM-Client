@@ -18,7 +18,7 @@ end
 -- function getGoldInfo
 -------------------------------------
 function TableSecretDungeon:getGoldInfo(stage_id)
-     local stage_id = stage_id or 32007 -- 임시
+     local stage_id = stage_id or 32101 -- 임시
 
     local t_dungeon = self.m_orgTable[stage_id]
     if (not t_dungeon) then return end
@@ -34,7 +34,7 @@ end
 -- 파라미터(차후 작업되어야함)에 따라 등장 가능한 드래곤 리스트를 얻음
 -------------------------------------
 function TableSecretDungeon:getRandomDragonList(stage_id)
-    local stage_id = stage_id or 32007 -- 임시
+    local stage_id = stage_id or 32101 -- 임시
 
     local t_dungeon = self.m_orgTable[stage_id]
     if (not t_dungeon) then return end

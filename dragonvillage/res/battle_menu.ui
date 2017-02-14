@@ -277,7 +277,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = '';
 					file_name = 'ui/btn/battle_secret.png';
 					color = { 0; 0; 0; };

@@ -27,6 +27,10 @@ function WaveMgr:init(world, stage_name, develop_mode)
 	
     -- 파일에서 웨이브 정보를 얻어옴
     local script = TABLE:loadJsonTable(stage_name)
+    if (not script) then
+        error('script is nil : ' .. stage_name)
+    end
+
     self.m_scriptData = script
 
     self.m_currWave = 0

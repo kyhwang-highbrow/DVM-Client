@@ -85,22 +85,14 @@ end
 -- function click_secretBtn
 -------------------------------------
 function UI_BattleMenu:click_secretBtn()
-    --UIManager:toastNotificationRed('"비밀 던전"은 준비 중입니다.')
-    --g_secretDungeonData:goToSecretDungeonScene()
-    
-    local scene = SceneGame(nil, 31001, 'stage_31001', false)
-    scene:runScene()
-    
+    g_secretDungeonData:goToSecretDungeonScene()
 end
 
 -------------------------------------
 -- function click_raidBtn
 -------------------------------------
 function UI_BattleMenu:click_raidBtn()
-    --UIManager:toastNotificationRed('"레이드"는 준비 중입니다.')
-
-    local scene = SceneGame(nil, 32001, 'stage_32001', false)
-    scene:runScene()
+    UIManager:toastNotificationRed('"레이드"는 준비 중입니다.')
 end
 
 --@CHECK

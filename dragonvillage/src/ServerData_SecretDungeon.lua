@@ -1,3 +1,5 @@
+local NO_NETWORK = true
+
 -------------------------------------
 -- class ServerData_SecretDungeon
 -------------------------------------
@@ -118,61 +120,66 @@ function ServerData_SecretDungeon:requestSecretDungeonInfo(cb_func)
         return
     end
 
-    --[[
-    local uid = g_userData:get('uid')
+    if (not NO_NETWORK) then
+        local uid = g_userData:get('uid')
 
-    -- 성공 시 콜백
-    local function success_cb(ret)
-        g_serverData:networkCommonRespone(ret)
+        -- 성공 시 콜백
+        local function success_cb(ret)
+            g_serverData:networkCommonRespone(ret)
 
-        if ret['secret_info'] then
-            self:applySecretDungeonInfo(ret['secret_info'])
+            if ret['secret_info'] then
+                self:applySecretDungeonInfo(ret['secret_info'])
+            end
+
+            if cb_func then
+                cb_func()
+            end
         end
 
+        local ui_network = UI_Network()
+        ui_network:setUrl('/game/secret/info')
+        ui_network:setParam('uid', uid)
+        ui_network:setRevocable(true)
+        ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+        ui_network:request()
+
+    else
         if cb_func then
             cb_func()
         end
-    end
-
-    local ui_network = UI_Network()
-    ui_network:setUrl('/game/secret/info')
-    ui_network:setParam('uid', uid)
-    ui_network:setRevocable(true)
-    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
-    ui_network:request()
-    ]]--
-
-    if cb_func then
-        cb_func()
     end
 end
 
 -------------------------------------
 -- function getSecretDungeon_stageList
--- @brief 비밀 던전 모드별 스테이지 리스트
+-- @brief 비밀 던전 스테이지 리스트
 -------------------------------------
-function ServerData_SecretDungeon:getSecretDungeon_stageList(secret_dungeon_id)
-    local table_drop = TableDrop()
+function ServerData_SecretDungeon:getSecretDungeon_stageList()
+    local l_stage_list = {}
 
-    -- 비밀던전의 세부 모드별 스테이지 리스트를 조건 체크
-    local function condition_func(t_table)
-        local stage_id = t_table['stage']
-        local game_mode = g_stageData:getGameMode(stage_id)
-        if (game_mode == GAME_MODE_SECRET_DUNGEON) then
-            return true
-        else
-            return false
+    if (NO_NETWORK) then
+        -- 비밀던전의 세부 모드별 스테이지 리스트를 조건 체크
+        local function condition_func(t_table)
+            local stage_id = t_table['stage']
+            local t_info = self:parseSecretDungeonID(stage_id)
+            if (t_info['stage_mode'] == GAME_MODE_SECRET_DUNGEON) then
+                return true
+            else
+                return false
+            end
         end
-    end
 
-    -- 테이블에서 조건에 맞는 테이블만 리턴
-    local l_stage_list = table_drop:filterList_condition(condition_func)
+        -- 테이블에서 조건에 맞는 테이블만 리턴
+        local table_drop = TableDrop()
+        l_stage_list = table_drop:filterList_condition(condition_func)
 
-    -- stage(stage_id) 순서로 정렬
-    local function sort_func(a, b)
-        return a['stage'] < b['stage']
+        -- stage(stage_id) 순서로 정렬
+        local function sort_func(a, b)
+            return a['stage'] < b['stage']
+        end
+        table.sort(l_stage_list, sort_func)
+
     end
-    table.sort(l_stage_list, sort_func)
 
     return l_stage_list
 end
@@ -181,8 +188,23 @@ end
 -- function getSecretDungeon_stageListForUI
 -- @brief 비밀 던전 모드별 스테이지 리스트 (UI 전용)
 -------------------------------------
-function ServerData_SecretDungeon:getSecretDungeon_stageListForUI(secret_dungeon_id)
-    return self:getSecretDungeon_stageList(secret_dungeon_id)
+function ServerData_SecretDungeon:getSecretDungeon_stageListForUI()
+    local l_dungeon_list = self:getSecretDungeon_stageList()
+
+    do
+        local t_remove = {}
+        for i,v in ipairs(l_dungeon_list) do
+            if (v['is_open'] == 0) then
+                table.insert(t_remove, 1, i)
+            end
+        end
+
+        for i,v in ipairs(t_remove) do
+            table.remove(l_dungeon_list, v)
+        end
+    end
+
+    return l_dungeon_list
 end
 
 -------------------------------------
@@ -211,76 +233,56 @@ end
 -- @brief
 -------------------------------------
 function ServerData_SecretDungeon:getDungeonIDFromStateID(stage_id)
-    local t_dungeon_id_info = self:parseSecretDungeonID(stage_id)
-
-    -- 악몽 던전(2)은 별도 처리
-    if (t_dungeon_id_info['dungeon_mode'] == 2) then
-        return 22100
-    else
-        return stage_id - (stage_id % 100)
-    end
-end
-
-
--------------------------------------
--- function checkNeedUpdateSecretDungeonInfo
--- @brief 비밀 던전 항목을 갱신해야 하는지 확인하는 함수
--------------------------------------
-function ServerData_SecretDungeon:checkNeedUpdateSecretDungeonInfo()
-    local l_dungeon_list = self:getSecretDungeonInfo()
-
-    local server_time = Timer:getServerTime()
-    local time_stamp
-
-    for i,v in pairs(l_dungeon_list) do
-
-        -- 오픈되어있는 던전일 경우 닫힐 때까지의 시간
-        if (v['is_open'] == 1) then
-            time_stamp = (v['next_invalid_at'] / 1000)
-
-        -- 닫혀있는 던전일 경우 열릴 때까지의 시간
-        else
-            time_stamp = (v['next_valid_at'] / 1000)
-        end
-        
-        if (time_stamp <= server_time) then
-            self.m_bDirtySecretDungeonInfo = true
-            return true
-        end
-    end
-
-    return false
+    return stage_id - (stage_id % 100)
 end
 
 -------------------------------------
 -- function updateSecretDungeonTimer
 -- @brief
 -------------------------------------
-function ServerData_SecretDungeon:updateSecretDungeonTimer(dungeon_id)
-    local t_dungeon_info = self.m_secretDungeonInfoMap[dungeon_id]
-
-    -- 서버상의 시간을 얻어옴
-    local server_time = Timer:getServerTime()
-
-    -- 1000분의 1초 -> 1초로 단위 변경
-    local next_valid_at = math_floor(t_dungeon_info['next_valid_at'] / 1000)
-    t_dungeon_info['remain_valid_time'] = (next_valid_at - server_time)
-
-    -- 1000분의 1초 -> 1초로 단위 변경
-    local next_invalid_at = math_floor(t_dungeon_info['next_invalid_at'] / 1000)
-    t_dungeon_info['remain_invalid_time'] = (next_invalid_at - server_time)
-
-    do -- 정보 갱신이 필요한지 여부 체크
-        local time_stamp
-        if (t_dungeon_info['is_open'] == 1) then
-            time_stamp = (t_dungeon_info['next_invalid_at'] / 1000)
-        else
-            time_stamp = (t_dungeon_info['next_valid_at'] / 1000)
+function ServerData_SecretDungeon:updateSecretDungeonTimer(stage_id)
+    local t_dungeon_info
+    
+    if (NO_NETWORK) then
+        local t_info = ServerData_SecretDungeon:parseSecretDungeonID(stage_id)
+        if (t_info['dungeon_mode'] == SECRET_DUNGEON_GOLD) then
+            stage_id = 31001
         end
+
+        local table_secret_dungeon = TableSecretDungeon():get(stage_id)
+
+        t_dungeon_info = {
+            is_open = 1,
+            remain_invalid_time = table_secret_dungeon['playable_time'],
+            dirty_info = false
+        }
+
+    else
+        t_dungeon_info = self.m_secretDungeonInfoMap[stage_id]
+
+        -- 서버상의 시간을 얻어옴
+        local server_time = Timer:getServerTime()
+
+        -- 1000분의 1초 -> 1초로 단위 변경
+        local next_valid_at = math_floor(t_dungeon_info['next_valid_at'] / 1000)
+        t_dungeon_info['remain_valid_time'] = (next_valid_at - server_time)
+
+        -- 1000분의 1초 -> 1초로 단위 변경
+        local next_invalid_at = math_floor(t_dungeon_info['next_invalid_at'] / 1000)
+        t_dungeon_info['remain_invalid_time'] = (next_invalid_at - server_time)
+
+        do -- 정보 갱신이 필요한지 여부 체크
+            local time_stamp
+            if (t_dungeon_info['is_open'] == 1) then
+                time_stamp = (t_dungeon_info['next_invalid_at'] / 1000)
+            else
+                time_stamp = (t_dungeon_info['next_valid_at'] / 1000)
+            end
         
-        if (time_stamp <= server_time) then
-            t_dungeon_info['dirty_info'] = true
-            self.m_bDirtySecretDungeonInfo = true
+            if (time_stamp <= server_time) then
+                t_dungeon_info['dirty_info'] = true
+                self.m_bDirtySecretDungeonInfo = true
+            end
         end
     end
 
@@ -389,15 +391,7 @@ end
 -- @brief
 -------------------------------------
 function ServerData_SecretDungeon:isOpenStage(stage_id)
-    local prev_stage_id = self:getPrevStageID(stage_id)
-
-    if (not prev_stage_id) then
-        return true
-    else
-        local t_dungeon_id_info = g_secretDungeonData:getSecretDungeonStageClearInfo(prev_stage_id)
-        local is_open = (0 < t_dungeon_id_info['clear_cnt'])
-        return is_open
-    end
+    return true
 end
 
 -------------------------------------
