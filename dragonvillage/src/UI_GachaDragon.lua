@@ -115,13 +115,21 @@ end
 -- @breif 일반 드래곤 뽑기
 -------------------------------------
 function UI_GachaDragon:click_regularDrawBtn2()
-    local function finish_cb(ret)
-        self:refresh()
-        local l_dragon_list = ret['added_dragons']
-        UI_GachaResult_Dragon(l_dragon_list)
-    end
+	local function ok_cb()
+		local function finish_cb(ret)
+			self:refresh()
+			local l_dragon_list = ret['added_dragons']
+			UI_GachaResult_Dragon(l_dragon_list)
+		end
 
-    g_gachaData:request_dragonGachaNormal(finish_cb)
+		g_gachaData:request_dragonGachaNormal(finish_cb)
+	end
+	
+	local t_data = g_gachaData:getGachaInfo('dragon_normal')
+	local raw_cost_list = {}
+	raw_cost_list[t_data['price_type']] = t_data['price_value']
+
+	MakeSimplePopup_Confirm(raw_cost_list, ok_cb, nil)
 end
 
 

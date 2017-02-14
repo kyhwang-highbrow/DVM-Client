@@ -1623,6 +1623,9 @@
     <None Include="..\src\UI_GachaResult_Rune.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ConfirmPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

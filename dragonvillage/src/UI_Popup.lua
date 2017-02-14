@@ -347,3 +347,23 @@ function MakeSimplePopup(type, msg, ok_btn_cb, cancel_btn_cb)
     --popup:setMessage(msg)
     return popup
 end
+
+-------------------------------------
+-- function MakeSimplePopup_Confirm
+-------------------------------------
+function MakeSimplePopup_Confirm(raw_cost_list, ok_btn_cb, cancel_btn_cb)
+	local cost_list = {}
+
+	-- item_id를 기반으로 한 테이블로 변환
+	for key, value in pairs(raw_cost_list) do
+		-- item_id가 맞다면 그대로 넣고 아니라면 변환하여 넣는다
+		local item_id = TableItem:getItemIDFromItemType(key)
+		if (item_id) then 
+			cost_list[item_id] = value
+		elseif (type(key) == 'number') then
+			cost_list[key] = value
+		end
+	end
+
+    return UI_ConfirmPopup(cost_list, ok_btn_cb, cancel_btn_cb)
+end

@@ -405,6 +405,7 @@ local t_module = {
     'UI_IngameBossInfo',
     'UI_Popup',
     'UI_SimplePopup',
+	'UI_ConfirmPopup',
     'UI_SimpleDragonInfoPopup',
     'UI_DragonDetailPopup',
 	'UI_RewardPopup',
