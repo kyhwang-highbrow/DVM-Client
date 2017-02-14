@@ -207,7 +207,7 @@ function MissileLua.lua_angle(owner)
 			explosion_res = nil
 		end
 
-		local attr = owner.m_owner:getAttribute() or ''
+		local attr = owner.m_owner:getAttributeForRes()
 		owner.m_world.m_missileFactory:makeInstantMissile(explosion_res, 'center_idle', target_x, target_y, explosion_size, owner, {attr_name = attr})
 		owner:changeState('dying')	
 	end)
@@ -322,7 +322,7 @@ function MissileLua.lua_bounce(owner)
 	local height = owner.m_value1
 	local count = 0
 	local max_count = math_min(owner.m_value2, #l_target)
-	local attr = owner.m_owner:getAttribute() or ''
+	local attr = owner.m_owner:getAttributeForRes()
 	local after_effect_res = string.gsub('res/effect/effect_hit_physical_@/effect_hit_physical_@.json', '@', attr)
 
 	-- 바운스 느낌을 살리기 위한 스케일 수치 하드코딩

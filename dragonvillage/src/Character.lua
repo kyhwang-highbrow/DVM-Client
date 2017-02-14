@@ -1405,6 +1405,21 @@ function Character:getAttribute()
 end
 
 -------------------------------------
+-- function getAttributeOrg
+-------------------------------------
+function Character:getAttributeOrg()
+	return self.m_charTable['attr_org']
+end
+
+-------------------------------------
+-- function getAttributeForRes
+-- @brief 원리소스가 우선인 경우 사용 
+-------------------------------------
+function Character:getAttributeForRes()
+	return self:getAttributeOrg() or self:getAttribute() or ''
+end
+
+-------------------------------------
 -- function changeAttribute
 -------------------------------------
 function Character:changeAttribute(tar_attr)
@@ -1420,6 +1435,7 @@ function Character:changeAttribute(tar_attr)
 	else
 		if (self.m_charTable['attr_org']) then 
 			self.m_charTable['attr'] = self.m_charTable['attr_org']
+			self.m_charTable['attr_org'] = nil
 		end
 	end
 end

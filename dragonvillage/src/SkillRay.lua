@@ -216,7 +216,7 @@ end
 function SkillRay:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-    local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+    local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 	local hit = t_skill['hit']
 
 	-- 인스턴스 생성부

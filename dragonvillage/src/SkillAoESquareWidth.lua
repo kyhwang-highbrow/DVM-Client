@@ -121,7 +121,7 @@ end
 function SkillAoESquareWidth:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
     local skill_height = t_skill['val_1']   -- 공격 반경
 	
 	-- 인스턴스 생성부

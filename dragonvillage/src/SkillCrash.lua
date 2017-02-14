@@ -46,8 +46,8 @@ function SkillCrash:init_skill(owner, t_skill, t_data)
     self.m_tSkill = t_skill
 
     -- t_skill에서 얻어오는 데이터
-    self.m_shockwaveEffectRes = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
-    self.m_dashEffectRes = string.gsub(t_skill['res_2'], '@', owner:getAttribute())
+    self.m_shockwaveEffectRes = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
+    self.m_dashEffectRes = SkillHelper:getAttributeRes(t_skill['res_2'], owner)
     self.m_damageRate = (t_skill['power_rate'] / 100)
     self.m_damageRateShockwave = (t_skill['val_1'] / 100)
     self.m_shockwaveRadius = t_skill['val_2']

@@ -173,11 +173,8 @@ function SkillAoERound:makeSkillInstance(owner, t_skill, t_data)
     local range = t_skill['val_1']		  -- 공격 반경
 	local add_damage = t_skill['val_2'] -- 추가데미지 필드
 	
-	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())	-- 스킬 본연의 리소스
-	local aoe_res = string.gsub(t_skill['res_2'], '@', owner:getAttribute())		-- 개별 타겟 이펙트 리소스
-	if (missile_res == 'x') then 
-		missile_res = nil
-	end
+	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)	-- 스킬 본연의 리소스
+	local aoe_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)		-- 개별 타겟 이펙트 리소스
 
 	-- 인스턴스 생성부
 	------------------------------------------------------

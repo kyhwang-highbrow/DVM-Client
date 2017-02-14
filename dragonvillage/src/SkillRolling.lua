@@ -323,7 +323,7 @@ end
 function SkillRolling:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 	local spin_res = t_skill['res_2']
 	local target_count = t_skill['val_1']
 	local buff_prob = t_skill['val_2']

@@ -77,7 +77,7 @@ end
 function SkillAddAttack:makeSkillInstance(owner, t_skill, target)
 	-- 변수 선언부
 	------------------------------------------------------
-	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 	local range_x = t_skill['val_1']
 	local range_y = t_skill['val_2']
 

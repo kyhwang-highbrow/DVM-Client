@@ -214,9 +214,9 @@ end
 function SkillLeap:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-    local missile_res = nil --string.gsub(t_skill['res_1'], '@', owner:getAttribute())
-	local jump_res = nil -- t_skill['res_2']
-    local range = 10 -- t_skill['val_1']
+    local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
+	local jump_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)
+    local range = t_skill['val_1']
 
 	-- 인스턴스 생성부
 	------------------------------------------------------

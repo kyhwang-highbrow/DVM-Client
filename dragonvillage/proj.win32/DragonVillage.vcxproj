@@ -351,6 +351,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillEnumrate_Penetration_Jaryong.lua" />
     <None Include="..\src\SkillFieldCheck.lua" />
     <None Include="..\src\SkillHeartOfRuin.lua" />
+    <None Include="..\src\SkillHelper.lua" />
     <None Include="..\src\SkillIndicator_Penetration.lua" />
     <None Include="..\src\SkillIndicator_StraightWidth.lua" />
     <None Include="..\src\SkillIndicator_X.lua" />

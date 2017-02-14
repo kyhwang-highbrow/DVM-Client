@@ -68,7 +68,7 @@ function SkillGuardian:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
     local duration = t_skill['val_1']
     local def_up_rate = t_skill['val_2']
-	local res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+	local res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 
 	-- 인스턴스 생성부
 	------------------------------------------------------

@@ -266,8 +266,10 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	
 	----------- 속성 변경 ------------------
 	elseif (status_effect_type == 'attr_change') then
+		--@TODO 카운터 속성으로 변경, 추후 정리
 		status_effect = StatusEffect_AttributeChange(res)
-		status_effect:init_statusEffect(char)
+		local tar_attr = self:getActivityCarrier().m_activityCarrierOwner.m_targetChar:getAttribute()
+		status_effect:init_statusEffect(char, tar_attr)
 
     else
         status_effect = StatusEffect(res)

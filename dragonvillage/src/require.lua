@@ -89,6 +89,7 @@ local t_module = {
     'SwipeGesture',
     'ValidationDragon',
     'TableViewExtension',
+	'SkillHelper',
     'StatusEffectHelper',
     'AreaOfEffectHelper',
     'ShaderCache',

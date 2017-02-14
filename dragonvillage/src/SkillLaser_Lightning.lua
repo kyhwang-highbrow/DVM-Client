@@ -165,8 +165,8 @@ end
 function SkillLaser_Lightning:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-    local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
-	local lightning_res = string.gsub(t_skill['res_2'], '@', owner:getAttribute())
+    local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
+	local lightning_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)
 	local hit = t_skill['hit']
 	local thickness = t_skill['val_1']
 	local lighting_dmg = t_skill['val_2']

@@ -120,7 +120,7 @@ end
 -- @brief attr이 공격을 당했을 때 attr입장에서 상성이 좋지 않은(데미지를 더 입는) 속성리스트를 리턴
 -------------------------------------
 function getAttrDisadvantageList(attr)
-    if (not t_attr_disadvantage ) then
+    if (not t_attr_disadvantage) then
         initAttributeSynastry()
     end
 
@@ -333,4 +333,26 @@ function getRandomAttr()
     return T_ATTR_LIST[idx]
 end
 
-    
+-------------------------------------
+-- function getAttributeColor
+-------------------------------------
+function getAttributeColor(attr)
+    if (attr == 'light') then
+        return COLOR_WHITE
+
+    elseif (attr == 'dark') then
+        return COLOR_BALCK
+
+    elseif (attr == 'earth') then
+        return COLOR_GREEN
+
+    elseif (attr == 'fire') then
+        return COLOR_RED
+
+    elseif (attr == 'water') then
+        return COLOR_CYAN
+
+    else
+        error('attr : ' .. attr)
+    end
+end

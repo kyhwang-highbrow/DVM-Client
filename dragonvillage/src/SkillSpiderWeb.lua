@@ -115,7 +115,7 @@ end
 function SkillSpiderWeb:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())	  -- 광역 스킬 리소스
+	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)	  -- 광역 스킬 리소스
 	
 	-- 인스턴스 생성부
 	------------------------------------------------------

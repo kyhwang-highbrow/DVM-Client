@@ -147,8 +147,8 @@ end
 function SkillFieldCheck:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-	local tar_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
-	local drain_res = string.gsub(t_skill['res_2'], '@', owner:getAttribute())
+	local tar_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
+	local drain_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)
 
     local field_type = t_skill['val_1']
 	local target_status_effect_type = t_skill['val_2']

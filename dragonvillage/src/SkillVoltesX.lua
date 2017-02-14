@@ -211,7 +211,7 @@ end
 function SkillVoltesX:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-	local missile_res = 'res/effect/skill_optatio_x/skill_optatio_x_water.vrp' --string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 	local attack_count = t_skill['hit']
 	local has_final_attack = (t_skill['val_1'] == 1)
 	local final_attack_count = t_skill['val_2']

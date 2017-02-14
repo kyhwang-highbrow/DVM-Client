@@ -1605,6 +1605,9 @@
     <None Include="..\src\UI_NotificationInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SkillHelper.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

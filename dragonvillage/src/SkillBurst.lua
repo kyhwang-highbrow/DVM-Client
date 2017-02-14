@@ -118,7 +118,7 @@ end
 function SkillBurst:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-	local burst_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+	local burst_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 
     local target_status_effect_type = t_skill['val_1']
 	local is_extinguish = t_skill['val_2']

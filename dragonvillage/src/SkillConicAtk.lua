@@ -112,7 +112,7 @@ function SkillConicAtk:makeSkillInstance(owner, t_skill, t_data)
 	local attack_count = t_skill['hit']
     local range = t_skill['val_1']
 	local angle = t_skill['val_2']
-	local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 
 	-- 인스턴스 생성부
 	------------------------------------------------------

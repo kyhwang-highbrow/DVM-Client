@@ -177,7 +177,7 @@ end
 function SkillChainLightning:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
-    local missile_res = string.gsub(t_skill['res_1'], '@', owner:getAttribute())
+    local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 	local target_count = t_skill['hit']
 	local add_damage = t_skill['val_1']
 
