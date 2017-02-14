@@ -852,6 +852,8 @@ function RichLabel:getColor(color)
 		COLOR['GRAY'] = cc.c3b(150,150,150)
 		COLOR['LIGHTGRAY'] = cc.c3b(192,192,102)
         COLOR['WHITE'] = cc.c3b(255,255,255)
+        COLOR['YELLOW'] = cc.c3b(255,255,0)
+        COLOR['RED'] = cc.c3b(255,0,0)
 
         COLOR['SKILL_NAME'] = cc.c3b(255, 145, 0)
         COLOR['SKILL_DESC'] = cc.c3b(245, 233, 220)

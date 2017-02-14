@@ -355,6 +355,10 @@ function UI_Lobby:click_buffBtn()
         buff_info:setDescText('{@DEEPSKYBLUE}[베스트프렌드의 응원] {@SKILL_DESC}경험치 +3%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%')
         buff_board:addElement(buff_info)
 
+        local buff_info = UI_NotificationInfoElement()
+        buff_info:setTitleText('{@YELLOW}[이벤트 중] 고급 드래곤 소환 250자수정->200자수정 {@RED}03:13:15{@YELLOW} 후 종료')
+        buff_board:addElement(buff_info)
+
         self.m_infoBoard = buff_board
     end
 
