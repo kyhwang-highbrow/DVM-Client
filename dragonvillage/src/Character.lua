@@ -245,7 +245,7 @@ end
 -- function checkTarget
 -------------------------------------
 function Character:checkTarget(t_skill, t_data)
-	if (t_data['target']) then
+	if (t_data and t_data['target']) then
 		-- 인디케이터에서 받아온 정보가 있다면
 		self.m_targetChar = t_data['target']
 	else
