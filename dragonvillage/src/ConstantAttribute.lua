@@ -14,6 +14,13 @@ T_ATTR_LIST[ATTR_FIRE] = 'fire'
 T_ATTR_LIST[ATTR_LIGHT] = 'light'
 T_ATTR_LIST[ATTR_DARK] = 'dark'
 
+ATTR_COLOR = {}
+ATTR_COLOR[ATTR_EARTH] = cc.c3b(20, 255, 100)
+ATTR_COLOR[ATTR_WATER] = cc.c3b(20, 125, 255)
+ATTR_COLOR[ATTR_FIRE] = cc.c3b(255, 120, 20)
+ATTR_COLOR[ATTR_LIGHT] = cc.c3b(255, 235, 65)
+ATTR_COLOR[ATTR_DARK] = cc.c3b(150, 80, 255)
+
 
 local t_attr_synastry = nil -- 속성 상성 정보 테이블 
 local t_attr_advantage = nil    -- t_attr_advantage['fire'] = {'earth'}
@@ -337,22 +344,6 @@ end
 -- function getAttributeColor
 -------------------------------------
 function getAttributeColor(attr)
-    if (attr == 'light') then
-        return COLOR_WHITE
-
-    elseif (attr == 'dark') then
-        return COLOR_BALCK
-
-    elseif (attr == 'earth') then
-        return COLOR_GREEN
-
-    elseif (attr == 'fire') then
-        return COLOR_RED
-
-    elseif (attr == 'water') then
-        return COLOR_CYAN
-
-    else
-        error('attr : ' .. attr)
-    end
+	local attr_num = attributeStrToNum(attr)
+	return ATTR_COLOR[attr_num]
 end

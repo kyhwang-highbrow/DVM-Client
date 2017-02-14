@@ -244,9 +244,15 @@ end
 -------------------------------------
 -- function checkTarget
 -------------------------------------
-function Character:checkTarget(t_skill)
-    local t_ret = self:getTargetList(t_skill)
-    self.m_targetChar = t_ret[1]
+function Character:checkTarget(t_skill, t_data)
+	if (t_data['target']) then
+		-- 인디케이터에서 받아온 정보가 있다면
+		self.m_targetChar = t_data['target']
+	else
+		-- 없다면 탐색
+		local t_ret = self:getTargetList(t_skill)
+		self.m_targetChar = t_ret[1]
+	end
 
     return (self.m_targetChar ~= nil)
 end

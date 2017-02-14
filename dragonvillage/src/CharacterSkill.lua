@@ -42,7 +42,7 @@ function Character:doSkill(skill_id, x, y, t_data)
         error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 테이블이 없습니다')
     end
 	
-    self:checkTarget(t_skill)
+    self:checkTarget(t_skill, t_data)
 
     if (not self.m_targetChar) then
 		cclog('타겟이 없습니다 ID : ' .. skill_id)
