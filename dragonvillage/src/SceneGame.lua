@@ -419,6 +419,18 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         api_url = '/game/nest/finish'
     end
 
+    -- 친구 접속 버프
+    if self.m_totalOnlineBuffList then
+        -- 추가 경험치 버프
+        local exp_rate = (self.m_totalOnlineBuffList['exp'] or 0)
+        t_param['exp_rate'] = t_param['exp_rate'] * (1 + (exp_rate / 100))
+        
+        -- 추가 골드 버프
+        local gold_rate = (self.m_totalOnlineBuffList['gold'] or 0)
+        t_param['gold_rate'] = t_param['gold_rate'] * (1 + (gold_rate / 100))
+    end
+
+
     local ui_network = UI_Network()
     ui_network:setUrl(api_url)
     ui_network:setParam('uid', uid)
@@ -430,6 +442,7 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setParam('clear_mission_2', t_param['clear_mission_2'])
     ui_network:setParam('clear_mission_3', t_param['clear_mission_3'])
     ui_network:setParam('gold', t_param['gold'])
+    ui_network:setParam('gold_rate', t_param['gold_rate'])
     ui_network:setParam('gamekey', self.m_gameKey)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()

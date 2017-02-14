@@ -831,7 +831,10 @@ function GameState:makeGameFinishParam(is_success)
         t_param['clear_type'] = is_success and (1 or 0)
     end
 
-    do-- 경험치 보정치 ( 실패했을 경우 사용 ) ex : 66% 인경우 66
+    -- 경험치 보정치 ( 실패했을 경우 사용 ) ex : 66% 인경우 66
+    if is_success then
+        t_param['exp_rate'] = 100
+    else
         local wave_rate = ((self.m_world.m_waveMgr.m_currWave - 1) / self.m_world.m_waveMgr.m_maxWave)
         wave_rate = math_floor(wave_rate * 100)
         t_param['exp_rate'] = math_clamp(wave_rate, 0, 100)
@@ -845,6 +848,7 @@ function GameState:makeGameFinishParam(is_success)
 
     do-- 획득 골드
         t_param['gold'] = 0
+        t_param['gold_rate'] = 100
     end
 
     do-- 사용한 덱 이름

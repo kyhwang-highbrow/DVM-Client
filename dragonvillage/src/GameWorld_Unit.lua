@@ -205,8 +205,8 @@ function GameWorld:makeHeroDeck()
     if friend_online_buff then
         for _,hero in pairs(self.m_mHeroList) do
             local status_calc = hero.m_statusCalc
-            status_calc.m_lPassive['atk'] = (status_calc.m_lPassive['atk'] + friend_online_buff['atk'] or 0)
-            status_calc.m_lPassive['def'] = (status_calc.m_lPassive['def'] + friend_online_buff['def'] or 0)
+            status_calc.m_lPassive['atk'] = (status_calc.m_lPassive['atk'] + (friend_online_buff['atk'] or 0))
+            status_calc.m_lPassive['def'] = (status_calc.m_lPassive['def'] + (friend_online_buff['def'] or 0))
         end
     end
 end
