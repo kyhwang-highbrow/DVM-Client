@@ -77,7 +77,6 @@ function UI_FriendPopupTabInvite:requestSpecialFriend(type, nick)
 
         -- 콜백 함수
         local function success_cb(ret)
-            ccdump(ret)
         end
 
         local friend_type

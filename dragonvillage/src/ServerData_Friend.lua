@@ -942,3 +942,108 @@ function ServerData_Friend:request_sendNeedDragon(fuid, doid, finish_cb)
     ui_network:setReuse(false)
     ui_network:request()
 end
+
+
+
+
+-------------------------------------
+-- function getFriendOnlineBuff
+-- @brief 친구 접속 버프
+-------------------------------------
+function ServerData_Friend:getFriendOnlineBuff()
+    local friend_list = self:getFriendList()
+
+    local soulmate_buff = {}
+    soulmate_buff['online'] = {}
+
+    local bestfriend_buff = {}
+    bestfriend_buff['online'] = {}
+
+    for i,v in pairs(friend_list) do
+        -- 소울메이트
+        if (v['friendtype'] == 3) and v['is_online'] then
+            table.insert(soulmate_buff['online'], v['nick'])
+
+        -- 베스트프랜드
+        elseif (v['friendtype'] == 2) and v['is_online'] then
+            table.insert(bestfriend_buff['online'], v['nick'])
+
+        end
+    end
+
+    -- 소울메이트
+    local online_soulmate = #soulmate_buff['online']
+    if online_soulmate > 0 then
+        soulmate_buff['buff_list'] = {}
+        soulmate_buff['buff_list']['exp'] = (online_soulmate * 10)
+        soulmate_buff['buff_list']['gold'] = (online_soulmate * 10)
+        soulmate_buff['buff_list']['atk'] = (online_soulmate * 5)
+        soulmate_buff['buff_list']['def'] = (online_soulmate * 5)
+
+        local nick_str = nil
+        for i,v in ipairs(soulmate_buff['online']) do
+            if (not nick_str) then
+                nick_str = ''
+            else
+                nick_str = nick_str .. ', '
+            end
+            nick_str = nick_str .. v
+        end
+        soulmate_buff['info_title'] = Str('{@SKILL_NAME}[소울메이트 접속 버프]')
+        soulmate_buff['info_title'] = soulmate_buff['info_title'] .. ' {@WHITE}(' .. nick_str .. ')'
+        soulmate_buff['info_list'] = {}
+        table.insert(soulmate_buff['info_list'], Str('{@DEEPSKYBLUE}[소울메이트의 응원] {@WHITE}모든 모드에서 결과로 얻는 {@YELLOW}경험치 +{1}% 증가', soulmate_buff['buff_list']['exp']))
+        table.insert(soulmate_buff['info_list'], Str('{@DEEPSKYBLUE}[소울메이트의 행운] {@WHITE}모든 모드에서 결과로 얻는 {@YELLOW}골드 +{1}% 증가', soulmate_buff['buff_list']['gold']))
+        table.insert(soulmate_buff['info_list'], Str('{@DEEPSKYBLUE}[소울메이트의 기원] {@WHITE}모든 모드에서 {@YELLOW}공격력, 방어력 +{1}% 증가', soulmate_buff['buff_list']['atk']))
+    end
+
+    -- 베스트프랜드
+    local online_bestfriend = #bestfriend_buff['online']
+    if online_bestfriend > 0 then
+        bestfriend_buff['buff_list'] = {}
+        bestfriend_buff['buff_list']['exp'] = (online_bestfriend * 3)
+        bestfriend_buff['buff_list']['gold'] = (online_bestfriend * 3)
+
+        local nick_str = nil
+        for i,v in ipairs(bestfriend_buff['online']) do
+            if (not nick_str) then
+                nick_str = ''
+            else
+                nick_str = nick_str .. ', '
+            end
+            nick_str = nick_str .. v
+        end
+        bestfriend_buff['info_title'] = Str('{@SKILL_NAME}[베스트프랜드 접속 버프]')
+        bestfriend_buff['info_title'] = bestfriend_buff['info_title'] .. ' {@WHITE}(' .. nick_str .. ')'
+        bestfriend_buff['info_list'] = {}
+        table.insert(bestfriend_buff['info_list'], Str('{@DEEPSKYBLUE}[베스트프랜드의 응원] {@WHITE}모든 모드에서 결과로 얻는 {@YELLOW}경험치 +{1}% 증가', bestfriend_buff['buff_list']['exp']))
+        table.insert(bestfriend_buff['info_list'], Str('{@DEEPSKYBLUE}[베스트프랜드의 행운] {@WHITE}모든 모드에서 결과로 얻는 {@YELLOW}골드 +{1}% 증가', bestfriend_buff['buff_list']['gold']))
+    end
+
+
+    -- 실제 적용될 버프 내용만 key, value로 저장하는 테이블
+    local total_buff_list = {}
+    do 
+        -- 소울메이트 버프 합산
+        if soulmate_buff['buff_list'] then
+            for i,v in pairs(soulmate_buff['buff_list']) do
+                if (not total_buff_list[i]) then
+                    total_buff_list[i] = 0
+                end
+                total_buff_list[i] = total_buff_list[i] + v
+            end
+        end
+
+        -- 베스트프랜드 버프 합산
+        if bestfriend_buff['buff_list'] then
+            for i,v in pairs(bestfriend_buff['buff_list']) do
+                if (not total_buff_list[i]) then
+                    total_buff_list[i] = 0
+                end
+                total_buff_list[i] = total_buff_list[i] + v
+            end
+        end
+    end
+
+    return bestfriend_buff, soulmate_buff, total_buff_list
+end

@@ -44,8 +44,11 @@ function UI_Lobby:init()
     self:initButton()
     self:refresh()
 
+    self:initInfoBoard()
+
     -- 가챠 관련 정보 갱신
     g_gachaData:refresh_gachaInfo(function() end)
+    g_friendData:request_friendList(function() self:refreshFriendOnlineBuff() end, true)
 end
 
 -------------------------------------
@@ -332,14 +335,15 @@ function UI_Lobby:click_mailBtn()
 end
 
 -------------------------------------
--- function click_buffBtn
+-- function initInfoBoard
 -------------------------------------
-function UI_Lobby:click_buffBtn()
-    if (not self.m_infoBoard) then
-        local buff_board = UI_NotificationInfo()
-        buff_board.root:setDockPoint(cc.p(1, 1))
-        self.vars['buffNode']:addChild(buff_board.root)
-    
+function UI_Lobby:initInfoBoard()
+    local buff_board = UI_NotificationInfo()
+    buff_board.root:setDockPoint(cc.p(1, 1))
+    self.vars['buffNode']:addChild(buff_board.root)
+    self.m_infoBoard = buff_board
+
+    do
         local buff_info = UI_NotificationInfoElement()
         buff_info:setTitleText('{@SKILL_NAME}[베스트프렌드 접속 버프] {@WHITE}(뀨뀨뀨, 김 성 구 접속 중)')
         buff_info:setDescText('{@DEEPSKYBLUE}[베스트프렌드의 응원] {@SKILL_DESC}경험치 +3%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%')
@@ -358,10 +362,56 @@ function UI_Lobby:click_buffBtn()
         local buff_info = UI_NotificationInfoElement()
         buff_info:setTitleText('{@YELLOW}[이벤트 중] 고급 드래곤 소환 250자수정->200자수정 {@RED}03:13:15{@YELLOW} 후 종료')
         buff_board:addElement(buff_info)
+    end
+end
 
-        self.m_infoBoard = buff_board
+-------------------------------------
+-- function refreshFriendOnlineBuff
+-------------------------------------
+function UI_Lobby:refreshFriendOnlineBuff()
+    local bestfriend_buff, soulmate_buff, total_buff_list = g_friendData:getFriendOnlineBuff()
+
+    -- 소울메이트 버프
+    if soulmate_buff['info_title'] then
+        local buff_info = UI_NotificationInfoElement()
+        buff_info:setTitleText(soulmate_buff['info_title'])
+
+        local info_str = nil
+        for i,v in ipairs(soulmate_buff['info_list']) do
+            if (not info_str) then
+                info_str = v
+            else
+                info_str = info_str .. '\n' .. v
+            end
+        end
+        buff_info:setDescText(info_str)
+        
+        self.m_infoBoard:addElement(buff_info)
     end
 
+    -- 베스트프랜드 버프
+    if bestfriend_buff['info_title'] then
+        local buff_info = UI_NotificationInfoElement()
+        buff_info:setTitleText(bestfriend_buff['info_title'])
+
+        local info_str = nil
+        for i,v in ipairs(bestfriend_buff['info_list']) do
+            if (not info_str) then
+                info_str = v
+            else
+                info_str = info_str .. '\n' .. v
+            end
+        end
+        buff_info:setDescText(info_str)
+        
+        self.m_infoBoard:addElement(buff_info)
+    end
+end
+
+-------------------------------------
+-- function click_buffBtn
+-------------------------------------
+function UI_Lobby:click_buffBtn()
     self.m_infoBoard:show()
 end
 
