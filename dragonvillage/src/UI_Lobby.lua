@@ -6,6 +6,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 UI_Lobby = class(PARENT,{
         m_lobbyMap = '',
         m_lobbyUserFirstMake = 'bool',
+        m_infoBoard = 'UI_NotificationInfo',
     })
 
 -------------------------------------
@@ -59,6 +60,7 @@ end
 -------------------------------------
 function UI_Lobby:initCamera()
     local vars = self.vars
+    vars['cameraNode']:setLocalZOrder(-1)
     local lobby_map = LobbyMap(vars['cameraNode'])
     self.m_lobbyMap = lobby_map
     lobby_map:setContainerSize(1280*3, 960)
@@ -159,6 +161,7 @@ function UI_Lobby:initButton()
     vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end)
     vars['giftBtn']:registerScriptTapHandler(function() self:click_giftBtn() end)
 	vars['mailBtn']:registerScriptTapHandler(function() self:click_mailBtn() end)
+    vars['buffBtn']:registerScriptTapHandler(function() self:click_buffBtn() end)
 
     -- FGT버전에서 퀘스트 기능 숨김
     if (TARGET_SERVER == 'FGT') then
@@ -326,6 +329,36 @@ end
 -------------------------------------
 function UI_Lobby:click_mailBtn()
     UI_MailPopup()
+end
+
+-------------------------------------
+-- function click_buffBtn
+-------------------------------------
+function UI_Lobby:click_buffBtn()
+    if (not self.m_infoBoard) then
+        local buff_board = UI_NotificationInfo()
+        buff_board.root:setDockPoint(cc.p(1, 1))
+        self.vars['buffNode']:addChild(buff_board.root)
+    
+        local buff_info = UI_NotificationInfoElement()
+        buff_info:setTitleText('{@SKILL_NAME}[베스트프렌드 접속 버프] {@WHITE}(뀨뀨뀨, 김 성 구 접속 중)')
+        buff_info:setDescText('{@DEEPSKYBLUE}[베스트프렌드의 응원] {@SKILL_DESC}경험치 +3%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%')
+        buff_board:addElement(buff_info)
+
+        local buff_info = UI_NotificationInfoElement()
+        buff_info:setTitleText('{@SKILL_NAME}[친구 드래곤 사용 버프] {@SKILL_DESC}체력 +500')
+        buff_info:setDescText('{@DEEPSKYBLUE}[베스트프렌드의 응원] {@SKILL_DESC}경험치 +3%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%')
+        buff_board:addElement(buff_info)
+
+        local buff_info = UI_NotificationInfoElement()
+        buff_info:setTitleText('{@SKILL_NAME}[친구 드래곤 사용 버프] {@SKILL_DESC}체력 +500')
+        buff_info:setDescText('{@DEEPSKYBLUE}[베스트프렌드의 응원] {@SKILL_DESC}경험치 +3%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%\n{@DEEPSKYBLUE}[베스트프렌드의 행운] {@SKILL_DESC}골드 획득 +10%')
+        buff_board:addElement(buff_info)
+
+        self.m_infoBoard = buff_board
+    end
+
+    self.m_infoBoard:show()
 end
 
 -------------------------------------

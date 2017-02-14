@@ -3,6 +3,7 @@
 -------------------------------------
 UI_Game = class(UI, {
         m_gameScene = '',
+        m_buffBoard = 'UI_NotificationInfo',
      })
 
 -------------------------------------
@@ -151,16 +152,33 @@ end
 -- function click_buffButton
 -------------------------------------
 function UI_Game:click_buffButton()
-    if (not g_friendBuff) then return end
+    if (not g_friendBuff) then
+        return
+    end
 
-    local str = g_friendBuff:getBuffStr()
+    if (not self.m_buffBoard) then
+        self.m_buffBoard = UI_NotificationInfo()
+        self.m_buffBoard.root:setDockPoint(cc.p(1, 1))
+        self.vars['buffNode']:addChild(self.m_buffBoard.root)
 
+        local str = g_friendBuff:getBuffStr()      
+    
+        local buff_info = UI_NotificationInfoElement()
+        buff_info:setTitleText('{@SKILL_NAME}[친구 드래곤 사용 버프]')
+        buff_info:setDescText(str)
+        self.m_buffBoard:addElement(buff_info)
+    end
+
+    self.m_buffBoard:show()
+    
+    --[[
     local tool_tip = UI_Tooltip_Buff(0, 0, str, true)
 
     -- 자동 위치 지정
     tool_tip:autoPositioning(self.vars['buffBtn'])
 
     tool_tip:autoRelease(3)
+    --]]
 end
 
 -------------------------------------

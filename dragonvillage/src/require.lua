@@ -456,6 +456,7 @@ local t_module = {
     'UI_AcquisitionRegionInformation',
     'UI_AcquisitionRegionListItem',
     'UI_NotificationInfoElement',
+    'UI_NotificationInfo',
     'UI_FriendPointGachaPopup',
     'UI_FriendPointGachaResult',
     'UI_GachaDragon',

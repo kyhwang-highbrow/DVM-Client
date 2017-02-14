@@ -12,6 +12,7 @@ UI_NotificationInfoElement = class(PARENT, {
 
         m_width = 'number',
         m_height = 'number',
+        m_contentWidth = 'number',
      })
 
 -------------------------------------
@@ -35,6 +36,8 @@ function UI_NotificationInfoElement:init()
     self.root:addChild(sprite)
 
     self:setIcon()
+
+    self.m_contentWidth = 0
 end
 
 -------------------------------------
@@ -102,6 +105,8 @@ function UI_NotificationInfoElement:setTitleText(text)
     rich_label.m_root:setPosition(40, -15)
     self.root:addChild(rich_label.m_root)
 
+    self.m_contentWidth = math_max(self.m_contentWidth, 40 + rich_label:getStringWidth() + 22)
+
     self:setElementSize(info_element_max_width, 30)
 end
 
@@ -112,6 +117,8 @@ function UI_NotificationInfoElement:setDescText(text)
     local rich_label = self:makeContentRichLabel(text)
     rich_label.m_root:setPosition(40, -15 - 15)
     self.root:addChild(rich_label.m_root)
+
+    self.m_contentWidth = math_max(self.m_contentWidth, 40 + rich_label:getStringWidth() + 22)
 
     self:setElementSize(info_element_max_width, 30 + (rich_label:getStringHeight() + 5))
 end
