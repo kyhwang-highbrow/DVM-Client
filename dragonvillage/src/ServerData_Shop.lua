@@ -98,18 +98,11 @@ function ServerData_Shop:tempBuy(t_product)
     end
 
     -- 결과 팝업
-    func_show_result = function(t_data)
-        if string.find(value_type, 'dragon') then
-            local l_dragon_list = t_data
-            UI_DragonGachaResult(l_dragon_list)
-        end
+    func_show_result = function()
+
     end
 
-	if (t_product['product_type'] == TableShop.GACHA) then
-		self:request_gacha_dragons(value_type, t_product['value'], func_show_result)
-	else
-		func_pay()
-	end
+	func_pay()
 end
 
 -------------------------------------
@@ -118,61 +111,6 @@ end
 -------------------------------------
 function ServerData_Shop:applyGoods(data, key)
     self.m_serverData:applyServerData(data, 'user', key)
-end
-
--------------------------------------
--- function request_gacha_dragons
--- @brief 드래곤 가차를 요청한다
--------------------------------------
-function ServerData_Shop:request_gacha_dragons(product_type, product_value, finish_cb)
-	-- 파라미터 세팅
-    local uid = g_userData:get('uid')
-	local gacha_url
-	if (product_type == 'dragon_normal') then
-		gacha_url = '/shop/gacha/general_dragon'
-	elseif (product_type == 'dragon_premium') then
-		gacha_url = '/shop/gacha/unique_dragon'
-	end
-	local gacha_type
-	if (product_value == 1) then 
-		gacha_type = 'single'
-	elseif (product_value == 11) then 
-		gacha_type = 'bundle'
-	end
-
-	-- 성공 시 콜백
-	local cb_func = function(ret)
-		local isDirtyData = false
-
-		-- 받은 정보 갱신
-        if (ret and ret['added_dragons']) then
-			for _, t_dragon in ipairs(ret['added_dragons']) do
-				g_dragonsData:applyDragonData(t_dragon)
-			end
-        end
-
-		-- @TODO 재화를 통일적으로 처리하는 방식 찾거나 만들어야함
-		if (ret['gold']) then
-			self:applyGoods(ret['gold'], 'gold')
-			isDirtyData = true
-		end
-		if (ret['cash']) then
-			self:applyGoods(ret['cash'], 'cash')
-			isDirtyData = true
-		end
-
-		-- 데이터 변동시에 콜백 실행
-		if (isDirtyData) then 
-			finish_cb(ret['added_dragons'])
-		end
-    end
-
-    local ui_network = UI_Network()
-    ui_network:setUrl(gacha_url)
-    ui_network:setParam('uid', uid)
-	ui_network:setParam('type', gacha_type)
-    ui_network:setSuccessCB(cb_func)
-	ui_network:request()
 end
 
 

@@ -53,12 +53,11 @@ end
 -------------------------------------
 function UI_ShopPopup:initTab()
     local vars = self.vars
-    self:addTab(TableShop.GACHA, vars['gachaBtn'], vars['gachaContainerNode'])
     self:addTab(TableShop.CASH, vars['cashBtn'], vars['cashNode'])
 	self:addTab(TableShop.GOLD, vars['goldBtn'], vars['goldNode'])
 	self:addTab(TableShop.STAMINA, vars['staminaBtn'], vars['staminaNode'])
 
-    self:setTab(TableShop.GACHA)
+    self:setTab(TableShop.CASH)
 end
 
 -------------------------------------
@@ -71,23 +70,7 @@ end
 -- function refresh
 -------------------------------------
 function UI_ShopPopup:refresh()
-	self:setGachaMilProgress()
 end
-
--------------------------------------
--- function setQuestProgress
--- @brief 가차 마일리지 표시
--------------------------------------
-function UI_ShopPopup:setGachaMilProgress()
-    local vars = self.vars
-	local t_data = g_shopData
-	local curr_mileage = math_random(0, 150)
-	local max_mileage = 150
-	vars['mileageLabel']:setString(Str('{1} 회', curr_mileage))
-	vars['mileageGuage']:setPercentage(0)
-	vars['mileageGuage']:runAction(cc.ProgressTo:create(0.5, (curr_mileage / max_mileage) * 100)) 
-end
-
 
 -------------------------------------
 -- function onChangeTab
@@ -113,12 +96,7 @@ function UI_ShopPopup:makeQuestTableView(tab, node)
 	local l_ProductList = g_shopData:getProductList(tab)
 
 	-- cell size 분기 
-	local cell_size
-	if (tab == TableShop.GACHA) then
-		cell_size = cc.size(270, 402)
-	else
-		cell_size = cc.size(270, 464)
-	end
+	local cell_size = cc.size(270, 464)
 
     do -- 테이블 뷰 생성
         node:removeAllChildren()

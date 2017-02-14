@@ -5,7 +5,6 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_ShopListItem = class(PARENT, {
         m_productData = 'table',		-- 하나의 상품 정보
-		m_isGachaProd = 'bool',			-- 가차 상품인지 여부
      })
 
 -------------------------------------
@@ -13,17 +12,10 @@ UI_ShopListItem = class(PARENT, {
 -------------------------------------
 function UI_ShopListItem:init(t_product)
 	-- 멤버변수
-	self.m_isGachaProd = (t_product['product_type'] == TableShop.GACHA)
 	self.m_productData = t_product
 	
 	-- UI load
-	local ui_name
-	if (self.m_isGachaProd) then
-		ui_name = 'shop_list_01.ui'
-	else
-		ui_name = 'shop_list_02.ui'
-	end
-    self:load(ui_name)	
+    self:load('shop_list_02.ui')	
 
 	-- initialize
     self:initUI()
@@ -59,10 +51,6 @@ function UI_ShopListItem:initUI()
 
 	-- 가격 label
     vars['priceLabel']:setString(t_product['t_ui_info']['price_name'])
-
-	if (self.m_isGachaProd) then
-		vars['gachaLabel']:setString(Str('{1} 회', t_product['value']))
-	end
 end                                              
 
 -------------------------------------
