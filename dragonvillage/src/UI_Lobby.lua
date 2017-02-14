@@ -31,13 +31,6 @@ function UI_Lobby:init()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_Lobby')
 
-    -- @UI_ACTION
-    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
-    self:doActionReset()
-    self:doAction(nil, false)
-    g_topUserInfo:doActionReset()
-    g_topUserInfo:doAction()
-
     self:sceneFadeInAction()
 
     self:initUI()
@@ -47,8 +40,11 @@ function UI_Lobby:init()
     self:initInfoBoard()
 
     -- 가챠 관련 정보 갱신
-    g_gachaData:refresh_gachaInfo(function() end)
-    g_friendData:request_friendList(function() self:refreshFriendOnlineBuff() end, true)
+    --g_gachaData:refresh_gachaInfo(function() end)
+    --g_friendData:request_friendList(function() self:refreshFriendOnlineBuff() end, true)
+
+    -- 로비 진입 시
+    self:entryCoroutine()
 end
 
 -------------------------------------
@@ -57,6 +53,109 @@ end
 function UI_Lobby:initUI()
     self:initCamera()
 end
+
+-------------------------------------
+-- function entryCoroutine
+-------------------------------------
+function UI_Lobby:entryCoroutine()
+    local coroutine_function = coroutine.create(function(dt)
+
+        
+        cclog('===================================================')
+        cclog('로비의 코루틴(코루틴에서 에러가 날 수 있어서 로그 찍음')
+        cclog('===================================================')
+        local working = false
+
+        -- 터치 불가상태로 만들어 놓음
+        local block_popup = UI_BlockPopup()
+        dt = coroutine.yield()
+
+        -- UI 숨김
+        self:doActionReset()
+        g_topUserInfo:doActionReset()
+
+        -- 가챠 정보 받아옴
+        cclog('# 가챠 정보 받는 중')
+        working = true
+        g_gachaData:refresh_gachaInfo(function() working = false end)
+        while (working) do dt = coroutine.yield() end
+
+        -- 친구 정보 받아옴
+        cclog('# 친구 정보 받는 중')
+        working = true
+         g_friendData:request_friendList(function() self:refreshFriendOnlineBuff() working = false end, true)
+        while (working) do dt = coroutine.yield() end
+
+        -- @UI_ACTION
+        working = true
+        self:doAction(function() working = false end, false)
+        g_topUserInfo:doAction()
+        while (working) do dt = coroutine.yield() end
+
+        -- 출석 정보 받아옴
+        cclog('# 출석 정보 받는 중')
+        working = true
+        g_attendanceData:request_attendanceInfo(function(ret) working = false end)
+        while (working) do dt = coroutine.yield() end
+
+        ---[[
+        cclog('# 기본 출석 보상 팝업')
+        -- 기본 출석 보상 팝업
+        if g_attendanceData.m_bNewAttendanceBasic then
+            g_attendanceData.m_bNewAttendanceBasic = false
+            working = true
+            local ui = UI_AttendanceBasic()
+            ui:setCloseCB(function() working = false end)
+            while (working) do dt = coroutine.yield() end
+        end
+        
+        cclog('# 연속 출석 보상 팝업')
+        -- 연속 출석 보상 팝업
+        if g_attendanceData.m_bNewAttendanceContinuous then
+            g_attendanceData.m_bNewAttendanceContinuous = false
+            working = true
+            local ui = UI_AttendanceContinuous()
+            ui:setCloseCB(function() working = false end)
+            while (working) do dt = coroutine.yield() end
+        end
+
+        cclog('# 특별 출석 보상 팝업')
+        -- 특별 출석 보상 팝업
+        if g_attendanceData.m_bNewAttendanceSpecial then
+            g_attendanceData.m_bNewAttendanceSpecial = false
+            working = true
+            local ui = UI_AttendanceSpecial()
+            ui:setCloseCB(function() working = false end)
+            while (working) do dt = coroutine.yield() end
+        end
+        --]]
+
+        -- 터치 가능하도록 해제
+        block_popup:close()
+        coroutine.yield()
+
+        cclog('===================================================')
+        cclog('로비 코루틴 종료!!')
+        cclog('===================================================')
+    end)
+
+    local coroutine_schedule = nil
+
+    -- coroutine Schedule함수, 코루틴이 종료되면 스케쥴도 해지
+    local function updateCoroutine(dt)
+        local s, r = coroutine.resume(coroutine_function, dt)
+        if s == false then
+            coroutine_function = nil
+            if coroutine_schedule then
+                cc.Director:getInstance():getScheduler():unscheduleScriptEntry(coroutine_schedule)
+            end
+        end
+    end
+
+    -- schedule에 등록
+    coroutine_schedule = cc.Director:getInstance():getScheduler():scheduleScriptFunc(updateCoroutine, 0, false)
+end
+
 
 -------------------------------------
 -- function initCamera

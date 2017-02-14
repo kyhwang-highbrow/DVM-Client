@@ -1608,6 +1608,18 @@
     <None Include="..\src\SkillHelper.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\ServerData_Attendance.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_AttendanceSpecial.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AttendanceContinuous.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AttendanceBasic.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

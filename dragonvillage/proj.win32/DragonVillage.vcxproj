@@ -313,6 +313,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SceneGameColosseum.lua" />
     <None Include="..\src\SceneNestDungeon.lua" />
     <None Include="..\src\SceneSecretDungeon.lua" />
+    <None Include="..\src\ServerData_Attendance.lua" />
     <None Include="..\src\ServerData_AutoPlaySetting.lua" />
     <None Include="..\src\ServerData_Colosseum.lua" />
     <None Include="..\src\ServerData_Friend.lua" />
@@ -633,6 +634,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_AdventureSceneNew.lua" />
     <None Include="..\src\UI_AdventureStageButton.lua" />
     <None Include="..\src\UI_AdventureStageInfo.lua" />
+    <None Include="..\src\UI_AttendanceBasic.lua" />
+    <None Include="..\src\UI_AttendanceContinuous.lua" />
+    <None Include="..\src\UI_AttendanceSpecial.lua" />
     <None Include="..\src\UI_AutoPlaySettingPopup.lua" />
     <None Include="..\src\UI_BattleMenu.lua" />
     <None Include="..\src\UI_BlockPopup.lua" />

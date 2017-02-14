@@ -82,6 +82,9 @@ function ServerData:getInstance()
     -- 가챠
     g_gachaData = ServerData_Gacha(g_serverData)
 
+    -- 출석체크
+    g_attendanceData = ServerData_Attendance(g_serverData)
+
     return g_serverData
 end
 
@@ -356,7 +359,7 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 골드 (갱신)
     if t_added_items['gold'] then
-        self:applyServerData(t_added_items['gold'], 'user', 'gold')    
+        self:applyServerData(t_added_items['gold'], 'user', 'gold')
     end
 
     -- 우정포인트 (갱신)

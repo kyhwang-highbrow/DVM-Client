@@ -47,7 +47,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'bgSprite';
 				file_name = 'ui/frame/icon_bg_01.png';
 				color = { 255; 255; 255; };
 				opacity = 230;

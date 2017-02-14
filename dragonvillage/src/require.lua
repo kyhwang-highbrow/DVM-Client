@@ -73,6 +73,7 @@ local t_module = {
     'ServerData_Mail',
     'ServerData_Item',
     'ServerData_Gacha',
+    'ServerData_Attendance',
     'UserData',
     'DropHelper',
     'DragonAutoSetHelper',
@@ -501,6 +502,11 @@ local t_module = {
     'UI_DragonSkillLevelUpResult',
     'UI_DragonMgrRunes',
     'UI_RuneEnchantPopup',
+
+    -- UI 출석체크(attendance) 관련
+    'UI_AttendanceBasic',
+    'UI_AttendanceContinuous',
+    'UI_AttendanceSpecial',
 
     'DamageCalc',
     'IconHelper',
