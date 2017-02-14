@@ -1,5 +1,7 @@
 local PARENT = GameAuto
 
+local GAME_AUTO_AI_DELAY_TIME = 0
+
 -------------------------------------
 -- class GameAuto_Enemy
 -------------------------------------
@@ -49,4 +51,11 @@ function GameAuto_Enemy:onEvent(event_name, t_event, ...)
     if (event_name == 'enemy_active_skill') then
         self.m_aiDelayTime = GAME_AUTO_AI_DELAY_TIME
     end
+end
+
+-------------------------------------
+-- function getAiDelayTime
+-------------------------------------
+function GameAuto_Enemy:getAiDelayTime()
+    return GAME_AUTO_AI_DELAY_TIME
 end

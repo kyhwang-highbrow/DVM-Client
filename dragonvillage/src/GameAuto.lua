@@ -11,7 +11,7 @@ GAME_AUTO_AI_TAMER__SKILL_1 = 1
 GAME_AUTO_AI_TAMER__SKILL_2 = 2
 GAME_AUTO_AI_TAMER__SKILL_3 = 3
 
-GAME_AUTO_AI_DELAY_TIME = 2.5
+local GAME_AUTO_AI_DELAY_TIME = 2.5
 
 -------------------------------------
 -- class GameAuto
@@ -31,7 +31,7 @@ function GameAuto:init(world)
 
     self.m_bActive = false
 
-    self.m_aiDelayTime = GAME_AUTO_AI_DELAY_TIME
+    self.m_aiDelayTime = self:getAiDelayTime()
 
     self.m_tCastingEnemyList = {}
 end
@@ -105,7 +105,7 @@ function GameAuto:proccess_dragon()
                     self:doSkill(dragon, t_skill, target)
 
                     -- AI 딜레이 시간 설정
-                    self.m_aiDelayTime = GAME_AUTO_AI_DELAY_TIME
+                    self.m_aiDelayTime = self:getAiDelayTime()
 
                     -- 해당 대상을 리스트에서 제외시킴(한 대상에게 여러번 스킬 사용이 되지 않도록 하기 위함)
                     local idx = table.find(self.m_tCastingEnemyList, target)
@@ -296,4 +296,11 @@ end
 -- function onEvent
 -------------------------------------
 function GameAuto:onEvent(event_name, t_event, ...)
+end
+
+-------------------------------------
+-- function getAiDelayTime
+-------------------------------------
+function GameAuto:getAiDelayTime()
+    return GAME_AUTO_AI_DELAY_TIME
 end
