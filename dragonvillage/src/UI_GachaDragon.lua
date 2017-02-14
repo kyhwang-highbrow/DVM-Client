@@ -103,7 +103,7 @@ function UI_GachaDragon:click_regularDrawBtn1()
     local function finish_cb(ret)
         self:refresh()
         local l_dragon_list = ret['added_dragons']
-        UI_DragonGachaResult(l_dragon_list)
+        UI_GachaResult_Dragon(l_dragon_list)
     end
 
     g_gachaData:request_dragonGachaNormalMulti(finish_cb)
@@ -118,7 +118,7 @@ function UI_GachaDragon:click_regularDrawBtn2()
     local function finish_cb(ret)
         self:refresh()
         local l_dragon_list = ret['added_dragons']
-        UI_DragonGachaResult(l_dragon_list)
+        UI_GachaResult_Dragon(l_dragon_list)
     end
 
     g_gachaData:request_dragonGachaNormal(finish_cb)
@@ -133,7 +133,7 @@ function UI_GachaDragon:click_premiumDrawBtn1()
     local function finish_cb(ret)
         self:refresh()
         local l_dragon_list = ret['added_dragons']
-        UI_DragonGachaResult(l_dragon_list)
+        UI_GachaResult_Dragon(l_dragon_list)
     end
 
     g_gachaData:request_dragonGachaPremiumMulti(finish_cb)
@@ -148,7 +148,7 @@ function UI_GachaDragon:click_premiumDrawBtn2()
     local function finish_cb(ret)
         self:refresh()
         local l_dragon_list = ret['added_dragons']
-        UI_DragonGachaResult(l_dragon_list)
+        UI_GachaResult_Dragon(l_dragon_list)
     end
 
     g_gachaData:request_dragonGachaPremium(finish_cb)

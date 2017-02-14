@@ -401,7 +401,7 @@ function UI_ProductButton:tempBuy(product_id)
 
         if (value_type == 'card') then
             local l_dragon_list = t_data
-            UI_DragonGachaResult(l_dragon_list)
+            UI_GachaResult_Dragon(l_dragon_list)
         end
     end
 

@@ -649,7 +649,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonDetailPopup.lua" />
     <None Include="..\src\UI_DragonDevApiPopup.lua" />
     <None Include="..\src\UI_DragonExceedResult.lua" />
-    <None Include="..\src\UI_DragonGachaResult.lua" />
     <None Include="..\src\UI_DragonGoodbye.lua" />
     <None Include="..\src\UI_DragonManageEvolutionResult.lua" />
     <None Include="..\src\UI_DragonManageFriendshipResult.lua" />
@@ -685,6 +684,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_FruitFeedPress.lua" />
     <None Include="..\src\UI_GachaBox.lua" />
     <None Include="..\src\UI_GachaDragon.lua" />
+    <None Include="..\src\UI_GachaResult_Dragon.lua" />
+    <None Include="..\src\UI_GachaResult_Rune.lua" />
     <None Include="..\src\UI_Game.lua" />
     <None Include="..\src\UI_GameColosseum.lua" />
     <None Include="..\src\UI_GamePause_Colosseum.lua" />

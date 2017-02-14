@@ -158,7 +158,7 @@ function UI_MailPopup:click_rewardBtn(t_mail_data)
 			if (g_mailData:checkTicket(t_mail_data)) then
 				-- 확정권 사용시 (임시 처리 @TODO)
 				if (#ret['added_items']['dragons'] > 0) then
-					UI_DragonGachaResult(ret['added_items']['dragons'])
+					UI_GachaResult_Dragon(ret['added_items']['dragons'])
 				else
 					UI_RewardPopup(ret['added_items']['runes'])
 				end

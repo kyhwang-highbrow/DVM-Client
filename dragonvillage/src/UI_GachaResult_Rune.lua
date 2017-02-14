@@ -1,9 +1,9 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_DragonGachaResult
+-- class UI_GachaResult_Rune
 -------------------------------------
-UI_DragonGachaResult = class(PARENT, ITopUserInfo_EventListener:getCloneTable(),{
+UI_GachaResult_Rune = class(PARENT, ITopUserInfo_EventListener:getCloneTable(),{
         m_lNumberLabel = 'list',
         m_lGachaDragonList = 'list',
      })
@@ -11,14 +11,14 @@ UI_DragonGachaResult = class(PARENT, ITopUserInfo_EventListener:getCloneTable(),
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonGachaResult:init(l_gacha_dragon_list)
+function UI_GachaResult_Rune:init(l_gacha_dragon_list)
     self.m_lGachaDragonList = clone(l_gacha_dragon_list)
 
     local vars = self:load('gacha_result.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonGachaResult')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_GachaResult_Rune')
 
     vars['okBtn']:registerScriptTapHandler(function() self:refresh() end)
 
@@ -29,23 +29,23 @@ end
 -- function initParentVariable
 -- @brief
 -------------------------------------
-function UI_DragonGachaResult:initParentVariable()
+function UI_GachaResult_Rune:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_DragonGachaResult'
+    self.m_uiName = 'UI_GachaResult_Rune'
     self.m_bUseExitBtn = false
 end
 
 -------------------------------------
 -- function click_exitBtn
 -------------------------------------
-function UI_DragonGachaResult:click_exitBtn()
+function UI_GachaResult_Rune:click_exitBtn()
     self:close()
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_DragonGachaResult:refresh()
+function UI_GachaResult_Rune:refresh()
     if (#self.m_lGachaDragonList <= 0) then
         self:close()
         return
@@ -132,7 +132,7 @@ end
 -- function refresh_status
 -- @brief 능력치 정보 갱신
 -------------------------------------
-function UI_DragonGachaResult:refresh_status(t_dragon, evolution)
+function UI_GachaResult_Rune:refresh_status(t_dragon, evolution)
     local vars = self.vars
     local dragon_id = t_dragon['did']
     local lv = 1

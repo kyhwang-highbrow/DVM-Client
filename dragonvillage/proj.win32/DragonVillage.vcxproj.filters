@@ -741,9 +741,6 @@
     <None Include="..\src\UI_DragonDevApiPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_DragonGachaResult.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_DragonManage_Base.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1618,6 +1615,12 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_AttendanceBasic.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GachaResult_Dragon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GachaResult_Rune.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
