@@ -18,7 +18,7 @@ blessing,buff,축복,res/effect/effect_blessing/effect_blessing.vrp,res/ui/icon/
 quickly,buff,회피,res/effect/effect_quickly/effect_quickly.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,10,20,x,x,{1}초 동안 {2}만큼 회피 증가,x
 attr_strengthen,buff,속성 강화,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,0,0,100,0,0,0,10,20,0,0,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
 attr_weaken,buff,속성 약화,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_down.png,o,false,1,10,0,0,0,0,0,0,0,0,0,0,-100,0,0,0,10,20,0,0,10,x,x,x,{1}초 동안 {2}만큼 회피 증가,x
-attr_change,buff,속성 변환,res/effect/skill_pharaohdragon_eye/skill_pharaohdragon_eye.vrp,res/ui/icon/status_effect/electric_shock.png,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,0,0,0,x,x,x,x,x,x
+attr_change,buff,속성 변환,res/effect/effect_wedjat/effect_wedjat.vrp,res/ui/icon/status_effect/electric_shock.png,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,0,0,0,x,x,x,x,x,x
 attr_change_earth,buff,속성 변환:땅,x,x,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,earth,0,0,0,x,x,x,x,x,x
 attr_change_water,buff,속성 변환:물,x,x,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,water,0,0,0,x,x,x,x,x,x
 attr_change_fire,buff,속성 변환:불,x,x,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,fire,0,0,0,x,x,x,x,x,x

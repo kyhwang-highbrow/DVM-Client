@@ -176,8 +176,10 @@ EnemyMovementMgr = class({
 
         self.m_mMovementList = {}
 
-        for k, v in pairs(t_movement) do
-            self:addMovement(k, v)
+        for k, list in pairs(t_movement) do
+            local rand = math_random(#list)
+            local t_data = list[rand]
+            self:addMovement(k, t_data['list'])
         end
     end
 
