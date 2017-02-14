@@ -396,90 +396,323 @@
 	{
 		1:
 		[
-			"wait;7",
-			"relation_1_1;0.5", "wait;10",
-			"relation_1_2;0.5", "wait;10",
-			"relation_1_0;0.5",	"wait;3"
+			[
+				"wait;7",
+				"relation_1_1;0.5", "wait;10",
+				"relation_1_2;0.5", "wait;10",
+				"relation_1_0;0.5",	"wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_1_2;0.5", "wait;10",
+				"relation_1_1;0.5", "wait;10",
+				"relation_1_0;0.5",	"wait;3"
+			]
 		],
 		
 		2:
 		[
-			"relation_2_1;3", 
-			"relation_2_2;3", 
-			"relation_2_0;3"
+			[
+				"relation_2_1;3", 
+				"relation_2_2;3", 
+				"relation_2_0;3"
+			],
+			
+			[
+				"relation_2_2;3", 
+				"relation_2_1;3", 
+				"relation_2_0;3"
+			]
 		],
-		
+	
 		3:
 		[
-			"wait;7",
-			"relation_3_1;0.5", "wait;10",
-			"relation_3_2;0.5", "wait;10",
-			"relation_3_0;0.5", "wait;3" 
+			[
+				"wait;7",
+				"relation_3_1;0.5", "wait;10",
+				"relation_3_2;0.5", "wait;10",
+				"relation_3_0;0.5", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_3_2;0.5", "wait;10",
+				"relation_3_1;0.5", "wait;10",
+				"relation_3_0;0.5", "wait;3"
+			]
 		],
-		
+	
 		4:
 		[
-			"relation_4_1;4", 
-			"relation_4_2;4", 
-			"relation_4_3;4",
-			"relation_4_0;4"
+			[
+				"relation_4_1;4", 
+				"relation_4_2;4", 
+				"relation_4_3;4",
+				"relation_4_0;4"
+			],
+			
+			[
+				"relation_4_1;4", 
+				"relation_4_3;4",
+				"relation_4_2;4", 
+				"relation_4_0;4"
+			]
 		],
-		
+	
 		5:
 		[
-			"wait;7",
-			"relation_5_1;0.5", "wait;10",
-			"relation_5_2;0.5", "wait;10",
-			"relation_5_3;0.5", "wait;10",
-			"relation_5_0;0.5", "wait;3"
+			[
+				"wait;7",
+				"relation_5_1;0.5", "wait;10",
+				"relation_5_2;0.5", "wait;10",
+				"relation_5_3;0.5", "wait;10",
+				"relation_5_0;0.5", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_5_1;0.5", "wait;10",
+				"relation_5_3;0.5", "wait;10",
+				"relation_5_2;0.5", "wait;10",
+				"relation_5_0;0.5", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_5_2;0.5", "wait;10",
+				"relation_5_1;0.5", "wait;10",
+				"relation_5_3;0.5", "wait;10",
+				"relation_5_0;0.5", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_5_2;0.5", "wait;10",
+				"relation_5_3;0.5", "wait;10",
+				"relation_5_1;0.5", "wait;10",
+				"relation_5_0;0.5", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_5_3;0.5", "wait;10",
+				"relation_5_1;0.5", "wait;10",
+				"relation_5_2;0.5", "wait;10",
+				"relation_5_0;0.5", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_5_3;0.5", "wait;10",
+				"relation_5_2;0.5", "wait;10",
+				"relation_5_1;0.5", "wait;10",
+				"relation_5_0;0.5", "wait;3"
+			]
 		],
-		
+	
 		6:
 		[
-			"wait;4",
-			"relation_6_1;3", "wait;7",
-			"relation_6_2;3", "wait;7",
-			"relation_6_3;3", "wait;7",
-			"relation_6_0;3", "wait;3"
+			[
+				"wait;4",
+				"relation_6_1;3", "wait;7",
+				"relation_6_2;3", "wait;7",
+				"relation_6_3;3", "wait;7",
+				"relation_6_0;3", "wait;3"
+			],
+			
+			[
+				"wait;4",
+				"relation_6_1;3", "wait;7",
+				"relation_6_3;3", "wait;7",
+				"relation_6_2;3", "wait;7",
+				"relation_6_0;3", "wait;3"
+			],
+			
+			[
+				"wait;4",
+				"relation_6_2;3", "wait;7",
+				"relation_6_1;3", "wait;7",
+				"relation_6_3;3", "wait;7",
+				"relation_6_0;3", "wait;3"
+			],
+			
+			[
+				"wait;4",
+				"relation_6_2;3", "wait;7",
+				"relation_6_3;3", "wait;7",
+				"relation_6_1;3", "wait;7",
+				"relation_6_0;3", "wait;3"
+			],
+			
+			[
+				"wait;4",
+				"relation_6_3;3", "wait;7",
+				"relation_6_1;3", "wait;7",
+				"relation_6_2;3", "wait;7",
+				"relation_6_0;3", "wait;3"
+			],
+			
+			[
+				"wait;4",
+				"relation_6_3;3", "wait;7",
+				"relation_6_2;3", "wait;7",
+				"relation_6_1;3", "wait;7",
+				"relation_6_0;3", "wait;3"
+			]
 		],
-		
+	
 		7:
 		[
-			"wait;7",
-			"relation_7_1;0.5", "wait;10",
-			"relation_7_2;0.5", "wait;10",
-			"relation_7_3;0.5", "wait;10",
-			"relation_7_0;0.5", "wait;3"
+			[
+				"wait;7",
+				"relation_7_1;0.5", "wait;10",
+				"relation_7_2;0.5", "wait;10",
+				"relation_7_3;0.5", "wait;10",
+				"relation_7_0;0.5", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_7_1;0.5", "wait;10",
+				"relation_7_3;0.5", "wait;10",
+				"relation_7_2;0.5", "wait;10",
+				"relation_7_0;0.5", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_7_2;0.5", "wait;10",
+				"relation_7_1;0.5", "wait;10",
+				"relation_7_3;0.5", "wait;10",
+				"relation_7_0;0.5", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_7_2;0.5", "wait;10",
+				"relation_7_3;0.5", "wait;10",
+				"relation_7_1;0.5", "wait;10",
+				"relation_7_0;0.5", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_7_3;0.5", "wait;10",
+				"relation_7_1;0.5", "wait;10",
+				"relation_7_2;0.5", "wait;10",
+				"relation_7_0;0.5", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_7_3;0.5", "wait;10",
+				"relation_7_2;0.5", "wait;10",
+				"relation_7_1;0.5", "wait;10",
+				"relation_7_0;0.5", "wait;3"
+			]
 		],
-		
+	
 		8:
 		[
-			"wait;7",
-			"relation_8_1;0.5", "wait;5",
-			"relation_8_2;3", "wait;10",
-			"relation_8_3;0.5", "wait;1", "relation_8_4;4", "relation_8_3;4", "relation_8_4;4", "wait;1",
-			"relation_8_0;0.5",	"wait;3"
+			[
+				"wait;7",
+				"relation_8_1;0.5", "wait;5",
+				"relation_8_2;3", "wait;10",
+				"relation_8_3;0.5", "wait;1", "relation_8_4;4", "relation_8_3;4", "relation_8_4;4", "wait;1",
+				"relation_8_0;0.5",	"wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_8_1;0.5", "wait;5",
+				"relation_8_3;0.5", "wait;1", "relation_8_4;4", "relation_8_3;4", "relation_8_4;4", "wait;1",
+				"relation_8_2;3", "wait;10",
+				"relation_8_0;0.5",	"wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_8_2;3", "wait;10",
+				"relation_8_1;0.5", "wait;5",
+				"relation_8_3;0.5", "wait;1", "relation_8_4;4", "relation_8_3;4", "relation_8_4;4", "wait;1",
+				"relation_8_0;0.5",	"wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_8_3;0.5", "wait;1", "relation_8_4;4", "relation_8_3;4", "relation_8_4;4", "wait;1",
+				"relation_8_1;0.5", "wait;5",
+				"relation_8_2;3", "wait;10",
+				"relation_8_0;0.5",	"wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_8_3;0.5", "wait;1", "relation_8_4;4", "relation_8_3;4", "relation_8_4;4", "wait;1",
+				"relation_8_2;3", "wait;10",
+				"relation_8_1;0.5", "wait;5",
+				"relation_8_0;0.5",	"wait;3"
+			]
 		],
-		
+	
 		9:
 		[
-			"wait;7",
-			"relation_9_1;0.5", "wait;10",
-			"relation_9_2;0.5", "wait;10",
-			"relation_9_3;0.5", "wait;10",
-			"relation_9_0;0.5", "wait;3"
+			[
+				"wait;7",
+				"relation_9_1;0.5", "wait;10",
+				"relation_9_2;0.5", "wait;10",
+				"relation_9_3;0.5", "wait;10",
+				"relation_9_0;0.5", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_9_1;0.5", "wait;10",
+				"relation_9_3;0.5", "wait;10",
+				"relation_9_2;0.5", "wait;10",
+				"relation_9_0;0.5", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_9_2;0.5", "wait;10",
+				"relation_9_1;0.5", "wait;10",
+				"relation_9_3;0.5", "wait;10",
+				"relation_9_0;0.5", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_9_2;0.5", "wait;10",
+				"relation_9_3;0.5", "wait;10",
+				"relation_9_1;0.5", "wait;10",
+				"relation_9_0;0.5", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_9_3;0.5", "wait;10",
+				"relation_9_2;0.5", "wait;10",
+				"relation_9_1;0.5", "wait;10",
+				"relation_9_0;0.5", "wait;3"
+			]
 		],
-		
+	
 		10:
 		[
-			"relation_10_1;1", "relation_10_2;1", "relation_10_0;1",
-			"relation_10_1;1", "relation_10_2;1", "relation_10_0;1",
-			"relation_10_1;1", "relation_10_2;1", "relation_10_0;1"
+			[
+				"relation_10_1;1", "relation_10_2;1", "relation_10_0;1",
+				"relation_10_1;1", "relation_10_2;1", "relation_10_0;1",
+				"relation_10_1;1", "relation_10_2;1", "relation_10_0;1"
+			]
 		],
-		
+	
 		"a":
 		[
-			"wait;10", "relation_10_4;0.5", "wait;10", "relation_10_3;0.5"
+			[
+				"wait;10", "relation_10_4;0.5", "wait;10", "relation_10_3;0.5"
+			]
 		]
 	}
 }
