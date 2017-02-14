@@ -552,7 +552,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_wave_gauge.plist'<azSprite>'wave_gauge_0201.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_wave_gauge.plist'<azSprite>'wave_gauge_0205.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -580,7 +580,7 @@
 								"key_list":
 								[
 									{
-										"frame":0, "pX":-150.000000, "pY":18.000000
+										"frame":0, "pX":1.000000, "pY":18.000000
 									}
 								]
 							}
