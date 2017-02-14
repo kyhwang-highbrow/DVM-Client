@@ -156,11 +156,12 @@ function UI_MailPopup:click_rewardBtn(t_mail_data)
 			self.m_mTableView[self.m_currTab]:delItem(t_mail_data['id'])
 			
 			if (g_mailData:checkTicket(t_mail_data)) then
-				-- 확정권 사용시 (임시 처리 @TODO)
 				if (#ret['added_items']['dragons'] > 0) then
 					UI_GachaResult_Dragon(ret['added_items']['dragons'])
+				elseif (#ret['added_items']['runes'] > 0) then
+					UI_GachaResult_Rune(ret['added_items']['runes'])
 				else
-					UI_RewardPopup(ret['added_items']['runes'])
+					UI_RewardPopup()
 				end
 			else
 				UI_RewardPopup()

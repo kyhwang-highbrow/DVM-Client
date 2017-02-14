@@ -5,16 +5,16 @@ local PARENT = UI
 -------------------------------------
 UI_GachaResult_Rune = class(PARENT, ITopUserInfo_EventListener:getCloneTable(),{
         m_lNumberLabel = 'list',
-        m_lGachaDragonList = 'list',
+        m_lGachaRuneList = 'list',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_GachaResult_Rune:init(l_gacha_dragon_list)
-    self.m_lGachaDragonList = clone(l_gacha_dragon_list)
+function UI_GachaResult_Rune:init(l_gacha_rune_list)
+    self.m_lGachaRuneList = clone(l_gacha_rune_list)
 
-    local vars = self:load('gacha_result.ui')
+    local vars = self:load('item_draw_result.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- 백키 지정
@@ -46,103 +46,40 @@ end
 -- function refresh
 -------------------------------------
 function UI_GachaResult_Rune:refresh()
-    if (#self.m_lGachaDragonList <= 0) then
+	-- 더이상 리스트가 남아있지 않으면 닫음
+	if (#self.m_lGachaRuneList <= 0) then
         self:close()
         return
     end
 
-    local t_gacha_dragon = self.m_lGachaDragonList[1]
-    table.remove(self.m_lGachaDragonList, 1)
-
     local vars = self.vars
-    SoundMgr:playEffect('EFFECT', 'reward')
+    local t_rune_data = self.m_lGachaRuneList[1]
+	table.remove(self.m_lGachaRuneList, 1)
 
+	do-- 아이콘 표시
+        vars['itemNode']:setVisible(true)
+        local item = UI_RuneCard(t_rune_data)
+        vars['itemNode']:addChild(item.root)
 
-    do -- 챕터 전환 연출
-        vars['splashLayer']:setLocalZOrder(1)
-        vars['splashLayer']:setVisible(true)
-        vars['splashLayer']:stopAllActions()
-        vars['splashLayer']:setOpacity(255)
-        vars['splashLayer']:runAction(cc.Sequence:create(cc.FadeOut:create(0.5), cc.Hide:create()))
+        -- UI 반응 액션
+        cca.uiReactionSlow(item.root)
     end
 
-    local did = t_gacha_dragon['did']
-    local evolution = t_gacha_dragon['evolution']
+    local t_rune_information = t_rune_data['information']
 
-    local table_dragon = TABLE:get('dragon')
-    local t_dragon = table_dragon[did]
-    
-    -- 등급
-    vars['starVisual']:changeAni('card_star_light_1')
-
-    -- 이름
-    vars['nameLabel']:setString(Str(t_dragon['t_name']) .. '-' .. evolutionName(evolution))
-
-    do -- 능력치
-        self:refresh_status(t_dragon, evolution)
+    do -- 아이템 이름
+        local name = t_rune_information['full_name']
+        vars['itemLabel']:setString(name)
+        vars['itemLabel']:setVisible(true)
     end
 
-    do -- 희귀도
-        local rarity = t_dragon['rarity']
-        vars['rarityNode']:removeAllChildren()
-        local icon = IconHelper:getRarityIcon(rarity)
-        vars['rarityNode']:addChild(icon)
+    -- 주옵션 문자열
+    local main_option_str = TableRuneStatus:makeRuneOptionStr(t_rune_information['status']['mopt'])
+    vars['runeMainOptionLabel']:setString(main_option_str)
+    vars['runeMainOptionLabel']:setVisible(true)
 
-        vars['rarityLabel']:setString(dragonRarityName(rarity))
-    end
-
-    do -- 드래곤 속성
-        local attr = t_dragon['attr']
-        vars['attrNode']:removeAllChildren()
-        local icon = IconHelper:getAttributeIcon(attr)
-        vars['attrNode']:addChild(icon)
-
-        vars['attrLabel']:setString(dragonAttributeName(attr))
-    end
-
-    do -- 드래곤 역할(role)
-        local role_type = t_dragon['role']
-        vars['roleNode']:removeAllChildren()
-        local icon = IconHelper:getRoleIcon(role_type)
-        vars['roleNode']:addChild(icon)
-
-        vars['roleLabel']:setString(dragonRoleName(role_type))
-    end
-
-    do -- 드래곤 공격 타입(char_type)
-        local attack_type = t_dragon['char_type']
-        vars['charTypeNode']:removeAllChildren()
-        local icon = IconHelper:getAttackTypeIcon(attack_type)
-        vars['charTypeNode']:addChild(icon)
-
-        vars['charTypeLabel']:setString(dragonAttackTypeName(attack_type))
-    end
-
-    do -- 드래곤 실리소스
-        vars['dragonNode']:removeAllChildren()
-        local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
-        animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
-        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
-        vars['dragonNode']:removeAllChildren(false)
-        vars['dragonNode']:addChild(animator.m_node)
-    end
-end
-
--------------------------------------
--- function refresh_status
--- @brief 능력치 정보 갱신
--------------------------------------
-function UI_GachaResult_Rune:refresh_status(t_dragon, evolution)
-    local vars = self.vars
-    local dragon_id = t_dragon['did']
-    local lv = 1
-    local grade = 1
-    local evolution = evolution
-
-    -- 능력치 계산기
-    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution)
-
-    vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
-    vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
-    vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
+    -- 부옵션 문자열
+    local sub_option_str = TableRuneStatus:makeRuneOptionStr(t_rune_information['status']['sopt'])
+    vars['runeSubOptionLabel']:setString(sub_option_str)
+    vars['runeSubOptionLabel']:setVisible(true)
 end
