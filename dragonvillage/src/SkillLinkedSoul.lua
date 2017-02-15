@@ -61,6 +61,7 @@ function SkillLinkedSoul:initState()
     self:addState('start', SkillLinkedSoul.st_start, nil, true)
     self:addState('idle', SkillLinkedSoul.st_idle, nil, true)
     self:addState('end', SkillLinkedSoul.st_end, nil, false)
+    self:addState('dying', SkillLinkedSoul.st_dying, nil, false)
 end
 
 -------------------------------------
@@ -110,6 +111,17 @@ function SkillLinkedSoul.st_end(owner, dt)
 		-- 적당히 diappear animation이 끝난 후 동작
         owner:changeState('dying')
     end
+end
+
+-------------------------------------
+-- function st_dying
+-------------------------------------
+function SkillLinkedSoul.st_dying(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        owner:onEnd()
+    end
+
+    return Skill.st_dying(owner, dt)
 end
 
 -------------------------------------
@@ -337,9 +349,14 @@ end
 function SkillLinkedSoul:release()
     PARENT.release(self)
 
-    if self.m_barEffect then
+    if (self.m_barEffect) then
         self.m_barEffect:release()
         self.m_barEffect = nil
+    end
+
+    if (self.m_shieldEffect) then
+        self.m_shieldEffect:release()
+        self.m_shieldEffect = nil
     end
 end
 
