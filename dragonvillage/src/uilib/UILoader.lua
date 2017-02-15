@@ -496,6 +496,7 @@ local function loadNode(ui, data, vars, parent)
         if not node then
             node = cc.AzVisual:create(uiRoot .. data.file_name)
         end
+        node:loadPlistFiles('')
         node:buildSprite('')
 
         local idx = string.find(data.visual_id, ';')

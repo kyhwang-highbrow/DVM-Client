@@ -36,6 +36,8 @@ function UI_Exploration:init()
     self:initUI()
     self:initButton()
     self:refresh()
+
+    self:sceneFadeInAction()
 end
 
 -------------------------------------
@@ -54,6 +56,14 @@ end
 -- function refresh
 -------------------------------------
 function UI_Exploration:refresh()
+    local vars = self.vars
+
+    for i,v in pairs(g_explorationData.m_explorationList) do
+        local order = v['order']
+        local epr_id = v['epr_id']
+        local ui = UI_ExplorationLocationButton(epr_id)
+        vars['locationNode' .. order]:addChild(ui.root)
+    end    
 end
 
 -------------------------------------

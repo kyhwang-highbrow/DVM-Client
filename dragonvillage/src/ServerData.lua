@@ -85,6 +85,9 @@ function ServerData:getInstance()
     -- 출석체크
     g_attendanceData = ServerData_Attendance(g_serverData)
 
+    -- 탐험
+    g_explorationData = ServerData_Exploration(g_serverData)
+
     return g_serverData
 end
 

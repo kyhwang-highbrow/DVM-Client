@@ -526,7 +526,11 @@ end
 -- function click_explorationBtn
 -------------------------------------
 function UI_Lobby:click_explorationBtn()
-    UI_Exploration()
+    local function finish_cb()
+        UI_Exploration()
+    end
+
+    g_explorationData:request_explorationInfo(finish_cb)
 end
 
 -------------------------------------

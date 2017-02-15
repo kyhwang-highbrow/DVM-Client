@@ -5,7 +5,7 @@ ServerData_Attendance = class({
         m_serverData = 'ServerData',
         m_bDirtyAttendanceInfo = 'boolean',
 
-        -- ÀÏ¹İ Ãâ¼®Ã¼Å©
+        -- ê¸°ë³¸ ì¶œì„ ì²´í¬
         m_bNewAttendanceBasic = 'boolean',
         m_basicStepList = 'list',
         m_basicHelpText = 'string',
@@ -14,7 +14,7 @@ ServerData_Attendance = class({
         m_basicAddedItems = 'table',
         m_todayStep = 'number',
 
-        -- ¿¬¼Ó Ãâ¼®Ã¼Å©
+        -- ì—°ì† ì¶œì„ ì²´í¬
         m_bNewAttendanceContinuous = 'boolean',
         m_continuousStepList = 'list',
         m_continuousTitleText = 'string',
@@ -22,7 +22,7 @@ ServerData_Attendance = class({
         m_continuousAddedItems = 'table',
         m_continuousTodayStep = 'number',
 
-        -- Æ¯º° Ãâ¼®Ã¼Å©
+        -- íŠ¹ë³„ ì¶œì„ ì²´í¬
         m_bNewAttendanceSpecial = 'boolean',
         m_specialStepList = 'list',
         m_specialTitleText = 'string',
@@ -44,14 +44,14 @@ end
 
 -------------------------------------
 -- function ckechUpdateAttendanceInfo
--- @brief Ãâ¼®Á¤º¸°¡ °»½ÅµÇ¾î¾ß ÇÏ´ÂÁö Ã¼Å©
+-- @brief ì¶œì„ì²´í¬ ì •ë³´ê°€ ê°±ì‹ ë˜ì–´ì•¼í•˜ëŠ”ì§€ ì—¬ë¶€ë¥¼ í™•ì¸
 -------------------------------------
 function ServerData_Attendance:ckechUpdateAttendanceInfo()
     if self.m_bDirtyAttendanceInfo then
         return
     end
 
-    -- À¯È¿½Ã°£ µî Ã¼Å©ÇØ¼­ m_bDirtyAttendanceInfo ¼³Á¤ÇÒ °Í
+    -- ì¶”í›„ì— time stampë“±ì„ í™•ì¸í•´ì„œ ì—¬ë¶€ë¥¼ ì„¤ì •í•  ê²ƒ
     -- self.m_bDirtyAttendanceInfo = true
 end
 
@@ -59,10 +59,10 @@ end
 -- function request_attendanceInfo
 -------------------------------------
 function ServerData_Attendance:request_attendanceInfo(finish_cb)
-    -- Ãâ¼®Á¤º¸°¡ °»½ÅµÇ¾î¾ß ÇÏ´ÂÁö Ã¼Å©
+    -- ì¶œì„ì²´í¬ ì •ë³´ê°€ ê°±ì‹ ë˜ì–´ì•¼í•˜ëŠ”ì§€ ì—¬ë¶€ë¥¼ í™•ì¸
     self:ckechUpdateAttendanceInfo()
 
-    -- °»½ÅµÉ ÇÊ¿ä°¡ ¾øÀ¸¸é ¸®ÅÏ
+    -- ê°±ì‹ í•  í•„ìš”ê°€ ì—†ìœ¼ë©´ ì¦‰ì‹œ ë¦¬í„´
     if (self.m_bDirtyAttendanceInfo == false) then
         if finish_cb then
             finish_cb()
@@ -70,16 +70,16 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb)
         return
     end
 
-    -- ÆÄ¶ó¹ÌÅÍ
+    -- ìœ ì € ID
     local uid = g_userData:get('uid')
 
-    -- Äİ¹é ÇÔ¼ö
+    -- ì„±ê³µ ì½œë°±
     local function success_cb(ret)
         self.m_bDirtyAttendanceInfo = false
 
         local ret = TABLE:loadJsonTable('temp_attendance_info')
 
-        -- ÀÏ¹İ Ãâ¼® º¸³Ê½º
+        -- ê¸°ë³¸ ì¶œì„ ì²´í¬ ë³´ìƒ ì •ë³´
         self.m_bNewAttendanceBasic = (not ret['attendance_basic']['received'])
         self.m_basicStepList = ret['attendance_basic']['step_list']
         self.m_basicHelpText = ret['attendance_basic']['help_text']
@@ -88,7 +88,7 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb)
         self.m_basicAddedItems = ret['attendance_basic']['added_items']
         self.m_todayStep = ret['attendance_basic']['today_step']
 
-        -- ¿¬¼Ó Ãâ¼® º¸³Ê½º
+        -- ì—°ì† ì¶œì„ ì²´í¬ ë³´ìƒ
         self.m_bNewAttendanceContinuous = (not ret['attendance_continuous']['received'])
         self.m_continuousStepList = ret['attendance_continuous']['step_list']
         self.m_continuousTitleText = ret['attendance_continuous']['title_text']
@@ -96,7 +96,7 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb)
         self.m_continuousAddedItems = ret['attendance_continuous']['added_items']
         self.m_continuousTodayStep = ret['attendance_continuous']['today_step']
 
-        -- Æ¯º° Ãâ¼® º¸³Ê½º
+        -- íŠ¹ë³„ ì¶œì„ ì²´í¬ ë³´ìƒ
         self.m_bNewAttendanceSpecial = (not ret['attendance_special']['received'])
         self.m_specialStepList = ret['attendance_special']['step_list']
         self.m_specialTitleText = ret['attendance_special']['title_text']
@@ -111,12 +111,12 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb)
         end
     end
 
-    -- ³×Æ®¿öÅ© Åë½Å UI »ı¼º
+    -- ë„¤íŠ¸ì›Œí¬ í†µì‹ 
     local ui_network = UI_Network()
     ui_network:setUrl('/get_patch_info')
     ui_network:setParam('uid', uid)
     ui_network:setParam('app_ver', '0.0.0')
-    ui_network:setMethod('GET') -- ÆĞÄ¡ Á¤º¸·Î ÀÓ½Ã »ç¿ëÇÏ±âÀ§ÇØ Ãß°¡
+    ui_network:setMethod('GET') -- ì„ì‹œë¡œ íŒ¨ì¹˜ ì¸í¬ í†µì‹ ì„ ì‚¬ìš©í•˜ê¸° ìœ„í•´ getìœ¼ë¡œ ì„¤ì •
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(false)
     ui_network:setReuse(false)
