@@ -4,262 +4,374 @@ size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-nuri_acc_01
-  rotate: false
-  xy: 2, 2
-  size: 30, 41
-  orig: 30, 41
-  offset: 0, 0
-  index: -1
-nuri_acc_02
+nuri_acce_01
   rotate: true
-  xy: 337, 781
-  size: 14, 30
-  orig: 14, 30
+  xy: 912, 853
+  size: 29, 38
+  orig: 29, 38
   offset: 0, 0
   index: -1
-nuri_acc_03
+nuri_acce_02
+  rotate: true
+  xy: 952, 853
+  size: 29, 38
+  orig: 29, 38
+  offset: 0, 0
+  index: -1
+nuri_acce_03
   rotate: false
-  xy: 34, 26
-  size: 17, 17
-  orig: 17, 17
+  xy: 992, 853
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+nuri_acce_04
+  rotate: false
+  xy: 622, 784
+  size: 30, 29
+  orig: 30, 29
   offset: 0, 0
   index: -1
 nuri_arm_01
   rotate: false
-  xy: 95, 373
-  size: 51, 70
-  orig: 51, 70
+  xy: 518, 796
+  size: 34, 52
+  orig: 34, 52
   offset: 0, 0
   index: -1
 nuri_arm_02
   rotate: true
-  xy: 488, 869
-  size: 41, 53
-  orig: 41, 53
+  xy: 622, 815
+  size: 24, 38
+  orig: 24, 38
+  offset: 0, 0
+  index: -1
+nuri_arm_03
+  rotate: true
+  xy: 770, 852
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+nuri_arm_04
+  rotate: true
+  xy: 358, 685
+  size: 30, 46
+  orig: 30, 46
   offset: 0, 0
   index: -1
 nuri_body_01
   rotate: true
-  xy: 868, 962
-  size: 49, 60
-  orig: 49, 60
+  xy: 271, 422
+  size: 55, 78
+  orig: 55, 78
   offset: 0, 0
   index: -1
 nuri_body_02
   rotate: false
-  xy: 65, 287
-  size: 23, 55
-  orig: 23, 55
+  xy: 46, 4
+  size: 68, 42
+  orig: 68, 42
   offset: 0, 0
   index: -1
 nuri_body_03
   rotate: false
-  xy: 330, 749
-  size: 14, 30
-  orig: 14, 30
+  xy: 592, 809
+  size: 28, 38
+  orig: 28, 38
   offset: 0, 0
   index: -1
 nuri_body_04
   rotate: false
-  xy: 95, 348
-  size: 26, 23
-  orig: 26, 23
-  offset: 0, 0
-  index: -1
-nuri_brow_01
-  rotate: true
-  xy: 248, 561
-  size: 22, 17
-  orig: 22, 17
-  offset: 0, 0
-  index: -1
-nuri_brow_02
-  rotate: false
-  xy: 793, 943
-  size: 15, 11
-  orig: 15, 11
+  xy: 357, 786
+  size: 55, 53
+  orig: 55, 53
   offset: 0, 0
   index: -1
 nuri_effect_01
   rotate: false
-  xy: 2, 445
+  xy: 722, 884
   size: 146, 138
   orig: 146, 138
   offset: 0, 0
   index: -1
+nuri_effect_02
+  rotate: true
+  xy: 269, 479
+  size: 96, 86
+  orig: 96, 86
+  offset: 0, 0
+  index: -1
+nuri_effect_03
+  rotate: false
+  xy: 2, 270
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+nuri_effect_04
+  rotate: false
+  xy: 232, 841
+  size: 163, 181
+  orig: 163, 181
+  offset: 0, 0
+  index: -1
+nuri_effect_05
+  rotate: false
+  xy: 46, 136
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
+nuri_effect_06
+  rotate: false
+  xy: 2, 432
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+nuri_effect_07
+  rotate: false
+  xy: 2, 606
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+nuri_effect_08
+  rotate: false
+  xy: 397, 850
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+nuri_effect_09
+  rotate: false
+  xy: 2, 808
+  size: 228, 214
+  orig: 228, 214
+  offset: 0, 0
+  index: -1
+nuri_effect_10
+  rotate: false
+  xy: 571, 876
+  size: 149, 146
+  orig: 149, 146
+  offset: 0, 0
+  index: -1
+nuri_effect_11
+  rotate: false
+  xy: 870, 884
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+nuri_effect_12
+  rotate: false
+  xy: 2, 21
+  size: 42, 247
+  orig: 42, 247
+  offset: 0, 0
+  index: -1
 nuri_eye_01
   rotate: false
-  xy: 193, 511
-  size: 21, 23
-  orig: 21, 23
+  xy: 571, 849
+  size: 56, 25
+  orig: 56, 25
   offset: 0, 0
   index: -1
 nuri_eye_02
   rotate: false
-  xy: 543, 887
-  size: 21, 23
-  orig: 21, 23
+  xy: 817, 861
+  size: 48, 21
+  orig: 48, 21
   offset: 0, 0
   index: -1
 nuri_eye_03
   rotate: false
-  xy: 639, 912
-  size: 45, 17
-  orig: 45, 17
+  xy: 867, 861
+  size: 43, 21
+  orig: 43, 21
   offset: 0, 0
   index: -1
 nuri_face_01
-  rotate: false
-  xy: 2, 344
-  size: 91, 99
-  orig: 91, 99
+  rotate: true
+  xy: 19, 6
+  size: 13, 14
+  orig: 13, 14
   offset: 0, 0
   index: -1
 nuri_foot_01
   rotate: false
-  xy: 150, 502
-  size: 41, 81
-  orig: 41, 81
+  xy: 684, 835
+  size: 41, 39
+  orig: 41, 39
   offset: 0, 0
   index: -1
 nuri_foot_02
-  rotate: true
-  xy: 199, 585
-  size: 41, 68
-  orig: 41, 68
+  rotate: false
+  xy: 727, 847
+  size: 41, 35
+  orig: 41, 35
+  offset: 0, 0
+  index: -1
+nuri_hair_00
+  rotate: false
+  xy: 414, 792
+  size: 61, 56
+  orig: 61, 56
   offset: 0, 0
   index: -1
 nuri_hair_01
   rotate: false
-  xy: 2, 259
-  size: 61, 83
-  orig: 61, 83
+  xy: 204, 577
+  size: 109, 103
+  orig: 109, 103
   offset: 0, 0
   index: -1
 nuri_hair_02
+  rotate: true
+  xy: 358, 717
+  size: 67, 50
+  orig: 67, 50
+  offset: 0, 0
+  index: -1
+nuri_hair_03
   rotate: false
-  xy: 150, 452
-  size: 41, 48
-  orig: 41, 48
+  xy: 204, 682
+  size: 111, 102
+  orig: 111, 102
+  offset: 0, 0
+  index: -1
+nuri_hair_04
+  rotate: false
+  xy: 477, 797
+  size: 39, 51
+  orig: 39, 51
+  offset: 0, 0
+  index: -1
+nuri_hair_05
+  rotate: false
+  xy: 204, 786
+  size: 22, 20
+  orig: 22, 20
+  offset: 0, 0
+  index: -1
+nuri_hair_06
+  rotate: false
+  xy: 654, 789
+  size: 22, 20
+  orig: 22, 20
   offset: 0, 0
   index: -1
 nuri_hand_01
+  rotate: false
+  xy: 684, 804
+  size: 32, 29
+  orig: 32, 29
+  offset: 0, 0
+  index: -1
+nuri_hand_02
+  rotate: false
+  xy: 554, 782
+  size: 32, 27
+  orig: 32, 27
+  offset: 0, 0
+  index: -1
+nuri_hand_03
+  rotate: false
+  xy: 176, 581
+  size: 21, 23
+  orig: 21, 23
+  offset: 0, 0
+  index: -1
+nuri_hand_04
+  rotate: false
+  xy: 588, 783
+  size: 32, 24
+  orig: 32, 24
+  offset: 0, 0
+  index: -1
+nuri_hand_05
   rotate: true
-  xy: 269, 603
-  size: 23, 55
-  orig: 23, 55
+  xy: 662, 811
+  size: 28, 20
+  orig: 28, 20
   offset: 0, 0
   index: -1
 nuri_head_01
-  rotate: true
-  xy: 488, 912
-  size: 99, 149
-  orig: 99, 149
-  offset: 0, 0
-  index: -1
-nuri_i_effect_01
   rotate: false
-  xy: 2, 781
-  size: 333, 230
-  orig: 333, 230
-  offset: 0, 0
-  index: -1
-nuri_i_effect_02
-  rotate: false
-  xy: 337, 864
-  size: 149, 147
-  orig: 149, 147
-  offset: 0, 0
-  index: -1
-nuri_i_effect_05
-  rotate: false
-  xy: 639, 931
-  size: 84, 80
-  orig: 84, 80
-  offset: 0, 0
-  index: -1
-nuri_i_effect_06
-  rotate: false
-  xy: 725, 941
-  size: 66, 70
-  orig: 66, 70
-  offset: 0, 0
-  index: -1
-nuri_i_effect_08
-  rotate: true
-  xy: 337, 797
-  size: 65, 142
-  orig: 65, 142
-  offset: 0, 0
-  index: -1
-nuri_i_effect_15
-  rotate: false
-  xy: 2, 585
-  size: 195, 194
-  orig: 195, 194
-  offset: 0, 0
-  index: -1
-nuri_leg_01
-  rotate: false
-  xy: 2, 182
-  size: 58, 75
-  orig: 58, 75
-  offset: 0, 0
-  index: -1
-nuri_leg_02
-  rotate: false
-  xy: 2, 45
-  size: 49, 60
-  orig: 49, 60
-  offset: 0, 0
-  index: -1
-nuri_leg_03
-  rotate: false
-  xy: 974, 989
-  size: 15, 22
-  orig: 15, 22
-  offset: 0, 0
-  index: -1
-nuri_leg_04
-  rotate: false
-  xy: 65, 263
-  size: 15, 22
-  orig: 15, 22
+  xy: 176, 476
+  size: 91, 99
+  orig: 91, 99
   offset: 0, 0
   index: -1
 nuri_lowbody_01
   rotate: false
-  xy: 199, 628
-  size: 129, 151
-  orig: 129, 151
+  xy: 116, 9
+  size: 67, 37
+  orig: 67, 37
   offset: 0, 0
   index: -1
-nuri_lowbody_02
-  rotate: false
-  xy: 793, 956
-  size: 73, 55
-  orig: 73, 55
-  offset: 0, 0
-  index: -1
-nuri_lowbody_03
+nuri_reg_01
   rotate: true
-  xy: 2, 107
-  size: 73, 55
-  orig: 73, 55
+  xy: 46, 48
+  size: 86, 135
+  orig: 86, 135
+  offset: 0, 0
+  index: -1
+nuri_reg_02
+  rotate: true
+  xy: 232, 786
+  size: 53, 123
+  orig: 53, 123
+  offset: 0, 0
+  index: -1
+nuri_reg_03
+  rotate: false
+  xy: 317, 692
+  size: 39, 92
+  orig: 39, 92
+  offset: 0, 0
+  index: -1
+nuri_reg_04
+  rotate: true
+  xy: 176, 433
+  size: 41, 93
+  orig: 41, 93
+  offset: 0, 0
+  index: -1
+nuri_sholder_01
+  rotate: false
+  xy: 554, 811
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+nuri_sholder_02
+  rotate: true
+  xy: 727, 827
+  size: 18, 22
+  orig: 18, 22
   offset: 0, 0
   index: -1
 nuri_wepon_01
   rotate: false
-  xy: 193, 536
-  size: 53, 47
-  orig: 53, 47
+  xy: 629, 841
+  size: 53, 33
+  orig: 53, 33
   offset: 0, 0
   index: -1
 nuri_wepon_02
   rotate: false
-  xy: 930, 974
-  size: 42, 37
-  orig: 42, 37
+  xy: 2, 6
+  size: 15, 13
+  orig: 15, 13
+  offset: 0, 0
+  index: -1
+nuri_wepon_03
+  rotate: false
+  xy: 751, 832
+  size: 15, 13
+  orig: 15, 13
   offset: 0, 0
   index: -1
