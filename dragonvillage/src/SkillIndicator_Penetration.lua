@@ -26,7 +26,8 @@ function SkillIndicator_Penetration:init(hero, t_skill)
 	
 	self.m_skillLineGap = nil
 
-	self.m_indicatorScale = t_skill['res_scale']
+	self.m_indicatorScale = (self.m_skillLineSize / 150)
+
 	self.m_indicatorAngleLimit = PENERATION_ANGLE_LIMIT
 	self.m_indicatorDistanceLimit = PENERATION_DIST_LIMIT
 
@@ -95,7 +96,7 @@ function SkillIndicator_Penetration:initIndicatorNode()
 	-- 인디케이터 다발
     for i = 1, self.m_skillLineNum do
         local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
-		indicator.m_node:setScale(0.1, 2.5)
+		indicator.m_node:setScale(self.m_indicatorScale, 2.5)
 		indicator.m_node:setColor(COLOR_CYAN)
 		indicator:setTimeScale(5)
         root_node:addChild(indicator.m_node)
