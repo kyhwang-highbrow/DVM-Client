@@ -7,6 +7,58 @@
 		{
 			[1] =
 			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 120;
+				height = 120;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'bgSprite';
+				file_name = 'ui/frame/attendance_bg_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[2] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 120;
+				height = 120;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'specialBgSprite';
+				file_name = 'ui/frame/attendance_bg_0102.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[3] =
+			{
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
@@ -24,12 +76,12 @@
 				visible = true;
 				lua_name = 'itemNode';
 			};
-			[2] =
+			[4] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 4.000000;
-				y = 0.000000;
+				y = -2.000000;
 				dock_point = { 0.000000; 1.000000; };
 				anchor_point = { 0.000000; 1.000000; };
 				relative_size_type = 0;
@@ -47,7 +99,7 @@
 				text = '{0}일 차';
 				h_alignment = 0;
 				v_alignment = 1;
-				color = { 240; 215; 159; };
+				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 102;
 				dimension_height = 30;
@@ -64,14 +116,14 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[3] =
+			[5] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 1.000000; 0.000000; };
-				anchor_point = { 1.000000; 0.000000; };
+				y = 6.000000;
+				dock_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
 				width = 102;
 				height = 30;
@@ -85,7 +137,7 @@
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
 				text = '{0}';
-				h_alignment = 2;
+				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 215; 0; };
 				opacity = 255;
@@ -104,7 +156,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[4] =
+			[6] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -113,8 +165,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 62;
-				height = 62;
+				width = 120;
+				height = 120;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -137,8 +189,8 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 110;
-			height = 110;
+			width = 120;
+			height = 120;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
