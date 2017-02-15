@@ -257,7 +257,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	----------- 특이한 해제 조건을 가진 것들 ------------------
 	elseif isExistValue(status_effect_type, 'sleep') then
 		status_effect = StatusEffect_Trigger_Release(res)
-		status_effect:init_trigger(char, 'undergo_attack', nil)
+		status_effect:init_trigger(char, 'undergo_attack', {status_effect_type = status_effect_type, status_effect_value = status_effect_value, status_effect_rate = status_effect_rate})
 	
 	----------- 침묵 ------------------
 	elseif (status_effect_type == 'silence') then

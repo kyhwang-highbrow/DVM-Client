@@ -73,11 +73,7 @@ end
 -------------------------------------
 function StatusEffect_Trigger:getTriggerFunction()
 	local t_skill = self.m_subData
-    if (not t_skill) then
-        error('statusEffectName = ' .. self.m_statusEffectName)
-    end
-
-	local char = self.m_owner
+    local char = self.m_owner
 	local trigger_func = nil
 
 	if (t_skill['type'] == 'skill_summon_die') then

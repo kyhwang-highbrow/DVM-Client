@@ -673,7 +673,7 @@ function Dragon:initActiveSkillCoolTime(percentage)
     if (self.m_bLeftFormation) then
         self.m_activeSkillTimer = 100
     else
-        self.m_activeSkillTimer = math_random(0, 90)
+        self.m_activeSkillTimer = self.m_activeSkillCoolTime / 100 * math_random(1, 100)
     end
 
     if (percentage) then
