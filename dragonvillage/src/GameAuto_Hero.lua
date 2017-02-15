@@ -111,7 +111,7 @@ function GameAuto_Hero:proccess_tamer()
         tamerSkillSystem:click_tamerSkillBtn(tamerSkillIdx)
 
         -- AI 딜레이 시간 설정
-        self.m_aiDelayTime = GAME_AUTO_AI_DELAY_TIME
+        self.m_aiDelayTime = self:getAiDelayTime()
 
         return true
     end
@@ -167,7 +167,7 @@ function GameAuto_Hero:onEvent(event_name, t_event, ...)
         table.insert(self.m_tCastingEnemyList, enemy)
         
     elseif (event_name == 'hero_active_skill') then
-        self.m_aiDelayTime = GAME_AUTO_AI_DELAY_TIME
+        self.m_aiDelayTime = self:getAiDelayTime()
         
     elseif (event_name == 'fever_attack') then
         self.m_aiFeverDelayTime = AI_FEVER_DELAY_TIME

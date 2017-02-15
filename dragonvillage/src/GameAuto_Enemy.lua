@@ -49,7 +49,7 @@ end
 -------------------------------------
 function GameAuto_Enemy:onEvent(event_name, t_event, ...)
     if (event_name == 'enemy_active_skill') then
-        self.m_aiDelayTime = GAME_AUTO_AI_DELAY_TIME
+        self.m_aiDelayTime = self:getAiDelayTime()
     end
 end
 

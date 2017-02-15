@@ -91,14 +91,6 @@ function UI_SecretDungeonStageListItem:update(dt)
     if (self.m_remainTimeText ~= text) then
         self.m_remainTimeText = text
         self.vars['timeLabel']:setString(text)
-        
-        do -- 텍스트 변경됨을 알리는 액션
-            self.vars['timeLabel']:stopAllActions()
-            local start_action = cc.MoveTo:create(0.05, cc.p(-20, -223))
-            local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.5, cc.p(0, -223)), 0.2)
-            self.vars['timeLabel']:runAction(cc.Sequence:create(start_action, end_action))
-        end
-        
     end
 end
 
