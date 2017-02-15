@@ -1632,6 +1632,9 @@
     <None Include="..\src\UI_AttendanceSpecialListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_TamerInfoPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
