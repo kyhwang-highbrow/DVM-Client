@@ -519,7 +519,8 @@ end
 -- function click_tamerBtn
 -------------------------------------
 function UI_Lobby:click_tamerBtn()
-    UI_TamerInfoPopup()
+    local ui = UI_TamerInfoPopup()
+	ui:setCloseCB(function() self:refresh_lobbyUsers() end)
 end
 
 -------------------------------------

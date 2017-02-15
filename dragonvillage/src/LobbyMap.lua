@@ -374,7 +374,8 @@ function LobbyMap:makeLobbyTamerBot(t_user_info)
         tamer = LobbyTamerBot(t_user_info)
     else
         tamer = LobbyTamer(t_user_info)
-        res = 'res/character/tamer/nuri/nuri.spine'
+		t_tamer_info = g_userData:getTamerInfo()
+        res = t_tamer_info['res_sd']
     end
 
 	tamer:initAnimator(res)

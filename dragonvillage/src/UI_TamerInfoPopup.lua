@@ -1,19 +1,10 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
--- table_tamer가 나중에 대체할것
-local TAMER_LIST = {
-	{res = 'res/character/tamer/goni_i/goni_i.spine', t_name = '고니', t_desc = '고니는 남자아이이다.'},
-	{res = 'res/character/tamer/nuri_i/nuri_i.spine', t_name = '누리', t_desc = '누리는 여자아이이다.'},
-	{res = 'res/character/tamer/leon_i/leon_i.spine', t_name = '레온', t_desc = '레온은 지금 존재하지 않는다.'},
-	{res = 'res/character/tamer/goni_i/goni_i.spine', t_name = '고니2', t_desc = '고니2는 고니의 반복이다.'},
-	{res = 'res/character/tamer/nuri_i/nuri_i.spine', t_name = '누리2', t_desc = '누리2는 누리의 반복이다.'},
-	{res = 'res/character/tamer/leon_i/leon_i.spine', t_name = '레온2', t_desc = '레온2 역시 존재하지 않는다.'},
-}
-
 -------------------------------------
 -- class UI_TamerInfoPopup
 -------------------------------------
 UI_TamerInfoPopup = class(PARENT, {
+		m_currTamerData = 'table'
      })
 
 -------------------------------------
@@ -62,8 +53,6 @@ function UI_TamerInfoPopup:initButton()
 	vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
 	vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
 	vars['selectBtn']:registerScriptTapHandler(function() self:click_selectBtn() end)
-
-	vars['rotatePlate']:registerScriptRotatedHandler(function() self:refresh_rotatePlate() end)
 end
 
 -------------------------------------
@@ -86,11 +75,14 @@ function UI_TamerInfoPopup:makeTamerRotatePlate()
 	vars['rotatePlate']:setOriginDirection(0)	-- 0:UP, 1:DOWN
 	vars['rotatePlate']:setMinScale(0.3)
 
-    for i, t_tamer in ipairs(TAMER_LIST) do
+    for i, t_tamer in ipairs(L_TAMER_LIST) do
 		local res = t_tamer['res']
 		local tamer_ui = self:makeTamerAni(res, i)
         vars['rotatePlate']:addChild(tamer_ui)
     end
+
+	-- rotate plate 회전 시 실행 함수 등록
+	vars['rotatePlate']:registerScriptRotatedHandler(function() self:refresh_rotatePlate() end)
 end
 
 -------------------------------------
@@ -132,12 +124,15 @@ end
 -------------------------------------
 function UI_TamerInfoPopup:refresh_rotatePlate()
 	local vars = self.vars
-
 	local iFront = vars['rotatePlate']:getFrontChildIndex() + 1
+	local t_tamer = L_TAMER_LIST[iFront]
 
-	local t_tamer = TAMER_LIST[iFront]
+	-- 테이머 정보 UI 출력
 	vars['tamerNameLabel']:setString(t_tamer['t_name'])
 	vars['tamerDscLabel']:setString(t_tamer['t_desc'])
+	
+	-- 현재 선택된 테이머 저장
+	self.m_currTamerData = t_tamer
 end
 
 -------------------------------------
@@ -161,7 +156,10 @@ end
 -- @brief tamer 선택
 -------------------------------------
 function UI_TamerInfoPopup:click_selectBtn()
-    
+	local t_data = self.m_currTamerData
+    g_userData:applyServerData(t_data, 'tamer')
+	self:refresh()
+	UIManager:toastNotificationGreen(Str('"{1}"가 선택되었습니다.', t_data['t_name']))
 end
 
 -------------------------------------
