@@ -366,6 +366,7 @@ function LobbyMap:makeLobbyTamerBot(t_user_info)
     local sum_random = SumRandom()
     sum_random:addItem(1, 'res/character/tamer/dede/dede.spine')
     sum_random:addItem(1, 'res/character/tamer/goni/goni.spine')
+	sum_random:addItem(1, 'res/character/tamer/nuri/nuri.spine')
     local res = sum_random:getRandomValue()
 
     local tamer
@@ -373,7 +374,7 @@ function LobbyMap:makeLobbyTamerBot(t_user_info)
         tamer = LobbyTamerBot(t_user_info)
     else
         tamer = LobbyTamer(t_user_info)
-        res = 'res/character/tamer/dede/dede.spine'
+        res = 'res/character/tamer/nuri/nuri.spine'
     end
 
 	tamer:initAnimator(res)
