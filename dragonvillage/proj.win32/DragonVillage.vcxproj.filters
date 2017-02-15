@@ -1629,6 +1629,12 @@
     <None Include="..\src\UI_ItemInfoPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_AttendanceBasicListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_TableViewCellClass.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

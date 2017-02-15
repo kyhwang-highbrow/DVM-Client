@@ -58,9 +58,12 @@ end
 -- function entryCoroutine
 -------------------------------------
 function UI_Lobby:entryCoroutine()
-    local coroutine_function = coroutine.create(function(dt)
+    -- UI 숨김
+    self:doActionReset()
+    g_topUserInfo:doActionReset()
 
-        
+    local coroutine_function = coroutine.create(function(dt)
+    
         cclog('===================================================')
         cclog('로비의 코루틴(코루틴에서 에러가 날 수 있어서 로그 찍음')
         cclog('===================================================')
@@ -69,10 +72,6 @@ function UI_Lobby:entryCoroutine()
         -- 터치 불가상태로 만들어 놓음
         local block_popup = UI_BlockPopup()
         dt = coroutine.yield()
-
-        -- UI 숨김
-        self:doActionReset()
-        g_topUserInfo:doActionReset()
 
         -- 가챠 정보 받아옴
         cclog('# 가챠 정보 받는 중')

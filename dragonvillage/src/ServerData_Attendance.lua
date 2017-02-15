@@ -8,8 +8,8 @@ ServerData_Attendance = class({
         -- 일반 출석체크
         m_bNewAttendanceBasic = 'boolean',
         m_basicStepList = 'list',
-        m_basicTitleText = 'string',
         m_basicHelpText = 'string',
+        m_basicDescText = 'string',
         m_basicGuideDragon = 'did',
         m_basicAddedItems = 'table',
         m_todayStep = 'number',
@@ -69,8 +69,8 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb)
 
         self.m_bNewAttendanceBasic = (not ret['attendance_basic']['received'])
         self.m_basicStepList = ret['attendance_basic']['step_list']
-        self.m_basicTitleText = ret['attendance_basic']['title_text']
         self.m_basicHelpText = ret['attendance_basic']['help_text']
+        self.m_basicDescText = ret['attendance_basic']['desc_text']
         self.m_basicGuideDragon = ret['attendance_basic']['guide_dragon']
         self.m_basicAddedItems = ret['attendance_basic']['added_items']
         self.m_todayStep = ret['attendance_basic']['today_step']

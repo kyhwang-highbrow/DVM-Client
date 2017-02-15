@@ -25,7 +25,8 @@ function UI_AttendanceBasic:init()
 
     local function action_finish()
         local first_item = g_attendanceData.m_basicAddedItems['items_list'][1]
-        MakeSimpleRewarPopup(Str('출석체크 보상'), first_item['item_id'], first_item['count'])
+        local message = Str('{1}일 차 출석체크 보상', g_attendanceData.m_todayStep)
+        MakeSimpleRewarPopup(message, first_item['item_id'], first_item['count'])
     end
 
     -- @UI_ACTION
@@ -38,20 +39,29 @@ end
 -------------------------------------
 function UI_AttendanceBasic:initUI()
     local vars = self.vars
+
+    -- 가이드 드래곤 생성
+    local animator = AnimatorHelper:makeDragonAnimator_usingDid(g_attendanceData.m_basicGuideDragon)
+    vars['dragonNode']:addChild(animator.m_node)
+
+    -- 텍스트 정보 출력
+    vars['dayLabel']:setString(Str('{1}일 차 ', g_attendanceData.m_todayStep))
+    vars['descLabel']:setString(Str(g_attendanceData.m_basicDescText))
+    vars['helpLabel']:setString(Str(g_attendanceData.m_basicHelpText))
+
+    -- 보상 리스트 출력
     local l_step_list = g_attendanceData.m_basicStepList
-
     for i,v in ipairs(l_step_list) do
-        local item_id = v['item_id']
-
-        local t_sub_data = nil
-        --local icon = IconHelper:getItemIcon(item_id, t_sub_data)
-
-        local item = UI_ItemCard(item_id)
-        item.root:setScale(0.66)
-        item.vars['bgSprite']:setVisible(false)
-        item.vars['commonSprite']:setVisible(false)
         local step = v['step']
-        vars['rewardNode' .. step]:addChild(item.root)
+        local item_id = v['item_id']
+        local ui = UI_AttendanceBasicListItem(v)
+        vars['rewardNode' .. step]:addChild(ui.root)
+
+        if (i <= g_attendanceData.m_todayStep) then
+            ui.vars['checkSprite']:setVisible(true)
+        else
+            ui.vars['checkSprite']:setVisible(false)
+        end
     end
 
     -- 하위 UI가 모두 opacity값을 적용되도록

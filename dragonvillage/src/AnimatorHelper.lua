@@ -30,6 +30,15 @@ function AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
 end
 
 -------------------------------------
+-- function makeDragonAnimator_usingDid
+-------------------------------------
+function AnimatorHelper:makeDragonAnimator_usingDid(did, evolution)
+    local t_dragon = TableDragon():get(did)
+    local evolution = evolution or 3
+    return AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
+end
+
+-------------------------------------
 -- function makeTamerAnimator
 -------------------------------------
 function AnimatorHelper:makeTamerAnimator(res_name)

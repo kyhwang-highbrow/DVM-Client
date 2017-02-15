@@ -508,6 +508,7 @@ local t_module = {
 
     -- UI 출석체크(attendance) 관련
     'UI_AttendanceBasic',
+    'UI_AttendanceBasicListItem',
     'UI_AttendanceContinuous',
     'UI_AttendanceSpecial',
 

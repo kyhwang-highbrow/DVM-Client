@@ -4,7 +4,7 @@
         "received":false,
         "today_step":9,
         "guide_dragon":120014,
-        "title_text":"출석 보너스",
+        "desc_text":"오늘도 반가워!",
         "help_text":"출석 보너스는 매월 1일 초기화됩니다.",
         "step_list":
         [
@@ -114,7 +114,7 @@
                 "step":18,
                 "item_id":700001,
                 "value":1000,
-                "tag_hot":false
+                "tag_hot":true
             },
             {
                 "step":19,
@@ -124,19 +124,19 @@
             },
             {
                 "step":20,
-                "item_id":700001,
+                "item_id":701153,
                 "value":1000,
                 "tag_hot":false
             },
             {
                 "step":21,
-                "item_id":700001,
+                "item_id":702011,
                 "value":1000,
                 "tag_hot":false
             },
             {
                 "step":22,
-                "item_id":700001,
+                "item_id":703005,
                 "value":1000,
                 "tag_hot":false
             },
@@ -148,7 +148,7 @@
             },
             {
                 "step":24,
-                "item_id":700001,
+                "item_id":711106,
                 "value":1000,
                 "tag_hot":false
             },
@@ -172,9 +172,9 @@
             },
             {
                 "step":28,
-                "item_id":700001,
-                "value":1000,
-                "tag_hot":false
+                "item_id":703010,
+                "value":1,
+                "tag_hot":true
             }
         ],
         "added_items":{
