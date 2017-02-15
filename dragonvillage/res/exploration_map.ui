@@ -5,37 +5,37 @@
 	{
 		[1] =
 		{
-			type = 'Visual';
-			ui_name = '';
-			x = 0.000000;
-			y = 0.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 100;
-			height = 100;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = '';
-			file_name = 'bg/map_exploration/map_exploration.a2d';
-			auto_play = true;
-			is_repeat = true;
-			visual_id = 'group;idle';
-			color = { 255; 255; 255; };
-			opacity = 255;
-		};
-		[2] =
-		{
 			[1] =
+			{
+				type = 'Visual';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 0;
+				height = 0;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'bg/map_exploration/map_exploration.a2d';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'group;idle';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
+			[2] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -442.000000;
-				y = 161.000000;
+				x = 82.000000;
+				y = 127.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -49,12 +49,12 @@
 				visible = true;
 				lua_name = 'locationNode1';
 			};
-			[2] =
+			[3] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -327.000000;
-				y = -58.000000;
+				x = -355.000000;
+				y = 219.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -68,12 +68,12 @@
 				visible = true;
 				lua_name = 'locationNode2';
 			};
-			[3] =
+			[4] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 97.000000;
-				y = 30.000000;
+				x = -398.000000;
+				y = -101.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -87,12 +87,12 @@
 				visible = true;
 				lua_name = 'locationNode3';
 			};
-			[4] =
+			[5] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -59.000000;
-				y = -285.000000;
+				x = 422.000000;
+				y = 39.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -106,12 +106,12 @@
 				visible = true;
 				lua_name = 'locationNode4';
 			};
-			[5] =
+			[6] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 464.000000;
-				y = -124.000000;
+				x = 355.000000;
+				y = -199.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -125,12 +125,12 @@
 				visible = true;
 				lua_name = 'locationNode5';
 			};
-			[6] =
+			[7] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 285.000000;
-				y = 239.000000;
+				x = 73.000000;
+				y = -288.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;

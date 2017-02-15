@@ -87,6 +87,11 @@ function ServerData_Exploration:request_explorationInfo(finish_cb)
                 for _,doid in ipairs(v['doid_list']) do
                     self.m_mExploredDragonOid[doid] = true
                 end
+
+                -- temp
+                if (v['epr_id'] == 3) then
+                    v['end_time'] = (Timer:getServerTime() + 720) * 1000
+                end
             end
         end
 
@@ -120,20 +125,20 @@ function ServerData_Exploration:getExplorationLocationInfo(epr_id)
 
     -- 잠금 상태
     if (tamer_level < location_info['open_condition']) then
-        status = 'lock'
+        status = 'exploration_lock'
 
     -- 진행 중인 탐험일 경우
     elseif my_location_info then
-        -- 보상 받기
+        -- 탐험 완료
         if (my_location_info['end_time']/1000 <= server_time) then
-            status = 'reward'
+            status = 'exploration_complete'
         -- 진행 중
         else
-            status = 'ing'
+            status = 'exploration_ing'
         end
     -- 대기 상태
     else
-        status = 'idle'
+        status = 'exploration_idle'
     end
     
 
