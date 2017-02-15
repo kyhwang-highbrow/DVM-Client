@@ -3,7 +3,9 @@
 	[	
 		
 		[
-			"w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1"
+			"m;RB14;300", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"m;RB12;300", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1",
+			"m;RB16;300", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;basic", "w;2", "a;1"
 		]
     ],
 	

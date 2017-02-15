@@ -501,7 +501,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 30;
+				font_size = 26;
 				text = '드래곤';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -524,8 +524,8 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = 70.000000;
-			y = 73.000000;
+			x = 67.000000;
+			y = 68.000000;
 			dock_point = { 0.000000; 0.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -569,7 +569,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 30;
+				font_size = 26;
 				text = '상점';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -592,8 +592,8 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = 188.000000;
-			y = 73.000000;
+			x = 174.000000;
+			y = 68.000000;
 			dock_point = { 0.000000; 0.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -637,7 +637,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 30;
+				font_size = 26;
 				text = '퀘스트';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -660,8 +660,8 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = 306.000000;
-			y = 73.000000;
+			x = 280.000000;
+			y = 68.000000;
 			dock_point = { 0.000000; 0.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -705,7 +705,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 30;
+				font_size = 26;
 				text = '인벤토리';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -728,8 +728,8 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = 425.000000;
-			y = 73.000000;
+			x = 387.000000;
+			y = 68.000000;
 			dock_point = { 0.000000; 0.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -773,7 +773,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 30;
+				font_size = 26;
 				text = '친구';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -796,8 +796,8 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = 544.000000;
-			y = 73.000000;
+			x = 496.000000;
+			y = 68.000000;
 			dock_point = { 0.000000; 0.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -841,7 +841,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 30;
+				font_size = 26;
 				text = '소환';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -864,13 +864,13 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = 661.000000;
-			y = 73.000000;
+			x = 604.000000;
+			y = 68.000000;
 			dock_point = { 0.000000; 0.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 100;
-			height = 100;
+			width = 130;
+			height = 130;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -883,10 +883,10 @@
 			action_duration = 0.500000;
 			lua_name = 'drawBtn';
 			enable = true;
-			normal = 'ui/btn/base_btn_0101.png';
-			selected = 'ui/btn/base_btn_0102.png';
+			normal = 'ui/btn/lobby_draw_01.png';
+			selected = 'ui/btn/lobby_draw_02.png';
 			disable = '';
-			image_type = 1;
+			image_type = 0;
 		};
 		[11] =
 		{
@@ -932,13 +932,13 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = 16.000000;
-			y = 131.000000;
+			x = 4.000000;
+			y = 118.000000;
 			dock_point = { 0.000000; 0.500000; };
 			anchor_point = { 0.000000; 0.500000; };
 			relative_size_type = 0;
-			width = 55;
-			height = 55;
+			width = 90;
+			height = 90;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -951,10 +951,10 @@
 			action_duration = 0.500000;
 			lua_name = 'giftBtn';
 			enable = true;
-			normal = 'ui/btn/base_btn_0101.png';
-			selected = 'ui/btn/base_btn_0102.png';
+			normal = 'ui/btn/lobby_gift_01.png';
+			selected = 'ui/btn/lobby_gift_02.png';
 			disable = '';
-			image_type = 1;
+			image_type = 0;
 		};
 		[12] =
 		{
@@ -1110,7 +1110,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '메일함';
+				text = '우편함';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -1137,8 +1137,8 @@
 			dock_point = { 0.000000; 0.500000; };
 			anchor_point = { 0.000000; 0.500000; };
 			relative_size_type = 0;
-			width = 80;
-			height = 80;
+			width = 90;
+			height = 90;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -1151,8 +1151,8 @@
 			action_duration = 0.500000;
 			lua_name = 'mailBtn';
 			enable = true;
-			normal = 'ui/btn/sub_mail_0101.png';
-			selected = 'ui/btn/sub_mail_0102.png';
+			normal = 'ui/btn/lobby_mail_01.png';
+			selected = 'ui/btn/lobby_mail_02.png';
 			disable = '';
 			image_type = 0;
 		};
@@ -1251,13 +1251,13 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = 16.000000;
-			y = 51.000000;
+			x = 4.000000;
+			y = 25.000000;
 			dock_point = { 0.000000; 0.500000; };
 			anchor_point = { 0.000000; 0.500000; };
 			relative_size_type = 0;
-			width = 55;
-			height = 55;
+			width = 90;
+			height = 90;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -1270,10 +1270,10 @@
 			action_duration = 0.500000;
 			lua_name = 'explorationBtn';
 			enable = true;
-			normal = 'ui/btn/base_btn_0101.png';
-			selected = 'ui/btn/base_btn_0102.png';
+			normal = 'ui/btn/lobby_exploration_01.png';
+			selected = 'ui/btn/lobby_exploration_02.png';
 			disable = '';
-			image_type = 1;
+			image_type = 0;
 		};
 		type = 'Menu';
 		ui_name = '';
