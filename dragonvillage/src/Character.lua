@@ -1509,12 +1509,11 @@ function Character:makeAttackDamageInstance(forced_skill_id)
 		-- skill_basic 뿐만 아니라 다른 아이디도 basic 인지 검증해봐야 한다.
         activity_carrier:setAttackType('basic')
 	elseif (forced_skill_id) then
-		--@TODO 임시 처리 .. 일반적인 경우로 호출되지 않는 스킬은 어떻게 처리해야할까
 		activity_carrier:setAttackType('active')
     else
-        activity_carrier:setAttackType('active')
+        activity_carrier:setAttackType('passive')
     end
-    
+
     -- 세부 능력치 지정
 	activity_carrier:setStatuses(self.m_statusCalc)
 
