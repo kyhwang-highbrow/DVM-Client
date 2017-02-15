@@ -443,6 +443,7 @@ local t_module = {
     'UI_ColosseumResult',
     'UI_TamerSelectPopup',
     'UI_TamerSelectItem',
+	'UI_TamerInfoPopup',
 	'UI_QuestPopup',
     'UI_QuestListItem',
     'UI_MailPopup',
