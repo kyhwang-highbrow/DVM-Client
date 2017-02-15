@@ -1,6 +1,6 @@
 {
     "difficult":2,
-    "bg":"map_world_end",
+    "bg":"map_dark_castle",
 	"wave":
 	[
         {
