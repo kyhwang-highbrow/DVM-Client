@@ -100,13 +100,18 @@ end
 -- @breif 일반 드래곤 11연차 뽑기
 -------------------------------------
 function UI_GachaDragon:click_regularDrawBtn1()
-    local function finish_cb(ret)
-        self:refresh()
-        local l_dragon_list = ret['added_dragons']
-        UI_GachaResult_Dragon(l_dragon_list)
-    end
+	local function ok_cb()
+		local function finish_cb(ret)
+			self:refresh()
+			local l_dragon_list = ret['added_dragons']
+			UI_GachaResult_Dragon(l_dragon_list)
+		end
 
-    g_gachaData:request_dragonGachaNormalMulti(finish_cb)
+		g_gachaData:request_dragonGachaNormalMulti(finish_cb)
+	end
+	
+	local t_data = g_gachaData:getGachaInfo('dragon_normal')
+	MakeSimplePopup_Confirm(t_data['price_type'], t_data['multi_price_value'], ok_cb, nil)
 end
 
 
@@ -126,10 +131,7 @@ function UI_GachaDragon:click_regularDrawBtn2()
 	end
 	
 	local t_data = g_gachaData:getGachaInfo('dragon_normal')
-	local raw_cost_list = {}
-	raw_cost_list[t_data['price_type']] = t_data['price_value']
-
-	MakeSimplePopup_Confirm(raw_cost_list, ok_cb, nil)
+	MakeSimplePopup_Confirm(t_data['price_type'], t_data['price_value'], ok_cb, nil)
 end
 
 
@@ -138,13 +140,18 @@ end
 -- @breif 고급 드래곤 11연차 뽑기
 -------------------------------------
 function UI_GachaDragon:click_premiumDrawBtn1()
-    local function finish_cb(ret)
-        self:refresh()
-        local l_dragon_list = ret['added_dragons']
-        UI_GachaResult_Dragon(l_dragon_list)
-    end
+	local function ok_cb()
+		local function finish_cb(ret)
+			self:refresh()
+			local l_dragon_list = ret['added_dragons']
+			UI_GachaResult_Dragon(l_dragon_list)
+		end
 
-    g_gachaData:request_dragonGachaPremiumMulti(finish_cb)
+		g_gachaData:request_dragonGachaPremiumMulti(finish_cb)
+	end
+	
+	local t_data = g_gachaData:getGachaInfo('dragon_premium')
+	MakeSimplePopup_Confirm(t_data['price_type'], t_data['multi_price_value'], ok_cb, nil)
 end
 
 
@@ -153,13 +160,18 @@ end
 -- @breif 고급 드래곤 뽑기
 -------------------------------------
 function UI_GachaDragon:click_premiumDrawBtn2()
-    local function finish_cb(ret)
-        self:refresh()
-        local l_dragon_list = ret['added_dragons']
-        UI_GachaResult_Dragon(l_dragon_list)
-    end
+	local function ok_cb()
+		local function finish_cb(ret)
+			self:refresh()
+			local l_dragon_list = ret['added_dragons']
+			UI_GachaResult_Dragon(l_dragon_list)
+		end
 
-    g_gachaData:request_dragonGachaPremium(finish_cb)
+		g_gachaData:request_dragonGachaPremium(finish_cb)
+	end
+	
+	local t_data = g_gachaData:getGachaInfo('dragon_premium')
+	MakeSimplePopup_Confirm(t_data['price_type'], t_data['price_value'], ok_cb, nil)
 end
 
 -------------------------------------
