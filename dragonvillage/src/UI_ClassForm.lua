@@ -4,7 +4,7 @@ local PARENT = UI
 -- class UI_ClassForm
 -------------------------------------
 UI_ClassForm = class(PARENT,{
-})
+    })
 
 -------------------------------------
 -- function init
@@ -24,20 +24,6 @@ function UI_ClassForm:init()
     self:initUI()
     self:initButton()
     self:refresh()
-end
-
--------------------------------------
--- function close
--------------------------------------
-function UI_ClassForm:close()
-    if not self.enable then return end
-
-    local function finish_cb()
-        UI.close(self)
-    end
-
-    -- @ui_actions
-    self:doActionReverse(finish_cb, 0.5, false)
 end
 
 -------------------------------------

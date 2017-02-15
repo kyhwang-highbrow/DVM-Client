@@ -11,6 +11,7 @@ ServerData_Attendance = class({
         m_basicTitleText = 'string',
         m_basicHelpText = 'string',
         m_basicGuideDragon = 'did',
+        m_basicAddedItems = 'table',
         m_todayStep = 'number',
 
 
@@ -71,6 +72,7 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb)
         self.m_basicTitleText = ret['attendance_basic']['title_text']
         self.m_basicHelpText = ret['attendance_basic']['help_text']
         self.m_basicGuideDragon = ret['attendance_basic']['guide_dragon']
+        self.m_basicAddedItems = ret['attendance_basic']['added_items']
         self.m_todayStep = ret['attendance_basic']['today_step']
 
         self.m_bNewAttendanceContinuous = true
