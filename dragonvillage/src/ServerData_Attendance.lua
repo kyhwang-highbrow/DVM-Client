@@ -14,9 +14,21 @@ ServerData_Attendance = class({
         m_basicAddedItems = 'table',
         m_todayStep = 'number',
 
-
+        -- 연속 출석체크
         m_bNewAttendanceContinuous = 'boolean',
+        m_continuousStepList = 'list',
+        m_continuousTitleText = 'string',
+        m_continuousHelpText = 'string',
+        m_continuousAddedItems = 'table',
+        m_continuousTodayStep = 'number',
+
+        -- 특별 출석체크
         m_bNewAttendanceSpecial = 'boolean',
+        m_specialStepList = 'list',
+        m_specialTitleText = 'string',
+        m_specialHelpText = 'string',
+        m_specialAddedItems = 'table',
+        m_specialTodayStep = 'number',
     })
 
 -------------------------------------
@@ -67,6 +79,7 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb)
 
         local ret = TABLE:loadJsonTable('temp_attendance_info')
 
+        -- 일반 출석 보너스
         self.m_bNewAttendanceBasic = (not ret['attendance_basic']['received'])
         self.m_basicStepList = ret['attendance_basic']['step_list']
         self.m_basicHelpText = ret['attendance_basic']['help_text']
@@ -75,7 +88,22 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb)
         self.m_basicAddedItems = ret['attendance_basic']['added_items']
         self.m_todayStep = ret['attendance_basic']['today_step']
 
-        self.m_bNewAttendanceContinuous = true
+        -- 연속 출석 보너스
+        self.m_bNewAttendanceContinuous = (not ret['attendance_continuous']['received'])
+        self.m_continuousStepList = ret['attendance_continuous']['step_list']
+        self.m_continuousTitleText = ret['attendance_continuous']['title_text']
+        self.m_continuousHelpText = ret['attendance_continuous']['help_text']
+        self.m_continuousAddedItems = ret['attendance_continuous']['added_items']
+        self.m_continuousTodayStep = ret['attendance_continuous']['today_step']
+
+        -- 특별 출석 보너스
+        self.m_bNewAttendanceSpecial = (not ret['attendance_special']['received'])
+        self.m_specialStepList = ret['attendance_special']['step_list']
+        self.m_specialTitleText = ret['attendance_special']['title_text']
+        self.m_specialHelpText = ret['attendance_special']['help_text']
+        self.m_specialAddedItems = ret['attendance_special']['added_items']
+        self.m_specialTodayStep = ret['attendance_special']['today_step']
+
         self.m_bNewAttendanceSpecial = true
 
         if finish_cb then

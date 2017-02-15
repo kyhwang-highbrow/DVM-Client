@@ -1635,6 +1635,12 @@
     <None Include="..\src\UI_TableViewCellClass.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_AttendanceContinuousListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AttendanceSpecialListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

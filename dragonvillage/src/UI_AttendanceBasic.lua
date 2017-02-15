@@ -16,16 +16,13 @@ function UI_AttendanceBasic:init()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_AttendanceBasic')
    
-
     self:initUI()
     self:initButton()
     self:refresh()
 
-    --self:sceneFadeInAction()
-
     local function action_finish()
         local first_item = g_attendanceData.m_basicAddedItems['items_list'][1]
-        local message = Str('{1}일 차 출석체크 보상', g_attendanceData.m_todayStep)
+        local message = Str('{1}일 차 출석 보너스', g_attendanceData.m_todayStep)
         MakeSimpleRewarPopup(message, first_item['item_id'], first_item['count'])
     end
 

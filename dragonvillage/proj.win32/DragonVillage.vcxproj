@@ -637,7 +637,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_AttendanceBasic.lua" />
     <None Include="..\src\UI_AttendanceBasicListItem.lua" />
     <None Include="..\src\UI_AttendanceContinuous.lua" />
+    <None Include="..\src\UI_AttendanceContinuousListItem.lua" />
     <None Include="..\src\UI_AttendanceSpecial.lua" />
+    <None Include="..\src\UI_AttendanceSpecialListItem.lua" />
     <None Include="..\src\UI_AutoPlaySettingPopup.lua" />
     <None Include="..\src\UI_BattleMenu.lua" />
     <None Include="..\src\UI_BlockPopup.lua" />

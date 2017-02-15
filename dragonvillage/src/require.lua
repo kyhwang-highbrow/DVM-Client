@@ -510,7 +510,9 @@ local t_module = {
     'UI_AttendanceBasic',
     'UI_AttendanceBasicListItem',
     'UI_AttendanceContinuous',
+    'UI_AttendanceContinuousListItem',
     'UI_AttendanceSpecial',
+    'UI_AttendanceSpecialListItem',
 
     'DamageCalc',
     'IconHelper',

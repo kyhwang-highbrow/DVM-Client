@@ -131,7 +131,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'titleLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 50;
 				text = '연속 출석 보너스';
@@ -171,7 +171,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'helpLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '연속 출석 보너스는 마지막 단계까지 받으면 종료됩니다. ';
@@ -422,7 +422,7 @@
 			action_type = 6;
 			action_delay_1 = 0.000000;
 			action_delay_2 = 0.000000;
-			action_duration = 0.200000;
+			action_duration = 0.100000;
 			lua_name = '';
 		};
 		type = 'Menu';
