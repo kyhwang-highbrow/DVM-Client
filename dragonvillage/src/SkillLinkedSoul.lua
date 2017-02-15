@@ -116,12 +116,10 @@ end
 -- function checkDurablity
 -------------------------------------
 function SkillLinkedSoul:checkDurability(dt)
-	if (self.m_owner.m_bDead) then
+	-- 시전자나 대상이 죽으면 중지
+	if (self.m_owner.m_bDead) or (self.m_targetChar.m_bDead) then
 		self:changeState('end')
 	end
-    if (self.m_duration == -1) then
-        return
-    end
 
     self.m_duration = self.m_duration - dt
 	
@@ -184,19 +182,24 @@ end
 -------------------------------------
 function SkillLinkedSoul:onHit()
     -- 방패 이팩트
-    --self.m_shieldEffect:changeAni('heart_hit', false)
-    --self.m_shieldEffect:addAniHandler(function() self.m_shieldEffect:changeAni('heart_idle', true) end)
+	if (self.m_shieldEffect) then 
+		self.m_shieldEffect:changeAni('heart_hit', false)
+		self.m_shieldEffect:addAniHandler(function() self.m_shieldEffect:changeAni('heart_idle', true) end)
+	end
         
     -- 연결 이팩트
-    self.m_barEffect.m_effectNode:changeAni('bar_hit', false)
-    self.m_barEffect.m_effectNode:addAniHandler(function() self.m_barEffect.m_effectNode:changeAni('bar_idle', true) end)
+	if (self.m_barEffect) then
+		self.m_barEffect.m_effectNode:changeAni('bar_hit', false)
+		self.m_barEffect.m_effectNode:addAniHandler(function() self.m_barEffect.m_effectNode:changeAni('bar_idle', true) end)
+	end
 
     -- 베리어 이팩트
-    --self.m_barrierEffect1:changeAni('barrier_hit', false)
-    --self.m_barrierEffect1:addAniHandler(function() self.m_barrierEffect1:changeAni('barrier_idle', true) end)
-
-    --self.m_barrierEffect2:changeAni('barrier_hit', false)
-    --self.m_barrierEffect2:addAniHandler(function() self.m_barrierEffect2:changeAni('barrier_idle', true) end)
+	if (self.m_barrierEffect1) and (self.m_barrierEffect2) then
+		self.m_barrierEffect1:changeAni('barrier_hit', false)
+		self.m_barrierEffect1:addAniHandler(function() self.m_barrierEffect1:changeAni('barrier_idle', true) end)
+		self.m_barrierEffect2:changeAni('barrier_hit', false)
+		self.m_barrierEffect2:addAniHandler(function() self.m_barrierEffect2:changeAni('barrier_idle', true) end)
+	end
 end
 
 -------------------------------------

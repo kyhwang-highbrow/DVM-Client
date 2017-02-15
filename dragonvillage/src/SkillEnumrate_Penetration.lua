@@ -22,6 +22,7 @@ function SkillEnumrate_Penetration:init_skill(missile_res, motionstreak_res, lin
 
 	-- 1. 멤버 변수
 	self.m_skillInterval = PENERATION_APPEAR_INTERVAR
+	self.m_skillTotalTime = (self.m_skillLineNum * self.m_skillInterval) + PENERATION_FIRE_DELAY
 	self.m_enumTargetType = 'target'
 	self.m_enumPosType = 'linear'
 end

@@ -9,6 +9,7 @@ SkillEnumrate = class(PARENT, {
 
 		m_skillLineNum = 'num',		-- 공격 하는 직선 갯수
 		m_skillLineSize = 'num',	-- 직선의 두께
+		m_skillLineTotalWidth = 'num', -- 나열된 직선의 총 길이
 
 		m_skillTimer = 'time',
 		m_skillTotalTime = 'time',	-- 적절하게 계산된 총 등장 시간
@@ -42,7 +43,8 @@ function SkillEnumrate:init_skill(missile_res, motionstreak_res, line_num, line_
 
 	self.m_skillLineNum = line_num
 	self.m_skillLineSize = line_size
-	
+	self.m_skillLineTotalWidth = PENERATION_TOTAL_LENGTH
+
 	self.m_skillInterval = PENERATION_APPEAR_INTERVAR
 	self.m_skillTotalTime = (self.m_skillLineNum * self.m_skillInterval) + PENERATION_FIRE_DELAY
 	self.m_skillTimer = 0
@@ -156,7 +158,7 @@ function SkillEnumrate:getStartPosList_Linear()
 	-- 원점과 터치지점 사이의 각도
 	local main_angle = getDegree(0, 0, touch_x, touch_y)
 	local half_num = math_floor(self.m_skillLineNum/2)
-	local std_distance = PENERATION_TOTAL_LENGTH/self.m_skillLineNum
+	local std_distance = self.m_skillLineTotalWidth/self.m_skillLineNum
 
 	-- 홀수인 경우 
 	if ((self.m_skillLineNum % 2) == 1) then

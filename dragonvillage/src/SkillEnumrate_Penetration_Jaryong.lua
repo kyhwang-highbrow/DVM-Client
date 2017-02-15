@@ -21,7 +21,8 @@ function SkillEnumrate_Penetration_Jaryong:init_skill(missile_res, motionstreak_
 	PARENT.init_skill(self, missile_res, motionstreak_res, line_num, line_size)
 	
 	-- 1. 멤버 변수
-	self.m_skillInterval = 0
+	self.m_skillInterval = JARYONG_APPEAR_INTERVAR
+	self.m_skillTotalTime = (self.m_skillLineNum * self.m_skillInterval) + JARYONG_FIRE_DELAY
 	self.m_enumTargetType = 'target'
 	self.m_enumPosType = 'linear'
 	
