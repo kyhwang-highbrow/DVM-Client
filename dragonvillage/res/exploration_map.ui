@@ -5,15 +5,15 @@
 	{
 		[1] =
 		{
-			type = 'Sprite';
+			type = 'Visual';
 			ui_name = '';
 			x = 0.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 1280;
-			height = 960;
+			width = 100;
+			height = 100;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -21,13 +21,12 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'bg/world_bg.png';
+			file_name = 'bg/map_exploration/map_exploration.a2d';
+			auto_play = true;
+			is_repeat = true;
+			visual_id = 'group;idle';
 			color = { 255; 255; 255; };
 			opacity = 255;
-			flip_x = false;
-			flip_y = false;
-			src_blend = 770;
-			dest_blend = 771;
 		};
 		[2] =
 		{
@@ -35,8 +34,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -400.000000;
-				y = 0.000000;
+				x = -442.000000;
+				y = 161.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -54,8 +53,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -240.000000;
-				y = 0.000000;
+				x = -327.000000;
+				y = -58.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -73,8 +72,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -80.000000;
-				y = 0.000000;
+				x = 97.000000;
+				y = 30.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -92,8 +91,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 80.000000;
-				y = 0.000000;
+				x = -59.000000;
+				y = -285.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -111,8 +110,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 240.000000;
-				y = 0.000000;
+				x = 464.000000;
+				y = -124.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -130,8 +129,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 400.000000;
-				y = 0.000000;
+				x = 285.000000;
+				y = 239.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
