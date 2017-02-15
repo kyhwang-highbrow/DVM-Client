@@ -76,5 +76,5 @@ function ServerData_Item:parsePackageItemStrIndivisual(package_item_str)
         count = second_data or 1 --입력 안하면 1개로 처리
     end
 
-    return item_id, count
+    return tonumber(item_id), tonumber(count)
 end
