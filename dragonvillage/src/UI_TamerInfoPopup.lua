@@ -131,8 +131,23 @@ function UI_TamerInfoPopup:refresh_rotatePlate()
 	vars['tamerNameLabel']:setString(t_tamer['t_name'])
 	vars['tamerDscLabel']:setString(t_tamer['t_desc'])
 	
-	-- 현재 선택된 테이머 저장
+	-- 현재 중앙에 있는 테이머 정보
 	self.m_currTamerData = t_tamer
+
+	-- 서버의 테이머 정보
+	t_tamer_info = g_userData:getTamerInfo()
+
+	-- 테이머 선택중 UI 조작
+	local b_use_tamer = t_tamer['tmid'] == t_tamer_info['tmid']
+	vars['useSprite']:setVisible(b_use_tamer)
+	vars['selectBtn']:setVisible(not b_use_tamer)
+
+	local b_lock = not t_tamer['b_obtain']
+	vars['lockSprite']:setVisible(b_lock)
+	if (b_lock) then
+		vars['lockLabel']:setString(Str('획득 조건은 테이머마다 다릅니다.'))
+		vars['selectBtn']:setVisible(false)
+	end
 end
 
 -------------------------------------
