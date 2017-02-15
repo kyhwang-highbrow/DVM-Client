@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>map_expedition_cloud.png</key>
+            <key>map_exploration_cloud.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1384,2},{200,122}}</string>
@@ -17,7 +17,7 @@
                 <key>sourceSize</key>
                 <string>{300,300}</string>
             </dict>
-            <key>map_expedition_island.png</key>
+            <key>map_exploration_island.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{1380,1060}}</string>
@@ -36,13 +36,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>map_expedition_1.png</string>
+            <string>map_exploration_1.png</string>
             <key>size</key>
             <string>{1508,1064}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:0cbe065f7c1b14b6c1696f233980e6a7:272424ac85c005beb46c115fa6c4a63a:a0f4b8411215af51a78ac70ff9a6ad6e$</string>
+            <string>$TexturePacker:SmartUpdate:a0e24b862498a0d0c8c2ac6fe4228d0b:272424ac85c005beb46c115fa6c4a63a:85852d5b1d3a961a6ae7d022b071629d$</string>
             <key>textureFileName</key>
-            <string>map_expedition_1.png</string>
+            <string>map_exploration_1.png</string>
         </dict>
     </dict>
 </plist>

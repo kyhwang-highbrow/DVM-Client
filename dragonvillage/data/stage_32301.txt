@@ -49,18 +49,18 @@
 				
 				0.1:
 				[
-					"RandomDragon1;7;Appear;RO04;RM24;0.5"
+					"RandomDragon1;7;Appear;RO04;RM24;0.5w2_2"
 				],
 				
 				0.3:
 				[
-					"RandomDragon1;7;Appear;RO04;RF24;0.5"
+					"RandomDragon1;7;Appear;RO04;RF24;0.5;w2_2"
 				],
 				
 				0.4:
 				[
-					"RandomDragon1;7;Appear;RO02;RB12;0.5"
-					"RandomDragon1;7;Appear;RO06;RB16;0.5"
+					"RandomDragon1;7;Appear;RO02;RB12;0.5;w2_1"
+					"RandomDragon1;7;Appear;RO06;RB16;0.5;w2_1"
 				]
             }
 		},
@@ -373,20 +373,20 @@
 				
 				0.4:
 				[
-					"RandomDragon2;63;Appear;RO04;RM24;0.5;a"
+					"RandomDragon2;63;Appear;RO04;RM24;0.5"
 				],
 				
 				0.6:
 				[
-					"RandomDragon2;63;Appear;RO01;RB11;0.5;a"
-					"RandomDragon2;63;Appear;RO07;RB17;0.5;a"
+					"RandomDragon2;63;Appear;RO01;RB11;0.5"
+					"RandomDragon2;63;Appear;RO07;RB17;0.5"
 				],
 				
 				0.8:
 				[
-					"RandomDragon3;63;Appear;RO02;RB22;0.5;a"
-					"RandomDragon3;63;Appear;RO06;RB26;0.5;a"
-					"RandomDragon3;64;Appear;RO04;RB24;0.5;a"
+					"RandomDragon3;63;Appear;RO02;RB22;0.5"
+					"RandomDragon3;63;Appear;RO06;RB26;0.5"
+					"RandomDragon3;64;Appear;RO04;RB24;0.5"
 				]
             }
 		}
@@ -702,16 +702,65 @@
 		10:
 		[
 			[
-				"relation_10_1;1", "relation_10_2;1", "relation_10_0;1",
-				"relation_10_1;1", "relation_10_2;1", "relation_10_0;1",
-				"relation_10_1;1", "relation_10_2;1", "relation_10_0;1"
+				"wait;7",
+				"relation_10_1;1", "wait;10",
+				"relation_10_2;1", "wait;10",
+				"relation_10_3;1", "wait;10",
+				"relation_10_0;1", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_10_1;1", "wait;10",
+				"relation_10_3;1", "wait;10",
+				"relation_10_2;1", "wait;10",
+				"relation_10_0;1", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_10_2;1", "wait;10",
+				"relation_10_1;1", "wait;10",
+				"relation_10_3;1", "wait;10",
+				"relation_10_0;1", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_10_2;1", "wait;10",
+				"relation_10_3;1", "wait;10",
+				"relation_10_1;1", "wait;10",
+				"relation_10_0;1", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_10_3;1", "wait;10",
+				"relation_10_1;1", "wait;10",
+				"relation_10_2;1", "wait;10",
+				"relation_10_0;1", "wait;3"
+			],
+			
+			[
+				"wait;7",
+				"relation_10_3;1", "wait;10",
+				"relation_10_2;1", "wait;10",
+				"relation_10_1;1", "wait;10",
+				"relation_10_0;1", "wait;3"
 			]
 		],
-	
-		"a":
+		
+		"w2_1":
 		[
 			[
-				"wait;10", "relation_10_4;0.5", "wait;10", "relation_10_3;0.5"
+				"relation_2_3;1", "wait;5", "relation_2_4;1", "wait;5"
+			]
+		],
+		
+		"w2_2":
+		[
+			[
+				"wait;1"
 			]
 		]
 	}
