@@ -264,6 +264,7 @@ function UI_Lobby:initButton()
 	vars['mailBtn']:registerScriptTapHandler(function() self:click_mailBtn() end)
     vars['buffBtn']:registerScriptTapHandler(function() self:click_buffBtn() end)
 	vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
+    vars['explorationBtn']:registerScriptTapHandler(function() self:click_explorationBtn() end) -- 탐험 버튼
 
     -- FGT버전에서 퀘스트 기능 숨김
     if (TARGET_SERVER == 'FGT') then
@@ -519,6 +520,13 @@ end
 -------------------------------------
 function UI_Lobby:click_tamerBtn()
     UI_TamerInfoPopup()
+end
+
+-------------------------------------
+-- function click_explorationBtn
+-------------------------------------
+function UI_Lobby:click_explorationBtn()
+    UI_Exploration()
 end
 
 -------------------------------------

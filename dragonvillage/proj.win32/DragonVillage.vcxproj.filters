@@ -1635,6 +1635,21 @@
     <None Include="..\src\UI_TamerInfoPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ExplorationResultPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Exploration.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ExplorationIng.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ExplorationLocationButton.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ExplorationReady.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

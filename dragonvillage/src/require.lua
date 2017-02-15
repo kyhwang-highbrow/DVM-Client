@@ -513,6 +513,13 @@ local t_module = {
     'UI_AttendanceSpecial',
     'UI_AttendanceSpecialListItem',
 
+    -- UI 탐험(exploration)
+    'UI_Exploration',
+    'UI_ExplorationIng',
+    'UI_ExplorationLocationButton',
+    'UI_ExplorationReady',
+    'UI_ExplorationResultPopup',
+
     'DamageCalc',
     'IconHelper',
     'AnimatorHelper',
