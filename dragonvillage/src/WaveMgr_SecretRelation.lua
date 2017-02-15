@@ -88,8 +88,8 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
             enemy.m_animator:setScale(0.6)
             
             -- 보스의 경우 체력 10배
-            enemy.m_maxHp = self.m_maxHp * 10
-            enemy.m_hp = self.m_hp * 10
+            enemy.m_maxHp = enemy.m_maxHp * 10
+            enemy.m_hp = enemy.m_hp * 10
 
             MonsterLua_Boss.makeHPGauge(enemy, {0, -80}, true)
         end
