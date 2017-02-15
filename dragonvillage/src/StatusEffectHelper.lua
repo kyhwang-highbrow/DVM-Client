@@ -185,22 +185,12 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 		end
 	end
 
-	local status_effect = nil
 	local trigger_name = t_skill['chance_value'] or 'undergo_attack'
-
-	-- 클래스 종류가 다른 경우
-	if (status_effect_type == 'passive_add_attack') then
-        status_effect = StatusEffect_addAttack(res)
-
-	elseif (status_effect_type == 'passive_spatter') then
-        status_effect = StatusEffect_PassiveSpatter(res)
-
-	else
-		status_effect = StatusEffect_Trigger(res)
-		char.m_world:addToUnitList(status_effect)
-	end
 	
+	local status_effect = StatusEffect_Trigger(res)
 	status_effect:init_trigger(char, trigger_name, t_skill)
+	
+	char.m_world:addToUnitList(status_effect)
 
     return status_effect
 end

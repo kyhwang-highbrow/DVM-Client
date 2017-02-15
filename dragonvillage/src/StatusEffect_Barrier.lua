@@ -108,14 +108,18 @@ function StatusEffect_Barrier.st_disappear(owner, dt)
 end
 
 -------------------------------------
--- function onTrigger
+-- function getTriggerFunction
 -------------------------------------
-function StatusEffect_Barrier:onTrigger(t_event, ...)
-    self.m_defCount = self.m_defCount - 1
+function StatusEffect_Barrier:getTriggerFunction()
+	local trigger_func = function()
+		self.m_defCount = self.m_defCount - 1
 	
-	if (self.m_defCount <= 0) then
-        self:changeState('end')
-    else
-		self:changeState('hit')
-    end
+		if (self.m_defCount <= 0) then
+			self:changeState('end')
+		else
+			self:changeState('hit')
+		end
+	end
+
+	return trigger_func
 end

@@ -123,23 +123,27 @@ function StatusEffect_Protection.st_disappear(owner, dt)
 end
 
 -------------------------------------
--- function onTrigger
+-- function getTriggerFunction
 -------------------------------------
-function StatusEffect_Protection:onTrigger(t_event)
-	local damage = t_event['damage']
+function StatusEffect_Protection:getTriggerFunction()
+	local trigger_func = function(t_event)
+		local damage = t_event['damage']
 
-	if (self.m_shieldHP > damage) then
-		-- 데미지를 전부 방어하고 hit effect
-		self.m_shieldHP = self.m_shieldHP - damage
-		damage = 0
-		self:changeState('hit')
-	else
-		-- 데미지를 일부만 방어하고 end
-		damage = damage - self.m_shieldHP
-		self.m_shieldHP = 0
-		self:changeState('end')
+		if (self.m_shieldHP > damage) then
+			-- 데미지를 전부 방어하고 hit effect
+			self.m_shieldHP = self.m_shieldHP - damage
+			damage = 0
+			self:changeState('hit')
+		else
+			-- 데미지를 일부만 방어하고 end
+			damage = damage - self.m_shieldHP
+			self.m_shieldHP = 0
+			self:changeState('end')
+		end
+
+		t_event['damage'] = damage
+		t_event['is_handled'] = true
 	end
 
-	t_event['damage'] = damage
-	t_event['is_handled'] = true
+	return trigger_func
 end

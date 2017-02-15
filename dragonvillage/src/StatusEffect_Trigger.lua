@@ -124,10 +124,17 @@ function StatusEffect_Trigger:getTriggerFunction()
 			end
 		end
 
-	elseif (status_effect_type == 'passive_spatter') then 
+	elseif (t_skill['type'] == 'passive_spatter') then 
 		-- 퐁당퐁당
 		trigger_func = function()
 			SkillSpatter:makeSkillInstance(char, t_skill)
+		end
+	
+	elseif (t_skill['type'] == 'passive_add_attack') then 
+		-- 추가 공격
+		trigger_func = function(t_event)
+			local target = t_event['target']
+			SkillAddAttack:makeSkillInstance(owner, t_skill, target)
 		end
 
 	-- 완전 하드코딩 !! 추후에 구조화 하여 type을 만들자

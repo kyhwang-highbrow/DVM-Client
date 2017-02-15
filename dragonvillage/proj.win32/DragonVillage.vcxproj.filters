@@ -561,9 +561,6 @@
     <None Include="..\src\ConstantForArt.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\StatusEffect_PassiveSpatter.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SkillSpatter.lua">
       <Filter>lua</Filter>
     </None>
@@ -600,9 +597,6 @@
     <None Include="..\src\CharacterStateDelegate.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\StatusEffect_CheckWorld.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SkillDispelMagic.lua">
       <Filter>lua</Filter>
     </None>
@@ -613,9 +607,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillMeleeHack.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\StatusEffect_addAttack.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillAddAttack.lua">
