@@ -40,6 +40,8 @@ SceneGame = class(PerpleScene, {
         m_bestfriendOnlineBuff = '',
         m_soulmateOnlineBuff = '',
         m_totalOnlineBuffList = '',
+
+        --
     })
 
 -------------------------------------
@@ -417,6 +419,8 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         api_url = '/game/stage/finish'
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
         api_url = '/game/nest/finish'
+    elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
+        api_url = '/game/secret/finish'
     end
 
     -- 친구 접속 버프

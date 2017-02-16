@@ -550,7 +550,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 
 		-- 액티브 공격시
 		else
-			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit_active', t_event, self)
+			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit_active', t_event, self, attacker.m_activityCarrier)
 		end
 	end
 end

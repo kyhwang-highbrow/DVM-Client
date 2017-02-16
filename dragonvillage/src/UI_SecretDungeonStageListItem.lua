@@ -66,15 +66,13 @@ function UI_SecretDungeonStageListItem:refresh(t_data)
         vars['enterButton']:setVisible(is_open)
     end
 
-    --[[
     do -- 보스 썸네일 표시
         local table_stage_desc = TableStageDesc()
         local stage_id = self.m_stageTable['stage']
         local icon = table_stage_desc:getLastMonsterIcon(stage_id)
         vars['iconNode']:addChild(icon.root)
     end
-    ]]--
-
+    
     do -- 제한 인원
         vars['numberLabel']:setString('0 / 10')
     end

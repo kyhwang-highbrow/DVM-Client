@@ -52,7 +52,7 @@ end
 -------------------------------------
 -- function getSecretDungeonInfoIndividual
 -- @brief 비밀 던전 리스트 항목 얻어옴
---        거대용, 악몽, 거목
+--        황금, 인연
 -------------------------------------
 function ServerData_SecretDungeon:getSecretDungeonInfoIndividual(stage_id)
     local dungeon_id = self:getDungeonIDFromStateID(stage_id)
@@ -460,7 +460,7 @@ function ServerData_SecretDungeon:getStageName(stage_id)
 
     local table_drop = TableDrop()
     local t_drop = table_drop:get(stage_id)
-    local name = Str(t_drop['t_name']) .. ' ' .. Str('{1}단계', t_dungeon_id_info['tier'])
+    local name = Str(t_drop['t_name'])
 
     return name
 end

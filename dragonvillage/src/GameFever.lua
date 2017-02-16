@@ -548,7 +548,35 @@ end
 -- function onEvent
 -------------------------------------
 function GameFever:onEvent(event_name, t_event, ...)
-    if (event_name == 'character_casting_cancel') then
+    if (event_name == 'hero_basic_skill') then
+        --[[
+        local arg = {...}
+        local hero = arg[1]
+
+        local point = 1
+
+        self:addFeverPoint(point)
+        ]]--
+    elseif (event_name == 'hero_active_skill') then
+        --[[
+        local arg = {...}
+        local hero = arg[1]
+
+        local point = 5
+
+        self:addFeverPoint(point)
+        ]]--
+    elseif (event_name == 'hit_active') then
+        --[[
+        local arg = {...}
+        local hero = arg[1]
+
+        local point = 2
+
+        self:addFeverPoint(point)
+        ]]--
+
+    elseif (event_name == 'character_casting_cancel') then
         local arg = {...}
         local castingPercentage = arg[2]
 

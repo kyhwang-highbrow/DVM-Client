@@ -100,7 +100,7 @@ function GameState_SecretDungeon_Gold:makeResultUI(is_success)
         local world = self.m_world
         local stage_id = world.m_stageID
                 
-        UI_GameResult_NestDungeon(stage_id,
+        UI_GameResult_SecretDungeon(stage_id,
             is_success,
             self.m_fightTimer,
             world.m_gold,

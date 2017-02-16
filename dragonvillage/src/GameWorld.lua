@@ -764,10 +764,14 @@ function GameWorld:addHero(hero, idx)
 
     hero:addListener('dragon_skill', self)
     
+    hero:addListener('hero_basic_skill', self.m_gameFever)
+    hero:addListener('hero_active_skill', self.m_gameFever)
     hero:addListener('hero_active_skill', self.m_gameState)
     hero:addListener('hero_active_skill', self.m_gameAutoHero)
         
     hero:addListener('hero_casting_start', self.m_gameAutoHero)
+
+    hero:addListener('hit_active', self.m_gameFever)
        
     hero:addListener('character_weak', self.m_tamerSpeechSystem)
     hero:addListener('character_damaged_skill', self.m_tamerSpeechSystem)

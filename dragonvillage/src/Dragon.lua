@@ -192,6 +192,11 @@ function Dragon.st_attack(owner, dt)
                 end
             end
         end
+
+        -- 기본 공격시 이벤트
+        if (owner.m_bLeftFormation) then
+            owner:dispatch('hero_basic_skill', {}, owner)
+        end
     end
 
     PARENT.st_attack(owner, dt)
@@ -291,9 +296,9 @@ function Dragon.st_skillIdle(owner, dt)
 
             -- 액티브 스킬 사용 이벤트 발생
             if (owner.m_bLeftFormation) then
-                owner:dispatch('hero_active_skill')
+                owner:dispatch('hero_active_skill', {}, self)
             else
-                owner:dispatch('enemy_active_skill')
+                owner:dispatch('enemy_active_skill', {}, self)
             end
 
             -- 사운드
