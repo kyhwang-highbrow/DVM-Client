@@ -48,8 +48,8 @@ function SkillCrash:init_skill(owner, t_skill, t_data)
     -- t_skill에서 얻어오는 데이터
     self.m_shockwaveEffectRes = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
     self.m_dashEffectRes = SkillHelper:getAttributeRes(t_skill['res_2'], owner)
-    self.m_damageRate = (t_skill['power_rate'] / 100)
-    self.m_damageRateShockwave = (t_skill['val_1'] / 100)
+    self.m_damageRate = (t_skill['power_rate'])
+    self.m_damageRateShockwave = (t_skill['val_1'])
     self.m_shockwaveRadius = t_skill['val_2']
 
     -- AttackDamage clone
@@ -238,7 +238,7 @@ function SkillCrash:attackShockwave(x, y)
     -- 충돌 공격
     if self.m_collisionChar then
         local target_char = self.m_collisionChar
-        self.m_activityCarrier.m_skillCoefficient = self.m_damageRate
+        self.m_activityCarrier:setPowerRate(self.m_damageRate)
         self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
         target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
     end
@@ -268,7 +268,7 @@ function SkillCrash:attackShockwave(x, y)
     target_count = (target_count + #l_target)
 
     -- 충격파 공격
-    self.m_activityCarrier.m_skillCoefficient = self.m_damageRateShockwave
+    self.m_activityCarrier:setPowerRate(self.m_damageRateShockwave)
     for i,target_char in ipairs(l_target) do
         if (self.m_collisionChar ~= target_char) then
             self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)

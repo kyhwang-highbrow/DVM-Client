@@ -1,10 +1,4 @@
 local PARENT = SkillEnumrate
---[[ 
-@TODO 타겟을 늘어놓고 순차적으로 공격하는 것을 공유하기 위해서 SkillPenetartion을 상속
-SkillPenetration은 직선 공격을 의미하므로 SkillEnumrate를 만들고 
-SkillEnumrate_Pnetartion, SkillEnumrate_Curve, SkillEnumrate_Curve_Random 등으로 분화하는게 좋을듯
-지금은 시간이 없어서...추후 수정!!
-]]
 
 -------------------------------------
 -- class SkillEnumrate_Curve
@@ -70,14 +64,6 @@ function SkillEnumrate_Curve:fireMissile(idx)
 	t_option['effect'] = {}
     t_option['effect']['motion_streak'] = self.m_motionStreakRes
 	
-	-- @TODO 임시로 일반공격 처리
-	do
-		t_option['attack_damage']:setAttackType('basic')
-		t_option['cbFunction'] = function()
-			--self.m_skillHitEffctDirector:doWork()
-		end
-	end
-
 	-- fire!!
     world.m_missileFactory:makeMissile(t_option)
 end

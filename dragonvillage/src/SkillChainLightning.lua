@@ -36,11 +36,7 @@ function SkillChainLightning:init_skill(missile_res, target_count, add_damage)
 	self.m_physGroup = self.m_owner:getAttackPhysGroup()
     self.m_tTargetList = self:getTargetList(target_count)
     self.m_tEffectList = {}
-	self.m_addDmgRate = (add_damage/100)
-	
-	-- 체인 라이트닝 기본 공격 처리
-	self.m_activityCarrier:setAttackType('basic')
-	self.m_bSkillHitEffect = false
+	self.m_addDmgRate = (add_damage)
 end
 
 -------------------------------------
@@ -111,7 +107,7 @@ function SkillChainLightning:runAttack()
     for i, target_char in ipairs(self.m_tTargetList) do
 		-- 1번째 타겟 이후에는 데미지계수 조정
 		if (i > 1) then 
-			self.m_activityCarrier.m_skillCoefficient = self.m_addDmgRate
+			self.m_activityCarrier:setPowerRate(self.m_addDmgRate)
 		end
 
         -- 공격

@@ -184,7 +184,7 @@ L_TAMER_LIST = {
 	{tmid = 100001, res = 'res/character/tamer/goni_i/goni_i.spine', res_sd = 'res/character/tamer/goni/goni.spine', t_name = '고니', t_desc = '고니는 남자아이이다.', b_obtain = true},
 	{tmid = 100002, res = 'res/character/tamer/nuri_i/nuri_i.spine', res_sd = 'res/character/tamer/nuri/nuri.spine', t_name = '누리', t_desc = '누리는 여자아이이다.', b_obtain = true},
 	{tmid = 100003, res = 'res/character/tamer/leon_i/leon_i.spine', res_sd = 'res/character/tamer/leon/leon.spine', t_name = '레온', t_desc = '레온은 지금 존재하지 않는다.', b_obtain = true},
-	{tmid = 100001, res = 'res/character/tamer/goni_i/goni_i.spine', res_sd = 'res/character/tamer/goni/goni.spine', t_name = '고니2', t_desc = '고니2는 고니의 반복이다.', b_obtain = false},
-	{tmid = 100002, res = 'res/character/tamer/nuri_i/nuri_i.spine', res_sd = 'res/character/tamer/nuri/nuri.spine', t_name = '누리2', t_desc = '누리2는 누리의 반복이다.', b_obtain = false},
-	{tmid = 100003, res = 'res/character/tamer/leon_i/leon_i.spine', res_sd = 'res/character/tamer/dede/dede.spine', t_name = '데데', t_desc = '데데지만 레온이다.', b_obtain = false},
+	{tmid = 100004, res = 'res/character/tamer/goni_i/goni_i.spine', res_sd = 'res/character/tamer/goni/goni.spine', t_name = '고니2', t_desc = '고니2는 고니의 반복이다.', b_obtain = false},
+	{tmid = 100005, res = 'res/character/tamer/nuri_i/nuri_i.spine', res_sd = 'res/character/tamer/nuri/nuri.spine', t_name = '누리2', t_desc = '누리2는 누리의 반복이다.', b_obtain = false},
+	{tmid = 100006, res = 'res/character/tamer/leon_i/leon_i.spine', res_sd = 'res/character/tamer/dede/dede.spine', t_name = '데데', t_desc = '데데지만 레온이다.', b_obtain = true},
 }

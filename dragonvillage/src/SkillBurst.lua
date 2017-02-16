@@ -69,7 +69,7 @@ function SkillBurst:runAttack()
 		end
 
 		-- 데미지를 공격시마다 계산
-		self.m_activityCarrier.m_skillCoefficient = ((self.m_powerRate * multiply_value) / 100)
+		self.m_activityCarrier:setPowerRate(self.m_powerRate * multiply_value)
 
         -- 공격
         self:attack(target_char)

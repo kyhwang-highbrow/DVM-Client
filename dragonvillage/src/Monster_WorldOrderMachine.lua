@@ -123,7 +123,7 @@ function Monster_WorldOrderMachine:doMagicAttack()
 	local state = self.m_magicState
 	if (state == STATE_HUGE_ATTACK) then 
 		-- activity carrier
-		self.m_activityCarrier.m_skillCoefficient = (self:getValue() / 100)
+		self.m_activityCarrier:setPowerRate(self:getValue())
 		
 		-- attack
 		local target_char = l_dragon[math_random(1, table.count(l_dragon))]
@@ -134,7 +134,7 @@ function Monster_WorldOrderMachine:doMagicAttack()
 
 	elseif (state == STATE_BABY_ATTACK) then 
 		-- activity carrier
-		self.m_activityCarrier.m_skillCoefficient = (self:getValue() / 100)
+		self.m_activityCarrier:setPowerRate(self:getValue())
 
 		-- attack
 		for i, target_char in pairs(l_dragon) do 

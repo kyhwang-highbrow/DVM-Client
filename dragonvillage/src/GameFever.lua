@@ -367,10 +367,10 @@ function GameFever:doAttack()
 
     -- 데미지 설정
     self.m_activityCarrier = hero:makeAttackDamageInstance()
-    self.m_activityCarrier.m_attackType = 'fever'
-    self.m_activityCarrier.m_bIgnoreDef = true
+    self.m_activityCarrier:setPowerRate(FEVER_ATTACK_DAMAGE_RATE)
+    self.m_activityCarrier:setAttackType('fever')
+    self.m_activityCarrier:setIgnoreDef(true)
     self.m_activityCarrier.m_attribute = ATTR_NONE
-    self.m_activityCarrier.m_skillCoefficient = FEVER_ATTACK_DAMAGE_RATE or 1
 
     -- 공격
     hero:animatorShake()

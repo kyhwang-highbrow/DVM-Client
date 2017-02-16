@@ -30,7 +30,7 @@ function SkillLaser_Lightning:init_skill(missile_res, hit, thickness, lightning_
 
 	-- 멤버 변수 
 	self.m_lightningRes = lightning_res
-	self.m_lightingDmgRate = (lighting_dmg / 100) 
+	self.m_lightingDmgRate = (lighting_dmg) 
 	self.m_tEffectList = {}
 	self.m_tTargetList = {}
 
@@ -69,7 +69,7 @@ function SkillLaser_Lightning.st_idle(owner, dt)
         owner.m_clearCount = owner.m_clearCount + 1
 
 		-- 번개고룡 power rate 공격시마다 갱신
-		owner.m_activityCarrier.m_skillCoefficient = (owner.m_powerRate / 100)
+		owner.m_activityCarrier:setPowerRate(owner.m_powerRate)
 
         local t_collision_obj = owner:findTarget()
 		owner:collisionAttack(t_collision_obj)
@@ -99,7 +99,7 @@ function SkillLaser_Lightning:runAttack()
 	
     for i, target_char in ipairs(self.m_tTargetList) do
 		
-		self.m_activityCarrier.m_skillCoefficient = self.m_lightingDmgRate
+		self.m_activityCarrier:setPowerRate(self.m_lightingDmgRate)
 		self.m_activityCarrier:setAttackType('basic')
 				
         -- 공격

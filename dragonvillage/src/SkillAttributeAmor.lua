@@ -46,7 +46,7 @@ function SkillAttributeAmor:init_skill(owner, res, x, y, t_skill, t_data)
     end    
 
     self.m_activityCarrier = owner:makeAttackDamageInstance()
-    self.m_activityCarrier.m_skillCoefficient = (t_skill['power_rate'] / 100)
+    self.m_activityCarrier:setPowerRate(t_skill['power_rate'])
 
     -- Dash Effect 초기화
     self:initAnimator(self.m_missileRes)

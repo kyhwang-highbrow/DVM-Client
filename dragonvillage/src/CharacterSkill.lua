@@ -331,17 +331,16 @@ function Character:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_da
     end
 
     -- AttackDamage 생성
-    local activity_carrier = self:makeAttackDamageInstance(t_skill['sid'])
-
+    local activity_carrier = self:makeAttackDamageInstance()
+    activity_carrier:setPowerRate(t_skill['power_rate'])
+	activity_carrier:setAttackType(t_skill['chance_type'])
+	
     missile_launcher.m_bHeroMissile = is_hero
     self.m_world:addToMissileList(missile_launcher)
     self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
     missile_launcher:init_missileLauncher(t_skill, phys_group, activity_carrier, 1)
     missile_launcher.m_animator:changeAni('animation', true)
     missile_launcher:setPosition(start_x, start_y)
-
-    -- 미사일의 파워 비율
-    missile_launcher.m_powerRate = (t_skill['power_rate'] / 100)
 
     -- 스킬 방향 지정
     local skill_dir = tonumber(t_skill['dir'])

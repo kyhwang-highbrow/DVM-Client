@@ -66,14 +66,14 @@ function TamerSpecialSkillCombination:setActivityCarrier()
 	for _, dragon in pairs(self.m_lDragon) do
 		if (not self.m_activityCarrier) then
 			self.m_activityCarrier = dragon:makeAttackDamageInstance()
-			self.m_activityCarrier.m_skillCoefficient = self.m_powerMultiply/MAX_HIT
+			self.m_activityCarrier:setPowerRate(self.m_powerMultiply/MAX_HIT)
 		else
 			local activity_carrier = dragon:makeAttackDamageInstance()
 			self.m_activityCarrier:mergeStat(activity_carrier)
 		end
 	end
 
-    self.m_activityCarrier.m_attackType = 'special'
+    self.m_activityCarrier:setAttackType('special')
 end
 
 -------------------------------------

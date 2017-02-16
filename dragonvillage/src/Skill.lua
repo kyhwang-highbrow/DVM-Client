@@ -79,8 +79,9 @@ function Skill:initActvityCarrier(power_rate, power_abs)
     -- 공격력 계산을 위해
     self.m_activityCarrier = self.m_owner:makeAttackDamageInstance()
 	self.m_activityCarrier:setAtkDmgStat(self.m_powerSource)
-    self.m_activityCarrier.m_skillCoefficient = (self.m_powerRate / 100)
-    self.m_activityCarrier.m_skillAddAtk = power_abs or 0
+	self.m_activityCarrier:setAttackType(self.m_skillType)
+    self.m_activityCarrier:setPowerRate(self.m_powerRate)
+    self.m_activityCarrier:setAbsAttack(power_abs)
 	
 	-- 방어 무시 -> 차후에 좀더 구조화 해서 늘려나감
 	if (self.m_powerIgnore == 'def') then 
@@ -166,7 +167,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_skillName = t_skill['type']
 	self.m_targetPos = {x = t_data.x, y = t_data.y}
 	self.m_targetChar = t_data.target or self.m_targetChar
-	self.m_bSkillHitEffect = owner.m_bLeftFormation
+	self.m_bSkillHitEffect = owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')
 end
 
 -------------------------------------

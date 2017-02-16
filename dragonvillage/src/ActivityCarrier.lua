@@ -142,6 +142,28 @@ function ActivityCarrier:getAtkDmgStat()
 end
 
 -------------------------------------
+-- function setPowerRate
+-------------------------------------
+function ActivityCarrier:setPowerRate(power_rate)
+	if (not power_rate) then
+		error('power_rate 가 nil입니다.')
+	end
+
+	if (power_rate > 1) then 
+		self.m_skillCoefficient = (power_rate / 100)
+	else
+		self.m_skillCoefficient = power_rate
+	end
+end
+
+-------------------------------------
+-- function getPowerRate
+-------------------------------------
+function ActivityCarrier:getPowerRate()
+	return self.m_skillCoefficient
+end
+
+-------------------------------------
 -- function setIgnoreDef
 -------------------------------------
 function ActivityCarrier:setIgnoreDef(bool)
@@ -160,7 +182,11 @@ end
 -- @brief 기본탄/공통탄/일반탄 인지 스킬인지 구분하기 위함
 -------------------------------------
 function ActivityCarrier:setAttackType(attack_type)
-	self.m_attackType = attack_type
+	if string.find(attack_type, 'basic') then
+		self.m_attackType = 'basic'
+	else
+		self.m_attackType = attack_type
+	end
 end
 
 -------------------------------------
@@ -168,4 +194,18 @@ end
 -------------------------------------
 function ActivityCarrier:getAttackType()
 	return self.m_attackType
+end
+
+-------------------------------------
+-- function setAbsAttack
+-------------------------------------
+function ActivityCarrier:setAbsAttack(power_abs)
+	self.m_skillAddAtk = power_abs or 0
+end
+
+-------------------------------------
+-- function getAbsAttack
+-------------------------------------
+function ActivityCarrier:getAbsAttack()
+	return self.m_skillAddAtk
 end

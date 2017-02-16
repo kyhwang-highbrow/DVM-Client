@@ -17,8 +17,6 @@ MissileLauncher = class(Entity, {
         m_objectKey = '',
         m_bHeroMissile = '',
 
-        m_powerRate = '',
-
         -- 탄막 발사 종료 시간
         m_endTime = '',
 
@@ -36,7 +34,6 @@ MissileLauncher = class(Entity, {
 -------------------------------------
 function MissileLauncher:init(file_name, body)
     self.m_bHeroMissile = false
-    self.m_powerRate = 1
 end
 
 -------------------------------------
@@ -369,7 +366,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		t_option['scale'] =				attack_value.scale
 		t_option['physics_body'] =		physics_body
 		t_option['attack_damage'] =		(not attack_value.nodamage) and (not attack_value.gold) and owner.m_activityCarrier
-		t_option['damage_rate'] =		attack_value.damage_rate or self.m_powerRate
+		t_option['damage_rate'] =		attack_value.damage_rate or self.m_activityCarrier:getPowerRate()
 		t_option['accel'] =				attack_value.accel
 		t_option['accel_delay'] =		attack_value.accel_delay
 		t_option['accel_reverse_time']=	attack_value.accel_reverse_time

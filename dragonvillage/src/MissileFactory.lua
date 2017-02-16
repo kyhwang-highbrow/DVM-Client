@@ -367,7 +367,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         
             -- 미사일 계수 지정
             if damage_rate and (damage_rate~=1) then
-                missile.m_activityCarrier.m_skillCoefficient = damage_rate
+                missile.m_activityCarrier:setPowerRate(damage_rate)
             end
         end
 

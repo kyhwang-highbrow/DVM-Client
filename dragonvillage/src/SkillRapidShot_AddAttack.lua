@@ -5,6 +5,7 @@ local PARENT = SkillRapidShot
 -------------------------------------
 SkillRapidShot_AddAttack = class(PARENT, {
 		m_addAttackStatusEffect= 'str',
+		m_addAttackAcivityCarrier = 'ActivityCarrier',
      })
 
 -------------------------------------
@@ -22,6 +23,8 @@ function SkillRapidShot_AddAttack:init_skill(missile_res, motionstreak_res, targ
 	PARENT.init_skill(self, missile_res, motionstreak_res, target_count)
 
 	self.m_addAttackStatusEffect = add_attack_status_effect
+	self.m_addAttackAcivityCarrier = clone(self.m_activityCarrier)
+	self.m_addAttackAcivityCarrier:setAttackType('basic')
 end
 
 -------------------------------------
@@ -66,20 +69,19 @@ function SkillRapidShot_AddAttack:fireMissile(target, is_add_attack)
 	t_option['target'] = target
 	
     t_option['physics_body'] = {0, 0, 20}
-    t_option['attack_damage'] = self.m_activityCarrier
     t_option['object_key'] = char:getAttackPhysGroup()
 	t_option['attr_name'] = self.m_owner:getAttribute()
 
 	if (is_add_attack) then
+		t_option['attack_damage'] = self.m_addAttackAcivityCarrier
 		t_option['pos_x'] = self.m_targetChar.m_homePosX
 		t_option['pos_y'] = self.m_targetChar.m_homePosY
-		t_option['attack_damage']:setAttackType('basic')
 	else
+		t_option['attack_damage'] = self.m_activityCarrier
 		local attack_pos_x, attack_pos_y = self:getAttackPosition()
 		t_option['pos_x'] = char.pos.x + attack_pos_x
 		t_option['pos_y'] = char.pos.y + attack_pos_y + math_random(-RAPIDSHOT_Y_POS_RANGE, RAPIDSHOT_Y_POS_RANGE)
 		t_option['accel_delay'] = RAPIDSHOT_FIRE_DELAY
-		t_option['attack_damage']:setAttackType('active')
 	end
 
 	t_option['cbFunction'] = function()

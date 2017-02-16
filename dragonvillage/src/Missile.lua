@@ -668,16 +668,13 @@ function Missile:fireAddScriptMissile()
     -- AttackDamage 생성 및 상태효과 복사(테이블의 상태효과를 add_script에도 적용시킴)
     local activity_carrier = owner:makeAttackDamageInstance(0519)
 	activity_carrier.m_lStatusEffectRate = clone(self.m_activityCarrier.m_lStatusEffectRate)
-
     missile_launcher.m_bHeroMissile = is_hero
+
     self.m_world:addToUnitList(missile_launcher)
     self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
     missile_launcher:init_missileLauncherByScript(self.m_addScript, phys_group, activity_carrier, self.m_addScriptRelative, self.movement_theta)
     missile_launcher.m_animator:changeAni('animation', true)
     missile_launcher:setPosition(start_x, start_y)
-
-    -- 미사일의 파워 비율
-    missile_launcher.m_powerRate = self.m_activityCarrier.m_skillCoefficient
 end
 
 -------------------------------------

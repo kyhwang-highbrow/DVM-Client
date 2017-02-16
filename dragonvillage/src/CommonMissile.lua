@@ -12,9 +12,9 @@ CommonMissile = class(PARENT, {
 		m_motionStreakRes = 'str',
 		m_resScale = 'num',
 
-		m_powerRate = 'num',
 		m_activityCarrier = 'AttackDamage',
-
+		m_powerRate = 'num',
+		m_skillType = 'str',
 		m_lStatusEffectStr = '',
 
 		m_targetType = '', -- target_type 필드, 상대 선택 규칙
@@ -47,6 +47,7 @@ function CommonMissile:initCommonMissile(owner, t_skill)
 	self.m_resScale = t_skill['res_scale']
 
 	self.m_powerRate = t_skill['power_rate']
+	self.m_skillType = t_skill['chance_type']
 	self.m_lStatusEffectStr = {t_skill['status_effect_1'], t_skill['status_effect_2']}
 	self.m_targetType = t_skill['target_type']
 	self.m_maxFireCnt = t_skill['hit']
@@ -79,15 +80,11 @@ end
 -- function initActvityCarrier
 -------------------------------------
 function CommonMissile:initActvityCarrier()    
-    -- 공격력 계산을 위해
     self.m_activityCarrier = self.m_owner:makeAttackDamageInstance()
-    self.m_activityCarrier.m_skillCoefficient = (self.m_powerRate / 100)
-	
-	-- 상태효과도 담음
+
+    self.m_activityCarrier:setPowerRate(self.m_powerRate)
+	self.m_activityCarrier:setAttackType(self.m_skillType)
     self.m_activityCarrier:insertStatusEffectRate(self.m_lStatusEffectStr)
-	
-	-- 타격 이벤트에서 일반탄인지 구분할 때 사용
-	self.m_activityCarrier:setAttackType('basic') 
 end
 
 -------------------------------------
