@@ -55,6 +55,14 @@ function UI_Lobby:initUI()
 end
 
 -------------------------------------
+-- function init_after
+-------------------------------------
+function UI_Lobby:init_after()
+    PARENT.init_after(self)
+    g_topUserInfo:doActionReset()
+end
+
+-------------------------------------
 -- function entryCoroutine
 -------------------------------------
 function UI_Lobby:entryCoroutine()

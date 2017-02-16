@@ -145,3 +145,19 @@ function ServerData_Exploration:getExplorationLocationInfo(epr_id)
 
     return location_info, my_location_info, status
 end
+
+-------------------------------------
+-- function getDragonList
+-------------------------------------
+function ServerData_Exploration:getDragonList()
+    local l_dragon_list = g_dragonsData:getDragonsList()
+    return l_dragon_list
+end
+
+-------------------------------------
+-- function isExplorationUsedDragon
+-------------------------------------
+function ServerData_Exploration:isExplorationUsedDragon(doid)
+    local ret = self.m_mExploredDragonOid[doid]
+    return ret
+end
