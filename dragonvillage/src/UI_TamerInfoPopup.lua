@@ -68,6 +68,7 @@ end
 function UI_TamerInfoPopup:makeTamerRotatePlate()
     local vars = self.vars
 
+	-- 테이머 rotate plate 설정
     vars['rotatePlate']:setLinearSlide(true)
     vars['rotatePlate']:removeAllChildren(true)
     vars['rotatePlate']:setRadiusX(300)
@@ -75,11 +76,15 @@ function UI_TamerInfoPopup:makeTamerRotatePlate()
 	vars['rotatePlate']:setOriginDirection(0)	-- 0:UP, 1:DOWN
 	vars['rotatePlate']:setMinScale(0.3)
 
+	-- 테이블에서 정보를 받아와 테이머 생성
     for i, t_tamer in ipairs(L_TAMER_LIST) do
 		local res = t_tamer['res']
 		local tamer_ui = self:makeTamerAni(res, i)
         vars['rotatePlate']:addChild(tamer_ui)
     end
+
+	-- 현재 선택된 테이머를 가리키도록 한다.
+	local t_tamer_info = g_userData:getTamerInfo()
 
 	-- rotate plate 회전 시 실행 함수 등록
 	vars['rotatePlate']:registerScriptRotatedHandler(function() self:refresh_rotatePlate() end)
@@ -124,29 +129,30 @@ end
 -------------------------------------
 function UI_TamerInfoPopup:refresh_rotatePlate()
 	local vars = self.vars
+	
+	-- 서버의 테이머 정보
+	local t_tamer_info = g_userData:getTamerInfo()
+	
+	-- 현재 중앙에 있는 테이머 정보
 	local iFront = vars['rotatePlate']:getFrontChildIndex() + 1
 	local t_tamer = L_TAMER_LIST[iFront]
+	self.m_currTamerData = t_tamer
 
 	-- 테이머 정보 UI 출력
 	vars['tamerNameLabel']:setString(t_tamer['t_name'])
 	vars['tamerDscLabel']:setString(t_tamer['t_desc'])
-	
-	-- 현재 중앙에 있는 테이머 정보
-	self.m_currTamerData = t_tamer
-
-	-- 서버의 테이머 정보
-	t_tamer_info = g_userData:getTamerInfo()
 
 	-- 테이머 선택중 UI 조작
 	local b_use_tamer = t_tamer['tmid'] == t_tamer_info['tmid']
 	vars['useSprite']:setVisible(b_use_tamer)
 	vars['selectBtn']:setVisible(not b_use_tamer)
 
-	local b_lock = not t_tamer['b_obtain']
+	-- 얻지 않는 테이머 표시
+	local b_lock = (not t_tamer['b_obtain'])
 	vars['lockSprite']:setVisible(b_lock)
 	if (b_lock) then
 		vars['lockLabel']:setString(Str('획득 조건은 테이머마다 다릅니다.'))
-		vars['selectBtn']:setVisible(false)
+		vars['selectBtn']:setVisible(not b_lock)
 	end
 end
 
@@ -172,9 +178,13 @@ end
 -------------------------------------
 function UI_TamerInfoPopup:click_selectBtn()
 	local t_data = self.m_currTamerData
-    g_userData:applyServerData(t_data, 'tamer')
-	self:refresh()
 	UIManager:toastNotificationGreen(Str('"{1}"가 선택되었습니다.', t_data['t_name']))
+    
+	-- 서버에 저장..을 해야함
+	g_userData:applyServerData(t_data, 'tamer')
+	
+	-- ui 갱신
+	self:refresh()
 end
 
 -------------------------------------
