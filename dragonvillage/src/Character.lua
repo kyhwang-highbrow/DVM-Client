@@ -540,7 +540,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 
 	-- 시전자 이벤트 
 	if attacker.m_activityCarrier.m_activityCarrierOwner then
-		attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit', t_event, self)
+		attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit', t_event)
 
 		-- 적처치시 
 		if self.m_bDead then 

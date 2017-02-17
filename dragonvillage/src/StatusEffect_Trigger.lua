@@ -76,7 +76,7 @@ function StatusEffect_Trigger:getTriggerFunction()
     local char = self.m_owner
 	local trigger_func = nil
 
-	if (t_skill['type'] == 'skill_summon_die') then
+	if (t_skill['type'] == 'passive_summon_die') then
 		-- 지정된 trigger로 해당 위치에 지정된 몬스터를 appear로 소환
 		trigger_func = function()
 			local mid = t_skill['val_1']
@@ -98,7 +98,7 @@ function StatusEffect_Trigger:getTriggerFunction()
 			char.m_world:addInstantEffect(effect_res, 'idle', pos_x, pos_y)
 		end
 
-	elseif (t_skill['type'] == 'trigger_skill') then
+	elseif (t_skill['type'] == 'passive_do_skill') then
 		-- 지정된 trigger로 지정된 skill_id 실행 
 		trigger_func = function()
 			local skill_id = t_skill['val_1']
@@ -137,22 +137,20 @@ function StatusEffect_Trigger:getTriggerFunction()
 			SkillAddAttack:makeSkillInstance(owner, t_skill, target)
 		end
 
-	-- 완전 하드코딩 !! 추후에 구조화 하여 type을 만들자
-	----------------------------------------------------------------------
-	elseif (t_skill['sid'] == 220531) then
-		-- 옵타티온 패시브 : 우정의 팀웤
+	elseif (t_skill['type'] == 'passive_target') then
+		-- target_rule에 따른 대상 1한테 시전
 		trigger_func = function()
-			local allyList = char:getFellowList()
-			local rand = math_random(1, #allyList)
-			StatusEffectHelper:doStatusEffectByStr(char, {allyList[rand]}, {t_skill['status_effect_1'], t_skill['status_effect_2']})
+			local target_list = char:getTargetList(t_skill)
+			StatusEffectHelper:doStatusEffectByStr(char, {target_list[1]}, {t_skill['status_effect_1'], t_skill['status_effect_2']})
 		end
 
-    elseif (t_skill['sid'] == 220501) then
-        -- 번개고룡 패시브 : 번개의 권능
-		trigger_func = function(t_event, defender)
-			local defender = defender
-			local allyList = char:getOpponentList()
-			StatusEffectHelper:doStatusEffectByStr(char, allyList, {t_skill['status_effect_1'], t_skill['status_effect_2']}, function(target)
+    elseif (t_skill['type'] == 'passive_target_ms_effect') then
+        -- target_rule에 따른 대상한테 시전 하면서 motion_streak effect 추가!
+		-- 연출에 따라도 나뉘어야 함
+		trigger_func = function(t_event)
+			local defender = t_event['defender']
+			local target_list = char:getTargetList(t_skill)
+			StatusEffectHelper:doStatusEffectByStr(char, target_list, {t_skill['status_effect_1'], t_skill['status_effect_2']}, function(target)
 				EffectMotionStreak(target.m_world, defender.pos.x, defender.pos.y, target.pos.x, target.pos.y, 'res/effect/motion_streak/motion_streak_emblem_tree.png')
 			end)
 		end
