@@ -1659,6 +1659,9 @@
     <None Include="..\src\SecurityNumber.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\StatusEffect_Immune.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
