@@ -146,6 +146,11 @@ function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_
     
     local table_status_effect = TABLE:get('status_effect')
     local t_status_effect = table_status_effect[status_effect_type]
+	
+	-- 면역 효과
+	if (char:isImmune()) and self:isHarmful(t_status_effect['type']) then 
+		return nil
+	end
 
     assert(t_status_effect, 'status_effect_type : ' .. status_effect_type)
 	
@@ -513,7 +518,7 @@ function StatusEffectHelper:releaseHarmfulStatusEffect(char)
 
 	-- 해제
 	for type, status_effect in pairs(char:getStatusEffectList()) do
-		if isExistValue(status_effect.m_type, 'debuff', 'cc', 'dot_dmg') then 
+		if self:isHarmful(status_effect.m_type) then 
 			status_effect:changeState('end')
 			char:removeStatusEffect(status_effect)
 			return true
@@ -533,7 +538,7 @@ function StatusEffectHelper:releaseStatusEffectDebuff(char)
 
 	-- 해제
 	for type, status_effect in pairs(char:getStatusEffectList()) do
-        if isExistValue(status_effect.m_type, 'debuff', 'cc', 'dot_dmg') then 
+        if self:isHarmful(status_effect.m_type) then 
 		    status_effect:changeState('end')
         end
 	end
@@ -609,4 +614,11 @@ end
 -------------------------------------
 function StatusEffectHelper:getActivityCarrier()
 	return self.m_casterActivityCarrier
+end
+
+-------------------------------------
+-- function isHarmful
+-------------------------------------
+function StatusEffectHelper:isHarmful(status_effect_type)
+	return isExistValue(status_effect_type, 'debuff', 'cc', 'dot_dmg')
 end

@@ -106,15 +106,16 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
 		m_lStatusIcon = 'sprite table',
         m_comebackNextState = 'state',
 
-        m_bInvincibility = 'boolean',   -- 무적 상태 여부
-
         -- 피격시 경직 관련
         m_bEnableSpasticity = 'boolean',-- 경직 가능 활성화 여부
         m_isSpasticity = 'boolean',     -- 경직 중 여부
         m_delaySpasticity = 'number',   -- 경직 남은 시간
 
-		-- 스킬 사용 불가 상태
-		m_isSilence = 'boolean',
+		
+		-- 캐릭터의 특정 상태
+        m_bInvincibility = 'boolean',   -- 무적 상태 여부
+		m_isSilence = 'boolean',		-- 침묵 (스킬 사용 불가 상태)
+		m_isImmune = 'boolean',			-- 면역 (해로운 상태 효과 면역)
 
         m_activityCarrier = 'ActivityCarrier',
 
@@ -144,13 +145,13 @@ function Character:init(file_name, body, ...)
 	self.m_lStatusEffect = {}
 	self.m_lStatusIcon = {}
 
-    self.m_bInvincibility = false
-
     self.m_bEnableSpasticity = true
     self.m_isSpasticity = false
     self.m_delaySpasticity = 0
 
+    self.m_bInvincibility = false
 	self.m_isSilence = false
+	self.m_isImmune = false
 
 	self.m_isSlaveCharacter = false
 	self.m_masterCharacter = nil
@@ -1786,6 +1787,13 @@ end
 -------------------------------------
 function Character:setSilence(b)
 	self.m_isSilence = b
+end
+
+-------------------------------------
+-- function setImmune
+-------------------------------------
+function Character:setImmune(b)
+	self.m_isImmune = b
 end
 
 -------------------------------------
