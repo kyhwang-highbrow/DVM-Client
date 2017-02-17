@@ -78,7 +78,17 @@ function UI_ShopListItem:click_buyBtn()
     local can_buy, msg = g_shopData:canBuyProduct(t_product)
 
     if can_buy then
-        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, function() g_shopData:tempBuy(t_product) end)
+		local function ok_cb()
+			g_shopData:tempBuy(t_product)
+		end
+
+		if (t_product['price'] > 0) then
+			local price_type = t_product['price_type']
+			local price_value = t_product['t_ui_info']['price_name']
+			MakeSimplePopup_Confirm(price_type, price_value, ok_cb, nil)
+		else
+			ok_cb()
+		end
     else
         UIManager:toastNotificationRed(msg)
         self:nagativeAction()

@@ -4,7 +4,8 @@ local PARENT = UI
 -- class UI_ConfirmPopup
 -------------------------------------
 UI_ConfirmPopup = class(PARENT,{
-		m_tCostTable = 'cost list',
+		m_itemKey = '',
+		m_itemValue = '',
         m_cbOKBtn = 'function',
         m_cbCancelBtn = 'function',
     })
@@ -12,8 +13,9 @@ UI_ConfirmPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ConfirmPopup:init(cost_list, ok_btn_cb, cancel_btn_cb)
-	self.m_tCostTable = cost_list
+function UI_ConfirmPopup:init(item_key, item_value, ok_btn_cb, cancel_btn_cb)
+	self.m_itemKey = item_key
+	self.m_itemValue = item_value
     self.m_cbOKBtn = ok_btn_cb
     self.m_cbCancelBtn = cancel_btn_cb
 
@@ -42,12 +44,14 @@ function UI_ConfirmPopup:initButton()
 
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
     vars['cancelBtn']:registerScriptTapHandler(function() self:click_cancelBtn() end)
+	vars['closeBtn']:registerScriptTapHandler(function() self:click_cancelBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_ConfirmPopup:refresh()
+--[[
     local base_node = self.vars['costNode']
 	local total_count = table.count(self.m_tCostTable)
 	local count = 0
@@ -59,6 +63,48 @@ function UI_ConfirmPopup:refresh()
 		item.root:setPosition(pos_x, 0) 
 		count = count + 1
 	end
+]]
+	local vars = self.vars
+
+	vars['titleLabel']:setString(Str('다음 재화를 사용합니다.\n진행하시겠습니다?'))
+	
+	vars['priceLabel']:setString(comma_value(self.m_itemValue))
+
+	local price_icon = self:getPriceIcon(self.m_itemKey)
+	if (price_icon) then
+		vars['iconNode']:addChild(price_icon)
+	end
+end
+
+-------------------------------------
+-- function click_backKey
+-------------------------------------
+function UI_ConfirmPopup:getPriceIcon(price_type)
+    local res = nil
+
+    if (price_type == 'x') then
+
+    elseif (price_type == 'cash') then
+        res = 'res/ui/icon/inbox/inbox_cash.png'
+
+    elseif (price_type == 'gold') then
+        res = 'res/ui/icon/inbox/inbox_gold.png'
+
+    elseif (price_type == 'stamina') then
+        res = 'res/ui/icon/inbox/inbox_staminas_st.png'
+
+    else
+        error('price_type : ' .. price_type)
+    end
+
+	if (res) then
+		local sprite = cc.Sprite:create(res)
+		sprite:setDockPoint(cc.p(0.5, 0.5))
+		sprite:setAnchorPoint(cc.p(0.5, 0.5))
+		return sprite
+	end
+
+	return nil
 end
 
 -------------------------------------

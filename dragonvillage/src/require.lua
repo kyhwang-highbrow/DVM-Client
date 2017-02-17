@@ -419,7 +419,6 @@ local t_module = {
 	'UI_ShopListItem',
     'UI_ItemCard',
 	'UI_RewardCard',
-    'UI_ProductButton',
     'UI_SkillCard',
     'UI_DragonSkillCard',
     'UI_GachaResult_Dragon',
