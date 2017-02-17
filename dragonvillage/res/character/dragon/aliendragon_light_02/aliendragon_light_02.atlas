@@ -1,0 +1,13 @@
+
+aliendragon_light_02.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+aliendragon_light_02_body_01
+  rotate: false
+  xy: 2, 66
+  size: 377, 313
+  orig: 377, 313
+  offset: 0, 0
+  index: -1

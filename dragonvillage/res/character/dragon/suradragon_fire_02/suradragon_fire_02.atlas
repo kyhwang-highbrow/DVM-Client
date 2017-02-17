@@ -1,0 +1,13 @@
+
+suradragon_fire_02.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+suradragon_fire_02_body_01
+  rotate: false
+  xy: 2, 21
+  size: 449, 430
+  orig: 449, 430
+  offset: 0, 0
+  index: -1

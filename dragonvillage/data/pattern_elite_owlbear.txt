@@ -5,7 +5,7 @@
 			"m;RM22;2000", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1",
 			"m;RF13;2000", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1",
 			"m;RM25;2000", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1",
-			"m;RF16;2000", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1",
+			"m;RF16;2000", "w;3", "a;basic", "w;3", "a;basic", "w;3", "a;1"
 		]
     ],
 	
