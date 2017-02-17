@@ -89,8 +89,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_touchPrevPos = '{x, y}',
         m_tCollisionTime = 'table',
 
-        m_goldUnit = 'number',
-        m_gold = 'number',
+        m_snGold = 'SecurityNumber',
 
         m_mapManager = 'MapManager',
 		m_shakeMgr = 'ShakeManager',
@@ -239,7 +238,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_bUsedFriend = false
     self.m_friendHero = nil
 
-    self:initGoldUnit(stage_id)
+    self:initGold()
 end
 
 
@@ -406,30 +405,28 @@ function GameWorld:addChild3(node, depth)
 end
 
 -------------------------------------
--- function initGoldUnit
+-- function initGold
 -------------------------------------
-function GameWorld:initGoldUnit(stage_id)
-    --[[
-    local table_drop = TABLE:get('drop')
-    local t_drop = table_drop[stage_id]
-
-    self.m_goldUnit = t_drop['gold_unit']
-    ]]--
-    self.m_goldUnit = 10
-    self.m_gold = 0
+function GameWorld:initGold()
+    self.m_snGold = SecurityNumber(0)
 end
 
 -------------------------------------
 -- function obtainGold
 -------------------------------------
-function GameWorld:obtainGold(cnt)
-    local cnt = (cnt or 1)
-    local add_gold = (cnt * self.m_goldUnit)
-    local prev_gold = self.m_gold
+function GameWorld:obtainGold(add_gold)
+    local prev_gold = self.m_snGold:get()
 
-    self.m_gold = (self.m_gold + add_gold)
+    self.m_snGold:add(add_gold)
 
-    g_gameScene.m_inGameUI:setGold(self.m_gold, prev_gold)
+    g_gameScene.m_inGameUI:setGold(self.m_snGold:get(), prev_gold)
+end
+
+-------------------------------------
+-- function getGold
+-------------------------------------
+function GameWorld:getGold()
+    return self.m_snGold:get()
 end
 
 -------------------------------------

@@ -69,7 +69,7 @@ function GameState_SecretDungeon_Relation:makeResultUI(is_success)
         UI_GameResult_SecretDungeon(stage_id,
             is_success,
             self.m_fightTimer,
-            world.m_gold,
+            world:getGold(),
             t_result_ref['user_levelup_data'],
             t_result_ref['dragon_levelu_data_list'],
             t_result_ref['drop_reward_grade'],

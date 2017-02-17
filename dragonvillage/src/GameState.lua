@@ -662,9 +662,6 @@ function GameState.update_success(self, dt)
             end
         end
 
-        -- 한번에 골드 획득
-        world:clearGold()
-
         g_adventureData:clearStage(world.m_stageID, 1)
         g_gameScene.m_inGameUI:doActionReverse(function()
             g_gameScene.m_inGameUI.root:setVisible(false)
@@ -810,7 +807,7 @@ function GameState:makeResultUI(is_success)
         UI_GameResultNew(stage_id,
             is_success,
             self.m_fightTimer,
-            world.m_gold,
+            world:getGold(),
             t_result_ref['user_levelup_data'],
             t_result_ref['dragon_levelu_data_list'],
             t_result_ref['drop_reward_grade'],

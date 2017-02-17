@@ -46,6 +46,7 @@ local t_module = {
     'TimeLib',
     'Table',
     'TableClass',
+    'SecurityNumber',
     'ResPreloadHelper',
     'ResPreloadMgr',
     'RichLabel',

@@ -115,14 +115,6 @@ function GameWorldColosseum:initTamer()
 end
 
 -------------------------------------
--- function initGoldUnit
--------------------------------------
-function GameWorldColosseum:initGoldUnit()
-    self.m_goldUnit = 0
-    self.m_gold = 0
-end
-
--------------------------------------
 -- function addEnemy
 -- @param enemy
 -------------------------------------
