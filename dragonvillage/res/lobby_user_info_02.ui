@@ -7,14 +7,14 @@
 		{
 			[1] =
 			{
-				type = 'Sprite';
+				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 460;
+				width = 430;
 				height = 220;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -23,19 +23,19 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/lobby_user_info_bg_01.png';
+				file_name = 'ui/frame/base_frame_05.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
 			};
 			[2] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 28.000000;
+				x = 45.000000;
 				y = 61.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -75,12 +75,12 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 28.000000;
+				x = 53.000000;
 				y = 3.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 234;
+				width = 250;
 				height = 34;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -96,7 +96,7 @@
 				v_alignment = 1;
 				color = { 54; 120; 191; };
 				opacity = 255;
-				dimension_width = 234;
+				dimension_width = 250;
 				dimension_height = 34;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -115,12 +115,12 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 28.000000;
+				x = 53.000000;
 				y = 32.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 234;
+				width = 250;
 				height = 34;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -136,7 +136,7 @@
 				v_alignment = 1;
 				color = { 87; 64; 34; };
 				opacity = 255;
-				dimension_width = 234;
+				dimension_width = 250;
 				dimension_height = 34;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -155,7 +155,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -143.000000;
+				x = -126.000000;
 				y = 32.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -191,7 +191,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 28;
+					font_size = 26;
 					text = '정보 보기';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -215,7 +215,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = -90.000000;
-				y = -55.000000;
+				y = -60.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -229,8 +229,8 @@
 				visible = true;
 				lua_name = 'infoBtn';
 				enable = true;
-				normal = 'ui/btn/sub_btn_0101.png';
-				selected = 'ui/btn/sub_btn_0102.png';
+				normal = 'ui/btn/base_btn_0101.png';
+				selected = 'ui/btn/base_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -255,7 +255,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 28;
+					font_size = 26;
 					text = '친구 신청';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -279,7 +279,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 90.000000;
-				y = -55.000000;
+				y = -60.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -293,8 +293,8 @@
 				visible = true;
 				lua_name = 'requestBtn';
 				enable = true;
-				normal = 'ui/btn/sub_btn_0101.png';
-				selected = 'ui/btn/sub_btn_0102.png';
+				normal = 'ui/btn/base_btn_0103.png';
+				selected = 'ui/btn/base_btn_0104.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -302,13 +302,13 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = 176.000000;
-				y = 65.000000;
+				x = 188.000000;
+				y = 81.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 80;
-				height = 82;
+				height = 80;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -317,8 +317,8 @@
 				visible = true;
 				lua_name = 'closeBtn';
 				enable = true;
-				normal = 'ui/btn/bookmark_0303.png';
-				selected = 'ui/btn/bookmark_0304.png';
+				normal = 'ui/btn/close_01.png';
+				selected = 'ui/btn/close_02.png';
 				disable = '';
 				image_type = 0;
 			};
@@ -329,7 +329,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 460;
+			width = 430;
 			height = 220;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
