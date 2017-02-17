@@ -792,9 +792,6 @@
     <None Include="..\src\UI_Popup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ProductButton.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_ReadyScene.lua">
       <Filter>lua\UI</Filter>
     </None>
