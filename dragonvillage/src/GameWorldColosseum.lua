@@ -324,14 +324,16 @@ function GameWorldColosseum:makeEnemyDeck()
         g_colosseumData:setTestColosseumDeck()
     end
 
+    local user_info = g_colosseumData.m_vsUserInfo
+
     -- 상대방의 덱 정보를 얻어옴
-    local l_deck, formation = g_colosseumData:getOpponentDeck()
+    local l_deck, formation = user_info:getDeck()
 
     -- 덱에 배치된 드래곤들 생성
     for i, doid in pairs(l_deck) do
-        local t_dragon_data = g_colosseumData:getOpponentDragon(doid)
+        local t_dragon_data = user_info:getDragon(doid)
         if (t_dragon_data) then
-            local status_calc = g_colosseumData:makeOpponentDragonStatusCalculator(doid)
+            local status_calc = user_info:makeDragonStatusCalculator(doid)
             local is_right = true
             local enemy = self:makeDragonNew(t_dragon_data, is_right, status_calc)
             if (enemy) then

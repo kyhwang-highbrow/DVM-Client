@@ -104,6 +104,9 @@ local t_module = {
     'DragonSortManager',
     'RuneEnchantHelper',
     'SimplePrimitivesDraw',
+
+    -- Data클래스
+    'ColosseumUserInfo',
     	
     -- Table
     'TableStageDesc',

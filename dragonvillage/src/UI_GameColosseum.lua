@@ -31,11 +31,11 @@ function UI_GameColosseum:initUI()
 
     -- 닉네임
     do
-        local user_info = g_colosseumData.m_playerInfo
-        vars['userNameLabel1']:setString(user_info['nickname'])
+        local user_info = g_colosseumData.m_playerUserInfo
+        vars['userNameLabel1']:setString(user_info.m_nickname)
 
-        user_info = g_colosseumData.m_vsInfo
-        vars['userNameLabel2']:setString(user_info['nickname'])
+        user_info = g_colosseumData.m_vsUserInfo
+        vars['userNameLabel2']:setString(user_info.m_nickname)
     end
 
     -- 백키 지정

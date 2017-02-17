@@ -5,9 +5,10 @@ ServerData_Colosseum = class({
         m_serverData = 'ServerData',
 
         -- 내 정보
-        m_playerInfo = '',
+        m_playerUserInfo = '',
 
         -- 상대방 정보
+        m_vsUserInfo = '',
         m_vsInfo = '',
         m_vsDeckInfo = '',
         m_vsDragons = '',
@@ -15,6 +16,10 @@ ServerData_Colosseum = class({
 
         -- 매칭된 게임의 고유 키
         m_colosseumGameKey = '',
+
+        m_week = '', -- 현재 주차 정보
+        m_startTime = '',
+        m_endTime = '',
     })
 
 -------------------------------------
@@ -62,16 +67,43 @@ end
 -- function response_colosseumInfo
 -------------------------------------
 function ServerData_Colosseum:response_colosseumInfo(ret, cb)    
-    self.m_playerInfo = ret
 
-    self.m_playerInfo['nickname'] = g_userData:get('nick')
-    if (not self.m_playerInfo['rp']) then
-        self.m_playerInfo['rp'] = self.m_playerInfo['score'] or 0
-    end
+    self:initPlayerColosseumInfo()
+    self.m_playerUserInfo:setRP(ret['rp'])
+    self.m_playerUserInfo:setRank(ret['myrank'])
+    self.m_playerUserInfo:setRankPercent(ret['rank_percent'])
+    self.m_playerUserInfo:setTier(ret['tier'])
+    self.m_playerUserInfo:setStraight(ret['straight'])
+  
+    self:setColosseumStatus(ret['week'], ret['start_time'], ret['end_time'])
 
     if cb then
         cb(ret)
     end
+end
+
+-------------------------------------
+-- function setColosseumStatus
+-------------------------------------
+function ServerData_Colosseum:setColosseumStatus(week, start_time, end_time)
+    self.m_week = week
+    self.m_startTime = start_time
+    self.m_endTime = end_time
+end
+
+-------------------------------------
+-- function initPlayerColosseumInfo
+-------------------------------------
+function ServerData_Colosseum:initPlayerColosseumInfo() 
+    if (self.m_playerUserInfo) then
+        return
+    end
+
+    self.m_playerUserInfo = ColosseumUserInfo()
+
+    self.m_playerUserInfo.m_bPlayerUser = true
+    self.m_playerUserInfo:setUid(g_userData:get('uid'))
+    self.m_playerUserInfo:setNickname(g_userData:get('nick'))
 end
 
 -------------------------------------
@@ -104,14 +136,17 @@ end
 function ServerData_Colosseum:response_colosseumStart(ret, cb)
 
     self.m_colosseumGameKey = ret['pvp_id']
-    self.m_vsInfo = ret['vs_info']
-    self.m_vsDeckInfo = ret['vs_deck']
-    self.m_vsRunes = ret['vs_runes']
-    self.m_vsDragons = ret['vs_dragons']
 
-    for _,t_rune_data in pairs(self.m_vsRunes) do
-        t_rune_data['information'] = g_runesData:makeRuneInfomation(t_rune_data)
-    end
+    -- 상대방 유저 정보 설정
+    self.m_vsUserInfo = ColosseumUserInfo()
+    self.m_vsUserInfo:setRP(ret['vs_info']['rp']) -- 랭킹 포인트
+    self.m_vsUserInfo:setTier(ret['vs_info']['tier']) -- 티어
+    self.m_vsUserInfo:setNickname(ret['vs_info']['nickname']) -- 닉네임
+    self.m_vsUserInfo:setUid(ret['vs_info']['uid']) -- UID
+
+    self.m_vsUserInfo:setDragons(ret['vs_dragons'])
+    self.m_vsUserInfo:setRunes(ret['vs_runes'])
+    self.m_vsUserInfo:setDeckInfo(ret['vs_deck'])
     
     if cb then
         cb(ret)
@@ -178,7 +213,7 @@ end
 -------------------------------------
 function ServerData_Colosseum:getOpponentDeck()
     -- 드래곤의 doid가 있는 슬롯 리스트
-    local l_deck = self.m_vsDeckInfo['deck']
+    local l_deck = self.m_vsUserInfo['deck']
 
     -- 진형
     local formation = self.m_vsDeckInfo['formation']

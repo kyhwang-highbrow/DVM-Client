@@ -43,12 +43,10 @@ function UI_ColosseumLoading:init_playerInfo()
     animator:changeAni('idle', true)
     vars['dragonNode1']:addChild(animator.m_node)
     
-    local user_info = g_colosseumData.m_playerInfo
-    vars['nameLabel1']:setString(user_info['nickname'])
-
-    vars['pointLabel1']:setString(comma_value(user_info['rp']))
-
-    vars['tierLabel1']:setString(self:getTierName(user_info['tier']))
+    local user_info = g_colosseumData.m_playerUserInfo
+    vars['nameLabel1']:setString(user_info.m_nickname)
+    vars['pointLabel1']:setString(user_info.m_rp)
+    vars['tierLabel1']:setString(self:getTierName(user_info.m_tier))
 end
 
 -------------------------------------
@@ -58,19 +56,19 @@ end
 function UI_ColosseumLoading:init_opponentInfo()
     local vars = self.vars
 
-    local l_deck = g_colosseumData:getOpponentDeck()
+    local user_info = g_colosseumData.m_vsUserInfo
+
+    local l_deck = user_info:getDeck()
     local doid = self:getRepresentativeDragon(l_deck)
-    local t_dragon_data = g_colosseumData:getOpponentDragon(doid)
+    local t_dragon_data = user_info:getDragon(doid)
     local animator = g_dragonsData:makeDragonAnimator(t_dragon_data)
     animator:changeAni('idle', true)
     vars['dragonNode2']:addChild(animator.m_node)
 
-    local user_info = g_colosseumData.m_vsInfo
-    vars['nameLabel2']:setString(user_info['nickname'])
 
-    vars['pointLabel2']:setString(comma_value(user_info['rp']))
-
-    vars['tierLabel2']:setString(self:getTierName(user_info['tier']))
+    vars['nameLabel2']:setString(user_info.m_nickname)
+    vars['pointLabel2']:setString(comma_value(user_info.m_rp))
+    vars['tierLabel2']:setString(self:getTierName(user_info.m_tier))
 end
 
 -------------------------------------
@@ -105,21 +103,21 @@ function UI_ColosseumLoading:getTierName(tier)
 
     local str = ''
     if (tier == 'legend') then
-        str = '전설'
+        str = '레전드'
     elseif (tier == 'master') then
-        str = '정복자'
+        str = '마스터'
     elseif (tier == 'challenger') then
-        str = '도전자'
+        str = '챌린저'
     elseif (tier == 'diamond') then
-        str = '금강석'
+        str = '다이아'
     elseif (tier == 'platinum') then
-        str = '백금'
+        str = '플래티넘'
     elseif (tier == 'gold') then
-        str = '금'
+        str = '골드'
     elseif (tier == 'silver') then
-        str = '은'
+        str = '실버'
     elseif (tier == 'bronze') then
-        str = '청동'
+        str = '브론즈'
     else
         
     end
