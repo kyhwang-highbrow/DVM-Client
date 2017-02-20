@@ -71,7 +71,7 @@ end
 -------------------------------------
 function SkillAoERound.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
-		self:setAttackInterval()
+		owner:setAttackInterval()
 
 		-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
         owner.m_multiAtkTimer = owner.m_hitInterval
@@ -89,7 +89,7 @@ function SkillAoERound.st_attack(owner, dt)
 	
 	-- 공격 횟수 초과시 탈출
     if (owner.m_maxAttackCnt <= owner.m_attackCnt) then
-		local t_target = self:findTarget()
+		local t_target = owner:findTarget()
         owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_HIT }, t_target)
         owner:changeState('disappear')
     end
