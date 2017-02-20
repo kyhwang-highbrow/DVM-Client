@@ -136,6 +136,7 @@ local t_module = {
 	'TableQuest',
 	'TableShop',
     'TableSecretDungeon',
+    'TableColosseumReward',
 
     -- Interface
     'IEventDispatcher',
@@ -451,6 +452,8 @@ local t_module = {
     'UI_ColosseumResult',
     'UI_ColosseumRankListItem',
     'UI_ColosseumFriendRankListItem',
+    'UI_ColosseumRewardListItem',
+    'UI_ColosseumFirstRewardListItem',
     'UI_TamerSelectPopup',
     'UI_TamerSelectItem',
 	'UI_TamerInfoPopup',
@@ -475,6 +478,7 @@ local t_module = {
     'UI_GachaDragon',
     'UI_GachaBox',
     'UI_ItemInfoPopup',
+    'UI_ColosseumRewardPopup',
 
     -- 친구 시스템 관련
     'UI_FriendPopup',

@@ -574,6 +574,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SumRandom.lua" />
     <None Include="..\src\SwipeGesture.lua" />
     <None Include="..\src\Table.lua" />
+    <None Include="..\src\TableColosseumReward.lua" />
     <None Include="..\src\TableDragon.lua" />
     <None Include="..\src\TableDragonSkill.lua" />
     <None Include="..\src\TableDragonTrainInfo.lua" />
@@ -651,10 +652,13 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ClassForm.lua" />
     <None Include="..\src\UI_ClassFormUseTopUserInfo.lua" />
     <None Include="..\src\UI_Colosseum.lua" />
+    <None Include="..\src\UI_ColosseumFirstRewardListItem.lua" />
     <None Include="..\src\UI_ColosseumFriendRankListItem.lua" />
     <None Include="..\src\UI_ColosseumLoading.lua" />
     <None Include="..\src\UI_ColosseumRankListItem.lua" />
     <None Include="..\src\UI_ColosseumResult.lua" />
+    <None Include="..\src\UI_ColosseumRewardListItem.lua" />
+    <None Include="..\src\UI_ColosseumRewardPopup.lua" />
     <None Include="..\src\UI_DragonDetailPopup.lua" />
     <None Include="..\src\UI_DragonDevApiPopup.lua" />
     <None Include="..\src\UI_DragonExceedResult.lua" />

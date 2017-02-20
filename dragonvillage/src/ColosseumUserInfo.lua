@@ -346,7 +346,7 @@ function ColosseumUserInfo:getTierName(tier)
         
     end
 
-    if (not isExistValue(tier, 'legend', 'master')) then
+    if (not isExistValue(tier, 'legend', 'master')) and (grade ~= '') then
         str = Str(str) .. ' ' .. grade
     end
 

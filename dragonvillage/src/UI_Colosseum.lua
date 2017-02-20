@@ -76,7 +76,7 @@ function UI_Colosseum:initUI()
     vars['timeLabel']:setString(g_colosseumData:getWeekTimeText())
     vars['timeGauge']:setPercentage(g_colosseumData:getWeekTimePercent())
 
-    vars['rewardInfoBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"보상 정보" 준비 중') end)
+    vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
     vars['honorShopBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"명예 상점" 준비 중') end)
 end
 
@@ -232,6 +232,13 @@ function UI_Colosseum:init_friendRankTableView()
     -- 정렬
     g_colosseumRankData:sortColosseumRank(table_view.m_itemList)
     self.m_topRankTableView = table_view
+end
+
+-------------------------------------
+-- function click_rewardInfoBtn
+-------------------------------------
+function UI_Colosseum:click_rewardInfoBtn()
+    UI_ColosseumRewardPopup()
 end
 
 --@CHECK

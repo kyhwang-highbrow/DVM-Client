@@ -1680,6 +1680,18 @@
     <None Include="..\src\UI_ColosseumRankListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableColosseumReward.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_ColosseumRewardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ColosseumRewardListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ColosseumFirstRewardListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
