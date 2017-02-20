@@ -39,7 +39,12 @@ function UI_Colosseum:init()
     self:initButton()
     self:refresh()
 
-    self:sceneFadeInAction()
+    -- 보상 안내 팝업
+    local function finich_cb()
+        UI_ColosseumRankingReward()
+    end
+
+    self:sceneFadeInAction(nil, finich_cb)
 end
 
 -------------------------------------

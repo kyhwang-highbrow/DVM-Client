@@ -1692,6 +1692,12 @@
     <None Include="..\src\UI_ColosseumFirstRewardListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ColosseumRankingReward.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ColosseumFirstReward.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

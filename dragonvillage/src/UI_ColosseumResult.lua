@@ -21,6 +21,9 @@ function UI_ColosseumResult:init(is_win, t_data)
 
     self:initUI(is_win, t_data)
     self:initButton()
+
+
+    UI_ColosseumFirstReward()
 end
 
 -------------------------------------

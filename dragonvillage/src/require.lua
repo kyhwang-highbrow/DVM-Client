@@ -454,6 +454,8 @@ local t_module = {
     'UI_ColosseumFriendRankListItem',
     'UI_ColosseumRewardListItem',
     'UI_ColosseumFirstRewardListItem',
+    'UI_ColosseumRankingReward',
+    'UI_ColosseumFirstReward',
     'UI_TamerSelectPopup',
     'UI_TamerSelectItem',
 	'UI_TamerInfoPopup',

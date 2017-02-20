@@ -652,9 +652,11 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ClassForm.lua" />
     <None Include="..\src\UI_ClassFormUseTopUserInfo.lua" />
     <None Include="..\src\UI_Colosseum.lua" />
+    <None Include="..\src\UI_ColosseumFirstReward.lua" />
     <None Include="..\src\UI_ColosseumFirstRewardListItem.lua" />
     <None Include="..\src\UI_ColosseumFriendRankListItem.lua" />
     <None Include="..\src\UI_ColosseumLoading.lua" />
+    <None Include="..\src\UI_ColosseumRankingReward.lua" />
     <None Include="..\src\UI_ColosseumRankListItem.lua" />
     <None Include="..\src\UI_ColosseumResult.lua" />
     <None Include="..\src\UI_ColosseumRewardListItem.lua" />

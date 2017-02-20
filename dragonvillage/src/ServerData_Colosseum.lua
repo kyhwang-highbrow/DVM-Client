@@ -171,6 +171,10 @@ function ServerData_Colosseum:request_colosseumFinish(cb, is_win)
     -- 콜백 함수
     local function success_cb(ret)
         self:response_colosseumFinish(ret, cb)
+
+        g_colosseumRankData.m_bDirtyGlobalRank = true
+        g_colosseumRankData.m_bDirtyTopRank = true
+        g_colosseumRankData.m_bDirtyFriendRank = true
     end
 
     -- 네트워크 통신 UI 생성
