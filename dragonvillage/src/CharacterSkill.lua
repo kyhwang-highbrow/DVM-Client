@@ -45,7 +45,6 @@ function Character:doSkill(skill_id, x, y, t_data)
     self:checkTarget(t_skill, t_data)
 
     if (not self.m_targetChar) then
-		cclog('타겟이 없습니다 ID : ' .. skill_id)
         return false
     end
 

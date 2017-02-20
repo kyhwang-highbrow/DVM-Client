@@ -142,7 +142,6 @@ end
 function SkillAoERound:setAttackInterval()
 	-- 이펙트 재생 단위 시간
 	self.m_hitInterval = self.m_animator:getDuration()
-	cclog(self.m_hitInterval)
 end
 
 -------------------------------------
