@@ -20,11 +20,11 @@
             <key>skill_unknown_flight_object_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{112,1888},{82,92}}</string>
+                <string>{{369,1876},{82,92}}</string>
                 <key>offset</key>
                 <string>{0,4}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{21,22},{82,92}}</string>
                 <key>sourceSize</key>
@@ -33,7 +33,7 @@
             <key>skill_unknown_flight_object_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{248,286},{23,57}}</string>
+                <string>{{220,440},{23,57}}</string>
                 <key>offset</key>
                 <string>{-1,-3}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>skill_unknown_flight_object_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{248,196},{88,40}}</string>
+                <string>{{405,864},{88,40}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
@@ -59,11 +59,11 @@
             <key>skill_unknown_flight_object_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{290,196},{15,12}}</string>
+                <string>{{436,150},{15,12}}</string>
                 <key>offset</key>
                 <string>{0,2}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{8,15},{15,12}}</string>
                 <key>sourceSize</key>
@@ -72,7 +72,7 @@
             <key>skill_unknown_flight_object_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{216,658},{193,1137}}</string>
+                <string>{{2,863},{193,1137}}</string>
                 <key>offset</key>
                 <string>{-6,-21}</string>
                 <key>rotated</key>
@@ -98,11 +98,11 @@
             <key>skill_unknown_flight_object_eff_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{210,1797},{203,202}}</string>
+                <string>{{197,1266},{203,202}}</string>
                 <key>offset</key>
                 <string>{-5,32}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{22,96},{203,202}}</string>
                 <key>sourceSize</key>
@@ -111,7 +111,7 @@
             <key>skill_unknown_flight_object_eff_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1486},{205,206}}</string>
+                <string>{{197,864},{205,206}}</string>
                 <key>offset</key>
                 <string>{-5,34}</string>
                 <key>rotated</key>
@@ -124,11 +124,11 @@
             <key>skill_unknown_flight_object_eff_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1072},{205,208}}</string>
+                <string>{{248,238},{205,208}}</string>
                 <key>offset</key>
                 <string>{-5,35}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{21,90},{205,208}}</string>
                 <key>sourceSize</key>
@@ -137,7 +137,7 @@
             <key>skill_unknown_flight_object_eff_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1279},{205,208}}</string>
+                <string>{{216,657},{205,208}}</string>
                 <key>offset</key>
                 <string>{-5,34}</string>
                 <key>rotated</key>
@@ -163,7 +163,7 @@
             <key>skill_unknown_flight_object_eff_07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,863},{207,208}}</string>
+                <string>{{245,448},{207,208}}</string>
                 <key>offset</key>
                 <string>{-6,34}</string>
                 <key>rotated</key>
@@ -176,7 +176,7 @@
             <key>skill_unknown_flight_object_eff_08.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1693},{193,206}}</string>
+                <string>{{197,1071},{193,206}}</string>
                 <key>offset</key>
                 <string>{-7,34}</string>
                 <key>rotated</key>
@@ -202,7 +202,7 @@
             <key>skill_unknown_flight_object_eff_10.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{332,548},{80,76}}</string>
+                <string>{{307,1798},{80,76}}</string>
                 <key>offset</key>
                 <string>{2,5}</string>
                 <key>rotated</key>
@@ -215,11 +215,11 @@
             <key>skill_unknown_flight_object_eff_11.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{306,114},{98,96}}</string>
+                <string>{{271,1878},{98,96}}</string>
                 <key>offset</key>
                 <string>{0,5}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{15,11},{98,96}}</string>
                 <key>sourceSize</key>
@@ -228,7 +228,7 @@
             <key>skill_unknown_flight_object_eff_12.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1888},{108,108}}</string>
+                <string>{{197,1768},{108,108}}</string>
                 <key>offset</key>
                 <string>{2,3}</string>
                 <key>rotated</key>
@@ -241,7 +241,7 @@
             <key>skill_unknown_flight_object_eff_13.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{248,438},{110,108}}</string>
+                <string>{{309,1580},{110,108}}</string>
                 <key>offset</key>
                 <string>{3,5}</string>
                 <key>rotated</key>
@@ -254,7 +254,7 @@
             <key>skill_unknown_flight_object_eff_14.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{273,326},{110,110}}</string>
+                <string>{{197,1546},{110,110}}</string>
                 <key>offset</key>
                 <string>{2,3}</string>
                 <key>rotated</key>
@@ -267,11 +267,11 @@
             <key>skill_unknown_flight_object_eff_15.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{304,212},{108,112}}</string>
+                <string>{{319,1470},{108,112}}</string>
                 <key>offset</key>
                 <string>{4,2}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{14,6},{108,112}}</string>
                 <key>sourceSize</key>
@@ -280,7 +280,7 @@
             <key>skill_unknown_flight_object_eff_16.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{220,548},{110,108}}</string>
+                <string>{{197,1658},{110,108}}</string>
                 <key>offset</key>
                 <string>{4,0}</string>
                 <key>rotated</key>
@@ -293,15 +293,80 @@
             <key>skill_unknown_flight_object_eff_17.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{306,2},{110,106}}</string>
+                <string>{{309,1690},{110,106}}</string>
                 <key>offset</key>
                 <string>{4,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{13,12},{110,106}}</string>
                 <key>sourceSize</key>
                 <string>{128,128}</string>
+            </dict>
+            <key>skill_unknown_flight_object_eff_18.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{197,1878},{72,108}}</string>
+                <key>offset</key>
+                <string>{-2,-15}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{12,31},{72,108}}</string>
+                <key>sourceSize</key>
+                <string>{100,140}</string>
+            </dict>
+            <key>skill_unknown_flight_object_eff_19.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{197,1470},{74,120}}</string>
+                <key>offset</key>
+                <string>{-1,-9}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{12,19},{74,120}}</string>
+                <key>sourceSize</key>
+                <string>{100,140}</string>
+            </dict>
+            <key>skill_unknown_flight_object_eff_20.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{306,150},{86,128}}</string>
+                <key>offset</key>
+                <string>{7,-6}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{14,12},{86,128}}</string>
+                <key>sourceSize</key>
+                <string>{100,140}</string>
+            </dict>
+            <key>skill_unknown_flight_object_eff_21.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{306,86},{62,138}}</string>
+                <key>offset</key>
+                <string>{-5,-1}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{14,2},{62,138}}</string>
+                <key>sourceSize</key>
+                <string>{100,140}</string>
+            </dict>
+            <key>skill_unknown_flight_object_eff_22.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{306,2},{82,138}}</string>
+                <key>offset</key>
+                <string>{9,-1}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{18,2},{82,138}}</string>
+                <key>sourceSize</key>
+                <string>{100,140}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -311,9 +376,9 @@
             <key>realTextureFileName</key>
             <string>skill_unknown_flight_object.png</string>
             <key>size</key>
-            <string>{414,2012}</string>
+            <string>{455,2002}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:fe4c452cd9af41b5f159a917bb71827f:d84599297f916833ab5bf46433aa2281:29713785cfe8b936a3c1a1b0b9c34e2e$</string>
+            <string>$TexturePacker:SmartUpdate:577b5eca8d9319ee037a8ad16ce1097d:dd2761a708753ffe1385da12fcd01350:29713785cfe8b936a3c1a1b0b9c34e2e$</string>
             <key>textureFileName</key>
             <string>skill_unknown_flight_object.png</string>
         </dict>
