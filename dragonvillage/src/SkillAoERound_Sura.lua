@@ -26,6 +26,8 @@ function SkillAoERound_Sura:init_skill(attack_count, range, aoe_res, add_attack_
 	-- 변수 선언
 	self.m_addActivityCarrier = clone(self.m_activityCarrier)
 	self.m_addActivityCarrier:setPowerRate(50)
+	self.m_addActivityCarrier:setAttackType('basic')
+
 	self.m_addAttackCount = add_attack_count
 end
 
@@ -43,6 +45,11 @@ end
 -- @Overridding
 -------------------------------------
 function SkillAoERound_Sura:doSpecailEffect(t_target)
+	-- 직접 타격한 대상이 없다면 탈출
+	if (not t_target) or (table.count(t_target) == 0) then 
+		return 
+	end
+
 	-- 랜덤한 순서의 전체 적군 리스트
 	local l_enemy_list = table.sortRandom(self.m_world:getEnemyList())
 	for i, enemy in pairs(l_enemy_list) do 
@@ -86,14 +93,14 @@ function SkillAoERound_Sura:fireMissile(target)
 
     t_option['object_key'] = char:getAttackPhysGroup()
 
-    t_option['missile_res_name'] = 'res/missile/missile_ball/missile_ball_fire.vrp'
+    t_option['missile_res_name'] = SkillHelper:getAttributeRes('res/missile/missile_ball/missile_ball_@.vrp', char)
 	t_option['attr_name'] = self.m_owner:getAttribute()
     t_option['visual'] = 'missile'
 
     t_option['movement'] = 'fix'
     t_option['target'] = target
     t_option['effect'] = {}
-    t_option['effect']['motion_streak'] = 'res/effect/motion_streak/motion_streak_fire.png'
+    t_option['effect']['motion_streak'] = SkillHelper:getAttributeRes('res/effect/motion_streak/motion_streak_@.png', char)
     
 	local world = self.m_world
     local missile = world.m_missileFactory:makeMissile(t_option)
