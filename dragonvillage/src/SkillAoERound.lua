@@ -129,7 +129,7 @@ function SkillAoERound:runAttack()
         self:attack(target_char)
 		
 		-- 타겟별 리소스
-		self:makeEffect(target_char.pos.x, target_char.pos.y)
+		self:makeEffect(self.m_aoeRes, target_char.pos.x, target_char.pos.y)
     end
 
 	-- 스킬이 제거할 수 있는 미사일 제거
@@ -172,23 +172,6 @@ function SkillAoERound:getPoisonAddDamage(target_char)
 	end
 
 	return add_value
-end
-
--------------------------------------
--- function makeEffect
--- @breif 추가 이펙트 생성 .. 현재는 같은 리소스 사용
--------------------------------------
-function SkillAoERound:makeEffect(x, y)
-	if (self.m_aoeRes == 'x') then return end
-
-    -- 이팩트 생성
-    local effect = MakeAnimator(self.m_aoeRes)
-    effect:setPosition(x, y)
-    effect:changeAni('idle', false)
-    self.m_owner.m_world.m_missiledNode:addChild(effect.m_node, 0)
-	effect:addAniHandler(function() 
-		effect.m_node:runAction(cc.RemoveSelf:create())
-	end)
 end
 
 -------------------------------------

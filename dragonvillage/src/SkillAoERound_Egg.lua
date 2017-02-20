@@ -32,7 +32,7 @@ function SkillAoERound_Egg:runAttack()
 
     for i, target_char in ipairs(t_target) do
 		-- 타겟별 리소스
-		self:makeEffect(target_char.pos.x, target_char.pos.y)
+		self:makeEffect(self.m_aoeRes, target_char.pos.x, target_char.pos.y)
     end
 end
 

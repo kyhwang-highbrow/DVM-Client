@@ -114,15 +114,16 @@ function SkillChainLightning:runAttack()
         self:attack(target_char)
 
         -- 이펙트 생성
-        local effect = self:makeEffect(i, self.m_lightningRes)
+        local effect = self:makeEffect(self.m_lightningRes, i)
         table.insert(self.m_tEffectList, effect)
     end
 end
 
 -------------------------------------
 -- function makeEffect
+-- @overriding
 -------------------------------------
-function SkillChainLightning:makeEffect(idx, res)
+function SkillChainLightning:makeEffect(res, idx)
     local file_name = res
     local start_ani = nil --'start_idle'
     local link_ani = nil --'bar_idle'

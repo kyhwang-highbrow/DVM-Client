@@ -57,7 +57,7 @@ end
 function SkillHeartOfRuin.st_idle(owner, dt)
 	if (owner.m_stateTimer == 0) then
         -- 연출 이펙트
-        owner:makeEffect()
+        owner:makeSpecialEffect()
 
         -- 버프 적용
         owner:doStatusEffect({
@@ -106,9 +106,9 @@ function SkillHeartOfRuin.st_idle(owner, dt)
 end
 
 -------------------------------------
--- function makeEffect
+-- function makeSpecialEffect
 -------------------------------------
-function SkillHeartOfRuin:makeEffect()
+function SkillHeartOfRuin:makeSpecialEffect()
     local world = self.m_owner.m_world
     -- 연출 배경 생성
     do

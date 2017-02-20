@@ -32,10 +32,11 @@ function SkillCounterAttack:init_skill(invoke_skill_id, duration, animation_name
 	self.m_invokeSkillId = invoke_skill_id
 	self.m_duration = duration
 	self.m_animationName = animation_name
-	self.m_effect = self:makeEffect(effect_res, self.m_owner.pos)
 	self.m_triggerName = trigger_name
 	self.m_attackCount = 0
-	
+	self.m_effect = self:makeEffect(effect_res, self.m_owner.pos.x, self.m_owner.pos.x)
+	self.m_effect:setVisible(false)
+
 	-- 스킬 캐스터 이벤트 처리
 	self.m_owner:addListener(self.m_triggerName, self)
 	self.m_owner:changeState('delegate')
@@ -131,25 +132,6 @@ function SkillCounterAttack:onEvent(event_name, t_event, ...)
 		defender:doSkill(self.m_invokeSkillId, 0, 0, {})
 		self.m_attackCount = self.m_attackCount + 1
     end
-end
-
--------------------------------------
--- function makeEffect
--- @breif 추가 이펙트 생성 .. 현재는 같은 리소스 사용
--------------------------------------
-function SkillCounterAttack:makeEffect(res, pos)
-	-- 리소스 없을시 탈출
-	if (res == 'x') then return end
-	
-    -- 이팩트 생성
-    local effect = MakeAnimator(res)
-    
-	effect:setPosition(pos.x, pos.y)
-
-	effect:setVisible(false)
-    self.m_owner.m_world.m_missiledNode:addChild(effect.m_node, 0)
-
-	return effect
 end
 
 -------------------------------------

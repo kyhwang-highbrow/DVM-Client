@@ -65,7 +65,7 @@ function SkillFieldCheck:runAttack()
 			if (status_effect.m_statusEffectName == self.m_targetStatusEffectType) then 
 				
 				-- 이펙트 생성
-				self:makeEffect(target_char.pos.x, target_char.pos.y)
+				self:makeEffect(self.m_tarRes, target_char.pos.x, target_char.pos.y, 'effect')
 
 				-- 흡수 이펙트
 				for i = 1, 5 do
@@ -92,25 +92,6 @@ function SkillFieldCheck:runAttack()
 	
 	-- shake
 	self.m_owner.m_world.m_shakeMgr:shakeBySpeed(math_random(335-20, 335+20), math_random(500, 1500))
-end
-
--------------------------------------
--- function makeEffect
--- @breif 대상에게 생성되는 추가 이펙트 생성
--------------------------------------
-function SkillFieldCheck:makeEffect(x, y)
-	-- 리소스 없을시 탈출
-	if (self.m_tarRes == 'x') then return end
-
-    -- 이팩트 생성
-    local effect = MakeAnimator(self.m_tarRes)
-    effect:setPosition(x, y)
-	effect:changeAni('effect', false)
-
-    self.m_owner.m_world.m_missiledNode:addChild(effect.m_node, 0)
-	effect:addAniHandler(function() 
-		effect.m_node:runAction(cc.RemoveSelf:create())
-	end)
 end
 
 -------------------------------------

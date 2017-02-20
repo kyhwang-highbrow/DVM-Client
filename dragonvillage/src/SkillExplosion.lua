@@ -57,30 +57,11 @@ end
 function SkillExplosion.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
 		-- 공격
-		owner:makeEffect(owner.m_targetPos.x, owner.m_targetPos.y)
+		owner:makeEffect(self.m_explosionRes, owner.m_targetPos.x, owner.m_targetPos.y)
 		owner:runAttack()
 		owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 1500)
 		owner:changeState('comeback')
     end
-end
-
--------------------------------------
--- function makeEffect
--- @breif 대상에게 생성되는 추가 이펙트 생성
--------------------------------------
-function SkillExplosion:makeEffect(x, y)
-	-- 리소스 없을시 탈출
-	if (self.m_explosionRes == 'x') then return end
-
-    -- 이팩트 생성
-    local effect = MakeAnimator(self.m_explosionRes)
-    effect:setPosition(x, y)
-	effect:changeAni('idle', false)
-
-    self.m_owner.m_world.m_missiledNode:addChild(effect.m_node, 0)
-	effect:addAniHandler(function() 
-		effect.m_node:runAction(cc.RemoveSelf:create())
-	end)
 end
 
 -------------------------------------

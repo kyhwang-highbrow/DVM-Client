@@ -75,7 +75,13 @@ function SkillBurst:runAttack()
         self:attack(target_char)
 		
 		-- 이펙트 생성
-		self:makeEffect(target_char.pos.x, target_char.pos.y, has_target_status_effect)
+		local effect = self:makeEffect(self.m_burstRes, target_char.pos.x, target_char.pos.y)
+		if (has_target_status_effect) then 
+			effect:changeAni('effect_2', false)
+			effect.m_node:setScale(1.5)
+		else
+			effect:changeAni('effect_1', false)
+		end
 
 		-- 해당 상태효과 해제해야 할시 해제
 		if (self.m_isExtinguish) and has_target_status_effect then 
@@ -88,28 +94,6 @@ function SkillBurst:runAttack()
 
 	-- 스킬이 제거할 수 있는 미사일 제거
 	self:removeDestructibleMissile()
-end
-
--------------------------------------
--- function makeEffect
--- @breif 추가 이펙트 생성 .. 현재는 같은 리소스 사용
--------------------------------------
-function SkillBurst:makeEffect(x, y, is_target_status_effect)
-    -- 이팩트 생성
-    local effect = MakeAnimator(self.m_burstRes)
-    effect:setPosition(x, y)
-    
-	if (is_target_status_effect) then 
-		effect:changeAni('effect_2', false)
-		effect.m_node:setScale(1.5)
-	else
-		effect:changeAni('effect_1', false)
-	end
-
-    self.m_owner.m_world.m_missiledNode:addChild(effect.m_node, 0)
-	effect:addAniHandler(function() 
-		effect.m_node:runAction(cc.RemoveSelf:create())
-	end)
 end
 
 -------------------------------------
