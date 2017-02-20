@@ -582,9 +582,9 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     self:makeDamageFont(damage, i_x, i_y, t_info['critical'], t_info['attr_bonus_dmg'])
 
     -- 무적 체크 후 데미지 적용
-	if (defender:getCharType() == 'dragon') and (PLAYER_INVINCIBLE) then
+	if (self.m_bLeftFormation and PLAYER_INVINCIBLE) then
 		-- NOTHING TO DO
-	elseif (defender:getCharType() == 'enemy') and (ENEMY_INVINCIBLE) then
+	elseif (not self.m_bLeftFormation and ENEMY_INVINCIBLE) then
 		-- NOTHING TO DO
 	else
 		local damage = math_min(damage, self.m_hp)
