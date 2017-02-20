@@ -53,12 +53,23 @@ end
 function UI_Colosseum:initUI()
     local vars = self.vars
 
-    vars['myTierLabel']:setString('')
-    vars['myRankLabel']:setString('')
-    vars['myPointLabel']:setString('')
-    vars['myWinRateLabel']:setString('')
-    vars['myWinstreakLabel']:setString('')
-    vars['timeLabel']:setString('')
+    local player_info = g_colosseumData:getPlayerInfo()
+
+    -- 티어
+    local icon = player_info:getTierIcon()
+    cca.uiReactionSlow(icon)
+    vars['myTierIconNode']:addChild(icon)
+    vars['myTierLabel']:setString(player_info:getTierText())
+    
+    -- 플레이어 정보
+    vars['myRankLabel']:setString(player_info:getRankText())
+    vars['myPointLabel']:setString(player_info:getRPText())
+    vars['myWinRateLabel']:setString(player_info:getWinRateText())
+    vars['myWinstreakLabel']:setString(player_info:getWinstreakText())
+
+    -- 콜로세움 오픈 시간 표시
+    vars['timeLabel']:setString(g_colosseumData:getWeekTimeText())
+    vars['timeGauge']:setPercentage(g_colosseumData:getWeekTimePercent())
 
     vars['rewardInfoBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"보상 정보" 준비 중') end)
     vars['honorShopBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"명예 상점" 준비 중') end)

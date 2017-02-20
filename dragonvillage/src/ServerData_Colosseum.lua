@@ -9,10 +9,6 @@ ServerData_Colosseum = class({
 
         -- 상대방 정보
         m_vsUserInfo = '',
-        m_vsInfo = '',
-        m_vsDeckInfo = '',
-        m_vsDragons = '',
-        m_vsRunes = '',
 
         -- 매칭된 게임의 고유 키
         m_colosseumGameKey = '',
@@ -74,6 +70,10 @@ function ServerData_Colosseum:response_colosseumInfo(ret, cb)
     self.m_playerUserInfo:setRankPercent(ret['rank_percent'])
     self.m_playerUserInfo:setTier(ret['tier'])
     self.m_playerUserInfo:setStraight(ret['straight'])
+
+    -- 승, 패 횟수
+    self.m_playerUserInfo.m_winCnt = ret['last_week_win']
+    self.m_playerUserInfo.m_loseCnt = ret['last_week_lose'] 
   
     self:setColosseumStatus(ret['week'], ret['start_time'], ret['end_time'])
 
@@ -164,7 +164,7 @@ end
 function ServerData_Colosseum:request_colosseumFinish(cb, is_win)
     -- 파라미터
     local uid = g_userData:get('uid')
-    local vs_uid = self.m_vsInfo['uid']
+    local vs_uid = self.m_vsUserInfo.m_uid
     local is_win = is_win and 1 or 0
     local pvp_id = self.m_colosseumGameKey
 
@@ -214,4 +214,73 @@ function ServerData_Colosseum:setTestColosseumDeck()
     self.m_vsUserInfo:setDragons(ret['vs_dragons'])
     self.m_vsUserInfo:setRunes(ret['vs_runes'])
     self.m_vsUserInfo:setDeckInfo(ret['vs_deck'])
+end
+
+-------------------------------------
+-- function getPlayerInfo
+-- @breif 플레이어 유저의 데이터 리턴
+-------------------------------------
+function ServerData_Colosseum:getPlayerInfo()
+    return self.m_playerUserInfo
+end
+
+-------------------------------------
+-- function getPlayerInfo
+-- @breif 플레이어 유저의 데이터 리턴
+-------------------------------------
+function ServerData_Colosseum:getPlayerInfo()
+    return self.m_playerUserInfo
+end
+
+-------------------------------------
+-- function getVsUserInfo
+-- @breif 콜로세움 상대방 유저의 데이터 리턴
+-------------------------------------
+function ServerData_Colosseum:getVsUserInfo()
+    return self.m_vsUserInfo
+end
+
+-------------------------------------
+-- function getWeekTimeText
+-- @breif 주차의 남은 시간
+-------------------------------------
+function ServerData_Colosseum:getWeekTimeText()
+    local server_time = Timer:getServerTime()
+    local start_time = (self.m_startTime / 1000)
+    local end_time = (self.m_endTime / 1000)
+
+    -- 콜로세움 오픈 전
+    if (start_time < server_time) then
+        local showSeconds = true
+        local time_text = datetime.makeTimeDesc((server_time - start_time), showSeconds)
+        local text = Str('{1} 후 열림', time_text)
+        return text
+    -- 콜로세움 오픈 후
+    else
+        local showSeconds = true
+        local time_text = datetime.makeTimeDesc((start_time - server_time), showSeconds)
+        local text = Str('{1} 남음', time_text)
+        return text
+    end
+end
+
+-------------------------------------
+-- function getWeekTimePercent
+-- @breif 주차의 남은 시간
+-------------------------------------
+function ServerData_Colosseum:getWeekTimePercent()
+    local server_time = Timer:getServerTime()
+    local start_time = (self.m_startTime / 1000)
+    local end_time = (self.m_endTime / 1000)
+
+    -- 콜로세움 오픈 전
+    if (start_time < server_time) then
+        return 100
+    -- 콜로세움 오픈 후
+    else
+        local duration = (end_time - start_time)
+        local curr = (end_time - server_time)
+        local percentage = math_floor((curr / duration) * 100)
+        return percentage
+    end
 end

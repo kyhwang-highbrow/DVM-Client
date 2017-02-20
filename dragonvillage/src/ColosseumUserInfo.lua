@@ -14,6 +14,9 @@ ColosseumUserInfo = class({
         m_nickname = 'string',   -- 닉네임
         m_straight = 'number',   -- 연승 정보
 
+        m_loseCnt = 'number',
+        m_winCnt = 'number',
+
         m_dragons = '',
         m_runes = '',
         m_deckInfo = '',  
@@ -37,6 +40,8 @@ function ColosseumUserInfo:init_default()
     self.m_friendRank = nil
     self.m_tier = nil
     self.m_nickname = ''
+    self.m_loseCnt = 0
+    self.m_winCnt = 0
     self.m_dragons = {}
     self.m_runes = {}
     self.m_deckInfo = {}
@@ -213,4 +218,170 @@ function ColosseumUserInfo:makeDragonStatusCalculator(doid)
     local l_rune_bonus = ServerData_Dragons:makeRuneBonusList(t_dragon_data, l_rune_obj_map)
 
     local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, l_rune_bonus)
+end
+
+-------------------------------------
+-- function getRankText
+-- @brief
+-------------------------------------
+function ColosseumUserInfo:getRankText()
+    if (not self.m_rank) then
+        return Str('기록이 없습니다.')
+    end
+
+    local percent_text = string.format('%.2f', self.m_rankPercent * 100)
+
+    local text = Str('{1}위 ({2}%)', comma_value(self.m_rank), percent_text)
+    return text
+end
+
+-------------------------------------
+-- function getRPText
+-- @brief
+-------------------------------------
+function ColosseumUserInfo:getRPText()
+    if (not self.m_rp) then
+        return Str('기록이 없습니다.')
+    end
+
+    local text = Str('{1}점', comma_value(self.m_rp))
+    return text
+end
+
+-------------------------------------
+-- function getWinRateText
+-- @brief 승률
+-------------------------------------
+function ColosseumUserInfo:getWinRateText()
+    local sum = math_max(self.m_winCnt + self.m_loseCnt, 1)
+    local win_rate_text = math_floor(self.m_winCnt / sum * 100)
+    local text = Str('{1}승 {2}패 ({3}%)', self.m_winCnt, self.m_loseCnt, win_rate_text)
+    return text
+end
+
+-------------------------------------
+-- function getWinstreakText
+-- @brief 연승
+-------------------------------------
+function ColosseumUserInfo:getWinstreakText()
+    if (not self.m_straight) then
+        return Str('기록이 없습니다.')
+    end
+
+    local text = Str('{1}연승', comma_value(self.m_straight))
+    return text
+end
+
+-------------------------------------
+-- function getTierText
+-- @brief
+-------------------------------------
+function ColosseumUserInfo:getTierText()
+    local tier_text = self:getTierName(self.m_tier)
+    return tier_text
+end
+
+-------------------------------------
+-- function getTierName
+-- @brief
+-------------------------------------
+function ColosseumUserInfo:getTierName(tier)
+    local l_str = seperate(tier, '_')
+
+    local tier = l_str and l_str[1] or tier
+    local grade = l_str and l_str[2] or ''
+
+    -- 오타 방지
+    if (tier == 'blonze') then
+        tier = 'bronze'
+    end
+
+    local str = ''
+    if (tier == 'legend') then
+        str = '레전드'
+    elseif (tier == 'master') then
+        str = '마스터'
+    elseif (tier == 'challenger') then
+        str = '챌린저'
+    elseif (tier == 'diamond') then
+        str = '다이아'
+    elseif (tier == 'platinum') then
+        str = '플래티넘'
+    elseif (tier == 'gold') then
+        str = '골드'
+    elseif (tier == 'silver') then
+        str = '실버'
+    elseif (tier == 'bronze') then
+        str = '브론즈'
+    else
+        
+    end
+
+    if (not isExistValue(tier, 'legend', 'master')) then
+        str = Str(str) .. ' ' .. grade
+    end
+
+    return str
+end
+
+-------------------------------------
+-- function getTierIcon
+-- @brief 티어 아이콘
+-------------------------------------
+function ColosseumUserInfo:getTierIcon()
+    local type = 'big'
+    local icon = self:makeTierIcon(self.m_tier, type)
+    return icon
+end
+
+-------------------------------------
+-- function makeTierIcon
+-- @brief
+-- @param type 'big', 'small'
+-------------------------------------
+function ColosseumUserInfo:makeTierIcon(tier, type)
+    local type = type or 'big'
+    local l_str = seperate(tier, '_')
+
+    local tier = l_str and l_str[1] or tier
+    local grade = l_str and l_str[2] or ''
+
+    -- 오타 방지
+    if (tier == 'blonze') then
+        tier = 'bronze'
+    end
+
+    local number = 1
+    if (tier == 'legend') then
+        number = 8
+    elseif (tier == 'master') then
+        number = 7
+    elseif (tier == 'challenger') then
+        number = 6
+    elseif (tier == 'diamond') then
+        number = 5
+    elseif (tier == 'platinum') then
+        number = 4
+    elseif (tier == 'gold') then
+        number = 3
+    elseif (tier == 'silver') then
+        number = 2
+    elseif (tier == 'bronze') then
+        number = 1
+    else
+        
+    end
+
+    local res
+    if (type == 'big') then
+        res = string.format('res/ui/icon/pvp_tier/pvp_tier_%.2d.png', number)
+    else
+        res = string.format('res/ui/icon/pvp_tier/pvp_tier_s_%.2d.png', number)
+    end
+    
+    local icon = cc.Sprite:create(res)
+    icon:setDockPoint(cc.p(0.5, 0.5))
+    icon:setAnchorPoint(cc.p(0.5, 0.5))
+
+    return icon
 end
