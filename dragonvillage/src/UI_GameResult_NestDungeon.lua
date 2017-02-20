@@ -12,7 +12,7 @@ UI_GameResult_NestDungeon = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function UI_GameResult_NestDungeon:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list)
+function UI_GameResult_NestDungeon:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon)
     
     -- 서버에서 받아온 네스트 던전의 정보
     self.m_nestDungeonInfo = g_nestDungeonData:getNestDungeonInfoIndividual(stage_id)

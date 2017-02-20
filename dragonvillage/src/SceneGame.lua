@@ -6,6 +6,8 @@
 SceneGame = class(PerpleScene, {
         m_stageName = '',
         m_stageID = '',
+        m_stageParam = '',              -- 스테이지 정보 관련한 추가 파라미터(비밀던전에서 던전 고유 아이디)
+
         m_gameMode = 'GAME_MODE_CONSTANT',
         m_scheduleNode = 'cc.Node',
         m_gameWorld = 'GameWorld',
@@ -47,9 +49,11 @@ SceneGame = class(PerpleScene, {
 -------------------------------------
 -- function init
 -------------------------------------
-function SceneGame:init(game_key, stage_id, stage_name, develop_mode)
+function SceneGame:init(game_key, stage_id, stage_name, develop_mode, stage_param)
     self.m_gameKey = game_key    
     self.m_stageName = stage_name
+    self.m_stageParam = stage_param
+
     self.m_bUseLoadingUI = true
     self.m_bRemoveCache = true
 
@@ -484,6 +488,9 @@ function SceneGame:networkGameFinish_response(ret, t_result_ref)
     -- 드랍 정보 drop_reward
     self:networkGameFinish_response_drop_reward(ret, t_result_ref)
 
+    -- 발견된 비밀 던전
+    self:networkGameFinish_response_secret_dungeon(ret, t_result_ref)
+
     -- 스테이지 클리어 정보 stage_clear_info
     self:networkGameFinish_response_stage_clear_info(ret)
 
@@ -621,6 +628,14 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
         local t_data = {item_id, count}
         table.insert(drop_reward_list, t_data)
     end
+end
+
+-------------------------------------
+-- function networkGameFinish_response_secret_dungeon
+-- @breif 발견된 비밀 던전 데이터 처리
+-------------------------------------
+function SceneGame:networkGameFinish_response_secret_dungeon(ret, t_result_ref)
+    t_result_ref['secret_dungeon'] = ret['secret_dungeon']
 end
 
 -------------------------------------

@@ -48,33 +48,39 @@ end
 function UI_SecretDungeonStageListItem:refresh(t_data)
     local vars = self.vars
 
+    local dungeon_id = self.m_stageTable['id']
+    local stage_id = self.m_stageTable['stage']
+    local t_drop = TableDrop():get(stage_id)
+
     do -- 스테이지 이름
-        local name = Str(self.m_stageTable['t_name'])
+        local name = Str(t_drop['t_name'])
         vars['dungeonNameLabel']:setString(name)
     end
 
+    do -- 발견자
+        local nickname = Str(self.m_stageTable['nick'])
+        vars['userNameLabel']:setString(nickname)
+    end
+
     do -- 스태미나 갯수 표시
-        local cost_value = self.m_stageTable['cost_value']
+        local cost_value = t_drop['cost_value']
         vars['actingPowerLabel']:setString(comma_value(cost_value))
     end
 
     do -- 오픈 여부
-        local stage_id = self.m_stageTable['stage']
-        local is_open = g_stageData:isOpenStage(stage_id)
-
-        vars['lockNode']:setVisible(not is_open)
-        vars['enterButton']:setVisible(is_open)
+        vars['lockNode']:setVisible(false)
+        vars['enterButton']:setVisible(true)
     end
 
     do -- 보스 썸네일 표시
-        local table_stage_desc = TableStageDesc()
-        local stage_id = self.m_stageTable['stage']
-        local icon = table_stage_desc:getLastMonsterIcon(stage_id)
+        local icon = g_secretDungeonData:getLastMonsterIcon(dungeon_id)
         vars['iconNode']:addChild(icon.root)
     end
     
     do -- 제한 인원
-        vars['numberLabel']:setString('0 / 10')
+        local cnt = self.m_stageTable['players']
+        local max_cnt = self.m_stageTable['maxplayer']
+        vars['numberLabel']:setString(string.format('%d / %d', cnt, max_cnt))
     end
 end
 
@@ -82,8 +88,8 @@ end
 -- function update
 -------------------------------------
 function UI_SecretDungeonStageListItem:update(dt)
-    local stage_id = self.m_stageTable['stage']
-    local text = g_secretDungeonData:getSecretDungeonRemainTimeText(stage_id)
+    local id = self.m_stageTable['id']
+    local text = g_secretDungeonData:getSecretDungeonRemainTimeText(id)
 
     -- 텍스트가 변경되었을 때에만 문자열 변경
     if (self.m_remainTimeText ~= text) then
@@ -96,6 +102,9 @@ end
 -- function enterButton
 -------------------------------------
 function UI_SecretDungeonStageListItem:enterButton()
+    local id = self.m_stageTable['id']
+    g_secretDungeonData:selectDungeonID(id)
+
     local stage_id = self.m_stageTable['stage']
     UI_AdventureStageInfo(stage_id)
 end

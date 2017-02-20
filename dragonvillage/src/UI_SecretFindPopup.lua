@@ -3,12 +3,16 @@ local PARENT = UI
 -------------------------------------
 -- class UI_SecretFindPopup
 -------------------------------------
-UI_SecretFindPopup = class(PARENT,{})
+UI_SecretFindPopup = class(PARENT,{
+    m_dungeonID = 'string',
+})
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SecretFindPopup:init()
+function UI_SecretFindPopup:init(dungeon_id)
+    self.m_dungeonID = dungeon_id
+
     local vars = self:load('secret_dungeon_find_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -39,8 +43,10 @@ end
 -- function initButton
 -------------------------------------
 function UI_SecretFindPopup:initButton()
-    self.vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
-    self.vars['enterBtn']:registerScriptTapHandler(function() self:close() end)
+    self.vars['cancelBtn']:registerScriptTapHandler(function() self:close() end)
+    self.vars['enterBtn']:registerScriptTapHandler(function()
+        g_secretDungeonData:goToSecretDungeonScene(self.m_dungeonID)
+    end)
 end
 
 -------------------------------------
@@ -51,10 +57,47 @@ end
 
 
 -- TODO: 파라미터 정의 필요
-function MakeSimpleSecretFindPopup()
-    local ui = UI_SecretFindPopup()
+function MakeSimpleSecretFindPopup(secret_dungeon)
+    if (not secret_dungeon) then return end
+
+    local dungeon_id = secret_dungeon['id']
+    local stage_id = secret_dungeon['stage']
+    local t_info = g_secretDungeonData:parseSecretDungeonID(stage_id)
+
+    local ui = UI_SecretFindPopup(dungeon_id)
     ui.vars['dungeonLabel']:setString(title_str)
     ui.vars['dungeonDscLabel']:setString(title_str)
+
+    -- 타이틀 및 보스 썸네일 표시
+    do
+        local res_name
+        local icon
+
+        if (t_info['dungeon_mode'] == SECRET_DUNGEON_GOLD) then
+            res_name = 'res/ui/typo/kr/secret_dg_find_gold.png'
+            icon = TableStageDesc():getLastMonsterIcon(stage_id)
+
+        elseif (t_info['dungeon_mode'] == SECRET_DUNGEON_RELATION) then
+            res_name = 'res/ui/typo/kr/secret_dg_find_relation.png'
+
+            local did = secret_dungeon['dragon']
+            icon = MakeSimpleDragonCard(did)
+
+        end
+
+        if (res_name) then
+            res_name = UILoader.checkTranslateUnit(res_name)
+    
+            local sprite = cc.Sprite:create(res_name)
+            sprite:setAnchorPoint(cc.p(0.5, 0.5))
+            sprite:setDockPoint(cc.p(0.5, 0.5))
+            ui.vars['dungeonTitleNode']:addChild(sprite)
+        end
+
+        if (icon) then
+            ui.vars['dragonNode']:addChild(icon.root)
+        end
+    end
 
     return ui
 end

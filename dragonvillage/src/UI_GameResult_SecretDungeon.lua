@@ -12,10 +12,15 @@ UI_GameResult_SecretDungeon = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function UI_GameResult_SecretDungeon:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list)
+function UI_GameResult_SecretDungeon:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon)
     
-    -- 서버에서 받아온 네스트 던전의 정보
-    self.m_secretDungeonInfo = g_secretDungeonData:getSecretDungeonInfoIndividual(stage_id)
+    -- 서버에서 받아온 비밀 던전의 정보
+    self.m_secretDungeonInfo = g_secretDungeonData:getSelectedSecretDungeonInfo()
+
+    local vars = self.vars
+
+    vars['nextBtn']:setVisible(false)
+    vars['quickBtn']:setVisible(false)
 end
 
 -------------------------------------
@@ -34,7 +39,7 @@ end
 -- function click_retryButton
 -------------------------------------
 function UI_GameResult_SecretDungeon:click_retryButton()
-    local scene = SceneSecretDungeon(self.m_stageID)
+    local scene = SceneSecretDungeon()
     scene:runScene()
 end
 
@@ -42,7 +47,7 @@ end
 -- function click_backBtn
 -------------------------------------
 function UI_GameResult_SecretDungeon:click_backBtn()
-    local scene = SceneSecretDungeon(self.m_stageID)
+    local scene = SceneSecretDungeon()
     scene:runScene()
 end
 
@@ -50,9 +55,20 @@ end
 -- function click_nextBtn
 -------------------------------------
 function UI_GameResult_SecretDungeon:click_nextBtn()
-    local next_stage_id = g_stageData:getNextStage(self.m_stageID) or self.m_stageID
-    local scene = SceneSecretDungeon(next_stage_id)
-    scene:runScene()
+end
+
+-------------------------------------
+-- function direction_showButton
+-------------------------------------
+function UI_GameResult_SecretDungeon:direction_showButton()
+    local vars = self.vars
+
+    vars['homeBtn']:setVisible(true)
+    vars['againBtn']:setVisible(true)
+    vars['nextBtn']:setVisible(false)
+    vars['quickBtn']:setVisible(false)
+
+    self:checkAutoPlay()
 end
 
 -------------------------------------

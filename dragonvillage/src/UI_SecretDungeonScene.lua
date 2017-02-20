@@ -10,7 +10,7 @@ UI_SecretDungeonScene = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SecretDungeonScene:init(stage_id)
+function UI_SecretDungeonScene:init(dungeon_id)
     local vars = self:load('secret_dungeon_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -22,7 +22,7 @@ function UI_SecretDungeonScene:init(stage_id)
     --self:doActionReset()
     --self:doAction(nil, false)
     
-    self:initUI(stage_id)
+    self:initUI(dungeon_id)
     self:initButton()
     self:refresh()
 
@@ -45,20 +45,20 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_SecretDungeonScene:initUI(stage_id)
+function UI_SecretDungeonScene:initUI(dungeon_id)
     local vars = self.vars
 
-    self:makeSecretModeTableView()
+    self:makeSecretModeTableView(dungeon_id)
 end
 
 -------------------------------------
 -- function makeSecretModeTableView
 -- @brief 네스트 던전 모드 선택했을 때 오른쪽에 나오는 세부 리스트
 -------------------------------------
-function UI_SecretDungeonScene:makeSecretModeTableView()
+function UI_SecretDungeonScene:makeSecretModeTableView(dungeon_id)
     local node = self.vars['detailTableViewNode']
 
-    local stage_list = g_secretDungeonData:getSecretDungeon_stageListForUI()
+    local stage_list = g_secretDungeonData:getSecretDungeon_stageList()
 
 
     -- 셀 아이템 생성 콜백
@@ -84,6 +84,22 @@ function UI_SecretDungeonScene:makeSecretModeTableView()
         ui.root:setPosition(new_x, y)
 
         ui:cellMoveTo(0.25, cc.p(x, y))
+    end
+
+    -- 발견 직후 바로가기를 통해서 들어왔다면 테이블뷰 셀 위치를 변경
+    if (dungeon_id) then
+        local idx
+
+        for i, v in ipairs(stage_list) do
+            if (v['id'] == dungeon_id) then
+                idx = i
+                return
+            end
+        end
+        
+        if (idx ) then
+            table_view:updateCellAtIndex(idx)
+        end
     end
 end
 

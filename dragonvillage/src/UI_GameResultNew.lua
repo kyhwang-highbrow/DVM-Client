@@ -10,6 +10,7 @@ UI_GameResultNew = class(UI, {
         m_lDragonList = 'list',
         m_boxGrade = 'string', -- 's', 'a', 'b', 'c'
         m_lDropItemList = 'list',
+        m_secretDungeon = 'table',
 
         m_lNumberLabel = 'list',
         m_lLevelupDirector = 'list',
@@ -27,7 +28,7 @@ UI_GameResultNew = class(UI, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list)
+function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon)
     self.m_stageID = stage_id
     self.m_bSuccess = is_success
     self.m_time = time
@@ -36,6 +37,7 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     self.m_lDragonList = l_dragon_list
     self.m_boxGrade = box_grade
     self.m_lDropItemList = l_drop_item_list
+    self.m_secretDungeon = secret_dungeon
 
 
     local vars = self:load('ingame_result_popup_new.ui')
@@ -137,6 +139,8 @@ function UI_GameResultNew:setWorkList()
     table.insert(self.m_lWorkList, 'direction_showBox')
     table.insert(self.m_lWorkList, 'direction_openBox')
     table.insert(self.m_lWorkList, 'direction_dropItem')
+    table.insert(self.m_lWorkList, 'direction_secretDungeon')
+    table.insert(self.m_lWorkList, 'direction_showButton')
     
     
 end
@@ -341,12 +345,7 @@ function UI_GameResultNew:direction_dropItem()
 
     vars['skipLabel']:setVisible(false)
 
-    vars['homeBtn']:setVisible(true)
-    vars['againBtn']:setVisible(true)
-    vars['nextBtn']:setVisible(true)
-    vars['quickBtn']:setVisible(true)
-
-    self:checkAutoPlay()
+    self:doNextWork()
 end
 
 -------------------------------------
@@ -354,9 +353,33 @@ end
 -- @brief
 -------------------------------------
 function UI_GameResultNew:direction_dropItem_click()
-
 end
 
+-------------------------------------
+-- function direction_secretDungeon
+-- @brief 비밀던전 팝업 알림 팝업 표시
+-------------------------------------
+function UI_GameResultNew:direction_secretDungeon()
+    if (self.m_secretDungeon) then
+        MakeSimpleSecretFindPopup(self.m_secretDungeon)
+    end
+
+    self:doNextWork()
+end
+
+-------------------------------------
+-- function direction_showButton
+-------------------------------------
+function UI_GameResultNew:direction_showButton()
+    local vars = self.vars
+
+    vars['homeBtn']:setVisible(true)
+    vars['againBtn']:setVisible(true)
+    vars['nextBtn']:setVisible(true)
+    vars['quickBtn']:setVisible(true)
+
+    self:checkAutoPlay()
+end
 
 
 -------------------------------------

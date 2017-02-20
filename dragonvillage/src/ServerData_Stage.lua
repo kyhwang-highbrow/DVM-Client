@@ -41,7 +41,9 @@ function ServerData_Stage:getStageName(stage_id)
 
     -- 비밀 던전 모드
     elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
-        name = g_secretDungeonData:getStageName(stage_id)
+        local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo()
+        local id = t_dungeon_info['id']
+        name = g_secretDungeonData:getStageName(id)
 
     -- 콜로세움 모드
     elseif (game_mode == GAME_MODE_COLOSSEUM) then
