@@ -295,6 +295,7 @@ local t_module = {
 	'SkillHealAround',
 	'SkillAoERound',
 	'SkillAoERound_Egg',
+	'SkillAoERound_Sura',
 	'SkillAoERound_Alien',
     'SkillAoESquare',
     'SkillAoESquare_Heal',

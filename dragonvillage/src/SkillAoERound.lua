@@ -71,8 +71,8 @@ end
 -------------------------------------
 function SkillAoERound.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
-		-- 이펙트 재생 단위 시간
-		owner.m_hitInterval = owner.m_animator:getDuration()
+		self:setAttackInterval()
+
 		-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
         owner.m_multiAtkTimer = owner.m_hitInterval
 
@@ -89,9 +89,8 @@ function SkillAoERound.st_attack(owner, dt)
 	
 	-- 공격 횟수 초과시 탈출
     if (owner.m_maxAttackCnt <= owner.m_attackCnt) then
-		-- 상태효과 (self만 가능)
-        --StatusEffectHelper:doStatusEffectByStr(owner.m_owner, owner.m_lTarget, owner.m_lStatusEffectStr)
-        owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_HIT }, owner.m_lTarget)
+		local t_target = self:findTarget()
+        owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_HIT }, t_target)
         owner:changeState('disappear')
     end
 end
@@ -115,10 +114,9 @@ end
 -------------------------------------
 function SkillAoERound:runAttack()
     local t_target = self:findTarget()
-	self.m_lTarget = t_target
 
 	-- 특수한 부가 효과 구현
-	self:doSpecailEffect()
+	self:doSpecailEffect(t_target)
 
     for i, target_char in ipairs(t_target) do
 		
@@ -139,10 +137,18 @@ function SkillAoERound:runAttack()
 end
 
 -------------------------------------
--- function doSpecailEffect
--- @Overridding
+-- function setAttackInterval
 -------------------------------------
-function SkillAoERound:doSpecailEffect()
+function SkillAoERound:setAttackInterval()
+	-- 이펙트 재생 단위 시간
+	self.m_hitInterval = self.m_animator:getDuration()
+	cclog(self.m_hitInterval)
+end
+
+-------------------------------------
+-- function doSpecailEffect
+-------------------------------------
+function SkillAoERound:doSpecailEffect(t_target)
 end
 
 -------------------------------------
