@@ -115,7 +115,7 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
 		-- 캐릭터의 특정 상태
         m_bInvincibility = 'boolean',   -- 무적 상태 여부
 		m_isSilence = 'boolean',		-- 침묵 (스킬 사용 불가 상태)
-		m_isImmune = 'boolean',			-- 면역 (해로운 상태 효과 면역)
+		m_isImmuneSE = 'boolean',			-- 면역 (해로운 상태 효과 면역)
 
         m_activityCarrier = 'ActivityCarrier',
 
@@ -151,7 +151,7 @@ function Character:init(file_name, body, ...)
 
     self.m_bInvincibility = false
 	self.m_isSilence = false
-	self.m_isImmune = false
+	self.m_isImmuneSE = false
 
 	self.m_isSlaveCharacter = false
 	self.m_masterCharacter = nil
@@ -582,7 +582,11 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     self:makeDamageFont(damage, i_x, i_y, t_info['critical'], t_info['attr_bonus_dmg'])
 
     -- 무적 체크 후 데미지 적용
-	if not ((defender:getCharType() == 'dragon') and PLAYER_DRAGON_INVINCIBLE) then 
+	if (defender:getCharType() == 'dragon') and (PLAYER_INVINCIBLE) then
+		-- NOTHING TO DO
+	elseif (defender:getCharType() == 'enemy') and (ENEMY_INVINCIBLE) then
+		-- NOTHING TO DO
+	else
 		local damage = math_min(damage, self.m_hp)
 		self:setHp(self.m_hp - damage)
 	end
@@ -1790,10 +1794,10 @@ function Character:setSilence(b)
 end
 
 -------------------------------------
--- function setImmune
+-- function setImmuneSE
 -------------------------------------
-function Character:setImmune(b)
-	self.m_isImmune = b
+function Character:setImmuneSE(b)
+	self.m_isImmuneSE = b
 end
 
 -------------------------------------

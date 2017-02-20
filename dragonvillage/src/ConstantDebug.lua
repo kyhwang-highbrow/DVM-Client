@@ -22,8 +22,9 @@ DISPLAY_UNIT_HP = false
 -- # 메모리 사용량 등 각종 디버깅 정보를 인게임에 출력한다
 DISPLAY_DEBUG_INFO = false
 
--- # 플레이어 무적
-PLAYER_DRAGON_INVINCIBLE = false
+-- # 캐릭터 무적
+PLAYER_INVINCIBLE = false
+ENEMY_INVINCIBLE = false
 
 -- # 보스가 특정 패턴만 실행하게 한다. false or 숫자
 TEST_PATTERN = false
