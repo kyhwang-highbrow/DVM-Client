@@ -63,6 +63,7 @@ function ServerData:getInstance()
 
     -- 콜로세움
     g_colosseumData = ServerData_Colosseum(g_serverData)
+    g_colosseumRankData = ServerData_ColosseumRank(g_serverData)
 
     -- 인벤토리
     g_inventoryData = ServerData_Inventory(g_serverData)

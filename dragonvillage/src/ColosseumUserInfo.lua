@@ -12,6 +12,7 @@ ColosseumUserInfo = class({
         m_friendRank = 'number', -- 친구 중에서 랭킹
         m_tier = 'string',       -- 티어
         m_nickname = 'string',   -- 닉네임
+        m_lv = 'number',         -- 레벨
         m_straight = 'number',   -- 연승 정보
 
         m_loseCnt = 'number',
@@ -20,6 +21,8 @@ ColosseumUserInfo = class({
         m_dragons = '',
         m_runes = '',
         m_deckInfo = '',  
+
+        m_leaderDragonData = '',
     })
 
 -------------------------------------
@@ -40,6 +43,7 @@ function ColosseumUserInfo:init_default()
     self.m_friendRank = nil
     self.m_tier = nil
     self.m_nickname = ''
+    self.m_lv = 1
     self.m_loseCnt = 0
     self.m_winCnt = 0
     self.m_dragons = {}
@@ -112,6 +116,14 @@ end
 -------------------------------------
 function ColosseumUserInfo:setNickname(value)
     self.m_nickname = value
+end
+
+-------------------------------------
+-- function setLv
+-- @brief 레벨 설정
+-------------------------------------
+function ColosseumUserInfo:setLv(value)
+    self.m_lv = value
 end
 
 -------------------------------------
@@ -224,15 +236,31 @@ end
 -- function getRankText
 -- @brief
 -------------------------------------
-function ColosseumUserInfo:getRankText()
+function ColosseumUserInfo:getRankText(simple)
     if (not self.m_rank) then
         return Str('기록이 없습니다.')
+    end
+
+    if simple then
+        return Str('{1}위', comma_value(self.m_rank))
     end
 
     local percent_text = string.format('%.2f', self.m_rankPercent * 100)
 
     local text = Str('{1}위 ({2}%)', comma_value(self.m_rank), percent_text)
     return text
+end
+
+-------------------------------------
+-- function getFriendRankText
+-- @brief
+-------------------------------------
+function ColosseumUserInfo:getFriendRankText()
+    if (not self.m_friendRank) then
+        return Str('기록이 없습니다.')
+    end
+
+    return Str('{1}위', comma_value(self.m_friendRank))
 end
 
 -------------------------------------
@@ -268,7 +296,8 @@ function ColosseumUserInfo:getWinstreakText()
         return Str('기록이 없습니다.')
     end
 
-    local text = Str('{1}연승', comma_value(self.m_straight))
+    local straight = math_max(self.m_straight, 0)
+    local text = Str('{1}연승', comma_value(straight))
     return text
 end
 
@@ -327,9 +356,9 @@ end
 -------------------------------------
 -- function getTierIcon
 -- @brief 티어 아이콘
+-- @param type 'big', 'small'
 -------------------------------------
-function ColosseumUserInfo:getTierIcon()
-    local type = 'big'
+function ColosseumUserInfo:getTierIcon(type)
     local icon = self:makeTierIcon(self.m_tier, type)
     return icon
 end
@@ -384,4 +413,23 @@ function ColosseumUserInfo:makeTierIcon(tier, type)
     icon:setAnchorPoint(cc.p(0.5, 0.5))
 
     return icon
+end
+
+
+-------------------------------------
+-- function setLeaderDragonData
+-- @brief
+-------------------------------------
+function ColosseumUserInfo:setLeaderDragonData(t_dragon_data)
+    self.m_leaderDragonData = t_dragon_data
+end
+
+-------------------------------------
+-- function getLeaderDragonCard
+-- @brief
+-------------------------------------
+function ColosseumUserInfo:getLeaderDragonCard()
+    local t_dragon_data = self.m_leaderDragonData
+    local card = UI_DragonCard(t_dragon_data)
+    return card
 end

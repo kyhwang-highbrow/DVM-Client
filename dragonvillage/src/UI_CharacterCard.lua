@@ -432,7 +432,10 @@ end
 function UI_DragonCard(t_dragon_data)
     local ui = UI_CharacterCard(t_dragon_data)
     local function func()
-        UI_SimpleDragonInfoPopup(t_dragon_data)
+        local doid = t_dragon_data['id']
+        if doid and (doid ~= '') then
+            UI_SimpleDragonInfoPopup(t_dragon_data)
+        end
     end
     ui.vars['clickBtn']:registerScriptPressHandler(func)
     return ui

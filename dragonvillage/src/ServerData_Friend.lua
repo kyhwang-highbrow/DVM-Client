@@ -26,6 +26,7 @@ function ServerData_Friend:init(server_data)
     self.m_serverData = server_data
     self.m_mInvitedUerList = {}
     self.m_mSentFpUserList = {}
+    self.m_lRecommendUserList = {}
 end
 
 -------------------------------------

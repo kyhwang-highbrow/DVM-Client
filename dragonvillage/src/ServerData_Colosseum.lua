@@ -72,8 +72,8 @@ function ServerData_Colosseum:response_colosseumInfo(ret, cb)
     self.m_playerUserInfo:setStraight(ret['straight'])
 
     -- 승, 패 횟수
-    self.m_playerUserInfo.m_winCnt = ret['last_week_win']
-    self.m_playerUserInfo.m_loseCnt = ret['last_week_lose'] 
+    self.m_playerUserInfo.m_winCnt = ret['win']
+    self.m_playerUserInfo.m_loseCnt = ret['lose'] 
   
     self:setColosseumStatus(ret['week'], ret['start_time'], ret['end_time'])
 

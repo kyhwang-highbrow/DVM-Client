@@ -318,6 +318,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_Attendance.lua" />
     <None Include="..\src\ServerData_AutoPlaySetting.lua" />
     <None Include="..\src\ServerData_Colosseum.lua" />
+    <None Include="..\src\ServerData_ColosseumRank.lua" />
     <None Include="..\src\ServerData_Exploration.lua" />
     <None Include="..\src\ServerData_Friend.lua" />
     <None Include="..\src\ServerData_Gacha.lua" />
@@ -650,7 +651,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ClassForm.lua" />
     <None Include="..\src\UI_ClassFormUseTopUserInfo.lua" />
     <None Include="..\src\UI_Colosseum.lua" />
+    <None Include="..\src\UI_ColosseumFriendRankListItem.lua" />
     <None Include="..\src\UI_ColosseumLoading.lua" />
+    <None Include="..\src\UI_ColosseumRankListItem.lua" />
     <None Include="..\src\UI_ColosseumResult.lua" />
     <None Include="..\src\UI_DragonDetailPopup.lua" />
     <None Include="..\src\UI_DragonDevApiPopup.lua" />

@@ -68,7 +68,10 @@ function UI_LobbyUserInfoPopup:refresh(t_user_info)
     vars['dragonNode']:addChild(dragon_card.root)
     
     dragon_card.vars['clickBtn']:registerScriptTapHandler(function()
-        UI_SimpleDragonInfoPopup(t_dragon_data)
+        local doid = t_dragon_data['id']
+        if doid and (doid ~= '') then
+            UI_SimpleDragonInfoPopup(t_dragon_data)
+        end
     end)
 
     local uid = t_user_info['uid']

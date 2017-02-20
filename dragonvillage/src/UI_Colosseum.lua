@@ -1,9 +1,12 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_Colosseum
 -------------------------------------
 UI_Colosseum = class(PARENT, {
+        m_weekRankTableView = 'UIC_TableView',
+        m_topRankTableView = 'UIC_TableView',
+        m_friendRankTableView = 'UIC_TableView',
      })
 
 -------------------------------------
@@ -51,6 +54,8 @@ end
 -- function initUI
 -------------------------------------
 function UI_Colosseum:initUI()
+    self:initTab()
+
     local vars = self.vars
 
     local player_info = g_colosseumData:getPlayerInfo()
@@ -99,6 +104,134 @@ function UI_Colosseum:click_readyBtn()
     end
 
     g_colosseumData:request_colosseumStart(cb)
+end
+
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_Colosseum:initTab()
+    local vars = self.vars
+    self:addTab('weekRank', vars['weekRankBtn'], vars['weekRankTableViewNode'])
+    self:addTab('topRank', vars['topRankBtn'], vars['topRankTableViewNode'])
+    self:addTab('friendRank', vars['friendRankBtn'], vars['friendRankTableViewNode'])
+
+    self:setTab('weekRank')
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_Colosseum:onChangeTab(tab, first)
+    PARENT.onChangeTab(self, tab, first)
+
+    if (not first) then
+        return
+    end
+
+    if (tab == 'weekRank') then
+        local function finish_cb(ret)
+            self:init_weekRankTableView()
+        end
+        g_colosseumRankData:request_globalRank(finish_cb)
+
+    elseif (tab == 'topRank') then
+        local function finish_cb(ret)
+            self:init_topRankTableView()
+        end
+        g_colosseumRankData:request_topRank(finish_cb)
+
+    elseif (tab == 'friendRank') then
+        local function finish_cb(ret)
+            self:init_friendRankTableView()
+        end
+        g_colosseumRankData:request_friendRank(finish_cb)
+
+    end
+end
+
+-------------------------------------
+-- function init_weekRankTableView
+-------------------------------------
+function UI_Colosseum:init_weekRankTableView()
+    local node = self.vars['weekRankTableViewNode']
+    --node:removeAllChildren()
+
+    local l_item_list = g_colosseumRankData.m_lGlobalRank
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(780, 100)
+    table_view:setCellUIClass(UI_ColosseumRankListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_item_list)
+
+    -- 리스트가 비었을 때
+    --table_view_td:makeDefaultEmptyDescLabel(Str('보유한 드래곤이 없습니다.'))
+
+    -- 정렬
+    g_colosseumRankData:sortColosseumRank(table_view.m_itemList)
+    self.m_weekRankTableView = table_view
+end
+
+-------------------------------------
+-- function init_topRankTableView
+-------------------------------------
+function UI_Colosseum:init_topRankTableView()
+    local node = self.vars['topRankTableViewNode']
+    --node:removeAllChildren()
+
+    local l_item_list = g_colosseumRankData.m_lTopRank
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(780, 100)
+    table_view:setCellUIClass(UI_ColosseumRankListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_item_list)
+
+    -- 리스트가 비었을 때
+    --table_view_td:makeDefaultEmptyDescLabel(Str('보유한 드래곤이 없습니다.'))
+
+    -- 정렬
+    g_colosseumRankData:sortColosseumRank(table_view.m_itemList)
+    self.m_topRankTableView = table_view
+end
+
+-------------------------------------
+-- function init_friendRankTableView
+-------------------------------------
+function UI_Colosseum:init_friendRankTableView()
+    local node = self.vars['friendRankTableViewNode']
+    --node:removeAllChildren()
+
+    local l_item_list = g_colosseumRankData.m_lFriendRank
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(780, 100)
+    table_view:setCellUIClass(UI_ColosseumFriendRankListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_item_list)
+
+    -- 리스트가 비었을 때
+    --table_view_td:makeDefaultEmptyDescLabel(Str('보유한 드래곤이 없습니다.'))
+
+    -- 정렬
+    g_colosseumRankData:sortColosseumRank(table_view.m_itemList)
+    self.m_topRankTableView = table_view
 end
 
 --@CHECK
