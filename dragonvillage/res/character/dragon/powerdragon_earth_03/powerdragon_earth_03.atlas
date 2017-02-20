@@ -5,183 +5,190 @@ format: RGBA8888
 filter: Linear,Linear
 repeat: none
 powerdragon_earth_03_arm_01
-  rotate: false
-  xy: 2, 209
+  rotate: true
+  xy: 2, 2
   size: 103, 113
   orig: 103, 113
   offset: 0, 0
   index: -1
 powerdragon_earth_03_arm_02
   rotate: true
-  xy: 299, 724
+  xy: 848, 918
   size: 104, 155
   orig: 104, 155
   offset: 0, 0
   index: -1
 powerdragon_earth_03_arm_03
   rotate: false
-  xy: 217, 584
+  xy: 154, 557
   size: 78, 127
   orig: 78, 127
   offset: 0, 0
   index: -1
 powerdragon_earth_03_arm_04
   rotate: false
-  xy: 130, 450
+  xy: 154, 329
   size: 83, 109
   orig: 83, 109
   offset: 0, 0
   index: -1
 powerdragon_earth_03_body_01
   rotate: false
-  xy: 299, 830
+  xy: 529, 837
   size: 189, 185
   orig: 189, 185
   offset: 0, 0
   index: -1
 powerdragon_earth_03_body_02
   rotate: false
-  xy: 63, 30
+  xy: 234, 605
   size: 81, 87
   orig: 81, 87
   offset: 0, 0
   index: -1
 powerdragon_earth_03_body_03
-  rotate: true
-  xy: 726, 851
+  rotate: false
+  xy: 338, 694
   size: 47, 59
   orig: 47, 59
   offset: 0, 0
   index: -1
 powerdragon_earth_03_body_04
-  rotate: true
-  xy: 2, 6
+  rotate: false
+  xy: 225, 694
   size: 111, 59
   orig: 111, 59
   offset: 0, 0
   index: -1
 powerdragon_earth_03_body_05
   rotate: false
-  xy: 2, 324
+  xy: 372, 774
   size: 126, 96
   orig: 126, 96
   offset: 0, 0
   index: -1
 powerdragon_earth_03_effect_01
-  rotate: false
-  xy: 2, 865
+  rotate: true
+  xy: 2, 495
   size: 295, 150
   orig: 295, 150
   offset: 0, 0
   index: -1
 powerdragon_earth_03_effect_02
   rotate: false
-  xy: 2, 713
+  xy: 232, 872
   size: 295, 150
   orig: 295, 150
   offset: 0, 0
   index: -1
 powerdragon_earth_03_effect_03
-  rotate: false
-  xy: 2, 561
+  rotate: true
+  xy: 2, 280
   size: 213, 150
   orig: 213, 150
   offset: 0, 0
   index: -1
 powerdragon_earth_03_effect_04
-  rotate: false
-  xy: 490, 865
+  rotate: true
+  xy: 2, 107
   size: 171, 150
   orig: 171, 150
   offset: 0, 0
   index: -1
+powerdragon_earth_03_effect_05
+  rotate: false
+  xy: 2, 792
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
 powerdragon_earth_03_eye_01
   rotate: false
-  xy: 217, 538
+  xy: 234, 559
   size: 44, 44
   orig: 44, 44
   offset: 0, 0
   index: -1
 powerdragon_earth_03_eye_02
   rotate: false
-  xy: 215, 492
+  xy: 280, 559
   size: 44, 44
   orig: 44, 44
   offset: 0, 0
   index: -1
 powerdragon_earth_03_eye_03
   rotate: false
-  xy: 215, 446
-  size: 44, 44
-  orig: 44, 44
+  xy: 258, 509
+  size: 47, 48
+  orig: 47, 48
   offset: 0, 0
   index: -1
 powerdragon_earth_03_foot_01
-  rotate: true
-  xy: 653, 791
+  rotate: false
+  xy: 317, 637
   size: 48, 55
   orig: 48, 55
   offset: 0, 0
   index: -1
 powerdragon_earth_03_hand_01
-  rotate: false
-  xy: 920, 927
+  rotate: true
+  xy: 154, 232
   size: 95, 88
   orig: 95, 88
   offset: 0, 0
   index: -1
 powerdragon_earth_03_hand_02
-  rotate: true
-  xy: 663, 841
+  rotate: false
+  xy: 804, 822
   size: 57, 61
   orig: 57, 61
   offset: 0, 0
   index: -1
 powerdragon_earth_03_hand_03
-  rotate: false
-  xy: 2, 119
+  rotate: true
+  xy: 154, 135
   size: 95, 88
   orig: 95, 88
   offset: 0, 0
   index: -1
 powerdragon_earth_03_head_01
   rotate: false
-  xy: 663, 900
+  xy: 232, 755
   size: 138, 115
   orig: 138, 115
   offset: 0, 0
   index: -1
 powerdragon_earth_03_head_02
-  rotate: false
-  xy: 803, 913
+  rotate: true
+  xy: 154, 440
   size: 115, 102
   orig: 115, 102
   offset: 0, 0
   index: -1
 powerdragon_earth_03_leg_01
-  rotate: true
-  xy: 574, 802
+  rotate: false
+  xy: 117, 28
   size: 61, 77
   orig: 61, 77
   offset: 0, 0
   index: -1
 powerdragon_earth_03_leg_02
   rotate: true
-  xy: 490, 801
+  xy: 720, 821
   size: 62, 82
   orig: 62, 82
   offset: 0, 0
   index: -1
 powerdragon_earth_03_wing_01
   rotate: false
-  xy: 2, 422
+  xy: 720, 885
   size: 126, 137
   orig: 126, 137
   offset: 0, 0
   index: -1
 powerdragon_earth_03_wing_02
   rotate: false
-  xy: 130, 344
+  xy: 154, 686
   size: 69, 104
   orig: 69, 104
   offset: 0, 0
