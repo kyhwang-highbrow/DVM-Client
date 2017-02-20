@@ -20,7 +20,7 @@ end
 function StatusEffect_Immune:init_status(char)
 	self.m_owner = char
 	StatusEffectHelper:releaseStatusEffectDebuff(char)
-	char:setImmune(true)
+	char:setImmuneSE(true)
 end
 
 -------------------------------------
@@ -40,7 +40,7 @@ function StatusEffect_Immune.st_end(owner, dt)
 	if (owner.m_stateTimer == 0) then
         owner:statusEffectReset()
 		owner:addAniHandler(function()
-			owner.m_owner:setImmune(false)
+			owner.m_owner:setImmuneSE(false)
 			owner:changeState('dying')
 		end)
     end

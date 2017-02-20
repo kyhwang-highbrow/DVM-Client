@@ -148,7 +148,7 @@ function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_
     local t_status_effect = table_status_effect[status_effect_type]
 	
 	-- 면역 효과
-	if (char:isImmune()) and self:isHarmful(t_status_effect['type']) then 
+	if (char.m_isImmuneSE) and self:isHarmful(t_status_effect['type']) then 
 		return nil
 	end
 
