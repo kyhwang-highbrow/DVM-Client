@@ -1665,6 +1665,9 @@
     <None Include="..\src\ColosseumUserInfo.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\SkillAoERound_Alien.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

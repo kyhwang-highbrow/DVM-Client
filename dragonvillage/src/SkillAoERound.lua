@@ -117,21 +117,13 @@ function SkillAoERound:runAttack()
     local t_target = self:findTarget()
 	self.m_lTarget = t_target
 
-    for i, target_char in ipairs(t_target) do
+	-- 특수한 부가 효과 구현
+	self:doSpecailEffect()
 
-		-- @TODO 중독 추가 데미지 임시 구현!!!
-		local add_value = 0
-		if string.find(self.m_addDamage, ';') then	
-			local l_str = stringSplit(self.m_addDamage, ';')
-			local add_type = l_str[1]
-			add_Value = l_str[2]
-			for type, status_effect in pairs(target_char:getStatusEffectList()) do
-				if (status_effect.m_statusEffectName == add_type) then 
-					add_value = l_str[2]
-					break
-				end
-			end
-		end
+    for i, target_char in ipairs(t_target) do
+		
+		local add_value = self:getPoisonAddDamage(target_char)
+
 		-- 데미지를 공격시마다 계산
 		self.m_activityCarrier:setPowerRate(self.m_powerRate + add_value)
 
@@ -144,6 +136,34 @@ function SkillAoERound:runAttack()
 
 	-- 스킬이 제거할 수 있는 미사일 제거
 	self:removeDestructibleMissile()
+end
+
+-------------------------------------
+-- function doSpecailEffect
+-- @Overridding
+-------------------------------------
+function SkillAoERound:doSpecailEffect()
+end
+
+-------------------------------------
+-- function getPoisonAddDamage
+-- @TODO 중독 추가 데미지 임시 구현!!!
+-------------------------------------
+function SkillAoERound:getPoisonAddDamage(target_char)
+	local add_value = 0
+	if string.find(self.m_addDamage, ';') then	
+		local l_str = stringSplit(self.m_addDamage, ';')
+		local add_type = l_str[1]
+		add_Value = l_str[2]
+		for type, status_effect in pairs(target_char:getStatusEffectList()) do
+			if (status_effect.m_statusEffectName == add_type) then 
+				add_value = l_str[2]
+				break
+			end
+		end
+	end
+
+	return add_value
 end
 
 -------------------------------------

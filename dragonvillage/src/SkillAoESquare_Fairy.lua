@@ -79,8 +79,8 @@ function SkillAoESquare_Fairy:doFairySideEffect()
 	local release_cnt = #(self:findTarget())
 
 	-- 동료 리스트
-	local l_fellow = self.m_owner:getFellowList()
-	
+	local l_fellow = table.sortRandom(self.m_owner:getFellowList())
+
 	-- 해제
 	for i = 1, release_cnt do 
 		for _, fellow in pairs(l_fellow) do 

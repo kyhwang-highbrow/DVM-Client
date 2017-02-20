@@ -74,10 +74,10 @@ function iterTwo(t, i)
 end
 
 -------------------------------------
--- function randomSort
+-- function sortRandom
 -- @brief 테이블을 랜덤하게 정렬
 -------------------------------------
-function table.randomSort(t_org)
+function table.sortRandom(t_org)
     local t_ret = {}
     local t_random = {}
 

@@ -142,6 +142,9 @@ function Character:doSkill(skill_id, x, y, t_data)
 			elseif (type == 'skill_aoe_round') then
 				if (self.m_charTable['type'] == 'mutanteggdragon') then 
 					SkillAoERound_Egg:makeSkillInstance(self, t_skill, t_data)
+				elseif (self.m_charTable['type'] == 'aliendragon') then
+					cclog('asdfa')
+					SkillAoERound_Alien:makeSkillInstance(self, t_skill, t_data)
 				else
 					SkillAoERound:makeSkillInstance(self, t_skill, t_data)
 				end
