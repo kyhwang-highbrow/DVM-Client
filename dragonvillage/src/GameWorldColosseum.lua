@@ -318,12 +318,6 @@ end
 -- @TODO 상대편 덱 정보를 받아서 생성해야함
 -------------------------------------
 function GameWorldColosseum:makeEnemyDeck()
-
-    -- 테스트용 상대방 덱 설정
-    if COLOSSEUM__USE_TEST_ENEMY_DECK then
-        g_colosseumData:setTestColosseumDeck()
-    end
-
     local user_info = g_colosseumData.m_vsUserInfo
 
     -- 상대방의 덱 정보를 얻어옴
