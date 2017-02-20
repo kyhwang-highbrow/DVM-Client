@@ -75,23 +75,24 @@ end
 
 -------------------------------------
 -- function randomSort
--- @brief 인덱스 테이블을 랜덤하게 정렬
+-- @brief 테이블을 랜덤하게 정렬
 -------------------------------------
-function table.randomSort(t)
-	local v1, v2 = nil, nil
-	local temp = nil
-	local max = #t
+function table.randomSort(t_org)
+    local t_ret = {}
+    local t_random = {}
 
-	for i = 1, 1000 do 
-		v1 = math_random(1, max)
-		v2 = math_random(1, max)
-		
-		temp = t[v1]
-		t[v1] = t[v2]
-		t[v2] = temp
-	end
-	
-	return t
+    for i,v in pairs(t_org) do
+        table.insert(t_random, i)
+    end
+
+    while (0 < #t_random) do
+        local rand_num = math_random(1, #t_random)
+        local rand_idx = t_random[rand_num]
+        table.insert(t_ret, t_org[rand_idx])
+        table.remove(t_random, rand_num)
+    end
+
+    return t_ret
 end
 
 -------------------------------------
