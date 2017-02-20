@@ -1,0 +1,24 @@
+tier,group,first_get_reward,win_reward,lose_reward,weekly_reward,min_score,next_tier,weekly_init_score,weekly_init_tier
+legend,challenger,cash;350,"gold;1000, honor;3",honor;1,cash;1000,4300,,3000,challenger_3
+master_1,challenger,cash;350,"gold;1000, honor;3",honor;1,cash;700,3600,legend,3000,challenger_3
+master_2,challenger,cash;350,"gold;1000, honor;3",honor;1,cash;600,3600,master_1,3000,challenger_3
+master_3,challenger,cash;350,"gold;1000, honor;3",honor;1,cash;550,3600,master_2,3000,challenger_3
+master_4,challenger,cash;350,"gold;1000, honor;3",honor;1,cash;500,3600,master_3,3000,challenger_3
+challenger_1,challenger,cash;300,"gold;900, honor;3",honor;1,cash;400,3200,master_4,3000,challenger_3
+challenger_2,challenger,cash;300,"gold;900, honor;3",honor;1,cash;350,3100,challenger_1,2500,diamond_2
+challenger_3,challenger,cash;300,"gold;900, honor;3",honor;1,cash;300,3000,challenger_2,2400,diamond_3
+diamond_1,diamond,cash;250,"gold;800, honor;3",honor;1,cash;250,2600,challenger_3,2400,diamond_3
+diamond_2,diamond,cash;250,"gold;800, honor;3",honor;1,cash;220,2500,diamond_1,2100,platinum_2
+diamond_3,diamond,cash;250,"gold;800, honor;3",honor;1,cash;190,2400,diamond_2,2000,platinum_3
+platinum_1,platinum,cash;200,"gold;700, honor;3",honor;1,cash;160,2200,diamond_3,2000,platinum_3
+platinum_2,platinum,cash;200,"gold;700, honor;3",honor;1,cash;140,2100,platinum_1,1700,gold_2
+platinum_3,platinum,cash;200,"gold;700, honor;3",honor;1,cash;120,2000,platinum_2,1600,gold_3
+gold_1,gold,cash;150,"gold;600, honor;3",honor;1,cash;100,1800,platinum_3,1600,gold_3
+gold_2,gold,cash;150,"gold;600, honor;3",honor;1,cash;90,1700,gold_1,1400,silver_2
+gold_3,gold,cash;150,"gold;600, honor;3",honor;1,cash;80,1600,gold_2,1300,silver_3
+silver_1,silver,cash;100,"gold;500, honor;3",honor;1,cash;70,1500,gold_3,1300,silver_3
+silver_2,silver,cash;100,"gold;500, honor;3",honor;1,cash;60,1400,silver_1,1100,bronze_2
+silver_3,silver,cash;100,"gold;500, honor;3",honor;1,cash;50,1300,silver_2,1000,bronze_3
+bronze_1,bronze,cash;0,"gold;400, honor;3",honor;1,cash;40,1200,silver_3,1000,bronze_3
+bronze_2,bronze,cash;0,"gold;400, honor;3",honor;1,cash;30,1100,bronze_1,1000,bronze_3
+bronze_3,bronze,cash;0,"gold;400, honor;3",honor;1,cash;20,1000,bronze_2,1000,bronze_3
