@@ -125,7 +125,7 @@ function ServerData_Colosseum:request_colosseumStart(cb)
     ui_network:setParam('uid', uid)
     ui_network:setParam('is_cash', is_cash)
     ui_network:setSuccessCB(success_cb)
-    ui_network:setRevocable(false)
+    ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
 end
@@ -189,7 +189,32 @@ end
 -------------------------------------
 -- function response_colosseumFinish
 -------------------------------------
-function ServerData_Colosseum:response_colosseumFinish(ret, cb)    
+function ServerData_Colosseum:response_colosseumFinish(ret, cb)
+
+    -- 결과 정 데이터
+    local t_user_info = self.m_playerUserInfo   
+    local prev_rp = t_user_info.m_rp
+    local prev_honor = g_userData:get('honor')
+
+    g_serverData:networkCommonRespone_addedItems(ret)
+
+    -- 플레이어 유저 정보 갱신
+    local t_user_info = self.m_playerUserInfo
+    t_user_info.m_loseCnt = ret['lose']
+    t_user_info.m_winCnt = ret['win']
+    t_user_info:setTier(ret['tier'])
+    t_user_info:setStraight(ret['straight'])
+    t_user_info:setRP(ret['rp'])
+
+    -- tier_reward -- 티어 보상 여부
+
+    -- 결과 후 데이터
+    local after_rp = t_user_info.m_rp
+    local after_honor = g_userData:get('honor')
+
+    ret['added_rp'] = (after_rp - prev_rp)
+    ret['added_honor'] = (after_honor - prev_honor)
+
     if cb then
         cb(ret)
     end

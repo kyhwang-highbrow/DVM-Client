@@ -9,7 +9,7 @@ UI_ColosseumResult = class(UI, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function UI_ColosseumResult:init(is_win)
+function UI_ColosseumResult:init(is_win, t_data)
     local vars = self:load('colosseum_result.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -19,14 +19,14 @@ function UI_ColosseumResult:init(is_win)
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ColosseumResult')
 
-    self:initUI(is_win)
+    self:initUI(is_win, t_data)
     self:initButton()
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_ColosseumResult:initUI(is_win)
+function UI_ColosseumResult:initUI(is_win, t_data)
     local vars = self.vars
 
     if is_win then
@@ -44,10 +44,29 @@ function UI_ColosseumResult:initUI(is_win)
         vars['tamerNode']:addChild(animator.m_node)
     end
 
-    vars['fightScoreLabel']:setString('')
-    vars['getScoreLabel']:setString('')
+    -- 현재 점수
+    vars['fightScoreLabel']:setString(comma_value(t_data['rp']))
+
+    -- 획득 점수
+    local added_rp_str
+    if t_data['added_rp'] >= 0 then
+        added_rp_str = Str('+{1}', comma_value(t_data['added_rp']))
+    else
+        added_rp_str = Str('{1}', comma_value(t_data['added_rp']))
+    end
+    vars['getScoreLabel']:setString(added_rp_str)
+
+    -- 사용안함
     vars['bonusScoreLabel']:setString('')
-    vars['honorLabel']:setString('')
+
+    -- 획득 명예
+    local added_honor_str
+    if t_data['added_honor'] >= 0 then
+        added_honor_str = Str('+{1}', comma_value(t_data['added_honor']))
+    else
+        added_honor_str = Str('{1}', comma_value(t_data['added_honor']))
+    end
+    vars['honorLabel']:setString(added_honor_str)
 end
 
 -------------------------------------

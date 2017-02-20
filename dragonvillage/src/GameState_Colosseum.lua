@@ -336,8 +336,9 @@ function GameState_Colosseum:makeResultUI(is_win)
     end
 
     -- 2. UI 생성
-    func_ui_result = function()
-        UI_ColosseumResult(is_win)
+    func_ui_result = function(ret)
+        local t_data = ret
+        UI_ColosseumResult(is_win, t_data)
     end
 
     -- 최초 실행
