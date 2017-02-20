@@ -12,6 +12,7 @@ UI_GameDebug = class(UI,{
 		m_world = 'GameWorld',
 
 		m_directStrength = 'num', -- 배경 이펙트 에서 사용
+		m_invincibleState = 'num', -- 무적 종류
     })
 
 -------------------------------------
@@ -36,6 +37,11 @@ function UI_GameDebug:init()
     -- 변수 초기화
     self.vars = {}
 	self.m_directStrength = 0 
+	
+	-- @TODO 무적 관련 임시 처리
+	self.m_invincibleState = 1
+	PLAYER_INVINCIBLE = false
+	ENEMY_INVINCIBLE = false
 
     do -- UI아래쪽은 터치되지 않도록 임의 버튼 생성
         local node = cc.MenuItemImage:create(EMPTY_PNG, nil, nil, 1)
@@ -213,11 +219,7 @@ function UI_GameDebug:makeTableView()
 	do -- 플레이어 무적
         local item = {}
         item['cb1'] = UI_GameDebug.playerInvincible
-        if PLAYER_DRAGON_INVINCIBLE then
-            item['str'] = '플레이어 무적 ON'
-        else
-            item['str'] = '플레이어 무적 OFF'
-        end
+		item['str'] = '무적 OFF'
         table.insert(item_info, item)
     end
 
@@ -478,11 +480,28 @@ end
 -- function playerInvincible
 -------------------------------------
 function UI_GameDebug.playerInvincible(self, item, idx)
-    PLAYER_DRAGON_INVINCIBLE = not PLAYER_DRAGON_INVINCIBLE
+	
+	self.m_invincibleState = self.m_invincibleState + 1
+	if (self.m_invincibleState > 4) then
+		self.m_invincibleState = 1
+	end
 
-    if PLAYER_DRAGON_INVINCIBLE then
-        item['label']:setString(Str('플레이어 무적 ON'))
-    else
-        item['label']:setString(Str('플레이어 무적 OFF'))
-    end
+	if (self.m_invincibleState == 1) then
+		PLAYER_INVINCIBLE = false
+		ENEMY_INVINCIBLE = false
+		item['label']:setString(Str('무적 OFF'))
+	elseif (self.m_invincibleState == 2) then
+		PLAYER_INVINCIBLE = true
+		ENEMY_INVINCIBLE = false
+		item['label']:setString(Str('플레이어 무적 ON'))
+	elseif (self.m_invincibleState == 3) then
+		PLAYER_INVINCIBLE = false
+		ENEMY_INVINCIBLE = true
+		item['label']:setString(Str('AI 무적 ON'))
+	else
+		PLAYER_INVINCIBLE = true
+		ENEMY_INVINCIBLE = true
+		item['label']:setString(Str('전부 무적 ON'))
+	end
+
 end
