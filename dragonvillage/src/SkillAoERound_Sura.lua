@@ -2,7 +2,6 @@ local PARENT = SkillAoERound
 
 -------------------------------------
 -- class SkillAoERound_Sura
--- @brief 특성상 필요한 변수가 많아 추가탄 관련 부분은 하드코딩이 많다.
 -------------------------------------
 SkillAoERound_Sura = class(PARENT, {
 		m_addActivityCarrier = 'ActivityCarrier',
@@ -25,8 +24,8 @@ function SkillAoERound_Sura:init_skill(attack_count, range, aoe_res, add_attack_
 
 	-- 변수 선언
 	self.m_addActivityCarrier = clone(self.m_activityCarrier)
-	self.m_addActivityCarrier:setPowerRate(50)
-	self.m_addActivityCarrier:setAttackType('basic')
+	self.m_addActivityCarrier:setPowerRate(SURA_ADD_POWER_RATE)
+	self.m_addActivityCarrier:setAttackType(SURA_ADD_ATK_TYPE)
 
 	self.m_addAttackCount = add_attack_count
 end
@@ -93,14 +92,14 @@ function SkillAoERound_Sura:fireMissile(target)
 
     t_option['object_key'] = char:getAttackPhysGroup()
 
-    t_option['missile_res_name'] = SkillHelper:getAttributeRes('res/missile/missile_ball/missile_ball_@.vrp', char)
+    t_option['missile_res_name'] = SkillHelper:getAttributeRes(SURA_ADD_MISSILE_RES, char)
 	t_option['attr_name'] = self.m_owner:getAttribute()
     t_option['visual'] = 'missile'
 
     t_option['movement'] = 'fix'
     t_option['target'] = target
     t_option['effect'] = {}
-    t_option['effect']['motion_streak'] = SkillHelper:getAttributeRes('res/effect/motion_streak/motion_streak_@.png', char)
+    t_option['effect']['motion_streak'] = SkillHelper:getAttributeRes(SURA_ADD_MOTION_STREAK_RES, char)
     
 	local world = self.m_world
     local missile = world.m_missileFactory:makeMissile(t_option)
