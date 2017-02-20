@@ -105,7 +105,7 @@ function UI_Lobby:entryCoroutine()
         g_attendanceData:request_attendanceInfo(function(ret) working = false end)
         while (working) do dt = coroutine.yield() end
 
-        ---[[
+        --[[
         cclog('# 기본 출석 보상 팝업')
         -- 기본 출석 보상 팝업
         if g_attendanceData.m_bNewAttendanceBasic then
