@@ -44,6 +44,8 @@ function SkillAoERound_Alien:doSpecailEffect()
 			if StatusEffectHelper:releaseHarmfulStatusEffect(fellow) then 
 				-- 로직화 할수 없는것들은 별도로 테이블에 담고 처리 하는것도 괜찮을것같다
 				table.insert(self.m_tSpecialTarget, fellow)
+				local owner_pos = self.m_owner.pos
+				EffectMotionStreak(self.m_world, owner_pos.x, owner_pos.y, fellow.pos.x, fellow.pos.y, 'res/effect/motion_streak/motion_streak_emblem_tree.png')
 				break
 			end
 		end

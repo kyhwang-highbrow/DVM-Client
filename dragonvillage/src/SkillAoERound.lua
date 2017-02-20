@@ -151,14 +151,17 @@ end
 -------------------------------------
 function SkillAoERound:getPoisonAddDamage(target_char)
 	local add_value = 0
-	if string.find(self.m_addDamage, ';') then	
-		local l_str = stringSplit(self.m_addDamage, ';')
-		local add_type = l_str[1]
-		add_Value = l_str[2]
-		for type, status_effect in pairs(target_char:getStatusEffectList()) do
-			if (status_effect.m_statusEffectName == add_type) then 
-				add_value = l_str[2]
-				break
+
+	if (self.m_addDamage) then 
+		if string.find(self.m_addDamage, ';') then	
+			local l_str = stringSplit(self.m_addDamage, ';')
+			local add_type = l_str[1]
+			add_Value = l_str[2]
+			for type, status_effect in pairs(target_char:getStatusEffectList()) do
+				if (status_effect.m_statusEffectName == add_type) then 
+					add_value = l_str[2]
+					break
+				end
 			end
 		end
 	end
