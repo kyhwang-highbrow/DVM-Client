@@ -12,6 +12,7 @@ UI_ExplorationReady = class(PARENT,{
         m_currSlotIdx = 'number',
         m_currDragonCnt = 'number',
         m_focusDeckSlotEffect = 'cc.Sprite',
+        m_dragonSortManager = 'SortManager_Dragon',
     })
 
 -------------------------------------
@@ -46,6 +47,9 @@ function UI_ExplorationReady:init(epr_id)
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
     self:doActionReset()
     self:doAction(nil, false)
+
+    -- 정렬 매니저
+    self.m_dragonSortManager = SortManager_Dragon()
 
     self:initUI()
     self:initTab()
@@ -165,6 +169,22 @@ function UI_ExplorationReady:init_tableView()
     -- 정렬
     --g_friendData:sortForFriendList(table_view.m_itemList)
     self.m_tableViewTD = table_view_td
+    
+    self:refresh_sortUI()
+end
+
+-------------------------------------
+-- function refresh_sortUI
+-------------------------------------
+function UI_ExplorationReady:refresh_sortUI()
+    local vars = self.vars
+
+    local sort_manager = self.m_dragonSortManager
+
+    -- 테이블 뷰 정렬
+    local table_view = self.m_tableViewTD
+    sort_manager:sortExecution(table_view.m_itemList)
+    table_view:setDirtyItemList()
 end
 
 -------------------------------------
@@ -173,6 +193,20 @@ end
 function UI_ExplorationReady:initButton()
     local vars = self.vars
     vars['explorationBtn']:registerScriptTapHandler(function() self:click_explorationBtn() end)
+
+    do -- 정렬 관련 버튼들
+        vars['sortSelectOrderBtn']:registerScriptTapHandler(function() self:clcik_sortSelectOrderBtn() end)
+
+        vars['sortSelectBtn']:registerScriptTapHandler(function() self:click_sortSelectBtn() end)
+        vars['sortSelectHpBtn']:registerScriptTapHandler(function() self:click_sortBtn('hp') end)
+        vars['sortSelectDefBtn']:registerScriptTapHandler(function() self:click_sortBtn('def') end)
+        vars['sortSelectAtkBtn']:registerScriptTapHandler(function() self:click_sortBtn('atk') end)
+        vars['sortSelectAttrBtn']:registerScriptTapHandler(function() self:click_sortBtn('attr') end)
+        vars['sortSelectLvBtn']:registerScriptTapHandler(function() self:click_sortBtn('lv') end)
+        vars['sortSelectGradeBtn']:registerScriptTapHandler(function() self:click_sortBtn('grade') end)
+        vars['sortSelectRarityBtn']:registerScriptTapHandler(function() self:click_sortBtn('rarity') end)
+        vars['sortSelectFriendshipBtn']:registerScriptTapHandler(function() self:click_sortBtn('friendship') end)
+    end
 end
 
 -------------------------------------
@@ -282,6 +316,32 @@ function UI_ExplorationReady:click_explorationBtn()
         UIManager:toastNotificationRed('탐험에는 5마리의 드래곤이 필요합니다.')
         return
     end
+end
+
+-------------------------------------
+-- function clcik_sortSelectOrderBtn
+-------------------------------------
+function UI_ExplorationReady:clcik_sortSelectOrderBtn()
+    local sort_manager = self.m_dragonSortManager
+    sort_manager:setAllAscending(not sort_manager.m_defaultSortAscending)
+    self:refresh_sortUI()
+end
+
+-------------------------------------
+-- function click_sortSelectBtn
+-------------------------------------
+function UI_ExplorationReady:click_sortSelectBtn()
+    local vars = self.vars
+    vars['sortSelectNode']:runAction(cc.ToggleVisibility:create())
+end
+
+-------------------------------------
+-- function click_sortBtn
+-------------------------------------
+function UI_ExplorationReady:click_sortBtn(sort_type)
+    local sort_manager = self.m_dragonSortManager
+    sort_manager:pushSortOrder(sort_type)
+    self:refresh_sortUI()
 end
 
 --@CHECK
