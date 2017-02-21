@@ -9,6 +9,7 @@ UI_CollectionTabDragon = class({
         m_attrRadioButton = 'UIC_RadioButton',
 
         m_tableViewTD = 'UIC_TableViewTD',
+        m_sortManager = 'SortManager',
      })
 
 -------------------------------------
@@ -35,6 +36,8 @@ end
 -------------------------------------
 function UI_CollectionTabDragon:initUI()
     local vars = self.vars
+
+    self:makeSortManager()
 
     -- 테이블 뷰 생성
     self:init_TableViewTD()
@@ -69,6 +72,40 @@ function UI_CollectionTabDragon:initUI()
 end
 
 -------------------------------------
+-- function makeSortManager
+-- @brief
+-------------------------------------
+function UI_CollectionTabDragon:makeSortManager()
+    local sort_manager = SortManager_Dragon()
+
+    -- did선에서 무조건 우열을 가리도록 설정
+    local function sort_did(a, b, ascending)
+        local a_data = a['data']
+        local b_data = b['data']
+
+        local a_value = a_data['did']
+        local b_value = b_data['did']
+
+        -- 오름차순 or 내림차순
+        if ascending then return a_value < b_value
+        else              return a_value > b_value
+        end
+    end
+    sort_manager:addSortType('did', false, sort_did)
+
+    -- did 내림차순
+    sort_manager:pushSortOrder('did', false)
+
+    -- 역할 내림차순
+    sort_manager:pushSortOrder('role', false)
+
+    -- 레어도 내림차순
+    sort_manager:pushSortOrder('rarity', false)
+
+    self.m_sortManager = sort_manager
+end
+
+-------------------------------------
 -- function onChangeOption
 -- @brief
 -------------------------------------
@@ -76,10 +113,13 @@ function UI_CollectionTabDragon:onChangeOption()
     local role_option = self.m_roleRadioButton.m_selectedButton
     local attr_option = self.m_attrRadioButton.m_selectedButton
 
-
     local l_item_list = g_collectionData:getCollectionList(role_option, attr_option)
 
+    -- 리스트 머지 (조건에 맞는 항목만 노출)
     self.m_tableViewTD:mergeItemList(l_item_list)
+
+    -- 정렬
+    self.m_sortManager:sortExecution(self.m_tableViewTD.m_itemList)
 end
 
 -------------------------------------

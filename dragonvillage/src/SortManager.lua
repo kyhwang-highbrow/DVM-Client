@@ -43,7 +43,7 @@ end
 -------------------------------------
 -- function pushSortOrder
 -------------------------------------
-function SortManager:pushSortOrder(name)
+function SortManager:pushSortOrder(name, ascending)
     local idx = table.find(self.m_lSortOrder, name)
 
     if idx then
@@ -51,6 +51,10 @@ function SortManager:pushSortOrder(name)
     end
 
     table.insert(self.m_lSortOrder, 1, name)
+
+    if (ascending ~= nil) and self.m_mSortType[name] then
+        self.m_mSortType[name]['ascending'] = ascending
+    end
 end
 
 -------------------------------------

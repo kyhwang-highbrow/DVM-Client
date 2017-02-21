@@ -9,6 +9,7 @@ SortManager_Dragon = class(PARENT, {
 
         m_mRaritySortLevel = 'map',
         m_mAttrSortLevel = 'map',
+        m_mRoleSortLevel = 'map',
     })
 
 -------------------------------------
@@ -22,8 +23,8 @@ function SortManager_Dragon:init()
     self.m_mAttrSortLevel[''] = -2
     self.m_mAttrSortLevel['display'] = -1
     self.m_mAttrSortLevel['reset'] = 0
-    self.m_mAttrSortLevel['dark'] = 1
-    self.m_mAttrSortLevel['light'] = 2
+    self.m_mAttrSortLevel['light'] = 1
+    self.m_mAttrSortLevel['dark'] = 2
     self.m_mAttrSortLevel['earth'] = 3
     self.m_mAttrSortLevel['water'] = 4
     self.m_mAttrSortLevel['fire'] = 5
@@ -37,6 +38,17 @@ function SortManager_Dragon:init()
     self.m_mRaritySortLevel['hero'] = 3
     self.m_mRaritySortLevel['legend'] = 4
 
+    -- 역할 정렬 레벨
+    self.m_mRoleSortLevel = {}
+    self.m_mRoleSortLevel[''] = -1
+    self.m_mRoleSortLevel['healer'] = 1
+    self.m_mRoleSortLevel['supporter'] = 2
+    self.m_mRoleSortLevel['dealer'] = 3
+    self.m_mRoleSortLevel['tanker'] = 4
+    
+
+    self:addSortType('did', false, function(a, b, ascending) return self:sort_did(a, b, ascending) end)
+    self:addSortType('role', false, function(a, b, ascending) return self:sort_role(a, b, ascending) end)
     self:addSortType('atk', false, function(a, b, ascending) return self:sort_atk(a, b, ascending) end)
     self:addSortType('def', false, function(a, b, ascending) return self:sort_def(a, b, ascending) end)
     self:addSortType('hp', false, function(a, b, ascending) return self:sort_hp(a, b, ascending) end)
@@ -49,6 +61,8 @@ function SortManager_Dragon:init()
 end
 
 local T_DRAGON_SORT_TYPE_NAME = {}
+T_DRAGON_SORT_TYPE_NAME['did'] = Str('종류')
+T_DRAGON_SORT_TYPE_NAME['role'] = Str('역할')
 T_DRAGON_SORT_TYPE_NAME['atk'] = Str('공격력')
 T_DRAGON_SORT_TYPE_NAME['def'] = Str('방어력')
 T_DRAGON_SORT_TYPE_NAME['hp'] = Str('체력')
@@ -62,11 +76,59 @@ T_DRAGON_SORT_TYPE_NAME['lv'] = Str('레벨')
 -- function getTopSortingName
 -- @brief 최우선의 정렬 타입 리턴
 -------------------------------------
-function SortManager:getTopSortingName()
+function SortManager_Dragon:getTopSortingName()
     local top_sorting_type = self:getTopSortingType()
     return T_DRAGON_SORT_TYPE_NAME[top_sorting_type]
 end
 
+-------------------------------------
+-- function sort_did
+-- @brief 드래곤 ID
+-------------------------------------
+function SortManager_Dragon:sort_did(a, b, ascending)
+    local a_data = a['data']
+    local b_data = b['data']
+
+    local a_value = a_data['did']
+    local b_value = b_data['did']
+
+    
+
+    -- 같을 경우 리턴
+    if (a_value == b_value) then
+        cclog('a_value : ' .. a_value)
+        cclog('b_value : ' .. b_value)
+        return nil
+    end
+
+    -- 오름차순 or 내림차순
+    if ascending then return a_value < b_value
+    else              return a_value > b_value
+    end
+end
+
+-------------------------------------
+-- function sort_role
+-- @brief 드래곤 역할
+-------------------------------------
+function SortManager_Dragon:sort_role(a, b, ascending)
+    local a_data = a['data']
+    local b_data = b['data']
+
+    local a_role = self.m_tableDragon:getValue(a_data['did'], 'role')
+    local b_role = self.m_tableDragon:getValue(b_data['did'], 'role')
+
+    local a_value = self.m_mRoleSortLevel[a_role]
+    local b_value = self.m_mRoleSortLevel[b_role]
+
+    -- 같을 경우 리턴
+    if (a_value == b_value) then return nil end
+
+    -- 오름차순 or 내림차순
+    if ascending then return a_value < b_value
+    else              return a_value > b_value
+    end
+end
 
 -------------------------------------
 -- function sort_atk
