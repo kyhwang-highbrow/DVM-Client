@@ -654,6 +654,15 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_CharacterCard.lua" />
     <None Include="..\src\UI_ClassForm.lua" />
     <None Include="..\src\UI_ClassFormUseTopUserInfo.lua" />
+    <None Include="..\src\UI_Collection.lua" />
+    <None Include="..\src\UI_CollectionDetailPopup.lua" />
+    <None Include="..\src\UI_CollectionDragonCard.lua" />
+    <None Include="..\src\UI_CollectionPointReward.lua" />
+    <None Include="..\src\UI_CollectionPointRewardListItem.lua" />
+    <None Include="..\src\UI_CollectionRelationPointDraw.lua" />
+    <None Include="..\src\UI_CollectionTabDragon.lua" />
+    <None Include="..\src\UI_CollectionTabUnit.lua" />
+    <None Include="..\src\UI_CollectionUnitListItem.lua" />
     <None Include="..\src\UI_Colosseum.lua" />
     <None Include="..\src\UI_ColosseumFirstReward.lua" />
     <None Include="..\src\UI_ColosseumFirstRewardListItem.lua" />

@@ -1707,6 +1707,33 @@
     <None Include="..\src\LocalPushMgr.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_Collection.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_CollectionDetailPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_CollectionDragonCard.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_CollectionPointReward.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_CollectionPointRewardListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_CollectionRelationPointDraw.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_CollectionTabDragon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_CollectionTabUnit.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_CollectionUnitListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -742,8 +742,11 @@ end
 -- @brief 임시 도감
 -------------------------------------
 function UI_DragonManageInfo:click_collectionBtn()
+    UI_Collection()
+    --[[
     local ui = UI_DragonManageInfoView()
     ui:tempGstarInit()
+    --]]
 end
 
 -------------------------------------

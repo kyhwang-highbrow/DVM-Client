@@ -485,6 +485,17 @@ local t_module = {
     'UI_GachaBox',
     'UI_ItemInfoPopup',
     'UI_ColosseumRewardPopup',
+    
+    -- 도감 관련
+    'UI_Collection',
+    'UI_CollectionDetailPopup',
+    'UI_CollectionDragonCard',
+    'UI_CollectionPointReward',
+    'UI_CollectionPointRewardListItem',
+    'UI_CollectionRelationPointDraw',
+    'UI_CollectionUnitListItem',
+    'UI_CollectionTabUnit',
+    'UI_CollectionTabDragon',
 
     -- 친구 시스템 관련
     'UI_FriendPopup',
