@@ -5,6 +5,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_CollectionDragonCard = class(PARENT, {
         m_tItemData = 'table',
+        m_dragonCard = 'UI_DragonCard',
     })
 
 -------------------------------------
@@ -29,6 +30,7 @@ function UI_CollectionDragonCard:initUI(t_item_data)
     local card = MakeSimpleDragonCard(did)
     card.root:setSwallowTouch(false)
     vars['cardNode']:addChild(card.root)
+    self.m_dragonCard = card
 
     card.vars['starIcon']:setVisible(false)
 

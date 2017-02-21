@@ -137,7 +137,7 @@ function UI_CollectionTabDragon:init_TableViewTD()
     local function create_func(ui, data)
         ui.root:setScale(scale)
 
-        
+        ui.m_dragonCard.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(data) end)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -150,4 +150,17 @@ function UI_CollectionTabDragon:init_TableViewTD()
 
     -- 정렬
     self.m_tableViewTD = table_view_td
+end
+
+-------------------------------------
+-- function click_dragonCard
+-- @brief
+-------------------------------------
+function UI_CollectionTabDragon:click_dragonCard(data)
+    local l_dragons_data = self.m_tableViewTD.m_itemList
+    local did = data['did']
+    local item = self.m_tableViewTD:getItem(did)
+    local init_idx = item['idx']
+
+    UI_CollectionDetailPopup(l_dragons_data, init_idx)
 end
