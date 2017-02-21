@@ -114,17 +114,34 @@ function ServerData_Gacha:canFreeGacha(type)
     if (t_gacha_info['free_per_day'] <= t_gacha_info['free_cnt']) then
         return false, 'max'
     end
-
-    -- 쿨타임 중일 경우
-    local free_time = (t_gacha_info['free_time'] / 1000)
-    local server_time = Timer:getServerTime()
-
-    if ((free_time ~= 0) and (server_time < free_time)) then
-        local remain_time = (free_time - server_time)
-        return false, 'cool', remain_time
-    end
+	
+	-- 남은 시간 계산
+	local remain_time = self:getRemainGachaTime(type)
+	if (remain_time > 0) then
+		return false, 'cool', remain_time
+	end
 
     return true
+end
+
+-------------------------------------
+-- function canFreeGacha
+-------------------------------------
+function ServerData_Gacha:getRemainGachaTime(type)
+    local t_gacha_info = self:getGachaInfo(type)
+
+    -- 쿨타임 중일 경우
+	if (t_gacha_info['free_time']) then
+		local free_time = (t_gacha_info['free_time'] / 1000)
+		local server_time = Timer:getServerTime()
+
+		if ((free_time ~= 0) and (server_time < free_time)) then
+			local remain_time = (free_time - server_time)
+			return remain_time
+		end
+	end
+
+    return 0
 end
 
 -------------------------------------

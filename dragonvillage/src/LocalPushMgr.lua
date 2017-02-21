@@ -18,13 +18,21 @@ end
 -- @brief 로컬 푸시 정보를 등록
 -------------------------------------
 function LocalPushMgr:applyLocalPush()
-    luaEventHandler('send_event_to_app', 'local_noti_cancel')
+    -- 기존 local push 삭제
+	luaEventHandler('send_event_to_app', 'local_noti_cancel')
 
+	-- 프리미엄 선물 상자 
 	do
-		local premium_box_remain = 5
-		self:addLocalPush('full', premium_box_remain, Str('로컬 푸시 테스트'))
+		local premium_box_remain = g_gachaData:getRemainGachaTime('box_premium')
+		self:addLocalPush('normal', premium_box_remain, Str('프리미엄 선물 상자가 열렸습니다.'))
 	end
 
+	-- 탐험
+	do
+
+	end
+
+	-- 신규 local push 등록
     luaEventHandler('send_event_to_app', 'local_noti_start')
 end
 
@@ -56,4 +64,13 @@ function LocalPushMgr:setLocalPush_Color(bg_color, title_color, msg_color)
 
 	local param_str = bg_color .. ';' .. title_color .. ';' .. msg_color
     luaEventHandler('send_event_to_app', 'local_noti_setColor', param_str)
+end
+
+-------------------------------------
+-- function setLocalPush_URL
+-- @brief 로컬 푸시 URL을 지정한다.
+-------------------------------------
+function LocalPushMgr:setLocalPush_URL(link_title, link_url, cafe_url)
+	local param_str = link_title .. ';' .. link_url .. ';' .. cafe_url
+    luaEventHandler('send_event_to_app', 'local_noti_setlinkUrl', param_str)
 end
