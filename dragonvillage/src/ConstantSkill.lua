@@ -56,8 +56,8 @@ JARYONG_FIRE_DELAY = ONE_FRAME					-- 발사체 발사 딜레이
 -- # 수라드래곤 액티브
 SURA_ADD_POWER_RATE = 50													-- 추가 탄의 power_rate
 SURA_ADD_ATK_TYPE = 'basic'													-- 추가 탄의 공격타입
-SURA_ADD_MISSILE_RES = 'res/missile/missile_ball/missile_ball_@.vrp'		-- 추가 탄의 미사일 리소스
-SURA_ADD_MOTION_STREAK_RES = 'res/effect/motion_streak/motion_streak_@.png'	-- 추가 탄의 모션스트릭 리소스
+SURA_ADD_MISSILE_RES = 'res/missile/missile_lotus/missile_lotus_@.png'		-- 추가 탄의 미사일 리소스
+SURA_ADD_MOTION_STREAK_RES = 'res/effect/motion_streak/motion_streak_fire.png'	-- 추가 탄의 모션스트릭 리소스
 
 --------------------------------------------
 -- 인디케이터 리소스 경로
