@@ -46,7 +46,7 @@
             <key>skill_surajang_circle_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{992,784},{114,114}}</string>
+                <string>{{992,696},{114,114}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>skill_surajang_circle_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{860,784},{130,130}}</string>
+                <string>{{860,696},{130,130}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>skill_surajang_eff_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{700,876},{72,108}}</string>
+                <string>{{142,890},{72,108}}</string>
                 <key>offset</key>
                 <string>{-2,-15}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>skill_surajang_eff_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{578,876},{74,120}}</string>
+                <string>{{708,876},{74,120}}</string>
                 <key>offset</key>
                 <string>{-1,-9}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>skill_surajang_eff_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{838,356},{86,128}}</string>
+                <string>{{578,876},{86,128}}</string>
                 <key>offset</key>
                 <string>{7,-6}</string>
                 <key>rotated</key>
@@ -147,10 +147,36 @@
                 <key>sourceSize</key>
                 <string>{100,140}</string>
             </dict>
+            <key>skill_surajang_lotus_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{906,828},{114,134}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{168,158},{114,134}}</string>
+                <key>sourceSize</key>
+                <string>{450,450}</string>
+            </dict>
+            <key>skill_surajang_lotus_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{830,876},{74,74}}</string>
+                <key>offset</key>
+                <string>{0,-2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{188,190},{74,74}}</string>
+                <key>sourceSize</key>
+                <string>{450,450}</string>
+            </dict>
             <key>skill_surajang_text_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{860,444},{326,338}}</string>
+                <string>{{860,356},{326,338}}</string>
                 <key>offset</key>
                 <string>{2,3}</string>
                 <key>rotated</key>
@@ -181,9 +207,9 @@
             <key>realTextureFileName</key>
             <string>skill_surajang.png</string>
             <key>size</key>
-            <string>{1188,960}</string>
+            <string>{1188,964}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:8767fb2f375d68481b3f8b7726a2be48:65d017fe3a55926a160ed1badcaaeb55:c38a6016beb21433d8fd57ebea1a3bd5$</string>
+            <string>$TexturePacker:SmartUpdate:db763e92a57c5a000c1246eed55cc25b:4bfe00a75299ede5f12e9edd32c7d2e2:c38a6016beb21433d8fd57ebea1a3bd5$</string>
             <key>textureFileName</key>
             <string>skill_surajang.png</string>
         </dict>
