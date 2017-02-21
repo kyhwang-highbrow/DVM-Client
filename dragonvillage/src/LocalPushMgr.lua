@@ -20,12 +20,10 @@ end
 function LocalPushMgr:applyLocalPush()
     luaEventHandler('send_event_to_app', 'local_noti_cancel')
 
-    local premium_box_remain = 10
-	self:addLocalPush('full', 10, Str('로컬 푸시 테스트 1 - 돈까스'))
-	self:addLocalPush('full', 20, Str('로컬 푸시 테스트 2 - 쫄면'))
-	self:addLocalPush('full', 30, Str('로컬 푸시 테스트 3 - 카레'))
-	self:addLocalPush('type2', 40, Str('로컬 푸시 테스트 type2 - 갈릭치킨'))
-	self:addLocalPush('type3', 50, Str('로컬 푸시 테스트 type3 - 볶음밥'))
+	do
+		local premium_box_remain = 5
+		self:addLocalPush('full', premium_box_remain, Str('로컬 푸시 테스트'))
+	end
 
     luaEventHandler('send_event_to_app', 'local_noti_start')
 end
@@ -36,7 +34,26 @@ end
 -------------------------------------
 function LocalPushMgr:addLocalPush(push_type, push_time, push_msg)
     if push_time > self.m_pushMinSecond then
-		local push_str = push_type .. ';' .. push_time .. ';' .. push_msg
-        luaEventHandler('send_event_to_app', 'local_noti_add', push_str)
+		local param_str = push_type .. ';' .. push_time .. ';' .. push_msg
+        luaEventHandler('send_event_to_app', 'local_noti_add', param_str)
     end
+end
+
+-------------------------------------
+-- function setLocalPush_Color
+-- @brief 로컬 푸시 색상을 지정한다.
+-------------------------------------
+function LocalPushMgr:setLocalPush_Color(bg_color, title_color, msg_color)
+	if (not bg_color) then 
+		bg_color = '#a71197'
+	end
+	if (not title_color) then 
+		title_color = '#fcff29'
+	end
+	if (not msg_color) then 
+		msg_color = '#ffffff'
+	end
+
+	local param_str = bg_color .. ';' .. title_color .. ';' .. msg_color
+    luaEventHandler('send_event_to_app', 'local_noti_setColor', param_str)
 end
