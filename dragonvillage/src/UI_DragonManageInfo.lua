@@ -94,6 +94,7 @@ function UI_DragonManageInfo:initButton()
 
     do -- 하단 버튼들 초기화
         -- 도감
+        vars['collectionBtn']:setVisible(true)
         vars['collectionBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end)
         
         -- 정렬
