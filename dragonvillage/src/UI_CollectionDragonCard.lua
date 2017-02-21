@@ -25,11 +25,16 @@ function UI_CollectionDragonCard:initUI(t_item_data)
     local vars = self.vars
 
     local did = t_item_data['did']
+
     local card = MakeSimpleDragonCard(did)
     card.root:setSwallowTouch(false)
     vars['cardNode']:addChild(card.root)
 
-    
+    card.vars['starIcon']:setVisible(false)
+
+    if (not g_collectionData:isExist(did)) then
+        card:setShadowSpriteVisible(true)
+    end
 end
 
 -------------------------------------

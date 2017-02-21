@@ -527,7 +527,7 @@ end
 -- function click_collectionBtn
 -------------------------------------
 function UI_Lobby:click_collectionBtn()
-    UI_Collection()
+    g_collectionData:openCollectionPopup()
 end
 
 -------------------------------------
