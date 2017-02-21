@@ -528,7 +528,7 @@ end
 -------------------------------------
 function UI_Lobby:click_exitBtn()
     local function yes_cb()
-        cc.Director:getInstance():endToLua()
+        closeApplication()
     end
     MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('종료하시겠습니까?'), yes_cb)
 end

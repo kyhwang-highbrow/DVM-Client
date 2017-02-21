@@ -27,6 +27,7 @@ local t_module = {
     'PatchData',
     'PatchCore',
     'Coroutine',
+	'LocalPushMgr',
 
 	-- CONSTANT 
     'Constant',
@@ -107,7 +108,7 @@ local t_module = {
     'DragonSortManager',
     'RuneEnchantHelper',
     'SimplePrimitivesDraw',
-
+	
     -- Data클래스
     'ColosseumUserInfo',
     	

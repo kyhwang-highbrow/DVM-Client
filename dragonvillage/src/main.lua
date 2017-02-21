@@ -23,6 +23,7 @@ end
 -------------------------------------
 function applicationDidEnterBackground()
     cclog('applicationDidEnterBackground')
+	LocalPushMgr()
 end
 
 -------------------------------------
@@ -42,6 +43,15 @@ function applicationDidChangeViewSize()
     if g_currScene then
         g_currScene:sceneDidChangeViewSize()
     end
+end
+
+-------------------------------------
+-- function closeApplication
+-------------------------------------
+function closeApplication()
+	cclog('CloseApplication')
+    LocalPushMgr()
+	cc.Director:getInstance():endToLua()
 end
 
 -------------------------------------
