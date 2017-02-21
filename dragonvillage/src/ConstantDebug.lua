@@ -25,6 +25,7 @@ DISPLAY_DEBUG_INFO = false
 -- # 캐릭터 무적
 PLAYER_INVINCIBLE = false
 ENEMY_INVINCIBLE = false
+INVINCIBLE_STATE = 1
 
 -- # 보스가 특정 패턴만 실행하게 한다. false or 숫자
 TEST_PATTERN = false
