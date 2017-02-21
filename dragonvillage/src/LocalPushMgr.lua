@@ -10,15 +10,14 @@ LocalPushMgr = class({
 -------------------------------------
 function LocalPushMgr:init()
 	self.m_pushMinSecond = 3
-	self:setLocalPush()
+	self:applyLocalPush()
 end
 
 -------------------------------------
--- function setLocalPush
--- @brief 로컬 푸시 정보를 등록한다.
+-- function applyLocalPush
+-- @brief 로컬 푸시 정보를 등록
 -------------------------------------
-function LocalPushMgr:setLocalPush()
-
+function LocalPushMgr:applyLocalPush()
     luaEventHandler('send_event_to_app', 'local_noti_cancel')
 
     local premium_box_remain = 10
@@ -33,7 +32,7 @@ end
 
 -------------------------------------
 -- function addLocalPush
--- @brief 로컬 푸시 정보를 등록한다.
+-- @brief 개별 로컬 푸시 정보를 추가
 -------------------------------------
 function LocalPushMgr:addLocalPush(push_type, push_time, push_msg)
     if push_time > self.m_pushMinSecond then

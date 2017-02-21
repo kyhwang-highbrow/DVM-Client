@@ -31,10 +31,24 @@ function SkillAoERound_Sura:init_skill(attack_count, range, aoe_res, add_attack_
 end
 
 -------------------------------------
+-- function initState
+-------------------------------------
+function SkillAoERound_Sura:initState()
+	self:setCommonState(self)
+	local add_str = ''
+	if (self.m_addAttackCount > 0) then 
+		add_str = 'effect_'
+	end
+    self:addState('start', SkillAoERound.st_appear, add_str .. 'appear', false)
+    self:addState('attack', SkillAoERound.st_attack, add_str .. 'idle', true)
+	self:addState('disappear', SkillAoERound.st_disappear, add_str .. 'disappear', false)
+end
+
+-------------------------------------
 -- function setAttackInterval
 -- @Overridding
 -------------------------------------
-function SkillAoERound:setAttackInterval()
+function SkillAoERound_Sura:setAttackInterval()
 	-- 공격 애니 재생시간을 hit수로 나눔
 	self.m_hitInterval = (self.m_animator:getDuration() / self.m_maxAttackCnt)
 end
@@ -116,7 +130,7 @@ function SkillAoERound_Sura:makeSkillInstance(owner, t_skill, t_data)
 	local add_attack_count = t_skill['val_2'] -- 추가 공격 한회당 발사하는 탄의 수
 	
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)	-- 스킬 본연의 리소스
-	local aoe_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)		-- 개별 타겟 이펙트 리소스
+	local aoe_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)		-- 추가 이펙트를 위해 저장
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
