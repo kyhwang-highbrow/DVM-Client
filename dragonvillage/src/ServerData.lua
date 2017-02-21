@@ -89,6 +89,9 @@ function ServerData:getInstance()
     -- 탐험
     g_explorationData = ServerData_Exploration(g_serverData)
 
+    -- 핫타임
+    g_hotTimeData = ServerData_HotTime(g_serverData)
+
     return g_serverData
 end
 

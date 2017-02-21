@@ -78,6 +78,7 @@ local t_module = {
     'ServerData_Gacha',
     'ServerData_Attendance',
     'ServerData_Exploration',
+    'ServerData_HotTime',
     'UserData',
     'DropHelper',
     'DragonAutoSetHelper',
