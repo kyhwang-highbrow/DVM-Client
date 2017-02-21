@@ -98,21 +98,26 @@ function SkillAoERound_Sura:fireMissile(target)
     local char = self.m_owner
     local t_option = {}
     
+    t_option['target'] = target
     t_option['pos_x'] = self.pos.x
     t_option['pos_y'] = self.pos.y
 
-    t_option['physics_body'] = {0, 0, 0}
+    t_option['physics_body'] = {0, 0, 20}
     t_option['attack_damage'] = self.m_addActivityCarrier
-
     t_option['object_key'] = char:getAttackPhysGroup()
+	t_option['bFixedAttack'] = true
 
     t_option['missile_res_name'] = SkillHelper:getAttributeRes(SURA_ADD_MISSILE_RES, char)
 	t_option['attr_name'] = self.m_owner:getAttribute()
-    t_option['visual'] = 'missile'
+	t_option['missile_type'] = 'NORMAL'
+    t_option['movement'] ='lua_curve' 
 
-    t_option['movement'] = 'fix'
-    t_option['target'] = target
-    t_option['effect'] = {}
+    t_option['lua_param'] = {}
+    t_option['lua_param']['value1'] = math_random(-P_RANDOM_HEIGHT_RANGE, P_RANDOM_HEIGHT_RANGE)
+	t_option['lua_param']['value2'] = 0.5
+	t_option['lua_param']['value3'] = 0
+
+	t_option['effect'] = {}
 	t_option['effect']['afterimage'] = true
     
 	local world = self.m_world
