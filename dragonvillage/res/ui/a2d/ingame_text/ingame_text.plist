@@ -4,6 +4,66 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>ingame_text_cash_icon.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{97,97}</string>
+                <key>spriteSourceSize</key>
+                <string>{97,97}</string>
+                <key>textureRect</key>
+                <string>{{297,86},{97,97}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_text_cash_wave.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{362,83}</string>
+                <key>spriteSourceSize</key>
+                <string>{362,83}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{362,83}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_text_gold_icon.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{92,96}</string>
+                <key>spriteSourceSize</key>
+                <string>{92,96}</string>
+                <key>textureRect</key>
+                <string>{{396,75},{92,96}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_text_gold_wave.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{294,85}</string>
+                <key>spriteSourceSize</key>
+                <string>{294,85}</string>
+                <key>textureRect</key>
+                <string>{{1,86},{294,85}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>ingame_text_number_01.png</key>
             <dict>
                 <key>aliases</key>
@@ -15,7 +75,7 @@
                 <key>spriteSourceSize</key>
                 <string>{29,63}</string>
                 <key>textureRect</key>
-                <string>{{43,328},{29,63}}</string>
+                <string>{{555,141},{29,63}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -30,9 +90,9 @@
                 <key>spriteSourceSize</key>
                 <string>{39,63}</string>
                 <key>textureRect</key>
-                <string>{{75,1},{39,63}}</string>
+                <string>{{490,141},{39,63}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ingame_text_number_03.png</key>
             <dict>
@@ -45,9 +105,9 @@
                 <key>spriteSourceSize</key>
                 <string>{40,63}</string>
                 <key>textureRect</key>
-                <string>{{1,328},{40,63}}</string>
+                <string>{{356,185},{40,63}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ingame_text_number_04.png</key>
             <dict>
@@ -60,7 +120,7 @@
                 <key>spriteSourceSize</key>
                 <string>{43,63}</string>
                 <key>textureRect</key>
-                <string>{{71,197},{43,63}}</string>
+                <string>{{541,1},{43,63}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -75,9 +135,9 @@
                 <key>spriteSourceSize</key>
                 <string>{38,63}</string>
                 <key>textureRect</key>
-                <string>{{75,66},{38,63}}</string>
+                <string>{{487,182},{38,63}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ingame_text_number_06.png</key>
             <dict>
@@ -90,9 +150,9 @@
                 <key>spriteSourceSize</key>
                 <string>{40,64}</string>
                 <key>textureRect</key>
-                <string>{{1,286},{40,64}}</string>
+                <string>{{250,173},{40,64}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_text_number_07.png</key>
             <dict>
@@ -105,9 +165,9 @@
                 <key>spriteSourceSize</key>
                 <string>{42,62}</string>
                 <key>textureRect</key>
-                <string>{{67,262},{42,62}}</string>
+                <string>{{292,185},{42,62}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ingame_text_number_08.png</key>
             <dict>
@@ -120,9 +180,9 @@
                 <key>spriteSourceSize</key>
                 <string>{41,64}</string>
                 <key>textureRect</key>
-                <string>{{1,243},{41,64}}</string>
+                <string>{{490,75},{41,64}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_text_number_09.png</key>
             <dict>
@@ -135,9 +195,9 @@
                 <key>spriteSourceSize</key>
                 <string>{40,64}</string>
                 <key>textureRect</key>
-                <string>{{74,326},{40,64}}</string>
+                <string>{{421,173},{40,64}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ingame_text_number_10.png</key>
             <dict>
@@ -150,7 +210,7 @@
                 <key>spriteSourceSize</key>
                 <string>{68,64}</string>
                 <key>textureRect</key>
-                <string>{{1,177},{68,64}}</string>
+                <string>{{180,173},{68,64}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -165,7 +225,22 @@
                 <key>spriteSourceSize</key>
                 <string>{34,64}</string>
                 <key>textureRect</key>
-                <string>{{75,131},{34,64}}</string>
+                <string>{{533,75},{34,64}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_text_warning.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{177,63}</string>
+                <key>spriteSourceSize</key>
+                <string>{177,63}</string>
+                <key>textureRect</key>
+                <string>{{1,173},{177,63}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -180,9 +255,9 @@
                 <key>spriteSourceSize</key>
                 <string>{174,72}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{174,72}}</string>
+                <string>{{365,1},{174,72}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -196,9 +271,9 @@
             <key>realTextureFileName</key>
             <string>ingame_text.png</string>
             <key>size</key>
-            <string>{115,392}</string>
+            <string>{585,238}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d1e2843150e7a4d3537972d958add9d7:b23055290c4ac30a51f70fe715fbc46c:cd9bae295ffe0933a755c440bfe49be0$</string>
+            <string>$TexturePacker:SmartUpdate:010f307b13f5ec0e4d46e686a7c67c0b:9f584b4431886eaa9ee2595eff71b16f:cd9bae295ffe0933a755c440bfe49be0$</string>
             <key>textureFileName</key>
             <string>ingame_text.png</string>
         </dict>

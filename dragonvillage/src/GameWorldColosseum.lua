@@ -105,8 +105,7 @@ end
 function GameWorldColosseum:initTamer()
     -- 테이머 대사
     self.m_tamerSpeechSystem = TamerSpeechSystemColosseum(self)
-    self.m_gameFever:replaceRootNode(self.m_tamerSpeechSystem.m_speechNode)
-
+    
     self:addListener('dragon_summon', self.m_tamerSpeechSystem)
     self:addListener('game_start', self.m_tamerSpeechSystem)
     self:addListener('wave_start', self.m_tamerSpeechSystem)

@@ -19,7 +19,7 @@ end
 -- function initUI
 -------------------------------------
 function UI_Game:initUI()
-    local vars = self:load('ingame_scene_new.ui')
+    local vars = self:load('ingame_scene.ui')
     UIManager:open(self, UIManager.NORMAL)
 
     vars['autoStartButton']:registerScriptTapHandler(function() self:click_autoStartButton() end)

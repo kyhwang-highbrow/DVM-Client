@@ -34,6 +34,12 @@ GameFever = class(IEventListener:getCloneClass(), IEventDispatcher:getCloneTable
         m_feverTutVisual = '',
         m_skillCancelVisual = '',
 
+        m_feverGauge1 = '',
+        m_feverGauge2 = '',
+
+        m_feverButton1 = '',
+        m_feverButton2 = '',
+
         m_notiLabel1 = 'cc.Label',
         m_notiLabel2 = 'cc.Label',
 
@@ -96,27 +102,44 @@ function GameFever:initUI()
     local ui = self.m_world.m_inGameUI
 
     self.m_feverNode = ui.vars['feverNode']
-    self.m_feverLabel = ui.vars['feverLabel']
     self.m_feverStartVisual = ui.vars['feverStartVisual']
     self.m_feverIdleVisual = ui.vars['feverIdleVisual']
     self.m_feverTutVisual = ui.vars['feverTutVisual']
     self.m_skillCancelVisual = ui.vars['skillCancelVisual']
+
+    self.m_feverGauge1 = ui.vars['feverGauge']
+    self.m_feverGauge2 = ui.vars['feverGauge2']
+
+    self.m_feverButton1 = ui.vars['feverBtn1']
+    self.m_feverButton2 = ui.vars['feverBtn2']
     
     -- 이미지 폰트 생성
-    self.m_feverLabel:setVisible(false)
-    self.m_feverLabel = cc.Label:createWithBMFont('res/font/fever_gauge.fnt', tostring(999))
+    self.m_feverLabel = cc.Label:createWithBMFont('res/font/fever_gauge.fnt', '')
     self.m_feverLabel:setAnchorPoint(cc.p(0.5, 0.5))
     self.m_feverLabel:setDockPoint(cc.p(0.5, 0.5))
     self.m_feverLabel:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
     self.m_feverLabel:setAdditionalKerning(0)
     self.m_feverLabel:setPosition(0, 14)
     self.m_feverNode:addChild(self.m_feverLabel)
+
+    self.m_feverGauge1:setPercentage(0)
+    self.m_feverGauge2:setPercentage(0)
+
+    self.m_feverButton1:registerScriptTapHandler(function()
+        self:dispatch('fever_start')
+    end)
     
         
-    self.m_feverNode:setVisible(false)
+    self.m_feverNode:setVisible(true)
     self.m_feverTutVisual:setVisible(false)
     self.m_feverTutVisual:setRepeat(true)
     self.m_skillCancelVisual:setVisible(false)
+
+    self.m_feverGauge1:setVisible(true)
+    self.m_feverGauge2:setVisible(false)
+
+    self.m_feverButton1:setVisible(false)
+    self.m_feverButton2:setVisible(false)
 end
 
 -------------------------------------
@@ -191,9 +214,7 @@ function GameFever:update_charging(dt)
         self.m_curPoint = self.m_realPoint
         self.m_stepPoint = 0
 
-        if self.m_curPoint >= 100 then
-            self:dispatch('fever_start')
-        end
+        self.m_feverButton1:setVisible(self.m_curPoint >= 100)
     end
 
     self.m_feverLabel:setString(Str('{1}%', math_floor(self.m_curPoint)))
@@ -243,6 +264,12 @@ function GameFever:update_live(dt)
 
         -- 피버 모드 터치 입력 활성화
         self.m_touchNode:setVisible(self.m_bActive)
+
+        -- 게이지 연출
+        self.m_feverGauge1:setVisible(false)
+        self.m_feverGauge2:setVisible(true)
+        self.m_feverGauge1:runAction(cc.ProgressTo:create(FEVER_KEEP_TIME, 0)) 
+        self.m_feverGauge2:runAction(cc.ProgressTo:create(FEVER_KEEP_TIME, 0)) 
     end
 
     -- 적이 모두 죽었거나 제한시간이 다 되었을 경우 종료 처리
@@ -280,6 +307,9 @@ function GameFever:onStart()
     
     -- 버프 이펙트 생성
     self:makeBuffEffects()
+
+    self.m_feverButton1:setVisible(false)
+    self.m_feverButton2:setVisible(true)
     
     self:changeState(GAME_FEVER_STATE_APPEAR)
 end
@@ -306,6 +336,12 @@ function GameFever:onEnd()
     self:dispatch('fever_end')
     
     self.m_feverLabel:setString(Str('{1}%', math_floor(self.m_curPoint)))
+
+    self.m_feverGauge1:setVisible(true)
+    self.m_feverGauge2:setVisible(false)
+
+    self.m_feverButton1:setVisible(false)
+    self.m_feverButton2:setVisible(false)
 end
 
 -------------------------------------
@@ -477,50 +513,8 @@ function GameFever:addFeverPoint(point)
     self.m_stepPoint = self.m_realPoint - self.m_curPoint
 
     -- 획득시마다 게이지 표시
-    --[[
-    self.m_feverNode:setVisible(true)
-    
-    local function action(node)
-        node:runAction(cc.Sequence:create(
-            cc.FadeIn:create(0.2),
-            cc.DelayTime:create(3),
-            cc.FadeOut:create(0.3),
-            cc.CallFunc:create(function(node) self.m_feverNode:setVisible(false) end)
-        ))
-    end
-    doAllChildren(self.m_feverNode, action)
-    ]]--
-    if self.m_world.m_tamerSpeechSystem then
-        self.m_world.m_tamerSpeechSystem:showSpeechNode()
-    end
-end
-
--------------------------------------
--- function showNoti
--------------------------------------
-function GameFever:showNoti(point)
-    self.m_skillCancelVisual.m_node:setFrame(0)
-    self.m_skillCancelVisual:setVisible(true)
-    self.m_skillCancelVisual:registerScriptLoopHandler(function()
-        self.m_skillCancelVisual:setVisible(false)
-    end)
-
-    self.m_notiLabel2:setString(Str('+{1}%', point))
-
-    -- 획득 포인트에 따른 연출
-    if point >= PERFECT_SKILL_CANCEL_FEVER_POINT then
-        self.m_notiLabel1:setString(Str('완벽한 스킬 취소'))
-        self.m_notiLabel1:setColor(cc.c3b(255,246,0))
-        self.m_notiLabel2:setColor(cc.c3b(255,246,0))
-    elseif point >= GREAT_SKILL_CANCEL_FEVER_POINT then
-        self.m_notiLabel1:setString(Str('적절한 스킬 취소'))
-        self.m_notiLabel1:setColor(cc.c3b(0,222,255))
-        self.m_notiLabel2:setColor(cc.c3b(0,222,255))
-    else
-        self.m_notiLabel1:setString(Str('스킬 취소'))
-        self.m_notiLabel1:setColor(cc.c3b(255,255,255))
-        self.m_notiLabel2:setColor(cc.c3b(255,255,255))
-    end
+    self.m_feverGauge1:runAction(cc.ProgressTo:create(FEVER_POINT_UPDATE_TIME, self.m_realPoint)) 
+    self.m_feverGauge2:runAction(cc.ProgressTo:create(FEVER_POINT_UPDATE_TIME, self.m_realPoint)) 
 end
 
 -------------------------------------
@@ -549,56 +543,36 @@ end
 -------------------------------------
 function GameFever:onEvent(event_name, t_event, ...)
     if (event_name == 'hero_basic_skill') then
-        --[[
         local arg = {...}
         local hero = arg[1]
 
         local point = 1
 
         self:addFeverPoint(point)
-        ]]--
+        
     elseif (event_name == 'hero_active_skill') then
-        --[[
         local arg = {...}
         local hero = arg[1]
 
         local point = 5
 
         self:addFeverPoint(point)
-        ]]--
+
     elseif (event_name == 'hit_active') then
-        --[[
         local arg = {...}
         local hero = arg[1]
 
         local point = 2
 
         self:addFeverPoint(point)
-        ]]--
-
+        
     elseif (event_name == 'character_casting_cancel') then
         local arg = {...}
         local castingPercentage = arg[2]
 
-        local point = self:getPointFromCastingPercentage(castingPercentage)
+        --local point = self:getPointFromCastingPercentage(castingPercentage)
+        local point = 10
 
         self:addFeverPoint(point)
-        --self:showNoti(point)
     end
-end
-
--------------------------------------
--- function replaceRootNode
--------------------------------------
-function GameFever:replaceRootNode(node)
-    self.m_feverNode:retain()
-    self.m_feverNode:removeFromParent(false)
-
-    node:addChild(self.m_feverNode)
-
-    self.m_feverNode:setAnchorPoint(cc.p(0.5, 0.5))
-	self.m_feverNode:setDockPoint(cc.p(0, 0))
-
-    self.m_feverNode:release()
-    self.m_feverNode:setVisible(true)
 end

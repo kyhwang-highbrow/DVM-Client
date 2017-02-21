@@ -42,6 +42,230 @@
 			"visual_list":
 			[
 				{
+					"name":"cash_wave",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_text.plist'<azSprite>'ingame_text_cash_icon.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "sX":0.000000, "sY":0.000000
+									},
+									{
+										"frame":9, "pY":180.000000
+									},
+									{
+										"frame":12, "pY":110.000000
+									},
+									{
+										"frame":15, "pY":130.000000
+									},
+									{
+										"frame":34, "pY":130.000000
+									},
+									{
+										"frame":37, "pY":150.000000
+									},
+									{
+										"frame":40, "sX":0.000000, "sY":0.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_text.plist'<azSprite>'ingame_text_cash_wave.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":3, "sX":0.000000, "sY":0.000000, "pY":-28.000000
+									},
+									{
+										"frame":6, "pY":-28.000000
+									},
+									{
+										"frame":9, "sX":1.200000, "pY":-28.000000
+									},
+									{
+										"frame":12, "sY":1.200000, "pY":-28.000000
+									},
+									{
+										"frame":15, "pY":-28.000000
+									},
+									{
+										"frame":34, "pY":-28.000000
+									},
+									{
+										"frame":37, "sX":1.100000, "pY":-28.000000
+									},
+									{
+										"frame":40, "sY":1.100000, "pY":-28.000000
+									},
+									{
+										"frame":43, "sX":0.000000, "sY":0.000000, "pY":-28.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_text.plist'<azSprite>'ingame_text_warning.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "sY":0.000000, "pY":46.000000
+									},
+									{
+										"frame":3, "pY":46.000000
+									},
+									{
+										"frame":6, "sX":1.100000, "pY":46.000000
+									},
+									{
+										"frame":9, "sY":1.100000, "pY":45.999996
+									},
+									{
+										"frame":12, "pY":45.999996
+									},
+									{
+										"frame":31, "pY":45.999992
+									},
+									{
+										"frame":34, "sX":1.100000, "pY":45.999996
+									},
+									{
+										"frame":37, "sY":1.100000, "pY":45.999996
+									},
+									{
+										"frame":40, "sX":0.000000, "sY":0.000000, "pY":46.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"gold_wave",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_text.plist'<azSprite>'ingame_text_gold_icon.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "sX":0.000000, "sY":0.000000
+									},
+									{
+										"frame":9, "pY":180.000000
+									},
+									{
+										"frame":12, "pY":110.000000
+									},
+									{
+										"frame":15, "pY":130.000000
+									},
+									{
+										"frame":34, "pY":130.000000
+									},
+									{
+										"frame":37, "pY":150.000000
+									},
+									{
+										"frame":40, "sX":0.000000, "sY":0.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_text.plist'<azSprite>'ingame_text_gold_wave.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":3, "sX":0.000000, "sY":0.000000, "pY":-28.000000
+									},
+									{
+										"frame":6, "pY":-28.000000
+									},
+									{
+										"frame":9, "sX":1.200000, "pY":-28.000000
+									},
+									{
+										"frame":12, "sY":1.200000, "pY":-28.000000
+									},
+									{
+										"frame":15, "pY":-28.000000
+									},
+									{
+										"frame":34, "pY":-28.000000
+									},
+									{
+										"frame":37, "sX":1.100000, "pY":-28.000000
+									},
+									{
+										"frame":40, "sY":1.100000, "pY":-28.000000
+									},
+									{
+										"frame":43, "sX":0.000000, "sY":0.000000, "pY":-28.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_text.plist'<azSprite>'ingame_text_warning.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "sY":0.000000, "pY":46.000000
+									},
+									{
+										"frame":3, "pY":46.000000
+									},
+									{
+										"frame":6, "sX":1.100000, "pY":46.000000
+									},
+									{
+										"frame":9, "sY":1.100000, "pY":45.999996
+									},
+									{
+										"frame":12, "pY":45.999996
+									},
+									{
+										"frame":31, "pY":45.999992
+									},
+									{
+										"frame":34, "sX":1.100000, "pY":45.999996
+									},
+									{
+										"frame":37, "sY":1.100000, "pY":45.999996
+									},
+									{
+										"frame":40, "sX":0.000000, "sY":0.000000, "pY":46.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"wave",
 					"apply":true,
 					"fps":30,

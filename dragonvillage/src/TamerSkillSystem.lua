@@ -32,11 +32,11 @@ function TamerSkillSystem:init(world, tamerSkillCut)
 
     -- 일반 스킬
     for i = 1, 3 do
-		self:initTamerSkillBtn(i)
+		--self:initTamerSkillBtn(i)
     end
 
     -- 궁극기
-	self:initTamerSpecialSkillBtn()
+	--self:initTamerSpecialSkillBtn()
 
     -- 리스너 등록
     self:addListener('tamer_skill', tamerSkillCut)
@@ -184,10 +184,10 @@ function TamerSkillSystem:update(dt)
     local ui = self.m_world.m_inGameUI
     
     for i = 1, 3 do
-        self:updateSkillBtn(i, dt)
+        --self:updateSkillBtn(i, dt)
     end
 
-    self:updateSpecialSkillBtn(dt)
+    --self:updateSpecialSkillBtn(dt)
 end
 
 -------------------------------------
