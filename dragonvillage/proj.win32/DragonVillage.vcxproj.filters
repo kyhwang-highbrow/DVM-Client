@@ -1698,6 +1698,9 @@
     <None Include="..\src\UI_ColosseumFirstReward.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\Coroutine.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

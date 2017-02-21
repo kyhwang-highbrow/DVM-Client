@@ -70,11 +70,8 @@ function UI_Lobby:entryCoroutine()
     self:doActionReset()
     g_topUserInfo:doActionReset()
 
-    local coroutine_function = coroutine.create(function(dt)
+    local function coroutine_function(dt)
     
-        cclog('===================================================')
-        cclog('로비의 코루틴(코루틴에서 에러가 날 수 있어서 로그 찍음')
-        cclog('===================================================')
         local working = false
 
         -- 터치 불가상태로 만들어 놓음
@@ -105,7 +102,7 @@ function UI_Lobby:entryCoroutine()
         g_attendanceData:request_attendanceInfo(function(ret) working = false end)
         while (working) do dt = coroutine.yield() end
 
-        --[[
+        ---[[
         cclog('# 기본 출석 보상 팝업')
         -- 기본 출석 보상 팝업
         if g_attendanceData.m_bNewAttendanceBasic then
@@ -140,27 +137,10 @@ function UI_Lobby:entryCoroutine()
         -- 터치 가능하도록 해제
         block_popup:close()
         coroutine.yield()
-
-        cclog('===================================================')
-        cclog('로비 코루틴 종료!!')
-        cclog('===================================================')
-    end)
-
-    local coroutine_schedule = nil
-
-    -- coroutine Schedule함수, 코루틴이 종료되면 스케쥴도 해지
-    local function updateCoroutine(dt)
-        local s, r = coroutine.resume(coroutine_function, dt)
-        if s == false then
-            coroutine_function = nil
-            if coroutine_schedule then
-                cc.Director:getInstance():getScheduler():unscheduleScriptEntry(coroutine_schedule)
-            end
-        end
     end
 
-    -- schedule에 등록
-    coroutine_schedule = cc.Director:getInstance():getScheduler():scheduleScriptFunc(updateCoroutine, 0, false)
+
+    Coroutine(coroutine_function, '로비 코루틴')
 end
 
 

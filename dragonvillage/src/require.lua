@@ -26,6 +26,7 @@ local t_module = {
     'SoundMgrProtected',
     'PatchData',
     'PatchCore',
+    'Coroutine',
 
 	-- CONSTANT 
     'Constant',
