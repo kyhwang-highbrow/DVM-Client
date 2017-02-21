@@ -192,7 +192,7 @@ function GameState_Colosseum.update_failure(self, dt)
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
             if world.m_skillIndicatorMgr then
-                world.m_skillIndicatorMgr:clear()
+                world.m_skillIndicatorMgr:clear(true)
             end
 
             g_gameScene.m_inGameUI:doActionReverse(function()

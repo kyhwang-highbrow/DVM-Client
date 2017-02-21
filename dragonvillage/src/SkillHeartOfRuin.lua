@@ -156,6 +156,7 @@ function SkillHeartOfRuin:makeSkillInstance(owner, t_skill, t_data)
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world
-    world.m_worldNode:addChild(skill.m_rootNode, 0)
+    local missileNode = world:getMissileNode('bottom', skill.m_bHighlight)
+    missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
 end

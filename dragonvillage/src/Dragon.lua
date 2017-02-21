@@ -286,8 +286,10 @@ function Dragon.st_skillIdle(owner, dt)
             
             local active_skill_id = owner:getSkillID('active')
             local indicatorData
+            
             if (owner.m_bLeftFormation) then
                 indicatorData = owner.m_skillIndicator:getIndicatorData()
+                indicatorData['highlight'] = true
             end
 
             owner:doSkill(active_skill_id, x, y, indicatorData)

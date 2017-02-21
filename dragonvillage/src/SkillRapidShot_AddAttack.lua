@@ -163,6 +163,7 @@ function SkillRapidShot_AddAttack:makeSkillInstance(owner, t_skill, t_data)
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world
-    world.m_missiledNode:addChild(skill.m_rootNode, 0)
+    local missileNode = world:getMissileNode(nil, skill.m_bHighlight)
+    missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
 end

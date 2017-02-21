@@ -43,6 +43,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_gameAutoHero = '',        -- 아군 자동시 AI
         m_gameAutoEnemy = '',       -- 적군(드래곤) AI
         
+        m_gameDragonSkill = '',
         m_gameFever = '',
         m_gameCamera = '',
         m_gameTimeScale = '',
@@ -73,8 +74,6 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         
         -- 테이머 대사 및 표정
         m_tamerSpeechSystem = 'TamerSpeechSystem',
-
-        m_currFocusingDragon = '',
 
         -- 조작 막음 여부
         m_bPreventControl = 'boolean',
@@ -167,6 +166,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
     self.m_gameTimeScale = GameTimeScale(self)
     
+    self.m_gameDragonSkill = GameDragonSkill(self)
     self.m_gameFever = GameFever(self)
 
     -- 아군 자동시 AI
@@ -279,7 +279,7 @@ function GameWorld:initGame(stage_name)
     end
 
     do -- 스킬 조작계 초기화
-        self.m_skillIndicatorMgr = SkillIndicatorMgr(self, g_currScene.m_colorLayerForSkill)
+        self.m_skillIndicatorMgr = SkillIndicatorMgr(self, g_gameScene.m_colorLayerForSkill)
     end
 
     do -- 카메라 초기 위치 설정이 있다면 적용
@@ -616,7 +616,7 @@ end
 -- function addMissile
 -- @param res_depth : 어느 노드에 addchild 할지 결정한다. ;를 사용하여 z-order를 명시할수도 있다. ex) 'res_depth':'bottom;1'
 -------------------------------------
-function GameWorld:addMissile(missile, object_key, res_depth)
+function GameWorld:addMissile(missile, object_key, res_depth, highlight)
     self:addToMissileList(missile)
     self.m_physWorld:addObject(object_key, missile)
     
@@ -625,14 +625,32 @@ function GameWorld:addMissile(missile, object_key, res_depth)
 	local depth_type = t_res_depth[1]
 	local z_order = t_res_depth[2] or WORLD_Z_ORDER.MISSILE
 
-	local target_node = nil
-	if (depth_type == 'bottom') then
-		target_node = self.m_worldNode
-	else
-		target_node = self.m_missiledNode
-	end	
+	local target_node = self:getMissileNode(depth_type, highlight)
+    target_node:addChild(missile.m_rootNode, z_order)
+end
 
-	target_node:addChild(missile.m_rootNode, z_order)
+-------------------------------------
+-- function getMissileNode
+-- @brief
+-------------------------------------
+function GameWorld:getMissileNode(depth_type, highlight)
+    local missile_node
+
+    if (highlight) then
+        if (depth_type == 'bottom') then
+		    missile_node = self.m_colorLayerForSkill
+	    else
+		    missile_node = g_gameScene.m_gameHighlightNode
+	    end	
+    else
+	    if (depth_type == 'bottom') then
+		    missile_node = self.m_worldNode
+	    else
+		    missile_node = self.m_missiledNode
+	    end	
+    end
+
+    return missile_node
 end
 
 -------------------------------------
@@ -759,7 +777,7 @@ function GameWorld:addHero(hero, idx)
     hero:addListener('character_dead', self)
     hero:addListener('character_dead', self.m_tamerSpeechSystem)
 
-    hero:addListener('dragon_skill', self)
+    hero:addListener('dragon_skill', self.m_gameDragonSkill)
     
     hero:addListener('hero_basic_skill', self.m_gameFever)
     hero:addListener('hero_active_skill', self.m_gameFever)
@@ -1543,7 +1561,6 @@ end
 function GameWorld:onEvent(event_name, t_event, ...)
     if (event_name == 'character_dead') then    self:onEvent_character_dead(event_name, t_event, ...)
     elseif (event_name == 'change_wave') then   self:onEvent_change_wave(event_name, t_event, ...)
-    elseif (event_name == 'dragon_skill') then  self:onEvent_dragon_skill(event_name, t_event, ...)
     elseif (event_name == 'fever_start') then   self.m_gameState:changeState(GAME_STATE_FIGHT_FEVER)
     elseif (event_name == 'fever_end') then     self.m_gameState:changeState(GAME_STATE_FIGHT)
     end
@@ -1584,19 +1601,6 @@ function GameWorld:onEvent_change_wave(event_name, t_event, ...)
             char:healPercent(percent, b_make_effect)
         end
     end
-end
-
--------------------------------------
--- function onEvent_dragon_skill
--- @brief 드래곤 스킬 사용
--------------------------------------
-function GameWorld:onEvent_dragon_skill(event_name, t_event, ...)
-    local arg = {...}
-    local dragon = arg[1]
-
-    self.m_currFocusingDragon = dragon
-    
-    self.m_gameState:changeState(GAME_STATE_FIGHT_DRAGON_SKILL)
 end
 
 -------------------------------------

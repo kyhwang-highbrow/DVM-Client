@@ -37,6 +37,7 @@ Skill = class(PARENT, {
 		-- 스킬 연출 관리자 - 디렉터
 		m_skillHitEffctDirector = 'SkillHitEffectDirector',
 		m_bSkillHitEffect = 'bool', -- 사용 여부
+        m_bHighlight = 'bool',  -- 하이라이트 여부
      })
 
 -------------------------------------
@@ -168,6 +169,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_targetPos = {x = t_data.x, y = t_data.y}
 	self.m_targetChar = t_data.target or self.m_targetChar
 	self.m_bSkillHitEffect = owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')
+    self.m_bHighlight = t_data['highlight'] or false
 end
 
 -------------------------------------
@@ -435,8 +437,10 @@ function Skill:makeEffect(res, x, y, ani_name, cb_function)
     local effect = MakeAnimator(res)
     effect:setPosition(x, y)
 	effect:changeAni(ani_name, false)
-    self.m_owner.m_world.m_missiledNode:addChild(effect.m_node, 0)
-	
+
+    local missileNode = self.m_owner.m_world:getMissileNode(nil, self.m_bHighlight)
+    missileNode:addChild(effect.m_node, 0)
+    	
 	-- 1회 재생후 동작
 	local cb_ani = function() 
 		if (cb_function) then 

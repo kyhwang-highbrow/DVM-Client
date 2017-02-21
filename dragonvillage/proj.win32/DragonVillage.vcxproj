@@ -284,6 +284,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\GameAuto.lua" />
     <None Include="..\src\GameAuto_Enemy.lua" />
     <None Include="..\src\GameAuto_Hero.lua" />
+    <None Include="..\src\GameDragonSkill.lua" />
     <None Include="..\src\GameState_Colosseum.lua" />
     <None Include="..\src\GameState_SecretDungeon_Gold.lua" />
     <None Include="..\src\GameState_NestDungeon.lua" />

@@ -68,6 +68,10 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_isOnTheMove = 'boolean',
         m_bFixedPosHpNode = 'boolean',
 
+        -- @하이라이트 관련
+        m_bHighlight = 'boolean',
+        m_prevParentInfo = 'table',
+
 		-- @TODO - 향후에 삭제 해야 함. 인터페이스로 대체 
         m_hpEventListener = 'list',
         m_undergoAttackEventListener = 'list',
@@ -139,6 +143,9 @@ function Character:init(file_name, body, ...)
     self.m_bActivePassive = false
     self.m_isOnTheMove = false
     self.m_bFixedPosHpNode = false
+
+    self.m_bHighlight = false
+    self.m_prevParentInfo = nil
 
 	self.m_undergoAttackEventListener = {}
     self.m_tOverlabStatusEffect = {}
@@ -1883,4 +1890,104 @@ function Character:referenceForSlaveCharacter(t_body, adj_x, adj_y)
     char:addState('dead', Character.st_dead, nil, nil, PRIORITY.DEAD)
 
 	return char
+end
+
+-------------------------------------
+-- function setHighlight
+-------------------------------------
+function Character:setHighlight(b, zorder)
+    if (b) then
+        if (self.m_bDead) then return end
+        if (self.m_bHighlight) then return end
+
+        local node = self:getRootNode()
+        if (not node) then return end
+
+        local t_data = {}
+        t_data['parent'] = self.m_world.m_worldNode
+        t_data['zorder'] = node:getLocalZOrder()
+        self.m_prevParentInfo = t_data
+
+        -- root 노드
+        node:retain()
+        node:removeFromParent(false)
+        g_gameScene.m_gameHighlightNode:addChild(node, zorder or 0)
+        node:release()
+
+        -- UI 노드
+        if (self.m_hpNode) and (self.m_charTable['rarity'] ~= 'boss') then 
+		    t_data['ui_parent'] = self.m_hpNode:getParent()
+		    t_data['ui_zorder'] = self.m_hpNode:getLocalZOrder()
+		    self.m_hpNode:retain()
+		    self.m_hpNode:removeFromParent(false)
+		    g_gameScene.m_gameHighlightNode:addChild(self.m_hpNode, t_data['ui_zorder'])
+		    self.m_hpNode:release()
+	    end
+
+	    -- 캐스팅 노드
+	    if (self.m_castingNode) then 
+		    t_data['ui_casting_parent'] = self.m_castingNode:getParent()
+		    t_data['ui_casting_zorder'] = self.m_castingNode:getLocalZOrder()
+		    self.m_castingNode:retain()
+		    self.m_castingNode:removeFromParent(false)
+		    g_gameScene.m_gameHighlightNode:addChild(self.m_castingNode, t_data['ui_casting_zorder'])
+		    self.m_castingNode:release()
+	    end
+
+        self.m_bHighlight = true
+
+    else
+        if (not self.m_bHighlight) then return end
+        if (not self.m_prevParentInfo) then return end
+
+        local t_data = self.m_prevParentInfo
+        self.m_prevParentInfo = nil
+        
+        -- @TODO slave character 가 있을 때 처리 
+        if (self.m_isSlaveCharacter) then 
+            if (self.m_masterCharacter.m_bHighlight) then
+                return
+            end 
+        end
+
+	    if (self.m_bInitAdditionalPhysObject) then
+		    for slave_char, _  in pairs(self.m_lAdditionalPhysObject) do 
+                if (slave_char.m_bHighlight) then
+                    return
+                end
+            end
+        end
+
+        if (not self.m_bDead) then
+            -- 루트 노드
+		    if (t_data['parent']) then 
+			    local node = self:getRootNode()
+			    node:retain()
+			    node:removeFromParent(false)
+			    t_data['parent']:addChild(node, t_data['zorder'])
+			    node:release()
+		    end
+
+            -- UI 노드
+		    if (t_data['ui_parent']) then 
+			    local node = self.m_hpNode
+			    node:retain()
+			    node:removeFromParent(false)
+			    t_data['ui_parent']:addChild(node, t_data['ui_zorder'])
+			    node:release()
+		    end
+
+		    -- 캐스팅 노드
+		    if (t_data['ui_casting_parent']) then 
+			    local node = self.m_castingNode
+			    node:retain()
+			    node:removeFromParent(false)
+			    t_data['ui_casting_parent']:addChild(node, t_data['ui_casting_zorder'])
+			    node:release()
+		    end
+        end
+
+        self.m_bHighlight = false
+
+    end
 end

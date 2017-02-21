@@ -59,7 +59,7 @@ function GameWorldColosseum:initGame(stage_name)
     self:setBattleZone(self.m_deckFormation, true)
         
     do -- 스킬 조작계 초기화
-        self.m_skillIndicatorMgr = SkillIndicatorMgr(self, g_currScene.m_colorLayerForSkill)
+        self.m_skillIndicatorMgr = SkillIndicatorMgr(self, g_gameScene.m_colorLayerForSkill)
     end
 
     do -- 카메라 초기 위치 설정이 있다면 적용
@@ -165,7 +165,7 @@ function GameWorldColosseum:addHero(hero, idx)
     hero:addListener('character_dead', self)
     hero:addListener('character_dead', self.m_tamerSpeechSystem)
 
-    hero:addListener('dragon_skill', self)
+    hero:addListener('dragon_skill', self.m_gameDragonSkill)
     
     hero:addListener('hero_active_skill', self.m_gameState)
     hero:addListener('hero_active_skill', self.m_gameAutoHero)

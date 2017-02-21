@@ -44,6 +44,9 @@ SkillIndicatorMgr = class({
         m_firstTouchPos = '',
         m_lHighlightList = '',
 		m_uiToolTip = 'UI',
+
+        m_bDirecting = 'boolean',   -- 연출 진행중 여부
+        m_keepTimerForDirection = 'number',
     })
 
 -------------------------------------
@@ -62,6 +65,9 @@ function SkillIndicatorMgr:init(world, dark_layer)
     self.m_startTimer = 0
     self.m_firstTouchPos = nil
     self.m_lHighlightList = {}
+
+    self.m_bDirecting = false
+    self.m_keepTimerForDirection = 0
 end
 
 -------------------------------------
@@ -86,6 +92,11 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
 
     -- 조작 가능 상태일 때에만
     if (not self.m_world:isPossibleControl()) then
+        return false
+    end
+
+    -- 이미 인디케이터 조작 상태라면 막음 처리
+    if (self:isControlling()) then
         return false
     end
 
@@ -161,7 +172,7 @@ end
 -- function onTouchEnded
 -------------------------------------
 function SkillIndicatorMgr:onTouchEnded(touch, event)
-    if self.m_selectHero and self.m_selectHero.m_bDead == false then
+    if (self.m_selectHero and self.m_selectHero.m_bDead == false) then
         -- 경직 중이라면 즉시 해제
         self.m_selectHero:setSpasticity(false)
 
@@ -176,6 +187,8 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             self.m_selectHero:changeState('skillAppear')
         end
 
+        self.m_bDirecting = true
+
         self:clear()
     end
 end
@@ -183,15 +196,27 @@ end
 -------------------------------------
 -- function clear
 -------------------------------------
-function SkillIndicatorMgr:clear()
+function SkillIndicatorMgr:clear(bAll)
+    for char, _ in pairs(self.m_lHighlightList) do
+        char:removeTargetEffect()
+    end
+
     if self.m_selectHero then
         self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
         self.m_selectHero.m_animator:setTimeScale(1)
         self:setSelectHero(nil)
         self.m_world.m_gameTimeScale:reset()
         self.m_bSlowMode = false
-        self:changeDarkLayerColor(255)
+
+        self.m_keepTimerForDirection = 2
+        self.m_bDirecting = true
+    end
+
+    if (bAll) then
+        self:changeDarkLayerColor(0, 0.5)
         self:clearHighlightList()
+
+        self.m_bDirecting = false
     end
 end
 
@@ -201,7 +226,7 @@ end
 function SkillIndicatorMgr:update(dt)
     if (self.m_selectHero) then
         if (self.m_selectHero.m_bDead) or (not self.m_world:isPossibleControl()) then
-            self:clear()
+            self:clear(true)
 
         elseif (self.m_bSlowMode == false) then
             self.m_startTimer = self.m_startTimer + dt
@@ -215,6 +240,13 @@ function SkillIndicatorMgr:update(dt)
         end
     end
     
+    if (self.m_bDirecting) then
+        self.m_keepTimerForDirection = self.m_keepTimerForDirection - dt
+
+        if (self.m_keepTimerForDirection <= 0) then
+            self:clear(true)
+        end
+    end
 end
 
 -------------------------------------
@@ -246,7 +278,7 @@ function SkillIndicatorMgr:changeDarkLayerColor(opacity, duration)
     dark_layer:setPosition(cameraHomePosX, cameraHomePosY)
     
     if (duration) and (duration ~= 0) then
-        if (opacity==255) then
+        if (opacity == 255 or opacity == 0) then
             dark_layer:setVisible(true)
             local action = cc.FadeTo:create(duration, opacity)
             local sequence = cc.Sequence:create(action, cc.Hide:create())
@@ -259,7 +291,7 @@ function SkillIndicatorMgr:changeDarkLayerColor(opacity, duration)
     else
         dark_layer:setOpacity(opacity)
 
-        if (opacity==255) then
+        if (opacity==0) then
             dark_layer:setVisible(false)
         else
             dark_layer:setVisible(true)
@@ -271,119 +303,29 @@ end
 -- function addHighlightList
 -------------------------------------
 function SkillIndicatorMgr:addHighlightList(char, zorder)
-    if (char.m_bDead == true) then
-        return
+    char:setHighlight(true, zorder)
+
+    if (char.m_bHighlight) then
+        self.m_lHighlightList[char] = true
     end
-	
-    local node = char:getRootNode()
-
-    if (not node) or (self.m_lHighlightList[char]) then
-        return
-    end
-	 
-    local t_data = {}
-    t_data['parent'] = char.m_world.m_worldNode
-    t_data['zorder'] = node:getLocalZOrder()
-    self.m_lHighlightList[char] = t_data
-		
-	-- root 노드
-    node:retain()
-    node:removeFromParent(false)
-    g_gameScene.m_gameHighlightNode:addChild(node, zorder or 0)
-    node:release()
-
-    -- UI 노드
-    if (char.m_hpNode) and (char.m_charTable['rarity'] ~= 'boss') then 
-		t_data['ui_parent'] = char.m_hpNode:getParent()
-		t_data['ui_zorder'] = char.m_hpNode:getLocalZOrder()
-		char.m_hpNode:retain()
-		char.m_hpNode:removeFromParent(false)
-		g_gameScene.m_gameHighlightNode:addChild(char.m_hpNode, t_data['ui_zorder'])
-		char.m_hpNode:release()
-	end
-
-	-- 캐스팅 노드
-	if (char.m_castingNode) then 
-		t_data['ui_casting_parent'] = char.m_castingNode:getParent()
-		t_data['ui_casting_zorder'] = char.m_castingNode:getLocalZOrder()
-		char.m_castingNode:retain()
-		char.m_castingNode:removeFromParent(false)
-		g_gameScene.m_gameHighlightNode:addChild(char.m_castingNode, t_data['ui_casting_zorder'])
-		char.m_castingNode:release()
-	end
 end
 
 -------------------------------------
 -- function removeHighlightList
 -------------------------------------
 function SkillIndicatorMgr:removeHighlightList(char)
-    if (not self.m_lHighlightList[char]) then
-        return
-    end
-
     char:removeTargetEffect()
-    local t_data = self.m_lHighlightList[char]
+    char:setHighlight(false)
 
-	-- @TODO slave character 가 있을 때 처리 
-	if (char.m_isSlaveCharacter) then 
-		for tar_char, _ in pairs(self.m_lHighlightList) do
-			if (char.m_masterCharacter == tar_char) then
-				self.m_lHighlightList[char] = nil
-				return
-			end
-		end
-	end
-	if (char.m_bInitAdditionalPhysObject) then
-		for tar_char, _ in pairs(self.m_lHighlightList) do
-			for slave_char, _  in pairs(char.m_lAdditionalPhysObject) do 
-				if (slave_char == tar_char) then
-					self.m_lHighlightList[char] = nil
-					return
-				end
-			end
-		end
-	end
-
-    if (char.m_bDead == true) then
-        self.m_lHighlightList[char] = nil
-    else
-		-- 루트 노드
-		if (t_data['parent']) then 
-			local node = char:getRootNode()
-			node:retain()
-			node:removeFromParent(false)
-			t_data['parent']:addChild(node, t_data['zorder'])
-			node:release()
-		end
-
-        -- UI 노드
-		if (t_data['ui_parent']) then 
-			local node = char.m_hpNode
-			node:retain()
-			node:removeFromParent(false)
-			t_data['ui_parent']:addChild(node, t_data['ui_zorder'])
-			node:release()
-		end
-
-		-- 캐스팅 노드
-		if (t_data['ui_casting_parent']) then 
-			local node = char.m_castingNode
-			node:retain()
-			node:removeFromParent(false)
-			t_data['ui_casting_parent']:addChild(node, t_data['ui_casting_zorder'])
-			node:release()
-		end
-
-        self.m_lHighlightList[char] = nil
-    end
+    self.m_lHighlightList[char] = nil
 end
 
 -------------------------------------
 -- function clearHighlightList
 -------------------------------------
 function SkillIndicatorMgr:clearHighlightList()
-    for i,_ in pairs(self.m_lHighlightList) do
-        self:removeHighlightList(i)
+    for char,_ in pairs(self.m_lHighlightList) do
+        self:removeHighlightList(char)
     end
 	--g_gameScene.m_gameHighlightNode:removeAllChildren()
 end
@@ -436,5 +378,5 @@ end
 -- function isControlling
 -------------------------------------
 function SkillIndicatorMgr:isControlling()
-    return (self.m_selectHero ~= nil)
+    return ((self.m_selectHero ~= nil) or self.m_bDirecting)
 end
