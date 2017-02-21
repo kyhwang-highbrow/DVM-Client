@@ -4,6 +4,7 @@
 UIC_RadioButton = class({
         m_selectedButton = '',
         m_buttonMap = 'list',
+        m_changeCB = 'function',
     })
 
 -------------------------------------
@@ -86,4 +87,15 @@ function UIC_RadioButton:activate(button_name)
     if sprite then
         sprite:setVisible(true)
     end
+
+    if self.m_changeCB then
+        self.m_changeCB(button_name)
+    end
+end
+
+-------------------------------------
+-- function setChangeCB
+-------------------------------------
+function UIC_RadioButton:setChangeCB(func)
+    self.m_changeCB = func
 end

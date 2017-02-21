@@ -319,6 +319,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SecurityNumber.lua" />
     <None Include="..\src\ServerData_Attendance.lua" />
     <None Include="..\src\ServerData_AutoPlaySetting.lua" />
+    <None Include="..\src\ServerData_Collection.lua" />
     <None Include="..\src\ServerData_Colosseum.lua" />
     <None Include="..\src\ServerData_ColosseumRank.lua" />
     <None Include="..\src\ServerData_Exploration.lua" />

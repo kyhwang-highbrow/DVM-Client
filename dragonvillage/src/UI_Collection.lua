@@ -90,20 +90,23 @@ end
 -- function initTab
 -------------------------------------
 function UI_Collection:initTab()
+    self.m_mTabUI = {}
+    self.m_mTabUI['dragon'] = UI_CollectionTabDragon(self)
+    self.m_mTabUI['unit'] = UI_CollectionTabUnit(self)
+
     local vars = self.vars
     self:addTab('dragon', vars['dragonBtn'], vars['dragonMenu'])
     self:addTab('unit', vars['unitBtn'], vars['unitListNode'])
     self:setTab('dragon')
-
-    self.m_mTabUI = {}
-    self.m_mTabUI['dragon'] = UI_CollectionTabDragon(self)
-    self.m_mTabUI['unit'] = UI_CollectionTabUnit(self)
 end
 
 -------------------------------------
 -- function onChangeTab
 -------------------------------------
 function UI_Collection:onChangeTab(tab, first)
+    if self.m_mTabUI[tab] then
+        self.m_mTabUI[tab]:onEnterTab(first)
+    end
 end
 
 --@CHECK

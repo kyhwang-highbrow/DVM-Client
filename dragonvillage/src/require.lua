@@ -80,6 +80,7 @@ local t_module = {
     'ServerData_Attendance',
     'ServerData_Exploration',
     'ServerData_HotTime',
+    'ServerData_Collection',
     'UserData',
     'DropHelper',
     'DragonAutoSetHelper',

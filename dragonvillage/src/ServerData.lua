@@ -92,6 +92,9 @@ function ServerData:getInstance()
     -- 핫타임
     g_hotTimeData = ServerData_HotTime(g_serverData)
 
+    -- 도감
+    g_collectionData = ServerData_Collection(g_serverData)
+
     return g_serverData
 end
 

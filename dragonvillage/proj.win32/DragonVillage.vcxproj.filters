@@ -1734,6 +1734,9 @@
     <None Include="..\src\UI_CollectionUnitListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_Collection.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
