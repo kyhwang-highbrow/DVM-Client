@@ -113,7 +113,7 @@ function SkillAoERound_Sura:fireMissile(target)
     t_option['movement'] = 'fix'
     t_option['target'] = target
     t_option['effect'] = {}
-    t_option['effect']['motion_streak'] = SkillHelper:getAttributeRes(SURA_ADD_MOTION_STREAK_RES, char)
+	t_option['effect']['afterimage'] = true
     
 	local world = self.m_world
     local missile = world.m_missileFactory:makeMissile(t_option)
