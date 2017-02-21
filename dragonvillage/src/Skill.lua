@@ -194,6 +194,10 @@ end
 function Skill.st_dying(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner.m_owner:restore()
+		
+		if (owner.m_rangeEffect) then
+			owner.m_rangeEffect:changeAni('disapper', false)
+		end
 
         -- 스킬 종료시 발동되는 status effect를 적용
         owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_END })
