@@ -46,6 +46,17 @@ function UI_ColosseumRankListItem:refresh()
     local vars = self.vars
     local user_info = self.m_colosseumUserInfo
 
+
+    if (user_info.m_rank == 'prev') then
+        vars['rankNode']:setVisible(false)
+        vars['previousNode']:setVisible(true)
+        return
+    elseif (user_info.m_rank == 'next') then
+        vars['rankNode']:setVisible(false)
+        vars['nextNode']:setVisible(true)
+        return
+    end
+
     -- 유저 닉네임
     vars['userNameLabel']:setString(user_info.m_nickname)
 

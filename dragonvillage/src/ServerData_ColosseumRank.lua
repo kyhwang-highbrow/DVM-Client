@@ -6,6 +6,7 @@ ServerData_ColosseumRank = class({
 
         -- 글로벌 랭킹 (나의 랭킹)
         m_lGlobalRank = 'list',
+        m_globalRankOffset = 'number', -- 서버에 랭킹 요청용 offse
         m_bDirtyGlobalRank = 'boolean',
 
         -- 탑랭킹
@@ -91,6 +92,8 @@ function ServerData_ColosseumRank:request_globalRank(finish_cb)
         self.m_lGlobalRank = {}
         self:initRankList(self.m_lGlobalRank, ret['list'])
 
+        self.m_globalRankOffset = ret['offset']
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -100,7 +103,7 @@ function ServerData_ColosseumRank:request_globalRank(finish_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/game/pvp/ranking')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('limit', 15)
+    ui_network:setParam('limit', 30)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(false)
     ui_network:setReuse(false)
@@ -141,7 +144,7 @@ function ServerData_ColosseumRank:request_topRank(finish_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/game/pvp/ranking')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('limit', 15)
+    ui_network:setParam('limit', 30)
     ui_network:setParam('offset', 1)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(false)
@@ -226,6 +229,16 @@ function ServerData_ColosseumRank:sortColosseumRank(sort_target_list)
             local a_value = a_data.m_rank
             local b_value = b_data.m_rank
 
+            if (a_value == 'prev') then
+                return true
+            elseif (b_value == 'prev') then
+                return false
+            elseif (a_value == 'next') then
+                return false
+            elseif (b_value == 'next') then
+                return true
+            end
+
             return a_value < b_value
         end)
 
@@ -263,4 +276,34 @@ function ServerData_ColosseumRank:solveFriendRank()
 
         v.m_friendRank = curr_rank
     end
+end
+
+-------------------------------------
+-- function request_rankManual
+-------------------------------------
+function ServerData_ColosseumRank:request_rankManual(offset, finish_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    local offset = math_max(offset, 1)
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        local rank_list = {}
+        self:initRankList(rank_list, ret['list'])
+
+        if finish_cb then
+            finish_cb(ret, rank_list)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/pvp/ranking')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('limit', 30)
+    ui_network:setParam('offset', offset)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
 end

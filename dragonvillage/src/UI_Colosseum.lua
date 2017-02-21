@@ -7,6 +7,9 @@ UI_Colosseum = class(PARENT, {
         m_weekRankTableView = 'UIC_TableView',
         m_topRankTableView = 'UIC_TableView',
         m_friendRankTableView = 'UIC_TableView',
+
+        m_weekRankOffset = 'number', -- 서버에 랭킹 리스트 요청용
+        m_topRankOffset = 'number', -- 서버에 랭킹 리스트 요청용
      })
 
 -------------------------------------
@@ -136,12 +139,14 @@ function UI_Colosseum:onChangeTab(tab, first)
 
     if (tab == 'weekRank') then
         local function finish_cb(ret)
+            self.m_weekRankOffset = g_colosseumRankData.m_globalRankOffset
             self:init_weekRankTableView()
         end
         g_colosseumRankData:request_globalRank(finish_cb)
 
     elseif (tab == 'topRank') then
         local function finish_cb(ret)
+            self.m_topRankOffset = 1
             self:init_topRankTableView()
         end
         g_colosseumRankData:request_topRank(finish_cb)
@@ -164,8 +169,25 @@ function UI_Colosseum:init_weekRankTableView()
 
     local l_item_list = g_colosseumRankData.m_lGlobalRank
 
+    if (1 < self.m_weekRankOffset) then
+        local prev_data = {m_rank = 'prev'}
+        l_item_list['prev'] = prev_data
+    end
+
+    local next_data = {m_rank = 'next'}
+    l_item_list['next'] = next_data
+
     -- 생성 콜백
     local function create_func(ui, data)
+        local function click_previousButton()
+            self:update_weekRankTableView(self.m_weekRankOffset - 30)
+        end
+        ui.vars['previousButton']:registerScriptTapHandler(click_previousButton)
+
+        local function click_nextButton()
+            self:update_weekRankTableView(self.m_weekRankOffset + 30)
+        end
+        ui.vars['nextButton']:registerScriptTapHandler(click_nextButton)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -184,6 +206,28 @@ function UI_Colosseum:init_weekRankTableView()
 end
 
 -------------------------------------
+-- function update_weekRankTableView
+-------------------------------------
+function UI_Colosseum:update_weekRankTableView(target_offset)
+    local function finish_cb(ret, rank_list)
+        self.m_weekRankOffset = ret['offset']
+
+        if (1 < self.m_weekRankOffset) then
+            local prev_data = {m_rank = 'prev'}
+            rank_list['prev'] = prev_data
+        end
+
+        local next_data = {m_rank = 'next'}
+        rank_list['next'] = next_data
+
+        self.m_weekRankTableView:mergeItemList(rank_list)
+        g_colosseumRankData:sortColosseumRank(self.m_weekRankTableView.m_itemList)
+    end
+
+    g_colosseumRankData:request_rankManual(target_offset, finish_cb)
+end
+
+-------------------------------------
 -- function init_topRankTableView
 -------------------------------------
 function UI_Colosseum:init_topRankTableView()
@@ -192,8 +236,25 @@ function UI_Colosseum:init_topRankTableView()
 
     local l_item_list = g_colosseumRankData.m_lTopRank
 
+    if (1 < self.m_topRankOffset) then
+        local prev_data = {m_rank = 'prev'}
+        l_item_list['prev'] = prev_data
+    end
+
+    local next_data = {m_rank = 'next'}
+    l_item_list['next'] = next_data
+
     -- 생성 콜백
     local function create_func(ui, data)
+        local function click_previousButton()
+            self:update_topRankTableView(self.m_topRankOffset - 30)
+        end
+        ui.vars['previousButton']:registerScriptTapHandler(click_previousButton)
+
+        local function click_nextButton()
+            self:update_topRankTableView(self.m_topRankOffset + 30)
+        end
+        ui.vars['nextButton']:registerScriptTapHandler(click_nextButton)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -209,6 +270,28 @@ function UI_Colosseum:init_topRankTableView()
     -- 정렬
     g_colosseumRankData:sortColosseumRank(table_view.m_itemList)
     self.m_topRankTableView = table_view
+end
+
+-------------------------------------
+-- function update_topRankTableView
+-------------------------------------
+function UI_Colosseum:update_topRankTableView(target_offset)
+    local function finish_cb(ret, rank_list)
+        self.m_topRankOffset = ret['offset']
+
+        if (1 < self.m_topRankOffset) then
+            local prev_data = {m_rank = 'prev'}
+            rank_list['prev'] = prev_data
+        end
+
+        local next_data = {m_rank = 'next'}
+        rank_list['next'] = next_data
+
+        self.m_topRankTableView:mergeItemList(rank_list)
+        g_colosseumRankData:sortColosseumRank(self.m_topRankTableView.m_itemList)
+    end
+
+    g_colosseumRankData:request_rankManual(target_offset, finish_cb)
 end
 
 -------------------------------------
