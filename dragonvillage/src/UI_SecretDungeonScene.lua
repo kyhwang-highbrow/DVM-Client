@@ -29,6 +29,14 @@ function UI_SecretDungeonScene:init(dungeon_id)
     self:sceneFadeInAction()
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+
+    -- 테스트
+    local stage_list = g_secretDungeonData:getSecretDungeonInfo()
+    local server_time = Timer:getServerTime()
+
+    for i, v in ipairs(stage_list) do
+        v['closetime'] = (server_time + 10) * 1000
+    end
 end
 
 -------------------------------------
@@ -53,20 +61,17 @@ end
 
 -------------------------------------
 -- function makeSecretModeTableView
--- @brief 네스트 던전 모드 선택했을 때 오른쪽에 나오는 세부 리스트
+-- @brief 오른쪽에 나오는 세부 리스트
 -------------------------------------
 function UI_SecretDungeonScene:makeSecretModeTableView(dungeon_id)
     local node = self.vars['detailTableViewNode']
+    node:removeAllChildren()
 
-    local stage_list = g_secretDungeonData:getSecretDungeon_stageList()
+    local stage_list = g_secretDungeonData:getSecretDungeonInfo()
 
 
     -- 셀 아이템 생성 콜백
     local function create_func(ui, data, key)
-        --ui.root:setLocalZOrder(100 - key)
-        --ui.vars['enterButton']:registerScriptTapHandler(function() self:click_dungeonBtn(ui, data, key) end)
-
-
         return true
     end
 
@@ -133,8 +138,11 @@ function UI_SecretDungeonScene:update(dt)
     end
 
     if (not self.m_bDirtyDungeonList) then
-        self.m_bDirtyDungeonList = true
-        --self:refreshDungeonList()
+        local dirty_dungeon_list = g_secretDungeonData:checkNeedUpdateSecretDungeonInfo()
+        if (dirty_dungeon_list) then
+            self.m_bDirtyDungeonList = true
+            self:refreshDungeonList()
+        end
     end
     
 end
@@ -148,7 +156,7 @@ function UI_SecretDungeonScene:refreshDungeonList()
         self:initUI()
         self.m_bDirtyDungeonList = false
 
-        UIManager:toastNotificationGreen(Str('네스트 던전 항목이 갱신되었습니다.'))
+        UIManager:toastNotificationGreen(Str('비밀 던전 항목이 갱신되었습니다.'))
     end
 
     -- 새로운 던전 정보 요청

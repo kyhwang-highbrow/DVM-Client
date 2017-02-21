@@ -79,7 +79,7 @@ function UI_SecretDungeonStageListItem:refresh(t_data)
     
     do -- 제한 인원
         local cnt = self.m_stageTable['players']
-        local max_cnt = self.m_stageTable['maxplayer']
+        local max_cnt = self.m_stageTable['maximum_playable_user']
         vars['numberLabel']:setString(string.format('%d / %d', cnt, max_cnt))
     end
 end

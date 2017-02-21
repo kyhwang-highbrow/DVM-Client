@@ -7,6 +7,7 @@ ServerData_SecretDungeon = class({
         m_serverData = 'ServerData',
         m_secretDungeonInfo = 'table(list)',
         m_secretDungeonInfoMap = 'table(map)',
+        m_bDirtySecretDungeonInfo = 'boolean',
 
         -- 선택된 던전ID
         m_selectedDungeonID = 'string',
@@ -19,6 +20,7 @@ function ServerData_SecretDungeon:init(server_data)
     self.m_serverData = server_data
     self.m_secretDungeonInfo = {}
     self.m_secretDungeonInfoMap = {}
+    self.m_bDirtySecretDungeonInfo = true
 
     self.m_selectedDungeonID = nil
 end
@@ -44,6 +46,15 @@ function ServerData_SecretDungeon:applySecretDungeonInfo(data)
     end
 
     table.sort(self.m_secretDungeonInfo, sort_func)
+
+    self.m_bDirtySecretDungeonInfo = false
+end
+
+-------------------------------------
+-- function getSecretDungeonInfo
+-------------------------------------
+function ServerData_SecretDungeon:getSecretDungeonInfo()
+    return self.m_secretDungeonInfo
 end
 
 -------------------------------------
@@ -51,42 +62,34 @@ end
 -- @brief 서버로부터 비밀던전 open정보를 받아옴
 -------------------------------------
 function ServerData_SecretDungeon:requestSecretDungeonInfo(cb_func)
-    if (not NO_NETWORK) then
-        local uid = g_userData:get('uid')
+    if (not self.m_bDirtySecretDungeonInfo) then
+        if cb_func then
+            cb_func()
+        end
+        return
+    end
+    
+    local uid = g_userData:get('uid')
 
-        -- 성공 시 콜백
-        local function success_cb(ret)
-            g_serverData:networkCommonRespone(ret)
+    -- 성공 시 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
 
-            if ret['secret_dungeon_list'] then
-                self:applySecretDungeonInfo(ret['secret_dungeon_list'])
-            end
-
-            if cb_func then
-                cb_func()
-            end
+        if ret['secret_dungeon_list'] then
+            self:applySecretDungeonInfo(ret['secret_dungeon_list'])
         end
 
-        local ui_network = UI_Network()
-        ui_network:setUrl('/game/secret/info')
-        ui_network:setParam('uid', uid)
-        ui_network:setRevocable(true)
-        ui_network:setSuccessCB(function(ret) success_cb(ret) end)
-        ui_network:request()
-
-    else
         if cb_func then
             cb_func()
         end
     end
-end
 
--------------------------------------
--- function getSecretDungeon_stageList
--- @brief 비밀 던전 스테이지 리스트
--------------------------------------
-function ServerData_SecretDungeon:getSecretDungeon_stageList()
-    return self.m_secretDungeonInfo
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/secret/info')
+    ui_network:setParam('uid', uid)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
 end
 
 -------------------------------------
@@ -111,6 +114,29 @@ function ServerData_SecretDungeon:parseSecretDungeonID(stage_id)
 end
 
 -------------------------------------
+-- function checkNeedUpdateSecretDungeonInfo
+-- @brief 비밀 던전 항목을 갱신해야 하는지 확인하는 함수
+-------------------------------------
+function ServerData_SecretDungeon:checkNeedUpdateSecretDungeonInfo()
+    local l_dungeon_list = self:getSecretDungeonInfo()
+
+    local server_time = Timer:getServerTime()
+    local time_stamp
+
+    for i,v in pairs(l_dungeon_list) do
+
+        local time_stamp = (v['closetime'] / 1000)
+
+        if (time_stamp <= server_time) then
+            self.m_bDirtySecretDungeonInfo = true
+            return true
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function updateSecretDungeonTimer
 -- @brief
 -------------------------------------
@@ -129,6 +155,7 @@ function ServerData_SecretDungeon:updateSecretDungeonTimer(dungeon_id)
         
         if (time_stamp <= server_time) then
             t_dungeon_info['dirty_info'] = true
+            self.m_bDirtySecretDungeonInfo = true
         end
     end
     
