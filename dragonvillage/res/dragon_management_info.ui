@@ -2462,12 +2462,12 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 57.000000;
+				x = 11.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 1155;
+				width = 1063;
 				height = 100;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -3365,7 +3365,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = 'collectionBtn';
 				enable = true;
 				normal = 'ui/btn/base_collection_01.png';
