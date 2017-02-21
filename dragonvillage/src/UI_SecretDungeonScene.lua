@@ -29,14 +29,6 @@ function UI_SecretDungeonScene:init(dungeon_id)
     self:sceneFadeInAction()
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
-
-    -- 테스트
-    local stage_list = g_secretDungeonData:getSecretDungeonInfo()
-    local server_time = Timer:getServerTime()
-
-    for i, v in ipairs(stage_list) do
-        v['closetime'] = (server_time + 10) * 1000
-    end
 end
 
 -------------------------------------
