@@ -29,6 +29,11 @@ function UI_ColosseumRewardListItem:initUI(tier_name)
 	else
 		self:makeOtherTierUI(tier_name)
     end
+
+	-- 보상 가능 표시
+	local player_info = g_colosseumData:getPlayerInfo()
+	local is_same_tier = string.find(player_info.m_tier, tier_name)
+	self.vars['rewardSprite']:setVisible(is_same_tier)
 end
 
 -------------------------------------

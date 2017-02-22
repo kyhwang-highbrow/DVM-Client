@@ -29,6 +29,9 @@ function UI_ColosseumFirstRewardListItem:initUI(tier_name)
 	else
 		self:makeOtherTierUI(tier_name)
     end
+
+	-- 보상 표시는 표시하지 않음
+	self.vars['rewardSprite']:setVisible(false)
 end
 
 -------------------------------------
