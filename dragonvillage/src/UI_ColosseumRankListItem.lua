@@ -70,8 +70,13 @@ function UI_ColosseumRankListItem:refresh()
 
     -- 랭킹
     local simple = true
-    vars['rankLabel']:setString(user_info:getRankText(simple))
-    --vars['rankIconNode']
+	if (user_info.m_rank <= 3) then
+		local icon = user_info:getHighRankIcon()
+		vars['rankIconNode']:addChild(icon)
+		vars['rankLabel']:setVisible(false)
+	else
+		vars['rankLabel']:setString(user_info:getRankText(simple))
+	end
 
     -- 랭킹 포인트
     vars['pointLabel']:setString(user_info:getRPText())
@@ -79,6 +84,9 @@ function UI_ColosseumRankListItem:refresh()
     -- 티어 아이콘 
     local icon = user_info:getTierIcon('small')
     vars['tierNode']:addChild(icon)
+	
+	-- 유저 자신인 경우 하이라이트
+	vars['myRankSprite']:setVisible(user_info.m_bPlayerUser)
 end
 
 -------------------------------------

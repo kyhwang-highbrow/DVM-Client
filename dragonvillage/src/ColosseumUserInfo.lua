@@ -135,6 +135,15 @@ function ColosseumUserInfo:setUid(value)
 end
 
 -------------------------------------
+-- function setIsPlayer
+-- @brief uid를 받아와 플레이어 여부 판별
+-------------------------------------
+function ColosseumUserInfo:setIsPlayer(value)
+	local uid = value or self.m_uid or g_userData:get('uid')
+	self.m_bPlayerUser = (uid == g_userData:get('uid'))
+end
+
+-------------------------------------
 -- function setDragons
 -- @brief 보유 드래곤
 -------------------------------------
@@ -360,6 +369,8 @@ end
 -------------------------------------
 function ColosseumUserInfo:getTierIcon(type)
     local icon = self:makeTierIcon(self.m_tier, type)
+    icon:setDockPoint(cc.p(0.5, 0.5))
+    icon:setAnchorPoint(cc.p(0.5, 0.5))
     return icon
 end
 
@@ -415,6 +426,15 @@ function ColosseumUserInfo:makeTierIcon(tier, type)
     return icon
 end
 
+-------------------------------------
+-- function getHighRankIcon
+-------------------------------------
+function ColosseumUserInfo:getHighRankIcon()
+	local icon_path = string.format('res/ui/icon/rank_%02d.png', self.m_rank)
+    icon:setDockPoint(cc.p(0.5, 0.5))
+    icon:setAnchorPoint(cc.p(0.5, 0.5))
+    return cc.Sprite:create(icon_path)
+end
 
 -------------------------------------
 -- function setLeaderDragonData

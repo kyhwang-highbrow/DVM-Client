@@ -203,6 +203,7 @@ function ServerData_ColosseumRank:initRankList(target_list, data_list)
         user_info:setRankPercent(v['rate'])
         user_info:setRank(v['rank'])
         user_info:setUid(v['uid'])
+		user_info:setIsPlayer()
         user_info:setNickname(v['nick'])
         user_info:setRP(v['rp'] or v['score']) -- 서버에서 rp와 score를 함께 사용 중
         user_info:setTier(v['tier'])

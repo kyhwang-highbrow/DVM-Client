@@ -121,6 +121,26 @@ function ITableViewCell:cellWidthTo(duration, target_width)
     self.m_cellSize['width'] = target_width
 end
 
+-------------------------------------
+-- function setHighlightFrame
+-------------------------------------
+function ITableViewCell:setHighlightFrame(res)
+	if res then
+		local width = self.m_cellSize['width']
+		local height = self.m_cellSize['height']
+
+		local rect = cc.rect(0, 0, 0, 0)
+		local sprite = cc.Scale9Sprite:create(rect, res)
+		sprite:setContentSize(width, height)
+		sprite:setDockPoint(cc.p(0.5, 0.5))
+		sprite:setAnchorPoint(cc.p(0.5, 0.5))
+
+		if sprite then 
+			root:addChild(sprite) 
+		end
+	end
+end
+
 
 
 

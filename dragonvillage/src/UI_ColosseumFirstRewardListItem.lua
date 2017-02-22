@@ -80,7 +80,7 @@ function UI_ColosseumFirstRewardListItem:makeMasterUI()
 
 	-- 티어 명칭
     local tier_full_name = ColosseumUserInfo:getTierName(tier_name)
-    vars['tierLabel']:setString(Str('{1}최초 달성 보상', tier_full_name))
+    vars['tierLabel']:setString(Str('{1}\n최초 달성 보상', tier_full_name))
 
 	-- 아이콘
 	local icon = ColosseumUserInfo:makeTierIcon(tier_name, 'big')
