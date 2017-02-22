@@ -15,7 +15,7 @@ function ValidationDragon:init(dragon_id)
     local t_dragon = table_dragon[dragon_id]
 
     -- 스킬 유효성 검사
-    self:validationSkill(t_dragon)
+    --self:validationSkill(t_dragon)
 
     -- 에니메이션 리스트 검사
     self:validationAnimationList(t_dragon)
@@ -93,7 +93,9 @@ function ValidationDragonTotal()
     local table_dragon = TABLE:get('dragon')
 
     for dragon_id,v in pairs(table_dragon) do
-        --ccdump(v)
-        ValidationDragon(dragon_id)
+        if (v['test'] == 1) then
+            cclog(v['t_name'])
+            ValidationDragon(dragon_id)
+        end
     end
 end
