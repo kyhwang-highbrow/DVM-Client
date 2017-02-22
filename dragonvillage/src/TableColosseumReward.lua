@@ -51,7 +51,7 @@ end
 -------------------------------------
 function TableColosseumReward:getWeeklyRewardCash(tier, grade)
     local key = tier
-    grade = grade or 1
+    local grade = grade or 1
     if (tier ~= 'legend') then
         key = tier .. '_' .. grade
     end
@@ -77,10 +77,11 @@ end
 -------------------------------------
 -- function getFirstRewardCash
 -------------------------------------
-function TableColosseumReward:getFirstRewardCash(tier)
+function TableColosseumReward:getFirstRewardCash(tier, grade)
     local key = tier
+	local grade = grade or 1
     if (tier ~= 'legend') then
-        key = tier .. '_' .. 1
+        key = tier .. '_' .. grade
     end
 
     local reward_str = self:getValue(key, 'first_get_reward')
