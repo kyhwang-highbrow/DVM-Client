@@ -428,12 +428,14 @@ end
 
 -------------------------------------
 -- function getHighRankIcon
+-- @brief 1~3위 전용 아이콘 
 -------------------------------------
 function ColosseumUserInfo:getHighRankIcon()
 	local icon_path = string.format('res/ui/icon/rank_%02d.png', self.m_rank)
+	local icon = cc.Sprite:create(icon_path)
     icon:setDockPoint(cc.p(0.5, 0.5))
     icon:setAnchorPoint(cc.p(0.5, 0.5))
-    return cc.Sprite:create(icon_path)
+    return icon
 end
 
 -------------------------------------
