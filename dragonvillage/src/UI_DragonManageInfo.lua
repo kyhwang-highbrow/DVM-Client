@@ -4,6 +4,8 @@ local PARENT = UI_DragonManage_Base
 -- class UI_DragonManageInfo
 -------------------------------------
 UI_DragonManageInfo = class(PARENT,{
+        -- 서버상의 드래곤 정보가 마지막으로 변경된 시간 (refresh 체크 용도)
+        m_dragonListLastChangeTime = 'timestamp',
     })
 
 -------------------------------------
@@ -39,6 +41,8 @@ function UI_DragonManageInfo:init(doid, b_ascending_sort, sort_type)
 
     -- 첫 선택 드래곤 지정
     self:setDefaultSelectDragon(doid)
+
+    self.m_dragonListLastChangeTime = g_dragonsData:getLastChangeTimeStamp()
 end
 
 -------------------------------------
@@ -742,7 +746,10 @@ end
 -- @brief 임시 도감
 -------------------------------------
 function UI_DragonManageInfo:click_collectionBtn()
-    g_collectionData:openCollectionPopup()
+    local function close_cb()
+        self:checkDragonListRefresh()
+    end
+    g_collectionData:openCollectionPopup(close_cb)
     --[[
     local ui = UI_DragonManageInfoView()
     ui:tempGstarInit()
@@ -784,6 +791,24 @@ function UI_DragonManageInfo:click_detailBtn()
     end
 
     UI_DragonDetailPopup(self.m_selectDragonData)
+end
+
+-------------------------------------
+-- function checkDragonListRefresh
+-- @brief 드래곤 리스트에 변경이 있는지 확인 후 갱신
+-------------------------------------
+function UI_DragonManageInfo:checkDragonListRefresh()
+    local is_changed = g_dragonsData:checkChange(self.m_dragonListLastChangeTime)
+
+    if is_changed then
+        self.m_dragonListLastChangeTime = g_dragonsData:getLastChangeTimeStamp()
+        
+        -- 드래곤 리스트 새로 생성
+        self:init_dragonTableView()
+
+        -- @TODO sgkim 정렬 클래스 바꾸자!!
+        self.m_dragonSortMgr:changeSort()
+    end
 end
 
 --@CHECK

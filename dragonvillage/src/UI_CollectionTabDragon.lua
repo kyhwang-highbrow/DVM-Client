@@ -10,6 +10,9 @@ UI_CollectionTabDragon = class({
 
         m_tableViewTD = 'UIC_TableViewTD',
         m_sortManager = 'SortManager',
+
+        -- refresh 체크 용도
+        m_collectionLastChangeTime = 'timestamp',
      })
 
 -------------------------------------
@@ -26,6 +29,7 @@ end
 -------------------------------------
 function UI_CollectionTabDragon:onEnterTab(first)
     if first then
+        self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
         self:initUI()
     end
 end
@@ -162,5 +166,30 @@ function UI_CollectionTabDragon:click_dragonCard(data)
     local item = self.m_tableViewTD:getItem(did)
     local init_idx = item['idx']
 
-    UI_CollectionDetailPopup(l_dragons_data, init_idx)
+    local ui = UI_CollectionDetailPopup(l_dragons_data, init_idx)
+    local function close_cb()
+        self:checkRefresh()
+    end
+    ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function checkRefresh
+-- @brief 도감 데이터가 변경되었는지 확인 후 변경되었으면 갱신
+-------------------------------------
+function UI_CollectionTabDragon:checkRefresh()
+    local is_changed = g_collectionData:checkChange(self.m_collectionLastChangeTime)
+
+    if is_changed then
+        self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
+
+        -- 리스트 refresh
+        for i,v in pairs(self.m_tableViewTD.m_itemList) do
+            local ui = v['ui']
+
+            if ui then
+                ui:refresh()
+            end
+        end
+    end
 end

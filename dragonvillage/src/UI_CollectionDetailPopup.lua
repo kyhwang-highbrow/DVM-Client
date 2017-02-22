@@ -8,6 +8,7 @@ UI_CollectionDetailPopup = class(PARENT,{
         m_currIdx = 'number',
 
         -- refresh 체크 용도
+        m_collectionLastChangeTime = 'timestamp',
     })
 
 -------------------------------------
@@ -35,6 +36,8 @@ function UI_CollectionDetailPopup:init(l_dragons_item, init_idx)
     self:setIdx(init_idx)
 
     self:sceneFadeInAction()
+
+    self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
 end
 
 -------------------------------------
@@ -55,6 +58,9 @@ function UI_CollectionDetailPopup:initButton()
 
     -- 능력치 상세보기
     vars['detailBtn']:registerScriptTapHandler(function() self:click_detailBtn() end)
+
+    -- 인연포인트 뽑기
+    vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end)
 end
 
 -------------------------------------
@@ -144,6 +150,26 @@ function UI_CollectionDetailPopup:onChangeDragon()
         vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
         vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
         vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
+    end
+
+    do -- 인연 포인트
+        -- 드래곤 아이콘
+        local did = t_dragon['did']
+        local card = MakeSimpleDragonCard(did)
+        card.vars['clickBtn']:setEnabled(false)
+        vars['dragonCradNode']:addChild(card.root)
+
+        -- 인연포인트 값 얻어오기
+        local req_rpoint = TableDragon():getRelationPoint(did)
+        local cur_rpoint = g_collectionData:getRelationPoint(did)
+        
+        -- 인연포인트 표시
+        local str = Str('{1}/{2}', comma_value(cur_rpoint), comma_value(req_rpoint))
+        vars['relationPointLabel']:setString(str)
+
+        -- 소환 가능 개수 표시
+        local num_possible = math_floor(cur_rpoint / req_rpoint)
+        vars['dscLabel']:setString(Str('{1}마리 소환 가능', num_possible))
     end
 
     self:onChangeEvolution()
@@ -280,6 +306,32 @@ function UI_CollectionDetailPopup:click_detailBtn()
 end
 
 -------------------------------------
+-- function click_drawBtn
+-- @brief 인연포인트 뽑기 버튼
+-------------------------------------
+function UI_CollectionDetailPopup:click_drawBtn()
+    local t_dragon = self:getCurrDragonTable()
+
+    local did = t_dragon['did']
+
+    -- 인연포인트 값 얻어오기
+    local req_rpoint = TableDragon():getRelationPoint(did)
+    local cur_rpoint = g_collectionData:getRelationPoint(did)
+
+    if (cur_rpoint < req_rpoint) then
+        UIManager:toastNotificationRed(Str('인연포인트가 부족합니다.'))
+    else
+        local ui = UI_CollectionRelationPointDraw(did)
+
+        local function close_cb()
+            self:checkRefresh()
+        end
+
+        ui:setCloseCB(close_cb)
+    end
+end
+
+-------------------------------------
 -- function makeDragonData
 -------------------------------------
 function UI_CollectionDetailPopup:makeDragonData()
@@ -301,6 +353,19 @@ function UI_CollectionDetailPopup:makeDragonData()
     t_dragon_data['skill_3'] = (t_dragon_data['evolution'] >= 3) and 1 or 0
     
     return t_dragon_data
+end
+
+-------------------------------------
+-- function checkRefresh
+-- @brief
+-------------------------------------
+function UI_CollectionDetailPopup:checkRefresh()
+    local is_changed = g_collectionData:checkChange(self.m_collectionLastChangeTime)
+
+    if is_changed then
+        self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
+        self:onChangeDragon()
+    end
 end
 
 --@CHECK

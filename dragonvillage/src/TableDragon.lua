@@ -93,3 +93,11 @@ function TableDragon:getRandomRow()
         idx = (idx + 1)
     end
 end
+
+-------------------------------------
+-- function getRelationPoint
+-------------------------------------
+function TableDragon:getRelationPoint(did)
+    local relation_point = self:getValue(did, 'relation_point')
+    return relation_point
+end

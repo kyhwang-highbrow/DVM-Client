@@ -9,6 +9,8 @@ ServerData_Dragons = class({
 
         m_mNumOfDragonsByDid = 'map',
         m_bDirtyNumOfDragonsByDid = 'boolean',
+
+        m_lastChangeTimeStamp = 'timestamp',
     })
 
 -------------------------------------
@@ -131,6 +133,12 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
 
     -- 드래곤 did별 갯수 갱신 필요
     self.m_bDirtyNumOfDragonsByDid = true
+
+    -- 추가된 드래곤은 도감에 추가
+    local did = t_dragon_data['did']
+    g_collectionData:setDragonCollection(did)
+
+    self:setLastChangeTimeStamp()
 end
 
 -------------------------------------
@@ -172,6 +180,8 @@ function ServerData_Dragons:delDragonData(dragon_object_id)
 
     -- 드래곤 did별 갯수 갱신 필요
     self.m_bDirtyNumOfDragonsByDid = true
+
+    self:setLastChangeTimeStamp()
 end
 
 -------------------------------------
@@ -518,4 +528,30 @@ function ServerData_Dragons:getDragonSupportRequstTargetList(dragon_rarity)
     end
 
     return l_ret
+end
+
+-------------------------------------
+-- function setLastChangeTimeStamp
+-- @breif 마지막으로 데이터가 변경된 시간 갱신
+-------------------------------------
+function ServerData_Dragons:setLastChangeTimeStamp()
+    self.m_lastChangeTimeStamp = Timer:getServerTime()
+end
+
+-------------------------------------
+-- function getLastChangeTimeStamp
+-------------------------------------
+function ServerData_Dragons:getLastChangeTimeStamp()
+    return self.m_lastChangeTimeStamp
+end
+
+-------------------------------------
+-- function checkChange
+-------------------------------------
+function ServerData_Dragons:checkChange(timestamp)
+    if (self.m_lastChangeTimeStamp ~= timestamp) then
+        return true
+    end
+
+    return false
 end
