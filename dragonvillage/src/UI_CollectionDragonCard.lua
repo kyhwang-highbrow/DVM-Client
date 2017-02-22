@@ -35,7 +35,7 @@ function UI_CollectionDragonCard:initUI(t_item_data)
     card.vars['starIcon']:setVisible(false)
 
     if (not g_collectionData:isExist(did)) then
-        card:setShadowSpriteVisible(true)
+        vars['disableSprite']:setVisible(true)
     end
 end
 

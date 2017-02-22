@@ -4,21 +4,23 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -- class UI_CollectionDetailPopup
 -------------------------------------
 UI_CollectionDetailPopup = class(PARENT,{
-        m_lDragonsData = 'list',
+        m_lDragonsItem = 'list',
         m_currIdx = 'number',
+
+        -- refresh 체크 용도
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_CollectionDetailPopup:init(l_dragons_data, init_idx)
-    self.m_lDragonsData = l_dragons_data
-    self.m_currIdx = init_idx
+function UI_CollectionDetailPopup:init(l_dragons_item, init_idx)
+    self.m_lDragonsItem = l_dragons_item
+    self.m_currIdx = nil
 
     local vars = self:load('collection_detail_popup.ui')
     UIManager:open(self, UIManager.SCENE)
 
-    -- backkey ����
+    -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_CollectionDetailPopup')
 
     -- @UI_ACTION
@@ -29,6 +31,8 @@ function UI_CollectionDetailPopup:init(l_dragons_data, init_idx)
     self:initUI()
     self:initButton()
     self:refresh()
+
+    self:setIdx(init_idx)
 
     self:sceneFadeInAction()
 end
@@ -44,13 +48,19 @@ end
 -- function initButton
 -------------------------------------
 function UI_CollectionDetailPopup:initButton()
+    local vars = self.vars
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
+    vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
+
+    -- 능력치 상세보기
+    vars['detailBtn']:registerScriptTapHandler(function() self:click_detailBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_CollectionDetailPopup:refresh()
-    self:setTab('adult')
 end
 
 -------------------------------------
@@ -61,6 +71,236 @@ function UI_CollectionDetailPopup:initTab()
     self:addTab('hatch', vars['evolutionBtn1'])
     self:addTab('hatchling', vars['evolutionBtn2'])
     self:addTab('adult', vars['evolutionBtn3'])
+    self:setTab('adult')
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_CollectionDetailPopup:onChangeTab(tab, first)
+    self:onChangeEvolution()
+end
+
+-------------------------------------
+-- function onChangeDragon
+-------------------------------------
+function UI_CollectionDetailPopup:onChangeDragon()
+    local t_dragon = self:getCurrDragonTable()
+    if (not t_dragon) then
+        return
+    end
+
+    local vars = self.vars
+
+    -- 드래곤 이름
+    vars['nameLabel']:setString(Str(t_dragon['t_name']))
+
+    do -- 드래곤 이미지 배경
+        vars['bgNode']:removeAllChildren()
+        local attr = t_dragon['attr']
+        local res = 'res/bg/ui/collection_bg_' .. attr .. '.png'
+        local sprite = cc.Sprite:create(res)
+        sprite:setDockPoint(cc.p(0.5, 0.5))
+        sprite:setAnchorPoint(cc.p(0.5, 0.5))
+        vars['bgNode']:addChild(sprite)
+    end
+
+    do -- 희귀도
+        local rarity = t_dragon['rarity']
+        vars['rarityNode']:removeAllChildren()
+        local icon = IconHelper:getRarityIcon(rarity)
+        vars['rarityNode']:addChild(icon)
+
+        vars['rarityLabel']:setString(dragonRarityName(rarity))
+    end
+
+    do -- 드래곤 속성
+        local attr = t_dragon['attr']
+        vars['attrNode']:removeAllChildren()
+        local icon = IconHelper:getAttributeIcon(attr)
+        vars['attrNode']:addChild(icon)
+
+        vars['attrLabel']:setString(dragonAttributeName(attr))
+    end
+
+    do -- 드래곤 역할(role)
+        local role_type = t_dragon['role']
+        vars['roleNode']:removeAllChildren()
+        local icon = IconHelper:getRoleIcon(role_type)
+        vars['roleNode']:addChild(icon)
+
+        vars['roleLabel']:setString(dragonRoleName(role_type))
+    end    
+
+    do -- 능력치
+        local dragon_id = t_dragon['did']
+        local lv = 40
+        local grade = 6
+        local evolution = self:getEvolutionNumber()
+
+        -- 능력치 계산기
+        local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution)
+
+        vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
+        vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
+        vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
+    end
+
+    self:onChangeEvolution()
+end
+
+-------------------------------------
+-- function onChangeEvolution
+-------------------------------------
+function UI_CollectionDetailPopup:onChangeEvolution()
+    local t_dragon = self:getCurrDragonTable()
+    if (not t_dragon) then
+        return
+    end
+
+    local vars = self.vars
+
+    do -- 드래곤 인게임 리소스
+        vars['dragonNode']:removeAllChildren()
+        local evolution = self:getEvolutionNumber()
+        local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
+        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+        animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
+        vars['dragonNode']:addChild(animator.m_node)
+    end
+
+    do -- 스킬 아이콘 생성
+        local t_dragon_data = self:makeDragonData()
+
+        -- 스킬 상세정보 팝업
+        local function func_skill_detail_btn()
+            local ui = UI_SkillDetailPopup(t_dragon_data)
+            ui.vars['upgradeBtn']:setVisible(false)
+        end
+
+        local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
+        local l_skill_icon = skill_mgr:getDragonSkillIconList()
+        for i=0, MAX_DRAGON_EVOLUTION do
+            if l_skill_icon[i] then
+                vars['skillNode' .. i]:removeAllChildren()
+                vars['skillNode' .. i]:addChild(l_skill_icon[i].root)
+
+                --[[
+                -- 스킬 레벨 출력
+                local skill_lv = skill_mgr:getSkillLevel(i)
+                vars['skllLvLabel' .. i]:setString(tostring(skill_lv))
+                -]]
+
+                l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(func_skill_detail_btn)
+            end
+        end
+    end
+end
+
+-------------------------------------
+-- function setIdx
+-------------------------------------
+function UI_CollectionDetailPopup:setIdx(idx)
+    if (self.m_currIdx == idx) then
+        return
+    end
+
+    local min_idx = 1
+    local max_idx = table.count(self.m_lDragonsItem)
+    local idx = math_clamp(idx, min_idx, max_idx)
+    self.m_currIdx = idx
+
+    self:onChangeDragon()
+
+    do -- 이전 버튼, 다음 버튼 활성화 여부
+        local vars = self.vars
+
+        -- prevBtn
+        vars['prevBtn']:setVisible(min_idx < self.m_currIdx)
+
+        -- nextBtn
+        vars['nextBtn']:setVisible(self.m_currIdx < max_idx)
+    end
+end
+
+-------------------------------------
+-- function getCurrDragonTable
+-------------------------------------
+function UI_CollectionDetailPopup:getCurrDragonTable()
+    local idx = self.m_currIdx
+
+    if (not idx) then
+        return nil
+    end
+
+    local item = self.m_lDragonsItem[idx]
+    local t_dragon = item['data']
+    return t_dragon
+end
+
+-------------------------------------
+-- function click_prevBtn
+-------------------------------------
+function UI_CollectionDetailPopup:click_prevBtn()
+    self:setIdx(self.m_currIdx - 1)
+end
+
+-------------------------------------
+-- function click_nextBtn
+-------------------------------------
+function UI_CollectionDetailPopup:click_nextBtn()
+    self:setIdx(self.m_currIdx + 1)
+end
+
+-------------------------------------
+-- function getEvolutionNumber
+-------------------------------------
+function UI_CollectionDetailPopup:getEvolutionNumber()
+    local evolution_str = self.m_currTab
+    local evolution = 1
+    if (evolution_str == 'hatch') then
+        evolution = 1
+    elseif (evolution_str == 'hatchling') then
+        evolution = 2
+    elseif (evolution_str == 'adult') then
+        evolution = 3
+    end
+
+    return evolution
+end
+
+-------------------------------------
+-- function click_detailBtn
+-- @brief 드래곤 상세 보기 팝업
+-------------------------------------
+function UI_CollectionDetailPopup:click_detailBtn()
+    local t_dragon_data = self:makeDragonData()
+
+    UI_DragonDetailPopup(t_dragon_data)
+end
+
+-------------------------------------
+-- function makeDragonData
+-------------------------------------
+function UI_CollectionDetailPopup:makeDragonData()
+    local t_dragon = self:getCurrDragonTable()
+    if (not t_dragon) then
+        return nil
+    end
+
+    local t_dragon_data = {}
+    t_dragon_data['did'] = t_dragon['did']
+    t_dragon_data['lv'] = 40
+    t_dragon_data['evolution'] = self:getEvolutionNumber()
+    t_dragon_data['grade'] = 6
+    t_dragon_data['eclv'] = 0
+    t_dragon_data['exp'] = 0
+    t_dragon_data['skill_0'] = 1
+    t_dragon_data['skill_1'] = 1
+    t_dragon_data['skill_2'] = (t_dragon_data['evolution'] >= 2) and 1 or 0
+    t_dragon_data['skill_3'] = (t_dragon_data['evolution'] >= 3) and 1 or 0
+    
+    return t_dragon_data
 end
 
 --@CHECK

@@ -3,7 +3,7 @@ local PARENT = UI
 -------------------------------------
 -- class UI_DragonDetailPopup
 -------------------------------------
-UI_DragonDetailPopup = class(PARENT, ITopUserInfo_EventListener:getCloneTable(), {
+UI_DragonDetailPopup = class(PARENT, {
     m_tDragonData = 'table',
 })
 
@@ -27,17 +27,6 @@ function UI_DragonDetailPopup:init(t_dragon_data)
     self:initUI()
     self:initButton()
     self:refresh()
-end
-
--------------------------------------
--- function initParentVariable
--- @brief 자식 클래스에서 반드시 구현할 것
--------------------------------------
-function UI_DragonDetailPopup:initParentVariable()
-    -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_DragonDetailPopup'
-    self.m_bVisible = true
-    self.m_bUseExitBtn = true
 end
 
 -------------------------------------
@@ -135,7 +124,12 @@ function UI_DragonDetailPopup:refresh()
 
     do -- 능력치 입력
         local doid = t_dragon_data['id']
-        local status_calc = MakeOwnDragonStatusCalculator(doid)
+        local status_calc
+        if doid then
+            status_calc = MakeOwnDragonStatusCalculator(doid)
+        else
+            status_calc = MakeDragonStatusCalculator(t_dragon_data['did'], t_dragon_data['lv'], t_dragon_data['grade'], t_dragon_data['evolution'])
+        end
         vars['atk_p_label']:setString(status_calc:getFinalStatDisplay('atk'))
         vars['atk_spd_label']:setString(status_calc:getFinalStatDisplay('aspd'))
         vars['cri_chance_label']:setString(status_calc:getFinalStatDisplay('cri_chance'))
