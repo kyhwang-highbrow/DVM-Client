@@ -18,6 +18,34 @@ UI_ReadyScene = class(PARENT,{
     })
 
 -------------------------------------
+-- function init
+-------------------------------------
+function UI_ReadyScene:init(stage_id)
+    self:init_MemberVariable(stage_id)
+
+    local vars = self:load('ready_scene_new2.ui')
+    UIManager:open(self, UIManager.SCENE)
+
+    -- 씬 전환 효과
+    self:sceneFadeInAction()
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:click_backBtn() end, 'UI_ReadyScene')
+
+	self:checkDeckName()
+    
+	self:initUI()
+    self:initButton()
+    self:refresh()
+	
+	self.m_readySceneDeck = UI_ReadyScene_Deck(self)
+	self:init_sortMgr()
+
+    -- 자동 전투 off
+    g_autoPlaySetting:setAutoPlay(false)
+end
+
+-------------------------------------
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
 -------------------------------------
@@ -38,39 +66,29 @@ function UI_ReadyScene:init_MemberVariable(stage_id)
 end
 
 -------------------------------------
--- function init
+-- function checkDeckName
+-- @brief 콜로세움 덱이라면 일반 슈팅덱으로 바꿔준다.
 -------------------------------------
-function UI_ReadyScene:init(stage_id)
-    self:init_MemberVariable(stage_id)
+function UI_ReadyScene:checkDeckName()
+	local curr_deck_name = g_deckData:getSelectedDeckName()
+	if string.find(curr_deck_name, 'pvp') then
+		cclog('123')
+		g_deckData:setSelectedDeck('1')
+	end
+end
 
-    local vars = self:load('ready_scene_new2.ui')
-    UIManager:open(self, UIManager.SCENE)
+-------------------------------------
+-- function init_sortMgr
+-------------------------------------
+function UI_ReadyScene:init_sortMgr(stage_id)
+    self.m_dragonSortMgr = DragonSortManagerReady(self.vars, self.m_tableViewExt)
 
-    -- 씬 전환 효과
-    self:sceneFadeInAction()
-
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_backBtn() end, 'UI_ReadyScene')
-
-    self:initUI()
-    self:initButton()
-    self:refresh()
-
-    self.m_readySceneDeck = UI_ReadyScene_Deck(self)
-
-    do -- 정렬 도우미
-        self.m_dragonSortMgr = DragonSortManagerReady(self.vars, self.m_tableViewExt)
-
-        local function func(doid)
-            return self.m_readySceneDeck.m_tDeckMap[doid]
-        end
-
-        self.m_dragonSortMgr:setIsSettedDragonFunc(func)
-        self.m_dragonSortMgr:changeSort()
+    local function func(doid)
+        return self.m_readySceneDeck.m_tDeckMap[doid]
     end
 
-    -- 자동 전투 off
-    g_autoPlaySetting:setAutoPlay(false)
+    self.m_dragonSortMgr:setIsSettedDragonFunc(func)
+    self.m_dragonSortMgr:changeSort()
 end
 
 -------------------------------------
@@ -152,7 +170,9 @@ function UI_ReadyScene:refresh_tamer()
 
     vars['tamerNode']:removeAllChildren()
 
-    local icon = cc.Sprite:create('res/ui/icon/cha/tamer_goni.png')
+	local t_tamer = g_userData:getTamerInfo()
+	local res_icon = t_tamer['res_icon']
+    local icon = cc.Sprite:create(res_icon)
     icon:setDockPoint(cc.p(0.5, 0.5))
     icon:setAnchorPoint(cc.p(0.5, 0.5))
     vars['tamerNode']:addChild(icon)

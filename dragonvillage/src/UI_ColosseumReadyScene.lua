@@ -45,6 +45,8 @@ function UI_ColosseumReadyScene:init()
     self:initButton()
     self:refresh()
 
+	g_deckData:setSelectedDeck('pvp')
+	
 	self.m_stageAttr = nil
     self.m_readySceneDeck = UI_ReadyScene_Deck(self)
 
@@ -58,9 +60,6 @@ function UI_ColosseumReadyScene:init()
         self.m_dragonSortMgr:setIsSettedDragonFunc(func)
         self.m_dragonSortMgr:changeSort()
     end
-
-    -- 자동 전투 off
-    g_autoPlaySetting:setAutoPlay(false)
 end
 
 -------------------------------------
@@ -110,7 +109,9 @@ function UI_ColosseumReadyScene:refresh_tamer()
 
     vars['tamerNode']:removeAllChildren()
 
-    local icon = cc.Sprite:create('res/ui/icon/cha/tamer_goni.png')
+	local t_tamer = g_userData:getTamerInfo()
+	local res_icon = t_tamer['res_icon']
+    local icon = cc.Sprite:create(res_icon)
     icon:setDockPoint(cc.p(0.5, 0.5))
     icon:setAnchorPoint(cc.p(0.5, 0.5))
     vars['tamerNode']:addChild(icon)
