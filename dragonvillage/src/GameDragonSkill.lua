@@ -83,71 +83,81 @@ function GameDragonSkill.update_live(self, dt)
     local timeScale = 0.1
     local delayTime = 1
     
-    if (self.m_stateTimer == 0) then
-        -- 게임 조작 막음
-        self.m_world.m_bPreventControl = true
+    if (self:getStep() == 0) then
+        if (self:isBeginningStep()) then
+            -- 게임 조작 막음
+            self.m_world.m_bPreventControl = true
 
-        -- 슬로우
-        self.m_world.m_gameTimeScale:set(timeScale)
+            -- 슬로우
+            self.m_world.m_gameTimeScale:set(timeScale)
 
-        -- 드래곤 승리 애니메이션
-        dragon.m_animator:changeAni('pose_1', false)
+            -- 드래곤 승리 애니메이션
+            dragon.m_animator:changeAni('pose_1', false)
 
-        local duration = dragon:getAniDuration()
-        dragon.m_animator:setTimeScale(duration / (timeScale * delayTime))
+            local duration = dragon:getAniDuration()
+            dragon.m_animator:setTimeScale(duration / (timeScale * delayTime))
         
-        -- 카메라 줌인
-        self.m_world.m_gameCamera:setTarget(dragon, {time = timeScale / 8})
+            -- 카메라 줌인
+            self.m_world.m_gameCamera:setTarget(dragon, {time = timeScale / 8})
 
-        -- 스킬 이름 및 설명 문구를 표시
-        do
-            local active_skill_id = dragon:getSkillID('active')
-            local t_skill = TABLE:get('dragon_skill')[active_skill_id]
+            -- 스킬 이름 및 설명 문구를 표시
+            do
+                local active_skill_id = dragon:getSkillID('active')
+                local t_skill = TABLE:get('dragon_skill')[active_skill_id]
 
-            self.m_skillDescEffect.m_node:setFrame(0)
-            self.m_skillDescEffect:setVisible(true)
-            self.m_skillDescEffect:setTimeScale(duration / (timeScale * delayTime))
+                self.m_skillDescEffect.m_node:setFrame(0)
+                self.m_skillDescEffect:setVisible(true)
+                --self.m_skillDescEffect:setTimeScale(duration / (timeScale * delayTime))
+                self.m_skillDescEffect:setTimeScale(0.5 / timeScale)
 
-            self.m_skillNameLabel:setString(Str(t_skill['t_name']))
-            self.m_skillDescLabel:setString(IDragonSkillManager:getSkillDescPure(t_skill))
+                self.m_skillNameLabel:setString(Str(t_skill['t_name']))
+                self.m_skillDescLabel:setString(IDragonSkillManager:getSkillDescPure(t_skill))
+            end
+
+            -- 스킬 사용 직전 이펙트
+            do
+                local attr = dragon:getAttribute()
+                local animator = MakeAnimator('res/effect/effect_skillcasting_dragon/effect_skillcasting_dragon.vrp')
+                animator:changeAni('idle_' .. attr, false)
+                animator:setPosition(0, 80)
+                g_gameScene.m_containerLayer:addChild(animator.m_node)
+
+                local duration = animator:getDuration() * delayTime
+                animator:setTimeScale(duration / (timeScale * delayTime))
+                animator:addAniHandler(function() animator:runAction(cc.RemoveSelf:create()) end)
+            end
+
+            -- 효과음
+            SoundMgr:playEffect('EFFECT', 'skill_ready')
+
+            -- 음성
+            playDragonVoice(dragon.m_charTable['type'])
+        
+        elseif (self:isPassedStepTime(timeScale * delayTime)) then
+            self:nextStep()
+
         end
 
-        -- 스킬 사용 직전 이펙트
-        do
-            local attr = dragon:getAttribute()
-            local animator = MakeAnimator('res/effect/effect_skillcasting_dragon/effect_skillcasting_dragon.vrp')
-            animator:changeAni('idle_' .. attr, false)
-            animator:setPosition(0, 80)
-            g_gameScene.m_containerLayer:addChild(animator.m_node)
+    elseif (self:getStep() == 1) then
+        if (self:isBeginningStep()) then
+            -- 게임 조작 막음 해제
+            self.m_world.m_bPreventControl = false
 
-            local duration = animator:getDuration() * delayTime
-            animator:setTimeScale(duration / (timeScale * delayTime))
-            animator:addAniHandler(function() animator:runAction(cc.RemoveSelf:create()) end)
-        end
+            -- 슬로우
+            self.m_world.m_gameTimeScale:set(1)
+            self.m_skillDescEffect:setTimeScale(0.5)
 
-        -- 효과음
-        SoundMgr:playEffect('EFFECT', 'skill_ready')
+            -- 드래곤 스킬 애니메이션
+            dragon:changeState('skillIdle')
+            dragon.m_animator:setTimeScale(1)
 
-        -- 음성
-        playDragonVoice(dragon.m_charTable['type'])
-    
-    elseif (self.m_stateTimer >= timeScale * delayTime) then
-        -- 게임 조작 막음 해제
-        self.m_world.m_bPreventControl = false
+            -- 카메라 줌아웃
+            self.m_world.m_gameCamera:reset()
 
-        -- 슬로우
-        self.m_world.m_gameTimeScale:set(1)
-
-        -- 드래곤 스킬 애니메이션
-        dragon:changeState('skillIdle')
-        dragon.m_animator:setTimeScale(1)
-
-        -- 카메라 줌아웃
-        self.m_world.m_gameCamera:reset()
-
-        self.m_dragon = nil
+            self.m_dragon = nil
                 
-        self:changeState(GAME_DRAGON_SKILL_WAIT)
+            self:changeState(GAME_DRAGON_SKILL_WAIT)
+        end
     end
 end
 
