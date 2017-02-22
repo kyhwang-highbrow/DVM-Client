@@ -23,8 +23,10 @@ SceneGame = class(PerpleScene, {
         m_gameNode3 = 'cc.Node',        -- 게임 레이어 (pause, resume 제외하는 이펙트 및 폰트 영역)
         m_feverNode = 'cc.Node',        -- 피버 레이어
         m_gameIndicatorNode = 'cc.Node',
+
         m_gameHighlightNode = 'cc.Node',
         m_gameHighlightNode2 = 'cc.Node',
+        m_gameHighlightNode3 = 'cc.Node',
 
         m_colorLayerForSkill = 'cc.LayerColor', -- 암전 레이어
 
@@ -153,6 +155,10 @@ function SceneGame:init_layer()
                         -- 하일라이트 레이어2
 						self.m_gameHighlightNode2 = cc.Node:create()
 						self.m_worldLayer:addChild(self.m_gameHighlightNode2)
+
+                        -- 하일라이트 레이어3
+						self.m_gameHighlightNode3 = cc.Node:create()
+						self.m_worldLayer:addChild(self.m_gameHighlightNode3)
 					end
 				end
 			end
@@ -413,6 +419,7 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     end
 
     local uid = g_userData:get('uid')
+    local oid
 
     local function success_cb(ret)
         self:networkGameFinish_response(ret, t_result_ref)
@@ -431,6 +438,10 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         api_url = '/game/nest/finish'
     elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
         api_url = '/game/secret/finish'
+
+        -- 던전 objectId
+        local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo()
+        oid = t_dungeon_info['id']
     end
 
     -- 친구 접속 버프
@@ -449,6 +460,7 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setUrl(api_url)
     ui_network:setParam('uid', uid)
     ui_network:setParam('stage', self.m_stageID)
+    ui_network:setParam('oid', oid)
     ui_network:setParam('deck_name', t_param['deck_name'])
     ui_network:setParam('clear_type', t_param['clear_type'])
     ui_network:setParam('exp_rate', t_param['exp_rate'])

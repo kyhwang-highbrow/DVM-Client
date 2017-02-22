@@ -176,6 +176,7 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, finish_cb)
     end
 
     local uid = g_userData:get('uid')
+    local oid
 
     -- 모드별 API 주소 분기처리
     local api_url = ''
@@ -185,11 +186,11 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, finish_cb)
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
         api_url = '/game/nest/start'
     elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
-        --api_url = '/game/secret/start'
+        api_url = '/game/secret/start'
 
-        local game_key = 1
-        finish_cb(game_key)
-        return
+        -- 던전 objectId
+        local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo()
+        oid = t_dungeon_info['id']
     end
 
     local function success_cb(ret)
@@ -212,6 +213,7 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, finish_cb)
     ui_network:setParam('stage', stage_id)
     ui_network:setParam('deck_name', deck_name)
     ui_network:setParam('friend', friend_uid)
+    ui_network:setParam('oid', oid)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
 

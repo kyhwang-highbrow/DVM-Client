@@ -580,19 +580,25 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     end
 
     local t_info = t_info or EMPTY_TABLE
-    --local dir = (attacker and attacker.movement_theta) or 0
     local dir = 0
-    if attacker and isInstanceOf(attacker, PhysObject) then
-        dir = attacker.movement_theta
+    local is_highlight = false
+
+    if (attacker) then
+        if (isInstanceOf(attacker, PhysObject)) then
+            dir = attacker.movement_theta
+        end
+        if (attacker.m_activityCarrier:isHighlight()) then
+            is_highlight = true
+        end
     end
 
     -- 데미지 폰트 출력
     if t_info['attack_type'] == 'fever' then
         self:makeDamageEffectForFever(t_info['dmg_type'], t_info['attr'], i_x, i_y, dir, t_info['critical'])
     else
-        self:makeDamageEffect(t_info['dmg_type'], t_info['attr'], i_x, i_y, dir, t_info['critical'])
+        self:makeDamageEffect(t_info['dmg_type'], t_info['attr'], i_x, i_y, dir, t_info['critical'], is_highlight)
     end
-    self:makeDamageFont(damage, i_x, i_y, t_info['critical'], t_info['attr_bonus_dmg'])
+    self:makeDamageFont(damage, i_x, i_y, t_info['critical'], t_info['attr_bonus_dmg'], is_highlight)
 
     -- 무적 체크 후 데미지 적용
 	if (self.m_bLeftFormation and PLAYER_INVINCIBLE) then
@@ -664,7 +670,7 @@ end
 -------------------------------------
 -- function makeDamageEffect
 -------------------------------------
-function Character:makeDamageEffect(dmg_type, attr, x, y, dir, critical)
+function Character:makeDamageEffect(dmg_type, attr, x, y, dir, critical, is_highlight)
     local dmg_type = dmg_type or DMG_TYPE_PHYSICAL
     local attr = attr or ATTR_LIGHT
 
@@ -684,6 +690,10 @@ function Character:makeDamageEffect(dmg_type, attr, x, y, dir, critical)
     effect:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
   
     self.m_world:addChild3(effect.m_node, DEPTH_DAMAGE_EFFECT)
+
+    if (is_highlight) then
+        self.m_world.m_gameHighlight:addEffect(effect)
+    end
 end
 
 -------------------------------------
@@ -704,7 +714,7 @@ end
 -------------------------------------
 -- function makeDamageFont
 -------------------------------------
-function Character:makeDamageFont(damage, x, y, critical, attr_bonus_dmg)
+function Character:makeDamageFont(damage, x, y, critical, attr_bonus_dmg, is_highlight)
     local y = y + 60
 
     if (damage == 0) then
@@ -742,9 +752,9 @@ function Character:makeDamageFont(damage, x, y, critical, attr_bonus_dmg)
 
     -- 일반 데미지
     local scale = 1
+    local node = nil
     
     if critical then
-        local node = nil
         local label = cc.Label:createWithBMFont('res/font/critical.fnt', comma_value(damage))
         --self:makeDmgFontFadeOut(label)
         
@@ -769,7 +779,6 @@ function Character:makeDamageFont(damage, x, y, critical, attr_bonus_dmg)
         self.m_world:addChild3(node, DEPTH_CRITICAL_FONT)
         
     else
-        local node = nil
         local label = cc.Label:createWithBMFont('res/font/normal.fnt', comma_value(damage))
         --self:makeDmgFontFadeOut(label)
         
@@ -796,6 +805,10 @@ function Character:makeDamageFont(damage, x, y, critical, attr_bonus_dmg)
         node:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
         --node:runAction(self:makeDmgFontAction())
         self.m_world:addChild3(node, DEPTH_DAMAGE_FONT)
+    end
+
+    if (is_highlight) then
+        self.m_world.m_gameHighlight:addDamage(node)
     end
 end
 

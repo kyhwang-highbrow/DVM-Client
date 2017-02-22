@@ -77,8 +77,8 @@ function GameState_SecretDungeon_Relation:makeResultUI(is_success)
     end
 
     -- 최초 실행
-    --func_network_game_finish()
-    func_ui_result()
+    func_network_game_finish()
+    --func_ui_result()
 end
 
 

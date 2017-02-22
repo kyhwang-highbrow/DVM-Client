@@ -7,8 +7,9 @@ GameHighlightMgr = class({
         m_lCharList = 'table',
         m_lMissileList = 'table',
 
-        m_charHighlightNode = '',
-        m_missileHighlightNode = '',
+        m_node1 = '',
+        m_node2 = '',
+        m_node3 = '',
      })
 
 -------------------------------------
@@ -20,8 +21,9 @@ function GameHighlightMgr:init(world)
     self.m_lCharList = {}
     self.m_lMissileList = {}
 
-    self.m_charHighlightNode = g_gameScene.m_gameHighlightNode
-    self.m_missileHighlightNode = g_gameScene.m_gameHighlightNode2
+    self.m_node1 = g_gameScene.m_gameHighlightNode
+    self.m_node2 = g_gameScene.m_gameHighlightNode2
+    self.m_node3 = g_gameScene.m_gameHighlightNode3
 end
 
 -------------------------------------
@@ -42,7 +44,7 @@ function GameHighlightMgr:addChar(char, zorder)
     -- root 노드
     node:retain()
     node:removeFromParent(false)
-    g_gameScene.m_gameHighlightNode:addChild(node, zorder or 0)
+    self.m_node1:addChild(node, zorder or 0)
     node:release()
 
     -- UI 노드
@@ -149,9 +151,9 @@ function GameHighlightMgr:addMissile(missile)
     local target_node
 
     if (t_data['parent'] == self.m_world.m_missiledNode) then
-        target_node = g_gameScene.m_gameHighlightNode2
+        target_node = self.m_node2
     else
-        target_node = g_gameScene.m_gameHighlightNode
+        target_node = self.m_node1
     end
 
     -- root 노드
@@ -195,7 +197,25 @@ function GameHighlightMgr:addEffect(effect)
 
     local node = effect.m_node
     
-    local target_node = g_gameScene.m_gameHighlightNode2
+    local target_node = self.m_node2
+
+    -- root 노드
+    node:retain()
+    node:removeFromParent(false)
+    target_node:addChild(node, node:getLocalZOrder())
+    node:release()
+end
+
+-------------------------------------
+-- function addDamage
+-------------------------------------
+function GameHighlightMgr:addDamage(node)
+    -- 이펙트 하이라이트 기능을 막아야하는 조건을 차후 정리하자...
+    if (not self.m_world.m_skillIndicatorMgr:isControlling()) then return end
+
+    local node = node
+    
+    local target_node = self.m_node3
 
     -- root 노드
     node:retain()

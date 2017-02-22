@@ -746,7 +746,7 @@ function GameState:makeGameFinishParam(is_success)
     end
 
     do-- 획득 골드
-        t_param['gold'] = 0
+        t_param['gold'] = self.m_world:getGold()
         t_param['gold_rate'] = 100
     end
 
