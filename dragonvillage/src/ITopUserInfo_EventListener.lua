@@ -8,6 +8,8 @@ ITopUserInfo_EventListener = {
     m_bVisible = 'boolean',
     m_bUseExitBtn = 'boolean',
     m_titleStr = 'string',
+
+	m_staminaType = 'string',	-- 보여줄 활동력 타입
 }
 
 -------------------------------------
@@ -17,6 +19,7 @@ function ITopUserInfo_EventListener:init()
     self.m_bVisible = true
     self.m_bUseExitBtn = true
     self.m_titleStr = nil
+	self.m_staminaType = GAME_MODE.ST
 end
 
 -------------------------------------

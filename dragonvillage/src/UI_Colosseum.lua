@@ -19,8 +19,9 @@ UI_Colosseum = class(PARENT, {
 function UI_Colosseum:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_Colosseum'
-    self.m_bVisible = true
     self.m_titleStr = Str('콜로세움')
+	self.m_staminaType = GAME_MODE.COLOSSEUM
+    self.m_bVisible = true
     self.m_bUseExitBtn = true
 end
 

@@ -8,6 +8,7 @@ UI_TopUserInfo = class(PARENT,{
         m_ownerUIIdx = 'number',
 
         m_lNumberLabel = 'list',
+		m_staminaType = 'string',
     })
 
 -------------------------------------
@@ -51,11 +52,11 @@ function UI_TopUserInfo:refreshData()
     self.m_lNumberLabel['gold']:setNumber(gold)
     self.m_lNumberLabel['cash']:setNumber(cash)
 
-    -- 모험 스태미너
-    local st_ad = g_staminasData:getStaminaCount('st')
+    -- 스태미너
+    local st_ad = g_staminasData:getStaminaCount(self.m_staminaType)
     self.m_lNumberLabel['st_ad']:setNumber(st_ad)
 
-    local str = g_staminasData:getChargeRemainText('st')
+    local str = g_staminasData:getChargeRemainText(self.m_staminaType)
     vars['actingPowerTimeLabel']:setString(str)
 
     self.m_lNumberLabel['fp']:setNumber(fp)
@@ -151,6 +152,11 @@ function UI_TopUserInfo:changeOwnerUI(ui)
     end
 
     self.root:setVisible(ui.m_bVisible)
+	
+	-- 스태미나 관련
+	self.m_staminaType = ui.m_staminaType
+	vars['stIcon']:setVisible((self.m_staminaType == GAME_MODE.ADVENTURE))
+	vars['pvpIcon']:setVisible((self.m_staminaType == GAME_MODE.COLOSSEUM))
 
     do -- 스태미너 업데이트 관련 임시 위치
         if ui.m_bVisible then

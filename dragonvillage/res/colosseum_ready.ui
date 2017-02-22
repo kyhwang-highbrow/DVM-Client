@@ -616,8 +616,8 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 46;
-						height = 46;
+						width = 60;
+						height = 60;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -625,7 +625,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icon_actingpower.png';
+						file_name = 'ui/icon/inbox/inbox_staminas_pvp.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;

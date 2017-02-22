@@ -1,4 +1,32 @@
 --------------------------------------------
+-- Game mode type
+-- @brief 덱과 스태미나에서 사용하는 스트링 타입의 게임 모드
+--------------------------------------------
+GAME_MODE = 
+{
+	ADVENTURE = 'st',
+	COLOSSEUM = 'pvp',
+}
+
+--------------------------------------------
+-- 각종 게임 모드
+--------------------------------------------
+-- 게임 모드
+GAME_MODE_ADVENTURE = 1
+GAME_MODE_NEST_DUNGEON = 2
+GAME_MODE_SECRET_DUNGEON = 3
+GAME_MODE_COLOSSEUM = 4
+
+-- 네스트 던전 하위 던전 모드
+NEST_DUNGEON_DRAGON = 1
+NEST_DUNGEON_NIGHTMARE = 2
+NEST_DUNGEON_TREE = 3
+
+-- 비밀 던전 하위 던전 모드
+SECRET_DUNGEON_GOLD = 1
+SECRET_DUNGEON_RELATION = 2
+
+--------------------------------------------
 -- 인게임 Flow 연출
 --------------------------------------------
 -- #  드래곤/몬스터 배치 후 흔들림 랜덤 범위(- ~ +)

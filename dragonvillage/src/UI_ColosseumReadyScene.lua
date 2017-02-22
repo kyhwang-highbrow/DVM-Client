@@ -17,18 +17,6 @@ UI_ColosseumReadyScene = class(PARENT,{
     })
 
 -------------------------------------
--- function initParentVariable
--- @brief 자식 클래스에서 반드시 구현할 것
--------------------------------------
-function UI_ColosseumReadyScene:initParentVariable()
-    -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_ColosseumReadyScene'
-    self.m_titleStr = '콜로세움'
-    self.m_bVisible = true
-    self.m_bUseExitBtn = true
-end
-
--------------------------------------
 -- function init
 -------------------------------------
 function UI_ColosseumReadyScene:init()
@@ -41,26 +29,44 @@ function UI_ColosseumReadyScene:init()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_backBtn() end, 'UI_ColosseumReadyScene')
 
-    self:initUI()
+	g_deckData:setSelectedDeck(GAME_MODE.COLOSSEUM)
+    
+	self:initUI()
     self:initButton()
     self:refresh()
 
-	g_deckData:setSelectedDeck('pvp')
-	
 	self.m_stageAttr = nil
     self.m_readySceneDeck = UI_ReadyScene_Deck(self)
-
-    do -- 정렬 도우미
-        self.m_dragonSortMgr = DragonSortManagerReady(self.vars, self.m_tableViewExt)
-
-        local function func(doid)
-            return self.m_readySceneDeck.m_tDeckMap[doid]
-        end
-
-        self.m_dragonSortMgr:setIsSettedDragonFunc(func)
-        self.m_dragonSortMgr:changeSort()
-    end
+	self:init_sortMgr()
 end
+
+-------------------------------------
+-- function initParentVariable
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_ColosseumReadyScene:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_ColosseumReadyScene'
+    self.m_titleStr = Str('콜로세움 준비')
+	self.m_staminaType = GAME_MODE.COLOSSEUM
+    self.m_bVisible = true
+    self.m_bUseExitBtn = true
+end
+
+-------------------------------------
+-- function init_sortMgr
+-------------------------------------
+function UI_ColosseumReadyScene:init_sortMgr(stage_id)
+    self.m_dragonSortMgr = DragonSortManagerReady(self.vars, self.m_tableViewExt)
+
+    local function func(doid)
+        return self.m_readySceneDeck.m_tDeckMap[doid]
+    end
+
+    self.m_dragonSortMgr:setIsSettedDragonFunc(func)
+    self.m_dragonSortMgr:changeSort()
+end
+
 
 -------------------------------------
 -- function initUI
@@ -329,7 +335,7 @@ end
 -- @brief stage_id에 해당하는 필요 스태미너 타입, 갯수 리턴
 -------------------------------------
 function UI_ColosseumReadyScene:getStageStaminaInfo()
-    local cost_type = 'pvp'
+    local cost_type = GAME_MODE.COLOSSEUM
     local cost_value = 1
 
     return cost_type, cost_value

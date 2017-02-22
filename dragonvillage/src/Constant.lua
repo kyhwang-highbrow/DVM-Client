@@ -108,22 +108,9 @@ MAX_DRAGON_ECLV = 15
 COLOSSEUM_STAGE_ID = 90000
 DEV_STAGE_ID = 99999
 
--- 게임 모드
-GAME_MODE_ADVENTURE = 1
-GAME_MODE_NEST_DUNGEON = 2
-GAME_MODE_SECRET_DUNGEON = 3
-GAME_MODE_COLOSSEUM = 4
-
--- 네스트 던전 하위 던전 모드
-NEST_DUNGEON_DRAGON = 1
-NEST_DUNGEON_NIGHTMARE = 2
-NEST_DUNGEON_TREE = 3
-
--- 비밀 던전 하위 던전 모드
-SECRET_DUNGEON_GOLD = 1
-SECRET_DUNGEON_RELATION = 2
-
--- state priority
+--------------------------------------------
+-- State priority
+--------------------------------------------
 PRIORITY =
 {
 	STUN = 2,
@@ -131,8 +118,9 @@ PRIORITY =
 	DYING = 9,
 	DEAD = 10,
 }
-
+--------------------------------------------
 -- World Z-Order Priority
+--------------------------------------------
 WORLD_Z_ORDER = 
 {
 	MISSILE = 0,
