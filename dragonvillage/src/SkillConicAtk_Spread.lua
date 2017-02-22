@@ -72,7 +72,15 @@ function SkillConicAtk_Spread:spreadStatusEffect(target_char, status_effect_type
 		-- 3. 범위 지정 연출
 		local effect1 = MakeAnimator('res/effect/effect_burn/effect_burn.vrp')
 		effect1:changeAni('spred', false)
-		world.m_missiledNode:addChild(effect1.m_node, 0)
+		
+        local missileNode = world:getMissileNode()
+        missileNode:addChild(effect1.m_rootNode, 0)
+
+        -- 하이라이트
+        if (self.m_bHighlight) then
+            world.m_gameHighlight:addEffect(effect1)
+        end
+
 		effect1:setPosition(target_char.pos.x, target_char.pos.y)
 		effect1:addAniHandler(function() 
 			local duration = effect1.m_node:getDuration()
@@ -138,7 +146,12 @@ function SkillConicAtk_Spread:makeSkillInstance(owner, t_skill, t_data)
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world
-    local missileNode = world:getMissileNode(nil, skill.m_bHighlight)
+    local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
+
+    -- 5. 하이라이트
+    if (skill.m_bHighlight) then
+        world.m_gameHighlight:addMissile(skill)
+    end
 end

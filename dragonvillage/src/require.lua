@@ -195,6 +195,7 @@ local t_module = {
     'GameFever',
     'GameCamera',
     'GameTimeScale',
+    'GameHighlightMgr',
 	'ShakeManager',
     
 	-- CARRIER

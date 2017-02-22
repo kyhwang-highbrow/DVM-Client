@@ -162,7 +162,7 @@ function GameWorld:init_wavemaker(deck_type)
     end
 
     do 
-        self.m_skillIndicatorMgr = SkillIndicatorMgr(self, g_currScene.m_colorLayerForSkill)
+        self.m_skillIndicatorMgr = SkillIndicatorMgr(self, g_gameScene.m_colorLayerForSkill)
     end
 end
 

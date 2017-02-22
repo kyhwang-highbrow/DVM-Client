@@ -115,8 +115,15 @@ function SkillHeartOfRuin:makeSpecialEffect()
         local effect = AnimatorVrp('res/effect/effect_scene_effect_01/effect_scene_effect_01.vrp')
         effect:changeAni('idle', false)
         effect:addAniHandler(function() effect:runAction(cc.RemoveSelf:create()) end)
-        world.m_worldNode:addChild(effect.m_node, 4)
 
+        local worldNode = world:getMissileNode('bottom', self.m_bHighlight)
+        worldNode:addChild(effect.m_node, 4)
+
+        -- 하이라이트
+        if (self.m_bHighlight) then
+            world.m_gameHighlight:addEffect(effect)
+        end
+        
         local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
         effect:setPosition(cameraHomePosX + (CRITERIA_RESOLUTION_X / 2), cameraHomePosY)
         effect:setScale(0.6)
@@ -129,7 +136,14 @@ function SkillHeartOfRuin:makeSpecialEffect()
         effect:addAniHandler(function() effect:runAction(cc.RemoveSelf:create()) end)
         effect:setPosition(self.m_owner.pos.x + self.m_attackPosOffsetX, self.m_owner.pos.y + self.m_attackPosOffsetY)
     
-        world.m_worldNode:addChild(effect.m_node, 3)
+        local worldNode = world:getMissileNode('bottom', self.m_bHighlight)
+        worldNode:addChild(effect.m_node, 3)
+
+        -- 하이라이트
+        if (self.m_bHighlight) then
+            world.m_gameHighlight:addEffect(effect)
+        end
+        
     end
 end
 
@@ -156,7 +170,12 @@ function SkillHeartOfRuin:makeSkillInstance(owner, t_skill, t_data)
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world
-    local missileNode = world:getMissileNode('bottom', skill.m_bHighlight)
+    local missileNode = world:getMissileNode('bottom')
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
+
+    -- 5. 하이라이트
+    if (skill.m_bHighlight) then
+        world.m_gameHighlight:addMissile(skill)
+    end
 end

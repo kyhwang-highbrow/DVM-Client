@@ -158,6 +158,8 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 	local add_script_dead =		t_option['add_script_dead'] or false
 	local add_script_relative = t_option['add_script_relative']
 
+    local is_highlight =        t_option['highlight'] or false
+
     --local parent =           t_option['parent']
     --local sync_pos =         t_option['sync_pos'] or false
     --local motion_streak =    t_option['motion_streak'] or nil 실 사용하는 곳에서 정의 .. 혼선이 있다.
@@ -372,7 +374,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         end
 
         -- Physics, Node, GameMgr에 등록
-		self.m_world:addMissile(missile, object_key, res_depth)
+		self.m_world:addMissile(missile, object_key, res_depth, is_highlight)
 
 		if is_fixed_attack then 
 			missile:setFixedAttack(true)

@@ -105,7 +105,14 @@ function SkillFieldCheck:makeDrainEffect(x, y)
     local effect = MakeAnimator(self.m_drainRes)
     effect:setPosition(x, y)
 	local world = self.m_owner.m_world
-    world.m_missiledNode:addChild(effect.m_node, 0)
+    
+    local missileNode = world:getMissileNode()
+    missileNode:addChild(effect.m_node, 0)
+
+    -- 하이라이트
+    if (self.m_bHighlight) then
+        world.m_gameHighlight:addEffect(effect)
+    end
 
 	-- random요소 - 점프 높이, 방향, 지속시간, 스케일
 	local jump_height = math_random(100, 200)
@@ -150,7 +157,12 @@ function SkillFieldCheck:makeSkillInstance(owner, t_skill, t_data)
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world
-    local missileNode = world:getMissileNode(nil, skill.m_bHighlight)
+    local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
+
+    -- 5. 하이라이트
+    if (skill.m_bHighlight) then
+        world.m_gameHighlight:addMissile(skill)
+    end
 end

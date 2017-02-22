@@ -183,13 +183,18 @@ function SkillSpatter:makeSkillInstance(owner, t_skill)
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world
-    local missileNode = world:getMissileNode(nil, skill.m_bHighlight)
+    local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
 
+    -- 5. 하이라이트
+    if (skill.m_bHighlight) then
+        world.m_gameHighlight:addMissile(skill)
+    end
+
 	-- 위치 지정 및 모션스트릭	
 	skill:setPosition(owner.pos.x, owner.pos.y)
-    skill:setMotionStreak(world.m_missiledNode, motionstreak_res)
+    skill:setMotionStreak(missileNode, motionstreak_res)
 
     -- 영역 이펙트 생성 .. 사용 안함
     if (range > 0) and (range_res and (range_res ~= 'x')) then

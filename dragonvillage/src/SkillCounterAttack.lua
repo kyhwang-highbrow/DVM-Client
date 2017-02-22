@@ -76,6 +76,7 @@ function SkillCounterAttack.st_idle(owner, dt)
         owner:changeState('dying')
 		if (owner.m_effect) then 
 			owner.m_effect:release()
+            owner.m_effect = nil
 		end
         return
     end
@@ -169,7 +170,12 @@ function SkillCounterAttack:makeSkillInstance(owner, t_skill, t_data)
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world
-    local missileNode = world:getMissileNode(nil, skill.m_bHighlight)
+    local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
+
+    -- 5. 하이라이트
+    if (skill.m_bHighlight) then
+        world.m_gameHighlight:addMissile(skill)
+    end
 end

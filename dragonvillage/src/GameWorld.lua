@@ -47,6 +47,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_gameFever = '',
         m_gameCamera = '',
         m_gameTimeScale = '',
+        m_gameHighlight = '',
 
         m_worldSize = '',
         m_worldScale = '',
@@ -165,6 +166,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     
     self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
     self.m_gameTimeScale = GameTimeScale(self)
+    self.m_gameHighlight = GameHighlightMgr(self)
     
     self.m_gameDragonSkill = GameDragonSkill(self)
     self.m_gameFever = GameFever(self)
@@ -624,31 +626,30 @@ function GameWorld:addMissile(missile, object_key, res_depth, highlight)
 	local depth_type = t_res_depth[1]
 	local z_order = t_res_depth[2] or WORLD_Z_ORDER.MISSILE
 
-	local target_node = self:getMissileNode(depth_type, highlight)
+	local target_node = self:getMissileNode(depth_type)
     target_node:addChild(missile.m_rootNode, z_order)
+
+    if (highlight) then
+        -- 미사일 하이라이트는 인디케이더 조작중에만 적용
+        if (self.m_skillIndicatorMgr:isControlling()) then
+            self.m_gameHighlight:addMissile(missile)
+        end
+    end
 end
 
 -------------------------------------
 -- function getMissileNode
 -- @brief
 -------------------------------------
-function GameWorld:getMissileNode(depth_type, highlight)
+function GameWorld:getMissileNode(depth_type)
     local missile_node
 
-    if (highlight) then
-        if (depth_type == 'bottom') then
-		    missile_node = self.m_colorLayerForSkill
-	    else
-		    missile_node = g_gameScene.m_gameHighlightNode
-	    end	
-    else
-	    if (depth_type == 'bottom') then
-		    missile_node = self.m_worldNode
-	    else
-		    missile_node = self.m_missiledNode
-	    end	
-    end
-
+    if (depth_type == 'bottom') then
+		missile_node = self.m_worldNode
+	else
+		missile_node = self.m_missiledNode
+	end	
+    
     return missile_node
 end
 
@@ -786,6 +787,7 @@ function GameWorld:addHero(hero, idx)
     hero:addListener('hero_casting_start', self.m_gameAutoHero)
 
     hero:addListener('hit_active', self.m_gameFever)
+    hero:addListener('hit_active_buff', self.m_gameFever)
        
     hero:addListener('character_weak', self.m_tamerSpeechSystem)
     hero:addListener('character_damaged_skill', self.m_tamerSpeechSystem)

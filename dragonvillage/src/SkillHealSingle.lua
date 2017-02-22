@@ -72,7 +72,15 @@ function SkillHealSingle:doHeal()
         effect_heal:init_EffectHeal(self.pos.x, self.pos.y, target)
 
         self.m_world.m_physWorld:addObject(PHYS.EFFECT, effect_heal)
-        self.m_world.m_worldNode:addChild(effect_heal.m_rootNode, 0)
+
+        local worldNode = self.m_world:getMissileNode('bottom')
+        worldNode:addChild(effect_heal.m_rootNode, 0)
+
+        -- 하이라이트
+        if (self.m_bHighlight) then
+            --self.m_world.m_gameHighlight:addMissile(effect_heal)
+        end
+        
         self.m_world:addToUnitList(effect_heal)
     end
 end
@@ -100,7 +108,12 @@ function SkillHealSingle:makeSkillInstance(owner, t_skill, t_data)
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world
-    local missileNode = world:getMissileNode(nil, skill.m_bHighlight)
+    local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
+
+    -- 5. 하이라이트
+    if (skill.m_bHighlight) then
+        world.m_gameHighlight:addMissile(skill)
+    end
 end

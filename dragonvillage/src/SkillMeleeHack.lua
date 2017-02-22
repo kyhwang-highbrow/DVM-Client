@@ -158,9 +158,15 @@ function SkillMeleeHack:updateAfterImage(dt)
         local accidental = MakeAnimator(res)
         --accidental.m_node:setRotation(rotation)
         accidental:changeAni(char.m_animator.m_currAnimation)
-        local parent = char.m_rootNode:getParent()
-        --parent:addChild(accidental.m_node)
-        char.m_world.m_worldNode:addChild(accidental.m_node, 2)
+        
+        local worldNode = char.m_world:getMissileNode('bottom')
+        worldNode:addChild(accidental.m_node, 2)
+
+        -- 하이라이트
+        if (self.m_bHighlight) then
+            char.m_world.m_gameHighlight:addEffect(accidental)
+        end
+        
         accidental:setScale(char.m_animator:getScale())
         accidental:setFlip(char.m_animator.m_bFlip)
         accidental.m_node:setOpacity(255 * 0.3)
@@ -228,7 +234,12 @@ function SkillMeleeHack:makeSkillInstance(owner, t_skill, t_data)
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world
-    local missileNode = world:getMissileNode(nil, skill.m_bHighlight)
+    local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
+
+    -- 5. 하이라이트
+    if (skill.m_bHighlight) then
+        world.m_gameHighlight:addMissile(skill)
+    end
 end

@@ -78,7 +78,14 @@ function SkillLeap.st_move(owner, dt)
 		if animator then 
 			animator:changeAni('idle', false)
 			animator.m_node:setPosition(owner.m_owner.pos.x, owner.m_owner.pos.y - 40)
-			owner.m_owner.m_world.m_missiledNode:addChild(animator.m_node)
+
+            local missileNode = owner.m_world:getMissileNode()
+            missileNode:addChild(animator.m_node)
+
+            -- 하이라이트
+            if (owner.m_bHighlight) then
+                owner.m_world.m_gameHighlight:addEffect(animator)
+            end
 		end 
 
         -- 2바퀴 돌면서 점프하는 액션
@@ -148,10 +155,14 @@ function SkillLeap:updateAfterImage(dt)
         accidental.m_node:setRotation(rotation)
         accidental:changeAni(char.m_animator.m_currAnimation)
 
-        local parent = char.m_rootNode:getParent()
+        local worldNode = char.m_world:getMissileNode('bottom')
+        worldNode:addChild(accidental.m_node, 2)
 
-        --parent:addChild(accidental.m_node)
-        char.m_world.m_worldNode:addChild(accidental.m_node, 2)
+        -- 하이라이트
+        if (self.m_bHighlight) then
+            self.m_world.m_gameHighlight:addEffect(accidental)
+        end
+        
         accidental:setScale(char.m_animator:getScale())
         accidental:setFlip(char.m_animator.m_bFlip)
         accidental.m_node:setOpacity(255 * 0.3)
@@ -233,7 +244,12 @@ function SkillLeap:makeSkillInstance(owner, t_skill, t_data)
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world
-    local missileNode = world:getMissileNode(nil, skill.m_bHighlight)
+    local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
+
+    -- 5. 하이라이트
+    if (skill.m_bHighlight) then
+        world.m_gameHighlight:addMissile(skill)
+    end
 end

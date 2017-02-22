@@ -682,9 +682,14 @@ end
 -- @brief
 -------------------------------------
 function Missile:release()
-	if self.m_world then
-		self.m_world.m_lMissileList[self] = nil
-		self.m_world.m_lSpecailMissileList[self] = nil
+    local world = self.m_world
+	if (world) then
+		world.m_lMissileList[self] = nil
+		world.m_lSpecailMissileList[self] = nil
+
+        if (world.m_gameHighlight) then
+            world.m_gameHighlight.m_lMissileList[self] = nil
+        end
 	end
 
 	PARENT.release(self)

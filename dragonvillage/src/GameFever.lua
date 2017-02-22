@@ -554,7 +554,7 @@ function GameFever:onEvent(event_name, t_event, ...)
         local arg = {...}
         local hero = arg[1]
 
-        local point = 5
+        local point = 4
 
         self:addFeverPoint(point)
 
@@ -563,6 +563,14 @@ function GameFever:onEvent(event_name, t_event, ...)
         local hero = arg[1]
 
         local point = 2
+
+        self:addFeverPoint(point)
+
+    elseif (event_name == 'hit_active_buff') then
+        local arg = {...}
+        local hero = arg[1]
+
+        local point = 3
 
         self:addFeverPoint(point)
         

@@ -24,6 +24,8 @@ SceneGame = class(PerpleScene, {
         m_feverNode = 'cc.Node',        -- 피버 레이어
         m_gameIndicatorNode = 'cc.Node',
         m_gameHighlightNode = 'cc.Node',
+        m_gameHighlightNode2 = 'cc.Node',
+
         m_colorLayerForSkill = 'cc.LayerColor', -- 암전 레이어
 
         m_colorLayerTamerSkill = 'cc.LayerColor', -- 암전 레이어
@@ -147,6 +149,10 @@ function SceneGame:init_layer()
 						-- 하일라이트 레이어
 						self.m_gameHighlightNode = cc.Node:create()
 						self.m_worldLayer:addChild(self.m_gameHighlightNode)
+
+                        -- 하일라이트 레이어2
+						self.m_gameHighlightNode2 = cc.Node:create()
+						self.m_worldLayer:addChild(self.m_gameHighlightNode2)
 					end
 				end
 			end
@@ -635,7 +641,13 @@ end
 -- @breif 발견된 비밀 던전 데이터 처리
 -------------------------------------
 function SceneGame:networkGameFinish_response_secret_dungeon(ret, t_result_ref)
+    if (not ret['secret_dungeon']) then
+        return
+    end
+
     t_result_ref['secret_dungeon'] = ret['secret_dungeon']
+
+    g_secretDungeonData:setFindSecretDungeon(ret['secret_dungeon'])
 end
 
 -------------------------------------
@@ -654,5 +666,8 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
     elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
         local t_stage_clear_info = g_nestDungeonData:getNestDungeonStageClearInfoRef(stage_id)
         t_stage_clear_info['clear_cnt'] = ret['stage_clear_info']['cnt']
+
+    elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
+
     end
 end

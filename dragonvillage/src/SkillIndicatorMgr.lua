@@ -42,7 +42,7 @@ SkillIndicatorMgr = class({
         m_bSlowMode = 'boolean',
         m_startTimer = 'number',
         m_firstTouchPos = '',
-        m_lHighlightList = '',
+        
 		m_uiToolTip = 'UI',
 
         m_bDirecting = 'boolean',   -- 연출 진행중 여부
@@ -64,8 +64,7 @@ function SkillIndicatorMgr:init(world, dark_layer)
     self.m_bSlowMode = false
     self.m_startTimer = 0
     self.m_firstTouchPos = nil
-    self.m_lHighlightList = {}
-
+    
     self.m_bDirecting = false
     self.m_keepTimerForDirection = 0
 end
@@ -197,7 +196,9 @@ end
 -- function clear
 -------------------------------------
 function SkillIndicatorMgr:clear(bAll)
-    for char, _ in pairs(self.m_lHighlightList) do
+    local lHighlightList = self.m_world.m_gameHighlight:getCharList()
+
+    for char, _ in pairs(lHighlightList) do
         char:removeTargetEffect()
     end
 
@@ -303,11 +304,9 @@ end
 -- function addHighlightList
 -------------------------------------
 function SkillIndicatorMgr:addHighlightList(char, zorder)
-    char:setHighlight(true, zorder)
+    if (not self:isControlling()) then return end
 
-    if (char.m_bHighlight) then
-        self.m_lHighlightList[char] = true
-    end
+    self.m_world.m_gameHighlight:addChar(char, zorder)
 end
 
 -------------------------------------
@@ -315,19 +314,15 @@ end
 -------------------------------------
 function SkillIndicatorMgr:removeHighlightList(char)
     char:removeTargetEffect()
-    char:setHighlight(false)
 
-    self.m_lHighlightList[char] = nil
+    self.m_world.m_gameHighlight:removeChar(char)
 end
 
 -------------------------------------
 -- function clearHighlightList
 -------------------------------------
 function SkillIndicatorMgr:clearHighlightList()
-    for char,_ in pairs(self.m_lHighlightList) do
-        self:removeHighlightList(char)
-    end
-	--g_gameScene.m_gameHighlightNode:removeAllChildren()
+    self.m_world.m_gameHighlight:clear()
 end
 
 -------------------------------------

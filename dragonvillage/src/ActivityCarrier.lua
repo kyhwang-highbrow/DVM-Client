@@ -23,6 +23,7 @@ ActivityCarrier = class({
 
 		m_atkDmgStat = 'str',
 		m_bIgnoreDef = 'bool',
+        m_bHighlight = 'boolean',   -- 피격 대상이 하일라이트 되어야하는지 여부
 
 		m_attackType = 'str',		-- 일반공격인지 아닌지 구분
         m_lFlag = 'list',
@@ -39,6 +40,7 @@ function ActivityCarrier:init()
 	self.m_tEventInfo = {}
 	self.m_atkDmgStat = 'atk'
 	self.m_bIgnoreDef = false
+    self.m_bHighlight = false
     self.m_lFlag = {}
 end
 
@@ -175,6 +177,20 @@ end
 -------------------------------------
 function ActivityCarrier:isIgnoreDef()
 	return self.m_bIgnoreDef
+end
+
+-------------------------------------
+-- function setHighlight
+-------------------------------------
+function ActivityCarrier:setHighlight(bool)
+	self.m_bHighlight = bool
+end
+
+-------------------------------------
+-- function isHighlight
+-------------------------------------
+function ActivityCarrier:isHighlight()
+	return self.m_bHighlight
 end
 
 -------------------------------------

@@ -96,6 +96,9 @@ function SkillLeafBlade:fireMissile()
 		self.m_skillHitEffctDirector:doWork()
 	end
 
+    -- 하이라이트
+    t_option['highlight'] = self.m_bHighlight
+
     -- 상탄
     t_option['lua_param']['value2'] = 'top'
     for i = 1, self.m_targetCount do 
@@ -108,7 +111,7 @@ function SkillLeafBlade:fireMissile()
     for i = 1, self.m_targetCount do
         t_option['lua_param']['value3'] = 0.15 * (i-1)
         local missile = world.m_missileFactory:makeMissile(t_option)
-    end 
+    end
 end
 
 -------------------------------------
@@ -138,7 +141,12 @@ function SkillLeafBlade:makeSkillInstance(owner, t_skill, t_data)
 
     -- 4. Physics, Node, GameMgr에 등록
     local world = skill.m_owner.m_world
-    local missileNode = world:getMissileNode(nil, skill.m_bHighlight)
+    local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
+
+    -- 5. 하이라이트
+    if (skill.m_bHighlight) then
+        world.m_gameHighlight:addMissile(skill)
+    end
 end

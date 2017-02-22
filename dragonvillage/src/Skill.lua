@@ -88,6 +88,10 @@ function Skill:initActvityCarrier(power_rate, power_abs)
 	if (self.m_powerIgnore == 'def') then 
 		self.m_activityCarrier:setIgnoreDef(true)
 	end
+
+    -- 피격시 하일라이트 여부
+    self.m_activityCarrier:setHighlight(self.m_bHighlight)
+    
     
 	-- 피격시 상태효과가 있다면 activityCarrier에 추가
     do
@@ -156,6 +160,7 @@ end
 -------------------------------------
 function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_owner = owner
+    self.m_world = owner.m_world
 	self.m_powerRate = t_skill['power_rate']
     self.m_powerAbs = t_skill['power_add'] or 0
 	self.m_powerSource  = t_skill['power_source'] or 'atk'
@@ -168,7 +173,8 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_skillName = t_skill['type']
 	self.m_targetPos = {x = t_data.x, y = t_data.y}
 	self.m_targetChar = t_data.target or self.m_targetChar
-	self.m_bSkillHitEffect = owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')
+	--self.m_bSkillHitEffect = owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')
+    self.m_bSkillHitEffect = false
     self.m_bHighlight = t_data['highlight'] or false
 end
 
@@ -223,6 +229,17 @@ function Skill:doStatusEffect(l_start_con, t_target)
 			t_target = t_target or self:findTarget()
 		end
         StatusEffectHelper:doStatusEffectByStr(self.m_owner, t_target, lStatusEffect)
+
+        -- 액티브 스킬로 아군에게 버프를 주는 경우 피버 게이지 상승
+        do
+            if (self.m_owner.m_bLeftFormation and self.m_activityCarrier:getAttackType() == 'active') then
+                for _, target in pairs(t_target) do
+                    if (target.m_bLeftFormation) then
+                        target:dispatch('hit_active_buff', {}, target)
+                    end
+                end
+            end
+        end
     end
 end
 
@@ -438,8 +455,13 @@ function Skill:makeEffect(res, x, y, ani_name, cb_function)
     effect:setPosition(x, y)
 	effect:changeAni(ani_name, false)
 
-    local missileNode = self.m_owner.m_world:getMissileNode(nil, self.m_bHighlight)
+    local missileNode = self.m_world:getMissileNode()
     missileNode:addChild(effect.m_node, 0)
+
+    -- 하이라이트
+    if (self.m_bHighlight) then
+        self.m_world.m_gameHighlight:addEffect(effect)
+    end
     	
 	-- 1회 재생후 동작
 	local cb_ani = function() 

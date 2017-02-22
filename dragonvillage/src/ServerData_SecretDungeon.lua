@@ -51,6 +51,14 @@ function ServerData_SecretDungeon:applySecretDungeonInfo(data)
 end
 
 -------------------------------------
+-- function setFindSecretDungeon
+-- @brief 비밀던전을 발견시
+-------------------------------------
+function ServerData_SecretDungeon:setFindSecretDungeon(dungeon_info)
+    self.m_bDirtySecretDungeonInfo = true
+end
+
+-------------------------------------
 -- function getSecretDungeonInfo
 -------------------------------------
 function ServerData_SecretDungeon:getSecretDungeonInfo()

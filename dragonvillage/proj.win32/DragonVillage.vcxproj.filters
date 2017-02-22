@@ -1743,6 +1743,9 @@
     <None Include="..\src\UI_ColosseumReadyScene.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\GameHighlightMgr.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
