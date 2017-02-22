@@ -19,6 +19,11 @@
 	"azTag":
 	[
 		{
+			"name":"fever_number",
+			"apply":true,
+			"res_id":""
+		},
+		{
 			"name":"skill_cancel_01",
 			"apply":true,
 			"res_id":""
@@ -790,6 +795,224 @@
 									},
 									{
 										"frame":12, "sX":0.000000, "sY":1.200000, "pX":151.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"number_failed",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_number_failed_bg.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000
+									},
+									{
+										"frame":3, "sX":1.200000
+									},
+									{
+										"frame":4, "sX":1.160000, "cX":-5.000000
+									},
+									{
+										"frame":5, "sX":1.120000, "cX":5.000000
+									},
+									{
+										"frame":6, "sX":1.080000, "cX":-5.000000
+									},
+									{
+										"frame":7, "sX":1.040000, "cX":5.000000
+									},
+									{
+										"frame":8
+									},
+									{
+										"frame":10
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_number_failed.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "sX":0.000000
+									},
+									{
+										"frame":6, "sX":1.200000
+									},
+									{
+										"frame":10
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"number_off",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_number_BG.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4, "sX":1.200000
+									},
+									{
+										"frame":7, "sX":0.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'fever_number'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":2
+									},
+									{
+										"frame":6, "sX":1.200000
+									},
+									{
+										"frame":9, "sX":0.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"number_on",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_number_BG.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "sY":0.000000
+									},
+									{
+										"frame":3, "sX":1.200000
+									},
+									{
+										"frame":6, "sY":1.200000
+									},
+									{
+										"frame":9
+									},
+									{
+										"frame":20
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azTag>'fever_number'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":3, "pY":50.000000, "alpha":0
+									},
+									{
+										"frame":6, "pY":-20.000000
+									},
+									{
+										"frame":9
+									},
+									{
+										"frame":20
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"number_success",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_number_success_bg.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000
+									},
+									{
+										"frame":3, "sX":1.200000
+									},
+									{
+										"frame":8
+									},
+									{
+										"frame":10
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_number_success.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "sX":0.000000, "pX":-2.000000
+									},
+									{
+										"frame":6, "sX":1.200000, "pX":-2.000000
+									},
+									{
+										"frame":10, "pX":-2.000000
 									}
 								]
 							}
