@@ -487,7 +487,8 @@ local t_module = {
     'UI_GachaBox',
     'UI_ItemInfoPopup',
     'UI_ColosseumRewardPopup',
-    
+    'UI_ColosseumReadyScene',
+
     -- 도감 관련
     'UI_Collection',
     'UI_CollectionDetailPopup',

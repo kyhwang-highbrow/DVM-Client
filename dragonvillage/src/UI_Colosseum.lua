@@ -106,12 +106,7 @@ end
 -- function click_secretBtn
 -------------------------------------
 function UI_Colosseum:click_readyBtn()
-    local function cb(ret)
-        local scene = SceneGameColosseum()
-        scene:runScene()
-    end
-
-    g_colosseumData:request_colosseumStart(cb)
+	UI_ColosseumReadyScene()
 end
 
 

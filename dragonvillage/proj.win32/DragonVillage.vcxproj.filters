@@ -1740,6 +1740,9 @@
     <None Include="..\src\ServerData_Collection.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_ColosseumReadyScene.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
