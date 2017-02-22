@@ -4,8 +4,7 @@ T_CHAPTER_MAP_RES[2] = 'res/bg/map_ocean/map_ocean.vrp'
 T_CHAPTER_MAP_RES[3] = 'res/bg/map_canyon/map_canyon.vrp'
 T_CHAPTER_MAP_RES[4] = 'res/bg/map_volcano/map_volcano.vrp'
 T_CHAPTER_MAP_RES[5] = 'res/bg/map_sky_temple/map_sky_temple.vrp'
-
-T_CHAPTER_MAP_RES[6] = 'res/bg/world_map/chapter_03.png'
+T_CHAPTER_MAP_RES[6] = 'res/bg/map_dark_castle/map_dark_castle.vrp'
 
 -------------------------------------
 -- class UI_AdventureSceneNew
