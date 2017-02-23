@@ -1,11 +1,19 @@
+GAME_HIGHLIGHT_MODE_HIDE = 0
+GAME_HIGHLIGHT_MODE_DRAGON_SKILL = 1
+GAME_HIGHLIGHT_MODE_FEVER = 2
+
 -------------------------------------
 -- class GameHighlightMgr
 -------------------------------------
 GameHighlightMgr = class({
         m_world = 'GameWorld',
 
+        m_mode = 'number',
+
         m_lCharList = 'table',
         m_lMissileList = 'table',
+
+        m_darkLayer = '',
 
         m_node1 = '',
         m_node2 = '',
@@ -17,9 +25,15 @@ GameHighlightMgr = class({
 -------------------------------------
 function GameHighlightMgr:init(world)
     self.m_world = world
+
+    self.m_mode = GAME_HIGHLIGHT_MODE_HIDE
     
     self.m_lCharList = {}
     self.m_lMissileList = {}
+
+    self.m_darkLayer = g_gameScene.m_colorLayerForSkill
+    self.m_darkLayer:setOpacity(0)
+    self.m_darkLayer:setVisible(true)
 
     self.m_node1 = g_gameScene.m_gameHighlightNode
     self.m_node2 = g_gameScene.m_gameHighlightNode2
@@ -27,9 +41,20 @@ function GameHighlightMgr:init(world)
 end
 
 -------------------------------------
+-- function setMode
+-------------------------------------
+function GameHighlightMgr:setMode(mode)
+    if (self.m_mode ~= mode) then
+        self.m_mode = mode        
+        self:clear()
+    end
+end
+
+-------------------------------------
 -- function addChar
 -------------------------------------
 function GameHighlightMgr:addChar(char, zorder)
+    if (self.m_mode == GAME_HIGHLIGHT_MODE_HIDE) then return end
     if (char.m_bDead) then return end
     if (char.m_bHighlight) then return end
 
@@ -139,6 +164,7 @@ end
 -- function addMissile
 -------------------------------------
 function GameHighlightMgr:addMissile(missile)
+    if (self.m_mode ~= GAME_HIGHLIGHT_MODE_DRAGON_SKILL) then return end
     if (not isInstanceOf(missile, Skill) and not isInstanceOf(missile, Missile) and not isInstanceOf(missile, Buff)) then return end
     
     local node = missile.m_rootNode
@@ -191,9 +217,8 @@ end
 -- @brief 이펙트 형태는 하이라이트 상태를 계속 유지시킴
 -------------------------------------
 function GameHighlightMgr:addEffect(effect)
-    -- 이펙트 하이라이트 기능을 막아야하는 조건을 차후 정리하자...
-    if (not self.m_world.m_skillIndicatorMgr:isControlling()) then return end
-
+    if (self.m_mode ~= GAME_HIGHLIGHT_MODE_DRAGON_SKILL) then return end
+    
     local node = effect.m_node
     
     local target_node = self.m_node2
@@ -209,9 +234,8 @@ end
 -- function addDamage
 -------------------------------------
 function GameHighlightMgr:addDamage(node)
-    -- 이펙트 하이라이트 기능을 막아야하는 조건을 차후 정리하자...
-    if (not self.m_world.m_skillIndicatorMgr:isControlling()) then return end
-
+    if (self.m_mode ~= GAME_HIGHLIGHT_MODE_DRAGON_SKILL) then return end
+    
     local node = node
     
     local target_node = self.m_node3
@@ -234,4 +258,20 @@ function GameHighlightMgr:clear()
     for missile, _ in pairs(self.m_lMissileList) do
         self:removeMissile(missile)
     end
+end
+
+-------------------------------------
+-- function changeDarkLayerColor
+-------------------------------------
+function GameHighlightMgr:changeDarkLayerColor(opacity, duration)
+    local dark_layer = self.m_darkLayer
+    local duration = duration or 0
+
+    dark_layer:stopAllActions()
+
+    -- 현재 카메라에 따른 위치 변경
+    local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
+    dark_layer:setPosition(cameraHomePosX, cameraHomePosY)
+    
+    dark_layer:runAction( cc.FadeTo:create(duration, opacity) )
 end

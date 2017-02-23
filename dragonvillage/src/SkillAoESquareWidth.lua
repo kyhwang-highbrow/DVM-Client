@@ -58,6 +58,7 @@ function SkillAoESquareWidth.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner:fireMissile()
 
+        owner.m_animator.m_node:setRepeat(false)
         owner.m_animator:addAniHandler(function()
 			owner:changeState('dying')
 		end)

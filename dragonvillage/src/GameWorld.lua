@@ -281,7 +281,7 @@ function GameWorld:initGame(stage_name)
     end
 
     do -- 스킬 조작계 초기화
-        self.m_skillIndicatorMgr = SkillIndicatorMgr(self, g_gameScene.m_colorLayerForSkill)
+        self.m_skillIndicatorMgr = SkillIndicatorMgr(self)
     end
 
     do -- 카메라 초기 위치 설정이 있다면 적용
@@ -630,10 +630,7 @@ function GameWorld:addMissile(missile, object_key, res_depth, highlight)
     target_node:addChild(missile.m_rootNode, z_order)
 
     if (highlight) then
-        -- 미사일 하이라이트는 인디케이더 조작중에만 적용
-        if (self.m_skillIndicatorMgr:isControlling()) then
-            self.m_gameHighlight:addMissile(missile)
-        end
+        self.m_gameHighlight:addMissile(missile)
     end
 end
 
@@ -1415,12 +1412,17 @@ function GameWorld:isPossibleControl()
     end
 
     -- 연출 중일 경우 입력 막음
-    if (self.m_tamerSkillCut:isPlaying()) then
+    if (self.m_tamerSkillCut and self.m_tamerSkillCut:isPlaying()) then
         return false
     end
 
     -- 글로벌 쿨타임 중일 경우
     if (self.m_gameState:isWaitingGlobalCoolTime()) then
+        return false
+    end
+
+    -- 드래곤 스킬 연출 중일 경우
+    if (self.m_gameDragonSkill:isPlaying()) then
         return false
     end
 

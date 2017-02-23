@@ -36,7 +36,7 @@ local DARK_LAYER_OPACITY = 200
 -------------------------------------
 SkillIndicatorMgr = class({
         m_world = 'GameWorld',
-        m_darkLayer = '',
+        
         m_touchNode = 'cc.Node',
         m_selectHero = 'Hero',
         m_bSlowMode = 'boolean',
@@ -44,18 +44,14 @@ SkillIndicatorMgr = class({
         m_firstTouchPos = '',
         
 		m_uiToolTip = 'UI',
-
-        m_bDirecting = 'boolean',   -- 연출 진행중 여부
-        m_keepTimerForDirection = 'number',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillIndicatorMgr:init(world, dark_layer)
+function SkillIndicatorMgr:init(world)
     self.m_world = world
-    self.m_darkLayer = dark_layer
-
+    
     self.m_touchNode = cc.Node:create()
     world.m_worldLayer:addChild(self.m_touchNode)
     self:makeTouchLayer(self.m_touchNode)
@@ -64,9 +60,6 @@ function SkillIndicatorMgr:init(world, dark_layer)
     self.m_bSlowMode = false
     self.m_startTimer = 0
     self.m_firstTouchPos = nil
-    
-    self.m_bDirecting = false
-    self.m_keepTimerForDirection = 0
 end
 
 -------------------------------------
@@ -125,7 +118,8 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
         SoundMgr:playEffect('EFFECT', 'skill_touch')
         self:setSelectHero(select_hero)
         
-        self:changeDarkLayerColor(DARK_LAYER_OPACITY, SKILL_INDICATOR_FADE_OUT_DURATION)
+        self.m_world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
+        self.m_world.m_gameHighlight:changeDarkLayerColor(DARK_LAYER_OPACITY, SKILL_INDICATOR_FADE_OUT_DURATION)
 
         self.m_firstTouchPos = node_pos
 
@@ -157,7 +151,7 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
         if (distance >= 50) then
             self.m_bSlowMode = true
             self.m_world.m_gameTimeScale:set(SKILL_INDICATOR_SLOW)
-            self:changeDarkLayerColor(DARK_LAYER_OPACITY)
+            self.m_world.m_gameHighlight:changeDarkLayerColor(DARK_LAYER_OPACITY)
 
             self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)
         end
@@ -186,8 +180,6 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             self.m_selectHero:changeState('skillAppear')
         end
 
-        self.m_bDirecting = true
-
         self:clear()
     end
 end
@@ -208,16 +200,12 @@ function SkillIndicatorMgr:clear(bAll)
         self:setSelectHero(nil)
         self.m_world.m_gameTimeScale:reset()
         self.m_bSlowMode = false
-
-        self.m_keepTimerForDirection = 2
-        self.m_bDirecting = true
     end
 
     if (bAll) then
-        self:changeDarkLayerColor(0, 0.5)
-        self:clearHighlightList()
-
-        self.m_bDirecting = false
+        self.m_world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_HIDE)
+        self.m_world.m_gameHighlight:changeDarkLayerColor(0, 0.5)
+        self.m_world.m_gameHighlight:clear()
     end
 end
 
@@ -234,18 +222,10 @@ function SkillIndicatorMgr:update(dt)
             if (0.5 < self.m_startTimer) then
                 self.m_bSlowMode = true
                 self.m_world.m_gameTimeScale:set(SKILL_INDICATOR_SLOW)
-                self:changeDarkLayerColor(DARK_LAYER_OPACITY)
+                self.m_world.m_gameHighlight:changeDarkLayerColor(DARK_LAYER_OPACITY)
 
                 self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)
             end
-        end
-    end
-    
-    if (self.m_bDirecting) then
-        self.m_keepTimerForDirection = self.m_keepTimerForDirection - dt
-
-        if (self.m_keepTimerForDirection <= 0) then
-            self:clear(true)
         end
     end
 end
@@ -255,49 +235,19 @@ end
 -------------------------------------
 function SkillIndicatorMgr:setSelectHero(hero)
     self.m_startTimer = 0
-    self.m_selectHero = hero
-
+    
     if hero then
         local active_skill_id = hero:getSkillID('active')
         hero:reserveSkill(active_skill_id)
 
         hero:changeState('skillPrepare')
+
+    elseif self.m_selectHero then
+        --self.m_selectHero:changeState('attackDelay')
+        
     end
-end
 
-
--------------------------------------
--- function changeDarkLayerColor
--------------------------------------
-function SkillIndicatorMgr:changeDarkLayerColor(opacity, duration)
-    local dark_layer = self.m_darkLayer
-
-    dark_layer:stopAllActions()
-
-    -- 현재 카메라에 따른 위치 변경
-    local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
-    dark_layer:setPosition(cameraHomePosX, cameraHomePosY)
-    
-    if (duration) and (duration ~= 0) then
-        if (opacity == 255 or opacity == 0) then
-            dark_layer:setVisible(true)
-            local action = cc.FadeTo:create(duration, opacity)
-            local sequence = cc.Sequence:create(action, cc.Hide:create())
-            dark_layer:runAction(sequence)
-        else
-            dark_layer:setVisible(true)
-            dark_layer:setOpacity(0)
-            dark_layer:runAction( cc.FadeTo:create(duration, opacity) )
-        end
-    else
-        dark_layer:setOpacity(opacity)
-
-        if (opacity==0) then
-            dark_layer:setVisible(false)
-        else
-            dark_layer:setVisible(true)
-        end
-    end
+    self.m_selectHero = hero
 end
 
 -------------------------------------
@@ -316,13 +266,6 @@ function SkillIndicatorMgr:removeHighlightList(char)
     char:removeTargetEffect()
 
     self.m_world.m_gameHighlight:removeChar(char)
-end
-
--------------------------------------
--- function clearHighlightList
--------------------------------------
-function SkillIndicatorMgr:clearHighlightList()
-    self.m_world.m_gameHighlight:clear()
 end
 
 -------------------------------------
@@ -373,5 +316,5 @@ end
 -- function isControlling
 -------------------------------------
 function SkillIndicatorMgr:isControlling()
-    return ((self.m_selectHero ~= nil) or self.m_bDirecting)
+    return (self.m_selectHero ~= nil)
 end

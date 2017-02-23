@@ -179,6 +179,7 @@ function getPreloadList_Common()
         'res/effect/effect_skillcasting_dragon/effect_skillcasting_dragon.plist',
         'res/effect/effect_skillcasting/effect_skillcasting.plist',
         'res/effect/effect_passive_common/effect_passive_common.plist',
+        'res/effect/effect_skillcut_dragon/effect_skillcut_dragon.plist',
 
         'res/indicator/indicator_effect_target/indicator_effect_target.plist',
         'res/ui/a2d/ingame_combo_text/ingame_combo_text.plist',

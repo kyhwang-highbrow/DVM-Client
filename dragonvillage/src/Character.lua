@@ -337,7 +337,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 
     -- 하일라이트 여부
     if (attacker.m_activityCarrier:isHighlight()) then 
-        self.m_world.m_skillIndicatorMgr:addHighlightList(self)
+        self.m_world.m_gameHighlight:addChar(self)
     end
     
 

@@ -59,7 +59,7 @@ function GameWorldColosseum:initGame(stage_name)
     self:setBattleZone(self.m_deckFormation, true)
         
     do -- 스킬 조작계 초기화
-        self.m_skillIndicatorMgr = SkillIndicatorMgr(self, g_gameScene.m_colorLayerForSkill)
+        self.m_skillIndicatorMgr = SkillIndicatorMgr(self)
     end
 
     do -- 카메라 초기 위치 설정이 있다면 적용
@@ -206,23 +206,6 @@ end
 function GameWorldColosseum:setBattleZone(formation, immediately)
     GameWorld.setBattleZone(self, formation, immediately)
     GameWorld.setBattleZone(self, formation, immediately, true)
-end
-
--------------------------------------
--- function isPossibleControl
--------------------------------------
-function GameWorldColosseum:isPossibleControl()
-    -- 강제적 조작 막음
-    if (self.m_bPreventControl) then
-        return false
-    end
-
-    -- 전투 중일 때에만
-    if (not self.m_gameState:isFight()) then
-        return false
-    end
-
-    return true
 end
 
 -------------------------------------

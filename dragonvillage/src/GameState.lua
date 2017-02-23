@@ -310,7 +310,7 @@ function GameState.update_wave_intermission_wait(self, dt)
     local world = self.m_world
 
     if (self.m_stateTimer == 0) then
-        if world.m_skillIndicatorMgr then
+        if (world.m_skillIndicatorMgr) then
             world.m_skillIndicatorMgr:clear(true)
         end
     end
@@ -322,6 +322,10 @@ function GameState.update_wave_intermission_wait(self, dt)
         if (not dragon.m_bDead and dragon.m_state ~= 'wait') then
             b = false
         end
+    end
+
+    if (world.m_gameDragonSkill:isPlaying()) then
+        b = false
     end
 
     if (b or self.m_stateTimer >= 4) then
@@ -529,6 +533,10 @@ function GameState.update_success_wait(self, dt)
         if (not dragon.m_bDead and dragon.m_state ~= 'wait') then
             b = false
         end
+    end
+
+    if (world.m_gameDragonSkill:isPlaying()) then
+        b = false
     end
 
     if (b or self.m_stateTimer >= 4) then
