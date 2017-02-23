@@ -74,6 +74,46 @@ function iterTwo(t, i)
 end
 
 -------------------------------------
+-- function listToMap
+-- @brief 리스트 형태의 테이블을 맵 형태로 변경
+-------------------------------------
+function table.listToMap(t, key)
+    local t_ret = {}
+
+    for i,v in pairs(t) do
+        local primary_key = v[key]
+
+        if t_ret[primary_key] then
+            ccdebug()
+            cclog('## 키가 중복됩니다 : ' .. primary_key) 
+        end
+
+        t_ret[primary_key] = v
+    end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function toNumber
+-- @brief 테이블 안에 테이블을 가지고 있고
+--        세부 테이블의 특정 컬럼들을 number타입으로 변경해주는 함수
+-- @ex    local to_number_list = {'cash_reward', 'req_point'}
+--        table.toNumber(l_collection_table, to_number_list)
+-------------------------------------
+function table.toNumber(t, to_number_list)
+    for _,v in pairs(t) do
+        for _,key in pairs(to_number_list) do
+            if v[key] then
+                v[key] = tonumber(v[key])
+            end
+        end
+    end
+
+    return t
+end
+
+-------------------------------------
 -- function sortRandom
 -- @brief 테이블을 랜덤하게 정렬
 -------------------------------------
