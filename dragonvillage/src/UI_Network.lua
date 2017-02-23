@@ -147,6 +147,7 @@ end
 function UI_Network.fail(self, ret)
     if self.m_failCB then
         if (self.m_failCB(ret) == true) then
+            self:close()
             return
         end
     end

@@ -71,12 +71,18 @@ function ServerData_Collection:request_collectionInfo(finish_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+
+    return ui_network
 end
 
 -------------------------------------
 -- function response_collectionInfo
 -------------------------------------
 function ServerData_Collection:response_collectionInfo(ret)
+    -- 유닛 버프 리스트 갱신
+    g_dragonUnitData:setSelectedUnitID(ret['selected_unit'])
+    g_dragonUnitData:organizeData(ret['unit'])
+
     self.m_mCollectionData = ret['book']
 
     self.m_collectionPoint = ret['cpoint']

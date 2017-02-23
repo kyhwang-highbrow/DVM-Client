@@ -138,6 +138,7 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
     local did = t_dragon_data['did']
     g_collectionData:setDragonCollection(did)
 
+    g_dragonUnitData:setDirty() -- 무리 버프 정보 갱신 필요
     self:setLastChangeTimeStamp()
 end
 
@@ -181,6 +182,7 @@ function ServerData_Dragons:delDragonData(dragon_object_id)
     -- 드래곤 did별 갯수 갱신 필요
     self.m_bDirtyNumOfDragonsByDid = true
 
+    g_dragonUnitData:setDirty() -- 무리 버프 정보 갱신 필요
     self:setLastChangeTimeStamp()
 end
 

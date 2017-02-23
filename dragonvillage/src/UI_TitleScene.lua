@@ -114,6 +114,7 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workPlatformLogin')
     table.insert(self.m_lWorkList, 'workGameLogin')
     table.insert(self.m_lWorkList, 'workGetDeck')
+    table.insert(self.m_lWorkList, 'workCollection')
     table.insert(self.m_lWorkList, 'workLobbyUserList')
     table.insert(self.m_lWorkList, 'workFinish')
     
@@ -315,6 +316,30 @@ function UI_TitleScene:workGetDeck()
 end
 function UI_TitleScene:workGetDeck_click()
 end
+
+-------------------------------------
+-- function workCollection
+-- @brief
+-------------------------------------
+function UI_TitleScene:workCollection()
+    self.m_loadingUI:showLoading(Str('도감 정보 받는 중...'))
+
+    local success_cb = function(ret)
+        self:doNextWork()
+    end
+
+    local fail_cb = function(ret)
+        self:makeFailPopup(nil, ret)
+        return true
+    end
+
+    local ui_network = g_collectionData:request_collectionInfo(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setLoadingMsg('')
+end
+function UI_TitleScene:workCollection_click()
+end
+
 
 -------------------------------------
 -- function workLobbyUserList

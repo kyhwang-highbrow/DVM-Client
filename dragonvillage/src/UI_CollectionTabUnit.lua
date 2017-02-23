@@ -32,8 +32,10 @@ end
 -------------------------------------
 function UI_CollectionTabUnit:onEnterTab(first)
     if first then
-        self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
+        self.m_collectionLastChangeTime = g_dragonUnitData:getLastChangeTimeStamp()
         self:initUI()
+    else
+        self:checkRefresh()
     end
 end
 
@@ -60,6 +62,17 @@ function UI_CollectionTabUnit:init_TableView()
 
     -- 생성 콜백
     local function create_func(ui, data)
+        local function click_rewardBtn()
+            local unit_id = data
+            self:click_rewardBtn(unit_id)
+        end
+        ui.vars['rewardBtn']:registerScriptTapHandler(click_rewardBtn)
+
+        local function click_selectBtn()
+            local unit_id = data
+            self:click_selectBtn(unit_id)
+        end
+        ui.vars['buffBtn']:registerScriptTapHandler(click_selectBtn)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -71,7 +84,7 @@ function UI_CollectionTabUnit:init_TableView()
     --table_view_td:makeDefaultEmptyDescLabel(Str(''))
 
     -- 정렬
-    self.m_tableView = table_view_td
+    self.m_tableView = table_view
 end
 
 -------------------------------------
@@ -79,12 +92,36 @@ end
 -- @brief 도감 데이터가 변경되었는지 확인 후 변경되었으면 갱신
 -------------------------------------
 function UI_CollectionTabUnit:checkRefresh()
-    local is_changed = g_collectionData:checkChange(self.m_collectionLastChangeTime)
+    local is_changed = g_dragonUnitData:checkChange(self.m_collectionLastChangeTime)
 
     if is_changed then
-        self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
+        self.m_collectionLastChangeTime = g_dragonUnitData:getLastChangeTimeStamp()
 
         -- 리스트 refresh
         self.m_tableView:refreshAllItemUI()
     end
+end
+
+-------------------------------------
+-- function click_rewardBtn
+-- @brief
+-------------------------------------
+function UI_CollectionTabUnit:click_rewardBtn(unit_id)
+    local function finish_cb(ret)
+        self:checkRefresh()
+    end
+
+    g_dragonUnitData:request_unitReward(unit_id, finish_cb)
+end
+
+-------------------------------------
+-- function click_selectBtn
+-- @brief
+-------------------------------------
+function UI_CollectionTabUnit:click_selectBtn(unit_id)
+    local function finish_cb(ret)
+        self:checkRefresh()
+    end
+
+    g_dragonUnitData:request_unitSelect(unit_id, finish_cb)
 end

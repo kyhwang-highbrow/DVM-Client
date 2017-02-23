@@ -86,4 +86,34 @@ function UI_CollectionUnitListItem:refresh()
         local ui = self.m_lDragonCard[i]
         ui:setShadowSpriteVisible(not exist)
     end
+
+
+    -- 
+
+    if t_dragon_unit_data['received'] then
+        vars['rewardBtn']:setVisible(false)
+
+        -- 적용 중이면
+        if (g_dragonUnitData.m_selectedUnitID == self.m_dragonUnitID) then
+            vars['buffSprite']:setVisible(true)
+            vars['buffBtn']:setVisible(false)
+        else
+            vars['buffSprite']:setVisible(false)
+            vars['buffBtn']:setVisible(true)
+        end
+    else
+        if t_dragon_unit_data['active'] then
+            vars['rewardBtn']:setVisible(true)
+        else
+            vars['rewardBtn']:setVisible(false)    
+        end
+
+        vars['buffSprite']:setVisible(false)
+        vars['buffBtn']:setVisible(false)
+    end
+
+    if t_dragon_unit_data['received'] then
+        
+    end
+
 end
