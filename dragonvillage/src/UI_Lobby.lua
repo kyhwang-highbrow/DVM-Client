@@ -253,6 +253,8 @@ function UI_Lobby:initButton()
     vars['buffBtn']:registerScriptTapHandler(function() self:click_buffBtn() end)
 	vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
     vars['explorationBtn']:registerScriptTapHandler(function() self:click_explorationBtn() end) -- 탐험 버튼
+
+    vars['collectionBtn']:setVisible(false)
     vars['collectionBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end) -- 도감 버튼
 
     -- FGT버전에서 퀘스트 기능 숨김
