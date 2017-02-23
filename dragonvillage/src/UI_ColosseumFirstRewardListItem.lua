@@ -10,7 +10,7 @@ UI_ColosseumFirstRewardListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_ColosseumFirstRewardListItem:init(tier_name)
-    local vars = self:load('colosseum_reward_popup_item_01.ui')
+    local vars = self:load('colosseum_reward_popup_item_02.ui')
 
     self:initUI(tier_name)
     self:initButton()
@@ -29,9 +29,6 @@ function UI_ColosseumFirstRewardListItem:initUI(tier_name)
 	else
 		self:makeOtherTierUI(tier_name)
     end
-
-	-- 보상 표시는 표시하지 않음
-	self.vars['rewardSprite']:setVisible(false)
 end
 
 -------------------------------------
@@ -55,16 +52,10 @@ function UI_ColosseumFirstRewardListItem:makeLegendUI()
     local table_colosseum_reward = TableColosseumReward()
 	local tier_name = 'legend'
 
+	-- 노드 on/off
     vars['legendNode']:setVisible(true)
+	vars['masterTierNode']:setVisible(false)
     vars['normalTierNode']:setVisible(false)
-
-    -- 아이콘
-    local icon = ColosseumUserInfo:makeTierIcon(tier_name, 'big')
-    vars['legendIcon']:addChild(icon)
-
-    -- 최소 점수
-    local min_rp = table_colosseum_reward:getMinRP('legend')
-    vars['legendScoreLabel']:setString(Str('{1}점+', comma_value(min_rp)))
 
     -- 보상
     local cash = table_colosseum_reward:getFirstRewardCash('legend')
@@ -81,13 +72,10 @@ function UI_ColosseumFirstRewardListItem:makeMasterUI()
 	local tier_name = 'master'
 	local max_grade = 4
 
-	-- 티어 명칭
-    local tier_full_name = ColosseumUserInfo:getTierName(tier_name)
-    vars['tierLabel']:setString(Str('{1}\n최초 달성 보상', tier_full_name))
-
-	-- 아이콘
-	local icon = ColosseumUserInfo:makeTierIcon(tier_name, 'big')
-    vars['tierNode']:addChild(icon)
+	-- 노드 on/off
+    vars['legendNode']:setVisible(false)
+	vars['masterTierNode']:setVisible(true)
+    vars['normalTierNode']:setVisible(false)
 
     for grade = 1, max_grade do
         -- 세부 조건
@@ -101,15 +89,11 @@ function UI_ColosseumFirstRewardListItem:makeMasterUI()
         elseif (grade == 4) then
             text = Str('11~50위')
         end
-        vars['gradeLabel' .. grade]:setString(text)
-        
-        -- 최소 점수
-        local min_rp = table_colosseum_reward:getMinRP(tier_name, grade)
-        vars['scoreLabel' .. grade]:setString(Str('{1}점+', comma_value(min_rp)))
+        vars['masterGradeLabel' .. grade]:setString(text)
 
         -- 보상
         local cash = table_colosseum_reward:getFirstRewardCash(tier_name, grade)
-        vars['rewardLabel' .. grade]:setString(Str('{1}개', comma_value(cash)))
+        vars['masterRewardLabel' .. grade]:setString(Str('{1}개', comma_value(cash)))
     end
 end
 
@@ -123,14 +107,14 @@ function UI_ColosseumFirstRewardListItem:makeOtherTierUI(tier_name)
 	local tier_name = tier_name or 'bronze'
 	local max_grade = 3
 
-	-- 4번째는 사용안함
-	vars['gradeLabel4']:setVisible(false)
-    vars['scoreNode4']:setVisible(false)
-    vars['rewardNode4']:setVisible(false)
+	-- 노드 on/off
+    vars['legendNode']:setVisible(false)
+	vars['masterTierNode']:setVisible(false)
+    vars['normalTierNode']:setVisible(true)
 
 	-- 티어 명칭
     local tier_full_name = ColosseumUserInfo:getTierName(tier_name)
-    vars['tierLabel']:setString(Str('{1}\n최초 달성 보상', tier_full_name))
+    vars['tierLabel']:setString(Str(tier_full_name))
 
 	-- 아이콘
 	local icon = ColosseumUserInfo:makeTierIcon(tier_name, 'big')
@@ -139,10 +123,6 @@ function UI_ColosseumFirstRewardListItem:makeOtherTierUI(tier_name)
     for grade = 1, max_grade do
         -- 세부 등급
         vars['gradeLabel' .. grade]:setString(Str('{1}등급', grade))
-        
-        -- 최소 점수
-        local min_rp = table_colosseum_reward:getMinRP(tier_name, grade)
-        vars['scoreLabel' .. grade]:setString(Str('{1}점+', comma_value(min_rp)))
 
         -- 보상
         local cash = table_colosseum_reward:getFirstRewardCash(tier_name, grade)

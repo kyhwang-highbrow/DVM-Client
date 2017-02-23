@@ -29,11 +29,6 @@ function UI_ColosseumRewardListItem:initUI(tier_name)
 	else
 		self:makeOtherTierUI(tier_name)
     end
-
-	-- 보상 가능 표시
-	local player_info = g_colosseumData:getPlayerInfo()
-	local is_same_tier = string.find(player_info.m_tier, tier_name)
-	self.vars['rewardSprite']:setVisible(is_same_tier)
 end
 
 -------------------------------------
@@ -57,12 +52,10 @@ function UI_ColosseumRewardListItem:makeLegendUI()
     local table_colosseum_reward = TableColosseumReward()
 	local tier_name = 'legend'
 
+	-- 노드 on/off
     vars['legendNode']:setVisible(true)
+	vars['masterTierNode']:setVisible(false)
     vars['normalTierNode']:setVisible(false)
-
-    -- 아이콘
-    local icon = ColosseumUserInfo:makeTierIcon(tier_name, 'big')
-    vars['legendIcon']:addChild(icon)
 
     -- 최소 점수
     local min_rp = table_colosseum_reward:getMinRP('legend')
@@ -71,6 +64,11 @@ function UI_ColosseumRewardListItem:makeLegendUI()
     -- 보상
     local cash = table_colosseum_reward:getWeeklyRewardCash('legend')
     vars['legendRewardLabel']:setString(Str('{1}개', comma_value(cash)))
+
+	-- 보상 가능 표시
+	local player_info = g_colosseumData:getPlayerInfo()
+	local is_same_tier = string.find(player_info.m_tier, tier_name)
+	vars['legendRewardSprite']:setVisible(is_same_tier)
 end
 
 -------------------------------------
@@ -79,17 +77,18 @@ end
 function UI_ColosseumRewardListItem:makeMasterUI()
     local vars = self.vars
     local table_colosseum_reward = TableColosseumReward()
+	local player_info = g_colosseumData:getPlayerInfo()
 	
 	local tier_name = 'master'
 	local max_grade = 4
 
-	-- 티어 명칭
-    local tier_full_name = ColosseumUserInfo:getTierName(tier_name)
-    vars['tierLabel']:setString(Str(tier_full_name))
-
-	-- 아이콘
-	local icon = ColosseumUserInfo:makeTierIcon(tier_name, 'big')
-    vars['tierNode']:addChild(icon)
+	-- 노드 on/off
+    vars['legendNode']:setVisible(false)
+	vars['masterTierNode']:setVisible(true)
+    vars['normalTierNode']:setVisible(false)
+	
+	-- 보상 구간 확인 우선 off
+	vars['masterRewardSprite']:setVisible(false)
 
     for grade = 1, max_grade do
         -- 세부 조건
@@ -103,15 +102,23 @@ function UI_ColosseumRewardListItem:makeMasterUI()
         elseif (grade == 4) then
             text = Str('11~50위')
         end
-        vars['gradeLabel' .. grade]:setString(text)
+        vars['masterGradeLabel' .. grade]:setString(text)
         
         -- 최소 점수
         local min_rp = table_colosseum_reward:getMinRP(tier_name, grade)
-        vars['scoreLabel' .. grade]:setString(Str('{1}점+', comma_value(min_rp)))
+        vars['masterScoreLabel' .. grade]:setString(Str('{1}점+', comma_value(min_rp)))
 
         -- 보상
         local cash = table_colosseum_reward:getWeeklyRewardCash(tier_name, grade)
-        vars['rewardLabel' .. grade]:setString(Str('{1}개', comma_value(cash)))
+        vars['masterRewardLabel' .. grade]:setString(Str('{1}개', comma_value(cash)))
+
+		-- 보상 구간 여부 확인
+		if (player_info.m_tier == tier_name .. '_' .. grade) then
+			vars['masterRewardSprite']:setPositionY(60 - (30* grade))
+			vars['masterRewardSprite']:setVisible(true)
+
+			cca.uiPointingAction(vars['masterRewardSprite'], 'left_right', 10)
+		end
     end
 end
 
@@ -121,14 +128,18 @@ end
 function UI_ColosseumRewardListItem:makeOtherTierUI(tier_name)
     local vars = self.vars
     local table_colosseum_reward = TableColosseumReward()
+	local player_info = g_colosseumData:getPlayerInfo()
 	
 	local tier_name = tier_name or 'bronze'
 	local max_grade = 3
 
-	-- 4번째는 사용안함
-	vars['gradeLabel4']:setVisible(false)
-    vars['scoreNode4']:setVisible(false)
-    vars['rewardNode4']:setVisible(false)
+	-- 노드 on/off
+    vars['legendNode']:setVisible(false)
+	vars['masterTierNode']:setVisible(false)
+    vars['normalTierNode']:setVisible(true)
+
+	-- 보상 구간 확인 우선 off
+	vars['rewardSprite']:setVisible(false)
 
 	-- 티어 명칭
     local tier_full_name = ColosseumUserInfo:getTierName(tier_name)
@@ -149,5 +160,13 @@ function UI_ColosseumRewardListItem:makeOtherTierUI(tier_name)
         -- 보상
         local cash = table_colosseum_reward:getWeeklyRewardCash(tier_name, grade)
         vars['rewardLabel' .. grade]:setString(Str('{1}개', comma_value(cash)))
+
+		-- 보상 구간 여부 확인
+		if (player_info.m_tier == tier_name .. '_' .. grade) then
+			vars['rewardSprite']:setPositionY(78 - (39 * grade))
+			vars['rewardSprite']:setVisible(true)
+
+			cca.uiPointingAction(vars['rewardSprite'], 'left_right', 10)
+		end
     end
 end

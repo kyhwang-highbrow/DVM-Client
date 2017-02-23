@@ -181,3 +181,34 @@ function cca.uiReactionSlow(node, scale_x, scale_y, action_scale)
     local action = cc.EaseElasticOut:create(cc.ScaleTo:create(1, scale_x, scale_y), 0.3)
     cca.runAction(node, action, nil)
 end
+
+-------------------------------------
+-- function uiPointingAction
+-- @param direction 움직일 방향 - top_bottom, left_right
+-- @param length 움직일 거리
+-------------------------------------
+function cca.uiPointingAction(node, direction, length)
+    local direction = direction or 'top_bottom'
+    local length = length or 10
+	local time = 0.25
+	
+	-- 방향에 따른 위치 좌표
+	local pos
+	if (direction == 'top_bottom') then
+		pos = cc.p(o, length)
+	elseif (direction == 'left_right') then
+		pos = cc.p(length, 0)
+	else
+		error('cca.uiPointingAction(node, direction, length) direction 틀림')
+	end
+
+	-- 액션 선언
+	local delay = cc.DelayTime:create(1.0)
+	local move = cc.MoveBy:create(time, pos)
+    local reverse = cc.EaseInOut:create(move:reverse(), 2.0)
+	local sequence = cc.Sequence:create(delay, move, reverse, move, reverse)
+	local repeat_forever = cc.RepeatForever:create(sequence)
+	
+	-- 실행
+    cca.runAction(node, repeat_forever, nil)
+end
