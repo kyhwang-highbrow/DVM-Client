@@ -56,6 +56,9 @@ function UI_ShopPopup:initTab()
     self:addTab(TableShop.CASH, vars['cashBtn'], vars['cashNode'])
 	self:addTab(TableShop.GOLD, vars['goldBtn'], vars['goldNode'])
 	self:addTab(TableShop.STAMINA, vars['staminaBtn'], vars['staminaNode'])
+    self:addTab(TableShop.RECOMMEND, vars['recommendBtn'], vars['recommendNode'])
+	self:addTab(TableShop.LIMIT, vars['limitBtn'], vars['limitNode'])
+	self:addTab(TableShop.HONOR, vars['honorBtn'], vars['honorNode'])
 
     self:setTab(TableShop.CASH)
 end
@@ -97,6 +100,9 @@ function UI_ShopPopup:makeQuestTableView(tab, node)
 
 	-- cell size 분기 
 	local cell_size = cc.size(270, 464)
+	if (tab == TableShop.RECOMMEND) then
+		cell_size = cc.size(370, 464)
+	end
 
     do -- 테이블 뷰 생성
         node:removeAllChildren()

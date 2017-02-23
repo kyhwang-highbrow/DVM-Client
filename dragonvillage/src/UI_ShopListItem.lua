@@ -5,6 +5,29 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_ShopListItem = class(PARENT, {
         m_productData = 'table',		-- 하나의 상품 정보
+
+		-- @ TODO 상점 이외에서도 필요하다면 ProductData class를 만들자
+		------------------------------------------------------------------------------
+		m_pid = '',						-- 상품의 아이디
+		m_productRes = '',				-- 상품의 아이콘
+
+		m_gruopType = 'str',			-- 상품 그룹 = 탭위치
+		m_slotType = '',				-- 사용할 UI 종류
+		
+		m_priceType = 'str',			-- 상품 가격의 종류
+		m_priceValue = 'num',			-- 상품의 가격
+		
+		m_lProductList = '',			-- 지급 상품 리스트
+
+		m_maxBuyCount = '',				-- 최대 구매 횟수
+		m_maxBuyDue = '',				-- 최대 구매 갱신 날짜?
+
+		m_eventType = '',				-- 이벤트 종류
+		m_eventForm = '',				-- 이벤트 적용 횟수?
+		m_eventStartDate = '',			-- 이벤트 시작 시간
+		m_eventEndDate = '',			-- 이벤트 종료 시간
+		m_eventPriceValue = '',			-- 이벤트로 변경될 상품의 가격
+		m_lEventProductList = '',		-- 이벤트로 변경될 지급 상품 리스트
      })
 
 -------------------------------------
@@ -13,9 +36,14 @@ UI_ShopListItem = class(PARENT, {
 function UI_ShopListItem:init(t_product)
 	-- 멤버변수
 	self.m_productData = t_product
-	
+	self:makeProductData(t_product)
+
 	-- UI load
-    self:load('shop_list_02.ui')	
+	if (self.m_slotType == 'normal') then
+		self:load('shop_list_01.ui')
+	elseif (self.m_slotType == 'special') then
+		self:load('shop_list_02.ui')
+	end
 
 	-- initialize
     self:initUI()
@@ -28,17 +56,17 @@ end
 -------------------------------------
 function UI_ShopListItem:initUI()
     local vars = self.vars
-    local t_product = self.m_productData
 
     do -- 상품 아이콘
-        local sprite = cc.Sprite:create(t_product['icon'])
+        local sprite = cc.Sprite:create(self.m_productRes)
         sprite:setDockPoint(cc.p(0.5, 0.5))
         sprite:setAnchorPoint(cc.p(0.5, 0.5))
         vars['itemNode']:addChild(sprite)
     end
     
     do -- 지불 타입 아이콘
-        local price_icon = cc.Sprite:create(t_product['t_ui_info']['price_icon_res'])
+		local icon_res = TableShop:makePriceIconRes(self.m_priceType)
+        local price_icon = cc.Sprite:create(icon_res)
 		if price_icon then
 			price_icon:setDockPoint(cc.p(0.5, 0.5))
 			price_icon:setAnchorPoint(cc.p(0.5, 0.5))
@@ -46,11 +74,21 @@ function UI_ShopListItem:initUI()
 		end
     end
 
-    -- 상품 개수 label
-    vars['itemLabel']:setString(t_product['t_ui_info']['product_name'])
+    -- 상품 이름
+	local product_name = 'xx 꾸러미'
+    vars['itemLabel']:setString(product_name)
 
 	-- 가격 label
-    vars['priceLabel']:setString(t_product['t_ui_info']['price_name'])
+	local price_str = TableShop:makePriceName(self.m_priceType, self.m_priceValue)
+    vars['priceLabel']:setString(price_str)
+
+	-- 상품 상세 설명
+	local product_desc = TableShop:makeProductDesc(self.m_lProductList)
+	vars['dscLabel']:setString(product_desc)
+
+	-- 현금 화폐 종류 (아니면 디폴트값 '구매')
+	local bill_type = Str('구매')
+	vars['purchaseLabel']:setString(bill_type)
 end                                              
 
 -------------------------------------
@@ -74,6 +112,8 @@ end
 -- @brief 상품 버튼 클릭
 -------------------------------------
 function UI_ShopListItem:click_buyBtn()
+	UIManager:toastNotificationRed(Str('구매는 준비중입니다.'))
+--[[
 	local t_product = self.m_productData
     local can_buy, msg = g_shopData:canBuyProduct(t_product)
 
@@ -93,6 +133,7 @@ function UI_ShopListItem:click_buyBtn()
         UIManager:toastNotificationRed(msg)
         self:nagativeAction()
     end
+	]]
 end
 
 -------------------------------------
@@ -104,4 +145,27 @@ function UI_ShopListItem:nagativeAction()
     local start_action = cc.MoveTo:create(0.05, cc.p(-20, 0))
     local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.5, cc.p(0, 0)), 0.2)
     node:runAction(cc.Sequence:create(start_action, end_action))
+end
+
+-------------------------------------
+-- function makeProductData
+-------------------------------------
+function UI_ShopListItem:makeProductData(t_product)
+	local t_product = t_product or {}
+
+	self.m_pid = t_product['product_id']
+	self.m_productRes = t_product['icon']
+	self.m_gruopType = t_product['product_type']
+	self.m_slotType = t_product['slot_type']
+	self.m_priceType = t_product['price_type']
+	self.m_priceValue = t_product['price']
+	self.m_lProductList = TableShop:makeProductList(t_product['product_content'])
+	self.m_maxBuyCount = t_product['mbuy_count']
+	self.m_maxBuyDue = t_product['mbuy_due']
+	self.m_eventType = t_product['event_type']
+	self.m_eventForm = t_product['event_form']
+	self.m_eventStartDate = t_product['event_start_date']
+	self.m_eventEndDate = t_product['event_end_date']
+	self.m_eventPriceValue = t_product['event_price']
+	self.m_lEventProductList = t_product['event_product_content']
 end

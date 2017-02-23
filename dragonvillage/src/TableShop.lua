@@ -6,10 +6,12 @@ local PARENT = TableClass
 TableShop = class(PARENT, {
 		
 		------------Shop type-----------------------
-		GACHA = 'gacha',
 		CASH = 'cash',
 		GOLD = 'gold',
-		STAMINA = 'stamina'
+		STAMINA = 'stamina',
+		RECOMMEND = 'recommend',
+		LIMIT = 'limit',
+		HONOR = 'honor'
     })
 
 -------------------------------------
@@ -18,92 +20,54 @@ TableShop = class(PARENT, {
 function TableShop:init()
     self.m_tableName = 'shop'
     self.m_orgTable = TABLE:get(self.m_tableName)
-
-	self:makeShopData()
 end
 
 -------------------------------------
--- func1?tion makeShopData
--- @brief 데이터를 UI에서 사용하기 쉽게 가공한다
--------------------------------------
-function TableShop:makeShopData()
-	for _, t_shop in pairs(self.m_orgTable) do
-		local t_ui = {}
-
-		t_ui['product_name'] = self:makeProductName(t_shop)
-		t_ui['price_name'] = self:makePriceName(t_shop)
-		t_ui['price_icon_res'] = self:makePriceIconRes(t_shop)
-
-		t_shop['t_ui_info'] = t_ui
-	end
-end
-
--------------------------------------
--- function makeProductName
--- @breif 상품 이름 생성
--- @param t_shop table
+-- function makeProductDesc
+-- @breif 상품 설명 생성 = 상품 종류 + 상품 갯수 + 추가 상품 설명
 -- @return str string
 -------------------------------------
-function TableShop:makeProductName(t_shop)
-    local value_type = t_shop['value_type']
-    local value = t_shop['value']
-    local value_str = comma_value(value)
-    local str = ''
+function TableShop:makeProductDesc(l_product)
+	local l_product = l_product or {}
+	local ret_str = ''
+	
+	for product_type, product_value in pairs(l_product) do
+		local value_str = comma_value(product_value)
+		local str = ''
 
-    if (value_type == 'x') then
+		if (product_type == 'cash') then
+			str = Str('자수정 {1}개', value_str)
 
-    elseif (value_type == 'cash') then
-        str = Str('자수정 {1}개', value_str)
+		elseif (product_type == 'gold') then
+			str = Str('골드 {1}개', value_str)
 
-    elseif (value_type == 'gold') then
-        str = Str('골드 {1}개', value_str)
+		elseif (product_type == 'stamina') then
+			str = Str('날개 {1}개', value_str)
 
-    elseif (value_type == 'stamina') then
-        str = Str('날개 {1}개', value_str)
+		else
+			cclog('value_type : ' .. value_type)
+		end
 
-	elseif (value_type == 'dragon_normal') then
-        str = Str('일반 드래곤 소환')
-
-	elseif (value_type == 'dragon_premium') then
-        str = Str('고급 드래곤 소환')
-
-    else
-        error('value_type : ' .. value_type)
-    end
-
-    return str
+		ret_str = ret_str .. str
+	end
+	
+    return ret_str
 end
 
 -------------------------------------
 -- function makePriceName
--- @breif 지불 재화 이름 생성
--- @param t_shop table
+-- @breif 가격 설명 생성 = 가격 종류 + 가격 갯수
 -- @return str string
 -------------------------------------
-function TableShop:makePriceName(t_shop)
-    local price_type = t_shop['price_type']
-    local price = t_shop['price']
-    local price_str = comma_value(price)
+function TableShop:makePriceName(price_type, price_value)
+    local price_str = comma_value(price_value)
     local str = ''
 
-    if (price_type == 'x') then
-        str = Str('[무료]')
-
-    elseif (price_type == 'cash') then
-        str = Str('{1}개', price_str)
-
-    elseif (price_type == 'gold') then
-        str = Str('{1}개', price_str)
-
-    elseif (price_type == 'stamina') then
-        str = Str('{1}개', price_str)
-
-	elseif (value_type == 'dragon_normal') then
-
-	elseif (value_type == 'dragon_premium') then
+    if (price_type == 'money') then
+        str = Str('\\{1}', price_str)
 
     else
-        error('price_str : ' .. price_str)
+        str = Str('{1}개', price_str)
     end
 
     return str
@@ -113,8 +77,8 @@ end
 -- function makePriceIconRes
 -- @brief 지불 재화 아이콘 생성
 -------------------------------------
-function TableShop:makePriceIconRes(t_shop)
-    local price_type = t_shop['price_type']
+function TableShop:makePriceIconRes(price_type)
+    local price_type = price_type or 'x'
 
     local res = nil
 
@@ -129,14 +93,29 @@ function TableShop:makePriceIconRes(t_shop)
     elseif (price_type == 'stamina') then
         res = 'res/ui/icon/inbox/inbox_staminas_st.png'
 
-	elseif (value_type == 'dragon_normal') then
-
-	elseif (value_type == 'dragon_premium') then
-
     else
-        error('price_type : ' .. price_type)
+        --cclog('price_type : ' .. price_type)
     end
 
     return res
 end
 
+-------------------------------------
+-- function makeProductList
+-- @brief 상품 리스트 생성
+-------------------------------------
+function TableShop:makeProductList(product_str)
+    local product_str = product_str or nil
+
+    local l_product_list = {}
+	local l_product_bundle = self:seperate(product_str, ',', true)
+	for i, bundle in pairs(l_product_bundle) do
+		local l_product = self:seperate(bundle, ';', true)
+		local product_type = l_product[1]
+		local product_value = l_product[2]
+
+		l_product_list[product_type] = product_value
+	end
+
+    return l_product_list
+end
