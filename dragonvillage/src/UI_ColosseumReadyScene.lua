@@ -82,6 +82,7 @@ end
 function UI_ColosseumReadyScene:initButton()
     local vars = self.vars
     vars['manageBtn']:registerScriptTapHandler(function() self:click_manageBtn() end)
+	vars['autoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['removeBtn']:registerScriptTapHandler(function() self:click_removeBtn() end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
 
@@ -235,6 +236,34 @@ function UI_ColosseumReadyScene:click_manageBtn()
 
     -- 덱 저장 후 이동
     self:checkChangeDeck(next_func)
+end
+
+-------------------------------------
+-- function click_autoBtn
+-- @breif
+-------------------------------------
+function UI_ColosseumReadyScene:click_autoBtn()
+    local stage_id = COLOSSEUM_STAGE_ID
+    local formation = self.m_readySceneDeck.m_currFormation
+    local l_dragon_list = g_dragonsData:getDragonsList()
+
+    local helper = DragonAutoSetHelper(stage_id, formation, l_dragon_list)
+    local l_auto_deck = helper:getAutoDeck()
+    l_auto_deck = UI_ReadyScene_Deck:convertSimpleDeck(l_auto_deck)
+
+    -- 1. 덱을 비움
+    local skip_sort = true
+    self.m_readySceneDeck:clear_deck(skip_sort)
+
+    -- 2. 덱을 채움
+    for i,t_dragon_data in pairs(l_auto_deck) do
+        self.m_readySceneDeck:setFocusDeckSlotEffect(i)
+        local skip_sort = true
+        self:click_dragonCard(t_dragon_data, skip_sort)
+    end
+
+    -- 정렬
+    self.m_dragonSortMgr:changeSort()
 end
 
 -------------------------------------
