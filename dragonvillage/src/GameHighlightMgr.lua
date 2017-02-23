@@ -53,7 +53,7 @@ function GameHighlightMgr:addChar(char, zorder)
 		t_data['ui_zorder'] = char.m_hpNode:getLocalZOrder()
 		char.m_hpNode:retain()
 		char.m_hpNode:removeFromParent(false)
-		g_gameScene.m_gameHighlightNode:addChild(char.m_hpNode, t_data['ui_zorder'])
+		self.m_node1:addChild(char.m_hpNode, t_data['ui_zorder'])
 		char.m_hpNode:release()
 	end
 
@@ -63,7 +63,7 @@ function GameHighlightMgr:addChar(char, zorder)
 		t_data['ui_casting_zorder'] = char.m_castingNode:getLocalZOrder()
 		char.m_castingNode:retain()
 		char.m_castingNode:removeFromParent(false)
-		g_gameScene.m_gameHighlightNode:addChild(char.m_castingNode, t_data['ui_casting_zorder'])
+		self.m_node1:addChild(char.m_castingNode, t_data['ui_casting_zorder'])
 		char.m_castingNode:release()
 	end
 
@@ -139,7 +139,7 @@ end
 -- function addMissile
 -------------------------------------
 function GameHighlightMgr:addMissile(missile)
-    if (not isInstanceOf(missile, Missile) and not isInstanceOf(missile, Buff)) then return end
+    if (not isInstanceOf(missile, Entity)) then return end
     
     local node = missile.m_rootNode
     
@@ -151,8 +151,10 @@ function GameHighlightMgr:addMissile(missile)
     local target_node
 
     if (t_data['parent'] == self.m_world.m_missiledNode) then
+        cclog('GameHighlightMgr node 2')
         target_node = self.m_node2
     else
+        cclog('GameHighlightMgr node 1')
         target_node = self.m_node1
     end
 

@@ -730,6 +730,10 @@ function GameState:makeGameFinishParam(is_success)
         t_param['clear_type'] = is_success and (1 or 0)
     end
 
+    do-- 클리어한 웨이브 수
+        t_param['clear_wave'] = is_success and self.m_world.m_waveMgr.m_maxWave or (self.m_world.m_waveMgr.m_currWave - 1)
+    end
+
     -- 경험치 보정치 ( 실패했을 경우 사용 ) ex : 66% 인경우 66
     if is_success then
         t_param['exp_rate'] = 100
