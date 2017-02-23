@@ -64,7 +64,7 @@ function SkillAoERound_Sura:doSpecailEffect(t_target)
 	end
 
 	-- 랜덤한 순서의 전체 적군 리스트
-	local l_enemy_list = table.sortRandom(self.m_world:getEnemyList())
+	local l_enemy_list = table.sortRandom(self.m_owner:getOpponentList())
 	for i, enemy in pairs(l_enemy_list) do 
 		-- 최대 공격횟수 초과했다면 탈출
 		if (i > self.m_addAttackCount) then 
@@ -119,6 +119,11 @@ function SkillAoERound_Sura:fireMissile(target)
 
 	t_option['effect'] = {}
 	t_option['effect']['afterimage'] = true
+
+    t_option['cbFunction'] = function()
+		-- 타격 카운트 갱신
+        self:addHitCount()
+	end
 
     -- 하이라이트
     t_option['highlight'] = self.m_bHighlight

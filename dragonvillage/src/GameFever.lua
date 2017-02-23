@@ -560,11 +560,14 @@ function GameFever:onEvent(event_name, t_event, ...)
 
     elseif (event_name == 'hit_active') then
         local arg = {...}
-        local hero = arg[1]
-
+        local attackerActivityCarrier = arg[2]
+        local hit_count = attackerActivityCarrier:getFlag('hit_count') or 0
+        
         local point = 2
 
-        self:addFeverPoint(point)
+        if (hit_count < 5) then
+            self:addFeverPoint(point)
+        end
 
     elseif (event_name == 'hit_active_buff') then
         local arg = {...}

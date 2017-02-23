@@ -106,6 +106,9 @@ function SkillAoESquareWidth:fireMissile()
     t_option['cbFunction'] = function(attacker, defender, x, y)
         self.m_skillHitEffctDirector:doWork()
 
+        -- 타격 카운트 갱신
+        self:addHitCount()
+
         -- 나에게로부터 상대에게 가는 버프 이펙트 생성
         local allyList = char:getFellowList()
         for i, ally in ipairs(allyList) do

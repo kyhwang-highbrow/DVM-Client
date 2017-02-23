@@ -86,6 +86,10 @@ function SkillRapidShot_AddAttack:fireMissile(target, is_add_attack)
 
 	t_option['cbFunction'] = function()
 		self.m_skillHitEffctDirector:doWork()
+
+        -- 타격 카운트 갱신
+        self:addHitCount()
+
 		if (not is_add_attack) then
 			self:ultimateActiveForClownDragon()
 		end

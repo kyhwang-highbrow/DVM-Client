@@ -213,6 +213,8 @@ end
 -- function setDead
 -------------------------------------
 function Character:setDead()
+    self:removeTargetEffect()
+
     self.m_bDead = true
     self.m_cbChangePos = nil
     self:dispatch('character_dead', {}, self)

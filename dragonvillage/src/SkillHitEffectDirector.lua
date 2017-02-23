@@ -39,8 +39,10 @@ end
 -------------------------------------
 function SkillHitEffectDirector:doWork()
 	self:addHit()
-	self:displayHitCnt()
-	self:displayComboBuff()
+
+    -- 17.02.23 인게임 개선 사항에서 콤보 표시 및 보너스 삭제
+	--self:displayHitCnt()
+	--self:displayComboBuff()
 end
 
 -------------------------------------

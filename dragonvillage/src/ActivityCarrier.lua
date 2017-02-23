@@ -26,7 +26,7 @@ ActivityCarrier = class({
         m_bHighlight = 'boolean',   -- 피격 대상이 하일라이트 되어야하는지 여부
 
 		m_attackType = 'str',		-- 일반공격인지 아닌지 구분
-        m_lFlag = 'list',
+        m_lFlag = 'map',
     })
 
 -------------------------------------
@@ -127,6 +127,20 @@ end
 -------------------------------------
 function ActivityCarrier:getEventInfo()
 	return self.m_tEventInfo or {}
+end
+
+-------------------------------------
+-- function setFlag
+-------------------------------------
+function ActivityCarrier:setFlag(k, v)
+	self.m_lFlag[k] = v
+end
+
+-------------------------------------
+-- function getFlag
+-------------------------------------
+function ActivityCarrier:getFlag(k)
+	return self.m_lFlag[k]
 end
 
 -------------------------------------

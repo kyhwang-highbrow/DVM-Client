@@ -64,6 +64,11 @@ function SkillEnumrate_Curve:fireMissile(idx)
 	t_option['effect'] = {}
     t_option['effect']['motion_streak'] = self.m_motionStreakRes
 
+    t_option['cbFunction'] = function()
+		-- 타격 카운트 갱신
+        self:addHitCount()
+	end
+
     -- 하이라이트
     t_option['highlight'] = self.m_bHighlight
 	

@@ -173,8 +173,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_skillName = t_skill['type']
 	self.m_targetPos = {x = t_data.x, y = t_data.y}
 	self.m_targetChar = t_data.target or self.m_targetChar
-	--self.m_bSkillHitEffect = owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')
-    self.m_bSkillHitEffect = false
+	self.m_bSkillHitEffect = owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')
     self.m_bHighlight = t_data['highlight'] or false
 end
 
@@ -278,6 +277,9 @@ function Skill:attack(target_char)
 	if (self.m_bSkillHitEffect) then 
 		self.m_skillHitEffctDirector:doWork()
 	end
+
+    -- 타격 카운트 갱신
+    self:addHitCount()
 end
 
 -------------------------------------
@@ -491,6 +493,17 @@ function Skill:makeRangeEffect(res_path, range)
 	effect:addAniHandler(function()
 		effect:changeAni('idle', true)
 	end)
+end
+
+-------------------------------------
+-- function addHitCount
+-- @brief 타격 카운트를 증감
+-------------------------------------
+function Skill:addHitCount()
+    -- 피격자의 이벤트 dispatch에서 타격 카운트를 추가하기 위해 activityCarrier에 저장
+    local hit_count = self.m_activityCarrier:getFlag('hit_count') or 0
+    hit_count = hit_count + 1
+    self.m_activityCarrier:setFlag('hit_count', hit_count)
 end
 
 -------------------------------------

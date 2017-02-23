@@ -201,6 +201,11 @@ function SkillMeleeHack:attackMelee()
     t_option['movement'] = 'instant'
     t_option['missile_type'] = 'NORMAL'
 
+    t_option['cbFunction'] = function()
+		-- 타격 카운트 갱신
+        self:addHitCount()
+	end
+
     local missile = self.m_owner.m_world.m_missileFactory:makeMissile(t_option)
     missile.m_duration = 0.1
 

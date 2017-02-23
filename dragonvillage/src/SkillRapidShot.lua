@@ -109,6 +109,9 @@ function SkillRapidShot:fireMissile()
 
 	t_option['cbFunction'] = function()
 		self.m_skillHitEffctDirector:doWork()
+
+        -- 타격 카운트 갱신
+        self:addHitCount()
 	end
 
     -- 발사
