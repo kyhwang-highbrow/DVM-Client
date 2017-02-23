@@ -14,6 +14,7 @@ function UI_ColosseumFirstReward:init(t_data)
     local vars = self:load('colosseum_first_reward.ui')
     UIManager:open(self, UIManager.POPUP)
 
+	-- 멤버 변수 할당
 	self.m_tier = t_data['tier']
   
    -- backkey 지정

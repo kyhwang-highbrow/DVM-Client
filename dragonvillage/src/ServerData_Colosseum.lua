@@ -13,9 +13,12 @@ ServerData_Colosseum = class({
         -- 매칭된 게임의 고유 키
         m_colosseumGameKey = '',
 
+		-- Colosseum status
         m_week = '', -- 현재 주차 정보
         m_startTime = '',
         m_endTime = '',
+		m_hasWeeklyReward = 'bool',
+		m_lastWeekInfo = 'table',
     })
 
 -------------------------------------
@@ -30,8 +33,12 @@ end
 -------------------------------------
 function ServerData_Colosseum:goToColosseumScene()
     local function cb()
-        local scene = SceneColosseum()
-        scene:runScene()
+		if (self:getIsOpenColosseum()) then
+			local scene = SceneColosseum()
+			scene:runScene()
+		else
+			UIManager:toastNotificationGreen('콜로세움 오픈 전입니다.\n오픈까지 ' .. self:getWeekTimeText())
+		end
     end
 
     g_colosseumData:request_colosseumInfo(cb)
@@ -75,7 +82,8 @@ function ServerData_Colosseum:response_colosseumInfo(ret, cb)
     self.m_playerUserInfo.m_winCnt = ret['win']
     self.m_playerUserInfo.m_loseCnt = ret['lose'] 
   
-    self:setColosseumStatus(ret['week'], ret['start_time'], ret['end_time'])
+    self:setColosseumStatus(ret['week'], ret['start_time'], ret['end_time'], ret['has_weekly_reward'])
+	self:setLastWeekInfo(ret['last_week_tier'], ret['last_week_rank'], ret['last_week_win'], ret['last_week_lose'])
 
     if cb then
         cb(ret)
@@ -85,10 +93,22 @@ end
 -------------------------------------
 -- function setColosseumStatus
 -------------------------------------
-function ServerData_Colosseum:setColosseumStatus(week, start_time, end_time)
+function ServerData_Colosseum:setColosseumStatus(week, start_time, end_time, has_weekly_reward)
     self.m_week = week
     self.m_startTime = start_time
     self.m_endTime = end_time
+	self.m_hasWeeklyReward = has_weekly_reward
+end
+
+-------------------------------------
+-- function setLastWeekInfo
+-------------------------------------
+function ServerData_Colosseum:setLastWeekInfo(last_week_tier, last_week_rank, last_week_win, last_week_lose)
+	self.m_lastWeekInfo = {}
+	self.m_lastWeekInfo['tier'] = last_week_tier
+	self.m_lastWeekInfo['rank'] = last_week_rank
+	self.m_lastWeekInfo['win'] = last_week_win
+	self.m_lastWeekInfo['lose'] = last_week_lose
 end
 
 -------------------------------------
@@ -246,11 +266,11 @@ function ServerData_Colosseum:setTestColosseumDeck()
 end
 
 -------------------------------------
--- function getPlayerInfo
--- @breif 플레이어 유저의 데이터 리턴
+-- function getLastWeekInfo
+-- @breif 지난 주 콜로세움 정보 리턴
 -------------------------------------
-function ServerData_Colosseum:getPlayerInfo()
-    return self.m_playerUserInfo
+function ServerData_Colosseum:getLastWeekInfo()
+    return self.m_lastWeekInfo
 end
 
 -------------------------------------
@@ -312,4 +332,15 @@ function ServerData_Colosseum:getWeekTimePercent()
         local percentage = math_floor((curr / duration) * 100)
         return percentage
     end
+end
+
+-------------------------------------
+-- function getIsOpenColosseum
+-- @breif 콜로세움 오픈 여부
+-------------------------------------
+function ServerData_Colosseum:getIsOpenColosseum()
+    local server_time = Timer:getServerTime()
+    local start_time = (self.m_startTime / 1000)
+	
+	return (start_time > server_time)
 end

@@ -45,7 +45,9 @@ function UI_Colosseum:init()
 
     -- 보상 안내 팝업
     local function finich_cb()
-        UI_ColosseumRankingReward()
+		if (g_colosseumData.m_hasWeeklyReward) then
+			UI_ColosseumRankingReward()
+		end
     end
 
     self:sceneFadeInAction(nil, finich_cb)
