@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_ColosseumRewardListItem
 -------------------------------------
 UI_ColosseumRewardListItem = class(PARENT, {
+		m_tableColosseumReward = 'table',
      })
 
 -------------------------------------
@@ -11,6 +12,8 @@ UI_ColosseumRewardListItem = class(PARENT, {
 -------------------------------------
 function UI_ColosseumRewardListItem:init(tier_name)
     local vars = self:load('colosseum_reward_popup_item_01.ui')
+	    
+	self.m_tableColosseumReward = TableColosseumReward()
 
     self:initUI(tier_name)
     self:initButton()
@@ -49,7 +52,7 @@ end
 -------------------------------------
 function UI_ColosseumRewardListItem:makeLegendUI()
     local vars = self.vars
-    local table_colosseum_reward = TableColosseumReward()
+    local table_colosseum_reward = self.m_tableColosseumReward
 	local tier_name = 'legend'
 
 	-- 노드 on/off
@@ -76,7 +79,7 @@ end
 -------------------------------------
 function UI_ColosseumRewardListItem:makeMasterUI()
     local vars = self.vars
-    local table_colosseum_reward = TableColosseumReward()
+    local table_colosseum_reward = self.m_tableColosseumReward
 	local player_info = g_colosseumData:getPlayerInfo()
 	
 	local tier_name = 'master'
@@ -127,7 +130,7 @@ end
 -------------------------------------
 function UI_ColosseumRewardListItem:makeOtherTierUI(tier_name)
     local vars = self.vars
-    local table_colosseum_reward = TableColosseumReward()
+    local table_colosseum_reward = self.m_tableColosseumReward
 	local player_info = g_colosseumData:getPlayerInfo()
 	
 	local tier_name = tier_name or 'bronze'

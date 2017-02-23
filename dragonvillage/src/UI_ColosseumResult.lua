@@ -22,8 +22,10 @@ function UI_ColosseumResult:init(is_win, t_data)
     self:initUI(is_win, t_data)
     self:initButton()
 
-
-    UI_ColosseumFirstReward()
+	-- 승격했다면 등급 최초 달성 보상 수령
+	if (t_data['tier_reward']) then
+		UI_ColosseumFirstReward(t_data)
+	end
 end
 
 -------------------------------------
@@ -41,10 +43,13 @@ function UI_ColosseumResult:initUI(is_win, t_data)
     end
     
     do -- 테이머
-        local animator = MakeAnimator('res/character/tamer/goni_i/goni_i.spine')
-        animator:setAnchorPoint(cc.p(0.5, 0.5))
-        animator:setDockPoint(cc.p(0.5, 0.5))
-        vars['tamerNode']:addChild(animator.m_node)
+        local t_tamer = g_userData:getTamerInfo()
+		local animator = MakeAnimator(t_tamer['res'])
+		if (animator) then
+			animator:setAnchorPoint(cc.p(0.5, 0.5))
+			animator:setDockPoint(cc.p(0.5, 0.5))
+			vars['tamerNode']:addChild(animator.m_node)
+		end
     end
 
     -- 현재 점수
