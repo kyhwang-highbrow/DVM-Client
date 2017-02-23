@@ -83,6 +83,7 @@ end
 -- @brief 콜랙션 포인트 보상 확인 버튼
 -------------------------------------
 function UI_Collection:click_collectionPointBtn()
+    UI_CollectionPointReward()
 end
 
 

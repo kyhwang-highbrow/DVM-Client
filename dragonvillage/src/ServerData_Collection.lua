@@ -4,6 +4,8 @@
 ServerData_Collection = class({
         m_serverData = 'ServerData',
         m_mCollectionData = 'map',
+        m_collectionPoint = 'number',
+        m_collectionPointList = '',
         m_lastChangeTimeStamp = 'timestamp', 
     })
 
@@ -52,6 +54,13 @@ function ServerData_Collection:request_collectionInfo(finish_cb)
     -- 성공 콜백
     local function success_cb(ret)
         self.m_mCollectionData = ret['book']
+
+        self.m_collectionPoint = ret['cpoint']
+
+        -- 콜랙션 포인트 항목 정보 리스트
+        local to_number_list = {'cash_reward', 'req_point'}
+        table.toNumber(ret['collection_table'], to_number_list)
+        self.m_collectionPointList = table.listToMap(ret['collection_table'], 'req_point')
 
         -- 마지막으로 데이터가 변경된 시간 갱신
         self:setLastChangeTimeStamp()
@@ -207,4 +216,18 @@ function ServerData_Collection:checkChange(timestamp)
     end
 
     return false
+end
+
+-------------------------------------
+-- function getCollectionPoint
+-------------------------------------
+function ServerData_Collection:getCollectionPoint()
+    return self.m_collectionPoint
+end
+
+-------------------------------------
+-- function getCollectionPointList
+-------------------------------------
+function ServerData_Collection:getCollectionPointList()
+    return self.m_collectionPointList
 end
