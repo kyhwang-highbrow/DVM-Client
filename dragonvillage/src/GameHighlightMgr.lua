@@ -139,9 +139,12 @@ end
 -- function addMissile
 -------------------------------------
 function GameHighlightMgr:addMissile(missile)
-    if (not isInstanceOf(missile, Entity)) then return end
+    if (not isInstanceOf(missile, Skill) and not isInstanceOf(missile, Missile) and not isInstanceOf(missile, Buff)) then return end
     
     local node = missile.m_rootNode
+    if (not node) then
+        cclog('GameHighlightMgr:addMissile missile.m_rootNode == nil')
+    end
     
     local t_data = {}
     t_data['parent'] = node:getParent()
@@ -151,10 +154,8 @@ function GameHighlightMgr:addMissile(missile)
     local target_node
 
     if (t_data['parent'] == self.m_world.m_missiledNode) then
-        cclog('GameHighlightMgr node 2')
         target_node = self.m_node2
     else
-        cclog('GameHighlightMgr node 1')
         target_node = self.m_node1
     end
 
@@ -175,17 +176,13 @@ function GameHighlightMgr:removeMissile(missile)
     self.m_lMissileList[missile] = nil
 
     if (t_data['parent']) then 
-		local node
-        if (isInstanceOf(missile, Entity)) then
-            node = missile.m_rootNode
-        else
-            node = missile.m_node
+		local node = missile.m_rootNode
+        if (node) then
+            node:retain()
+		    node:removeFromParent(false)
+		    t_data['parent']:addChild(node, t_data['zorder'])
+		    node:release()
         end
-
-		node:retain()
-		node:removeFromParent(false)
-		t_data['parent']:addChild(node, t_data['zorder'])
-		node:release()
 	end
 end
 
