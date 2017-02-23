@@ -1,0 +1,12 @@
+unit_id,unit_type,unit_did,reward,reward_cash,buff,reward_buff_attr,reward_buff_action,reward_buff_value,t_name,t_desc,scene_id
+1001,"godaeshinryong, lightningdragon",,cash;100,100,atk;multiply;2,atk,multiply,2,고룡집단,공격력 2% 상승,연출_id
+1002,"spine, leafdragon, fairydragon",,cash;100,100,atk;multiply;2,,,,고룡집단 1,공격력 2% 상승,연출_id
+1003,"littio, hurricane, jaryong",,cash;100,100,atk;multiply;2,,,,고룡집단 2,공격력 2% 상승,연출_id
+1004,,120081,cash;100,100,atk;multiply;2,,,,고룡집단 3,공격력 2% 상승,연출_id
+1005,,"120093, 120111, 120142",cash;100,100,atk;multiply;2,,,,고룡집단 4,공격력 2% 상승,연출_id
+1006,,"120093, 120111, 120142",cash;100,100,atk;multiply;2,,,,고룡집단 5,공격력 2% 상승,연출_id
+1007,clowndragon,"120093, 120111, 120142",cash;100,100,atk;multiply;2,,,,고룡집단 6,공격력 2% 상승,연출_id
+1008,,"120093, 120111, 120142",cash;100,100,atk;multiply;2,,,,고룡집단 7,공격력 2% 상승,연출_id
+1009,,"120093, 120111, 120142",cash;100,100,atk;multiply;2,,,,고룡집단 8,공격력 2% 상승,연출_id
+1010,,"120093, 120111, 120142",cash;100,100,atk;multiply;2,,,,고룡집단 9,공격력 2% 상승,연출_id
+2002,,"120404, 120405",cash;50,50,hit_rate;add;4,hit_rate,add,4,흑백교차,적중율 4% 추가,연출_id
