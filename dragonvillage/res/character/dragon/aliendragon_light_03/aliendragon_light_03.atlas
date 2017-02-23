@@ -6,8 +6,8 @@ filter: Linear,Linear
 repeat: none
 aliendragon_light_03_body_01
   rotate: false
-  xy: 2, 66
-  size: 377, 313
-  orig: 377, 313
+  xy: 2, 38
+  size: 492, 456
+  orig: 492, 456
   offset: 0, 0
   index: -1
