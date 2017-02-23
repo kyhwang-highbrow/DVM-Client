@@ -184,8 +184,8 @@ end
 L_TAMER_LIST = {
 	{tmid = 100001, res = 'res/character/tamer/goni_i/goni_i.spine', res_sd = 'res/character/tamer/goni/goni.spine', res_icon = 'res/ui/icon/cha/tamer_goni.png', t_name = '고니', t_desc = '고니는 남자아이이다.', b_obtain = true},
 	{tmid = 100002, res = 'res/character/tamer/nuri_i/nuri_i.spine', res_sd = 'res/character/tamer/nuri/nuri.spine', res_icon = 'res/ui/icon/cha/tamer_nuri.png', t_name = '누리', t_desc = '누리는 여자아이이다.', b_obtain = true},
-	{tmid = 100003, res = 'res/character/tamer/leon_i/leon_i.spine', res_sd = 'res/character/tamer/leon/leon.spine', res_icon = 'res/ui/icon/cha/tamer_mokoji.png', t_name = '레온', t_desc = '레온은 지금 존재하지 않는다.', b_obtain = true},
-	{tmid = 100004, res = 'res/character/tamer/goni_i/goni_i.spine', res_sd = 'res/character/tamer/goni/goni.spine', res_icon = 'res/ui/icon/cha/tamer_durun.png', t_name = '고니2', t_desc = '고니2는 고니의 반복이다.', b_obtain = false},
-	{tmid = 100005, res = 'res/character/tamer/nuri_i/nuri_i.spine', res_sd = 'res/character/tamer/nuri/nuri.spine', res_icon = 'res/ui/icon/cha/tamer_kesath.png', t_name = '누리2', t_desc = '누리2는 누리의 반복이다.', b_obtain = false},
-	{tmid = 100006, res = 'res/character/tamer/leon_i/leon_i.spine', res_sd = 'res/character/tamer/dede/dede.spine', res_icon = 'res/ui/icon/cha/tamer_dede.png', t_name = '데데', t_desc = '데데지만 레온이다.', b_obtain = true},
+	{tmid = 100003, res = 'res/character/tamer/leon_i/leon_i.spine', res_sd = 'res/character/tamer/mokoji/mokoji.spine', res_icon = 'res/ui/icon/cha/tamer_mokoji.png', t_name = '모코지', t_desc = '모코지..?', b_obtain = false},
+	{tmid = 100004, res = 'res/character/tamer/goni_i/goni_i.spine', res_sd = 'res/character/tamer/durun/durun.spine', res_icon = 'res/ui/icon/cha/tamer_durun.png', t_name = '두른', t_desc = '두른은 새로 나왔다.', b_obtain = true},
+	{tmid = 100005, res = 'res/character/tamer/nuri_i/nuri_i.spine', res_sd = 'res/character/tamer/kesath/kesath.spine', res_icon = 'res/ui/icon/cha/tamer_kesath.png', t_name = '케사스', t_desc = '케사스는 남자이름같다', b_obtain = false},
+	{tmid = 100006, res = 'res/character/tamer/leon_i/leon_i.spine', res_sd = 'res/character/tamer/dede/dede.spine', res_icon = 'res/ui/icon/cha/tamer_dede.png', t_name = '데데', t_desc = '데데데데데', b_obtain = true},
 }
