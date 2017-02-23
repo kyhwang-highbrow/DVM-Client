@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_CollectionPointReward
 -------------------------------------
 UI_CollectionPointReward = class(PARENT,{
+        m_tableView = 'UIC_TableView',
     })
 
 -------------------------------------
@@ -56,31 +57,38 @@ function UI_CollectionPointReward:init_tableView()
 
     local l_item_list = g_collectionData:getCollectionPointList()
 
+    local function finish_cb(ret)
+        self.m_tableView:refreshAllItemUI()
+    end
+
     -- 생성 콜백
     local function create_func(ui, data)
-        local function click_func()
-            self:click_requestBtn(data)
+        local function click_rewardBtn()
+            g_collectionData:request_collectionPointReward(data['req_point'], finish_cb)
         end
-
-        ui.vars['requestBtn']:registerScriptTapHandler(click_func)
+        ui.vars['rewardBtn']:registerScriptTapHandler(click_rewardBtn)
     end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(564, 108)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setCellUIClass(UI_FriendRecommendUserListItem, create_func)
+    table_view.m_defaultCellSize = cc.size(200 + 10, 300)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    table_view:setCellUIClass(UI_CollectionPointRewardListItem, create_func)
     table_view:setItemList(l_item_list)
 
-    -- 리스트가 비었을 때
-    table_view:makeDefaultEmptyDescLabel(Str('추천 친구가 없습니다.'))
+    -- 기본 아이템 제거
+    table_view:delItem(0)
 
-    --[[
     -- 정렬
-    local sort_manager = SortManager_Fruit()
-    sort_manager:sortExecution(table_view.m_itemList)
-    table_view:setDirtyItemList()
-    --]]
+    table.sort(table_view.m_itemList, function(a, b)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            local a_value = a_data['req_point']
+            local b_value = b_data['req_point']
+
+            return a_value < b_value
+        end)
 
     self.m_tableView = table_view
 end

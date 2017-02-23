@@ -867,6 +867,18 @@ function UIC_TableViewTD:setDirtyItemList()
     self.m_bDirtyItemList = true
 end
 
+-------------------------------------
+-- function refreshAllItemUI
+-------------------------------------
+function UIC_TableViewTD:refreshAllItemUI()
+    for i,v in ipairs(self.m_itemList) do
+        local ui = v['ui']
+        if ui then
+            ui:refresh()
+        end
+    end
+end
+
 -- _swallowTouch가 false일 경우 CCMenu 클래스의 onTouchBegan함수에서
 -- collectSlideNodesInParents()를 수행. 즉, 부모들 중에 SlideNode타입을 수집
 

@@ -85,7 +85,7 @@ function table.listToMap(t, key)
 
         if t_ret[primary_key] then
             ccdebug()
-            cclog('## 키가 중복됩니다 : ' .. primary_key) 
+            cclog('## 키가 중복됩니다 : ' .. primary_key )
         end
 
         t_ret[primary_key] = v
@@ -102,10 +102,14 @@ end
 --        table.toNumber(l_collection_table, to_number_list)
 -------------------------------------
 function table.toNumber(t, to_number_list)
-    for _,v in pairs(t) do
-        for _,key in pairs(to_number_list) do
-            if v[key] then
-                v[key] = tonumber(v[key])
+    for i,v in pairs(t) do
+        if type(v) ~= 'table' then
+            t[i] = tonumber(v)
+        else
+            for _,key in pairs(to_number_list) do
+                if v[key] then
+                    v[key] = tonumber(v[key])
+                end
             end
         end
     end

@@ -5,6 +5,9 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -------------------------------------
 UI_Collection = class(PARENT, {
         m_mTabUI = 'map',
+
+        -- refresh 체크 용도
+        m_collectionLastChangeTime = 'timestamp',
      })
 
 -------------------------------------
@@ -38,6 +41,8 @@ function UI_Collection:init()
     self:refresh()
 
     self:sceneFadeInAction()
+
+    self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
 end
 
 -------------------------------------
@@ -54,11 +59,6 @@ function UI_Collection:initUI()
     local vars = self.vars
 
     self:initTab()
-
-    do -- 콜랙션 포인트 임시 초기값
-        vars['titleLabel']:setString(Str('마스터 테이머'))
-        vars['collectionPointLabel']:setString(comma_value(5000))
-    end
 end
 
 -------------------------------------
@@ -75,7 +75,12 @@ end
 -- function refresh
 -------------------------------------
 function UI_Collection:refresh()
+    local vars = self.vars
 
+    do -- 콜랙션 포인트 임시 초기값
+        vars['titleLabel']:setString(Str(g_collectionData:getTamerTitle()))
+        vars['collectionPointLabel']:setString(comma_value(g_collectionData:getCollectionPoint()))
+    end
 end
 
 -------------------------------------
@@ -83,7 +88,13 @@ end
 -- @brief 콜랙션 포인트 보상 확인 버튼
 -------------------------------------
 function UI_Collection:click_collectionPointBtn()
-    UI_CollectionPointReward()
+    local ui = UI_CollectionPointReward()
+    
+    local function close_cb()
+        self:checkRefresh()
+    end
+
+    ui:setCloseCB(close_cb)
 end
 
 
@@ -107,6 +118,19 @@ end
 function UI_Collection:onChangeTab(tab, first)
     if self.m_mTabUI[tab] then
         self.m_mTabUI[tab]:onEnterTab(first)
+    end
+end
+
+-------------------------------------
+-- function checkRefresh
+-- @brief 도감 데이터가 변경되었는지 확인 후 변경되었으면 갱신
+-------------------------------------
+function UI_Collection:checkRefresh()
+    local is_changed = g_collectionData:checkChange(self.m_collectionLastChangeTime)
+
+    if is_changed then
+        self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
+        self:refresh()
     end
 end
 

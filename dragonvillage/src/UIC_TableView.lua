@@ -1031,3 +1031,15 @@ end
 function UIC_TableView:setDirtyItemList()
     self.m_bDirtyItemList = true
 end
+
+-------------------------------------
+-- function refreshAllItemUI
+-------------------------------------
+function UIC_TableView:refreshAllItemUI()
+    for i,v in ipairs(self.m_itemList) do
+        local ui = v['ui']
+        if ui then
+            ui:refresh()
+        end
+    end
+end

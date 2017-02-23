@@ -6,7 +6,10 @@ ServerData_Collection = class({
         m_mCollectionData = 'map',
         m_collectionPoint = 'number',
         m_collectionPointList = '',
-        m_lastChangeTimeStamp = 'timestamp', 
+        m_lastChangeTimeStamp = 'timestamp',
+
+        m_tamerTitle = 'string', -- 테이머 칭호
+        m_currCpointRewardFocusKey = 'number',
     })
 
 -------------------------------------
@@ -53,17 +56,7 @@ function ServerData_Collection:request_collectionInfo(finish_cb)
     
     -- 성공 콜백
     local function success_cb(ret)
-        self.m_mCollectionData = ret['book']
-
-        self.m_collectionPoint = ret['cpoint']
-
-        -- 콜랙션 포인트 항목 정보 리스트
-        local to_number_list = {'cash_reward', 'req_point'}
-        table.toNumber(ret['collection_table'], to_number_list)
-        self.m_collectionPointList = table.listToMap(ret['collection_table'], 'req_point')
-
-        -- 마지막으로 데이터가 변경된 시간 갱신
-        self:setLastChangeTimeStamp()
+        self:response_collectionInfo(ret)
 
         if finish_cb then
             finish_cb(ret)
@@ -78,6 +71,34 @@ function ServerData_Collection:request_collectionInfo(finish_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+end
+
+-------------------------------------
+-- function response_collectionInfo
+-------------------------------------
+function ServerData_Collection:response_collectionInfo(ret)
+    self.m_mCollectionData = ret['book']
+
+    self.m_collectionPoint = ret['cpoint']
+
+    -- 콜랙션 포인트 항목 정보 리스트
+    local to_number_list = {'cash_reward', 'req_point'}
+    table.toNumber(ret['collection_table'], to_number_list)
+    self.m_collectionPointList = table.listToMap(ret['collection_table'], 'req_point')
+
+    -- 보상을 받았는지 여부
+    if ret['cpoint_reward'] then
+        -- 0은 추가
+        table.insert(ret['cpoint_reward'], 0)
+        for _,req_point in ipairs(ret['cpoint_reward']) do
+            self.m_collectionPointList[req_point]['received'] = true
+        end
+    end
+
+    self:refreshInfo()
+
+    -- 마지막으로 데이터가 변경된 시간 갱신
+    self:setLastChangeTimeStamp()
 end
 
 -------------------------------------
@@ -193,6 +214,40 @@ function ServerData_Collection:request_useRelationPoint(did, finish_cb)
 end
 
 -------------------------------------
+-- function refreshInfo
+-- @breif
+-------------------------------------
+function ServerData_Collection:refreshInfo()
+    do -- 현재 받은 보상 중에서 가장 높은 등급
+        local curr_cp_info = nil
+        for i,v in pairs(self.m_collectionPointList) do
+            if (not curr_cp_info) and (v['req_point'] == 0) then
+                curr_cp_info = v
+            elseif v['received'] then
+                if (not curr_cp_info) then
+                    curr_cp_info = v
+                elseif (curr_cp_info['req_point'] < v['req_point']) then
+                    curr_cp_info = v
+                end
+            end
+        end
+        self.m_tamerTitle = curr_cp_info['t_desc']
+    end
+
+    do -- 현재 포커스
+        local t_cp_info = nil
+        for i,v in pairs(self.m_collectionPointList) do
+            if (not t_cp_info) and (not v['received']) then
+                t_cp_info = v
+            elseif (not v['received']) and (v['req_point'] < t_cp_info['req_point']) then
+                t_cp_info = v
+            end
+        end
+        self.m_currCpointRewardFocusKey = t_cp_info['req_point']
+    end
+end
+
+-------------------------------------
 -- function setLastChangeTimeStamp
 -- @breif 마지막으로 데이터가 변경된 시간 갱신
 -------------------------------------
@@ -230,4 +285,73 @@ end
 -------------------------------------
 function ServerData_Collection:getCollectionPointList()
     return self.m_collectionPointList
+end
+
+-------------------------------------
+-- function getTamerTitle
+-------------------------------------
+function ServerData_Collection:getTamerTitle()
+    return self.m_tamerTitle
+end
+
+-------------------------------------
+-- function getCollectionPointInfo
+-------------------------------------
+function ServerData_Collection:getCollectionPointInfo(id)
+    return self.m_collectionPointList[id]
+end
+
+-------------------------------------
+-- function canGerCollectionPointReward
+-------------------------------------
+function ServerData_Collection:canGerCollectionPointReward(id)
+    if (self.m_currCpointRewardFocusKey ~= id) then
+        return false
+    end
+
+    local t_info = self:getCollectionPointInfo(id)
+    if t_info['received'] then
+        return false
+    end
+
+    if (self:getCollectionPoint() < t_info['req_point']) then
+        return false
+    end
+
+    return true
+end
+
+-------------------------------------
+-- function request_collectionPointReward
+-------------------------------------
+function ServerData_Collection:request_collectionPointReward(req_point, finish_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    
+    -- 성공 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        -- 받음으로 처리
+        self.m_collectionPointList[req_point]['received'] = true
+
+        self:refreshInfo()
+
+        -- 마지막으로 데이터가 변경된 시간 갱신
+        self:setLastChangeTimeStamp()
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/cpoint/reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('req_point', req_point)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
 end
