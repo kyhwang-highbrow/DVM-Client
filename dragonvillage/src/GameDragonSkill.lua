@@ -160,8 +160,10 @@ function GameDragonSkill.update_live(self, dt)
             --self.m_world.m_gameCamera:reset()
 
         elseif (self:isPassedStepTime(2)) then
-            self.m_world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_HIDE)
             self.m_world.m_gameHighlight:changeDarkLayerColor(0, 1)
+
+        elseif (self:isPassedStepTime(2.5)) then
+            self.m_world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_HIDE)
             self.m_world.m_gameHighlight:clear()
 
             self.m_dragon = nil
@@ -183,7 +185,7 @@ function GameDragonSkill:makeDragonCut(dragon, timeScale, delayTime)
     animator:setPosition(-300, -50)
     g_gameScene.m_containerLayer:addChild(animator.m_node)
 
-    animator:setScale(1.1)
+    animator:setScale(1)
     animator:runAction(cc.ScaleTo:create(timeScale, 1.5))
 
     local duration = animator:getDuration() * delayTime
