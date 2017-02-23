@@ -1746,6 +1746,15 @@
     <None Include="..\src\GameHighlightMgr.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableDragonUnit.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\Util_BuffStringParser.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\ServerData_DragonUnit.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -34,6 +34,9 @@ function ServerData:getInstance()
     -- 'dragons'
     g_dragonsData = ServerData_Dragons(g_serverData)
 
+    -- 드래곤 유닛 (도감의 버프)
+    g_dragonUnitData = ServerData_DragonUnit(g_serverData)
+
     -- 'deck'
     g_deckData = ServerData_Deck(g_serverData)
 

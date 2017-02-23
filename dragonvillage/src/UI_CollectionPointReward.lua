@@ -39,7 +39,7 @@ end
 -------------------------------------
 function UI_CollectionPointReward:initButton()
     local vars = self.vars
-    --vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
 -------------------------------------

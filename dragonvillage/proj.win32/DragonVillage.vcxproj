@@ -324,6 +324,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_Collection.lua" />
     <None Include="..\src\ServerData_Colosseum.lua" />
     <None Include="..\src\ServerData_ColosseumRank.lua" />
+    <None Include="..\src\ServerData_DragonUnit.lua" />
     <None Include="..\src\ServerData_Exploration.lua" />
     <None Include="..\src\ServerData_Friend.lua" />
     <None Include="..\src\ServerData_Gacha.lua" />
@@ -585,6 +586,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableDragonSkill.lua" />
     <None Include="..\src\TableDragonTrainInfo.lua" />
     <None Include="..\src\TableDragonTrainStatus.lua" />
+    <None Include="..\src\TableDragonUnit.lua" />
     <None Include="..\src\TableDrop.lua" />
     <None Include="..\src\TableEnemyMove.lua" />
     <None Include="..\src\TableFormation.lua" />
@@ -795,6 +797,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_TopUserInfo.lua" />
     <None Include="..\src\UI_UserDeckInfoPopup.lua" />
     <None Include="..\src\UserData.lua" />
+    <None Include="..\src\Util_BuffStringParser.lua" />
     <None Include="..\src\ValidationAssistant.lua" />
     <None Include="..\src\ValidationDragon.lua" />
     <None Include="..\src\WaveMgr.lua" />

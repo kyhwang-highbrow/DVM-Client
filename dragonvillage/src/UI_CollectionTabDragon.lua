@@ -127,7 +127,7 @@ function UI_CollectionTabDragon:onChangeOption()
 end
 
 -------------------------------------
--- function init_TableView
+-- function init_TableViewTD
 -- @brief
 -------------------------------------
 function UI_CollectionTabDragon:init_TableViewTD()
@@ -184,12 +184,6 @@ function UI_CollectionTabDragon:checkRefresh()
         self.m_collectionLastChangeTime = g_collectionData:getLastChangeTimeStamp()
 
         -- 리스트 refresh
-        for i,v in pairs(self.m_tableViewTD.m_itemList) do
-            local ui = v['ui']
-
-            if ui then
-                ui:refresh()
-            end
-        end
+        self.m_tableViewTD:refreshAllItemUI()
     end
 end

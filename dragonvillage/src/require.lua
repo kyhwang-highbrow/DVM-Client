@@ -60,6 +60,7 @@ local t_module = {
     'ServerData',
     'ServerData_User',
     'ServerData_Dragons',
+    'ServerData_DragonUnit',
     'ServerData_Deck',
     'ServerData_Staminas',
     'ServerData_NestDungeon',
@@ -109,6 +110,7 @@ local t_module = {
     'DragonSortManager',
     'RuneEnchantHelper',
     'SimplePrimitivesDraw',
+    'Util_BuffStringParser',
 	
     -- Data클래스
     'ColosseumUserInfo',
@@ -141,6 +143,7 @@ local t_module = {
 	'TableShop',
     'TableSecretDungeon',
     'TableColosseumReward',
+    'TableDragonUnit',
 
     -- Interface
     'IEventDispatcher',

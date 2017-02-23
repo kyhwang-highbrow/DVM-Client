@@ -133,7 +133,7 @@ end
 -------------------------------------
 -- function getCommaSeparatedValues
 -------------------------------------
-function TableClass:getCommaSeparatedValues(primary, column, apply_trim)
+function TableClass:getCommaSeparatedValues(primary, column, trim_execution)
     local t_table = self:get(primary)
 
     if (not t_table) then
