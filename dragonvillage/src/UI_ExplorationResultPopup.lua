@@ -4,24 +4,17 @@ local PARENT = UI
 -- class UI_ExplorationResultPopup
 -------------------------------------
 UI_ExplorationResultPopup = class(PARENT,{
+        m_eprID = '',
+        m_data = '',
     })
-
--------------------------------------
--- function initParentVariable
--- @brief 자식 클래스에서 반드시 구현할 것
--------------------------------------
-function UI_ExplorationResultPopup:initParentVariable()
-    -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_ExplorationResultPopup'
-    self.m_bVisible = true or false
-    self.m_titleStr = Str('탐험 보상') or nil
-    self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
-end
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ExplorationResultPopup:init()
+function UI_ExplorationResultPopup:init(epr_id, data)
+    self.m_eprID = epr_id
+    self.m_data = data
+
     local vars = self:load('exploration_result.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -36,6 +29,8 @@ function UI_ExplorationResultPopup:init()
     self:initUI()
     self:initButton()
     self:refresh()
+
+    self:sceneFadeInAction()
 end
 
 -------------------------------------

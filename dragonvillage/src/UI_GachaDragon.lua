@@ -111,7 +111,7 @@ function UI_GachaDragon:click_regularDrawBtn1()
 	end
 	
 	local t_data = g_gachaData:getGachaInfo('dragon_normal')
-	MakeSimplePopup_Confirm(t_data['price_type'], t_data['multi_price_value'], ok_cb, nil)
+	MakeSimplePopup_Confirm(t_data['price_type'], t_data['multi_price_value'], nil, ok_cb, nil)
 end
 
 
@@ -131,7 +131,7 @@ function UI_GachaDragon:click_regularDrawBtn2()
 	end
 	
 	local t_data = g_gachaData:getGachaInfo('dragon_normal')
-	MakeSimplePopup_Confirm(t_data['price_type'], t_data['price_value'], ok_cb, nil)
+	MakeSimplePopup_Confirm(t_data['price_type'], t_data['price_value'], nil, ok_cb, nil)
 end
 
 
@@ -151,7 +151,7 @@ function UI_GachaDragon:click_premiumDrawBtn1()
 	end
 	
 	local t_data = g_gachaData:getGachaInfo('dragon_premium')
-	MakeSimplePopup_Confirm(t_data['price_type'], t_data['multi_price_value'], ok_cb, nil)
+	MakeSimplePopup_Confirm(t_data['price_type'], t_data['multi_price_value'], nil, ok_cb, nil)
 end
 
 
@@ -171,7 +171,7 @@ function UI_GachaDragon:click_premiumDrawBtn2()
 	end
 	
 	local t_data = g_gachaData:getGachaInfo('dragon_premium')
-	MakeSimplePopup_Confirm(t_data['price_type'], t_data['price_value'], ok_cb, nil)
+	MakeSimplePopup_Confirm(t_data['price_type'], t_data['price_value'], nil, ok_cb, nil)
 end
 
 -------------------------------------

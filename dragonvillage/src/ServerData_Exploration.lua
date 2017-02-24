@@ -42,7 +42,7 @@ function ServerData_Exploration:ckechUpdateExplorationInfo()
     end
 
     -- 추후에 time stamp등을 확인해서 여부를 설정할 것
-    -- self.m_bDirtyExplorationInfo = true
+    self:setDirty()
 end
 
 
@@ -128,11 +128,6 @@ function ServerData_Exploration:organizeData(ret)
             -- 탐험에 사용 중인 드래곤들 object id 저장
             for _,doid in ipairs(v['doid_list']) do
                 self.m_mExploredDragonOid[doid] = true
-            end
-
-            -- temp
-            if (v['epr_id'] == 3) then
-                v['end_time'] = (Timer:getServerTime() + 720) * 1000
             end
         end
     end
@@ -221,4 +216,135 @@ function ServerData_Exploration:request_explorationStart(epr_id, doids, hours, f
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+end
+
+-------------------------------------
+-- function request_explorationCancel
+-------------------------------------
+function ServerData_Exploration:request_explorationCancel(epr_id, finish_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        self:organizeData(ret)
+
+        -- 추후에 드래곤의 lock값이 필요해질때 사용
+        -- ret['modified_dragons']
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/explore/cancel')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('epr_id', epr_id)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_explorationImmediatelyComplete
+-- @brief 즉시 완료
+-------------------------------------
+function ServerData_Exploration:request_explorationImmediatelyComplete(epr_id, finish_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        -- 드래곤 정보 갱신
+        g_dragonsData:applyDragonData_list(ret['modified_dragons'])
+
+        self:organizeData(ret)
+
+        -- 추후에 드래곤의 lock값이 필요해질때 사용
+        -- ret['modified_dragons']
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/explore/finish')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('epr_id', epr_id)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_explorationReward
+-- @brief 탐험 보상 받기
+-------------------------------------
+function ServerData_Exploration:request_explorationReward(epr_id, finish_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        -- 드래곤 정보 갱신
+        g_dragonsData:applyDragonData_list(ret['modified_dragons'])
+
+        self:organizeData(ret)
+
+        -- 추후에 드래곤의 lock값이 필요해질때 사용
+        -- ret['modified_dragons']
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/explore/reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('epr_id', epr_id)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function getImmediatelyCompleteCash
+-- @brief 즉시 완료에 필요한 자수정 (탐험 시간 별)
+-------------------------------------
+function ServerData_Exploration:getImmediatelyCompleteCash(hours)
+    local key = tostring(hours) .. '_hours_Immediately_complete_cash'
+    local cash = self.m_explorationServerInfo[key]
+    return cash
+end
+
+-------------------------------------
+-- function getImmediatelyCompleteDailyLimit
+-- @brief 일일 즉시 완료 제한 횟수
+-------------------------------------
+function ServerData_Exploration:getImmediatelyCompleteDailyLimit()
+    return self.m_explorationServerInfo['immediately_complete_daily_limit']
+end
+
+-------------------------------------
+-- function getImmediatelyCompleteCnt
+-- @brief 일일 즉시 완료 횟수
+-------------------------------------
+function ServerData_Exploration:getImmediatelyCompleteCnt()
+    return self.m_immediatelyCompleteCnt
 end

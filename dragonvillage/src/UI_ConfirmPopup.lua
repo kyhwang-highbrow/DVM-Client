@@ -6,6 +6,7 @@ local PARENT = UI
 UI_ConfirmPopup = class(PARENT,{
 		m_itemKey = '',
 		m_itemValue = '',
+        m_msg = 'string',
         m_cbOKBtn = 'function',
         m_cbCancelBtn = 'function',
     })
@@ -13,9 +14,10 @@ UI_ConfirmPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ConfirmPopup:init(item_key, item_value, ok_btn_cb, cancel_btn_cb)
+function UI_ConfirmPopup:init(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
 	self.m_itemKey = item_key
 	self.m_itemValue = item_value
+    self.m_msg = msg
     self.m_cbOKBtn = ok_btn_cb
     self.m_cbCancelBtn = cancel_btn_cb
 
@@ -66,7 +68,7 @@ function UI_ConfirmPopup:refresh()
 ]]
 	local vars = self.vars
 
-	vars['titleLabel']:setString(Str('다음 재화를 사용합니다.\n진행하시겠습니다?'))
+	vars['titleLabel']:setString(self.m_msg or Str('다음 재화를 사용합니다.\n진행하시겠습니다?'))
 	
 	vars['priceLabel']:setString(comma_value(self.m_itemValue))
 

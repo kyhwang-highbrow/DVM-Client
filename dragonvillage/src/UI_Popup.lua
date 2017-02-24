@@ -352,6 +352,25 @@ end
 -- function MakeSimplePopup_Confirm
 -- @brief 단일 재화인 경우를 상정
 -------------------------------------
-function MakeSimplePopup_Confirm(item_key, item_value, ok_btn_cb, cancel_btn_cb)
-    return UI_ConfirmPopup(item_key, item_value, ok_btn_cb, cancel_btn_cb)
+function MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
+    
+    if (item_key == 'cash') then
+        local cash = g_userData:get('cash')
+
+        -- 캐시가 충분히 있는지 체크
+        if (cash < item_value) then
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('자수정이 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_cash)
+            return
+        end
+    elseif (item_key == 'gold') then
+        local gold = g_userData:get('gold')
+
+        -- 캐시가 충분히 있는지 체크
+        if (gold < item_value) then
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_gold)
+            return
+        end
+    end
+
+    return UI_ConfirmPopup(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
 end
