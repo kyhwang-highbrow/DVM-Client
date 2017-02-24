@@ -48,18 +48,18 @@ function TableShop:makeProductDesc(l_product)
 			cclog('value_type : ' .. value_type)
 		end
 
-		ret_str = ret_str .. str
+		ret_str = ret_str .. str .. '\n'
 	end
 	
     return ret_str
 end
 
 -------------------------------------
--- function makePriceName
+-- function makePriceDesc
 -- @breif 가격 설명 생성 = 가격 종류 + 가격 갯수
 -- @return str string
 -------------------------------------
-function TableShop:makePriceName(price_type, price_value)
+function TableShop:makePriceDesc(price_type, price_value)
     local price_str = comma_value(price_value)
     local str = ''
 
@@ -98,6 +98,29 @@ function TableShop:makePriceIconRes(price_type)
     end
 
     return res
+end
+
+-------------------------------------
+-- function makeBillName
+-- @brief 지불 재화 아이콘 생성
+-------------------------------------
+function TableShop:makeBillName(price_type)
+    local price_type = price_type or 'x'
+
+    if (price_type == 'money') then
+		if (Translate.phoneLang == 'kr') then
+			return 'KRW'
+		elseif (Translate.phoneLang == 'en') then
+			return 'USD'
+		elseif (Translate.phoneLang == 'jp') then
+			return 'JPY'
+		elseif (Translate.phoneLang == 'cn') then
+			return 'CNY'
+		end
+
+    else
+		return Str('구매')
+    end
 end
 
 -------------------------------------

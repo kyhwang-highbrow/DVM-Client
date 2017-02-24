@@ -79,7 +79,7 @@ function UI_ShopListItem:initUI()
     vars['itemLabel']:setString(product_name)
 
 	-- 가격 label
-	local price_str = TableShop:makePriceName(self.m_priceType, self.m_priceValue)
+	local price_str = TableShop:makePriceDesc(self.m_priceType, self.m_priceValue)
     vars['priceLabel']:setString(price_str)
 
 	-- 상품 상세 설명
@@ -87,7 +87,7 @@ function UI_ShopListItem:initUI()
 	vars['dscLabel']:setString(product_desc)
 
 	-- 현금 화폐 종류 (아니면 디폴트값 '구매')
-	local bill_type = Str('구매')
+	local bill_type = TableShop:makeBillName(self.m_priceType)
 	vars['purchaseLabel']:setString(bill_type)
 end                                              
 
