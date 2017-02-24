@@ -112,6 +112,11 @@ end
 -- @brief 상품 버튼 클릭
 -------------------------------------
 function UI_ShopListItem:click_buyBtn()
+	if (self.m_gruopType == 'recommend') or (self.m_gruopType == 'honor') then 
+		UIManager:toastNotificationRed('해당 상품은 준비 중입니다.')
+		return
+	end
+
 	local t_product = self.m_productData
     local can_buy, msg = g_shopData:canBuyProduct(self.m_priceType, self.m_priceValue)
 

@@ -44,6 +44,9 @@ function ServerData_Shop:canBuyProduct(price_type, price_value)
 	elseif (price_type == 'money') then
 		user_price = 9999999
 
+	elseif (price_type == 'honor') then
+		user_price = 9999999
+
     else
         error('price_type : ' .. price_type)
     end
@@ -124,7 +127,7 @@ function ServerData_Shop:network_ProductPay(price_type, price_value, finish_cb)
             gold = (gold - price_value)
 
         elseif (price_type == 'money') then
-
+		elseif (price_type == 'honor') then
         else
             error('price_type : ' .. price_type)
         end
