@@ -61,7 +61,7 @@ function GameAuto:update_fight(dt)
 
         -- 테이머
         if (not b) then
-            b = self:proccess_tamer()
+            --b = self:proccess_tamer()
         end
         
         -- 드래곤

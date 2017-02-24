@@ -57,7 +57,7 @@ end
 function SkillExplosion.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
 		-- 공격
-		owner:makeEffect(self.m_explosionRes, owner.m_targetPos.x, owner.m_targetPos.y)
+		owner:makeEffect(owner.m_explosionRes, owner.m_targetPos.x, owner.m_targetPos.y)
 		owner:runAttack()
 		owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 1500)
 		owner:changeState('comeback')

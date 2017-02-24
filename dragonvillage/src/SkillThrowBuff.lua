@@ -93,6 +93,10 @@ function SkillThrowBuff.st_obtain(owner, dt)
 		owner.m_animator:addAniHandler(function()
 			owner:changeState('dying')
         end)
+
+        if (owner.m_bHighlight) then
+            owner.m_world.m_gameHighlight:addChar(owner.m_targetChar)
+        end
     end
 end
 

@@ -39,7 +39,8 @@ function GameDragonSkill:initUI()
     self.m_skillDescEffect:setPosition(0, -200)
     self.m_skillDescEffect:changeAni('skill', false)
     self.m_skillDescEffect:setVisible(false)
-    g_gameScene.m_containerLayer:addChild(self.m_skillDescEffect.m_node)
+    --g_gameScene.m_containerLayer:addChild(self.m_skillDescEffect.m_node)
+    g_gameScene.m_viewLayer:addChild(self.m_skillDescEffect.m_node)
 
     local titleNode = self.m_skillDescEffect.m_node:getSocketNode('skill_title')
     local descNode = self.m_skillDescEffect.m_node:getSocketNode('skill_dsc')
@@ -122,7 +123,7 @@ function GameDragonSkill.update_live(self, dt)
                 local animator = MakeAnimator(string.format('res/effect/effect_skillcut_dragon/effect_skillcut_dragon_%s.vrp', attr))
                 animator:changeAni('idle', false)
                 animator:setPosition(0, 80)
-                g_gameScene.m_containerLayer:addChild(animator.m_node)
+                g_gameScene.m_viewLayer:addChild(animator.m_node)
 
                 local duration = animator:getDuration() * delayTime
                 animator:setTimeScale(duration / (timeScale * delayTime))
@@ -166,6 +167,7 @@ function GameDragonSkill.update_live(self, dt)
             self.m_world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_HIDE)
             self.m_world.m_gameHighlight:clear()
 
+        elseif (self:isPassedStepTime(3)) then
             self.m_dragon = nil
 
             self:changeState(GAME_DRAGON_SKILL_WAIT)
@@ -183,7 +185,7 @@ function GameDragonSkill:makeDragonCut(dragon, timeScale, delayTime)
     local animator = MakeAnimator(res_name)
     animator:changeAni('pose_1', false)
     animator:setPosition(-300, -50)
-    g_gameScene.m_containerLayer:addChild(animator.m_node)
+    g_gameScene.m_viewLayer:addChild(animator.m_node)
 
     animator:setScale(1)
     animator:runAction(cc.ScaleTo:create(timeScale, 1.5))

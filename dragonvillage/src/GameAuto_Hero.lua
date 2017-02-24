@@ -73,7 +73,12 @@ end
 -- function update_fight
 -------------------------------------
 function GameAuto_Hero:update_fight(dt)
+    -- 인디케이터 조작중일 경우
     if (self.m_world.m_skillIndicatorMgr:isControlling()) then
+        return
+    end
+
+    if (not self.m_world:isPossibleControl()) then
         return
     end
 
