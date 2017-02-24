@@ -1,5 +1,7 @@
-tid,t_name,type,icon,res,scale,icon,rarity,role,attr,char_type,stat_type,target_formation,skill_basic,skill_1,skill_type_1,skill_2,skill_type_2,skill_3,skill_type_3,skill_4,skill_type_4,skill_5,skill_type_5,skill_6,skill_type_6,buff_front,buff_middle,buff_back,special_01,special_02,special_03,atk_max,def_max,hp_max,aspd_max,aspd_abs,cri_chance_max,cri_dmg_max,cri_avoid_max,hit_rate_max,avoid_max,char_score,t_desc
-100001,누리,formation,res/ui/icon/cha/formation.png,res/spine/tamer_nuri/tamer_nuri.spine,1,x,x,dealer,earth,physical,x,x,210101,211092,passive,0,x,0,x,0,x,0,x,0,x,x,x,x,x,x,x,4950,2451,24950,50,50,27.5,150,15,50,47.5,0,x
-110000,없음,formation,res/ui/icon/cha/formation.png,res/spine/tamer_nuri/tamer_nuri.spine,1,x,x,tanker,earth,magical,x,x,210101,211092,passive,0,x,0,x,0,x,0,x,0,x,x,x,x,x,x,x,4950,2451,24950,50,50,27.5,150,15,50,47.5,0,x
-110001,리온,leon,res/ui/icon/cha/leon.png,res/character/tamer/leon/leon.spine,1,x,x,dealer,fire,physical,x,x,0,241001,manual,241002,manual,241003,manual,241004,manual,0,x,0,x,240004,240003,240007,241003,241007,241009,6900,2950,69700,0,0,25,100,15,0,45,,x
-110002,레아,lea,res/ui/icon/cha/lea.png,res/spine/tamer_lea/tamer_lea.spine,1,x,x,supporter,water,magical,x,x,210101,211092,passive,0,x,0,x,0,x,0,x,0,x,240005,240006,240007,241003,241007,241008,5900,3450,69700,0,0,25,100,15,0,45,63.3,x
+tid,type,t_name,t_desc,res,res_sd,res_icon,scale,skill_1,skill_type_1,skill_2,skill_type_2
+110001,goni,고니,고니는 남자아이이다.,res/character/tamer/goni_i/goni_i.spine,res/character/tamer/goni/goni.spine,res/ui/icon/cha/tamer_goni.png,1,241101,active,241201,passive
+110002,nuri,누리,누리는 여자아이이다.,res/character/tamer/nuri_i/nuri_i.spine,res/character/tamer/nuri/nuri.spine,res/ui/icon/cha/tamer_nuri.png,1,242101,active,242201,passive
+110003,dede,데데,데데데데데데데데,res/character/tamer/dede_i/dede_i.spine,res/character/tamer/dede/dede.spine,res/ui/icon/cha/tamer_dede.png,1,243101,active,243201,passive
+110004,kesath,케사스,케사스는 남자이름같다.,res/character/tamer/kesath_i/kesath_i.spine,res/character/tamer/kesath/kesath.spine,res/ui/icon/cha/tamer_kesath.png,1,244101,active,244201,passive
+110005,durun,두른,두른은 새로 나왔다.,res/character/tamer/durun_i/durun_i.spine,res/character/tamer/durun/durun.spine,res/ui/icon/cha/tamer_durun.png,1,245101,active,245201,passive
+110006,mokoji,모코지,모코지..?,res/character/tamer/mokoji_i/mokoji_i.spine,res/character/tamer/mokoji/mokoji.spine,res/ui/icon/cha/tamer_mokoji.png,1,246101,active,246201,passive
