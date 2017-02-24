@@ -5,7 +5,7 @@
 #include <vector>
 #include "LoginPlatform.h"
 
-#define PACKAGE_NAME    "com/perplelab/dvfgt/AppActivity"
+#define PACKAGE_NAME    "com/perplelab/dvpublic/AppActivity"
 
 using namespace std;
 using namespace cocos2d;
