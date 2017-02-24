@@ -271,6 +271,81 @@
 					}
 				},
 				{
+					"name":"fever_ready",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_gg_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":39
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_gg_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":4.000000, "alpha":0
+									},
+									{
+										"frame":20, "pY":4.000000
+									},
+									{
+										"frame":39, "pY":4.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_gg_ready.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "sY":0.000000, "pX":304.000000, "pY":-6.000000, "alpha":0
+									},
+									{
+										"frame":5, "sX":0.800000, "sY":0.800000, "pX":200.000000, "pY":-7.000000
+									},
+									{
+										"frame":39, "sX":0.800000, "sY":0.800000, "pX":192.000000, "pY":-7.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'fever_ready_touch'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.500000, "sY":0.500000, "pX":305.000000, "pY":-1.000000
+									},
+									{
+										"frame":39, "sX":0.500000, "sY":0.500000, "pX":305.000000, "pY":-1.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"idle_01",
 					"apply":true,
 					"fps":30,
@@ -1858,6 +1933,89 @@
 			"visual_list":
 			[
 				{
+					"name":"fever_ready_touch",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5
+									},
+									{
+										"frame":9, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15
+									},
+									{
+										"frame":19, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25
+									},
+									{
+										"frame":29, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_btn_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":35
+									},
+									{
+										"frame":39, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_button_finger'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":39
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"res_01_s",
 					"apply":true,
 					"fps":30,
@@ -2737,7 +2895,7 @@
 				{
 					"name":"res_button_finger",
 					"apply":true,
-					"fps":10,
+					"fps":30,
 					"layer_root":
 					{
 						"expand":true,
