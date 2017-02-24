@@ -23,7 +23,7 @@ end
 -------------------------------------
 function applicationDidEnterBackground()
     cclog('applicationDidEnterBackground')
-	LocalPushMgr()
+	--LocalPushMgr()
 end
 
 -------------------------------------
@@ -50,7 +50,7 @@ end
 -------------------------------------
 function closeApplication()
 	cclog('CloseApplication')
-    LocalPushMgr()
+    --LocalPushMgr()
 	cc.Director:getInstance():endToLua()
 end
 
