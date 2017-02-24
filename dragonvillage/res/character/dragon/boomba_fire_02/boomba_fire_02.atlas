@@ -55,9 +55,9 @@ boomba_fire_02_effect_02
   index: -1
 boomba_fire_02_effect_03
   rotate: false
-  xy: 370, 291
-  size: 35, 42
-  orig: 35, 42
+  xy: 275, 80
+  size: 65, 56
+  orig: 65, 56
   offset: 0, 0
   index: -1
 boomba_fire_02_effect_04
@@ -69,14 +69,14 @@ boomba_fire_02_effect_04
   index: -1
 boomba_fire_02_eye_01
   rotate: false
-  xy: 275, 76
+  xy: 370, 335
   size: 59, 60
   orig: 59, 60
   offset: 0, 0
   index: -1
 boomba_fire_02_eye_03
   rotate: false
-  xy: 370, 335
+  xy: 370, 273
   size: 59, 60
   orig: 59, 60
   offset: 0, 0

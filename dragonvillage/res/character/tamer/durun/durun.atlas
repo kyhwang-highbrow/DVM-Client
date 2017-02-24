@@ -6,260 +6,365 @@ filter: Linear,Linear
 repeat: none
 durun_acc_01
   rotate: false
-  xy: 2, 2
-  size: 30, 41
-  orig: 30, 41
+  xy: 254, 647
+  size: 74, 50
+  orig: 74, 50
   offset: 0, 0
   index: -1
 durun_acc_02
   rotate: true
-  xy: 337, 781
-  size: 14, 30
-  orig: 14, 30
-  offset: 0, 0
-  index: -1
-durun_acc_03
-  rotate: false
-  xy: 34, 26
-  size: 17, 17
-  orig: 17, 17
+  xy: 142, 254
+  size: 21, 17
+  orig: 21, 17
   offset: 0, 0
   index: -1
 durun_arm_01
   rotate: false
-  xy: 95, 373
-  size: 51, 70
-  orig: 51, 70
+  xy: 58, 18
+  size: 71, 33
+  orig: 71, 33
   offset: 0, 0
   index: -1
 durun_arm_02
+  rotate: false
+  xy: 296, 580
+  size: 41, 65
+  orig: 41, 65
+  offset: 0, 0
+  index: -1
+durun_arm_03
   rotate: true
-  xy: 488, 869
-  size: 41, 53
-  orig: 41, 53
+  xy: 562, 868
+  size: 41, 65
+  orig: 41, 65
+  offset: 0, 0
+  index: -1
+durun_arm_04
+  rotate: true
+  xy: 336, 759
+  size: 38, 71
+  orig: 38, 71
+  offset: 0, 0
+  index: -1
+durun_arm_05
+  rotate: false
+  xy: 256, 574
+  size: 38, 71
+  orig: 38, 71
   offset: 0, 0
   index: -1
 durun_body_01
-  rotate: true
-  xy: 868, 962
-  size: 49, 60
-  orig: 49, 60
-  offset: 0, 0
-  index: -1
-durun_body_02
   rotate: false
-  xy: 65, 287
-  size: 23, 55
-  orig: 23, 55
-  offset: 0, 0
-  index: -1
-durun_body_03
-  rotate: false
-  xy: 330, 749
-  size: 14, 30
-  orig: 14, 30
-  offset: 0, 0
-  index: -1
-durun_body_04
-  rotate: false
-  xy: 95, 348
-  size: 26, 23
-  orig: 26, 23
+  xy: 935, 934
+  size: 71, 88
+  orig: 71, 88
   offset: 0, 0
   index: -1
 durun_brow_01
-  rotate: true
-  xy: 248, 561
-  size: 22, 17
-  orig: 22, 17
+  rotate: false
+  xy: 460, 856
+  size: 32, 22
+  orig: 32, 22
   offset: 0, 0
   index: -1
-durun_brow_02
+durun_cape_01
   rotate: false
-  xy: 793, 943
-  size: 15, 11
-  orig: 15, 11
+  xy: 68, 201
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+durun_cape_02
+  rotate: false
+  xy: 154, 424
+  size: 34, 37
+  orig: 34, 37
+  offset: 0, 0
+  index: -1
+durun_cape_03
+  rotate: false
+  xy: 982, 895
+  size: 34, 37
+  orig: 34, 37
+  offset: 0, 0
+  index: -1
+durun_cape_04
+  rotate: true
+  xy: 257, 799
+  size: 61, 157
+  orig: 61, 157
+  offset: 0, 0
+  index: -1
+durun_cape_05
+  rotate: false
+  xy: 154, 463
+  size: 34, 106
+  orig: 34, 106
+  offset: 0, 0
+  index: -1
+durun_cape_06
+  rotate: false
+  xy: 420, 880
+  size: 140, 142
+  orig: 140, 142
   offset: 0, 0
   index: -1
 durun_effect_01
   rotate: false
-  xy: 2, 445
-  size: 146, 138
-  orig: 146, 138
-  offset: 0, 0
-  index: -1
-durun_eye_01
-  rotate: false
-  xy: 193, 511
-  size: 21, 23
-  orig: 21, 23
-  offset: 0, 0
-  index: -1
-durun_eye_02
-  rotate: false
-  xy: 543, 887
-  size: 21, 23
-  orig: 21, 23
-  offset: 0, 0
-  index: -1
-durun_eye_03
-  rotate: false
-  xy: 639, 912
-  size: 45, 17
-  orig: 45, 17
-  offset: 0, 0
-  index: -1
-durun_face_01
-  rotate: false
-  xy: 2, 344
-  size: 91, 99
-  orig: 91, 99
-  offset: 0, 0
-  index: -1
-durun_foot_01
-  rotate: false
-  xy: 150, 502
-  size: 41, 81
-  orig: 41, 81
-  offset: 0, 0
-  index: -1
-durun_foot_02
-  rotate: true
-  xy: 199, 585
-  size: 41, 68
-  orig: 41, 68
-  offset: 0, 0
-  index: -1
-durun_hair_01
-  rotate: false
-  xy: 2, 259
-  size: 61, 83
-  orig: 61, 83
-  offset: 0, 0
-  index: -1
-durun_hair_02
-  rotate: false
-  xy: 150, 452
-  size: 41, 48
-  orig: 41, 48
-  offset: 0, 0
-  index: -1
-durun_hand_01
-  rotate: true
-  xy: 269, 603
-  size: 23, 55
-  orig: 23, 55
-  offset: 0, 0
-  index: -1
-durun_head_01
-  rotate: true
-  xy: 488, 912
-  size: 99, 149
-  orig: 99, 149
-  offset: 0, 0
-  index: -1
-durun_i_effect_01
-  rotate: false
-  xy: 2, 781
-  size: 333, 230
-  orig: 333, 230
-  offset: 0, 0
-  index: -1
-durun_i_effect_02
-  rotate: false
-  xy: 337, 864
-  size: 149, 147
-  orig: 149, 147
-  offset: 0, 0
-  index: -1
-durun_i_effect_05
-  rotate: false
-  xy: 639, 931
-  size: 84, 80
-  orig: 84, 80
-  offset: 0, 0
-  index: -1
-durun_i_effect_06
-  rotate: false
-  xy: 725, 941
-  size: 66, 70
-  orig: 66, 70
-  offset: 0, 0
-  index: -1
-durun_i_effect_08
-  rotate: true
-  xy: 337, 797
-  size: 65, 142
-  orig: 65, 142
-  offset: 0, 0
-  index: -1
-durun_i_effect_15
-  rotate: false
-  xy: 2, 585
+  xy: 2, 571
   size: 195, 194
   orig: 195, 194
   offset: 0, 0
   index: -1
+durun_eye_01
+  rotate: false
+  xy: 494, 855
+  size: 27, 23
+  orig: 27, 23
+  offset: 0, 0
+  index: -1
+durun_eye_02
+  rotate: false
+  xy: 2, 2
+  size: 17, 14
+  orig: 17, 14
+  offset: 0, 0
+  index: -1
+durun_eye_03
+  rotate: false
+  xy: 523, 861
+  size: 27, 17
+  orig: 27, 17
+  offset: 0, 0
+  index: -1
+durun_face_01
+  rotate: false
+  xy: 676, 923
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+durun_face_02
+  rotate: false
+  xy: 133, 277
+  size: 26, 13
+  orig: 26, 13
+  offset: 0, 0
+  index: -1
+durun_foot_01
+  rotate: false
+  xy: 133, 380
+  size: 41, 42
+  orig: 41, 42
+  offset: 0, 0
+  index: -1
+durun_foot_02
+  rotate: false
+  xy: 133, 336
+  size: 41, 42
+  orig: 41, 42
+  offset: 0, 0
+  index: -1
+durun_foot_03
+  rotate: false
+  xy: 133, 292
+  size: 41, 42
+  orig: 41, 42
+  offset: 0, 0
+  index: -1
+durun_hair_01
+  rotate: false
+  xy: 420, 849
+  size: 38, 29
+  orig: 38, 29
+  offset: 0, 0
+  index: -1
+durun_hair_02
+  rotate: true
+  xy: 629, 865
+  size: 44, 45
+  orig: 44, 45
+  offset: 0, 0
+  index: -1
+durun_hand_01
+  rotate: true
+  xy: 734, 873
+  size: 48, 33
+  orig: 48, 33
+  offset: 0, 0
+  index: -1
+durun_hand_02
+  rotate: false
+  xy: 932, 899
+  size: 48, 33
+  orig: 48, 33
+  offset: 0, 0
+  index: -1
+durun_hand_03
+  rotate: false
+  xy: 769, 857
+  size: 48, 33
+  orig: 48, 33
+  offset: 0, 0
+  index: -1
+durun_hand_04
+  rotate: false
+  xy: 416, 810
+  size: 37, 37
+  orig: 37, 37
+  offset: 0, 0
+  index: -1
+durun_hand_05
+  rotate: true
+  xy: 879, 896
+  size: 37, 51
+  orig: 37, 51
+  offset: 0, 0
+  index: -1
+durun_hat_01
+  rotate: false
+  xy: 562, 911
+  size: 112, 111
+  orig: 112, 111
+  offset: 0, 0
+  index: -1
+durun_hat_02
+  rotate: true
+  xy: 190, 484
+  size: 79, 50
+  orig: 79, 50
+  offset: 0, 0
+  index: -1
+durun_hat_03
+  rotate: false
+  xy: 676, 878
+  size: 56, 43
+  orig: 56, 43
+  offset: 0, 0
+  index: -1
+durun_hat_04
+  rotate: false
+  xy: 819, 855
+  size: 44, 35
+  orig: 44, 35
+  offset: 0, 0
+  index: -1
+durun_i_effect_01
+  rotate: false
+  xy: 2, 428
+  size: 150, 141
+  orig: 150, 141
+  offset: 0, 0
+  index: -1
+durun_i_effect_02
+  rotate: false
+  xy: 68, 127
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+durun_i_effect_05
+  rotate: false
+  xy: 58, 53
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+durun_i_effect_06
+  rotate: false
+  xy: 190, 438
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+durun_i_effect_08
+  rotate: false
+  xy: 769, 935
+  size: 81, 87
+  orig: 81, 87
+  offset: 0, 0
+  index: -1
+durun_i_effect_09
+  rotate: false
+  xy: 852, 935
+  size: 81, 87
+  orig: 81, 87
+  offset: 0, 0
+  index: -1
+durun_i_effect_10
+  rotate: false
+  xy: 2, 767
+  size: 253, 255
+  orig: 253, 255
+  offset: 0, 0
+  index: -1
+durun_i_effect_11
+  rotate: false
+  xy: 257, 862
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
 durun_leg_01
   rotate: false
-  xy: 2, 182
-  size: 58, 75
-  orig: 58, 75
+  xy: 2, 143
+  size: 64, 130
+  orig: 64, 130
   offset: 0, 0
   index: -1
 durun_leg_02
   rotate: false
-  xy: 2, 45
-  size: 49, 60
-  orig: 49, 60
-  offset: 0, 0
-  index: -1
-durun_leg_03
-  rotate: false
-  xy: 974, 989
-  size: 15, 22
-  orig: 15, 22
-  offset: 0, 0
-  index: -1
-durun_leg_04
-  rotate: false
-  xy: 65, 263
-  size: 15, 22
-  orig: 15, 22
+  xy: 2, 18
+  size: 54, 123
+  orig: 54, 123
   offset: 0, 0
   index: -1
 durun_lowbody_01
   rotate: false
-  xy: 199, 628
+  xy: 2, 275
   size: 129, 151
   orig: 129, 151
   offset: 0, 0
   index: -1
 durun_lowbody_02
-  rotate: false
-  xy: 793, 956
+  rotate: true
+  xy: 199, 565
   size: 73, 55
   orig: 73, 55
   offset: 0, 0
   index: -1
 durun_lowbody_03
-  rotate: true
-  xy: 2, 107
+  rotate: false
+  xy: 254, 699
   size: 73, 55
   orig: 73, 55
   offset: 0, 0
   index: -1
-durun_wepon_01
+durun_neck_01
   rotate: false
-  xy: 193, 536
-  size: 53, 47
-  orig: 53, 47
+  xy: 769, 892
+  size: 53, 41
+  orig: 53, 41
   offset: 0, 0
   index: -1
-durun_wepon_02
+durun_neck_02
   rotate: false
-  xy: 930, 974
-  size: 42, 37
-  orig: 42, 37
+  xy: 824, 892
+  size: 53, 41
+  orig: 53, 41
+  offset: 0, 0
+  index: -1
+durun_neck_03
+  rotate: false
+  xy: 257, 756
+  size: 77, 41
+  orig: 77, 41
+  offset: 0, 0
+  index: -1
+durun_wepon_01
+  rotate: false
+  xy: 199, 640
+  size: 53, 125
+  orig: 53, 125
   offset: 0, 0
   index: -1
