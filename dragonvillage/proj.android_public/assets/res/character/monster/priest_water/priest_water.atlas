@@ -1,0 +1,104 @@
+
+priest_water.png
+size: 256,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+priest_water_arm_01
+  rotate: false
+  xy: 157, 33
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+priest_water_arm_02
+  rotate: false
+  xy: 127, 79
+  size: 44, 47
+  orig: 44, 47
+  offset: 0, 0
+  index: -1
+priest_water_body_01
+  rotate: false
+  xy: 2, 27
+  size: 61, 99
+  orig: 61, 99
+  offset: 0, 0
+  index: -1
+priest_water_body_02
+  rotate: false
+  xy: 203, 15
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+priest_water_body_03
+  rotate: true
+  xy: 114, 3
+  size: 28, 33
+  orig: 28, 33
+  offset: 0, 0
+  index: -1
+priest_water_body_04
+  rotate: false
+  xy: 30, 11
+  size: 29, 14
+  orig: 29, 14
+  offset: 0, 0
+  index: -1
+priest_water_effect_01
+  rotate: true
+  xy: 214, 91
+  size: 35, 38
+  orig: 35, 38
+  offset: 0, 0
+  index: -1
+priest_water_effect_02
+  rotate: false
+  xy: 65, 33
+  size: 90, 27
+  orig: 90, 27
+  offset: 0, 0
+  index: -1
+priest_water_effect_03
+  rotate: false
+  xy: 61, 2
+  size: 15, 23
+  orig: 15, 23
+  offset: 0, 0
+  index: -1
+priest_water_hand_01
+  rotate: false
+  xy: 78, 3
+  size: 34, 28
+  orig: 34, 28
+  offset: 0, 0
+  index: -1
+priest_water_hand_02
+  rotate: false
+  xy: 2, 8
+  size: 26, 17
+  orig: 26, 17
+  offset: 0, 0
+  index: -1
+priest_water_head_01
+  rotate: false
+  xy: 173, 79
+  size: 39, 47
+  orig: 39, 47
+  offset: 0, 0
+  index: -1
+priest_water_wepon_01
+  rotate: true
+  xy: 65, 62
+  size: 64, 60
+  orig: 64, 60
+  offset: 0, 0
+  index: -1
+priest_water_wepon_02
+  rotate: true
+  xy: 203, 47
+  size: 30, 50
+  orig: 30, 50
+  offset: 0, 0
+  index: -1

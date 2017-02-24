@@ -1,0 +1,48 @@
+
+common_flying_skull_fire.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_flying_skull_fire_body_01
+  rotate: true
+  xy: 2, 2
+  size: 106, 133
+  orig: 106, 133
+  offset: 0, 0
+  index: -1
+common_flying_skull_fire_body_02
+  rotate: true
+  xy: 137, 8
+  size: 100, 125
+  orig: 100, 125
+  offset: 0, 0
+  index: -1
+common_flying_skull_fire_body_03
+  rotate: false
+  xy: 451, 28
+  size: 19, 39
+  orig: 19, 39
+  offset: 0, 0
+  index: -1
+common_flying_skull_fire_effect_01
+  rotate: false
+  xy: 396, 16
+  size: 53, 92
+  orig: 53, 92
+  offset: 0, 0
+  index: -1
+common_flying_skull_fire_effect_02
+  rotate: true
+  xy: 264, 14
+  size: 94, 130
+  orig: 94, 130
+  offset: 0, 0
+  index: -1
+common_flying_skull_fire_effect_03
+  rotate: false
+  xy: 451, 69
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1

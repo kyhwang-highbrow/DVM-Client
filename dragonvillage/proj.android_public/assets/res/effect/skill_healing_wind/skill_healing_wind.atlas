@@ -1,0 +1,69 @@
+
+skill_healing_wind.png
+size: 4096,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skill_healing_wind_01
+  rotate: false
+  xy: 2, 2
+  size: 360, 1000
+  orig: 360, 1000
+  offset: 0, 0
+  index: -1
+skill_healing_wind_04
+  rotate: false
+  xy: 364, 2
+  size: 360, 1000
+  orig: 360, 1000
+  offset: 0, 0
+  index: -1
+skill_healing_wind_05
+  rotate: false
+  xy: 726, 2
+  size: 360, 1000
+  orig: 360, 1000
+  offset: 0, 0
+  index: -1
+skill_healing_wind_06
+  rotate: false
+  xy: 1088, 2
+  size: 360, 1000
+  orig: 360, 1000
+  offset: 0, 0
+  index: -1
+skill_healing_wind_07
+  rotate: false
+  xy: 1450, 2
+  size: 360, 1000
+  orig: 360, 1000
+  offset: 0, 0
+  index: -1
+skill_healing_wind_08
+  rotate: false
+  xy: 1812, 2
+  size: 360, 1000
+  orig: 360, 1000
+  offset: 0, 0
+  index: -1
+skill_healing_wind_09
+  rotate: false
+  xy: 2174, 776
+  size: 360, 226
+  orig: 360, 226
+  offset: 0, 0
+  index: -1
+skill_healing_wind_10
+  rotate: false
+  xy: 2174, 578
+  size: 360, 196
+  orig: 360, 196
+  offset: 0, 0
+  index: -1
+skill_healing_wind_11
+  rotate: false
+  xy: 2536, 792
+  size: 122, 210
+  orig: 122, 210
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,83 @@
+
+common_harpy_junior_wind.png
+size: 256,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_harpy_junior_wind_body_01
+  rotate: false
+  xy: 178, 79
+  size: 40, 35
+  orig: 40, 35
+  offset: 0, 0
+  index: -1
+common_harpy_junior_wind_body_02
+  rotate: false
+  xy: 2, 2
+  size: 51, 38
+  orig: 51, 38
+  offset: 0, 0
+  index: -1
+common_harpy_junior_wind_effect_01
+  rotate: true
+  xy: 140, 40
+  size: 29, 42
+  orig: 29, 42
+  offset: 0, 0
+  index: -1
+common_harpy_junior_wind_eye_01
+  rotate: true
+  xy: 108, 25
+  size: 23, 29
+  orig: 23, 29
+  offset: 0, 0
+  index: -1
+common_harpy_junior_wind_eye_02
+  rotate: false
+  xy: 73, 50
+  size: 65, 64
+  orig: 65, 64
+  offset: 0, 0
+  index: -1
+common_harpy_junior_wind_foot_01
+  rotate: false
+  xy: 140, 71
+  size: 36, 43
+  orig: 36, 43
+  offset: 0, 0
+  index: -1
+common_harpy_junior_wind_foot_02
+  rotate: false
+  xy: 184, 49
+  size: 28, 28
+  orig: 28, 28
+  offset: 0, 0
+  index: -1
+common_harpy_junior_wind_hair_01
+  rotate: false
+  xy: 81, 20
+  size: 25, 28
+  orig: 25, 28
+  offset: 0, 0
+  index: -1
+common_harpy_junior_wind_head_01
+  rotate: false
+  xy: 2, 42
+  size: 69, 72
+  orig: 69, 72
+  offset: 0, 0
+  index: -1
+common_harpy_junior_wind_wing_01
+  rotate: true
+  xy: 220, 81
+  size: 33, 34
+  orig: 33, 34
+  offset: 0, 0
+  index: -1
+common_harpy_junior_wind_wing_02
+  rotate: false
+  xy: 55, 7
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1

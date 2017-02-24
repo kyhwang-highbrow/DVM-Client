@@ -1,0 +1,118 @@
+
+boomba_water_01.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boomba_water_01_arm_01
+  rotate: false
+  xy: 802, 158
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_water_01_arm_02
+  rotate: false
+  xy: 851, 158
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_water_01_body_01
+  rotate: false
+  xy: 2, 2
+  size: 212, 209
+  orig: 212, 209
+  offset: 0, 0
+  index: -1
+boomba_water_01_body_02
+  rotate: false
+  xy: 574, 113
+  size: 82, 98
+  orig: 82, 98
+  offset: 0, 0
+  index: -1
+boomba_water_01_body_03
+  rotate: false
+  xy: 216, 80
+  size: 129, 131
+  orig: 129, 131
+  offset: 0, 0
+  index: -1
+boomba_water_01_effect_03
+  rotate: false
+  xy: 735, 155
+  size: 65, 56
+  orig: 65, 56
+  offset: 0, 0
+  index: -1
+boomba_water_01_eye_01
+  rotate: false
+  xy: 216, 18
+  size: 106, 60
+  orig: 106, 60
+  offset: 0, 0
+  index: -1
+boomba_water_01_foot_01
+  rotate: false
+  xy: 900, 158
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_water_01_foot_02
+  rotate: false
+  xy: 949, 158
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_water_01_head_01
+  rotate: false
+  xy: 480, 104
+  size: 92, 107
+  orig: 92, 107
+  offset: 0, 0
+  index: -1
+boomba_water_01_leg_01
+  rotate: true
+  xy: 658, 102
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_water_01_leg_02
+  rotate: false
+  xy: 324, 25
+  size: 47, 53
+  orig: 47, 53
+  offset: 0, 0
+  index: -1
+boomba_water_01_mouth_01
+  rotate: false
+  xy: 658, 151
+  size: 75, 60
+  orig: 75, 60
+  offset: 0, 0
+  index: -1
+boomba_water_01_mouth_02
+  rotate: false
+  xy: 347, 99
+  size: 131, 112
+  orig: 131, 112
+  offset: 0, 0
+  index: -1
+boomba_water_01_wing_01
+  rotate: false
+  xy: 373, 55
+  size: 53, 42
+  orig: 53, 42
+  offset: 0, 0
+  index: -1
+boomba_water_01_wing_02
+  rotate: false
+  xy: 428, 55
+  size: 53, 42
+  orig: 53, 42
+  offset: 0, 0
+  index: -1

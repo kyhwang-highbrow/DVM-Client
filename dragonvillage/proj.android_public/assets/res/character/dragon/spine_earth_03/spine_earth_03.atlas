@@ -1,0 +1,139 @@
+
+spine_earth_03.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+spine_earth_03_arm_01
+  rotate: false
+  xy: 938, 405
+  size: 83, 105
+  orig: 83, 105
+  offset: 0, 0
+  index: -1
+spine_earth_03_arm_02
+  rotate: true
+  xy: 347, 80
+  size: 83, 105
+  orig: 83, 105
+  offset: 0, 0
+  index: -1
+spine_earth_03_body_01
+  rotate: false
+  xy: 2, 25
+  size: 155, 156
+  orig: 155, 156
+  offset: 0, 0
+  index: -1
+spine_earth_03_body_02
+  rotate: false
+  xy: 454, 2
+  size: 78, 77
+  orig: 78, 77
+  offset: 0, 0
+  index: -1
+spine_earth_03_body_03
+  rotate: false
+  xy: 454, 81
+  size: 82, 82
+  orig: 82, 82
+  offset: 0, 0
+  index: -1
+spine_earth_03_body_04
+  rotate: false
+  xy: 765, 212
+  size: 97, 96
+  orig: 97, 96
+  offset: 0, 0
+  index: -1
+spine_earth_03_body_05
+  rotate: false
+  xy: 248, 67
+  size: 97, 96
+  orig: 97, 96
+  offset: 0, 0
+  index: -1
+spine_earth_03_body_06
+  rotate: false
+  xy: 755, 399
+  size: 181, 111
+  orig: 181, 111
+  offset: 0, 0
+  index: -1
+spine_earth_03_eff_01
+  rotate: false
+  xy: 2, 183
+  size: 267, 327
+  orig: 267, 327
+  offset: 0, 0
+  index: -1
+spine_earth_03_eye_01
+  rotate: true
+  xy: 864, 235
+  size: 73, 70
+  orig: 73, 70
+  offset: 0, 0
+  index: -1
+spine_earth_03_hand_01
+  rotate: false
+  xy: 551, 176
+  size: 105, 117
+  orig: 105, 117
+  offset: 0, 0
+  index: -1
+spine_earth_03_hand_02
+  rotate: false
+  xy: 658, 176
+  size: 105, 117
+  orig: 105, 117
+  offset: 0, 0
+  index: -1
+spine_earth_03_head_01
+  rotate: false
+  xy: 271, 165
+  size: 138, 128
+  orig: 138, 128
+  offset: 0, 0
+  index: -1
+spine_earth_03_head_02
+  rotate: false
+  xy: 411, 165
+  size: 138, 128
+  orig: 138, 128
+  offset: 0, 0
+  index: -1
+spine_earth_03_leg_01
+  rotate: true
+  xy: 755, 310
+  size: 87, 151
+  orig: 87, 151
+  offset: 0, 0
+  index: -1
+spine_earth_03_leg_02
+  rotate: false
+  xy: 159, 30
+  size: 87, 151
+  orig: 87, 151
+  offset: 0, 0
+  index: -1
+spine_earth_03_mouth_1
+  rotate: true
+  xy: 248, 6
+  size: 59, 72
+  orig: 59, 72
+  offset: 0, 0
+  index: -1
+spine_earth_03_wing_01
+  rotate: false
+  xy: 271, 295
+  size: 262, 215
+  orig: 262, 215
+  offset: 0, 0
+  index: -1
+spine_earth_03_wing_02
+  rotate: false
+  xy: 535, 295
+  size: 218, 215
+  orig: 218, 215
+  offset: 0, 0
+  index: -1

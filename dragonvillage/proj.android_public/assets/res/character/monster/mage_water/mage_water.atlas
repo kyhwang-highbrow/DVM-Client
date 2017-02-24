@@ -1,0 +1,104 @@
+
+mage_water.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mage_water_arm_01
+  rotate: false
+  xy: 372, 80
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+mage_water_arm_02
+  rotate: true
+  xy: 323, 80
+  size: 44, 47
+  orig: 44, 47
+  offset: 0, 0
+  index: -1
+mage_water_body_01
+  rotate: false
+  xy: 2, 19
+  size: 65, 105
+  orig: 65, 105
+  offset: 0, 0
+  index: -1
+mage_water_body_02
+  rotate: false
+  xy: 458, 88
+  size: 33, 36
+  orig: 33, 36
+  offset: 0, 0
+  index: -1
+mage_water_body_03
+  rotate: false
+  xy: 143, 6
+  size: 28, 33
+  orig: 28, 33
+  offset: 0, 0
+  index: -1
+mage_water_body_04
+  rotate: false
+  xy: 259, 68
+  size: 33, 18
+  orig: 33, 18
+  offset: 0, 0
+  index: -1
+mage_water_effect_01
+  rotate: false
+  xy: 418, 86
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+mage_water_effect_02
+  rotate: false
+  xy: 69, 8
+  size: 72, 67
+  orig: 72, 67
+  offset: 0, 0
+  index: -1
+mage_water_effect_03
+  rotate: true
+  xy: 2, 2
+  size: 15, 23
+  orig: 15, 23
+  offset: 0, 0
+  index: -1
+mage_water_hand_01
+  rotate: true
+  xy: 143, 41
+  size: 34, 28
+  orig: 34, 28
+  offset: 0, 0
+  index: -1
+mage_water_hand_02
+  rotate: false
+  xy: 294, 54
+  size: 25, 32
+  orig: 25, 32
+  offset: 0, 0
+  index: -1
+mage_water_head_01
+  rotate: false
+  xy: 175, 79
+  size: 82, 45
+  orig: 82, 45
+  offset: 0, 0
+  index: -1
+mage_water_head_02
+  rotate: false
+  xy: 259, 88
+  size: 62, 36
+  orig: 62, 36
+  offset: 0, 0
+  index: -1
+mage_water_wepon_01
+  rotate: false
+  xy: 69, 77
+  size: 104, 47
+  orig: 104, 47
+  offset: 0, 0
+  index: -1
