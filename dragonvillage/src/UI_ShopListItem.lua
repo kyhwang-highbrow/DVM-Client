@@ -121,7 +121,7 @@ function UI_ShopListItem:click_buyBtn()
 		end
 
 		if (t_product['price'] > 0) then
-			MakeSimplePopup_Confirm(self.m_priceType, self.m_priceValue, ok_cb, nil)
+			MakeSimplePopup_Confirm(self.m_priceType, self.m_priceValue, nil, ok_cb, nil)
 		else
 			ok_cb()
 		end

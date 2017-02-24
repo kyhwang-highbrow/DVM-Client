@@ -196,19 +196,19 @@ function UI_ExplorationIng:click_completeBtn()
         return
     end
 
+    local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
+    local hours = my_location_info['hours']
+
     local function request()
         local function finish_cb(ret)
             self:close()
-            UI_ExplorationResultPopup(self.m_eprID, ret)
+            UI_ExplorationResultPopup(self.m_eprID, hours, ret)
         end
 
         local epr_id = self.m_eprID
         g_explorationData:request_explorationImmediatelyComplete(epr_id, finish_cb)
     end
-
-
-    local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
-    local hours = my_location_info['hours']
+    
     local cash = g_explorationData:getImmediatelyCompleteCash(hours)
 
     local msg = Str('{1}자수정을 사용하여 즉시 완료를 하시겠습니까?', cash)
@@ -219,9 +219,12 @@ end
 -- function click_rewardBtn
 -------------------------------------
 function UI_ExplorationIng:click_rewardBtn()
+    local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
+    local hours = my_location_info['hours']
+
     local function finish_cb(ret)
         self:close()
-        UI_ExplorationResultPopup(self.m_eprID, ret)
+        UI_ExplorationResultPopup(self.m_eprID, hours, ret)
     end
 
     local epr_id = self.m_eprID
