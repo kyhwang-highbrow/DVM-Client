@@ -121,7 +121,7 @@ void AppDelegate::setPathForPatch()
             int build = (idx % 10);
 
             // 현재 버전은 skip
-            if ((ver_major == major) && (ver_major == minor) && (ver_build == build)) continue;
+            if ((ver_major == major) && (ver_minor == minor) && (ver_build == build)) continue;
 
             // 0.0.0버전은 skip
             if ((0 == major) && (0 == minor) && (0 == build)) continue;
