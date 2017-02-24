@@ -557,6 +557,10 @@ function GameWorld:update(dt)
         self.m_gameTimeScale:update(dt)
     end
 
+    if self.m_gameDragonSkill then
+        self.m_gameDragonSkill:update(dt)
+    end
+
     for char, v in pairs(self.m_mPassiveEffect) do
         self:makePassiveStartEffect(char, v)
     end

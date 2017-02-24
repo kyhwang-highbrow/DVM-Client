@@ -263,7 +263,11 @@ function ScrollMap:setBg(res, attr)
             end
             
             for i, data in ipairs(v['list']) do
-                local res = string.gsub(data['res'], '@', attr)
+                local res = data['res']
+                if (attr) then
+                    res = string.gsub(res, '@', attr)
+                end
+
                 local real_offset_x = (data['pos_x'] or 0)
                 local real_offset_y = (data['pos_y'] or 0)
                 local scale = (data['scale'] or 1)

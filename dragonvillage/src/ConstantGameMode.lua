@@ -157,24 +157,30 @@ IN_GAME_CONSTANTS[GAME_MODE_COLOSSEUM][WAVE_INTERMISSION_TIME] = 1.5
 function getInGameConstant(type)
     local ret = 0
 
-    local gameMode = g_gameScene.m_gameMode
+    local gameMode = GAME_MODE_ADVENTURE
+    local stageID = makeAdventureID(1, 1, 1)
+
+    if (g_gameScene) then
+        gameMode = g_gameScene.m_gameMode
+        stageID = g_gameScene.m_stageID
+    end
 	
     -- 모험모드
     if gameMode == GAME_MODE_ADVENTURE then
-        local difficulty, chapter, stage = parseAdventureID(g_gameScene.m_stageID)
+        local difficulty, chapter, stage = parseAdventureID(stageID)
 		
         ret = IN_GAME_CONSTANTS[gameMode][chapter][type]
 
     -- 네스트 던전
     elseif gameMode == GAME_MODE_NEST_DUNGEON then
-        local t_dungeon = g_nestDungeonData:parseNestDungeonID(g_gameScene.m_stageID)
+        local t_dungeon = g_nestDungeonData:parseNestDungeonID(stageID)
         local dungeonMode = t_dungeon['dungeon_mode']
 
         ret = IN_GAME_CONSTANTS[gameMode][dungeonMode][type]
 
     -- 비밀 던전
     elseif gameMode == GAME_MODE_SECRET_DUNGEON then
-        local t_dungeon = g_secretDungeonData:parseSecretDungeonID(g_gameScene.m_stageID)
+        local t_dungeon = g_secretDungeonData:parseSecretDungeonID(stageID)
         local dungeonMode = t_dungeon['dungeon_mode']
 
         ret = IN_GAME_CONSTANTS[gameMode][dungeonMode][type]

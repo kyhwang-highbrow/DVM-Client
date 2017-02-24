@@ -216,10 +216,6 @@ function GameState.update_fight(self, dt)
         world.m_tamerSkillSystem:update(dt)
     end
 
-    if world.m_gameDragonSkill then
-        world.m_gameDragonSkill:update(dt)
-    end
-
     if world.m_gameFever then
         world.m_gameFever:update(dt)
     end

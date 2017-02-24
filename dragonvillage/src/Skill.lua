@@ -67,6 +67,12 @@ function Skill:init_skill()
 		self.m_targetPos = {x = x, y = y}
     end
 
+    -- 하이라이트
+    if (self.m_bHighlight) then
+        self.m_world.m_gameHighlight:addChar(self.m_owner)
+        self.m_world.m_gameHighlight:addChar(self.m_targetChar)
+    end
+
 	-- 고유값 가지는 멤버 변수 
 	self.m_range = 0    
 	self.m_tSpecialTarget = {}

@@ -162,7 +162,7 @@ function GameDragonSkill.update_live(self, dt)
         elseif (self:isPassedStepTime(2)) then
             self.m_world.m_gameHighlight:changeDarkLayerColor(0, 1)
 
-        elseif (self:isPassedStepTime(2.5)) then
+        elseif (self:isPassedStepTime(2.7)) then
             self.m_world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_HIDE)
             self.m_world.m_gameHighlight:clear()
 
