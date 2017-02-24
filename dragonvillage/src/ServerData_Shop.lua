@@ -28,11 +28,7 @@ end
 -- function canBuyProduct
 -- @brief 구매 가능 여부 검사
 -------------------------------------
-function ServerData_Shop:canBuyProduct(t_product)
-    local t_product = t_product
-
-    local price_type = t_product['price_type']
-    local price_value = t_product['price']
+function ServerData_Shop:canBuyProduct(price_type, price_value)
     local user_price = 0
 
     -- 지불 재화 개수 저장
@@ -44,6 +40,9 @@ function ServerData_Shop:canBuyProduct(t_product)
 
     elseif (price_type == 'gold') then
         user_price = g_userData:get('gold')
+	
+	elseif (price_type == 'money') then
+		user_price = 9999999
 
     else
         error('price_type : ' .. price_type)
@@ -51,8 +50,7 @@ function ServerData_Shop:canBuyProduct(t_product)
 
     -- 개수 확인
     if (price_value <= user_price) then
-        local msg = '{@TAN}[' .. t_product['t_ui_info']['product_name'] .. ']{@BLACK}상품을 \n {@DEEPSKYBLUE}'
-        msg = msg .. t_product['t_ui_info']['price_name'] .. '{@BLACK}를 소비하여 구매합니다.\n구매하시겠습니까?'
+        local msg = TableShop:makePriceDesc(price_type, price_value) .. '{@BLACK}를 소비하여 구매합니다.\n구매하시겠습니까?'
         return true, msg
     else
         local need_price_str = comma_value(price_value - user_price)
@@ -71,36 +69,6 @@ function ServerData_Shop:canBuyProduct(t_product)
 end
 
 -------------------------------------
--- function tempBuy
--- @brief 임시 구매
--------------------------------------
-function ServerData_Shop:tempBuy(t_product)
-    local t_product = t_product
-    local value_type = t_product['value_type']
-
-    local func_pay
-    local func_receive
-    local func_show_result
-
-    -- 상품 가격 지불
-    func_pay = function()
-        self:network_ProductPay(t_product, func_receive)
-    end
-
-    -- 상품 받기
-    func_receive = function()
-        self:network_ProductReceive(t_product, func_show_result)
-    end
-
-    -- 결과 팝업
-    func_show_result = function()
-
-    end
-
-	func_pay()
-end
-
--------------------------------------
 -- function applyQuestInfo
 -- @breif 서버에서 전달받은 데이터를 클라이언트에 적용
 -------------------------------------
@@ -113,22 +81,37 @@ end
 -- 아래 코드들은 임시
 
 -------------------------------------
+-- function tempBuy
+-- @brief 임시 구매
+-------------------------------------
+function ServerData_Shop:tempBuy(l_Product_table, price_type, price_value)
+	local func_pay
+	local func_receive
+
+	-- 상품 가격 지불
+	func_pay = function()
+		self:network_ProductPay(price_type, price_value, func_receive)
+	end
+
+	-- 상품 받기
+	func_receive = function()
+		for product_type, product_value in pairs(l_Product_table) do 
+			self:network_ProductReceive(product_type, product_value)
+		end
+	end
+
+	func_pay()
+end
+
+-------------------------------------
 -- function network_ProductPay
 -- @brief 상품 가격 지불
 -------------------------------------
-function ServerData_Shop:network_ProductPay(t_product, finish_cb)
-    local t_product = t_product
-
-    local value_type = t_product['value_type']
-    local value = t_product['value']
-
+function ServerData_Shop:network_ProductPay(price_type, price_value, finish_cb)
     local cash = g_userData:get('cash')
     local gold = g_userData:get('gold')
 
     do -- 재화 사용
-        local price_type = t_product['price_type']
-        local price_value = t_product['price']
-
         -- 지불
         if (price_type == 'x') then
             finish_cb()
@@ -139,6 +122,8 @@ function ServerData_Shop:network_ProductPay(t_product, finish_cb)
 
         elseif (price_type == 'gold') then
             gold = (gold - price_value)
+
+        elseif (price_type == 'money') then
 
         else
             error('price_type : ' .. price_type)
@@ -154,33 +139,28 @@ end
 -- function network_ProductReceive
 -- @brief 상품 받기
 -------------------------------------
-function ServerData_Shop:network_ProductReceive(t_product, finish_cb)
-    local t_product = t_product
-
-    local value_type = t_product['value_type']
-    local value = t_product['value']
-
+function ServerData_Shop:network_ProductReceive(product_type, product_value, finish_cb)
     local cash = g_userData:get('cash')
     local gold = g_userData:get('gold')
     local staminas_st = g_staminasData:getStaminaCount('st')
 
     -- 구매 상품 추가
-    if (value_type == 'x') then
+    if (product_type == 'x') then
 
-    elseif (value_type == 'cash') then
-        cash = (cash + value)
+    elseif (product_type == 'cash') then
+        cash = (cash + product_value)
         return self:network_updateGoldAndCash(gold, cash, finish_cb, false)
 
-    elseif (value_type == 'gold') then
-        gold = (gold + value)
+    elseif (product_type == 'gold') then
+        gold = (gold + product_value)
         return self:network_updateGoldAndCash(gold, cash, finish_cb, false)
 
-    elseif (value_type == 'stamina') then
-        staminas_st = (staminas_st + value)
+    elseif (product_type == 'stamina') then
+        staminas_st = (staminas_st + product_value)
         return self:network_updateStaminas_st(staminas_st, finish_cb, b_revocable)
 
     else
-        error('value_type : ' .. value_type)
+        error('product_type : ' .. product_type)
     end
 end
 
@@ -196,7 +176,9 @@ function ServerData_Shop:network_updateGoldAndCash(gold, cash, finish_cb, b_revo
             g_serverData:applyServerData(ret['user'], 'user')
         end
         g_topUserInfo:refreshData()
-        finish_cb()
+		if (finish_cb) then
+			finish_cb()
+		end
     end
 
     local ui_network = UI_Network()
@@ -223,7 +205,9 @@ function ServerData_Shop:network_updateStaminas_st(staminas_st, finish_cb, b_rev
             g_serverData:applyServerData(ret['user'], 'user')
         end
         g_topUserInfo:refreshData()
-        finish_cb()
+		if (finish_cb) then
+			finish_cb()
+		end
     end
 
     local ui_network = UI_Network()

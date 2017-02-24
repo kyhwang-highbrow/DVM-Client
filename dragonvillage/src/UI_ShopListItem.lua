@@ -112,20 +112,16 @@ end
 -- @brief 상품 버튼 클릭
 -------------------------------------
 function UI_ShopListItem:click_buyBtn()
-	UIManager:toastNotificationRed(Str('구매는 준비중입니다.'))
---[[
 	local t_product = self.m_productData
-    local can_buy, msg = g_shopData:canBuyProduct(t_product)
+    local can_buy, msg = g_shopData:canBuyProduct(self.m_priceType, self.m_priceValue)
 
     if can_buy then
 		local function ok_cb()
-			g_shopData:tempBuy(t_product)
+			g_shopData:tempBuy(self.m_lProductList, self.m_priceType, self.m_priceValue)
 		end
 
 		if (t_product['price'] > 0) then
-			local price_type = t_product['price_type']
-			local price_value = t_product['t_ui_info']['price_name']
-			MakeSimplePopup_Confirm(price_type, price_value, ok_cb, nil)
+			MakeSimplePopup_Confirm(self.m_priceType, self.m_priceValue, ok_cb, nil)
 		else
 			ok_cb()
 		end
@@ -133,7 +129,6 @@ function UI_ShopListItem:click_buyBtn()
         UIManager:toastNotificationRed(msg)
         self:nagativeAction()
     end
-	]]
 end
 
 -------------------------------------

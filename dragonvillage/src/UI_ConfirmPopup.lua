@@ -90,8 +90,10 @@ function UI_ConfirmPopup:getPriceIcon(price_type)
     elseif (price_type == 'gold') then
         res = 'res/ui/icon/inbox/inbox_gold.png'
 
-    elseif (price_type == 'stamina') then
+    elseif (price_type == 'stamina_st') then
         res = 'res/ui/icon/inbox/inbox_staminas_st.png'
+
+    elseif (price_type == 'money') then
 
     else
         error('price_type : ' .. price_type)
