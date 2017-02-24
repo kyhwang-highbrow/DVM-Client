@@ -271,6 +271,33 @@
 					}
 				},
 				{
+					"name":"fever_gauge",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":19
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"fever_ready",
 					"apply":true,
 					"fps":30,
@@ -280,6 +307,166 @@
 						"apply":true,
 						"layer_list":
 						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_01_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.210000, "sY":1.040000, "pY":6.000000
+									},
+									{
+										"frame":19, "sX":1.210000, "sY":1.040000, "rotate":3.000000, "pX":-1.000000, "pY":15.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_01_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":3, "sX":1.210000, "sY":1.040000, "pY":6.000000, "mode":"Add"
+									},
+									{
+										"frame":22, "sX":1.210000, "sY":1.040000, "rotate":3.000000, "pX":-1.000000, "pY":15.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_01_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "sX":1.210000, "sY":1.040000, "pY":6.000000
+									},
+									{
+										"frame":25, "sX":1.210000, "sY":1.040000, "rotate":3.000000, "pX":-1.000000, "pY":15.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_01_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":9, "sX":1.210000, "sY":1.040000, "pY":6.000000, "mode":"Add"
+									},
+									{
+										"frame":28, "sX":1.210000, "sY":1.040000, "rotate":3.000000, "pX":-1.000000, "pY":15.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_01_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":11, "sX":1.040600, "sY":1.050400, "pY":3.000000, "hflip":"H"
+									},
+									{
+										"frame":30, "sX":1.210000, "sY":1.040000, "pX":-1.000000, "pY":12.000000, "hflip":"H"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_01_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":14, "sX":1.040600, "sY":1.050400, "pY":3.000000, "mode":"Add", "hflip":"H"
+									},
+									{
+										"frame":33, "sX":1.210000, "sY":1.040000, "pX":-1.000000, "pY":12.000000, "mode":"Add", "hflip":"H"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_01_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":17, "sX":1.040600, "sY":1.050400, "pY":3.000000, "hflip":"H"
+									},
+									{
+										"frame":36, "sX":1.210000, "sY":1.040000, "pX":-1.000000, "pY":12.000000, "hflip":"H"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_01_s'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20, "sX":1.040600, "sY":1.050400, "pY":3.000000, "mode":"Add", "hflip":"H"
+									},
+									{
+										"frame":39, "sX":1.210000, "sY":1.040000, "pX":-1.000000, "pY":12.000000, "mode":"Add", "hflip":"H"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":8.742887, "sY":0.923400, "pX":-1.000000, "pY":-4.000000, "colorRGB":[255,176,70]
+
+									},
+									{
+										"frame":19, "sX":8.742887, "sY":0.923400, "pX":-1.000000, "pY":-4.000000, "colorRGB":[223,70,255]
+
+									},
+									{
+										"frame":39, "sX":8.742887, "sY":0.923400, "pX":-1.000000, "pY":-4.000000, "colorRGB":[255,176,70]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_gg_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":4.000000, "alpha":0, "colorRGB":[115,255,220]
+, "mode":"Add"
+									},
+									{
+										"frame":9, "pY":4.000000, "colorRGB":[115,255,220]
+, "mode":"Add"
+									},
+									{
+										"frame":19, "pY":4.000000, "alpha":0, "colorRGB":[115,255,220]
+, "mode":"Add"
+									},
+									{
+										"frame":29, "pY":4.000000, "colorRGB":[115,255,220]
+, "mode":"Add"
+									},
+									{
+										"frame":39, "pY":4.000000, "alpha":0, "colorRGB":[115,255,220]
+, "mode":"Add"
+									}
+								]
+							},
 							{
 								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_gg_0101.png'",
 								"expand":false,
@@ -295,19 +482,166 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_gg_0102.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'fever_gg_0101.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":0, "pY":4.000000, "alpha":0
+										"frame":0, "colorRGB":[255,222,106]
+
 									},
 									{
-										"frame":20, "pY":4.000000
+										"frame":2, "colorRGB":[106,255,151]
+
 									},
 									{
-										"frame":39, "pY":4.000000, "alpha":0
+										"frame":4, "colorRGB":[106,255,151]
+
+									},
+									{
+										"frame":6, "colorRGB":[125,106,255]
+
+									},
+									{
+										"frame":8, "colorRGB":[255,106,252]
+
+									},
+									{
+										"frame":10, "colorRGB":[255,222,106]
+
+									},
+									{
+										"frame":12, "colorRGB":[255,106,111]
+
+									},
+									{
+										"frame":14, "colorRGB":[106,255,244]
+
+									},
+									{
+										"frame":16, "colorRGB":[106,255,151]
+
+									},
+									{
+										"frame":18, "colorRGB":[106,255,151]
+
+									},
+									{
+										"frame":20, "colorRGB":[125,106,255]
+
+									},
+									{
+										"frame":22, "colorRGB":[255,106,252]
+
+									},
+									{
+										"frame":24, "colorRGB":[255,222,106]
+
+									},
+									{
+										"frame":26, "colorRGB":[255,13,19]
+
+									},
+									{
+										"frame":28, "colorRGB":[106,255,244]
+
+									},
+									{
+										"frame":30, "colorRGB":[106,255,151]
+
+									},
+									{
+										"frame":32, "colorRGB":[106,255,151]
+
+									},
+									{
+										"frame":34, "colorRGB":[125,106,255]
+
+									},
+									{
+										"frame":36, "colorRGB":[255,106,252]
+
+									},
+									{
+										"frame":39, "colorRGB":[255,222,106]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_04'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-16.000000, "colorRGB":[215,134,0]
+
+									},
+									{
+										"frame":5, "pY":-16.000000, "colorRGB":[0,128,242]
+
+									},
+									{
+										"frame":9, "pY":-16.000000, "colorRGB":[255,216,28]
+
+									},
+									{
+										"frame":14, "pY":-16.000000, "colorRGB":[0,242,206]
+
+									},
+									{
+										"frame":19, "pY":-16.000000, "colorRGB":[255,85,204]
+
+									},
+									{
+										"frame":24, "pY":-16.000000, "colorRGB":[35,254,112]
+
+									},
+									{
+										"frame":29, "pY":-16.000000, "colorRGB":[227,148,0]
+
+									},
+									{
+										"frame":34, "pY":-16.000000, "colorRGB":[255,36,97]
+
+									},
+									{
+										"frame":39, "pY":-16.000000, "colorRGB":[215,134,0]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":1.500000, "sY":1.500000, "pX":302.000000, "pY":1.000000, "colorRGB":[255,187,62]
+
+									},
+									{
+										"frame":19, "sX":1.500000, "sY":1.500000, "pX":302.000000, "pY":1.000000, "colorRGB":[255,187,62]
+
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20, "sX":1.500000, "sY":1.500000, "pX":302.000000, "pY":1.000000, "colorRGB":[255,187,62]
+
+									},
+									{
+										"frame":39, "sX":1.500000, "sY":1.500000, "pX":302.000000, "pY":1.000000, "colorRGB":[255,187,62]
+
 									}
 								]
 							},
@@ -1949,10 +2283,10 @@
 								"key_list":
 								[
 									{
-										"frame":5
+										"frame":5, "sX":1.500000, "sY":1.500000
 									},
 									{
-										"frame":9, "alpha":0
+										"frame":9, "sX":1.500000, "sY":1.500000, "alpha":0
 									}
 								]
 							},
@@ -1963,10 +2297,10 @@
 								"key_list":
 								[
 									{
-										"frame":15
+										"frame":15, "sX":1.500000, "sY":1.500000
 									},
 									{
-										"frame":19, "alpha":0
+										"frame":19, "sX":1.500000, "sY":1.500000, "alpha":0
 									}
 								]
 							},
@@ -1977,10 +2311,10 @@
 								"key_list":
 								[
 									{
-										"frame":25
+										"frame":25, "sX":1.500000, "sY":1.500000
 									},
 									{
-										"frame":29, "alpha":0
+										"frame":29, "sX":1.500000, "sY":1.500000, "alpha":0
 									}
 								]
 							},
@@ -1991,10 +2325,10 @@
 								"key_list":
 								[
 									{
-										"frame":35
+										"frame":35, "sX":1.500000, "sY":1.500000
 									},
 									{
-										"frame":39, "alpha":0
+										"frame":39, "sX":1.500000, "sY":1.500000, "alpha":0
 									}
 								]
 							},
@@ -2232,6 +2566,229 @@
 									},
 									{
 										"frame":29, "pY":-159.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_01_s_CopyTo",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0003.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":293.000000, "pY":-159.000000
+									},
+									{
+										"frame":1, "pX":293.000000, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0007.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "pX":251.000000, "pY":-159.000000
+									},
+									{
+										"frame":3, "pX":251.000000, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0011.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":208.000000, "pY":-159.000000
+									},
+									{
+										"frame":5, "pX":208.000000, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0015.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "pX":166.000000, "pY":-159.000000
+									},
+									{
+										"frame":7, "pX":166.000000, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0019.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pX":124.000000, "pY":-159.000000
+									},
+									{
+										"frame":9, "pX":124.000000, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0023.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "pX":82.000000, "pY":-159.000000
+									},
+									{
+										"frame":11, "pX":82.000000, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0027.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "pX":40.000000, "pY":-159.000000
+									},
+									{
+										"frame":13, "pX":40.000000, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0031.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":14, "pX":-4.000000, "pY":-159.000000
+									},
+									{
+										"frame":15, "pX":-4.000000, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0035.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":16, "pX":-45.000000, "pY":-159.000000
+									},
+									{
+										"frame":17, "pX":-45.000000, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0039.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":-88.000000, "pY":-159.000000
+									},
+									{
+										"frame":19, "pX":-88.000000, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0043.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20, "pX":-130.000000, "pY":-159.000000
+									},
+									{
+										"frame":21, "pX":-130.000000, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0047.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":22, "pX":-173.000000, "pY":-159.000000
+									},
+									{
+										"frame":23, "pX":-173.000000, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0051.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":-215.000000, "pY":-159.000000
+									},
+									{
+										"frame":25, "pX":-215.000000, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0055.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "pX":-258.000000, "pY":-159.000000
+									},
+									{
+										"frame":27, "pX":-258.000000, "pY":-159.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_0059.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":28, "pX":-299.000000, "pY":-159.000000
+									},
+									{
+										"frame":29, "pX":-299.000000, "pY":-159.000000
 									}
 								]
 							}
@@ -3174,6 +3731,616 @@
 								[
 									{
 										"frame":0, "pX":5.000000, "pY":-63.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_fever_gauge_01",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_fever.plist'<azSprite>'ingame_fever_res_1.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "mode":"Add"
+									},
+									{
+										"frame":3, "sX":1.360000, "sY":1.420000, "mode":"Add"
+									},
+									{
+										"frame":4, "mode":"Add"
+									},
+									{
+										"frame":6, "sX":1.400800, "sY":0.653200, "mode":"Add"
+									},
+									{
+										"frame":7, "mode":"Add"
+									},
+									{
+										"frame":9, "sX":1.360000, "sY":1.420000, "mode":"Add"
+									},
+									{
+										"frame":10, "mode":"Add"
+									},
+									{
+										"frame":13, "sX":1.360000, "sY":1.420000, "mode":"Add"
+									},
+									{
+										"frame":14, "mode":"Add"
+									},
+									{
+										"frame":16, "sX":1.400800, "sY":0.653200, "mode":"Add"
+									},
+									{
+										"frame":17, "mode":"Add"
+									},
+									{
+										"frame":19, "sX":1.360000, "sY":1.420000, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_fever_gauge_02",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.200000, "sY":0.200000, "pY":-3.000000
+									},
+									{
+										"frame":3, "sX":0.223793, "sY":0.203230, "pX":26.000000, "pY":10.000000
+									},
+									{
+										"frame":6, "sX":0.433249, "sY":0.497749, "pX":42.000000, "pY":-9.000000
+									},
+									{
+										"frame":9, "sX":0.319200, "sY":0.332100, "pX":44.000000, "pY":-37.000000, "alpha":0
+									},
+									{
+										"frame":10, "sX":0.200000, "sY":0.200000, "pY":-3.000000
+									},
+									{
+										"frame":13, "sX":0.223793, "sY":0.203230, "pX":26.000000, "pY":10.000000
+									},
+									{
+										"frame":16, "sX":0.433249, "sY":0.497749, "pX":42.000000, "pY":-9.000000
+									},
+									{
+										"frame":19, "sX":0.319200, "sY":0.332100, "pX":44.000000, "pY":-37.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.352986, "sY":0.383318, "pX":-76.000000, "pY":-5.000000, "alpha":85
+									},
+									{
+										"frame":1, "sX":0.433249, "sY":0.497749, "pX":-80.000000, "pY":-29.000000, "alpha":0
+									},
+									{
+										"frame":2, "sX":0.200000, "sY":0.200000, "pY":-3.000000
+									},
+									{
+										"frame":5, "sX":0.192462, "sY":0.154455, "pX":-46.000000, "pY":31.000000
+									},
+									{
+										"frame":8, "sX":0.312855, "sY":0.326102, "pX":-74.000000, "pY":7.000000, "alpha":128
+									},
+									{
+										"frame":11, "sX":0.433249, "sY":0.497749, "pX":-80.000000, "pY":-29.000000, "alpha":0
+									},
+									{
+										"frame":12, "sX":0.200000, "sY":0.200000, "pY":-3.000000
+									},
+									{
+										"frame":15, "sX":0.192462, "sY":0.154455, "pX":-46.000000, "pY":31.000000
+									},
+									{
+										"frame":18, "sX":0.312855, "sY":0.326102, "pX":-74.000000, "pY":7.000000, "alpha":128
+									},
+									{
+										"frame":19, "sX":0.352986, "sY":0.383318, "pX":-76.000000, "pY":-5.000000, "alpha":85
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.363430, "sY":0.399576, "pX":11.333334, "pY":2.666666
+									},
+									{
+										"frame":1, "sX":0.433249, "sY":0.497749, "pX":13.000000, "pY":-10.000000
+									},
+									{
+										"frame":3, "sX":0.319200, "sY":0.332100, "pX":13.000000, "pY":-43.000000, "alpha":0
+									},
+									{
+										"frame":4, "sX":0.200000, "sY":0.200000, "pY":-3.000000
+									},
+									{
+										"frame":7, "sX":0.223793, "sY":0.203230, "pX":8.000000, "pY":28.000000
+									},
+									{
+										"frame":10, "sX":0.433249, "sY":0.497749, "pX":13.000000, "pY":-10.000000
+									},
+									{
+										"frame":13, "sX":0.319200, "sY":0.332100, "pX":13.000000, "pY":-43.000000, "alpha":0
+									},
+									{
+										"frame":14, "sX":0.200000, "sY":0.200000, "pY":-3.000000
+									},
+									{
+										"frame":17, "sX":0.223793, "sY":0.203230, "pX":8.000000, "pY":28.000000
+									},
+									{
+										"frame":19, "sX":0.363430, "sY":0.399576, "pX":11.333334, "pY":2.666666
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.129800, "sY":0.117874, "pX":-12.000000, "pY":41.000000
+									},
+									{
+										"frame":3, "sX":0.189841, "sY":0.166826, "pX":-30.000000, "pY":61.000000
+									},
+									{
+										"frame":5, "sX":0.319200, "sY":0.332100, "pX":-61.000000, "pY":60.000000, "alpha":0
+									},
+									{
+										"frame":6, "sX":0.200000, "sY":0.200000, "pY":-3.000000
+									},
+									{
+										"frame":9, "sX":0.129800, "sY":0.117874, "pX":-12.000000, "pY":41.000000
+									},
+									{
+										"frame":12, "sX":0.189841, "sY":0.166826, "pX":-30.000000, "pY":61.000000
+									},
+									{
+										"frame":15, "sX":0.319200, "sY":0.332100, "pX":-61.000000, "pY":60.000000, "alpha":0
+									},
+									{
+										"frame":16, "sX":0.200000, "sY":0.200000, "pY":-3.000000
+									},
+									{
+										"frame":19, "sX":0.129800, "sY":0.117874, "pX":-12.000000, "pY":41.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.176600, "sY":0.172625, "pX":7.666667, "pY":-9.666667
+									},
+									{
+										"frame":2, "sX":0.129800, "sY":0.117874, "pX":23.000000, "pY":-23.000000
+									},
+									{
+										"frame":4, "sX":0.252151, "sY":0.199996, "pX":36.000000, "pY":-63.000000
+									},
+									{
+										"frame":7, "sX":0.319200, "sY":0.332100, "pX":39.000000, "pY":-105.000000, "alpha":0
+									},
+									{
+										"frame":8, "sX":0.200000, "sY":0.200000, "pY":-3.000000
+									},
+									{
+										"frame":11, "sX":0.129800, "sY":0.117874, "pX":23.000000, "pY":-23.000000
+									},
+									{
+										"frame":14, "sX":0.252151, "sY":0.199996, "pX":36.000000, "pY":-63.000000
+									},
+									{
+										"frame":17, "sX":0.319200, "sY":0.332100, "pX":39.000000, "pY":-105.000000, "alpha":0
+									},
+									{
+										"frame":18, "sX":0.200000, "sY":0.200000, "pY":-3.000000
+									},
+									{
+										"frame":19, "sX":0.176600, "sY":0.172625, "pX":7.666667, "pY":-9.666667
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.200000, "sY":0.200000, "pY":-3.000000
+									},
+									{
+										"frame":3, "sX":0.153200, "sY":0.145249, "pX":-20.000000, "pY":-7.000000
+									},
+									{
+										"frame":6, "sX":0.259949, "sY":0.487794, "pX":-47.000000, "pY":-23.000000
+									},
+									{
+										"frame":9, "sX":0.319200, "sY":0.332100, "pX":-70.000000, "pY":-70.000000, "alpha":0
+									},
+									{
+										"frame":10, "sX":0.200000, "sY":0.200000, "pY":-3.000000
+									},
+									{
+										"frame":13, "sX":0.153200, "sY":0.145249, "pX":-20.000000, "pY":-7.000000
+									},
+									{
+										"frame":16, "sX":0.259949, "sY":0.487794, "pX":-47.000000, "pY":-23.000000
+									},
+									{
+										"frame":19, "sX":0.319200, "sY":0.332100, "pX":-70.000000, "pY":-70.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.212000, "sY":0.128000, "pY":-3.000000
+									},
+									{
+										"frame":3, "sX":0.106749, "sY":0.128767, "pX":16.000000, "pY":18.000000
+									},
+									{
+										"frame":6, "sX":0.371987, "sY":0.286703, "pX":36.000000, "pY":5.000000
+									},
+									{
+										"frame":9, "sX":0.338352, "sY":0.212544, "pX":39.000000, "pY":-42.000000, "alpha":0
+									},
+									{
+										"frame":10, "sX":0.212000, "sY":0.128000, "pY":-3.000000
+									},
+									{
+										"frame":13, "sX":0.106749, "sY":0.128767, "pX":16.000000, "pY":18.000000
+									},
+									{
+										"frame":16, "sX":0.371987, "sY":0.286703, "pX":36.000000, "pY":5.000000
+									},
+									{
+										"frame":19, "sX":0.338352, "sY":0.212544, "pX":39.000000, "pY":-42.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "sX":0.212000, "sY":0.128000, "pY":-3.000000
+									},
+									{
+										"frame":11, "sX":0.087724, "sY":0.218461, "pX":-26.000000, "pY":33.000000
+									},
+									{
+										"frame":14, "sX":0.252036, "sY":0.237924, "pX":-61.000000, "pY":-1.000000, "alpha":128
+									},
+									{
+										"frame":17, "sX":0.459244, "sY":0.318559, "pX":-64.000000, "pY":-44.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "sX":0.212000, "sY":0.128000, "pY":-3.000000
+									},
+									{
+										"frame":9, "sX":0.092516, "sY":0.193801, "pX":17.000000, "pY":34.000000
+									},
+									{
+										"frame":12, "sX":0.326063, "sY":0.334487, "pX":25.000000, "pY":-5.000000
+									},
+									{
+										"frame":15, "sX":0.338352, "sY":0.212544, "pX":30.000000, "pY":-83.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":0.212000, "sY":0.128000, "pY":-3.000000
+									},
+									{
+										"frame":7, "sX":0.085304, "sY":0.163703, "pX":-34.000000, "pY":48.000000
+									},
+									{
+										"frame":10, "sX":0.275546, "sY":0.312188, "pX":-64.000000, "pY":54.000000
+									},
+									{
+										"frame":13, "sX":0.280832, "sY":0.280558, "pX":-94.000000, "pY":16.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "sX":0.212000, "sY":0.128000, "pY":-3.000000
+									},
+									{
+										"frame":5, "sX":0.092184, "sY":0.224809, "pX":31.000000, "pY":5.000000
+									},
+									{
+										"frame":8, "sX":0.275546, "sY":0.312188, "pX":57.000000, "pY":-17.000000
+									},
+									{
+										"frame":11, "sX":0.338352, "sY":0.212544, "pX":87.000000, "pY":-68.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.212000, "sY":0.128000, "pY":-3.000000
+									},
+									{
+										"frame":3, "sX":0.108803, "sY":0.217525, "pX":-29.000000, "pY":20.000000
+									},
+									{
+										"frame":6, "sX":0.275546, "sY":0.312188, "pX":-65.000000, "pY":-14.000000
+									},
+									{
+										"frame":9, "sX":0.338352, "sY":0.212544, "pX":-89.000000, "pY":-61.000000, "alpha":0
+									},
+									{
+										"frame":10, "sX":0.212000, "sY":0.128000, "pY":-3.000000
+									},
+									{
+										"frame":13, "sX":0.108803, "sY":0.217525, "pX":-29.000000, "pY":20.000000
+									},
+									{
+										"frame":16, "sX":0.275546, "sY":0.312188, "pX":-65.000000, "pY":-14.000000
+									},
+									{
+										"frame":19, "sX":0.338352, "sY":0.212544, "pX":-89.000000, "pY":-61.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_fever_gauge_03",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.840000, "sY":2.400000, "pX":-1.000000
+									},
+									{
+										"frame":23, "sX":0.840000, "sY":2.400000, "pX":-1.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.500000, "pY":-26.000000
+									},
+									{
+										"frame":19, "pY":24.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":0.300000, "sY":0.300000, "pY":-26.000000, "hflip":"H"
+									},
+									{
+										"frame":23, "sX":0.800000, "sY":0.800000, "pY":24.000000, "hflip":"H"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_fever_gauge_04",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.840000, "sY":2.400000
+									},
+									{
+										"frame":19, "sX":14.618774, "sY":0.570240, "pX":-1.000000
+									},
+									{
+										"frame":59, "sX":14.618774, "sY":0.570240, "pX":-1.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_02'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.500000, "pX":-320.000000
+									},
+									{
+										"frame":55, "pX":320.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_02'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":0.300000, "sY":0.300000, "pX":-320.000000, "hflip":"H"
+									},
+									{
+										"frame":59, "sX":0.800000, "sY":0.800000, "pX":320.000000, "hflip":"H"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.500000
+									},
+									{
+										"frame":55, "pX":320.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":0.300000, "sY":0.300000, "hflip":"H"
+									},
+									{
+										"frame":59, "sX":0.800000, "sY":0.800000, "pX":320.000000, "hflip":"H"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.500000
+									},
+									{
+										"frame":55, "pX":-320.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_fever_gauge_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":0.300000, "sY":0.300000, "hflip":"H"
+									},
+									{
+										"frame":59, "sX":0.800000, "sY":0.800000, "pX":-320.000000, "hflip":"H"
 									}
 								]
 							}
