@@ -78,11 +78,6 @@ function ServerData_Shop:tempBuy(t_product)
     local t_product = t_product
     local value_type = t_product['value_type']
 
-    if (value_type == 'stamina') then
-        UIManager:toastNotificationRed(Str('날개 구매는 상점 개편 후에 제공될 예정입니다.'))
-        return
-    end
-
     local func_pay
     local func_receive
     local func_show_result
@@ -167,6 +162,7 @@ function ServerData_Shop:network_ProductReceive(t_product, finish_cb)
 
     local cash = g_userData:get('cash')
     local gold = g_userData:get('gold')
+    local staminas_st = g_staminasData:getStaminaCount('st')
 
     -- 구매 상품 추가
     if (value_type == 'x') then
@@ -180,9 +176,8 @@ function ServerData_Shop:network_ProductReceive(t_product, finish_cb)
         return self:network_updateGoldAndCash(gold, cash, finish_cb, false)
 
     elseif (value_type == 'stamina') then
-        -- @TODO 스태미너 추가
-        g_topUserInfo:refreshData()
-        return
+        staminas_st = (staminas_st + value)
+        return self:network_updateStaminas_st(staminas_st, finish_cb, b_revocable)
 
     else
         error('value_type : ' .. value_type)
@@ -210,6 +205,32 @@ function ServerData_Shop:network_updateGoldAndCash(gold, cash, finish_cb, b_revo
     ui_network:setParam('act', 'update')
     ui_network:setParam('gold', gold)
     ui_network:setParam('cash', cash)
+    ui_network:setParam('staminas', 'st,100')
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:setRevocable(b_revocable)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function network_updateStaminas_st
+-- @brief 모험모드 활동력
+-------------------------------------
+function ServerData_Shop:network_updateStaminas_st(staminas_st, finish_cb, b_revocable)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        if ret['user'] then
+            g_serverData:applyServerData(ret['user'], 'user')
+        end
+        g_topUserInfo:refreshData()
+        finish_cb()
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/update')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('act', 'update')
+    ui_network:setParam('staminas', 'st,' .. staminas_st)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:setRevocable(b_revocable)
     ui_network:request()
