@@ -316,6 +316,22 @@ function UI_ExplorationReady:click_explorationBtn()
         UIManager:toastNotificationRed('탐험에는 5마리의 드래곤이 필요합니다.')
         return
     end
+
+    local function request()
+        local function finish_cb(ret)
+            UIManager:toastNotificationGreen('드래곤 5마리가 탐험을 떠났습니다.')
+            self:close()
+        end
+
+        -- params
+        local epr_id = self.m_eprID
+        local hours = self.m_currTab
+        local doids = listToCsv(self.m_selectedDragonList)
+
+        g_explorationData:request_explorationStart(epr_id, doids, hours, finish_cb)
+    end
+
+    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('드래곤 5마리를 탐험을 보내시겠습니까?'), request)
 end
 
 -------------------------------------

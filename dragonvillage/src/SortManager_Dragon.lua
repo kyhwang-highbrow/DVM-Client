@@ -92,12 +92,8 @@ function SortManager_Dragon:sort_did(a, b, ascending)
     local a_value = a_data['did']
     local b_value = b_data['did']
 
-    
-
     -- 같을 경우 리턴
     if (a_value == b_value) then
-        cclog('a_value : ' .. a_value)
-        cclog('b_value : ' .. b_value)
         return nil
     end
 

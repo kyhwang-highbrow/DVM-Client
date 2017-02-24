@@ -4,6 +4,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -- class UI_Exploration
 -------------------------------------
 UI_Exploration = class(PARENT,{
+        m_lLocationButtons = 'list',
     })
 
 -------------------------------------
@@ -44,6 +45,17 @@ end
 -- function initUI
 -------------------------------------
 function UI_Exploration:initUI()
+    local vars = self.vars
+
+    self.m_lLocationButtons = {}
+    for i,v in pairs(g_explorationData.m_explorationList) do
+        local order = v['order']
+        local epr_id = v['epr_id']
+        local ui = UI_ExplorationLocationButton(epr_id)
+        vars['locationNode' .. order]:addChild(ui.root)
+
+        self.m_lLocationButtons[i] = ui
+    end 
 end
 
 -------------------------------------
@@ -56,14 +68,9 @@ end
 -- function refresh
 -------------------------------------
 function UI_Exploration:refresh()
-    local vars = self.vars
-
-    for i,v in pairs(g_explorationData.m_explorationList) do
-        local order = v['order']
-        local epr_id = v['epr_id']
-        local ui = UI_ExplorationLocationButton(epr_id)
-        vars['locationNode' .. order]:addChild(ui.root)
-    end    
+    for i,v in pairs(self.m_lLocationButtons) do
+        v:refresh()
+    end
 end
 
 -------------------------------------

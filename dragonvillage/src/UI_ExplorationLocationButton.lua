@@ -33,8 +33,31 @@ function UI_ExplorationLocationButton:initUI()
 
     -- 지역 이름
     vars['locationLabel']:setString(Str(location_info['t_name']))
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_ExplorationLocationButton:initButton()
+    local vars = self.vars
+    vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_ExplorationLocationButton:refresh()
+    local vars = self.vars
+    local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
 
     self.m_status = status
+
+    self.root:unscheduleUpdate()
+
+    -- 아래에서 필요한 상태에 따라 true
+    vars['lockSprite']:setVisible(false)
+    vars['ingNode']:setVisible(false)
+    vars['completeNode']:setVisible(false)
 
     if (status == 'exploration_idle') then
         
@@ -58,20 +81,6 @@ function UI_ExplorationLocationButton:initUI()
         self.root:scheduleUpdateWithPriorityLua(update, 0)
         self:update(0)
     end
-end
-
--------------------------------------
--- function initButton
--------------------------------------
-function UI_ExplorationLocationButton:initButton()
-    local vars = self.vars
-    vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
-end
-
--------------------------------------
--- function refresh
--------------------------------------
-function UI_ExplorationLocationButton:refresh()
 end
 
 -------------------------------------
@@ -111,10 +120,12 @@ function UI_ExplorationLocationButton:click_clickBtn()
         UIManager:toastNotificationRed(message)
 
     elseif (self.m_status == 'exploration_idle') then
-        UI_ExplorationReady(self.m_eprID)
+        local ui = UI_ExplorationReady(self.m_eprID)
+        ui:setCloseCB(function() self:refresh() end)
 
     elseif (self.m_status == 'exploration_ing') or (self.m_status == 'exploration_complete') then
-        UI_ExplorationIng(self.m_eprID)
+        local ui = UI_ExplorationIng(self.m_eprID)
+        ui:setCloseCB(function() self:refresh() end)
     end
 
 end
