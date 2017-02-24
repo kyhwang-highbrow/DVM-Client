@@ -259,6 +259,13 @@ function ServerData_Exploration:request_explorationImmediatelyComplete(epr_id, f
 
     -- 성공 콜백
     local function success_cb(ret)
+        local before_dragons = {}
+        for i,v in pairs(ret['modified_dragons']) do
+            local doid = v['id']
+            table.insert(before_dragons, g_dragonsData:getDragonDataFromUid(doid))
+        end
+        ret['before_dragons'] = before_dragons
+
         g_serverData:networkCommonRespone_addedItems(ret)
 
         -- 드래곤 정보 갱신
@@ -296,6 +303,13 @@ function ServerData_Exploration:request_explorationReward(epr_id, finish_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
+        local before_dragons = {}
+        for i,v in pairs(ret['modified_dragons']) do
+            local doid = v['id']
+            table.insert(before_dragons, g_dragonsData:getDragonDataFromUid(doid))
+        end
+        ret['before_dragons'] = before_dragons
+
         g_serverData:networkCommonRespone_addedItems(ret)
 
         -- 드래곤 정보 갱신

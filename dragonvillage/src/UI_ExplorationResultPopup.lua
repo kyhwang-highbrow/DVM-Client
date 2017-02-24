@@ -74,6 +74,56 @@ function UI_ExplorationResultPopup:initUI()
     -- 획득 경험치
     local exp = location_info[tostring(hours) .. '_hours_exp']
     vars['expLabel']:setString(comma_value(exp))
+
+    do -- 드래곤 실리소스
+        local l_dragon_list = self.m_data['modified_dragons']
+        local l_before_dragon_list = self.m_data['before_dragons']
+
+        for i,v in ipairs(l_dragon_list) do
+
+            local user_data = v
+            local table_data = TableDragon():get(v['did'])
+            local res_name = table_data['res']
+            local evolution = user_data['evolution']
+		    local attr = table_data['attr']
+
+            local animaotr = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
+            animaotr.m_node:setDockPoint(cc.p(0.5, 0.5))
+            animaotr.m_node:setAnchorPoint(cc.p(0.5, 0.5))
+            --animaotr.m_node:setScale(0.5)
+            vars['dragonNode' .. i]:addChild(animaotr.m_node)
+
+            local lv_label      = vars['lvLabel' .. i]
+            local exp_label     = vars['expLabel' .. i]
+            local max_icon      = vars['maxSprite' .. i]
+            local exp_gauge     = vars['expGauge' .. i]
+            local level_up_vrp  = vars['lvUpVisual' .. i]
+            local levelup_director = LevelupDirector_GameResult(lv_label, exp_label, max_icon, exp_gauge, level_up_vrp)
+
+            -- 최초 레벨업 시 포즈
+            levelup_director.m_cbFirstLevelup = function()
+                animaotr:changeAni('pose_1', false)
+                animaotr:addAniHandler(function() animaotr:changeAni('idle', true) end)
+            end
+
+            local t_levelup_data = v['levelup_data']
+            local src_lv        = l_before_dragon_list[i]['lv']
+            local src_exp       = l_before_dragon_list[i]['exp']
+            local dest_lv       = user_data['lv']
+            local dest_exp      = user_data['exp']
+            local type          = 'dragon'
+            levelup_director:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type)
+            levelup_director:start()
+            --self:addLevelUpDirector(levelup_director)
+
+            do -- 등급
+                local sprite = IconHelper:getDragonGradeIcon(user_data['grade'], user_data['eclv'], 1)
+                vars['starNode' .. i]:removeAllChildren()
+                vars['starNode' .. i]:addChild(sprite)
+            end
+        end
+
+    end
 end
 
 -------------------------------------
