@@ -63,6 +63,14 @@ function UI_CollectionUnitListItem:initUI()
 
         self.m_lDragonCard[i] = card
     end
+
+    do -- 보상 표시
+        local reward_str = t_dragon_unit_data['reward']
+        local item_id, count = ServerData_Item:parsePackageItemStrIndivisual(reward_str)
+        local icon = IconHelper:getItemIcon(item_id)
+        vars['priceNode']:addChild(icon)
+        vars['priceLabel']:setString(comma_value(count))
+    end
 end
 
 -------------------------------------
@@ -92,6 +100,7 @@ function UI_CollectionUnitListItem:refresh()
 
     if t_dragon_unit_data['received'] then
         vars['rewardBtn']:setVisible(false)
+        vars['rewardNode']:setVisible(false)
 
         -- 적용 중이면
         if (g_dragonUnitData.m_selectedUnitID == self.m_dragonUnitID) then
@@ -104,8 +113,10 @@ function UI_CollectionUnitListItem:refresh()
     else
         if t_dragon_unit_data['active'] then
             vars['rewardBtn']:setVisible(true)
+            vars['rewardNode']:setVisible(true)
         else
-            vars['rewardBtn']:setVisible(false)    
+            vars['rewardBtn']:setVisible(false) 
+            vars['rewardNode']:setVisible(false)   
         end
 
         vars['buffSprite']:setVisible(false)

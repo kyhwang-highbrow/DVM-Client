@@ -31,7 +31,13 @@ end
 -- function initUI
 -------------------------------------
 function UI_CollectionPointReward:initUI()
+    local vars = self.vars
     self:init_tableView()
+
+    do -- 콜랙션 포인트 임시 초기값
+        vars['titleLabel']:setString(Str(g_collectionData:getTamerTitle()))
+        vars['collectionPointLabel']:setString(comma_value(g_collectionData:getCollectionPoint()))
+    end
 end
 
 -------------------------------------
