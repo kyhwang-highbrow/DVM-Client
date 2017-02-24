@@ -48,6 +48,8 @@ function UI_TitleScene:initUI()
             patch_idx_str = patch_idx_str
         elseif (TARGET_SERVER == 'FGT') then
             patch_idx_str = patch_idx_str .. ' (FGT server)'
+		elseif (TARGET_SERVER == 'PUBLIC') then
+            patch_idx_str = patch_idx_str .. ' (PUBLIC server)'
         else
             error('TARGET_SERVER : ' .. TARGET_SERVER)
         end

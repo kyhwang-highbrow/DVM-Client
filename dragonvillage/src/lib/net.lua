@@ -378,6 +378,8 @@ function Network:getApiUrl()
         api_url = 'http://dv-test.perplelab.com:9003'
     elseif (TARGET_SERVER == 'FGT') then
         api_url = 'http://dv-test.perplelab.com:9004'
+	elseif (TARGET_SERVER == 'PUBLIC') then
+        api_url = 'http://dv-test.perplelab.com:9005'
     else
         error('TARGET_SERVER : ' .. TARGET_SERVER)
     end
