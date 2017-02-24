@@ -127,7 +127,9 @@ function GameFever:initUI()
     -- 이펙트 생성
     do
         self.m_feverGaugeEffect = MakeAnimator('res/ui/a2d/ingame_fever/ingame_fever.vrp')
-        self.m_feverGaugeEffect:changeAni('fever_gauge', false)
+        self.m_feverGaugeEffect:setVisual('fever', 'fever_gauge')
+        self.m_feverGaugeEffect:setRepeat(true)
+        self.m_feverGaugeEffect:setVisible(false)
                 
         self.m_feverGaugeEffect.m_node:setAnchorPoint(cc.p(0.5, 0.5))
         self.m_feverGaugeEffect.m_node:setDockPoint(cc.p(0.0, 0.5))
@@ -519,8 +521,8 @@ end
 -- function addFeverPoint
 -------------------------------------
 function GameFever:addFeverPoint(point)
-    if self:isActive() then return end
-
+    if (self:isActive()) then return end
+    
     self.m_realPoint = self.m_realPoint + point
     self.m_realPoint = math_min(self.m_realPoint, 100)
 
@@ -532,14 +534,12 @@ function GameFever:addFeverPoint(point)
 
     -- 이펙트
     do
-        local duration = self.m_feverGaugeEffect:getDuration()
-
-        self.m_feverGaugeEffect.m_node:setFrame(0)
+        self.m_feverGaugeEffect.m_node:stopAllActions()
 
         self.m_feverGaugeEffect:setVisible(true)
-        self.m_feverGaugeEffect:setPosition((720 * self.m_curPoint / 100), 0)
         self.m_feverGaugeEffect:runAction(cc.Sequence:create(
-            cc.MoveTo:create(duration, cc.p((720 * self.m_realPoint / 100), 0))
+            cc.MoveTo:create(FEVER_POINT_UPDATE_TIME, cc.p((720 * self.m_realPoint / 100), 0)),
+            cc.CallFunc:create(function(node) node:setVisible(false) end)
         ))
     end
 end
