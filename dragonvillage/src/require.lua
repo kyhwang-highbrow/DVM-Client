@@ -129,6 +129,7 @@ local t_module = {
     'TableDragonTrainStatus',
     'TableDrop',
     'TableTamer',
+	'TableTamerSkill',
     'TableGradeInfo',
     'TableStatus',
     'TableFormation',

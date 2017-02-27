@@ -172,20 +172,38 @@ end
 -- @brief 테이머 정보
 -------------------------------------
 function ServerData_User:getTamerInfo()
-	local t_tamer = self:getRef('tamer')
-	if (t_tamer == 0) then
-		local rand_idx = math_random(1, 6)
-		t_tamer = L_TAMER_LIST[1]
+	local tamer_idx = self:getRef('tamer')
+	if (tamer_idx == 0) then
+		tamer_idx = TAMER_VALUE + 1
 	end
+
+	local t_tamer = TableTamer():get(tamer_idx)
     return t_tamer
 end
 
--- table_tamer가 나중에 대체할것
-L_TAMER_LIST = {
-	{tmid = 100001, res = 'res/character/tamer/goni_i/goni_i.spine', res_sd = 'res/character/tamer/goni/goni.spine', res_icon = 'res/ui/icon/cha/tamer_goni.png', t_name = '고니', t_desc = '고니는 남자아이이다.', b_obtain = true},
-	{tmid = 100002, res = 'res/character/tamer/nuri_i/nuri_i.spine', res_sd = 'res/character/tamer/nuri/nuri.spine', res_icon = 'res/ui/icon/cha/tamer_nuri.png', t_name = '누리', t_desc = '누리는 여자아이이다.', b_obtain = true},
-	{tmid = 100003, res = 'res/character/tamer/leon_i/leon_i.spine', res_sd = 'res/character/tamer/mokoji/mokoji.spine', res_icon = 'res/ui/icon/cha/tamer_mokoji.png', t_name = '모코지', t_desc = '모코지..?', b_obtain = false},
-	{tmid = 100004, res = 'res/character/tamer/goni_i/goni_i.spine', res_sd = 'res/character/tamer/durun/durun.spine', res_icon = 'res/ui/icon/cha/tamer_durun.png', t_name = '두른', t_desc = '두른은 새로 나왔다.', b_obtain = true},
-	{tmid = 100005, res = 'res/character/tamer/nuri_i/nuri_i.spine', res_sd = 'res/character/tamer/kesath/kesath.spine', res_icon = 'res/ui/icon/cha/tamer_kesath.png', t_name = '케사스', t_desc = '케사스는 남자이름같다', b_obtain = false},
-	{tmid = 100006, res = 'res/character/tamer/leon_i/leon_i.spine', res_sd = 'res/character/tamer/dede/dede.spine', res_icon = 'res/ui/icon/cha/tamer_dede.png', t_name = '데데', t_desc = '데데데데데', b_obtain = true},
-}
+-------------------------------------
+-- function request_setTamer
+-------------------------------------
+function ServerData_User:request_setTamer(tid, cb_func)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+	local tid = tid or (TAMER_VALUE + 1)
+
+    -- 콜백 함수
+    local function success_cb()
+        self:applyServerData(tid, 'tamer')
+		if (cb_func) then
+			cb_func()
+		end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/set/tamer')
+    ui_network:setParam('uid', uid)
+	ui_network:setParam('tid', tid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
+end

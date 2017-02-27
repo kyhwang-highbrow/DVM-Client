@@ -21,6 +21,7 @@ local TableInfo = {
         monster_skill     = {'table_monster_skill',         'sid',          false},
         tamer             = {'table_tamer',                 'tid',          false},
         tamer_skill       = {'table_tamer_skill',           'sid',          false},
+		tamer_skill_new   = {'table_tamer_skill_new',       'sid',          false},
         skill_target      = {'table_skill_target',          'type',         false},
         drop              = {'table_drop',                  'stage',        false},
         stage_desc        = {'table_stage_desc',            'stage',        false},
