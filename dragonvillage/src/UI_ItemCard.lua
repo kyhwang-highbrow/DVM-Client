@@ -37,6 +37,8 @@ function UI_ItemCard:setItemData()
         self:init_dragonItem(t_item)
     elseif (t_item['type'] == 'rune') then
         self:init_runeItem(t_item, self.m_tSubData)
+    elseif (t_item['type'] == 'relation_point') then
+        self:init_relationItem(t_item)
     else
         self:init_commonItem(t_item)
     end
@@ -106,6 +108,36 @@ function UI_ItemCard:init_runeItem(t_item, t_sub_data)
     vars['numberLabel']:setVisible(false)
 
     self.m_itemName = (t_sub_data and t_sub_data['full_name'] or nil)
+end
+
+-------------------------------------
+-- function init_relationItem
+-------------------------------------
+function UI_ItemCard:init_relationItem(t_item, t_sub_data)
+    local item_id = self.m_itemID
+    local count = self.m_itemCount
+        
+    local t_dragon_data = {}
+    t_dragon_data['did'] = t_item['did']
+    t_dragon_data['evolution'] = 1
+    t_dragon_data['grade'] = 1
+    t_dragon_data['skill_0'] = 1
+    t_dragon_data['skill_1'] = 1
+    t_dragon_data['skill_2'] = 0
+    t_dragon_data['skill_3'] = 0
+
+    local dragon_card = UI_RelationCard(t_dragon_data)
+    self.root = dragon_card.root
+    self.vars = dragon_card.vars
+
+    local vars = dragon_card.vars
+
+    -- 인연 포인트 수치
+    if (not count) or (count == 0) then
+        vars['numberLabel']:setString('')
+    else
+        vars['numberLabel']:setString(Str('X{1}', comma_value(count)))
+    end
 end
 
 -------------------------------------

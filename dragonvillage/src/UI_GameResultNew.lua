@@ -381,6 +381,12 @@ function UI_GameResultNew:direction_showButton()
     self:checkAutoPlay()
 end
 
+-------------------------------------
+-- function direction_showButton_click
+-------------------------------------
+function UI_GameResultNew:direction_showButton_click()
+end
+
 
 -------------------------------------
 -- function addLevelUpDirector
@@ -599,7 +605,7 @@ function UI_GameResultNew:makeRewardItem(i, v)
     local item_id = v[1]
     local count = v[2]
 
-    local item_card = UI_ItemCard(item_id, 0)
+    local item_card = UI_ItemCard(item_id, count)
     item_card:setRarityVisibled(true)
 
     local icon = item_card.root--DropHelper:getItemIconFromIID(item_id)

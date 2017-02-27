@@ -441,6 +441,28 @@ function UI_DragonCard(t_dragon_data)
     return ui
 end
 
+function UI_RelationCard(t_dragon_data)
+    local ui = UI_CharacterCard(t_dragon_data)
+    
+    -- 프레임 변경
+    do
+        ui:makeFrame('character_card_frame_rp.png')
+    end
+
+    -- 인연포인트
+    do
+        local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 40, 2, cc.size(100, 30), 2, 1)
+        label:setDockPoint(CENTER_POINT)
+        label:setAnchorPoint(CENTER_POINT)
+        label:setPosition(15, -20)
+        ui.vars['clickBtn']:addChild(label, 5)
+
+        ui.vars['numberLabel'] = label
+    end
+
+    return ui
+end
+
 -------------------------------------
 -- function MakeSimpleDragonCard
 -------------------------------------
