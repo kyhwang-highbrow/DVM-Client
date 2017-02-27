@@ -142,6 +142,7 @@ function UI_Inventory:clearItemInfo()
 
     vars['itemNode']:removeAllChildren()
     vars['itemNode']:setVisible(false)
+    vars['sortBtn']:setVisible(false)
 end
 
 -------------------------------------
