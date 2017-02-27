@@ -6,6 +6,8 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 UI_TamerInfoPopup = class(PARENT, {
 		m_tamerTable = 'TableTamer',
 		m_currTamerIdx = 'number',
+
+		m_tamerAniList = 'list',
      })
 
 -------------------------------------
@@ -25,6 +27,7 @@ function UI_TamerInfoPopup:init()
 	-- 변수 지정
 	self.m_currTamerIdx = g_userData:getRef('tamer') - TAMER_VALUE
 	self.m_tamerTable = TableTamer()
+	self.m_tamerAniList = {}
 
     self:initUI()
     self:initButton()
@@ -86,7 +89,7 @@ function UI_TamerInfoPopup:makeTamerRotatePlate()
     for i, t_tamer in pairs(self.m_tamerTable.m_orgTable) do
 		local res = t_tamer['res']
 		local tamer_ui = self:makeTamerAni(res)
-        vars['rotatePlate']:addChild(tamer_ui)
+        vars['rotatePlate']:addChild(tamer_ui, 0, i)
     end
 
 	-- 현재 선택된 테이머를 가리키도록 한다.
@@ -121,15 +124,17 @@ function UI_TamerInfoPopup:makeTamerAni(res)
 	tamer:setDockPoint(0.5, 0.5)
 	tamer:setAnchorPoint(0.5, 0.5)
 	tamer:setScale(0.55)
-	tamer:setAlpha(0.8)
+	
+	-- 연출을 위해서 별로 리스트에 저장
+	table.insert(self.m_tamerAniList, tamer)
 
 	-- 순서대로 addchild
 	menu:addChild(button)
 	button:addChild(tamer.m_node)
 
-	-- 버튼 동작 지정
+	--[[ 버튼 동작 지정
 	button:registerScriptTapHandler(function()
-    end)
+    end)]]
 
 	return menu
 end
@@ -164,6 +169,19 @@ function UI_TamerInfoPopup:refresh_rotatePlate()
 		vars['lockLabel']:setString(Str('획득 조건은 테이머마다 다릅니다.'))
 		vars['selectBtn']:setVisible(not b_lock)
 	end
+
+	-- 중앙 테이머는 밝히고 나머지는 어둡게 액션을 준다.
+	local gray_color = 75
+	local duration = 0.25
+	for i, tamer in pairs(self.m_tamerAniList) do
+		if (i == front_idx) then
+			local tint_action_light = cc.TintTo:create(duration, 255, 255, 255)
+			tamer:runAction(tint_action_light)
+		else
+			local tint_action_dark = cc.TintTo:create(duration, gray_color, gray_color, gray_color)
+			tamer:runAction(tint_action_dark)
+		end
+	end
 end
 
 -------------------------------------
@@ -180,35 +198,49 @@ function UI_TamerInfoPopup:refresh_tamerSkill()
 	local tamer_skill_table = TableTamerSkill()
 
 	-- 스킬1의 정보
-	vars['skillNode1']:removeAllChildren()
-	local skill_1_id = t_tamer['skill_1']
-	local t_skill_1 = tamer_skill_table:getTamerSkill(skill_1_id)
-	if (t_skill_1) then
-		vars['skillTitleLabel1']:setString(Str(t_skill_1['t_name']))
-		vars['skillDscLabel1']:setString(Str(t_skill_1['t_desc']))
-		local skill_1_icon = MakeAnimator(t_skill_1['res_icon'])
-		if (skill_1_icon) then
-			vars['skillNode1']:addChild(skill_1_icon)
-		end
-	else
-		vars['skillTitleLabel1']:setString('없음')
-		vars['skillDscLabel1']:setString('-')
-	end
+	do
+		vars['skillNode1']:removeAllChildren()
+
+		local skill_1_id = t_tamer['skill_1']
+		local t_skill_1 = tamer_skill_table:getTamerSkill(skill_1_id)
 	
-	-- 스킬2의 정보
-	vars['skillNode2']:removeAllChildren()
-	local skill_2_id = t_tamer['skill_2']
-	local t_skill_2 = tamer_skill_table:getTamerSkill(skill_2_id)
-	if (t_skill_2) then
-		vars['skillTitleLabel2']:setString(Str(t_skill_2['t_name']))
-		vars['skillDscLabel2']:setString(Str(t_skill_2['t_desc']))
-		local skill_2_icon = MakeAnimator(t_skill_2['res_icon'])
-		if (skill_2_icon) then
-			vars['skillNode2']:addChild(skill_2_icon)
+		if (t_skill_1) then
+			-- 스킬명
+			vars['skillTitleLabel1']:setString(Str(t_skill_1['t_name']))
+			-- 스킬 상세
+			vars['skillDscLabel1']:setString(Str(t_skill_1['t_desc']))
+			-- 스킬 아이콘
+			--local skill_1_icon = MakeAnimator(t_skill_1['res_icon'])
+			if (skill_1_icon) then
+				vars['skillNode1']:addChild(skill_1_icon)
+			end
+		else
+			vars['skillTitleLabel1']:setString('없음')
+			vars['skillDscLabel1']:setString('-')
 		end
-	else
-		vars['skillTitleLabel2']:setString('없음')
-		vars['skillDscLabel2']:setString('-')
+	end
+
+	-- 스킬2의 정보
+	do
+		vars['skillNode2']:removeAllChildren()
+	
+		local skill_2_id = t_tamer['skill_2']
+		local t_skill_2 = tamer_skill_table:getTamerSkill(skill_2_id)
+	
+		if (t_skill_2) then
+			-- 스킬명
+			vars['skillTitleLabel2']:setString(Str(t_skill_2['t_name']))
+			-- 스킬 상세
+			vars['skillDscLabel2']:setString(Str(t_skill_2['t_desc']))
+			-- 스킬 아이콘
+			--local skill_2_icon = MakeAnimator(t_skill_2['res_icon'])
+			if (skill_2_icon) then
+				vars['skillNode2']:addChild(skill_2_icon)
+			end
+		else
+			vars['skillTitleLabel2']:setString('없음')
+			vars['skillDscLabel2']:setString('-')
+		end
 	end
 end
 
@@ -217,7 +249,16 @@ end
 -- @brief 뒤로가기
 -------------------------------------
 function UI_TamerInfoPopup:click_prevBtn()
-    self.vars['rotatePlate']:setRotate(1, 1)
+	local rotate_plate = self.vars['rotatePlate']
+    
+	-- 뒤로 이동 -> 각도는 360/child.count 를 더한다.
+	rotate_plate:setRotate(1, 1)
+
+	-- 720도가 되면 360도로 강제이동하면서 튀는 현상이 있어 보정해준다.
+	local angle = rotate_plate:getAngle()
+	if (angle >= 660) then
+		rotate_plate:setAngle(angle - 360)
+	end
 end
 
 -------------------------------------
@@ -225,7 +266,16 @@ end
 -- @brief 앞으로가기
 -------------------------------------
 function UI_TamerInfoPopup:click_nextBtn()
-    self.vars['rotatePlate']:setRotate(-1, 1)
+	local rotate_plate = self.vars['rotatePlate']
+
+	-- 앞으로 이동 -> 각도는  360/child.count 를 뺀다.
+    rotate_plate:setRotate(-1, 1)
+
+	-- -360도가 되면 0도로 강제이동하면서 튀는 현상이 있어 보정해준다.
+	local angle = rotate_plate:getAngle()
+	if (angle <= -300) then
+		rotate_plate:setAngle(angle + 360)
+	end
 end
 
 -------------------------------------
