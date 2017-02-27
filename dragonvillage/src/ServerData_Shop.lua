@@ -3,8 +3,7 @@
 -------------------------------------
 ServerData_Shop = class({
         m_serverData = 'ServerData',
-		m_tableShop = 'TableShop',
-		m_workedData = 'table',
+		m_productTable = 'TableShop',
     })
 
 -------------------------------------
@@ -12,16 +11,15 @@ ServerData_Shop = class({
 -------------------------------------
 function ServerData_Shop:init(server_data)
     self.m_serverData = server_data
-	self.m_tableShop = TableShop()
-	self.m_workedData = {}
+	self.m_productTable = nil
 end
 
 -------------------------------------
 -- function getProductList
--- @brief product_type 으로 상품들을 가져온다
+-- @brief group_type 으로 상품들을 가져온다
 -------------------------------------
-function ServerData_Shop:getProductList(product_type)
-	return self.m_tableShop:filterList('product_type', product_type)
+function ServerData_Shop:getProductList(group_type)
+	return self.m_productTable:filterList('group_type', group_type)
 end
 
 -------------------------------------
@@ -79,6 +77,31 @@ function ServerData_Shop:applyGoods(data, key)
     self.m_serverData:applyServerData(data, 'user', key)
 end
 
+-------------------------------------
+-- function request_shopInfo
+-------------------------------------
+function ServerData_Shop:request_shopInfo(cb_func)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        self.m_productTable = TableShop(ret['shop_table'])
+		if (cb_func) then
+			cb_func()
+		end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/info')
+    ui_network:setParam('uid', uid)
+	ui_network:setParam('tid', tid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 -- 아래 코드들은 임시

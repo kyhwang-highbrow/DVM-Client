@@ -24,11 +24,16 @@ function UI_ShopPopup:init()
 	-- 멤버 변수 초기화 
 	self.m_tIsOpenOnce = {}
 
-	-- 초기화 함수 실행
-	self:initUI()
-	self:initTab()
-	self:initButton()
-	self:refresh()
+	local function cb_func()
+		-- 초기화 함수 실행
+		self:initUI()
+		self:initTab()
+		self:initButton()
+		self:refresh()
+	end
+	
+	-- 서버에 상품정보 요청
+	g_shopData:request_shopInfo(cb_func)
 end
 
 -------------------------------------

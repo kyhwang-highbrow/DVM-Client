@@ -155,10 +155,10 @@ function UI_ShopListItem:makeProductData(t_product)
 
 	self.m_pid = t_product['product_id']
 	self.m_productRes = t_product['icon']
-	self.m_gruopType = t_product['product_type']
+	self.m_gruopType = t_product['group_type']
 	self.m_slotType = t_product['slot_type']
 	self.m_priceType = t_product['price_type']
-	self.m_priceValue = t_product['price']
+	self.m_priceValue = t_product['price_value']
 	self.m_lProductList = TableShop:makeProductList(t_product['product_content'])
 	self.m_maxBuyCount = t_product['mbuy_count']
 	self.m_maxBuyDue = t_product['mbuy_due']

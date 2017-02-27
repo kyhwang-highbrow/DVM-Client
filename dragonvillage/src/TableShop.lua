@@ -17,9 +17,9 @@ TableShop = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function TableShop:init()
+function TableShop:init(product_table)
     self.m_tableName = 'shop'
-    self.m_orgTable = TABLE:get(self.m_tableName)
+    self.m_orgTable = product_table
 end
 
 -------------------------------------
