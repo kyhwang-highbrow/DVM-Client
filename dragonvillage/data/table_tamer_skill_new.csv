@@ -1,7 +1,7 @@
 sid,skill_form,type,t_name,res_icon,res_1,res_scale,res_2,res_3,res_hit,indicator,animation,motion_type,dmg_type,dir,chance_type,chance_value,target_type,casting_time,pre_delay,power_source,power_rate,power_add,ignore,cooldown,hit,val_1,val_2,val_3,status_effect_1,status_effect_2,val_id,desc_1,desc_2,desc_3,desc_4,desc_5,t_desc
 241101,status_effect,tamer_skill_헤알,헤알,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,45,0,0,0,0,tamer_def_up;ally;none;-1;100;10,x,0,x,x,x,x,x,20초간 아군 전체의 방어력을 10% 증가시킵니다
 241102,status_effect,tamer_skill_헤알,헤알,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,45,0,0,0,0,tamer_def_up;ally;none;-1;100;12,x,0,x,x,x,x,x,20초간 아군 전체의 방어력을 12% 증가시킵니다
-241103,status_effect,tamer_skill_헤알,헤알,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,,0,x,0,0,x,45,0,0,0,0,tamer_def_up;ally;none;-1;100;14,x,0,x,x,x,x,x,20초간 아군 전체의 방어력을 14% 증가시킵니다
+241103,status_effect,tamer_skill_헤알,헤알,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,45,0,0,0,0,tamer_def_up;ally;none;-1;100;14,x,0,x,x,x,x,x,20초간 아군 전체의 방어력을 14% 증가시킵니다
 241104,status_effect,tamer_skill_헤알,헤알,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,45,0,0,0,0,tamer_def_up;ally;none;-1;100;16,x,0,x,x,x,x,x,20초간 아군 전체의 방어력을 16% 증가시킵니다
 241105,status_effect,tamer_skill_헤알,헤알,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,45,0,0,0,0,tamer_def_up;ally;none;-1;100;18,x,0,x,x,x,x,x,20초간 아군 전체의 방어력을 18% 증가시킵니다
 241106,status_effect,tamer_skill_헤알,헤알,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,45,0,0,0,0,tamer_def_up;ally;none;-1;100;20,x,0,x,x,x,x,x,20초간 아군 전체의 방어력을 20% 증가시킵니다

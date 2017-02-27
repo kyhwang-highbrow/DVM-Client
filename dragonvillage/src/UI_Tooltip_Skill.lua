@@ -187,10 +187,18 @@ end
 -- function getSkillDescStr
 -------------------------------------
 function UI_Tooltip_Skill:getSkillDescStr(char_type, skill_id, skill_type)
-    local table_name = char_type .. '_skill'
+    local t_skill
+        
+    if (char_type == 'tamer') then
+        t_skill = TableTamerSkill():getTamerSkill(skill_id)
 
-    local table_skill = TABLE:get(table_name)
-    local t_skill = table_skill[skill_id]
+    else
+        local table_name = char_type .. '_skill'    
+        local table_skill = TABLE:get(table_name)
+        t_skill = table_skill[skill_id]
+
+    end
+    
     local skill_type = skill_type or t_skill['chance_type']
 
     local skill_type_str = ''

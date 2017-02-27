@@ -693,7 +693,7 @@ end
 -------------------------------------
 -- function getTargetList
 -------------------------------------
-function FormationMgrDelegate:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data)
+function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
     local t_ret = {}
 
 	-- @TODO 전위, 중위, 후위 를 구분해서 가져와야할때 .. Formation Type을 무시하고 Rule Type에 의존

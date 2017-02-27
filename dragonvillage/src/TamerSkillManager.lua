@@ -30,7 +30,7 @@ end
 -------------------------------------
 function TamerSkillManager:setSkillSET()
 	local t_tamer = self.m_charTable
-	local table_tamer_skill = TABLE:get('tamer_skill')
+	local table_tamer_skill = TableTamerSkill()
 
 	local skill_id = nil
 	local t_skill = nil 
@@ -43,7 +43,7 @@ function TamerSkillManager:setSkillSET()
 			break
 		end
 		-- 2. skill table 검증
-		t_skill = table_tamer_skill[skill_id]
+		t_skill = table_tamer_skill:getTamerSkill(skill_id)
 		if t_skill then
 			table.insert(self.m_skill_list, t_skill)
 		end
@@ -52,7 +52,7 @@ function TamerSkillManager:setSkillSET()
 	end
 end
 
-
+--[[
 -------------------------------------
 -- function getTargetList
 -- @TODO 정리해야함!
@@ -112,6 +112,27 @@ function TamerSkillManager:getTargetList(t_skill)
 
 	return l_target_ret
 end
+]]--
+
+-------------------------------------
+-- function getTargetList
+-------------------------------------
+function TamerSkillManager:getTargetList(t_skill)
+    local target_type = t_skill['target_type']
+    if (target_type == 'x') then 
+		error('타겟 타입이 x인데요? 테이블 수정해주세요')
+	end
+
+    local table_skill_target = TABLE:get('skill_target')
+    local t_skill_target = table_skill_target[target_type]
+
+    local target_team = t_skill_target['fof']
+    local target_formation = 'front'
+    local target_rule = t_skill_target['rule']
+
+    local t_ret = self.m_world:getTargetList(nil, 0, 0, target_team, target_formation, target_rule)
+    return t_ret
+end
 
 -------------------------------------
 -- function doTamerSkill
@@ -119,17 +140,18 @@ end
 function TamerSkillManager:doTamerSkill(skill_idx)
 	local t_skill = self.m_skill_list[skill_idx]
 
-	if (t_skill['form'] == 'status_effect') then 
+	if (t_skill['skill_form'] == 'status_effect') then 
 		-- 1. target 설정
 		local l_target = self:getTargetList(t_skill)
+        if (not l_target) then return end
 
-		if (not l_target) then return end
-
-		-- 2. 타겟 대상에 상태효과생성
+        -- 2. 타겟 대상에 상태효과생성
 		local idx = 1
 		local effect_str = nil
 		local t_effect = nil
-		local type = nil 
+		local type = nil
+        local target_type = nil
+        local start_con = nil
 		local duration = nil
 		local value_1 = nil
 		local value_2 = nil
@@ -137,21 +159,24 @@ function TamerSkillManager:doTamerSkill(skill_idx)
 
 		while true do 
 			-- 1. 파싱할 구문 가져오고 탈출 체크
-			effect_str = t_skill['effect'..idx]
+			effect_str = t_skill['status_effect_' .. idx]
 			if (not effect_str) or (effect_str == 'x') then 
 				break 
 			end
 
 			-- 2. 파싱하여 규칙에 맞게 분배
-			t_effect = stringSplit(effect_str, ';')
-			type = t_effect[1]
-			duration = t_effect[2]
-			value_1 = t_effect[3]
-			--value_2 = t_effect[4]
-			
-			-- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
+            t_effect = StatusEffectHelper:parsingStr(effect_str)
+            
+		    type = t_effect['type']
+		    target_type = t_effect['target_type']
+            start_con = t_effect['start_con']
+		    duration = t_effect['duration']
+		    rate = t_effect['rate'] 
+		    value_1 = t_effect['value_1']
+
+            -- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
 			for _,target in ipairs(l_target) do
-				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
+                StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
 			end
 
 			-- 4. 인덱스 증가
@@ -180,7 +205,7 @@ function TamerSkillManager:doTamerSkill(skill_idx)
 		end
 
 	else
-		cclog('미구현 테이머 스킬 : ' .. t_skill['id'] .. ' / ' .. t_skill['t_name'])
+		cclog('미구현 테이머 스킬 : ' .. t_skill['sid'] .. ' / ' .. t_skill['t_name'])
 		return false
 	end
 

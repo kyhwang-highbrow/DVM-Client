@@ -1141,6 +1141,13 @@ function GameWorld:onKeyReleased(keyCode, event)
             end
         end
 
+    -- 테이머 스킬
+    elseif (keyCode == KEY_1) then
+        self.m_tamerSkillSystem:click_tamerSkillBtn(1)
+
+    elseif (keyCode == KEY_2) then
+        self.m_tamerSkillSystem:click_tamerSkillBtn(2)
+
 	-- 미사일 범위 확인
     elseif (keyCode == KEY_W) then
 		ccdump(self.m_missileRange)
@@ -1482,6 +1489,11 @@ end
 -- function getTargetList
 -------------------------------------
 function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data)
+    local bLeftFormation = true
+
+    if (char) then
+        bLeftFormation = char.m_bLeftFormation
+    end
     
     -- 팀 타입에 따른 델리게이트
     local for_mgr_delegate = nil
@@ -1489,14 +1501,14 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
         return {char}
 
     elseif (team_type == 'ally') then
-        if (char.m_bLeftFormation) then
+        if (bLeftFormation) then
             for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr)
         else
             for_mgr_delegate = FormationMgrDelegate(self.m_rightFormationMgr)
         end
 
     elseif (team_type == 'enemy') then
-        if (char.m_bLeftFormation) then
+        if (bLeftFormation) then
             for_mgr_delegate = FormationMgrDelegate(self.m_rightFormationMgr)
         else
             for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr)
@@ -1506,7 +1518,7 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
         for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr, self.m_rightFormationMgr)
     end
 
-    return for_mgr_delegate:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data)
+    return for_mgr_delegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
 end
 
 -------------------------------------

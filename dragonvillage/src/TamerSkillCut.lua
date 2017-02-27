@@ -8,7 +8,7 @@ local TAMER_SKILL_CUT_TYPE__SPECIAL = 2
 -- class TamerSkillCut
 -------------------------------------
 TamerSkillCut = class(PARENT, {
-        m_world = 'GameWrold',
+        m_world = 'GameWorld',
         m_skillLayer = '',
         
         m_bPlaying = 'boolean',

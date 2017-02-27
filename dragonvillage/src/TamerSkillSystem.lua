@@ -12,7 +12,7 @@ end
 -- class TamerSkillSystem
 -------------------------------------
 TamerSkillSystem = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable(), {
-        m_world = 'GameWrold',
+        m_world = 'GameWorld',
 
         m_lTamerSkillCoolTime = 'list[number]',
 
@@ -31,8 +31,8 @@ function TamerSkillSystem:init(world, tamerSkillCut)
     self.m_isUseSpecialSkill = false
 
     -- 일반 스킬
-    for i = 1, 3 do
-		--self:initTamerSkillBtn(i)
+    for i = 1, 2 do
+		self:initTamerSkillBtn(i)
     end
 
     -- 궁극기
@@ -52,7 +52,7 @@ function TamerSkillSystem:initTamerSkillBtn(i)
 
 	-- 1. 살짝 순차적으로 활성화
     self.m_lTamerSkillCoolTime[i] = ((2/30) * i) 
-
+    --[[
 	-- 2. 버튼 핸들러 등록, 누르고 있으면 툴팁
     ui.vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() self:click_tamerSkillBtn(i) end)
     ui.vars['tamerSkillBtn' .. i].m_node:registerScriptPressHandler(function()
@@ -75,6 +75,7 @@ function TamerSkillSystem:initTamerSkillBtn(i)
     if(self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
          ui.vars['tamerSkillBtn' .. i]:getParent():setVisible(false)
     end
+    ]]--
 end
 
 -------------------------------------
@@ -183,8 +184,8 @@ end
 function TamerSkillSystem:update(dt)
     local ui = self.m_world.m_inGameUI
     
-    for i = 1, 3 do
-        --self:updateSkillBtn(i, dt)
+    for i = 1, 2 do
+        self:updateSkillBtn(i, dt)
     end
 
     --self:updateSpecialSkillBtn(dt)
@@ -201,6 +202,7 @@ function TamerSkillSystem:updateSkillBtn(i, dt)
         self.m_lTamerSkillCoolTime[i] = math_max(self.m_lTamerSkillCoolTime[i] - dt, 0)
     end
 
+    --[[
     local globalCoolTime = self.m_world.m_gameState:getGlobalCoolTime()
     local prev_percentage = ui.vars['timeGauge' .. i]:getPercentage()
     local percentage = 0
@@ -228,6 +230,7 @@ function TamerSkillSystem:updateSkillBtn(i, dt)
             end)
         end
     end
+    ]]--
 end
 
 -------------------------------------
