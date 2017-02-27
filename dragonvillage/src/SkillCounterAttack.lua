@@ -34,8 +34,12 @@ function SkillCounterAttack:init_skill(invoke_skill_id, duration, animation_name
 	self.m_animationName = animation_name
 	self.m_triggerName = trigger_name
 	self.m_attackCount = 0
-	self.m_effect = self:makeEffect(effect_res, self.m_owner.pos.x, self.m_owner.pos.x)
-	self.m_effect:setVisible(false)
+
+	-- 추가 리소스 있다면 effect 생성
+	if (effect_res) then
+		self.m_effect = self:makeEffect(effect_res, self.m_owner.pos.x, self.m_owner.pos.x)
+		self.m_effect:setVisible(false)
+	end
 
 	-- 스킬 캐스터 이벤트 처리
 	self.m_owner:addListener(self.m_triggerName, self)
@@ -153,7 +157,7 @@ function SkillCounterAttack:makeSkillInstance(owner, t_skill, t_data)
 	local duration = t_skill['val_2']
 	local trigger_name = t_skill['val_3']
 	local animation_name = t_skill['animation']
-	local effect_res = t_skill['res_1']
+	local effect_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 	
 	-- 인스턴스 생성부
 	------------------------------------------------------
