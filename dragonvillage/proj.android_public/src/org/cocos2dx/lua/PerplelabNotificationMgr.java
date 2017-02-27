@@ -1,7 +1,5 @@
 package org.cocos2dx.lua;
 
-import com.perplelab.dragonvillage.R;
-
 import android.app.Activity;
 import android.app.PendingIntent.CanceledException;
 import android.app.Notification;

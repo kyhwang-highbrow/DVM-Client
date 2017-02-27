@@ -26,6 +26,12 @@ THE SOFTWARE.
 package org.cocos2dx.lua;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
+import android.os.Handler;
+import android.os.Bundle;
+import android.util.Log;
+import android.content.Intent;
+import android.net.Uri;
+import android.app.AlertDialog;
 
 public class AppActivity extends Cocos2dxActivity{
 
