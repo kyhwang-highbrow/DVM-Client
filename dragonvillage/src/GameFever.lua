@@ -146,9 +146,10 @@ function GameFever:initUI()
         self.m_feverGaugeEndVisual:setVisual('fever', 'fever_gauge_disappear')
         self.m_feverGaugeEndVisual:setRepeat(false)
         self.m_feverGaugeEndVisual:setVisible(false)
-
+        
         self.m_feverGaugeEndVisual.m_node:setAnchorPoint(cc.p(0.5, 0.5))
         self.m_feverGaugeEndVisual.m_node:setDockPoint(cc.p(0.5, 0.5))
+        self.m_feverGaugeEndVisual:setPosition(-8, -10)
 
         --self.m_feverButton1:addChild(self.m_feverGaugeEndVisual.m_node)
         ui.vars['feverMenu']:addChild(self.m_feverGaugeEndVisual.m_node)
@@ -377,6 +378,7 @@ function GameFever:onEnd()
     self.m_feverLabel:setString(Str('{1}%', math_floor(self.m_curPoint)))
 
     self.m_feverGaugeEffect:setPosition(0, 0)
+    self.m_feverGaugeEffect:setScale(1)
 
     self.m_feverGauge1:setVisible(true)
     self.m_feverGauge2:setVisible(false)
