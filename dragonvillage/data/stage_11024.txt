@@ -130,5 +130,42 @@
 			"132042;2;Appear;RO02;RB22;0.5"
 			"132042;2;Appear;RO02;RB26;0.5"
 		]
-    }
+    },
+	
+	"move":
+	{
+		1:
+		[
+			[
+				"wait;7",
+				"relation_6_3;0.5", "relation_6_2;0.5", "relation_6_1;0.5", "relation_6_0;0.5", "wait;10",
+				"relation_6_0;0.5", "relation_6_3;0.5", "relation_6_2;0.5", "relation_6_1;0.5", "wait;10",
+				"relation_6_1;0.5", "relation_6_0;0.5", "relation_6_3;0.5", "relation_6_2;0.5", "wait;10"
+				"c2_s4_1;0.5", "wait;3"
+			]
+		],
+		
+		2:
+		[
+			[
+				"wait;7",
+				"move_26;0.5", "wait;10",
+				"move_27;0.5", "wait;10",
+				"move_23;0.5", "wait;5",
+				"c2_s4_2;0.5", "wait;3"
+			]
+		],
+		
+		3:
+		[
+			[
+				"wait;7",
+				"move_28;0.5", "wait;10",
+				"move_28_t1;0.5", "wait;10",
+				"move_28_t2;0.5", "wait;10",
+				"move_28_t3;0.5", "wait;10",
+				"c2_s4_3;0.5", "wait;3"
+			]
+		]
+	}
 }
