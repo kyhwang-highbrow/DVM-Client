@@ -210,7 +210,7 @@ function UI_TamerInfoPopup:refresh_tamerSkill()
 			-- 스킬 상세
 			vars['skillDscLabel1']:setString(Str(t_skill_1['t_desc']))
 			-- 스킬 아이콘
-			--local skill_1_icon = MakeAnimator(t_skill_1['res_icon'])
+			local skill_1_icon = MakeAnimator(t_skill_1['res_icon'])
 			if (skill_1_icon) then
 				vars['skillNode1']:addChild(skill_1_icon)
 			end
@@ -233,7 +233,7 @@ function UI_TamerInfoPopup:refresh_tamerSkill()
 			-- 스킬 상세
 			vars['skillDscLabel2']:setString(Str(t_skill_2['t_desc']))
 			-- 스킬 아이콘
-			--local skill_2_icon = MakeAnimator(t_skill_2['res_icon'])
+			local skill_2_icon = MakeAnimator(t_skill_2['res_icon'])
 			if (skill_2_icon) then
 				vars['skillNode2']:addChild(skill_2_icon)
 			end
