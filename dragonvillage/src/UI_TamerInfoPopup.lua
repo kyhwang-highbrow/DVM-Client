@@ -157,7 +157,7 @@ function UI_TamerInfoPopup:refresh_rotatePlate()
 	vars['useSprite']:setVisible(b_use_tamer)
 	vars['selectBtn']:setVisible(not b_use_tamer)
 
-	-- 얻지 않는 테이머 표시
+	-- @TODO 얻지 않는 테이머 표시
 	local b_lock = false --(not t_tamer['b_obtain'])
 	vars['lockSprite']:setVisible(b_lock)
 	if (b_lock) then
@@ -182,7 +182,7 @@ function UI_TamerInfoPopup:refresh_tamerSkill()
 	-- 스킬1의 정보
 	vars['skillNode1']:removeAllChildren()
 	local skill_1_id = t_tamer['skill_1']
-	local t_skill_1 = tamer_skill_table:get(skill_1_id)
+	local t_skill_1 = tamer_skill_table:getTamerSkill(skill_1_id)
 	if (t_skill_1) then
 		vars['skillTitleLabel1']:setString(Str(t_skill_1['t_name']))
 		vars['skillDscLabel1']:setString(Str(t_skill_1['t_desc']))
@@ -195,11 +195,10 @@ function UI_TamerInfoPopup:refresh_tamerSkill()
 		vars['skillDscLabel1']:setString('-')
 	end
 	
-
 	-- 스킬2의 정보
 	vars['skillNode2']:removeAllChildren()
 	local skill_2_id = t_tamer['skill_2']
-	local t_skill_2 = tamer_skill_table:get(skill_2_id)
+	local t_skill_2 = tamer_skill_table:getTamerSkill(skill_2_id)
 	if (t_skill_2) then
 		vars['skillTitleLabel2']:setString(Str(t_skill_2['t_name']))
 		vars['skillDscLabel2']:setString(Str(t_skill_2['t_desc']))
@@ -247,8 +246,6 @@ function UI_TamerInfoPopup:click_selectBtn()
 
 	-- 서버에 저장
 	g_userData:request_setTamer(tamer_id, cb_func)
-	
-	
 end
 
 -------------------------------------
