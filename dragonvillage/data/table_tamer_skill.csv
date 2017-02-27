@@ -1,23 +1,5 @@
-sid,skill_form,type,t_name,res_icon,res_1,res_scale,res_2,res_3,res_hit,indicator,animation,motion_type,dmg_type,dir,chance_type,chance_value,target_type,casting_time,pre_delay,power_source,power_rate,power_add,ignore,cooldown,hit,val_1,val_2,val_3,status_effect_1,status_effect_2,val_id,desc_1,desc_2,desc_3,desc_4,desc_5,t_desc
-241101,status_effect,tamer_skill_헤알,헤알,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,45,0,0,0,0,tamer_def_up;ally;none;-1;100;10,x,0,x,x,x,x,x,20초간 아군 전체의 방어력을 10% 증가시킵니다
-241102,status_effect,tamer_skill_헤알,헤알,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,45,0,0,0,0,tamer_def_up;ally;none;-1;100;12,x,0,x,x,x,x,x,20초간 아군 전체의 방어력을 12% 증가시킵니다
-241103,status_effect,tamer_skill_헤알,헤알,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,,0,x,0,0,x,45,0,0,0,0,tamer_def_up;ally;none;-1;100;14,x,0,x,x,x,x,x,20초간 아군 전체의 방어력을 14% 증가시킵니다
-241104,status_effect,tamer_skill_헤알,헤알,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,45,0,0,0,0,tamer_def_up;ally;none;-1;100;16,x,0,x,x,x,x,x,20초간 아군 전체의 방어력을 16% 증가시킵니다
-241105,status_effect,tamer_skill_헤알,헤알,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,45,0,0,0,0,tamer_def_up;ally;none;-1;100;18,x,0,x,x,x,x,x,20초간 아군 전체의 방어력을 18% 증가시킵니다
-241106,status_effect,tamer_skill_헤알,헤알,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,45,0,0,0,0,tamer_def_up;ally;none;-1;100;20,x,0,x,x,x,x,x,20초간 아군 전체의 방어력을 20% 증가시킵니다
-241107,status_effect,tamer_skill_헤알,헤알,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,45,0,0,0,0,tamer_def_up;ally;none;-1;100;22,x,0,x,x,x,x,x,20초간 아군 전체의 방어력을 22% 증가시킵니다
-241108,status_effect,tamer_skill_헤알,헤알,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,45,0,0,0,0,tamer_def_up;ally;none;-1;100;24,x,0,x,x,x,x,x,20초간 아군 전체의 방어력을 24% 증가시킵니다
-241109,status_effect,tamer_skill_헤알,헤알,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,45,0,0,0,0,tamer_def_up;ally;none;-1;100;27,x,0,x,x,x,x,x,20초간 아군 전체의 방어력을 27% 증가시킵니다
-241110,status_effect,tamer_skill_헤알,헤알,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,45,0,0,0,0,tamer_def_up;ally;none;-1;100;30,x,0,x,x,x,x,x,20초간 아군 전체의 방어력을 30% 증가시킵니다
-241201,status_effect,tamer_passive_콘퓨,콘퓨,x,x,1,x,x,x,x,x,instant,magical,0,passive,none,ally_none,0,0,x,0,0,x,0,0,0,0,0,tamer_passive_atk_up;ally;always;-1;100;5,x,0,x,x,x,x,x,아군 전체의 공격력을 5% 증가
-242101,status_effect,tamer_skill_리제네,리제네,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,60,0,0,0,0,tamer_heal;ally;none;5;100;1,x,0,x,x,x,x,x,5초간 아군 전체의 체력을 매초 1% 씩 증가 시킵니다
-242102,status_effect,tamer_skill_리제네,리제네,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,60,0,0,0,0,tamer_heal;ally;none;5;100;2,x,0,x,x,x,x,x,5초간 아군 전체의 체력을 매초 1% 씩 증가 시킵니다
-242103,status_effect,tamer_skill_리제네,리제네,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,60,0,0,0,0,tamer_heal;ally;none;5;100;3,x,0,x,x,x,x,x,5초간 아군 전체의 체력을 매초 1% 씩 증가 시킵니다
-242104,status_effect,tamer_skill_리제네,리제네,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,60,0,0,0,0,tamer_heal;ally;none;5;100;4,x,0,x,x,x,x,x,5초간 아군 전체의 체력을 매초 1% 씩 증가 시킵니다
-242105,status_effect,tamer_skill_리제네,리제네,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,60,0,0,0,0,tamer_heal;ally;none;5;100;5,x,0,x,x,x,x,x,5초간 아군 전체의 체력을 매초 1% 씩 증가 시킵니다
-242106,status_effect,tamer_skill_리제네,리제네,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,60,0,0,0,0,tamer_heal;ally;none;5;100;6,x,0,x,x,x,x,x,5초간 아군 전체의 체력을 매초 1% 씩 증가 시킵니다
-242107,status_effect,tamer_skill_리제네,리제네,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,60,0,0,0,0,tamer_heal;ally;none;5;100;7,x,0,x,x,x,x,x,5초간 아군 전체의 체력을 매초 1% 씩 증가 시킵니다
-242108,status_effect,tamer_skill_리제네,리제네,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,60,0,0,0,0,tamer_heal;ally;none;5;100;8,x,0,x,x,x,x,x,5초간 아군 전체의 체력을 매초 1% 씩 증가 시킵니다
-242109,status_effect,tamer_skill_리제네,리제네,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,60,0,0,0,0,tamer_heal;ally;none;5;100;9,x,0,x,x,x,x,x,5초간 아군 전체의 체력을 매초 1% 씩 증가 시킵니다
-242110,status_effect,tamer_skill_리제네,리제네,x,x,1,x,x,x,x,x,instant,magical,0,active,1,ally_none,0,0,x,0,0,x,60,0,0,0,0,tamer_heal;ally;none;5;100;10,x,0,x,x,x,x,x,5초간 아군 전체의 체력을 매초 1% 씩 증가 시킵니다
-242201,status_effect,tamer_passive_라이브라,라이브라,x,x,1,x,x,x,x,x,instant,magical,0,passive,none,ally_none,0,0,x,0,0,x,0,0,0,0,0,tamer_passive_hp_up_abs;ally;always;-1;100;150,x,0,x,x,x,x,x,아군 전체의 hp 150 증가
+sid,t_name,res,res_icon,form,cooldown,target_logic1,target_logic2,target_logic3,effect1,effect2,effect3,t_desc,r_note
+241001,헤알,x,res/ui/icon/skill/241001.png,status_effect,60,friend,hp,min,tamer_heal;1.5;40;0,x,x,아군 드래곤 중 가장 체력이 적은 드래곤의 생명력을 40% 회복시킵니다,effect# 칼럼에서 배열 순서는 1type ; 2duration ; 3value1 ; 4value2
+241002,레비테트,x,res/ui/icon/skill/241002.png,status_effect,60,friend,def,max,tamer_def_up;15;50;0,x,x,아군 드래곤 중 가장 방어력이 높은 드래곤의 방어력을 15초 동안 50% 증가시킵니다,effect# 칼럼에서 배열 순서는 1type ; 2duration ; 3value1 ; 4value2
+241003,콘퓨,x,res/ui/icon/skill/241003.png,status_effect,60,friend,atk,max,tamer_atk_up;15;50;0,x,x,아군 드래곤 중 가장 공격력이 높은 드래곤의 공격력을 15초 동안 50% 증가시킵니다,effect# 칼럼에서 배열 순서는 1type ; 2duration ; 3value1 ; 4value2
+241004,합동공격,res/effect/skill_goni/skill_goni.vrp,res/ui/icon/skill/241004.png,code,0,friend,x,all,sum_atk;0.5,x,x,아군 드래곤들이 달려들어 합동 공격을 가합니다.,effect# 칼럼에서 배열 순서는 1type ; 2duration ; 3value1 ; 4value2
