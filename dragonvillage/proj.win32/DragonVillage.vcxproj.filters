@@ -1755,6 +1755,9 @@
     <None Include="..\src\ServerData_DragonUnit.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableTamerSkill.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
