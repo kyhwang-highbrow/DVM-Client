@@ -59,7 +59,7 @@
             <key>fever_0201.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1732,923},{243,86}}</string>
+                <string>{{612,618},{243,86}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>fever_0301.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1938,728},{321,102}}</string>
+                <string>{{584,1419},{321,102}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>fever_0302.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2006,76},{226,39}}</string>
+                <string>{{2006,161},{226,39}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,11 +98,11 @@
             <key>fever_0303.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1820,956},{85,36}}</string>
+                <string>{{698,1872},{85,36}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{85,36}}</string>
                 <key>sourceSize</key>
@@ -111,7 +111,7 @@
             <key>fever_gg_0101.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1284,76},{720,57}}</string>
+                <string>{{1284,161},{720,57}}</string>
                 <key>offset</key>
                 <string>{0,-3}</string>
                 <key>rotated</key>
@@ -120,6 +120,32 @@
                 <string>{{7,6},{720,57}}</string>
                 <key>sourceSize</key>
                 <string>{734,63}</string>
+            </dict>
+            <key>fever_gg_0101_2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1284,76},{746,83}}</string>
+                <key>offset</key>
+                <string>{-3,-4}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{450,34},{746,83}}</string>
+                <key>sourceSize</key>
+                <string>{1652,143}</string>
+            </dict>
+            <key>fever_gg_0101_s.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{602,1264},{119,46}}</string>
+                <key>offset</key>
+                <string>{0,1}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{12,3},{119,46}}</string>
+                <key>sourceSize</key>
+                <string>{143,54}</string>
             </dict>
             <key>fever_gg_0102.png</key>
             <dict>
@@ -137,11 +163,11 @@
             <key>fever_gg_ready.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1820,1051},{209,47}}</string>
+                <string>{{688,1419},{209,47}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{209,47}}</string>
                 <key>sourceSize</key>
@@ -150,11 +176,11 @@
             <key>fever_idle_0101.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{217,872},{60,74}}</string>
+                <string>{{757,1810},{60,74}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{60,74}}</string>
                 <key>sourceSize</key>
@@ -163,7 +189,7 @@
             <key>fever_idle_0102.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1946,135},{58,73}}</string>
+                <string>{{1946,220},{58,73}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -176,7 +202,7 @@
             <key>fever_idle_0103.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,872},{63,73}}</string>
+                <string>{{700,618},{63,73}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -189,11 +215,11 @@
             <key>fever_idle_0104.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1932},{59,73}}</string>
+                <string>{{833,1810},{59,73}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{59,73}}</string>
                 <key>sourceSize</key>
@@ -202,11 +228,11 @@
             <key>fever_idle_star.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{77,872},{62,70}}</string>
+                <string>{{889,1961},{62,70}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{62,70}}</string>
                 <key>sourceSize</key>
@@ -215,7 +241,7 @@
             <key>fever_idle_star_s.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1152,888},{88,88}}</string>
+                <string>{{889,1871},{88,88}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -241,7 +267,7 @@
             <key>fever_number_2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1946,266},{34,58}}</string>
+                <string>{{1946,351},{34,58}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -254,7 +280,7 @@
             <key>fever_number_3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{121,938},{33,58}}</string>
+                <string>{{785,1872},{33,58}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -267,7 +293,7 @@
             <key>fever_number_4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,938},{37,58}}</string>
+                <string>{{638,1872},{37,58}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -280,7 +306,7 @@
             <key>fever_number_5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{62,938},{34,57}}</string>
+                <string>{{723,1264},{34,57}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -293,7 +319,7 @@
             <key>fever_number_BG.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1152,798},{88,88}}</string>
+                <string>{{799,1907},{88,88}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -306,11 +332,11 @@
             <key>fever_number_failed.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{132,1412},{48,65}}</string>
+                <string>{{799,1997},{48,65}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{48,65}}</string>
                 <key>sourceSize</key>
@@ -319,7 +345,7 @@
             <key>fever_number_failed_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1152,708},{88,88}}</string>
+                <string>{{757,1720},{88,88}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -332,11 +358,11 @@
             <key>fever_number_success.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{149,872},{61,66}}</string>
+                <string>{{953,1961},{61,66}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{61,66}}</string>
                 <key>sourceSize</key>
@@ -345,7 +371,7 @@
             <key>fever_number_success_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1152,618},{88,88}}</string>
+                <string>{{688,1630},{88,88}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -358,11 +384,11 @@
             <key>ingame_fever_bg.jpg</key>
             <dict>
                 <key>frame</key>
-                <string>{{63,1932},{128,72}}</string>
+                <string>{{669,1911},{128,72}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{128,72}}</string>
                 <key>sourceSize</key>
@@ -371,7 +397,7 @@
             <key>ingame_fever_btn_0101.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1822,533},{128,117}}</string>
+                <string>{{638,1742},{128,117}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -384,11 +410,11 @@
             <key>ingame_fever_btn_0102.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1941,598},{128,105}}</string>
+                <string>{{578,1312},{128,105}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{128,105}}</string>
                 <key>sourceSize</key>
@@ -397,11 +423,11 @@
             <key>ingame_fever_btn_0103.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1822,766},{81,113}}</string>
+                <string>{{495,1312},{81,113}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{81,113}}</string>
                 <key>sourceSize</key>
@@ -410,7 +436,7 @@
             <key>ingame_fever_btn_0104.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{66,978},{164,174}}</string>
+                <string>{{700,683},{164,174}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -423,11 +449,11 @@
             <key>ingame_fever_btn_0201.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1822,663},{114,50}}</string>
+                <string>{{392,1312},{114,50}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{114,50}}</string>
                 <key>sourceSize</key>
@@ -436,11 +462,11 @@
             <key>ingame_fever_btn_0202.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1822,715},{114,49}}</string>
+                <string>{{444,1312},{114,49}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{114,49}}</string>
                 <key>sourceSize</key>
@@ -449,11 +475,11 @@
             <key>ingame_fever_btn_0203.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1822,905},{89,49}}</string>
+                <string>{{708,1312},{89,49}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{89,49}}</string>
                 <key>sourceSize</key>
@@ -462,7 +488,7 @@
             <key>ingame_fever_res_0003.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1946,210},{58,54}}</string>
+                <string>{{1946,295},{58,54}}</string>
                 <key>offset</key>
                 <string>{-298,155}</string>
                 <key>rotated</key>
@@ -475,11 +501,11 @@
             <key>ingame_fever_res_0007.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1822,849},{102,54}}</string>
+                <string>{{743,1910},{102,54}}</string>
                 <key>offset</key>
                 <string>{-278,156}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{55,27},{102,54}}</string>
                 <key>sourceSize</key>
@@ -488,11 +514,11 @@
             <key>ingame_fever_res_0011.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{132,1479},{148,52}}</string>
+                <string>{{584,1742},{148,52}}</string>
                 <key>offset</key>
                 <string>{-258,157}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{52,27},{148,52}}</string>
                 <key>sourceSize</key>
@@ -501,11 +527,11 @@
             <key>ingame_fever_res_0015.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,978},{196,62}}</string>
+                <string>{{775,618},{196,62}}</string>
                 <key>offset</key>
                 <string>{-240,154}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{46,25},{196,62}}</string>
                 <key>sourceSize</key>
@@ -514,11 +540,11 @@
             <key>ingame_fever_res_0019.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1732,1168},{242,78}}</string>
+                <string>{{2,1968},{242,78}}</string>
                 <key>offset</key>
                 <string>{-221,145}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{42,26},{242,78}}</string>
                 <key>sourceSize</key>
@@ -527,7 +553,7 @@
             <key>ingame_fever_res_0023.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1946,304},{292,100}}</string>
+                <string>{{1946,389},{292,100}}</string>
                 <key>offset</key>
                 <string>{-203,133}</string>
                 <key>rotated</key>
@@ -540,11 +566,11 @@
             <key>ingame_fever_res_0027.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1185},{340,128}}</string>
+                <string>{{327,1918},{340,128}}</string>
                 <key>offset</key>
                 <string>{-185,118}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{29,28},{340,128}}</string>
                 <key>sourceSize</key>
@@ -553,7 +579,7 @@
             <key>ingame_fever_res_0031.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1540},{390,166}}</string>
+                <string>{{602,872},{390,166}}</string>
                 <key>offset</key>
                 <string>{-168,102}</string>
                 <key>rotated</key>
@@ -566,7 +592,7 @@
             <key>ingame_fever_res_0035.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1820,1100},{438,208}}</string>
+                <string>{{392,872},{438,208}}</string>
                 <key>offset</key>
                 <string>{-150,81}</string>
                 <key>rotated</key>
@@ -579,11 +605,11 @@
             <key>ingame_fever_res_0039.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1242,923},{488,260}}</string>
+                <string>{{322,1428},{488,260}}</string>
                 <key>offset</key>
                 <string>{-132,56}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{8,24},{488,260}}</string>
                 <key>sourceSize</key>
@@ -592,11 +618,11 @@
             <key>ingame_fever_res_0043.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{612,618},{538,318}}</string>
+                <string>{{2,1428},{538,318}}</string>
                 <key>offset</key>
                 <string>{-115,26}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,25},{538,318}}</string>
                 <key>sourceSize</key>
@@ -605,11 +631,11 @@
             <key>ingame_fever_res_0047.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1266,533},{554,388}}</string>
+                <string>{{2,872},{554,388}}</string>
                 <key>offset</key>
                 <string>{-80,-7}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{27,23},{554,388}}</string>
                 <key>sourceSize</key>
@@ -631,7 +657,7 @@
             <key>ingame_fever_res_0055.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1284,135},{660,396}}</string>
+                <string>{{1284,220},{660,396}}</string>
                 <key>offset</key>
                 <string>{-48,-9}</string>
                 <key>rotated</key>
@@ -657,11 +683,11 @@
             <key>ingame_fever_res_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1858,956},{79,78}}</string>
+                <string>{{246,1968},{79,78}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{79,78}}</string>
                 <key>sourceSize</key>
@@ -677,7 +703,7 @@
             <key>size</key>
             <string>{2048,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:80aa1b69537bbbba732cb30f64766dd2$</string>
+            <string>$TexturePacker:SmartUpdate:6d46fc10b08f4fe3b215669cb89a57b9$</string>
             <key>textureFileName</key>
             <string>ingame_fever.png</string>
         </dict>
