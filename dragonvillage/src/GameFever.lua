@@ -33,6 +33,7 @@ GameFever = class(IEventListener:getCloneClass(), IEventDispatcher:getCloneTable
         m_feverIdleVisual = '',
         m_feverTutVisual = '',
         m_skillCancelVisual = '',
+        m_feverGaugeEndVisual = '',
 
         m_feverGauge1 = '',
         m_feverGauge2 = '',
@@ -116,13 +117,15 @@ function GameFever:initUI()
     self.m_feverButton2 = ui.vars['feverBtn2']
     
     -- 이미지 폰트 생성
-    self.m_feverLabel = cc.Label:createWithBMFont('res/font/fever_gauge.fnt', '')
-    self.m_feverLabel:setAnchorPoint(cc.p(0.5, 0.5))
-    self.m_feverLabel:setDockPoint(cc.p(0.5, 0.5))
-    self.m_feverLabel:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-    self.m_feverLabel:setAdditionalKerning(0)
-    self.m_feverLabel:setPosition(0, 14)
-    self.m_feverNode:addChild(self.m_feverLabel)
+    do
+        self.m_feverLabel = cc.Label:createWithBMFont('res/font/fever_gauge.fnt', '')
+        self.m_feverLabel:setAnchorPoint(cc.p(0.5, 0.5))
+        self.m_feverLabel:setDockPoint(cc.p(0.5, 0.5))
+        self.m_feverLabel:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        self.m_feverLabel:setAdditionalKerning(0)
+        self.m_feverLabel:setPosition(0, 14)
+        self.m_feverNode:addChild(self.m_feverLabel)
+    end
 
     -- 이펙트 생성
     do
@@ -137,6 +140,20 @@ function GameFever:initUI()
         self.m_feverGauge1:addChild(self.m_feverGaugeEffect.m_node)
     end
 
+    -- 게이지 종료시 비주얼 생성
+    do
+        self.m_feverGaugeEndVisual = MakeAnimator('res/ui/a2d/ingame_fever/ingame_fever.vrp')
+        self.m_feverGaugeEndVisual:setVisual('fever', 'fever_gauge_disappear')
+        self.m_feverGaugeEndVisual:setRepeat(false)
+        self.m_feverGaugeEndVisual:setVisible(false)
+
+        self.m_feverGaugeEndVisual.m_node:setAnchorPoint(cc.p(0.5, 0.5))
+        self.m_feverGaugeEndVisual.m_node:setDockPoint(cc.p(0.5, 0.5))
+
+        --self.m_feverButton1:addChild(self.m_feverGaugeEndVisual.m_node)
+        ui.vars['feverMenu']:addChild(self.m_feverGaugeEndVisual.m_node)
+    end
+
 
     self.m_feverGauge1:setPercentage(0)
     self.m_feverGauge2:setPercentage(0)
@@ -146,7 +163,8 @@ function GameFever:initUI()
     end)
     
         
-    self.m_feverNode:setVisible(true)
+    --self.m_feverNode:setVisible(true)
+    self.m_feverNode:setVisible(false)
     self.m_feverTutVisual:setVisible(false)
     self.m_feverTutVisual:setRepeat(true)
     self.m_skillCancelVisual:setVisible(false)
@@ -286,6 +304,11 @@ function GameFever:update_live(dt)
         self.m_feverGauge2:setVisible(true)
         self.m_feverGauge1:runAction(cc.ProgressTo:create(FEVER_KEEP_TIME, 0)) 
         self.m_feverGauge2:runAction(cc.ProgressTo:create(FEVER_KEEP_TIME, 0)) 
+
+        -- 게이지 변경
+        self.m_feverGauge2:setVisible(false)
+        self.m_feverGaugeEndVisual.m_node:setFrame(0)
+        self.m_feverGaugeEndVisual:setVisible(true)
     end
 
     -- 적이 모두 죽었거나 제한시간이 다 되었을 경우 종료 처리
@@ -353,11 +376,15 @@ function GameFever:onEnd()
     
     self.m_feverLabel:setString(Str('{1}%', math_floor(self.m_curPoint)))
 
+    self.m_feverGaugeEffect:setPosition(0, 0)
+
     self.m_feverGauge1:setVisible(true)
     self.m_feverGauge2:setVisible(false)
 
     self.m_feverButton1:setVisible(false)
     self.m_feverButton2:setVisible(false)
+
+    self.m_feverGaugeEndVisual:setVisible(false)
 end
 
 -------------------------------------
@@ -522,6 +549,7 @@ end
 -------------------------------------
 function GameFever:addFeverPoint(point)
     if (self:isActive()) then return end
+    if (self.m_realPoint >= 100) then return end
     
     self.m_realPoint = self.m_realPoint + point
     self.m_realPoint = math_min(self.m_realPoint, 100)
@@ -536,9 +564,17 @@ function GameFever:addFeverPoint(point)
     do
         self.m_feverGaugeEffect.m_node:stopAllActions()
 
+        local scale = math_pow(1 + (self.m_realPoint / 100) / 2, 2)
+        local scale_action = cc.ScaleTo:create(FEVER_POINT_UPDATE_TIME, scale)
+        --local move_action = cc.MoveTo:create(FEVER_POINT_UPDATE_TIME, cc.p((720 * self.m_realPoint / 100), 0))
+        local move_action = cc.MoveTo:create(FEVER_POINT_UPDATE_TIME, cc.p(
+            (720 * self.m_realPoint / 100),
+            (30 * self.m_realPoint / 100)
+        ))
+        
         self.m_feverGaugeEffect:setVisible(true)
         self.m_feverGaugeEffect:runAction(cc.Sequence:create(
-            cc.MoveTo:create(FEVER_POINT_UPDATE_TIME, cc.p((720 * self.m_realPoint / 100), 0)),
+            cc.Spawn:create(scale_action, move_action),
             cc.CallFunc:create(function(node) node:setVisible(false) end)
         ))
     end

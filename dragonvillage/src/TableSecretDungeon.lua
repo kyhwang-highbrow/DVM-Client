@@ -12,6 +12,8 @@ TableSecretDungeon = class(PARENT, {
 function TableSecretDungeon:init()
     self.m_tableName = 'secret_dungeon'
     self.m_orgTable = TABLE:get(self.m_tableName)
+
+    cclog('TableSecretDungeon = ' .. luadump(self.m_orgTable))
 end
 
 -------------------------------------
@@ -40,7 +42,7 @@ function TableSecretDungeon:getRandomDragonList(stage_id)
     if (not t_dungeon) then return end
 
     local ret = {}
-    local l_data = seperate(t_dungeon['obtain_dragon'], ';')
+    local l_data = seperate(t_dungeon['obtain_dragon'], ',')
     
     for _, v in pairs(l_data) do
         table.insert(ret, v)
