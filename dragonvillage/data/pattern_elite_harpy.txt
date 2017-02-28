@@ -2,7 +2,9 @@
 	"pattern_elite_harpy":
 	[			
 		[
-			"a;basic", "w;2", "a;basic", "w;2"
+			"m;RM14;300", "a;basic", "w;2", "a;basic", "w;2",
+			"m;RF12;300", "a;basic", "w;2", "a;basic", "w;2",
+			"m;RF16;300", "a;basic", "w;2", "a;basic", "w;2"
 		]
     ],
 	
@@ -15,7 +17,11 @@
                 "hp_percent":75,
                 "pattern":
                 [
-					"m;RM24;100", "a;1", "a;2", "w;3",					
+					"m;RM24;300", "a;1", "a;2", "w;3",
+					"a;basic", "w;1", "a;basic", "w;2",
+					"m;RB22;300", "a;1", "a;2", "w;3",
+					"a;basic", "w;1", "a;basic", "w;2",
+					"m;RB26;300", "a;1", "a;2", "w;3",
 					"a;basic", "w;1", "a;basic", "w;2"
                 ]
             },
