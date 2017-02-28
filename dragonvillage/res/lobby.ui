@@ -1324,8 +1324,8 @@
 			dock_point = { 0.000000; 0.500000; };
 			anchor_point = { 0.000000; 0.500000; };
 			relative_size_type = 0;
-			width = 80;
-			height = 80;
+			width = 90;
+			height = 90;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -1334,8 +1334,8 @@
 			visible = true;
 			lua_name = 'collectionBtn';
 			enable = true;
-			normal = 'ui/btn/base_btn_0101.png';
-			selected = 'ui/btn/base_btn_0102.png';
+			normal = 'ui/btn/lobby_collection_01.png';
+			selected = 'ui/btn/lobby_collection_02.png';
 			disable = '';
 			image_type = 1;
 		};
