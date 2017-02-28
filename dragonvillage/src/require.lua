@@ -460,6 +460,9 @@ local t_module = {
     'UI_AutoPlaySettingPopup',
     'UI_BattleMenu',
     'UI_Colosseum',
+	'UI_ColosseumRewardPopup',
+    'UI_ColosseumReadyScene',
+	'UI_ColosseumReadyScene_Deck',
     'UI_ColosseumLoading',
     'UI_ColosseumResult',
     'UI_ColosseumRankListItem',
@@ -492,9 +495,7 @@ local t_module = {
     'UI_GachaDragon',
     'UI_GachaBox',
     'UI_ItemInfoPopup',
-    'UI_ColosseumRewardPopup',
-    'UI_ColosseumReadyScene',
-
+    
     -- 도감 관련
     'UI_Collection',
     'UI_CollectionDetailPopup',

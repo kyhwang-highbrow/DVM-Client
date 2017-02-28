@@ -1770,6 +1770,9 @@
     <None Include="..\src\StructEventPopupTab.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ColosseumReadyScene_Deck.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
