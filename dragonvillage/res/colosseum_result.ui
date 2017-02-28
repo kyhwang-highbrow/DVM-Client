@@ -248,8 +248,8 @@
 				visible = true;
 				lua_name = 'exitBtn';
 				enable = true;
-				normal = 'ui/btn/btn_0401.png';
-				selected = 'ui/btn/btn_0402.png';
+				normal = 'ui/btn/base_btn_0101.png';
+				selected = 'ui/btn/base_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -312,8 +312,8 @@
 				visible = true;
 				lua_name = 'retryBtn';
 				enable = true;
-				normal = 'ui/btn/btn_0401.png';
-				selected = 'ui/btn/btn_0402.png';
+				normal = 'ui/btn/base_btn_0101.png';
+				selected = 'ui/btn/base_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -376,8 +376,8 @@
 				visible = true;
 				lua_name = 'fastStartBtn';
 				enable = true;
-				normal = 'ui/btn/btn_0401.png';
-				selected = 'ui/btn/btn_0402.png';
+				normal = 'ui/btn/base_btn_0101.png';
+				selected = 'ui/btn/base_btn_0102.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -763,7 +763,7 @@
 			type = 'Node';
 			ui_name = '';
 			x = -243.000000;
-			y = 21.000000;
+			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
