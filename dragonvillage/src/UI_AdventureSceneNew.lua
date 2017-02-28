@@ -17,7 +17,6 @@ UI_AdventureSceneNew = class(UI, ITopUserInfo_EventListener:getCloneTable(), {
         m_adventureShip = 'UI',
         m_adventureShipAnimator = 'Animator',
         m_lStageButton = 'list[UI_AdventureStageButton]',
-        m_speechBallonLabel = 'RichLabel',
         m_adventureStageInfoPopup = 'UI_AdventureStageInfo',
      })
 
@@ -35,7 +34,7 @@ end
 -- function init
 -------------------------------------
 function UI_AdventureSceneNew:init(stage_id)
-    local vars = self:load('adventure_scene_02.ui')
+    local vars = self:load('adventure_scene.ui')
     UIManager:open(self, UIManager.NORMAL)
 
     -- 백키 지정
@@ -303,9 +302,6 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
         end
     end
 
-    -- 말풍선
-    self:SpeechBalloon(chapter)
-
     -- 이전, 다음 챕터 버튼
     --vars['prevBtn']:setEnabled(1 < chapter)
     vars['prevBtn']:setVisible(1 < chapter)
@@ -318,57 +314,6 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
     do -- 마지막에 진입한 스테이지 저장
         local stage_id = makeAdventureID(self.m_currDifficulty, chapter, stage)
         g_stageData:setFocusStage(stage_id)
-    end
-end
-
--------------------------------------
--- function SpeechBalloon
--- @breif
--------------------------------------
-function UI_AdventureSceneNew:SpeechBalloon(chapter)
-    local speech_ballon_node = self.vars['speechBallonNode']
-
-    speech_ballon_node:stopAllActions()
-    speech_ballon_node:setScale(0.5)
-
-    local scale_action = cc.ScaleTo:create(0.2, 1)
-    local secuence = cc.Sequence:create(cc.EaseBackInOut:create(scale_action))
-
-    speech_ballon_node:runAction(secuence)
-
-
-    do
-        self.vars['speechBallonLabel']:setVisible(false)
-        if self.m_speechBallonLabel then
-            self.m_speechBallonLabel:release()
-            self.m_speechBallonLabel = nil
-        end
-
-        local str = ''
-        if (chapter == 1) then
-            str = Str('불속성 드래곤이 유리한 지역이야.\n잘 모르겠으면 [자동배치]를 이용해.')
-        elseif (chapter == 2) then
-            str = Str('각종 상태이상 효과를 거는 적들이 등장해.\n[리티오] 드래곤을 데려가.')
-        elseif (chapter == 3) then
-            str = Str('한가지 속성만으로는 통과하기 힘들어.\n다양한 속성의 드래곤을 준비하는게 좋아.')
-        elseif (chapter == 4) then
-            str = Str('이글이글 타오르는 불에게는.\n시원한 물이 필요하지.')
-        elseif (chapter == 5) then
-            str = Str('지금까지와는 다른 속성이 등장해.\n조금 특별한 드래곤이 필요하겠는걸?')
-        elseif (chapter == 6) then
-            str = Str('어두운 기운을 물리치려면\n빛속성 드래곤이 재격이지.')
-        end
-
-        local dock_point = cc.p(0.5, 1)
-        local is_limit_message = false
-        local rich_label = RichLabel('{@SPEECH}' .. str, 20, 640, 320, TEXT_H_ALIGN_CENTER, TEXT_V_ALIGN_CENTER, dock_point, is_limit_message)
-        local width = rich_label:getStringWidth()
-        local height = rich_label:getStringHeight()
-
-        self.vars['speedBallonSprite']:setNormalSize(width + 20, 90)
-
-        speech_ballon_node:addChild(rich_label.m_root)
-        self.m_speechBallonLabel = rich_label
     end
 end
 
@@ -495,10 +440,12 @@ end
 -- @brief stage_id에 해당하는 최초 클리어 보상 정보를 갱신함
 -------------------------------------
 function UI_AdventureSceneNew:refreshFirstReward(stage_id)
+    local vars = self.vars
+
     local difficulty, chapter, stage = parseAdventureID(stage_id)
     local first_reward_state = g_adventureData:getFirstRewardInfo(stage_id)
 
-    local reward_btn = self.vars['rewardBtn' .. stage]
+    local reward_btn = vars['rewardBtn' .. stage]
 
     if (not reward_btn) then
         return
@@ -514,21 +461,26 @@ function UI_AdventureSceneNew:refreshFirstReward(stage_id)
         return
     end
 
+    do -- 첫 아이템 생성
+        local drop_helper = DropHelper(stage_id)
+        local icon = drop_helper:getDisplayItemImage()
+        icon.vars['clickBtn']:setEnabled(false)
+        vars['rewardIconNode' .. stage]:removeAllChildren()
+        vars['rewardIconNode' .. stage]:addChild(icon.root)
+    end
+
     -- 최초 보상 정도에 따라 UI 설정
     if (first_reward_state == 'lock') then
-        self.vars['receiveVisual' .. stage]:setVisible(false)
-        self.vars['closeSprite' .. stage]:setVisible(true)
-        self.vars['openSprite' .. stage]:setVisible(false)
+        vars['rewardReceiveVisual' .. stage]:setVisible(false)
+        vars['rewardCheckSprite' .. stage]:setVisible(false)
 
     elseif (first_reward_state == 'open') then
-        self.vars['receiveVisual' .. stage]:setVisible(true)
-        self.vars['closeSprite' .. stage]:setVisible(true)
-        self.vars['openSprite' .. stage]:setVisible(false)
+        vars['rewardReceiveVisual' .. stage]:setVisible(true)
+        vars['rewardCheckSprite' .. stage]:setVisible(false)
 
     elseif (first_reward_state == 'finish') then
-        self.vars['receiveVisual' .. stage]:setVisible(false)
-        self.vars['closeSprite' .. stage]:setVisible(false)
-        self.vars['openSprite' .. stage]:setVisible(true)
+        vars['rewardReceiveVisual' .. stage]:setVisible(false)
+        vars['rewardCheckSprite' .. stage]:setVisible(true)
 
     else
         error('first_reward_state : ' .. first_reward_state)

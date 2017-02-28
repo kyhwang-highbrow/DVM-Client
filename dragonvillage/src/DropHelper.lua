@@ -161,6 +161,21 @@ function DropHelper:getDisplayItemIconList_firstReward()
     return l_ret
 end
 
+-------------------------------------
+-- function getDisplayItemImage
+-------------------------------------
+function DropHelper:getDisplayItemImage()
+    local stage_id = self.m_stageID
+    local table_first_reward = TABLE:get('first_reward')
+    local t_first_reward = table_first_reward[stage_id]
+
+    local item_id = t_first_reward['reward_1'] or 0
+    local item_cnt = t_first_reward['value_1'] or 0
+
+    local item_card = UI_ItemCard(item_id, item_cnt)
+    return item_card
+end
+
 -------------------------------------------------------------------------------------------------------------------
 -- 최초 클리어 보상 관련 end
 -------------------------------------------------------------------------------------------------------------------
