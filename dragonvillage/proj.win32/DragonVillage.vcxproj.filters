@@ -1758,6 +1758,18 @@
     <None Include="..\src\TableTamerSkill.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_EventPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventPopupTabButton.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_Event.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\StructEventPopupTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

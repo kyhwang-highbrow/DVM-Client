@@ -145,13 +145,6 @@ end
 -- function fail
 -------------------------------------
 function UI_Network.fail(self, ret)
-    if self.m_failCB then
-        if (self.m_failCB(ret) == true) then
-            self:close()
-            return
-        end
-    end
-
     self:makeFailPopup(nil, ret)
 end
 
@@ -214,6 +207,9 @@ function UI_Network:makeFailPopup(msg, ret)
     end
 
     local function cancel_btn_cb()
+        if self.m_failCB then
+            self.m_failCB(ret)
+        end
         self:close()
     end
 

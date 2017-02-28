@@ -58,7 +58,7 @@ end
 -------------------------------------
 -- function request_attendanceInfo
 -------------------------------------
-function ServerData_Attendance:request_attendanceInfo(finish_cb)
+function ServerData_Attendance:request_attendanceInfo(finish_cb, fail_cb)
     -- 출석체크 정보가 갱신되어야하는지 여부를 확인
     self:ckechUpdateAttendanceInfo()
 
@@ -77,6 +77,7 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb)
     local function success_cb(ret)
         self.m_bDirtyAttendanceInfo = false
 
+        --[[
         local ret = TABLE:loadJsonTable('temp_attendance_info')
 
         -- 기본 출석 체크 보상 정보
@@ -105,6 +106,7 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb)
         self.m_specialTodayStep = ret['attendance_special']['today_step']
 
         self.m_bNewAttendanceSpecial = true
+        --]]
 
         if finish_cb then
             finish_cb(ret)
@@ -113,12 +115,12 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/get_patch_info')
+    ui_network:setUrl('/users/attendance/info')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('app_ver', '0.0.0')
-    ui_network:setMethod('GET') -- 임시로 패치 인포 통신을 사용하기 위해 get으로 설정
+    ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
-    ui_network:setRevocable(false)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
 end

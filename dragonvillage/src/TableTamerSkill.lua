@@ -20,18 +20,18 @@ end
 function TableTamerSkill:getTamerSkill(skill_id)
 	local t_skill = self:get(skill_id)
 	
-	-- ½ºÅ³ ÀÚÃ¼°¡ ¾ø´Â °æ¿ì´Â nil ¹İÈ¯
+	-- ìŠ¤í‚¬ ìì²´ê°€ ì—†ëŠ” ê²½ìš°ëŠ” nil ë°˜í™˜
 	if not (t_skill) then 
 		return nil
 	end
 	
-	-- ÆĞ½Ãºê´Â ½ºÅ³ ·¹º§ÀÌ 1ÀÌ´Ù.
+	-- íŒ¨ì‹œë¸ŒëŠ” ìŠ¤í‚¬ ë ˆë²¨ì´ 1ì´ë‹¤.
 	if (t_skill['chance_type'] == 'passive') then
 		return t_skill
 
-	-- ÆĞ½Ãºê°¡ ¾Æ´Ñ °æ¿ì
+	-- íŒ¨ì‹œë¸Œê°€ ì•„ë‹Œ ê²½ìš°
 	else
-		-- À¯Àú ·¹º§¿¡ µû¸¥ ½ºÅ³ÀÇ ·¹º§ °è»ê
+		-- ìœ ì € ë ˆë²¨ì— ë”°ë¥¸ ìŠ¤í‚¬ì˜ ë ˆë²¨ ê³„ì‚°
 		local skill_level = self:getSkillLevel()
 		local adj_skill_id = skill_id + skill_level
 		t_skill = self:get(adj_skill_id)
@@ -41,7 +41,7 @@ end
 
 -------------------------------------
 -- function getSkillLevel
--- @brief À¯Àú ·¹º§¿¡ µû¸¥ ½ºÅ³ÀÇ ·¹º§ °è»ê
+-- @brief ìœ ì € ë ˆë²¨ì— ë”°ë¥¸ ìŠ¤í‚¬ì˜ ë ˆë²¨ ê³„ì‚°
 -------------------------------------
 function TableTamerSkill:getSkillLevel()
 	local user_lv = g_userData:get('lv')

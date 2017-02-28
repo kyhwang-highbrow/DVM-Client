@@ -98,6 +98,9 @@ function ServerData:getInstance()
     -- 도감
     g_collectionData = ServerData_Collection(g_serverData)
 
+    -- 이벤트
+    g_eventData = ServerData_Event(g_serverData)
+
     return g_serverData
 end
 

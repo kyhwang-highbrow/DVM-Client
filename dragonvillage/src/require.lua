@@ -82,6 +82,7 @@ local t_module = {
     'ServerData_Exploration',
     'ServerData_HotTime',
     'ServerData_Collection',
+    'ServerData_Event',
     'UserData',
     'DropHelper',
     'DragonAutoSetHelper',
@@ -559,6 +560,10 @@ local t_module = {
     'UI_ExplorationReady',
     'UI_ExplorationResultPopup',
 
+    -- EVENT
+    'UI_EventPopup',
+    'UI_EventPopupTabButton',
+
     'DamageCalc',
     'IconHelper',
     'AnimatorHelper',
@@ -573,6 +578,9 @@ local t_module = {
     'TriggerHpPercent',
     'TriggerTime',
     'EffectTimer',
+
+    -- Struct
+    'StructEventPopupTab',
 
     -- Data
     'DataAdventure',
