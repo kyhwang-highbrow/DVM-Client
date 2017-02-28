@@ -5,6 +5,7 @@ local PARENT = SkillAoERound
 -------------------------------------
 SkillAoERound_Alien = class(PARENT, {
 		m_isReleaseSE = 'bool',
+		m_isStartZoom = 'bool',
 		m_isZoomAndSlow = 'bool',
 		m_zoomTimer = 'num',
      })
@@ -26,6 +27,7 @@ function SkillAoERound_Alien:init_skill(attack_count, range, aoe_res, is_release
 	-- 멤버 변수
 	self.m_isReleaseSE = is_release_se
 	self.m_isZoomAndSlow = false
+	self.m_isStartZoom = false
 	self.m_zoomTimer = 0
 end
 
@@ -33,11 +35,9 @@ end
 -- function doSpecailEffect_onAppear
 -------------------------------------
 function SkillAoERound_Alien:doSpecailEffect_onAppear()
-	-- 카메라 줌인 + 슬로우
-	local timeScale = 0.5
-	self.m_world.m_gameTimeScale:set(timeScale)
-	self.m_world.m_gameCamera:setTarget(self.m_targetChar, {time = timeScale / 8})
-	self.m_isZoomAndSlow = true 
+	self.m_isStartZoom = true
+	self.m_world.m_gameCamera:setTarget(self.m_targetChar, {time = 0.05})
+
 end
 
 -------------------------------------
@@ -71,9 +71,20 @@ end
 -- function update
 -------------------------------------
 function SkillAoERound_Alien:update(dt)
+	-- n초 후에 줌앤슬로우 시작
+	if (self.m_isStartZoom) then
+		self.m_zoomTimer = self.m_zoomTimer + dt
+		if (self.m_zoomTimer > 0.85) then
+			self:startZoomAndSlow()
+			self.m_zoomTimer = 0
+			self.m_isStartZoom = false
+		end
+	end
+	
+	-- n초 후에 줌앤슬로우 종료
 	if (self.m_isZoomAndSlow) then
 		self.m_zoomTimer = self.m_zoomTimer + dt
-		if (self.m_zoomTimer > 0.1) then
+		if (self.m_zoomTimer > 0.05) then
             -- 원상 복구
             self.m_world.m_gameTimeScale:set(1)
             self.m_world.m_gameCamera:reset()
@@ -81,6 +92,16 @@ function SkillAoERound_Alien:update(dt)
 	end
 
     return PARENT.update(self, dt)
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function SkillAoERound_Alien:startZoomAndSlow()
+	-- 카메라 줌인 + 슬로우
+	local timeScale = 0.05
+	self.m_world.m_gameTimeScale:set(timeScale)
+	self.m_isZoomAndSlow = true 
 end
 
 -------------------------------------
