@@ -53,10 +53,64 @@ function Coroutine(func, name)
     update(0)
 
     if name then
+        cclog('\n\n')
         cclog('===================================================')
         cclog('## Coroutine 시작 : ' .. name)
         cclog('===================================================')
     end
 
     return node
+end
+
+CoroutineHelper = class({
+        m_bWorking = 'boolean',
+        m_bEscape = 'boolean',
+        m_blockPopup = 'UI_BlockPopup',
+
+        NEXT = 'function',
+        ESCAPE = 'function',
+    })
+
+function CoroutineHelper:init()
+    self.NEXT = function()
+        self.m_bWorking = false
+    end
+
+    self.ESCAPE = function()
+        self.m_bWorking = false
+        self.m_bEscape = true
+    end
+end
+
+function CoroutineHelper:work(msg)
+    self.m_bWorking = true
+
+    if (msg) then
+        cclog(msg)
+    end
+end
+
+function CoroutineHelper:wait()
+    while (self.m_bWorking) do
+        coroutine.yield()
+    end
+
+    return self:escape()
+end
+
+function CoroutineHelper:escape()
+    if self.m_blockPopup then
+        self.m_blockPopup:close()
+        self.m_blockPopup = nil
+    end
+    return self.m_bEscape
+end
+
+function CoroutineHelper:setBlockPopup()
+    if self.m_blockPopup then
+        return
+    end
+
+    self.m_blockPopup = UI_BlockPopup()
+    coroutine.yield()
 end
