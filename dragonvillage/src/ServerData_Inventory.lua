@@ -1,3 +1,5 @@
+local MAX_ITEMS_CNT = 100
+
 -------------------------------------
 -- class ServerData_Inventory
 -------------------------------------
@@ -82,4 +84,20 @@ function ServerData_Inventory:calcItemCount()
 
     self.m_itemCount = (rune_count + fruit_count + evolution_stone_count)
     --self.m_bItemCountDirty = true
+end
+
+-------------------------------------
+-- function checkMaximumItems
+-------------------------------------
+function ServerData_Inventory:checkMaximumItems(func)
+    local items_cnt = self:getItemCount()
+    
+    if (items_cnt < MAX_ITEMS_CNT) then
+        if func then
+            func()
+        end
+    else
+        local msg = Str('더 이상 아이템을 획득할 수 없습니다. 그래도 진행하시겠습니까? {1}/{2}', items_cnt, MAX_ITEMS_CNT)
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, func)
+    end
 end

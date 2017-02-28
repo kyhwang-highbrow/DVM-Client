@@ -1,3 +1,5 @@
+local MAX_DRAGONS_CNT = 100
+
 -------------------------------------
 -- class ServerData_Dragons
 -------------------------------------
@@ -11,6 +13,7 @@ ServerData_Dragons = class({
         m_bDirtyNumOfDragonsByDid = 'boolean',
 
         m_lastChangeTimeStamp = 'timestamp',
+        m_dragonsCnt = 'number', -- 현재 드래곤 보유 갯수
     })
 
 -------------------------------------
@@ -21,6 +24,7 @@ function ServerData_Dragons:init(server_data)
     self.m_lSortData = {}
     self.m_mNumOfDragonsByDid = {}
     self.m_bDirtyNumOfDragonsByDid = true
+    self.m_dragonsCnt = 0
 end
 
 -------------------------------------
@@ -126,6 +130,7 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
     -- 기존에 없던 드래곤이면 추가
     else
         self.m_serverData:applyServerData(t_dragon_data, 'dragons', #l_dragons + 1)
+        self.m_dragonsCnt = (self.m_dragonsCnt + 1)
     end
 
     -- 드래곤 정렬 데이터 수정
@@ -177,6 +182,7 @@ function ServerData_Dragons:delDragonData(dragon_object_id)
 
     if idx then
         self.m_serverData:applyServerData(nil, 'dragons', idx)
+        self.m_dragonsCnt = (self.m_dragonsCnt - 1)
     end
 
     -- 드래곤 did별 갯수 갱신 필요
@@ -556,4 +562,27 @@ function ServerData_Dragons:checkChange(timestamp)
     end
 
     return false
+end
+
+-------------------------------------
+-- function getDragonsCnt
+-------------------------------------
+function ServerData_Dragons:getDragonsCnt()
+    return self.m_dragonsCnt
+end
+
+-------------------------------------
+-- function checkMaximumDragons
+-------------------------------------
+function ServerData_Dragons:checkMaximumDragons(func)
+    local dragons_cnt = self:getDragonsCnt()
+    
+    if (dragons_cnt < MAX_DRAGONS_CNT) then
+        if func then
+            func()
+        end
+    else
+        local msg = Str('더 이상 드래곤을 획득할 수 없습니다. 그래도 진행하시겠습니까? {1}/{2}', dragons_cnt, MAX_DRAGONS_CNT)
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, func)
+    end
 end

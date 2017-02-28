@@ -396,11 +396,32 @@ function UI_ReadyScene:click_startBtn()
         MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup)
                     
     else
-        local function next_func()
-            self:networkGameStart()
+        local check_deck
+        local check_dragon_inven
+        local check_item_inven
+        local start_game
+
+        -- 덱 변경 유무 확인 후 저장
+        check_deck = function()
+            self:checkChangeDeck(check_dragon_inven)
         end
 
-        self:checkChangeDeck(next_func)
+        -- 드래곤 인벤토리 확인(최대 갯수 초과 시 획득 못함)
+        check_dragon_inven = function()
+            g_dragonsData:checkMaximumDragons(check_item_inven)
+        end
+
+        -- 아이템 인벤토리 확인(최대 갯수 초과 시 획득 못함)
+        check_item_inven = function()
+            g_inventoryData:checkMaximumItems(start_game)
+        end
+
+        -- 게임 시작
+        start_game = function()
+            self:networkGameStart()
+        end
+        
+        check_deck()
     end
 end
 
