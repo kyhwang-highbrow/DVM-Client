@@ -26,14 +26,13 @@ UI_ColosseumReadyScene_Deck = class({
 -------------------------------------
 function UI_ColosseumReadyScene_Deck:init(ui_ready_scene)
     self.m_uiReadyScene = ui_ready_scene
+	-- 진형 회전 효과를 위한 것
+	self.m_uiReadyScene.vars['formationNodeHelper']:setScaleY(0.7)
+	self.m_uiReadyScene.vars['formationNodeHelperXAxis']:setRotation3D(cc.Vertex3F(0, 0, 60))
 
     self:init_button()
     self:init_deck()
     self:makeTouchLayer_formation(self.m_uiReadyScene.vars['formationNode'])
-
-	-- 진형 회전 효과를 위한 것
-	self.m_uiReadyScene.vars['formationNodeHelper']:setScaleY(0.7)
-	self.m_uiReadyScene.vars['formationNodeHelperXAxis']:setRotation3D(cc.Vertex3F(0, 0, 60))
 end
 
 -------------------------------------
@@ -426,11 +425,15 @@ end
 -- function setFormation
 -------------------------------------
 function UI_ColosseumReadyScene_Deck:setFormation(formation)
+	if (self.m_currFormation == formation) then
+		return
+	end
+
     local update_immediately = false
     if (not self.m_currFormation) then
         update_immediately = true
     end
-	cclog('setFormation')
+
     self.m_currFormation = formation
     self:updateFormation(formation, update_immediately)
 end
@@ -440,17 +443,21 @@ end
 -------------------------------------
 function UI_ColosseumReadyScene_Deck:updateFormation(formation, immediately)
     local vars = self.m_uiReadyScene.vars
-	cclog('updateFormation')
+
     local l_pos_list = self:getRotatedPosList(formation)
 
 	-- 상태에 따라 즉시 이동 혹은 움직임 액션 추가
 	if immediately then
 		for i, node_space in ipairs(l_pos_list) do
+			cclog('IMMEDIATELY')
+			cclog(node_space['x'], node_space['y'])
 			vars['positionNode' .. i]:setPosition(node_space['x'], node_space['y'])
 			vars['positionNode' .. i]:setLocalZOrder(1000 - node_space['y'])
 		end
 	else
 		for i, node_space in ipairs(l_pos_list) do
+			cclog('ACTION')
+			cclog(node_space['x'], node_space['y'])
 			local action = cca.makeBasicEaseMove(0.3, node_space['x'], node_space['y'])
 			cca.runAction(vars['positionNode' .. i], action, 100)
 			vars['positionNode' .. i]:setLocalZOrder(1000 - node_space['y'])
