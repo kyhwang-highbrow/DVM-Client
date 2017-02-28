@@ -4,7 +4,9 @@ local PARENT = SkillAoERound
 -- class SkillAoERound_Alien
 -------------------------------------
 SkillAoERound_Alien = class(PARENT, {
-		m_isReleaseSE = 'true',
+		m_isReleaseSE = 'bool',
+		m_isZoomAndSlow = 'bool',
+		m_zoomTimer = 'num',
      })
 
 -------------------------------------
@@ -23,6 +25,19 @@ function SkillAoERound_Alien:init_skill(attack_count, range, aoe_res, is_release
 
 	-- 멤버 변수
 	self.m_isReleaseSE = is_release_se
+	self.m_isZoomAndSlow = false
+	self.m_zoomTimer = 0
+end
+
+-------------------------------------
+-- function doSpecailEffect_onAppear
+-------------------------------------
+function SkillAoERound_Alien:doSpecailEffect_onAppear()
+	-- 카메라 줌인 + 슬로우
+	local timeScale = 0.5
+	self.m_world.m_gameTimeScale:set(timeScale)
+	self.m_world.m_gameCamera:setTarget(self.m_targetChar, {time = timeScale / 8})
+	self.m_isZoomAndSlow = true 
 end
 
 -------------------------------------
@@ -50,7 +65,22 @@ function SkillAoERound_Alien:doSpecailEffect()
 			end
 		end
 	end
+end
 
+-------------------------------------
+-- function update
+-------------------------------------
+function SkillAoERound_Alien:update(dt)
+	if (self.m_isZoomAndSlow) then
+		self.m_zoomTimer = self.m_zoomTimer + dt
+		if (self.m_zoomTimer > 0.1) then
+            -- 원상 복구
+            self.m_world.m_gameTimeScale:set(1)
+            self.m_world.m_gameCamera:reset()
+		end
+	end
+
+    return PARENT.update(self, dt)
 end
 
 -------------------------------------

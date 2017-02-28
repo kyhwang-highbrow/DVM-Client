@@ -59,7 +59,7 @@ function SkillAoERound.st_appear(owner, dt)
 		if (not owner.m_targetChar) then 
 			owner:changeState('dying') 
 		end
-
+		owner:doSpecailEffect_onAppear()
 		owner.m_animator:addAniHandler(function()
 			owner:changeState('attack')
 		end)
@@ -75,7 +75,6 @@ function SkillAoERound.st_attack(owner, dt)
 
 		-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
         owner.m_multiAtkTimer = owner.m_hitInterval
-
 		owner.m_attackCnt = 0
     end
 
@@ -138,6 +137,7 @@ end
 
 -------------------------------------
 -- function setAttackInterval
+-- @brief 스킬에 따라 오버라이딩 해서 사용
 -------------------------------------
 function SkillAoERound:setAttackInterval()
 	-- 이펙트 재생 단위 시간
@@ -145,7 +145,13 @@ function SkillAoERound:setAttackInterval()
 end
 
 -------------------------------------
--- function doSpecailEffect
+-- function doSpecailEffect_onAppear
+-------------------------------------
+function SkillAoERound:doSpecailEffect_onAppear(t_target)
+end
+
+-------------------------------------
+-- function doSpecailEffect (onHit)
 -------------------------------------
 function SkillAoERound:doSpecailEffect(t_target)
 end
