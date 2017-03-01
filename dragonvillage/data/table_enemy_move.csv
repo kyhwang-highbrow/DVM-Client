@@ -1,5 +1,5 @@
 type,pos_01,pos_02,pos_03,pos_04,pos_05,pos_06,pos_07,pos_08,pos_09,pos_10,pos_11,pos_12,pos_13,pos_14,pos_15,pos_16,pos_17,pos_18,pos_19,pos_20,pos_21,comment
-design,RM23,RM25,,,,,,,,,,,,,,,,,,,,
+design,RF11,RF17,RF22,RF26,RM11,RM14,RM17,RM22,RM26,RB11,RB17,,,,,,,,,,,
 wait,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,지정 시간동안 대기용으로 사용
 RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,
 RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,
@@ -270,6 +270,8 @@ move_38,RF23,RF25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
 move_38_t1,RM23,RF23,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
 move_38_t2,RM25,RM23,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
 move_38_t3,RF25,RM25,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
+move_39,RF13,RF15,RF22,RF26,RM11,RM17,RM22,RM26,RB13,RB15,RM14,x,x,x,x,x,x,x,x,x,x,
+move_40,RF11,RF17,RF22,RF26,RM11,RM17,RM22,RM26,RB11,RB17,RM14,x,x,x,x,x,x,x,x,x,x,
 set_1,RF22,RF22,RF22,RF26,RF26,RF26,RB24,RB24,RB24,x,x,x,x,x,x,x,x,x,x,x,x,3점 준비
 set_1_s,RF22,RF26,RB24,RF22,RF26,RB24,RF22,RF26,RB24,x,x,x,x,x,x,x,x,x,x,x,x,3점 준비 다른 버전
 set_2,RM12,RM16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
