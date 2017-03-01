@@ -105,12 +105,12 @@ function UI_AdventureChapterSelectPopup:init_tableView()
             root:runAction(cc.ScaleTo:create(0.3, 1))
         end
 
-        local is_open = g_adventureData:isOpenGlobalChapter(chapter)
+        local is_open = g_adventureDataOld:isOpenGlobalChapter(chapter)
 
         if is_open then
             self:close()
             if self.m_cbFunction then
-                local difficulty = g_adventureData:getChapterOpenDifficulty(chapter)
+                local difficulty = g_adventureDataOld:getChapterOpenDifficulty(chapter)
                 self.m_cbFunction(chapter, difficulty)
             end
         end

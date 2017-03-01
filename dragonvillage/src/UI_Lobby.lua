@@ -326,8 +326,7 @@ end
 -------------------------------------
 function UI_Lobby:click_adventureBtn()
     local func = function()
-        local scene = SceneAdventure()
-        scene:runScene()
+        g_adventureData:goToAdventureScene()
     end
 
     self:sceneFadeOutAndCallFunc(func)

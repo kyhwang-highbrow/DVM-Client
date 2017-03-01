@@ -53,7 +53,7 @@ function UI_AdventureFirstRewardPopup:refreshUI()
     local vars = self.vars
 
     local difficulty, chapter, stage = parseAdventureID(stage_id)
-    local first_reward_state = g_adventureData:getFirstRewardInfo(stage_id)
+    local first_reward_state = g_adventureDataOld:getFirstRewardInfo(stage_id)
 
     if (first_reward_state == 'lock') then
         vars['descLabel']:setString(Str('{1}-{2} 통과시 수령 가능', chapter, stage))
@@ -84,7 +84,7 @@ function UI_AdventureFirstRewardPopup:click_receiveBtn()
     local l_reward_item = DropHelper:getFirstRewardItemList(self.m_stageID)
 
     local function finish_cb()
-        g_adventureData:optainFirstReward(self.m_stageID)
+        g_adventureDataOld:optainFirstReward(self.m_stageID)
         g_topUserInfo:refreshData()
 
         if self.m_cbRefresh then
@@ -97,7 +97,7 @@ function UI_AdventureFirstRewardPopup:click_receiveBtn()
     self:dropItem_network(l_reward_item, finish_cb)
 
     --[[
-    g_adventureData:optainFirstReward(self.m_stageID)
+    g_adventureDataOld:optainFirstReward(self.m_stageID)
 
     if self.m_cbRefresh then
         self.m_cbRefresh()

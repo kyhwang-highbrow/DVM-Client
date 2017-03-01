@@ -39,16 +39,15 @@ end
 -- function click_homeButton
 -------------------------------------
 function UI_GamePause:click_homeButton()
-    local scene = SceneAdventure()
-    scene:runScene()
+    g_adventureData:goToAdventureScene()
 end
 
 -------------------------------------
 -- function click_retryButton
 -------------------------------------
 function UI_GamePause:click_retryButton()
-    local scene = SceneAdventure(g_currScene.m_stageID)
-    scene:runScene()
+    local stage_id = g_currScene.m_stageID
+    g_adventureData:goToAdventureScene(stage_id)
 end
 
 -------------------------------------

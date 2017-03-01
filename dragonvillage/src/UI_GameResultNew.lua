@@ -539,8 +539,7 @@ end
 -- function click_backBtn
 -------------------------------------
 function UI_GameResultNew:click_backBtn()
-    local scene = SceneAdventure()
-    scene:runScene()
+    g_adventureData:goToAdventureScene()
 end
 
 -------------------------------------
@@ -577,8 +576,8 @@ end
 -- function click_retryBtn
 -------------------------------------
 function UI_GameResultNew:click_retryBtn()
-    local scene = SceneAdventure(self.m_stageID)
-    scene:runScene()
+    local stage_id = self.m_stageID
+    g_adventureData:goToAdventureScene(stage_id)
 end
 
 -------------------------------------
@@ -592,8 +591,7 @@ function UI_GameResultNew:click_nextBtn()
         g_stageData:setFocusStage(next_stage_id)
     end
 
-    local scene = SceneAdventure()
-    scene:runScene()
+    g_adventureData:goToAdventureScene()
 end
 
 -------------------------------------

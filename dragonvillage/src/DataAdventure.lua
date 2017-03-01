@@ -1,4 +1,4 @@
--- g_adventureData
+-- g_adventureDataOld
 
 MAX_ADVENTURE_CHAPTER = 6
 MAX_ADVENTURE_STAGE = 8

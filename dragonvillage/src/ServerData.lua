@@ -43,6 +43,9 @@ function ServerData:getInstance()
     -- 'staminas' (user/staminas)
     g_staminasData = ServerData_Staminas(g_serverData)
 
+    -- 'adventure'
+    g_adventureData = ServerData_Adventure(g_serverData)
+
     -- 'nest_info'
     g_nestDungeonData = ServerData_NestDungeon(g_serverData)
 

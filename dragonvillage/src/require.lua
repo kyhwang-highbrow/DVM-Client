@@ -63,6 +63,7 @@ local t_module = {
     'ServerData_DragonUnit',
     'ServerData_Deck',
     'ServerData_Staminas',
+    'ServerData_Adventure',
     'ServerData_NestDungeon',
     'ServerData_SecretDungeon',
     'ServerData_Stage',
@@ -146,6 +147,7 @@ local t_module = {
     'TableSecretDungeon',
     'TableColosseumReward',
     'TableDragonUnit',
+    'TableStageMission',
 
     -- Interface
     'IEventDispatcher',

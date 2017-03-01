@@ -27,7 +27,7 @@ end
 -- @brief 모든 스테이지 오픈
 -------------------------------------
 function UI_SettingPopup:click_allClearBtn()
-    g_adventureData:allStageClear()
+    g_adventureDataOld:allStageClear()
     UIManager:toastNotificationGreen('모든 스테이지 오픈!')
     UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
     --self.m_bRestart = true

@@ -72,7 +72,7 @@ function UI_AdventureSceneNew:init(stage_id)
     self:makeShipObject()
 
     -- 마지막에 진입한 챕터로 진입
-    local last_stage = (stage_id or g_adventureData.m_tData['last_stage'])
+    local last_stage = (stage_id or g_adventureDataOld.m_tData['last_stage'])
     local difficulty, chapter, stage = parseAdventureID(last_stage)
     self:refreshChapter(chapter, difficulty, stage)
 end
@@ -175,10 +175,10 @@ function UI_AdventureSceneNew:click_prevBtn()
     local difficulty = self.m_currDifficulty
     local chapter = (self.m_currChapter - 1)
 
-    if g_adventureData:isOpenChapter(difficulty, chapter) then  
+    if g_adventureDataOld:isOpenChapter(difficulty, chapter) then  
         self:refreshChapter(chapter, difficulty)
     else
-        local difficulty = g_adventureData:getChapterOpenDifficulty(chapter)
+        local difficulty = g_adventureDataOld:getChapterOpenDifficulty(chapter)
         if (0 < difficulty) then
             self:refreshChapter(chapter, difficulty)
             UIManager:toastNotificationRed(Str('난이도가 변경되었습니다.'))
@@ -193,10 +193,10 @@ function UI_AdventureSceneNew:click_nextBtn()
     local difficulty = self.m_currDifficulty
     local chapter = (self.m_currChapter + 1)
 
-    if g_adventureData:isOpenChapter(difficulty, chapter) then  
+    if g_adventureDataOld:isOpenChapter(difficulty, chapter) then  
         self:refreshChapter(chapter, difficulty)
     else
-        local difficulty = g_adventureData:getChapterOpenDifficulty(chapter)
+        local difficulty = g_adventureDataOld:getChapterOpenDifficulty(chapter)
         if (0 < difficulty) then
             self:refreshChapter(chapter, difficulty)
             UIManager:toastNotificationRed(Str('난이도가 변경되었습니다.'))
@@ -227,7 +227,7 @@ function UI_AdventureSceneNew:click_selectDifficultyBtn(difficulty)
     local chapter = self.m_currChapter
     local force = false
 
-    if g_adventureData:isOpenChapter(difficulty, chapter) then  
+    if g_adventureDataOld:isOpenChapter(difficulty, chapter) then  
         self:refreshChapter(chapter, difficulty, nil, force)
     else
         UIManager:toastNotificationRed(Str('이전 난이도를 먼저 클리어하세요!'))
@@ -291,10 +291,10 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
     end
 
     do -- 진입 가능한 스테이지 저장
-        local t_ret, focus_stage = g_adventureData:getStageScoreList(self.m_currDifficulty, chapter)
+        local t_ret, focus_stage = g_adventureDataOld:getStageScoreList(self.m_currDifficulty, chapter)
         self.m_openStage = focus_stage
 
-        if stage and g_adventureData:isOpenStage(makeAdventureID(self.m_currDifficulty, chapter, stage)) then
+        if stage and g_adventureDataOld:isOpenStage(makeAdventureID(self.m_currDifficulty, chapter, stage)) then
             self:focusStageButton(stage, true, true)
         else
             self:focusStageButton(focus_stage, true, true)
@@ -392,7 +392,7 @@ function UI_AdventureSceneNew:refresh_difficultyButtons()
     for difficulty=1, MAX_ADVENTURE_DIFFICULTY do
 
         -- 난이도별 잠금 아이콘
-        local is_lock = (not g_adventureData:isOpenChapter(difficulty, chapter))
+        local is_lock = (not g_adventureDataOld:isOpenChapter(difficulty, chapter))
         local lock_sprite_name = 'lockSprite' .. string.format('%.2d', difficulty)
         vars[lock_sprite_name]:setVisible(is_lock)
 
@@ -443,7 +443,7 @@ function UI_AdventureSceneNew:refreshFirstReward(stage_id)
     local vars = self.vars
 
     local difficulty, chapter, stage = parseAdventureID(stage_id)
-    local first_reward_state = g_adventureData:getFirstRewardInfo(stage_id)
+    local first_reward_state = g_adventureDataOld:getFirstRewardInfo(stage_id)
 
     local reward_btn = vars['rewardBtn' .. stage]
 

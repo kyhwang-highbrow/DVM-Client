@@ -31,7 +31,7 @@ function UserData:getInstance()
 
     g_userDataOld = UserData()
     g_userDataOld:loadMasterFile()
-    g_adventureData = g_userDataOld.m_dataAdventure
+    g_adventureDataOld = g_userDataOld.m_dataAdventure
 
     return g_userDataOld
 end
