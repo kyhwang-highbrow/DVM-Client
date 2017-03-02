@@ -36,7 +36,8 @@ end
 -------------------------------------
 function SkillAoERound_Alien:doSpecailEffect_onAppear()
 	self.m_isStartZoom = true
-	self.m_world.m_gameCamera:setTarget(self.m_targetChar, {time = 0.05})
+	local vitual_char = {pos = self.pos}
+	self.m_world.m_gameCamera:setTarget(vitual_char, {time = 0.05})
 
 end
 
