@@ -402,11 +402,26 @@ end
 -------------------------------------
 -- function getMonsterIDList
 -------------------------------------
-function ServerData_SecretDungeon:getMonsterIDList()
-    local t_dungeon_info = self:getSelectedSecretDungeonInfo()
-    if (not t_dungeon_info) then return end
+function ServerData_SecretDungeon:getMonsterIDList(stage_id)
+    local t_info = g_secretDungeonData:parseSecretDungeonID(stage_id)
 
-    return { t_dungeon_info['dragon'] }
+    local ret = nil
+
+    if (t_info['dungeon_mode'] == SECRET_DUNGEON_RELATION) then
+        local t_dungeon_info = self:getSelectedSecretDungeonInfo()
+        if (not t_dungeon_info) then return end
+
+        ret = { t_dungeon_info['dragon'] }
+
+    else
+        local table_stage_desc = TableStageDesc()
+        if (not table_stage_desc:get(stage_id)) then return end
+
+        ret = table_stage_desc:getMonsterIDList(stage_id)
+
+    end
+
+    return ret
 end
 
 -------------------------------------

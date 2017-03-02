@@ -257,7 +257,7 @@ function ServerData_Stage:getMonsterIDList(stage_id)
     if (game_mode == GAME_MODE_SECRET_DUNGEON) then
         -- 현재는 이전에 선택된 스테이지의 정보를 리턴함
         -- 던전 고유 아이디값이 필요
-        ret = g_secretDungeonData:getMonsterIDList()
+        ret = g_secretDungeonData:getMonsterIDList(stage_id)
 
     else
         local table_stage_desc = TableStageDesc()
