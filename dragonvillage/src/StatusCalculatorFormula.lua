@@ -50,6 +50,6 @@ end
 -- function calcAttackTick
 -------------------------------------
 function StatusCalculator:calcAttackTick(attack_speed)
-    local tick = 5 - (4 * ((attack_speed-100)/100))
+    local tick = 3 - (2 * ((attack_speed-100)/100))
     return tick
 end
