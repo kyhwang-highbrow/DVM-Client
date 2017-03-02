@@ -47,6 +47,15 @@ function DropHelper:getDisplayItemList()
         end
     end
 
+    -- 인연 던전의 경우 해당 드래곤 인연 포인트 추가
+    if (t_drop['r_chapter_info'] == 'relation') then
+        local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo()
+        local item_id = getRelationItemId(t_dungeon_info['dragon'])
+        if (item_id) then
+            table.insert(l_ret, item_id)
+        end
+    end
+
     return l_ret
 end
 

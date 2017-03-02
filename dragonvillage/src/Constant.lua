@@ -204,3 +204,11 @@ function playDragonVoice(type)
         SoundMgr:playEffect('VOICE', 'vo_silent')
     end
 end
+
+-------------------------------------
+-- function getRelationItemId
+-- @brief 드래곤 아이디(did)로부터 해당 드래곤 인연 포인트 아이템id를 얻음
+-------------------------------------
+function getRelationItemId(id)
+    return (id + 640000)
+end
