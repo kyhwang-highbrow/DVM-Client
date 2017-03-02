@@ -124,8 +124,8 @@ end
 -- function checkSkill
 -- @brief 스킬 사용 여부를 확인
 -------------------------------------
-function GameAuto:checkSkill(dragon, t_skill, aiAttack, aiHeal)
-    if (not dragon:isPossibleSkill()) then return false end
+function GameAuto:checkSkill(owner, t_skill, aiAttack, aiHeal)
+    if (not owner:isPossibleSkill()) then return false end
 
     local target_type = t_skill['target_type']
     local aiAttack = aiAttack or g_autoPlaySetting:get('dragon_atk_skill')

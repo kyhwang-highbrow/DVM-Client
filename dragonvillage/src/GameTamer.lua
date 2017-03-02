@@ -50,6 +50,7 @@ function GameTamer:update(dt)
     end
 end
 
+--[[
 -------------------------------------
 -- function checkSkill
 -------------------------------------
@@ -59,15 +60,16 @@ function GameTamer:checkSkillActive()
     local world = self.m_world
     if (not world:isPossibleControl()) then return end
     if (world.m_gameState:isWaitingGlobalCoolTime()) then return end
-    if (self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE] > 0) then
-        return
-    end
+    if (not self:isEndActiveSkillCoolTime()) then return end
 
     -- TODO : 스킬 타입별 고유한 조건으로 체크되어야함
-    
+    if (t_skill['type'] == 'tamer_skill_haeal') then
+
+    end
 
     return true
 end
+]]--
 
 -------------------------------------
 -- function getTargetList
@@ -183,16 +185,34 @@ function GameTamer:showToolTipActive()
 end
 
 -------------------------------------
--- function resetSkillCoolTime
+-- function resetActiveSkillCoolTime
 -------------------------------------
-function GameTamer:resetSkillCoolTime()
+function GameTamer:resetActiveSkillCoolTime()
     self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE] = 0
 end
 
 -------------------------------------
--- function showSpeech
--- @debuging
+-- function isEndActiveSkillCoolTime
 -------------------------------------
-function GameTamer:isEndSkillCoolTime()
+function GameTamer:isEndActiveSkillCoolTime()
     return (self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE] == 0)
+end
+
+-------------------------------------
+-- function isPossibleSkill
+-------------------------------------
+function GameTamer:isPossibleSkill()
+    if (not self:isEndActiveSkillCoolTime()) then
+		return false
+	end
+
+    return true
+end
+
+-------------------------------------
+-- function getActiveSkillTable
+-------------------------------------
+function GameTamer:getActiveSkillTable()
+    local t_skill = self.m_lSkill[TAMER_SKILL_ACTIVE]
+    return t_skill
 end
