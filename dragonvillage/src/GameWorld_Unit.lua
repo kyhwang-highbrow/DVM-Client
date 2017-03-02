@@ -101,7 +101,7 @@ function GameWorld:makeMonsterNew(monster_id, level)
 
     monster:initDragonSkillManager('monster', monster_id, 6) -- monster는 skill_1~skill_6을 모두 사용
     monster:initState()
-    monster:initStatus(t_monster, level)
+    monster:initStatus(t_monster, level, 0, 0)
     monster:changeState('move')
     
     monster.m_animator.m_node:setScale(animator_scale)

@@ -34,11 +34,11 @@ function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolu
 
     -- 3. 승급 능력치
     local grade_key = 'grade_' .. grade
-    local grade_stat = t_status[grade_key]
+    local grade_stat = t_status[grade_key] or 0
 
     -- 4. 진화 능력치
     local evolution_key = ('evolution_' .. evolution)
-    local evolution_stat = t_status[evolution_key]
+    local evolution_stat = t_status[evolution_key] or 0
 
     local final_stat = base_stat + lv_stat + grade_stat + evolution_stat
 

@@ -60,11 +60,11 @@ function GameTamer:checkSkillActive()
     if (not world:isPossibleControl()) then return end
     if (world.m_gameState:isWaitingGlobalCoolTime()) then return end
     if (self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE] > 0) then
-        cclog('CoolTimer = ' .. self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE])
         return
     end
 
     -- TODO : 스킬 타입별 고유한 조건으로 체크되어야함
+    
 
     return true
 end
