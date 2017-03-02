@@ -124,7 +124,8 @@ function UI_TamerInfoPopup:makeTamerAni(res)
 	tamer:setDockPoint(0.5, 0.5)
 	tamer:setAnchorPoint(0.5, 0.5)
 	tamer:setScale(0.55)
-	
+	tamer:changeAni('lobby_idle', true)
+
 	-- 연출을 위해서 별로 리스트에 저장
 	table.insert(self.m_tamerAniList, tamer)
 
