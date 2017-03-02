@@ -13,6 +13,9 @@ Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:
         m_maxHp = '',
         m_hp = '',
 
+		m_attribute = '',
+		m_attributeOrg = '',
+
         m_statusCalc = '',
         m_stateDelegate = 'CharacterStateDelegate',
 
@@ -136,6 +139,8 @@ local SpasticityTime = 0.2
 -------------------------------------
 function Character:init(file_name, body, ...)
     self.m_bDead = false
+	self.m_attribute = nil
+	self.m_attributeOrg = nil
 
     self.m_chargeDuration = 0
     self.m_attackAnimaDuration = 0
@@ -274,7 +279,9 @@ end
 function Character:initStatus(t_char, level, grade, evolution, doid)
     local level = level or 1
     self.m_charTable = t_char
-	
+	self.m_attribute = t_char['attr']
+	self.m_attributeOrg = t_char['attr']
+
     -- 능력치 계산기
     local grade = (grade or 1)
     local evolution = (evolution or 1)
@@ -1444,14 +1451,14 @@ end
 -- function getAttribute
 -------------------------------------
 function Character:getAttribute()
-	return self.m_charTable['attr']
+	return self.m_attribute
 end
 
 -------------------------------------
 -- function getAttributeOrg
 -------------------------------------
 function Character:getAttributeOrg()
-	return self.m_charTable['attr_org']
+	return self.m_attributeOrg
 end
 
 -------------------------------------
@@ -1468,17 +1475,12 @@ end
 function Character:changeAttribute(tar_attr)
 	-- 대상 속성을 지정하면 그 속성으로 변경한다.
 	if (tar_attr) then
-		-- 원래의 속성을 테이블로.. 저장 (위험한거 같으니 구조를 추후 다시 생각)
-		if (not self.m_charTable['attr_org']) then
-			self.m_charTable['attr_org'] = clone(self.m_charTable['attr'])
-		end
-		self.m_charTable['attr'] = tar_attr
+		self.m_attribute = tar_attr
 
 	-- 대상 속성을 지정하지 않는다면 원 속성으로 바꾼다.
 	else
-		if (self.m_charTable['attr_org']) then 
-			self.m_charTable['attr'] = self.m_charTable['attr_org']
-			self.m_charTable['attr_org'] = nil
+		if (self.m_attributeOrg) then 
+			self.m_attribute = self.m_attributeOrg
 		end
 	end
 end
