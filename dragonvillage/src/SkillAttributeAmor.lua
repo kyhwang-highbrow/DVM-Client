@@ -180,7 +180,7 @@ function SkillAttributeAmor:fireMissile()
 	    end
 
         -- 하이라이트
-        t_option['highlight'] = self.m_bHighlight
+        t_option['highlight'] = false
 
         local missile = world.m_missileFactory:makeMissile(t_option)
     end
