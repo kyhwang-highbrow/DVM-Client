@@ -160,9 +160,10 @@ function GameFever:initUI()
     self.m_feverGauge2:setPercentage(0)
 
     self.m_feverButton1:registerScriptTapHandler(function()
-        self:dispatch('fever_start')
+        if (self.m_world:isPossibleControl()) then
+            self:dispatch('fever_start')    
+        end
     end)
-    
         
     --self.m_feverNode:setVisible(true)
     self.m_feverNode:setVisible(false)
