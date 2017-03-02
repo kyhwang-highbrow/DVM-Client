@@ -582,9 +582,6 @@
     <None Include="..\src\SkillConicAtk.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\TamerSkillSystem.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SkillExplosion.lua">
       <Filter>lua</Filter>
     </None>
@@ -685,9 +682,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\ChargeSystem_Touch.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\TamerSkillManager.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\TamerSpecialSkillCombination.lua">
@@ -1769,6 +1763,9 @@
     </None>
     <None Include="..\src\StructEventPopupTab.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\GameTamer.lua">
+      <Filter>lua</Filter>
     </None>
     <None Include="..\src\UI_ColosseumReadyScene_Deck.lua">
       <Filter>lua\UI</Filter>

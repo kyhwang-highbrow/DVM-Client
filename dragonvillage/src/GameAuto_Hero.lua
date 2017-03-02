@@ -108,12 +108,11 @@ function GameAuto_Hero:proccess_tamer()
         return false
     end
 
-    local tamerSkillSystem = self.m_world.m_tamerSkillSystem
-    if (not tamerSkillSystem) then return end
+    local gameTamer = self.m_world.m_gameTamer
+    if (not gameTamer) then return end
 
-    local tamerSkillIdx = g_autoPlaySetting:get('tamer_skill')
-    if (tamerSkillSystem:isEndSkillCoolTime(tamerSkillIdx)) then
-        tamerSkillSystem:click_tamerSkillBtn(tamerSkillIdx)
+    if (gameTamer:checkSkillActive()) then
+        gameTamer:doSkillActive()
 
         -- AI 딜레이 시간 설정
         self.m_aiDelayTime = self:getAiDelayTime()

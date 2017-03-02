@@ -212,8 +212,8 @@ function GameState.update_fight(self, dt)
         world.m_skillIndicatorMgr:update(dt)
     end
 
-    if world.m_tamerSkillSystem then
-        world.m_tamerSkillSystem:update(dt)
+    if world.m_gameTamer then
+        world.m_gameTamer:update(dt)
     end
 
     if world.m_gameFever then

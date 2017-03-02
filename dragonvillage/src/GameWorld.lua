@@ -69,9 +69,8 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_enemyMovementMgr = 'EnemyMovementMgr',
 
 		-- 테이머 스킬 관련
-        m_tamerSkillSystem = 'TamerSkillSystem',
         m_tamerSkillCut = 'TamerSkillCut',
-        m_tamerSkillMgr = 'Tamer',
+        m_gameTamer = 'GameTamer',
         
         -- 테이머 대사 및 표정
         m_tamerSpeechSystem = 'TamerSpeechSystem',
@@ -335,19 +334,17 @@ end
 -- function initTamer
 -------------------------------------
 function GameWorld:initTamer()
-    -- 테이머 생성
-    self.m_tamerSkillMgr = TamerSkillManager(TAMER_ID, self)
+    local t_tamer = g_userData:getTamerInfo()
 
-    local t_tamer = self.m_tamerSkillMgr.m_charTable
+    -- 테이머 생성
+    self.m_gameTamer = GameTamer(self, t_tamer)
+    self:addListener('tamer_skill', self.m_gameState)
 
     -- 스킬 컷씬
     self.m_tamerSkillCut = TamerSkillCut(self, g_gameScene.m_colorLayerTamerSkill, t_tamer)
-
-    -- 테이머 스킬
-    self.m_tamerSkillSystem = TamerSkillSystem(self, self.m_tamerSkillCut)
-    self.m_tamerSkillSystem:addListener('tamer_skill', self.m_gameState)
-    self.m_tamerSkillSystem:addListener('tamer_special_skill', self.m_gameState)
-            
+    self:addListener('tamer_skill', self.m_tamerSkillCut)
+    self:addListener('tamer_special_skill', self.m_tamerSkillCut)
+                
     -- 테이머 대사
     self.m_tamerSpeechSystem = TamerSpeechSystem(self, t_tamer)
     
@@ -980,9 +977,8 @@ function GameWorld:onKeyReleased(keyCode, event)
         for _,dragon in pairs(self:getDragonList()) do
             dragon:updateActiveSkillCoolTime(100)
         end
-        if (self.m_tamerSkillSystem) then
-            self.m_tamerSkillSystem.m_isUseSpecialSkill = false
-		    self.m_tamerSkillSystem:resetCoolTime()
+        if (self.m_gameTamer) then
+            self.m_gameTamer:resetCoolTime()
         end
 
 	-- 미션 성공
@@ -1143,10 +1139,11 @@ function GameWorld:onKeyReleased(keyCode, event)
 
     -- 테이머 스킬
     elseif (keyCode == KEY_1) then
-        self.m_tamerSkillSystem:click_tamerSkillBtn(1)
-
+        --self.m_gameTamer:doSkillActive()
+        self.m_gameAutoHero:proccess_tamer()
+        
     elseif (keyCode == KEY_2) then
-        self.m_tamerSkillSystem:click_tamerSkillBtn(2)
+        self.m_gameTamer:doSkillPassive()
 
 	-- 미사일 범위 확인
     elseif (keyCode == KEY_W) then

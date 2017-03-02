@@ -400,6 +400,16 @@ function ServerData_SecretDungeon:getLastMonsterIcon(dungeon_id)
 end
 
 -------------------------------------
+-- function getMonsterIDList
+-------------------------------------
+function ServerData_SecretDungeon:getMonsterIDList()
+    local t_dungeon_info = self:getSelectedSecretDungeonInfo()
+    if (not t_dungeon_info) then return end
+
+    return { t_dungeon_info['dragon'] }
+end
+
+-------------------------------------
 -- function goToSecretDungeonScene
 -------------------------------------
 function ServerData_SecretDungeon:goToSecretDungeonScene(dungeon_id)

@@ -302,6 +302,10 @@ end
 -- @brief 시작 시 버프 발동
 -------------------------------------
 function GameWorld:buffActivateAtStartup()
+    -- 테이머 버프
+    self.m_gameTamer:doSkillPassive()
+
+    -- 아군 버프
     for _, list in ipairs({self:getDragonList(), self:getEnemyList()}) do
         for _, unit in pairs(list) do
             unit:doSkill_passive()

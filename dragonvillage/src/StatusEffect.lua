@@ -184,9 +184,9 @@ end
 -------------------------------------
 -- function insertStatus
 -------------------------------------
-function StatusEffect:insertStatus(type, value)
+function StatusEffect:insertStatus(type, value, is_abs)
     -- 절대값 적용
-    if isExistValue(type, 'cri_avoid') then
+    if is_abs then
         if (not self.m_lStatusAbs[type]) then
             self.m_lStatusAbs[type] = 0
         end

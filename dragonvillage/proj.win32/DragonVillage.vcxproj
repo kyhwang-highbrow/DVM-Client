@@ -293,6 +293,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\GameState_NestDungeon_Nightmare.lua" />
     <None Include="..\src\GameState_NestDungeon_Tree.lua" />
     <None Include="..\src\GameState_SecretDungeon_Relation.lua" />
+    <None Include="..\src\GameTamer.lua" />
     <None Include="..\src\GameWorldColosseum.lua" />
     <None Include="..\src\GameWorld_Unit.lua" />
     <None Include="..\src\IEventListener.lua" />
@@ -619,8 +620,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableClass.lua" />
     <None Include="..\src\TamerSkillCut.lua" />
     <None Include="..\src\TamerSpecialSkillCombination.lua" />
-    <None Include="..\src\TamerSkillManager.lua" />
-    <None Include="..\src\TamerSkillSystem.lua" />
     <None Include="..\src\TamerSpeechSystem.lua" />
     <None Include="..\src\TamerSpeechSystemColosseum.lua" />
     <None Include="..\src\TimeLib.lua" />

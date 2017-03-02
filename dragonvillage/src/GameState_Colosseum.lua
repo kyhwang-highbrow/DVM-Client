@@ -274,7 +274,6 @@ function GameState_Colosseum:initTamerAvatar()
         local t_tamer_info = g_userData:getTamerInfo()
         local res = t_tamer_info['res_sd']
 
-        --self.m_heroTamerAvatar = MakeAnimator('res/character/tamer/goni/goni.spine')
         self.m_heroTamerAvatar = MakeAnimator(res)
         self.m_heroTamerAvatar:changeAni('summon', false)
         self.m_heroTamerAvatar:setPosition(HERO_TAMER_POS_X, TAMER_POS_Y)

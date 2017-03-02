@@ -273,11 +273,13 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
     status_effect.m_subData = {status_effect_type = status_effect_type, status_effect_value = status_effect_value, status_effect_rate = status_effect_rate}
 
 	 -- 능력치 지정
+     local is_abs = (t_status_effect['abs_switch'] and (t_status_effect['abs_switch'] == 1) or false)
+
     for _, type in ipairs(L_STATUS_TYPE) do
         local value = t_status_effect[type] or 0
         if (value ~= 0) then
 			value = value * status_effect_value/100
-            status_effect:insertStatus(type, value)
+            status_effect:insertStatus(type, value, t_status_effect['abs_switch'], is_abs)
         end
     end
 

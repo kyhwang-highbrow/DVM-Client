@@ -212,9 +212,8 @@ local t_module = {
 	-- TAMER
 	'TamerSpeechSystem',
     'TamerSpeechSystemColosseum',
-    'TamerSkillSystem',
     'TamerSkillCut',
-	'TamerSkillManager',
+	'GameTamer',
 
     -- MAP
     'ScrollMap',

@@ -245,6 +245,31 @@ function ServerData_Stage:getStageCategoryStr(stage_id)
 end
 
 -------------------------------------
+-- function getMonsterIDList
+-- @brief
+-------------------------------------
+function ServerData_Stage:getMonsterIDList(stage_id)
+    local game_mode = self:getGameMode(stage_id)
+
+    local ret = nil
+
+    -- 비밀 던전 모드
+    if (game_mode == GAME_MODE_SECRET_DUNGEON) then
+        -- 현재는 이전에 선택된 스테이지의 정보를 리턴함
+        -- 던전 고유 아이디값이 필요
+        ret = g_secretDungeonData:getMonsterIDList()
+
+    else
+        local table_stage_desc = TableStageDesc()
+        if (not table_stage_desc:get(stage_id)) then return end
+
+        ret = table_stage_desc:getMonsterIDList(stage_id)
+    end
+
+    return ret
+end
+
+-------------------------------------
 -- function goToStage
 -------------------------------------
 function ServerData_Stage:goToStage(stage_id)

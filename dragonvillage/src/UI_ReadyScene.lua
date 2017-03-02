@@ -530,19 +530,33 @@ function UI_ReadyScene:init_monsterTableView()
     local vars = self.vars
     local stage_id = self.m_stageID
 
-    local table_stage_desc = TableStageDesc()
-
-    if (not table_stage_desc:get(stage_id)) then
-        return
-    end
-
     do -- 몬스터 아이콘 리스트
-        local l_monster_id = table_stage_desc:getMonsterIDList(stage_id)
+        local l_monster_id = g_stageData:getMonsterIDList(stage_id)
 
         local list_table_node = self.vars['enemyListView']
         local cardUIClass = UI_MonsterCard
         local cardUISize = 0.65
         local width, height = cardUIClass:getCardSize(cardUISize)
+
+        -- 인연 던전의 경우
+        local t_info = g_secretDungeonData:parseSecretDungeonID(stage_id)
+        if (t_info['dungeon_mode'] == SECRET_DUNGEON_RELATION) then
+            local makeUI = function(did)
+                local t_dragon_data = {}
+                t_dragon_data['did'] = did
+                t_dragon_data['evolution'] = 1
+                t_dragon_data['grade'] = 1
+                t_dragon_data['skill_0'] = 1
+                t_dragon_data['skill_1'] = 1
+                t_dragon_data['skill_2'] = 0
+                t_dragon_data['skill_3'] = 0
+
+                local ui = UI_DragonCard(t_dragon_data)
+                return ui
+            end
+
+            cardUIClass = makeUI
+        end
 
         -- 리스트 아이템 생성 콜백
         local function create_func(item)
