@@ -59,8 +59,6 @@ end
 -- function update
 -------------------------------------
 function GameAuto_Hero:update(dt)
-    if (not self:isActive()) then return end
-
     if (self.m_gameFever and self.m_gameFever:isActive()) then
         -- 피버모드가 활성화된 상태일 경우
         self:update_fever(dt)
@@ -89,6 +87,8 @@ end
 -- function update_fever
 -------------------------------------
 function GameAuto_Hero:update_fever(dt)
+    if (not self:isActive()) then return end
+
     if (self.m_aiFeverDelayTime > 0) then
         self.m_aiFeverDelayTime = self.m_aiFeverDelayTime - dt
 
