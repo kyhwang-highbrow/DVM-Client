@@ -100,7 +100,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'titleLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 38;
 					text = '별 획득 조건';
@@ -347,6 +347,32 @@
 			};
 			[7] =
 			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 76;
+					height = 74;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'starSprite1';
+					file_name = 'ui/icon/stage_info_star_01.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Sprite';
 				ui_name = '';
 				x = -207.000031;
@@ -373,6 +399,32 @@
 			};
 			[8] =
 			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 76;
+					height = 74;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'starSprite2';
+					file_name = 'ui/icon/stage_info_star_01.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Sprite';
 				ui_name = '';
 				x = -207.000000;
@@ -399,6 +451,32 @@
 			};
 			[9] =
 			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 76;
+					height = 74;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'starSprite3';
+					file_name = 'ui/icon/stage_info_star_01.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Sprite';
 				ui_name = '';
 				x = -207.000000;
