@@ -68,18 +68,64 @@ function StructAdventureStageInfo:getMissionDescList()
 
     for i=1, 3 do
         local mission_str = t_drop['mission_0' .. i]
-        cclog('mission_str ' .. mission_str)
+
         local trim_execution = true
         local l_list = table_drop:seperate(mission_str, ',', trim_execution)
+
         local type = l_list[1]
         local value_1 = l_list[2]
         local value_2 = l_list[3]
+        local value_3 = l_list[4]
 
         local org_str = table_stage_mission:getValue(type, 't_desc')
-        --ccdump(org_str)
-        local str = Str(org_str, value_1, value_2)
-        t_ret[i] = str
+
+        t_ret[i] = self:createDescByMissionType(type, org_str, value_1, value_2, value_3)
     end
 
     return t_ret
+end
+
+-------------------------------------
+-- function createDescByMissionType
+-------------------------------------
+function StructAdventureStageInfo:createDescByMissionType(type, org_str, val1, val2, val3)
+
+    -- {1} 속성 드래곤을 {2}기 이상 사용하여 클리어
+    if (type == 'attribute_cnt') then
+        local attr = val1
+        val1 = dragonAttributeName(attr)
+
+    -- {1} 상태의 드래곤을 {2}기 이상 사용하여 클리어
+    elseif (type == 'revolution_state') then
+        local evolution_lv = tonumber(val1)
+        val1 = evolutionName(evolution_lv)
+
+    -- {1} 테이머를 사용하여 클리어
+    elseif (type == 'use_tamer') then
+        local tid = tonumber(val1)
+        val1 = TableTamer():getValue(tid, 't_name')
+        val1 = Str(val1)
+
+    -- {1} 진형을 사용하여 클리어
+    elseif (type == 'use_formation') then
+        local mfid = val1
+        val1 = TableFormation():getValue(mfid, 't_name')
+        val1 = Str(val1)
+
+    -- {1} 드래곤을 사용하여 클리어
+    elseif (type == 'use_dragon') then
+        local did = tonumber(val1)
+        val1 = TableDragon():getValue(did, 't_name')
+        val1 = Str(val1)
+
+    -- {1} 직업의 드래곤을 사용하지 않고 클리어
+    elseif (type == 'not_use_role') then
+        local role = val1
+        val1 = dragonRoleName(role)
+
+    end
+
+
+    local desc = Str(org_str, val1, val2, val3)
+    return desc
 end
