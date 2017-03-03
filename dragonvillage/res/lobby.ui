@@ -1406,8 +1406,8 @@
 			action_duration = 0.500000;
 			lua_name = 'eventBtn';
 			enable = true;
-			normal = 'ui/btn/lobby_collection_01.png';
-			selected = 'ui/btn/lobby_collection_02.png';
+			normal = 'ui/btn/lobby_event_01.png';
+			selected = 'ui/btn/lobby_event_02.png';
 			disable = '';
 			image_type = 1;
 		};
