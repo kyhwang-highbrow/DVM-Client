@@ -1761,9 +1761,6 @@
     <None Include="..\src\ServerData_Event.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\StructEventPopupTab.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\GameTamer.lua">
       <Filter>lua</Filter>
     </None>
@@ -1774,6 +1771,15 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\TableStageMission.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\StructAdventureChapterAchieveInfo.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\StructAdventureStageInfo.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\StructEventPopupTab.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>

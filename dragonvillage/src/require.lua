@@ -583,6 +583,8 @@ local t_module = {
 
     -- Struct
     'StructEventPopupTab',
+    'StructAdventureChapterAchieveInfo',
+    'StructAdventureStageInfo',
 
     -- Data
     'DataAdventure',

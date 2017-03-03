@@ -748,9 +748,9 @@ function GameState:makeGameFinishParam(is_success)
     end
 
     do-- 미션 성공 여부 (성공시 1, 실패시 0)
-        t_param['clear_mission_1'] = 0
-        t_param['clear_mission_2'] = 0
-        t_param['clear_mission_3'] = 0
+        t_param['clear_mission_1'] = 1
+        t_param['clear_mission_2'] = 1
+        t_param['clear_mission_3'] = 1
     end
 
     do-- 획득 골드

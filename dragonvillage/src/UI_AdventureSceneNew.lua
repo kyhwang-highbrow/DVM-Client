@@ -308,12 +308,54 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
     --vars['nextBtn']:setEnabled(chapter < MAX_ADVENTURE_CHAPTER)
     vars['nextBtn']:setVisible(chapter < MAX_ADVENTURE_CHAPTER)
 
+    -- 챕터 도전과제
+    self:refresh_MissionReward()
+
     -- 난이도 버튼
     self:refresh_difficultyButtons()
 
     do -- 마지막에 진입한 스테이지 저장
         local stage_id = makeAdventureID(self.m_currDifficulty, chapter, stage)
         g_stageData:setFocusStage(stage_id)
+    end
+end
+
+-------------------------------------
+-- function refresh_MissionReward
+-------------------------------------
+function UI_AdventureSceneNew:refresh_MissionReward()
+    local chapter = self.m_currChapter
+    local difficulty = self.m_currDifficulty
+
+    local chapter_id = (difficulty * 100) + chapter
+    local chapter_achieve_info = g_adventureData:getChapterAchieveInfo(chapter_id)
+
+    local vars = self.vars
+
+    local percentage = chapter_achieve_info:getAchievedStarsPercent()
+    vars['starBoxGg']:setPercentage(percentage)
+    
+    local l_star_sction = {8, 16, 24}
+    for i,star in ipairs(l_star_sction) do
+        local state = chapter_achieve_info:getRewardBoxState(star)
+
+        vars['checkSprite' .. star]:setVisible(false)
+        vars['closeSprite' .. star]:setVisible(false)
+        vars['openSprite' .. star]:setVisible(false)
+        vars['receiveVisual' .. star]:setVisible(false)
+
+        -- 별 갯수를 달성하지 못한 경우
+        if (state == 'lock') then
+            vars['closeSprite' .. star]:setVisible(true)
+
+        -- 별 갯수를 달성하였지만 보상을 받지 않은 경우
+        elseif (state == 'open') then
+            vars['openSprite' .. star]:setVisible(true)
+
+        -- 보상까지 받은 경우
+        elseif (state == 'received') then
+            vars['checkSprite' .. star]:setVisible(true)
+        end
     end
 end
 

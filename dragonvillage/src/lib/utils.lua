@@ -95,6 +95,20 @@ function table.listToMap(t, key)
 end
 
 -------------------------------------
+-- function changeKeyToNumber
+-- @brief json에서 key값이 숫자일 경우 string으로 저장되는 이슈
+-------------------------------------
+function table.changeKeyToNumber(t)
+    local t_ret = {}
+
+    for i,v in pairs(t) do
+        t_ret[tonumber(i)] = v
+    end
+
+    return t_ret
+end
+
+-------------------------------------
 -- function toNumber
 -- @brief 테이블 안에 테이블을 가지고 있고
 --        세부 테이블의 특정 컬럼들을 number타입으로 변경해주는 함수

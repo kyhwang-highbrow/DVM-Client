@@ -325,11 +325,28 @@ end
 -- @brief 모험 버튼
 -------------------------------------
 function UI_Lobby:click_adventureBtn()
-    local func = function()
-        g_adventureData:goToAdventureScene()
+    local refresh_adventure_server_data
+    local fede_out
+    local go_to_adventure_scene
+
+    -- 서버로부터 모험 데이터를 갱신
+    refresh_adventure_server_data = function()
+        g_adventureData:request_adventureInfo(fede_out, function() end)
     end
 
-    self:sceneFadeOutAndCallFunc(func)
+    -- 페이드 아웃 연출
+    fede_out = function()
+        self:sceneFadeOutAndCallFunc(go_to_adventure_scene)
+    end
+
+    -- 모험(스테이지 선택) 씬으로 전환
+    go_to_adventure_scene = function()
+        local stage_id = nil
+        local skip_request = true
+        g_adventureData:goToAdventureScene(stage_id, skip_request)
+    end
+
+    refresh_adventure_server_data()
 end
 
 -------------------------------------

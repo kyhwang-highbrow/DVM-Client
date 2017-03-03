@@ -60,6 +60,15 @@ function UI_AdventureStageButton:init(parent_ui, stage_id)
             error('difficulty : ' .. difficulty)
         end
     end
+    
+    do -- 별 횟득 갯수 표시
+        local stage_info = g_adventureData:getStageInfo(stage_id)
+        local num_of_stars = stage_info:getNumberOfStars()
+        local star_icon = cc.Sprite:create('res/ui/icon/stage_star_0' .. num_of_stars .. '.png')
+        star_icon:setDockPoint(cc.p(0.5, 0.5))
+        star_icon:setAnchorPoint(cc.p(0.5, 0.5))
+        vars['starNode']:addChild(star_icon)
+    end
 
     vars['stageBtn']:registerScriptTapHandler(function() parent_ui:click_stageBtn(stage_id, self.m_bOpenStage) end)
 end
