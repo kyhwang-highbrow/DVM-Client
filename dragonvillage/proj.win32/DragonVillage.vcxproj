@@ -665,6 +665,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_AutoPlaySettingPopup.lua" />
     <None Include="..\src\UI_BattleMenu.lua" />
     <None Include="..\src\UI_BlockPopup.lua" />
+    <None Include="..\src\UI_ChapterAchieveRewardPopup.lua" />
     <None Include="..\src\UI_CharacterCard.lua" />
     <None Include="..\src\UI_ClassForm.lua" />
     <None Include="..\src\UI_ClassFormUseTopUserInfo.lua" />
@@ -781,6 +782,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ReadyScene_Deck.lua" />
     <None Include="..\src\UI_DragonMgrRunes.lua" />
     <None Include="..\src\UI_RewardCard.lua" />
+    <None Include="..\src\UI_RewardListPopup.lua" />
     <None Include="..\src\UI_RewardPopup.lua" />
     <None Include="..\src\UI_RuneBulkSalePopup.lua" />
     <None Include="..\src\UI_RuneEnchantPopup.lua" />

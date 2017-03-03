@@ -1791,6 +1791,12 @@
     <None Include="..\src\GameLogRecorder.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_ChapterAchieveRewardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_RewardListPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

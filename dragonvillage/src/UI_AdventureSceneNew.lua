@@ -40,6 +40,31 @@ function UI_AdventureSceneNew:init(stage_id)
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_AdventureSceneNew')
 
+    self:initButton()
+
+    vars['bgSprite']:setLocalZOrder(-2)
+    vars['chapterNode']:setLocalZOrder(-1)
+    
+    self:doActionReset()
+    self:doAction()
+
+    -- 비공정 오브젝트 생성
+    self:makeShipObject()
+
+    -- 마지막에 진입한 챕터로 진입
+    local last_stage = (stage_id or g_adventureDataOld.m_tData['last_stage'])
+    local difficulty, chapter, stage = parseAdventureID(last_stage)
+    self:refreshChapter(chapter, difficulty, stage)
+end
+
+
+-------------------------------------
+-- function initButton
+-- @brief
+-------------------------------------
+function UI_AdventureSceneNew:initButton()
+    local vars = self.vars
+
     vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end) -- 이전 챕터
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end) -- 다음 챕터
     vars['selectBtn']:registerScriptTapHandler(function() self:click_selectBtn() end) -- 챕터 선택
@@ -62,19 +87,10 @@ function UI_AdventureSceneNew:init(stage_id)
         end
     end
 
-    vars['bgSprite']:setLocalZOrder(-2)
-    vars['chapterNode']:setLocalZOrder(-1)
-    
-    self:doActionReset()
-    self:doAction()
-
-    -- 비공정 오브젝트 생성
-    self:makeShipObject()
-
-    -- 마지막에 진입한 챕터로 진입
-    local last_stage = (stage_id or g_adventureDataOld.m_tData['last_stage'])
-    local difficulty, chapter, stage = parseAdventureID(last_stage)
-    self:refreshChapter(chapter, difficulty, stage)
+    -- 챕터 별 달성 보상
+    vars['starBoxBtn8']:registerScriptTapHandler(function() self:click_starBoxBtn(8) end)
+    vars['starBoxBtn16']:registerScriptTapHandler(function() self:click_starBoxBtn(16) end)
+    vars['starBoxBtn24']:registerScriptTapHandler(function() self:click_starBoxBtn(24) end)
 end
 
 -------------------------------------
@@ -235,6 +251,23 @@ function UI_AdventureSceneNew:click_selectDifficultyBtn(difficulty)
 end
 
 -------------------------------------
+-- function click_starBoxBtn
+-- @brief
+-------------------------------------
+function UI_AdventureSceneNew:click_starBoxBtn(star)
+    local chapter = self.m_currChapter
+    local difficulty = self.m_currDifficulty
+
+    local chapter_id = (difficulty * 100) + chapter
+
+    local ui = UI_ChapterAchieveRewardPopup(chapter_id, star)
+    local function close_cb()
+        self:refresh_MissionReward()
+    end
+    ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
 -- function refreshChapter
 -- @breif 챕터 변경
 -------------------------------------
@@ -351,9 +384,11 @@ function UI_AdventureSceneNew:refresh_MissionReward()
         -- 별 갯수를 달성하였지만 보상을 받지 않은 경우
         elseif (state == 'open') then
             vars['openSprite' .. star]:setVisible(true)
+            vars['receiveVisual' .. star]:setVisible(true)
 
         -- 보상까지 받은 경우
         elseif (state == 'received') then
+            vars['openSprite' .. star]:setVisible(true)
             vars['checkSprite' .. star]:setVisible(true)
         end
     end

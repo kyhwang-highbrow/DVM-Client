@@ -119,3 +119,36 @@ function ServerData_Adventure:getChapterAchieveInfo(chapter_id)
 
     return self.m_chapterAchieveInfoList[chapter_id]
 end
+
+-------------------------------------
+-- function request_chapterAchieveReward
+-------------------------------------
+function ServerData_Adventure:request_chapterAchieveReward(chapter_id, star, finish_cb, fail_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        -- 아이템 수령
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        -- 챕터 정보 갱신
+        self:organizeChapterAchieveInfoList(ret['chapter_list'])
+
+        if finish_cb then
+            return finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/chapter/reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('chapter_id', chapter_id)
+    ui_network:setParam('star', star)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end

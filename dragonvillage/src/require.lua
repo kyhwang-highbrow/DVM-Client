@@ -499,6 +499,8 @@ local t_module = {
     'UI_GachaDragon',
     'UI_GachaBox',
     'UI_ItemInfoPopup',
+    'UI_RewardListPopup',
+    'UI_ChapterAchieveRewardPopup',
     
     -- 도감 관련
     'UI_Collection',
