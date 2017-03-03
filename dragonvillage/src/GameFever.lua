@@ -353,6 +353,9 @@ function GameFever:onStart()
     self.m_feverButton2:setVisible(true)
     
     self:changeState(GAME_FEVER_STATE_APPEAR)
+
+	-- @LOG
+	self.m_world.m_logRecorder:recordLog('use_fever', 1)
 end
 
 -------------------------------------

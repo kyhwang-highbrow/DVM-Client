@@ -1,94 +1,105 @@
 -------------------------------------
 -- class StageMissionMgr
 -------------------------------------
-StageMissionMgr = class({
-		-- 미션 (기록이 필요한 것)
-		m_clearCnt = 'num',			-- 스테이지 클리어 횟수
-		m_deathCnt = 'num',			-- 사망 드래곤 {1}기 이하인 상태에서 클리어
-		m_useSkillCnt = 'num',		-- 드래곤의 스킬을 {1}번 이상 사용
-		m_lapTime = 'num',			-- {1} 초 내에 스테이지 클리어
-		m_feverCnt = 'num',			-- 피버를 {1}번 이상 사용
-		m_bossFinishAtk = 'str',		-- 보스를 {1} 공격으로 처치
-		
-		-- 미션 (인게임 중에 기록할것이 없음)
-		m_attrCnt = 'num',			-- {1} 속성 드래곤을 {2}기 이상 사용하여 클리어
-		m_revolutionCnt = 'num',	-- {1} 상태의 드래곤을 {2}기 이상 사용하여 클리어
-		m_dragonCnt = 'num',		-- 드래곤을 {1} 기 이하로 사용하여 클리어
-		m_UsedTamer = 'str',		-- {1} 테이머를 사용하여 클리어
-		m_UsedPosition = 'str',		-- {1} 진형을 사용하여 클리어
-		m_UsedDragon = 'str',		-- {1} 드래곤을 사용하여 클리어
-		m_UsedRole = 'str',			-- {1} 직업의 드래곤을 사용하지 않고 클리어
-
-		m_dropTable = 'TableDrop',
+StageMissionMgr = class({	
+		m_logRecorder = 'GameLogRecorder',
+		m_lMissionList = 'list',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function StageMissionMgr:init(stage_id)
-	self.m_dropTable = TableDrop():get(stage_id)
+function StageMissionMgr:init(log_recorder, stage_id)
+	-- 멤버 변수 초기화
+	self.m_logRecorder = log_recorder
+	self.m_lMissionList = {}
+
+	-- 드롭테이블과 서버데이터에서 스테이지 미션 정보 받아옴
+	do
+		local stage_info = g_adventureData:getStageInfo(stage_id)
 	
-	self.m_clearCnt = 0
-	self.m_deathCnt = 0
-	self.m_useSkillCnt = 0
-	self.m_lapTime = 0
-	self.m_feverCnt = 0
-	self.m_bossFinishAtk = nil
+		local l_mission = TableDrop():getStageMissionList(stage_id)
+
+		for i, mission in pairs(l_mission) do
+			self.m_lMissionList[i] = {
+				mission_key = mission[1], 
+				mission_value = tonumber(mission[2]), 
+				mission_value2 = tonumber(mission[3]), 
+				is_clear = stage_info['mission_' .. i]
+			}
+		end
+		-- @LOG
+		self.m_logRecorder:recordLog('clear_cnt', stage_info['clear_cnt'])
+	end
+
+	-- 미션 체크
+	self:checkMission()
 end
 
 -------------------------------------
--- function recordMission
+-- function checkMission
 -------------------------------------
-function StageMissionMgr:recordMission(key, value)
-	if (key == 'clear_cnt') then
-		self.m_clearCnt = self.m_clearCnt + value
+function StageMissionMgr:checkMission()
+	for i, t_mission in pairs(self.m_lMissionList) do
+		-- 이미 클리어한 미션은 체크하지 않는다.
+		if (not t_mission['is_clear']) then
+		
+			local mission_key = t_mission['mission_key']
+			local mission_value = t_mission['mission_value']
+			local mission_value2 = t_mission['mission_value2']
+			local achieve_data = self.m_logRecorder:getLog(mission_key)
 
-	elseif (key == 'death_cnt') then
-		self.m_deathCnt = self.m_deathCnt + value
+			-- 목표치 보다 적어야 하는 미션
+			if isExistValue(mission_key, 'lab_time', 'use_dragon_cnt', 'death_cnt') then
+				if (achieve_data < mission_value) then
+					t_mission['is_clear'] = true
+				end
 
-	elseif (key == 'use_skill') then
-		self.m_useSkillCnt = self.m_useSkillCnt + value
+			-- 값이 동일해야 하는 미션
+			elseif isExistValue(mission_key, 'use_tamer', 'use_formation', 'finish_atk') then
+				if (achieve_data == mission_value) then
+					t_mission['is_clear'] = true
+				end
 
-	elseif (key == 'use_fever') then
-		self.m_feverCnt = self.m_feverCnt + value
+			-- 값이 동일해야 하는 미션 (테이블)
+			elseif isExistValue(mission_key, 'use_dragon') then
+				if (achieve_data[mission_value]) then
+					t_mission['is_clear'] = true
+				end
+			
+			-- 값이 없어야 하는 미션 (테이블)
+			elseif isExistValue(mission_key, 'not_use_role') then
+				if not (achieve_data[mission_value]) then
+					t_mission['is_clear'] = true
+				end
 
-	elseif (key == 'lap_time') then
-		self.m_lapTime = value
+			-- value2를 사용하는 미션 (테이블)
+			elseif isExistValue(mission_key, 'attribute_cnt', 'evolution_state') then
+				if (achieve_data[mission_value]) then
+					if (achieve_data[mission_value] > mission_value2) then 
+						t_mission['is_clear'] = true
+					end
+				end
 
-	elseif (key == 'finish_atk') then
-		self.m_bossFinishAtk = value
-
-	elseif (key == 'attribute_cnt') then
-	elseif (key == 'revolution_state') then
-	elseif (key == 'use_dragon_cnt') then
-	elseif (key == 'use_tamer') then
-	elseif (key == 'use_position') then
-	elseif (key == 'use_dragon') then
-	elseif (key == 'not_use_role') then
-	
-	else
-		error('정의 되지 않은 키 : ' .. key)
+			else
+				if (achieve_data >= mission_value) then
+					t_mission['is_clear'] = true
+				end
+			end
+		end
 	end
 end
 
 -------------------------------------
--- function checkWorldValue
--------------------------------------
-function StageMissionMgr:checkWorldValue()
-	local t_drop = self.m_dropTable
-	
-end
-
--------------------------------------
--- function init
+-- function getCompleteClearMission
 -------------------------------------
 function StageMissionMgr:getCompleteClearMission()
-	local t_drop = self.m_dropTable
+	self:checkMission()
 
 	local t_ret = {}
-	t_ret['mission_1'] = 1
-	t_ret['mission_2'] = 1
-	t_ret['mission_3'] = 1
+	for i, t_mission in pairs(self.m_lMissionList) do
+		t_ret['mission_' .. i] = t_mission['is_clear']
+	end
 
 	return t_ret
 end

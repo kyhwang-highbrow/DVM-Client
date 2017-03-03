@@ -60,22 +60,15 @@ end
 -------------------------------------
 function StructAdventureStageInfo:getMissionDescList()
     local table_stage_mission = TableStageMission()
-
-    local table_drop = TableDrop(self.stage_id)
-    local t_drop = table_drop:get(self.stage_id)
+	local l_mission = TableDrop():getStageMissionList(self.stage_id)
 
     local t_ret = {}
 
-    for i=1, 3 do
-        local mission_str = t_drop['mission_0' .. i]
-
-        local trim_execution = true
-        local l_list = table_drop:seperate(mission_str, ',', trim_execution)
-
-        local type = l_list[1]
-        local value_1 = l_list[2]
-        local value_2 = l_list[3]
-        local value_3 = l_list[4]
+    for i, mission in pairs(l_mission) do
+		local type = mission[1]
+        local value_1 = mission[2]
+        local value_2 = mission[3]
+        local value_3 = mission[4]
 
         local org_str = table_stage_mission:getValue(type, 't_desc')
 
@@ -96,7 +89,7 @@ function StructAdventureStageInfo:createDescByMissionType(type, org_str, val1, v
         val1 = dragonAttributeName(attr)
 
     -- {1} 상태의 드래곤을 {2}기 이상 사용하여 클리어
-    elseif (type == 'revolution_state') then
+    elseif (type == 'evolution_state') then
         local evolution_lv = tonumber(val1)
         val1 = evolutionName(evolution_lv)
 

@@ -233,6 +233,11 @@ function Dragon.st_skillAppear(owner, dt)
     if (owner.m_stateTimer == 0) then	
         owner.m_bEnableSpasticity = false
 
+		-- @LOG
+		do
+			owner.m_world.m_logRecorder:recordLog('use_skill', 1)
+		end
+
         -- 이벤트
         if (owner.m_bLeftFormation) then
             owner:dispatch('dragon_skill', {}, owner)
@@ -416,6 +421,10 @@ function Dragon:release()
     if self.m_world then
         if self.m_bLeftFormation then
             self.m_world:removeHero(self)
+			-- @LOG
+			do
+				owner.m_world.m_logRecorder:recordLog('death_cnt', 1)
+			end
         else
             self.m_world:removeEnemy(self)
         end

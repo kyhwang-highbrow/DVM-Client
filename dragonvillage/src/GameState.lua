@@ -520,6 +520,9 @@ function GameState.update_success_wait(self, dt)
         -- 스킬과 미사일도 다 날려 버리자
 	    world:removeMissileAndSkill()
         world:removeHeroDebuffs()
+
+		-- @LOG
+		self.m_world.m_logRecorder:recordLog('lap_time', self.m_fightTimer)
     end
 
     -- 드래곤 상태 체크
@@ -748,9 +751,10 @@ function GameState:makeGameFinishParam(is_success)
     end
 
     do-- 미션 성공 여부 (성공시 1, 실패시 0)
-        t_param['clear_mission_1'] = 1
-        t_param['clear_mission_2'] = 1
-        t_param['clear_mission_3'] = 1
+		local t_mission = self.m_world.m_missionMgr:getCompleteClearMission()
+		for i = 1, 3 do
+			t_param['clear_mission_' .. i] = (is_success and t_mission['mission_' .. i])
+		end
     end
 
     do-- 획득 골드

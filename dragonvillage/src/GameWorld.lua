@@ -278,6 +278,12 @@ function GameWorld:initGame(stage_name)
     -- 친구 드래곤 생성
     self:makeFriendHero()
 
+	-- Game Log Recorder 생성
+	self.m_logRecorder = GameLogRecorder(self)
+		
+	-- mission manager 생성
+	self.m_missionMgr = StageMissionMgr(self.m_logRecorder, self.m_stageID)
+
     do -- 진형 시스템 초기화
         self:setBattleZone(self.m_deckFormation, true)
     end
@@ -302,11 +308,6 @@ function GameWorld:initGame(stage_name)
             self.m_enemyMovementMgr = EnemyMovementMgr(self, t_movement)
         end
     end
-
-	-- Game Log Recorder 생성
-	self.m_logRecorder = GameLogRecorder()
-	-- mission manager 생성
-	self.m_missionMgr = StageMissionMgr(self.m_stageID)
 
     -- UI
     self.m_inGameUI:doActionReset()
