@@ -6,6 +6,9 @@ ServerData_Adventure = class({
 
         m_stageList = 'map',
         m_chapterAchieveInfoList = 'map', -- 챕터(챕터와 난이도를 포함한)별 도전과제 달성 정보 리스트
+
+        -- 챕터 달성도 테이블 정보(서버에서 던져줌)
+        m_chapterAchiveDataTable = 'map',
     })
 
 -------------------------------------
@@ -50,6 +53,8 @@ function ServerData_Adventure:request_adventureInfo(finish_cb, fail_cb)
 
         self:organizeStageList(ret['stage_list'])
         self:organizeChapterAchieveInfoList(ret['chapter_list'])
+        self:organizeChapterAchieveDataTable(ret['chapter_archievement'])
+        
         
 
         if finish_cb then
@@ -94,6 +99,22 @@ function ServerData_Adventure:getStageInfo(stage_id)
     end
 
     return self.m_stageList[stage_id]
+end
+
+-------------------------------------
+-- function organizeChapterAchieveDataTable
+-------------------------------------
+function ServerData_Adventure:organizeChapterAchieveDataTable(chapter_archievement)
+    self.m_chapterAchiveDataTable = table.listToMap(chapter_archievement, 'chapter_id')
+end
+
+
+
+-------------------------------------
+-- function getChapterAchieveData
+-------------------------------------
+function ServerData_Adventure:getChapterAchieveData(chapter_id)
+    return self.m_chapterAchiveDataTable[chapter_id]
 end
 
 -------------------------------------

@@ -15,7 +15,10 @@ function UI_ChapterAchieveRewardPopup:init(chapter_id, star)
     self.m_chapterID = chapter_id
     self.m_numOfStars = star
 
-    self:setRewardItemCardList_byItemPackageStr('701112;5, 701111;10, 701230;10, 700002;15')
+    local t_chap_achieve_data = g_adventureData:getChapterAchieveData(chapter_id)
+    local item_package_str = t_chap_achieve_data['reward_' .. star]
+
+    self:setRewardItemCardList_byItemPackageStr(item_package_str)
 
     local chapter_achieve_info = g_adventureData:getChapterAchieveInfo(chapter_id)
 
