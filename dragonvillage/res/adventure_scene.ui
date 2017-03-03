@@ -1335,7 +1335,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'closeSprite1';
+						lua_name = 'closeSprite8';
 						file_name = 'ui/icon/stage_box_02.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
@@ -1361,7 +1361,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'receiveVisual1';
+						lua_name = 'receiveVisual8';
 						file_name = 'ui/a2d/rarity_light/rarity_light.a2d';
 						auto_play = true;
 						is_repeat = true;
@@ -1386,7 +1386,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'openSprite1';
+						lua_name = 'openSprite8';
 						file_name = 'ui/icon/stage_box_01.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
@@ -1412,7 +1412,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'checkSprite1';
+						lua_name = 'checkSprite8';
 						file_name = 'ui/icon/stage_box_check.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
@@ -1502,7 +1502,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'starBoxBtn1';
+					lua_name = 'starBoxBtn8';
 					enable = true;
 					normal = 'ui/empty.png';
 					selected = '';
@@ -1528,7 +1528,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'closeSprite2';
+						lua_name = 'closeSprite16';
 						file_name = 'ui/icon/stage_box_02.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
@@ -1554,7 +1554,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'receiveVisual2';
+						lua_name = 'receiveVisual16';
 						file_name = 'ui/a2d/rarity_light/rarity_light.a2d';
 						auto_play = true;
 						is_repeat = true;
@@ -1579,7 +1579,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'openSprite2';
+						lua_name = 'openSprite16';
 						file_name = 'ui/icon/stage_box_01.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
@@ -1605,7 +1605,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'checkSprite2';
+						lua_name = 'checkSprite16';
 						file_name = 'ui/icon/stage_box_check.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
@@ -1695,7 +1695,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'starBoxBtn2';
+					lua_name = 'starBoxBtn16';
 					enable = true;
 					normal = 'ui/empty.png';
 					selected = '';
@@ -1721,7 +1721,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'closeSprite3';
+						lua_name = 'closeSprite24';
 						file_name = 'ui/icon/stage_box_02.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
@@ -1747,7 +1747,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'receiveVisual3';
+						lua_name = 'receiveVisual24';
 						file_name = 'ui/a2d/rarity_light/rarity_light.a2d';
 						auto_play = true;
 						is_repeat = true;
@@ -1772,7 +1772,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'openSprite3';
+						lua_name = 'openSprite24';
 						file_name = 'ui/icon/stage_box_01.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
@@ -1798,7 +1798,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'checkSprite3';
+						lua_name = 'checkSprite24';
 						file_name = 'ui/icon/stage_box_check.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
@@ -1888,7 +1888,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'starBoxBtn3';
+					lua_name = 'starBoxBtn24';
 					enable = true;
 					normal = 'ui/empty.png';
 					selected = '';
