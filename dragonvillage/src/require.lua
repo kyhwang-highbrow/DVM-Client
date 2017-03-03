@@ -113,7 +113,8 @@ local t_module = {
     'RuneEnchantHelper',
     'SimplePrimitivesDraw',
     'Util_BuffStringParser',
-	
+	'StageMissionMgr',
+
     -- Data클래스
     'ColosseumUserInfo',
     	

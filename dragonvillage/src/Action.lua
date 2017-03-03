@@ -184,6 +184,7 @@ end
 
 -------------------------------------
 -- function uiPointingAction
+-- @brief 손가락 등이 반복적으로 움직이며 특정 물체를 가리키도록 보이는 액션
 -- @param direction 움직일 방향 - top_bottom, left_right
 -- @param length 움직일 거리
 -------------------------------------
@@ -199,7 +200,7 @@ function cca.uiPointingAction(node, direction, length)
 	elseif (direction == 'left_right') then
 		pos = cc.p(length, 0)
 	else
-		error('cca.uiPointingAction(node, direction, length) direction 틀림')
+		error('cca.uiPointingAction(node, direction, length) : direction 틀림 : ' .. direction)
 	end
 
 	-- 액션 선언

@@ -1782,6 +1782,9 @@
     <None Include="..\src\StructEventPopupTab.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\StageMissionMgr.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
