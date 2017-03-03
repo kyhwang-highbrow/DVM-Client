@@ -213,3 +213,19 @@ function cca.uiPointingAction(node, direction, length)
 	-- 실행
     cca.runAction(node, repeat_forever, nil)
 end
+
+-------------------------------------
+-- function buttonShakeAction
+-------------------------------------
+function cca.buttonShakeAction(level)
+    local level = level or 1
+    local angle = 5 * level
+    
+    local start_action = cc.RotateTo:create(0.05, angle)
+    local end_action = cc.EaseElasticOut:create(cc.RotateTo:create(0.5 * 2, 0), 0.1)
+    local delay = cc.DelayTime:create(0.5)
+
+    local sequence = cc.Sequence:create(delay, start_action, end_action)
+
+    return cc.RepeatForever:create(sequence)
+end

@@ -24,6 +24,8 @@ UIC_Button = class(PARENT, {
         m_clickSoundName = 'string',
 
         m_actionType = '',
+
+        m_bAutoShakeAction = 'boolean', -- 버튼을 흔드는 액션 사용 여부
     })
 
 UIC_Button.ACTION_TYPE_NORMAL = 1
@@ -36,6 +38,7 @@ function UIC_Button:init(node)
     self.m_clickSoundName = 'touch_basic'
     self.m_buttonState = UIC_BUTTON_NORMAL
     self.m_actionType = UIC_Button.ACTION_TYPE_NORMAL
+    self.m_bAutoShakeAction = false
     self.m_node:registerScriptTapHandler(function() UIC_Button.tapHandler(self) end)
     
     self:setOriginData()
@@ -46,6 +49,9 @@ function UIC_Button:init(node)
             self.m_node:scheduleUpdateWithPriorityLua(function() self:update() end, 0)
         end
     end)
+
+    self.m_buttonState = UIC_BUTTON_NORMAL
+    self:onButtonStateChange(self.m_buttonState)
 end
 
 -------------------------------------
@@ -158,11 +164,19 @@ function UIC_Button:onButtonStateChange(button_state)
     if (button_state == UIC_BUTTON_DISABLE) then
         node:setPosition(self.m_originPosX, self.m_originPosY)
         node:setScale(self.m_originScaleX, self.m_originScaleY)
+        node:setRotation(0)
 
     -- 일반 상태
     elseif (button_state == UIC_BUTTON_NORMAL) then
         node:setPosition(self.m_originPosX, self.m_originPosY)
         node:setScale(self.m_originScaleX, self.m_originScaleY)
+        node:setRotation(0)
+
+        if self.m_bAutoShakeAction then
+            local action = cca.buttonShakeAction()
+            action:setTag(UIC_BUTTON_ACTION_TAG)
+            node:runAction(action)
+        end
 
     -- 눌려진 상태
     elseif (button_state == UIC_BUTTON_SELECTED) then
@@ -171,6 +185,8 @@ function UIC_Button:onButtonStateChange(button_state)
         if (self.m_actionType ~= UIC_Button.ACTION_TYPE_WITHOUT_SCAILING) then
             node:setScale(self.m_originScaleX * 0.9, self.m_originScaleY * 0.9)
         end
+
+        node:setRotation(0)
 
         -- 눌려진 액션
         local sequence
@@ -192,6 +208,7 @@ function UIC_Button:onButtonStateChange(button_state)
     -- 클릭된 상태
     elseif (button_state == UIC_BUTTON_CLICK) then
         node:setPosition(self.m_originPosX, self.m_originPosY)
+        node:setRotation(0)
 
         if (self.m_actionType ~= UIC_Button.ACTION_TYPE_WITHOUT_SCAILING) then
             node:setScale(self.m_originScaleX * 0.9, self.m_originScaleY * 0.9)
@@ -199,14 +216,20 @@ function UIC_Button:onButtonStateChange(button_state)
 
         -- 클릭 액션
         local action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, self.m_originScaleX, self.m_originScaleY), 0.3)
+        sequence = cc.Sequence:create(action, cc.CallFunc:create(function()
+            self.m_buttonState = UIC_BUTTON_NORMAL
+            self:onButtonStateChange(self.m_buttonState)
+        end))
         action:setTag(UIC_BUTTON_ACTION_TAG)
         node:runAction(action)
     end
 
+    --[[
     -- CLICK상태일 경우 NORMAL로 강제로 변경(액션 종료 후 자동 정리)
     if (button_state == UIC_BUTTON_CLICK) then
         self.m_buttonState = UIC_BUTTON_NORMAL
     end
+    --]]
 end
 
 -------------------------------------
@@ -268,4 +291,16 @@ end
 -------------------------------------
 function UIC_Button:setSelectedImage(node)
     return self.m_node:setSelectedImage(node)
+end
+
+-------------------------------------
+-- function setAutoShake
+-- @brief
+-------------------------------------
+function UIC_Button:setAutoShake(auto_shake)
+    self.m_bAutoShakeAction = auto_shake
+
+    if (self.m_buttonState == UIC_BUTTON_NORMAL) then
+        self:onButtonStateChange(self.m_buttonState)
+    end
 end
