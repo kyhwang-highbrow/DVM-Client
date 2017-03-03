@@ -155,6 +155,10 @@ function TamerSpeechSystem:onEvent(event_name, t_event, ...)
     if (event_name == 'dragon_summon') then
         self:showSpeech(nil, 'summon', false)
 
+    -- 테이머 액티브 스킬 사용시
+    elseif (event_name == 'tamer_skill') then
+        self:showSpeechNode('summon', false)        
+
     -- 게임 시작 시
     elseif (event_name == 'game_start') then
         if (math_random(1, 2) == 1) then

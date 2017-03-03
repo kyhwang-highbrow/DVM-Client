@@ -342,8 +342,8 @@ function GameWorld:initTamer()
 
     -- 스킬 컷씬
     self.m_tamerSkillCut = TamerSkillCut(self, g_gameScene.m_colorLayerTamerSkill, t_tamer)
-    self:addListener('tamer_skill', self.m_tamerSkillCut)
-    self:addListener('tamer_special_skill', self.m_tamerSkillCut)
+    --self:addListener('tamer_skill', self.m_tamerSkillCut)
+    --self:addListener('tamer_special_skill', self.m_tamerSkillCut)
                 
     -- 테이머 대사
     self.m_tamerSpeechSystem = TamerSpeechSystem(self, t_tamer)
@@ -354,6 +354,7 @@ function GameWorld:initTamer()
     self:addListener('boss_wave', self.m_tamerSpeechSystem)
     self:addListener('stage_clear', self.m_tamerSpeechSystem)
     self:addListener('friend_dragon_appear', self.m_tamerSpeechSystem)
+    self:addListener('tamer_skill', self.m_tamerSpeechSystem)
 end
 
 
@@ -1139,8 +1140,7 @@ function GameWorld:onKeyReleased(keyCode, event)
 
     -- 테이머 스킬
     elseif (keyCode == KEY_1) then
-        --self.m_gameTamer:doSkillActive()
-        self.m_gameAutoHero:proccess_tamer()
+        self.m_gameTamer:doSkillActive()
         
     elseif (keyCode == KEY_2) then
         self.m_gameTamer:doSkillPassive()

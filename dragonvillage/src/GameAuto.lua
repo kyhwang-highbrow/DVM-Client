@@ -40,8 +40,6 @@ end
 -- function update
 -------------------------------------
 function GameAuto:update(dt)
-    if (not self:isActive()) then return end
-
     self:update_fight(dt)
 end
 
@@ -61,7 +59,7 @@ function GameAuto:update_fight(dt)
 
         -- 테이머
         if (not b) then
-            --b = self:proccess_tamer()
+            b = self:proccess_tamer()
         end
         
         -- 드래곤
@@ -82,6 +80,8 @@ end
 -- function proccess_dragon
 -------------------------------------
 function GameAuto:proccess_dragon()
+    if (not self:isActive()) then return end
+
     local allyList = self:getUnitList()
 
     for i, dragon in ipairs(allyList) do

@@ -50,27 +50,6 @@ function GameTamer:update(dt)
     end
 end
 
---[[
--------------------------------------
--- function checkSkill
--------------------------------------
-function GameTamer:checkSkillActive()
-    local t_skill = self.m_lSkill[TAMER_SKILL_ACTIVE]
-
-    local world = self.m_world
-    if (not world:isPossibleControl()) then return end
-    if (world.m_gameState:isWaitingGlobalCoolTime()) then return end
-    if (not self:isEndActiveSkillCoolTime()) then return end
-
-    -- TODO : 스킬 타입별 고유한 조건으로 체크되어야함
-    if (t_skill['type'] == 'tamer_skill_haeal') then
-
-    end
-
-    return true
-end
-]]--
-
 -------------------------------------
 -- function getTargetList
 -------------------------------------
@@ -99,9 +78,7 @@ function GameTamer:doSkill(skill_idx)
 	local t_skill = self.m_lSkill[skill_idx]
 
 	if (t_skill['skill_form'] == 'status_effect') then 
-        cclog('doSkill type = ' .. t_skill['type'])
-
-		-- 1. target 설정
+        -- 1. target 설정
 		local l_target = self:getTargetList(t_skill)
         if (not l_target) then return end
 
@@ -157,11 +134,16 @@ end
 -- function doSkillActive
 -------------------------------------
 function GameTamer:doSkillActive()
-    
+    --[[
     self.m_world:dispatch('tamer_skill', {}, function()
         self:showToolTipActive()
         self:doSkill(TAMER_SKILL_ACTIVE)
     end, idx)
+    ]]--
+
+    self.m_world:dispatch('tamer_skill')
+
+    self:showToolTipActive()
 
     return self:doSkill(TAMER_SKILL_ACTIVE)
 end
