@@ -51,6 +51,9 @@ end
 -------------------------------------
 function UI_AdventureStageInfo:initButton()
     local vars = self.vars
+    local stage_id = self.m_stageID
+    local game_mode = g_stageData:getGameMode(stage_id)
+
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_tabBtn('item') end)
     vars['enemyInfoBtn']:registerScriptTapHandler(function() self:click_tabBtn('monster') end)
     vars['enterBtn']:registerScriptTapHandler(function() self:click_enterBtn() end)
@@ -58,6 +61,10 @@ function UI_AdventureStageInfo:initButton()
 
     vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
+
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        vars['starButton']:registerScriptTapHandler(function() self:click_starButton() end)
+    end
 end
 
 -------------------------------------
@@ -66,6 +73,7 @@ end
 function UI_AdventureStageInfo:refresh()
     local vars = self.vars
     local stage_id = self.m_stageID
+    local game_mode = g_stageData:getGameMode(stage_id)
 
     do -- 스테이지 이름
         local stage_name = g_stageData:getStageName(stage_id)
@@ -106,6 +114,23 @@ function UI_AdventureStageInfo:refresh()
 
         local next_stage = g_stageData:getSimpleNextStage(stage_id)
         vars['nextBtn']:setVisible(next_stage ~= nil)
+    end
+
+    -- 획득한 별 표시
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        local stage_info = g_adventureData:getStageInfo(stage_id)
+        local num_of_stars = stage_info:getNumberOfStars()
+
+        for i=1, 3 do
+            local visible = stage_info['mission_' .. i]
+            vars['starSprite' .. i]:setVisible(visible)
+        end
+
+        if (num_of_stars < 3) then
+            vars['starButton']:setAutoShake(true)
+        else
+            vars['starButton']:setAutoShake(false)
+        end
     end
 end
 
@@ -326,6 +351,30 @@ function UI_AdventureStageInfo:click_nextBtn()
     self:changeStageID(stage_id)
 end
 
+-------------------------------------
+-- function click_starButton
+-- @brief
+-------------------------------------
+function UI_AdventureStageInfo:click_starButton()
+    local vars = self.vars
+    vars['starButton']:setAutoShake(false)
+
+    local stage_id = self.m_stageID
+
+    local ui = UI_AdventureStageMissionInfo(stage_id)
+
+    local function close_cb()
+        local stage_info = g_adventureData:getStageInfo(stage_id)
+        local num_of_stars = stage_info:getNumberOfStars()
+
+        if (num_of_stars < 3) then
+            vars['starButton']:setAutoShake(true)
+        else
+            vars['starButton']:setAutoShake(false)
+        end
+    end
+    ui:setCloseCB(close_cb)
+end
 
 -------------------------------------
 -- function changeStageID

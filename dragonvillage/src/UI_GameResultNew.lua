@@ -189,10 +189,15 @@ function UI_GameResultNew:direction_start()
 
     -- 성공 or 실패
     if (is_success == true) then
+
+        local stage_id = self.m_stageID
+        local stage_info = g_adventureData:getStageInfo(stage_id)
+        local num_of_stars = stage_info:getNumberOfStars()
+
         SoundMgr:playBGM('result_success', false)    
-        vars['successVisual']:changeAni('success_03', false)
+        vars['successVisual']:changeAni('success_0' .. num_of_stars, false)
         vars['successVisual']:addAniHandler(function()
-            vars['successVisual']:changeAni('success_idle_03', true)
+            vars['successVisual']:changeAni('success_idle_0' .. num_of_stars, true)
         end)
     else
         SoundMgr:playBGM('result_fail', false)

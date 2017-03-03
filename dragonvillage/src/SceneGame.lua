@@ -516,6 +516,9 @@ function SceneGame:networkGameFinish_response(ret, t_result_ref)
     -- 스테이지 클리어 정보 stage_clear_info
     self:networkGameFinish_response_stage_clear_info(ret)
 
+    -- 모험모드 챕터 업적
+    self:networkGameFinish_response_chapter_achievement_info(ret)
+
     -- 추가된 룬 적용
     if ret['added_runes'] then
         g_runesData:applyRuneData_list(ret['added_runes'])
@@ -675,15 +678,39 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
         return
     end
 
+    -- 리스트 형태로 넘어와서 한개만 추출
+    local stage_clear_info = table.getFirst(ret['stage_clear_info'])
+
     local stage_id = ret['stage']
 
     if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+        local stage_info = g_adventureData:getStageInfo(stage_id)
+        stage_info:applyTableData(stage_clear_info)
 
     elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
         local t_stage_clear_info = g_nestDungeonData:getNestDungeonStageClearInfoRef(stage_id)
-        t_stage_clear_info['clear_cnt'] = ret['stage_clear_info']['cnt']
+        t_stage_clear_info['clear_cnt'] = stage_clear_info['cnt']
 
     elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
 
+    end
+end
+
+-------------------------------------
+-- function networkGameFinish_response_chapter_achievement_info
+-- @breif
+-------------------------------------
+function SceneGame:networkGameFinish_response_chapter_achievement_info(ret)
+    if (not ret['chapter_list']) then
+        return
+    end
+
+    -- 리스트 형태로 넘어와서 한개만 추출
+    local data = table.getFirst(ret['chapter_list'])
+
+    if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+        local chapter_id = data['chapter_id']
+        local chapter_achieve_info = g_adventureData:getChapterAchieveInfo(chapter_id)
+        chapter_achieve_info:applyTableData(data)
     end
 end

@@ -421,6 +421,7 @@ local t_module = {
     'UI_AdventureStageButton',
     'UI_AdventureFirstRewardPopup',
     'UI_AdventureStageInfo',
+    'UI_AdventureStageMissionInfo',
     'UI_IngameUnitInfo',
     'UI_IngameDragonInfo',
     'UI_IngameBossInfo',
