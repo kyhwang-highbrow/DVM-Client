@@ -950,8 +950,10 @@ function GameState:onEvent(event_name, t_event, ...)
         end
 
     -- 액티브 스킬 사용 이벤트
+    --[[
     elseif (event_name == 'hero_active_skill' or event_name == 'enemy_active_skill') then
         self.m_world.m_gameCamera:reset()
+    ]]--
 
     -- 테이머 스킬 사용 이벤트
     elseif (event_name == 'tamer_skill') then

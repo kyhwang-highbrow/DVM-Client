@@ -11,6 +11,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_gameNode2 = 'cc.Node',
         m_gameNode3 = 'cc.Node',
         m_feverNode = 'cc.Node',
+
         m_gridNode = 'cc.Node',
         m_bgNode = 'cc.Node',
         m_groundNode = 'cc.Node',

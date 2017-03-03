@@ -24,9 +24,9 @@ SceneGame = class(PerpleScene, {
         m_feverNode = 'cc.Node',        -- 피버 레이어
         m_gameIndicatorNode = 'cc.Node',
 
-        m_gameHighlightNode = 'cc.Node',
-        m_gameHighlightNode2 = 'cc.Node',
-        m_gameHighlightNode3 = 'cc.Node',
+        m_gameHighlightNode = 'cc.Node',    -- 하이라이트 레이어 (유닛)
+        m_gameHighlightNode2 = 'cc.Node',   -- 하이라이트 레이어 (미사일 영역)
+        m_gameHighlightNode3 = 'cc.Node',   -- 하이라이트 레이어 (이펙트 및 폰트 영역)
 
         m_colorLayerForSkill = 'cc.LayerColor', -- 암전 레이어
 

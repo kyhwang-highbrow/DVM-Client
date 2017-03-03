@@ -105,18 +105,15 @@ end
 -- function doAttack
 -------------------------------------
 function Dragon:doAttack(x, y)
-    local basic_skill_id = self.m_reservedSkillId
+    local skill_id = self.m_reservedSkillId
 
     PARENT.doAttack(self, x, y)
 
-    -- 원거리 기본 공격에만 이펙트를 추가
-    local attr = self:getAttribute()
-    local table_skill = TABLE:get('dragon_skill')
-    local t_skill = table_skill[basic_skill_id] or {}
-    local type = t_skill['type']
-
-    if type ~= 'skill_melee_atk' then
+    -- 일반 스킬에만 이펙트를 추가
+    if (self.m_charTable['skill_basic'] ~= skill_id) then
+        local attr = self:getAttribute()
         local res = 'res/effect/effect_missile_charge/effect_missile_charge.vrp'
+
         local animator = MakeAnimator(res)
         animator:changeAni('shot_' .. attr, false)
         self.m_rootNode:addChild(animator.m_node)
@@ -174,23 +171,22 @@ end
 -------------------------------------
 function Dragon.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
-        -- 원거리 기본 공격에만 이펙트를 추가
-        if owner.m_charTable['skill_basic'] == owner.m_reservedSkillId then
+        -- 일반 스킬에만 이펙트를 추가
+        if owner.m_charTable['skill_basic'] ~= owner.m_reservedSkillId then
             local attr = owner:getAttribute()
-            local table_skill = TABLE:get('dragon_skill')
-            local t_skill = table_skill[owner.m_reservedSkillId] or {}
-            local type = t_skill['type']
+            local res = 'res/effect/effect_missile_charge/effect_missile_charge.vrp'
+                
+            local animator = MakeAnimator(res)
+            animator:changeAni('idle_' .. attr, false)
+            owner.m_rootNode:addChild(animator.m_node)
+            local duration = animator:getDuration()
+            animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
 
-            if type ~= 'skill_melee_atk' then
-                local res = 'res/effect/effect_missile_charge/effect_missile_charge.vrp'
-                if res then
-                    local animator = MakeAnimator(res)
-                    animator:changeAni('idle_' .. attr, false)
-                    owner.m_rootNode:addChild(animator.m_node)
-                    local duration = animator:getDuration()
-                    animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
-                end
-            end
+            -- 텍스트
+            local t_skill = owner:getSkillTable(owner.m_reservedSkillId)
+            local str_map = {}
+            str_map[t_skill['t_name']] = true
+            owner.m_world:makePassiveStartEffect(owner, str_map)
         end
 
         -- 기본 공격시 이벤트
