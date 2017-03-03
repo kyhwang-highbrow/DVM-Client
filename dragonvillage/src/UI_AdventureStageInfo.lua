@@ -202,23 +202,26 @@ function UI_AdventureStageInfo:refresh_monsterList()
         local width, height = cardUIClass:getCardSize(cardUISize)
 
         -- 인연 던전의 경우
-        local t_info = g_secretDungeonData:parseSecretDungeonID(stage_id)
-        if (t_info['dungeon_mode'] == SECRET_DUNGEON_RELATION) then
-            local makeUI = function(did)
-                local t_dragon_data = {}
-                t_dragon_data['did'] = did
-                t_dragon_data['evolution'] = 1
-                t_dragon_data['grade'] = 1
-                t_dragon_data['skill_0'] = 1
-                t_dragon_data['skill_1'] = 1
-                t_dragon_data['skill_2'] = 0
-                t_dragon_data['skill_3'] = 0
+        local game_mode = g_stageData:getGameMode(stage_id)
+        if (game_mode == GAME_MODE_SECRET_DUNGEON) then
+            local t_info = g_secretDungeonData:parseSecretDungeonID(stage_id)
+            if (t_info['dungeon_mode'] == SECRET_DUNGEON_RELATION) then
+                local makeUI = function(did)
+                    local t_dragon_data = {}
+                    t_dragon_data['did'] = did
+                    t_dragon_data['evolution'] = 1
+                    t_dragon_data['grade'] = 1
+                    t_dragon_data['skill_0'] = 1
+                    t_dragon_data['skill_1'] = 1
+                    t_dragon_data['skill_2'] = 0
+                    t_dragon_data['skill_3'] = 0
 
-                local ui = UI_DragonCard(t_dragon_data)
-                return ui
+                    local ui = UI_DragonCard(t_dragon_data)
+                    return ui
+                end
+
+                cardUIClass = makeUI
             end
-
-            cardUIClass = makeUI
         end
         
         -- 리스트 아이템 생성 콜백
