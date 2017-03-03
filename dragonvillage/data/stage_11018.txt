@@ -173,9 +173,9 @@
 		[
 			[
 				"wait;7",
-				"move_14;0.5", "wait;1",
-				"move_14_t1;1", "move_14_t2;1", "move_14_t3;1", "move_14_t1;1", "move_14_t2;1", "move_14_t3;1",
-				"move_19;0.5", "wait;3"
+				"move_14;3", "wait;2",
+				"move_14_t1;3", "move_14_t2;3", "move_14_t3;3", "move_14_t1;3", "move_14_t2;3", "move_14_t3;3",
+				"move_19;3", "wait;3"
 			]
 		],
 		
@@ -183,9 +183,9 @@
 		[
 			[
 				"wait;7",
-				"move_20;0.5", "wait;10",
-				"move_8;0.5", "wait;10",
-				"c1_s8_2;0.5", "wait;3"
+				"move_20;3", "wait;10",
+				"move_8;3", "wait;10",
+				"c1_s8_2;3", "wait;3"
 			]
 		],
 		
@@ -193,9 +193,9 @@
 		[
 			[
 				"wait;7",
-				"relation_1_0;0.5", "wait;10",
-				"relation_1_1;0.5", "wait;10",
-				"relation_1_2;0.5", "wait;10"
+				"relation_1_0;3", "wait;10",
+				"relation_1_1;3", "wait;10",
+				"relation_1_2;3", "wait;10"
 			]
 		],
 		
@@ -203,8 +203,8 @@
 		[
 			[
 				"wait;7",
-				"move_17;0.5", "wait;7",
-				"move_18;0.5", "wait;3"
+				"move_17;3", "wait;7",
+				"move_18;3", "wait;3"
 			]
 		]
 	}

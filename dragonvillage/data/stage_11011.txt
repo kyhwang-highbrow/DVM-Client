@@ -82,10 +82,10 @@
 		[
 			[
 				"wait;7",
-				"move_1;0.5", "wait;10",
-				"move_2;0.5", "wait;10",
-				"move_3;0.5", "wait;10",
-				"move_4;0.5", "wait;10",
+				"move_1;3", "wait;10",
+				"move_2;3", "wait;10",
+				"move_3;3", "wait;10",
+				"move_4;3", "wait;10",
 				"c1_s1_1;0.5", "wait;3"
 			]
 		],
@@ -94,10 +94,10 @@
 		[
 			[
 				"wait;7",
-				"move_6;0.5", "wait;1", "move_7;3", "wait;1",
-				"move_6;3", "wait;1", "move_7;3", "wait;1",
-				"move_6;3", "wait;1", "move_7;3", "wait;1",
-				"c1_s1_2;0.5", "wait;3"
+				"move_6;3", "wait;2", "move_7;3", "wait;2",
+				"move_6;3", "wait;2", "move_7;3", "wait;2",
+				"move_6;3", "wait;2", "move_7;3", "wait;2",
+				"c1_s1_2;3", "wait;3"
 			]
 		],
 		
@@ -105,8 +105,8 @@
 		[
 			[
 				"wait;7",
-				"move_8;0.5", "wait;10",
-				"c1_s1_3;0.5", "wait;3"
+				"move_8;3", "wait;10",
+				"c1_s1_3;3", "wait;3"
 			]
 		]
 	}
