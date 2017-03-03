@@ -1788,6 +1788,9 @@
     <None Include="..\src\UI_AdventureStageMissionInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\GameLogRecorder.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
