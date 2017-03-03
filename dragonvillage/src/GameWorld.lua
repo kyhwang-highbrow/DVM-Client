@@ -92,6 +92,8 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         m_mapManager = 'MapManager',
 		m_shakeMgr = 'ShakeManager',
+		m_missionMgr = 'StageMissionMgr',
+		m_logRecorder = 'GameLogRecorder',
 
         m_mPassiveEffect = 'list',  -- 게임시작시 발동하는 패시브들의 연출을 위한 테이블
 
@@ -257,7 +259,7 @@ function GameWorld:initGame(stage_name)
         self.m_waveMgr = WaveMgr(self, stage_name, self.m_bDevelopMode)
     end
 
-    -- 배경 생성
+	-- 배경 생성
     self:initBG(self.m_waveMgr)
 
     -- 월드 크기 설정
@@ -299,6 +301,11 @@ function GameWorld:initGame(stage_name)
             self.m_enemyMovementMgr = EnemyMovementMgr(self, t_movement)
         end
     end
+
+	-- Game Log Recorder 생성
+	self.m_logRecorder = GameLogRecorder()
+	-- mission manager 생성
+	self.m_missionMgr = StageMissionMgr(self.m_stageID)
 
     -- UI
     self.m_inGameUI:doActionReset()
