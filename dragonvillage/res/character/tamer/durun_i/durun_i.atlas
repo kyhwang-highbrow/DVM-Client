@@ -1,13 +1,13 @@
 
-nuri_i.png
-size: 1024,1024
+durun_i.png
+size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-nuri_i_00
+durun_i_00
   rotate: false
   xy: 2, 2
-  size: 407, 954
-  orig: 407, 954
+  size: 447, 1121
+  orig: 447, 1121
   offset: 0, 0
   index: -1

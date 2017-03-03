@@ -1,13 +1,13 @@
 
-nuri_i.png
+kesath_i.png
 size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-nuri_i_00
+kesath_i_00
   rotate: false
   xy: 2, 2
-  size: 407, 954
-  orig: 407, 954
+  size: 439, 926
+  orig: 439, 926
   offset: 0, 0
   index: -1

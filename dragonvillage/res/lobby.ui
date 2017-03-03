@@ -1332,6 +1332,10 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			action_type = 1;
+			action_delay_1 = 0.000000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
 			lua_name = 'collectionBtn';
 			enable = true;
 			normal = 'ui/btn/lobby_collection_01.png';
@@ -1396,6 +1400,10 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			action_type = 1;
+			action_delay_1 = 0.000000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
 			lua_name = 'eventBtn';
 			enable = true;
 			normal = 'ui/btn/lobby_collection_01.png';
