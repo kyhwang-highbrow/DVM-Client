@@ -125,7 +125,7 @@ function UI_ShopListItem:click_buyBtn()
 			g_shopData:tempBuy(self.m_lProductList, self.m_priceType, self.m_priceValue)
 		end
 
-		if (t_product['price'] > 0) then
+		if (t_product['price_value'] > 0) then
 			MakeSimplePopup_Confirm(self.m_priceType, self.m_priceValue, nil, ok_cb, nil)
 		else
 			ok_cb()
