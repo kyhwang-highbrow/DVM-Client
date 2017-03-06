@@ -750,9 +750,11 @@ function GameState:makeGameFinishParam(is_success)
     end
 
     do-- 미션 성공 여부 (성공시 1, 실패시 0)
-		local t_mission = self.m_world.m_missionMgr:getCompleteClearMission()
-		for i = 1, 3 do
-			t_param['clear_mission_' .. i] = (is_success and t_mission['mission_' .. i])
+		if (self.m_world.m_missionMgr) then
+			local t_mission = self.m_world.m_missionMgr:getCompleteClearMission()
+			for i = 1, 3 do
+				t_param['clear_mission_' .. i] = (is_success and t_mission['mission_' .. i])
+			end
 		end
     end
 

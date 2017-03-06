@@ -178,7 +178,7 @@ function GameLogRecorder:getLog(key)
 		return self.m_usedTamer
 
 	elseif (key == 'use_formation') then
-		return self.m_usedPosition
+		return self.m_usedFormation
 
 	elseif (key == 'use_dragon') then
 		return self.m_usedDragon

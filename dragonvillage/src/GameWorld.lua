@@ -282,7 +282,9 @@ function GameWorld:initGame(stage_name)
 	self.m_logRecorder = GameLogRecorder(self)
 		
 	-- mission manager 생성
-	self.m_missionMgr = StageMissionMgr(self.m_logRecorder, self.m_stageID, self.m_gameMode)
+	if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+		self.m_missionMgr = StageMissionMgr(self.m_logRecorder, self.m_stageID)
+	end
 
     do -- 진형 시스템 초기화
         self:setBattleZone(self.m_deckFormation, true)
