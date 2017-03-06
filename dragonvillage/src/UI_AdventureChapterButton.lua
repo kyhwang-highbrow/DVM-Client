@@ -19,7 +19,7 @@ function UI_AdventureChapterButton:init(item)
     local chapter = item
     self.m_chapter = chapter
 
-    local is_open = g_adventureDataOld:isOpenGlobalChapter(chapter)
+    local is_open = g_adventureData:isOpenGlobalChapter(chapter)
     vars['lockSprite']:setVisible(not is_open)
 
     if is_open then
@@ -42,7 +42,7 @@ function UI_AdventureChapterButton:init(item)
     do
         local open_difficulty = 0
         for i=1, MAX_ADVENTURE_DIFFICULTY do
-            if g_adventureDataOld:isOpenChapter(i, chapter) then
+            if g_adventureData:isOpenChapter(i, chapter) then
                 open_difficulty = i
             end
         end

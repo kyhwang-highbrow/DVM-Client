@@ -27,10 +27,25 @@ end
 -- @brief 모든 스테이지 오픈
 -------------------------------------
 function UI_SettingPopup:click_allClearBtn()
-    g_adventureDataOld:allStageClear()
-    UIManager:toastNotificationGreen('모든 스테이지 오픈!')
-    UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
-    --self.m_bRestart = true
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        UIManager:toastNotificationGreen('모든 스테이지 오픈!')
+        UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/manage/stage_clear')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('type', 1) -- 모험모드를 뜻함
+    ui_network:setParam('stage', 'all')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true) -- 통신 실패 시 취소 가능 여부
+    ui_network:setReuse(false) -- 재사용 여부
+    ui_network:request()
 end
 
 -------------------------------------

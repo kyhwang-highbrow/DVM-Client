@@ -569,7 +569,6 @@ function GameState.update_success(self, dt)
             end
         end
 
-        g_adventureDataOld:clearStage(world.m_stageID, 1)
         g_gameScene.m_inGameUI:doActionReverse(function()
             g_gameScene.m_inGameUI.root:setVisible(false)
         end)

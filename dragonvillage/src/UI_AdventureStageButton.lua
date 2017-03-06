@@ -13,14 +13,13 @@ UI_AdventureStageButton = class(PARENT, {
 function UI_AdventureStageButton:init(parent_ui, stage_id)
     local vars = self:load('adventure_stage_icon.ui')
 
-    local t_stage_data = g_adventureDataOld:getStageData(stage_id)
+    local stage_info = g_adventureData:getStageInfo(stage_id)
+
     local difficulty, chapter, stage = parseAdventureID(stage_id)
 
     vars['stageLabel']:setString(chapter .. '-' .. stage)
 
-    --cclog(luadump(t_stage_data))
-
-    local clear_cnt = t_stage_data['clear_cnt']
+    local clear_cnt = stage_info['clear_cnt']
     self.m_bOpenStage = false
 
     if (0 < clear_cnt) then
@@ -31,7 +30,7 @@ function UI_AdventureStageButton:init(parent_ui, stage_id)
     else
         vars['completeSprite']:setVisible(false)
 
-        local is_open = g_adventureDataOld:isOpenStage(stage_id)
+        local is_open = g_adventureData:isOpenStage(stage_id)
         self.m_bOpenStage = is_open
         do
             vars['lockSprite']:setVisible(not is_open)

@@ -322,6 +322,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SceneSecretDungeon.lua" />
     <None Include="..\src\SecurityNumber.lua" />
     <None Include="..\src\ServerData_Adventure.lua" />
+    <None Include="..\src\ServerData_AdventureFirstReward.lua" />
     <None Include="..\src\ServerData_Attendance.lua" />
     <None Include="..\src\ServerData_AutoPlaySetting.lua" />
     <None Include="..\src\ServerData_Collection.lua" />
@@ -413,7 +414,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ConstantString.lua" />
     <None Include="..\src\Counter.lua" />
     <None Include="..\src\DamageCalc.lua" />
-    <None Include="..\src\DataAdventure.lua" />
     <None Include="..\src\DragonAutoSetHelper.lua" />
     <None Include="..\src\DragonCard.lua" />
     <None Include="..\src\DragonSkillIndivisualInfo.lua" />

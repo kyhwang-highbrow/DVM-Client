@@ -423,9 +423,6 @@
     <None Include="..\src\Stopwatch.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\DataAdventure.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SceneAdventure.lua">
       <Filter>lua</Filter>
     </None>
@@ -1796,6 +1793,9 @@
     </None>
     <None Include="..\src\UI_RewardListPopup.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_AdventureFirstReward.lua">
+      <Filter>lua</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

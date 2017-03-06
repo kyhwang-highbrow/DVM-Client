@@ -64,6 +64,7 @@ local t_module = {
     'ServerData_Deck',
     'ServerData_Staminas',
     'ServerData_Adventure',
+    'ServerData_AdventureFirstReward',
     'ServerData_NestDungeon',
     'ServerData_SecretDungeon',
     'ServerData_Stage',
@@ -590,9 +591,6 @@ local t_module = {
     'StructEventPopupTab',
     'StructAdventureChapterAchieveInfo',
     'StructAdventureStageInfo',
-
-    -- Data
-    'DataAdventure',
 
     -- Network
     'Network',

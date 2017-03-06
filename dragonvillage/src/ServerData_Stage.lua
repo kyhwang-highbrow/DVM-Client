@@ -63,7 +63,7 @@ function ServerData_Stage:isOpenStage(stage_id)
 
     -- 모험 모드
     if (game_mode == GAME_MODE_ADVENTURE) then
-        ret = g_adventureDataOld:isOpenStage(stage_id)
+        ret = g_adventureData:isOpenStage(stage_id)
 
     -- 네스트 던전 모드
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
@@ -88,7 +88,7 @@ function ServerData_Stage:getNextStage(stage_id)
 
     -- 모험 모드
     if (game_mode == GAME_MODE_ADVENTURE) then
-        ret = g_adventureDataOld:getNextStageID(stage_id)
+        ret = g_adventureData:getNextStageID(stage_id)
 
     -- 네스트 던전 모드
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
@@ -113,7 +113,7 @@ function ServerData_Stage:getSimpleNextStage(stage_id)
 
     -- 모험 모드
     if (game_mode == GAME_MODE_ADVENTURE) then
-        ret = g_adventureDataOld:getSimpleNextStageID(stage_id)
+        ret = g_adventureData:getSimpleNextStageID(stage_id)
 
     -- 네스트 던전 모드
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
@@ -138,7 +138,7 @@ function ServerData_Stage:getSimplePrevStage(stage_id)
 
     -- 모험 모드
     if (game_mode == GAME_MODE_ADVENTURE) then
-        ret = g_adventureDataOld:getSimplePrevStageID(stage_id)
+        ret = g_adventureData:getSimplePrevStageID(stage_id)
 
     -- 네스트 던전 모드
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
@@ -160,7 +160,7 @@ function ServerData_Stage:setFocusStage(stage_id)
 
     -- 모험 모드
     if (game_mode == GAME_MODE_ADVENTURE) then
-        g_adventureDataOld:setFocusStage(stage_id)
+        g_adventureData:setFocusStage(stage_id)
     end
 end
 
@@ -230,7 +230,7 @@ function ServerData_Stage:getStageCategoryStr(stage_id)
 
     -- 모험 모드
     if (game_mode == GAME_MODE_ADVENTURE) then
-        ret = g_adventureDataOld:getStageCategoryStr(stage_id)
+        ret = g_adventureData:getStageCategoryStr(stage_id)
 
     -- 네스트 던전 모드
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then

@@ -86,6 +86,9 @@ function LocalData:makeDefaultLocalData()
         root_table['option_rune_bulk_sell'] = t_data
     end
 
+    -- 스테이지
+    root_table['adventure_focus_stage'] = makeAdventureID(1, 1, 1)
+
     return root_table
 end
 

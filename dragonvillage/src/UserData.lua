@@ -8,8 +8,6 @@ UserData = class({
         m_masterData = '',
         m_cache = '',
 
-        m_dataAdventure = 'DataAdventure',
-
         m_bDirtyLocalSaveData = 'boolean', -- 로컬 세이브 데이터 변경 여부
     })
 
@@ -31,7 +29,6 @@ function UserData:getInstance()
 
     g_userDataOld = UserData()
     g_userDataOld:loadMasterFile()
-    g_adventureDataOld = g_userDataOld.m_dataAdventure
 
     return g_userDataOld
 end
@@ -139,10 +136,6 @@ function UserData:loadUserDataFile()
         self.m_userData['stamina'] = {}
         self.m_userData['stamina']['st_ad'] = {10, os.time()}
 
-
-        -- @ 모험모드(Adventure)
-        self.m_userData['adventure'] = nil -- DataAdventure 클래스에서 초기화
-
         -- 설정
         self.m_userData['setting'] = {}  
 
@@ -155,8 +148,6 @@ end
 -- function afterLoadUserDataFile
 -------------------------------------
 function UserData:afterLoadUserDataFile()
-    -- @ 모험모드(Adventure)
-    self.m_dataAdventure = DataAdventure(self, self.m_userData)
 end
 
 -------------------------------------

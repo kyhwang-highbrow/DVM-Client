@@ -846,3 +846,17 @@ function listToCsv(list)
 
     return str
 end
+
+-------------------------------------
+-- function getDigit
+-- @brief id에서 특정 자릿수를 리턴
+-- @param id
+-- @param base_digit 기본 자릿수
+-- @param range 자릿수 범위
+-- ex) IDHelper:getDigit(12345, 100, 2) = 23
+-------------------------------------
+function getDigit(id, base_digit, range)
+    local range = range or 1
+    local digit = math_floor((id % (base_digit * math_pow(10, range)))/base_digit)
+    return digit
+end
