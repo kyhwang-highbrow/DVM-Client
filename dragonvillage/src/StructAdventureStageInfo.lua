@@ -8,6 +8,7 @@ StructAdventureStageInfo = class({
         mission_2 = 'boolean',
         mission_3 = 'boolean',
         clear_cnt = 'number',
+        first_clear_reward_received = 'boolean',
     })
 
 -------------------------------------
@@ -30,7 +31,14 @@ end
 -------------------------------------
 function StructAdventureStageInfo:applyTableData(data)
     for i,v in pairs(data) do
-        self[i] = v
+        local key = i
+        if (key == 'm_1') then  key = 'mission_1'
+        elseif (key == 'm_2') then  key = 'mission_2'
+        elseif (key == 'm_3') then  key = 'mission_3'
+        elseif (key == 'cl_cnt') then  key = 'clear_cnt'
+        elseif (key == 'cl_rew') then  key = 'first_clear_reward_received'
+        end
+        self[key] = v
     end
 end
 

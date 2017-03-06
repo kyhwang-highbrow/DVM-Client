@@ -13,9 +13,6 @@ ServerData_Adventure = class({
 
         -- 챕터 달성도 테이블 정보(서버에서 던져줌)
         m_chapterAchiveDataTable = 'map',
-
-
-        -- 모험모드 진행 정보
     })
 
 -------------------------------------
@@ -61,6 +58,7 @@ function ServerData_Adventure:request_adventureInfo(finish_cb, fail_cb)
         self:organizeStageList(ret['stage_list'])
         self:organizeChapterAchieveInfoList(ret['chapter_list'])
         self:organizeChapterAchieveDataTable(ret['chapter_archievement'])
+        g_adventureFirstRewardData:organizeFirstRewardDataTable(ret['first_reward_list'])
         
         
 

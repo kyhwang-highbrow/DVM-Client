@@ -18,6 +18,7 @@ UI_AdventureSceneNew = class(UI, ITopUserInfo_EventListener:getCloneTable(), {
         m_adventureShipAnimator = 'Animator',
         m_lStageButton = 'list[UI_AdventureStageButton]',
         m_adventureStageInfoPopup = 'UI_AdventureStageInfo',
+        m_lFirstRewardButtons = '',
      })
 
 -------------------------------------
@@ -517,6 +518,9 @@ end
 -- @brief stage_id에 해당하는 최초 클리어 보상 정보를 갱신함
 -------------------------------------
 function UI_AdventureSceneNew:refreshFirstReward(stage_id)
+    local first_reward_data = g_adventureFirstRewardData:getFirstRewardInfo(stage_id)
+    --ccdump(first_reward_data)
+
     --[[
     local vars = self.vars
 

@@ -361,6 +361,14 @@ end
 -- @brief 서버에서 전달받은 데이터를 클라이언트에 적용
 -------------------------------------
 function ServerData_NestDungeon:applyNestDungeonStageList(data)
+
+    -- 서버에서 줄여진 key명칭을 사용
+    for i,v in pairs(data) do
+        if v['cl_cnt'] then
+            v['clear_cnt'] = v['cl_cnt']
+        end
+    end
+
     self.m_serverData:applyServerData(data, 'nest_dungeon_stage_list')
 end
 
