@@ -419,7 +419,7 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 티켓 갱신 (전체 갱신)
     if t_added_items['tickets'] then
-        self:applyServerData(ret['tickets'], 'user', 'tickets')
+        self:applyServerData(t_added_items['tickets'], 'user', 'tickets')
     end
 
     -- 스태미나 동기화 (전체 갱신)
