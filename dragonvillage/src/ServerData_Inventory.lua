@@ -81,8 +81,9 @@ function ServerData_Inventory:calcItemCount()
     local rune_count = g_runesData:getUnequippedRuneCount()
     local fruit_count = g_userData:getFruitPackCount()
     local evolution_stone_count = g_userData:getEvolutionStonePackCount()
+    local ticket_count = g_userData:getTicketPackCount()
 
-    self.m_itemCount = (rune_count + fruit_count + evolution_stone_count)
+    self.m_itemCount = (rune_count + fruit_count + evolution_stone_count + ticket_count)
     --self.m_bItemCountDirty = true
 end
 

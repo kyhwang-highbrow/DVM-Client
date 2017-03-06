@@ -207,3 +207,54 @@ function ServerData_User:request_setTamer(tid, cb_func)
     ui_network:setReuse(false)
     ui_network:request()
 end
+
+-------------------------------------
+-- function getTicketList
+-- @brief 보유중인 티켓 리스트 리턴(인벤토리에서 사용)
+-------------------------------------
+function ServerData_User:getTicketList()
+    local l_tickets = self:getRef('tickets')
+
+    -- key가 item_id(=ticket_id)이고 value가 count인 리스트 생성
+    local l_ret = {}
+    for i,v in pairs(l_tickets) do
+        local ticket_id = tonumber(i)
+        local count = v
+
+        local t_data = {}
+        t_data['ticket_id'] = ticket_id
+        t_data['count'] = count
+        if (count > 0) then
+            table.insert(l_ret, t_data)
+        end
+    end
+
+    return l_ret
+end
+
+-------------------------------------
+-- function getTicketCOunt
+-- @brief 보유 중인 티켓 갯수 리턴
+-------------------------------------
+function ServerData_User:getTicketCOunt(ticket_id)
+    local ticket_id = tostring(ticket_id)
+    local count = self:get('tickets', ticket_id) or 0
+    return count
+end
+
+-------------------------------------
+-- function getTicketPackCount
+-- @brief 인벤에서 슬롯을 차지하는 티켓 갯수
+-------------------------------------
+function ServerData_User:getTicketPackCount()
+    local l_tickets = self:getRef('tickets')
+
+    local count = 0
+    for i,v in pairs(l_tickets) do
+        if (0 < v) then
+            count = (count + 1)
+        end
+    end
+
+    return count
+end

@@ -326,7 +326,12 @@ function ServerData:networkCommonRespone(ret)
 
         -- 진화 재료 갱신
         if ret['evolution_stones'] then
-            g_serverData:applyServerData(ret['evolution_stones'], 'user', 'evolution_stones')
+            self:applyServerData(ret['evolution_stones'], 'user', 'evolution_stones')
+        end
+
+        -- 티켓 갱신
+        if ret['tickets'] then
+            self:applyServerData(ret['tickets'], 'user', 'tickets')
         end
     end
 
@@ -412,6 +417,11 @@ function ServerData:networkCommonRespone_addedItems(ret)
         self:applyServerData(t_added_items['evolution_stones'], 'user', 'evolution_stones')
     end
 
+    -- 티켓 갱신 (전체 갱신)
+    if t_added_items['tickets'] then
+        self:applyServerData(ret['tickets'], 'user', 'tickets')
+    end
+
     -- 스태미나 동기화 (전체 갱신)
     if (t_added_items['staminas']) then
         self:applyServerData(t_added_items['staminas'], 'user', 'staminas')
@@ -431,6 +441,4 @@ function ServerData:networkCommonRespone_addedItems(ret)
     if (t_added_items['relation']) then
         g_collectionData:applyRelationPoints(t_added_items['relation'])
     end
-
-    --t_added_items['tickets']
 end
