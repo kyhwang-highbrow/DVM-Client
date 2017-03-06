@@ -18,7 +18,7 @@ GameLogRecorder = class({
 		m_useSkillCnt = 'num',		-- 드래곤의 스킬을 {1}번 이상 사용
 		m_lapTime = 'num',			-- {1} 초 내에 스테이지 클리어
 		m_feverCnt = 'num',			-- 피버를 {1}번 이상 사용
-		m_bossFinishAtk = 'str',	-- 보스를 {1} 공격으로 처치
+		m_bossFinishAtk = 'str',	-- 보스를 {1} 공격으로 처치 -> ('finish_basic', 'finish_active', 'finish_fever')
      })
 
 -------------------------------------
@@ -110,7 +110,7 @@ function GameLogRecorder:recordLog(key, value)
 	elseif (key == 'lap_time') then
 		self.m_lapTime = value
 
-	elseif (key == 'finish_atk') then
+	elseif string.find(key, 'finish_') then
 		self.m_bossFinishAtk = value
 	
 	elseif (key == 'clear_cnt') then

@@ -501,8 +501,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 	end
 	
     -- 스킬 공격으로 피격되였다면 캐스팅 중이던 스킬을 취소시킴
-    local attackType = attacker.m_activityCarrier:getAttackType()
-    if (attackType == 'active') then
+    local attack_type = attacker.m_activityCarrier:getAttackType()
+    if (attack_type == 'active') then
         
         if self:cancelSkill() then
             -- 적 스킬 공격 캔슬 성공시
@@ -537,7 +537,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
         	
 	-- 공격 데미지 전달
     local t_info = {}
-    t_info['attack_type'] = attackType
+    t_info['attack_type'] = attack_type
     t_info['attr'] = attacker.m_activityCarrier.m_attribute
     t_info['dmg_type'] = dmg_type
 	t_info['critical'] = critical
@@ -621,6 +621,11 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 
     -- 죽음 체크
     if (self.m_hp <= 0) and (self.m_bDead == false) then
+		--[[@LOG
+		if (self:isBoss()) then
+			owner.m_world.m_logRecorder:recordLog('finish_atk', t_info['attack_type'])
+		end]]
+
 		self:dispatch('dead', {}, self)
         self:setDead()
         self:changeState('dying')

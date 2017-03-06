@@ -49,44 +49,63 @@ function StageMissionMgr:checkMission()
 			local mission_value2 = t_mission['mission_value2']
 			local achieve_data = self.m_logRecorder:getLog(mission_key)
 
-			-- 목표치 보다 적어야 하는 미션
-			if isExistValue(mission_key, 'lab_time', 'use_dragon_cnt', 'death_cnt') then
-				if (achieve_data < mission_value) then
-					t_mission['is_clear'] = true
-				end
+			self:missionTemp(t_mission, mission_key, mission_value, mission_value2, achieve_data)
+		end
+	end
+end
 
-			-- 값이 동일해야 하는 미션
-			elseif isExistValue(mission_key, 'use_tamer', 'use_formation', 'finish_atk') then
-				if (achieve_data == mission_value) then
-					t_mission['is_clear'] = true
-				end
+-------------------------------------
+-- function missionTemp
+-------------------------------------
+function StageMissionMgr:missionTemp(t_mission, mission_key, mission_value, mission_value2, achieve_data)
+	-- 목표치 보다 적어야 하는 미션
+	if isExistValue(mission_key, 'lab_time', 'use_dragon_cnt', 'death_cnt') then
+		if (achieve_data < mission_value) then
+			t_mission['is_clear'] = true
+		end
 
-			-- 값이 동일해야 하는 미션 (테이블)
-			elseif isExistValue(mission_key, 'use_dragon') then
-				if (achieve_data[mission_value]) then
-					t_mission['is_clear'] = true
-				end
+	-- 값이 동일해야 하는 미션
+	elseif isExistValue(mission_key, 'use_tamer', 'use_formation') then
+		if (achieve_data == mission_value) then
+			t_mission['is_clear'] = true
+		end
+
+	-- 값이 동일해야 하는 미션 (테이블)
+	elseif isExistValue(mission_key, 'use_dragon') then
+		if (achieve_data[mission_value]) then
+			t_mission['is_clear'] = true
+		end
 			
-			-- 값이 없어야 하는 미션 (테이블)
-			elseif isExistValue(mission_key, 'not_use_role') then
-				if not (achieve_data[mission_value]) then
-					t_mission['is_clear'] = true
-				end
+	-- 값이 없어야 하는 미션 (테이블)
+	elseif isExistValue(mission_key, 'not_use_role') then
+		if not (achieve_data[mission_value]) then
+			t_mission['is_clear'] = true
+		end
 
-			-- value2를 사용하는 미션 (테이블)
-			elseif isExistValue(mission_key, 'attribute_cnt', 'evolution_state') then
-				if (achieve_data[mission_value]) then
-					if (achieve_data[mission_value] > mission_value2) then 
-						t_mission['is_clear'] = true
-					end
-				end
-
-			else
-				if (achieve_data >= mission_value) then
-					t_mission['is_clear'] = true
-				end
+	-- value2를 사용하는 미션 (테이블)
+	elseif isExistValue(mission_key, 'attribute_cnt', 'evolution_state') then
+		if (achieve_data[mission_value]) then
+			if (achieve_data[mission_value] > mission_value2) then 
+				t_mission['is_clear'] = true
 			end
 		end
+
+	-- 별도의 처리가 필요한 미션 (막타체크)
+	elseif string.find(mission_key, 'finish_') then
+		mission_value = string.gsub(mission_key, 'finish_', '')
+		if (achieve_data == mission_value) then
+			t_mission['is_clear'] = true
+		end
+
+	-- 목표치 보다 많아야 하는 미션
+	elseif isExistValue(mission_key, 'use_skill', 'use_fever', 'clear_cnt') then
+		if (achieve_data >= mission_value) then
+			t_mission['is_clear'] = true
+		end
+
+	-- 확인이 필요
+	else
+		error('정의 되지 않은 스테이지 클리어 미션 : ' .. mission_key)
 	end
 end
 

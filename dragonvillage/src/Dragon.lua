@@ -423,7 +423,7 @@ function Dragon:release()
             self.m_world:removeHero(self)
 			-- @LOG
 			do
-				owner.m_world.m_logRecorder:recordLog('death_cnt', 1)
+				self.m_world.m_logRecorder:recordLog('death_cnt', 1)
 			end
         else
             self.m_world:removeEnemy(self)
