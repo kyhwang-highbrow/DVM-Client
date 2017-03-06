@@ -145,6 +145,9 @@ function UI_InventoryTabTicket:onChangeSelectedItem(ui, data)
         vars['sellBtn']:setVisible(true)
     end
     vars['sellBtn']:registerScriptTapHandler(function() self:sellBtn(data) end)
+
+
+    vars['useBtn']:registerScriptTapHandler(function() self:useBtn(data) end)
 end
 
 -------------------------------------
@@ -173,6 +176,43 @@ function UI_InventoryTabTicket:sellBtn(data)
     end
 
     UI_InventorySellItems(item_id, count, sell_cb)
+end
+
+-------------------------------------
+-- function useBtn
+-- @brief
+-------------------------------------
+function UI_InventoryTabTicket:useBtn(data)
+    local item_id = data['ticket_id']
+    local count = data['count']
+
+    local function cb_func(ret)
+    end
+
+    -- 작업 중
+    --g_userData:request_ticketUse(item_id, cb_func)
+
+
+    --[[
+    local function sell_cb(ret)
+        self.m_inventoryUI:response_itemSell(ret)
+        
+        local item = nil
+        for i,v in pairs(self.m_ticketTableView.m_itemMap) do
+            if (v['data']['ticket_id'] == item_id) then
+                item = v
+                break
+            end
+        end
+
+        self.m_inventoryUI:clearSelectedItem()
+        if item then
+            self.m_inventoryUI:setSelectedItem(item['ui'], item['data'])
+        end
+    end
+
+    UI_InventorySellItems(item_id, count, sell_cb)
+    --]]
 end
 
 -------------------------------------

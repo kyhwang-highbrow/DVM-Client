@@ -258,3 +258,31 @@ function ServerData_User:getTicketPackCount()
 
     return count
 end
+
+-------------------------------------
+-- function request_ticketUse
+-------------------------------------
+function ServerData_User:request_ticketUse(ticket_id, cb_func)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        -- 받은 아이템 처리
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+		if (cb_func) then
+			cb_func(ret)
+		end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/ticket/use')
+    ui_network:setParam('uid', uid)
+	ui_network:setParam('tid', ticket_id)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
