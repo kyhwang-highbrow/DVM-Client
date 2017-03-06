@@ -275,6 +275,7 @@ function UI_RuneBulkSalePopup:click_sellBtn()
 
     local evolution_stones = nil
     local fruits = nil
+    local tickets = nil
 
     local function cb(ret)
         if self.m_sellCB then
@@ -285,7 +286,7 @@ function UI_RuneBulkSalePopup:click_sellBtn()
     end
 
     local function request_item_sell()
-        g_inventoryData:request_itemSell(rune_oids, evolution_stones, fruits, cb)
+        g_inventoryData:request_itemSell(rune_oids, evolution_stones, fruits, tickets, cb)
     end
 
     local msg = Str('{1}개의 룬을 {2}골드에 판매하시겠습니까?', selected_item_count, comma_value(total_price))

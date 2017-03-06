@@ -50,6 +50,7 @@ function UI_Inventory:initUI()
         self.m_tTabClass['rune'] = UI_InventoryTabRune(self)
         self.m_tTabClass['material'] = UI_InventoryTabEvolutionStone(self)
         self.m_tTabClass['fruit'] = UI_InventoryTabFruit(self)
+        self.m_tTabClass['ticket'] = UI_InventoryTabTicket(self)
     end
 
 
@@ -68,9 +69,6 @@ function UI_Inventory:initUI()
 
     local item_count = g_inventoryData:getItemCount()
     self.vars['inventoryLabel']:setString(Str('{1}/{2}', item_count, 100))
-
-	-- @TODO 인벤토리 확정권 구현전까지
-	vars['ticketBtn']:setVisible(false)
 end
 
 -------------------------------------

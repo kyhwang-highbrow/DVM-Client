@@ -761,6 +761,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_InventoryTabEvolutionStone.lua" />
     <None Include="..\src\UI_InventoryTabFruit.lua" />
     <None Include="..\src\UI_InventoryTabRune.lua" />
+    <None Include="..\src\UI_InventoryTabTicket.lua" />
     <None Include="..\src\UI_ItemCard.lua" />
     <None Include="..\src\UI_ItemInfoPopup.lua" />
     <None Include="..\src\UI_Lobby.lua" />

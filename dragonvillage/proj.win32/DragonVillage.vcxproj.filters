@@ -1800,6 +1800,9 @@
     <None Include="..\src\UI_AdventureFirstRewardButton.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_InventoryTabTicket.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
