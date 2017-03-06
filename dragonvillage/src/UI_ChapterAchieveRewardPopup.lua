@@ -64,6 +64,7 @@ function UI_ChapterAchieveRewardPopup:refresh()
         vars['descLabel']:setString(Str('보상 수령 가능'))
         vars['receiveLabel']:setString(Str('수령'))
         vars['okBtn']:registerScriptTapHandler(function() self:click_receiveBtn() end)
+        vars['okBtn']:setAutoShake(true)
 
     -- 보상까지 받은 경우
     elseif (state == 'received') then

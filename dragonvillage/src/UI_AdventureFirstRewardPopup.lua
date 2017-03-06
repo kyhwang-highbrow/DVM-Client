@@ -31,7 +31,7 @@ end
 -------------------------------------
 function UI_AdventureFirstRewardPopup:initUI()
     local vars = self.vars
-    vars['titleLabel']:setString(Str('챕터 달성 보상'))
+    vars['titleLabel']:setString(Str('최초 클리어 보상'))
 end
 
 -------------------------------------
@@ -60,6 +60,7 @@ function UI_AdventureFirstRewardPopup:refresh()
         vars['descLabel']:setString(Str('보상 수령 가능'))
         vars['receiveLabel']:setString(Str('수령'))
         vars['okBtn']:registerScriptTapHandler(function() self:click_receiveBtn() end)
+        vars['okBtn']:setAutoShake(true)
 
     elseif (state == 'lock') then
         local name = g_stageData:getStageName(stage_id)
