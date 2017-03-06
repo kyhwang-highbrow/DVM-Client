@@ -78,3 +78,60 @@ function ServerData_Item:parsePackageItemStrIndivisual(package_item_str)
 
     return tonumber(item_id), tonumber(count)
 end
+
+
+-------------------------------------
+-- function parseAddedItems_itemList
+-- @brief
+-------------------------------------
+function ServerData_Item:parseAddedItems_itemList(added_items)
+    if (not added_items) then
+        return
+    end
+
+    if (not added_items['items_list']) then
+        return
+    end
+
+    local table_item = TableItem()
+
+    for i,v in pairs(added_items['items_list']) do
+        local item_id = v['item_id']
+        local type = table_item:getValue(item_id, 'type')
+        v['type'] = type
+    end
+
+    return added_items
+end
+
+-------------------------------------
+-- function parseAddedItems_firstItem
+-- @brief
+-------------------------------------
+function ServerData_Item:parseAddedItems_firstItem(added_items)
+    added_items = self:parseAddedItems_itemList(added_items)
+
+    local first_item = added_items['items_list'][1]
+    local t_sub_data = nil
+
+    if (first_item['type'] == 'dragon') then
+        local oid = first_item['oids'][1]
+        for i,v in pairs(added_items['dragons']) do
+            if (oid == v['id']) then
+                t_sub_data = v
+                break
+            end
+        end
+
+    elseif (first_item['type'] == 'rune') then
+        local oid = first_item['oids'][1]
+        for i,v in pairs(added_items['runes']) do
+            if (oid == v['id']) then
+                t_sub_data = g_runesData:makeRuneInfomation(v)
+                break
+            end
+        end
+    end
+
+    return first_item['item_id'], first_item['count'], t_sub_data
+end

@@ -137,6 +137,7 @@ function UI_Inventory:clearItemInfo()
     vars['sellBtn']:setVisible(false)
     vars['enhanceBtn']:setVisible(false)
     vars['locationBtn']:setVisible(false)
+    vars['useBtn']:setVisible(false)
 
     vars['itemNode']:removeAllChildren()
     vars['itemNode']:setVisible(false)
@@ -205,4 +206,13 @@ function UI_Inventory:response_itemSell(ret)
 
     local item_count = g_inventoryData:getItemCount()
     self.vars['inventoryLabel']:setString(Str('{1}/{2}', item_count, 100))
+end
+
+-------------------------------------
+-- function response_ticketUse
+-- @brief
+-------------------------------------
+function UI_Inventory:response_ticketUse(ret)
+    self.m_mainTabMgr.m_mTabData['rune']['first'] = true
+    self.m_tTabClass['rune']:clearTabFirstInfo()
 end

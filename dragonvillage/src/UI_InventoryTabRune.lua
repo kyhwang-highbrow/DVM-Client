@@ -49,7 +49,7 @@ function UI_InventoryTabRune:init_runeTableView(rune_slot_type)
 
     local slot_idx = g_runesData:getSlotIdx(rune_slot_type)
     local node = self.vars['runeTableViewNode' .. slot_idx]
-    --node:removeAllChildren()
+    node:removeAllChildren()
 
     local l_item_list = g_runesData:getUnequippedRuneList(rune_slot_type)
 
@@ -244,3 +244,13 @@ function UI_InventoryTabRune:click_bulkSellBtn()
     ui:setSellCallback(cb)
 end
 
+
+-------------------------------------
+-- function clearTabFirstInfo
+-- @brief
+-------------------------------------
+function UI_InventoryTabRune:clearTabFirstInfo()
+    for i,v in pairs(self.m_mTabData) do
+        v['first'] = true
+    end
+end

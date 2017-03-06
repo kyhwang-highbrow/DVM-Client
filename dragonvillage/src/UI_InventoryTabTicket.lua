@@ -146,7 +146,9 @@ function UI_InventoryTabTicket:onChangeSelectedItem(ui, data)
     end
     vars['sellBtn']:registerScriptTapHandler(function() self:sellBtn(data) end)
 
-
+    -- 사용하기 버튼
+    vars['useLabel']:setString(Str('사용'))
+    vars['useBtn']:setVisible(true)
     vars['useBtn']:registerScriptTapHandler(function() self:useBtn(data) end)
 end
 
@@ -187,16 +189,10 @@ function UI_InventoryTabTicket:useBtn(data)
     local count = data['count']
 
     local function cb_func(ret)
-    end
-
-    -- 작업 중
-    --g_userData:request_ticketUse(item_id, cb_func)
-
-
-    --[[
-    local function sell_cb(ret)
         self.m_inventoryUI:response_itemSell(ret)
-        
+        self.m_inventoryUI:response_ticketUse(ret)
+
+        -- 기존 아이템 있으면 선택
         local item = nil
         for i,v in pairs(self.m_ticketTableView.m_itemMap) do
             if (v['data']['ticket_id'] == item_id) then
@@ -209,10 +205,14 @@ function UI_InventoryTabTicket:useBtn(data)
         if item then
             self.m_inventoryUI:setSelectedItem(item['ui'], item['data'])
         end
+
+        do -- 결과 팝업
+            local item_id, count, t_sub_data = g_itemData:parseAddedItems_firstItem(ret['added_items'])
+            MakeSimpleRewarPopup(Str('뽑기 결과'), item_id, count, t_sub_data)
+        end
     end
 
-    UI_InventorySellItems(item_id, count, sell_cb)
-    --]]
+    g_userData:request_ticketUse(item_id, cb_func)
 end
 
 -------------------------------------
