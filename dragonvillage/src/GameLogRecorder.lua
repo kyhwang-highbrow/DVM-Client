@@ -190,3 +190,28 @@ function GameLogRecorder:getLog(key)
 		return 0
 	end
 end
+
+-------------------------------------
+-- function printRecord
+-- @brief 전체 로그를 출력
+-------------------------------------
+function GameLogRecorder:printRecord()
+	local t_print = 
+	{
+		attribute_count = self.m_attrCnt,
+		evolution_count = self.m_evolutionCnt,
+		dragon_count = self.m_dragonCnt,
+		used_tamer = self.m_usedTamer,
+		used_formation = self.m_usedFormation,
+		used_dragon = self.m_usedDragon,
+		used_role = self.m_usedRole,
+		clear_count = self.m_clearCnt,
+		death_count = self.m_deathCnt,
+		skill_count = self.m_useSkillCnt,
+		fever_count = self.m_feverCnt,
+		lap_time = self.m_lapTime,
+		boss_finish_attack = self.m_bossFinishAtk,
+	}
+
+	ccdump(t_print)
+end

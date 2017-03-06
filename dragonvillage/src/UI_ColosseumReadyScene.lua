@@ -119,9 +119,10 @@ function UI_ColosseumReadyScene:refresh_tamer()
 	local t_tamer = g_userData:getTamerInfo()
     local animator = MakeAnimator(t_tamer['res_sd'])
 	if (animator) then
-		animator:setDockPoint(0.5, 0)
-		animator:setAnchorPoint(0.5, 0)
-		animator:setScale(2)
+		animator:setDockPoint(0.5, 0.5)
+		animator:setAnchorPoint(0.5, 0.5)
+		animator:setScale(2.5)
+		animator:setPosition(0, 250)
 		vars['tamerNode']:addChild(animator.m_node)
 	end
 end
@@ -319,7 +320,8 @@ end
 -- @breif
 -------------------------------------
 function UI_ColosseumReadyScene:click_tamerBtn()
-    UI_TamerSelectPopup()
+    local ui = UI_TamerInfoPopup()
+	ui:setCloseCB(function() self:refresh_tamer() end)
 end
 
 -------------------------------------

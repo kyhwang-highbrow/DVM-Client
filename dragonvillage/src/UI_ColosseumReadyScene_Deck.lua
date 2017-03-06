@@ -80,7 +80,7 @@ end
 -------------------------------------
 function UI_ColosseumReadyScene_Deck:getFocusDeckSlotEffect()
     if (not self.m_focusDeckSlotEffect) then
-        self.m_focusDeckSlotEffect = cc.Sprite:create('res/ui/frame/dragon_select_frame.png')
+        self.m_focusDeckSlotEffect = cc.Sprite:create('res/ui/icon/ready_fomation_bg_select.png')
         self.m_focusDeckSlotEffect:setDockPoint(cc.p(0.5, 0.5))
         self.m_focusDeckSlotEffect:setAnchorPoint(cc.p(0.5, 0.5))
     end
@@ -127,6 +127,8 @@ function UI_ColosseumReadyScene_Deck:setFocusDeckSlotEffect(idx)
 
     local node_name = 'positionNode' .. idx
     vars[node_name]:addChild(effect, 2)
+	-- @TODO 수정 필요
+	vars['chNode' .. idx]:setLocalZOrder(0)
     effect:release()
 
     effect:stopAllActions()
@@ -449,20 +451,19 @@ function UI_ColosseumReadyScene_Deck:updateFormation(formation, immediately)
 	-- 상태에 따라 즉시 이동 혹은 움직임 액션 추가
 	if immediately then
 		for i, node_space in ipairs(l_pos_list) do
-			cclog('IMMEDIATELY')
-			cclog(node_space['x'], node_space['y'])
 			vars['positionNode' .. i]:setPosition(node_space['x'], node_space['y'])
 			vars['positionNode' .. i]:setLocalZOrder(1000 - node_space['y'])
 		end
 	else
 		for i, node_space in ipairs(l_pos_list) do
-			cclog('ACTION')
-			cclog(node_space['x'], node_space['y'])
 			local action = cca.makeBasicEaseMove(0.3, node_space['x'], node_space['y'])
 			cca.runAction(vars['positionNode' .. i], action, 100)
 			vars['positionNode' .. i]:setLocalZOrder(1000 - node_space['y'])
 		end
 	end
+
+	-- 위치 조정 @TODO 
+	vars['formationNode']:runAction(cc.MoveBy:create(0.1, cc.p(0, -50)))
 
 	self:updateFormationInfo(formation)
 end
@@ -474,11 +475,11 @@ end
 function UI_ColosseumReadyScene_Deck:getRotatedPosList(formation)
 	local vars = self.m_uiReadyScene.vars
 
-	local length = 150
-    local min_x = -length
-    local max_x = length
-    local min_y = -length
-    local max_y = length
+	local length = 50
+    local min_x = -length * 3
+    local max_x = length * 3
+    local min_y = -length * 3
+    local max_y = length * 3
     local l_pos_list = TableFormation:getFormationPositionList(formation, min_x, max_x, min_y, max_y)
 
 	local ret_list = {}
