@@ -223,7 +223,7 @@ function UI_InventoryTabTicket:refresh_tableView()
         return
     end
 
-    local l_item_list = g_userData:getEvolutionStoneList()
+    local l_item_list = g_userData:getTicketList()
     local l_item_map = {}
     for i,v in pairs(l_item_list) do
         local ticket_id = tonumber(v['ticket_id'])
