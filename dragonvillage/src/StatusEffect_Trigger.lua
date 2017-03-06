@@ -110,7 +110,7 @@ function StatusEffect_Trigger:getTriggerFunction()
 		trigger_func = function()
 			local allyList = char:getFellowList()
 			StatusEffectHelper:doStatusEffectByStr(char, allyList, {t_skill['status_effect_1'], t_skill['status_effect_2']}, function(target)
-				EffectMotionStreak(target.m_world, char.pos.x, char.pos.y, target.pos.x, target.pos.y, 'res/effect/motion_streak/motion_streak_emblem_tree.png')
+				EffectMotionStreak(target.m_world, char.pos.x, char.pos.y, target.pos.x, target.pos.y, RES_SE_MS)
 			end)
 		end
 
@@ -151,7 +151,7 @@ function StatusEffect_Trigger:getTriggerFunction()
 			local defender = t_event['defender']
 			local target_list = char:getTargetList(t_skill)
 			StatusEffectHelper:doStatusEffectByStr(char, target_list, {t_skill['status_effect_1'], t_skill['status_effect_2']}, function(target)
-				EffectMotionStreak(target.m_world, defender.pos.x, defender.pos.y, target.pos.x, target.pos.y, 'res/effect/motion_streak/motion_streak_emblem_tree.png')
+				EffectMotionStreak(target.m_world, defender.pos.x, defender.pos.y, target.pos.x, target.pos.y, RES_SE_MS)
 			end)
 		end
 

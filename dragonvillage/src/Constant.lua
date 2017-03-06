@@ -82,7 +82,7 @@ KEY_Z = 146
 COLOR_RED = cc.c3b(255, 0, 0)
 COLOR_CYAN = cc.c3b(0, 255, 255)
 COLOR_GREEN = cc.c3b(0, 0, 255)
-COLOR_BALCK = cc.c3b(0, 0, 0)
+COLOR_BLACK = cc.c3b(0, 0, 0)
 COLOR_WHITE = cc.c3b(255, 255, 255)
 
 COLOR_3 = {}

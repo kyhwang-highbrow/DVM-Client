@@ -113,7 +113,7 @@ function SkillAoESquareWidth:fireMissile()
         local allyList = char:getFellowList()
         for i, ally in ipairs(allyList) do
             if (not ally.m_bDead) then
-                EffectMotionStreak(world, x, y, ally.pos.x, ally.pos.y, 'res/effect/motion_streak/motion_streak_emblem_tree.png')
+                EffectMotionStreak(world, x, y, ally.pos.x, ally.pos.y, RES_SE_MS)
             end
         end
 	end

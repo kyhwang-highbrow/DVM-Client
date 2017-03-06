@@ -83,3 +83,6 @@ RES_INDICATOR =
 
 -- 스킬 시전후 스킬 시전 범위 나타내는 이펙트..빨간색
 RES_RANGE = 'res/effect/skill_range/skill_range.vrp'
+
+-- 상태효과가 걸렸음을 가시적으로 표현하는 모션스트릭
+RES_SE_MS = 'res/effect/motion_streak/motion_streak_feedback.png'

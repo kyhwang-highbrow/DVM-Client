@@ -8,9 +8,12 @@ EffectMotionStreak = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function EffectMotionStreak:init(world, x, y, tar_x, tar_y, res)
+function EffectMotionStreak:init(world, x, y, tar_x, tar_y, res, color)
     self.m_node = cc.MotionStreak:create(1, -1, 50, cc.c3b(255, 255, 255), res)
     self.m_node:setPosition(x, y)
+	if (color) then
+		self.m_node:setColor(color)
+	end
 
     world:addChild2(self.m_node, DEPTH_ITEM_GOLD)
 
@@ -20,7 +23,6 @@ function EffectMotionStreak:init(world, x, y, tar_x, tar_y, res)
     self.m_node:runAction(cc.Sequence:create(
         cc.DelayTime:create(0.05),
         cc.BezierBy:create(0.5, bezier),
-        --cc.MoveTo:create(0.2, cc.p(tar_x, tar_y)),
         cc.RemoveSelf:create()
     ))
 end
