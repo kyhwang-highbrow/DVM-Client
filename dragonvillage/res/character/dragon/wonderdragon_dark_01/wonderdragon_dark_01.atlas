@@ -1,0 +1,13 @@
+
+wonderdragon_dark_01.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+wonderdragon_dark_01_body_01
+  rotate: false
+  xy: 2, 2
+  size: 545, 572
+  orig: 545, 572
+  offset: 0, 0
+  index: -1

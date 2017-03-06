@@ -1,0 +1,13 @@
+
+smartdragon_earth_01.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+smartdragon_earth_01_body_01
+  rotate: false
+  xy: 2, 83
+  size: 424, 343
+  orig: 424, 343
+  offset: 0, 0
+  index: -1
