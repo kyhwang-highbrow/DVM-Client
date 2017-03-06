@@ -4,21 +4,21 @@
 GameLogRecorder = class({
 		m_world = 'GameWorld',
 
-		m_attrCnt = 'table<attr>',		-- {1} ¼Ó¼º µå·¡°ïÀ» {2}±â ÀÌ»ó »ç¿ëÇÏ¿© Å¬¸®¾î
-		m_evolutionCnt = 'table<rev>',	-- {1} »óÅÂÀÇ µå·¡°ïÀ» {2}±â ÀÌ»ó »ç¿ëÇÏ¿© Å¬¸®¾î
-		m_dragonCnt = 'num',			-- µå·¡°ïÀ» {1} ±â ÀÌÇÏ·Î »ç¿ëÇÏ¿© Å¬¸®¾î
-		m_usedTamer = 'str',			-- {1} Å×ÀÌ¸Ó¸¦ »ç¿ëÇÏ¿© Å¬¸®¾î
-		m_usedFormation = 'str',		-- {1} ÁøÇüÀ» »ç¿ëÇÏ¿© Å¬¸®¾î
-		m_usedDragon = 'table<did>',	-- {1} µå·¡°ïÀ» »ç¿ëÇÏ¿© Å¬¸®¾î
-		m_usedRole = 'table<role>',		-- {1} Á÷¾÷ÀÇ µå·¡°ïÀ» »ç¿ëÇÏÁö ¾Ê°í Å¬¸®¾î
+		m_attrCnt = 'table<attr>',		-- {1} ì†ì„± ë“œë˜ê³¤ì„ {2}ê¸° ì´ìƒ ì‚¬ìš©í•˜ì—¬ í´ë¦¬ì–´
+		m_evolutionCnt = 'table<rev>',	-- {1} ìƒíƒœì˜ ë“œë˜ê³¤ì„ {2}ê¸° ì´ìƒ ì‚¬ìš©í•˜ì—¬ í´ë¦¬ì–´
+		m_dragonCnt = 'num',			-- ë“œë˜ê³¤ì„ {1} ê¸° ì´í•˜ë¡œ ì‚¬ìš©í•˜ì—¬ í´ë¦¬ì–´
+		m_usedTamer = 'str',			-- {1} í…Œì´ë¨¸ë¥¼ ì‚¬ìš©í•˜ì—¬ í´ë¦¬ì–´
+		m_usedFormation = 'str',		-- {1} ì§„í˜•ì„ ì‚¬ìš©í•˜ì—¬ í´ë¦¬ì–´
+		m_usedDragon = 'table<did>',	-- {1} ë“œë˜ê³¤ì„ ì‚¬ìš©í•˜ì—¬ í´ë¦¬ì–´
+		m_usedRole = 'table<role>',		-- {1} ì§ì—…ì˜ ë“œë˜ê³¤ì„ ì‚¬ìš©í•˜ì§€ ì•Šê³  í´ë¦¬ì–´
 
-		-- ¹Ì¼Ç (±â·ÏÀÌ ÇÊ¿äÇÑ °Í)
-		m_clearCnt = 'num',			-- ½ºÅ×ÀÌÁö Å¬¸®¾î È½¼ö
-		m_deathCnt = 'num',			-- »ç¸Á µå·¡°ï {1}±â ÀÌÇÏÀÎ »óÅÂ¿¡¼­ Å¬¸®¾î
-		m_useSkillCnt = 'num',		-- µå·¡°ïÀÇ ½ºÅ³À» {1}¹ø ÀÌ»ó »ç¿ë
-		m_lapTime = 'num',			-- {1} ÃÊ ³»¿¡ ½ºÅ×ÀÌÁö Å¬¸®¾î
-		m_feverCnt = 'num',			-- ÇÇ¹ö¸¦ {1}¹ø ÀÌ»ó »ç¿ë
-		m_bossFinishAtk = 'str',	-- º¸½º¸¦ {1} °ø°İÀ¸·Î Ã³Ä¡ -> ('finish_basic', 'finish_active', 'finish_fever')
+		-- ë¯¸ì…˜ (ê¸°ë¡ì´ í•„ìš”í•œ ê²ƒ)
+		m_clearCnt = 'num',			-- ìŠ¤í…Œì´ì§€ í´ë¦¬ì–´ íšŸìˆ˜
+		m_deathCnt = 'num',			-- ì‚¬ë§ ë“œë˜ê³¤ {1}ê¸° ì´í•˜ì¸ ìƒíƒœì—ì„œ í´ë¦¬ì–´
+		m_useSkillCnt = 'num',		-- ë“œë˜ê³¤ì˜ ìŠ¤í‚¬ì„ {1}ë²ˆ ì´ìƒ ì‚¬ìš©
+		m_lapTime = 'num',			-- {1} ì´ˆ ë‚´ì— ìŠ¤í…Œì´ì§€ í´ë¦¬ì–´
+		m_feverCnt = 'num',			-- í”¼ë²„ë¥¼ {1}ë²ˆ ì´ìƒ ì‚¬ìš©
+		m_bossFinishAtk = 'str',	-- ë³´ìŠ¤ë¥¼ {1} ê³µê²©ìœ¼ë¡œ ì²˜ì¹˜ -> ('finish_basic', 'finish_active', 'finish_fever')
      })
 
 -------------------------------------
@@ -44,28 +44,28 @@ function GameLogRecorder:recordStaticAllLog()
 	local l_dragon = world:getDragonList()
 
 
-	-- ÃâÀüÇÑ µå·¡°ïÀÇ ¼ö
+	-- ì¶œì „í•œ ë“œë˜ê³¤ì˜ ìˆ˜
 	self.m_dragonCnt = #l_dragon
 	
-	-- »ç¿ëÇÑ Å×ÀÌ¸Ó (¿µ¹®)
+	-- ì‚¬ìš©í•œ í…Œì´ë¨¸ (ì˜ë¬¸)
 	self.m_usedTamer = g_userData:getTamerInfo()['tid']
 	
-	-- »ç¿ëÇÑ ÁøÇü
+	-- ì‚¬ìš©í•œ ì§„í˜•
 	self.m_usedFormation = world.m_deckFormation
 
-	-- ¼Ó¼º º° µå·¡°ï ¼ö
+	-- ì†ì„± ë³„ ë“œë˜ê³¤ ìˆ˜
 	self.m_attrCnt = {}
 	
-	-- ÁøÈ­ º° µå·¡°ï ¼ö
+	-- ì§„í™” ë³„ ë“œë˜ê³¤ ìˆ˜
 	self.m_evolutionCnt = {}
 
-	-- »ç¿ëÇÑ µå·¡°ïid ¸®½ºÆ®
+	-- ì‚¬ìš©í•œ ë“œë˜ê³¤id ë¦¬ìŠ¤íŠ¸
 	self.m_usedDragon = {}
 
-	-- »ç¿ëÇÑ µå·¡°ï Á÷±º
+	-- ì‚¬ìš©í•œ ë“œë˜ê³¤ ì§êµ°
 	self.m_usedRole = {}
 
-	-- Å×ÀÌºíÀÌ ÇÊ¿äÇÑ µ¥ÀÌÅÍ Àû¿ë
+	-- í…Œì´ë¸”ì´ í•„ìš”í•œ ë°ì´í„° ì ìš©
 	for i, dragon in pairs(l_dragon) do
 		local attr = dragon.m_attribute
 		self:applyDataInTable(self.m_attrCnt, attr)
@@ -114,7 +114,7 @@ function GameLogRecorder:recordLog(key, value)
 		self.m_bossFinishAtk = value
 	
 	elseif (key == 'clear_cnt') then
-		-- @TODO Å¬¸®¾î Ä«¿îÆ®´Â ¹Ì¸® 1À» ´õÇØ³õ°í ¿¬»êÇÑ´Ù
+		-- @TODO í´ë¦¬ì–´ ì¹´ìš´íŠ¸ëŠ” ë¯¸ë¦¬ 1ì„ ë”í•´ë†“ê³  ì—°ì‚°í•œë‹¤
 		self.m_clearCnt = value + 1
 
 	elseif (key == 'attribute_cnt') then
@@ -139,7 +139,7 @@ function GameLogRecorder:recordLog(key, value)
 		self.m_usedRole = value
 
 	else
-		error('Á¤ÀÇ µÇÁö ¾ÊÀº Å° : ' .. key)
+		error('ì •ì˜ ë˜ì§€ ì•Šì€ í‚¤ : ' .. key)
 	end
 end
 

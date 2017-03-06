@@ -10,11 +10,11 @@ StageMissionMgr = class({
 -- function init
 -------------------------------------
 function StageMissionMgr:init(log_recorder, stage_id)
-	-- ¸â¹ö º¯¼ö ÃÊ±âÈ­
+	-- ë©¤ë²„ ë³€ìˆ˜ ì´ˆê¸°í™”
 	self.m_logRecorder = log_recorder
 	self.m_lMissionList = {}
 
-	-- µå·ÓÅ×ÀÌºí°ú ¼­¹öµ¥ÀÌÅÍ¿¡¼­ ½ºÅ×ÀÌÁö ¹Ì¼Ç Á¤º¸ ¹Ş¾Æ¿È
+	-- ë“œë¡­í…Œì´ë¸”ê³¼ ì„œë²„ë°ì´í„°ì—ì„œ ìŠ¤í…Œì´ì§€ ë¯¸ì…˜ ì •ë³´ ë°›ì•„ì˜´
 	do
 		local stage_info = g_adventureData:getStageInfo(stage_id)
 	
@@ -32,7 +32,7 @@ function StageMissionMgr:init(log_recorder, stage_id)
 		self.m_logRecorder:recordLog('clear_cnt', stage_info['clear_cnt'])
 	end
 
-	-- ¹Ì¼Ç Ã¼Å©
+	-- ë¯¸ì…˜ ì²´í¬
 	self:checkMission()
 end
 
@@ -41,7 +41,7 @@ end
 -------------------------------------
 function StageMissionMgr:checkMission()
 	for i, t_mission in pairs(self.m_lMissionList) do
-		-- ÀÌ¹Ì Å¬¸®¾îÇÑ ¹Ì¼ÇÀº Ã¼Å©ÇÏÁö ¾Ê´Â´Ù.
+		-- ì´ë¯¸ í´ë¦¬ì–´í•œ ë¯¸ì…˜ì€ ì²´í¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
 		if (not t_mission['is_clear']) then
 		
 			local mission_key = t_mission['mission_key']
@@ -58,31 +58,31 @@ end
 -- function missionTemp
 -------------------------------------
 function StageMissionMgr:missionTemp(t_mission, mission_key, mission_value, mission_value2, achieve_data)
-	-- ¸ñÇ¥Ä¡ º¸´Ù Àû¾î¾ß ÇÏ´Â ¹Ì¼Ç
-	if isExistValue(mission_key, 'lab_time', 'use_dragon_cnt', 'death_cnt') then
+	-- ëª©í‘œì¹˜ ë³´ë‹¤ ì ì–´ì•¼ í•˜ëŠ” ë¯¸ì…˜
+	if isExistValue(mission_key, 'lap_time', 'use_dragon_cnt', 'death_cnt') then
 		if (achieve_data < mission_value) then
 			t_mission['is_clear'] = true
 		end
 
-	-- °ªÀÌ µ¿ÀÏÇØ¾ß ÇÏ´Â ¹Ì¼Ç
+	-- ê°’ì´ ë™ì¼í•´ì•¼ í•˜ëŠ” ë¯¸ì…˜
 	elseif isExistValue(mission_key, 'use_tamer', 'use_formation') then
 		if (achieve_data == mission_value) then
 			t_mission['is_clear'] = true
 		end
 
-	-- °ªÀÌ µ¿ÀÏÇØ¾ß ÇÏ´Â ¹Ì¼Ç (Å×ÀÌºí)
+	-- ê°’ì´ ë™ì¼í•´ì•¼ í•˜ëŠ” ë¯¸ì…˜ (í…Œì´ë¸”)
 	elseif isExistValue(mission_key, 'use_dragon') then
 		if (achieve_data[mission_value]) then
 			t_mission['is_clear'] = true
 		end
 			
-	-- °ªÀÌ ¾ø¾î¾ß ÇÏ´Â ¹Ì¼Ç (Å×ÀÌºí)
+	-- ê°’ì´ ì—†ì–´ì•¼ í•˜ëŠ” ë¯¸ì…˜ (í…Œì´ë¸”)
 	elseif isExistValue(mission_key, 'not_use_role') then
 		if not (achieve_data[mission_value]) then
 			t_mission['is_clear'] = true
 		end
 
-	-- value2¸¦ »ç¿ëÇÏ´Â ¹Ì¼Ç (Å×ÀÌºí)
+	-- value2ë¥¼ ì‚¬ìš©í•˜ëŠ” ë¯¸ì…˜ (í…Œì´ë¸”)
 	elseif isExistValue(mission_key, 'attribute_cnt', 'evolution_state') then
 		if (achieve_data[mission_value]) then
 			if (achieve_data[mission_value] > mission_value2) then 
@@ -90,22 +90,22 @@ function StageMissionMgr:missionTemp(t_mission, mission_key, mission_value, miss
 			end
 		end
 
-	-- º°µµÀÇ Ã³¸®°¡ ÇÊ¿äÇÑ ¹Ì¼Ç (¸·Å¸Ã¼Å©)
+	-- ë³„ë„ì˜ ì²˜ë¦¬ê°€ í•„ìš”í•œ ë¯¸ì…˜ (ë§‰íƒ€ì²´í¬)
 	elseif string.find(mission_key, 'finish_') then
 		mission_value = string.gsub(mission_key, 'finish_', '')
 		if (achieve_data == mission_value) then
 			t_mission['is_clear'] = true
 		end
 
-	-- ¸ñÇ¥Ä¡ º¸´Ù ¸¹¾Æ¾ß ÇÏ´Â ¹Ì¼Ç
+	-- ëª©í‘œì¹˜ ë³´ë‹¤ ë§ì•„ì•¼ í•˜ëŠ” ë¯¸ì…˜
 	elseif isExistValue(mission_key, 'use_skill', 'use_fever', 'clear_cnt') then
 		if (achieve_data >= mission_value) then
 			t_mission['is_clear'] = true
 		end
 
-	-- È®ÀÎÀÌ ÇÊ¿ä
+	-- í™•ì¸ì´ í•„ìš”
 	else
-		error('Á¤ÀÇ µÇÁö ¾ÊÀº ½ºÅ×ÀÌÁö Å¬¸®¾î ¹Ì¼Ç : ' .. mission_key)
+		error('ì •ì˜ ë˜ì§€ ì•Šì€ ìŠ¤í…Œì´ì§€ í´ë¦¬ì–´ ë¯¸ì…˜ : ' .. mission_key)
 	end
 end
 
