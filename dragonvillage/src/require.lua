@@ -404,6 +404,7 @@ local t_module = {
     'LobbyShadow',
     'LobbyUserStatusUI',
     'LobbyItemBox',
+    'UI_RewardListPopup',
     'UI_Game',
     'UI_GameColosseum',
     'UI_GameResultNew',
@@ -422,6 +423,7 @@ local t_module = {
     'UI_AdventureChapterButton',
     'UI_AdventureStageButton',
     'UI_AdventureFirstRewardPopup',
+    'UI_AdventureFirstRewardButton',
     'UI_AdventureStageInfo',
     'UI_AdventureStageMissionInfo',
     'UI_IngameUnitInfo',
@@ -500,7 +502,6 @@ local t_module = {
     'UI_GachaDragon',
     'UI_GachaBox',
     'UI_ItemInfoPopup',
-    'UI_RewardListPopup',
     'UI_ChapterAchieveRewardPopup',
     
     -- 도감 관련

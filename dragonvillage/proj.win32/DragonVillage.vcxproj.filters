@@ -1797,6 +1797,9 @@
     <None Include="..\src\ServerData_AdventureFirstReward.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_AdventureFirstRewardButton.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

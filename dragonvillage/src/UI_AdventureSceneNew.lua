@@ -319,9 +319,16 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
         local button = UI_AdventureStageButton(self, stage_id)
         vars['stageDock0' .. i]:addChild(button.root)
         self.m_lStageButton[i] = button
+    end
+
+    do -- 최초 보상 클리어 관련
+        self.m_lFirstRewardButtons = {}
 
         -- 최초 클리어 보상 정보 갱신
-        self:refreshFirstReward(stage_id)
+        for i=1, MAX_ADVENTURE_STAGE do
+            local stage_id = makeAdventureID(self.m_currDifficulty, chapter, i)
+            self:refreshFirstReward(stage_id)
+        end
     end
 
     do -- 진입 가능한 스테이지 저장
@@ -518,56 +525,28 @@ end
 -- @brief stage_id에 해당하는 최초 클리어 보상 정보를 갱신함
 -------------------------------------
 function UI_AdventureSceneNew:refreshFirstReward(stage_id)
-    local first_reward_data = g_adventureFirstRewardData:getFirstRewardInfo(stage_id)
-    --ccdump(first_reward_data)
-
-    --[[
-    local vars = self.vars
-
     local difficulty, chapter, stage = parseAdventureID(stage_id)
-    local first_reward_state = g_adventureDataOld:getFirstRewardInfo(stage_id)
 
-    local reward_btn = vars['rewardBtn' .. stage]
+    if self.m_lFirstRewardButtons[stage] then
+        self.m_lFirstRewardButtons[stage].root:removeFromParent()
+        self.m_lFirstRewardButtons[stage] = nil
+    end
 
-    if (not reward_btn) then
+    -- 최초 클리어 보상 정보 얻어옴
+    local first_reward_data = g_adventureFirstRewardData:getFirstRewardInfo(stage_id)
+
+    -- 보상 정보가 없을 경우 return
+    if (not first_reward_data) then
         return
     end
 
-    reward_btn:registerScriptTapHandler(function() self:click_firstRewardBtn(stage_id) end)
+    local ui = UI_AdventureFirstRewardButton(stage_id)
+    ui.root:setPosition(90, 30)
+    
+    self.m_lFirstRewardButtons[stage] = ui
+    self.vars['stageDock0' .. stage]:addChild(ui.root)
 
-    local exist_reward = (first_reward_state ~= 'NA')
-    reward_btn:setVisible(exist_reward)
-
-    -- 보상 정보가 없으면 리턴
-    if (not exist_reward) then
-        return
-    end
-
-    do -- 첫 아이템 생성
-        local drop_helper = DropHelper(stage_id)
-        local icon = drop_helper:getDisplayItemImage()
-        icon.vars['clickBtn']:setEnabled(false)
-        vars['rewardIconNode' .. stage]:removeAllChildren()
-        vars['rewardIconNode' .. stage]:addChild(icon.root)
-    end
-
-    -- 최초 보상 정도에 따라 UI 설정
-    if (first_reward_state == 'lock') then
-        vars['rewardReceiveVisual' .. stage]:setVisible(false)
-        vars['rewardCheckSprite' .. stage]:setVisible(false)
-
-    elseif (first_reward_state == 'open') then
-        vars['rewardReceiveVisual' .. stage]:setVisible(true)
-        vars['rewardCheckSprite' .. stage]:setVisible(false)
-
-    elseif (first_reward_state == 'finish') then
-        vars['rewardReceiveVisual' .. stage]:setVisible(false)
-        vars['rewardCheckSprite' .. stage]:setVisible(true)
-
-    else
-        error('first_reward_state : ' .. first_reward_state)
-    end
-    --]]
+    ui.vars['rewardBtn']:registerScriptTapHandler(function() self:click_firstRewardBtn(stage_id) end)
 end
 
 -------------------------------------
@@ -575,7 +554,12 @@ end
 -- @brief
 -------------------------------------
 function UI_AdventureSceneNew:click_firstRewardBtn(stage_id)
-    UI_AdventureFirstRewardPopup(stage_id, function() self:refreshFirstReward(stage_id) end)
+    local function close_cb()
+        self:refreshFirstReward(stage_id)
+    end
+
+    local ui = UI_AdventureFirstRewardPopup(stage_id)
+    ui:setCloseCB(close_cb)
 end
 
 

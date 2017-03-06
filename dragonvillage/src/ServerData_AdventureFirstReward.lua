@@ -51,7 +51,7 @@ function ServerData_AdventureFirstReward:request_firstClearReward(stage_id, fini
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/game/clear/reward')
+    ui_network:setUrl('/game/clear/reward')
     ui_network:setParam('uid', uid)
     ui_network:setParam('stage', stage_id)
     ui_network:setSuccessCB(success_cb)

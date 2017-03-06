@@ -130,3 +130,22 @@ function StructAdventureStageInfo:createDescByMissionType(type, org_str, val1, v
     local desc = Str(org_str, val1, val2, val3)
     return desc
 end
+
+-------------------------------------
+-- function getFirstClearRewardState
+-- @brief 최초 보상 클리어 정보
+-------------------------------------
+function StructAdventureStageInfo:getFirstClearRewardState()
+    -- 보상을 미이 받은 상태
+    if (self.first_clear_reward_received == true) then
+        return 'received'
+
+    -- 보상 받기 가능 상태
+    elseif (self.clear_cnt >= 1) then
+        return 'opend'
+
+    -- 잠금 상태
+    else
+        return 'lock'
+    end
+end
