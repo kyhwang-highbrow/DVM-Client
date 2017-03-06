@@ -95,6 +95,25 @@ function ServerData_Adventure:organizeStageList(stage_list)
 end
 
 -------------------------------------
+-- function organizeStageList_modified
+-------------------------------------
+function ServerData_Adventure:organizeStageList_modified(stage_list)
+    if (not stage_list) then
+        return
+    end
+
+    if (not self.m_stageList) then
+        self.m_stageList = {}
+    end
+
+    for i,v in pairs(stage_list) do
+        local key = tonumber(i)
+        v['stage_id'] = key
+        self.m_stageList[key] = StructAdventureStageInfo(v)
+    end
+end
+
+-------------------------------------
 -- function getStageInfo
 -------------------------------------
 function ServerData_Adventure:getStageInfo(stage_id)
@@ -126,7 +145,30 @@ end
 -- function organizeChapterAchieveInfoList
 -------------------------------------
 function ServerData_Adventure:organizeChapterAchieveInfoList(chapter_list)
+    if (not chapter_list) then
+        return
+    end
+
+    -- 무조건 새로 생성 전체를 갱신
     self.m_chapterAchieveInfoList = {}
+
+    for i,v in pairs(chapter_list) do
+        local key = v['chapter_id']
+        self.m_chapterAchieveInfoList[key] = StructAdventureChapterAchieveInfo(v)
+    end
+end
+
+-------------------------------------
+-- function organizeChapterAchieveInfoList_modified
+-------------------------------------
+function ServerData_Adventure:organizeChapterAchieveInfoList_modified(chapter_list)
+    if (not chapter_list) then
+        return
+    end
+
+    if (not self.m_chapterAchieveInfoList) then
+        self.m_chapterAchieveInfoList = {}
+    end
 
     for i,v in pairs(chapter_list) do
         local key = v['chapter_id']
@@ -159,7 +201,7 @@ function ServerData_Adventure:request_chapterAchieveReward(chapter_id, star, fin
         g_serverData:networkCommonRespone_addedItems(ret)
 
         -- 챕터 정보 갱신
-        self:organizeChapterAchieveInfoList(ret['chapter_list'])
+        self:organizeChapterAchieveInfoList_modified(ret['modified_chapter'])
 
         if finish_cb then
             return finish_cb(ret)

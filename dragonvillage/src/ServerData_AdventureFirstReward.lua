@@ -28,3 +28,36 @@ end
 function ServerData_AdventureFirstReward:getFirstRewardInfo(stage_id)
     return self.m_firstRewardDataTable[stage_id]
 end
+
+-------------------------------------
+-- function request_firstClearReward
+-------------------------------------
+function ServerData_AdventureFirstReward:request_firstClearReward(stage_id, finish_cb, fail_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        -- 아이템 수령
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        -- 챕터 정보 갱신
+        g_adventureData:organizeStageList_modified(ret['modified_stage'])
+
+        if finish_cb then
+            return finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/game/clear/reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', stage_id)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
