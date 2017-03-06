@@ -45,6 +45,7 @@ function ServerData:getInstance()
 
     -- 'adventure'
     g_adventureData = ServerData_Adventure(g_serverData)
+    g_adventureFirstRewardData = ServerData_AdventureFirstReward(g_serverData)
 
     -- 'nest_info'
     g_nestDungeonData = ServerData_NestDungeon(g_serverData)
