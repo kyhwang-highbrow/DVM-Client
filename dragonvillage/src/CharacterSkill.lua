@@ -22,7 +22,7 @@ function Character:doSkill(skill_id, x, y, t_data)
 	local t_data = t_data or {}
 
     local is_hero = self.m_bLeftFormation
-    local attr = self:getAttribute() -- or self.m_charTable['attr_1'] @kms attr_1 이 어디서 쓰이죠? 이건 삭제해야합니다.
+    local attr = self:getAttribute()
 	local t_skill = nil
 
     local phys_group = self:getAttackPhysGroup()

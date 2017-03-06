@@ -165,6 +165,7 @@ function ActivityCarrier:setPowerRate(power_rate)
 		error('power_rate 가 nil입니다.')
 	end
 
+	-- 0~1 사이값
 	if (power_rate > 1) then 
 		self.m_skillCoefficient = (power_rate / 100)
 	else
