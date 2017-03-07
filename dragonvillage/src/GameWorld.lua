@@ -463,9 +463,15 @@ end
 function GameWorld:updateUnit(dt)
     local t_remove = {}
     for i,v in ipairs(self.m_lUnitList) do
-        if (v:update(dt) == true) then
-            table.insert(t_remove, 1, i)
-            v:release()
+
+        -- 일시 정지 상태가 아닌 경우에만 업데이트
+        if (not v.m_temporaryPause) then
+
+            -- update 리턴값이 true이면 객체 삭제
+            if (v:update(dt) == true) then
+                table.insert(t_remove, 1, i)
+                v:release()
+            end
         end
     end
 

@@ -35,6 +35,9 @@ PhysObject = class({
 		-- 추가된 바디
         m_lAdditionalPhysObject = 'list(PhysObject)',
         m_bInitAdditionalPhysObject = 'boolean',
+
+        -- 일시 정지
+        m_temporaryPause = 'boolean',
     })
 
 -------------------------------------
@@ -71,6 +74,9 @@ function PhysObject_initPhys(self, body)
     self.m_posIndexMaxX = 1
     self.m_posIndexMinY = 1
     self.m_posIndexMaxY = 1
+
+    -- 일시 정지
+    self.m_temporaryPause = false
 
     --self.body = {x=body[1] or 0, y=body[2] or 0, size=body[3] or 0}
     PhysObject_setBody(self, body[1] or 0, body[2] or 0, body[3] or 0)

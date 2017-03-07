@@ -160,6 +160,9 @@ function GameDragonSkill.update_live(self, dt)
             -- 카메라 줌아웃
             --self.m_world.m_gameCamera:reset()
 
+            -- 스킬 시전 드래곤을 제외한 게임 오브젝트 일시 정지
+            self:setTemporaryPause(true, dragon)
+
         elseif (self:isPassedStepTime(2)) then
             self.m_world.m_gameHighlight:changeDarkLayerColor(0, 1)
 
@@ -172,6 +175,47 @@ function GameDragonSkill.update_live(self, dt)
 
             self:changeState(GAME_DRAGON_SKILL_WAIT)
 
+            -- 스킬 시전 드래곤을 제외한 게임 오브젝트 resume
+            self:setTemporaryPause(false)
+        end
+    end
+end
+
+-------------------------------------
+-- function setTemporaryPause
+-- @brief 스킬 사용 도중 시전 드래곤을 제외하고 일시 정지
+-------------------------------------
+function GameDragonSkill:setTemporaryPause(pause, excluded_dragon)
+    local world = self.m_world
+
+    -- 일시 정지
+    if pause then
+        -- unit들 일시 정지
+        for i,v in pairs(world.m_lUnitList) do
+            v:setTemporaryPause(true)
+        end
+
+        -- 미사일들 액션 정지
+        local action_mgr = cc.Director:getInstance():getActionManager()
+        for i,v in pairs(world.m_lMissileList) do
+            action_mgr:pauseTarget(v.m_rootNode)
+        end
+
+        -- 스킬 사용 중인 드래곤은 일시 정지에서 제외
+        if excluded_dragon then
+            excluded_dragon:setTemporaryPause(false)
+        end
+    -- 전투 재개
+    else
+        -- unit들 일시 정지 해제
+        for i,v in pairs(world.m_lUnitList) do
+            v:setTemporaryPause(false)
+        end
+
+        -- 미사일들 액션 재개
+        local action_mgr = cc.Director:getInstance():getActionManager()
+        for i,v in pairs(world.m_lMissileList) do
+            action_mgr:resumeTarget(v.m_rootNode)
         end
     end
 end

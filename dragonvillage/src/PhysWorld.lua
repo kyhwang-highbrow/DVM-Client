@@ -303,7 +303,8 @@ function PhysWorld:updateObjectPos(dt, skip)
     for _, t_list in pairs(self.m_group) do
         for _, _v in ipairs(t_list) do
 
-            if _v.apply_movement then
+            -- 이동이 허용되고 일시 정지가 아닌 객체만 이동
+            if _v.apply_movement and (not _v.m_temporaryPause) then
                 movement_x = _v.speed * _v.movement_x
                 movement_y = _v.speed * _v.movement_y
 

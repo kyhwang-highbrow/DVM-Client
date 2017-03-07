@@ -339,3 +339,22 @@ function Entity:setMatchingSlotShader(str, shaderKey)
         end
     end
 end
+
+
+-------------------------------------
+-- function setTemporaryPause
+-- @brief
+-------------------------------------
+function Entity:setTemporaryPause(pause)
+    if (self.m_temporaryPause == pause) then
+        return
+    end
+
+    self.m_temporaryPause = pause
+
+    if pause then
+        self.m_animator:setAnimationPause(true)
+    else
+        self.m_animator:setAnimationPause(false)
+    end
+end
