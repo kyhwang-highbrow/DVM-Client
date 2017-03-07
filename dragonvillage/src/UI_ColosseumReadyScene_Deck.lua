@@ -21,6 +21,20 @@ UI_ColosseumReadyScene_Deck = class({
         m_selectedDragonCard = 'UI_DragonCard',
     })
 
+local TOTAL_POS_CNT = 5
+
+-- positionNode에 붙어있는 노드들의 z-order
+local ZORDER = 
+{
+	BACK_PLATE = 1,
+	FOCUS_EFFECT = 2,
+	DRAGON_CARD = 3,
+}
+
+local DC_POS_Y = 50
+local DC_SCALE = 0.7
+local DC_SCALE_PICK = 0.5
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -40,6 +54,16 @@ end
 -------------------------------------
 function UI_ColosseumReadyScene_Deck:init_button()
     local vars = self.m_uiReadyScene.vars
+
+	for i=1, TOTAL_POS_CNT do
+        local btn_name = 'chBtn' .. string.format('%.2d', i)
+        if vars[btn_name] then
+            vars[btn_name]:registerScriptTapHandler(function() self:click_chBtn(i) end)
+            vars[btn_name]:setEnabled(false) -- 드래그로 개편
+        end
+
+		vars['chNode'..i]:setLocalZOrder(ZORDER.BACK_PLATE)
+    end
 
     -- 진형 선택 버튼
     local radio_button = UIC_RadioButton()
@@ -95,13 +119,13 @@ end
 -------------------------------------
 function UI_ColosseumReadyScene_Deck:refreshFocusDeckSlot()
     local count = table.count(self.m_tDeckMap)
-    if (count >= 5) then
+    if (count >= TOTAL_POS_CNT) then
         return
     end
 
     -- 가장 빠른 slot으로 설정
     local idx = 1
-    for i=1, 9 do
+    for i=1, TOTAL_POS_CNT do
         if (not self.m_lDeckList[i]) then
             idx = i
             break
@@ -126,9 +150,7 @@ function UI_ColosseumReadyScene_Deck:setFocusDeckSlotEffect(idx)
     effect:removeFromParent()
 
     local node_name = 'positionNode' .. idx
-    vars[node_name]:addChild(effect, 2)
-	-- @TODO 수정 필요
-	vars['chNode' .. idx]:setLocalZOrder(0)
+    vars[node_name]:addChild(effect, ZORDER.FOCUS_EFFECT)
     effect:release()
 
     effect:stopAllActions()
@@ -209,7 +231,7 @@ function UI_ColosseumReadyScene_Deck:convertSimpleDeck(l_deck)
     -- 변경이 필요한지 체크
     local need_convert = false
     for idx, doid in pairs(l_deck) do
-        if (tonumber(idx) > 5) then
+        if (tonumber(idx) > TOTAL_POS_CNT) then
             need_convert = true
             break
         end
@@ -249,15 +271,20 @@ function UI_ColosseumReadyScene_Deck:makeSettedDragonCard(t_dragon_data, idx)
     local vars = self.m_uiReadyScene.vars
 
     local ui = UI_DragonCard(t_dragon_data)
-    cca.uiReactionSlow(ui.root, 1, 1, 0.7)
+	ui.root:setPosition(0, DC_POS_Y)
+    cca.uiReactionSlow(ui.root, DC_SCALE, DC_SCALE, DC_SCALE_PICK)
     
     -- 설정된 드래곤 표시 없애기
     ui:setReadySpriteVisible(false)
 
-    vars['chNode' .. idx]:addChild(ui.root)
-	vars['chNode' .. idx]:setScale(0.7)
+    vars['positionNode' .. idx]:addChild(ui.root, ZORDER.DRAGON_CARD)
 
     self.m_lSettedDragonCard[idx] = ui
+
+	ui.vars['clickBtn']:setEnabled(false) -- 드래그로 개편
+    ui.vars['clickBtn']:registerScriptTapHandler(function()
+        self:click_dragonCard(t_dragon_data)
+    end)
 
     -- 장착된 드래곤
     self:refresh_dragonCard(t_dragon_data['id'])
@@ -285,7 +312,7 @@ function UI_ColosseumReadyScene_Deck:refresh_dragonCard(doid)
     if (not ui) then
         return
     end
-
+	
     cca.uiReactionSlow(ui.root, 0.7, 0.7, 0.7 * 0.7)
 
     if is_setted then
@@ -305,7 +332,7 @@ function UI_ColosseumReadyScene_Deck:setSlot(idx, doid, skip_sort)
         if self.m_lDeckList[idx] then
             count = (count - 1)
         end
-        if (count >= 5) then
+        if (count >= TOTAL_POS_CNT) then
             UIManager:toastNotificationRed('5명까지 출전할 수 있습니다.')
             return
         end
@@ -475,11 +502,11 @@ end
 function UI_ColosseumReadyScene_Deck:getRotatedPosList(formation)
 	local vars = self.m_uiReadyScene.vars
 
-	local length = 50
-    local min_x = -length * 3
-    local max_x = length * 3
-    local min_y = -length * 3
-    local max_y = length * 3
+	local length = 150
+    local min_x = -length
+    local max_x = length
+    local min_y = -length
+    local max_y = length
     local l_pos_list = TableFormation:getFormationPositionList(formation, min_x, max_x, min_y, max_y)
 
 	local ret_list = {}
@@ -566,22 +593,24 @@ end
 function UI_ColosseumReadyScene_Deck:onTouchBegan(touch, event)
     local vars = self.m_uiReadyScene.vars
     local location = touch:getLocation()
-
-    -- 진형을 설정하는 영역을 벗어났는지 체크
+    
+	-- 진형을 설정하는 영역을 벗어났는지 체크
     local bounding_box = vars['formationNode']:getBoundingBox()
-    local local_location = vars['formationNode']:getParent():convertToNodeSpace(location)
-    local is_contain = cc.rectContainsPoint(bounding_box, local_location)
+    local is_contain = cc.rectContainsPoint(bounding_box, location)
     if (not is_contain) then
         return false
     end
 
     -- 버튼 체크
-    local select_idx = nil
-    for i=1, 5 do
-        local btn_name = 'chNode' .. string.format('%d', i)
-        local btn_bounding_box = vars[btn_name]:getBoundingBox()
+    local local_location = vars['formationNode']:convertToNodeSpace(location)
+	
+	-- @TODO 보정을 해줘야한다... 왜지!
+	local_location = { x = local_location['x'] - 350, y = local_location['y'] - 200}
 
-        local local_location = vars['formationNode']:convertToNodeSpace(location)
+	local select_idx = nil
+    for i=1, TOTAL_POS_CNT do
+        local btn_name = 'positionNode' .. string.format('%d', i)
+        local btn_bounding_box = vars[btn_name]:getBoundingBox()
         local is_contain = cc.rectContainsPoint(btn_bounding_box, local_location)
 
         if (is_contain == true) then
@@ -606,7 +635,7 @@ function UI_ColosseumReadyScene_Deck:onTouchBegan(touch, event)
         self.m_selectedDragonCard = self.m_lSettedDragonCard[select_idx]
 
         local node = self.m_selectedDragonCard.root
-        node:setScale(0.7)
+        node:setScale(DC_SCALE_PICK)
 
         local local_pos = convertToAnoterParentSpace(node, vars['formationNode'])
         node:setPosition(local_pos['x'], local_pos['y'])
@@ -651,17 +680,17 @@ function UI_ColosseumReadyScene_Deck:onTouchEnded(touch, event)
         return false
     end
 
-
     -- 가장 가까운 버튼 찾기
     local near_idx = nil
     local near_distance = nil
     local local_location = convertToNodeSpace(vars['formationNode'], location)
-    for i=1, 5 do
-        local btn_name = 'chNode' .. string.format('%d', i)
+    for i=1, TOTAL_POS_CNT do
+        local btn_name = 'positionNode' .. string.format('%d', i)
         local slot_pos_x, slot_pos_y = vars[btn_name]:getPosition()
 
         local distance = getDistance(slot_pos_x, slot_pos_y, local_location['x'], local_location['y'])
 
+		-- 제일 가까운 것을 찾는다
         if (near_distance == nil) or (distance < near_distance) then
             near_distance = distance
             near_idx = i
@@ -671,13 +700,13 @@ function UI_ColosseumReadyScene_Deck:onTouchEnded(touch, event)
     -- 같은 자리일 경우
     if (near_idx == self.m_selectedDragonSlotIdx) then
         local node = self.m_selectedDragonCard.root
-        node:setScale(1)
-        node:setPosition(0, 0)
+        node:setScale(DC_SCALE)
+        node:setPosition(0, DC_POS_Y)
 
         -- root로 옮김
         node:retain()
         node:removeFromParent()
-        vars['chNode' .. near_idx]:addChild(node)
+        vars['positionNode' .. near_idx]:addChild(node)
         node:release()
 
         self:setFocusDeckSlotEffect(self.m_selectedDragonSlotIdx)
