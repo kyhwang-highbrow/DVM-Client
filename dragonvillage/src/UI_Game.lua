@@ -263,10 +263,10 @@ end
 -------------------------------------
 -- function init_timeUI
 -------------------------------------
-function UI_Game:init_timeUI(time)
+function UI_Game:init_timeUI(display_wave, time)
     local vars = self.vars
 
-    vars['waveVisual']:setVisible(false)
+    vars['waveVisual']:setVisible(display_wave)
     vars['timeNode']:setVisible(true)
 
     -- 시간 이미지 폰트 생성
@@ -300,7 +300,7 @@ end
 -------------------------------------
 -- function setTime
 -------------------------------------
-function UI_Game:setTime(sec)
+function UI_Game:setTime(sec, is_limit)
     local vars = self.vars
 
     local m = math_floor(sec / 60)
@@ -309,12 +309,16 @@ function UI_Game:setTime(sec)
 
     vars['timeLabel']:setString(str)
 
-    -- 20초이하인 경우 붉은색으로 색상 변경
-    if (sec <= 20) then
-        vars['timeLabel']:setColor(cc.c3b(255, 0, 0))
-    else
-        vars['timeLabel']:setColor(cc.c3b(0, 255, 0))
-    end
+	-- 제한시간이 있는 경우에 색상 부여
+	if (is_limit) then
+		-- 20초이하인 경우 붉은색으로 색상 변경
+		if (sec <= 20) then
+			vars['timeLabel']:setColor(cc.c3b(255, 0, 0))
+		-- 이상은 초록색
+		else
+			vars['timeLabel']:setColor(cc.c3b(0, 255, 0))
+		end
+	end
 end
 
 -------------------------------------

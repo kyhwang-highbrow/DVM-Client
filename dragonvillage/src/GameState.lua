@@ -137,7 +137,13 @@ function GameState:update(dt)
                 self:processTimeOut()
             end
 
-            self.m_world.m_inGameUI:setTime(self.m_limitTime - self.m_fightTimer)
+			local is_limit = true
+            self.m_world.m_inGameUI:setTime(self.m_limitTime - self.m_fightTimer, is_limit)
+		
+		-- 제한시간이 없을 경우 플레이 시간 표시
+		else
+			local is_limit = false
+			self.m_world.m_inGameUI:setTime(self.m_fightTimer, is_limit)
         end
     end
 
