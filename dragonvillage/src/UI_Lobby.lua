@@ -176,6 +176,7 @@ end
 
 -------------------------------------
 -- function refresh_lobbyUsers
+-- @breif 로비맵에 있는 모든 테이머를 삭제 후 새로 생성
 -------------------------------------
 function UI_Lobby:refresh_lobbyUsers()
     self.m_lobbyMap:clearAllUser()
@@ -194,6 +195,14 @@ function UI_Lobby:refresh_lobbyUsers()
     end
 
     self.m_lobbyUserFirstMake = true
+end
+
+-------------------------------------
+-- function refresh_userTamer
+-- @breif 유저의 로비맵 테이머를 갱신한다
+-------------------------------------
+function UI_Lobby:refresh_userTamer()
+    self.m_lobbyMap:refreshLobbyTamerUser()
 end
 
 -------------------------------------
@@ -526,8 +535,18 @@ end
 -- function click_tamerBtn
 -------------------------------------
 function UI_Lobby:click_tamerBtn()
+	local before_tamer = g_userData:getTamerInfo('type')
+
+	local function close_cb()
+		local curr_tamer = g_userData:getTamerInfo('type')
+
+		if (before_tamer ~= curr_tamer) then
+			self:refresh_userTamer()
+		end
+	end
+
     local ui = UI_TamerInfoPopup()
-	ui:setCloseCB(function() self:refresh_lobbyUsers() end)
+	ui:setCloseCB(close_cb)
 end
 
 -------------------------------------

@@ -170,15 +170,20 @@ end
 -------------------------------------
 -- function getTamerInfo
 -- @brief 테이머 정보
+-- @param key - 있으면 해당 필드의 값을 반환하고 없다면 전체 테이블 반환
 -------------------------------------
-function ServerData_User:getTamerInfo()
+function ServerData_User:getTamerInfo(key)
 	local tamer_idx = self:getRef('tamer')
 	if (tamer_idx == 0) then
 		tamer_idx = TAMER_VALUE + 1
 	end
 
 	local t_tamer = TableTamer():get(tamer_idx)
-    return t_tamer
+	if (key) then
+		return t_tamer[key]
+	else
+		return t_tamer
+	end
 end
 
 -------------------------------------

@@ -19,6 +19,7 @@ LobbyMap = class(PARENT, {
         m_lobbyIndicator = 'Animator',
         m_lLobbyTamer = 'list',
         m_lLobbyTamerBotOnly = 'list',
+		m_lobbyTamerUser = 'Tamer',
 
         -- 유저 주변의 테이머 갱신을 위한 변수들
         m_bUserPosDirty = 'bool',
@@ -362,11 +363,14 @@ function LobbyMap:makeLobbyTamerBot(t_user_info)
     local lobby_ground = self.m_groudNode
     local uid = g_serverData:get('local', 'uid')
     local is_bot = (tostring(uid) ~= t_user_info['uid'])
-
+	
     local sum_random = SumRandom()
     sum_random:addItem(1, 'res/character/tamer/dede/dede.spine')
     sum_random:addItem(1, 'res/character/tamer/goni/goni.spine')
 	sum_random:addItem(1, 'res/character/tamer/nuri/nuri.spine')
+	sum_random:addItem(1, 'res/character/tamer/kesath/kesath.spine')
+	sum_random:addItem(1, 'res/character/tamer/durun/durun.spine')
+	sum_random:addItem(1, 'res/character/tamer/mokoji/mokoji.spine')
     local res = sum_random:getRandomValue()
 
     local tamer
@@ -374,8 +378,7 @@ function LobbyMap:makeLobbyTamerBot(t_user_info)
         tamer = LobbyTamerBot(t_user_info)
     else
         tamer = LobbyTamer(t_user_info)
-		t_tamer_info = g_userData:getTamerInfo()
-        res = t_tamer_info['res_sd']
+        res = g_userData:getTamerInfo('res_sd')
     end
 
 	tamer:initAnimator(res)
@@ -420,6 +423,8 @@ function LobbyMap:addLobbyTamer(tamer, is_bot, t_user_info)
 
     if (is_bot) then
         table.insert(self.m_lLobbyTamerBotOnly, tamer)
+	else
+		self.m_lobbyTamerUser = tamer
     end
 
     do -- 그림자 생성
@@ -767,4 +772,13 @@ function LobbyMap:clearAllUser()
     self.m_bUserPosDirty = true
     self.m_lChangedPosTamers = {}
     self.m_lNearUserList = {}
+end
+
+-------------------------------------
+-- function refreshLobbyTamerUser
+-------------------------------------
+function LobbyMap:refreshLobbyTamerUser()
+	local lobby_tamer = self.m_lobbyTamerUser
+	local res = g_userData:getTamerInfo('res_sd')
+	lobby_tamer:initAnimator(res)
 end
