@@ -139,7 +139,7 @@
 						type = 'Scale9Sprite';
 						ui_name = '';
 						x = 0.000000;
-						y = -35.000000;
+						y = -31.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -205,7 +205,7 @@
 						type = 'LabelTTF';
 						ui_name = '';
 						x = -11.000000;
-						y = -34.000000;
+						y = -30.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -245,7 +245,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 27.000000;
-						y = -35.000000;
+						y = -31.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -283,8 +283,8 @@
 					visible = true;
 					lua_name = 'trainButtonB';
 					enable = true;
-					normal = 'ui/btn/sub_0101.png';
-					selected = 'ui/btn/sub_0102.png';
+					normal = 'ui/btn/base_btn_0101.png';
+					selected = 'ui/btn/base_btn_0102.png';
 					disable = '';
 					image_type = 1;
 				};
@@ -313,7 +313,7 @@
 						text = '보상\n받기';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 255; 215; 0; };
+						color = { 255; 255; 255; };
 						opacity = 255;
 						dimension_width = 94;
 						dimension_height = 90;
@@ -347,8 +347,8 @@
 					visible = false;
 					lua_name = 'rewardBtnB';
 					enable = true;
-					normal = 'ui/btn/sub_0103.png';
-					selected = 'ui/btn/sub_0104.png';
+					normal = 'ui/btn/base_btn_0103.png';
+					selected = 'ui/btn/base_btn_0102.png';
 					disable = '';
 					image_type = 1;
 				};
@@ -554,7 +554,7 @@
 						type = 'Scale9Sprite';
 						ui_name = '';
 						x = 0.000000;
-						y = -35.000000;
+						y = -31.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -620,7 +620,7 @@
 						type = 'LabelTTF';
 						ui_name = '';
 						x = -11.000000;
-						y = -34.000000;
+						y = -30.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -660,7 +660,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 27.000000;
-						y = -35.000000;
+						y = -31.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -698,8 +698,8 @@
 					visible = true;
 					lua_name = 'trainButtonA';
 					enable = true;
-					normal = 'ui/btn/sub_0101.png';
-					selected = 'ui/btn/sub_0102.png';
+					normal = 'ui/btn/base_btn_0101.png';
+					selected = 'ui/btn/base_btn_0102.png';
 					disable = '';
 					image_type = 1;
 				};
@@ -728,7 +728,7 @@
 						text = '보상\n받기';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 255; 215; 0; };
+						color = { 255; 255; 255; };
 						opacity = 255;
 						dimension_width = 94;
 						dimension_height = 90;
@@ -762,8 +762,8 @@
 					visible = false;
 					lua_name = 'rewardBtnA';
 					enable = true;
-					normal = 'ui/btn/sub_0103.png';
-					selected = 'ui/btn/sub_0104.png';
+					normal = 'ui/btn/base_btn_0103.png';
+					selected = 'ui/btn/base_btn_0102.png';
 					disable = '';
 					image_type = 1;
 				};

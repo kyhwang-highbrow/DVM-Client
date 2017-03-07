@@ -3560,7 +3560,7 @@
 			file_name = 'ui/a2d/friendship/friendship.a2d';
 			auto_play = false;
 			is_repeat = false;
-			visual_id = 'tutorial;drag';
+			visual_id = 'group;friendship_up_disappear';
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
