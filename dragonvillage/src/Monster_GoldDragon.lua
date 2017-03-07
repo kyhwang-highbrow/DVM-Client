@@ -15,6 +15,26 @@ function Monster_GoldDragon:init(file_name, body, ...)
 end
 
 -------------------------------------
+-- function releaseAnimator
+-------------------------------------
+function Monster_GoldDragon:releaseAnimator()
+    -- Animator 삭제
+    if self.m_animator then
+        if self.m_animator.m_node then
+            self.m_animator.m_node:retain()
+            self.m_animator.m_node:removeFromParent(true)
+            --self.m_animator.m_node = nil
+
+            self.m_animator.m_node:setDockPoint(cc.p(0.0, 0.5))
+			self.m_animator.m_node:setAnchorPoint(cc.p(0.0, 0.5))
+
+            self.m_world.m_bgNode:addChild(self.m_animator.m_node)
+        end
+        self.m_animator = nil
+    end
+end
+
+-------------------------------------
 -- function initState
 -------------------------------------
 function Monster_GoldDragon:initState()

@@ -997,7 +997,7 @@ function GameWorld:onKeyReleased(keyCode, event)
             dragon:updateActiveSkillCoolTime(100)
         end
         if (self.m_gameTamer) then
-            self.m_gameTamer:resetCoolTime()
+            self.m_gameTamer:resetActiveSkillCoolTime()
         end
 
 	-- 미션 성공

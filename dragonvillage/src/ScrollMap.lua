@@ -54,7 +54,6 @@ function ScrollMap:bindEventDispatcher(eventDispather)
     eventDispather:addListener('nest_dragon_final_wave', self)
     eventDispather:addListener('nest_tree_appear', self)
     eventDispather:addListener('nest_tree_die', self)
-    eventDispather:addListener('gold_boss_bg', self)
 end
 
 -------------------------------------
@@ -426,12 +425,5 @@ function ScrollMap:onEvent(event_name, t_event, ...)
                 ))
             end
         end
-
-    elseif (event_name == 'gold_boss_bg') then
-        -- 황금 마지막 웨이브 배경 전환 연출
-        for i, v in ipairs(self.m_tMapLayer) do
-            v:setVisible((v.m_group == 'gold_boss_bg'))
-        end
-
     end
 end

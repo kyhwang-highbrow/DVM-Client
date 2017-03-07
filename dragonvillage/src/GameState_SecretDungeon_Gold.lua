@@ -131,11 +131,6 @@ function GameState_SecretDungeon_Gold:doDirectionForIntermission()
         t_camera_info['pos_x'] = t_camera_info['pos_x'] * t_camera_info['scale']
 		t_camera_info['pos_y'] = t_camera_info['pos_y'] * t_camera_info['scale']
 		t_camera_info['time'] = getInGameConstant(WAVE_INTERMISSION_TIME)
-
-        -- 마지막 웨이브 시작 연출
-        if is_final_wave then
-            world:dispatch('gold_boss_bg')
-        end
     end
 
     -- 카메라 액션 설정
