@@ -746,6 +746,11 @@ end
 -- function clearAllUser
 -------------------------------------
 function LobbyMap:clearAllUser()
+    -- 드래곤 터치 이펙트 출력
+    self.m_dragonTouchIndicator.m_node:retain()
+    self.m_dragonTouchIndicator.m_node:removeFromParent()
+    self.m_rootNode:addChild(self.m_dragonTouchIndicator.m_node, 1)
+    self.m_dragonTouchIndicator.m_node:release()
 
     for i,v in ipairs(self.m_lLobbyTamer) do
         v:release()
@@ -762,10 +767,4 @@ function LobbyMap:clearAllUser()
     self.m_bUserPosDirty = true
     self.m_lChangedPosTamers = {}
     self.m_lNearUserList = {}
-
-    -- 드래곤 터치 이펙트 출력
-    self.m_dragonTouchIndicator.m_node:retain()
-    self.m_dragonTouchIndicator.m_node:removeFromParent()
-    self.m_rootNode:addChild(self.m_dragonTouchIndicator.m_node, 1)
-    self.m_dragonTouchIndicator.m_node:release()
 end
