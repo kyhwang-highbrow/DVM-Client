@@ -18,6 +18,8 @@ Animator = class({
         m_posY = 'number',
 
 		m_aniRepeatIdx = 'number',
+        m_timeScale = 'number', -- 0.0 ~ 1.0
+        m_bAnimationPause = 'boolean',
     })
 
 -------------------------------------
@@ -28,6 +30,8 @@ function Animator:init(file_name)
     self.m_resName = file_name
     self.m_bFlip = false
 	self.m_aniRepeatIdx = 1
+    self.m_timeScale = 1
+    self.m_bAnimationPause = false
 end
 
 -------------------------------------
@@ -186,13 +190,21 @@ end
 -- function setTimeScale
 -------------------------------------
 function Animator:setTimeScale(time_scale)
+    self.m_timeScale = time_scale
 end
 
 -------------------------------------
 -- function getTimeScale
 -------------------------------------
 function Animator:getTimeScale()
-    return 1
+    return self.m_timeScale
+end
+
+-------------------------------------
+-- function setAnimationPause
+-------------------------------------
+function Animator:setAnimationPause(pause)
+    self.m_bAnimationPause = pause
 end
 
 

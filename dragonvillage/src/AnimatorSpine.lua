@@ -196,20 +196,39 @@ end
 -- function setTimeScale
 -------------------------------------
 function AnimatorSpine:setTimeScale(time_scale)
+    self.m_timeScale = time_scale
+
     if (not self.m_node) then
         return false
     end
 
-    return self.m_node:setTimeScale(time_scale)
+    local ret
+    if pause then
+        ret = self.m_node:setTimeScale(0)
+    else
+        ret = self.m_node:setTimeScale(self.m_timeScale)
+    end
+
+    return ret
 end
 
 -------------------------------------
--- function getTimeScale
+-- function setAnimationPause
 -------------------------------------
-function AnimatorSpine:getTimeScale()
-    if (not self.m_node) then
-        return 1
+function AnimatorSpine:setAnimationPause(pause)
+    if (self.m_bAnimationPause == pause) then
+        return
     end
 
-    return self.m_node:getTimeScale()
+    self.m_bAnimationPause = pause
+
+    if (not self.m_node) then
+        return
+    end
+
+    if pause then
+        self.m_node:setTimeScale(0)
+    else
+        self.m_node:setTimeScale(self.m_timeScale)
+    end
 end
