@@ -4,6 +4,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -- class UI_EventPopup
 -------------------------------------
 UI_EventPopup = class(PARENT,{
+        m_tableView = 'UIC_TableView',
     })
 
 -------------------------------------
@@ -68,11 +69,13 @@ function UI_EventPopup:init_tableView()
     table_view.m_defaultCellSize = cc.size(250, 110 + 5)
     table_view:setCellUIClass(UI_EventPopupTabButton, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_item_list)
+
+    local make_item = true
+    table_view:setItemList(l_item_list, make_item)
     --table_view_td:makeDefaultEmptyDescLabel(Str(''))
 
-    -- 정렬
-    --self.m_tableView = table_view
+    
+    self.m_tableView = table_view
 end
 
 -------------------------------------
@@ -80,12 +83,22 @@ end
 -------------------------------------
 function UI_EventPopup:initTab()
     local vars = self.vars
-    --[[
-    self:addTab('hatch', vars['evolutionBtn1'])
-    self:addTab('hatchling', vars['evolutionBtn2'])
-    self:addTab('adult', vars['evolutionBtn3'])
-    self:setTab('adult')
-    --]]
+
+    local first = true
+    for i,v in ipairs(self.m_tableView.m_itemList) do
+        local type = v['data'].m_type
+        local ui = v['ui'] or v['generated_ui']
+
+        local continer_node = cc.Node:create()
+        vars['eventNode']:addChild(continer_node)
+
+        self:addTab(type, ui.vars['listBtn'], continer_node)
+
+        if first then
+            self:setTab(type)
+            first = false
+        end
+    end
 end
 
 -------------------------------------

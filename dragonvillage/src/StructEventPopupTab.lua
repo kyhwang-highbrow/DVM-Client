@@ -9,5 +9,6 @@ StructEventPopupTab = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function StructEventPopupTab:init()
+function StructEventPopupTab:init(type)
+    self.m_type = type
 end

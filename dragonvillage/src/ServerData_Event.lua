@@ -26,7 +26,7 @@ function ServerData_Event:getEventPopupTabList()
 
     table.insert(item_list, StructEventPopupTab('attendance_basic'))
     table.insert(item_list, StructEventPopupTab('attendance_event'))
-    table.insert(item_list, StructEventPopupTab('dragon_birthdy'))
+    table.insert(item_list, StructEventPopupTab('birthday_calendar'))
 
     return item_list
 end
