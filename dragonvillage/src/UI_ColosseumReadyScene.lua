@@ -116,8 +116,8 @@ function UI_ColosseumReadyScene:refresh_tamer()
 
     vars['tamerNode']:removeAllChildren()
 
-	local t_tamer = g_userData:getTamerInfo()
-    local animator = MakeAnimator(t_tamer['res_sd'])
+	local tamer_res = g_userData:getTamerInfo('res_sd')
+    local animator = MakeAnimator(tamer_res)
 	if (animator) then
 		animator:setDockPoint(0.5, 0.5)
 		animator:setAnchorPoint(0.5, 0.5)

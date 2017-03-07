@@ -48,7 +48,7 @@ function GameLogRecorder:recordStaticAllLog()
 	self.m_dragonCnt = #l_dragon
 	
 	-- 사용한 테이머 (영문)
-	self.m_usedTamer = g_userData:getTamerInfo()['tid']
+	self.m_usedTamer = g_userData:getTamerInfo('tid')
 	
 	-- 사용한 진형
 	self.m_usedFormation = world.m_deckFormation

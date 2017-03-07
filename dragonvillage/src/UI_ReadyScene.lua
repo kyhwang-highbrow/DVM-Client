@@ -169,8 +169,8 @@ function UI_ReadyScene:refresh_tamer()
 
     vars['tamerNode']:removeAllChildren()
 
-	local t_tamer = g_userData:getTamerInfo()
-    local icon = cc.Sprite:create(t_tamer['res_icon'])
+	local tamer_res = g_userData:getTamerInfo('res_icon')
+    local icon = cc.Sprite:create(tamer_res)
 	if (icon) then
 		icon:setDockPoint(cc.p(0.5, 0.5))
 		icon:setAnchorPoint(cc.p(0.5, 0.5))
