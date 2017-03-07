@@ -561,6 +561,7 @@ function GameWorld:update(dt)
     if self.m_physWorld then
         self.m_physWorld:update(dt)
     end
+
     self:updateUnit(dt)
 
     if self.m_mapManager then
@@ -741,6 +742,7 @@ function GameWorld:addEnemy(enemy)
     enemy:addListener('character_casting_cancel', self.m_gameFever)
 
     if (enemy.m_charType == 'dragon') then
+        enemy:addListener('dragon_skill', self.m_gameDragonSkill)
         enemy:addListener('enemy_active_skill', self.m_gameState)
         enemy:addListener('enemy_active_skill', self.m_gameAutoHero)
     end
@@ -1667,4 +1669,47 @@ function GameWorld:removeMissileAndSkill()
 	for _, missile in pairs(self.m_lMissileList) do
 		missile:changeState('dying')
 	end
+end
+
+-------------------------------------
+-- function setTemporaryPause
+-- @brief 스킬 사용 도중 시전 드래곤을 제외하고 일시 정지
+-------------------------------------
+function GameWorld:setTemporaryPause(pause, excluded_dragon)
+    -- 일시 정지
+    if pause then
+        -- unit들 일시 정지
+        for i,v in pairs(self.m_lUnitList) do
+            v:setTemporaryPause(true)
+        end
+
+        -- 미사일들 액션 정지
+        local action_mgr = cc.Director:getInstance():getActionManager()
+        for i,v in pairs(self.m_lMissileList) do
+            action_mgr:pauseTarget(v.m_rootNode)
+        end
+
+        -- 스킬 사용 중인 드래곤은 일시 정지에서 제외 및 무적 상태
+        if excluded_dragon then
+            excluded_dragon:setTemporaryPause(false)
+            excluded_dragon.enable_body = false
+        end
+    -- 전투 재개
+    else
+        -- unit들 일시 정지 해제
+        for i,v in pairs(self.m_lUnitList) do
+            v:setTemporaryPause(false)
+        end
+
+        -- 미사일들 액션 재개
+        local action_mgr = cc.Director:getInstance():getActionManager()
+        for i,v in pairs(self.m_lMissileList) do
+            action_mgr:resumeTarget(v.m_rootNode)
+        end
+
+        -- 스킬 사용 중인 드래곤 무적 해제
+        if excluded_dragon then
+            excluded_dragon.enable_body = true
+        end
+    end
 end

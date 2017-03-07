@@ -80,59 +80,42 @@ end
 -- function update_live
 -------------------------------------
 function GameDragonSkill.update_live(self, dt)
+    local world = self.m_world
     local dragon = self.m_dragon
-    local timeScale = 0.1
+    local timeScale = 1
     local delayTime = 1
     
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
-            self.m_world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
-
-            -- 암전
-            self.m_world.m_gameHighlight:changeDarkLayerColor(254, 0.5)
-
-            -- 슬로우
-            self.m_world.m_gameTimeScale:set(timeScale)
-
+            -- 하이라이트 활성화
+            world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
+            world.m_gameHighlight:changeDarkLayerColor(254, 0.5)
+            world.m_gameHighlight:addChar(dragon)
+            
+            -- 일시 정지
+            world:setTemporaryPause(true, dragon)
+            
             -- 드래곤 승리 애니메이션
             dragon.m_animator:changeAni('pose_1', false)
 
             local duration = dragon:getAniDuration()
-            dragon.m_animator:setTimeScale(duration / (timeScale * delayTime))
-        
-            -- 카메라 줌인
-            --self.m_world.m_gameCamera:setTarget(dragon, {time = timeScale / 8})
+
+            -- delayTime 시간 동안 애니메이션 되도록 조정
+            dragon.m_animator:setTimeScale(duration / delayTime)
 
             -- 스킬 이름 및 설명 문구를 표시
             do
-                local active_skill_id = dragon:getSkillID('active')
-                local t_skill = TABLE:get('dragon_skill')[active_skill_id]
-
-                self.m_skillDescEffect.m_node:setFrame(0)
-                self.m_skillDescEffect:setVisible(true)
-                --self.m_skillDescEffect:setTimeScale(duration / (timeScale * delayTime))
-                self.m_skillDescEffect:setTimeScale(0.5 / timeScale)
-
-                self.m_skillNameLabel:setString(Str(t_skill['t_name']))
-                self.m_skillDescLabel:setString(IDragonSkillManager:getSkillDescPure(t_skill))
+                self:makeSkillDesc(dragon, delayTime)
             end
 
             -- 스킬 사용 직전 이펙트
             do
-                local attr = dragon:getAttribute()
-                local animator = MakeAnimator(string.format('res/effect/effect_skillcut_dragon/effect_skillcut_dragon_%s.vrp', attr))
-                animator:changeAni('idle', false)
-                animator:setPosition(0, 80)
-                g_gameScene.m_viewLayer:addChild(animator.m_node)
-
-                local duration = animator:getDuration() * delayTime
-                animator:setTimeScale(duration / (timeScale * delayTime))
-                animator:addAniHandler(function() animator:runAction(cc.RemoveSelf:create()) end)
+                self:makeSkillCutEffect(dragon, delayTime)
             end
 
             -- 컷씬
             do
-                self:makeDragonCut(dragon, timeScale, delayTime)
+                self:makeDragonCut(dragon, delayTime)
             end
 
             -- 효과음
@@ -141,34 +124,24 @@ function GameDragonSkill.update_live(self, dt)
             -- 음성
             playDragonVoice(dragon.m_charTable['type'])
         
-        elseif (self:isPassedStepTime(timeScale * delayTime)) then
+        elseif (self:isPassedStepTime(delayTime)) then
             self:nextStep()
 
         end
 
     elseif (self:getStep() == 1) then
         if (self:isBeginningStep()) then
-            
-            -- 기본 속도로 되돌림
-            self.m_world.m_gameTimeScale:set(1)
-            self.m_skillDescEffect:setTimeScale(0.5)
-
-            -- 드래곤 스킬 애니메이션
+            -- 드래곤 스킬 애니메이션 시작
             dragon:changeState('skillIdle')
-            dragon.m_animator:setTimeScale(1)
-
-            -- 카메라 줌아웃
-            --self.m_world.m_gameCamera:reset()
-
-            -- 스킬 시전 드래곤을 제외한 게임 오브젝트 일시 정지
-            self:setTemporaryPause(true, dragon)
 
         elseif (self:isPassedStepTime(2)) then
-            self.m_world.m_gameHighlight:changeDarkLayerColor(0, 1)
+            -- 암전 해제
+            world.m_gameHighlight:changeDarkLayerColor(0, 1)
 
         elseif (self:isPassedStepTime(2.7)) then
-            self.m_world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_HIDE)
-            self.m_world.m_gameHighlight:clear()
+            -- 하이라이트 비활성화
+            world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_HIDE)
+            world.m_gameHighlight:clear()
 
         elseif (self:isPassedStepTime(3)) then
             self.m_dragon = nil
@@ -176,67 +149,65 @@ function GameDragonSkill.update_live(self, dt)
             self:changeState(GAME_DRAGON_SKILL_WAIT)
 
             -- 스킬 시전 드래곤을 제외한 게임 오브젝트 resume
-            self:setTemporaryPause(false)
+            world:setTemporaryPause(false, dragon)
         end
     end
 end
 
 -------------------------------------
--- function setTemporaryPause
--- @brief 스킬 사용 도중 시전 드래곤을 제외하고 일시 정지
+-- function makeSkillCutEffect
 -------------------------------------
-function GameDragonSkill:setTemporaryPause(pause, excluded_dragon)
-    local world = self.m_world
+function GameDragonSkill:makeSkillCutEffect(dragon, delayTime)
+    local attr = dragon:getAttribute()
+    local animator = MakeAnimator(string.format('res/effect/effect_skillcut_dragon/effect_skillcut_dragon_%s.vrp', attr))
+    animator:changeAni('idle', false)
+    animator:setPosition(0, 80)
+    g_gameScene.m_viewLayer:addChild(animator.m_node)
 
-    -- 일시 정지
-    if pause then
-        -- unit들 일시 정지
-        for i,v in pairs(world.m_lUnitList) do
-            v:setTemporaryPause(true)
-        end
+    local duration = animator:getDuration()
+    animator:setTimeScale(duration / delayTime)
+    animator:addAniHandler(function() animator:runAction(cc.RemoveSelf:create()) end)
+end
 
-        -- 미사일들 액션 정지
-        local action_mgr = cc.Director:getInstance():getActionManager()
-        for i,v in pairs(world.m_lMissileList) do
-            action_mgr:pauseTarget(v.m_rootNode)
-        end
+-------------------------------------
+-- function makeSkillDesc
+-------------------------------------
+function GameDragonSkill:makeSkillDesc(dragon, delayTime)
+    local active_skill_id = dragon:getSkillID('active')
+    local t_skill = TABLE:get('dragon_skill')[active_skill_id]
 
-        -- 스킬 사용 중인 드래곤은 일시 정지에서 제외
-        if excluded_dragon then
-            excluded_dragon:setTemporaryPause(false)
-        end
-    -- 전투 재개
-    else
-        -- unit들 일시 정지 해제
-        for i,v in pairs(world.m_lUnitList) do
-            v:setTemporaryPause(false)
-        end
+    self.m_skillDescEffect.m_node:setFrame(0)
+    self.m_skillDescEffect:setVisible(true)
+    self.m_skillDescEffect:setTimeScale(0.5)
 
-        -- 미사일들 액션 재개
-        local action_mgr = cc.Director:getInstance():getActionManager()
-        for i,v in pairs(world.m_lMissileList) do
-            action_mgr:resumeTarget(v.m_rootNode)
-        end
-    end
+    self.m_skillNameLabel:setString(Str(t_skill['t_name']))
+    self.m_skillDescLabel:setString(IDragonSkillManager:getSkillDescPure(t_skill))
 end
 
 -------------------------------------
 -- function makeDragonCut
 -------------------------------------
-function GameDragonSkill:makeDragonCut(dragon, timeScale, delayTime)
+function GameDragonSkill:makeDragonCut(dragon, delayTime)
     local res_name = dragon.m_animator.m_resName
 
     local animator = MakeAnimator(res_name)
-    animator:changeAni('pose_1', false)
-    animator:setPosition(-300, -50)
+    animator:changeAni('skill_idle', false)
     g_gameScene.m_viewLayer:addChild(animator.m_node)
 
-    animator:setScale(1)
-    animator:runAction(cc.ScaleTo:create(timeScale, 1.5))
-
     local duration = animator:getDuration() * delayTime
-    animator:setTimeScale(duration / (timeScale * delayTime))
+    animator:setTimeScale(duration / delayTime)
     animator:addAniHandler(function() animator:runAction(cc.RemoveSelf:create()) end)
+
+    local bFlip = dragon.m_animator.m_bFlip
+    if (bFlip) then
+        animator:setPosition(300, -50)
+        animator:setScale(1.5)
+        animator:setFlip(true)
+    else
+        animator:setPosition(-300, -50)
+        animator:setScale(1)
+        animator:runAction(cc.ScaleTo:create(delayTime, 1.5))
+    end
 end
 
 -------------------------------------

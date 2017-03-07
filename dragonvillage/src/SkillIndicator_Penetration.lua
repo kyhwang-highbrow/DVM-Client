@@ -98,8 +98,7 @@ function SkillIndicator_Penetration:initIndicatorNode()
         local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
 		indicator.m_node:setScale(self.m_indicatorScale, 2.5)
 		indicator.m_node:setColor(COLOR_CYAN)
-		indicator:setTimeScale(5)
-        root_node:addChild(indicator.m_node)
+		root_node:addChild(indicator.m_node)
 		
 		table.insert(self.m_lIndicatorEffectList, indicator)
     end
@@ -107,7 +106,6 @@ function SkillIndicator_Penetration:initIndicatorNode()
 	-- 겹치는 부분 가리는 추가 인디케이터
 	do
         local indicator = MakeAnimator(RES_INDICATOR['RANGE'])
-        indicator:setTimeScale(5)
         indicator:setScale(0.1)
         indicator:changeAni('skill_range_normal', true)
         root_node:addChild(indicator.m_node)
@@ -117,7 +115,6 @@ function SkillIndicator_Penetration:initIndicatorNode()
 	-- @TEST 좌표 확인용
     for i = 1, self.m_skillLineNum do
         local indicator = MakeAnimator(RES_INDICATOR['RANGE'])
-        indicator:setTimeScale(5)
         indicator:setScale(0.1)
         indicator:changeAni('skill_range_normal', true)
 		root_node:addChild(indicator.m_node)
@@ -132,8 +129,7 @@ end
 -- function onEnterAppear
 -------------------------------------
 function SkillIndicator_Penetration:onEnterAppear()
-    self.m_hero.m_animator:setTimeScale(5)
-	for _, indicator in pairs(self.m_lIndicatorEffectList) do
+    for _, indicator in pairs(self.m_lIndicatorEffectList) do
 		indicator:changeAni('appear')
 		indicator:addAniHandler(function()
 			indicator:changeAni('idle', true)

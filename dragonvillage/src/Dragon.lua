@@ -241,11 +241,14 @@ function Dragon.st_skillAppear(owner, dt)
 		end
 
         -- 이벤트
+        --[[
         if (owner.m_bLeftFormation) then
             owner:dispatch('dragon_skill', {}, owner)
         else
             owner:changeState('skillIdle')
         end
+        ]]--
+        owner:dispatch('dragon_skill', {}, owner)
     end
 end
 
@@ -290,10 +293,10 @@ function Dragon.st_skillIdle(owner, dt)
             local active_skill_id = owner:getSkillID('active')
             local indicatorData
             
-            if (owner.m_bLeftFormation) then
+            --if (owner.m_bLeftFormation) then
                 indicatorData = owner.m_skillIndicator:getIndicatorData()
                 indicatorData['highlight'] = true
-            end
+            --end
 
             owner:doSkill(active_skill_id, x, y, indicatorData)
             owner.m_animator:setEventHandler(nil)
@@ -356,7 +359,8 @@ function Dragon.st_skillIdle(owner, dt)
     elseif (owner.m_aiParamNum and (owner.m_stateTimer >= owner.m_aiParamNum)) then
         if (owner.m_bFinishAttack) then
             if (owner.m_state ~= 'delegate') then
-                owner:changeState('skillDisappear')
+                --owner:changeState('skillDisappear')
+                owner:changeState('attackDelay')
             end
         end
     end
@@ -850,7 +854,7 @@ function Dragon:makeSkillPrepareEffect()
     self.m_skillPrepareEffect:changeAni('start_' .. attr, true)
     self.m_rootNode:addChild(self.m_skillPrepareEffect.m_node)
 
-    self.m_skillPrepareEffect.m_node:setTimeScale(10)
+    --self.m_skillPrepareEffect.m_node:setTimeScale(10)
 end
 
 -------------------------------------

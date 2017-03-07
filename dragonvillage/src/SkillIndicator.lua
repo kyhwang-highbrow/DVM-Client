@@ -202,8 +202,7 @@ end
 -- function onEnterAppear
 -------------------------------------
 function SkillIndicator:onEnterAppear()
-    self.m_hero.m_animator:setTimeScale(5)
-	self.m_indicatorEffect:changeAni('appear')
+    self.m_indicatorEffect:changeAni('appear')
 	self.m_indicatorEffect:addAniHandler(function()
 		self.m_indicatorEffect:changeAni('idle', true)
 	end)
@@ -324,8 +323,7 @@ function SkillIndicator:makeTargetEffect(target_char, ani_name1, ani_name2)
     local indicator = MakeAnimator(RES_INDICATOR['EFFECT'])
     indicator:changeAni(ani_name1 or 'appear', false)
     indicator:addAniHandler(function() indicator:changeAni(ani_name2 or 'idle', true) end)
-    indicator:setTimeScale(5)
-	indicator:setScale(0.1)
+    indicator:setScale(0.1)
 	indicator:runAction(cc.ScaleTo:create(0.02, 1)) -- timescale 주의
 
     target_char:setTargetEffect(indicator)
@@ -355,7 +353,6 @@ function SkillIndicator:makeAttributeEffect(target_char, indicator)
     if aniName then
         attrCounterNoti = MakeAnimator('res/ui/a2d/ingame_enemy/ingame_enemy.vrp')
         attrCounterNoti:setPosition(0, 50)
-        attrCounterNoti:setTimeScale(10)
         attrCounterNoti:setVisual('attr', aniName)
 
         indicator.m_node:addChild(attrCounterNoti.m_node)

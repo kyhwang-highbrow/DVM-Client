@@ -118,6 +118,7 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
         SoundMgr:playEffect('EFFECT', 'skill_touch')
         self:setSelectHero(select_hero)
         
+        self.m_world:setTemporaryPause(true, select_hero)
         self.m_world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
         self.m_world.m_gameHighlight:changeDarkLayerColor(DARK_LAYER_OPACITY, SKILL_INDICATOR_FADE_OUT_DURATION)
 
@@ -150,7 +151,8 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
         local distance = getDistance(self.m_firstTouchPos['x'], self.m_firstTouchPos['y'], node_pos['x'], node_pos['y'])
         if (distance >= 50) then
             self.m_bSlowMode = true
-            self.m_world.m_gameTimeScale:set(SKILL_INDICATOR_SLOW)
+            --self.m_world.m_gameTimeScale:set(SKILL_INDICATOR_SLOW)
+            self.m_world:setTemporaryPause(true, self.m_selectHero)
             self.m_world.m_gameHighlight:changeDarkLayerColor(DARK_LAYER_OPACITY)
 
             self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)
@@ -196,9 +198,8 @@ function SkillIndicatorMgr:clear(bAll)
 
     if self.m_selectHero then
         self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
-        self.m_selectHero.m_animator:setTimeScale(1)
+        self.m_world:setTemporaryPause(false, self.m_selectHero)
         self:setSelectHero(nil)
-        self.m_world.m_gameTimeScale:reset()
         self.m_bSlowMode = false
     end
 
@@ -221,7 +222,8 @@ function SkillIndicatorMgr:update(dt)
             self.m_startTimer = self.m_startTimer + dt
             if (0.5 < self.m_startTimer) then
                 self.m_bSlowMode = true
-                self.m_world.m_gameTimeScale:set(SKILL_INDICATOR_SLOW)
+                --self.m_world.m_gameTimeScale:set(SKILL_INDICATOR_SLOW)
+                self.m_world:setTemporaryPause(true, self.m_selectHero)
                 self.m_world.m_gameHighlight:changeDarkLayerColor(DARK_LAYER_OPACITY)
 
                 self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)

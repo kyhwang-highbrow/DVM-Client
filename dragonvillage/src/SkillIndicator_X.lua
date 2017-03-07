@@ -52,15 +52,13 @@ function SkillIndicator_X:initIndicatorNode()
 
     do -- X
         local indicator = MakeAnimator(RES_INDICATOR['X'])
-        indicator:setTimeScale(5)
         root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator
     end
 
     do -- Cursor
         local indicator = MakeAnimator(RES_INDICATOR['X'])
-        indicator:setTimeScale(5)
-		indicator:changeAni('cursor', true)
+        indicator:changeAni('cursor', true)
         root_node:addChild(indicator.m_node)
         self.m_indicatorAddEffect = indicator
     end

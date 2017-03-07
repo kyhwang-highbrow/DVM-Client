@@ -56,7 +56,6 @@ function SkillIndicator_AoESquare_Height:initIndicatorNode()
 
     do -- 캐스팅 이펙트
         local indicator = MakeAnimator(RES_INDICATOR['HEALING_WIND'])
-        indicator:setTimeScale(5)
         root_node:addChild(indicator.m_node)
 		indicator.m_node:setColor(COLOR_CYAN)
         self.m_indicatorEffect = indicator
@@ -67,7 +66,6 @@ function SkillIndicator_AoESquare_Height:initIndicatorNode()
 
 	do -- 커서 이펙트
 		local indicator = MakeAnimator(RES_INDICATOR['HEALING_WIND'])
-		indicator:setTimeScale(5)
 		indicator:changeAni('cursor', true)
 		root_node:addChild(indicator.m_node)
 		self.m_indicatorAddEffect = indicator

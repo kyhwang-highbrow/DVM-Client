@@ -140,7 +140,6 @@ function SkillIndicator_LeafBlade:initIndicatorNode()
 
     do -- 교차점 이펙트
         local indicator = MakeAnimator(RES_INDICATOR['TARGET'])
-        indicator:setTimeScale(5)
         indicator:changeAni('enemy_start_idle', true)
         root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator

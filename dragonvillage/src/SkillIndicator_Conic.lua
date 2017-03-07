@@ -63,8 +63,7 @@ function SkillIndicator_Conic:initIndicatorNode()
         root_node:addChild(indicator.m_node)
 		indicator:setPosition(self:getAttackPosition())
 		indicator:setScale(self.m_indicatorScale)
-		indicator:setTimeScale(5)
-        self.m_indicatorEffect = indicator
+		self.m_indicatorEffect = indicator
 		return true
     end
 end

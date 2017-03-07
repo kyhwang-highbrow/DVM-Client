@@ -50,7 +50,6 @@ function SkillIndicator_StraightWidth:initIndicatorNode()
 
     do -- 캐스팅 이펙트
         local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT_WIDTH'])
-        indicator:setTimeScale(5)
         indicator:setRotation(0)
         root_node:addChild(indicator.m_node)
 		indicator.m_node:setColor(COLOR_CYAN)
@@ -63,8 +62,7 @@ function SkillIndicator_StraightWidth:initIndicatorNode()
 
 	do -- 커서 이펙트
 		local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT_WIDTH'])
-		indicator:setTimeScale(5)
-        indicator:setRotation(0)
+		indicator:setRotation(0)
 		indicator:changeAni('cursor', true)
 		root_node:addChild(indicator.m_node)
 		self.m_indicatorAddEffect = indicator

@@ -67,7 +67,6 @@ function SkillIndicator_AoERound:initIndicatorNode()
 
     do
         local indicator = MakeAnimator(RES_INDICATOR['RANGE'])
-        indicator:setTimeScale(5)
         indicator:setScale(self.m_indicatorScale)
         indicator:changeAni('skill_range_normal', false)
         root_node:addChild(indicator.m_node)

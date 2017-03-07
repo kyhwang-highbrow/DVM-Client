@@ -80,7 +80,6 @@ function SkillIndicator_Laser:initIndicatorNode()
 
     do
         local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
-        indicator:setTimeScale(5)
         indicator:setPosition(self.m_attackPosOffsetX, self.m_attackPosOffsetY)
         root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator
@@ -91,8 +90,7 @@ function SkillIndicator_Laser:initIndicatorNode()
 
     do
         local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
-        indicator:setTimeScale(5)
-		indicator:changeAni('cursor', true)
+        indicator:changeAni('cursor', true)
         root_node:addChild(indicator.m_node)
         self.m_indicatorAddEffect = indicator
     end
