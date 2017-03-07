@@ -682,14 +682,13 @@ function Dragon:initActiveSkillCoolTime(percentage)
     local table_skill = TABLE:get(self.m_charType .. '_skill')
     local t_skill = table_skill[active_skil_id]
 
+	-- 드래곤 스킬 쿨타임
     self.m_activeSkillCoolTime = tonumber(t_skill['cooldown'])
     
-    if (self.m_bLeftFormation) then
-        self.m_activeSkillTimer = 100
-    else
-        self.m_activeSkillTimer = self.m_activeSkillCoolTime / 100 * math_random(1, 100)
-    end
+	-- 스킬 쿨타임 타이머 초기화
+	self.m_activeSkillTimer = 0
 
+	-- 강제로 타이머 올리는 경우
     if (percentage) then
         self.m_activeSkillTimer = self.m_activeSkillCoolTime * percentage / 100
     end
