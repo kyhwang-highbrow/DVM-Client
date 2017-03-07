@@ -303,7 +303,9 @@ end
 -------------------------------------
 function GameWorld:buffActivateAtStartup()
     -- 테이머 버프
-    self.m_gameTamer:doSkillPassive()
+    if (self.m_gameTamer) then
+        self.m_gameTamer:doSkillPassive()
+    end
 
     -- 아군 버프
     for _, list in ipairs({self:getDragonList(), self:getEnemyList()}) do
