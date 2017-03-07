@@ -1130,7 +1130,7 @@ function GameWorld:onKeyReleased(keyCode, event)
     elseif (keyCode == KEY_D) then
         for i, v in ipairs(self:getEnemyList()) do
             if not v.m_bDead then
-                if isExistValue(v.m_charTable['rarity'], 'elite', 'subboss', 'boss') then
+                if v:isBoss() then
                     v:setDead()
                     v:setEnableBody(false)
                     v:changeState('dying')

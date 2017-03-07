@@ -621,10 +621,10 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 
     -- 죽음 체크
     if (self.m_hp <= 0) and (self.m_bDead == false) then
-		--[[@LOG
+		-- @LOG
 		if (self:isBoss()) then
-			owner.m_world.m_logRecorder:recordLog('finish_atk', t_info['attack_type'])
-		end]]
+			self.m_world.m_logRecorder:recordLog('finish_atk', t_info['attack_type'])
+		end
 
 		self:dispatch('dead', {}, self)
         self:setDead()
@@ -1589,10 +1589,8 @@ end
 -- @brief 피격 시 캐릭터 애니메이션
 -------------------------------------
 function Character:animatorHit(attacker, dir)
-    local rarity = self.m_charTable['rarity']
-       
     -- 경직
-    if rarity ~= 'boss' and rarity ~= 'subboss' and rarity ~= 'elite' then
+    if self:isBoss() then
         self:animatorKnockback(dir)
         self:setSpasticity(true)
 
@@ -1610,7 +1608,7 @@ function Character:animatorHit(attacker, dir)
     if target_node then
         local delay = 0.1
 
-        if rarity ~= 'boss' and rarity ~= 'subboss' and rarity ~= 'elite' then
+        if self:isBoss() then
             delay = 0.06
         end
 
@@ -1842,6 +1840,15 @@ end
 -------------------------------------
 function Character:isCasting()
     return (self.m_state == 'casting')
+end
+
+-------------------------------------
+-- function isBoss
+-- @brief boss, sub_boss, elite 체크
+-------------------------------------
+function Character:isBoss()
+	local rarity = self.m_charTable['rarity']
+    return isExistValue(rarity, 'elite', 'subboss', 'boss') 
 end
 
 -------------------------------------

@@ -159,7 +159,7 @@ function GameLogRecorder:getLog(key)
 	elseif (key == 'lap_time') then
 		return self.m_lapTime
 
-	elseif (key == 'finish_atk') then
+	elseif string.find(key, 'finish_') then
 		return self.m_bossFinishAtk
 	
 	elseif (key == 'clear_cnt') then

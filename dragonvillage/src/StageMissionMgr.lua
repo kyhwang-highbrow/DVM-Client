@@ -32,8 +32,8 @@ function StageMissionMgr:init_missionList(stage_id)
 	for i, mission in pairs(l_mission) do
 		self.m_lMissionList[i] = {
 			mission_key = mission[1], 
-			mission_value = tonumber(mission[2]), 
-			mission_value2 = tonumber(mission[3]), 
+			mission_value = tonumber(mission[2]) or mission[2], 
+			mission_value2 = tonumber(mission[3]) or mission[3], 
 			is_clear = stage_info['mission_' .. i]
 		}
 	end
@@ -55,18 +55,22 @@ function StageMissionMgr:checkMission()
 			local mission_value2 = t_mission['mission_value2']
 			local achieve_data = self.m_logRecorder:getLog(mission_key)
 
-			self:missionTemp(t_mission, mission_key, mission_value, mission_value2, achieve_data)
+			self:checkMissionCondition(t_mission, mission_key, mission_value, mission_value2, achieve_data)
 		end
 	end
 end
 
 -------------------------------------
--- function missionTemp
+-- function checkMissionCondition
 -------------------------------------
-function StageMissionMgr:missionTemp(t_mission, mission_key, mission_value, mission_value2, achieve_data)
+function StageMissionMgr:checkMissionCondition(t_mission, mission_key, mission_value, mission_value2, achieve_data)
+	if (not mission_key) then
+		return
+	end
+
 	-- 목표치 보다 적어야 하는 미션
 	if isExistValue(mission_key, 'lap_time', 'use_dragon_cnt', 'death_cnt') then
-		if (achieve_data < mission_value) then
+		if (achieve_data <= mission_value) then
 			t_mission['is_clear'] = true
 		end
 
@@ -84,6 +88,7 @@ function StageMissionMgr:missionTemp(t_mission, mission_key, mission_value, miss
 			
 	-- 값이 없어야 하는 미션 (테이블)
 	elseif isExistValue(mission_key, 'not_use_role') then
+		ccdump(achieve_data)
 		if not (achieve_data[mission_value]) then
 			t_mission['is_clear'] = true
 		end
@@ -91,7 +96,7 @@ function StageMissionMgr:missionTemp(t_mission, mission_key, mission_value, miss
 	-- value2를 사용하는 미션 (테이블)
 	elseif isExistValue(mission_key, 'attribute_cnt', 'evolution_state') then
 		if (achieve_data[mission_value]) then
-			if (achieve_data[mission_value] > mission_value2) then 
+			if (achieve_data[mission_value] >= mission_value2) then 
 				t_mission['is_clear'] = true
 			end
 		end
