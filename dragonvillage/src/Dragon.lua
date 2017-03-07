@@ -234,8 +234,10 @@ function Dragon.st_skillAppear(owner, dt)
         owner.m_bEnableSpasticity = false
 
 		-- @LOG
-		do
+		if (owner.m_bLeftFormation) then
 			owner.m_world.m_logRecorder:recordLog('use_skill', 1)
+		else
+			-- 적 드래곤 (pvp, 인연던전) 체크해야할 경우 추가
 		end
 
         -- 이벤트
@@ -422,9 +424,7 @@ function Dragon:release()
         if self.m_bLeftFormation then
             self.m_world:removeHero(self)
 			-- @LOG
-			do
-				self.m_world.m_logRecorder:recordLog('death_cnt', 1)
-			end
+			self.m_world.m_logRecorder:recordLog('death_cnt', 1)
         else
             self.m_world:removeEnemy(self)
         end
