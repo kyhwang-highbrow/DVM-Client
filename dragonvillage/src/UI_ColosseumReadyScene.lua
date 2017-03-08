@@ -121,8 +121,8 @@ function UI_ColosseumReadyScene:refresh_tamer()
 	if (animator) then
 		animator:setDockPoint(0.5, 0.5)
 		animator:setAnchorPoint(0.5, 0.5)
-		animator:setScale(2.5)
-		animator:setPosition(0, 250)
+		animator:setScale(2)
+		animator:setPosition(0, 50)
 		vars['tamerNode']:addChild(animator.m_node)
 	end
 end

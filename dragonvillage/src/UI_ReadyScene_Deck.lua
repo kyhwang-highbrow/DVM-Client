@@ -21,11 +21,29 @@ UI_ReadyScene_Deck = class({
         m_selectedDragonCard = 'UI_DragonCard',
     })
 
+local TOTAL_POS_CNT = 5
+
+-- positionNode에 붙어있는 노드들의 z-order
+local ZORDER = 
+{
+	BACK_PLATE = 1,
+	FOCUS_EFFECT = 2,
+	DRAGON_CARD = 3,
+}
+
+local DC_POS_Y = 50
+local DC_SCALE = 0.7
+local DC_SCALE_PICK = 0.5
+
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_ReadyScene_Deck:init(ui_ready_scene)
     self.m_uiReadyScene = ui_ready_scene
+
+	-- 진형 회전 효과를 위한 것
+	self.m_uiReadyScene.vars['formationNodeHelper']:setScaleY(0.7)
+	self.m_uiReadyScene.vars['formationNodeHelperXAxis']:setRotation3D(cc.Vertex3F(0, 0, 60))
 
     self:init_button()
     self:init_deck()
@@ -38,12 +56,8 @@ end
 function UI_ReadyScene_Deck:init_button()
     local vars = self.m_uiReadyScene.vars
 
-    for i=1, 9 do
-        local btn_name = 'chBtn' .. string.format('%.2d', i)
-        if vars[btn_name] then
-            vars[btn_name]:registerScriptTapHandler(function() self:click_chBtn(i) end)
-            vars[btn_name]:setEnabled(false) -- 드래그로 개편
-        end
+    for i=1, TOTAL_POS_CNT do
+		vars['chNode'..i]:setLocalZOrder(ZORDER.BACK_PLATE)
     end
 
     -- 진형 선택 버튼
@@ -53,13 +67,6 @@ function UI_ReadyScene_Deck:init_button()
     radio_button:addButton('balance', vars['bFomationBtn'], vars['bFomationUseSprite'], function() self:setFormation('balance') end)
     radio_button:addButton('defence', vars['cFomationBtn'], vars['cFomationUseSprite'], function() self:setFormation('defence') end)
     radio_button:addButton('protect', vars['dFomationBtn'], vars['dFomationUseSprite'], function() self:setFormation('protect') end)
-end
-
--------------------------------------
--- function click_chBtn
--------------------------------------
-function UI_ReadyScene_Deck:click_chBtn(idx)
-    self:setFocusDeckSlotEffect(idx)
 end
 
 -------------------------------------
@@ -85,9 +92,9 @@ end
 -------------------------------------
 function UI_ReadyScene_Deck:getFocusDeckSlotEffect()
     if (not self.m_focusDeckSlotEffect) then
-        self.m_focusDeckSlotEffect = cc.Sprite:create('res/ui/frame/dragon_select_frame.png')
-        self.m_focusDeckSlotEffect:setDockPoint(cc.p(0.5, 0.5))
-        self.m_focusDeckSlotEffect:setAnchorPoint(cc.p(0.5, 0.5))
+        self.m_focusDeckSlotEffect = cc.Sprite:create('res/ui/icon/ready_fomation_bg_select.png')
+        self.m_focusDeckSlotEffect:setDockPoint(CENTER_POINT)
+        self.m_focusDeckSlotEffect:setAnchorPoint(CENTER_POINT)
     end
 
     self.m_focusDeckSlotEffect:retain()
@@ -100,13 +107,13 @@ end
 -------------------------------------
 function UI_ReadyScene_Deck:refreshFocusDeckSlot()
     local count = table.count(self.m_tDeckMap)
-    if (count >= 5) then
+    if (count >= TOTAL_POS_CNT) then
         return
     end
 
     -- 가장 빠른 slot으로 설정
     local idx = 1
-    for i=1, 9 do
+    for i=1, TOTAL_POS_CNT do
         if (not self.m_lDeckList[i]) then
             idx = i
             break
@@ -130,8 +137,8 @@ function UI_ReadyScene_Deck:setFocusDeckSlotEffect(idx)
     local effect = self:getFocusDeckSlotEffect()
     effect:removeFromParent()
 
-    local node_name = 'chNode' .. idx
-    vars[node_name]:addChild(effect, 2)
+    local node_name = 'positionNode' .. idx
+    vars[node_name]:addChild(effect, ZORDER.FOCUS_EFFECT)
     effect:release()
 
     effect:stopAllActions()
@@ -212,7 +219,7 @@ function UI_ReadyScene_Deck:convertSimpleDeck(l_deck)
     -- 변경이 필요한지 체크
     local need_convert = false
     for idx, doid in pairs(l_deck) do
-        if (tonumber(idx) > 5) then
+        if (tonumber(idx) > TOTAL_POS_CNT) then
             need_convert = true
             break
         end
@@ -252,21 +259,18 @@ function UI_ReadyScene_Deck:makeSettedDragonCard(t_dragon_data, idx)
     local vars = self.m_uiReadyScene.vars
 
     local ui = UI_DragonCard(t_dragon_data)
-
-    cca.uiReactionSlow(ui.root, 1, 1, 0.7)
+	ui.root:setPosition(0, DC_POS_Y)
+    cca.uiReactionSlow(ui.root, DC_SCALE, DC_SCALE, DC_SCALE_PICK)
     
     
     -- 설정된 드래곤 표시 없애기
     ui:setReadySpriteVisible(false)
 
-    vars['chNode' .. idx]:addChild(ui.root)
+    vars['positionNode' .. idx]:addChild(ui.root, ZORDER.DRAGON_CARD)
 
     self.m_lSettedDragonCard[idx] = ui
 
     ui.vars['clickBtn']:setEnabled(false) -- 드래그로 개편
-    ui.vars['clickBtn']:registerScriptTapHandler(function()
-        self:click_dragonCard(t_dragon_data)
-    end)
 
     -- 장착된 드래곤
     self:refresh_dragonCard(t_dragon_data['id'])
@@ -314,7 +318,7 @@ function UI_ReadyScene_Deck:setSlot(idx, doid, skip_sort)
         if self.m_lDeckList[idx] then
             count = (count - 1)
         end
-        if (count >= 5) then
+        if (count >= TOTAL_POS_CNT) then
             UIManager:toastNotificationRed('5명까지 출전할 수 있습니다.')
             return
         end
@@ -362,7 +366,7 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
 
     local b_change = false
 
-    for i=1, 9 do
+    for i=1, TOTAL_POS_CNT do
         -- 기존 드래곤이 해제된 경우
         if (l_deck[i] and (not self.m_lDeckList[i])) then
             b_change = true
@@ -455,24 +459,65 @@ end
 function UI_ReadyScene_Deck:updateFormation(formation, immediately)
     local vars = self.m_uiReadyScene.vars
 
-    local min_x = -122
-    local max_x = 122
-    local min_y = -122
-    local max_y = 122
+    local l_pos_list = self:getRotatedPosList(formation)
+
+	-- 상태에 따라 즉시 이동 혹은 움직임 액션 추가
+	if immediately then
+		for i, node_space in ipairs(l_pos_list) do
+			vars['positionNode' .. i]:setPosition(node_space['x'], node_space['y'])
+			vars['positionNode' .. i]:setLocalZOrder(1000 - node_space['y'])
+		end
+	else
+		for i, node_space in ipairs(l_pos_list) do
+			local action = cca.makeBasicEaseMove(0.3, node_space['x'], node_space['y'])
+			cca.runAction(vars['positionNode' .. i], action, 100)
+			vars['positionNode' .. i]:setLocalZOrder(1000 - node_space['y'])
+		end
+	end
+
+	-- 위치 조정 @TODO 
+	vars['formationNode']:runAction(cc.MoveBy:create(0.1, cc.p(0, -50)))
+
+	self:updateFormationInfo(formation)
+end
+
+-------------------------------------
+-- function getRotatedPosList
+-- @brief 테이블을 통해 받은 좌표를 화면 축 회전에 의한 값으로 환산한다.
+-------------------------------------
+function UI_ReadyScene_Deck:getRotatedPosList(formation)
+	local vars = self.m_uiReadyScene.vars
+
+	local length = 150
+    local min_x = -length
+    local max_x = length
+    local min_y = -length
+    local max_y = length
     local l_pos_list = TableFormation:getFormationPositionList(formation, min_x, max_x, min_y, max_y)
 
-    local table_formation = TableFormation()
+	local ret_list = {}
 
-    if immediately then
-        for i,v in ipairs(l_pos_list) do
-            vars['chNode' .. i]:setPosition(v['x'], v['y'])
-        end
-    else
-        for i,v in ipairs(l_pos_list) do
-            local action = cca.makeBasicEaseMove(0.3, v['x'], v['y'])
-            cca.runAction(vars['chNode' .. i], action, 100)
-        end
-    end
+	for i, v in ipairs(l_pos_list) do
+		vars['posHelper' .. i]:setPosition(v['x'], v['y'])
+		local transform = vars['posHelper' .. i]:getNodeToWorldTransform();
+		local world_x = transform[12 + 1]
+		local world_y = transform[13 + 1]
+		local node_space = convertToNodeSpace(vars['formationNodeXAxis'], cc.p(world_x, world_y))
+
+		table.insert(ret_list, node_space)
+	end
+
+	return ret_list
+end
+
+-------------------------------------
+-- function updateFormationInfo
+-- @brief 진형 변경시 UI에 표시하는 텍스트 정보
+-------------------------------------
+function UI_ReadyScene_Deck:updateFormationInfo(formation)
+	local vars = self.m_uiReadyScene.vars
+
+    local table_formation = TableFormation()
 
     do -- 진형 아이콘
         local node = vars['fomationIconNode']
@@ -512,8 +557,6 @@ end
 
 
 
-
-
 -------------------------------------
 -- function makeTouchLayer
 -- @brief 터치 레이어 생성
@@ -546,12 +589,15 @@ function UI_ReadyScene_Deck:onTouchBegan(touch, event)
     end
 
     -- 버튼 체크
-    local select_idx = nil
-    for i=1, 5 do
-        local btn_name = 'chNode' .. string.format('%d', i)
-        local btn_bounding_box = vars[btn_name]:getBoundingBox()
+    local local_location = vars['formationNode']:convertToNodeSpace(location)
+	
+	-- @TODO 보정을 해줘야한다... 왜지!
+	local_location = { x = local_location['x'] - 350, y = local_location['y'] - 200}
 
-        local local_location = vars['formationNode']:convertToNodeSpace(location)
+    local select_idx = nil
+    for i=1, TOTAL_POS_CNT do
+        local btn_name = 'positionNode' .. string.format('%d', i)
+        local btn_bounding_box = vars[btn_name]:getBoundingBox()
         local is_contain = cc.rectContainsPoint(btn_bounding_box, local_location)
 
         if (is_contain == true) then
@@ -567,7 +613,6 @@ function UI_ReadyScene_Deck:onTouchBegan(touch, event)
 
     if (not self.m_lDeckList[select_idx]) then
         --cclog('비어있는 슬롯 ' .. select_idx)
-        self:click_chBtn(select_idx)
         return false
     end
 
@@ -626,8 +671,8 @@ function UI_ReadyScene_Deck:onTouchEnded(touch, event)
     local near_idx = nil
     local near_distance = nil
     local local_location = convertToNodeSpace(vars['formationNode'], location)
-    for i=1, 5 do
-        local btn_name = 'chNode' .. string.format('%d', i)
+    for i=1, TOTAL_POS_CNT do
+        local btn_name = 'positionNode' .. string.format('%d', i)
         local slot_pos_x, slot_pos_y = vars[btn_name]:getPosition()
 
         local distance = getDistance(slot_pos_x, slot_pos_y, local_location['x'], local_location['y'])
@@ -641,13 +686,13 @@ function UI_ReadyScene_Deck:onTouchEnded(touch, event)
     -- 같은 자리일 경우
     if (near_idx == self.m_selectedDragonSlotIdx) then
         local node = self.m_selectedDragonCard.root
-        node:setScale(1)
-        node:setPosition(0, 0)
+        node:setScale(DC_SCALE)
+        node:setPosition(0, DC_POS_Y)
 
         -- root로 옮김
         node:retain()
         node:removeFromParent()
-        vars['chNode' .. near_idx]:addChild(node)
+        vars['positionNode' .. near_idx]:addChild(node)
         node:release()
 
         self:setFocusDeckSlotEffect(self.m_selectedDragonSlotIdx)

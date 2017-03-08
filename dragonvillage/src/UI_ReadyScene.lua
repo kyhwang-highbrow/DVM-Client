@@ -169,12 +169,14 @@ function UI_ReadyScene:refresh_tamer()
 
     vars['tamerNode']:removeAllChildren()
 
-	local tamer_res = g_userData:getTamerInfo('res_icon')
-    local icon = cc.Sprite:create(tamer_res)
-	if (icon) then
-		icon:setDockPoint(cc.p(0.5, 0.5))
-		icon:setAnchorPoint(cc.p(0.5, 0.5))
-		vars['tamerNode']:addChild(icon)
+	local tamer_res = g_userData:getTamerInfo('res_sd')
+    local animator = MakeAnimator(tamer_res)
+	if (animator) then
+		animator:setDockPoint(0.5, 0.5)
+		animator:setAnchorPoint(0.5, 0.5)
+		animator:setScale(2)
+		animator:setPosition(0, 50)
+		vars['tamerNode']:addChild(animator.m_node)
 	end
 end
 
@@ -208,7 +210,7 @@ function UI_ReadyScene:init_dragonTableView()
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
     table_view_td.m_cellSize = cc.size(105, 105)
-    table_view_td.m_nItemPerCell = 5
+    table_view_td.m_nItemPerCell = 4
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
 
     -- 리스트 설정
@@ -468,7 +470,8 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadyScene:click_tamerBtn()
-    UI_TamerSelectPopup()
+    local ui = UI_TamerInfoPopup()
+	ui:setCloseCB(function() self:refresh_tamer() end)
 end
 
 
@@ -621,7 +624,7 @@ function UI_ReadyScene:initFormationUI()
     local pos_x, pos_y = self:getFormationUIPos()
     local node = self.vars['fomationSetmenu']
     local visibleSize = node:getContentSize()
-    node:setPositionX(pos_x + visibleSize['width'])
+    node:setPositionX(pos_x - visibleSize['width'])
     node:setVisible(false)
 end
 
@@ -653,7 +656,7 @@ function UI_ReadyScene:setFormationUIVisible(visible)
         cca.runAction(node, action, action_tag)
     else
         local visibleSize = node:getContentSize()
-        local action = cc.EaseInOut:create(cc.MoveTo:create(0.3, cc.p(pos_x + visibleSize['width'], pos_y)), 2)
+        local action = cc.EaseInOut:create(cc.MoveTo:create(0.3, cc.p(pos_x - visibleSize['width'], pos_y)), 2)
         action = cc.Sequence:create(action, cc.Hide:create())
         cca.runAction(node, action, action_tag)
     end

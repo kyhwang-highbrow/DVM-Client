@@ -40,6 +40,7 @@ local DC_SCALE_PICK = 0.5
 -------------------------------------
 function UI_ColosseumReadyScene_Deck:init(ui_ready_scene)
     self.m_uiReadyScene = ui_ready_scene
+
 	-- 진형 회전 효과를 위한 것
 	self.m_uiReadyScene.vars['formationNodeHelper']:setScaleY(0.7)
 	self.m_uiReadyScene.vars['formationNodeHelperXAxis']:setRotation3D(cc.Vertex3F(0, 0, 60))
@@ -56,12 +57,6 @@ function UI_ColosseumReadyScene_Deck:init_button()
     local vars = self.m_uiReadyScene.vars
 
 	for i=1, TOTAL_POS_CNT do
-        local btn_name = 'chBtn' .. string.format('%.2d', i)
-        if vars[btn_name] then
-            vars[btn_name]:registerScriptTapHandler(function() self:click_chBtn(i) end)
-            vars[btn_name]:setEnabled(false) -- 드래그로 개편
-        end
-
 		vars['chNode'..i]:setLocalZOrder(ZORDER.BACK_PLATE)
     end
 
@@ -105,8 +100,8 @@ end
 function UI_ColosseumReadyScene_Deck:getFocusDeckSlotEffect()
     if (not self.m_focusDeckSlotEffect) then
         self.m_focusDeckSlotEffect = cc.Sprite:create('res/ui/icon/ready_fomation_bg_select.png')
-        self.m_focusDeckSlotEffect:setDockPoint(cc.p(0.5, 0.5))
-        self.m_focusDeckSlotEffect:setAnchorPoint(cc.p(0.5, 0.5))
+        self.m_focusDeckSlotEffect:setDockPoint(CENTER_POINT)
+        self.m_focusDeckSlotEffect:setAnchorPoint(CENTER_POINT)
     end
 
     self.m_focusDeckSlotEffect:retain()
@@ -282,9 +277,6 @@ function UI_ColosseumReadyScene_Deck:makeSettedDragonCard(t_dragon_data, idx)
     self.m_lSettedDragonCard[idx] = ui
 
 	ui.vars['clickBtn']:setEnabled(false) -- 드래그로 개편
-    ui.vars['clickBtn']:registerScriptTapHandler(function()
-        self:click_dragonCard(t_dragon_data)
-    end)
 
     -- 장착된 드래곤
     self:refresh_dragonCard(t_dragon_data['id'])
@@ -326,7 +318,6 @@ end
 -- function setSlot
 -------------------------------------
 function UI_ColosseumReadyScene_Deck:setSlot(idx, doid, skip_sort)
-
     do -- 갯수 체크
         local count = table.count(self.m_tDeckMap)
         if self.m_lDeckList[idx] then
@@ -337,7 +328,6 @@ function UI_ColosseumReadyScene_Deck:setSlot(idx, doid, skip_sort)
             return
         end
     end
-
 
     -- 설정되어 있는 덱 해제
     if self.m_lDeckList[idx] then
@@ -380,7 +370,7 @@ function UI_ColosseumReadyScene_Deck:checkChangeDeck(next_func)
 
     local b_change = false
 
-    for i=1, 9 do
+    for i=1, TOTAL_POS_CNT do
         -- 기존 드래곤이 해제된 경우
         if (l_deck[i] and (not self.m_lDeckList[i])) then
             b_change = true
