@@ -506,7 +506,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 	end
 	
     -- 스킬 공격으로 피격되였다면 캐스팅 중이던 스킬을 취소시킴
-    local attack_type = attacker.m_activityCarrier:getAttackType()
+    local attack_type, real_attack_type = attacker.m_activityCarrier:getAttackType()
     if (attack_type == 'active') then
         
         if self:cancelSkill() then
@@ -583,6 +583,10 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit_active', t_event, self, attacker.m_activityCarrier)
 		end
 	end
+
+    if (real_attack_type == 'active') then 
+        self:runAction_Shake()
+    end
 end
 
 -------------------------------------
@@ -1570,21 +1574,12 @@ function Character:runAction_Shake()
         return
     end
 
-    local x = -math_random(30, 40)
+    local x = -math_random(20, 25)
     local y = math_random(20, 30)
-    --[[
-    if (math_random(1, 2) == 1) then
-        x = -x
-    end
-
-    if (math_random(1, 2) == 1) then
-        y = -y
-    end
-    ]]--
-
+    
     target_node:setPosition(0, 0)
     local start_action = cc.MoveTo:create(0.05, cc.p(x, 0))
-    local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.3, cc.p(0, 0)), 0.2)
+    local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.15, cc.p(0, 0)), 0.2)
     local action = cc.Sequence:create(start_action, end_action)
     cca.runAction(target_node, action, CHARACTER_ACTION_TAG__SHAKE)
 end

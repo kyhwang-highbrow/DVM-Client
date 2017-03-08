@@ -25,6 +25,7 @@ ActivityCarrier = class({
 		m_bIgnoreDef = 'bool',
         m_bHighlight = 'boolean',   -- 피격 대상이 하일라이트 되어야하는지 여부
 
+        m_realAttackType = 'str',
 		m_attackType = 'str',		-- 일반공격인지 아닌지 구분
         m_lFlag = 'map',
     })
@@ -218,13 +219,14 @@ function ActivityCarrier:setAttackType(attack_type)
 	else
 		self.m_attackType = attack_type
 	end
+    self.m_realAttackType = attack_type
 end
 
 -------------------------------------
 -- function getAttackType
 -------------------------------------
 function ActivityCarrier:getAttackType()
-	return self.m_attackType
+	return self.m_attackType, self.m_realAttackType
 end
 
 -------------------------------------

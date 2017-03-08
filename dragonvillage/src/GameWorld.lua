@@ -212,6 +212,8 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 			error('네스트 던전 아이디가 잘못되어있습니다. 확인해주세요. ' .. self.m_stageID)
         end
 
+        self.m_inGameUI:init_timeUI(display_wave, nil)
+
 	-- 3. 비밀 던전
     elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
         local t_dungeon = g_secretDungeonData:parseSecretDungeonID(self.m_stageID)
@@ -226,6 +228,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
         elseif (dungeonMode == SECRET_DUNGEON_RELATION) then
             self.m_gameState = GameState_SecretDungeon_Relation(self)
 
+            self.m_inGameUI:init_timeUI(display_wave, nil)
         end
     end
 
