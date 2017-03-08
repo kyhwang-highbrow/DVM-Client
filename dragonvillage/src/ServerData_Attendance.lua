@@ -77,6 +77,9 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb, fail_cb)
     local function success_cb(ret)
         self.m_bDirtyAttendanceInfo = false
 
+        -- 드래곤 생일 정보
+        g_birthdayData:organize_birthdayTable(ret['birthday_table'])
+
         --[[
         local ret = TABLE:loadJsonTable('temp_attendance_info')
 

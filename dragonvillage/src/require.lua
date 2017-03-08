@@ -81,6 +81,7 @@ local t_module = {
     'ServerData_Item',
     'ServerData_Gacha',
     'ServerData_Attendance',
+    'ServerData_Birthday',
     'ServerData_Exploration',
     'ServerData_HotTime',
     'ServerData_Collection',

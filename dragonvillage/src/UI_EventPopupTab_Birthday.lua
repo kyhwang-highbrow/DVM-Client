@@ -52,21 +52,57 @@ function UI_EventPopupTab_Birthday:refresh()
     local table_calendar = TableCalendar()
     local day_list = table_calendar:getCalendarDayList(self.m_year, self.m_currMonth)
 
-    for i=1, 35 do
-        vars['dayNode' .. i]:removeAllChildren()
-    end
+    vars['dayItemsMenu']:removeAllChildren()
 
     for _,struct_calendar_day in ipairs(day_list) do
         local ui = UI_BirthdayCalendarDayElement(struct_calendar_day)
+        ui.root:setDockPoint(cc.p(0.5, 0.5))
+        ui.root:setAnchorPoint(cc.p(0.5, 0.5))
 
         local idx_on_calendar = struct_calendar_day.m_idxOnCalendar
-        if vars['dayNode' .. idx_on_calendar] then
-            vars['dayNode' .. idx_on_calendar]:addChild(ui.root)
-        end
+        vars['dayItemsMenu']:addChild(ui.root)
+
+
+        local x, y = self:getDayElementPos(idx_on_calendar)
+        ui.root:setPosition(x, y)
 
         cca.uiReactionSlow(ui.root)
     end
 end
+
+-------------------------------------
+-- function getDayElementPos
+-------------------------------------
+function UI_EventPopupTab_Birthday:getDayElementPos(idx)
+    local x = -390
+    local y = 178
+
+    local interval_x = 130
+    local interval_y = 87
+
+    local idx_x, idx_y = self:getMatrixIdx(idx, 7)
+
+    local pos_x = x + ((idx_x-1) * interval_x)
+    local pos_y = y - ((idx_y-1) * interval_y)
+
+    return pos_x, pos_y
+end
+
+-------------------------------------
+-- function getMatrixIdx
+-------------------------------------
+function UI_EventPopupTab_Birthday:getMatrixIdx(idx, num_of_line)
+    if (idx == 0) then
+        return 0, 0
+    end
+    
+    local idx_x = ((idx % num_of_line) == 0) and num_of_line or (idx % num_of_line)
+
+    local idx_y = ((idx % num_of_line) == 0) and math_floor(idx / num_of_line) or math_floor((idx / num_of_line) + 1)
+
+    return idx_x, idx_y
+end
+
 
 -------------------------------------
 -- function changeMonth
