@@ -54,7 +54,7 @@ function SkillEnumrate_Normal:fireMissile(idx)
 	t_option['accel_delay'] = self.m_skillTotalTime - (self.m_skillInterval * idx)
 
 	t_option['missile_type'] = 'NORMAL'
-    t_option['movement'] ='normal' 
+    t_option['movement'] ='guide' 
 	t_option['bFixedAttack'] = true
 
     t_option['missile_res_name'] = self.m_missileRes
