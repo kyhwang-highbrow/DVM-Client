@@ -87,15 +87,15 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -45.000000;
+				x = -47.999996;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 46;
 				height = 46;
-				scale_x = 0.600000;
-				scale_y = 0.600000;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -106,13 +106,13 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -3.000000;
-				y = 9.000000;
+				x = -47.000000;
+				y = -2.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 60;
-				height = 30;
+				width = 40;
+				height = 40;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -123,12 +123,12 @@
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
 				text = '50';
-				h_alignment = 0;
+				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 60;
-				dimension_height = 30;
+				dimension_width = 40;
+				dimension_height = 40;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
