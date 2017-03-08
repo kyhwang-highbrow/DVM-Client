@@ -125,7 +125,5 @@ function TimeLib:getDate(server_time, year, month, day)
         ret = ret .. string.format('%.2d', t_time['day'])
     end
 
-    ccdump(t_time)
-
-    return ret
+    return ret, t_time
 end

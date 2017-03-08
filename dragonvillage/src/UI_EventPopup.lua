@@ -5,6 +5,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -------------------------------------
 UI_EventPopup = class(PARENT,{
         m_tableView = 'UIC_TableView',
+        m_lContainerForEachType = 'list[node]', -- (tab)타입별 컨테이너
     })
 
 -------------------------------------
@@ -84,27 +85,40 @@ end
 function UI_EventPopup:initTab()
     local vars = self.vars
 
-    local first = true
+    self.m_lContainerForEachType = {}
+
+    local initial_tab = nil
     for i,v in ipairs(self.m_tableView.m_itemList) do
         local type = v['data'].m_type
         local ui = v['ui'] or v['generated_ui']
 
         local continer_node = cc.Node:create()
+        continer_node:setDockPoint(cc.p(0.5, 0.5))
+        continer_node:setAnchorPoint(cc.p(0.5, 0.5))
         vars['eventNode']:addChild(continer_node)
+        self.m_lContainerForEachType[type] = continer_node
 
         self:addTab(type, ui.vars['listBtn'], continer_node)
 
-        if first then
-            self:setTab(type)
-            first = false
+        if (not initial_tab) then
+            initial_tab = type
         end
     end
+
+    self:setTab(initial_tab)
 end
 
 -------------------------------------
 -- function onChangeTab
 -------------------------------------
 function UI_EventPopup:onChangeTab(tab, first)
+    if first then
+        local container = self.m_lContainerForEachType[tab]
+        if (tab == 'birthday_calendar') then
+            local ui = UI_EventPopupTab_Birthday(self)
+            container:addChild(ui.root)
+        end
+    end
 end
 
 --@CHECK

@@ -151,6 +151,7 @@ local t_module = {
     'TableColosseumReward',
     'TableDragonUnit',
     'TableStageMission',
+    'TableCalendar',
 
     -- Interface
     'IEventDispatcher',
@@ -574,6 +575,8 @@ local t_module = {
     -- EVENT
     'UI_EventPopup',
     'UI_EventPopupTabButton',
+    'UI_EventPopupTab_Birthday',
+    'UI_BirthdayCalendarDayElement',
 
     'DamageCalc',
     'IconHelper',
@@ -594,6 +597,7 @@ local t_module = {
     'StructEventPopupTab',
     'StructAdventureChapterAchieveInfo',
     'StructAdventureStageInfo',
+    'StructCalendarDay',
 
     -- Network
     'Network',

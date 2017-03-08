@@ -1806,6 +1806,18 @@
     <None Include="..\src\UI_ErrorPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableCalendar.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_BirthdayCalendarDayElement.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventPopupTab_Birthday.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\StructCalendarDay.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

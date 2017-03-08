@@ -585,10 +585,12 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Stopwatch.lua" />
     <None Include="..\src\StructAdventureChapterAchieveInfo.lua" />
     <None Include="..\src\StructAdventureStageInfo.lua" />
+    <None Include="..\src\StructCalendarDay.lua" />
     <None Include="..\src\StructEventPopupTab.lua" />
     <None Include="..\src\SumRandom.lua" />
     <None Include="..\src\SwipeGesture.lua" />
     <None Include="..\src\Table.lua" />
+    <None Include="..\src\TableCalendar.lua" />
     <None Include="..\src\TableColosseumReward.lua" />
     <None Include="..\src\TableDragon.lua" />
     <None Include="..\src\TableDragonSkill.lua" />
@@ -665,6 +667,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_AttendanceSpecialListItem.lua" />
     <None Include="..\src\UI_AutoPlaySettingPopup.lua" />
     <None Include="..\src\UI_BattleMenu.lua" />
+    <None Include="..\src\UI_BirthdayCalendarDayElement.lua" />
     <None Include="..\src\UI_BlockPopup.lua" />
     <None Include="..\src\UI_ChapterAchieveRewardPopup.lua" />
     <None Include="..\src\UI_CharacterCard.lua" />
@@ -712,6 +715,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ErrorPopup.lua" />
     <None Include="..\src\UI_EventPopup.lua" />
     <None Include="..\src\UI_EventPopupTabButton.lua" />
+    <None Include="..\src\UI_EventPopupTab_Birthday.lua" />
     <None Include="..\src\UI_Exploration.lua" />
     <None Include="..\src\UI_ExplorationIng.lua" />
     <None Include="..\src\UI_ExplorationLocationButton.lua" />
