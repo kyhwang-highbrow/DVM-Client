@@ -129,6 +129,9 @@ end
 -- function st_idle
 -------------------------------------
 function SkillLaser.st_idle(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        owner.m_owner.m_animator:changeAni('skill_disappear', false)
+    end
     
     owner.m_multiHitTimer = owner.m_multiHitTimer + dt
     if (owner.m_multiHitTimer >= owner.m_multiHitTime) and

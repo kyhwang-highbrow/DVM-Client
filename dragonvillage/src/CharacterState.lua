@@ -150,7 +150,7 @@ function Character.st_attackDelay(owner, dt)
         end
 
         -- 부유중 연출
-        owner:animatorFloating()
+        owner:runAction_Floating()
     end
 
     if (owner.m_stateTimer >= owner.m_attackPeriod) then

@@ -539,6 +539,10 @@ function Character:cancelSkill()
     -- 화면 흔듬
     self.m_world.m_shakeMgr:shakeBySpeed(math_random(335-20, 335+20), 1500)
 
+    if self.m_castingNode then
+        self.m_castingNode:setVisible(false)
+    end
+
     self:changeState('attackDelay')
 
     return true

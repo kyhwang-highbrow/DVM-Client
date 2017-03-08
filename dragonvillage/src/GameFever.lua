@@ -458,7 +458,7 @@ function GameFever:doAttack()
     self.m_activityCarrier.m_attribute = ATTR_NONE
 
     -- 공격
-    hero:animatorShake()
+    hero:runAction_Shake()
 	hero:runAtkCallback(enemy, enemy.pos.x, enemy.pos.y)
 	enemy:runDefCallback(self, enemy.pos.x, enemy.pos.y)
 

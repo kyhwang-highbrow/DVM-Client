@@ -96,11 +96,11 @@ function GameDragonSkill.update_live(self, dt)
             world:setTemporaryPause(true, dragon)
             
             -- 드래곤 승리 애니메이션
-            dragon.m_animator:changeAni('pose_1', false)
+            dragon.m_animator:changeAni('skill_idle', false)
 
             local duration = dragon:getAniDuration()
-
-            -- delayTime 시간 동안 애니메이션 되도록 조정
+            
+            -- 애니메이션 속도 조정
             dragon.m_animator:setTimeScale(duration / delayTime)
 
             -- 스킬 이름 및 설명 문구를 표시
@@ -125,6 +125,9 @@ function GameDragonSkill.update_live(self, dt)
             playDragonVoice(dragon.m_charTable['type'])
         
         elseif (self:isPassedStepTime(delayTime)) then
+            -- 애니메이션 속도 되돌림
+            dragon.m_animator:setTimeScale(1)
+
             self:nextStep()
 
         end
@@ -136,14 +139,14 @@ function GameDragonSkill.update_live(self, dt)
 
         elseif (self:isPassedStepTime(2)) then
             -- 암전 해제
-            world.m_gameHighlight:changeDarkLayerColor(0, 1)
+            world.m_gameHighlight:changeDarkLayerColor(0, 0.5)
 
-        elseif (self:isPassedStepTime(2.7)) then
+        elseif (self:isPassedStepTime(2.3)) then
             -- 하이라이트 비활성화
             world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_HIDE)
             world.m_gameHighlight:clear()
 
-        elseif (self:isPassedStepTime(3)) then
+        elseif (self:isPassedStepTime(2.5)) then
             self.m_dragon = nil
 
             self:changeState(GAME_DRAGON_SKILL_WAIT)

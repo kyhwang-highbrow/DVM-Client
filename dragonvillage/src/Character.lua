@@ -1,14 +1,17 @@
+local PARENT = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:getCloneTable())
+
 local CHARACTER_ACTION_TAG__SHAKE = 1
 local CHARACTER_ACTION_TAG__KNOCKBACK = 2
 local CHARACTER_ACTION_TAG__SHADER = 3
 local CHARACTER_ACTION_TAG__FLOATING = 4
+local CHARACTER_ACTION_TAG__SKILL = 5
 
 local SPEED_COMEBACK = 1500
 
 -------------------------------------
 -- class Character
 -------------------------------------
-Character = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:getCloneTable(), {
+Character = class(PARENT, {
         m_bDead = '',
         m_maxHp = '',
         m_hp = '',
@@ -632,7 +635,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     end
 
     -- 피격시 타격감을 위한 연출
-    self:animatorHit(attacker, dir)
+    self:runAction_Hit(attacker, dir)
             
     self:damagedEvent(self, damage)
 end
@@ -1051,7 +1054,7 @@ function Character:release()
     self.m_castingNode = nil
     self.m_castingGauge = nil
 
-    Entity.release(self)
+    PARENT.release(self)
 end
 
 -------------------------------------
@@ -1133,7 +1136,7 @@ end
 -- function setPosition
 -------------------------------------
 function Character:setPosition(x, y)
-	Entity.setPosition(self, x, y)
+	PARENT.setPosition(self, x, y)
 
     if (self.m_hpNode and not self.m_bFixedPosHpNode) then
         self.m_hpNode:setPosition(x + self.m_unitInfoOffset[1], y + self.m_unitInfoOffset[2])
@@ -1206,7 +1209,7 @@ function Character:update(dt)
 		self.m_infoUI.m_label:setString(string.format('%d/%d\n(%d%%)',self.m_hp, self.m_maxHp, self.m_hp/self.m_maxHp*100))
 	end
 
-    return Entity.update(self, dt)
+    return PARENT.update(self, dt)
 end
 
 -------------------------------------
@@ -1556,10 +1559,10 @@ function Character:makeAttackDamageInstance(forced_skill_id)
 end
 
 -------------------------------------
--- function animatorShake
+-- function runAction_Shake
 -- @brief 피격 시 캐릭터 진동 효과
 -------------------------------------
-function Character:animatorShake()
+function Character:runAction_Shake()
     local target_node = self.m_animator.m_node
     if (not target_node) then
         return
@@ -1585,13 +1588,12 @@ function Character:animatorShake()
 end
 
 -------------------------------------
--- function animatorHit
+-- function runAction_Hit
 -- @brief 피격 시 캐릭터 애니메이션
 -------------------------------------
-function Character:animatorHit(attacker, dir)
+function Character:runAction_Hit(attacker, dir)
     -- 경직
     if self:isBoss() then
-        self:animatorKnockback(dir)
         self:setSpasticity(true)
 
         if attacker then
@@ -1628,10 +1630,10 @@ function Character:animatorHit(attacker, dir)
 end
 
 -------------------------------------
--- function animatorKnockback
+-- function runAction_Knockback
 -- @brief 피격 시 캐릭터 밀림 효과
 -------------------------------------
-function Character:animatorKnockback(dir)
+function Character:runAction_Knockback(dir)
     local dir = dir
 
     local target_node = self.m_animator.m_node
@@ -1657,10 +1659,10 @@ function Character:animatorKnockback(dir)
 end
 
 -------------------------------------
--- function animatorFloating
+-- function runAction_Floating
 -- @brief 캐릭터 부유중 효과
 -------------------------------------
-function Character:animatorFloating()
+function Character:runAction_Floating()
     local target_node = self.m_animator.m_node
     if (not target_node) then
         return
@@ -1679,6 +1681,18 @@ function Character:animatorFloating()
 
     local action = cc.RepeatForever:create(sequence)
     cca.runAction(target_node, action, CHARACTER_ACTION_TAG__FLOATING)
+end
+
+-------------------------------------
+-- function runAction_Skill
+-------------------------------------
+function Character:runAction_Skill(action)
+    local target_node = self.m_rootNode
+    if (not target_node) then
+        return
+    end
+
+    cca.runAction(target_node, action, CHARACTER_ACTION_TAG__SKILL)
 end
 
 -------------------------------------
@@ -1723,7 +1737,7 @@ end
 -------------------------------------
 function Character:changeState(state, forced)
     local prev_state = self.m_state
-    local ret = Entity.changeState(self, state, forced)
+    local ret = PARENT.changeState(self, state, forced)
 
     if (ret == true) and (prev_state == 'delegate') then
         self:killStateDelegate()
@@ -1927,4 +1941,22 @@ function Character:referenceForSlaveCharacter(t_body, adj_x, adj_y)
     char:addState('dead', Character.st_dead, nil, nil, PRIORITY.DEAD)
 
 	return char
+end
+
+-------------------------------------
+-- function setTemporaryPause
+-------------------------------------
+function Character:setTemporaryPause(pause)
+    if (PARENT.setTemporaryPause(self, pause)) then
+        -- 액션 정지
+        local target_node = self.m_animator.m_node
+
+        if (pause) then
+            cca.stopAction(target_node, CHARACTER_ACTION_TAG__FLOATING)
+
+        else
+            self:runAction_Floating()
+            
+        end
+    end
 end
