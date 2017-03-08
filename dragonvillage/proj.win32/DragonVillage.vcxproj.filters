@@ -1824,7 +1824,7 @@
     <None Include="..\src\CommonMissile_Guide.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\ServerData_Birthday.lua">
+    <None Include="..\src\MissileGuide.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>

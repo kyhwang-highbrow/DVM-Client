@@ -125,7 +125,7 @@ function CommonMissile:getDir()
 	if (not self.m_target) then 
 		return self:getDefaultDir() 
 	end
-	return getDegree(self.m_attackPos.x, self.m_attackPos.y, self.m_target.m_homePosX, self.m_target.m_homePosY) or self:getDefaultDir()
+	return getDegree(self.m_attackPos.x, self.m_attackPos.y, self.m_target.pos.x, self.m_target.pos.y) or self:getDefaultDir()
 end
 
 -------------------------------------

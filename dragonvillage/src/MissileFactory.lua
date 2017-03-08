@@ -188,8 +188,11 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     elseif (movement == 'drop') then
         missile = MissileDrop(missile_res_name, physics_body, is_hero)
 
-    elseif (movement == 'guid') then
-        missile = MissileGuid(missile_res_name, physics_body, is_hero)
+    elseif (movement == 'guide') then
+        missile = MissileGuide(missile_res_name, physics_body)
+
+	elseif (movement == 'guid') then
+		missile = MissileGuid(missile_res_name, physics_body, is_hero)
 
     elseif (movement == 'guid_strong') then
         missile = MissileGuid(missile_res_name, physics_body, is_hero)

@@ -244,6 +244,7 @@ local t_module = {
     'MissileFix',
     'require_MissileLua',
     'LaserMissile',
+	'MissileGuide',
 
 	-- CHARACTER
 	'Character',

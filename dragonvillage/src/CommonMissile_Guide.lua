@@ -40,7 +40,7 @@ function CommonMissile_Guide:setMissile()
 	t_option['physics_body'] = {0, 0, 20}
 	t_option['offset'] = {0, 0}
 
-	t_option['movement'] ='normal' 
+	t_option['movement'] = 'guide' 
     t_option['missile_type'] = 'NORMAL'
 	
 	t_option['scale'] = self.m_resScale

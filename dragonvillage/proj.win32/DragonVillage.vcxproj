@@ -312,6 +312,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\LobbyUserStatusUI.lua" />
     <None Include="..\src\LocalData.lua" />
     <None Include="..\src\LocalPushMgr.lua" />
+    <None Include="..\src\MissileGuide.lua" />
     <None Include="..\src\Monster_DarkNix.lua" />
     <None Include="..\src\Monster_GoldDragon.lua" />
     <None Include="..\src\Monster_Tree.lua" />
@@ -326,7 +327,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_AdventureFirstReward.lua" />
     <None Include="..\src\ServerData_Attendance.lua" />
     <None Include="..\src\ServerData_AutoPlaySetting.lua" />
-    <None Include="..\src\ServerData_Birthday.lua" />
     <None Include="..\src\ServerData_Collection.lua" />
     <None Include="..\src\ServerData_Colosseum.lua" />
     <None Include="..\src\ServerData_ColosseumRank.lua" />
