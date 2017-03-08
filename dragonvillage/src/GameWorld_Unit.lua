@@ -211,7 +211,7 @@ function GameWorld:makeHeroDeck()
 
         t_percentage = randomShuffle(t_percentage)
 
-        for i, dragon in ipairs(self:getEnemyList()) do
+        for i, dragon in ipairs(self:getDragonList()) do
             dragon:initActiveSkillCoolTime(t_percentage[i])
         end
     end

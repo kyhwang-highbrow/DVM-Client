@@ -13,6 +13,7 @@ local SPEED_COMEBACK = 1500
 -------------------------------------
 Character = class(PARENT, {
         m_bDead = '',
+        m_lv = '',
         m_maxHp = '',
         m_hp = '',
 
@@ -304,6 +305,7 @@ function Character:initStatus(t_char, level, grade, evolution, doid)
     local hp = self.m_statusCalc:getFinalStat('hp')
     self.m_maxHp = hp
     self.m_hp = hp
+    self.m_lv = level
 end
 
 -------------------------------------

@@ -32,7 +32,7 @@ function UI_IngameUnitInfo:initUI()
     local vars = self.vars
     local enemy = self.m_owner
 
-    if vars['attrNode'] then
+    if (vars['attrNode']) then
         local attr_str = enemy:getAttribute()
         local res = 'res/ui/icon/attr/attr_' .. attr_str .. '.png'
         local icon = cc.Sprite:create(res)
@@ -41,6 +41,11 @@ function UI_IngameUnitInfo:initUI()
             icon:setAnchorPoint(cc.p(0.5, 0.5))
             vars['attrNode']:addChild(icon)
         end
+    end
+
+    if (vars['levelLabel']) then
+        local lv = enemy.m_lv
+        vars['levelLabel']:setString(lv)
     end
 
 	-- 디버깅 체력표시용 label

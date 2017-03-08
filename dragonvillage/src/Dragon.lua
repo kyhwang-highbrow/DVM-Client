@@ -539,6 +539,7 @@ function Dragon:initStatus(t_char, level, grade, evolution, doid)
     self.m_charTable = t_char
 	self.m_attribute = t_char['attr']
 	self.m_attributeOrg = t_char['attr']
+    self.m_lv = level
 
     -- 능력치 설정이 되지 않은 경우
     if (not self.m_statusCalc) then
