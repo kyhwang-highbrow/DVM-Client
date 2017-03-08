@@ -1818,6 +1818,9 @@
     <None Include="..\src\StructCalendarDay.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\StructProduct.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
