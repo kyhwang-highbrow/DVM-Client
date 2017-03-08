@@ -105,7 +105,8 @@ function UI_EventPopup:initTab()
         end
     end
 
-    self:setTab(initial_tab)
+    --self:setTab(initial_tab)
+    self:setTab('birthday_calendar')
 end
 
 -------------------------------------

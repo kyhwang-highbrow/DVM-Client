@@ -90,7 +90,7 @@ function CoroutineHelper:work(msg)
     end
 end
 
-function CoroutineHelper:wait()
+function CoroutineHelper:waitWork()
     while (self.m_bWorking) do
         coroutine.yield()
     end
@@ -98,10 +98,17 @@ function CoroutineHelper:wait()
     return self:escape()
 end
 
+function CoroutineHelper:waitTime(time)
+    local timer = 0
+    while (timer < time) do
+        local dt = coroutine.yield()
+        timer = (timer + dt)
+    end
+end
+
 function CoroutineHelper:escape()
-    if self.m_blockPopup then
-        self.m_blockPopup:close()
-        self.m_blockPopup = nil
+    if self.m_bEscape then
+        self:close()
     end
     return self.m_bEscape
 end
@@ -113,4 +120,11 @@ function CoroutineHelper:setBlockPopup()
 
     self.m_blockPopup = UI_BlockPopup()
     coroutine.yield()
+end
+
+function CoroutineHelper:close()
+    if self.m_blockPopup then
+        self.m_blockPopup:close()
+        self.m_blockPopup = nil
+    end
 end

@@ -80,6 +80,9 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb, fail_cb)
         -- 드래곤 생일 정보
         g_birthdayData:organize_birthdayTable(ret['birthday_table'])
 
+        -- 오늘의 드래곤 생일 정보
+        g_birthdayData:organize_todayBirthdayList(ret['birthday'])
+
         --[[
         local ret = TABLE:loadJsonTable('temp_attendance_info')
 

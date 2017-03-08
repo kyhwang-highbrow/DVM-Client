@@ -41,13 +41,16 @@ function UI_BirthdayCalendarDayElement:refresh()
 
         if vars['dragonNode' .. i] then
             local card = MakeSimpleDragonCard(did)
+            card.vars['clickBtn']:setEnabled(false)
             vars['dragonNode' .. i]:addChild(card.root)
         end
     end
 
     if struct_calendar_day:isToday() then
+        vars['dayBtn']:setAutoShake(true)
         vars['todaySprite']:setVisible(true)
     else
+        vars['dayBtn']:setAutoShake(false)
         vars['todaySprite']:setVisible(false)
     end
 end

@@ -42,8 +42,9 @@ function ServerData_Event:openEventPopup()
 
         co:work('# 출석 정보 받는 중')
         g_attendanceData:request_attendanceInfo(co.NEXT, co.ESCAPE)
-        if co:wait() then return end
+        if co:waitWork() then return end
 
+        co:close()
         UI_EventPopup()
     end
 

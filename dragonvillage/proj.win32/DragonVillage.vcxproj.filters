@@ -1827,6 +1827,12 @@
     <None Include="..\src\MissileGuide.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_BirthdayRewardSelectPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_BirthdayRewardSelectListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

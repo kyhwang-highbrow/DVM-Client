@@ -24,6 +24,8 @@ function UI_EventPopupTab_Birthday:init(owner)
     --self:refresh()
 
     self:changeMonth(t_time['month'])
+
+    self:checkBirthdayReward()
 end
 
 -------------------------------------
@@ -129,4 +131,35 @@ function UI_EventPopupTab_Birthday:changeMonth(month)
     else
         vars['nextBtn']:setVisible(true)
     end
+end
+
+-------------------------------------
+-- function checkBirthdayReward
+-------------------------------------
+function UI_EventPopupTab_Birthday:checkBirthdayReward()
+    local vars = self.vars
+
+    local has_reward, birth_list = g_birthdayData:hasBirthdayReward()
+
+    if (not has_reward) then
+        return
+    end
+
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        co:setBlockPopup()
+
+        co:waitTime(0.8)
+
+        for i,birth_id in ipairs(birth_list) do
+            co:work()
+            local ui = UI_BirthdayRewardSelectPopup(birth_id)
+            ui:setCloseCB(co.NEXT)
+            if co:waitWork() then return end
+        end
+
+        co:close()
+    end
+
+    Coroutine(coroutine_function)
 end
