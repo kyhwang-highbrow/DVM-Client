@@ -152,17 +152,10 @@ function Dragon:initState()
     self:addState('charge', Dragon.st_charge, 'idle', true)
     self:addState('casting', PARENT.st_casting, 'skill_appear', true)
 
-    --[[
-    self:addState('skillPrepare', Dragon.st_skillPrepare, 'skill_appear', true)
-    self:addState('skillAppear', Dragon.st_skillAppear, 'skill_appear', true)
-    self:addState('skillIdle', Dragon.st_skillIdle, 'skill_idle', false)
-    self:addState('skillDisappear', Dragon.st_skillDisappear, 'skill_disappear', false)
-    ]]--
     self:addState('skillPrepare', Dragon.st_skillPrepare, 'skill_appear', true)
     self:addState('skillAppear', Dragon.st_skillAppear, 'skill_idle', false)
     self:addState('skillIdle', Dragon.st_skillIdle, 'skill_disappear', false)
-    self:addState('skillDisappear', Dragon.st_skillDisappear, 'skill_disappear', false)
-
+    
     self:addState('wait', Dragon.st_wait, 'idle', true)
 
     -- success
@@ -363,28 +356,10 @@ function Dragon.st_skillIdle(owner, dt)
     elseif (owner.m_aiParamNum and (owner.m_stateTimer >= owner.m_aiParamNum)) then
         if (owner.m_bFinishAttack) then
             if (owner.m_state ~= 'delegate') then
-                --owner:changeState('skillDisappear')
-
                 owner.m_bEnableSpasticity = true
                 owner:changeState('attackDelay')
             end
         end
-    end
-end
-
--------------------------------------
--- function st_skillDisappear
--------------------------------------
-function Dragon.st_skillDisappear(owner, dt)
-    if (owner.m_stateTimer == 0) then
-        owner.m_bEnableSpasticity = true
-
-        owner:changeState('attackDelay')
-        --[[
-        owner:addAniHandler(function()
-            owner:changeState('attackDelay')
-        end)
-        ]]--
     end
 end
 

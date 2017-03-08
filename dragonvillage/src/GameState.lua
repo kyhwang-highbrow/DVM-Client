@@ -526,7 +526,7 @@ function GameState.update_success_wait(self, dt)
         -- 스킬과 미사일도 다 날려 버리자
 	    world:removeMissileAndSkill()
         world:removeHeroDebuffs()
-
+        
 		-- @LOG
 		self.m_world.m_logRecorder:recordLog('lap_time', self.m_fightTimer)
     end
@@ -849,6 +849,9 @@ function GameState:checkWaveClear()
         -- 스킬 다 날려 버리자
         world:cleanupSkill()
         world:removeHeroDebuffs()
+
+        -- 기본 배속으로 변경
+        world.m_gameTimeScale:setBase(1)
 		    
 		if world.m_waveMgr:isFinalWave() == false then
 		    self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
@@ -873,6 +876,9 @@ function GameState:checkWaveClear()
             -- 스킬 다 날려 버리자
 		    world:cleanupSkill()
             world:removeHeroDebuffs()
+
+            -- 기본 배속으로 변경
+            world.m_gameTimeScale:setBase(1)
 
             -- 모든 적들을 죽임
             world:killAllEnemy()

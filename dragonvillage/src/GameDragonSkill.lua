@@ -83,7 +83,7 @@ function GameDragonSkill.update_live(self, dt)
     local world = self.m_world
     local dragon = self.m_dragon
     local timeScale = 1
-    local delayTime = 1
+    local delayTime = DRAGON_SKILL_DIRECTION_DURATION[1]
     
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
@@ -133,20 +133,24 @@ function GameDragonSkill.update_live(self, dt)
         end
 
     elseif (self:getStep() == 1) then
+        local step_time1 = DRAGON_SKILL_DIRECTION_DURATION[2]
+        local step_time2 = DRAGON_SKILL_DIRECTION_DURATION[2] + (DRAGON_SKILL_DIRECTION_DURATION[3] / 2)
+        local step_time3 = DRAGON_SKILL_DIRECTION_DURATION[2] + DRAGON_SKILL_DIRECTION_DURATION[3]
+
         if (self:isBeginningStep()) then
             -- 드래곤 스킬 애니메이션 시작
             dragon:changeState('skillIdle')
 
-        elseif (self:isPassedStepTime(2)) then
+        elseif (self:isPassedStepTime(step_time1)) then
             -- 암전 해제
-            world.m_gameHighlight:changeDarkLayerColor(0, 0.5)
+            world.m_gameHighlight:changeDarkLayerColor(0, DRAGON_SKILL_DIRECTION_DURATION[3])
 
-        elseif (self:isPassedStepTime(2.3)) then
+        elseif (self:isPassedStepTime(step_time2)) then
             -- 하이라이트 비활성화
             world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_HIDE)
             world.m_gameHighlight:clear()
 
-        elseif (self:isPassedStepTime(2.5)) then
+        elseif (self:isPassedStepTime(step_time3)) then
             self.m_dragon = nil
 
             self:changeState(GAME_DRAGON_SKILL_WAIT)

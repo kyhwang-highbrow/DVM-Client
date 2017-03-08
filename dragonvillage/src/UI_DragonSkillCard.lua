@@ -62,7 +62,7 @@ function UI_DragonSkillCard:getSkillDescStr()
     if (skill_type == 'basic') then
         skill_type_str = Str('(기본공격)')
 
-    elseif (skill_type == 'basic_turn') or (skill_type == 'basic_rate') then
+    elseif (skill_type == 'basic_turn') or (skill_type == 'basic_rate') or (skill_type == 'basic_time') then
         skill_type_str = Str('(일반)')
 
     elseif (skill_type == 'passive') then

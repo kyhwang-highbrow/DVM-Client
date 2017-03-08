@@ -1680,6 +1680,9 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
     if (pause) then
         local action_mgr = cc.Director:getInstance():getActionManager()
 
+        -- 맵 일시 정지
+        self.m_mapManager:pause()
+
         -- unit들 일시 정지
         for i,v in pairs(self.m_lUnitList) do
             v:setTemporaryPause(true)
@@ -1698,6 +1701,9 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
     -- 전투 재개
     else
         local action_mgr = cc.Director:getInstance():getActionManager()
+
+        -- 맵 일시 정지 해제
+        self.m_mapManager:resume()
 
         -- unit들 일시 정지 해제
         for i,v in pairs(self.m_lUnitList) do

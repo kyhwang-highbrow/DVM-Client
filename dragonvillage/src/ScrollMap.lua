@@ -16,6 +16,8 @@ ScrollMap = class(MapManager, IEventListener:getCloneTable(), {
         m_colorScale = '',
 
         m_bgDirectingType = 'number',
+
+        m_bPause = 'boolean',
     })
 
 -------------------------------------
@@ -35,6 +37,7 @@ function ScrollMap:init(node)
     self.m_colorScale = 100
 
     self.m_bgDirectingType = 'floating_1'
+    self.m_bPause = false
 end
 
 -------------------------------------
@@ -333,6 +336,8 @@ end
 -- @param dt
 -------------------------------------
 function ScrollMap:update(dt)
+    if (self.m_bPause) then return self.m_totalMove end
+
     local distance = 0
     distance = self.m_speed * dt
 
@@ -363,6 +368,22 @@ end
 -------------------------------------
 function ScrollMap:setSpeed(speed)
     self.m_speed = speed
+end
+
+-------------------------------------
+-- function pause
+-------------------------------------
+function ScrollMap:pause()
+    self.m_bPause = true
+    self.m_node:pause()
+end
+
+-------------------------------------
+-- function resume
+-------------------------------------
+function ScrollMap:resume()
+    self.m_bPause = false
+    self.m_node:resume()
 end
 
 -------------------------------------

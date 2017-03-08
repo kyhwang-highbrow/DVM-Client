@@ -200,6 +200,22 @@ function GameWorld:makeHeroDeck()
         end
     end
 
+    -- 아군 드래곤들은 게이지를 조정
+    do
+        local t_percentage = { 60, 80 }
+        local t_temp = { 20, 40 }
+
+        for i = 1, 3 do
+            table.insert(t_percentage, t_temp[math_random(1, 2)])
+        end
+
+        t_percentage = randomShuffle(t_percentage)
+
+        for i, dragon in ipairs(self:getEnemyList()) do
+            dragon:initActiveSkillCoolTime(t_percentage[i])
+        end
+    end
+
     -- 친구 접속 버프 적용
     local friend_online_buff = g_gameScene.m_totalOnlineBuffList -- g_gameScene말고 변수를 전달받아 처리할 것
     if friend_online_buff then

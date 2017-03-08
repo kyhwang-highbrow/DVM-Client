@@ -2,11 +2,13 @@
 -- class DragonSkillIndivisualInfo
 -------------------------------------
 DragonSkillIndivisualInfo = class({
+        m_idx = 'number',       -- 스킬 순번
         m_charType = 'string',  -- 캐릭터 타입 'dragon', 'monster'
         m_skillID = 'number',   -- 스킬 ID
         m_skillType = 'string',
         m_tSkill = 'table',     -- 스킬 테이블
         m_turnCount = 'number', -- 턴 공격 횟수 저장용
+        m_timer = 'number',     -- 타임 공격 저장용
 
         m_skillLevel = 'number',
         m_lSkillLevelupIDList = 'list', -- 스킬 레벨업이 적용된 ID 저장
@@ -21,6 +23,7 @@ function DragonSkillIndivisualInfo:init(char_type, skill_type, skill_id, skill_l
     self.m_skillID = skill_id
     self.m_skillLevel = (skill_level or 1)
     self.m_turnCount = 0
+    self.m_timer = 0
 end
 
 -------------------------------------

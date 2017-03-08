@@ -132,7 +132,7 @@ end
 function Character.st_attackDelay(owner, dt)
     if owner.m_stateTimer == 0 then
         -- 어떤 스킬을 사용할 것인지 결정
-        local skill_id, is_add_skill = owner:getBasicAttackSkillID()
+        local skill_id, is_add_skill = owner:getBasicAttackSkillID(dt)
 
 		-- 스킬 캐스팅 불가 처리
 		if owner.m_isSilence then

@@ -71,10 +71,26 @@ FEVER_KEEP_TIME = 6
 -- #  피버 포인트 증감 시간
 FEVER_POINT_UPDATE_TIME = 0.5
 
--- #  피버모드 스킬 캔슬시 점수
+-- #  피버모드 이벤트별 점수
+FEVER_POINT_INCREMENT_VALUE = {}
+FEVER_POINT_INCREMENT_VALUE['hero_basic_skill'] = 1
+FEVER_POINT_INCREMENT_VALUE['hero_active_skill'] = 4
+FEVER_POINT_INCREMENT_VALUE['hit_active'] = 2
+FEVER_POINT_INCREMENT_VALUE['hit_active_buff'] = 3
+FEVER_POINT_INCREMENT_VALUE['character_casting_cancel'] = 10
+
+-- #  피버모드 스킬 캔슬시 점수(현재 사용 안함)
 PERFECT_SKILL_CANCEL_FEVER_POINT = 30
 GREAT_SKILL_CANCEL_FEVER_POINT = 25
 GOOD_SKILL_CANCEL_FEVER_POINT = 15
 
 -- #  피버모드 데미지 배율
 FEVER_ATTACK_DAMAGE_RATE = 0.3
+
+--------------------------------------------
+-- 드래곤 스킬 연출 관련
+--------------------------------------------
+DRAGON_SKILL_DIRECTION_DURATION = {}
+DRAGON_SKILL_DIRECTION_DURATION[1] = 1      -- 컷씬 유지 시간
+DRAGON_SKILL_DIRECTION_DURATION[2] = 1.5    -- 암전 유지 시간
+DRAGON_SKILL_DIRECTION_DURATION[3] = 0.5    -- 암전 풀리는 시간
