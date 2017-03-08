@@ -108,6 +108,9 @@ function Character:doSkill(skill_id, x, y, t_data)
 			elseif (type == 'missile_move_straight') then
 				CommonMissile_Straight:makeMissileInstance(self, t_skill)
 				return true
+			elseif (type == 'missile_move_guide') then
+				CommonMissile_Guide:makeMissileInstance(self, t_skill)
+				return true
 			elseif (type == 'missile_move_cruise') then
 				CommonMissile_Cruise:makeMissileInstance(self, t_skill)
 				return true

@@ -267,6 +267,7 @@ local t_module = {
 	-- COMMON MISSILE (공통탄)
 	'CommonMissile',
 	'CommonMissile_Straight',
+	'CommonMissile_Guide',
 	'CommonMissile_Cruise',
 	'CommonMissile_Shotgun',
 	'CommonMissile_Release',
