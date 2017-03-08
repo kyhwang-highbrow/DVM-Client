@@ -19,6 +19,9 @@ UI_ReadyScene_Deck = class({
         -- 드래그로 이동
         m_selectedDragonSlotIdx = 'number',
         m_selectedDragonCard = 'UI_DragonCard',
+
+		-- 각 덱에 붙어있을 모션스트릭 리스트
+		m_lMotionStreakList = 'cc.motionStreak',
     })
 
 local TOTAL_POS_CNT = 5
@@ -40,25 +43,42 @@ local DC_SCALE_PICK = 0.5
 -------------------------------------
 function UI_ReadyScene_Deck:init(ui_ready_scene)
     self.m_uiReadyScene = ui_ready_scene
+	self.m_lMotionStreakList = {}
 
-	-- 진형 회전 효과를 위한 것
-	self.m_uiReadyScene.vars['formationNodeHelper']:setScaleY(0.7)
-	self.m_uiReadyScene.vars['formationNodeHelperXAxis']:setRotation3D(cc.Vertex3F(0, 0, 60))
-
-    self:init_button()
+	self:initUI()
+    self:initButton()
     self:init_deck()
     self:makeTouchLayer_formation(self.m_uiReadyScene.vars['formationNode'])
 end
 
 -------------------------------------
--- function init_button
+-- function initUI
 -------------------------------------
-function UI_ReadyScene_Deck:init_button()
+function UI_ReadyScene_Deck:initUI()
     local vars = self.m_uiReadyScene.vars
 
+	-- 진형 회전 효과를 위한 것
+	vars['formationNodeHelper']:setScaleY(0.7)
+	vars['formationNodeHelperXAxis']:setRotation3D(cc.Vertex3F(0, 0, 60))
+	
     for i=1, TOTAL_POS_CNT do
 		vars['chNode'..i]:setLocalZOrder(ZORDER.BACK_PLATE)
+				
+		-- 모션스트릭을 생성한다.
+		local motion_streak = cc.MotionStreak:create(0.3, -1, 50, cc.c3b(255, 255, 255), 'res/missile/motion_streak/motion_streak_water.png')
+		vars['formationNodeXAxis']:addChild(motion_streak, 1)
+		motion_streak:setAnchorPoint(cc.p(0.5, 0.5))
+		motion_streak:setDockPoint(cc.p(0.5, 0.5))
+			
+		self.m_lMotionStreakList[i] = motion_streak
     end
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_ReadyScene_Deck:initButton()
+    local vars = self.m_uiReadyScene.vars
 
     -- 진형 선택 버튼
     local radio_button = UIC_RadioButton()
@@ -464,18 +484,34 @@ function UI_ReadyScene_Deck:updateFormation(formation, immediately)
 	-- 상태에 따라 즉시 이동 혹은 움직임 액션 추가
 	if immediately then
 		for i, node_space in ipairs(l_pos_list) do
+			-- 드래곤 카드
 			vars['positionNode' .. i]:setPosition(node_space['x'], node_space['y'])
 			vars['positionNode' .. i]:setLocalZOrder(1000 - node_space['y'])
+
+			-- 모션스트릭
+			self.m_lMotionStreakList[i]:setPosition(node_space['x'], node_space['y'])
 		end
 	else
 		for i, node_space in ipairs(l_pos_list) do
-			local action = cca.makeBasicEaseMove(0.3, node_space['x'], node_space['y'])
-			cca.runAction(vars['positionNode' .. i], action, 100)
 			vars['positionNode' .. i]:setLocalZOrder(1000 - node_space['y'])
+			
+			local motion_streak = self.m_lMotionStreakList[i]
+			
+			-- 배치된 카드에 액션을 준다.
+			local out_action = cca.makeBasicEaseMove(0.3, node_space['x'], 2000)
+			local in_action = cca.makeBasicEaseMove(0.3 + (0.1 * i), node_space['x'], node_space['y'])
+			local action = cc.Sequence:create(out_action, in_action)
+			cca.runAction(vars['positionNode' .. i], action, 100)
+
+			-- 모션스트릭에 동일한 액션을 준다.
+			local out_action = cca.makeBasicEaseMove(0.3, node_space['x'], 2000)
+			local in_action = cca.makeBasicEaseMove(0.3 + (0.1 * i), node_space['x'], node_space['y'])
+			local action = cc.Sequence:create(out_action, in_action)
+			cca.runAction(motion_streak, action, 101)
 		end
 	end
 
-	-- 위치 조정 @TODO 
+	-- 덩실 위치 조정
 	vars['formationNode']:runAction(cc.MoveBy:create(0.1, cc.p(0, -50)))
 
 	self:updateFormationInfo(formation)
