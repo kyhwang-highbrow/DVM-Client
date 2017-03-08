@@ -76,3 +76,56 @@ end
 function TimeLib:getTimeOfDayChange()
     return self.m_dayOfDayChange
 end
+
+-------------------------------------
+-- function getRealServerDate
+-- @brief 실제 날짜 정보 리턴
+-------------------------------------
+function TimeLib:getRealServerDate(year, month, day)
+    local server_time = self:getServerTime()
+    return self:getDate(server_time, year, month, day)
+end
+
+-------------------------------------
+-- function getGameServerDate
+-- @brief 새벽 4시가 날짜 변경 기준으로 동작하는 날짜 정보 리턴
+-------------------------------------
+function TimeLib:getGameServerDate(year, month, day)
+    local server_time = self:getServerTime()
+    
+    -- 새벽 4시 기준이므로 4시간을 빼서 처리한다
+    server_time = server_time - (60 * 60 * 4)
+
+    return self:getDate(server_time, year, month, day)
+end
+
+-------------------------------------
+-- function getDate
+-- @brief 오늘 날짜를 '20170308'과 같은 형태로 리턴함
+-------------------------------------
+function TimeLib:getDate(server_time, year, month, day)
+    local t_time = os.date('*t', server_time)
+
+    -- 기본 값들은 true
+    local year = (year == nil) and true or year
+    local month = (month == nil) and true or month
+    local day = (day == nil) and true or day
+
+    local ret = ''
+
+    if year then
+        ret = ret .. string.format('%.4d', t_time['year'])
+    end
+
+    if month then
+        ret = ret .. string.format('%.2d', t_time['month'])
+    end
+
+    if day then
+        ret = ret .. string.format('%.2d', t_time['day'])
+    end
+
+    ccdump(t_time)
+
+    return ret
+end
