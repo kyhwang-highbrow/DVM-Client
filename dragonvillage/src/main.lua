@@ -59,9 +59,16 @@ end
 -- @brief for CCLuaEngine traceback
 -------------------------------------
 function __G__TRACKBACK__(msg)
+	local error_msg = "LUA ERROR: " .. tostring(msg) .. "\n\n" .. debug.traceback()
+	
+	-- 에러를 팝업으로 띄워서 출력 \
+	-- @TODO 디버깅 모드 처리해야함
+	do
+		UI_ErrorPopup(error_msg)
+	end
+
     cclog("----------------------------------------")
-    cclog("LUA ERROR: " .. tostring(msg) .. "\n")
-    cclog(debug.traceback())
+    cclog(error_msg)
     cclog("----------------------------------------")
     return msg
 end

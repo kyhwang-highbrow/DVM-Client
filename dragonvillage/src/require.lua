@@ -432,6 +432,7 @@ local t_module = {
     'UI_Popup',
     'UI_SimplePopup',
 	'UI_ConfirmPopup',
+	'UI_ErrorPopup',
     'UI_SimpleDragonInfoPopup',
     'UI_DragonDetailPopup',
 	'UI_RewardPopup',

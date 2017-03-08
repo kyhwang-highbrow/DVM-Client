@@ -709,6 +709,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonSkillLevelUpResult.lua" />
     <None Include="..\src\UI_DragonTrainSlot_ListItem.lua" />
     <None Include="..\src\UI_EditBoxPopup.lua" />
+    <None Include="..\src\UI_ErrorPopup.lua" />
     <None Include="..\src\UI_EventPopup.lua" />
     <None Include="..\src\UI_EventPopupTabButton.lua" />
     <None Include="..\src\UI_Exploration.lua" />
