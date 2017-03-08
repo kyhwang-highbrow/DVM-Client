@@ -74,8 +74,8 @@ function SkillRapidShot_AddAttack:fireMissile(target, is_add_attack)
 
 	if (is_add_attack) then
 		t_option['attack_damage'] = self.m_addAttackAcivityCarrier
-		t_option['pos_x'] = self.m_targetChar.m_homePosX
-		t_option['pos_y'] = self.m_targetChar.m_homePosY
+		t_option['pos_x'] = self.m_targetChar.pos.x
+		t_option['pos_y'] = self.m_targetChar.pos.jy
 	else
 		t_option['attack_damage'] = self.m_activityCarrier
 		local attack_pos_x, attack_pos_y = self:getAttackPosition()
@@ -95,7 +95,7 @@ function SkillRapidShot_AddAttack:fireMissile(target, is_add_attack)
 		end
 	end
 
-	t_option['dir'] = getDegree(t_option['pos_x'], t_option['pos_y'], target.m_homePosX, target.m_homePosY)
+	t_option['dir'] = getDegree(t_option['pos_x'], t_option['pos_y'], target.pos.x, target.pos.y)
 	t_option['rotation'] = t_option['dir']
 
 	t_option['speed'] = 0

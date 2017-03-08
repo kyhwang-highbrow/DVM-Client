@@ -184,8 +184,8 @@ function MissileLua.lua_angle(owner)
     local target_y = (pos_y - 50)
     
     if (owner.m_target) then
-        target_x = owner.m_target.m_homePosX
-        target_y = owner.m_target.m_homePosY
+        target_x = owner.m_target.pos.x
+        target_y = owner.m_target.pos.y
     end
 
 	-- table에서 받아오는 값
@@ -229,8 +229,8 @@ function MissileLua.lua_curve(owner)
     local target_y = (pos_y - 50)
     
     if (owner.m_target) then
-        target_x = owner.m_target.m_homePosX
-        target_y = owner.m_target.m_homePosY
+        target_x = owner.m_target.pos.x
+        target_y = owner.m_target.pos.y
     end
 
 	-- 받아오는 값
@@ -308,8 +308,8 @@ function MissileLua.lua_bounce(owner)
     local target_y = (pos_y - 50)
 	
 	if (owner.m_target) then
-        target_x = owner.m_target.m_homePosX
-        target_y = owner.m_target.m_homePosY
+        target_x = owner.m_target.pos.x
+        target_y = owner.m_target.pos.y
     end
 
 	-- 월드와 적군 리스트 세팅
@@ -347,8 +347,8 @@ function MissileLua.lua_bounce(owner)
 
 		local rand = math_random(1, #l_target)
 		if l_target[rand] then 
-			target_x = l_target[rand].m_homePosX
-			target_y = l_target[rand].m_homePosY
+			target_x = l_target[rand].pos.x
+			target_y = l_target[rand].pos.y
 			local jump_action = cc.JumpTo:create(duration, cc.p(target_x, target_y), height, loop)
 			owner.m_rootNode:runAction(cc.Sequence:create(jump_action, after_effect, scale_action, scale_action2, cbFunction2))
 		else
@@ -376,8 +376,8 @@ function MissileLua.lua_arrange_curve(owner)
     local target_y = (pos_y - 50)
     
     if (owner.m_target) then
-        target_x = owner.m_target.m_homePosX
-        target_y = owner.m_target.m_homePosY
+        target_x = owner.m_target.pos.x
+        target_y = owner.m_target.pos.y
     end
 
 	-- 받아오는 값

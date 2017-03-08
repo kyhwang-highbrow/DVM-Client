@@ -82,7 +82,7 @@ function SkillRapidShot:fireMissile()
     t_option['pos_y'] = char.pos.y + attack_pos_y + math_random(-50, 50)
 	t_option['target'] = target
 
-	t_option['dir'] = getDegree(t_option['pos_x'], t_option['pos_y'], target.m_homePosX, target.m_homePosY)
+	t_option['dir'] = getDegree(t_option['pos_x'], t_option['pos_y'], target.pos.x, target.pos.y)
 	t_option['rotation'] = t_option['dir']
 
     t_option['physics_body'] = {0, 0, 40}

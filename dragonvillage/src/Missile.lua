@@ -510,9 +510,9 @@ function Missile:updateMissileOption(dt)
 		-- 지났는지 체크
 		local isPassedTarget = false
 		if (self.m_target.m_bLeftFormation) then
-			if (self.pos.x < self.m_target.m_homePosX - 10) then isPassedTarget = true end
+			if (self.pos.x < self.m_target.pos.x - 10) then isPassedTarget = true end
         else
-			if (self.pos.x > self.m_target.m_homePosX + 10) then isPassedTarget = true end
+			if (self.pos.x > self.m_target.pos.x + 10) then isPassedTarget = true end
         end
 
 		-- fade out 처리, motion streak 는 fade out 불가..
