@@ -96,6 +96,18 @@ function UI_Lobby:entryCoroutine()
         g_topUserInfo:doAction()
         while (working) do dt = coroutine.yield() end
 
+        cclog('# 출석 정보 받는 중')
+        working = true
+        g_attendanceData:request_attendanceInfo(function(ret) working = false end)
+        while (working) do dt = coroutine.yield() end
+
+        if g_birthdayData:hasBirthdayReward() then
+            working = true
+            local ui = UI_EventPopup()
+            ui:setCloseCB(function(ret) working = false end)
+            while (working) do dt = coroutine.yield() end
+        end
+
         -- 출석 정보 받아옴
         --[[
         cclog('# 출석 정보 받는 중')

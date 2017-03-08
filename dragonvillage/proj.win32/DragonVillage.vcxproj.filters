@@ -1833,6 +1833,9 @@
     <None Include="..\src\UI_BirthdayRewardSelectListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_Birthday.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
