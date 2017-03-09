@@ -1,0 +1,1164 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)result_box_.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"box_01",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_box'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "rotate":-20.000000, "pY":330.000000
+									},
+									{
+										"frame":7
+									},
+									{
+										"frame":9, "sY":0.900000, "rotate":5.000000
+									},
+									{
+										"frame":11, "rotate":-5.000000
+									},
+									{
+										"frame":13
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"box_02",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_light'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":10, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":30, "mode":"Add"
+									},
+									{
+										"frame":42, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_box'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":12
+									},
+									{
+										"frame":14, "sY":0.950000, "pY":-7.000000
+									},
+									{
+										"frame":16, "rotate":5.000000, "pY":13.250000
+									},
+									{
+										"frame":18, "rotate":-5.000001, "pY":15.178572
+									},
+									{
+										"frame":20, "rotate":5.000000, "pY":17.107143
+									},
+									{
+										"frame":23, "rotate":-5.000000, "pY":20.000000
+									},
+									{
+										"frame":26, "pY":6.476190
+									},
+									{
+										"frame":28, "sY":0.930000, "pY":-4.000000
+									},
+									{
+										"frame":30
+									},
+									{
+										"frame":42
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":22, "pX":-14.000000, "pY":-10.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":24, "rotate":9.000000, "pX":-14.000000, "pY":1.500000, "mode":"Add"
+									},
+									{
+										"frame":42, "sX":0.000000, "sY":0.000000, "rotate":90.000000, "pX":-14.000000, "pY":105.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":-41.000000, "pY":36.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":20, "rotate":9.000000, "pX":-41.000000, "pY":47.500000, "mode":"Add"
+									},
+									{
+										"frame":38, "sX":0.000000, "sY":0.000000, "rotate":90.000000, "pX":-41.000000, "pY":151.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":16, "rotate":-203.000000, "pX":-70.000000, "pY":-34.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":18, "rotate":-194.000000, "pX":-70.000000, "pY":-22.499998, "mode":"Add"
+									},
+									{
+										"frame":36, "sX":0.000000, "sY":0.000000, "rotate":-113.000000, "pX":-70.000000, "pY":81.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "rotate":-82.000000, "pX":-88.000000, "pY":-32.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":14, "rotate":-72.999992, "pX":-88.000000, "pY":-20.500000, "mode":"Add"
+									},
+									{
+										"frame":32, "sX":0.000000, "sY":0.000000, "rotate":8.000000, "pX":-88.000000, "pY":83.000000, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"box_03",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_light'",
+								"expand":false,
+								"apply":false,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":0
+									},
+									{
+										"frame":10
+									},
+									{
+										"frame":22
+									},
+									{
+										"frame":30, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_bottom.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-28.000000
+									},
+									{
+										"frame":10, "sX":0.900000, "sY":0.900000, "pY":-22.000000
+									},
+									{
+										"frame":18, "sX":0.820000, "sY":0.820000, "pY":-22.000000
+									},
+									{
+										"frame":22, "pY":-55.000000
+									},
+									{
+										"frame":28, "pY":-55.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_bottom_light.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-28.000000, "alpha":0
+									},
+									{
+										"frame":10, "sX":0.900000, "sY":0.900000, "pY":-22.000000
+									},
+									{
+										"frame":12, "sX":0.880000, "sY":0.880000, "pY":-22.000000, "alpha":204
+									},
+									{
+										"frame":14, "sX":0.860000, "sY":0.860000, "pY":-22.000000
+									},
+									{
+										"frame":16, "sX":0.840000, "sY":0.840000, "pY":-22.000000, "alpha":204
+									},
+									{
+										"frame":18, "sX":0.820000, "sY":0.820000, "pY":-22.000000
+									},
+									{
+										"frame":22, "pY":-55.000000
+									},
+									{
+										"frame":25, "pY":-55.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_top.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":25.000000
+									},
+									{
+										"frame":10, "sX":0.900000, "sY":0.900000, "pY":18.000000
+									},
+									{
+										"frame":18, "sX":0.820000, "sY":0.820000, "pY":18.000000
+									},
+									{
+										"frame":22, "pY":70.000000
+									},
+									{
+										"frame":28, "pY":70.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_top_light.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":25.000000, "alpha":0
+									},
+									{
+										"frame":10, "sX":0.900000, "sY":0.900000, "pY":18.000000
+									},
+									{
+										"frame":12, "sX":0.880000, "sY":0.880000, "pY":18.000000, "alpha":204
+									},
+									{
+										"frame":14, "sX":0.860000, "sY":0.860000, "pY":18.000000
+									},
+									{
+										"frame":16, "sX":0.840000, "sY":0.840000, "pY":18.000000, "alpha":204
+									},
+									{
+										"frame":18, "sX":0.820000, "sY":0.820000, "pY":18.000000
+									},
+									{
+										"frame":22, "pY":70.000000
+									},
+									{
+										"frame":25, "pY":70.000000, "alpha":0
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_box_open_fx'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":1.000000, "pY":1.000000
+									},
+									{
+										"frame":30, "pX":1.000000, "pY":1.000000
+									},
+									{
+										"frame":34, "pX":1.000000, "pY":1.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"reward_fx",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_light'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":5, "alpha":255, "mode":"Add"
+									},
+									{
+										"frame":42, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_reward.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "alpha":0
+									},
+									{
+										"frame":5, "alpha":255
+									},
+									{
+										"frame":10
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name":"res",
+			"expand":true,
+			"apply":false,
+			"visual_list":
+			[
+				{
+					"name":"res_back_light",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":2.100000, "sY":2.100000, "pY":10.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":3, "sX":2.100000, "sY":2.100000, "pY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":6, "sX":2.100000, "sY":2.100000, "pY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":9, "sX":2.100000, "sY":2.100000, "pY":10.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_light_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":2.100000, "sY":2.100000, "pY":10.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":7, "sX":2.100000, "sY":2.100000, "pY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":10, "sX":2.100000, "sY":2.100000, "pY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":13, "sX":2.100000, "sY":2.100000, "pY":10.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_light_05.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "sX":2.100000, "sY":2.100000, "pY":10.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":11, "sX":2.100000, "sY":2.100000, "pY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":14, "sX":2.100000, "sY":2.100000, "pY":10.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":17, "sX":2.100000, "sY":2.100000, "pY":10.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_light_06.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "sX":2.100000, "sY":2.100000, "pY":10.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":15, "sX":2.200000, "sY":2.200000, "pY":10.000000, "alpha":255, "mode":"Add"
+									},
+									{
+										"frame":18, "sX":2.200000, "sY":2.200000, "pY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":21, "sX":2.300000, "sY":2.300000, "pY":10.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_light_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":16, "sX":2.100000, "sY":2.100000, "pY":10.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":19, "sX":2.100000, "sY":2.100000, "pY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":22, "sX":2.100000, "sY":2.100000, "pY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":25, "sX":2.100000, "sY":2.100000, "pY":10.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_light_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20, "sX":2.100000, "sY":2.100000, "pY":10.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":2.100000, "sY":2.100000, "pY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":26, "sX":2.100000, "sY":2.100000, "pY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "sX":2.100000, "sY":2.100000, "pY":10.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_light_05.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":24, "sX":2.100000, "sY":2.100000, "pY":10.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":27, "sX":2.100000, "sY":2.100000, "pY":10.000000, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":2.100000, "sY":2.100000, "pY":10.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":33, "sX":2.100000, "sY":2.100000, "pY":10.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_light_06.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":28, "sX":2.100000, "sY":2.100000, "pY":10.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":31, "sX":2.200000, "sY":2.200000, "pY":10.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":34, "sX":2.200000, "sY":2.200000, "pY":10.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":37, "sX":2.300000, "sY":2.300000, "pY":10.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_box",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_bottom.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-28.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_top.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":25.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_box_light",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_bottom_light.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-28.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_top_light.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":25.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_box_open_fx",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"expand":true,
+								"apply":true,
+								"layer_list":
+								[
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_star.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":20, "pX":-6.000000, "pY":-2.000000, "mode":"Add"
+											},
+											{
+												"frame":24, "pX":-6.000000, "pY":-2.000000, "mode":"Add"
+											},
+											{
+												"frame":26, "rotate":13.043479, "pX":-34.000000, "pY":22.000000, "mode":"Add"
+											},
+											{
+												"frame":30, "rotate":39.130436, "pX":-51.000000, "pY":39.000000, "mode":"Add"
+											},
+											{
+												"frame":33, "rotate":58.695656, "pX":-76.000000, "pY":42.000000, "mode":"Add"
+											},
+											{
+												"frame":36, "rotate":78.260872, "pX":-109.000000, "pY":22.000000, "mode":"Add"
+											},
+											{
+												"frame":41, "rotate":110.869568, "pX":-153.000000, "pY":-41.000000, "mode":"Add"
+											},
+											{
+												"frame":47, "rotate":150.000000, "pX":-175.000000, "pY":-123.000000, "alpha":0, "mode":"Add"
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_star.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":22, "sX":1.100000, "sY":1.100000, "rotate":43.000000, "pX":-11.000000, "pY":24.000000, "mode":"Add"
+											},
+											{
+												"frame":24, "sX":1.100000, "sY":1.100000, "rotate":56.043480, "pX":-39.000000, "pY":48.000000, "mode":"Add"
+											},
+											{
+												"frame":28, "sX":1.100000, "sY":1.100000, "rotate":82.130432, "pX":-56.000000, "pY":65.000000, "mode":"Add"
+											},
+											{
+												"frame":31, "sX":1.100000, "sY":1.100000, "rotate":101.695656, "pX":-88.000000, "pY":81.000000, "mode":"Add"
+											},
+											{
+												"frame":34, "sX":1.100000, "sY":1.100000, "rotate":121.260872, "pX":-140.000000, "pY":68.000000, "mode":"Add"
+											},
+											{
+												"frame":39, "sX":1.100000, "sY":1.100000, "rotate":153.869568, "pX":-192.000000, "pY":26.000000, "mode":"Add"
+											},
+											{
+												"frame":45, "sX":1.100000, "sY":1.100000, "rotate":193.000000, "pX":-231.000000, "pY":-28.000000, "alpha":0, "mode":"Add"
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_star.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":21, "sX":0.800000, "sY":0.800000, "rotate":43.000000, "pX":2.000000, "pY":-15.000000, "mode":"Add"
+											},
+											{
+												"frame":23, "sX":0.800000, "sY":0.800000, "rotate":56.043480, "pX":-9.000000, "pY":20.000000, "mode":"Add"
+											},
+											{
+												"frame":27, "sX":0.800000, "sY":0.800000, "rotate":82.130432, "pX":-44.000000, "pY":129.000000, "mode":"Add"
+											},
+											{
+												"frame":30, "sX":0.800000, "sY":0.800000, "rotate":101.695656, "pX":-80.000000, "pY":155.000000, "mode":"Add"
+											},
+											{
+												"frame":33, "sX":0.800000, "sY":0.800000, "rotate":121.260872, "pX":-106.000000, "pY":164.000000, "mode":"Add"
+											},
+											{
+												"frame":38, "sX":0.800000, "sY":0.800000, "rotate":153.869568, "pX":-136.000000, "pY":160.000000, "mode":"Add"
+											},
+											{
+												"frame":44, "sX":0.800000, "sY":0.800000, "rotate":193.000000, "pX":-163.000000, "pY":136.000000, "alpha":0, "mode":"Add"
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_star.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":20, "sX":1.400000, "sY":1.400000, "rotate":91.000000, "pX":4.000000, "pY":6.000000, "mode":"Add"
+											},
+											{
+												"frame":24, "sX":1.400000, "sY":1.400000, "rotate":104.043480, "pX":-24.000000, "pY":30.000000, "mode":"Add"
+											},
+											{
+												"frame":26, "sX":1.400000, "sY":1.400000, "rotate":130.130432, "pX":-41.000000, "pY":47.000000, "mode":"Add"
+											},
+											{
+												"frame":29, "sX":1.400000, "sY":1.400000, "rotate":149.695648, "pX":-91.000000, "pY":79.000000, "mode":"Add"
+											},
+											{
+												"frame":32, "sX":1.400000, "sY":1.400000, "rotate":169.260864, "pX":-133.000000, "pY":66.000000, "mode":"Add"
+											},
+											{
+												"frame":37, "sX":1.400000, "sY":1.400000, "rotate":201.869568, "pX":-177.000000, "pY":32.000000, "mode":"Add"
+											},
+											{
+												"frame":43, "sX":1.400000, "sY":1.400000, "rotate":241.000000, "pX":-226.000000, "pY":-32.000000, "alpha":0, "mode":"Add"
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_star.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":20, "sX":1.200000, "sY":1.200000, "rotate":91.000000, "pX":-3.000000, "pY":4.000000, "mode":"Add"
+											},
+											{
+												"frame":22, "sX":1.200000, "sY":1.200000, "rotate":104.043480, "pX":21.000000, "pY":76.000000, "mode":"Add"
+											},
+											{
+												"frame":26, "sX":1.200000, "sY":1.200000, "rotate":130.130432, "pX":42.000000, "pY":145.000000, "mode":"Add"
+											},
+											{
+												"frame":29, "sX":1.200000, "sY":1.200000, "rotate":149.695648, "pX":80.000000, "pY":181.000000, "mode":"Add"
+											},
+											{
+												"frame":32, "sX":1.200000, "sY":1.200000, "rotate":169.260864, "pX":122.000000, "pY":184.000000, "mode":"Add"
+											},
+											{
+												"frame":37, "sX":1.200000, "sY":1.200000, "rotate":201.869568, "pX":166.000000, "pY":156.000000, "mode":"Add"
+											},
+											{
+												"frame":43, "sX":1.200000, "sY":1.200000, "rotate":241.000000, "pX":209.000000, "pY":100.000000, "alpha":0, "mode":"Add"
+											}
+										]
+									},
+									{
+										"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_star.png'",
+										"expand":false,
+										"apply":true,
+										"key_list":
+										[
+											{
+												"frame":23, "rotate":91.000000, "pX":-9.000000, "pY":-1.000000, "mode":"Add"
+											},
+											{
+												"frame":25, "rotate":104.043480, "pX":15.000000, "pY":71.000000, "mode":"Add"
+											},
+											{
+												"frame":29, "rotate":130.130432, "pX":66.000000, "pY":114.000000, "mode":"Add"
+											},
+											{
+												"frame":32, "rotate":149.695648, "pX":106.000000, "pY":104.000000, "mode":"Add"
+											},
+											{
+												"frame":35, "rotate":169.260864, "pX":136.000000, "pY":83.000000, "mode":"Add"
+											},
+											{
+												"frame":40, "rotate":201.869568, "pX":168.000000, "pY":41.000000, "mode":"Add"
+											},
+											{
+												"frame":46, "rotate":241.000000, "pX":201.000000, "pY":-39.000000, "alpha":0, "mode":"Add"
+											}
+										]
+									}
+								]
+							}
+,
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.500000, "sY":0.500000, "cY":6.000000, "mode":"Add"
+									},
+									{
+										"frame":10, "rotate":-26.000000, "cY":6.000000, "mode":"Add"
+									},
+									{
+										"frame":19, "sX":2.000000, "sY":2.000000, "rotate":-30.000000, "cY":6.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_light_circle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":0.500000, "sY":0.500000, "cY":6.000000, "mode":"Add"
+									},
+									{
+										"frame":14, "rotate":-26.000000, "cY":6.000000, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":2.000000, "sY":2.000000, "rotate":-30.000000, "cY":6.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_back_light'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":21
+									},
+									{
+										"frame":25, "alpha":0
+									},
+									{
+										"frame":37, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_light",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":5.000000, "sY":5.000000
+									},
+									{
+										"frame":42, "sX":5.000000, "sY":5.000000, "rotate":90.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_light_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":5.000000, "sY":5.000000, "rotate":90.000000
+									},
+									{
+										"frame":42, "sX":5.000000, "sY":5.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_light_circle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_circle_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":3, "sX":2.000000, "sY":2.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":6, "sX":2.000000, "sY":2.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":9, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_circle_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":7, "sX":2.000000, "sY":2.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":10, "sX":2.000000, "sY":2.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":13, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_circle_05.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":11, "sX":2.000000, "sY":2.000000, "mode":"Add"
+									},
+									{
+										"frame":14, "sX":2.000000, "sY":2.000000, "mode":"Add"
+									},
+									{
+										"frame":17, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_circle_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":15, "sX":2.000000, "sY":2.000000, "mode":"Add"
+									},
+									{
+										"frame":18, "sX":2.000000, "sY":2.000000, "mode":"Add"
+									},
+									{
+										"frame":21, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_circle_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":16, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":19, "sX":2.000000, "sY":2.000000, "mode":"Add"
+									},
+									{
+										"frame":22, "sX":2.000000, "sY":2.000000, "mode":"Add"
+									},
+									{
+										"frame":25, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_circle_05.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":23, "sX":2.000000, "sY":2.000000, "mode":"Add"
+									},
+									{
+										"frame":26, "sX":2.000000, "sY":2.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_circle_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":24, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":27, "sX":2.000000, "sY":2.000000, "mode":"Add"
+									},
+									{
+										"frame":30, "sX":2.000000, "sY":2.000000, "mode":"Add"
+									},
+									{
+										"frame":33, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_circle_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":28, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":31, "sX":2.000000, "sY":2.000000, "mode":"Add"
+									},
+									{
+										"frame":34, "sX":2.000000, "sY":2.000000, "mode":"Add"
+									},
+									{
+										"frame":42, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result_box_.plist'<azSprite>'result_box_circle_05.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":32, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									},
+									{
+										"frame":35, "sX":2.000000, "sY":2.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":38, "sX":2.000000, "sY":2.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":46, "sX":2.000000, "sY":2.000000, "alpha":0, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}
