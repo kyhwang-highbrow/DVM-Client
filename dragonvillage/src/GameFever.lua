@@ -615,7 +615,7 @@ function GameFever:onEvent(event_name, t_event, ...)
         local arg = {...}
         local hero = arg[1]
 
-        local point = 1
+        local point = FEVER_POINT_INCREMENT_VALUE[event_name]
 
         self:addFeverPoint(point)
         
@@ -623,7 +623,7 @@ function GameFever:onEvent(event_name, t_event, ...)
         local arg = {...}
         local hero = arg[1]
 
-        local point = 4
+        local point = FEVER_POINT_INCREMENT_VALUE[event_name]
 
         self:addFeverPoint(point)
 
@@ -632,7 +632,7 @@ function GameFever:onEvent(event_name, t_event, ...)
         local attackerActivityCarrier = arg[2]
         local hit_count = attackerActivityCarrier:getFlag('hit_count') or 0
         
-        local point = 2
+        local point = FEVER_POINT_INCREMENT_VALUE[event_name]
 
         if (hit_count < 5) then
             self:addFeverPoint(point)
@@ -642,7 +642,7 @@ function GameFever:onEvent(event_name, t_event, ...)
         local arg = {...}
         local hero = arg[1]
 
-        local point = 3
+        local point = FEVER_POINT_INCREMENT_VALUE[event_name]
 
         self:addFeverPoint(point)
         
@@ -651,7 +651,7 @@ function GameFever:onEvent(event_name, t_event, ...)
         local castingPercentage = arg[2]
 
         --local point = self:getPointFromCastingPercentage(castingPercentage)
-        local point = 10
+        local point = FEVER_POINT_INCREMENT_VALUE[event_name]
 
         self:addFeverPoint(point)
     end
