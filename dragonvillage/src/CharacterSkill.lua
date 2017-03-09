@@ -295,10 +295,11 @@ function Character:doSkill(skill_id, x, y, t_data)
 				return true
 
 			end
+
+			cclog('미구현 코드 스킬 : ' .. type)
 		end
     end
 
-	cclog('미구현 코드 스킬 : ' .. type)
     return false
 end
 
