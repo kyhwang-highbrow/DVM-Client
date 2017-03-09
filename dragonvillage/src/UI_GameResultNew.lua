@@ -82,6 +82,14 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
         vars['userExpGg']:setPercentage(t_tamer_levelup_data['curr_exp'] / t_tamer_levelup_data['curr_max_exp'] * 100)
     end
 
+    -- 테이머
+    do
+        local tamer_res = g_userData:getTamerInfo('res')
+        local animator = MakeAnimator(tamer_res)
+        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+        vars['tamerNode']:addChild(animator.m_node)
+    end
 
     -- 레벨업 연출 클래스 리스트
     self.m_lLevelupDirector = {}
