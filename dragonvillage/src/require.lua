@@ -412,6 +412,7 @@ local t_module = {
     'UI_Game',
     'UI_GameColosseum',
     'UI_GameResultNew',
+    'UI_GameResult_Adventure',
     'UI_GameResult_NestDungeon',
     'UI_GameResult_SecretDungeon',
     'UI_GamePause',

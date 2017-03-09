@@ -504,9 +504,6 @@ function SceneGame:networkGameFinish_response(ret, t_result_ref)
     -- 변경된 드래곤 적용
     self:networkGameFinish_response_modified_dragons(ret, t_result_ref)
 
-    -- 추가된 드래곤 적용
-    self:networkGameFinish_response_added_dragons(ret, t_result_ref)
-
     -- 드랍 정보 drop_reward
     self:networkGameFinish_response_drop_reward(ret, t_result_ref)
 
@@ -518,11 +515,6 @@ function SceneGame:networkGameFinish_response(ret, t_result_ref)
 
     -- 모험모드 챕터 업적
     self:networkGameFinish_response_chapter_achievement_info(ret)
-
-    -- 추가된 룬 적용
-    if ret['added_runes'] then
-        g_runesData:applyRuneData_list(ret['added_runes'])
-    end
 end
 
 -------------------------------------
@@ -616,22 +608,6 @@ function SceneGame:networkGameFinish_response_modified_dragons(ret, t_result_ref
         table.insert(dragon_levelu_data_list, t_data)
     end
 end
-
--------------------------------------
--- function networkGameFinish_response_added_dragons
--- @breif 드랍에 의해 유저에 추가된 드래곤들 추가
--------------------------------------
-function SceneGame:networkGameFinish_response_added_dragons(ret, t_result_ref)
-    if (not ret['added_dragons']) then
-        return
-    end
-
-    for _,t_dragon in ipairs(ret['added_dragons']) do
-        -- 서버에서 넘어온 드래곤 정보 저장
-        g_dragonsData:applyDragonData(t_dragon)
-    end
-end
-
 
 -------------------------------------
 -- function networkGameFinish_response_drop_reward

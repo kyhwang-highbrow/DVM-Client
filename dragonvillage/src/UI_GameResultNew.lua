@@ -185,24 +185,7 @@ function UI_GameResultNew:direction_start()
     local is_success = self.m_bSuccess
     local vars = self.vars
 
-    vars['successVisual']:setVisible(true)
-
-    -- 성공 or 실패
-    if (is_success == true) then
-
-        local stage_id = self.m_stageID
-        local stage_info = g_adventureData:getStageInfo(stage_id)
-        local num_of_stars = stage_info:getNumberOfStars()
-
-        SoundMgr:playBGM('result_success', false)    
-        vars['successVisual']:changeAni('success_0' .. num_of_stars, false)
-        vars['successVisual']:addAniHandler(function()
-            vars['successVisual']:changeAni('success_idle_0' .. num_of_stars, true)
-        end)
-    else
-        SoundMgr:playBGM('result_fail', false)
-        vars['successVisual']:changeAni('fail')
-    end
+    self:setSuccessVisual()
 
     vars['homeBtn']:setVisible(false)
     vars['againBtn']:setVisible(false)
@@ -221,6 +204,29 @@ function UI_GameResultNew:direction_start()
 
     self.root:stopAllActions()
     self.root:runAction(cc.Sequence:create(cc.DelayTime:create(2), cc.CallFunc:create(function() self:doNextWork() end)))
+end
+
+-------------------------------------
+-- function setSuccessVisual
+-- @brief 성공 연출
+-------------------------------------
+function UI_GameResultNew:setSuccessVisual()
+    local is_success = self.m_bSuccess
+    local vars = self.vars
+
+    vars['successVisual']:setVisible(true)
+
+    -- 성공 or 실패
+    if (is_success == true) then
+        SoundMgr:playBGM('result_success', false)    
+        vars['successVisual']:changeAni('success', false)
+        vars['successVisual']:addAniHandler(function()
+            vars['successVisual']:changeAni('success_idle', true)
+        end)
+    else
+        SoundMgr:playBGM('result_fail', false)
+        vars['successVisual']:changeAni('fail')
+    end
 end
 
 -------------------------------------
