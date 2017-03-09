@@ -140,7 +140,7 @@ end
 -- @brief 오각형 모양의 공격 시작 좌표 리턴
 -------------------------------------
 function SkillEnumrate:getStartPosList_Pentagon()
-	local l_attack_pos = P_RANDOM_PENTAGON_POS
+	local l_attack_pos = RANDOM_CARD_PENTAGON_POS
 
 	return l_attack_pos
 end

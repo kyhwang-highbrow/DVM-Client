@@ -75,8 +75,6 @@ function closeApplication()
 	cc.Director:getInstance():endToLua()
 end
 
-
-
 -------------------------------------
 -- function main
 -------------------------------------

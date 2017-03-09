@@ -22,9 +22,10 @@ function SkillEnumrate_Curve:init_skill(missile_res, motionstreak_res, line_num,
 	PARENT.init_skill(self, missile_res, motionstreak_res, line_num, line_size)
 
 	-- 1. 멤버 변수
-	self.m_skillInterval = P_RANDOM_INTERVAL
+	self.m_skillInterval = RANDOM_CARD_INTERVAL
 	self.m_enumTargetType = 'enemy_random'
 	self.m_enumPosType = 'pentagon'
+	self.m_bSkillHitEffect = false
 end
 
 -------------------------------------
@@ -32,42 +33,47 @@ end
 -- @override
 -------------------------------------
 function SkillEnumrate_Curve:fireMissile(idx)
-    local char = self.m_owner
     local world = self.m_world
+    
+	local char = self.m_owner
+	local target_char = self.m_skillTargetList[idx]
+	if (not traget_char) or (target_char.m_bDead) then
+		local l_target = world:getTargetList(char, self.pos.x, self.pos.y, 'enemy', 'x', 'random')
+        target_char = l_target[1]
+	end
 
     local t_option = {}
 
     t_option['owner'] = char
-	t_option['target'] = self.m_skillTargetList[idx]
+	t_option['target'] = target_char
 
     t_option['pos_x'] = char.pos.x
 	t_option['pos_y'] = char.pos.y
 	
     t_option['object_key'] = char:getAttackPhysGroup()
-    t_option['physics_body'] = {0, 0, self.m_skillLineSize}
+    t_option['physics_body'] = {0, 0, 0}
     t_option['attack_damage'] = self.m_activityCarrier
 	t_option['attr_name'] = char:getAttribute()
 
 	t_option['missile_type'] = 'NORMAL'
     t_option['movement'] ='lua_arrange_curve' 
-	t_option['bFixedAttack'] = true
+	t_option['disable_body'] = true
 
     t_option['lua_param'] = {}
-    t_option['lua_param']['value1'] = math_random(-P_RANDOM_HEIGHT_RANGE, P_RANDOM_HEIGHT_RANGE)
-	t_option['lua_param']['value2'] = P_RANDOM_SPEED
-	t_option['lua_param']['value3'] = P_RANDOM_FIRE_DELAY
+    t_option['lua_param']['value1'] = math_random(-RANDOM_CARD_HEIGHT_RANGE, RANDOM_CARD_HEIGHT_RANGE)
+	t_option['lua_param']['value2'] = RANDOM_CARD_SPEED
+	t_option['lua_param']['value3'] = RANDOM_CARD_FIRE_DELAY
 	t_option['lua_param']['value4'] = self.m_skillStartPosList[idx]
+	t_option['lua_param']['value5'] = function()
+		-- 공격
+		self:attack(t_option['target'])
+	end
 
     t_option['missile_res_name'] = self.m_missileRes
 	t_option['scale'] = self.m_resScale
 	t_option['visual'] = ('move_' .. math_random(1, 5))
 	t_option['effect'] = {}
     t_option['effect']['motion_streak'] = self.m_motionStreakRes
-
-    t_option['cbFunction'] = function()
-		-- 타격 카운트 갱신
-        self:addHitCount()
-	end
 
     -- 하이라이트
     t_option['highlight'] = self.m_bHighlight

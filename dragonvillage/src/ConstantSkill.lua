@@ -23,7 +23,7 @@ LEAF_DIST_LIMIT = 400
 VOLTES_ATTACK_INTERVAL = 0.3
 VOLTES_FINAL_ATTACK_TIME = 2
 
--- #SkillPenetration - Sitael
+-- #SkillEnumrate_Penetration - Sitael
 PENERATION_ATK_START_POS_DIST = 100				-- 드래곤 원점과 스킬 중심좌표 사이의 거리
 PENERATION_TOTAL_LENGTH = 500					-- 발사체를 늘어놓는 전체 거리 (무기간 간격 = 전체거리/발사체 개수)
 PENERATION_ANGLE_LIMIT = 45						-- 시전 각도 제한
@@ -36,12 +36,12 @@ RAPIDSHOT_Y_POS_RANGE = 50						-- 발사체를 y 좌표 상에서 랜덤하게 
 RAPIDSHOT_INTERVAL = ONE_FRAME * 3				-- 발사체 등장 간격 
 RAPIDSHOT_FIRE_DELAY = 0.5						-- 등장 후 발사 딜레이
 
--- #SkillPenetration_Random -- 삐에로 드래곤
-P_RANDOM_HEIGHT_RANGE = 100						-- 발사체 곡선 궤적의 최대 높이 범위 (+ ~ -)
-P_RANDOM_INTERVAL = ONE_FRAME * 5				-- 발사체 등장 간격 
-P_RANDOM_FIRE_DELAY = 0.7						-- 등장 후 발사 딜레이
-P_RANDOM_SPEED = 0.2							-- 타겟한테까지 가는 시간 (mp/s 가 아닌 sec)
-P_RANDOM_PENTAGON_POS = {						-- 5각형의 발사 전 준비 위치 (임시)
+-- #SkillEnumrate_Curve -- 삐에로 드래곤
+RANDOM_CARD_HEIGHT_RANGE = 200						-- 발사체 곡선 궤적의 최대 높이 범위 (+ ~ -)
+RANDOM_CARD_INTERVAL = ONE_FRAME * 5				-- 발사체 등장 간격 
+RANDOM_CARD_FIRE_DELAY = 0.7						-- 등장 후 발사 딜레이
+RANDOM_CARD_SPEED = 0.15							-- 타겟한테까지 가는 시간 (mp/s 가 아닌 sec)
+RANDOM_CARD_PENTAGON_POS = {						-- 5각형의 발사 전 준비 위치 (임시)
 	{x = 0, y = 100},
 	{x = 100, y = 50},
 	{x = 80, y = -100},
