@@ -98,4 +98,4 @@ DRAGON_SKILL_DIRECTION_DURATION[3] = 0.5    -- 암전 풀리는 시간
 --------------------------------------------
 -- 드래곤 스킬 게이지 변경 관련
 --------------------------------------------
-DRAGON_SKILL_COOL_TIME = 10
+DRAGON_SKILL_COOL_TIME = 13
