@@ -446,6 +446,21 @@ function ccdebug()
     cclog(debug.traceback())
 end
 
+-------------------------------------
+-- function ccdisplay
+-- @brief cclog와 동시에 UI에 메세지를 출력해준다.
+-------------------------------------
+function ccdisplay(...)
+	cclog(...)
+	
+	local str = ''
+	for i, v in pairs({...}) do
+		str = str .. ' ' .. v
+	end
+    UIManager:toastNotificationGreen(str)
+end
+
+
 function convertToParentCoord(parent, target)
     local p, x, y = target, 0, 0
     repeat

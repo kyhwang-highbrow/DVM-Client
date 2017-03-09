@@ -242,7 +242,6 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 		status_effect = StatusEffect_Protection(res)
 		local adj_value = t_status_effect['val_1'] * (status_effect_value / 100)
 		local shield_hp = char.m_maxHp * (adj_value / 100)
-		cclog_ui(adj_value)
 		status_effect:init_trigger(char, shield_hp)
 	
 	----------- 데미지 경감 보호막 ------------------
