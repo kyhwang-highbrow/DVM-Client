@@ -245,6 +245,217 @@
 					}
 				},
 				{
+					"name":"success",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'result_seccess_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "sY":0.000000, "pY":20.000000
+									},
+									{
+										"frame":6, "pY":94.000000
+									},
+									{
+										"frame":8, "pY":114.000000
+									},
+									{
+										"frame":10, "pY":74.000000
+									},
+									{
+										"frame":12, "pY":94.000008
+									},
+									{
+										"frame":59, "pY":94.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'result_seccess_0103.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "pX":-240.000000, "pY":216.000000
+									},
+									{
+										"frame":8, "pX":-88.000000, "pY":64.000000
+									},
+									{
+										"frame":10, "pX":-64.000000, "pY":40.000000
+									},
+									{
+										"frame":12, "pX":-100.000000, "pY":74.000000
+									},
+									{
+										"frame":14, "pX":-88.000000, "pY":64.000000
+									},
+									{
+										"frame":59, "pX":-88.000000, "pY":64.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'result_seccess_0104.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6, "pX":240.000000, "pY":216.000000
+									},
+									{
+										"frame":10, "pX":88.000000, "pY":64.000000
+									},
+									{
+										"frame":12, "pX":64.000000, "pY":40.000000
+									},
+									{
+										"frame":14, "pX":100.000000, "pY":74.000000
+									},
+									{
+										"frame":16, "pX":88.000000, "pY":64.000000
+									},
+									{
+										"frame":59, "pX":88.000000, "pY":64.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'result_seccess_0106.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":8, "pY":323.000000
+									},
+									{
+										"frame":12, "pY":78.000000
+									},
+									{
+										"frame":14, "pY":61.000000
+									},
+									{
+										"frame":16, "pY":100.000000
+									},
+									{
+										"frame":18, "pY":78.000000
+									},
+									{
+										"frame":59, "pY":78.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'result_seccess_0101.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.000000, "pY":-20.000000
+									},
+									{
+										"frame":4
+									},
+									{
+										"frame":6, "sX":1.100000
+									},
+									{
+										"frame":8, "sX":0.900000
+									},
+									{
+										"frame":10
+									},
+									{
+										"frame":59
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'result_success_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":4, "sX":1.100000, "sY":1.100000, "pY":50.000000
+									},
+									{
+										"frame":8, "pY":8.000000
+									},
+									{
+										"frame":10, "pY":-18.000000
+									},
+									{
+										"frame":12, "pY":20.000000
+									},
+									{
+										"frame":14, "pY":8.000000
+									},
+									{
+										"frame":59, "pY":8.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_firework_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":18, "sX":1.200000, "sY":1.200000, "pX":-59.000000, "pY":88.000000
+									},
+									{
+										"frame":51, "sX":1.200000, "sY":1.200000, "pX":-59.000000, "pY":88.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_firework_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":22, "sX":1.200000, "sY":1.200000, "pY":105.000000
+									},
+									{
+										"frame":55, "sX":1.200000, "sY":1.200000, "pY":105.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_firework_01'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":26, "sX":1.200000, "sY":1.200000, "pX":59.000000, "pY":88.000000
+									},
+									{
+										"frame":59, "sX":1.200000, "sY":1.200000, "pX":59.000000, "pY":88.000000
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"success_00",
 					"apply":true,
 					"fps":30,
@@ -1296,7 +1507,7 @@
 					}
 				},
 				{
-					"name":"success_04",
+					"name":"success_idle",
 					"apply":true,
 					"fps":30,
 					"layer_root":
@@ -1312,19 +1523,7 @@
 								"key_list":
 								[
 									{
-										"frame":2, "sY":0.000000, "pY":20.000000
-									},
-									{
-										"frame":6, "pY":94.000000
-									},
-									{
-										"frame":8, "pY":114.000000
-									},
-									{
-										"frame":10, "pY":74.000000
-									},
-									{
-										"frame":12, "pY":94.000008
+										"frame":0, "pY":94.000000
 									},
 									{
 										"frame":59, "pY":94.000000
@@ -1338,19 +1537,7 @@
 								"key_list":
 								[
 									{
-										"frame":4, "pX":-240.000000, "pY":216.000000
-									},
-									{
-										"frame":8, "pX":-88.000000, "pY":64.000000
-									},
-									{
-										"frame":10, "pX":-64.000000, "pY":40.000000
-									},
-									{
-										"frame":12, "pX":-100.000000, "pY":74.000000
-									},
-									{
-										"frame":14, "pX":-88.000000, "pY":64.000000
+										"frame":0, "pX":-88.000000, "pY":64.000000
 									},
 									{
 										"frame":59, "pX":-88.000000, "pY":64.000000
@@ -1364,19 +1551,7 @@
 								"key_list":
 								[
 									{
-										"frame":6, "pX":240.000000, "pY":216.000000
-									},
-									{
-										"frame":10, "pX":88.000000, "pY":64.000000
-									},
-									{
-										"frame":12, "pX":64.000000, "pY":40.000000
-									},
-									{
-										"frame":14, "pX":100.000000, "pY":74.000000
-									},
-									{
-										"frame":16, "pX":88.000000, "pY":64.000000
+										"frame":0, "pX":88.000000, "pY":64.000000
 									},
 									{
 										"frame":59, "pX":88.000000, "pY":64.000000
@@ -1390,19 +1565,7 @@
 								"key_list":
 								[
 									{
-										"frame":8, "pY":323.000000
-									},
-									{
-										"frame":12, "pY":78.000000
-									},
-									{
-										"frame":14, "pY":61.000000
-									},
-									{
-										"frame":16, "pY":100.000000
-									},
-									{
-										"frame":18, "pY":78.000000
+										"frame":0, "pY":78.000000
 									},
 									{
 										"frame":59, "pY":78.000000
@@ -1416,19 +1579,7 @@
 								"key_list":
 								[
 									{
-										"frame":0, "sX":0.000000, "pY":-20.000000
-									},
-									{
-										"frame":4
-									},
-									{
-										"frame":6, "sX":1.100000
-									},
-									{
-										"frame":8, "sX":0.900000
-									},
-									{
-										"frame":10
+										"frame":0
 									},
 									{
 										"frame":59
@@ -1442,19 +1593,7 @@
 								"key_list":
 								[
 									{
-										"frame":4, "sX":1.100000, "sY":1.100000, "pY":50.000000
-									},
-									{
-										"frame":8, "pY":8.000000
-									},
-									{
-										"frame":10, "pY":-18.000000
-									},
-									{
-										"frame":12, "pY":20.000000
-									},
-									{
-										"frame":14, "pY":8.000000
+										"frame":0, "pY":8.000000
 									},
 									{
 										"frame":59, "pY":8.000000
@@ -1468,10 +1607,24 @@
 								"key_list":
 								[
 									{
-										"frame":18, "sX":1.200000, "sY":1.200000, "pX":-59.000000, "pY":88.000000
+										"frame":0, "pX":-223.000000, "pY":12.000000
 									},
 									{
-										"frame":51, "sX":1.200000, "sY":1.200000, "pX":-59.000000, "pY":88.000000
+										"frame":20, "pX":-223.000000, "pY":12.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_firework_02'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":18, "pX":210.000000, "pY":59.000000
+									},
+									{
+										"frame":38, "pX":210.000000, "pY":59.000000
 									}
 								]
 							},
@@ -1482,24 +1635,24 @@
 								"key_list":
 								[
 									{
-										"frame":22, "sX":1.200000, "sY":1.200000, "pY":105.000000
+										"frame":20, "pX":-85.000000, "pY":84.000000
 									},
 									{
-										"frame":55, "sX":1.200000, "sY":1.200000, "pY":105.000000
+										"frame":40, "pX":-85.000000, "pY":84.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_firework_01'",
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_firework_02'",
 								"expand":false,
 								"apply":true,
 								"key_list":
 								[
 									{
-										"frame":26, "sX":1.200000, "sY":1.200000, "pX":59.000000, "pY":88.000000
+										"frame":27, "pX":104.000000, "pY":-41.000000
 									},
 									{
-										"frame":59, "sX":1.200000, "sY":1.200000, "pX":59.000000, "pY":88.000000
+										"frame":47, "pX":104.000000, "pY":-41.000000
 									}
 								]
 							}
@@ -2140,159 +2293,6 @@
 									},
 									{
 										"frame":59, "rotate":-30.000000, "pX":60.000000, "pY":91.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_firework_01'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pX":-223.000000, "pY":12.000000
-									},
-									{
-										"frame":20, "pX":-223.000000, "pY":12.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_firework_02'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":18, "pX":210.000000, "pY":59.000000
-									},
-									{
-										"frame":38, "pX":210.000000, "pY":59.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_firework_01'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":20, "pX":-85.000000, "pY":84.000000
-									},
-									{
-										"frame":40, "pX":-85.000000, "pY":84.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_firework_02'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":27, "pX":104.000000, "pY":-41.000000
-									},
-									{
-										"frame":47, "pX":104.000000, "pY":-41.000000
-									}
-								]
-							}
-						]
-					}
-				},
-				{
-					"name":"success_idle_04",
-					"apply":true,
-					"fps":30,
-					"layer_root":
-					{
-						"expand":true,
-						"apply":true,
-						"layer_list":
-						[
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'result_seccess_0102.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pY":94.000000
-									},
-									{
-										"frame":59, "pY":94.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'result_seccess_0103.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pX":-88.000000, "pY":64.000000
-									},
-									{
-										"frame":59, "pX":-88.000000, "pY":64.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'result_seccess_0104.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pX":88.000000, "pY":64.000000
-									},
-									{
-										"frame":59, "pX":88.000000, "pY":64.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'result_seccess_0106.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pY":78.000000
-									},
-									{
-										"frame":59, "pY":78.000000
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'result_seccess_0101.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0
-									},
-									{
-										"frame":59
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)result.plist'<azSprite>'result_success_0201.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":0, "pY":8.000000
-									},
-									{
-										"frame":59, "pY":8.000000
 									}
 								]
 							},

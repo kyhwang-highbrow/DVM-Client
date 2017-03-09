@@ -903,8 +903,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 32;
-					height = 33;
+					width = 54;
+					height = 54;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -912,7 +912,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'autoStartOnSprite';
-					file_name = 'ui/btn/check_0101.png';
+					file_name = 'ui/icon/stage_box_check.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -1019,8 +1019,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 32;
-					height = 33;
+					width = 54;
+					height = 54;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -1028,7 +1028,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'friendOnSprite';
-					file_name = 'ui/btn/check_0101.png';
+					file_name = 'ui/icon/stage_box_check.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -1171,7 +1171,7 @@
 					type = 'Sprite';
 					ui_name = '';
 					x = -96.000000;
-					y = 1.000000;
+					y = 2.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1184,7 +1184,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icon/inbox/inbox_staminas_pvp.png';
+					file_name = 'ui/icon/inbox/inbox_staminas_st.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
