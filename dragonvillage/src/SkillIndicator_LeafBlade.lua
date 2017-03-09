@@ -112,9 +112,8 @@ function SkillIndicator_LeafBlade:setHighlightEffect(t_collision_obj)
             if (isFind == false) then
                 if (v ~= self.m_hero) then
                     skill_indicator_mgr:removeHighlightList(v)
-                else
-                    v:removeTargetEffect(v)
                 end
+                v:removeTargetEffect(v)
             end
         end
     end

@@ -131,6 +131,14 @@ function SkillIndicator:changeSIState(state)
 
         -- 영웅 스킬 준비 이펙트 해제
         self.m_hero:removeSkillPrepareEffect()
+
+        -- 타겟 이펙트 해제(테스트 필요)
+        if (self.m_highlightList) then
+            for i, v in ipairs(self.m_highlightList) do
+                v:removeTargetEffect()
+            end
+            self.m_highlightList = nil
+        end
     end
 end
 
@@ -239,15 +247,15 @@ function SkillIndicator:setHighlightEffect(t_collision_obj)
     end
 
     for i,target in ipairs(t_collision_obj) do      
-        if (not target.m_targetEffect) then
-            skill_indicator_mgr:addHighlightList(target)
-
+        if (not target.m_targetEffect and target ~= self.m_hero) then
             if (self.m_hero.m_bLeftFormation == target.m_bLeftFormation) then
                 self:makeTargetEffect(target, 'appear_ally', 'idle_ally')
             else
                 self:makeTargetEffect(target, 'appear_enemy', 'idle_enemy')
             end
         end
+
+        skill_indicator_mgr:addHighlightList(target)
     end
 
     if old_highlight_list then
@@ -262,9 +270,8 @@ function SkillIndicator:setHighlightEffect(t_collision_obj)
             if (find == false) then
                 if (v ~= self.m_hero) then
                     skill_indicator_mgr:removeHighlightList(v)
-                else
-                    v:removeTargetEffect(v)
                 end
+                v:removeTargetEffect()
             end
         end
     end

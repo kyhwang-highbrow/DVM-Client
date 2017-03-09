@@ -163,6 +163,9 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
     local location = touch:getLocation()
     local node_pos = self.m_touchNode:convertToNodeSpace(location)
 
+    self.m_touchedHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
+    self.m_touchedHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
+
     if (self.m_bSlowMode == false) then
         local distance = getDistance(self.m_firstTouchPos['x'], self.m_firstTouchPos['y'], node_pos['x'], node_pos['y'])
         if (distance >= 50) then
@@ -172,9 +175,6 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
             event:stopPropagation()
         end
     end
-
-    self.m_touchedHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
-    self.m_touchedHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
 end
 
 -------------------------------------
@@ -199,6 +199,13 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             self.m_selectHero:changeState('skillAppear')
         end
 
+        -- 월드상의 터치 위치 얻어옴
+        local location = touch:getLocation()
+        local node_pos = self.m_touchNode:convertToNodeSpace(location)
+
+        self.m_selectHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
+        self.m_selectHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
+
         self:clear()
     end
 
@@ -217,7 +224,7 @@ function SkillIndicatorMgr:clear(bAll)
 
     self.m_touchedHero = nil
 
-    if self.m_selectHero then
+    if (self.m_selectHero) then
         self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
         self.m_world:setTemporaryPause(false, self.m_selectHero)
         self:setSelectHero(nil)
@@ -269,6 +276,7 @@ function SkillIndicatorMgr:setSelectHero(hero)
         hero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)
         hero.m_skillIndicator.m_indicatorTouchPosX = self.m_firstTouchPos['x']
         hero.m_skillIndicator.m_indicatorTouchPosY = self.m_firstTouchPos['y']
+        hero.m_skillIndicator:update()
 
         self.m_world:setTemporaryPause(true, hero)
         self.m_world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
@@ -297,8 +305,6 @@ end
 -- function removeHighlightList
 -------------------------------------
 function SkillIndicatorMgr:removeHighlightList(char)
-    char:removeTargetEffect()
-
     self.m_world.m_gameHighlight:removeChar(char)
 end
 
