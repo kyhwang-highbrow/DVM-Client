@@ -24,9 +24,6 @@ TAMER_ID = 110001
 TAMER_VALUE = 110000
 TAMER_SKILL_FLOW = {7, 14, 22, 30, 38, 46, 54, 62, 70}
 
--- # 1 frame
-ONE_FRAME = 1/30
-
 -- # 게임에 참여하는 드래곤 수
 PARTICIPATE_DRAGON_CNT = 5
 

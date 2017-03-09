@@ -99,6 +99,7 @@ local function main()
     ServerData:getInstance():applySetting()
     ServerData:getInstance():developCache()
     UserData:getInstance()
+	ConstantData:getInstance()
 
     if DV_SCENE_ACTIVE then
         SceneDV():runScene()

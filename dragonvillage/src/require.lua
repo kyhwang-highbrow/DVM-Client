@@ -87,6 +87,7 @@ local t_module = {
     'ServerData_Collection',
     'ServerData_Event',
     'UserData',
+	'ConstantData',
     'DropHelper',
     'DragonAutoSetHelper',
     'DragonSkillManager',

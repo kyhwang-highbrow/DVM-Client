@@ -411,9 +411,6 @@
     <None Include="..\src\SkillProtection.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\Buff_Protection.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\EffectHeal.lua">
       <Filter>lua</Filter>
     </None>
@@ -1841,6 +1838,11 @@
     </None>
     <None Include="..\src\UI_NotificationFullInventoryPopup.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\Buff_Guardian.lua" />
+    <None Include="..\src\SkillAoESquare_Wonder.lua" />
+    <None Include="..\src\ConstantData.lua">
+      <Filter>lua</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -102,6 +102,9 @@ EMPTY_PNG = 'res/common/empty.png'
 EMPTY_TABLE = {}
 CENTER_POINT = cc.p(0.5, 0.5)
 
+-- # 1 frame
+ONE_FRAME = 1/30
+
 MAX_DRAGON_GRADE = 6
 MAX_DRAGON_ECLV = 15
 
