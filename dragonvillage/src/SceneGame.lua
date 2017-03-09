@@ -490,8 +490,6 @@ end
 -- @param t_result_ref 결과화면에서 사용하기 위한 각종 정보들 저장
 --        t_result_ref['user_levelup_data'] = {}
 --        t_result_ref['dragon_levelu_data_list'] = {}
---        t_result_ref['drop_reward_grade'] = 'c'
---        t_result_ref['drop_reward_list'] = {}
 -------------------------------------
 function SceneGame:networkGameFinish_response(ret, t_result_ref)
     -- server_info, staminas 정보를 갱신
@@ -614,18 +612,21 @@ end
 -- @breif 드랍 보상 데이터 처리
 -------------------------------------
 function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
-    if (not ret['drop_reward']) then
+
+    if (not ret['added_items']) then
         return
     end
 
-    -- 보상 등급 지정
-    t_result_ref['drop_reward_grade'] = ret['drop_reward_grade'] or 'c'
+    local items_list = ret['added_items']['items_list']
+    if (not items_list) then
+        return
+    end
 
     local drop_reward_list = t_result_ref['drop_reward_list']
 
-    for i,v in ipairs(ret['drop_reward']) do
-        local item_id = tonumber(v['item_id'])
-        local count = tonumber(v['num'])
+    for i,v in ipairs(items_list) do
+        local item_id = v['item_id']
+        local count = v['count']
         local t_data = {item_id, count}
         table.insert(drop_reward_list, t_data)
     end

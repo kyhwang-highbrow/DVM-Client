@@ -702,7 +702,6 @@ function GameState:makeResultUI(is_success)
     local t_result_ref = {}
     t_result_ref['user_levelup_data'] = {}
     t_result_ref['dragon_levelu_data_list'] = {}
-    t_result_ref['drop_reward_grade'] = 'c'
     t_result_ref['drop_reward_list'] = {}
     t_result_ref['secret_dungeon'] = nil
 

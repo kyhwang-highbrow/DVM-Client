@@ -8,7 +8,6 @@ UI_GameResultNew = class(UI, {
         m_gold = 'number',
         m_tTamerLevelupData = 'table',
         m_lDragonList = 'list',
-        m_boxGrade = 'string', -- 's', 'a', 'b', 'c'
         m_lDropItemList = 'list',
         m_secretDungeon = 'table',
 
@@ -35,7 +34,6 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     self.m_gold = gold
     self.m_tTamerLevelupData = t_tamer_levelup_data
     self.m_lDragonList = l_dragon_list
-    self.m_boxGrade = box_grade
     self.m_lDropItemList = l_drop_item_list
     self.m_secretDungeon = secret_dungeon
 
@@ -303,7 +301,7 @@ function UI_GameResultNew:direction_showBox()
     vars['dragonResultNode']:setVisible(false)
 
     vars['boxVisual']:setVisible(true)
-    local visual_name = self:getBoxVisualName(self.m_boxGrade, 'idle')
+    local visual_name = self:getBoxVisualName('idle')
     vars['boxVisual']:changeAni(visual_name, true)
 
     -- 연속 전투일 경우 상자 바로 오픈
@@ -326,7 +324,7 @@ end
 -------------------------------------
 function UI_GameResultNew:direction_openBox()
     local vars = self.vars
-    local visual_name = self:getBoxVisualName(self.m_boxGrade, 'open')
+    local visual_name = self:getBoxVisualName('open')
     vars['boxVisual']:changeAni(visual_name, false)
     vars['boxVisual']:addAniHandler(function()
         vars['boxVisual']:setVisible(false) 
@@ -626,22 +624,6 @@ function UI_GameResultNew:makeRewardItem(i, v)
     
     vars['rewardLabel' .. i]:setString(t_item['t_name'] .. '\nX ' .. count)
 
-    do -- 상자의 등급에 따라 아이템 카드 프레임 변경
-        local lua_name = 'legendSprite'
-        if (self.m_boxGrade == 's') then
-            lua_name = 'legendSprite'
-        elseif (self.m_boxGrade == 'a') then
-            lua_name = 'heroSprite'
-        elseif (self.m_boxGrade == 'b') then
-            lua_name = 'rareSprite'
-        elseif (self.m_boxGrade == 'c') then
-            lua_name = 'commonSprite'
-        end
-        if item_card.vars[lua_name] then
-            item_card.vars[lua_name]:setVisible(true)
-        end
-    end
-
     return item_card
 end
 
@@ -649,7 +631,9 @@ end
 -- function getBoxVisualName
 -- @brief
 -------------------------------------
-function UI_GameResultNew:getBoxVisualName(grade, type)
+function UI_GameResultNew:getBoxVisualName(type)
+    local grade = 's'
+
     local grade_str
     if (grade == 's') then
         grade_str = 'rainbow'
