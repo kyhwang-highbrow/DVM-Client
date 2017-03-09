@@ -61,7 +61,7 @@ end
 -- function organize_todayBirthdayList
 -------------------------------------
 function ServerData_Birthday:organize_todayBirthdayList(birthday)
-    self.m_todayBirthdayList = birthday
+    self.m_todayBirthdayList = birthday or {}
 end
 
 -------------------------------------
