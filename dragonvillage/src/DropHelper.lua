@@ -40,9 +40,9 @@ function DropHelper:getDisplayItemList()
 
     local l_ret = {}
     for i=0, 10 do
-        local key = 'drop_display_' .. i
+        local key = 'item_' .. i .. '_id'
         local item_id = t_drop[key]
-        if (item_id ~= 0) then
+        if item_id and (item_id ~= '') and (item_id ~= 0) then
             table.insert(l_ret, item_id)
         end
     end
