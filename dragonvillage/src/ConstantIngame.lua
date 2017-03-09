@@ -94,3 +94,8 @@ DRAGON_SKILL_DIRECTION_DURATION = {}
 DRAGON_SKILL_DIRECTION_DURATION[1] = 1      -- 컷씬 유지 시간
 DRAGON_SKILL_DIRECTION_DURATION[2] = 1.5    -- 암전 유지 시간
 DRAGON_SKILL_DIRECTION_DURATION[3] = 0.5    -- 암전 풀리는 시간
+
+--------------------------------------------
+-- 드래곤 스킬 게이지 변경 관련
+--------------------------------------------
+DRAGON_SKILL_COOL_TIME = 10

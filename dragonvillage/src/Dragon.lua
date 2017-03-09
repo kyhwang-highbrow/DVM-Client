@@ -672,7 +672,8 @@ function Dragon:initActiveSkillCoolTime(percentage)
     local t_skill = table_skill[active_skil_id]
 
 	-- 드래곤 스킬 쿨타임
-    self.m_activeSkillCoolTime = tonumber(t_skill['cooldown'])
+    --self.m_activeSkillCoolTime = tonumber(t_skill['cooldown'])
+    self.m_activeSkillCoolTime = DRAGON_SKILL_COOL_TIME
     
 	-- 스킬 쿨타임 타이머 초기화
 	self.m_activeSkillTimer = 0

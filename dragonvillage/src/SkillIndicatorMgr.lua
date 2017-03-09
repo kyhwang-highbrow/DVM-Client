@@ -171,7 +171,10 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
         -- 경직 중이라면 즉시 해제
         self.m_selectHero:setSpasticity(false)
 
-        self.m_selectHero:resetActiveSkillCoolTime()
+        --self.m_selectHero:resetActiveSkillCoolTime()
+        for i, hero in ipairs(self.m_world:getDragonList()) do
+            hero:resetActiveSkillCoolTime()
+        end
 
         local active_skill_id = self.m_selectHero:getSkillID('active')
         local t_skill = TABLE:get('dragon_skill')[active_skill_id]
