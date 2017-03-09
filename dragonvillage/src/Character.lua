@@ -96,7 +96,7 @@ Character = class(PARENT, {
         -- @ 임시 변수()
 
         -- 보호막 스킬
-        m_buffProtection = 'Buff_Protection',
+        m_buffProtection = 'Buff_Guardian',
         m_lProtectionList = 'list',
 
         m_attackOffsetX = 'number',

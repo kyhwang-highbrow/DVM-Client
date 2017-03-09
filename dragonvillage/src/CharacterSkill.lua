@@ -56,12 +56,12 @@ function Character:doSkill(skill_id, x, y, t_data)
     local skill_form = t_skill['skill_form']
     
     ----------------------------------------------
-    -- 탄막 공격 (스크립트에서 읽어와 미사일 탄막 생성)
+    -- [스크립트] (스크립트에서 읽어와 미사일 탄막 생성)
     if (skill_form == 'script') then
         self:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_data)
         return true
 
-	-- 상태 효과만 거는 스킬
+	-- [상태 효과]만 거는 스킬
 	elseif (skill_form == 'status_effect') then
 		-- 1. skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
 		local l_target = self:getTargetList(t_skill)
@@ -80,12 +80,13 @@ function Character:doSkill(skill_id, x, y, t_data)
 		local chance_type = t_skill['chance_type']
 		local chance_value = t_skill['chance_value']
 
-		-- 패시브
+		-- [패시브]
 		if (chance_type == 'passive') then
 			-- 특수하게 정의된 것들
 			if (type == 'passive_shield') then
 				SkillShield:makeSkillInstance(self, t_skill, t_data)
 				return true
+
 			elseif (type == 'passive_continuous') then
 				SkillContinuous:makeSkillInstance(self, t_skill, t_data)
 				return true
@@ -99,7 +100,7 @@ function Character:doSkill(skill_id, x, y, t_data)
 				end
 			end
 
-		-- 스킬
+		-- [스킬]
 		else
 			-- 공용탄 영역
 			if (type == 'missile_move_ray') then
@@ -160,6 +161,22 @@ function Character:doSkill(skill_id, x, y, t_data)
 			elseif (type == 'skill_aoe_cone_spread') then
 				SkillConicAtk_Spread:makeSkillInstance(self, t_skill, t_data)
 				return true
+				
+			elseif (type == 'skill_aoe_square_heal_dmg') then
+				SkillAoESquare_Heal:makeSkillInstance(self, t_skill, t_data)
+				return true
+
+			elseif (type == 'skill_aoe_square_width') then
+				SkillAoESquareWidth:makeSkillInstance(self, t_skill, t_data)
+				return true
+	
+			elseif (type == 'skill_aoe_square_height') then
+				SkillAoESquare_Fairy:makeSkillInstance(self, t_skill, t_data)
+				return true
+
+			elseif (type == 'skill_aoe_square_multi') then
+				SkillAoESquare_Wonder:makeSkillInstance(self, t_skill, t_data)
+				return true
 
 			elseif (type == 'skill_leap_atk') then
 				SkillLeap:makeSkillInstance(self, t_skill, t_data)
@@ -189,10 +206,6 @@ function Character:doSkill(skill_id, x, y, t_data)
 				SkillProtection:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_aoe_square_heal_dmg') then
-				SkillAoESquare_Heal:makeSkillInstance(self, t_skill, t_data)
-				return true
-		
 			elseif (type == 'skill_crash') then
 				SkillCrash:makeSkillInstance(self, t_skill, t_data)
 				return true
@@ -221,7 +234,7 @@ function Character:doSkill(skill_id, x, y, t_data)
 				SkillHealAround:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_protection_spread') then -- 파워드래곤 스킬 '수호'
+			elseif (type == 'skill_guardian') then -- 파워드래곤 스킬 '수호'
 				SkillGuardian:makeSkillInstance(self, t_skill, t_data)
 				return true
 
@@ -239,14 +252,6 @@ function Character:doSkill(skill_id, x, y, t_data)
 
 			elseif (type == 'skill_voltes_x') then
 				SkillVoltesX:makeSkillInstance(self, t_skill, t_data)
-				return true
-
-			elseif (type == 'skill_aoe_square_width') then
-				SkillAoESquareWidth:makeSkillInstance(self, t_skill, t_data)
-				return true
-	
-			elseif (type == 'skill_aoe_square_height') then
-				SkillAoESquare_Fairy:makeSkillInstance(self, t_skill, t_data)
 				return true
 
 			elseif (type == 'skill_charge') then

@@ -43,7 +43,7 @@ end
 function SkillGuardian.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
 		-- 수호
-        local buff = Buff_Protection()
+        local buff = Buff_Guardian()
 
         local worldNode = owner.m_world:getMissileNode('bottom', owner.m_bHighlight)
         worldNode:addChild(buff.m_rootNode, 10)

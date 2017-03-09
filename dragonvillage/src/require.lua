@@ -368,7 +368,7 @@ local t_module = {
     
 	-- BUFF
 	'Buff',
-    'Buff_Protection',
+    'Buff_Guardian',
     
 	-- TAMER SPECAIL SKILL
 	'TamerSpecialSkillCombination',

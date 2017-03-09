@@ -17,22 +17,27 @@ function StatusEffect_Resist:init(file_name, body, ...)
 end
 
 -------------------------------------
--- function init_buff
+-- function init_trigger
 -------------------------------------
-function StatusEffect_Resist:init_buff(char, resist_rate)
-	PARENT.init_buff(self, char, nil)
+function StatusEffect_Resist:init_trigger(char, resist_rate)
+	PARENT.init_trigger(self, char, 'hit_barrier', nil)
+	
 	self.m_resistRate = resist_rate/100 or 0
 end
 
 -------------------------------------
--- function onTrigger
+-- function getTriggerFunction
 -------------------------------------
-function StatusEffect_Resist:onTrigger(t_event)
-    self:changeState('hit')
+function StatusEffect_Resist:getTriggerFunction()
+	local trigger_func = function(t_event)
+		self:changeState('hit')
 
-	-- 1. 데미지를 직접 경감
-	local damage = t_event['damage']
-   	damage = damage * (1 + self.m_resistRate)
-	t_event['damage'] = damage
-	t_event['is_handled'] = true
+		-- 1. 데미지를 직접 경감
+		local damage = t_event['damage']
+   		damage = damage * (1 + self.m_resistRate)
+		t_event['damage'] = damage
+		t_event['is_handled'] = true
+	end
+
+	return trigger_func
 end

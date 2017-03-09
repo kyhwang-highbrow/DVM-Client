@@ -1,8 +1,8 @@
 -------------------------------------
--- class Buff_Protection
+-- class Buff_Guardian
 -- @breif 파워드래곤 전용 스킬
 -------------------------------------
-Buff_Protection = class(Buff, {
+Buff_Guardian = class(Buff, {
         m_defUp = 'number',
         m_target = 'Character',
 
@@ -19,7 +19,7 @@ Buff_Protection = class(Buff, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function Buff_Protection:init(file_name, body, ...)
+function Buff_Guardian:init(file_name, body, ...)
     self:initState()
 end
 
@@ -27,7 +27,7 @@ end
 -------------------------------------
 -- function init_buff
 -------------------------------------
-function Buff_Protection:init_buff(owner, duration, def_up, target, res)
+function Buff_Guardian:init_buff(owner, duration, def_up, target, res)
     Buff.init_buff(self, owner, duration)
 
     self.m_defUp = (def_up / 100)
@@ -63,16 +63,16 @@ end
 -------------------------------------
 -- function initState
 -------------------------------------
-function Buff_Protection:initState()
+function Buff_Guardian:initState()
     Buff.initState(self)
 
-    self:addState('end', Buff_Protection.st_end, nil, false)
+    self:addState('end', Buff_Guardian.st_end, nil, false)
 end
 
 -------------------------------------
 -- function st_end
 -------------------------------------
-function Buff_Protection.st_end(owner, dt)
+function Buff_Guardian.st_end(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner:endBuff()
 
@@ -94,7 +94,7 @@ end
 -------------------------------------
 -- function checkDead
 -------------------------------------
-function Buff_Protection:checkDead()
+function Buff_Guardian:checkDead()
     if (self.m_owner.m_bDead or self.m_target.m_bDead) then
         self:changeState('end')
         return true
@@ -106,7 +106,7 @@ end
 -------------------------------------
 -- function onStart
 -------------------------------------
-function Buff_Protection:onStart()
+function Buff_Guardian:onStart()
 
     if (self.m_owner.m_buffProtection) then
         self.m_owner.m_buffProtection:changeState('dying')
@@ -125,7 +125,7 @@ end
 -------------------------------------
 -- function onHit
 -------------------------------------
-function Buff_Protection:onHit()
+function Buff_Guardian:onHit()
     -- 방패 이팩트
     self.m_shieldEffect:changeAni('shield_hit', false)
     self.m_shieldEffect:addAniHandler(function() self.m_shieldEffect:changeAni('shield_idle', true) end)
@@ -145,7 +145,7 @@ end
 -------------------------------------
 -- function onEnd
 -------------------------------------
-function Buff_Protection:onEnd()
+function Buff_Guardian:onEnd()
 
     if (self.m_owner.m_buffProtection == self) then
         self.m_owner.m_buffProtection = nil
@@ -162,7 +162,7 @@ end
 -------------------------------------
 -- function checkBuffPosDirty
 -------------------------------------
-function Buff_Protection:checkBuffPosDirty()
+function Buff_Guardian:checkBuffPosDirty()
     -- 본체 변경 확인
     if (self.pos.x ~= self.m_owner.pos.x) or (self.pos.y ~= self.m_owner.pos.y) then
         self.m_bDirtyPos = true
@@ -181,7 +181,7 @@ end
 -------------------------------------
 -- function updateBuffPos
 -------------------------------------
-function Buff_Protection:updateBuffPos()
+function Buff_Guardian:updateBuffPos()
     self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 
     local x = self.m_target.pos.x - self.pos.x
@@ -198,7 +198,7 @@ end
 -------------------------------------
 -- function release
 -------------------------------------
-function Buff_Protection:release()
+function Buff_Guardian:release()
     Buff.release(self)
 
     if self.m_barEffect then

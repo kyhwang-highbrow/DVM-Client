@@ -268,7 +268,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\AreaOfEffectHelper.lua" />
     <None Include="..\src\ActivityCarrier.lua" />
     <None Include="..\src\Buff.lua" />
-    <None Include="..\src\Buff_Protection.lua" />
+    <None Include="..\src\Buff_Guardian.lua" />
     <None Include="..\src\ColosseumUserInfo.lua" />
     <None Include="..\src\CommonMissile_Guide.lua" />
     <None Include="..\src\ConstantColosseum.lua" />
@@ -363,6 +363,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillAoESquare.lua" />
     <None Include="..\src\SkillAoESquareWidth.lua" />
     <None Include="..\src\SkillAoESquare_Fairy.lua" />
+    <None Include="..\src\SkillAoESquare_Wonder.lua" />
     <None Include="..\src\SkillBurst.lua" />
     <None Include="..\src\SkillChainLightning.lua" />
     <None Include="..\src\SkillCharge.lua" />

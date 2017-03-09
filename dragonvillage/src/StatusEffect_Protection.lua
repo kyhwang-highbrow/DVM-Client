@@ -31,7 +31,6 @@ function StatusEffect_Protection:init(file_name, body, ...)
     end
 end
 
-
 -------------------------------------
 -- function init_top
 -------------------------------------
@@ -40,15 +39,13 @@ function StatusEffect_Protection:init_top(file_name)
 end
 
 -------------------------------------
--- function init_buff
+-- function init_trigger
 -------------------------------------
-function StatusEffect_Protection:init_buff(char, shield_hp)
-    self.m_shieldHP = shield_hp or 519
+function StatusEffect_Protection:init_trigger(char, shield_hp)
+	PARENT.init_trigger(self, char, 'hit_shield', nil)
+	
+	self.m_shieldHP = shield_hp or 519
     self.m_shieldHPOrg = shield_hp or 519
-	self.m_triggerName = 'hit_shield'
-
-    -- 콜백 함수 등록
-    char:addListener(self.m_triggerName, self)
 end
 
 -------------------------------------

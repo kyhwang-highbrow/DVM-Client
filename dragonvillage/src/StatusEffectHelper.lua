@@ -240,14 +240,17 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	----------- HP 보호막 ------------------
 	elseif (status_effect_type == 'barrier_protection') then
 		status_effect = StatusEffect_Protection(res)
-		local shield_hp = char.m_maxHp * (t_status_effect['val_1'] / 100)
-		status_effect:init_buff(char, shield_hp)
+		local adj_value = t_status_effect['val_1'] * (status_effect_value / 100)
+		local shield_hp = char.m_maxHp * (adj_value / 100)
+		cclog_ui(adj_value)
+		status_effect:init_trigger(char, shield_hp)
 	
 	----------- 데미지 경감 보호막 ------------------
 	elseif isExistValue(status_effect_type, 'resist', 'barrier_protection_darknix') then
 		status_effect = StatusEffect_Resist(res)
-		local resist_rate = (t_status_effect['dmg_adj_rate'] * status_effect_value / 100)
-		status_effect:init_buff(char, resist_rate)
+		local adj_value = t_status_effect['dmg_adj_rate'] * (status_effect_value / 100)
+		local resist_rate = (adj_value / 100)
+		status_effect:init_trigger(char, resist_rate)
 
 	----------- 특이한 해제 조건을 가진 것들 ------------------
 	elseif isExistValue(status_effect_type, 'sleep') then
