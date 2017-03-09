@@ -202,12 +202,12 @@ function UI_TitleScene:workCheckUserID()
         local edit_box = UI_EditBoxPopup()
         edit_box:setPopupTitle(Str('닉네임 입력'))
         edit_box:setPopupDsc(Str('사용하실 닉네임을 입력하세요.'))
-        edit_box:setPlaceHolder(Str('4~8글자'))
+        edit_box:setPlaceHolder(Str('2~8글자'))
 
         local function confirm_cb(str)
             local len = uc_len(str)
-            if (len < 4) then
-                UIManager:toastNotificationRed('4자~8자 이내로 입력해주세요.')
+            if (len < 2) then
+                UIManager:toastNotificationRed('2자~8자 이내로 입력해주세요.')
                 return false
             end
             return true
