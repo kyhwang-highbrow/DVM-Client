@@ -510,6 +510,7 @@ local t_module = {
     'UI_GachaBox',
     'UI_ItemInfoPopup',
     'UI_ChapterAchieveRewardPopup',
+    'UI_NotificationFullInventoryPopup',
     
     -- 도감 관련
     'UI_Collection',

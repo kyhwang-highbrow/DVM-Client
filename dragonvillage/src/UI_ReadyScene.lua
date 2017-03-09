@@ -410,12 +410,18 @@ function UI_ReadyScene:click_startBtn()
 
         -- 드래곤 인벤토리 확인(최대 갯수 초과 시 획득 못함)
         check_dragon_inven = function()
-            g_dragonsData:checkMaximumDragons(check_item_inven)
+            local function manage_func()
+                self:click_manageBtn()
+            end
+            g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
         end
 
         -- 아이템 인벤토리 확인(최대 갯수 초과 시 획득 못함)
         check_item_inven = function()
-            g_inventoryData:checkMaximumItems(start_game)
+            local function manage_func()
+                UI_Inventory()
+            end
+            g_inventoryData:checkMaximumItems(start_game, manage_func)
         end
 
         -- 게임 시작

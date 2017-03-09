@@ -91,15 +91,14 @@ end
 -------------------------------------
 -- function checkMaximumItems
 -------------------------------------
-function ServerData_Inventory:checkMaximumItems(func)
+function ServerData_Inventory:checkMaximumItems(ignore_func, manage_func)
     local items_cnt = self:getItemCount()
     
     if (items_cnt < MAX_ITEMS_CNT) then
-        if func then
-            func()
+        if ignore_func then
+            ignore_func()
         end
     else
-        local msg = Str('더 이상 아이템을 획득할 수 없습니다. 그래도 진행하시겠습니까? {1}/{2}', items_cnt, MAX_ITEMS_CNT)
-        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, func)
+        UI_NotificationFullInventoryPopup('inventory', items_cnt, MAX_ITEMS_CNT, ignore_func, manage_func)
     end
 end

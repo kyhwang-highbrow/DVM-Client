@@ -629,7 +629,8 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
         local count = v['count']
         local from = v['from']
 
-        if (from == 'drop') then
+        -- 기본으로 주는 골드도 표기하기로 결정함
+        if (from == 'drop') or (from == 'default') then
             local t_data = {item_id, count}
             table.insert(drop_reward_list, t_data)
 

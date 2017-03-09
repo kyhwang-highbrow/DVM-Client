@@ -574,15 +574,14 @@ end
 -------------------------------------
 -- function checkMaximumDragons
 -------------------------------------
-function ServerData_Dragons:checkMaximumDragons(func)
+function ServerData_Dragons:checkMaximumDragons(ignore_func, manage_func)
     local dragons_cnt = self:getDragonsCnt()
     
     if (dragons_cnt < MAX_DRAGONS_CNT) then
-        if func then
-            func()
+        if ignore_func then
+            ignore_func()
         end
     else
-        local msg = Str('더 이상 드래곤을 획득할 수 없습니다. 그래도 진행하시겠습니까? {1}/{2}', dragons_cnt, MAX_DRAGONS_CNT)
-        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, func)
+        UI_NotificationFullInventoryPopup('dragon', dragons_cnt, MAX_DRAGONS_CNT, ignore_func, manage_func)
     end
 end

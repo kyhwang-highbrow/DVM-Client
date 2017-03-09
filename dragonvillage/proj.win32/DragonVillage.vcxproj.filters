@@ -1839,6 +1839,9 @@
     <None Include="..\src\UI_GameResult_Adventure.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_NotificationFullInventoryPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
