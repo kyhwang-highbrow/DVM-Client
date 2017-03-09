@@ -28,9 +28,10 @@ end
 -------------------------------------
 function MissileGuide.st_move(owner, dt)
 	if (owner.m_stateTimer >= 0) then
-        -- 타겟이 없거나, 타겟이 죽었을 경우 .. 0.3 초 이후 매 프레임 타겟을 찾던 것은 제외
-        if (owner.m_target == nil) or (owner.m_target.m_bDead) then 
-            owner:changeState('dying')
+        -- 타겟이 없거나, 타겟이 죽었을 경우 다음 타겟을 찾는다.
+        if (owner.m_target == nil) or (owner.m_target.m_bDead) then
+			local l_target = owner.m_world:getTargetList(owner.m_owner, owner.pos.x, owner.pos.y, 'enemy', 'x', 'distance_x')
+            owner.m_target = l_target[1]
         end
 
         if owner.m_target then
