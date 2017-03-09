@@ -93,12 +93,12 @@ end
 -- function request_birthdayReward
 -------------------------------------
 function ServerData_Birthday:request_birthdayReward(birth_id, itemid, finish_cb, fail_cb)
-    -- ÆÄ¶ó¹ÌÅÍ
+    -- íŒŒë¼ë¯¸í„°
     local uid = g_userData:get('uid')
 
-    -- Äİ¹é ÇÔ¼ö
+    -- ì½œë°± í•¨ìˆ˜
     local function success_cb(ret)
-        -- ¾ÆÀÌÅÛ ¼ö·É
+        -- ì•„ì´í…œ ìˆ˜ë ¹
         g_serverData:networkCommonRespone_addedItems(ret)
 
         if finish_cb then
@@ -106,7 +106,7 @@ function ServerData_Birthday:request_birthdayReward(birth_id, itemid, finish_cb,
         end
     end
 
-    -- ³×Æ®¿öÅ© Åë½Å UI »ı¼º
+    -- ë„¤íŠ¸ì›Œí¬ í†µì‹  UI ìƒì„±
     local ui_network = UI_Network()
     ui_network:setUrl('/users/birthday/reward')
     ui_network:setParam('uid', uid)
