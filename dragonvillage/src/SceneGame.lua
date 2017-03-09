@@ -632,6 +632,11 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
         if (from == 'drop') then
             local t_data = {item_id, count}
             table.insert(drop_reward_list, t_data)
+
+        -- 스테이지에서 기본으로 주는 골드 량
+        elseif (from == 'default') then
+            local default_gold = count
+            t_result_ref['default_gold'] = default_gold
         end
     end
 end

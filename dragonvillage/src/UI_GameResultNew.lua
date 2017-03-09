@@ -31,7 +31,7 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     self.m_stageID = stage_id
     self.m_bSuccess = is_success
     self.m_time = time
-    self.m_gold = gold
+    self.m_gold = gold or 0
     self.m_tTamerLevelupData = t_tamer_levelup_data
     self.m_lDragonList = l_dragon_list
     self.m_lDropItemList = l_drop_item_list
@@ -401,6 +401,7 @@ end
 function UI_GameResultNew:direction_showButton()
     local vars = self.vars
 
+    vars['skipBtn']:setVisible(false)
     vars['homeBtn']:setVisible(true)
     vars['againBtn']:setVisible(true)
     vars['nextBtn']:setVisible(true)
