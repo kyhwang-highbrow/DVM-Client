@@ -1,10 +1,10 @@
 stage,t_name,r_difficult,r_chapter_info,r_stage_info,attr,level,cost_type,cost_value,time_limit,wave,dragon_exp,tamer_exp,gold_min,gold_max,mission_01,mission_02,mission_03,item_1_id,item_1_min,item_1_max,item_1_rate,item_2_id,item_2_min,item_2_max,item_2_rate,item_3_id,item_3_min,item_3_max,item_3_rate
 11011,,easy,1,1,earth,2,stamina,1,120,3,500,125,100,150,"clear_cnt,1","death_cnt,1","lap_time,90",711101,1,3,1,702011,1,1,0.8,701111,1,1,0.6
-11012,,easy,1,2,earth,5,stamina,1,120,3,800,150,120,180,"clear_cnt,1","use_skill,3","lap_time,90",711101,1,3,0.5,702011,1,1,0.1,701111,1,1,0.2
-11013,,easy,1,3,earth,5,stamina,1,120,3,1100,175,140,210,"clear_cnt,1","use_tamer,110001","lap_time,90",711101,1,3,0.5,702011,1,1,0.1,701111,1,1,0.2
+11012,,easy,1,2,earth,4,stamina,1,120,3,800,150,120,180,"clear_cnt,1","use_skill,3","lap_time,90",711101,1,3,0.5,702011,1,1,0.1,701111,1,1,0.2
+11013,,easy,1,3,earth,4,stamina,1,120,3,1100,175,140,210,"clear_cnt,1","use_tamer,110001","lap_time,90",711101,1,3,0.5,702011,1,1,0.1,701111,1,1,0.2
 11014,,easy,1,4,earth,6,stamina,1,120,3,1400,200,160,240,"clear_cnt,1","use_dragon_cnt,5",finish_active,711101,1,3,0.5,702011,1,1,0.1,701111,1,1,0.2
-11015,,easy,1,5,earth,7,stamina,2,120,3,1700,225,180,270,"clear_cnt,1","use_formation,attack",finish_fever,711101,1,3,0.5,702011,1,1,0.1,701111,1,1,0.2
-11016,,easy,1,6,earth,7,stamina,2,120,3,2000,250,200,300,"clear_cnt,1","use_dragon,120021","attribute_cnt,fire,1",711101,1,3,0.5,702011,1,1,0.1,701111,1,1,0.2
+11015,,easy,1,5,earth,6,stamina,2,120,3,1700,225,180,270,"clear_cnt,1","use_formation,attack",finish_fever,711101,1,3,0.5,702011,1,1,0.1,701111,1,1,0.2
+11016,,easy,1,6,earth,6,stamina,2,120,3,2000,250,200,300,"clear_cnt,1","use_dragon,120021","attribute_cnt,fire,1",711101,1,3,0.5,702011,1,1,0.1,701111,1,1,0.2
 11017,,easy,1,7,earth,7,stamina,2,120,3,2300,275,220,330,"clear_cnt,1","not_use_role,supporter",finish_basic,711101,1,3,0.5,702011,1,1,0.1,701111,1,1,0.2
 11018,,easy,1,8,earth,9,stamina,2,120,3,2600,300,240,360,"clear_cnt,1","lap_time,120","lap_time,90",711101,1,3,0.5,702011,1,1,0.1,701111,1,1,0.2
 11021,,easy,2,1,water,7,stamina,2,120,3,2900,325,260,390,"clear_cnt,1","evolution_state,1,1","lap_time,90",711102,1,3,0.5,702012,1,1,0.1,701121,1,1,0.2

@@ -3,6 +3,7 @@ atk_up,buff,공격력 증가,res/effect/effect_combat_up/effect_combat_up.vrp,re
 aspd_up,buff,공격 속도 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/aspd_up.png,x,false,1,15,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,100,x,x,{1}초 동안 {2}만큼 공격 속도 증가,퍼센트+퍼센트 (합연산)
 cri_chance_up,buff,치명 확률 증가,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/cri_chance_up.png,x,false,1,15,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 치명 확률 증가,퍼센트+퍼센트 (합연산)
 def_up,buff,방어력 증가,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,1,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
+test_def_up,buff,자룡 패시브,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,1,15,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 hp_up,buff,생명력 증가,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/hp_up.png,x,false,1,15,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 생명력 증가,정수x퍼센트 (곱연산)
 cri_avoid_up,buff,치명 방어율 증가,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/cri_avoid_up.png,x,false,1,15,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 치명 방어 증가,퍼센트+퍼센트 (합연산)
 avoid_up,buff,회피율 증가,res/effect/effect_tactics_up/effect_tactics_up.vrp,res/ui/icon/status_effect/avoid_up.png,x,false,1,15,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,15,x,x,x,{1}초 동안 {2}만큼 회피 증가,퍼센트+퍼센트 (합연산)
@@ -46,6 +47,7 @@ plague,debuff,전염병,res/effect/effect_plague/effect_plague.vrp,x,o,false,1,2
 curse,debuff,저주,res/effect/effect_curse/effect_curse.vrp,x,o,false,1,20,0,-5,0,0,0,0,0,0,0,0,0,1,0,0,0,5,50,0,0,x,x,x,x,{duration}초 동안 {def}%만큼 방어력 감소 매 {1}초 마다 {def}%만큼 감소량 증가 최대치는 {2},dot류 처럼 인터벌 있음
 blind,debuff,실명,res/effect/effect_blind/effect_blind.vrp,res/ui/icon/status_effect/blind.png,o,false,1,10,0,0,0,0,0,0,0,-100,0,0,0,1,0,0,0,10,100,1,10,x,x,x,x,{1}초 동안 {2}만큼 적중 감소 매 {3} 마다 {4}만큼 적중 회복,dot류 처럼 인터벌 있음
 slow,debuff,둔화,res/effect/effect_slow/effect_slow.vrp,x,o,false,1,10,0,0,0,0,0,0,0,0,-100,0,0,0,0,0,0,10,100,0,0,x,x,x,x,{1}초 동안 {2}만큼 회피 감소,x
+aspd_down_overlab,debuff,공격 속도 감소 오버랩,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/aspd_down.png,x,false,5,20,0,0,0,-100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,x,x,x,{1}초 동안 {2}만큼 공격 속도 감소,정수x퍼센트 (곱연산)
 electric_shock,cc,감전,res/effect/effect_electric_shock/effect_electric_shock.vrp,res/ui/icon/status_effect/electric_shock.png,x,false,1,3,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,20,0,0,0,x,x,x,x,{duration}초 동안 행동 불가. 모든 피해 {1}% 증가,
 stun,cc,기절,res/effect/effect_stun/effect_stun.vrp,res/ui/icon/status_effect/stun.png,x,true,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,{duration}초 동안 행동 불가,x
 freeze,cc,빙결,res/effect/effect_freeze/effect_freeze.vrp,x,x,true,1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,50,1,0,0,x,x,x,x,{duration}초 동안 행동 불가. 물리 피해 {1}% 증가. 피격시 {2}초 후 즉시 해제,x
