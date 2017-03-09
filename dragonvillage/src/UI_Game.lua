@@ -22,6 +22,9 @@ function UI_Game:initUI()
     local vars = self:load('ingame_scene.ui')
     UIManager:open(self, UIManager.NORMAL)
 
+    -- 자동 버튼 임시 막음 처리
+    vars['autoButton']:setVisible(false)
+
     vars['autoStartButton']:registerScriptTapHandler(function() self:click_autoStartButton() end)
     vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
 	vars['feverButton']:registerScriptTapHandler(function() self:click_feverButton() end)    

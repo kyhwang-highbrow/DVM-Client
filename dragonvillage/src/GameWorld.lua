@@ -1681,8 +1681,8 @@ end
 function GameWorld:setTemporaryPause(pause, excluded_dragon)
     -- 일시 정지
     if (pause) then
-        local action_mgr = cc.Director:getInstance():getActionManager()
-
+        self.m_gameState:pause()
+        
         -- 맵 일시 정지
         self.m_mapManager:pause()
 
@@ -1692,6 +1692,7 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
         end
 
         -- 미사일들 액션 정지
+        local action_mgr = cc.Director:getInstance():getActionManager()
         for i,v in pairs(self.m_lMissileList) do
             action_mgr:pauseTarget(v.m_rootNode)
         end
@@ -1703,7 +1704,7 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
         end
     -- 전투 재개
     else
-        local action_mgr = cc.Director:getInstance():getActionManager()
+        self.m_gameState:resume()
 
         -- 맵 일시 정지 해제
         self.m_mapManager:resume()
@@ -1714,6 +1715,7 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
         end
 
         -- 미사일들 액션 재개
+        local action_mgr = cc.Director:getInstance():getActionManager()
         for i,v in pairs(self.m_lMissileList) do
             action_mgr:resumeTarget(v.m_rootNode)
         end

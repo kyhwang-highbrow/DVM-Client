@@ -117,7 +117,7 @@ function SkillIndicator:changeSIState(state)
         self:onEnterAppear()
 		
 		-- 툴팁 생성
-		self.m_skillIndicatorMgr:makeSkillToolTip(self.m_hero)
+        self:getSkillIndicatorMgr():makeSkillToolTip(self.m_hero)
 
         -- 영웅 스킬 준비 이펙트 생성
         self.m_hero:makeSkillPrepareEffect()
@@ -127,7 +127,7 @@ function SkillIndicator:changeSIState(state)
         self:onDisappear()
 		
 		-- 툴팁 닫기
-		self.m_skillIndicatorMgr:closeSkillToolTip()
+		self:getSkillIndicatorMgr():closeSkillToolTip()
 
         -- 영웅 스킬 준비 이펙트 해제
         self.m_hero:removeSkillPrepareEffect()

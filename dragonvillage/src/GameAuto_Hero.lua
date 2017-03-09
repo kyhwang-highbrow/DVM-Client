@@ -35,7 +35,10 @@ function GameAuto_Hero:init(world)
 
     if (g_autoPlaySetting:get('auto_mode')) then
         self:onStart()
-    end 
+    end
+
+    -- 자동 버튼 임시 막음 처리
+    g_autoPlaySetting:set('auto_mode', false)
 end
 
 -------------------------------------

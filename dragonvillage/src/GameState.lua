@@ -32,6 +32,7 @@ GAME_STATE_RESULT = 400
 -------------------------------------
 GameState = class(PARENT, {
         m_world = '',
+        m_bPause = 'boolean',
 
         m_stateParam = 'boolean',
         m_fightTimer = '',
@@ -58,6 +59,7 @@ GameState = class(PARENT, {
 -------------------------------------
 function GameState:init(world)
     self.m_world = world
+    self.m_bPause = false
     self.m_state = GAME_STATE_LOADING
     self.m_stateTimer = -1
     self.m_fightTimer = 0
@@ -115,6 +117,8 @@ end
 -- function update
 -------------------------------------
 function GameState:update(dt)
+    if (self.m_bPause) then return end
+
     -- 특정 상태에서만 타임 계산
     if (isExistValue(self.m_state, GAME_STATE_FIGHT, GAME_STATE_FIGHT_FEVER)) then
         -- 글로벌 쿨타임 계산
@@ -1010,4 +1014,18 @@ end
 function GameState:processTimeOut()
     -- 게임 실패 처리
     self:changeState(GAME_STATE_FAILURE)
+end
+
+-------------------------------------
+-- function pause
+-------------------------------------
+function GameState:pause()
+    self.m_bPause = true
+end
+
+-------------------------------------
+-- function resume
+-------------------------------------
+function GameState:resume()
+    self.m_bPause = false
 end

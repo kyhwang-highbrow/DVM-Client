@@ -38,6 +38,7 @@ SkillIndicatorMgr = class({
         m_world = 'GameWorld',
         
         m_touchNode = 'cc.Node',
+        m_touchedHero = 'Hero',
         m_selectHero = 'Hero',
         m_bSlowMode = 'boolean',
         m_startTimer = 'number',
@@ -56,6 +57,7 @@ function SkillIndicatorMgr:init(world)
     world.m_worldLayer:addChild(self.m_touchNode)
     self:makeTouchLayer(self.m_touchNode)
 
+    self.m_touchedHero = nil
     self.m_selectHero = nil
     self.m_bSlowMode = false
     self.m_startTimer = 0
@@ -116,6 +118,18 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
     if select_hero then
         -- 드래곤 클릭
         SoundMgr:playEffect('EFFECT', 'skill_touch')
+
+        self.m_firstTouchPos = node_pos
+        
+        self.m_touchedHero = select_hero
+
+        self.m_touchedHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
+        self.m_touchedHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
+
+        event:stopPropagation()
+
+        --[[
+        SoundMgr:playEffect('EFFECT', 'skill_touch')
         self:setSelectHero(select_hero)
         
         self.m_world:setTemporaryPause(true, select_hero)
@@ -131,6 +145,8 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
 
         self.m_selectHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
         self.m_selectHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
+        ]]--
+
         return true
     end
 
@@ -141,7 +157,7 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicatorMgr:onTouchMoved(touch, event)
-    if not self.m_selectHero then return end
+    if (not self.m_touchedHero) then return end
 
     -- 월드상의 터치 위치 얻어옴
     local location = touch:getLocation()
@@ -151,16 +167,14 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
         local distance = getDistance(self.m_firstTouchPos['x'], self.m_firstTouchPos['y'], node_pos['x'], node_pos['y'])
         if (distance >= 50) then
             self.m_bSlowMode = true
-            --self.m_world.m_gameTimeScale:set(SKILL_INDICATOR_SLOW)
-            self.m_world:setTemporaryPause(true, self.m_selectHero)
-            self.m_world.m_gameHighlight:changeDarkLayerColor(DARK_LAYER_OPACITY)
 
-            self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)
+            self:setSelectHero(self.m_touchedHero)
+            event:stopPropagation()
         end
     end
 
-    self.m_selectHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
-    self.m_selectHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
+    self.m_touchedHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
+    self.m_touchedHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
 end
 
 -------------------------------------
@@ -187,6 +201,8 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
 
         self:clear()
     end
+
+    self.m_touchedHero = nil
 end
 
 -------------------------------------
@@ -198,6 +214,8 @@ function SkillIndicatorMgr:clear(bAll)
     for char, _ in pairs(lHighlightList) do
         char:removeTargetEffect()
     end
+
+    self.m_touchedHero = nil
 
     if self.m_selectHero then
         self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
@@ -220,18 +238,18 @@ function SkillIndicatorMgr:update(dt)
     if (self.m_selectHero) then
         if (self.m_selectHero.m_bDead) or (not self.m_world:isPossibleControl()) then
             self:clear(true)
-
-        elseif (self.m_bSlowMode == false) then
+        end
+    --[[
+    elseif (self.m_touchedHero) then
+        if (self.m_bSlowMode == false) then
             self.m_startTimer = self.m_startTimer + dt
             if (0.5 < self.m_startTimer) then
                 self.m_bSlowMode = true
-                --self.m_world.m_gameTimeScale:set(SKILL_INDICATOR_SLOW)
-                self.m_world:setTemporaryPause(true, self.m_selectHero)
-                self.m_world.m_gameHighlight:changeDarkLayerColor(DARK_LAYER_OPACITY)
 
-                self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)
+                self:setSelectHero(self.m_touchedHero)
             end
         end
+    ]]--
     end
 end
 
@@ -246,6 +264,17 @@ function SkillIndicatorMgr:setSelectHero(hero)
         hero:reserveSkill(active_skill_id)
 
         hero:changeState('skillPrepare')
+
+        hero.m_skillIndicator:changeSIState(SI_STATE_READY)
+        hero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)
+        hero.m_skillIndicator.m_indicatorTouchPosX = self.m_firstTouchPos['x']
+        hero.m_skillIndicator.m_indicatorTouchPosY = self.m_firstTouchPos['y']
+
+        self.m_world:setTemporaryPause(true, hero)
+        self.m_world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
+        self.m_world.m_gameHighlight:changeDarkLayerColor(DARK_LAYER_OPACITY, SKILL_INDICATOR_FADE_OUT_DURATION)
+
+        self:addHighlightList(hero, 5)
 
     elseif self.m_selectHero then
         --self.m_selectHero:changeState('attackDelay')
@@ -295,7 +324,7 @@ function SkillIndicatorMgr:closeSkillToolTip()
 end
 
 -------------------------------------
--- function makeSkillToolTip
+-- function updateToolTipUI
 -------------------------------------
 function SkillIndicatorMgr:updateToolTipUI(hero_pos_x, hero_pos_y, touch_pos_x, touch_pos_y)
 	if (not self.m_uiToolTip) then return end
