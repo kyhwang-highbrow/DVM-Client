@@ -74,10 +74,10 @@ FEVER_POINT_UPDATE_TIME = 0.5
 -- #  피버모드 이벤트별 점수
 FEVER_POINT_INCREMENT_VALUE = {}
 FEVER_POINT_INCREMENT_VALUE['hero_basic_skill'] = 1
-FEVER_POINT_INCREMENT_VALUE['hero_active_skill'] = 4
-FEVER_POINT_INCREMENT_VALUE['hit_active'] = 2
-FEVER_POINT_INCREMENT_VALUE['hit_active_buff'] = 3
-FEVER_POINT_INCREMENT_VALUE['character_casting_cancel'] = 10
+FEVER_POINT_INCREMENT_VALUE['hero_active_skill'] = 2
+FEVER_POINT_INCREMENT_VALUE['hit_active'] = 1
+FEVER_POINT_INCREMENT_VALUE['hit_active_buff'] = 1.5
+FEVER_POINT_INCREMENT_VALUE['character_casting_cancel'] = 5
 
 -- #  피버모드 스킬 캔슬시 점수(현재 사용 안함)
 PERFECT_SKILL_CANCEL_FEVER_POINT = 30
