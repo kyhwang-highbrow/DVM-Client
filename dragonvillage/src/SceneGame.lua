@@ -627,8 +627,12 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
     for i,v in ipairs(items_list) do
         local item_id = v['item_id']
         local count = v['count']
-        local t_data = {item_id, count}
-        table.insert(drop_reward_list, t_data)
+        local from = v['from']
+
+        if (from == 'drop') then
+            local t_data = {item_id, count}
+            table.insert(drop_reward_list, t_data)
+        end
     end
 end
 

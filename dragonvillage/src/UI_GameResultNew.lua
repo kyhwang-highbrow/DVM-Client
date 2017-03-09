@@ -38,7 +38,7 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     self.m_secretDungeon = secret_dungeon
 
 
-    local vars = self:load('ingame_result_popup_new.ui')
+    local vars = self:load('ingame_result_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- 스테이지를 클리어했을 경우 다음 스테이지 ID 지정
@@ -304,8 +304,10 @@ function UI_GameResultNew:direction_showBox()
     vars['dragonResultNode']:setVisible(false)
 
     vars['boxVisual']:setVisible(true)
-    local visual_name = self:getBoxVisualName('idle')
-    vars['boxVisual']:changeAni(visual_name, true)
+    vars['boxVisual']:changeAni('box_01', false)
+    vars['boxVisual']:addAniHandler(function()
+        vars['boxVisual']:changeAni('box_02', true)
+    end)
 
     -- 연속 전투일 경우 상자 바로 오픈
     if g_autoPlaySetting:isAutoPlay() then
@@ -327,8 +329,7 @@ end
 -------------------------------------
 function UI_GameResultNew:direction_openBox()
     local vars = self.vars
-    local visual_name = self:getBoxVisualName('open')
-    vars['boxVisual']:changeAni(visual_name, false)
+    vars['boxVisual']:changeAni('box_03', false)
     vars['boxVisual']:addAniHandler(function()
         vars['boxVisual']:setVisible(false) 
         self:doNextWork()
@@ -349,8 +350,23 @@ end
 function UI_GameResultNew:direction_dropItem()
     local vars = self.vars
 
+    local interval = 170
+    local count = #self.m_lDropItemList
+    local l_pos = getSortPosList(interval, count)
+
     for i,v in ipairs(self.m_lDropItemList) do
-        self:makeRewardItem(i, v)
+        --self:makeRewardItem(i, v)
+
+        local item_id = v[1]
+        local count = v[2]
+
+        local item_card = UI_ItemCard(item_id, count)
+        item_card:setRarityVisibled(true)
+
+        vars['dropRewardMenu']:addChild(item_card.root)
+
+        local pos_x = l_pos[i]
+        item_card.root:setPositionX(pos_x)
     end
 
     SoundMgr:playEffect('EFFECT', 'reward')
@@ -628,38 +644,6 @@ function UI_GameResultNew:makeRewardItem(i, v)
     vars['rewardLabel' .. i]:setString(t_item['t_name'] .. '\nX ' .. count)
 
     return item_card
-end
-
--------------------------------------
--- function getBoxVisualName
--- @brief
--------------------------------------
-function UI_GameResultNew:getBoxVisualName(type)
-    local grade = 's'
-
-    local grade_str
-    if (grade == 's') then
-        grade_str = 'rainbow'
-    elseif (grade == 'a') then
-        grade_str = 'gold'
-    elseif (grade == 'b') then
-        grade_str = 'silver'
-    elseif (grade == 'c') then
-        grade_str = 'wood'
-    else
-        error('grade : ' .. grade)
-    end
-
-    local ret_str = ''
-    if (type == 'open') then
-        ret_str = string.format('ui_box_%s_open', grade_str)
-    elseif (type == 'idle') then
-        ret_str = string.format('ui_box_%s_idle', grade_str)
-    else
-        error('type : ' .. type)
-    end
-
-    return ret_str
 end
 
 -------------------------------------
