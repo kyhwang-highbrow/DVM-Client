@@ -25,7 +25,7 @@ function UI_TamerInfoPopup:init()
     self:doAction(nil, false)
 
 	-- 변수 지정
-	self.m_currTamerIdx = g_userData:getRef('tamer') - TAMER_VALUE
+	self.m_currTamerIdx = g_userData:getTamerInfo('tid') - TAMER_VALUE
 	self.m_tamerTable = TableTamer()
 	self.m_tamerAniList = {}
 
