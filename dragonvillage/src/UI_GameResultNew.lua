@@ -337,6 +337,7 @@ end
 -------------------------------------
 function UI_GameResultNew:direction_openBox()
     local vars = self.vars
+
     vars['boxVisual']:changeAni('box_03', false)
     vars['boxVisual']:addAniHandler(function()
         vars['boxVisual']:setVisible(false) 
@@ -361,6 +362,18 @@ function UI_GameResultNew:direction_dropItem()
     local interval = 170
     local count = #self.m_lDropItemList
     local l_pos = getSortPosList(interval, count)
+
+    -- 보상이 없을때
+    if (count <= 0) then
+        vars['noRewardMenu']:setVisible(true)
+
+        local animator = MakeAnimator('res/character/monster/common_elemental_lava_fire/common_elemental_lava_fire.spine')
+        vars['noRewardMenu']:addChild(animator.m_node)
+        animator:setAnchorPoint(cc.p(0.5, 0.5))
+        animator:setDockPoint(cc.p(0.5, 0.5))
+        animator:setPositionY(50)
+        animator:setScale(1.5)
+    end
 
     for i,v in ipairs(self.m_lDropItemList) do
         --self:makeRewardItem(i, v)
