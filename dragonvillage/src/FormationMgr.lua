@@ -321,6 +321,7 @@ end
 -- @brief 리스트 내에서 랜덤 char를 리턴
 -------------------------------------
 function FormationMgr:getRandomChar(char_list)
+    char_list = char_list or self.m_globalCharList
     local count = #char_list
 
     -- 리스트가 비어있을 경우

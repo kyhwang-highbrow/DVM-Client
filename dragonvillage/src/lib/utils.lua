@@ -158,7 +158,16 @@ end
 -- @brief 인덱스 테이블에서 랜덤 값 리턴
 -------------------------------------
 function table.getRandom(t)
-	return t[math_random(1, #t)]
+    local cnt = #t
+
+    if (cnt <= 0) then
+        return nil
+    elseif (cnt == 1) then
+        return t[1]
+    else
+        local rand = math_random(1, #t)
+        return t[rand]
+    end
 end
 
 -------------------------------------

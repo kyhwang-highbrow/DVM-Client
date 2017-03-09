@@ -446,15 +446,11 @@ function GameFever:doAttack()
         hero.m_animator:changeAni('idle', true)
     end)
 
-	-- @TODO 0일 경우에는 ios에서 math_random 문제가 발생하기 때문에 사전에 체크해서 처리
-	if (#world.m_rightFormationMgr.m_globalCharList == 0) then
-		return
-	end
-
     -- 랜덤한 적군을 선택
-    local enemy = world.m_rightFormationMgr.m_globalCharList[math_random(1, #world.m_rightFormationMgr.m_globalCharList)]
-
-    if not enemy then return end
+    local enemy = world.m_rightFormationMgr:getRandomChar()
+    if (not enemy) then
+        return
+    end
 
     -- 데미지 설정
     self.m_activityCarrier = hero:makeAttackDamageInstance()
