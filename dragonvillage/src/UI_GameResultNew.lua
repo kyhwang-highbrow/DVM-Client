@@ -193,6 +193,9 @@ function UI_GameResultNew:direction_start()
     vars['skipLabel']:setVisible(false)
     vars['retryBtn']:setVisible(false)
 
+    -- 드래곤 레벨업 연출 node
+    vars['dragonResultNode']:setVisible(true)
+
     -- 플레이 시간, 획득 골드
     self.m_lNumberLabel['time']:setNumber(self.m_time)
     self.m_lNumberLabel['gold']:setNumber(self.m_gold)
