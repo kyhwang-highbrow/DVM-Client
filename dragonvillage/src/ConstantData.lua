@@ -39,7 +39,6 @@ function ConstantData:loadDataFile()
 			content = string.gsub(content, '/%/.-%\n', '')
 		    self.m_constantData = json.decode(content)
         end
-		ccdump(self.m_constantData)
         f:close()
     end
 end
