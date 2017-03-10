@@ -52,8 +52,8 @@ function UI_CollectionUnitListItem:initUI()
         if (type == 'dragon') then
             did = value
         elseif (type == 'category') then
-            local t_dragon = table_dragon:getRepresentativeDragonByType(value)
-            did = t_dragon['did']
+            local dragon_type = value
+            did = TableDragonType:getBaseDid(dragon_type)
         end
 
         local card = MakeSimpleDragonCard(did)

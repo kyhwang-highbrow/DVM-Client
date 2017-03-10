@@ -125,6 +125,7 @@ local t_module = {
     -- Table
     'TableStageDesc',
     'TableDragon',
+    'TableDragonType',
     'TableMonster',
     'TableDragonSkill',
     'TableEnemyMove',

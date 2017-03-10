@@ -174,7 +174,6 @@ function slack_api(msg)
 
     -- 성공 시 콜백 함수
     t_request['success'] = function(ret)
-        ccdump(ret)
     end
 
     -- 실패 시 콜백 함수

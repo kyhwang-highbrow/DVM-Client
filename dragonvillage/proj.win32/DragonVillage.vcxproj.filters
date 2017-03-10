@@ -1844,6 +1844,9 @@
     <None Include="..\src\ConstantData.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableDragonType.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

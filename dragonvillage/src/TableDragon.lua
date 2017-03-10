@@ -101,19 +101,3 @@ function TableDragon:getRelationPoint(did)
     local relation_point = self:getValue(did, 'relation_point')
     return relation_point
 end
-
--------------------------------------
--- function getRepresentativeDragonByType
--- @breif 원종이 같은 드래곤 중 대표되는 드래곤(did가 가장 빠른)
--------------------------------------
-function TableDragon:getRepresentativeDragonByType(dragon_type)
-    local l_dragons = self:filterList('type', dragon_type)
-
-    local function sort_func(a, b)
-        return a['did'] < b['did']
-    end
-
-    table.sort(l_dragons, sort_func)
-
-    return l_dragons[1]
-end
