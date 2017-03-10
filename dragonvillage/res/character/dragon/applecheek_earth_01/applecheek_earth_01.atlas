@@ -34,7 +34,7 @@ applecheek_earth_01_body_01
   index: -1
 applecheek_earth_01_body_02
   rotate: true
-  xy: 435, 359
+  xy: 439, 359
   size: 47, 55
   orig: 47, 55
   offset: 0, 0
@@ -126,8 +126,8 @@ applecheek_earth_01_hand_02
 applecheek_earth_01_head_01
   rotate: false
   xy: 318, 364
-  size: 115, 144
-  orig: 115, 144
+  size: 119, 144
+  orig: 119, 144
   offset: 0, 0
   index: -1
 applecheek_earth_01_head_02
@@ -152,8 +152,8 @@ applecheek_earth_01_leg_02
   offset: 0, 0
   index: -1
 applecheek_earth_01_mouth_01
-  rotate: true
-  xy: 491, 480
+  rotate: false
+  xy: 449, 107
   size: 28, 19
   orig: 28, 19
   offset: 0, 0
@@ -167,7 +167,7 @@ applecheek_earth_01_wing_01
   index: -1
 applecheek_earth_01_wing_02
   rotate: false
-  xy: 435, 408
+  xy: 439, 408
   size: 54, 100
   orig: 54, 100
   offset: 0, 0

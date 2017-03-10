@@ -215,7 +215,7 @@ stage,t_name,r_difficult,r_chapter_info,r_stage_info,attr,level,cost_type,cost_v
 23008,거대 나무,nest,oldTree,8,earth,83,stamina,1,120,3,2500,500,,,,,,702092,3,4,0.8,702093,1,1,0.7,702094,1,1,0.1
 23009,거대 나무,nest,oldTree,9,fire,91,stamina,1,120,3,2500,500,,,,,,702093,2,3,0.5,702094,1,2,0.3,,,,
 23010,거대 나무,nest,oldTree,10,dark,100,stamina,1,120,3,2500,500,,,,,,702093,3,4,0.7,702094,2,3,0.5,,,,
-31001,황금 던전,secret,gold,1,light,1,stamina,1,120,1,2500,500,,,,,,700001,0,0,1,,,,,,,,
+31001,황금 던전,secret,gold,1,light,1,stamina,1,120,1,2500,500,,,,,,700002,0,0,1,,,,,,,,
 32101,인연 던전,secret,relation,1,earth,20,stamina,1,120,10,2500,500,,,,,,,,,,,,,,,,,
 32201,인연 던전,secret,relation,1,earth,20,stamina,1,120,10,2500,500,,,,,,,,,,,,,,,,,
 32301,인연 던전,secret,relation,1,earth,20,stamina,1,120,10,2500,500,,,,,,,,,,,,,,,,,
