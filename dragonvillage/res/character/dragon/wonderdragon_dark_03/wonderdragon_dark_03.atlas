@@ -60,9 +60,65 @@ wonderdragon_dark_03_effect_02
   orig: 193, 193
   offset: 0, 0
   index: -1
+wonderdragon_dark_03_effect_03_0040
+  rotate: false
+  xy: 518, 425
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_dark_03_effect_03_0042
+  rotate: false
+  xy: 518, 283
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_dark_03_effect_03_0044
+  rotate: false
+  xy: 457, 32
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_dark_03_effect_03_0046
+  rotate: false
+  xy: 606, 141
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_dark_03_effect_03_0048
+  rotate: false
+  xy: 685, 529
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_dark_03_effect_03_0050
+  rotate: false
+  xy: 660, 387
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_dark_03_effect_03_0052
+  rotate: false
+  xy: 827, 529
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+wonderdragon_dark_03_effect_03_0054
+  rotate: false
+  xy: 802, 387
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
 wonderdragon_dark_03_eye_01
   rotate: false
-  xy: 178, 2
+  xy: 649, 632
   size: 29, 20
   orig: 29, 20
   offset: 0, 0
@@ -76,14 +132,14 @@ wonderdragon_dark_03_eye_02
   index: -1
 wonderdragon_dark_03_eye_03
   rotate: false
-  xy: 566, 295
+  xy: 647, 11
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_eye_04
-  rotate: false
-  xy: 518, 241
+  rotate: true
+  xy: 701, 17
   size: 46, 43
   orig: 46, 43
   offset: 0, 0
@@ -104,7 +160,7 @@ wonderdragon_dark_03_hand_01_finger_2
   index: -1
 wonderdragon_dark_03_hand_01_finger_3
   rotate: true
-  xy: 518, 349
+  xy: 660, 319
   size: 66, 125
   orig: 66, 125
   offset: 0, 0
@@ -125,7 +181,7 @@ wonderdragon_dark_03_hand_acc_01
   index: -1
 wonderdragon_dark_03_hand_acc_02
   rotate: false
-  xy: 518, 286
+  xy: 599, 2
   size: 46, 61
   orig: 46, 61
   offset: 0, 0
@@ -145,29 +201,29 @@ wonderdragon_dark_03_head_01_02
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_head_01_03
-  rotate: true
-  xy: 518, 417
+  rotate: false
+  xy: 456, 174
   size: 148, 107
   orig: 148, 107
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_head_02
   rotate: true
-  xy: 645, 344
-  size: 80, 60
-  orig: 80, 60
-  offset: 0, 0
-  index: -1
-wonderdragon_dark_03_head_02_02
-  rotate: true
   xy: 456, 290
   size: 80, 60
   orig: 80, 60
   offset: 0, 0
   index: -1
+wonderdragon_dark_03_head_02_02
+  rotate: false
+  xy: 787, 325
+  size: 80, 60
+  orig: 80, 60
+  offset: 0, 0
+  index: -1
 wonderdragon_dark_03_head_02_03
-  rotate: true
-  xy: 456, 208
+  rotate: false
+  xy: 869, 325
   size: 80, 60
   orig: 80, 60
   offset: 0, 0
@@ -187,8 +243,8 @@ wonderdragon_dark_03_head_armor_02
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_head_armor_03
-  rotate: false
-  xy: 627, 426
+  rotate: true
+  xy: 599, 65
   size: 74, 139
   orig: 74, 139
   offset: 0, 0
