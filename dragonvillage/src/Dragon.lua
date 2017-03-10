@@ -14,6 +14,11 @@ Dragon = class(PARENT, {
 
         m_bWaitState = 'boolean',
 
+        -- 터치 스킬
+        m_skillTimer = 'number',
+        m_skillCoolTime = 'number',
+
+        -- 드래그 스킬
         m_activeSkillTimer = 'number',
         m_activeSkillCoolTime = 'number',
 
@@ -621,7 +626,10 @@ function Dragon:init_skillIndicator()
 		cclog('###############################################')
 		cclog('## 인디케이터 정의 되지 않은 스킬 : ' .. t_skill['type'])
 		cclog('###############################################')
+        return
 	end
+
+    self.m_skillIndicator:initIndicatorNode()
 end
 
 -------------------------------------

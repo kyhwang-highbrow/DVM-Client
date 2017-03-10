@@ -144,10 +144,6 @@ function SceneGame:init_layer()
 						self.m_colorLayerForSkill:setVisible(false)
 						self.m_worldLayer:addChild(self.m_colorLayerForSkill)
 
-						-- 스킬 인디케이터 레이어
-						self.m_gameIndicatorNode = cc.Node:create()
-						self.m_worldLayer:addChild(self.m_gameIndicatorNode, 99)
-
 						-- 하일라이트 레이어
 						self.m_gameHighlightNode = cc.Node:create()
 						self.m_worldLayer:addChild(self.m_gameHighlightNode)
@@ -159,6 +155,10 @@ function SceneGame:init_layer()
                         -- 하일라이트 레이어3
 						self.m_gameHighlightNode3 = cc.Node:create()
 						self.m_worldLayer:addChild(self.m_gameHighlightNode3)
+
+                        -- 스킬 인디케이터 레이어
+						self.m_gameIndicatorNode = cc.Node:create()
+						self.m_worldLayer:addChild(self.m_gameIndicatorNode, 99)
 					end
 				end
 			end

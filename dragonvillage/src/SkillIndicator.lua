@@ -50,6 +50,7 @@ SkillIndicator = class({
 -- function init
 -------------------------------------
 function SkillIndicator:init(hero)
+    self.m_world = hero.m_world
     self.m_hero = hero
     self.m_siState = SI_STATE_NONE
 
@@ -104,7 +105,6 @@ function SkillIndicator:changeSIState(state)
     self.m_siState = state
 
     if (state == SI_STATE_READY) then
-        self:initIndicatorNode()
         self:setIndicatorVisible(false)
         self.m_highlightList = nil
 
@@ -184,7 +184,7 @@ function SkillIndicator:initIndicatorNode()
     local skill_indicator_mgr = self:getSkillIndicatorMgr()
 
     local root_node = cc.Node:create()
-    root_node:setVisible(true)
+    root_node:setVisible(false)
     root_node:scheduleUpdateWithPriorityLua(function() self:update() end, 0)
 
     g_gameScene.m_gameIndicatorNode:addChild(root_node, 0)
@@ -247,12 +247,8 @@ function SkillIndicator:setHighlightEffect(t_collision_obj)
     end
 
     for i,target in ipairs(t_collision_obj) do      
-        if (not target.m_targetEffect and target ~= self.m_hero) then
-            if (self.m_hero.m_bLeftFormation == target.m_bLeftFormation) then
-                self:makeTargetEffect(target, 'appear_ally', 'idle_ally')
-            else
-                self:makeTargetEffect(target, 'appear_enemy', 'idle_enemy')
-            end
+        if (target ~= self.m_hero) then
+            self:makeTargetEffect(target)
         end
 
         skill_indicator_mgr:addHighlightList(target)
@@ -326,17 +322,30 @@ end
 -------------------------------------
 -- function makeTargetEffect
 -------------------------------------
-function SkillIndicator:makeTargetEffect(target_char, ani_name1, ani_name2)
+function SkillIndicator:makeTargetEffect(target_char)
+    if (target_char.m_targetEffect) then return end
+
+   local ani_name1
+   local ani_name2
+
+    if (self.m_hero.m_bLeftFormation == target_char.m_bLeftFormation) then
+        ani_name1 = 'appear_ally'
+        ani_name2 = 'idle_ally'
+    else
+        ani_name1 = 'appear'
+        ani_name2 = 'idle'
+    end
+
     local indicator = MakeAnimator(RES_INDICATOR['EFFECT'])
-    indicator:changeAni(ani_name1 or 'appear', false)
-    indicator:addAniHandler(function() indicator:changeAni(ani_name2 or 'idle', true) end)
+    indicator:changeAni(ani_name1, false)
+    indicator:addAniHandler(function() indicator:changeAni(ani_name2, true) end)
     indicator:setScale(0.1)
-	indicator:runAction(cc.ScaleTo:create(0.02, 1)) -- timescale 주의
+	indicator:runAction(cc.ScaleTo:create(0.2, 1)) -- timescale 주의
 
     target_char:setTargetEffect(indicator)
     
-	-- 속성 상성 표시
-    if ani_name1 ~= 'appear_ally' then
+	-- 적군의 경우 속성 상성 표시
+    if (self.m_hero.m_bLeftFormation ~= target_char.m_bLeftFormation) then
 		self:makeAttributeEffect(target_char, indicator)
     end
 end

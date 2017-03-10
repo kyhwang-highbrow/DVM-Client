@@ -22,6 +22,7 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
     local dragon = Dragon(nil, {0, 0, 20})
     dragon.m_bLeftFormation = bLeftFormation
 
+    dragon:initWorld(self)
     dragon:setDragonSkillLevelList(t_dragon_data['skill_0'], t_dragon_data['skill_1'], t_dragon_data['skill_2'], t_dragon_data['skill_3'])
     dragon:initDragonSkillManager('dragon', dragon_id, evolution)
     dragon:initActiveSkillCoolTime() -- 액티브 스킬 쿨타임 지정

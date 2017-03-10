@@ -26,7 +26,6 @@
 -- - 인디케이터를 드래고 조작을 통해 자신이 원하는 적에게 이동
 -- - 인디케이터에 지정된 적은 암전에서 제외되어 타겟팅 됨을 알려줌
 
-local SKILL_INDICATOR_SLOW = 0.1
 local SKILL_INDICATOR_FADE_OUT_DURATION = 0.5
 local DARK_LAYER_OPACITY = 200
 
@@ -117,8 +116,6 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
 
     if select_hero then
         -- 드래곤 클릭
-        SoundMgr:playEffect('EFFECT', 'skill_touch')
-
         self.m_firstTouchPos = node_pos
         
         self.m_touchedHero = select_hero
@@ -127,25 +124,6 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
         self.m_touchedHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
 
         event:stopPropagation()
-
-        --[[
-        SoundMgr:playEffect('EFFECT', 'skill_touch')
-        self:setSelectHero(select_hero)
-        
-        self.m_world:setTemporaryPause(true, select_hero)
-        self.m_world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
-        self.m_world.m_gameHighlight:changeDarkLayerColor(DARK_LAYER_OPACITY, SKILL_INDICATOR_FADE_OUT_DURATION)
-
-        self.m_firstTouchPos = node_pos
-
-        select_hero.m_skillIndicator:changeSIState(SI_STATE_READY)
-
-        self:addHighlightList(select_hero, 5)
-        event:stopPropagation()
-
-        self.m_selectHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
-        self.m_selectHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
-        ]]--
 
         return true
     end
@@ -181,47 +159,54 @@ end
 -- function onTouchEnded
 -------------------------------------
 function SkillIndicatorMgr:onTouchEnded(touch, event)
-    if (self.m_selectHero and self.m_selectHero.m_bDead == false) then
-        -- 경직 중이라면 즉시 해제
-        self.m_selectHero:setSpasticity(false)
-
-        --self.m_selectHero:resetActiveSkillCoolTime()
-        for i, hero in ipairs(self.m_world:getDragonList()) do
-            hero:resetActiveSkillCoolTime()
-        end
-
-        local active_skill_id = self.m_selectHero:getSkillID('active')
-        local t_skill = TABLE:get('dragon_skill')[active_skill_id]
-
-        if t_skill['casting_time'] > 0 then
-            self.m_selectHero:changeState('casting')
+    if (self.m_selectHero) then
+        if (self.m_selectHero.m_bDead) then
+            self:clear(true)    
         else
-            self.m_selectHero:changeState('skillAppear')
+            ---------------------------------------------------
+            -- 액티브 스킬 발동
+            ---------------------------------------------------
+
+            -- 경직 중이라면 즉시 해제
+            self.m_selectHero:setSpasticity(false)
+
+            --self.m_selectHero:resetActiveSkillCoolTime()
+            for i, hero in ipairs(self.m_world:getDragonList()) do
+                hero:resetActiveSkillCoolTime()
+            end
+
+            local active_skill_id = self.m_selectHero:getSkillID('active')
+            local t_skill = TABLE:get('dragon_skill')[active_skill_id]
+
+            if t_skill['casting_time'] > 0 then
+                self.m_selectHero:changeState('casting')
+            else
+                self.m_selectHero:changeState('skillAppear')
+            end
+
+            -- 월드상의 터치 위치 얻어옴
+            local location = touch:getLocation()
+            local node_pos = self.m_touchNode:convertToNodeSpace(location)
+
+            self.m_selectHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
+            self.m_selectHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
+
+            self:clear()
         end
-
-        -- 월드상의 터치 위치 얻어옴
-        local location = touch:getLocation()
-        local node_pos = self.m_touchNode:convertToNodeSpace(location)
-
-        self.m_selectHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
-        self.m_selectHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
-
-        self:clear()
+    
+    elseif (self.m_touchedHero) then
+        ---------------------------------------------------
+        -- 터치 스킬 발동
+        ---------------------------------------------------
+        
+        self.m_touchedHero = nil
     end
-
-    self.m_touchedHero = nil
 end
 
 -------------------------------------
 -- function clear
 -------------------------------------
 function SkillIndicatorMgr:clear(bAll)
-    local lHighlightList = self.m_world.m_gameHighlight:getCharList()
-
-    for char, _ in pairs(lHighlightList) do
-        char:removeTargetEffect()
-    end
-
     self.m_touchedHero = nil
 
     if (self.m_selectHero) then
@@ -245,7 +230,11 @@ function SkillIndicatorMgr:update(dt)
     if (self.m_selectHero) then
         if (self.m_selectHero.m_bDead) or (not self.m_world:isPossibleControl()) then
             self:clear(true)
+            return
         end
+    end
+
+    -- TODO : 누르고 있을 경우 일정시간 뒤 인디케이터 활성화
     --[[
     elseif (self.m_touchedHero) then
         if (self.m_bSlowMode == false) then
@@ -256,8 +245,8 @@ function SkillIndicatorMgr:update(dt)
                 self:setSelectHero(self.m_touchedHero)
             end
         end
-    ]]--
     end
+    ]]--
 end
 
 -------------------------------------
@@ -267,6 +256,8 @@ function SkillIndicatorMgr:setSelectHero(hero)
     self.m_startTimer = 0
     
     if hero then
+        SoundMgr:playEffect('EFFECT', 'skill_touch')
+
         local active_skill_id = hero:getSkillID('active')
         hero:reserveSkill(active_skill_id)
 
@@ -284,9 +275,6 @@ function SkillIndicatorMgr:setSelectHero(hero)
 
         self:addHighlightList(hero, 5)
 
-    elseif self.m_selectHero then
-        --self.m_selectHero:changeState('attackDelay')
-        
     end
 
     self.m_selectHero = hero

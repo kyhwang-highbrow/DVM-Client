@@ -1305,6 +1305,8 @@ end
 -- function setTargetEffect
 -------------------------------------
 function Character:setTargetEffect(animator)
+    if (self.m_bDead) then return end
+
     self:removeTargetEffect()
     self.m_targetEffect = animator
     if animator then

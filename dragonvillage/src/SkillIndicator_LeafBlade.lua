@@ -82,52 +82,6 @@ function SkillIndicator_LeafBlade:onTouchMoved(x, y)
 end
 
 -------------------------------------
--- function setHighlight
--------------------------------------
-function SkillIndicator_LeafBlade:setHighlightEffect(t_collision_obj)
-    local skill_indicator_mgr = self:getSkillIndicatorMgr()
-    local old_target_count = 0
-    local old_highlight_list = self.m_highlightList
-
-    if self.m_highlightList then
-        old_target_count = #self.m_highlightList
-    end
-
-    for i,target in ipairs(t_collision_obj) do            
-        if (not target.m_targetEffect) then
-            skill_indicator_mgr:addHighlightList(target)
-            self:makeTargetEffect(target)
-        end
-    end
-
-    if old_highlight_list then
-        for i,v in ipairs(old_highlight_list) do
-            local isFind = false
-            for _,v2 in ipairs(t_collision_obj) do
-                if (v == v2) then
-                    isFind = true
-                    break
-                end
-            end
-            if (isFind == false) then
-                if (v ~= self.m_hero) then
-                    skill_indicator_mgr:removeHighlightList(v)
-                end
-                v:removeTargetEffect(v)
-            end
-        end
-    end
-
-    self.m_highlightList = t_collision_obj
-	if (not self.m_isPass) then
-		self:changeEffectNonePass()
-	else
-		local cur_target_count = #self.m_highlightList
-		self:onChangeTargetCount(old_target_count, cur_target_count)
-	end
-end
-
--------------------------------------
 -- function initIndicatorNode
 -------------------------------------
 function SkillIndicator_LeafBlade:initIndicatorNode()
@@ -260,22 +214,27 @@ end
 -- function onChangeTargetCount
 -------------------------------------
 function SkillIndicator_LeafBlade:onChangeTargetCount(old_target_count, cur_target_count)
-	-- 활성화
-	if (cur_target_count > 0) then
-		self.m_indicatorEffect:changeAni('enemy_start_idle', true)
-		self.m_indicatorBezierEffect1:changeAni('circle', true)
-		self.m_indicatorBezierEffect2:changeAni('circle', true)
-		self.m_indicatorLinearEffect1:changeAni('circle', true)
-		self.m_indicatorLinearEffect2:changeAni('circle', true)
+    if (not self.m_isPass) then
+        self:changeEffectNonePass()
 
-	-- 비활성화
-	elseif (cur_target_count == 0) then
-		self.m_indicatorEffect:changeAni('normal_start_idle', true)
-		self.m_indicatorBezierEffect1:changeAni('circle_normal', true)
-		self.m_indicatorBezierEffect2:changeAni('circle_normal', true)
-		self.m_indicatorLinearEffect1:changeAni('circle_normal', true)
-		self.m_indicatorLinearEffect2:changeAni('circle_normal', true)
-	end
+    else
+	    -- 활성화
+	    if (cur_target_count > 0) then
+		    self.m_indicatorEffect:changeAni('enemy_start_idle', true)
+		    self.m_indicatorBezierEffect1:changeAni('circle', true)
+		    self.m_indicatorBezierEffect2:changeAni('circle', true)
+		    self.m_indicatorLinearEffect1:changeAni('circle', true)
+		    self.m_indicatorLinearEffect2:changeAni('circle', true)
+
+	    -- 비활성화
+	    elseif (cur_target_count == 0) then
+		    self.m_indicatorEffect:changeAni('normal_start_idle', true)
+		    self.m_indicatorBezierEffect1:changeAni('circle_normal', true)
+		    self.m_indicatorBezierEffect2:changeAni('circle_normal', true)
+		    self.m_indicatorLinearEffect1:changeAni('circle_normal', true)
+		    self.m_indicatorLinearEffect2:changeAni('circle_normal', true)
+	    end
+    end
 end
 
 -------------------------------------
