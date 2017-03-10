@@ -4,7 +4,7 @@ local PARENT = UI
 -- class UI_BirthdayRewardSelectPopup
 -------------------------------------
 UI_BirthdayRewardSelectPopup = class(PARENT,{
-        m_birthdayID = 'number',
+        m_dragonType = 'number',
         m_selectedDid = 'number',
         m_tableView = '',
     })
@@ -12,8 +12,8 @@ UI_BirthdayRewardSelectPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_BirthdayRewardSelectPopup:init(birth_id)
-    self.m_birthdayID = birth_id
+function UI_BirthdayRewardSelectPopup:init(dragon_type)
+    self.m_dragonType = dragon_type
     self.m_selectedDid = nil
 
     local vars = self:load('event_birthday_reward_select.ui')
@@ -38,10 +38,8 @@ end
 -- function initUI
 -------------------------------------
 function UI_BirthdayRewardSelectPopup:initUI()
-    local birthday_id = self.m_birthdayID
-    local t_birth_data = g_birthdayData.m_birthdayMap[birthday_id]
-
-    local dragon_type = t_birth_data['type']
+    local dragon_type = self.m_dragonType
+    local t_birth_data = TableDragonType():get(dragon_type)
 
     local table_dragon = TableDragon()
     local l_dragons = table_dragon:filterTable('type', dragon_type)
@@ -130,8 +128,7 @@ function UI_BirthdayRewardSelectPopup:click_rewardBtn()
         self:close()
     end
 
-    local birthday_id = self.m_birthdayID
-    local unique_dragon_code = getDigit(self.m_selectedDid, 1, 4)
-    local itemid = 760000 + unique_dragon_code
-    g_birthdayData:request_birthdayReward(birthday_id, itemid, finish_cb, fail_cb)
+    local dragon_type = self.m_dragonType
+    local itemid = getRelationItemId(self.m_selectedDid)
+    g_birthdayData:request_birthdayReward(dragon_type, itemid, finish_cb, fail_cb)
 end

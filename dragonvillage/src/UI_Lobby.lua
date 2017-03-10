@@ -90,12 +90,6 @@ function UI_Lobby:entryCoroutine()
          g_friendData:request_friendList(function() self:refreshFriendOnlineBuff() working = false end, true)
         while (working) do dt = coroutine.yield() end
 
-        -- @UI_ACTION
-        working = true
-        self:doAction(function() working = false end, false)
-        g_topUserInfo:doAction()
-        while (working) do dt = coroutine.yield() end
-
         cclog('# 출석 정보 받는 중')
         working = true
         g_attendanceData:request_attendanceInfo(function(ret) working = false end)
@@ -108,44 +102,11 @@ function UI_Lobby:entryCoroutine()
             while (working) do dt = coroutine.yield() end
         end
 
-        -- 출석 정보 받아옴
-        --[[
-        cclog('# 출석 정보 받는 중')
+        -- @UI_ACTION
         working = true
-        g_attendanceData:request_attendanceInfo(function(ret) working = false end)
+        self:doAction(function() working = false end, false)
+        g_topUserInfo:doAction()
         while (working) do dt = coroutine.yield() end
-
-        
-        cclog('# 기본 출석 보상 팝업')
-        -- 기본 출석 보상 팝업
-        if g_attendanceData.m_bNewAttendanceBasic then
-            g_attendanceData.m_bNewAttendanceBasic = false
-            working = true
-            local ui = UI_AttendanceBasic()
-            ui:setCloseCB(function() working = false end)
-            while (working) do dt = coroutine.yield() end
-        end
-        
-        cclog('# 연속 출석 보상 팝업')
-        -- 연속 출석 보상 팝업
-        if g_attendanceData.m_bNewAttendanceContinuous then
-            g_attendanceData.m_bNewAttendanceContinuous = false
-            working = true
-            local ui = UI_AttendanceContinuous()
-            ui:setCloseCB(function() working = false end)
-            while (working) do dt = coroutine.yield() end
-        end
-
-        cclog('# 특별 출석 보상 팝업')
-        -- 특별 출석 보상 팝업
-        if g_attendanceData.m_bNewAttendanceSpecial then
-            g_attendanceData.m_bNewAttendanceSpecial = false
-            working = true
-            local ui = UI_AttendanceSpecial()
-            ui:setCloseCB(function() working = false end)
-            while (working) do dt = coroutine.yield() end
-        end
-        --]]
 
         -- 터치 가능하도록 해제
         block_popup:close()

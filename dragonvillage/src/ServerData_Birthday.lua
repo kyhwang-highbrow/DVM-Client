@@ -4,10 +4,7 @@
 ServerData_Birthday = class({
         m_serverData = 'ServerData',
 
-        m_birthdayTable = 'serverDataTable',
-        m_birthdayMap = '',
         m_birthdayInfoMap = '',
-
         m_todayBirthdayList = '',
     })
 
@@ -16,22 +13,21 @@ ServerData_Birthday = class({
 -------------------------------------
 function ServerData_Birthday:init(server_data)
     self.m_serverData = server_data
+    self:organize_birthdayTable()
 end
 
 -------------------------------------
 -- function organize_birthdayTable
 -------------------------------------
-function ServerData_Birthday:organize_birthdayTable(birthday_table)
-    self.m_birthdayTable = birthday_table
-
-    self.m_birthdayMap = table.listToMap(birthday_table, 'birth_id')
+function ServerData_Birthday:organize_birthdayTable()
+    local birthday_table = TableDragonType():cloneOrgTable()
 
     self.m_birthdayInfoMap = {}
     for i=1, 12 do
         self.m_birthdayInfoMap[i] = {}
     end
 
-    for i,v in ipairs(birthday_table) do
+    for i,v in pairs(birthday_table) do
         local month = v['month']
         local day = v['day']
 
@@ -79,10 +75,11 @@ function ServerData_Birthday:hasBirthdayReward()
 
     local t_ret = {}
 
-    for i,v in pairs(birthday_list) do
-        if (v == false) then
-            local birth_id = tonumber(i)
-            table.insert(t_ret, birth_id)
+    for dragon_type,v in pairs(birthday_list) do
+
+        -- 보상을 받지 않은 드래곤이고 도감에 드래곤 타입이 등록된 경우에만 추가
+        if (v == false) and g_collectionData:isExistDragonType(dragon_type) then
+            table.insert(t_ret, dragon_type)
         end
     end
 
@@ -92,7 +89,7 @@ end
 -------------------------------------
 -- function request_birthdayReward
 -------------------------------------
-function ServerData_Birthday:request_birthdayReward(birth_id, itemid, finish_cb, fail_cb)
+function ServerData_Birthday:request_birthdayReward(dragon_type, itemid, finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -100,6 +97,9 @@ function ServerData_Birthday:request_birthdayReward(birth_id, itemid, finish_cb,
     local function success_cb(ret)
         -- 아이템 수령
         g_serverData:networkCommonRespone_addedItems(ret)
+
+        -- 받은 보상은 false 처리
+        self.m_todayBirthdayList[dragon_type] = true
 
         if finish_cb then
             return finish_cb(ret)
@@ -110,7 +110,7 @@ function ServerData_Birthday:request_birthdayReward(birth_id, itemid, finish_cb,
     local ui_network = UI_Network()
     ui_network:setUrl('/users/birthday/reward')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('birth_id', birth_id)
+    ui_network:setParam('type', dragon_type)
     ui_network:setParam('itemid', itemid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)

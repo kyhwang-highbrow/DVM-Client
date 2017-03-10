@@ -182,3 +182,10 @@ function TableClass:seperate(str, divider, trim_execution)
 
     return l_values
 end
+
+-------------------------------------
+-- function cloneOrgTable
+-------------------------------------
+function TableClass:cloneOrgTable()
+    return clone(self.m_orgTable)
+end
