@@ -185,7 +185,7 @@ function Network:decodeResult(ret)
 	local err = {status=-9999, message='network_error'}
 	if not ret then return err end
 
-	local t = json.decode(ret)
+	local t = dkjson.decode(ret)
 	if not t or type(t) ~='table' then return err end
 	return t
 end
