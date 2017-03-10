@@ -607,6 +607,7 @@ local t_module = {
     'StructAdventureChapterAchieveInfo',
     'StructAdventureStageInfo',
     'StructCalendarDay',
+    'StructAttendanceData',
 
     -- Network
     'Network',

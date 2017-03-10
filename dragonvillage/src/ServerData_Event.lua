@@ -17,15 +17,15 @@ end
 -- function getEventPopupTabList
 -------------------------------------
 function ServerData_Event:getEventPopupTabList()
-    -- 출석 체크
-    -- 이벤트 출석
-    -- 드래곤 생일
-    -- 이벤트
-
     local item_list = {}
 
-    table.insert(item_list, StructEventPopupTab('attendance_basic'))
-    table.insert(item_list, StructEventPopupTab('attendance_event'))
+    -- 출석 체크
+    for i,v in pairs(g_attendanceData.m_structAttendanceDataList) do
+        local event_popup_tab = StructEventPopupTab('attendance', v.attendance_type)
+        table.insert(item_list, event_popup_tab)
+    end
+
+    -- 드래곤 생일
     table.insert(item_list, StructEventPopupTab('birthday_calendar'))
 
     return item_list
@@ -49,4 +49,22 @@ function ServerData_Event:openEventPopup()
     end
 
     Coroutine(coroutine_function, 'Event Popup 코루틴')
+end
+
+-------------------------------------
+-- function hasReward
+-- @brief 받아야할 보상이 있는지 여부 (이벤트 팝업을 띄움)
+-------------------------------------
+function ServerData_Event:hasReward()
+    -- 생일 보상 여부
+    if g_birthdayData:hasBirthdayReward() then
+        return true
+    end
+
+    -- 출석 보상 여부
+    if g_attendanceData:hasAttendanceReward() then
+        return true
+    end
+
+    return false
 end

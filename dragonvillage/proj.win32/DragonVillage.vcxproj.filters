@@ -1847,6 +1847,9 @@
     <None Include="..\src\TableDragonType.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\StructAttendanceData.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

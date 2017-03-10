@@ -95,7 +95,7 @@ function UI_Lobby:entryCoroutine()
         g_attendanceData:request_attendanceInfo(function(ret) working = false end)
         while (working) do dt = coroutine.yield() end
 
-        if g_birthdayData:hasBirthdayReward() then
+        if g_eventData:hasReward() then
             working = true
             local ui = UI_EventPopup()
             ui:setCloseCB(function(ret) working = false end)

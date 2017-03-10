@@ -30,14 +30,17 @@ end
 -- function applyTableData
 -------------------------------------
 function StructAdventureStageInfo:applyTableData(data)
+
+    -- 서버에서 key값을 줄여서 쓴 경우가 있어서 변환해준다
+    local replacement = {}
+    replacement['m_1'] = 'mission_1'
+    replacement['m_2'] = 'mission_2'
+    replacement['m_3'] = 'mission_3'
+    replacement['cl_cnt'] = 'clear_cnt'
+    replacement['cl_rew'] = 'first_clear_reward_received'
+
     for i,v in pairs(data) do
-        local key = i
-        if (key == 'm_1') then  key = 'mission_1'
-        elseif (key == 'm_2') then  key = 'mission_2'
-        elseif (key == 'm_3') then  key = 'mission_3'
-        elseif (key == 'cl_cnt') then  key = 'clear_cnt'
-        elseif (key == 'cl_rew') then  key = 'first_clear_reward_received'
-        end
+        local key = replacement[i] and replacement[i] or i
         self[key] = v
     end
 end

@@ -5,30 +5,7 @@ ServerData_Attendance = class({
         m_serverData = 'ServerData',
         m_bDirtyAttendanceInfo = 'boolean',
 
-        -- 기본 출석 체크
-        m_bNewAttendanceBasic = 'boolean',
-        m_basicStepList = 'list',
-        m_basicHelpText = 'string',
-        m_basicDescText = 'string',
-        m_basicGuideDragon = 'did',
-        m_basicAddedItems = 'table',
-        m_todayStep = 'number',
-
-        -- 연속 출석 체크
-        m_bNewAttendanceContinuous = 'boolean',
-        m_continuousStepList = 'list',
-        m_continuousTitleText = 'string',
-        m_continuousHelpText = 'string',
-        m_continuousAddedItems = 'table',
-        m_continuousTodayStep = 'number',
-
-        -- 특별 출석 체크
-        m_bNewAttendanceSpecial = 'boolean',
-        m_specialStepList = 'list',
-        m_specialTitleText = 'string',
-        m_specialHelpText = 'string',
-        m_specialAddedItems = 'table',
-        m_specialTodayStep = 'number',
+        m_structAttendanceDataList = 'list[StructAttendanceData]',
     })
 
 -------------------------------------
@@ -37,9 +14,6 @@ ServerData_Attendance = class({
 function ServerData_Attendance:init(server_data)
     self.m_serverData = server_data
     self.m_bDirtyAttendanceInfo = true
-    self.m_bNewAttendanceBasic = false
-    self.m_bNewAttendanceContinuous = false
-    self.m_bNewAttendanceSpecial = false
 end
 
 -------------------------------------
@@ -77,39 +51,18 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb, fail_cb)
     local function success_cb(ret)
         self.m_bDirtyAttendanceInfo = false
 
+        do -- 출석 정보
+            self.m_structAttendanceDataList = {}
+            if ret['attendance_info'] then
+                for i,v in ipairs(ret['attendance_info']) do
+                    self.m_structAttendanceDataList[i] = StructAttendanceData(v)
+                end
+            end
+        end
+
         -- 오늘의 드래곤 생일 정보
         g_birthdayData:organize_todayBirthdayList(ret['birthday'])
 
-        --[[
-        local ret = TABLE:loadJsonTable('temp_attendance_info')
-
-        -- 기본 출석 체크 보상 정보
-        self.m_bNewAttendanceBasic = (not ret['attendance_basic']['received'])
-        self.m_basicStepList = ret['attendance_basic']['step_list']
-        self.m_basicHelpText = ret['attendance_basic']['help_text']
-        self.m_basicDescText = ret['attendance_basic']['desc_text']
-        self.m_basicGuideDragon = ret['attendance_basic']['guide_dragon']
-        self.m_basicAddedItems = ret['attendance_basic']['added_items']
-        self.m_todayStep = ret['attendance_basic']['today_step']
-
-        -- 연속 출석 체크 보상
-        self.m_bNewAttendanceContinuous = (not ret['attendance_continuous']['received'])
-        self.m_continuousStepList = ret['attendance_continuous']['step_list']
-        self.m_continuousTitleText = ret['attendance_continuous']['title_text']
-        self.m_continuousHelpText = ret['attendance_continuous']['help_text']
-        self.m_continuousAddedItems = ret['attendance_continuous']['added_items']
-        self.m_continuousTodayStep = ret['attendance_continuous']['today_step']
-
-        -- 특별 출석 체크 보상
-        self.m_bNewAttendanceSpecial = (not ret['attendance_special']['received'])
-        self.m_specialStepList = ret['attendance_special']['step_list']
-        self.m_specialTitleText = ret['attendance_special']['title_text']
-        self.m_specialHelpText = ret['attendance_special']['help_text']
-        self.m_specialAddedItems = ret['attendance_special']['added_items']
-        self.m_specialTodayStep = ret['attendance_special']['today_step']
-
-        self.m_bNewAttendanceSpecial = true
-        --]]
 
         if finish_cb then
             finish_cb(ret)
@@ -126,4 +79,19 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb, fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+end
+
+-------------------------------------
+-- function hasAttendanceReward
+-- @brief 출석 보상 연출을 보여줘야 하는지 여부
+-------------------------------------
+function ServerData_Attendance:hasAttendanceReward()
+    -- v == StructAttendanceData
+    for i,v in ipairs(self.m_structAttendanceDataList) do
+        if v:hasReward() then
+            return true
+        end
+    end
+    
+    return false
 end
