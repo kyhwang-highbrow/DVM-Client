@@ -3,13 +3,25 @@
 -------------------------------------
 ServerData_Collection = class({
         m_serverData = 'ServerData',
+
+        -- 드래곤 콜렉션 데이터(실제 도감 정보)
         m_mCollectionData = 'map',
+
+        -- 드래곤 원종별 도감
+        m_mDragonTypeCollectionData = 'map',
+        -- {
+        --   'pinkbell':true,
+        --   'jaryong':true,
+        --   'powerdragon':true
+        -- }
+
+        -- 콜렉션 포인트
         m_collectionPoint = 'number',
         m_collectionPointList = '',
-        m_lastChangeTimeStamp = 'timestamp',
-
-        m_tamerTitle = 'string', -- 테이머 칭호
+        m_tamerTitle = 'string', -- 테이머 칭호 (콜랙션 포인트로 칭호와 자수정을 받을 수 있음)
         m_currCpointRewardFocusKey = 'number',
+
+        m_lastChangeTimeStamp = 'timestamp',
     })
 
 -------------------------------------
@@ -17,6 +29,7 @@ ServerData_Collection = class({
 -------------------------------------
 function ServerData_Collection:init(server_data)
     self.m_serverData = server_data
+    self.m_mDragonTypeCollectionData = {}
 end
 
 -------------------------------------
@@ -85,6 +98,15 @@ function ServerData_Collection:response_collectionInfo(ret)
 
     self.m_mCollectionData = ret['book']
 
+    do -- 드래곤 원종별 도감
+        self.m_mDragonTypeCollectionData = {}
+        if ret['dragon_type'] then
+            for i,v in pairs(ret['dragon_type']) do
+                self.m_mDragonTypeCollectionData[v] = true
+            end
+        end
+    end
+
     self.m_collectionPoint = ret['cpoint']
 
     -- 콜랙션 포인트 항목 정보 리스트
@@ -131,6 +153,14 @@ function ServerData_Collection:isExist(did)
     end
 
     return t_data['exist']
+end
+
+-------------------------------------
+-- function isExistDragonType
+-- @brief 도감에 표시 여부
+-------------------------------------
+function ServerData_Collection:isExistDragonType(dragon_type)
+    return self.m_mDragonTypeCollectionData[dragon_type]
 end
 
 -------------------------------------
@@ -183,6 +213,11 @@ function ServerData_Collection:setDragonCollection(did)
     end
 
     self.m_mCollectionData[did]['exist'] = true
+
+    do -- 드래곤 원종의 도감 정보
+        local dragon_type = TableDragon():getValue(tonumber(did), 'type')
+        self.m_mDragonTypeCollectionData[dragon_type] = true
+    end
 
     -- 마지막으로 데이터가 변경된 시간 갱신
     self:setLastChangeTimeStamp()
