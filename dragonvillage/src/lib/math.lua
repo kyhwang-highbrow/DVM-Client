@@ -14,9 +14,21 @@ math_rad = math.rad
 
 if isWin32() then
     math_random = function(lower, uper)
-        if (uper <= lower) then
+
+        -- Number between 0 and 1
+        if (lower == nil) and (uper == nil) then
+            return math.random()
+
+        -- int between 1 and uper
+        elseif (uper == nil) then
+            return math.random(lower)
+        end
+
+        if (lower > uper) then
             error('interval is empty')
         end
+
+        -- int between l and uper
         return math.random(lower, uper)
     end
 end
