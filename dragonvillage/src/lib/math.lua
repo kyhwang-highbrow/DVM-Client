@@ -12,6 +12,15 @@ math_atan2 = math.atan2
 math_deg = math.deg
 math_rad = math.rad
 
+if isWin32() then
+    math_random = function(lower, uper)
+        if (uper <= lower) then
+            error('interval is empty')
+        end
+        return math.random(lower, uper)
+    end
+end
+
 function math_sign(num)
     if     num > 0 then return 1
     elseif num < 0 then return -1
