@@ -195,12 +195,11 @@ function SkillRolling.st_move_attack(owner, dt)
 		if (not owner.m_targetChar) then
 			-- 1-1. 최대 충돌 갯수 체크
 			if (owner.m_maxTargetCnt > owner.m_targetCnt) then
-				local t_targets = owner.m_world:getTargetList(owner.m_owner, 0, 0, 'enemy', 'x', 'distance_line')
 				-- 1-2. 타겟이 있는지 체크
-				local rand = math_random(1, #t_targets)
-				if t_targets[rand] then 
-					owner.m_targetChar = t_targets[rand]
-					owner.m_targetPos = t_targets[rand].pos
+                local target = owner:getRollingNextTarget()
+				if target then 
+					owner.m_targetChar = target
+					owner.m_targetPos = target.pos
 				else
 					owner:changeState('comeback')
 				end
@@ -373,4 +372,24 @@ function SkillRolling:makeSkillInstance(owner, t_skill, t_data)
     if (skill.m_bHighlight) then
         world.m_gameHighlight:addMissile(skill)
     end
+end
+
+-------------------------------------
+-- function getRollingNextTarget
+-------------------------------------
+function SkillRolling:getRollingNextTarget()
+    local t_targets = self.m_world:getTargetList(self.m_owner, 0, 0, 'enemy', 'x', 'distance_line')
+
+    local cnt = #t_targets
+
+    if (cnt <= 0) then
+        return nil
+
+    elseif (cnt == 1) then
+        return t_targets[1]
+
+    else
+        local rand = math_random(1, #t_targets)
+        return t_targets[rand]
+    end 
 end
