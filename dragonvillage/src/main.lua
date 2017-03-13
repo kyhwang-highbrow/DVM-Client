@@ -22,7 +22,11 @@ IS_OPEN_ERROR_POPUP = false
 -------------------------------------
 function __G__TRACKBACK__(msg)
 	local error_msg = "LUA ERROR: " .. tostring(msg) .. "\n\n" .. debug.traceback()
-	
+
+    cclog("----------------------------------------")
+    cclog(error_msg)
+    cclog("----------------------------------------")
+    	
 	-- 에러를 팝업으로 띄워서 출력
 	-- @TODO 디버깅 모드 처리해야함
 	if (not IS_OPEN_ERROR_POPUP) and __G__ERROR_POPUP then
@@ -30,9 +34,6 @@ function __G__TRACKBACK__(msg)
 		IS_OPEN_ERROR_POPUP = true
 	end
 
-    cclog("----------------------------------------")
-    cclog(error_msg)
-    cclog("----------------------------------------")
     return msg
 end
 
