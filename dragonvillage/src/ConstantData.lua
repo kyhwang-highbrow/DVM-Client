@@ -11,6 +11,7 @@ ConstantData = class({
 -------------------------------------
 function ConstantData:init()
     self.m_cache = {}
+	self:readDataFile()
 end
 
 -------------------------------------
@@ -19,46 +20,28 @@ end
 function ConstantData:getInstance()
     if (not g_constant) then
 		g_constant = ConstantData()
-		g_constant:loadDataFile()
     end
 
 	return g_constant
 end
 
 -------------------------------------
--- function loadDataFile
+-- function readDataFile
 -------------------------------------
-function ConstantData:loadDataFile()
-    local f = io.open(self:getFilePath(), 'r')
-
-    if f then
-        local content = f:read('*all')
-
-        if #content > 0 then
-			-- json에 주석이 있으면 처리가 안되기 때문에 제거
-			content = string.gsub(content, '/%/.-%\n', '')
-		    self.m_constantData = json.decode(content)
-        end
-        f:close()
-    end
+function ConstantData:readDataFile()
+	self.m_constantData = TABLE:loadJsonTable('constant', '.json', true)
 end
 
--------------------------------------
--- function getFilePath
--- 'C:/project/dragonvillage/frameworks/dragonvillage/runtime/'
--------------------------------------
-function ConstantData:getFilePath()
-	local file = '../data/constant.json'
-    local path = cc.FileUtils:getInstance():getWritablePath() 
-
-    local full_path = string.format('%s%s', path, file)
-    return full_path
-end
 
 -------------------------------------
 -- function get
 -------------------------------------
 function ConstantData:get(...)
+	-- 윈도우에서는 매번 읽어 테스트하기 용이하도록 한다.
+	if (isWin32()) then
+		self:readDataFile()
+	end
+
     local args = {...}
     local cnt = #args
 

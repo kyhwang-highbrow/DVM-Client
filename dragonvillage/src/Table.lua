@@ -174,9 +174,10 @@ end
 -------------------------------------
 -- function loadJsonTable
 -------------------------------------
-function TABLE:loadJsonTable(filename)
-    local content = TABLE:loadTableFile(filename, '.txt')
-    return json.decode(content)
+function TABLE:loadJsonTable(filename, extention, remove_comment)
+	local extention = extention or '.txt'
+    local content = TABLE:loadTableFile(filename, extention)
+    return json_decode(content, remove_comment)
 end
 
 -------------------------------------

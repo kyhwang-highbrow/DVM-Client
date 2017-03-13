@@ -1,5 +1,5 @@
 { 
-    "Ingame" : {
+    "INGAME" : {
         // 테이머와 관련된 상수
         "TAMER_ID" : 110001,
         "TAMER_VALUE" : 110000,
@@ -81,6 +81,6 @@
         "DRAGON_SKILL_COOL_TIME" : 10
     },
     
-    "Skill" : {}
+    "SKILL" : {}
     
 }
