@@ -101,15 +101,13 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
     local near_distance = nil
     local select_hero = nil
     for i, v in pairs(self.m_world:getDragonList()) do
-        if (v:isPossibleSkill()) then
-			local x, y = v:getCenterPos()
-			local distance = math_distance(x, y, node_pos['x'], node_pos['y'])
+        local x, y = v:getCenterPos()
+		local distance = math_distance(x, y, node_pos['x'], node_pos['y'])
 
-			if (distance <= 100) then
-				if (near_distance == nil) or (distance < near_distance) then
-					near_distance = distance
-					select_hero = v
-				end
+		if (distance <= 100) then
+			if (near_distance == nil) or (distance < near_distance) then
+				near_distance = distance
+				select_hero = v
 			end
 		end
     end 
@@ -136,7 +134,7 @@ end
 -------------------------------------
 function SkillIndicatorMgr:onTouchMoved(touch, event)
     if (not self.m_touchedHero) then return end
-
+    
     -- 월드상의 터치 위치 얻어옴
     local location = touch:getLocation()
     local node_pos = self.m_touchNode:convertToNodeSpace(location)
@@ -147,10 +145,12 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
     if (self.m_bSlowMode == false) then
         local distance = getDistance(self.m_firstTouchPos['x'], self.m_firstTouchPos['y'], node_pos['x'], node_pos['y'])
         if (distance >= 50) then
-            self.m_bSlowMode = true
+            if (self.m_touchedHero:isPossibleSkill('active')) then
+                self.m_bSlowMode = true
 
-            self:setSelectHero(self.m_touchedHero)
-            event:stopPropagation()
+                self:setSelectHero(self.m_touchedHero)
+                event:stopPropagation()
+            end
         end
     end
 end
@@ -170,10 +170,8 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             -- 경직 중이라면 즉시 해제
             self.m_selectHero:setSpasticity(false)
 
-            --self.m_selectHero:resetActiveSkillCoolTime()
-            for i, hero in ipairs(self.m_world:getDragonList()) do
-                hero:resetActiveSkillCoolTime()
-            end
+            -- 스킬 쿹타임 초기상태로
+            self.m_world:resetDragSkillCoolTime()
 
             local active_skill_id = self.m_selectHero:getSkillID('active')
             local t_skill = TABLE:get('dragon_skill')[active_skill_id]
@@ -198,9 +196,12 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
         ---------------------------------------------------
         -- 터치 스킬 발동
         ---------------------------------------------------
-        
-        self.m_touchedHero = nil
+        if (self.m_touchedHero:doSkill_touch()) then
+            SoundMgr:playEffect('EFFECT', 'skill_touch')
+        end
     end
+
+    self.m_touchedHero = nil
 end
 
 -------------------------------------
@@ -216,6 +217,7 @@ function SkillIndicatorMgr:clear(bAll)
         self.m_bSlowMode = false
     end
 
+    -- 스킬이 취소되거나 해서 이후 드래곤 스킬 연출까지 이어지지 않는 경우
     if (bAll) then
         self.m_world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_HIDE)
         self.m_world.m_gameHighlight:changeDarkLayerColor(0, 0.5)
@@ -255,7 +257,7 @@ end
 function SkillIndicatorMgr:setSelectHero(hero)
     self.m_startTimer = 0
     
-    if hero then
+    if (hero) then
         SoundMgr:playEffect('EFFECT', 'skill_touch')
 
         local active_skill_id = hero:getSkillID('active')
@@ -275,9 +277,11 @@ function SkillIndicatorMgr:setSelectHero(hero)
 
         self:addHighlightList(hero, 5)
 
-    end
+        self.m_selectHero = hero
+    else
+        self.m_selectHero = nil
 
-    self.m_selectHero = hero
+    end
 end
 
 -------------------------------------

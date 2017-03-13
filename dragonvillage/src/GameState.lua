@@ -242,17 +242,27 @@ function GameState.update_fight(self, dt)
         world.m_enemyMovementMgr:update(dt)
     end
 
-    do -- 드래곤 액티브 스킬 쿨타임 증가
+    do -- 드래곤 터치 스킬 쿨타임 증가
         for _,dragon in pairs(world:getDragonList()) do
-            dragon:updateActiveSkillCoolTime(dt)
+            dragon:updateTouchSkillCoolTime(dt)
         end
     end
 
-    do -- 적군 액티브 스킬 쿨타임 증가
+    do -- 적군 터치 스킬 쿨타임 증가
         for _, enemy in pairs(self.m_world:getEnemyList()) do
             if (isInstanceOf(enemy, Dragon)) then
-                enemy:updateActiveSkillCoolTime(dt)
+                enemy:updateTouchSkillCoolTime(dt)
             end
+        end
+    end
+
+    do -- 아군 드래그 스킬 쿨타임 증가
+        if (world.m_dragSkillTimer < g_constant:get('INGAME', 'DRAGON_SKILL_COOL_TIME')) then
+            world.m_dragSkillTimer = world.m_dragSkillTimer + dt
+
+            world.m_dragSkillTimer = math_min(world.m_dragSkillTimer, g_constant:get('INGAME', 'DRAGON_SKILL_COOL_TIME'))
+
+            world.m_inGameUI:setActiveSkillTime(world.m_dragSkillTimer, g_constant:get('INGAME', 'DRAGON_SKILL_COOL_TIME'))
         end
     end
 end
@@ -563,8 +573,8 @@ function GameState.update_success(self, dt)
 
         -- 모든 적들을 죽임
         world:killAllEnemy()
-		
-		-- 기본 배속으로 변경
+
+        -- 기본 배속으로 변경
         world.m_gameTimeScale:setBase(1)
 
         world:setWaitAllCharacter(false) -- 포즈 연출을 위해 wait에서 해제
@@ -620,8 +630,8 @@ function GameState.update_failure(self, dt)
         -- 스킬과 미사일도 다 날려 버리자
 	    world:removeMissileAndSkill()
         world:removeEnemyDebuffs()
-		
-		-- 기본 배속으로 변경
+
+        -- 기본 배속으로 변경
         world.m_gameTimeScale:setBase(1)
 
         g_gameScene.m_inGameUI:doActionReverse(function()
@@ -969,12 +979,6 @@ function GameState:onEvent(event_name, t_event, ...)
         else
             self.m_nAppearedEnemys = self.m_nAppearedEnemys + 1
         end
-
-    -- 액티브 스킬 사용 이벤트
-    --[[
-    elseif (event_name == 'hero_active_skill' or event_name == 'enemy_active_skill') then
-        self.m_world.m_gameCamera:reset()
-    ]]--
 
     -- 테이머 스킬 사용 이벤트
     elseif (event_name == 'tamer_skill') then

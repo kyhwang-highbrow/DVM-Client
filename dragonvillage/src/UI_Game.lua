@@ -32,12 +32,24 @@ function UI_Game:initUI()
     vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
     vars['buffBtn']:registerScriptTapHandler(function() self:click_buffButton() end)
 
-    local label = cc.Label:createWithBMFont('res/font/hit_font.fnt', tostring(999))
-    label:setDockPoint(cc.p(0.5, 0.5))
-    label:setAnchorPoint(cc.p(1, 0.5))
-    --label:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-    vars['hitNode']:addChild(label)
-    vars['hitLabel'] = label
+    do
+        local label = cc.Label:createWithBMFont('res/font/hit_font.fnt', tostring(999))
+        label:setDockPoint(cc.p(0.5, 0.5))
+        label:setAnchorPoint(cc.p(1, 0.5))
+        --label:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        vars['hitNode']:addChild(label)
+        vars['hitLabel'] = label
+    end
+
+    do -- 드래곤 드래그 스킬 게이지
+        local label = cc.Label:createWithBMFont('res/font/hit_font.fnt', '')
+        label:setDockPoint(cc.p(1, 0))
+        label:setAnchorPoint(cc.p(1, 0))
+        --label:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        self.root:addChild(label)
+        vars['activeSkillLabel'] = label
+    end
+
     vars['goldLabel']:setString('0')
 
     -- 스테이지명 지정
@@ -157,6 +169,11 @@ end
 -- function click_pauseButton
 -------------------------------------
 function UI_Game:click_pauseButton()
+    local world = self.m_gameScene.m_gameWorld
+    if (world.m_skillIndicatorMgr:isControlling()) then
+        return
+    end
+
     local stage_id = self.m_gameScene.m_stageID
     local game_mode = self.m_gameScene.m_gameMode
 
@@ -323,6 +340,23 @@ function UI_Game:setTime(sec, is_limit)
 			vars['timeLabel']:setColor(cc.c3b(0, 255, 0))
 		end
 	end
+end
+
+-------------------------------------
+-- function setActiveSkillTime
+-------------------------------------
+function UI_Game:setActiveSkillTime(cur, max)
+    local vars = self.vars
+
+    local percentage
+
+    if (max <= 0) then
+        percentage = 100
+    else
+        percentage = math_floor((cur / max) * 100)
+    end
+    
+    vars['activeSkillLabel']:setString(percentage .. '%')
 end
 
 -------------------------------------

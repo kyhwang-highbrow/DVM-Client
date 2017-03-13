@@ -43,7 +43,7 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, open_ski
     -- 기본 공격 지정
     self:setSkillID('basic', t_character['skill_basic'], 1)
 
-    -- 기본 액티브 스킬 지정
+    -- 기본 드래그 스킬 지정
     if t_character['skill_active'] then
         self:setSkillID('active', t_character['skill_active'], self:getSkillLevel(0))
     end
@@ -76,8 +76,8 @@ end
 function IDragonSkillManager:setDragonSkillLevelList(skill_00_lv, skill_01_lv, skill_02_lv, skill_03_lv)
     self.m_dragonSkillLevel = {}
     self.m_dragonSkillLevel[0] = skill_00_lv or 0 -- 액티브 스킬
-    self.m_dragonSkillLevel[1] = skill_01_lv or 0 -- 패시브 1
-    self.m_dragonSkillLevel[2] = skill_02_lv or 0 -- 패시브 2
+    self.m_dragonSkillLevel[1] = skill_01_lv or 0 -- 터치 스킬
+    self.m_dragonSkillLevel[2] = skill_02_lv or 0 -- 패시브 스킬
     self.m_dragonSkillLevel[3] = skill_03_lv or 0 -- 액티브 강화
 end
 
@@ -109,9 +109,9 @@ function IDragonSkillManager:initSkillIDList()
     self.m_lSkillIndivisualInfo['basic'] = false
     self.m_lSkillIndivisualInfo['basic_rate'] = {}
     self.m_lSkillIndivisualInfo['basic_turn'] = {}
-    self.m_lSkillIndivisualInfo['basic_time'] = {}
     self.m_lSkillIndivisualInfo['passive'] = {}
     self.m_lSkillIndivisualInfo['manual'] = {}
+    self.m_lSkillIndivisualInfo['touch'] = false
     self.m_lSkillIndivisualInfo['active'] = false
 end
 
@@ -134,7 +134,7 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv)
 
     local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
 
-    if isExistValue(skill_type, 'active', 'basic') then
+    if isExistValue(skill_type, 'active', 'basic', 'touch') then
 
         local l_existing_list = nil
         if self.m_lSkillIndivisualInfo[skill_type] then
@@ -171,7 +171,7 @@ function IDragonSkillManager:getSkillID(skill_type)
     end
 
     -- 하나의 스킬만을 가지는 스킬 타입
-	if isExistValue(skill_type, 'active', 'basic') then
+	if isExistValue(skill_type, 'active', 'basic', 'touch') then
         return skill_indivisual_info.m_skillID
 
     -- 다중의 스킬을 가질 수 있는 스킬 타입
@@ -232,20 +232,7 @@ end
 -- function getBasicAttackSkillID
 -------------------------------------
 function IDragonSkillManager:getBasicAttackSkillID(dt)
-    -- TODO: 스택에 발동된 스킬들을 저장하고 우선순위에 따라 적용해야할듯...
-
-    -- 1. time류 스킬 확인
-    if (table.count(self.m_lSkillIndivisualInfo['basic_time']) > 0) then
-        for i,v in pairs(self.m_lSkillIndivisualInfo['basic_time']) do
-            v.m_timer = (v.m_timer + dt)
-            if (v.m_tSkill['chance_value'] <= v.m_timer) then
-                v.m_timer = 0
-                return v.m_skillID, false
-            end
-        end
-    end
-
-    -- 2. turn류 스킬 확인
+    -- 1. turn류 스킬 확인
     if (table.count(self.m_lSkillIndivisualInfo['basic_turn']) > 0) then
         for i,v in pairs(self.m_lSkillIndivisualInfo['basic_turn']) do
             v.m_turnCount = (v.m_turnCount + 1)
@@ -262,7 +249,7 @@ function IDragonSkillManager:getBasicAttackSkillID(dt)
         end
     end
 
-    -- 3. basic_rate류 스킬 확인
+    -- 2. basic_rate류 스킬 확인
     if (table.count(self.m_lSkillIndivisualInfo['basic_rate']) > 0) then
         local sum_random = SumRandom()
 
@@ -281,7 +268,7 @@ function IDragonSkillManager:getBasicAttackSkillID(dt)
         end
     end
 
-    -- 4. 기본 스킬
+    -- 3. 기본 스킬
     do
         return self:getSkillID('basic'), false
     end
@@ -317,7 +304,7 @@ function IDragonSkillManager:printSkillManager()
     cclog('########DragonSkillManager##############')
 	cclog('dragon id : ' .. self.m_charID)
 	for type, skill in pairs(self.m_lSkillIndivisualInfo) do
-		if isExistValue(type, 'active', 'basic') then
+		if isExistValue(type, 'active', 'basic', 'touch') then
 			if self.m_lSkillIndivisualInfo[type] then
 				cclog('type : ' .. type, 'skill : ' .. skill.m_tSkill['sid'] .. skill.m_tSkill['t_name'] .. ' lv.' .. skill.m_skillLevel)
 			end
@@ -359,8 +346,8 @@ end
 function IDragonSkillManager:getLevelingSkillById(skill_id)
 	local t_skill = nil
 	for skill_type, skill_info in pairs(self.m_lSkillIndivisualInfo) do
-		if isExistValue(skill_type, 'active', 'basic') then
-			if (skill_info.m_skillID == skill_id) then
+		if isExistValue(skill_type, 'active', 'basic', 'touch') then
+			if (skill_info and skill_info.m_skillID == skill_id) then
 				t_skill = skill_info.m_tSkill
 				break
 			end

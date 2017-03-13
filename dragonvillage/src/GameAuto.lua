@@ -206,12 +206,8 @@ function GameAuto:doSkill(dragon, t_skill, target)
     dragon:setSpasticity(false)
 
     -- 스킬 쿹타임 초기상태로
-    --dragon:resetActiveSkillCoolTime()
-    local allyList = self:getUnitList()
-    for i, dragon in ipairs(allyList) do
-        dragon:resetActiveSkillCoolTime()
-    end
-
+    self.m_world:resetDragSkillCoolTime()
+    
     dragon:reserveSkill(t_skill['sid'])
 
     if (t_skill['casting_time'] > 0) then

@@ -23,7 +23,7 @@ function UI_SkillCard:init(char_type, skill_id, skill_type, skill_lv)
 
     -- 액티브, 필살기 스킬 프레임
     -- @TODO 액티브, 패시브 한글로 표시
-    if isExistValue(skill_type, 'active') then
+    if isExistValue(skill_type, 'active','touch') then
         vars['activeSprite']:setVisible(false)
         vars['skillLabel']:setString('액티브')
         vars['skillLabel']:setColor(cc.c3b(0,255,0))
@@ -49,11 +49,14 @@ function UI_SkillCard:getSkillName(skill_id, skill_type)
     if (skill_type == 'basic') then
         skill_type_str = Str('(기본공격)')
 
-    elseif (skill_type == 'basic_turn') or (skill_type == 'basic_rate') or (skill_type == 'basic_time') then
+    elseif (skill_type == 'basic_turn') or (skill_type == 'basic_rate') then
         skill_type_str = Str('(일반)')
 
     elseif (skill_type == 'passive') then
         skill_type_str = Str('(패시브)')
+
+    elseif (skill_type == 'touch') then
+        skill_type_str = Str('(액티브)')
 
     elseif (skill_type == 'active') then
         skill_type_str = Str('(액티브)')
@@ -89,11 +92,14 @@ function UI_SkillCard:getSkillTypeStr(skill_type)
     if (skill_type == 'basic') then
         skill_type_str = Str('기본공격')
 
-    elseif (skill_type == 'basic_turn') or (skill_type == 'basic_rate') or (skill_type == 'basic_time') then
+    elseif (skill_type == 'basic_turn') or (skill_type == 'basic_rate') then
         skill_type_str = Str('일반')
 
     elseif (skill_type == 'passive') then
         skill_type_str = Str('패시브')
+
+    elseif (skill_type == 'touch') then
+        skill_type_str = Str('액티브')
 
     elseif (skill_type == 'active') then
         skill_type_str = Str('액티브')
@@ -134,11 +140,14 @@ function UI_SkillCard:getSkillDescStr(skill_id, skill_type)
     if (skill_type == 'basic') then
         skill_type_str = Str('(기본공격)')
 
-    elseif (skill_type == 'basic_turn') or (skill_type == 'basic_rate') or (skill_type == 'basic_time') then
+    elseif (skill_type == 'basic_turn') or (skill_type == 'basic_rate') then
         skill_type_str = Str('(일반)')
 
     elseif (skill_type == 'passive') then
         skill_type_str = Str('(패시브)')
+
+    elseif (skill_type == 'touch') then
+        skill_type_str = Str('(액티브)')
 
     elseif (skill_type == 'active') then
         skill_type_str = Str('(액티브)')

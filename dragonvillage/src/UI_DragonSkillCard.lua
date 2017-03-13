@@ -21,7 +21,7 @@ function UI_DragonSkillCard:init(skill_indivisual_info)
 
     do -- 스킬 타입 표시
         local skill_type = skill_indivisual_info.m_skillType
-        if isExistValue(skill_type, 'active') then
+        if isExistValue(skill_type, 'active', 'touch') then
             vars['activeSprite']:setVisible(false)
             vars['skillLabel']:setString('액티브')
             vars['skillLabel']:setColor(cc.c3b(0,255,0))
@@ -62,11 +62,14 @@ function UI_DragonSkillCard:getSkillDescStr()
     if (skill_type == 'basic') then
         skill_type_str = Str('(기본공격)')
 
-    elseif (skill_type == 'basic_turn') or (skill_type == 'basic_rate') or (skill_type == 'basic_time') then
+    elseif (skill_type == 'basic_turn') or (skill_type == 'basic_rate') then
         skill_type_str = Str('(일반)')
 
     elseif (skill_type == 'passive') then
         skill_type_str = Str('(패시브)')
+
+    elseif (skill_type == 'touch') then
+        skill_type_str = Str('(액티브)')
 
     elseif (skill_type == 'active') then
         skill_type_str = Str('(액티브)')

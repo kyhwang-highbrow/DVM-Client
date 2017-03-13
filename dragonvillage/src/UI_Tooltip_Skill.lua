@@ -205,11 +205,14 @@ function UI_Tooltip_Skill:getSkillDescStr(char_type, skill_id, skill_type)
     if (skill_type == 'basic') then
         skill_type_str = Str('(기본공격)')
 
-    elseif (skill_type == 'basic_turn') or (skill_type == 'basic_rate') or (skill_type == 'basic_time') then
+    elseif (skill_type == 'basic_turn') or (skill_type == 'basic_rate') then
         skill_type_str = Str('(일반)')
 
     elseif (skill_type == 'passive') then
         skill_type_str = Str('(패시브)')
+
+    elseif (skill_type == 'touch') then
+        skill_type_str = Str('(액티브)')
 
     elseif (skill_type == 'active') then
         skill_type_str = Str('(액티브)')

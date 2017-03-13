@@ -147,6 +147,57 @@ function TamerSpeechSystem:showSpeechNode(ani, loop, cbEnd)
 end
 
 -------------------------------------
+-- function showDragonSpeech
+-------------------------------------
+function TamerSpeechSystem:showDragonSpeech(msg, dragon)
+    local ui = self.m_world.m_inGameUI
+    if (self.m_bLockTamerTalkAni) then return end
+
+    -- 대사
+    if (msg) then
+        self.m_speechNode:setVisible(false)
+
+        ui.vars['tamerTalkVisual']:setColor(cc.c3b(255, 255, 255))
+        ui.vars['tamerTalkVisual']:setVisible(true)
+        ui.vars['tamerTalkVisual']:setVisual('ingame_tamer_talk', '01')
+        ui.vars['tamerTalkVisual']:addAniHandler(function()
+            ui.vars['tamerTalkVisual']:setVisible(false)
+
+            -- 대사 종료 후 idle 애니메이션으로
+            self.m_tamerAnimator:changeAni('idle', true, true)
+
+            if cbEnd then cbEnd() end
+        end)
+
+        self.m_speechLabel:setString(msg)
+    end
+
+    -- 드래곤
+    local t_dragon = TableDragon():get(dragon.m_charTable['did'])
+    local dragonAnimator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], dragon.m_tDragonInfo['evolution'], t_dragon['attr'])
+    dragonAnimator:setPosition(100, -200)
+    dragonAnimator:changeAni('idle', true)
+    dragonAnimator:setScale(2)
+    ui.vars['tamerNode']:addChild(dragonAnimator.m_node)
+
+    dragonAnimator.m_node:runAction(cc.Sequence:create(
+        cc.MoveTo:create(0.2, cc.p(100, 200)),
+        cc.DelayTime:create(0.5),
+        cc.MoveTo:create(0.1, cc.p(100, -200)),
+        cc.RemoveSelf:create()
+    ))
+        
+    --[[
+    local ani = ani or 'idle'
+    self.m_tamerAnimator:changeAni(ani, loop, true)
+
+    if (not loop) then
+        self.m_tamerAnimator:addAniHandler(function() self.m_tamerAnimator:changeAni('idle', true) end)
+    end
+    ]]--
+end
+
+-------------------------------------
 -- function onEvent
 -------------------------------------
 function TamerSpeechSystem:onEvent(event_name, t_event, ...)
@@ -242,6 +293,14 @@ function TamerSpeechSystem:onEvent(event_name, t_event, ...)
         local dragon = arg[1]
 
         self:showSpeech(Str('안돼... 도와줘! {1}', dragon.m_charTable['t_name']), 'pain')
-    
+
+    -- 드래곤 터치 스킬 사용시
+    elseif (event_name == 'hero_touch_skill') then
+        local arg = {...}
+        local dragon = arg[1]
+
+        --self:showDragonSpeech(Str('{1}!!', dragon.m_charTable['t_name']), dragon)
+        self:showDragonSpeech(nil, dragon)
+
     end
 end

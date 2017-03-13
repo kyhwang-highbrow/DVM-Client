@@ -333,15 +333,4 @@ function GameWorldColosseum:makeEnemyDeck()
             end
         end
     end
-
-    
-    -- 상대편 드래곤들은 게이지를 조정
-    do
-        local t_percentage = clone(COLOSSEUM__ENEMY_START_GAUGE_LIST)
-        t_percentage = randomShuffle(t_percentage)
-
-        for i, dragon in ipairs(self:getEnemyList()) do
-            dragon:initActiveSkillCoolTime(t_percentage[i])
-        end
-    end
 end

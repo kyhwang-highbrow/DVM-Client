@@ -66,6 +66,9 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_leftFormationMgr = '',
         m_rightFormationMgr = '',
 
+        -- 드래그 스킬 관련
+        m_dragSkillTimer = 'number',
+
         m_skillIndicatorMgr = 'SkillIndicatorMgr',
         m_enemyMovementMgr = 'EnemyMovementMgr',
 
@@ -298,6 +301,10 @@ function GameWorld:initGame(stage_name)
 
     do -- 진형 시스템 초기화
         self:setBattleZone(self.m_deckFormation, true)
+    end
+
+    do -- 드래그 스킬
+        self.m_dragSkillTimer = 0
     end
 
     do -- 스킬 조작계 초기화
@@ -811,7 +818,8 @@ function GameWorld:addHero(hero, idx)
     hero:addListener('hero_active_skill', self.m_gameFever)
     hero:addListener('hero_active_skill', self.m_gameState)
     hero:addListener('hero_active_skill', self.m_gameAutoHero)
-        
+    hero:addListener('hero_touch_skill', self.m_tamerSpeechSystem)
+
     hero:addListener('hero_casting_start', self.m_gameAutoHero)
 
     hero:addListener('hit_active', self.m_gameFever)
@@ -1005,7 +1013,7 @@ function GameWorld:onKeyReleased(keyCode, event)
 	-- 스킬 충전
     elseif (keyCode == KEY_C) then
         for _,dragon in pairs(self:getDragonList()) do
-            dragon:updateActiveSkillCoolTime(100)
+            dragon:updateTouchSkillCoolTime(100)
         end
         if (self.m_gameTamer) then
             self.m_gameTamer:resetActiveSkillCoolTime()
@@ -1725,4 +1733,20 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
             excluded_dragon.enable_body = true
         end
     end
+end
+
+-------------------------------------
+-- function resetDragSkillCoolTime
+-------------------------------------
+function GameWorld:resetDragSkillCoolTime()
+    self.m_dragSkillTimer = 0
+
+    self.m_inGameUI:setActiveSkillTime(self.m_dragSkillTimer, g_constant:get('INGAME', 'DRAGON_SKILL_COOL_TIME'))
+end
+
+-------------------------------------
+-- function isEndDragSkillCoolTime
+-------------------------------------
+function GameWorld:isEndDragSkillCoolTime()
+    return (self.m_dragSkillTimer >= g_constant:get('INGAME', 'DRAGON_SKILL_COOL_TIME'))
 end

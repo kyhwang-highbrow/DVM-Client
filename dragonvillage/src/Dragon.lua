@@ -15,13 +15,9 @@ Dragon = class(PARENT, {
         m_bWaitState = 'boolean',
 
         -- 터치 스킬
-        m_skillTimer = 'number',
-        m_skillCoolTime = 'number',
-
-        -- 드래그 스킬
-        m_activeSkillTimer = 'number',
-        m_activeSkillCoolTime = 'number',
-
+        m_touchSkillTimer = 'number',
+        m_touchSkillCoolTime = 'number',
+        
         m_afterimageMove = 'number',
 
         m_bUseSelfAfterImage = 'boolean',
@@ -145,6 +141,31 @@ function Dragon:doSkill_passive()
     end
 
     PARENT.doSkill_passive(self)
+end
+
+-------------------------------------
+-- function doSkill_touch
+-- @brief 터치 스킬 실행
+-------------------------------------
+function Dragon:doSkill_touch()
+    if (self.m_bDead) then return end
+    if (not self:isPossibleSkill('touch')) then return end
+
+    local touch_skill_id = self:getSkillID('touch')
+    if (touch_skill_id ~= 0) then
+        self:reserveSkill(touch_skill_id)
+
+        self:resetTouchSkillCoolTime()
+
+        self:changeState('charge')
+
+        -- 터치 스킬 사용시 이벤트
+        if (self.m_bLeftFormation) then
+            self:dispatch('hero_touch_skill', {}, self)
+        end
+
+        return true
+    end
 end
 
 -------------------------------------
@@ -666,54 +687,60 @@ function Dragon:changeState(state, forced)
 end
 
 -------------------------------------
--- function initActiveSkillCoolTime
+-- function initTouchSkillCoolTime
 -------------------------------------
-function Dragon:initActiveSkillCoolTime(percentage)
-    -- 액티브 스킬 쿨타임 지정
-    local active_skil_id = self:getSkillID('active')
-
-    if (active_skil_id == 0) then
+function Dragon:initTouchSkillCoolTime(percentage)
+    local touch_skill_id = self:getSkillID('touch')
+    if (touch_skill_id == 0) then
         return
     end
-    
+
     local table_skill = TABLE:get(self.m_charType .. '_skill')
-    local t_skill = table_skill[active_skil_id]
+    local t_skill = table_skill[touch_skill_id]
+    if (not t_skill) then
+        cclog('no skill table : ' .. touch_skill_id)
+        return
+    end
 
 	-- 드래곤 스킬 쿨타임
-    --self.m_activeSkillCoolTime = tonumber(t_skill['cooldown'])
-    self.m_activeSkillCoolTime = g_constant:get('INGAME', 'DRAGON_SKILL_COOL_TIME')
-    
-	-- 스킬 쿨타임 타이머 초기화
-	self.m_activeSkillTimer = 0
+    self.m_touchSkillCoolTime = tonumber(t_skill['cooldown'])
 
-	-- 강제로 타이머 올리는 경우
+    local global_cooltime = g_constant:get('INGAME', 'SKILL_GLOBAL_COOLTIME')
+    if (self.m_touchSkillCoolTime < global_cooltime) then
+        self.m_touchSkillCoolTime = global_cooltime
+    end
+            
+	-- 스킬 쿨타임 타이머 초기화
+	self.m_touchSkillTimer = 0
+
+    -- 강제로 타이머 올리는 경우
     if (percentage) then
-        self.m_activeSkillTimer = self.m_activeSkillCoolTime * percentage / 100
+        self.m_touchSkillTimer = self.m_touchSkillCoolTime * percentage / 100
     end
 
     if (self.m_infoUI and self.m_infoUI.vars['skillGauge']) then
-        self.m_infoUI.vars['skillGauge']:setPercentage(self.m_activeSkillTimer / self.m_activeSkillCoolTime * 100)
+        self.m_infoUI.vars['skillGauge']:setPercentage(self.m_touchSkillTimer / self.m_touchSkillCoolTime * 100)
     end
 end
 
 -------------------------------------
--- function updateActiveSkillCoolTime
+-- function updateTouchSkillCoolTime
 -------------------------------------
-function Dragon:updateActiveSkillCoolTime(dt)
-    if (not self.m_activeSkillCoolTime) or (self.m_activeSkillCoolTime == 0) then
+function Dragon:updateTouchSkillCoolTime(dt)
+    if (not self.m_touchSkillCoolTime) or (self.m_touchSkillCoolTime == 0) then
         return
     end
 
-    if (self.m_activeSkillCoolTime == self.m_activeSkillTimer) then
+    if (self.m_touchSkillCoolTime == self.m_touchSkillTimer) then
         return
     end
 
     if (self.m_state ~= 'casting') and (self.m_state ~= 'skillPrepare') then
-        self.m_activeSkillTimer = (self.m_activeSkillTimer + dt)
+        self.m_touchSkillTimer = (self.m_touchSkillTimer + dt)
     end
 
-    if (self.m_activeSkillCoolTime <= self.m_activeSkillTimer) then
-        self.m_activeSkillTimer = self.m_activeSkillCoolTime
+    if (self.m_touchSkillCoolTime <= self.m_touchSkillTimer) then
+        self.m_touchSkillTimer = self.m_touchSkillCoolTime
 
         if (self.m_infoUI.vars['skllFullVisual']) then
             self.m_infoUI.vars['skllFullVisual']:setVisible(true)
@@ -732,18 +759,18 @@ function Dragon:updateActiveSkillCoolTime(dt)
     end
 
     if (self.m_infoUI.vars['skillGauge']) then
-        self.m_infoUI.vars['skillGauge']:setPercentage(self.m_activeSkillTimer / self.m_activeSkillCoolTime * 100)
+        self.m_infoUI.vars['skillGauge']:setPercentage(self.m_touchSkillTimer / self.m_touchSkillCoolTime * 100)
     end
 
-    --cclog(' self.m_activeSkillTimer ' .. self.m_activeSkillTimer)
+    --cclog(' self.m_touchSkillTimer ' .. self.m_touchSkillTimer)
 end
 
 -------------------------------------
--- function resetActiveSkillCoolTime
+-- function resetTouchSkillCoolTime
 -------------------------------------
-function Dragon:resetActiveSkillCoolTime()
-    if self:isEndActiveSkillCoolTime() then
-        self.m_activeSkillTimer = 0
+function Dragon:resetTouchSkillCoolTime()
+    if self:isEndTouchSkillCoolTime() then
+        self.m_touchSkillTimer = 0
 
         if (self.m_infoUI.vars['skllFullVisual']) then
             self.m_infoUI.vars['skllFullVisual']:setVisual('skill_gauge', 'idle')
@@ -760,12 +787,18 @@ end
 -------------------------------------
 -- function isPossibleSkill
 -------------------------------------
-function Dragon:isPossibleSkill()
+function Dragon:isPossibleSkill(type)
+    local type = type or 'touch'
+
     if (self.m_bDead) then
 		return false
 	end
 
-	if (not self:isEndActiveSkillCoolTime()) then
+	if (type == 'touch' and not self:isEndTouchSkillCoolTime()) then
+		return false
+	end
+
+    if (type == 'active' and not self.m_world:isEndDragSkillCoolTime()) then
 		return false
 	end
 
@@ -787,10 +820,10 @@ function Dragon:isPossibleSkill()
 end
 
 -------------------------------------
--- function isEndActiveSkillCoolTime
+-- function isEndTouchSkillCoolTime
 -------------------------------------
-function Dragon:isEndActiveSkillCoolTime()
-    return (self.m_activeSkillTimer == self.m_activeSkillCoolTime)
+function Dragon:isEndTouchSkillCoolTime()
+    return (self.m_touchSkillTimer == self.m_touchSkillCoolTime)
 end
 
 -------------------------------------
