@@ -429,9 +429,11 @@ function UIManager:onKeyReleased(keyCode, event)
 
 	-- debug 영역 활성화/비활성화
 	elseif (keyCode == KEY_G) then
-		DISPLAY_DEBUG_INFO = not DISPLAY_DEBUG_INFO
+		local set_data = not g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO')
+	    g_constant:set(set_data, 'DEBUG', 'DISPLAY_DEBUG_INFO')
+
 		if self.m_debugUI then
-			self.m_debugUI.m_debugLayer:setVisible(DISPLAY_DEBUG_INFO)
+			self.m_debugUI.m_debugLayer:setVisible(g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO'))
 		end
 		PrintMemory()
 	end

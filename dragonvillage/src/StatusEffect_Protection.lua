@@ -63,7 +63,8 @@ end
 -- function update
 -------------------------------------
 function StatusEffect_Protection:update(dt)
-	if DISPLAY_SHIELD_HP then	
+	-- @TEST 보호막 체력량 표시
+	if g_constant:get('DEBUG', 'DISPLAY_SHIELD_HP') then	
 		self.m_label:setString(string.format('%.1f / %.1f', self.m_shieldHP, self.m_shieldHPOrg))
 	end
 	if (self.m_state == 'idle') then

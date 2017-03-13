@@ -433,7 +433,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
     attr_bonus_dmg = math_floor(attr_bonus_dmg * attacker.m_activityCarrier:getPowerRate())
 	attr_bonus_dmg = math_min(attr_bonus_dmg, damage)
 		
-	if PRINT_ATTACK_INFO then
+	if g_constant:get('DEBUG', 'PRINT_ATTACK_INFO') then
 		cclog('######################################################')
 		cclog('공격자 : ' .. attacker.m_activityCarrier.m_activityCarrierOwner:getName())
 		cclog('방어자 : ' .. defender:getName())
@@ -1209,8 +1209,8 @@ function Character:update(dt)
     self:updateMove(dt)
 	self:updateStatusIcon(dt)
 
-	-- 디버깅용 체력 디스플레이
-	if DISPLAY_UNIT_HP then 
+	-- @TEST 디버깅용 체력 디스플레이
+	if g_constant:get('DEBUG', 'DISPLAY_UNIT_HP') then 
 		self.m_infoUI.m_label:setString(string.format('%d/%d\n(%d%%)',self.m_hp, self.m_maxHp, self.m_hp/self.m_maxHp*100))
 	end
 

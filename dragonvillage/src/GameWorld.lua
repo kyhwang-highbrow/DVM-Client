@@ -1098,15 +1098,18 @@ function GameWorld:onKeyReleased(keyCode, event)
     elseif (keyCode == KEY_T) then    
         for i,v in ipairs(self:getEnemyList()) do
 			if (i < 5) then 
-				StatusEffectHelper:invokeStatusEffectForDev(v, STATUS_EFFECT_RES)
-				cclog(STATUS_EFFECT_RES)
+				local test_res = g_constant:get('ART', 'STATUS_EFFECT_RES')
+				StatusEffectHelper:invokeStatusEffectForDev(v, test_res)
+				cclog('TEST 상태효과 RES 적용 !! ' .. test_res)
 			end
         end
 
 	-- 아군한테 상태효과 걸기
     elseif (keyCode == KEY_Y) then    
         for i,v in ipairs(self:getDragonList()) do
-			StatusEffectHelper:invokeStatusEffectForDev(v, STATUS_EFFECT_RES)
+			local test_res = g_constant:get('ART', 'STATUS_EFFECT_RES')
+			StatusEffectHelper:invokeStatusEffectForDev(v, test_res)
+			cclog('TEST 상태효과 RES 적용 !! ' .. test_res)
         end
 
     -- 피버 모드 발동

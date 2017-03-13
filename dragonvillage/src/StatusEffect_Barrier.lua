@@ -7,6 +7,7 @@ local PARENT = StatusEffect_Trigger
 -------------------------------------
 StatusEffect_Barrier = class(PARENT, {
 		m_defCount = 'num',
+		m_maxDefCount = 'num',
      })
 
 -------------------------------------
@@ -30,6 +31,7 @@ end
 -------------------------------------
 function StatusEffect_Barrier:init_buff(owner, def_count)
 	self.m_defCount = def_count
+	self.m_maxDefCount = def_count
 	self.m_triggerName = 'hit_shield'
     
 	-- 콜백 함수 등록
@@ -51,8 +53,9 @@ end
 -- function update
 -------------------------------------
 function StatusEffect_Barrier:update(dt)
-	if DISPLAY_SHIELD_HP then	
-		self.m_label:setString(string.format('%.1f / %.1f', self.m_StatusEffect_BarrierHP, self.m_StatusEffect_BarrierHPOrg))
+	-- @TEST 배리어 남은 횟수 표시
+	if g_constant:get('DEBUG', 'DISPLAY_SHIELD_HP') then	
+		self.m_label:setString(string.format('%d / %d 회', self.m_defCount, self.m_maxDefCount))
 	end
 	if (self.m_state == 'idle') then
 		-- 1. 종료 : 시간 초과

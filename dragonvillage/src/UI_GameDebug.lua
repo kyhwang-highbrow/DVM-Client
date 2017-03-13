@@ -157,6 +157,7 @@ function UI_GameDebug:makeTableView()
             node:setDockPoint(cc.p(1, 0.5))
             node:setPositionX(-(40 + 67))
             node:setAnchorPoint(cc.p(0.5, 0.5))
+			node:setRotation(360)
             local uic_button = UIC_Button(node)
             uic_button:registerScriptTapHandler(function()
                 item['cb2'](self, item, 2)
@@ -205,11 +206,22 @@ function UI_GameDebug:makeTableView()
         local item = {}
 		item['str'] = Str('체력 표시')
         item['cb1'] = function()
-			DISPLAY_UNIT_HP = not DISPLAY_UNIT_HP
+			local set_data = not g_constant:get('DEBUG', 'DISPLAY_UNIT_HP')
+			g_constant:set(set_data, 'DEBUG', 'DISPLAY_UNIT_HP')
         end
         table.insert(item_info, item)
     end
 	
+	do -- 실드 표시 
+        local item = {}
+		item['str'] = Str('실드 표시')
+        item['cb1'] = function()
+			local set_data = not g_constant:get('DEBUG', 'DISPLAY_SHIELD_HP')
+			g_constant:set(set_data, 'DEBUG', 'DISPLAY_SHIELD_HP')
+        end
+        table.insert(item_info, item)
+    end
+
 	do -- 플레이어 무적
         local item = {}
         item['cb1'] = UI_GameDebug.playerInvincible
@@ -267,7 +279,7 @@ function UI_GameDebug:makeTableView()
 	do -- Realtime Debug on/off
         local item = {}
         item['cb1'] = UI_GameDebug.realtimeDebugButton
-        if DISPLAY_DEBUG_INFO then
+		if g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO') then
             item['str'] = Str('Memory ON')
         else
             item['str'] = Str('Memory OFF')
@@ -458,12 +470,14 @@ end
 -- function realtimeDebugButton
 -------------------------------------
 function UI_GameDebug.realtimeDebugButton(self, item, idx)
-    DISPLAY_DEBUG_INFO = not DISPLAY_DEBUG_INFO
+	local set_data = not g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO')
+    g_constant:set(set_data, 'DEBUG', 'DISPLAY_DEBUG_INFO')
+
 	if UIManager.m_debugUI then
-		UIManager.m_debugUI.m_debugLayer:setVisible(DISPLAY_DEBUG_INFO)
+		UIManager.m_debugUI.m_debugLayer:setVisible(g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO'))
 	end
 
-    if DISPLAY_DEBUG_INFO then
+	if g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO') then
         item['label']:setString(Str('Memory ON'))
     else
         item['label']:setString(Str('Memory OFF'))
@@ -474,39 +488,42 @@ end
 -- function playerInvincible
 -------------------------------------
 function UI_GameDebug.playerInvincible(self, item, idx)
-	
-	INVINCIBLE_STATE = INVINCIBLE_STATE + 1
-	if (INVINCIBLE_STATE > 4) then
-		INVINCIBLE_STATE = 1
-	end
+	local invincible_state = g_constant:get('DEBUG', 'INVINCIBLE_STATE') + 1
+    g_constant:set(invincible_state, 'DEBUG', 'INVINCIBLE_STATE')
 
-	if (INVINCIBLE_STATE == 1) then
-		PLAYER_INVINCIBLE = false
-		ENEMY_INVINCIBLE = false
-	elseif (INVINCIBLE_STATE == 2) then
-		PLAYER_INVINCIBLE = true
-		ENEMY_INVINCIBLE = false
-	elseif (INVINCIBLE_STATE == 3) then
-		PLAYER_INVINCIBLE = false
-		ENEMY_INVINCIBLE = true
+	if (invincible_state > 4) then
+		g_constant:set(1, 'DEBUG', 'INVINCIBLE_STATE')
+		invincible_state = 1
+	end
+	cclog(invincible_state)
+	if (invincible_state == 1) then
+		g_constant:set(false, 'DEBUG', 'PLAYER_INVINCIBLE')
+		g_constant:set(false, 'DEBUG', 'ENEMY_INVINCIBLE')
+	elseif (invincible_state == 2) then
+		g_constant:set(true, 'DEBUG', 'PLAYER_INVINCIBLE')
+		g_constant:set(false, 'DEBUG', 'ENEMY_INVINCIBLE')
+	elseif (invincible_state == 3) then
+		g_constant:set(false, 'DEBUG', 'PLAYER_INVINCIBLE')
+		g_constant:set(true, 'DEBUG', 'ENEMY_INVINCIBLE')
 	else
-		PLAYER_INVINCIBLE = true
-		ENEMY_INVINCIBLE = true
+		g_constant:set(true, 'DEBUG', 'PLAYER_INVINCIBLE')
+		g_constant:set(true, 'DEBUG', 'ENEMY_INVINCIBLE')
 	end
 
-	item['label']:setString(self:getInvincibleStr())
+	item['label']:setString(self:getInvincibleStr(invincible_state))
 end
 
 -------------------------------------
 -- function getInvincibleStr
 -- @TODO 임시
 -------------------------------------
-function UI_GameDebug:getInvincibleStr()
-	if (INVINCIBLE_STATE == 1) then
+function UI_GameDebug:getInvincibleStr(invincible_state)
+	local invincible_state = invincible_state or g_constant:get('DEBUG', 'INVINCIBLE_STATE')
+	if (invincible_state == 1) then
 		return '무적 OFF'
-	elseif (INVINCIBLE_STATE == 2) then
+	elseif (invincible_state == 2) then
 		return '플레이어 무적 ON'
-	elseif (INVINCIBLE_STATE == 3) then
+	elseif (invincible_state == 3) then
 		return 'AI 무적 ON'
 	else
 		return '전부 무적 ON'

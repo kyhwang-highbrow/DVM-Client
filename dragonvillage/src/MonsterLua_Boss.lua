@@ -303,9 +303,9 @@ function MonsterLua_Boss:doPattern(pattern)
     local value_2 = l_str[3]
 	
 	-- 특정 공격 패턴만 반복하여 테스트
-	if (type(TEST_PATTERN) == 'number') then
+	if (type(g_constant:get('DEBUG', 'TEST_PATTERN')) == 'number') then
 		pattern_type = 'a'
-		value_1 = TEST_PATTERN
+		value_1 = g_constant:get('DEBUG', 'TEST_PATTERN')
 	end
 
     -- 공격 명령
@@ -363,7 +363,8 @@ function MonsterLua_Boss:doPattern(pattern)
         error()
     end
 
-	if PRINT_BOSS_PATTERN then 
+	-- @TEST 보스 패턴 정보 출력
+	if g_constant:get('DEBUG', 'PRINT_BOSS_PATTERN') then 
 		self:printBossPattern(pattern, pattern_type, value_1)
 	end
 end

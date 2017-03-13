@@ -111,6 +111,11 @@ MAX_DRAGON_ECLV = 15
 COLOSSEUM_STAGE_ID = 90000
 DEV_STAGE_ID = 99999
 
+-- # 캐릭터 무적
+PLAYER_INVINCIBLE = false
+ENEMY_INVINCIBLE = false
+INVINCIBLE_STATE = 1
+
 --------------------------------------------------------------------------
 -- PhysKey 상수
 --------------------------------------------------------------------------

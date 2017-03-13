@@ -81,7 +81,8 @@ function TriggerHpPercent:checkTrigger(hp_percent)
         self.m_owner.m_tCurrPattern = tCurrPattern
     end
 
-    if PRINT_BOSS_PATTERN then 
+	-- @TEST 보스 패턴 정보 출력
+	if g_constant:get('DEBUG', 'PRINT_BOSS_PATTERN') then 
         cclog('##############################################################')
         cclog('## checkTrigger() HP ' .. t_data['hp_percent'] .. ' 패턴 발동!')
         cclog('##############################################################')

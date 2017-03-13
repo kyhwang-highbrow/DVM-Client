@@ -64,7 +64,7 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, open_ski
     end
 
 	-- @TEST 활성화 스킬 확인 로그
-	if PRINT_DRAGON_SKILL then 
+	if g_constant:get('DEBUG', 'PRINT_DRAGON_SKILL') then 
 		self:printSkillManager()
 	end
 end

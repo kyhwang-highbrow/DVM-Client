@@ -68,7 +68,8 @@ function TriggerTime:checkTrigger(time)
         end
     end
 
-    if PRINT_BOSS_PATTERN then 
+	-- @TEST 보스 패턴 정보 출력
+	if g_constant:get('DEBUG', 'PRINT_BOSS_PATTERN') then 
         cclog('##############################################################')
         cclog('## checkTrigger() Time ' .. t_data['time'] .. ' 패턴 발동!')
         cclog('##############################################################')
