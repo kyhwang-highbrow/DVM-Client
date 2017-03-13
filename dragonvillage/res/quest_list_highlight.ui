@@ -241,84 +241,6 @@
 			};
 			[6] =
 			{
-				type = 'Scale9Sprite';
-				ui_name = '';
-				x = -246.000000;
-				y = 0.000000;
-				dock_point = { 1.000000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 80;
-				height = 80;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/frame/sub_frame_0103.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
-			};
-			[7] =
-			{
-				type = 'Scale9Sprite';
-				ui_name = '';
-				x = -330.000000;
-				y = 0.000000;
-				dock_point = { 1.000000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 80;
-				height = 80;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/frame/sub_frame_0103.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
-			};
-			[8] =
-			{
-				type = 'Scale9Sprite';
-				ui_name = '';
-				x = -414.000000;
-				y = 0.000000;
-				dock_point = { 1.000000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 80;
-				height = 80;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/frame/sub_frame_0103.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
-			};
-			[9] =
-			{
 				type = 'Node';
 				ui_name = '';
 				x = -246.000000;
@@ -328,53 +250,53 @@
 				relative_size_type = 0;
 				width = 100;
 				height = 100;
-				scale_x = 0.700000;
-				scale_y = 0.700000;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'rewardNode1';
 			};
-			[10] =
+			[7] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -330.000000;
+				x = -335.000000;
 				y = 0.000000;
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 100;
 				height = 100;
-				scale_x = 0.700000;
-				scale_y = 0.700000;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'rewardNode2';
 			};
-			[11] =
+			[8] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -414.000000;
+				x = -424.000000;
 				y = 0.000000;
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 100;
 				height = 100;
-				scale_x = 0.700000;
-				scale_y = 0.700000;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'rewardNode3';
 			};
-			[12] =
+			[9] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -400,7 +322,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[13] =
+			[10] =
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
@@ -430,7 +352,7 @@
 				mid_point_y = 0.000000;
 				percentage = 0;
 			};
-			[14] =
+			[11] =
 			{
 				[1] =
 				{
