@@ -23,6 +23,7 @@ CommonMissile = class(PARENT, {
 		m_missileOption = 'table',
 		m_missileTimer = 'time',
 		m_missileFireTerm = 'time',
+		m_fireLimitTime = 'time',
 		m_fireCnt = 'num',
 		m_maxFireCnt = 'num',
 		m_missileSpeed = 'num',
@@ -52,6 +53,7 @@ function CommonMissile:initCommonMissile(owner, t_skill)
 	self.m_targetType = t_skill['target_type']
 	self.m_maxFireCnt = t_skill['hit']
 	self.m_fireCnt = 0
+	self.m_fireLimitTime = g_constant:get('INGAME', 'FIRE_LIMIT_TIME')
 
 	-- 탄 속도
 	if (not t_skill['val_3']) or (t_skill['val_3'] == 0) then
@@ -224,7 +226,7 @@ function CommonMissile.st_attack(owner, dt)
 
 		-- 값이 있을 경우 기준 시간을 나눠서 간격을 구한다.
 		elseif (owner.m_maxFireCnt) then 
-			owner.m_missileFireTerm = FIRE_LIMIT_TIME / owner.m_maxFireCnt
+			owner.m_missileFireTerm = owner.m_fireLimitTime / owner.m_maxFireCnt
 			owner.m_missileTimer = owner.m_missileFireTerm
 		end
 		--cclog('common missile : ' .. owner.m_owner.pos.x .. ', ' .. owner.m_owner.pos.y, '///', owner.m_target.m_homePosX .. ', ' ..  owner.m_target.m_homePosY)  
@@ -240,7 +242,7 @@ function CommonMissile.st_attack(owner, dt)
 	end
 	
 	-- 4. 탈출 조건 : 기준 시간 경과 또는 발사수가 1
-	if (owner.m_stateTimer >= FIRE_LIMIT_TIME) or (owner.m_maxFireCnt == 1) then 
+	if (owner.m_stateTimer >= owner.m_fireLimitTime) or (owner.m_maxFireCnt == 1) then 
 		owner:changeState('dying')
         return true
     end

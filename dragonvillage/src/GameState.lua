@@ -179,7 +179,7 @@ function GameState.update_start(self, dt)
 
             SoundMgr:playEffect('VOICE', 'vo_tamer_start')
         
-	    elseif (self:isPassedStepTime(DRAGON_APPEAR_TIME)) then
+	    elseif (self:isPassedStepTime(g_constant:get('INGAME', 'DRAGON_APPEAR_TIME'))) then
 		    self:nextStep()
         end
 
@@ -191,8 +191,8 @@ function GameState.update_start(self, dt)
 
         elseif (self:getStepTimer() >= 0.5) then
             self:appearHero()
-            
-            local speed = map_mgr.m_speed + (MAP_SCROLL_SPEED_DOWN_ACCEL * dt)
+            local speed_down_factor = g_constant:get('INGAME', 'MAP_SCROLL_SPEED_DOWN_ACCEL')
+            local speed = map_mgr.m_speed + (speed_down_factor * dt)
             if (speed >= -300) then
                 speed = -300
 
@@ -286,12 +286,12 @@ function GameState.update_wave_intermission(self, dt)
 
 	-- 1. 전환 시간 2/3 지점까지 비교적 완만하게 빨라짐
 	if (self.m_stateTimer < intermissionTime * 2 / 3) then
-		speed = map_mgr.m_speed - (WAVE_INTERMISSION_MAP_SPEED * dt)
+		speed = map_mgr.m_speed - (g_constant:get('INGAME', 'WAVE_INTERMISSION_MAP_SPEED') * dt)
 		map_mgr:setSpeed(speed)
 
 	-- 2. 전환 시간 까지 비교적 빠르게 느려짐
 	elseif (self.m_stateTimer > intermissionTime * 2 / 3) then
-		speed = map_mgr.m_speed + (WAVE_INTERMISSION_MAP_SPEED * 1.9 * dt)
+		speed = map_mgr.m_speed + (g_constant:get('INGAME', 'WAVE_INTERMISSION_MAP_SPEED') * 1.9 * dt)
 		map_mgr:setSpeed(speed)
 	end
 	
@@ -978,7 +978,7 @@ function GameState:onEvent(event_name, t_event, ...)
 
     -- 테이머 스킬 사용 이벤트
     elseif (event_name == 'tamer_skill') then
-        self.m_globalCoolTime = SKILL_GLOBAL_COOLTIME
+        self.m_globalCoolTime = g_constant:get('INGAME', 'SKILL_GLOBAL_COOLTIME')
         
     -- 테이머 궁극기 사용 이벤트
     elseif (event_name == 'tamer_special_skill') then

@@ -193,9 +193,7 @@ end
 -- function getPreloadList_Tamer
 -------------------------------------
 function getPreloadList_Tamer()
-    -- TODO: 현재 테이머는 고니로 고정이므로 차후 수정
-    --local t_tamer = TABLE:get('tamer')[TAMER_ID]
-
+	--@TODO 테이블 참조하도록 수정
     local ret = {
         'res/character/tamer/goni_i/goni_i.spine',
         'res/effect/effect_skillcut_goni/effect_skillcut_goni.vrp'

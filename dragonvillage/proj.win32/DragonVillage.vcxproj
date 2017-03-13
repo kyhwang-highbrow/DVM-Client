@@ -415,7 +415,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ConstantDragonEvolution.lua" />
     <None Include="..\src\ConstantDragonGrade.lua" />
     <None Include="..\src\ConstantForArt.lua" />
-    <None Include="..\src\ConstantIngame.lua" />
     <None Include="..\src\ConstantString.lua" />
     <None Include="..\src\Counter.lua" />
     <None Include="..\src\DamageCalc.lua" />

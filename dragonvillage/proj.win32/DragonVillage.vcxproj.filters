@@ -663,9 +663,6 @@
     <None Include="..\src\StatusEffect_Protection.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\ConstantIngame.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\NetworkLocalServer.lua">
       <Filter>lua</Filter>
     </None>

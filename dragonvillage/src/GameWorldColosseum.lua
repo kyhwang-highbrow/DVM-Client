@@ -18,7 +18,7 @@ function GameWorldColosseum:init(game_mode, stage_id, world_node, game_node1, ga
     -- 타임 스케일 설정
     local baseTimeScale = COLOSSEUM__TIME_SCALE
     if (g_autoPlaySetting:get('quick_mode')) then
-        baseTimeScale = baseTimeScale * QUICK_MODE_TIME_SCALE
+        baseTimeScale = baseTimeScale * g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE')
     end
     self.m_gameTimeScale:setBase(COLOSSEUM__TIME_SCALE)
 

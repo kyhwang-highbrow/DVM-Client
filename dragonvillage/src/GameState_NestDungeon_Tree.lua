@@ -35,7 +35,7 @@ function GameState_NestDungeon_Tree.update_start(self, dt)
 
             SoundMgr:playEffect('VOICE', 'vo_tamer_start')
         
-	    elseif (self:isPassedStepTime(DRAGON_APPEAR_TIME)) then
+	    elseif (self:isPassedStepTime(g_constant:get('INGAME', 'DRAGON_APPEAR_TIME'))) then
 		    self:nextStep()
         end
 

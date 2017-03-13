@@ -38,7 +38,7 @@ end
 function ShakeManager:doShake(x, y, duration, is_repeat, interval)
 	-- 1. 변수 설정
     local timeScale = cc.Director:getInstance():getScheduler():getTimeScale()
-    local duration = (duration or SHAKE_DURATION) * timeScale
+    local duration = (duration or g_constant:get('INGAME', 'SHAKE_DURATION')) * timeScale
 	local is_repeat = is_repeat or false
     local interval =  interval or 0.2
 
@@ -143,7 +143,10 @@ function ShakeManager:doShakeForScript(repeat_time)
 	-- Stop Shake
 	self:stopShake()
 	
-	local rand = math_random(SHAKE_CUSTOM_MIN_POS, SHAKE_CUSTOM_MAX_POS)
+	local shake_custom_min_pos = g_constant:get('INGAME', 'SHAKE_CUSTOM_MIN_POS')
+	local shake_custom_max_pos = g_constant:get('INGAME', 'SHAKE_CUSTOM_MAX_POS')
+
+	local rand = math_random(shake_custom_min_pos, shake_custom_max_pos)
 	local duration = 0.05
 	local repeat_time = repeat_time or 0.2
 	local repeat_cnt = repeat_time/duration

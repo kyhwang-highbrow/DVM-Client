@@ -47,7 +47,8 @@ function TableTamerSkill:getSkillLevel()
 	local user_lv = g_userData:get('lv')
 	
 	local skill_lv = 0
-	for i, std_lv in ipairs(TAMER_SKILL_FLOW) do
+	local tamer_skill_flow = g_constant:get('INGAME', 'TAMER_SKILL_FLOW')
+	for i, std_lv in ipairs(tamer_skill_flow) do
 		if (std_lv > user_lv) then
 			skill_lv = i - 1
 			break

@@ -519,8 +519,9 @@ function Missile:updateMissileOption(dt)
 		if (isPassedTarget) and 
 		(not self.m_isFadeOut) and
 		(self.m_animator.m_node) then 
+			local fade_out_time = g_constant:get('INGAME', 'MISSILE_FADE_OUT_TIME')
 			local removeMissile = cc.CallFunc:create(function() self:changeState('dying') end)
-			self.m_animator.m_node:runAction( cc.Sequence:create(cc.FadeOut:create(MISSILE_FADE_OUT_TIME), removeMissile))
+			self.m_animator.m_node:runAction( cc.Sequence:create(cc.FadeOut:create(fade_out_time), removeMissile))
 			self.m_isFadeOut = true
 		end
 	end
@@ -615,7 +616,8 @@ function Missile:updateMissileOption(dt)
 			local removeMissile = cc.CallFunc:create(function() 
 				self:changeState('dying') 
 			end)
-			self.m_animator.m_node:runAction(cc.Sequence:create(cc.FadeOut:create(MISSILE_FADE_OUT_TIME), removeMissile))
+			local fade_out_time = g_constant:get('INGAME', 'MISSILE_FADE_OUT_TIME')
+			self.m_animator.m_node:runAction(cc.Sequence:create(cc.FadeOut:create(fade_out_time), removeMissile))
             return true
         end
     end

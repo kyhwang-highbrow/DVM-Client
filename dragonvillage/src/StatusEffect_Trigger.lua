@@ -15,7 +15,7 @@ StatusEffect_Trigger = class(PARENT, IEventListener:getCloneTable(), {
 -- @param body
 -------------------------------------
 function StatusEffect_Trigger:init(file_name, body)
-	self.m_statusEffectInterval = STATUEEFFECT_GLOBAL_COOL
+	self.m_statusEffectInterval = g_constant:get('INGAME', 'STATUEEFFECT_GLOBAL_COOL')
 end
 
 -------------------------------------

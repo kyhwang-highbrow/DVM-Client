@@ -49,7 +49,7 @@ function SkillLinkedSoul:init_skill(duration, res, damage_ruduce_rate, aoe_heal_
 	self.m_aoeHealRange = aoe_heal_range
 
 	self.m_preSKillTime = self.m_duration
-	self.m_skillInterval = SKILL_GLOBAL_COOLTIME
+	self.m_skillInterval = g_constant:get('INGAME', 'SKILL_GLOBAL_COOLTIME')
 end
 
 

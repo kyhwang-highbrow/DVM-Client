@@ -251,7 +251,7 @@ function GameWorld:makeFriendHero()
         if (not self:isParticipantMaxCount()) then
             local temp = {}
 
-            for i = 1, PARTICIPATE_DRAGON_CNT do
+            for i = 1, g_constant:get('INGAME', 'PARTICIPATE_DRAGON_CNT') do
                 table.insert(temp, i)
             end
         

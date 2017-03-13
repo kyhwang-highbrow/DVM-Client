@@ -40,7 +40,7 @@ function GameState_NestDungeon_Dragon.update_start(self, dt)
 
             SoundMgr:playEffect('VOICE', 'vo_tamer_start')
         
-	    elseif (self:isPassedStepTime(DRAGON_APPEAR_TIME)) then
+	    elseif (self:isPassedStepTime(g_constant:get('INGAME', 'DRAGON_APPEAR_TIME'))) then
 		    self:nextStep()
         end
 
@@ -52,8 +52,8 @@ function GameState_NestDungeon_Dragon.update_start(self, dt)
 
         elseif (self:getStepTimer() >= 0.5) then
             self:appearHero()
-            
-            local speed = map_mgr.m_speed + (MAP_SCROLL_SPEED_DOWN_ACCEL * dt)
+            local speed_down_factor = g_constant:get('INGAME', 'MAP_SCROLL_SPEED_DOWN_ACCEL')
+            local speed = map_mgr.m_speed + (speed_down_factor * dt)
             if (speed >= -300) then
                 speed = -300
 

@@ -1477,7 +1477,7 @@ end
 -- function isParticipantMaxCount
 -------------------------------------
 function GameWorld:isParticipantMaxCount()
-    return (#self.m_participants >= PARTICIPATE_DRAGON_CNT)
+    return (#self.m_participants >= g_constant:get('INGAME', 'PARTICIPATE_DRAGON_CNT'))
 end
 
 -------------------------------------

@@ -245,7 +245,7 @@ function GameFever:update_charging(dt)
     end
 
     
-    self.m_curPoint = self.m_curPoint + (self.m_stepPoint * dt / FEVER_POINT_UPDATE_TIME)
+    self.m_curPoint = self.m_curPoint + (self.m_stepPoint * dt / g_constant:get('INGAME', 'FEVER_POINT_UPDATE_TIME'))
     if self.m_curPoint >= self.m_realPoint then
         self.m_curPoint = self.m_realPoint
         self.m_stepPoint = 0
@@ -290,7 +290,8 @@ end
 function GameFever:update_live(dt)
     local world = self.m_world
     local enemy_count = #world:getEnemyList()
-    
+    local fever_time = g_constant:get('INGAME', 'FEVER_KEEP_TIME')
+
     if (self.m_stateTimer == 0) then
         -- 피버 모드 연출
         self.m_feverStartVisual:setVisible(false)
@@ -304,8 +305,8 @@ function GameFever:update_live(dt)
         -- 게이지 연출
         self.m_feverGauge1:setVisible(false)
         self.m_feverGauge2:setVisible(true)
-        self.m_feverGauge1:runAction(cc.ProgressTo:create(FEVER_KEEP_TIME, 0)) 
-        self.m_feverGauge2:runAction(cc.ProgressTo:create(FEVER_KEEP_TIME, 0)) 
+        self.m_feverGauge1:runAction(cc.ProgressTo:create(fever_time, 0)) 
+        self.m_feverGauge2:runAction(cc.ProgressTo:create(fever_time, 0)) 
 
         -- 게이지 변경
         self.m_feverGauge2:setVisible(false)
@@ -317,7 +318,7 @@ function GameFever:update_live(dt)
     if (enemy_count <= 0) then
         self:onEnd()
 
-    elseif (self.m_stateTimer >= FEVER_KEEP_TIME) then
+    elseif (self.m_stateTimer >= fever_time) then
         self:onEnd()
     end
 
@@ -454,7 +455,7 @@ function GameFever:doAttack()
 
     -- 데미지 설정
     self.m_activityCarrier = hero:makeAttackDamageInstance()
-    self.m_activityCarrier:setPowerRate(FEVER_ATTACK_DAMAGE_RATE)
+    self.m_activityCarrier:setPowerRate(g_constant:get('INGAME', 'FEVER_ATTACK_DAMAGE_RATE'))
     self.m_activityCarrier:setAttackType('fever')
     self.m_activityCarrier:setIgnoreDef(true)
     self.m_activityCarrier.m_attribute = ATTR_NONE
@@ -564,18 +565,19 @@ function GameFever:addFeverPoint(point)
 
     self.m_stepPoint = self.m_realPoint - self.m_curPoint
 
+	local fever_point_time = g_constant:get('INGAME', 'FEVER_POINT_UPDATE_TIME')
+
     -- 획득시마다 게이지 표시
-    self.m_feverGauge1:runAction(cc.ProgressTo:create(FEVER_POINT_UPDATE_TIME, self.m_realPoint)) 
-    self.m_feverGauge2:runAction(cc.ProgressTo:create(FEVER_POINT_UPDATE_TIME, self.m_realPoint)) 
+    self.m_feverGauge1:runAction(cc.ProgressTo:create(fever_point_time, self.m_realPoint)) 
+    self.m_feverGauge2:runAction(cc.ProgressTo:create(fever_point_time, self.m_realPoint)) 
 
     -- 이펙트
     do
         self.m_feverGaugeEffect.m_node:stopAllActions()
 
         local scale = math_pow(1 + (self.m_realPoint / 100) / 2, 2)
-        local scale_action = cc.ScaleTo:create(FEVER_POINT_UPDATE_TIME, scale)
-        --local move_action = cc.MoveTo:create(FEVER_POINT_UPDATE_TIME, cc.p((720 * self.m_realPoint / 100), 0))
-        local move_action = cc.MoveTo:create(FEVER_POINT_UPDATE_TIME, cc.p(
+        local scale_action = cc.ScaleTo:create(fever_point_time, scale)
+        local move_action = cc.MoveTo:create(fever_point_time, cc.p(
             (720 * self.m_realPoint / 100),
             (30 * self.m_realPoint / 100)
         ))
@@ -594,9 +596,9 @@ end
 function GameFever:getPointFromCastingPercentage(percentage)
     local point = 0
 
-    if percentage >= 90 then     point = PERFECT_SKILL_CANCEL_FEVER_POINT
-    elseif percentage >= 70 then point = GREAT_SKILL_CANCEL_FEVER_POINT
-    else                         point = GOOD_SKILL_CANCEL_FEVER_POINT
+    if percentage >= 90 then     point = g_constant:get('INGAME', 'PERFECT_SKILL_CANCEL_FEVER_POINT')
+    elseif percentage >= 70 then point = g_constant:get('INGAME', 'GREAT_SKILL_CANCEL_FEVER_POINT')
+    else                         point = g_constant:get('INGAME', 'GOOD_SKILL_CANCEL_FEVER_POINT')
     end
 
     return point
@@ -613,11 +615,13 @@ end
 -- function onEvent
 -------------------------------------
 function GameFever:onEvent(event_name, t_event, ...)
+	local t_fevet_point_inc_vlaue = g_constant:get('INGAME', 'FEVER_POINT_INCREMENT_VALUE')
+
     if (event_name == 'hero_basic_skill') then
         local arg = {...}
         local hero = arg[1]
 
-        local point = FEVER_POINT_INCREMENT_VALUE[event_name]
+        local point = t_fevet_point_inc_vlaue[event_name]
 
         self:addFeverPoint(point)
         
@@ -625,7 +629,7 @@ function GameFever:onEvent(event_name, t_event, ...)
         local arg = {...}
         local hero = arg[1]
 
-        local point = FEVER_POINT_INCREMENT_VALUE[event_name]
+        local point = t_fevet_point_inc_vlaue[event_name]
 
         self:addFeverPoint(point)
 
@@ -634,7 +638,7 @@ function GameFever:onEvent(event_name, t_event, ...)
         local attackerActivityCarrier = arg[2]
         local hit_count = attackerActivityCarrier:getFlag('hit_count') or 0
         
-        local point = FEVER_POINT_INCREMENT_VALUE[event_name]
+        local point = t_fevet_point_inc_vlaue[event_name]
 
         if (hit_count < 5) then
             self:addFeverPoint(point)
@@ -644,7 +648,7 @@ function GameFever:onEvent(event_name, t_event, ...)
         local arg = {...}
         local hero = arg[1]
 
-        local point = FEVER_POINT_INCREMENT_VALUE[event_name]
+        local point = t_fevet_point_inc_vlaue[event_name]
 
         self:addFeverPoint(point)
         
@@ -653,7 +657,7 @@ function GameFever:onEvent(event_name, t_event, ...)
         local castingPercentage = arg[2]
 
         --local point = self:getPointFromCastingPercentage(castingPercentage)
-        local point = FEVER_POINT_INCREMENT_VALUE[event_name]
+        local point = t_fevet_point_inc_vlaue[event_name]
 
         self:addFeverPoint(point)
     end

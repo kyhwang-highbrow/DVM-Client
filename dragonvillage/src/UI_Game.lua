@@ -201,8 +201,9 @@ end
 -------------------------------------
 function UI_Game:click_speedButton()
 	local gameTimeScale = self.m_gameScene.m_gameWorld.m_gameTimeScale
+	local quick_time_scale = g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE')
 
-    if (gameTimeScale:getBase() >= QUICK_MODE_TIME_SCALE) then
+    if (gameTimeScale:getBase() >= quick_time_scale) then
         UIManager:toastNotificationGreen('빠른모드 비활성화')
 
         gameTimeScale:setBase(1)
@@ -211,12 +212,12 @@ function UI_Game:click_speedButton()
     else
         UIManager:toastNotificationGreen('빠른모드 활성화')
 
-        gameTimeScale:setBase(QUICK_MODE_TIME_SCALE)
+        gameTimeScale:setBase(quick_time_scale)
 
         g_autoPlaySetting:set('quick_mode', true)
     end
 
-    self.vars['speedVisual']:setVisible((gameTimeScale:getBase() >= QUICK_MODE_TIME_SCALE))
+    self.vars['speedVisual']:setVisible((gameTimeScale:getBase() >= quick_time_scale))
 end
 
 -------------------------------------

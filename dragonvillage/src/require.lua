@@ -32,7 +32,6 @@ local t_module = {
 	-- CONSTANT 
     'Constant',
     'ConstantForArt',
-	'ConstantIngame',
 	'ConstantSkill',
 	'ConstantDebug',
 	'ConstantGameMode',
