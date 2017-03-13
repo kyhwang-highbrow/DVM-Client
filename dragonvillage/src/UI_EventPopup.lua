@@ -88,7 +88,7 @@ function UI_EventPopup:initTab()
     self.m_lContainerForEachType = {}
 
     local initial_tab = nil
-    for i,v in ipairs(self.m_tableView.m_itemList) do
+    for i,v in pairs(self.m_tableView.m_itemList) do
         local type = v['data'].m_type
         local ui = v['ui'] or v['generated_ui']
 
@@ -115,11 +115,35 @@ end
 function UI_EventPopup:onChangeTab(tab, first)
     if first then
         local container = self.m_lContainerForEachType[tab]
-        if (tab == 'birthday_calendar') then
-            local ui = UI_EventPopupTab_Birthday(self)
+        local ui = self:makeEventPopupTab(tab)
+        if ui then
             container:addChild(ui.root)
         end
     end
+end
+
+-------------------------------------
+-- function makeEventPopupTab
+-------------------------------------
+function UI_EventPopup:makeEventPopupTab(tab)
+    local ui = nil
+
+    local item = self.m_tableView:getItem(tab)
+    local struct_event_popup_tab = item['data']
+
+    -- 생일 탭
+    if (tab == 'birthday_calendar') then
+        ui = UI_EventPopupTab_Birthday(self)
+
+    -- 출석 (일반)
+    elseif (tab == 'attendance_basic') then
+        ui = UI_EventPopupTab_Attendance(self)
+
+    else
+        ccdump(struct_event_popup_tab)
+    end
+
+    return ui
 end
 
 --@CHECK

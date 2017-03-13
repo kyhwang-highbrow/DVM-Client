@@ -1,5 +1,7 @@
 -------------------------------------
 -- class StructEventPopupTab
+-- @brief 로비에서 진입 가능한 이벤트 팝업의 탭
+--        "출석", "이벤트", "드래곤 생일" 등을 표시
 -------------------------------------
 StructEventPopupTab = class({
         m_type = 'string',

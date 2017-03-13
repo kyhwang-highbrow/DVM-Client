@@ -22,11 +22,12 @@ function ServerData_Event:getEventPopupTabList()
     -- 출석 체크
     for i,v in pairs(g_attendanceData.m_structAttendanceDataList) do
         local event_popup_tab = StructEventPopupTab('attendance', v.attendance_type)
-        table.insert(item_list, event_popup_tab)
+        item_list[event_popup_tab.m_type] = event_popup_tab
     end
 
     -- 드래곤 생일
-    table.insert(item_list, StructEventPopupTab('birthday_calendar'))
+    local event_popup_tab = StructEventPopupTab('birthday_calendar')
+    item_list[event_popup_tab.m_type] = event_popup_tab
 
     return item_list
 end

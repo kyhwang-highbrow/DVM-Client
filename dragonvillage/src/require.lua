@@ -583,6 +583,7 @@ local t_module = {
     'UI_EventPopup',
     'UI_EventPopupTabButton',
     'UI_EventPopupTab_Birthday',
+    'UI_EventPopupTab_Attendance',
     'UI_BirthdayCalendarDayElement',
     'UI_BirthdayRewardSelectPopup',
     'UI_BirthdayRewardSelectListItem',

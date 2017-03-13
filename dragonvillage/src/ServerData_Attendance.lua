@@ -95,3 +95,16 @@ function ServerData_Attendance:hasAttendanceReward()
     
     return false
 end
+
+-------------------------------------
+-- function getBasicAttendance
+-------------------------------------
+function ServerData_Attendance:getBasicAttendance()
+    for i,v in pairs(self.m_structAttendanceDataList) do
+        if v.attendance_type == 'basic' then
+            return v
+        end
+    end
+
+    return nil
+end
