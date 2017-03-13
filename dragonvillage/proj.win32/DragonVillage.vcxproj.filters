@@ -1850,6 +1850,9 @@
     <None Include="..\src\UI_EventPopupTab_Attendance.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_EventPopupTab_EventAttendance.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -23,6 +23,7 @@ function ServerData_Event:getEventPopupTabList()
     for i,v in pairs(g_attendanceData.m_structAttendanceDataList) do
         local event_popup_tab = StructEventPopupTab('attendance', v.attendance_type)
         item_list[event_popup_tab.m_type] = event_popup_tab
+        event_popup_tab.m_userData = v
     end
 
     -- 드래곤 생일

@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_EventPopupTab_Attendance
 -------------------------------------
 UI_EventPopupTab_Attendance = class(PARENT,{
+        m_titleText = 'string',
     })
 
 -------------------------------------
@@ -21,7 +22,8 @@ function UI_EventPopupTab_Attendance:init(owner)
     local step_list = struct_attendance_data['step_list']
     local today_step = struct_attendance_data['today_step']
 
-    vars['titleLabel']:setString(title_text)
+    self.m_titleText = Str(title_text)
+    vars['titleLabel']:setString(self.m_titleText)
     vars['descLabel']:setString(Str(help_text))
     vars['dayLabel']:setString(Str('{1}일차', today_step))
 
@@ -56,7 +58,7 @@ function UI_EventPopupTab_Attendance:checkTodayRewardPopup()
     local today_step = struct_attendance_data['today_step']
 
     if (not struct_attendance_data:hasReward()) then
-        --return
+        return
     end
 
     local function coroutine_function(dt)
@@ -76,4 +78,13 @@ function UI_EventPopupTab_Attendance:checkTodayRewardPopup()
     end
 
     Coroutine(coroutine_function)
+end
+
+-------------------------------------
+-- function onEnterTab
+-- @brief
+-------------------------------------
+function UI_EventPopupTab_Attendance:onEnterTab()
+    local vars = self.vars
+    vars['titleLabel']:setString(self.m_titleText)
 end

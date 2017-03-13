@@ -725,6 +725,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_EventPopup.lua" />
     <None Include="..\src\UI_EventPopupTabButton.lua" />
     <None Include="..\src\UI_EventPopupTab_Attendance.lua" />
+    <None Include="..\src\UI_EventPopupTab_EventAttendance.lua" />
     <None Include="..\src\UI_EventPopupTab_Birthday.lua" />
     <None Include="..\src\UI_Exploration.lua" />
     <None Include="..\src\UI_ExplorationIng.lua" />

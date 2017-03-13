@@ -6,6 +6,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_EventPopup = class(PARENT,{
         m_tableView = 'UIC_TableView',
         m_lContainerForEachType = 'list[node]', -- (tab)타입별 컨테이너
+        m_mTabUI = 'map',
     })
 
 -------------------------------------
@@ -106,7 +107,7 @@ function UI_EventPopup:initTab()
     end
 
     --self:setTab(initial_tab)
-    self:setTab('birthday_calendar')
+    self:setTab('attendance_basic')
 end
 
 -------------------------------------
@@ -119,6 +120,8 @@ function UI_EventPopup:onChangeTab(tab, first)
         if ui then
             container:addChild(ui.root)
         end
+    else
+        self.m_mTabUI[tab]:onEnterTab()
     end
 end
 
@@ -126,6 +129,10 @@ end
 -- function makeEventPopupTab
 -------------------------------------
 function UI_EventPopup:makeEventPopupTab(tab)
+    if (not self.m_mTabUI) then
+        self.m_mTabUI = {}
+    end
+
     local ui = nil
 
     local item = self.m_tableView:getItem(tab)
@@ -133,15 +140,18 @@ function UI_EventPopup:makeEventPopupTab(tab)
 
     -- 생일 탭
     if (tab == 'birthday_calendar') then
-        ui = UI_EventPopupTab_Birthday(self)
+        ui = UI_EventPopupTab_Birthday(self, struct_event_popup_tab)
 
     -- 출석 (일반)
     elseif (tab == 'attendance_basic') then
-        ui = UI_EventPopupTab_Attendance(self)
+        ui = UI_EventPopupTab_Attendance(self, struct_event_popup_tab)
 
     else
-        ccdump(struct_event_popup_tab)
+        -- 출석체크 이벤트
+        ui = UI_EventPopupTab_EventAttendance(self, struct_event_popup_tab)
     end
+
+    self.m_mTabUI[tab] = ui
 
     return ui
 end

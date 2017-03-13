@@ -13,7 +13,7 @@ UI_AttendanceSpecialListItem = class(PARENT, {
 function UI_AttendanceSpecialListItem:init(t_item_data)
     self.m_tItemData = t_item_data
 
-    local vars = self:load('attendance_continuous_list.ui')
+    local vars = self:load('attendance_special_list.ui')
 
     self:initUI()
     self:initButton()
@@ -43,7 +43,9 @@ end
 -------------------------------------
 function UI_AttendanceSpecialListItem:initButton()
     local vars = self.vars
-    vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
+    if vars['clickBtn'] then
+        vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
+    end
 end
 
 -------------------------------------

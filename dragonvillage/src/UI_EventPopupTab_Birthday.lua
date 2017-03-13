@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_EventPopupTab_Birthday
 -------------------------------------
 UI_EventPopupTab_Birthday = class(PARENT,{
+        m_titleText = 'string',
         m_year = 'number',
         m_currMonth = 'number',
     })
@@ -118,7 +119,8 @@ function UI_EventPopupTab_Birthday:changeMonth(month)
     self.m_currMonth = month
     self:refresh()
 
-    vars['titleLabel']:setString(Str('{1}월 드래곤 생일', month))
+    self.m_titleText = Str('{1}월 드래곤 생일', month)
+    vars['titleLabel']:setString(self.m_titleText)
 
     if (self.m_currMonth <= 1) then
         vars['prevBtn']:setVisible(false)
@@ -162,4 +164,13 @@ function UI_EventPopupTab_Birthday:checkBirthdayReward()
     end
 
     Coroutine(coroutine_function)
+end
+
+-------------------------------------
+-- function onEnterTab
+-- @brief
+-------------------------------------
+function UI_EventPopupTab_Birthday:onEnterTab()
+    local vars = self.vars
+    vars['titleLabel']:setString(self.m_titleText)
 end
