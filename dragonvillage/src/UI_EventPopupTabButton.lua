@@ -44,15 +44,6 @@ function UI_EventPopupTabButton:refresh()
 
     local struct_event_popup_tab = self.m_structEventPopupTab
     local type = struct_event_popup_tab.m_type
-
-    if (type == 'birthday_calendar') then
-        vars['eventLabel']:setString(Str('드래곤 생일'))
-
-    elseif (type == 'attendance_basic') then
-        vars['eventLabel']:setString(Str('출석'))
-
-    elseif (type == 'attendance_event') then
-        vars['eventLabel']:setString(Str('이벤트 출석'))
-
-    end
+    local tab_btn_name = struct_event_popup_tab:getTabButtonName()
+    vars['eventLabel']:setString(tab_btn_name)
 end

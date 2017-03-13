@@ -126,6 +126,18 @@ function ITabUI:setChangeTabCB(cb)
     self.m_cbChangeTab = cb
 end
 
+-------------------------------------
+-- function existTab
+-- @brief
+-------------------------------------
+function ITabUI:existTab(tab)
+    if self.m_mTabData[tab] then
+        return true
+    else
+        return false
+    end
+end
+
 
 -------------------------------------
 -- function getCloneTable

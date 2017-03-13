@@ -7,30 +7,55 @@ StructEventPopupTab = class({
         m_type = 'string',
         m_sortIdx = 'number',
 
-        m_category = '',
-        m_categorySub = '',
+        m_category1 = '',
+        m_category2 = '',
+        m_category3 = '',
 
         m_userData = '',
+
+        m_hasNoti = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function StructEventPopupTab:init(category, category_sub)
-    self:setCategory(category, category_sub)
+function StructEventPopupTab:init(category1, category2, category3)
+    self:setCategory(category1, category2, category3)
 end
 
 
 -------------------------------------
 -- function setCategory
 -------------------------------------
-function StructEventPopupTab:setCategory(category, category_sub)
-    self.m_category = category
-    self.m_categorySub = category_sub
+function StructEventPopupTab:setCategory(category1, category2, category3)
+    self.m_category1 = category1
+    self.m_category2 = category2
+    self.m_category3 = category3
 
-    self.m_type = tostring(category)
+    self.m_type = tostring(category1)
 
-    if category_sub then
-        self.m_type = self.m_type .. '_' .. tostring(category_sub)
+    if category2 then
+        self.m_type = self.m_type .. '_' .. tostring(category2)
+    end
+
+    if category3 then
+        self.m_type = self.m_type .. '_' .. tostring(category3)
+    end
+end
+
+-------------------------------------
+-- function getTabButtonName
+-------------------------------------
+function StructEventPopupTab:getTabButtonName()
+    if (self.m_category1 == 'attendance') then
+        if (self.m_category2 == 'basic') then
+            return Str('출석')
+        elseif (self.m_category2 == 'event') then
+            return Str('이벤트')
+        end
+
+    elseif (self.m_category1 == 'birthday_calendar') then
+        return Str('드래곤 생일')
+
     end
 end

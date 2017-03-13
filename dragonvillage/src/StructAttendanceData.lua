@@ -44,3 +44,11 @@ end
 function StructAttendanceData:hasReward()
     return (self.received == false)
 end
+
+-------------------------------------
+-- function setReceived
+-- @brief
+-------------------------------------
+function StructAttendanceData:setReceived()
+    self.received = true
+end

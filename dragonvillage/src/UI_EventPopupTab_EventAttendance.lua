@@ -105,12 +105,13 @@ function UI_EventPopupTab_EventAttendance:checkTodayRewardPopup()
     if (not struct_attendance_data:hasReward()) then
         return
     end
+    struct_attendance_data:setReceived()
 
     local function coroutine_function(dt)
         local co = CoroutineHelper()
         co:setBlockPopup()
 
-        co:waitTime(0.8)
+        co:waitTime(0.5)
 
         co:work()
         local today_item = step_list[today_step]

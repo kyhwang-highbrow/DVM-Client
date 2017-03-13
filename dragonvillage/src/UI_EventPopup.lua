@@ -17,7 +17,7 @@ function UI_EventPopup:init()
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventPopup')
+    g_currScene:pushBackKeyListener(self, function() self:closePopup() end, 'UI_EventPopup')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
@@ -44,7 +44,7 @@ end
 -------------------------------------
 function UI_EventPopup:initButton()
     local vars = self.vars
-    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['closeBtn']:registerScriptTapHandler(function() self:closePopup() end)
 end
 
 -------------------------------------
@@ -106,8 +106,17 @@ function UI_EventPopup:initTab()
         end
     end
 
-    --self:setTab(initial_tab)
-    self:setTab('attendance_basic')
+    if (not self:checkNotiList()) then
+        if self:existTab('attendance_basic_newbie') then
+            self:setTab('attendance_basic_newbie')
+
+        elseif self:existTab('attendance_basic_comeback') then
+            self:setTab('attendance_basic_comeback')
+
+        else
+            self:setTab(initial_tab)
+        end
+    end
 end
 
 -------------------------------------
@@ -122,6 +131,11 @@ function UI_EventPopup:onChangeTab(tab, first)
         end
     else
         self.m_mTabUI[tab]:onEnterTab()
+    end
+
+    local item = self.m_tableView:getItem(tab)
+    if item and item['data'] then
+        item['data'].m_hasNoti = false
     end
 end
 
@@ -154,6 +168,32 @@ function UI_EventPopup:makeEventPopupTab(tab)
     self.m_mTabUI[tab] = ui
 
     return ui
+end
+
+-------------------------------------
+-- function closePopup
+-------------------------------------
+function UI_EventPopup:closePopup()
+    if (not self:checkNotiList()) then
+        self:close()
+    end
+end
+
+-------------------------------------
+-- function checkNotiList
+-------------------------------------
+function UI_EventPopup:checkNotiList()
+    for i,v in pairs(self.m_tableView.m_itemList) do
+        local type = v['data'].m_type
+
+        if v['data'].m_hasNoti then
+            v['data'].m_hasNoti = false
+            self:setTab(type)
+            return true
+        end
+    end
+
+    return false
 end
 
 --@CHECK

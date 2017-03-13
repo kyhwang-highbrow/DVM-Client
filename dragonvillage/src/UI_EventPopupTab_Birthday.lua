@@ -151,7 +151,7 @@ function UI_EventPopupTab_Birthday:checkBirthdayReward()
         local co = CoroutineHelper()
         co:setBlockPopup()
 
-        co:waitTime(0.8)
+        co:waitTime(0.5)
 
         for i,birth_id in ipairs(birth_list) do
             co:work()

@@ -21,13 +21,15 @@ function ServerData_Event:getEventPopupTabList()
 
     -- 출석 체크
     for i,v in pairs(g_attendanceData.m_structAttendanceDataList) do
-        local event_popup_tab = StructEventPopupTab('attendance', v.attendance_type)
+        local event_popup_tab = StructEventPopupTab('attendance', v['attendance_type'], v['category'])
         item_list[event_popup_tab.m_type] = event_popup_tab
         event_popup_tab.m_userData = v
+        event_popup_tab.m_hasNoti = v:hasReward()
     end
 
     -- 드래곤 생일
     local event_popup_tab = StructEventPopupTab('birthday_calendar')
+    event_popup_tab.m_hasNoti = g_birthdayData:hasBirthdayReward()
     item_list[event_popup_tab.m_type] = event_popup_tab
 
     return item_list
