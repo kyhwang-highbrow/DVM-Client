@@ -286,7 +286,7 @@ function PhysObject:setEnableBody(enabled)
 end
 
 -------------------------------------
--- function setEnableBody
+-- function setFixedAttack
 -------------------------------------
 function PhysObject:setFixedAttack(bool)
     self.bFixedAttack = bool

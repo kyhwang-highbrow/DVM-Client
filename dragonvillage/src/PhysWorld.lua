@@ -226,6 +226,9 @@ function PhysWorld:update(dt)
                     if ret and target then
                         object:runAtkCallback(target, target.pos.x, target.pos.y)
                         target:runDefCallback(object, x, y)
+
+                        -- 지정된 타겟과 한 번 이상 충돌되지 않도록 처리
+                        object.bFixedAttack = false
                     end
 				end
 
