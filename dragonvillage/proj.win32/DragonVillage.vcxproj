@@ -275,7 +275,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ConstantData.lua" />
     <None Include="..\src\ConstantDebug.lua" />
     <None Include="..\src\ConstantGameMode.lua" />
-    <None Include="..\src\ConstantSkill.lua" />
     <None Include="..\src\ConstantStatusEffect.lua" />
     <None Include="..\src\Coroutine.lua" />
     <None Include="..\src\EffectLauncher.lua" />

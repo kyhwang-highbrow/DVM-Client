@@ -281,7 +281,8 @@ function MissileLua.lua_bezier(owner)
         std_dist = -1000
     end
 
-    local degree = getDegree(pos_x, pos_y, tar_x, tar_y) - (LEAF_STRAIGHT_ANGLE * course)
+	local straight_angle = g_constant:get('SKILL', 'LEAF_STRAIGHT_ANGLE')
+    local degree = getDegree(pos_x, pos_y, tar_x, tar_y) - (straight_angle * course)
     local rad = math_rad(degree)
     local linear_y = std_dist * math.tan(rad)
     local goForwardPoint = cc.p(std_dist, linear_y)

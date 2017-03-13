@@ -582,8 +582,9 @@ function FormationMgr:findBezierTarget(tar_x, tar_y, pos_x, pos_y, course)
     
     -- 가져온 베지어 곡선 좌표를 순회하면서 각각에서 근처에 위치한 적을 찾는다. 
 	local t_ret = nil
+	local leaf_body_size = g_constant:get('SKILL', 'LEAF_COLLISION_SIZE')
     for _, bezier_pos in pairs(t_bezier_pos) do
-        t_ret = self:findNearTarget(bezier_pos['x'], bezier_pos['y'], LEAF_COLLISION_SIZE, 1, EMPTY_TABLE)
+        t_ret = self:findNearTarget(bezier_pos['x'], bezier_pos['y'], leaf_body_size, 1, EMPTY_TABLE)
 		if (#t_ret > 0) then
 			t_collision_obj = table.merge(t_collision_obj, t_ret)
 		end

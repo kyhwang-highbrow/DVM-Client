@@ -30,8 +30,8 @@ function SkillIndicator_LeafBlade:init(hero, t_skill)
 	self.m_target_1 = nil
 	self.m_target_2 = nil
 
-	self.m_indicatorAngleLimit = LEAF_ANGLE_LIMIT
-	self.m_indicatorDistanceLimit = LEAF_DIST_LIMIT
+	self.m_indicatorAngleLimit = g_constant:get('SKILL', 'LEAF_ANGLE_LIMIT')
+	self.m_indicatorDistanceLimit = g_constant:get('SKILL', 'LEAF_DIST_LIMIT')
 end
 
 -------------------------------------
@@ -162,21 +162,24 @@ function SkillIndicator_LeafBlade:findTargetList(x, y)
 		end
 	end
 
+	-- 충돌체크에 필요한 변수 생성
     local std_dist = 1000
 	local degree = getDegree(pos_x, pos_y, x, y)
 	local phys_group = self.m_hero:getAttackPhysGroup()
+	local leaf_body_size = g_constant:get('SKILL', 'LEAF_COLLISION_SIZE')
+	local straight_angle = g_constant:get('SKILL', 'LEAF_STRAIGHT_ANGLE')
 
     -- 직선에 의한 충돌 리스트 (상)
-    local rad = math_rad(degree + LEAF_STRAIGHT_ANGLE)
+    local rad = math_rad(degree + straight_angle)
     local factor_y = math.tan(rad)
     local t_target_line_1 = self.m_world.m_physWorld:getLaserCollision(x, y,
-        x + std_dist, y + std_dist * factor_y, LEAF_COLLISION_SIZE, phys_group)
+        x + std_dist, y + std_dist * factor_y, leaf_body_size, phys_group)
 
     -- 직선에 의한 충돌 리스트 (하)
-    rad = math_rad(degree - LEAF_STRAIGHT_ANGLE)
+    rad = math_rad(degree - straight_angle)
     factor_y = math.tan(rad)
     local t_target_line_2 = self.m_world.m_physWorld:getLaserCollision(x, y,
-        x + std_dist, y + std_dist * factor_y, LEAF_COLLISION_SIZE, phys_group)
+        x + std_dist, y + std_dist * factor_y, leaf_body_size, phys_group)
     
     -- getLaserCollision는 반환값이 특정 테이블이기때문에 Character 클래스만 꺼내와서 정리한다.
 	-- 00. 무관통 탄의 경우 첫번째 오브젝트만 가져간다.

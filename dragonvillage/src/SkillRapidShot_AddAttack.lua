@@ -79,9 +79,10 @@ function SkillRapidShot_AddAttack:fireMissile(target, is_add_attack)
 	else
 		t_option['attack_damage'] = self.m_activityCarrier
 		local attack_pos_x, attack_pos_y = self:getAttackPosition()
+		local y_range = g_constant:get('SKILL', 'RAPIDSHOT_Y_POS_RANGE')
 		t_option['pos_x'] = char.pos.x + attack_pos_x
-		t_option['pos_y'] = char.pos.y + attack_pos_y + math_random(-RAPIDSHOT_Y_POS_RANGE, RAPIDSHOT_Y_POS_RANGE)
-		t_option['accel_delay'] = RAPIDSHOT_FIRE_DELAY
+		t_option['pos_y'] = char.pos.y + attack_pos_y + math_random(-y_range, y_range)
+		t_option['accel_delay'] = g_constant:get('SKILL', 'RAPIDSHOT_FIRE_DELAY')
 	end
 
 	t_option['cbFunction'] = function()

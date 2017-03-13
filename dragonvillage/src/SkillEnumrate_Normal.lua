@@ -21,7 +21,7 @@ function SkillEnumrate_Normal:init_skill(missile_res, motionstreak_res, line_num
 	PARENT.init_skill(self, missile_res, motionstreak_res, line_num, line_size)
 
 	-- 1. 멤버 변수
-	self.m_skillInterval = PENERATION_APPEAR_INTERVAR
+	self.m_skillInterval = g_constant:get('SKILL', 'PENERATION_APPEAR_INTERVAR')
 	self.m_enumTargetType = 'target'
 	self.m_enumPosType = 'linear'
 end

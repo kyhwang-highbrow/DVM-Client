@@ -127,7 +127,7 @@ function SkillLeafBlade:makeSkillInstance(owner, t_skill, t_data)
 	local motionstreak_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)
 	local target_count = t_skill['hit']
 	local isPass = t_skill['val_1'] == 1
-	local body_size = LEAF_COLLISION_SIZE
+	local leaf_body_size = g_constant:get('SKILL', 'LEAF_COLLISION_SIZE')
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
@@ -136,7 +136,7 @@ function SkillLeafBlade:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(missile_res, motionstreak_res, target_count, body_size, isPass)
+    skill:init_skill(missile_res, motionstreak_res, target_count, leaf_body_size, isPass)
 	skill:initState()
 
 	-- 3. state 시작 

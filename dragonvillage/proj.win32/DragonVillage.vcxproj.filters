@@ -1326,9 +1326,6 @@
     <None Include="..\src\UIC_TabManager.lua">
       <Filter>lua\UIC</Filter>
     </None>
-    <None Include="..\src\ConstantSkill.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\UI_InventoryTab.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1836,8 +1833,6 @@
     <None Include="..\src\UI_NotificationFullInventoryPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\Buff_Guardian.lua" />
-    <None Include="..\src\SkillAoESquare_Wonder.lua" />
     <None Include="..\src\ConstantData.lua">
       <Filter>lua</Filter>
     </None>
@@ -1852,6 +1847,12 @@
     </None>
     <None Include="..\src\UI_EventPopupTab_EventAttendance.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\Buff_Guardian.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\SkillAoESquare_Wonder.lua">
+      <Filter>lua</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,7 @@ function SkillEnumrate_Curve:init_skill(missile_res, motionstreak_res, line_num,
 	PARENT.init_skill(self, missile_res, motionstreak_res, line_num, line_size)
 
 	-- 1. 멤버 변수
-	self.m_skillInterval = RANDOM_CARD_INTERVAL
+	self.m_skillInterval = g_constant:get('SKILL', 'RANDOM_CARD_INTERVAL')
 	self.m_enumTargetType = 'enemy_random'
 	self.m_enumPosType = 'pentagon'
 	self.m_bSkillHitEffect = false
@@ -59,10 +59,12 @@ function SkillEnumrate_Curve:fireMissile(idx)
     t_option['movement'] ='lua_arrange_curve' 
 	t_option['disable_body'] = true
 
+	local random_height = g_constant:get('SKILL', 'RANDOM_CARD_HEIGHT_RANGE')
+
     t_option['lua_param'] = {}
-    t_option['lua_param']['value1'] = math_random(-RANDOM_CARD_HEIGHT_RANGE, RANDOM_CARD_HEIGHT_RANGE)
-	t_option['lua_param']['value2'] = RANDOM_CARD_SPEED
-	t_option['lua_param']['value3'] = RANDOM_CARD_FIRE_DELAY
+    t_option['lua_param']['value1'] = math_random(-random_height, random_height)
+	t_option['lua_param']['value2'] = g_constant:get('SKILL', 'RANDOM_CARD_SPEED')
+	t_option['lua_param']['value3'] = g_constant:get('SKILL', 'RANDOM_CARD_FIRE_DELAY')
 	t_option['lua_param']['value4'] = self.m_skillStartPosList[idx]
 	t_option['lua_param']['value5'] = function()
 		-- 공격

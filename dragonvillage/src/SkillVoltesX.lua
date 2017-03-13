@@ -21,6 +21,8 @@ SkillVoltesX = class(PARENT, {
 		m_attackCnt = 'number',
 		m_maxAttackCnt = 'number',
 		m_maxFinalAttackCnt = 'number',
+		m_attckInterval = 'number',
+		m_finalAttackTime = 'number',
      })
 
 -------------------------------------
@@ -48,6 +50,8 @@ function SkillVoltesX:init_skill(attack_count, has_final_attack, final_attack_co
 
 	self.m_hitInterval = ONE_FRAME * 5
 	self.m_multiAtkTimer = self.m_hitInterval
+	self.m_attckInterval = g_constant:get('SKILL', 'VOLTES_ATTACK_INTERVAL')
+	self.m_finalAttackTime = g_constant:get('SKILL', 'VOLTES_FINAL_ATTACK_TIME')
 
 	-- 궁극기 여부에 따라 애니메이션 이름 설정
 	if (self.m_hasFinalAttack) then
@@ -75,19 +79,19 @@ function SkillVoltesX.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
 
 	-- ATK STEP 1
-	elseif (owner.m_stateTimer > VOLTES_ATTACK_INTERVAL) and (owner.m_attackStep == VOLTES_ATK_STEP_1) then
+	elseif (owner.m_stateTimer > owner.m_attckInterval) and (owner.m_attackStep == VOLTES_ATK_STEP_1) then
 		owner:updateLoopAttack({1}, dt)
 
 	-- ATK STEP 2
-	elseif (owner.m_stateTimer > VOLTES_ATTACK_INTERVAL*2) and (owner.m_attackStep == VOLTES_ATK_STEP_2) then
+	elseif (owner.m_stateTimer > owner.m_attckInterval*2) and (owner.m_attackStep == VOLTES_ATK_STEP_2) then
 		owner:updateLoopAttack({2}, dt)
 
     end
 	
 	-- 궁극 강화 여부에 따라 나뉨
-	if (owner.m_hasFinalAttack) then 
+	if (owner.m_hasFinalAttack) then
 		-- ATK STEP FINAL
-		if (owner.m_stateTimer > VOLTES_FINAL_ATTACK_TIME) and (owner.m_attackStep == VOLTES_ATK_STEP_FINAL) then
+		if (owner.m_stateTimer > owner.m_finalAttackTime) and (owner.m_attackStep == VOLTES_ATK_STEP_FINAL) then
 			owner.m_maxAttackCnt = owner.m_maxFinalAttackCnt
 			owner:updateLoopAttack({1, 2}, dt)
 

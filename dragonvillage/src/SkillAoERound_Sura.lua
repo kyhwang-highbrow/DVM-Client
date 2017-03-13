@@ -24,8 +24,8 @@ function SkillAoERound_Sura:init_skill(attack_count, range, aoe_res, add_attack_
 
 	-- 변수 선언
 	self.m_addActivityCarrier = clone(self.m_activityCarrier)
-	self.m_addActivityCarrier:setPowerRate(SURA_ADD_POWER_RATE)
-	self.m_addActivityCarrier:setAttackType(SURA_ADD_ATK_TYPE)
+	self.m_addActivityCarrier:setPowerRate(g_constant:get('SKILL', 'SURA_ADD_POWER_RATE'))
+	self.m_addActivityCarrier:setAttackType(g_constant:get('SKILL', 'SURA_ADD_ATK_TYPE'))
 
 	self.m_addAttackCount = add_attack_count
 end
@@ -107,13 +107,17 @@ function SkillAoERound_Sura:fireMissile(target)
     t_option['object_key'] = char:getAttackPhysGroup()
 	t_option['bFixedAttack'] = true
 
-    t_option['missile_res_name'] = SkillHelper:getAttributeRes(SURA_ADD_MISSILE_RES, char)
+	local add_res = g_constant:get('SKILL', 'SURA_ADD_MISSILE_RES')
+
+    t_option['missile_res_name'] = SkillHelper:getAttributeRes(add_res, char)
 	t_option['attr_name'] = self.m_owner:getAttribute()
 	t_option['missile_type'] = 'NORMAL'
     t_option['movement'] ='lua_curve' 
 
+	local random_height = g_constant:get('SKILL', 'SURA_ADD_HEIGHT_RANGE')
+
     t_option['lua_param'] = {}
-    t_option['lua_param']['value1'] = math_random(-SURA_ADD_HEIGHT_RANGE, SURA_ADD_HEIGHT_RANGE)
+    t_option['lua_param']['value1'] = math_random(-random_height, random_height)
 	t_option['lua_param']['value2'] = 0.5
 	t_option['lua_param']['value3'] = 0
 

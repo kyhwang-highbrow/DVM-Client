@@ -35,7 +35,7 @@ end
 function EffectLinearDot:refreshEffect(tar_x, tar_y, pos_x, pos_y, dir)
     local t_line_pos = {}
 	
-	local degree = getDegree(tar_x, tar_y, pos_x, pos_y) + dir * LEAF_STRAIGHT_ANGLE
+	local degree = getDegree(tar_x, tar_y, pos_x, pos_y) + dir * g_constant:get('SKILL', 'LEAF_STRAIGHT_ANGLE')
 	local std_dist = 60
     local rad = math_rad(degree)
 
@@ -71,7 +71,7 @@ function EffectLinearDot:refreshEffect(tar_x, tar_y, pos_x, pos_y, dir)
 	if (self.m_isAppear) then 
 		for i, effectNode in ipairs(self.m_lEffectNode) do 
 			effectNode:setAlpha(0)
-			effectNode:runAction(cc.FadeIn:create(0.05 + LEAF_INDICATOR_EFFECT_DELAY * i))
+			effectNode:runAction(cc.FadeIn:create(0.05 + g_constant:get('SKILL', 'LEAF_INDICATOR_EFFECT_DELAY') * i))
 		end
 		self.m_isAppear = false
 	end

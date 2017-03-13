@@ -30,6 +30,9 @@ end
 -------------------------------------
 function ConstantData:readDataFile()
 	self.m_constantData = TABLE:loadJsonTable('constant', '.json', true)
+	if (not self.m_constantData) then 
+		error('constant.json 파일에 구문 오류가 있습니다. 개발자에게 문의해주세요.')
+	end
 end
 
 -------------------------------------

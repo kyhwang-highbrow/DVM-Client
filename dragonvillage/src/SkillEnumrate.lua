@@ -43,10 +43,10 @@ function SkillEnumrate:init_skill(missile_res, motionstreak_res, line_num, line_
 
 	self.m_skillLineNum = line_num
 	self.m_skillLineSize = line_size
-	self.m_skillLineTotalWidth = PENERATION_TOTAL_LENGTH
-
-	self.m_skillInterval = PENERATION_APPEAR_INTERVAR
-	self.m_skillTotalTime = (self.m_skillLineNum * self.m_skillInterval) + PENERATION_FIRE_DELAY
+	self.m_skillLineTotalWidth = g_constant:get('SKILL', 'PENERATION_TOTAL_LENGTH')
+	
+	self.m_skillInterval = g_constant:get('SKILL', 'PENERATION_APPEAR_INTERVAR')
+	self.m_skillTotalTime = (self.m_skillLineNum * self.m_skillInterval) + g_constant:get('SKILL', 'PENERATION_FIRE_DELAY')
 	self.m_skillTimer = 0
 	self.m_skillCount = 1
 
@@ -140,7 +140,7 @@ end
 -- @brief 오각형 모양의 공격 시작 좌표 리턴
 -------------------------------------
 function SkillEnumrate:getStartPosList_Pentagon()
-	local l_attack_pos = RANDOM_CARD_PENTAGON_POS
+	local l_attack_pos = g_constant:get('SKILL', 'RANDOM_CARD_PENTAGON_POS')
 
 	return l_attack_pos
 end
@@ -152,6 +152,8 @@ end
 function SkillEnumrate:getStartPosList_Linear()
 	local t_ret = {}
 	
+	local start_pos_dist = g_constant:get('SKILL', 'PENERATION_ATK_START_POS_DIST')
+
 	local owner_pos = self.m_owner.pos
 	local touch_x, touch_y = (self.m_targetPos.x - owner_pos.x), (self.m_targetPos.y - owner_pos.y)
 	
@@ -163,7 +165,7 @@ function SkillEnumrate:getStartPosList_Linear()
 	-- 홀수인 경우 
 	if ((self.m_skillLineNum % 2) == 1) then
 		-- 센터 좌표 계산
-		local move_pos = getPointFromAngleAndDistance(main_angle, PENERATION_ATK_START_POS_DIST)
+		local move_pos = getPointFromAngleAndDistance(main_angle, start_pos_dist)
 		local center_pos = move_pos
 		
 		-- 좌측 좌표
@@ -185,7 +187,7 @@ function SkillEnumrate:getStartPosList_Linear()
 
 	else
 		-- 센터 좌표 계산 (추가는 하지 않는다)
-		local move_pos = getPointFromAngleAndDistance(main_angle, PENERATION_ATK_START_POS_DIST)
+		local move_pos = getPointFromAngleAndDistance(main_angle, start_pos_dist)
 		local center_pos = move_pos
 
 		-- 좌측 좌표

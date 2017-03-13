@@ -32,7 +32,7 @@ function SkillRapidShot:init_skill(missile_res, motionstreak_res, target_count)
     self.m_motionStreakRes = motionstreak_res
     self.m_attackCount = target_count
 
-	self.m_skillInterval = RAPIDSHOT_INTERVAL
+	self.m_skillInterval = g_constant:get('SKILL', 'RAPIDSHOT_INTERVAL')
 	self.m_skillTimer = 0
 	self.m_skillCount = 1
 end

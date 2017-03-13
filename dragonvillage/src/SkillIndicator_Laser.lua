@@ -22,7 +22,7 @@ function SkillIndicator_Laser:init(hero, t_skill)
         error('size : ' .. size)
     end
 
-	self.m_indicatorAngleLimit = SKILL_ANGLE_LIMIT
+	self.m_indicatorAngleLimit = g_constant:get('SKILL', 'SKILL_ANGLE_LIMIT')
 end
 
 -------------------------------------
