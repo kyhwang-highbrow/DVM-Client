@@ -113,7 +113,7 @@ function SkillAoERound_Sura:fireMissile(target)
     t_option['movement'] ='lua_curve' 
 
     t_option['lua_param'] = {}
-    t_option['lua_param']['value1'] = math_random(-P_RANDOM_HEIGHT_RANGE, P_RANDOM_HEIGHT_RANGE)
+    t_option['lua_param']['value1'] = math_random(-SURA_ADD_HEIGHT_RANGE, SURA_ADD_HEIGHT_RANGE)
 	t_option['lua_param']['value2'] = 0.5
 	t_option['lua_param']['value3'] = 0
 
