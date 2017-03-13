@@ -217,7 +217,7 @@ function ServerData_Colosseum:response_colosseumFinish(ret, cb)
 
     -- 결과 정 데이터
     local t_user_info = self.m_playerUserInfo   
-    local prev_rp = t_user_info.m_rp
+    local prev_rp = t_user_info.m_rp or 0
     local prev_honor = g_userData:get('honor')
 
     g_serverData:networkCommonRespone_addedItems(ret)
