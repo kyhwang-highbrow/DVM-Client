@@ -1,223 +1,160 @@
 
 blackdragon_dark_01.png
-size: 2048,2048
+size: 512,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 blackdragon_dark_01_arm_01
   rotate: false
-  xy: 2, 2
+  xy: 169, 2
   size: 44, 84
   orig: 44, 84
   offset: 0, 0
   index: -1
 blackdragon_dark_01_arm_02
   rotate: false
-  xy: 149, 443
+  xy: 360, 190
   size: 59, 66
   orig: 59, 66
   offset: 0, 0
   index: -1
 blackdragon_dark_01_body_01
   rotate: false
-  xy: 1508, 1697
+  xy: 149, 199
   size: 121, 163
   orig: 121, 163
   offset: 0, 0
   index: -1
 blackdragon_dark_01_ear_01
   rotate: false
-  xy: 149, 511
+  xy: 272, 219
   size: 86, 143
   orig: 86, 143
   offset: 0, 0
   index: -1
 blackdragon_dark_01_ear_02
   rotate: false
-  xy: 1006, 1196
+  xy: 360, 258
   size: 50, 114
   orig: 50, 114
   offset: 0, 0
   index: -1
-blackdragon_dark_01_effect_01
-  rotate: false
-  xy: 504, 826
-  size: 228, 230
-  orig: 228, 230
-  offset: 0, 0
-  index: -1
-blackdragon_dark_01_effect_02
-  rotate: false
-  xy: 734, 912
-  size: 20, 47
-  orig: 20, 47
-  offset: 0, 0
-  index: -1
-blackdragon_dark_01_effect_03_1
-  rotate: false
-  xy: 2, 1460
-  size: 500, 400
-  orig: 500, 400
-  offset: 0, 0
-  index: -1
-blackdragon_dark_01_effect_03_2
-  rotate: false
-  xy: 2, 1058
-  size: 500, 400
-  orig: 500, 400
-  offset: 0, 0
-  index: -1
-blackdragon_dark_01_effect_03_3
-  rotate: false
-  xy: 504, 1460
-  size: 500, 400
-  orig: 500, 400
-  offset: 0, 0
-  index: -1
-blackdragon_dark_01_effect_03_4
-  rotate: false
-  xy: 2, 656
-  size: 500, 400
-  orig: 500, 400
-  offset: 0, 0
-  index: -1
-blackdragon_dark_01_effect_03_5
-  rotate: false
-  xy: 504, 1058
-  size: 500, 400
-  orig: 500, 400
-  offset: 0, 0
-  index: -1
-blackdragon_dark_01_effect_03_6
-  rotate: false
-  xy: 1006, 1460
-  size: 500, 400
-  orig: 500, 400
-  offset: 0, 0
-  index: -1
 blackdragon_dark_01_eye_01
   rotate: false
-  xy: 863, 1027
+  xy: 465, 481
   size: 31, 29
   orig: 31, 29
   offset: 0, 0
   index: -1
 blackdragon_dark_01_eye_02
-  rotate: false
-  xy: 1187, 1355
+  rotate: true
+  xy: 272, 199
   size: 18, 23
   orig: 18, 23
   offset: 0, 0
   index: -1
 blackdragon_dark_01_eye_03
   rotate: false
-  xy: 1058, 1296
+  xy: 215, 2
   size: 34, 14
   orig: 34, 14
   offset: 0, 0
   index: -1
 blackdragon_dark_01_eye_04
-  rotate: true
-  xy: 137, 208
+  rotate: false
+  xy: 330, 366
   size: 16, 6
   orig: 16, 6
   offset: 0, 0
   index: -1
 blackdragon_dark_01_eye_05
   rotate: false
-  xy: 1006, 1165
+  xy: 465, 450
   size: 31, 29
   orig: 31, 29
   offset: 0, 0
   index: -1
 blackdragon_dark_01_eye_06
   rotate: false
-  xy: 1273, 1435
+  xy: 465, 425
   size: 18, 23
   orig: 18, 23
   offset: 0, 0
   index: -1
 blackdragon_dark_01_foot_01
   rotate: false
-  xy: 504, 663
+  xy: 421, 226
   size: 47, 50
   orig: 47, 50
   offset: 0, 0
   index: -1
 blackdragon_dark_01_foot_02
   rotate: false
-  xy: 619, 776
+  xy: 421, 176
   size: 49, 48
   orig: 49, 48
   offset: 0, 0
   index: -1
 blackdragon_dark_01_hand_01
-  rotate: false
-  xy: 1631, 1802
+  rotate: true
+  xy: 412, 278
   size: 94, 58
   orig: 94, 58
   offset: 0, 0
   index: -1
 blackdragon_dark_01_hand_02
-  rotate: false
-  xy: 237, 607
+  rotate: true
+  xy: 215, 18
   size: 68, 47
   orig: 68, 47
   offset: 0, 0
   index: -1
 blackdragon_dark_01_head_01
   rotate: false
-  xy: 504, 715
+  xy: 149, 88
   size: 113, 109
   orig: 113, 109
   offset: 0, 0
   index: -1
 blackdragon_dark_01_leg_01
   rotate: false
-  xy: 1187, 1380
+  xy: 2, 2
   size: 84, 78
   orig: 84, 78
   offset: 0, 0
   index: -1
 blackdragon_dark_01_leg_02
-  rotate: false
-  xy: 1508, 1616
+  rotate: true
+  xy: 88, 2
   size: 78, 79
   orig: 78, 79
   offset: 0, 0
   index: -1
 blackdragon_dark_01_mouth_01
   rotate: false
-  xy: 1508, 1600
+  xy: 251, 2
   size: 19, 14
   orig: 19, 14
   offset: 0, 0
   index: -1
 blackdragon_dark_01_neck_01
   rotate: false
-  xy: 2, 88
+  xy: 330, 374
   size: 133, 136
   orig: 133, 136
   offset: 0, 0
   index: -1
 blackdragon_dark_01_neck_02
   rotate: false
-  xy: 1006, 1312
+  xy: 149, 364
   size: 179, 146
   orig: 179, 146
   offset: 0, 0
   index: -1
 blackdragon_dark_01_tail_01
   rotate: false
-  xy: 2, 226
+  xy: 2, 82
   size: 145, 428
   orig: 145, 428
-  offset: 0, 0
-  index: -1
-blackdragon_dark_01_wing_01
-  rotate: false
-  xy: 734, 961
-  size: 127, 95
-  orig: 127, 95
   offset: 0, 0
   index: -1

@@ -4,220 +4,143 @@ size: 512,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-ladydragon_fire_01_acc_01
-  rotate: false
-  xy: 178, 132
-  size: 49, 44
-  orig: 49, 44
-  offset: 0, 0
-  index: -1
-ladydragon_fire_01_acc_02
-  rotate: true
-  xy: 163, 26
-  size: 41, 28
-  orig: 41, 28
-  offset: 0, 0
-  index: -1
 ladydragon_fire_01_arm_01
   rotate: false
-  xy: 468, 404
+  xy: 54, 79
   size: 42, 54
   orig: 42, 54
   offset: 0, 0
   index: -1
 ladydragon_fire_01_arm_02
-  rotate: true
-  xy: 2, 2
+  rotate: false
+  xy: 362, 432
   size: 65, 78
   orig: 65, 78
   offset: 0, 0
   index: -1
 ladydragon_fire_01_body_01
   rotate: false
-  xy: 2, 69
+  xy: 2, 301
   size: 138, 209
   orig: 138, 209
   offset: 0, 0
   index: -1
 ladydragon_fire_01_ear_01
-  rotate: true
-  xy: 459, 348
+  rotate: false
+  xy: 429, 460
   size: 54, 50
   orig: 54, 50
   offset: 0, 0
   index: -1
-ladydragon_fire_01_effect_01
-  rotate: false
-  xy: 2, 280
-  size: 228, 230
-  orig: 228, 230
-  offset: 0, 0
-  index: -1
-ladydragon_fire_01_effect_02
-  rotate: true
-  xy: 142, 69
-  size: 55, 47
-  orig: 55, 47
-  offset: 0, 0
-  index: -1
 ladydragon_fire_01_elbow_01
   rotate: false
-  xy: 441, 234
+  xy: 2, 12
   size: 38, 29
   orig: 38, 29
   offset: 0, 0
   index: -1
 ladydragon_fire_01_eye_l_01
   rotate: false
-  xy: 459, 329
+  xy: 429, 441
   size: 36, 17
   orig: 36, 17
   offset: 0, 0
   index: -1
 ladydragon_fire_01_eye_l_02
-  rotate: true
-  xy: 82, 2
+  rotate: false
+  xy: 54, 55
   size: 13, 22
   orig: 13, 22
   offset: 0, 0
   index: -1
 ladydragon_fire_01_eye_l_03
   rotate: false
-  xy: 191, 107
+  xy: 485, 487
   size: 25, 23
   orig: 25, 23
   offset: 0, 0
   index: -1
-ladydragon_fire_01_eye_l_04
-  rotate: true
-  xy: 330, 271
-  size: 23, 11
-  orig: 23, 11
-  offset: 0, 0
-  index: -1
 ladydragon_fire_01_eye_r_01
   rotate: false
-  xy: 191, 91
+  xy: 485, 471
   size: 17, 14
   orig: 17, 14
   offset: 0, 0
   index: -1
 ladydragon_fire_01_eye_r_02
   rotate: false
-  xy: 497, 328
+  xy: 42, 23
   size: 10, 18
   orig: 10, 18
   offset: 0, 0
   index: -1
 ladydragon_fire_01_eye_r_03
   rotate: false
-  xy: 483, 309
+  xy: 69, 59
   size: 12, 18
   orig: 12, 18
   offset: 0, 0
   index: -1
-ladydragon_fire_01_eye_r_04
-  rotate: false
-  xy: 330, 258
-  size: 11, 11
-  orig: 11, 11
-  offset: 0, 0
-  index: -1
 ladydragon_fire_01_hair_01
   rotate: false
-  xy: 343, 329
+  xy: 142, 312
   size: 114, 98
   orig: 114, 98
   offset: 0, 0
   index: -1
-ladydragon_fire_01_hair_02
+ladydragon_fire_01_hair_01_01
   rotate: false
-  xy: 229, 144
-  size: 89, 70
-  orig: 89, 70
+  xy: 142, 412
+  size: 120, 98
+  orig: 120, 98
   offset: 0, 0
   index: -1
-ladydragon_fire_01_hair_04
-  rotate: true
-  xy: 232, 429
-  size: 29, 234
-  orig: 29, 234
-  offset: 0, 0
-  index: -1
-ladydragon_fire_01_hair_06
-  rotate: true
-  xy: 82, 17
-  size: 50, 79
-  orig: 50, 79
-  offset: 0, 0
-  index: -1
-ladydragon_fire_01_hair_07
-  rotate: true
-  xy: 229, 60
-  size: 82, 85
-  orig: 82, 85
-  offset: 0, 0
-  index: -1
-ladydragon_fire_01_hair_08
-  rotate: true
-  xy: 142, 126
-  size: 152, 34
-  orig: 152, 34
-  offset: 0, 0
-  index: -1
-ladydragon_fire_01_hair_09
+ladydragon_fire_01_hair_01_01_s
   rotate: false
-  xy: 232, 296
-  size: 109, 131
-  orig: 109, 131
+  xy: 105, 245
+  size: 32, 54
+  orig: 32, 54
   offset: 0, 0
   index: -1
 ladydragon_fire_01_hand_01
   rotate: false
-  xy: 441, 265
+  xy: 54, 135
   size: 40, 62
   orig: 40, 62
   offset: 0, 0
   index: -1
 ladydragon_fire_01_head_01
   rotate: false
-  xy: 343, 239
+  xy: 264, 422
   size: 96, 88
   orig: 96, 88
   offset: 0, 0
   index: -1
 ladydragon_fire_01_head_s_01
   rotate: false
-  xy: 106, 2
+  xy: 467, 445
   size: 14, 13
   orig: 14, 13
   offset: 0, 0
   index: -1
 ladydragon_fire_01_leg_01
   rotate: false
-  xy: 178, 178
+  xy: 54, 199
   size: 49, 100
   orig: 49, 100
   offset: 0, 0
   index: -1
 ladydragon_fire_01_mouth_01
   rotate: false
-  xy: 490, 494
+  xy: 105, 227
   size: 18, 16
   orig: 18, 16
   offset: 0, 0
   index: -1
 ladydragon_fire_01_tail_01
-  rotate: false
-  xy: 232, 460
+  rotate: true
+  xy: 2, 43
   size: 256, 50
   orig: 256, 50
-  offset: 0, 0
-  index: -1
-ladydragon_fire_01_wing_01
-  rotate: false
-  xy: 232, 216
-  size: 96, 78
-  orig: 96, 78
   offset: 0, 0
   index: -1
