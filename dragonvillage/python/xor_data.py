@@ -33,7 +33,7 @@ def convert(rootdir, subdir, subdir2):
 
         subdir3 = subdir2 + '/' + item
 
-        if item.endswith('.csv') or item.endswith('.txt'):
+        if item.endswith('.csv') or item.endswith('.txt') or item.endswith('.json'):
             xor_encrypter(fullpath, subdir3)
 
         if os.path.isdir(fullpath):
