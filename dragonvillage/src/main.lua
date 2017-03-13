@@ -92,6 +92,7 @@ local function main()
     math.randomseed(seed)
 
     TABLE:init()
+	ConstantData:getInstance()
     SoundMgr:entry()
     ShaderCache:init()
     TimeLib:initInstance()
@@ -99,7 +100,6 @@ local function main()
     ServerData:getInstance():applySetting()
     ServerData:getInstance():developCache()
     UserData:getInstance()
-	ConstantData:getInstance()
 
     if DV_SCENE_ACTIVE then
         SceneDV():runScene()

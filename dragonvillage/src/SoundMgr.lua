@@ -82,9 +82,6 @@ end
 -- function loadSoundList
 -------------------------------------
 function SoundMgr:loadSoundList()
-    --local file_stream = FileUtil.load(SOUND_LIST_FILE)
-    --self.m_soundList = json.decode(file_stream)
-
     self.m_soundList = TABLE:loadJsonTable(SOUND_LIST_FILE)
 
     -- 배경음 프리로드

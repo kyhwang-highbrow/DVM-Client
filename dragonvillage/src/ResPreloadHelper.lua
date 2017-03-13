@@ -35,7 +35,7 @@ function loadPreloadFile()
     local content = TABLE:loadTableFile(filename, '.txt')
     if not content then return end
 
-    local preloadList = json.decode(content)
+    local preloadList = json_decode(content)
     return preloadList
 end
 

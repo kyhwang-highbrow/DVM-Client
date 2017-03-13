@@ -54,7 +54,7 @@ function LocalData:loadLocalDataFile()
         local content = f:read('*all')
 
         if #content > 0 then
-            self.m_rootTable = json.decode(content)
+            self.m_rootTable = json_decode(content)
         end
         f:close()
     else

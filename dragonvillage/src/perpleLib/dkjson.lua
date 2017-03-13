@@ -1,9 +1,3 @@
-json_decode = function(content, remove_comment)
-	if (remove_comment) then
-		content = json.remove_comment
-	end
-	return json.decode(content)
-end
 
 
 -- Module options:
@@ -603,10 +597,6 @@ end
 function json.decode (str, pos, nullval, ...)
   local objectmeta, arraymeta = optionalmetatables(...)
   return scanvalue (str, pos, nullval, objectmeta, arraymeta)
-end
-
-function json.remove_comment (str)
-  return string.gsub (str, '/%/.-%\n', '')
 end
 
 function json.use_lpeg ()

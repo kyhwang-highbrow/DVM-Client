@@ -32,7 +32,6 @@ function ConstantData:readDataFile()
 	self.m_constantData = TABLE:loadJsonTable('constant', '.json', true)
 end
 
-
 -------------------------------------
 -- function get
 -------------------------------------

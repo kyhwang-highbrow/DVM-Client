@@ -71,7 +71,7 @@ function PatchData:load()
 		local content = f:read('*all')
 
 		if #content > 0 then
-			t_data = json.decode(content)
+			t_data = json_decode(content)
 		end
 		f:close()
 

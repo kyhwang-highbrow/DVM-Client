@@ -418,6 +418,16 @@ function luadump(value, depth)
 end
 
 ---------------------------------
+-- function json_decode
+---------------------------------
+function json_decode(content, remove_comment)
+	if (remove_comment) then
+		content = string.gsub(content, '/%/.-%\n', '')
+	end
+	return json.decode(content)
+end
+
+---------------------------------
 -- function ccdump
 -- cclog + luadump 
 ---------------------------------

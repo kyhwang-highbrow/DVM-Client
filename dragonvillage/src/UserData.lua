@@ -51,7 +51,7 @@ function UserData:loadMasterFile()
         local content = f:read('*all')
 
         if #content > 0 then
-            self.m_masterData = json.decode(content)
+            self.m_masterData = json_decode(content)
         end
         f:close()
     else
@@ -104,7 +104,7 @@ function UserData:loadUserDataFile()
         local content = f:read('*all')
 
         if #content > 0 then
-            self.m_userData = json.decode(content)
+            self.m_userData = json_decode(content)
         end
         f:close()
 
