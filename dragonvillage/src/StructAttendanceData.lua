@@ -11,6 +11,7 @@ StructAttendanceData = class({
         help_text = 'string',
         title_text = 'string',
         received = 'boolean', -- false인 경우 출석 보상을 지금 받았다는 뜻(연출을 보여줘야함)
+        category = 'string',
     })
 
 -------------------------------------
