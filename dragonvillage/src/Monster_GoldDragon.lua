@@ -22,18 +22,12 @@ function Monster_GoldDragon:releaseAnimator()
     if self.m_animator then
         if self.m_animator.m_node then
             self.m_animator.m_node:retain()
-            local x, y = self.m_animator.m_node:getPosition()
 
+            local x, y = self.m_rootNode:getPosition()
+            self.m_animator.m_node:setPosition(x, y)
             self.m_animator.m_node:removeFromParent(true)
-            --self.m_animator.m_node = nil
-
-            self.m_world.m_bgNode:addChild(self.m_animator.m_node)
-
-            --self.m_animator.m_node:setDockPoint(cc.p(0, 0.5))
-			--self.m_animator.m_node:setAnchorPoint(cc.p(0, 0.5))
-            self.m_animator.m_node:setPosition((CRITERIA_RESOLUTION_X / 2) + x, y)
-
             
+            self.m_world.m_bgNode:addChild(self.m_animator.m_node)
         end
         self.m_animator = nil
     end

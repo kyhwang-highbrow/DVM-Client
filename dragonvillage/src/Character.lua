@@ -4,7 +4,6 @@ local CHARACTER_ACTION_TAG__SHAKE = 1
 local CHARACTER_ACTION_TAG__KNOCKBACK = 2
 local CHARACTER_ACTION_TAG__SHADER = 3
 local CHARACTER_ACTION_TAG__FLOATING = 4
-local CHARACTER_ACTION_TAG__SKILL = 5
 
 local SPEED_COMEBACK = 1500
 
@@ -1682,18 +1681,6 @@ function Character:runAction_Floating()
 
     local action = cc.RepeatForever:create(sequence)
     cca.runAction(target_node, action, CHARACTER_ACTION_TAG__FLOATING)
-end
-
--------------------------------------
--- function runAction_Skill
--------------------------------------
-function Character:runAction_Skill(action)
-    local target_node = self.m_rootNode
-    if (not target_node) then
-        return
-    end
-
-    cca.runAction(target_node, action, CHARACTER_ACTION_TAG__SKILL)
 end
 
 -------------------------------------
