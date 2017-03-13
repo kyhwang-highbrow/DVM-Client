@@ -563,6 +563,9 @@ function GameState.update_success(self, dt)
 
         -- 모든 적들을 죽임
         world:killAllEnemy()
+		
+		-- 기본 배속으로 변경
+        world.m_gameTimeScale:setBase(1)
 
         world:setWaitAllCharacter(false) -- 포즈 연출을 위해 wait에서 해제
 
@@ -617,6 +620,9 @@ function GameState.update_failure(self, dt)
         -- 스킬과 미사일도 다 날려 버리자
 	    world:removeMissileAndSkill()
         world:removeEnemyDebuffs()
+		
+		-- 기본 배속으로 변경
+        world.m_gameTimeScale:setBase(1)
 
         g_gameScene.m_inGameUI:doActionReverse(function()
             g_gameScene.m_inGameUI.root:setVisible(false)
@@ -854,10 +860,7 @@ function GameState:checkWaveClear()
         world:cleanupSkill()
         world:removeHeroDebuffs()
 
-        -- 기본 배속으로 변경
-        world.m_gameTimeScale:setBase(1)
-		    
-		if world.m_waveMgr:isFinalWave() == false then
+        if world.m_waveMgr:isFinalWave() == false then
 		    self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
 		else
 			self:changeState(GAME_STATE_SUCCESS_WAIT)
@@ -880,9 +883,6 @@ function GameState:checkWaveClear()
             -- 스킬 다 날려 버리자
 		    world:cleanupSkill()
             world:removeHeroDebuffs()
-
-            -- 기본 배속으로 변경
-            world.m_gameTimeScale:setBase(1)
 
             -- 모든 적들을 죽임
             world:killAllEnemy()
