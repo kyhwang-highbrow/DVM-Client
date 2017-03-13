@@ -175,7 +175,7 @@ end
 function ServerData_User:getTamerInfo(key)
 	local tamer_idx = self:getRef('tamer')
 	if (tamer_idx == 0) then
-		tamer_idx = TAMER_VALUE + 1
+		tamer_idx = g_constant:get('INGAME', 'TAMER_VALUE') + 1
 	end
 
 	local t_tamer = TableTamer():get(tamer_idx)
@@ -192,7 +192,7 @@ end
 function ServerData_User:request_setTamer(tid, cb_func)
     -- 파라미터
     local uid = g_userData:get('uid')
-	local tid = tid or (TAMER_VALUE + 1)
+	local tid = tid or (g_constant:get('INGAME', 'TAMER_VALUE') + 1)
 
     -- 콜백 함수
     local function success_cb()

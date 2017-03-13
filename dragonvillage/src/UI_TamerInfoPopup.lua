@@ -25,7 +25,7 @@ function UI_TamerInfoPopup:init()
     self:doAction(nil, false)
 
 	-- 변수 지정
-	self.m_currTamerIdx = g_userData:getTamerInfo('tid') - TAMER_VALUE
+	self.m_currTamerIdx = g_userData:getTamerInfo('tid') - g_constant:get('INGAME', 'TAMER_VALUE')
 	self.m_tamerTable = TableTamer()
 	self.m_tamerAniList = {}
 
@@ -151,7 +151,7 @@ function UI_TamerInfoPopup:refresh_rotatePlate()
 	
 	-- 현재 중앙에 있는 테이머 정보
 	local front_idx = vars['rotatePlate']:getFrontChildIndex() + 1
-	local t_tamer = self.m_tamerTable:get(front_idx + TAMER_VALUE)
+	local t_tamer = self.m_tamerTable:get(front_idx + g_constant:get('INGAME', 'TAMER_VALUE'))
 	self.m_currTamerIdx = front_idx
 
 	-- 테이머 정보 UI 출력
@@ -193,7 +193,7 @@ function UI_TamerInfoPopup:refresh_tamerSkill()
 	
 	-- 현재 중앙에 있는 테이머 정보
 	local front_idx = vars['rotatePlate']:getFrontChildIndex() + 1
-	local t_tamer = self.m_tamerTable:get(front_idx + TAMER_VALUE)
+	local t_tamer = self.m_tamerTable:get(front_idx + g_constant:get('INGAME', 'TAMER_VALUE'))
 
 	-- 테이머 스킬 테이블
 	local tamer_skill_table = TableTamerSkill()
@@ -284,7 +284,7 @@ end
 -- @brief tamer 선택
 -------------------------------------
 function UI_TamerInfoPopup:click_selectBtn()
-	local tamer_id = self.m_currTamerIdx + TAMER_VALUE
+	local tamer_id = self.m_currTamerIdx + g_constant:get('INGAME', 'TAMER_VALUE')
     
 	-- 콜백
 	local function cb_func()

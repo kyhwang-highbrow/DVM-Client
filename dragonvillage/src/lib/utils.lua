@@ -422,9 +422,16 @@ end
 ---------------------------------
 function json_decode(content, remove_comment)
 	if (remove_comment) then
-		content = string.gsub(content, '/%/.-%\n', '')
+		content = json_removeComment(content)
 	end
 	return json.decode(content)
+end
+
+---------------------------------
+-- function json_removeComment
+---------------------------------
+function json_removeComment(content)
+	return string.gsub(content, '/%/.-%\n', '')
 end
 
 ---------------------------------
