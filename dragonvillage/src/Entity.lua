@@ -359,9 +359,13 @@ function Entity:setTemporaryPause(pause)
 
     self.m_temporaryPause = pause
 
+    local action_mgr = cc.Director:getInstance():getActionManager()
+
     if pause then
+        action_mgr:pauseTarget(self.m_rootNode)
         self.m_animator:setAnimationPause(true)
     else
+        action_mgr:resumeTarget(self.m_rootNode)
         self.m_animator:setAnimationPause(false)
     end
 
