@@ -55,7 +55,7 @@ function UI_InventoryTabRune:init_runeTableView(rune_slot_type)
 
     -- 생성 콜백
     local function create_func(ui, data)
-        ui.root:setScale(0.72)
+        ui.root:setScale(0.7)
         
         local function click_func()
             self.m_inventoryUI:setSelectedItem(ui, data)

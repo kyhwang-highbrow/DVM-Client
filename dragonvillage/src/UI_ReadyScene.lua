@@ -209,7 +209,7 @@ function UI_ReadyScene:init_dragonTableView()
 
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
-    table_view_td.m_cellSize = cc.size(105, 105)
+    table_view_td.m_cellSize = cc.size(110, 110)
     table_view_td.m_nItemPerCell = 4
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
 

@@ -200,6 +200,7 @@ function UI_AdventureStageInfo:refresh_monsterList()
         local cardUIClass = UI_MonsterCard
         local cardUISize = 0.6
         local width, height = cardUIClass:getCardSize(cardUISize)
+        width = 94
 
         -- 인연 던전의 경우
         local game_mode = g_stageData:getGameMode(stage_id)
@@ -271,7 +272,7 @@ function UI_AdventureStageInfo:refresh_rewardInfo()
 
     -- 테이블뷰 초기화
     local table_view_ext = TableViewExtension(list_table_node, TableViewExtension.HORIZONTAL)
-    table_view_ext:setCellInfo(90, 90)
+    table_view_ext:setCellInfo(94, 90)
     table_view_ext:setItemUIClass(UI_ItemCard, click_item, create_func) -- init함수에서 해당 아이템의 정보 테이블을 전달, vars['clickBtn']에 클릭 콜백함수 등록
     table_view_ext:setItemInfo(l_item_list)
     table_view_ext:update()
