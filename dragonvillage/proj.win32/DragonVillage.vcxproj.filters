@@ -552,9 +552,6 @@
     <None Include="..\src\StatusEffect.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\ConstantForArt.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SkillSpatter.lua">
       <Filter>lua</Filter>
     </None>
@@ -1159,9 +1156,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillVoltesX.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\ConstantDebug.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\ConstantGameMode.lua">

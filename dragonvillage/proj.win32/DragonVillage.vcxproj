@@ -273,7 +273,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\CommonMissile_Guide.lua" />
     <None Include="..\src\ConstantColosseum.lua" />
     <None Include="..\src\ConstantData.lua" />
-    <None Include="..\src\ConstantDebug.lua" />
     <None Include="..\src\ConstantGameMode.lua" />
     <None Include="..\src\ConstantStatusEffect.lua" />
     <None Include="..\src\Coroutine.lua" />
@@ -413,7 +412,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ConstantAttribute.lua" />
     <None Include="..\src\ConstantDragonEvolution.lua" />
     <None Include="..\src\ConstantDragonGrade.lua" />
-    <None Include="..\src\ConstantForArt.lua" />
     <None Include="..\src\ConstantString.lua" />
     <None Include="..\src\Counter.lua" />
     <None Include="..\src\DamageCalc.lua" />
