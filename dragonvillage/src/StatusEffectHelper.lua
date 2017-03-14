@@ -60,7 +60,7 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
 	while true do 
 		-- 1. 파싱할 구문 가져오고 탈출 체크
 		effect_str = l_status_effect_str[idx]
-		if (not effect_str) or (effect_str == 'x') then 
+		if (not effect_str) or (effect_str == 'x') or (effect_str == '') then 
 			break 
 		end
 
@@ -541,11 +541,15 @@ function StatusEffectHelper:releaseStatusEffectDebuff(char)
     if (char.m_bDead == true) then return end
 
 	-- 해제
+	local release_cnt = 0
 	for type, status_effect in pairs(char:getStatusEffectList()) do
         if self:isHarmful(status_effect.m_type) then 
 		    status_effect:changeState('end')
+			release_cnt = release_cnt + 1
         end
 	end
+
+	return release_cnt
 end
 
 -------------------------------------
