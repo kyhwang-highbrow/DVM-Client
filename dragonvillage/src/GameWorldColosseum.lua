@@ -173,6 +173,7 @@ end
 -- function addHero
 -------------------------------------
 function GameWorldColosseum:addHero(hero, idx)
+    --[[
     self.m_mHeroList[idx] = hero
 
     hero:addListener('character_dead', self)
@@ -180,13 +181,25 @@ function GameWorldColosseum:addHero(hero, idx)
 
     hero:addListener('dragon_skill', self.m_gameDragonSkill)
     
+    hero:addListener('hero_basic_skill', self)
+    hero:addListener('hero_basic_skill', self.m_gameFever)
+    hero:addListener('hero_active_skill', self.m_gameFever)
     hero:addListener('hero_active_skill', self.m_gameState)
     hero:addListener('hero_active_skill', self.m_gameAutoHero)
+    hero:addListener('hero_touch_skill', self)
+    hero:addListener('hero_touch_skill', self.m_tamerSpeechSystem)
+    hero:addListener('hero_passive_skill', self)
         
     hero:addListener('hero_casting_start', self.m_gameAutoHero)
+
+    hero:addListener('hit_active', self.m_gameFever)
+    hero:addListener('hit_active_buff', self.m_gameFever)
        
     hero:addListener('character_weak', self.m_tamerSpeechSystem)
     hero:addListener('character_damaged_skill', self.m_tamerSpeechSystem)
+    ]]--
+
+    PARENT.addHero(self, hero, idx)
 
     -- HP 변경시 콜백 등록
     hero:addListener('character_set_hp', self)
