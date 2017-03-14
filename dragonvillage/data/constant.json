@@ -1,4 +1,5 @@
 {
+    // 인게임에서 사용되는 변수들
     "INGAME" : {
         // 테이머와 관련된 상수
         "TAMER_ID" : 110001,
@@ -81,6 +82,7 @@
         "DRAGON_SKILL_COOL_TIME" : 10
     },
     
+    // 스킬 공용 & 개별
     "SKILL" : {
         //# Common
         "SKILL_ANGLE_LIMIT" : 60,
@@ -134,5 +136,42 @@
         "SURA_ADD_POWER_RATE" : 50,													    // 추가 탄의 power_rate
         "SURA_ADD_ATK_TYPE" : "basic",													// 추가 탄의 공격타입
         "SURA_ADD_MISSILE_RES" : "res/missile/missile_lotus/missile_lotus_@.png"		// 추가 탄의 미사일 리소스
+    },
+    
+    // 디버깅용
+    "DEBUG" : {
+        // # 드래곤 활성화 스킬을 출력한다. 
+        "PRINT_DRAGON_SKILL" : false,
+
+        // # 인게임 공격 정보를 콘솔에 출력한다
+        "PRINT_ATTACK_INFO" : false,
+
+        // # 보스 패턴 정보를 콘솔에 출력한다
+        "PRINT_BOSS_PATTERN" : false,
+
+        // # 진형별로 소환된 리스트의 이름을 출력 (미사용중 17.3.13 kms)
+        "PRINT_SPAWN_LIST" : false,
+
+        // # 보호막량을 인게임에 표시한다.
+        "DISPLAY_SHIELD_HP" : false,
+
+        // # 체력을 인게임에 숫자로 표시한다.
+        "DISPLAY_UNIT_HP" : false,
+
+        // # 메모리 사용량 등 각종 디버깅 정보를 인게임에 출력한다
+        "DISPLAY_DEBUG_INFO" : false,
+
+        // # 캐릭터 무적
+        "PLAYER_INVINCIBLE" : false,
+        "ENEMY_INVINCIBLE" : false,
+        "INVINCIBLE_STATE" : 1,
+
+        // # 보스가 특정 패턴만 실행하게 한다. false or 숫자
+        "TEST_PATTERN" : false
+    },
+    
+    // 리소스 테스트용
+    "ART" : {
+        "STATUS_EFFECT_RES" : "res/effect/effect_burn/effect_burn.vrp"
     }
 }

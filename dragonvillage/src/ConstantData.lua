@@ -49,7 +49,7 @@ function ConstantData:get(...)
     local cnt = #args
 
     local container = self.m_constantData
-    for i,key in ipairs(args) do
+    for i, key in ipairs(args) do
         if (i < cnt) then
             if (type(container[key]) ~= 'table') then
                 return nil
@@ -69,26 +69,19 @@ end
 -- function sets
 -------------------------------------
 function ConstantData:set(set_data, ...)
-	-- 윈도우에서는 매번 읽어 테스트하기 용이하도록 한다.
-	if (isWin32()) then
-		self:readDataFile()
-	end
-
 	local set_data = set_data
     local args = {...}
     local cnt = #args
 
     local container = self.m_constantData
-    for i,key in ipairs(args) do
+    for i, key in ipairs(args) do
         if (i < cnt) then
             if (type(container[key]) ~= 'table') then
-                return nil
+                error('트리가 잘못되었습니다. data/constant.json를 확인해 주세요')
             end
             container = container[key]
         else
             container[key] = set_data
         end
     end
-
-    return nil
 end

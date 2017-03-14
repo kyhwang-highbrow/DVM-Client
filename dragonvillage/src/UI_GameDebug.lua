@@ -144,7 +144,7 @@ function UI_GameDebug:makeTableView()
             node:setDockPoint(cc.p(1, 0.5))
             node:setPositionX(-40)
             node:setAnchorPoint(cc.p(0.5, 0.5))
-            node:setRotation(180)
+			node:setScale(-1)
             local uic_button = UIC_Button(node)
             uic_button:registerScriptTapHandler(function()
                 item['cb1'](self, item, 1)
@@ -157,7 +157,6 @@ function UI_GameDebug:makeTableView()
             node:setDockPoint(cc.p(1, 0.5))
             node:setPositionX(-(40 + 67))
             node:setAnchorPoint(cc.p(0.5, 0.5))
-			node:setRotation(360)
             local uic_button = UIC_Button(node)
             uic_button:registerScriptTapHandler(function()
                 item['cb2'](self, item, 2)
@@ -488,14 +487,17 @@ end
 -- function playerInvincible
 -------------------------------------
 function UI_GameDebug.playerInvincible(self, item, idx)
+	-- 무적 상태를 1 증가 시킨후 set
 	local invincible_state = g_constant:get('DEBUG', 'INVINCIBLE_STATE') + 1
     g_constant:set(invincible_state, 'DEBUG', 'INVINCIBLE_STATE')
 
+	-- 4보다 크다면 다시 1로 되돌린다.
 	if (invincible_state > 4) then
 		g_constant:set(1, 'DEBUG', 'INVINCIBLE_STATE')
 		invincible_state = 1
 	end
-	cclog(invincible_state)
+
+	-- 각 state 별 무적 처리
 	if (invincible_state == 1) then
 		g_constant:set(false, 'DEBUG', 'PLAYER_INVINCIBLE')
 		g_constant:set(false, 'DEBUG', 'ENEMY_INVINCIBLE')
@@ -510,6 +512,7 @@ function UI_GameDebug.playerInvincible(self, item, idx)
 		g_constant:set(true, 'DEBUG', 'ENEMY_INVINCIBLE')
 	end
 
+	-- 문구
 	item['label']:setString(self:getInvincibleStr(invincible_state))
 end
 
