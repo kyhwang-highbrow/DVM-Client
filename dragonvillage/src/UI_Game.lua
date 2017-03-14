@@ -39,6 +39,7 @@ function UI_Game:initUI()
     end
     
     vars['goldLabel']:setString('0')
+    vars['dragSkillLabel']:setString('0%')
 
     -- 스테이지명 지정
     local stage_name = g_stageData:getStageName(self.m_gameScene.m_stageID)

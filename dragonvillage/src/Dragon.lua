@@ -19,6 +19,7 @@ Dragon = class(PARENT, {
         m_touchSkillCoolTime = 'number',
 
         m_dragSkillNode = '',
+        m_dragSkillNodeOffset = 'cc.p',
         
         m_afterimageMove = 'number',
 
@@ -42,6 +43,7 @@ function Dragon:init(file_name, body, ...)
     self.m_touchSkillCoolTime = 0
 
     self.m_dragSkillNode = nil
+    self.m_dragSkillNodeOffset = cc.p(0, 0)
 
     self.m_bUseSelfAfterImage = false
     self.m_skillPrepareEffect = nil
@@ -480,12 +482,16 @@ function Dragon:release()
         end
     end
 
-    if self.m_hpNode then
+    if (self.m_hpNode) then
         self.m_hpNode:removeFromParent(true)
+    end
+    if (self.m_dragSkillNode) then
+        self.m_dragSkillNode.m_node:removeFromParent(true)
     end
     
     self.m_hpNode = nil
     self.m_hpGauge = nil
+    self.m_dragSkillNode = nil
 
     Entity.release(self)
 end
@@ -541,6 +547,7 @@ function Dragon:makeHPGauge(hp_ui_offset)
 
     self.m_hpGauge = ui.vars['hpGauge']
     self.m_hpGauge2 = ui.vars['hpGauge2']
+
     self.m_dragSkillNode = ui.vars['dragSkllFullVisual']
     self.m_dragSkillNode.m_node:retain()
     self.m_dragSkillNode.m_node:removeFromParent(true)
@@ -881,17 +888,14 @@ function Dragon:updateDragSkill(dt, bFixed)
     if (not self.m_world) then return end
     if (not self.m_dragSkillNode) then return end
 
-    local b = false
-
-    if (self.m_bLeftFormation) then
-        b = self.m_world:isEndDragSkillCoolTime()
-    end
-
+    local b = self:isPossibleSkill('active')
+    
     if (bFixed ~= nil) then
         b = bFixed
     end
 
-    self.m_dragSkillNode:setPosition(self.pos.x + 50, self.pos.y + 50)
+    --self.m_dragSkillNode:setPosition(self.pos.x + self.m_dragSkillNodeOffset.x, self.pos.y + self.m_dragSkillNodeOffset.y)
+    self.m_dragSkillNode:setPosition(self.pos.x + 25, self.pos.y)
     self.m_dragSkillNode:setVisible(b)
 end
 

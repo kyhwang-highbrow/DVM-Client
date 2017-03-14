@@ -19,13 +19,13 @@
 				};
 				type = 'Visual';
 				ui_name = '';
-				x = 95.000000;
-				y = 105.000000;
+				x = 18.000000;
+				y = 60.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 100;
-				height = 100;
+				width = 0;
+				height = 0;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -54,13 +54,13 @@
 				};
 				type = 'Visual';
 				ui_name = '';
-				x = 48.000000;
-				y = 50.000000;
+				x = 4.000000;
+				y = 5.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 100;
-				height = 100;
+				width = 0;
+				height = 0;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -84,8 +84,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 74;
-				height = 28;
+				width = 83;
+				height = 34;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -105,13 +105,13 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = 12.000000;
+				x = 20.000000;
 				y = -8.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 58;
-				height = 4;
+				width = 67;
+				height = 8;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -135,12 +135,12 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = 40.000000;
-				y = 4.000000;
+				x = 49.000000;
+				y = 7.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 66;
+				width = 61;
 				height = 10;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -149,8 +149,8 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'hpGauge2';
-				file_name = 'ui/gauge/dragon_hp_gg.png';
-				color = { 150; 150; 150; };
+				file_name = 'ui/gauge/dragon_hp_gg2.png';
+				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
 				flip_y = false;
@@ -161,12 +161,12 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = 40.000000;
-				y = 4.000000;
+				x = 49.000000;
+				y = 7.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 66;
+				width = 61;
 				height = 10;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -184,32 +184,6 @@
 				dest_blend = 771;
 			};
 			[7] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = -35.000000;
-				y = 0.000002;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 44;
-				height = 44;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/gauge/active_bg.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[8] =
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
@@ -239,12 +213,12 @@
 				mid_point_y = 0.500000;
 				percentage = 100;
 			};
-			[9] =
+			[8] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -35.000000;
-				y = 0.000000;
+				x = -29.000000;
+				y = 5.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -258,7 +232,7 @@
 				visible = true;
 				lua_name = 'attrNode';
 			};
-			[10] =
+			[9] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -298,7 +272,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[11] =
+			[10] =
 			{
 				[1] =
 				{
@@ -312,13 +286,13 @@
 				};
 				type = 'Visual';
 				ui_name = '';
-				x = 48.000000;
-				y = 50.000000;
+				x = 4.000000;
+				y = 5.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 100;
-				height = 100;
+				width = 0;
+				height = 0;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -329,7 +303,7 @@
 				file_name = 'ui/a2d/ingame_dragon_skill/ingame_dragon_skill.a2d';
 				auto_play = true;
 				is_repeat = true;
-				visual_id = 'skill_gauge;idle';
+				visual_id = 'skill_gauge;idle_s_dark';
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};

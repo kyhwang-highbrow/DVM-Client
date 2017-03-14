@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>skill_wonder_fire_02.png</key>
+            <key>skill_wonder_dark_02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{229,324}}</string>
@@ -17,10 +17,62 @@
                 <key>sourceSize</key>
                 <string>{433,340}</string>
             </dict>
+            <key>skill_wonder_dark_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{464,2},{197,312}}</string>
+                <key>offset</key>
+                <string>{-27,-1}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{91,15},{197,312}}</string>
+                <key>sourceSize</key>
+                <string>{433,340}</string>
+            </dict>
+            <key>skill_wonder_dark_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,328},{163,280}}</string>
+                <key>offset</key>
+                <string>{-44,-17}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{91,47},{163,280}}</string>
+                <key>sourceSize</key>
+                <string>{433,340}</string>
+            </dict>
+            <key>skill_wonder_dark_05.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{566,316},{105,208}}</string>
+                <key>offset</key>
+                <string>{-52,-53}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{112,119},{105,208}}</string>
+                <key>sourceSize</key>
+                <string>{433,340}</string>
+            </dict>
+            <key>skill_wonder_fire_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{233,2},{229,324}}</string>
+                <key>offset</key>
+                <string>{-25,5}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{77,3},{229,324}}</string>
+                <key>sourceSize</key>
+                <string>{433,340}</string>
+            </dict>
             <key>skill_wonder_fire_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,435},{197,312}}</string>
+                <string>{{776,2},{197,312}}</string>
                 <key>offset</key>
                 <string>{-27,-1}</string>
                 <key>rotated</key>
@@ -33,11 +85,11 @@
             <key>skill_wonder_fire_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,749},{163,280}}</string>
+                <string>{{284,328},{163,280}}</string>
                 <key>offset</key>
                 <string>{-44,-17}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{91,47},{163,280}}</string>
                 <key>sourceSize</key>
@@ -46,11 +98,11 @@
             <key>skill_wonder_fire_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,328},{105,208}}</string>
+                <string>{{663,2},{105,208}}</string>
                 <key>offset</key>
                 <string>{-52,-53}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{112,119},{105,208}}</string>
                 <key>sourceSize</key>
@@ -59,11 +111,11 @@
             <key>skill_wonder_fire_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{201,435},{411,46}}</string>
+                <string>{{566,423},{411,46}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,3},{411,46}}</string>
                 <key>sourceSize</key>
@@ -77,9 +129,9 @@
             <key>realTextureFileName</key>
             <string>skill_wonder.png</string>
             <key>size</key>
-            <string>{249,1031}</string>
+            <string>{979,493}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b7e803794dc4e08e9de7134d8973b96f:17000410262b08c654cdbcf090e8efd9:51b86e87705196a0e36e558a03114bca$</string>
+            <string>$TexturePacker:SmartUpdate:b09a45df87b1e05e764c483de6e3dd60:4343509525a9eb4fe38bc674e766958c:51b86e87705196a0e36e558a03114bca$</string>
             <key>textureFileName</key>
             <string>skill_wonder.png</string>
         </dict>
