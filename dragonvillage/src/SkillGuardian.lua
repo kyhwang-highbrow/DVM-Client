@@ -57,7 +57,6 @@ function SkillGuardian.st_idle(owner, dt)
         end
 	
 		-- 상태효과
-		--StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {owner.m_targetChar}, owner.m_lStatusEffectStr)
         owner:doStatusEffect({
             STATUS_EFFECT_CON__SKILL_HIT,
             STATUS_EFFECT_CON__SKILL_HIT_CRI

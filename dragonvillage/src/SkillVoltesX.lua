@@ -169,7 +169,6 @@ function SkillVoltesX:runAttack(idx)
 	self:removeDestructibleMissile()
 
 	-- 상태효과
-	--StatusEffectHelper:doStatusEffectByStr(self.m_owner, t_target, self.m_lStatusEffectStr)
     self:doStatusEffect({
         STATUS_EFFECT_CON__SKILL_HIT,
         STATUS_EFFECT_CON__SKILL_HIT_CRI

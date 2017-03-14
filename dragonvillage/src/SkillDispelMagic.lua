@@ -43,7 +43,6 @@ function SkillDispelMagic.st_idle(owner, dt)
 		-- 상태이상 헤제
 		StatusEffectHelper:releaseHarmfulStatusEffect(owner.m_targetChar)
 		-- 추가 버프 
-		--StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {owner.m_targetChar}, owner.m_lStatusEffectStr)
         owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_HIT }, {owner.m_targetChar})
 		
 		owner.m_animator:addAniHandler(function()

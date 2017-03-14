@@ -37,7 +37,6 @@ end
 function SkillProtection.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
 		-- 기본 타겟에 실드
-		--StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {owner.m_targetChar}, owner.m_lStatusEffectStr)
         owner:doStatusEffect({
             STATUS_EFFECT_CON__SKILL_HIT,
             STATUS_EFFECT_CON__SKILL_HIT_CRI,

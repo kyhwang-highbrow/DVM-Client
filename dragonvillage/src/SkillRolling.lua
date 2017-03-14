@@ -171,7 +171,6 @@ function SkillRolling.st_attack(owner, dt)
 		
 		-- 스파인 드래곤 .. 적 죽일 시 상태효과
 		if (owner.m_targetChar) and (owner.m_targetChar.m_bDead) then
-            --StatusEffectHelper:doStatusEffectByStr(owner.m_owner, {}, owner.m_lStatusEffectStr)
             owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_SLAIN }, {})
 		end
 	end
