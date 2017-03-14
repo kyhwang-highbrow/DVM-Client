@@ -99,7 +99,7 @@ function UI_ExplorationResultPopup:initUI()
             local max_icon      = vars['maxSprite' .. i]
             local exp_gauge     = vars['expGauge' .. i]
             local level_up_vrp  = vars['lvUpVisual' .. i]
-            local levelup_director = LevelupDirector_GameResult(lv_label, exp_label, max_icon, exp_gauge, level_up_vrp)
+            local levelup_director = LevelupDirector_GameResult(lv_label, exp_label, max_icon, exp_gauge, level_up_vrp, grade)
 
             -- 최초 레벨업 시 포즈
             levelup_director.m_cbFirstLevelup = function()

@@ -24,14 +24,12 @@ LevelupDirector = class({
 
         m_iterLv = 'number',
         m_iterExp = 'number',
-
-        m_dragonGrade = 'number',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function LevelupDirector:init(src_lv, src_exp, dest_lv, dest_exp, l_max_exp, dragon_grade)
+function LevelupDirector:init(src_lv, src_exp, dest_lv, dest_exp, l_max_exp)
     
     do -- [external variable]
         -- 기존 레벨, 경험치
@@ -44,8 +42,6 @@ function LevelupDirector:init(src_lv, src_exp, dest_lv, dest_exp, l_max_exp, dra
 
         -- 레벨별 최대 경험치 리스트
         self.m_lMaxExp = l_max_exp
-
-        self.m_dragonGrade = dragon_grade
     end
 
     do -- [interval variable]
@@ -179,13 +175,13 @@ end
 -- function getDragonExpList
 -- @brief
 -------------------------------------
-function LevelupDirector:getDragonExpList()
+function LevelupDirector:getDragonExpList(grade)
     local table_dragon_exp = TableDragonExp()
-    local l_exp_data = table_dragon_exp:filterList('grade', self.m_dragonGrade)
+    local l_exp_data = table_dragon_exp:filterList('grade', grade)
 
     local l_max_exp = {}
 
-    for i,v in ipairs(l_exp_data) do
+    for i,v in pairs(l_exp_data) do
         local level =  v['lv']
         local max_exp = v['max_exp']
         l_max_exp[level] = max_exp

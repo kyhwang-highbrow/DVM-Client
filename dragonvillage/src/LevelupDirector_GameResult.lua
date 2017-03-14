@@ -34,13 +34,13 @@ function LevelupDirector_GameResult:initLevelupDirector(src_lv, src_exp, dest_lv
     if (type == 'tamer') then
         l_max_exp = LevelupDirector:getTamerExpList()
     elseif (type == 'dragon') then
-        l_max_exp = LevelupDirector:getDragonExpList()
+        l_max_exp = LevelupDirector:getDragonExpList(grade)
     else
         error('type : ' .. type)
     end
 
     -- LevelupDirector 생성
-    self.m_levelupDirector = LevelupDirector(src_lv, src_exp, dest_lv, dest_exp, l_max_exp, grade)
+    self.m_levelupDirector = LevelupDirector(src_lv, src_exp, dest_lv, dest_exp, l_max_exp)
 
     -- Update 콜백 등록
     self.m_levelupDirector.m_cbUpdate = function(lv, exp, percentage)
