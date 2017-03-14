@@ -670,6 +670,103 @@
 					}
 				},
 				{
+					"name":"res_drag_idle_dark_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5
+									},
+									{
+										"frame":9
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":24
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_dark_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25
+									},
+									{
+										"frame":29
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"res_drag_idle_earth",
 					"apply":true,
 					"fps":30,
@@ -751,6 +848,103 @@
 							},
 							{
 								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25
+									},
+									{
+										"frame":29
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_drag_idle_earth_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5
+									},
+									{
+										"frame":9
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":24
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_earth_0202.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -864,6 +1058,103 @@
 					}
 				},
 				{
+					"name":"res_drag_idle_fire_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5
+									},
+									{
+										"frame":9
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":24
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_fire_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25
+									},
+									{
+										"frame":29
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"res_drag_idle_light",
 					"apply":true,
 					"fps":30,
@@ -961,6 +1252,103 @@
 					}
 				},
 				{
+					"name":"res_drag_idle_light_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5
+									},
+									{
+										"frame":9
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":24
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_light_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25
+									},
+									{
+										"frame":29
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"res_drag_idle_water",
 					"apply":true,
 					"fps":30,
@@ -1042,6 +1430,103 @@
 							},
 							{
 								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0102.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":25
+									},
+									{
+										"frame":29
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"res_drag_idle_water_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":4
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":5
+									},
+									{
+										"frame":9
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0202.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15
+									},
+									{
+										"frame":19
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0201.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":20
+									},
+									{
+										"frame":24
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)ingame_dragon_skill.plist'<azSprite>'drag_skill_fx_water_0202.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -1355,6 +1840,33 @@
 					}
 				},
 				{
+					"name":"drag_idle_dark_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_drag_idle_dark_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-10.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"drag_idle_earth",
 					"apply":true,
 					"fps":30,
@@ -1375,6 +1887,33 @@
 									},
 									{
 										"frame":29, "pX":10.000000, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"drag_idle_earth_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_drag_idle_earth_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-10.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "mode":"Add"
 									}
 								]
 							}
@@ -1409,6 +1948,33 @@
 					}
 				},
 				{
+					"name":"drag_idle_fire_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_drag_idle_fire_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-10.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"drag_idle_light",
 					"apply":true,
 					"fps":30,
@@ -1436,6 +2002,33 @@
 					}
 				},
 				{
+					"name":"drag_idle_light_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_drag_idle_light_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-10.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"drag_idle_water",
 					"apply":true,
 					"fps":30,
@@ -1456,6 +2049,33 @@
 									},
 									{
 										"frame":29, "pX":10.000000, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"drag_idle_water_2",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'res_drag_idle_water_2'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pY":-10.000000, "mode":"Add"
+									},
+									{
+										"frame":29, "mode":"Add"
 									}
 								]
 							}

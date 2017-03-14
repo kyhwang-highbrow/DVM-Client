@@ -61,7 +61,7 @@ heal,dot_heal,회복,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_e
 heal_abs,dot_heal,회복,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,0,100,1,hp_abs,0,0,0,x,x,x,x,x,x
 heal_per_atk,dot_heal,회복,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,0,100,0,atk,0,0,0,x,x,x,x,x,x
 heal_overlab,dot_heal,회복 오버랩,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,5,15,0,0,0,0,0,0,0,0,0,0,0,3,0,100,0,atk,0,0,0,x,x,x,x,x,x
-barrier_protection,barrier,보호막,res/effect/effect_protection/effect_protection.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
+barrier_protection,barrier,보호막,res/effect/effect_protection/effect_protection.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
 barrier_protection_darknix,barrier,경질화,res/effect/effect_darknix_barrier/effect_darknix_barrier.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,20,0,0,0,0,0,0,0,0,0,0,-90,0,0,0,0,10,0,0,0,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
 passive_spatter,passive,퐁당퐁당,x,x,x,false,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,200,3,0,5,x,x,x,x,회피 시 반경 {1}px 범위 내 아군 {2}명의 체력을 퍼플립스 드래곤의 체력 {3}%만큼  회복.,(퍼플립스 4성 패시브)
 passive_recovery,passive,지속 치유,x,x,x,false,1,-1,0,0,0,0,0,0,0,0,0,0,0,10,0,100,0,hp_target,0,0,0,x,x,x,x,{1}초 마다 리티오 전체 생명력의 {dot_heal}% 만큼 아군 전체의 생명력을 회복.,(리티오 4성 패시브)
