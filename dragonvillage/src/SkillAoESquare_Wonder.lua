@@ -39,10 +39,7 @@ function SkillAoESquare_Wonder:enterAttack()
 	local pos_y = self.pos.y
 
 	for i, pos_x in pairs(l_pos_x) do
-		cclog(pos_x)
 		local effect = self:makeEffect(self.m_res, pos_x, pos_y, self.m_idleAniName)
-		effect:setScale(3.0)
-		--effect:setTimeScale(0.3)
 	end
 end
 
