@@ -16,6 +16,8 @@ UI_CharacterCard = class(PARENT, {
         m_charFrameRes = 'string',
         m_charLevelNumber = 'number',
         m_attrSynastry = 'Animator', -- 속성 상성 이펙트
+
+        m_tag = '',
     })
 
 -------------------------------------

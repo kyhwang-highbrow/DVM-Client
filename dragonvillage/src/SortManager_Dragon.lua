@@ -319,3 +319,40 @@ function SortManager_Dragon:sort_doid(a, b, ascending)
         return a_value > b_value
     end
 end
+
+-------------------------------------
+-- function getSortName
+-- @brief
+-------------------------------------
+function SortManager_Dragon:getSortName(type)
+    local str = ''
+    if (type == 'hp') then
+        str = Str('체력')
+
+    elseif (type == 'def') then
+        str = Str('방어력')
+
+    elseif (type == 'atk') then
+        str = Str('공격력')
+
+    elseif (type == 'attr') then
+        str = Str('속성')
+
+    elseif (type == 'lv') then
+        str = Str('레벨')
+
+    elseif (type == 'grade') then
+        str = Str('등급')
+
+    elseif (type == 'rarity') then
+        str = Str('희귀도')
+
+    elseif (type == 'friendship') then
+        str = Str('친밀도')
+
+    else
+        error('type : ' .. type)
+    end
+
+    return str
+end
