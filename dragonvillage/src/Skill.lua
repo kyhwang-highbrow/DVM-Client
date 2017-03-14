@@ -293,10 +293,10 @@ function Skill:attack(target_char)
 end
 
 -------------------------------------
--- function doSpecailEffect
+-- function doSpecialEffect
 -- @brief 로직화 할 수 없는 특수 효과들은 이함수를 통해서 실행 시키고 특정 상위 수준에서 실행한다
 -------------------------------------
-function Skill:doSpecailEffect()
+function Skill:doSpecialEffect()
 end
 
 -------------------------------------

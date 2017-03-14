@@ -52,7 +52,7 @@ end
 function SkillAoESquare_Fairy.st_attack(owner, dt)
 	if (owner.m_stateTimer == 0) then
 		owner:runAttack()
-		owner:doFairySideEffect()
+		owner:doSpecialEffect()
 		owner.m_animator:addAniHandler(function()
 			owner:changeState('disappear')
 		end)
@@ -72,9 +72,9 @@ end
 
 
 -------------------------------------
--- function doFairySideEffect
+-- function doSpecialEffect
 -------------------------------------
-function SkillAoESquare_Fairy:doFairySideEffect()
+function SkillAoESquare_Fairy:doSpecialEffect()
 	-- 적을 맞출 횟수
 	local release_cnt = #(self:findTarget())
 

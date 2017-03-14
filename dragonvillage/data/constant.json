@@ -139,15 +139,19 @@
             {"x" : -100, "y" : 50}
         ],
 
-        // # 자룡 액티브
+        // # 자룡 드래그
         "JARYONG_APPEAR_INTERVAR": 0.016,			// 발사체 등장 간격
         "JARYONG_FIRE_DELAY" : 0.016,				// 발사체 발사 딜레이
 
-        // # 수라드래곤 액티브
+        // # 수라드래곤 드래그
         "SURA_ADD_HEIGHT_RANGE" : 200,													// 추가 탄의 궤적 높이
         "SURA_ADD_POWER_RATE" : 50,													    // 추가 탄의 power_rate
         "SURA_ADD_ATK_TYPE" : "basic",													// 추가 탄의 공격타입
-        "SURA_ADD_MISSILE_RES" : "res/missile/missile_lotus/missile_lotus_@.png"		// 추가 탄의 미사일 리소스
+        "SURA_ADD_MISSILE_RES" : "res/missile/missile_lotus/missile_lotus_@.png",		// 추가 탄의 미사일 리소스
+        
+        // # 원더드래곤 드래그
+        "WONDER_CLAW_WIDTH" : 30,                    // 발톱의 폭
+        "WONDER_CLAW_SPACE" : 100                    // 발톱의 간격
     },
     
     // 디버깅용

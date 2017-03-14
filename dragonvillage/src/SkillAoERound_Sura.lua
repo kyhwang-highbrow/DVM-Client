@@ -54,10 +54,10 @@ function SkillAoERound_Sura:setAttackInterval()
 end
 
 -------------------------------------
--- function doSpecailEffect
+-- function doSpecialEffect
 -- @Overridding
 -------------------------------------
-function SkillAoERound_Sura:doSpecailEffect(t_target)
+function SkillAoERound_Sura:doSpecialEffect(t_target)
 	-- 직접 타격한 대상이 없다면 탈출
 	if (not t_target) or (table.count(t_target) == 0) then 
 		return 

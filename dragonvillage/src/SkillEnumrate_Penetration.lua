@@ -70,7 +70,7 @@ function SkillEnumrate_Penetration:fireMissile(idx)
         -- 타격 카운트 갱신
         self:addHitCount()
 
-		self:doSpecailEffect()
+		self:doSpecialEffect()
 	end
 
 	-- fire!!

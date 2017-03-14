@@ -59,7 +59,7 @@ function SkillAoERound.st_appear(owner, dt)
 		if (not owner.m_targetChar) then 
 			owner:changeState('dying') 
 		end
-		owner:doSpecailEffect_onAppear()
+		owner:doSpecialEffect_onAppear()
 		owner.m_animator:addAniHandler(function()
 			owner:changeState('attack')
 		end)
@@ -115,7 +115,7 @@ function SkillAoERound:runAttack()
     local t_target = self:findTarget()
 
 	-- 특수한 부가 효과 구현
-	self:doSpecailEffect(t_target)
+	self:doSpecialEffect(t_target)
 
     for i, target_char in ipairs(t_target) do
 		
@@ -145,15 +145,15 @@ function SkillAoERound:setAttackInterval()
 end
 
 -------------------------------------
--- function doSpecailEffect_onAppear
+-- function doSpecialEffect_onAppear
 -------------------------------------
-function SkillAoERound:doSpecailEffect_onAppear(t_target)
+function SkillAoERound:doSpecialEffect_onAppear(t_target)
 end
 
 -------------------------------------
--- function doSpecailEffect (onHit)
+-- function doSpecialEffect (onHit)
 -------------------------------------
-function SkillAoERound:doSpecailEffect(t_target)
+function SkillAoERound:doSpecialEffect(t_target)
 end
 
 -------------------------------------

@@ -93,12 +93,21 @@ end
 
 -------------------------------------
 -- function enterAttack
+-- @brief 공격이 시작되는 시점에 실행
 -------------------------------------
 function SkillAoESquare:enterAttack()
 end
 
 -------------------------------------
+-- function doSpecialEffect
+-- @brief 시작 위치를 자유롭게 지정하여 실행
+-------------------------------------
+function SkillAoESquare:doSpecialEffect()
+end
+
+-------------------------------------
 -- function escapeAttack
+-- @brief 공격이 종료되는 시점에 실행
 -------------------------------------
 function SkillAoESquare:escapeAttack()
 	self:changeState('dying')

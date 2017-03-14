@@ -57,9 +57,9 @@ function SkillEnumrate_Penetration_Jaryong.st_appear(owner, dt)
 end
 
 -------------------------------------
--- function doSpecailEffect
+-- function doSpecialEffect
 -------------------------------------
-function SkillEnumrate_Penetration_Jaryong:doSpecailEffect()
+function SkillEnumrate_Penetration_Jaryong:doSpecialEffect()
 	StatusEffectHelper:doStatusEffectByStr(self.m_owner, {self.m_owner}, self.m_lStatusEffectStr)
 end
 

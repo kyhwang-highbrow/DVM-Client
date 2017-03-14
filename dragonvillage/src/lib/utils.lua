@@ -133,7 +133,7 @@ end
 
 -------------------------------------
 -- function sortRandom
--- @brief 테이블을 랜덤하게 정렬
+-- @brief 인덱스 테이블을 랜덤하게 정렬
 -------------------------------------
 function table.sortRandom(t_org)
     local t_ret = {}
@@ -168,6 +168,26 @@ function table.getRandom(t)
         local rand = math_random(1, #t)
         return t[rand]
     end
+end
+
+-------------------------------------
+-- function getRandomList
+-- @brief 인덱스 테이블에서 max_cnt 만큼 중복되지 않은 리스트 추출
+-------------------------------------
+function table.getRandomList(list, max_cnt)
+	local l_random = table.sortRandom(list)
+	local l_ret = {}
+	local count = 0
+
+	for _, item in pairs(l_random) do
+		table.insert(l_ret, item)
+		count = count + 1
+		if (count >= max_cnt) then
+			break;
+		end
+	end
+
+	return l_ret
 end
 
 -------------------------------------
@@ -669,7 +689,41 @@ function isCollision_Rect(x, y, target, range_x, range_y)
 	local target_x = target.pos.x
 	local target_y = target.pos.y
 	local body_size = target.body['size']
-	return (math_abs(target_x - x) - body_size < range_x) and (math_abs(target_y - y) - body_size  < range_y)end
+	return (math_abs(target_x - x) - body_size < range_x) and (math_abs(target_y - y) - body_size  < range_y)
+end
+
+-------------------------------------
+-- function calculatePositionX
+-- @brief 주어진 x를 기준으로 지정된 간격의 n개의 좌표를 구한다.
+-------------------------------------
+function calculatePositionX(line_cnt, space, pos_x)
+    local pos_x = pos_x
+	local space = space
+	local line_cnt = line_cnt
+	
+	local l_ret = {}
+	local half = math_floor(line_cnt/2)
+
+	-- 홀수
+	if ((line_cnt % 2) == 1) then
+		-- 중앙값
+		table.insert(l_ret, pos_x)
+		-- 좌우값
+		for i = 1, half do
+			table.insert(l_ret, pos_x + (space * i))
+			table.insert(l_ret, pos_x - (space * i))
+		end
+	-- 짝수
+	else
+		-- 좌우값
+		for i = 1, half do
+			table.insert(l_ret, pos_x + (space * (i - 1 + 0.5)))
+			table.insert(l_ret, pos_x - (space * (i - 1 + 0.5)))
+		end
+	end
+
+	return l_ret
+end
 
 -------------------------------------
 -- function addChild

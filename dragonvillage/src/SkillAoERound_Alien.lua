@@ -32,9 +32,9 @@ function SkillAoERound_Alien:init_skill(attack_count, range, aoe_res, is_release
 end
 
 -------------------------------------
--- function doSpecailEffect_onAppear
+-- function doSpecialEffect_onAppear
 -------------------------------------
-function SkillAoERound_Alien:doSpecailEffect_onAppear()
+function SkillAoERound_Alien:doSpecialEffect_onAppear()
 	self.m_isStartZoom = true
 	local vitual_char = {pos = self.pos}
 	self.m_world.m_gameCamera:setTarget(vitual_char, {time = 0.05})
@@ -42,10 +42,10 @@ function SkillAoERound_Alien:doSpecailEffect_onAppear()
 end
 
 -------------------------------------
--- function doSpecailEffect
+-- function doSpecialEffect
 -- @Overridding
 -------------------------------------
-function SkillAoERound_Alien:doSpecailEffect()
+function SkillAoERound_Alien:doSpecialEffect()
 	if not (self.m_isReleaseSE) then return end
 
 	-- 적을 맞출 횟수
