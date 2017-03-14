@@ -557,6 +557,7 @@ end
 -- function addFeverPoint
 -------------------------------------
 function GameFever:addFeverPoint(point)
+    if (point == 0) then return end
     if (self:isActive()) then return end
     if (self.m_realPoint >= 100) then return end
     
@@ -578,8 +579,8 @@ function GameFever:addFeverPoint(point)
         local scale = math_pow(1 + (self.m_realPoint / 100) / 2, 2)
         local scale_action = cc.ScaleTo:create(fever_point_time, scale)
         local move_action = cc.MoveTo:create(fever_point_time, cc.p(
-            (720 * self.m_realPoint / 100),
-            (30 * self.m_realPoint / 100)
+            (245 * self.m_realPoint / 100),
+            50
         ))
         
         self.m_feverGaugeEffect:setVisible(true)
