@@ -643,11 +643,11 @@ function GameState:changeState(state)
     local prev_state = self.m_state
     PARENT.changeState(self, state)
 
-    if (prev_state == GAME_STATE_FIGHT) then
+    if (prev_state == GAME_STATE_FIGHT or prev_state == GAME_STATE_FIGHT_FEVER) then
          self.m_world:setWaitAllCharacter(true)
     end
 
-    if (self.m_state == GAME_STATE_FIGHT) then
+    if (self.m_state == GAME_STATE_FIGHT or prev_state == GAME_STATE_FIGHT_FEVER) then
         self.m_world:setWaitAllCharacter(false)
     end
 end

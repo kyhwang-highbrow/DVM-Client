@@ -1487,13 +1487,6 @@ function GameWorld:isPossibleControl()
 end
 
 -------------------------------------
--- function isOnFight
--------------------------------------
-function GameWorld:isOnFight()
-    return self.m_gameState:isFight()
-end
-
--------------------------------------
 -- function isParticipantMaxCount
 -------------------------------------
 function GameWorld:isParticipantMaxCount()
