@@ -85,10 +85,10 @@ function UI_DragonDetailPopup:refresh()
     end
 
     do -- 경혐치 exp
+        local grade = (t_dragon_data['grade'] or 1)
         local lv = t_dragon_data['lv']
-        local table_exp = TABLE:get('exp_dragon')
-        local t_exp = table_exp[lv] 
-        local max_exp = t_exp['exp_d']
+        local table_exp = TableDragonExp()
+        local max_exp = table_exp:getDragonMaxExp(grade, lv)
         if (max_exp > 0) then
             local percent = (t_dragon_data['exp'] / max_exp) * 100
             percent = math_floor(percent)

@@ -40,17 +40,17 @@ end
 -------------------------------------
 function dragonMaxLevel(dragon_grade, eclv)
     if (dragon_grade == 1) then
-        return 20
+        return 15
     elseif (dragon_grade == 2) then
-        return 30
+        return 20
     elseif (dragon_grade == 3) then
-        return 40
+        return 25
     elseif (dragon_grade == 4) then
-        return 50
+        return 30
     elseif (dragon_grade == 5) then
-        return 60
+        return 35
     elseif (dragon_grade == 6) then
-        return 70 + (eclv * 2)
+        return 40 + (eclv * 2)
     else
         error('dragon_grade : ' .. dragon_grade)
     end

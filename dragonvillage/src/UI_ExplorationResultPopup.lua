@@ -85,6 +85,7 @@ function UI_ExplorationResultPopup:initUI()
             local table_data = TableDragon():get(v['did'])
             local res_name = table_data['res']
             local evolution = user_data['evolution']
+            local grade = user_data['grade']
 		    local attr = table_data['attr']
 
             local animaotr = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
@@ -112,7 +113,7 @@ function UI_ExplorationResultPopup:initUI()
             local dest_lv       = user_data['lv']
             local dest_exp      = user_data['exp']
             local type          = 'dragon'
-            levelup_director:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type)
+            levelup_director:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type, grade)
             levelup_director:start()
             --self:addLevelUpDirector(levelup_director)
 

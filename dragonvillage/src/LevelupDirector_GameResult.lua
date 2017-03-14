@@ -27,7 +27,7 @@ end
 -------------------------------------
 -- function initLevelupDirector
 -------------------------------------
-function LevelupDirector_GameResult:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type)
+function LevelupDirector_GameResult:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type, grade)
     local l_max_exp = nil
 
     -- 타입에 따른 테이블 얻어옴
@@ -40,7 +40,7 @@ function LevelupDirector_GameResult:initLevelupDirector(src_lv, src_exp, dest_lv
     end
 
     -- LevelupDirector 생성
-    self.m_levelupDirector = LevelupDirector(src_lv, src_exp, dest_lv, dest_exp, l_max_exp)
+    self.m_levelupDirector = LevelupDirector(src_lv, src_exp, dest_lv, dest_exp, l_max_exp, grade)
 
     -- Update 콜백 등록
     self.m_levelupDirector.m_cbUpdate = function(lv, exp, percentage)

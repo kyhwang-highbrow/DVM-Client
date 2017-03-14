@@ -474,34 +474,7 @@ function UI_GameResultNew:initDragonList(t_tamer_levelup_data, l_dragon_list)
     local dragon_cnt = #l_dragon_list
     local vars = self.vars
 
-    -- 드래곤 노드(테이머 포함) 정렬
     self:sortDragonNode(dragon_cnt)
-
-    --[[
-    -- 테이머 리소스 생성
-    local tamer = MakeAnimator('res/character/tamer/leon/leon.spine')
-    tamer.m_node:setDockPoint(cc.p(0.5, 0.5))
-    tamer.m_node:setAnchorPoint(cc.p(0.5, 0.5))
-    tamer.m_node:setScale(0.5)
-    vars['tamerNode']:addChild(tamer.m_node)
-
-    do -- 테이머 레벨, 경험치
-        local lv_label      = vars['tamerLvLabel']
-        local exp_label     = vars['tamerExpLabel']
-        local max_icon      = vars['tamerMaxSprite']
-        local exp_gauge     = vars['tamerExpGauge']
-        local level_up_vrp  = vars['tamerLvUpVisual']
-        local levelup_director = LevelupDirector_GameResult(lv_label, exp_label, max_icon, exp_gauge, level_up_vrp)
-
-        local src_lv        = t_tamer_levelup_data['prev_lv']
-        local src_exp       = t_tamer_levelup_data['prev_exp']
-        local dest_lv       = t_tamer_levelup_data['curr_lv']
-        local dest_exp      = t_tamer_levelup_data['curr_exp']
-        local type          = 'tamer'
-        levelup_director:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type)
-        self:addLevelUpDirector(levelup_director)
-    end
-    --]]
 
     -- 드래곤 리소스 생성
     for i,v in ipairs(l_dragon_list) do
@@ -509,6 +482,7 @@ function UI_GameResultNew:initDragonList(t_tamer_levelup_data, l_dragon_list)
         local table_data = v['table_data']
         local res_name = table_data['res']
         local evolution = user_data['evolution']
+        local grade = user_data['grade']
 		local attr = table_data['attr']
 
         local animaotr = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
@@ -537,7 +511,7 @@ function UI_GameResultNew:initDragonList(t_tamer_levelup_data, l_dragon_list)
             local dest_lv       = t_levelup_data['curr_lv']
             local dest_exp      = t_levelup_data['curr_exp']
             local type          = 'dragon'
-            levelup_director:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type)
+            levelup_director:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type, grade)
             self:addLevelUpDirector(levelup_director)
 
             do -- 등급
