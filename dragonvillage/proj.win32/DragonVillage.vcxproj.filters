@@ -1572,15 +1572,6 @@
     <None Include="..\src\ServerData_Attendance.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_AttendanceSpecial.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_AttendanceContinuous.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_AttendanceBasic.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_GachaResult_Dragon.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1597,9 +1588,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_TableViewCellClass.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_AttendanceContinuousListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_AttendanceSpecialListItem.lua">

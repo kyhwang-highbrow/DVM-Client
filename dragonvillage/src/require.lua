@@ -560,12 +560,7 @@ local t_module = {
     'UI_DragonMgrRunes',
     'UI_RuneEnchantPopup',
 
-    -- UI 출석체크(attendance) 관련
-    'UI_AttendanceBasic',
     'UI_AttendanceBasicListItem',
-    'UI_AttendanceContinuous',
-    'UI_AttendanceContinuousListItem',
-    'UI_AttendanceSpecial',
     'UI_AttendanceSpecialListItem',
 
     -- UI 탐험(exploration)
