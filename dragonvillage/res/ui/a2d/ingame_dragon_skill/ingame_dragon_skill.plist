@@ -4,199 +4,561 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>drag_skill_fx_dark_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{189,87}</string>
+                <key>spriteSourceSize</key>
+                <string>{189,87}</string>
+                <key>textureRect</key>
+                <string>{{2,79},{189,87}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>drag_skill_fx_dark_0201.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{53,107}</string>
+                <key>spriteSourceSize</key>
+                <string>{53,107}</string>
+                <key>textureRect</key>
+                <string>{{1283,79},{53,107}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>drag_skill_fx_earth_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{189,87}</string>
+                <key>spriteSourceSize</key>
+                <string>{189,87}</string>
+                <key>textureRect</key>
+                <string>{{384,79},{189,87}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>drag_skill_fx_earth_0201.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{53,107}</string>
+                <key>spriteSourceSize</key>
+                <string>{53,107}</string>
+                <key>textureRect</key>
+                <string>{{1173,79},{53,107}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>drag_skill_fx_fire_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{189,87}</string>
+                <key>spriteSourceSize</key>
+                <string>{189,87}</string>
+                <key>textureRect</key>
+                <string>{{575,79},{189,87}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>drag_skill_fx_fire_0201.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{53,107}</string>
+                <key>spriteSourceSize</key>
+                <string>{53,107}</string>
+                <key>textureRect</key>
+                <string>{{1118,79},{53,107}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>drag_skill_fx_light_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{189,87}</string>
+                <key>spriteSourceSize</key>
+                <string>{189,87}</string>
+                <key>textureRect</key>
+                <string>{{193,79},{189,87}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>drag_skill_fx_light_0201.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{53,107}</string>
+                <key>spriteSourceSize</key>
+                <string>{53,107}</string>
+                <key>textureRect</key>
+                <string>{{1063,79},{53,107}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>drag_skill_fx_water_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{189,87}</string>
+                <key>spriteSourceSize</key>
+                <string>{189,87}</string>
+                <key>textureRect</key>
+                <string>{{766,79},{189,87}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>drag_skill_fx_water_0201.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{53,107}</string>
+                <key>spriteSourceSize</key>
+                <string>{53,107}</string>
+                <key>textureRect</key>
+                <string>{{1228,79},{53,107}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>ingame_dragon_skill_b_01.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{2,2},{102,104}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{-7,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{102,68},{102,104}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{104,106}</string>
+                <key>spriteSourceSize</key>
                 <string>{320,240}</string>
+                <key>textureRect</key>
+                <string>{{957,79},{104,106}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>ingame_dragon_skill_bg.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{106,2},{1280,180}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{1280,180}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{1280,180}</string>
+                <key>spriteSourceSize</key>
+                <string>{1280,180}</string>
+                <key>textureRect</key>
+                <string>{{2,188},{1280,180}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>ingame_dragon_skill_charging_0101.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1388,2},{89,73}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{3,7}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{17,8},{89,73}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{91,75}</string>
+                <key>spriteSourceSize</key>
                 <string>{117,103}</string>
+                <key>textureRect</key>
+                <string>{{1765,2},{91,75}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>ingame_dragon_skill_charging_0102.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1479,2},{214,216}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{-4,2}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{34,21},{214,216}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{216,218}</string>
+                <key>spriteSourceSize</key>
                 <string>{290,262}</string>
+                <key>textureRect</key>
+                <string>{{2,394},{216,218}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>ingame_dragon_skill_charging_0103.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1695,2},{251,233}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{-4,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,6},{251,233}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{251,235}</string>
+                <key>spriteSourceSize</key>
                 <string>{259,245}</string>
+                <key>textureRect</key>
+                <string>{{220,394},{251,235}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>ingame_dragon_skill_charging_0104.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{2,237},{287,273}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{287,273}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{287,273}</string>
+                <key>spriteSourceSize</key>
+                <string>{287,273}</string>
+                <key>textureRect</key>
+                <string>{{1023,394},{287,273}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>ingame_dragon_skill_charging_0105.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{291,237},{273,259}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{273,259}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{273,259}</string>
+                <key>spriteSourceSize</key>
+                <string>{273,259}</string>
+                <key>textureRect</key>
+                <string>{{748,394},{273,259}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>ingame_dragon_skill_charging_0106.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{566,237},{273,259}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{273,259}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{273,259}</string>
+                <key>spriteSourceSize</key>
+                <string>{273,259}</string>
+                <key>textureRect</key>
+                <string>{{473,394},{273,259}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>ingame_dragon_skill_circle_01.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{841,237},{194,198}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{-4,-10}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{16,28},{194,198}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{196,200}</string>
+                <key>spriteSourceSize</key>
                 <string>{234,234}</string>
+                <key>textureRect</key>
+                <string>{{1284,188},{196,200}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>ingame_dragon_skill_circle_02.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1037,237},{184,202}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{-3,-2}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{22,18},{184,202}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{186,204}</string>
+                <key>spriteSourceSize</key>
                 <string>{234,234}</string>
+                <key>textureRect</key>
+                <string>{{1676,188},{186,204}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>ingame_dragon_skill_circle_03.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1223,237},{190,200}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{4,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{26,17},{190,200}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{192,202}</string>
+                <key>spriteSourceSize</key>
                 <string>{234,234}</string>
+                <key>textureRect</key>
+                <string>{{1482,188},{192,202}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>ingame_dragon_skill_dsc.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1415,237},{306,34}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{306,34}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{306,34}</string>
+                <key>spriteSourceSize</key>
+                <string>{306,34}</string>
+                <key>textureRect</key>
+                <string>{{488,2},{306,34}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>ingame_dragon_skill_gauge_0101.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{1723,237},{139,72}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{139,72}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{139,72}</string>
+                <key>spriteSourceSize</key>
+                <string>{139,72}</string>
+                <key>textureRect</key>
+                <string>{{1624,2},{139,72}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>ingame_dragon_skill_name.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{2,512},{381,58}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{381,58}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{381,58}</string>
+                <key>spriteSourceSize</key>
+                <string>{381,58}</string>
+                <key>textureRect</key>
+                <string>{{796,2},{381,58}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>touch_skill_fx_dark.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{72,62}</string>
+                <key>spriteSourceSize</key>
+                <string>{72,62}</string>
+                <key>textureRect</key>
+                <string>{{1328,2},{72,62}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>touch_skill_fx_earth.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{72,62}</string>
+                <key>spriteSourceSize</key>
+                <string>{72,62}</string>
+                <key>textureRect</key>
+                <string>{{1402,2},{72,62}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>touch_skill_fx_fire.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{73,61}</string>
+                <key>spriteSourceSize</key>
+                <string>{73,61}</string>
+                <key>textureRect</key>
+                <string>{{1179,2},{73,61}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>touch_skill_fx_light.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{72,62}</string>
+                <key>spriteSourceSize</key>
+                <string>{72,62}</string>
+                <key>textureRect</key>
+                <string>{{1550,2},{72,62}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>touch_skill_fx_water.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{72,62}</string>
+                <key>spriteSourceSize</key>
+                <string>{72,62}</string>
+                <key>textureRect</key>
+                <string>{{1476,2},{72,62}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>touch_skill_fx_white.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{72,62}</string>
+                <key>spriteSourceSize</key>
+                <string>{72,62}</string>
+                <key>textureRect</key>
+                <string>{{1254,2},{72,62}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>touch_skill_gg_fx_dark.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{79,20}</string>
+                <key>spriteSourceSize</key>
+                <string>{79,20}</string>
+                <key>textureRect</key>
+                <string>{{83,2},{79,20}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>touch_skill_gg_fx_earth.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{79,20}</string>
+                <key>spriteSourceSize</key>
+                <string>{79,20}</string>
+                <key>textureRect</key>
+                <string>{{2,2},{79,20}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>touch_skill_gg_fx_fire.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{79,20}</string>
+                <key>spriteSourceSize</key>
+                <string>{79,20}</string>
+                <key>textureRect</key>
+                <string>{{164,2},{79,20}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>touch_skill_gg_fx_light.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{79,20}</string>
+                <key>spriteSourceSize</key>
+                <string>{79,20}</string>
+                <key>textureRect</key>
+                <string>{{407,2},{79,20}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>touch_skill_gg_fx_water.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{79,20}</string>
+                <key>spriteSourceSize</key>
+                <string>{79,20}</string>
+                <key>textureRect</key>
+                <string>{{245,2},{79,20}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>touch_skill_gg_fx_white.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{79,20}</string>
+                <key>spriteSourceSize</key>
+                <string>{79,20}</string>
+                <key>textureRect</key>
+                <string>{{326,2},{79,20}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
         <dict>
             <key>format</key>
-            <integer>2</integer>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
             <key>realTextureFileName</key>
             <string>ingame_dragon_skill.png</string>
             <key>size</key>
             <string>{2048,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:95eb6937feedfc15f43365778826f8ae$</string>
+            <string>$TexturePacker:SmartUpdate:ed1fee334938c49726fb0097877fa4a0:94739ae09092bca99a58d00e8048cd87:84fa350bf50a1f73ae01307cdcd5d52a$</string>
             <key>textureFileName</key>
             <string>ingame_dragon_skill.png</string>
         </dict>

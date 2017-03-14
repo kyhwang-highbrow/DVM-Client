@@ -1,104 +1,125 @@
 
 serpentdragon_dark_03.png
-size: 1024,256
+size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 serpentdragon_dark_03_body_01
   rotate: false
-  xy: 2, 24
-  size: 195, 227
-  orig: 195, 227
+  xy: 2, 206
+  size: 235, 295
+  orig: 235, 295
   offset: 0, 0
   index: -1
 serpentdragon_dark_03_body_02
-  rotate: false
-  xy: 360, 133
-  size: 179, 118
-  orig: 179, 118
+  rotate: true
+  xy: 239, 322
+  size: 179, 321
+  orig: 179, 321
   offset: 0, 0
   index: -1
-serpentdragon_dark_03_body_03
+serpentdragon_dark_03_effect_02
   rotate: false
-  xy: 199, 97
-  size: 159, 154
-  orig: 159, 154
+  xy: 562, 351
+  size: 286, 150
+  orig: 286, 150
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_effect_03
+  rotate: false
+  xy: 239, 170
+  size: 286, 150
+  orig: 286, 150
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_effect_04
+  rotate: false
+  xy: 170, 18
+  size: 286, 150
+  orig: 286, 150
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_effect_05
+  rotate: false
+  xy: 562, 199
+  size: 286, 150
+  orig: 286, 150
   offset: 0, 0
   index: -1
 serpentdragon_dark_03_eye_01
-  rotate: false
-  xy: 990, 180
-  size: 25, 30
-  orig: 25, 30
+  rotate: true
+  xy: 813, 150
+  size: 47, 38
+  orig: 47, 38
   offset: 0, 0
   index: -1
 serpentdragon_dark_03_eye_02
   rotate: false
-  xy: 2, 2
-  size: 13, 20
-  orig: 13, 20
+  xy: 170, 184
+  size: 19, 20
+  orig: 19, 20
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_eye_03
+  rotate: false
+  xy: 853, 161
+  size: 47, 38
+  orig: 47, 38
   offset: 0, 0
   index: -1
 serpentdragon_dark_03_head_01
-  rotate: true
-  xy: 541, 135
-  size: 116, 154
-  orig: 116, 154
-  offset: 0, 0
-  index: -1
-serpentdragon_dark_03_head_02
   rotate: false
-  xy: 199, 25
-  size: 97, 70
-  orig: 97, 70
+  xy: 2, 2
+  size: 166, 202
+  orig: 166, 202
   offset: 0, 0
   index: -1
 serpentdragon_dark_03_head_03
-  rotate: true
-  xy: 298, 27
-  size: 68, 65
-  orig: 68, 65
-  offset: 0, 0
-  index: -1
-serpentdragon_dark_03_head_04
-  rotate: true
-  xy: 990, 212
-  size: 39, 32
-  orig: 39, 32
+  rotate: false
+  xy: 598, 120
+  size: 86, 77
+  orig: 86, 77
   offset: 0, 0
   index: -1
 serpentdragon_dark_03_head_05
   rotate: false
-  xy: 365, 77
+  xy: 756, 143
   size: 55, 54
   orig: 55, 54
   offset: 0, 0
   index: -1
 serpentdragon_dark_03_head_06
   rotate: false
-  xy: 365, 29
-  size: 40, 46
-  orig: 40, 46
+  xy: 686, 139
+  size: 68, 58
+  orig: 68, 58
   offset: 0, 0
   index: -1
 serpentdragon_dark_03_tail_01
   rotate: false
-  xy: 857, 167
+  xy: 598, 34
   size: 76, 84
   orig: 76, 84
   offset: 0, 0
   index: -1
 serpentdragon_dark_03_wing_01
   rotate: true
-  xy: 697, 149
-  size: 102, 158
-  orig: 102, 158
+  xy: 458, 26
+  size: 142, 138
+  orig: 142, 138
   offset: 0, 0
   index: -1
 serpentdragon_dark_03_wing_02
+  rotate: true
+  xy: 850, 345
+  size: 156, 167
+  orig: 156, 167
+  offset: 0, 0
+  index: -1
+serpentdragon_dark_03_wing_03
   rotate: false
-  xy: 935, 159
-  size: 53, 92
-  orig: 53, 92
+  xy: 850, 201
+  size: 145, 142
+  orig: 145, 142
   offset: 0, 0
   index: -1
