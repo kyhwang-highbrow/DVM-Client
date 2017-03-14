@@ -45,7 +45,7 @@ function TableShop:makeProductDesc(l_product)
 			str = Str('날개 {1}개', value_str)
 
 		else
-			cclog('value_type : ' .. value_type)
+			cclog('product_type : ' .. product_type)
 		end
 
 		ret_str = ret_str .. str .. '\n'
