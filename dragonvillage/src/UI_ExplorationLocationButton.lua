@@ -1,9 +1,8 @@
-local PARENT = UI
-
 -------------------------------------
 -- class UI_ExplorationLocationButton
 -------------------------------------
-UI_ExplorationLocationButton = class(PARENT,{
+UI_ExplorationLocationButton = class({
+        vars = '',
         m_eprID = '',
         m_status = '',
     })
@@ -11,10 +10,32 @@ UI_ExplorationLocationButton = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ExplorationLocationButton:init(epr_id)
+function UI_ExplorationLocationButton:init(owner, epr_id)
+    self.vars = owner.vars
     self.m_eprID = epr_id
 
-    local vars = self:load('exploration_map_list.ui')
+    do -- owner UI로부터 vars를 가져옴
+        -- 탐험 지역의 idx를 얻어옴
+        local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
+        local location_idx = location_info['order']
+
+        -- owner UI에서 idx가 붙어있는 항목 리스트업
+        local t_change_list = {}
+        table.insert(t_change_list, 'locationMenu')
+        table.insert(t_change_list, 'lockSprite')
+        table.insert(t_change_list, 'mapLockSprite')
+        table.insert(t_change_list, 'completeSprite')
+        table.insert(t_change_list, 'explorationLabel')
+        table.insert(t_change_list, 'timeLabel')
+        table.insert(t_change_list, 'timeNode')
+        table.insert(t_change_list, 'clickBtn')
+
+        -- self의 vars에 지역 idx를 제거한 형태로 저장
+        self.vars = {}
+        for i,v in ipairs(t_change_list) do
+            self.vars[v] = owner.vars[v .. location_idx]
+        end
+    end
 
     self:initUI()
     self:initButton()
@@ -28,11 +49,7 @@ function UI_ExplorationLocationButton:initUI()
     local vars = self.vars
     local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
 
-    -- 지역 순서
-    vars['orderLabel']:setString(Str(location_info['order']))
-
-    -- 지역 이름
-    vars['locationLabel']:setString(Str(location_info['t_name']))
+    local order_num = location_info['order']
 end
 
 -------------------------------------
@@ -49,28 +66,29 @@ end
 function UI_ExplorationLocationButton:refresh()
     local vars = self.vars
     local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
+    local location_idx = location_info['order']
 
     self.m_status = status
 
-    self.root:unscheduleUpdate()
+    vars['locationMenu']:unscheduleUpdate()
 
     -- 아래에서 필요한 상태에 따라 true
     vars['lockSprite']:setVisible(false)
-    vars['ingNode']:setVisible(false)
-    vars['completeNode']:setVisible(false)
+    vars['completeSprite']:setVisible(false)
 
     if (status == 'exploration_idle') then
-        
+        vars['explorationLabel']:setString(Str('탐험 준비'))
 
     elseif (status == 'exploration_lock') then
-        vars['lockLabel']:setString(Str('레벨 {1}', location_info['open_condition']))
+        vars['explorationLabel']:setString(Str('레벨 {1}', location_info['open_condition']))
         vars['lockSprite']:setVisible(true)
 
     elseif (status == 'exploration_ing') then
-        vars['ingNode']:setVisible(true)
+        vars['explorationLabel']:setString(Str('탐험 중'))
 
     elseif (status == 'exploration_complete') then
-        vars['completeNode']:setVisible(true)
+        vars['explorationLabel']:setString(Str('탐험 완료'))
+        vars['completeSprite']:setVisible(true)
     end
 
     -- 시간 업데이트
@@ -78,7 +96,7 @@ function UI_ExplorationLocationButton:refresh()
         local function update(dt)
             self:update(dt)
         end
-        self.root:scheduleUpdateWithPriorityLua(update, 0)
+        vars['locationMenu']:scheduleUpdateWithPriorityLua(update, 0)
         self:update(0)
     end
 end
@@ -90,6 +108,7 @@ end
 function UI_ExplorationLocationButton:update(dt)
     local vars = self.vars
     local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
+    local location_idx = location_info['order']
 
     local end_time = (my_location_info['end_time'] / 1000)
     local server_time = Timer:getServerTime()
@@ -100,9 +119,8 @@ function UI_ExplorationLocationButton:update(dt)
         vars['timeLabel']:setString(time_str)
     else
         self.m_status = 'exploration_complete'
-        vars['ingNode']:setVisible(false)
         vars['completeNode']:setVisible(true)
-        self.root:unscheduleUpdate()
+        vars['locationMenu']:unscheduleUpdate()
     end
 end
 

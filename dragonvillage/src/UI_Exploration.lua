@@ -23,7 +23,7 @@ end
 -- function init
 -------------------------------------
 function UI_Exploration:init()
-    local vars = self:load('exploration_map.ui')
+    local vars = self:load('exploration_map_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -51,11 +51,10 @@ function UI_Exploration:initUI()
     for i,v in pairs(g_explorationData.m_explorationList) do
         local order = v['order']
         local epr_id = v['epr_id']
-        local ui = UI_ExplorationLocationButton(epr_id)
-        vars['locationNode' .. order]:addChild(ui.root)
+        local ui = UI_ExplorationLocationButton(self, epr_id)
 
         self.m_lLocationButtons[i] = ui
-    end 
+    end
 end
 
 -------------------------------------
