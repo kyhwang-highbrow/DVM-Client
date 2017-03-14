@@ -22,6 +22,7 @@ function UI_ExplorationLocationButton:init(owner, epr_id)
         -- owner UI에서 idx가 붙어있는 항목 리스트업
         local t_change_list = {}
         table.insert(t_change_list, 'locationMenu')
+        table.insert(t_change_list, 'mapLockSprite')
         table.insert(t_change_list, 'lockSprite')
         table.insert(t_change_list, 'mapLockSprite')
         table.insert(t_change_list, 'completeSprite')
@@ -74,7 +75,10 @@ function UI_ExplorationLocationButton:refresh()
 
     -- 아래에서 필요한 상태에 따라 true
     vars['lockSprite']:setVisible(false)
+    vars['mapLockSprite']:setVisible(false)
     vars['completeSprite']:setVisible(false)
+    vars['timeNode']:setVisible(false)
+    vars['explorationLabel']:setColor(cc.c3b(255, 255, 255))
 
     if (status == 'exploration_idle') then
         vars['explorationLabel']:setString(Str('탐험 준비'))
@@ -82,12 +86,15 @@ function UI_ExplorationLocationButton:refresh()
     elseif (status == 'exploration_lock') then
         vars['explorationLabel']:setString(Str('레벨 {1}', location_info['open_condition']))
         vars['lockSprite']:setVisible(true)
+        vars['mapLockSprite']:setVisible(true)
 
     elseif (status == 'exploration_ing') then
         vars['explorationLabel']:setString(Str('탐험 중'))
+        vars['timeNode']:setVisible(true)
 
     elseif (status == 'exploration_complete') then
         vars['explorationLabel']:setString(Str('탐험 완료'))
+        vars['explorationLabel']:setColor(cc.c3b(255, 216, 0))
         vars['completeSprite']:setVisible(true)
     end
 

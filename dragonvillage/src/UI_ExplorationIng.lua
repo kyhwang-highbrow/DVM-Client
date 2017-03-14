@@ -131,6 +131,7 @@ function UI_ExplorationIng:refresh()
         vars['cancelBtn']:setVisible(true)
         vars['completeBtn']:setVisible(true)
         vars['rewardBtn']:setVisible(false)
+        vars['timeLabelMenu']:setVisible(true)
 
     elseif (status == 'exploration_complete') then
         vars['explorationTimeLabel']:setString('')
@@ -138,6 +139,7 @@ function UI_ExplorationIng:refresh()
         vars['cancelBtn']:setVisible(false)
         vars['completeBtn']:setVisible(false)
         vars['rewardBtn']:setVisible(true)
+        vars['timeLabelMenu']:setVisible(false)
     end
 
 end
