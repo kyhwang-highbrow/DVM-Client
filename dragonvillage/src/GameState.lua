@@ -255,16 +255,6 @@ function GameState.update_fight(self, dt)
             end
         end
     end
-
-    do -- 아군 드래그 스킬 쿨타임 증가
-        if (world.m_dragSkillTimer < g_constant:get('INGAME', 'DRAGON_SKILL_COOL_TIME')) then
-            world.m_dragSkillTimer = world.m_dragSkillTimer + dt
-
-            world.m_dragSkillTimer = math_min(world.m_dragSkillTimer, g_constant:get('INGAME', 'DRAGON_SKILL_COOL_TIME'))
-
-            world.m_inGameUI:setActiveSkillTime(world.m_dragSkillTimer, g_constant:get('INGAME', 'DRAGON_SKILL_COOL_TIME'))
-        end
-    end
 end
 
 -------------------------------------

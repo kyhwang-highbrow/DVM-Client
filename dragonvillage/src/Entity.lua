@@ -7,7 +7,6 @@ Entity = class(PARENT, {
         m_world = '',
 
         m_rootNode = '',
-        m_actionNode = '',
         m_animator = '',
 
         -- state 관련 변수
@@ -32,10 +31,6 @@ function Entity:init(file_name, body)
     self.m_rootNode = cc.Node:create()
 	-- @TODO 
 	self.m_rootNode:retain()
-
-    -- actionNode 생성
-    self.m_actionNode = cc.Node:create()
-    self.m_rootNode:addChild(self.m_actionNode)
 
     -- PhysBody 초기화
     local body = body or {0,0,50}
@@ -68,7 +63,6 @@ function Entity:initAnimator(file_name)
     self.m_animator = MakeAnimator(file_name)
     if self.m_animator.m_node then
         self.m_rootNode:addChild(self.m_animator.m_node)
-        --self.m_actionNode:addChild(self.m_animator.m_node)
     end
 end
 
@@ -132,8 +126,7 @@ function Entity:release()
     end
     
     self.m_rootNode = nil
-    self.m_actionNode = nil
-
+    
     if self.m_motionStreak then
 		self.m_motionStreak:removeFromParent(true)
 		self.m_motionStreak = nil

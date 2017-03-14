@@ -814,11 +814,14 @@ function GameWorld:addHero(hero, idx)
 
     hero:addListener('dragon_skill', self.m_gameDragonSkill)
     
+    hero:addListener('hero_basic_skill', self)
     hero:addListener('hero_basic_skill', self.m_gameFever)
     hero:addListener('hero_active_skill', self.m_gameFever)
     hero:addListener('hero_active_skill', self.m_gameState)
     hero:addListener('hero_active_skill', self.m_gameAutoHero)
+    hero:addListener('hero_touch_skill', self)
     hero:addListener('hero_touch_skill', self.m_tamerSpeechSystem)
+    hero:addListener('hero_passive_skill', self)
 
     hero:addListener('hero_casting_start', self.m_gameAutoHero)
 
@@ -1012,13 +1015,18 @@ function GameWorld:onKeyReleased(keyCode, event)
 
 	-- 스킬 충전
     elseif (keyCode == KEY_C) then
+        -- 드래곤 터치 스킬
         for _,dragon in pairs(self:getDragonList()) do
             dragon:updateTouchSkillCoolTime(100)
         end
+
+        -- 드래곤 드래그 스킬
+        self:addDragSkillCoolTime(100)
+
+        -- 테이머 스킬
         if (self.m_gameTamer) then
             self.m_gameTamer:resetActiveSkillCoolTime()
         end
-		self:setDragSkillCoolTime(g_constant:get('INGAME', 'DRAGON_SKILL_COOL_TIME'))
 
 	-- 미션 성공
     elseif (keyCode == KEY_V) then
@@ -1616,29 +1624,24 @@ end
 -- function onEvent
 -------------------------------------
 function GameWorld:onEvent(event_name, t_event, ...)
-    if (event_name == 'character_dead') then    self:onEvent_character_dead(event_name, t_event, ...)
-    elseif (event_name == 'change_wave') then   self:onEvent_change_wave(event_name, t_event, ...)
+    if (event_name == 'change_wave') then   self:onEvent_change_wave(event_name, t_event, ...)
     elseif (event_name == 'fever_start') then   self.m_gameState:changeState(GAME_STATE_FIGHT_FEVER)
     elseif (event_name == 'fever_end') then     self.m_gameState:changeState(GAME_STATE_FIGHT)
-    end
-end
+    elseif (event_name == 'hero_basic_skill') then
+        -- 드래그 스킬 게이지
+        local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_DRAG_POINT_INCREMENT_VALUE')
+        self:addDragSkillCoolTime(t_temp['basic_skill'])
 
--------------------------------------
--- function onEvent_character_dead
--- @brief 캐릭터 사망
--------------------------------------
-function GameWorld:onEvent_character_dead(event_name, t_event, ...)
-    local arg = {...}
-    local char = arg[1]
-    local is_hero = char.m_bLeftFormation
+    elseif (event_name == 'hero_touch_skill') then
+        -- 드래그 스킬 게이지
+        local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_DRAG_POINT_INCREMENT_VALUE')
+        self:addDragSkillCoolTime(t_temp['touch_skill'])
 
-    -- 아군 사망
-    if (is_hero) then
-
-    -- 적군 사망
-    else
-        --self:dropItem(char.pos['x'], char.pos['y'])
-
+    elseif (event_name == 'hero_passive_skill') then
+        -- 드래그 스킬 게이지
+        local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_DRAG_POINT_INCREMENT_VALUE')
+        self:addDragSkillCoolTime(t_temp['passive_skill'])
+        
     end
 end
 
@@ -1740,24 +1743,32 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
 end
 
 -------------------------------------
--- function setDragSkillCoolTime
+-- function addDragSkillCoolTime
 -------------------------------------
-function GameWorld:setDragSkillCoolTime(time)
-    self.m_dragSkillTimer = time
+function GameWorld:addDragSkillCoolTime(point)
+    self.m_dragSkillTimer = self.m_dragSkillTimer + point
 
-    self.m_inGameUI:setActiveSkillTime(self.m_dragSkillTimer, g_constant:get('INGAME', 'DRAGON_SKILL_COOL_TIME'))
+    self.m_dragSkillTimer = math_min(self.m_dragSkillTimer, 100)
+
+    self.m_inGameUI:setActiveSkillTime(self.m_dragSkillTimer, 100)
 end
 
 -------------------------------------
 -- function resetDragSkillCoolTime
 -------------------------------------
 function GameWorld:resetDragSkillCoolTime()
-    self:setDragSkillCoolTime(0)
+    self.m_dragSkillTimer = 0
+
+    self.m_inGameUI:setActiveSkillTime(self.m_dragSkillTimer, 100)
+
+    for i, dragon in ipairs(self:getDragonList()) do
+        dragon:updateDragSkill(0)
+    end
 end
 
 -------------------------------------
 -- function isEndDragSkillCoolTime
 -------------------------------------
 function GameWorld:isEndDragSkillCoolTime()
-    return (self.m_dragSkillTimer >= g_constant:get('INGAME', 'DRAGON_SKILL_COOL_TIME'))
+    return (self.m_dragSkillTimer >= 100)
 end

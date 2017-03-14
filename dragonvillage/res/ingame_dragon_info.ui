@@ -19,6 +19,41 @@
 				};
 				type = 'Visual';
 				ui_name = '';
+				x = 95.000000;
+				y = 105.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'dragSkllFullVisual';
+				file_name = 'ui/a2d/ingame_dragon_skill/ingame_dragon_skill.a2d';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'skill_gauge;drag_idle_fire';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
+			[2] =
+			{
+				[1] =
+				{
+					type = 'SocketNode';
+					socket_name = 'skill_dsc';
+				};
+				[2] =
+				{
+					type = 'SocketNode';
+					socket_name = 'skill_title';
+				};
+				type = 'Visual';
+				ui_name = '';
 				x = 48.000000;
 				y = 50.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -40,7 +75,7 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
-			[2] =
+			[3] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -66,7 +101,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[3] =
+			[4] =
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
@@ -96,7 +131,7 @@
 				mid_point_y = 0.000000;
 				percentage = 100;
 			};
-			[4] =
+			[5] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -122,7 +157,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[5] =
+			[6] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -148,7 +183,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[6] =
+			[7] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -174,7 +209,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[7] =
+			[8] =
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
@@ -204,7 +239,7 @@
 				mid_point_y = 0.500000;
 				percentage = 100;
 			};
-			[8] =
+			[9] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -223,7 +258,7 @@
 				visible = true;
 				lua_name = 'attrNode';
 			};
-			[9] =
+			[10] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -263,7 +298,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[10] =
+			[11] =
 			{
 				[1] =
 				{

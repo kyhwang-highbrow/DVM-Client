@@ -151,8 +151,7 @@ end
 -------------------------------------
 function TamerSpeechSystem:showDragonSpeech(msg, dragon)
     local ui = self.m_world.m_inGameUI
-    if (self.m_bLockTamerTalkAni) then return end
-
+    
     -- 대사
     if (msg) then
         self.m_speechNode:setVisible(false)
@@ -175,15 +174,15 @@ function TamerSpeechSystem:showDragonSpeech(msg, dragon)
     -- 드래곤
     local t_dragon = TableDragon():get(dragon.m_charTable['did'])
     local dragonAnimator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], dragon.m_tDragonInfo['evolution'], t_dragon['attr'])
-    dragonAnimator:setPosition(100, -200)
+    dragonAnimator:setPosition(-200, 300)
     dragonAnimator:changeAni('idle', true)
-    dragonAnimator:setScale(2)
+    dragonAnimator:setScale(1.1)
     ui.vars['tamerNode']:addChild(dragonAnimator.m_node)
 
     dragonAnimator.m_node:runAction(cc.Sequence:create(
-        cc.MoveTo:create(0.2, cc.p(100, 200)),
+        cc.MoveTo:create(0.2, cc.p(130, 300)),
         cc.DelayTime:create(0.5),
-        cc.MoveTo:create(0.1, cc.p(100, -200)),
+        cc.MoveTo:create(0.1, cc.p(-200, 300)),
         cc.RemoveSelf:create()
     ))
         

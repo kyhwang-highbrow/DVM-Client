@@ -17,6 +17,8 @@ Dragon = class(PARENT, {
         -- 터치 스킬
         m_touchSkillTimer = 'number',
         m_touchSkillCoolTime = 'number',
+
+        m_dragSkillNode = '',
         
         m_afterimageMove = 'number',
 
@@ -35,6 +37,11 @@ function Dragon:init(file_name, body, ...)
 
     self.m_bActive = false
     self.m_bWaitState = false
+
+    self.m_touchSkillTimer = 0
+    self.m_touchSkillCoolTime = 0
+
+    self.m_dragSkillNode = nil
 
     self.m_bUseSelfAfterImage = false
     self.m_skillPrepareEffect = nil
@@ -71,6 +78,17 @@ function Dragon:initAnimatorDragon(file_name, evolution, attr)
 end
 
 -------------------------------------
+-- function setDamage
+-------------------------------------
+function Dragon:setDamage(attacker, defender, i_x, i_y, damage, t_info)
+    PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
+
+    -- 터치 스킬 게이지 증가
+    local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_TOUCH_POINT_INCREMENT_VALUE')
+    self:addTouchSkillCoolTime(t_temp['set_damage'])
+end
+
+-------------------------------------
 -- function update
 -------------------------------------
 function Dragon:update(dt)
@@ -78,6 +96,11 @@ function Dragon:update(dt)
         self:updateAfterImage(dt)
     end
 
+    -- 드래그 스킬 UI
+    do
+        self:updateDragSkill(dt)
+    end
+    
     return Character.update(self, dt)
 end
 
@@ -157,13 +180,8 @@ function Dragon:doSkill_touch()
 
         self:resetTouchSkillCoolTime()
 
-        self:changeState('charge')
-
-        -- 터치 스킬 사용시 이벤트
-        if (self.m_bLeftFormation) then
-            self:dispatch('hero_touch_skill', {}, self)
-        end
-
+        self:changeState('attack')
+        
         return true
     end
 end
@@ -194,7 +212,7 @@ end
 -------------------------------------
 function Dragon.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
-        -- 일반 스킬에만 이펙트를 추가
+        -- 터치 혹은 패시브 스킬에만 이펙트를 추가
         if owner.m_charTable['skill_basic'] ~= owner.m_reservedSkillId then
             local attr = owner:getAttribute()
             local res = 'res/effect/effect_missile_charge/effect_missile_charge.vrp'
@@ -210,11 +228,29 @@ function Dragon.st_attack(owner, dt)
             local str_map = {}
             str_map[t_skill['t_name']] = true
             owner.m_world:makePassiveStartEffect(owner, str_map)
-        end
 
-        -- 기본 공격시 이벤트
-        if (owner.m_bLeftFormation) then
-            owner:dispatch('hero_basic_skill', {}, owner)
+            if (t_skill['chance_type'] == 'touch') then
+                -- 터치 공격시 이벤트
+                if (owner.m_bLeftFormation) then
+                    owner:dispatch('hero_touch_skill', {}, owner)
+                end
+            
+            elseif (t_skill['chance_type'] == 'passive') then
+                -- 패시브 공격시 이벤트
+                if (owner.m_bLeftFormation) then
+                    owner:dispatch('hero_passive_skill', {}, owner)
+                end
+
+            end
+        else
+            -- 기본 공격시 이벤트
+            if (owner.m_bLeftFormation) then
+                owner:dispatch('hero_basic_skill', {}, owner)
+            end
+
+            -- 터치 스킬 게이지 증가
+            local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_TOUCH_POINT_INCREMENT_VALUE')
+            owner:addTouchSkillCoolTime(t_temp['basic_skill'])
         end
     end
 
@@ -505,7 +541,12 @@ function Dragon:makeHPGauge(hp_ui_offset)
 
     self.m_hpGauge = ui.vars['hpGauge']
     self.m_hpGauge2 = ui.vars['hpGauge2']
-
+    self.m_dragSkillNode = ui.vars['dragSkllFullVisual']
+    self.m_dragSkillNode.m_node:retain()
+    self.m_dragSkillNode.m_node:removeFromParent(true)
+    self.m_world.m_groundNode:addChild(self.m_dragSkillNode.m_node, 1)
+    self.m_dragSkillNode.m_node:release()
+    
     self.m_statusNode = self.m_hpNode
     
     self.m_world.m_unitInfoNode:addChild(self.m_hpNode, 5)
@@ -766,6 +807,13 @@ function Dragon:updateTouchSkillCoolTime(dt)
 end
 
 -------------------------------------
+-- function addTouchSkillCoolTime
+-------------------------------------
+function Dragon:addTouchSkillCoolTime(point)
+    self.m_touchSkillTimer = self.m_touchSkillTimer + point
+end
+
+-------------------------------------
 -- function resetTouchSkillCoolTime
 -------------------------------------
 function Dragon:resetTouchSkillCoolTime()
@@ -825,6 +873,28 @@ end
 function Dragon:isEndTouchSkillCoolTime()
     return (self.m_touchSkillTimer == self.m_touchSkillCoolTime)
 end
+
+-------------------------------------
+-- function updateDragSkill
+-------------------------------------
+function Dragon:updateDragSkill(dt, bFixed)
+    if (not self.m_world) then return end
+    if (not self.m_dragSkillNode) then return end
+
+    local b = false
+
+    if (self.m_bLeftFormation) then
+        b = self.m_world:isEndDragSkillCoolTime()
+    end
+
+    if (bFixed ~= nil) then
+        b = bFixed
+    end
+
+    self.m_dragSkillNode:setPosition(self.pos.x + 50, self.pos.y + 50)
+    self.m_dragSkillNode:setVisible(b)
+end
+
 
 -------------------------------------
 -- function setAfterImage

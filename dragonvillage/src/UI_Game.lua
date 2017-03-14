@@ -37,16 +37,7 @@ function UI_Game:initUI()
         vars['hitNode']:addChild(label)
         vars['hitLabel'] = label
     end
-
-    do -- 드래곤 드래그 스킬 게이지
-        local label = cc.Label:createWithBMFont('res/font/hit_font.fnt', '')
-        label:setDockPoint(cc.p(1, 0))
-        label:setAnchorPoint(cc.p(1, 0))
-        --label:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-        self.root:addChild(label)
-        vars['activeSkillLabel'] = label
-    end
-
+    
     vars['goldLabel']:setString('0')
 
     -- 스테이지명 지정
@@ -353,8 +344,19 @@ function UI_Game:setActiveSkillTime(cur, max)
         percentage = math_floor((cur / max) * 100)
     end
     
-    if (vars['activeSkillLabel']) then
-        vars['activeSkillLabel']:setString(percentage .. '%')
+    if (vars['dragSkillLabel']) then
+        local func = function(value, node)
+            node:setString(math_floor(value) .. '%')
+        end
+        local prev = vars['dragSkillGauge']:getPercentage()
+        local tween_action = cc.ActionTweenForLua:create(0.5, prev, percentage, func)
+
+        vars['dragSkillLabel']:stopAllActions()
+        vars['dragSkillLabel']:runAction(tween_action)
+    end
+
+    if (vars['dragSkillGauge']) then
+        vars['dragSkillGauge']:runAction(cc.ProgressTo:create(0.5, percentage))
     end
 end
 

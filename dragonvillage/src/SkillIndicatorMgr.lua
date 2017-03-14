@@ -275,7 +275,12 @@ function SkillIndicatorMgr:setSelectHero(hero)
         self.m_world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
         self.m_world.m_gameHighlight:changeDarkLayerColor(DARK_LAYER_OPACITY, SKILL_INDICATOR_FADE_OUT_DURATION)
 
-        self:addHighlightList(hero, 5)
+        self.m_world.m_gameHighlight:addChar(hero, 5)
+
+        -- 스킬 사용 가능 UI 강제 해제...
+        for i, dragon in ipairs(self.m_world:getDragonList()) do
+            dragon:updateDragSkill(0, false)
+        end
 
         self.m_selectHero = hero
     else
@@ -289,7 +294,7 @@ end
 -------------------------------------
 function SkillIndicatorMgr:addHighlightList(char, zorder)
     if (not self:isControlling()) then return end
-
+    
     self.m_world.m_gameHighlight:addChar(char, zorder)
 end
 
