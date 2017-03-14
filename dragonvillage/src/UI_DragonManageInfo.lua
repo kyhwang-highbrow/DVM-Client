@@ -272,19 +272,6 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
         
     end
 
-    -- 승급 경험치
-    if vars['upgradeLabel'] then
-        local t_grade_exp_info = TableGradeInfo:getDragonGradeAndExpInfo(t_dragon_data)
-        if t_grade_exp_info['is_max'] then
-            vars['upgradeLabel']:setString('MAX')
-        else
-            vars['upgradeLabel']:setString(Str('{1} %', t_grade_exp_info['percentage']))
-        end
-        vars['upgradeGauge']:stopAllActions()
-        vars['upgradeGauge']:setPercentage(0)
-        vars['upgradeGauge']:runAction(cc.ProgressTo:create(0.2, t_grade_exp_info['percentage'])) 
-    end
-
     -- 친밀도
     if vars['friendshipLabel'] then
         local t_friendship_info = TableFriendship:getFriendshipLvAndExpInfo(t_dragon_data)
@@ -419,8 +406,9 @@ function UI_DragonManageInfo:click_upgradeBtn()
     local doid = self.m_selectDragonOID
 
     do -- 최대 등급(스킬레벨, 초월)인지 확인
-        if (g_dragonsData:getUpgradeMode(doid) == 'max') then
-            UIManager:toastNotificationGreen(Str('최대 초월단계의 드래곤입니다.'))
+        local upgradeable, msg = g_dragonsData:checkUpgradeable(doid)
+        if (not upgradeable) then
+            UIManager:toastNotificationRed(msg)
             return
         end
     end
@@ -429,7 +417,7 @@ function UI_DragonManageInfo:click_upgradeBtn()
     local b_ascending_sort = self.m_dragonSortMgr.m_bAscendingSort
     local sort_type = self.m_dragonSortMgr.m_currSortType
 
-    local ui = UI_DragonManageUpgrade(doid, b_ascending_sort, sort_type)
+    local ui = UI_DragonUpgrade(doid, b_ascending_sort, sort_type)
 
     -- UI종료 후 콜백
     local function close_cb()

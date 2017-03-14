@@ -6,6 +6,8 @@ local PARENT = TableClass
 TableGradeInfo = class(PARENT, {
     })
 
+local THIS = TableGradeInfo
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -15,39 +17,13 @@ function TableGradeInfo:init()
 end
 
 -------------------------------------
--- function getDragonGradeAndExpInfo
+-- function isMaxLevel
 -------------------------------------
-function TableGradeInfo:getDragonGradeAndExpInfo(t_dragon_data)
-    if (self == TableGradeInfo) then
-        self = TableGradeInfo()
+function TableGradeInfo:isMaxLevel(grade, level)
+    if (self == THIS) then
+        self = THIS()
     end
 
-    local grade = t_dragon_data['grade'] or 1
-    local exp = t_dragon_data['gexp'] or 0
-
-     
-    local t_table = self:get(grade)
-    local req_exp = t_table['req_exp']
-
-    local percentage
-    local is_max
-
-    -- MAX 등급
-    if (not req_exp) or (req_exp == 0) then
-        percentage = 100
-        is_max = true
-    else
-        percentage = (exp / req_exp) * 100
-        percentage = math_clamp(percentage, 0, 100)
-        is_max = false
-    end
-    percentage = math_floor(percentage)
-
-    local t_grade_exp_info = {}
-    t_grade_exp_info['percentage'] = percentage
-    t_grade_exp_info['exp'] = exp
-    t_grade_exp_info['req_exp'] = req_exp
-    t_grade_exp_info['is_max'] = is_max
-
-    return t_grade_exp_info
+    local max_lv = self:getValue(grade, 'max_lv')
+    return (max_lv <= level)
 end

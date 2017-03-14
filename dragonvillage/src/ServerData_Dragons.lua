@@ -318,6 +318,34 @@ function ServerData_Dragons:getUpgradeMode(doid)
 end
 
 -------------------------------------
+-- function checkUpgradeable
+-- @brief
+-------------------------------------
+function ServerData_Dragons:checkUpgradeable(doid)
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+
+    if (not t_dragon_data) then
+        return false
+    end
+
+    local grade = t_dragon_data['grade']
+    local level = t_dragon_data['lv']
+
+    -- 최대 등급 체크
+    if (6 <= grade) then
+        return false, Str('최고 등급의 드래곤입니다.')
+    end
+
+    -- 최대 레벨 체크
+    local is_max_level = TableGradeInfo:isMaxLevel(grade, level)
+    if (not is_max_level) then
+        return false, Str('등급별 최대 레벨에서 승급이 가능합니다.')
+    end
+
+    return true
+end
+
+-------------------------------------
 -- function getDragonsSortData
 -------------------------------------
 function ServerData_Dragons:getDragonsSortData(doid)
