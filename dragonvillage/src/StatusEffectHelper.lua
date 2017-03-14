@@ -338,7 +338,7 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 	while true do 
 		-- 1. 파싱할 구문 가져오고 탈출 체크
 		effect_str = l_status_effect_str[idx]
-		if (not effect_str) or (effect_str == 'x') then 
+		if (not effect_str) or (effect_str == 'x') or (effect_str == '') then 
 			break 
 		end
 
@@ -468,7 +468,7 @@ function StatusEffectHelper:releaseStatusEffect(char, t_status_effect_str)
 	local idx = 1
 	while true do 
 		local effect_str = t_status_effect_str[idx]
-		if (not effect_str) or (effect_str == 'x') then 
+		if (not effect_str) or (effect_str == 'x') or (effect_str == '') then 
 			break 
 		end
 
@@ -573,7 +573,7 @@ end
 -------------------------------------
 function StatusEffectHelper:getStatusEffectTableFromSkillTable(t_skill, idx)
 	local effect_str = t_skill['status_effect_' .. idx]
-	if (not effect_str) or (effect_str == 'x') then 
+	if (not effect_str) or (effect_str == 'x') or (effect_str == '') then 
 		return {}
 	end
 	return self:parsingStr(effect_str)
