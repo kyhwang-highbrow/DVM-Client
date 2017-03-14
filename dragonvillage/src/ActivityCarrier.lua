@@ -76,8 +76,8 @@ end
 -------------------------------------
 function ActivityCarrier:insertStatusEffectRate(l_status_effect_str)
 	for i = 1, 2 do 
-		local l_effect = StatusEffectHelper:parsingStatusEffectStr(l_status_effect_str, i)
-		if l_effect then 
+		local l_effect = StatusEffectHelper:parsingStatusEffectStr(l_status_effect_str[i])
+		if l_effect then
 			local type = l_effect['type']
             local _start_con = l_effect['start_con']
 			local _rate = l_effect['rate']

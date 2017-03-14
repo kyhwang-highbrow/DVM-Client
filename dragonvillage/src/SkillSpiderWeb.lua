@@ -21,7 +21,7 @@ end
 -------------------------------------
 function SkillSpiderWeb:init_skill()
 	PARENT.init_skill(self)
-	local t_effect = StatusEffectHelper:parsingStatusEffectStr(self.m_lStatusEffectStr, 1)
+	local t_effect = StatusEffectHelper:parsingStatusEffectStr(self.m_lStatusEffectStr[1])
 	self.m_statusDuration = tonumber(t_effect['duration'])
 	self.m_statusName = t_effect['type']
 

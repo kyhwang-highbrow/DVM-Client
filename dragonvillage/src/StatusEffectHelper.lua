@@ -579,9 +579,8 @@ end
 -- function parsingStatusEffectStr
 -- @brief 특정 인덱스 상태효과 타입 파싱해서 가져옴
 -------------------------------------
-function StatusEffectHelper:parsingStatusEffectStr(l_status_effect_str, idx)
-	local effect_str = l_status_effect_str[idx]
-	return self:parsingStr(effect_str)
+function StatusEffectHelper:parsingStatusEffectStr(status_effect_str)
+	return self:parsingStr(status_effect_str)
 end
 
 -------------------------------------
@@ -589,7 +588,7 @@ end
 -- @brief 상태효과 타입 파싱해서 테이블 반환
 -------------------------------------
 function StatusEffectHelper:parsingStr(status_effect_str)
-	if (not status_effect_str) or (status_effect_str == 'x') then 
+	if (not status_effect_str) or (status_effect_str == 'x') or (status_effect_str == '') then 
 		return nil 
 	end
 	local t_effect = stringSplit(status_effect_str, ';')
