@@ -163,7 +163,7 @@ function slack_api(msg)
     t_data['token'] = 'xoxp-4049551466-60623372247-67908400245-53f29cbca3'
     t_data['channel'] = 'C1RUT070B'
     t_data['text'] = msg or '테스트 메세지'
-    t_data['username'] = 'DVT client' .. (nick and nick or '')
+    t_data['username'] = 'DVT client : ' .. (nick and nick or '')
     t_data['icon_emoji'] = ':psyker:'
 
     -- 요청 정보 설정
