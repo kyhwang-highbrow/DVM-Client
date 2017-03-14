@@ -12,9 +12,6 @@ function UI_GameColosseum:initUI()
     local vars = self:load('ingame_colosseum.ui')
     UIManager:open(self, UIManager.NORMAL)
 
-    -- 자동 버튼 임시 막음 처리
-    vars['autoButton']:setVisible(false)
-
     vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
 	vars['feverButton']:registerScriptTapHandler(function() self:click_feverButton() end)    
     vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)

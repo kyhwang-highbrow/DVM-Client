@@ -86,34 +86,44 @@ function GameAuto:proccess_dragon()
 
     for i, dragon in ipairs(allyList) do
         if (isInstanceOf(dragon, Dragon)) then
-            local skill_id = dragon:getSkillID('active')
-            local t_skill = dragon:getLevelingSkillById(skill_id)
-            local isPossibleSkill = false
-            local target = nil
+            --[[
+            do  -- 드래그 스킬
+                local skill_id = dragon:getSkillID('active')
+                local t_skill = dragon:getLevelingSkillById(skill_id)
+                local isPossibleSkill = false
+                local target = nil
             
-            -- 스킬 사용 여부 체크
-            isPossibleSkill, target = self:checkSkill(dragon, t_skill)
+                -- 스킬 사용 여부 체크
+                isPossibleSkill, target = self:checkSkill(dragon, t_skill)
 
-            if (isPossibleSkill) then
-                if (not target) then
-                    -- 대상을 찾는다
-                    target = self:findTarget(dragon, t_skill)
-                end
-
-                if (target) then
-                    -- 스킬 사용
-                    self:doSkill(dragon, t_skill, target)
-
-                    -- AI 딜레이 시간 설정
-                    self.m_aiDelayTime = self:getAiDelayTime()
-
-                    -- 해당 대상을 리스트에서 제외시킴(한 대상에게 여러번 스킬 사용이 되지 않도록 하기 위함)
-                    local idx = table.find(self.m_tCastingEnemyList, target)
-                    if (idx) then
-                        table.remove(self.m_tCastingEnemyList, idx)
+                if (isPossibleSkill) then
+                    if (not target) then
+                        -- 대상을 찾는다
+                        target = self:findTarget(dragon, t_skill)
                     end
 
-                    break
+                    if (target) then
+                        -- 스킬 사용
+                        self:doSkill(dragon, t_skill, target)
+
+                        -- AI 딜레이 시간 설정
+                        self.m_aiDelayTime = self:getAiDelayTime()
+
+                        -- 해당 대상을 리스트에서 제외시킴(한 대상에게 여러번 스킬 사용이 되지 않도록 하기 위함)
+                        local idx = table.find(self.m_tCastingEnemyList, target)
+                        if (idx) then
+                            table.remove(self.m_tCastingEnemyList, idx)
+                        end
+
+                        break
+                    end
+                end
+            end
+            ]]--
+
+            do  -- 터치 스킬(쿨마다 즉시 사용)
+                if (dragon:isPossibleSkill(chance_type)) then
+                    dragon:doSkill_touch()
                 end
             end
         end
@@ -125,7 +135,8 @@ end
 -- @brief 스킬 사용 여부를 확인
 -------------------------------------
 function GameAuto:checkSkill(owner, t_skill, aiAttack, aiHeal)
-    if (not owner:isPossibleSkill()) then return false end
+    local chance_type = t_skill['chance_type']
+    if (not owner:isPossibleSkill(chance_type)) then return false end
 
     local target_type = t_skill['target_type']
     local aiAttack = aiAttack or g_autoPlaySetting:get('dragon_atk_skill')

@@ -6,6 +6,8 @@ local PARENT = GameWorld
 GameWorldColosseum = class(PARENT, {
         m_diedHeroTotalMaxHp = 'number',    -- 죽은 아군들의 총 maxHp(죽었을때 상태로 저장)
         m_diedEnemyTotalMaxHp = 'number',    -- 죽은 적군들의 총 maxHp(죽었을때 상태로 저장)
+
+        m_enemyDragSkillTimer = 'numner',
     })
 
 -------------------------------------
@@ -14,6 +16,7 @@ GameWorldColosseum = class(PARENT, {
 function GameWorldColosseum:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, fever_node, ui, develop_mode)
     self.m_diedHeroTotalMaxHp = 0
     self.m_diedEnemyTotalMaxHp = 0
+    self.m_enemyDragSkillTimer = 0
 
     -- 타임 스케일 설정
     local baseTimeScale = COLOSSEUM__TIME_SCALE
@@ -60,6 +63,11 @@ function GameWorldColosseum:initGame(stage_name)
 
     -- 진형 시스템 초기화
     self:setBattleZone(self.m_deckFormation, true)
+
+    do -- 드래그 스킬
+        self.m_dragSkillTimer = 0
+        self.m_enemyDragSkillTimer = 0
+    end
         
     do -- 스킬 조작계 초기화
         self.m_skillIndicatorMgr = SkillIndicatorMgr(self)
