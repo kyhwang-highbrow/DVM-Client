@@ -58,6 +58,10 @@ end
 -- function st_attack
 -------------------------------------
 function SkillAoESquare.st_attack(owner, dt)
+	if (owner.m_stateTimer == 0) then
+		owner:enterAttack()
+	end
+
 	owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
 
 	-- 반복 공격	
@@ -85,6 +89,12 @@ function SkillAoESquare:runAttack()
 
 	-- 스킬이 제거할 수 있는 미사일 제거
 	self:removeDestructibleMissile()
+end
+
+-------------------------------------
+-- function enterAttack
+-------------------------------------
+function SkillAoESquare:enterAttack()
 end
 
 -------------------------------------

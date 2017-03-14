@@ -4,7 +4,10 @@ local PARENT = SkillAoESquare
 -- class SkillAoESquare_Wonder
 -------------------------------------
 SkillAoESquare_Wonder = class(PARENT, {
-
+		m_lineCnt = 'num',		-- 줄 갯수
+		m_space = 'num',		-- 간격
+		m_addAtkPower = 'num',	-- 추가 공격 데미지
+		m_res = 'str',			-- 리소스
      })
 
 -------------------------------------
@@ -18,23 +21,90 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillAoESquare_Wonder:init_skill(skill_width, skill_height, hit)
-    PARENT.init_skill(self)
+function SkillAoESquare_Wonder:init_skill(line_cnt, each_width, each_space, add_atk_power, missile_res)
+    PARENT.init_skill(self, each_width, 2048, 1)
 
 	-- 멤버 변수
-    self.m_skillWidth = skill_width
-	self.m_skillHeight = skill_height
+	self.m_lineCnt = line_cnt
+	self.m_space = each_space
+	self.m_addAtkPower = add_atk_power
+	self.m_res = missile_res
+end
 
-	self.m_maxAttackCnt = hit 
-    self.m_attackCnt = 0
-    self.m_hitInterval = ONE_FRAME * 7
-	self.m_multiAtkTimer = self.m_hitInterval
+-------------------------------------
+-- function enterAttack
+-------------------------------------
+function SkillAoESquare_Wonder:enterAttack()
+	local l_pos_x = self:calculatePositionX()
+	local pos_y = self.pos.y
+
+	for i, pos_x in pairs(l_pos_x) do
+		cclog(pos_x)
+		local effect = self:makeEffect(self.m_res, pos_x, pos_y, self.m_idleAniName)
+		effect:setScale(3.0)
+		--effect:setTimeScale(0.3)
+	end
+end
+
+-------------------------------------
+-- function findTarget
+-------------------------------------
+function SkillAoESquare_Wonder:findTarget()
+    local x = self.pos.x
+	local y = self.pos.y
+
+    local world = self.m_world
+
+    local l_target = world:getTargetList(self.m_owner, x, y, self.m_findTargetType, 'x', 'distance_x')
+    
+    local l_ret = {}
+
+    local std_width = (self.m_skillWidth / 2)
+	local std_height = (self.m_skillHeight / 2)
+
+	local l_pos_x = self:calculatePositionX()
+
+    for i, v in ipairs(l_target) do
+		for i, pos_x in pairs(l_pos_x) do
+			if isCollision_Rect(pos_x, y, v, std_width, std_height) then
+				table.insert(l_ret, v)
+			end
+		end
+    end
+
+    return l_ret
+end
+
+-------------------------------------
+-- function calculatePositionX
+-------------------------------------
+function SkillAoESquare_Wonder:calculatePositionX()
+    local x = self.pos.x
+	local space = self.m_space
+	local line_cnt = self.m_lineCnt
 	
-	-- 하드코딩..
-	self.m_idleAniName = 'idle'
+	local ret = {}
+	local half = math_floor(line_cnt/2)
 
-	-- 위치 설정
-	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
+	-- 홀수
+	if ((line_cnt % 2) == 1) then
+		-- 중앙값
+		table.insert(ret, x)
+		-- 좌우값
+		for i = 1, half do
+			table.insert(ret, x + (space * i))
+			table.insert(ret, x - (space * i))
+		end
+	-- 짝수
+	else
+		-- 좌우값
+		for i = 1, half do
+			table.insert(ret, x + (space * (i - 1 + 0.5)))
+			table.insert(ret, x - (space * (i - 1 + 0.5)))
+		end
+	end
+
+	return ret
 end
 
 -------------------------------------
@@ -45,19 +115,19 @@ function SkillAoESquare_Wonder:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 	
-	local skill_width = t_skill['val_1']		-- 공격 반경 가로
-	local skill_height = t_skill['val_2']		-- 공격 반경 세로
-    
-	local hit = t_skill['hit'] -- 공격 횟수
+	local line_cnt = t_skill['hit']			-- 줄의 갯수
+	local each_width = t_skill['val_1']		-- 폭
+	local each_space = t_skill['val_2']		-- 간격
+    local add_atk_power = t_skill['val_3']	-- 추가 공격 데미지
 	
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = SkillAoESquare_Wonder(missile_res)
+    local skill = SkillAoESquare_Wonder(nil)
 	
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-	skill:init_skill(skill_width, skill_height, hit)
+	skill:init_skill(line_cnt, each_width, each_space, add_atk_power, missile_res)
 	skill:initState()
 
 	-- 3. state 시작 

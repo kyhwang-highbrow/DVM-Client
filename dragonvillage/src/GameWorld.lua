@@ -1018,6 +1018,7 @@ function GameWorld:onKeyReleased(keyCode, event)
         if (self.m_gameTamer) then
             self.m_gameTamer:resetActiveSkillCoolTime()
         end
+		self:setDragSkillCoolTime(g_constant:get('INGAME', 'DRAGON_SKILL_COOL_TIME'))
 
 	-- 미션 성공
     elseif (keyCode == KEY_V) then
@@ -1739,12 +1740,19 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
 end
 
 -------------------------------------
+-- function setDragSkillCoolTime
+-------------------------------------
+function GameWorld:setDragSkillCoolTime(time)
+    self.m_dragSkillTimer = time
+
+    self.m_inGameUI:setActiveSkillTime(self.m_dragSkillTimer, g_constant:get('INGAME', 'DRAGON_SKILL_COOL_TIME'))
+end
+
+-------------------------------------
 -- function resetDragSkillCoolTime
 -------------------------------------
 function GameWorld:resetDragSkillCoolTime()
-    self.m_dragSkillTimer = 0
-
-    self.m_inGameUI:setActiveSkillTime(self.m_dragSkillTimer, g_constant:get('INGAME', 'DRAGON_SKILL_COOL_TIME'))
+    self:setDragSkillCoolTime(0)
 end
 
 -------------------------------------
