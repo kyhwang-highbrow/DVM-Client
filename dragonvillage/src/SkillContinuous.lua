@@ -4,7 +4,7 @@ local PARENT = Skill
 -- class SkillContinuous
 -------------------------------------
 SkillContinuous = class(PARENT, {
-		m_statusEffectType = 'str',
+		m_workingType = 'str',
 		m_interval = 'num'
     })
 
@@ -19,11 +19,12 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillContinuous:init_skill()
+function SkillContinuous:init_skill(interval, working_type)
     PARENT.init_skill(self)
 
 	-- 멤버 변수
-   	self.m_interval = 1
+   	self.m_interval = interval
+	self.m_workingType = working_type
 end
 
 -------------------------------------
@@ -39,9 +40,16 @@ end
 -- function update
 -------------------------------------
 function SkillContinuous.st_idle(owner, dt)
-	if (owner.m_stateTimer > owner.m_interval) then   
-		local char_list = owner.m_owner:getFormationMgr(true):getEntireCharList()
-		StatusEffectHelper:doStatusEffectByStr(owner.m_owner, char_list, owner.m_lStatusEffectStr)
+	if (owner.m_stateTimer > owner.m_interval) then 
+		if (owner.m_workingType  == 'default') then
+			local char_list = owner.m_owner:getFormationMgr(true):getEntireCharList()
+			StatusEffectHelper:doStatusEffectByStr(owner.m_owner, char_list, owner.m_lStatusEffectStr)
+		
+		elseif (owner.m_workingType == 'wonder') then
+			StatusEffectHelper:releaseHarmfulStatusEffect(owner.m_owner)
+			cclog('WONDER RELEASE')
+		end
+
 		
 		owner.m_stateTimer = 0
 	end
@@ -53,6 +61,8 @@ end
 function SkillContinuous:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
+	local interval = t_skill['val_1']
+	local working_type = t_skill['val_2']
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
@@ -61,7 +71,7 @@ function SkillContinuous:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill()
+    skill:init_skill(interval, working_type)
 	skill:initState()
 
 	-- 3. state 시작 
