@@ -226,6 +226,30 @@ function ServerData_Dragons:isLeaderDragon(doid)
 end
 
 -------------------------------------
+-- function possibleMaterialDragon
+-- @brief 재료 드래곤으로 사용 가능한지 여부
+-------------------------------------
+function ServerData_Dragons:possibleMaterialDragon(doid)
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+
+    if (not t_dragon_data) then
+        return false, ''
+    end
+
+    -- 리더로 설정된 드래곤인지 체크
+    if self:isLeaderDragon(doid) then
+        return false, Str('리더로 설정된 드래곤입니다.')
+    end
+
+    -- 탐험 중인 드래곤인지 체크
+    if g_explorationData:isExplorationUsedDragon(doid) then
+        return false, Str('탐험 중인 드래곤입니다.')
+    end
+
+    return true
+end
+
+-------------------------------------
 -- function getNumberOfRemainingSkillLevel
 -- @brief 남은 드래곤 스킬 레벨 갯수 리턴
 -------------------------------------
@@ -611,5 +635,27 @@ function ServerData_Dragons:checkMaximumDragons(ignore_func, manage_func)
         end
     else
         UI_NotificationFullInventoryPopup('dragon', dragons_cnt, MAX_DRAGONS_CNT, ignore_func, manage_func)
+    end
+end
+
+-------------------------------------
+-- function possibleDragonLevelUp
+-- @breif 레벨업이 가능한 상태인지 여부
+-------------------------------------
+function ServerData_Dragons:possibleDragonLevelUp(doid)
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+
+    if (not t_dragon_data) then
+        return false
+    end
+
+    local lv = t_dragon_data['lv']
+    local grade = t_dragon_data['grade']
+    local max_lv = TableGradeInfo:getMaxLv(grade)
+
+    if (lv < max_lv) then
+        return true
+    else
+        return false, Str('{1}등급 최대레벨 {2}에 도달하였습니다.', grade, max_lv)
     end
 end

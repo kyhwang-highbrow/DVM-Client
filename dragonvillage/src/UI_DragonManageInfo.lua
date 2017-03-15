@@ -408,6 +408,14 @@ end
 function UI_DragonManageInfo:click_levelupBtn()
     local doid = self.m_selectDragonOID
 
+    do -- 레벨업이 가능한지 확인
+        local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
+        if (not possible) then
+            UIManager:toastNotificationRed(msg)
+            return
+        end
+    end
+
     -- 선탠된 드래곤과 정렬 설정
     local b_ascending_sort = self.m_dragonSortMgr.m_bAscendingSort
     local sort_type = self.m_dragonSortMgr.m_currSortType

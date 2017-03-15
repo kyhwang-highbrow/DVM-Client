@@ -27,3 +27,19 @@ function TableGradeInfo:isMaxLevel(grade, level)
     local max_lv = self:getValue(grade, 'max_lv')
     return (max_lv <= level)
 end
+
+-------------------------------------
+-- function getMaxLv
+-------------------------------------
+function TableGradeInfo:getMaxLv(grade)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    if (not grade) then
+        error('grade : ' .. grade)
+    end
+
+    local max_lv = self:getValue(grade, 'max_lv')
+    return max_lv
+end

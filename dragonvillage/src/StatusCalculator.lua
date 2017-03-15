@@ -326,11 +326,20 @@ end
 -- function MakeOwnDragonStatusCalculator
 -- @brief
 -------------------------------------
-function MakeOwnDragonStatusCalculator(doid)
+function MakeOwnDragonStatusCalculator(doid, t_adjust_dragon_data)
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
 
     if (not t_dragon_data) then
         return nil
+    end
+
+    -- 특정 값으로 변경한 상태로 계산하고 싶은 경우 (t_dragon_data는 clone된 데이터로 실제 드래곤 정보에 영향을 주지 않는다.)
+    if t_adjust_dragon_data then
+        for key,value in pairs(t_adjust_dragon_data) do
+            if t_dragon_data[key] then
+                t_dragon_data[key] = value
+            end
+        end
     end
 
     -- 룬은 친밀도, 수련과 달리 Rune Object가 별도로 존재하여

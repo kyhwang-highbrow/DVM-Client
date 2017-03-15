@@ -116,6 +116,7 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workPlatformLogin')
     table.insert(self.m_lWorkList, 'workGameLogin')
     table.insert(self.m_lWorkList, 'workGetDeck')
+    table.insert(self.m_lWorkList, 'workGetServerInfo')
     table.insert(self.m_lWorkList, 'workCollection')
     table.insert(self.m_lWorkList, 'workLobbyUserList')
     table.insert(self.m_lWorkList, 'workFinish')
@@ -317,6 +318,36 @@ function UI_TitleScene:workGetDeck()
     Network_get_deck(uid, success_cb, fail_cb)
 end
 function UI_TitleScene:workGetDeck_click()
+end
+
+-------------------------------------
+-- function workGetServerInfo
+-- @brief
+-------------------------------------
+function UI_TitleScene:workGetServerInfo()
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+
+        local fail_cb = function(ret)
+            self:makeFailPopup(nil, ret)
+        end
+
+        -- 탐험 정보 받기
+        co:work()
+        local ui_network = g_explorationData:request_explorationInfo(co.NEXT)
+        ui_network:setRevocable(false)
+        ui_network:setFailCB(fail_cb)
+        if co:waitWork() then return end
+
+        co:close()
+
+        -- 다음 work로 이동
+        self:doNextWork()
+    end
+
+    Coroutine(coroutine_function)
+end
+function UI_TitleScene:workGetServerInfo_click()
 end
 
 -------------------------------------
