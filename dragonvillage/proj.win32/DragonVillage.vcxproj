@@ -356,6 +356,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\shader\shaderBlur.fsh" />
     <None Include="..\src\ShakeManager.lua" />
     <None Include="..\src\SimplePrimitivesDraw.lua" />
+    <None Include="..\src\SkillAoECone.lua" />
+    <None Include="..\src\SkillAoECone_Spread.lua" />
+    <None Include="..\src\SkillAoECone_Vertical.lua" />
     <None Include="..\src\SkillAoERound_Alien.lua" />
     <None Include="..\src\SkillAoERound_Egg.lua" />
     <None Include="..\src\SkillAoERound_Sura.lua" />
@@ -540,11 +543,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillAoERound.lua" />
     <None Include="..\src\SkillAttributeAmor.lua" />
     <None Include="..\src\SkillThrowBuff.lua" />
-    <None Include="..\src\SkillConicAtk_Spread.lua" />
     <None Include="..\src\SkillCounterAttack.lua" />
     <None Include="..\src\SkillDispelMagic.lua" />
     <None Include="..\src\SkillExplosion.lua" />
-    <None Include="..\src\SkillConicAtk.lua" />
     <None Include="..\src\SkillCrash.lua" />
     <None Include="..\src\SkillHealAround.lua" />
     <None Include="..\src\SkillAoESquare_Heal.lua" />

@@ -570,9 +570,6 @@
     <None Include="..\src\StatusEffect_Trigger.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SkillConicAtk.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SkillExplosion.lua">
       <Filter>lua</Filter>
     </None>
@@ -601,9 +598,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillIndicator_ConicSpread.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\SkillConicAtk_Spread.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\StatusEffectIcon.lua">
@@ -1841,6 +1835,15 @@
     </None>
     <None Include="..\src\UI_DragonUpgrade.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\SkillAoECone.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\SkillAoECone_Spread.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\SkillAoECone_Vertical.lua">
+      <Filter>lua</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

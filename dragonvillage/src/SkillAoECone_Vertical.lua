@@ -1,19 +1,9 @@
-local PARENT = Skill
+local PARENT = SkillAoECone
 
 -------------------------------------
--- class SkillConicAtk
+-- class SkillAoECone_Vertical
 -------------------------------------
-SkillConicAtk = class(PARENT, {
-		m_range = 'number',
-		m_maxRange = 'number',
-		m_angle = 'num',
-		m_dir = 'num', 
-
-		m_attackCount = 'number',
-		m_maxAttackCount = 'number',
-		
-		m_hitInterval = 'number',
-		m_multiAtkTimer = 'dt',
+SkillAoECone_Vertical = class(PARENT, {
      })
 
 -------------------------------------
@@ -21,13 +11,13 @@ SkillConicAtk = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function SkillConicAtk:init(file_name, body, ...)    
+function SkillAoECone_Vertical:init(file_name, body, ...)    
 end
 
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillConicAtk:init_skill(attack_count, range, angle)
+function SkillAoECone_Vertical:init_skill(attack_count, range, angle)
     PARENT.init_skill(self)
 
 	-- 멤버 변수
@@ -48,15 +38,15 @@ end
 -------------------------------------
 -- function initState
 -------------------------------------
-function SkillConicAtk:initState()
+function SkillAoECone_Vertical:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillConicAtk.st_idle, 'idle', true)
+    self:addState('start', SkillAoECone_Vertical.st_idle, 'idle', true)
 end
 
 -------------------------------------
 -- function st_idle
 -------------------------------------
-function SkillConicAtk.st_idle(owner, dt)
+function SkillAoECone_Vertical.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
 		-- 이펙트 재생 단위 시간
 		owner.m_hitInterval = (owner.m_animator:getDuration() / owner.m_maxAttackCount)
@@ -88,7 +78,7 @@ end
 -- function findTarget
 -- @brief 공격 대상 찾음
 -------------------------------------
-function SkillConicAtk:findTarget()
+function SkillAoECone_Vertical:findTarget()
     local world = self.m_world
 	
 	local t_data = {}
@@ -106,7 +96,7 @@ end
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------
-function SkillConicAtk:makeSkillInstance(owner, t_skill, t_data)
+function SkillAoECone_Vertical:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local attack_count = t_skill['hit']
@@ -117,7 +107,7 @@ function SkillConicAtk:makeSkillInstance(owner, t_skill, t_data)
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = SkillConicAtk(missile_res)
+    local skill = SkillAoECone_Vertical(missile_res)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
