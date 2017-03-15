@@ -334,6 +334,7 @@ local t_module = {
 	'SkillExplosion',
 	'SkillRolling',
 	'SkillAddAttack',
+	'SkillConditionalAddEffect',
 	'SkillCounterAttack',
 	'SkillSpiderWeb',
     'SkillHeartOfRuin',

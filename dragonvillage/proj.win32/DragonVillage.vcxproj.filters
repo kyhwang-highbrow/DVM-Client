@@ -1848,6 +1848,9 @@
     <None Include="..\src\SkillIndicator_AoECone_Spread.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\SkillConditionalAddEffect.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -88,9 +88,7 @@ function SkillAoERound.st_attack(owner, dt)
 	
 	-- 공격 횟수 초과시 탈출
     if (owner.m_maxAttackCnt <= owner.m_attackCnt) then
-		local t_target = owner:findTarget()
-        owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_HIT }, t_target)
-        owner:changeState('disappear')
+		owner:escapeAttack()
     end
 end
 
@@ -154,6 +152,16 @@ end
 -- function doSpecialEffect (onHit)
 -------------------------------------
 function SkillAoERound:doSpecialEffect(t_target)
+end
+
+-------------------------------------
+-- function escapeAttack
+-- @brief 공격이 종료되는 시점에 실행
+-------------------------------------
+function SkillAoERound:escapeAttack()
+	local t_target = owner:findTarget()
+    owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_HIT }, t_target)
+    owner:changeState('disappear')
 end
 
 -------------------------------------

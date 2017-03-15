@@ -35,7 +35,6 @@ function SkillContinuous:initState()
     self:addState('start', SkillContinuous.st_idle, nil, false)
 end
 
-
 -------------------------------------
 -- function update
 -------------------------------------
@@ -47,10 +46,8 @@ function SkillContinuous.st_idle(owner, dt)
 		
 		elseif (owner.m_workingType == 'wonder') then
 			StatusEffectHelper:releaseHarmfulStatusEffect(owner.m_owner)
-			cclog('WONDER RELEASE')
 		end
 
-		
 		owner.m_stateTimer = 0
 	end
 end

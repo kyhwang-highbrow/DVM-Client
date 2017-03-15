@@ -369,6 +369,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillBurst.lua" />
     <None Include="..\src\SkillChainLightning.lua" />
     <None Include="..\src\SkillCharge.lua" />
+    <None Include="..\src\SkillConditionalAddEffect.lua" />
     <None Include="..\src\SkillEnumrate.lua" />
     <None Include="..\src\SkillEnumrate_Curve.lua" />
     <None Include="..\src\SkillEnumrate_Normal.lua" />
