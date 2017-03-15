@@ -116,7 +116,7 @@ function ServerData_Shop:openShopPopup(tab_type)
         local ui_shop_popup = UI_ShopPopup()
 
         if tab_type then
-            ui_shop_popup:setTab(TableShop.STAMINA)
+            ui_shop_popup:setTab(tab_type)
         end
     end
 
