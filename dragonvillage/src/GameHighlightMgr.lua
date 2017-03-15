@@ -154,13 +154,6 @@ function GameHighlightMgr:removeChar(char)
 end
 
 -------------------------------------
--- function getCharList
--------------------------------------
-function GameHighlightMgr:getCharList()
-    return self.m_lCharList
-end
-
--------------------------------------
 -- function addMissile
 -------------------------------------
 function GameHighlightMgr:addMissile(missile)

@@ -204,7 +204,12 @@ function Dragon.st_attack(owner, dt)
             local t_skill = owner:getSkillTable(owner.m_reservedSkillId)
             local str_map = {}
             str_map[t_skill['t_name']] = true
-            owner.m_world:makePassiveStartEffect(owner, str_map)
+
+            if (t_skill['chance_type'] == 'basic_time') then
+                --owner.m_world:makePassiveStartEffect(owner, str_map, true)
+            else
+                owner.m_world:makePassiveStartEffect(owner, str_map)
+            end
         else
             -- 기본 공격시 이벤트
             if (owner.m_bLeftFormation) then
@@ -265,12 +270,12 @@ function Dragon.st_skillAppear(owner, dt)
         -- 이벤트
         --[[
         if (owner.m_bLeftFormation) then
-            owner:dispatch('dragon_skill', {}, owner)
+            owner:dispatch('dragon_active_skill', {}, owner)
         else
             owner:changeState('skillIdle')
         end
         ]]--
-        owner:dispatch('dragon_skill', {}, owner)
+        owner:dispatch('dragon_active_skill', {}, owner)
     end
 end
 

@@ -271,7 +271,7 @@ function SkillIndicatorMgr:setSelectHero(hero)
         self.m_world:setTemporaryPause(true, hero)
         self.m_world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
         self.m_world.m_gameHighlight:changeDarkLayerColor(DARK_LAYER_OPACITY, SKILL_INDICATOR_FADE_OUT_DURATION)
-
+        self.m_world.m_gameHighlight:clear()
         self.m_world.m_gameHighlight:addChar(hero, 5)
         
         self.m_selectHero = hero

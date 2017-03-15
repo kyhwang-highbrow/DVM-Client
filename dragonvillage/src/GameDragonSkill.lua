@@ -2,6 +2,7 @@ local PARENT = class(IEventListener:getCloneClass(), IStateHelper:getCloneTable(
 
 GAME_DRAGON_SKILL_WAIT = 0
 GAME_DRAGON_SKILL_LIVE = 1
+GAME_DRAGON_SKILL_LIVE2 = 2
 
 -------------------------------------
 -- class GameDragonSkill
@@ -67,6 +68,7 @@ end
 function GameDragonSkill:initState()
     self:addState(GAME_DRAGON_SKILL_WAIT,   function(self, dt) end)
     self:addState(GAME_DRAGON_SKILL_LIVE,   GameDragonSkill.update_live)
+    self:addState(GAME_DRAGON_SKILL_LIVE2,   GameDragonSkill.update_live2)
 end
 
 -------------------------------------
@@ -91,6 +93,7 @@ function GameDragonSkill.update_live(self, dt)
             -- 하이라이트 활성화
             world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
             world.m_gameHighlight:changeDarkLayerColor(254, 0.5)
+            world.m_gameHighlight:clear()
             world.m_gameHighlight:addChar(dragon)
             
             -- 일시 정지
@@ -163,6 +166,52 @@ function GameDragonSkill.update_live(self, dt)
 end
 
 -------------------------------------
+-- function update_live2
+-------------------------------------
+function GameDragonSkill.update_live2(self, dt)
+    local world = self.m_world
+    local dragon = self.m_dragon
+    local timeScale = 1
+	local delayTime = 1
+    
+    if (self:getStep() == 0) then
+        if (self:isBeginningStep()) then
+            -- 하이라이트 활성화
+            world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
+            world.m_gameHighlight:changeDarkLayerColor(254, 0.1)
+            --world.m_gameHighlight:clear()
+            world.m_gameHighlight:addChar(dragon)
+
+            for i, enemy in pairs(dragon:getOpponentList()) do
+                world.m_gameHighlight:addChar(enemy)
+            end
+            
+            -- 효과음
+            SoundMgr:playEffect('EFFECT', 'skill_ready')
+        
+        elseif (self:isPassedStepTime(0.4)) then
+            -- 암전 해제
+            world.m_gameHighlight:changeDarkLayerColor(0, 0.65)
+
+        elseif (self:isPassedStepTime(delayTime)) then
+
+            self:nextStep()
+        end
+
+    elseif (self:getStep() == 1) then
+        if (self:isBeginningStep()) then
+            -- 하이라이트 비활성화
+            world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_HIDE)
+            --world.m_gameHighlight:clear()
+
+            self.m_dragon = nil
+
+            self:changeState(GAME_DRAGON_SKILL_WAIT)
+        end
+    end
+end
+
+-------------------------------------
 -- function makeSkillCutEffect
 -------------------------------------
 function GameDragonSkill:makeSkillCutEffect(dragon, delayTime)
@@ -222,13 +271,22 @@ end
 -- function onEvent
 -------------------------------------
 function GameDragonSkill:onEvent(event_name, t_event, ...)
-    if (event_name == 'dragon_skill') then
+    if (event_name == 'dragon_active_skill') then
         local arg = {...}
         local dragon = arg[1]
 
         self.m_dragon = dragon
 
         self:changeState(GAME_DRAGON_SKILL_LIVE)
+
+    elseif (event_name == 'dragon_time_skill') then
+        local arg = {...}
+        local dragon = arg[1]
+
+        self.m_dragon = dragon
+
+        self:changeState(GAME_DRAGON_SKILL_LIVE2)
+
     end
 end
 

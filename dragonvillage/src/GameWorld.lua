@@ -597,10 +597,15 @@ end
 -- function makePassiveStartEffect
 -- @brief
 -------------------------------------
-function GameWorld:makePassiveStartEffect(char, str_map)
+function GameWorld:makePassiveStartEffect(char, str_map, is_highlight)
     local root_node = cc.Node:create()
-    self:addChild2(root_node, DEPTH_PASSIVE_FONT)
     root_node:setPosition(char.pos.x, char.pos.y)
+
+    if (is_highlight) then
+        g_gameScene.m_gameHighlightNode2:addChild(root_node, DEPTH_PASSIVE_FONT)
+    else
+        self:addChild2(root_node, DEPTH_PASSIVE_FONT)
+    end
 
     do-- 이펙트 생성
         local effect = MakeAnimator('res/effect/effect_passive_common/effect_passive_common.vrp')
@@ -710,19 +715,6 @@ function GameWorld:findTarget(type, x, y, l_remove)
 end
 
 -------------------------------------
--- function getCharList
--- @param  team 'ally' or 'enemy'
--- @return table
--------------------------------------
-function GameWorld:getCharList(team)
-    if (team == 'ally') then
-        return self:getDragonList()
-    elseif (team == 'enemy') then
-        return self:getEnemyList()
-    end
-end
-
--------------------------------------
 -- function addEnemy
 -- @param enemy
 -------------------------------------
@@ -745,7 +737,7 @@ function GameWorld:addEnemy(enemy)
     enemy:addListener('character_casting_cancel', self.m_gameFever)
 
     if (enemy.m_charType == 'dragon') then
-        enemy:addListener('dragon_skill', self.m_gameDragonSkill)
+        enemy:addListener('dragon_active_skill', self.m_gameDragonSkill)
         enemy:addListener('enemy_active_skill', self.m_gameState)
         enemy:addListener('enemy_active_skill', self.m_gameAutoHero)
     end
@@ -805,17 +797,15 @@ function GameWorld:addHero(hero, idx)
     hero:addListener('character_dead', self)
     hero:addListener('character_dead', self.m_tamerSpeechSystem)
 
-    hero:addListener('dragon_skill', self.m_gameDragonSkill)
+    hero:addListener('dragon_time_skill', self.m_gameDragonSkill)
+    hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
     
     hero:addListener('hero_basic_skill', self)
     hero:addListener('hero_basic_skill', self.m_gameFever)
     hero:addListener('hero_active_skill', self.m_gameFever)
     hero:addListener('hero_active_skill', self.m_gameState)
     hero:addListener('hero_active_skill', self.m_gameAutoHero)
-    hero:addListener('hero_touch_skill', self)
-    hero:addListener('hero_touch_skill', self.m_tamerSpeechSystem)
-    hero:addListener('hero_passive_skill', self)
-
+        
     hero:addListener('hero_casting_start', self.m_gameAutoHero)
 
     hero:addListener('hit_active', self.m_gameFever)

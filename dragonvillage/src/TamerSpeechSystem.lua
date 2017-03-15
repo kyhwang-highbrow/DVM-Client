@@ -294,12 +294,13 @@ function TamerSpeechSystem:onEvent(event_name, t_event, ...)
         self:showSpeech(Str('안돼... 도와줘! {1}', dragon.m_charTable['t_name']), 'pain')
 
     -- 드래곤 터치 스킬 사용시
-    elseif (event_name == 'hero_touch_skill') then
+    --[[
+    elseif (event_name == 'hero_time_skill') then
         local arg = {...}
         local dragon = arg[1]
 
         --self:showDragonSpeech(Str('{1}!!', dragon.m_charTable['t_name']), dragon)
         self:showDragonSpeech(nil, dragon)
-
+    ]]--
     end
 end
