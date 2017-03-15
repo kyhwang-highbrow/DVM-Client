@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>skill_smart_dragon_00.png</key>
+            <key>skill_smart_dragon_earth_00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{253,2},{156,76}}</string>
@@ -17,7 +17,7 @@
                 <key>sourceSize</key>
                 <string>{166,114}</string>
             </dict>
-            <key>skill_smart_dragon_01.png</key>
+            <key>skill_smart_dragon_earth_01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{130,2},{78,62}}</string>
@@ -30,7 +30,7 @@
                 <key>sourceSize</key>
                 <string>{166,114}</string>
             </dict>
-            <key>skill_smart_dragon_02.png</key>
+            <key>skill_smart_dragon_earth_02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{411,2},{74,68}}</string>
@@ -43,7 +43,7 @@
                 <key>sourceSize</key>
                 <string>{166,114}</string>
             </dict>
-            <key>skill_smart_dragon_03.png</key>
+            <key>skill_smart_dragon_earth_03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{70,94}}</string>
@@ -56,7 +56,7 @@
                 <key>sourceSize</key>
                 <string>{166,114}</string>
             </dict>
-            <key>skill_smart_dragon_04.png</key>
+            <key>skill_smart_dragon_earth_04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,98},{26,90}}</string>
@@ -69,7 +69,7 @@
                 <key>sourceSize</key>
                 <string>{166,114}</string>
             </dict>
-            <key>skill_smart_dragon_05.png</key>
+            <key>skill_smart_dragon_earth_05.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{74,2},{54,84}}</string>
@@ -82,7 +82,7 @@
                 <key>sourceSize</key>
                 <string>{166,114}</string>
             </dict>
-            <key>skill_smart_dragon_06.png</key>
+            <key>skill_smart_dragon_earth_06.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{537,2},{62,64}}</string>
@@ -95,7 +95,7 @@
                 <key>sourceSize</key>
                 <string>{166,114}</string>
             </dict>
-            <key>skill_smart_dragon_07.png</key>
+            <key>skill_smart_dragon_earth_07.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{481,2},{68,54}}</string>
@@ -108,7 +108,7 @@
                 <key>sourceSize</key>
                 <string>{166,114}</string>
             </dict>
-            <key>skill_smart_dragon_08.png</key>
+            <key>skill_smart_dragon_earth_08.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{194,2},{78,57}}</string>
@@ -121,7 +121,7 @@
                 <key>sourceSize</key>
                 <string>{90,63}</string>
             </dict>
-            <key>skill_smart_dragon_09.png</key>
+            <key>skill_smart_dragon_earth_09.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{136,82},{34,42}}</string>
@@ -134,7 +134,7 @@
                 <key>sourceSize</key>
                 <string>{150,150}</string>
             </dict>
-            <key>skill_smart_dragon_10.png</key>
+            <key>skill_smart_dragon_earth_10.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{94,88},{36,40}}</string>
@@ -147,7 +147,7 @@
                 <key>sourceSize</key>
                 <string>{150,150}</string>
             </dict>
-            <key>skill_smart_dragon_11.png</key>
+            <key>skill_smart_dragon_earth_11.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{530,72},{32,38}}</string>
@@ -160,7 +160,7 @@
                 <key>sourceSize</key>
                 <string>{150,150}</string>
             </dict>
-            <key>skill_smart_dragon_12.png</key>
+            <key>skill_smart_dragon_earth_12.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{494,72},{34,52}}</string>
@@ -173,7 +173,7 @@
                 <key>sourceSize</key>
                 <string>{150,150}</string>
             </dict>
-            <key>skill_smart_dragon_13.png</key>
+            <key>skill_smart_dragon_earth_13.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{206,82},{40,48}}</string>
@@ -186,7 +186,7 @@
                 <key>sourceSize</key>
                 <string>{150,150}</string>
             </dict>
-            <key>skill_smart_dragon_14.png</key>
+            <key>skill_smart_dragon_earth_14.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{172,82},{32,42}}</string>
@@ -199,7 +199,7 @@
                 <key>sourceSize</key>
                 <string>{150,150}</string>
             </dict>
-            <key>skill_smart_dragon_15.png</key>
+            <key>skill_smart_dragon_earth_15.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{256,80},{34,44}}</string>
@@ -212,7 +212,7 @@
                 <key>sourceSize</key>
                 <string>{150,150}</string>
             </dict>
-            <key>skill_smart_dragon_16.png</key>
+            <key>skill_smart_dragon_earth_16.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{422,78},{32,40}}</string>
@@ -225,7 +225,7 @@
                 <key>sourceSize</key>
                 <string>{150,150}</string>
             </dict>
-            <key>skill_smart_dragon_17.png</key>
+            <key>skill_smart_dragon_earth_17.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{292,80},{30,44}}</string>
@@ -238,7 +238,7 @@
                 <key>sourceSize</key>
                 <string>{150,150}</string>
             </dict>
-            <key>skill_smart_dragon_18.png</key>
+            <key>skill_smart_dragon_earth_18.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{374,80},{40,46}}</string>
@@ -251,7 +251,7 @@
                 <key>sourceSize</key>
                 <string>{150,150}</string>
             </dict>
-            <key>skill_smart_dragon_19.png</key>
+            <key>skill_smart_dragon_earth_19.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{456,78},{36,38}}</string>
@@ -264,7 +264,280 @@
                 <key>sourceSize</key>
                 <string>{150,150}</string>
             </dict>
-            <key>skill_smart_dragon_20.png</key>
+            <key>skill_smart_dragon_earth_20.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{324,80},{40,48}}</string>
+                <key>offset</key>
+                <string>{-1,2}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{54,49},{40,48}}</string>
+                <key>sourceSize</key>
+                <string>{150,150}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_00.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{253,2},{156,76}}</string>
+                <key>offset</key>
+                <string>{-1,-19}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{4,38},{156,76}}</string>
+                <key>sourceSize</key>
+                <string>{166,114}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{130,2},{78,62}}</string>
+                <key>offset</key>
+                <string>{21,-8}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{65,34},{78,62}}</string>
+                <key>sourceSize</key>
+                <string>{166,114}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{411,2},{74,68}}</string>
+                <key>offset</key>
+                <string>{19,-1}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{65,24},{74,68}}</string>
+                <key>sourceSize</key>
+                <string>{166,114}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{70,94}}</string>
+                <key>offset</key>
+                <string>{11,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{59,10},{70,94}}</string>
+                <key>sourceSize</key>
+                <string>{166,114}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,98},{26,90}}</string>
+                <key>offset</key>
+                <string>{-4,10}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{66,2},{26,90}}</string>
+                <key>sourceSize</key>
+                <string>{166,114}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_05.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{74,2},{54,84}}</string>
+                <key>offset</key>
+                <string>{-17,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{39,13},{54,84}}</string>
+                <key>sourceSize</key>
+                <string>{166,114}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_06.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{537,2},{62,64}}</string>
+                <key>offset</key>
+                <string>{-23,-4}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{29,29},{62,64}}</string>
+                <key>sourceSize</key>
+                <string>{166,114}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_07.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{481,2},{68,54}}</string>
+                <key>offset</key>
+                <string>{-25,-11}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{24,41},{68,54}}</string>
+                <key>sourceSize</key>
+                <string>{166,114}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_08.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{194,2},{78,57}}</string>
+                <key>offset</key>
+                <string>{1,-1}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{7,4},{78,57}}</string>
+                <key>sourceSize</key>
+                <string>{90,63}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_09.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{136,82},{34,42}}</string>
+                <key>offset</key>
+                <string>{-1,3}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{57,51},{34,42}}</string>
+                <key>sourceSize</key>
+                <string>{150,150}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_10.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{94,88},{36,40}}</string>
+                <key>offset</key>
+                <string>{1,1}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{58,54},{36,40}}</string>
+                <key>sourceSize</key>
+                <string>{150,150}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_11.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{530,72},{32,38}}</string>
+                <key>offset</key>
+                <string>{-1,3}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{58,53},{32,38}}</string>
+                <key>sourceSize</key>
+                <string>{150,150}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_12.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{494,72},{34,52}}</string>
+                <key>offset</key>
+                <string>{2,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{60,47},{34,52}}</string>
+                <key>sourceSize</key>
+                <string>{150,150}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_13.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{206,82},{40,48}}</string>
+                <key>offset</key>
+                <string>{0,2}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{55,49},{40,48}}</string>
+                <key>sourceSize</key>
+                <string>{150,150}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_14.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{172,82},{32,42}}</string>
+                <key>offset</key>
+                <string>{1,3}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{60,51},{32,42}}</string>
+                <key>sourceSize</key>
+                <string>{150,150}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_15.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{256,80},{34,44}}</string>
+                <key>offset</key>
+                <string>{3,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{61,51},{34,44}}</string>
+                <key>sourceSize</key>
+                <string>{150,150}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_16.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{422,78},{32,40}}</string>
+                <key>offset</key>
+                <string>{0,3}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{59,52},{32,40}}</string>
+                <key>sourceSize</key>
+                <string>{150,150}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_17.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{292,80},{30,44}}</string>
+                <key>offset</key>
+                <string>{-1,3}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{59,50},{30,44}}</string>
+                <key>sourceSize</key>
+                <string>{150,150}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_18.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{374,80},{40,46}}</string>
+                <key>offset</key>
+                <string>{-1,1}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{54,51},{40,46}}</string>
+                <key>sourceSize</key>
+                <string>{150,150}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_19.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{456,78},{36,38}}</string>
+                <key>offset</key>
+                <string>{0,3}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{57,53},{36,38}}</string>
+                <key>sourceSize</key>
+                <string>{150,150}</string>
+            </dict>
+            <key>skill_smart_dragon_fire_20.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{324,80},{40,48}}</string>
@@ -287,7 +560,7 @@
             <key>size</key>
             <string>{601,126}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:178507ffe7601764c22f1ca6a8434cdb:42d334d91cfb670973ad5e302b8ac8b8:bbfcb4cb0c880db5f2c511e779cd1a2b$</string>
+            <string>$TexturePacker:SmartUpdate:edc3c4082cac0a85486d69dc853de2ae:18bb963715c96b29718aa6ea87e295c6:bbfcb4cb0c880db5f2c511e779cd1a2b$</string>
             <key>textureFileName</key>
             <string>skill_smart_dragon.png</string>
         </dict>
