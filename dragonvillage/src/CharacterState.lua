@@ -130,9 +130,20 @@ end
 -- function st_attackDelay
 -------------------------------------
 function Character.st_attackDelay(owner, dt)
-    if owner.m_stateTimer == 0 then
+    if (owner.m_stateTimer == 0) then
         -- 어떤 스킬을 사용할 것인지 결정
-        local skill_id, is_add_skill = owner:getBasicAttackSkillID()
+        local skill_id, is_add_skill
+
+        if (owner.m_prevReservedSkillId) then
+            skill_id, is_add_skill = owner.m_prevReservedSkillId, owner.m_prevIsAddSkill
+            owner.m_stateTimer = owner.m_prevAttackDelayTimer
+
+            owner.m_prevReservedSkillId = nil
+            owner.m_prevIsAddSkill = nil
+            owner.m_prevAttackDelayTimer = 0
+        else
+            skill_id, is_add_skill = owner:getBasicAttackSkillID()
+        end
 
 		-- 스킬 캐스팅 불가 처리
 		if owner.m_isSilence then
@@ -154,11 +165,28 @@ function Character.st_attackDelay(owner, dt)
     end
 
     if (owner.m_stateTimer >= owner.m_attackPeriod) then
-        
         if owner.m_reservedSkillCastTime > 0 then
             owner:changeState('casting')
         else
             owner:changeState('charge')
+        end
+
+    else
+        -- basic_time류 스킬
+        local skill_id = owner:updateBasicTimeSkillTimer(dt)
+        if (not owner.m_isSilence and skill_id) then
+            owner.m_prevReservedSkillId = owner.m_reservedSkillId
+            owner.m_prevIsAddSkill = owner.m_isAddSkill
+            owner.m_prevAttackDelayTimer = owner.m_stateTimer
+
+            owner:reserveSkill(skill_id)
+            owner.m_isAddSkill = false
+            
+            if owner.m_reservedSkillCastTime > 0 then
+                owner:changeState('casting')
+            else
+                owner:changeState('charge')
+            end
         end
     end
 end

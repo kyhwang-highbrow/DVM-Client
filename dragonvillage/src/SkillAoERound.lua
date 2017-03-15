@@ -159,9 +159,9 @@ end
 -- @brief 공격이 종료되는 시점에 실행
 -------------------------------------
 function SkillAoERound:escapeAttack()
-	local t_target = owner:findTarget()
-    owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_HIT }, t_target)
-    owner:changeState('disappear')
+	local t_target = self:findTarget()
+    self:doStatusEffect({ STATUS_EFFECT_CON__SKILL_HIT }, t_target)
+    self:changeState('disappear')
 end
 
 -------------------------------------

@@ -31,6 +31,7 @@ Character = class(PARENT, {
         m_chargeDuration = 'number',
         m_attackAnimaDuration = 'number',
         m_attackPeriod = 'number',
+        m_prevAttackPeriod = 'number',
 
         -- @ attack상태 관리하는 변수들
         m_bLuanchMissile = 'boolean',       -- MissileLauncher생성 여부
@@ -45,6 +46,10 @@ Character = class(PARENT, {
         m_isAddSkill = 'bool', -- 드래곤이 에약한 스킬이 basic_rate나 basic_turn 인 경우
         m_bActivePassive = 'bool',  -- 패시브 스킬 적용 여부
 
+        m_prevReservedSkillId = 'number',
+        m_prevIsAddSkill = 'bool',
+        m_prevAttackDelayTimer = 'number',
+                        
         -- @ target
         m_targetChar = 'Character',
 
