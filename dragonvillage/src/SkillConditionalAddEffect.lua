@@ -121,10 +121,11 @@ function SkillConditionalAddEffect:fireMissile()
 	t_option['speed'] = 10
 	t_option['h_limit_speed'] = 1500
 	t_option['accel'] = 5000
-	t_option['accel_delay'] = 0.5
+	t_option['accel_delay'] = 0.8
 	t_option['movement'] ='guide'
 	t_option['missile_type'] = 'NORMAL'
 	t_option['bFixedAttack'] = true
+	t_option['size_up_time'] = 0.5
 
     t_option['missile_res_name'] = self.m_missileRes
 	t_option['scale'] = self.m_resScale

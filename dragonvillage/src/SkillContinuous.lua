@@ -41,20 +41,24 @@ end
 -- function update
 -------------------------------------
 function SkillContinuous.st_idle(owner, dt)
-	if (owner.m_stateTimer > owner.m_interval) then 
-		if (owner.m_workingType  == 'default') then
-			local char_list = owner.m_owner:getFormationMgr(true):getEntireCharList()
-			StatusEffectHelper:doStatusEffectByStr(owner.m_owner, char_list, owner.m_lStatusEffectStr)
-		
-		elseif (owner.m_workingType == 'wonder') then
-			local char = owner.m_owner
-			if StatusEffectHelper:releaseHarmfulStatusEffect(char) then
-				owner:makeEffect(owner.m_effectRes, char.pos.x, char.pos.y, 'center_idle')
-			end
-		end
-
-		owner.m_stateTimer = 0
+	if (owner.m_stateTimer < owner.m_interval) then 
+		return
 	end
+
+	-- 상태 효과 실행
+	if (owner.m_workingType  == 'default') then
+		local char_list = owner.m_owner:getFormationMgr(true):getEntireCharList()
+		StatusEffectHelper:doStatusEffectByStr(owner.m_owner, char_list, owner.m_lStatusEffectStr)
+		
+	-- 자기 자신 디버프 해제
+	elseif (owner.m_workingType == 'release_debuff') then
+		local char = owner.m_owner
+		if StatusEffectHelper:releaseHarmfulStatusEffect(char) then
+			owner:makeEffect(owner.m_effectRes, char.pos.x, char.pos.y, 'center_idle')
+		end
+	end
+
+	owner.m_stateTimer = 0
 end
 
 -------------------------------------
