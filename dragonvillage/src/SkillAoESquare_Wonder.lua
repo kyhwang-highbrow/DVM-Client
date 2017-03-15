@@ -48,8 +48,13 @@ function SkillAoESquare_Wonder:enterAttack()
 	local l_pos_x = SkillHelper:calculatePositionX(self.m_lineCnt, self.m_space, self.pos.x)
 	local pos_y = self.pos.y
 
+	-- 손톱날 하나 하나 이펙트 만듬
 	for i, pos_x in pairs(l_pos_x) do
 		local effect = self:makeEffect(self.m_res, pos_x, pos_y, self.m_idleAniName)
+		-- 진형에 따라 리소스를 뒤집어준다.
+		if (self.m_owner.m_bLeftFormation) then
+			effect:setFlip(true)
+		end
 	end
 
 	-- wonder드래곤 고유 효과 실행
