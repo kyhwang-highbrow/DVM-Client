@@ -3,7 +3,7 @@ local PARENT = SkillIndicator_AoECone
 -------------------------------------
 -- class SkillIndicator_AoECone_Spread
 -------------------------------------
-SkillIndicator_AoECone_Spread = class(SkillIndicator_AoECone, {
+SkillIndicator_AoECone_Spread = class(PARENT, {
 		m_lSpreadEffect = '',
 		m_skillType = '',
     })

@@ -3,7 +3,7 @@ local PARENT = SkillIndicator
 -------------------------------------
 -- class SkillIndicator_AoECone
 -------------------------------------
-SkillIndicator_AoECone = class(SkillIndicator, {
+SkillIndicator_AoECone = class(PARENT, {
 		m_skillRadius = 'num',
 		m_skillAngle = 'num',
     })

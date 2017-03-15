@@ -1,7 +1,9 @@
+local PARENT = SkillIndicator
+
 -------------------------------------
 -- class SkillIndicator_Laser
 -------------------------------------
-SkillIndicator_Laser = class(SkillIndicator, {
+SkillIndicator_Laser = class(PARENT, {
         m_thickness = 'number', -- 레이저의 굵기
 		m_indicatorAddEffect = '',
     })

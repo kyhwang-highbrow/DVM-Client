@@ -1,7 +1,9 @@
+local PARENT = SkillIndicator
+
 -------------------------------------
 -- class SkillIndicator_Target
 -------------------------------------
-SkillIndicator_Target = class(SkillIndicator, {
+SkillIndicator_Target = class(PARENT, {
 		m_isOpposite = 'bool', --formationMgr 가져올때 사용'
     })
 

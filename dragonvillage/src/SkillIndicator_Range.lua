@@ -1,11 +1,12 @@
+local PARENT = SkillIndicator
+
 -- Target Type(타겟형 or 단일형)
 -- Range Type(범위형)
 -- Straight Type(직선형)
-
 -------------------------------------
 -- class SkillIndicator_Range
 -------------------------------------
-SkillIndicator_Range = class(SkillIndicator, {
+SkillIndicator_Range = class(PARENT, {
         m_indicatorAddEffect = '',
     })
 

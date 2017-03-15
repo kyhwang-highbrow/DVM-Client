@@ -3,7 +3,7 @@ local PARENT = SkillIndicator
 -------------------------------------
 -- class SkillIndicator_Penetration
 -------------------------------------
-SkillIndicator_Penetration = class(SkillIndicator, {
+SkillIndicator_Penetration = class(PARENT, {
 		m_lIndicatorEffectList = 'indicator list',
 		m_indicatorAddEffect = 'Indicator',
 		

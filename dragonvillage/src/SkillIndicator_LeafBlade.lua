@@ -3,7 +3,7 @@ local PARENT = SkillIndicator
 -------------------------------------
 -- class SkillIndicator_LeafBlade
 -------------------------------------
-SkillIndicator_LeafBlade = class(SkillIndicator, {
+SkillIndicator_LeafBlade = class(PARENT, {
 		-- 베지어 곡선 이펙트
         m_indicatorBezierEffect1 = '',
         m_indicatorBezierEffect2 = '',

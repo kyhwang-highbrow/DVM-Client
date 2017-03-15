@@ -1,7 +1,9 @@
+local PARENT = SkillIndicator
+
 -------------------------------------
 -- class SkillIndicator_StraightWidth
 -------------------------------------
-SkillIndicator_StraightWidth = class(SkillIndicator, {
+SkillIndicator_StraightWidth = class(PARENT, {
 		m_indicatorAddEffect = 'a2d',
         m_skillHeight = 'number',
     })
