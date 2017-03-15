@@ -24,16 +24,10 @@ function UI_ShopPopup:init()
 	-- 멤버 변수 초기화 
 	self.m_tIsOpenOnce = {}
 
-	local function cb_func()
-		-- 초기화 함수 실행
-		self:initUI()
-		self:initTab()
-		self:initButton()
-		self:refresh()
-	end
-	
-	-- 서버에 상품정보 요청
-	g_shopData:request_shopInfo(cb_func)
+    self:initUI()
+	self:initTab()
+	self:initButton()
+	self:refresh()
 end
 
 -------------------------------------
@@ -134,19 +128,11 @@ function UI_ShopPopup:click_exitBtn()
 end
 
 -------------------------------------
--- function openShopPopup
--- @brief 외부에서 함수통해 접근 할 때 사용
--------------------------------------
-function openShopPopup()
-    UI_ShopPopup()
-end
-
--------------------------------------
 -- function openShopPopup_cash
 -- @brief 외부에서 함수통해 접근 할 때 사용
 -------------------------------------
 function openShopPopup_cash()
-    UI_ShopPopup():setTab(TableShop.CASH)
+    g_shopData:openShopPopup(TableShop.CASH)
 end
 
 -------------------------------------
@@ -154,7 +140,7 @@ end
 -- @brief 외부에서 함수통해 접근 할 때 사용
 -------------------------------------
 function openShopPopup_gold()
-    UI_ShopPopup():setTab(TableShop.GOLD)
+    g_shopData:openShopPopup(TableShop.GOLD)
 end
 
 -------------------------------------
@@ -162,5 +148,5 @@ end
 -- @brief 외부에서 함수통해 접근 할 때 사용
 -------------------------------------
 function openShopPopup_stamina()
-    UI_ShopPopup():setTab(TableShop.STAMINA)
+    g_shopData:openShopPopup(TableShop.STAMINA)
 end

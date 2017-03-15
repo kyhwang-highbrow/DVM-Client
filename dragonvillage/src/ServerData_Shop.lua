@@ -98,9 +98,30 @@ function ServerData_Shop:request_shopInfo(cb_func)
     ui_network:setParam('uid', uid)
 	ui_network:setParam('tid', tid)
     ui_network:setSuccessCB(success_cb)
-    ui_network:setRevocable(false)
+    ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+end
+
+-------------------------------------
+-- function openShopPopup
+-- @brief
+--        1. 상점 리스트를 서버에서 받아옴
+--           (리스트를 받아오지 못하였을 경우 종료)
+--        2. 상점 UI를 생성
+--        3. 지정된 상점 tab이 있을 경우 경우 tab 설정
+-------------------------------------
+function ServerData_Shop:openShopPopup(tab_type)
+    local function cb_func()
+        local ui_shop_popup = UI_ShopPopup()
+
+        if tab_type then
+            ui_shop_popup:setTab(TableShop.STAMINA)
+        end
+    end
+
+    -- 서버에 상품정보 요청
+	g_shopData:request_shopInfo(cb_func)
 end
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
