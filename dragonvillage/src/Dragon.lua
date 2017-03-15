@@ -653,7 +653,7 @@ function Dragon:init_skillIndicator()
 
 	-- 원뿔형
 	elseif (type == 'cone') then
-		self.m_skillIndicator = SkillIndicator_Conic(self, t_skill)
+		self.m_skillIndicator = SkillIndicator_AoECone(self, t_skill)
 
 	-- 레이저
 	elseif (type == 'bar') then
@@ -679,7 +679,7 @@ function Dragon:init_skillIndicator()
 	
 	-- 원뿔형 확산 (허리케인)
 	elseif (type == 'cone_spread') then
-		self.m_skillIndicator = SkillIndicator_ConicSpread(self, t_skill)
+		self.m_skillIndicator = SkillIndicator_AoECone_Spread(self, t_skill)
 
 	-- 볼테스X (볼테스X)
 	elseif (type == 'voltes_x') then

@@ -377,6 +377,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillFieldCheck.lua" />
     <None Include="..\src\SkillHeartOfRuin.lua" />
     <None Include="..\src\SkillHelper.lua" />
+    <None Include="..\src\SkillIndicator_AoECone.lua" />
+    <None Include="..\src\SkillIndicator_AoECone_Spread.lua" />
+    <None Include="..\src\SkillIndicator_AoECone_Vertical.lua" />
     <None Include="..\src\SkillIndicator_Penetration.lua" />
     <None Include="..\src\SkillIndicator_StraightWidth.lua" />
     <None Include="..\src\SkillIndicator_X.lua" />
@@ -553,8 +556,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillIndicator.lua" />
     <None Include="..\src\SkillIndicatorMgr.lua" />
     <None Include="..\src\SkillIndicator_AoERound.lua" />
-    <None Include="..\src\SkillIndicator_Conic.lua" />
-    <None Include="..\src\SkillIndicator_ConicSpread.lua" />
     <None Include="..\src\SkillIndicator_Crash.lua" />
     <None Include="..\src\SkillIndicator_AoESquare_Height.lua" />
     <None Include="..\src\SkillIndicator_LeafBlade.lua" />

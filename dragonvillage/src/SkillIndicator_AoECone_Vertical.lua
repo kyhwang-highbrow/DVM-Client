@@ -1,9 +1,9 @@
-local PARENT = SkillIndicator
+local PARENT = SkillIndicator_AoECone
 
 -------------------------------------
--- class SkillIndicator_Conic
+-- class SkillIndicator_AoECone_Vertical
 -------------------------------------
-SkillIndicator_Conic = class(SkillIndicator, {
+SkillIndicator_AoECone_Vertical = class(SkillIndicator, {
 		m_skillRadius = 'num',
 		m_skillAngle = 'num',
     })
@@ -11,7 +11,7 @@ SkillIndicator_Conic = class(SkillIndicator, {
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillIndicator_Conic:init(hero, t_skill)
+function SkillIndicator_AoECone_Vertical:init(hero, t_skill)
 	PARENT.init(self, hero)
 	
 	self.m_skillRadius = t_skill['val_1']
@@ -23,7 +23,7 @@ end
 -------------------------------------
 -- function onTouchMoved
 -------------------------------------
-function SkillIndicator_Conic:onTouchMoved(x, y)
+function SkillIndicator_AoECone_Vertical:onTouchMoved(x, y)
     if (self.m_siState == SI_STATE_READY) then
         return
     end
@@ -51,7 +51,7 @@ end
 -------------------------------------
 -- function initIndicatorNode
 -------------------------------------
-function SkillIndicator_Conic:initIndicatorNode()
+function SkillIndicator_AoECone_Vertical:initIndicatorNode()
     if (not PARENT.initIndicatorNode(self)) then
         return
     end
@@ -71,7 +71,7 @@ end
 -------------------------------------
 -- function onChangeTargetCount
 -------------------------------------
-function SkillIndicator_Conic:onChangeTargetCount(old_target_count, cur_target_count)
+function SkillIndicator_AoECone_Vertical:onChangeTargetCount(old_target_count, cur_target_count)
 	-- 활성화
 	if (old_target_count == 0) and (cur_target_count > 0) then
 		self.m_indicatorEffect.m_node:setColor(COLOR_RED)
@@ -86,7 +86,7 @@ end
 -------------------------------------
 -- function findTargetList
 -------------------------------------
-function SkillIndicator_Conic:findTargetList(x, y, dir)
+function SkillIndicator_AoECone_Vertical:findTargetList(x, y, dir)
     local world = self:getWorld()
 
     local t_data = {}

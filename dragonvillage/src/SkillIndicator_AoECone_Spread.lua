@@ -1,9 +1,9 @@
-local PARENT = SkillIndicator_Conic
+local PARENT = SkillIndicator_AoECone
 
 -------------------------------------
--- class SkillIndicator_ConicSpread
+-- class SkillIndicator_AoECone_Spread
 -------------------------------------
-SkillIndicator_ConicSpread = class(SkillIndicator_Conic, {
+SkillIndicator_AoECone_Spread = class(SkillIndicator_AoECone, {
 		m_lSpreadEffect = '',
 		m_skillType = '',
     })
@@ -11,7 +11,7 @@ SkillIndicator_ConicSpread = class(SkillIndicator_Conic, {
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillIndicator_ConicSpread:init(hero, t_skill)
+function SkillIndicator_AoECone_Spread:init(hero, t_skill)
 	PARENT.init(self, hero, t_skill)
 
 	self.m_skillRadius = t_skill['val_1']
@@ -22,7 +22,7 @@ end
 -------------------------------------
 -- function onTouchMoved
 -------------------------------------
-function SkillIndicator_ConicSpread:onTouchMoved(x, y)
+function SkillIndicator_AoECone_Spread:onTouchMoved(x, y)
 	if (self.m_siState == SI_STATE_READY) then
         return
     end
@@ -54,7 +54,7 @@ end
 -- function spreadStatusEffect
 -- @brief 특정 상태이상을 전이... 시킨다
 -------------------------------------
-function SkillIndicator_ConicSpread:spreadStatusEffect(l_target, status_effect_type)
+function SkillIndicator_AoECone_Spread:spreadStatusEffect(l_target, status_effect_type)
 	local count = 1
 
 	for i, v in pairs(self.m_lSpreadEffect) do 
