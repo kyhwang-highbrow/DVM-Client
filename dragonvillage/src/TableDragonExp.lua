@@ -16,7 +16,7 @@ end
 
 -------------------------------------
 -- function makeExpID
--- @brief table_dragon_exp.csv¿¡¼­ »ç¿ëÇÏ´Â eid¸¦ ¸¸µå´Â ÇÔ¼ö
+-- @brief table_dragon_exp.csvì—ì„œ ì‚¬ìš©í•˜ëŠ” eidë¥¼ ë§Œë“œëŠ” í•¨ìˆ˜
 -------------------------------------
 function TableDragonExp:makeExpID(grade, lv)
     local eid = (grade * 100) + lv
@@ -25,7 +25,7 @@ end
 
 -------------------------------------
 -- function getDragonMaxExpmax_exp
--- @breif µå·¡°ïÀÇ µî±Ş, ·¹º§¿¡ µû¸¥ ÃÖ´ë °æÇèÄ¡
+-- @breif ë“œë˜ê³¤ì˜ ë“±ê¸‰, ë ˆë²¨ì— ë”°ë¥¸ ìµœëŒ€ ê²½í—˜ì¹˜
 -------------------------------------
 function TableDragonExp:getDragonMaxExp(grade, lv)
     local eid = self:makeExpID(grade, lv)
@@ -40,5 +40,15 @@ end
 function TableDragonExp:getDragonGivingExp(grade, lv)
     local eid = self:makeExpID(grade, lv)
     local max_exp = self:getValue(eid, 'giving_exp')
+    return max_exp or 0
+end
+
+-------------------------------------
+-- function getDragonReqGoldPerMtrl
+-- @breif
+-------------------------------------
+function TableDragonExp:getDragonReqGoldPerMtrl(grade, lv)
+    local eid = self:makeExpID(grade, lv)
+    local max_exp = self:getValue(eid, 'req_gold_per_mtrl')
     return max_exp or 0
 end

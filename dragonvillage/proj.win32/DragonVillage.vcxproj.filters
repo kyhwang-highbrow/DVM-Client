@@ -1827,9 +1827,6 @@
     <None Include="..\src\TableDragonExp.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_DragonUpgrade.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\SkillAoECone.lua">
       <Filter>lua</Filter>
     </None>
@@ -1862,6 +1859,12 @@
     </None>
     <None Include="..\src\CommonMissile_Multi.lua">
       <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_DragonUpgrade.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonLevelUpHelper.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,8 @@ UI_DragonLevelUp = class(PARENT,{
 
         -- 재료 UI 오픈 여부(왼쪽에 테이블 뷰)
         m_bOpenMaterial = 'boolean',
+
+        m_dragonLevelUpUIHelper = 'UI_DragonLevelUpHelper',
     })
 
 -------------------------------------
@@ -119,6 +121,9 @@ end
 -- function refresh
 -------------------------------------
 function UI_DragonLevelUp:refresh()
+    if self.m_selectDragonOID then
+        self.m_dragonLevelUpUIHelper = UI_DragonLevelUpHelper(self.m_selectDragonOID, MAX_DRAGON_LEVELUP_MATERIAL_MAX)
+    end
     self:refresh_dragonInfo()
 
     -- 재료 리스트 갱신
@@ -126,7 +131,10 @@ function UI_DragonLevelUp:refresh()
         self:refresh_dragonLevelupMaterialTableView()
     end
 
+    self:init_selectedMaterialTableView()
+
     self:refresh_btnState()
+    self:refresh_selectedMaterial()
 end
 
 -------------------------------------
@@ -186,6 +194,7 @@ function UI_DragonLevelUp:refresh_dragonInfo()
         local curr_atk = status_calc:getFinalStat('atk')
         local curr_def = status_calc:getFinalStat('def')
         local curr_hp = status_calc:getFinalStat('hp')
+        local curr_cp = status_calc:getCombatPower()
 
         -- 변경된 레벨의 능력치 계산기
         local chaged_dragon_data = {}
@@ -196,16 +205,19 @@ function UI_DragonLevelUp:refresh_dragonInfo()
         local changed_atk = changed_status_calc:getFinalStat('atk')
         local changed_def = changed_status_calc:getFinalStat('def')
         local changed_hp = changed_status_calc:getFinalStat('hp')
+        local changed_cp = changed_status_calc:getCombatPower()
 
         -- 현재 레벨의 능력치 표시
         vars['atk_p_label']:setString(comma_value(math_floor(curr_atk)))
         vars['def_p_label']:setString(comma_value(math_floor(curr_def)))
         vars['hp_label']:setString(comma_value(math_floor(curr_hp)))
+        vars['cp_label']:setString(comma_value(math_floor(curr_cp)))
 
         -- 상승되는 능력치 표시
         vars['atk_p_label2']:setString(Str('+{1}', comma_value(math_floor(changed_atk - curr_atk))))
         vars['def_p_label2']:setString(Str('+{1}', comma_value(math_floor(changed_def - curr_def))))
         vars['hp_label2']:setString(Str('+{1}', comma_value(math_floor(changed_hp - curr_hp))))
+        vars['cp_label2']:setString(Str('+{1}', comma_value(math_floor(changed_cp - curr_cp))))
     end
 
     -- 선택 재료 갯수
@@ -417,7 +429,9 @@ function UI_DragonLevelUp:click_dragonMaterial(data)
         self.m_selectedMtrlTableView:addItem(doid, data)
     end
 
+    self.m_dragonLevelUpUIHelper:modifyMaterial(doid)
     self:refresh_materialDragonIndivisual(doid)
+    self:refresh_selectedMaterial()
 end
 
 -------------------------------------
@@ -445,6 +459,68 @@ function UI_DragonLevelUp:refresh_materialDragonIndivisual(doid)
 
     local is_selected = (self.m_selectedMtrlTableView:getItem(doid) ~= nil)
     ui:setShadowSpriteVisible(is_selected)
+end
+
+-------------------------------------
+-- function refresh_selectedMaterial
+-- @brief 선택된 재료의 구성이 변경되었을때
+-------------------------------------
+function UI_DragonLevelUp:refresh_selectedMaterial()
+    local vars = self.vars
+    
+    local helper = self.m_dragonLevelUpUIHelper
+    if (not helper) then
+        return
+    end
+
+    vars['selectLabel']:setString(helper:getMaterialCountString())
+    vars['priceLabel']:setString(comma_value(helper.m_price))
+    vars['expGauge1']:setPercentage(helper.m_expPercentage)
+    
+    vars['levelLabel']:setString(Str('레벨{1}/{2}', helper.m_changedLevel, helper.m_maxLevel))
+
+    if helper.m_changedMaxExp then
+        vars['expLabel']:setString(Str('{1}/{2}', helper.m_changedExp, helper.m_changedMaxExp))
+    else
+        vars['expLabel']:setString('')
+    end
+
+    do
+        local t_dragon_data = self.m_selectDragonData
+        local doid = t_dragon_data['id']
+
+        -- 현재 레벨의 능력치 계산기
+        local status_calc = MakeOwnDragonStatusCalculator(doid)
+
+        -- 현재 레벨의 능력치
+        local curr_atk = status_calc:getFinalStat('atk')
+        local curr_def = status_calc:getFinalStat('def')
+        local curr_hp = status_calc:getFinalStat('hp')
+        local curr_cp = status_calc:getCombatPower()
+
+        -- 변경된 레벨의 능력치 계산기
+        local chaged_dragon_data = {}
+        chaged_dragon_data['lv'] = math_max((t_dragon_data['lv'] + 1), helper.m_changedLevel)
+        local changed_status_calc = MakeOwnDragonStatusCalculator(doid, chaged_dragon_data)
+
+        -- 변경된 레벨의 능력치
+        local changed_atk = changed_status_calc:getFinalStat('atk')
+        local changed_def = changed_status_calc:getFinalStat('def')
+        local changed_hp = changed_status_calc:getFinalStat('hp')
+        local changed_cp = changed_status_calc:getCombatPower()
+
+        -- 현재 레벨의 능력치 표시
+        vars['atk_p_label']:setString(comma_value(math_floor(curr_atk)))
+        vars['def_p_label']:setString(comma_value(math_floor(curr_def)))
+        vars['hp_label']:setString(comma_value(math_floor(curr_hp)))
+        vars['cp_label']:setString(comma_value(math_floor(curr_cp)))
+
+        -- 상승되는 능력치 표시
+        vars['atk_p_label2']:setString(Str('+{1}', comma_value(math_floor(changed_atk - curr_atk))))
+        vars['def_p_label2']:setString(Str('+{1}', comma_value(math_floor(changed_def - curr_def))))
+        vars['hp_label2']:setString(Str('+{1}', comma_value(math_floor(changed_hp - curr_hp))))
+        vars['cp_label2']:setString(Str('+{1}', comma_value(math_floor(changed_cp - curr_cp))))
+    end
 end
 
 
