@@ -11,7 +11,7 @@ SI_STATE_DISAPPEAR = 4
   추가 - m_indicatorAddEffect (필요한 경우 개별적으로 추가)
   특수 - 개별관리
 
-2. 리소스 경로는 ConstantIngame 에서 관리
+2. 리소스 경로는 Constant.lua 에서 관리
 
 3. 공통되는 로직은 최대한 합쳐서 관리
 ]]
