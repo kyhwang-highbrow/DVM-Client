@@ -172,7 +172,8 @@ function SkillLaser:refresh(force)
     if (self.m_owner) then
         if (self.m_owner.pos.x ~= self.m_startPosX) or (self.m_owner.pos.y ~= self.m_startPosY) then
             change_start = true
-            self.m_startPosX = self.m_owner.pos.x + (self.m_attackPosOffsetX * math.max(self.m_thickness/2, 1))
+            --self.m_startPosX = self.m_owner.pos.x + (self.m_attackPosOffsetX * math.max(self.m_thickness/2, 1))
+            self.m_startPosX = self.m_owner.pos.x + self.m_attackPosOffsetX
             self.m_startPosY = self.m_owner.pos.y + self.m_attackPosOffsetY
             self:setPosition(self.m_startPosX, self.m_startPosY)
         end
