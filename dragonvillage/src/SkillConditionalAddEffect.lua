@@ -108,7 +108,7 @@ function SkillConditionalAddEffect:fireMissile()
     t_option['owner'] = char
     t_option['pos_x'] = char.pos.x + attack_pos_x
     t_option['pos_y'] = char.pos.y + attack_pos_y
-	t_option['target'] = table.getRandom(world:getEnemyList())
+	t_option['target'] = table.getRandom(char:getOpponentList())
 
 	t_option['dir'] = getDegree(t_option['pos_x'], t_option['pos_y'], target.pos.x, target.pos.y)
 	t_option['rotation'] = t_option['dir']

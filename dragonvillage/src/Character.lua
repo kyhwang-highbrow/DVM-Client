@@ -1883,6 +1883,7 @@ end
 
 -------------------------------------
 -- function getFellowList
+-- @brief 어떤 진형이든 항상 아군을 가져온다.
 -------------------------------------
 function Character:getFellowList()
 	if (self.m_bLeftFormation) then 
@@ -1894,6 +1895,7 @@ end
 
 -------------------------------------
 -- function getOpponentList
+-- @brief 어떤 진형이든 항상 적군을 가져온다.
 -------------------------------------
 function Character:getOpponentList()
 	if (self.m_bLeftFormation) then 
