@@ -12,6 +12,7 @@ UI = class({
     , do_action_exit = 'boolean'
 
     , m_resName = ''
+	, m_uiName = ''				-- m_uiName을 참조하는 부분에서 ITopUserInfo_EventListener를 다중상속하지 않은 경우 에러발생하므로 에러나지 않도록 추가함
     , m_closeCB = 'function'
     , m_lHideUIList = 'list'
 })
@@ -26,6 +27,7 @@ function UI:init()
     self.do_action_exit = true
 	
 	self.m_resName = 'not loaded ui'
+	self.m_uiName = '없음'
     self.m_lHideUIList = {}
 end
 
