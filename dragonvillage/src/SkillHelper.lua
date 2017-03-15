@@ -17,3 +17,37 @@ function SkillHelper:getAttributeRes(res, owner)
 		return string.gsub(res, '@', owner:getAttributeForRes())
 	end
 end
+
+
+-------------------------------------
+-- function calculatePositionX
+-- @brief 주어진 x를 기준으로 지정된 간격의 n개의 좌표를 구한다.
+-------------------------------------
+function SkillHelper:calculatePositionX(line_cnt, space, pos_x)
+    local pos_x = pos_x
+	local space = space
+	local line_cnt = line_cnt
+	
+	local l_ret = {}
+	local half = math_floor(line_cnt/2)
+
+	-- 홀수
+	if ((line_cnt % 2) == 1) then
+		-- 중앙값
+		table.insert(l_ret, pos_x)
+		-- 좌우값
+		for i = 1, half do
+			table.insert(l_ret, pos_x + (space * i))
+			table.insert(l_ret, pos_x - (space * i))
+		end
+	-- 짝수
+	else
+		-- 좌우값
+		for i = 1, half do
+			table.insert(l_ret, pos_x + (space * (i - 1 + 0.5)))
+			table.insert(l_ret, pos_x - (space * (i - 1 + 0.5)))
+		end
+	end
+
+	return l_ret
+end

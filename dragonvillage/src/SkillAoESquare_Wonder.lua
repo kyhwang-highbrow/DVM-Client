@@ -45,7 +45,7 @@ end
 -- function enterAttack
 -------------------------------------
 function SkillAoESquare_Wonder:enterAttack()
-	local l_pos_x = calculatePositionX(self.m_lineCnt, self.m_space, self.pos.x)
+	local l_pos_x = SkillHelper:calculatePositionX(self.m_lineCnt, self.m_space, self.pos.x)
 	local pos_y = self.pos.y
 
 	for i, pos_x in pairs(l_pos_x) do
@@ -113,7 +113,7 @@ function SkillAoESquare_Wonder:findTarget()
 	local std_height = (self.m_skillHeight / 2)
 
 	-- 좌우로 나열하기 위해 x 좌표값 리스트를 계산한다.
-	local l_pos_x = calculatePositionX(self.m_lineCnt, self.m_space, x)
+	local l_pos_x = SkillHelper:calculatePositionX(self.m_lineCnt, self.m_space, x)
 
 	-- x 좌표값 리스트를 따라 충돌체크를 한다.
     for i, v in ipairs(l_target) do
