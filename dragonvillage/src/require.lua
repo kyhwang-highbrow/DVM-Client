@@ -549,6 +549,7 @@ local t_module = {
     'UI_DragonManageInfo',
     'UI_DragonManageInfoView',
     'UI_DragonManageUpgrade',
+    'UI_DragonLevelUp',
     'UI_DragonUpgrade',
     'UI_DragonManageUpgradeResult',
     'UI_DragonManagementEvolution',

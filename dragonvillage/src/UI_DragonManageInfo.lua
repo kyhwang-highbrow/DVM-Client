@@ -60,6 +60,9 @@ function UI_DragonManageInfo:initButton()
     local vars = self.vars
     
     do -- 우상단 버튼들 초기화
+        -- 레벨업
+        vars['levelupBtn']:registerScriptTapHandler(function() self:click_levelupBtn() end)
+
         -- 승급
         vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
 
@@ -396,6 +399,20 @@ end
 -------------------------------------
 function UI_DragonManageInfo:click_exitBtn()
     self:close()
+end
+
+-------------------------------------
+-- function click_levelupBtn
+-- @brief 드래곤 레벨업 버튼
+-------------------------------------
+function UI_DragonManageInfo:click_levelupBtn()
+    local doid = self.m_selectDragonOID
+
+    -- 선탠된 드래곤과 정렬 설정
+    local b_ascending_sort = self.m_dragonSortMgr.m_bAscendingSort
+    local sort_type = self.m_dragonSortMgr.m_currSortType
+
+    local ui = UI_DragonLevelUp(doid, b_ascending_sort, sort_type)
 end
 
 -------------------------------------
