@@ -127,6 +127,9 @@ function Character:doSkill(skill_id, x, y, t_data)
 			elseif (type == 'missile_move_bounce') then
 				CommonMissile_Bounce:makeMissileInstance(self, t_skill)
 				return true
+			elseif (type == 'missile_move_multi') then
+				CommonMissile_Multi:makeMissileInstance(self, t_skill)
+				return true
 
 			-- 스킬 영역
 
