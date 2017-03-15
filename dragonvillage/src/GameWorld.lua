@@ -66,9 +66,6 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_leftFormationMgr = '',
         m_rightFormationMgr = '',
 
-        -- 드래그 스킬 관련
-        m_dragSkillTimer = 'number',
-
         m_skillIndicatorMgr = 'SkillIndicatorMgr',
         m_enemyMovementMgr = 'EnemyMovementMgr',
 
@@ -301,10 +298,6 @@ function GameWorld:initGame(stage_name)
 
     do -- 진형 시스템 초기화
         self:setBattleZone(self.m_deckFormation, true)
-    end
-
-    do -- 드래그 스킬
-        self.m_dragSkillTimer = 0
     end
 
     do -- 스킬 조작계 초기화
@@ -1015,14 +1008,11 @@ function GameWorld:onKeyReleased(keyCode, event)
 
 	-- 스킬 충전
     elseif (keyCode == KEY_C) then
-        -- 드래곤 터치 스킬
+        -- 드래곤 스킬
         for _,dragon in pairs(self:getDragonList()) do
-            dragon:updateTouchSkillCoolTime(100)
+            dragon:updateActiveSkillCoolTime(100)
         end
-
-        -- 드래곤 드래그 스킬
-        self:addDragSkillCoolTime(100)
-
+        
         -- 테이머 스킬
         if (self.m_gameTamer) then
             self.m_gameTamer:resetActiveSkillCoolTime()
@@ -1620,21 +1610,6 @@ function GameWorld:onEvent(event_name, t_event, ...)
     if (event_name == 'change_wave') then   self:onEvent_change_wave(event_name, t_event, ...)
     elseif (event_name == 'fever_start') then   self.m_gameState:changeState(GAME_STATE_FIGHT_FEVER)
     elseif (event_name == 'fever_end') then     self.m_gameState:changeState(GAME_STATE_FIGHT)
-    elseif (event_name == 'hero_basic_skill') then
-        -- 드래그 스킬 게이지
-        local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_DRAG_POINT_INCREMENT_VALUE')
-        self:addDragSkillCoolTime(t_temp['basic_skill'])
-
-    elseif (event_name == 'hero_touch_skill') then
-        -- 드래그 스킬 게이지
-        local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_DRAG_POINT_INCREMENT_VALUE')
-        self:addDragSkillCoolTime(t_temp['touch_skill'])
-
-    elseif (event_name == 'hero_passive_skill') then
-        -- 드래그 스킬 게이지
-        local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_DRAG_POINT_INCREMENT_VALUE')
-        self:addDragSkillCoolTime(t_temp['passive_skill'])
-        
     end
 end
 
@@ -1733,35 +1708,4 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
             excluded_dragon.enable_body = true
         end
     end
-end
-
--------------------------------------
--- function addDragSkillCoolTime
--------------------------------------
-function GameWorld:addDragSkillCoolTime(point)
-    self.m_dragSkillTimer = self.m_dragSkillTimer + point
-
-    self.m_dragSkillTimer = math_min(self.m_dragSkillTimer, 100)
-
-    self.m_inGameUI:setActiveSkillTime(self.m_dragSkillTimer, 100)
-end
-
--------------------------------------
--- function resetDragSkillCoolTime
--------------------------------------
-function GameWorld:resetDragSkillCoolTime()
-    self.m_dragSkillTimer = 0
-
-    self.m_inGameUI:setActiveSkillTime(self.m_dragSkillTimer, 100)
-
-    for i, dragon in ipairs(self:getDragonList()) do
-        dragon:updateDragSkill(0)
-    end
-end
-
--------------------------------------
--- function isEndDragSkillCoolTime
--------------------------------------
-function GameWorld:isEndDragSkillCoolTime()
-    return (self.m_dragSkillTimer >= 100)
 end

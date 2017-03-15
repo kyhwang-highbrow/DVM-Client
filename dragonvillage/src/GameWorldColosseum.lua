@@ -6,8 +6,6 @@ local PARENT = GameWorld
 GameWorldColosseum = class(PARENT, {
         m_diedHeroTotalMaxHp = 'number',    -- 죽은 아군들의 총 maxHp(죽었을때 상태로 저장)
         m_diedEnemyTotalMaxHp = 'number',    -- 죽은 적군들의 총 maxHp(죽었을때 상태로 저장)
-
-        m_enemyDragSkillTimer = 'numner',
     })
 
 -------------------------------------
@@ -16,8 +14,7 @@ GameWorldColosseum = class(PARENT, {
 function GameWorldColosseum:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, fever_node, ui, develop_mode)
     self.m_diedHeroTotalMaxHp = 0
     self.m_diedEnemyTotalMaxHp = 0
-    self.m_enemyDragSkillTimer = 0
-
+    
     -- 타임 스케일 설정
     local baseTimeScale = COLOSSEUM__TIME_SCALE
     if (g_autoPlaySetting:get('quick_mode')) then
@@ -64,11 +61,6 @@ function GameWorldColosseum:initGame(stage_name)
     -- 진형 시스템 초기화
     self:setBattleZone(self.m_deckFormation, true)
 
-    do -- 드래그 스킬
-        self.m_dragSkillTimer = 0
-        self.m_enemyDragSkillTimer = 0
-    end
-        
     do -- 스킬 조작계 초기화
         self.m_skillIndicatorMgr = SkillIndicatorMgr(self)
     end
@@ -352,6 +344,16 @@ function GameWorldColosseum:makeEnemyDeck()
                 enemy.m_statusCalc:applyFormationBonus(formation, i)
                 --ccdump(enemy.m_statusCalc.m_lPassive)
             end
+        end
+    end
+
+    -- 상대편 드래곤들은 게이지를 조정
+    do
+        local t_percentage = clone(COLOSSEUM__ENEMY_START_GAUGE_LIST)
+        t_percentage = randomShuffle(t_percentage)
+
+        for i, dragon in ipairs(self:getEnemyList()) do
+            dragon:initActiveSkillCoolTime(t_percentage[i])
         end
     end
 end

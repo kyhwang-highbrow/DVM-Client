@@ -171,7 +171,7 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             self.m_selectHero:setSpasticity(false)
 
             -- 스킬 쿹타임 초기상태로
-            self.m_world:resetDragSkillCoolTime()
+            self.m_selectHero:resetActiveSkillCoolTime()
 
             local active_skill_id = self.m_selectHero:getSkillID('active')
             local t_skill = TABLE:get('dragon_skill')[active_skill_id]
@@ -196,9 +196,6 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
         ---------------------------------------------------
         -- 터치 스킬 발동
         ---------------------------------------------------
-        if (self.m_touchedHero:doSkill_touch()) then
-            SoundMgr:playEffect('EFFECT', 'skill_touch')
-        end
     end
 
     self.m_touchedHero = nil
@@ -276,12 +273,7 @@ function SkillIndicatorMgr:setSelectHero(hero)
         self.m_world.m_gameHighlight:changeDarkLayerColor(DARK_LAYER_OPACITY, SKILL_INDICATOR_FADE_OUT_DURATION)
 
         self.m_world.m_gameHighlight:addChar(hero, 5)
-
-        -- 스킬 사용 가능 UI 강제 해제...
-        for i, dragon in ipairs(self.m_world:getDragonList()) do
-            dragon:updateDragSkill(0, false)
-        end
-
+        
         self.m_selectHero = hero
     else
         self.m_selectHero = nil

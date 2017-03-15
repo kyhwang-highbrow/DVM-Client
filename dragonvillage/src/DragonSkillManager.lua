@@ -109,6 +109,7 @@ function IDragonSkillManager:initSkillIDList()
     self.m_lSkillIndivisualInfo['basic'] = false
     self.m_lSkillIndivisualInfo['basic_rate'] = {}
     self.m_lSkillIndivisualInfo['basic_turn'] = {}
+    self.m_lSkillIndivisualInfo['basic_time'] = {}
     self.m_lSkillIndivisualInfo['passive'] = {}
     self.m_lSkillIndivisualInfo['manual'] = {}
     self.m_lSkillIndivisualInfo['touch'] = false
@@ -232,7 +233,18 @@ end
 -- function getBasicAttackSkillID
 -------------------------------------
 function IDragonSkillManager:getBasicAttackSkillID(dt)
-    -- 1. turn류 스킬 확인
+    -- 1. time류 스킬 확인
+    if (table.count(self.m_lSkillIndivisualInfo['basic_time']) > 0) then
+        for i,v in pairs(self.m_lSkillIndivisualInfo['basic_time']) do
+            v.m_timer = (v.m_timer + dt)
+            if (v.m_tSkill['chance_value'] <= v.m_timer) then
+                v.m_timer = 0
+                return v.m_skillID, false
+            end
+        end
+    end
+
+    -- 2. turn류 스킬 확인
     if (table.count(self.m_lSkillIndivisualInfo['basic_turn']) > 0) then
         for i,v in pairs(self.m_lSkillIndivisualInfo['basic_turn']) do
             v.m_turnCount = (v.m_turnCount + 1)
@@ -249,7 +261,7 @@ function IDragonSkillManager:getBasicAttackSkillID(dt)
         end
     end
 
-    -- 2. basic_rate류 스킬 확인
+    -- 3. basic_rate류 스킬 확인
     if (table.count(self.m_lSkillIndivisualInfo['basic_rate']) > 0) then
         local sum_random = SumRandom()
 
@@ -268,7 +280,7 @@ function IDragonSkillManager:getBasicAttackSkillID(dt)
         end
     end
 
-    -- 3. 기본 스킬
+    -- 4. 기본 스킬
     do
         return self:getSkillID('basic'), false
     end

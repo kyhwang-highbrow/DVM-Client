@@ -242,16 +242,16 @@ function GameState.update_fight(self, dt)
         world.m_enemyMovementMgr:update(dt)
     end
 
-    do -- 드래곤 터치 스킬 쿨타임 증가
+    do -- 드래곤 스킬 쿨타임 증가
         for _,dragon in pairs(world:getDragonList()) do
-            dragon:updateTouchSkillCoolTime(dt)
+            dragon:updateActiveSkillCoolTime(dt)
         end
     end
 
-    do -- 적군 터치 스킬 쿨타임 증가
+    do -- 적군 스킬 쿨타임 증가
         for _, enemy in pairs(self.m_world:getEnemyList()) do
             if (isInstanceOf(enemy, Dragon)) then
-                enemy:updateTouchSkillCoolTime(dt)
+                enemy:updateActiveSkillCoolTime(dt)
             end
         end
     end

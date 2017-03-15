@@ -86,7 +86,6 @@ function GameAuto:proccess_dragon()
 
     for i, dragon in ipairs(allyList) do
         if (isInstanceOf(dragon, Dragon)) then
-            --[[
             do  -- 드래그 스킬
                 local skill_id = dragon:getSkillID('active')
                 local t_skill = dragon:getLevelingSkillById(skill_id)
@@ -117,13 +116,6 @@ function GameAuto:proccess_dragon()
 
                         break
                     end
-                end
-            end
-            ]]--
-
-            do  -- 터치 스킬(쿨마다 즉시 사용)
-                if (dragon:isPossibleSkill(chance_type)) then
-                    dragon:doSkill_touch()
                 end
             end
         end
@@ -217,7 +209,7 @@ function GameAuto:doSkill(dragon, t_skill, target)
     dragon:setSpasticity(false)
 
     -- 스킬 쿹타임 초기상태로
-    self.m_world:resetDragSkillCoolTime()
+    dragon:resetActiveSkillCoolTime()
     
     dragon:reserveSkill(t_skill['sid'])
 
