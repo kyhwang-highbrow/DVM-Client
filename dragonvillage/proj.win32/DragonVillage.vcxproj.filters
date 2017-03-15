@@ -1860,6 +1860,9 @@
     <None Include="..\src\SkillIndicator_AoESquare.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\CommonMissile_Multi.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
