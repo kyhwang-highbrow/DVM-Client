@@ -22,6 +22,7 @@ enemy_random,enemy,random,[적군]이면서 타겟 포메이션에 따른 우선
 enemy_distance_line,enemy,distance_line,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 직선상으로 가장 가까운 대상 n명 선택
 enemy_distance_x,enemy,distance_x,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 x축으로 가장 가까운 대상 n명 선택
 enemy_distance_y,enemy,distance_y,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 y축으로 가장 가까운 대상 n명 선택
+enemy_far_line,enemy,far_line,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 직선상으로 가장 먼 대상 n명 선택
 enemy_hp_low,enemy,hp_low,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 HP%가 가장 낮은 대상 n명 선택. n보다 많을 경우 절대 값이 낮은 순으로 n명 선택
 enemy_hp_high,enemy,hp_high,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 HP%가 가장 높은 대상 n명 선택. n보다 많을 경우 절대 값이 높은 순으로 n명 선택
 enemy_cp_low,enemy,cp_low,[적군]이면서 타겟 포메이션에 따른 우선순위 대상 중에 CP%가 가장 낮은 대상 n명 선택. n보다 많을 경우 대상 중 무작위로 n명 선택

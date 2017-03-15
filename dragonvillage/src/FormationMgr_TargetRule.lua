@@ -51,6 +51,7 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
     -- 모든 대상
     if (type == 'none') then                return TargetRule_getTargetList_none(org_list)
     elseif (type == 'distance_line') then   return TargetRule_getTargetList_distance_line(org_list, x, y)
+	elseif (type == 'far_line') then		return TargetRule_getTargetList_far_line(org_list, x, y)
     elseif (type == 'distance_x') then      return TargetRule_getTargetList_distance_x(org_list, x)
     elseif (type == 'distance_y') then      return TargetRule_getTargetList_distance_y(org_list, y)
     elseif (type == 'hp_low') then          return TargetRule_getTargetList_hp_low(org_list, y)
@@ -98,8 +99,6 @@ function TargetRule_getTargetList_none(org_list)
     return t_ret
 end
 
-
-
 -------------------------------------
 -- function TargetRule_getTargetList_distance_line
 -- @brief 직선거리 가까운 대상
@@ -115,6 +114,29 @@ function TargetRule_getTargetList_distance_line(org_list, x, y)
     end
 
     table.sort(t_sort, sortAscending)
+
+    for i,v in ipairs(t_sort) do
+        table.insert(t_ret, v)
+    end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function TargetRule_getTargetList_far_line
+-- @brief 직선거리 먼 대상
+-------------------------------------
+function TargetRule_getTargetList_far_line(org_list, x, y)
+    local t_ret = {}
+    local t_sort = {}
+
+    for i,v in pairs(org_list) do
+        v.m_sortValue = getDistance(x, y, v.pos.x, v.pos.y)
+        v.m_sortRandomIdx = nil
+        table.insert(t_sort, v)
+    end
+
+    table.sort(t_sort, sortDescending)
 
     for i,v in ipairs(t_sort) do
         table.insert(t_ret, v)

@@ -4,7 +4,6 @@ local PARENT = Skill
 -- class SkillAoECone
 -------------------------------------
 SkillAoECone = class(PARENT, {
-		m_maxRange = 'number',
 		m_angle = 'num',
 		m_dir = 'num', 
 
@@ -26,13 +25,12 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillAoECone:init_skill(attack_count, max_range, angle)
+function SkillAoECone:init_skill(attack_count, range, angle)
     PARENT.init_skill(self)
 
 	-- 멤버 변수
 	self.m_maxAttackCount = attack_count
-    self.m_range = 0
-	self.m_maxRange = max_range
+    self.m_range = range
 	self.m_angle = angle
 	self.m_dir = getDegree(self.m_owner.pos.x, self.m_owner.pos.y, self.m_targetPos.x, self.m_targetPos.y)
 
@@ -40,8 +38,7 @@ function SkillAoECone:init_skill(attack_count, max_range, angle)
 	self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 
 	-- 애니메이션 설정
-    self.m_animator:setRotation(self.m_dir)
-	self.m_animator:setPosition(self:getAttackPosition())
+	self:initConeAnimator()
 end
 
 -------------------------------------
@@ -50,6 +47,14 @@ end
 function SkillAoECone:initState()
 	self:setCommonState(self)
     self:addState('start', SkillAoECone.st_idle, 'idle', true)
+end
+
+-------------------------------------
+-- function initConeAnimator
+-------------------------------------
+function SkillAoECone:initConeAnimator()
+    self.m_animator:setRotation(self.m_dir)
+	self.m_animator:setPosition(self:getAttackPosition())
 end
 
 -------------------------------------
@@ -69,17 +74,13 @@ function SkillAoECone.st_idle(owner, dt)
     owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
     if (owner.m_multiAtkTimer > owner.m_hitInterval) then
 		owner.m_attackCount = owner.m_attackCount + 1
-		
-		-- 공격 range를 조절할 필요가 있다면 사용할법하나... 좀더 고려해야함
-		owner.m_range = owner.m_maxRange --* (owner.m_attackCount / owner.m_maxAttackCount )
-		
         owner:runAttack()
         owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
     end
 	
 	-- 공격 횟수 초과시 탈출
     if (owner.m_attackCount >= owner.m_maxAttackCount) then
-        owner:changeState('dying')
+        owner:escapeAttack()
     end
 end
 
@@ -91,15 +92,23 @@ function SkillAoECone:findTarget()
     local world = self.m_world
 	
 	local t_data = {}
-	t_data['x'] = self.m_owner.pos.x -- 시작 좌표
-	t_data['y'] = self.m_owner.pos.y
-	t_data['dir'] = self.m_dir -- 방향
-	t_data['radius'] = self.m_range -- 거리
-    t_data['angle_range'] = self.m_angle -- 각도 범위
+	t_data['x'] = self.pos.x				-- 시작 좌표
+	t_data['y'] = self.pos.y
+	t_data['dir'] = self.m_dir				-- 방향
+	t_data['radius'] = self.m_range			-- 거리
+    t_data['angle_range'] = self.m_angle	-- 각도 범위
 
 	local l_target = world:getTargetList(self.m_owner, x, y, 'enemy', 'x', 'fan_shape', t_data)
 
     return l_target
+end
+
+-------------------------------------
+-- function escapeAttack
+-- @brief 공격이 종료되는 시점에 실행
+-------------------------------------
+function SkillAoECone:escapeAttack()
+	self:changeState('dying')
 end
 
 -------------------------------------

@@ -161,7 +161,11 @@ function Character:doSkill(skill_id, x, y, t_data)
 			elseif (type == 'skill_aoe_cone_spread') then
 				SkillAoECone_Spread:makeSkillInstance(self, t_skill, t_data)
 				return true
-				
+			
+			elseif (type == 'skill_aoe_cone_vertical') then
+				SkillAoECone_Vertical:makeSkillInstance(self, t_skill, t_data)
+				return true
+
 			elseif (type == 'skill_aoe_square_heal_dmg') then
 				SkillAoESquare_Heal:makeSkillInstance(self, t_skill, t_data)
 				return true
