@@ -381,6 +381,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillIndicator_AoECone.lua" />
     <None Include="..\src\SkillIndicator_AoECone_Spread.lua" />
     <None Include="..\src\SkillIndicator_AoECone_Vertical.lua" />
+    <None Include="..\src\SkillIndicator_AoESquare.lua" />
+    <None Include="..\src\SkillIndicator_AoESquare_Multi.lua" />
     <None Include="..\src\SkillIndicator_Penetration.lua" />
     <None Include="..\src\SkillIndicator_StraightWidth.lua" />
     <None Include="..\src\SkillIndicator_X.lua" />

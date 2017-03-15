@@ -49,7 +49,7 @@ SkillIndicator = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillIndicator:init(hero)
+function SkillIndicator:init(hero, ...)
     self.m_world = hero.m_world
     self.m_hero = hero
     self.m_siState = SI_STATE_NONE
@@ -59,6 +59,16 @@ function SkillIndicator:init(hero)
 
     -- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset 지정
     self:initAttackPosOffset(hero)
+
+	-- 필요한 변수 지정
+	self:init_indicator(...)
+end
+
+-------------------------------------
+-- function init_indicator
+-- @brief 멤버 변수 선언
+-------------------------------------
+function SkillIndicator:init_indicator(...)
 end
 
 -------------------------------------
@@ -210,6 +220,10 @@ end
 -- function onEnterAppear
 -------------------------------------
 function SkillIndicator:onEnterAppear()
+	if (not self.m_indicatorEffect) then 
+		return
+	end
+
     self.m_indicatorEffect:changeAni('appear')
 	self.m_indicatorEffect:addAniHandler(function()
 		self.m_indicatorEffect:changeAni('idle', true)

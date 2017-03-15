@@ -1854,6 +1854,12 @@
     <None Include="..\src\UI_DragonLevelUp.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SkillIndicator_AoESquare_Multi.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\SkillIndicator_AoESquare.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

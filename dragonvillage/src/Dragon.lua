@@ -634,6 +634,7 @@ function Dragon:init_skillIndicator()
 	-- 크래쉬(가루다)
 	elseif (type == 'target_cone') then
 		self.m_skillIndicator = SkillIndicator_Crash(self, t_skill)
+
 	-- 리프블레이드 (리프드래곤)
 	elseif (type == 'curve_twin') then
 		self.m_skillIndicator = SkillIndicator_LeafBlade(self, t_skill)
@@ -653,6 +654,10 @@ function Dragon:init_skillIndicator()
     -- 굵은 가로형 직사각형 (사이커)
     elseif (type == 'square_width') then
 		self.m_skillIndicator = SkillIndicator_StraightWidth(self, t_skill, true)
+
+	-- 여러다발의 직사각형 (원더)
+    elseif (type == 'square_multi') then
+		self.m_skillIndicator = SkillIndicator_AoESquare_Multi(self, t_skill)
 
 	-- 미정의 인디케이터
 	else
