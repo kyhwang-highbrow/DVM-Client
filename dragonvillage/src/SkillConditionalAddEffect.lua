@@ -108,7 +108,7 @@ function SkillConditionalAddEffect:fireMissile()
     t_option['owner'] = char
     t_option['pos_x'] = char.pos.x + attack_pos_x
     t_option['pos_y'] = char.pos.y + attack_pos_y
-	t_option['target'] = target
+	t_option['target'] = table.getRandom(world:getEnemyList())
 
 	t_option['dir'] = getDegree(t_option['pos_x'], t_option['pos_y'], target.pos.x, target.pos.y)
 	t_option['rotation'] = t_option['dir']
@@ -118,9 +118,9 @@ function SkillConditionalAddEffect:fireMissile()
     t_option['object_key'] = char:getAttackPhysGroup()
 	t_option['attr_name'] = self.m_owner:getAttribute()
 
-	t_option['speed'] = 0
-	t_option['h_limit_speed'] = 2000
-	t_option['accel'] = 20000
+	t_option['speed'] = 10
+	t_option['h_limit_speed'] = 1500
+	t_option['accel'] = 5000
 	t_option['accel_delay'] = 0.5
 	t_option['movement'] ='guide'
 	t_option['missile_type'] = 'NORMAL'
