@@ -35,7 +35,6 @@ local TableInfo = {
 
         item_sort_by_type = {'table_item',                  'full_type',    false},
         shop              = {'table_shop',                  'product_id',   false},
-        gacha             = {'table_dragon_gacha',          'did',          false},
         first_reward      = {'table_first_reward',          'stage',        false},
         attribute         = {'table_attribute',             'attr_id',      false},
         status            = {'table_status',                'type',         false},
