@@ -59,7 +59,7 @@ function SkillIndicator_AoESquare_Multi:initIndicatorNode()
 		indicator.m_node:setColor(COLOR_CYAN)
 		
         --@TODO 리소스를 고치자 답이 없음
-        indicator.m_node:setScaleX(self.m_skillWidth/360)
+        indicator.m_node:setScaleX(self.m_skillWidth/150)
 
 		table.insert(self.m_lIndicatorEffectList, indicator)
     end
