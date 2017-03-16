@@ -4,7 +4,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -- class UI_DragonSummon
 -------------------------------------
 UI_DragonSummon = class(PARENT,{
-        m_lLocationButtons = 'list',
+        m_tableView = 'UIC_TableView',
     })
 
 -------------------------------------
@@ -61,6 +61,10 @@ end
 -------------------------------------
 function UI_DragonSummon:refresh()
     local vars = self.vars    
+
+    local l_item_list = g_dragonSummonData:getDisplaySummonList()
+    local do_refresh = true
+    self.m_tableView:mergeItemList(l_item_list, do_refresh)
 end
 
 -------------------------------------
@@ -74,6 +78,7 @@ function UI_DragonSummon:init_tableView()
 
     -- 생성 콜백
     local function create_func(ui, data)
+        ui.m_refreshCB = function() self:refresh() end
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -82,7 +87,7 @@ function UI_DragonSummon:init_tableView()
     table_view:setCellUIClass(UI_DragonSummonListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
 
-    local make_item = true
+    local make_item = false
     table_view:setItemList(l_item_list, make_item)
     --table_view_td:makeDefaultEmptyDescLabel(Str(''))
 
@@ -95,8 +100,7 @@ function UI_DragonSummon:init_tableView()
 
     table.sort(table_view.m_itemList, sort_func)
 
-    
-    --self.m_tableView = table_view
+    self.m_tableView = table_view
 end
 
 -------------------------------------

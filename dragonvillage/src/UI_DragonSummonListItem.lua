@@ -5,6 +5,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_DragonSummonListItem = class(PARENT, {
         m_tItemData = 'table',
+        m_refreshCB = 'function',
     })
 
 -------------------------------------
@@ -55,11 +56,19 @@ end
 function UI_DragonSummonListItem:initButton()
     local vars = self.vars
 
-    -- 단차 소환
-    vars['buyBtn1']:registerScriptTapHandler(function() self:click_buyBtn(1) end)
-
     -- 11연차 소환
-    vars['buyBtn2']:registerScriptTapHandler(function() self:click_buyBtn(11) end)
+    vars['buyBtn1']:registerScriptTapHandler(function() self:click_buyBtn(11) end)
+
+    -- 단차 소환
+    vars['buyBtn2']:registerScriptTapHandler(function() self:click_buyBtn(1) end)
+end
+
+-------------------------------------
+-- function refresh_tableViewCell
+-------------------------------------
+function UI_DragonSummonListItem:refresh_tableViewCell(t_item_data)
+    self.m_tItemData = t_item_data
+    self:refresh()
 end
 
 -------------------------------------
@@ -76,6 +85,7 @@ function UI_DragonSummonListItem:refresh_priceInfo()
     local vars = self.vars
     local t_item_data = self.m_tItemData
 
+    vars['eventDscLabel']:setString('')
     
     local price_type = t_item_data['price_type']
     local price_icon
@@ -99,13 +109,35 @@ function UI_DragonSummonListItem:refresh_priceInfo()
     vars['priceNode1']:addChild(price_icon)
     vars['priceNode2']:addChild(price_icon2)
 
+    vars['priceLabel1']:setString(comma_value(t_item_data['11th_price_value']))
+    vars['priceLabel2']:setString(comma_value(t_item_data['price_value']))
+    
+
+    vars['limitNode']:setVisible(false)
+
     -- 할인 이벤트 중
     if (t_item_data['disc_event_active'] == true) then
-        vars['priceLabel1']:setString(comma_value(t_item_data['disc_price_value']))
-        vars['priceLabel2']:setString(comma_value(t_item_data['disc_11th_price_value']))
+        vars['eventPriceNode1']:setVisible(true)
+        vars['eventPriceNode2']:setVisible(true)
+
+        -- 할인 가격
+        vars['eventPriceLabel1']:setString(comma_value(t_item_data['disc_11th_price_value']))
+        vars['eventPriceLabel2']:setString(comma_value(t_item_data['disc_price_value']))
+
+        -- 구매 횟수 제한
+        if (t_item_data['disc_limit'] ~= '') then
+            vars['limitNode']:setVisible(true)
+            vars['limitLabel']:setString(Str('{1}/{2}\n구매가능', t_item_data['disc_purchase_cnt'], t_item_data['disc_limit']))
+        end
     else
-        vars['priceLabel1']:setString(comma_value(t_item_data['price_value']))
-        vars['priceLabel2']:setString(comma_value(t_item_data['11th_price_value']))
+        vars['eventPriceNode1']:setVisible(false)
+        vars['eventPriceNode2']:setVisible(false)
+
+        -- 구매 횟수 제한
+        if (t_item_data['limit_purchase'] ~= '') then
+            vars['limitNode']:setVisible(true)
+            vars['limitLabel']:setString(Str('{1}/{2}\n구매가능', t_item_data['purchase_cnt'], t_item_data['limit_purchase']))
+        end
     end
 end
 
@@ -116,7 +148,9 @@ function UI_DragonSummonListItem:click_buyBtn(type)
     local t_item_data = self.m_tItemData
 
     local function finish_cb(ret)
-        ccdump(ret)
+        if self.m_refreshCB then
+            self.m_refreshCB()
+        end
     end
 
     -- 변수 설정
@@ -125,19 +159,22 @@ function UI_DragonSummonListItem:click_buyBtn(type)
 
     -- 가격
     local price
+    local is_discount
     if (t_item_data['disc_event_active'] == true) then
         if (type == 1) then
             price = t_item_data['disc_price_value']
         elseif (type == 11) then
             price = t_item_data['disc_11th_price_value']
         end
+        is_discount = true
     else
         if (type == 1) then
             price = t_item_data['price_value']
         elseif (type == 11) then
             price = t_item_data['11th_price_value']
         end
+        is_discount = false
     end
 
-    g_dragonSummonData:request_dragonSummon(dsmid, type, price_type, price, finish_cb)
+    g_dragonSummonData:request_dragonSummon(dsmid, type, price_type, price, is_discount, finish_cb)
 end

@@ -966,7 +966,7 @@ end
 -- function mergeItemList
 -- @breif
 -------------------------------------
-function UIC_TableView:mergeItemList(list)
+function UIC_TableView:mergeItemList(list, do_refresh)
     local dirty = false
 
     -- 새로 생긴 데이터 추가
@@ -974,6 +974,14 @@ function UIC_TableView:mergeItemList(list)
         if (not self.m_itemMap[i]) then
             self:addItem(i, v)
             dirty = true
+        else
+            if do_refresh then
+                local item = self.m_itemMap[i]
+                item['data'] = v
+                if item['ui'] then
+                    item['ui']:refresh_tableViewCell(v)
+                end
+            end
         end
     end
 
