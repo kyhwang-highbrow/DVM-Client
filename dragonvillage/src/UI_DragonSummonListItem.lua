@@ -151,6 +151,9 @@ function UI_DragonSummonListItem:click_buyBtn(type)
         if self.m_refreshCB then
             self.m_refreshCB()
         end
+
+        local l_dragon_list = ret['added_dragons']
+        UI_GachaResult_Dragon(l_dragon_list)
     end
 
     -- 변수 설정

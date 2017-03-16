@@ -298,8 +298,8 @@
 							skew_x = 0.000000;
 							skew_y = 0.000000;
 							rotation = 0.000000;
-							visible = false;
-							lua_name = 'openSprite1';
+							visible = true;
+							lua_name = 'openSprite20';
 							file_name = 'ui/icon_box_open.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
@@ -325,7 +325,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
-							lua_name = 'closeSprite1';
+							lua_name = 'closeSprite20';
 							file_name = 'ui/icon_box_close.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
@@ -351,7 +351,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = false;
-							lua_name = 'receiveVisual1';
+							lua_name = 'receiveVisual20';
 							file_name = 'ui/a2d/rarity_light/rarity_light.a2d';
 							auto_play = true;
 							is_repeat = true;
@@ -414,7 +414,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'rewardBtn1';
+						lua_name = 'rewardBtn20';
 						enable = true;
 						normal = 'ui/empty.png';
 						selected = '';
@@ -440,7 +440,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = false;
-							lua_name = 'openSprite2';
+							lua_name = 'openSprite50';
 							file_name = 'ui/icon_box_open.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
@@ -466,7 +466,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
-							lua_name = 'closeSprite2';
+							lua_name = 'closeSprite50';
 							file_name = 'ui/icon_box_close.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
@@ -492,7 +492,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = false;
-							lua_name = 'receiveVisual2';
+							lua_name = 'receiveVisual50';
 							file_name = 'ui/a2d/rarity_light/rarity_light.a2d';
 							auto_play = true;
 							is_repeat = true;
@@ -555,7 +555,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'rewardBtn2';
+						lua_name = 'rewardBtn50';
 						enable = true;
 						normal = 'ui/empty.png';
 						selected = '';
@@ -581,7 +581,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = false;
-							lua_name = 'openSprite3';
+							lua_name = 'openSprite150';
 							file_name = 'ui/icon_box_open.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
@@ -607,7 +607,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
-							lua_name = 'closeSprite3';
+							lua_name = 'closeSprite150';
 							file_name = 'ui/icon_box_close.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
@@ -633,7 +633,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = false;
-							lua_name = 'receiveVisual3';
+							lua_name = 'receiveVisual150';
 							file_name = 'ui/a2d/rarity_light/rarity_light.a2d';
 							auto_play = true;
 							is_repeat = true;
@@ -696,7 +696,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'rewardBtn3';
+						lua_name = 'rewardBtn150';
 						enable = true;
 						normal = 'ui/empty.png';
 						selected = '';

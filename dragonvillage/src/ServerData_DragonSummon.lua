@@ -58,6 +58,19 @@ function ServerData_DragonSummon:organizeData(ret)
     self.m_dragonSummonTable = ret['dragon_summon_table']
     self.m_mileageRewardInfo = ret['mileage_reward_info']
 
+    -- 마일리지 서버 오류 보정 (100이 아닌 150임)
+    for i,v in pairs(self.m_mileageRewardInfo) do
+        if (v['mileage'] == 100) then
+            v['mileage'] = 150
+        end
+    end
+
+    -- 마일리지가 높은 순서대로 정렬
+    local function sort_func(a, b)
+        return a['mileage'] > b['mileage']
+    end
+    table.sort(self.m_mileageRewardInfo, sort_func)
+
     self.m_userSummonInfo = table.listToMap(ret['user_summon_info'], 'dsmid')
     self.m_mileage = ret['mileage']
 end
@@ -199,4 +212,43 @@ function ServerData_DragonSummon:getUserSummonInfo(dsmid)
         self.m_userSummonInfo[dsmid] = t_data
     end
     return self.m_userSummonInfo[dsmid]
+end
+
+
+-------------------------------------
+-- function request_mileageReward
+-------------------------------------
+function ServerData_DragonSummon:request_mileageReward(finish_cb)
+    local mileage = self.m_mileage
+
+    -- 캐시가 충분히 있는지 체크
+    if (mileage < 20) then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('마일리지 획득정도에 따라 다양한 보상을 얻을 수 있습니다.\n최소 20마일리지가 누적되어야 보상을 받을 수 있습니다.'))
+        return
+    end
+
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        -- 공통 응답 처리 (골드 갱신을 위해)
+        g_serverData:networkCommonRespone(ret)
+
+        -- 마일리지 갱신
+        self.m_mileage = ret['mileage']
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/mileage/reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
 end

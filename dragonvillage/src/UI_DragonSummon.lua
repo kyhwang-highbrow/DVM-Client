@@ -47,6 +47,8 @@ end
 function UI_DragonSummon:initUI()
     local vars = self.vars
 
+    vars['mileageGuage']:setPercentage(0)
+
     self:init_tableView()
 end
 
@@ -54,6 +56,8 @@ end
 -- function initButton
 -------------------------------------
 function UI_DragonSummon:initButton()
+    local vars = self.vars
+    vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
 end
 
 -------------------------------------
@@ -65,6 +69,26 @@ function UI_DragonSummon:refresh()
     local l_item_list = g_dragonSummonData:getDisplaySummonList()
     local do_refresh = true
     self.m_tableView:mergeItemList(l_item_list, do_refresh)
+
+    -- 마일리지 정보
+    local mileage = g_dragonSummonData.m_mileage
+    vars['mileageLabel']:setString(Str('{1}회', mileage))
+
+    local percentage = (mileage / 150) * 100
+    vars['mileageGuage']:stopAllActions()
+    vars['mileageGuage']:runAction(cc.ProgressTo:create(0.2, percentage))
+
+    local decided = false
+    for i,v in ipairs(g_dragonSummonData.m_mileageRewardInfo) do
+        local mileage_ = v['mileage']
+
+        if (not decided) and (mileage_ <= mileage) then
+            decided = true
+            vars['receiveVisual' .. mileage_]:setVisible(true)
+        else
+            vars['receiveVisual' .. mileage_]:setVisible(false)
+        end
+    end
 end
 
 -------------------------------------
@@ -109,6 +133,17 @@ end
 function UI_DragonSummon:click_exitBtn()
     self:close()
 end
+
+-------------------------------------
+-- function click_rewardBtn
+-------------------------------------
+function UI_DragonSummon:click_rewardBtn()
+    local function finish_cb(ret)
+        self:refresh()
+    end
+    g_dragonSummonData:request_mileageReward(finish_cb)
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_DragonSummon)
