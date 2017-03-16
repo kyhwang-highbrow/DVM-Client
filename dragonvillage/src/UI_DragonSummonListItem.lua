@@ -54,6 +54,12 @@ end
 -------------------------------------
 function UI_DragonSummonListItem:initButton()
     local vars = self.vars
+
+    -- 단차 소환
+    vars['buyBtn1']:registerScriptTapHandler(function() self:click_buyBtn(1) end)
+
+    -- 11연차 소환
+    vars['buyBtn2']:registerScriptTapHandler(function() self:click_buyBtn(11) end)
 end
 
 -------------------------------------
@@ -101,4 +107,37 @@ function UI_DragonSummonListItem:refresh_priceInfo()
         vars['priceLabel1']:setString(comma_value(t_item_data['price_value']))
         vars['priceLabel2']:setString(comma_value(t_item_data['11th_price_value']))
     end
+end
+
+-------------------------------------
+-- function click_buyBtn
+-------------------------------------
+function UI_DragonSummonListItem:click_buyBtn(type)
+    local t_item_data = self.m_tItemData
+
+    local function finish_cb(ret)
+        ccdump(ret)
+    end
+
+    -- 변수 설정
+    local dsmid = t_item_data['dsmid']
+    local price_type = t_item_data['price_type']
+
+    -- 가격
+    local price
+    if (t_item_data['disc_event_active'] == true) then
+        if (type == 1) then
+            price = t_item_data['disc_price_value']
+        elseif (type == 11) then
+            price = t_item_data['disc_11th_price_value']
+        end
+    else
+        if (type == 1) then
+            price = t_item_data['price_value']
+        elseif (type == 11) then
+            price = t_item_data['11th_price_value']
+        end
+    end
+
+    g_dragonSummonData:request_dragonSummon(dsmid, type, price_type, price, finish_cb)
 end

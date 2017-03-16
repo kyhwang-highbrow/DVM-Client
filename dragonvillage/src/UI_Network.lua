@@ -170,14 +170,14 @@ function UI_Network:statusHandler(ret)
     end
 
     -- not enough cash (자수정이 부족할 때)
-    if (status == -2100) then
-        self:makeShopPopup(Str('자수정이 부족합니다.\n상점으로 이동하시겠습니까?'), ret)
+    if (status == -2102) then
+        self:makeShopPopup(Str('자수정이 부족합니다.\n상점으로 이동하시겠습니까?'), ret, TableShop.CASH)
         return true
     end
 
     -- not enough gold (골드가 부족할 때)
     if (status == -2101) then
-        self:makeShopPopup(Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), ret)
+        self:makeShopPopup(Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), ret, TableShop.GOLD)
         return true
     end
 
@@ -189,7 +189,7 @@ function UI_Network:statusHandler(ret)
 
     -- not enough stamina (날개가 부족할 때)
     if (status == -2103) then
-        self:makeShopPopup(Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), ret)
+        self:makeShopPopup(Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), ret, TableShop.STAMINA)
         return true
     end
 
@@ -235,9 +235,13 @@ end
 -- function makeShopPopup
 -- @brief
 -------------------------------------
-function UI_Network:makeShopPopup(msg, ret)
+function UI_Network:makeShopPopup(msg, ret, type)
     self:close()
-    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, openShopPopup)
+    local function cb()
+        g_shopData:openShopPopup(type)
+    end
+    
+    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, cb)
 end
 
 -------------------------------------

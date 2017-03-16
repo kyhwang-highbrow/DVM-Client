@@ -105,3 +105,36 @@ function ServerData_DragonSummon:getDisplaySummonList()
 
    return l_list
 end
+
+-------------------------------------
+-- function request_dragonSummon
+-------------------------------------
+function ServerData_DragonSummon:request_dragonSummon(dsmid, type, price_type, price, finish_cb)
+
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        ccdump(v)
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/summon')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('dsmid', dsmid)
+    ui_network:setParam('type', type)
+    ui_network:setParam('price_type', price_type)
+    ui_network:setParam('price', price)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
