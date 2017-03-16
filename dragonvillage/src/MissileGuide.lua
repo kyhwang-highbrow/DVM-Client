@@ -42,7 +42,9 @@ function MissileGuide.st_move(owner, dt)
             
 			if (curr_degree ~= dest_degree) then
 				owner:setDir(dest_degree)
-				owner:setRotation(dest_degree)
+				if not (owner.m_bNoRotate) then
+					owner:setRotation(dest_degree)
+				end
 			end
         end
 

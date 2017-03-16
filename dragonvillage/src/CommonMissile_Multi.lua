@@ -55,12 +55,13 @@ function CommonMissile_Multi:setMissile()
 	t_option['movement'] ='guide'
     t_option['missile_type'] = 'NORMAL'
 	
-	t_option['scale'] = 3 -- self.m_resScale
+	t_option['scale'] = self.m_resScale
 	t_option['count'] = 1
 	t_option['speed'] = self.m_missileSpeed
 	t_option['h_limit_speed'] = 2000
     t_option['angular_velocity'] = 0
 	t_option['dir_add'] = 0
+	t_option['no_rotate'] = true
 
 	-- "effect" : {}
     t_option['effect'] = {}
