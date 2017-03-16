@@ -127,3 +127,53 @@ function TimeLib:getDate(server_time, year, month, day)
 
     return ret, t_time
 end
+
+
+-------------------------------------
+-- function strToTimeStamp
+-- @brief
+-------------------------------------
+function TimeLib:strToTimeStamp(str)
+    local l_str = seperate(str, ' ')
+    local date_str = l_str[1]
+    local time_str = l_str[2]
+
+    local year, month, day = self:parseDateStr(date_str)
+    local hour, minute, second = self:parseTimeStr(time_str)
+
+
+    local t_time = {}
+    t_time['year'] = year
+    t_time['month'] = month
+    t_time['day'] = day
+    t_time['hour'] = hour
+    t_time['minute'] = minute
+    t_time['second'] = second
+    local time_stamp = os.time(t_time)
+
+    return time_stamp
+end
+
+-------------------------------------
+-- function parseDateStr
+-- @brief
+-------------------------------------
+function TimeLib:parseDateStr(str)
+    local l_str = seperate(str, '-')
+    local year = l_str[1]
+    local month = l_str[2]
+    local day = l_str[3]
+    return year, month, day
+end
+
+-------------------------------------
+-- function parseTimeStr
+-- @brief
+-------------------------------------
+function TimeLib:parseTimeStr(str)
+    local l_str = seperate(str, ':')
+    local hour = l_str[1]
+    local minute = l_str[2]
+    local second = l_str[3]
+    return hour, minute, second
+end

@@ -398,10 +398,7 @@ end
 -- @brief 드래곤 소환 (가챠)
 -------------------------------------
 function UI_Lobby:click_drawBtn()
-    local function func()
-        UI_GachaDragon()
-    end
-    g_gachaData:refresh_gachaInfo(func)
+    g_dragonSummonData:openDragonSummon()
 end
 
 -------------------------------------

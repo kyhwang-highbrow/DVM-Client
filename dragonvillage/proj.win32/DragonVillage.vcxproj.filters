@@ -1866,6 +1866,15 @@
     <None Include="..\src\UI_DragonLevelUpHelper.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_DragonSummon.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_DragonSummon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonSummonListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

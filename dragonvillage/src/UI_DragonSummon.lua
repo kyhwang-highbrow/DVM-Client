@@ -1,0 +1,110 @@
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
+
+-------------------------------------
+-- class UI_DragonSummon
+-------------------------------------
+UI_DragonSummon = class(PARENT,{
+        m_lLocationButtons = 'list',
+    })
+
+-------------------------------------
+-- function initParentVariable
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_DragonSummon:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_DragonSummon'
+    self.m_bVisible = true or false
+    self.m_titleStr = Str('드래곤 소환') or nil
+    self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
+end
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_DragonSummon:init()
+    local vars = self:load('dragon_summon.ui')
+    UIManager:open(self, UIManager.SCENE)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonSummon')
+
+    -- @UI_ACTION
+    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    self:initUI()
+    self:initButton()
+    self:refresh()
+
+    self:sceneFadeInAction()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_DragonSummon:initUI()
+    local vars = self.vars
+
+    self:init_tableView()
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_DragonSummon:initButton()
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_DragonSummon:refresh()
+    local vars = self.vars    
+end
+
+-------------------------------------
+-- function init_tableView
+-------------------------------------
+function UI_DragonSummon:init_tableView()
+    local node = self.vars['listNode']
+    --node:removeAllChildren()
+
+    local l_item_list = g_dragonSummonData:getDisplaySummonList()
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(944 + 10, 545)
+    table_view:setCellUIClass(UI_DragonSummonListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+
+    local make_item = true
+    table_view:setItemList(l_item_list, make_item)
+    --table_view_td:makeDefaultEmptyDescLabel(Str(''))
+
+    local function sort_func(a, b)
+        local a_data = a['data']
+        local b_data = b['data']
+
+        return a_data['ui_order'] > b_data['ui_order']
+    end
+
+    table.sort(table_view.m_itemList, sort_func)
+
+    
+    --self.m_tableView = table_view
+end
+
+-------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_DragonSummon:click_exitBtn()
+    self:close()
+end
+
+--@CHECK
+UI:checkCompileError(UI_DragonSummon)
