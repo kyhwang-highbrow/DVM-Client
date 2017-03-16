@@ -202,9 +202,9 @@ function Dragon.st_attack(owner, dt)
 
             -- 텍스트
             local t_skill = owner:getSkillTable(owner.m_reservedSkillId)
-            if (t_skill['chance_type'] ~= 'basic_time') then
+            --if (t_skill['chance_type'] ~= 'basic_time') then
                 SkillHelper:makePassiveSkillSpeech(owner, t_skill['t_name'])
-            end
+            --end
         else
             -- 기본 공격시 이벤트
             if (owner.m_bLeftFormation) then
