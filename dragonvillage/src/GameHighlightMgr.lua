@@ -61,17 +61,24 @@ function GameHighlightMgr:addChar(char, zorder)
     local node = char:getRootNode()
     if (not node) then return end
 
+    -- root 노드
     local t_data = {}
     t_data['parent'] = char.m_world.m_worldNode
     t_data['zorder'] = node:getLocalZOrder()
-    self.m_lCharList[char] = t_data
-
-    -- root 노드
     node:retain()
     node:removeFromParent(false)
     self.m_node1:addChild(node, zorder or 0)
     node:release()
 
+    if (char.m_unitInfoNode) then
+        t_data['unit_parent'] = char.m_unitInfoNode:getParent()
+		t_data['unit_zorder'] = char.m_unitInfoNode:getLocalZOrder()
+		char.m_unitInfoNode:retain()
+		char.m_unitInfoNode:removeFromParent(false)
+		self.m_node1:addChild(char.m_unitInfoNode, t_data['unit_zorder'])
+		char.m_unitInfoNode:release()
+    end
+    --[[
     -- UI 노드
     if (char.m_hpNode) and (char.m_charTable['rarity'] ~= 'boss') then 
 		t_data['ui_parent'] = char.m_hpNode:getParent()
@@ -91,6 +98,9 @@ function GameHighlightMgr:addChar(char, zorder)
 		self.m_node1:addChild(char.m_castingNode, t_data['ui_casting_zorder'])
 		char.m_castingNode:release()
 	end
+    ]]--
+
+    self.m_lCharList[char] = t_data
 
     char.m_bHighlight = true
 end
@@ -132,6 +142,15 @@ function GameHighlightMgr:removeChar(char)
 		node:release()
 	end
 
+    if (t_data['unit_parent']) then 
+		local node = char.m_unitInfoNode
+		node:retain()
+		node:removeFromParent(false)
+		t_data['unit_parent']:addChild(node, t_data['unit_zorder'])
+		node:release()
+	end
+
+    --[[
     -- UI 노드
 	if (t_data['ui_parent']) then 
 		local node = char.m_hpNode
@@ -149,6 +168,7 @@ function GameHighlightMgr:removeChar(char)
 		t_data['ui_casting_parent']:addChild(node, t_data['ui_casting_zorder'])
 		node:release()
 	end
+    ]]--
     
     char.m_bHighlight = false
 end

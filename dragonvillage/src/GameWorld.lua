@@ -597,16 +597,11 @@ end
 -- function makePassiveStartEffect
 -- @brief
 -------------------------------------
-function GameWorld:makePassiveStartEffect(char, str_map, is_highlight)
+function GameWorld:makePassiveStartEffect(char, str_map)
     local root_node = cc.Node:create()
     root_node:setPosition(char.pos.x, char.pos.y)
-
-    if (is_highlight) then
-        g_gameScene.m_gameHighlightNode2:addChild(root_node, DEPTH_PASSIVE_FONT)
-    else
-        self:addChild2(root_node, DEPTH_PASSIVE_FONT)
-    end
-
+    self:addChild2(root_node, DEPTH_PASSIVE_FONT)
+    
     do-- 이펙트 생성
         local effect = MakeAnimator('res/effect/effect_passive_common/effect_passive_common.vrp')
         if effect.m_node then

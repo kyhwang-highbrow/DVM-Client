@@ -189,8 +189,8 @@ end
 -------------------------------------
 function Dragon.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
-        -- 터치 혹은 패시브 스킬에만 이펙트를 추가
-        if owner.m_charTable['skill_basic'] ~= owner.m_reservedSkillId then
+        -- 패시브 스킬에만 이펙트를 추가
+        if (owner.m_charTable['skill_basic'] ~= owner.m_reservedSkillId) then
             local attr = owner:getAttribute()
             local res = 'res/effect/effect_missile_charge/effect_missile_charge.vrp'
                 
@@ -202,13 +202,8 @@ function Dragon.st_attack(owner, dt)
 
             -- 텍스트
             local t_skill = owner:getSkillTable(owner.m_reservedSkillId)
-            local str_map = {}
-            str_map[t_skill['t_name']] = true
-
-            if (t_skill['chance_type'] == 'basic_time') then
-                --owner.m_world:makePassiveStartEffect(owner, str_map, true)
-            else
-                owner.m_world:makePassiveStartEffect(owner, str_map)
+            if (t_skill['chance_type'] ~= 'basic_time') then
+                SkillHelper:makePassiveSkillSpeech(owner, t_skill['t_name'])
             end
         else
             -- 기본 공격시 이벤트
@@ -522,7 +517,8 @@ function Dragon:makeHPGauge(hp_ui_offset)
     
     self.m_statusNode = self.m_hpNode
     
-    self.m_world.m_unitInfoNode:addChild(self.m_hpNode, 5)
+    --self.m_world.m_unitInfoNode:addChild(self.m_hpNode, 5)
+    self.m_unitInfoNode:addChild(self.m_hpNode, 5)
 
     self.m_infoUI = ui
 end

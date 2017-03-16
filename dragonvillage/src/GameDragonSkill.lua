@@ -283,10 +283,12 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         local arg = {...}
         local dragon = arg[1]
 
-        self.m_dragon = dragon
+        if (self:isPlaying()) then
+        else
+            self.m_dragon = dragon
 
-        self:changeState(GAME_DRAGON_SKILL_LIVE2)
-
+            self:changeState(GAME_DRAGON_SKILL_LIVE2)
+        end
     end
 end
 

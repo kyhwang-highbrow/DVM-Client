@@ -53,6 +53,9 @@ Character = class(PARENT, {
         -- @ target
         m_targetChar = 'Character',
 
+        -- @node UI
+        m_unitInfoNode = 'cc.Node',
+
         -- @hp UI
         m_hpNode = '',
         m_hpGauge = '',
@@ -183,6 +186,17 @@ function Character:init(file_name, body, ...)
     self.m_homePosY = 0
 
     self.m_movement = nil
+end
+
+-------------------------------------
+-- function initWorld
+-- @param game_world
+-------------------------------------
+function Character:initWorld(game_world)
+    PARENT.initWorld(self, game_world)
+
+    self.m_unitInfoNode = cc.Node:create()
+    self.m_world.m_unitInfoNode:addChild(self.m_unitInfoNode)
 end
 
 -------------------------------------
@@ -1057,13 +1071,21 @@ end
 -- function release
 -------------------------------------
 function Character:release()
-    if self.m_hpNode then
+    if (self.m_unitInfoNode) then
+        self.m_unitInfoNode:removeFromParent(true)
+    end
+
+    --[[
+    if (self.m_hpNode) then
         self.m_hpNode:removeFromParent(true)
     end
 
-    if self.m_castingNode then
+    if (self.m_castingNode) then
         self.m_castingNode:removeFromParent(true)
     end
+    ]]--
+
+    self.m_unitInfoNode = nil
 
     self.m_hpNode = nil
     self.m_hpGauge = nil
@@ -1119,7 +1141,7 @@ function Character:makeHPGauge(hp_ui_offset)
 
     self.m_statusNode = self.m_hpNode
 
-    self.m_world.m_unitInfoNode:addChild(self.m_hpNode)
+    self.m_unitInfoNode:addChild(self.m_hpNode)
 
 	self.m_infoUI = ui
 end
@@ -1132,7 +1154,7 @@ function Character:makeCastingNode()
     self.m_castingNode:setDockPoint(cc.p(0.5, 0.5))
     self.m_castingNode:setAnchorPoint(cc.p(0.5, 0.5))
     self.m_castingNode:setVisible(false)
-    self.m_world.m_worldNode:addChild(self.m_castingNode, WORLD_Z_ORDER.CASTING)
+    self.m_unitInfoNode:addChild(self.m_castingNode, 5)
 
     local ui = UI()
     ui:load('enemy_skill_speech.ui')
@@ -1157,12 +1179,16 @@ end
 function Character:setPosition(x, y)
 	PARENT.setPosition(self, x, y)
 
+    if (self.m_unitInfoNode) then
+        self.m_unitInfoNode:setPosition(x, y)
+    end
+
     if (self.m_hpNode and not self.m_bFixedPosHpNode) then
-        self.m_hpNode:setPosition(x + self.m_unitInfoOffset[1], y + self.m_unitInfoOffset[2])
+        self.m_hpNode:setPosition(self.m_unitInfoOffset[1], self.m_unitInfoOffset[2])
     end
 
     if (self.m_castingNode) then
-        self.m_castingNode:setPosition(x + self.m_unitInfoOffset[1], y + self.m_unitInfoOffset[2])
+        self.m_castingNode:setPosition(self.m_unitInfoOffset[1], self.m_unitInfoOffset[2])
     end
 
     if (self.m_cbChangePos) then
@@ -1324,6 +1350,7 @@ function Character:setTargetEffect(animator)
     self.m_targetEffect = animator
     if animator then
 		local root_node = self:getRootNode()
+        
 		if (self.m_isSlaveCharacter) then 
 			animator:setPosition(self.m_unitInfoOffset[1], self.m_unitInfoOffset[2])
 			root_node:addChild(animator.m_node)
