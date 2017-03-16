@@ -472,7 +472,7 @@ function UI_DragonLevelUp:refresh_selectedMaterial()
         vars['hp_label']:setString(comma_value(math_floor(curr_hp)))
         vars['cp_label']:setString(comma_value(math_floor(curr_cp)))
 
-        if possible then
+        if possible and (helper.m_dragonLevel ~= helper.m_changedLevel) then
             -- 변경된 레벨의 능력치 계산기
             local chaged_dragon_data = {}
             chaged_dragon_data['lv'] = math_max((t_dragon_data['lv'] + 1), helper.m_changedLevel)
