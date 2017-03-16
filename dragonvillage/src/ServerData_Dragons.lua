@@ -656,6 +656,6 @@ function ServerData_Dragons:possibleDragonLevelUp(doid)
     if (lv < max_lv) then
         return true
     else
-        return false, Str('{1}등급 최대레벨 {2}에 도달하였습니다.', grade, max_lv)
+        return false, Str('{1}등급 최대레벨 {2}에 달성하였습니다.', grade, max_lv)
     end
 end

@@ -101,6 +101,7 @@ end
 function UI_DragonLevelUp:initButton()
     local vars = self.vars
     vars['materialBtn']:registerScriptTapHandler(function() self:click_materialBtn() end)
+    vars['levelupBtn']:registerScriptTapHandler(function() self:click_levelupBtn() end)
 
     do -- 정렬 관련 버튼들
         vars['sortSelectOrderBtn']:registerScriptTapHandler(function() self:clcik_sortSelectOrderBtn() end)
@@ -163,6 +164,7 @@ function UI_DragonLevelUp:refresh_dragonInfo()
         vars['termsIconNode']:addChild(dragon_card.root)
     end
 
+    --[[
     do -- 레벨 표시
         local grade = t_dragon_data['grade']
         local lv = t_dragon_data['lv']
@@ -183,45 +185,9 @@ function UI_DragonLevelUp:refresh_dragonInfo()
 
         vars['expLabel']:setString(Str('{1}/{2}', exp, max_exp))
     end
+    --]]
 
-    do
-        local doid = t_dragon_data['id']
-
-        -- 현재 레벨의 능력치 계산기
-        local status_calc = MakeOwnDragonStatusCalculator(doid)
-
-        -- 현재 레벨의 능력치
-        local curr_atk = status_calc:getFinalStat('atk')
-        local curr_def = status_calc:getFinalStat('def')
-        local curr_hp = status_calc:getFinalStat('hp')
-        local curr_cp = status_calc:getCombatPower()
-
-        -- 변경된 레벨의 능력치 계산기
-        local chaged_dragon_data = {}
-        chaged_dragon_data['lv'] = (t_dragon_data['lv'] + 1)
-        local changed_status_calc = MakeOwnDragonStatusCalculator(doid, chaged_dragon_data)
-
-        -- 변경된 레벨의 능력치
-        local changed_atk = changed_status_calc:getFinalStat('atk')
-        local changed_def = changed_status_calc:getFinalStat('def')
-        local changed_hp = changed_status_calc:getFinalStat('hp')
-        local changed_cp = changed_status_calc:getCombatPower()
-
-        -- 현재 레벨의 능력치 표시
-        vars['atk_p_label']:setString(comma_value(math_floor(curr_atk)))
-        vars['def_p_label']:setString(comma_value(math_floor(curr_def)))
-        vars['hp_label']:setString(comma_value(math_floor(curr_hp)))
-        vars['cp_label']:setString(comma_value(math_floor(curr_cp)))
-
-        -- 상승되는 능력치 표시
-        vars['atk_p_label2']:setString(Str('+{1}', comma_value(math_floor(changed_atk - curr_atk))))
-        vars['def_p_label2']:setString(Str('+{1}', comma_value(math_floor(changed_def - curr_def))))
-        vars['hp_label2']:setString(Str('+{1}', comma_value(math_floor(changed_hp - curr_hp))))
-        vars['cp_label2']:setString(Str('+{1}', comma_value(math_floor(changed_cp - curr_cp))))
-    end
-
-    -- 선택 재료 갯수
-    vars['selectLabel']:setString(Str('선택재료 {1} / {2}', 0, MAX_DRAGON_LEVELUP_MATERIAL_MAX))
+    vars['expGauge1']:setVisible(true)
 end
 
 -------------------------------------
@@ -473,22 +439,24 @@ function UI_DragonLevelUp:refresh_selectedMaterial()
         return
     end
 
+    local t_dragon_data = self.m_selectDragonData
+    local doid = t_dragon_data['id']
+    local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
+
     vars['selectLabel']:setString(helper:getMaterialCountString())
     vars['priceLabel']:setString(comma_value(helper.m_price))
     vars['expGauge1']:setPercentage(helper.m_expPercentage)
     
     vars['levelLabel']:setString(Str('레벨{1}/{2}', helper.m_changedLevel, helper.m_maxLevel))
 
-    if helper.m_changedMaxExp then
+    if possible then
         vars['expLabel']:setString(Str('{1}/{2}', helper.m_changedExp, helper.m_changedMaxExp))
     else
         vars['expLabel']:setString('')
+        vars['expGauge1']:setPercentage(100)
     end
 
     do
-        local t_dragon_data = self.m_selectDragonData
-        local doid = t_dragon_data['id']
-
         -- 현재 레벨의 능력치 계산기
         local status_calc = MakeOwnDragonStatusCalculator(doid)
 
@@ -498,31 +466,112 @@ function UI_DragonLevelUp:refresh_selectedMaterial()
         local curr_hp = status_calc:getFinalStat('hp')
         local curr_cp = status_calc:getCombatPower()
 
-        -- 변경된 레벨의 능력치 계산기
-        local chaged_dragon_data = {}
-        chaged_dragon_data['lv'] = math_max((t_dragon_data['lv'] + 1), helper.m_changedLevel)
-        local changed_status_calc = MakeOwnDragonStatusCalculator(doid, chaged_dragon_data)
-
-        -- 변경된 레벨의 능력치
-        local changed_atk = changed_status_calc:getFinalStat('atk')
-        local changed_def = changed_status_calc:getFinalStat('def')
-        local changed_hp = changed_status_calc:getFinalStat('hp')
-        local changed_cp = changed_status_calc:getCombatPower()
-
         -- 현재 레벨의 능력치 표시
         vars['atk_p_label']:setString(comma_value(math_floor(curr_atk)))
         vars['def_p_label']:setString(comma_value(math_floor(curr_def)))
         vars['hp_label']:setString(comma_value(math_floor(curr_hp)))
         vars['cp_label']:setString(comma_value(math_floor(curr_cp)))
 
-        -- 상승되는 능력치 표시
-        vars['atk_p_label2']:setString(Str('+{1}', comma_value(math_floor(changed_atk - curr_atk))))
-        vars['def_p_label2']:setString(Str('+{1}', comma_value(math_floor(changed_def - curr_def))))
-        vars['hp_label2']:setString(Str('+{1}', comma_value(math_floor(changed_hp - curr_hp))))
-        vars['cp_label2']:setString(Str('+{1}', comma_value(math_floor(changed_cp - curr_cp))))
+        if possible then
+            -- 변경된 레벨의 능력치 계산기
+            local chaged_dragon_data = {}
+            chaged_dragon_data['lv'] = math_max((t_dragon_data['lv'] + 1), helper.m_changedLevel)
+            local changed_status_calc = MakeOwnDragonStatusCalculator(doid, chaged_dragon_data)
+
+            -- 변경된 레벨의 능력치
+            local changed_atk = changed_status_calc:getFinalStat('atk')
+            local changed_def = changed_status_calc:getFinalStat('def')
+            local changed_hp = changed_status_calc:getFinalStat('hp')
+            local changed_cp = changed_status_calc:getCombatPower()
+
+            -- 상승되는 능력치 표시
+            vars['atk_p_label2']:setString(Str('+{1}', comma_value(math_floor(changed_atk - curr_atk))))
+            vars['def_p_label2']:setString(Str('+{1}', comma_value(math_floor(changed_def - curr_def))))
+            vars['hp_label2']:setString(Str('+{1}', comma_value(math_floor(changed_hp - curr_hp))))
+            vars['cp_label2']:setString(Str('+{1}', comma_value(math_floor(changed_cp - curr_cp))))
+        else
+            vars['atk_p_label2']:setString('')
+            vars['def_p_label2']:setString('')
+            vars['hp_label2']:setString('')
+            vars['cp_label2']:setString('')
+        end
     end
 end
 
+-------------------------------------
+-- function click_levelupBtn
+-- @brief
+-------------------------------------
+function UI_DragonLevelUp:click_levelupBtn()
+    local helper = self.m_dragonLevelUpUIHelper
+
+    if (helper.m_materialCount <= 0) then
+        UIManager:toastNotificationRed(Str('재료 드래곤을 선택해주세요!'))
+        return
+    end
+
+    local function success_cb(ret)
+
+        self.vars['expVisual']:setVisible(true)
+        self.vars['expVisual']:setVisual('group', 'dragon_levelup_gg')
+        self.vars['expVisual']:setRepeat(false)
+        self.vars['expVisual']:addAniHandler(function()
+            -- 재료로 사용된 드래곤 삭제
+            if ret['deleted_dragons_oid'] then
+                for _,doid in pairs(ret['deleted_dragons_oid']) do
+                    g_dragonsData:delDragonData(doid)
+
+                    -- 드래곤 리스트 갱신
+                    self.m_tableViewExt:delItem(doid)
+                end
+            end
+
+            -- 드래곤 정보 갱신
+            g_dragonsData:applyDragonData(ret['modified_dragon'])
+
+            -- 골드 갱신
+            if ret['gold'] then
+                g_serverData:applyServerData(ret['gold'], 'user', 'gold')
+                g_topUserInfo:refreshData()
+            end
+
+            self.m_bChangeDragonList = true
+
+            self:setSelectDragonDataRefresh()
+
+            local doid = self.m_selectDragonOID
+            self:refresh_dragonIndivisual(doid)
+
+
+            local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
+            if (not possible) then
+                MakeSimplePopup(POPUP_TYPE.OK, msg, function() self:close() end)
+            end
+        end)
+    end
+
+    local uid = g_userData:get('uid')
+    local doid = self.m_selectDragonOID
+    local src_doids = ''
+    do
+        for _doid,_ in pairs(helper.m_materialDoidMap) do
+            if (src_doids == '') then
+                src_doids = tostring(_doid)
+            else
+                src_doids = src_doids .. ',' .. tostring(_doid)
+            end
+        end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/levelup')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('src_doids', src_doids)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
+end
 
 --@CHECK
 UI:checkCompileError(UI_DragonLevelUp)

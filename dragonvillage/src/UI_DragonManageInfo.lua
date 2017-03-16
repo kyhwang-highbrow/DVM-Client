@@ -421,6 +421,30 @@ function UI_DragonManageInfo:click_levelupBtn()
     local sort_type = self.m_dragonSortMgr.m_currSortType
 
     local ui = UI_DragonLevelUp(doid, b_ascending_sort, sort_type)
+
+    -- UI종료 후 콜백
+    local function close_cb()
+        if ui.m_bChangeDragonList then
+            self:init_dragonTableView()
+            local dragon_object_id = ui.m_selectDragonOID
+            local b_force = true
+            self:setSelectDragonData(dragon_object_id, b_force)
+        else
+            if (self.m_selectDragonOID ~= ui.m_selectDragonOID) then
+                local b_force = true
+                self:setSelectDragonData(ui.m_selectDragonOID, b_force)
+            end
+        end
+
+        do -- 정렬
+            self.m_dragonSortMgr:click_sortOrderBtn(ui.m_dragonSortMgr.m_bAscendingSort, true)
+            self.m_dragonSortMgr:click_sortTypeBtn(ui.m_dragonSortMgr.m_currSortType, true)
+            self.m_dragonSortMgr:changeSort()
+        end
+
+        self:sceneFadeInAction()
+    end
+    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------
