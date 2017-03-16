@@ -366,7 +366,7 @@ end
 -- @brief 상점 버튼
 -------------------------------------
 function UI_Lobby:click_shopBtn()
-    UI_ShopPopup()
+    g_shopData:openShopPopup()
 end
 
 -------------------------------------
