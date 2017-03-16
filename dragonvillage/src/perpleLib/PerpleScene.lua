@@ -265,7 +265,7 @@ function PerpleScene:onEnter()
 
 	local function update(dt)
 		-- @TEST 실시간 디버깅 정보 출력
-		if g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO') then
+		if (g_constant and g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO')) then
 			UIManager:updateDebugUI(dt)
 		end
     end
@@ -293,7 +293,7 @@ end
 -------------------------------------
 function PerpleScene:update(dt)
 	-- @TEST 실시간 디버깅 정보 출력
-	if g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO') then
+	if (g_constant and g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO')) then
 		UIManager:updateDebugUI(dt)
 	end
 end

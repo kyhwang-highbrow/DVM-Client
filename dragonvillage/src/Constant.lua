@@ -159,6 +159,7 @@ RES_INDICATOR =
 	CONE20 = 'res/indicator/indicator_type_cone_20/indicator_type_cone_20.vrp',
 	CONE30 = 'res/indicator/indicator_type_cone_30/indicator_type_cone_30.vrp',
 	CONE40 = 'res/indicator/indicator_type_cone_40/indicator_type_cone_40.vrp',
+	CONE60 = 'res/indicator/indicator_type_cone_60/indicator_type_cone_60.vrp',
 
 	RANGE = 'res/indicator/indicator_type_range/indicator_type_range.vrp', --> 과거에 서펀트 드래곤이 사정거리 표시할때 사용하던 인디케이터
 	BEZIER = 'res/indicator/indicator_bezier/indicator_bezier.vrp',

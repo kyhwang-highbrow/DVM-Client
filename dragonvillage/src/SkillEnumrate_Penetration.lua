@@ -17,14 +17,14 @@ end
 -------------------------------------
 -- function init_SkillEnumrate_Penetration
 -------------------------------------
-function SkillEnumrate_Penetration:init_skill(missile_res, motionstreak_res, line_num, line_size)
+function SkillEnumrate_Penetration:init_skill(missile_res, motionstreak_res, line_num, line_size, pos_type, target_type)
 	PARENT.init_skill(self, missile_res, motionstreak_res, line_num, line_size)
 
 	-- 1. 멤버 변수
 	self.m_skillInterval = g_constant:get('SKILL', 'PENERATION_APPEAR_INTERVAR')
 	self.m_skillTotalTime = (self.m_skillLineNum * self.m_skillInterval) + g_constant:get('SKILL', 'PENERATION_FIRE_DELAY')
-	self.m_enumTargetType = 'target'
-	self.m_enumPosType = 'linear'
+	self.m_enumTargetType = target_type
+	self.m_enumPosType = pos_type
 end
 
 -------------------------------------
@@ -88,6 +88,8 @@ function SkillEnumrate_Penetration:makeSkillInstance(owner, t_skill, t_data)
 
 	local line_num = t_skill['hit']
 	local line_size = t_skill['val_1']
+	local pos_type = t_skill['val_2']
+	local target_type = t_skill['val_3']
 
 	-- 인스턴스 생성부
 	------------------------------------------------------ 
@@ -96,7 +98,7 @@ function SkillEnumrate_Penetration:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(missile_res, motionstreak_res, line_num, line_size)
+    skill:init_skill(missile_res, motionstreak_res, line_num, line_size, pos_type, target_type)
 	skill:initState()
 
 	-- 3. state 시작 

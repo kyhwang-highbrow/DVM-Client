@@ -34,7 +34,7 @@ end
 -------------------------------------
 -- function init_SkillEnumrate
 -------------------------------------
-function SkillEnumrate:init_skill(missile_res, motionstreak_res, line_num, line_size)
+function SkillEnumrate:init_skill(missile_res, motionstreak_res, line_num, line_size, pos_type, target_type)
 	PARENT.init_skill(self)
 
 	-- 1. 멤버 변수
@@ -43,10 +43,10 @@ function SkillEnumrate:init_skill(missile_res, motionstreak_res, line_num, line_
 
 	self.m_skillLineNum = line_num
 	self.m_skillLineSize = line_size
-	self.m_skillLineTotalWidth = g_constant:get('SKILL', 'PENERATION_TOTAL_LENGTH')
+	self.m_skillLineTotalWidth = g_constant:get('SKILL', 'PENERATION_TOTAL_LENGTH')		-- 직선으로 배치될경우 총 길이
 	
-	self.m_skillInterval = g_constant:get('SKILL', 'PENERATION_APPEAR_INTERVAR')
-	self.m_skillTotalTime = (self.m_skillLineNum * self.m_skillInterval) + g_constant:get('SKILL', 'PENERATION_FIRE_DELAY')
+	self.m_skillInterval = g_constant:get('SKILL', 'PENERATION_APPEAR_INTERVAR')		-- 순차적으로 발사될 탄의 발사 간격
+	self.m_skillTotalTime = (self.m_skillLineNum * self.m_skillInterval) + g_constant:get('SKILL', 'PENERATION_FIRE_DELAY') -- 발사 간격 * 발사 수 + 발사 딜레이
 	self.m_skillTimer = 0
 	self.m_skillCount = 1
 
@@ -97,9 +97,9 @@ end
 -- @brief Public / 공격 대상 리스트 가져옴
 -------------------------------------
 function SkillEnumrate:getSkillTargetList()
-	if (self.m_enumTargetType == 'enemy_random') then
+	if (self.m_enumTargetType == 'random') then
 		return self:getSkillTargetList_Random()
-	else
+	elseif (self.m_enumTargetType == 'one') then
 		return {self.m_targetChar}
 	end	
 end
@@ -128,19 +128,30 @@ end
 function SkillEnumrate:getStartPosList()
 	if (self.m_enumPosType == 'linear') then
 		return self:getStartPosList_Linear()
-	elseif (self.m_enumPosType == 'pentagon') then
-		return self:getStartPosList_Pentagon()
+	elseif (self.m_enumPosType == 'polygons') then
+		return self:getStartPosList_Polygons()
 	else
 		error('SkillEnumrate do not have m_enumPosType')
 	end	
 end
 
 -------------------------------------
--- function getStartPosList_Pentagon
--- @brief 오각형 모양의 공격 시작 좌표 리턴
+-- function getStartPosList_Polygons
+-- @brief 다각형 모양의 공격 시작 좌표 리턴
 -------------------------------------
-function SkillEnumrate:getStartPosList_Pentagon()
-	local l_attack_pos = g_constant:get('SKILL', 'RANDOM_CARD_PENTAGON_POS')
+function SkillEnumrate:getStartPosList_Polygons()
+	local l_attack_pos
+	if (self.m_skillLineNum == 5) then
+		l_attack_pos = g_constant:get('SKILL', 'RANDOM_CARD_PENTAGON_POS')
+	elseif (self.m_skillLineNum == 3) then
+		l_attack_pos = {
+			{x = 0, y = 100},
+			{x = 70, y = -70},
+			{x = -70, y = - 70}
+		}
+	else
+		error('다각형 탄 배치 작업중입니다')
+	end
 
 	return l_attack_pos
 end
@@ -231,6 +242,8 @@ function SkillEnumrate:makeSkillInstance(owner, t_skill, t_data)
 
 	local line_num = t_skill['hit']
 	local line_size = t_skill['val_1']
+	local pos_type = t_skill['val_2']
+	local target_type = t_skill['val_3']
 
 	-- 인스턴스 생성부
 	------------------------------------------------------ 
@@ -239,7 +252,7 @@ function SkillEnumrate:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(missile_res, motionstreak_res, line_num, line_size)
+    skill:init_skill(missile_res, motionstreak_res, line_num, line_size, pos_type, target_type)
 	skill:initState()
 
 	-- 3. state 시작 

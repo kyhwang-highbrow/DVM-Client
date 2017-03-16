@@ -265,22 +265,22 @@ function Character:doSkill(skill_id, x, y, t_data)
 				SkillCharge:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_penetration') then
+			elseif (type == 'skill_enumrate_normal') then
+				SkillEnumrate_Normal:makeSkillInstance(self, t_skill, t_data)
+				return true
+    
+			elseif (type == 'skill_enumrate_curve') then
+				SkillEnumrate_Curve:makeSkillInstance(self, t_skill, t_data)
+				return true
+
+			elseif (type == 'skill_enumrate_penetration') then
 				if (self.m_charTable['type'] == 'jaryong') then 
 					SkillEnumrate_Penetration_Jaryong:makeSkillInstance(self, t_skill, t_data)
 				else
 					SkillEnumrate_Penetration:makeSkillInstance(self, t_skill, t_data)
 				end
 				return true
-    
-			elseif (type == 'skill_penetration_random') then
-				SkillEnumrate_Curve:makeSkillInstance(self, t_skill, t_data)
-				return true
-		
-			elseif (type == 'skill_enumrate_normal') then
-				SkillEnumrate_Normal:makeSkillInstance(self, t_skill, t_data)
 
-				return true
 			elseif (type == 'skill_rapid_shot') then
 				SkillRapidShot:makeSkillInstance(self, t_skill, t_data)
 				return true

@@ -71,7 +71,7 @@ function SkillIndicator_AoECone_Spread:spreadStatusEffect(l_target, status_effec
 				count = count + 1
 			else
 				-- 2. 범위 지정 연출
-				local effect1 = MakeAnimator(RES_INDICATOR['CONE'])
+				local effect1 = MakeAnimator(RES_INDICATOR['CONE'..self.m_skillAngle])
 				effect1:changeAni('circle', true)
 				effect1:setAlpha(0.6)
 				effect1:setScale(225/150)
