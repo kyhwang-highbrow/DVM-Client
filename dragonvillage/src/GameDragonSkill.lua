@@ -93,7 +93,6 @@ function GameDragonSkill.update_live(self, dt)
             -- 하이라이트 활성화
             world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
             world.m_gameHighlight:changeDarkLayerColor(254, 0.5)
-            world.m_gameHighlight:clear()
             world.m_gameHighlight:addChar(dragon)
             
             -- 일시 정지
