@@ -5,15 +5,34 @@
 	{
 		[1] =
 		{
-			type = 'Sprite';
+			type = 'Node';
 			ui_name = '';
 			x = 0.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 1280;
-			height = 960;
+			width = 100;
+			height = 100;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'bgNode';
+		};
+		[2] =
+		{
+			type = 'LayerColor';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 3;
+			width = 0;
+			height = 0;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -21,15 +40,12 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'bg/ui_bg_01.png';
-			color = { 255; 255; 255; };
-			opacity = 255;
-			flip_x = false;
-			flip_y = false;
+			color = { 0; 0; 0; };
+			opacity = 170;
 			src_blend = 770;
 			dest_blend = 771;
 		};
-		[2] =
+		[3] =
 		{
 			[1] =
 			{
@@ -111,6 +127,101 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
+			[3] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -51.000000;
+				y = 210.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'dragonNode4';
+			};
+			[4] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -170.000000;
+				y = 96.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'dragonNode5';
+			};
+			[5] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 0.000000;
+				y = 57.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'dragonNode3';
+			};
+			[6] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 198.000000;
+				y = 34.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'dragonNode1';
+			};
+			[7] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 79.000000;
+				y = -80.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'dragonNode2';
+			};
 			type = 'Menu';
 			ui_name = '';
 			x = -310.000000;
@@ -128,7 +239,7 @@
 			visible = true;
 			lua_name = 'timeLabelMenu';
 		};
-		[3] =
+		[4] =
 		{
 			[1] =
 			{
