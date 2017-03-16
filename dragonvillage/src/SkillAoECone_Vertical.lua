@@ -33,7 +33,7 @@ end
 function SkillAoECone_Vertical:initState()
 	self:setCommonState(self)
     self:addState('start', SkillAoECone_Vertical.st_appear, 'appear', false)
-    self:addState('attack', SkillAoECone_Vertical.st_idle, 'idle'..self.m_range, true)
+    self:addState('attack', SkillAoECone_Vertical.st_idle, 'idle_'..self.m_angle, true)
 	self:addState('disappear', SkillAoECone_Vertical.st_disappear, 'disappear', false)
 end
 
