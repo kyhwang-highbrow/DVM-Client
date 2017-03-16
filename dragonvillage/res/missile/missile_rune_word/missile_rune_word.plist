@@ -7,7 +7,7 @@
             <key>missile_rune_word_earth_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{152,2},{42,54}}</string>
+                <string>{{320,2},{42,54}}</string>
                 <key>offset</key>
                 <string>{0,6}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>missile_rune_word_earth_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{48,56}}</string>
+                <string>{{170,2},{48,56}}</string>
                 <key>offset</key>
                 <string>{2,4}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>missile_rune_word_earth_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{284,2},{42,64}}</string>
+                <string>{{452,2},{42,64}}</string>
                 <key>offset</key>
                 <string>{-3,4}</string>
                 <key>rotated</key>
@@ -43,10 +43,23 @@
                 <key>sourceSize</key>
                 <string>{150,150}</string>
             </dict>
+            <key>missile_rune_word_earth_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{54,56}}</string>
+                <key>offset</key>
+                <string>{-1,4}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{47,43},{54,56}}</string>
+                <key>sourceSize</key>
+                <string>{150,150}</string>
+            </dict>
             <key>missile_rune_word_fire_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{196,2},{42,54}}</string>
+                <string>{{364,2},{42,54}}</string>
                 <key>offset</key>
                 <string>{0,6}</string>
                 <key>rotated</key>
@@ -59,7 +72,7 @@
             <key>missile_rune_word_fire_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{52,2},{48,56}}</string>
+                <string>{{220,2},{48,56}}</string>
                 <key>offset</key>
                 <string>{2,4}</string>
                 <key>rotated</key>
@@ -72,7 +85,7 @@
             <key>missile_rune_word_fire_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{350,2},{42,64}}</string>
+                <string>{{518,2},{42,64}}</string>
                 <key>offset</key>
                 <string>{-3,4}</string>
                 <key>rotated</key>
@@ -82,10 +95,23 @@
                 <key>sourceSize</key>
                 <string>{150,150}</string>
             </dict>
+            <key>missile_rune_word_fire_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{58,2},{54,56}}</string>
+                <key>offset</key>
+                <string>{-1,4}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{47,43},{54,56}}</string>
+                <key>sourceSize</key>
+                <string>{150,150}</string>
+            </dict>
             <key>missile_rune_word_water_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{240,2},{42,54}}</string>
+                <string>{{408,2},{42,54}}</string>
                 <key>offset</key>
                 <string>{0,6}</string>
                 <key>rotated</key>
@@ -98,7 +124,7 @@
             <key>missile_rune_word_water_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{102,2},{48,56}}</string>
+                <string>{{270,2},{48,56}}</string>
                 <key>offset</key>
                 <string>{2,4}</string>
                 <key>rotated</key>
@@ -111,13 +137,26 @@
             <key>missile_rune_word_water_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{416,2},{42,64}}</string>
+                <string>{{584,2},{42,64}}</string>
                 <key>offset</key>
                 <string>{-3,4}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
                 <string>{{51,39},{42,64}}</string>
+                <key>sourceSize</key>
+                <string>{150,150}</string>
+            </dict>
+            <key>missile_rune_word_water_04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{114,2},{54,56}}</string>
+                <key>offset</key>
+                <string>{-1,4}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{47,43},{54,56}}</string>
                 <key>sourceSize</key>
                 <string>{150,150}</string>
             </dict>
@@ -129,9 +168,9 @@
             <key>realTextureFileName</key>
             <string>missile_rune_word.png</string>
             <key>size</key>
-            <string>{482,60}</string>
+            <string>{650,60}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:83cbffe557b8e670942ae1aa982f7d6d:d6ead02beae667bdcc8b84c64822cda2:b08fdf108932acd2b0c1746efb46b98d$</string>
+            <string>$TexturePacker:SmartUpdate:f1edb76a65cd2eaab1a49816318ec4c7:67d39901b2c7d1d785bd84130dd1b19b:b08fdf108932acd2b0c1746efb46b98d$</string>
             <key>textureFileName</key>
             <string>missile_rune_word.png</string>
         </dict>
