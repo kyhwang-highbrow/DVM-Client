@@ -489,6 +489,8 @@ function UI_DragonManagementFriendship:friendshipDirecting(is_fevelup, bonus_gra
 
     -- 결과 연출
     directing_result = function()
+        local vars = self.vars
+        vars['friendshipVisual']:setVisible(false)
         block_ui:close()
 
         -- 결과 팝업 생성
@@ -609,6 +611,7 @@ local uid = g_userData:get('uid')
 
         self.vars['friendshipVisual']:setVisible(true)
         self.vars['friendshipVisual']:changeAni('friendship_down', false)
+        self.vars['friendshipVisual']:addAniHandler(function() self.vars['friendshipVisual']:setVisible(false) end)
     end
 
     local ui_network = UI_Network()
