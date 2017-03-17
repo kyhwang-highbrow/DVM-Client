@@ -174,7 +174,9 @@ function SkillAttributeAmor:fireMissile()
         t_option['effect'] = {}
         t_option['effect']['motion_streak'] = self.m_motionStreakRes
 
-        t_option['cbFunction'] = function()
+        t_option['cbFunction'] = function(attacker, defender, x, y)
+            self.m_skillHitEffctDirector:doWork(defender)
+
 		    -- 타격 카운트 갱신
             self:addHitCount()
 	    end

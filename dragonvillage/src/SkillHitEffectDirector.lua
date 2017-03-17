@@ -6,6 +6,7 @@
 -------------------------------------
 SkillHitEffectDirector = class(IEventDispatcher:getCloneClass(), {
 	m_owner = 'character',
+    m_mHitTargets = 'table', -- 히트되었던 타켓
 	
 	m_hitCount = 'num',
 	m_inGameUI = 'UI_Game',
@@ -20,6 +21,7 @@ SkillHitEffectDirector = class(IEventDispatcher:getCloneClass(), {
 -------------------------------------
 function SkillHitEffectDirector:init(owner)
 	self.m_owner = owner
+    self.m_mHitTargets = {}
 	self.m_inGameUI = g_gameScene.m_inGameUI
 	self.m_animator = nil
 	self.m_hitCount = 0
@@ -37,7 +39,10 @@ end
 -- function doWork
 -- @brief 필요한 행위들을 묶어서 실행.. public으로 사용
 -------------------------------------
-function SkillHitEffectDirector:doWork()
+function SkillHitEffectDirector:doWork(target)
+    --if (self.m_mHitTargets[target]) then return end
+    --self.m_mHitTargets[target] = true
+
 	self:addHit()
 
     -- 17.02.23 인게임 개선 사항에서 콤보 표시 및 보너스 삭제

@@ -171,7 +171,9 @@ function GameDragonSkill.update_live2(self, dt)
     local world = self.m_world
     local dragon = self.m_dragon
     local timeScale = 1
-	local delayTime = 1
+    local t_dragon_skill_time = g_constant:get('INGAME', 'DRAGON_TIME_SKILL_DIRECTION_DURATION')
+	local time1 = t_dragon_skill_time[1]
+    local time2 = t_dragon_skill_time[2]
     
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
@@ -188,17 +190,12 @@ function GameDragonSkill.update_live2(self, dt)
             -- 효과음
             SoundMgr:playEffect('EFFECT', 'skill_ready')
         
-        elseif (self:isPassedStepTime(0.4)) then
+        elseif (self:isPassedStepTime(0.1 + time1)) then
             -- 암전 해제
-            world.m_gameHighlight:changeDarkLayerColor(0, 0.65)
+            world.m_gameHighlight:changeDarkLayerColor(0, time2)
 
-        elseif (self:isPassedStepTime(delayTime)) then
+        elseif (self:isPassedStepTime(0.1 + time1 + (time2 / 2))) then
 
-            self:nextStep()
-        end
-
-    elseif (self:getStep() == 1) then
-        if (self:isBeginningStep()) then
             -- 하이라이트 비활성화
             world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_HIDE)
             --world.m_gameHighlight:clear()

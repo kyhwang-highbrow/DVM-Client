@@ -1,4 +1,5 @@
 DV_SCENE_ACTIVE = false
+--DV_SCENE_ACTIVE = true
 
 -------------------------------------
 -- class SceneDV
@@ -183,6 +184,47 @@ function SceneDV:onKeyReleased(keyCode, event)
 
         local slotList = animator:getSlotList()
         --cclog('slotList = ' .. luadump(slotList))
+
+    elseif (keyCode == KEY_UP_ARROW) then
+        self:setTimeScale(10)
+        
+        local motionStreak = cc.MotionStreak:create(0.5, -1, 50, cc.c3b(255, 255, 255), 'res/effect/motion_streak/motion_streak_fire.png')
+        motionStreak:setPosition(100, 100)
+	    if (color) then
+		    motionStreak:setColor(color)
+	    end
+
+        self.m_scene:addChild(motionStreak)
+
+        local course = 1
+        local bezier = getBezier(1200, 600, 100, 100, course)
+
+        motionStreak:runAction(cc.Sequence:create(
+            cc.DelayTime:create(0.05),
+            cc.BezierBy:create(0.5, bezier),
+            cc.RemoveSelf:create()
+        ))
+        
+    elseif (keyCode == KEY_DOWN_ARROW) then
+        self:setTimeScale(1)
+        
+        local motionStreak = cc.MotionStreak:create(0.5, -1, 50, cc.c3b(255, 255, 255), 'res/effect/motion_streak/motion_streak_fire.png')
+        motionStreak:setPosition(100, 100)
+	    if (color) then
+		    motionStreak:setColor(color)
+	    end
+
+        self.m_scene:addChild(motionStreak)
+
+        local course = 1
+        local bezier = getBezier(1200, 600, 100, 100, course)
+
+        motionStreak:runAction(cc.Sequence:create(
+            cc.DelayTime:create(0.05),
+            cc.BezierBy:create(0.5, bezier),
+            cc.RemoveSelf:create()
+        ))
+
 	end
 end
 

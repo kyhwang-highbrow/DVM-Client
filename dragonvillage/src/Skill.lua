@@ -285,7 +285,7 @@ function Skill:attack(target_char)
 
 	-- 연출
 	if (self.m_bSkillHitEffect) then 
-		self.m_skillHitEffctDirector:doWork()
+		self.m_skillHitEffctDirector:doWork(target_char)
 	end
 
     -- 타격 카운트 갱신

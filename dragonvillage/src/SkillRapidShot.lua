@@ -107,8 +107,8 @@ function SkillRapidShot:fireMissile()
     -- 하이라이트
     t_option['highlight'] = self.m_bHighlight
 
-	t_option['cbFunction'] = function()
-		self.m_skillHitEffctDirector:doWork()
+	t_option['cbFunction'] = function(attacker, defender, x, y)
+		self.m_skillHitEffctDirector:doWork(defender)
 
         -- 타격 카운트 갱신
         self:addHitCount()

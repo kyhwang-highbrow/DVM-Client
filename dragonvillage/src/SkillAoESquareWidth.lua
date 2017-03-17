@@ -104,7 +104,7 @@ function SkillAoESquareWidth:fireMissile()
     t_option['highlight'] = self.m_bHighlight
 
     t_option['cbFunction'] = function(attacker, defender, x, y)
-        self.m_skillHitEffctDirector:doWork()
+        self.m_skillHitEffctDirector:doWork(defender)
 
         -- 타격 카운트 갱신
         self:addHitCount()

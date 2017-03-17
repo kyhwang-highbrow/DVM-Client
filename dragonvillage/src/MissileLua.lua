@@ -395,7 +395,7 @@ function MissileLua.lua_arrange_curve(owner)
 		owner:changeState('dying')
 	end)
 
-	local arrange_action = cc.MoveBy:create(0.2, arrange_pos)
+	local arrange_action = cc.MoveBy:create(0.1, arrange_pos)
 	local delay_action = cc.DelayTime:create(delay_time)
     local jump_action = cc.JumpTo:create(jump_duration, cc.p(target_x, target_y), height, loop)
 	local after_delay_action = cc.DelayTime:create(0.1)  -- 도착후 바로 삭제하면 충돌인식이 되지않아 임의로 설정

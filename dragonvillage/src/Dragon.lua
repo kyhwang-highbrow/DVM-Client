@@ -86,7 +86,7 @@ function Dragon:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
 
     -- 피격시 스킬 게이지 증가
-    local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_TOUCH_POINT_INCREMENT_VALUE')
+    local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
     self:addActiveSkillCoolTimeFromPercentage(t_temp['set_damage'])
 end
 
@@ -212,7 +212,7 @@ function Dragon.st_attack(owner, dt)
             end
 
             -- 스킬 게이지 증가
-            local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_TOUCH_POINT_INCREMENT_VALUE')
+            local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
             owner:addActiveSkillCoolTimeFromPercentage(t_temp['basic_skill'])
         end
     end

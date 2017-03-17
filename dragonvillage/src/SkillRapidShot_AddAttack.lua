@@ -85,8 +85,8 @@ function SkillRapidShot_AddAttack:fireMissile(target, is_add_attack)
 		t_option['accel_delay'] = g_constant:get('SKILL', 'RAPIDSHOT_FIRE_DELAY')
 	end
 
-	t_option['cbFunction'] = function()
-		self.m_skillHitEffctDirector:doWork()
+	t_option['cbFunction'] = function(attacker, defender, x, y)
+		self.m_skillHitEffctDirector:doWork(defender)
 
         -- 타격 카운트 갱신
         self:addHitCount()

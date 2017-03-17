@@ -23,11 +23,8 @@ SceneGame = class(PerpleScene, {
         m_gameNode3 = 'cc.Node',        -- 게임 레이어 (pause, resume 제외하는 이펙트 및 폰트 영역)
         m_feverNode = 'cc.Node',        -- 피버 레이어
         m_gameIndicatorNode = 'cc.Node',
-
-        m_gameHighlightNode = 'cc.Node',    -- 하이라이트 레이어 (유닛)
-        m_gameHighlightNode2 = 'cc.Node',   -- 하이라이트 레이어 (미사일 영역)
-        m_gameHighlightNode3 = 'cc.Node',   -- 하이라이트 레이어 (이펙트 및 폰트 영역)
-
+        m_gameHighlightNode = 'cc.Node',    -- 하이라이트 레이어
+        
         m_colorLayerForSkill = 'cc.LayerColor', -- 암전 레이어
 
         m_colorLayerTamerSkill = 'cc.LayerColor', -- 암전 레이어
@@ -147,15 +144,7 @@ function SceneGame:init_layer()
 						-- 하일라이트 레이어
 						self.m_gameHighlightNode = cc.Node:create()
 						self.m_worldLayer:addChild(self.m_gameHighlightNode)
-
-                        -- 하일라이트 레이어2
-						self.m_gameHighlightNode2 = cc.Node:create()
-						self.m_worldLayer:addChild(self.m_gameHighlightNode2)
-
-                        -- 하일라이트 레이어3
-						self.m_gameHighlightNode3 = cc.Node:create()
-						self.m_worldLayer:addChild(self.m_gameHighlightNode3)
-
+                        
                         -- 스킬 인디케이터 레이어
 						self.m_gameIndicatorNode = cc.Node:create()
 						self.m_worldLayer:addChild(self.m_gameIndicatorNode, 99)

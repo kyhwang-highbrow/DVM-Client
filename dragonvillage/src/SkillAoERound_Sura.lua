@@ -124,7 +124,9 @@ function SkillAoERound_Sura:fireMissile(target)
 	t_option['effect'] = {}
 	t_option['effect']['afterimage'] = true
 
-    t_option['cbFunction'] = function()
+    t_option['cbFunction'] = function(attacker, defender, x, y)
+        self.m_skillHitEffctDirector:doWork(defender)
+
 		-- 타격 카운트 갱신
         self:addHitCount()
 	end

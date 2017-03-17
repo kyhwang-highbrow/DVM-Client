@@ -201,7 +201,9 @@ function SkillMeleeHack:attackMelee()
     t_option['movement'] = 'instant'
     t_option['missile_type'] = 'NORMAL'
 
-    t_option['cbFunction'] = function()
+    t_option['cbFunction'] = function(attacker, defender, x, y)
+        self.m_skillHitEffctDirector:doWork(defender)
+
 		-- 타격 카운트 갱신
         self:addHitCount()
 	end
