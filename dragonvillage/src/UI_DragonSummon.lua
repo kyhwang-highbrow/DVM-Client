@@ -58,6 +58,9 @@ end
 function UI_DragonSummon:initButton()
     local vars = self.vars
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
+    vars['rewardBtn20']:registerScriptTapHandler(function() self:click_rewardPopupBtn(20) end)
+    vars['rewardBtn50']:registerScriptTapHandler(function() self:click_rewardPopupBtn(50) end)
+    vars['rewardBtn150']:registerScriptTapHandler(function() self:click_rewardPopupBtn(150) end)
 end
 
 -------------------------------------
@@ -140,9 +143,31 @@ end
 function UI_DragonSummon:click_rewardBtn()
     local function finish_cb(ret)
         self:refresh()
+
+        for i,v in ipairs(ret['sent_item_list']) do
+            local item_id = v['item_id']
+            local item_name = TableItem():getValue(item_id, 't_name')
+            UIManager:toastNotificationGreen(Str('[{1}]이(가) 우편함으로 발송되었습니다.', Str(item_name)))
+        end
+        
     end
     g_dragonSummonData:request_mileageReward(finish_cb)
 end
+
+-------------------------------------
+-- function click_rewardPopupBtn
+-------------------------------------
+function UI_DragonSummon:click_rewardPopupBtn(mileage)
+    local ui = UI_RewardListPopup()
+    ui:setTitleText(Str('보상 정보'))
+    ui:setDescText(Str('{1}마일리지', mileage))
+
+    local t_mileage_reward_info = g_dragonSummonData:getMileageRewardInfo(mileage)
+
+    ui:setRewardItemList(t_mileage_reward_info['reward'])
+end
+
+
 
 
 --@CHECK

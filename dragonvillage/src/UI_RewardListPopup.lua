@@ -34,6 +34,9 @@ function UI_RewardListPopup:init()
 
     --self:initButton()
     --self:refresh()
+
+    self:initButton()
+    self:refresh()
 end
 
 -------------------------------------
@@ -67,9 +70,41 @@ function UI_RewardListPopup:click_okBtn()
 end
 
 -------------------------------------
--- function setRewardItemCardList
+-- function setTitleText
 -------------------------------------
-function UI_RewardListPopup:setRewardItemCardList(l_item_card_list)
+function UI_RewardListPopup:setTitleText(text)
+    local vars = self.vars
+    vars['titleLabel']:setString(text)
+end
+
+-------------------------------------
+-- function setDescText
+-------------------------------------
+function UI_RewardListPopup:setDescText(text)
+    local vars = self.vars
+    vars['descLabel']:setString(text)
+end
+
+-------------------------------------
+-- function setRewardItemList
+-------------------------------------
+function UI_RewardListPopup:setRewardItemList(l_item_list)
+    local l_item_card_list = {}
+
+    for i,v in ipairs(l_item_list) do
+        local item_id = v['item_id']
+        local count = v['count']
+        local item_card = UI_ItemCard(item_id, count)
+        table.insert(l_item_card_list, item_card)
+    end
+
+    self:addRewardItemCardList(l_item_card_list)
+end
+
+-------------------------------------
+-- function addRewardItemCardList
+-------------------------------------
+function UI_RewardListPopup:addRewardItemCardList(l_item_card_list)
     local vars = self.vars
     vars['itemNode']:removeAllChildren()
 
@@ -85,15 +120,5 @@ end
 -------------------------------------
 function UI_RewardListPopup:setRewardItemCardList_byItemPackageStr(item_package_str)
     local l_item_list = g_itemData:parsePackageItemStr(item_package_str)
-
-    local l_item_card_list = {}
-
-    for i,v in ipairs(l_item_list) do
-        local item_id = v['item_id']
-        local count = v['count']
-        local item_card = UI_ItemCard(item_id, count)
-        table.insert(l_item_card_list, item_card)
-    end
-
-    self:setRewardItemCardList(l_item_card_list)
+    self:setRewardItemCardList(l_item_list)
 end

@@ -58,13 +58,6 @@ function ServerData_DragonSummon:organizeData(ret)
     self.m_dragonSummonTable = ret['dragon_summon_table']
     self.m_mileageRewardInfo = ret['mileage_reward_info']
 
-    -- 마일리지 서버 오류 보정 (100이 아닌 150임)
-    for i,v in pairs(self.m_mileageRewardInfo) do
-        if (v['mileage'] == 100) then
-            v['mileage'] = 150
-        end
-    end
-
     -- 마일리지가 높은 순서대로 정렬
     local function sort_func(a, b)
         return a['mileage'] > b['mileage']
@@ -75,6 +68,18 @@ function ServerData_DragonSummon:organizeData(ret)
     self.m_mileage = ret['mileage']
 end
 
+-------------------------------------
+-- function getMileageRewardInfo
+-------------------------------------
+function ServerData_DragonSummon:getMileageRewardInfo(mileage)
+    for i,v in pairs(self.m_mileageRewardInfo) do
+        if (v['mileage'] == mileage) then
+            return v
+        end
+    end
+
+    return nil
+end
 
 -------------------------------------
 -- function openDragonSummon
