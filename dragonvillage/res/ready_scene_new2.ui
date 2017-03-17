@@ -2134,7 +2134,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'sortBtn';
-				enable = false;
+				enable = true;
 				normal = 'ui/btn/sub_0101.png';
 				selected = 'ui/btn/sub_0102.png';
 				disable = '';
