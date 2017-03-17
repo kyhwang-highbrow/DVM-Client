@@ -515,7 +515,6 @@ local t_module = {
     'UI_NotificationInfo',
     'UI_FriendPointGachaPopup',
     'UI_FriendPointGachaResult',
-    'UI_GachaDragon',
     'UI_GachaBox',
     'UI_ItemInfoPopup',
     'UI_ChapterAchieveRewardPopup',

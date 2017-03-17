@@ -1545,9 +1545,6 @@
     <None Include="..\src\UI_FriendPointGachaResult.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_GachaDragon.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_GachaBox.lua">
       <Filter>lua\UI</Filter>
     </None>

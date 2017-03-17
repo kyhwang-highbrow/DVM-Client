@@ -757,7 +757,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_FriendSupportListItem.lua" />
     <None Include="..\src\UI_FruitFeedPress.lua" />
     <None Include="..\src\UI_GachaBox.lua" />
-    <None Include="..\src\UI_GachaDragon.lua" />
     <None Include="..\src\UI_GachaResult_Dragon.lua" />
     <None Include="..\src\UI_GachaResult_Rune.lua" />
     <None Include="..\src\UI_Game.lua" />
