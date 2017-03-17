@@ -44,9 +44,12 @@ end
 -- function refresh
 -------------------------------------
 function UI_AdventureFirstRewardPopup:refresh()
-    local vars = self.vars
+    if (not self.m_stageID) then
+        return
+    end
 
-    stage_id = self.m_stageID
+    local vars = self.vars
+    local stage_id = self.m_stageID
 
     local stage_info = g_adventureData:getStageInfo(stage_id)
     local state = stage_info:getFirstClearRewardState()

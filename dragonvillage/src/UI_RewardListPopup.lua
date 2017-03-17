@@ -120,5 +120,5 @@ end
 -------------------------------------
 function UI_RewardListPopup:setRewardItemCardList_byItemPackageStr(item_package_str)
     local l_item_list = g_itemData:parsePackageItemStr(item_package_str)
-    self:setRewardItemCardList(l_item_list)
+    self:setRewardItemList(l_item_list)
 end
