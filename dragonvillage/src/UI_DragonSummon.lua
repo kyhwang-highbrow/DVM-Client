@@ -159,6 +159,8 @@ end
 -------------------------------------
 function UI_DragonSummon:click_rewardPopupBtn(mileage)
     local ui = UI_RewardListPopup()
+    ui:initButton()
+    ui:refresh()
     ui:setTitleText(Str('보상 정보'))
     ui:setDescText(Str('{1}마일리지', mileage))
 

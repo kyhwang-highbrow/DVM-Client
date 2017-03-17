@@ -35,8 +35,8 @@ function UI_RewardListPopup:init()
     --self:initButton()
     --self:refresh()
 
-    self:initButton()
-    self:refresh()
+    --self:initButton()
+    --self:refresh()
 end
 
 -------------------------------------
