@@ -99,7 +99,7 @@ function UI_CollectionUnitListItem:refresh()
     -- 
 
     if t_dragon_unit_data['received'] then
-        vars['rewardBtn']:setVisible(false)
+        vars['rewardBtn']:setEnabled(false)
         vars['rewardNode']:setVisible(false)
 
         -- 적용 중이면
@@ -112,10 +112,10 @@ function UI_CollectionUnitListItem:refresh()
         end
     else
         if t_dragon_unit_data['active'] then
-            vars['rewardBtn']:setVisible(true)
+            vars['rewardBtn']:setEnabled(true)
             vars['rewardNode']:setVisible(true)
         else
-            vars['rewardBtn']:setVisible(false) 
+            vars['rewardBtn']:setEnabled(false) 
             vars['rewardNode']:setVisible(false)   
         end
 

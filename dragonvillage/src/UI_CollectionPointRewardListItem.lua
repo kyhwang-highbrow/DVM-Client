@@ -63,5 +63,5 @@ function UI_CollectionPointRewardListItem:refresh()
         vars['completeSprite']:setVisible(false)
     end
 
-    vars['rewardBtn']:setVisible(g_collectionData:canGerCollectionPointReward(self.m_collectionPointID))
+    vars['rewardBtn']:setEnabled(g_collectionData:canGerCollectionPointReward(self.m_collectionPointID))
 end
