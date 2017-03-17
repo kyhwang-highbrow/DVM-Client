@@ -1872,6 +1872,9 @@
     <None Include="..\src\UI_DragonSummonListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableEvolutionInfo.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

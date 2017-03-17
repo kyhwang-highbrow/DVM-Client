@@ -28,13 +28,22 @@ StatusCalculator = class({
 
         -- 세부 능력치 적용
         m_attackTick = 'number',
+
+
+        m_charTable = '',
+        m_evolutionTable = '',
+        m_gradeTable = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function StatusCalculator:init(char_type, cid, lv, grade, evolution)
-
+    self.m_charTable = TABLE:get(char_type)
+    if (char_type == 'dragon') then
+        self.m_evolutionTable = TableEvolutionInfo()
+        self.m_gradeTable = TableGradeInfo()
+    end
     self.m_lStatusList = self:calcStatusList(char_type, cid, lv, grade, evolution)
 
     self.m_lPassive = {}

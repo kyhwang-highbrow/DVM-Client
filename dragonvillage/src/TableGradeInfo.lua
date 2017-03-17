@@ -43,3 +43,15 @@ function TableGradeInfo:getMaxLv(grade)
     local max_lv = self:getValue(grade, 'max_lv')
     return max_lv
 end
+
+-------------------------------------
+-- function getBonusStatusLv
+-------------------------------------
+function TableGradeInfo:getBonusStatusLv(grade)
+    if (self == THIS) then
+        self = THIS
+    end
+
+    local lv = self:getValue(grade, 'bonus_status_lv')
+    return lv
+end

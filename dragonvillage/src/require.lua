@@ -137,6 +137,7 @@ local t_module = {
     'TableTamer',
 	'TableTamerSkill',
     'TableGradeInfo',
+    'TableEvolutionInfo',
     'TableStatus',
     'TableFormation',
     'TableRune',

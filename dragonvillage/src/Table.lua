@@ -47,10 +47,11 @@ local TableInfo = {
         calendar          = {'table_calendar',		        'month',		false},
 
         -- 드래곤 관리 관련
-        grade_info           = {'table_dragon_grade_info',  'grade',        false},
-        dragon_evolution     = {'table_dragon_evolution',    'did',          false},
-        enemy_move           = {'table_enemy_move',                   'type',         true},
-        evolution_item       = {'table_dragon_evolution_item',        'item_id',      false},
+        grade_info           = {'table_dragon_grade_info',    'grade',        false},
+        dragon_evolution     = {'table_dragon_evolution',     'did',          false},
+        evolution_info       = {'table_dragon_evolution_info','evolution',    false},
+        enemy_move           = {'table_enemy_move',           'type',         true},
+        evolution_item       = {'table_dragon_evolution_item','item_id',      false},
         friendship_variables = {'table_dragon_friendship_variables',  'vari',         false},
         dragon_train_info    = {'table_dragon_train_info',  'grade',        false},
         dragon_train_status  = {'table_dragon_train_status','lsid',         false},

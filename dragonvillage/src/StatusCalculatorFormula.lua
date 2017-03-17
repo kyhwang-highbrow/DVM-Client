@@ -7,7 +7,7 @@ function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolu
 	if isExistValue(status_name, 'dmg_adj_rate', 'attr_adj_rate') then return 0, 0, 0, 0, 0 end 
 
     -- 케릭터 타입별 테이블 얻어옴
-    local table_char = TABLE:get(char_type)
+    local table_char = self.m_charTable
     local t_char = table_char[cid]
 
     -- 능력치 테이블
@@ -18,27 +18,28 @@ function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolu
     local base_stat = t_status['base_stat']
 
     -- 2. 레벨 추가 능력치
-    local max_key = status_name .. '_max'
-    local max_lv_value = t_char[max_key]
     local lv_stat = nil
+    local grade_stat = 0
+    local evolution_stat = 0
 
 	-- 2-1. 공방체 스탯만 레벨에 따라 증가시키고 나머지는 고정값이다. 
 	if isExistValue(status_name, 'atk', 'def', 'hp') then 
-		lv_stat = (max_lv_value / 70) * lv
+        local max_lv_value = t_char[status_name .. '_max']
+        local value_per_level = (max_lv_value / 70)
+		lv_stat = value_per_level * lv
+
+        -- 드래곤들만 적용
+        if (char_type == 'dragon') then
+
+            -- 진화 단계 보너스
+            --evolution_stat = value_per_level * self.m_evolutionTable:getBonusStatusLv(evolution)
+
+            -- 승급 단계 보너스
+            --grade_stat = value_per_level * self.m_gradeTable:getBonusStatusLv(grade)
+        end
 	else
 		lv_stat = t_char[status_name]
 	end
-	
-	--@TODO 임시 처리..!
-	if (not lv_stat) then lv_stat = t_char[status_name .. '_max'] end
-
-    -- 3. 승급 능력치
-    local grade_key = 'grade_' .. grade
-    local grade_stat = t_status[grade_key] or 0
-
-    -- 4. 진화 능력치
-    local evolution_key = ('evolution_' .. evolution)
-    local evolution_stat = t_status[evolution_key] or 0
 
     local final_stat = base_stat + lv_stat + grade_stat + evolution_stat
 
