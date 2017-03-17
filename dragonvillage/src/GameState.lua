@@ -216,6 +216,11 @@ function GameState.update_fight(self, dt)
     if (world.m_waveMgr:isEmptyDynamicWaveList()) then
         -- 클리어 여부 체크
         self:checkWaveClear()
+
+		-- regen wave가 있다면 전용 update 돌림
+		if (world.m_waveMgr:hasRegenWave()) then
+			world.m_waveMgr:update_regen(dt)
+		end
     end
     
     if world.m_skillIndicatorMgr then

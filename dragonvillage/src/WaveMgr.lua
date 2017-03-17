@@ -5,16 +5,26 @@ WaveMgr = class(IEventDispatcher:getCloneClass(), {
         m_world = 'GameWorld',
         m_currWave = 'number',
         m_maxWave = 'number',
-        m_scriptData = 'table',
+        
+		m_scriptData = 'table',
 
         m_waveTimer = 'number', -- 현재 웨이브의 흘러간 시간
-        m_lDynamicWave = '',
-		m_lSummonWave = '',
 
-        m_stageName = '',
+		-- wave list 들
+		m_lDynamicWave = 'list',
+		m_lSummonWave = 'list',
+
+		m_stageName = '',
         m_bDevelopMode = '',
         
         m_highestRarity = 'number',     -- 하나의 웨이브 안에서 가장 높은 rarity
+
+		-- regen 전용
+		m_regenWaveData = 'table',	-- 리젠 테이블 저장
+		m_regenCoolTime = 'num',	-- 리젠 주기 (constant.json에서 제어)
+        m_regenTimer = 'number',	-- 리젠 체크용 시간 체크
+		m_lRegenWave = 'list',		-- 리젠 DynamicWave 저장
+		m_isRegenWave = 'bool',		-- regen Wave 가 있는지 여부
     })
 
 -------------------------------------
@@ -31,6 +41,7 @@ function WaveMgr:init(world, stage_name, develop_mode)
         error('script is nil : ' .. stage_name)
     end
 
+	-- 멤버 변수
     self.m_scriptData = script
 
     self.m_currWave = 0
@@ -40,8 +51,9 @@ function WaveMgr:init(world, stage_name, develop_mode)
 	self.m_lSummonWave = {}
 
     self.m_bDevelopMode = develop_mode or (stage_name == 'stage_dev') or false
-
+	
     if self.m_scriptData then
+		-- 최대 웨이브 갯수 체크
         if (self.m_scriptData['wave']) then
             self.m_maxWave = #self.m_scriptData['wave']
         end
@@ -49,6 +61,13 @@ function WaveMgr:init(world, stage_name, develop_mode)
         -- 소환 몬스터 정보
 	    self:setSummonData(self.m_scriptData)
     end
+
+	-- regen 전용 멤버 변수
+	self.m_regenWaveData = nil
+	self.m_regenCoolTime = g_constant:get('INGAME', 'REGEN_INTERVAL')
+	self.m_regenTimer = 0
+	self.m_lRegenWave = {}
+	self.m_isRegenWave = false
 
     -- 리스너 등록
     self:addListener('change_wave', self.m_world)
@@ -127,38 +146,6 @@ function WaveMgr:setSummonData(script)
 end
 
 -------------------------------------
--- function summonWave
--------------------------------------
-function WaveMgr:summonWave(idx)
-	-- summon 스크립트가 없으면 false
-	if (not self.m_lSummonWave[idx]) then
-		return false
-	end
-	
-	-- enemy list를 순회하면서 소환하려는 위치에 몬스터가 없는 곳에 소환
-	local enemy_pos, dest_pos = nil, nil
-	local isSummonable = true
-	for _, dynamic_wave in pairs(self.m_lSummonWave[idx]) do
-		dest_pos = getEnemyPos(dynamic_wave.m_luaValue2)
-		isSummonable = true
-		
-		-- 소환 가능한지 체크한다.
-		for _, enemy in pairs(self.m_world:getEnemyList()) do
-			enemy_pos = enemy['pos']
-			if (enemy_pos['x'] == dest_pos['x']) and (enemy_pos['y'] == dest_pos['y']) then
-				isSummonable = false	
-				break
-			end
-		end
-
-		-- 소환
-		if isSummonable then 
-			self:summonEnemy(dynamic_wave)
-		end
-	end
-end
-
--------------------------------------
 -- function summonEnemy
 -------------------------------------
 function WaveMgr:summonEnemy(dynamic_wave)
@@ -175,6 +162,81 @@ function WaveMgr:summonEnemy(dynamic_wave)
     if enemy and enemy.m_hpNode then
         enemy.m_hpNode:setVisible(true)
     end
+end
+
+-------------------------------------
+-- function summonWave
+-- @brief 소환을 위해 외부에서 호출함
+-------------------------------------
+function WaveMgr:summonWave(idx)
+	-- summon 스크립트가 없으면 false
+	if (not self.m_lSummonWave[idx]) then
+		return false
+	end
+	
+	-- enemy list를 순회하면서 소환하려는 위치에 몬스터가 없는 곳에 소환
+	
+	for _, dynamic_wave in pairs(self.m_lSummonWave[idx]) do
+		
+		-- 소환
+		if (self:checkSummonable(dynamic_wave.m_luaValue2)) then 
+			self:summonEnemy(dynamic_wave)
+		end
+	end
+end
+
+-------------------------------------
+-- function checkSummonable
+-- @brief 소환 가능 여부
+-------------------------------------
+function WaveMgr:checkSummonable(pos_key)
+	local enemy_pos_x, enemy_pos_y = nil, nil
+	local dest_pos = getEnemyPos(pos_key)
+	local is_summonable = true
+
+	for _, enemy in pairs(self.m_world:getEnemyList()) do
+		enemy_pos_x = enemy.pos.x
+		enemy_pos_y = enemy.pos.y
+		if (enemy_pos_x == dest_pos['x']) and (enemy_pos_y == dest_pos['y']) then
+			is_summonable = false	
+			break
+		end
+	end
+
+	return is_summonable
+end
+
+-------------------------------------
+-- function setDynamicWave
+-- @brief script를 읽어 dynamic wave를 저장
+-------------------------------------
+function WaveMgr:setDynamicWave(l_wave, l_data, is_check_rarity)
+	if not (l_data) then
+		return 
+	end
+
+	for i, v in pairs(l_data) do
+		for _, data in pairs(v) do
+			-- dynamic wave 생성 및 저장
+			local dynamic_wave = DynamicWave(self, data, i)
+			table.insert(l_wave, dynamic_wave)
+			
+			if (is_check_rariry) then
+				-- 마지막 웨이브에서는 최대 등급을 가진 적을 찾음
+				local table_enemy = TableMonster()
+				if isMonster(dynamic_wave.m_enemyID) then
+					local t_enemy = table_enemy:get(dynamic_wave.m_enemyID)
+					local rarity = t_enemy['rarity']
+                
+					if monsterRarityStrToNum(rarity) > monsterRarityStrToNum(self.m_highestRarity) then
+						self.m_highestRarity = rarity
+					end
+				end
+			end
+
+		end
+	end
+
 end
 
 -------------------------------------
@@ -238,24 +300,19 @@ function WaveMgr:newScenario_dynamicWave(t_data)
     self.m_lDynamicWave = {}
     self.m_highestRarity = 'common'
 
-    local table_enemy = TableMonster()
-    
-    for i, v in pairs(t_data['wave']) do
-        for _, data in pairs(v) do
-            local dynamic_wave = DynamicWave(self, data, i)
-            table.insert(self.m_lDynamicWave, dynamic_wave)
-
-            -- 마지막 웨이브에서는 최대 등급을 가진 적을 찾음
-            if isMonster(dynamic_wave.m_enemyID) then
-                local t_enemy = table_enemy:get(dynamic_wave.m_enemyID)
-                local rarity = t_enemy['rarity']
-                
-                if monsterRarityStrToNum(rarity) > monsterRarityStrToNum(self.m_highestRarity) then
-                    self.m_highestRarity = rarity
-                end
-            end
-        end
-    end
+    -- wave 정보를 읽어 dynamic wave 세팅
+	self:setDynamicWave(self.m_lDynamicWave, t_data['wave'], true)
+  
+	-- regen에 정보가 있다면 해당 몹을 지속적으로 소환하도록 세팅.
+	if (t_data['regen']) then
+		self.m_regenWaveData = t_data['regen']
+		self.m_isRegenWave = true
+		self:setDynamicWave(self.m_lRegenWave, self.m_regenWaveData, false)
+	else
+		self.m_isRegenWave = false
+		self.m_regenWaveData = nil
+		self.m_lRegenWave = {}
+	end
 end
 
 -------------------------------------
@@ -307,6 +364,10 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
         self.m_world.m_enemyMovementMgr:addEnemy(movement, enemy)
     end
 
+	if enemy and enemy.m_hpNode then
+        enemy.m_hpNode:setVisible(true)
+    end
+
 	return enemy
 end
 
@@ -332,7 +393,35 @@ function WaveMgr:update(dt)
     for i,v in ipairs(t_remove) do
         table.remove(self.m_lDynamicWave, v)
     end
+end
 
+-------------------------------------
+-- function update_regen
+-------------------------------------
+function WaveMgr:update_regen(dt)
+	self.m_regenTimer = self.m_regenTimer + dt
+	
+	if (self.m_regenTimer > self.m_regenCoolTime) then
+		cclog('!!! REGEN !!! ', self.m_regenTimer, #self.m_lRegenWave)
+		-- 리젠 웨이브 업데이트
+		for i, dynamic_wave in ipairs(self.m_lRegenWave) do
+			-- 소환 (일반 웨이브와 다르게 위치 기반한 소환여부 체크)
+			if (self:checkSummonable(dynamic_wave.m_luaValue2)) then
+				cclog(dynamic_wave.m_luaValue2)
+				dynamic_wave:update(dt)
+			end
+		end
+
+		-- 리젠 웨이브 삭제 (전부 삭제한다)
+		self.m_lRegenWave = {}
+
+		-- 리젠 웨이브 다시 생성
+		self.m_regenTimer = self.m_regenTimer - self.m_regenCoolTime
+		if (self.m_regenWaveData) then
+			self:setDynamicWave(self.m_lRegenWave, self.m_regenWaveData, false)
+		end
+
+	end
 end
 
 -------------------------------------
@@ -368,6 +457,13 @@ function WaveMgr:isFinalWave()
 	end
 
     return (self.m_currWave == self.m_maxWave)
+end
+
+-------------------------------------
+-- function hasRegenWave
+-------------------------------------
+function WaveMgr:hasRegenWave()
+	return self.m_isRegenWave
 end
 
 -------------------------------------

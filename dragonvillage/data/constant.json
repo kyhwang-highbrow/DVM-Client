@@ -90,7 +90,10 @@
         "DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE" : {
 			"basic_skill" : 0,
 			"set_damage" : 0
-		}
+		},
+        
+        // 믄스터 리젠
+        "REGEN_INTERVAL" : 5
     },
     
     // 스킬 공용 & 개별

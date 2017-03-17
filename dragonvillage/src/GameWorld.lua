@@ -293,7 +293,9 @@ function GameWorld:initGame(stage_name)
 		
 	-- mission manager 생성
 	if (self.m_gameMode == GAME_MODE_ADVENTURE) then
-		self.m_missionMgr = StageMissionMgr(self.m_logRecorder, self.m_stageID)
+		if (not self.m_bDevelopMode) then
+			self.m_missionMgr = StageMissionMgr(self.m_logRecorder, self.m_stageID)
+		end
 	end
 
     do -- 진형 시스템 초기화
