@@ -145,16 +145,34 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_DragonSummonListItem:click_buyBtn(type)
-    local t_item_data = self.m_tItemData
+    -- 드래곤 소환에 필요한 매개변수들 생성
+    local dsmid, price_type, price, is_discount = self:makeSummonRequestParams(type)
 
-    local function finish_cb(ret)
-        if self.m_refreshCB then
-            self.m_refreshCB()
+    -- 컨펌 확인 콜백
+    local function ok_cb()
+        local function finish_cb(ret)
+            if self.m_refreshCB then
+                self.m_refreshCB()
+            end
+
+            local l_dragon_list = ret['added_dragons']
+            UI_GachaResult_Dragon(l_dragon_list)
         end
 
-        local l_dragon_list = ret['added_dragons']
-        UI_GachaResult_Dragon(l_dragon_list)
+        -- 서버에 드래곤 소환 요청
+        g_dragonSummonData:request_dragonSummon(dsmid, type, price_type, price, is_discount, finish_cb)
     end
+
+    -- 구매 여부 확인
+    local msg = self:makeSummonConfirmMsg(dsmid, price_type, price, is_discount, type)
+    MakeSimplePopup_Confirm(price_type, price, msg, ok_cb, nil)
+end
+
+-------------------------------------
+-- function makeSummonRequestParams
+-------------------------------------
+function UI_DragonSummonListItem:makeSummonRequestParams(type)
+    local t_item_data = self.m_tItemData
 
     -- 변수 설정
     local dsmid = t_item_data['dsmid']
@@ -168,6 +186,8 @@ function UI_DragonSummonListItem:click_buyBtn(type)
             price = t_item_data['disc_price_value']
         elseif (type == 11) then
             price = t_item_data['disc_11th_price_value']
+        else
+            error('type : ' .. type)
         end
         is_discount = true
     else
@@ -175,9 +195,43 @@ function UI_DragonSummonListItem:click_buyBtn(type)
             price = t_item_data['price_value']
         elseif (type == 11) then
             price = t_item_data['11th_price_value']
+        else
+            error('type : ' .. type)
         end
         is_discount = false
     end
 
-    g_dragonSummonData:request_dragonSummon(dsmid, type, price_type, price, is_discount, finish_cb)
+    return dsmid, price_type, price, is_discount
+end
+
+-------------------------------------
+-- function makeSummonConfirmMsg
+-------------------------------------
+function UI_DragonSummonListItem:makeSummonConfirmMsg(dsmid, price_type, price, is_discount, type)
+    local msg = ''
+    local price_str = comma_value(price)
+    local type_str
+
+    if (type == 1) then
+        type_str = '1'
+    elseif (type == 11) then
+        type_str = '10+1'
+    else
+        error('type : ' .. type)
+    end
+
+    if (price_type == 'cash') then
+        msg = Str('{1}회 드래곤 소환을 하시겠습니까?', type_str)
+        
+    elseif (price_type == 'gold') then
+        msg = Str('{1}회 드래곤 소환을 하시겠습니까?', type_str)
+
+    else
+        error('price_type : ' .. price_type)
+    end
+
+    -- @TODO sgkim횟수제한 이벤트에 걸린 경우에만 출력하자
+    --msg = msg .. '\n' .. Str('이벤트 소환의 경우 횟수 제한이 있을 수 있습니다. 횟수는 "10+1회", "1회"가 동시 적용됩니다.')
+
+    return msg
 end
