@@ -330,14 +330,12 @@ end
 
 -------------------------------------
 -- function findHighestRarity
--- @brief 마지막 웨이브에서는 최대 등급을 가진 적을 찾음
+-- @brief 최대 등급을 갱신한다.
 -------------------------------------
-function WaveMgr:findHighestRarity()
-	for _, monster in pairs(self.m_world:getEnemyList()) do
-		local rarity = monster:getRarity()
-		if monsterRarityStrToNum(rarity) > monsterRarityStrToNum(self.m_highestRarity) then
-			self.m_highestRarity = rarity
-		end
+function WaveMgr:checkHighestRarity(monster)
+	local rarity = monster:getRarity()
+	if monsterRarityStrToNum(rarity) > monsterRarityStrToNum(self.m_highestRarity) then
+		self.m_highestRarity = rarity
 	end
 end
 
@@ -393,6 +391,11 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
 	if enemy and enemy.m_hpNode then
         enemy.m_hpNode:setVisible(true)
     end
+
+	-- 마지막 웨이브인 경우 최대 등급 찾음
+	if (self:isFinalWave()) then
+		self:checkHighestRarity(enemy)
+	end
 
 	return enemy
 end
