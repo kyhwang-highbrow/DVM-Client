@@ -16,7 +16,7 @@ function UI_SkillCard:init(char_type, skill_id, skill_type, skill_lv)
     self.m_charType = char_type
     self.m_skillID = skill_id
     self.m_skillType = skill_type
-    local vars = self:load('skill_item.ui')
+    local vars = self:load('skill_item_new.ui')
 
     local icon = IconHelper:getSkillIcon(char_type, skill_id)
     vars['skillNode']:addChild(icon)
@@ -24,14 +24,17 @@ function UI_SkillCard:init(char_type, skill_id, skill_type, skill_lv)
     -- 액티브, 필살기 스킬 프레임
     -- @TODO 액티브, 패시브 한글로 표시
     if isExistValue(skill_type, 'active','touch') then
-        vars['activeSprite']:setVisible(false)
+        --vars['activeSprite']:setVisible(false)
         vars['skillLabel']:setString('액티브')
         vars['skillLabel']:setColor(cc.c3b(0,255,0))
     else
-        vars['activeSprite']:setVisible(false)
+        --vars['activeSprite']:setVisible(false)
         vars['skillLabel']:setString('패시브')
         vars['skillLabel']:setColor(cc.c3b(255,255,30))
     end
+
+    -- 스킬 레벨
+    vars['skllLvLabel']:setString(tostring(skill_lv))
 
     vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
 end

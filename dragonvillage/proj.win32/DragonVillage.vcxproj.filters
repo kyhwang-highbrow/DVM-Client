@@ -1878,6 +1878,9 @@
     <None Include="..\src\UI_DragonEclvup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_DragonSkillLevelUp.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

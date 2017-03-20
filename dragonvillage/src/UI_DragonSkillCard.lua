@@ -13,7 +13,7 @@ UI_DragonSkillCard = class(PARENT, {
 function UI_DragonSkillCard:init(skill_indivisual_info)
     self.m_skillIndivisualInfo = skill_indivisual_info
 
-    local vars = self:load('skill_item.ui')
+    local vars = self:load('skill_item_new.ui')
 
     local skill_id = skill_indivisual_info.m_skillID
     local icon = IconHelper:getSkillIcon('dragon', skill_id)
@@ -22,11 +22,11 @@ function UI_DragonSkillCard:init(skill_indivisual_info)
     do -- 스킬 타입 표시
         local skill_type = skill_indivisual_info.m_skillType
         if isExistValue(skill_type, 'active', 'touch') then
-            vars['activeSprite']:setVisible(false)
+            --vars['activeSprite']:setVisible(false)
             vars['skillLabel']:setString('액티브')
             vars['skillLabel']:setColor(cc.c3b(0,255,0))
         else
-            vars['activeSprite']:setVisible(false)
+            --vars['activeSprite']:setVisible(false)
             vars['skillLabel']:setString('패시브')
             vars['skillLabel']:setColor(cc.c3b(255,255,30))
         end
@@ -37,6 +37,8 @@ function UI_DragonSkillCard:init(skill_indivisual_info)
         vars['lockSprite']:setVisible(is_lock)
     end
 
+    -- 스킬 레벨
+    vars['skllLvLabel']:setString(tostring(skill_indivisual_info.m_skillLevel))
     vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
 end
 

@@ -342,6 +342,40 @@ function ServerData_Dragons:getUpgradeMode(doid)
 end
 
 -------------------------------------
+-- function checkSkillUpgradeable
+-- @brief 스킬 업그레이드 가능 여부
+-------------------------------------
+function ServerData_Dragons:checkSkillUpgradeable(doid)
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+
+    local evolution = t_dragon_data['evolution']
+    local skill_0 = (t_dragon_data['skill_0'] or 0) -- 최대 10
+    local skill_1 = (t_dragon_data['skill_1'] or 0) -- 최대 10
+    local skill_2 = (t_dragon_data['skill_2'] or 0) -- 최대 10
+    local skill_3 = (t_dragon_data['skill_3'] or 0) -- 최대 1
+
+    if (evolution == 1) then
+        if (20 <= (skill_0 + skill_1)) then
+            return false, Str('해츨링이 되면 새로운 스킬을 습득할 수 있습니다.')
+        end
+
+    elseif (evolution == 2) then
+        if (30 <= (skill_0 + skill_1 + skill_2)) then
+            return false, Str('성룡이 되면 새로운 스킬을 습득할 수 있습니다.')
+        end
+
+    elseif (evolution == 3) then
+        if (31 <= (skill_0 + skill_1 + skill_2 + skill_3)) then
+            return false, Str('모든 스킬을 마스터하였습니다.')
+        end
+
+    end
+
+    return true
+end
+
+
+-------------------------------------
 -- function checkUpgradeable
 -- @brief
 -------------------------------------

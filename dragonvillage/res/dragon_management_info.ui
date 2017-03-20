@@ -662,7 +662,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = '';
 					file_name = 'ui/frame/skill_frame.png';
 					color = { 255; 255; 255; };
@@ -728,7 +728,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = '';
 					file_name = 'ui/frame/skill_frame.png';
 					color = { 255; 255; 255; };
@@ -794,7 +794,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = '';
 					file_name = 'ui/frame/skill_frame.png';
 					color = { 255; 255; 255; };
@@ -860,7 +860,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = '';
 					file_name = 'ui/frame/skill_frame.png';
 					color = { 255; 255; 255; };
