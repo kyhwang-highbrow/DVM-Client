@@ -114,7 +114,7 @@ function GameAuto_Hero:proccess_tamer()
     local gameTamer = self.m_world.m_gameTamer
     if (not gameTamer) then return end
 
-    if (not gameTamer:isEndActiveSkillCoolTime()) then
+    if (not gameTamer:isEndActiveSkillCool()) then
         return false
     end
 

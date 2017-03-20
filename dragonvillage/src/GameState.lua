@@ -249,14 +249,14 @@ function GameState.update_fight(self, dt)
 
     do -- 드래곤 스킬 쿨타임 증가
         for _,dragon in pairs(world:getDragonList()) do
-            dragon:updateActiveSkillCoolTime(dt)
+            dragon:updateActiveSkillCool(dt)
         end
     end
 
     do -- 적군 스킬 쿨타임 증가
         for _, enemy in pairs(self.m_world:getEnemyList()) do
             if (isInstanceOf(enemy, Dragon)) then
-                enemy:updateActiveSkillCoolTime(dt)
+                enemy:updateActiveSkillCool(dt)
             end
         end
     end

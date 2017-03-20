@@ -171,7 +171,7 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             self.m_selectHero:setSpasticity(false)
 
             -- 스킬 쿹타임 초기상태로
-            self.m_selectHero:resetActiveSkillCoolTime()
+            self.m_selectHero:resetActiveSkillCool()
 
             local active_skill_id = self.m_selectHero:getSkillID('active')
             local t_skill = TABLE:get('dragon_skill')[active_skill_id]

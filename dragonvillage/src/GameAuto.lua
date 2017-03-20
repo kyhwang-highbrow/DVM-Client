@@ -209,7 +209,7 @@ function GameAuto:doSkill(dragon, t_skill, target)
     dragon:setSpasticity(false)
 
     -- 스킬 쿹타임 초기상태로
-    dragon:resetActiveSkillCoolTime()
+    dragon:resetActiveSkillCool()
     
     dragon:reserveSkill(t_skill['sid'])
 

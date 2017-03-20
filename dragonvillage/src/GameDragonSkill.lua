@@ -198,7 +198,7 @@ function GameDragonSkill.update_live2(self, dt)
 
             -- 하이라이트 비활성화
             world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_HIDE)
-            --world.m_gameHighlight:clear()
+            world.m_gameHighlight:clear()
 
             self.m_dragon = nil
 

@@ -997,12 +997,12 @@ function GameWorld:onKeyReleased(keyCode, event)
     elseif (keyCode == KEY_C) then
         -- 드래곤 스킬
         for _,dragon in pairs(self:getDragonList()) do
-            dragon:updateActiveSkillCoolTime(100)
+            dragon:increaseActiveSkillCool(100)
         end
         
         -- 테이머 스킬
         if (self.m_gameTamer) then
-            self.m_gameTamer:resetActiveSkillCoolTime()
+            self.m_gameTamer:resetActiveSkillCool()
         end
 
 	-- 미션 성공

@@ -167,16 +167,16 @@ function GameTamer:showToolTipActive()
 end
 
 -------------------------------------
--- function resetActiveSkillCoolTime
+-- function resetActiveSkillCool
 -------------------------------------
-function GameTamer:resetActiveSkillCoolTime()
+function GameTamer:resetActiveSkillCool()
     self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE] = 0
 end
 
 -------------------------------------
--- function isEndActiveSkillCoolTime
+-- function isEndActiveSkillCool
 -------------------------------------
-function GameTamer:isEndActiveSkillCoolTime()
+function GameTamer:isEndActiveSkillCool()
     return (self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE] == 0)
 end
 
@@ -184,7 +184,7 @@ end
 -- function isPossibleSkill
 -------------------------------------
 function GameTamer:isPossibleSkill()
-    if (not self:isEndActiveSkillCoolTime()) then
+    if (not self:isEndActiveSkillCool()) then
 		return false
 	end
 

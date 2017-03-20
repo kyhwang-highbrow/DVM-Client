@@ -26,7 +26,7 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
     dragon:initWorld(self)
     dragon:setDragonSkillLevelList(t_dragon_data['skill_0'], t_dragon_data['skill_1'], t_dragon_data['skill_2'], t_dragon_data['skill_3'])
     dragon:initDragonSkillManager('dragon', dragon_id, evolution)
-    dragon:initActiveSkillCoolTime() -- 스킬 쿨타임 지정
+    dragon:initActiveSkillCool() -- 스킬 쿨타임 지정
     dragon.m_tDragonInfo = t_dragon_data
     dragon:initAnimatorDragon(t_dragon['res'], evolution, attr)
     dragon.m_animator:setScale(0.5 * t_dragon['scale'])
@@ -214,7 +214,7 @@ function GameWorld:makeHeroDeck()
         t_percentage = randomShuffle(t_percentage)
 
         for i, dragon in ipairs(self:getDragonList()) do
-            dragon:initActiveSkillCoolTime(t_percentage[i])
+            dragon:initActiveSkillCool(t_percentage[i])
         end
     end
     

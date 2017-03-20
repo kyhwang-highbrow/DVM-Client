@@ -116,10 +116,12 @@ end
 -- function applyCooltimeBuff
 -------------------------------------
 function SkillHitEffectDirector:applyCooltimeBuff()
+    --[[
 	local timer = self.m_owner.m_activeSkillTimer
 	local cooltime = self.m_owner.m_activeSkillCoolTime
 	local cooltime_buff_rate = g_constant:get('INGAME', 'COOLTIME_BUFF_RATE')
 	self.m_owner.m_activeSkillTimer = timer + (cooltime * cooltime_buff_rate)
+    ]]--
 end
 
 -------------------------------------

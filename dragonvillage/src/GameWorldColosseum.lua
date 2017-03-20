@@ -327,7 +327,7 @@ function GameWorldColosseum:makeEnemyDeck()
         t_percentage = randomShuffle(t_percentage)
 
         for i, dragon in ipairs(self:getEnemyList()) do
-            dragon:initActiveSkillCoolTime(t_percentage[i])
+            dragon:initActiveSkillCool(t_percentage[i])
         end
     end
 end

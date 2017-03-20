@@ -344,14 +344,46 @@ function Character:checkAttributeCounter(activity_carrier)
 end
 
 -------------------------------------
+-- function checkAvoid
+-- @brief 회피 여부 검사
+-------------------------------------
+function Character:checkAvoid(activity_carrier, t_attr_effect)
+    local hit_rate = activity_carrier:getStat('hit_rate')
+
+	-- 속성 상성 옵션 적용
+	do 
+		local hit_rates_multifly = 1
+
+		-- 적중률
+		if t_attr_effect['hit_rate'] then
+			hit_rates_multifly = (hit_rates_multifly + (t_attr_effect['hit_rate']/100))
+		end
+
+		hit_rate = (hit_rate * hit_rates_multifly)
+	end
+
+	local avoid = self.m_statusCalc:getFinalStat('avoid')
+	local avoid_rates = CalcAvoidChance(hit_rate, avoid)
+
+	-- 회피율을 퍼밀 단위로 랜덤 연산
+	if (math_random(1, 1000) <= (avoid_rates * 10)) then
+		--cclog('MISS ' .. avoid_rates)
+        return true
+	end
+
+    return false
+end
+
+-------------------------------------
 -- function undergoAttack
 -------------------------------------
 function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
-
     if (not attacker.m_activityCarrier) then
         --cclog('attacker.m_activityCarrier nil')
         return
     end
+
+    local attacker_char = attacker.m_activityCarrier.m_activityCarrierOwner
 
     -- 무적 상태 여부 체크
     if self.m_bInvincibility then
@@ -464,33 +496,22 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
     end
 
     -- 회피 계산
-	do
-		local hit_rate = attacker.m_activityCarrier:getStat('hit_rate')
+    if (self:checkAvoid(attacker.m_activityCarrier, t_attr_effect)) then
+        self:makeMissFont(i_x, i_y)
+		self:dispatch('avoid')
 
-		-- 속성 상성 옵션 적용
-		do 
-			local hit_rates_multifly = 1
+        -- 공격자가 드래곤일 경우 스킬 게이지 증가
+        if (attacker_char and attacker_char.m_charType == 'dragon') then
+            local role_type = attacker_char.m_charTable['role']
+            if (role_type == 'dealer') then
+                local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
+                attacker_char:increaseActiveSkillCool(t_temp['miss'])
+            end
+        end
 
-			-- 적중률
-			if t_attr_effect['hit_rate'] then
-				hit_rates_multifly = (hit_rates_multifly + (t_attr_effect['hit_rate']/100))
-			end
-
-			hit_rate = (hit_rate * hit_rates_multifly)
-		end
-
-		local avoid = self.m_statusCalc:getFinalStat('avoid')
-		local avoid_rates = CalcAvoidChance(hit_rate, avoid)
-
-		-- 회피율을 퍼밀 단위로 랜덤 연산
-		if (math_random(1, 1000) <= (avoid_rates * 10)) then
-			--cclog('MISS ' .. avoid_rates)
-			self:makeMissFont(i_x, i_y)
-			self:dispatch('avoid')
-			return
-		end
-	end
-	
+        return
+    end
+    	
 	-- Evnet Carrier 세팅
 	local t_event = clone(EVENT_HIT_CARRIER)
 	t_event['damage'] = damage
@@ -512,6 +533,16 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 		-- 방어 처리 후 데미지 0이라면 방어 성공 처리
 		if (t_event['is_handled']) and (damage == 0) then 
 			self:makeShieldFont(i_x, i_y)
+
+            -- 공격자가 드래곤일 경우 스킬 게이지 증가
+            if (attacker_char and attacker_char.m_charType == 'dragon') then
+                local role_type = attacker_char.m_charTable['role']
+                if (role_type == 'dealer') then
+                    local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
+                    attacker_char:increaseActiveSkillCool(t_temp['block'])
+                end
+            end
+
 			return
 		end
 	end
@@ -585,21 +616,37 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
     end
 
 	-- 시전자 이벤트 
-	if attacker.m_activityCarrier.m_activityCarrierOwner then
-		attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit', t_event)
+	if (attacker_char) then
+        attacker_char:dispatch('hit', t_event)
 
 		-- 적처치시 
 		if self.m_bDead then 
-			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('slain', t_event, self)
+			attacker_char:dispatch('slain', t_event, self)
 		
 		-- 일반 공격시
 		elseif (attacker.m_activityCarrier:getAttackType() == 'basic') then 
-			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit_basic', t_event, self, attacker.m_activityCarrier)
+			attacker_char:dispatch('hit_basic', t_event, self, attacker.m_activityCarrier)
 
 		-- 액티브 공격시
 		elseif (attacker.m_activityCarrier:getAttackType() == 'active') then
-			attacker.m_activityCarrier.m_activityCarrierOwner:dispatch('hit_active', t_event, self, attacker.m_activityCarrier)
+			attacker_char:dispatch('hit_active', t_event, self, attacker.m_activityCarrier)
 		end
+    end
+
+    -- 공격자가 드래곤일 경우 스킬 게이지 증가
+    if (attacker_char) then
+        if (attacker_char.m_charType == 'dragon') then
+            local role_type = attacker_char.m_charTable['role']
+
+            if (role_type == 'dealer') then
+                local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
+                if critical then
+                    attacker_char:increaseActiveSkillCool(t_temp['hit_basic_cri'])
+                else
+                    attacker_char:increaseActiveSkillCool(t_temp['hit_basic'])
+                end
+            end
+        end
 	end
 
     if (real_attack_type == 'active') then 
