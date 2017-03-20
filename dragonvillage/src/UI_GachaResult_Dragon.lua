@@ -138,9 +138,10 @@ function UI_GachaResult_Dragon:refresh_status(t_dragon, evolution)
     local lv = 1
     local grade = 1
     local evolution = evolution
+    local eclv = eclv
 
     -- 능력치 계산기
-    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution)
+    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv)
 
     vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
     vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))

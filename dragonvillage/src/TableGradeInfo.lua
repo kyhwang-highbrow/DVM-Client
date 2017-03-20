@@ -1,5 +1,11 @@
 local PARENT = TableClass
 
+local ECVL_KEY_OFFSET = 100
+
+-- initGlobal 함수에서 설정함
+MAX_DRAGON_GRADE = nil
+MAX_DRAGON_ECLV = nil
+
 -------------------------------------
 -- class TableGradeInfo
 -------------------------------------
@@ -19,25 +25,29 @@ end
 -------------------------------------
 -- function isMaxLevel
 -------------------------------------
-function TableGradeInfo:isMaxLevel(grade, level)
+function TableGradeInfo:isMaxLevel(grade, eclv, level)
     if (self == THIS) then
         self = THIS()
     end
 
-    local max_lv = self:getValue(grade, 'max_lv')
+    local max_lv = self:getMaxLv(grade, eclv)
     return (max_lv <= level)
 end
 
 -------------------------------------
 -- function getMaxLv
 -------------------------------------
-function TableGradeInfo:getMaxLv(grade)
+function TableGradeInfo:getMaxLv(grade, eclv)
     if (self == THIS) then
         self = THIS()
     end
 
-    if (not grade) then
-        error('grade : ' .. grade)
+    local key
+
+    if (eclv and 1 <= eclv) then
+        key = self:makeEclvKey(eclv)
+    else
+        eclv = grade
     end
 
     local max_lv = self:getValue(grade, 'max_lv')
@@ -54,4 +64,72 @@ function TableGradeInfo:getBonusStatusLv(grade)
 
     local lv = self:getValue(grade, 'bonus_status_lv')
     return lv
+end
+
+-------------------------------------
+-- function getEclvBonusStatusLv
+-------------------------------------
+function TableGradeInfo:getEclvBonusStatusLv(eclv)
+    if (self == THIS) then
+        self = THIS
+    end
+
+    if (eclv <= 0) then
+        return 0
+    end
+
+    local key = self:makeEclvKey(eclv)
+    local lv = self:getValue(key, 'bonus_status_lv')
+    return lv
+end
+
+-------------------------------------
+-- function makeEclvKey
+-- @brief 테이블상에서의 초월 key값 생성
+-------------------------------------
+function TableGradeInfo:makeEclvKey(eclv)
+    local eclv_key = ECVL_KEY_OFFSET + eclv
+    return eclv_key
+end
+
+-------------------------------------
+-- function initGlobal
+-------------------------------------
+function TableGradeInfo:initGlobal()
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    MAX_DRAGON_GRADE = nil
+    MAX_DRAGON_ECLV = nil
+
+    for i,v in pairs(self.m_orgTable) do
+        local key = v['grade']
+
+        -- 등급
+        if (key < ECVL_KEY_OFFSET) then
+            local grade = key
+            if (not MAX_DRAGON_GRADE) then
+                MAX_DRAGON_GRADE = grade
+            elseif (MAX_DRAGON_GRADE < grade) then
+                MAX_DRAGON_GRADE = grade
+            end
+        -- 초월
+        else
+            local eclv = (key - ECVL_KEY_OFFSET)
+            if (not MAX_DRAGON_ECLV) then
+                MAX_DRAGON_ECLV = eclv
+            elseif (MAX_DRAGON_ECLV < eclv) then
+                MAX_DRAGON_ECLV = eclv
+            end
+        end
+    end
+end
+
+-------------------------------------
+-- function dragonMaxLevel
+-- @brief 드래곤 승급(grade)별 최대 레벨
+-------------------------------------
+function dragonMaxLevel(grade, eclv)
+    TableGradeInfo:getMaxLv(grade, eclv)
 end

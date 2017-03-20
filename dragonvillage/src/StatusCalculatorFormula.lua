@@ -2,7 +2,7 @@
 -- function calcStat
 -- @brief
 -------------------------------------
-function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolution)
+function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolution, eclv)
 	
 	if isExistValue(status_name, 'dmg_adj_rate', 'attr_adj_rate') then return 0, 0, 0, 0, 0 end 
 
@@ -21,6 +21,7 @@ function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolu
     local lv_stat = nil
     local grade_stat = 0
     local evolution_stat = 0
+    local eclv_stat = 0
 
 	-- 2-1. 공방체 스탯만 레벨에 따라 증가시키고 나머지는 고정값이다. 
 	if isExistValue(status_name, 'atk', 'def', 'hp') then 
@@ -36,14 +37,17 @@ function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolu
 
             -- 승급 단계 보너스
             grade_stat = value_per_level * self.m_gradeTable:getBonusStatusLv(grade)
+
+            -- 초월 단계 보너스
+            eclv_stat = value_per_level * self.m_gradeTable:getEclvBonusStatusLv(eclv)
         end
 	else
 		lv_stat = t_char[status_name]
 	end
 
-    local final_stat = base_stat + lv_stat + grade_stat + evolution_stat
+    local final_stat = base_stat + lv_stat + grade_stat + evolution_stat + eclv_stat
 
-    return final_stat, base_stat, lv_stat, grade_stat, evolution_stat
+    return final_stat, base_stat, lv_stat, grade_stat, evolution_stat, eclv_stat
 end
 
 -- # 세부 능력치의 실제 적용

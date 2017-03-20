@@ -17,6 +17,7 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
     local lv = t_dragon_data['lv'] or 1
     local grade = t_dragon_data['grade'] or 1
     local evolution = t_dragon_data['evolution'] or 1
+    local eclv = t_dragon_data['eclv'] or 0
 	local attr = t_dragon['attr']
 
     local dragon = Dragon(nil, {0, 0, 20})
@@ -31,7 +32,7 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
     dragon.m_animator:setScale(0.5 * t_dragon['scale'])
     dragon:initState()
     dragon:setStatusCalc(status_calc)
-    dragon:initStatus(t_dragon, lv, grade, evolution, doid)
+    dragon:initStatus(t_dragon, lv, grade, evolution, doid, eclv)
 
     -- 기본 정보 저장
     dragon.m_dragonID = dragon_id
@@ -102,7 +103,7 @@ function GameWorld:makeMonsterNew(monster_id, level)
 
     monster:initDragonSkillManager('monster', monster_id, 6) -- monster는 skill_1~skill_6을 모두 사용
     monster:initState()
-    monster:initStatus(t_monster, level, 0, 0)
+    monster:initStatus(t_monster, level, 0, 0, 0)
     monster:changeState('move')
     
     monster.m_animator.m_node:setScale(animator_scale)

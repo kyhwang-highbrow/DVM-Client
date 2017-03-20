@@ -353,6 +353,7 @@ function ServerData_Dragons:checkUpgradeable(doid)
     end
 
     local grade = t_dragon_data['grade']
+    local eclv = t_dragon_data['eclv']
     local level = t_dragon_data['lv']
 
     -- 최대 등급 체크
@@ -361,7 +362,7 @@ function ServerData_Dragons:checkUpgradeable(doid)
     end
 
     -- 최대 레벨 체크
-    local is_max_level = TableGradeInfo:isMaxLevel(grade, level)
+    local is_max_level = TableGradeInfo:isMaxLevel(grade, eclv, level)
     if (not is_max_level) then
         return false, Str('등급별 최대 레벨에서 승급이 가능합니다.')
     end

@@ -220,4 +220,6 @@ function TABLE:init()
     for k,v in pairs(TableInfo) do
         TABLE:loadCSVTable(v[1], k, v[2], v[3])
     end
+
+    TableGradeInfo:initGlobal()
 end

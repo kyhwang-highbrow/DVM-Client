@@ -38,13 +38,13 @@ StatusCalculator = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function StatusCalculator:init(char_type, cid, lv, grade, evolution)
+function StatusCalculator:init(char_type, cid, lv, grade, evolution, eclv)
     self.m_charTable = TABLE:get(char_type)
     if (char_type == 'dragon') then
         self.m_evolutionTable = TableEvolutionInfo()
         self.m_gradeTable = TableGradeInfo()
     end
-    self.m_lStatusList = self:calcStatusList(char_type, cid, lv, grade, evolution)
+    self.m_lStatusList = self:calcStatusList(char_type, cid, lv, grade, evolution, eclv)
 
     self.m_lPassive = {}
     self.m_lPassiveAbs = {}
@@ -60,11 +60,11 @@ end
 -------------------------------------
 -- function calcStatusList
 -------------------------------------
-function StatusCalculator:calcStatusList(char_type, cid, lv, grade, evolution)
+function StatusCalculator:calcStatusList(char_type, cid, lv, grade, evolution, eclv)
     local l_status = {}
 
     for _,status_name in pairs(L_STATUS_TYPE) do
-        local final_stat, base_stat, lv_stat, grade_stat, evolution_stat = self:calcStat(char_type, cid, status_name, lv, grade, evolution)
+        local final_stat, base_stat, lv_stat, grade_stat, evolution_stat, eclv_stat = self:calcStat(char_type, cid, status_name, lv, grade, evolution, eclv)
 
         local t_status = {}
         t_status['final'] = final_stat
@@ -72,6 +72,7 @@ function StatusCalculator:calcStatusList(char_type, cid, lv, grade, evolution)
         t_status['lv'] = lv_stat
         t_status['grade'] = grade_stat
         t_status['evolution'] = evolution_stat
+        t_status['eclv'] = eclv_stat
         t_status['friendship_bonus'] = 0
         t_status['train_bonus'] = 0
         t_status['rune_bonus'] = 0
@@ -318,12 +319,12 @@ end
 -- function MakeDragonStatusCalculator
 -- @brief
 -------------------------------------
-function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, l_friendship_bonus, l_train_bonus, l_rune_bonus, t_rune_set)
+function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv, l_friendship_bonus, l_train_bonus, l_rune_bonus, t_rune_set)
     lv = (lv or 1)
     grade = (grade or 1)
     evolution = (evolution or 1)
 
-    local status_calc = StatusCalculator('dragon', dragon_id, lv, grade, evolution)
+    local status_calc = StatusCalculator('dragon', dragon_id, lv, grade, evolution, eclv)
     status_calc:applyFriendshipBonus(l_friendship_bonus)
     status_calc:applyTrainBonus(l_train_bonus)
     status_calc:applyRuneBonus(l_rune_bonus)
@@ -369,6 +370,7 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, l_rune_bo
     local lv = t_dragon_data['lv']
     local grade = t_dragon_data['grade']
     local evolution = t_dragon_data['evolution']
+    local eclv = t_dragon_data['eclv']
 
     -- 친밀도 보너스
     local l_friendship_bonus = {}
@@ -386,7 +388,7 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, l_rune_bo
     -- 룬 세트 보너스
     local t_rune_set = t_dragon_data['rune_set']
 
-    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution,
+    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv,
         l_friendship_bonus, l_train_bonus, l_rune_bonus, t_rune_set)
 
     return status_calc

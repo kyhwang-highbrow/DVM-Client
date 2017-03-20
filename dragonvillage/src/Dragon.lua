@@ -570,7 +570,7 @@ end
 -------------------------------------
 -- function initStatus
 -------------------------------------
-function Dragon:initStatus(t_char, level, grade, evolution, doid)
+function Dragon:initStatus(t_char, level, grade, evolution, doid, eclv)
     -- 캐릭터 테이블 설정
     self.m_charTable = t_char
 	self.m_attribute = t_char['attr']
@@ -579,7 +579,7 @@ function Dragon:initStatus(t_char, level, grade, evolution, doid)
 
     -- 능력치 설정이 되지 않은 경우
     if (not self.m_statusCalc) then
-        local status_calc = MakeDragonStatusCalculator(self.m_charTable['did'], level, grade, evolution)
+        local status_calc = MakeDragonStatusCalculator(self.m_charTable['did'], level, grade, evolution, eclv)
         self:setStatusCalc(status_calc)
     end
 

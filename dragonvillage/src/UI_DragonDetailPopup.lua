@@ -128,7 +128,7 @@ function UI_DragonDetailPopup:refresh()
         if doid then
             status_calc = MakeOwnDragonStatusCalculator(doid)
         else
-            status_calc = MakeDragonStatusCalculator(t_dragon_data['did'], t_dragon_data['lv'], t_dragon_data['grade'], t_dragon_data['evolution'])
+            status_calc = MakeDragonStatusCalculator(t_dragon_data['did'], t_dragon_data['lv'], t_dragon_data['grade'], t_dragon_data['evolution'], t_dragon_data['eclv'])
         end
         vars['atk_p_label']:setString(status_calc:getFinalStatDisplay('atk'))
         vars['atk_spd_label']:setString(status_calc:getFinalStatDisplay('aspd'))

@@ -143,9 +143,10 @@ function UI_CollectionDetailPopup:onChangeDragon()
         local lv = 40
         local grade = 6
         local evolution = self:getEvolutionNumber()
+        local eclv = 0
 
         -- 능력치 계산기
-        local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution)
+        local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv)
 
         vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
         vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
