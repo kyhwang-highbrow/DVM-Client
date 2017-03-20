@@ -25,6 +25,16 @@ function TableDragon:getDragonRole(key)
 end
 
 -------------------------------------
+-- function isSameDragonType
+-------------------------------------
+function TableDragon:isSameDragonType(did1, did2)
+    local type1 = self:getValue(did1, 'type')
+    local type2 = self:getValue(did2, 'type')
+
+    return (type1 == type2), type1, type2
+end
+
+-------------------------------------
 -- function initIllustratedDragonList
 -- @breif 도감 리스트 초기화
 -------------------------------------

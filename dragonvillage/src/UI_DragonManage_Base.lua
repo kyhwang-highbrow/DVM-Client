@@ -217,8 +217,17 @@ function UI_DragonManage_Base:init_dragonTableView()
         self.m_tableViewExt = table_view
     end
 
-    local l_item_list = g_dragonsData:getDragonsList()
+    local l_item_list = self:getDragonList()
     self.m_tableViewExt:setItemList(l_item_list)
+end
+
+-------------------------------------
+-- function getDragonList
+-- @breif 하단 리스트뷰에 노출될 드래곤 리스트
+-------------------------------------
+function UI_DragonManage_Base:getDragonList()
+    local l_item_list = g_dragonsData:getDragonsList()
+    return l_item_list
 end
 
 -------------------------------------

@@ -14,7 +14,7 @@ UI_DragonEclvup = class(PARENT,{
         m_lSelectedMtrlList = 'list',
         m_mSelectedMtrMap = 'map',
 
-        m_selectedDragonGrade = 'number',
+        m_materialCnt = 'number',
         m_selectedMaterialCnt = 'number',
         m_currSlotIdx = 'number',
 
@@ -84,7 +84,7 @@ end
 function UI_DragonEclvup:initButton()
     local vars = self.vars
     vars['materialBtn']:registerScriptTapHandler(function() self:click_materialBtn() end)
-    vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
+    vars['transcendBtn']:registerScriptTapHandler(function() self:click_transcendBtn() end)
 
     do -- 정렬 관련 버튼들
         vars['sortSelectOrderBtn']:registerScriptTapHandler(function() self:clcik_sortSelectOrderBtn() end)
@@ -134,16 +134,16 @@ function UI_DragonEclvup:refresh()
 
         self.m_lSelectedMtrlList = {}
         self.m_mSelectedMtrMap = {}
-        self.m_selectedDragonGrade = t_dragon_data['grade']
+        self.m_materialCnt = 1
         self.m_currSlotIdx = 1
         self.m_selectedMaterialCnt = 0
     end
 
     do -- 선택된 드래곤별 재료 슬롯 정렬
-        local grade = t_dragon_data['grade']
-        local l_pos = getSortPosList(100, grade)
+        local max_slot = 1
+        local l_pos = getSortPosList(100, max_slot)
         for i=1, 5 do
-            if (i <= grade) then
+            if (i <= max_slot) then
                 local x = l_pos[i]
                 vars['materialNode' .. i]:setPositionX(x)
                 vars['materialNode' .. i]:setVisible(true)
@@ -176,7 +176,7 @@ function UI_DragonEclvup:refresh_btnState()
         vars['materialBtn']:setVisible(true)
     else
         vars['materialBtn']:setVisible(false)
-        vars['upgradeBtn']:setVisible(true)
+        vars['transcendBtn']:setVisible(true)
     end
 end
 
@@ -203,48 +203,18 @@ function UI_DragonEclvup:refresh_upgrade(table_dragon, t_dragon_data)
     end
 
     do -- 레벨 표시
-    ccdump(curr_max_lv, next_max_lv)
         vars['maxLvLabel']:setString(Str('최대레벨\n{1} > {2}', curr_max_lv, next_max_lv))
         vars['nextTextLabel']:setString(Str('초월 상승'))
     end
 
     do -- 설명
-        vars['infoLabel']:setString(Str('초월하면 등급과 최대레벨이 상승해요'))
+        vars['infoLabel']:setString(Str('초월하면 최대레벨이 상승해요'))
+        vars['infoLabel1']:setString(Str('원종이 같은 드래곤이 필요합니다.'))
     end
 
     do -- 초월에 필요한 가격
         local req_gold = TableGradeInfo:getEclvUpgradeReqGold(eclv + 1)
-        vars['priceLabel']:setString(comma_value(req_gold))
-    end
-end
-
--------------------------------------
--- function createDragonCardCB
--- @brief 드래곤 생성 콜백
--------------------------------------
-function UI_DragonEclvup:createDragonCardCB(ui, data)
-    local doid = data['id']
-
-    local upgradeable, msg = g_dragonsData:checkEclvUpgradeable(doid)
-    if (not upgradeable) then
-        if ui then
-            ui:setShadowSpriteVisible(true)
-        end
-    end
-end
-
--------------------------------------
--- function checkDragonSelect
--- @brief 선택이 가능한 드래곤인지 여부
--------------------------------------
-function UI_DragonEclvup:checkDragonSelect(doid)
-    local upgradeable, msg = g_dragonsData:checkEclvUpgradeable(doid)
-
-    if upgradeable then
-        return true
-    else
-        UIManager:toastNotificationRed(msg)
-        return false
+        vars['transcendPriceLabel']:setString(comma_value(req_gold))
     end
 end
 
@@ -290,17 +260,6 @@ function UI_DragonEclvup:refresh_dragonUpgradeMaterialTableView()
     local function create_func(ui, data)
         ui.root:setScale(0.7)
 
-        --[[
-        -- 초월, 스킬 레벨업 모드에서는 skill icon 표시
-        if isExistValue(self.m_upgradeMode, 'upgrade', 'skill_lv_up') then
-            local doid = data['id']
-            if g_dragonsData:isSameTypeDragon(self.m_selectDragonOID, doid) then
-                ui:setSkillSpriteVisible(true)
-            end
-        end
-
-        self:refresh_materialDragonIndivisual(doid)
-        --]]
         -- 클릭 버튼 설정
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonUpgradeMaterial(data) end)
     end
@@ -310,6 +269,7 @@ function UI_DragonEclvup:refresh_dragonUpgradeMaterialTableView()
     table_view_td.m_cellSize = cc.size(105, 105)
     table_view_td.m_nItemPerCell = 5
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
+    table_view_td:makeDefaultEmptyDescLabel(Str('초월에는 원종이 같은 6성 드래곤이 필요합니다.'))
     self.m_mtrlTableViewTD = table_view_td
 
     -- 재료로 사용 가능한 리스트를 얻어옴
@@ -328,12 +288,18 @@ function UI_DragonEclvup:getDragonUpgradeMaterialList(doid)
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
     
     local l_dragon_list = g_dragonsData:getDragonsList()-- clone된 데이터를 사용
+    local table_dragon = TableDragon()
 
-    -- 2. 자기 자신 드래곤 제외
+    -- 자기 자신 드래곤 제외
     l_dragon_list[doid] = nil
 
     for i,v in pairs(l_dragon_list) do
+        -- 등급 체크
         if (v['grade'] < t_dragon_data['grade']) then
+            l_dragon_list[i] = nil
+
+        -- 드래곤 원종 체크
+        elseif (not table_dragon:isSameDragonType(t_dragon_data['did'], v['did'])) then
             l_dragon_list[i] = nil
         end
     end
@@ -432,7 +398,7 @@ function UI_DragonEclvup:click_dragonUpgradeMaterial(data)
     end
 
     self.m_currSlotIdx = nil
-    for i=1, self.m_selectedDragonGrade do
+    for i=1, self.m_materialCnt do
         if (not self.m_lSelectedMtrlList[i] ) then
             self.m_currSlotIdx = i
             break
@@ -441,11 +407,11 @@ function UI_DragonEclvup:click_dragonUpgradeMaterial(data)
 end
 
 -------------------------------------
--- function click_upgradeBtn
+-- function click_transcendBtn
 -------------------------------------
-function UI_DragonEclvup:click_upgradeBtn()
-    if (self.m_selectedMaterialCnt < self.m_selectedDragonGrade) then
-        UIManager:toastNotificationRed(Str('같은 별 개수의 드래곤이 필요합니다.'))
+function UI_DragonEclvup:click_transcendBtn()
+    if (self.m_selectedMaterialCnt < 1) then
+        UIManager:toastNotificationRed(Str('재료 드래곤을 선택해주세요.'))
         return
     end
 
@@ -494,7 +460,7 @@ function UI_DragonEclvup:click_upgradeBtn()
     end
 
     local ui_network = UI_Network()
-    ui_network:setUrl('/dragons/upgrade')
+    ui_network:setUrl('/dragons/exceed')
     ui_network:setParam('uid', uid)
     ui_network:setParam('doid', doid)
     ui_network:setParam('src_doids', src_doids)
@@ -528,10 +494,7 @@ function UI_DragonEclvup:upgradeDirecting(doid, t_prev_dragon_data, t_next_drago
     directing_result = function()
         block_ui:close()
         
-        -- 결과 팝업 (초월)
-        if (t_prev_dragon_data['grade'] < t_next_dragon_data['grade']) then
-            UI_DragonManageUpgradeResult(t_next_dragon_data, t_prev_dragon_data)
-        end
+        UI_DragonManageUpgradeResult(t_next_dragon_data, t_prev_dragon_data)
 
         -- UI 갱신
         --self:setSelectDragonDataRefresh()
@@ -543,6 +506,24 @@ function UI_DragonEclvup:upgradeDirecting(doid, t_prev_dragon_data, t_next_drago
     directing_result()
 end
 
+-------------------------------------
+-- function getDragonList
+-- @breif 하단 리스트뷰에 노출될 드래곤 리스트
+-------------------------------------
+function UI_DragonEclvup:getDragonList()
+    local l_item_list = g_dragonsData:getDragonsList()
+
+
+    for i,v in pairs(l_item_list) do
+        local doid = v['id']
+        local upgradeable, msg = g_dragonsData:checkEclvUpgradeable(doid)
+        if (not upgradeable) then
+            l_item_list[i] = nil
+        end
+    end
+
+    return l_item_list
+end
 
 --@CHECK
 UI:checkCompileError(UI_DragonEclvup)
