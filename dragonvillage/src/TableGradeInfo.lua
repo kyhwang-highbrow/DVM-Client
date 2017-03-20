@@ -47,10 +47,10 @@ function TableGradeInfo:getMaxLv(grade, eclv)
     if (eclv and 1 <= eclv) then
         key = self:makeEclvKey(eclv)
     else
-        eclv = grade
+        key = grade
     end
 
-    local max_lv = self:getValue(grade, 'max_lv')
+    local max_lv = self:getValue(key, 'max_lv')
     return max_lv
 end
 
@@ -88,6 +88,10 @@ end
 -- @brief 테이블상에서의 초월 key값 생성
 -------------------------------------
 function TableGradeInfo:makeEclvKey(eclv)
+    if (not eclv) or (eclv <= 0) then
+        return nil
+    end
+
     local eclv_key = ECVL_KEY_OFFSET + eclv
     return eclv_key
 end
@@ -132,4 +136,47 @@ end
 -------------------------------------
 function dragonMaxLevel(grade, eclv)
     return TableGradeInfo:getMaxLv(grade, eclv)
+end
+
+-------------------------------------
+-- function isMaxGrade
+-- @breif 최대 등급의 드래곤인지 확인
+-------------------------------------
+function TableGradeInfo:isMaxGrade(grade)
+    if (MAX_DRAGON_GRADE <= grade) then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
+-- function isMaxEclv
+-- @breif 최대 등급의 드래곤인지 확인
+-------------------------------------
+function TableGradeInfo:isMaxEclv(eclv)
+    if (MAX_DRAGON_ECLV <= eclv) then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
+-- function getEclvUpgradeReqGold
+-- @breif
+-------------------------------------
+function TableGradeInfo:getEclvUpgradeReqGold(eclv)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local key = self:makeEclvKey(eclv)
+    
+    if (not key) then
+        return 0
+    end
+
+    local req_gold = self:getValue(key, 'req_gold')
+    return req_gold
 end

@@ -357,7 +357,7 @@ function ServerData_Dragons:checkUpgradeable(doid)
     local level = t_dragon_data['lv']
 
     -- 최대 등급 체크
-    if (6 <= grade) then
+    if TableGradeInfo:isMaxGrade(grade) then
         return false, Str('최고 등급의 드래곤입니다.')
     end
 
@@ -365,6 +365,40 @@ function ServerData_Dragons:checkUpgradeable(doid)
     local is_max_level = TableGradeInfo:isMaxLevel(grade, eclv, level)
     if (not is_max_level) then
         return false, Str('등급별 최대 레벨에서 승급이 가능합니다.')
+    end
+
+    return true
+end
+
+-------------------------------------
+-- function checkEclvUpgradeable
+-- @brief
+-------------------------------------
+function ServerData_Dragons:checkEclvUpgradeable(doid)
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+
+    if (not t_dragon_data) then
+        return false
+    end
+
+    local grade = t_dragon_data['grade']
+    local eclv = t_dragon_data['eclv']
+    local level = t_dragon_data['lv']
+
+    -- 최대 등급 체크
+    if (not TableGradeInfo:isMaxGrade(grade)) then
+        return false, Str('초월은 {1}등급이 되어야 가능합니다.', MAX_DRAGON_GRADE)
+    end
+
+    -- 최대 초월 체크
+    if TableGradeInfo:isMaxEclv(eclv) then
+        return false, Str('최고 단계 초월의 드래곤입니다.')
+    end
+
+    -- 최대 레벨 체크
+    local is_max_level = TableGradeInfo:isMaxLevel(grade, eclv, level)
+    if (not is_max_level) then
+        return false, Str('최대 레벨에서 초월이 가능합니다.')
     end
 
     return true

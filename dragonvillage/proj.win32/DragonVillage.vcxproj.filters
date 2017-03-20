@@ -1875,6 +1875,9 @@
     <None Include="..\src\TableEvolutionInfo.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_DragonEclvup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

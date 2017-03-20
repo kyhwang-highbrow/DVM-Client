@@ -156,28 +156,10 @@ function UI_DragonManageInfo:refresh()
 
 
     do -- 승급, 초월 중 선택
-        -- 6성 3진화 모든 스킬 최대 레벨 달성하면 초월 가능
-        local can_transcend = true
-        if (t_dragon_data['grade'] < 6) then
-            can_transcend = false
-        end
-        if (t_dragon_data['evolution'] < 3) then
-            can_transcend = false
-        end
-        if (t_dragon_data['skill_0'] < 10) then
-            can_transcend = false
-        end
-        if (t_dragon_data['skill_1'] < 10) then
-            can_transcend = false
-        end
-        if (t_dragon_data['skill_2'] < 10) then
-            can_transcend = false
-        end
-        if (t_dragon_data['skill_3'] < 1) then
-            can_transcend = false
-        end
-
-        if can_transcend then
+        local grade = t_dragon_data['grade']
+        
+        -- 최대 등급일 경우 초월로 벼튼 변경
+        if TableGradeInfo:isMaxGrade(grade) then
             vars['transcendBtn']:setVisible(true)
             vars['upgradeBtn']:setVisible(false)
         else
@@ -420,35 +402,7 @@ function UI_DragonManageInfo:click_levelupBtn()
         end
     end
 
-    -- 선탠된 드래곤과 정렬 설정
-    local b_ascending_sort = self.m_dragonSortMgr.m_bAscendingSort
-    local sort_type = self.m_dragonSortMgr.m_currSortType
-
-    local ui = UI_DragonLevelUp(doid, b_ascending_sort, sort_type)
-
-    -- UI종료 후 콜백
-    local function close_cb()
-        if ui.m_bChangeDragonList then
-            self:init_dragonTableView()
-            local dragon_object_id = ui.m_selectDragonOID
-            local b_force = true
-            self:setSelectDragonData(dragon_object_id, b_force)
-        else
-            if (self.m_selectDragonOID ~= ui.m_selectDragonOID) then
-                local b_force = true
-                self:setSelectDragonData(ui.m_selectDragonOID, b_force)
-            end
-        end
-
-        do -- 정렬
-            self.m_dragonSortMgr:click_sortOrderBtn(ui.m_dragonSortMgr.m_bAscendingSort, true)
-            self.m_dragonSortMgr:click_sortTypeBtn(ui.m_dragonSortMgr.m_currSortType, true)
-            self.m_dragonSortMgr:changeSort()
-        end
-
-        self:sceneFadeInAction()
-    end
-    ui:setCloseCB(close_cb)
+    self:openSubManageUI(UI_DragonLevelUp)
 end
 
 -------------------------------------
@@ -458,7 +412,7 @@ end
 function UI_DragonManageInfo:click_upgradeBtn()
     local doid = self.m_selectDragonOID
 
-    do -- 최대 등급(스킬레벨, 초월)인지 확인
+    do -- 최대 등급인지 확인
         local upgradeable, msg = g_dragonsData:checkUpgradeable(doid)
         if (not upgradeable) then
             UIManager:toastNotificationRed(msg)
@@ -466,35 +420,7 @@ function UI_DragonManageInfo:click_upgradeBtn()
         end
     end
 
-    -- 선탠된 드래곤과 정렬 설정
-    local b_ascending_sort = self.m_dragonSortMgr.m_bAscendingSort
-    local sort_type = self.m_dragonSortMgr.m_currSortType
-
-    local ui = UI_DragonUpgrade(doid, b_ascending_sort, sort_type)
-
-    -- UI종료 후 콜백
-    local function close_cb()
-        if ui.m_bChangeDragonList then
-            self:init_dragonTableView()
-            local dragon_object_id = ui.m_selectDragonOID
-            local b_force = true
-            self:setSelectDragonData(dragon_object_id, b_force)
-        else
-            if (self.m_selectDragonOID ~= ui.m_selectDragonOID) then
-                local b_force = true
-                self:setSelectDragonData(ui.m_selectDragonOID, b_force)
-            end
-        end
-
-        do -- 정렬
-            self.m_dragonSortMgr:click_sortOrderBtn(ui.m_dragonSortMgr.m_bAscendingSort, true)
-            self.m_dragonSortMgr:click_sortTypeBtn(ui.m_dragonSortMgr.m_currSortType, true)
-            self.m_dragonSortMgr:changeSort()
-        end
-
-        self:sceneFadeInAction()
-    end
-    ui:setCloseCB(close_cb)
+    self:openSubManageUI(UI_DragonUpgrade)
 end
 
 -------------------------------------
@@ -502,7 +428,17 @@ end
 -- @brief 초월 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_transcendBtn()
-    self:click_upgradeBtn()
+    local doid = self.m_selectDragonOID
+
+    do -- 초월 가능 여부 확인
+        local upgradeable, msg = g_dragonsData:checkEclvUpgradeable(doid)
+        if (not upgradeable) then
+            UIManager:toastNotificationRed(msg)
+            return
+        end
+    end
+
+    self:openSubManageUI(UI_DragonEclvup)
 end
 
 
@@ -520,35 +456,7 @@ function UI_DragonManageInfo:click_evolutionBtn()
         end
     end
 
-    -- 선탠된 드래곤과 정렬 설정
-    local b_ascending_sort = self.m_dragonSortMgr.m_bAscendingSort
-    local sort_type = self.m_dragonSortMgr.m_currSortType
-
-    local ui = UI_DragonManagementEvolution(doid, b_ascending_sort, sort_type)
-
-    -- UI종료 후 콜백
-    local function close_cb()
-        if ui.m_bChangeDragonList then
-            self:init_dragonTableView()
-            local dragon_object_id = ui.m_selectDragonOID
-            local b_force = true
-            self:setSelectDragonData(dragon_object_id, b_force)
-        else
-            if (self.m_selectDragonOID ~= ui.m_selectDragonOID) then
-                local b_force = true
-                self:setSelectDragonData(ui.m_selectDragonOID, b_force)
-            end
-        end
-
-        do -- 정렬
-            self.m_dragonSortMgr:click_sortOrderBtn(ui.m_dragonSortMgr.m_bAscendingSort, true)
-            self.m_dragonSortMgr:click_sortTypeBtn(ui.m_dragonSortMgr.m_currSortType, true)
-            self.m_dragonSortMgr:changeSort()
-        end
-
-        self:sceneFadeInAction()
-    end
-    ui:setCloseCB(close_cb)
+    self:openSubManageUI(UI_DragonManagementEvolution)
 end
 
 -------------------------------------
@@ -556,36 +464,7 @@ end
 -- @brief 친밀도 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_friendshipBtn()
-    -- 선탠된 드래곤과 정렬 설정
-    local doid = self.m_selectDragonOID
-    local b_ascending_sort = self.m_dragonSortMgr.m_bAscendingSort
-    local sort_type = self.m_dragonSortMgr.m_currSortType
-
-    local ui = UI_DragonManagementFriendship(doid, b_ascending_sort, sort_type)
-
-    -- UI종료 후 콜백
-    local function close_cb()
-        if ui.m_bChangeDragonList then
-            self:init_dragonTableView()
-            local dragon_object_id = ui.m_selectDragonOID
-            local b_force = true
-            self:setSelectDragonData(dragon_object_id, b_force)
-        else
-            if (self.m_selectDragonOID ~= ui.m_selectDragonOID) then
-                local b_force = true
-                self:setSelectDragonData(ui.m_selectDragonOID, b_force)
-            end
-        end
-
-        do -- 정렬
-            self.m_dragonSortMgr:click_sortOrderBtn(ui.m_dragonSortMgr.m_bAscendingSort, true)
-            self.m_dragonSortMgr:click_sortTypeBtn(ui.m_dragonSortMgr.m_currSortType, true)
-            self.m_dragonSortMgr:changeSort()
-        end
-
-        self:sceneFadeInAction()
-    end
-    ui:setCloseCB(close_cb)
+    self:openSubManageUI(UI_DragonManagementFriendship)
 end
 
 -------------------------------------
@@ -593,14 +472,20 @@ end
 -- @brief 룬 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_runeBtn(slot_idx)
-    if (TARGET_SERVER == 'FGT') then
-        UIManager:toastNotificationRed('"룬"은 준비 중입니다.')
-        return
-    end
+    self:openSubManageUI(UI_DragonMgrRunes)
+end
 
+-------------------------------------
+-- function openSubManageUI
+-- @brief
+-------------------------------------
+function UI_DragonManageInfo:openSubManageUI(sub_manage_ui)
     -- 선탠된 드래곤과 정렬 설정
     local doid = self.m_selectDragonOID
-    local ui = UI_DragonMgrRunes(doid, slot_idx)
+    local b_ascending_sort = self.m_dragonSortMgr.m_bAscendingSort
+    local sort_type = self.m_dragonSortMgr.m_currSortType
+
+    local ui = sub_manage_ui(doid, b_ascending_sort, sort_type)
 
     -- UI종료 후 콜백
     local function close_cb()
@@ -632,10 +517,6 @@ end
 -- @brief (임시로 드래곤 개발 API 팝업 호출)
 -------------------------------------
 function UI_DragonManageInfo:click_equipmentBtn()
-    if (TARGET_SERVER == 'FGT') then
-        return
-    end
-
     if (not self.m_selectDragonOID) then
         return
     end
@@ -652,36 +533,7 @@ end
 -- @brief 수련 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_trainBtn()
-    -- 선탠된 드래곤과 정렬 설정
-    local doid = self.m_selectDragonOID
-    local b_ascending_sort = self.m_dragonSortMgr.m_bAscendingSort
-    local sort_type = self.m_dragonSortMgr.m_currSortType
-
-    local ui = UI_DragonManageTrain(doid, b_ascending_sort, sort_type)
-
-    -- UI종료 후 콜백
-    local function close_cb()
-        if ui.m_bChangeDragonList then
-            self:init_dragonTableView()
-            local dragon_object_id = ui.m_selectDragonOID
-            local b_force = true
-            self:setSelectDragonData(dragon_object_id, b_force)
-        else
-            if (self.m_selectDragonOID ~= ui.m_selectDragonOID) then
-                local b_force = true
-                self:setSelectDragonData(ui.m_selectDragonOID, b_force)
-            end
-        end
-
-        do -- 정렬
-            self.m_dragonSortMgr:click_sortOrderBtn(ui.m_dragonSortMgr.m_bAscendingSort, true)
-            self.m_dragonSortMgr:click_sortTypeBtn(ui.m_dragonSortMgr.m_currSortType, true)
-            self.m_dragonSortMgr:changeSort()
-        end
-
-        self:sceneFadeInAction()
-    end
-    ui:setCloseCB(close_cb)
+    self:openSubManageUI(UI_DragonManageTrain)
 end
 
 -------------------------------------
