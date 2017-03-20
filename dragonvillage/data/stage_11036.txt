@@ -100,7 +100,6 @@
             {
 				0:
 				[
-					"132013;1;Basic;BOSS;RM24;2"
 					"131013;1;Basic2;RB13;RF13;2"
 					"131013;1;Basic2;RB15;RF15;2"
 					"131013;1;Basic2;RB22;RF21;2"
@@ -111,6 +110,7 @@
 				[
 					"130053;1;Appear;RO03;RB21;0.5"
 					"130053;1;Appear;RO05;RB27;0.5"
+					"132013;1;Basic;BOSS;RM24;2;boss"
 				]
             }
         }
@@ -122,6 +122,15 @@
 		[
 			[
 				"wait;7",
+				"move_8;2", "wait;5",
+				"move_8_r2;4", "wait;5",
+				"move_8;4", "wait;5",
+				"move_8_r2;4", "wait;5",
+				"move_9;4", "wait;5",
+				"move_9_r;4", "wait;5",
+				"move_9;4", "wait;5",
+				"move_9_r;4", "wait;5",
+				"RM14;1.5", "c3_s6_1;1.5",
 				"wait;3"
 			]
 		],
@@ -130,6 +139,39 @@
 		[
 			[
 				"wait;7",
+				"move_35;2",
+				"move_35_t1;2",
+				"move_35_t2;2",
+				"move_35_t3;2",
+				"move_36;2",
+				"move_36_t1;2",
+				"move_36_t2;2",
+				"move_36_t3;2",
+				"move_35_r;2",
+				"move_35_r_t1;2",
+				"move_35_r_t2;2",
+				"move_35_r_t3;2",
+				"move_36_r;2",
+				"move_36_r_t1;2",
+				"move_36_r_t2;2",
+				"move_36_r_t3;2",
+				"move_35;2",
+				"move_35_t1;2",
+				"move_35_t2;2",
+				"move_35_t3;2",
+				"move_36;2",
+				"move_36_t1;2",
+				"move_36_t2;2",
+				"move_36_t3;2",
+				"move_35_r;2",
+				"move_35_r_t1;2",
+				"move_35_r_t2;2",
+				"move_35_r_t3;2",
+				"move_36_r;2",
+				"move_36_r_t1;2",
+				"move_36_r_t2;2",
+				"move_36_r_t3;2",
+				"c3_s6_2;2",
 				"wait;3"
 			]
 		],
@@ -138,6 +180,11 @@
 		[
 			[
 				"wait;7",
+				"move_6;0.5", "move_7;4",
+				"move_6_r;4", "move_7_r;4",
+				"move_6;4", "move_7;4",
+				"move_6_r;4", "move_7_r;4",
+				"c3_s6_3;1", "wait;10",
 				"wait;3"
 			]
 		]

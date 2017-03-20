@@ -1,5 +1,5 @@
 type,pos_01,pos_02,pos_03,pos_04,pos_05,pos_06,pos_07,pos_08,pos_09,pos_10,pos_11,pos_12,pos_13,pos_14,pos_15,pos_16,pos_17,pos_18,pos_19,pos_20,pos_21,comment
-design,RF11,RF17,RF22,RF26,RM11,RM14,RM17,RM22,RM26,RB11,RB17,,,,,,,,,,,
+design,RF23,RF25,RM23,RM25,,,,,,,,,,,,,,,,,,
 wait,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,지정 시간동안 대기용으로 사용
 RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,RF11,
 RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,RF12,
@@ -99,23 +99,22 @@ c3_s2_2,RF12,RF14,RF16,RB12,RB14,RB16,RM12,RM16,x,x,x,x,x,x,x,x,x,x,x,x,x,모험
 c3_s2_3,RM14,RB12,RB16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c3_s3_1,RM24,RB13,RB15,RB24,RF11,RF14,RF17,RF23,RF25,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c3_s3_2,RF12,RF16,RF24,RM24,RB12,RB16,RM11,RM17,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
-c3_s3_3,RB21,RB27,RM24,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
-c3_s4_1_1,RF12,RF13,RF14,RF15,RF16,RF26,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형(LO)
-c3_s4_1_2,RM16,RM23,RM24,RM25,RB12,RB16,RB23,RB24,RB25,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형(LO)
-c3_s4_2,RF12,RF13,xRF14,RF15,RF26,RM12,RM13,RM14,RM15,RM22,RM23,RM24,RM25,RM26,RB12,RB14,RB16,RB22,RB24,RB26,x,모험모드 기본 진형(VE)
+c3_s3_3,RM24,RB27,RB21,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s4_1,RF16,RF14,RF12,RM13,RB16,RM15,RB14,RB12,RM11,RM17,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s4_2,RM23,RM25,RB23,RB25,RF11,RF13,RF15,RF17,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c3_s4_3,RB11,RB17,RB24,RM14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c3_s5_1,RB12,RB16,RM11,RM17,RF12,RF16,RF23,RF25,RM14,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
-c3_s5_2,RB24,RB13,RB15,RM21,RM27,RM12,RM16,RF21,RF27,RF12,RF16,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s5_2,RB13,RB15,RM21,RM27,RF21,RF27,RF12,RF16,RM12,RM16,RB24,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c3_s5_3,RM24,RF22,RF14,RF26,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
-c3_s6_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
-c3_s6_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
-c3_s6_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
-c3_s7_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
-c3_s7_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
-c3_s7_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
-c3_s8_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
-c3_s8_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
-c3_s8_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s6_1,RM14,RF12,RM22,RM26,RF25,RF16,RF23,RB14,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s6_2,RF13,RF15,RF22,RF26,RM21,RM13,RM15,RM27,RB22,RB26,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s6_3,RM24,RF13,RF15,RF21,RF27,RB21,RB27,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s7_1,RB12,RB16,RM23,RM25,RF22,RF24,RF26,RF13,RF15,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s7_2,RF12,RF21,RM12,RF16,RF27,RM16,RM24,RB13,RB15,RB24,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s7_3,RM21,RM27,RB12,RB16,RB24,RM14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s8_1,RM23,RM25,RB12,RB16,RB23,RB25,RF14,RF22,RF26,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s8_2,RF12,RF21,RF23,RF16,RF25,RF27,RM23,RM25,RB14,RB23,RB25,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
+c3_s8_3,RM24,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c4_s1_1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c4_s1_2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
 c4_s1_3,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,모험모드 기본 진형
@@ -201,6 +200,7 @@ move_8,RF11,RF17,RF21,RF27,RM11,RM17,RM21,RM27,RB11,RB17,RB21,RB27,x,x,x,x,x,x,x
 move_8_r,RB27,RB21,RB17,RB11,RM27,RM21,RM17,RM11,RF27,RF21,RF17,RF11,x,x,x,x,x,x,x,x,x,가로로 이퀄 형태(역방향)
 move_8_r2,RF17,RF11,RF27,RF21,RM17,RM11,RM27,RM21,RB17,RB11,RB27,RB21,x,x,x,x,x,x,x,x,x,가로로 이퀄 형태(상하 반대)
 move_9,RF11,RB21,RF13,RB23,RF15,RB25,RF17,RB27,RF21,RF27,RF23,RF25,RB11,RB17,RB13,RB15,x,x,x,x,x,세로로 11자 형태
+move_9_r,RB21,RF11,RB23,RF13,RB25,RF15,RB27,RF17,RF27,RF21,RF25,RF23,RB17,RB11,RB15,RB13,x,x,x,x,x,세로로 11자 형태(역)
 move_10,RB16,RB12,RM17,RM11,RF16,RF12,RM14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,필드 주변으로 6각 형태
 move_10_t1,RM17,RB16,RF16,RB12,RF12,RM11,RM14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,move_10에서 시계방향으로 회전
 move_10_t2,RF16,RM17,RF12,RB16,RM11,RB12,RM14,x,x,x,x,x,x,x,x,x,x,x,x,x,x,move_10에서 시계방향으로 회전
@@ -223,8 +223,8 @@ move_20,RF11,RF17,RF22,RF26,RM13,RM15,RM24,RB13,RB15,RB22,RB26,RF14,x,x,x,x,x,x,
 move_20_r,RF17,RF11,RF26,RF22,RM15,RM13,RM24,RB15,RB13,RB26,RB22,RF14,x,x,x,x,x,x,x,x,x,어긋난 엑스 플립
 move_21,RB21,RB27,RB12,RB16,RM23,RM25,RM14,RF23,RF25,RF12,RF16,RB24,x,x,x,x,x,x,x,x,x,어긋난 엑스(역)
 move_21_r,RB27,RB21,RB16,RB12,RM25,RM23,RM14,RF25,RF23,RF16,RF12,RB24,x,x,x,x,x,x,x,x,x,어긋난 엑스(역) 플립
-move_22,RF13,RF15,RF11,RF17,RF24,RM24,RB24,RM14,RB14,x,x,x,x,x,x,x,x,x,x,x,x,ㅏ 모양
-move_23,RB23,RB25,RB21,RB27,RM24,RF24,RB14,RM14,RF14,x,x,x,x,x,x,x,x,x,x,x,x,ㅓ 모양
+move_22,RF13,RF15,RF11,RF17,RF24,RM24,RM14,RB14,RB24,x,x,x,x,x,x,x,x,x,x,x,x,ㅏ 모양
+move_23,RB23,RB25,RB21,RB27,RF24,RM24,RM14,RB14,RB24,x,x,x,x,x,x,x,x,x,x,x,x,ㅓ 모양
 move_24,RF11,RF21,RM21,RB11,RM11,RM13,RM15,RM17,x,x,x,x,x,x,x,x,x,x,x,x,x,ㅜ 모양
 move_25,RF17,RF27,RM27,RB17,RM11,RM13,RM15,RM17,x,x,x,x,x,x,x,x,x,x,x,x,x,ㅗ 모양
 move_26,RF12,RF21,RF23,RF16,RF25,RF27,RM24,RB13,RB15,x,x,x,x,x,x,x,x,x,x,x,x,<2<1
@@ -244,22 +244,22 @@ move_34,RF21,RF12,RF16,RF27,RB17,RB26,RB22,RB11,x,x,x,x,x,x,x,x,x,x,x,x,x,2점 �
 move_34_t1,RF16,RF27,RB17,RB26,RB22,RB11,RF21,RF12,x,x,x,x,x,x,x,x,x,x,x,x,x,2점 모서리 회전
 move_34_t2,RB17,RB26,RB22,RB11,RF21,RF12,RF16,RF27,x,x,x,x,x,x,x,x,x,x,x,x,x,2점 모서리 회전
 move_34_t3,RB22,RB11,RF21,RF12,RF16,RF27,RB17,RB26,x,x,x,x,x,x,x,x,x,x,x,x,x,2점 모서리 회전
-move_35,RF11,RF13,RM13,RM11,RM25,RM27,RB27,RB25,x,x,x,x,x,x,x,x,x,x,x,x,x,4각 2개
-move_35_t1,RF13,RM13,RM11,RF11,RM27,RB27,RB25,RM25,x,x,x,x,x,x,x,x,x,x,x,x,x,4각 2개 회전
-move_35_t2,RM13,RM11,RF11,RF13,RB27,RB25,RM25,RM27,x,x,x,x,x,x,x,x,x,x,x,x,x,4각 2개 회전
-move_35_t3,RM11,RF11,RF13,RM13,RB25,RM25,RM27,RB27,x,x,x,x,x,x,x,x,x,x,x,x,x,4각 2개 회전
-move_35_r,RM25,RM27,RB27,RB25,RF11,RF13,RM13,RM11,x,x,x,x,x,x,x,x,x,x,x,x,x,4각 2개(역)
-move_35_r_t1,RM27,RB27,RB25,RM25,RF13,RM13,RM11,RF11,x,x,x,x,x,x,x,x,x,x,x,x,x,
-move_35_r_t2,RB27,RB25,RM25,RM27,RM13,RM11,RF11,RF13,x,x,x,x,x,x,x,x,x,x,x,x,x,
-move_35_r_t3,RB25,RM25,RM27,RB27,RM11,RF11,RF13,RM13,x,x,x,x,x,x,x,x,x,x,x,x,x,
-move_36,RF15,RF17,RM17,RM15,RM21,RM23,RB23,RB21,x,x,x,x,x,x,x,x,x,x,x,x,x,4각 2개 개
-move_36_t1,RF17,RM17,RM15,RF15,RM23,RB23,RB21,RM21,x,x,x,x,x,x,x,x,x,x,x,x,x,4각 2개 개 회전
-move_36_t2,RM17,RM15,RF15,RF17,RB23,RB21,RM21,RM23,x,x,x,x,x,x,x,x,x,x,x,x,x,4각 2개 개 회전
-move_36_t3,RM15,RF15,RF17,RM17,RB21,RM21,RM23,RB23,x,x,x,x,x,x,x,x,x,x,x,x,x,4각 2개 개 회전
-move_36_r,RM21,RM23,RB23,RB21,RF15,RF17,RM17,RM15,x,x,x,x,x,x,x,x,x,x,x,x,x,
-move_36_r_t1,RM23,RB23,RB21,RM21,RF17,RM17,RM15,RF15,x,x,x,x,x,x,x,x,x,x,x,x,x,
-move_36_r_t2,RB23,RB21,RM21,RM23,RM17,RM15,RF15,RF17,x,x,x,x,x,x,x,x,x,x,x,x,x,
-move_36_r_t3,RB21,RM21,RM23,RB23,RM15,RF15,RF17,RM17,x,x,x,x,x,x,x,x,x,x,x,x,x,
+move_35,RF11,RF13,RM13,RM11,RM25,RM27,RB27,RB25,RF22,RB16,x,x,x,x,x,x,x,x,x,x,x,4각 2개
+move_35_t1,RF13,RM13,RM11,RF11,RM27,RB27,RB25,RM25,RF22,RB16,x,x,x,x,x,x,x,x,x,x,x,4각 2개 회전
+move_35_t2,RM13,RM11,RF11,RF13,RB27,RB25,RM25,RM27,RF22,RB16,x,x,x,x,x,x,x,x,x,x,x,4각 2개 회전
+move_35_t3,RM11,RF11,RF13,RM13,RB25,RM25,RM27,RB27,RF22,RB16,x,x,x,x,x,x,x,x,x,x,x,4각 2개 회전
+move_35_r,RM25,RM27,RB27,RB25,RF11,RF13,RM13,RM11,RB16,RF22,x,x,x,x,x,x,x,x,x,x,x,4각 2개(역)
+move_35_r_t1,RM27,RB27,RB25,RM25,RF13,RM13,RM11,RF11,RB16,RF22,x,x,x,x,x,x,x,x,x,x,x,
+move_35_r_t2,RB27,RB25,RM25,RM27,RM13,RM11,RF11,RF13,RB16,RF22,x,x,x,x,x,x,x,x,x,x,x,
+move_35_r_t3,RB25,RM25,RM27,RB27,RM11,RF11,RF13,RM13,RB16,RF22,x,x,x,x,x,x,x,x,x,x,x,
+move_36,RF15,RF17,RM17,RM15,RM21,RM23,RB23,RB21,RF26,RB12,x,x,x,x,x,x,x,x,x,x,x,4각 2개 개
+move_36_t1,RF17,RM17,RM15,RF15,RM23,RB23,RB21,RM21,RF26,RB12,x,x,x,x,x,x,x,x,x,x,x,4각 2개 개 회전
+move_36_t2,RM17,RM15,RF15,RF17,RB23,RB21,RM21,RM23,RF26,RB12,x,x,x,x,x,x,x,x,x,x,x,4각 2개 개 회전
+move_36_t3,RM15,RF15,RF17,RM17,RB21,RM21,RM23,RB23,RF26,RB12,x,x,x,x,x,x,x,x,x,x,x,4각 2개 개 회전
+move_36_r,RM21,RM23,RB23,RB21,RF15,RF17,RM17,RM15,RB12,RF26,x,x,x,x,x,x,x,x,x,x,x,
+move_36_r_t1,RM23,RB23,RB21,RM21,RF17,RM17,RM15,RF15,RB12,RF26,x,x,x,x,x,x,x,x,x,x,x,
+move_36_r_t2,RB23,RB21,RM21,RM23,RM17,RM15,RF15,RF17,RB12,RF26,x,x,x,x,x,x,x,x,x,x,x,
+move_36_r_t3,RB21,RM21,RM23,RB23,RM15,RF15,RF17,RM17,RB12,RF26,x,x,x,x,x,x,x,x,x,x,x,
 move_37,RB12,RB16,RM11,RM17,RF12,RF16,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,대형 6각
 move_37_t1,RB16,RM17,RB12,RF16,RM11,RF12,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
 move_37_t2,RM17,RF16,RB16,RF12,RB12,RM11,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,

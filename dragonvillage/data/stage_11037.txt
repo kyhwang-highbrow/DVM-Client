@@ -112,5 +112,73 @@
 			"131071;1;Appear;RO01;RM11;0.5"
 			"131071;1;Appear;RO07;RM17;0.5"
 		]
-    }
+    },
+	
+	"move":
+	{
+		1:
+		[
+			[
+				"wait;7",
+				"RM14;1",
+				"move_26;1", "wait;5",
+				"move_26_r;2", "wait;5",
+				"move_27;2", "wait;5",
+				"move_27_r;2", "wait;5",
+				"RM14;1.5", "c3_s7_1;1.5",
+				"wait;3"
+			]
+		],
+		
+		2:
+		[
+			[
+				"wait;7",
+				"move_35;2",
+				"move_35_t1;2",
+				"move_35_t2;2",
+				"move_35_t3;2",
+				"move_36;2",
+				"move_36_t1;2",
+				"move_36_t2;2",
+				"move_36_t3;2",
+				"move_35_r;2",
+				"move_35_r_t1;2",
+				"move_35_r_t2;2",
+				"move_35_r_t3;2",
+				"move_36_r;2",
+				"move_36_r_t1;2",
+				"move_36_r_t2;2",
+				"move_36_r_t3;2",
+				"move_35;2",
+				"move_35_t1;2",
+				"move_35_t2;2",
+				"move_35_t3;2",
+				"move_36;2",
+				"move_36_t1;2",
+				"move_36_t2;2",
+				"move_36_t3;2",
+				"move_35_r;2",
+				"move_35_r_t1;2",
+				"move_35_r_t2;2",
+				"move_35_r_t3;2",
+				"move_36_r;2",
+				"move_36_r_t1;2",
+				"move_36_r_t2;2",
+				"move_36_r_t3;2",
+				"c3_s7_2;2",
+				"wait;3"
+			]
+		],
+		
+		3:
+		[
+			[
+				"wait;7",
+				"move_11;0.5", "wait;10",
+				"move_12;0.5", "wait;10",
+				"wait;3"
+			]
+		]
+	}
 }
