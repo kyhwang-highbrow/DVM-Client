@@ -94,6 +94,15 @@ function UI_DragonSkillLevelUpResult:checkSkillLevelUp(t_prev_dragon_data, t_dra
     -- 스킬 매니저 생성
     local dragon_skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
 
+    if (not l_levelup_skills[1]) then
+        return
+    end
+
+    local skill_index = l_levelup_skills[1]
+    local ui = UI_DragonSkillLevelUpResult(dragon_skill_mgr, skill_index)
+    return ui
+
+    --[[
     -- 순차적으로 팝업을 띄우는 함수 생성
     local pop_ui
     pop_ui = function()
@@ -109,6 +118,7 @@ function UI_DragonSkillLevelUpResult:checkSkillLevelUp(t_prev_dragon_data, t_dra
     end
 
     pop_ui()
+    --]]
 end
 
 

@@ -44,7 +44,7 @@ function TableGradeInfo:getMaxLv(grade, eclv)
 
     local key
 
-    if (eclv and 0 <= eclv) then
+    if (grade >= MAX_DRAGON_GRADE) and (eclv and 0 <= eclv) then
         key = self:makeEclvKey(eclv)
     else
         key = grade

@@ -140,6 +140,17 @@ function UI_DragonSkillLevelUp:refresh()
         self:refresh_dragonUpgradeMaterialTableView()
     end
 
+    do -- 선택된 재료가 있으면 nil처리
+        if self.m_selectedMaterialUI then
+            self.m_selectedMaterialUI.root:removeFromParent()
+            self.m_selectedMaterialUI = nil
+        end
+
+        if self.m_selectedMaterial then
+            self.m_selectedMaterial = nil
+        end
+    end
+
     self:refresh_btnState()
 end
 
@@ -340,6 +351,53 @@ end
 -- function click_levelupBtn
 -------------------------------------
 function UI_DragonSkillLevelUp:click_levelupBtn()
+    if (not self.m_selectedMaterial) then
+        UIManager:toastNotificationRed(Str('스킬 강화에는 원종이 같은 드래곤이 필요합니다.'))
+        return
+    end
+
+    local uid = g_userData:get('uid')
+    local doid = self.m_selectDragonOID
+    local src_doids = self.m_selectedMaterial
+
+    local function success_cb(ret)
+        local t_prev_dragon_data = self.m_selectDragonData
+
+        -- 재료로 사용된 드래곤 삭제
+        if ret['deleted_dragons_oid'] then
+            for _,doid in pairs(ret['deleted_dragons_oid']) do
+                g_dragonsData:delDragonData(doid)
+
+                -- 드래곤 리스트 갱신
+                self.m_tableViewExt:delItem(doid)
+            end
+        end
+
+        -- 드래곤 정보 갱신
+        g_dragonsData:applyDragonData(ret['modified_dragon'])
+
+        -- 골드 갱신
+        if ret['gold'] then
+            g_serverData:applyServerData(ret['gold'], 'user', 'gold')
+            g_topUserInfo:refreshData()
+        end
+
+        self.m_bChangeDragonList = true
+
+        local t_next_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
+
+        -- 연출 시작
+        self:upgradeDirecting(doid, t_prev_dragon_data, t_next_dragon_data)
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/skillup')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('src_doids', src_doids)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
 end
 
 -------------------------------------
@@ -359,6 +417,41 @@ function UI_DragonSkillLevelUp:getDragonList()
     end
 
     return l_item_list
+end
+
+-------------------------------------
+-- function upgradeDirecting
+-- @brief 연출
+-------------------------------------
+function UI_DragonSkillLevelUp:upgradeDirecting(doid, t_prev_dragon_data, t_next_dragon_data)
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        co:setBlockPopup()
+
+        -- 연출
+        co:work()
+        self.vars['levelupVisual']:setVisible(true)
+        self.vars['levelupVisual']:setVisual('group', 'slot_fx_01')
+        self.vars['levelupVisual']:setRepeat(false)
+        self.vars['levelupVisual']:addAniHandler(function() self.vars['levelupVisual']:setVisible(false) co.NEXT() end)
+        if co:waitWork() then return end
+
+        -- 최대 초월 단계일 경우
+        local upgradeable, msg = g_dragonsData:checkSkillUpgradeable(doid)
+        if upgradeable then
+            self:setSelectDragonDataRefresh()
+            self:refresh_dragonIndivisual(doid)
+        else
+            self:close()
+        end
+
+        -- 결과 팝업 생성
+        local ui = UI_DragonSkillLevelUpResult:checkSkillLevelUp(t_prev_dragon_data, t_next_dragon_data)
+
+        co:close()
+    end
+
+    Coroutine(coroutine_function)
 end
 
 --@CHECK
