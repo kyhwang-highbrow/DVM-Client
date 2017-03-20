@@ -69,6 +69,8 @@ CoroutineHelper = class({
 
         NEXT = 'function',
         ESCAPE = 'function',
+
+        m_closeCB = 'function',
     })
 
 function CoroutineHelper:init()
@@ -122,9 +124,17 @@ function CoroutineHelper:setBlockPopup()
     coroutine.yield()
 end
 
+function CoroutineHelper:setCloseCB(close_cb)
+    self.m_closeCB = close_cb
+end
+
 function CoroutineHelper:close()
     if self.m_blockPopup then
         self.m_blockPopup:close()
         self.m_blockPopup = nil
+    end
+
+    if self.m_closeCB then
+        self.m_closeCB()
     end
 end

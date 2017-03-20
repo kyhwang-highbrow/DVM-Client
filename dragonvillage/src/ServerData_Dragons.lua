@@ -402,9 +402,9 @@ function ServerData_Dragons:checkEclvUpgradeable(doid)
     end
 
     -- 최대 레벨 체크
-    local is_max_level = TableGradeInfo:isMaxLevel(grade, eclv, level)
+    local is_max_level, max_lv = TableGradeInfo:isMaxLevel(grade, eclv, level)
     if (not is_max_level) then
-        return false, Str('최대 레벨에서 초월이 가능합니다.')
+        return false, Str('최대 레벨 {1}에서 초월이 가능합니다.', max_lv)
     end
 
     return true

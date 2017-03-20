@@ -31,7 +31,7 @@ function TableGradeInfo:isMaxLevel(grade, eclv, level)
     end
 
     local max_lv = self:getMaxLv(grade, eclv)
-    return (max_lv <= level)
+    return (max_lv <= level), max_lv
 end
 
 -------------------------------------
@@ -44,7 +44,7 @@ function TableGradeInfo:getMaxLv(grade, eclv)
 
     local key
 
-    if (eclv and 1 <= eclv) then
+    if (eclv and 0 <= eclv) then
         key = self:makeEclvKey(eclv)
     else
         key = grade
@@ -88,7 +88,7 @@ end
 -- @brief 테이블상에서의 초월 key값 생성
 -------------------------------------
 function TableGradeInfo:makeEclvKey(eclv)
-    if (not eclv) or (eclv <= 0) then
+    if (not eclv) or (eclv < 0) then
         return nil
     end
 

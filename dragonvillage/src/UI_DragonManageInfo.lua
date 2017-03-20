@@ -236,12 +236,14 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
 
     do -- 경혐치 exp
         local grade = (t_dragon_data['grade'] or 1)
+        local eclv = (t_dragon_data['eclv'] or 0)
         local lv = (t_dragon_data['lv'] or 1)
         local exp = (t_dragon_data['exp'] or 0)
         local table_exp = TableDragonExp()
         local max_exp = table_exp:getDragonMaxExp(grade, lv)
+        local is_max_lv = TableGradeInfo:isMaxLevel(grade, eclv, lv)
 
-        if (max_exp > 0) then
+        if (not is_max_lv) then
             local percentage = (exp / max_exp) * 100
             percentage = math_floor(percentage)
             vars['expLabel']:setString(Str('{1}%', percentage))

@@ -213,7 +213,7 @@ function UI_DragonEclvup:refresh_upgrade(table_dragon, t_dragon_data)
     end
 
     do -- 초월에 필요한 가격
-        local req_gold = TableGradeInfo:getEclvUpgradeReqGold(eclv + 1)
+        local req_gold = TableGradeInfo:getEclvUpgradeReqGold(eclv)
         vars['transcendPriceLabel']:setString(comma_value(req_gold))
     end
 end
@@ -474,36 +474,34 @@ end
 -- @brief 강화 연출
 -------------------------------------
 function UI_DragonEclvup:upgradeDirecting(doid, t_prev_dragon_data, t_next_dragon_data)
-    local block_ui = UI_BlockPopup()
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        co:setBlockPopup()
 
-    local directing_animation
-    local directing_result
-
-    -- 에니메이션 연출
-    directing_animation = function()
-        local vars = self.vars
-
+        -- 연출
+        co:work()
         self.vars['upgradeVisual']:setVisible(true)
-        self.vars['upgradeVisual']:setVisual('group', 'idle')
+        self.vars['upgradeVisual']:setVisual('group', 'slot_fx_01')
         self.vars['upgradeVisual']:setRepeat(false)
-        self.vars['upgradeVisual']:addAniHandler(directing_result)
-        SoundMgr:playEffect('EFFECT', 'exp_gauge')
-    end
+        self.vars['upgradeVisual']:addAniHandler(function() self.vars['upgradeVisual']:setVisible(false) co.NEXT() end)
+        if co:waitWork() then return end
 
-    -- 결과 연출
-    directing_result = function()
-        block_ui:close()
-        
-        UI_DragonManageUpgradeResult(t_next_dragon_data, t_prev_dragon_data)
+        -- 결과 팝업
+        co:work()
+        local ui = UI_DragonManageUpgradeResult(t_next_dragon_data, t_prev_dragon_data)
+        ui:setCloseCB(co.NEXT)
+        if co:waitWork() then return end
 
-        -- UI 갱신
-        --self:setSelectDragonDataRefresh()
-        --self:refresh_dragonIndivisual(doid)
+        -- 최대 초월 단계일 경우
+        if g_dragonsData:isMaxEclv(doid) then
+            UIManager:toastNotificationRed(Str('최고 초월 단계를 달성하셨습니다.'))
+        end
+
         self:close()
+        co:close()
     end
 
-    --directing_animation()
-    directing_result()
+    Coroutine(coroutine_function)
 end
 
 -------------------------------------
