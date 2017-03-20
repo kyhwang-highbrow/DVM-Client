@@ -392,6 +392,10 @@ function UI_DragonManageInfo:refresh_status(t_dragon_data, t_dragon)
     vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
     vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
     vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
+
+    if vars['cp_label'] then
+        vars['cp_label']:setString(comma_value(status_calc:getCombatPower()))
+    end
 end
 
 -------------------------------------

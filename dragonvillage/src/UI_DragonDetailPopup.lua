@@ -149,6 +149,10 @@ function UI_DragonDetailPopup:refresh()
         vars['add_avoid_label']:setString(status_calc:getFinalAddStatDisplay('avoid'))
         vars['add_hit_rate_label']:setString(status_calc:getFinalAddStatDisplay('hit_rate'))
         vars['add_cri_dmg_label']:setString(status_calc:getFinalAddStatDisplay('cri_dmg'))
+
+        if vars['cp_label'] then
+            vars['cp_label']:setString(comma_value(status_calc:getCombatPower()))
+        end
     end
 end
 

@@ -131,5 +131,5 @@ end
 -- @brief 드래곤 승급(grade)별 최대 레벨
 -------------------------------------
 function dragonMaxLevel(grade, eclv)
-    TableGradeInfo:getMaxLv(grade, eclv)
+    return TableGradeInfo:getMaxLv(grade, eclv)
 end
