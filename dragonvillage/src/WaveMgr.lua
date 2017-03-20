@@ -25,6 +25,7 @@ WaveMgr = class(IEventDispatcher:getCloneClass(), {
         m_regenTimer = 'number',	-- 리젠 체크용 시간 체크
 		m_lRegenWave = 'list',		-- 리젠 DynamicWave 저장
 		m_isRegenWave = 'bool',		-- regen Wave 가 있는지 여부
+		m_mRegenObjMap = 'Map<obj>' -- regen 으로 생성된 몬스터의 phys_idx 맵
     })
 
 -------------------------------------
@@ -68,6 +69,7 @@ function WaveMgr:init(world, stage_name, develop_mode)
 	self.m_regenTimer = 0
 	self.m_lRegenWave = {}
 	self.m_isRegenWave = false
+	self.m_mRegenObjMap = {}
 
     -- 리스너 등록
     self:addListener('change_wave', self.m_world)
@@ -207,33 +209,44 @@ function WaveMgr:checkSummonable(pos_key)
 end
 
 -------------------------------------
+-- function checkRegenable
+-- @brief 리젠 가능 여부
+-------------------------------------
+function WaveMgr:checkRegenable(idx_key)
+	return not self.m_mRegenObjMap[idx_key]
+end
+
+-------------------------------------
+-- function setRegenDead
+-- @brief 
+-------------------------------------
+function WaveMgr:setRegenDead(idx_key)
+	self.m_mRegenObjMap[idx_key] = false
+end
+
+-------------------------------------
 -- function setDynamicWave
 -- @brief script를 읽어 dynamic wave를 저장
 -------------------------------------
-function WaveMgr:setDynamicWave(l_wave, l_data, is_check_rarity)
+function WaveMgr:setDynamicWave(l_wave, l_data, is_regen_wave)
 	if not (l_data) then
 		return 
 	end
 
-	for i, v in pairs(l_data) do
-		for _, data in pairs(v) do
+	for time, v in pairs(l_data) do
+		for idx, data in pairs(v) do
 			-- dynamic wave 생성 및 저장
-			local dynamic_wave = DynamicWave(self, data, i)
-			table.insert(l_wave, dynamic_wave)
+			local dynamic_wave = nil
 			
-			if (is_check_rariry) then
-				-- 마지막 웨이브에서는 최대 등급을 가진 적을 찾음
-				local table_enemy = TableMonster()
-				if isMonster(dynamic_wave.m_enemyID) then
-					local t_enemy = table_enemy:get(dynamic_wave.m_enemyID)
-					local rarity = t_enemy['rarity']
-                
-					if monsterRarityStrToNum(rarity) > monsterRarityStrToNum(self.m_highestRarity) then
-						self.m_highestRarity = rarity
-					end
-				end
+			if (is_regen_wave) then
+				-- regen wave라면 무조건 0초로 등록하고 regen 정보를 저장한다.
+				dynamic_wave = DynamicWave(self, data, 0)
+				dynamic_wave:setRegenWaveInfo({idx = idx, time = time})
+			else
+				dynamic_wave = DynamicWave(self, data, time)
 			end
-
+			
+			table.insert(l_wave, dynamic_wave)
 		end
 	end
 
@@ -301,17 +314,30 @@ function WaveMgr:newScenario_dynamicWave(t_data)
     self.m_highestRarity = 'common'
 
     -- wave 정보를 읽어 dynamic wave 세팅
-	self:setDynamicWave(self.m_lDynamicWave, t_data['wave'], true)
-  
+	self:setDynamicWave(self.m_lDynamicWave, t_data['wave'], false)
+
 	-- regen에 정보가 있다면 해당 몹을 지속적으로 소환하도록 세팅.
 	if (t_data['regen']) then
 		self.m_regenWaveData = t_data['regen']
 		self.m_isRegenWave = true
-		self:setDynamicWave(self.m_lRegenWave, self.m_regenWaveData, false)
+		self:setDynamicWave(self.m_lRegenWave, self.m_regenWaveData, true)
 	else
 		self.m_isRegenWave = false
 		self.m_regenWaveData = nil
 		self.m_lRegenWave = {}
+	end
+end
+
+-------------------------------------
+-- function findHighestRarity
+-- @brief 마지막 웨이브에서는 최대 등급을 가진 적을 찾음
+-------------------------------------
+function WaveMgr:findHighestRarity()
+	for _, monster in pairs(self.m_world:getEnemyList()) do
+		local rarity = monster:getRarity()
+		if monsterRarityStrToNum(rarity) > monsterRarityStrToNum(self.m_highestRarity) then
+			self.m_highestRarity = rarity
+		end
 	end
 end
 
@@ -402,13 +428,12 @@ function WaveMgr:update_regen(dt)
 	self.m_regenTimer = self.m_regenTimer + dt
 	
 	if (self.m_regenTimer > self.m_regenCoolTime) then
-		cclog('!!! REGEN !!! ', self.m_regenTimer, #self.m_lRegenWave)
 		-- 리젠 웨이브 업데이트
 		for i, dynamic_wave in ipairs(self.m_lRegenWave) do
 			-- 소환 (일반 웨이브와 다르게 위치 기반한 소환여부 체크)
-			if (self:checkSummonable(dynamic_wave.m_luaValue2)) then
-				cclog(dynamic_wave.m_luaValue2)
+			if (self:checkRegenable(i)) then
 				dynamic_wave:update(dt)
+				self.m_mRegenObjMap[i] = true
 			end
 		end
 
@@ -418,7 +443,7 @@ function WaveMgr:update_regen(dt)
 		-- 리젠 웨이브 다시 생성
 		self.m_regenTimer = self.m_regenTimer - self.m_regenCoolTime
 		if (self.m_regenWaveData) then
-			self:setDynamicWave(self.m_lRegenWave, self.m_regenWaveData, false)
+			self:setDynamicWave(self.m_lRegenWave, self.m_regenWaveData, true)
 		end
 
 	end

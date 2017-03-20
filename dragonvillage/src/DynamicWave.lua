@@ -18,6 +18,8 @@ DynamicWave = class({
         m_luaValue3 = '',
         
         m_enemyLevel = '',
+
+		m_regenWaveInfo = 'table',
     })
 
 -------------------------------------
@@ -26,6 +28,7 @@ DynamicWave = class({
 function DynamicWave:init(wave_mgr, data, delay)
     self.m_waveMgr = wave_mgr
     self.m_dynamicTimer = -1
+	self.m_regenWaveInfo = nil
 
     -- data ex : "300202;1;test;T7;R5"
     local l_str = seperate(data, ';')
@@ -49,6 +52,13 @@ function DynamicWave:init(wave_mgr, data, delay)
 end
 
 -------------------------------------
+-- function setRegenWaveInfo
+-------------------------------------
+function DynamicWave:setRegenWaveInfo(table)
+	self.m_regenWaveInfo = table
+end
+
+-------------------------------------
 -- function update
 -------------------------------------
 function DynamicWave:update(dt)
@@ -68,11 +78,16 @@ function DynamicWave:update(dt)
     if (self.m_lScheduledSpawn[1] <= self.m_dynamicTimer) then
         table.remove(self.m_lScheduledSpawn, 1)
 
-        self.m_waveMgr:spawnEnemy_dynamic(self.m_enemyID, self.m_enemyLevel, self.m_appearType,
+        local monster = self.m_waveMgr:spawnEnemy_dynamic(self.m_enemyID, self.m_enemyLevel, self.m_appearType,
             self.m_luaValue1,
             self.m_luaValue2,
             self.m_luaValue3,
             self.m_movement
             )
+
+		-- regen 정보가 있다면 monster에게 보내준다.
+		if (self.m_regenWaveInfo) then
+			monster:setRegenInfo(self.m_regenWaveInfo)
+		end
     end
 end

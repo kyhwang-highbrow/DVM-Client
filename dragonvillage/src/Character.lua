@@ -1299,6 +1299,8 @@ function Character:update(dt)
 	-- @TEST 디버깅용 체력 디스플레이
 	if g_constant:get('DEBUG', 'DISPLAY_UNIT_HP') then 
 		self.m_infoUI.m_label:setString(string.format('%d/%d\n(%d%%)',self.m_hp, self.m_maxHp, self.m_hp/self.m_maxHp*100))
+	elseif g_constant:get('DEBUG', 'DISPLAY_POS') then 
+		self.m_infoUI.m_label:setString(string.format('%d, %d, %d, %d',self.pos.x, self.pos.y, self.m_homePosX, self.m_homePosY))
 	end
 
     return PARENT.update(self, dt)
@@ -1602,6 +1604,14 @@ end
 -------------------------------------
 function Character:getCharAttackAttr()
 	return self.m_charTable['char_type']
+end
+
+-------------------------------------
+-- function getRarity
+-- @return 희귀도 common/rare/hero/legend
+-------------------------------------
+function Character:getRarity()
+	return self.m_charTable['rarity']
 end
 
 -------------------------------------
@@ -1937,7 +1947,7 @@ end
 -- @brief boss, sub_boss, elite 체크
 -------------------------------------
 function Character:isBoss()
-	local rarity = self.m_charTable['rarity']
+	local rarity = self:getRarity()
     return isExistValue(rarity, 'elite', 'subboss', 'boss') 
 end
 

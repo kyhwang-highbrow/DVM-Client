@@ -5,6 +5,7 @@ local PARENT = Character
 -------------------------------------
 Monster = class(PARENT, {
         m_bWaitState = 'boolean',
+		m_regenInfo = 'boolean',
      })
 
 -------------------------------------
@@ -15,6 +16,7 @@ Monster = class(PARENT, {
 function Monster:init(file_name, body, ...)
     self.m_charType = 'monster'
     self.m_bWaitState = false
+	self.m_regenInfo = nil
 end
 
 -------------------------------------
@@ -56,6 +58,28 @@ function Monster:initState()
     self:addState('casting', Monster.st_casting, 'idle', true)
 
     self:addState('wait', Monster.st_wait, 'idle', true)
+end
+
+-------------------------------------
+-- function setRegenInfo
+-- @brief 리젠 정보를 저장한다.
+-------------------------------------
+function Monster:setRegenInfo(t_info)
+    self.m_regenInfo = t_info
+end
+
+-------------------------------------
+-- function setDead
+-- @overriding
+-------------------------------------
+function Monster:setDead()
+    PARENT.setDead(self)
+
+	-- regen된 몹이라면 waveMgr에 알려준다.
+	if (self.m_regenInfo) then
+		local idx = self.m_regenInfo['idx']
+		self.m_world.m_waveMgr:setRegenDead(idx)
+	end
 end
 
 -------------------------------------
