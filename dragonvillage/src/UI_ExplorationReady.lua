@@ -128,6 +128,15 @@ function UI_ExplorationReady:initUI()
         self.m_focusDeckSlotEffect:setOpacity(255)
         self.m_focusDeckSlotEffect:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 0), cc.FadeTo:create(0.5, 255))))
     end
+
+    -- 모험의 order가 모험모드의 chapter로 간주한다
+    local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
+    local chapter = location_info['order']
+
+    do -- 배경 이미지 생성
+        local bg_node = vars['bgNode']
+        ResHelper:makeUIAdventureChapterBG(bg_node, chapter)
+    end
 end
 
 -------------------------------------

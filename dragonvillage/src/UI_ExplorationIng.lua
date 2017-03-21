@@ -97,6 +97,14 @@ function UI_ExplorationIng:initUI()
         local curr_cnt = g_explorationData:getImmediatelyCompleteCnt()
         vars['countLabel']:setString(Str('{1}/{2}', curr_cnt, limit_cnt))
     end
+
+    -- 모험의 order가 모험모드의 chapter로 간주한다
+    local chapter = location_info['order']
+
+    do -- 배경 이미지 생성
+        local bg_node = vars['bgNode']
+        ResHelper:makeUIAdventureChapterBG(bg_node, chapter)
+    end
 end
 
 -------------------------------------

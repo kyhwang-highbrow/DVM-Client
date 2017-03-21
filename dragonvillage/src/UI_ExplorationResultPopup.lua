@@ -18,7 +18,7 @@ function UI_ExplorationResultPopup:init(epr_id, hours, data)
     self.m_data = data
 
     local vars = self:load('exploration_result.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ExplorationResultPopup')
@@ -123,7 +123,14 @@ function UI_ExplorationResultPopup:initUI()
                 vars['starNode' .. i]:addChild(sprite)
             end
         end
+    end
 
+    -- 모험의 order가 모험모드의 chapter로 간주한다
+    local chapter = location_info['order']
+
+    do -- 배경 이미지 생성
+        local bg_node = vars['bgNode']
+        ResHelper:makeUIAdventureChapterBG(bg_node, chapter)
     end
 end
 
