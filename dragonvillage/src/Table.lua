@@ -88,7 +88,7 @@ function TABLE:loadCSVTable(filename, tablename, key, toString)
     local header = {}
     local tables = {}
 
-    for _,line in ipairs(seperate(content,'\n')) do
+    for _,line in ipairs(seperate(content,'\r\n')) do
         local csv = {}
         local t = {}
         local v1, v2
