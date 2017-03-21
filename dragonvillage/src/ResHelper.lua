@@ -8,6 +8,8 @@ function ResHelper:getUIDragonBG(attr)
     local res = string.format('res/bg/ui/dragon_bg_%s/dragon_bg_%s.vrp', attr, attr)
     local animator = MakeAnimator(res)
 
+    animator:changeAni('mini', true)
+
     return animator
 end
 
