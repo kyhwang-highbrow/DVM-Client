@@ -3,25 +3,34 @@ package Network;
 option java_outer_classname = "Protocol";
 
 message ClientMessage {
-    required ProtocolCode    pcode = 1;                // protocol number
-    required int32            packetId = 2;
-    required bytes            payload = 3;
-    optional int32            recvCounter = 4;
+	required ProtocolCode	pcode = 1;				// protocol number
+	required int32			packetId = 2;
+	required bytes			payload = 3;
+	optional int32			recvCounter = 4;
 }
 
 message ServerMessage {
-    required ProtocolCode    pcode = 1;                // protocol number
-    required bytes            payload = 2;
+	required ProtocolCode	pcode = 1;				// protocol number
+	required bytes			payload = 2;
 }
 
 message AdminMessage {
-    required ProtocolCode    pcode = 1;                // protocol number
-    required bytes            payload = 2;
+	required ProtocolCode	pcode = 1;				// protocol number
+	required bytes			payload = 2;
 }
 
-enum ProtocolCode {
-    C_ERROR                = 1;
-    
-    C_NORMAL_MESSAGE        = 10;
-    S_NORMAL_MESSAGE        = 11;
+enum ProtocolCode {	
+	C_LOGIN_REQ		= 10;
+	S_LOGIN_RES		= 11;
+	
+	//chat.proto
+	C_CHAT_NORMAL_MSG		= 100;
+
+	C_CHAT_CHANGE_CHANNEL	= 200;
+	S_CHAT_CHANGE_CHANNEL	= 201;
+	
+	S_CHAT_RESPONSE			= 200;	
+	
+	C_ERROR					= 9998;
+	S_ERROR					= 9999;
 }

@@ -1890,6 +1890,9 @@
     <None Include="..\src\UIC_RichLabelCore.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\ChatClient.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

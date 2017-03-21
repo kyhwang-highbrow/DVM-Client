@@ -116,6 +116,8 @@ local t_module = {
 	'StageMissionMgr',
 	'GameLogRecorder',
 
+    'ChatClient',
+
     -- Data클래스
     'ColosseumUserInfo',
     	
