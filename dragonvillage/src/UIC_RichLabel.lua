@@ -1,17 +1,42 @@
+local PARENT = UIC_Node
+
 -------------------------------------
 -- class UIC_RichLabel
 -------------------------------------
-UIC_RichLabel = class({
+UIC_RichLabel = class(UIC_Node, {
         m_root = 'cc.Node',
         m_orgRichText = 'string',
         m_lContentList = 'list',
 
         m_fontSize = 'number',
         m_dimension = 'cc.Size',
+        m_outlineSize = 'number',
+        m_outlineColor = 'cc.c4b',
 
         m_bDirty = 'boolean',
 
         m_nodeList = 'list',
+        m_lineCount = 'number',
+        m_contentWidth = 'number',
+        m_widthList = 'list',
+
+        -- 정렬
+        m_hAlignment = '',
+        --cc.TEXT_ALIGNMENT_CENTER    = 0x1
+        --cc.TEXT_ALIGNMENT_LEFT  = 0x0
+        --cc.TEXT_ALIGNMENT_RIGHT = 0x2
+
+        m_vAlignment = '',
+        -- cc.VERTICAL_TEXT_ALIGNMENT_BOTTOM   = 0x2
+        -- cc.VERTICAL_TEXT_ALIGNMENT_CENTER   = 0x1
+        -- cc.VERTICAL_TEXT_ALIGNMENT_TOP  = 0x0
+
+        m_bDirtyAlignment = 'boolean',
+
+
+        --------------------------------확장
+
+        m_menu = '',
     })
 
 -------------------------------------
@@ -19,11 +44,17 @@ UIC_RichLabel = class({
 -------------------------------------
 function UIC_RichLabel:init()
     self.m_root = cc.Node:create()
+    self.m_node = self.m_root
 
     self.m_fontSize = 20
     self.m_dimension = cc.size(300, 720/2)
     self.m_root:setNormalSize(self.m_dimension)
+    self.m_outlineSize = 0
+    self.m_outlineColor = cc.c4b(0,0,0,255)
     self.m_bDirty = true
+
+    self.m_hAlignment = cc.TEXT_ALIGNMENT_LEFT
+    self.m_vAlignment = cc.VERTICAL_TEXT_ALIGNMENT_TOP
 
     local function update(dt)
         self:update(dt)
@@ -58,9 +89,19 @@ end
 -- function update
 -------------------------------------
 function UIC_RichLabel:update(dt)
+    if (not self.m_orgRichText) then
+        return
+    end
+
     if self.m_bDirty then
         self:makeContents()
         self.m_bDirty = false
+
+        self:updateAlignmnet()
+        self.m_bDirtyAlignment = false
+    elseif self.m_bDirtyAlignment then
+        self:updateAlignmnet()
+        self.m_bDirtyAlignment = false
     end
 end
 
@@ -72,11 +113,13 @@ function UIC_RichLabel:makeContents()
     -- m_root에 붙어있는 node
     if self.m_nodeList then
         for i,v in pairs(self.m_nodeList) do
-            v:removeFromParent()
+            v.node:removeFromParent()
         end
     end
     self.m_nodeList = {}
-
+    self.m_lineCount = 0
+    self.m_contentWidth = 0
+    self.m_widthList = {}
 
     local l_content = self.m_lContentList
 
@@ -85,6 +128,48 @@ function UIC_RichLabel:makeContents()
 
     for _,t_content in ipairs(l_content) do
         pos_x, idx_y = self:makeIndivisualContent(t_content, pos_x, idx_y)
+    end
+end
+
+-------------------------------------
+-- function updateAlignmnet
+-------------------------------------
+function UIC_RichLabel:updateAlignmnet()
+
+    local line_height = self.m_fontSize * 1.1
+    local content_height = (self.m_lineCount * line_height)
+
+    for i,v in ipairs(self.m_nodeList) do
+
+        local idx_y = v['idx_y']
+
+        -- X축 정렬
+        local line_width = self.m_widthList[idx_y]
+        local pos_x = v['pos_x']
+        if (self.m_hAlignment == cc.TEXT_ALIGNMENT_LEFT) then
+
+        elseif (self.m_hAlignment == cc.TEXT_ALIGNMENT_CENTER) then
+            pos_x = pos_x + ((self.m_dimension['width'] - line_width) / 2)
+
+        elseif (self.m_hAlignment == cc.TEXT_ALIGNMENT_RIGHT) then
+            pos_x = pos_x + (self.m_dimension['width'] - line_width)
+
+        end
+
+        -- Y축 정렬
+        local pos_y = -((idx_y - 1) * line_height)
+        if (self.m_vAlignment == cc.VERTICAL_TEXT_ALIGNMENT_TOP) then
+
+        elseif (self.m_vAlignment == cc.VERTICAL_TEXT_ALIGNMENT_CENTER) then
+            pos_y = pos_y - ((self.m_dimension['height'] - content_height) / 2)
+
+        elseif (self.m_vAlignment == cc.VERTICAL_TEXT_ALIGNMENT_BOTTOM) then
+            pos_y = pos_y - (self.m_dimension['height'] - content_height)
+
+        end
+
+        -- X, Y 설정
+        v['node']:setPosition(pos_x, pos_y)
     end
 end
 
@@ -98,11 +183,9 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
 
     -- 임시
 
-    local outline = 1
     local line_height = self.m_fontSize * 1.1
 
     for i,text in ipairs(l_line) do
-
         -- l_line에서 두번째 항목부터는 \n로 개행했을 경우임
         if (1 < i) then
             pos_x, idx_y = self:newLine(pos_x, idx_y)
@@ -111,19 +194,29 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
         local work_text = text
         while (work_text) do
             -- label 생성
-            local label = cc.Label:createWithTTF(work_text, self:getFontName(), self.m_fontSize, outline)
+            local label = cc.Label:createWithTTF(work_text, self:getFontName(), self.m_fontSize, self.m_outlineSize)
+            if (0 < self.m_outlineSize) then
+                label:enableOutline(self.m_outlineColor, self.m_outlineSize)
+            end
             label:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_TOP)
             label:setDockPoint(cc.p(0, 1))
             label:setAnchorPoint(cc.p(0, 1))
             self.m_root:addChild(label)
-            table.insert(self.m_nodeList, label)
 
             -- 가로 길이 체크
-            pos_x, idx_y, work_text, carriage_return = self:makeContent_checkTextWidth(label, work_text, pos_x, idx_y, line_height, outline, is_button)
+            pos_x, idx_y, work_text, carriage_return = self:makeContent_checkTextWidth(label, work_text, pos_x, idx_y, line_height, is_button)
+
+
 
             -- 현재 위치 지정
             local pos_y = -((idx_y - 1) * line_height)
-            label:setPosition(pos_x, pos_y)
+            label:setPosition(pos_x, pos_y)            
+
+            --[[
+            if is_button then
+                self:makeTextButton(content, label, pos_x, pos_y, self:getColor(color), idx_y)
+            end
+            --]]
 
             -- 생상 지정
             if color then
@@ -131,7 +224,22 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
             end
 
             -- 다음 pos_x
-            pos_x = pos_x + label:getStringWidth() - outline -- (outline의 경우 자간에 영향을 줌)
+            local prev_x = pos_x
+            pos_x = pos_x + label:getStringWidth() - self.m_outlineSize -- (outline의 경우 자간에 영향을 줌)
+
+            -- 컨텐츠 넓이
+            self.m_contentWidth = math_max(self.m_contentWidth, pos_x)
+
+            do
+                local t_data = {}
+                t_data['node'] = label
+                t_data['pos_x'] = prev_x
+                t_data['idx_y'] = idx_y
+                table.insert(self.m_nodeList, t_data)
+
+                -- 라인별 넓이 저장
+                self.m_widthList[idx_y] = pos_x
+            end
 
             if carriage_return then
                 pos_x, idx_y = self:newLine(pos_x, idx_y)
@@ -143,26 +251,96 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
 end
 
 -------------------------------------
+-- function makeTextButton
+-- @brief 작업 중
+-------------------------------------
+function UIC_RichLabel:makeTextButton(t_content, label, x, y, color, idx_y)
+    -- menu객체가 없을 경우 생성
+    if (self.m_menu == nil) then
+        self.m_menu = cc.Menu:create()
+        self.m_menu:setDockPoint(cc.p(0.5, 0.5))
+        self.m_menu:setAnchorPoint(cc.p(0.5, 0.5))
+        self.m_menu:setNormalSize(self.m_dimension['width'], self.m_dimension['height'])
+        self.m_menu:setPosition(0, 0)
+        self.m_root:addChild(self.m_menu, 1)
+    end
+
+    local str = label:getString()
+    local str_width = label:getStringWidth()
+    local unserline = nil
+
+    local line_height = self.m_fontSize * 1.1
+
+
+    do -- underline 생성
+        --local x = x + (str_width/2)
+        --local y = y - (self.m_fontSize/2) - 1
+        local scale_x = str_width/20
+        local y = y - (line_height) + (self.m_fontSize / 10)
+
+        local sprite = cc.Sprite:create(UNDER_LINE_PNG)
+        self.m_root:addChild(sprite)
+        sprite:setPosition(x, y)
+        sprite:setDockPoint(cc.p(0, 1))
+        sprite:setAnchorPoint(cc.p(0, 1))
+        sprite:setScaleX(scale_x)
+
+        if color then
+            sprite:setColor(color)
+        end
+        unserline = sprite
+
+        -- 정력 리스트에 삽입
+        --table.insert(self.m_hNodeList[idx_y], {node=sprite, pos_x=x, offset_y= -(self.m_fontSize/2)-1})
+    end
+
+    --[[
+    do -- 버튼 생성
+        local x = x + (str_width/2)
+
+        local button = cc.MenuItemImage:create(UNDER_LINE_PNG, nil, nil, 0)
+        button:setDockPoint(cc.p(0, 1))
+        button:setAnchorPoint(cc.p(0.5, 1))
+        button:setPosition(x, y)
+        cclog('x' .. x)
+        cclog('y' .. y)
+        button:setContentSize(str_width, line_height)
+        self.m_menu:addChild(button)
+
+        -- 클릭 핸들러 지정
+        local uic_button = UIC_Button(button)
+        --uic_button:registerScriptTapHandler(function() self:click_word(content, label, unserline, color, str) end)
+
+        -- 정력 리스트에 삽입
+        --table.insert(self.m_hNodeList[idx_y], {node=button ,pos_x=x})
+    end
+    --]]
+end
+
+-------------------------------------
 -- function makeContent_checkTextWidth
 -------------------------------------
-function UIC_RichLabel:makeContent_checkTextWidth(label, work_text, pos_x, idx_y, line_height, outline, is_button)
+function UIC_RichLabel:makeContent_checkTextWidth(label, work_text, pos_x, idx_y, line_height, is_button)
     local msg_width = label:getStringWidth()
 
     if ((pos_x + msg_width) < self.m_dimension['width']) then
         return pos_x, idx_y, nil, false
     end
 
+    --[[
     -- 버튼일 경우 즉시 개행
     if is_button then
         work_text = nil
         return pos_x, idx_y, work_text, true
     end
+    --]]
     
-    --[[
+
     --------------------------------------------------------------
     -- 단어 단위 개행
     --------------------------------------------------------------
-    if (self.m_carriageReturnType == CARRIAGE_RETURN_TYPE_WORD) then
+    --[[
+    if true then
         local l_text = nil
 
         -- 공백' '으로 문자들을 분리
@@ -183,21 +361,12 @@ function UIC_RichLabel:makeContent_checkTextWidth(label, work_text, pos_x, idx_y
             -- 하나의 단어만 남아도 길이가 넘어갈 경우 즉시 개행
             if (end_idx < 1) then
 
-                -- 한줄로 표시, 지정된 길이가 넘어갈 경우 바로 자름
-                if self.m_bLimitMessage then
-                    return pos_x, idx_y, '', true
-                end
-
                 -- 개행 초기화
-                pos_x, idx_y = self:carriageReturn(pos_x, idx_y)
+                pos_x, idx_y = self:newLine(pos_x, idx_y)
 
                 -- 첫 문자를 그대로 사용
                 temp_str = l_text[1]
 
-                -- 줄바꿈 시 첫번째 문자가 ' '(공백)일 경우 공백 제거
-                if (string.byte(temp_str, 1) == 32) then -- '' 
-                    temp_str = string.gsub(temp_str, ' ', '', 1)
-                end
                 label:setString(temp_str)
                          
                 -- 처리되지 않은 남은 문자열 저장       
@@ -208,7 +377,7 @@ function UIC_RichLabel:makeContent_checkTextWidth(label, work_text, pos_x, idx_y
                 break
 
             -- 하나 이상의 문자가 남았고, 개행이 가능할 경우
-            elseif (self.m_demensionsWidth >= (pos_x + self:calcMsgWidth(label))) then
+            elseif (self.m_dimension['width'] >= (pos_x + label:getStringWidth())) then
                 -- 처리되지 않은 남은 문자열 저장
                 work_text = ''
                 for i=end_idx+1, #l_text do
@@ -228,9 +397,8 @@ function UIC_RichLabel:makeContent_checkTextWidth(label, work_text, pos_x, idx_y
     --------------------------------------------------------------
     -- 문자 단위 개행
     --------------------------------------------------------------
-    elseif (self.m_carriageReturnType == CARRIAGE_RETURN_TYPE_CHAR) then
+    else
     --]]
-
         -- 한 글자라도 넘어가는 경우에는 즉시 리턴
         if (self.m_dimension['width'] < (pos_x + self.m_fontSize)) then
             label:setString('')
@@ -275,11 +443,11 @@ function UIC_RichLabel:newLine(pos_x, idx_y)
     pos_x = 0
     idx_y = idx_y + 1
 
-    --self.m_hTotalLength[idx_y] = 0
+    self.m_widthList[idx_y] = 0
     --self.m_hNodeList[idx_y] = {}
 
     -- 외부에서 사용하기 위해 저장
-    --self.m_lineCount = idx_y
+    self.m_lineCount = idx_y
 
     return pos_x, idx_y
 end
@@ -289,41 +457,6 @@ end
 -------------------------------------
 function UIC_RichLabel:getFontName()
     return 'res/font/common_font_01.ttf'
-end
-
--------------------------------------
--- function charList
--------------------------------------
-function UIC_RichLabel:charList(str) -- UTF-8 을 유니코드 테이블로
-    local tbl = {}
-    local a = 1
-    for i=1, str:len() do
-        -- 1byte
-        if str:byte(i) >= 0 and str:byte(i) <= 127 then
-            tbl[a] = string.sub(str, i, i)
-            a = a+1
-
-        -- 2byte
-        elseif str:byte(i) >= 194 and str:byte(i) <= 223 then
-            tbl[a] = string.sub(str, i, i + 1)
-            i = i+1
-            a = a+1
-
-        -- 3byte
-        elseif str:byte(i) >= 224 and str:byte(i) <= 239 then
-            tbl[a] = string.sub(str, i, i + 2)
-            i = i+2
-            a = a+1
-
-        -- 4byte
-        elseif str:byte(i) >= 240 and str:byte(i) <= 244 then
-            tbl[a] = string.sub(str, i, i + 3)
-            i = i+3
-            a = a+1
-        end
-    end
-    
-    return tbl
 end
 
 -------------------------------------
@@ -384,3 +517,26 @@ function UIC_RichLabel:setDimension(width, height)
     self.m_root:setNormalSize(self.m_dimension)
     self:setDirty()
 end
+
+-------------------------------------
+-- function setAlignment
+-------------------------------------
+function UIC_RichLabel:setAlignment(h_alignment, v_alignment)
+    if (self.m_hAlignment ~= h_alignment) or (self.m_vAlignment ~= v_alignment) then
+        self.m_hAlignment = h_alignment
+        self.m_vAlignment = v_alignment
+        self.m_bDirtyAlignment = true
+    end
+end
+
+-------------------------------------
+-- function enableOutline
+-- @param color cc.c4b
+-- @param stroke_thickness number
+-------------------------------------
+function UIC_RichLabel:enableOutline(color, stroke_thickness)
+    self.m_outlineColor = color
+    self.m_outlineSize = stroke_thickness
+    self:setDirty()
+end
+

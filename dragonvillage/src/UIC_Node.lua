@@ -124,3 +124,11 @@ end
 function UIC_Node:setScale(scale)
     return self.m_node:setScale(scale)
 end
+
+function UIC_Node:setRotation(rotation)
+    return self.m_node:setRotation(rotation)
+end
+
+function UIC_Node:getRotation()
+    return self.m_node:getRotation()
+end

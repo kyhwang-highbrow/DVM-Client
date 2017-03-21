@@ -54,6 +54,7 @@ function UIC_RichLabel:makeContentData(key, text)
     end
 
     -- 버튼인지 체크
+    local is_button = false
     if (string.byte(key, 1) == 35) then -- '#' == 35
         key = string.gsub(key, '#', '', 1)
         is_button = true
@@ -188,4 +189,39 @@ function UIC_RichLabel:primitivesDraw(transform, transformUpdated)
     cc.DrawPrimitives.drawSolidRect(origin, destination, color)
 
     kmGLPopMatrix()
+end
+
+-------------------------------------
+-- function charList
+-------------------------------------
+function UIC_RichLabel:charList(str) -- UTF-8 을 유니코드 테이블로
+    local tbl = {}
+    local a = 1
+    for i=1, str:len() do
+        -- 1byte
+        if str:byte(i) >= 0 and str:byte(i) <= 127 then
+            tbl[a] = string.sub(str, i, i)
+            a = a+1
+
+        -- 2byte
+        elseif str:byte(i) >= 194 and str:byte(i) <= 223 then
+            tbl[a] = string.sub(str, i, i + 1)
+            i = i+1
+            a = a+1
+
+        -- 3byte
+        elseif str:byte(i) >= 224 and str:byte(i) <= 239 then
+            tbl[a] = string.sub(str, i, i + 2)
+            i = i+2
+            a = a+1
+
+        -- 4byte
+        elseif str:byte(i) >= 240 and str:byte(i) <= 244 then
+            tbl[a] = string.sub(str, i, i + 3)
+            i = i+3
+            a = a+1
+        end
+    end
+    
+    return tbl
 end
