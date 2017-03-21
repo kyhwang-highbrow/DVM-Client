@@ -68,8 +68,8 @@
 				relative_size_type = 0;
 				width = 100;
 				height = 100;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
+				scale_x = 0.600000;
+				scale_y = 0.600000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -458,8 +458,8 @@
 				relative_size_type = 0;
 				width = 100;
 				height = 100;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
+				scale_x = 0.600000;
+				scale_y = 0.600000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -848,8 +848,8 @@
 				relative_size_type = 0;
 				width = 100;
 				height = 100;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
+				scale_x = 0.600000;
+				scale_y = 0.600000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -1238,8 +1238,8 @@
 				relative_size_type = 0;
 				width = 100;
 				height = 100;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
+				scale_x = 0.600000;
+				scale_y = 0.600000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -1628,8 +1628,8 @@
 				relative_size_type = 0;
 				width = 100;
 				height = 100;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
+				scale_x = 0.600000;
+				scale_y = 0.600000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -2018,8 +2018,8 @@
 				relative_size_type = 0;
 				width = 100;
 				height = 100;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
+				scale_x = 0.600000;
+				scale_y = 0.600000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;

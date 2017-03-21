@@ -84,6 +84,10 @@ function UI_ExplorationIng:initUI()
             local ui = UI_DragonCard(t_dragon_data)
             ui:setReadySpriteVisible(false)
             self.vars['slotNode' .. i]:addChild(ui.root)
+
+            -- 드래곤 인게임 리소스 출력
+            local animator = g_dragonsData:getDragonAnimator(doid)
+            self.vars['dragonNode' .. i]:addChild(animator.m_node)
         end
     end
 

@@ -30,6 +30,8 @@ function UI_ExplorationLocationButton:init(owner, epr_id)
         table.insert(t_change_list, 'timeLabel')
         table.insert(t_change_list, 'timeNode')
         table.insert(t_change_list, 'clickBtn')
+        table.insert(t_change_list, 'dragonNode')
+        
 
         -- self의 vars에 지역 idx를 제거한 형태로 저장
         self.vars = {}
@@ -106,6 +108,15 @@ function UI_ExplorationLocationButton:refresh()
         vars['locationMenu']:scheduleUpdateWithPriorityLua(update, 0)
         self:update(0)
     end
+
+
+    -- 드래곤 실 리소스 생성
+    vars['dragonNode']:removeAllChildren()
+    if isExistValue(status, 'exploration_ing', 'exploration_complete') then
+        local doid = my_location_info['doid_list'][1]
+        local animator = g_dragonsData:getDragonAnimator(doid)
+        vars['dragonNode']:addChild(animator.m_node)
+    end
 end
 
 -------------------------------------
@@ -126,7 +137,11 @@ function UI_ExplorationLocationButton:update(dt)
         vars['timeLabel']:setString(time_str)
     else
         self.m_status = 'exploration_complete'
-        vars['completeNode']:setVisible(true)
+        --vars['completeSprite']:setVisible(true)
+        --vars['explorationLabel']:setString(Str('탐험 완료'))
+        --vars['explorationLabel']:setColor(cc.c3b(255, 216, 0))
+        --vars['timeNode']:setVisible(false)
+        self:refresh()
         vars['locationMenu']:unscheduleUpdate()
     end
 end
