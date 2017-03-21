@@ -397,6 +397,8 @@ local t_module = {
     'UIC_TableViewTD',
     'UIC_RadioButton',
     'UIC_LabelTTF',
+    'UIC_RichLabel',
+    'UIC_RichLabelCore',
     'UIC_TabManager',
     'UIC_Factory',
 

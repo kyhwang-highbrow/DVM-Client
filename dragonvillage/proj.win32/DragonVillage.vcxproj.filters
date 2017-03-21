@@ -1884,6 +1884,12 @@
     <None Include="..\src\ResHelper.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UIC_RichLabel.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
+    <None Include="..\src\UIC_RichLabelCore.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
