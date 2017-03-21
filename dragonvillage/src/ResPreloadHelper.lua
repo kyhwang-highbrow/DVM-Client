@@ -231,7 +231,7 @@ function getPreloadList_Dragon(did, evolution)
     local ret = {}
 
     -- 영웅
-    local t_dragon = TABLE:get('dragon')[did]
+    local t_dragon = TableDragon():get(did)
     if t_dragon then return ret end
 
     local evolution = evolution or 1
@@ -243,8 +243,10 @@ function getPreloadList_Dragon(did, evolution)
     -- 스킬
     local t_skillList = { 'skill_basic', 'skill_active', 'skill_1', 'skill_3' }
 
+	local table_skill = TableDragonSkill()
+
     for _, k in pairs(t_skillList) do
-        local t_skill = TABLE:get('dragon_skill')[t_dragon[k]]
+        local t_skill = table_skill:get(t_dragon[k])
         if t_skill then
             if t_skill['skill_form'] == 'script' then
                 countSkillResListFromScript(ret, t_skill['type'], attr)

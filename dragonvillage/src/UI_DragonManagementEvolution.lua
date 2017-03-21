@@ -167,8 +167,6 @@ end
 function UI_DragonManagementEvolution:refresh_nextSkillInfo(t_dragon_data, t_dragon, is_max_evolution)
     local vars = self.vars
 
-    local table_skill = TABLE:get('dragon_skill')
-            
     vars['skillNode']:removeAllChildren()
     vars['skillNameLabel']:setString('')
     vars['skillTypeLabel']:setString('')

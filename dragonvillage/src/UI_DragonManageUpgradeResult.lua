@@ -83,7 +83,7 @@ function UI_DragonManageUpgradeResult:refresh()
         local skill_id = t_dragon['skill_' .. evolution]
         local skill_type = t_dragon['skill_type_' .. evolution]
 
-        local table_skill = TABLE:get('dragon_skill')
+        local table_skill = TableDragonSkill()
 
         if (skill_id == 'x') then
             vars['skillInfoLabel']:setString('')

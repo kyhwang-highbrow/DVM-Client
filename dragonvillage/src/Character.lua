@@ -719,18 +719,14 @@ function Character:getSkillTable(skill_id)
         return nil
     end
 
-    local table_name = 'dragon_skill'
+	local t_skill = nil
 
-    -- 캐릭터 유형별 변수 정리(dragon or enemy)
+    -- 캐릭터 유형별(dragon or enemy)로 스킬 테이블 호출하고 가져온다.
     if (self.m_charType == 'dragon') then
-        table_name = 'dragon_skill'
+		t_skill = TableDragonSkill():get(skill_id)
     else
-        table_name = 'monster_skill'
+		t_skill = TABLE:get('monster_skill')[skill_id]
     end
-
-    -- 테이블 정보 가져옴
-    local table_skill = TABLE:get(table_name)
-    local t_skill = table_skill[skill_id]
 
     return t_skill
 end

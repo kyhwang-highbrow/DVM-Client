@@ -174,7 +174,7 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             self.m_selectHero:resetActiveSkillCool()
 
             local active_skill_id = self.m_selectHero:getSkillID('active')
-            local t_skill = TABLE:get('dragon_skill')[active_skill_id]
+            local t_skill = TableDragonSkill():get(active_skill_id)
 
             if t_skill['casting_time'] > 0 then
                 self.m_selectHero:changeState('casting')
