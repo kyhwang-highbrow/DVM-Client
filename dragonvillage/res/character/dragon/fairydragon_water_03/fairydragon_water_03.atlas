@@ -1,229 +1,166 @@
 
 fairydragon_water_03.png
-size: 2048,1024
+size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 fairydragon_water_03_arm_01
-  rotate: false
-  xy: 881, 508
+  rotate: true
+  xy: 975, 288
   size: 52, 41
   orig: 52, 41
   offset: 0, 0
   index: -1
 fairydragon_water_03_arm_02
   rotate: false
-  xy: 233, 75
+  xy: 775, 142
   size: 51, 29
   orig: 51, 29
   offset: 0, 0
   index: -1
 fairydragon_water_03_body_01
   rotate: true
-  xy: 938, 581
+  xy: 110, 31
   size: 135, 193
   orig: 135, 193
   offset: 0, 0
   index: -1
 fairydragon_water_03_butterfly_01
-  rotate: true
-  xy: 1963, 975
+  rotate: false
+  xy: 975, 427
   size: 46, 83
   orig: 46, 83
   offset: 0, 0
   index: -1
 fairydragon_water_03_butterfly_02
   rotate: true
-  xy: 938, 567
+  xy: 110, 17
   size: 12, 32
   orig: 12, 32
   offset: 0, 0
   index: -1
+fairydragon_water_03_butterfly_03
+  rotate: false
+  xy: 975, 342
+  size: 46, 83
+  orig: 46, 83
+  offset: 0, 0
+  index: -1
+fairydragon_water_03_effect_01_2
+  rotate: false
+  xy: 346, 244
+  size: 229, 266
+  orig: 229, 266
+  offset: 0, 0
+  index: -1
 fairydragon_water_03_effect_01_3
   rotate: false
-  xy: 233, 106
+  xy: 577, 244
   size: 229, 266
   orig: 229, 266
-  offset: 0, 0
-  index: -1
-fairydragon_water_03_effect_01_4
-  rotate: false
-  xy: 464, 450
-  size: 229, 266
-  orig: 229, 266
-  offset: 0, 0
-  index: -1
-fairydragon_water_03_effect_02
-  rotate: false
-  xy: 2, 374
-  size: 229, 303
-  orig: 229, 303
-  offset: 0, 0
-  index: -1
-fairydragon_water_03_effect_03
-  rotate: false
-  xy: 346, 718
-  size: 229, 303
-  orig: 229, 303
-  offset: 0, 0
-  index: -1
-fairydragon_water_03_effect_04
-  rotate: false
-  xy: 2, 69
-  size: 229, 303
-  orig: 229, 303
-  offset: 0, 0
-  index: -1
-fairydragon_water_03_effect_05
-  rotate: false
-  xy: 577, 718
-  size: 229, 303
-  orig: 229, 303
-  offset: 0, 0
-  index: -1
-fairydragon_water_03_effect_06
-  rotate: false
-  xy: 808, 718
-  size: 229, 303
-  orig: 229, 303
-  offset: 0, 0
-  index: -1
-fairydragon_water_03_effect_07
-  rotate: false
-  xy: 1039, 718
-  size: 229, 303
-  orig: 229, 303
-  offset: 0, 0
-  index: -1
-fairydragon_water_03_effect_08
-  rotate: false
-  xy: 1270, 718
-  size: 229, 303
-  orig: 229, 303
-  offset: 0, 0
-  index: -1
-fairydragon_water_03_effect_09
-  rotate: false
-  xy: 1501, 718
-  size: 229, 303
-  orig: 229, 303
-  offset: 0, 0
-  index: -1
-fairydragon_water_03_effect_10
-  rotate: false
-  xy: 1732, 718
-  size: 229, 303
-  orig: 229, 303
-  offset: 0, 0
-  index: -1
-fairydragon_water_03_effect_10_2
-  rotate: false
-  xy: 233, 374
-  size: 229, 303
-  orig: 229, 303
   offset: 0, 0
   index: -1
 fairydragon_water_03_effect_11
   rotate: false
-  xy: 2, 679
+  xy: 2, 168
   size: 342, 342
   orig: 342, 342
   offset: 0, 0
   index: -1
 fairydragon_water_03_effect_12
   rotate: false
-  xy: 543, 161
+  xy: 751, 96
   size: 43, 44
   orig: 43, 44
   offset: 0, 0
   index: -1
 fairydragon_water_03_eye_01
-  rotate: false
-  xy: 346, 679
+  rotate: true
+  xy: 305, 113
   size: 53, 37
   orig: 53, 37
   offset: 0, 0
   index: -1
 fairydragon_water_03_eye_02
   rotate: false
-  xy: 401, 679
+  xy: 901, 230
   size: 53, 37
   orig: 53, 37
   offset: 0, 0
   index: -1
 fairydragon_water_03_eye_03
-  rotate: false
-  xy: 1963, 936
+  rotate: true
+  xy: 305, 58
   size: 53, 37
   orig: 53, 37
   offset: 0, 0
   index: -1
 fairydragon_water_03_eye_04
   rotate: false
-  xy: 85, 30
+  xy: 901, 191
   size: 53, 37
   orig: 53, 37
   offset: 0, 0
   index: -1
 fairydragon_water_03_head_01
-  rotate: false
-  xy: 1133, 610
+  rotate: true
+  xy: 2, 2
   size: 164, 106
   orig: 164, 106
   offset: 0, 0
   index: -1
 fairydragon_water_03_head_02
-  rotate: false
-  xy: 1299, 653
+  rotate: true
+  xy: 775, 173
   size: 69, 63
   orig: 69, 63
   offset: 0, 0
   index: -1
 fairydragon_water_03_head_03
   rotate: true
-  xy: 2, 2
+  xy: 589, 78
   size: 65, 81
   orig: 65, 81
   offset: 0, 0
   index: -1
 fairydragon_water_03_leg_01
   rotate: false
-  xy: 464, 140
+  xy: 672, 78
   size: 77, 65
   orig: 77, 65
   offset: 0, 0
   index: -1
 fairydragon_water_03_leg_02
   rotate: false
-  xy: 631, 379
+  xy: 840, 198
   size: 59, 69
   orig: 59, 69
   offset: 0, 0
   index: -1
 fairydragon_water_03_mouth_01
   rotate: false
-  xy: 464, 107
+  xy: 840, 165
   size: 48, 31
   orig: 48, 31
   offset: 0, 0
   index: -1
 fairydragon_water_03_wing_01
   rotate: true
-  xy: 464, 207
+  xy: 808, 269
   size: 241, 165
   orig: 241, 165
   offset: 0, 0
   index: -1
 fairydragon_water_03_wing_02
   rotate: true
-  xy: 695, 452
+  xy: 589, 145
   size: 97, 184
   orig: 97, 184
   offset: 0, 0
   index: -1
 fairydragon_water_03_wing_03
   rotate: false
-  xy: 695, 551
+  xy: 346, 77
   size: 241, 165
   orig: 241, 165
   offset: 0, 0

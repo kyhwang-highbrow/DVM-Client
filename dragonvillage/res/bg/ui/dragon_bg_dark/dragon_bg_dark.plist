@@ -179,13 +179,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>dragon_bg_earth_1.png</string>
+            <string>dragon_bg_dark.png</string>
             <key>size</key>
             <string>{1600,964}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f1a431a9319e8adeb349a7300928daf9:5107dcd099d9c893c541eae9b94710a4:ca1f438e7793aa4f1c7c75ebdb59943c$</string>
+            <string>$TexturePacker:SmartUpdate:bc41b3caae3e0fde12ed4c79ce57c645:5107dcd099d9c893c541eae9b94710a4:566a745fe6c0576f468fa05ee5da4216$</string>
             <key>textureFileName</key>
-            <string>dragon_bg_earth_1.png</string>
+            <string>dragon_bg_dark.png</string>
         </dict>
     </dict>
 </plist>

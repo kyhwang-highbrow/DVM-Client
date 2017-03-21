@@ -1,0 +1,569 @@
+{
+	"AzraelVisual":"4.8",
+	"azBitmap":
+	[
+		{
+			"name":"(PROJECT_PATH)dragon_bg_fire.plist",
+			"expand":false,
+			"apply":true,
+			"sprite_list":
+			[
+
+			]
+		}
+	],
+	"azEventBox":
+	[
+
+	],
+	"azTag":
+	[
+
+	],
+	"azParticle":
+	[
+
+	],
+	"azVisualGroup":
+	[
+		{
+			"name":"group",
+			"expand":true,
+			"apply":true,
+			"visual_list":
+			[
+				{
+					"name":"idle",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_volcano.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":90
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_fire_magma_01_ani'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":11, "sX":0.600000, "sY":0.600000, "pX":-295.000000, "pY":-10.000000, "alpha":179
+									},
+									{
+										"frame":39, "sX":0.600000, "sY":0.600000, "pX":-295.000000, "pY":-10.000000, "alpha":179
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_fire_magma_01_ani'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":57, "sX":0.400000, "sY":0.400000, "pX":-204.000000, "pY":23.000000, "alpha":179
+									},
+									{
+										"frame":85, "sX":0.400000, "sY":0.400000, "pX":-204.000000, "pY":23.000000, "alpha":179
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_light_yellow.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":9.382999, "sY":3.315200, "pX":-288.000000, "pY":12.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":42, "sX":6.380440, "sY":2.088576, "pX":-282.000000, "pY":40.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":90, "sX":9.382999, "sY":3.315200, "pX":-288.000000, "pY":12.000000, "alpha":128, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_light_yellow.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":4.972990, "sY":4.011392, "pX":-341.000000, "pY":87.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":37, "sX":3.381633, "sY":2.527177, "pX":-292.000000, "pY":80.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":90, "sX":4.972990, "sY":4.011392, "pX":-341.000000, "pY":87.000000, "alpha":128, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_light_yellow.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":4.972990, "sY":4.011392, "pX":88.000000, "pY":2.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":44, "sX":3.381633, "sY":2.527177, "pX":87.000000, "pY":17.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":90, "sX":4.972990, "sY":4.011392, "pX":88.000000, "pY":2.000000, "alpha":128, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_light_yellow.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":3.000000, "sY":3.000000, "pX":336.000000, "pY":-51.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":41, "sX":3.000000, "sY":3.000000, "pX":323.000000, "pY":-51.000000, "alpha":179, "mode":"Add"
+									},
+									{
+										"frame":90, "sX":3.000000, "sY":3.000000, "pX":336.000000, "pY":-51.000000, "alpha":179, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_light_yellow.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":4.972990, "sY":4.011392, "pX":-296.000000, "pY":-40.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":41, "sX":3.077286, "sY":2.375546, "pX":-296.000000, "pY":-27.000000, "alpha":128, "mode":"Add"
+									},
+									{
+										"frame":90, "sX":4.972990, "sY":4.011392, "pX":-296.000000, "pY":-40.000000, "alpha":128, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_light_yellow.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":4.000000, "sY":4.000000, "pX":-154.000000, "pY":-93.000000, "alpha":102, "colorRGB":[255,0,0]
+, "mode":"Add", "hflip":"H"
+									},
+									{
+										"frame":41, "sX":4.000000, "sY":4.000000, "pX":-129.000000, "pY":-67.000000, "alpha":128, "colorRGB":[255,0,0]
+, "mode":"Add", "hflip":"H"
+									},
+									{
+										"frame":90, "sX":4.000000, "sY":4.000000, "pX":-154.000000, "pY":-93.000000, "alpha":102, "colorRGB":[255,0,0]
+, "mode":"Add", "hflip":"H"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_light_yellow.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":4.000000, "sY":4.000000, "pX":-435.000000, "pY":-110.000000, "alpha":102, "colorRGB":[255,0,0]
+, "mode":"Add"
+									},
+									{
+										"frame":41, "sX":4.000000, "sY":4.000000, "pX":-415.000000, "pY":-112.000000, "alpha":128, "colorRGB":[255,0,0]
+, "mode":"Add"
+									},
+									{
+										"frame":90, "sX":4.000000, "sY":4.000000, "pX":-435.000000, "pY":-110.000000, "alpha":102, "colorRGB":[255,0,0]
+, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_fire_light_02_02_ani'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "pX":-456.000000, "pY":-137.000000
+									},
+									{
+										"frame":56, "pX":-456.000000, "pY":-137.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_fire_light_02_01_ani'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "pX":-303.000000, "pY":-190.000000
+									},
+									{
+										"frame":66, "pX":-248.000000, "pY":-140.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_fire_light_02_04_ani'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":24, "pX":-377.000000, "pY":-116.000000
+									},
+									{
+										"frame":77, "pX":-377.000000, "pY":-116.000000
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_fire_light_02_03_ani'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":41, "pX":-332.000000, "pY":-181.000000
+									},
+									{
+										"frame":90, "pX":-332.000000, "pY":-181.000000
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name":"res",
+			"expand":true,
+			"apply":false,
+			"visual_list":
+			[
+				{
+					"name":"dragon_bg_fire_light_02_01_ani",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_light_02_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "rotate":-32.000000, "alpha":0
+									},
+									{
+										"frame":9, "sX":0.833369, "sY":0.792939, "rotate":-7.250001, "pX":107.000000, "pY":37.000000
+									},
+									{
+										"frame":20, "sX":0.858600, "sY":0.875500, "rotate":23.000000, "pX":200.000000, "pY":115.000000
+									},
+									{
+										"frame":37, "sX":-0.378252, "sY":0.904400, "rotate":7.360000, "pX":248.279999, "pY":219.720001
+									},
+									{
+										"frame":45, "sX":-0.960300, "sY":0.918000, "pX":271.000000, "pY":269.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dragon_bg_fire_light_02_02_ani",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_light_02_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "rotate":-32.000000, "alpha":0
+									},
+									{
+										"frame":9, "sX":0.833369, "sY":0.792939, "rotate":-7.250001, "pX":107.000000, "pY":37.000000
+									},
+									{
+										"frame":20, "sX":0.858600, "sY":0.875500, "rotate":23.000000, "pX":200.000000, "pY":115.000000
+									},
+									{
+										"frame":37, "sX":1.022077, "sY":1.137450, "rotate":6.000000, "pX":291.799988, "pY":187.080002
+									},
+									{
+										"frame":45, "sX":1.099008, "sY":1.260720, "rotate":-2.000000, "pX":335.000000, "pY":221.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dragon_bg_fire_light_02_03_ani",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_light_02_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "rotate":-32.000000, "alpha":0
+									},
+									{
+										"frame":9, "sX":0.833369, "sY":0.792939, "rotate":-7.250001, "pX":107.000000, "pY":37.000000
+									},
+									{
+										"frame":20, "sX":0.858600, "sY":0.875500, "rotate":-59.000000, "pX":200.000000, "pY":115.000000
+									},
+									{
+										"frame":37, "sX":1.022077, "sY":1.137450, "rotate":-139.000000, "pX":291.799988, "pY":187.080002
+									},
+									{
+										"frame":45, "sX":1.099008, "sY":1.260720, "rotate":-160.000000, "pX":335.000000, "pY":221.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dragon_bg_fire_light_02_04_ani",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_light_02_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "rotate":-32.000000, "alpha":0
+									},
+									{
+										"frame":9, "sX":0.833369, "sY":0.792939, "rotate":-7.250001, "pX":107.000000, "pY":37.000000
+									},
+									{
+										"frame":20, "sX":0.858600, "sY":0.875500, "rotate":-59.000000, "pX":200.000000, "pY":115.000000
+									},
+									{
+										"frame":37, "sX":1.022077, "sY":1.137450, "rotate":-139.000000, "pX":291.799988, "pY":187.080002
+									},
+									{
+										"frame":45, "sX":1.099008, "sY":1.260720, "rotate":-160.000000, "pX":335.000000, "pY":221.000000, "alpha":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"dragon_bg_fire_magma_01_ani",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									},
+									{
+										"frame":2
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_01.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":3
+									},
+									{
+										"frame":5
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_02.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":6
+									},
+									{
+										"frame":8
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_03.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":9
+									},
+									{
+										"frame":11
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_04.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":12
+									},
+									{
+										"frame":14
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_05.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":15
+									},
+									{
+										"frame":17
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_06.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":18
+									},
+									{
+										"frame":20
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_07.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":21
+									},
+									{
+										"frame":23
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_08.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":24
+									},
+									{
+										"frame":26
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"azProject":
+	[
+
+	]
+}

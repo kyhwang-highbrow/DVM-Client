@@ -3,7 +3,7 @@
 	"azBitmap":
 	[
 		{
-			"name":"(PROJECT_PATH)dragon_bg_earth.plist",
+			"name":"(PROJECT_PATH)dragon_bg_dark.plist",
 			"expand":false,
 			"apply":true,
 			"sprite_list":
@@ -43,7 +43,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_forest.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_forest.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -334,7 +334,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_stone_01.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_stone_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -369,7 +369,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_grass_01.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_grass_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -396,7 +396,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_grass_02_01.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_grass_02_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -423,7 +423,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_grass_02_02.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_grass_02_02.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -450,7 +450,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_grass_02_03.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_grass_02_03.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -477,7 +477,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_grass_03.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_grass_03.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -504,7 +504,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_grass_04_01.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_grass_04_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -531,7 +531,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_grass_04_02.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_grass_04_02.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -558,7 +558,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_grass_05_01.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_grass_05_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -585,7 +585,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_grass_05_02.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_grass_05_02.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -612,7 +612,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_light_01.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_light_01.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -639,7 +639,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_light_02.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_light_02.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -659,7 +659,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_light_02.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_light_02.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -683,7 +683,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_light_02.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_light_02.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -716,7 +716,7 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_light_02.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_light_02.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -736,7 +736,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_light_02.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_light_02.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -760,7 +760,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_light_02.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_light_02.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -784,7 +784,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_earth.plist'<azSprite>'dragon_bg_earth_light_02.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_dark.plist'<azSprite>'dragon_bg_earth_light_02.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
