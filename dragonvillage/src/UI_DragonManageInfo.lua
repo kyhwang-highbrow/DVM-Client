@@ -125,6 +125,9 @@ function UI_DragonManageInfo:initButton()
         vars['equipSlotBtn1']:registerScriptTapHandler(function() self:click_runeBtn(1) end)
         vars['equipSlotBtn2']:registerScriptTapHandler(function() self:click_runeBtn(2) end)
         vars['equipSlotBtn3']:registerScriptTapHandler(function() self:click_runeBtn(3) end)
+        vars['equipSlotBtn4']:registerScriptTapHandler(function() self:click_runeBtn(3) end)
+        vars['equipSlotBtn5']:registerScriptTapHandler(function() self:click_runeBtn(3) end)
+        vars['equipSlotBtn6']:registerScriptTapHandler(function() self:click_runeBtn(3) end)
 
         -- 장비
         vars['equipmentBtn']:registerScriptTapHandler(function() self:click_equipmentBtn() end)
@@ -197,6 +200,16 @@ end
 -------------------------------------
 function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
     local vars = self.vars
+    local vars_key = self.vars_key
+
+    local attr = t_dragon['attr']
+
+    -- 배경
+    if self:checkVarsKey('attrBgNode', attr) then
+        vars['attrBgNode']:removeAllChildren()
+        local animator = ResHelper:getUIDragonBG(attr)
+        vars['attrBgNode']:addChild(animator.m_node)
+    end
 
     -- 드래곤 이름
     if vars['nameLabel'] then

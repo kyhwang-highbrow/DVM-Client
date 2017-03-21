@@ -4,6 +4,7 @@
 UI = class({
     root = 'cc.Menu'
     , vars = 'table'
+    , vars_key = 'table'
     , closed = 'boolean'
     , actions = 'table'           -- 각 노드별 액션 정보를 가짐(type, delay, duration ...)
     , action_duration = 'number'  -- 모든 노드들의 액션 수행 시간(delay + duration)
@@ -29,6 +30,7 @@ function UI:init()
 	self.m_resName = 'not loaded ui'
 	self.m_uiName = '없음'
     self.m_lHideUIList = {}
+    self.vars_key = {}
 end
 
 -------------------------------------
@@ -447,3 +449,23 @@ function UI:checkCompileError(classDef)
 	end
  end
 
+ -------------------------------------
+-- function checkVarsKey
+-- @breif UI를 갱신해야할 때 값이 변했는지 체크하기 위한 함수
+-------------------------------------
+function UI:checkVarsKey(name, key)
+
+    -- vars에 존재하지 않으면 false
+    if (not self.vars[name]) then
+        return false
+    end
+
+    -- key값이 다를 경우에만 return true
+    if (self.vars_key[name] ~= key) then
+        self.vars_key[name] = key
+        return true
+    end
+
+    return false
+    
+end

@@ -598,6 +598,7 @@ local t_module = {
 
     'DamageCalc',
     'IconHelper',
+    'ResHelper',
     'AnimatorHelper',
     'FormationMgr',
     'FormationMgr_TargetRule',
