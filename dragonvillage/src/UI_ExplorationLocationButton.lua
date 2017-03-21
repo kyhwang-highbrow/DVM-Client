@@ -137,10 +137,6 @@ function UI_ExplorationLocationButton:update(dt)
         vars['timeLabel']:setString(time_str)
     else
         self.m_status = 'exploration_complete'
-        --vars['completeSprite']:setVisible(true)
-        --vars['explorationLabel']:setString(Str('탐험 완료'))
-        --vars['explorationLabel']:setColor(cc.c3b(255, 216, 0))
-        --vars['timeNode']:setVisible(false)
         self:refresh()
         vars['locationMenu']:unscheduleUpdate()
     end
