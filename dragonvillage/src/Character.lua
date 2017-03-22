@@ -641,11 +641,13 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
             local role_type = attacker_char.m_charTable['role']
 
             if (role_type == 'dealer') then
-                local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
-                if critical then
-                    attacker_char:increaseActiveSkillCool(t_temp['hit_basic_cri'])
-                else
-                    attacker_char:increaseActiveSkillCool(t_temp['hit_basic'])
+                if (real_attack_type == 'basic') then 
+                    local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
+                    if critical then
+                        attacker_char:increaseActiveSkillCool(t_temp['hit_basic_cri'])
+                    else
+                        attacker_char:increaseActiveSkillCool(t_temp['hit_basic'])
+                    end
                 end
             end
         end
