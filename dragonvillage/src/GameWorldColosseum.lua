@@ -56,7 +56,7 @@ function GameWorldColosseum:initGame(stage_name)
     self:makeEnemyDeck()
 
 	-- Game Log Recorder 생성
-	self.m_logRecorder = GameLogRecorder(self)
+	self.m_logRecorder = LogRecorderWorld(self)
 
     -- 진형 시스템 초기화
     self:setBattleZone(self.m_deckFormation, true)

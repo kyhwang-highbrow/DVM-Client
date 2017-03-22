@@ -43,12 +43,7 @@ function UI_IngameDragonInfo:initUI()
     vars['dragSkllFullVisual']:setVisible(false)
     
 
-	-- 디버깅 체력표시용 label
-    local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 18, 2, cc.size(250, 100), 1, 1)
-    label:setPosition(70, 0)
-    label:setDockPoint(cc.p(0.5, 0.5))
-    label:setAnchorPoint(cc.p(0.5, 0.5))
-    self.root:addChild(label)
-    self.m_label = label
-
+	-- 디버깅용 label
+	self:makeDebugingLabel()
+    self.m_label:setPosition(70, 0)
 end

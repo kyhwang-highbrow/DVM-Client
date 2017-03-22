@@ -1743,9 +1743,6 @@
     <None Include="..\src\UI_AdventureStageMissionInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\GameLogRecorder.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\UI_ChapterAchieveRewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1891,6 +1888,15 @@
       <Filter>lua\UIC</Filter>
     </None>
     <None Include="..\src\ChatClient.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\LogRecorder.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\LogRecorderChar.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\LogRecorderWorld.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>

@@ -48,15 +48,20 @@ function UI_IngameUnitInfo:initUI()
         vars['levelLabel']:setString(lv)
     end
 
-	-- 디버깅 체력표시용 label
-    do
-        local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 17, 2, cc.size(250, 100), 1, 1)
-        label:setPosition(0, 0)
-        label:setDockPoint(cc.p(0.5, 0.5))
-        label:setAnchorPoint(cc.p(0.5, 0.5))
-        self.root:addChild(label)
-        self.m_label = label
-    end
+	-- 디버깅용 label
+	self:makeDebugingLabel()
+end
+
+-------------------------------------
+-- function makeDebugingLabel
+-------------------------------------
+function UI_IngameUnitInfo:makeDebugingLabel()
+    local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 17, 2, cc.size(250, 100), 1, 1)
+    label:setPosition(0, -30)
+    label:setDockPoint(cc.p(0.5, 0.5))
+    label:setAnchorPoint(cc.p(0.5, 0.5))
+    self.root:addChild(label)
+    self.m_label = label
 end
 
 -------------------------------------

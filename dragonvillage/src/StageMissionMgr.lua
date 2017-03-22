@@ -2,7 +2,7 @@
 -- class StageMissionMgr
 -------------------------------------
 StageMissionMgr = class({	
-		m_logRecorder = 'GameLogRecorder',
+		m_logRecorder = 'LogRecorderWorld',
 		m_lMissionList = 'list',
      })
 

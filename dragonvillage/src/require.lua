@@ -114,7 +114,9 @@ local t_module = {
     'SimplePrimitivesDraw',
     'Util_BuffStringParser',
 	'StageMissionMgr',
-	'GameLogRecorder',
+	'LogRecorder',
+	'LogRecorderWorld',
+	'LogRecorderChar',
 
     'ChatClient',
 

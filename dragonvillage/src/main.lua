@@ -91,7 +91,7 @@ local function main()
 
     local seed = os.time()
     math.randomseed(seed)
-
+	
     TABLE:init()
 	ConstantData:getInstance()
     SoundMgr:entry()

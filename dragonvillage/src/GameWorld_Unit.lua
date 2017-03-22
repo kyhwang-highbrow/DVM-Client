@@ -4,8 +4,7 @@
 function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
     -- 유저가 보유하고있는 드래곤의 정보
     local t_dragon_data = t_dragon_data
-    local bLeftFormation = true
-    if bRightFormation then bLeftFormation = false end
+    local bLeftFormation = not bRightFormation
 
     local dragon_id = t_dragon_data['did']
 
@@ -13,48 +12,15 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[dragon_id]
 
-    local doid = t_dragon_data['id']
-    local lv = t_dragon_data['lv'] or 1
-    local grade = t_dragon_data['grade'] or 1
-    local evolution = t_dragon_data['evolution'] or 1
-    local eclv = t_dragon_data['eclv'] or 0
-	local attr = t_dragon['attr']
-
     local dragon = Dragon(nil, {0, 0, 20})
-    dragon.m_bLeftFormation = bLeftFormation
 
     dragon:initWorld(self)
-    dragon:setDragonSkillLevelList(t_dragon_data['skill_0'], t_dragon_data['skill_1'], t_dragon_data['skill_2'], t_dragon_data['skill_3'])
-    dragon:initDragonSkillManager('dragon', dragon_id, evolution)
-    dragon:initActiveSkillCool() -- 스킬 쿨타임 지정
-    dragon.m_tDragonInfo = t_dragon_data
-    dragon:initAnimatorDragon(t_dragon['res'], evolution, attr)
-    dragon.m_animator:setScale(0.5 * t_dragon['scale'])
-    dragon:initState()
-    dragon:setStatusCalc(status_calc)
-    dragon:initStatus(t_dragon, lv, grade, evolution, doid, eclv)
-
-    -- 기본 정보 저장
-    dragon.m_dragonID = dragon_id
-    dragon.m_charTable = t_dragon
-
-    -- 피격 처리
-    dragon:addDefCallback(function(attacker, defender, i_x, i_y)
-        dragon:undergoAttack(attacker, defender, i_x, i_y)
-    end)
+    dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation)
+	dragon:initState()
 
     self:addToUnitList(dragon)
-
-    if bLeftFormation then
-        dragon:changeState('idle')
-        dragon:makeHPGauge({0, -80})
-    else
-        dragon:changeState('move')
-        Character.makeHPGauge(dragon, {0, -80})
-        dragon.m_animator:setFlip(true)
-    end
-    dragon:makeCastingNode()
-
+	dragon:initFormation()
+	
     return dragon
 end
 
@@ -117,7 +83,10 @@ function GameWorld:makeMonsterNew(monster_id, level)
     self:addToUnitList(monster)
     monster:makeHPGauge(hp_ui_offset)
     monster:makeCastingNode()
-    
+		
+	-- @TODO character 수준으로 들어가야한다. + monster_id 는 고유하지 않다 
+    monster.m_charLogRecorder = self.m_logRecorder:getLogRecorderChar(monster_id)
+
 	return monster
 end
 

@@ -94,7 +94,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_mapManager = 'MapManager',
 		m_shakeMgr = 'ShakeManager',
 		m_missionMgr = 'StageMissionMgr',
-		m_logRecorder = 'GameLogRecorder',
+		m_logRecorder = 'LogRecorderWorld',
 
         m_mPassiveEffect = 'list',  -- 게임시작시 발동하는 패시브들의 연출을 위한 테이블
 
@@ -279,6 +279,16 @@ function GameWorld:initGame(stage_name)
     -- 위치 표시 이펙트 생성
     self:init_formation()
 
+	-- Game Log Recorder 생성
+	self.m_logRecorder = LogRecorderWorld(self)
+		
+	-- mission manager 생성
+	if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+		if (not self.m_bDevelopMode) then
+			self.m_missionMgr = StageMissionMgr(self.m_logRecorder, self.m_stageID)
+		end
+	end
+
     -- 테이머 생성
     self:initTamer()
 
@@ -287,16 +297,6 @@ function GameWorld:initGame(stage_name)
 
     -- 친구 드래곤 생성
     self:makeFriendHero()
-
-	-- Game Log Recorder 생성
-	self.m_logRecorder = GameLogRecorder(self)
-		
-	-- mission manager 생성
-	if (self.m_gameMode == GAME_MODE_ADVENTURE) then
-		if (not self.m_bDevelopMode) then
-			self.m_missionMgr = StageMissionMgr(self.m_logRecorder, self.m_stageID)
-		end
-	end
 
     do -- 진형 시스템 초기화
         self:setBattleZone(self.m_deckFormation, true)

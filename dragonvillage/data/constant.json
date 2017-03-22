@@ -214,9 +214,12 @@
         
         // # 유닛의 x좌표, y좌표, x home 좌표, y home 좌표를 표시한다.
         "DISPLAY_UNIT_POS" : false,
-        
+
         // # 메모리 사용량 등 각종 디버깅 정보를 인게임에 출력한다
         "DISPLAY_DEBUG_INFO" : false,
+                
+        // # 유닛별 특정 log를 출력한다. true 가 아닌 실제 키를 넣어야한다.
+        "DISPLAY_UNIT_LOG" : false,
 
         // # 캐릭터 무적
         "PLAYER_INVINCIBLE" : false,

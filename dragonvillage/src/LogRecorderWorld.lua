@@ -1,7 +1,9 @@
+local PARENT = LogRecorder
+
 -------------------------------------
--- class GameLogRecorder
+-- class LogRecorderWorld
 -------------------------------------
-GameLogRecorder = class({
+LogRecorderWorld = class(PARENT, {
 		m_world = 'GameWorld',
 
 		m_attrCnt = 'table<attr>',		-- {1} 속성 드래곤을 {2}기 이상 사용하여 클리어
@@ -19,12 +21,14 @@ GameLogRecorder = class({
 		m_lapTime = 'num',			-- {1} 초 내에 스테이지 클리어
 		m_feverCnt = 'num',			-- 피버를 {1}번 이상 사용
 		m_bossFinishAtk = 'str',	-- 보스를 {1} 공격으로 처치 -> ('finish_basic', 'finish_active', 'finish_fever')
+
+		m_tCharLogTable = 'table',	-- ingame 캐릭터들 개별 기록 저장
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function GameLogRecorder:init(world)
+function LogRecorderWorld:init(world)
 	self.m_world = world
 
 	self.m_deathCnt = 0
@@ -33,13 +37,15 @@ function GameLogRecorder:init(world)
 	self.m_feverCnt = 0
 	self.m_bossFinishAtk = nil
 
+	self.m_tCharLogTable = {}
+
 	self:recordStaticAllLog()
 end
 
 -------------------------------------
 -- function recordStaticAllLog
 -------------------------------------
-function GameLogRecorder:recordStaticAllLog()
+function LogRecorderWorld:recordStaticAllLog()
 	local world = self.m_world
 	local l_dragon = world:getDragonList()
 
@@ -82,22 +88,9 @@ function GameLogRecorder:recordStaticAllLog()
 end
 
 -------------------------------------
--- function getLog
--------------------------------------
-function GameLogRecorder:applyDataInTable(table, key)
-	if (not key) then return end
-
-	if (table[key]) then
-		table[key] = table[key] + 1
-	else
-		table[key] = 1
-	end
-end
-
--------------------------------------
 -- function recordLog
 -------------------------------------
-function GameLogRecorder:recordLog(key, value)
+function LogRecorderWorld:recordLog(key, value)
 	if (key == 'death_cnt') then
 		self.m_deathCnt = self.m_deathCnt + value
 
@@ -146,7 +139,7 @@ end
 -------------------------------------
 -- function getLog
 -------------------------------------
-function GameLogRecorder:getLog(key)
+function LogRecorderWorld:getLog(key)
 	if (key == 'death_cnt') then
 		return self.m_deathCnt
 
@@ -192,10 +185,22 @@ function GameLogRecorder:getLog(key)
 end
 
 -------------------------------------
+-- function getLogRecorderChar
+-------------------------------------
+function LogRecorderWorld:getLogRecorderChar(dragon_id)
+	if not (self.m_tCharLogTable[dragon_id]) then
+		self.m_tCharLogTable[dragon_id] = LogRecorderChar(dragon_id)
+	end
+
+	return self.m_tCharLogTable[dragon_id]
+end
+
+
+-------------------------------------
 -- function printRecord
 -- @brief 전체 로그를 출력
 -------------------------------------
-function GameLogRecorder:printRecord()
+function LogRecorderWorld:printRecord()
 	local t_print = 
 	{
 		attribute_count = self.m_attrCnt,
@@ -211,6 +216,7 @@ function GameLogRecorder:printRecord()
 		fever_count = self.m_feverCnt,
 		lap_time = self.m_lapTime,
 		boss_finish_attack = self.m_bossFinishAtk,
+		char_log = m_tCharLogTable,
 	}
 
 	ccdump(t_print)

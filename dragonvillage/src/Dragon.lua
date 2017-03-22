@@ -7,12 +7,8 @@ Dragon = class(PARENT, {
         -- 기본 정보
         m_dragonID = '',    -- 드래곤의 고유 ID
         m_tDragonInfo = 'table', -- 유저가 보유한 드래곤 정보
-
-        m_bActive = '',
-
-        m_skillIndicator = '',
-
-        m_bWaitState = 'boolean',
+		
+		m_skillIndicator = '',
 
         -- 스킬 게이지 관련
         m_activeSkillValue = 'number',
@@ -22,12 +18,13 @@ Dragon = class(PARENT, {
 
         m_dragSkillNode = '',
         m_dragSkillNodeOffset = 'cc.p',
-        
+        m_skillPrepareEffect = '',
+
         m_afterimageMove = 'number',
 
         m_bUseSelfAfterImage = 'boolean',
-
-        m_skillPrepareEffect = '',
+		m_bWaitState = 'boolean',
+		m_bActive = 'boolean',
      })
 
 -------------------------------------
@@ -54,6 +51,56 @@ function Dragon:init(file_name, body, ...)
 end
 
 -------------------------------------
+-- function init_dragon
+-------------------------------------
+function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation)
+	local doid = t_dragon_data['id']
+    local lv = t_dragon_data['lv'] or 1
+    local grade = t_dragon_data['grade'] or 1
+    local evolution = t_dragon_data['evolution'] or 1
+    local eclv = t_dragon_data['eclv'] or 0
+	local attr = t_dragon['attr']
+
+	-- 기본 정보 저장
+    self.m_dragonID = dragon_id
+    self.m_charTable = t_dragon
+    self.m_tDragonInfo = t_dragon_data
+    self.m_bLeftFormation = bLeftFormation
+
+	-- 각종 init 함수 실행
+	self:setDragonSkillLevelList(t_dragon_data['skill_0'], t_dragon_data['skill_1'], t_dragon_data['skill_2'], t_dragon_data['skill_3'])
+	self:initDragonSkillManager('dragon', dragon_id, evolution)
+    self:initActiveSkillCool() -- 스킬 쿨타임 지정
+	self:initAnimatorDragon(t_dragon['res'], evolution, attr, t_dragon['scale'])
+    self:makeCastingNode()
+    self:setStatusCalc(status_calc)
+    self:initStatus(t_dragon, lv, grade, evolution, doid, eclv)
+
+	-- 피격 처리
+    self:addDefCallback(function(attacker, defender, i_x, i_y)
+        self:undergoAttack(attacker, defender, i_x, i_y)
+    end)
+
+	-- @TODO character 수준으로 들어가야한다.
+    self.m_charLogRecorder = self.m_world.m_logRecorder:getLogRecorderChar(dragon_id)
+end
+
+-------------------------------------
+-- function initFormation
+-------------------------------------
+function Dragon:initFormation()
+	-- 진영에 따른 처리
+	if (self.m_bLeftFormation) then
+        self:changeState('idle')
+        self:makeHPGauge({0, -80})
+    else
+        self:changeState('move')
+        PARENT.makeHPGauge(self, {0, -80})
+        self.m_animator:setFlip(true)
+    end
+end
+
+-------------------------------------
 -- function initAnimator
 -------------------------------------
 function Dragon:initAnimator(file_name)
@@ -63,7 +110,7 @@ end
 -------------------------------------
 -- function initAnimatorDragon
 -------------------------------------
-function Dragon:initAnimatorDragon(file_name, evolution, attr)
+function Dragon:initAnimatorDragon(file_name, evolution, attr, scale)
     -- Animator 삭제
     if self.m_animator then
         if self.m_animator.m_node then
@@ -77,6 +124,9 @@ function Dragon:initAnimatorDragon(file_name, evolution, attr)
     self.m_animator = AnimatorHelper:makeDragonAnimator(file_name, evolution, attr)
     if self.m_animator.m_node then
         self.m_rootNode:addChild(self.m_animator.m_node)
+		if (scale) then
+			self.m_animator:setScale(scale/2)
+		end
     end
 
     -- 각종 쉐이더 효과 시 예외 처리할 슬롯 설정(Spine)

@@ -11,7 +11,6 @@ local SPEED_COMEBACK = 1500
 -- class Character
 -------------------------------------
 Character = class(PARENT, {
-        m_bDead = '',
         m_lv = '',
         m_maxHp = '',
         m_hp = '',
@@ -21,6 +20,15 @@ Character = class(PARENT, {
 
         m_statusCalc = '',
         m_stateDelegate = 'CharacterStateDelegate',
+
+        m_activityCarrier = 'ActivityCarrier',
+        m_charLogRecorder = 'LogRecorderChar',
+
+		-- 캐릭터의 특정 상태
+        m_bDead = 'boolean',
+        m_bInvincibility = 'boolean',   -- 무적 상태 여부
+		m_isSilence = 'boolean',		-- 침묵 (스킬 사용 불가 상태)
+		m_isImmuneSE = 'boolean',			-- 면역 (해로운 상태 효과 면역)
 
         -- @ for FormationMgr
         m_bLeftFormation = 'boolean',   -- 왼쪽 진형일 경우 true, 오른쪽 진형일 경우 false
@@ -49,22 +57,26 @@ Character = class(PARENT, {
         m_prevReservedSkillId = 'number',
         m_prevIsAddSkill = 'bool',
         m_prevAttackDelayTimer = 'number',
-                        
+
+        m_chargeSkill = '',
+        m_lActivedSkill = '',
+		
+        m_comebackNextState = 'state',
+
         -- @ target
         m_targetChar = 'Character',
+        m_targetEffect = '',
 
         -- @node UI
         m_unitInfoNode = 'cc.Node',
 
         -- @hp UI
+		m_infoUI = '',
+        m_actionGauge = '',
         m_hpNode = '',
         m_hpGauge = '',
         m_hpGauge2 = '',
         m_unitInfoOffset = 'UI_IngameDragonInfo/UI_IngameUnitInfo',
-
-        m_actionGauge = '',
-		
-		m_infoUI = '',
 
         -- @status UI
         m_statusNode = '',
@@ -73,7 +85,6 @@ Character = class(PARENT, {
         m_castingNode = '',
         m_castingGauge = '',
         m_castingEffect = '',
-
         m_castingUI = '',
         m_castingMarkGauge = '',
         m_castingSpeechVisual = '',
@@ -81,64 +92,52 @@ Character = class(PARENT, {
         -- @이동 관련
         m_isOnTheMove = 'boolean',
         m_bFixedPosHpNode = 'boolean',
+        m_movement = 'EnemyMovement',
 
         -- @하이라이트 관련
         m_bHighlight = 'boolean',
         m_prevParentInfo = 'table',
 
-		-- @TODO - 향후에 삭제 해야 함. 인터페이스로 대체 
-        m_hpEventListener = 'list',
-        m_undergoAttackEventListener = 'list',
-        m_damagedEventListener = 'list',   -- 데미지를 입었을 때 이벤트
-
-        -- @ 위치 관련(전투 중 기본 위치)
+        -- @ 위치 관련
         m_posIdx = 'number',  -- 덱진형에서의 위치 인덱스
         m_orgHomePosX = 'number',
         m_orgHomePosY = 'number',
         m_homePosX = 'number',
         m_homePosY = 'number',
-
-        m_movement = 'EnemyMovement',
-
-        -- @ 임시 변수()
-
-        -- 보호막 스킬
-        m_buffProtection = 'Buff_Guardian',
-        m_lProtectionList = 'list',
-
         m_attackOffsetX = 'number',
         m_attackOffsetY = 'number',
 
-        m_aiParam = '',
-        m_aiParamNum = '',
-        m_sortValue = '',				-- 타겟 찾기 등의 정렬에서 임의로 사용
-        m_sortRandomIdx = '',			-- 타겟 찾기 등의 정렬에서 임의로 사용
-        m_chargeSkill = '',
-
-        m_targetEffect = '',
-
-        m_lActivedSkill = '',
-
+		-- 상태 효과 관련
 		m_lStatusEffect = 'table',
         m_tOverlabStatusEffect = 'table',
 		m_lStatusIcon = 'sprite table',
-        m_comebackNextState = 'state',
 
         -- 피격시 경직 관련
         m_bEnableSpasticity = 'boolean',-- 경직 가능 활성화 여부
         m_isSpasticity = 'boolean',     -- 경직 중 여부
         m_delaySpasticity = 'number',   -- 경직 남은 시간
 
-		
-		-- 캐릭터의 특정 상태
-        m_bInvincibility = 'boolean',   -- 무적 상태 여부
-		m_isSilence = 'boolean',		-- 침묵 (스킬 사용 불가 상태)
-		m_isImmuneSE = 'boolean',			-- 면역 (해로운 상태 효과 면역)
 
-        m_activityCarrier = 'ActivityCarrier',
+		---------------------------------------------------------------------------------------
 
+		-- @TODO 임시 추가 충돌박스
 		m_isSlaveCharacter = 'boolean', -- 이 물리객체가 다른 객체에 추가된 것인지 여부
-		m_masterCharacter = 'Character', -- 이 물리객체를 가진 Character 
+		m_masterCharacter = 'Character', -- 이 물리객체를 가진 Character
+		
+        -- @ 임시 변수() 보호막 스킬
+        m_buffProtection = 'Buff_Guardian',
+        m_lProtectionList = 'list',
+		
+		-- @TODO - 향후에 삭제 해야 함. 인터페이스로 대체 
+        m_hpEventListener = 'list',
+        m_undergoAttackEventListener = 'list',
+        m_damagedEventListener = 'list',   -- 데미지를 입었을 때 이벤트
+		
+		-- @TODO 임시
+        m_aiParam = '',
+        m_aiParamNum = '',
+        m_sortValue = '',				-- 타겟 찾기 등의 정렬에서 임의로 사용
+        m_sortRandomIdx = '',			-- 타겟 찾기 등의 정렬에서 임의로 사용
      })
 
 local SpasticityTime = 0.2
@@ -607,6 +606,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 
     -- 방어자 피격 이벤트 
     self:dispatch('undergo_attack', {}, attacker.m_activityCarrier.m_activityCarrierOwner)
+
+	-- @LOG_CHAR
+	self.m_charLogRecorder:recordLog('under_atk', 1)
 
     -- 남은 체력이 20%이하일 경우 이벤트 발생
     if (damage > 0) then
@@ -1292,11 +1294,17 @@ function Character:update(dt)
     self:updateMove(dt)
 	self:updateStatusIcon(dt)
 
-	-- @TEST 디버깅용 체력 디스플레이
+	-- @TEST 디버깅용 디스플레이
 	if g_constant:get('DEBUG', 'DISPLAY_UNIT_HP') then 
 		self.m_infoUI.m_label:setString(string.format('%d/%d\n(%d%%)',self.m_hp, self.m_maxHp, self.m_hp/self.m_maxHp*100))
-	elseif g_constant:get('DEBUG', 'DISPLAY_POS') then 
+
+	elseif g_constant:get('DEBUG', 'DISPLAY_UNIT_POS') then 
 		self.m_infoUI.m_label:setString(string.format('%d, %d, %d, %d',self.pos.x, self.pos.y, self.m_homePosX, self.m_homePosY))
+
+	elseif (g_constant:get('DEBUG', 'DISPLAY_UNIT_LOG')) then
+		local key = g_constant:get('DEBUG', 'DISPLAY_UNIT_LOG')
+		local log = self.m_charLogRecorder:getLog(key)
+		self.m_infoUI.m_label:setString(string.format('%s : %d', key, log))
 	end
 
     return PARENT.update(self, dt)

@@ -110,6 +110,10 @@ function IDragonSkillManager:initSkillIDList()
     self.m_lSkillIndivisualInfo['basic_rate'] = {}
     self.m_lSkillIndivisualInfo['basic_turn'] = {}
     self.m_lSkillIndivisualInfo['basic_time'] = {}
+	
+	self.m_lSkillIndivisualInfo['under_atk_rate'] = {}
+	self.m_lSkillIndivisualInfo['under_atk_turn'] = {}
+
     self.m_lSkillIndivisualInfo['passive'] = {}
     self.m_lSkillIndivisualInfo['manual'] = {}
     self.m_lSkillIndivisualInfo['touch'] = false
