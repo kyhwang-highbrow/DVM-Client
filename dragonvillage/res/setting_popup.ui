@@ -627,7 +627,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'devNode';
 			};
 			[3] =
@@ -968,12 +968,12 @@
 					type = 'Scale9Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = 62.000000;
+					y = 19.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 548;
-					height = 94;
+					height = 179;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -1173,6 +1173,46 @@
 					disable = '';
 					image_type = 1;
 				};
+				[6] =
+				{
+					type = 'LabelTTF';
+					ui_name = 'rich';
+					x = -1.000000;
+					y = -26.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 517;
+					height = 81;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'testRichLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 22;
+					text = '{@#TAN;user;10001}[페이커]{@WHITE}님이 {@#GOLD;champ;10002}[5성발키리]{@WHITE}를 {@DEEPSKYBLUE}챔피언진화로 획득하셨습니다.\n{@#TAN;user;10001}[페이커]{@WHITE}님이 {@#GOLD;champ;10002}[5성발키리]{@WHITE}를 {@DEEPSKYBLUE}챔피언진화로 획득하셨습니다.';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 517;
+					dimension_height = 81;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 1.000000;
+					stroke_color = { 61; 50; 27; };
+					has_shadow = true;
+					shadow_color = { 61; 50; 27; };
+					shadow_opacity = 180;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
 				type = 'Menu';
 				ui_name = '';
 				x = 0.000000;
@@ -1187,7 +1227,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = 'infoNode';
 			};
 			[5] =

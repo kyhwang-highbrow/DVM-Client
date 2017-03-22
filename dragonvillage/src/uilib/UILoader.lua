@@ -316,6 +316,7 @@ local function loadNode(ui, data, vars, parent)
     local node
     local delegator
     local type = data.type
+    local ui_name = data.ui_name
     local var = data.lua_name
 
     if data.font_name then
@@ -357,6 +358,45 @@ local function loadNode(ui, data, vars, parent)
             , data.v_alignment
             )
         setPropsForLabel(node, data)
+    elseif (type == 'LabelTTF') and (ui_name == 'rich') then
+    --    ccdump(data)
+        local rich_label = UIC_RichLabel()
+        node = rich_label.m_node
+        setPropsForNode(node, data)
+
+        local size = node:getContentSize()
+
+        -- label의 속성들
+        rich_label:setString(data.text)
+        rich_label:setFontSize(data.font_size)
+        rich_label:setDimension(size['width'], size['height'])
+        rich_label:setAlignment(data.h_alignment, data.v_alignment)
+        -- STROKE
+        if data.has_stroke then
+            local r,g,b = unpack(data.stroke_color)
+            local a = data.opacity
+            rich_label:enableOutline(cc.c4b(r,g,b,a), data.stroke_tickness)
+        end
+		-- SHADOW
+		if data.has_shadow then
+			local r,g,b = unpack(data.shadow_color)
+			local a = data.shadow_opacity
+            local shadow_size = cc.size(0,0)
+            local distance = data.shadow_distance
+            if data.shadow_direction == 0 then -- 90
+                shadow_size = cc.size(0, -distance)
+            elseif data.shadow_direction == 1 then -- 45
+                shadow_size = cc.size(distance, -distance)
+            elseif data.shadow_direction == 2 then -- 135
+                shadow_size = cc.size(-distance, -distance)
+            else
+                shadow_size = cc.size(0, 0)
+            end
+            rich_label:enableShadow(cc.c4b(r,g,b,a), shadow_size, 0)
+		end
+
+        delegator = rich_label
+
     elseif type == 'LabelTTF' then
         -- CustomStroke타입은 create함수에서 stroke_tickness를 0으로 넘겨야 한다.
         local stroke_tickness = 0

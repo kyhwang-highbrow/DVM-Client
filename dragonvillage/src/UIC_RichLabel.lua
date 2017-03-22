@@ -277,6 +277,9 @@ function UIC_RichLabel:makeTextButton(t_content, label, color)
     button:setAnchorPoint(cc.p(0, 1))
     button:setContentSize(str_width, line_height)
 
+    -- label
+    button:addChild(label)
+
     -- 언더바 생성
     local unserline = cc.Sprite:create(UNDER_LINE_PNG)
     button:addChild(unserline)
@@ -287,9 +290,6 @@ function UIC_RichLabel:makeTextButton(t_content, label, color)
     if color then
         unserline:setColor(color)
     end
-
-    -- label
-    button:addChild(label)
 
     -- 클릭 핸들러 지정
     local uic_button = UIC_Button(button)
@@ -576,7 +576,7 @@ function UIC_RichLabel:click_word(t_content, label, underline, color)
     end
     --]]
 
-    ccdump(t_content)
+    --ccdump(t_content)
 
     self:makeClickReaction(label, color)
     self:makeClickReaction(underline, color)
