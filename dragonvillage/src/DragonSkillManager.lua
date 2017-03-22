@@ -107,17 +107,23 @@ function IDragonSkillManager:initSkillIDList()
     -- 타입별 기본 스킬 ID
     self.m_lSkillIndivisualInfo = {}
     self.m_lSkillIndivisualInfo['basic'] = false
+	self.m_lSkillIndivisualInfo['touch'] = false
+    self.m_lSkillIndivisualInfo['active'] = false
+
     self.m_lSkillIndivisualInfo['basic_rate'] = {}
     self.m_lSkillIndivisualInfo['basic_turn'] = {}
-    self.m_lSkillIndivisualInfo['basic_time'] = {}
-	
+
+	self.m_lSkillIndivisualInfo['indie_rate'] = {}
+	self.m_lSkillIndivisualInfo['indie_turn'] = {}
+	self.m_lSkillIndivisualInfo['indie_time'] = {}
+
 	self.m_lSkillIndivisualInfo['under_atk_rate'] = {}
 	self.m_lSkillIndivisualInfo['under_atk_turn'] = {}
 
+	-- @TODO 삭제 예정
+    self.m_lSkillIndivisualInfo['basic_time'] = {}
     self.m_lSkillIndivisualInfo['passive'] = {}
     self.m_lSkillIndivisualInfo['manual'] = {}
-    self.m_lSkillIndivisualInfo['touch'] = false
-    self.m_lSkillIndivisualInfo['active'] = false
 end
 
 -------------------------------------
@@ -233,12 +239,40 @@ function IDragonSkillManager:makeSkillIcon_usingIndex(idx)
 end
 
 -------------------------------------
--- function getBasicAttackSkillID
+-- function checkSkillRate
 -------------------------------------
-function IDragonSkillManager:getBasicAttackSkillID()
-    -- 1. basic_turn류 스킬 확인
-    if (table.count(self.m_lSkillIndivisualInfo['basic_turn']) > 0) then
-        for i,v in pairs(self.m_lSkillIndivisualInfo['basic_turn']) do
+function IDragonSkillManager:checkSkillRate(skill_type)
+	local t_skill_info = self.m_lSkillIndivisualInfo[skill_type]
+
+	if (table.count(t_skill_info) > 0) then
+        local sum_random = SumRandom()
+
+        for i,v in pairs(self.m_lSkillIndivisualInfo[skill_type]) do
+            local rate = (v.m_tSkill['chance_value'] * 100)
+            local skill_id = v.m_skillID
+            sum_random:addItem(rate, skill_id)
+        end
+
+        local remain_rate = math_max(0, (100 - sum_random.m_rateSum))
+        sum_random:addItem(remain_rate, 0)
+
+        local skill_id = sum_random:getRandomValue()
+        if (skill_id ~= 0) then
+            return skill_id
+        end
+    end
+
+	return nil
+end
+
+-------------------------------------
+-- function checkSkillTurn
+-------------------------------------
+function IDragonSkillManager:checkSkillTurn(skill_type)
+	local t_skill_info = self.m_lSkillIndivisualInfo[skill_type]
+
+	if (table.count(t_skill_info) > 0) then
+        for i,v in pairs(t_skill_info) do
             v.m_turnCount = (v.m_turnCount + 1)
             if (v.m_tSkill['chance_value'] <= v.m_turnCount) then
                 v.m_turnCount = 0
@@ -249,28 +283,45 @@ function IDragonSkillManager:getBasicAttackSkillID()
         if (self.m_lReserveTurnSkillID[1]) then
             local skill_id = self.m_lReserveTurnSkillID[1]
             table.remove(self.m_lReserveTurnSkillID, 1)
-            return skill_id, true
+            return skill_id
         end
     end
 
-    -- 2. basic_rate류 스킬 확인
-    if (table.count(self.m_lSkillIndivisualInfo['basic_rate']) > 0) then
-        local sum_random = SumRandom()
+	return nil
+end
 
-        for i,v in pairs(self.m_lSkillIndivisualInfo['basic_rate']) do
-            local rate = (v.m_tSkill['chance_value'] * 100)
-            local skill_id = v.m_skillID
-            sum_random:addItem(rate, skill_id)
-        end
+-------------------------------------
+-- function getBasicAttackSkillID
+-- @return	skill_id, is_add_basic
+-------------------------------------
+function IDragonSkillManager:getBasicAttackSkillID()
+	local skill_id = nil
 
-        local remain_rate = math_max(0, (100 - sum_random.m_rateSum))
-        sum_random:addItem(remain_rate, 0)
+	-- 1. 기본 공격과 동시에 나가는 스킬 체크
+	do
+		skill_id = self:checkSkillTurn('basic_turn')
+		if (skill_id) then
+			return skill_id, true
+		end
 
-        local item = sum_random:getRandomValue()
-        if (item ~= 0) then
-            return item, true
-        end
-    end
+		skill_id = self:checkSkillRate('basic_rate')
+		if (skill_id) then
+			return skill_id, true
+		end
+	end
+
+	-- 2. 독립적으로 나가는 스킬 체크
+	do
+		skill_id = self:checkSkillTurn('indie_turn')
+		if (skill_id) then
+			return skill_id, false
+		end
+
+		skill_id = self:checkSkillRate('indie_rate')
+		if (skill_id) then
+			return skill_id, false
+		end
+	end
 
     -- 3. 기본 스킬
     do
