@@ -10,8 +10,16 @@ UIC_RichLabel = class(UIC_Node, {
 
         m_fontSize = 'number',
         m_dimension = 'cc.Size',
+
+        -- outline
         m_outlineSize = 'number',
         m_outlineColor = 'cc.c4b',
+
+        -- shadow
+        m_bShadowEnabled = 'boolean',
+        m_shadowColor = 'cc.c4b',
+        m_shadowOffset = 'cc.size',
+        m_shadowBlurRadius = 'number',
 
         m_bDirty = 'boolean',
 
@@ -60,8 +68,15 @@ function UIC_RichLabel:init()
         self:update(dt)
     end
     self.m_root:scheduleUpdateWithPriorityLua(update, 0)
+end
 
-    self:initGLNode()
+
+
+-------------------------------------
+-- function setString
+-------------------------------------
+function UIC_RichLabel:setString(text)
+    self:setRichText(text)
 end
 
 -------------------------------------
@@ -197,6 +212,9 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
             local label = cc.Label:createWithTTF(work_text, self:getFontName(), self.m_fontSize, self.m_outlineSize)
             if (0 < self.m_outlineSize) then
                 label:enableOutline(self.m_outlineColor, self.m_outlineSize)
+            end
+            if (self.m_bShadowEnabled) then
+                label:enableShadow(self.m_shadowColor, self.m_shadowOffset, self.m_shadowBlurRadius)
             end
             label:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_TOP)
             label:setDockPoint(cc.p(0, 1))
@@ -466,7 +484,28 @@ function UIC_RichLabel:getColor(color)
     if COLOR then
         return COLOR[color] or cc.c3b(255,255,255)
     else
-        local COLOR = {}
+        local COLOR = {
+            ['w'] = cc.c3b(0xff,0xff,0xff),   -- white
+            ['g'] = cc.c3b(0x7f,0x7f,0x7f),   -- gray
+            ['b'] = cc.c3b(0x00,0x00,0x00),   -- black
+            ['R'] = cc.c3b(0xff,0x00,0x00),   -- RED
+            ['G'] = cc.c3b(0x00,0xf8,0x0f),   -- GREEN
+            ['B'] = cc.c3b(0x00,0x00,0xff),   -- BLUE
+            ['S'] = cc.c3b(0x10,0xc0,0xff),   -- Sky Blue
+            ['Y'] = cc.c3b(0xff,0xff,0x00),   -- Yellow
+            ['C'] = cc.c3b(0x00,0xff,0xff),   -- CYAN
+            ['O'] = cc.c3b(0xff,0x7f,0x0f),   -- Orange
+            ['V'] = cc.c3b(0x9f,0x30,0xcf),   -- Violet
+            ['P'] = cc.c3b(0xff,0xbf,0xff),   -- Purple
+            ['D'] = cc.c3b(0xcf,0xf8,0x9f),
+            ['E'] = cc.c3b(0xff,0xf8,0x9f),
+            ['F'] = cc.c3b(0xff,0x98,0x60),
+            ['L'] = cc.c3b(0xa0,0xa0,0xa0),
+            ['y'] = cc.c3b(0x7f,0x7f,0x00),
+            ['M'] = cc.c3b(0x00,0xc0,0xff),
+            ['d'] = cc.c3b(0x80,0xe7,0xaf),
+            ['U'] = cc.c3b(0, 0, 0),
+        }
         COLOR['ORANGE'] = cc.c3b(255,165,0)
         COLOR['GOLD'] = cc.c3b(255,215,0)
         COLOR['TAN'] = cc.c3b(210,180,140)
@@ -538,5 +577,63 @@ function UIC_RichLabel:enableOutline(color, stroke_thickness)
     self.m_outlineColor = color
     self.m_outlineSize = stroke_thickness
     self:setDirty()
+end
+
+-------------------------------------
+-- function enableShadow
+-------------------------------------
+function UIC_RichLabel:enableShadow(color, shadow_offset, blurRadius)
+    self.m_bShadowEnabled = true
+    self.m_shadowColor = color
+    self.m_shadowOffset = shadow_offset
+    self.m_shadowBlurRadius = (blurRadius or 0)
+    self:setDirty()
+end
+
+-------------------------------------
+-- function getStringWidth
+-------------------------------------
+function UIC_RichLabel:getStringWidth()
+    return self.m_contentWidth
+end
+
+
+-------------------------------------
+-- function UIC_RichLabel_Sample
+-------------------------------------
+function UIC_RichLabel_Sample(parent_node)
+
+    -- 1. getFontName() 함수에서 폰트명을 지정해 주셔야 합니다.
+    -- 2. local UNDER_LINE_PNG = 'res/common/underline.png' 을 지정해 주셔야 합니다. (버튼에서 아래쪽 라인을 그려줄 png)
+    -- 3. local EMPTY_PNG = 'res/common/empty.png' (눈에 보이지 않는 버튼을 생성하기 위한 png)
+
+
+    ---[[
+    local text = '{@#TAN;user;10001}[페이커]{@WHITE}님이dfd {@#GOLD;champ;10002}[5성발키리]{@#WHITE}를 {@#DEEPSKYBLUE}챔피언진화로 획득하셨습니다.'
+    --local text = '{@TAN;user;10001}[페이커]님이 [5성 발키리]를 챔피언진화로 획득하셨습니다.'
+    --local text = '[페이커]님이 [5성 발키리]를 챔피언진화로 획득하셨습니다.'
+    --text = '{@TAN}실피즈{@WHITE}님이 {@GOLD}[5성 발키리]{@WHITE}를 {@DEEPSKYBLUE}챔피언 진화{@ORANGE}로 획득하셨습니다.'
+    --text = '{@E}wwwwwwwwwww'
+
+
+    local rich_label = UIC_RichLabel()
+    rich_label:initGLNode()
+
+    -- l
+    rich_label:setString(text)
+    rich_label:setFontSize(30)
+    rich_label:setDimension(280, 300)
+    rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    --rich_label:enableOutline(cc.c4b(255, 0, 0, 127), 3)
+    --rich_label:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
+
+    -- Node의 기본 속성들 (UIC_Node 참고)
+    rich_label:setDockPoint(cc.p(0.5, 0.5))
+    rich_label:setAnchorPoint(cc.p(0.5, 0.5))
+    rich_label:setScale(1)
+    rich_label:setRotation(45)
+
+    -- m_node맴버 변수를 addChild
+    parent_node:addChild(rich_label.m_node)
 end
 
