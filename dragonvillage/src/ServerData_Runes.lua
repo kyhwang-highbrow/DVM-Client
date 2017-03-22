@@ -69,6 +69,12 @@ end
 -- @brief 서버에서 넘어오는 룬 정보 갱신
 -------------------------------------
 function ServerData_Runes:applyRuneData(t_rune_data)
+    -- @delete_rune
+    if true then
+        return
+    end
+
+
     local idx = nil
 
     -- 보유중인 룬에서 t_rune_data정보가 있는지 확인

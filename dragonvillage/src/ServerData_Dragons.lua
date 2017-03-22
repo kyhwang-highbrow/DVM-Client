@@ -97,6 +97,8 @@ function ServerData_Dragons:applyDragonData_list(l_dragon_data)
     g_serverData:lockSaveData()
     for i,v in pairs(l_dragon_data) do
         local t_dragon_data = v
+        -- @delete_rune
+        t_dragon_data['runes'] = {}
         self:applyDragonData(t_dragon_data)
     end
     g_serverData:unlockSaveData()
@@ -542,6 +544,11 @@ end
 --        룬의 메인옵션, 서브옵션의 능력치를 합산한 테이블을 리턴
 -------------------------------------
 function ServerData_Dragons:makeRuneBonusList(t_dragon_data, l_rune_obj_map)
+    -- @delete_rune
+    if true then
+        return
+    end
+
     local l_runes = t_dragon_data['runes']
 
     local l_rune_bonus = {}
