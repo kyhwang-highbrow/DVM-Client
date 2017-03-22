@@ -91,19 +91,19 @@
 			"max_inc_value_per_sec"	: 10,
 			
 			// tanker
-			"coef"			: 2,
-			"set_damage"	: 1,
+			"coef"			: 4,
+			"set_damage"	: 4,
 			
 			// dealer
-			"basic_skill"	: 1,
-			"hit_basic"		: 1,
-			"hit_basic_cri"	: 2,
+			"basic_skill"	: 4,
+			"hit_basic"		: 4,
+			"hit_basic_cri"	: 7,
 			"miss"			: 0,
 			"block"			: 0,
 			
 			// supporter
-			"time_skill"	: 4,
-			"passive_skill"	: 4
+			"time_skill"	: 10,
+			"passive_skill"	: 10
 		},
 		
 		// ----------------------------------------------------
