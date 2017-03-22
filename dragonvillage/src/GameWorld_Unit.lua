@@ -40,15 +40,14 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[dragon_id]
 
+	-- dragon 생성 시작
     local dragon = Dragon(nil, {0, 0, 20})
+    self:addToUnitList(dragon)
 
-    dragon:initWorld(self)
     dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation)
 	dragon:initState()
-
-    self:addToUnitList(dragon)
 	dragon:initFormation()
-	
+
     return dragon
 end
 
@@ -63,57 +62,17 @@ function GameWorld:makeMonsterNew(monster_id, level)
         error(tostring('다음 ID는 존재하지 않습니다 : ' .. monster_id))
     end
 
-    local body = {0, 0, 50}
-
-    -- 사이즈 타입별 피격박스 반지름 변경
-    local size_type = t_monster['size_type']
-    if (size_type == 's') then
-        body[3] = 30
-    elseif (size_type == 'm') then
-        body[3] = 40
-    elseif (size_type == 'l') then
-        body[3] = 60
-    elseif (size_type == 'xl') then
-        body[3] = 100
-	elseif (size_type == 'xxl') then
-        body[3] = 200
-    end
-
-    -- 난이도별 레벨 설정
-    local t_drop = TABLE:get('drop')[self.m_stageID]
-    local level = level + t_drop['level']
-    
-    local scale = 1
-    local offset_y = (body[3] * 1.5)
-    local hp_ui_offset = {0, -offset_y}
-    local animator_scale = t_monster['scale'] or 1
-
     -- Monster 생성
+	local body_size = Monster:getBodySize(t_monster['size_type'])
     local monster = self:tryPatternMonster(t_monster, body)
     if (not monster) then
         monster = Monster(t_monster['res'], body)
-        monster:initAnimatorMonster(t_monster['res'], t_monster['attr'])
     end
-
-    monster:initDragonSkillManager('monster', monster_id, 6) -- monster는 skill_1~skill_6을 모두 사용
-    monster:initState()
-    monster:initStatus(t_monster, level, 0, 0, 0)
-    monster:changeState('move')
-    
-    monster.m_animator.m_node:setScale(animator_scale)
-    monster.m_animator:setFlip(true)
-
-    -- 피격 처리
-    monster:addDefCallback(function(attacker, defender, i_x, i_y)
-        monster:undergoAttack(attacker, defender, i_x, i_y, 0)
-    end)
-
     self:addToUnitList(monster)
-    monster:makeHPGauge(hp_ui_offset)
-    monster:makeCastingNode()
-		
-	-- @TODO character 수준으로 들어가야한다. + monster_id 는 고유하지 않다 
-    monster.m_charLogRecorder = self.m_logRecorder:getLogRecorderChar(monster_id)
+
+	monster:init_monster(t_monster, monster_id, level, self.m_stageID)
+    monster:initState()
+	monster:initFormation(body_size)
 
 	return monster
 end
@@ -154,7 +113,7 @@ function GameWorld:tryPatternMonster(t_monster, body)
         monster = MonsterLua_Boss(t_monster['res'], body)
     end
 
-    monster:initAnimatorMonster(t_monster['res'], t_monster['attr'])
+    --monster:initAnimatorMonster(t_monster['res'], t_monster['attr'])
     monster:initScript(script_name, is_boss)
     
     return monster

@@ -20,6 +20,46 @@ function Monster:init(file_name, body, ...)
 end
 
 -------------------------------------
+-- function init_monster
+-------------------------------------
+function Monster:init_monster(t_monster, monster_id, level, stage_id)
+    local t_drop = TABLE:get('drop')[stage_id]
+    local level = level + t_drop['level']
+
+    -- 각종 init 함수 실행
+	self:initDragonSkillManager('monster', monster_id, 6) -- monster는 skill_1~skill_6을 모두 사용
+    self:initStatus(t_monster, level, 0, 0, 0)
+    self:initAnimatorMonster(t_monster['res'], t_monster['attr'], t_monster['scale'])
+    self:makeCastingNode()
+	self:initTriggerListener()		
+
+    -- 피격 처리
+    self:addDefCallback(function(attacker, defender, i_x, i_y)
+        self:undergoAttack(attacker, defender, i_x, i_y, 0)
+    end)
+
+	-- @TODO character 수준으로 들어가야한다. + monster_id 는 고유하지 않다 
+    self.m_charLogRecorder = self.m_world.m_logRecorder:getLogRecorderChar(monster_id)
+end
+
+-------------------------------------
+-- function initFormation
+-------------------------------------
+function Monster:initFormation(body_size)
+    local hp_ui_offset = {0, -(body_size[3] * 1.5)}
+
+	-- 진영에 따른 처리
+	if (self.m_bLeftFormation) then
+        self:changeState('idle')
+        self:makeHPGauge(hp_ui_offset)
+    else
+        self:changeState('move')
+	    self:makeHPGauge(hp_ui_offset)
+        self.m_animator:setFlip(true)
+    end
+end
+
+-------------------------------------
 -- function initAnimator
 -------------------------------------
 function Monster:initAnimator(file_name)
@@ -28,7 +68,7 @@ end
 -------------------------------------
 -- function initAnimatorMonster
 -------------------------------------
-function Monster:initAnimatorMonster(file_name, attr)
+function Monster:initAnimatorMonster(file_name, attr, scale)
     -- Animator 삭제
     if self.m_animator then
         if self.m_animator.m_node then
@@ -42,6 +82,9 @@ function Monster:initAnimatorMonster(file_name, attr)
     self.m_animator = AnimatorHelper:makeMonsterAnimator(file_name, attr)
     if self.m_animator.m_node then
         self.m_rootNode:addChild(self.m_animator.m_node)
+		if (scale) then
+			self.m_animator:setScale(scale)
+		end
     end
 
     -- 각종 쉐이더 효과 시 예외 처리할 슬롯 설정(Spine)
@@ -164,4 +207,25 @@ function Monster:changeState(state, forced)
     end
 
     return PARENT.changeState(self, state, forced)
+end
+
+-------------------------------------
+-- function getBodySize
+-------------------------------------
+function Monster:getBodySize(size_type)
+	local body = {0, 0, 50}
+
+	if (size_type == 's') then
+        body[3] = 30
+    elseif (size_type == 'm') then
+        body[3] = 40
+    elseif (size_type == 'l') then
+        body[3] = 60
+    elseif (size_type == 'xl') then
+        body[3] = 100
+	elseif (size_type == 'xxl') then
+        body[3] = 200
+    end
+
+	return body
 end
