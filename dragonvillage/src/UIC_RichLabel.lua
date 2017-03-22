@@ -5,6 +5,7 @@ local PARENT = UIC_Node
 -------------------------------------
 UIC_RichLabel = class(UIC_Node, {
         m_root = 'cc.Node',
+        m_defaultColor = 'cc.c3b',
         m_orgRichText = 'string',
         m_lContentList = 'list',
 
@@ -445,59 +446,59 @@ end
 -- function getColor
 -------------------------------------
 function UIC_RichLabel:getColor(color)
-    if COLOR then
-        return COLOR[color] or cc.c3b(255,255,255)
-    else
-        local COLOR = {
-            ['w'] = cc.c3b(0xff,0xff,0xff),   -- white
-            ['g'] = cc.c3b(0x7f,0x7f,0x7f),   -- gray
-            ['b'] = cc.c3b(0x00,0x00,0x00),   -- black
-            ['R'] = cc.c3b(0xff,0x00,0x00),   -- RED
-            ['G'] = cc.c3b(0x00,0xf8,0x0f),   -- GREEN
-            ['B'] = cc.c3b(0x00,0x00,0xff),   -- BLUE
-            ['S'] = cc.c3b(0x10,0xc0,0xff),   -- Sky Blue
-            ['Y'] = cc.c3b(0xff,0xff,0x00),   -- Yellow
-            ['C'] = cc.c3b(0x00,0xff,0xff),   -- CYAN
-            ['O'] = cc.c3b(0xff,0x7f,0x0f),   -- Orange
-            ['V'] = cc.c3b(0x9f,0x30,0xcf),   -- Violet
-            ['P'] = cc.c3b(0xff,0xbf,0xff),   -- Purple
-            ['D'] = cc.c3b(0xcf,0xf8,0x9f),
-            ['E'] = cc.c3b(0xff,0xf8,0x9f),
-            ['F'] = cc.c3b(0xff,0x98,0x60),
-            ['L'] = cc.c3b(0xa0,0xa0,0xa0),
-            ['y'] = cc.c3b(0x7f,0x7f,0x00),
-            ['M'] = cc.c3b(0x00,0xc0,0xff),
-            ['d'] = cc.c3b(0x80,0xe7,0xaf),
-            ['U'] = cc.c3b(0, 0, 0),
-        }
-        COLOR['ORANGE'] = cc.c3b(255,165,0)
-        COLOR['GOLD'] = cc.c3b(255,215,0)
-        COLOR['TAN'] = cc.c3b(210,180,140)
-        COLOR['DEEPSKYBLUE'] = cc.c3b(0,191,255)
-
-        -- 드래곤히어로즈 기존 채팅에서 사용되던 색상
-        COLOR['NORMAL'] = cc.c3b(255, 255, 255)
-        COLOR['GUILD'] = cc.c3b(0, 191, 255)
-        COLOR['NOTICE'] = cc.c3b(165, 224, 0)
-        COLOR['SYSTEM'] = cc.c3b(255, 231, 48)
-        COLOR['WARNING'] = cc.c3b(255, 48, 48)
-
-		-- 명조 색상
-        COLOR['BLACK'] = cc.c3b(0, 0, 0)
-		COLOR['DEEPGRAY'] = cc.c3b(100,100,100)
-		COLOR['GRAY'] = cc.c3b(150,150,150)
-		COLOR['LIGHTGRAY'] = cc.c3b(192,192,102)
-        COLOR['WHITE'] = cc.c3b(255,255,255)
-        COLOR['YELLOW'] = cc.c3b(255,255,0)
-        COLOR['RED'] = cc.c3b(255,0,0)
-
-        COLOR['SKILL_NAME'] = cc.c3b(255, 145, 0)
-        COLOR['SKILL_DESC'] = cc.c3b(245, 233, 220)
-
-        COLOR['SPEECH'] = cc.c3b(102, 88, 71)
-
-        return COLOR[color] or cc.c3b(255,255,255)
+    if (color == 'default') and self.m_defaultColor then
+        return self.m_defaultColor
     end
+
+    local COLOR = {
+        ['w'] = cc.c3b(0xff,0xff,0xff),   -- white
+        ['g'] = cc.c3b(0x7f,0x7f,0x7f),   -- gray
+        ['b'] = cc.c3b(0x00,0x00,0x00),   -- black
+        ['R'] = cc.c3b(0xff,0x00,0x00),   -- RED
+        ['G'] = cc.c3b(0x00,0xf8,0x0f),   -- GREEN
+        ['B'] = cc.c3b(0x00,0x00,0xff),   -- BLUE
+        ['S'] = cc.c3b(0x10,0xc0,0xff),   -- Sky Blue
+        ['Y'] = cc.c3b(0xff,0xff,0x00),   -- Yellow
+        ['C'] = cc.c3b(0x00,0xff,0xff),   -- CYAN
+        ['O'] = cc.c3b(0xff,0x7f,0x0f),   -- Orange
+        ['V'] = cc.c3b(0x9f,0x30,0xcf),   -- Violet
+        ['P'] = cc.c3b(0xff,0xbf,0xff),   -- Purple
+        ['D'] = cc.c3b(0xcf,0xf8,0x9f),
+        ['E'] = cc.c3b(0xff,0xf8,0x9f),
+        ['F'] = cc.c3b(0xff,0x98,0x60),
+        ['L'] = cc.c3b(0xa0,0xa0,0xa0),
+        ['y'] = cc.c3b(0x7f,0x7f,0x00),
+        ['M'] = cc.c3b(0x00,0xc0,0xff),
+        ['d'] = cc.c3b(0x80,0xe7,0xaf),
+        ['U'] = cc.c3b(0, 0, 0),
+    }
+    COLOR['ORANGE'] = cc.c3b(255,165,0)
+    COLOR['GOLD'] = cc.c3b(255,215,0)
+    COLOR['TAN'] = cc.c3b(210,180,140)
+    COLOR['DEEPSKYBLUE'] = cc.c3b(0,191,255)
+
+    -- 드래곤히어로즈 기존 채팅에서 사용되던 색상
+    COLOR['NORMAL'] = cc.c3b(255, 255, 255)
+    COLOR['GUILD'] = cc.c3b(0, 191, 255)
+    COLOR['NOTICE'] = cc.c3b(165, 224, 0)
+    COLOR['SYSTEM'] = cc.c3b(255, 231, 48)
+    COLOR['WARNING'] = cc.c3b(255, 48, 48)
+
+	-- 명조 색상
+    COLOR['BLACK'] = cc.c3b(0, 0, 0)
+	COLOR['DEEPGRAY'] = cc.c3b(100,100,100)
+	COLOR['GRAY'] = cc.c3b(150,150,150)
+	COLOR['LIGHTGRAY'] = cc.c3b(192,192,102)
+    COLOR['WHITE'] = cc.c3b(255,255,255)
+    COLOR['YELLOW'] = cc.c3b(255,255,0)
+    COLOR['RED'] = cc.c3b(255,0,0)
+
+    COLOR['SKILL_NAME'] = cc.c3b(255, 145, 0)
+    COLOR['SKILL_DESC'] = cc.c3b(245, 233, 220)
+
+    COLOR['SPEECH'] = cc.c3b(102, 88, 71)
+
+    return COLOR[color] or cc.c3b(255,255,255)
 end
 
 -------------------------------------

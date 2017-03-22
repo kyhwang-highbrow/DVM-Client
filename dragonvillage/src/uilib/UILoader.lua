@@ -371,6 +371,11 @@ local function loadNode(ui, data, vars, parent)
         rich_label:setFontSize(data.font_size)
         rich_label:setDimension(size['width'], size['height'])
         rich_label:setAlignment(data.h_alignment, data.v_alignment)
+        
+        -- 기본 색상 지정
+        local r,g,b = unpack(data.color)
+        rich_label.m_defaultColor = cc.c3b(r,g,b)
+
         -- STROKE
         if data.has_stroke then
             local r,g,b = unpack(data.stroke_color)
