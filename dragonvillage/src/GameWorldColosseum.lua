@@ -46,6 +46,9 @@ function GameWorldColosseum:initGame(stage_name)
     -- 위치 표시 이펙트 생성
     self:init_formation()
 
+	-- Game Log Recorder 생성
+	self.m_logRecorder = LogRecorderWorld(self)
+
     -- 테이머 생성
     self:initTamer()
 
@@ -54,9 +57,6 @@ function GameWorldColosseum:initGame(stage_name)
 
     -- 적군 덱에 세팅된 드래곤 생성
     self:makeEnemyDeck()
-
-	-- Game Log Recorder 생성
-	self.m_logRecorder = LogRecorderWorld(self)
 
     -- 진형 시스템 초기화
     self:setBattleZone(self.m_deckFormation, true)
