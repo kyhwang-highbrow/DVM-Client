@@ -1235,7 +1235,9 @@ function GameWorld:setWaitAllCharacter(wait)
         v:setWaitState(wait)
     end
 
-    self.m_tamer:setWaitState(wait)
+	if (self.m_tamer) then
+		self.m_tamer:setWaitState(wait)
+	end
 end
 
 -------------------------------------
@@ -1602,7 +1604,7 @@ function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time)
         end
     end
 
-    do
+    if (self.m_tamer) then
         -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
         local homePosX = self.m_tamer.m_orgHomePosX + cameraHomePosX + offsetX
         local homePosY = self.m_tamer.m_orgHomePosY + cameraHomePosY + offsetY
