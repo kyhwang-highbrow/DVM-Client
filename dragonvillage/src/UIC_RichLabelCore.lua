@@ -44,12 +44,14 @@ function UIC_RichLabel:makeContentData(key, text)
     local l_line = self:strSplit(text, '\n')
     
     -- 시작 문자가 개행일 경우
-    if self:stringStarts(text, '\n') then
+    local _, cnt = self:stringStarts(text, '\n')
+    for i=1, cnt do
         table.insert(l_line, 1, '')
     end
 
     -- 종료 문자가 개행일 경우
-    if self:stringEnds(text, '\n') then
+    local _, cnt = self:stringEnds(text, '\n')
+    for i=1, cnt do
         table.insert(l_line, '')
     end
 
@@ -125,22 +127,46 @@ end
 -------------------------------------
 function UIC_RichLabel:stringStarts(str, start_str)
     local str_len = string.len(start_str)
-    local sub_str = string.sub(str, 1, str_len)
-    return (sub_str == start_str)
+    local cnt = 0
+    local idx = 1
+    while true do
+        local sub_str = string.sub(str, idx, idx + (str_len- 1))
+
+        if (sub_str ~= start_str) then
+            break
+        end
+
+        cnt = cnt + 1
+        idx = idx + str_len
+    end
+
+    return (0 < cnt), cnt
 end
 
 -------------------------------------
 -- function stringEnds
 -- @brief 문자열이 start_str문자열로 종료되는지 확인
 -------------------------------------
-function UIC_RichLabel:stringEnds(string, end_str)
+function UIC_RichLabel:stringEnds(str, end_str)
    if (end_str == '') then
     return true
    end
 
    local str_len = string.len(end_str)
-   local sub_str = string.sub(string, -str_len)
-   return (sub_str == end_str)
+   local cnt = 0
+   local idx = string.len(str)
+    while true do
+        local sub_str = string.sub(str, idx - (str_len- 1), idx)
+
+        if (sub_str ~= end_str) then
+            break
+        end
+
+        cnt = cnt + 1
+        idx = idx - str_len
+    end
+
+    return (0 < cnt), cnt
 end
 
 
