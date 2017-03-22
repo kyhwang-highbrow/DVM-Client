@@ -19,6 +19,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_missiledNode = 'cc.Node',
 		m_unitInfoNode = 'cc.Node',
 
+        m_tamer = 'Tamer',
         m_lUnitList = 'list',
 		m_lSkillList = 'table',
 		m_lMissileList = 'table',
@@ -363,6 +364,9 @@ function GameWorld:initTamer()
     self.m_gameTamer = GameTamer(self, t_tamer)
     self:addListener('tamer_skill', self.m_gameState)
 
+    self:makeTamerNew()
+    self:addListener('dragon_summon', self)
+    
     -- 스킬 컷씬
     self.m_tamerSkillCut = TamerSkillCut(self, g_gameScene.m_colorLayerTamerSkill, t_tamer)
     --self:addListener('tamer_skill', self.m_tamerSkillCut)
@@ -1059,6 +1063,11 @@ function GameWorld:onKeyReleased(keyCode, event)
 
         end
 
+        cclog('---------------')
+		--cclog(' TAMER : ' .. v.m_charTable['t_name'])
+        cclog(' TAMER')
+        cclog('state = ' .. self.m_tamer.m_state)
+
     elseif (keyCode == KEY_X) then
 		cclog('#### 적군의 상태, 버프, 디버프 및 패시브 적용 확인 ')
         for _,v in ipairs(self:getEnemyList()) do
@@ -1225,6 +1234,8 @@ function GameWorld:setWaitAllCharacter(wait)
     for i,v in ipairs(self:getDragonList()) do
         v:setWaitState(wait)
     end
+
+    self.m_tamer:setWaitState(wait)
 end
 
 -------------------------------------
@@ -1332,6 +1343,11 @@ function GameWorld:setBattleZone(formation, immediately, is_right)
         local pos_idx = unit:getPosIdx()
         local pos_x = l_pos_list[pos_idx]['x']
         local pos_y = l_pos_list[pos_idx]['y']
+
+        if (unit.m_charType == 'tamer') then
+            pos_x = 60
+            pos_y = -250
+        end
 
         unit:setOrgHomePos(pos_x, pos_y)
 
@@ -1586,6 +1602,29 @@ function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time)
         end
     end
 
+    do
+        -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
+        local homePosX = self.m_tamer.m_orgHomePosX + cameraHomePosX + offsetX
+        local homePosY = self.m_tamer.m_orgHomePosY + cameraHomePosY + offsetY
+
+        -- 카메라가 줌아웃된 상태라면 아군 위치 조정(차후 정리)
+        if (scale == 0.6) then
+            homePosX = homePosX - 200
+        end
+
+        local distance = getDistance(self.m_tamer.pos.x, self.m_tamer.pos.y, homePosX, homePosY)
+        if (distance > 0) then
+            local speed
+            if (move_time <= 0) then
+                speed = 9999
+            else
+                speed = distance / move_time
+            end
+
+            self.m_tamer:changeHomePos(homePosX, homePosY, speed)
+        end
+    end
+
     -- 미사일 제한 범위 재설정
     self:setMissileRange()
 end
@@ -1597,6 +1636,11 @@ function GameWorld:onEvent(event_name, t_event, ...)
     if (event_name == 'change_wave') then   self:onEvent_change_wave(event_name, t_event, ...)
     elseif (event_name == 'fever_start') then   self.m_gameState:changeState(GAME_STATE_FIGHT_FEVER)
     elseif (event_name == 'fever_end') then     self.m_gameState:changeState(GAME_STATE_FIGHT)
+    elseif (event_name == 'dragon_summon') then
+        self.m_tamer.m_animator:changeAni('i_summon', false)
+        self.m_tamer.m_animator:addAniHandler(function()
+            self.m_tamer.m_animator:changeAni('i_idle', true)
+        end)
     end
 end
 
@@ -1660,6 +1704,7 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
         for i,v in pairs(self.m_lUnitList) do
             v:setTemporaryPause(true)
         end
+        self.m_tamer:setTemporaryPause(true)
 
         -- 미사일들 액션 정지
         local action_mgr = cc.Director:getInstance():getActionManager()
@@ -1683,6 +1728,7 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
         for i,v in pairs(self.m_lUnitList) do
             v:setTemporaryPause(false)
         end
+        self.m_tamer:setTemporaryPause(false)
 
         -- 미사일들 액션 재개
         local action_mgr = cc.Director:getInstance():getActionManager()

@@ -265,6 +265,7 @@ local t_module = {
     'Monster_Tree',
 	'Monster_WorldOrderMachine',
     'Monster_DarkNix',
+    'Tamer',
     'require_EnemyLua',
     'EnemyAppear',
     'EnemyMovementMgr',

@@ -78,7 +78,7 @@ function MissileLua.lua_test1(owner)
         cc.p(500, 0 + 200),
         cc.p(tar_x-pos_x, tar_y-pos_y),
     }
-    local bezierForward = cc.BezierBy:create(1, bezier)
+    local bezierForward = cc.BezierBy:create(1, bezier, true)
     local sequence = cc.Sequence:create(bezierForward, finish_action)
     owner.m_rootNode:runAction(sequence)
 end
@@ -245,7 +245,7 @@ function MissileLua.lua_curve(owner)
 	end)
 
 	local delay_action = cc.DelayTime:create(delay_time)
-    local jump_action = cc.JumpTo:create(jump_duration, cc.p(target_x, target_y), height, loop)
+    local jump_action = cc.JumpTo:create(jump_duration, cc.p(target_x, target_y), height, loop, true)
     owner.m_rootNode:runAction(cc.Sequence:create(delay_action, jump_action, cbFunction))
 end
 
@@ -289,7 +289,7 @@ function MissileLua.lua_bezier(owner)
     
     -- Action List
     local delayTime = cc.DelayTime:create(delay)
-    local bezierForward = cc.BezierBy:create(duration, bezier)
+    local bezierForward = cc.BezierBy:create(duration, bezier, true)
     local goForward = cc.MoveBy:create(duration, goForwardPoint)
     local finish_action = cc.CallFunc:create(function() owner:changeState('dying') end)
     
@@ -397,7 +397,7 @@ function MissileLua.lua_arrange_curve(owner)
 
 	local arrange_action = cc.MoveBy:create(0.1, arrange_pos)
 	local delay_action = cc.DelayTime:create(delay_time)
-    local jump_action = cc.JumpTo:create(jump_duration, cc.p(target_x, target_y), height, loop)
+    local jump_action = cc.JumpTo:create(jump_duration, cc.p(target_x, target_y), height, loop, true)
 	local after_delay_action = cc.DelayTime:create(0.1)  -- 도착후 바로 삭제하면 충돌인식이 되지않아 임의로 설정
     owner.m_rootNode:runAction(cc.Sequence:create(arrange_action, delay_action, jump_action, after_delay_action, cbFunction))
 end

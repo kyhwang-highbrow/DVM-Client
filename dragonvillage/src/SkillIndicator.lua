@@ -43,7 +43,9 @@ SkillIndicator = class({
         m_attackPosOffsetX = 'number',
         m_attackPosOffsetY = 'number',
 
-		m_highlightList = ''
+		m_highlightList = '',
+
+        m_resultScore = 'number',
     })
 
 -------------------------------------
@@ -56,6 +58,8 @@ function SkillIndicator:init(hero, ...)
 
     self.m_indicatorTouchPosX = hero.pos.x
     self.m_indicatorTouchPosY = hero.pos.y
+
+    self.m_resultScore = 0
 
     -- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset 지정
     self:initAttackPosOffset(hero)
@@ -122,6 +126,8 @@ function SkillIndicator:changeSIState(state)
         self.m_targetPosX = nil
         self.m_targetPosY = nil
         self.m_targetChar = nil
+        self.m_resultScore = 0
+
     elseif (state == SI_STATE_APPEAR) then
         self:setIndicatorVisible(true)
         self:onEnterAppear()
@@ -324,11 +330,13 @@ function SkillIndicator:getIndicatorData()
     t_data['x'] = self.m_targetPosX
     t_data['y'] = self.m_targetPosY
     t_data['target'] = self.m_targetChar
+    t_data['score'] = self.m_resultScore
 
 	self.m_targetDir = nil
     self.m_targetPosX = nil
     self.m_targetPosY = nil
     self.m_targetChar = nil
+    self.m_resultScore = 0
 
     return t_data
 end

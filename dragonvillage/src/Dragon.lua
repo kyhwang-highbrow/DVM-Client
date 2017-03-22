@@ -854,11 +854,14 @@ end
 -------------------------------------
 function Dragon:increaseActiveSkillCool(percentage)
     if (percentage == 0) then return end
-        
-    -- 1초마다 최대 증가값을 넘었다면 증가 시키지 않음
-    local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
-    if (self.m_activeSkillAccumValue >= t_temp['max_inc_value_per_sec']) then
-        return
+    
+    local role_type = self.m_charTable['role']
+    if (role_type == 'tanker') then    
+        -- 1초마다 최대 증가값을 넘었다면 증가 시키지 않음
+        local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
+        if (self.m_activeSkillAccumValue >= t_temp['max_inc_value_per_sec']) then
+            return
+        end
     end
 
     local add_time = (percentage / self.m_activeSkillIncValuePerSec)

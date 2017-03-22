@@ -77,3 +77,51 @@ function SkillHelper:makePassiveSkillSpeech(dragon, str)
         socketNode:addChild(self.m_speechLabel, 1)
     end
 end
+
+-------------------------------------
+-- function makeDragonActiveSkillBonus
+-- @brief 드래곤 드래그 스킬 사용시 직군별 보너스 처리
+-------------------------------------
+function SkillHelper:makeDragonActiveSkillBonus(owner, t_skill, role_type, score)
+    local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_INDICATOR_BONUS')
+    local t_data = t_temp[t_skill['indicator']]
+    if (not t_data) then
+        t_data = t_temp['default']
+    end
+
+    local str_status_effect
+    --local status_effect_type
+    
+    -- 직군별 보너스
+    if (role_type == 'tanker') then
+        
+        str_status_effect = 'def_up;self;hit;5;100;10'
+        
+    elseif (role_type == 'dealer') then
+        
+        str_status_effect = 'atk_up;self;hit;8;100;10'
+
+    elseif (role_type == 'supporter') then
+        
+        owner:increaseActiveSkillCool(10)
+        return
+
+    elseif (role_type == 'healer') then
+        
+        str_status_effect = 'heal;self;hit;0;100;20'
+        
+    end
+    
+    -- 단계별 보너스 수치 적용    
+    if (score >= t_data[2]) then
+        
+    elseif (score >= t_data[1]) then
+
+    else
+
+    end
+
+    if (str_status_effect) then
+        StatusEffectHelper:doStatusEffectByStr(owner, {owner}, {l_status_effect_str})
+    end
+end

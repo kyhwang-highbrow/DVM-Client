@@ -296,6 +296,7 @@ function Entity:setMotionStreak(parent_node, res, z_order)
 
     self.m_motionStreak = cc.MotionStreak:create(0.3, -1, 50, cc.c3b(255, 255, 255), res)
     if self.m_motionStreak then
+        self.m_motionStreak:setBezierMode(true)
         parent_node:addChild(self.m_motionStreak, z_order)
     end
 end

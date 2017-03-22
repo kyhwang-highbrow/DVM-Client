@@ -20,9 +20,10 @@ function EffectMotionStreak:init(world, x, y, tar_x, tar_y, res, color)
     local course = math_random(-1, 1)
     local bezier = getBezier(tar_x, tar_y, x, y, course)
 
+    self.m_node:setBezierMode(true)
     self.m_node:runAction(cc.Sequence:create(
         cc.DelayTime:create(0.05),
-        cc.BezierBy:create(0.5, bezier),
+        cc.BezierBy:create(0.5, bezier, true),
         cc.RemoveSelf:create()
     ))
 end

@@ -1,4 +1,32 @@
 -------------------------------------
+-- function makeTamerNew
+-------------------------------------
+function GameWorld:makeTamerNew(t_tamer_data, bRightFormation)
+    self.m_tamer = Tamer('res/character/tamer/dede/dede.spine', {0, 0, 0})
+    self.m_tamer.m_bLeftFormation = true
+
+    self.m_tamer:initWorld(self)
+    self.m_tamer.m_animator:setScale(0.5)
+    self.m_tamer:initState()
+    
+    -- 기본 정보 저장
+    --tamer.m_tamerID = dragon_id
+    --tamer.m_charTable = t_dragon
+
+    -- 피격 처리
+    self.m_tamer:addDefCallback(function(attacker, defender, i_x, i_y)
+    end)
+
+    self:addToUnitList(self.m_tamer)
+    self.m_worldNode:addChild(self.m_tamer.m_rootNode, WORLD_Z_ORDER.HERO)
+    self.m_physWorld:addObject(PHYS.HERO, self.m_tamer)
+    
+    self.m_tamer:setOrgHomePos(70, -250)
+    self.m_tamer:setPosition(70, -250)
+    self.m_tamer:changeState('idle')
+end
+
+-------------------------------------
 -- function makeDragonNew
 -------------------------------------
 function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)

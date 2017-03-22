@@ -287,6 +287,9 @@ function GameState.update_wave_intermission(self, dt)
                 v:setAfterImage(true)
             end
         end
+
+        world.m_tamer:changeStateWithCheckHomePos('idle')
+        world.m_tamer:setAfterImage(true)
     end
 
 	-- 1. 전환 시간 2/3 지점까지 비교적 완만하게 빨라짐
@@ -309,6 +312,7 @@ function GameState.update_wave_intermission(self, dt)
                 dragon:setAfterImage(false)
             end
         end
+        world.m_tamer:setAfterImage(false)
 
 		self:changeState(GAME_STATE_ENEMY_APPEAR)
 	end
@@ -581,6 +585,8 @@ function GameState.update_success(self, dt)
             end
         end
 
+        world.m_tamer:changeState('success_pose')
+
         for i,enemy in ipairs(world:getEnemyList()) do
             if (enemy.m_bDead == false) then
                 enemy:changeState('idle', true)
@@ -607,9 +613,12 @@ end
 -- function update_failure
 -------------------------------------
 function GameState.update_failure(self, dt)
-    if (self.m_stateTimer == 0) then
+    local world = self.m_world
 
-        local world = self.m_world
+    if (self.m_stateTimer == 0) then
+        world.m_tamer:changeState('dying')
+
+    elseif (self:isPassedStepTime(1.5)) then
         for i,dragon in ipairs(world:getDragonList()) do
             if (dragon.m_bDead == false) then
                 dragon:changeState('idle')

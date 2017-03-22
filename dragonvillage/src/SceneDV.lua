@@ -190,7 +190,8 @@ function SceneDV:onKeyReleased(keyCode, event)
         
         local motionStreak = cc.MotionStreak:create(0.5, -1, 50, cc.c3b(255, 255, 255), 'res/effect/motion_streak/motion_streak_fire.png')
         motionStreak:setPosition(100, 100)
-	    if (color) then
+        motionStreak:setBezierMode(true)
+        if (color) then
 		    motionStreak:setColor(color)
 	    end
 
@@ -201,7 +202,8 @@ function SceneDV:onKeyReleased(keyCode, event)
 
         motionStreak:runAction(cc.Sequence:create(
             cc.DelayTime:create(0.05),
-            cc.BezierBy:create(0.5, bezier),
+            --cc.BezierBy:create(0.5, bezier, true),
+            cc.JumpTo:create(0.5, cc.p(1200, 600), 300, 1, true),
             cc.RemoveSelf:create()
         ))
         
@@ -221,7 +223,8 @@ function SceneDV:onKeyReleased(keyCode, event)
 
         motionStreak:runAction(cc.Sequence:create(
             cc.DelayTime:create(0.05),
-            cc.BezierBy:create(0.5, bezier),
+            --cc.BezierBy:create(0.5, bezier),
+            cc.JumpTo:create(0.5, cc.p(1200, 600), 300, 1),
             cc.RemoveSelf:create()
         ))
 

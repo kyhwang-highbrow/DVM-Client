@@ -29,6 +29,7 @@ function TamerSpeechSystem:initUI()
 
     -- 테이머
     do
+        --[[
         self.m_tamerAnimator = MakeAnimator('res/character/tamer/goni_i/goni_i.spine')
         self.m_tamerAnimator.m_node:setMix('idle', 'summon', 0.1)
         self.m_tamerAnimator.m_node:setMix('summon', 'idle', 0.1)
@@ -42,6 +43,19 @@ function TamerSpeechSystem:initUI()
 
         --cclog('tamer ani list = ' .. luadump(self.m_tamerAnimator:getVisualList()))
         ui.vars['tamerNode']:addChild(self.m_tamerAnimator.m_node)
+        ]]--
+        --[[
+        -- sd 테이머(임시)
+        self.m_tamerAnimator = MakeAnimator('res/character/tamer/dede/dede.spine')
+        self.m_tamerAnimator:changeAni('move', true, true)
+        self.m_tamerAnimator:
+        self.m_world.m_worldNode:addChild(self.m_tamerAnimator.m_node)
+        --ui.vars['tamerNode']:addChild(self.m_tamerAnimator.m_node)
+
+        local effect = MakeAnimator('res/effect/effect_tamer_shield/effect_tamer_shield.vrp')
+        self.m_tamerAnimator.m_node:addChild(effect.m_node)
+        ]]--
+
     end
 
     -- 대사
@@ -85,7 +99,7 @@ function TamerSpeechSystem:showSpeech(msg, ani, loop, cbEnd)
             ui.vars['tamerTalkVisual']:setVisible(false)
 
             -- 대사 종료 후 idle 애니메이션으로
-            self.m_tamerAnimator:changeAni('idle', true, true)
+            --self.m_tamerAnimator:changeAni('idle', true, true)
 
             self.m_bLockTamerTalkAni = false
 
@@ -98,12 +112,14 @@ function TamerSpeechSystem:showSpeech(msg, ani, loop, cbEnd)
     end
 
     -- 테이머
+    --[[
     local ani = ani or 'idle'
     self.m_tamerAnimator:changeAni(ani, loop, true)
 
     if (not loop) then
         self.m_tamerAnimator:addAniHandler(function() self.m_tamerAnimator:changeAni('idle', true) end)
     end
+    ]]--
 end
 
 -------------------------------------
@@ -127,7 +143,7 @@ function TamerSpeechSystem:showSpeechNode(ani, loop, cbEnd)
         self.m_speechLabel:setVisible(true)
 
         -- 대사 종료 후 idle 애니메이션으로
-        self.m_tamerAnimator:changeAni('idle', true, true)
+        --self.m_tamerAnimator:changeAni('idle', true, true)
 
         self.m_bLockTamerTalkAni = false
 
@@ -138,12 +154,14 @@ function TamerSpeechSystem:showSpeechNode(ani, loop, cbEnd)
     self.m_bLockTamerTalkAni = true
     
     -- 테이머
+    --[[
     local ani = ani or 'idle'
     self.m_tamerAnimator:changeAni(ani, loop, true)
 
     if (not loop) then
         self.m_tamerAnimator:addAniHandler(function() self.m_tamerAnimator:changeAni('idle', true) end)
     end
+    ]]--
 end
 
 -------------------------------------
@@ -163,7 +181,7 @@ function TamerSpeechSystem:showDragonSpeech(msg, dragon)
             ui.vars['tamerTalkVisual']:setVisible(false)
 
             -- 대사 종료 후 idle 애니메이션으로
-            self.m_tamerAnimator:changeAni('idle', true, true)
+            --self.m_tamerAnimator:changeAni('idle', true, true)
 
             if cbEnd then cbEnd() end
         end)
@@ -185,21 +203,14 @@ function TamerSpeechSystem:showDragonSpeech(msg, dragon)
         cc.MoveTo:create(0.1, cc.p(-200, 300)),
         cc.RemoveSelf:create()
     ))
-        
-    --[[
-    local ani = ani or 'idle'
-    self.m_tamerAnimator:changeAni(ani, loop, true)
-
-    if (not loop) then
-        self.m_tamerAnimator:addAniHandler(function() self.m_tamerAnimator:changeAni('idle', true) end)
-    end
-    ]]--
 end
 
 -------------------------------------
 -- function onEvent
 -------------------------------------
 function TamerSpeechSystem:onEvent(event_name, t_event, ...)
+    -- 대사 막음 처리
+    if true then return end
 
     -- 드래곤 소환 시
     if (event_name == 'dragon_summon') then

@@ -230,25 +230,6 @@
 		};
 		[5] =
 		{
-			type = 'Node';
-			ui_name = '';
-			x = 0.000000;
-			y = 0.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 100;
-			height = 100;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = '';
-		};
-		[6] =
-		{
 			[1] =
 			{
 				type = 'Sprite';
@@ -359,7 +340,7 @@
 			action_duration = 0.500000;
 			lua_name = 'goldNode';
 		};
-		[7] =
+		[6] =
 		{
 			[1] =
 			{
@@ -408,7 +389,7 @@
 			action_duration = 0.500000;
 			lua_name = 'timeNode';
 		};
-		[8] =
+		[7] =
 		{
 			[1] =
 			{
@@ -605,14 +586,14 @@
 			visible = false;
 			lua_name = 'bossNode';
 		};
-		[9] =
+		[8] =
 		{
 			[1] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -50.000000;
-				y = -97.000000;
+				x = 0.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 1.000000; };
 				relative_size_type = 0;
@@ -653,13 +634,13 @@
 			};
 			type = 'Visual';
 			ui_name = '';
-			x = 50.000000;
-			y = 46.000000;
+			x = 0.000000;
+			y = -38.000000;
 			dock_point = { 0.500000; 1.000000; };
 			anchor_point = { 0.500000; 1.000000; };
 			relative_size_type = 0;
-			width = 100;
-			height = 100;
+			width = 0;
+			height = 0;
 			scale_x = 0.800000;
 			scale_y = 0.800000;
 			skew_x = 0.000000;
@@ -678,7 +659,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[10] =
+		[9] =
 		{
 			[1] =
 			{
@@ -913,14 +894,14 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = true;
+			visible = false;
 			action_type = 4;
 			action_delay_1 = 0.000000;
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
 			lua_name = 'feverMenu';
 		};
-		[11] =
+		[10] =
 		{
 			[1] =
 			{
@@ -1020,7 +1001,7 @@
 			src_blend = 770;
 			dest_blend = 771;
 		};
-		[12] =
+		[11] =
 		{
 			[1] =
 			{
@@ -1081,6 +1062,312 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
+			[3] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 120.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'tamerSkillNode1';
+			};
+			[4] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 220.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'tamerSkillNode2';
+			};
+			[5] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 320.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'tamerSkillNode3';
+			};
+			[6] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = 120.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'tamerSkillBtn1';
+				enable = true;
+				normal = '';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[7] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = 220.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'tamerSkillBtn2';
+				enable = true;
+				normal = '';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[8] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = 320.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'tamerSkillBtn3';
+				enable = true;
+				normal = '';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[9] =
+			{
+				type = 'ProgressTimer';
+				ui_name = '';
+				x = 120.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'tamerSkillGauge1';
+				file_name = 'ui/icon/skill/200011.png';
+				color = { 0; 0; 0; };
+				opacity = 150;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+				progress_type = 1;
+				mid_point_x = 0.500000;
+				mid_point_y = 0.500000;
+				percentage = 0;
+			};
+			[10] =
+			{
+				type = 'ProgressTimer';
+				ui_name = '';
+				x = 220.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'tamerSkillGauge2';
+				file_name = 'ui/icon/skill/200011.png';
+				color = { 0; 0; 0; };
+				opacity = 150;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+				progress_type = 1;
+				mid_point_x = 0.500000;
+				mid_point_y = 0.500000;
+				percentage = 0;
+			};
+			[11] =
+			{
+				type = 'ProgressTimer';
+				ui_name = '';
+				x = 320.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'tamerSkillGauge3';
+				file_name = 'ui/icon/skill/200011.png';
+				color = { 0; 0; 0; };
+				opacity = 150;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+				progress_type = 1;
+				mid_point_x = 0.500000;
+				mid_point_y = 0.500000;
+				percentage = 0;
+			};
+			[12] =
+			{
+				type = 'Visual';
+				ui_name = '';
+				x = 120.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 0;
+				height = 0;
+				scale_x = 1.400000;
+				scale_y = 1.500000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				action_type = 3;
+				action_delay_1 = 0.000000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.500000;
+				lua_name = 'tamerSkillVisual1';
+				file_name = 'ui/a2d/ingame_btn/ingame_btn.a2d';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'group;ingame_btn_idle';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
+			[13] =
+			{
+				type = 'Visual';
+				ui_name = '';
+				x = 220.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 0;
+				height = 0;
+				scale_x = 1.400000;
+				scale_y = 1.500000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				action_type = 3;
+				action_delay_1 = 0.000000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.500000;
+				lua_name = 'tamerSkillVisual2';
+				file_name = 'ui/a2d/ingame_btn/ingame_btn.a2d';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'group;ingame_btn_idle';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
+			[14] =
+			{
+				type = 'Visual';
+				ui_name = '';
+				x = 320.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 0;
+				height = 0;
+				scale_x = 1.400000;
+				scale_y = 1.500000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				action_type = 3;
+				action_delay_1 = 0.000000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.500000;
+				lua_name = 'tamerSkillVisual3';
+				file_name = 'ui/a2d/ingame_btn/ingame_btn.a2d';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'group;ingame_btn_idle';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
@@ -1098,7 +1385,7 @@
 			visible = true;
 			lua_name = '';
 		};
-		[13] =
+		[12] =
 		{
 			[1] =
 			{
@@ -1138,7 +1425,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[14] =
+		[13] =
 		{
 			[1] =
 			{
@@ -1178,7 +1465,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[15] =
+		[14] =
 		{
 			[1] =
 			{
@@ -1218,7 +1505,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[16] =
+		[15] =
 		{
 			[1] =
 			{
@@ -1258,7 +1545,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[17] =
+		[16] =
 		{
 			type = 'Button';
 			ui_name = '';
@@ -1282,7 +1569,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[18] =
+		[17] =
 		{
 			[1] =
 			{
@@ -1350,7 +1637,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[19] =
+		[18] =
 		{
 			[1] =
 			{
@@ -1418,7 +1705,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[20] =
+		[19] =
 		{
 			[1] =
 			{
@@ -1486,7 +1773,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[21] =
+		[20] =
 		{
 			type = 'Visual';
 			ui_name = '';
@@ -1515,7 +1802,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[22] =
+		[21] =
 		{
 			type = 'Visual';
 			ui_name = '';
@@ -1544,7 +1831,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[23] =
+		[22] =
 		{
 			type = 'Visual';
 			ui_name = '';
@@ -1573,7 +1860,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[24] =
+		[23] =
 		{
 			[1] =
 			{
@@ -1702,7 +1989,7 @@
 			action_duration = 0.500000;
 			lua_name = 'autoStartNode';
 		};
-		[25] =
+		[24] =
 		{
 			type = 'Button';
 			ui_name = '';
@@ -1730,7 +2017,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[26] =
+		[25] =
 		{
 			type = 'Node';
 			ui_name = '';
@@ -1752,6 +2039,25 @@
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
 			lua_name = 'buffNode';
+		};
+		[26] =
+		{
+			type = 'Menu';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 100;
+			height = 100;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
 		};
 		type = 'Menu';
 		ui_name = '';

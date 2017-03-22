@@ -181,6 +181,14 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_targetChar = t_data.target or self.m_targetChar
 	self.m_bSkillHitEffect = owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')
     self.m_bHighlight = t_data['highlight'] or false
+
+    -- 보너스 버프 효과 정보 설정
+    local score = t_data['score']
+    if (score and score > 0) then
+        local t_dragon = self.m_owner.m_charTable
+        local role_type = t_dragon['role']
+        SkillHelper:makeDragonActiveSkillBonus(self.m_owner, t_skill, role_type, score)
+    end
 end
 
 -------------------------------------

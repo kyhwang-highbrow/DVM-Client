@@ -1890,6 +1890,9 @@
     <None Include="..\src\ChatClient.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\Tamer.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\LogRecorder.lua">
       <Filter>lua</Filter>
     </None>

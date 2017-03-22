@@ -63,10 +63,10 @@
 								"key_list":
 								[
 									{
-										"frame":11, "sX":0.600000, "sY":0.600000, "pX":-295.000000, "pY":-10.000000, "alpha":179
+										"frame":11, "sX":0.500000, "sY":0.500000, "pX":-328.000000, "pY":10.000000, "alpha":179
 									},
 									{
-										"frame":39, "sX":0.600000, "sY":0.600000, "pX":-295.000000, "pY":-10.000000, "alpha":179
+										"frame":31, "sX":0.500000, "sY":0.500000, "pX":-323.000000, "pY":10.000000, "alpha":179
 									}
 								]
 							},
@@ -77,10 +77,24 @@
 								"key_list":
 								[
 									{
-										"frame":57, "sX":0.400000, "sY":0.400000, "pX":-204.000000, "pY":23.000000, "alpha":179
+										"frame":23, "sX":0.400000, "sY":0.400000, "pX":-453.000000, "pY":31.000000, "alpha":179
 									},
 									{
-										"frame":85, "sX":0.400000, "sY":0.400000, "pX":-204.000000, "pY":23.000000, "alpha":179
+										"frame":43, "sX":0.400000, "sY":0.400000, "pX":-450.000000, "pY":31.000000, "alpha":179
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_fire_magma_01_ani'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":57, "sX":0.400000, "sY":0.400000, "pX":-205.000000, "pY":33.000000, "alpha":179
+									},
+									{
+										"frame":77, "sX":0.400000, "sY":0.400000, "pX":-202.000000, "pY":33.000000, "alpha":179
 									}
 								]
 							},
@@ -216,10 +230,10 @@
 								"key_list":
 								[
 									{
-										"frame":0, "pX":-456.000000, "pY":-137.000000
+										"frame":0, "pX":-456.000000, "pY":-137.000000, "mode":"Add"
 									},
 									{
-										"frame":56, "pX":-456.000000, "pY":-137.000000
+										"frame":56, "pX":-456.000000, "pY":-137.000000, "mode":"Add"
 									}
 								]
 							},
@@ -230,10 +244,24 @@
 								"key_list":
 								[
 									{
-										"frame":10, "pX":-303.000000, "pY":-190.000000
+										"frame":33, "pX":-553.000000, "pY":-2.000000, "mode":"Add"
 									},
 									{
-										"frame":66, "pX":-248.000000, "pY":-140.000000
+										"frame":89, "pX":-498.000000, "pY":48.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_fire_light_02_01_ani'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":10, "pX":-303.000000, "pY":-190.000000, "mode":"Add"
+									},
+									{
+										"frame":66, "pX":-248.000000, "pY":-140.000000, "mode":"Add"
 									}
 								]
 							},
@@ -244,10 +272,10 @@
 								"key_list":
 								[
 									{
-										"frame":24, "pX":-377.000000, "pY":-116.000000
+										"frame":24, "pX":-377.000000, "pY":-116.000000, "mode":"Add"
 									},
 									{
-										"frame":77, "pX":-377.000000, "pY":-116.000000
+										"frame":77, "pX":-377.000000, "pY":-116.000000, "mode":"Add"
 									}
 								]
 							},
@@ -258,10 +286,79 @@
 								"key_list":
 								[
 									{
-										"frame":41, "pX":-332.000000, "pY":-181.000000
+										"frame":41, "pX":-332.000000, "pY":-181.000000, "mode":"Add"
 									},
 									{
-										"frame":90, "pX":-332.000000, "pY":-181.000000
+										"frame":90, "pX":-332.000000, "pY":-181.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_fire_light_02_03_ani'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":2, "pX":-320.000000, "pY":-46.000000, "mode":"Add"
+									},
+									{
+										"frame":51, "pX":-320.000000, "pY":-46.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_fire_light_02_04_ani'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":9, "pX":96.000000, "pY":-28.000000, "mode":"Add"
+									},
+									{
+										"frame":62, "pX":96.000000, "pY":-28.000000, "mode":"Add"
+									}
+								]
+							},
+							{
+								"res_id":"<azProject>''<azVisualGroup>'res'<azVisual>'dragon_bg_fire_light_02_02_ani'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":19, "pX":-37.000000, "pY":-107.000000, "mode":"Add"
+									},
+									{
+										"frame":75, "pX":-37.000000, "pY":-107.000000, "mode":"Add"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"mini",
+					"apply":true,
+					"fps":30,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azVisualGroup>'group'<azVisual>'idle'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0, "sX":0.700000, "sY":0.700000, "pX":418.000000, "pY":226.000000
+									},
+									{
+										"frame":90, "sX":0.700000, "sY":0.700000, "pX":418.000000, "pY":226.000000
 									}
 								]
 							}
@@ -437,29 +534,15 @@
 								"key_list":
 								[
 									{
-										"frame":0
+										"frame":0, "sX":1.026480, "sY":0.894400, "pX":1.600000, "alpha":128
 									},
 									{
-										"frame":2
+										"frame":5, "sX":1.100000, "sY":1.100000, "pX":4.000000
 									}
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_01.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":3
-									},
-									{
-										"frame":5
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_02.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_04.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -473,7 +556,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_03.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_05.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -487,7 +570,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_04.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_06.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -501,7 +584,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_05.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_07.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -515,7 +598,7 @@
 								]
 							},
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_06.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_08.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":
@@ -525,34 +608,6 @@
 									},
 									{
 										"frame":20
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_07.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":21
-									},
-									{
-										"frame":23
-									}
-								]
-							},
-							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)dragon_bg_fire.plist'<azSprite>'dragon_bg_fire_magma_01_08.png'",
-								"expand":false,
-								"apply":true,
-								"key_list":
-								[
-									{
-										"frame":24
-									},
-									{
-										"frame":26
 									}
 								]
 							}
