@@ -1,9 +1,9 @@
-local PARENT = StatusEffect
+local PARENT = class(StatusEffect, IEventListener:getCloneTable())
 
 -------------------------------------
 -- class StatusEffect_Trigger
 -------------------------------------
-StatusEffect_Trigger = class(PARENT, IEventListener:getCloneTable(), {
+StatusEffect_Trigger = class(PARENT, {
 		m_triggerName = 'str',
 		m_statusEffectInterval = 'number',
 		m_triggerFunc = 'function',

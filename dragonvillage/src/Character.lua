@@ -1,4 +1,4 @@
-local PARENT = class(Entity, IEventDispatcher:getCloneTable(), IDragonSkillManager:getCloneTable())
+local PARENT = class(Entity, IEventListener:getCloneTable(), IEventDispatcher:getCloneTable(), IDragonSkillManager:getCloneTable())
 
 local CHARACTER_ACTION_TAG__SHAKE = 1
 local CHARACTER_ACTION_TAG__KNOCKBACK = 2
@@ -508,6 +508,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
             end
         end
 
+		-- @LOG_CHAR
+		self.m_charLogRecorder:recordLog('avoid', 1)
         return
     end
     	
@@ -541,6 +543,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
                     attacker_char:increaseActiveSkillCool(t_temp['block'])
                 end
             end
+
+			-- @LOG_CHAR
+			self.m_charLogRecorder:recordLog('shield', 1)
 
 			return
 		end
@@ -606,9 +611,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 
     -- 방어자 피격 이벤트 
     self:dispatch('undergo_attack', {}, attacker.m_activityCarrier.m_activityCarrierOwner)
-
+	
 	-- @LOG_CHAR
 	self.m_charLogRecorder:recordLog('under_atk', 1)
+	self:dispatch('under_atk_turn')
+	self:dispatch('under_atk_rate')
 
     -- 남은 체력이 20%이하일 경우 이벤트 발생
     if (damage > 0) then

@@ -75,6 +75,7 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation)
     self:makeCastingNode()
     self:setStatusCalc(status_calc)
     self:initStatus(t_dragon, lv, grade, evolution, doid, eclv)
+	self:initTriggerListener()
 
 	-- 피격 처리
     self:addDefCallback(function(attacker, defender, i_x, i_y)

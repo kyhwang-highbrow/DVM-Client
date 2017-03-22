@@ -1,5 +1,6 @@
 -------------------------------------
 -- class DragonSkillIndivisualInfo
+-- @TODO Individual로 수정 예정
 -------------------------------------
 DragonSkillIndivisualInfo = class({
         m_idx = 'number',       -- 스킬 순번
