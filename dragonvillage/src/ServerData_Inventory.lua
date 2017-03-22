@@ -79,7 +79,10 @@ end
 -- function calcItemCount
 -------------------------------------
 function ServerData_Inventory:calcItemCount()
-    local rune_count = g_runesData:getUnequippedRuneCount()
+    -- @delete_rune
+    --local rune_count = g_runesData:getUnequippedRuneCount()
+    local rune_count = 0
+
     local fruit_count = g_userData:getFruitPackCount()
     local evolution_stone_count = g_userData:getEvolutionStonePackCount()
     local ticket_count = g_userData:getTicketPackCount()

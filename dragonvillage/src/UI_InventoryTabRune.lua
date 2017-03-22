@@ -12,6 +12,11 @@ UI_InventoryTabRune = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_InventoryTabRune:init(inventory_ui)
+    -- @delete_rune
+    if true then
+        return
+    end
+
     self.m_mTableViewListMap = {}
     self.m_mSortManagerMap = {}
 
@@ -84,6 +89,11 @@ end
 -- function onEnterInventoryTab
 -------------------------------------
 function UI_InventoryTabRune:onEnterInventoryTab(first)
+    -- @delete_rune
+    if true then
+        return
+    end
+
     if first then
         local default_tab = g_runesData:getSlotName(1)
         self:setTab(default_tab)

@@ -1242,12 +1242,6 @@
     <None Include="..\src\UI_DragonMgrRunes.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\TableRune.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\TableRuneNamingRule.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SceneGameColosseum.lua">
       <Filter>lua</Filter>
     </None>
@@ -1255,9 +1249,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\ConstantColosseum.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\TableRuneStatus.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\ServerData_Quest.lua">
@@ -1275,9 +1266,6 @@
     <None Include="..\src\UI_RewardCard.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\TableRuneExp.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\UI_GameColosseum.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1288,9 +1276,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillIndicator_Penetration.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\TableRuneGrade.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\TableRuneSet.lua">
@@ -1740,6 +1725,9 @@
     <None Include="..\src\UI_AdventureStageMissionInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\GameLogRecorder.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\UI_ChapterAchieveRewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1887,16 +1875,7 @@
     <None Include="..\src\ChatClient.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\Tamer.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\LogRecorder.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\LogRecorderChar.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\LogRecorderWorld.lua">
+    <None Include="..\src\StructRuneObject.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>

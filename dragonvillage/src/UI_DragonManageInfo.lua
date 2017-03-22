@@ -175,7 +175,9 @@ function UI_DragonManageInfo:refresh()
     end
 
 
+    -- @delete_rune
     do -- 장착된 룬 표시
+        --[[
         local t_runes = t_dragon_data['runes']
         for i=1, 3 do
             vars['runeSlotNode' .. i]:removeAllChildren()
@@ -190,6 +192,7 @@ function UI_DragonManageInfo:refresh()
                 vars['runeSlotNode' .. i]:addChild(icon)
             end
         end
+        --]]
     end
     
 end
@@ -490,7 +493,7 @@ end
 -- @brief 룬 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_runeBtn(slot_idx)
-    self:openSubManageUI(UI_DragonMgrRunes)
+    --self:openSubManageUI(UI_DragonMgrRunes)
 end
 
 -------------------------------------

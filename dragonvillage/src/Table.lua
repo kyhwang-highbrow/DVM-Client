@@ -55,11 +55,6 @@ local TableInfo = {
         friendship_variables = {'table_dragon_friendship_variables',  'vari',         false},
         dragon_train_info    = {'table_dragon_train_info',  'grade',        false},
         dragon_train_status  = {'table_dragon_train_status','lsid',         false},
-        rune                 = {'table_rune',               'rid',          false},
-        rune_grade           = {'table_rune_grade',         'grade',        false},
-        rune_status          = {'table_rune_status',        'vid',          false},
-        rune_naming_rule     = {'table_rune_naming_rule',   'key',          false},
-        rune_exp             = {'table_rune_exp',           'rune_lv',      false},
         rune_set             = {'table_rune_set',           'set',          false},
         dragon_unit          = {'table_dragon_unit',        'unit_id',      false},
     }

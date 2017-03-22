@@ -144,11 +144,6 @@ local t_module = {
     'TableEvolutionInfo',
     'TableStatus',
     'TableFormation',
-    'TableRune',
-    'TableRuneGrade',
-    'TableRuneStatus',
-    'TableRuneNamingRule',
-    'TableRuneExp',
     'TableRuneSet',
     'TableItem',
 	'TableQuest',
@@ -624,6 +619,7 @@ local t_module = {
     'StructAdventureStageInfo',
     'StructCalendarDay',
     'StructAttendanceData',
+    'StructRuneObject',
 
     -- Network
     'Network',

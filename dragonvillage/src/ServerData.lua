@@ -440,7 +440,8 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 추가된 룬 적용 (추가)
     if t_added_items['runes'] then
-        g_runesData:applyRuneData_list(t_added_items['runes'])
+        -- @delete_rune
+        --g_runesData:applyRuneData_list(t_added_items['runes'])
     end
 
     -- 인연포인트 (전체 갱신)

@@ -154,6 +154,10 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Dragons:makeDragonRuneSetData(t_dragon_data)
+    -- @delete_rune
+    if true then
+        return
+    end
     local runes_map = t_dragon_data['runes']
 
     local runes_list = {}
@@ -524,6 +528,11 @@ end
 --        룬의 메인옵션, 서브옵션의 능력치를 합산한 테이블을 리턴
 -------------------------------------
 function ServerData_Dragons:getRuneBonusList(doid)
+    -- @delete_rune
+    if true then
+        return
+    end
+
     local t_dragon_data = self:getDragonDataFromUid(doid)
 
     local l_runes = t_dragon_data['runes']
