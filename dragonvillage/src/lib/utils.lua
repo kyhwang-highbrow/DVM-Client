@@ -870,3 +870,23 @@ function getDigit(id, base_digit, range)
     local digit = math_floor((id % (base_digit * math_pow(10, range)))/base_digit)
     return digit
 end
+
+-------------------------------------
+-- function getQuadrant
+-- @brief 기준점으로부터 해당 좌표가 몇사분면인지 계산
+-------------------------------------
+function getQuadrant(center_x, center_y, pos_x, pos_y)
+    local quadrant
+
+    if (pos_x >= center_x) then
+        if (pos_y >= center_y) then     quadrant = 1
+        else                            quadrant = 2
+        end
+    elseif (pos_x < center_x) then
+        if (pos_y >= center_y) then     quadrant = 4
+        else                            quadrant = 3
+        end
+    end
+
+    return quadrant
+end

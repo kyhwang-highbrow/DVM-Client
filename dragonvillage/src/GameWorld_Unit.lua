@@ -18,7 +18,7 @@ function GameWorld:makeTamerNew(t_tamer, bRightFormation)
     end)
 
     self:addToUnitList(tamer)
-    self.m_worldNode:addChild(tamer.m_rootNode, WORLD_Z_ORDER.HERO)
+    self.m_worldNode:addChild(tamer.m_rootNode, WORLD_Z_ORDER.TAMER)
     self.m_physWorld:addObject(PHYS.HERO, tamer)
     
     tamer.m_animator:setScale(0.5)

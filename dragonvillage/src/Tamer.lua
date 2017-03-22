@@ -14,9 +14,12 @@ Tamer = class(Character, {
 
         m_afterimageMove = 'number',
         m_bUseSelfAfterImage = 'boolean',
+        m_bWaitState = 'boolean',
 
         m_lSkill = '',
         m_lSkillCoolTimer = '',
+
+        m_roamTimer = '',
      })
 
 -------------------------------------
@@ -26,10 +29,14 @@ Tamer = class(Character, {
 -------------------------------------
 function Tamer:init(file_name, body, ...)
     self.m_charType = 'tamer'
+
+    self.m_bWaitState = false
     self.m_bUseSelfAfterImage = false
 
     self.m_lSkill = {}
     self.m_lSkillCoolTimer = {}
+
+    self.m_roamTimer = 0
 end
 
 -------------------------------------
@@ -64,13 +71,14 @@ end
 -- function initState
 -------------------------------------
 function Tamer:initState()
-    PARENT.initState(self)
+    --PARENT.initState(self)
 
     self:addState('idle', PARENT.st_idle, 'i_idle', true)
-    self:addState('attack', PARENT.st_idle, 'i_idle', false)
-    self:addState('attackDelay', PARENT.st_idle, 'i_idle', true)
-    self:addState('charge', PARENT.st_idle, 'i_idle', true)
-    self:addState('casting', PARENT.st_idle, 'i_idle', true)
+    self:addState('roam', Tamer.st_roam, 'i_idle', true)
+    --self:addState('attack', PARENT.st_idle, 'i_idle', false)
+    --self:addState('attackDelay', PARENT.st_idle, 'i_idle', true)
+    --self:addState('charge', PARENT.st_idle, 'i_idle', true)
+    --self:addState('casting', PARENT.st_idle, 'i_idle', true)
 
     self:addState('wait', Tamer.st_wait, 'i_idle', true)
     self:addState('move', PARENT.st_move, 'i_idle', true)
@@ -79,6 +87,8 @@ function Tamer:initState()
     self:addState('success_move', Tamer.st_success_move, 'i_idle', true)
 
     self:addState('dying', Tamer.st_dying, 'i_dying', false, PRIORITY.DYING)
+    self:addState('dead', PARENT.st_dead, nil, nil, PRIORITY.DEAD)
+
     self:addState('comeback', PARENT.st_comeback, 'i_idle', true)
 end
 
@@ -93,8 +103,66 @@ function Tamer:update(dt)
     if (self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE] > 0) then
         self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE] = math_max(self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE] - dt, 0)
     end
+
+    self:syncAniAndPhys()
         
     return PARENT.update(self, dt / 2)
+end
+
+-------------------------------------
+-- function st_roam
+-------------------------------------
+function Tamer.st_roam(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        owner.m_roamTimer = 0
+    end
+
+    if (owner.m_roamTimer <= 0) then
+        -- 현재 위치가 몇사분면인지 계산
+        local quadrant = getQuadrant(
+            CRITERIA_RESOLUTION_X / 2,
+            0,
+            owner.pos.x,
+            owner.pos.y
+        )
+
+        -- 다음 분면을 목표 지점으로 함
+        quadrant = quadrant + 1
+        if (quadrant > 4) then
+            quadrant = quadrant - 4
+        end
+        
+        local tar_x, tar_y
+        
+        if (quadrant == 1) then
+            tar_x = math_random(CRITERIA_RESOLUTION_X / 2, CRITERIA_RESOLUTION_X) - 300
+            tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2 - 100)
+        elseif (quadrant == 2) then
+            tar_x = math_random(CRITERIA_RESOLUTION_X / 2, CRITERIA_RESOLUTION_X) - 300
+            tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2) - (CRITERIA_RESOLUTION_Y / 2 - 100)
+        elseif (quadrant == 3) then
+            tar_x = math_random(50, CRITERIA_RESOLUTION_X / 2)
+            tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2) - (CRITERIA_RESOLUTION_Y / 2 - 100)
+        elseif (quadrant == 4) then
+            tar_x = math_random(50, CRITERIA_RESOLUTION_X / 2)
+            tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2)
+        end
+
+        local cameraHomePosX, cameraHomePosY = owner.m_world.m_gameCamera:getHomePos()
+        tar_x = (tar_x + cameraHomePosX)
+        tar_y = (tar_y + cameraHomePosY)
+
+        local course = math_random(-1, 1)
+        local time = math_random(5, 15) / 10
+        local bezier = getBezier(tar_x, tar_y, owner.pos.x, owner.pos.y, course)
+
+        owner.m_rootNode:stopAllActions()
+        owner.m_rootNode:runAction(cc.BezierBy:create(time, bezier))
+        
+        owner.m_roamTimer = time
+    end
+
+    owner.m_roamTimer = owner.m_roamTimer - dt
 end
 
 -------------------------------------
@@ -151,7 +219,18 @@ end
 -- function setWaitState
 -------------------------------------
 function Tamer:setWaitState(is_wait_state)
-    self:changeState('wait')
+    self.m_bWaitState = is_wait_state
+
+    if is_wait_state then
+        if isExistValue(self.m_state, 'idle', 'roam') then
+            self.m_rootNode:stopAllActions()
+            self:changeState('wait')
+        end
+    else
+        if (self.m_state == 'wait') then
+            self:changeState('roam')
+        end
+    end
 end
 
 -------------------------------------

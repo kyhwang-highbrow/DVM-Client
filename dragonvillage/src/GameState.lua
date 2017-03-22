@@ -706,6 +706,10 @@ function GameState:fight()
             end
         end
     end
+
+    if (world.m_tamer) then
+        world.m_tamer:changeState('roam')
+    end
 end
 
 -------------------------------------
