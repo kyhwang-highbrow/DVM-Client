@@ -40,18 +40,14 @@ UIC_RichLabel = class(UIC_Node, {
         -- cc.VERTICAL_TEXT_ALIGNMENT_TOP  = 0x0
 
         m_bDirtyAlignment = 'boolean',
-
-
-        --------------------------------확장
-
-        m_menu = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UIC_RichLabel:init()
-    self.m_root = cc.Node:create()
+    self.m_root = cc.Menu:create()
+    self.m_root:setPosition(0, 0)
     self.m_node = self.m_root
 
     self.m_fontSize = 20
@@ -210,36 +206,36 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
         while (work_text) do
             -- label 생성
             local label = cc.Label:createWithTTF(work_text, self:getFontName(), self.m_fontSize, self.m_outlineSize)
+            -- 아웃라인 지정
             if (0 < self.m_outlineSize) then
                 label:enableOutline(self.m_outlineColor, self.m_outlineSize)
             end
+            -- 쉐도우 지정
             if (self.m_bShadowEnabled) then
                 label:enableShadow(self.m_shadowColor, self.m_shadowOffset, self.m_shadowBlurRadius)
+            end
+             -- 색상 지정
+            if color then
+                label:setColor(self:getColor(color))
             end
             label:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_TOP)
             label:setDockPoint(cc.p(0, 1))
             label:setAnchorPoint(cc.p(0, 1))
-            self.m_root:addChild(label)
+            
 
             -- 가로 길이 체크
             pos_x, idx_y, work_text, carriage_return = self:makeContent_checkTextWidth(label, work_text, pos_x, idx_y, line_height, is_button)
 
-
-
-            -- 현재 위치 지정
+            -- 현재 위치 계산
             local pos_y = -((idx_y - 1) * line_height)
-            label:setPosition(pos_x, pos_y)            
 
-            --[[
+            local content_uic = label
+            local content_node = label
             if is_button then
-                self:makeTextButton(content, label, pos_x, pos_y, self:getColor(color), idx_y)
+                content_uic, content_node = self:makeTextButton(t_content, label, self:getColor(color))
             end
-            --]]
-
-            -- 생상 지정
-            if color then
-                label:setColor(self:getColor(color))
-            end
+            self.m_root:addChild(content_node)
+            content_uic:setPosition(pos_x, pos_y)
 
             -- 다음 pos_x
             local prev_x = pos_x
@@ -250,7 +246,7 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
 
             do
                 local t_data = {}
-                t_data['node'] = label
+                t_data['node'] = content_uic
                 t_data['pos_x'] = prev_x
                 t_data['idx_y'] = idx_y
                 table.insert(self.m_nodeList, t_data)
@@ -270,69 +266,37 @@ end
 
 -------------------------------------
 -- function makeTextButton
--- @brief 작업 중
+-- @brief 버튼 생성
 -------------------------------------
-function UIC_RichLabel:makeTextButton(t_content, label, x, y, color, idx_y)
-    -- menu객체가 없을 경우 생성
-    if (self.m_menu == nil) then
-        self.m_menu = cc.Menu:create()
-        self.m_menu:setDockPoint(cc.p(0.5, 0.5))
-        self.m_menu:setAnchorPoint(cc.p(0.5, 0.5))
-        self.m_menu:setNormalSize(self.m_dimension['width'], self.m_dimension['height'])
-        self.m_menu:setPosition(0, 0)
-        self.m_root:addChild(self.m_menu, 1)
-    end
-
-    local str = label:getString()
+function UIC_RichLabel:makeTextButton(t_content, label, color)
     local str_width = label:getStringWidth()
-    local unserline = nil
-
     local line_height = self.m_fontSize * 1.1
 
+    local button = cc.MenuItemImage:create(EMPTY_PNG, nil, nil, 0)
+    button:setDockPoint(cc.p(0, 1))
+    button:setAnchorPoint(cc.p(0, 1))
+    button:setContentSize(str_width, line_height)
 
-    do -- underline 생성
-        --local x = x + (str_width/2)
-        --local y = y - (self.m_fontSize/2) - 1
-        local scale_x = str_width/20
-        local y = y - (line_height) + (self.m_fontSize / 10)
-
-        local sprite = cc.Sprite:create(UNDER_LINE_PNG)
-        self.m_root:addChild(sprite)
-        sprite:setPosition(x, y)
-        sprite:setDockPoint(cc.p(0, 1))
-        sprite:setAnchorPoint(cc.p(0, 1))
-        sprite:setScaleX(scale_x)
-
-        if color then
-            sprite:setColor(color)
-        end
-        unserline = sprite
-
-        -- 정력 리스트에 삽입
-        --table.insert(self.m_hNodeList[idx_y], {node=sprite, pos_x=x, offset_y= -(self.m_fontSize/2)-1})
+    -- 언더바 생성
+    local unserline = cc.Sprite:create(UNDER_LINE_PNG)
+    button:addChild(unserline)
+    unserline:setDockPoint(cc.p(0, 0))
+    unserline:setAnchorPoint(cc.p(0, 0))
+    local scale_x = str_width/20
+    unserline:setScaleX(scale_x)
+    if color then
+        unserline:setColor(color)
     end
 
-    --[[
-    do -- 버튼 생성
-        local x = x + (str_width/2)
+    -- label
+    button:addChild(label)
 
-        local button = cc.MenuItemImage:create(UNDER_LINE_PNG, nil, nil, 0)
-        button:setDockPoint(cc.p(0, 1))
-        button:setAnchorPoint(cc.p(0.5, 1))
-        button:setPosition(x, y)
-        cclog('x' .. x)
-        cclog('y' .. y)
-        button:setContentSize(str_width, line_height)
-        self.m_menu:addChild(button)
+    -- 클릭 핸들러 지정
+    local uic_button = UIC_Button(button)
+    uic_button:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
+    uic_button:registerScriptTapHandler(function() self:click_word(t_content, label, unserline, color) end)
 
-        -- 클릭 핸들러 지정
-        local uic_button = UIC_Button(button)
-        --uic_button:registerScriptTapHandler(function() self:click_word(content, label, unserline, color, str) end)
-
-        -- 정력 리스트에 삽입
-        --table.insert(self.m_hNodeList[idx_y], {node=button ,pos_x=x})
-    end
-    --]]
+    return uic_button, button
 end
 
 -------------------------------------
@@ -345,11 +309,11 @@ function UIC_RichLabel:makeContent_checkTextWidth(label, work_text, pos_x, idx_y
         return pos_x, idx_y, nil, false
     end
 
-    --[[
-    -- 버튼일 경우 즉시 개행
+    -- 버튼일 경우 가로 길이를 넘어갈 경우 즉시 개행
     if is_button then
+        pos_x, idx_y = self:newLine(pos_x, idx_y)
         work_text = nil
-        return pos_x, idx_y, work_text, true
+        return pos_x, idx_y, work_text, false
     end
     --]]
     
@@ -554,6 +518,9 @@ end
 function UIC_RichLabel:setDimension(width, height)
     self.m_dimension = cc.size(width, height)
     self.m_root:setNormalSize(self.m_dimension)
+    --self.m_root:setContentSize(self.m_dimension)
+    --self.m_root:setUpdateTransform()
+    --self.m_root:setUpdateChildrenTransform()
     self:setDirty()
 end
 
@@ -599,6 +566,51 @@ end
 
 
 -------------------------------------
+-- function click_word
+-- @brief 버튼 클릭 핸들러
+-------------------------------------
+function UIC_RichLabel:click_word(t_content, label, underline, color)
+    --[[
+    if self.m_clickHandler then
+        self.m_clickHandler(content)
+    end
+    --]]
+
+    ccdump(t_content)
+
+    self:makeClickReaction(label, color)
+    self:makeClickReaction(underline, color)
+end
+
+-- 클릭했을 시 색상
+local CLICK_COLOR = cc.c3b(163, 73, 164)
+
+-------------------------------------
+-- function makeClickReaction
+-------------------------------------
+function UIC_RichLabel:makeClickReaction(node, org_color)
+    if (not node) then
+        return
+    end
+
+    -- 기존 액션 삭제
+    node:stopAllActions()
+
+    -- 클릭 색상으로 변경
+    node:setColor(CLICK_COLOR)
+    
+    -- 액션 생성
+    local sequence = cc.Sequence:create(
+            --cc.TintTo:create(0.05, org_color['r'], org_color['g'], org_color['b']),
+            --cc.TintTo:create(0.05, CLICK_COLOR['r'], CLICK_COLOR['g'], CLICK_COLOR['b']),
+            --cc.DelayTime:create(1),
+            cc.DelayTime:create(0.2),
+            cc.TintTo:create(0.15, org_color['r'], org_color['g'], org_color['b'])
+        )
+    node:runAction(sequence)
+end
+
+-------------------------------------
 -- function UIC_RichLabel_Sample
 -------------------------------------
 function UIC_RichLabel_Sample(parent_node)
@@ -607,25 +619,25 @@ function UIC_RichLabel_Sample(parent_node)
     -- 2. local UNDER_LINE_PNG = 'res/common/underline.png' 을 지정해 주셔야 합니다. (버튼에서 아래쪽 라인을 그려줄 png)
     -- 3. local EMPTY_PNG = 'res/common/empty.png' (눈에 보이지 않는 버튼을 생성하기 위한 png)
 
-
-    ---[[
     local text = '{@#TAN;user;10001}[페이커]{@WHITE}님이dfd {@#GOLD;champ;10002}[5성발키리]{@#WHITE}를 {@#DEEPSKYBLUE}챔피언진화로 획득하셨습니다.'
     --local text = '{@TAN;user;10001}[페이커]님이 [5성 발키리]를 챔피언진화로 획득하셨습니다.'
     --local text = '[페이커]님이 [5성 발키리]를 챔피언진화로 획득하셨습니다.'
     --text = '{@TAN}실피즈{@WHITE}님이 {@GOLD}[5성 발키리]{@WHITE}를 {@DEEPSKYBLUE}챔피언 진화{@ORANGE}로 획득하셨습니다.'
     --text = '{@E}wwwwwwwwwww'
+    text = '{@TAN;user;10001}[페이커]{@WHITE}님이dfd {@#GOLD;champ;10002}[5성발키리]{@WHITE}를 {@#DEEPSKYBLUE}챔피언진화로 획득하셨습니다.{@#w}챔피언진화로 획득하셨습니다.'
 
 
     local rich_label = UIC_RichLabel()
+    
     rich_label:initGLNode()
 
-    -- l
+    -- label의 속성들
     rich_label:setString(text)
     rich_label:setFontSize(30)
-    rich_label:setDimension(280, 300)
+    rich_label:setDimension(280 + 100, 300)
     rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-    --rich_label:enableOutline(cc.c4b(255, 0, 0, 127), 3)
-    --rich_label:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
+    rich_label:enableOutline(cc.c4b(255, 0, 0, 127), 3)
+    rich_label:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
 
     -- Node의 기본 속성들 (UIC_Node 참고)
     rich_label:setDockPoint(cc.p(0.5, 0.5))
