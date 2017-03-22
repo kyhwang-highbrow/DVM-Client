@@ -1,29 +1,32 @@
 -------------------------------------
 -- function makeTamerNew
 -------------------------------------
-function GameWorld:makeTamerNew(t_tamer_data, bRightFormation)
-    self.m_tamer = Tamer('res/character/tamer/dede/dede.spine', {0, 0, 0})
-    self.m_tamer.m_bLeftFormation = true
+function GameWorld:makeTamerNew(t_tamer, bRightFormation)
+    local bLeftFormation = not bRightFormation
 
-    self.m_tamer:initWorld(self)
-    self.m_tamer.m_animator:setScale(0.5)
-    self.m_tamer:initState()
+    local res = 'res/character/tamer/dede/dede.spine'
+    --local res = t_tamer['res_sd']
+
+    local tamer = Tamer(res, {0, 0, 0})
     
-    -- 기본 정보 저장
-    --tamer.m_tamerID = dragon_id
-    --tamer.m_charTable = t_dragon
-
+    tamer:initWorld(self)
+    tamer:init_tamer(t_tamer, bLeftFormation)
+    tamer:initState()
+    
     -- 피격 처리
-    self.m_tamer:addDefCallback(function(attacker, defender, i_x, i_y)
+    tamer:addDefCallback(function(attacker, defender, i_x, i_y)
     end)
 
-    self:addToUnitList(self.m_tamer)
-    self.m_worldNode:addChild(self.m_tamer.m_rootNode, WORLD_Z_ORDER.HERO)
-    self.m_physWorld:addObject(PHYS.HERO, self.m_tamer)
+    self:addToUnitList(tamer)
+    self.m_worldNode:addChild(tamer.m_rootNode, WORLD_Z_ORDER.HERO)
+    self.m_physWorld:addObject(PHYS.HERO, tamer)
     
-    self.m_tamer:setOrgHomePos(70, -250)
-    self.m_tamer:setPosition(70, -250)
-    self.m_tamer:changeState('idle')
+    tamer.m_animator:setScale(0.5)
+    tamer:setOrgHomePos(70, -250)
+    tamer:setPosition(70, -250)
+    tamer:changeState('idle')
+
+    return tamer
 end
 
 -------------------------------------
@@ -277,8 +280,8 @@ end
 -------------------------------------
 function GameWorld:buffActivateAtStartup()
     -- 테이머 버프
-    if (self.m_gameTamer) then
-        self.m_gameTamer:doSkillPassive()
+    if (self.m_tamer) then
+        self.m_tamer:doSkillPassive()
     end
 
     -- 아군 버프

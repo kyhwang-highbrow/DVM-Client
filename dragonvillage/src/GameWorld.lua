@@ -19,7 +19,6 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_missiledNode = 'cc.Node',
 		m_unitInfoNode = 'cc.Node',
 
-        m_tamer = 'Tamer',
         m_lUnitList = 'list',
 		m_lSkillList = 'table',
 		m_lMissileList = 'table',
@@ -70,10 +69,10 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_skillIndicatorMgr = 'SkillIndicatorMgr',
         m_enemyMovementMgr = 'EnemyMovementMgr',
 
-		-- 테이머 스킬 관련
+		-- 테이머 관련
+        m_tamer = 'Tamer',
         m_tamerSkillCut = 'TamerSkillCut',
-        m_gameTamer = 'GameTamer',
-        
+                
         -- 테이머 대사 및 표정
         m_tamerSpeechSystem = 'TamerSpeechSystem',
 
@@ -361,10 +360,8 @@ function GameWorld:initTamer()
     local t_tamer = g_userData:getTamerInfo()
 
     -- 테이머 생성
-    self.m_gameTamer = GameTamer(self, t_tamer)
+    self.m_tamer = self:makeTamerNew(t_tamer)
     self:addListener('tamer_skill', self.m_gameState)
-
-    self:makeTamerNew()
     self:addListener('dragon_summon', self)
     
     -- 스킬 컷씬
@@ -1005,8 +1002,8 @@ function GameWorld:onKeyReleased(keyCode, event)
         end
         
         -- 테이머 스킬
-        if (self.m_gameTamer) then
-            self.m_gameTamer:resetActiveSkillCool()
+        if (self.m_tamer) then
+            self.m_tamer:resetActiveSkillCool()
         end
 
 	-- 미션 성공
@@ -1175,10 +1172,14 @@ function GameWorld:onKeyReleased(keyCode, event)
 
     -- 테이머 스킬
     elseif (keyCode == KEY_1) then
-        self.m_gameTamer:doSkillActive()
+        if (self.m_tamer) then
+            self.m_tamer:doSkillActive()
+        end
         
     elseif (keyCode == KEY_2) then
-        self.m_gameTamer:doSkillPassive()
+        if (self.m_tamer) then
+            self.m_tamer:doSkillPassive()
+        end
 
 	-- 미사일 범위 확인
     elseif (keyCode == KEY_W) then
@@ -1235,9 +1236,9 @@ function GameWorld:setWaitAllCharacter(wait)
         v:setWaitState(wait)
     end
 
-	if (self.m_tamer) then
-		self.m_tamer:setWaitState(wait)
-	end
+    if (self.m_tamer) then
+        self.m_tamer:setWaitState(wait)
+    end
 end
 
 -------------------------------------
@@ -1706,8 +1707,7 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
         for i,v in pairs(self.m_lUnitList) do
             v:setTemporaryPause(true)
         end
-        self.m_tamer:setTemporaryPause(true)
-
+        
         -- 미사일들 액션 정지
         local action_mgr = cc.Director:getInstance():getActionManager()
         for i,v in pairs(self.m_lMissileList) do
@@ -1730,8 +1730,7 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
         for i,v in pairs(self.m_lUnitList) do
             v:setTemporaryPause(false)
         end
-        self.m_tamer:setTemporaryPause(false)
-
+        
         -- 미사일들 액션 재개
         local action_mgr = cc.Director:getInstance():getActionManager()
         for i,v in pairs(self.m_lMissileList) do

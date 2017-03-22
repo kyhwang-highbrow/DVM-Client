@@ -111,18 +111,18 @@ function GameAuto_Hero:proccess_tamer()
         return false
     end
 
-    local gameTamer = self.m_world.m_gameTamer
-    if (not gameTamer) then return end
+    local tamer = self.m_world.m_tamer
+    if (not tamer) then return end
 
-    if (not gameTamer:isEndActiveSkillCool()) then
+    if (not tamer:isEndActiveSkillCool()) then
         return false
     end
 
-    local t_skill = gameTamer:getActiveSkillTable()
+    local t_skill = tamer:getActiveSkillTable()
 
     -- TODO : 스킬 타입별 고유한 조건으로 체크되어야함
-    if (self:checkSkill(gameTamer, t_skill, GAME_AUTO_AI_ATTACK__COOLTIME, GAME_AUTO_AI_HEAL__LOW_HP)) then
-        gameTamer:doSkillActive()
+    if (self:checkSkill(tamer, t_skill, GAME_AUTO_AI_ATTACK__COOLTIME, GAME_AUTO_AI_HEAL__LOW_HP)) then
+        tamer:doSkillActive()
 
         -- AI 딜레이 시간 설정
         self.m_aiDelayTime = self:getAiDelayTime()

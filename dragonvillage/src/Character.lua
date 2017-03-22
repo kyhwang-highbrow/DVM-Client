@@ -194,8 +194,10 @@ end
 function Character:initWorld(game_world)
     PARENT.initWorld(self, game_world)
 
-    self.m_unitInfoNode = cc.Node:create()
-    self.m_world.m_unitInfoNode:addChild(self.m_unitInfoNode)
+    if (not self.m_unitInfoNode) then
+        self.m_unitInfoNode = cc.Node:create()
+        self.m_world.m_unitInfoNode:addChild(self.m_unitInfoNode)
+    end
 end
 
 -------------------------------------

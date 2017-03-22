@@ -227,10 +227,6 @@ function GameState.update_fight(self, dt)
         world.m_skillIndicatorMgr:update(dt)
     end
 
-    if world.m_gameTamer then
-        world.m_gameTamer:update(dt)
-    end
-
     if world.m_gameFever then
         world.m_gameFever:update(dt)
     end
@@ -288,8 +284,10 @@ function GameState.update_wave_intermission(self, dt)
             end
         end
 
-        world.m_tamer:changeStateWithCheckHomePos('idle')
-        world.m_tamer:setAfterImage(true)
+        if (world.m_tamer) then
+            --world.m_tamer:changeStateWithCheckHomePos('idle')
+            world.m_tamer:setAfterImage(true)
+        end
     end
 
 	-- 1. 전환 시간 2/3 지점까지 비교적 완만하게 빨라짐
@@ -312,7 +310,10 @@ function GameState.update_wave_intermission(self, dt)
                 dragon:setAfterImage(false)
             end
         end
-        world.m_tamer:setAfterImage(false)
+
+        if (world.m_tamer) then
+            world.m_tamer:setAfterImage(false)
+        end
 
 		self:changeState(GAME_STATE_ENEMY_APPEAR)
 	end
