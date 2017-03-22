@@ -3000,7 +3000,7 @@ int tolua_cocos2d_BezierBy_create(lua_State* tolua_S)
     
     argc = lua_gettop(tolua_S) - 1;
     
-    if (argc == 2)
+    if (argc >= 2)
     {
         double t = 0.0;
         ok &= luaval_to_number(tolua_S, 2, &t);
@@ -3024,8 +3024,16 @@ int tolua_cocos2d_BezierBy_create(lua_State* tolua_S)
         config.controlPoint_2 = arr[1];
         config.endPosition = arr[2];
         CC_SAFE_DELETE_ARRAY(arr);
+
+        bool b = false;
+        if (argc == 3)
+        {
+            ok &= luaval_to_boolean(tolua_S, 4, &b);
+            if (!ok)
+                return 0;
+        }
         
-        BezierBy* tolua_ret = BezierBy::create(t, config);
+        BezierBy* tolua_ret = BezierBy::create(t, config, b);
         if (NULL != tolua_ret)
         {
             int nID = (tolua_ret) ? (int)tolua_ret->_ID : -1;
@@ -3034,7 +3042,7 @@ int tolua_cocos2d_BezierBy_create(lua_State* tolua_S)
             return 1;
         }
     }
-    
+
     CCLOG("'create' has wrong number of arguments: %d, was expecting %d\n", argc, 2);
     return 0;
     
@@ -3060,7 +3068,7 @@ int tolua_cocos2d_BezierTo_create(lua_State* tolua_S)
     
     argc = lua_gettop(tolua_S) - 1;
     
-    if (argc == 2)
+    if (argc >= 2)
     {
         double t = 0.0;
         ok &= luaval_to_number(tolua_S, 2, &t);
@@ -3084,8 +3092,16 @@ int tolua_cocos2d_BezierTo_create(lua_State* tolua_S)
         config.controlPoint_2 = arr[1];
         config.endPosition = arr[2];
         CC_SAFE_DELETE_ARRAY(arr);
+
+        bool b = false;
+        if (argc == 3)
+        {
+            ok &= luaval_to_boolean(tolua_S, 4, &b);
+            if (!ok)
+                return 0;
+        }
         
-        BezierTo* tolua_ret = BezierTo::create(t, config);
+        BezierTo* tolua_ret = BezierTo::create(t, config, b);
         if (NULL != tolua_ret)
         {
             int nID = (tolua_ret) ? (int)tolua_ret->_ID : -1;

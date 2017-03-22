@@ -540,7 +540,7 @@ class CC_DLL JumpBy : public ActionInterval
 {
 public:
     /** creates the action */
-    static JumpBy* create(float duration, const Vec2& position, float height, int jumps);
+    static JumpBy* create(float duration, const Vec2& position, float height, int jumps, bool interporation);
 
     //
     // Overrides
@@ -551,11 +551,11 @@ public:
     virtual void update(float time) override;
     
 CC_CONSTRUCTOR_ACCESS:
-    JumpBy() {}
+    JumpBy() : _interpolation(false), _prevTime(0.0f) {}
     virtual ~JumpBy() {}
 
     /** initializes the action */
-    bool initWithDuration(float duration, const Vec2& position, float height, int jumps);
+    bool initWithDuration(float duration, const Vec2& position, float height, int jumps, bool interporation);
 
 protected:
     Vec2           _startPosition;
@@ -563,6 +563,9 @@ protected:
     float           _height;
     int             _jumps;
     Vec2           _previousPos;
+
+    bool           _interpolation;
+    float          _prevTime;
 
 private:
     CC_DISALLOW_COPY_AND_ASSIGN(JumpBy);
@@ -574,7 +577,7 @@ class CC_DLL JumpTo : public JumpBy
 {
 public:
     /** creates the action */
-    static JumpTo* create(float duration, const Vec2& position, float height, int jumps);
+    static JumpTo* create(float duration, const Vec2& position, float height, int jumps, bool interporation);
 
     //
     // Override
@@ -612,7 +615,7 @@ public:
      * in lua: lcaol create(local t, local table)
      * @endcode
      */
-    static BezierBy* create(float t, const ccBezierConfig& c);
+    static BezierBy* create(float t, const ccBezierConfig& c, bool i);
 
     //
     // Overrides
@@ -623,16 +626,19 @@ public:
     virtual void update(float time) override;
     
 CC_CONSTRUCTOR_ACCESS:
-    BezierBy() {}
+    BezierBy() : _interpolation(false), _prevTime(0.0f) {}
     virtual ~BezierBy() {}
 
     /** initializes the action with a duration and a bezier configuration */
-    bool initWithDuration(float t, const ccBezierConfig& c);
+    bool initWithDuration(float t, const ccBezierConfig& c, bool i);
 
 protected:
     ccBezierConfig _config;
     Vec2 _startPosition;
     Vec2 _previousPosition;
+
+    bool _interpolation;
+    float _prevTime;
 
 private:
     CC_DISALLOW_COPY_AND_ASSIGN(BezierBy);
@@ -651,7 +657,7 @@ public:
      * in lua: lcaol create(local t, local table)
      * @endcode
      */
-    static BezierTo* create(float t, const ccBezierConfig& c);
+    static BezierTo* create(float t, const ccBezierConfig& c, bool i);
 
     //
     // Overrides
@@ -664,7 +670,7 @@ CC_CONSTRUCTOR_ACCESS:
     BezierTo() {}
     virtual ~BezierTo() {}
 
-    bool initWithDuration(float t, const ccBezierConfig &c);
+    bool initWithDuration(float t, const ccBezierConfig &c, bool i);
 
 protected:
     ccBezierConfig _toConfig;

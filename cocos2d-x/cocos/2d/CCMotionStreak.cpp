@@ -39,6 +39,7 @@ NS_CC_BEGIN
 
 MotionStreak::MotionStreak()
 : _fastMode(false)
+, _bezierMode(false)
 , _startingPositionInitialized(false)
 , _texture(nullptr)
 , _blendFunc(BlendFunc::ALPHA_NON_PREMULTIPLIED)
@@ -144,6 +145,8 @@ void MotionStreak::setPosition(const Vec2& position)
         _startingPositionInitialized = true;
     }
     _positionR = position;
+
+    appendNewPoint(_positionR, 1.0f);
 }
 
 void MotionStreak::setPosition(float x, float y)
@@ -249,6 +252,14 @@ bool MotionStreak::isOpacityModifyRGB(void) const
     return false;
 }
 
+static inline float bezierat(float a, float b, float c, float d, float t)
+{
+    return (powf(1 - t, 3) * a +
+        3 * t*(powf(1 - t, 2))*b +
+        3 * powf(t, 2)*(1 - t)*c +
+        powf(t, 3)*d);
+}
+
 void MotionStreak::update(float delta)
 {
     if (!_startingPositionInitialized)
@@ -306,57 +317,8 @@ void MotionStreak::update(float delta)
     _nuPoints-=mov;
 
     // Append new point
-    bool appendNewPoint = true;
-    if(_nuPoints >= _maxPoints)
-    {
-        appendNewPoint = false;
-    }
-
-    else if(_nuPoints>0)
-    {
-        bool a1 = _pointVertexes[_nuPoints-1].getDistanceSq(_positionR) < _minSeg;
-        bool a2 = (_nuPoints == 1) ? false : (_pointVertexes[_nuPoints-2].getDistanceSq(_positionR)< (_minSeg * 2.0f));
-        if(a1 || a2)
-        {
-            appendNewPoint = false;
-        }
-    }
-
-    if(appendNewPoint)
-    {
-        _pointVertexes[_nuPoints] = _positionR;
-        _pointState[_nuPoints] = 1.0f;
-
-        // Color assignment
-        const unsigned int offset = _nuPoints*8;
-        *((Color3B*)(_colorPointer + offset)) = _displayedColor;
-        *((Color3B*)(_colorPointer + offset+4)) = _displayedColor;
-
-        // Opacity
-        _colorPointer[offset+3] = 255;
-        _colorPointer[offset+7] = 255;
-
-        // Generate polygon
-        if(_nuPoints > 0 && _fastMode )
-        {
-            if(_nuPoints > 1)
-            {
-                ccVertexLineToPolygon(_pointVertexes, _stroke, _vertices, _nuPoints, 1);
-            }
-            else
-            {
-                ccVertexLineToPolygon(_pointVertexes, _stroke, _vertices, 0, 2);
-            }
-        }
-
-        _nuPoints ++;
-    }
-
-    if( ! _fastMode )
-    {
-        ccVertexLineToPolygon(_pointVertexes, _stroke, _vertices, 0, _nuPoints);
-    }
-
+    appendNewPoint(_positionR, 1.0f);
+        
     // Updated Tex Coords only if they are different than previous step
     if( _nuPoints  && _previousNuPoints != _nuPoints ) {
         float texDelta = 1.0f / _nuPoints;
@@ -367,12 +329,69 @@ void MotionStreak::update(float delta)
 
         _previousNuPoints = _nuPoints;
     }
+    
 }
 
 void MotionStreak::reset()
 {
     _nuPoints = 0;
 }
+
+void MotionStreak::appendNewPoint(const Vec2& positionR, float pointState)
+{
+    bool appendNewPoint = true;
+    if (_nuPoints >= _maxPoints)
+    {
+        appendNewPoint = false;
+    }
+
+    else if (_nuPoints>0)
+    {
+        bool a1 = _pointVertexes[_nuPoints - 1].getDistanceSq(positionR) < _minSeg;
+        bool a2 = (_nuPoints == 1) ? false : (_pointVertexes[_nuPoints - 2].getDistanceSq(positionR)< (_minSeg * 2.0f));
+        if (a1 || a2)
+        {
+            appendNewPoint = false;
+        
+        }
+    }
+
+    if (appendNewPoint)
+    {
+        _pointVertexes[_nuPoints] = positionR;
+        _pointState[_nuPoints] = pointState;
+
+        // Color assignment
+        const unsigned int offset = _nuPoints * 8;
+        *((Color3B*)(_colorPointer + offset)) = _displayedColor;
+        *((Color3B*)(_colorPointer + offset + 4)) = _displayedColor;
+
+        // Opacity
+        _colorPointer[offset + 3] = 255;
+        _colorPointer[offset + 7] = 255;
+
+        // Generate polygon
+        if (_nuPoints > 0 && _fastMode)
+        {
+            if (_nuPoints > 1)
+            {
+                ccVertexLineToPolygon(_pointVertexes, _stroke, _vertices, _nuPoints, 1);
+            }
+            else
+            {
+                ccVertexLineToPolygon(_pointVertexes, _stroke, _vertices, 0, 2);
+            }
+        }
+
+        _nuPoints++;
+    }
+
+    if (!_fastMode)
+    {
+        ccVertexLineToPolygon(_pointVertexes, _stroke, _vertices, 0, _nuPoints);
+    }
+}
+
 
 void MotionStreak::onDraw(const Mat4 &transform, bool transformUpdated)
 {  

@@ -1252,16 +1252,16 @@ SkewBy* SkewBy::reverse() const
 // JumpBy
 //
 
-JumpBy* JumpBy::create(float duration, const Vec2& position, float height, int jumps)
+JumpBy* JumpBy::create(float duration, const Vec2& position, float height, int jumps, bool interporation)
 {
     JumpBy *jumpBy = new JumpBy();
-    jumpBy->initWithDuration(duration, position, height, jumps);
+    jumpBy->initWithDuration(duration, position, height, jumps, interporation);
     jumpBy->autorelease();
 
     return jumpBy;
 }
 
-bool JumpBy::initWithDuration(float duration, const Vec2& position, float height, int jumps)
+bool JumpBy::initWithDuration(float duration, const Vec2& position, float height, int jumps, bool interporation)
 {
     CCASSERT(jumps>=0, "Number of jumps must be >= 0");
     
@@ -1270,6 +1270,7 @@ bool JumpBy::initWithDuration(float duration, const Vec2& position, float height
         _delta = position;
         _height = height;
         _jumps = jumps;
+        _interpolation = interporation;
 
         return true;
     }
@@ -1281,7 +1282,7 @@ JumpBy* JumpBy::clone(void) const
 {
 	// no copy constructor
 	auto a = new JumpBy();
-	a->initWithDuration(_duration, _delta, _height, _jumps);
+    a->initWithDuration(_duration, _delta, _height, _jumps, _interpolation);
 	a->autorelease();
 	return a;
 }
@@ -1294,6 +1295,13 @@ void JumpBy::startWithTarget(Node *target)
 
 void JumpBy::update(float t)
 {
+    if (_interpolation) {
+        float diff = t - _prevTime;
+        if (diff > 0.03) {
+            update(_prevTime + diff / 2);
+        }
+    }
+
     // parabolic jump (since v0.8.2)
     if (_target)
     {
@@ -1316,22 +1324,24 @@ void JumpBy::update(float t)
         _target->setPosition(_startPosition + Vec2(x,y));
 #endif // !CC_ENABLE_STACKABLE_ACTIONS
     }
+
+    _prevTime = t;
 }
 
 JumpBy* JumpBy::reverse() const
 {
     return JumpBy::create(_duration, Vec2(-_delta.x, -_delta.y),
-        _height, _jumps);
+        _height, _jumps, _interpolation);
 }
 
 //
 // JumpTo
 //
 
-JumpTo* JumpTo::create(float duration, const Vec2& position, float height, int jumps)
+JumpTo* JumpTo::create(float duration, const Vec2& position, float height, int jumps, bool interporation)
 {
     JumpTo *jumpTo = new JumpTo();
-    jumpTo->initWithDuration(duration, position, height, jumps);
+    jumpTo->initWithDuration(duration, position, height, jumps, interporation);
     jumpTo->autorelease();
 
     return jumpTo;
@@ -1341,7 +1351,7 @@ JumpTo* JumpTo::clone(void) const
 {
 	// no copy constructor
 	auto a = new JumpTo();
-    a->initWithDuration(_duration, _delta, _height, _jumps);
+    a->initWithDuration(_duration, _delta, _height, _jumps, _interpolation);
 	a->autorelease();
 	return a;
 }
@@ -1374,20 +1384,21 @@ static inline float bezierat( float a, float b, float c, float d, float t )
 // BezierBy
 //
 
-BezierBy* BezierBy::create(float t, const ccBezierConfig& c)
+BezierBy* BezierBy::create(float t, const ccBezierConfig& c, bool i)
 {
     BezierBy *bezierBy = new BezierBy();
-    bezierBy->initWithDuration(t, c);
+    bezierBy->initWithDuration(t, c, i);
     bezierBy->autorelease();
 
     return bezierBy;
 }
 
-bool BezierBy::initWithDuration(float t, const ccBezierConfig& c)
+bool BezierBy::initWithDuration(float t, const ccBezierConfig& c, bool i)
 {
     if (ActionInterval::initWithDuration(t))
     {
         _config = c;
+        _interpolation = i;
         return true;
     }
 
@@ -1404,13 +1415,20 @@ BezierBy* BezierBy::clone(void) const
 {
 	// no copy constructor
 	auto a = new BezierBy();
-	a->initWithDuration(_duration, _config);
+    a->initWithDuration(_duration, _config, _interpolation);
 	a->autorelease();
 	return a;
 }
 
 void BezierBy::update(float time)
 {
+    if (_interpolation) {
+        float diff = time - _prevTime;
+        if (diff > 0.03) {
+            update(_prevTime + diff / 2);
+        }
+    }
+
     if (_target)
     {
         float xa = 0;
@@ -1439,6 +1457,8 @@ void BezierBy::update(float time)
         _target->setPosition( _startPosition + Vec2(x,y));
 #endif // !CC_ENABLE_STACKABLE_ACTIONS
     }
+
+    _prevTime = time;
 }
 
 BezierBy* BezierBy::reverse(void) const
@@ -1449,7 +1469,7 @@ BezierBy* BezierBy::reverse(void) const
     r.controlPoint_1 = _config.controlPoint_2 + (-_config.endPosition);
     r.controlPoint_2 = _config.controlPoint_1 + (-_config.endPosition);
 
-    BezierBy *action = BezierBy::create(_duration, r);
+    BezierBy *action = BezierBy::create(_duration, r, _interpolation);
     return action;
 }
 
@@ -1457,20 +1477,21 @@ BezierBy* BezierBy::reverse(void) const
 // BezierTo
 //
 
-BezierTo* BezierTo::create(float t, const ccBezierConfig& c)
+BezierTo* BezierTo::create(float t, const ccBezierConfig& c, bool i)
 {
     BezierTo *bezierTo = new BezierTo();
-    bezierTo->initWithDuration(t, c);
+    bezierTo->initWithDuration(t, c, i);
     bezierTo->autorelease();
 
     return bezierTo;
 }
 
-bool BezierTo::initWithDuration(float t, const ccBezierConfig &c)
+bool BezierTo::initWithDuration(float t, const ccBezierConfig &c, bool i)
 {
     if (ActionInterval::initWithDuration(t))
     {
         _toConfig = c;
+        _interpolation = i;
         return true;
     }
     
@@ -1481,7 +1502,7 @@ BezierTo* BezierTo::clone(void) const
 {
 	// no copy constructor
 	auto a = new BezierTo();
-	a->initWithDuration(_duration, _toConfig);
+    a->initWithDuration(_duration, _toConfig, _interpolation);
 	a->autorelease();
 	return a;
 }

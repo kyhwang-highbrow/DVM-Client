@@ -21348,7 +21348,7 @@ int lua_cocos2dx_JumpBy_create(lua_State* tolua_S)
 
     argc = lua_gettop(tolua_S) - 1;
 
-    if (argc == 4)
+    if (argc >= 4)
     {
         double arg0;
         cocos2d::Vec2 arg1;
@@ -21358,9 +21358,15 @@ int lua_cocos2dx_JumpBy_create(lua_State* tolua_S)
         ok &= luaval_to_vec2(tolua_S, 3, &arg1);
         ok &= luaval_to_number(tolua_S, 4,&arg2);
         ok &= luaval_to_int32(tolua_S, 5,(int *)&arg3);
+
+        bool arg4 = false;
+        if (argc == 5)
+        {
+            ok &= luaval_to_boolean(tolua_S, 6, &arg4);
+        }
         if(!ok)
             return 0;
-        cocos2d::JumpBy* ret = cocos2d::JumpBy::create(arg0, arg1, arg2, arg3);
+        cocos2d::JumpBy* ret = cocos2d::JumpBy::create(arg0, arg1, arg2, arg3, arg4);
         object_to_luaval<cocos2d::JumpBy>(tolua_S, "cc.JumpBy",(cocos2d::JumpBy*)ret);
         return 1;
     }
@@ -21407,7 +21413,7 @@ int lua_cocos2dx_JumpTo_create(lua_State* tolua_S)
 
     argc = lua_gettop(tolua_S) - 1;
 
-    if (argc == 4)
+    if (argc >= 4)
     {
         double arg0;
         cocos2d::Vec2 arg1;
@@ -21417,9 +21423,15 @@ int lua_cocos2dx_JumpTo_create(lua_State* tolua_S)
         ok &= luaval_to_vec2(tolua_S, 3, &arg1);
         ok &= luaval_to_number(tolua_S, 4,&arg2);
         ok &= luaval_to_int32(tolua_S, 5,(int *)&arg3);
+
+        bool arg4 = false;
+        if (argc == 5)
+        {
+            ok &= luaval_to_boolean(tolua_S, 6, &arg4);
+        }
         if(!ok)
             return 0;
-        cocos2d::JumpTo* ret = cocos2d::JumpTo::create(arg0, arg1, arg2, arg3);
+        cocos2d::JumpTo* ret = cocos2d::JumpTo::create(arg0, arg1, arg2, arg3, arg4);
         object_to_luaval<cocos2d::JumpTo>(tolua_S, "cc.JumpTo",(cocos2d::JumpTo*)ret);
         return 1;
     }
@@ -45306,6 +45318,48 @@ int lua_cocos2dx_MotionStreak_setFastMode(lua_State* tolua_S)
 
     return 0;
 }
+int lua_cocos2dx_MotionStreak_setBezierMode(lua_State* tolua_S)
+{
+    int argc = 0;
+    cocos2d::MotionStreak* cobj = nullptr;
+    bool ok = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+    if (!tolua_isusertype(tolua_S, 1, "cc.MotionStreak", 0, &tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (cocos2d::MotionStreak*)tolua_tousertype(tolua_S, 1, 0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj)
+    {
+        tolua_error(tolua_S, "invalid 'cobj' in function 'lua_cocos2dx_MotionStreak_setBezierMode'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+    if (argc == 1)
+    {
+        bool arg0;
+
+        ok &= luaval_to_boolean(tolua_S, 2, &arg0);
+        if (!ok)
+            return 0;
+        cobj->setBezierMode(arg0);
+        return 0;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setBezierMode", argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+tolua_lerror:
+    tolua_error(tolua_S, "#ferror in function 'lua_cocos2dx_MotionStreak_setBezierMode'.", &tolua_err);
+#endif
+
+    return 0;
+}
 int lua_cocos2dx_MotionStreak_create(lua_State* tolua_S)
 {
     int argc = 0;
@@ -45398,6 +45452,7 @@ int lua_register_cocos2dx_MotionStreak(lua_State* tolua_S)
         tolua_function(tolua_S,"isStartingPositionInitialized",lua_cocos2dx_MotionStreak_isStartingPositionInitialized);
         tolua_function(tolua_S,"isFastMode",lua_cocos2dx_MotionStreak_isFastMode);
         tolua_function(tolua_S,"setFastMode",lua_cocos2dx_MotionStreak_setFastMode);
+        tolua_function(tolua_S,"setBezierMode",lua_cocos2dx_MotionStreak_setBezierMode);
         tolua_function(tolua_S,"create", lua_cocos2dx_MotionStreak_create);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(cocos2d::MotionStreak).name();

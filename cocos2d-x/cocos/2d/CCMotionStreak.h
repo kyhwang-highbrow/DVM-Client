@@ -66,6 +66,9 @@ public:
     inline bool isFastMode() const { return _fastMode; }
     inline void setFastMode(bool bFastMode) { _fastMode = bFastMode; }
 
+    /* For bezier */
+    inline void setBezierMode(bool bBezierMode) { _bezierMode = bBezierMode; }
+
     inline bool isStartingPositionInitialized() const { return _startingPositionInitialized; }
     inline void setStartingPositionInitialized(bool bStartingPositionInitialized) 
     {
@@ -118,11 +121,15 @@ CC_CONSTRUCTOR_ACCESS:
     /** initializes a motion streak with fade in seconds, minimum segments, stroke's width, color and texture  */
     bool initWithFade(float fade, float minSeg, float stroke, const Color3B& color, Texture2D* texture);
 
+    // Append new point
+    void appendNewPoint(const Vec2& positionR, float pointState);
+
 protected:
     //renderer callback
     void onDraw(const Mat4 &transform, bool transformUpdated);
 
     bool _fastMode;
+    bool _bezierMode;
     bool _startingPositionInitialized;
 
     /** texture used for the motion streak */
