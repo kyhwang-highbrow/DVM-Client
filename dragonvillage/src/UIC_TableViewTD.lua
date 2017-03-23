@@ -611,12 +611,14 @@ end
 -------------------------------------
 -- function makeItemUI
 -------------------------------------
-function UIC_TableViewTD:makeItemUI(data)
+function UIC_TableViewTD:makeItemUI(data, skip_action)
     local ui = self.m_cellUIClass(data)
     ui.root:setSwallowTouch(false)
+    if ui.vars['swallowTouchMenu'] then
+        ui.vars['swallowTouchMenu']:setSwallowTouch(false)
+    end
     ui.root:setDockPoint(cc.p(0, 0))
     ui.root:setAnchorPoint(cc.p(0.5, 0.5))
-    --ui.root:retain()
 
     self.m_scrollView:addChild(ui.root)
 
@@ -624,11 +626,13 @@ function UIC_TableViewTD:makeItemUI(data)
         self.m_cellUICreateCB(ui, data)
     end
 
-    local scale = ui.root:getScale()
-    ui.root:setScale(scale * 0.2)
-    local scale_to = cc.ScaleTo:create(0.25, scale)
-    local action = cc.EaseInOut:create(scale_to, 2)
-    ui.root:runAction(action)
+    if (not skip_action) then
+        local scale = ui.root:getScale()
+        ui.root:setScale(scale * 0.2)
+        local scale_to = cc.ScaleTo:create(0.25, scale)
+        local action = cc.EaseInOut:create(scale_to, 2)
+        ui.root:runAction(action)
+    end
 
     return ui
 end
@@ -801,7 +805,7 @@ end
 -- function mergeItemList
 -- @breif
 -------------------------------------
-function UIC_TableViewTD:mergeItemList(list)
+function UIC_TableViewTD:mergeItemList(list, refresh_func)
     local dirty = false
 
     -- 새로 생긴 데이터 추가
@@ -809,6 +813,11 @@ function UIC_TableViewTD:mergeItemList(list)
         if (not self.m_itemMap[i]) then
             self:addItem(i, v)
             dirty = true
+        else
+            if refresh_func then
+                local item = self.m_itemMap[i]
+                refresh_func(item, v)
+            end
         end
     end
 
@@ -823,6 +832,31 @@ function UIC_TableViewTD:mergeItemList(list)
     if dirty then
         self:setDirtyItemList()
     end
+end
+
+-------------------------------------
+-- function replaceItemUI
+-- @breif
+-------------------------------------
+function UIC_TableViewTD:replaceItemUI(unique_id, data)
+    local item = self:getItem(unique_id)
+
+    if (not item) then
+        return
+    end
+
+    item['data'] = data
+
+    if (not item['ui']) then
+        return
+    end
+    
+    local x, y = item['ui'].root:getPosition()
+    item['ui'].root:removeFromParent()
+
+    local skip_action = true
+    item['ui'] = self:makeItemUI(data, skip_action)
+    item['ui'].root:setPosition(x, y)
 end
 
 -------------------------------------

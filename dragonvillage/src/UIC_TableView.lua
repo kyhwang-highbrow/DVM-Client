@@ -999,6 +999,32 @@ function UIC_TableView:mergeItemList(list, do_refresh)
 end
 
 -------------------------------------
+-- function replaceItemUI
+-- @breif
+-------------------------------------
+function UIC_TableView:replaceItemUI(unique_id, data)
+    local item = self:getItem(unique_id)
+
+    if (not item) then
+        return
+    end
+
+    item['data'] = data
+
+    if (not item['ui']) then
+        return
+    end
+    
+    local x, y = item['ui'].root:getPosition()
+    item['ui'].root:removeFromParent()
+
+    local skip_action = true
+    item['ui'] = self:makeItemUI(data, skip_action)
+    item['ui'].root:setPosition(x, y)
+end
+
+
+-------------------------------------
 -- function setEmptyDescNode
 -- @breif
 -------------------------------------
