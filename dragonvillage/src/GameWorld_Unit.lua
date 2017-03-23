@@ -116,7 +116,7 @@ function GameWorld:tryPatternMonster(t_monster, body)
         monster = MonsterLua_Boss(t_monster['res'], body)
     end
 
-    --monster:initAnimatorMonster(t_monster['res'], t_monster['attr'])
+    monster:initAnimatorMonster(t_monster['res'], t_monster['attr'])
     monster:initScript(script_name, is_boss)
     
     return monster
