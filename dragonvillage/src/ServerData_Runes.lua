@@ -53,6 +53,56 @@ function ServerData_Runes:request_runesInfo(finish_cb, fail_cb)
 end
 
 -------------------------------------
+-- function request_runeLevelup
+-- @breif
+-------------------------------------
+function ServerData_Runes:request_runeLevelup(roid, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+
+        if ret['modified_rune'] then
+            ret['lvup_success'] = true
+            self:applyRuneData(ret['modified_rune'])
+        else
+            ret['lvup_success'] = false
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/runes/levelup')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('roid', roid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_runeSell
+-- @brief
+-------------------------------------
+function ServerData_Runes:request_runeSell(roid, finish_cb)
+    local rune_oids = roid
+    local evolution_stones = nil
+    local fruits = nil
+    local tickets = nil
+
+    g_inventoryData:request_itemSell(rune_oids, evolution_stones, fruits, tickets, finish_cb)
+end
+
+
+-------------------------------------
 -- function applyRuneData
 -- @breif 룬 오브젝트 적용 (추가, 갱신)
 -------------------------------------
@@ -158,4 +208,12 @@ function ServerData_Runes:getFilteredRuneList(equiped, slot, set_id)
     
 
     return l_ret
+end
+
+-------------------------------------
+-- function getRuneObject
+-- @breif
+-------------------------------------
+function ServerData_Runes:getRuneObject(roid)
+    return self.m_mRuneObjects[roid]
 end

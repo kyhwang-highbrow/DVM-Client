@@ -50,6 +50,11 @@ end
 function UI_DragonRunes:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+
+    -- 선택된 룬 판매
+    vars['binBtn']:registerScriptTapHandler(function() self:click_binBtn() end)
+
+    vars['selectEnhance']:registerScriptTapHandler(function() self:click_selectEnhance() end)
 end
 
 -------------------------------------
@@ -137,7 +142,31 @@ function UI_DragonRunes:refreshTableViewList()
 
     local l_item_list = g_runesData:getFilteredRuneList(equiped, slot, set_id)
 
-    self.m_tableViewTD:mergeItemList(l_item_list)
+    local function refresh_func(item, new_data)
+        local old_data = item['data']
+
+        if (old_data['updated_at'] ~= new_data['updated_at']) then
+            local roid = new_data['roid']
+            self.m_tableViewTD:replaceItemUI(roid, new_data)
+        end
+    end
+
+    self.m_tableViewTD:mergeItemList(l_item_list, refresh_func)
+
+    -- 장착된 룬 refresh
+    if (self.m_selectedRuneObject) then
+        local roid = self.m_selectedRuneObject['roid']
+        local rune_obj = g_runesData:getRuneObject(roid)
+
+        if (not rune_obj) then
+            self:setSelectedRuneObject(nil)
+        elseif (self.m_selectedRuneObject['updated_at'] ~= rune_obj['updated_at']) then
+            self:setSelectedRuneObject(rune_obj)
+        end
+    end
+
+    -- 선택된 룬 refresh
+
 end
 
 -------------------------------------
@@ -154,6 +183,7 @@ function UI_DragonRunes:setEquipedRuneObject(rune_obj)
     vars['useMainOptionLabel']:setString('')
     vars['useSubOptionLabel']:setString('')
     vars['useRuneSetLabel']:setString('')
+    vars['useLockBtn']:setVisible(false)
 
     if (not rune_obj) then
         return
@@ -190,6 +220,7 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
     vars['selectMainOptionLabel']:setString('')
     vars['selectSubOptionLabel']:setString('')
     vars['selectRuneSetLabel']:setString('')
+    vars['selectLockBtn']:setVisible(false)
 
     if (not rune_obj) then
         return
@@ -210,4 +241,54 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
 
     -- 세트 옵션
     vars['selectRuneSetLabel']:setString('')
+end
+
+-------------------------------------
+-- function click_binBtn
+-- @brief 룬 판매 버튼
+-------------------------------------
+function UI_DragonRunes:click_binBtn()
+    if (not self.m_selectedRuneObject) then
+        return
+    end
+
+    local rune_obj = self.m_selectedRuneObject
+    local roid = rune_obj['roid']
+    
+    -- 판매 요청 (서버에)
+    local function request_item_sell()
+        local function finish_cb(ret)
+            -- 판매된 룬을 리스트에서 제거하기 위해 refresh
+            self:refreshTableViewList()
+        end
+
+        g_runesData:request_runeSell(roid, finish_cb)
+    end
+
+    -- 확인 팝업
+    local item_name = rune_obj['name']
+    local item_price = TableItem():getValue(rune_obj['rid'], 'sale_price')
+    local msg = Str('[{1}]을(를) {2}골드에 판매하시겠습니까?', item_name, comma_value(item_price))
+    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, request_item_sell)
+end
+
+-------------------------------------
+-- function click_selectEnhance
+-- @brief 룬 강화 버튼
+-------------------------------------
+function UI_DragonRunes:click_selectEnhance()
+    if (not self.m_selectedRuneObject) then
+        return
+    end
+
+    local rune_obj = self.m_selectedRuneObject
+    local roid = rune_obj['roid']
+
+    local function finish_cb(ret)
+        if ret['lvup_success'] then
+            self:refreshTableViewList()
+        end
+    end
+
+    g_runesData:request_runeLevelup(roid, finish_cb)
 end
