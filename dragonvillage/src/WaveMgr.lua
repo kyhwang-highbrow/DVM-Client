@@ -64,12 +64,13 @@ function WaveMgr:init(world, stage_name, develop_mode)
     end
 
 	-- regen 전용 멤버 변수
+	self.m_isRegenWave = false
 	self.m_regenWaveData = nil
+	self.m_lRegenWave = {}
+	self.m_mRegenObjMap = {}
+
 	self.m_regenCoolTime = g_constant:get('INGAME', 'REGEN_INTERVAL')
 	self.m_regenTimer = 0
-	self.m_lRegenWave = {}
-	self.m_isRegenWave = false
-	self.m_mRegenObjMap = {}
 
     -- 리스너 등록
     self:addListener('change_wave', self.m_world)
@@ -316,15 +317,19 @@ function WaveMgr:newScenario_dynamicWave(t_data)
     -- wave 정보를 읽어 dynamic wave 세팅
 	self:setDynamicWave(self.m_lDynamicWave, t_data['wave'], false)
 
-	-- regen에 정보가 있다면 해당 몹을 지속적으로 소환하도록 세팅.
-	if (t_data['regen']) then
-		self.m_regenWaveData = t_data['regen']
-		self.m_isRegenWave = true
-		self:setDynamicWave(self.m_lRegenWave, self.m_regenWaveData, true)
-	else
+	-- 이전에 저장된 regen 데이터가 있으면 초기화 시킴
+	if (self.m_regenWaveData) then
 		self.m_isRegenWave = false
 		self.m_regenWaveData = nil
 		self.m_lRegenWave = {}
+		self.m_mRegenObjMap = {}
+	end
+
+	-- regen에 정보가 있다면 해당 몹을 지속적으로 소환하도록 세팅.
+	if (t_data['regen']) then
+		self.m_isRegenWave = true
+		self.m_regenWaveData = t_data['regen']
+		self:setDynamicWave(self.m_lRegenWave, self.m_regenWaveData, true)
 	end
 end
 
