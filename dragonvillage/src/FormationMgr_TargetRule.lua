@@ -50,31 +50,40 @@ end
 function TargetRule_getTargetList(type, org_list, x, y, t_data)
     -- 모든 대상
     if (type == 'none') then                return TargetRule_getTargetList_none(org_list)
-    elseif (type == 'distance_line') then   return TargetRule_getTargetList_distance_line(org_list, x, y)
+    elseif (type == 'random') then          return TargetRule_getTargetList_random(org_list)
+    
+	-- 거리 관련
+	elseif (type == 'distance_line') then   return TargetRule_getTargetList_distance_line(org_list, x, y)
 	elseif (type == 'far_line') then		return TargetRule_getTargetList_far_line(org_list, x, y)
     elseif (type == 'distance_x') then      return TargetRule_getTargetList_distance_x(org_list, x)
     elseif (type == 'distance_y') then      return TargetRule_getTargetList_distance_y(org_list, y)
-    elseif (type == 'hp_low') then          return TargetRule_getTargetList_hp_low(org_list, y)
-    elseif (type == 'hp_high') then         return TargetRule_getTargetList_hp_high(org_list, y)
-    elseif (type == 'cp_low') then          return TargetRule_getTargetList_cp_low(org_list, y)
-    elseif (type == 'cp_high') then         return TargetRule_getTargetList_cp_high(org_list, y)
-    elseif (type == 'random') then          return TargetRule_getTargetList_random(org_list)
+    
+	-- 스탯 관련
+	elseif string.find(type, 'def') or string.find(type, 'atk') or string.find(type, 'hp') then
+		return TargetRule_getTargetList_stat(org_list, type)
+
+	-- 상태효과 관련
+	elseif string.find(type, 'status') then
+		return TargetRule_getTargetList_status_effect(org_list, type)
+
+	-- 속성 관련
+	elseif (type == 'attr_earth') then     return TargetRule_getTargetList_attr(org_list, ATTR_EARTH)
+	elseif (type == 'attr_water') then     return TargetRule_getTargetList_attr(org_list, ATTR_WATER)
+	elseif (type == 'attr_fire') then      return TargetRule_getTargetList_attr(org_list, ATTR_FIRE)
+	elseif (type == 'attr_light') then     return TargetRule_getTargetList_attr(org_list, ATTR_LIGHT)
+	elseif (type == 'attr_dark') then      return TargetRule_getTargetList_attr(org_list, ATTR_DARK)
+	
+	-- 특수
     elseif (type == 'fan_shape') then       return TargetRule_getTargetList_fan_shape(org_list, t_data)
-	
-	elseif (type == 'status_not_stun') then return TargetRule_getTargetList_status_effect(org_list, 'stun', false)
-	elseif (type == 'status_stun') then		return TargetRule_getTargetList_status_effect(org_list, 'stun', true)
+	elseif (type == 'rectangle') then		return TargetRule_getTargetList_rectangle(org_list, t_data)
 
-	--elseif (type == 'front_line') then      return TargetRule_getTargetList_row(FORMATION_FRONT)
-
-	elseif (type == 'earth_group') then     return TargetRule_getTargetList_attr(org_list, ATTR_EARTH)
-	elseif (type == 'water_group') then     return TargetRule_getTargetList_attr(org_list, ATTR_WATER)
-	elseif (type == 'wind_group') then      return TargetRule_getTargetList_attr(org_list, ATTR_WIND)
-	elseif (type == 'fire_group') then      return TargetRule_getTargetList_attr(org_list, ATTR_FIRE)
-	elseif (type == 'light_group') then     return TargetRule_getTargetList_attr(org_list, ATTR_LIGHT)
-	elseif (type == 'dark_group') then      return TargetRule_getTargetList_attr(org_list, ATTR_DARK)
-	
+	--[[ 미사용
+	elseif (type == 'cp_low') then          return TargetRule_getTargetList_cp_low(org_list)
+	elseif (type == 'cp_high') then         return TargetRule_getTargetList_cp_high(org_list)
 	elseif (type == 'physical_char') then      return TargetRule_getTargetList_charType(org_list, 'physical')
 	elseif (type == 'magical_char') then      return TargetRule_getTargetList_charType(org_list, 'magical')
+	elseif (type == 'front_line') then      return TargetRule_getTargetList_row(FORMATION_FRONT)
+	]]
 
 	else
         error("미구현 Target Rule!! : " .. type)
@@ -189,105 +198,6 @@ function TargetRule_getTargetList_distance_y(org_list, y)
     return t_ret
 end
 
--------------------------------------
--- function TargetRule_getTargetList_hp_low
--- @brief 낮은 HP%
--------------------------------------
-function TargetRule_getTargetList_hp_low(org_list)
-    local t_ret = {}
-    local t_sort = {}
-
-    for i,v in pairs(org_list) do
-        v.m_sortValue = (v.m_hp / v.m_maxHp)
-        v.m_sortRandomIdx = v.m_hp
-        table.insert(t_sort, v)
-    end
-
-    table.sort(t_sort, sortAscending)
-
-    for i,v in ipairs(t_sort) do
-        table.insert(t_ret, v)
-    end
-
-    return t_ret
-end
-
--------------------------------------
--- function TargetRule_getTargetList_hp_high
--- @brief 높은 HP%
--------------------------------------
-function TargetRule_getTargetList_hp_high(org_list)
-    local t_ret = {}
-    local t_sort = {}
-
-    for i,v in pairs(org_list) do
-        v.m_sortValue = (v.m_hp / v.m_maxHp)
-        v.m_sortRandomIdx = v.m_hp
-        table.insert(t_sort, v)
-    end
-
-    table.sort(t_sort, sortDescending)
-
-    for i,v in ipairs(t_sort) do
-        table.insert(t_ret, v)
-    end
-
-    return t_ret
-end
-
--------------------------------------
--- function TargetRule_getTargetList_cp_low
--- @brief 낮은 CP%
--------------------------------------
-function TargetRule_getTargetList_cp_low(org_list)
-    local t_ret = {}
-    local t_sort = {}
-
-    for i,v in pairs(org_list) do
-        if v.m_chargeSkill then
-            v.m_sortValue = v.m_chargeSkill.m_gauge
-        else
-            v.m_sortValue = 0
-        end
-        v.m_sortRandomIdx = nil
-        table.insert(t_sort, v)
-    end
-
-    table.sort(t_sort, sortAscending)
-
-    for i,v in ipairs(t_sort) do
-        table.insert(t_ret, v)
-    end
-
-    return t_ret
-end
-
--------------------------------------
--- function TargetRule_getTargetList_cp_high
--- @brief 높은 CP%
--------------------------------------
-function TargetRule_getTargetList_cp_high(org_list)
-    local t_ret = {}
-    local t_sort = {}
-
-    for i,v in pairs(org_list) do
-        if v.m_chargeSkill then
-            v.m_sortValue = v.m_chargeSkill.m_gauge
-        else
-            v.m_sortValue = 0
-        end
-        v.m_sortRandomIdx = nil
-        table.insert(t_sort, v)
-    end
-
-    table.sort(t_sort, sortDescending)
-
-    for i,v in ipairs(t_sort) do
-        table.insert(t_ret, v)
-    end
-
-    return t_ret
-end
 
 -------------------------------------
 -- function TargetRule_getTargetList_random
@@ -312,27 +222,90 @@ function TargetRule_getTargetList_random(org_list)
 end
 
 -------------------------------------
+-- function TargetRule_getTargetList_stat
+-- @brief 특정 스탯에 따른 구분
+-- @param org_list : 전체 타겟 리스트
+-- @param stat_type : stat명_높낮이
+-------------------------------------
+function TargetRule_getTargetList_stat(org_list, stat_type)
+	local t_ret = org_list or {}
+
+	local temp = seperate(stat_type, '_')
+	local target_stat = temp[1]
+	local is_descending = (temp[2] == 'high')
+	
+	-- 별도 로직이 필요한 정렬
+	if (target_stat == 'hp') then
+		table.sort(t_ret, function(a, b)
+			local a_stat = a.m_hp / a.m_maxHp
+			local b_stat = b.m_hp / b.m_maxHp
+			if (is_descending) then
+				return a_stat > b_stat
+			else
+				return a_stat < b_stat
+			end
+		end)
+
+	-- status Calculator를 통해 가져올수 있는 stat
+	else
+		table.sort(t_ret, function(a, b)
+			local a_stat = a.m_statusCalc:getFinalStat(target_stat)
+			local b_stat = b.m_statusCalc:getFinalStat(target_stat)
+			if (is_descending) then
+				return a_stat > b_stat
+			else
+				return a_stat < b_stat
+			end
+		end)
+	end
+
+	cclog('----------------------------------------------')
+	cclog('target stat : ' .. target_stat)
+    for i, char in ipairs(t_ret) do
+		cclog(char.m_hp / char.m_maxHp)
+    end
+
+    return t_ret
+end
+
+-------------------------------------
 -- function TargetRule_getTargetList_status_effect
 -- @brief 특정 상태효과에 따른 구분
 -- @param org_list : 전체 타겟 리스트
--- @param status_effect_name : 제외하거나 대상으로할 상태효과 이름
--- @param b_include : 해당 상태효과를 제외할지 대상으로할지 여부 / true 일 때 대상으로함
+-- @param status_effect_type : status_상태효과_제외여부
 -------------------------------------
-function TargetRule_getTargetList_status_effect(org_list, status_effect_name, b_include)
-    local t_ret = {}
-	local isInsert = nil
-	
+function TargetRule_getTargetList_status_effect(org_list, status_effect_type)
+    local t_ret = org_list or {}
+
+	local temp = seperate(stat_type, '_')
+	local status_effect_name = temp[2]
+	local is_except = (temp[3] == 'except')	-- 해당 상태효과 제외여부
+
+	-- @TODO 다시 작업
+	--[[
     for i,v in pairs(org_list) do
-		isInsert = not b_include
+		local is_insert = false
 		for name, status_effect in pairs(v:getStatusEffectList()) do
-			if (name == status_effect_name) then
-				isInsert = b_include
+			if (is_except) then
+				if (name ~= status_effect_name) then
+					is_insert = is_except
+				end
+			else
+				if (name == status_effect_name) then
+					is_insert = is_except
+					break
+				end
 			end
 		end
-		if isInsert then 
+		if is_insert then 
 			table.insert(t_ret, v)
 		end
     end
+	]]
+
+	if (table.count(t_ret) == 0) then
+		return TargetRule_getTargetList_random(org_list)
+	end
 
     return t_ret
 end
@@ -444,7 +417,6 @@ function TargetRule_getTargetList_rectangle(org_list, t_data)
     return t_ret
 end
 
-
 -------------------------------------
 -- function TargetRule_getTargetList_line
 -- @brief
@@ -512,20 +484,6 @@ function TargetRule_getTargetList_line(obj, x1, y1, x2, y2, thickness)
 end
 
 -------------------------------------
--- function TargetRule_getTargetList_row
--- @brief 해당 열의 리스트 반환
--------------------------------------
-function TargetRule_getTargetList_row(formation_type)
-    local t_ret = {}
-
-    for i,v in pairs(org_list) do
-        table.insert(t_ret, v)
-    end
-
-    return t_ret
-end
-
--------------------------------------
 -- function TargetRule_getTargetList_attr
 -- @brief 해당 속성의 리스트 반환
 -------------------------------------
@@ -542,6 +500,22 @@ function TargetRule_getTargetList_attr(org_list, attr)
     return t_ret
 end
 
+------------------------------------- 미사용 -------------------------------------
+
+-------------------------------------
+-- function TargetRule_getTargetList_row
+-- @brief 해당 열의 리스트 반환
+-------------------------------------
+function TargetRule_getTargetList_row(formation_type)
+    local t_ret = {}
+
+    for i,v in pairs(org_list) do
+        table.insert(t_ret, v)
+    end
+
+    return t_ret
+end
+
 -------------------------------------
 -- function TargetRule_getTargetList_charType
 -- @brief 해당 공격 속성의 리스트 반환 (마법, 물리)
@@ -554,6 +528,106 @@ function TargetRule_getTargetList_charType(org_list, char_type)
 			table.insert(t_ret, character)
 		end
 	end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function TargetRule_getTargetList_hp_low
+-- @brief 낮은 HP%
+-------------------------------------
+function TargetRule_getTargetList_hp_low(org_list)
+    local t_ret = {}
+    local t_sort = {}
+
+    for i,v in pairs(org_list) do
+        v.m_sortValue = (v.m_hp / v.m_maxHp)
+        v.m_sortRandomIdx = v.m_hp
+        table.insert(t_sort, v)
+    end
+
+    table.sort(t_sort, sortAscending)
+
+    for i,v in ipairs(t_sort) do
+        table.insert(t_ret, v)
+    end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function TargetRule_getTargetList_hp_high
+-- @brief 높은 HP%
+-------------------------------------
+function TargetRule_getTargetList_hp_high(org_list)
+    local t_ret = {}
+    local t_sort = {}
+
+    for i,v in pairs(org_list) do
+        v.m_sortValue = (v.m_hp / v.m_maxHp)
+        v.m_sortRandomIdx = v.m_hp
+        table.insert(t_sort, v)
+    end
+
+    table.sort(t_sort, sortDescending)
+
+    for i,v in ipairs(t_sort) do
+        table.insert(t_ret, v)
+    end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function TargetRule_getTargetList_cp_low
+-- @brief 낮은 CP%
+-------------------------------------
+function TargetRule_getTargetList_cp_low(org_list)
+    local t_ret = {}
+    local t_sort = {}
+
+    for i,v in pairs(org_list) do
+        if v.m_chargeSkill then
+            v.m_sortValue = v.m_chargeSkill.m_gauge
+        else
+            v.m_sortValue = 0
+        end
+        v.m_sortRandomIdx = nil
+        table.insert(t_sort, v)
+    end
+
+    table.sort(t_sort, sortAscending)
+
+    for i,v in ipairs(t_sort) do
+        table.insert(t_ret, v)
+    end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function TargetRule_getTargetList_cp_high
+-- @brief 높은 CP%
+-------------------------------------
+function TargetRule_getTargetList_cp_high(org_list)
+    local t_ret = {}
+    local t_sort = {}
+
+    for i,v in pairs(org_list) do
+        if v.m_chargeSkill then
+            v.m_sortValue = v.m_chargeSkill.m_gauge
+        else
+            v.m_sortValue = 0
+        end
+        v.m_sortRandomIdx = nil
+        table.insert(t_sort, v)
+    end
+
+    table.sort(t_sort, sortDescending)
+
+    for i,v in ipairs(t_sort) do
+        table.insert(t_ret, v)
+    end
 
     return t_ret
 end
