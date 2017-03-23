@@ -20,6 +20,7 @@ Tamer = class(Character, {
         m_lSkillCoolTimer = '',
 
         m_roamTimer = '',
+        m_zPos = 'number',
      })
 
 -------------------------------------
@@ -37,6 +38,7 @@ function Tamer:init(file_name, body, ...)
     self.m_lSkillCoolTimer = {}
 
     self.m_roamTimer = 0
+    self.m_zPos = 0
 end
 
 -------------------------------------
@@ -106,7 +108,7 @@ function Tamer:update(dt)
 
     self:syncAniAndPhys()
         
-    return PARENT.update(self, dt / 2)
+    return PARENT.update(self, dt)
 end
 
 -------------------------------------
@@ -132,7 +134,7 @@ function Tamer.st_roam(owner, dt)
             quadrant = quadrant - 4
         end
         
-        local tar_x, tar_y
+        local tar_x, tar_y, tar_z
         
         if (quadrant == 1) then
             tar_x = math_random(CRITERIA_RESOLUTION_X / 2, CRITERIA_RESOLUTION_X) - 300
@@ -147,6 +149,7 @@ function Tamer.st_roam(owner, dt)
             tar_x = math_random(50, CRITERIA_RESOLUTION_X / 2)
             tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2)
         end
+        tar_z = math_random(0, 150)
 
         local cameraHomePosX, cameraHomePosY = owner.m_world.m_gameCamera:getHomePos()
         tar_x = (tar_x + cameraHomePosX)
@@ -155,10 +158,16 @@ function Tamer.st_roam(owner, dt)
         local course = math_random(-1, 1)
         local time = math_random(5, 15) / 10
         local bezier = getBezier(tar_x, tar_y, owner.pos.x, owner.pos.y, course)
-
-        owner.m_rootNode:stopAllActions()
-        owner.m_rootNode:runAction(cc.BezierBy:create(time, bezier))
+        local move_action = cc.BezierBy:create(time, bezier)
+        local scale_action = cc.ScaleTo:create(time, 1 - (0.003 * tar_z))
+        local tint_action = cc.TintTo:create(time, 255 - tar_z, 255 - tar_z, 255 - tar_z)
         
+        owner.m_rootNode:stopAllActions()
+        owner.m_rootNode:runAction(cc.Spawn:create(move_action, scale_action))
+
+        owner.m_animator.m_node:stopAllActions()
+        owner.m_animator.m_node:runAction(tint_action)
+                
         owner.m_roamTimer = time
     end
 
@@ -183,6 +192,9 @@ end
 -- function st_wait
 -------------------------------------
 function Tamer.st_wait(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        owner.m_rootNode:stopAllActions()
+    end
 end
 
 -------------------------------------
@@ -192,8 +204,9 @@ end
 function Tamer.st_success_pose(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner:addAniHandler(function()
-            owner.m_animator:changeAni('idle', true)
+            owner.m_animator:changeAni('i_idle', true)
         end)
+
     elseif (owner.m_stateTimer >= 2.5) then
         owner:changeState('success_move')
     end
@@ -223,7 +236,6 @@ function Tamer:setWaitState(is_wait_state)
 
     if is_wait_state then
         if isExistValue(self.m_state, 'idle', 'roam') then
-            self.m_rootNode:stopAllActions()
             self:changeState('wait')
         end
     else
