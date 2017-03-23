@@ -34,7 +34,7 @@ function SkillShield:init_skill(active_rate, shield_hp_rate)
 	self.m_triggerName = 'character_set_hp'
 
     -- 2. 콜백 함수 등록
-    self.m_owner:addHpEventListener(self)
+    self.m_owner:addListener(self.m_triggerName, self)
 end
 
 -------------------------------------
