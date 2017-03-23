@@ -117,7 +117,6 @@ Character = class(PARENT, {
         m_isSpasticity = 'boolean',     -- 경직 중 여부
         m_delaySpasticity = 'number',   -- 경직 남은 시간
 
-
 		---------------------------------------------------------------------------------------
 
 		-- @TODO 임시 추가 충돌박스
@@ -127,11 +126,7 @@ Character = class(PARENT, {
         -- @ 임시 변수() 보호막 스킬
         m_buffProtection = 'Buff_Guardian',
         m_lProtectionList = 'list',
-		
-		-- @TODO - 향후에 삭제 해야 함. 인터페이스로 대체 
-        m_undergoAttackEventListener = 'list',
-        m_damagedEventListener = 'list',   -- 데미지를 입었을 때 이벤트
-		
+
 		-- @TODO 임시
         m_aiParam = '',
         m_aiParamNum = '',
@@ -161,7 +156,6 @@ function Character:init(file_name, body, ...)
     self.m_bHighlight = false
     self.m_prevParentInfo = nil
 
-	self.m_undergoAttackEventListener = {}
     self.m_tOverlabStatusEffect = {}
 	self.m_lStatusEffect = {}
 	self.m_lStatusIcon = {}
@@ -719,8 +713,6 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 
     -- 피격시 타격감을 위한 연출
     self:runAction_Hit(attacker, dir)
-            
-    self:damagedEvent(self, damage)
 end
 
 -------------------------------------
@@ -2013,7 +2005,6 @@ function Character:referenceForSlaveCharacter(t_body, adj_x, adj_y)
 	char.m_charTable = {attr = self:getAttribute(), rarity = self.m_charTable['rarity']}
 	
 	char.m_bLeftFormation = self.m_bLeftFormation
-    char.m_undergoAttackEventListener = self.m_undergoAttackEventListener
     char.m_damagedEventListener = self.m_damagedEventListener
 	char.m_cbChangePos = self.m_cbChangePos
 	char.m_world = self.m_world
