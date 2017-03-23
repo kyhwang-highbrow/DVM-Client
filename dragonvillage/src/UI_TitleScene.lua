@@ -271,10 +271,6 @@ function UI_TitleScene:workGameLogin()
         g_serverData:lockSaveData()
         g_serverData:applyServerData(ret['user'], 'user')
 
-        -- 드래곤 정보 갱신
-        g_serverData:applyServerData({}, 'dragons') -- 로컬 세이브 데이터 초기화
-        g_dragonsData:applyDragonData_list(ret['dragons'])
-
         g_serverData:unlockSaveData()
 
         -- server_info 정보를 갱신
@@ -328,8 +324,21 @@ function UI_TitleScene:workGetServerInfo()
             self:makeFailPopup(nil, ret)
         end
 
+        -- 룬 정보 받기
+        co:work()
+        self.m_loadingUI:showLoading(Str('룬을 챙기는 중...'))
+        g_runesData:request_runesInfo(co.NEXT, fail_cb)
+        if co:waitWork() then return end
+
+        -- 드래곤 정보 받기
+        co:work()
+        self.m_loadingUI:showLoading(Str('드래곤들을 부르는 중...'))
+        local ui_network = g_dragonsData:request_dragonsInfo(co.NEXT, fail_cb)
+        if co:waitWork() then return end
+
         -- 탐험 정보 받기
         co:work()
+        self.m_loadingUI:showLoading(Str('탐험지역을 탐색 중...'))
         local ui_network = g_explorationData:request_explorationInfo(co.NEXT)
         ui_network:setRevocable(false)
         ui_network:setFailCB(fail_cb)

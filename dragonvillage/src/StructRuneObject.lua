@@ -24,6 +24,13 @@ StructRuneObject = class({
 
         ---------------------------------------------
         created_at = 'timestamp',
+        ---------------------------------------------
+
+        slot = 'number',    -- 슬롯 ID 1 ~ 6
+        grade = 'number',   -- 등급 1~6
+        set_id = 'number',  -- 세트 ID 1~8
+
+        item_id = 'number',
     })
 
 -------------------------------------
@@ -33,10 +40,26 @@ function StructRuneObject:init(data)
     if data then
         self:applyTableData(data)
     end
+
+    local rid = self['rid']
+
+    -- 아이템ID는 룬ID와 동일하게 사용
+    self['item_id'] = rid
+
+    -- 룬 ID를 통해 세트ID, 슬롯, 등급 정보를 가져옴
+    -- 710111
+    -- 71xxxx -- 룬 아이디 식별 코드
+    -- xx01xx -- set_id 1번 세트
+    -- xxxx1x -- slot 1번 슬롯
+    -- xxxxx1 -- grade 등급
+    self['set_id'] = getDigit(rid, 100, 2)
+    self['slot'] = getDigit(rid, 10, 1)
+    self['grade'] = getDigit(rid, 1, 1)
 end
 
 -------------------------------------
 -- function applyTableData
+-- @breif 단순 데이터 table에서 struct로 맴버 변수를 설정하는 함수
 -------------------------------------
 function StructRuneObject:applyTableData(data)
     -- 서버에서 key값을 줄여서 쓴 경우가 있어서 변환해준다

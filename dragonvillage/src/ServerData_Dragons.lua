@@ -750,3 +750,34 @@ function ServerData_Dragons:possibleDragonLevelUp(doid)
         return false, Str('{1}등급 최대레벨 {2}에 달성하였습니다.', grade, max_lv)
     end
 end
+
+-------------------------------------
+-- function request_dragonsInfo
+-- @breif
+-------------------------------------
+function ServerData_Dragons:request_dragonsInfo(finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        -- 드래곤 정보 갱신
+        g_serverData:applyServerData({}, 'dragons') -- 로컬 세이브 데이터 초기화
+        self:applyDragonData_list(ret['dragons'])
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/info')
+    ui_network:setParam('uid', uid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
+end

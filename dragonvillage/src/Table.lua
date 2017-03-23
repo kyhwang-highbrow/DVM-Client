@@ -60,6 +60,15 @@ local TableInfo = {
     }
 
 -------------------------------------
+-- table TableInfo_fromServer
+-------------------------------------
+local TableInfo_fromServer = {
+        -- ['csv 테이블 이름'] = {'테이블 약어', 'key'},
+        ['table_rune_enhance'] = {'rune_enhance', 'rune_lv'},
+        ['table_rune_grade'] = {'rune_grade', 'grade'},
+    }
+
+-------------------------------------
 -- function getCSVHeader
 -------------------------------------
 function TABLE:getCSVHeader(csv)
@@ -173,6 +182,27 @@ function TABLE:loadJsonTable(filename, extention, remove_comment)
 	local extention = extention or '.txt'
     local content = TABLE:loadTableFile(filename, extention)
     return json_decode(content, remove_comment)
+end
+
+-------------------------------------
+-- function setServerTable
+-------------------------------------
+function TABLE:setServerTable(table_name, table_data)
+	if (not TableInfo_fromServer[table_name]) then
+        error('table_name : ' .. table_name)
+    end
+
+    local t_table_info = TableInfo_fromServer[table_name]
+    local tablename = t_table_info[1]
+    local tablekey = t_table_info[2]
+
+    local tables = {}
+
+    for i,v in pairs(table_data) do
+        tables[v[tablekey]] = v
+    end
+
+    TABLE[tablename] = tables
 end
 
 -------------------------------------

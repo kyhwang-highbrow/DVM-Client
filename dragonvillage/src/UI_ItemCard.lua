@@ -30,7 +30,10 @@ function UI_ItemCard:setItemData()
     local t_item = table_item[self.m_itemID]
 
     if (not t_item) then
-        error('item_id ' .. self.m_itemID)
+        local vars = self:load('drop_item.ui')
+        return
+        -- @delete_rune
+        --error('item_id ' .. self.m_itemID)
     end
 	
     if (t_item['type'] == 'dragon') then
@@ -181,6 +184,10 @@ function UI_ItemCard:getToolTipDesc()
 
     local table_item = TABLE:get('item')
     local t_item = table_item[item_id]
+    -- @delete_rune
+    if (not t_item) then
+        return '{@SKILL_NAME}none'
+    end
     local desc = ''
 
     -- 열매 description은 아이템
