@@ -1284,9 +1284,6 @@
     <None Include="..\src\GameWorldColosseum.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\TableRuneGrade.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\UI_Inventory.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -1876,6 +1873,9 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\StructRuneObject.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\Tamer.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>
