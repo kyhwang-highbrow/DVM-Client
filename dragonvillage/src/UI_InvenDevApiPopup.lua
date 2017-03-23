@@ -434,7 +434,7 @@ function UI_InvenDevApiPopup:init_runeTableView()
     local list_table_node = self.vars['runeListNode']
     list_table_node:removeAllChildren()
 
-    local l_item_list = self:getRuneItemList()
+    local l_item_list = TableItem:getRuneItemIDList()
 
     -- 생성 콜백
     local function create_func(ui, data)
@@ -450,40 +450,6 @@ function UI_InvenDevApiPopup:init_runeTableView()
     table_view_td.m_nItemPerCell = 5
     table_view_td:setCellUIClass(UI_ItemCard, create_func)
     table_view_td:setItemList(l_item_list)
-end
-
--------------------------------------
--- function getRuneItemList
--- @brief 룬 리스트
--------------------------------------
-function UI_InvenDevApiPopup:getRuneItemList()
-    -- 아이템 테이블에서 rune정보만 얻어옴
-    local table_rune = TableItem()
-    local l_rune_item_list = table_rune:filterList('type', 'rune')
-
-    -- 정렬
-    table.sort(l_rune_item_list, function(a, b)
-        -- 슬롯 정렬
-        if (a['t_name'] ~= b['t_name']) then
-            return a['t_name'] < b['t_name']
-        end
-
-        -- 색상 정렬
-        if (a['color'] ~= b['color']) then
-            return a['color'] < b['color']
-        end
-
-        -- 등급 정렬
-        return a['grade'] < b['grade']
-    end)
-
-    -- item_id만 들어가는 리스트 생성
-    local l_item_list = {}
-    for _,v in ipairs(l_rune_item_list) do
-        table.insert(l_item_list, v['item'])
-    end
-
-    return l_item_list
 end
 
 -------------------------------------

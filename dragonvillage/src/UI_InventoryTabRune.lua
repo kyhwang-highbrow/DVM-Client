@@ -12,20 +12,18 @@ UI_InventoryTabRune = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_InventoryTabRune:init(inventory_ui)
-    -- @delete_rune
-    if true then
-        return
-    end
-
     self.m_mTableViewListMap = {}
     self.m_mSortManagerMap = {}
 
     local vars = self.vars
 
     -- 'inventory.ui'를 사용
-    self:addTab(g_runesData:getSlotName(1), vars['runeBtn1'], vars['runeTableViewNode1'])
-    self:addTab(g_runesData:getSlotName(2), vars['runeBtn2'], vars['runeTableViewNode2'])
-    self:addTab(g_runesData:getSlotName(3), vars['runeBtn3'], vars['runeTableViewNode3'])
+    self:addTab(1, vars['runeBtn1'], vars['runeTableViewNode1'])
+    self:addTab(2, vars['runeBtn2'], vars['runeTableViewNode2'])
+    self:addTab(3, vars['runeBtn3'], vars['runeTableViewNode3'])
+    self:addTab(4, vars['runeBtn4'], vars['runeTableViewNode4'])
+    self:addTab(5, vars['runeBtn5'], vars['runeTableViewNode5'])
+    self:addTab(6, vars['runeBtn6'], vars['runeTableViewNode6'])
 end
 
 -------------------------------------
@@ -34,12 +32,12 @@ end
 function UI_InventoryTabRune:onChangeTab(tab, first)
     PARENT.onChangeTab(self, tab, first)
 
-    local rune_slot_type = tab
+    local slot_idx = tab
 
     if first then
-        self:init_runeTableView(rune_slot_type)
+        self:init_runeTableView(slot_idx)
     else
-        local table_view_td = self.m_mTableViewListMap[rune_slot_type]
+        local table_view_td = self.m_mTableViewListMap[slot_idx]
         local animated = false
         table_view_td:relocateContainerDefault(animated)
     end
@@ -50,13 +48,12 @@ end
 -------------------------------------
 -- function init_runeTableView
 -------------------------------------
-function UI_InventoryTabRune:init_runeTableView(rune_slot_type)
+function UI_InventoryTabRune:init_runeTableView(slot_idx)
 
-    local slot_idx = g_runesData:getSlotIdx(rune_slot_type)
     local node = self.vars['runeTableViewNode' .. slot_idx]
     node:removeAllChildren()
 
-    local l_item_list = g_runesData:getUnequippedRuneList(rune_slot_type)
+    local l_item_list = g_runesData:getUnequippedRuneList(slot_idx)
 
     -- 생성 콜백
     local function create_func(ui, data)
@@ -81,21 +78,16 @@ function UI_InventoryTabRune:init_runeTableView(rune_slot_type)
     local sort_manager = SortManager_Rune()
     sort_manager:sortExecution(table_view_td.m_itemList)
 
-    self.m_mSortManagerMap[rune_slot_type] = sort_manager
-    self.m_mTableViewListMap[rune_slot_type] = table_view_td
+    self.m_mSortManagerMap[slot_idx] = sort_manager
+    self.m_mTableViewListMap[slot_idx] = table_view_td
 end
 
 -------------------------------------
 -- function onEnterInventoryTab
 -------------------------------------
 function UI_InventoryTabRune:onEnterInventoryTab(first)
-    -- @delete_rune
-    if true then
-        return
-    end
-
     if first then
-        local default_tab = g_runesData:getSlotName(1)
+        local default_tab = 1
         self:setTab(default_tab)
     end
 
@@ -116,8 +108,8 @@ function UI_InventoryTabRune:onChangeSortAscending(ascending)
     PARENT.onChangeSortAscending(self)
 
     -- 내부 슬롯별 탭 정렬
-    for rune_slot_type,table_view_td in pairs(self.m_mTableViewListMap) do
-        local sort_manager = self.m_mSortManagerMap[rune_slot_type]
+    for slot_idx,table_view_td in pairs(self.m_mTableViewListMap) do
+        local sort_manager = self.m_mSortManagerMap[slot_idx]
         
         sort_manager:setAllAscending(ascending)
         sort_manager:sortExecution(table_view_td.m_itemList)

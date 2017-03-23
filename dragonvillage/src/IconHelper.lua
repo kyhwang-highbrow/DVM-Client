@@ -111,22 +111,14 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
 
     -- 룬 아이콘 생성
     elseif (item_type == 'rune') then
-        local rune_obj = StructRuneObject({['rid'] = item_id})
+        local rune_obj = t_sub_data or StructRuneObject({['rid'] = item_id})
         local slot = rune_obj['slot']
         local rarity = rune_obj['rarity'] or 1
         local grade = rune_obj['grade']
         local set_id = rune_obj['set_id']
         local lv = rune_obj['lv']
 
-        sprite = self:getRuneIconNew(slot, rarity, grade, set_id, lv)
-        --[[
-        local rune_type = t_item['full_type']
-        local rune_grade = t_item['grade']
-        local rune_alphabet_index = t_sub_data and t_sub_data['alphabet_idx'] or nil
-        local rune_color = t_item['color']
-        local lv = t_sub_data and t_sub_data['lv'] or nil
-        sprite = IconHelper:getRuneIcon(rune_type, rune_alphabet_index, rune_grade, rune_color, lv)
-        --]]
+        sprite = self:getRuneIcon(slot, rarity, grade, set_id, lv)
 
     -- 기타 아이템 아이콘 생성
     else
@@ -147,10 +139,10 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
 end
 
 -------------------------------------
--- function getRuneIconNew
+-- function getRuneIcon
 -- @brief 룬 아이콘 생성
 -------------------------------------
-function IconHelper:getRuneIconNew(slot, rarity, grade, set_id, lv)
+function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv)
     local rarity_str = ''
 
     if (rarity == 1) then
@@ -163,7 +155,7 @@ function IconHelper:getRuneIconNew(slot, rarity, grade, set_id, lv)
         rarity_str = 'hero'
 
     elseif (rarity == 4) then
-        rarity_str = 'legned'
+        rarity_str = 'legend'
 
     else
         error('rarity(rune_rarity) : ' .. rarity)
@@ -186,7 +178,7 @@ function IconHelper:getRuneIconNew(slot, rarity, grade, set_id, lv)
             alphabet_sprite:setAnchorPoint(cc.p(0.5, 0.5))
             rune_icon:addChild(alphabet_sprite)
 
-            --[[
+            --[[ 레어도에 따라서 색상 바꿔줘야하나??
             if (rune_color == 'blue') then          alphabet_sprite:setColor(cc.c3b(183, 249, 252))
             elseif (rune_color == 'purple') then    alphabet_sprite:setColor(cc.c3b(255, 77, 228))
             elseif (rune_color == 'red') then       alphabet_sprite:setColor(cc.c3b(255, 77, 77))
@@ -218,61 +210,6 @@ function IconHelper:getRuneIconNew(slot, rarity, grade, set_id, lv)
     end
 
     return rune_icon
-end
-
--------------------------------------
--- function getRuneIcon
--- @brief 룬 아이콘 생성
--------------------------------------
-function IconHelper:getRuneIcon(rune_type, rune_alphabet_index, rune_grade, rune_color, lv)
-
-    local type_sprite = cc.Sprite:create(string.format('res/ui/icon/rune/%s.png', rune_type))
-
-    if (not type_sprite) then
-        type_sprite = cc.Sprite:create('res/ui/icon/item/developing.png')
-    end
-
-    type_sprite:setDockPoint(cc.p(0.5, 0.5))
-    type_sprite:setAnchorPoint(cc.p(0.5, 0.5))
-
-    -- 룬문자
-    if (rune_alphabet_index) then
-        local alphabet_sprite = cc.Sprite:create(string.format('res/ui/icon/rune/rune_alphabet_%.2d.png', rune_alphabet_index))
-        if alphabet_sprite then
-            alphabet_sprite:setDockPoint(cc.p(0.5, 0.5))
-            alphabet_sprite:setAnchorPoint(cc.p(0.5, 0.5))
-            type_sprite:addChild(alphabet_sprite)
-
-            if (rune_color == 'blue') then          alphabet_sprite:setColor(cc.c3b(183, 249, 252))
-            elseif (rune_color == 'purple') then    alphabet_sprite:setColor(cc.c3b(255, 77, 228))
-            elseif (rune_color == 'red') then       alphabet_sprite:setColor(cc.c3b(255, 77, 77))
-            elseif (rune_color == 'orange') then    alphabet_sprite:setColor(cc.c3b(255, 215, 66))
-            elseif (rune_color == 'yellow') then    alphabet_sprite:setColor(cc.c3b(246, 255, 33))
-            elseif (rune_color == 'green') then     alphabet_sprite:setColor(cc.c3b(218, 255, 44))
-            end
-        end
-    end
-
-    -- 룬 등급 (1성~5성)
-    local grade_sprite = cc.Sprite:create(string.format('res/ui/icon/rune/rune_star_%.2d.png', rune_grade))
-    if grade_sprite then
-        grade_sprite:setDockPoint(cc.p(0.5, 0.5))
-        grade_sprite:setAnchorPoint(cc.p(0.5, 0.5))
-        grade_sprite:setPosition(0, -50)
-        type_sprite:addChild(grade_sprite)
-    end
-
-    -- 강화도 표시
-    if lv then
-        local str = Str('+{1}', lv)
-        local label = cc.Label:createWithTTF(str, 'res/font/common_font_01.ttf', 26, 2, cc.size(250, 100), cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-        label:setPosition(-60, -30)
-        label:setDockPoint(cc.p(0.5, 0.5))
-        label:setAnchorPoint(cc.p(0, 0.5))
-        type_sprite:addChild(label)
-    end
-
-    return type_sprite
 end
 
 -------------------------------------

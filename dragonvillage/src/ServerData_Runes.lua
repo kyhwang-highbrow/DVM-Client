@@ -99,3 +99,30 @@ function ServerData_Runes:deleteRuneData_list(l_roid)
         self:deleteRuneData(v)
     end
 end
+
+
+-------------------------------------
+-- function getUnequippedRuneList
+-- @brief 장착되지 않은 룬 리스트
+-------------------------------------
+function ServerData_Runes:getUnequippedRuneList(slot_idx)
+    if (not slot_idx) then
+        -- 전체
+        slot_idx = 0
+    end
+
+    local l_ret = {}
+
+    for i,v in pairs(self.m_mRuneObjects) do
+        -- 이 룬을 장착한 드래곤이 없을 경우
+        --if (not v['odoid']) or (v['odoid'] == '') then
+            -- 슬롯 확인
+            if (slot_idx == 0) or (v['slot'] == slot_idx) then
+                local roid = v['roid']
+                l_ret[roid] = clone(v)
+            end
+        --end
+    end
+
+    return l_ret
+end

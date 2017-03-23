@@ -118,3 +118,39 @@ end
 function SortManager:getTopSortingType()
     return self.m_lSortOrder[1]
 end
+
+-------------------------------------
+-- function common_default_sort
+-- @brief
+-------------------------------------
+function SortManager:common_default_sort(key, a, b, ascending)
+    local a_value = (a['data'] and a['data'][key] or a[key]) or 0
+    local b_value = (b['data'] and b['data'][key] or b[key]) or 0
+
+    -- 오름차순 or 내림차순
+    if ascending then
+        return a_value < b_value
+    else
+        return a_value > b_value
+    end
+end
+
+-------------------------------------
+-- function common_sort
+-- @brief
+-------------------------------------
+function SortManager:common_sort(key, a, b, ascending)
+    local a_value = (a['data'] and a['data'][key] or a[key]) or 0
+    local b_value = (b['data'] and b['data'][key] or b[key]) or 0
+
+    if (a_value == b_value) then
+        return nil
+    end
+
+    -- 오름차순 or 내림차순
+    if ascending then
+        return a_value < b_value
+    else
+        return a_value > b_value
+    end
+end

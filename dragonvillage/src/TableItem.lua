@@ -6,6 +6,8 @@ local PARENT = TableClass
 TableItem = class(PARENT, {
     })
 
+local THIS = TableItem
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -68,12 +70,39 @@ end
 -- @brief
 -------------------------------------
 function TableItem:getRegionList(item_id)
-    if (self == TableItem) then
-        self = TableItem()
+    if (self == THIS) then
+        self = THIS()
     end
 
     local trim_execution = true
     local l_region = self:getSemicolonSeparatedValues(item_id, 'get_region', trim_execution)
 
     return l_region
+end
+
+-------------------------------------
+-- function getRuneItemIDList
+-- @brief
+-------------------------------------
+function TableItem:getRuneItemIDList()
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local l_rune_item_list = self:filterList('type', 'rune')
+
+    local sort_manager = SortManager_Rune()
+    --sort_manager:pushSortOrder('grade')
+    --sort_manager:pushSortOrder('rarity')
+    --sort_manager:pushSortOrder('set_id')
+    sort_manager:pushSortOrder('slot')
+    sort_manager:sortExecution(l_rune_item_list)
+
+    -- item_id만 들어가는 리스트 생성
+    local l_ret = {}
+    for _,v in ipairs(l_rune_item_list) do
+        table.insert(l_ret, v['item'])
+    end
+
+    return l_ret
 end

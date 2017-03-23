@@ -190,11 +190,7 @@ end
 -------------------------------------
 function UI_SettingPopup:click_allRuneBtn()
     local uid = g_userData:get('uid')
-    local table_rune = TableRune()
-    local t_list = {}
-    for id,_ in pairs(table_rune.m_orgTable) do
-        table.insert(t_list, id)
-    end
+    local t_list = TableItem:getRuneItemIDList()
     local do_work
 
     local ui_network = UI_Network()
@@ -208,7 +204,7 @@ function UI_SettingPopup:click_allRuneBtn()
         
         if id then
             table.remove(t_list, 1)
-            local msg = '"' .. table_rune:getValue(id, 't_name') .. '" 추가 중...'
+            local msg = '"' .. tostring(id) .. '룬" 추가 중...'
             ui_network:setLoadingMsg(msg)
             --ui_network:setParam('value', tostring(id) .. ',' .. tostring(2))
             ui_network:setParam('rid', tostring(id))
