@@ -96,9 +96,7 @@ void PolygonBatch::flush () {
 
 	GL::bindTexture2D(_texture->getName());
 	GL::bindVAO(0);
-	glEnableVertexAttribArray(GLProgram::VERTEX_ATTRIB_POSITION);
-	glEnableVertexAttribArray(GLProgram::VERTEX_ATTRIB_COLOR);
-	glEnableVertexAttribArray(GLProgram::VERTEX_ATTRIB_TEX_COORDS);
+    GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR | GL::VERTEX_ATTRIB_FLAG_TEX_COORD);
 	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, sizeof(V2F_C4B_T2F), &_vertices[0].vertices);
 	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_COLOR, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(V2F_C4B_T2F), &_vertices[0].colors);
 	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_TEX_COORDS, 2, GL_FLOAT, GL_FALSE, sizeof(V2F_C4B_T2F), &_vertices[0].texCoords);
