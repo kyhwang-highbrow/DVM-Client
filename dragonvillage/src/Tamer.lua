@@ -156,7 +156,7 @@ function Tamer.st_roam(owner, dt)
         tar_y = (tar_y + cameraHomePosY)
 
         local course = math_random(-1, 1)
-        local time = math_random(5, 15) / 10
+        local time = math_random(15, 30) / 10
         local bezier = getBezier(tar_x, tar_y, owner.pos.x, owner.pos.y, course)
         local move_action = cc.BezierBy:create(time, bezier)
         local scale_action = cc.ScaleTo:create(time, 1 - (0.003 * tar_z))
@@ -168,7 +168,7 @@ function Tamer.st_roam(owner, dt)
         owner.m_animator.m_node:stopAllActions()
         owner.m_animator.m_node:runAction(tint_action)
                 
-        owner.m_roamTimer = time
+        owner.m_roamTimer = time * 0.9
     end
 
     owner.m_roamTimer = owner.m_roamTimer - dt

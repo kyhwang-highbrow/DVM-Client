@@ -76,6 +76,10 @@ function GameHighlightMgr:setMode(mode)
     if (self.m_mode ~= mode) then
         self.m_mode = mode        
         self:clear()
+
+        if (self.m_mode ~= GAME_HIGHLIGHT_MODE_HIDE) then
+            self:addChar(self.m_world.m_tamer)
+        end
     end
 end
 
