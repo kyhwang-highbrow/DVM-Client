@@ -874,6 +874,11 @@ end
 -- function updateActiveSkillCool
 -------------------------------------
 function Dragon:updateActiveSkillCool(dt)
+	-- @TODO 임시 처리
+	if (self.m_bDead) then
+		return
+	end
+
     if (self.m_activeSkillValue < 100) then
         if (self.m_state ~= 'casting') and (self.m_state ~= 'skillPrepare') then
             local add_value = self.m_activeSkillIncValuePerSec * dt
