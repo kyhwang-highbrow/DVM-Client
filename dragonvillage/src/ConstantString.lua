@@ -125,3 +125,37 @@ function dragonAttributeName(attr)
         error('rarity: ' .. attr)
     end
 end
+
+-------------------------------------
+-- function getSkillTypeStr
+-- @param is_use_brakets : 괄호 사용 여부 
+-------------------------------------
+function getSkillTypeStr(skill_type, is_use_brakets)
+	local skill_type_str = ''
+	local is_use_brakets = is_use_brakets or true
+
+    if (skill_type == 'basic') then
+        skill_type_str = Str('기본공격')
+
+    elseif isExistValue(skill_type, 'basic_turn', 'basic_rate', 'basic_time', 'indie_turn', 'indie_rate', 'indie_time', 'under_atk_turn', 'under_atk_rate') then
+        skill_type_str = Str('일반')
+
+    elseif (skill_type == 'passive') then
+        skill_type_str = Str('패시브')
+
+    elseif (skill_type == 'touch') then
+        skill_type_str = Str('액티브')
+
+    elseif (skill_type == 'active') then
+        skill_type_str = Str('액티브')
+
+    else
+        cclog('## 정의되지 않은 skill_type : ' .. skill_type)
+    end
+
+	if is_use_brakets then
+		skill_type_str = '(' .. skill_type_str .. ')'
+	end
+
+	return skill_type_str
+end

@@ -196,34 +196,11 @@ function UI_Tooltip_Skill:getSkillDescStr(char_type, skill_id, skill_type)
         local table_name = char_type .. '_skill'    
         local table_skill = TABLE:get(table_name)
         t_skill = table_skill[skill_id]
-
     end
     
     local skill_type = skill_type or t_skill['chance_type']
 
-    local skill_type_str = ''
-    if (skill_type == 'basic') then
-        skill_type_str = Str('(기본공격)')
-
-    elseif (skill_type == 'basic_turn') or (skill_type == 'basic_rate') or (skill_type == 'basic_time') then
-        skill_type_str = Str('(일반)')
-
-    elseif (skill_type == 'passive') then
-        skill_type_str = Str('(패시브)')
-
-    elseif (skill_type == 'touch') then
-        skill_type_str = Str('(액티브)')
-
-    elseif (skill_type == 'active') then
-        skill_type_str = Str('(액티브)')
-
-    elseif (skill_type == 'manual') then
-        skill_type_str = Str('(메뉴얼)')
-
-    else
-		-- @TODO 테이머 스킬은 skill_type 이 없는데.. 
-        skill_type_str = Str('(테이머 스킬)')
-    end
+    local skill_type_str = getSkillTypeStr(skill_type, true)
 
     local desc = IDragonSkillManager:getSkillDescPure(t_skill)
 

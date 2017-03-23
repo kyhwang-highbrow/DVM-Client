@@ -60,28 +60,7 @@ function UI_DragonSkillCard:getSkillDescStr()
     local t_skill = self.m_skillIndivisualInfo.m_tSkill
     local skill_type = self.m_skillIndivisualInfo.m_skillType
 
-    local skill_type_str = ''
-    if (skill_type == 'basic') then
-        skill_type_str = Str('(기본공격)')
-
-    elseif (skill_type == 'basic_turn') or (skill_type == 'basic_rate') or (skill_type == 'basic_time') then
-        skill_type_str = Str('(일반)')
-
-    elseif (skill_type == 'passive') then
-        skill_type_str = Str('(패시브)')
-
-    elseif (skill_type == 'touch') then
-        skill_type_str = Str('(액티브)')
-
-    elseif (skill_type == 'active') then
-        skill_type_str = Str('(액티브)')
-
-    elseif (skill_type == 'manual') then
-        skill_type_str = ''
-
-    else
-        error('skill_type : ' .. skill_type)
-    end
+    local skill_type_str = getSkillTypeStr(skill_type, true)
 
     local desc = IDragonSkillManager:getSkillDescPure(t_skill)
 

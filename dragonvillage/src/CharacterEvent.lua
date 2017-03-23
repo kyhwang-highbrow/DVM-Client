@@ -1,14 +1,14 @@
 -------------------------------------
 -- function initTriggerListener
--- @brief ÀÌº¥Æ® Ã³¸® ÇØ¾ßÇÏ´Â ½ºÅ³ µî·Ï
+-- @brief ì´ë²¤íŠ¸ ì²˜ë¦¬ í•´ì•¼í•˜ëŠ” ìŠ¤í‚¬ ë“±ë¡
 -------------------------------------
 function Character:initTriggerListener()
-	-- @TODO dragonskillmanager¸¦ ´ÙÁß »ó¼ÓÇÔÀ» °¡Á¤....
+	-- @TODO dragonskillmanagerë¥¼ ë‹¤ì¤‘ ìƒì†í•¨ì„ ê°€ì •....
 
 	for skill_type, t_individual_info in pairs(self.m_lSkillIndivisualInfo) do
-		-- ÀÌº¥Æ® Ã³¸® ÇÒ °¡´É¼ºÀÌ ¾ø´Â ½ºÅ³ Å¸ÀÔ Á¦¿Ü
+		-- ì´ë²¤íŠ¸ ì²˜ë¦¬ í•  ê°€ëŠ¥ì„±ì´ ì—†ëŠ” ìŠ¤í‚¬ íƒ€ìž… ì œì™¸
 		if not isExistValue(skill_type, 'active', 'basic', 'touch') then
-			-- Á¸Àç ¿©ºÎ´Â °¹¼ö·Î Ã¼Å©
+			-- ì¡´ìž¬ ì—¬ë¶€ëŠ” ê°¯ìˆ˜ë¡œ ì²´í¬
 			if (table.count(t_individual_info) > 0) then
 				self:addListener(skill_type, self)
 			end
@@ -65,7 +65,7 @@ function Character:onEvent_underAtkTurn()
 	
 	for i,v in pairs(self.m_lSkillIndivisualInfo['under_atk_turn']) do
         campare_cnt = v.m_tSkill['chance_value']
-		-- mod¸¦ »ç¿ëÇÏ¿© ÆÇº°
+		-- modë¥¼ ì‚¬ìš©í•˜ì—¬ íŒë³„
 		if (under_atk_cnt > 0) and (under_atk_cnt%campare_cnt == 0) then
 			local skill_id = v.m_skillID
             self:doSkill(skill_id, 0, 0)
