@@ -110,7 +110,7 @@ function UI_ItemCard:init_runeItem(t_item, t_sub_data)
 
     vars['numberLabel']:setVisible(false)
 
-    --self.m_itemName = (t_sub_data and t_sub_data['full_name'] or nil)
+    self.m_itemName = (t_sub_data and t_sub_data['name'] or nil)
 end
 
 -------------------------------------

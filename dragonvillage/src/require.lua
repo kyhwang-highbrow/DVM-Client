@@ -153,6 +153,7 @@ local t_module = {
     'TableDragonUnit',
     'TableStageMission',
     'TableCalendar',
+    'TableOption',
 
     -- Interface
     'IEventDispatcher',

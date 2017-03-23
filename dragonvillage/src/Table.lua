@@ -45,6 +45,7 @@ local TableInfo = {
         colosseum_reward  = {'table_colosseum_reward',		'tier',			false},
         stage_mission     = {'table_stage_mission',		    'key',			false},
         calendar          = {'table_calendar',		        'month',		false},
+        table_option      = {'table_option',		        'option',		false},
 
         -- 드래곤 관리 관련
         grade_info           = {'table_dragon_grade_info',    'grade',        false},

@@ -59,6 +59,11 @@ function StructRuneObject:init(data)
     self['slot'] = getDigit(rid, 10, 1)
     self['grade'] = getDigit(rid, 1, 1)
     self['name'] = TableItem:getItemName(rid)
+
+    local prefix = self:makeRunePrefix()
+    if prefix then
+        self['name'] = prefix .. ' ' .. self['name']
+    end
 end
 
 -------------------------------------
@@ -76,6 +81,27 @@ function StructRuneObject:applyTableData(data)
     end
 end
 
+-------------------------------------
+-- function makeRunePrefix
+-------------------------------------
+function StructRuneObject:makeRunePrefix()
+    local uopt = self['uopt']
+    if (not uopt) or (uopt == '') then
+        return
+    end
+
+    local l_str = stringSplit(uopt, ';')
+    local option = l_str[1]
+    local value = l_str[2]
+
+    local prefix = TableOption:getRunePrefix(option)
+
+    if (prefix == '') then
+        return nil
+    end
+
+    return prefix
+end
 
 -------------------------------------
 -- function makeSampleData

@@ -1878,6 +1878,9 @@
     <None Include="..\src\Tamer.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableOption.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -1,0 +1,20 @@
+option,r_desc,status,action,t_name,t_prefix,t_desc,r_rune
+atk_multi,atk +d% (공격력 d% 추가),atk,multi,공격력 증가,강력한,공격력 +{1}%,O
+atk_add,atk +n (공격력 +n),atk,add,공격력 증가,맹공의,공격력 +{1},O
+def_multi,def +d% (방어력 d% 추가),def,multi,방어력 증가,튼튼한,방어력 +{1}%,O
+def_add,def +n (방어력 +n),def,add,방어력 증가,단단한,방어력 +{1},O
+hp_multi,hp +d% (체력 d% 추가),hp,multi,체력 증가,생존의,체력 +{1}%,O
+hp_add,hp +n (체력 +n),hp,add,체력 증가,끈질긴,체력 +{1},O
+aspd_multi,aspd +d% (공격속도 d% 추가),aspd,multi,공격속도 증가,,공격속도 +{1}%,O
+aspd_add,aspd +n (공격속도 +n),aspd,add,공격속도 증가,쾌속의,공격속도 +{1},O
+cri_chance_add,cri_chance +d% (치명타 확률 d% 추가),cri_chance,add,치명타 확률 증가,행운의,치명타 확률 +{1}%,O
+cri_dmg_add,cri_dmg +d% (치명타 확률 d% 추가),cri_dmg,add,치명타 피해량 증가,파괴의,치명타 피해량 +{1}%,O
+cri_avoid_add,cri_avoid +d% (피격 시 치명타 방어 d% 추가),cri_avoid,add,치명타 회피율 증가,신중한,치명타 회피율 +{1}%,O
+hit_rate_add,hit_rate +d% (적중률 d% 추가),hit_rate,add,적중률 증가,노련한,적중률 +{1}%,O
+avoid_add,avoid +d% (회피율 d% 추가),avoid,add,회피율 증가,재빠른,회피율 +{1}%,O
+accuracy_add,accuracy +d% (효과 적중 d% 추가),accuracy,add,,정교한,효과 적중 +{1}%,O
+resistance_add,resistance +d% (효과 저항 d% 추가),resistance,add,,근성의,효과 저항 +{1}%,O
+drag_gauge_add,drag_gauge +n (스테이지 진입 시 드래그 게이지 양 +n),drag_gauge,add,,희망의,드래그 게이지 +{1} 충전 상태에서 시작,O
+drag_cool_add,drag_cool -d% (드래그 스킬 쿨타임 d% 감소),drag_cool,add,,날렵한,드래그 스킬 쿨타임 +{1} 감소,O
+cool_actu_add,cool_actu -d% (쿨타임 스킬 발동시간 d% 감소),cool_actu,add,,기교의,쿨타임 스킬 시간 +{1}%,O
+pass_chance_add,pass_chance +d% (패시브 스킬 발동 확률 d% 증가),pass_chance,add,,꾸준한,패시브 발동 +{1}%,O
