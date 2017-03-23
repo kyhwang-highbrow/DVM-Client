@@ -86,13 +86,11 @@ end
 -------------------------------------
 function StructRuneObject:makeRunePrefix()
     local uopt = self['uopt']
-    if (not uopt) or (uopt == '') then
-        return
-    end
 
-    local l_str = stringSplit(uopt, ';')
-    local option = l_str[1]
-    local value = l_str[2]
+    local option, value = self:parseRuneOptionStr(uopt)
+    if (not option) then
+        return nil
+    end
 
     local prefix = TableOption:getRunePrefix(option)
 
@@ -101,6 +99,83 @@ function StructRuneObject:makeRunePrefix()
     end
 
     return prefix
+end
+
+-------------------------------------
+-- function parseRuneOptionStr
+-- @brief 옵션 능력치 분석
+-------------------------------------
+function StructRuneObject:parseRuneOptionStr(option_str)
+    if (not option_str) or (option_str == '') then
+        return nil
+    end
+
+    local l_str = stringSplit(option_str, ';')
+    local option = l_str[1]
+    local value = l_str[2]
+
+    return option, value
+end
+
+-------------------------------------
+-- function getRuneOptionDesc
+-- @brief 옵션 능력치 desc
+-------------------------------------
+function StructRuneObject:getRuneOptionDesc(option_str)
+    local option, value = self:parseRuneOptionStr(option_str)
+
+    if (not option) then
+        return nil
+    end
+
+    local text = TableOption:getOptionDesc(option, value)
+    return text
+end
+
+-------------------------------------
+-- function makeRuneDescRichText
+-------------------------------------
+function StructRuneObject:makeRuneDescRichText()
+    local text = ''
+
+    -- 주 옵션
+    local text_ = self:getRuneOptionDesc(self['mopt'])
+    if text_ then
+        text = '{@w}' .. text_
+    end
+
+    -- 유니크 옵션
+    local text_ = self:getRuneOptionDesc(self['uopt'])
+    if text_ then
+        text = text .. '\n{@g}' .. text_
+    end
+
+    -- 공백
+    text = text .. '\n'
+
+    do -- 서브 옵션
+        local text_ = self:getRuneOptionDesc(self['sopt_1'])
+        if text_ then
+            text = text .. '\n{@GOLD}' .. text_
+        end
+
+        local text_ = self:getRuneOptionDesc(self['sopt_2'])
+        if text_ then
+            text = text .. '\n{@GOLD}' .. text_
+        end
+
+        local text_ = self:getRuneOptionDesc(self['sopt_3'])
+        if text_ then
+            text = text .. '\n{@GOLD}' .. text_
+        end
+
+        local text_ = self:getRuneOptionDesc(self['sopt_4'])
+        if text_ then
+            text = text .. '\n{@GOLD}' .. text_
+        end
+    end
+
+    return text or ''
 end
 
 -------------------------------------

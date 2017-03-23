@@ -143,29 +143,8 @@ function UI_InventoryTabRune:onChangeSelectedItem(ui, data)
         vars['itemNameLabel']:setString(name)
     end
 
-    --[[
-    local t_rune_information = t_rune_data['information']
-
-    -- 주옵션 문자열
-    local main_option_str = TableRuneStatus:makeRuneOptionStr(t_rune_information['status']['mopt'])
-    vars['runeMainOptionLabel']:setVisible(true)
-    vars['runeMainOptionLabel']:setString(main_option_str)
-
-    -- 부옵션 문자열
-    local sub_option_str = TableRuneStatus:makeRuneOptionStr(t_rune_information['status']['sopt'])
-    vars['runeSubOptionLabel']:setVisible(true)
-    vars['runeSubOptionLabel']:setString(sub_option_str)
-
-    -- 세트 효과
-    local t_rune_set = t_rune_data['rune_set']
-    if t_rune_set then
-        vars['runeSetLabel']:setVisible(true)
-        local str = TableRuneStatus:makeRuneSetOptionStr(t_rune_set)
-        vars['runeSetLabel']:setString(str)
-    else
-        vars['runeSetLabel']:setVisible(false)
-    end
-    --]]
+    vars['runeDscLabel']:setVisible(true)
+    vars['runeDscLabel']:setString(t_rune_data:makeRuneDescRichText())
     
     -- 판매 버튼
     if self.m_inventoryUI.m_selectSellItemsUI and (not self.m_inventoryUI.m_selectSellItemsUI.m_bActive) then

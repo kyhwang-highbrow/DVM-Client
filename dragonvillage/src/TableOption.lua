@@ -18,7 +18,7 @@ end
 
 -------------------------------------
 -- function getRunePrefix
--- @brief ë£¬ì˜ ? ë‹ˆ???µì…˜???˜í•´ ë¶™ê²Œ?˜ëŠ” ?‘ë‘??
+-- @brief
 -------------------------------------
 function TableOption:getRunePrefix(option)
     if (self == THIS) then
@@ -31,4 +31,18 @@ function TableOption:getRunePrefix(option)
     else
         return ''
     end
+end
+
+-------------------------------------
+-- function getOptionDesc
+-- @brief
+-------------------------------------
+function TableOption:getOptionDesc(option, val_1, val_2, val_3)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_desc = self:getValue(option, 't_desc')
+    local desc = Str(t_desc, val_1, val_2, val_3)
+    return desc
 end
