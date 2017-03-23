@@ -719,7 +719,7 @@ end
 -- function getSkillTable
 -------------------------------------
 function Character:getSkillTable(skill_id)
-    if (not skill_id) or (skill_id == 'x') or (skill_id == 0) then
+    if (not skill_id) or (skill_id == '') or (skill_id == 0) then
         return nil
     end
 

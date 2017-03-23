@@ -134,7 +134,7 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv)
         return
     end
 
-    if (skill_type == 'x') then
+    if (skill_type == '') then
         return
     end
 
@@ -227,7 +227,7 @@ function IDragonSkillManager:makeSkillIcon_usingIndex(idx)
         skill_type = t_character['skill_type_' .. idx]
     end
 
-    if (skill_type ~= 'x') and skill_id ~= 0 then
+    if (skill_type ~= '') and skill_id ~= 0 then
         local skill_lv = self:getSkillLevel(idx)
         local skill_indivisual_info = DragonSkillIndivisualInfo('dragon', skill_type, skill_id, skill_lv)
         skill_indivisual_info:init_skillLevelupIDList()

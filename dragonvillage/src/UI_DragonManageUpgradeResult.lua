@@ -85,7 +85,7 @@ function UI_DragonManageUpgradeResult:refresh()
 
         local table_skill = TableDragonSkill()
 
-        if (skill_id == 'x') then
+        if (skill_id == '') then
             vars['skillInfoLabel']:setString('')
             vars['skillNameLabel']:setString('스킬이 배정되어있지 않습니다.')
         else

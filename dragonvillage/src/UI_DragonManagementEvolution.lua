@@ -180,7 +180,7 @@ function UI_DragonManagementEvolution:refresh_nextSkillInfo(t_dragon_data, t_dra
     local skill_id = t_dragon['skill_' .. evolution]
     local skill_type = t_dragon['skill_type_' .. evolution]
 
-    if (skill_id == 'x') then
+    if (skill_id == '') then
         vars['skillInfoLabel']:setString('스킬이 지정되지 않았습니다.')
     else
         -- 스킬 아이콘

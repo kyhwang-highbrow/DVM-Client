@@ -776,7 +776,7 @@ function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rul
         self:addList(t_ret, TargetRule_getTargetList(rule_type, t_org_list_2, x, y, t_data))
 
     -- 항목에 데이터가 없거나 x면 전, 중, 후 구별을 하지 않고 모두를 타겟
-    elseif(formation_type == 'x') then
+    elseif (formation_type == 'x') or (formation_type == '') then
         local t_org_list_1 = self.m_globalCharList
         self:addList(t_ret, TargetRule_getTargetList(rule_type, t_org_list_1, x, y, t_data))
 
