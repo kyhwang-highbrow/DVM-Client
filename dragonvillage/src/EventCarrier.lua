@@ -16,3 +16,12 @@ EVENT_HIT_CARRIER['reduced_damage'] = 0
 EVENT_HIT_CARRIER['is_critical'] = false
 EVENT_HIT_CARRIER['attacker'] = ''
 EVENT_HIT_CARRIER['defender'] = ''
+
+------------------------------
+-- event change hp
+-- @brief hp 변동
+------------------------------
+EVENT_CHANGE_HP_CARRIER = clone(EVENT_CARRIER)
+EVENT_CHANGE_HP_CARRIER['owner'] = ''
+EVENT_CHANGE_HP_CARRIER['hp'] = 0
+EVENT_CHANGE_HP_CARRIER['max_hp'] = 0

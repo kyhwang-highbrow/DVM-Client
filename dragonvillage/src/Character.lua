@@ -129,7 +129,6 @@ Character = class(PARENT, {
         m_lProtectionList = 'list',
 		
 		-- @TODO - 향후에 삭제 해야 함. 인터페이스로 대체 
-        m_hpEventListener = 'list',
         m_undergoAttackEventListener = 'list',
         m_damagedEventListener = 'list',   -- 데미지를 입었을 때 이벤트
 		
@@ -1100,27 +1099,11 @@ function Character:setHp(hp)
     end
 
 	-- 리스너에 전달
-    self:dispatch('character_set_hp', {}, self)
-
-    if self.m_hpEventListener then
-        for i, v in pairs(self.m_hpEventListener) do
-            v:changeHpCB(self, self.m_hp, self.m_maxHp)
-        end
-    end
-end
-
--------------------------------------
--- function addHpEventListener
--------------------------------------
-function Character:addHpEventListener(listener)
-    if (not self.m_hpEventListener) then
-        self.m_hpEventListener = {}
-    end
-
-    -- 콜백 함수 등록
-    table.insert(self.m_hpEventListener, listener)
-
-    listener:changeHpCB(self, self.m_hp, self.m_maxHp)
+	local t_event = clone(EVENT_CHANGE_HP_CARRIER)
+	t_event['owner'] = self
+	t_event['hp'] = self.m_hp
+	t_event['max_hp'] = self.m_maxHp
+    self:dispatch('character_set_hp', t_event)
 end
 
 -------------------------------------
@@ -2030,7 +2013,6 @@ function Character:referenceForSlaveCharacter(t_body, adj_x, adj_y)
 	char.m_charTable = {attr = self:getAttribute(), rarity = self.m_charTable['rarity']}
 	
 	char.m_bLeftFormation = self.m_bLeftFormation
-	char.m_hpEventListener = self.m_hpEventListener
     char.m_undergoAttackEventListener = self.m_undergoAttackEventListener
     char.m_damagedEventListener = self.m_damagedEventListener
 	char.m_cbChangePos = self.m_cbChangePos

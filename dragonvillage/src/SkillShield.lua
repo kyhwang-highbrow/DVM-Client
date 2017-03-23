@@ -1,4 +1,4 @@
-local PARENT = class(Skill, IStateDelegate:getCloneTable())
+local PARENT = class(Skill, IEventListener:getCloneTable(), IStateDelegate:getCloneTable())
 
 -------------------------------------
 -- class SkillShield
@@ -7,6 +7,7 @@ SkillShield = class(PARENT, {
         m_hpRange = 'number',
         m_currHP = 'number',
         m_currDamage = 'number',
+		m_triggerName = 'str',
      })
 
 -------------------------------------
@@ -30,6 +31,7 @@ function SkillShield:init_skill(active_rate, shield_hp_rate)
     self.m_hpRange = self.m_owner.m_maxHp * rate
     self.m_currHP = self.m_owner.m_hp
     self.m_currDamage = 0
+	self.m_triggerName = 'character_set_hp'
 
     -- 2. 콜백 함수 등록
     self.m_owner:addHpEventListener(self)
@@ -56,10 +58,15 @@ end
 
 
 -------------------------------------
--- function changeHpCB
+-- function onEvent
 -------------------------------------
-function SkillShield:changeHpCB(char, hp, max_hp)
-
+function SkillShield:onEvent(event_name, t_event, ...)
+	if (not event_name == self.m_triggerName) then return end
+	
+	local char = t_event['owner']
+	local hp = t_event['hp']
+	local max_hp = t_event['max_hp']
+	
     if hp < self.m_currHP then
         local damage = self.m_currHP - hp
         self.m_currDamage = self.m_currDamage + damage
