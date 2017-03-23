@@ -24,6 +24,7 @@ StructRuneObject = class({
 
         ---------------------------------------------
         created_at = 'timestamp',
+        updated_at = 'timestamp',
         ---------------------------------------------
 
         slot = 'number',    -- 슬롯 ID 1 ~ 6
