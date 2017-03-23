@@ -81,6 +81,19 @@ function TableItem:getRegionList(item_id)
 end
 
 -------------------------------------
+-- function getItemName
+-- @brief
+-------------------------------------
+function TableItem:getItemName(item_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local item_name = self:getValue(item_id, 't_name')
+    return Str(item_name)
+end
+
+-------------------------------------
 -- function getRuneItemIDList
 -- @brief
 -------------------------------------

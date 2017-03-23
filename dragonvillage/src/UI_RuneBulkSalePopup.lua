@@ -56,6 +56,10 @@ function UI_RuneBulkSalePopup:initButton()
     vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
 
     do -- 등급
+        local active = g_localData:get('option_rune_bulk_sell', 'grade_6')
+        vars['starBtn6'] = UIC_CheckBox(vars['starBtn6'].m_node, vars['starSprite6'], active)
+        vars['starBtn6']:registerScriptTapHandler(function() self:click_checkBox() end)
+
         local active = g_localData:get('option_rune_bulk_sell', 'grade_5')
         vars['starBtn5'] = UIC_CheckBox(vars['starBtn5'].m_node, vars['starSprite5'], active)
         vars['starBtn5']:registerScriptTapHandler(function() self:click_checkBox() end)
@@ -78,25 +82,21 @@ function UI_RuneBulkSalePopup:initButton()
     end
 
     do -- 레어도
-        local active = g_localData:get('option_rune_bulk_sell', 'rarity_s')
-        vars['rarityBtnS'] = UIC_CheckBox(vars['rarityBtnS'].m_node, vars['raritySpriteS'], active)
-        vars['rarityBtnS']:registerScriptTapHandler(function() self:click_checkBox() end)
+        local active = g_localData:get('option_rune_bulk_sell', 'rarity_4')
+        vars['rarityBtn4'] = UIC_CheckBox(vars['rarityBtn4'].m_node, vars['raritySprite4'], active)
+        vars['rarityBtn4']:registerScriptTapHandler(function() self:click_checkBox() end)
 
-        local active = g_localData:get('option_rune_bulk_sell', 'rarity_a')
-        vars['rarityBtnA'] = UIC_CheckBox(vars['rarityBtnA'].m_node, vars['raritySpriteA'], active)
-        vars['rarityBtnA']:registerScriptTapHandler(function() self:click_checkBox() end)
+        local active = g_localData:get('option_rune_bulk_sell', 'rarity_3')
+        vars['rarityBtn3'] = UIC_CheckBox(vars['rarityBtn3'].m_node, vars['raritySprite3'], active)
+        vars['rarityBtn3']:registerScriptTapHandler(function() self:click_checkBox() end)
 
-        local active = g_localData:get('option_rune_bulk_sell', 'rarity_b')
-        vars['rarityBtnB'] = UIC_CheckBox(vars['rarityBtnB'].m_node, vars['raritySpriteB'], active)
-        vars['rarityBtnB']:registerScriptTapHandler(function() self:click_checkBox() end)
+        local active = g_localData:get('option_rune_bulk_sell', 'rarity_2')
+        vars['rarityBtn2'] = UIC_CheckBox(vars['rarityBtn2'].m_node, vars['raritySprite2'], active)
+        vars['rarityBtn2']:registerScriptTapHandler(function() self:click_checkBox() end)
 
-        local active = g_localData:get('option_rune_bulk_sell', 'rarity_c')
-        vars['rarityBtnC'] = UIC_CheckBox(vars['rarityBtnC'].m_node, vars['raritySpriteC'], active)
-        vars['rarityBtnC']:registerScriptTapHandler(function() self:click_checkBox() end)
-
-        local active = g_localData:get('option_rune_bulk_sell', 'rarity_d')
-        vars['rarityBtnD'] = UIC_CheckBox(vars['rarityBtnD'].m_node, vars['raritySpriteD'], active)
-        vars['rarityBtnD']:registerScriptTapHandler(function() self:click_checkBox() end)
+        local active = g_localData:get('option_rune_bulk_sell', 'rarity_1')
+        vars['rarityBtn1'] = UIC_CheckBox(vars['rarityBtn1'].m_node, vars['raritySprite1'], active)
+        vars['rarityBtn1']:registerScriptTapHandler(function() self:click_checkBox() end)
     end
 end
 
@@ -123,7 +123,7 @@ function UI_RuneBulkSalePopup:init_tableView()
     self.m_tableView = table_view_td
 
     local sort_manager = SortManager_Rune()
-    sort_manager:pushSortOrder('set_color')
+    sort_manager:pushSortOrder('set_id')
     sort_manager:pushSortOrder('lv')
     sort_manager:pushSortOrder('rarity')
     sort_manager:pushSortOrder('grade')
@@ -163,11 +163,11 @@ function UI_RuneBulkSalePopup:getRuneList()
     l_active[3] = vars['starBtn3']:isChecked()
     l_active[4] = vars['starBtn4']:isChecked()
     l_active[5] = vars['starBtn5']:isChecked()
-    l_active['s'] = vars['rarityBtnS']:isChecked()
-    l_active['a'] = vars['rarityBtnA']:isChecked()
-    l_active['b'] = vars['rarityBtnB']:isChecked()
-    l_active['c'] = vars['rarityBtnC']:isChecked()
-    l_active['d'] = vars['rarityBtnD']:isChecked()
+    l_active[6] = vars['starBtn6']:isChecked()
+    l_active[4] = vars['rarityBtn4']:isChecked()
+    l_active[3] = vars['rarityBtn3']:isChecked()
+    l_active[2] = vars['rarityBtn2']:isChecked()
+    l_active[1] = vars['rarityBtn1']:isChecked()
 
     for i,v in pairs(l_rune_list) do
         local grade = v['grade']
@@ -212,17 +212,17 @@ function UI_RuneBulkSalePopup:click_checkBox()
 
     g_localData:lockSaveData()
 
+    g_localData:applyLocalData(vars['starBtn6']:isChecked(), 'option_rune_bulk_sell', 'grade_6')
     g_localData:applyLocalData(vars['starBtn5']:isChecked(), 'option_rune_bulk_sell', 'grade_5')
     g_localData:applyLocalData(vars['starBtn4']:isChecked(), 'option_rune_bulk_sell', 'grade_4')
     g_localData:applyLocalData(vars['starBtn3']:isChecked(), 'option_rune_bulk_sell', 'grade_3')
     g_localData:applyLocalData(vars['starBtn2']:isChecked(), 'option_rune_bulk_sell', 'grade_2')
     g_localData:applyLocalData(vars['starBtn1']:isChecked(), 'option_rune_bulk_sell', 'grade_1')
 
-    g_localData:applyLocalData(vars['rarityBtnS']:isChecked(), 'option_rune_bulk_sell', 'rarity_s')
-    g_localData:applyLocalData(vars['rarityBtnA']:isChecked(), 'option_rune_bulk_sell', 'rarity_a')
-    g_localData:applyLocalData(vars['rarityBtnB']:isChecked(), 'option_rune_bulk_sell', 'rarity_b')
-    g_localData:applyLocalData(vars['rarityBtnC']:isChecked(), 'option_rune_bulk_sell', 'rarity_c')
-    g_localData:applyLocalData(vars['rarityBtnD']:isChecked(), 'option_rune_bulk_sell', 'rarity_d')
+    g_localData:applyLocalData(vars['rarityBtn4']:isChecked(), 'option_rune_bulk_sell', 'rarity_4')
+    g_localData:applyLocalData(vars['rarityBtn3']:isChecked(), 'option_rune_bulk_sell', 'rarity_3')
+    g_localData:applyLocalData(vars['rarityBtn2']:isChecked(), 'option_rune_bulk_sell', 'rarity_2')
+    g_localData:applyLocalData(vars['rarityBtn1']:isChecked(), 'option_rune_bulk_sell', 'rarity_1')
 
     g_localData:unlockSaveData()
 
@@ -261,7 +261,7 @@ function UI_RuneBulkSalePopup:click_sellBtn()
 
     local rune_oids = nil
     for i,v in ipairs(self.m_tableView.m_itemList) do
-        local roid = v['data']['id']
+        local roid = v['data']['roid']
         local rid = v['data']['rid']
         if (not rune_oids) then
             rune_oids = tostring(roid)

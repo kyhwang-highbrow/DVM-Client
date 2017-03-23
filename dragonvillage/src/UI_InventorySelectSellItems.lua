@@ -102,7 +102,7 @@ function UI_InventorySelectSellItems:setSelectedItem(ui, data)
 
     local unique_id
     if (item_type == 'rune') then
-        unique_id = data['id']
+        unique_id = data['roid']
     else
         unique_id = item_id
     end

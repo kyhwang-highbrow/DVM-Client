@@ -78,11 +78,11 @@ function LocalData:makeDefaultLocalData()
         t_data['grade_3'] = false
         t_data['grade_4'] = false
         t_data['grade_5'] = false
-        t_data['rarity_s'] = false
-        t_data['rarity_a'] = false
-        t_data['rarity_b'] = true
-        t_data['rarity_c'] = true
-        t_data['rarity_d'] = true
+        t_data['grade_6'] = false
+        t_data['rarity_4'] = false
+        t_data['rarity_3'] = false
+        t_data['rarity_2'] = true
+        t_data['rarity_1'] = true
         root_table['option_rune_bulk_sell'] = t_data
     end
 

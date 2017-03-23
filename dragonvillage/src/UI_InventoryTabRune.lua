@@ -137,13 +137,14 @@ function UI_InventoryTabRune:onChangeSelectedItem(ui, data)
     vars['locationBtn']:setVisible(true)
     vars['locationBtn']:registerScriptTapHandler(function() self:openAcuisitionRegionInformation(t_rune_data['rid']) end)
 
-    local t_rune_information = t_rune_data['information']
-
     do -- 아이템 이름
         vars['itemNameLabel']:setVisible(true)
-        local name = t_rune_information['full_name']
+        local name = t_rune_data['name']
         vars['itemNameLabel']:setString(name)
     end
+
+    --[[
+    local t_rune_information = t_rune_data['information']
 
     -- 주옵션 문자열
     local main_option_str = TableRuneStatus:makeRuneOptionStr(t_rune_information['status']['mopt'])
@@ -164,6 +165,7 @@ function UI_InventoryTabRune:onChangeSelectedItem(ui, data)
     else
         vars['runeSetLabel']:setVisible(false)
     end
+    --]]
     
     -- 판매 버튼
     if self.m_inventoryUI.m_selectSellItemsUI and (not self.m_inventoryUI.m_selectSellItemsUI.m_bActive) then
@@ -182,7 +184,7 @@ function UI_InventoryTabRune:sellBtn(t_rune_data)
     
     -- 판매 여부 묻는 팝업
     ask_item_sell = function()
-        local item_name = t_rune_data['information']['full_name']
+        local item_name = t_rune_data['name']
         local item_price = TableItem():getValue(t_rune_data['rid'], 'sale_price')
         local msg = Str('[{1}]을(를) {2}골드에 판매하시겠습니까?', item_name, comma_value(item_price))
         MakeSimplePopup(POPUP_TYPE.YES_NO, msg, request_item_sell)
@@ -190,7 +192,7 @@ function UI_InventoryTabRune:sellBtn(t_rune_data)
 
     -- 서버에 판매 요청
     request_item_sell = function()
-        local rune_oids = t_rune_data['id']
+        local rune_oids = t_rune_data['roid']
         local evolution_stones = nil
         local fruits = nil
         local tickets = nil

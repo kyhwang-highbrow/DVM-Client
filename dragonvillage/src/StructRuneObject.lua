@@ -32,6 +32,8 @@ StructRuneObject = class({
         set_id = 'number',  -- 세트 ID 1~8
 
         item_id = 'number',
+
+        name = 'string',
     })
 
 -------------------------------------
@@ -56,6 +58,7 @@ function StructRuneObject:init(data)
     self['set_id'] = getDigit(rid, 100, 2)
     self['slot'] = getDigit(rid, 10, 1)
     self['grade'] = getDigit(rid, 1, 1)
+    self['name'] = TableItem:getItemName(rid)
 end
 
 -------------------------------------
