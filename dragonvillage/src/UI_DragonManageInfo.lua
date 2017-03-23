@@ -493,7 +493,9 @@ end
 -- @brief 룬 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_runeBtn(slot_idx)
-    --self:openSubManageUI(UI_DragonMgrRunes)
+    --self:openSubManageUI(UI_DragonMgrRunesNew)
+
+    UI_DragonRunes()
 end
 
 -------------------------------------

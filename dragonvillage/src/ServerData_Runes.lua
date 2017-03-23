@@ -126,3 +126,36 @@ function ServerData_Runes:getUnequippedRuneList(slot_idx)
 
     return l_ret
 end
+
+-------------------------------------
+-- function getFilteredRuneList
+-- @brief 필터링된 룬 리스트
+-------------------------------------
+function ServerData_Runes:getFilteredRuneList(equiped, slot, set_id)
+    if (slot == 0) then
+        slot = nil
+    end
+
+    if (set_id == 0) then
+        set_id = nil
+    end
+    
+
+    local l_ret = {}
+
+    
+    for i,v in pairs(self.m_mRuneObjects) do
+        -- 슬롯 필터
+        if slot and (slot ~= v['slot']) then
+        -- 세트 필터
+        elseif set_id and (set_id ~= v['set_id']) then
+
+        -- 리스트에 추가
+        else
+            l_ret[i] = v
+        end
+    end
+    
+
+    return l_ret
+end
