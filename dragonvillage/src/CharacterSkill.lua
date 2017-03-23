@@ -64,7 +64,7 @@ function Character:doSkill(skill_id, x, y, t_data)
 	-- [상태 효과]만 거는 스킬
 	elseif (skill_form == 'status_effect') then
 		-- 1. skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
-		local l_target = self:getTargetList(t_skill)
+		local l_target = self:getTargetListByTable(t_skill)
 
 		-- 2. 상태효과 문자열(;로 구분)
 		local status_effect_str = {t_skill['status_effect_1'], t_skill['status_effect_2']}

@@ -248,25 +248,24 @@ end
 -- function getTargetList
 -- @brief skill table을 인자로 받는 경우..
 -------------------------------------
-function Character:getTargetList(t_skill)
+function Character:getTargetListByTable(t_skill)
 	local target_type = t_skill['target_type']
-    return self:getTargetListByType(target_type)
+    local target_formation = t_skill['target_formation']
+    return self:getTargetListByType(target_type, target_formation)
 end
 
 -------------------------------------
 -- function getTargetListByType
+-- @param target_formation은 없어도 된다
 -------------------------------------
-function Character:getTargetListByType(target_type)
-	if (target_type == 'x') then 
-		error('타겟 타입이 x인데요? 테이블 수정해주세요')
+function Character:getTargetListByType(target_type, target_formation)
+	if (target_type == '') then 
+		error('타겟 타입이 없네요..ㅠ 테이블 수정해주세요')
 	end
-
-    local table_skill_target = TABLE:get('skill_target')
-    local t_skill_target = table_skill_target[target_type]
-
-    local target_team = t_skill_target['fof']
-    local target_formation = self.m_charTable['target_formation']
-    local target_rule = t_skill_target['rule']
+    
+	local target_formation = target_formation or nil
+	local target_team = string.gsub(target_type, '_%l+', '')
+    local target_rule = string.gsub(target_type, '%l+_', '', 1)
 
     local t_ret = self.m_world:getTargetList(self, self.pos.x, self.pos.y, target_team, target_formation, target_rule)
     return t_ret
@@ -281,7 +280,7 @@ function Character:checkTarget(t_skill, t_data)
 		self.m_targetChar = t_data['target']
 	else
 		-- 없다면 탐색
-		local t_ret = self:getTargetList(t_skill)
+		local t_ret = self:getTargetListByTable(t_skill)
 		self.m_targetChar = t_ret[1]
 	end
 

@@ -323,7 +323,7 @@ end
 -- function getBaseTarget
 -------------------------------------
 function SkillCrash:getBaseTarget()
-    local l_target = self.m_owner:getTargetList(self.m_tSkill)
+    local l_target = self.m_owner:getTargetListByTable(self.m_tSkill)
     local target = l_target[1]
     return target
 end

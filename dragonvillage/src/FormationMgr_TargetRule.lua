@@ -65,8 +65,6 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
 	elseif (type == 'status_stun') then		return TargetRule_getTargetList_status_effect(org_list, 'stun', true)
 
 	--elseif (type == 'front_line') then      return TargetRule_getTargetList_row(FORMATION_FRONT)
-	--elseif (type == 'middle_line') then     return TargetRule_getTargetList_row(FORMATION_MIDDLE)
-	--elseif (type == 'back_line') then       return TargetRule_getTargetList_row(FORMATION_REAR)
 
 	elseif (type == 'earth_group') then     return TargetRule_getTargetList_attr(org_list, ATTR_EARTH)
 	elseif (type == 'water_group') then     return TargetRule_getTargetList_attr(org_list, ATTR_WATER)

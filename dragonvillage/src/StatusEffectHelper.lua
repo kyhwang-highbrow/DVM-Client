@@ -324,7 +324,7 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 	-- 기획 이슈로 제거
 
 	-- 2. skill의 타겟룰로 passive의 대상 리스트를 얻어옴
-	local l_target = char:getTargetList(t_skill)
+	local l_target = char:getTargetListByTable(t_skill)
 
 	-- 3. 타겟 대상에 passive생성
 	local idx = 1

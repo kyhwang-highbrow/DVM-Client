@@ -698,25 +698,13 @@ end
 function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
     local t_ret = {}
 
-	-- @TODO 전위, 중위, 후위 를 구분해서 가져와야할때 .. Formation Type을 무시하고 Rule Type에 의존
-	-- 전체 구조를 숙고해봐야 할듯
-	if (isExistValue(rule_type, 'front_line', 'middle_line', 'back_line')) then
-		local char_list
-		if (rule_type == 'front_line') then
-			char_list = self.m_frontCharList
-		elseif (rule_type == 'middle_line') then
-			char_list = self.m_middleCharList
-		elseif (rule_type == 'back_line') then
-			char_list = self.m_rearCharList
-		end
-
-		self:addList(t_ret, char_list)
-		return t_ret
-	end
-
+    -- 항목에 데이터가 없거나 x면 전, 중, 후 구별을 하지 않고 모두를 타겟
+	if (formation_type == 'x') or (formation_type == '') or (not formation_type) then
+        local t_org_list_1 = self.m_globalCharList
+        self:addList(t_ret, TargetRule_getTargetList(rule_type, t_org_list_1, x, y, t_data))
 
     -- 전위, 중위, 후위 순으로 우선 타겟
-    if (formation_type == 'front') then
+    elseif (formation_type == 'front') then
         local t_org_list_1 = self.m_frontCharList
         local t_org_list_2 = self.m_middleCharList
         local t_org_list_3 = self.m_rearCharList
@@ -774,11 +762,6 @@ function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rul
 
         self:addList(t_ret, TargetRule_getTargetList(rule_type, t_org_list_1, x, y, t_data))
         self:addList(t_ret, TargetRule_getTargetList(rule_type, t_org_list_2, x, y, t_data))
-
-    -- 항목에 데이터가 없거나 x면 전, 중, 후 구별을 하지 않고 모두를 타겟
-    elseif (formation_type == 'x') or (formation_type == '') or (not formation_type) then
-        local t_org_list_1 = self.m_globalCharList
-        self:addList(t_ret, TargetRule_getTargetList(rule_type, t_org_list_1, x, y, t_data))
 
     else
         error("미구현 Formation Type!! : " .. formation_type)

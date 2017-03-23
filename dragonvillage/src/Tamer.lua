@@ -6,7 +6,7 @@ local TAMER_SKILL_PASSIVE = 2
 -------------------------------------
 -- class Tamer
 -------------------------------------
-Tamer = class(Character, {
+Tamer = class(PARENT, {
         -- 기본 정보
         m_tamerID = '',    -- 드래곤의 고유 ID
 
@@ -260,27 +260,6 @@ function Tamer:updateAfterImage(dt)
 end
 
 -------------------------------------
--- function getTargetList
--------------------------------------
-function Tamer:getTargetList(t_skill)
-    local target_type = t_skill['target_type']
-    if (target_type == 'x') then 
-		error('타겟 타입이 x인데요? 테이블 수정해주세요')
-	end
-
-    local table_skill_target = TABLE:get('skill_target')
-    local t_skill_target = table_skill_target[target_type]
-
-    local target_team = t_skill_target['fof']
-    local target_formation = 'front'
-    local target_rule = t_skill_target['rule']
-
-    local t_ret = self.m_world:getTargetList(nil, 0, 0, target_team, target_formation, target_rule)
-    return t_ret
-end
-
-
--------------------------------------
 -- function doSkill
 -------------------------------------
 function Tamer:doSkill(skill_idx)
@@ -288,7 +267,7 @@ function Tamer:doSkill(skill_idx)
 
 	if (t_skill['skill_form'] == 'status_effect') then 
         -- 1. target 설정
-		local l_target = self:getTargetList(t_skill)
+		local l_target = self:getTargetListByTable(t_skill)
         if (not l_target) then return end
 
         -- 2. 타겟 대상에 상태효과생성

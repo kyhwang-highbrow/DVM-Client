@@ -140,7 +140,7 @@ function StatusEffect_Trigger:getTriggerFunction()
 	elseif (t_skill['type'] == 'passive_target') then
 		-- target_rule에 따른 대상 1한테 시전
 		trigger_func = function()
-			local target_list = char:getTargetList(t_skill)
+			local target_list = char:getTargetListByTable(t_skill)
 			StatusEffectHelper:doStatusEffectByStr(char, {target_list[1]}, {t_skill['status_effect_1'], t_skill['status_effect_2']})
 		end
 
@@ -149,7 +149,7 @@ function StatusEffect_Trigger:getTriggerFunction()
 		-- 연출에 따라도 나뉘어야 함
 		trigger_func = function(t_event)
 			local defender = t_event['defender']
-			local target_list = char:getTargetList(t_skill)
+			local target_list = char:getTargetListByTable(t_skill)
 			StatusEffectHelper:doStatusEffectByStr(char, target_list, {t_skill['status_effect_1'], t_skill['status_effect_2']}, function(target)
 				EffectMotionStreak(target.m_world, defender.pos.x, defender.pos.y, target.pos.x, target.pos.y, RES_SE_MS)
 			end)
