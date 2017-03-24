@@ -61,7 +61,7 @@ function UI_TamerSelectPopup:makeTamerListView()
     local node = self.vars['tableViewNode']
 
     -- 셀 아이템 생성 콜백
-    local function create_func(ui, data, key)
+    local function create_func(ui, data)
         ui.vars['selectBtn']:registerScriptTapHandler(function()
                 UIManager:toastNotificationGreen(Str('"고니"가 선택되었습니다.'))
             end)

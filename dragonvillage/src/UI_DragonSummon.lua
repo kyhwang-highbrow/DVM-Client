@@ -70,8 +70,15 @@ function UI_DragonSummon:refresh()
     local vars = self.vars    
 
     local l_item_list = g_dragonSummonData:getDisplaySummonList()
-    local do_refresh = true
-    self.m_tableView:mergeItemList(l_item_list, do_refresh)
+    
+    local function refresh_func(item, new_data)
+        item['data'] = new_data
+        if item['ui'] then
+            item['ui']:refresh_tableViewCell(new_data)
+        end
+    end
+
+    self.m_tableView:mergeItemList(l_item_list, refresh_func)
 
     -- 마일리지 정보
     local mileage = g_dragonSummonData.m_mileage

@@ -63,7 +63,7 @@ function UI_SecretDungeonScene:makeSecretModeTableView(dungeon_id)
 
 
     -- 셀 아이템 생성 콜백
-    local function create_func(ui, data, key)
+    local function create_func(ui, data)
         return true
     end
 

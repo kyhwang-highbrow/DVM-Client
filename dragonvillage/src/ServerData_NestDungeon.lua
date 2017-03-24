@@ -89,21 +89,8 @@ function ServerData_NestDungeon:getNestDungeonListForUI()
         end
     end
 
-    do -- 오픈되고 mode_id가 빠른 순으로 정렬
-        local function sort_func(a, b) 
-            if a['is_open'] > b['is_open'] then
-                return true
-            elseif a['is_open'] < b['is_open'] then
-                return false
-            end
-
-            return a['mode_id'] < b['mode_id']
-        end
-
-        table.sort(l_dungeon_list, sort_func)
-    end
-
-    return l_dungeon_list
+    local t_ret = table.listToMap(l_dungeon_list, 'mode_id')
+    return t_ret
 end
 
 -------------------------------------

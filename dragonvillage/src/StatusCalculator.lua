@@ -39,6 +39,7 @@ StatusCalculator = class({
 -- function init
 -------------------------------------
 function StatusCalculator:init(char_type, cid, lv, grade, evolution, eclv)
+    eclv = (eclv or 0)
     self.m_charTable = TABLE:get(char_type)
     if (char_type == 'dragon') then
         self.m_evolutionTable = TableEvolutionInfo()

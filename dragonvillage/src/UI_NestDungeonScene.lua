@@ -55,9 +55,8 @@ function UI_NestDungeonScene:initUI(stage_id)
         node:removeAllChildren()
 
         -- 셀 아이템 생성 콜백
-        local function create_func(ui, data, key)
-            ui.root:setLocalZOrder(100 - key)
-            ui.vars['enterButton']:registerScriptTapHandler(function() self:click_dungeonBtn(ui, data, key) end)
+        local function create_func(ui, data)
+            ui.vars['enterButton']:registerScriptTapHandler(function() self:click_dungeonBtn(ui, data) end)
         end
 
         -- 테이블 뷰 인스턴스 생성
@@ -66,7 +65,20 @@ function UI_NestDungeonScene:initUI(stage_id)
         table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
         table_view:setCellUIClass(UI_NestDungeonListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-        table_view:setItemList2(g_nestDungeonData:getNestDungeonListForUI())
+        table_view:setItemList(g_nestDungeonData:getNestDungeonListForUI())
+
+        -- 정렬
+        local function sort_func(a, b) 
+            if a['data']['is_open'] > b['data']['is_open'] then
+                return true
+            elseif a['data']['is_open'] < b['data']['is_open'] then
+                return false
+            end
+
+            return a['data']['mode_id'] < b['data']['mode_id']
+        end
+        table.sort(table_view.m_itemList, sort_func)
+        
 
         self.m_tableView = table_view
     end
@@ -104,11 +116,7 @@ function UI_NestDungeonScene:makeNestModeTableView()
 
 
     -- 셀 아이템 생성 콜백
-    local function create_func(ui, data, key)
-        --ui.root:setLocalZOrder(100 - key)
-        --ui.vars['enterButton']:registerScriptTapHandler(function() self:click_dungeonBtn(ui, data, key) end)
-
-
+    local function create_func(ui, data)
         return true
     end
 
@@ -159,7 +167,7 @@ end
 -------------------------------------
 -- function click_dungeonBtn
 -------------------------------------
-function UI_NestDungeonScene:click_dungeonBtn(ui, data, key)
+function UI_NestDungeonScene:click_dungeonBtn(ui, data)
     if self.m_selectNestDungeonInfo then
         self:closeSubMenu()
         return
@@ -176,6 +184,7 @@ function UI_NestDungeonScene:click_dungeonBtn(ui, data, key)
     self.root:addChild(node)
     node:release()
 
+    local key = data['mode_id']
     local t_item = self.m_tableView:getItem(key)
     t_item['ui'] = nil
 
