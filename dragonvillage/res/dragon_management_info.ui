@@ -1277,7 +1277,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'runeSlotNode';
+						lua_name = 'runeSlotNode4';
 					};
 					type = 'Button';
 					ui_name = '';

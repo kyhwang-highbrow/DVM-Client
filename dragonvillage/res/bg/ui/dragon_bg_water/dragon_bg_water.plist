@@ -7,7 +7,7 @@
             <key>dragon_bg_water_bubble_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1230,964},{10,10}}</string>
+                <string>{{1076,1248},{10,10}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,11 +20,11 @@
             <key>dragon_bg_water_coral_left_01_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1868,1566},{82,72}}</string>
+                <string>{{1436,1864},{82,72}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{223,242},{82,72}}</string>
                 <key>sourceSize</key>
@@ -33,7 +33,7 @@
             <key>dragon_bg_water_coral_left_01_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1364,1952},{80,82}}</string>
+                <string>{{88,1838},{80,82}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,11 +46,11 @@
             <key>dragon_bg_water_coral_left_01_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1868,1358},{108,98}}</string>
+                <string>{{1896,1618},{108,98}}</string>
                 <key>offset</key>
                 <string>{26,3}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{236,226},{108,98}}</string>
                 <key>sourceSize</key>
@@ -59,7 +59,7 @@
             <key>dragon_bg_water_coral_left_02_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1656,1674},{142,282}}</string>
+                <string>{{1436,1580},{142,282}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,11 +72,11 @@
             <key>dragon_bg_water_coral_left_02_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1908,1806},{64,60}}</string>
+                <string>{{242,1838},{64,60}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{232,248},{64,60}}</string>
                 <key>sourceSize</key>
@@ -85,11 +85,11 @@
             <key>dragon_bg_water_coral_left_02_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{976,1952},{94,116}}</string>
+                <string>{{456,1490},{94,116}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{217,220},{94,116}}</string>
                 <key>sourceSize</key>
@@ -98,7 +98,7 @@
             <key>dragon_bg_water_coral_left_02_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1800,1674},{130,126}}</string>
+                <string>{{1896,1486},{130,126}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>dragon_bg_water_coral_left_02_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1192,1952},{84,80}}</string>
+                <string>{{1282,1834},{84,80}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -124,11 +124,11 @@
             <key>dragon_bg_water_coral_left_02_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1094,1952},{80,96}}</string>
+                <string>{{1944,1718},{80,96}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{224,230},{80,96}}</string>
                 <key>sourceSize</key>
@@ -137,11 +137,11 @@
             <key>dragon_bg_water_coral_left_02_07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{920,1954},{48,52}}</string>
+                <string>{{172,1888},{48,52}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{240,252},{48,52}}</string>
                 <key>sourceSize</key>
@@ -150,11 +150,11 @@
             <key>dragon_bg_water_coral_right_01_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1814,770},{150,140}}</string>
+                <string>{{1872,532},{150,140}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{189,208},{150,140}}</string>
                 <key>sourceSize</key>
@@ -163,7 +163,7 @@
             <key>dragon_bg_water_coral_right_01_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1448,1662},{206,282}}</string>
+                <string>{{1076,964},{206,282}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -176,7 +176,7 @@
             <key>dragon_bg_water_coral_right_02_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1908,1872},{50,50}}</string>
+                <string>{{308,1838},{50,50}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -189,7 +189,7 @@
             <key>dragon_bg_water_coral_right_02_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1278,1952},{84,80}}</string>
+                <string>{{2,1838},{84,80}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -202,7 +202,7 @@
             <key>dragon_bg_water_coral_right_02_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1800,1806},{106,106}}</string>
+                <string>{{990,1834},{106,106}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -215,7 +215,7 @@
             <key>dragon_bg_water_coral_right_03_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1868,1468},{78,96}}</string>
+                <string>{{1944,1816},{78,96}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -228,11 +228,11 @@
             <key>dragon_bg_water_coral_right_03_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{848,1954},{70,56}}</string>
+                <string>{{1520,1864},{70,56}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{229,250},{70,56}}</string>
                 <key>sourceSize</key>
@@ -241,11 +241,11 @@
             <key>dragon_bg_water_coral_right_03_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{770,1954},{76,66}}</string>
+                <string>{{1368,1834},{76,66}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{226,245},{76,66}}</string>
                 <key>sourceSize</key>
@@ -254,11 +254,11 @@
             <key>dragon_bg_water_coral_right_03_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{560,1954},{116,72}}</string>
+                <string>{{456,1608},{116,72}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{206,242},{116,72}}</string>
                 <key>sourceSize</key>
@@ -267,7 +267,7 @@
             <key>dragon_bg_water_coral_right_03_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1870,1914},{48,36}}</string>
+                <string>{{2006,1618},{48,36}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -280,11 +280,11 @@
             <key>dragon_bg_water_coral_right_04_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1814,922},{114,70}}</string>
+                <string>{{456,1726},{114,70}}</string>
                 <key>offset</key>
                 <string>{-20,3}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{187,240},{114,70}}</string>
                 <key>sourceSize</key>
@@ -293,7 +293,7 @@
             <key>dragon_bg_water_coral_right_04_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1800,1914},{68,48}}</string>
+                <string>{{172,1838},{68,48}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -306,7 +306,7 @@
             <key>dragon_bg_water_light_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,964},{526,556}}</string>
+                <string>{{1284,702},{526,556}}</string>
                 <key>offset</key>
                 <string>{1,0}</string>
                 <key>rotated</key>
@@ -319,7 +319,7 @@
             <key>dragon_bg_water_light_02_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{976,1262},{364,234}}</string>
+                <string>{{1812,702},{364,234}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -332,11 +332,11 @@
             <key>dragon_bg_water_light_02_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1760,994},{362,208}}</string>
+                <string>{{1580,1732},{362,208}}</string>
                 <key>offset</key>
                 <string>{83,-14}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{166,188},{362,208}}</string>
                 <key>sourceSize</key>
@@ -345,7 +345,7 @@
             <key>dragon_bg_water_light_03_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1448,1946},{90,72}}</string>
+                <string>{{1098,1834},{90,72}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -358,7 +358,7 @@
             <key>dragon_bg_water_light_03_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{678,1954},{90,72}}</string>
+                <string>{{1190,1834},{90,72}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -371,11 +371,11 @@
             <key>dragon_bg_water_light_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{560,1516},{414,436}}</string>
+                <string>{{552,1512},{414,436}}</string>
                 <key>offset</key>
                 <string>{1,1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{151,59},{414,436}}</string>
                 <key>sourceSize</key>
@@ -397,11 +397,11 @@
             <key>dragon_bg_water_seaweed_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1800,292},{160,220}}</string>
+                <string>{{1812,1068},{160,220}}</string>
                 <key>offset</key>
                 <string>{-16,-52}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{154,192},{160,220}}</string>
                 <key>sourceSize</key>
@@ -410,7 +410,7 @@
             <key>dragon_bg_water_seaweed_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1814,514},{124,254}}</string>
+                <string>{{1896,1230},{124,254}}</string>
                 <key>offset</key>
                 <string>{20,14}</string>
                 <key>rotated</key>
@@ -423,7 +423,7 @@
             <key>dragon_bg_water_seaweed_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1540,1946},{82,66}}</string>
+                <string>{{990,1512},{82,66}}</string>
                 <key>offset</key>
                 <string>{-8,3}</string>
                 <key>rotated</key>
@@ -436,7 +436,7 @@
             <key>dragon_bg_water_seaweed_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1522},{524,556}}</string>
+                <string>{{2,964},{524,556}}</string>
                 <key>offset</key>
                 <string>{2,0}</string>
                 <key>rotated</key>
@@ -449,11 +449,11 @@
             <key>dragon_bg_water_seaweed_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1800,2},{168,288}}</string>
+                <string>{{1582,532},{168,288}}</string>
                 <key>offset</key>
                 <string>{-14,-2}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{166,136},{168,288}}</string>
                 <key>sourceSize</key>
@@ -462,7 +462,7 @@
             <key>dragon_bg_water_stone_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{530,1262},{444,252}}</string>
+                <string>{{990,1580},{444,252}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -472,23 +472,10 @@
                 <key>sourceSize</key>
                 <string>{500,500}</string>
             </dict>
-            <key>dragon_bg_water_stone_02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1666,1358},{314,200}}</string>
-                <key>offset</key>
-                <string>{19,-15}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{219,193},{314,200}}</string>
-                <key>sourceSize</key>
-                <string>{714,556}</string>
-            </dict>
             <key>dragon_bg_water_stone_left_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1284,2},{514,546}}</string>
+                <string>{{560,964},{514,546}}</string>
                 <key>offset</key>
                 <string>{0,5}</string>
                 <key>rotated</key>
@@ -501,11 +488,11 @@
             <key>dragon_bg_water_stone_left_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{976,1662},{470,288}}</string>
+                <string>{{1606,1260},{470,288}}</string>
                 <key>offset</key>
                 <string>{-10,-22}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{19,156},{470,288}}</string>
                 <key>sourceSize</key>
@@ -514,11 +501,11 @@
             <key>dragon_bg_water_stone_left_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{530,964},{698,296}}</string>
+                <string>{{1284,2},{698,296}}</string>
                 <key>offset</key>
                 <string>{-8,-130}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,260},{698,296}}</string>
                 <key>sourceSize</key>
@@ -527,7 +514,7 @@
             <key>dragon_bg_water_stone_right_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1212,1314},{346,452}}</string>
+                <string>{{2,1490},{346,452}}</string>
                 <key>offset</key>
                 <string>{-1,2}</string>
                 <key>rotated</key>
@@ -540,11 +527,11 @@
             <key>dragon_bg_water_stone_right_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1284,550},{528,442}}</string>
+                <string>{{1582,2},{528,442}}</string>
                 <key>offset</key>
                 <string>{0,-46}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,103},{528,442}}</string>
                 <key>sourceSize</key>
@@ -553,7 +540,7 @@
             <key>dragon_bg_water_stone_right_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1230,994},{528,318}}</string>
+                <string>{{1076,1260},{528,318}}</string>
                 <key>offset</key>
                 <string>{0,-119}</string>
                 <key>rotated</key>
@@ -571,9 +558,9 @@
             <key>realTextureFileName</key>
             <string>dragon_bg_water.png</string>
             <key>size</key>
-            <string>{1970,2048}</string>
+            <string>{2048,1942}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:84212e83aa19a2dd0c171400b3e9f416:cb3efc9d0712d7437d7dedbb2f0a7eb4:8c621db5529a109dc434500c11f3e778$</string>
+            <string>$TexturePacker:SmartUpdate:d95fb1e050038b0542ce25c48f4c8e22:bf691e3eb7cac6a45f537cbaafcc85e6:8c621db5529a109dc434500c11f3e778$</string>
             <key>textureFileName</key>
             <string>dragon_bg_water.png</string>
         </dict>
