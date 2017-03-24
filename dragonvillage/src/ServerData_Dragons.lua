@@ -75,15 +75,13 @@ end
 
 -------------------------------------
 -- function getDragonDataFromUid
--- @brief unique id로 드래곤 정보를 얻음
+-- @brief doid 로 드래곤 정보를 얻음
 -------------------------------------
-function ServerData_Dragons:getDragonDataFromUid(unique_id)
-    local l_dragons = self.m_serverData:getRef('dragons')
+function ServerData_Dragons:getDragonDataFromUid(doid)
+    local dragon_obj = self.m_serverData:getRef('dragons', doid)
 
-    for _,v in pairs(l_dragons) do
-        if (unique_id == v['id']) then
-            return clone(v)
-        end
+    if dragon_obj then
+        return clone(dragon_obj)
     end
 
     return nil
@@ -107,19 +105,16 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Dragons:applyDragonData(t_dragon_data)
-
-    local t_dragon_data = StructDragonObject(t_dragon_data)
-
-    local l_dragons = self.m_serverData:getRef('dragons')
     local doid = t_dragon_data['id']
 
-    local idx = nil
+    local dragon_obj = self.m_serverData:getRef('dragons', doid)
 
-    for i,v in pairs(l_dragons) do
-        if (doid == v['id']) then
-            idx = i
-            break
-        end
+    if dragon_obj and (dragon_obj['updated_at'] == t_dragon_data['updated_at']) then
+        return
+    end
+
+    if (not dragon_obj) then
+        self.m_dragonsCnt = self.m_dragonsCnt + 1
     end
 
     -- 룬 효과 체크
@@ -132,14 +127,9 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
         end
     end
 
-    -- 기존에 있는 드래곤이면 갱신
-    if idx then
-        self.m_serverData:applyServerData(t_dragon_data, 'dragons', idx)
-    -- 기존에 없던 드래곤이면 추가
-    else
-        self.m_serverData:applyServerData(t_dragon_data, 'dragons', #l_dragons + 1)
-        self.m_dragonsCnt = (self.m_dragonsCnt + 1)
-    end
+    -- 드래곤 오브젝트 생성
+    local dragon_obj = StructDragonObject(t_dragon_data)
+    self.m_serverData:applyServerData(dragon_obj, 'dragons', doid)
 
     -- 드래곤 정렬 데이터 수정
     self:setDragonsSortData(doid)
@@ -180,20 +170,9 @@ end
 -- function delDragonData
 -- @brief
 -------------------------------------
-function ServerData_Dragons:delDragonData(dragon_object_id)
-    local l_dragons = self.m_serverData:getRef('dragons')
-
-    local idx = nil
-
-    for i,v in pairs(l_dragons) do
-        if (dragon_object_id == v['id']) then
-            idx = i
-            break
-        end
-    end
-
-    if idx then
-        self.m_serverData:applyServerData(nil, 'dragons', idx)
+function ServerData_Dragons:delDragonData(doid)
+    if self.m_serverData:getRef('dragons', doid) then
+        self.m_serverData:applyServerData(nil, 'dragons', doid)
         self.m_dragonsCnt = (self.m_dragonsCnt - 1)
     end
 
