@@ -610,7 +610,7 @@ function Dragon:makeHPGauge(hp_ui_offset)
     elseif (role_type == 'dealer') then
         ui.vars['skillGauge']:setColor(cc.c3b(255, 255, 0))
     elseif (role_type == 'supporter') then
-        u.vars['skillGauge']:setColor(cc.c3b(0, 255, 0))
+        ui.vars['skillGauge']:setColor(cc.c3b(0, 255, 0))
     elseif (role_type == 'healer') then
         ui.vars['skillGauge']:setColor(cc.c3b(0, 0, 255))
     end
