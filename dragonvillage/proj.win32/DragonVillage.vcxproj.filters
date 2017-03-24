@@ -1884,6 +1884,9 @@
     <None Include="..\src\UI_DragonRunes.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_DragonRunesEnhance.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

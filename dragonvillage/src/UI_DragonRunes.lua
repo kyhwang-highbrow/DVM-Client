@@ -281,14 +281,13 @@ function UI_DragonRunes:click_selectEnhance()
         return
     end
 
-    local rune_obj = self.m_selectedRuneObject
-    local roid = rune_obj['roid']
+    local ui = UI_DragonRunesEnhance(self.m_selectedRuneObject)
 
-    local function finish_cb(ret)
-        if ret['lvup_success'] then
+    local function close_cb()
+        if (self.m_selectedRuneObject['updated_at'] ~= ui.m_runeObject['updated_at']) then
             self:refreshTableViewList()
         end
     end
 
-    g_runesData:request_runeLevelup(roid, finish_cb)
+    ui:setCloseCB(close_cb)
 end

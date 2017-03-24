@@ -179,6 +179,30 @@ function StructRuneObject:makeRuneDescRichText()
 end
 
 -------------------------------------
+-- function isMaxRuneLv
+-------------------------------------
+function StructRuneObject:isMaxRuneLv()
+    local is_max_rune_lv = (15 <= self['lv'])
+    return is_max_rune_lv
+end
+
+-------------------------------------
+-- function getRuneEnhanceReqGold
+-------------------------------------
+function StructRuneObject:getRuneEnhanceReqGold()
+    if self:isMaxRuneLv() then
+        return 0
+    end
+
+    local lv = self['lv']
+    local table_rune_enhance = TABLE:get('table_rune_enhance')
+    local t_rune_enhance = table_rune_enhance[lv]
+    local req_gold = t_rune_enhance['req_gold']
+
+    return req_gold
+end
+
+-------------------------------------
 -- function makeSampleData
 -------------------------------------
 function StructRuneObject:makeSampleData()

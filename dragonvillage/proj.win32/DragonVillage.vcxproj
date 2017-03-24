@@ -724,6 +724,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonManageUpgradeResult.lua" />
     <None Include="..\src\UI_DragonManage_Base.lua" />
     <None Include="..\src\UI_DragonRunes.lua" />
+    <None Include="..\src\UI_DragonRunesEnhance.lua" />
     <None Include="..\src\UI_DragonSkillCard.lua" />
     <None Include="..\src\UI_DragonSkillLevelUp.lua" />
     <None Include="..\src\UI_DragonSkillLevelUpResult.lua" />

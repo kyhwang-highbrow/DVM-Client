@@ -577,6 +577,7 @@ local t_module = {
     'UI_DragonSkillLevelUpResult',
     'UI_DragonMgrRunes',
     'UI_DragonRunes',
+    'UI_DragonRunesEnhance',
     'UI_RuneEnchantPopup',
 
     'UI_AttendanceBasicListItem',

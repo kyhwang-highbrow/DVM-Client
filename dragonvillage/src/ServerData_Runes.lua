@@ -62,6 +62,8 @@ function ServerData_Runes:request_runeLevelup(roid, finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
+        -- 공통 응답 처리 (골드 갱신을 위해)
+        g_serverData:networkCommonRespone(ret)
 
         if ret['modified_rune'] then
             ret['lvup_success'] = true
