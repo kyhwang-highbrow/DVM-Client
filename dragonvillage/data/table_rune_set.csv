@@ -1,7 +1,9 @@
-set,t_name,key_grade1,act_grade1,value_grade1,key_grade2,act_grade2,value_grade2,key_grade3,act_grade3,value_grade3,key_grade4,act_grade4,value_grade4,key_grade5,act_grade5,value_grade5
-green,대자연,hp,multiply,5,hp,multiply,5,hp; def,multiply; multiply,10; 5,hp; def,multiply; multiply,10; 7,hp; def,multiply; multiply,10; 10
-orange,석양,atk,multiply,5,atk,multiply,7,atk; hp,multiply; multiply,10; 5,atk; hp,multiply; multiply,10; 7,atk; hp,multiply; multiply,10; 10
-red,선홍,atk,multiply,5,atk,multiply,7,atk; cri_chance,multiply; add,10; 5,atk; cri_chance,multiply; add,10; 7,atk; cri_chance,multiply; add,10; 7
-blue,창공,hit_rate,add,3,hit_rate,add,5,hit_rate; atk,add; multiply,7; 5,hit_rate; atk,add; multiply,7; 7,hit_rate; atk,add; multiply,7; 10
-yellow,사막,avoid,add,3,avoid,add,5,avoid; hp,add; multiply,7; 5,avoid; hp,add; multiply,7; 7,avoid; hp,add; multiply,7; 10
-purple,왕가,cri_chance,add,3,cri_chance,add,5,cri_chance; cri_dmg,add; add,7; 5,cri_chance; cri_dmg,add; add,7; 5,cri_chance; cri_dmg,add; add,7; 7
+set_id,t_name,need_equip,key,value
+1,내구,2,hp_multi,15
+2,기회,2,cri_chance_add,12
+3,정밀,2,accuracy_add,20
+4,인내,2,def_multi,15
+5,내성,2,resistance_add,20
+6,맹공,4,atk_multi,30
+7,충격,4,cri_dmg_add,40
+8,쾌속,4,aspd_add,25

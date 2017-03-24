@@ -498,6 +498,9 @@ function UIC_RichLabel:getColor(color)
 
     COLOR['SPEECH'] = cc.c3b(102, 88, 71)
 
+    COLOR['rune_sopt'] = cc.c3b(240, 215, 159)
+    COLOR['rune_set'] = cc.c3b(255, 234, 91)
+
     return COLOR[color] or cc.c3b(255,255,255)
 end
 

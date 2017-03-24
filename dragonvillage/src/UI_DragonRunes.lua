@@ -287,7 +287,7 @@ function UI_DragonRunes:setEquipedRuneObject(rune_obj)
     vars['useSubOptionLabel']:setString('')
 
     -- 세트 옵션
-    vars['useRuneSetLabel']:setString('')
+    vars['useRuneSetLabel']:setString(rune_obj:makeRuneSetDescRichText())
 end
 
 -------------------------------------
@@ -324,7 +324,7 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
     vars['selectSubOptionLabel']:setString('')
 
     -- 세트 옵션
-    vars['selectRuneSetLabel']:setString('')
+    vars['selectRuneSetLabel']:setString(rune_obj:makeRuneSetDescRichText())
 end
 
 -------------------------------------

@@ -159,26 +159,35 @@ function StructRuneObject:makeRuneDescRichText()
     do -- 서브 옵션
         local text_ = self:getRuneOptionDesc(self['sopt_1'])
         if text_ then
-            text = text .. '\n{@GOLD}' .. text_
+            text = text .. '\n{@rune_sopt}' .. text_
         end
 
         local text_ = self:getRuneOptionDesc(self['sopt_2'])
         if text_ then
-            text = text .. '\n{@GOLD}' .. text_
+            text = text .. '\n{@rune_sopt}' .. text_
         end
 
         local text_ = self:getRuneOptionDesc(self['sopt_3'])
         if text_ then
-            text = text .. '\n{@GOLD}' .. text_
+            text = text .. '\n{@rune_sopt}' .. text_
         end
 
         local text_ = self:getRuneOptionDesc(self['sopt_4'])
         if text_ then
-            text = text .. '\n{@GOLD}' .. text_
+            text = text .. '\n{@rune_sopt}' .. text_
         end
     end
 
     return text or ''
+end
+
+-------------------------------------
+-- function makeRuneSetDescRichText
+-------------------------------------
+function StructRuneObject:makeRuneSetDescRichText()
+    local set_id = self['set_id']
+    local text = TableRuneSet:makeRuneSetDescRichText(set_id)
+    return text
 end
 
 -------------------------------------

@@ -44,10 +44,10 @@ function DropItemMgr:update(dt)
     local t_remove = {}
     for i, v in ipairs(self.m_lItemlist) do
 
-        -- ÀÏ½Ã Á¤Áö »óÅÂ°¡ ¾Æ´Ñ °æ¿ì¿¡¸¸ ¾÷µ¥ÀÌÆ®
+        -- ì¼ì‹œ ì •ì§€ ìƒíƒœê°€ ì•„ë‹Œ ê²½ìš°ì—ë§Œ ì—…ë°ì´íŠ¸
         if (not v.m_temporaryPause) then
 
-            -- update ¸®ÅÏ°ªÀÌ trueÀÌ¸é °´Ã¼ »èÁ¦
+            -- update ë¦¬í„´ê°’ì´ trueì´ë©´ ê°ì²´ ì‚­ì œ
             if (v:update(dt) == true) then
                 table.insert(t_remove, 1, i)
                 v:release()
@@ -115,7 +115,7 @@ function DropItemMgr:onEvent(event_name, t_event, ...)
         local arg = {...}
         local enemy = arg[1]
 
-        -- TODO: Àû¿¡ µû¸¥ µå¶øÃ³¸®
+        -- TODO: ì ì— ë”°ë¥¸ ë“œëì²˜ë¦¬
         self:dropItem(enemy.pos.x, enemy.pos.y)
     end
 end
@@ -124,12 +124,12 @@ end
 -- function onTouchBegan
 -------------------------------------
 function DropItemMgr:onTouchBegan(touch, event)
-    -- Á¶ÀÛ °¡´É »óÅÂÀÏ ¶§¿¡¸¸
+    -- ì¡°ì‘ ê°€ëŠ¥ ìƒíƒœì¼ ë•Œì—ë§Œ
     if (not self.m_world:isPossibleControl()) then
         return false
     end
 
-    -- ¿ùµå»óÀÇ ÅÍÄ¡ À§Ä¡ ¾ò¾î¿È
+    -- ì›”ë“œìƒì˜ í„°ì¹˜ ìœ„ì¹˜ ì–»ì–´ì˜´
     local location = touch:getLocation()
     local node_pos = self.m_touchNode:convertToNodeSpace(location)
 
@@ -147,7 +147,7 @@ end
 -- function onTouchEnded
 -------------------------------------
 function DropItemMgr:onTouchEnded(touch, event)
-    -- ¿ùµå»óÀÇ ÅÍÄ¡ À§Ä¡ ¾ò¾î¿È
+    -- ì›”ë“œìƒì˜ í„°ì¹˜ ìœ„ì¹˜ ì–»ì–´ì˜´
     local location = touch:getLocation()
     local node_pos = self.m_touchNode:convertToNodeSpace(location)
 

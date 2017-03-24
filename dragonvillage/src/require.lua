@@ -627,6 +627,7 @@ local t_module = {
     'StructCalendarDay',
     'StructAttendanceData',
     'StructRuneObject',
+    'StructDragonObject',
 
     -- Network
     'Network',

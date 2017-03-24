@@ -38,7 +38,7 @@ end
 -- function initAnimatorItem
 -------------------------------------
 function DropItem:initAnimatorItem(file_name)
-    -- Animator ªË¡¶
+    -- Animator ÏÇ≠Ï†ú
     if self.m_animator then
         if self.m_animator.m_node then
             self.m_animator.m_node:removeFromParent(true)
@@ -47,7 +47,7 @@ function DropItem:initAnimatorItem(file_name)
         self.m_animator = nil
     end
 
-    -- Animator ª˝º∫
+    -- Animator ÏÉùÏÑ±
     self.m_animator = MakeAnimator(file_name)
     if self.m_animator.m_node then
         self.m_animator.m_node:setScale(0.5)

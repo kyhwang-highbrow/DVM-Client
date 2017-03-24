@@ -107,6 +107,9 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Dragons:applyDragonData(t_dragon_data)
+
+    local t_dragon_data = StructDragonObject(t_dragon_data)
+
     local l_dragons = self.m_serverData:getRef('dragons')
     local doid = t_dragon_data['id']
 
