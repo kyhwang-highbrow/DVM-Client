@@ -4,16 +4,23 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -- class UI_DragonRunes
 -------------------------------------
 UI_DragonRunes = class(PARENT,{
+        m_doid = 'doid',
         m_listFilterSetID = 'number', -- 0번은 전체 1~8은 해당 세트만
         m_tableViewTD = 'UIC_TableViewTD',
+
+        m_equippedRuneObject = 'StructRuneObject',
         m_selectedRuneObject = 'StructRuneObject',
+
+        m_mEquippedRuneObjects = 'map',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_DragonRunes:init(doid, slot_idx)
+    self.m_doid = doid
     self.m_listFilterSetID = 0
+    self.m_mEquippedRuneObjects = {}
 
     local vars = self:load('dragon_rune_new.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -51,9 +58,13 @@ function UI_DragonRunes:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 
+    -- 장착된 룬
+    vars['useEnhanceBtn']:registerScriptTapHandler(function() self:click_useEnhanceBtn() end)
+    vars['removeBtn']:registerScriptTapHandler(function() self:click_removeBtn() end)    
+
     -- 선택된 룬 판매
     vars['binBtn']:registerScriptTapHandler(function() self:click_binBtn() end)
-
+    vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
     vars['selectEnhance']:registerScriptTapHandler(function() self:click_selectEnhance() end)
 end
 
@@ -116,6 +127,20 @@ end
 -------------------------------------
 function UI_DragonRunes:onChangeTab(tab, first)
     self:refreshTableViewList()
+
+    -- 슬롯 타입이 변경되었을 때
+    local slot_idx = tab
+    local dragon_obj = g_dragonsData:getDragonDataFromUid(self.m_doid)
+    local roid = dragon_obj['runes'][tostring(slot_idx)]
+    if (roid == '') then
+        roid = nil
+    end
+    if roid then
+        local rune_obj = g_runesData:getRuneObject(roid)
+        self:setEquipedRuneObject(rune_obj)
+    else
+        self:setEquipedRuneObject(nil)
+    end
 end
 
 -------------------------------------
@@ -136,11 +161,11 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonRunes:refreshTableViewList()
-    local equiped = false
+    local unequipped = true
     local slot = self.m_currTab
     local set_id = self.m_listFilterSetID
 
-    local l_item_list = g_runesData:getFilteredRuneList(equiped, slot, set_id)
+    local l_item_list = g_runesData:getFilteredRuneList(unequipped, slot, set_id)
 
     local function refresh_func(item, new_data)
         local old_data = item['data']
@@ -153,10 +178,10 @@ function UI_DragonRunes:refreshTableViewList()
 
     self.m_tableViewTD:mergeItemList(l_item_list, refresh_func)
 
-    -- 장착된 룬 refresh
+    -- 선택된 룬 refresh
     if (self.m_selectedRuneObject) then
         local roid = self.m_selectedRuneObject['roid']
-        local rune_obj = g_runesData:getRuneObject(roid)
+        local rune_obj = l_item_list[roid]
 
         if (not rune_obj) then
             self:setSelectedRuneObject(nil)
@@ -165,8 +190,67 @@ function UI_DragonRunes:refreshTableViewList()
         end
     end
 
-    -- 선택된 룬 refresh
+    -- 드래곤이 장착 중인 6개의 룬 정보 갱신
+    self:refreshEquippedRunes()
+end
 
+-------------------------------------
+-- function refreshEquippedRunes
+-- @brief
+-------------------------------------
+function UI_DragonRunes:refreshEquippedRunes()
+    local vars = self.vars
+    local dragon_obj = g_dragonsData:getDragonDataFromUid(self.m_doid)
+
+    local slot_idx = self.m_currTab
+
+    for i=1, 6 do
+        local equipeed_roid = dragon_obj['runes'][tostring(i)]
+        if (equipeed_roid == '') then
+            equipeed_roid = nil
+        end
+        local rune_slot = vars['runeSlot' .. i]
+
+        -- 장착이 되지 않았고 변경도 없을 경우
+        if ((not self.m_mEquippedRuneObjects[i]) and (not equipeed_roid)) then
+
+        -- 장착이 해제가 된 경우
+        elseif (self.m_mEquippedRuneObjects[i] and (not equipeed_roid)) then
+            rune_slot:removeAllChildren()
+
+            if (slot_idx == i) then
+                self:setEquipedRuneObject(nil)
+            end
+
+        -- 새롭게 장착이 된 경우
+        elseif ((not self.m_mEquippedRuneObjects[i]) and equipeed_roid) then
+            local rune_obj = g_runesData:getRuneObject(equipeed_roid)
+            self.m_mEquippedRuneObjects[i] = rune_obj
+            local icon = IconHelper:getItemIcon(rune_obj['item_id'], rune_obj)
+            rune_slot:addChild(icon)
+
+            if (slot_idx == i) then
+                self:setEquipedRuneObject(rune_obj)
+            end
+
+        -- 둘 다 있을 경우
+        else
+            local before_rune_obj = self.m_mEquippedRuneObjects[i]
+            local rune_obj = g_runesData:getRuneObject(equipeed_roid)
+            if (before_rune_obj['updated_at'] ~= rune_obj['updated_at']) then
+                self.m_mEquippedRuneObjects[i] = rune_obj
+                rune_slot:removeAllChildren()
+                local icon = IconHelper:getItemIcon(rune_obj['item_id'], rune_obj)
+                rune_slot:addChild(icon)
+
+                if (slot_idx == i) then
+                    self:setEquipedRuneObject(rune_obj)
+                end
+            end
+        end
+        
+    end
+    
 end
 
 -------------------------------------
@@ -175,7 +259,7 @@ end
 -------------------------------------
 function UI_DragonRunes:setEquipedRuneObject(rune_obj)
     local vars = self.vars
-    --self.m_selectedRuneObject = rune_obj
+    self.m_equippedRuneObject = rune_obj
 
     -- 룬 아이콘 삭제
     vars['useRuneNode']:removeAllChildren()
@@ -272,6 +356,49 @@ function UI_DragonRunes:click_binBtn()
     MakeSimplePopup(POPUP_TYPE.YES_NO, msg, request_item_sell)
 end
 
+
+-------------------------------------
+-- function click_useEnhanceBtn
+-- @brief 룬 강화 버튼
+-------------------------------------
+function UI_DragonRunes:click_useEnhanceBtn()
+    if (not self.m_equippedRuneObject) then
+        return
+    end
+
+    local ui = UI_DragonRunesEnhance(self.m_equippedRuneObject)
+
+    local function close_cb()
+        if (self.m_equippedRuneObject['updated_at'] ~= ui.m_runeObject['updated_at']) then
+            self:refreshTableViewList()
+        end
+    end
+
+    ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_removeBtn
+-- @brief 룬 해제 버튼
+-------------------------------------
+function UI_DragonRunes:click_removeBtn()
+    if (not self.m_equippedRuneObject) then
+        return
+    end
+
+    local rune_obj = self.m_equippedRuneObject
+    local slot = rune_obj['slot']
+    local doid = self.m_doid
+
+    local function finish_cb(ret)
+        self:refreshTableViewList()
+    end
+
+    g_runesData:request_runesUnequip(doid, slot, finish_cb, fail_cb)
+end
+
+
+
 -------------------------------------
 -- function click_selectEnhance
 -- @brief 룬 강화 버튼
@@ -290,4 +417,24 @@ function UI_DragonRunes:click_selectEnhance()
     end
 
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_equipBtn
+-- @brief 룬 장착 버튼
+-------------------------------------
+function UI_DragonRunes:click_equipBtn()
+    if (not self.m_selectedRuneObject) then
+        return
+    end
+
+    local rune_obj = self.m_selectedRuneObject
+    local roid = rune_obj['roid']
+    local doid = self.m_doid
+
+    local function finish_cb(ret)
+        self:refreshTableViewList()
+    end
+
+    g_runesData:request_runesEquip(doid, roid, finish_cb, fail_cb)
 end

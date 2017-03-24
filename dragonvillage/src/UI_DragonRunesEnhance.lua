@@ -75,6 +75,7 @@ function UI_DragonRunesEnhance:refresh()
     -- 소모 골드
     local req_gold = rune_obj:getRuneEnhanceReqGold()
     vars['enhancePriceLabel']:setString(comma_value(req_gold))
+    cca.uiReactionSlow(vars['enhancePriceLabel'])
 
     local is_max_lv = rune_obj:isMaxRuneLv()
     vars['enhanceBtn']:setVisible(not is_max_lv)

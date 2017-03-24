@@ -32,6 +32,9 @@ function ServerData_Runes:request_runesInfo(finish_cb, fail_cb)
         -- 룬 등급 테이블
         TABLE:setServerTable('table_rune_grade', ret['table_rune_grade'])
 
+        -- 룬 메인 옵션 능력치 테이블
+        TABLE:setServerTable('table_rune_mopt_status', ret['table_rune_mopt_status'])
+
         -- 보유 중인 룬 정보를 받아옴
         self:applyRuneData_list(ret['runes'])
 
@@ -48,6 +51,88 @@ function ServerData_Runes:request_runesInfo(finish_cb, fail_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_runesEquip
+-- @breif
+-------------------------------------
+function ServerData_Runes:request_runesEquip(doid, roid, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+
+        if ret['deleted_rune_oid'] then
+            self:deleteRuneData(ret['deleted_rune_oid'])
+        end
+
+        if ret['modified_rune'] then
+            self:applyRuneData(ret['modified_rune'])
+        end
+        
+        -- 반드시 룬을 먼저 갱신하고 dragon을 갱신할 것
+        if ret['dragon'] then
+            g_dragonsData:applyDragonData(ret['dragon'])
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/runes/equip')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('roid', roid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_runesUnequip
+-- @breif
+-------------------------------------
+function ServerData_Runes:request_runesUnequip(doid, slot, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+
+        if ret['modified_rune'] then
+            self:applyRuneData(ret['modified_rune'])
+        end
+        
+        -- 반드시 룬을 먼저 갱신하고 dragon을 갱신할 것
+        if ret['modified_dragon'] then
+            g_dragonsData:applyDragonData(ret['modified_dragon'])
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/runes/unequip')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('slot', slot)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
 end
@@ -166,14 +251,14 @@ function ServerData_Runes:getUnequippedRuneList(slot_idx)
     local l_ret = {}
 
     for i,v in pairs(self.m_mRuneObjects) do
-        -- 이 룬을 장착한 드래곤이 없을 경우
-        --if (not v['odoid']) or (v['odoid'] == '') then
-            -- 슬롯 확인
-            if (slot_idx == 0) or (v['slot'] == slot_idx) then
-                local roid = v['roid']
-                l_ret[roid] = clone(v)
-            end
-        --end
+        -- 슬롯 확인
+        if (slot_idx ~= 0) and (v['slot'] ~= slot_idx) then
+        -- 장착 여부 확인
+        elseif v:isEquippedRune() then
+        else
+            local roid = v['roid']
+            l_ret[roid] = clone(v)
+        end
     end
 
     return l_ret
@@ -183,7 +268,7 @@ end
 -- function getFilteredRuneList
 -- @brief 필터링된 룬 리스트
 -------------------------------------
-function ServerData_Runes:getFilteredRuneList(equiped, slot, set_id)
+function ServerData_Runes:getFilteredRuneList(unequipped, slot, set_id)
     if (slot == 0) then
         slot = nil
     end
@@ -201,6 +286,8 @@ function ServerData_Runes:getFilteredRuneList(equiped, slot, set_id)
         if slot and (slot ~= v['slot']) then
         -- 세트 필터
         elseif set_id and (set_id ~= v['set_id']) then
+        -- 장착 여부 필터
+        elseif unequipped and (v:isEquippedRune()) then
 
         -- 리스트에 추가
         else
@@ -217,5 +304,22 @@ end
 -- @breif
 -------------------------------------
 function ServerData_Runes:getRuneObject(roid)
+    if (not self.m_mRuneObjects[roid]) then
+        cclog('# 보유하지 않은 룬 검색 : ' .. roid)
+        ccdebug()
+    end
+
     return self.m_mRuneObjects[roid]
+end
+
+-------------------------------------
+-- function applyEquippedRuneInfo
+-- @breif
+-------------------------------------
+function ServerData_Runes:applyEquippedRuneInfo(roid, doid)
+    local rune_object = self:getRuneObject(roid)
+    if (not rune_object) then
+        return
+    end
+    rune_object:setOwnerDragon(doid)
 end

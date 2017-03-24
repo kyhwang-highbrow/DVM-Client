@@ -151,7 +151,8 @@ end
 -- function getRuneList
 -------------------------------------
 function UI_RuneBulkSalePopup:getRuneList()
-    local l_rune_list = g_runesData:getUnequippedRuneList()
+    local unequipped = true
+    local l_rune_list = g_runesData:getFilteredRuneList(unequipped)
     local total_count = table.count(l_rune_list)
 
     local l_ret_list = {}

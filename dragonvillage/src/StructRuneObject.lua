@@ -34,6 +34,9 @@ StructRuneObject = class({
         item_id = 'number',
 
         name = 'string',
+
+        ---------------------------------------------
+        owner_doid = 'doid', -- 룬을 장착 중인 드래곤 doid
     })
 
 -------------------------------------
@@ -200,6 +203,24 @@ function StructRuneObject:getRuneEnhanceReqGold()
     local req_gold = t_rune_enhance['req_gold']
 
     return req_gold
+end
+
+-------------------------------------
+-- function isEquippedRune
+-------------------------------------
+function StructRuneObject:isEquippedRune()
+    if self['owner_doid'] then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
+-- function setOwnerDragon
+-------------------------------------
+function StructRuneObject:setOwnerDragon(doid)
+    self['owner_doid'] = doid
 end
 
 -------------------------------------

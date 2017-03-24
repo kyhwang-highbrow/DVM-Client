@@ -97,8 +97,6 @@ function ServerData_Dragons:applyDragonData_list(l_dragon_data)
     g_serverData:lockSaveData()
     for i,v in pairs(l_dragon_data) do
         local t_dragon_data = v
-        -- @delete_rune
-        t_dragon_data['runes'] = {}
         self:applyDragonData(t_dragon_data)
     end
     g_serverData:unlockSaveData()
@@ -110,12 +108,12 @@ end
 -------------------------------------
 function ServerData_Dragons:applyDragonData(t_dragon_data)
     local l_dragons = self.m_serverData:getRef('dragons')
-    local unique_id = t_dragon_data['id']
+    local doid = t_dragon_data['id']
 
     local idx = nil
 
     for i,v in pairs(l_dragons) do
-        if (unique_id == v['id']) then
+        if (doid == v['id']) then
             idx = i
             break
         end
@@ -123,7 +121,12 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
 
     -- 룬 효과 체크
     if t_dragon_data then
-        t_dragon_data['rune_set'] = self:makeDragonRuneSetData(t_dragon_data)
+        --t_dragon_data['rune_set'] = self:makeDragonRuneSetData(t_dragon_data)
+        for i,roid in pairs(t_dragon_data['runes']) do
+            if (roid ~= '') then
+                g_runesData:applyEquippedRuneInfo(roid, doid)
+            end
+        end
     end
 
     -- 기존에 있는 드래곤이면 갱신
@@ -136,7 +139,7 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
     end
 
     -- 드래곤 정렬 데이터 수정
-    self:setDragonsSortData(unique_id)
+    self:setDragonsSortData(doid)
 
     -- 드래곤 did별 갯수 갱신 필요
     self.m_bDirtyNumOfDragonsByDid = true

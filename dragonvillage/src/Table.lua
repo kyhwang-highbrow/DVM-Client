@@ -66,6 +66,7 @@ local TableInfo_fromServer = {
         -- ['csv 테이블 이름'] = {'테이블 약어', 'key'},
         ['table_rune_enhance'] = {'table_rune_enhance', 'rune_lv'},
         ['table_rune_grade'] = {'table_rune_grade', 'grade'},
+        ['table_rune_mopt_status'] = {'table_rune_mopt_status', 'vid'},
     }
 
 -------------------------------------

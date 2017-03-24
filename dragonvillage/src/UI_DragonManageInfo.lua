@@ -125,9 +125,9 @@ function UI_DragonManageInfo:initButton()
         vars['equipSlotBtn1']:registerScriptTapHandler(function() self:click_runeBtn(1) end)
         vars['equipSlotBtn2']:registerScriptTapHandler(function() self:click_runeBtn(2) end)
         vars['equipSlotBtn3']:registerScriptTapHandler(function() self:click_runeBtn(3) end)
-        vars['equipSlotBtn4']:registerScriptTapHandler(function() self:click_runeBtn(3) end)
-        vars['equipSlotBtn5']:registerScriptTapHandler(function() self:click_runeBtn(3) end)
-        vars['equipSlotBtn6']:registerScriptTapHandler(function() self:click_runeBtn(3) end)
+        vars['equipSlotBtn4']:registerScriptTapHandler(function() self:click_runeBtn(4) end)
+        vars['equipSlotBtn5']:registerScriptTapHandler(function() self:click_runeBtn(5) end)
+        vars['equipSlotBtn6']:registerScriptTapHandler(function() self:click_runeBtn(6) end)
 
         -- 장비
         vars['equipmentBtn']:registerScriptTapHandler(function() self:click_equipmentBtn() end)
@@ -177,22 +177,17 @@ function UI_DragonManageInfo:refresh()
 
     -- @delete_rune
     do -- 장착된 룬 표시
-        --[[
         local t_runes = t_dragon_data['runes']
-        for i=1, 3 do
+        for i=1, 6 do
+            local roid = t_dragon_data['runes'][tostring(i)]
             vars['runeSlotNode' .. i]:removeAllChildren()
-            local slot = ServerData_Runes:getSlotName(i)
 
-            local roid = t_runes[slot]
-            if (roid and (roid ~= '')) then
-                local t_rune_infomation, t_rune_data = g_runesData:getRuneInfomation(roid)
-
-                local rid = t_rune_data['rid']
-                local icon = IconHelper:getItemIcon(rid, t_rune_infomation)
+            if (roid and roid ~= '') then
+                local rune_obj = g_runesData:getRuneObject(roid)
+                local icon = IconHelper:getItemIcon(rune_obj['item_id'], rune_obj)
                 vars['runeSlotNode' .. i]:addChild(icon)
             end
         end
-        --]]
     end
     
 end
@@ -495,7 +490,21 @@ end
 function UI_DragonManageInfo:click_runeBtn(slot_idx)
     --self:openSubManageUI(UI_DragonMgrRunesNew)
 
-    UI_DragonRunes()
+    local doid = self.m_selectDragonOID
+    local prev_dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
+
+    local ui = UI_DragonRunes(doid, slot_idx)
+
+    local function close_cb()
+        local curr_dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
+        if (prev_dragon_obj['updated_at'] ~= curr_dragon_obj['updated_at']) then
+            local b_force = true
+            self:setSelectDragonData(doid, b_force)
+        end
+        self:sceneFadeInAction()
+    end
+
+    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------
