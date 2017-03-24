@@ -603,7 +603,18 @@ function Dragon:makeHPGauge(hp_ui_offset)
     self.m_dragSkillNode.m_node:removeFromParent(true)
     self.m_world.m_groundNode:addChild(self.m_dragSkillNode.m_node, 1)
     self.m_dragSkillNode.m_node:release()
-    
+
+    local role_type = self.m_charTable['role']
+    if (role_type == 'tanker') then
+        ui.vars['skillGauge']:setColor(cc.c3b(255, 0, 0))
+    elseif (role_type == 'dealer') then
+        ui.vars['skillGauge']:setColor(cc.c3b(255, 255, 0))
+    elseif (role_type == 'supporter') then
+        u.vars['skillGauge']:setColor(cc.c3b(0, 255, 0))
+    elseif (role_type == 'healer') then
+        ui.vars['skillGauge']:setColor(cc.c3b(0, 0, 255))
+    end
+        
     self.m_statusNode = self.m_hpNode
     
     --self.m_world.m_unitInfoNode:addChild(self.m_hpNode, 5)
@@ -830,23 +841,6 @@ function Dragon:initActiveSkillCool(percentage)
 
     if (percentage) then
         self:updateActiveSkillCool(percentage / self.m_activeSkillIncValuePerSec)
-    end
-    
-    if (self.m_infoUI and self.m_infoUI.vars['skillGauge']) then
-        --self.m_infoUI.vars['skillGauge']:setPercentage(self.m_activeSkillValue)
-
-        -- 테스트
-        --[[
-        if (role_type == 'tanker') then
-            self.m_infoUI.vars['skillGauge']:setColor(cc.c3b(255, 0, 0))
-        elseif (role_type == 'dealer') then
-            self.m_infoUI.vars['skillGauge']:setColor(cc.c3b(255, 0, 255))
-        elseif (role_type == 'supporter') then
-            self.m_infoUI.vars['skillGauge']:setColor(cc.c3b(0, 255, 0))
-        elseif (role_type == 'healer') then
-            self.m_infoUI.vars['skillGauge']:setColor(cc.c3b(0, 0, 255))
-        end
-        ]]--
     end
 end
 

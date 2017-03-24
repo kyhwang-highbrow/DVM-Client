@@ -118,7 +118,8 @@ PHYS = {
 	MISSILE = {
 		HERO = 'missile_h',
 		ENEMY = 'missile_e'
-	}
+	},
+    TAMER = 'tamer',
 }
 
 --------------------------------------------

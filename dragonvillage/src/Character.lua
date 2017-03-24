@@ -93,11 +93,7 @@ Character = class(PARENT, {
         m_isOnTheMove = 'boolean',
         m_bFixedPosHpNode = 'boolean',
         m_movement = 'EnemyMovement',
-
-        -- @하이라이트 관련
-        m_bHighlight = 'boolean',
-        m_prevParentInfo = 'table',
-
+        
         -- @ 위치 관련
         m_posIdx = 'number',  -- 덱진형에서의 위치 인덱스
         m_orgHomePosX = 'number',
@@ -152,9 +148,6 @@ function Character:init(file_name, body, ...)
     self.m_bActivePassive = false
     self.m_isOnTheMove = false
     self.m_bFixedPosHpNode = false
-
-    self.m_bHighlight = false
-    self.m_prevParentInfo = nil
 
     self.m_tOverlabStatusEffect = {}
 	self.m_lStatusEffect = {}

@@ -209,6 +209,7 @@ local t_module = {
     'GameCamera',
     'GameTimeScale',
     'GameHighlightMgr',
+    'DropItemMgr',
 	'ShakeManager',
     
 	-- CARRIER
@@ -277,6 +278,9 @@ local t_module = {
 	'CommonMissile_High',
 	'CommonMissile_Bounce',
 	'CommonMissile_Multi',
+
+    -- ITEM
+    'DropItem',
 
 	-- STATUS EFFECT
 	'StatusEffect',

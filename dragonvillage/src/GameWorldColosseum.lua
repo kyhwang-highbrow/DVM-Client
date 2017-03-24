@@ -125,7 +125,7 @@ function GameWorldColosseum:addEnemy(enemy)
     table.insert(self.m_tEnemyList, enemy)
     
     -- 죽음 콜백 등록
-    enemy:addListener('character_dead', self)
+    --enemy:addListener('character_dead', self.m_dropItemMgr)
 
     -- 스킬
     enemy:addListener('dragon_active_skill', self.m_gameDragonSkill)

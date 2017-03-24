@@ -97,6 +97,22 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
     local location = touch:getLocation()
     local node_pos = self.m_touchNode:convertToNodeSpace(location)
 
+    -- 터치된 드랍아이템 결정
+    --[[
+    local select_item = nil
+    if (self.m_world.m_dropItemMgr) then
+        select_item = self.m_world.m_dropItemMgr:getItemFromPos(node_pos['x'], node_pos['y'])
+    end
+
+    if (select_item) then
+        if (world.m_tamer) then
+            --world.m_tamer:
+        end
+        select_item:changeState('dying')
+        return false
+    end
+    ]]--
+    
     -- 터치된 캐릭터 결정
     local near_distance = nil
     local select_hero = nil

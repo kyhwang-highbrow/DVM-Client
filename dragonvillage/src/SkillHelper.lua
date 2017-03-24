@@ -94,20 +94,20 @@ function SkillHelper:makeDragonActiveSkillBonus(owner, t_skill, role_type, score
     
     -- 직군별 보너스
     if (role_type == 'tanker') then
-        
+        cclog('드래곤 스킬 피드백 발동 : tanker')
         str_status_effect = 'def_up;self;hit;5;100;10'
         
     elseif (role_type == 'dealer') then
-        
+        cclog('드래곤 스킬 피드백 발동 : dealer')
         str_status_effect = 'atk_up;self;hit;8;100;10'
 
     elseif (role_type == 'supporter') then
-        
+        cclog('드래곤 스킬 피드백 발동 : supporter')
         owner:increaseActiveSkillCool(10)
         return
 
     elseif (role_type == 'healer') then
-        
+        cclog('드래곤 스킬 피드백 발동 : healer')
         str_status_effect = 'heal;self;hit;0;100;20'
         
     end

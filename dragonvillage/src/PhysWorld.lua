@@ -470,6 +470,8 @@ function PhysWorld:initGroup()
     self:addGroup(PHYS.MISSILE.ENEMY, {}, {255, 0, 200, 127})    
 
     self:addGroup(PHYS.EFFECT, {}, {0, 0, 255, 127})
+    
+    self:addGroup(PHYS.TAMER, {}, {255, 255, 0, 127})
 end
 
 

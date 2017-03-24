@@ -17,6 +17,10 @@ Entity = class(PARENT, {
         m_targetPosX = 'number',
         m_targetPosY = 'number',
 
+        -- @하이라이트 관련
+        m_bHighlight = 'boolean',
+
+        --
         m_motionStreak = 'MotionStreack',
     })
 
@@ -42,6 +46,9 @@ function Entity:init(file_name, body)
     -- state 관련 변수
     self.m_tStateAni = {}
     self.m_tStateAniLoop = {}
+
+    -- 하이라이트 관련 변수
+    self.m_bHighlight = false
 end
 
 -------------------------------------

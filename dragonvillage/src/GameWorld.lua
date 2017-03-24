@@ -49,6 +49,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_gameCamera = '',
         m_gameTimeScale = '',
         m_gameHighlight = '',
+        m_dropItemMgr = '',
 
         m_worldSize = '',
         m_worldScale = '',
@@ -172,7 +173,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     
     self.m_gameDragonSkill = GameDragonSkill(self)
     self.m_gameFever = GameFever(self)
-
+    
     -- 아군 자동시 AI
     self.m_gameAutoHero = GameAuto_Hero(self)
     self.m_gameAutoHero:bindGameFever(self.m_gameFever)
@@ -304,6 +305,10 @@ function GameWorld:initGame(stage_name)
 
     do -- 스킬 조작계 초기화
         self.m_skillIndicatorMgr = SkillIndicatorMgr(self)
+    end
+
+    do -- 드랍 아이템 매니져 생성
+        self.m_dropItemMgr = DropItemMgr(self)
     end
 
     do -- 카메라 초기 위치 설정이 있다면 적용
@@ -531,6 +536,15 @@ function GameWorld:cleanupSkill()
 end
 
 -------------------------------------
+-- function cleanupItem
+-------------------------------------
+function GameWorld:cleanupItem()
+    if (self.m_dropItemMgr) then
+        self.m_dropItemMgr:cleanupItem()
+    end
+end
+
+-------------------------------------
 -- function addToSkillList
 -- @param Skill
 -- @brief skill list는 관리용으로 사용하고 실질적인 동작은 unit list를 통함
@@ -588,6 +602,10 @@ function GameWorld:update(dt)
 
     if self.m_gameDragonSkill then
         self.m_gameDragonSkill:update(dt)
+    end
+
+    if self.m_dropItemMgr then
+        self.m_dropItemMgr:update(dt)
     end
 
     for char, v in pairs(self.m_mPassiveEffect) do
@@ -722,8 +740,8 @@ function GameWorld:addEnemy(enemy)
     --cclog('GameWorld:addEnemy(enemy) cnt : ' .. #self.m_tEnemyList)
 
     -- 죽음 콜백 등록
-    enemy:addListener('character_dead', self)
-
+    enemy:addListener('character_dead', self.m_dropItemMgr)
+    
     -- 등장 완료 콜백 등록
     enemy:addListener('enemy_appear_done', self.m_gameState)
 
@@ -792,7 +810,6 @@ end
 function GameWorld:addHero(hero, idx)
     self.m_mHeroList[idx] = hero
 
-    hero:addListener('character_dead', self)
     hero:addListener('character_dead', self.m_tamerSpeechSystem)
 
     hero:addListener('dragon_time_skill', self.m_gameDragonSkill)

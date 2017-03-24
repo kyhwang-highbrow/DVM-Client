@@ -20,7 +20,8 @@ Tamer = class(PARENT, {
         m_lSkillCoolTimer = '',
 
         m_roamTimer = '',
-        m_zPos = 'number',
+
+        m_targetItem = 'DropItem',
      })
 
 -------------------------------------
@@ -38,7 +39,8 @@ function Tamer:init(file_name, body, ...)
     self.m_lSkillCoolTimer = {}
 
     self.m_roamTimer = 0
-    self.m_zPos = 0
+
+    self.m_targetItem = nil
 end
 
 -------------------------------------
@@ -73,14 +75,9 @@ end
 -- function initState
 -------------------------------------
 function Tamer:initState()
-    --PARENT.initState(self)
-
     self:addState('idle', PARENT.st_idle, 'i_idle', true)
     self:addState('roam', Tamer.st_roam, 'i_idle', true)
-    --self:addState('attack', PARENT.st_idle, 'i_idle', false)
-    --self:addState('attackDelay', PARENT.st_idle, 'i_idle', true)
-    --self:addState('charge', PARENT.st_idle, 'i_idle', true)
-    --self:addState('casting', PARENT.st_idle, 'i_idle', true)
+    self:addState('bring', Tamer.st_bring, 'i_idle', true)
 
     self:addState('wait', Tamer.st_wait, 'i_idle', true)
     self:addState('move', PARENT.st_move, 'i_idle', true)
@@ -137,10 +134,10 @@ function Tamer.st_roam(owner, dt)
         local tar_x, tar_y, tar_z
         
         if (quadrant == 1) then
-            tar_x = math_random(CRITERIA_RESOLUTION_X / 2, CRITERIA_RESOLUTION_X) - 300
+            tar_x = math_random(CRITERIA_RESOLUTION_X / 2, CRITERIA_RESOLUTION_X) - 500
             tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2 - 100)
         elseif (quadrant == 2) then
-            tar_x = math_random(CRITERIA_RESOLUTION_X / 2, CRITERIA_RESOLUTION_X) - 300
+            tar_x = math_random(CRITERIA_RESOLUTION_X / 2, CRITERIA_RESOLUTION_X) - 500
             tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2) - (CRITERIA_RESOLUTION_Y / 2 - 100)
         elseif (quadrant == 3) then
             tar_x = math_random(50, CRITERIA_RESOLUTION_X / 2)
@@ -172,6 +169,65 @@ function Tamer.st_roam(owner, dt)
     end
 
     owner.m_roamTimer = owner.m_roamTimer - dt
+end
+
+--[[
+-------------------------------------
+-- function st_bring
+-------------------------------------
+function Tamer.st_bring(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        owner:setHomePos(owner.pos.x, owner.pos.y)
+        owner:setMove(owner.m_targetItem.pos.x, owner.m_targetItem.pos.y, 5000)
+
+        owner.m_afterimageMove = 0
+        owner:setAfterImage(true)
+            
+    elseif (owner.m_isOnTheMove == false) then
+        owner:setAfterImage(false)
+        owner:changeStateWithCheckHomePos('roam')
+
+    else
+        owner:updateAfterImage(dt)
+
+    end
+end
+]]--
+-------------------------------------
+-- function st_bring
+-- 임시..
+-------------------------------------
+function Tamer.st_bring(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        local prevPosX = owner.pos.x
+        local prevPosY = owner.pos.y
+        local prevScale = owner.m_rootNode:getScale()
+        
+        local time = 0.1
+        local move_action1 = cc.MoveTo:create(time, cc.p(owner.m_targetItem.pos.x, owner.m_targetItem.pos.y))
+        local scale_action1 = cc.ScaleTo:create(time, 1)
+        local move_action2 = cc.MoveTo:create(time, cc.p(prevPosX, prevPosY))
+        local scale_action2 = cc.ScaleTo:create(time, prevScale)
+        
+        owner.m_rootNode:stopAllActions()
+        owner.m_rootNode:runAction(cc.Sequence:create(
+            cc.Spawn:create(move_action1, scale_action1),
+            cc.Spawn:create(move_action2, scale_action2),
+            cc.CallFunc:create(function()
+                owner:changeState('roam')
+                owner:setAfterImage(false)
+            end)
+        ))
+
+        owner.m_afterimageMove = 0
+        owner:setAfterImage(true)
+            
+    elseif (owner.m_stateTimer >= 0.2) then
+        owner:changeState('roam')
+        owner:setAfterImage(false)
+    else
+        owner:updateAfterImage(dt)
+    end
 end
 
 -------------------------------------
@@ -385,4 +441,13 @@ end
 function Tamer:getActiveSkillTable()
     local t_skill = self.m_lSkill[TAMER_SKILL_ACTIVE]
     return t_skill
+end
+
+-------------------------------------
+-- function setTargetItem
+-------------------------------------
+function Tamer:setTargetItem(item)
+    self.m_targetItem = item
+
+    self:changeState('bring')
 end
