@@ -107,6 +107,16 @@ function UIC_TableViewTD:update(dt)
             local t_item = self.m_makeReserveQueue[1]
             local data = t_item['data']
             t_item['ui'] = self:makeItemUI(data)
+
+            do -- 액션 수행 위치 수정
+                local ui = t_item['ui']
+                local scale = ui.root:getScale()
+                ui.root:setScale(scale * 0.2)
+                local scale_to = cc.ScaleTo:create(0.25, scale)
+                local action = cc.EaseInOut:create(scale_to, 2)
+                ui.root:runAction(action)
+            end
+
             local idx = t_item['idx']
             self:updateCellAtIndex(idx)
             
@@ -611,7 +621,7 @@ end
 -------------------------------------
 -- function makeItemUI
 -------------------------------------
-function UIC_TableViewTD:makeItemUI(data, skip_action)
+function UIC_TableViewTD:makeItemUI(data)
     local ui = self.m_cellUIClass(data)
     ui.root:setSwallowTouch(false)
     if ui.vars['swallowTouchMenu'] then
@@ -624,14 +634,6 @@ function UIC_TableViewTD:makeItemUI(data, skip_action)
 
     if self.m_cellUICreateCB then
         self.m_cellUICreateCB(ui, data)
-    end
-
-    if (not skip_action) then
-        local scale = ui.root:getScale()
-        ui.root:setScale(scale * 0.2)
-        local scale_to = cc.ScaleTo:create(0.25, scale)
-        local action = cc.EaseInOut:create(scale_to, 2)
-        ui.root:runAction(action)
     end
 
     return ui
@@ -804,6 +806,7 @@ end
 -------------------------------------
 -- function mergeItemList
 -- @breif
+-- @param function refresh_func(item, new_data)
 -------------------------------------
 function UIC_TableViewTD:mergeItemList(list, refresh_func)
     local dirty = false
@@ -853,9 +856,7 @@ function UIC_TableViewTD:replaceItemUI(unique_id, data)
     
     local x, y = item['ui'].root:getPosition()
     item['ui'].root:removeFromParent()
-
-    local skip_action = true
-    item['ui'] = self:makeItemUI(data, skip_action)
+    item['ui'] = self:makeItemUI(data)
     item['ui'].root:setPosition(x, y)
 end
 
