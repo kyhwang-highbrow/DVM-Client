@@ -174,8 +174,6 @@ function UI_DragonManageInfo:refresh()
         end
     end
 
-
-    -- @delete_rune
     do -- 장착된 룬 표시
         local t_runes = t_dragon_data['runes']
         for i=1, 6 do
@@ -189,7 +187,6 @@ function UI_DragonManageInfo:refresh()
             end
         end
     end
-    
 end
 
 -------------------------------------

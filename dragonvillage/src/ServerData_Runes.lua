@@ -323,3 +323,15 @@ function ServerData_Runes:applyEquippedRuneInfo(roid, doid)
     end
     rune_object:setOwnerDragon(doid)
 end
+
+
+-------------------------------------
+-- function getUnequippedRuneCount
+-- @breif
+-------------------------------------
+function ServerData_Runes:getUnequippedRuneCount()
+    local unequipped = true
+    local l_runes = self:getFilteredRuneList(unequipped)
+    local count = table.count(l_runes)
+    return count
+end
