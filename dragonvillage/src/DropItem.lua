@@ -53,7 +53,6 @@ function DropItem:initAnimatorItem(file_name)
     -- Animator 생성
     self.m_animator = MakeAnimator(file_name)
     if self.m_animator.m_node then
-        self.m_animator.m_node:setScale(0.5)
         self.m_rootNode:addChild(self.m_animator.m_node)
     end
 end
