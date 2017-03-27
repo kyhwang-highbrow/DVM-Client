@@ -11,23 +11,23 @@ UI_Game = class(UI, {
 -------------------------------------
 function UI_Game:init(game_scene)
     self.m_gameScene = game_scene
+	
+	local vars = self:load('ingame_scene.ui')
+    UIManager:open(self, UIManager.NORMAL)
+
+	 -- 백키 지정
+    g_currScene:pushBackKeyListener(self, function() self:click_pauseButton() end, 'UI_Game')
 
     self:initUI()
+	self:initButton()
+	self:initTamerUI()
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
 function UI_Game:initUI()
-    local vars = self:load('ingame_scene.ui')
-    UIManager:open(self, UIManager.NORMAL)
-
-    vars['autoStartButton']:registerScriptTapHandler(function() self:click_autoStartButton() end)
-    vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
-	vars['feverButton']:registerScriptTapHandler(function() self:click_feverButton() end)    
-    vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
-    vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
-    vars['buffBtn']:registerScriptTapHandler(function() self:click_buffButton() end)
+	local vars = self.vars
 
     do
         local label = cc.Label:createWithBMFont('res/font/hit_font.fnt', tostring(999))
@@ -63,9 +63,20 @@ function UI_Game:initUI()
     do
         self:initInfoBoard()
     end
-    
-    -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_pauseButton() end, 'UI_Game')
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_Game:initButton()
+	local vars = self.vars
+
+    vars['autoStartButton']:registerScriptTapHandler(function() self:click_autoStartButton() end)
+    vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
+	vars['feverButton']:registerScriptTapHandler(function() self:click_feverButton() end)    
+    vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
+    vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
+    vars['buffBtn']:registerScriptTapHandler(function() self:click_buffButton() end)
 end
 
 -------------------------------------
@@ -372,7 +383,7 @@ function UI_Game:setAutoMode(b)
     if (b) then
         UIManager:toastNotificationGreen('자동전투 활성화')
 
-        gameAuto:onStart()
+        gameAuto:onStart() 
 
         g_autoPlaySetting:set('auto_mode', true)
 

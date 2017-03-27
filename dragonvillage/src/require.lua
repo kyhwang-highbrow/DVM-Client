@@ -424,6 +424,7 @@ local t_module = {
     'LobbyItemBox',
     'UI_RewardListPopup',
     'UI_Game',
+	'UI_GameTamer',
     'UI_GameColosseum',
     'UI_GameResultNew',
     'UI_GameResult_Adventure',
