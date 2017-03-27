@@ -253,6 +253,15 @@ function UI_Game:click_buffButton()
 end
 
 -------------------------------------
+-- function init_dpsUI
+-- @brief 데미지 미터기 + 힐 미터기
+-------------------------------------
+function UI_Game:init_dpsUI()
+    local dps_ui = UI_GameDPS(self.m_gameScene.m_gameWorld)
+    self.vars['dpsInfoNode']:addChild(dps_ui.root)
+end
+
+-------------------------------------
 -- function init_debugUI
 -- @brief 인게임에서 실시간으로 각종 설정을 할 수 있도록 하는 UI생성
 --        모든 기능은 UI_GameDebug안에서 구현

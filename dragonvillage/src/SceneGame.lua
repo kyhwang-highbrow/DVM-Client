@@ -218,6 +218,8 @@ function SceneGame:prepare()
 		if (not (TARGET_SERVER == 'FGT')) then 
 			self.m_inGameUI:init_debugUI()
 		end
+
+		self.m_inGameUI:init_dpsUI()
     end)
 end
 
