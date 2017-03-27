@@ -95,6 +95,7 @@ end
 -------------------------------------
 function GameDragonSkill.update_live(self, dt)
     local world = self.m_world
+    local ui = self.m_world.m_inGameUI
     local dragon = self.m_dragon
     local timeScale = 1
 	local t_dragon_skill_time = g_constant:get('INGAME', 'DRAGON_SKILL_DIRECTION_DURATION')
@@ -102,6 +103,9 @@ function GameDragonSkill.update_live(self, dt)
 
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
+            -- UI 숨김
+            ui.root:setVisible(false)
+
             -- 하이라이트 활성화
             world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
             world.m_gameHighlight:changeDarkLayerColor(254, 0)
@@ -131,6 +135,9 @@ function GameDragonSkill.update_live(self, dt)
         end
         ]]--
         if (self:isBeginningStep()) then
+            -- UI 표시
+            ui.root:setVisible(true)
+
             self.m_skillOpeningCutBg:setVisible(false)
             self.m_skillOpeningCutTop:setVisible(false)
 
