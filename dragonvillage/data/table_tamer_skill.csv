@@ -21,6 +21,6 @@ sid,skill_form,type,t_name,res_1,res_2,res_3,res_scale,res_icon,res_hit,indicato
 242109,status_effect,tamer_skill_regene,리제네,,,,,,,,,instant,magical,0,active,1,,ally_none,0,0,,,,,60,0,0,0,0,tamer_heal;ally;none;5;100;9,,,,,,,,5초간 아군 전체의 체력을 매초 1% 씩 증가 시킵니다
 242110,status_effect,tamer_skill_regene,리제네,,,,,,,,,instant,magical,0,active,1,,ally_none,0,0,,,,,60,0,0,0,0,tamer_heal;ally;none;5;100;10,,,,,,,,5초간 아군 전체의 체력을 매초 1% 씩 증가 시킵니다
 242201,status_effect,tamer_passive_livela,라이브라,,,,,,,,,instant,magical,0,passive,none,,ally_none,0,0,,,,,0,0,0,0,0,tamer_passive_hp_up_abs;ally;always;-1;100;150,,,,,,,,아군 전체의 hp 150 증가
-249101,code,tamer_skill_test,테이머 액티브 테스트,,,,,res/ui/icon/skill/test.png,,,,instant,magical,0,active,1,,ally_none,0,0,,,,,30,0,0,0,0,,,,,,,,,액티브 테스트
-249201,status_effect,tamer_passive_test_1,테이머 패시브 테스트,,,,,res/ui/icon/skill/test.png,,,,instant,magical,0,basic_time,10,,ally_none,0,0,,,,,30,0,0,0,0,tamer_def_up;ally;none;20;100;30,,,,,,,,발동형 패시브 테스트
+249101,status_effect,tamer_skill_test,힐 해줄게!,,,,,res/ui/icon/skill/test.png,,,,instant,magical,0,active,1,,ally_none,0,0,,,,,30,0,0,0,0,tamer_heal;ally;none;1;100;10,,,,,,,,액티브 테스트
+249201,status_effect,tamer_passive_test_1,방어력 증가!,,,,,res/ui/icon/skill/test.png,,,,instant,magical,0,basic_time,20,,ally_none,0,0,,,,,20,0,0,0,0,tamer_def_up;ally;none;10;100;20,,,,,,,,발동형 패시브 테스트
 249301,status_effect,tamer_passive_test_2,테이버 패시브 테스트2,,,,,res/ui/icon/skill/test.png,,,,instant,magical,0,passive,none,,ally_none,0,0,,,,,0,0,0,0,0,tamer_passive_atk_up;ally;always;-1;100;5,,,,,,,,상시 패시브 테스트

@@ -21,8 +21,9 @@ Tamer = class(PARENT, {
         m_bUseSelfAfterImage = 'boolean',
         m_bWaitState = 'boolean',
 
-        m_lSkill = '',
-        m_lSkillCoolTimer = '',
+        m_lSkill = 'list',
+        m_lSkillCoolTimer = 'list',
+		m_bActiveSKillUsable = 'boolean',
 
         m_roamTimer = '',
         m_baseAnimatorScale = '',
@@ -44,6 +45,7 @@ function Tamer:init(file_name, body, ...)
 
     self.m_lSkill = {}
     self.m_lSkillCoolTimer = {}
+	self.m_bActiveSKillUsable = true
 
     self.m_roamTimer = 0
     self.m_baseAnimatorScale = 0.5
@@ -65,9 +67,10 @@ function Tamer:init_tamer(t_tamer, bLeftFormationend)
 	for i = 1, MAX_TAMER_SKILL do
 		local skill_id = 249001 + (i * 100) --t_tamer['skill_' .. i]
 		self.m_lSkill[i] = table_tamer_skill:getTamerSkill(skill_id)
-		self.m_lSkillCoolTimer[i] = 0
+		self.m_lSkillCoolTimer[i] = self.m_lSkill[i]['cooldown']
 	end
 
+	-- TAMER UI 생성
 	self.m_world.m_inGameUI:initTamerUI(self)
 end
 
@@ -113,8 +116,11 @@ function Tamer:update(dt)
         self:updateAfterImage(dt)
     end
 
-    if (self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE] > 0) then
-        self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE] = math_max(self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE] - dt, 0)
+    if (self.m_lSkillCoolTimer[TAMER_SKILL_PASSIVE] > 0) then
+        self.m_lSkillCoolTimer[TAMER_SKILL_PASSIVE] = math_max(self.m_lSkillCoolTimer[TAMER_SKILL_PASSIVE] - dt, 0)
+	else
+		self:changeState('passive')
+		self.m_lSkillCoolTimer[TAMER_SKILL_PASSIVE] = self.m_lSkill[TAMER_SKILL_PASSIVE]['cooldown']
     end
 
     self:syncAniAndPhys()
@@ -233,7 +239,7 @@ function Tamer.st_active(owner, dt)
 		-- 화면 위치 찾기 위함
 		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
 		-- 연출 세팅
-		owner:setTamerSkillDirecting(CRITERIA_RESOLUTION_X/2, cameraHomePosY + 200)
+		owner:setTamerSkillDirecting(CRITERIA_RESOLUTION_X/2, cameraHomePosY + 200, TAMER_SKILL_ACTIVE)
 	
 		-- 스킬 동작
 		owner:doSkillActive()     
@@ -248,7 +254,7 @@ function Tamer.st_passive(owner, dt)
 		-- 이동할 위치를 위한 타겟
 		local target = owner.m_targetChar or owner
 		-- 연출 세팅
-		owner:setTamerSkillDirecting(target.pos.x, target.pos.y + 100)
+		owner:setTamerSkillDirecting(target.pos.x, target.pos.y + 100, TAMER_SKILL_PASSIVE)
 
 		-- 패시브 발동
 		owner:doSkillPassive()
@@ -312,14 +318,25 @@ end
 -------------------------------------
 -- function setTamerSkillDirecting
 -------------------------------------
-function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y)
+function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx)
 	local world = self.m_world
+	local game_highlight = world.m_gameHighlight
 
 	-- 하이라이트 활성화
-    world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
-    world.m_gameHighlight:addChar(self)
+    game_highlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
+
+	-- 하이라이트 대상 추가 (테이머 + 드래곤)
+    game_highlight:addChar(self)
+	for _, dragon in pairs(world:getDragonList()) do
+		game_highlight:addChar(dragon)
+	end
+
     -- 암전
-	world.m_gameHighlight:changeDarkLayerColor(254, 0.5)
+	game_highlight:changeDarkLayerColor(254, 0.5)
+
+	-- 스킬 이름 말풍선
+	local skill_name = Str(self.m_lSkill[skill_idx]['t_name'])
+	SkillHelper:makePassiveSkillSpeech(self, skill_name)
 
 	-- 연출 이동
     self:setHomePos(self.pos.x, self.pos.y)
@@ -335,10 +352,10 @@ function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y)
 		-- roam상태로 변경
         self:changeStateWithCheckHomePos('roam')
 		-- 하이라이트 비활성화
-        world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_HIDE)
-        world.m_gameHighlight:clear()
+        game_highlight:setMode(GAME_HIGHLIGHT_MODE_HIDE)
+        game_highlight:clear()
         -- 암전 해제 -> @TODO 암전 해제 연출 살짝 어긋나는건...
-        world.m_gameHighlight:changeDarkLayerColor(0, 0.2)
+		game_highlight:changeDarkLayerColor(0, 0.2)
 		-- 애프터 이미지 해제
 		self:setAfterImage(false)
     end)
@@ -452,7 +469,6 @@ function Tamer:doSkillActive()
     ]]--
 
     self.m_world:dispatch('tamer_skill')
-    self:showToolTipActive()
     return self:doSkill(TAMER_SKILL_ACTIVE)
 end
 
@@ -460,8 +476,6 @@ end
 -- function doSkillPassive
 -------------------------------------
 function Tamer:doSkillPassive()
-	self.m_world:dispatch('tamer_skill')
-    self:showToolTipActive()
     return self:doSkill(TAMER_SKILL_PASSIVE)
 end
 

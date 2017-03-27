@@ -6,7 +6,8 @@
 function UI_Game:initTamerUI(tamer)
 	local vars = self.vars
 
-	for i = 1, 3 do
+	-- @TODO 3개였다가 1개로 변경.. 추후에 확정되면 정리
+	for i = 1, 1 do
 		local res = tamer.m_lSkill[i]['res_icon']
 		local icon = cc.Sprite:create(res)
 		if icon then
@@ -31,16 +32,13 @@ end
 function UI_Game:click_tamerSkillBtn(idx)
 	local world = self.m_gameScene.m_gameWorld;
 	local tamer = world.m_tamer
-	if (idx == 1) then
+	local vars = self.vars
+
+	if (tamer.m_bActiveSKillUsable) then
 		tamer:changeState('active')
+		tamer.m_bActiveSKillUsable = false
+		vars['tamerSkillGauge' .. idx]:setPercentage(100)
 	else
-		tamer:changeState('passive')
+		UIManager:toastNotificationRed(Str('더 이상 사용 할 수 없습니다.'))
 	end
-end
-
--------------------------------------
--- function updateTamerSkillGuage
--------------------------------------
-function UI_Game:updateTamerSkillGuage(idx)
-
 end
