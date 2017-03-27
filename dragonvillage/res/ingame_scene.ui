@@ -612,7 +612,7 @@
 				lua_name = 'stageLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
-				text = '?�령????1-1';
+				text = '정령의 숲 1-1';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 243; 236; 225; };
@@ -1603,7 +1603,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '?�속';
+				text = '연속';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -1671,7 +1671,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '?�동';
+				text = '자동';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -1739,7 +1739,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '?�▶';
+				text = '▶▶';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -1920,7 +1920,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 16;
-				text = '?�속 ?�투 �?;
+				text = '연속 전투 중';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
