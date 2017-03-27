@@ -17,6 +17,9 @@ GameCamera = class(IEventDispatcher:getCloneClass(), {
     m_homePosX = 'number',
     m_homePosY = 'number',
 
+    m_prevHomePosX = 'number',
+    m_prevHomePosY = 'number',
+
     -- 액션 사용시에는 액션이 끝났을때의 결과값을 가짐(액션 중간의 실시간 정보가 아님)
     m_curScale = 'number',
     m_curPosX = 'number',
@@ -39,6 +42,8 @@ function GameCamera:init(world, node)
     self.m_homeScale = 1
     self.m_homePosX = 0
     self.m_homePosY = 0
+    self.m_prevHomePosX = 0
+    self.m_prevHomePosY = 0
 
     self.m_curScale = 1
     self.m_curPosX = 0
@@ -76,6 +81,9 @@ function GameCamera:setHomeInfo(tParam)
     local homePosX = tParam['pos_x'] or self.m_homePosX
     local homePosY = tParam['pos_y'] or self.m_homePosY
 
+    self.m_prevHomePosX = self.m_homePosX
+    self.m_prevHomePosY = self.m_homePosY
+
     self.m_homeScale = self:adjustScale(homeScale)
     self.m_homePosX, self.m_homePosY = self:adjustPos(homePosX, homePosY)
     
@@ -87,6 +95,13 @@ end
 -------------------------------------
 function GameCamera:getHomePos()
     return self.m_homePosX, self.m_homePosY
+end
+
+-------------------------------------
+-- function getPrevHomePos
+-------------------------------------
+function GameCamera:getPrevHomePos()
+    return self.m_prevHomePosX, self.m_prevHomePosY
 end
 
 -------------------------------------

@@ -1540,6 +1540,7 @@ end
 function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time)
     local scale = self.m_gameCamera:getScale()
     local cameraHomePosX, cameraHomePosY = self.m_gameCamera:getHomePos()
+    local cameraPrevHomePosX, cameraPrevHomePosY = self.m_gameCamera:getPrevHomePos()
     local offsetX = offsetX or 0
     local offsetY = offsetY or 0
     local move_time = move_time or getInGameConstant(WAVE_INTERMISSION_TIME)
@@ -1557,15 +1558,19 @@ function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time)
             end
             
             v:changeHomePosByTime(homePosX, homePosY, move_time)
+
+            if (i == 1) then
+                
+            end
         end
     end
 
     if (self.m_tamer) then
         -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
-        --local homePosX = self.m_tamer.m_orgHomePosX + cameraHomePosX + offsetX
-        --local homePosY = self.m_tamer.m_orgHomePosY + cameraHomePosY + offsetY
-        local homePosX = self.m_tamer.pos.x + cameraHomePosX + offsetX
-        local homePosY = self.m_tamer.pos.y + cameraHomePosY + offsetY
+        local diffX = cameraHomePosX - cameraPrevHomePosX
+        local diffY = cameraHomePosY - cameraPrevHomePosY
+        local homePosX = self.m_tamer.pos.x + diffX + offsetX
+        local homePosY = self.m_tamer.pos.y + diffY + offsetY
 
         -- 카메라가 줌아웃된 상태라면 아군 위치 조정(차후 정리)
         if (scale == 0.6) then
@@ -1573,7 +1578,6 @@ function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time)
         end
 
         self.m_tamer:changeHomePosByTime(homePosX, homePosY, move_time)
-        --self.m_tamer:setHomePos(homePosX, homePosY)
     end
 
     -- 미사일 제한 범위 재설정

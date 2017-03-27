@@ -57,6 +57,12 @@ function GameState_NestDungeon_Dragon.update_start(self, dt)
 
         elseif (self:getStepTimer() >= 0.5) then
             self:appearHero()
+
+            -- 테이머 이동
+            if (world.m_tamer) then
+                world.m_tamer:runAction_MoveZ(1)
+            end
+
             local speed_down_factor = g_constant:get('INGAME', 'MAP_SCROLL_SPEED_DOWN_ACCEL')
             local speed = map_mgr.m_speed + (speed_down_factor * dt)
             if (speed >= -300) then

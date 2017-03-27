@@ -117,11 +117,13 @@ function Tamer:update(dt)
         self:updateAfterImage(dt)
     end
 
-    if (self.m_lSkillCoolTimer[TAMER_SKILL_PASSIVE] > 0) then
-        self.m_lSkillCoolTimer[TAMER_SKILL_PASSIVE] = math_max(self.m_lSkillCoolTimer[TAMER_SKILL_PASSIVE] - dt, 0)
-	else
-		self:changeState('passive')
-		self.m_lSkillCoolTimer[TAMER_SKILL_PASSIVE] = self.m_lSkill[TAMER_SKILL_PASSIVE]['cooldown']
+    if (not self.m_bDead and self.m_world:isPossibleControl()) then
+        if (self.m_lSkillCoolTimer[TAMER_SKILL_PASSIVE] > 0) then
+            self.m_lSkillCoolTimer[TAMER_SKILL_PASSIVE] = math_max(self.m_lSkillCoolTimer[TAMER_SKILL_PASSIVE] - dt, 0)
+	    else
+		    self:changeState('passive')
+		    self.m_lSkillCoolTimer[TAMER_SKILL_PASSIVE] = self.m_lSkill[TAMER_SKILL_PASSIVE]['cooldown']
+        end
     end
 
     self:syncAniAndPhys()
@@ -137,7 +139,7 @@ function Tamer.st_appear(owner, dt)
     if (owner.m_stateTimer == 0) then
         if (owner.m_bLeftFormation) then
             owner:setPosition(-300, 0)
-            owner:setMove(CRITERIA_RESOLUTION_X / 4, 0, 500)
+            owner:setMove(CRITERIA_RESOLUTION_X / 2 - 80, 0, 700)
         end
     end
 end
@@ -149,6 +151,8 @@ end
 function Tamer.st_roam(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner.m_roamTimer = 0
+
+        owner:setAfterImage(false)
     end
 
     if (owner.m_roamTimer <= 0) then
@@ -213,19 +217,22 @@ function Tamer.st_bring(owner, dt)
         local prevPosY = owner.pos.y
         local prevScale = owner.m_rootNode:getScale()
         
-        local time = 0.1
-        local move_action1 = cc.MoveTo:create(time, cc.p(owner.m_targetItem.pos.x, owner.m_targetItem.pos.y))
+        local time1 = 0.1
+        local move_action1 = cc.MoveTo:create(time1, cc.p(owner.m_targetItem.pos.x, owner.m_targetItem.pos.y))
         local callFunc_action1 = cc.CallFunc:create(function()
-            owner:runAction_MoveZ(time, 0)
+            owner:runAction_MoveZ(time1, 0)
         end)
-        local move_action2 = cc.MoveTo:create(time, cc.p(prevPosX, prevPosY))
+
+        local time2 = 0.2
+        local move_action2 = cc.MoveTo:create(time2, cc.p(prevPosX, prevPosY))
         local callFunc_action2 = cc.CallFunc:create(function()
-            owner:runAction_MoveZ(time, TAMER_Z_POS)
+            owner:runAction_MoveZ(time2, TAMER_Z_POS)
         end)
         
         owner.m_rootNode:stopAllActions()
         owner.m_rootNode:runAction(cc.Sequence:create(
             cc.Spawn:create(move_action1, callFunc_action1),
+            cc.DelayTime:create(0.5),
             cc.Spawn:create(move_action2, callFunc_action2),
             cc.CallFunc:create(function()
                 owner:changeState('roam')
@@ -233,12 +240,14 @@ function Tamer.st_bring(owner, dt)
             end)
         ))
 
+        owner.m_animator:changeAni('i_summon', false)
+        owner.m_animator:addAniHandler(function()
+            owner.m_animator:changeAni('i_idle', true)
+        end)
+
         owner.m_afterimageMove = 0
         owner:setAfterImage(true)
             
-    elseif (owner.m_stateTimer >= 0.2) then
-        owner:changeState('roam')
-        owner:setAfterImage(false)
     else
         owner:updateAfterImage(dt)
     end
@@ -278,12 +287,23 @@ end
 -- function st_dying
 -------------------------------------
 function Tamer.st_dying(owner, dt)
-    PARENT.st_dying(owner, dt)
-
     if (owner.m_stateTimer == 0) then
+        if (owner.m_bDead == false) then
+            owner:setDead()
+        end
+        owner.m_rootNode:stopAllActions()
+
 		owner.m_barrier:changeAni('disappear', false)
         owner.m_barrier:addAniHandler(function()
             owner.m_barrier:setVisible(false)
+
+            local action = cc.Sequence:create(
+                cc.MoveBy:create(3, cc.p(0, -2000)),
+                cc.CallFunc:create(function()
+                    owner:changeState('dead')
+                end)
+            )
+            owner:runAction(action)            
         end)
     end
 end

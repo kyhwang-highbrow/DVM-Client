@@ -52,6 +52,11 @@ function GameState_NestDungeon_Tree.update_start(self, dt)
 
         elseif (self:isPassedStepTime(0.5)) then
             self:appearHero()
+
+            -- 테이머 이동
+            if (world.m_tamer) then
+                world.m_tamer:runAction_MoveZ(1)
+            end
             
         elseif (self:getStepTimer() >= 2) then
             self:nextStep()

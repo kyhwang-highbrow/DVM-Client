@@ -687,7 +687,9 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 		self:setHp(self.m_hp - damage)
 
 		-- @LOG_CHAR
-		attacker.m_activityCarrier.m_activityCarrierOwner.m_charLogRecorder:recordLog('damage', damage)
+        if (attacker) then
+		    attacker.m_activityCarrier.m_activityCarrierOwner.m_charLogRecorder:recordLog('damage', damage)
+        end
 		-- @LOG_CHAR
 		self.m_charLogRecorder:recordLog('be_damaged', damage)
 	end

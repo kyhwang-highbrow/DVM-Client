@@ -94,6 +94,8 @@ end
 function DropItem.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
         --cclog('DropItem.st_idle')
+
+        owner:runAction_Floating()
     end
 end
 
@@ -124,4 +126,12 @@ end
 -------------------------------------
 function DropItem:isObtained()
     return self.m_bObtained
+end
+
+-------------------------------------
+-- function runAction_Floating
+-- @brief 캐릭터 부유중 효과
+-------------------------------------
+function DropItem:runAction_Floating()
+    Character.runAction_Floating(self)
 end
