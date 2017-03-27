@@ -259,8 +259,6 @@ function TargetRule_getTargetList_stat(org_list, stat_type)
 		end)
 	end
 
-	cclog('----------------------------------------------')
-	cclog('target stat : ' .. target_stat)
     for i, char in ipairs(t_ret) do
 		cclog(char.m_hp / char.m_maxHp)
     end
