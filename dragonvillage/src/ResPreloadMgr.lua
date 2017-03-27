@@ -43,7 +43,7 @@ function ResPreloadMgr:loadFromStageName(stageName)
             self.m_tPreloadList = basePreloadList
         end
 
-        -- @DOTO: 친구 유닛에 대한 리소스를 추가
+        -- @TODO: 친구 유닛에 대한 리소스를 추가
         
 
         -- 해당 스테이지 관련 리소스 추가
@@ -97,7 +97,7 @@ function ResPreloadMgr:loadForColosseum(t_enemy)
             self.m_tPreloadList = basePreloadList
         end
 
-        -- @DOTO: 상대편 유닛에 대한 리소스를 추가
+        -- @TODO: 상대편 유닛에 대한 리소스를 추가
 
         
         --cclog('self.m_tPreloadList = ' .. luadump(self.m_tPreloadList))

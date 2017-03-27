@@ -466,9 +466,9 @@ function Tamer:getActiveSkillTable()
 end
 
 -------------------------------------
--- function setTargetItem
+-- function doBringItem
 -------------------------------------
-function Tamer:setTargetItem(item)
+function Tamer:doBringItem(item)
     self.m_targetItem = item
 
     self:changeState('bring')

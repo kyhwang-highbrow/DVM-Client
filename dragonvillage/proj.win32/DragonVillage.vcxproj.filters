@@ -372,9 +372,6 @@
     <None Include="..\src\MissileBounce.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\ObjectGold.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\CharacterState.lua">
       <Filter>lua</Filter>
     </None>
@@ -388,9 +385,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\Buff.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\ObjectCharge.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\Counter.lua">

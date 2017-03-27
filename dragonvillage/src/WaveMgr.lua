@@ -282,9 +282,6 @@ function WaveMgr:newScenario()
     do -- 웨이브 진행 정도
         local percent = ((wave / self.m_maxWave) * 100)
         g_gameScene.m_inGameUI.vars['stageGauge']:runAction(cc.ProgressTo:create(0.1, percent))
-
-        -- 웨이브 변경 시 골드 제거
-        self.m_world:clearGold()
     end
     
     if (not self.m_scriptData['wave'][wave]) then

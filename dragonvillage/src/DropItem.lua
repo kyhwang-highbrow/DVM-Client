@@ -5,12 +5,15 @@ local PARENT = Entity
 -------------------------------------
 DropItem = class(PARENT, {
     m_type = 'string',
+
+    m_bObtained = 'boolean',
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function DropItem:init(file_name, body)
+    self.m_bObtained = false
 end
 
 -------------------------------------
@@ -106,4 +109,20 @@ function DropItem.st_dying(owner, dt)
     if (owner.m_stateTimer >= owner:getAniDuration()) then
         return true
     end
+end
+
+-------------------------------------
+-- function setObtained
+-------------------------------------
+function DropItem:setObtained()
+    self.m_bObtained = true
+
+    self:changeState('dying')
+end
+
+-------------------------------------
+-- function isObtained
+-------------------------------------
+function DropItem:isObtained()
+    return self.m_bObtained
 end

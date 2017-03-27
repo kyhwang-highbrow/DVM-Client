@@ -82,10 +82,6 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         m_formationDebugNode = '',
 
-        -- 드롭된 골드의 리스트
-        m_dropGoldList = 'list[ObjectGold]',
-        m_dropGoldIdx = 'number', -- 골드마다 고유한 idx를 가짐
-
         m_touchMotionStreak = 'cc.MotionStreak',
         m_touchPrevPos = '{x, y}',
         m_tCollisionTime = 'table',
@@ -164,9 +160,6 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_worldSize = nil
     self.m_worldScale = nil
 
-    self.m_dropGoldList = {}
-    self.m_dropGoldIdx = 0
-    
     self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
     self.m_gameTimeScale = GameTimeScale(self)
     self.m_gameHighlight = GameHighlightMgr(self)
@@ -391,9 +384,7 @@ local counter = Counter()
 
 DEPTH_MISSILE = counter:get()
 
-DEPTH_ITEM_HP = counter:get()
 DEPTH_ITEM_GOLD = counter:get()
-DEPTH_ITEM_CHARGE_UNDER = counter:get()
 DEPTH_ITEM_CHARGE = counter:get()
 
 DEPTH_DAMAGE_EFFECT = counter:get()
@@ -455,16 +446,6 @@ end
 -------------------------------------
 function GameWorld:getGold()
     return self.m_snGold:get()
-end
-
--------------------------------------
--- function clearGold
--------------------------------------
-function GameWorld:clearGold()
-    for i,v in pairs(self.m_dropGoldList) do
-        v.m_animator.m_node:stopAllActions()
-        v:action2()
-    end
 end
 
 -------------------------------------
@@ -1259,17 +1240,6 @@ function GameWorld:setWaitAllCharacter(wait)
 end
 
 -------------------------------------
--- function dropItem
--------------------------------------
-function GameWorld:dropItem(x, y)
-    local rand = math_random(2, 4)
-    for i=1, rand do
-		self:obtainGold(1)
-        self:addDropGold(x, y)
-    end
-end
-
--------------------------------------
 -- function makeInstantEffect
 -- @brief 단발성 이펙트 생성
 -------------------------------------
@@ -1511,30 +1481,6 @@ end
 -------------------------------------
 function GameWorld:hasFriendHero()
     return (not self.m_bUsedFriend and self.m_friendHero)
-end
-
--------------------------------------
--- function addDropGold
--------------------------------------
-function GameWorld:addDropGold(x, y)
-
-    local gold_obj = ObjectGold(self, x, y)
-    self:addChild2(gold_obj.m_animator.m_node, DEPTH_ITEM_GOLD)
-
-    self.m_dropGoldIdx = (self.m_dropGoldIdx + 1)
-    gold_obj.m_goldIdx = self.m_dropGoldIdx
-    self.m_dropGoldList[self.m_dropGoldIdx] = gold_obj
-
-    if (self.m_dropGoldIdx >= 1.79e+308) then
-        self.m_dropGoldIdx = 0
-    end
-end
-
--------------------------------------
--- function removeDropGold
--------------------------------------
-function GameWorld:removeDropGold(gold_obj)
-    self.m_dropGoldList[gold_obj.m_goldIdx] = nil
 end
 
 -------------------------------------

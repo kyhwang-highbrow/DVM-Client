@@ -135,7 +135,7 @@ function DropItemMgr:onTouchBegan(touch, event)
 
     local select_item = self:getItemFromPos(node_pos['x'], node_pos['y'])
 
-    if (select_item) then
+    if (select_item and not select_item:isObtained()) then
         self.m_selectItem = select_item
         return true
     end
@@ -153,11 +153,55 @@ function DropItemMgr:onTouchEnded(touch, event)
 
     if (self.m_selectItem) then
         if (self.m_selectItem == self:getItemFromPos(node_pos['x'], node_pos['y'])) then
-            self.m_selectItem:changeState('dying')
+            -- 테이머 드랍 아이템 획득 연출
+            self.m_world.m_tamer:doBringItem(self.m_selectItem)
 
-            self.m_world.m_tamer:setTargetItem(self.m_selectItem)
+            self:obtainItem(self.m_selectItem)
         end
     end
 
     self.m_selectItem = nil
+end
+
+-------------------------------------
+-- function obtainItem
+-------------------------------------
+function DropItemMgr:obtainItem(item)
+    if (item:isObtained()) then return end
+
+    item:setObtained()
+
+    -- TODO: 드랍 아이템 획득 처리
+    local t_temp = { 'cash', 'gold', 'lactea' }
+    t_temp = randomShuffle(t_temp)
+
+    local type = t_temp[1]
+    local res = 'res/ui/icon/inbox/inbox_' .. type .. '.png'
+    if (res) then
+        local node = cc.Node:create()
+        node:setPosition(item.pos.x, item.pos.y)
+        self.m_world:addChild3(node, DEPTH_ITEM_GOLD)
+
+        local icon = cc.Sprite:create(res)
+        if (icon) then
+            icon:setPositionX(-15)
+            icon:setDockPoint(cc.p(0.5, 0.5))
+            icon:setAnchorPoint(cc.p(0.5, 0.5))
+            node:addChild(icon)
+        end
+
+        local label = cc.Label:createWithBMFont('res/font/normal.fnt', '+1')
+        if (label) then
+            local string_width = label:getStringWidth()
+            local offset_x = (string_width / 2)
+            label:setPositionX(offset_x)
+            label:setDockPoint(cc.p(0.5, 0.5))
+            label:setAnchorPoint(cc.p(0.5, 0.5))
+            label:setColor(cc.c3b(255, 255, 255))
+            node:addChild(label)
+        end
+
+        node:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.2), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
+        node:runAction(cc.EaseIn:create(cc.MoveBy:create(1, cc.p(0, 80)), 1))
+    end
 end

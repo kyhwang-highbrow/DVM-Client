@@ -519,8 +519,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Monster_GiantDragon.lua" />
     <None Include="..\src\Network.lua" />
     <None Include="..\src\NumberLabel.lua" />
-    <None Include="..\src\ObjectCharge.lua" />
-    <None Include="..\src\ObjectGold.lua" />
     <None Include="..\src\packet\channel.proto" />
     <None Include="..\src\packet\protocol.proto" />
     <None Include="..\src\PatchCore.lua" />

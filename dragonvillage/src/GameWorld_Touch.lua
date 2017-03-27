@@ -50,16 +50,6 @@ function GameWorld.onTouchMoved_GameWorld(self, touch, event)
             end
         end
 
-        -- 골드 획득
-        for i,v in pairs(self.m_dropGoldList) do
-            local x, y = v.m_animator.m_node:getPosition()
-            local dist = getDistance(x, y, iter_x, iter_y)
-            if (dist <= 50) then
-                v.m_animator.m_node:stopAllActions()
-                v:action2()
-            end
-        end
-
         iter_x = iter_x + offset['x']
         iter_y = iter_y + offset['y']
     end

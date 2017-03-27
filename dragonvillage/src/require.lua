@@ -613,8 +613,6 @@ local t_module = {
     'FormationMgr_TargetRule',
     'StatusCalculator',
     'StatusCalculatorFormula',
-    'ObjectGold',
-    'ObjectCharge',
 
     'DragonCard',
     'TriggerHpPercent',

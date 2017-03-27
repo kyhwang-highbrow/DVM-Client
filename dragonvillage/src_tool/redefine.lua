@@ -82,18 +82,6 @@ function GameWorld:init(stage_id, stage_name, world_node, game_node1, game_node2
 end
 
 -------------------------------------
--- function clearGold
--------------------------------------
-function GameWorld:clearGold()
-end
-
--------------------------------------
--- function dropItem
--------------------------------------
-function GameWorld:dropItem(x, y)
-end
-
--------------------------------------
 -- function init_wavemaker
 -------------------------------------
 function GameWorld:init_wavemaker(deck_type)
