@@ -1100,6 +1100,8 @@ function GameWorld:onKeyReleased(keyCode, event)
 			local test_res = g_constant:get('ART', 'STATUS_EFFECT_RES')
 			StatusEffectHelper:invokeStatusEffectForDev(v, test_res)
 			cclog('TEST 상태효과 RES 적용 !! ' .. test_res)
+			cclog(v:getName())
+			v.m_charLogRecorder:printRecord()
         end
 
     -- 피버 모드 발동

@@ -37,10 +37,6 @@ end
 -- @brief 전체 로그를 출력
 -------------------------------------
 function LogRecorderChar:printRecord()
-	local t_print = 
-	{
-
-	}
-
+	local t_print = self.m_logTable
 	ccdump(t_print)
 end

@@ -689,6 +689,11 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 	else
 		local damage = math_min(damage, self.m_hp)
 		self:setHp(self.m_hp - damage)
+
+		-- @LOG_CHAR
+		attacker.m_activityCarrier.m_activityCarrierOwner.m_charLogRecorder:recordLog('damage', damage)
+		-- @LOG_CHAR
+		self.m_charLogRecorder:recordLog('be_damaged', damage)
 	end
 
     -- 죽음 체크
@@ -1061,6 +1066,9 @@ function Character:healAbs(hp, b_make_effect)
         local pos_y = self.pos['y']
         local effect = self.m_world:addInstantEffect(res, 'idle', pos_x, pos_y)
     end
+
+	-- @LOG_CHAR
+	self.m_charLogRecorder:recordLog('be healed', heal)
 end
 
 -------------------------------------
