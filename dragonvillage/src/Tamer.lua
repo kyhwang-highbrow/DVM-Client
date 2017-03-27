@@ -252,7 +252,7 @@ function Tamer.st_roam(owner, dt)
         local course = math_random(-1, 1)
 
         -- 화면 좌측일 경우 곡선이동이 화면 밖으로 나가지 않도록 임시 처리...a
-        if (random['x'] == 1) then
+        if (random['x'] == 1 or random['y'] == 1 or random['x'] == 7) then
             course = 0
         end
 
