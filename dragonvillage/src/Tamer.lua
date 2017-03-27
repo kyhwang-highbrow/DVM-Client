@@ -3,6 +3,7 @@ local PARENT = Character
 local TAMER_SKILL_ACTIVE = 1
 local TAMER_SKILL_PASSIVE = 2
 
+local MAX_TAMER_SKILL = 3
 local TAMER_Z_POS = 100
 
 local TAMER_ACTION_TAG__MOVE_Z = 10
@@ -58,12 +59,15 @@ function Tamer:init_tamer(t_tamer, bLeftFormationend)
 
     local t_tamer = self.m_charTable
 	local table_tamer_skill = TableTamerSkill()
+	
+	-- @TODO
+	for i = 1, MAX_TAMER_SKILL do
+		local skill_id = 249001 + (i * 100) --t_tamer['skill_' .. i]
+		self.m_lSkill[i] = table_tamer_skill:getTamerSkill(skill_id)
+		self.m_lSkillCoolTimer[i] = 0
+	end
 
-    self.m_lSkill[TAMER_SKILL_ACTIVE] = table_tamer_skill:getTamerSkill(t_tamer['skill_' .. TAMER_SKILL_ACTIVE])
-    self.m_lSkill[TAMER_SKILL_PASSIVE] = table_tamer_skill:getTamerSkill(t_tamer['skill_' .. TAMER_SKILL_PASSIVE])
-
-    self.m_lSkillCoolTimer[TAMER_SKILL_ACTIVE] = 0
-    self.m_lSkillCoolTimer[TAMER_SKILL_PASSIVE] = 0
+	self.m_world.m_inGameUI:initTamerUI(self)
 end
 
 -------------------------------------
@@ -84,6 +88,9 @@ function Tamer:initState()
     self:addState('idle', PARENT.st_idle, 'i_idle', true)
     self:addState('roam', Tamer.st_roam, 'i_idle', true)
     self:addState('bring', Tamer.st_bring, 'i_idle', true)
+
+	self:addState('active', Tamer.st_active, 'skill_1', true)
+	self:addState('passive', Tamer.st_passive, 'skill_2', true)
 
     self:addState('wait', Tamer.st_wait, 'i_idle', true)
     self:addState('move', PARENT.st_move, 'i_idle', true)
@@ -214,6 +221,54 @@ function Tamer.st_bring(owner, dt)
         owner:setAfterImage(false)
     else
         owner:updateAfterImage(dt)
+    end
+end
+
+-------------------------------------
+-- function st_active
+-------------------------------------
+function Tamer.st_active(owner, dt)
+    if (owner.m_stateTimer == 0) then
+		local scr_size = cc.Director:getInstance():getWinSize()
+
+        owner:setHomePos(owner.pos.x, owner.pos.y)
+        owner:setMove(scr_size['width']/2, 0 + 200, 2000)
+
+        owner.m_afterimageMove = 0
+        owner:setAfterImage(true)
+
+		owner:doSkillActive()            
+
+		owner:addAniHandler(function()
+            owner:changeStateWithCheckHomePos('roam')
+        end)
+
+    elseif (owner.m_isOnTheMove == false) then
+        owner:setAfterImage(false)
+    end
+end
+
+-------------------------------------
+-- function st_passive
+-------------------------------------
+function Tamer.st_passive(owner, dt)
+    if (owner.m_stateTimer == 0) then
+		local target = owner.m_targetChar or owner
+
+        owner:setHomePos(owner.pos.x, owner.pos.y)
+        owner:setMove(target.pos.x, target.pos.y + 100, 2000)
+
+        owner.m_afterimageMove = 0
+        owner:setAfterImage(true)
+        
+		owner:doSkillPassive()
+		
+		owner:addAniHandler(function()
+            owner:changeStateWithCheckHomePos('roam')
+        end)
+
+    elseif (owner.m_isOnTheMove == false) then
+        owner:setAfterImage(false)
     end
 end
 
@@ -363,7 +418,7 @@ function Tamer:doSkill(skill_idx)
 		while true do 
 			-- 1. 파싱할 구문 가져오고 탈출 체크
 			effect_str = t_skill['status_effect_' .. idx]
-			if (not effect_str) or (effect_str == 'x') then 
+			if (not effect_str) or (effect_str == '') then 
 				break 
 			end
 

@@ -24,7 +24,10 @@ function TableTamerSkill:getTamerSkill(skill_id)
 	if not (t_skill) then 
 		return nil
 	end
-	
+
+	return t_skill
+
+	--[[
 	-- 패시브는 스킬 레벨이 1이다.
 	if (t_skill['chance_type'] == 'passive') then
 		return t_skill
@@ -37,6 +40,7 @@ function TableTamerSkill:getTamerSkill(skill_id)
 		t_skill = self:get(adj_skill_id)
 		return t_skill
 	end
+	]]
 end
 
 -------------------------------------

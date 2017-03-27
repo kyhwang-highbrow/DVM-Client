@@ -20,7 +20,6 @@ function UI_Game:init(game_scene)
 
     self:initUI()
 	self:initButton()
-	self:initTamerUI()
 end
 
 -------------------------------------
