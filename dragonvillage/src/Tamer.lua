@@ -89,6 +89,7 @@ end
 -- function initState
 -------------------------------------
 function Tamer:initState()
+    self:addState('appear', Tamer.st_appear, 'i_idle', true)
     self:addState('idle', PARENT.st_idle, 'i_idle', true)
     self:addState('roam', Tamer.st_roam, 'i_idle', true)
     self:addState('bring', Tamer.st_bring, 'i_idle', true)
@@ -129,6 +130,19 @@ function Tamer:update(dt)
 end
 
 -------------------------------------
+-- function st_appear
+-- @brief 테이머 배회
+-------------------------------------
+function Tamer.st_appear(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        if (owner.m_bLeftFormation) then
+            owner:setPosition(-300, 0)
+            owner:setMove(CRITERIA_RESOLUTION_X / 4, 0, 500)
+        end
+    end
+end
+
+-------------------------------------
 -- function st_roam
 -- @brief 테이머 배회
 -------------------------------------
@@ -159,15 +173,14 @@ function Tamer.st_roam(owner, dt)
             tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2 - 100)
         elseif (quadrant == 2) then
             tar_x = math_random(CRITERIA_RESOLUTION_X / 4, CRITERIA_RESOLUTION_X / 2)
-            tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2) - (CRITERIA_RESOLUTION_Y / 2 - 100)
+            tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2) - (CRITERIA_RESOLUTION_Y / 2 - 150)
         elseif (quadrant == 3) then
-            tar_x = math_random(50, CRITERIA_RESOLUTION_X / 4)
-            tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2) - (CRITERIA_RESOLUTION_Y / 2 - 100)
+            tar_x = math_random(100, CRITERIA_RESOLUTION_X / 4)
+            tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2) - (CRITERIA_RESOLUTION_Y / 2 - 150)
         elseif (quadrant == 4) then
-            tar_x = math_random(50, CRITERIA_RESOLUTION_X / 4)
-            tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2)
+            tar_x = math_random(100, CRITERIA_RESOLUTION_X / 4)
+            tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2 - 100)
         end
-        --tar_z = math_random(0, 150)
         tar_z = TAMER_Z_POS
         
         local cameraHomePosX, cameraHomePosY = owner.m_world.m_gameCamera:getHomePos()
@@ -379,6 +392,13 @@ function Tamer:setWaitState(is_wait_state)
 end
 
 -------------------------------------
+-- function runAction_Floating
+-- @brief 캐릭터 부유중 효과
+-------------------------------------
+function Tamer:runAction_Floating()
+end
+
+-------------------------------------
 -- function runAction_MoveZ
 -- @brief 테이머 z축 이동
 -------------------------------------
@@ -387,6 +407,8 @@ function Tamer:runAction_MoveZ(time, tar_z)
     if (not target_node) then
         return
     end
+
+    local tar_z = tar_z or TAMER_Z_POS
 
     local scale_action = cc.ScaleTo:create(time, self.m_baseAnimatorScale * (1 - (0.003 * tar_z)))
     local tint_action = cc.TintTo:create(time, 255 - tar_z, 255 - tar_z, 255 - tar_z)
@@ -424,7 +446,7 @@ end
 function Tamer:changeHomePosByTime(x, y, time)
     PARENT.changeHomePosByTime(self, x, y, time)
 
-    self:runAction_MoveZ(time, 0)
+    --self:runAction_MoveZ(time, 0)
 end
 
 -------------------------------------

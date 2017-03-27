@@ -33,14 +33,19 @@ function GameState_NestDungeon_Dragon.update_start(self, dt)
                 end
             end
 
+            -- 테이머 등장
+            if (world.m_tamer) then
+                world.m_tamer:changeState('appear')
+            end
+
             -- 화면을 빠르게 스크롤
             if map_mgr then
                 map_mgr:setSpeed(-1000)  
             end
 
-            SoundMgr:playEffect('VOICE', 'vo_tamer_start')
+            --SoundMgr:playEffect('VOICE', 'vo_tamer_start')
         
-	    elseif (self:isPassedStepTime(g_constant:get('INGAME', 'DRAGON_APPEAR_TIME'))) then
+	    elseif (self:isPassedStepTime(g_constant:get('INGAME', 'TAMER_APPEAR_TIME'))) then
 		    self:nextStep()
         end
 

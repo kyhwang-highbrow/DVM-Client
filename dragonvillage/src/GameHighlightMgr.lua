@@ -301,3 +301,22 @@ function GameHighlightMgr:getHighLightNode(orgParentNode)
 
     return highLightNode
 end
+
+-------------------------------------
+-- function setVisible
+-------------------------------------
+function GameHighlightMgr:setVisible(b)
+    local temp = {
+        'm_gameNode2',
+        'm_gameNode3',
+
+        'm_groundNode',
+        'm_worldNode',
+        'm_missiledNode',
+        'm_unitInfoNode',
+    }
+
+    for i, k in ipairs(temp) do
+        self[k]:setVisible(b)
+    end
+end

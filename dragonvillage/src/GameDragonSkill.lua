@@ -13,6 +13,9 @@ GameDragonSkill = class(PARENT, {
         -- 스킬을 사용할 드래곤 정보
         m_dragon = 'Dragon',
                 
+        m_skillOpeningCutBg = 'Animator',
+        m_skillOpeningCutTop = 'Animator',
+
         m_skillDescEffect = 'Animator',
         m_skillNameLabel = 'cc.Label',
         m_skillDescLabel = 'cc.Label',
@@ -35,12 +38,21 @@ end
 -- function initUI
 -------------------------------------
 function GameDragonSkill:initUI()
+    self.m_skillOpeningCutBg = MakeAnimator('res/effect/cutscene_a_type/cutscene_a_type_bg.vrp')
+    self.m_skillOpeningCutBg:changeAni('scene_1', false)
+    self.m_skillOpeningCutBg:setVisible(false)
+    g_gameScene.m_viewLayer:addChild(self.m_skillOpeningCutBg.m_node)
+
+    self.m_skillOpeningCutTop = MakeAnimator('res/effect/cutscene_a_type/cutscene_a_type_top.vrp')
+    self.m_skillOpeningCutTop:changeAni('scene_1', false)
+    self.m_skillOpeningCutTop:setVisible(false)
+    g_gameScene.m_viewLayer:addChild(self.m_skillOpeningCutTop.m_node)
+
     -- 스킬 설명
     self.m_skillDescEffect = MakeAnimator('res/ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp')
     self.m_skillDescEffect:setPosition(0, -200)
     self.m_skillDescEffect:changeAni('skill', false)
     self.m_skillDescEffect:setVisible(false)
-    --g_gameScene.m_containerLayer:addChild(self.m_skillDescEffect.m_node)
     g_gameScene.m_viewLayer:addChild(self.m_skillDescEffect.m_node)
 
     local titleNode = self.m_skillDescEffect.m_node:getSocketNode('skill_title')
@@ -87,14 +99,49 @@ function GameDragonSkill.update_live(self, dt)
     local timeScale = 1
 	local t_dragon_skill_time = g_constant:get('INGAME', 'DRAGON_SKILL_DIRECTION_DURATION')
     local delayTime = t_dragon_skill_time[1]
-    
+
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
             -- 하이라이트 활성화
             world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
-            world.m_gameHighlight:changeDarkLayerColor(254, 0.5)
-            world.m_gameHighlight:addChar(dragon)
+            world.m_gameHighlight:changeDarkLayerColor(254, 0)
+            world.m_gameHighlight:setVisible(true)
             
+            -- 일시 정지
+            world:setTemporaryPause(true)
+
+            -- 도입부 컷씬
+            self:makeSkillOpeningCut(dragon, function()
+                self:nextStep()
+            end)
+        end
+
+    elseif (self:getStep() == 1) then
+        --[[
+        if (self:isBeginningStep()) then
+            self.m_skillOpeningCutBg:changeAni('scene_2', false)
+            self.m_skillOpeningCutBg:addAniHandler(function()
+                self.m_skillOpeningCutBg:setVisible(false)
+                self.m_skillOpeningCutTop:setVisible(false)
+
+                self:nextStep()
+            end)
+            self.m_skillOpeningCutTop:changeAni('scene_2', false)
+            self.m_skillOpeningCutTop:setPosition(dragon.pos.x - CRITERIA_RESOLUTION_X / 2, dragon.pos.y)
+        end
+        ]]--
+        if (self:isBeginningStep()) then
+            self.m_skillOpeningCutBg:setVisible(false)
+            self.m_skillOpeningCutTop:setVisible(false)
+
+            self:nextStep()
+        end
+    
+    elseif (self:getStep() == 2) then
+        if (self:isBeginningStep()) then
+            -- 하이라이트
+            world.m_gameHighlight:addChar(dragon)
+
             -- 일시 정지
             world:setTemporaryPause(true, dragon)
             
@@ -135,7 +182,7 @@ function GameDragonSkill.update_live(self, dt)
 
         end
 
-    elseif (self:getStep() == 1) then
+    elseif (self:getStep() == 3) then
         local step_time1 = t_dragon_skill_time[2]
         local step_time2 = t_dragon_skill_time[2] + (t_dragon_skill_time[3] / 2)
         local step_time3 = t_dragon_skill_time[2] + t_dragon_skill_time[3]
@@ -205,6 +252,33 @@ function GameDragonSkill.update_live2(self, dt)
             self:changeState(GAME_DRAGON_SKILL_WAIT)
         end
     end
+end
+
+-------------------------------------
+-- function makeSkillOpeningCut
+-------------------------------------
+function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
+    self.m_skillOpeningCutBg:changeAni('scene_1', false)
+    self.m_skillOpeningCutBg:setVisible(true)
+    self.m_skillOpeningCutBg:addAniHandler(function()
+        if (cbEnd) then
+            cbEnd()
+        end
+    end)
+
+    -- 드래곤을 생성하여 해당 소켓에 붙임
+    do
+        local dragonNode = self.m_skillOpeningCutBg.m_node:getSocketNode('dragon')
+        local res_name = dragon.m_animator.m_resName
+        local animator = MakeAnimator(res_name)
+        animator:changeAni('skill_appear', false)
+        dragonNode:removeAllChildren()
+        dragonNode:addChild(animator.m_node)
+    end
+
+    self.m_skillOpeningCutTop:changeAni('scene_1', false)
+    self.m_skillOpeningCutTop:setPosition(0, 0)
+    self.m_skillOpeningCutTop:setVisible(true)
 end
 
 -------------------------------------

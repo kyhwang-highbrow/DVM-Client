@@ -169,8 +169,8 @@ end
 -------------------------------------
 function UI_Game:click_pauseButton()
     local world = self.m_gameScene.m_gameWorld
-    if (world.m_skillIndicatorMgr:isControlling()) then
-        return
+    if (world.m_skillIndicatorMgr) then
+        if (world.m_skillIndicatorMgr:isControlling()) then return end
     end
 
     local stage_id = self.m_gameScene.m_stageID

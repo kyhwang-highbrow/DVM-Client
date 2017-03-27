@@ -33,9 +33,14 @@ function GameState_NestDungeon_Tree.update_start(self, dt)
                 end
             end
 
-            SoundMgr:playEffect('VOICE', 'vo_tamer_start')
+            -- 테이머 등장
+            if (world.m_tamer) then
+                world.m_tamer:changeState('appear')
+            end
+
+            --SoundMgr:playEffect('VOICE', 'vo_tamer_start')
         
-	    elseif (self:isPassedStepTime(g_constant:get('INGAME', 'DRAGON_APPEAR_TIME'))) then
+	    elseif (self:isPassedStepTime(g_constant:get('INGAME', 'TAMER_APPEAR_TIME'))) then
 		    self:nextStep()
         end
 
