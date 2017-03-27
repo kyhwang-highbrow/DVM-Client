@@ -219,7 +219,7 @@ function SceneGame:prepare()
 			self.m_inGameUI:init_debugUI()
 		end
 
-		self.m_inGameUI:init_dpsUI()
+		--self.m_inGameUI:init_dpsUI()
     end)
 end
 
