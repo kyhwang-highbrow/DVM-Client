@@ -18,9 +18,6 @@ ActivityCarrier = class({
         -- 상태이상 유발
         m_lStatusEffectRate = 'table',
 
-		-- @ 공격시점에서의 공격 대상의 상태 정보
-		m_tEventInfo = '',
-
 		m_atkDmgStat = 'str',
 		m_bIgnoreDef = 'bool',
         m_bHighlight = 'boolean',   -- 피격 대상이 하일라이트 되어야하는지 여부
@@ -38,7 +35,6 @@ function ActivityCarrier:init()
     self.m_skillCoefficient = 1
     self.m_skillAddAtk = 0
     self.m_lStatusEffectRate = {}
-	self.m_tEventInfo = {}
 	self.m_atkDmgStat = 'atk'
 	self.m_bIgnoreDef = false
     self.m_bHighlight = false
@@ -113,22 +109,6 @@ end
 --------------------------------------------------------------------------
 -- GET SET FUNC
 --------------------------------------------------------------------------
-
--------------------------------------
--- function setEventInfo
--------------------------------------
-function ActivityCarrier:setEventInfo(info)
-	if (type(info) == 'table') then 
-		self.m_tEventInfo = info 
-	end
-end
-
--------------------------------------
--- function getEventInfo
--------------------------------------
-function ActivityCarrier:getEventInfo()
-	return self.m_tEventInfo or {}
-end
 
 -------------------------------------
 -- function setFlag

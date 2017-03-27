@@ -589,10 +589,6 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
     t_info['attr_bonus_dmg'] = attr_bonus_dmg
     self:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 
-	-- 공격받을 시점에서의 상태 정보 저장
-	t_event['isDead'] = self.m_bDead
-	attacker.m_activityCarrier:setEventInfo(t_event)
-
     -- 상태이상 체크
     StatusEffectHelper:statusEffectCheck_onHit(attacker.m_activityCarrier, self)
 
