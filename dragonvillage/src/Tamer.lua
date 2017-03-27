@@ -230,8 +230,10 @@ end
 -------------------------------------
 function Tamer.st_active(owner, dt)
     if (owner.m_stateTimer == 0) then
+		-- 화면 위치 찾기 위함
+		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
 		-- 연출 세팅
-		owner:setTamerSkillDirecting(CRITERIA_RESOLUTION_X/2, 0 + 200)
+		owner:setTamerSkillDirecting(CRITERIA_RESOLUTION_X/2, cameraHomePosY + 200)
 	
 		-- 스킬 동작
 		owner:doSkillActive()     
