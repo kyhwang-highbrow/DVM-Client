@@ -19,7 +19,7 @@ function UI_Game:initTamerUI(tamer)
 			vars['tamerSkillBtn' .. i]:registerScriptTapHandler(function() self:click_tamerSkillBtn(i) end)
 		else
 			vars['tamerSkillBtn' .. i]:setEnabled(false)
-			vars['tamerSkillGauge' .. i]:setPercentage(0)
+			vars['tamerSkillGauge' .. i]:setPercentage(100)
 		end
 	end
 

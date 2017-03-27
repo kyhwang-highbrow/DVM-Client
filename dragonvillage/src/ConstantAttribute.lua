@@ -168,7 +168,7 @@ end
 -------------------------------------
 function attributeStrToNum(attr)
     if (type(attr) == 'number') then
-        return rarity_str
+        return attr
     end
 
     if (attr == 'light') then

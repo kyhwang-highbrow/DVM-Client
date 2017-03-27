@@ -37,6 +37,7 @@ Tamer = class(PARENT, {
 -------------------------------------
 function Tamer:init(file_name, body, ...)
     self.m_charType = 'tamer'
+	self.m_attribute = 'earth'
 
     self.m_bWaitState = false
     self.m_bUseSelfAfterImage = false
@@ -229,22 +230,11 @@ end
 -------------------------------------
 function Tamer.st_active(owner, dt)
     if (owner.m_stateTimer == 0) then
-		local scr_size = cc.Director:getInstance():getWinSize()
-
-        owner:setHomePos(owner.pos.x, owner.pos.y)
-        owner:setMove(scr_size['width']/2, 0 + 200, 2000)
-
-        owner.m_afterimageMove = 0
-        owner:setAfterImage(true)
-
-		owner:doSkillActive()            
-
-		owner:addAniHandler(function()
-            owner:changeStateWithCheckHomePos('roam')
-        end)
-
-    elseif (owner.m_isOnTheMove == false) then
-        owner:setAfterImage(false)
+		-- 연출 세팅
+		owner:setTamerSkillDirecting(CRITERIA_RESOLUTION_X/2, 0 + 200)
+	
+		-- 스킬 동작
+		owner:doSkillActive()     
     end
 end
 
@@ -253,22 +243,13 @@ end
 -------------------------------------
 function Tamer.st_passive(owner, dt)
     if (owner.m_stateTimer == 0) then
+		-- 이동할 위치를 위한 타겟
 		local target = owner.m_targetChar or owner
+		-- 연출 세팅
+		owner:setTamerSkillDirecting(target.pos.x, target.pos.y + 100)
 
-        owner:setHomePos(owner.pos.x, owner.pos.y)
-        owner:setMove(target.pos.x, target.pos.y + 100, 2000)
-
-        owner.m_afterimageMove = 0
-        owner:setAfterImage(true)
-        
+		-- 패시브 발동
 		owner:doSkillPassive()
-		
-		owner:addAniHandler(function()
-            owner:changeStateWithCheckHomePos('roam')
-        end)
-
-    elseif (owner.m_isOnTheMove == false) then
-        owner:setAfterImage(false)
     end
 end
 
@@ -324,6 +305,41 @@ function Tamer.st_success_move(owner, dt)
 
         owner:setAfterImage(true)
     end
+end
+
+-------------------------------------
+-- function setTamerSkillDirecting
+-------------------------------------
+function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y)
+	local world = self.m_world
+
+	-- 하이라이트 활성화
+    world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
+    world.m_gameHighlight:addChar(self)
+    -- 암전
+	world.m_gameHighlight:changeDarkLayerColor(254, 0.5)
+
+	-- 연출 이동
+    self:setHomePos(self.pos.x, self.pos.y)
+    self:setMove(move_pos_x, move_pos_y, 2000)
+	self:runAction_MoveZ(0.1, 0)
+
+	-- 애프터 이미지
+    self.m_afterimageMove = 0
+    self:setAfterImage(true)
+		
+	-- 애니메이션 종료시
+	self:addAniHandler(function()
+		-- roam상태로 변경
+        self:changeStateWithCheckHomePos('roam')
+		-- 하이라이트 비활성화
+        world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_HIDE)
+        world.m_gameHighlight:clear()
+        -- 암전 해제 -> @TODO 암전 해제 연출 살짝 어긋나는건...
+        world.m_gameHighlight:changeDarkLayerColor(0, 0.2)
+		-- 애프터 이미지 해제
+		self:setAfterImage(false)
+    end)
 end
 
 -------------------------------------
@@ -397,56 +413,27 @@ end
 -------------------------------------
 function Tamer:doSkill(skill_idx)
 	local t_skill = self.m_lSkill[skill_idx]
-
+	
+	PARENT.doSkillBySkillTable(self, t_skill, nil)
+	
+	--[[
 	if (t_skill['skill_form'] == 'status_effect') then 
-        -- 1. target 설정
+		-- 1. skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
 		local l_target = self:getTargetListByTable(t_skill)
         if (not l_target) then return end
 
-        -- 2. 타겟 대상에 상태효과생성
-		local idx = 1
-		local effect_str = nil
-		local t_effect = nil
-		local type = nil
-        local target_type = nil
-        local start_con = nil
-		local duration = nil
-		local value_1 = nil
-		local value_2 = nil
-		local rate = 100
+		-- 2. 상태효과 문자열(;로 구분)
+		local status_effect_str = {t_skill['status_effect_1'], t_skill['status_effect_2']}
 
-		while true do 
-			-- 1. 파싱할 구문 가져오고 탈출 체크
-			effect_str = t_skill['status_effect_' .. idx]
-			if (not effect_str) or (effect_str == '') then 
-				break 
-			end
-
-			-- 2. 파싱하여 규칙에 맞게 분배
-            t_effect = StatusEffectHelper:parsingStr(effect_str)
-            
-		    type = t_effect['type']
-		    target_type = t_effect['target_type']
-            start_con = t_effect['start_con']
-		    duration = t_effect['duration']
-		    rate = t_effect['rate'] 
-		    value_1 = t_effect['value_1']
-
-            -- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
-			for _,target in ipairs(l_target) do
-                StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
-			end
-
-			-- 4. 인덱스 증가
-			idx = idx + 1
-		end
+		-- 3. 타겟에 상태효과생성
+		StatusEffectHelper:doStatusEffectByStr(self, l_target, status_effect_str)
 
 	else
 		cclog('미구현 테이머 스킬 : ' .. t_skill['sid'] .. ' / ' .. t_skill['t_name'])
 		return false
 	end
-
-    self.m_lSkillCoolTimer[skill_idx] = t_skill['cooldown']
+	]]
+    self.m_lSkillCoolTimer[skill_idx] = t_skill['cooldown'] 
 
 	return true
 end
@@ -463,9 +450,7 @@ function Tamer:doSkillActive()
     ]]--
 
     self.m_world:dispatch('tamer_skill')
-
     self:showToolTipActive()
-
     return self:doSkill(TAMER_SKILL_ACTIVE)
 end
 
@@ -473,7 +458,16 @@ end
 -- function doSkillPassive
 -------------------------------------
 function Tamer:doSkillPassive()
+	self.m_world:dispatch('tamer_skill')
+    self:showToolTipActive()
     return self:doSkill(TAMER_SKILL_PASSIVE)
+end
+
+-------------------------------------
+-- function doSkillFixedPassive
+-------------------------------------
+function Tamer:doSkillFixedPassive()
+    return self:doSkill(3)
 end
 
 -------------------------------------

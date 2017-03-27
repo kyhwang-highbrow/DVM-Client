@@ -53,11 +53,29 @@ function Character:doSkill(skill_id, x, y, t_data)
         error()
     end
 
+    return self:doSkillBySkillTable(t_skill, t_data)
+end
+
+-------------------------------------
+-- function do_script_shot
+-- @brief 스크립트 탄막 실행 
+-------------------------------------
+function Character:doSkillBySkillTable(t_skill, t_data)
+    if (not t_skill) then
+        error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 테이블이 없습니다')
+    end
+	local t_data = t_data or {}
     local skill_form = t_skill['skill_form']
     
     ----------------------------------------------
     -- [스크립트] (스크립트에서 읽어와 미사일 탄막 생성)
     if (skill_form == 'script') then
+		local x = self.m_attackOffsetX or 0
+		local y = self.m_attackOffsetY or 0
+		local is_hero = self.m_bLeftFormation
+		local attr = self:getAttribute()
+		local phys_group = self:getAttackPhysGroup()
+
         self:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_data)
         return true
 
@@ -135,6 +153,12 @@ function Character:doSkill(skill_id, x, y, t_data)
 
 			-- 패시브 스킬
 			elseif (type == 'skill_react_armor') then
+				local x = self.m_attackOffsetX or 0
+				local y = self.m_attackOffsetY or 0
+				local is_hero = self.m_bLeftFormation
+				local attr = self:getAttribute()
+				local phys_group = self:getAttackPhysGroup()
+
 				self:doSkill_counteratk(t_skill, is_hero, phys_group, x, y, t_data)
 				return true
 
@@ -309,9 +333,9 @@ function Character:doSkill(skill_id, x, y, t_data)
 
 			cclog('미구현 코드 스킬 : ' .. type)
 		end
-    end
+	end
 
-    return false
+	return false
 end
 
 -------------------------------------

@@ -1596,7 +1596,7 @@ function Character:getCharType()
 end
 
 -------------------------------------
--- function getCharType
+-- function getCharAttackAttr
 -- @return 공격 속성 physical or magical
 -------------------------------------
 function Character:getCharAttackAttr()
