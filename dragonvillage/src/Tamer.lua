@@ -144,6 +144,7 @@ function Tamer.st_appear(owner, dt)
     end
 end
 
+--[[
 -------------------------------------
 -- function st_roam
 -- @brief 테이머 배회
@@ -206,6 +207,69 @@ function Tamer.st_roam(owner, dt)
 
     owner.m_roamTimer = owner.m_roamTimer - dt
 end
+]]--
+-------------------------------------
+-- function st_roam
+-- @brief 테이머 배회
+-------------------------------------
+function Tamer.st_roam(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        owner.m_roamTimer = 0
+
+        owner:setAfterImage(false)
+    end
+
+    if (owner.m_roamTimer <= 0) then
+        local t_random = {}
+        local t_temp = {}
+
+        for y = 1, 7 do
+            for x = 1, 7 do
+                if (not t_temp[tostring(x) .. tostring(y)]) then
+                    local b = false
+                    if (y == 1 or y == 7) then      b = true
+                    elseif (x == 1 or x == 7) then  b = true
+                    end
+
+                    if (b) then
+                        table.insert(t_random, { x = x, y = y })
+                        t_temp[tostring(x) .. tostring(y)] = true
+                    end
+                end
+            end
+        end
+
+        t_random = randomShuffle(t_random)
+
+        local random = t_random[1]
+        local tar_x = random['x'] * 70
+        local tar_y = random['y'] * 80 - 280
+        local tar_z = TAMER_Z_POS
+        local cameraHomePosX, cameraHomePosY = owner.m_world.m_gameCamera:getHomePos()
+        tar_x = (tar_x + cameraHomePosX)
+        tar_y = (tar_y + cameraHomePosY)
+
+        local course = math_random(-1, 1)
+
+        -- 화면 좌측일 경우 곡선이동이 화면 밖으로 나가지 않도록 임시 처리...a
+        if (random['x'] == 1) then
+            course = 0
+        end
+
+        local time = math_random(15, 30) / 10
+        local bezier = getBezier(tar_x, tar_y, owner.pos.x, owner.pos.y, course)
+        local move_action = cc.BezierBy:create(time, bezier)
+                
+        owner.m_rootNode:stopAllActions()
+        owner.m_rootNode:runAction(move_action)
+
+        owner:runAction_MoveZ(time, tar_z)
+                        
+        owner.m_roamTimer = time + (math_random(0, 10) * 0.1)    -- 0 ~ 1초 사이로 잠시 멈추도록
+    end
+
+    owner.m_roamTimer = owner.m_roamTimer - dt
+end
 
 -------------------------------------
 -- function st_bring
@@ -216,11 +280,14 @@ function Tamer.st_bring(owner, dt)
         local prevPosX = owner.pos.x
         local prevPosY = owner.pos.y
         local prevScale = owner.m_rootNode:getScale()
-        
+
         local time1 = 0.1
-        local move_action1 = cc.MoveTo:create(time1, cc.p(owner.m_targetItem.pos.x, owner.m_targetItem.pos.y))
+        --local move_action1 = cc.MoveTo:create(time1, cc.p(owner.m_targetItem.pos.x, owner.m_targetItem.pos.y))
+        local bezier1 = getBezier(owner.m_targetItem.pos.x, owner.m_targetItem.pos.y, owner.pos.x, owner.pos.y, 1)
+        local move_action1 = cc.BezierBy:create(time1, bezier1)
         local callFunc_action1 = cc.CallFunc:create(function()
             owner:runAction_MoveZ(time1, 0)
+            owner:setAfterImage(false)
         end)
 
         local time2 = 0.2
@@ -236,7 +303,6 @@ function Tamer.st_bring(owner, dt)
             cc.Spawn:create(move_action2, callFunc_action2),
             cc.CallFunc:create(function()
                 owner:changeState('roam')
-                owner:setAfterImage(false)
             end)
         ))
 

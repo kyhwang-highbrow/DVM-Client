@@ -1558,10 +1558,6 @@ function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time)
             end
             
             v:changeHomePosByTime(homePosX, homePosY, move_time)
-
-            if (i == 1) then
-                
-            end
         end
     end
 
