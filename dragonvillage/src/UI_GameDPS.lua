@@ -5,6 +5,7 @@ UI_GameDPS = class(UI, {
         m_world = '',
 		m_dpsTimer = 'timer',
 		m_bShow = 'bool',
+		m_mDragonIconMap = 'map',
      })
 
 -------------------------------------
@@ -14,6 +15,7 @@ function UI_GameDPS:init(world)
     self.m_world = world
 	self.m_dpsTimer = 0
 	self.m_bShow = true
+	self.m_mDragonIconMap = {}
 
 	local vars = self:load('ingame_dps_info.ui')
 
@@ -37,10 +39,11 @@ function UI_GameDPS:initUI()
 				sprite:setDockPoint(CENTER_POINT)
 				sprite:setAnchorPoint(CENTER_POINT)
 				vars['dragonNode' .. i]:addChild(sprite)
+				-- 재활용 위해 아이콘 저장
+				self.m_mDragonIconMap[dragon] = sprite
 			end
 			-- DPS or HPS
 			vars['titleLabel' .. i]:setString('DPS')
-
 			-- 누적 damage
 			vars['dpsGaugeLabel' .. i] = NumberLabel(vars['dpsGaugeLabel' .. i], 0, 0.1)
 			-- dps
@@ -89,16 +92,28 @@ function UI_GameDPS:update(dt)
 		local state = self.m_world.m_gameState
 		local lap_time = state.m_fightTimer
 		local l_dragon = self.m_world:getDragonList()
-		local total_damage = 0
+		local best_damage = 0
 	
 		if (lap_time == 0) then
 			lap_time = 1
 		end
 
+		table.sort(l_dragon, function(a, b)
+			local a_damage = a.m_charLogRecorder:getLog('damage')
+			local b_damage = b.m_charLogRecorder:getLog('damage')
+			return a_damage > b_damage
+		end)
+
 		for i, dragon in pairs(l_dragon) do
-			local log_recorder = dragon.m_charLogRecorder
-			
+			-- dragon icon (재활용)
+			local sprite = self.m_mDragonIconMap[dragon]
+			sprite:retain()
+			sprite:removeFromParent()
+			vars['dragonNode' .. i]:addChild(sprite)
+			sprite:release()
+
 			-- 누적 damage
+			local log_recorder = dragon.m_charLogRecorder
 			local sum_damage = math_floor(log_recorder:getLog('damage'))
 			vars['dpsGaugeLabel' .. i]:setNumber(sum_damage)
 
@@ -107,19 +122,20 @@ function UI_GameDPS:update(dt)
 			vars['dpsLabel' .. i]:setString(dps)
 
 			-- 총데미지 계산
-			total_damage = total_damage + sum_damage
+			if (best_damage < sum_damage) then
+				best_damage = sum_damage
+			end
 		end
 
 		for i, dragon in pairs(l_dragon) do
 			-- 전체 대비 비율
 			local log_recorder = dragon.m_charLogRecorder
 			local sum_damage = log_recorder:getLog('damage')
-			local percentage = (sum_damage/total_damage) * 100
+			local percentage = (sum_damage/best_damage) * 100
 			vars['dpsGauge' .. i]:runAction(cc.ProgressTo:create(0.2, percentage))
 		end
 	end
 end
-
 
 -------------------------------------
 -- function click_dpsBtn
