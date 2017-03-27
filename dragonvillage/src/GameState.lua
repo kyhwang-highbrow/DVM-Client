@@ -285,7 +285,6 @@ function GameState.update_wave_intermission(self, dt)
         end
 
         if (world.m_tamer) then
-            --world.m_tamer:changeStateWithCheckHomePos('idle')
             world.m_tamer:setAfterImage(true)
         end
     end

@@ -1607,18 +1607,8 @@ function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time)
             if (scale == 0.6) then
                 homePosX = homePosX - 200
             end
-
-            local distance = getDistance(v.pos.x, v.pos.y, homePosX, homePosY)
-            if (distance > 0) then
-                local speed
-                if (move_time <= 0) then
-                    speed = 9999
-                else
-                    speed = distance / move_time
-                end
-
-                v:changeHomePos(homePosX, homePosY, speed)
-            end
+            
+            v:changeHomePosByTime(homePosX, homePosY, move_time)
         end
     end
 
@@ -1632,17 +1622,7 @@ function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time)
             homePosX = homePosX - 200
         end
 
-        local distance = getDistance(self.m_tamer.pos.x, self.m_tamer.pos.y, homePosX, homePosY)
-        if (distance > 0) then
-            local speed
-            if (move_time <= 0) then
-                speed = 9999
-            else
-                speed = distance / move_time
-            end
-
-            self.m_tamer:changeHomePos(homePosX, homePosY, speed)
-        end
+        self.m_tamer:changeHomePosByTime(homePosX, homePosY, move_time)
     end
 
     -- 미사일 제한 범위 재설정

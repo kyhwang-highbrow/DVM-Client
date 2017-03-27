@@ -60,7 +60,7 @@ end
 -------------------------------------
 function DropItem:initState()
     self:addState('appear', DropItem.st_appear, 'appear', false)
-    self:addState('idle', DropItem.st_idle, 'res', true)
+    self:addState('idle', DropItem.st_idle, 'idle', true)
     self:addState('dying', DropItem.st_dying, 'disappear', false)
 
     self:changeState('appear')

@@ -1350,13 +1350,20 @@ function Character:changeHomePosByTime(x, y, time)
 
     if (self.m_state == 'delegate') then return end
 
-    local time = time or 0.5
-
     -- 거리를 계산하여 속도를 구함
-    local cur_x, cur_y = self:getPosition()
+    local cur_x, cur_y = self.pos.x, self.pos.y
     local distance = getDistance(cur_x, cur_y, x, y)
-    local speed = distance / time 
+    if (distance == 0) then return end
 
+    local speed
+
+    local time = time or 0.5
+    if (time <= 0) then
+        speed = 9999
+    else
+        speed = distance / time 
+    end
+    
     self:setMove(x, y, speed)
 end
 

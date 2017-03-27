@@ -3,6 +3,10 @@ local PARENT = Character
 local TAMER_SKILL_ACTIVE = 1
 local TAMER_SKILL_PASSIVE = 2
 
+local TAMER_Z_POS = 100
+
+local TAMER_ACTION_TAG__MOVE_Z = 10
+
 -------------------------------------
 -- class Tamer
 -------------------------------------
@@ -20,6 +24,7 @@ Tamer = class(PARENT, {
         m_lSkillCoolTimer = '',
 
         m_roamTimer = '',
+        m_baseAnimatorScale = '',
 
         m_targetItem = 'DropItem',
      })
@@ -39,6 +44,7 @@ function Tamer:init(file_name, body, ...)
     self.m_lSkillCoolTimer = {}
 
     self.m_roamTimer = 0
+    self.m_baseAnimatorScale = 0.5
 
     self.m_targetItem = nil
 end
@@ -110,6 +116,7 @@ end
 
 -------------------------------------
 -- function st_roam
+-- @brief 테이머 배회
 -------------------------------------
 function Tamer.st_roam(owner, dt)
     if (owner.m_stateTimer == 0) then
@@ -119,7 +126,7 @@ function Tamer.st_roam(owner, dt)
     if (owner.m_roamTimer <= 0) then
         -- 현재 위치가 몇사분면인지 계산
         local quadrant = getQuadrant(
-            CRITERIA_RESOLUTION_X / 2,
+            CRITERIA_RESOLUTION_X / 4,
             0,
             owner.pos.x,
             owner.pos.y
@@ -134,20 +141,21 @@ function Tamer.st_roam(owner, dt)
         local tar_x, tar_y, tar_z
         
         if (quadrant == 1) then
-            tar_x = math_random(CRITERIA_RESOLUTION_X / 2, CRITERIA_RESOLUTION_X) - 500
+            tar_x = math_random(CRITERIA_RESOLUTION_X / 4, CRITERIA_RESOLUTION_X / 2)
             tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2 - 100)
         elseif (quadrant == 2) then
-            tar_x = math_random(CRITERIA_RESOLUTION_X / 2, CRITERIA_RESOLUTION_X) - 500
+            tar_x = math_random(CRITERIA_RESOLUTION_X / 4, CRITERIA_RESOLUTION_X / 2)
             tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2) - (CRITERIA_RESOLUTION_Y / 2 - 100)
         elseif (quadrant == 3) then
-            tar_x = math_random(50, CRITERIA_RESOLUTION_X / 2)
+            tar_x = math_random(50, CRITERIA_RESOLUTION_X / 4)
             tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2) - (CRITERIA_RESOLUTION_Y / 2 - 100)
         elseif (quadrant == 4) then
-            tar_x = math_random(50, CRITERIA_RESOLUTION_X / 2)
+            tar_x = math_random(50, CRITERIA_RESOLUTION_X / 4)
             tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2)
         end
-        tar_z = math_random(0, 150)
-
+        --tar_z = math_random(0, 150)
+        tar_z = TAMER_Z_POS
+        
         local cameraHomePosX, cameraHomePosY = owner.m_world.m_gameCamera:getHomePos()
         tar_x = (tar_x + cameraHomePosX)
         tar_y = (tar_y + cameraHomePosY)
@@ -156,46 +164,21 @@ function Tamer.st_roam(owner, dt)
         local time = math_random(15, 30) / 10
         local bezier = getBezier(tar_x, tar_y, owner.pos.x, owner.pos.y, course)
         local move_action = cc.BezierBy:create(time, bezier)
-        local scale_action = cc.ScaleTo:create(time, 1 - (0.003 * tar_z))
-        local tint_action = cc.TintTo:create(time, 255 - tar_z, 255 - tar_z, 255 - tar_z)
-        
-        owner.m_rootNode:stopAllActions()
-        owner.m_rootNode:runAction(cc.Spawn:create(move_action, scale_action))
-
-        owner.m_animator.m_node:stopAllActions()
-        owner.m_animator.m_node:runAction(tint_action)
                 
-        owner.m_roamTimer = time * 0.9
+        owner.m_rootNode:stopAllActions()
+        owner.m_rootNode:runAction(move_action)
+
+        owner:runAction_MoveZ(time, tar_z)
+                        
+        owner.m_roamTimer = time + (math_random(0, 10) * 0.1)    -- 0 ~ 1초 사이로 잠시 멈추도록
     end
 
     owner.m_roamTimer = owner.m_roamTimer - dt
 end
 
---[[
 -------------------------------------
 -- function st_bring
--------------------------------------
-function Tamer.st_bring(owner, dt)
-    if (owner.m_stateTimer == 0) then
-        owner:setHomePos(owner.pos.x, owner.pos.y)
-        owner:setMove(owner.m_targetItem.pos.x, owner.m_targetItem.pos.y, 5000)
-
-        owner.m_afterimageMove = 0
-        owner:setAfterImage(true)
-            
-    elseif (owner.m_isOnTheMove == false) then
-        owner:setAfterImage(false)
-        owner:changeStateWithCheckHomePos('roam')
-
-    else
-        owner:updateAfterImage(dt)
-
-    end
-end
-]]--
--------------------------------------
--- function st_bring
--- 임시..
+-- @brief 드랍아이템을 가져오는 연출
 -------------------------------------
 function Tamer.st_bring(owner, dt)
     if (owner.m_stateTimer == 0) then
@@ -205,14 +188,18 @@ function Tamer.st_bring(owner, dt)
         
         local time = 0.1
         local move_action1 = cc.MoveTo:create(time, cc.p(owner.m_targetItem.pos.x, owner.m_targetItem.pos.y))
-        local scale_action1 = cc.ScaleTo:create(time, 1)
+        local callFunc_action1 = cc.CallFunc:create(function()
+            owner:runAction_MoveZ(time, 0)
+        end)
         local move_action2 = cc.MoveTo:create(time, cc.p(prevPosX, prevPosY))
-        local scale_action2 = cc.ScaleTo:create(time, prevScale)
+        local callFunc_action2 = cc.CallFunc:create(function()
+            owner:runAction_MoveZ(time, TAMER_Z_POS)
+        end)
         
         owner.m_rootNode:stopAllActions()
         owner.m_rootNode:runAction(cc.Sequence:create(
-            cc.Spawn:create(move_action1, scale_action1),
-            cc.Spawn:create(move_action2, scale_action2),
+            cc.Spawn:create(move_action1, callFunc_action1),
+            cc.Spawn:create(move_action2, callFunc_action2),
             cc.CallFunc:create(function()
                 owner:changeState('roam')
                 owner:setAfterImage(false)
@@ -302,6 +289,32 @@ function Tamer:setWaitState(is_wait_state)
 end
 
 -------------------------------------
+-- function runAction_MoveZ
+-- @brief 테이머 z축 이동
+-------------------------------------
+function Tamer:runAction_MoveZ(time, tar_z)
+    local target_node = self.m_animator.m_node
+    if (not target_node) then
+        return
+    end
+
+    local scale_action = cc.ScaleTo:create(time, self.m_baseAnimatorScale * (1 - (0.003 * tar_z)))
+    local tint_action = cc.TintTo:create(time, 255 - tar_z, 255 - tar_z, 255 - tar_z)
+    local action = cc.Spawn:create(scale_action, tint_action)
+
+    cca.runAction(target_node, action, TAMER_ACTION_TAG__MOVE_Z)
+end
+
+-------------------------------------
+-- function setAnimatorScale
+-------------------------------------
+function Tamer:setAnimatorScale(scale)
+    self.m_animator:setScale(scale)
+
+    self.m_baseAnimatorScale = scale
+end
+
+-------------------------------------
 -- function setAfterImage
 -------------------------------------
 function Tamer:setAfterImage(b)
@@ -313,6 +326,15 @@ end
 -------------------------------------
 function Tamer:updateAfterImage(dt)
     Dragon.updateAfterImage(self, dt)
+end
+
+-------------------------------------
+-- function changeHomePosByTime
+-------------------------------------
+function Tamer:changeHomePosByTime(x, y, time)
+    PARENT.changeHomePosByTime(self, x, y, time)
+
+    self:runAction_MoveZ(time, 0)
 end
 
 -------------------------------------
