@@ -273,10 +273,9 @@ end
 -------------------------------------
 function Tamer.st_passive(owner, dt)
     if (owner.m_stateTimer == 0) then
-		-- 이동할 위치를 위한 타겟
-		local target = owner.m_targetChar or owner
+		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
 		-- 연출 세팅
-		owner:setTamerSkillDirecting(target.pos.x, target.pos.y + 100, TAMER_SKILL_PASSIVE)
+		owner:setTamerSkillDirecting(CRITERIA_RESOLUTION_X/4, cameraHomePosY + 200, TAMER_SKILL_PASSIVE)
 
 		-- 패시브 발동
 		owner:doSkillPassive()

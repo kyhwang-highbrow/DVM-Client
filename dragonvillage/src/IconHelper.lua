@@ -21,6 +21,34 @@ function IconHelper:getHeroIcon(res_name, evolution, attr)
 end
 
 -------------------------------------
+-- function makeDragonIconRes
+-- @breif 드래곤 아이콘 경로 생성
+-------------------------------------
+function IconHelper:makeDragonIconRes(t_dragon_data, t_dragon)
+    local res = t_dragon['icon']
+    local evolution = t_dragon_data['evolution']
+    local attr = t_dragon['attr']
+
+    res = string.gsub(res, '#', '0' .. evolution)
+    res = string.gsub(res, '@', attr)
+
+    return res
+end
+
+-------------------------------------
+-- function getDragonIconFromTable
+-- @breif 테이블을 받아서 드래곤 아이콘 생성
+-------------------------------------
+function IconHelper:getDragonIconFromTable(t_dragon_data, t_dragon)
+    local res = t_dragon['icon']
+    local evolution = t_dragon_data['evolution']
+    local attr = t_dragon['attr']
+	local sprite = IconHelper:getHeroIcon(res, evolution, attr)
+
+    return sprite
+end
+
+-------------------------------------
 -- function getDragonIconFromDid
 -------------------------------------
 function IconHelper:getDragonIconFromDid(dragon_id, evolution, grade, eclv)
