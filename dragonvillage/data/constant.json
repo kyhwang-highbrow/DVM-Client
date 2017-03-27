@@ -21,8 +21,8 @@
         // 웨이브 인터미션 맵 스크롤 가감 속도
         "WAVE_INTERMISSION_MAP_SPEED" : 2000,
 
-        // 인게임 시작 시 드래곤 등장 시간 .. 등장과 함께 맵 스크롤 속도 느려짐
-        "DRAGON_APPEAR_TIME" : 1,
+        // 인게임 시작 시 테이머 등장 시간 .. 등장과 함께 맵 스크롤 속도 느려짐
+        "TAMER_APPEAR_TIME" : 1,
         "MAP_SCROLL_SPEED_DOWN_ACCEL" : 350,
 
         // 액티브 스킬 글로벌 쿨타임(테이머 스킬 포함)
