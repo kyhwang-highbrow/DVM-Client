@@ -4,6 +4,7 @@
 UI_GameDPS = class(UI, {
         m_world = '',
 		m_dpsTimer = 'timer',
+		m_bShow = 'bool',
      })
 
 -------------------------------------
@@ -12,6 +13,7 @@ UI_GameDPS = class(UI, {
 function UI_GameDPS:init(world)
     self.m_world = world
 	self.m_dpsTimer = 0
+	self.m_bShow = true
 
 	local vars = self:load('ingame_dps_info.ui')
 
@@ -53,7 +55,7 @@ function UI_GameDPS:initUI()
 			vars['dpsGauge' .. i]:setVisible(false)
 		end
 	end
-
+	
 	-- 자체적으로 업데이트를 돌린다.
 	self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
@@ -64,7 +66,7 @@ end
 -------------------------------------
 function UI_GameDPS:initButton()
 	local vars = self.vars
-
+	vars['dpsBtn']:registerScriptTapHandler(function() self:click_dpsBtn() end)
 end
 
 -------------------------------------
@@ -116,4 +118,27 @@ function UI_GameDPS:update(dt)
 			vars['dpsGauge' .. i]:runAction(cc.ProgressTo:create(0.2, percentage))
 		end
 	end
+end
+
+
+-------------------------------------
+-- function click_dpsBtn
+-------------------------------------
+function UI_GameDPS:click_dpsBtn()
+	local vars = self.vars
+	local root_node = self.root
+
+    vars['dpsBtn']:stopAllActions()
+    root_node:stopAllActions()
+    local duration = 0.3
+
+    if self.m_bShow then
+        root_node:runAction(cc.MoveTo:create(duration, cc.p(-170, 0)))
+        vars['dpsBtn']:runAction(cc.RotateTo:create(duration, 180))
+    else
+        root_node:runAction(cc.MoveTo:create(duration, cc.p(0, 0)))
+        vars['dpsBtn']:runAction(cc.RotateTo:create(duration, 360))
+    end
+
+	self.m_bShow = not self.m_bShow
 end

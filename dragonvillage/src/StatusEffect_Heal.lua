@@ -46,6 +46,14 @@ function StatusEffect_Heal:initState()
 end
 
 -------------------------------------
+-- function onStart_StatusEffect
+-------------------------------------
+function StatusEffect_Heal:onStart_StatusEffect()
+	-- @TODO hael 애니메이션으로 인한 구조적 문제에 대한 임시방편 처리
+	self.m_durationTimer = self.m_durationTimer + self.m_animator:getDuration()
+end
+
+-------------------------------------
 -- function st_idle
 -------------------------------------
 function StatusEffect_Heal.st_idle(owner, dt)
@@ -67,7 +75,6 @@ function StatusEffect_Heal:doHeal()
 	-- 상대 체력의 n% 회복
 	if (self.m_healType == 'hp_target') then 
 		self.m_owner:healPercent(self.m_healRate)
-
 	elseif (self.m_healType == 'hp_abs') then 
 		self.m_owner:healAbs(self.m_healAbs)
 
