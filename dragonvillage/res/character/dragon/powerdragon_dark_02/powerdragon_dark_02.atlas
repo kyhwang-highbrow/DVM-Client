@@ -6,126 +6,133 @@ filter: Linear,Linear
 repeat: none
 powerdragon_dark_02_arm_01
   rotate: true
-  xy: 131, 9
+  xy: 390, 55
   size: 78, 113
   orig: 78, 113
   offset: 0, 0
   index: -1
 powerdragon_dark_02_arm_02
   rotate: true
-  xy: 390, 150
+  xy: 390, 135
   size: 104, 191
   orig: 104, 191
   offset: 0, 0
   index: -1
 powerdragon_dark_02_arm_03
   rotate: true
-  xy: 2, 9
+  xy: 868, 161
   size: 78, 127
   orig: 78, 127
   offset: 0, 0
   index: -1
 powerdragon_dark_02_arm_04
   rotate: true
-  xy: 583, 137
+  xy: 583, 122
   size: 117, 165
   orig: 117, 165
   offset: 0, 0
   index: -1
 powerdragon_dark_02_body_01
   rotate: false
-  xy: 2, 89
+  xy: 2, 74
   size: 213, 165
   orig: 213, 165
   offset: 0, 0
   index: -1
 powerdragon_dark_02_body_02
   rotate: false
-  xy: 496, 61
+  xy: 792, 42
   size: 81, 87
   orig: 81, 87
   offset: 0, 0
   index: -1
 powerdragon_dark_02_body_03
-  rotate: false
-  xy: 975, 104
+  rotate: true
+  xy: 875, 38
   size: 47, 59
   orig: 47, 59
   offset: 0, 0
   index: -1
 powerdragon_dark_02_body_04
-  rotate: true
-  xy: 975, 165
+  rotate: false
+  xy: 297, 40
   size: 89, 47
   orig: 89, 47
   offset: 0, 0
   index: -1
 powerdragon_dark_02_effect_04
   rotate: false
-  xy: 217, 104
+  xy: 217, 89
   size: 171, 150
   orig: 171, 150
   offset: 0, 0
   index: -1
+powerdragon_dark_02_effect_05
+  rotate: true
+  xy: 2, 3
+  size: 69, 167
+  orig: 69, 167
+  offset: 0, 0
+  index: -1
 powerdragon_dark_02_eye_01
   rotate: false
-  xy: 418, 38
-  size: 38, 39
-  orig: 38, 39
+  xy: 936, 42
+  size: 38, 52
+  orig: 38, 52
   offset: 0, 0
   index: -1
 powerdragon_dark_02_head_01
   rotate: false
-  xy: 750, 146
+  xy: 750, 131
   size: 116, 108
   orig: 116, 108
   offset: 0, 0
   index: -1
 powerdragon_dark_02_head_02
   rotate: false
-  xy: 868, 160
+  xy: 685, 26
   size: 105, 94
   orig: 105, 94
   offset: 0, 0
   index: -1
 powerdragon_dark_02_head_03
   rotate: false
-  xy: 355, 14
+  xy: 935, 96
   size: 61, 63
   orig: 61, 63
   offset: 0, 0
   index: -1
 powerdragon_dark_02_head_04
   rotate: false
-  xy: 579, 2
+  xy: 171, 2
   size: 61, 70
   orig: 61, 70
   offset: 0, 0
   index: -1
 powerdragon_dark_02_leg_01
-  rotate: true
-  xy: 579, 74
+  rotate: false
+  xy: 234, 10
   size: 61, 77
   orig: 61, 77
   offset: 0, 0
   index: -1
 powerdragon_dark_02_leg_02
-  rotate: true
-  xy: 658, 77
+  rotate: false
+  xy: 875, 87
   size: 58, 72
   orig: 58, 72
   offset: 0, 0
   index: -1
 powerdragon_dark_02_wing_01
   rotate: true
-  xy: 246, 12
+  xy: 576, 30
   size: 90, 107
   orig: 90, 107
   offset: 0, 0
   index: -1
 powerdragon_dark_02_wing_02
-  rotate: true
-  xy: 390, 79
+  rotate: false
+  xy: 505, 29
   size: 69, 104
   orig: 69, 104
   offset: 0, 0

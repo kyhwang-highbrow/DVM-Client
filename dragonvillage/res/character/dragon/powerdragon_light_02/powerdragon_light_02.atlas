@@ -6,7 +6,7 @@ filter: Linear,Linear
 repeat: none
 powerdragon_light_02_arm_01
   rotate: true
-  xy: 131, 9
+  xy: 2, 9
   size: 78, 113
   orig: 78, 113
   offset: 0, 0
@@ -20,9 +20,9 @@ powerdragon_light_02_arm_02
   index: -1
 powerdragon_light_02_arm_03
   rotate: true
-  xy: 2, 9
-  size: 78, 127
-  orig: 78, 127
+  xy: 117, 9
+  size: 78, 113
+  orig: 78, 113
   offset: 0, 0
   index: -1
 powerdragon_light_02_arm_04
@@ -48,7 +48,7 @@ powerdragon_light_02_body_02
   index: -1
 powerdragon_light_02_body_03
   rotate: false
-  xy: 975, 104
+  xy: 341, 43
   size: 47, 59
   orig: 47, 59
   offset: 0, 0
@@ -69,9 +69,9 @@ powerdragon_light_02_effect_04
   index: -1
 powerdragon_light_02_eye_01
   rotate: false
-  xy: 418, 38
-  size: 38, 39
-  orig: 38, 39
+  xy: 455, 23
+  size: 38, 54
+  orig: 38, 54
   offset: 0, 0
   index: -1
 powerdragon_light_02_head_01
@@ -89,8 +89,8 @@ powerdragon_light_02_head_02
   offset: 0, 0
   index: -1
 powerdragon_light_02_head_03
-  rotate: false
-  xy: 355, 14
+  rotate: true
+  xy: 390, 16
   size: 61, 63
   orig: 61, 63
   offset: 0, 0
@@ -118,7 +118,7 @@ powerdragon_light_02_leg_02
   index: -1
 powerdragon_light_02_wing_01
   rotate: true
-  xy: 246, 12
+  xy: 232, 12
   size: 90, 107
   orig: 90, 107
   offset: 0, 0
