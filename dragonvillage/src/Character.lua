@@ -128,6 +128,11 @@ Character = class(PARENT, {
         m_aiParamNum = '',
         m_sortValue = '',				-- 타겟 찾기 등의 정렬에서 임의로 사용
         m_sortRandomIdx = '',			-- 타겟 찾기 등의 정렬에서 임의로 사용
+
+
+        -- 로밍 임시 처리
+        m_bRoam = 'boolean',
+        m_roamTimer = 'number',
      })
 
 local SpasticityTime = 0.2
@@ -171,6 +176,9 @@ function Character:init(file_name, body, ...)
     self.m_homePosY = 0
 
     self.m_movement = nil
+
+    self.m_bRoam = false
+    self.m_roamTimer = 0
 end
 
 -------------------------------------
@@ -1272,6 +1280,19 @@ function Character:update(dt)
             self:setSpasticity(false)
         else
             return
+        end
+    end
+
+    -- 로밍 임시 처리
+    if (not self.m_bDead and self.m_world.m_gameState:isFight() and self.m_bRoam) then
+        if (self.m_roamTimer <= 0) then
+            self.m_roamTimer = math_random(15, 30) / 10 + (math_random(0, 10) * 0.1)
+
+            -- 랜덤한 위치를 뽑는다
+            local pos = getRandomWorldEnemyPos(self)
+            self:changeHomePosByTime(pos.x, pos.y, self.m_roamTimer)
+        else
+            self.m_roamTimer = self.m_roamTimer - dt
         end
     end
 

@@ -208,3 +208,37 @@ function getWorldEnemyPos(enemy, key)
 
     return pos
 end
+
+-------------------------------------
+-- function getRandomEnemyPos
+-- @brief 적군의 상대 위치(현재 월드의 scale을 반영)
+-------------------------------------
+function getRandomWorldEnemyPos(enemy)
+    local temp1 = {'R'}
+    local temp2 = {'F', 'M', 'B'}
+    local temp3 = {'1', '2'}
+    local temp4 = {'1', '2', '3', '4', '5', '6', '7'}
+
+    local temp1 = randomShuffle(temp1)
+    local temp2 = randomShuffle(temp2)
+    local temp3 = randomShuffle(temp3)
+    local temp4 = randomShuffle(temp4)
+
+    local key = temp1[1] ..temp2[1] .. temp3[1] .. temp4[1]
+    cclog('getRandomWorldEnemyPos key = ' .. key)
+
+    -- 현재 월드의 scale을 얻어옴
+    local world_scale = enemy.m_world.m_worldScale
+    local pos = clone(ENEMY_POS[key])
+
+    -- 절대위치에 scale을 적용
+    pos.x = pos.x / world_scale
+    pos.y = pos.y / world_scale
+
+    -- 현재 카메라 위치를 기준으로 하는 상대 좌표로 변경
+    local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+    pos['x'] = pos['x'] + cameraHomePosX
+    pos['y'] = pos['y'] + cameraHomePosY
+
+    return pos
+end
