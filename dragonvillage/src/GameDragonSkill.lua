@@ -12,6 +12,7 @@ GameDragonSkill = class(PARENT, {
         
         -- 스킬을 사용할 드래곤 정보
         m_dragon = 'Dragon',
+        m_bonusLevel = 'number',
                 
         m_skillOpeningCutBg = 'Animator',
         m_skillOpeningCutTop = 'Animator',
@@ -31,6 +32,7 @@ function GameDragonSkill:init(world)
     self.m_state = GAME_DRAGON_SKILL_WAIT
 
     self.m_dragon = nil
+    self.m_bonusLevel = 0
     
     self:initState()
     self:initUI()
@@ -329,6 +331,26 @@ function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
     self.m_skillOpeningCutTop:changeAni('scene_1', false)
     self.m_skillOpeningCutTop:setPosition(0, 0)
     self.m_skillOpeningCutTop:setVisible(true)
+
+    -- 보너스 레벨에 따른 문구를 해당 소켓에 붙임
+    if (self.m_bonusLevel > 0) then
+        local textNode = self.m_skillOpeningCutTop.m_node:getSocketNode('text')
+        local animator = MakeAnimator('res/effect/skill_decision/skill_decision.vrp')
+        textNode:removeAllChildren()
+        textNode:addChild(animator.m_node)
+
+        local level
+        if (self.m_bonusLevel == 1) then
+            level = 'good'
+        elseif (self.m_bonusLevel == 2) then
+            level = 'great'
+        end
+
+        animator:changeAni(level .. '_appear', false)
+        animator:addAniHandler(function()
+            animator:changeAni(level .. '_idle', true)
+        end)
+    end
 end
 
 -------------------------------------
@@ -412,6 +434,12 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         local dragon = arg[1]
 
         self.m_dragon = dragon
+
+        -- 보너스 레벨 설정
+        local active_skill_id = dragon:getSkillID('active')
+        local t_skill = TableDragonSkill():get(active_skill_id)
+        local score = self.m_dragon.m_skillIndicator.m_resultScore
+        self.m_bonusLevel = SkillHelper:getDragonActiveSkillBonusLevel(t_skill, score)
 
         self:changeState(GAME_DRAGON_SKILL_LIVE)
 
