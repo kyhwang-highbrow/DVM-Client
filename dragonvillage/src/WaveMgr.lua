@@ -37,13 +37,7 @@ function WaveMgr:init(world, stage_name, develop_mode)
     self.m_stageName = stage_name
 	
     -- 파일에서 웨이브 정보를 얻어옴
-    local script = TABLE:loadJsonTable(stage_name)
-    if (not script) then
-        error('script is nil : ' .. stage_name)
-    end
-
-	-- 멤버 변수
-    self.m_scriptData = script
+    self:getScriptData()
 
     self.m_currWave = 0
     self.m_maxWave = 0
@@ -250,7 +244,6 @@ function WaveMgr:setDynamicWave(l_wave, l_data, is_regen_wave)
 			table.insert(l_wave, dynamic_wave)
 		end
 	end
-
 end
 
 -------------------------------------

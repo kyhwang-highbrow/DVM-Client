@@ -133,6 +133,9 @@ Character = class(PARENT, {
         -- 로밍 임시 처리
         m_bRoam = 'boolean',
         m_roamTimer = 'number',
+
+		-- 몬스터가 아이템을 드랍하는지 여부
+        m_hasItem = 'boolean',
      })
 
 local SpasticityTime = 0.2
@@ -179,6 +182,7 @@ function Character:init(file_name, body, ...)
 
     self.m_bRoam = false
     self.m_roamTimer = 0
+    self.m_hasItem = false
 end
 
 -------------------------------------

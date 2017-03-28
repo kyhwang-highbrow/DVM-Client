@@ -155,6 +155,7 @@ local t_module = {
     'TableStageMission',
     'TableCalendar',
     'TableOption',
+    'TableDropIngame',
 
     -- Interface
     'IEventDispatcher',

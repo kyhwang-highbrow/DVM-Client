@@ -18,6 +18,7 @@ DynamicWave = class({
         m_luaValue3 = '',
         
         m_enemyLevel = '',
+        m_hasItem = 'boolean',
 
 		m_regenWaveInfo = 'table',
     })
@@ -29,9 +30,25 @@ function DynamicWave:init(wave_mgr, data, delay)
     self.m_waveMgr = wave_mgr
     self.m_dynamicTimer = -1
 	self.m_regenWaveInfo = nil
+    self.m_hasItem = false
 
-    -- data ex : "300202;1;test;T7;R5"
-    local l_str = seperate(data, ';')
+    
+    local l_data = seperate(data, '@')
+    local data_
+    if l_data then
+		-- data ex : "300202;1;test;T7;R5@item"
+        data_ = l_data[1]
+
+        -- 두 번째 값이 item으로 설정되었을 경우 아이템을 
+        if (l_data[2] == 'item') then
+            self.m_hasItem = true
+        end
+    else
+        data_ = data
+    end
+
+    -- data_ ex : "300202;1;test;T7;R5"
+    local l_str = seperate(data_, ';')
 
     local enemy_id = l_str[1]   -- 적군 ID
     local level = l_str[2]   -- 적군 레벨
@@ -89,5 +106,10 @@ function DynamicWave:update(dt)
 		if (self.m_regenWaveInfo) then
 			monster:setRegenInfo(self.m_regenWaveInfo)
 		end
+
+        -- 아이템을 드랍하는 몬스터라면
+        if self.m_hasItem then
+            monster.m_hasItem = true
+        end
     end
 end

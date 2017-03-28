@@ -300,7 +300,8 @@ function GameWorld:initGame(stage_name)
         self.m_skillIndicatorMgr = SkillIndicatorMgr(self)
     end
 
-    do -- 드랍 아이템 매니져 생성
+    -- 드랍 아이템 매니져 생성
+    if (self.m_gameMode == GAME_MODE_ADVENTURE) then
         self.m_dropItemMgr = DropItemMgr(self)
     end
 
@@ -721,7 +722,9 @@ function GameWorld:addEnemy(enemy)
     --cclog('GameWorld:addEnemy(enemy) cnt : ' .. #self.m_tEnemyList)
 
     -- 죽음 콜백 등록
-    enemy:addListener('character_dead', self.m_dropItemMgr)
+    if self.m_dropItemMgr then
+        enemy:addListener('character_dead', self.m_dropItemMgr)
+    end
     
     -- 등장 완료 콜백 등록
     enemy:addListener('enemy_appear_done', self.m_gameState)

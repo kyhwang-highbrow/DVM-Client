@@ -1905,6 +1905,9 @@
     <None Include="..\src\NumberLabel_Pumping.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableDropIngame.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
