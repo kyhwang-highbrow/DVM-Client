@@ -151,6 +151,7 @@ end
 -------------------------------------
 function DropItemMgr:dropItem(x, y)
     local item = DropItem(nil, {0, 0, 15})
+    item.m_world = self.m_world
     item:init_item('item_marbl')
     item:initState()
     item:setPosition(x + math_random(-50, 50), y + math_random(-50, 50))
@@ -175,10 +176,26 @@ end
 -------------------------------------
 function DropItemMgr:cleanupItem()
     for i, v in ipairs(self.m_lItemlist) do
-        v:changeState('dying')
+        if (not v.m_bObtained) then
+            v:changeState('dying')
+        end
     end
 
     self.m_selectItem = nil
+end
+
+-------------------------------------
+-- function allOptain
+-------------------------------------
+function DropItemMgr:allOptain()
+    for i,item in pairs(self.m_lItemlist) do
+        if (not item:isObtained()) then
+            local type, count = self.m_tableDropIngame:decideDropItem(self.m_chapterID)
+            item:setObtained(type, count)
+            item:makeObtainEffect()
+            item:changeState('dying')
+        end
+    end
 end
 
 -------------------------------------
@@ -257,46 +274,12 @@ end
 -- function obtainItem
 -------------------------------------
 function DropItemMgr:obtainItem(item)
-    if (item:isObtained()) then return end
-
-    item:setObtained()
-
-    -- 인터미션 때 이동하는 것 멈춤
-    local action_tag = 1000
-    cca.stopAction(item.m_rootNode, action_tag)
+    if (item:isObtained()) then
+        return
+    end
 
     local type, count = self.m_tableDropIngame:decideDropItem(self.m_chapterID)
-    local res = 'res/ui/icon/inbox/inbox_' .. type .. '.png'
-    if (res) then
-        local node = cc.Node:create()
-        node:setPosition(item.pos.x, item.pos.y)
-        self.m_world:addChild3(node, DEPTH_ITEM_GOLD)
-
-        local icon = cc.Sprite:create(res)
-        if (icon) then
-            icon:setPositionX(-15)
-            icon:setDockPoint(cc.p(0.5, 0.5))
-            icon:setAnchorPoint(cc.p(0.5, 0.5))
-            node:addChild(icon)
-        end
-
-        local label = cc.Label:createWithBMFont('res/font/normal.fnt', '+' .. count)
-        if (label) then
-            local string_width = label:getStringWidth()
-            local offset_x = (string_width / 2)
-            label:setPositionX(offset_x)
-            label:setDockPoint(cc.p(0.5, 0.5))
-            label:setAnchorPoint(cc.p(0.5, 0.5))
-            label:setColor(cc.c3b(255, 255, 255))
-            node:addChild(label)
-        end
-
-        local delay_time = 0.2
-        node:setVisible(false)
-        node:runAction(cc.Sequence:create(cc.DelayTime:create(delay_time), cc.FadeIn:create(0.3), cc.DelayTime:create(0.2), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
-        node:runAction(cc.Sequence:create(cc.DelayTime:create(delay_time), cc.EaseIn:create(cc.MoveBy:create(1, cc.p(0, 80)), 1)))
-        node:runAction(cc.Sequence:create(cc.DelayTime:create(delay_time), cc.Show:create()))
-    end
+    item:setObtained(type, count)
 
     -- 정보 저장
     table.insert(self.m_optainedItemList, {type, count})

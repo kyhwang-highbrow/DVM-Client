@@ -4,9 +4,11 @@ local PARENT = Entity
 -- class DropItem
 -------------------------------------
 DropItem = class(PARENT, {
+    m_world = '',
     m_type = 'string',
-
     m_bObtained = 'boolean',
+    m_itemType = 'string',
+    m_itemCount = 'number',
 })
 
 -------------------------------------
@@ -134,10 +136,47 @@ end
 -------------------------------------
 -- function setObtained
 -------------------------------------
-function DropItem:setObtained()
+function DropItem:setObtained(item_type, item_count)
     self.m_bObtained = true
+    self.m_itemType = item_type
+    self.m_itemCount = item_count
+end
 
-    self:changeState('wait')
+-------------------------------------
+-- function makeObtainEffect
+-- @brief
+-------------------------------------
+function DropItem:makeObtainEffect()
+    local type, count = self.m_itemType, self.m_itemCount
+
+    local res = 'res/ui/icon/inbox/inbox_' .. type .. '.png'
+    if (res) then
+        local node = cc.Node:create()
+        node:setPosition(self.pos.x, self.pos.y)
+        self.m_world:addChild3(node, DEPTH_ITEM_GOLD)
+
+        local icon = cc.Sprite:create(res)
+        if (icon) then
+            icon:setPositionX(-15)
+            icon:setDockPoint(cc.p(0.5, 0.5))
+            icon:setAnchorPoint(cc.p(0.5, 0.5))
+            node:addChild(icon)
+        end
+
+        local label = cc.Label:createWithBMFont('res/font/normal.fnt', '+' .. count)
+        if (label) then
+            local string_width = label:getStringWidth()
+            local offset_x = (string_width / 2)
+            label:setPositionX(offset_x)
+            label:setDockPoint(cc.p(0.5, 0.5))
+            label:setAnchorPoint(cc.p(0.5, 0.5))
+            label:setColor(cc.c3b(255, 255, 255))
+            node:addChild(label)
+        end
+
+        node:runAction(cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.2), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
+        node:runAction(cc.Sequence:create(cc.EaseIn:create(cc.MoveBy:create(1, cc.p(0, 80)), 1)))
+    end
 end
 
 -------------------------------------
@@ -154,8 +193,6 @@ end
 function DropItem:runAction_Floating()
     Character.runAction_Floating(self)
 end
-
-
 
 -------------------------------------
 -- function runAction_Floating

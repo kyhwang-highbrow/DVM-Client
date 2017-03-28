@@ -30,6 +30,7 @@ Tamer = class(PARENT, {
         m_baseAnimatorScale = '',
 
         m_targetItem = 'DropItem',
+        m_targetItemStack = '',
      })
 
 -------------------------------------
@@ -52,6 +53,7 @@ function Tamer:init(file_name, body, ...)
     self.m_baseAnimatorScale = 0.5
 
     self.m_targetItem = nil
+    self.m_targetItemStack = {}
 end
 
 -------------------------------------
@@ -248,48 +250,17 @@ end
 -- @brief 테이머 배회
 -------------------------------------
 function Tamer.st_roam(owner, dt)
+    if owner:checkItemStack() then
+        return
+    end
+
     if (owner.m_stateTimer == 0) then
         owner.m_roamTimer = 0
-
         owner:setAfterImage(false)
     end
 
     if (owner.m_roamTimer <= 0) then
-        local t_random = {}
-        local t_temp = {}
-
-        for y = 1, 7 do
-            for x = 1, 7 do
-                if (not t_temp[tostring(x) .. tostring(y)]) then
-                    local b = false
-                    if (y == 1 or y == 7) then      b = true
-                    elseif (x == 1 or x == 7) then  b = true
-                    end
-
-                    if (b) then
-                        table.insert(t_random, { x = x, y = y })
-                        t_temp[tostring(x) .. tostring(y)] = true
-                    end
-                end
-            end
-        end
-
-        t_random = randomShuffle(t_random)
-
-        local random = t_random[1]
-        local tar_x = random['x'] * 70
-        local tar_y = random['y'] * 80 - 280
-        local tar_z = TAMER_Z_POS
-        local cameraHomePosX, cameraHomePosY = owner.m_world.m_gameCamera:getHomePos()
-        tar_x = (tar_x + cameraHomePosX)
-        tar_y = (tar_y + cameraHomePosY)
-
-        local course = math_random(-1, 1)
-
-        -- 화면 좌측일 경우 곡선이동이 화면 밖으로 나가지 않도록 임시 처리...a
-        if (random['x'] == 1 or random['y'] == 1 or random['x'] == 7) then
-            course = 0
-        end
+        local tar_x, tar_y, tar_z, course = owner:getRoamPos()
 
         local time = math_random(15, 30) / 10
         local bezier = getBezier(tar_x, tar_y, owner.pos.x, owner.pos.y, course)
@@ -307,6 +278,71 @@ function Tamer.st_roam(owner, dt)
 end
 
 -------------------------------------
+-- function getRoamPos
+-- @brief 테이머 배회
+-------------------------------------
+function Tamer:getRoamPos()
+    local t_random = {}
+    local t_temp = {}
+
+    for y = 1, 7 do
+        for x = 1, 7 do
+            if (not t_temp[tostring(x) .. tostring(y)]) then
+                local b = false
+                if (y == 1 or y == 7) then      b = true
+                elseif (x == 1 or x == 7) then  b = true
+                end
+
+                if (b) then
+                    table.insert(t_random, { x = x, y = y })
+                    t_temp[tostring(x) .. tostring(y)] = true
+                end
+            end
+        end
+    end
+
+    t_random = randomShuffle(t_random)
+
+    local random = t_random[1]
+    local tar_x = random['x'] * 70
+    local tar_y = random['y'] * 80 - 280
+    local tar_z = TAMER_Z_POS
+    local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
+    tar_x = (tar_x + cameraHomePosX)
+    tar_y = (tar_y + cameraHomePosY)
+
+    local course = math_random(-1, 1)
+
+    -- 화면 좌측일 경우 곡선이동이 화면 밖으로 나가지 않도록 임시 처리...a
+    if (random['x'] == 1 or random['y'] == 1 or random['x'] == 7) then
+        course = 0
+    end
+
+    return tar_x, tar_y, tar_z, course
+end
+
+-------------------------------------
+-- function checkItemStack
+-- @brief
+-------------------------------------
+function Tamer:checkItemStack()
+    if self.m_targetItemStack[1] then
+
+        if self.m_targetItem then
+            self.m_targetItem:makeObtainEffect()
+            self.m_targetItem:changeState('dying')
+        end
+
+        self.m_targetItem = self.m_targetItemStack[1]
+        table.remove(self.m_targetItemStack, 1)
+        self:changeState('bring', true)
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function st_bring
 -- @brief 드랍아이템을 가져오는 연출
 -------------------------------------
@@ -317,7 +353,9 @@ function Tamer.st_bring(owner, dt)
         local prevPosY = owner.pos.y
         local prevScale = owner.m_rootNode:getScale()
 
-        local time1 = 0.2
+        local distance = getDistance(owner.m_targetItem.pos.x, owner.m_targetItem.pos.y, owner.pos.x, owner.pos.y)
+        local speed = 1000
+        local time1 = (distance / speed)
         --local move_action1 = cc.MoveTo:create(time1, cc.p(owner.m_targetItem.pos.x, owner.m_targetItem.pos.y))
         local bezier1 = getBezier(owner.m_targetItem.pos.x, owner.m_targetItem.pos.y, owner.pos.x, owner.pos.y, 1)
         local move_action1 = cc.BezierBy:create(time1, bezier1)
@@ -325,6 +363,13 @@ function Tamer.st_bring(owner, dt)
         local callFunc_action1 = cc.CallFunc:create(function()
             owner:runAction_MoveZ(time1, 0)
             owner:setAfterImage(false)
+        end)
+
+        local callFunc_checkItemStack = cc.CallFunc:create(function()
+            owner.m_targetItem:makeObtainEffect()
+            owner.m_targetItem:changeState('dying')
+            owner.m_targetItem = nil
+            owner:checkItemStack()
         end)
 
         local time2 = 0.3
@@ -336,8 +381,9 @@ function Tamer.st_bring(owner, dt)
         owner.m_rootNode:stopAllActions()
         owner.m_rootNode:runAction(cc.Sequence:create(
             cc.Spawn:create(move_action1, callFunc_action1),
+            callFunc_checkItemStack,
             cc.DelayTime:create(0.6),
-            cc.Spawn:create(move_action2, callFunc_action2),
+            --cc.Spawn:create(move_action2, callFunc_action2),
             cc.CallFunc:create(function()
                 owner:changeState('roam')
             end)
@@ -416,6 +462,8 @@ function Tamer.st_wait(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner.m_rootNode:stopAllActions()
     end
+
+    owner:checkItemStack()
 end
 
 -------------------------------------
@@ -424,6 +472,7 @@ end
 -------------------------------------
 function Tamer.st_success_pose(owner, dt)
     if (owner.m_stateTimer == 0) then
+        owner:stopAllActions()
         owner:addAniHandler(function()
             owner.m_animator:changeAni('i_idle', true)
         end)
@@ -439,6 +488,7 @@ end
 -------------------------------------
 function Tamer.st_success_move(owner, dt)
     if (owner.m_stateTimer == 0) then
+        owner:stopAllActions()
         --local add_speed = (owner.pos['y'] / -100) * 100
         local add_speed = math_random(-2, 2) * 100
         owner:setMove(owner.pos.x + 2000, owner.pos.y, 1500 + add_speed)
@@ -679,7 +729,27 @@ end
 -- function doBringItem
 -------------------------------------
 function Tamer:doBringItem(item)
-    self.m_targetItem = item
+    table.insert(self.m_targetItemStack, item)
 
+    --[[
+    self.m_targetItem = item
     self:changeState('bring')
+    --]]
+
+    if (self.m_state == 'roam') then
+        self:checkItemStack()
+    end
+end
+
+-------------------------------------
+-- function stopAllActions
+-------------------------------------
+function Tamer:stopAllActions()
+    PARENT.stopAllActions(self)
+
+    if self.m_targetItem then
+        self.m_targetItem:makeObtainEffect()
+        self.m_targetItem:changeState('dying')
+        self.m_targetItem = nil
+    end
 end

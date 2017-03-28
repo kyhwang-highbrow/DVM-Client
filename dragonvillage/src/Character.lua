@@ -1397,7 +1397,9 @@ end
 function Character:changeHomePosByTime(x, y, time)
     self:setHomePos(x, y)
 
-    if (self.m_state == 'delegate') then return end
+    if (self.m_state == 'delegate') then
+        return
+    end
 
     -- 거리를 계산하여 속도를 구함
     local cur_x, cur_y = self.pos.x, self.pos.y

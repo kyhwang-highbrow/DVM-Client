@@ -604,6 +604,11 @@ function GameState.update_success(self, dt)
 
         world.m_tamer:changeState('success_pose')
 
+        -- 모든 아이템 획득
+        if world.m_dropItemMgr then
+            world.m_dropItemMgr:allOptain()
+        end
+
         for i,enemy in ipairs(world:getEnemyList()) do
             if (enemy.m_bDead == false) then
                 enemy:changeState('idle', true)
