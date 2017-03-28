@@ -1,5 +1,7 @@
 local PARENT = class(Entity, IEventListener:getCloneTable(), IEventDispatcher:getCloneTable(), IDragonSkillManager:getCloneTable())
 
+local CHARACTER_ACTION_TAG__ROAM = 0
+
 local CHARACTER_ACTION_TAG__SHAKE = 1
 local CHARACTER_ACTION_TAG__KNOCKBACK = 2
 local CHARACTER_ACTION_TAG__SHADER = 3
@@ -1291,16 +1293,32 @@ function Character:update(dt)
     end
 
     -- 로밍 임시 처리
-    if (not self.m_bDead and self.m_world.m_gameState:isFight() and self.m_bRoam) then
+    if (not self.m_bDead and not self.m_temporaryPause and self.m_world.m_gameState:isFight() and self.m_bRoam) then
         if (self.m_roamTimer <= 0) then
-            self.m_roamTimer = math_random(15, 30) / 10 + (math_random(0, 10) * 0.1)
+            local time_range =  g_constant:get('INGAME', 'ENEMY_ROAM_TIME_RANGE')
+            local time = math_random(time_range[1] * 10, time_range[2] * 10) / 10
 
             -- 랜덤한 위치를 뽑는다
-            local pos = getRandomWorldEnemyPos(self)
-            self:changeHomePosByTime(pos.x, pos.y, self.m_roamTimer)
+            local tar = getRandomWorldEnemyPos(self)
+            --self:changeHomePosByTime(tar.x, tar.y, self.m_roamTimer)
+
+            local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
+            tar.x = (tar.x + cameraHomePosX)
+            tar.y = (tar.y + cameraHomePosY)
+
+            local bezier_range =  g_constant:get('INGAME', 'ENEMY_ROAM_BEZIER_RANGE')
+            local distance = math_random(bezier_range[1], bezier_range[2])
+            local bezier = getRandomBezier(tar.x, tar.y, self.pos.x, self.pos.y, distance)
+            local move_action = cc.BezierBy:create(time, bezier)
+
+            self:setHomePos(tar.x, tar.y)
+            cca.runAction(self.m_rootNode, move_action, CHARACTER_ACTION_TAG__ROAM)
+
+            self.m_roamTimer = time
         else
             self.m_roamTimer = self.m_roamTimer - dt
         end
+        self:syncAniAndPhys()
     end
 
     self:updateMove(dt)
@@ -2062,9 +2080,15 @@ function Character:setTemporaryPause(pause)
         if (pause) then
             cca.stopAction(target_node, CHARACTER_ACTION_TAG__FLOATING)
 
+            if (self.m_bRoam) then
+                cca.stopAction(self.m_rootNode, CHARACTER_ACTION_TAG__ROAM)
+            end
         else
             self:runAction_Floating()
             
+            if (self.m_bRoam) then
+                self.m_roamTimer = 0
+            end
         end
     end
 end

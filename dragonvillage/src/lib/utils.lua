@@ -640,6 +640,34 @@ function getBezier(tar_x, tar_y, pos_x, pos_y, course)
 end
 
 -------------------------------------
+-- function getRandomBezier
+-------------------------------------
+function getRandomBezier(tar_x, tar_y, pos_x, pos_y, distance)
+	local dist_x = tar_x - pos_x
+	local dist_y = tar_y - pos_y
+
+	local temp_x1 = dist_x/3
+	local temp_y1 = dist_y/3
+
+	local temp_x2 = temp_x1 * 2
+	local temp_y2 = temp_y1 * 2
+
+	local degree = getDegree(pos_x, pos_y, tar_x, tar_y)
+	local angle = degree + 90 * (math_random(0, 2) - 1)
+	--local distance = getDistance(tar_x, tar_y, pos_x, pos_y)/3
+	
+	local move_size = getPointFromAngleAndDistance(angle, distance)
+
+    local bezier = {
+        cc.p(temp_x1 + move_size['x'], temp_y1 + move_size['y']),
+        cc.p(temp_x2 + move_size['x'], temp_y2 + move_size['y']),
+        cc.p(dist_x, dist_y),
+    }
+
+	return bezier
+end
+
+-------------------------------------
 -- function getBezierPosList
 -------------------------------------
 function getBezierPosList(tar_x, tar_y, pos_x, pos_y, course)

@@ -107,9 +107,9 @@ function GameDragonSkill.update_live(self, dt)
             ui.root:setVisible(false)
 
             -- 하이라이트 활성화
-            world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
+            world.m_gameHighlight:setActive(true)
             world.m_gameHighlight:changeDarkLayerColor(254, 0)
-            world.m_gameHighlight:setVisible(true)
+            world.m_gameHighlight:setVisible(false)
             
             -- 일시 정지
             world:setTemporaryPause(true)
@@ -121,37 +121,85 @@ function GameDragonSkill.update_live(self, dt)
         end
 
     elseif (self:getStep() == 1) then
-        --[[
-        if (self:isBeginningStep()) then
-            self.m_skillOpeningCutBg:changeAni('scene_2', false)
-            self.m_skillOpeningCutBg:addAniHandler(function()
-                self.m_skillOpeningCutBg:setVisible(false)
-                self.m_skillOpeningCutTop:setVisible(false)
-
-                self:nextStep()
-            end)
-            self.m_skillOpeningCutTop:changeAni('scene_2', false)
-            self.m_skillOpeningCutTop:setPosition(dragon.pos.x - CRITERIA_RESOLUTION_X / 2, dragon.pos.y)
-        end
-        ]]--
         if (self:isBeginningStep()) then
             -- UI 표시
             ui.root:setVisible(true)
 
-            self.m_skillOpeningCutBg:setVisible(false)
-            self.m_skillOpeningCutTop:setVisible(false)
+            self.m_skillOpeningCutBg:changeAni('scene_2', false)
+            self.m_skillOpeningCutTop:changeAni('scene_2', false)
 
-            self:nextStep()
+            -- 가상 화면 생성
+            local virtualNode = cc.Node:create()
+            g_gameScene.m_viewLayer:addChild(virtualNode)
+
+            local camera = GameCamera(world, virtualNode)
+            camera:setAction({pos_x = CRITERIA_RESOLUTION_X / 4, pos_y = 0, time = 0, scale = 1.5})
+
+            for i, enemy in ipairs(world:getEnemyList()) do
+                if (not enemy.m_bDead) then
+                    local res = enemy.m_animator.m_resName
+                    local x = enemy.m_orgHomePosX - CRITERIA_RESOLUTION_X / 2
+                    local y = enemy.m_orgHomePosY
+                    local scale = enemy.m_animator:getScale()
+                    local is_flip = enemy.m_animator.m_bFlip
+
+                    -- 적군
+                    local animator = MakeAnimator(res)
+                    animator:setPosition(x, y)
+                    animator:changeAni('idle', true)
+                    animator:setScale(scale)
+                    animator:setFlip(is_flip)
+                    virtualNode:addChild(animator.m_node)
+
+                    -- 이모티콘
+                    local emoticon = MakeAnimator('ui/a2d/enemy_skill_speech/enemy_skill_speech.vrp')
+                    emoticon:setPosition(99, 144)
+                    emoticon:changeAni('base_appear', false)
+                    animator.m_node:addChild(emoticon.m_node)
+                end
+            end
+
+            virtualNode:runAction(cc.Sequence:create(
+                cc.DelayTime:create(1),
+                cc.CallFunc:create(function() self:nextStep() end),
+                cc.RemoveSelf:create()
+            ))
         end
-    
+
     elseif (self:getStep() == 2) then
         if (self:isBeginningStep()) then
             -- 하이라이트
+            world.m_gameHighlight:setVisible(true)
             world.m_gameHighlight:addChar(dragon)
 
             -- 일시 정지
             world:setTemporaryPause(true, dragon)
             
+            self.m_skillOpeningCutBg:setVisible(true)
+            self.m_skillOpeningCutBg:changeAni('scene_3', false)
+            self.m_skillOpeningCutBg:addAniHandler(function()
+                self.m_skillOpeningCutBg:setVisible(false)
+            end)
+
+            self.m_skillOpeningCutTop:setVisible(true)
+            self.m_skillOpeningCutTop:changeAni('scene_3', false)
+            self.m_skillOpeningCutTop:setPosition(dragon.pos.x - CRITERIA_RESOLUTION_X / 2, dragon.pos.y)
+            self.m_skillOpeningCutTop:addAniHandler(function()
+                self.m_skillOpeningCutTop:setVisible(false)
+            end)
+
+            -- 드래곤 승리 애니메이션 및 이동 연출
+            local pos_y = dragon.pos.y
+            dragon.m_animator:changeAni('idle', true)
+            dragon:setPosition(dragon.pos.x, pos_y + 2000)
+            dragon:setMove(dragon.pos.x, pos_y, 4000)
+            
+        elseif (self:isPassedStepTime(1)) then
+            self:nextStep()
+        end
+
+    elseif (self:getStep() == 3) then
+        if (self:isBeginningStep()) then
             -- 드래곤 승리 애니메이션
             dragon.m_animator:changeAni('skill_idle', false)
 
@@ -167,7 +215,7 @@ function GameDragonSkill.update_live(self, dt)
 
             -- 스킬 사용 직전 이펙트
             do
-                self:makeSkillCutEffect(dragon, delayTime)
+                --self:makeSkillCutEffect(dragon, delayTime)
             end
 
             -- 컷씬
@@ -189,7 +237,7 @@ function GameDragonSkill.update_live(self, dt)
 
         end
 
-    elseif (self:getStep() == 3) then
+    elseif (self:getStep() == 4) then
         local step_time1 = t_dragon_skill_time[2]
         local step_time2 = t_dragon_skill_time[2] + (t_dragon_skill_time[3] / 2)
         local step_time3 = t_dragon_skill_time[2] + t_dragon_skill_time[3]
@@ -204,7 +252,7 @@ function GameDragonSkill.update_live(self, dt)
 
         elseif (self:isPassedStepTime(step_time2)) then
             -- 하이라이트 비활성화
-            world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_HIDE)
+            world.m_gameHighlight:setActive(false)
             world.m_gameHighlight:clear()
 
         elseif (self:isPassedStepTime(step_time3)) then
@@ -232,7 +280,7 @@ function GameDragonSkill.update_live2(self, dt)
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
             -- 하이라이트 활성화
-            world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
+            world.m_gameHighlight:setActive(true)
             world.m_gameHighlight:changeDarkLayerColor(254, 0.1)
             --world.m_gameHighlight:clear()
             world.m_gameHighlight:addChar(dragon)
@@ -251,7 +299,7 @@ function GameDragonSkill.update_live2(self, dt)
         elseif (self:isPassedStepTime(0.1 + time1 + (time2 / 2))) then
 
             -- 하이라이트 비활성화
-            world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_HIDE)
+            world.m_gameHighlight:setActive(false)
             world.m_gameHighlight:clear()
 
             self.m_dragon = nil

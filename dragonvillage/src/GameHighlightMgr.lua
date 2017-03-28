@@ -1,14 +1,11 @@
-GAME_HIGHLIGHT_MODE_HIDE = 0
-GAME_HIGHLIGHT_MODE_DRAGON_SKILL = 1
-GAME_HIGHLIGHT_MODE_FEVER = 2
-
 -------------------------------------
 -- class GameHighlightMgr
 -------------------------------------
 GameHighlightMgr = class({
         m_world = 'GameWorld',
 
-        m_mode = 'number',
+        m_bActive = 'boolean',
+        m_activeCount = 'number',
 
         m_lCharList = 'table',
         m_lMissileList = 'table',
@@ -31,7 +28,8 @@ GameHighlightMgr = class({
 function GameHighlightMgr:init(world)
     self.m_world = world
 
-    self.m_mode = GAME_HIGHLIGHT_MODE_HIDE
+    self.m_bActive = false
+    self.m_activeCount = 0
     
     self.m_lCharList = {}
     self.m_lMissileList = {}
@@ -70,15 +68,30 @@ function GameHighlightMgr:init(world)
 end
 
 -------------------------------------
--- function setMode
+-- function setActive
 -------------------------------------
-function GameHighlightMgr:setMode(mode)
-    if (self.m_mode ~= mode) then
-        self.m_mode = mode        
+function GameHighlightMgr:setActive(b, b_force)
+    if (b) then
+        self.m_activeCount = self.m_activeCount + 1
+    else
+        self.m_activeCount = self.m_activeCount - 1
+
+        if (b_force) then
+            self.m_activeCount = 0
+        end
+    end
+
+    local bActive = (self.m_activeCount > 0)
+    
+    if (self.m_bActive ~= bActive) then
+        self.m_bActive = bActive
         self:clear()
 
-        if (self.m_mode ~= GAME_HIGHLIGHT_MODE_HIDE) then
-            self:addChar(self.m_world.m_tamer)
+        if (self.m_bActive) then
+            -- 테이머는 항상 하이라이트 시킴
+            if (self.m_world.m_tamer) then
+                self:addChar(self.m_world.m_tamer)
+            end
         end
     end
 end
@@ -87,7 +100,7 @@ end
 -- function addChar
 -------------------------------------
 function GameHighlightMgr:addChar(char, zorder)
-    if (self.m_mode == GAME_HIGHLIGHT_MODE_HIDE) then return end
+    if (not self.m_bActive) then return end
     if (char.m_bDead) then return end
     if (char.m_bHighlight) then return end
 
@@ -169,7 +182,7 @@ end
 -- function addMissile
 -------------------------------------
 function GameHighlightMgr:addMissile(missile)
-    if (self.m_mode ~= GAME_HIGHLIGHT_MODE_DRAGON_SKILL) then return end
+    if (not self.m_bActive) then return end
     if (not isInstanceOf(missile, Skill) and not isInstanceOf(missile, Missile) and not isInstanceOf(missile, StatusEffect)) then return end
     
     local node = missile.m_rootNode
@@ -218,7 +231,7 @@ end
 -- @brief 이펙트 형태는 하이라이트 상태를 계속 유지시킴
 -------------------------------------
 function GameHighlightMgr:addEffect(effect)
-    if (self.m_mode ~= GAME_HIGHLIGHT_MODE_DRAGON_SKILL) then return end
+    if (not self.m_bActive) then return end
     
     local node = effect.m_node
     local target_node = self:getHighLightNode(node:getParent())
@@ -234,7 +247,7 @@ end
 -- function addDamage
 -------------------------------------
 function GameHighlightMgr:addDamage(node)
-    if (self.m_mode ~= GAME_HIGHLIGHT_MODE_DRAGON_SKILL) then return end
+    if (not self.m_bActive) then return end
     
     local node = node
     local target_node = self:getHighLightNode(node:getParent())

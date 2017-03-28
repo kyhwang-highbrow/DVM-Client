@@ -421,7 +421,7 @@ function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx)
 	local game_highlight = world.m_gameHighlight
 
 	-- 하이라이트 활성화
-    game_highlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
+    game_highlight:setActive(true)
 
 	-- 하이라이트 대상 추가 (테이머 + 드래곤)
     game_highlight:addChar(self)
@@ -450,7 +450,7 @@ function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx)
 		-- roam상태로 변경
         self:changeStateWithCheckHomePos('roam')
 		-- 하이라이트 비활성화
-        game_highlight:setMode(GAME_HIGHLIGHT_MODE_HIDE)
+        game_highlight:setActive(false)
         game_highlight:clear()
         -- 암전 해제 -> @TODO 암전 해제 연출 살짝 어긋나는건...
 		game_highlight:changeDarkLayerColor(0, 0.2)

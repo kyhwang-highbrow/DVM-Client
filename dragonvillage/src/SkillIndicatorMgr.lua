@@ -225,7 +225,7 @@ function SkillIndicatorMgr:clear(bAll)
 
     -- 스킬이 취소되거나 해서 이후 드래곤 스킬 연출까지 이어지지 않는 경우
     if (bAll) then
-        self.m_world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_HIDE)
+        self.m_world.m_gameHighlight:setActive(false)
         self.m_world.m_gameHighlight:changeDarkLayerColor(0, 0.5)
         self.m_world.m_gameHighlight:clear()
     end
@@ -279,7 +279,7 @@ function SkillIndicatorMgr:setSelectHero(hero)
 
         self.m_world:setTemporaryPause(true, hero)
         self.m_world.m_gameHighlight:clear()
-        self.m_world.m_gameHighlight:setMode(GAME_HIGHLIGHT_MODE_DRAGON_SKILL)
+        self.m_world.m_gameHighlight:setActive(true)
         self.m_world.m_gameHighlight:changeDarkLayerColor(DARK_LAYER_OPACITY, SKILL_INDICATOR_FADE_OUT_DURATION)
         self.m_world.m_gameHighlight:addChar(hero, 5)
         

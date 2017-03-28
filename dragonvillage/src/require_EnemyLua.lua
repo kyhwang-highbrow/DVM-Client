@@ -225,8 +225,7 @@ function getRandomWorldEnemyPos(enemy)
     local temp4 = randomShuffle(temp4)
 
     local key = temp1[1] ..temp2[1] .. temp3[1] .. temp4[1]
-    cclog('getRandomWorldEnemyPos key = ' .. key)
-
+    
     -- 현재 월드의 scale을 얻어옴
     local world_scale = enemy.m_world.m_worldScale
     local pos = clone(ENEMY_POS[key])
