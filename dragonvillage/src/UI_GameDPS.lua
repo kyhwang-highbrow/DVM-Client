@@ -8,8 +8,8 @@ local UI_SCALE = 3/4
 -------------------------------------
 UI_GameDPS = class(PARENT, {
         m_world = '',
+		m_charList = '',
 		m_dpsTimer = 'timer',
-		m_mDragonIconMap = 'map',
 		m_mDpsNodeMap = 'map',
 
 		m_bShow = 'bool',
@@ -28,14 +28,21 @@ function UI_GameDPS:init(world)
     
 	-- 멤버 변수 초기화
 	self.m_world = world
-	self.m_dpsTimer = 0
-	self.m_mDragonIconMap = {}
+	self.m_charList = {}
 	self.m_mDpsNodeMap = {}
+	
+	self.m_dpsTimer = 0
+
 	self.m_bShow = true
 	self.m_bDPS = true
 	self.m_interval = g_constant:get('INGAME', 'DPS_INTERVAL')
 	self.m_bestValue = 1
 	self.m_logKey = 'damage'
+	
+	-- 자체 복사
+	for i, dragon in pairs(world:getDragonList()) do
+		table.insert(self.m_charList, dragon)
+	end
 
 	-- UI 초기화
     self:initUI()
@@ -47,10 +54,9 @@ end
 -------------------------------------
 function UI_GameDPS:initUI()
 	local vars = self.vars
-	local l_dragon = self.m_world:getDragonList()
 
 	for i = 1, 5 do
-		local dragon = l_dragon[i]
+		local dragon = self.m_charList[i]
 		if (dragon) then
 			-- dragon icon
 			local sprite = IconHelper:getDragonIconFromTable(dragon.m_tDragonInfo, dragon.m_charTable)
@@ -98,7 +104,6 @@ end
 -------------------------------------
 function UI_GameDPS:refresh()
 	local lap_time = self.m_world.m_gameState.m_fightTimer
-	local l_dragon = self.m_world:getDragonList()
 		
 	-- 나누기 오류 방지
 	if (lap_time == 0) then
@@ -106,16 +111,16 @@ function UI_GameDPS:refresh()
 	end
 
 	-- 데미지 순서대로 정렬한다 -> 데미지가 0인 경우 공격력 순으로 정렬
-	self:sortByValue(l_dragon, self.m_logKey)
-		
+	self:sortByValue(self.m_charList, self.m_logKey)
+			
 	-- 최고데미지 산출
-	self:findBestValue(l_dragon, self.m_logKey)
+	self:findBestValue(self.m_charList, self.m_logKey)
 
 	-- dps 정보 세팅 및 node 이동
 	local node_data
 	local node
 	local idx
-	for rank, dragon in pairs(l_dragon) do
+	for rank, dragon in pairs(self.m_charList) do
 		node_data = self.m_mDpsNodeMap[dragon]
 		node = node_data['node']
 		idx = node_data['idx']
@@ -123,13 +128,6 @@ function UI_GameDPS:refresh()
 		self:setXpsInfo(dragon, idx, lap_time, self.m_logKey)
 		-- node 이동
 		self:moveDpsNode(node, rank)
-	end
-
-	-- @TEST
-	for dragon, _ in pairs(self.m_mDpsNodeMap) do
-		if dragon.m_bDead then
-			cclog(dragon:getName() .. ' DEAD')
-		end
 	end
 end
 
@@ -160,7 +158,7 @@ function UI_GameDPS:setDpsOrHps()
 	vars['dpsToggleNode']:addChild(sprite)
 
 	-- 타이틀 및 게이지 변경
-	for i, dragon in pairs(self.m_world:getDragonList()) do
+	for i, dragon in pairs(self.m_charList) do
 		vars['titleLabel' .. i]:setString(title_str)
 		
 		vars['dpsGauge' .. i]:setVisible(self.m_bDPS)
@@ -186,8 +184,8 @@ end
 -- function findBestValue
 -- @breif 최고의 누적 수치를 찾는다.
 -------------------------------------
-function UI_GameDPS:findBestValue(l_dragon, log_key)
-	for _, dragon in pairs(l_dragon) do
+function UI_GameDPS:findBestValue(l_char_list, log_key)
+	for _, dragon in pairs(l_char_list) do
 		local log_recorder = dragon.m_charLogRecorder
 		local sum_value = log_recorder:getLog(log_key)
 		if (self.m_bestValue < sum_value) then
@@ -200,8 +198,8 @@ end
 -- function sortByValue
 -- @breif 특정 값 순서대로 정렬한다 -> 값 0인 경우 공격력 순으로 정렬
 -------------------------------------
-function UI_GameDPS:sortByValue(l_dragon, log_key)
-	table.sort(l_dragon, function(a, b)
+function UI_GameDPS:sortByValue(l_char_list, log_key)
+	table.sort(l_char_list, function(a, b)
 		local a_value = a.m_charLogRecorder:getLog(log_key)
 		local b_value = b.m_charLogRecorder:getLog(log_key)
 		if (a_value == 0) and (b_value == 0) then
@@ -262,16 +260,16 @@ function UI_GameDPS:click_dpsBtn()
 	local vars = self.vars
 	local root_node = self.root
 
-    vars['dpsBtn']:stopAllActions()
+    --vars['dpsBtn']:stopAllActions()
     root_node:stopAllActions()
     local duration = 0.3
 
     if self.m_bShow then
         root_node:runAction(cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p((-170*UI_SCALE), 0)), 2))
-        vars['dpsBtn']:runAction(cc.RotateTo:create(duration, 180))
+        --vars['dpsBtn']:runAction(cc.RotateTo:create(duration, 180))
     else
         root_node:runAction(cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(0, 0)), 2))
-        vars['dpsBtn']:runAction(cc.RotateTo:create(duration, 360))
+        --vars['dpsBtn']:runAction(cc.RotateTo:create(duration, 360))
     end
 
 	self.m_bShow = not self.m_bShow
