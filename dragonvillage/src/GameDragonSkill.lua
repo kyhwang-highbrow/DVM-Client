@@ -16,6 +16,8 @@ GameDragonSkill = class(PARENT, {
         m_skillOpeningCutBg = 'Animator',
         m_skillOpeningCutTop = 'Animator',
 
+        m_dragonCut = 'Animator',
+
         m_skillDescEffect = 'Animator',
         m_skillNameLabel = 'cc.Label',
         m_skillDescLabel = 'cc.Label',
@@ -47,6 +49,8 @@ function GameDragonSkill:initUI()
     self.m_skillOpeningCutTop:changeAni('scene_1', false)
     self.m_skillOpeningCutTop:setVisible(false)
     g_gameScene.m_viewLayer:addChild(self.m_skillOpeningCutTop.m_node)
+
+    self.m_dragonCut = nil
 
     -- 스킬 설명
     self.m_skillDescEffect = MakeAnimator('res/ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp')
@@ -133,13 +137,15 @@ function GameDragonSkill.update_live(self, dt)
             g_gameScene.m_viewLayer:addChild(virtualNode)
 
             local camera = GameCamera(world, virtualNode)
-            camera:setAction({pos_x = CRITERIA_RESOLUTION_X / 4, pos_y = 0, time = 0, scale = 1.5})
+            camera:setAction({pos_x = CRITERIA_RESOLUTION_X / 4, pos_y = 0, time = 0, scale = 1.4})
+
+            local realCameraHomePosX, realCameraHomePosY = world.m_gameCamera:getHomePos()
 
             for i, enemy in ipairs(world:getEnemyList()) do
                 if (not enemy.m_bDead) then
                     local res = enemy.m_animator.m_resName
-                    local x = enemy.m_orgHomePosX - CRITERIA_RESOLUTION_X / 2
-                    local y = enemy.m_orgHomePosY
+                    local x = (enemy.m_orgHomePosX - CRITERIA_RESOLUTION_X / 2) - realCameraHomePosX
+                    local y = enemy.m_orgHomePosY - realCameraHomePosY
                     local scale = enemy.m_animator:getScale()
                     local is_flip = enemy.m_animator.m_bFlip
 
@@ -182,12 +188,9 @@ function GameDragonSkill.update_live(self, dt)
             end)
 
             -- 컷씬
-            do
-                self:makeDragonCut(dragon, delayTime)
-            end
-            
-        elseif (self:isPassedStepTime(1)) then
-            self:nextStep()
+            self:makeDragonCut(dragon, function()
+                self:nextStep()
+            end)
         end
 
     elseif (self:getStep() == 3) then
@@ -199,24 +202,18 @@ function GameDragonSkill.update_live(self, dt)
             -- 드래곤만 일시 정지 제외시킴
             world:setTemporaryPause(true, dragon)
 
-            -- 드래곤 승리 애니메이션
+            -- 드래곤 애니메이션
+            self.m_dragonCut:changeAni('skill_idle', false)
             dragon.m_animator:changeAni('skill_idle', false)
 
-            local duration = dragon:getAniDuration()
-            
             -- 애니메이션 속도 조정
+            local duration = dragon:getAniDuration()
+            self.m_dragonCut:setTimeScale(duration / delayTime)
             dragon.m_animator:setTimeScale(duration / delayTime)
 
             -- 스킬 이름 및 설명 문구를 표시
-            do
-                self:makeSkillDesc(dragon, delayTime)
-            end
-
-            -- 스킬 사용 직전 이펙트
-            do
-                --self:makeSkillCutEffect(dragon, delayTime)
-            end
-
+            self:makeSkillDesc(dragon, delayTime)
+                        
             -- 효과음
             SoundMgr:playEffect('EFFECT', 'skill_ready')
 
@@ -224,6 +221,10 @@ function GameDragonSkill.update_live(self, dt)
             playDragonVoice(dragon.m_charTable['type'])
         
         elseif (self:isPassedStepTime(delayTime)) then
+            -- 컷씬 삭제
+            self.m_dragonCut:release()
+            self.m_dragonCut = nil
+            
             -- 애니메이션 속도 되돌림
             dragon.m_animator:setTimeScale(1)
 
@@ -320,7 +321,7 @@ function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
         local dragonNode = self.m_skillOpeningCutBg.m_node:getSocketNode('dragon')
         local res_name = dragon.m_animator.m_resName
         local animator = MakeAnimator(res_name)
-        animator:changeAni('skill_appear', true)
+        animator:changeAni('idle', true)
         dragonNode:removeAllChildren()
         dragonNode:addChild(animator.m_node)
     end
@@ -363,17 +364,18 @@ end
 -------------------------------------
 -- function makeDragonCut
 -------------------------------------
-function GameDragonSkill:makeDragonCut(dragon, delayTime)
-    local res_name = dragon.m_animator.m_resName
+function GameDragonSkill:makeDragonCut(dragon, cbEnd)
+    if (self.m_dragonCut) then
+        self.m_dragonCut:release()
+        self.m_dragonCut = nil
+    end
 
+    local res_name = dragon.m_animator.m_resName
     local animator = MakeAnimator(res_name)
     g_gameScene.m_viewLayer:addChild(animator.m_node)
 
     animator:changeAni('skill_appear', false)
-
-    --local duration = animator:getDuration()
-    --animator:setTimeScale(duration / delayTime + 0.5)
-    
+        
     local bFlip = dragon.m_animator.m_bFlip
     if (bFlip) then
         animator:setPosition(300, 2000)
@@ -383,30 +385,22 @@ function GameDragonSkill:makeDragonCut(dragon, delayTime)
             cc.MoveTo:create(0.5, cc.p(300, -50)),
             cc.CallFunc:create(function()
                 animator:changeAni('attack', false)
-            end),
-            cc.DelayTime:create(1),
-            cc.CallFunc:create(function()
-                animator:changeAni('skill_idle', false)
-            end),
-            cc.DelayTime:create(delayTime),
-            cc.RemoveSelf:create()
+                animator:addAniHandler(cbEnd)
+            end)
         ))
     else
         animator:setPosition(-300, 2000)
-        animator:setScale(1)
+        animator:setScale(1.5)
         animator:runAction(cc.Sequence:create(
             cc.MoveTo:create(0.5, cc.p(-300, -50)),
             cc.CallFunc:create(function()
                 animator:changeAni('attack', false)
-            end),
-            cc.DelayTime:create(1),
-            cc.CallFunc:create(function()
-                animator:changeAni('skill_idle', false)
-            end),
-            cc.ScaleTo:create(delayTime, 1.5),
-            cc.RemoveSelf:create()
+                animator:addAniHandler(cbEnd)
+            end)
         ))
     end
+
+    self.m_dragonCut = animator
 end
 
 -------------------------------------

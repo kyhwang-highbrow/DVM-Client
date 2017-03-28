@@ -1543,7 +1543,7 @@ end
 function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time)
     local scale = self.m_gameCamera:getScale()
     local cameraHomePosX, cameraHomePosY = self.m_gameCamera:getHomePos()
-    local cameraPrevHomePosX, cameraPrevHomePosY = self.m_gameCamera:getPrevHomePos()
+    local gap_x, gap_y = self.m_gameCamera:getIntermissionOffset()
     local offsetX = offsetX or 0
     local offsetY = offsetY or 0
     local move_time = move_time or getInGameConstant(WAVE_INTERMISSION_TIME)
@@ -1566,10 +1566,8 @@ function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time)
 
     if (self.m_tamer) then
         -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
-        local diffX = cameraHomePosX - cameraPrevHomePosX
-        local diffY = cameraHomePosY - cameraPrevHomePosY
-        local homePosX = self.m_tamer.pos.x + diffX + offsetX
-        local homePosY = self.m_tamer.pos.y + diffY + offsetY
+        local homePosX = self.m_tamer.pos.x + gap_x + offsetX
+        local homePosY = self.m_tamer.pos.y + gap_y + offsetY
 
         -- 카메라가 줌아웃된 상태라면 아군 위치 조정(차후 정리)
         if (scale == 0.6) then
