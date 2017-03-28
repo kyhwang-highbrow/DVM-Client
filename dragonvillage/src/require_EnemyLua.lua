@@ -219,6 +219,12 @@ function getRandomWorldEnemyPos(enemy)
     local temp3 = {'1', '2'}
     local temp4 = {'1', '2', '3', '4', '5', '6', '7'}
 
+    -- 현재 위치가 오른쪽 화면 끝에 가깝다면 무조건 다른 위치로 이동시킴
+    if (enemy.pos.x >= ENEMY_POS['RB11'].x) then
+        temp2 = {'F', 'M'}
+    end
+
+
     local temp1 = randomShuffle(temp1)
     local temp2 = randomShuffle(temp2)
     local temp3 = randomShuffle(temp3)
@@ -240,4 +246,13 @@ function getRandomWorldEnemyPos(enemy)
     pos['y'] = pos['y'] + cameraHomePosY
 
     return pos
+end
+
+-------------------------------------
+-- function getEnemyPosKeyFromPos
+-- @brief 좌표값으로 위치 키값을 얻음
+-------------------------------------
+function getEnemyPosKeyFromPos(x, y)
+    local pos_x_add = 95
+    local pos_y_add = -68
 end

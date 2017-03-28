@@ -168,13 +168,6 @@ function GameDragonSkill.update_live(self, dt)
 
     elseif (self:getStep() == 2) then
         if (self:isBeginningStep()) then
-            -- 하이라이트
-            world.m_gameHighlight:setVisible(true)
-            world.m_gameHighlight:addChar(dragon)
-
-            -- 일시 정지
-            world:setTemporaryPause(true, dragon)
-            
             self.m_skillOpeningCutBg:setVisible(true)
             self.m_skillOpeningCutBg:changeAni('scene_3', false)
             self.m_skillOpeningCutBg:addAniHandler(function()
@@ -183,16 +176,15 @@ function GameDragonSkill.update_live(self, dt)
 
             self.m_skillOpeningCutTop:setVisible(true)
             self.m_skillOpeningCutTop:changeAni('scene_3', false)
-            self.m_skillOpeningCutTop:setPosition(dragon.pos.x - CRITERIA_RESOLUTION_X / 2, dragon.pos.y)
+            self.m_skillOpeningCutTop:setPosition(-300, 0)
             self.m_skillOpeningCutTop:addAniHandler(function()
                 self.m_skillOpeningCutTop:setVisible(false)
             end)
 
-            -- 드래곤 승리 애니메이션 및 이동 연출
-            local pos_y = dragon.pos.y
-            dragon.m_animator:changeAni('idle', true)
-            dragon:setPosition(dragon.pos.x, pos_y + 2000)
-            dragon:setMove(dragon.pos.x, pos_y, 4000)
+            -- 컷씬
+            do
+                self:makeDragonCut(dragon, delayTime)
+            end
             
         elseif (self:isPassedStepTime(1)) then
             self:nextStep()
@@ -200,6 +192,13 @@ function GameDragonSkill.update_live(self, dt)
 
     elseif (self:getStep() == 3) then
         if (self:isBeginningStep()) then
+            -- 하이라이트
+            world.m_gameHighlight:setVisible(true)
+            world.m_gameHighlight:addChar(dragon)
+
+            -- 드래곤만 일시 정지 제외시킴
+            world:setTemporaryPause(true, dragon)
+
             -- 드래곤 승리 애니메이션
             dragon.m_animator:changeAni('skill_idle', false)
 
@@ -216,11 +215,6 @@ function GameDragonSkill.update_live(self, dt)
             -- 스킬 사용 직전 이펙트
             do
                 --self:makeSkillCutEffect(dragon, delayTime)
-            end
-
-            -- 컷씬
-            do
-                self:makeDragonCut(dragon, delayTime)
             end
 
             -- 효과음
@@ -326,7 +320,7 @@ function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
         local dragonNode = self.m_skillOpeningCutBg.m_node:getSocketNode('dragon')
         local res_name = dragon.m_animator.m_resName
         local animator = MakeAnimator(res_name)
-        animator:changeAni('skill_appear', false)
+        animator:changeAni('skill_appear', true)
         dragonNode:removeAllChildren()
         dragonNode:addChild(animator.m_node)
     end
@@ -373,22 +367,45 @@ function GameDragonSkill:makeDragonCut(dragon, delayTime)
     local res_name = dragon.m_animator.m_resName
 
     local animator = MakeAnimator(res_name)
-    animator:changeAni('skill_idle', false)
     g_gameScene.m_viewLayer:addChild(animator.m_node)
 
-    local duration = animator:getDuration() * delayTime
-    animator:setTimeScale(duration / delayTime)
-    animator:addAniHandler(function() animator:runAction(cc.RemoveSelf:create()) end)
+    animator:changeAni('skill_appear', false)
 
+    --local duration = animator:getDuration()
+    --animator:setTimeScale(duration / delayTime + 0.5)
+    
     local bFlip = dragon.m_animator.m_bFlip
     if (bFlip) then
-        animator:setPosition(300, -50)
+        animator:setPosition(300, 2000)
         animator:setScale(1.5)
         animator:setFlip(true)
+        animator:runAction(cc.Sequence:create(
+            cc.MoveTo:create(0.5, cc.p(300, -50)),
+            cc.CallFunc:create(function()
+                animator:changeAni('attack', false)
+            end),
+            cc.DelayTime:create(1),
+            cc.CallFunc:create(function()
+                animator:changeAni('skill_idle', false)
+            end),
+            cc.DelayTime:create(delayTime),
+            cc.RemoveSelf:create()
+        ))
     else
-        animator:setPosition(-300, -50)
+        animator:setPosition(-300, 2000)
         animator:setScale(1)
-        animator:runAction(cc.ScaleTo:create(delayTime, 1.5))
+        animator:runAction(cc.Sequence:create(
+            cc.MoveTo:create(0.5, cc.p(-300, -50)),
+            cc.CallFunc:create(function()
+                animator:changeAni('attack', false)
+            end),
+            cc.DelayTime:create(1),
+            cc.CallFunc:create(function()
+                animator:changeAni('skill_idle', false)
+            end),
+            cc.ScaleTo:create(delayTime, 1.5),
+            cc.RemoveSelf:create()
+        ))
     end
 end
 
