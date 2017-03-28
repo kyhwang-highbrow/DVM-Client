@@ -1,6 +1,7 @@
 local PARENT = UI
 
 local DPS_ACTION_DURATION = 0.2
+local UI_SCALE = 3/4
 
 -------------------------------------
 -- class UI_GameDPS
@@ -33,7 +34,7 @@ function UI_GameDPS:init(world)
 	self.m_bShow = true
 	self.m_bDPS = true
 	self.m_interval = g_constant:get('INGAME', 'DPS_INTERVAL')
-	self.m_bestValue = 0
+	self.m_bestValue = 1
 	self.m_logKey = 'damage'
 
 	-- UI 초기화
@@ -71,7 +72,13 @@ function UI_GameDPS:initUI()
 		end
 	end
 	
+	-- 최초 UI 출력위해 호출
 	self:setDpsOrHps()
+
+	-- 스케일 조정
+	self.root:setScale(UI_SCALE)
+	self.root:setAnchorPoint(cc.p(0,1))
+	self.root:setDockPoint(cc.p(0,1))
 
 	-- 자체적으로 업데이트를 돌린다.
 	self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
@@ -117,6 +124,13 @@ function UI_GameDPS:refresh()
 		-- node 이동
 		self:moveDpsNode(node, rank)
 	end
+
+	-- @TEST
+	for dragon, _ in pairs(self.m_mDpsNodeMap) do
+		if dragon.m_bDead then
+			cclog(dragon:getName() .. ' DEAD')
+		end
+	end
 end
 
 -------------------------------------
@@ -154,7 +168,7 @@ function UI_GameDPS:setDpsOrHps()
 	end
 	
 	-- 최고값이 다시 기록되도록 초기화
-	self.m_bestValue = 0
+	self.m_bestValue = 1
 end
 
 -------------------------------------
@@ -232,9 +246,10 @@ end
 -- @breif dpsNode를 예쁘게 이동 시킨다. 1위는 100px, 간격 50px
 -------------------------------------
 function UI_GameDPS:moveDpsNode(node, rank)
+	node:stopAllActions()
+	
 	local pos_x = 0
 	local pos_y = (100 - (50 * (rank - 1)))
-
 	local action = cc.EaseInOut:create(cc.MoveTo:create(DPS_ACTION_DURATION, cc.p(pos_x, pos_y)), 2)
 	cca.runAction(node, action)
 end
@@ -252,7 +267,7 @@ function UI_GameDPS:click_dpsBtn()
     local duration = 0.3
 
     if self.m_bShow then
-        root_node:runAction(cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(-170, 0)), 2))
+        root_node:runAction(cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p((-170*UI_SCALE), 0)), 2))
         vars['dpsBtn']:runAction(cc.RotateTo:create(duration, 180))
     else
         root_node:runAction(cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(0, 0)), 2))
