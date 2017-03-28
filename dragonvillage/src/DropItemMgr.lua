@@ -14,6 +14,7 @@ DropItemMgr = class(PARENT, {
     m_tableDropIngame = 'TableDropIngame',
     m_remainItemCnt = 'number',
     m_dropCount = 'number',
+    m_optainedItemList = 'list',
 })
 
 -------------------------------------
@@ -29,6 +30,7 @@ function DropItemMgr:init(world)
     self.m_selectItem = nil
     self.m_lItemlist = {}
     self.m_dropCount = 0
+    self.m_optainedItemList = {}
 
     -- 아이템을 드랍할 몬스터 지정
     self:designateDropMonster(wave_script)
@@ -246,6 +248,12 @@ function DropItemMgr:onTouchBegan(touch, event)
 end
 
 -------------------------------------
+-- function decideDropItem
+-------------------------------------
+function DropItemMgr:decideDropItem()
+end
+
+-------------------------------------
 -- function obtainItem
 -------------------------------------
 function DropItemMgr:obtainItem(item)
@@ -253,11 +261,7 @@ function DropItemMgr:obtainItem(item)
 
     item:setObtained()
 
-    -- TODO: 드랍 아이템 획득 처리
-    local t_temp = { 'cash', 'gold', 'lactea' }
-    t_temp = randomShuffle(t_temp)
-
-    local type = t_temp[1]
+    local type, count = self.m_tableDropIngame:decideDropItem(self.m_chapterID)
     local res = 'res/ui/icon/inbox/inbox_' .. type .. '.png'
     if (res) then
         local node = cc.Node:create()
@@ -272,7 +276,7 @@ function DropItemMgr:obtainItem(item)
             node:addChild(icon)
         end
 
-        local label = cc.Label:createWithBMFont('res/font/normal.fnt', '+1')
+        local label = cc.Label:createWithBMFont('res/font/normal.fnt', '+' .. count)
         if (label) then
             local string_width = label:getStringWidth()
             local offset_x = (string_width / 2)
@@ -289,6 +293,9 @@ function DropItemMgr:obtainItem(item)
         node:runAction(cc.Sequence:create(cc.DelayTime:create(delay_time), cc.EaseIn:create(cc.MoveBy:create(1, cc.p(0, 80)), 1)))
         node:runAction(cc.Sequence:create(cc.DelayTime:create(delay_time), cc.Show:create()))
     end
+
+    -- 정보 저장
+    table.insert(self.m_optainedItemList, {type, count})
 end
 
 
@@ -324,4 +331,28 @@ function DropItemMgr:applyInterMissionAction(node)
     local action = cc.MoveTo:create(move_time, cc.p(x + gap_x, y + gap_y))
     local action_tag = 1000
     cca.runAction(node, action, action_tag)
+end
+
+-------------------------------------
+-- function makeOptainedDropItemStr
+-- @breif
+-------------------------------------
+function DropItemMgr:makeOptainedDropItemStr()
+    local str = nil
+
+    for i,v in ipairs(self.m_optainedItemList) do
+        local item_type = v[1]
+        local item_id = TableItem:getItemIDFromItemType(item_type)
+        local item_count = v[2]
+
+        if (not str) then
+            str = ''
+        else
+            str = str .. ','
+        end
+
+        str = str .. item_id .. ';' .. item_count
+    end
+
+    return str or ''
 end

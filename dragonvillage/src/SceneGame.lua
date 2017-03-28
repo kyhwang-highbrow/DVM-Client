@@ -464,6 +464,7 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setParam('gold', t_param['gold'])
     ui_network:setParam('gold_rate', t_param['gold_rate'])
     ui_network:setParam('gamekey', self.m_gameKey)
+    ui_network:setParam('bonus_items', t_param['bonus_items'])
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
 

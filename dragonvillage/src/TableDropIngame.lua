@@ -50,3 +50,23 @@ function TableDropIngame:getDropItemCount(chapter_id)
     local drop_item_count = math_random(t_table['item_min'], t_table['item_max'])
     return drop_item_count
 end
+
+-------------------------------------
+-- function decideDropItem
+-------------------------------------
+function TableDropIngame:decideDropItem(chapter_id)
+    local t_table = self:get(chapter_id)
+    
+    local sum_random = SumRandom()
+    sum_random:addItem(t_table['cash_weight'], 'cash')
+    sum_random:addItem(t_table['gold_weight'], 'gold')
+    sum_random:addItem(t_table['lactea_weight'], 'lactea')
+
+    local item_type = sum_random:getRandomValue()
+
+    local min_cnt = t_table[item_type .. '_min']
+    local max_cnt = t_table[item_type .. '_max']
+    local item_count = math_random(min_cnt, max_cnt)
+
+    return item_type, item_count
+end

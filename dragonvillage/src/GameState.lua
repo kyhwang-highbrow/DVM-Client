@@ -820,6 +820,11 @@ function GameState:makeGameFinishParam(is_success)
         t_param['deck_name'] = g_deckData:getSelectedDeckName()
     end
 
+    -- 드랍 아이템
+    if self.m_world.m_dropItemMgr then
+        t_param['bonus_items'] = self.m_world.m_dropItemMgr:makeOptainedDropItemStr()
+    end
+
     return t_param
 end
 
