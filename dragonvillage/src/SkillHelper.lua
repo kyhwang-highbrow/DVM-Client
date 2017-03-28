@@ -103,6 +103,7 @@ end
 -------------------------------------
 function SkillHelper:makeDragonActiveSkillBonus(owner, t_skill, role_type, score)
     local bonus_level = self:getDragonActiveSkillBonusLevel(t_skill, score)
+    if (bonus_level == 0) then return end
 
     local status_effect_type
     local status_effect_time
@@ -124,14 +125,14 @@ function SkillHelper:makeDragonActiveSkillBonus(owner, t_skill, role_type, score
 
     elseif (role_type == 'supporter') then
         cclog('드래곤 스킬 피드백 발동 : supporter')
+
+        -- 스킬 게이지 회복 타입은 status effect로 현재는 불가능하기 때문에 임시로...
         owner:increaseActiveSkillCool(10)
-        return
-        --[[
+        
         status_effect_type = 'feedback_attacker'
         status_effect_time = 0
         t_status_effect_value = { 5, 10 }
-        ]]--
-        
+                
     elseif (role_type == 'healer') then
         cclog('드래곤 스킬 피드백 발동 : healer')
         status_effect_type = 'feedback_healer'
@@ -145,6 +146,6 @@ function SkillHelper:makeDragonActiveSkillBonus(owner, t_skill, role_type, score
     
     local str_status_effect = string.format('%s;self;hit;%d;100;%d', status_effect_type, status_effect_time, status_effect_value)
     if (str_status_effect) then
-        StatusEffectHelper:doStatusEffectByStr(owner, {owner}, {l_status_effect_str})
+        StatusEffectHelper:doStatusEffectByStr(owner, {owner}, {str_status_effect})
     end
 end

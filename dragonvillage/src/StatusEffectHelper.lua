@@ -37,7 +37,7 @@ end
 -- @brief statuseffect 배열 사용함
 -------------------------------------
 function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect_str, cb_invoke)
-   	-- 피격자가 사망했을 경우 리턴
+    -- 피격자가 사망했을 경우 리턴
     if (owner.m_bDead == true) then return end
 
     local cb_invoke = cb_invoke or function() end
@@ -74,9 +74,8 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
 		duration = t_effect['duration']
 		rate = t_effect['rate'] 
 		value_1 = t_effect['value_1']
-		
-		
-		-- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
+
+        -- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
 		if (target_type == 'self') then 
 			if (StatusEffectHelper:invokeStatusEffect(owner, type, value_1, rate, duration)) then
                 cb_invoke(owner)
@@ -133,7 +132,7 @@ end
 -- @brief 상태 효과 발동
 -------------------------------------
 function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_effect_value, status_effect_rate, duration)
-	-- char validation
+    -- char validation
 	if (char.m_isSlaveCharacter) then 
 		return nil
 	end
@@ -270,6 +269,57 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 		local tar_attr = self:getActivityCarrier().m_activityCarrierOwner.m_targetChar:getAttribute()
 		status_effect:init_statusEffect(char, tar_attr)
 
+    ----------- 드래곤 스킬 피드백(보너스) ------------------
+	elseif (status_effect_type == 'feedback_defender' or status_effect_type == 'feedback_attacker' or status_effect_type == 'feedback_supporter' or status_effect_type == 'feedback_healer') then
+        cclog('makeStatusEffectInstance status_effect_type = ' .. status_effect_type)
+
+        status_effect = StatusEffect('res/effect/skill_decision/skill_decision.vrp')
+        
+        local score = char.m_skillIndicator.m_resultScore
+        local active_skill_id = char:getSkillID('active')
+        local t_skill = TableDragonSkill():get(active_skill_id)
+        
+        --[[
+        local level = SkillHelper:getDragonActiveSkillBonusLevel(t_skill, score)
+        local str
+        if (level == 2) then    str = 'great'
+        else                    str = 'good'
+        end
+        ]]--
+        local str = 'good'
+
+        if (status_effect_type == 'feedback_healer' and status_effect_value == 20) then
+            str = 'great'
+        elseif (status_effect_value == 10) then
+            str = 'great'
+        end
+
+        status_effect.m_tStateAni['start'] = str .. '_appear'
+        status_effect.m_tStateAni['idle'] = str .. '_idle'
+        status_effect.m_tStateAni['end'] = str .. '_disappear'
+
+        do
+            local effect = MakeAnimator('res/effect/skill_decision/skill_decision.vrp')
+            effect:setPosition(char.pos.x, char.pos.y)
+            effect:setScale(0.2)
+            effect:changeAni(status_effect.m_tStateAni['start'], false)
+            effect:addAniHandler(function()
+                effect:changeAni(status_effect.m_tStateAni['idle'], false)
+                effect:addAniHandler(function()
+                    effect:changeAni(status_effect.m_tStateAni['end'], false)
+                    local duration = effect:getDuration()
+                    effect:runAction(cc.Sequence:create(
+                        cc.DelayTime:create(duration),
+                        cc.RemoveSelf:create()
+                    ))
+                end)
+                
+            end)
+
+            char.m_world.m_worldNode:addChild(effect.m_node, WORLD_Z_ORDER.SE_EFFECT)
+            char.m_world.m_gameHighlight:addEffect(effect)
+        end
+
     else
         status_effect = StatusEffect(res)
     end
@@ -315,6 +365,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
     status_effect:changeState('start')
 
     if (char.m_bHighlight) then
+        --cclog('status_effect_type = ' .. status_effect_type)
         char.m_world.m_gameHighlight:addMissile(status_effect)
     end
 

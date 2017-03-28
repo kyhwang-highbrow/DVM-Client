@@ -321,10 +321,11 @@ function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
     -- 드래곤을 생성하여 해당 소켓에 붙임
     do
         local dragonNode = self.m_skillOpeningCutBg.m_node:getSocketNode('dragon')
+        dragonNode:removeAllChildren()
+
         local res_name = dragon.m_animator.m_resName
         local animator = MakeAnimator(res_name)
         animator:changeAni('idle', true)
-        dragonNode:removeAllChildren()
         dragonNode:addChild(animator.m_node)
     end
 
@@ -333,10 +334,11 @@ function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
     self.m_skillOpeningCutTop:setVisible(true)
 
     -- 보너스 레벨에 따른 문구를 해당 소켓에 붙임
+    local textNode = self.m_skillOpeningCutTop.m_node:getSocketNode('text')
+    textNode:removeAllChildren()
+
     if (self.m_bonusLevel > 0) then
-        local textNode = self.m_skillOpeningCutTop.m_node:getSocketNode('text')
         local animator = MakeAnimator('res/effect/skill_decision/skill_decision.vrp')
-        textNode:removeAllChildren()
         textNode:addChild(animator.m_node)
 
         local level
