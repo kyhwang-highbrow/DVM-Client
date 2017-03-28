@@ -1302,16 +1302,13 @@ function Character:update(dt)
             local tar = getRandomWorldEnemyPos(self)
             --self:changeHomePosByTime(tar.x, tar.y, self.m_roamTimer)
 
-            local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
-            tar.x = (tar.x + cameraHomePosX)
-            tar.y = (tar.y + cameraHomePosY)
-
             local bezier_range =  g_constant:get('INGAME', 'ENEMY_ROAM_BEZIER_RANGE')
             local distance = math_random(bezier_range[1], bezier_range[2])
             local bezier = getRandomBezier(tar.x, tar.y, self.pos.x, self.pos.y, distance)
             local move_action = cc.BezierBy:create(time, bezier)
 
             self:setHomePos(tar.x, tar.y)
+            cca.stopAction(self.m_rootNode, CHARACTER_ACTION_TAG__ROAM)
             cca.runAction(self.m_rootNode, move_action, CHARACTER_ACTION_TAG__ROAM)
 
             self.m_roamTimer = time
