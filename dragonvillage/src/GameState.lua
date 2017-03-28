@@ -368,6 +368,10 @@ function GameState.update_enemy_appear(self, dt)
     local enemy_count = #world:getEnemyList()
 	
     if (self.m_stateTimer == 0) then
+
+        -- 웨이브 시작 시점에서 아이템 제거
+        world:cleanupItem()
+
         local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
 
         if (enemy_count <= 0) and (dynamic_wave <= 0) then
@@ -960,6 +964,10 @@ function GameState:doDirectionForIntermission()
     -- 카메라 액션 설정
     world:changeCameraOption(t_camera_info)
     world:changeHeroHomePosByCamera()
+
+    if world.m_dropItemMgr then
+        world.m_dropItemMgr:intermission()
+    end
 end
 
 -------------------------------------

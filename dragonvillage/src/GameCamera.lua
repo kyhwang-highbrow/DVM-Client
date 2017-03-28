@@ -105,6 +105,15 @@ function GameCamera:getPrevHomePos()
 end
 
 -------------------------------------
+-- function getIntermissionOffset
+-------------------------------------
+function GameCamera:getIntermissionOffset()
+    local gap_x = (self.m_homePosX - self.m_prevHomePosX)
+    local gap_y = (self.m_homePosY - self.m_prevHomePosY)
+    return gap_x, gap_y
+end
+
+-------------------------------------
 -- function getHomeScale
 -------------------------------------
 function GameCamera:getHomeScale()

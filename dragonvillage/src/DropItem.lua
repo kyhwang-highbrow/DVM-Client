@@ -63,6 +63,7 @@ end
 function DropItem:initState()
     self:addState('appear', DropItem.st_appear, 'appear', false)
     self:addState('idle', DropItem.st_idle, 'idle', true)
+    self:addState('wait', DropItem.st_wait, 'idle', true)
     self:addState('dying', DropItem.st_dying, 'disappear', false)
 
     self:changeState('appear')
@@ -73,6 +74,14 @@ end
 -------------------------------------
 function DropItem:release()
     PARENT.release(self)
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function DropItem:update(dt)
+    self:setPosition(self.m_rootNode:getPosition())
+    return PARENT.update(self, dt)
 end
 
 -------------------------------------
@@ -100,6 +109,16 @@ function DropItem.st_idle(owner, dt)
 end
 
 -------------------------------------
+-- function st_wait
+-------------------------------------
+function DropItem.st_wait(owner, dt)
+    if (owner.m_stateTimer >= 0.3) then
+        owner:changeState('dying')
+    end
+end
+
+
+-------------------------------------
 -- function st_dying
 -------------------------------------
 function DropItem.st_dying(owner, dt)
@@ -118,7 +137,7 @@ end
 function DropItem:setObtained()
     self.m_bObtained = true
 
-    self:changeState('dying')
+    self:changeState('wait')
 end
 
 -------------------------------------
@@ -127,6 +146,16 @@ end
 function DropItem:isObtained()
     return self.m_bObtained
 end
+
+-------------------------------------
+-- function runAction_Floating
+-- @brief 캐릭터 부유중 효과
+-------------------------------------
+function DropItem:runAction_Floating()
+    Character.runAction_Floating(self)
+end
+
+
 
 -------------------------------------
 -- function runAction_Floating

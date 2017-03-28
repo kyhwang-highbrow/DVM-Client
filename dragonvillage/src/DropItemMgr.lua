@@ -23,7 +23,7 @@ function DropItemMgr:init(world)
 	self.m_world = world
 
     self.m_touchNode = cc.Node:create()
-    world.m_worldLayer:addChild(self.m_touchNode)
+    world:addChild2(self.m_touchNode)
     self:makeTouchLayer(self.m_touchNode)
 
     self.m_selectItem = nil
@@ -116,7 +116,6 @@ end
 function DropItemMgr:makeTouchLayer(target_node)
     local listener = cc.EventListenerTouchOneByOne:create()
     listener:registerScriptHandler(function(touch, event) return self:onTouchBegan(touch, event) end, cc.Handler.EVENT_TOUCH_BEGAN)
-    listener:registerScriptHandler(function(touch, event) return self:onTouchEnded(touch, event) end, cc.Handler.EVENT_TOUCH_ENDED)
                     
     local eventDispatcher = target_node:getEventDispatcher()
     eventDispatcher:addEventListenerWithSceneGraphPriority(listener, target_node)
@@ -230,7 +229,7 @@ function DropItemMgr:onTouchBegan(touch, event)
 
     -- 월드상의 터치 위치 얻어옴
     local location = touch:getLocation()
-    local node_pos = self.m_touchNode:convertToNodeSpace(location)
+    local node_pos = self.m_touchNode:getParent():convertToNodeSpace(location)
 
     local select_item = self:getItemFromPos(node_pos['x'], node_pos['y'])
 
@@ -244,28 +243,6 @@ function DropItemMgr:onTouchBegan(touch, event)
     end
 
     return false
-end
-
--------------------------------------
--- function onTouchEnded
--------------------------------------
-function DropItemMgr:onTouchEnded(touch, event)
-    --[[
-    -- 월드상의 터치 위치 얻어옴
-    local location = touch:getLocation()
-    local node_pos = self.m_touchNode:convertToNodeSpace(location)
-
-    if (self.m_selectItem) then
-        if (self.m_selectItem == self:getItemFromPos(node_pos['x'], node_pos['y'])) then
-            -- 테이머 드랍 아이템 획득 연출
-            self.m_world.m_tamer:doBringItem(self.m_selectItem)
-
-            self:obtainItem(self.m_selectItem)
-        end
-    end
-
-    self.m_selectItem = nil
-    --]]
 end
 
 -------------------------------------
@@ -306,7 +283,45 @@ function DropItemMgr:obtainItem(item)
             node:addChild(label)
         end
 
-        node:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.2), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
-        node:runAction(cc.EaseIn:create(cc.MoveBy:create(1, cc.p(0, 80)), 1))
+        local delay_time = 0.2
+        node:setVisible(false)
+        node:runAction(cc.Sequence:create(cc.DelayTime:create(delay_time), cc.FadeIn:create(0.3), cc.DelayTime:create(0.2), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
+        node:runAction(cc.Sequence:create(cc.DelayTime:create(delay_time), cc.EaseIn:create(cc.MoveBy:create(1, cc.p(0, 80)), 1)))
+        node:runAction(cc.Sequence:create(cc.DelayTime:create(delay_time), cc.Show:create()))
     end
+end
+
+
+
+
+-------------------------------------
+-- function intermission
+-- @brief 드랍 아이템 인터미션
+-------------------------------------
+function DropItemMgr:intermission()
+
+    -- 아이템들 이동
+    for i,v in pairs(self.m_lItemlist) do
+        self:applyInterMissionAction(v.m_rootNode)
+    end
+
+    -- 터치 레이어 이동
+    self:applyInterMissionAction(self.m_touchNode)
+end
+
+-------------------------------------
+-- function applyIntermissionAction
+-- @breif 인터미션 액션 지정
+-------------------------------------
+function DropItemMgr:applyInterMissionAction(node)
+    -- 카메라 이동 거리 얻어옴
+    local gap_x, gap_y = self.m_world.m_gameCamera:getIntermissionOffset()
+
+    -- 인터미션 시간 얻어옴
+    local move_time = getInGameConstant(WAVE_INTERMISSION_TIME)
+
+    local x, y = node:getPosition()
+    local action = cc.MoveTo:create(move_time, cc.p(x + gap_x, y + gap_y))
+    local action_tag = 1000
+    cca.runAction(node, action, action_tag)
 end

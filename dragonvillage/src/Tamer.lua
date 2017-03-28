@@ -277,11 +277,12 @@ end
 -------------------------------------
 function Tamer.st_bring(owner, dt)
     if (owner.m_stateTimer == 0) then
+        owner:resetMove()
         local prevPosX = owner.pos.x
         local prevPosY = owner.pos.y
         local prevScale = owner.m_rootNode:getScale()
 
-        local time1 = 0.1
+        local time1 = 0.2
         --local move_action1 = cc.MoveTo:create(time1, cc.p(owner.m_targetItem.pos.x, owner.m_targetItem.pos.y))
         local bezier1 = getBezier(owner.m_targetItem.pos.x, owner.m_targetItem.pos.y, owner.pos.x, owner.pos.y, 1)
         local move_action1 = cc.BezierBy:create(time1, bezier1)
@@ -529,9 +530,12 @@ end
 -- function changeHomePosByTime
 -------------------------------------
 function Tamer:changeHomePosByTime(x, y, time)
-    PARENT.changeHomePosByTime(self, x, y, time)
-
-    --self:runAction_MoveZ(time, 0)
+    if (self.m_state == 'bring') then
+        self:setHomePos(x, y)
+    else
+        PARENT.changeHomePosByTime(self, x, y, time)
+        --self:runAction_MoveZ(time, 0)
+    end
 end
 
 -------------------------------------
