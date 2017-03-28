@@ -1176,12 +1176,12 @@ function GameWorld:onKeyReleased(keyCode, event)
     -- 테이머 스킬
     elseif (keyCode == KEY_1) then
         if (self.m_tamer) then
-            self.m_tamer:doSkillActive()
+            self.m_tamer:changeState('active')
         end
         
     elseif (keyCode == KEY_2) then
         if (self.m_tamer) then
-            self.m_tamer:doSkillEvent()
+            self.m_tamer:changeState('event')
         end
 
 	-- 미사일 범위 확인

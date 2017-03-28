@@ -385,10 +385,9 @@ function GameState.update_enemy_appear(self, dt)
         if world.m_waveMgr:isFirstWave() then
             world:dispatch('game_start')
             world.m_inGameUI:doAction()
+			-- 패시브 효과 적용
+			world:buffActivateAtStartup()
         end
-
-        -- 패시브 효과 적용
-        world:buffActivateAtStartup()
         
         -- 웨이브 알림
         do

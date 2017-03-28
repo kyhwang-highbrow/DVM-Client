@@ -407,12 +407,14 @@ end
 -------------------------------------
 function Tamer.st_active(owner, dt)
     if (owner.m_stateTimer == 0) then
+		local function cb_func()
+			-- 스킬 동작
+			owner:doSkillActive()    
+		end
+
 		-- 연출 세팅
 		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
-		owner:setTamerSkillDirecting(CRITERIA_RESOLUTION_X/2, cameraHomePosY + 200, TAMER_SKILL_ACTIVE)
-	
-		-- 스킬 동작
-		owner:doSkillActive()     
+		owner:setTamerSkillDirecting(CRITERIA_RESOLUTION_X/2, cameraHomePosY + 200, TAMER_SKILL_ACTIVE, cb_func)
     end
 end
 
@@ -421,12 +423,14 @@ end
 -------------------------------------
 function Tamer.st_event(owner, dt)
     if (owner.m_stateTimer == 0) then
+		local function cb_func()
+			-- 발동형 스킬 발동
+			owner:doSkillEvent()
+		end
+
 		-- 연출 세팅
 		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
-		owner:setTamerSkillDirecting(CRITERIA_RESOLUTION_X/4, cameraHomePosY + 200, TAMER_SKILL_EVENT)
-
-		-- 발동형 스킬 발동
-		owner:doSkillEvent()
+		owner:setTamerSkillDirecting(CRITERIA_RESOLUTION_X/4, cameraHomePosY + 200, TAMER_SKILL_EVENT, cb_func)
     end
 end
 
@@ -502,16 +506,17 @@ end
 -------------------------------------
 -- function setTamerSkillDirecting
 -------------------------------------
-function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx)
+function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx, cb_func)
 	local world = self.m_world
 	local game_highlight = world.m_gameHighlight
+	local l_dragon = world:getDragonList()
 
 	-- 하이라이트 활성화
     game_highlight:setActive(true)
 
 	-- 하이라이트 대상 추가 (테이머 + 드래곤)
     game_highlight:addChar(self)
-	for _, dragon in pairs(world:getDragonList()) do
+	for _, dragon in pairs(l_dragon) do
 		game_highlight:addChar(dragon)
 	end
 
@@ -533,15 +538,29 @@ function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx)
 		
 	-- 애니메이션 종료시
 	self:addAniHandler(function()
-		-- roam상태로 변경
-        self:changeStateWithCheckHomePos('roam')
-		-- 하이라이트 비활성화
-        game_highlight:setActive(false)
-        game_highlight:clear()
-        -- 암전 해제 -> @TODO 암전 해제 연출 살짝 어긋나는건...
-		game_highlight:changeDarkLayerColor(0, 0.2)
-		-- 애프터 이미지 해제
-		self:setAfterImage(false)
+		local time = 0.4
+		local target = self.m_targetChar
+		local move_action = cc.MoveTo:create(time, cc.p(target.pos.x, target.pos.y))
+
+		self.m_rootNode:runAction(cc.Sequence:create(
+            move_action,
+            cc.CallFunc:create(function()
+				-- 스킬 실행
+				if (cb_func) then
+					cb_func()
+				end
+                -- roam상태로 변경
+				self:changeStateWithCheckHomePos('roam')
+				-- 하이라이트 비활성화
+				game_highlight:setActive(false)
+				game_highlight:clear()
+				-- 암전 해제 -> @TODO 암전 해제 연출 살짝 어긋나는건...
+				game_highlight:changeDarkLayerColor(0, 0.2)
+				-- 애프터 이미지 해제
+				self:setAfterImage(false)
+            end)
+        ))
+
     end)
 end
 
@@ -629,6 +648,7 @@ end
 function Tamer:doSkill(skill_idx)
 	local t_skill = self.m_lSkill[skill_idx]
 	
+	self:checkTarget(t_skill)
 	PARENT.doSkillBySkillTable(self, t_skill, nil)
 
     self.m_lSkillCoolTimer[skill_idx] = t_skill['cooldown'] 
