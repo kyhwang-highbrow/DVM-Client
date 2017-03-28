@@ -250,7 +250,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 
         if (status_effect_type == 'feedback_healer' and tonumber(status_effect_value) == 20) then
             str = 'great'
-        elseif (status_effect_value == 10) then
+        elseif (tonumber(status_effect_value) == 10) then
             str = 'great'
         end
 
