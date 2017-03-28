@@ -129,7 +129,10 @@
 		},
         
         // 믄스터 리젠
-        "REGEN_INTERVAL" : 5
+        "REGEN_INTERVAL" : 5,
+        
+        // DPS&HPS 업데이트 주기
+        "DPS_INTERVAL" : 1
     },
     
     // 스킬 공용 & 개별

@@ -321,6 +321,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Monster_GoldDragon.lua" />
     <None Include="..\src\Monster_Tree.lua" />
     <None Include="..\src\Monster_WorldOrderMachine.lua" />
+    <None Include="..\src\NumberLabel_Pumping.lua" />
     <None Include="..\src\ResHelper.lua" />
     <None Include="..\src\RuneEnchantHelper.lua" />
     <None Include="..\src\SceneColosseum.lua" />

@@ -3,6 +3,18 @@ IconHelper = {}
 -------------------------------------
 -- function getHeroIcon
 -------------------------------------
+function IconHelper:getIcon(res_name)
+	local sprite = cc.Sprite:create(res_name)
+	if (sprite) then
+		sprite:setDockPoint(CENTER_POINT)
+		sprite:setAnchorPoint(CENTER_POINT)
+	end
+	return sprite
+end
+
+-------------------------------------
+-- function getHeroIcon
+-------------------------------------
 function IconHelper:getHeroIcon(res_name, evolution, attr)
     local res_name = res_name
 	if evolution then 
@@ -44,6 +56,8 @@ function IconHelper:getDragonIconFromTable(t_dragon_data, t_dragon)
     local evolution = t_dragon_data['evolution']
     local attr = t_dragon['attr']
 	local sprite = IconHelper:getHeroIcon(res, evolution, attr)
+	sprite:setDockPoint(CENTER_POINT)
+	sprite:setAnchorPoint(CENTER_POINT)
 
     return sprite
 end
@@ -101,8 +115,8 @@ function IconHelper:getDragonGradeIcon(grade, eclv, type)
     end
 
     local sprite = cc.Sprite:create(res)
-    sprite:setAnchorPoint(cc.p(0.5, 0.5))
-    sprite:setDockPoint(cc.p(0.5, 0.5))
+    sprite:setAnchorPoint(CENTER_POINT)
+    sprite:setDockPoint(CENTER_POINT)
 
     return sprite
 end
@@ -160,8 +174,8 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
         sprite = cc.Sprite:create('res/ui/icon/item/developing.png')
     end
 
-    sprite:setDockPoint(cc.p(0.5, 0.5))
-    sprite:setAnchorPoint(cc.p(0.5, 0.5))
+    sprite:setDockPoint(CENTER_POINT)
+    sprite:setAnchorPoint(CENTER_POINT)
 
     return sprite
 end
@@ -195,15 +209,15 @@ function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv)
     if (not rune_icon) then
         rune_icon = cc.Sprite:create('res/ui/icon/item/developing.png')
     end
-    rune_icon:setDockPoint(cc.p(0.5, 0.5))
-    rune_icon:setAnchorPoint(cc.p(0.5, 0.5))
+    rune_icon:setDockPoint(CENTER_POINT)
+    rune_icon:setAnchorPoint(CENTER_POINT)
 
     -- 룬문자 (set_id로 결정됨)
     if set_id and (0 < set_id and set_id <= 8) then
         local alphabet_sprite = cc.Sprite:create(string.format('res/ui/icon/rune/rune_alphabet_%.2d.png', set_id))
         if alphabet_sprite then
-            alphabet_sprite:setDockPoint(cc.p(0.5, 0.5))
-            alphabet_sprite:setAnchorPoint(cc.p(0.5, 0.5))
+            alphabet_sprite:setDockPoint(CENTER_POINT)
+            alphabet_sprite:setAnchorPoint(CENTER_POINT)
             rune_icon:addChild(alphabet_sprite)
 
             --[[ 레어도에 따라서 색상 바꿔줘야하나??
@@ -221,8 +235,8 @@ function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv)
     -- 룬 등급 (1성~5성)
     local grade_sprite = cc.Sprite:create(string.format('res/ui/icon/rune/rune_star_%.2d.png', grade))
     if grade_sprite then
-        grade_sprite:setDockPoint(cc.p(0.5, 0.5))
-        grade_sprite:setAnchorPoint(cc.p(0.5, 0.5))
+        grade_sprite:setDockPoint(CENTER_POINT)
+        grade_sprite:setAnchorPoint(CENTER_POINT)
         grade_sprite:setPosition(0, -50)
         rune_icon:addChild(grade_sprite)
     end
@@ -232,7 +246,7 @@ function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv)
         local str = Str('+{1}', lv)
         local label = cc.Label:createWithTTF(str, 'res/font/common_font_01.ttf', 26, 2, cc.size(250, 100), cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         label:setPosition(-60, -30)
-        label:setDockPoint(cc.p(0.5, 0.5))
+        label:setDockPoint(CENTER_POINT)
         label:setAnchorPoint(cc.p(0, 0.5))
         rune_icon:addChild(label)
     end
@@ -261,8 +275,8 @@ function IconHelper:getSkillIcon(char_type, skill_id)
         sprite = cc.Sprite:create('res/ui/icon/skill/developing.png')
     end
 
-    sprite:setDockPoint(cc.p(0.5, 0.5))
-    sprite:setAnchorPoint(cc.p(0.5, 0.5))
+    sprite:setDockPoint(CENTER_POINT)
+    sprite:setAnchorPoint(CENTER_POINT)
 
     return sprite
 end
@@ -281,8 +295,8 @@ function IconHelper:getAttributeIcon(attribute)
         sprite = cc.Sprite:create('res/ui/icon/item/developing.png')
     end
 
-    sprite:setDockPoint(cc.p(0.5, 0.5))
-    sprite:setAnchorPoint(cc.p(0.5, 0.5))
+    sprite:setDockPoint(CENTER_POINT)
+    sprite:setAnchorPoint(CENTER_POINT)
 
     return sprite
 end
@@ -299,8 +313,8 @@ function IconHelper:getRoleIcon(role)
         sprite = cc.Sprite:create('res/ui/icon/item/developing.png')
     end
 
-    sprite:setDockPoint(cc.p(0.5, 0.5))
-    sprite:setAnchorPoint(cc.p(0.5, 0.5))
+    sprite:setDockPoint(CENTER_POINT)
+    sprite:setAnchorPoint(CENTER_POINT)
 
     return sprite
 end
@@ -317,8 +331,8 @@ function IconHelper:getAttackTypeIcon(attack_type)
         sprite = cc.Sprite:create('res/ui/icon/item/developing.png')
     end
 
-    sprite:setDockPoint(cc.p(0.5, 0.5))
-    sprite:setAnchorPoint(cc.p(0.5, 0.5))
+    sprite:setDockPoint(CENTER_POINT)
+    sprite:setAnchorPoint(CENTER_POINT)
 
     return sprite
 end
@@ -337,8 +351,8 @@ function IconHelper:getDragonRarityBG(rarity)
         sprite = cc.Sprite:create('res/ui/icon/item/developing.png')
     end
 
-    sprite:setDockPoint(cc.p(0.5, 0.5))
-    sprite:setAnchorPoint(cc.p(0.5, 0.5))
+    sprite:setDockPoint(CENTER_POINT)
+    sprite:setAnchorPoint(CENTER_POINT)
 
     return sprite
 end
@@ -355,8 +369,8 @@ function IconHelper:getDragonNamePng(dragon_id)
         sprite = cc.Sprite:create('res/ui/icon/item/developing.png')
     end
 
-    sprite:setDockPoint(cc.p(0.5, 0.5))
-    sprite:setAnchorPoint(cc.p(0.5, 0.5))
+    sprite:setDockPoint(CENTER_POINT)
+    sprite:setAnchorPoint(CENTER_POINT)
 
     return sprite
 end
@@ -381,8 +395,8 @@ function IconHelper:getStatusEffectIcon(status_effect_type)
         sprite = cc.Sprite:create('res/ui/icon/alarm_01.png')
     end
 
-    sprite:setDockPoint(cc.p(0.5, 0.5))
-    sprite:setAnchorPoint(cc.p(0.5, 0.5))
+    sprite:setDockPoint(CENTER_POINT)
+    sprite:setAnchorPoint(CENTER_POINT)
 
     return sprite
 end
@@ -400,8 +414,8 @@ function IconHelper:getRarityIcon(rarity)
         sprite = cc.Sprite:create('res/ui/icon/rarity/gem_common.png')
     end
 
-    sprite:setDockPoint(cc.p(0.5, 0.5))
-    sprite:setAnchorPoint(cc.p(0.5, 0.5))
+    sprite:setDockPoint(CENTER_POINT)
+    sprite:setAnchorPoint(CENTER_POINT)
 
     return sprite
 end

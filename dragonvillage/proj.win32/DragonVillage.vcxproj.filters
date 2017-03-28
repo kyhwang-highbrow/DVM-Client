@@ -1902,6 +1902,9 @@
     <None Include="..\src\UI_GameDPS.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\NumberLabel_Pumping.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -49,6 +49,7 @@ local t_module = {
     'ResPreloadMgr',
     'RichLabel',
     'NumberLabel',
+	'NumberLabel_Pumping',
     'LevelupDirector',
     'LevelupDirector_GameResult',
     'MapManager',
