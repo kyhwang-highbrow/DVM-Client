@@ -261,6 +261,10 @@ function DropItemMgr:obtainItem(item)
 
     item:setObtained()
 
+    -- 인터미션 때 이동하는 것 멈춤
+    local action_tag = 1000
+    cca.stopAction(item.m_rootNode, action_tag)
+
     local type, count = self.m_tableDropIngame:decideDropItem(self.m_chapterID)
     local res = 'res/ui/icon/inbox/inbox_' .. type .. '.png'
     if (res) then

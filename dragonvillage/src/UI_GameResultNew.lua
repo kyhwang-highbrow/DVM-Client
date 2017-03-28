@@ -37,7 +37,6 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     self.m_lDropItemList = l_drop_item_list
     self.m_secretDungeon = secret_dungeon
 
-
     local vars = self:load('ingame_result_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -380,14 +379,28 @@ function UI_GameResultNew:direction_dropItem()
 
         local item_id = v[1]
         local count = v[2]
+        local from = v[3]
 
         local item_card = UI_ItemCard(item_id, count)
         item_card:setRarityVisibled(true)
+
+        if (from == 'bonus') then
+            local animator = MakeAnimator('res/item/item_marble/item_marble.vrp')
+            animator:setAnchorPoint(cc.p(0.5, 0.5))
+            animator:setDockPoint(cc.p(1, 1))
+            item_card.vars['clickBtn']:addChild(animator.m_node)
+        end
 
         vars['dropRewardMenu']:addChild(item_card.root)
 
         local pos_x = l_pos[i]
         item_card.root:setPositionX(pos_x)
+    end
+
+	local ui_width = 850
+    local width = (interval * count)
+    if (ui_width < width) then
+        vars['dropRewardMenu']:setScale(ui_width / width)
     end
 
     SoundMgr:playEffect('EFFECT', 'reward')

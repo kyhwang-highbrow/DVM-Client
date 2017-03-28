@@ -327,7 +327,7 @@ function Tamer.st_bring(owner, dt)
             owner:setAfterImage(false)
         end)
 
-        local time2 = 0.2
+        local time2 = 0.3
         local move_action2 = cc.MoveTo:create(time2, cc.p(prevPosX, prevPosY))
         local callFunc_action2 = cc.CallFunc:create(function()
             owner:runAction_MoveZ(time2, TAMER_Z_POS)
@@ -336,7 +336,7 @@ function Tamer.st_bring(owner, dt)
         owner.m_rootNode:stopAllActions()
         owner.m_rootNode:runAction(cc.Sequence:create(
             cc.Spawn:create(move_action1, callFunc_action1),
-            cc.DelayTime:create(0.5),
+            cc.DelayTime:create(0.6),
             cc.Spawn:create(move_action2, callFunc_action2),
             cc.CallFunc:create(function()
                 owner:changeState('roam')

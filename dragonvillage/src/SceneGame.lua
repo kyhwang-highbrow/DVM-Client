@@ -616,21 +616,39 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
 
     local drop_reward_list = t_result_ref['drop_reward_list']
 
+    -- 드랍 아이템에 의한 보너스
+    local l_bonus_item = {}
+
     for i,v in ipairs(items_list) do
         local item_id = v['item_id']
         local count = v['count']
         local from = v['from']
+        
 
         -- 기본으로 주는 골드도 표기하기로 결정함
-        if (from == 'drop') or (from == 'default') then
+        if (from == 'drop') then
             local t_data = {item_id, count}
             table.insert(drop_reward_list, t_data)
 
         -- 스테이지에서 기본으로 주는 골드 량
         elseif (from == 'default') then
-            local default_gold = count
-            t_result_ref['default_gold'] = default_gold
+            local t_data = {item_id, count}
+            table.insert(drop_reward_list, t_data)
+
+        -- 드랍 아이템에 의한 보너스
+        elseif (from == 'bonus') then
+            if (not l_bonus_item[item_id]) then
+                l_bonus_item[item_id] = 0
+            end
+            l_bonus_item[item_id] = l_bonus_item[item_id] + count
+
         end
+    end
+
+    -- 보너스 아이템 추가
+    for i,v in pairs(l_bonus_item) do
+        local t_data = {i, v, 'bonus'}
+        table.insert(drop_reward_list, t_data)
     end
 end
 
