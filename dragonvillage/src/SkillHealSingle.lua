@@ -63,7 +63,7 @@ function SkillHealSingle:doHeal()
 
         local effect = self.m_world:addInstantEffect(self.m_res, 'heal_effect', target.pos.x, target.pos.y)
 
-        target:healAbs(heal * self.m_healRate)
+        target:healAbs(self.m_owner, heal * self.m_healRate, false)
 
 		-- 나에게로부터 상대에게 가는 힐 이펙트 생성
         local effect_heal = EffectHeal(self.m_res, {0,0,0})

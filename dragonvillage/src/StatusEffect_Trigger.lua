@@ -120,7 +120,7 @@ function StatusEffect_Trigger:getTriggerFunction()
 			local damage = t_event['damage']
 			if (damage) then 
 				local heal_abs = damage * (t_skill['val_1'] / 100)
-				char:healAbs(heal_abs, true)
+				char:healAbs(char, heal_abs, true)
 			end
 		end
 

@@ -100,14 +100,13 @@ end
 -- function heal
 -------------------------------------
 function SkillHealAround:doHeal()
-
     local atk_dmg = self.m_owner.m_statusCalc:getFinalStat('atk')
     local heal = HealCalc_M(atk_dmg)
 
     heal = (heal * self.m_healRate)
 
     for i,v in pairs(self.m_tTargetList) do
-        v:healAbs(heal)
+        v:healAbs(self.m_owner, heal, true)
     end
 end
 

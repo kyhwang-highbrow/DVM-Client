@@ -1046,17 +1046,17 @@ end
 -------------------------------------
 -- function healPercent
 -------------------------------------
-function Character:healPercent(percent, b_make_effect)
+function Character:healPercent(caster, percent, b_make_effect)
     local heal = self.m_maxHp * percent
     heal = math_min((self.m_maxHp - self.m_hp) , heal)
 
-    self:healAbs(heal, b_make_effect)
+    self:healAbs(caster, heal, b_make_effect)
 end
 
 -------------------------------------
 -- function healAbs
 -------------------------------------
-function Character:healAbs(hp, b_make_effect)
+function Character:healAbs(caster, hp, b_make_effect)
     local hp = math_floor(hp)
 
     local heal = hp
@@ -1074,7 +1074,10 @@ function Character:healAbs(hp, b_make_effect)
     end
 
 	-- @LOG_CHAR
-	self.m_charLogRecorder:recordLog('be healed', heal)
+	self.m_charLogRecorder:recordLog('be_healed', heal)
+	if (caster) then
+		caster.m_charLogRecorder:recordLog('heal', heal)
+	end
 end
 
 -------------------------------------

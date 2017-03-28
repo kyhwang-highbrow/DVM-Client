@@ -1608,7 +1608,7 @@ function GameWorld:onEvent_change_wave(event_name, t_event, ...)
         local percent = (10 / 100)
         local b_make_effect = true
         for _, char in pairs(self:getDragonList()) do
-            char:healPercent(percent, b_make_effect)
+            char:healPercent(nil, percent, b_make_effect)
         end
     end
 end

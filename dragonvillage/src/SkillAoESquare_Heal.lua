@@ -56,7 +56,7 @@ function SkillAoESquare_Heal:attack(target_char)
         local heal_rate = (self.m_healRate / 100)
         local atk_dmg = self.m_activityCarrier:getStat('atk')
         local heal = HealCalc_M(atk_dmg) * heal_rate
-        target_char:healAbs(heal)
+        target_char:healAbs(self.m_owner, heal, false)
 
         -- 회복 이펙트
         local effect = self.m_world:addInstantEffect('res/effect/effect_heal/effect_heal.vrp', 'idle', target_char.pos.x, target_char.pos.y)

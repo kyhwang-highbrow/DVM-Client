@@ -6,7 +6,8 @@ local PARENT = Entity
 StatusEffect = class(PARENT, {
         m_statusEffectName = 'string',
         
-		m_owner = 'Character',
+		m_owner = 'Character',		-- 피시전자 & 상태효과의 대상
+		m_caster = 'Character',		-- 시전자
 
         m_lStatus = 'list', -- key:능력치명, value:수치
         m_lStatusAbs = 'list', -- key:능력치명, value:수치
@@ -63,6 +64,13 @@ end
 -------------------------------------
 function StatusEffect:setTargetChar(target_char)
     self.m_owner = target_char
+end
+
+-------------------------------------
+-- function setCasterChar
+-------------------------------------
+function StatusEffect:setCasterChar(char)
+    self.m_caster = char
 end
 
 -------------------------------------

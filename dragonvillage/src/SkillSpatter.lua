@@ -130,7 +130,7 @@ function SkillSpatter:spatterHeal(target_char)
 
     -- 시전자의 최대 체력에 비례한 회복
     local heal = (self.m_owner.m_maxHp * self.m_spatterHealRate)
-    target_char:healAbs(heal)
+    target_char:healAbs(self.m_owner, heal, true)
 end
 
 -------------------------------------

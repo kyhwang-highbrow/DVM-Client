@@ -277,7 +277,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
     status_effect.m_subData = {status_effect_type = status_effect_type, status_effect_value = status_effect_value, status_effect_rate = status_effect_rate}
 
 	 -- 능력치 지정
-     local is_abs = (t_status_effect['abs_switch'] and (t_status_effect['abs_switch'] == 1) or false)
+    local is_abs = (t_status_effect['abs_switch'] and (t_status_effect['abs_switch'] == 1) or false)
 
     for _, type in ipairs(L_STATUS_TYPE) do
         local value = t_status_effect[type] or 0
@@ -299,6 +299,12 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 
 	-- 대상 지정 
 	status_effect:setTargetChar(char)
+
+	-- 시전자 지정
+	if (self:getActivityCarrier()) then
+		local caster = self:getActivityCarrier().m_activityCarrierOwner
+		status_effect:setCasterChar(caster)
+	end
         
 	-- 객체 생성
     local world = char.m_world

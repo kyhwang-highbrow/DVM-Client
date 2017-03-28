@@ -39,7 +39,7 @@ end
 function SkillDispelMagic.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
 		-- 힐
-        owner.m_targetChar:healPercent(owner.m_healRate)
+        owner.m_targetChar:healPercent(nil, owner.m_healRate, true)
 		-- 상태이상 헤제
 		StatusEffectHelper:releaseHarmfulStatusEffect(owner.m_targetChar)
 		-- 추가 버프 

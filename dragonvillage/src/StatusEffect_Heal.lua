@@ -74,17 +74,17 @@ end
 function StatusEffect_Heal:doHeal()
 	-- 상대 체력의 n% 회복
 	if (self.m_healType == 'hp_target') then 
-		self.m_owner:healPercent(self.m_healRate)
+		self.m_owner:healPercent(self.m_caster, self.m_healRate, false)
+
+	-- 절대값 회복
 	elseif (self.m_healType == 'hp_abs') then 
-		self.m_owner:healAbs(self.m_healAbs)
+		self.m_owner:healAbs(self.m_caster, self.m_healAbs, false)
 
 	-- 시전자의 데미지의 n% 회복
-	-- @TODO 시전자 가져오려면 구조 개선해야함 
 	elseif (self.m_healType == 'atk') then 
-		local atk_dmg = self.m_owner.m_statusCalc:getFinalStat('atk')
+		local atk_dmg = self.m_caster.m_statusCalc:getFinalStat('atk')
 		local heal = HealCalc_M(atk_dmg)
 		heal = (heal * self.m_healRate)
-		self.m_owner:healAbs(heal)
-
+		self.m_owner:healAbs(self.m_caster, heal, false)
 	end
 end

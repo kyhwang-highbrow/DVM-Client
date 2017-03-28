@@ -267,7 +267,7 @@ function SkillLinkedSoul:doHeal(target, heal_org)
     if target and (not target.m_bDead) then
 		-- 힐은 데미지 경감에 대한 상대치 + 절대치
 		local heal = (heal_org * self.m_healRate) + self.m_healAbs
-        target:healAbs(heal, true)
+        target:healAbs(self.m_owner, heal, true)
     end
 end
 

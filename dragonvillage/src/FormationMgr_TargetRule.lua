@@ -271,7 +271,7 @@ end
 function TargetRule_getTargetList_status_effect(org_list, status_effect_type)
     local t_ret = org_list or {}
 
-	local temp = seperate(stat_type, '_')
+	local temp = seperate(stat_type, '_') or {}
 	local status_effect_name = temp[2]
 	local is_except = (temp[3] == 'except')	-- 해당 상태효과 제외여부
 
