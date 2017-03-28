@@ -281,7 +281,7 @@ end
 function GameWorld:buffActivateAtStartup()
     -- 테이머 버프
     if (self.m_tamer) then
-        self.m_tamer:doSkillFixedPassive()
+        self.m_tamer:doSkillPassive()
     end
 
     -- 아군 버프

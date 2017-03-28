@@ -1181,7 +1181,7 @@ function GameWorld:onKeyReleased(keyCode, event)
         
     elseif (keyCode == KEY_2) then
         if (self.m_tamer) then
-            self.m_tamer:doSkillPassive()
+            self.m_tamer:doSkillEvent()
         end
 
 	-- 미사일 범위 확인

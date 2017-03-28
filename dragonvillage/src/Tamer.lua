@@ -1,7 +1,8 @@
 local PARENT = Character
 
 local TAMER_SKILL_ACTIVE = 1
-local TAMER_SKILL_PASSIVE = 2
+local TAMER_SKILL_EVENT = 2
+local TAMER_SKILL_PASSIVE = 3
 
 local MAX_TAMER_SKILL = 3
 local TAMER_Z_POS = 100
@@ -60,18 +61,29 @@ function Tamer:init_tamer(t_tamer, bLeftFormationend)
     self.m_charTable = t_tamer
     self.m_bLeftFormation = bLeftFormationend
 
-    local t_tamer = self.m_charTable
-	local table_tamer_skill = TableTamerSkill()
-	
-	-- @TODO
-	for i = 1, MAX_TAMER_SKILL do
-		local skill_id = 249001 + (i * 100) --t_tamer['skill_' .. i]
-		self.m_lSkill[i] = table_tamer_skill:getTamerSkill(skill_id)
-		self.m_lSkillCoolTimer[i] = self.m_lSkill[i]['cooldown']
-	end
+	-- Tamer Skill 설정
+	self:initSkill()
 
 	-- TAMER UI 생성
 	self.m_world.m_inGameUI:initTamerUI(self)
+
+	self.m_world:addListener('dragon_summon', self)
+end
+
+-------------------------------------
+-- function initSkill
+-------------------------------------
+function Tamer:initSkill(file_name)
+    local t_tamer = self.m_charTable
+	local table_tamer_skill = TableTamerSkill()
+	
+	for i = 1, MAX_TAMER_SKILL do
+		local skill_id = t_tamer['skill_' .. i]
+		local t_skill = table_tamer_skill:getTamerSkill(skill_id)
+
+		self.m_lSkill[i] = t_skill
+		self.m_lSkillCoolTimer[i] = t_skill['cooldown']
+	end
 end
 
 -------------------------------------
@@ -95,7 +107,7 @@ function Tamer:initState()
     self:addState('bring', Tamer.st_bring, 'i_idle', true)
 
 	self:addState('active', Tamer.st_active, 'skill_1', true)
-	self:addState('passive', Tamer.st_passive, 'skill_2', true)
+	self:addState('event', Tamer.st_event, 'skill_2', true)
 
     self:addState('wait', Tamer.st_wait, 'i_idle', true)
     self:addState('move', PARENT.st_move, 'i_idle', true)
@@ -110,6 +122,32 @@ function Tamer:initState()
 end
 
 -------------------------------------
+-- function onEvent
+-------------------------------------
+function Tamer:onEvent(event_name, t_event, ...)
+	if (event_name == 'dragon_summon') then
+		self:setTamerEventSkill()
+	elseif (event_name == 'hit_basic') then
+		if self:checkEventSkill(TAMER_SKILL_EVENT) then
+			self:changeState('event')
+		end
+	end
+end
+
+-------------------------------------
+-- function setTamerEventSkill
+-------------------------------------
+function Tamer:setTamerEventSkill()
+	for i, t_skill in pairs(self.m_lSkill) do
+		if (t_skill['chance_type'] == 'basic') then
+			for i, dragon in pairs(self.m_world:getDragonList()) do
+				dragon:addListener('hit_basic', self)
+			end
+		end
+	end
+end
+
+-------------------------------------
 -- function update
 -------------------------------------
 function Tamer:update(dt)
@@ -118,11 +156,8 @@ function Tamer:update(dt)
     end
 
     if (not self.m_bDead and self.m_world:isPossibleControl()) then
-        if (self.m_lSkillCoolTimer[TAMER_SKILL_PASSIVE] > 0) then
-            self.m_lSkillCoolTimer[TAMER_SKILL_PASSIVE] = math_max(self.m_lSkillCoolTimer[TAMER_SKILL_PASSIVE] - dt, 0)
-	    else
-		    self:changeState('passive')
-		    self.m_lSkillCoolTimer[TAMER_SKILL_PASSIVE] = self.m_lSkill[TAMER_SKILL_PASSIVE]['cooldown']
+        if (self.m_lSkillCoolTimer[TAMER_SKILL_EVENT] > 0) then
+            self.m_lSkillCoolTimer[TAMER_SKILL_EVENT] = math_max(self.m_lSkillCoolTimer[TAMER_SKILL_EVENT] - dt, 0)
         end
     end
 
@@ -326,9 +361,8 @@ end
 -------------------------------------
 function Tamer.st_active(owner, dt)
     if (owner.m_stateTimer == 0) then
-		-- 화면 위치 찾기 위함
-		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
 		-- 연출 세팅
+		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
 		owner:setTamerSkillDirecting(CRITERIA_RESOLUTION_X/2, cameraHomePosY + 200, TAMER_SKILL_ACTIVE)
 	
 		-- 스킬 동작
@@ -337,16 +371,16 @@ function Tamer.st_active(owner, dt)
 end
 
 -------------------------------------
--- function st_passive
+-- function st_event
 -------------------------------------
-function Tamer.st_passive(owner, dt)
+function Tamer.st_event(owner, dt)
     if (owner.m_stateTimer == 0) then
-		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
 		-- 연출 세팅
-		owner:setTamerSkillDirecting(CRITERIA_RESOLUTION_X/4, cameraHomePosY + 200, TAMER_SKILL_PASSIVE)
+		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+		owner:setTamerSkillDirecting(CRITERIA_RESOLUTION_X/4, cameraHomePosY + 200, TAMER_SKILL_EVENT)
 
-		-- 패시브 발동
-		owner:doSkillPassive()
+		-- 발동형 스킬 발동
+		owner:doSkillEvent()
     end
 end
 
@@ -546,24 +580,7 @@ function Tamer:doSkill(skill_idx)
 	local t_skill = self.m_lSkill[skill_idx]
 	
 	PARENT.doSkillBySkillTable(self, t_skill, nil)
-	
-	--[[
-	if (t_skill['skill_form'] == 'status_effect') then 
-		-- 1. skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
-		local l_target = self:getTargetListByTable(t_skill)
-        if (not l_target) then return end
 
-		-- 2. 상태효과 문자열(;로 구분)
-		local status_effect_str = {t_skill['status_effect_1'], t_skill['status_effect_2']}
-
-		-- 3. 타겟에 상태효과생성
-		StatusEffectHelper:doStatusEffectByStr(self, l_target, status_effect_str)
-
-	else
-		cclog('미구현 테이머 스킬 : ' .. t_skill['sid'] .. ' / ' .. t_skill['t_name'])
-		return false
-	end
-	]]
     self.m_lSkillCoolTimer[skill_idx] = t_skill['cooldown'] 
 
 	return true
@@ -573,29 +590,45 @@ end
 -- function doSkillActive
 -------------------------------------
 function Tamer:doSkillActive()
-    --[[
-    self.m_world:dispatch('tamer_skill', {}, function()
-        self:showToolTipActive()
-        self:doSkill(TAMER_SKILL_ACTIVE)
-    end, idx)
-    ]]--
-
+	cclog('############ Tamer:doSkillActive()')
     self.m_world:dispatch('tamer_skill')
     return self:doSkill(TAMER_SKILL_ACTIVE)
+end
+
+-------------------------------------
+-- function doSkillEvent
+-------------------------------------
+function Tamer:doSkillEvent()
+	cclog('############ Tamer:doSkillEvent()')
+    return self:doSkill(TAMER_SKILL_EVENT)
 end
 
 -------------------------------------
 -- function doSkillPassive
 -------------------------------------
 function Tamer:doSkillPassive()
+	cclog('############ Tamer:doSkillPassive()')
     return self:doSkill(TAMER_SKILL_PASSIVE)
 end
 
 -------------------------------------
--- function doSkillFixedPassive
+-- function checkEventSkill
 -------------------------------------
-function Tamer:doSkillFixedPassive()
-    return self:doSkill(3)
+function Tamer:checkEventSkill(skill_idx)
+	-- 1. 쿨타임 체크
+	if (self.m_lSkillCoolTimer[skill_idx] > 0) then
+		return false
+	end
+
+	-- 2. 발동 확률 체크 (100단위 사용 심플)
+	local t_skill = self.m_lSkill[skill_idx]
+	local chance_value = t_skill['chance_value']
+	local random_100 = math_random(1, 100)
+	if (chance_value < random_100) then
+		return false
+	end
+
+	return true
 end
 
 -------------------------------------

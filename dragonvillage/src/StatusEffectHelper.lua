@@ -364,32 +364,25 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 		value_1 = t_effect['value_1']
 				
 		t_status_effect = table_status_effect[type]
-					
+		
+		local function apply_world_passive_effect(char)
+			local world = char.m_world
+			-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
+			if (not world.m_mPassiveEffect[char]) then
+				world.m_mPassiveEffect[char] = {}
+			end
+			world.m_mPassiveEffect[char][t_status_effect['t_name']] = true
+		end
+
 		-- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
 		if (target_type == 'self') then 
 			StatusEffectHelper:invokeStatusEffect(char, type, value_1, rate, duration)
-
-			do
-				local world = char.m_world
-				-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
-				if (not world.m_mPassiveEffect[char]) then
-					world.m_mPassiveEffect[char] = {}
-				end
-				world.m_mPassiveEffect[char][t_status_effect['t_name']] = true
-			end
+			apply_world_passive_effect(char)
 
 		elseif (target_type == 'target') then 
 			for _, target in ipairs(l_target) do
 				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
-
-				do
-					local world = target.m_world
-					-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
-					if (not world.m_mPassiveEffect[target]) then
-						world.m_mPassiveEffect[target] = {}
-					end
-					world.m_mPassiveEffect[target][t_status_effect['t_name']] = true
-				end
+				apply_world_passive_effect(target)
 			end
 		end
 
