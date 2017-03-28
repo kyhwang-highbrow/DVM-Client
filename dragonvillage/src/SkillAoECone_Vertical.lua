@@ -40,7 +40,7 @@ end
 -------------------------------------
 -- function initConeAnimator
 -------------------------------------
-function SkillAoECone:initConeAnimator()
+function SkillAoECone_Vertical:initConeAnimator()
 	-- NOTHING TO DO
 end
 
@@ -73,7 +73,7 @@ end
 -- function escapeAttack
 -- @brief 공격이 종료되는 시점에 실행
 -------------------------------------
-function SkillAoECone:escapeAttack()
+function SkillAoECone_Vertical:escapeAttack()
 	self:changeState('disappear')
 end
 

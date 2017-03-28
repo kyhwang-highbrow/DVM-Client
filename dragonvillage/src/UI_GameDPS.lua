@@ -62,6 +62,7 @@ function UI_GameDPS:initUI()
 			vars['dpsLabel' .. i] = NumberLabel(vars['dpsLabel' .. i], 0, 0.3)
 			-- 전체 대비 비율
 			vars['dpsGauge' .. i]:setPercentage(0)
+			vars['hpsGauge' .. i]:setPercentage(0)
 
 			-- 맵핑 저장
 			self.m_mDpsNodeMap[dragon] = {node = vars['dpsNode' .. i], idx = i}
