@@ -610,6 +610,40 @@ function UIC_TableView:setItemList3(list)
 end
 
 -------------------------------------
+-- function makeAllItemUI
+-- @brief
+-------------------------------------
+function UIC_TableView:makeAllItemUI()
+    self:_updateCellPositions()
+    self:_updateContentSize()
+
+    for i,item in ipairs(self.m_itemList) do
+        if (not item['ui']) then
+            item['ui'] = self:makeItemUI(item['data'])
+            local ui = item['ui']
+            local idx = item['idx']
+            self:updateCellAtIndex(idx)
+
+            do -- UI 생성 연출
+                local scale = ui.root:getScale()
+                ui.root:setScale(scale * 0.2)
+                local scale_to = cc.ScaleTo:create(0.25, scale)
+                local action = cc.EaseInOut:create(scale_to, 2)
+                ui.root:runAction(cc.Sequence:create(cc.DelayTime:create((i-1) * 0.03), action))
+            end
+
+            -- 생성 예약 리스트에서 삭제
+            for i, v in ipairs(self.m_makeReserveQueue) do
+                if (item == v) then
+                    table.remove(self.m_makeReserveQueue, i)
+                    break
+                end
+            end
+        end
+    end
+end
+
+-------------------------------------
 -- function getCellUI
 -- @brief
 -------------------------------------

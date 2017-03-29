@@ -78,7 +78,7 @@ function UI_NestDungeonScene:initUI(stage_id)
             return a['data']['mode_id'] < b['data']['mode_id']
         end
         table.sort(table_view.m_itemList, sort_func)
-        
+        table_view:makeAllItemUI()
 
         self.m_tableView = table_view
     end

@@ -9,6 +9,7 @@ function UI_SettingPopup:init_Dev()
     vars['allFruitBtn']:registerScriptTapHandler(function() self:click_allFruitBtn() end)
     vars['allMaterialBtn']:registerScriptTapHandler(function() self:click_allMaterialBtn() end)
     vars['allRuneBtn']:registerScriptTapHandler(function() self:click_allRuneBtn() end)
+    vars['allStaminaBtn']:registerScriptTapHandler(function() self:click_allStaminaBtn() end)
 end
 
 -------------------------------------
@@ -222,6 +223,52 @@ function UI_SettingPopup:click_allRuneBtn()
     end
     ui_network:setSuccessCB(do_work)
     do_work()
+end
+
+-------------------------------------
+-- function click_allStaminaBtn
+-- @brief 모든 입장권 추가
+-------------------------------------
+function UI_SettingPopup:click_allStaminaBtn()
+    local l_stamina_list = {'st', 'pvp', 'gdragon', 'treant', 'nightmare', 'gold'}
+
+
+
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        co:setBlockPopup()
+
+        while (0 < #l_stamina_list) do
+            co:work()
+            local uid = g_userData:get('uid')
+
+            local function success_cb(ret)
+                if ret['user'] then
+                    g_serverData:applyServerData(ret['user'], 'user')
+                end
+                g_topUserInfo:refreshData()
+                co.NEXT()
+            end
+
+            local key = l_stamina_list[1]
+            table.remove(l_stamina_list, 1)
+
+            local ui_network = UI_Network()
+            ui_network:setUrl('/users/update')
+            ui_network:setParam('uid', uid)
+            ui_network:setParam('act', 'increase')
+            ui_network:setParam('staminas', key .. ',' .. 100)
+            ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+            ui_network:setRevocable(false)
+            ui_network:request()
+            if co:waitWork() then return end
+        end
+
+        UIManager:toastNotificationGreen('모든 입장권 추가!')
+        co:close()
+    end
+
+    Coroutine(coroutine_function)
 end
 
 -------------------------------------
