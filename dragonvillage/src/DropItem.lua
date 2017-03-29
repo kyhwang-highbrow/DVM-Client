@@ -9,6 +9,7 @@ DropItem = class(PARENT, {
     m_bObtained = 'boolean',
     m_itemType = 'string',
     m_itemCount = 'number',
+    m_checkSprite = 'Animator',
 })
 
 -------------------------------------
@@ -67,6 +68,7 @@ function DropItem:initState()
     self:addState('idle', DropItem.st_idle, 'idle', true)
     self:addState('wait', DropItem.st_wait, 'idle', true)
     self:addState('dying', DropItem.st_dying, 'disappear', false)
+    self:addState('dead', function(owner, dt) return true end, nil, false)
 
     self:changeState('appear')
 end
@@ -91,11 +93,10 @@ end
 -------------------------------------
 function DropItem.st_appear(owner, dt)
     if (owner.m_stateTimer == 0) then
-        --cclog('DropItem.st_appear')
-    end
-
-    if (owner.m_stateTimer >= owner:getAniDuration()) then
-        owner:changeState('idle')
+        local function ani_handler()
+            owner:changeState('idle')
+        end
+        owner:addAniHandler(ani_handler)
     end
 end
 
@@ -125,11 +126,15 @@ end
 -------------------------------------
 function DropItem.st_dying(owner, dt)
     if (owner.m_stateTimer == 0) then
-        --cclog('DropItem.st_dying')
-    end
+        if owner.m_checkSprite then
+            owner.m_checkSprite:release()
+            owner.m_checkSprite = nil
+        end
 
-    if (owner.m_stateTimer >= owner:getAniDuration()) then
-        return true
+        local function ani_handler()
+            owner:changeState('dead')
+        end
+        owner:addAniHandler(ani_handler)
     end
 end
 
@@ -140,6 +145,16 @@ function DropItem:setObtained(item_type, item_count)
     self.m_bObtained = true
     self.m_itemType = item_type
     self.m_itemCount = item_count
+
+    if (not self.m_checkSprite) then
+        local sprite = MakeAnimator('res/ui/icon/stage_box_check.png')
+        sprite:setDockPoint(cc.p(0.5, 0.5))
+        sprite:setAnchorPoint(cc.p(0.5, 0.5))
+        self.m_animator:addChild(sprite.m_node)
+        self.m_checkSprite = sprite
+
+        cca.uiReactionSlow(sprite.m_node, 1, 1, 2)
+    end
 end
 
 -------------------------------------

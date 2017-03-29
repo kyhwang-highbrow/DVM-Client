@@ -7,7 +7,6 @@ DropItemMgr = class(PARENT, {
 	m_world = 'GameWorld',
 
     m_touchNode = 'cc.Node',
-    m_selectItem = 'DropItem',
     m_lItemlist = 'table',
 
     m_chapterID = 'number',
@@ -15,6 +14,7 @@ DropItemMgr = class(PARENT, {
     m_remainItemCnt = 'number',
     m_dropCount = 'number',
     m_optainedItemList = 'list',
+    m_bImmediatelyObtain = 'boolean',
 })
 
 -------------------------------------
@@ -27,10 +27,10 @@ function DropItemMgr:init(world)
     world:addChild2(self.m_touchNode)
     self:makeTouchLayer(self.m_touchNode)
 
-    self.m_selectItem = nil
     self.m_lItemlist = {}
     self.m_dropCount = 0
     self.m_optainedItemList = {}
+    self.m_bImmediatelyObtain = false
 
     -- 아이템을 드랍할 몬스터 지정
     self:designateDropMonster(wave_script)
@@ -180,35 +180,35 @@ function DropItemMgr:cleanupItem()
             v:changeState('dying')
         end
     end
-
-    self.m_selectItem = nil
 end
 
 -------------------------------------
--- function allOptain
+-- function setImmediatelyObtainsetImmediatelyObtain
 -------------------------------------
-function DropItemMgr:allOptain()
-    for i,item in pairs(self.m_lItemlist) do
-        if (not item:isObtained()) then
-            local type, count = self.m_tableDropIngame:decideDropItem(self.m_chapterID)
-            item:setObtained(type, count)
-            item:makeObtainEffect()
-            item:changeState('dying')
-        end
-    end
+function DropItemMgr:setImmediatelyObtain()
+    self.m_bImmediatelyObtain = true
 end
 
 -------------------------------------
 -- function getItemFromPos
 -------------------------------------
 function DropItemMgr:getItemFromPos(pos_x, pos_y)
-    for i, v in ipairs(self.m_lItemlist) do
-        local x, y = v:getCenterPos()
-		local distance = math_distance(x, y, pos_x, pos_y)
+    local near_distance = nil
+    local selected_item = nil
 
-        if (distance <= 100) then
-            return v
+    for _,item in ipairs(self.m_lItemlist) do
+        if (not item:isObtained()) then
+            local x, y = item:getCenterPos()
+		    local distance = math_distance(x, y, pos_x, pos_y)
+            if (not near_distance) or (distance < near_distance) then
+                near_distance = distance
+                selected_item = item
+            end
         end
+    end
+
+    if near_distance and (near_distance <= 150) then
+        return selected_item
     end
 
     return nil
@@ -253,11 +253,15 @@ function DropItemMgr:onTouchBegan(touch, event)
     local select_item = self:getItemFromPos(node_pos['x'], node_pos['y'])
 
     if (select_item and not select_item:isObtained()) then
-        -- 테이머 드랍 아이템 획득 연출
-        self.m_world.m_tamer:doBringItem(select_item)
         self:obtainItem(select_item)
-
-        --self.m_selectItem = select_item
+        -- 즉시 획득
+        if self.m_bImmediatelyObtain then
+            select_item:makeObtainEffect()
+            select_item:changeState('dying')
+        -- 테이머 드랍 아이템 획득 연출
+        else
+            self.m_world.m_tamer:doBringItem(select_item)
+        end
         return true
     end
 
@@ -293,14 +297,12 @@ end
 -- @brief 드랍 아이템 인터미션
 -------------------------------------
 function DropItemMgr:intermission()
-
     -- 아이템들 이동
-    for i,v in pairs(self.m_lItemlist) do
-        self:applyInterMissionAction(v.m_rootNode)
+    for _,item in pairs(self.m_lItemlist) do
+        if (not item:isObtained()) then
+            self:applyInterMissionAction(v.m_rootNode)
+        end
     end
-
-    -- 터치 레이어 이동
-    self:applyInterMissionAction(self.m_touchNode)
 end
 
 -------------------------------------

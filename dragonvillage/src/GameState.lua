@@ -605,7 +605,7 @@ function GameState.update_success(self, dt)
 
         -- 모든 아이템 획득
         if world.m_dropItemMgr then
-            world.m_dropItemMgr:allOptain()
+            world.m_dropItemMgr:setImmediatelyObtain()
         end
 
         for i,enemy in ipairs(world:getEnemyList()) do

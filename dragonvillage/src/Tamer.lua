@@ -353,6 +353,7 @@ function Tamer.st_bring(owner, dt)
         local prevPosY = owner.pos.y
         local prevScale = owner.m_rootNode:getScale()
 
+        owner.m_targetItem:stopAllActions()
         local distance = getDistance(owner.m_targetItem.pos.x, owner.m_targetItem.pos.y, owner.pos.x, owner.pos.y)
         local speed = 1000
         local time1 = (distance / speed)
@@ -371,19 +372,12 @@ function Tamer.st_bring(owner, dt)
             owner.m_targetItem = nil
             owner:checkItemStack()
         end)
-
-        local time2 = 0.3
-        local move_action2 = cc.MoveTo:create(time2, cc.p(prevPosX, prevPosY))
-        local callFunc_action2 = cc.CallFunc:create(function()
-            owner:runAction_MoveZ(time2, TAMER_Z_POS)
-        end)
         
         owner.m_rootNode:stopAllActions()
         owner.m_rootNode:runAction(cc.Sequence:create(
             cc.Spawn:create(move_action1, callFunc_action1),
             callFunc_checkItemStack,
             cc.DelayTime:create(0.6),
-            --cc.Spawn:create(move_action2, callFunc_action2),
             cc.CallFunc:create(function()
                 owner:changeState('roam')
             end)
