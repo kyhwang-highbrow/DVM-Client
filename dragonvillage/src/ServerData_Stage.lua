@@ -61,7 +61,6 @@ function ServerData_Stage:isOpenStage(stage_id)
 
     local ret = false
 
-    cclog('game_mode : ' .. game_mode)
     -- 모험 모드
     if (game_mode == GAME_MODE_ADVENTURE) then
         ret = g_adventureData:isOpenStage(stage_id)

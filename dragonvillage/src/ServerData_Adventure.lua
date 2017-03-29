@@ -74,7 +74,7 @@ function ServerData_Adventure:request_adventureInfo(finish_cb, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/game/stage/list')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('type', 1) -- 1 : adventrue(모험)
+    ui_network:setParam('type', 11) -- 11 : adventrue(모험)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -228,7 +228,6 @@ end
 -------------------------------------
 function ServerData_Adventure:isOpenStage(stage_id)
     local prev_stage_id = getPrevStageID(stage_id)
-
     if (not prev_stage_id) then
         return true
     else
