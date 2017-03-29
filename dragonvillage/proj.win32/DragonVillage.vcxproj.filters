@@ -1845,9 +1845,6 @@
     <None Include="..\src\TableEvolutionInfo.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_DragonEclvup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_DragonSkillLevelUp.lua">
       <Filter>lua\UI</Filter>
     </None>
