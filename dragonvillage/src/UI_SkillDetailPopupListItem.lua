@@ -181,11 +181,11 @@ function UI_SkillDetailPopupListItem:click_enhanceBtn()
         local max_lv_segment, max_lv = self:getSkillMaxLevel()
 
         if (max_lv_segment <= skill_level) then
-            --드래곤 초월 단계에 따라 스킬 강화 최대치가 상승합니다.
-            --초월 화면으로 이동하시겠습니까?
             local msg = Str('드래곤 초월 단계에 따라 스킬 강화 최대치가 상승합니다.\n초월 화면으로 이동하시겠습니까?')
             local function ok_cb()
-                cclog('####### 초월 화면으로 이동')
+                local doid = self.m_dragonData['id']
+                UINavigator:goTo_transcend(doid)
+                return true -- 팝업을 닫지 말라는 의미
             end
             MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb)
             -- 초월 안내

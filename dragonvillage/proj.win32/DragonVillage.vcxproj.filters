@@ -1917,6 +1917,9 @@
     <None Include="..\src\UI_DragonEclvupNew.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UINavigator.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

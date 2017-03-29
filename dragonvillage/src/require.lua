@@ -118,6 +118,7 @@ local t_module = {
 	'LogRecorder',
 	'LogRecorderWorld',
 	'LogRecorderChar',
+    'UINavigator',
 
     'ChatClient',
 
