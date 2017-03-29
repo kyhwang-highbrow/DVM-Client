@@ -141,7 +141,7 @@ function Dragon:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
 
     -- 피격시 스킬 게이지 증가
-    local role_type = self.m_charTable['role']
+    local role_type = self:getRole()
     if (role_type == 'tanker') then
         local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
         local value
@@ -266,7 +266,7 @@ end
 -------------------------------------
 function Dragon.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
-        local role_type = owner.m_charTable['role']
+        local role_type = owner:getRole()
 
         -- 패시브 스킬에만 이펙트를 추가
         if (owner.m_charTable['skill_basic'] ~= owner.m_reservedSkillId) then
@@ -604,7 +604,7 @@ function Dragon:makeHPGauge(hp_ui_offset)
     self.m_world.m_groundNode:addChild(self.m_dragSkillNode.m_node, 1)
     self.m_dragSkillNode.m_node:release()
 
-    local role_type = self.m_charTable['role']
+    local role_type = self:getRole()
     if (role_type == 'tanker') then
         ui.vars['skillGauge']:setColor(cc.c3b(255, 0, 0))
     elseif (role_type == 'dealer') then
@@ -821,7 +821,7 @@ function Dragon:initActiveSkillCool(percentage)
         return
     end
 
-    local role_type = self.m_charTable['role']
+    local role_type = self:getRole()
 
 	-- 초당 회복량 계산
     if (role_type == 'healer') then
@@ -850,7 +850,7 @@ end
 function Dragon:increaseActiveSkillCool(percentage)
     if (percentage == 0) then return end
     
-    local role_type = self.m_charTable['role']
+    local role_type = self:getRole()
     if (role_type == 'tanker') then    
         -- 1초마다 최대 증가값을 넘었다면 증가 시키지 않음
         local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')

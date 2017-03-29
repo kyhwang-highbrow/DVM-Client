@@ -1593,6 +1593,40 @@ function Character:getName()
 end
 
 -------------------------------------
+-- function getCharType
+-- @return 'dragon' or 'enemy'
+-------------------------------------
+function Character:getCharType()
+	return self.m_charType
+end
+
+-------------------------------------
+-- function getCharAttackAttr
+-- @return 공격 속성 physical or magical
+-------------------------------------
+function Character:getCharAttackAttr()
+	return self.m_charTable['char_type']
+end
+
+-------------------------------------
+-- function getRarity
+-- @return 희귀도 common/rare/hero/legend
+-------------------------------------
+function Character:getRarity()
+	return self.m_charTable['rarity']
+end
+
+-------------------------------------
+-- function getRole
+-------------------------------------
+function Character:getRole()
+	if (self.m_charTable) then
+		return self.m_charTable['role'] or '백수'
+	else
+		return '까미'
+	end
+end
+-------------------------------------
 -- function getAttribute
 -------------------------------------
 function Character:getAttribute()
@@ -1630,29 +1664,6 @@ function Character:changeAttribute(tar_attr)
 	end
 end
 
--------------------------------------
--- function getCharType
--- @return 'dragon' or 'enemy'
--------------------------------------
-function Character:getCharType()
-	return self.m_charType
-end
-
--------------------------------------
--- function getCharAttackAttr
--- @return 공격 속성 physical or magical
--------------------------------------
-function Character:getCharAttackAttr()
-	return self.m_charTable['char_type']
-end
-
--------------------------------------
--- function getRarity
--- @return 희귀도 common/rare/hero/legend
--------------------------------------
-function Character:getRarity()
-	return self.m_charTable['rarity']
-end
 
 -------------------------------------
 -- function insertStatusEffect
@@ -1679,6 +1690,34 @@ end
 -------------------------------------
 function Character:getStatusEffectList()
 	return self.m_lStatusEffect
+end
+
+-------------------------------------
+-- function hasHarmfulStatusEffect
+-- @breif 해로운 상태효과가 있는지 검사한다.
+-------------------------------------
+function Character:hasHarmfulStatusEffect()
+	for se_name, status_effect in pairs(self.m_lStatusEffect) do
+		if StatusEffectHelper:isHarmful(status_effect) then
+			return true
+		end
+	end
+
+	return false
+end
+
+-------------------------------------
+-- function hasHelpfulStatusEffect
+-- @breif 이로운 상태효과가 있는지 검사한다.
+-------------------------------------
+function Character:hasHelpfulStatusEffect()
+	for se_name, status_effect in pairs(self.m_lStatusEffect) do
+		if StatusEffectHelper:isHelpful(status_effect) then
+			return true
+		end
+	end
+
+	return false
 end
 
 -------------------------------------

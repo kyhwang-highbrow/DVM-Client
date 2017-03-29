@@ -62,17 +62,22 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
 	elseif string.find(type, 'def') or string.find(type, 'atk') or string.find(type, 'hp') then
 		return TargetRule_getTargetList_stat(org_list, type)
 
+	-- 속성 관련
+	elseif isExistValue(type, 'earth', 'water', 'fire', 'light', 'dark') then
+		return TargetRule_getTargetList_attr(org_list, type)
+
+	-- 직군 관련
+	elseif isExistValue(type, 'tanker', 'dealer', 'supporter', 'healer') then
+		return TargetRule_getTargetList_role(org_list, type)
+
 	-- 상태효과 관련
 	elseif string.find(type, 'status') then
 		return TargetRule_getTargetList_status_effect(org_list, type)
+	elseif (type == 'buff') then		
+		return TargetRule_getTargetList_buff(org_list)
+	elseif (type == 'debuff') then		
+		return TargetRule_getTargetList_debuff(org_list)
 
-	-- 속성 관련
-	elseif (type == 'attr_earth') then     return TargetRule_getTargetList_attr(org_list, ATTR_EARTH)
-	elseif (type == 'attr_water') then     return TargetRule_getTargetList_attr(org_list, ATTR_WATER)
-	elseif (type == 'attr_fire') then      return TargetRule_getTargetList_attr(org_list, ATTR_FIRE)
-	elseif (type == 'attr_light') then     return TargetRule_getTargetList_attr(org_list, ATTR_LIGHT)
-	elseif (type == 'attr_dark') then      return TargetRule_getTargetList_attr(org_list, ATTR_DARK)
-	
 	-- 특수
     elseif (type == 'fan_shape') then       return TargetRule_getTargetList_fan_shape(org_list, t_data)
 	elseif (type == 'rectangle') then		return TargetRule_getTargetList_rectangle(org_list, t_data)
@@ -263,42 +268,139 @@ function TargetRule_getTargetList_stat(org_list, stat_type)
 end
 
 -------------------------------------
+-- function TargetRule_getTargetList_role
+-- @brief 해당 직업군의 리스트 반환
+-------------------------------------
+function TargetRule_getTargetList_role(org_list, role)
+	-- 테이블을 복사한 후 무작위로 섞는다
+	local t_char = table.sortRandom(table.clone(org_list))
+    local t_ret = {}
+
+	-- 직업군이 같은 아이들을 추출한다
+	for i, character in pairs(t_char) do
+		if (character:getRole() == role) then
+			table.insert(t_ret, character)
+			table.remove(t_char, i)
+		end
+	end
+
+	-- 남은 애들도 다시 담는다.
+	for i, char in pairs(t_char) do
+		table.insert(t_ret, char)
+	end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function TargetRule_getTargetList_attr
+-- @brief 해당 속성의 리스트 반환
+-------------------------------------
+function TargetRule_getTargetList_attr(org_list, attr)
+	-- 테이블을 복사한 후 무작위로 섞는다
+	local t_char = table.sortRandom(table.clone(org_list))
+    local t_ret = {}
+
+	-- 속성이 같은 아이들을 추출한다
+	for i, character in pairs(t_char) do
+		if (character:getAttribute() == attr) then
+			table.insert(t_ret, character)
+			table.remove(t_char, i)
+		end
+	end
+
+	-- 남은 애들도 다시 담는다.
+	for i, char in pairs(t_char) do
+		table.insert(t_ret, char)
+	end
+
+    return t_ret
+end
+
+-------------------------------------
 -- function TargetRule_getTargetList_status_effect
 -- @brief 특정 상태효과에 따른 구분
 -- @param org_list : 전체 타겟 리스트
--- @param status_effect_type : status_상태효과_제외여부
+-- @param status_effect_type : status_상태효과
 -------------------------------------
-function TargetRule_getTargetList_status_effect(org_list, status_effect_type)
-    local t_ret = org_list or {}
+function TargetRule_getTargetList_status_effect(org_list, raw_str)
+	-- 테이블을 복사한 후 무작위로 섞는다
+    local t_char = table.sortRandom(table.clone(org_list))
+	local t_ret = {}
 
-	local temp = seperate(stat_type, '_') or {}
+	local temp = seperate(raw_str, '_') or {}
 	local status_effect_name = temp[2]
-	local is_except = (temp[3] == 'except')	-- 해당 상태효과 제외여부
 
-	-- @TODO 다시 작업
-	--[[
-    for i,v in pairs(org_list) do
-		local is_insert = false
-		for name, status_effect in pairs(v:getStatusEffectList()) do
-			if (is_except) then
-				if (name ~= status_effect_name) then
-					is_insert = is_except
-				end
-			else
-				if (name == status_effect_name) then
-					is_insert = is_except
-					break
-				end
+	-- 상태효과가 있다면 새로운 테이블로 옮긴다. 차곡차곡
+	for i, char in pairs(t_char) do
+		for name, status_effect in pairs(char:getStatusEffectList()) do
+			if (status_effect_name == name) then
+				table.insert(t_ret, char)
+				table.remove(t_char, i)
+				break
 			end
 		end
-		if is_insert then 
-			table.insert(t_ret, v)
-		end
-    end
-	]]
+	end
 
-	if (table.count(t_ret) == 0) then
-		return TargetRule_getTargetList_random(org_list)
+	-- 남은 애들도 다시 담는다.
+	for i, char in pairs(t_char) do
+		table.insert(t_ret, char)
+	end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function TargetRule_getTargetList_buff 
+-- @brief 특정 상태효과에 따른 구분
+-------------------------------------
+function TargetRule_getTargetList_buff(org_list)
+	-- 테이블을 복사한 후 무작위로 섞는다
+    local t_char = table.sortRandom(table.clone(org_list))
+	local t_ret = {}
+
+	-- 버프
+	for i, char in pairs(t_char) do
+		for name, status_effect in pairs(char:getStatusEffectList()) do
+			if (self:hasHelpfulStatusEffect()) then
+				table.insert(t_ret, char)
+				table.remove(t_char, i)
+				break
+			end
+		end
+	end
+
+	-- 남은 애들도 다시 담는다.
+	for i, char in pairs(t_char) do
+		table.insert(t_ret, char)
+	end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function TargetRule_getTargetList_debuff 
+-- @brief 특정 상태효과에 따른 구분
+-------------------------------------
+function TargetRule_getTargetList_debuff(org_list)
+	-- 테이블을 복사한 후 무작위로 섞는다
+    local t_char = table.sortRandom(table.clone(org_list))
+	local t_ret = {}
+
+	-- 버프
+	for i, char in pairs(t_char) do
+		for name, status_effect in pairs(char:getStatusEffectList()) do
+			if (self:hasHarmfulStatusEffect()) then
+				table.insert(t_ret, char)
+				table.remove(t_char, i)
+				break
+			end
+		end
+	end
+
+	-- 남은 애들도 다시 담는다.
+	for i, char in pairs(t_char) do
+		table.insert(t_ret, char)
 	end
 
     return t_ret
@@ -475,23 +577,6 @@ function TargetRule_getTargetList_line(obj, x1, y1, x2, y2, thickness)
     end
 
     return false
-end
-
--------------------------------------
--- function TargetRule_getTargetList_attr
--- @brief 해당 속성의 리스트 반환
--------------------------------------
-function TargetRule_getTargetList_attr(org_list, attr)
-    local t_ret = {}
-	local attr = attributeNumToStr(attr)
-
-	for i, character in pairs(org_list) do
-		if (character:getAttribute() == attr) then
-			table.insert(t_ret, character)
-		end
-	end
-
-    return t_ret
 end
 
 ------------------------------------- 미사용 -------------------------------------

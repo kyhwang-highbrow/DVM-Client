@@ -28,7 +28,7 @@ function UI_GameDPS:init(world)
     
 	-- 멤버 변수 초기화
 	self.m_world = world
-	self.m_charList = {}
+	self.m_charList = table.clone(world:getDragonList())
 	self.m_mDpsNodeMap = {}
 	
 	self.m_dpsTimer = 0
@@ -39,11 +39,6 @@ function UI_GameDPS:init(world)
 	self.m_bestValue = 1
 	self.m_logKey = 'damage'
 	
-	-- 자체 복사
-	for i, dragon in pairs(world:getDragonList()) do
-		table.insert(self.m_charList, dragon)
-	end
-
 	-- UI 초기화
     self:initUI()
 	self:initButton()

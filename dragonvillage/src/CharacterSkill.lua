@@ -113,7 +113,6 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 			
 			-- 1.1. 리스트에서 특정 숫자만큼 추출
 			if (t_skill['val_1'] > 0) then
-				cclog(t_skill['val_1'])
 				l_target = table.getPartList(l_target, t_skill['val_1'])
 			end
 

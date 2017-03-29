@@ -647,7 +647,34 @@ end
 
 -------------------------------------
 -- function isHarmful
+-- @breif 해로운 효과
+-- @param param_1 은 statuseffect 의 'type'이나 statuseffect객체 자체
 -------------------------------------
-function StatusEffectHelper:isHarmful(status_effect_type)
+function StatusEffectHelper:isHarmful(param_1)
+	local status_effect_type
+
+	if (type(param_1) == 'string') then
+		status_effect_type = param_1
+	elseif (isInstanceOf(param_1, StatusEffect)) then
+		status_effect_type = param_1.m_type
+	end
+
 	return isExistValue(status_effect_type, 'debuff', 'cc', 'dot_dmg')
+end
+
+-------------------------------------
+-- function isHelpful
+-- @breif 이로운 효과
+-- @param param_1 은 statuseffect 의 'type'이나 statuseffect객체 자체
+-------------------------------------
+function StatusEffectHelper:isHelpful(param_1)
+	local status_effect_type
+
+	if (type(param_1) == 'string') then
+		status_effect_type = param_1
+	elseif (isInstanceOf(param_1, StatusEffect)) then
+		status_effect_type = param_1.m_type
+	end
+
+	return isExistValue(status_effect_type, 'buff', 'barrier', 'dot_heal')
 end

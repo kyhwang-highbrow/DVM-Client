@@ -74,6 +74,18 @@ function iterTwo(t, i)
 end
 
 -------------------------------------
+-- function table.clone
+-- @brief 테이블을 복사하되 내부 객체들은 복사하지 않는다.
+-------------------------------------
+function table.clone(t_org)
+	local t_ret = {}
+    for i, v in ipairs(t_org) do
+        table.insert(t_ret, v)
+    end
+	return t_ret
+end
+
+-------------------------------------
 -- function listToMap
 -- @brief 리스트 형태의 테이블을 맵 형태로 변경
 -------------------------------------
