@@ -300,7 +300,7 @@ function DropItemMgr:intermission()
     -- 아이템들 이동
     for _,item in pairs(self.m_lItemlist) do
         if (not item:isObtained()) then
-            self:applyInterMissionAction(v.m_rootNode)
+            self:applyInterMissionAction(item.m_rootNode)
         end
     end
 end
