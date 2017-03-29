@@ -79,18 +79,6 @@ function Character:doSkillBySkillTable(t_skill, t_data)
         self:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_data)
         return true
 
-	-- [상태 효과]만 거는 스킬
-	elseif (skill_form == 'status_effect') then
-		-- 1. skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
-		local l_target = self:getTargetListByTable(t_skill)
-
-		-- 2. 상태효과 문자열(;로 구분)
-		local status_effect_str = {t_skill['status_effect_1'], t_skill['status_effect_2']}
-
-		-- 3. 타겟에 상태효과생성
-		StatusEffectHelper:doStatusEffectByStr(self, l_target, status_effect_str)
-		return true
-
     -- 코드형 스킬
     elseif (skill_form == 'code') then
 		
@@ -117,6 +105,24 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 					return StatusEffectHelper:setTriggerPassive(self, t_skill)
 				end
 			end
+		
+		-- [상태 효과]만 거는 스킬
+		elseif string.find(type, 'status_effect') then
+			-- 1. skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
+			local l_target = self:getTargetListByTable(t_skill)
+			
+			-- 1.1. 리스트에서 특정 숫자만큼 추출
+			if (t_skill['val_1'] > 0) then
+				cclog(t_skill['val_1'])
+				l_target = table.getPartList(l_target, t_skill['val_1'])
+			end
+
+			-- 2. 상태효과 문자열(;로 구분)
+			local status_effect_str = {t_skill['status_effect_1'], t_skill['status_effect_2']}
+
+			-- 3. 타겟에 상태효과생성
+			StatusEffectHelper:doStatusEffectByStr(self, l_target, status_effect_str)
+			return true
 
 		-- [스킬]
 		else

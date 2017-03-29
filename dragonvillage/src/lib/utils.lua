@@ -220,6 +220,19 @@ function table.getLast(t)
 	return t[table.count(t)]
 end
 
+-------------------------------------
+-- function getPartList
+-- @brief 인덱스 테이블 앞에서부터 지정된 갯수만 추출
+-------------------------------------
+function table.getPartList(t, count)
+	local t_ret = {}
+	for i = 1, count do
+		if (t[i]) then
+			table.insert(t_ret, t[i])
+		end
+	end
+	return t_ret
+end
 
 --###############################################
 -- utility funciton : datetime

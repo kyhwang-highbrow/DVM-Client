@@ -1,19 +1,19 @@
 sid,skill_form,type,t_name,res_1,res_2,res_3,res_scale,res_icon,res_hit,indicator,animation,motion_type,dmg_type,dir,chance_type,chance_value,target_formation,target_type,casting_time,pre_delay,power_source,power_rate,power_add,ignore,cooldown,hit,val_1,val_2,val_3,status_effect_1,status_effect_2,val_id,desc_1,desc_2,desc_3,desc_4,desc_5,t_desc
-241101,status_effect,tamer_goni_acitve,응급 회복!,,,,,res/ui/icon/skill/test.png,,,,instant,magical,0,active,1,,ally_hp_low,0,0,,,,,999,0,0,0,0,tamer_heal;ally_low_hp;none;1;100;20,,,,,,,,액티브 테스트
-241201,status_effect,tamer_goni_event,공격력 증가!,,,,,,,,,instant,magical,0,basic,20,,ally_none,0,0,,,,,20,0,0,0,0,tamer_atk_up;target;none;10;100;20,,,,,,,,발동형 패시브 테스트
-241301,code,tamer_goni_passive,고니의 체력 증가 버프,,,,,,,,,instant,magical,0,passive,none,,ally_none,0,0,,,,,0,0,0,0,0,passive_hp_up;target;always;-1;100;5,,,,,,,,상시 패시브 테스트
-242101,status_effect,tamer_goni_acitve,힐 해줄게!,,,,,res/ui/icon/skill/test.png,,,,instant,magical,0,,,,ally_hp_low,0,0,,,,,999,0,0,0,0,tamer_heal;ally_low_hp;none;1;100;20,,,,,,,,액티브 테스트
-242201,status_effect,tamer_goni_event,공격력 증가,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,20,0,0,0,0,tamer_atk_up;target;none;10;100;5,,,,,,,,발동형 패시브 테스트
-242301,code,tamer_goni_passive,상시적용,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,0,0,0,0,0,passive_hp_up;target;always;-1;100;5,,,,,,,,상시 패시브 테스트
-243101,status_effect,tamer_goni_acitve,힐 해줄게!,,,,,res/ui/icon/skill/test.png,,,,instant,magical,0,,,,ally_hp_low,0,0,,,,,999,0,0,0,0,tamer_heal;ally_low_hp;none;1;100;20,,,,,,,,액티브 테스트
-243201,status_effect,tamer_goni_event,공격력 증가,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,20,0,0,0,0,tamer_atk_up;target;none;10;100;5,,,,,,,,발동형 패시브 테스트
-243301,code,tamer_goni_passive,상시적용,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,0,0,0,0,0,passive_hp_up;target;always;-1;100;5,,,,,,,,상시 패시브 테스트
-244101,status_effect,tamer_goni_acitve,힐 해줄게!,,,,,res/ui/icon/skill/test.png,,,,instant,magical,0,,,,ally_hp_low,0,0,,,,,999,0,0,0,0,tamer_heal;ally_low_hp;none;1;100;20,,,,,,,,액티브 테스트
-244201,status_effect,tamer_goni_event,공격력 증가,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,20,0,0,0,0,tamer_atk_up;target;none;10;100;5,,,,,,,,발동형 패시브 테스트
-244301,code,tamer_goni_passive,상시적용,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,0,0,0,0,0,passive_hp_up;target;always;-1;100;5,,,,,,,,상시 패시브 테스트
-245101,status_effect,tamer_goni_acitve,힐 해줄게!,,,,,res/ui/icon/skill/test.png,,,,instant,magical,0,,,,ally_hp_low,0,0,,,,,999,0,0,0,0,tamer_heal;ally_low_hp;none;1;100;20,,,,,,,,액티브 테스트
-245201,status_effect,tamer_goni_event,공격력 증가,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,20,0,0,0,0,tamer_atk_up;target;none;10;100;5,,,,,,,,발동형 패시브 테스트
-245301,code,tamer_goni_passive,상시적용,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,0,0,0,0,0,passive_hp_up;target;always;-1;100;5,,,,,,,,상시 패시브 테스트
-246101,status_effect,tamer_goni_acitve,힐 해줄게!,,,,,res/ui/icon/skill/test.png,,,,instant,magical,0,,,,ally_hp_low,0,0,,,,,999,0,0,0,0,tamer_heal;ally_low_hp;none;1;100;20,,,,,,,,액티브 테스트
-246201,status_effect,tamer_goni_event,공격력 증가,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,20,0,0,0,0,tamer_atk_up;target;none;10;100;5,,,,,,,,발동형 패시브 테스트
-246301,code,tamer_goni_passive,상시적용,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,0,0,0,0,0,passive_hp_up;target;always;-1;100;5,,,,,,,,상시 패시브 테스트
+241101,code,status_effect_goni_acitve,응급 회복!,,,,,res/ui/icon/skill/test.png,,,,instant,magical,0,active,1,,ally_hp_low,0,0,,,,,999,0,0,0,0,tamer_heal;ally_low_hp;none;1;100;20,,,,,,,,액티브 테스트
+241201,code,status_effect_goni_event,공격력 증가!,,,,,,,,,instant,magical,0,basic,20,,ally_none,0,0,,,,,20,0,1,0,0,tamer_atk_up;target;none;10;100;20,,,,,,,,발동형 패시브 테스트
+241301,code,status_effect_goni_passive,고니의 체력 증가 버프,,,,,,,,,instant,magical,0,passive,none,,ally_none,0,0,,,,,0,0,5,0,0,passive_hp_up;target;always;-1;100;5,,,,,,,,상시 패시브 테스트
+242101,code,status_effect_goni_acitve,힐 해줄게!,,,,,res/ui/icon/skill/test.png,,,,instant,magical,0,,,,ally_hp_low,0,0,,,,,999,0,0,0,0,tamer_heal;ally_low_hp;none;1;100;20,,,,,,,,액티브 테스트
+242201,code,status_effect_goni_event,공격력 증가,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,20,0,0,0,0,tamer_atk_up;target;none;10;100;5,,,,,,,,발동형 패시브 테스트
+242301,code,status_effect_goni_passive,상시적용,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,0,0,0,0,0,passive_hp_up;target;always;-1;100;5,,,,,,,,상시 패시브 테스트
+243101,code,status_effect_goni_acitve,힐 해줄게!,,,,,res/ui/icon/skill/test.png,,,,instant,magical,0,,,,ally_hp_low,0,0,,,,,999,0,0,0,0,tamer_heal;ally_low_hp;none;1;100;20,,,,,,,,액티브 테스트
+243201,code,status_effect_goni_event,공격력 증가,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,20,0,0,0,0,tamer_atk_up;target;none;10;100;5,,,,,,,,발동형 패시브 테스트
+243301,code,status_effect_goni_passive,상시적용,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,0,0,0,0,0,passive_hp_up;target;always;-1;100;5,,,,,,,,상시 패시브 테스트
+244101,code,status_effect_goni_acitve,힐 해줄게!,,,,,res/ui/icon/skill/test.png,,,,instant,magical,0,,,,ally_hp_low,0,0,,,,,999,0,0,0,0,tamer_heal;ally_low_hp;none;1;100;20,,,,,,,,액티브 테스트
+244201,code,status_effect_goni_event,공격력 증가,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,20,0,0,0,0,tamer_atk_up;target;none;10;100;5,,,,,,,,발동형 패시브 테스트
+244301,code,status_effect_goni_passive,상시적용,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,0,0,0,0,0,passive_hp_up;target;always;-1;100;5,,,,,,,,상시 패시브 테스트
+245101,code,status_effect_goni_acitve,힐 해줄게!,,,,,res/ui/icon/skill/test.png,,,,instant,magical,0,,,,ally_hp_low,0,0,,,,,999,0,0,0,0,tamer_heal;ally_low_hp;none;1;100;20,,,,,,,,액티브 테스트
+245201,code,status_effect_goni_event,공격력 증가,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,20,0,0,0,0,tamer_atk_up;target;none;10;100;5,,,,,,,,발동형 패시브 테스트
+245301,code,status_effect_goni_passive,상시적용,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,0,0,0,0,0,passive_hp_up;target;always;-1;100;5,,,,,,,,상시 패시브 테스트
+246101,code,status_effect_goni_acitve,힐 해줄게!,,,,,res/ui/icon/skill/test.png,,,,instant,magical,0,,,,ally_hp_low,0,0,,,,,999,0,0,0,0,tamer_heal;ally_low_hp;none;1;100;20,,,,,,,,액티브 테스트
+246201,code,status_effect_goni_event,공격력 증가,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,20,0,0,0,0,tamer_atk_up;target;none;10;100;5,,,,,,,,발동형 패시브 테스트
+246301,code,status_effect_goni_passive,상시적용,,,,,,,,,instant,magical,0,,,,ally_none,0,0,,,,,0,0,0,0,0,passive_hp_up;target;always;-1;100;5,,,,,,,,상시 패시브 테스트
