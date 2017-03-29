@@ -36,7 +36,7 @@ function GameHighlightMgr:update(dt)
     elseif (world.m_skillIndicatorMgr:isControlling()) then
         b = true
 
-    elseif (world.m_tamer.m_state == 'event') then
+    elseif (world.m_tamer.m_state == 'active' or world.m_tamer.m_state == 'event') then
         b = true
 
     end
