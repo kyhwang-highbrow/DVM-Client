@@ -108,8 +108,8 @@ function Tamer:initState()
     self:addState('roam', Tamer.st_roam, 'i_idle', true)
     self:addState('bring', Tamer.st_bring, 'i_idle', true)
 
-	self:addState('active', Tamer.st_active, 'skill_1', true)
-	self:addState('event', Tamer.st_event, 'skill_2', true)
+	self:addState('active', Tamer.st_active, 'i_idle', false)
+	self:addState('event', Tamer.st_event, 'skill_2', false)
 
     self:addState('wait', Tamer.st_wait, 'i_idle', true)
     self:addState('move', PARENT.st_move, 'i_idle', true)
@@ -400,15 +400,86 @@ end
 -- function st_active
 -------------------------------------
 function Tamer.st_active(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		local function cb_func()
-			-- 스킬 동작
-			owner:doSkillActive()    
+	if (owner.m_stateTimer == 0) then
+		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+		local move_pos_x = CRITERIA_RESOLUTION_X/2
+		local move_pos_y = cameraHomePosY + 200
+
+		local world = owner.m_world
+		local game_highlight = world.m_gameHighlight
+		local l_dragon = world:getDragonList()
+		
+		-- tamer action stop
+		owner:stopAllActions()
+
+		-- world 일시 정지
+		world:setTemporaryPause(true, owner)
+
+		-- 하이라이트 활성화
+		game_highlight:setActive(true)
+
+		-- 하이라이트 대상 추가 (테이머 + 드래곤)
+		game_highlight:addChar(owner)
+		for _, dragon in pairs(l_dragon) do
+			game_highlight:addChar(dragon)
 		end
 
-		-- 연출 세팅
-		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
-		owner:setTamerSkillDirecting(CRITERIA_RESOLUTION_X/2, cameraHomePosY + 200, TAMER_SKILL_ACTIVE, cb_func)
+		-- 암전
+		game_highlight:changeDarkLayerColor(254, 0.5)
+
+		-- 스킬 이름 말풍선
+		local skill_name = Str(owner.m_lSkill[1]['t_name'])
+		SkillHelper:makePassiveSkillSpeech(owner, skill_name)
+
+		-- 연출 이동
+		owner:setHomePos(owner.pos.x, owner.pos.y)
+		owner:setMove(move_pos_x, move_pos_y, 2000)
+		owner:runAction_MoveZ(0.1, 0)
+			
+		-- 애프터 이미지
+		owner.m_afterimageMove = 0
+		owner:setAfterImage(true)
+
+	elseif (owner.m_isOnTheMove == false) and (owner.m_bActiveSKillUsable) then
+		owner.m_bActiveSKillUsable = false
+		local world = owner.m_world
+		local game_highlight = world.m_gameHighlight
+		
+		local function cb_function()
+			owner.m_animator:changeAni('skill_1', false)
+
+			-- 애니메이션 종료시
+			owner:addAniHandler(function()
+			
+				local time = 0.4
+				local target = owner.m_targetChar
+				local move_action = cc.MoveTo:create(time, cc.p(target.pos.x, target.pos.y))
+
+				owner.m_rootNode:runAction(cc.Sequence:create(
+					move_action,
+					cc.DelayTime:create(0.1),
+					cc.CallFunc:create(function() owner:doSkillActive() end),
+					cc.DelayTime:create(0.4),
+					cc.CallFunc:create(function()
+						-- 일시정지 해제
+						owner.m_world:setTemporaryPause(false, owner)
+						-- roam상태로 변경
+						owner:changeStateWithCheckHomePos('roam')
+						-- 하이라이트 비활성화
+						game_highlight:setActive(false)
+						game_highlight:clear()
+						-- 암전 해제 -> @TODO 암전 해제 연출 살짝 어긋나는건...
+						game_highlight:changeDarkLayerColor(0, 0.2)
+						-- 애프터 이미지 해제
+						owner:setAfterImage(false)
+					end)
+				))
+
+			end)
+		end
+
+		local res = 'res/effect/cutscene_tamer_a_type/cutscene_tamer_a_type.vrp'
+		SkillHelper:makeEffect(world, res, CRITERIA_RESOLUTION_X/2, 0, 'idle', cb_function)
     end
 end
 
@@ -504,6 +575,9 @@ function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx, cb_func
 	local world = self.m_world
 	local game_highlight = world.m_gameHighlight
 	local l_dragon = world:getDragonList()
+
+	-- tamer action stop
+	self:stopAllActions()
 
 	-- 하이라이트 활성화
     game_highlight:setActive(true)

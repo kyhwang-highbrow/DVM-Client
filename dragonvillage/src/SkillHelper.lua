@@ -53,6 +53,39 @@ function SkillHelper:calculatePositionX(line_cnt, space, pos_x)
 end
 
 -------------------------------------
+-- function makeEffect
+-- @breif 추가 이펙트 생성
+-------------------------------------
+function SkillHelper:makeEffect(world, res, x, y, ani_name, cb_function)
+	-- 리소스 없을시 탈출
+	if (res == 'x') then return end
+	
+	local ani_name = ani_name or 'idle'
+
+    -- 이팩트 생성
+    local effect = MakeAnimator(res)
+    effect:setPosition(x, y)
+	effect:changeAni(ani_name, false)
+
+    local missileNode = world:getMissileNode()
+    missileNode:addChild(effect.m_node, 0)
+
+    -- 하이라이트
+    world.m_gameHighlight:addEffect(effect)
+    	
+	-- 1회 재생후 동작
+	local cb_ani = function() 
+		if (cb_function) then 
+			cb_function(effect)
+		end
+		effect.m_node:runAction(cc.RemoveSelf:create())
+	end
+	effect:addAniHandler(cb_ani)
+
+	return effect
+end
+
+-------------------------------------
 -- function makePassiveSkillSpeech
 -- @brief 드래곤 패시브 스킬 발동시 말풍선을 생성
 -------------------------------------
