@@ -227,6 +227,7 @@ function PerpleScene:onEnter()
         cc.AzVisual:removeCacheAll()
         cc.AzVRP:removeCacheAll()
         sp.SkeletonAnimation:removeCacheAll()
+        SoundMgr:stopAllEffects()
 
         cc.Director:getInstance():purgeCachedData()
     end
