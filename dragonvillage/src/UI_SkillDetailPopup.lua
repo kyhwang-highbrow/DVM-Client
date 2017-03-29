@@ -6,13 +6,15 @@ local PARENT = UI
 UI_SkillDetailPopup = class(PARENT, {
         m_tDragonData = 'table',
         m_cbUpgradeBtn = 'function',
+        m_bSimpleMode = 'boolean',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SkillDetailPopup:init(t_dragon_data)
+function UI_SkillDetailPopup:init(t_dragon_data, is_simple_mode)
     self.m_tDragonData = t_dragon_data
+    self.m_bSimpleMode = is_simple_mode
 
     local vars = self:load('skill_detail_popup_new.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -48,12 +50,10 @@ function UI_SkillDetailPopup:refresh()
     local vars = self.vars
 
     local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
-
-    local l_skill_icon = skill_mgr:getDragonSkillIconList()
     for i=0, MAX_DRAGON_EVOLUTION do
     
         vars['skillNode' .. i]:removeAllChildren()
-        local ui = UI_SkillDetailPopupListItem(t_dragon_data, skill_mgr, i)
+        local ui = UI_SkillDetailPopupListItem(t_dragon_data, skill_mgr, i, self.m_bSimpleMode)
         vars['skillNode' .. i]:addChild(ui.root)
 
     end

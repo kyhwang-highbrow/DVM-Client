@@ -134,9 +134,7 @@ end
 -------------------------------------
 function UI_SimpleDragonInfoPopup:click_skillDetailBtn()
     local t_dragon_data = self.m_tDragonData
-    local ui = UI_SkillDetailPopup(t_dragon_data)
-
-    ui.vars['upgradeBtn']:setVisible(false)
+    local ui = UI_SkillDetailPopup(t_dragon_data, true)
 end
 
 -------------------------------------

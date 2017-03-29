@@ -201,7 +201,7 @@ function UI_CollectionDetailPopup:onChangeEvolution()
 
         -- 스킬 상세정보 팝업
         local function func_skill_detail_btn()
-            local ui = UI_SkillDetailPopup(t_dragon_data)
+            local ui = UI_SkillDetailPopup(t_dragon_data, true)
             ui.vars['upgradeBtn']:setVisible(false)
         end
 

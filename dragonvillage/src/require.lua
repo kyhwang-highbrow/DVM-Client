@@ -136,6 +136,7 @@ local t_module = {
     'TableFriendBuff',
     'TableFruit',
     'TableUserLevel',
+    'TableDragonSkillEnhance',
     'TableDragonTrainInfo',
     'TableDragonTrainStatus',
     'TableDrop',
