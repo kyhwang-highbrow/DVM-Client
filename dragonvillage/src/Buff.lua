@@ -192,7 +192,7 @@ function Buff:release()
     local owner = self.m_owner
     if (owner) then
         if (owner.m_world.m_gameHighlight) then
-            owner.m_world.m_gameHighlight.m_lMissileList[self] = nil
+            --owner.m_world.m_gameHighlight.m_lMissileList[self] = nil
         end
     end
 
