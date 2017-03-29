@@ -70,9 +70,6 @@ function SkillHelper:makeEffect(world, res, x, y, ani_name, cb_function)
     local missileNode = world:getMissileNode()
     missileNode:addChild(effect.m_node, 0)
 
-    -- 하이라이트
-    world.m_gameHighlight:addEffect(effect)
-    	
 	-- 1회 재생후 동작
 	local cb_ani = function() 
 		if (cb_function) then 

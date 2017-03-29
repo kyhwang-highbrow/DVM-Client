@@ -412,20 +412,11 @@ function Tamer.st_active(owner, dt)
 		-- tamer action stop
 		owner:stopAllActions()
 
-		-- world 일시 정지
-		world:setTemporaryPause(true, owner)
-
 		-- 하이라이트 활성화
 		game_highlight:setActive(true)
 
-		-- 하이라이트 대상 추가 (테이머 + 드래곤)
-		game_highlight:addChar(owner)
-		for _, dragon in pairs(l_dragon) do
-			game_highlight:addChar(dragon)
-		end
-
-		-- 암전
-		game_highlight:changeDarkLayerColor(254, 0.5)
+		-- world 일시 정지
+		world:setTemporaryPause(true, owner)
 
 		-- 스킬 이름 말풍선
 		local skill_name = Str(owner.m_lSkill[1]['t_name'])
@@ -467,9 +458,6 @@ function Tamer.st_active(owner, dt)
 						owner:changeStateWithCheckHomePos('roam')
 						-- 하이라이트 비활성화
 						game_highlight:setActive(false)
-						game_highlight:clear()
-						-- 암전 해제 -> @TODO 암전 해제 연출 살짝 어긋나는건...
-						game_highlight:changeDarkLayerColor(0, 0.2)
 						-- 애프터 이미지 해제
 						owner:setAfterImage(false)
 					end)
@@ -582,15 +570,6 @@ function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx, cb_func
 	-- 하이라이트 활성화
     game_highlight:setActive(true)
 
-	-- 하이라이트 대상 추가 (테이머 + 드래곤)
-    game_highlight:addChar(self)
-	for _, dragon in pairs(l_dragon) do
-		game_highlight:addChar(dragon)
-	end
-
-    -- 암전
-	game_highlight:changeDarkLayerColor(254, 0.5)
-
 	-- 스킬 이름 말풍선
 	local skill_name = Str(self.m_lSkill[skill_idx]['t_name'])
 	SkillHelper:makePassiveSkillSpeech(self, skill_name)
@@ -600,30 +579,33 @@ function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx, cb_func
     self:setMove(move_pos_x, move_pos_y, 2000)
 	self:runAction_MoveZ(0.1, 0)
 
-	-- 애프터 이미지
-    self.m_afterimageMove = 0
-    self:setAfterImage(true)
-		
 	-- 애니메이션 종료시
 	self:addAniHandler(function()
+
+		-- 애프터 이미지
+		self.m_afterimageMove = 0
+		self:setAfterImage(true)
+
 		local time = 0.4
 		local target = self.m_targetChar
 		local move_action = cc.MoveTo:create(time, cc.p(target.pos.x, target.pos.y))
+		local cb_func_action = cc.CallFunc:create(function() end)
 
 		self.m_rootNode:runAction(cc.Sequence:create(
             move_action,
+			cc.DelayTime:create(0.1),
+			cb_func_action,
+			cc.DelayTime:create(0.4),
             cc.CallFunc:create(function()
 				-- 스킬 실행
 				if (cb_func) then
 					cb_func()
 				end
+
                 -- roam상태로 변경
 				self:changeStateWithCheckHomePos('roam')
 				-- 하이라이트 비활성화
 				game_highlight:setActive(false)
-				game_highlight:clear()
-				-- 암전 해제 -> @TODO 암전 해제 연출 살짝 어긋나는건...
-				game_highlight:changeDarkLayerColor(0, 0.2)
 				-- 애프터 이미지 해제
 				self:setAfterImage(false)
             end)
