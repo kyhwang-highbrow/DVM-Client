@@ -1,0 +1,135 @@
+{
+    "difficult":2,
+    "bg":"map_volcano",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"130052;1;Basic2;RM14;RM14;1;w1"
+				],
+				
+				0.2:
+				[
+					"131081;1;Basic2;RM23;RF13;1"
+					"131081;1;Basic2;RM25;RF15;1"
+					"130033;1;Basic2;RF23;RB13;1"
+					"130033;1;Basic2;RF25;RB15;1"
+				],
+				
+				0.4:
+				[
+					"130013;1;Basic2;RB12;RF22;0.8"
+					"130013;1;Basic2;RB16;RF26;0.8"
+					"130023;1;Basic2;RF12;RM22;0.8"
+					"130023;1;Basic2;RF16;RM26;0.8"
+				]
+            }
+        },
+		
+        {
+            "idx":2,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+                0:
+				[
+					"130052;1;Basic2;RM14;RM14;1"
+				],
+				
+				0.2:
+				[
+					"131081;1;Basic2;RM23;RF13;1"
+					"131081;1;Basic2;RM25;RF15;1"
+					"130033;1;Basic2;RF23;RB13;1"
+					"130033;1;Basic2;RF25;RB15;1"
+				],
+				
+				0.4:
+				[
+					"130013;1;Basic2;RB12;RF22;0.8"
+					"130013;1;Basic2;RB16;RF26;0.8"
+					"130023;1;Basic2;RF12;RM22;0.8"
+					"130023;1;Basic2;RF16;RM26;0.8"
+				]
+            }
+        },
+		
+        {
+            "idx":3,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				2:
+				[
+					"132023;2;Appear;RO04;RM24;0.5"
+				]
+            },
+			
+			"regen":
+			{
+				0:
+				[
+					"131033;2;Basic;RO04;RF14;3"
+					"131033;2;Basic;RO02;RF22;3"
+					"131033;2;Basic;RO06;RF26;3"
+				]
+			}
+        }
+    ],
+	
+	"move":
+	{
+		1:
+		[
+			[
+				"wait;7",
+				"move_9;5", "wait;5",
+				"move_9_r;5", "wait;5",
+				"move_9;5", "wait;5",
+				"move_9_r;5", "wait;5",
+				"move_8;5", "wait;5",
+				"move_8_r2;5", "wait;5",
+				"move_8;5", "wait;5",
+				"move_8_r2;5", "wait;5",
+				"c4_s1_2;5",
+				"wait;3"
+			]
+		],
+		
+		2:
+		[
+			[
+				"wait;7",
+				"wait;3"
+			]
+		],
+		
+		3:
+		[
+			[
+				"wait;7",
+				"wait;3"
+			]
+		]
+	}
+}
