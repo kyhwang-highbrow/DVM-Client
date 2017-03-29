@@ -413,7 +413,7 @@ function Tamer.st_active(owner, dt)
 		owner:stopAllActions()
 
 		-- 하이라이트 활성화
-		game_highlight:setActive(true)
+		--game_highlight:setActive(true)
 
 		-- world 일시 정지
 		world:setTemporaryPause(true, owner)
@@ -457,7 +457,7 @@ function Tamer.st_active(owner, dt)
 						-- roam상태로 변경
 						owner:changeStateWithCheckHomePos('roam')
 						-- 하이라이트 비활성화
-						game_highlight:setActive(false)
+						--game_highlight:setActive(false)
 						-- 애프터 이미지 해제
 						owner:setAfterImage(false)
 					end)
@@ -568,7 +568,7 @@ function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx, cb_func
 	self:stopAllActions()
 
 	-- 하이라이트 활성화
-    game_highlight:setActive(true)
+    --game_highlight:setActive(true)
 
 	-- 스킬 이름 말풍선
 	local skill_name = Str(self.m_lSkill[skill_idx]['t_name'])
@@ -605,7 +605,7 @@ function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx, cb_func
                 -- roam상태로 변경
 				self:changeStateWithCheckHomePos('roam')
 				-- 하이라이트 비활성화
-				game_highlight:setActive(false)
+				--game_highlight:setActive(false)
 				-- 애프터 이미지 해제
 				self:setAfterImage(false)
             end)
@@ -822,4 +822,22 @@ function Tamer:stopAllActions()
         self.m_targetItem:changeState('dying')
         self.m_targetItem = nil
     end
+end
+
+-------------------------------------
+-- function isRequiredHighLight
+-- @brief 하이라이트가 필요한 상태인지 여부
+-------------------------------------
+function Tamer:isRequiredHighLight()
+    -- 액티브 스킬 연출 중
+    if (self.m_world.m_tamer.m_state == 'active') then
+        return true
+
+    -- 발동형 스킬 연출 중
+    elseif (self.m_world.m_tamer.m_state == 'event') then
+        return true
+
+    end
+
+    return false
 end

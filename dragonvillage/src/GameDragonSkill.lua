@@ -55,10 +55,8 @@ function GameDragonSkill:initUI()
     self.m_skillOpeningCutBg = MakeAnimator('res/effect/cutscene_a_type/cutscene_a_type_bg.vrp')
     self.m_skillOpeningCutBg:changeAni('scene_1', false)
     self.m_skillOpeningCutBg:setVisible(false)
-    --self.m_node:addChild(self.m_skillOpeningCutBg.m_node)
     g_gameScene.m_gameHighlightNode:addChild(self.m_skillOpeningCutBg.m_node, -1)
     
-
     self.m_skillOpeningCutTop = MakeAnimator('res/effect/cutscene_a_type/cutscene_a_type_top.vrp')
     self.m_skillOpeningCutTop:changeAni('scene_1', false)
     self.m_skillOpeningCutTop:setVisible(false)
@@ -193,6 +191,12 @@ function GameDragonSkill.update_live(self, dt)
         if (self:isBeginningStep()) then
             -- UI 표시
             ui.root:setVisible(true)
+
+            -- 임시 처리... 레이어 교체
+            self.m_skillOpeningCutBg.m_node:retain()
+            self.m_skillOpeningCutBg.m_node:removeFromParent()
+            self.m_world.m_dragonSkillBgNode:addChild(self.m_skillOpeningCutBg.m_node)
+            self.m_skillOpeningCutBg.m_node:release()
 
             self.m_skillOpeningCutBg:setVisible(true)
             self.m_skillOpeningCutBg:changeAni('scene_3', false)
@@ -352,6 +356,11 @@ end
 -- function makeSkillOpeningCut
 -------------------------------------
 function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
+    self.m_skillOpeningCutBg.m_node:retain()
+    self.m_skillOpeningCutBg.m_node:removeFromParent()
+    g_gameScene.m_gameHighlightNode:addChild(self.m_skillOpeningCutBg.m_node, -1)
+    self.m_skillOpeningCutBg.m_node:release()
+
     self.m_skillOpeningCutBg:changeAni('scene_1', false)
     self.m_skillOpeningCutBg:setVisible(true)
     self.m_skillOpeningCutBg:addAniHandler(function()

@@ -15,6 +15,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_gridNode = 'cc.Node',
         m_bgNode = 'cc.Node',
         m_darkLayer = 'cc.LayerColor',
+        m_dragonSkillBgNode = 'cc.Node',
         m_groundNode = 'cc.Node',
         m_worldNode = 'cc.Node',
         m_missiledNode = 'cc.Node',
@@ -125,7 +126,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_bPreventControl = false
 
     self.m_bgNode = cc.Node:create()
-    self.m_gameNode1:addChild(self.m_bgNode)
+    self.m_gameNode1:addChild(self.m_bgNode, INGAME_LAYER_Z_ORDER.BG_LAYER)
 
     self.m_darkLayer = cc.LayerColor:create()
 	self.m_darkLayer:setColor(cc.c3b(0, 0, 0))
@@ -134,24 +135,27 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 	self.m_darkLayer:setDockPoint(cc.p(0, 0.5))
 	self.m_darkLayer:setNormalSize(4000, 2000)
 	self.m_darkLayer:setVisible(false)
-	self.m_gameNode1:addChild(self.m_darkLayer)
+	self.m_gameNode1:addChild(self.m_darkLayer, INGAME_LAYER_Z_ORDER.DARK_LAYER)
 
+    self.m_dragonSkillBgNode = cc.Node:create()
+    self.m_gameNode1:addChild(self.m_dragonSkillBgNode, INGAME_LAYER_Z_ORDER.DRAGON_SKILL_BG_LAYER)
+    
     self.m_groundNode = cc.Node:create()
-    self.m_gameNode1:addChild(self.m_groundNode)
+    self.m_gameNode1:addChild(self.m_groundNode, INGAME_LAYER_Z_ORDER.GROUND_LAYER)
 
 	-- 그리드 노드
     self.m_gridNode = cc.Node:create()
     self.m_gridNode:setVisible(false)
-    self.m_gameNode1:addChild(self.m_gridNode)
+    self.m_gameNode1:addChild(self.m_gridNode, INGAME_LAYER_Z_ORDER.GRID_LAYER)
 
     self.m_worldNode = cc.Node:create()
-    self.m_gameNode1:addChild(self.m_worldNode)
+    self.m_gameNode1:addChild(self.m_worldNode, INGAME_LAYER_Z_ORDER.WORLD_LAYER)
 
     self.m_missiledNode = cc.Node:create()
-    self.m_gameNode1:addChild(self.m_missiledNode)
+    self.m_gameNode1:addChild(self.m_missiledNode, INGAME_LAYER_Z_ORDER.MISSILE_LAYER)
 	
 	self.m_unitInfoNode = cc.Node:create()
-    self.m_gameNode1:addChild(self.m_unitInfoNode)
+    self.m_gameNode1:addChild(self.m_unitInfoNode, INGAME_LAYER_Z_ORDER.UNIT_INFO_LAYER)
 
     self.m_lUnitList = {}
 	self.m_lSkillList = {}

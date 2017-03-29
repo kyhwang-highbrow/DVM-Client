@@ -30,13 +30,16 @@ function GameHighlightMgr:update(dt)
 
     local b = false
 
+    -- 드래곤 스킬 연출 중
     if (world.m_gameDragonSkill:isPlaying()) then
         b = true
 
+    -- 인디케이터 조작 중
     elseif (world.m_skillIndicatorMgr:isControlling()) then
         b = true
 
-    elseif (world.m_tamer.m_state == 'active' or world.m_tamer.m_state == 'event') then
+    -- 테이머 스킬 연출 중
+    elseif (world.m_tamer:isRequiredHighLight()) then
         b = true
 
     end

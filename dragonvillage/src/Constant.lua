@@ -144,6 +144,20 @@ WORLD_Z_ORDER =
 	SE_EFFECT = 13,
     CASTING = 20,
 }
+--------------------------------------------
+-- INGAME_LAYER_Z_ORDER
+--------------------------------------------
+INGAME_LAYER_Z_ORDER = 
+{
+    BG_LAYER = 0,
+    DARK_LAYER = 1,
+    DRAGON_SKILL_BG_LAYER = 2,
+    GROUND_LAYER = 3,
+    GRID_LAYER = 4,
+    WORLD_LAYER = 5,
+    MISSILE_LAYER = 6,
+    UNIT_INFO_LAYER = 7,
+}
 
 --------------------------------------------
 -- 인디케이터 리소스 경로
