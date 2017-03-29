@@ -58,11 +58,6 @@ function UI_SkillDetailPopupListItem:initUI()
         local name = skill_indivisual_info:getSkillName()
         vars['skillNameLabel']:setString(name)
     end
-    
-    do -- 스킬 설명
-        local desc = skill_indivisual_info:getSkillDesc()
-        vars['skillDscLabel']:setString(desc)
-    end
 end
 
 -------------------------------------
@@ -101,6 +96,11 @@ function UI_SkillDetailPopupListItem:refresh()
         local skill_level = skill_indivisual_info:getSkillLevel()
         local max_lv_segment, max_lv = self:getSkillMaxLevel()
         vars['skillEnhanceLabel']:setString(Str('Lv.{1}/{2}', skill_level, max_lv_segment))
+    end
+
+    do -- 스킬 설명
+        local desc = skill_indivisual_info:getSkillDesc()
+        vars['skillDscLabel']:setString(desc)
     end
 
     do -- 강화 가격 표시
