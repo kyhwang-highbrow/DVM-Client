@@ -106,16 +106,16 @@ end
 --        거대용, 악몽, 거목
 -------------------------------------
 function ServerData_SecretDungeon:parseSecretDungeonID(stage_id)
-    -- 21101
-    -- 2xxxx 모드 구분 (비밀 던전 모드)
-    --  1xxx 비밀 던전 구분 (황금, 인연)
-    --   1xx 세부 모드 (속성 or role)
-    --    01 티어 (통상적으로 1~10)
+    -- 1310101
+    -- 13xxxxx 모드 구분 (비밀 던전 모드)
+    --   1xxxx 비밀 던전 구분 (황금, 인연)
+    --    01xx 세부 모드 (속성 or role)
+    --      01 티어 (통상적으로 1~10)
 
     local t_dungeon_id_info = {}
-    t_dungeon_id_info['stage_mode'] = getDigit(stage_id, 10000, 1)
-    t_dungeon_id_info['dungeon_mode'] = getDigit(stage_id, 1000, 1)
-    t_dungeon_id_info['detail_mode'] = getDigit(stage_id, 100, 1)
+    t_dungeon_id_info['stage_mode'] = getDigit(stage_id, 100000, 1)
+    t_dungeon_id_info['dungeon_mode'] = getDigit(stage_id, 10000, 1)
+    t_dungeon_id_info['detail_mode'] = getDigit(stage_id, 100, 2)
     t_dungeon_id_info['tier'] = getDigit(stage_id, 1, 2)
 
     return t_dungeon_id_info

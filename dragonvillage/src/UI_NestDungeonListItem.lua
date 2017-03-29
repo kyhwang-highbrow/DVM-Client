@@ -1,16 +1,16 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 local t_nest_dungeon_ani = {}
-t_nest_dungeon_ani[21100] = 'nest_dungeon_dragon_earth' -- 거대용 던전
-t_nest_dungeon_ani[21200] = 'nest_dungeon_dragon_water'
-t_nest_dungeon_ani[21300] = 'nest_dungeon_dragon_fire'
-t_nest_dungeon_ani[21400] = 'nest_dungeon_dragon_light'
-t_nest_dungeon_ani[21500] = 'nest_dungeon_dragon_dark'
-t_nest_dungeon_ani[22100] = 'nest_dungeon_nightmare'    -- 악몽
-t_nest_dungeon_ani[22200] = 'nest_dungeon_nightmare'
-t_nest_dungeon_ani[22300] = 'nest_dungeon_nightmare'
-t_nest_dungeon_ani[22400] = 'nest_dungeon_nightmare'
-t_nest_dungeon_ani[23000] = 'nest_dungeon_tree'         -- 거목
+t_nest_dungeon_ani[1210100] = 'nest_dungeon_dragon_earth' -- 거대용 던전
+t_nest_dungeon_ani[1210200] = 'nest_dungeon_dragon_water'
+t_nest_dungeon_ani[1210300] = 'nest_dungeon_dragon_fire'
+t_nest_dungeon_ani[1210400] = 'nest_dungeon_dragon_light'
+t_nest_dungeon_ani[1210500] = 'nest_dungeon_dragon_dark'
+t_nest_dungeon_ani[1220100] = 'nest_dungeon_nightmare'    -- 악몽
+t_nest_dungeon_ani[1220200] = 'nest_dungeon_nightmare'
+t_nest_dungeon_ani[1220300] = 'nest_dungeon_nightmare'
+t_nest_dungeon_ani[1220400] = 'nest_dungeon_nightmare'
+t_nest_dungeon_ani[1230100] = 'nest_dungeon_tree'         -- 거목
 
 -------------------------------------
 -- class UI_NestDungeonListItem

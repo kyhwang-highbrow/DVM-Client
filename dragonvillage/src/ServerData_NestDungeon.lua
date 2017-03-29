@@ -165,12 +165,12 @@ end
 -------------------------------------
 function ServerData_NestDungeon:getNestDungeon_stageListForUI(nest_dungeon_id)
     -- UI상에서 악몽 던전은 스테이지 리스트를 한 리스트로 처리
-    if (nest_dungeon_id == 22100) then
+    if (nest_dungeon_id == 1220100) then
         local l_ret = {}
-        table.addList(l_ret, self:getNestDungeon_stageList(22100))
-        table.addList(l_ret, self:getNestDungeon_stageList(22200))
-        table.addList(l_ret, self:getNestDungeon_stageList(22300))
-        table.addList(l_ret, self:getNestDungeon_stageList(22400))
+        table.addList(l_ret, self:getNestDungeon_stageList(1220100))
+        table.addList(l_ret, self:getNestDungeon_stageList(1220200))
+        table.addList(l_ret, self:getNestDungeon_stageList(1220300))
+        table.addList(l_ret, self:getNestDungeon_stageList(1220400))
         return l_ret
     else
         return self:getNestDungeon_stageList(nest_dungeon_id)
@@ -183,16 +183,16 @@ end
 --        거대용, 악몽, 거목
 -------------------------------------
 function ServerData_NestDungeon:parseNestDungeonID(stage_id)
-    -- 21101
-    -- 2xxxx 모드 구분 (네스트 던전 모드)
-    --  1xxx 네스트 던전 구분 (거대용, 고목, 악몽)
-    --   1xx 세부 모드 (속성 or role)
-    --    01 티어 (통상적으로 1~10)
+    -- 1210101
+    -- 12xxxxx 모드 구분 (네스트 던전 모드)
+    --   1xxxx 네스트 던전 구분 (거대용, 고목, 악몽)
+    --    01xx 세부 모드 (속성 or role)
+    --      01 티어 (통상적으로 1~10)
 
     local t_dungeon_id_info = {}
-    t_dungeon_id_info['stage_mode'] = getDigit(stage_id, 10000, 1)
-    t_dungeon_id_info['dungeon_mode'] = getDigit(stage_id, 1000, 1)
-    t_dungeon_id_info['detail_mode'] = getDigit(stage_id, 100, 1)
+    t_dungeon_id_info['stage_mode'] = getDigit(stage_id, 100000, 2)
+    t_dungeon_id_info['dungeon_mode'] = getDigit(stage_id, 10000, 1)
+    t_dungeon_id_info['detail_mode'] = getDigit(stage_id, 100, 2)
     t_dungeon_id_info['tier'] = getDigit(stage_id, 1, 2)
 
     return t_dungeon_id_info
@@ -207,7 +207,7 @@ function ServerData_NestDungeon:getDungeonIDFromStateID(stage_id)
 
     -- 악몽 던전(2)은 별도 처리
     if (t_dungeon_id_info['dungeon_mode'] == 2) then
-        return 22100
+        return 1220100
     else
         return stage_id - (stage_id % 100)
     end
