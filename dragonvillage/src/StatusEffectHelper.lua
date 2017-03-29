@@ -230,24 +230,20 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
     ----------- 드래곤 스킬 피드백(보너스) ------------------
 	if (status_effect_type == 'feedback_defender' or status_effect_type == 'feedback_attacker'
         or status_effect_type == 'feedback_supporter' or status_effect_type == 'feedback_healer') then
-        cclog('makeStatusEffectInstance status_effect_type = ' .. status_effect_type)
+        
+        -- TODO: feedback_supporter 타입을 위한 정리 필요할듯...
+        local value = tonumber(status_effect_value)
 
-        if (status_effect_type == 'feedback_healer') then
+        if (status_effect_type == 'feedback_supporter') then
+            status_effect = StatusEffect(res)
+            -- 스킬 게이지 회복 타입은 status effect로 현재는 불가능하기 때문에 임시로...
+            char:increaseActiveSkillCool(value)
+        elseif (status_effect_type == 'feedback_healer') then
             status_effect = StatusEffect_Heal(res)
 		    status_effect:init_heal(char, t_status_effect, status_effect_value, duration)
         else
             status_effect = StatusEffect(res)
         end
-        
-        -- 임시 처리...
-        local bonus_level = 1
-        if (status_effect_type == 'feedback_healer' and tonumber(status_effect_value) == 20) then
-            bonus_level = 2
-        elseif (tonumber(status_effect_value) == 10) then
-            bonus_level = 2
-        end
-
-        SkillHelper:makeDragonActiveSkillBonusEffect(char, bonus_level, t_status_effect['t_name'])
 
 	------------ 힐 --------------------------
     elseif isExistValue(status_effect_type, 'passive_recovery') or
@@ -336,7 +332,6 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
     status_effect:changeState('start')
 
     if (char.m_bHighlight) then
-        --cclog('status_effect_type = ' .. status_effect_type)
         char.m_world.m_gameHighlight:addMissile(status_effect)
     end
 

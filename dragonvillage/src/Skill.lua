@@ -225,9 +225,8 @@ function Skill.st_dying(owner, dt)
 
         -- 보너스 버프 효과 부여
         if (owner.m_bonusLevel > 0) then
-            local t_dragon = owner.m_owner.m_charTable
-            local role_type = t_dragon['role']
-            SkillHelper:makeDragonActiveSkillBonus(owner.m_owner, role_type, owner.m_bonusLevel)
+            -- 효과 적용
+            SkillHelper:invokeDragonActiveSkillBonus(owner.m_owner, owner.m_bonusLevel)
         end
         
 		return true

@@ -79,6 +79,52 @@ function SkillHelper:makePassiveSkillSpeech(dragon, str)
 end
 
 -------------------------------------
+-- function getDragonActiveSkillBonusInfo
+-------------------------------------
+function SkillHelper:getDragonActiveSkillBonusInfo(dragon)
+    local t_dragon = dragon.m_charTable
+    local role_type = t_dragon['role']
+
+    local status_effect_type
+    local status_effect_time
+    local status_effect_value
+
+    if (role_type == 'tanker') then
+        status_effect_type = 'feedback_defender'
+        status_effect_time = 5
+        status_effect_value = { 5, 10 }
+        
+    elseif (role_type == 'dealer') then
+        status_effect_type = 'feedback_attacker'
+        status_effect_time = 8
+        status_effect_value = { 5, 10 }
+
+    elseif (role_type == 'supporter') then
+        status_effect_type = 'feedback_supporter'
+        status_effect_time = 0
+        status_effect_value = { 5, 10 }
+                
+    elseif (role_type == 'healer') then
+        status_effect_type = 'feedback_healer'
+        status_effect_time = 0
+        status_effect_value = { 10, 20 }
+
+    else
+        return nil
+
+    end
+
+    local t_ret = {
+        role_type = role_type,
+        type = status_effect_type,
+        time = status_effect_time,
+        value = status_effect_value
+    }
+
+    return t_ret
+end
+
+-------------------------------------
 -- function getDragonActiveSkillBonusLevel
 -- @brief 해당 스킬 타겟수 점수(%)에 해당하는 보너스 등급을 리턴(0이면 보너스 없음)
 -------------------------------------
@@ -99,54 +145,29 @@ end
 
 -------------------------------------
 -- function makeDragonActiveSkillBonus
--- @brief 드래곤 드래그 스킬 사용시 직군별 보너스 처리
+-- @brief 드래곤 드래그 스킬 사용시 직군별 보너스 부여
 -------------------------------------
-function SkillHelper:makeDragonActiveSkillBonus(owner, role_type, bonus_level)
+function SkillHelper:invokeDragonActiveSkillBonus(dragon, bonus_level)
     if (bonus_level == 0) then return end
 
-    local status_effect_type
-    local status_effect_time
-    local status_effect_value
-    local t_status_effect_value
-    
-    -- 직군별 보너스
-    if (role_type == 'tanker') then
-        cclog('드래곤 스킬 피드백 발동 : tanker')
-        status_effect_type = 'feedback_defender'
-        status_effect_time = 5
-        t_status_effect_value = { 5, 10 }
-        
-    elseif (role_type == 'dealer') then
-        cclog('드래곤 스킬 피드백 발동 : dealer')
-        status_effect_type = 'feedback_attacker'
-        status_effect_time = 8
-        t_status_effect_value = { 5, 10 }
+    local t_info = self:getDragonActiveSkillBonusInfo(dragon)
+    if (not t_info) then return end
 
-    elseif (role_type == 'supporter') then
-        cclog('드래곤 스킬 피드백 발동 : supporter')
-
-        -- 스킬 게이지 회복 타입은 status effect로 현재는 불가능하기 때문에 임시로...
-        owner:increaseActiveSkillCool(10)
+    local status_effect_type    = t_info['type']
+    local status_effect_time    = t_info['time']
+    local status_effect_value   = t_info['value'][bonus_level]
         
-        status_effect_type = 'feedback_attacker'
-        status_effect_time = 0
-        t_status_effect_value = { 5, 10 }
-                
-    elseif (role_type == 'healer') then
-        cclog('드래곤 스킬 피드백 발동 : healer')
-        status_effect_type = 'feedback_healer'
-        status_effect_time = 0
-        t_status_effect_value = { 10, 20 }
-        
-    end
-    
-    -- 보너스 수치
-    status_effect_value = t_status_effect_value[bonus_level]
-    
+    -- 스테이터스 이펙트 적용
     local str_status_effect = string.format('%s;self;hit;%d;100;%d', status_effect_type, status_effect_time, status_effect_value)
     if (str_status_effect) then
-        StatusEffectHelper:doStatusEffectByStr(owner, {owner}, {str_status_effect})
+        StatusEffectHelper:doStatusEffectByStr(dragon, {dragon}, {str_status_effect})
     end
+
+    -- 연출 이펙트
+    local table_status_effect = TABLE:get('status_effect')
+    local t_status_effect = table_status_effect[status_effect_type]
+    
+    self:makeDragonActiveSkillBonusEffect(dragon, bonus_level, t_status_effect['t_name'])
 end
 
 -------------------------------------
