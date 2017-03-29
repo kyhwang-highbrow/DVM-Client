@@ -711,9 +711,6 @@
     <None Include="..\src\UI_DragonManagementFriendship.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_DragonManageUpgrade.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_DragonManageUpgradeResult.lua">
       <Filter>lua\UI</Filter>
     </None>
