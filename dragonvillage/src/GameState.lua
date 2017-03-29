@@ -829,6 +829,11 @@ function GameState:makeGameFinishParam(is_success)
         t_param['bonus_items'] = self.m_world.m_dropItemMgr:makeOptainedDropItemStr()
     end
 
+    -- 클리어 타임
+    do
+        t_param['clear_time'] = self.m_world.m_logRecorder.m_lapTime
+    end
+
     return t_param
 end
 
