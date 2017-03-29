@@ -221,11 +221,12 @@ function SkillIndicatorMgr:clear(bAll)
         self.m_world:setTemporaryPause(false, self.m_selectHero)
         self:setSelectHero(nil)
         self.m_bSlowMode = false
+
+        self.m_world.m_gameHighlight:setActive(false)
     end
 
     -- 스킬이 취소되거나 해서 이후 드래곤 스킬 연출까지 이어지지 않는 경우
     if (bAll) then
-        self.m_world.m_gameHighlight:setActive(false)
         self.m_world.m_gameHighlight:changeDarkLayerColor(0, 0.5)
         self.m_world.m_gameHighlight:clear()
     end
