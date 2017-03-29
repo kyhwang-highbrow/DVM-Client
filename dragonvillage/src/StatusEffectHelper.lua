@@ -132,7 +132,6 @@ end
 -- @brief 상태 효과 발동
 -------------------------------------
 function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_effect_value, status_effect_rate, duration)
-    cclog('invokeStatusEffect status_effect_type = ' .. status_effect_type)
     -- char validation
 	if (char.m_isSlaveCharacter) then 
 		return nil

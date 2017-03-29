@@ -37,8 +37,18 @@ function SkillAoESquare_Wonder:init_skill(missile_res, line_cnt, add_atk_power, 
 	
 
 	-- 화면 중앙보다 살짝 위에 위치
-	local _, camera_home_pos_y = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+	local _, camera_home_pos_y = self.m_world.m_gameCamera:getHomePos()
 	self:setPosition(self.m_targetPos.x, camera_home_pos_y + 300)	
+end
+
+-------------------------------------
+-- function enterAttack
+-------------------------------------
+function SkillAoESquare_Wonder:runAttack()
+    PARENT.runAttack(self)
+
+    -- 화면 쉐이킹
+    self.m_world.m_shakeMgr:doShake(50, 50, 1)
 end
 
 -------------------------------------

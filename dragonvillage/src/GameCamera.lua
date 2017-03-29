@@ -220,7 +220,7 @@ function GameCamera:setTarget(target, t_data)
 	local time = t_data['time'] or 0.4
 	local cb = t_data['cb']
 
-	-- 타겟이 설정된 경우 카메라 위치는 update에서 처리됨
+	-- 타겟이 설정된 경우 카메라 위치는 update에서 처리됨(타겟이 이동하는 경우 따라 움직여야하기 때문)
 	if self.m_target then
 		self:setAction({scale = t_data['scale'] or 1.15, time = time, cb = cb})
 	else
