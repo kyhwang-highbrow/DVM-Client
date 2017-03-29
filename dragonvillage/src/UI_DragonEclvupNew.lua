@@ -201,10 +201,12 @@ function UI_DragonEclvupNew:getMaterialList(doid)
     -- 자기 자신 드래곤 제외
     l_dragon_list[doid] = nil
 
-    for i,v in pairs(l_dragon_list) do
+    for doid,v in pairs(l_dragon_list) do
         -- 원종이 다른 항목 제거
         if (t_dragon_data['did'] ~= v['did']) then
-            l_dragon_list[i] = nil
+            l_dragon_list[doid] = nil
+        elseif (not g_dragonsData:possibleMaterialDragon(doid)) then
+            l_dragon_list[doid] = nil
         end
     end
 
