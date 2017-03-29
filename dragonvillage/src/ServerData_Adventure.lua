@@ -1,6 +1,6 @@
-MAX_ADVENTURE_CHAPTER = 6
-MAX_ADVENTURE_STAGE = 8
-MAX_ADVENTURE_DIFFICULTY = 3
+MAX_ADVENTURE_CHAPTER = 12
+MAX_ADVENTURE_STAGE = 12
+MAX_ADVENTURE_DIFFICULTY = 2
 
 -------------------------------------
 -- class ServerData_Adventure
@@ -367,14 +367,14 @@ end
 -- @brief 모험모드 스테이지 ID 생성
 --
 -- stage_id
--- 1xxxx mode 1(adventure) ~ 9
---  1xxx difficulty 1~3
---   01x chapter 01~10
---     1 stage 1~8 
+-- 1xxxxx mode 1(adventure) ~ 9
+--  1xxxx difficulty 1~3
+--   01xx chapter 01~12
+--     01 stage 1~12
 --
 -------------------------------------
 function makeAdventureID(difficulty, chapter, stage)
-    return 10000 + (difficulty * 1000) + (chapter * 10) + stage
+    return 1100000 + (difficulty * 10000) + (chapter * 100) + stage
 end
 
 -------------------------------------
@@ -384,9 +384,9 @@ end
 function parseAdventureID(stage_id)
     local stage_id = tonumber(stage_id)
 
-    local difficulty = getDigit(stage_id, 1000, 1)
-    local chapter = getDigit(stage_id, 10, 2)
-    local stage = getDigit(stage_id, 1, 1)
+    local difficulty = getDigit(stage_id, 10000, 1)
+    local chapter = getDigit(stage_id, 100, 2)
+    local stage = getDigit(stage_id, 1, 2)
 
     return difficulty, chapter, stage
 end

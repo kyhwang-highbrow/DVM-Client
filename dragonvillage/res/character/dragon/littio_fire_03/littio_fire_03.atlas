@@ -54,10 +54,10 @@ littio_fire_03_body_05
   offset: 0, 0
   index: -1
 littio_fire_03_eye_01
-  rotate: true
-  xy: 983, 217
-  size: 37, 39
-  orig: 37, 39
+  rotate: false
+  xy: 845, 145
+  size: 33, 33
+  orig: 33, 33
   offset: 0, 0
   index: -1
 littio_fire_03_foot_01
@@ -68,8 +68,8 @@ littio_fire_03_foot_01
   offset: 0, 0
   index: -1
 littio_fire_03_foot_02
-  rotate: true
-  xy: 127, 10
+  rotate: false
+  xy: 983, 202
   size: 38, 52
   orig: 38, 52
   offset: 0, 0

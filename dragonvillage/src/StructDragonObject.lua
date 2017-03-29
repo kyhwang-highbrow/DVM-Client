@@ -38,6 +38,7 @@ StructDragonObject = class({
         -- 아직 안쓰는 정보
         lock = '',
         friendship = '',
+        rlv = '',
 
         ----------------------------------------------
         -- 지울 것들

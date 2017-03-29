@@ -314,11 +314,14 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
 
     self.m_lStageButton = {}
     for i=1, MAX_ADVENTURE_STAGE do
-        vars['stageDock0' .. i]:removeAllChildren()
-        local stage_id = makeAdventureID(self.m_currDifficulty, chapter, i)
-        local button = UI_AdventureStageButton(self, stage_id)
-        vars['stageDock0' .. i]:addChild(button.root)
-        self.m_lStageButton[i] = button
+        local dock_node = vars[string.format('stageDock%.2d', i)]
+        if dock_node then
+            dock_node:removeAllChildren()
+            local stage_id = makeAdventureID(self.m_currDifficulty, chapter, i)
+            local button = UI_AdventureStageButton(self, stage_id)
+            dock_node:addChild(button.root)
+            self.m_lStageButton[i] = button
+        end
     end
 
     do -- 최초 보상 클리어 관련

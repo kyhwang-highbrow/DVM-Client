@@ -23,13 +23,13 @@ function UI_AdventureChapterButton:init(item)
     vars['lockSprite']:setVisible(not is_open)
 
     if is_open then
-        local res = Str('res/ui/btn/chapter_btn_0{1}.png', chapter)
+        local res = string.format('res/ui/btn/chapter_btn_%.2d.png', chapter)
         local icon = cc.Sprite:create(res)
         icon:setDockPoint(cc.p(0.5, 0.5))
         icon:setAnchorPoint(cc.p(0.5, 0.5))
         vars['btnNode']:addChild(icon)
     else
-        local res = Str('res/ui/btn/chapter_btn_0{1}_lock.png', chapter)
+        local res = string.format('res/ui/btn/chapter_btn_%.2d_lock.png', chapter)
         local icon = cc.Sprite:create(res)
         icon:setDockPoint(cc.p(0.5, 0.5))
         icon:setAnchorPoint(cc.p(0.5, 0.5))

@@ -17,7 +17,7 @@ end
 -- function getGameMode
 -------------------------------------
 function ServerData_Stage:getGameMode(stage_id)
-    local game_mode = getDigit(stage_id, 10000, 1)
+    local game_mode = getDigit(stage_id, 100000, 2)
     return game_mode
 end
 
@@ -61,6 +61,7 @@ function ServerData_Stage:isOpenStage(stage_id)
 
     local ret = false
 
+    cclog('game_mode : ' .. game_mode)
     -- 모험 모드
     if (game_mode == GAME_MODE_ADVENTURE) then
         ret = g_adventureData:isOpenStage(stage_id)
@@ -261,7 +262,9 @@ function ServerData_Stage:getMonsterIDList(stage_id)
 
     else
         local table_stage_desc = TableStageDesc()
-        if (not table_stage_desc:get(stage_id)) then return end
+        if (not table_stage_desc:get(stage_id)) then
+            return {}
+        end
 
         ret = table_stage_desc:getMonsterIDList(stage_id)
     end

@@ -75,12 +75,9 @@ function UI_AdventureChapterSelectPopup:init_tableView()
     local list_table_node = self.vars['btnNode']
 
     local l_chapter_list = {}
-    l_chapter_list[1] = 1
-    l_chapter_list[2] = 2
-    l_chapter_list[3] = 3
-    l_chapter_list[4] = 4
-    l_chapter_list[5] = 5
-    l_chapter_list[6] = 6
+    for i=1, MAX_ADVENTURE_CHAPTER do
+        l_chapter_list[i] = i
+    end
 
     -- 생성 콜백 함수
     local function create_func(item)

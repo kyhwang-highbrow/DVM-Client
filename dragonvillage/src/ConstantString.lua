@@ -21,6 +21,24 @@ function chapterName(chapter)
     elseif (chapter == 6) then
         return Str('절규하는 칠흑의 성')
 
+    elseif (chapter == 7) then
+        return Str('미지정')
+
+    elseif (chapter == 8) then
+        return Str('미지정')
+
+    elseif (chapter == 9) then
+        return Str('미지정')
+
+    elseif (chapter == 10) then
+        return Str('미지정')
+
+    elseif (chapter == 11) then
+        return Str('미지정')
+
+    elseif (chapter == 12) then
+        return Str('미지정')
+
     else
         return Str('개발용')
 
@@ -42,16 +60,34 @@ function bossChapterName(chapter)
         return Str('코카트리스')
 
     elseif (chapter == 4) then
-        return Str('')
+        return Str('용암거미여왕')
 
     elseif (chapter == 5) then
-        return Str('')
+        return Str('질서유지장치')
 
     elseif (chapter == 6) then
+        return Str('다크닉스')
+
+    elseif (chapter == 7) then
+        return Str('')
+
+    elseif (chapter == 8) then
+        return Str('')
+
+    elseif (chapter == 9) then
+        return Str('')
+
+    elseif (chapter == 10) then
+        return Str('')
+
+    elseif (chapter == 11) then
+        return Str('')
+
+    elseif (chapter == 12) then
         return Str('')
 
     else
-        return Str('개발용')
+        return Str('개발용 or 미지정')
 
     end
 end

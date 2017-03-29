@@ -250,6 +250,7 @@ end
 function UI_AdventureStageInfo:refresh_rewardInfo()
     -- stage_id로 드랍정보를 얻어옴
     local stage_id = self.m_stageID
+    cclog('stage_id ' .. stage_id)
     local drop_helper = DropHelper(stage_id)
     local l_item_list = drop_helper:getDisplayItemList()
 
