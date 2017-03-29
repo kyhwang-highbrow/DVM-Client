@@ -110,7 +110,7 @@ function SkillFieldCheck:makeDrainEffect(x, y)
 
     -- 하이라이트
     if (self.m_bHighlight) then
-        world.m_gameHighlight:addEffect(effect)
+        --world.m_gameHighlight:addEffect(effect)
     end
 
 	-- random요소 - 점프 높이, 방향, 지속시간, 스케일
@@ -162,6 +162,6 @@ function SkillFieldCheck:makeSkillInstance(owner, t_skill, t_data)
 
     -- 5. 하이라이트
     if (skill.m_bHighlight) then
-        world.m_gameHighlight:addMissile(skill)
+        --world.m_gameHighlight:addMissile(skill)
     end
 end

@@ -53,7 +53,7 @@ function SkillGuardian.st_idle(owner, dt)
 
         -- 하이라이트
         if (owner.m_bHighlight) then
-            owner.m_world.m_gameHighlight:addMissile(buff)
+            --owner.m_world.m_gameHighlight:addMissile(buff)
         end
 	
 		-- 상태효과
@@ -98,6 +98,6 @@ function SkillGuardian:makeSkillInstance(owner, t_skill, t_data)
 
     -- 5. 하이라이트
     if (skill.m_bHighlight) then
-        world.m_gameHighlight:addMissile(skill)
+        --world.m_gameHighlight:addMissile(skill)
     end
 end

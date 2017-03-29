@@ -98,6 +98,6 @@ function SkillEnumrate_Penetration_Jaryong:makeSkillInstance(owner, t_skill, t_d
 
     -- 5. 하이라이트
     if (skill.m_bHighlight) then
-        world.m_gameHighlight:addMissile(skill)
+        --world.m_gameHighlight:addMissile(skill)
     end
 end

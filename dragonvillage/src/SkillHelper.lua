@@ -239,7 +239,7 @@ function SkillHelper:makeDragonActiveSkillBonusEffect(dragon, level, text)
     end)
 
     dragon.m_world.m_worldNode:addChild(effect.m_node, WORLD_Z_ORDER.SE_EFFECT)
-    dragon.m_world.m_gameHighlight:addEffect(effect)
+    --dragon.m_world.m_gameHighlight:addEffect(effect)
 
     return effect
 end

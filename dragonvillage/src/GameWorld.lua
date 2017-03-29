@@ -14,6 +14,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         m_gridNode = 'cc.Node',
         m_bgNode = 'cc.Node',
+        m_darkLayer = 'cc.LayerColor',
         m_groundNode = 'cc.Node',
         m_worldNode = 'cc.Node',
         m_missiledNode = 'cc.Node',
@@ -126,6 +127,15 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_bgNode = cc.Node:create()
     self.m_gameNode1:addChild(self.m_bgNode)
 
+    self.m_darkLayer = cc.LayerColor:create()
+	self.m_darkLayer:setColor(cc.c3b(0, 0, 0))
+	self.m_darkLayer:setOpacity(100)
+	self.m_darkLayer:setAnchorPoint(cc.p(0.5, 0.5))
+	self.m_darkLayer:setDockPoint(cc.p(0, 0.5))
+	self.m_darkLayer:setNormalSize(4000, 2000)
+	self.m_darkLayer:setVisible(false)
+	self.m_gameNode1:addChild(self.m_darkLayer)
+
     self.m_groundNode = cc.Node:create()
     self.m_gameNode1:addChild(self.m_groundNode)
 
@@ -162,7 +172,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 
     self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
     self.m_gameTimeScale = GameTimeScale(self)
-    self.m_gameHighlight = GameHighlightMgr(self)
+    self.m_gameHighlight = GameHighlightMgr(self, self.m_darkLayer)
     
     self.m_gameDragonSkill = GameDragonSkill(self)
     self.m_gameFever = GameFever(self)
@@ -590,6 +600,10 @@ function GameWorld:update(dt)
         self.m_dropItemMgr:update(dt)
     end
 
+    if self.m_gameHighlight then
+        self.m_gameHighlight:update(dt)
+    end
+
     for char, v in pairs(self.m_mPassiveEffect) do
         self:makePassiveStartEffect(char, v)
     end
@@ -663,7 +677,7 @@ function GameWorld:addMissile(missile, object_key, res_depth, highlight)
     target_node:addChild(missile.m_rootNode, z_order)
 
     if (highlight) then
-        self.m_gameHighlight:addMissile(missile)
+        --self.m_gameHighlight:addMissile(missile)
     end
 end
 

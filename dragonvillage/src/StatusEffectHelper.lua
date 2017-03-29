@@ -332,7 +332,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
     status_effect:changeState('start')
 
     if (char.m_bHighlight) then
-        char.m_world.m_gameHighlight:addMissile(status_effect)
+        --char.m_world.m_gameHighlight:addMissile(status_effect)
     end
 
     return status_effect

@@ -118,7 +118,7 @@ function SkillRolling.st_move(owner, dt)
 
             -- 하이라이트
             if (owner.m_bHighlight) then
-                owner.m_world.m_gameHighlight:addEffect(animator)
+                --owner.m_world.m_gameHighlight:addEffect(animator)
             end
 			
 			owner.m_spinAnimator = animator
@@ -224,7 +224,7 @@ function SkillRolling.st_move_attack(owner, dt)
 
                 -- 하이라이트
                 if (owner.m_bHighlight) then
-                    owner.m_world.m_gameHighlight:addEffect(animator)
+                    --owner.m_world.m_gameHighlight:addEffect(animator)
                 end
                 
 				owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 300)
@@ -285,7 +285,7 @@ function SkillRolling:updateAfterImage(dt)
 
         -- 하이라이트
         if (self.m_bHighlight) then
-            char.m_world.m_gameHighlight:addEffect(accidental)
+            --char.m_world.m_gameHighlight:addEffect(accidental)
         end
         
         accidental:setScale(char.m_animator:getScale())
@@ -369,7 +369,7 @@ function SkillRolling:makeSkillInstance(owner, t_skill, t_data)
 
     -- 5. 하이라이트
     if (skill.m_bHighlight) then
-        world.m_gameHighlight:addMissile(skill)
+        --world.m_gameHighlight:addMissile(skill)
     end
 end
 

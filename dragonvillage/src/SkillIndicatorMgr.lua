@@ -190,6 +190,7 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             self.m_selectHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
 
             -- 타겟수에 따른 점수(%)값 저장
+            --[[
             do
                 local count = table.count(self.m_world.m_gameHighlight.m_lCharList) - 1
                 local max_count = table.count(self.m_world.m_tEnemyList)
@@ -197,6 +198,7 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
                 local score = (count / max_count) * 100
                 self.m_selectHero.m_skillIndicator.m_resultScore = score
             end
+            ]]--
             
             self:clear()
         end
@@ -222,13 +224,13 @@ function SkillIndicatorMgr:clear(bAll)
         self:setSelectHero(nil)
         self.m_bSlowMode = false
 
-        self.m_world.m_gameHighlight:setActive(false)
+        --self.m_world.m_gameHighlight:setActive(false)
     end
 
     -- 스킬이 취소되거나 해서 이후 드래곤 스킬 연출까지 이어지지 않는 경우
     if (bAll) then
-        self.m_world.m_gameHighlight:changeDarkLayerColor(0, 0.5)
-        self.m_world.m_gameHighlight:clear()
+        --self.m_world.m_gameHighlight:changeDarkLayerColor(0, 0.5)
+        --self.m_world.m_gameHighlight:clear()
     end
 end
 
@@ -279,10 +281,12 @@ function SkillIndicatorMgr:setSelectHero(hero)
         hero.m_skillIndicator:update()
 
         self.m_world:setTemporaryPause(true, hero)
+        --[[
         self.m_world.m_gameHighlight:clear()
         self.m_world.m_gameHighlight:setActive(true)
         self.m_world.m_gameHighlight:changeDarkLayerColor(DARK_LAYER_OPACITY, SKILL_INDICATOR_FADE_OUT_DURATION)
         self.m_world.m_gameHighlight:addChar(hero, 5)
+        ]]--
         
         self.m_selectHero = hero
     else
@@ -297,14 +301,14 @@ end
 function SkillIndicatorMgr:addHighlightList(char, zorder)
     if (not self:isControlling()) then return end
     
-    self.m_world.m_gameHighlight:addChar(char, zorder)
+    --self.m_world.m_gameHighlight:addChar(char, zorder)
 end
 
 -------------------------------------
 -- function removeHighlightList
 -------------------------------------
 function SkillIndicatorMgr:removeHighlightList(char)
-    self.m_world.m_gameHighlight:removeChar(char)
+    --self.m_world.m_gameHighlight:removeChar(char)
 end
 
 -------------------------------------

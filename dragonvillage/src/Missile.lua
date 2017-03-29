@@ -690,7 +690,7 @@ function Missile:release()
 		world.m_lSpecailMissileList[self] = nil
 
         if (world.m_gameHighlight) then
-            world.m_gameHighlight.m_lMissileList[self] = nil
+            --world.m_gameHighlight.m_lMissileList[self] = nil
         end
 	end
 

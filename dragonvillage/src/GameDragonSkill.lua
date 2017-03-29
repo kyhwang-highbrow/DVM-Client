@@ -125,9 +125,11 @@ function GameDragonSkill.update_live(self, dt)
             ui.root:setVisible(false)
 
             -- 하이라이트 활성화
+            --[[
             world.m_gameHighlight:setActive(true)
             world.m_gameHighlight:changeDarkLayerColor(254, 0)
             world.m_gameHighlight:setVisible(false)
+            ]]--
             
             -- 일시 정지
             world:setTemporaryPause(true)
@@ -135,9 +137,10 @@ function GameDragonSkill.update_live(self, dt)
             -- 도입부 컷씬
             self:makeSkillOpeningCut(dragon, function()
                 self:nextStep()
+                self:nextStep()
             end)
         end
-
+        --[[
     elseif (self:getStep() == 1) then
         if (self:isBeginningStep()) then
             -- UI 표시
@@ -185,9 +188,12 @@ function GameDragonSkill.update_live(self, dt)
                 cc.RemoveSelf:create()
             ))
         end
-
+        ]]--
     elseif (self:getStep() == 2) then
         if (self:isBeginningStep()) then
+            -- UI 표시
+            ui.root:setVisible(true)
+
             self.m_skillOpeningCutBg:setVisible(true)
             self.m_skillOpeningCutBg:changeAni('scene_3', false)
             self.m_skillOpeningCutBg:addAniHandler(function()
@@ -220,8 +226,10 @@ function GameDragonSkill.update_live(self, dt)
             self.m_dragonCut = nil
 
             -- 하이라이트
+            --[[
             world.m_gameHighlight:setVisible(true)
             world.m_gameHighlight:addChar(dragon)
+            ]]--
 
             -- 드래곤만 일시 정지 제외시킴
             world:setTemporaryPause(true, dragon)
@@ -273,12 +281,12 @@ function GameDragonSkill.update_live(self, dt)
             world.m_gameCamera:reset()
 
             -- 암전 해제
-            world.m_gameHighlight:changeDarkLayerColor(0, t_dragon_skill_time[3])
+            --world.m_gameHighlight:changeDarkLayerColor(0, t_dragon_skill_time[3])
 
         elseif (self:isPassedStepTime(step_time2)) then
             -- 하이라이트 비활성화
-            world.m_gameHighlight:setActive(false)
-            world.m_gameHighlight:clear()
+            --world.m_gameHighlight:setActive(false)
+            --world.m_gameHighlight:clear()
 
         elseif (self:isPassedStepTime(step_time3)) then
             self.m_dragon = nil
@@ -310,27 +318,28 @@ function GameDragonSkill.update_live2(self, dt)
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
             -- 하이라이트 활성화
+            --[[
             world.m_gameHighlight:setActive(true)
             world.m_gameHighlight:changeDarkLayerColor(254, 0.1)
-            --world.m_gameHighlight:clear()
             world.m_gameHighlight:addChar(dragon)
 
             for i, enemy in pairs(dragon:getOpponentList()) do
                 world.m_gameHighlight:addChar(enemy)
             end
+            ]]--
             
             -- 효과음
             SoundMgr:playEffect('EFFECT', 'skill_ready')
         
         elseif (self:isPassedStepTime(0.1 + time1)) then
             -- 암전 해제
-            world.m_gameHighlight:changeDarkLayerColor(0, time2)
+            --world.m_gameHighlight:changeDarkLayerColor(0, time2)
 
         elseif (self:isPassedStepTime(0.1 + time1 + (time2 / 2))) then
 
             -- 하이라이트 비활성화
-            world.m_gameHighlight:setActive(false)
-            world.m_gameHighlight:clear()
+            --world.m_gameHighlight:setActive(false)
+            --world.m_gameHighlight:clear()
 
             self.m_dragon = nil
 

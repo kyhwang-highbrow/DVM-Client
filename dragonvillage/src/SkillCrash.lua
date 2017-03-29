@@ -182,7 +182,7 @@ function SkillCrash:updateAfterImage(dt)
 
         -- 하이라이트
         if (self.m_bHighlight) then
-            char.m_world.m_gameHighlight:addEffect(accidental)
+            --char.m_world.m_gameHighlight:addEffect(accidental)
         end
         
         accidental:setScale(char.m_animator:getScale())
@@ -379,6 +379,6 @@ function SkillCrash:makeSkillInstance(owner, t_skill, t_data)
 
     -- 5. 하이라이트
     if (skill.m_bHighlight) then
-        world.m_gameHighlight:addMissile(skill)
+        --world.m_gameHighlight:addMissile(skill)
     end
 end

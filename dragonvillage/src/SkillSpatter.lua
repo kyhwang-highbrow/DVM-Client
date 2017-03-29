@@ -189,7 +189,7 @@ function SkillSpatter:makeSkillInstance(owner, t_skill)
 
     -- 5. 하이라이트
     if (skill.m_bHighlight) then
-        world.m_gameHighlight:addMissile(skill)
+        --world.m_gameHighlight:addMissile(skill)
     end
 
 	-- 위치 지정 및 모션스트릭	

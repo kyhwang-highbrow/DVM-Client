@@ -121,7 +121,7 @@ function SkillHeartOfRuin:makeSpecialEffect()
 
         -- 하이라이트
         if (self.m_bHighlight) then
-            world.m_gameHighlight:addEffect(effect)
+            --world.m_gameHighlight:addEffect(effect)
         end
         
         local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
@@ -141,7 +141,7 @@ function SkillHeartOfRuin:makeSpecialEffect()
 
         -- 하이라이트
         if (self.m_bHighlight) then
-            world.m_gameHighlight:addEffect(effect)
+            --world.m_gameHighlight:addEffect(effect)
         end
         
     end
@@ -176,6 +176,6 @@ function SkillHeartOfRuin:makeSkillInstance(owner, t_skill, t_data)
 
     -- 5. 하이라이트
     if (skill.m_bHighlight) then
-        world.m_gameHighlight:addMissile(skill)
+        --world.m_gameHighlight:addMissile(skill)
     end
 end

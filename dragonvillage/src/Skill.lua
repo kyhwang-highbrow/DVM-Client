@@ -72,7 +72,7 @@ function Skill:init_skill()
 
     -- 하이라이트
     if (self.m_bHighlight) then
-        self.m_world.m_gameHighlight:addChar(self.m_owner)
+        --self.m_world.m_gameHighlight:addChar(self.m_owner)
         --self.m_world.m_gameHighlight:addChar(self.m_targetChar)
     end
 
@@ -257,7 +257,7 @@ function Skill:doStatusEffect(l_start_con, t_target)
                         target:dispatch('hit_active_buff', {}, target)
 
                         if (self.m_bHighlight) then
-                            self.m_world.m_gameHighlight:addChar(target)
+                            --self.m_world.m_gameHighlight:addChar(target)
                         end
                     end
                 end
@@ -486,7 +486,7 @@ function Skill:makeEffect(res, x, y, ani_name, cb_function)
 
     -- 하이라이트
     if (self.m_bHighlight) then
-        self.m_world.m_gameHighlight:addEffect(effect)
+        --self.m_world.m_gameHighlight:addEffect(effect)
     end
     	
 	-- 1회 재생후 동작

@@ -77,7 +77,7 @@ function SkillAoECone_Spread:spreadStatusEffect(target_char, status_effect_type,
 
         -- 하이라이트
         if (self.m_bHighlight) then
-            world.m_gameHighlight:addEffect(effect1)
+            --world.m_gameHighlight:addEffect(effect1)
         end
 
 		effect1:setPosition(target_char.pos.x, target_char.pos.y)
@@ -151,6 +151,6 @@ function SkillAoECone_Spread:makeSkillInstance(owner, t_skill, t_data)
 
     -- 5. 하이라이트
     if (skill.m_bHighlight) then
-        world.m_gameHighlight:addMissile(skill)
+        --world.m_gameHighlight:addMissile(skill)
     end
 end

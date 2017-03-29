@@ -401,7 +401,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
 
     -- 하일라이트 여부
     if (attacker.m_activityCarrier:isHighlight()) then 
-        self.m_world.m_gameHighlight:addChar(self)
+        --self.m_world.m_gameHighlight:addChar(self)
     end
     
 
@@ -798,7 +798,7 @@ function Character:makeDamageEffect(dmg_type, attr, x, y, dir, critical, is_high
     self.m_world:addChild3(effect.m_node, DEPTH_DAMAGE_EFFECT)
 
     if (is_highlight) then
-        self.m_world.m_gameHighlight:addEffect(effect)
+        --self.m_world.m_gameHighlight:addEffect(effect)
     end
 end
 
@@ -914,7 +914,7 @@ function Character:makeDamageFont(damage, x, y, critical, attr_bonus_dmg, is_hig
     end
 
     if (is_highlight) then
-        self.m_world.m_gameHighlight:addDamage(node)
+        --self.m_world.m_gameHighlight:addDamage(node)
     end
 end
 

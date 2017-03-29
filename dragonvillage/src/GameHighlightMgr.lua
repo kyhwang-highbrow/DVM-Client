@@ -5,332 +5,57 @@ GameHighlightMgr = class({
         m_world = 'GameWorld',
 
         m_bActive = 'boolean',
-        m_activeCount = 'number',
-
-        m_lCharList = 'table',
-        m_lMissileList = 'table',
-        m_lItemList = 'table',
 
         m_darkLayer = '',
-
-        m_gameNode1 = '',
-        m_gameNode2 = '',
-        m_gameNode3 = '',
-
-        m_groundNode = '',
-        m_worldNode = '',
-        m_missiledNode = '',
-        m_unitInfoNode = '',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function GameHighlightMgr:init(world)
+function GameHighlightMgr:init(world, darkLayer)
     self.m_world = world
 
     self.m_bActive = false
-    self.m_activeCount = 0
-    
-    self.m_lCharList = {}
-    self.m_lMissileList = {}
-    self.m_lItemList = {}
-
-    self.m_darkLayer = g_gameScene.m_colorLayerForSkill
+   
+    self.m_darkLayer = darkLayer
     self.m_darkLayer:setOpacity(0)
     self.m_darkLayer:setVisible(true)
+end
 
-    local worldLayer = g_gameScene.m_gameHighlightNode
-    
-    do -- 게임 레이어 (배경, 유닛, 미사일 용)
-	    self.m_gameNode1 = cc.Node:create()
-	    worldLayer:addChild(self.m_gameNode1)
+-------------------------------------
+-- function update
+-------------------------------------
+function GameHighlightMgr:update(dt)
+    local world = self.m_world
 
-	    -- 게임 레이어 (이펙트 및 폰트 용)
-	    self.m_gameNode2 = cc.Node:create()
-	    worldLayer:addChild(self.m_gameNode2)
+    local b = false
 
-	    -- 게임 레이어 (pause 제외 이펙트 및 폰트 용)
-	    self.m_gameNode3 = cc.Node:create()
-	    worldLayer:addChild(self.m_gameNode3)
+    if (world.m_gameDragonSkill:isPlaying()) then
+        b = true
 
+    elseif (world.m_skillIndicatorMgr:isControlling()) then
+        b = true
 
-        self.m_groundNode = cc.Node:create()
-        self.m_gameNode1:addChild(self.m_groundNode)
+    elseif (world.m_tamer.m_state == 'event') then
+        b = true
 
-        self.m_worldNode = cc.Node:create()
-        self.m_gameNode1:addChild(self.m_worldNode)
-
-        self.m_missiledNode = cc.Node:create()
-        self.m_gameNode1:addChild(self.m_missiledNode)
-	
-	    self.m_unitInfoNode = cc.Node:create()
-        self.m_gameNode1:addChild(self.m_unitInfoNode)
     end
+
+    self:setActive(b)
 end
 
 -------------------------------------
 -- function setActive
 -------------------------------------
-function GameHighlightMgr:setActive(b, b_force)
-    if (b) then
-        self.m_activeCount = self.m_activeCount + 1
+function GameHighlightMgr:setActive(bActive)
+    if (self.m_bActive == bActive) then return end
+       
+    self.m_bActive = bActive
+    
+    if (self.m_bActive) then
+        self:changeDarkLayerColor(255, 0.2)
     else
-        self.m_activeCount = self.m_activeCount - 1
-
-        if (b_force) then
-            self.m_activeCount = 0
-        end
-    end
-
-    local bActive = (self.m_activeCount > 0)
-    
-    if (self.m_bActive ~= bActive) then
-        self.m_bActive = bActive
-        self:clear()
-
-        if (self.m_bActive) then
-            -- 테이머는 항상 하이라이트 시킴
-            if (self.m_world.m_tamer) then
-                self:addChar(self.m_world.m_tamer)
-            end
-
-            -- 드랍 아이템들은 항상 하이라이트 시킴
-            if (self.m_world.m_dropItemMgr) then
-                local itemList = self.m_world.m_dropItemMgr:getItemList()
-                for _, item in pairs(itemList) do
-                    self:addItem(item)
-                end
-            end
-        end
-    end
-end
-
--------------------------------------
--- function addChar
--------------------------------------
-function GameHighlightMgr:addChar(char, zorder)
-    if (not self.m_bActive) then return end
-    if (char.m_bDead) then return end
-    if (char.m_bHighlight) then return end
-
-    local node = char:getRootNode()
-    if (not node) then return end
-
-    -- root 노드
-    local t_data = {}
-    t_data['parent'] = char.m_world.m_worldNode -- 5챕터 보스 이슈로...
-    t_data['zorder'] = node:getLocalZOrder()
-    node:retain()
-    node:removeFromParent(false)
-    self.m_worldNode:addChild(node, zorder or 0)
-    node:release()
-
-    if (char.m_unitInfoNode) then
-        t_data['unit_parent'] = char.m_unitInfoNode:getParent()
-		t_data['unit_zorder'] = char.m_unitInfoNode:getLocalZOrder()
-		char.m_unitInfoNode:retain()
-		char.m_unitInfoNode:removeFromParent(false)
-		self.m_unitInfoNode:addChild(char.m_unitInfoNode, t_data['unit_zorder'])
-		char.m_unitInfoNode:release()
-    end
-    
-    self.m_lCharList[char] = t_data
-
-    char.m_bHighlight = true
-end
-
--------------------------------------
--- function removeChar
--------------------------------------
-function GameHighlightMgr:removeChar(char)
-    if (not char.m_bHighlight) then return end
-    
-    local t_data = self.m_lCharList[char]
-    if (not t_data) then return end
-
-    self.m_lCharList[char] = nil
-
-    if (char.m_bDead) then return end
-
-    -- @TODO slave character 가 있을 때 처리 
-    if (char.m_isSlaveCharacter) then 
-        if (char.m_masterCharacter.m_bHighlight) then
-            return
-        end 
-    end
-
-	if (char.m_bInitAdditionalPhysObject) then
-		for slave_char, _  in pairs(char.m_lAdditionalPhysObject) do 
-            if (slave_char.m_bHighlight) then
-                return
-            end
-        end
-    end
-
-    -- 루트 노드
-	if (t_data['parent']) then 
-		local node = char:getRootNode()
-		node:retain()
-		node:removeFromParent(false)
-		t_data['parent']:addChild(node, t_data['zorder'])
-		node:release()
-	end
-
-    if (t_data['unit_parent']) then 
-		local node = char.m_unitInfoNode
-		node:retain()
-		node:removeFromParent(false)
-		t_data['unit_parent']:addChild(node, t_data['unit_zorder'])
-		node:release()
-	end
-        
-    char.m_bHighlight = false
-end
-
--------------------------------------
--- function addMissile
--------------------------------------
-function GameHighlightMgr:addMissile(missile)
-    if (not self.m_bActive) then return end
-    if (not isInstanceOf(missile, Skill) and not isInstanceOf(missile, Missile) and not isInstanceOf(missile, StatusEffect)) then return end
-    
-    local node = missile.m_rootNode
-    if (not node) then
-        cclog('GameHighlightMgr:addMissile missile.m_rootNode == nil')
-    end
-    
-    local t_data = {}
-    t_data['parent'] = node:getParent()
-    t_data['zorder'] = node:getLocalZOrder()
-    self.m_lMissileList[missile] = t_data
-
-    local target_node = self:getHighLightNode(t_data['parent'])
-    
-    -- root 노드
-    node:retain()
-    node:removeFromParent(false)
-    target_node:addChild(node, node:getLocalZOrder())
-    node:release()
-end
-
--------------------------------------
--- function removeMissile
--------------------------------------
-function GameHighlightMgr:removeMissile(missile)
-    local t_data = self.m_lMissileList[missile]
-    if (not t_data) then return end
-
-    self.m_lMissileList[missile] = nil
-
-    if (not missile.m_rootNode) then return end
-
-    if (t_data['parent']) then 
-		local node = missile.m_rootNode
-        if (node) then
-            node:retain()
-		    node:removeFromParent(false)
-		    t_data['parent']:addChild(node, t_data['zorder'])
-		    node:release()
-        end
-	end
-end
-
--------------------------------------
--- function addItem
--------------------------------------
-function GameHighlightMgr:addItem(item)
-    if (not self.m_bActive) then return end
-    if (not isInstanceOf(item, DropItem)) then return end
-
-    local node = item.m_rootNode
-    if (not node) then
-        cclog('GameHighlightMgr:addItem item.m_rootNode == nil')
-    end
-    
-    local t_data = {}
-    t_data['parent'] = node:getParent()
-    t_data['zorder'] = node:getLocalZOrder()
-    self.m_lItemList[item] = t_data
-
-    local target_node = self:getHighLightNode(t_data['parent'])
-    
-    -- root 노드
-    node:retain()
-    node:removeFromParent(false)
-    target_node:addChild(node, node:getLocalZOrder())
-    node:release()
-end
-
--------------------------------------
--- function removeItem
--------------------------------------
-function GameHighlightMgr:removeItem(item)
-    local t_data = self.m_lItemList[item]
-    if (not t_data) then return end
-
-    self.m_lItemList[item] = nil
-
-    if (not item.m_rootNode) then return end
-
-    if (t_data['parent']) then 
-		local node = item.m_rootNode
-        if (node) then
-            node:retain()
-		    node:removeFromParent(false)
-		    t_data['parent']:addChild(node, t_data['zorder'])
-		    node:release()
-        end
-	end
-end
-
--------------------------------------
--- function addEffect
--- @brief 이펙트 형태는 하이라이트 상태를 계속 유지시킴
--------------------------------------
-function GameHighlightMgr:addEffect(effect)
-    if (not self.m_bActive) then return end
-    
-    local node = effect.m_node
-    local target_node = self:getHighLightNode(node:getParent())
-
-    -- root 노드
-    node:retain()
-    node:removeFromParent(false)
-    target_node:addChild(node, node:getLocalZOrder())
-    node:release()
-end
-
--------------------------------------
--- function addDamage
--------------------------------------
-function GameHighlightMgr:addDamage(node)
-    if (not self.m_bActive) then return end
-    
-    local node = node
-    local target_node = self:getHighLightNode(node:getParent())
-
-    -- root 노드
-    node:retain()
-    node:removeFromParent(false)
-    target_node:addChild(node, node:getLocalZOrder())
-    node:release()
-end
-
--------------------------------------
--- function clear
--------------------------------------
-function GameHighlightMgr:clear()
-    for char, _ in pairs(self.m_lCharList) do
-        self:removeChar(char)
-    end
-
-    for missile, _ in pairs(self.m_lMissileList) do
-        self:removeMissile(missile)
-    end
-
-    for item, _ in pairs(self.m_lItemList) do
-        self:removeItem(item)
+        self:changeDarkLayerColor(0, 0.2)
     end
 end
 
@@ -348,50 +73,4 @@ function GameHighlightMgr:changeDarkLayerColor(opacity, duration)
     dark_layer:setPosition(cameraHomePosX, cameraHomePosY)
     
     dark_layer:runAction( cc.FadeTo:create(duration, opacity) )
-end
-
--------------------------------------
--- function getHighLightNode
--------------------------------------
-function GameHighlightMgr:getHighLightNode(orgParentNode)
-    local world = self.m_world
-    local highLightNode
-
-    local temp = {
-        'm_gameNode2',
-        'm_gameNode3',
-
-        'm_groundNode',
-        'm_worldNode',
-        'm_missiledNode',
-        'm_unitInfoNode',
-    }
-    
-    for i, k in ipairs(temp) do
-        if (orgParentNode == world[k]) then
-            highLightNode = self[k]
-            break
-        end
-    end
-
-    return highLightNode
-end
-
--------------------------------------
--- function setVisible
--------------------------------------
-function GameHighlightMgr:setVisible(b)
-    local temp = {
-        'm_gameNode2',
-        'm_gameNode3',
-
-        'm_groundNode',
-        'm_worldNode',
-        'm_missiledNode',
-        'm_unitInfoNode',
-    }
-
-    for i, k in ipairs(temp) do
-        self[k]:setVisible(b)
-    end
 end

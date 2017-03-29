@@ -19,6 +19,7 @@ Entity = class(PARENT, {
 
         -- @하이라이트 관련
         m_bHighlight = 'boolean',
+        m_highLightLevel = 'number',
 
         --
         m_motionStreak = 'MotionStreack',
@@ -49,6 +50,7 @@ function Entity:init(file_name, body)
 
     -- 하이라이트 관련 변수
     self.m_bHighlight = false
+    self.m_highLightLevel = 0
 end
 
 -------------------------------------

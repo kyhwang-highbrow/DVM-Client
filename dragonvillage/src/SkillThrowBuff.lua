@@ -94,7 +94,7 @@ function SkillThrowBuff.st_obtain(owner, dt)
         end)
 
         if (owner.m_bHighlight) then
-            owner.m_world.m_gameHighlight:addChar(owner.m_targetChar)
+            --owner.m_world.m_gameHighlight:addChar(owner.m_targetChar)
         end
     end
 end
@@ -129,6 +129,6 @@ function SkillThrowBuff:makeSkillInstance(owner, t_skill, t_data)
 
     -- 5. 하이라이트
     if (skill.m_bHighlight) then
-        world.m_gameHighlight:addMissile(skill)
+        --world.m_gameHighlight:addMissile(skill)
     end
 end

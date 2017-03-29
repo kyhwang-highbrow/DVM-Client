@@ -284,8 +284,7 @@ function GameState.update_wave_intermission(self, dt)
 
         -- 0. 스킬 및 미사일을 날린다
 	    world:removeMissileAndSkill()
-        world.m_gameHighlight:setActive(false, true)
-
+        
         -- 변경된 카메라 위치에 맞게 아군 홈 위치 변경 및 이동
         for i, v in ipairs(world:getDragonList()) do
             if (v.m_bDead == false) then
@@ -554,8 +553,7 @@ function GameState.update_success_wait(self, dt)
         -- 스킬과 미사일도 다 날려 버리자
 	    world:removeMissileAndSkill()
         world:removeHeroDebuffs()
-        world.m_gameHighlight:setActive(false, true)
-        
+                
 		-- @LOG
 		self.m_world.m_logRecorder:recordLog('lap_time', self.m_fightTimer)
     end
@@ -656,8 +654,7 @@ function GameState.update_failure(self, dt)
 	    world:removeMissileAndSkill()
         world:removeEnemyDebuffs()
         world:cleanupItem()
-        world.m_gameHighlight:setActive(false, true)
-
+        
         -- 기본 배속으로 변경
         world.m_gameTimeScale:setBase(1)
 
