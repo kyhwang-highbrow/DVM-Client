@@ -42,13 +42,16 @@ function TableGradeInfo:getMaxLv(grade, eclv)
         self = THIS()
     end
 
-    local key
+    local key = grade
 
+    --[[
+    -- 초월은 레벨에 관여하지 않게 바뀜
     if (grade >= MAX_DRAGON_GRADE) and (eclv and 0 <= eclv) then
         key = self:makeEclvKey(eclv)
     else
         key = grade
     end
+    --]]
 
     local max_lv = self:getValue(key, 'max_lv')
     return max_lv

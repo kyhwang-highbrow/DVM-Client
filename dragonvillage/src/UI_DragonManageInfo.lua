@@ -78,8 +78,8 @@ function UI_DragonManageInfo:initButton()
         -- 룬
         vars['runeBtn']:registerScriptTapHandler(function() self:click_runeBtn() end)
 
-        -- 수련
-        vars['trainBtn']:registerScriptTapHandler(function() self:click_trainBtn() end)
+        -- 기원
+        vars['resechBtn']:registerScriptTapHandler(function() self:click_resechBtn() end)
 
         -- 스킬 레벨업
         vars['skillLevelupBtn']:registerScriptTapHandler(function() self:click_skillLevelupBtn() end)
@@ -159,20 +159,6 @@ function UI_DragonManageInfo:refresh()
 
     -- 능력치 정보 갱신
     self:refresh_status(t_dragon_data, t_dragon)
-
-
-    do -- 승급, 초월 중 선택
-        local grade = t_dragon_data['grade']
-        
-        -- 최대 등급일 경우 초월로 벼튼 변경
-        if TableGradeInfo:isMaxGrade(grade) then
-            vars['transcendBtn']:setVisible(true)
-            vars['upgradeBtn']:setVisible(false)
-        else
-            vars['transcendBtn']:setVisible(false)
-            vars['upgradeBtn']:setVisible(true)
-        end
-    end
 
     do -- 장착된 룬 표시
         local t_runes = t_dragon_data['runes']
@@ -451,7 +437,7 @@ function UI_DragonManageInfo:click_transcendBtn()
         end
     end
 
-    self:openSubManageUI(UI_DragonEclvup)
+    self:openSubManageUI(UI_DragonEclvupNew)
 end
 
 
@@ -558,10 +544,10 @@ function UI_DragonManageInfo:click_equipmentBtn()
 end
 
 -------------------------------------
--- function click_trainBtn
--- @brief 수련 버튼
+-- function click_resechBtn
+-- @brief 기원 버튼
 -------------------------------------
-function UI_DragonManageInfo:click_trainBtn()
+function UI_DragonManageInfo:click_resechBtn()
     self:openSubManageUI(UI_DragonManageTrain)
 end
 

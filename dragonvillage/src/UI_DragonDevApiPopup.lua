@@ -78,17 +78,21 @@ function UI_DragonDevApiPopup:initButton()
 
     local max_evolution = 3
     local max_grade = 6
-    local max_level = 70 + (MAX_DRAGON_ECLV * 2)
+    local max_level = 40
     local max_eclv = MAX_DRAGON_ECLV
 
     vars['evolutionUpBtn']:registerScriptTapHandler(function() self.m_evolution = math_clamp(self.m_evolution + 1, 1, max_evolution) self:refresh() end)
     vars['evolutionDownBtn']:registerScriptTapHandler(function() self.m_evolution = math_clamp(self.m_evolution - 1, 1, max_evolution) self:refresh() end)
 
     vars['gradeUpBtn']:registerScriptTapHandler(function() self.m_grade = math_clamp(self.m_grade + 1, 1, max_grade) self:refresh() end)
-    vars['gradeDownBtn']:registerScriptTapHandler(function() self.m_grade = math_clamp(self.m_grade - 1, 1, max_grade) self:refresh() end)
+    vars['gradeDownBtn']:registerScriptTapHandler(function()
+        self.m_grade = math_clamp(self.m_grade - 1, 1, max_grade)
+        self.m_level = math_clamp(self.m_level + 1, 1, TableGradeInfo:getMaxLv(self.m_grade))
+        self:refresh()
+    end)
 
-    vars['levelUpBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level + 1, 1, max_level) self:refresh() end)
-    vars['levelDownBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level - 1, 1, max_level) self:refresh() end)
+    vars['levelUpBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level + 1, 1, TableGradeInfo:getMaxLv(self.m_grade)) self:refresh() end)
+    vars['levelDownBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level - 1, 1, TableGradeInfo:getMaxLv(self.m_grade)) self:refresh() end)
 
     -- 초월
     vars['eclvUpBtn']:registerScriptTapHandler(function() self.m_eclv = math_clamp(self.m_eclv + 1, 1, max_eclv) self:refresh() end)

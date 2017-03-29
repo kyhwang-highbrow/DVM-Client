@@ -406,33 +406,12 @@ function ServerData_Dragons:checkEclvUpgradeable(doid)
         return false
     end
 
-    local grade = t_dragon_data['grade']
     local eclv = t_dragon_data['eclv']
-    local level = t_dragon_data['lv']
-    local evolution = t_dragon_data['evolution']
-
-    -- 최대 등급 체크
-    if (not TableGradeInfo:isMaxGrade(grade)) then
-        return false, Str('초월은 {1}등급이 되어야 가능합니다.', MAX_DRAGON_GRADE)
-    end
-
-    -- 진화 단계 확인
-    if (evolution < 3) then
-        return false, Str('해치, 해츨링은 초월할 수 없습니다.')
-    end
-
-    -- 최대 초월 체크
-    if TableGradeInfo:isMaxEclv(eclv) then
+    if (eclv < MAX_DRAGON_ECLV) then
+        return true
+    else
         return false, Str('최고 단계 초월의 드래곤입니다.')
     end
-
-    -- 최대 레벨 체크
-    local is_max_level, max_lv = TableGradeInfo:isMaxLevel(grade, eclv, level)
-    if (not is_max_level) then
-        return false, Str('최대 레벨 {1}에서 초월이 가능합니다.', max_lv)
-    end
-
-    return true
 end
 
 -------------------------------------
