@@ -26,7 +26,7 @@ function StatusEffect_DotDmg:init_dotDmg(char, t_status_effect, status_effect_va
 	local damage
 
 	-- 절대값 적용 
-	if string.find(t_status_effect['name'], '_abs') then 
+	if (t_status_effect['abs_switch'] == 1) then 
 		damage = t_status_effect['dot_dmg']
 	-- 상대수치 적용
 	else

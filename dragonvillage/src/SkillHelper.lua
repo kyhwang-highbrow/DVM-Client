@@ -149,3 +149,53 @@ function SkillHelper:makeDragonActiveSkillBonus(owner, t_skill, role_type, score
         StatusEffectHelper:doStatusEffectByStr(owner, {owner}, {str_status_effect})
     end
 end
+
+-------------------------------------
+-- function makeDragonActiveSkillBonusEffect
+-- @brief 드래곤 드래그 스킬 피드백(보너스) 이펙트 출력
+-------------------------------------
+function SkillHelper:makeDragonActiveSkillBonusEffect(dragon, level, text)
+    local str
+
+    if (level == 1) then        str = 'good'
+    elseif (level == 2) then    str = 'great'
+    else return
+    end
+
+    local world = dragon.m_world
+    local effect = MakeAnimator('res/effect/skill_decision/skill_decision.vrp')
+    effect:setPosition(dragon.pos.x, dragon.pos.y + 100)
+    effect:setScale(0.3)
+    effect:changeAni(str .. '_appear', false)
+    effect:addAniHandler(function()
+        effect:changeAni(str .. '_idle', false)
+        effect:addAniHandler(function()
+            effect:changeAni(str .. '_disappear', false)
+            local duration = effect:getDuration()
+            effect:runAction(cc.Sequence:create(
+                cc.DelayTime:create(duration),
+                --[[
+                cc.CallFunc:create(function()
+                    -- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
+			        if (not world.m_mPassiveEffect[dragon]) then
+				        world.m_mPassiveEffect[dragon] = {}
+			        end
+			        world.m_mPassiveEffect[dragon][text] = true
+                end),
+                ]]--
+                cc.RemoveSelf:create()
+            ))
+
+            -- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
+			if (not world.m_mPassiveEffect[dragon]) then
+				world.m_mPassiveEffect[dragon] = {}
+			end
+			world.m_mPassiveEffect[dragon][text] = true
+        end)
+    end)
+
+    dragon.m_world.m_worldNode:addChild(effect.m_node, WORLD_Z_ORDER.SE_EFFECT)
+    dragon.m_world.m_gameHighlight:addEffect(effect)
+
+    return effect
+end

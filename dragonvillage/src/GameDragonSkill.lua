@@ -9,6 +9,8 @@ GAME_DRAGON_SKILL_LIVE2 = 2
 -------------------------------------
 GameDragonSkill = class(PARENT, {
         m_world = 'GameWorld',
+
+        m_node = 'cc.Node',
         
         -- 스킬을 사용할 드래곤 정보
         m_dragon = 'Dragon',
@@ -29,6 +31,10 @@ GameDragonSkill = class(PARENT, {
 -------------------------------------
 function GameDragonSkill:init(world)
     self.m_world = world
+
+    self.m_node = cc.Node:create()
+    g_gameScene.m_viewLayer:addChild(self.m_node)
+
     self.m_state = GAME_DRAGON_SKILL_WAIT
 
     self.m_dragon = nil
@@ -45,12 +51,12 @@ function GameDragonSkill:initUI()
     self.m_skillOpeningCutBg = MakeAnimator('res/effect/cutscene_a_type/cutscene_a_type_bg.vrp')
     self.m_skillOpeningCutBg:changeAni('scene_1', false)
     self.m_skillOpeningCutBg:setVisible(false)
-    g_gameScene.m_viewLayer:addChild(self.m_skillOpeningCutBg.m_node)
+    self.m_node:addChild(self.m_skillOpeningCutBg.m_node)
 
     self.m_skillOpeningCutTop = MakeAnimator('res/effect/cutscene_a_type/cutscene_a_type_top.vrp')
     self.m_skillOpeningCutTop:changeAni('scene_1', false)
     self.m_skillOpeningCutTop:setVisible(false)
-    g_gameScene.m_viewLayer:addChild(self.m_skillOpeningCutTop.m_node)
+    self.m_node:addChild(self.m_skillOpeningCutTop.m_node)
 
     self.m_dragonCut = nil
 
@@ -59,7 +65,7 @@ function GameDragonSkill:initUI()
     self.m_skillDescEffect:setPosition(0, -200)
     self.m_skillDescEffect:changeAni('skill', false)
     self.m_skillDescEffect:setVisible(false)
-    g_gameScene.m_viewLayer:addChild(self.m_skillDescEffect.m_node)
+    self.m_node:addChild(self.m_skillDescEffect.m_node, 10)
 
     local titleNode = self.m_skillDescEffect.m_node:getSocketNode('skill_title')
     local descNode = self.m_skillDescEffect.m_node:getSocketNode('skill_dsc')
@@ -69,14 +75,14 @@ function GameDragonSkill:initUI()
 	self.m_skillNameLabel:setDockPoint(cc.p(0, 0))
 	self.m_skillNameLabel:setColor(cc.c3b(84,244,87))
     self.m_skillNameLabel:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
-    titleNode:addChild(self.m_skillNameLabel)
+    titleNode:addChild(self.m_skillNameLabel, 11)
 
     self.m_skillDescLabel = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 30, 3, cc.size(800, 200), 1, 1)
     self.m_skillDescLabel:setAnchorPoint(cc.p(0.5, 0.5))
 	self.m_skillDescLabel:setDockPoint(cc.p(0, 0))
 	self.m_skillDescLabel:setColor(cc.c3b(220,220,220))
     self.m_skillDescLabel:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
-    descNode:addChild(self.m_skillDescLabel)
+    descNode:addChild(self.m_skillDescLabel, 11)
 end
 
 -------------------------------------
@@ -136,7 +142,7 @@ function GameDragonSkill.update_live(self, dt)
 
             -- 가상 화면 생성
             local virtualNode = cc.Node:create()
-            g_gameScene.m_viewLayer:addChild(virtualNode)
+            self.m_node:addChild(virtualNode)
 
             local camera = GameCamera(world, virtualNode)
             camera:setAction({pos_x = CRITERIA_RESOLUTION_X / 4, pos_y = 0, time = 0, scale = 1.4})
@@ -221,6 +227,9 @@ function GameDragonSkill.update_live(self, dt)
 
             -- 음성
             playDragonVoice(dragon.m_charTable['type'])
+
+            -- 화면 쉐이킹
+            world.m_shakeMgr:doShake(50, 50, 1)
         
         elseif (self:isPassedStepTime(delayTime)) then
             -- 컷씬 삭제
@@ -363,7 +372,7 @@ function GameDragonSkill:makeSkillCutEffect(dragon, delayTime)
     local animator = MakeAnimator(string.format('res/effect/effect_skillcut_dragon/effect_skillcut_dragon_%s.vrp', attr))
     animator:changeAni('idle', false)
     animator:setPosition(0, 80)
-    g_gameScene.m_viewLayer:addChild(animator.m_node)
+    self.m_node:addChild(animator.m_node)
 
     local duration = animator:getDuration()
     animator:setTimeScale(duration / delayTime)
@@ -396,7 +405,7 @@ function GameDragonSkill:makeDragonCut(dragon, cbEnd)
 
     local res_name = dragon.m_animator.m_resName
     local animator = MakeAnimator(res_name)
-    g_gameScene.m_viewLayer:addChild(animator.m_node)
+    self.m_node:addChild(animator.m_node)
 
     animator:changeAni('skill_appear', false)
         

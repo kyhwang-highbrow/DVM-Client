@@ -233,52 +233,22 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
         or status_effect_type == 'feedback_supporter' or status_effect_type == 'feedback_healer') then
         cclog('makeStatusEffectInstance status_effect_type = ' .. status_effect_type)
 
-        status_effect = StatusEffect('res/effect/skill_decision/skill_decision.vrp')
-        
-        --[[
-        local score = char.m_skillIndicator.m_resultScore
-        local active_skill_id = char:getSkillID('active')
-        local t_skill = TableDragonSkill():get(active_skill_id)
-        
-        local level = SkillHelper:getDragonActiveSkillBonusLevel(t_skill, score)
-        local str
-        if (level == 2) then    str = 'great'
-        else                    str = 'good'
+        if (status_effect_type == 'feedback_healer') then
+            status_effect = StatusEffect_Heal(res)
+		    status_effect:init_heal(char, t_status_effect, status_effect_value, duration)
+        else
+            status_effect = StatusEffect(res)
         end
-        ]]--
-        local str = 'good'
-
+        
+        -- 임시 처리...
+        local bonus_level = 1
         if (status_effect_type == 'feedback_healer' and tonumber(status_effect_value) == 20) then
-            str = 'great'
+            bonus_level = 2
         elseif (tonumber(status_effect_value) == 10) then
-            str = 'great'
+            bonus_level = 2
         end
 
-        status_effect.m_tStateAni['start'] = str .. '_appear'
-        status_effect.m_tStateAni['idle'] = str .. '_idle'
-        status_effect.m_tStateAni['end'] = str .. '_disappear'
-
-        do
-            local effect = MakeAnimator('res/effect/skill_decision/skill_decision.vrp')
-            effect:setPosition(char.pos.x, char.pos.y + 100)
-            effect:setScale(0.2)
-            effect:changeAni(str .. '_appear', false)
-            effect:addAniHandler(function()
-                effect:changeAni(str .. '_idle', false)
-                effect:addAniHandler(function()
-                    effect:changeAni(str .. '_disappear', false)
-                    local duration = effect:getDuration()
-                    effect:runAction(cc.Sequence:create(
-                        cc.DelayTime:create(duration),
-                        cc.RemoveSelf:create()
-                    ))
-                end)
-                
-            end)
-
-            char.m_world.m_worldNode:addChild(effect.m_node, WORLD_Z_ORDER.SE_EFFECT)
-            char.m_world.m_gameHighlight:addEffect(effect)
-        end
+        SkillHelper:makeDragonActiveSkillBonusEffect(char, bonus_level, t_status_effect['t_name'])
 
 	------------ 힐 --------------------------
     elseif isExistValue(status_effect_type, 'passive_recovery') or
