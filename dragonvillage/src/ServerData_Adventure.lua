@@ -280,7 +280,7 @@ function ServerData_Adventure:getNextStageID(stage_id)
         return next_stage_id
     end
 
-    if (3 == difficulty) then
+    if (MAX_ADVENTURE_DIFFICULTY == difficulty) then
         if (chapter < MAX_ADVENTURE_CHAPTER) then
             local next_stage_id = makeAdventureID(difficulty, chapter + 1, 1)
             return next_stage_id
