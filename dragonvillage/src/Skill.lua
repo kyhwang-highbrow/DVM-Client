@@ -38,6 +38,9 @@ Skill = class(PARENT, {
 		m_skillHitEffctDirector = 'SkillHitEffectDirector',
 		m_bSkillHitEffect = 'bool', -- 사용 여부
         m_bHighlight = 'bool',  -- 하이라이트 여부
+
+        -- 스킬 종료시 피드백(보너스) 관련
+        m_bonusLevel = 'number',       
      })
 
 -------------------------------------
@@ -181,13 +184,10 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_targetChar = t_data.target or self.m_targetChar
 	self.m_bSkillHitEffect = owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')
     self.m_bHighlight = t_data['highlight'] or false
-
-    -- 보너스 버프 효과 정보 설정
-    local score = t_data['score']
-    if (score and score > 0) then
-        local t_dragon = self.m_owner.m_charTable
-        local role_type = t_dragon['role']
-        SkillHelper:makeDragonActiveSkillBonus(self.m_owner, t_skill, role_type, score)
+    self.m_bonusLevel = 0
+    
+    if (t_data['score']) then
+        self.m_bonusLevel = SkillHelper:getDragonActiveSkillBonusLevel(t_skill, t_data['score'])
     end
 end
 
@@ -222,6 +222,13 @@ function Skill.st_dying(owner, dt)
 
         -- 스킬 종료시 발동되는 status effect를 적용
         owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_END })
+
+        -- 보너스 버프 효과 부여
+        if (owner.m_bonusLevel > 0) then
+            local t_dragon = owner.m_owner.m_charTable
+            local role_type = t_dragon['role']
+            SkillHelper:makeDragonActiveSkillBonus(owner.m_owner, role_type, owner.m_bonusLevel)
+        end
         
 		return true
     end

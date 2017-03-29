@@ -101,8 +101,7 @@ end
 -- function makeDragonActiveSkillBonus
 -- @brief 드래곤 드래그 스킬 사용시 직군별 보너스 처리
 -------------------------------------
-function SkillHelper:makeDragonActiveSkillBonus(owner, t_skill, role_type, score)
-    local bonus_level = self:getDragonActiveSkillBonusLevel(t_skill, score)
+function SkillHelper:makeDragonActiveSkillBonus(owner, role_type, bonus_level)
     if (bonus_level == 0) then return end
 
     local status_effect_type
@@ -174,15 +173,6 @@ function SkillHelper:makeDragonActiveSkillBonusEffect(dragon, level, text)
             local duration = effect:getDuration()
             effect:runAction(cc.Sequence:create(
                 cc.DelayTime:create(duration),
-                --[[
-                cc.CallFunc:create(function()
-                    -- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
-			        if (not world.m_mPassiveEffect[dragon]) then
-				        world.m_mPassiveEffect[dragon] = {}
-			        end
-			        world.m_mPassiveEffect[dragon][text] = true
-                end),
-                ]]--
                 cc.RemoveSelf:create()
             ))
 

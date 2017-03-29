@@ -183,6 +183,13 @@ function DropItemMgr:cleanupItem()
 end
 
 -------------------------------------
+-- function getItemList
+-------------------------------------
+function DropItemMgr:getItemList()
+    return self.m_lItemlist
+end
+
+-------------------------------------
 -- function setImmediatelyObtainsetImmediatelyObtain
 -------------------------------------
 function DropItemMgr:setImmediatelyObtain()

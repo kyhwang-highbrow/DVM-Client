@@ -9,6 +9,7 @@ GameHighlightMgr = class({
 
         m_lCharList = 'table',
         m_lMissileList = 'table',
+        m_lItemList = 'table',
 
         m_darkLayer = '',
 
@@ -33,6 +34,7 @@ function GameHighlightMgr:init(world)
     
     self.m_lCharList = {}
     self.m_lMissileList = {}
+    self.m_lItemList = {}
 
     self.m_darkLayer = g_gameScene.m_colorLayerForSkill
     self.m_darkLayer:setOpacity(0)
@@ -91,6 +93,14 @@ function GameHighlightMgr:setActive(b, b_force)
             -- 테이머는 항상 하이라이트 시킴
             if (self.m_world.m_tamer) then
                 self:addChar(self.m_world.m_tamer)
+            end
+
+            -- 드랍 아이템들은 항상 하이라이트 시킴
+            if (self.m_world.m_dropItemMgr) then
+                local itemList = self.m_world.m_dropItemMgr:getItemList()
+                for _, item in pairs(itemList) do
+                    self:addItem(item)
+                end
             end
         end
     end
@@ -227,6 +237,54 @@ function GameHighlightMgr:removeMissile(missile)
 end
 
 -------------------------------------
+-- function addItem
+-------------------------------------
+function GameHighlightMgr:addItem(item)
+    if (not self.m_bActive) then return end
+    if (not isInstanceOf(item, DropItem)) then return end
+
+    local node = item.m_rootNode
+    if (not node) then
+        cclog('GameHighlightMgr:addItem item.m_rootNode == nil')
+    end
+    
+    local t_data = {}
+    t_data['parent'] = node:getParent()
+    t_data['zorder'] = node:getLocalZOrder()
+    self.m_lItemList[item] = t_data
+
+    local target_node = self:getHighLightNode(t_data['parent'])
+    
+    -- root 노드
+    node:retain()
+    node:removeFromParent(false)
+    target_node:addChild(node, node:getLocalZOrder())
+    node:release()
+end
+
+-------------------------------------
+-- function removeItem
+-------------------------------------
+function GameHighlightMgr:removeItem(item)
+    local t_data = self.m_lItemList[item]
+    if (not t_data) then return end
+
+    self.m_lItemList[item] = nil
+
+    if (not item.m_rootNode) then return end
+
+    if (t_data['parent']) then 
+		local node = item.m_rootNode
+        if (node) then
+            node:retain()
+		    node:removeFromParent(false)
+		    t_data['parent']:addChild(node, t_data['zorder'])
+		    node:release()
+        end
+	end
+end
+
+-------------------------------------
 -- function addEffect
 -- @brief 이펙트 형태는 하이라이트 상태를 계속 유지시킴
 -------------------------------------
@@ -269,6 +327,10 @@ function GameHighlightMgr:clear()
 
     for missile, _ in pairs(self.m_lMissileList) do
         self:removeMissile(missile)
+    end
+
+    for item, _ in pairs(self.m_lItemList) do
+        self:removeItem(item)
     end
 end
 
