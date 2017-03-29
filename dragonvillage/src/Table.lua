@@ -68,6 +68,7 @@ local TableInfo_fromServer = {
         ['table_rune_grade'] = {'table_rune_grade', 'grade'},
         ['table_rune_mopt_status'] = {'table_rune_mopt_status', 'vid'},
         ['table_drop_ingame'] = {'table_drop_ingame', 'chapter_id'}, -- 인게임에서 아이템 드랍을 관리하는 테이블
+        ['table_dragon_skill_enhance'] = {'table_dragon_skill_enhance', 'lv'},
     }
 
 -------------------------------------
@@ -238,6 +239,17 @@ function TABLE:makeCol()
     f:close()
 
     TABLE:loadCSVTable('col', 'col', 'key', true)
+end
+
+-------------------------------------
+-- function backupServerTable
+-------------------------------------
+function TABLE:backupServerTable()
+    local t_ret = {}
+    for i,v in pairs(TableInfo_fromServer) do
+        t_ret[i] = self[i]
+    end
+    return t_ret
 end
 
 -------------------------------------

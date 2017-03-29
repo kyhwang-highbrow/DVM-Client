@@ -14,7 +14,7 @@ UI_SkillDetailPopup = class(PARENT, {
 function UI_SkillDetailPopup:init(t_dragon_data)
     self.m_tDragonData = t_dragon_data
 
-    local vars = self:load('skill_detail_popup.ui')
+    local vars = self:load('skill_detail_popup_new.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
@@ -36,7 +36,7 @@ end
 -------------------------------------
 function UI_SkillDetailPopup:initButton()
     local vars = self.vars
-    vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
+    --vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
@@ -51,28 +51,11 @@ function UI_SkillDetailPopup:refresh()
 
     local l_skill_icon = skill_mgr:getDragonSkillIconList()
     for i=0, MAX_DRAGON_EVOLUTION do
+    
         vars['skillNode' .. i]:removeAllChildren()
-        if l_skill_icon[i] then
-            vars['skillNode' .. i]:addChild(l_skill_icon[i].root)
+        local ui = UI_SkillDetailPopupListItem(t_dragon_data, skill_mgr, i)
+        vars['skillNode' .. i]:addChild(ui.root)
 
-            -- 스킬 타입 label off
-            l_skill_icon[i]:setSkillTypeVisible(false)
-
-            -- 스킬 버튼 기능 off
-            l_skill_icon[i]:setButtonEnabled(false)
-
-            local t_skill = l_skill_icon[i].m_skillIndivisualInfo.m_tSkill
-            local desc = IDragonSkillManager:getSkillDescPure(t_skill)
-            
-            -- 스킬 설명
-            vars['skillInfoLabel' .. i]:setString(desc)
-
-            -- 이름
-            vars['skillNameLabel' .. i]:setString(t_skill['t_name'])
-
-            -- 스킬 레벨
-            vars['skillLevelLabel' .. i]:setString(Str('레벨 {1}', t_dragon_data['skill_' .. i]))
-        end
     end
 end
 

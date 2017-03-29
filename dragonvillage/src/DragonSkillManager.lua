@@ -214,6 +214,20 @@ end
 -- function makeSkillIcon_usingIndex
 -------------------------------------
 function IDragonSkillManager:makeSkillIcon_usingIndex(idx)
+    local skill_indivisual_info = self:getSkillIndivisualInfo_usingIdx(idx)
+    if skill_indivisual_info then
+        return UI_DragonSkillCard(skill_indivisual_info)
+    else
+        return nil
+    end
+end
+
+-------------------------------------
+-- function getSkillIndivisualInfo_usingIdx
+-------------------------------------
+function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
+    local t_character = self.m_charTable
+
     local t_character = self.m_charTable
 
     local skill_id
@@ -232,10 +246,8 @@ function IDragonSkillManager:makeSkillIcon_usingIndex(idx)
         local skill_indivisual_info = DragonSkillIndivisualInfo('dragon', skill_type, skill_id, skill_lv)
         skill_indivisual_info:init_skillLevelupIDList()
         skill_indivisual_info:applySkillLevel()
-        return UI_DragonSkillCard(skill_indivisual_info)
+        return skill_indivisual_info
     end
-
-    return nil
 end
 
 -------------------------------------

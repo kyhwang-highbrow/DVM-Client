@@ -126,3 +126,39 @@ function DragonSkillIndivisualInfo:applySkillLevel()
         self.m_tSkill['desc_5'] = t_last_modify_table['desc_5']
     end
 end
+
+
+-------------------------------------
+-- function getSkillID
+-------------------------------------
+function DragonSkillIndivisualInfo:getSkillID()
+    local skill_id = self.m_skillID
+    return skill_id
+end
+
+-------------------------------------
+-- function getSkillName
+-------------------------------------
+function DragonSkillIndivisualInfo:getSkillName()
+    local name = Str(self.m_tSkill['t_name'])
+    return name
+end
+
+-------------------------------------
+-- function getSkillLevel
+-------------------------------------
+function DragonSkillIndivisualInfo:getSkillLevel()
+    local skill_level = self.m_skillLevel
+    return skill_level
+end
+
+
+
+-------------------------------------
+-- function getSkillDesc
+-------------------------------------
+function DragonSkillIndivisualInfo:getSkillDesc()
+    local skill_desc = IDragonSkillManager:getSkillDescPure(self.m_tSkill)
+    return skill_desc
+end
+

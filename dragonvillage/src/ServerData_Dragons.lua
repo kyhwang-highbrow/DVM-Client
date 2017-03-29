@@ -750,6 +750,8 @@ function ServerData_Dragons:request_dragonsInfo(finish_cb, fail_cb)
         g_serverData:applyServerData({}, 'dragons') -- 로컬 세이브 데이터 초기화
         self:applyDragonData_list(ret['dragons'])
 
+        TABLE:setServerTable('table_dragon_skill_enhance', ret['table_dragon_skill_enhance'])
+
         if finish_cb then
             finish_cb(ret)
         end

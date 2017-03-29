@@ -579,6 +579,7 @@ local t_module = {
     'UI_DragonTrainSlot_ListItem',
     'UI_CharacterCard',
     'UI_SkillDetailPopup',
+    'UI_SkillDetailPopupListItem',
     'UI_DragonGoodbye',   
     'UI_LobbyObject', 
     'UI_DragonExceedResult',
@@ -654,6 +655,9 @@ function reloadModule()
     print('#############################')
     print('## reloadModule() start    ##')
 
+    -- 서버에서 받아서 저장 중인 테이블 백업
+    local t_backup_server_table = TABLE:backupServerTable()
+
     for i,v in ipairs(t_module) do
         if (v ~= 'SoundMgr') and (v ~= 'uilib/UIManager') and (v ~= 'uilib/UILoader')
             and (v ~= 'uilib/TableView') then
@@ -663,6 +667,11 @@ function reloadModule()
     end
 
     TABLE:init()
+
+    -- 서버에서 받아서 저장 중인 테이블 적용
+    for i,v in pairs(t_backup_server_table) do
+        TABLE[i] = v
+    end
     print('## reloadModule() end      ##')
     print('#############################')
 end
