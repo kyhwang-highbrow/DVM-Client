@@ -78,7 +78,7 @@ passive_cri_dmg_up,passive,치명 피해 증가,x,x,x,false,1,15,0,0,0,0,0,100,0
 passive_aspd_down,passive,공격 속도 감소,x,x,x,false,1,20,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,x,x,{1}초 동안 {2}만큼 공격 속도 감소,퍼센트+퍼센트 (합연산)
 tamer_passive_atk_up,passive,곤퓨,x,x,x,false,1,-1,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,x,
 tamer_passive_hp_up_abs,passive,라이브라,x,x,x,false,1,-1,0,0,100,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,x,x,x,x,x,
-feedback_defender,feedback,방어형,x,x,x,false,1,5,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,x,
-feedback_attacker,feedback,공격형,x,x,x,false,1,8,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,x,
-feedback_supporter,feedback,지원형,x,x,x,false,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,x,
-feedback_healer,feedback,회복형,x,x,x,false,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,100,0,hp_target,0,0,0,x,x,x,x,x,
+feedback_defender,feedback,방어력 보너스,x,x,x,false,1,5,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,x,
+feedback_attacker,feedback,공격력 보너스,x,x,x,false,1,8,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,x,
+feedback_supporter,feedback,스킬게이지 보너스,x,x,x,false,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,x,x,x,
+feedback_healer,feedback,체력 회복,x,x,x,false,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,100,0,hp_target,0,0,0,x,x,x,x,x,
