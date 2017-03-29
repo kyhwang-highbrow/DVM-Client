@@ -33,7 +33,7 @@
             <key>skill_decision_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{166,842},{70,70}}</string>
+                <string>{{184,424},{70,70}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>skill_decision_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{248,820},{88,88}}</string>
+                <string>{{404,1070},{88,88}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>skill_decision_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,781},{128,128}}</string>
+                <string>{{318,830},{128,128}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,11 +85,11 @@
             <key>skill_decision_07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{166,914},{82,87}}</string>
+                <string>{{404,1160},{82,87}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{82,87}}</string>
                 <key>sourceSize</key>
@@ -111,15 +111,15 @@
             <key>skill_decision_09.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,424},{162,143}}</string>
+                <string>{{2,424},{1280,180}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{162,143}}</string>
+                <string>{{0,0},{1280,180}}</string>
                 <key>sourceSize</key>
-                <string>{162,143}</string>
+                <string>{1280,180}</string>
             </dict>
             <key>skill_decision_10.png</key>
             <dict>
@@ -163,7 +163,7 @@
             <key>skill_decision_text_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{138,748},{92,108}}</string>
+                <string>{{184,1028},{92,108}}</string>
                 <key>offset</key>
                 <string>{-16,5}</string>
                 <key>rotated</key>
@@ -176,7 +176,7 @@
             <key>skill_decision_text_a_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{392,614},{116,132}}</string>
+                <string>{{394,476},{116,132}}</string>
                 <key>offset</key>
                 <string>{-16,5}</string>
                 <key>rotated</key>
@@ -189,7 +189,7 @@
             <key>skill_decision_text_d.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{166,424},{90,108}}</string>
+                <string>{{412,960},{90,108}}</string>
                 <key>offset</key>
                 <string>{-5,5}</string>
                 <key>rotated</key>
@@ -202,7 +202,7 @@
             <key>skill_decision_text_d_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{256,600},{114,134}}</string>
+                <string>{{322,610},{114,134}}</string>
                 <key>offset</key>
                 <string>{-5,5}</string>
                 <key>rotated</key>
@@ -215,11 +215,11 @@
             <key>skill_decision_text_e.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{86,911},{78,108}}</string>
+                <string>{{184,1122},{78,108}}</string>
                 <key>offset</key>
                 <string>{-11,5}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{50,41},{78,108}}</string>
                 <key>sourceSize</key>
@@ -228,7 +228,7 @@
             <key>skill_decision_text_e_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,677},{102,134}}</string>
+                <string>{{320,726},{102,134}}</string>
                 <key>offset</key>
                 <string>{-10,5}</string>
                 <key>rotated</key>
@@ -241,11 +241,11 @@
             <key>skill_decision_text_g.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{166,534},{88,112}}</string>
+                <string>{{298,960},{88,112}}</string>
                 <key>offset</key>
                 <string>{-3,5}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{53,39},{88,112}}</string>
                 <key>sourceSize</key>
@@ -254,11 +254,11 @@
             <key>skill_decision_text_g_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{396,476},{114,136}}</string>
+                <string>{{184,600},{114,136}}</string>
                 <key>offset</key>
                 <string>{-4,5}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{39,27},{114,136}}</string>
                 <key>sourceSize</key>
@@ -267,7 +267,7 @@
             <key>skill_decision_text_o.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{138,648},{98,112}}</string>
+                <string>{{184,928},{98,112}}</string>
                 <key>offset</key>
                 <string>{0,5}</string>
                 <key>rotated</key>
@@ -280,7 +280,7 @@
             <key>skill_decision_text_o_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{258,476},{122,136}}</string>
+                <string>{{256,476},{122,136}}</string>
                 <key>offset</key>
                 <string>{0,5}</string>
                 <key>rotated</key>
@@ -293,11 +293,11 @@
             <key>skill_decision_text_r.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,911},{82,108}}</string>
+                <string>{{294,1050},{82,108}}</string>
                 <key>offset</key>
                 <string>{-8,5}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{51,41},{82,108}}</string>
                 <key>sourceSize</key>
@@ -306,7 +306,7 @@
             <key>skill_decision_text_r_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,569},{106,134}}</string>
+                <string>{{184,716},{106,134}}</string>
                 <key>offset</key>
                 <string>{-9,5}</string>
                 <key>rotated</key>
@@ -319,7 +319,7 @@
             <key>skill_decision_text_t.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{386,748},{76,108}}</string>
+                <string>{{294,1134},{76,108}}</string>
                 <key>offset</key>
                 <string>{-7,4}</string>
                 <key>rotated</key>
@@ -332,7 +332,7 @@
             <key>skill_decision_text_t_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{252,716},{102,132}}</string>
+                <string>{{184,824},{102,132}}</string>
                 <key>offset</key>
                 <string>{-7,4}</string>
                 <key>rotated</key>
@@ -350,9 +350,9 @@
             <key>realTextureFileName</key>
             <string>skill_decision.png</string>
             <key>size</key>
-            <string>{512,1024}</string>
+            <string>{512,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f183232120216b963a9437ba33b9c063$</string>
+            <string>$TexturePacker:SmartUpdate:495e58e6af55fdbf3035f4f079c15083$</string>
             <key>textureFileName</key>
             <string>skill_decision.png</string>
         </dict>
