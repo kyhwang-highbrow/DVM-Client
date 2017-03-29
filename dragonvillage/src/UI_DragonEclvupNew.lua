@@ -99,10 +99,30 @@ function UI_DragonEclvupNew:refresh()
     local t_dragon = table_dragon:get(t_dragon_data['did'])
     local doid = t_dragon_data['id']
 
+    -- 배경
+    local attr = t_dragon['attr']
+    if self:checkVarsKey('bgNode', attr) then    
+        vars['bgNode']:removeAllChildren()
+        local animator = ResHelper:getUIDragonBG(attr, 'idle')
+        vars['bgNode']:addChild(animator.m_node)
+    end
+
     do -- 드래곤 아이콘
         vars['dragonIconNode']:removeAllChildren()
         local ui = UI_DragonCard(t_dragon_data)
         vars['dragonIconNode']:addChild(ui.root)
+    end
+
+    do -- 드래곤 리소스    
+        local evolution = t_dragon_data['evolution']
+        vars['dragonNode']:removeAllChildren()
+        local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
+        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+        animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
+        vars['dragonNode']:addChild(animator.m_node)
+
+        animator:changeAni('pose_1', false)
+        animator:addAniHandler(function() animator:changeAni('idle', true) end)
     end
 
     do -- 드래곤 이름
