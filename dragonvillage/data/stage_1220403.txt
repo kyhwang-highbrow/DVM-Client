@@ -1,0 +1,126 @@
+{
+    "difficult":2,
+    "bg":"map_nightmare",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":1,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+				"130012;8;FadeIn;RO02;RF12;2"
+				"130022;8;FadeIn;RO01;RF21;2"
+				"131032;8;FadeIn;RO02;RM12;2"
+				],
+				
+				0.2:
+				[
+				"130012;8;FadeIn;RO06;RF16;2"
+				"130022;8;FadeIn;RO07;RF27;2"
+				"131012;8;FadeIn;RO06;RM16;2"
+				],
+				
+				0.4:
+				[
+				"130052;8;FadeIn;RO04;RM24;2"
+				"130062;8;FadeIn;RO03;RB13;2"
+				"130062;8;FadeIn;RO05;RB15;2"
+				]
+            }
+        },
+        {
+            "idx":2,
+			"camera":
+            {
+                "scale":0.9,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+                0:
+                [
+				"130012;8;FadeIn;RO02;RF12;2"
+				"130012;8;FadeIn;RO06;RF16;2"
+				"130062;8;FadeIn;RO02;RF21;2"
+				"130062;8;FadeIn;RO06;RF27;2"
+				],
+				
+				0.2:
+				[
+				"131012;8;FadeIn;RO02;RB11;2"
+				"131012;8;FadeIn;RO06;RB17;2"
+				"130052;8;FadeIn;RO02;RB22;2"
+				"130052;8;FadeIn;RO06;RB26;2"
+				],
+				
+				0.4:
+				[
+				"131032;8;FadeIn;RO03;RM14;2"
+				"131032;8;FadeIn;RO03;RM23;2"
+				"131032;8;FadeIn;RO05;RM25;2"
+				]
+            }
+        },
+		
+        {
+            "idx":3,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "direction":"boss_wave",
+            "wave":
+            {
+
+				
+				0:
+				[
+				"134012;8;FadeIn;BOSS;RM24;3"
+				],
+				
+				0.5:
+				[
+				"131012;8;Appear;RO04;RF14;2"
+				"131012;8;Appear;RO01;RF21;2"
+				"131012;8;Appear;RO07;RF27;2"
+				]
+            }
+        }
+    ],
+	
+	"summon":
+    {
+        0:
+        [
+        "130062;15;Appear;RO04;RO04;2"
+		"130062;15;Appear;RO01;RB21;2"
+		"130062;15;Appear;RO07;RB27;2"
+        ],
+		
+		1:
+        [
+        "131013;15;Appear;RO04;RF24;2"
+        ],
+		
+		2:
+        [
+        "131022;15;Appear;RO04;RF14;2"
+		"131022;15;Appear;RO03;RF23;2"
+		"131022;15;Appear;RO05;RF25;2"
+		"131022;15;Appear;RO04;RM14;2"
+		
+		"131032;15;Appear;RO04;RM22;2"
+		"131032;15;Appear;RO04;RM26;2"
+        ]
+    }
+}

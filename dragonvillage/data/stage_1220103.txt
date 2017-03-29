@@ -1,0 +1,119 @@
+{
+    "difficult":2,
+    "bg":"map_nightmare",
+	"wave":
+	[
+        {
+            "idx":1,
+			"camera":
+            {
+                "scale":0.9,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+				0:
+				[
+					"131081;16;Appear;RO04;RF24;2"
+					"131033;16;Appear;RO03;RM13;2"
+					"131033;16;Appear;RO05;RM15;2"
+					"130033;16;Appear;RO03;RM23;2"
+					"130033;16;Appear;RO05;RM25;2"
+					"130063;16;Appear;RO04;RB14;2"
+				],
+				
+				0.5:
+				[
+					"130013;16;FadeIn;RM13;RF11;1"
+					"130013;16;FadeIn;RM13;RF22;1"
+					"130013;16;FadeIn;RM15;RF17;1"
+					"130013;16;FadeIn;RM15;RF26;1"
+					
+					"130023;16;FadeIn;RM23;RB12;1"
+					"130023;16;FadeIn;RM23;RB21;1"
+					"130023;16;FadeIn;RM25;RB16;1"
+					"130023;16;FadeIn;RM25;RB27;1"
+				]
+            }
+        },
+        {
+            "idx":2,
+			"camera":
+            {
+                "scale":0.9,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "wave":
+            {
+                0:
+                [
+					"130061;16;FadeIn;RO04;RB24;2"
+				],
+				
+				0.2:
+				[	
+					"130023;16;FadeIn;RB24;RB13;2"
+					"130022;16;FadeIn;RB24;RB15;2"
+				],
+				
+				0.4:
+				[
+					"130023;16;FadeIn;RB13;RM22;2"
+					"130022;16;FadeIn;RB15;RM26;2"
+				],
+				
+				0.6:
+				[	
+					"130053;16;FadeIn;RM22;RM11;2"
+					"130051;16;Appear;RO04;RM14;2"
+					"130052;16;FadeIn;RM26;RM17;2"
+				],
+				
+				0.8:
+				[	
+					"131033;16;FadeIn;RM11;RF21;2"
+					"131081;16;FadeIn;RM14;RF24;2"
+					"131042;16;FadeIn;RM17;RF27;2"
+				],
+				
+				1:
+				[	
+					"130013;16;FadeIn;RF21;RF11;2"
+					"130011;16;FadeIn;RF24;RF14;2"
+					"130012;16;FadeIn;RF27;RF17;2"
+                ]
+            }
+        },
+		
+        {
+            "idx":3,
+			"camera":
+            {
+                "scale":0.8,
+                "pos_x":0,
+                "pos_y":0
+            },
+            "direction":"boss_wave",
+            "wave":
+            {
+
+				
+				0:
+				[
+				"134023;16;FadeIn;BOSS;RM24;2"
+				]
+            }
+        }
+    ],
+	
+    "summon":
+    {
+        0:
+        [
+			"131023;15;Appear;RO02;RF12;2"
+			"131023;15;Appear;RO06;RF16;2"
+		]
+    }
+}
