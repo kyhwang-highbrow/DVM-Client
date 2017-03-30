@@ -109,7 +109,7 @@ function UI_ErrorPopup:setErrorStr(str)
 	local error_str = string.gsub(str, '\t', '    ') or '???'
 	self.m_errorLabel:setString(error_str)
 
-	if (not DEVELOPMENT_SRC_VER) then
+	if (not DEVELOPMENT_SRC_VER) or (not isWin32()) then
 		slack_api(error_str)
 	end
 end
