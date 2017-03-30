@@ -32,19 +32,22 @@ function GameHighlightMgr:update(dt)
 
     -- 드래곤 드래그 스킬 연출 중
     if (world.m_gameDragonSkill:isPlayingActiveSkill()) then
-        level = 255
+        level = math_max(level, 255)
+    end
 
     -- 드래곤 타임 스킬 연출 중
-    elseif (world.m_gameDragonSkill:isPlayingTimeSkill()) then
-        level = 150
+    if (world.m_gameDragonSkill:isPlayingTimeSkill()) then
+        level = math_max(level, 170)
+    end
 
     -- 인디케이터 조작 중
-    elseif (world.m_skillIndicatorMgr:isControlling()) then
-        level = 200
+    if (world.m_skillIndicatorMgr:isControlling()) then
+        level = math_max(level, 200)
+    end
 
     -- 테이머 스킬 연출 중
-    elseif (world.m_tamer and world.m_tamer:isRequiredHighLight()) then
-        level = 150
+    if (world.m_tamer and world.m_tamer:isRequiredHighLight()) then
+        level = math_max(level, 170)
     end
 
     self:setLevel(level)
