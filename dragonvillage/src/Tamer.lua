@@ -813,6 +813,7 @@ end
 -------------------------------------
 function Tamer:doBringItem(item)
     table.insert(self.m_targetItemStack, item)
+    item:changeState('idle', true)
 
     --[[
     self.m_targetItem = item
