@@ -98,9 +98,6 @@ function UI_Game:initInfoBoard()
 
     if (table.count(total_buff_list) <= 0) and (not g_friendBuff:isExistBuff()) then
         vars['buffBtn']:setVisible(false)
-
-        -- 버프버튼이 없을 경우 판넬 버튼을 이동
-        vars['panelBtn']:setPositionX(-43)
         return
     end
 
