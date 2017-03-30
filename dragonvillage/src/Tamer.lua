@@ -25,6 +25,7 @@ Tamer = class(PARENT, {
         m_lSkill = 'list',
         m_lSkillCoolTimer = 'list',
 		m_bActiveSKillUsable = 'boolean',
+		m_bEventSKillUsable = 'boolean',
 
         m_roamTimer = '',
         m_baseAnimatorScale = '',
@@ -48,6 +49,7 @@ function Tamer:init(file_name, body, ...)
     self.m_lSkill = {}
     self.m_lSkillCoolTimer = {}
 	self.m_bActiveSKillUsable = true
+	self.m_bEventSKillUsable = true
 
     self.m_roamTimer = 0
     self.m_baseAnimatorScale = 0.5
@@ -129,8 +131,9 @@ end
 function Tamer:onEvent(event_name, t_event, ...)
 	if (event_name == 'dragon_summon') then
 		self:setTamerEventSkill()
+
 	elseif (event_name == 'hit_basic') then
-		if self:checkEventSkill(TAMER_SKILL_EVENT) then
+		if (self:checkEventSkill(TAMER_SKILL_EVENT)) then
 			self:changeState('event')
 		end
 	end
@@ -138,6 +141,7 @@ end
 
 -------------------------------------
 -- function setTamerEventSkill
+-- @breif 드래곤이 등장한 후 테이머의 스킬 이벤트를 등록한다.
 -------------------------------------
 function Tamer:setTamerEventSkill()
 	for i, t_skill in pairs(self.m_lSkill) do
@@ -435,7 +439,8 @@ function Tamer.st_active(owner, dt)
 		owner.m_bActiveSKillUsable = false
 		local world = owner.m_world
 		local game_highlight = world.m_gameHighlight
-		
+		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+
 		local function cb_function()
 			owner.m_animator:changeAni('skill_1', false)
 
@@ -467,7 +472,7 @@ function Tamer.st_active(owner, dt)
 		end
 
 		local res = 'res/effect/cutscene_tamer_a_type/cutscene_tamer_a_type.vrp'
-		SkillHelper:makeEffect(world, res, CRITERIA_RESOLUTION_X/2, 0, 'idle', cb_function)
+		SkillHelper:makeEffect(world, res, CRITERIA_RESOLUTION_X/2, cameraHomePosY, 'idle', cb_function)
     end
 end
 
@@ -476,9 +481,12 @@ end
 -------------------------------------
 function Tamer.st_event(owner, dt)
     if (owner.m_stateTimer == 0) then
+		owner.m_bEventSKillUsable = false
+
 		local function cb_func()
 			-- 발동형 스킬 발동
 			owner:doSkillEvent()
+			owner.m_bEventSKillUsable = true
 		end
 
 		-- 연출 세팅
@@ -735,6 +743,11 @@ end
 -- function checkEventSkill
 -------------------------------------
 function Tamer:checkEventSkill(skill_idx)
+	-- 0. 이미 실행중인지 체크
+	if (not self.m_bEventSKillUsable) then
+		return 
+	end
+
 	-- 1. 쿨타임 체크
 	if (self.m_lSkillCoolTimer[skill_idx] > 0) then
 		return false
