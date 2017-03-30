@@ -1114,3 +1114,26 @@ function Dragon:getSoundNameForSkill(type)
 
     return sound_name
 end
+
+-------------------------------------
+-- function updateBasicTimeSkillTimer
+-- @brief
+-------------------------------------
+function Dragon:updateBasicTimeSkillTimer(dt)
+    local ret = PARENT.updateBasicTimeSkillTimer(self, dt)
+
+    -- 기획적으로 드래곤에 basic_time스킬은 1개만을 사용하도록 한다.
+    local skill_info = table.getFirst(self.m_lSkillIndivisualInfo['basic_time'])
+
+    -- 스킬 정보가 있을 경우 쿨타임 진행 정보를 확인한다.
+    if (skill_info) then
+        local cur = skill_info.m_timer
+        local max = skill_info.m_tSkill['chance_value']
+        local run_skill = (ret == skill_info.m_skillID) -- 스킬 동작 여부
+
+        local t_event = {['cur']=cur, ['max']=max, ['run_skill']=run_skill}
+        self:dispatch('basic_time_skill_gauge', t_event)
+    end    
+
+    return ret
+end

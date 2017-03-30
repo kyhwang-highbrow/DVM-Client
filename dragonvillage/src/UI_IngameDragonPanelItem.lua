@@ -25,6 +25,7 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
 	local vars = self:load('ingame_dragon_panel_item.ui')
 
     dragon:addListener('character_set_hp', self)
+    dragon:addListener('basic_time_skill_gauge', self)
     dragon:addListener('dragon_skill_gauge', self)
     dragon:addListener('touch_began', self)
     dragon:addListener('character_dead', self)
@@ -119,6 +120,10 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
     if (event_name == 'character_set_hp') then
         self:refreshHP(t_event['hp'], t_event['max_hp'])
 
+    -- 드래곤 basic_time 스킬 게이지 변경 Event
+    elseif (event_name == 'basic_time_skill_gauge') then
+        self:refreshBasicTimeSkillGauge(t_event['cur'], t_event['max'], t_event['run_skill'])
+
     -- 드래곤 드래그 스킬 게이지 변경 Event
     elseif (event_name == 'dragon_skill_gauge') then
         self:refreshSkillGauge(t_event['percentage'])
@@ -157,6 +162,16 @@ function UI_IngameDragonPanelItem:refreshHP(hp, max_hp)
     vars['hpGauge1']:setPercentage(percentage)
     local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ProgressTo:create(0.5, percentage))
     vars['hpGauge2']:runAction(cc.EaseIn:create(action, 2))
+end
+
+-------------------------------------
+-- function refreshBasicTimeSkillGauge
+-- @brief 드래곤 basic_time 스킬 게이지 변경 Event
+-------------------------------------
+function UI_IngameDragonPanelItem:refreshBasicTimeSkillGauge(cur, max, run_skill)
+    local vars = self.vars
+    local percentage = (cur / max) * 100
+    vars['normalSKillGauge']:setPercentage(100 - percentage)
 end
 
 -------------------------------------
