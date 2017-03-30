@@ -208,7 +208,6 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
                 local max_count = table.count(self.m_world.m_tEnemyList)
                 
                 local score = (count / max_count) * 100
-                cclog('hit percentage = ' .. score)
                 self.m_selectHero.m_skillIndicator.m_resultScore = score
             end
                         

@@ -129,6 +129,9 @@ function GameDragonSkill.update_live(self, dt)
             self:makeSkillOpeningCut(dragon, function()
                 self:nextStep()
             end)
+
+            -- 스킬 이름 및 설명 문구를 표시
+            self:makeSkillDesc(dragon, 1.5)
         end
         
     elseif (self:getStep() == 1) then
@@ -184,7 +187,7 @@ function GameDragonSkill.update_live(self, dt)
             dragon.m_animator:setTimeScale(duration / delayTime)
 
             -- 스킬 이름 및 설명 문구를 표시
-            self:makeSkillDesc(dragon, delayTime)
+            --self:makeSkillDesc(dragon, delayTime)
                         
             -- 효과음
             SoundMgr:playEffect('EFFECT', 'skill_ready')
@@ -201,10 +204,6 @@ function GameDragonSkill.update_live(self, dt)
         end
 
     elseif (self:getStep() == 3) then
-        local step_time1 = t_dragon_skill_time[2]
-        local step_time2 = t_dragon_skill_time[2] + (t_dragon_skill_time[3] / 2)
-        local step_time3 = t_dragon_skill_time[2] + t_dragon_skill_time[3]
-
         if (self:isBeginningStep()) then
             -- 드래곤 스킬 애니메이션 시작
             dragon:changeState('skillIdle')
@@ -219,12 +218,10 @@ function GameDragonSkill.update_live(self, dt)
                 time = 0.25
             })
 
-        elseif (self:isPassedStepTime(step_time1)) then
+        elseif (self:isPassedStepTime(1.5)) then
             world.m_gameCamera:reset()
             
-        elseif (self:isPassedStepTime(step_time2)) then
-            
-        elseif (self:isPassedStepTime(step_time3)) then
+        elseif (self:isPassedStepTime(2)) then
             self.m_dragon = nil
 
             self:changeState(GAME_DRAGON_SKILL_WAIT)

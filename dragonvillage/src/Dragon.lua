@@ -10,6 +10,9 @@ Dragon = class(PARENT, {
 		
 		m_skillIndicator = '',
 
+        m_skillOffsetX = 'number',
+        m_skillOffsetY = 'number',
+
         -- 스킬 게이지 관련
         m_activeSkillValue = 'number',
         m_activeSkillIncValuePerSec = 'number', -- 초당 회복량
@@ -37,6 +40,9 @@ function Dragon:init(file_name, body, ...)
 
     self.m_bActive = false
     self.m_bWaitState = false
+
+    self.m_skillOffsetX = 0
+    self.m_skillOffsetY = 0
 
     self.m_activeSkillValue = 0
     self.m_activeSkillIncValuePerSec = 0
@@ -132,6 +138,20 @@ function Dragon:initAnimatorDragon(file_name, evolution, attr, scale)
 
     -- 각종 쉐이더 효과 시 예외 처리할 슬롯 설정(Spine)
     self:blockMatchingSlotShader('effect_')
+
+    -- 스킬 오프셋값 설정
+    local eventList = self.m_animator:getEventList('skill_disappear', 'attack')
+    local event = eventList[1]
+    if event then
+        local string_value = event['stringValue']
+        if string_value and (string_value ~= '') then
+            local l_str = seperate(string_value, ',')
+            if l_str then
+                self.m_skillOffsetX = l_str[1]
+                self.m_skillOffsetY = l_str[2]
+            end
+        end
+    end
 end
 
 -------------------------------------
@@ -378,37 +398,22 @@ function Dragon.st_skillIdle(owner, dt)
         owner.m_bFinishAttack = false
         owner.m_bFinishAnimation = false
 
-        local function attack_cb(event)
+        local function attack_cb()
             owner.m_bLuanchMissile = true
 
-            local x, y = 0, 0
+            local scale = owner.m_animator:getScale()
+            local flip = owner.m_animator.m_bFlip
+            local x = owner.m_skillOffsetX * scale
+            local y = owner.m_skillOffsetY * scale
 
-            if event then
-                local string_value = event['eventData']['stringValue']
-                if string_value and (string_value ~= '') then
-                    local l_str = seperate(string_value, ',')
-                    if l_str then
-                        local scale = owner.m_animator:getScale()
-                        local flip = owner.m_animator.m_bFlip
-
-                        x = l_str[1] * scale
-                        y = l_str[2] * scale
-
-                        if flip then
-                            x = -x
-                        end
-                    end
-                end
+            if flip then
+                x = -x
             end
-            
-            local active_skill_id = owner:getSkillID('active')
-            local indicatorData
-            
-            --if (owner.m_bLeftFormation) then
-                indicatorData = owner.m_skillIndicator:getIndicatorData()
-                indicatorData['highlight'] = true
-            --end
 
+            local active_skill_id = owner:getSkillID('active')
+            local indicatorData = owner.m_skillIndicator:getIndicatorData()
+            indicatorData['highlight'] = true
+            
             owner:doSkill(active_skill_id, x, y, indicatorData)
             owner.m_animator:setEventHandler(nil)
             owner.m_bFinishAttack = true
@@ -452,9 +457,8 @@ function Dragon.st_skillIdle(owner, dt)
             error('스킬 테이블 motion_type이 ['.. motion_type .. '] 라고 잘못들어갔네요...')
         end
 
-        -- 공격 타이밍이 있을 경우
-        owner.m_animator:setEventHandler(attack_cb)
-
+        attack_cb()
+        
         -- 캐스팅 게이지
         if owner.m_castingUI then
             owner.m_castingUI:stopAllActions()
