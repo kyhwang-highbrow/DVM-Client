@@ -17,7 +17,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 98;
-					height = 20;
+					height = 12;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -47,7 +47,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 98;
-					height = 20;
+					height = 12;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -71,15 +71,15 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -85.000000;
+					x = -75.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 0.170000;
-					scale_y = 0.170000;
+					scale_x = 0.140000;
+					scale_y = 0.140000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
@@ -130,7 +130,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 59.000000;
+					x = 52.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -145,7 +145,7 @@
 					visible = true;
 					lua_name = 'dpsLabel1';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
+					font_size = 16;
 					text = '{1}';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -170,7 +170,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -20.000000;
+					x = -16.000000;
 					y = -7.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -209,12 +209,12 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 60.000000;
+				y = 44.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 205;
-				height = 28;
+				width = 185;
+				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -242,7 +242,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 98;
-					height = 20;
+					height = 12;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -272,7 +272,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 98;
-					height = 20;
+					height = 12;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -296,15 +296,15 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -85.000000;
+					x = -75.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 0.170000;
-					scale_y = 0.170000;
+					scale_x = 0.140000;
+					scale_y = 0.140000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
@@ -355,7 +355,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 59.000000;
+					x = 52.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -370,7 +370,7 @@
 					visible = true;
 					lua_name = 'dpsLabel2';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
+					font_size = 16;
 					text = '{1}';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -395,7 +395,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -20.000000;
+					x = -16.000000;
 					y = -7.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -434,12 +434,12 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 30.000000;
+				y = 22.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 205;
-				height = 28;
+				width = 185;
+				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -467,7 +467,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 98;
-					height = 20;
+					height = 12;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -497,7 +497,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 98;
-					height = 20;
+					height = 12;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -521,15 +521,15 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -85.000000;
+					x = -75.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 0.170000;
-					scale_y = 0.170000;
+					scale_x = 0.140000;
+					scale_y = 0.140000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
@@ -580,7 +580,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 59.000000;
+					x = 52.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -595,7 +595,7 @@
 					visible = true;
 					lua_name = 'dpsLabel3';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
+					font_size = 16;
 					text = '{1}';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -620,7 +620,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -20.000000;
+					x = -16.000000;
 					y = -7.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -663,8 +663,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 205;
-				height = 28;
+				width = 185;
+				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -692,7 +692,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 98;
-					height = 20;
+					height = 12;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -722,7 +722,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 98;
-					height = 20;
+					height = 12;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -746,15 +746,15 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -85.000000;
+					x = -75.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 0.170000;
-					scale_y = 0.170000;
+					scale_x = 0.140000;
+					scale_y = 0.140000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
@@ -805,7 +805,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 59.000000;
+					x = 52.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -820,7 +820,7 @@
 					visible = true;
 					lua_name = 'dpsLabel4';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
+					font_size = 16;
 					text = '{1}';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -845,7 +845,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -20.000000;
+					x = -16.000000;
 					y = -7.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -884,12 +884,12 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = -30.000000;
+				y = -22.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 205;
-				height = 28;
+				width = 185;
+				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -917,7 +917,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 98;
-					height = 20;
+					height = 12;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -947,7 +947,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 98;
-					height = 20;
+					height = 12;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -971,15 +971,15 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -85.000000;
+					x = -75.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 0.170000;
-					scale_y = 0.170000;
+					scale_x = 0.140000;
+					scale_y = 0.140000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
@@ -1030,7 +1030,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 59.000000;
+					x = 52.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1045,7 +1045,7 @@
 					visible = true;
 					lua_name = 'dpsLabel5';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
+					font_size = 16;
 					text = '{1}';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -1070,7 +1070,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -20.000000;
+					x = -16.000000;
 					y = -7.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1109,12 +1109,12 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = -60.000000;
+				y = -44.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 205;
-				height = 28;
+				width = 185;
+				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1134,13 +1134,13 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -24.000000;
-				y = 96.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
+				x = 4.000000;
+				y = 0.000000;
+				dock_point = { 0.000000; 1.000000; };
+				anchor_point = { 0.000000; 0.000000; };
 				relative_size_type = 0;
-				width = 152;
-				height = 38;
+				width = 100;
+				height = 26;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1154,12 +1154,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = -14.000000;
-				y = 20.000000;
+				y = 14.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 170;
-				height = 190;
+				height = 138;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1177,7 +1177,7 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = 120.000000;
+				x = 108.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -1204,8 +1204,8 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 210;
-			height = 152;
+			width = 188;
+			height = 112;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
