@@ -42,6 +42,7 @@ SkillIndicatorMgr = class({
         m_bSlowMode = 'boolean',
         m_startTimer = 'number',
         m_firstTouchPos = '',
+        m_firstTouchUIPos = '',
         
 		m_uiToolTip = 'UI',
     })
@@ -61,6 +62,7 @@ function SkillIndicatorMgr:init(world)
     self.m_bSlowMode = false
     self.m_startTimer = 0
     self.m_firstTouchPos = nil
+    self.m_firstTouchUIPos = nil
 end
 
 -------------------------------------
@@ -101,20 +103,29 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
     local near_distance = nil
     local select_hero = nil
     for i, v in pairs(self.m_world:getDragonList()) do
-        local x, y = v:getCenterPos()
-		local distance = math_distance(x, y, node_pos['x'], node_pos['y'])
 
-		if (distance <= 100) then
-			if (near_distance == nil) or (distance < near_distance) then
-				near_distance = distance
-				select_hero = v
-			end
-		end
+        local t_event = {['touch']=false, ['location']=location}
+        v:dispatch('touch_began', t_event)
+        if t_event['touch'] then
+            near_distance = 0
+            select_hero = v
+        else
+            local x, y = v:getCenterPos()
+		    local distance = math_distance(x, y, node_pos['x'], node_pos['y'])
+
+		    if (distance <= 100) then
+			    if (near_distance == nil) or (distance < near_distance) then
+				    near_distance = distance
+				    select_hero = v
+			    end
+		    end
+        end
     end 
 
     if select_hero then
         -- 드래곤 클릭
         self.m_firstTouchPos = node_pos
+        self.m_firstTouchUIPos = world.m_inGameUI.root:convertToNodeSpace(location)
         
         self.m_touchedHero = select_hero
 
@@ -143,7 +154,8 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
     self.m_touchedHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
 
     if (self.m_bSlowMode == false) then
-        local distance = getDistance(self.m_firstTouchPos['x'], self.m_firstTouchPos['y'], node_pos['x'], node_pos['y'])
+        local ui_pos = self.m_world.m_inGameUI.root:convertToNodeSpace(location)
+        local distance = getDistance(self.m_firstTouchUIPos['x'], self.m_firstTouchUIPos['y'], ui_pos['x'], ui_pos['y'])
         if (distance >= 50) then
             if (self.m_touchedHero:isPossibleSkill('active')) then
                 self.m_bSlowMode = true

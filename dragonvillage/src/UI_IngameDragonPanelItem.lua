@@ -6,7 +6,7 @@ local PARENT = class(UI, IEventListener:getCloneTable())
 UI_IngameDragonPanelItem = class(PARENT, {
         m_world = 'GameWorld',
         m_dragon = 'Dragon',
-        m_dragonIdx = 'number', -- 999¹øÀÏ °æ¿ì Ä£±¸?!
+        m_dragonIdx = 'number', -- 999ë²ˆì¼ ê²½ìš° ì¹œêµ¬?!
 
         ----
 
@@ -26,6 +26,7 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
 
     dragon:addListener('character_set_hp', self)
     dragon:addListener('dragon_skill_gauge', self)
+    dragon:addListener('touch_began', self)
     dragon:addListener('character_dead', self)
 
     self:refreshHP(dragon.m_hp, dragon.m_maxHp)
@@ -43,7 +44,7 @@ function UI_IngameDragonPanelItem:initUI()
     
     local dragon = self.m_dragon
 
-    -- µå·¡°ï ¼Ó¼º ¾ÆÀÌÄÜ
+    -- ë“œëž˜ê³¤ ì†ì„± ì•„ì´ì½˜
     if (vars['attrNode']) then
         local attr_str = dragon:getAttribute()
         local res = 'res/ui/icon/attr/attr_' .. attr_str .. '.png'
@@ -55,14 +56,14 @@ function UI_IngameDragonPanelItem:initUI()
         end
     end
 
-    do -- µå·¡°ï ¾ÆÀÌÄÜ
+    do -- ë“œëž˜ê³¤ ì•„ì´ì½˜
 	    local sprite = IconHelper:getDragonIconFromTable(dragon.m_tDragonInfo, dragon.m_charTable)
 	    if (sprite) then
 		    vars['dragonNode']:addChild(sprite)
 	    end
     end
 
-    -- µå·¡°ï ¾ÆÀÌÄÜ ¹è°æ
+    -- ë“œëž˜ê³¤ ì•„ì´ì½˜ ë°°ê²½
     do
         local attr_str = dragon:getAttribute()
         local res = 'res/ui/frame/dragon_item_bg_' .. attr_str .. '.png'
@@ -74,13 +75,13 @@ function UI_IngameDragonPanelItem:initUI()
 	    end
     end
 
-    do -- µå·¡°ï µå·¡±× ½ºÅ³ ¾ÆÀÌÄÜ
+    do -- ë“œëž˜ê³¤ ë“œëž˜ê·¸ ìŠ¤í‚¬ ì•„ì´ì½˜
         local skill_id = dragon:getSkillID('active')
         local skill_icon = IconHelper:getSkillIcon('dragon', skill_id)
         vars['skillIconNode']:addChild(skill_icon)
     end
 
-    do -- µå·¡°ï ¿ªÇÒº° ½ºÅ³ °ÔÀÌÁö »ö»ó ÁöÁ¤
+    do -- ë“œëž˜ê³¤ ì—­í• ë³„ ìŠ¤í‚¬ ê²Œì´ì§€ ìƒ‰ìƒ ì§€ì •
         local role_type = dragon:getRole()
         local color
         if (role_type == 'tanker') then
@@ -114,27 +115,32 @@ end
 -- function onEvent
 -------------------------------------
 function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
-    -- µå·¡°ï Ã¼·Â º¯°æ Event
+    -- ë“œëž˜ê³¤ ì²´ë ¥ ë³€ê²½ Event
     if (event_name == 'character_set_hp') then
         self:refreshHP(t_event['hp'], t_event['max_hp'])
 
-    -- µå·¡°ï µå·¡±× ½ºÅ³ °ÔÀÌÁö º¯°æ Event
+    -- ë“œëž˜ê³¤ ë“œëž˜ê·¸ ìŠ¤í‚¬ ê²Œì´ì§€ ë³€ê²½ Event
     elseif (event_name == 'dragon_skill_gauge') then
         self:refreshSkillGauge(t_event['percentage'])
 
-    -- µå·¡°ï »ç¸Á ½Ã
+    elseif (event_name == 'touch_began') then
+        self:onTouchBegan(t_event)
+    
+
+    -- ë“œëž˜ê³¤ ì‚¬ë§ ì‹œ
     elseif (event_name == 'character_dead') then
         local vars = self.vars
         vars['disableSprite']:setVisible(true)
         vars['skillVisual']:setVisible(false)
-        cca.runAction(vars['skillNode'], cc.MoveTo:create(0.2, cc.p(23, 1)), 100)
+        cca.stopAction(vars['skillNode'], 100)
+        vars['skillNode']:setPositionY(1)
         
     end
 end
 
 -------------------------------------
 -- function refreshHP
--- @brief µå·¡°ï Ã¼·Â º¯°æ Event
+-- @brief ë“œëž˜ê³¤ ì²´ë ¥ ë³€ê²½ Event
 -------------------------------------
 function UI_IngameDragonPanelItem:refreshHP(hp, max_hp)
     if (self.m_hp == hp) and (self.m_maxHP == max_hp) then
@@ -146,7 +152,7 @@ function UI_IngameDragonPanelItem:refreshHP(hp, max_hp)
     local vars = self.vars
     local percentage = (hp / max_hp) * 100
 
-    -- Ã¼·Â¹Ù °¡°¨ ¿¬Ãâ
+    -- ì²´ë ¥ë°” ê°€ê° ì—°ì¶œ
     vars['hpGauge1']:setPercentage(percentage)
     local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ProgressTo:create(0.5, percentage))
     vars['hpGauge2']:runAction(cc.EaseIn:create(action, 2))
@@ -154,7 +160,7 @@ end
 
 -------------------------------------
 -- function refreshSkillGauge
--- @brief µå·¡°ï µå·¡±× ½ºÅ³ °ÔÀÌÁö º¯°æ Event
+-- @brief ë“œëž˜ê³¤ ë“œëž˜ê·¸ ìŠ¤í‚¬ ê²Œì´ì§€ ë³€ê²½ Event
 -------------------------------------
 function UI_IngameDragonPanelItem:refreshSkillGauge(percentage)
     if (self.m_skillGaugePercentage == percentage) then
@@ -173,5 +179,24 @@ function UI_IngameDragonPanelItem:refreshSkillGauge(percentage)
     elseif (prev_percentage >= 100) then
         vars['skillVisual']:setVisible(false)
         cca.runAction(vars['skillNode'], cc.MoveTo:create(0.2, cc.p(23, 1)), 100)
+    end
+end
+
+-------------------------------------
+-- function onTouchBegan
+-- @brief
+-------------------------------------
+function UI_IngameDragonPanelItem:onTouchBegan(t_event)
+    local vars = self.vars
+
+    local location = t_event['location']
+
+    local node_pos = vars['skillNode']:convertToNodeSpace(location)
+    local size = vars['skillNode']:getContentSize()
+    local half_size = (size['width'] / 2)
+    local distance = math_distance(size['width'] / 2, size['height'] / 2, node_pos['x'], node_pos['y'])
+    if (distance <= half_size) then
+        t_event['touch'] = true
+        cca.uiReactionSlow(vars['skillNode'])
     end
 end

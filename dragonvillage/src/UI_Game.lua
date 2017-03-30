@@ -271,6 +271,9 @@ function UI_Game:init_dpsUI()
 
     local panel = UI_IngameDragonPanel(world)
     self.root:addChild(panel.root)
+
+    self:addAction(panel.root, UI_ACTION_TYPE_BOTTOM, 0, 0.5)
+    self:doActionReset()
 end
 
 -------------------------------------
