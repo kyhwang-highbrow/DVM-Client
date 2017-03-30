@@ -9,6 +9,32 @@
 			{
 				[1] =
 				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000031;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 81;
+					height = 81;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frame/ingame_pannel_skill_0102.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[2] =
+				{
 					[1] =
 					{
 						type = 'Node';
@@ -48,32 +74,6 @@
 					stencil_img = 'ui/frame/ingame_pannel_skill_0101.png';
 					alpha_threshold = 0.000000;
 					is_invert = false;
-				};
-				[2] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000031;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 81;
-					height = 81;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/frame/ingame_pannel_skill_0102.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
 				};
 				[3] =
 				{
@@ -294,6 +294,36 @@
 			{
 				[1] =
 				{
+					type = 'ProgressTimer';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 76;
+					height = 76;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'normalSKillGauge';
+					file_name = 'ui/frame/ingame_pannel_dragon_0101.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+					progress_type = 1;
+					mid_point_x = 0.500000;
+					mid_point_y = 0.500000;
+					percentage = 100;
+				};
+				[2] =
+				{
 					[1] =
 					{
 						type = 'Node';
@@ -353,41 +383,11 @@
 					alpha_threshold = 0.000000;
 					is_invert = false;
 				};
-				[2] =
-				{
-					type = 'ProgressTimer';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 76;
-					height = 76;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'normalSKillGauge';
-					file_name = 'ui/frame/ingame_pannel_dragon_0101.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-					progress_type = 1;
-					mid_point_x = 0.500000;
-					mid_point_y = 0.500000;
-					percentage = 100;
-				};
 				[3] =
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = 0.000015;
+					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -444,6 +444,32 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'attrNode';
+			};
+			[8] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 1.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 140;
+				height = 96;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'disableSprite';
+				file_name = 'ui/frame/ingame_pannel_dragon_disable.png';
+				color = { 255; 255; 255; };
+				opacity = 150;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
 			};
 			type = 'Menu';
 			ui_name = '';

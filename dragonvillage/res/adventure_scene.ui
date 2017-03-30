@@ -33,32 +33,6 @@
 			};
 			[2] =
 			{
-				[1] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 2048;
-					height = 1024;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'bg/world_map/chapter_02.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
@@ -595,21 +569,21 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = -22.000000;
-				y = -67.000000;
+				x = 12.000000;
+				y = -54.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 719;
-				height = 283;
+				width = 1002;
+				height = 370;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = '';
-				file_name = 'ui/stage_line.png';
+				file_name = 'ui/icon/stage_line.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -621,8 +595,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -453.000000;
-				y = 108.000000;
+				x = -482.000000;
+				y = 69.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -640,8 +614,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -400.000000;
-				y = -45.000000;
+				x = -390.000000;
+				y = -41.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -659,8 +633,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -298.000000;
-				y = 104.000000;
+				x = -283.000000;
+				y = 65.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -679,7 +653,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = -130.000000;
-				y = 60.000000;
+				y = 27.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -697,8 +671,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -247.000000;
-				y = -56.000000;
+				x = -214.000000;
+				y = -119.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -716,8 +690,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -98.000000;
-				y = -105.000000;
+				x = -56.000000;
+				y = -175.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -735,8 +709,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -7.000000;
-				y = 43.000000;
+				x = 132.000000;
+				y = -126.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -754,27 +728,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 59.000000;
-				y = -116.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 100;
-				height = 150;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'stageDock08';
-			};
-			[16] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = 133.000000;
-				y = 44.000000;
+				x = 456.000000;
+				y = 80.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -788,12 +743,31 @@
 				visible = true;
 				lua_name = 'stageDock09';
 			};
+			[16] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 313.000000;
+				y = -54.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 150;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'stageDock08';
+			};
 			[17] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 183.000000;
-				y = -156.000000;
+				x = 316.000000;
+				y = 156.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -811,8 +785,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 295.000000;
-				y = -47.000000;
+				x = 173.000000;
+				y = 69.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -830,8 +804,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 263.000000;
-				y = 125.000000;
+				x = 27.000000;
+				y = -6.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
