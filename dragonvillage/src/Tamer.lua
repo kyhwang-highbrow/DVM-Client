@@ -185,70 +185,6 @@ function Tamer.st_appear(owner, dt)
     end
 end
 
---[[
--------------------------------------
--- function st_roam
--- @brief 테이머 배회
--------------------------------------
-function Tamer.st_roam(owner, dt)
-    if (owner.m_stateTimer == 0) then
-        owner.m_roamTimer = 0
-
-        owner:setAfterImage(false)
-    end
-
-    if (owner.m_roamTimer <= 0) then
-        -- 현재 위치가 몇사분면인지 계산
-        local quadrant = getQuadrant(
-            CRITERIA_RESOLUTION_X / 4,
-            0,
-            owner.pos.x,
-            owner.pos.y
-        )
-
-        -- 다음 분면을 목표 지점으로 함
-        quadrant = quadrant + 1
-        if (quadrant > 4) then
-            quadrant = quadrant - 4
-        end
-        
-        local tar_x, tar_y, tar_z
-        
-        if (quadrant == 1) then
-            tar_x = math_random(CRITERIA_RESOLUTION_X / 4, CRITERIA_RESOLUTION_X / 2)
-            tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2 - 100)
-        elseif (quadrant == 2) then
-            tar_x = math_random(CRITERIA_RESOLUTION_X / 4, CRITERIA_RESOLUTION_X / 2)
-            tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2) - (CRITERIA_RESOLUTION_Y / 2 - 150)
-        elseif (quadrant == 3) then
-            tar_x = math_random(100, CRITERIA_RESOLUTION_X / 4)
-            tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2) - (CRITERIA_RESOLUTION_Y / 2 - 150)
-        elseif (quadrant == 4) then
-            tar_x = math_random(100, CRITERIA_RESOLUTION_X / 4)
-            tar_y = math_random(0, CRITERIA_RESOLUTION_Y / 2 - 100)
-        end
-        tar_z = TAMER_Z_POS
-        
-        local cameraHomePosX, cameraHomePosY = owner.m_world.m_gameCamera:getHomePos()
-        tar_x = (tar_x + cameraHomePosX)
-        tar_y = (tar_y + cameraHomePosY)
-
-        local course = math_random(-1, 1)
-        local time = math_random(15, 30) / 10
-        local bezier = getBezier(tar_x, tar_y, owner.pos.x, owner.pos.y, course)
-        local move_action = cc.BezierBy:create(time, bezier)
-                
-        owner.m_rootNode:stopAllActions()
-        owner.m_rootNode:runAction(move_action)
-
-        owner:runAction_MoveZ(time, tar_z)
-                        
-        owner.m_roamTimer = time + (math_random(0, 10) * 0.1)    -- 0 ~ 1초 사이로 잠시 멈추도록
-    end
-
-    owner.m_roamTimer = owner.m_roamTimer - dt
-end
-]]--
 -------------------------------------
 -- function st_roam
 -- @brief 테이머 배회
@@ -283,7 +219,7 @@ end
 
 -------------------------------------
 -- function getRoamPos
--- @brief 테이머 배회
+-- @brief 테이머 배회 이동 좌표를 얻음
 -------------------------------------
 function Tamer:getRoamPos()
     local t_random = {}
@@ -410,14 +346,10 @@ function Tamer.st_active(owner, dt)
 		local move_pos_y = cameraHomePosY + 200
 
 		local world = owner.m_world
-		local game_highlight = world.m_gameHighlight
 		local l_dragon = world:getDragonList()
 		
 		-- tamer action stop
 		owner:stopAllActions()
-
-		-- 하이라이트 활성화
-		--game_highlight:setActive(true)
 
 		-- world 일시 정지
 		world:setTemporaryPause(true, owner)
@@ -438,8 +370,7 @@ function Tamer.st_active(owner, dt)
 	elseif (owner.m_isOnTheMove == false) and (owner.m_bActiveSKillUsable) then
 		owner.m_bActiveSKillUsable = false
 		local world = owner.m_world
-		local game_highlight = world.m_gameHighlight
-		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+		local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
 
 		local function cb_function()
 			owner.m_animator:changeAni('skill_1', false)
@@ -461,8 +392,6 @@ function Tamer.st_active(owner, dt)
 						owner.m_world:setTemporaryPause(false, owner)
 						-- roam상태로 변경
 						owner:changeStateWithCheckHomePos('roam')
-						-- 하이라이트 비활성화
-						--game_highlight:setActive(false)
 						-- 애프터 이미지 해제
 						owner:setAfterImage(false)
 					end)
@@ -472,7 +401,14 @@ function Tamer.st_active(owner, dt)
 		end
 
 		local res = 'res/effect/cutscene_tamer_a_type/cutscene_tamer_a_type.vrp'
-		SkillHelper:makeEffect(world, res, CRITERIA_RESOLUTION_X/2, cameraHomePosY, 'idle', cb_function)
+        local tamerCut = MakeAnimator(res)
+        g_gameScene.m_viewLayer:addChild(tamerCut.m_node)
+        tamerCut:changeAni('idle', false)
+        tamerCut:addAniHandler(function()
+            cb_function()
+            tamerCut.m_node:runAction(cc.RemoveSelf:create())
+        end)
+        --SkillHelper:makeEffect(world, res, CRITERIA_RESOLUTION_X/2, cameraHomePosY, 'idle', cb_function)
     end
 end
 
@@ -569,14 +505,10 @@ end
 -------------------------------------
 function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx, cb_func)
 	local world = self.m_world
-	local game_highlight = world.m_gameHighlight
 	local l_dragon = world:getDragonList()
 
 	-- tamer action stop
 	self:stopAllActions()
-
-	-- 하이라이트 활성화
-    --game_highlight:setActive(true)
 
 	-- 스킬 이름 말풍선
 	local skill_name = Str(self.m_lSkill[skill_idx]['t_name'])
@@ -612,8 +544,6 @@ function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx, cb_func
 
                 -- roam상태로 변경
 				self:changeStateWithCheckHomePos('roam')
-				-- 하이라이트 비활성화
-				--game_highlight:setActive(false)
 				-- 애프터 이미지 해제
 				self:setAfterImage(false)
             end)

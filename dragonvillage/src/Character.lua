@@ -1351,6 +1351,32 @@ function Character:updateMove(dt)
 end
 
 -------------------------------------
+-- function updateBasicTimeSkillTimer
+-------------------------------------
+function Character:updateBasicTimeSkillTimer(x, y, speed)
+    if (self.m_bDead) then
+		return false
+	end
+
+    if (self.m_isSilence) then
+		return false
+	end
+
+    -- 스킬 사용 불가 상태
+    if (isExistValue(self.m_state, 'delegate', 'stun')) then
+        return false
+    end
+
+    -- 이미 스킬을 사용하기 위한 상태일 경우
+    if (isExistValue(self.m_state, 'skillPrepare', 'skillAppear', 'skillIdle')) then
+        return false
+    end
+
+    local ret = PARENT.updateBasicTimeSkillTimer(self, x, y, speed)
+    return ret
+end
+
+-------------------------------------
 -- function setMove
 -------------------------------------
 function Character:setMove(x, y, speed)

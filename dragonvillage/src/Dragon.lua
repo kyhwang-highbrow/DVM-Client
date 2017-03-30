@@ -1108,7 +1108,7 @@ function Dragon:updateBasicTimeSkillTimer(dt)
     if (skill_info) then
         local cur = skill_info.m_timer
         local max = skill_info.m_tSkill['chance_value']
-        local run_skill = (ret == skill_info.m_skillID) -- 스킬 동작 여부
+        local run_skill = ret -- 스킬 동작 여부
 
         local t_event = {['cur']=cur, ['max']=max, ['run_skill']=run_skill}
         self:dispatch('basic_time_skill_gauge', t_event)

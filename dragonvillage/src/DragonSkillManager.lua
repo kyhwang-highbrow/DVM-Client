@@ -367,8 +367,13 @@ function IDragonSkillManager:updateBasicTimeSkillTimer(dt)
     if (table.count(self.m_lSkillIndivisualInfo['basic_time']) > 0) then
         for i,v in pairs(self.m_lSkillIndivisualInfo['basic_time']) do
             v.m_timer = (v.m_timer + dt)
+            if (v.m_tSkill['chance_value'] <= v.m_timer) then
+                return true
+            end
         end
     end
+
+    return false
 end
 
 -------------------------------------
