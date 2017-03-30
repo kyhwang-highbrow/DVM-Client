@@ -2080,13 +2080,13 @@
 		{
 			type = 'Menu';
 			ui_name = '';
-			x = 10.000000;
-			y = 60.000000;
-			dock_point = { 0.000000; 0.500000; };
-			anchor_point = { 0.000000; 0.500000; };
+			x = 8.000000;
+			y = 8.000000;
+			dock_point = { 0.000000; 0.000000; };
+			anchor_point = { 0.000000; 0.000000; };
 			relative_size_type = 0;
-			width = 160;
-			height = 250;
+			width = 210;
+			height = 152;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;

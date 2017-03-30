@@ -11,13 +11,13 @@
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
-					x = 19.000000;
-					y = -9.000000;
+					x = -22.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 106;
-					height = 16;
+					width = 98;
+					height = 20;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -41,13 +41,13 @@
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
-					x = 19.000000;
-					y = -9.000000;
+					x = -22.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 106;
-					height = 16;
+					width = 98;
+					height = 20;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -71,15 +71,15 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -53.000000;
+					x = -85.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 0.285000;
-					scale_y = 0.280000;
+					scale_x = 0.170000;
+					scale_y = 0.170000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
@@ -102,7 +102,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'titleLabel1';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 18;
@@ -130,8 +130,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 39.000000;
-					y = 10.000000;
+					x = 59.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -145,7 +145,7 @@
 					visible = true;
 					lua_name = 'dpsLabel1';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
+					font_size = 18;
 					text = '{1}';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -170,8 +170,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 20.000000;
-					y = -10.000000;
+					x = -20.000000;
+					y = -7.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -185,7 +185,7 @@
 					visible = true;
 					lua_name = 'dpsGaugeLabel1';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 16;
+					font_size = 15;
 					text = '{1}';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -209,12 +209,12 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 100.000000;
+				y = 60.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 148;
-				height = 38;
+				width = 205;
+				height = 28;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -236,13 +236,13 @@
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
-					x = 19.000000;
-					y = -9.000000;
+					x = -22.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 106;
-					height = 16;
+					width = 98;
+					height = 20;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -266,13 +266,13 @@
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
-					x = 19.000000;
-					y = -9.000000;
+					x = -22.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 106;
-					height = 16;
+					width = 98;
+					height = 20;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -296,15 +296,15 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -53.000000;
+					x = -85.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 0.285000;
-					scale_y = 0.280000;
+					scale_x = 0.170000;
+					scale_y = 0.170000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
@@ -327,7 +327,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'titleLabel2';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 18;
@@ -355,8 +355,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 39.000000;
-					y = 10.000000;
+					x = 59.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -370,7 +370,7 @@
 					visible = true;
 					lua_name = 'dpsLabel2';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
+					font_size = 18;
 					text = '{1}';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -395,8 +395,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 20.000000;
-					y = -10.000000;
+					x = -20.000000;
+					y = -7.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -410,7 +410,7 @@
 					visible = true;
 					lua_name = 'dpsGaugeLabel2';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 16;
+					font_size = 15;
 					text = '{1}';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -434,12 +434,12 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 50.000000;
+				y = 30.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 148;
-				height = 38;
+				width = 205;
+				height = 28;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -461,13 +461,13 @@
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
-					x = 19.000000;
-					y = -9.000000;
+					x = -22.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 106;
-					height = 16;
+					width = 98;
+					height = 20;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -491,13 +491,13 @@
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
-					x = 19.000000;
-					y = -9.000000;
+					x = -22.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 106;
-					height = 16;
+					width = 98;
+					height = 20;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -521,15 +521,15 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -53.000000;
+					x = -85.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 0.285000;
-					scale_y = 0.280000;
+					scale_x = 0.170000;
+					scale_y = 0.170000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
@@ -552,7 +552,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'titleLabel3';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 18;
@@ -580,8 +580,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 39.000000;
-					y = 10.000000;
+					x = 59.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -595,7 +595,7 @@
 					visible = true;
 					lua_name = 'dpsLabel3';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
+					font_size = 18;
 					text = '{1}';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -620,8 +620,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 20.000000;
-					y = -10.000000;
+					x = -20.000000;
+					y = -7.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -635,7 +635,7 @@
 					visible = true;
 					lua_name = 'dpsGaugeLabel3';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 16;
+					font_size = 15;
 					text = '{1}';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -663,8 +663,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 148;
-				height = 38;
+				width = 205;
+				height = 28;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -686,13 +686,13 @@
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
-					x = 19.000000;
-					y = -9.000000;
+					x = -22.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 106;
-					height = 16;
+					width = 98;
+					height = 20;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -716,13 +716,13 @@
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
-					x = 19.000000;
-					y = -9.000000;
+					x = -22.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 106;
-					height = 16;
+					width = 98;
+					height = 20;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -746,15 +746,15 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -53.000000;
+					x = -85.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 0.285000;
-					scale_y = 0.280000;
+					scale_x = 0.170000;
+					scale_y = 0.170000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
@@ -777,7 +777,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'titleLabel4';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 18;
@@ -805,8 +805,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 39.000000;
-					y = 10.000000;
+					x = 59.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -820,7 +820,7 @@
 					visible = true;
 					lua_name = 'dpsLabel4';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
+					font_size = 18;
 					text = '{1}';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -845,8 +845,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 20.000000;
-					y = -10.000000;
+					x = -20.000000;
+					y = -7.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -860,7 +860,7 @@
 					visible = true;
 					lua_name = 'dpsGaugeLabel4';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 16;
+					font_size = 15;
 					text = '{1}';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -884,12 +884,12 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = -50.000000;
+				y = -30.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 148;
-				height = 38;
+				width = 205;
+				height = 28;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -911,13 +911,13 @@
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
-					x = 19.000000;
-					y = -9.000000;
+					x = -22.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 106;
-					height = 16;
+					width = 98;
+					height = 20;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -941,13 +941,13 @@
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
-					x = 19.000000;
-					y = -9.000000;
+					x = -22.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 106;
-					height = 16;
+					width = 98;
+					height = 20;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -971,15 +971,15 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -53.000000;
+					x = -85.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 0.285000;
-					scale_y = 0.280000;
+					scale_x = 0.170000;
+					scale_y = 0.170000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
@@ -1002,7 +1002,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'titleLabel5';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 18;
@@ -1030,8 +1030,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 39.000000;
-					y = 10.000000;
+					x = 59.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1045,7 +1045,7 @@
 					visible = true;
 					lua_name = 'dpsLabel5';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
+					font_size = 18;
 					text = '{1}';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -1070,8 +1070,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 20.000000;
-					y = -10.000000;
+					x = -20.000000;
+					y = -7.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1085,7 +1085,7 @@
 					visible = true;
 					lua_name = 'dpsGaugeLabel5';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 16;
+					font_size = 15;
 					text = '{1}';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -1109,12 +1109,12 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = -100.000000;
+				y = -60.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 148;
-				height = 38;
+				width = 205;
+				height = 28;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1134,13 +1134,13 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 0.000000;
-				y = 145.000000;
+				x = -24.000000;
+				y = 96.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 115;
-				height = 30;
+				width = 152;
+				height = 38;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1153,13 +1153,13 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = 0.000000;
-				y = 145.000000;
+				x = -14.000000;
+				y = 20.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 160;
-				height = 30;
+				width = 170;
+				height = 190;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1177,7 +1177,7 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = 110.000000;
+				x = 120.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -1204,8 +1204,8 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 160;
-			height = 250;
+			width = 210;
+			height = 152;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
