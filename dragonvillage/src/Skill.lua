@@ -309,7 +309,7 @@ end
 -------------------------------------
 function Skill:onAttack(target_char)
     -- 연출
-	if (self.m_bSkillHitEffect) then 
+	if (self.m_skillHitEffctDirector) then 
 		self.m_skillHitEffctDirector:doWork(target_char)
 	end
 

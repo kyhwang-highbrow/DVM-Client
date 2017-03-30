@@ -166,7 +166,8 @@ SkillHitEffectDirector = class(PARENT, {
         m_rightNode = '',
         m_leftNode = '',
 
-        m_bEnd = 'boolean',
+        m_bEndSkill = 'boolean',
+        m_bEndAction = 'boolean',
     })
 
 -------------------------------------
@@ -175,7 +176,8 @@ SkillHitEffectDirector = class(PARENT, {
 function SkillHitEffectDirector:init(owner, bonus_desc)
     self.m_hitCount = 0
     self.m_bonusText = nil
-    self.m_bEnd = false
+    self.m_bEndSkill = false
+    self.m_bEndAction = false
 
     local vars = self:load('ingame_hit.ui')
 
@@ -225,6 +227,7 @@ function SkillHitEffectDirector:init(owner, bonus_desc)
         self.m_leftNode:runAction(action)
 
         local function finish_cb()
+            self.m_bEndAction = true
             self:checkRelease()
         end
         self.root:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.Hide:create(), cc.CallFunc:create(finish_cb)))
@@ -249,7 +252,7 @@ end
 -- function onEnd
 -------------------------------------
 function SkillHitEffectDirector:onEnd()
-    self.m_bEnd = true
+    self.m_bEndSkill = true
     self:checkRelease()
     --self.root:removeFromParent()
 end
@@ -258,7 +261,7 @@ end
 -- function checkRelease
 -------------------------------------
 function SkillHitEffectDirector:checkRelease()
-    if self.m_bEnd then
+    if self.m_bEndSkill and self.m_bEndAction then
         self.root:removeFromParent()
     end
 end
