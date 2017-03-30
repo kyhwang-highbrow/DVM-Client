@@ -55,7 +55,17 @@ end
 -- function doHeal
 -------------------------------------
 function SkillHealSingle:doHeal()
-	local target = self.m_targetChar
+	local l_target = self:findTarget()
+
+	for i, target in pairs(l_target) do
+		self:doHeal_each(target)
+	end
+end
+
+-------------------------------------
+-- function doHeal_each
+-------------------------------------
+function SkillHealSingle:doHeal_each(target)
     -- 타겟에 회복 수행, 이팩트 생성
     if target and (not target.m_bDead) then
         local atk_dmg = self.m_owner.m_statusCalc:getFinalStat('atk')
@@ -76,13 +86,15 @@ function SkillHealSingle:doHeal()
         local worldNode = self.m_world:getMissileNode('bottom')
         worldNode:addChild(effect_heal.m_rootNode, 0)
 
-        -- 하이라이트
-        if (self.m_bHighlight) then
-            --self.m_world.m_gameHighlight:addMissile(effect_heal)
-        end
-        
         self.m_world:addToUnitList(effect_heal)
     end
+end
+
+-------------------------------------
+-- function findTarget
+-------------------------------------
+function SkillHealSingle:findTarget()
+    return self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
 end
 
 -------------------------------------
@@ -111,9 +123,4 @@ function SkillHealSingle:makeSkillInstance(owner, t_skill, t_data)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
-
-    -- 5. 하이라이트
-    if (skill.m_bHighlight) then
-        --world.m_gameHighlight:addMissile(skill)
-    end
 end

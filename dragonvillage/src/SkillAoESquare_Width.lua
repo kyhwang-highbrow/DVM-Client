@@ -1,11 +1,9 @@
-local PARENT = Skill
+local PARENT = SkillAoESquare
 
 -------------------------------------
--- class SkillAoESquareWidth
+-- class SkillAoESquare_Width
 -------------------------------------
-SkillAoESquareWidth = class(PARENT, {
-        m_skillHeight = 'number',
-
+SkillAoESquare_Width = class(PARENT, {
         m_missileStartPosX = 'number',
         m_missileDir = 'number'        
      })
@@ -15,17 +13,14 @@ SkillAoESquareWidth = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function SkillAoESquareWidth:init(file_name, body, ...)
+function SkillAoESquare_Width:init(file_name, body, ...)
 end
 
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillAoESquareWidth:init_skill(skill_height)
+function SkillAoESquare_Width:init_skill()
     PARENT.init_skill(self)
-
-	-- 멤버 변수
-    self.m_skillHeight = skill_height
 
     local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
     if (self.m_owner.m_bLeftFormation) then
@@ -36,25 +31,49 @@ function SkillAoESquareWidth:init_skill(skill_height)
         self.m_missileDir = 180
     end
 	    
-	self:setPosition(cameraHomePosX + (CRITERIA_RESOLUTION_X / 2), self.m_targetPos.y) -- X좌표값은 화면의 중심으로 세팅
-
     if (not self.m_owner.m_bLeftFormation) then
         self.m_animator:setFlip(true)
     end
+
+	self:setPosition(cameraHomePosX + (CRITERIA_RESOLUTION_X / 2), self.m_targetPos.y) -- X좌표값은 화면의 중심으로 세팅
+end
+
+-------------------------------------
+-- function initSkillSize
+-------------------------------------
+function SkillAoESquare_Width:initSkillSize()
+	if (self.m_skillSize) and (not (self.m_skillSize == '')) then
+		local t_data = SkillHelper:getSizeAndScale('square_width', self.m_skillSize)  
+
+		self.m_resScale = t_data['scale']
+		self.m_skillHeight = t_data['size']
+	end
+end
+
+-------------------------------------
+-- function adjustAnimator
+-------------------------------------
+function SkillAoESquare_Width:adjustAnimator()    
+	if (not self.m_animator) then return end
+	
+	-- delay state 종료시 켜준다.
+	self.m_animator:setVisible(false) 
+
+	self.m_animator:setScaleY(self.m_resScale)
 end
 
 -------------------------------------
 -- function initState
 -------------------------------------
-function SkillAoESquareWidth:initState()
+function SkillAoESquare_Width:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillAoESquareWidth.st_idle, 'idle', true)
+    self:addState('start', SkillAoESquare_Width.st_idle, 'idle', true)
 end
 
 -------------------------------------
 -- function st_idle
 -------------------------------------
-function SkillAoESquareWidth.st_idle(owner, dt)
+function SkillAoESquare_Width.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner:fireMissile()
 
@@ -68,7 +87,7 @@ end
 -------------------------------------
 -- function fireMissile
 -------------------------------------
-function SkillAoESquareWidth:fireMissile()
+function SkillAoESquare_Width:fireMissile()
     local targetPos = self.m_targetPos
     if (not targetPos) then
         return 
@@ -122,20 +141,19 @@ end
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------
-function SkillAoESquareWidth:makeSkillInstance(owner, t_skill, t_data)
+function SkillAoESquare_Width:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
-    local skill_height = t_skill['val_1']   -- 공격 반경
 	
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = SkillAoESquareWidth(missile_res)
+    local skill = SkillAoESquare_Width(missile_res)
 	
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-	skill:init_skill(skill_height)
+	skill:init_skill()
 	skill:initState()
 
 	-- 3. state 시작 

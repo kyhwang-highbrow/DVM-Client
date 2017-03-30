@@ -396,9 +396,6 @@
     <None Include="..\src\SkillIndicator.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\SkillIndicator_Range.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\SkillIndicator_Target.lua">
       <Filter>lua</Filter>
     </None>
@@ -1138,12 +1135,6 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\ConstantGameMode.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\SkillIndicator_StraightWidth.lua">
-      <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\SkillAoESquareWidth.lua">
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\SkillIndicator_X.lua">
@@ -1919,6 +1910,15 @@
     </None>
     <None Include="..\src\UI_IngameDragonPanelItem.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\SkillIndicator_AoESquare_Width.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\SkillAoESquare_Height.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\SkillAoESquare_Width.lua">
+      <Filter>lua</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

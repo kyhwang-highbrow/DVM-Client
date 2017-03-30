@@ -361,12 +361,9 @@ function TargetRule_getTargetList_buff(org_list)
 
 	-- 버프
 	for i, char in pairs(t_char) do
-		for name, status_effect in pairs(char:getStatusEffectList()) do
-			if (self:hasHelpfulStatusEffect()) then
-				table.insert(t_ret, char)
-				table.remove(t_char, i)
-				break
-			end
+		if (char:hasHelpfulStatusEffect()) then
+			table.insert(t_ret, char)
+			table.remove(t_char, i)
 		end
 	end
 
@@ -389,12 +386,9 @@ function TargetRule_getTargetList_debuff(org_list)
 
 	-- 버프
 	for i, char in pairs(t_char) do
-		for name, status_effect in pairs(char:getStatusEffectList()) do
-			if (self:hasHarmfulStatusEffect()) then
-				table.insert(t_ret, char)
-				table.remove(t_char, i)
-				break
-			end
+		if (char:hasHarmfulStatusEffect()) then
+			table.insert(t_ret, char)
+			table.remove(t_char, i)
 		end
 	end
 

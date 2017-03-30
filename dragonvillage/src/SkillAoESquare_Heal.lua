@@ -24,7 +24,6 @@ function SkillAoESquare_Heal:init_skill(skill_width, skill_height, hit, heal_rat
 	-- 멤버 변수
 	self.m_healRate = heal_rate
 	self.m_idleAniName = 'tornado'
-	self.m_findTargetType = 'all'
 
 	-- 위치 설정
 	local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()

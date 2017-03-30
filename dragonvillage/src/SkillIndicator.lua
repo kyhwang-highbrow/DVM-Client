@@ -46,7 +46,6 @@ SkillIndicator = class({
         m_attackPosOffsetX = 'number',
         m_attackPosOffsetY = 'number',
 
-
 		m_highlightList = '',
 
         m_resultScore = 'number',
@@ -196,6 +195,13 @@ function SkillIndicator:onTouchMoved(x, y)
 end
 
 -------------------------------------
+-- function setIndicatorPosition
+-------------------------------------
+function SkillIndicator:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
+    self.m_indicatorEffect:setPosition(touch_x - pos_x, touch_y - pos_y)
+end
+
+-------------------------------------
 -- function initIndicatorNode
 -------------------------------------
 function SkillIndicator:initIndicatorNode()
@@ -304,11 +310,17 @@ function SkillIndicator:setHighlightEffect(t_collision_obj)
     self:onChangeTargetCount(old_target_count, cur_target_count)
 end
 
-
 -------------------------------------
 -- function onChangeTargetCount
 -------------------------------------
 function SkillIndicator:onChangeTargetCount(old_target_count, cur_target_count)
+	-- 활성화
+    if (old_target_count == 0) and (cur_target_count > 0) then
+		self.m_indicatorEffect.m_node:setColor(COLOR_RED)
+    -- 비활성화
+    elseif (old_target_count > 0) and (cur_target_count == 0) then
+		self.m_indicatorEffect.m_node:setColor(COLOR_CYAN)
+    end
 end
 
 -------------------------------------

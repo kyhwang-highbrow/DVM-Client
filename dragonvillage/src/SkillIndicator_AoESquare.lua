@@ -6,24 +6,22 @@ local PARENT = SkillIndicator
 SkillIndicator_AoESquare = class(PARENT, {
         m_skillWidth = 'number',
 		m_skillHeight = 'number',
-		m_indicatorAddEffect = 'a2d',
-		m_targetType = 'str', 
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillIndicator_AoESquare:init(hero, t_skill, target_type)
+function SkillIndicator_AoESquare:init(hero, t_skill)
 end
 
 -------------------------------------
 -- function init_indicator
 -------------------------------------
-function SkillIndicator_AoESquare:init_indicator(t_skill, target_type)
-	self.m_skillWidth = t_skill['val_1']
-	self.m_skillHeight = t_skill['val_2']
-	self.m_indicatorScale = t_skill['res_scale']
-	self.m_targetType = target_type or 'enemy'
+function SkillIndicator_AoESquare:init_indicator(t_skill)
+	PARENT.init_indicator(self, t_skill)
+
+	self.m_skillWidth = 2048
+	self.m_skillHeight = 2048
 end
 
 -------------------------------------
@@ -49,13 +47,6 @@ function SkillIndicator_AoESquare:onTouchMoved(x, y)
 end
 
 -------------------------------------
--- function setIndicatorPosition
--------------------------------------
-function SkillIndicator_AoESquare:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
-    self.m_indicatorEffect:setPosition(touch_x - pos_x, touch_y - pos_y)
-end
-
--------------------------------------
 -- function initIndicatorNode
 -------------------------------------
 function SkillIndicator_AoESquare:initIndicatorNode()
@@ -66,13 +57,11 @@ function SkillIndicator_AoESquare:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do -- 캐스팅 이펙트
-        local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
+		local indicator_res = g_constant:get('INDICATOR', 'RES', 'sqaure')
+        local indicator = MakeAnimator(indicator_res)
         root_node:addChild(indicator.m_node)
 		indicator.m_node:setColor(COLOR_CYAN)
         self.m_indicatorEffect = indicator
-
-        local scale_x = self.m_skillWidth/360 --@TODO 리소스를 고치자 답이 없음
-        indicator.m_node:setScaleX(scale_x)
     end
 end
 
@@ -80,18 +69,16 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_AoESquare:findTarget(x, y)
-    local world = self.m_world
-	
-    local l_target = world:getTargetList(self.m_hero, x, y, self.m_targetType, 'x', 'distance_line')
+    local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
     
     local l_ret = {}
 
     local std_width = (self.m_skillWidth / 2)
 	local std_height = (self.m_skillHeight / 2)
 
-    for i,v in ipairs(l_target) do
-		if isCollision_Rect(x, y, v, std_width, std_height) then
-            table.insert(l_ret, v)
+    for i, target in ipairs(l_target) do
+		if isCollision_Rect(x, y, target, std_width, std_height) then
+            table.insert(l_ret, target)
 		end
     end
 

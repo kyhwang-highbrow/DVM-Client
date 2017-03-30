@@ -27,8 +27,6 @@ Skill = class(PARENT, {
 		m_targetChar = 'Character', 
 		m_targetPos = 'pos', -- 인디케이터에서 보낸 x, y 좌표
 		
-		m_findTargetType = 'str', -- 타겟 선택하는 룰을 온전히 사용하기 전 임시로 사용
-
 		-- 상태 효과 관련 변수들
 		m_lStatusEffectStr = '',
 		m_tSpecialTarget = '', -- 임시 처리
@@ -62,7 +60,6 @@ function Skill:init_skill()
 	-- 고유값 가지는 멤버 변수 
 	self.m_range = 0    
 	self.m_tSpecialTarget = {}
-	self.m_findTargetType = 'enemy'
 
 	self:initActvityCarrier(self.m_powerRate, self.m_powerAbs)
     self:initAttackPosOffset()
@@ -122,7 +119,7 @@ end
 -- function initSkillSize
 -- @breif table의 skill_size를 통하여 필요한 값과 scale 추출 / 각 스킬 대분류 마다 작성
 -------------------------------------
-function Skill:initSkillSize()  
+function Skill:initSkillSize()
 end
 
 -------------------------------------
@@ -373,10 +370,9 @@ function Skill:findTarget()
     local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
 
 	local l_ret = {}
-    local distance = 0
 
+	-- 바디사이즈를 감안한 충돌 체크
     for _, target in pairs(l_target) do
-		-- 바디사이즈를 감안한 충돌 체크
 		if isCollision(x, y, target, range) then 
 			table.insert(l_ret, target)
 		end

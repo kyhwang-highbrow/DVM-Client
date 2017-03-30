@@ -108,9 +108,7 @@ function SkillAoESquare_Wonder:findTarget()
     local x = self.pos.x
 	local y = self.pos.y	--> init_skill 단계에서 카메라 중심 좌표의 살짝 위로 설정되어있다.
 
-    local world = self.m_world
-
-    local l_target = world:getTargetList(self.m_owner, x, y, self.m_findTargetType, 'x', 'distance_x')
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
     
     local l_ret = {}
 

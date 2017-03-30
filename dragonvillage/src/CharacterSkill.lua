@@ -198,7 +198,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				return true
 
 			elseif (skill_type == 'skill_aoe_square_width') then
-				SkillAoESquareWidth:makeSkillInstance(self, t_skill, t_data)
+				SkillAoESquare_Width:makeSkillInstance(self, t_skill, t_data)
 				return true
 	
 			elseif (skill_type == 'skill_aoe_square_height') then

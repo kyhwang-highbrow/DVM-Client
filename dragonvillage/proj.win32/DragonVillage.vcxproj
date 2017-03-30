@@ -371,8 +371,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillAoERound_Egg.lua" />
     <None Include="..\src\SkillAoERound_Sura.lua" />
     <None Include="..\src\SkillAoESquare.lua" />
-    <None Include="..\src\SkillAoESquareWidth.lua" />
+    <None Include="..\src\SkillAoESquare_Width.lua" />
     <None Include="..\src\SkillAoESquare_Fairy.lua" />
+    <None Include="..\src\SkillAoESquare_Height.lua" />
     <None Include="..\src\SkillAoESquare_Wonder.lua" />
     <None Include="..\src\SkillBurst.lua" />
     <None Include="..\src\SkillChainLightning.lua" />
@@ -391,8 +392,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillIndicator_AoECone_Vertical.lua" />
     <None Include="..\src\SkillIndicator_AoESquare.lua" />
     <None Include="..\src\SkillIndicator_AoESquare_Multi.lua" />
+    <None Include="..\src\SkillIndicator_AoESquare_Width.lua" />
     <None Include="..\src\SkillIndicator_Penetration.lua" />
-    <None Include="..\src\SkillIndicator_StraightWidth.lua" />
     <None Include="..\src\SkillIndicator_X.lua" />
     <None Include="..\src\SkillLaser_Lightning.lua" />
     <None Include="..\src\SkillLeap.lua" />
@@ -568,7 +569,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillIndicator_Crash.lua" />
     <None Include="..\src\SkillIndicator_AoESquare_Height.lua" />
     <None Include="..\src\SkillIndicator_LeafBlade.lua" />
-    <None Include="..\src\SkillIndicator_Range.lua" />
     <None Include="..\src\SkillIndicator_Target.lua" />
     <None Include="..\src\SkillLeafBlade.lua" />
     <None Include="..\src\SkillMeleeHack.lua" />

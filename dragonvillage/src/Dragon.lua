@@ -680,76 +680,68 @@ function Dragon:init_skillIndicator()
     local t_char = self.m_charTable
     local t_skill = self:getLevelingSkillByType('active').m_tSkill
 
-	local type = t_skill['indicator']
+	local indicator_type = t_skill['indicator']
 		
 	-- 타겟형(아군)
-	if (type == 'target_ally') then
+	if (indicator_type == 'target_ally') then
 		self.m_skillIndicator = SkillIndicator_Target(self, t_skill, false)
 
 	-- 타겟형(적군)
-	elseif (type == 'target') then
+	elseif (indicator_type == 'target') then
 		self.m_skillIndicator = SkillIndicator_Target(self, t_skill, true)
 
 	-- 원형 범위
-	elseif (type == 'round') then
+	elseif (indicator_type == 'round') then
 		self.m_skillIndicator = SkillIndicator_AoERound(self, t_skill, false)
 
-	-- 시전 범위 제한 있는 타겟
-	elseif (type == 'range') then
-		self.m_skillIndicator = SkillIndicator_Range(self)
-
-	-- 원뿔형
-	elseif (type == 'cone') then
+	-- 원점 기준 원뿔형
+	elseif (indicator_type == 'wedge') then
 		self.m_skillIndicator = SkillIndicator_AoECone(self, t_skill)
+	
+	-- 타점 기준 원뿔형 수직
+	elseif (indicator_type == 'cone_vertical') then
+		self.m_skillIndicator = SkillIndicator_AoECone_Vertical(self, t_skill)
 
 	-- 레이저
-	elseif (type == 'bar') then
+	elseif (indicator_type == 'bar') then
 		self.m_skillIndicator = SkillIndicator_Laser(self, t_skill)
 	
-	-- 세로로 긴 직사각형 인디케이터
-	elseif (type == 'square') then
+	-- 세로로 긴 직사각형
+	elseif (indicator_type == 'square_height') then
 		local target_type = (t_char['type'] == 'pinkbell') and 'all' or 'enemy'
 		self.m_skillIndicator = SkillIndicator_AoESquare_Height(self, t_skill, target_type)
 	
-	-- 여러 다발의 관통형 인디케이터
-	elseif (type == 'penetration') then
+    -- 굵은 가로형 직사각형
+    elseif (indicator_type == 'square_width') then
+		self.m_skillIndicator = SkillIndicator_AoESquare_Width(self, t_skill, true)
+
+	-- 여러 다발의 관통형
+	elseif (indicator_type == 'penetration') then
 		self.m_skillIndicator = SkillIndicator_Penetration(self, t_skill)
 
 	------------------ 특수한 인디케이터들 ------------------
 	
 	-- 크래쉬(가루다)
-	elseif (type == 'target_cone') then
+	elseif (indicator_type == 'target_cone') then
 		self.m_skillIndicator = SkillIndicator_Crash(self, t_skill)
 
 	-- 리프블레이드 (리프드래곤)
-	elseif (type == 'curve_twin') then
+	elseif (indicator_type == 'curve_twin') then
 		self.m_skillIndicator = SkillIndicator_LeafBlade(self, t_skill)
-	
-	-- 원뿔형 확산 (허리케인)
-	elseif (type == 'cone_spread') then
-		self.m_skillIndicator = SkillIndicator_AoECone_Spread(self, t_skill)
-
-	-- 원뿔형 확산 (허리케인)
-	elseif (type == 'cone_vertical') then
-		self.m_skillIndicator = SkillIndicator_AoECone_Vertical(self, t_skill)
 
 	-- 볼테스X (볼테스X)
-	elseif (type == 'voltes_x') then
+	elseif (indicator_type == 'voltes_x') then
 		self.m_skillIndicator = SkillIndicator_X(self, t_skill, true)
 
-    -- 굵은 가로형 직사각형 (사이커)
-    elseif (type == 'square_width') then
-		self.m_skillIndicator = SkillIndicator_StraightWidth(self, t_skill, true)
-
 	-- 여러다발의 직사각형 (원더)
-    elseif (type == 'square_multi') then
+    elseif (indicator_type == 'square_multi') then
 		self.m_skillIndicator = SkillIndicator_AoESquare_Multi(self, t_skill)
 
 	-- 미정의 인디케이터
 	else
 		self.m_skillIndicator = SkillIndicator_Target(self, t_skill, false)
 		cclog('###############################################')
-		cclog('## 인디케이터 정의 되지 않은 스킬 : ' .. t_skill['type'])
+		cclog('## 인디케이터 정의 되지 않은 스킬 : ' .. indicator_type)
 		cclog('###############################################')
         return
 	end

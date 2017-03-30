@@ -19,8 +19,6 @@ end
 -------------------------------------
 function SkillAoERound_Egg:init_skill(attack_count, range, aoe_res, add_damage)
     PARENT.init_skill(self, attack_count, range, aoe_res, add_damage)
-	
-	self.m_findTargetType = 'ally'
 end
 
 -------------------------------------

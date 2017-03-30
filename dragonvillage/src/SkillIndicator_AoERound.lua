@@ -6,14 +6,12 @@ local PARENT = SkillIndicator
 SkillIndicator_AoERound = class(PARENT, {
         m_indicatorAddEffect = '',
         m_range = 'num',            -- 반지름
-        m_isFixedOnTarget = 'bool', 
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillIndicator_AoERound:init(hero, t_skill, isFixedOnTarget)
-    self.m_isFixedOnTarget = isFixedOnTarget 
+function SkillIndicator_AoERound:init(hero, t_skill)
 end
 
 -------------------------------------
@@ -21,8 +19,8 @@ end
 -------------------------------------
 function SkillIndicator_AoERound:init_indicator(t_skill)
 	PARENT.init_indicator(self, t_skill)
-	local skill_size = SkillHelper:getValid(t_skill['skill_size'])
 
+	local skill_size = t_skill['skill_size']
 	if (skill_size) and (not (skill_size == '')) then
 		local t_data = SkillHelper:getSizeAndScale('round', skill_size)  
 
@@ -41,23 +39,25 @@ function SkillIndicator_AoERound:onTouchMoved(x, y)
 
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
     
-	local t_collision_obj = self:findTargetList(x, y, self.m_range, self.m_isFixedOnTarget)
+	local t_collision_obj = self:findTargetList(x, y, self.m_range)
     self.m_targetChar = t_collision_obj[1]
 
-    if self.m_isFixedOnTarget and self.m_targetChar then
-        x = self.m_targetChar.pos.x
-        y = self.m_targetChar.pos.y
-    end
-    
     self.m_targetPosX = x
     self.m_targetPosY = y
 
     -- 이펙트 위치
-    self.m_indicatorEffect:setPosition(x-pos_x, y-pos_y)
-    EffectLink_refresh(self.m_indicatorAddEffect, 0, 0, x - pos_x, y - pos_y)
+	self:setIndicatorPosition(x, y, pos_x, pos_y)
 
 	-- 하이라이트 갱신
     self:setHighlightEffect(t_collision_obj)
+end
+
+-------------------------------------
+-- function setIndicatorPosition
+-------------------------------------
+function SkillIndicator_AoERound:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
+	self.m_indicatorEffect:setPosition(touch_x - pos_x, touch_y - pos_y)
+	EffectLink_refresh(self.m_indicatorAddEffect, 0, 0, x - pos_x, y - pos_y)
 end
 
 -------------------------------------
@@ -111,26 +111,13 @@ function SkillIndicator_AoERound:onChangeTargetCount(old_target_count, cur_targe
     end
 end
 
-
 -------------------------------------
 -- function findTargetList
 -------------------------------------
-function SkillIndicator_AoERound:findTargetList(x, y, range, isFixedOnTarget)
-    local x = x
-	local y = y
-
-	if isFixedOnTarget then
-		local target = self:_findTarget(x, y, -1)
-		if target then 
-			x, y = target.pos.x, target.pos.y
-		end
-    end
-
-    local world = self.m_world
-	local l_target = world:getTargetList(self.m_hero, x, y, 'enemy', 'x', 'distance_line')
+function SkillIndicator_AoERound:findTargetList(x, y, range)
+	local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
     
 	local l_ret = {}
-    local distance = 0
 
     for _, target in pairs(l_target) do
 		if isCollision(x, y, target, range) then 
@@ -139,14 +126,4 @@ function SkillIndicator_AoERound:findTargetList(x, y, range, isFixedOnTarget)
     end
     
     return l_ret
-end
-
--------------------------------------
--- function findTarget
--------------------------------------
-function SkillIndicator_AoERound:_findTarget(x, y, range)
-    local target_formation_mgr = self.m_hero:getFormationMgr(true)
-    local l_target = target_formation_mgr:findNearTarget(x, y, range, 1, EMPTY_TABLE)
-    
-    return l_target[1]
 end

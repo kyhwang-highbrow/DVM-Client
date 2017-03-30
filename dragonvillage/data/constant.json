@@ -226,8 +226,8 @@
 		"RES" : {
             "round" : "res/indicator/round/round.vrp",
             "square" : "",
-            "square_width" : "",
-            "square_height" : "",
+            "square_width" : "res/indicator/square_witdh/square_witdh.vrp",
+            "square_height" : "res/indicator/square_witdh/square_witdh.vrp",
             "fan" : "",
             "bar" : "",
             "target" : "res/indicator/indicator_type_target/indicator_type_target.vrp",
