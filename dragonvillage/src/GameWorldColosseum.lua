@@ -140,7 +140,7 @@ function GameWorldColosseum:addEnemy(enemy)
     
     -- 스킬 캐스팅 중 취소시 콜백 등록
     enemy:addListener('character_casting_cancel', self.m_tamerSpeechSystem)
-    enemy:addListener('character_casting_cancel', self.m_gameFever)
+    --enemy:addListener('character_casting_cancel', self.m_gameFever)
 
     -- 액티브 스킬 사용시
     enemy:addListener('enemy_active_skill', self.m_gameState)

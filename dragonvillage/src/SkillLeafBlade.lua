@@ -93,10 +93,7 @@ function SkillLeafBlade:fireMissile()
     t_option['lua_param']['value1'] = targetPos
     
 	t_option['cbFunction'] = function(attacker, defender, x, y)
-		self.m_skillHitEffctDirector:doWork(defender)
-
-        -- 타격 카운트 갱신
-        self:addHitCount()
+		self:onAttack(defender)
 	end
 
     -- 하이라이트

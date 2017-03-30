@@ -179,11 +179,11 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_gameHighlight = GameHighlightMgr(self, self.m_darkLayer)
     
     self.m_gameDragonSkill = GameDragonSkill(self)
-    self.m_gameFever = GameFever(self)
+    --self.m_gameFever = GameFever(self)
     
     -- 아군 자동시 AI
     self.m_gameAutoHero = GameAuto_Hero(self)
-    self.m_gameAutoHero:bindGameFever(self.m_gameFever)
+    --self.m_gameAutoHero:bindGameFever(self.m_gameFever)
     self:addListener('auto_start', self.m_gameAutoHero)
     self:addListener('auto_end', self.m_gameAutoHero)
 
@@ -752,7 +752,7 @@ function GameWorld:addEnemy(enemy)
     
     -- 스킬 캐스팅 중 취소시 콜백 등록
     enemy:addListener('character_casting_cancel', self.m_tamerSpeechSystem)
-    enemy:addListener('character_casting_cancel', self.m_gameFever)
+    --enemy:addListener('character_casting_cancel', self.m_gameFever)
 
     if (enemy.m_charType == 'dragon') then
         enemy:addListener('dragon_active_skill', self.m_gameDragonSkill)
@@ -818,15 +818,15 @@ function GameWorld:addHero(hero, idx)
     hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
     
     hero:addListener('hero_basic_skill', self)
-    hero:addListener('hero_basic_skill', self.m_gameFever)
-    hero:addListener('hero_active_skill', self.m_gameFever)
+    --hero:addListener('hero_basic_skill', self.m_gameFever)
+    --hero:addListener('hero_active_skill', self.m_gameFever)
     hero:addListener('hero_active_skill', self.m_gameState)
     hero:addListener('hero_active_skill', self.m_gameAutoHero)
         
     hero:addListener('hero_casting_start', self.m_gameAutoHero)
 
-    hero:addListener('hit_active', self.m_gameFever)
-    hero:addListener('hit_active_buff', self.m_gameFever)
+    --hero:addListener('hit_active', self.m_gameFever)
+    --hero:addListener('hit_active_buff', self.m_gameFever)
        
     hero:addListener('character_weak', self.m_tamerSpeechSystem)
     hero:addListener('character_damaged_skill', self.m_tamerSpeechSystem)
@@ -1127,7 +1127,7 @@ function GameWorld:onKeyReleased(keyCode, event)
 
     -- 피버 모드 발동
     elseif (keyCode == KEY_F) then    
-        if not self.m_gameFever:isActive() then
+        if (self.m_gameFever and not self.m_gameFever:isActive()) then
             self.m_gameFever:addFeverPoint(100)
         end
         

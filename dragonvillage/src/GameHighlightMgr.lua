@@ -39,7 +39,7 @@ function GameHighlightMgr:update(dt)
         b = true
 
     -- 테이머 스킬 연출 중
-    elseif (world.m_tamer:isRequiredHighLight()) then
+    elseif (world.m_tamer and world.m_tamer:isRequiredHighLight()) then
         b = true
 
     end

@@ -7,12 +7,19 @@ UI_Game = class(UI, {
      })
 
 -------------------------------------
+-- function getUIFileName
+-------------------------------------
+function UI_Game:getUIFileName()
+    return 'ingame_scene.ui'
+end
+
+-------------------------------------
 -- function init
 -------------------------------------
 function UI_Game:init(game_scene)
     self.m_gameScene = game_scene
 	
-	local vars = self:load('ingame_scene.ui')
+	local vars = self:load(self:getUIFileName())
     UIManager:open(self, UIManager.NORMAL)
 
 	 -- 백키 지정

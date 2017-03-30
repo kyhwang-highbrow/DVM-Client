@@ -1110,7 +1110,7 @@ function Character:setHp(hp)
 	t_event['owner'] = self
 	t_event['hp'] = self.m_hp
 	t_event['max_hp'] = self.m_maxHp
-    self:dispatch('character_set_hp', t_event)
+    self:dispatch('character_set_hp', t_event, self)
 end
 
 -------------------------------------
@@ -1322,17 +1322,19 @@ function Character:update(dt)
 	self:updateStatusIcon(dt)
 
 	-- @TEST 디버깅용 디스플레이
-	if g_constant:get('DEBUG', 'DISPLAY_UNIT_HP') then 
-		self.m_infoUI.m_label:setString(string.format('%d/%d\n(%d%%)',self.m_hp, self.m_maxHp, self.m_hp/self.m_maxHp*100))
+    if (self.m_infoUI) then
+	    if g_constant:get('DEBUG', 'DISPLAY_UNIT_HP') then 
+		    self.m_infoUI.m_label:setString(string.format('%d/%d\n(%d%%)',self.m_hp, self.m_maxHp, self.m_hp/self.m_maxHp*100))
 
-	elseif g_constant:get('DEBUG', 'DISPLAY_UNIT_POS') then 
-		self.m_infoUI.m_label:setString(string.format('%d, %d, %d, %d',self.pos.x, self.pos.y, self.m_homePosX, self.m_homePosY))
+	    elseif g_constant:get('DEBUG', 'DISPLAY_UNIT_POS') then 
+		    self.m_infoUI.m_label:setString(string.format('%d, %d, %d, %d',self.pos.x, self.pos.y, self.m_homePosX, self.m_homePosY))
 
-	elseif (g_constant:get('DEBUG', 'DISPLAY_UNIT_LOG')) then
-		local key = g_constant:get('DEBUG', 'DISPLAY_UNIT_LOG')
-		local log = self.m_charLogRecorder:getLog(key)
-		self.m_infoUI.m_label:setString(string.format('%s : %d', key, log))
-	end
+	    elseif (g_constant:get('DEBUG', 'DISPLAY_UNIT_LOG')) then
+		    local key = g_constant:get('DEBUG', 'DISPLAY_UNIT_LOG')
+		    local log = self.m_charLogRecorder:getLog(key)
+		    self.m_infoUI.m_label:setString(string.format('%s : %d', key, log))
+	    end
+    end
 
     return PARENT.update(self, dt)
 end

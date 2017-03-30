@@ -6,23 +6,26 @@ local PARENT = UI_Game
 UI_GameColosseum = class(PARENT, {})
 
 -------------------------------------
+-- function getUIFileName
+-------------------------------------
+function UI_GameColosseum:getUIFileName()
+    return 'ingame_colosseum.ui'
+end
+
+-------------------------------------
 -- function initUI
 -------------------------------------
 function UI_GameColosseum:initUI()
-    local vars = self:load('ingame_colosseum.ui')
-    UIManager:open(self, UIManager.NORMAL)
+    local vars = self.vars
 
-    vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
-	vars['feverButton']:registerScriptTapHandler(function() self:click_feverButton() end)    
-    vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
-    vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
-
-    local label = cc.Label:createWithBMFont('res/font/hit_font.fnt', tostring(999))
-    label:setDockPoint(cc.p(0.5, 0.5))
-    label:setAnchorPoint(cc.p(1, 0.5))
-    --label:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-    vars['hitNode']:addChild(label)
-    vars['hitLabel'] = label
+    do
+        local label = cc.Label:createWithBMFont('res/font/hit_font.fnt', tostring(999))
+        label:setDockPoint(cc.p(0.5, 0.5))
+        label:setAnchorPoint(cc.p(1, 0.5))
+        --label:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        vars['hitNode']:addChild(label)
+        vars['hitLabel'] = label
+    end
     
     -- 2배속
     do
@@ -40,6 +43,18 @@ function UI_GameColosseum:initUI()
 
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_pauseButton() end, 'UI_GameColosseum')
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_GameColosseum:initButton()
+	local vars = self.vars
+
+    vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
+	vars['feverButton']:registerScriptTapHandler(function() self:click_feverButton() end)    
+    vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
+    vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
 end
 
 -------------------------------------

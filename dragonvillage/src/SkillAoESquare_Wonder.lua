@@ -44,16 +44,6 @@ end
 -------------------------------------
 -- function enterAttack
 -------------------------------------
-function SkillAoESquare_Wonder:runAttack()
-    PARENT.runAttack(self)
-
-    -- 화면 쉐이킹
-    self.m_world.m_shakeMgr:doShake(50, 50, 1)
-end
-
--------------------------------------
--- function enterAttack
--------------------------------------
 function SkillAoESquare_Wonder:enterAttack()
 	local l_pos_x = SkillHelper:calculatePositionX(self.m_lineCnt, self.m_space, self.pos.x)
 	local pos_y = self.pos.y

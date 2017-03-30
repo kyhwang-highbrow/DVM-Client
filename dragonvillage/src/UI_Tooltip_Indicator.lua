@@ -41,11 +41,6 @@ function UI_Tooltip_Indicator:init(x, y, dragon)
 	
     UIManager:open(self, UIManager.TOOLTIP)
 
-    --self:makeTouchLayer(self.root)
-
-    --self:doActionReset()
-    --self:doAction()
-	
 	self:init_data(dragon)
 	
 	self.m_char = dragon

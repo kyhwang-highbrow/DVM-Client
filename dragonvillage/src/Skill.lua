@@ -297,13 +297,26 @@ function Skill:attack(target_char)
     self:runAtkCallback(target_char, target_char.pos.x, target_char.pos.y)
     target_char:runDefCallback(self, target_char.pos.x, target_char.pos.y)
 
-	-- 연출
+	self:onAttack(target_char)
+end
+
+-------------------------------------
+-- function attack
+-- @brief 공격(attack) 직후 호출됨
+-------------------------------------
+function Skill:onAttack(target_char)
+    -- 연출
 	if (self.m_bSkillHitEffect) then 
 		self.m_skillHitEffctDirector:doWork(target_char)
 	end
 
     -- 타격 카운트 갱신
     self:addHitCount()
+
+    -- 화면 쉐이킹
+    if (self.m_bHighlight) then
+        self.m_world.m_shakeMgr:doShake(50, 50, 1)
+    end
 end
 
 -------------------------------------
