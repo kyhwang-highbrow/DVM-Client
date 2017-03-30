@@ -4,6 +4,7 @@
 UI_Game = class(UI, {
         m_gameScene = '',
         m_buffBoard = 'UI_NotificationInfo',
+        m_panelUI = '',
      })
 
 -------------------------------------
@@ -83,6 +84,7 @@ function UI_Game:initButton()
     vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
     vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
     vars['buffBtn']:registerScriptTapHandler(function() self:click_buffButton() end)
+    vars['panelBtn']:registerScriptTapHandler(function() self:click_panelBtn() end)
 end
 
 -------------------------------------
@@ -96,6 +98,9 @@ function UI_Game:initInfoBoard()
 
     if (table.count(total_buff_list) <= 0) and (not g_friendBuff:isExistBuff()) then
         vars['buffBtn']:setVisible(false)
+
+        -- 버프버튼이 없을 경우 판넬 버튼을 이동
+        vars['panelBtn']:setPositionX(-43)
         return
     end
 
@@ -260,6 +265,15 @@ function UI_Game:click_buffButton()
 end
 
 -------------------------------------
+-- function click_panelBtn
+-------------------------------------
+function UI_Game:click_panelBtn()
+    if self.m_panelUI then
+        self.m_panelUI:toggleVisibility()
+    end
+end
+
+-------------------------------------
 -- function init_dpsUI
 -- @brief 데미지 미터기 + 힐 미터기
 -------------------------------------
@@ -270,6 +284,7 @@ function UI_Game:init_dpsUI()
     self.vars['dpsInfoNode']:addChild(dps_ui.root)
 
     local panel = UI_IngameDragonPanel(world)
+    self.m_panelUI = panel
     self.root:addChild(panel.root)
 
     self:addAction(panel.root, UI_ACTION_TYPE_BOTTOM, 0, 0.5)

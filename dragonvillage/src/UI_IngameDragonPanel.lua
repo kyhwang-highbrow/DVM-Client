@@ -6,6 +6,7 @@ local PARENT = UI
 UI_IngameDragonPanel = class(PARENT, {
         m_world = 'GameWorld',
         m_lPanelItemList = 'list',
+        m_bVisible = '',
      })
 
 -------------------------------------
@@ -14,6 +15,7 @@ UI_IngameDragonPanel = class(PARENT, {
 function UI_IngameDragonPanel:init(world)
     self.m_world = world
 	local vars = self:load('ingame_dragon_panel.ui')
+    self.m_bVisible = true
 
     self:initUI()
 	self:initButton()
@@ -73,3 +75,26 @@ end
 -------------------------------------
 function UI_IngameDragonPanel:refresh()
 end
+
+-------------------------------------
+-- function toggleVisibility
+-------------------------------------
+function UI_IngameDragonPanel:toggleVisibility()
+    local vars = self.vars
+    self.m_bVisible = (not self.m_bVisible)
+
+    local duration = 0.3
+
+    if self.m_bVisible then
+        vars['panelMenu']:setVisible(true)
+		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(0, 10)), 2)
+        vars['panelMenu']:stopAllActions()
+        vars['panelMenu']:runAction(move_action)
+    else
+		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(0, -150)), 2)
+		local seq_action = cc.Sequence:create(move_action, cc.Hide:create())
+        vars['panelMenu']:stopAllActions()
+        vars['panelMenu']:runAction(seq_action)
+    end
+end
+
