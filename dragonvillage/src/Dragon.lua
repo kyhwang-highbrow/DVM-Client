@@ -607,17 +607,6 @@ function Dragon:makeHPGauge(hp_ui_offset)
     self.m_dragSkillNode.m_node:removeFromParent(true)
     self.m_world.m_groundNode:addChild(self.m_dragSkillNode.m_node, 1)
     self.m_dragSkillNode.m_node:release()
-
-    local role_type = self:getRole()
-    if (role_type == 'tanker') then
-        ui.vars['skillGauge']:setColor(cc.c3b(255, 0, 0))
-    elseif (role_type == 'dealer') then
-        ui.vars['skillGauge']:setColor(cc.c3b(255, 255, 0))
-    elseif (role_type == 'supporter') then
-        ui.vars['skillGauge']:setColor(cc.c3b(0, 255, 0))
-    elseif (role_type == 'healer') then
-        ui.vars['skillGauge']:setColor(cc.c3b(0, 0, 255))
-    end
         
     self.m_statusNode = self.m_hpNode
     
@@ -909,11 +898,6 @@ function Dragon:updateActiveSkillCool(dt)
         end
     end
 
-    if (self.m_infoUI.vars['skillGauge']) then
-        self.m_infoUI.vars['skillGauge']:setPercentage(self.m_activeSkillValue)
-    end
-
-
     do -- 리스너에 전달
 	    local t_event = clone(EVENT_DRAGON_SKILL_GAUGE)
 	    t_event['owner'] = self
@@ -933,7 +917,6 @@ function Dragon:resetActiveSkillCool()
             self.m_infoUI.vars['skllFullVisual']:setVisual('skill_gauge', 'idle')
             self.m_infoUI.vars['skllFullVisual']:setVisible(false)
             self.m_infoUI.vars['skllFullVisual2']:setVisible(false)
-            self.m_infoUI.vars['skillGauge']:setPercentage(0)
         end
         return true
     else

@@ -35,9 +35,6 @@ function UI_IngameDragonInfo:initUI()
         vars['attrNode']:addChild(icon)
     end
 
-    -- 터치 스킬 게이지
-    vars['skillGauge']:setPercentage(0)
-
     -- 드래그 스킬 가이드
     vars['dragSkllFullVisual']:setVisual('skill_gauge', 'drag_idle_' .. attr_str)
     vars['dragSkllFullVisual']:setVisible(false)
