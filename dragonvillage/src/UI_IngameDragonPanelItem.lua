@@ -132,6 +132,7 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
         local vars = self.vars
         vars['disableSprite']:setVisible(true)
         vars['skillVisual']:setVisible(false)
+        vars['skillVisual2']:setVisible(false)
         cca.stopAction(vars['skillNode'], 100)
         vars['skillNode']:setPositionY(1)
         
@@ -175,9 +176,11 @@ function UI_IngameDragonPanelItem:refreshSkillGauge(percentage)
 
     if (percentage >= 100) then
         vars['skillVisual']:setVisible(true)
+        vars['skillVisual2']:setVisible(true)
         cca.runAction(vars['skillNode'], cc.MoveTo:create(0.2, cc.p(23, 23)), 100)
     elseif (prev_percentage >= 100) then
         vars['skillVisual']:setVisible(false)
+        vars['skillVisual2']:setVisible(false)
         cca.runAction(vars['skillNode'], cc.MoveTo:create(0.2, cc.p(23, 1)), 100)
     end
 end
