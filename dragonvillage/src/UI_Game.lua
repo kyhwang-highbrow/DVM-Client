@@ -44,6 +44,16 @@ function UI_Game:initUI()
         vars['hitNode']:addChild(label)
         vars['hitLabel'] = label
     end
+
+    -- 드래그 스킬 피드백(보너스)
+    do
+        local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 24, 0, cc.size(340, 100), 1, 1)
+        label:setPosition(0, -70)
+        label:setAnchorPoint(cc.p(0.5, 0))
+	    label:setDockPoint(cc.p(0.5, 0))
+        vars['hitNode']:addChild(label)
+        vars['hitBonusLabel'] = label
+    end
     
     vars['goldLabel']:setString('0')
     vars['dragSkillLabel']:setString('0%')

@@ -122,22 +122,22 @@ function SkillHelper:getDragonActiveSkillBonusInfo(dragon)
     if (role_type == 'tanker') then
         status_effect_type = 'feedback_defender'
         status_effect_time = 5
-        status_effect_value = { 5, 10 }
+        status_effect_value = 10
         
     elseif (role_type == 'dealer') then
         status_effect_type = 'feedback_attacker'
         status_effect_time = 8
-        status_effect_value = { 5, 10 }
+        status_effect_value = 10
 
     elseif (role_type == 'supporter') then
         status_effect_type = 'feedback_supporter'
         status_effect_time = 0
-        status_effect_value = { 5, 10 }
+        status_effect_value = 10
                 
     elseif (role_type == 'healer') then
         status_effect_type = 'feedback_healer'
         status_effect_time = 0
-        status_effect_value = { 10, 20 }
+        status_effect_value = 20
 
     else
         return nil
@@ -181,9 +181,7 @@ function SkillHelper:getDragonActiveSkillBonusLevel(t_skill, score)
         t_data = t_temp['default']
     end
 
-    if (score >= t_data[2]) then
-        return 2
-    elseif (score >= t_data[1]) then
+    if (score >= t_data[1]) then
         return 1
     end
     return 0
@@ -201,7 +199,7 @@ function SkillHelper:invokeDragonActiveSkillBonus(dragon, bonus_level)
 
     local status_effect_type    = t_info['type']
     local status_effect_time    = t_info['time']
-    local status_effect_value   = t_info['value'][bonus_level]
+    local status_effect_value   = t_info['value']
         
     -- 스테이터스 이펙트 적용
     local str_status_effect = string.format('%s;self;hit;%d;100;%d', status_effect_type, status_effect_time, status_effect_value)
@@ -254,7 +252,6 @@ function SkillHelper:makeDragonActiveSkillBonusEffect(dragon, level, text)
     end)
 
     dragon.m_world.m_worldNode:addChild(effect.m_node, WORLD_Z_ORDER.SE_EFFECT)
-    --dragon.m_world.m_gameHighlight:addEffect(effect)
-
+    
     return effect
 end

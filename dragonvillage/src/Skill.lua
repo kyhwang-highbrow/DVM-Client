@@ -62,7 +62,6 @@ function Skill:init_skill()
 
 	self.m_skillHitEffctDirector = SkillHitEffectDirector(self.m_owner)
 
-    cclog('init_skill self.m_bonusLevel = ' .. self.m_bonusLevel)
     if (self.m_bonusLevel > 0) then
         local desc = SkillHelper:getDragonActiveSkillBonusDesc(self.m_owner)
         self.m_skillHitEffctDirector:setAddText(desc)
@@ -75,13 +74,7 @@ function Skill:init_skill()
         local x, y = self:getDefaultTargetPos()
 		self.m_targetPos = {x = x, y = y}
     end
-
-    -- 하이라이트
-    if (self.m_bHighlight) then
-        --self.m_world.m_gameHighlight:addChar(self.m_owner)
-        --self.m_world.m_gameHighlight:addChar(self.m_targetChar)
-    end
-
+    
 	-- 고유값 가지는 멤버 변수 
 	self.m_range = 0    
 	self.m_tSpecialTarget = {}

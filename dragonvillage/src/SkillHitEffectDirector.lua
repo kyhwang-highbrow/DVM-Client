@@ -6,13 +6,13 @@
 -------------------------------------
 SkillHitEffectDirector = class(IEventDispatcher:getCloneClass(), {
 	m_owner = 'character',
-    m_mHitTargets = 'table', -- 히트되었던 타켓
+    --m_mHitTargets = 'table', -- 히트되었던 타켓
 	
 	m_hitCount = 'num',
 	m_inGameUI = 'UI_Game',
 	m_animator = 'A2D',
-    m_label = 'cc.Label',
-
+    m_bonusText = 'string',
+    
 	m_isExhibit1st = 'bool',
 	m_isExhibit2nd = 'bool',
 })
@@ -22,11 +22,11 @@ SkillHitEffectDirector = class(IEventDispatcher:getCloneClass(), {
 -------------------------------------
 function SkillHitEffectDirector:init(owner)
 	self.m_owner = owner
-    self.m_mHitTargets = {}
+    --self.m_mHitTargets = {}
 	self.m_inGameUI = g_gameScene.m_inGameUI
 	self.m_animator = nil
-    self.m_label = nil
-	self.m_hitCount = 0
+    self.m_bonusText = nil
+    self.m_hitCount = 0
 	self.m_isExhibit1st = false
 	self.m_isExhibit2nd = false
 
@@ -64,8 +64,7 @@ end
 -- @brief 스킬 hit count 연출
 -------------------------------------
 function SkillHitEffectDirector:displayHitCnt()
-    cclog('displayHitCnt')
-	self.m_owner.m_world.m_shakeMgr:shakeBySpeed(math_random(335-20, 335+20), math_random(500, 1500))
+    self.m_owner.m_world.m_shakeMgr:shakeBySpeed(math_random(335-20, 335+20), math_random(500, 1500))
     --SoundMgr:playEffect('EFFECT', 'option_thunderbolt_3')
 
     self.m_inGameUI.vars['hitLabel']:setString(self.m_hitCount)
@@ -75,6 +74,11 @@ function SkillHitEffectDirector:displayHitCnt()
     self.m_inGameUI.vars['hitNode']:setScale(1.4)
     self.m_inGameUI.vars['hitNode']:setOpacity(255)
     self.m_inGameUI.vars['hitNode']:runAction(cc.Sequence:create(cc.ScaleTo:create(0.15, 1), cc.FadeOut:create(0.5), cc.Hide:create()))
+
+    self.m_inGameUI.vars['hitBonusLabel']:setVisible(self.m_bonusText ~= nil)
+    if (self.m_bonusText) then
+        self.m_inGameUI.vars['hitBonusLabel']:setString(self.m_bonusText)
+    end
 end
 
 -------------------------------------
@@ -137,23 +141,11 @@ function SkillHitEffectDirector:onEnd()
     elseif self.m_isExhibit1st then
         self:dispatch('skill_combo_1', {}, self.m_owner)
     end
-
-    if (self.m_label) then
-        self.m_label:removeFromParent()
-    end
 end
 
 -------------------------------------
 -- function setAddText
 -------------------------------------
 function SkillHitEffectDirector:setAddText(str)
-    if (not self.m_label) then
-        self.m_label = cc.Label:createWithTTF(str, 'res/font/common_font_01.ttf', 24, 0, cc.size(340, 100), 1, 1)
-        self.m_label:setPosition(0, -70)
-        self.m_label:setAnchorPoint(cc.p(0.5, 0))
-	    self.m_label:setDockPoint(cc.p(0.5, 0))
-        self.m_inGameUI.vars['hitNode']:addChild(self.m_label)
-    else
-        self.m_label:setString(str)
-    end
+    self.m_bonusText = str
 end
