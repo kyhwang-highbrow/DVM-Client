@@ -59,13 +59,6 @@ function Skill:init_skill()
 	self:initActvityCarrier(self.m_powerRate, self.m_powerAbs)
     self:initAttackPosOffset()
 	self:adjustAnimator()
-
-	self.m_skillHitEffctDirector = SkillHitEffectDirector(self.m_owner)
-
-    if (self.m_bonusLevel > 0) then
-        local desc = SkillHelper:getDragonActiveSkillBonusDesc(self.m_owner)
-        self.m_skillHitEffctDirector:setAddText(desc)
-    end
 	
 	if (not self.m_targetChar) then
 		self.m_targetChar = self:getDefaultTarget()
@@ -187,6 +180,17 @@ function Skill:setSkillParams(owner, t_skill, t_data)
     
     if (t_data['score']) then
         self.m_bonusLevel = SkillHelper:getDragonActiveSkillBonusLevel(t_skill, t_data['score'])
+    end
+
+
+    -- 생성
+    if self.m_bSkillHitEffect then
+        local bonus_desc = nil
+        if (self.m_bonusLevel > 0) then
+            bonus_desc = SkillHelper:getDragonActiveSkillBonusDesc(self.m_owner)
+        end
+
+        self.m_skillHitEffctDirector = SkillHitEffectDirector(self.m_owner, bonus_desc)
     end
 end
 
