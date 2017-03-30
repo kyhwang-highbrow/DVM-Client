@@ -81,23 +81,6 @@ function UI_IngameDragonPanelItem:initUI()
         local skill_icon = IconHelper:getSkillIcon('dragon', skill_id)
         vars['skillIconNode']:addChild(skill_icon)
     end
-
-    do -- 드래곤 역할별 스킬 게이지 색상 지정
-        local role_type = dragon:getRole()
-        local color
-        if (role_type == 'tanker') then
-            color = cc.c3b(255, 0, 0)
-        elseif (role_type == 'dealer') then
-            color = cc.c3b(255, 255, 0)
-        elseif (role_type == 'supporter') then
-            color = cc.c3b(0, 255, 0)
-        elseif (role_type == 'healer') then
-            color = cc.c3b(0, 0, 255)
-        else
-            error('role_type : ' .. role_type)    
-        end
-        vars['dragSKillGauge1']:setColor(color)
-    end
 end
 
 -------------------------------------
@@ -171,7 +154,7 @@ end
 function UI_IngameDragonPanelItem:refreshBasicTimeSkillGauge(cur, max, run_skill)
     local vars = self.vars
     local percentage = (cur / max) * 100
-    vars['normalSKillGauge']:setPercentage(100 - percentage)
+    vars['normalSKillGauge']:setPercentage(percentage)
 end
 
 -------------------------------------
@@ -186,8 +169,7 @@ function UI_IngameDragonPanelItem:refreshSkillGauge(percentage)
     self.m_skillGaugePercentage = percentage
 
     local vars = self.vars
-    vars['dragSKillGauge1']:setPercentage(percentage)
-    vars['dragSKillGauge2']:setPercentage(100 - percentage)
+    vars['dragSKillGauge']:setPercentage(100 - percentage)
 
     if (percentage >= 100) then
         vars['skillVisual']:setVisible(true)
