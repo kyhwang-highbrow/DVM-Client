@@ -190,6 +190,14 @@ function DropItemMgr:getItemList()
 end
 
 -------------------------------------
+-- function getItemCount()
+-------------------------------------
+function DropItemMgr:getItemCount()
+    local item_count = table.count(self.m_lItemlist)
+    return item_count
+end
+
+-------------------------------------
 -- function setImmediatelyObtainsetImmediatelyObtain
 -------------------------------------
 function DropItemMgr:setImmediatelyObtain()
@@ -302,6 +310,7 @@ end
 -------------------------------------
 -- function intermission
 -- @brief 드랍 아이템 인터미션
+-- 사용하지 않는데 혹시 몰라서 남겨둠 sgkim
 -------------------------------------
 function DropItemMgr:intermission()
     -- 아이템들 이동
@@ -315,6 +324,7 @@ end
 -------------------------------------
 -- function applyIntermissionAction
 -- @breif 인터미션 액션 지정
+-- 사용하지 않는데 혹시 몰라서 남겨둠 sgkim
 -------------------------------------
 function DropItemMgr:applyInterMissionAction(node)
     -- 카메라 이동 거리 얻어옴

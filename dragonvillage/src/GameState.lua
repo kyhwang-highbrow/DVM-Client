@@ -354,6 +354,14 @@ function GameState.update_wave_intermission_wait(self, dt)
         b = false
     end
 
+    -- 드랍된 아이템이 존재하고 1초가 지나지 않았을 경우 대기
+    if (world.m_dropItemMgr) then
+        local item_count = world.m_dropItemMgr:getItemCount()
+        if (0 < item_count) and (self.m_stateTimer <= 1) then
+            b = false
+        end
+    end
+
     if (b or self.m_stateTimer >= 4) then
         self:changeState(GAME_STATE_WAVE_INTERMISSION)
     end
@@ -367,10 +375,6 @@ function GameState.update_enemy_appear(self, dt)
     local enemy_count = #world:getEnemyList()
 	
     if (self.m_stateTimer == 0) then
-
-        -- 웨이브 시작 시점에서 아이템 제거
-        world:cleanupItem()
-
         local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
 
         if (enemy_count <= 0) and (dynamic_wave <= 0) then
@@ -976,9 +980,8 @@ function GameState:doDirectionForIntermission()
     world:changeCameraOption(t_camera_info)
     world:changeHeroHomePosByCamera()
 
-    if world.m_dropItemMgr then
-        world.m_dropItemMgr:intermission()
-    end
+    -- 인터미션 시작 시 획득하지 않은 아이템 삭제
+    world:cleanupItem()
 end
 
 -------------------------------------
