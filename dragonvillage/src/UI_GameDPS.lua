@@ -1,7 +1,6 @@
 local PARENT = UI
 
 local DPS_ACTION_DURATION = 0.2
-local UI_SCALE = 3/4
 
 -------------------------------------
 -- class UI_GameDPS
@@ -20,7 +19,8 @@ UI_GameDPS = class(PARENT, {
 		m_logKey = 'str',
 
 		m_dpsNodePosY_top = 'num',
-		m_dpsNodePosY_gap = 'num'
+		m_dpsNodePosY_gap = 'num',
+		m_rootWidth = 'num',
      })
 
 -------------------------------------
@@ -44,6 +44,7 @@ function UI_GameDPS:init(world)
 	
 	self.m_dpsNodePosY_top = vars['dpsNode1']:getPositionY()
 	self.m_dpsNodePosY_gap = vars['dpsNode1']:getPositionY() - vars['dpsNode2']:getPositionY()
+	self.m_rootWidth = vars['dpsNode1']:getContentSize()['width']
 
 	-- UI 초기화
     self:initUI()
@@ -153,12 +154,24 @@ function UI_GameDPS:setDpsOrHps()
 	local sprite = IconHelper:getIcon(res)
 	vars['dpsToggleNode']:addChild(sprite)
 
-	-- 타이틀 및 게이지 변경
+	-- 타이틀 및 게이지
 	for i, dragon in pairs(self.m_charList) do
+		-- 타이틀 문구 변경
 		vars['titleLabel' .. i]:setString(title_str)
 		
-		vars['dpsGauge' .. i]:setVisible(self.m_bDPS)
-		vars['hpsGauge' .. i]:setVisible(not self.m_bDPS)
+		local dps_gauge = vars['dpsGauge' .. i]
+		local hps_gauae = vars['hpsGauge' .. i]
+
+		-- 게이지 on/off
+		dps_gauge:setVisible(self.m_bDPS)
+		hps_gauae:setVisible(not self.m_bDPS)
+
+		-- 연출 예쁘게 하기 위해서 이전 게이지 값을 미리 설정한다.
+		if (self.m_bDPS) then
+			dps_gauge:setPercentage(hps_gauae:getPercentage())
+		else
+			hps_gauae:setPercentage(dps_gauge:getPercentage())
+		end
 	end
 	
 	-- 최고값이 다시 기록되도록 초기화
@@ -169,6 +182,11 @@ end
 -- function update
 -------------------------------------
 function UI_GameDPS:update(dt)
+	-- 보일때만 동작한다.
+	if not (self.m_bShow) then
+		return
+	end
+
 	self.m_dpsTimer = self.m_dpsTimer + dt
 	if (self.m_dpsTimer > self.m_interval) then
 		self.m_dpsTimer = self.m_dpsTimer - self.m_interval
@@ -256,19 +274,37 @@ function UI_GameDPS:click_dpsBtn()
 	local vars = self.vars
 	local root_node = self.root
 
-    --vars['dpsBtn']:stopAllActions()
+	-- 우선 boolean을 바꾸고
+	self.m_bShow = not self.m_bShow
+
+    vars['dpsBtn']:stopAllActions()
     root_node:stopAllActions()
     local duration = 0.3
 
-    if self.m_bShow then
-        root_node:runAction(cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p((-170*UI_SCALE), 0)), 2))
-        vars['dpsBtn']:runAction(cc.RotateTo:create(duration, 180))
-    else
-        root_node:runAction(cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(0, 0)), 2))
-        vars['dpsBtn']:runAction(cc.RotateTo:create(duration, 360))
-    end
+	-- 안보일땐 아예 꺼주는 액션.
+	local visible_action = cc.CallFunc:create(function()
+		for dragon, node_data in pairs(self.m_mDpsNodeMap) do
+			local idx = node_data['idx']
+			vars['dpsNode' .. idx]:setVisible(self.m_bShow)
+		end
+	end)
 
-	self.m_bShow = not self.m_bShow
+	-- 열고 닫는 액션
+    if self.m_bShow then
+		-- 열기 (visible 키고 이동)
+		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(0, 0)), 2)
+		local seq_action = cc.Sequence:create(visible_action, move_action)
+		root_node:runAction(seq_action)
+
+        vars['dpsBtn']:runAction(cc.RotateTo:create(duration, 360))
+    else
+		-- 닫기 (이동 하고 visible 끄기)
+		local move_action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p((-self.m_rootWidth), 0)), 2)
+		local seq_action = cc.Sequence:create(move_action, visible_action)
+		root_node:runAction(seq_action)
+
+        vars['dpsBtn']:runAction(cc.RotateTo:create(duration, 180))
+    end
 end
 
 -------------------------------------
