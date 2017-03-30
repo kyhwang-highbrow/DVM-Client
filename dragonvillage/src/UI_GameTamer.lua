@@ -6,6 +6,18 @@
 function UI_Game:initTamerUI(tamer)
 	local vars = self.vars
 
+    do -- 테이머 아이콘
+        local tamer_id = tamer.m_tamerID
+        local tamer_type = TableTamer:getTamerType(tamer_id)
+        local res = 'res/ui/icon/cha/tamer_' .. tamer_type .. '.png'
+        local icon = cc.Sprite:create(res)
+        if icon then
+            icon:setDockPoint(cc.p(0.5, 0.5))
+            icon:setAnchorPoint(cc.p(0.5, 0.5))
+            vars['tamerNode']:addChild(icon)
+        end
+    end
+
 	-- @TODO 3개였다가 1개로 변경.. 추후에 확정되면 정리
 	for i = 1, 1 do
 		local res = tamer.m_lSkill[i]['res_icon']

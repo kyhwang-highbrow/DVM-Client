@@ -8,6 +8,7 @@ function GameWorld:makeTamerNew(t_tamer, bRightFormation)
     --local res = t_tamer['res_sd']
 
     local tamer = Tamer(res, {0, 0, 0})
+    tamer.m_tamerID = t_tamer['tid']
     
     tamer:initWorld(self)
     tamer:init_tamer(t_tamer, bLeftFormation)
