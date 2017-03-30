@@ -271,7 +271,7 @@ function SkillIndicator:setHighlightEffect(t_collision_obj)
             self:makeTargetEffect(target)
         end
 
-        skill_indicator_mgr:addHighlightList(target)
+        skill_indicator_mgr:addTarget(target)
     end
 
     if old_highlight_list then
@@ -285,7 +285,7 @@ function SkillIndicator:setHighlightEffect(t_collision_obj)
             end
             if (find == false) then
                 if (v ~= self.m_hero) then
-                    skill_indicator_mgr:removeHighlightList(v)
+                    skill_indicator_mgr:removeTarget(v)
                 end
                 v:removeTargetEffect()
             end

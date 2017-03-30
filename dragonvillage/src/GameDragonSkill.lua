@@ -122,72 +122,16 @@ function GameDragonSkill.update_live(self, dt)
             -- UI 숨김
             ui.root:setVisible(false)
 
-            -- 하이라이트 활성화
-            --[[
-            world.m_gameHighlight:setActive(true)
-            world.m_gameHighlight:changeDarkLayerColor(254, 0)
-            world.m_gameHighlight:setVisible(false)
-            ]]--
-            
             -- 일시 정지
             world:setTemporaryPause(true)
 
             -- 도입부 컷씬
             self:makeSkillOpeningCut(dragon, function()
                 self:nextStep()
-                self:nextStep()
             end)
         end
-        --[[
+        
     elseif (self:getStep() == 1) then
-        if (self:isBeginningStep()) then
-            -- UI 표시
-            ui.root:setVisible(true)
-
-            self.m_skillOpeningCutBg:changeAni('scene_2', false)
-            self.m_skillOpeningCutTop:changeAni('scene_2', false)
-
-            -- 가상 화면 생성
-            local virtualNode = cc.Node:create()
-            self.m_node:addChild(virtualNode)
-
-            local camera = GameCamera(world, virtualNode)
-            camera:setAction({pos_x = CRITERIA_RESOLUTION_X / 4, pos_y = 0, time = 0, scale = 1.4})
-
-            local realCameraHomePosX, realCameraHomePosY = world.m_gameCamera:getHomePos()
-
-            for i, enemy in ipairs(world:getEnemyList()) do
-                if (not enemy.m_bDead) then
-                    local res = enemy.m_animator.m_resName
-                    local x = (enemy.m_orgHomePosX - CRITERIA_RESOLUTION_X / 2) - realCameraHomePosX
-                    local y = enemy.m_orgHomePosY - realCameraHomePosY
-                    local scale = enemy.m_animator:getScale()
-                    local is_flip = enemy.m_animator.m_bFlip
-
-                    -- 적군
-                    local animator = MakeAnimator(res)
-                    animator:setPosition(x, y)
-                    animator:changeAni('idle', true)
-                    animator:setScale(scale)
-                    animator:setFlip(is_flip)
-                    virtualNode:addChild(animator.m_node)
-
-                    -- 이모티콘
-                    local emoticon = MakeAnimator('ui/a2d/enemy_skill_speech/enemy_skill_speech.vrp')
-                    emoticon:setPosition(99, 144)
-                    emoticon:changeAni('base_appear', false)
-                    animator.m_node:addChild(emoticon.m_node)
-                end
-            end
-
-            virtualNode:runAction(cc.Sequence:create(
-                cc.DelayTime:create(1),
-                cc.CallFunc:create(function() self:nextStep() end),
-                cc.RemoveSelf:create()
-            ))
-        end
-        ]]--
-    elseif (self:getStep() == 2) then
         if (self:isBeginningStep()) then
             -- UI 표시
             ui.root:setVisible(true)
@@ -220,7 +164,7 @@ function GameDragonSkill.update_live(self, dt)
             end)
         end
 
-    elseif (self:getStep() == 3) then
+    elseif (self:getStep() == 2) then
         if (self:isBeginningStep()) then
             -- 카메라 줌인
             world.m_gameCamera:setTarget(dragon, {scale = 2.4, time = delayTime / 2})
@@ -228,12 +172,6 @@ function GameDragonSkill.update_live(self, dt)
             -- 컷씬 삭제
             self.m_dragonCut:release()
             self.m_dragonCut = nil
-
-            -- 하이라이트
-            --[[
-            world.m_gameHighlight:setVisible(true)
-            world.m_gameHighlight:addChar(dragon)
-            ]]--
 
             -- 드래곤만 일시 정지 제외시킴
             world:setTemporaryPause(true, dragon)
@@ -262,7 +200,7 @@ function GameDragonSkill.update_live(self, dt)
 
         end
 
-    elseif (self:getStep() == 4) then
+    elseif (self:getStep() == 3) then
         local step_time1 = t_dragon_skill_time[2]
         local step_time2 = t_dragon_skill_time[2] + (t_dragon_skill_time[3] / 2)
         local step_time3 = t_dragon_skill_time[2] + t_dragon_skill_time[3]
@@ -283,15 +221,9 @@ function GameDragonSkill.update_live(self, dt)
 
         elseif (self:isPassedStepTime(step_time1)) then
             world.m_gameCamera:reset()
-
-            -- 암전 해제
-            --world.m_gameHighlight:changeDarkLayerColor(0, t_dragon_skill_time[3])
-
+            
         elseif (self:isPassedStepTime(step_time2)) then
-            -- 하이라이트 비활성화
-            --world.m_gameHighlight:setActive(false)
-            --world.m_gameHighlight:clear()
-
+            
         elseif (self:isPassedStepTime(step_time3)) then
             self.m_dragon = nil
 
@@ -321,29 +253,13 @@ function GameDragonSkill.update_live2(self, dt)
     
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
-            -- 하이라이트 활성화
-            --[[
-            world.m_gameHighlight:setActive(true)
-            world.m_gameHighlight:changeDarkLayerColor(254, 0.1)
-            world.m_gameHighlight:addChar(dragon)
-
-            for i, enemy in pairs(dragon:getOpponentList()) do
-                world.m_gameHighlight:addChar(enemy)
-            end
-            ]]--
-            
             -- 효과음
             SoundMgr:playEffect('EFFECT', 'skill_ready')
         
         elseif (self:isPassedStepTime(0.1 + time1)) then
             -- 암전 해제
-            --world.m_gameHighlight:changeDarkLayerColor(0, time2)
-
+            
         elseif (self:isPassedStepTime(0.1 + time1 + (time2 / 2))) then
-
-            -- 하이라이트 비활성화
-            --world.m_gameHighlight:setActive(false)
-            --world.m_gameHighlight:clear()
 
             self.m_dragon = nil
 
@@ -385,6 +301,7 @@ function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
     self.m_skillOpeningCutTop:setVisible(true)
 
     -- 보너스 레벨에 따른 문구를 해당 소켓에 붙임
+    --[[
     local textNode = self.m_skillOpeningCutTop.m_node:getSocketNode('text')
     textNode:removeAllChildren()
 
@@ -404,6 +321,7 @@ function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
             animator:changeAni(level .. '_idle', true)
         end)
     end
+    ]]--
 end
 
 -------------------------------------

@@ -40,7 +40,7 @@ Skill = class(PARENT, {
         m_bHighlight = 'bool',  -- 하이라이트 여부
 
         -- 스킬 종료시 피드백(보너스) 관련
-        m_bonusLevel = 'number',       
+        m_bonusLevel = 'number',
      })
 
 -------------------------------------
@@ -61,6 +61,12 @@ function Skill:init_skill()
 	self:adjustAnimator()
 
 	self.m_skillHitEffctDirector = SkillHitEffectDirector(self.m_owner)
+
+    cclog('init_skill self.m_bonusLevel = ' .. self.m_bonusLevel)
+    if (self.m_bonusLevel > 0) then
+        local desc = SkillHelper:getDragonActiveSkillBonusDesc(self.m_owner)
+        self.m_skillHitEffctDirector:setAddText(desc)
+    end
 	
 	if (not self.m_targetChar) then
 		self.m_targetChar = self:getDefaultTarget()
@@ -315,7 +321,11 @@ function Skill:onAttack(target_char)
 
     -- 화면 쉐이킹
     if (self.m_bHighlight) then
-        self.m_world.m_shakeMgr:doShake(50, 50, 1)
+        if (self.m_skillType == 'active') then
+            self.m_world.m_shakeMgr:doShake(50, 50, 1)
+        else
+            self.m_world.m_shakeMgr:doShake(25, 25, 0.5)
+        end
     end
 end
 

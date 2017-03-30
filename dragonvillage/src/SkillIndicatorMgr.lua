@@ -43,7 +43,7 @@ SkillIndicatorMgr = class({
         m_startTimer = 'number',
         m_firstTouchPos = '',
         m_firstTouchUIPos = '',
-        
+        m_targetList = 'table',
 		m_uiToolTip = 'UI',
     })
 
@@ -63,6 +63,7 @@ function SkillIndicatorMgr:init(world)
     self.m_startTimer = 0
     self.m_firstTouchPos = nil
     self.m_firstTouchUIPos = nil
+	self.m_targetList = {}
 end
 
 -------------------------------------
@@ -202,16 +203,15 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             self.m_selectHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
 
             -- 타겟수에 따른 점수(%)값 저장
-            --[[
             do
-                local count = table.count(self.m_world.m_gameHighlight.m_lCharList) - 1
+                local count = table.count(self.m_targetList)
                 local max_count = table.count(self.m_world.m_tEnemyList)
                 
                 local score = (count / max_count) * 100
+                cclog('hit percentage = ' .. score)
                 self.m_selectHero.m_skillIndicator.m_resultScore = score
             end
-            ]]--
-            
+                        
             self:clear()
         end
     
@@ -229,20 +229,13 @@ end
 -------------------------------------
 function SkillIndicatorMgr:clear(bAll)
     self.m_touchedHero = nil
+    self.m_targetList = {}
 
     if (self.m_selectHero) then
         self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
         self.m_world:setTemporaryPause(false, self.m_selectHero)
         self:setSelectHero(nil)
         self.m_bSlowMode = false
-
-        --self.m_world.m_gameHighlight:setActive(false)
-    end
-
-    -- 스킬이 취소되거나 해서 이후 드래곤 스킬 연출까지 이어지지 않는 경우
-    if (bAll) then
-        --self.m_world.m_gameHighlight:changeDarkLayerColor(0, 0.5)
-        --self.m_world.m_gameHighlight:clear()
     end
 end
 
@@ -277,6 +270,7 @@ end
 -------------------------------------
 function SkillIndicatorMgr:setSelectHero(hero)
     self.m_startTimer = 0
+    self.m_targetList = {}
     
     if (hero) then
         SoundMgr:playEffect('EFFECT', 'skill_touch')
@@ -293,13 +287,7 @@ function SkillIndicatorMgr:setSelectHero(hero)
         hero.m_skillIndicator:update()
 
         self.m_world:setTemporaryPause(true, hero)
-        --[[
-        self.m_world.m_gameHighlight:clear()
-        self.m_world.m_gameHighlight:setActive(true)
-        self.m_world.m_gameHighlight:changeDarkLayerColor(DARK_LAYER_OPACITY, SKILL_INDICATOR_FADE_OUT_DURATION)
-        self.m_world.m_gameHighlight:addChar(hero, 5)
-        ]]--
-        
+                
         self.m_selectHero = hero
     else
         self.m_selectHero = nil
@@ -310,17 +298,17 @@ end
 -------------------------------------
 -- function addHighlightList
 -------------------------------------
-function SkillIndicatorMgr:addHighlightList(char, zorder)
+function SkillIndicatorMgr:addTarget(char, zorder)
     if (not self:isControlling()) then return end
-    
-    --self.m_world.m_gameHighlight:addChar(char, zorder)
+
+    self.m_targetList[char] = true
 end
 
 -------------------------------------
 -- function removeHighlightList
 -------------------------------------
-function SkillIndicatorMgr:removeHighlightList(char)
-    --self.m_world.m_gameHighlight:removeChar(char)
+function SkillIndicatorMgr:removeTarget(char)
+    self.m_targetList[char] = nil
 end
 
 -------------------------------------

@@ -155,6 +155,22 @@ function SkillHelper:getDragonActiveSkillBonusInfo(dragon)
 end
 
 -------------------------------------
+-- function getDragonActiveSkillBonusDesc
+-------------------------------------
+function SkillHelper:getDragonActiveSkillBonusDesc(dragon)
+    local desc = ''
+
+    local t_info = self:getDragonActiveSkillBonusInfo(dragon)
+    local table_status_effect = TABLE:get('status_effect')
+    local t_status_effect = table_status_effect[t_info['type']]
+    if (t_status_effect) then
+        desc = t_status_effect['t_name']
+    end
+
+    return desc
+end
+
+-------------------------------------
 -- function getDragonActiveSkillBonusLevel
 -- @brief 해당 스킬 타겟수 점수(%)에 해당하는 보너스 등급을 리턴(0이면 보너스 없음)
 -------------------------------------
@@ -194,10 +210,12 @@ function SkillHelper:invokeDragonActiveSkillBonus(dragon, bonus_level)
     end
 
     -- 연출 이펙트
+    --[[
     local table_status_effect = TABLE:get('status_effect')
     local t_status_effect = table_status_effect[status_effect_type]
     
     self:makeDragonActiveSkillBonusEffect(dragon, bonus_level, t_status_effect['t_name'])
+    ]]--
 end
 
 -------------------------------------
