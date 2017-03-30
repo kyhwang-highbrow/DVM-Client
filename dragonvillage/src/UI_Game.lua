@@ -217,7 +217,7 @@ end
 -------------------------------------
 function UI_Game:click_feverButton()
 	local game_fever = self.m_gameScene.m_gameWorld.m_gameFever
-    if not game_fever:isActive() then
+    if (game_fever and not game_fever:isActive()) then
         game_fever:addFeverPoint(100)
     end
 end
