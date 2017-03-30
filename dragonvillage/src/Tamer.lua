@@ -820,6 +820,10 @@ function Tamer:doBringItem(item)
     self:changeState('bring')
     --]]
 
+    if (self.m_state == 'bring') then
+        return
+    end
+
     if (self.m_state == 'roam') then
         self:checkItemStack()
     end
