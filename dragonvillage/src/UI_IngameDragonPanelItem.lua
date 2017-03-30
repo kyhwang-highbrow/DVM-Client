@@ -13,6 +13,8 @@ UI_IngameDragonPanelItem = class(PARENT, {
         m_hp = 'number',
         m_maxHP = 'number',
         m_skillGaugePercentage = 'number',
+
+        m_bPossibleControl = 'boolean',
      })
 
 -------------------------------------
@@ -22,6 +24,7 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
     self.m_world = world
     self.m_dragon = dragon
     self.m_dragonIdx = dragon_idx
+    self.m_bPossibleControl = nil
 	local vars = self:load('ingame_dragon_panel_item.ui')
 
     dragon:addListener('character_set_hp', self)
@@ -122,7 +125,7 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
         vars['skillVisual']:setVisible(false)
         vars['skillVisual2']:setVisible(false)
         cca.stopAction(vars['skillNode'], 100)
-        vars['skillNode']:setPositionY(1)
+        vars['skillNode']:setPositionY(-2)
         
     end
 end
@@ -174,11 +177,11 @@ function UI_IngameDragonPanelItem:refreshSkillGauge(percentage)
     if (percentage >= 100) then
         vars['skillVisual']:setVisible(true)
         vars['skillVisual2']:setVisible(true)
-        cca.runAction(vars['skillNode'], cc.MoveTo:create(0.2, cc.p(23, 23)), 100)
+        cca.runAction(vars['skillNode'], cc.MoveTo:create(0.2, cc.p(25, 10)), 100)
     elseif (prev_percentage >= 100) then
         vars['skillVisual']:setVisible(false)
         vars['skillVisual2']:setVisible(false)
-        cca.runAction(vars['skillNode'], cc.MoveTo:create(0.2, cc.p(23, 1)), 100)
+        cca.runAction(vars['skillNode'], cc.MoveTo:create(0.2, cc.p(25, -2)), 100)
     end
 end
 
@@ -198,5 +201,29 @@ function UI_IngameDragonPanelItem:onTouchBegan(t_event)
     if (distance <= half_size) then
         t_event['touch'] = true
         cca.uiReactionSlow(vars['skillNode'])
+    end
+end
+
+-------------------------------------
+-- function setPossibleControl
+-- @brief
+-------------------------------------
+function UI_IngameDragonPanelItem:setPossibleControl(possible)
+    if (self.m_bPossibleControl == possible) then
+        return
+    end
+
+    local vars = self.vars
+
+    self.m_bPossibleControl = possible
+
+    if possible then
+        if (100 <= self.m_skillGaugePercentage) then
+            vars['skillVisual']:setVisible(true)
+            vars['skillVisual2']:setVisible(true)
+        end
+    else
+        vars['skillVisual']:setVisible(false)
+        vars['skillVisual2']:setVisible(false)
     end
 end
