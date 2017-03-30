@@ -74,8 +74,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
 		-- 테이머 관련
         m_tamer = 'Tamer',
-        m_tamerSkillCut = 'TamerSkillCut',
-                
+                        
         -- 테이머 대사 및 표정
         m_tamerSpeechSystem = 'TamerSpeechSystem',
 
@@ -379,11 +378,6 @@ function GameWorld:initTamer()
     self:addListener('tamer_skill', self.m_gameState)
     self:addListener('dragon_summon', self)
     
-    -- 스킬 컷씬
-    self.m_tamerSkillCut = TamerSkillCut(self, g_gameScene.m_colorLayerTamerSkill, t_tamer)
-    --self:addListener('tamer_skill', self.m_tamerSkillCut)
-    --self:addListener('tamer_special_skill', self.m_tamerSkillCut)
-                
     -- 테이머 대사
     self.m_tamerSpeechSystem = TamerSpeechSystem(self, t_tamer)
     
@@ -1473,11 +1467,6 @@ function GameWorld:isPossibleControl()
 
     -- 전투 중일 때에만
     if (not self.m_gameState:isFight()) then
-        return false
-    end
-
-    -- 연출 중일 경우 입력 막음
-    if (self.m_tamerSkillCut and self.m_tamerSkillCut:isPlaying()) then
         return false
     end
 

@@ -848,11 +848,11 @@ end
 -------------------------------------
 function Tamer:isRequiredHighLight()
     -- 액티브 스킬 연출 중
-    if (self.m_world.m_tamer.m_state == 'active') then
+    if (self.m_state == 'active') then
         return true
 
     -- 발동형 스킬 연출 중
-    elseif (self.m_world.m_tamer.m_state == 'event') then
+    elseif (self.m_state == 'event') then
         return true
 
     end
