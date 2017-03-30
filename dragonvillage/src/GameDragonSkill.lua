@@ -253,9 +253,6 @@ function GameDragonSkill.update_live2(self, dt)
             -- 효과음
             SoundMgr:playEffect('EFFECT', 'skill_ready')
         
-        elseif (self:isPassedStepTime(0.1 + time1)) then
-            -- 암전 해제
-            
         elseif (self:isPassedStepTime(0.1 + time1 + (time2 / 2))) then
 
             self.m_dragon = nil
@@ -430,7 +427,7 @@ end
 -- function isPlaying
 -------------------------------------
 function GameDragonSkill:isPlaying()
-    return (self:isPlayingActiveSkill() or self:isPlayingTimeSkill())
+    return (self:isPlayingActiveSkill())
 end
 
 -------------------------------------

@@ -372,14 +372,6 @@ function Dragon.st_skillAppear(owner, dt)
 			-- 적 드래곤 (pvp, 인연던전) 체크해야할 경우 추가
 		end
 
-        -- 이벤트
-        --[[
-        if (owner.m_bLeftFormation) then
-            owner:dispatch('dragon_active_skill', {}, owner)
-        else
-            owner:changeState('skillIdle')
-        end
-        ]]--
         owner:dispatch('dragon_active_skill', {}, owner)
     end
 end
@@ -420,9 +412,9 @@ function Dragon.st_skillIdle(owner, dt)
 
             -- 액티브 스킬 사용 이벤트 발생
             if (owner.m_bLeftFormation) then
-                owner:dispatch('hero_active_skill', {}, self)
+                owner:dispatch('hero_active_skill', {}, owner)
             else
-                owner:dispatch('enemy_active_skill', {}, self)
+                owner:dispatch('enemy_active_skill', {}, owner)
             end
 
             -- 사운드

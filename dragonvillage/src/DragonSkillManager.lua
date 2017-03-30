@@ -342,16 +342,31 @@ function IDragonSkillManager:getBasicAttackSkillID()
 end
 
 -------------------------------------
--- function updateBasicTimeSkillID
+-- function getBasicAttackSkillID
+-- @return	skill_id
 -------------------------------------
-function IDragonSkillManager:updateBasicTimeSkillTimer(dt)
+function IDragonSkillManager:getBasicTimeAttackSkillID()
+    if (not self.m_lSkillIndivisualInfo) then return end
+
     if (table.count(self.m_lSkillIndivisualInfo['basic_time']) > 0) then
         for i,v in pairs(self.m_lSkillIndivisualInfo['basic_time']) do
-            v.m_timer = (v.m_timer + dt)
             if (v.m_tSkill['chance_value'] <= v.m_timer) then
                 v.m_timer = 0
                 return v.m_skillID
             end
+        end
+    end
+end
+
+-------------------------------------
+-- function updateBasicTimeSkillID
+-------------------------------------
+function IDragonSkillManager:updateBasicTimeSkillTimer(dt)
+    if (not self.m_lSkillIndivisualInfo) then return end
+
+    if (table.count(self.m_lSkillIndivisualInfo['basic_time']) > 0) then
+        for i,v in pairs(self.m_lSkillIndivisualInfo['basic_time']) do
+            v.m_timer = (v.m_timer + dt)
         end
     end
 end

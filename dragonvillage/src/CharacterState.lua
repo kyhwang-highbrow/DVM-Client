@@ -182,7 +182,7 @@ function Character.st_attackDelay(owner, dt)
 
     else
         -- basic_time류 스킬
-        local skill_id = owner:updateBasicTimeSkillTimer(dt)
+        local skill_id = owner:getBasicTimeAttackSkillID()
         if (not owner.m_isSilence and skill_id) then
             owner.m_prevReservedSkillId = owner.m_reservedSkillId
             owner.m_prevIsAddSkill = owner.m_isAddSkill

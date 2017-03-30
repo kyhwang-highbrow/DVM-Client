@@ -1282,30 +1282,35 @@ function Character:update(dt)
         end
     end
 
-    -- 로밍 임시 처리
-    if (not self.m_bDead and not self.m_temporaryPause and self.m_world.m_gameState:isFight() and self.m_bRoam) then
-        if (self.m_roamTimer <= 0) then
-            local time_range =  g_constant:get('INGAME', 'ENEMY_ROAM_TIME_RANGE')
-            local time = math_random(time_range[1] * 10, time_range[2] * 10) / 10
+    if (not self.m_bDead and not self.m_temporaryPause and self.m_world.m_gameState:isFight()) then
+        -- 로밍 임시 처리
+        if (self.m_bRoam) then
+            if (self.m_roamTimer <= 0) then
+                local time_range =  g_constant:get('INGAME', 'ENEMY_ROAM_TIME_RANGE')
+                local time = math_random(time_range[1] * 10, time_range[2] * 10) / 10
 
-            -- 랜덤한 위치를 뽑는다
-            local tar = getRandomWorldEnemyPos(self)
-            --self:changeHomePosByTime(tar.x, tar.y, self.m_roamTimer)
+                -- 랜덤한 위치를 뽑는다
+                local tar = getRandomWorldEnemyPos(self)
+                --self:changeHomePosByTime(tar.x, tar.y, self.m_roamTimer)
 
-            local bezier_range =  g_constant:get('INGAME', 'ENEMY_ROAM_BEZIER_RANGE')
-            local distance = math_random(bezier_range[1], bezier_range[2])
-            local bezier = getRandomBezier(tar.x, tar.y, self.pos.x, self.pos.y, distance)
-            local move_action = cc.BezierBy:create(time, bezier)
+                local bezier_range =  g_constant:get('INGAME', 'ENEMY_ROAM_BEZIER_RANGE')
+                local distance = math_random(bezier_range[1], bezier_range[2])
+                local bezier = getRandomBezier(tar.x, tar.y, self.pos.x, self.pos.y, distance)
+                local move_action = cc.BezierBy:create(time, bezier)
 
-            self:setHomePos(tar.x, tar.y)
-            cca.stopAction(self.m_rootNode, CHARACTER_ACTION_TAG__ROAM)
-            cca.runAction(self.m_rootNode, move_action, CHARACTER_ACTION_TAG__ROAM)
+                self:setHomePos(tar.x, tar.y)
+                cca.stopAction(self.m_rootNode, CHARACTER_ACTION_TAG__ROAM)
+                cca.runAction(self.m_rootNode, move_action, CHARACTER_ACTION_TAG__ROAM)
 
-            self.m_roamTimer = time
-        else
-            self.m_roamTimer = self.m_roamTimer - dt
+                self.m_roamTimer = time
+            else
+                self.m_roamTimer = self.m_roamTimer - dt
+            end
+            self:syncAniAndPhys()
         end
-        self:syncAniAndPhys()
+
+        -- 쿨타임 스킬 타이머
+        self:updateBasicTimeSkillTimer(dt)
     end
 
     self:updateMove(dt)
