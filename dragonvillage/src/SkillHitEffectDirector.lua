@@ -165,6 +165,8 @@ SkillHitEffectDirector = class(PARENT, {
 
         m_rightNode = '',
         m_leftNode = '',
+
+        m_bEnd = 'boolean',
     })
 
 -------------------------------------
@@ -173,6 +175,7 @@ SkillHitEffectDirector = class(PARENT, {
 function SkillHitEffectDirector:init(owner, bonus_desc)
     self.m_hitCount = 0
     self.m_bonusText = nil
+    self.m_bEnd = false
 
     local vars = self:load('ingame_hit.ui')
 
@@ -195,7 +198,7 @@ function SkillHitEffectDirector:init(owner, bonus_desc)
     end
 
     do
-        local label = cc.Label:createWithBMFont('res/font/hit_font.fnt', tostring(0))
+        local label = cc.Label:createWithBMFont('res/font/hit_bonus.fnt', '')
         label:setDockPoint(cc.p(1, 0.5))
         label:setAnchorPoint(cc.p(1, 0.5))
         label:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
@@ -221,7 +224,10 @@ function SkillHitEffectDirector:init(owner, bonus_desc)
         self.m_leftNode:setPositionX(-width/2)
         self.m_leftNode:runAction(action)
 
-        self.root:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+        local function finish_cb()
+            self:checkRelease()
+        end
+        self.root:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.Hide:create(), cc.CallFunc:create(finish_cb)))
     end
 end
 
@@ -243,5 +249,16 @@ end
 -- function onEnd
 -------------------------------------
 function SkillHitEffectDirector:onEnd()
+    self.m_bEnd = true
+    self:checkRelease()
     --self.root:removeFromParent()
+end
+
+-------------------------------------
+-- function checkRelease
+-------------------------------------
+function SkillHitEffectDirector:checkRelease()
+    if self.m_bEnd then
+        self.root:removeFromParent()
+    end
 end
