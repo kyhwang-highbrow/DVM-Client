@@ -377,6 +377,15 @@ function makeAdventureID(difficulty, chapter, stage)
 end
 
 -------------------------------------
+-- function makeAdventureChapterID
+-- @brief 모험모드 챕터 ID 생성
+-------------------------------------
+function makeAdventureChapterID(difficulty, chapter)
+    local chapter_id = (difficulty * 100) + chapter
+    return chapter_id
+end
+
+-------------------------------------
 -- function parseAdventureID
 -- @brief 모험모드 스테이지 ID 분석
 -------------------------------------

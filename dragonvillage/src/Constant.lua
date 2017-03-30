@@ -106,7 +106,7 @@ CENTER_POINT = cc.p(0.5, 0.5)
 ONE_FRAME = 1/30
 
 COLOSSEUM_STAGE_ID = 90000
-DEV_STAGE_ID = 99999
+DEV_STAGE_ID = 999999
 
 --------------------------------------------------------------------------
 -- PhysKey 상수

@@ -20,6 +20,12 @@ end
 -- function makeChapterIDFromStageID
 -------------------------------------
 function TableDropIngame:makeChapterIDFromStageID(stage_id)
+
+    -- 개발 스테이지의 경우 1난이도 1챕터로 간주
+    if (stage_id == DEV_STAGE_ID) then
+        return makeAdventureChapterID(1, 1)
+    end
+
     local game_mode = g_stageData:getGameMode(stage_id)
 
     -- 모험 모드
@@ -28,7 +34,7 @@ function TableDropIngame:makeChapterIDFromStageID(stage_id)
     end
 
     local difficulty, chapter, stage = parseAdventureID(stage_id)
-    local chapter_id = (difficulty * 100) + chapter
+    local chapter_id = makeAdventureChapterID(difficulty, chapter)
     return chapter_id
 end
 
