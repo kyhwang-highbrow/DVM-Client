@@ -47,6 +47,7 @@ function UI_Game:click_tamerSkillBtn(idx)
 	local vars = self.vars
 
 	if (tamer.m_bActiveSKillUsable) then
+        vars['tamerSkillVisual']:setVisible(false)
 		tamer:changeState('active')
 		vars['tamerSkillGauge' .. idx]:setPercentage(100)
 	else

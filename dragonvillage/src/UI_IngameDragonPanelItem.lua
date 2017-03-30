@@ -158,6 +158,12 @@ function UI_IngameDragonPanelItem:refreshBasicTimeSkillGauge(cur, max, run_skill
     local vars = self.vars
     local percentage = (cur / max) * 100
     vars['normalSKillGauge']:setPercentage(percentage)
+
+    if run_skill then
+        vars['normalSkillVisual']:setVisible(true)
+        vars['normalSkillVisual']:changeAni('dragon_normal_skill', false)
+        vars['normalSkillVisual']:addAniHandler(function() vars['normalSkillVisual']:setVisible(false) end)
+    end
 end
 
 -------------------------------------
