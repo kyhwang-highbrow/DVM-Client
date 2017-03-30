@@ -17,6 +17,11 @@
 					type = 'SocketNode';
 					socket_name = 'skill_title';
 				};
+				[3] =
+				{
+					type = 'SocketNode';
+					socket_name = 'skill_bubble';
+				};
 				type = 'Visual';
 				ui_name = '';
 				x = 18.000000;
@@ -52,10 +57,15 @@
 					type = 'SocketNode';
 					socket_name = 'skill_title';
 				};
+				[3] =
+				{
+					type = 'SocketNode';
+					socket_name = 'skill_bubble';
+				};
 				type = 'Visual';
 				ui_name = '';
-				x = 4.000000;
-				y = 5.000000;
+				x = 1.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -79,13 +89,13 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = 17.000000;
-				y = 0.000000;
+				x = 18.000000;
+				y = -5.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 83;
-				height = 34;
+				width = 96;
+				height = 20;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -93,7 +103,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/gauge/dragon_hp_bg.png';
+				file_name = 'ui/gauge/ingame_panel_dragon_hp_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -105,12 +115,12 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = 49.000000;
-				y = 7.000000;
+				x = 40.000000;
+				y = -5.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 61;
+				width = 78;
 				height = 10;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -119,7 +129,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'hpGauge2';
-				file_name = 'ui/gauge/dragon_hp_gg2.png';
+				file_name = 'ui/gauge/ingame_panel_dragon_hp_0103.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -131,12 +141,12 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = 49.000000;
-				y = 7.000000;
+				x = 40.000000;
+				y = -5.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 61;
+				width = 78;
 				height = 10;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -145,7 +155,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'hpGauge';
-				file_name = 'ui/gauge/dragon_hp_gg.png';
+				file_name = 'ui/gauge/ingame_panel_dragon_hp_0102.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -157,8 +167,8 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = -35.000000;
-				y = 0.000000;
+				x = -40.000000;
+				y = -5.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -187,8 +197,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -29.000000;
-				y = 5.000000;
+				x = -34.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -261,8 +271,8 @@
 				};
 				type = 'Visual';
 				ui_name = '';
-				x = 4.000000;
-				y = 5.000000;
+				x = -2.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
