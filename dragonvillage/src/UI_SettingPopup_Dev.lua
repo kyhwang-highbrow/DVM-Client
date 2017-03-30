@@ -230,7 +230,8 @@ end
 -- @brief 모든 입장권 추가
 -------------------------------------
 function UI_SettingPopup:click_allStaminaBtn()
-    local l_stamina_list = {'st', 'pvp', 'gdragon', 'treant', 'nightmare', 'gold'}
+    local l_stamina_list = {'st', 'pvp', 'nightmare', 'treant', 'gold', 'd_light', 'd_fire', 'd_water', 'd_earth', 'd_dark', 't_light', 't_fire', 't_water', 't_earth', 't_dark'}
+
 
 
 
