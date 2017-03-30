@@ -10,9 +10,6 @@ SkillAoERound = class(PARENT, {
 
         m_multiAtkTimer = 'dt',
         m_hitInterval = 'number',
-
-		m_addDamage = 'str',	-- @TODO 임시 추가 데미지 구현
-		m_lTarget = 'characters'  -- @TODO 임시 구현
      })
 
 -------------------------------------
@@ -26,19 +23,29 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillAoERound:init_skill(attack_count, range, aoe_res, add_damage)
+function SkillAoERound:init_skill(aoe_res, attack_count)
     PARENT.init_skill(self)
 
 	-- 멤버 변수
     self.m_maxAttackCnt = attack_count 
-    self.m_range = range
 	self.m_aoeRes = aoe_res
-	self.m_addDamage = add_damage
-	self.m_hitInterval = 1/30
+	--self.m_hitInterval -> attack state에서 지정
 	
 	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
 
-	self:makeRangeEffect(RES_RANGE, range)
+	self:makeRangeEffect(RES_RANGE, self.m_range)
+end
+
+-------------------------------------
+-- function initSkillSize
+-------------------------------------
+function SkillAoERound:initSkillSize()
+	if (self.m_skillSize) and (not (self.m_skillSize == '')) then
+		local t_data = SkillHelper:getSizeAndScale('round', self.m_skillSize)  
+
+		self.m_resScale = t_data['scale']
+		self.m_range = t_data['size']
+	end
 end
 
 -------------------------------------
@@ -81,7 +88,7 @@ function SkillAoERound.st_attack(owner, dt)
 	-- 반복 공격
     owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
     if (owner.m_multiAtkTimer > owner.m_hitInterval) then
-        owner:runAttack(false)
+        owner:runAttack()
         owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
 		owner.m_attackCnt = owner.m_attackCnt + 1
     end
@@ -111,20 +118,13 @@ end
 -------------------------------------
 function SkillAoERound:runAttack()
     local t_target = self:findTarget()
-
+	
 	-- 특수한 부가 효과 구현
 	self:doSpecialEffect(t_target)
 
     for i, target_char in ipairs(t_target) do
-		
-		local add_value = self:getPoisonAddDamage(target_char)
-
-		-- 데미지를 공격시마다 계산
-		self.m_activityCarrier:setPowerRate(self.m_powerRate + add_value)
-
         -- 공격
         self:attack(target_char)
-		
 		-- 타겟별 리소스
 		self:makeEffect(self.m_aoeRes, target_char.pos.x, target_char.pos.y)
     end
@@ -195,8 +195,6 @@ function SkillAoERound:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local attack_count = t_skill['hit']	  -- 공격 횟수
-    local range = t_skill['val_1']		  -- 공격 반경
-	local add_damage = t_skill['val_2'] -- 추가데미지 필드
 	
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)	-- 스킬 본연의 리소스
 	local aoe_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)		-- 개별 타겟 이펙트 리소스
@@ -208,7 +206,7 @@ function SkillAoERound:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(attack_count, range, aoe_res, add_damage)
+    skill:init_skill(aoe_res, attack_count)
 	skill:initState()
 
 	-- 3. state 시작 

@@ -81,44 +81,39 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
     -- 코드형 스킬
     elseif (skill_form == 'code') then
-		
-		local type = t_skill['type']
+		local skill_type = t_skill['skill_type']
 		local chance_type = t_skill['chance_type']
 		local chance_value = t_skill['chance_value']
 
 		-- [패시브]
-		if (chance_type == 'passive') then
+		if string.find(skill_type, 'passive') then
 			-- 특수하게 정의된 것들
-			if (type == 'passive_shield') then
+			if (skill_type == 'passive_shield') then
 				SkillShield:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'passive_continuous') then
+			elseif (skill_type == 'passive_continuous') then
 				SkillContinuous:makeSkillInstance(self, t_skill, t_data)
 				return true
 			else
-				-- 트리거에 의한것들
+				-- 리더 버프 (기존 상시 패시브)
 				if (chance_value == 'none') then 
 					return StatusEffectHelper:invokePassive(self, t_skill)
+				
+				-- 트리거 설정하는 패시브
 				else
-					-- 트리거 설정하는 패시브
 					return StatusEffectHelper:setTriggerPassive(self, t_skill)
 				end
 			end
 		
 		-- [상태 효과]만 거는 스킬
-		elseif string.find(type, 'status_effect') then
+		elseif string.find(skill_type, 'status_effect') then
 			-- 1. skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
 			local l_target = self:getTargetListByTable(t_skill)
 			
-			-- 1.1. 리스트에서 특정 숫자만큼 추출
-			if (t_skill['val_1'] > 0) then
-				l_target = table.getPartList(l_target, t_skill['val_1'])
-			end
-
 			-- 2. 상태효과 문자열(;로 구분)
-			local status_effect_str = {t_skill['status_effect_1'], t_skill['status_effect_2']}
-
+			local status_effect_str = {t_skill['add_option_1'], t_skill['add_option_2']}
+			
 			-- 3. 타겟에 상태효과생성
 			StatusEffectHelper:doStatusEffectByStr(self, l_target, status_effect_str)
 			return true
@@ -126,38 +121,38 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 		-- [스킬]
 		else
 			-- 공용탄 영역
-			if (type == 'missile_move_ray') then
+			if (skill_type == 'missile_move_ray') then
 				SkillRay:makeSkillInstance(self, t_skill, {})
 				return true
-			elseif (type == 'missile_move_straight') then
+			elseif (skill_type == 'missile_move_straight') then
 				CommonMissile_Straight:makeMissileInstance(self, t_skill)
 				return true
-			elseif (type == 'missile_move_guide') then
+			elseif (skill_type == 'missile_move_guide') then
 				CommonMissile_Guide:makeMissileInstance(self, t_skill)
 				return true
-			elseif (type == 'missile_move_cruise') then
+			elseif (skill_type == 'missile_move_cruise') then
 				CommonMissile_Cruise:makeMissileInstance(self, t_skill)
 				return true
-			elseif (type == 'missile_move_shotgun') then
+			elseif (skill_type == 'missile_move_shotgun') then
 				CommonMissile_Shotgun:makeMissileInstance(self, t_skill)
 				return true
-			elseif (type == 'missile_move_release') then
+			elseif (skill_type == 'missile_move_release') then
 				CommonMissile_Release:makeMissileInstance(self, t_skill)
 				return true
-			elseif (type == 'missile_move_high_angle') then
+			elseif (skill_type == 'missile_move_high_angle') then
 				CommonMissile_High:makeMissileInstance(self, t_skill)
 				return true
-			elseif (type == 'missile_move_bounce') then
+			elseif (skill_type == 'missile_move_bounce') then
 				CommonMissile_Bounce:makeMissileInstance(self, t_skill)
 				return true
-			elseif (type == 'missile_move_multi') then
+			elseif (skill_type == 'missile_move_multi') then
 				CommonMissile_Multi:makeMissileInstance(self, t_skill)
 				return true
 
 			-- 스킬 영역
 
 			-- 패시브 스킬
-			elseif (type == 'skill_react_armor') then
+			elseif (skill_type == 'skill_react_armor') then
 				local x = self.m_attackOffsetX or 0
 				local y = self.m_attackOffsetY or 0
 				local is_hero = self.m_bLeftFormation
@@ -170,11 +165,11 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
 			-- 구조 개선 후 ----------------------------------------------------
 
-			elseif (type == 'skill_curve_twin') then
+			elseif (skill_type == 'skill_curve_twin') then
 				SkillLeafBlade:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_aoe_round') then
+			elseif (skill_type == 'skill_aoe_round') then
 				if (self.m_charTable['type'] == 'mutanteggdragon') then 
 					SkillAoERound_Egg:makeSkillInstance(self, t_skill, t_data)
 				elseif (self.m_charTable['type'] == 'aliendragon') then
@@ -186,123 +181,123 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				end
 				return true
 
-			elseif (type == 'skill_aoe_cone') then
+			elseif (skill_type == 'skill_aoe_cone') then
 				SkillAoECone:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_aoe_cone_spread') then
+			elseif (skill_type == 'skill_aoe_cone_spread') then
 				SkillAoECone_Spread:makeSkillInstance(self, t_skill, t_data)
 				return true
 			
-			elseif (type == 'skill_aoe_cone_vertical') then
+			elseif (skill_type == 'skill_aoe_cone_vertical') then
 				SkillAoECone_Vertical:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_aoe_square_heal_dmg') then
+			elseif (skill_type == 'skill_aoe_square_heal_dmg') then
 				SkillAoESquare_Heal:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_aoe_square_width') then
+			elseif (skill_type == 'skill_aoe_square_width') then
 				SkillAoESquareWidth:makeSkillInstance(self, t_skill, t_data)
 				return true
 	
-			elseif (type == 'skill_aoe_square_height') then
+			elseif (skill_type == 'skill_aoe_square_height') then
 				SkillAoESquare_Fairy:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_aoe_square_multi') then
+			elseif (skill_type == 'skill_aoe_square_multi') then
 				SkillAoESquare_Wonder:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_leap_atk') then
+			elseif (skill_type == 'skill_leap_atk') then
 				SkillLeap:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_aoe_round_jump') then
+			elseif (skill_type == 'skill_aoe_round_jump') then
 				SkillExplosion:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_strike_finish_spread') then
+			elseif (skill_type == 'skill_strike_finish_spread') then
 				SkillRolling:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif string.find(type, 'skill_buff') then
+			elseif string.find(skill_type, 'skill_buff') then
 				SkillThrowBuff:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_counterattack') then
+			elseif (skill_type == 'skill_counterattack') then
 				SkillCounterAttack:makeSkillInstance(self, t_skill, t_data)
 				return true
             
-			elseif (type == 'skill_melee_atk') then
+			elseif (skill_type == 'skill_melee_atk') then
 				SkillMeleeHack:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_protection') then
+			elseif (skill_type == 'skill_protection') then
 				SkillProtection:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_crash') then
+			elseif (skill_type == 'skill_crash') then
 				SkillCrash:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_laser') then
+			elseif (skill_type == 'skill_laser') then
 				SkillLaser:makeSkillInstance(self, t_skill, t_data) 
 				return true
 
-			elseif (type == 'skill_laser_lightning') then
+			elseif (skill_type == 'skill_laser_lightning') then
 				SkillLaser_Lightning:makeSkillInstance(self, t_skill, t_data) 
 				return true
 
-			elseif (type == 'skill_lightning') then
+			elseif (skill_type == 'skill_lightning') then
 				SkillChainLightning:makeSkillInstance(self, t_skill, t_data) 
 				return true
 
-			elseif (type == 'skill_dispel_harm') then
+			elseif (skill_type == 'skill_dispel_harm') then
 				SkillDispelMagic:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_heal_single') then
+			elseif (skill_type == 'skill_heal_single') then
 				SkillHealSingle:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_heal_around') then
+			elseif (skill_type == 'skill_heal_around') then
 				SkillHealAround:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_guardian') then -- 파워드래곤 스킬 '수호'
+			elseif (skill_type == 'skill_guardian') then -- 파워드래곤 스킬 '수호'
 				SkillGuardian:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_spider_web') then
+			elseif (skill_type == 'skill_spider_web') then
 				SkillSpiderWeb:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_status_effect_burst') then
+			elseif (skill_type == 'skill_status_effect_burst') then
 				SkillBurst:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_status_effect_field_check') then
+			elseif (skill_type == 'skill_status_effect_field_check') then
 				SkillFieldCheck:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_voltes_x') then
+			elseif (skill_type == 'skill_voltes_x') then
 				SkillVoltesX:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_charge') then
+			elseif (skill_type == 'skill_charge') then
 				SkillCharge:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_enumrate_normal') then
+			elseif (skill_type == 'skill_enumrate_normal') then
 				SkillEnumrate_Normal:makeSkillInstance(self, t_skill, t_data)
 				return true
     
-			elseif (type == 'skill_enumrate_curve') then
+			elseif (skill_type == 'skill_enumrate_curve') then
 				SkillEnumrate_Curve:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_enumrate_penetration') then
+			elseif (skill_type == 'skill_enumrate_penetration') then
 				if (self.m_charTable['type'] == 'jaryong') then 
 					SkillEnumrate_Penetration_Jaryong:makeSkillInstance(self, t_skill, t_data)
 				else
@@ -310,33 +305,33 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				end
 				return true
 
-			elseif (type == 'skill_rapid_shot') then
+			elseif (skill_type == 'skill_rapid_shot') then
 				SkillRapidShot:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_rapid_shot_add_attack') then
+			elseif (skill_type == 'skill_rapid_shot_add_attack') then
 				SkillRapidShot_AddAttack:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_linked_soul') then
+			elseif (skill_type == 'skill_linked_soul') then
 				SkillLinkedSoul:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (type == 'skill_conditional_add_effect') then
+			elseif (skill_type == 'skill_conditional_add_effect') then
 				SkillConditionalAddEffect:makeSkillInstance(self, t_skill, t_data)
 				return true
 
 			-- 특수 스킬들
-			elseif (type == 'skill_summon') then
+			elseif (skill_type == 'skill_summon') then
 				return SkillSummon:makeSkillInstance(self, t_skill, t_data)
 
-			elseif (type == 'skill_heart_of_ruin') then
+			elseif (skill_type == 'skill_heart_of_ruin') then
 				SkillHeartOfRuin:makeSkillInstance(self, t_skill, t_data)
 				return true
 
 			end
 
-			cclog('미구현 코드 스킬 : ' .. type)
+			cclog('미구현 코드 스킬 : ' .. skill_type)
 		end
 	end
 
@@ -362,7 +357,7 @@ function Character:do_script_shot(t_skill, attr, is_hero, phys_group, x, y, t_da
     -- 타겟이 있을 경우
     if self.m_targetChar then
         -- 브레스일 경우
-        if isExistValue(t_skill['type'], 'skill_breath_1', 'skill_breath_2', 'skill_breath_3') then
+        if isExistValue(t_skill['skill_type'], 'skill_breath_1', 'skill_breath_2', 'skill_breath_3') then
             if t_data['dir'] then
                 t_launcher_option['dir'] = t_data['dir']
             else

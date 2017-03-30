@@ -173,7 +173,7 @@ function getSkillTypeStr(skill_type, is_use_brakets)
     if (skill_type == 'basic') then
         skill_type_str = Str('기본공격')
 
-    elseif isExistValue(skill_type, 'basic_turn', 'basic_rate', 'basic_time', 'indie_turn', 'indie_rate', 'indie_time', 'under_atk_turn', 'under_atk_rate') then
+    elseif isExistValue(skill_type, 'basic_turn', 'basic_rate', 'indie_turn', 'indie_rate', 'indie_time', 'under_atk_turn', 'under_atk_rate') then
         skill_type_str = Str('일반')
 
     elseif (skill_type == 'passive') then

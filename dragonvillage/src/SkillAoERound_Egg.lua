@@ -28,7 +28,6 @@ end
 -------------------------------------
 function SkillAoERound_Egg:runAttack()
     local t_target = self:findTarget()
-	self.m_lTarget = t_target
 
     for i, target_char in ipairs(t_target) do
 		-- 타겟별 리소스

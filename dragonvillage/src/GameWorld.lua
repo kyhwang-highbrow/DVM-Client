@@ -1195,7 +1195,7 @@ function GameWorld:onKeyReleased(keyCode, event)
         
     elseif (keyCode == KEY_2) then
         if (self.m_tamer) then
-            self.m_tamer:changeState('event')
+			self.m_tamer:changeState('event')
         end
 
 	-- 미사일 범위 확인
@@ -1528,6 +1528,8 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
 
     elseif (team_type == 'all') then
         for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr, self.m_rightFormationMgr)
+	else
+		error('GameWorld:getTargetList 정의 되지 않은 team_type  : ' .. team_type)
     end
 
     return for_mgr_delegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)

@@ -122,7 +122,7 @@ function GameAuto_Hero:proccess_tamer()
 
     -- TODO : 스킬 타입별 고유한 조건으로 체크되어야함
     if (self:checkSkill(tamer, t_skill, GAME_AUTO_AI_ATTACK__COOLTIME, GAME_AUTO_AI_HEAL__LOW_HP)) then
-        tamer:doSkillActive()
+        --tamer:doSkillActive()
 
         -- AI 딜레이 시간 설정
         self.m_aiDelayTime = self:getAiDelayTime()

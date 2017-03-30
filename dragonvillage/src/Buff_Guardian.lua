@@ -3,7 +3,6 @@
 -- @breif 파워드래곤 전용 스킬
 -------------------------------------
 Buff_Guardian = class(Buff, {
-        m_defUp = 'number',
         m_target = 'Character',
 
 		m_res = 'string',
@@ -27,10 +26,9 @@ end
 -------------------------------------
 -- function init_buff
 -------------------------------------
-function Buff_Guardian:init_buff(owner, duration, def_up, target, res)
+function Buff_Guardian:init_buff(owner, duration, target, res)
     Buff.init_buff(self, owner, duration)
 
-    self.m_defUp = (def_up / 100)
     self.m_target = target
 	self.m_res = res
 

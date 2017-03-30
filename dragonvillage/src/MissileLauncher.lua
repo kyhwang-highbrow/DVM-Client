@@ -96,7 +96,7 @@ function MissileLauncher:init_missileLauncher(t_skill, object_key, activity_carr
     end
 
 	-- 상태 효과 적용
-    activity_carrier:insertStatusEffectRate({t_skill['status_effect_1'], t_skill['status_effect_2']})
+    activity_carrier:insertStatusEffectRate({t_skill['add_option_1'], t_skill['add_option_2']})
 
     -- 미사일 패턴 초기화
     self:init_missilePattern(self.m_attackIdx)

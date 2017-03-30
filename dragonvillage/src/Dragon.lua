@@ -307,7 +307,7 @@ function Dragon.st_attack(owner, dt)
             if (role_type == 'supporter') then
                 local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
 
-                if (t_skill['chance_type'] == 'basic_time') then
+                if (t_skill['chance_type'] == 'indie_time') then
                     owner:increaseActiveSkillCool(t_temp['time_skill'])
                 else
                     owner:increaseActiveSkillCool(t_temp['passive_skill'])
@@ -1102,7 +1102,7 @@ function Dragon:updateBasicTimeSkillTimer(dt)
     local ret = PARENT.updateBasicTimeSkillTimer(self, dt)
 
     -- 기획적으로 드래곤에 basic_time스킬은 1개만을 사용하도록 한다.
-    local skill_info = table.getFirst(self.m_lSkillIndivisualInfo['basic_time'])
+    local skill_info = table.getFirst(self.m_lSkillIndivisualInfo['indie_time'])
 
     -- 스킬 정보가 있을 경우 쿨타임 진행 정보를 확인한다.
     if (skill_info) then

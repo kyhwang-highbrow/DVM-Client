@@ -5,7 +5,6 @@ local PARENT = Skill
 -------------------------------------
 SkillGuardian = class(PARENT, {
         m_duration = 'num',
-		m_defUpRate = 'num',
 		m_res = 'str'
      })
 
@@ -20,12 +19,11 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillGuardian:init_skill(duration, def_up_rate, res)
+function SkillGuardian:init_skill(duration, res)
 	PARENT.init_skill(self)
 
 	-- 멤버 변수
 	self.m_duration = duration
-	self.m_defUpRate = def_up_rate
 	self.m_res = res
 end
 
@@ -49,7 +47,7 @@ function SkillGuardian.st_idle(owner, dt)
         worldNode:addChild(buff.m_rootNode, 10)
 
         owner.m_world:addToUnitList(buff)
-        buff:init_buff(owner.m_owner, owner.m_duration, owner.m_defUpRate, owner.m_targetChar, owner.m_res)
+        buff:init_buff(owner.m_owner, owner.m_duration, owner.m_targetChar, owner.m_res)
 
         -- 하이라이트
         if (owner.m_bHighlight) then

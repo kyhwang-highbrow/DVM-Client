@@ -271,11 +271,29 @@ function Character:getTargetListByType(target_type, target_formation)
 	end
     
 	local target_formation = target_formation or nil
-	local target_team = string.gsub(target_type, '_%l+', '')
-    local target_rule = string.gsub(target_type, '%l+_', '', 1)
+	
+	-- parsing : target_type = 'enemy_low_hp_3'
 
-    local t_ret = self.m_world:getTargetList(self, self.pos.x, self.pos.y, target_team, target_formation, target_rule)
-    return t_ret
+	--> target_team = 'enemy'
+	local target_team = string.gsub(target_type, '_.+', '')		
+
+	--> target_rule = 'low_hp'
+    local target_rule = string.gsub(target_type, '%l+_', '', 1)
+	target_rule = string.gsub(target_rule, '_%d+', '')				
+
+	--> target_count = 3
+	local target_count = string.match(target_type, '_%d+')
+	if (target_count) then
+		target_count = string.gsub(target_count, '_', '')	
+	end
+
+	local t_ret = self.m_world:getTargetList(self, self.pos.x, self.pos.y, target_team, target_formation, target_rule)
+	
+	if (target_count) then
+		return table.getPartList(t_ret, target_count)
+	else
+		return t_ret
+	end
 end
 
 -------------------------------------
@@ -754,7 +772,7 @@ function Character:doAttack(x, y)
 
         local t_skill = self:getSkillTable(skill_id)
 
-        if (t_skill['chance_type'] == 'basic_time') then
+        if (t_skill['chance_type'] == 'indie_time') then
             indicatorData = {}
             indicatorData['highlight'] = true
         end

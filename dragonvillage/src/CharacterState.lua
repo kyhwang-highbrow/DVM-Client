@@ -103,11 +103,11 @@ function Character.st_attack(owner, dt)
         -- 공격 타이밍이 있을 경우
         owner.m_animator:setEventHandler(attack_cb)
 
-        -- basic_time 공격시 이벤트
+        -- indie_time 공격시 이벤트
         do
             local skill_id = owner.m_reservedSkillId
             local t_skill = owner:getSkillTable(skill_id)
-            if (t_skill['chance_type'] == 'basic_time') then
+            if (t_skill['chance_type'] == 'indie_time') then
                 owner:dispatch('dragon_time_skill', {}, owner)
             end
         end
@@ -181,7 +181,7 @@ function Character.st_attackDelay(owner, dt)
         end
 
     else
-        -- basic_time류 스킬
+        -- indie_time류 스킬
         local skill_id = owner:getBasicTimeAttackSkillID()
         if (not owner.m_isSilence and skill_id) then
             owner.m_prevReservedSkillId = owner.m_reservedSkillId

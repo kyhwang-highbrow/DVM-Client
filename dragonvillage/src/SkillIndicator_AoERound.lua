@@ -13,10 +13,22 @@ SkillIndicator_AoERound = class(PARENT, {
 -- function init
 -------------------------------------
 function SkillIndicator_AoERound:init(hero, t_skill, isFixedOnTarget)
-    self.m_range = t_skill['val_1']
     self.m_isFixedOnTarget = isFixedOnTarget 
-	
-    self.m_indicatorScale = (self.m_range * 2) / 321 -- 인디케이터 'skill_range_normal' 의 지름
+end
+
+-------------------------------------
+-- function init_indicator
+-------------------------------------
+function SkillIndicator_AoERound:init_indicator(t_skill)
+	PARENT.init_indicator(self, t_skill)
+	local skill_size = SkillHelper:getValid(t_skill['skill_size'])
+
+	if (skill_size) and (not (skill_size == '')) then
+		local t_data = SkillHelper:getSizeAndScale('round', skill_size)  
+
+		self.m_indicatorScale = t_data['scale']
+		self.m_range = t_data['size']
+	end
 end
 
 -------------------------------------
@@ -41,8 +53,8 @@ function SkillIndicator_AoERound:onTouchMoved(x, y)
     self.m_targetPosY = y
 
     -- 이펙트 위치
-    EffectLink_refresh(self.m_indicatorEffect, 0, 0, x - pos_x, y - pos_y)
-    self.m_indicatorAddEffect:setPosition(x-pos_x, y-pos_y)
+    self.m_indicatorEffect:setPosition(x-pos_x, y-pos_y)
+    EffectLink_refresh(self.m_indicatorAddEffect, 0, 0, x - pos_x, y - pos_y)
 
 	-- 하이라이트 갱신
     self:setHighlightEffect(t_collision_obj)
@@ -59,18 +71,21 @@ function SkillIndicator_AoERound:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do
-        local link_effect = EffectLink(RES_INDICATOR['TARGET'], 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
-		link_effect:doNotUseHead()
-        root_node:addChild(link_effect.m_node)
-        self.m_indicatorEffect = link_effect
+		local indicator_res = g_constant:get('INDICATOR', 'RES', 'round')
+        local indicator = MakeAnimator(indicator_res)
+        indicator:setScale(self.m_indicatorScale)
+        indicator:changeAni('idle', false)
+		indicator.m_node:setColor(COLOR_CYAN)
+        root_node:addChild(indicator.m_node)
+        self.m_indicatorEffect = indicator
     end
 
     do
-        local indicator = MakeAnimator(RES_INDICATOR['RANGE'])
-        indicator:setScale(self.m_indicatorScale)
-        indicator:changeAni('skill_range_normal', false)
-        root_node:addChild(indicator.m_node)
-        self.m_indicatorAddEffect = indicator
+		local indicator_res = g_constant:get('INDICATOR', 'RES', 'target')
+        local link_effect = EffectLink(indicator_res, 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
+		link_effect:doNotUseHead()
+        root_node:addChild(link_effect.m_node)
+        self.m_indicatorAddEffect = link_effect
     end
 end
 
@@ -80,17 +95,19 @@ end
 function SkillIndicator_AoERound:onChangeTargetCount(old_target_count, cur_target_count)
     -- 활성화
     if (old_target_count == 0) and (cur_target_count > 0) then
-        self.m_indicatorEffect.m_startPointNode:changeAni('enemy_start_idle', true)
-        self.m_indicatorEffect.m_effectNode:changeAni('enemy_bar_idle', true)
-        self.m_indicatorEffect.m_endPointNode:changeAni('enemy_end_idle', true)
-        self.m_indicatorAddEffect:changeAni('skill_range_enemy', true)
+		self.m_indicatorEffect.m_node:setColor(COLOR_RED)
+        
+		self.m_indicatorAddEffect.m_startPointNode:changeAni('enemy_start_idle', true)
+        self.m_indicatorAddEffect.m_effectNode:changeAni('enemy_bar_idle', true)
+        self.m_indicatorAddEffect.m_endPointNode:changeAni('enemy_end_idle', true)
 
     -- 비활성화
     elseif (old_target_count > 0) and (cur_target_count == 0) then
-        self.m_indicatorEffect.m_startPointNode:changeAni('normal_start_idle', true)
-        self.m_indicatorEffect.m_effectNode:changeAni('normal_bar_idle', true)
-        self.m_indicatorEffect.m_endPointNode:changeAni('normal_end_idle', true)
-        self.m_indicatorAddEffect:changeAni('skill_range_normal', true)
+		self.m_indicatorEffect.m_node:setColor(COLOR_CYAN)
+        
+		self.m_indicatorAddEffect.m_startPointNode:changeAni('normal_start_idle', true)
+        self.m_indicatorAddEffect.m_effectNode:changeAni('normal_bar_idle', true)
+        self.m_indicatorAddEffect.m_endPointNode:changeAni('normal_end_idle', true)
     end
 end
 

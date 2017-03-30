@@ -343,7 +343,7 @@ end
 -------------------------------------
 function StatusEffectHelper:invokePassive(char, t_skill)
 	local table_status_effect = TABLE:get('status_effect')
-	local l_status_effect_str = {t_skill['status_effect_1'], t_skill['status_effect_2']}
+	local l_status_effect_str = {t_skill['add_option_1'], t_skill['add_option_2']}
 	
 	-- 1. 발동 조건 확인 (발동되지 않을 경우 리턴)\
 	-- 기획 이슈로 제거
@@ -594,7 +594,7 @@ end
 -- @brief 상태효과 파싱하여 테이블화
 -------------------------------------
 function StatusEffectHelper:getStatusEffectTableFromSkillTable(t_skill, idx)
-	local effect_str = t_skill['status_effect_' .. idx]
+	local effect_str = t_skill['add_option_' .. idx]
 	if (not effect_str) or (effect_str == 'x') or (effect_str == '') then 
 		return {}
 	end

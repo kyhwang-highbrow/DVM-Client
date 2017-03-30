@@ -11,13 +11,25 @@ SkillHelper = {}
 function SkillHelper:getAttributeRes(res, owner)
 	if (not res) then 
 		error('비어있는 스킬 리소스 문자열')
-	elseif (res == 'x') then
+	elseif (res == 'x') or (res == '') then
 		return nil
 	else
 		return string.gsub(res, '@', owner:getAttributeForRes())
 	end
 end
 
+-------------------------------------
+-- function getValid
+-------------------------------------
+function SkillHelper:getValid(value, default)
+	if (not value) then 
+		return default
+	elseif (value == '') then
+		return default
+	else
+		return value
+	end
+end
 
 -------------------------------------
 -- function calculatePositionX
@@ -80,6 +92,30 @@ function SkillHelper:makeEffect(world, res, x, y, ani_name, cb_function)
 	effect:addAniHandler(cb_ani)
 
 	return effect
+end
+
+-------------------------------------
+-- function getSizeAndScale
+-------------------------------------
+function SkillHelper:getSizeAndScale(size_type, skill_size)    
+	local t_size = g_constant:get('INDICATOR', 'INDICATOR_SIZE', size_type)
+	local size = t_size[skill_size]
+	local std_size = t_size[3]
+
+	return {size = size, scale = (size/std_size)}
+end
+
+-------------------------------------
+-- function printTargetNotExist
+-- @brief
+-------------------------------------
+function SkillHelper:printTargetNotExist(skill)
+	cclog('###########################################')
+	cclog('-- 타겟을 못 찾았습니다')
+	cclog('STATE NAME : ' .. skill.m_state)
+	cclog('SKILL CASTER : ' ..  skill.m_owner:getName())
+	cclog('SKILL TYPE : ' ..  skill.m_skillName)
+	cclog('-------------------------------------------')
 end
 
 -------------------------------------
@@ -175,7 +211,7 @@ end
 -- @brief 해당 스킬 타겟수 점수(%)에 해당하는 보너스 등급을 리턴(0이면 보너스 없음)
 -------------------------------------
 function SkillHelper:getDragonActiveSkillBonusLevel(t_skill, score)
-    local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_INDICATOR_BONUS')
+    local t_temp = g_constant:get('INDICATOR', 'DRAGON_SKILL_ACTIVE_INDICATOR_BONUS')
     local t_data = t_temp[t_skill['indicator']]
     if (not t_data) then
         t_data = t_temp['default']

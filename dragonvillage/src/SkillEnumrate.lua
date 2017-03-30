@@ -109,6 +109,7 @@ end
 -- @brief 공격 횟수에 맞춰 랜덤한 타겟 리스트를 생성한다.
 -------------------------------------
 function SkillEnumrate:getSkillTargetList_Random()
+	--[[
 	local world = self.m_owner.m_world
 	local l_target = self.m_owner:getOpponentList()
 	local l_ret = {}
@@ -117,8 +118,10 @@ function SkillEnumrate:getSkillTargetList_Random()
 		local target = table.getRandom(l_target)
 		table.insert(l_ret, target)	
 	end
+	]]
 
-	return l_ret
+	local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+	return l_target
 end
 
 -------------------------------------

@@ -6,19 +6,25 @@ local PARENT = Entity
 Skill = class(PARENT, {
         m_owner = 'Character',
         m_activityCarrier = 'ActivityCarrier',
-		m_range = 'num',
+
+		m_skillName = 'str',  -- 스킬 타입 명 ex) skill_expolosion 
+		m_chanceType = 'str',  -- 스킬 종류.. active or basic etc.
+
 		m_powerRate = 'num',
 		m_powerAbs = 'num',
 		m_powerSource = 'str',
 		m_powerIgnore = 'str',		-- 피격대상 특정 스탯 무시 
 		m_preDelay = 'num',
-		m_resScale = 'str',
 
+		m_skillSize = 'str',
+		m_resScale = 'str',
 		m_rangeEffect = 'a2d',
+		m_range = 'num',
 
 		-- 타겟 관련 .. 
-		m_targetChar = 'Character', 
+		m_targetFormation = 'str',
 		m_targetType = 'str', -- 타겟 선택하는 룰
+		m_targetChar = 'Character', 
 		m_targetPos = 'pos', -- 인디케이터에서 보낸 x, y 좌표
 		
 		m_findTargetType = 'str', -- 타겟 선택하는 룰을 온전히 사용하기 전 임시로 사용
@@ -26,9 +32,6 @@ Skill = class(PARENT, {
 		-- 상태 효과 관련 변수들
 		m_lStatusEffectStr = '',
 		m_tSpecialTarget = '', -- 임시 처리
-
-		m_skillName = 'str',  -- 스킬 타입 명 ex) skill_expolosion 
-		m_skillType = 'str',  -- 스킬 종류.. active or basic etc.
 
 		-- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset
         m_attackPosOffsetX = 'number',
@@ -40,7 +43,7 @@ Skill = class(PARENT, {
         m_bHighlight = 'bool',  -- 하이라이트 여부
 
         -- 스킬 종료시 피드백(보너스) 관련
-        m_bonusLevel = 'number',
+        m_bonusLevel = 'number',       
      })
 
 -------------------------------------
@@ -56,8 +59,14 @@ end
 -- @brief actvityCarrier, AttackOffset, defualt target, default target pos를 설정한다. 
 -------------------------------------
 function Skill:init_skill()
+	-- 고유값 가지는 멤버 변수 
+	self.m_range = 0    
+	self.m_tSpecialTarget = {}
+	self.m_findTargetType = 'enemy'
+
 	self:initActvityCarrier(self.m_powerRate, self.m_powerAbs)
     self:initAttackPosOffset()
+	self:initSkillSize()
 	self:adjustAnimator()
 	
 	if (not self.m_targetChar) then
@@ -67,11 +76,12 @@ function Skill:init_skill()
         local x, y = self:getDefaultTargetPos()
 		self.m_targetPos = {x = x, y = y}
     end
-    
-	-- 고유값 가지는 멤버 변수 
-	self.m_range = 0    
-	self.m_tSpecialTarget = {}
-	self.m_findTargetType = 'enemy'
+
+    -- 하이라이트
+    if (self.m_bHighlight) then
+        --self.m_world.m_gameHighlight:addChar(self.m_owner)
+        --self.m_world.m_gameHighlight:addChar(self.m_targetChar)
+    end
 end
 
 -------------------------------------
@@ -81,7 +91,7 @@ function Skill:initActvityCarrier(power_rate, power_abs)
     -- 공격력 계산을 위해
     self.m_activityCarrier = self.m_owner:makeAttackDamageInstance()
 	self.m_activityCarrier:setAtkDmgStat(self.m_powerSource)
-	self.m_activityCarrier:setAttackType(self.m_skillType)
+	self.m_activityCarrier:setAttackType(self.m_chanceType)
     self.m_activityCarrier:setPowerRate(self.m_powerRate)
     self.m_activityCarrier:setAbsAttack(power_abs)
 	
@@ -109,6 +119,37 @@ function Skill:initActvityCarrier(power_rate, power_abs)
 end
 
 -------------------------------------
+-- function initSkillSize
+-- @breif table의 skill_size를 통하여 필요한 값과 scale 추출 / 각 스킬 대분류 마다 작성
+-------------------------------------
+function Skill:initSkillSize()  
+end
+
+-------------------------------------
+-- function adjustAnimator
+-- @breif animator 조정하는 부분
+-------------------------------------
+function Skill:adjustAnimator()    
+	if (not self.m_animator) then return end
+	
+	-- delay state 종료시 켜준다.
+	self.m_animator:setVisible(false) 
+
+	-- skill_size 가 있다면 skill_size에 의해 계산된 스케일 적용
+	-- 없다면 res_scale 칼럼 값 사용
+	if (self.m_resScale) and (not (self.m_resScale == '')) then
+		-- res_scale 의 경우 ;가 있으면 x,y 각각 개별로 들어간다...
+		if string.find(self.m_resScale, ';') then
+			local l_scale = stringSplit(self.m_resScale, ';')
+			self.m_animator.m_node:setScaleX(l_scale[1])
+			self.m_animator.m_node:setScaleY(l_scale[2])
+		else
+ 			self.m_animator:setScale(self.m_resScale)
+		end
+	end
+end
+
+-------------------------------------
 -- function update
 -------------------------------------
 function Skill:update(dt)
@@ -123,27 +164,6 @@ function Skill:update(dt)
 
     return PARENT.update(self, dt)
 end
-
--------------------------------------
--- function adjustAnimator
--- @breif animator 조정하는 부분
--------------------------------------
-function Skill:adjustAnimator()    
-	if (not self.m_animator) then return end
-	
-	-- delay state 종료시 켜준다.
-	self.m_animator:setVisible(false) 
-
-	-- res_scale 의 경우 ;가 있으면 x,y 각각 개별로 들어간다...
-	if string.find(self.m_resScale, ';') then
-		local l_scale = stringSplit(self.m_resScale, ';')
-		self.m_animator.m_node:setScaleX(l_scale[1])
-		self.m_animator.m_node:setScaleY(l_scale[2])
-	else
- 		self.m_animator:setScale(self.m_resScale)
-	end
-end
-
 
 -------------------------------------
 -- function setCommonState
@@ -162,18 +182,25 @@ end
 function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_owner = owner
     self.m_world = owner.m_world
-	self.m_powerRate = t_skill['power_rate']
-    self.m_powerAbs = t_skill['power_add'] or 0
-	self.m_powerSource  = t_skill['power_source'] or 'atk'
-	self.m_powerIgnore = t_skill['ignore'] or 'def'
-	self.m_targetType = t_skill['target_type']
-	self.m_preDelay = t_skill['pre_delay'] or 0
-	self.m_resScale = t_skill['res_scale'] or 1
-	self.m_lStatusEffectStr = {t_skill['status_effect_1'], t_skill['status_effect_2']}
-	self.m_skillType = t_skill['chance_type']
-	self.m_skillName = t_skill['type']
+	
+	self.m_powerRate = SkillHelper:getValid(t_skill['power_rate'], 0)
+    self.m_powerAbs = SkillHelper:getValid(t_skill['power_add'], 0)
+	self.m_powerSource  = SkillHelper:getValid(t_skill['power_source'], 'atk')
+	self.m_powerIgnore = SkillHelper:getValid(t_skill['ignore'])
+	self.m_lStatusEffectStr = {t_skill['add_option_1'], t_skill['add_option_2']}
+	
+	self.m_preDelay = SkillHelper:getValid(t_skill['pre_delay'], 0)
+	self.m_resScale = SkillHelper:getValid(t_skill['res_scale'])
+	self.m_skillSize = SkillHelper:getValid(t_skill['skill_size'])
+
+	self.m_skillName = t_skill['skill_type']
+	self.m_chanceType = t_skill['chance_type']
+	
 	self.m_targetPos = {x = t_data.x, y = t_data.y}
 	self.m_targetChar = t_data.target or self.m_targetChar
+	self.m_targetType = t_skill['target_type']
+	self.m_targetFormation = t_skill['target_formation']
+
 	self.m_bSkillHitEffect = owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')
     self.m_bHighlight = t_data['highlight'] or false
     self.m_bonusLevel = 0
@@ -200,7 +227,7 @@ end
 function Skill.st_delay(owner, dt)
     if (owner.m_stateTimer == 0) then
 		if (not owner.m_targetChar) then 
-			owner:printTargetIsNotExist()
+			SkillHelper:printTargetNotExist(owner)
 			owner:changeState('dying') 
 		end
 	elseif (owner.m_stateTimer > owner.m_preDelay) then
@@ -318,7 +345,7 @@ function Skill:onAttack(target_char)
 
     -- 화면 쉐이킹
     if (self.m_bHighlight) then
-        if (self.m_skillType == 'active') then
+        if (self.m_chanceType == 'active') then
             self.m_world.m_shakeMgr:doShake(50, 50, 1)
         else
             self.m_world.m_shakeMgr:doShake(25, 25, 0.5)
@@ -343,9 +370,8 @@ function Skill:findTarget()
 	local y = self.m_targetPos.y
 	local range = self.m_range
 
-    local world = self.m_world
-	local l_target = world:getTargetList(self.m_owner, x, y, self.m_findTargetType, 'x', 'distance_line')
-    
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+
 	local l_ret = {}
     local distance = 0
 
@@ -474,7 +500,7 @@ end
 -- @brief 월드의 처리 가능한 미사일을 없앤다
 -------------------------------------
 function Skill:removeDestructibleMissile()
-	if (self.m_skillType == 'active') and (self.m_owner:getCharType() == 'dragon') then 
+	if (self.m_chanceType == 'active') and (self.m_owner:getCharType() == 'dragon') then 
 		local x = self.m_targetPos.x
 		local y = self.m_targetPos.y
 		local range = 300
@@ -571,24 +597,4 @@ end
 -- @brief 사용할 변수 정리 및 실제 스킬 인스턴스를 생성하고 월드에 등록하는 부분
 -------------------------------------
 function Skill:makeSkillInstance()
-end
-
-
-
-
-
-
-
-
--------------------------------------
--- function printTargetIsNotExist
--- @brief
--------------------------------------
-function Skill:printTargetIsNotExist()
-	cclog('###########################################')
-	cclog('-- 타겟을 못 찾았습니다')
-	cclog('STATE NAME : ' .. self.m_state)
-	cclog('SKILL CASTER : ' ..  self.m_owner:getName())
-	cclog('SKILL TYPE : ' ..  self.m_skillName)
-	cclog('-------------------------------------------')
 end

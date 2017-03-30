@@ -28,7 +28,7 @@ SkillIndicator = class({
         m_indicatorRootNode = 'cc.Node',
         m_indicatorEffect = 'A2D',
 		m_indicatorScale = 'number',
-		m_indicatorAngleLimit = 'number',
+		m_indicatorAngleLimit = 'number',  
 		m_indicatorDistanceLimit = 'number',
 
         m_indicatorTouchPosX = '',
@@ -39,9 +39,13 @@ SkillIndicator = class({
         m_targetPosY = '',
         m_targetChar = '',
 
+		m_targetFormation = 'str',
+		m_targetType = 'str',
+
         -- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset
         m_attackPosOffsetX = 'number',
         m_attackPosOffsetY = 'number',
+
 
 		m_highlightList = '',
 
@@ -51,7 +55,7 @@ SkillIndicator = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillIndicator:init(hero, ...)
+function SkillIndicator:init(hero, t_skill, ...)
     self.m_world = hero.m_world
     self.m_hero = hero
     self.m_siState = SI_STATE_NONE
@@ -65,14 +69,16 @@ function SkillIndicator:init(hero, ...)
     self:initAttackPosOffset(hero)
 
 	-- 필요한 변수 지정
-	self:init_indicator(...)
+	self:init_indicator(t_skill, ...)
 end
 
 -------------------------------------
 -- function init_indicator
 -- @brief 멤버 변수 선언
 -------------------------------------
-function SkillIndicator:init_indicator(...)
+function SkillIndicator:init_indicator(t_skill, ...)
+	self.m_targetType = t_skill['target_type']
+	self.m_targetFormation = t_skill['target_formation']
 end
 
 -------------------------------------
