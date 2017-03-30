@@ -1914,6 +1914,12 @@
     <None Include="..\src\UINavigator.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\UI_IngameDragonPanel.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_IngameDragonPanelItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

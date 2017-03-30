@@ -100,7 +100,9 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         -- 친구 영웅 관련
         m_bUsedFriend = 'boolean',
 
-        m_friendHero = 'Dragon',
+        -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
+        m_myDragons = 'Dragons',
+        m_friendDragon = 'Dragon',
 
     })
 
@@ -258,7 +260,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_mPassiveEffect = {}
 
     self.m_bUsedFriend = false
-    self.m_friendHero = nil
+    self.m_friendDragon = nil
 
     self:initGold()
 end
@@ -846,23 +848,23 @@ function GameWorld:removeHero(hero)
     self:standbyHero(hero)
 
     -- 친구 드래곤을 추가 시킴
-    if (not self.m_bUsedFriend and self.m_friendHero) then
+    if (not self.m_bUsedFriend and self.m_friendDragon) then
         self:joinFriendHero(hero:getPosIdx())
 
-        self.m_friendHero:setOrgHomePos(hero.m_orgHomePosX, hero.m_orgHomePosY)
-        self.m_friendHero:setHomePos(hero.m_homePosX, hero.m_homePosY)
-        self.m_friendHero:setPosition(hero.m_homePosX, hero.m_homePosY)
+        self.m_friendDragon:setOrgHomePos(hero.m_orgHomePosX, hero.m_orgHomePosY)
+        self.m_friendDragon:setHomePos(hero.m_homePosX, hero.m_homePosY)
+        self.m_friendDragon:setPosition(hero.m_homePosX, hero.m_homePosY)
 
         -- 패시브 즉시 적용
-        self.m_friendHero:doSkill_passive()
+        self.m_friendDragon:doSkill_passive()
 
         -- 등장시킴
-        self.m_friendHero:doAppear()
+        self.m_friendDragon:doAppear()
 
-        self.m_friendHero.m_bFirstAttack = true
-        self.m_friendHero:changeState('attackDelay')
+        self.m_friendDragon.m_bFirstAttack = true
+        self.m_friendDragon:changeState('attackDelay')
 
-        self:dispatch('friend_dragon_appear', {}, self.m_friendHero)
+        self:dispatch('friend_dragon_appear', {}, self.m_friendDragon)
         
         self.m_bUsedFriend = true
     end
@@ -1503,7 +1505,7 @@ end
 -- function hasFriendHero
 -------------------------------------
 function GameWorld:hasFriendHero()
-    return (not self.m_bUsedFriend and self.m_friendHero)
+    return (not self.m_bUsedFriend and self.m_friendDragon)
 end
 
 -------------------------------------

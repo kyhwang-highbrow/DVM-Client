@@ -908,6 +908,14 @@ function Dragon:updateActiveSkillCool(dt)
     if (self.m_infoUI.vars['skillGauge']) then
         self.m_infoUI.vars['skillGauge']:setPercentage(self.m_activeSkillValue)
     end
+
+
+    do -- 리스너에 전달
+	    local t_event = clone(EVENT_DRAGON_SKILL_GAUGE)
+	    t_event['owner'] = self
+	    t_event['percentage'] = self.m_activeSkillValue
+        self:dispatch('dragon_skill_gauge', t_event)
+    end
 end
 
 -------------------------------------

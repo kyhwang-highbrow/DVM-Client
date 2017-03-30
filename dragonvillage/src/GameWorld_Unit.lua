@@ -130,6 +130,9 @@ function GameWorld:makeHeroDeck()
     local l_deck, formation = g_deckData:getDeck()
     self.m_deckFormation = formation
 
+    -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
+    self.m_myDragons = {}
+
     for i, doid in pairs(l_deck) do
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
         if (t_dragon_data) then
@@ -137,6 +140,7 @@ function GameWorld:makeHeroDeck()
             local is_right = false
             local hero = self:makeDragonNew(t_dragon_data, is_right, status_calc)
             if (hero) then
+                self.m_myDragons[i] = hero
                 hero:setPosIdx(tonumber(i))
 
                 self.m_worldNode:addChild(hero.m_rootNode, WORLD_Z_ORDER.HERO)
@@ -198,12 +202,12 @@ function GameWorld:makeFriendHero()
     local status_calc = g_friendData:makeFriendDragonStatusCalculator(t_dragon_data, l_runes_data)
     local is_right = false
 
-    self.m_friendHero = self:makeDragonNew(t_dragon_data, is_right, status_calc)
+    self.m_friendDragon = self:makeDragonNew(t_dragon_data, is_right, status_calc)
 
-    if (self.m_friendHero) then
-        self.m_friendHero:setActive(false)
+    if (self.m_friendDragon) then
+        self.m_friendDragon:setActive(false)
 
-        self.m_worldNode:addChild(self.m_friendHero.m_rootNode, WORLD_Z_ORDER.HERO)
+        self.m_worldNode:addChild(self.m_friendDragon.m_rootNode, WORLD_Z_ORDER.HERO)
     
         -- 현재 덱에 빈자리가 있다면 즉시 추가
         if (not self:isParticipantMaxCount()) then
@@ -231,24 +235,24 @@ end
 -- function joinFriendHero
 -------------------------------------
 function GameWorld:joinFriendHero(posIdx)
-    if (not self.m_friendHero) then return end
+    if (not self.m_friendDragon) then return end
 
-    self.m_friendHero:setPosIdx(posIdx)
+    self.m_friendDragon:setPosIdx(posIdx)
 
-    self.m_physWorld:addObject(PHYS.HERO, self.m_friendHero)
-    self:addHero(self.m_friendHero, posIdx)
-    self:participationHero(self.m_friendHero)
+    self.m_physWorld:addObject(PHYS.HERO, self.m_friendDragon)
+    self:addHero(self.m_friendDragon, posIdx)
+    self:participationHero(self.m_friendDragon)
 
-    self.m_leftFormationMgr:setChangePosCallback(self.m_friendHero)
+    self.m_leftFormationMgr:setChangePosCallback(self.m_friendDragon)
 
     -- 진형 버프 적용
-    self.m_friendHero.m_statusCalc:applyFormationBonus(self.m_deckFormation, posIdx)
+    self.m_friendDragon.m_statusCalc:applyFormationBonus(self.m_deckFormation, posIdx)
 
     -- 친구 버프 적용
     if (g_friendBuff) then
         local t_friend_buff = g_friendBuff:getBuffData()
 
-        self.m_friendHero.m_statusCalc:applyFriendBuff(t_friend_buff)
+        self.m_friendDragon.m_statusCalc:applyFriendBuff(t_friend_buff)
     end
 end
 

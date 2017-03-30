@@ -395,7 +395,7 @@ function UI_ReadyScene:click_startBtn()
 
     -- 날개 소모
     elseif (not g_staminasData:hasStaminaCount(self:getStageStaminaInfo())) then
-        MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup)
+        MakeSimplePopup(POPUP_TYPE.YES_NO, '{@BLACK}' .. Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), openShopPopup_stamina)
                     
     else
         local check_deck

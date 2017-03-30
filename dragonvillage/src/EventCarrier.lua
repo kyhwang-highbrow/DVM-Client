@@ -25,3 +25,11 @@ EVENT_CHANGE_HP_CARRIER = clone(EVENT_CARRIER)
 EVENT_CHANGE_HP_CARRIER['owner'] = ''
 EVENT_CHANGE_HP_CARRIER['hp'] = 0
 EVENT_CHANGE_HP_CARRIER['max_hp'] = 0
+
+------------------------------
+-- event EVENT_DRAGON_SKILL_GAUGE
+-- @brief 드래곤 스킬 게이지 변동
+------------------------------
+EVENT_DRAGON_SKILL_GAUGE = clone(EVENT_CARRIER)
+EVENT_DRAGON_SKILL_GAUGE['owner'] = ''
+EVENT_DRAGON_SKILL_GAUGE['percentage'] = 0

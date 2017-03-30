@@ -264,8 +264,13 @@ end
 -- @brief 데미지 미터기 + 힐 미터기
 -------------------------------------
 function UI_Game:init_dpsUI()
-    local dps_ui = UI_GameDPS(self.m_gameScene.m_gameWorld)
+    local world = self.m_gameScene.m_gameWorld
+
+    local dps_ui = UI_GameDPS(world)
     self.vars['dpsInfoNode']:addChild(dps_ui.root)
+
+    local panel = UI_IngameDragonPanel(world)
+    self.root:addChild(panel.root)
 end
 
 -------------------------------------
