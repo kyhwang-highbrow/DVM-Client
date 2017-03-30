@@ -181,6 +181,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				end
 				return true
 
+			elseif (skill_type == 'skill_aoe_wedge') then
+				SkillAoEWedge:makeSkillInstance(self, t_skill, t_data)
+				return true
+
 			elseif (skill_type == 'skill_aoe_cone') then
 				SkillAoECone:makeSkillInstance(self, t_skill, t_data)
 				return true

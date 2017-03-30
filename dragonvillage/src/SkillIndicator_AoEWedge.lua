@@ -1,9 +1,9 @@
 local PARENT = SkillIndicator
 
 -------------------------------------
--- class SkillIndicator_AoECone
+-- class SkillIndicator_AoEWedge
 -------------------------------------
-SkillIndicator_AoECone = class(PARENT, {
+SkillIndicator_AoEWedge = class(PARENT, {
 		m_skillRadius = 'num',
 		m_skillAngle = 'num',
     })
@@ -11,19 +11,30 @@ SkillIndicator_AoECone = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillIndicator_AoECone:init(hero, t_skill)
-	PARENT.init(self, hero)
-	
-	self.m_skillRadius = t_skill['val_1']
-	self.m_skillAngle = t_skill['val_2']
-	self.m_indicatorScale = t_skill['res_scale']
+function SkillIndicator_AoEWedge:init(hero, t_skill)
+	self.m_skillRadius = 2048
 	self.m_indicatorAngleLimit = g_constant:get('SKILL', 'SKILL_ANGLE_LIMIT')
+end
+
+-------------------------------------
+-- function init_indicator
+-------------------------------------
+function SkillIndicator_AoEWedge:init_indicator(t_skill)
+	PARENT.init_indicator(self, t_skill)
+
+	local skill_size = t_skill['skill_size']
+	if (skill_size) and (not (skill_size == '')) then
+		local t_data = SkillHelper:getSizeAndScale('wedge', skill_size)  
+
+		self.m_indicatorScale = t_data['scale']
+		self.m_skillAngle = t_data['size']
+	end
 end
 
 -------------------------------------
 -- function onTouchMoved
 -------------------------------------
-function SkillIndicator_AoECone:onTouchMoved(x, y)
+function SkillIndicator_AoEWedge:onTouchMoved(x, y)
     if (self.m_siState == SI_STATE_READY) then
         return
     end
@@ -51,7 +62,7 @@ end
 -------------------------------------
 -- function initIndicatorNode
 -------------------------------------
-function SkillIndicator_AoECone:initIndicatorNode()
+function SkillIndicator_AoEWedge:initIndicatorNode()
     if (not PARENT.initIndicatorNode(self)) then
         return
     end
@@ -59,42 +70,29 @@ function SkillIndicator_AoECone:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do -- 캐스팅 이펙트
-        local indicator = MakeAnimator(RES_INDICATOR['CONE'..self.m_skillAngle])
-        root_node:addChild(indicator.m_node)
+		local indicator_res = g_constant:get('INDICATOR', 'RES', 'wedge'..self.m_skillAngle)
+        local indicator = MakeAnimator(indicator_res)
+		indicator.m_node:setColor(COLOR_CYAN)
 		indicator:setPosition(self:getAttackPosition())
 		indicator:setScale(self.m_indicatorScale)
+        root_node:addChild(indicator.m_node)
 		self.m_indicatorEffect = indicator
-		return true
     end
 end
 
 -------------------------------------
--- function onChangeTargetCount
--------------------------------------
-function SkillIndicator_AoECone:onChangeTargetCount(old_target_count, cur_target_count)
-	-- 활성화
-	if (old_target_count == 0) and (cur_target_count > 0) then
-		self.m_indicatorEffect.m_node:setColor(COLOR_RED)
-
-	-- 비활성화
-	elseif (old_target_count > 0) and (cur_target_count == 0) then
-		self.m_indicatorEffect.m_node:setColor(COLOR_CYAN)
-	end
-end
-
-
--------------------------------------
 -- function findTargetList
 -------------------------------------
-function SkillIndicator_AoECone:findTargetList(x, y, dir)
+function SkillIndicator_AoEWedge:findTargetList(x, y, dir)
     local world = self:getWorld()
+	local char = self.m_hero
 
     local t_data = {}
-    t_data['x'] = self.m_hero.pos.x
-    t_data['y'] = self.m_hero.pos.y
+    t_data['x'] = char.pos.x
+    t_data['y'] = char.pos.y
     t_data['dir'] = dir
-    t_data['angle_range'] = self.m_skillAngle
+    t_data['angle_range'] = tonumber(self.m_skillAngle)
     t_data['radius'] = self.m_skillRadius
 
-    return world:getTargetList(self.m_hero, self.m_hero.pos.x, self.m_hero.pos.y, 'enemy', 'x', 'fan_shape', t_data)
+    return world:getTargetList(char, char.pos.x, char.pos.y, 'enemy', 'x', 'fan_shape', t_data)
 end

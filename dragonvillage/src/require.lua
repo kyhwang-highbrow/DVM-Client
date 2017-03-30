@@ -335,6 +335,7 @@ local t_module = {
 	'SkillAoECone',
 	'SkillAoECone_Spread',
 	'SkillAoECone_Vertical',
+	'SkillAoEWedge',
     'SkillCrash',
     'SkillLeafBlade',
     'SkillSummon',
@@ -376,6 +377,7 @@ local t_module = {
 	'SkillIndicator_AoESquare_Multi',
 	'SkillIndicator_AoECone',
 	'SkillIndicator_AoECone_Vertical',
+	'SkillIndicator_AoEWedge',
 	'SkillIndicator_X',
 	'SkillIndicator_Penetration',
     

@@ -233,7 +233,9 @@
             "target" : "res/indicator/indicator_type_target/indicator_type_target.vrp",
             "target_cone_90" : "",
             "target_cone_180" : "",
-            "wedge" : "",
+            "wedge20" : "res/indicator/wedge_20/wedge_20.vrp",
+            "wedge30" : "res/indicator/wedge_30/wedge_30.vrp",
+            "wedge40" : "res/indicator/wedge_40/wedge_40.vrp",
             "leaf" : "",
             "voltes_x" : ""
         }

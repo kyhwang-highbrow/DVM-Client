@@ -692,13 +692,15 @@ function Dragon:init_skillIndicator()
 
 	-- 원형 범위
 	elseif (indicator_type == 'round') or (indicator_type == 'target_round') then
-		self.m_skillIndicator = SkillIndicator_AoERound(self, t_skill, false)
+		self.m_skillIndicator = SkillIndicator_AoERound(self, t_skill)
 
 	-- 원점 기준 원뿔형
 	elseif (indicator_type == 'wedge') then
-		self.m_skillIndicator = SkillIndicator_AoECone(self, t_skill)
+		self.m_skillIndicator = SkillIndicator_AoEWedge(self, t_skill)
 	
 	-- 타점 기준 원뿔형 수직
+	elseif (indicator_type == 'cone') then
+		self.m_skillIndicator = SkillIndicator_AoECone(self, t_skill)
 	elseif (indicator_type == 'cone_vertical') then
 		self.m_skillIndicator = SkillIndicator_AoECone_Vertical(self, t_skill)
 

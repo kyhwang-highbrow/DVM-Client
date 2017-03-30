@@ -375,6 +375,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillAoESquare_Fairy.lua" />
     <None Include="..\src\SkillAoESquare_Height.lua" />
     <None Include="..\src\SkillAoESquare_Wonder.lua" />
+    <None Include="..\src\SkillAoEWedge.lua" />
     <None Include="..\src\SkillBurst.lua" />
     <None Include="..\src\SkillChainLightning.lua" />
     <None Include="..\src\SkillCharge.lua" />
@@ -393,6 +394,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillIndicator_AoESquare.lua" />
     <None Include="..\src\SkillIndicator_AoESquare_Multi.lua" />
     <None Include="..\src\SkillIndicator_AoESquare_Width.lua" />
+    <None Include="..\src\SkillIndicator_AoEWedge.lua" />
     <None Include="..\src\SkillIndicator_Penetration.lua" />
     <None Include="..\src\SkillIndicator_X.lua" />
     <None Include="..\src\SkillLaser_Lightning.lua" />
