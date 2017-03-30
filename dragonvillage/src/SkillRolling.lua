@@ -4,10 +4,11 @@ local PARENT = class(Skill, IStateDelegate:getCloneTable())
 -- class SkillRolling
 -------------------------------------
 SkillRolling = class(PARENT, {
+		-- 전체 타겟 Stack
+		m_lTargetList = 'Character list',
+
 		-- 공격 횟수 관리 용
 		m_attackCnt = 'number',
-		m_targetCnt = 'number',
-		m_maxTargetCnt = 'number',
 		m_maxAttackCnt = 'number',
 
 		-- 이동 체크
@@ -36,19 +37,24 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillRolling:init_skill(spin_res, target_count, buff_prob, atk_count)
+function SkillRolling:init_skill(spin_res, atk_count)
     PARENT.init_skill(self)
 	
 	-- 멤버 변수 
-	self.m_maxTargetCnt = target_count
 	self.m_maxAttackCnt = atk_count
 	self.m_spinRes = spin_res
 	self.m_afterimageMove = 0
-	self.m_targetCnt = 0
 	self.m_attackCnt = 0
 	self.m_bMoving = false
 
-    -- 최초 위치 지정
+	self.m_lTargetList = self:findTarget()
+	self.m_targetChar = table.pop(self.m_lTargetList)
+
+	cclog(self.m_range)
+	cclog(#self.m_lTargetList)
+	cclog(self.m_targetChar)
+
+	-- 최초 위치 지정
     self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 
 	-- 스핀 이펙트 속도 조절
@@ -59,10 +65,15 @@ function SkillRolling:init_skill(spin_res, target_count, buff_prob, atk_count)
 end
 
 -------------------------------------
--- function initSpineSideEffect
--- @breif 특정 드래곤 하드 코딩
+-- function initSkillSize
 -------------------------------------
-function SkillRolling:spineSideEffect()
+function SkillRolling:initSkillSize()
+	if (self.m_skillSize) and (not (self.m_skillSize == '')) then
+		local t_data = SkillHelper:getSizeAndScale('round', self.m_skillSize)  
+
+		self.m_resScale = t_data['scale']
+		self.m_range = t_data['size']
+	end
 end
 
 -------------------------------------
@@ -97,7 +108,6 @@ function SkillRolling:update(dt)
     return PARENT.update(self, dt)
 end
 
-
 -------------------------------------
 -- function st_move
 -------------------------------------
@@ -116,19 +126,13 @@ function SkillRolling.st_move(owner, dt)
             local missileNode = owner.m_world:getMissileNode()
             missileNode:addChild(animator.m_node)
 
-            -- 하이라이트
-            if (owner.m_bHighlight) then
-                --owner.m_world.m_gameHighlight:addEffect(animator)
-            end
-			
 			owner.m_spinAnimator = animator
 		end
 
 		local releaseFunc = cc.CallFunc:create(function() owner.m_spinAnimator:release(); owner.m_spinAnimator = nil end)
-		
 
         -- 이동
-        local target_pos = cc.p(owner.m_targetPos.x - 40, owner.m_targetPos.y)
+        local target_pos = cc.p(owner.m_targetChar.pos.x - 40, owner.m_targetChar.pos.y)
         local action = cc.MoveTo:create(0.2, target_pos)
 		local delay = cc.DelayTime:create(0.5)
 
@@ -168,16 +172,11 @@ function SkillRolling.st_attack(owner, dt)
 	-- 현재 공격 대상이 죽었다면 state move_attack 로 변경
 	if (owner.m_targetChar) and (owner.m_targetChar.m_bDead) then
 		owner:changeState('moveAttack')
-		
-		-- 스파인 드래곤 .. 적 죽일 시 상태효과
-		if (owner.m_targetChar) and (owner.m_targetChar.m_bDead) then
-            owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_SLAIN }, {})
-		end
 	end
 
-	-- 최대 공격 횟수 초과시 돌아감
+	-- 최대 공격 횟수 초과시 state move_attack 로 변경
     if (owner.m_maxAttackCnt <= owner.m_attackCnt) then
-		owner:changeState('comeback')
+		owner:changeState('moveAttack')
     end
 end
 
@@ -185,23 +184,22 @@ end
 -- function st_move
 -------------------------------------
 function SkillRolling.st_move_attack(owner, dt)
+	if (owner.m_stateTimer == 0) then
+		owner.m_targetChar = nil
+	end
+
 	-- 잔상 효과
 	owner:updateAfterImage(dt)
-
+	
 	-- a. 이동중인지 체크
 	if (not owner.m_bMoving) then 
 		-- 1. 다음 타겟을 검색
 		if (not owner.m_targetChar) then
 			-- 1-1. 최대 충돌 갯수 체크
-			if (owner.m_maxTargetCnt > owner.m_targetCnt) then
-				-- 1-2. 타겟이 있는지 체크
-                local target = owner:getRollingNextTarget()
-				if target then 
-					owner.m_targetChar = target
-					owner.m_targetPos = target.pos
-				else
-					owner:changeState('comeback')
-				end
+            local target = table.pop(owner.m_lTargetList)
+			if target then 
+				owner.m_targetChar = target
+				owner.m_targetPos = target.pos
 			else
 				owner:changeState('comeback')
 			end
@@ -221,11 +219,6 @@ function SkillRolling.st_move_attack(owner, dt)
 
                 local missileNode = owner.m_world:getMissileNode()
                 missileNode:addChild(animator.m_node)
-
-                -- 하이라이트
-                if (owner.m_bHighlight) then
-                    --owner.m_world.m_gameHighlight:addEffect(animator)
-                end
                 
 				owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 300)
 
@@ -235,7 +228,6 @@ function SkillRolling.st_move_attack(owner, dt)
 		
 			-- 2-3. 액션 실행 및 후 타겟 지움
 			owner.m_owner:runAction(cc.Sequence:create(cc.EaseIn:create(action, 2), cbFunc))
-			owner.m_targetCnt = owner.m_targetCnt + 1
 			owner.m_targetChar = nil
 		end
 	end
@@ -296,46 +288,6 @@ function SkillRolling:updateAfterImage(dt)
     end
 end
 
-
--------------------------------------
--- function getDefaultTargetPos
--- @brief 디폴트 타겟 좌표
--------------------------------------
-function SkillRolling:getDefaultTargetPos()
-    local l_target = self.m_owner:getTargetListByType(self.m_targetType)
-    local target = l_target[1]
-
-    if target then
-        return target.pos.x, target.pos.y
-    else
-        return self.m_owner.pos.x, self.m_owner.pos.y
-    end
-end
-
--------------------------------------
--- function findTarget
--- @brief 공격 대상 찾음
--------------------------------------
-function SkillRolling:findTarget()
-	local x = self.m_targetPos.x
-	local y = self.m_targetPos.y
-	local range = 1
-
-    local world = self.m_world
-	local l_target = world:getTargetList(self.m_owner, x, y, 'enemy', 'x', 'distance_line')
-    
-	local l_ret = {}
-    local distance = 0
-
-    for _, target in pairs(l_target) do
-		if isCollision(x, y, target, range) then 
-			table.insert(l_ret, target)
-		end
-    end
-    
-    return l_ret
-end
-
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------
@@ -344,8 +296,7 @@ function SkillRolling:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 	local spin_res = t_skill['res_2']
-	local target_count = t_skill['val_1']
-	local buff_prob = t_skill['val_2']
+
 	local atk_count = t_skill['hit']
 
 	-- 인스턴스 생성부
@@ -355,7 +306,7 @@ function SkillRolling:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(spin_res, target_count, buff_prob, atk_count)
+    skill:init_skill(spin_res, atk_count)
 	skill:initState()
 
 	-- 3. state 시작 
@@ -366,29 +317,4 @@ function SkillRolling:makeSkillInstance(owner, t_skill, t_data)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
-
-    -- 5. 하이라이트
-    if (skill.m_bHighlight) then
-        --world.m_gameHighlight:addMissile(skill)
-    end
-end
-
--------------------------------------
--- function getRollingNextTarget
--------------------------------------
-function SkillRolling:getRollingNextTarget()
-    local t_targets = self.m_world:getTargetList(self.m_owner, 0, 0, 'enemy', 'x', 'distance_line')
-
-    local cnt = #t_targets
-
-    if (cnt <= 0) then
-        return nil
-
-    elseif (cnt == 1) then
-        return t_targets[1]
-
-    else
-        local rand = math_random(1, #t_targets)
-        return t_targets[rand]
-    end 
 end

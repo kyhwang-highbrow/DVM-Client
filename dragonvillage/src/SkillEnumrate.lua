@@ -152,6 +152,10 @@ function SkillEnumrate:getStartPosList_Polygons()
 			{x = 70, y = -70},
 			{x = -70, y = - 70}
 		}
+	elseif (self.m_skillLineNum == 1) then
+		l_attack_pos = {
+			{x = 50, y = 0}
+		}
 	else
 		error('다각형 탄 배치 작업중입니다')
 	end

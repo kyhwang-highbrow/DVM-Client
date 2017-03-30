@@ -246,6 +246,18 @@ function table.getPartList(t, count)
 	return t_ret
 end
 
+-------------------------------------
+-- function pop
+-- @brief stack의 pop
+-------------------------------------
+function table.pop(t)
+	local item = table.getFirst(t)
+	if (#t > 0) then
+		table.remove(t, 1)
+	end
+	return item
+end
+
 --###############################################
 -- utility funciton : datetime
 --###############################################

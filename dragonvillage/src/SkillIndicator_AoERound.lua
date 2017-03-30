@@ -57,7 +57,7 @@ end
 -------------------------------------
 function SkillIndicator_AoERound:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
 	self.m_indicatorEffect:setPosition(touch_x - pos_x, touch_y - pos_y)
-	EffectLink_refresh(self.m_indicatorAddEffect, 0, 0, x - pos_x, y - pos_y)
+	EffectLink_refresh(self.m_indicatorAddEffect, 0, 0, touch_x - pos_x, touch_y - pos_y)
 end
 
 -------------------------------------
