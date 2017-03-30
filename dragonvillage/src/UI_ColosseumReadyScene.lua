@@ -29,7 +29,7 @@ function UI_ColosseumReadyScene:init()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_backBtn() end, 'UI_ColosseumReadyScene')
 
-	g_deckData:setSelectedDeck(GAME_MODE.COLOSSEUM)
+	g_deckData:setSelectedDeck('pvp')
     
 	self:initUI()
     self:initButton()
@@ -48,7 +48,7 @@ function UI_ColosseumReadyScene:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_ColosseumReadyScene'
     self.m_titleStr = Str('콜로세움 준비')
-	self.m_staminaType = GAME_MODE.COLOSSEUM
+	self.m_staminaType = 'pvp'
     self.m_bVisible = true
     self.m_bUseExitBtn = true
 end
@@ -368,7 +368,7 @@ end
 -- @brief stage_id에 해당하는 필요 스태미너 타입, 갯수 리턴
 -------------------------------------
 function UI_ColosseumReadyScene:getStageStaminaInfo()
-    local cost_type = GAME_MODE.COLOSSEUM
+    local cost_type = 'pvp'
     local cost_value = 1
 
     return cost_type, cost_value

@@ -71,7 +71,7 @@ end
 -------------------------------------
 function UI_ReadyScene:checkDeckName()
 	local curr_deck_name = g_deckData:getSelectedDeckName()
-	if string.find(curr_deck_name, GAME_MODE.COLOSSEUM) then
+	if string.find(curr_deck_name, 'pvp') then
 		g_deckData:setSelectedDeck('1')
 	end
 end

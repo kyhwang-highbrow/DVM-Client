@@ -419,3 +419,22 @@ function IconHelper:getRarityIcon(rarity)
 
     return sprite
 end
+
+-------------------------------------
+-- function getStaminaInboxIcon
+-- @breif 입장권 아이콘 생성
+-------------------------------------
+function IconHelper:getStaminaInboxIcon(type)
+    local res = 'res/ui/icon/inbox/inbox_staminas_' .. type .. '.png'
+
+    local icon = cc.Sprite:create(res)
+
+    if (not icon) then
+        icon = cc.Sprite:create('res/ui/icon/inbox/inbox_staminas_st.png')
+    end
+
+    icon:setDockPoint(cc.p(0.5, 0.5))
+    icon:setAnchorPoint(cc.p(0.5, 0.5))
+
+    return icon
+end

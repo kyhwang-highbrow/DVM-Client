@@ -154,9 +154,7 @@ function UI_TopUserInfo:changeOwnerUI(ui)
     self.root:setVisible(ui.m_bVisible)
 	
 	-- 스태미나 관련
-	self.m_staminaType = ui.m_staminaType
-	vars['stIcon']:setVisible((self.m_staminaType == GAME_MODE.ADVENTURE))
-	vars['pvpIcon']:setVisible((self.m_staminaType == GAME_MODE.COLOSSEUM))
+    self:setStaminaType(ui.m_staminaType)
 
     do -- 스태미너 업데이트 관련 임시 위치
         if ui.m_bVisible then
@@ -189,4 +187,20 @@ end
 -------------------------------------
 function UI_TopUserInfo:update(dt)
     self:refreshData()
+end
+
+-------------------------------------
+-- function setStaminaType
+-------------------------------------
+function UI_TopUserInfo:setStaminaType(stamina_type)
+    if (self.m_staminaType == stamina_type) then
+        return
+    end
+
+    local vars = self.vars
+
+    self.m_staminaType = stamina_type
+    vars['staminaIconNode']:removeAllChildren()
+    local icon = IconHelper:getStaminaInboxIcon(stamina_type)
+    vars['staminaIconNode']:addChild(icon)
 end

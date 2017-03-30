@@ -19,7 +19,7 @@ function ITopUserInfo_EventListener:init()
     self.m_bVisible = true
     self.m_bUseExitBtn = true
     self.m_titleStr = nil
-	self.m_staminaType = GAME_MODE.ADVENTURE
+	self.m_staminaType = 'st'
 end
 
 -------------------------------------
