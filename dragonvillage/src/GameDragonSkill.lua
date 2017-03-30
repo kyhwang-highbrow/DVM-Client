@@ -515,5 +515,19 @@ end
 -- function isPlaying
 -------------------------------------
 function GameDragonSkill:isPlaying()
+    return (self:isPlayingActiveSkill() or self:isPlayingTimeSkill())
+end
+
+-------------------------------------
+-- function isPlayingActiveSkill
+-------------------------------------
+function GameDragonSkill:isPlayingActiveSkill()
     return (self.m_state == GAME_DRAGON_SKILL_LIVE)
+end
+
+-------------------------------------
+-- function isPlayingTimeSkill
+-------------------------------------
+function GameDragonSkill:isPlayingTimeSkill()
+    return (self.m_state == GAME_DRAGON_SKILL_LIVE2)
 end

@@ -4,7 +4,7 @@
 GameHighlightMgr = class({
         m_world = 'GameWorld',
 
-        m_bActive = 'boolean',
+        m_level = 'number',     -- 어둡기 정도(0~255)
 
         m_darkLayer = '',
      })
@@ -15,10 +15,10 @@ GameHighlightMgr = class({
 function GameHighlightMgr:init(world, darkLayer)
     self.m_world = world
 
-    self.m_bActive = false
+    self.m_level = 0
    
     self.m_darkLayer = darkLayer
-    self.m_darkLayer:setOpacity(0)
+    self.m_darkLayer:setOpacity(self.m_level)
     self.m_darkLayer:setVisible(true)
 end
 
@@ -28,38 +28,37 @@ end
 function GameHighlightMgr:update(dt)
     local world = self.m_world
 
-    local b = false
+    local level = 0
 
-    -- 드래곤 스킬 연출 중
-    if (world.m_gameDragonSkill:isPlaying()) then
-        b = true
+    -- 드래곤 드래그 스킬 연출 중
+    if (world.m_gameDragonSkill:isPlayingActiveSkill()) then
+        level = 255
+
+    -- 드래곤 타임 스킬 연출 중
+    elseif (world.m_gameDragonSkill:isPlayingTimeSkill()) then
+        level = 150
 
     -- 인디케이터 조작 중
     elseif (world.m_skillIndicatorMgr:isControlling()) then
-        b = true
+        level = 200
 
     -- 테이머 스킬 연출 중
     elseif (world.m_tamer and world.m_tamer:isRequiredHighLight()) then
-        b = true
-
+        level = 150
     end
 
-    self:setActive(b)
+    self:setLevel(level)
 end
 
 -------------------------------------
--- function setActive
+-- function setLevel
 -------------------------------------
-function GameHighlightMgr:setActive(bActive)
-    if (self.m_bActive == bActive) then return end
+function GameHighlightMgr:setLevel(level)
+    if (self.m_level == level) then return end
        
-    self.m_bActive = bActive
+    self.m_level = level
     
-    if (self.m_bActive) then
-        self:changeDarkLayerColor(255, 0.2)
-    else
-        self:changeDarkLayerColor(0, 0.2)
-    end
+    self:changeDarkLayerColor(self.m_level, 0.2)
 end
 
 -------------------------------------

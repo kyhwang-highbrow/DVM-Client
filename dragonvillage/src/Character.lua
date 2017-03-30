@@ -1121,16 +1121,6 @@ function Character:release()
         self.m_unitInfoNode:removeFromParent(true)
     end
 
-    --[[
-    if (self.m_hpNode) then
-        self.m_hpNode:removeFromParent(true)
-    end
-
-    if (self.m_castingNode) then
-        self.m_castingNode:removeFromParent(true)
-    end
-    ]]--
-
     self.m_unitInfoNode = nil
 
     self.m_hpNode = nil
