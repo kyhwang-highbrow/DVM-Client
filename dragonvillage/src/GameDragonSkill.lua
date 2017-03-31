@@ -326,7 +326,7 @@ function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
         dragonNode:addChild(animator.m_node)
 
         -- 드래곤 애니메이션 속도 조정
-        local delayTime = self.m_skillOpeningCutBg:getDuration()
+        local delayTime = self.m_skillOpeningCutBg:getDuration() - 0.2
         local duration = animator:getDuration()
         animator:setTimeScale(duration / delayTime)
     end
