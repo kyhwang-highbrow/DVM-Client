@@ -193,6 +193,10 @@ end
 -- function setStaminaType
 -------------------------------------
 function UI_TopUserInfo:setStaminaType(stamina_type)
+    if (stamina_type == nil) then
+        return
+    end
+
     if (self.m_staminaType == stamina_type) then
         return
     end

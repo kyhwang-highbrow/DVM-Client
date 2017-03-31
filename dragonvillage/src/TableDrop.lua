@@ -6,6 +6,8 @@ local PARENT = TableClass
 TableDrop = class(PARENT, {
     })
 
+local THIS = TableDrop
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -35,4 +37,16 @@ function TableDrop:getStageMissionList(stage_id)
 	end
 
 	return t_ret
+end
+
+-------------------------------------
+-- function getStageStaminaType
+-------------------------------------
+function TableDrop:getStageStaminaType(stage_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local stamina_type = self:getValue(stage_id, 'cost_type')
+    return stamina_type
 end

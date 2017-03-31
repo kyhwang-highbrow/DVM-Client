@@ -55,6 +55,9 @@ function UI_ReadyScene:initParentVariable()
     self.m_bVisible = true
     --self.m_titleStr = nil -- refresh에서 스테이지명 설정
     self.m_bUseExitBtn = true
+
+    -- 입장권 타입 설정
+    self.m_staminaType = TableDrop:getStageStaminaType(self.m_stageID)
 end
 
 -------------------------------------
