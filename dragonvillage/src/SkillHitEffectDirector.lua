@@ -223,6 +223,10 @@ end
 -- function doWork
 -------------------------------------
 function SkillHitEffectDirector:doWork(desc)
+    if self.m_bEndSkill and self.m_bEndAction then
+        return
+    end
+
     local vars = self.vars
     self.m_hitCount = self.m_hitCount + 1
 
