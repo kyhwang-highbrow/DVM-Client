@@ -80,9 +80,6 @@ function UI_DragonManageInfo:initButton()
 
         -- 기원
         vars['resechBtn']:registerScriptTapHandler(function() self:click_resechBtn() end)
-
-        -- 스킬 레벨업
-        vars['skillLevelupBtn']:registerScriptTapHandler(function() self:click_skillLevelupBtn() end)
     end
 
     do -- 좌상단 버튼들 초기화
@@ -545,24 +542,6 @@ end
 -------------------------------------
 function UI_DragonManageInfo:click_resechBtn()
     self:openSubManageUI(UI_DragonManageTrain)
-end
-
--------------------------------------
--- function click_skillLevelupBtn
--- @brief 스킬 레벨업 버튼
--------------------------------------
-function UI_DragonManageInfo:click_skillLevelupBtn()
-    local doid = self.m_selectDragonOID
-
-    do -- 스킬 레벨업 가능 여부 확인
-        local upgradeable, msg = g_dragonsData:checkSkillUpgradeable(doid)
-        if (not upgradeable) then
-            UIManager:toastNotificationRed(msg)
-            return
-        end
-    end
-
-    self:openSubManageUI(UI_DragonSkillLevelUp)
 end
 
 -------------------------------------
