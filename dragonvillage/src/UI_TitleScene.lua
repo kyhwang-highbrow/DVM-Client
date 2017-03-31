@@ -334,6 +334,7 @@ function UI_TitleScene:workGetServerInfo()
         co:work()
         self.m_loadingUI:showLoading(Str('드래곤들을 부르는 중...'))
         local ui_network = g_dragonsData:request_dragonsInfo(co.NEXT, fail_cb)
+        ui_network:setLoadingMsg('')
         if co:waitWork() then return end
 
         -- 탐험 정보 받기
@@ -342,6 +343,14 @@ function UI_TitleScene:workGetServerInfo()
         local ui_network = g_explorationData:request_explorationInfo(co.NEXT)
         ui_network:setRevocable(false)
         ui_network:setFailCB(fail_cb)
+        ui_network:setLoadingMsg('')
+        if co:waitWork() then return end
+
+        -- (테이블 정보를 받는 중)
+        co:work()
+        self.m_loadingUI:showLoading(Str('지도를 챙기는 중...'))
+        local ui_network = g_serverData:request_serverTables(co.NEXT, fail_cb)
+        ui_network:setLoadingMsg('')
         if co:waitWork() then return end
 
         co:close()

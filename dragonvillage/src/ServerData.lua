@@ -448,3 +448,34 @@ function ServerData:networkCommonRespone_addedItems(ret)
         g_collectionData:applyRelationPoints(t_added_items['relation'])
     end
 end
+
+-------------------------------------
+-- function request_serverTables
+-- @breif
+-------------------------------------
+function ServerData:request_serverTables(finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        TABLE:setServerTable('table_stamina_info', ret['table_stamina_info'])
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/tables')
+    ui_network:setParam('uid', uid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end

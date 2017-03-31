@@ -230,10 +230,11 @@ end
 -- @brief 모든 입장권 추가
 -------------------------------------
 function UI_SettingPopup:click_allStaminaBtn()
-    local l_stamina_list = {'st', 'pvp', 'nightmare', 'treant', 'gold', 'd_light', 'd_fire', 'd_water', 'd_earth', 'd_dark', 't_light', 't_fire', 't_water', 't_earth', 't_dark'}
-
-
-
+    local l_stamina_list = {}
+    local table_stamina_info = TABLE:get('table_stamina_info')
+    for i,v in pairs(table_stamina_info) do
+        table.insert(l_stamina_list, i)
+    end
 
     local function coroutine_function(dt)
         local co = CoroutineHelper()
