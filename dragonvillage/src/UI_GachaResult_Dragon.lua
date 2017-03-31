@@ -67,13 +67,14 @@ function UI_GachaResult_Dragon:refresh()
     end
 
     local did = t_gacha_dragon['did']
+    local grade = t_gacha_dragon['grade']
     local evolution = t_gacha_dragon['evolution']
 
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[did]
     
     -- 등급
-    vars['starVisual']:changeAni('card_star_light_1')
+    vars['starVisual']:changeAni('card_star_light_' .. grade)
 
     -- 이름
     vars['nameLabel']:setString(Str(t_dragon['t_name']) .. '-' .. evolutionName(evolution))
