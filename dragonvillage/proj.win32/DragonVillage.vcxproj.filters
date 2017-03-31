@@ -654,9 +654,6 @@
     <None Include="..\src\TamerSpecialSkillCombination.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\TamerSkillCut.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\TamerSpeechSystem.lua">
       <Filter>lua</Filter>
     </None>

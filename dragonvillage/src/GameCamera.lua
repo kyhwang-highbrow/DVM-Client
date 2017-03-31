@@ -249,8 +249,8 @@ end
 -- function adjustScale
 -------------------------------------
 function GameCamera:adjustScale(scale)
-	scale = math_min(scale, MAX_SCALE)
-	scale = math_max(scale, MIN_SCALE)
+	--scale = math_min(scale, MAX_SCALE)
+	--scale = math_max(scale, MIN_SCALE)
 
 	return scale
 end
