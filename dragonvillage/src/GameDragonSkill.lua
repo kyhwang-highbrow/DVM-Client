@@ -262,7 +262,7 @@ function GameDragonSkill.update_live2(self, dt)
             world.m_gameCamera:setAction({
                 pos_x = dragon.pos.x - (CRITERIA_RESOLUTION_X / 2),
                 pos_y = dragon.pos.y,
-                scale = 1.5,
+                scale = 1.2,
                 time = 0.25
             })
 
