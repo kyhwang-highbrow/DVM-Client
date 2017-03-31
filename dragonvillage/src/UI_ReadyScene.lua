@@ -100,6 +100,13 @@ function UI_ReadyScene:initUI()
     self:init_dragonTableView()
     self:init_monsterTableView()
     self:initFormationUI()
+
+    do -- 스테이지에 해당하는 스테미나 아이콘 생성
+        local vars = self.vars
+        local type = TableDrop:getStageStaminaType(self.m_stageID)
+        local icon = IconHelper:getStaminaInboxIcon(type)
+        vars['staminaNode']:addChild(icon)
+    end
 end
 
 -------------------------------------

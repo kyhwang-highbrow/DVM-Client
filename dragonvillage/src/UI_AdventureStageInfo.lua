@@ -64,6 +64,8 @@ function UI_AdventureStageInfo:initButton()
 
     if (game_mode == GAME_MODE_ADVENTURE) then
         vars['starButton']:registerScriptTapHandler(function() self:click_starButton() end)
+    else
+        vars['starButton']:setVisible(false)
     end
 end
 
@@ -131,6 +133,14 @@ function UI_AdventureStageInfo:refresh()
         else
             vars['starButton']:setAutoShake(false)
         end
+    end
+
+    do -- 스테이지에 해당하는 스테미나 아이콘 생성
+        local vars = self.vars
+        local type = TableDrop:getStageStaminaType(self.m_stageID)
+        local icon = IconHelper:getStaminaInboxIcon(type)
+        vars['staminaNode']:removeAllChildren()
+        vars['staminaNode']:addChild(icon)
     end
 end
 

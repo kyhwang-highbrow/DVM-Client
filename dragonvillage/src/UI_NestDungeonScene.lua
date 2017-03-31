@@ -200,12 +200,20 @@ function UI_NestDungeonScene:click_dungeonBtn(ui, data)
     -- 0.5초 후 실행
     self.vars['detailTableViewNode']:stopAllActions()
     cca.reserveFunc(self.vars['detailTableViewNode'], 0.25, function() self:makeNestModeTableView() end)
+
+    do -- 사용 스테미너 얻어오기
+        local stamina_type = g_nestDungeonData:getNestModeStaminaType(data['mode_id'])
+        g_topUserInfo:setStaminaType(stamina_type)
+    end
 end
 
 -------------------------------------
 -- function closeSubMenu
 -------------------------------------
 function UI_NestDungeonScene:closeSubMenu()
+
+    -- 탑바의 입장권
+    g_topUserInfo:setStaminaType('st')
 
     if (not self.m_selectNestDungeonInfo) then
         return

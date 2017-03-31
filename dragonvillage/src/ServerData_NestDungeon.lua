@@ -73,13 +73,10 @@ end
 function ServerData_NestDungeon:getNestDungeonListForUI()
     local l_dungeon_list = self:getNestDungeonInfo()
 
-    do -- 악몽(2)던전은 sub_mode가 1인 항목만 포함
-       -- 악몽던전에 스테이지 리스트는 공통으로 표시하기 때문
+    do 
         local t_remove = {}
         for i,v in ipairs(l_dungeon_list) do
-            if (v['mode'] == 2) and (v['sub_mode']~=1) then
-                table.insert(t_remove, 1, i)
-            elseif (v['is_open'] == 0) then
+            if (v['is_open'] == 0) then
                 table.insert(t_remove, 1, i)
             end
         end
@@ -164,17 +161,7 @@ end
 -- @brief 네스트 던전 모드별 스테이지 리스트 (UI 전용)
 -------------------------------------
 function ServerData_NestDungeon:getNestDungeon_stageListForUI(nest_dungeon_id)
-    -- UI상에서 악몽 던전은 스테이지 리스트를 한 리스트로 처리
-    if (nest_dungeon_id == 1220100) then
-        local l_ret = {}
-        table.addList(l_ret, self:getNestDungeon_stageList(1220100))
-        table.addList(l_ret, self:getNestDungeon_stageList(1220200))
-        table.addList(l_ret, self:getNestDungeon_stageList(1220300))
-        table.addList(l_ret, self:getNestDungeon_stageList(1220400))
-        return l_ret
-    else
-        return self:getNestDungeon_stageList(nest_dungeon_id)
-    end
+    return self:getNestDungeon_stageList(nest_dungeon_id)
 end
 
 -------------------------------------
@@ -203,14 +190,7 @@ end
 -- @brief
 -------------------------------------
 function ServerData_NestDungeon:getDungeonIDFromStateID(stage_id)
-    local t_dungeon_id_info = self:parseNestDungeonID(stage_id)
-
-    -- 악몽 던전(2)은 별도 처리
-    if (t_dungeon_id_info['dungeon_mode'] == 2) then
-        return 1220100
-    else
-        return stage_id - (stage_id % 100)
-    end
+    return stage_id - (stage_id % 100)
 end
 
 
@@ -524,4 +504,14 @@ function ServerData_NestDungeon:goToNestDungeonScene(stage_id)
     end
 
     request_nest_dungeon_info()
+end
+
+
+-------------------------------------
+-- function getNestModeStaminaType
+-------------------------------------
+function ServerData_NestDungeon:getNestModeStaminaType(dungeon_id)
+    local stage_id = dungeon_id + 1
+    local stamina_type = TableDrop:getStageStaminaType(stage_id)
+    return stamina_type
 end
