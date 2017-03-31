@@ -24,7 +24,7 @@ function DropItemMgr:init(world)
 	self.m_world = world
 
     self.m_touchNode = cc.Node:create()
-    world:addChild2(self.m_touchNode)
+    world.m_worldLayer:addChild(self.m_touchNode)
     self:makeTouchLayer(self.m_touchNode)
 
     self.m_lItemlist = {}
@@ -211,9 +211,11 @@ function DropItemMgr:getItemFromPos(pos_x, pos_y)
     local near_distance = nil
     local selected_item = nil
 
+    cclog('## touch pos_x, pos_y : ' .. pos_x, pos_y)
     for _,item in ipairs(self.m_lItemlist) do
         if (not item:isObtained()) then
             local x, y = item:getCenterPos()
+            cclog('# item pos_x, pos_y : ' .. x, y)
 		    local distance = math_distance(x, y, pos_x, pos_y)
             if (not near_distance) or (distance < near_distance) then
                 near_distance = distance
@@ -263,7 +265,9 @@ function DropItemMgr:onTouchBegan(touch, event)
 
     -- 월드상의 터치 위치 얻어옴
     local location = touch:getLocation()
-    local node_pos = self.m_touchNode:getParent():convertToNodeSpace(location)
+
+    -- item들은 game node 2에 위치함
+    local node_pos = self.m_world.m_gameNode2:convertToNodeSpace(location)
 
     local select_item = self:getItemFromPos(node_pos['x'], node_pos['y'])
 

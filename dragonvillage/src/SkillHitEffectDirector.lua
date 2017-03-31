@@ -250,7 +250,7 @@ function SkillHitEffectDirector:doWork(desc)
             self:checkRelease()
         end
         self.root:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.Hide:create(), cc.CallFunc:create(finish_cb)))
-        self.root:runAction(cc.Sequence:create(cc.DelayTime:create(duration * 2 / 3), cc.FadeOut:create(duration * 1 / 3)))
+        self.root:runAction(cc.Sequence:create(cc.DelayTime:create(duration * 2.5 / 3), cc.FadeOut:create(duration * 0.5 / 3)))
     end
 
 
