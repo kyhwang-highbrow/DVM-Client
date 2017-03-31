@@ -185,7 +185,7 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
     -- 배경
     if self:checkVarsKey('attrBgNode', attr) then
         vars['attrBgNode']:removeAllChildren()
-        local animator = ResHelper:getUIDragonBG(attr)
+        local animator = ResHelper:getUIDragonBG(attr, 'idle')
         vars['attrBgNode']:addChild(animator.m_node)
     end
 
