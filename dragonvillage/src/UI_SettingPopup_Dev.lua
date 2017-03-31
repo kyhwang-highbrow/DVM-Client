@@ -58,9 +58,9 @@ function UI_SettingPopup:click_allDragonBtn()
     local table_dragon = TABLE:get('dragon')
     local t_list = {}
     for did,t_dragon in pairs(table_dragon) do
-        if (t_dragon['test'] == 1) then
+        --if (t_dragon['test'] == 1) then
             table.insert(t_list, did)
-        end
+        --end
     end
     local do_work
 

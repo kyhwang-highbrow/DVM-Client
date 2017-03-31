@@ -242,7 +242,8 @@ function ServerData_LobbyUserList:setDefaultLobbyUserData(l_lobby_user_list)
 
             -- test값이 1인 데이터만 사용
             local function condition_func(t_table)
-                if (t_table['test'] == 1) then
+                --if (t_table['test'] == 1) then
+                if true then
                     return true
                 else
                     return false

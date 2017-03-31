@@ -120,13 +120,13 @@ function UI_InvenDevApiPopup:init_dragonTableView()
     local table_dragon = TABLE:get('dragon')
     local t_invalid_dragon = {}
     for i,v in pairs(table_dragon) do
-        if (v['test'] == 1) then
+        --if (v['test'] == 1) then
             local copy_table = clone(v)
             copy_table['lv'] = 1
             copy_table['grade'] = 1
             copy_table['evolution'] = 1
             table.insert(t_invalid_dragon, copy_table)
-        end
+        --end
     end
 
     -- 테이블뷰 초기화

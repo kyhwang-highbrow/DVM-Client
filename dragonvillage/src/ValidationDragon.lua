@@ -93,9 +93,9 @@ function ValidationDragonTotal()
     local table_dragon = TABLE:get('dragon')
 
     for dragon_id,v in pairs(table_dragon) do
-        if (v['test'] == 1) then
+        --if (v['test'] == 1) then
             cclog(v['t_name'])
             ValidationDragon(dragon_id)
-        end
+        --end
     end
 end

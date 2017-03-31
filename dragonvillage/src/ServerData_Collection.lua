@@ -44,7 +44,8 @@ function ServerData_Collection:getCollectionList(role_type, attr_type)
     local l_ret = {}
 
     for i,v in pairs(table_dragon.m_orgTable) do
-        if (v['test'] ~= 1) then
+        --if (v['test'] ~= 1) then
+        if false then
 
         elseif (role_type ~= 'all') and (role_type ~= v['role']) then
 

@@ -8,6 +8,8 @@ TableDragon = class(PARENT, {
         m_mIllustratedDragonIdx = 'table',
     })
 
+local THIS = TableDragon
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -44,7 +46,8 @@ function TableDragon:initIllustratedDragonList()
     end
 
     -- 드래곤 테이블에서 test값이 1인 드래곤만 추출
-    self.m_lIllustratedDragonList = self:filterList('test', 1)
+    --self.m_lIllustratedDragonList = self:filterList('test', 1)
+    self.m_lIllustratedDragonList = self:filterList('none', nil)
 
     -- did순으로 정렬
     table.sort(self.m_lIllustratedDragonList, function(a, b)
@@ -89,7 +92,8 @@ end
 -- function getRandomRow
 -------------------------------------
 function TableDragon:getRandomRow()
-    local l_list = self:filterList('test', 1)
+    --local l_list = self:filterList('test', 1)
+    local l_list = self:filterList('none', nil)
 
     local cnt = table.count(l_list)
     local rand_num = math_random(1, cnt)
@@ -110,4 +114,20 @@ end
 function TableDragon:getRelationPoint(did)
     local relation_point = self:getValue(did, 'relation_point')
     return relation_point
+end
+
+-------------------------------------
+-- function getImplementedDid
+-------------------------------------
+function TableDragon:getImplementedDid(did)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local value = self:getValue(did, 'test')
+    if (value == 1) then
+        return did
+    else
+        return 120011 -- 파워드래곤
+    end
 end
