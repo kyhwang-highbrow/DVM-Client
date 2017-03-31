@@ -192,51 +192,6 @@
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 1.000000; 0.500000; };
-				anchor_point = { 1.000000; 0.500000; };
-				relative_size_type = 0;
-				width = 140;
-				height = 73;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'hitFont';
-				file_name = 'font/hit.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			type = 'Node';
-			ui_name = '';
-			x = -136.000000;
-			y = 153.000000;
-			dock_point = { 1.000000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 210;
-			height = 100;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = false;
-			lua_name = 'hitNode';
-		};
-		[5] =
-		{
-			[1] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
 				width = 150;
@@ -340,7 +295,7 @@
 			action_duration = 0.500000;
 			lua_name = 'goldNode';
 		};
-		[6] =
+		[5] =
 		{
 			[1] =
 			{
@@ -389,7 +344,7 @@
 			action_duration = 0.500000;
 			lua_name = 'timeNode';
 		};
-		[7] =
+		[6] =
 		{
 			[1] =
 			{
@@ -586,7 +541,7 @@
 			visible = false;
 			lua_name = 'bossNode';
 		};
-		[8] =
+		[7] =
 		{
 			[1] =
 			{
@@ -659,7 +614,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[9] =
+		[8] =
 		{
 			[1] =
 			{
@@ -901,7 +856,7 @@
 			action_duration = 0.500000;
 			lua_name = 'feverMenu';
 		};
-		[10] =
+		[9] =
 		{
 			[1] =
 			{
@@ -1001,7 +956,7 @@
 			src_blend = 770;
 			dest_blend = 771;
 		};
-		[11] =
+		[10] =
 		{
 			[1] =
 			{
@@ -1317,7 +1272,7 @@
 			visible = true;
 			lua_name = '';
 		};
-		[12] =
+		[11] =
 		{
 			[1] =
 			{
@@ -1615,7 +1570,7 @@
 			action_duration = 0.500000;
 			lua_name = '';
 		};
-		[13] =
+		[12] =
 		{
 			[1] =
 			{
@@ -1655,7 +1610,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[14] =
+		[13] =
 		{
 			[1] =
 			{
@@ -1695,7 +1650,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[15] =
+		[14] =
 		{
 			[1] =
 			{
@@ -1735,7 +1690,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[16] =
+		[15] =
 		{
 			[1] =
 			{
@@ -1775,7 +1730,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[17] =
+		[16] =
 		{
 			type = 'Button';
 			ui_name = '';
@@ -1799,7 +1754,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[18] =
+		[17] =
 		{
 			[1] =
 			{
@@ -1867,7 +1822,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[19] =
+		[18] =
 		{
 			type = 'Visual';
 			ui_name = '';
@@ -1896,7 +1851,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[20] =
+		[19] =
 		{
 			[1] =
 			{
@@ -1964,7 +1919,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[21] =
+		[20] =
 		{
 			type = 'Visual';
 			ui_name = '';
@@ -1993,7 +1948,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[22] =
+		[21] =
 		{
 			[1] =
 			{
@@ -2101,7 +2056,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[23] =
+		[22] =
 		{
 			type = 'Visual';
 			ui_name = '';
@@ -2130,7 +2085,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[24] =
+		[23] =
 		{
 			[1] =
 			{
@@ -2198,7 +2153,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[25] =
+		[24] =
 		{
 			[1] =
 			{
@@ -2327,7 +2282,7 @@
 			action_duration = 0.500000;
 			lua_name = 'autoStartNode';
 		};
-		[26] =
+		[25] =
 		{
 			type = 'Button';
 			ui_name = '';
@@ -2355,7 +2310,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[27] =
+		[26] =
 		{
 			type = 'Node';
 			ui_name = '';
@@ -2378,7 +2333,7 @@
 			action_duration = 0.500000;
 			lua_name = 'buffNode';
 		};
-		[28] =
+		[27] =
 		{
 			type = 'Menu';
 			ui_name = '';

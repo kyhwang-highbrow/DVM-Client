@@ -18,15 +18,6 @@ end
 function UI_GameColosseum:initUI()
     local vars = self.vars
 
-    do
-        local label = cc.Label:createWithBMFont('res/font/hit_font.fnt', tostring(999))
-        label:setDockPoint(cc.p(0.5, 0.5))
-        label:setAnchorPoint(cc.p(1, 0.5))
-        --label:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-        vars['hitNode']:addChild(label)
-        vars['hitLabel'] = label
-    end
-    
     -- 2배속
     do
         vars['speedVisual']:setVisible(g_autoPlaySetting:get('quick_mode'))

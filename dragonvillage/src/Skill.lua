@@ -579,6 +579,7 @@ end
 function Skill:release()
     if self.m_skillHitEffctDirector then
         self.m_skillHitEffctDirector:onEnd()
+        self.m_skillHitEffctDirector = nil
     end
 
 	if self.m_world then
