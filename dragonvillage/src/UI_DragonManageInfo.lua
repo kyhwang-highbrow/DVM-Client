@@ -78,7 +78,7 @@ function UI_DragonManageInfo:initButton()
         -- 룬
         vars['runeBtn']:registerScriptTapHandler(function() self:click_runeBtn() end)
 
-        -- 기원
+        -- 연구
         vars['resechBtn']:registerScriptTapHandler(function() self:click_resechBtn() end)
     end
 
@@ -538,10 +538,10 @@ end
 
 -------------------------------------
 -- function click_resechBtn
--- @brief 기원 버튼
+-- @brief 연구 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_resechBtn()
-    self:openSubManageUI(UI_DragonManageTrain)
+    self:openSubManageUI(UI_DragonResearch)
 end
 
 -------------------------------------
