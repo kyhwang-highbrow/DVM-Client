@@ -259,14 +259,20 @@ function GameDragonSkill.update_live2(self, dt)
             -- 카메라 줌인
             local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
             
-            world.m_gameCamera:setTarget(dragon)
+            world.m_gameCamera:setAction({
+                pos_x = dragon.pos.x - (CRITERIA_RESOLUTION_X / 2),
+                pos_y = dragon.pos.y,
+                scale = 1.5,
+                time = 0.25
+            })
 
             -- 효과음
             SoundMgr:playEffect('EFFECT', 'skill_ready')
-        
-        elseif (self:isPassedStepTime(0.1 + time1 + (time2 / 2))) then
-            world.m_gameCamera:reset()
 
+        elseif (self:isPassedStepTime(time1 / 2)) then
+            world.m_gameCamera:reset()
+        
+        elseif (self:isPassedStepTime(time1)) then
             self.m_dragon = nil
 
             self:changeState(GAME_DRAGON_SKILL_WAIT)
@@ -276,6 +282,7 @@ end
 
 -------------------------------------
 -- function makeSkillOpeningCut
+-- @brief 액자 컷
 -------------------------------------
 function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
     self.m_skillOpeningCutBg.m_node:retain()
@@ -307,59 +314,31 @@ function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
             aniName = 'skill_appear'
         elseif (dragon.m_charTable['type']  == 'wonderdragon') then
             aniName = 'attack'
+        elseif (dragon.m_charTable['type']  == 'blackdragon') then
+            aniName = 'pose_1'
+        elseif (dragon.m_charTable['type']  == 'smartdragon') then
+            aniName = 'pose_1'
         end
-        
+
         local res_name = dragon.m_animator.m_resName
         local animator = MakeAnimator(res_name)
-        animator:changeAni(aniName, true)
+        animator:changeAni(aniName, false)
         dragonNode:addChild(animator.m_node)
+
+        -- 드래곤 애니메이션 속도 조정
+        local delayTime = self.m_skillOpeningCutBg:getDuration()
+        local duration = animator:getDuration()
+        animator:setTimeScale(duration / delayTime)
     end
 
     self.m_skillOpeningCutTop:changeAni('scene_1', false)
     self.m_skillOpeningCutTop:setPosition(0, 0)
     self.m_skillOpeningCutTop:setVisible(true)
-
-    -- 보너스 레벨에 따른 문구를 해당 소켓에 붙임
-    --[[
-    local textNode = self.m_skillOpeningCutTop.m_node:getSocketNode('text')
-    textNode:removeAllChildren()
-
-    if (self.m_bonusLevel > 0) then
-        local animator = MakeAnimator('res/effect/skill_decision/skill_decision.vrp')
-        textNode:addChild(animator.m_node)
-
-        local level
-        if (self.m_bonusLevel == 1) then
-            level = 'good'
-        elseif (self.m_bonusLevel == 2) then
-            level = 'great'
-        end
-
-        animator:changeAni(level .. '_appear', false)
-        animator:addAniHandler(function()
-            animator:changeAni(level .. '_idle', true)
-        end)
-    end
-    ]]--
-end
-
--------------------------------------
--- function makeSkillCutEffect
--------------------------------------
-function GameDragonSkill:makeSkillCutEffect(dragon, delayTime)
-    local attr = dragon:getAttribute()
-    local animator = MakeAnimator(string.format('res/effect/effect_skillcut_dragon/effect_skillcut_dragon_%s.vrp', attr))
-    animator:changeAni('idle', false)
-    animator:setPosition(0, 80)
-    self.m_node:addChild(animator.m_node)
-
-    local duration = animator:getDuration()
-    animator:setTimeScale(duration / delayTime)
-    animator:addAniHandler(function() animator:runAction(cc.RemoveSelf:create()) end)
 end
 
 -------------------------------------
 -- function makeSkillDesc
+-- @brief 스킬 설명
 -------------------------------------
 function GameDragonSkill:makeSkillDesc(dragon, delayTime)
     local active_skill_id = dragon:getSkillID('active')
@@ -375,6 +354,7 @@ end
 
 -------------------------------------
 -- function makeDragonCut
+-- @brief 포효씬 드래곤 컷
 -------------------------------------
 function GameDragonSkill:makeDragonCut(dragon, cbEnd)
     if (self.m_dragonCut) then
@@ -397,6 +377,10 @@ function GameDragonSkill:makeDragonCut(dragon, cbEnd)
         aniName = 'skill_appear'
     elseif (dragon.m_charTable['type']  == 'wonderdragon') then
         aniName = 'attack'
+    elseif (dragon.m_charTable['type']  == 'blackdragon') then
+        aniName = 'pose_1'
+    elseif (dragon.m_charTable['type']  == 'smartdragon') then
+        aniName = 'pose_1'
     end
 
     animator:changeAni('skill_appear', false)
