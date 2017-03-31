@@ -210,7 +210,7 @@ function SkillHitEffectDirector:init(owner, bonus_desc)
 
     self.root:setDockPoint(cc.p(0.5, 1))
     self.root:setAnchorPoint(cc.p(0.5, 0.5))
-    self.root:setPosition(0, -180)
+    self.root:setPosition(0, -160)
     g_gameScene.m_inGameUI.root:addChild(self.root)
 
     self.root:setVisible(false)
