@@ -22,8 +22,8 @@ SkillAoESquare = class(PARENT, {
 -- @param body
 -------------------------------------
 function SkillAoESquare:init(file_name, body, ...)
-	self.m_skillWidth = 2048
-	self.m_skillHeight = 2048
+	self.m_skillWidth = g_constant:get('SKILL', 'LONG_LENGTH')
+	self.m_skillHeight = g_constant:get('SKILL', 'LONG_LENGTH')
 end
 
 -------------------------------------

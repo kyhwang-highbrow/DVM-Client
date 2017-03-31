@@ -17,7 +17,7 @@ function SkillIndicator_AoECone:init(hero, t_skill)
 	self.m_skillRadius = t_skill['val_1']
 	self.m_skillAngle = t_skill['val_2']
 	self.m_indicatorScale = t_skill['res_scale']
-	self.m_indicatorAngleLimit = g_constant:get('SKILL', 'SKILL_ANGLE_LIMIT')
+	self.m_indicatorAngleLimit = g_constant:get('SKILL', 'ANGLE_LIMIT')
 end
 
 -------------------------------------

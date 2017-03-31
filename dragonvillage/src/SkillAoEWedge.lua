@@ -30,7 +30,7 @@ function SkillAoEWedge:init_skill(attack_count)
 
 	-- 멤버 변수
 	self.m_maxAttackCount = attack_count
-    self.m_range = 2048
+    self.m_range = g_constant:get('SKILL', 'LONG_LENGTH')
 	self.m_dir = getDegree(self.m_owner.pos.x, self.m_owner.pos.y, self.m_targetPos.x, self.m_targetPos.y)
 
 	-- 위치 설정

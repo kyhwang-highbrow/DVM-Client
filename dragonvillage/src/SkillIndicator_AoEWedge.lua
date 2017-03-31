@@ -12,8 +12,8 @@ SkillIndicator_AoEWedge = class(PARENT, {
 -- function init
 -------------------------------------
 function SkillIndicator_AoEWedge:init(hero, t_skill)
-	self.m_skillRadius = 2048
-	self.m_indicatorAngleLimit = g_constant:get('SKILL', 'SKILL_ANGLE_LIMIT')
+	self.m_skillRadius = g_constant:get('SKILL', 'LONG_LENGTH')
+	self.m_indicatorAngleLimit = g_constant:get('SKILL', 'ANGLE_LIMIT')
 end
 
 -------------------------------------

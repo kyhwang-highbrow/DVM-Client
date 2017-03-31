@@ -20,8 +20,8 @@ end
 function SkillIndicator_AoESquare:init_indicator(t_skill)
 	PARENT.init_indicator(self, t_skill)
 
-	self.m_skillWidth = 2048
-	self.m_skillHeight = 2048
+	self.m_skillWidth = g_constant:get('SKILL', 'LONG_LENGTH')
+	self.m_skillHeight = g_constant:get('SKILL', 'LONG_LENGTH')
 end
 
 -------------------------------------
