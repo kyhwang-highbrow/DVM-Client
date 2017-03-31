@@ -71,7 +71,7 @@ function CommonMissile:initCommonMissile(owner, t_skill)
 
 	-- resource 체크 
 	if (not self.m_missileRes) or (self.m_missileRes == 'x') then
-		error('공통탄 .. ' ..  t_skill['type'] .. ' .. 리소스 없음')
+		error('공통탄 .. ' ..  t_skill['skill_type'] .. ' .. 리소스 없음')
 	end
 	if (self.m_motionStreakRes == 'x') then 
 		self.m_motionStreakRes = nil 

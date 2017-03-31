@@ -75,8 +75,9 @@ function StatusEffect_Trigger:getTriggerFunction()
 	local t_skill = self.m_subData
     local char = self.m_owner
 	local trigger_func = nil
+	local skill_type = t_skill['skill_type']
 
-	if (t_skill['type'] == 'passive_summon_die') then
+	if (skill_type == 'passive_summon_die') then
 		-- 지정된 trigger로 해당 위치에 지정된 몬스터를 appear로 소환
 		trigger_func = function()
 			local mid = t_skill['val_1']
@@ -98,14 +99,14 @@ function StatusEffect_Trigger:getTriggerFunction()
 			char.m_world:addInstantEffect(effect_res, 'idle', pos_x, pos_y)
 		end
 
-	elseif (t_skill['type'] == 'passive_do_skill') then
+	elseif (skill_type == 'passive_do_skill') then
 		-- 지정된 trigger로 지정된 skill_id 실행 
 		trigger_func = function()
 			local skill_id = t_skill['val_1']
 			char:doSkill(skill_id, nil, nil)
 		end
 
-	elseif (t_skill['type'] == 'passive_linked') then
+	elseif (skill_type == 'passive_linked') then
 		-- 모션 스트릭이 첨가된 힐
 		trigger_func = function()
 			local allyList = char:getFellowList()
@@ -114,7 +115,7 @@ function StatusEffect_Trigger:getTriggerFunction()
 			end)
 		end
 
-	elseif (t_skill['type'] == 'passive_vampire') then 
+	elseif (skill_type == 'passive_vampire') then 
 		-- 가한 dmg에 의하여 자기 자신의 체력 회복 
 		trigger_func = function(t_event)
 			local damage = t_event['damage']
@@ -124,27 +125,27 @@ function StatusEffect_Trigger:getTriggerFunction()
 			end
 		end
 
-	elseif (t_skill['type'] == 'passive_spatter') then 
+	elseif (skill_type == 'passive_spatter') then 
 		-- 퐁당퐁당
 		trigger_func = function()
 			SkillSpatter:makeSkillInstance(char, t_skill)
 		end
 	
-	elseif (t_skill['type'] == 'passive_add_attack') then 
+	elseif (skill_type == 'passive_add_attack') then 
 		-- 추가 공격
 		trigger_func = function(t_event)
 			local target = t_event['target']
 			SkillAddAttack:makeSkillInstance(owner, t_skill, target)
 		end
 
-	elseif (t_skill['type'] == 'passive_target') then
+	elseif (skill_type == 'passive_target') then
 		-- target_rule에 따른 대상 1한테 시전
 		trigger_func = function()
 			local target_list = char:getTargetListByTable(t_skill)
 			StatusEffectHelper:doStatusEffectByStr(char, {target_list[1]}, {t_skill['add_option_1'], t_skill['add_option_2']})
 		end
 
-    elseif (t_skill['type'] == 'passive_target_ms_effect') then
+    elseif (skill_type == 'passive_target_ms_effect') then
         -- target_rule에 따른 대상한테 시전 하면서 motion_streak effect 추가!
 		-- 연출에 따라도 나뉘어야 함
 		trigger_func = function(t_event)

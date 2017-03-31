@@ -50,7 +50,7 @@ function MissileLauncher:init_missileLauncher(t_skill, object_key, activity_carr
     self:changeState('attack')
 
     -- data파일에서 로드
-    local script_name = t_skill['type']
+    local script_name = t_skill['skill_type']
     local script = TABLE:loadJsonTable(script_name)
     if (not script) then
         error(script_name .. " DO NOT EXIST!!")
@@ -61,7 +61,7 @@ function MissileLauncher:init_missileLauncher(t_skill, object_key, activity_carr
 
     -- 테이블에서 덧씌우는 필드
 	-- 기존 스크립트탄은 무시하고 새로 만든 일반탄에 적용한다.
-    if t_skill and (t_skill['type'] == 'code') then
+    if t_skill and (t_skill['skill_type'] == 'code') then
         local count = 1
         while (self.m_tAttackValueBase[count]) do
             -- resource 교체

@@ -249,7 +249,7 @@ function getPreloadList_Dragon(did, evolution)
         local t_skill = table_skill:get(t_dragon[k])
         if t_skill then
             if t_skill['skill_form'] == 'script' then
-                countSkillResListFromScript(ret, t_skill['type'], attr)
+                countSkillResListFromScript(ret, t_skill['skill_type'], attr)
             else
                 for i = 1, 3 do
                     if (t_skill['res_' .. i] ~= 'x') then
@@ -298,7 +298,7 @@ function getPreloadList_Stage(stageName)
                                 local t_skill = TABLE:get('monster_skill')[t_enemy[k]]
                                 if t_skill then
                                     if t_skill['skill_form'] == 'script' then
-                                        countSkillResListFromScript(ret, t_skill['type'], attr)
+                                        countSkillResListFromScript(ret, t_skill['skill_type'], attr)
                                     else
                                         for i = 1, 3 do
                                             if (t_skill['res_' .. i] ~= 'x') then
