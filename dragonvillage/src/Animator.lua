@@ -352,6 +352,30 @@ function Animator:setScale(scale)
 end
 
 -------------------------------------
+-- function setScale
+-------------------------------------
+function Animator:setScaleX(scale)
+    if (not self.m_node) then
+        return
+    end
+	if self.m_bFlip then
+		scale = -scale
+	end
+    self.m_node:setScaleX(scale)
+end
+
+-------------------------------------
+-- function setScale
+-------------------------------------
+function Animator:setScaleY(scale)
+    if (not self.m_node) then
+        return
+    end
+
+    self.m_node:setScaleY(scale)
+end
+
+-------------------------------------
 -- function getScale
 -------------------------------------
 function Animator:getScale()

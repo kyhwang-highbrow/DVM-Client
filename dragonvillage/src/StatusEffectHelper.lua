@@ -93,7 +93,7 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
                 end
 			end
 
-		elseif (target_type == 'ally' or target_type == 'ally_all') then 
+		elseif isExistValue(target_type, 'ally', 'ally_none', 'ally_all') then 
 			for _, target in pairs(owner:getFellowList()) do
 				if (StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
                     cb_invoke(target)
