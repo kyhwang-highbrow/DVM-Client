@@ -6,12 +6,14 @@ local PARENT = SkillIndicator
 SkillIndicator_AoERound = class(PARENT, {
         m_indicatorAddEffect = '',
         m_range = 'num',            -- 반지름
+		m_isFixedOnTarget = 'bool', 
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillIndicator_AoERound:init(hero, t_skill)
+function SkillIndicator_AoERound:init(hero, t_skill, isFixedOnTarget)
+    self.m_isFixedOnTarget = isFixedOnTarget 
 end
 
 -------------------------------------
@@ -39,8 +41,13 @@ function SkillIndicator_AoERound:onTouchMoved(x, y)
 
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
     
-	local t_collision_obj = self:findTargetList(x, y, self.m_range)
+	local t_collision_obj = self:findTargetList(x, y, self.m_range, self.m_isFixedOnTarget)
     self.m_targetChar = t_collision_obj[1]
+
+	if self.m_isFixedOnTarget and self.m_targetChar then
+        x = self.m_targetChar.pos.x
+        y = self.m_targetChar.pos.y
+    end
 
     self.m_targetPosX = x
     self.m_targetPosY = y
@@ -114,7 +121,14 @@ end
 -------------------------------------
 -- function findTargetList
 -------------------------------------
-function SkillIndicator_AoERound:findTargetList(x, y, range)
+function SkillIndicator_AoERound:findTargetList(x, y, range, isFixedOnTarget)
+	if isFixedOnTarget then
+		local target = self:_findTarget(x, y, 1)
+		if target then 
+			x, y = target.pos.x, target.pos.y
+		end
+    end
+
 	local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
     
 	local l_ret = {}
@@ -126,4 +140,14 @@ function SkillIndicator_AoERound:findTargetList(x, y, range)
     end
     
     return l_ret
+end
+
+-------------------------------------
+-- function findTarget
+-------------------------------------
+function SkillIndicator_AoERound:_findTarget(x, y, range)
+    local target_formation_mgr = self.m_hero:getFormationMgr(true)
+    local l_target = target_formation_mgr:findNearTarget(x, y, range, 1, EMPTY_TABLE)
+    
+    return l_target[1]
 end
