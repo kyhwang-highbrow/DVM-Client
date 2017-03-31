@@ -39,21 +39,24 @@ function SkillIndicator_AoERound:onTouchMoved(x, y)
         return
     end
 
+	local touch_x, touch_y = x, y
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
     
-	local t_collision_obj = self:findTargetList(x, y, self.m_range, self.m_isFixedOnTarget)
+	local t_collision_obj = self:findTargetList(touch_x, touch_y, self.m_range, self.m_isFixedOnTarget)
     self.m_targetChar = t_collision_obj[1]
-
+	
 	if self.m_isFixedOnTarget and self.m_targetChar then
-        x = self.m_targetChar.pos.x
-        y = self.m_targetChar.pos.y
+        touch_x = self.m_targetChar.pos.x
+        touch_y = self.m_targetChar.pos.y
+		-- 다시계산한다..!
+		t_collision_obj = self:findTargetList(touch_x, touch_y, self.m_range, self.m_isFixedOnTarget)
     end
 
-    self.m_targetPosX = x
-    self.m_targetPosY = y
-
+    self.m_targetPosX = touch_x
+    self.m_targetPosY = touch_y
+	
     -- 이펙트 위치
-	self:setIndicatorPosition(x, y, pos_x, pos_y)
+	self:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
 
 	-- 하이라이트 갱신
     self:setHighlightEffect(t_collision_obj)
@@ -122,32 +125,21 @@ end
 -- function findTargetList
 -------------------------------------
 function SkillIndicator_AoERound:findTargetList(x, y, range, isFixedOnTarget)
-	if isFixedOnTarget then
-		local target = self:_findTarget(x, y, 1)
-		if target then 
-			x, y = target.pos.x, target.pos.y
-		end
-    end
+	local pos_x = x
+	local pos_y = y
 
-	local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
-    
 	local l_ret = {}
-
-    for _, target in pairs(l_target) do
-		if isCollision(x, y, target, range) then 
-			table.insert(l_ret, target)
+	if isFixedOnTarget then
+		local target_formation_mgr = self.m_hero:getFormationMgr(true)
+		l_ret = target_formation_mgr:findNearTarget(x, y, range, -1, EMPTY_TABLE)
+	else
+		local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
+		for _, target in pairs(l_target) do
+			if isCollision(pos_x, pos_y, target, range) then 
+				table.insert(l_ret, target)
+			end
 		end
     end
     
-    return l_ret
-end
-
--------------------------------------
--- function findTarget
--------------------------------------
-function SkillIndicator_AoERound:_findTarget(x, y, range)
-    local target_formation_mgr = self.m_hero:getFormationMgr(true)
-    local l_target = target_formation_mgr:findNearTarget(x, y, range, 1, EMPTY_TABLE)
-    
-    return l_target[1]
+	return l_ret
 end

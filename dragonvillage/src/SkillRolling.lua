@@ -289,6 +289,20 @@ function SkillRolling:updateAfterImage(dt)
 end
 
 -------------------------------------
+-- function findTarget
+-------------------------------------
+function SkillRolling:findTarget()
+	local x = self.m_targetPos.x
+	local y = self.m_targetPos.y
+	local range = self.m_range
+
+	local target_formation_mgr = self.m_owner:getFormationMgr(true)
+	local l_ret = target_formation_mgr:findNearTarget(x, y, range, -1, EMPTY_TABLE)
+    
+	return l_ret
+end
+
+-------------------------------------
 -- function makeSkillInstance
 -------------------------------------
 function SkillRolling:makeSkillInstance(owner, t_skill, t_data)
