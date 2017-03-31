@@ -177,7 +177,7 @@ function SkillHitEffectDirector:init(owner, bonus_desc)
     self.m_hitCount = 0
     self.m_bonusText = nil
     self.m_bEndSkill = false
-    self.m_bEndAction = false
+    self.m_bEndAction = true
 
     local vars = self:load('ingame_hit.ui')
 
@@ -213,10 +213,25 @@ function SkillHitEffectDirector:init(owner, bonus_desc)
     self.root:setPosition(0, -180)
     g_gameScene.m_inGameUI.root:addChild(self.root)
 
+    self.root:setVisible(false)
 
-    do
+    -- 하위 UI가 모두 opacity값을 적용되도록
+    doAllChildren(self.root, function(node) node:setCascadeOpacityEnabled(true) end)
+end
+
+-------------------------------------
+-- function doWork
+-------------------------------------
+function SkillHitEffectDirector:doWork(desc)
+    local vars = self.vars
+    self.m_hitCount = self.m_hitCount + 1
+
+    if (self.m_hitCount == 1) then
+        self.root:setVisible(true)
         local width = 400
         local duration = 3
+
+        self.m_bEndAction = false
         
         local action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(-width/2, 0)), 0.2)
         self.m_rightNode:setPositionX(width/2)
@@ -231,15 +246,9 @@ function SkillHitEffectDirector:init(owner, bonus_desc)
             self:checkRelease()
         end
         self.root:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.Hide:create(), cc.CallFunc:create(finish_cb)))
+        self.root:runAction(cc.Sequence:create(cc.DelayTime:create(duration * 2 / 3), cc.FadeOut:create(duration * 1 / 3)))
     end
-end
 
--------------------------------------
--- function doWork
--------------------------------------
-function SkillHitEffectDirector:doWork(desc)
-    local vars = self.vars
-    self.m_hitCount = self.m_hitCount + 1
 
     local hit_label = vars['hitLabel']
     hit_label:setString(tostring(self.m_hitCount))
