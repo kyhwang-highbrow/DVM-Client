@@ -113,3 +113,16 @@ function TableRuneSet:runeSetAnalysis(l_rid)
 
     return rune_set_analysis
 end
+
+-------------------------------------
+-- function getRuneSetColor
+-------------------------------------
+function TableRuneSet:getRuneSetColor(set_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local color = self:getValue(set_id, 'color')
+
+    return color
+end

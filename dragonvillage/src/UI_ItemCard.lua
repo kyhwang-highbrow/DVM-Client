@@ -109,6 +109,7 @@ function UI_ItemCard:init_runeItem(t_item, t_sub_data)
     vars['stoneNode']:addChild(icon)
 
     vars['numberLabel']:setVisible(false)
+    vars['commonSprite']:setVisible(false)
 
     self.m_itemName = (t_sub_data and t_sub_data['name'] or nil)
 end
