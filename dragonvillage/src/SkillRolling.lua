@@ -50,10 +50,6 @@ function SkillRolling:init_skill(spin_res, atk_count)
 	self.m_lTargetList = self:findTarget()
 	self.m_targetChar = table.pop(self.m_lTargetList)
 
-	cclog(self.m_range)
-	cclog(#self.m_lTargetList)
-	cclog(self.m_targetChar)
-
 	-- 최초 위치 지정
     self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 

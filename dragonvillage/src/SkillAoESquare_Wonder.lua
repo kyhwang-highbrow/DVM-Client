@@ -1,4 +1,4 @@
-local PARENT = SkillAoESquare
+local PARENT = SkillAoESquare_Height
 
 -------------------------------------
 -- class SkillAoESquare_Wonder
@@ -24,8 +24,7 @@ end
 -- function init_skill
 -------------------------------------
 function SkillAoESquare_Wonder:init_skill(missile_res, line_cnt, add_atk_power, release_target, release_debuff)
-	local claw_width = g_constant:get('SKILL', 'WONDER_CLAW_WIDTH')
-    PARENT.init_skill(self, claw_width, 1024, 1)
+    PARENT.init_skill(self, 1)
 
 	-- 멤버 변수
 	self.m_res = missile_res
@@ -39,6 +38,15 @@ function SkillAoESquare_Wonder:init_skill(missile_res, line_cnt, add_atk_power, 
 	-- 화면 중앙보다 살짝 위에 위치
 	local _, camera_home_pos_y = self.m_world.m_gameCamera:getHomePos()
 	self:setPosition(self.m_targetPos.x, camera_home_pos_y + 300)	
+end
+
+-------------------------------------
+-- function initSkillSize
+-------------------------------------
+function SkillAoESquare_Wonder:initSkillSize()
+	local claw_width = g_constant:get('SKILL', 'WONDER_CLAW_WIDTH') -- 30
+	self.m_resScale = claw_width/300
+	self.m_skillWidth = claw_width
 end
 
 -------------------------------------

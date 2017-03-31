@@ -19,10 +19,10 @@ end
 -- function init_indicator
 -------------------------------------
 function SkillIndicator_AoESquare_Multi:init_indicator(t_skill, target_type)
+	PARENT.init_indicator(self, t_skill)
+
 	self.m_skillWidth = g_constant:get('SKILL', 'WONDER_CLAW_WIDTH')
-	self.m_skillHeight = 1024
-	self.m_indicatorScale = t_skill['res_scale']
-	self.m_targetType = target_type or 'enemy'
+	self.m_indicatorScale = self.m_skillWidth/300
 
 	self.m_space = g_constant:get('SKILL', 'WONDER_CLAW_SPACE')
 	self.m_lineCnt = t_skill['hit']
@@ -52,14 +52,12 @@ function SkillIndicator_AoESquare_Multi:initIndicatorNode()
 
     local root_node = self.m_indicatorRootNode
 
-
     for i = 1, self.m_lineCnt do
-        local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
+		local indicator_res = g_constant:get('INDICATOR', 'RES', 'square_height')
+        local indicator = MakeAnimator(indicator_res)
         root_node:addChild(indicator.m_node)
 		indicator.m_node:setColor(COLOR_CYAN)
-		
-        --@TODO 리소스를 고치자 답이 없음
-        indicator.m_node:setScaleX(self.m_skillWidth/150)
+        indicator.m_node:setScaleX(self.m_indicatorScale)
 
 		table.insert(self.m_lIndicatorEffectList, indicator)
     end
@@ -87,9 +85,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_AoESquare_Multi:findTarget(x, y)
-    local world = self.m_world
-	
-    local l_target = world:getTargetList(self.m_hero, x, y, self.m_targetType, 'x', 'distance_x')
+    local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
     
     local l_ret = {}
 

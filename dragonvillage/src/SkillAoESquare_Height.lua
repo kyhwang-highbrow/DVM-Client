@@ -4,16 +4,6 @@ local PARENT = SkillAoESquare
 -- class SkillAoESquare_Height
 -------------------------------------
 SkillAoESquare_Height = class(PARENT, {
-        m_skillWidth = 'number',
-		m_skillHeight = 'number',
-
-		m_multiAtkTimer = 'dt',
-        m_hitInterval = 'number',
-
-		m_attackCnt = 'number',
-		m_maxAttackCnt = 'number',
-
-		m_idleAniName = 'idle',
      })
 
 -------------------------------------
