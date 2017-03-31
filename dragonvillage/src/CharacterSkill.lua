@@ -197,15 +197,19 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillAoECone_Vertical:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (skill_type == 'skill_aoe_square_heal_dmg') then
-				SkillAoESquare_Heal:makeSkillInstance(self, t_skill, t_data)
-				return true
-
 			elseif (skill_type == 'skill_aoe_square_width') then
 				SkillAoESquare_Width:makeSkillInstance(self, t_skill, t_data)
 				return true
 	
 			elseif (skill_type == 'skill_aoe_square_height') then
+				SkillAoESquare_Height:makeSkillInstance(self, t_skill, t_data)
+				return true
+
+			elseif (skill_type == 'skill_aoe_square_heal_dmg') then
+				SkillAoESquare_Heal:makeSkillInstance(self, t_skill, t_data)
+				return true
+
+			elseif (skill_type == 'skill_aoe_square_fairy') then
 				SkillAoESquare_Fairy:makeSkillInstance(self, t_skill, t_data)
 				return true
 

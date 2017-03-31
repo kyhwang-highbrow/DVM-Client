@@ -4,8 +4,7 @@ local PARENT = Skill
 -- class SkillHealAround
 -------------------------------------
 SkillHealAround = class(PARENT, {
-        m_range = 'number',
-        m_tTargetList = 'list',
+        m_lTargetList = 'list',
         m_limitTime = '',
         m_multiHitTime = '',
         m_multiHitTimer = '',
@@ -20,25 +19,32 @@ SkillHealAround = class(PARENT, {
 -- @param body
 -------------------------------------
 function SkillHealAround:init(file_name, body, ...)
-
-    self.m_hitCount = 0
-
-    self:initState()
 end
-
 
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillHealAround:init_skill(range, duration, hit_cnt)
+function SkillHealAround:init_skill(duration, hit_cnt)
 	PARENT.init_skill(self)
 
     -- 멤버 변수
-    self.m_range = range
+    self.m_hitCount = 0
     self.m_limitTime = duration
     self.m_multiHitTime = self.m_limitTime / hit_cnt -- 한 번 회복하는데 걸리는 시간(쿨타임)
     self.m_multiHitMax = hit_cnt - 1 -- 회복 횟수 (시간 계산 오차로 추가로 회복되는것 방지)
     self.m_healRate = (self.m_powerRate / 100)
+end
+
+-------------------------------------
+-- function initSkillSize
+-------------------------------------
+function SkillHealAround:initSkillSize()
+	if (self.m_skillSize) and (not (self.m_skillSize == '')) then
+		local t_data = SkillHelper:getSizeAndScale('round', self.m_skillSize)  
+		
+		--self.m_resScale = t_data['scale']
+		self.m_range = t_data['size']
+	end
 end
 
 -------------------------------------
@@ -93,7 +99,7 @@ function SkillHealAround:findTarget()
 
     local l_remove = {}
     local l_target = target_formation_mgr:findNearTarget(self.pos.x, self.pos.y, self.m_range, -1, l_remove)
-    self.m_tTargetList = l_target
+    self.m_lTargetList = l_target
 end
 
 -------------------------------------
@@ -105,7 +111,7 @@ function SkillHealAround:doHeal()
 
     heal = (heal * self.m_healRate)
 
-    for i,v in pairs(self.m_tTargetList) do
+    for i,v in pairs(self.m_lTargetList) do
         v:healAbs(self.m_owner, heal, true)
     end
 end
@@ -117,7 +123,6 @@ function SkillHealAround:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
-	local range = t_skill['val_1']
 	local duration = owner.m_statusCalc.m_attackTick
 	local hit_cnt = t_skill['hit']
 
@@ -128,7 +133,7 @@ function SkillHealAround:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(range, duration, hit_cnt)
+    skill:init_skill(duration, hit_cnt)
 	skill:initState()
 
 	-- 3. state 시작 
@@ -139,9 +144,4 @@ function SkillHealAround:makeSkillInstance(owner, t_skill, t_data)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
-
-    -- 5. 하이라이트
-    if (skill.m_bHighlight) then
-        --world.m_gameHighlight:addMissile(skill)
-    end
 end

@@ -26,7 +26,7 @@ function SkillIndicator_AoEWedge:init_indicator(t_skill)
 	if (skill_size) and (not (skill_size == '')) then
 		local t_data = SkillHelper:getSizeAndScale('wedge', skill_size)  
 
-		self.m_indicatorScale = t_data['scale']
+		self.m_indicatorScale = 1
 		self.m_skillAngle = t_data['size']
 	end
 end

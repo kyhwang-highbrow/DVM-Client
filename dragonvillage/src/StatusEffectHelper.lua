@@ -36,7 +36,7 @@ end
 -- function doStatusEffectByStr
 -- @brief statuseffect 배열 사용함
 -------------------------------------
-function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect_str, cb_invoke)
+function StatusEffectHelper:doStatusEffectByStr(owner, m_skill_target, l_status_effect_str, cb_invoke)
     -- 피격자가 사망했을 경우 리턴
     if (owner.m_bDead == true) then return end
 
@@ -75,50 +75,29 @@ function StatusEffectHelper:doStatusEffectByStr(owner, t_target, l_status_effect
 		rate = t_effect['rate'] 
 		value_1 = t_effect['value_1']
 
+
         -- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
-		if (target_type == 'self') then 
-			if (StatusEffectHelper:invokeStatusEffect(owner, type, value_1, rate, duration)) then
-                cb_invoke(owner)
+		if (target_type == 'target') then
+            -- 스킬로 부터 받은 타겟 리스트 사용
+            if (not m_skill_target) then
+                error('doStatusEffectByStr no m_skill_target')
             end
 
-		elseif (target_type == 'target') then
-            -- 타겟 리스트가 없는 경우 상대진형 모두를 가져옴
-            if (not t_target) then
-                error('doStatusEffectByStr no t_target')
-            end
-
-			for _, target in ipairs(t_target) do
+			for _, target in ipairs(m_skill_target) do
+				--cclog(target_type, target:getName())
 				if (StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
                     cb_invoke(target)
                 end
 			end
-
-		elseif isExistValue(target_type, 'ally', 'ally_none', 'ally_all') then 
-			for _, target in pairs(owner:getFellowList()) do
+		else
+			-- 별도의 계산된 타겟 리스트 사용
+			local l_target = owner:getTargetListByType(target_type, nil)
+			for _, target in ipairs(l_target) do
+				--cclog(target_type, target:getName())
 				if (StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
                     cb_invoke(target)
                 end
 			end
-
-		elseif (target_type == 'ally_random') then 
-			local target = table.getRandom(owner:getFellowList())
-
-			if (StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
-                cb_invoke(target)
-            end
-
-		elseif (target_type == 'ally_low_hp') then 
-            local ally = owner:getFellowList()
-			table.sort(ally, function(a, b)
-				return (a.m_hp/a.m_maxHp) < (b.m_hp/b.m_maxHp)
-			end)
-			local target = ally[1]
-			if target then
-				if (StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
-                    cb_invoke(target)
-                end
-			end
-
 		end
 
 		-- 4. 인덱스 증가
@@ -348,10 +327,7 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 	-- 1. 발동 조건 확인 (발동되지 않을 경우 리턴)\
 	-- 기획 이슈로 제거
 
-	-- 2. skill의 타겟룰로 passive의 대상 리스트를 얻어옴
-	local l_target = char:getTargetListByTable(t_skill)
-
-	-- 3. 타겟 대상에 passive생성
+	-- 2. 타겟 대상에 passive생성
 	local idx = 1
 	local effect_str = nil
 	local t_effect = nil
@@ -392,12 +368,18 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 		end
 
 		-- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
-		if (target_type == 'self') then 
-			StatusEffectHelper:invokeStatusEffect(char, type, value_1, rate, duration)
-			apply_world_passive_effect(char)
-
-		elseif (target_type == 'target') then 
+		if (target_type == 'target') then
+			-- 스킬 타겟타입에 의한 타겟 리스트
+			local l_target = char:getTargetListByTable(t_skill)
 			for _, target in ipairs(l_target) do
+				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
+				apply_world_passive_effect(target)
+			end
+		else
+			-- 별도의 계산된 타겟 리스트 사용
+			local l_target = char:getTargetListByType(target_type, nil)
+			for _, target in ipairs(l_target) do
+				cclog(target_type, target:getName())
 				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
 				apply_world_passive_effect(target)
 			end
@@ -410,7 +392,7 @@ end
 
 -------------------------------------
 -- function checkPassiveActivation
--- @brief 발동조건을 체크하여 활성화된 패시브인지 확인한다. 
+-- @brief 발동조건을 체크하여 활성화된 패시브인지 확인한다. 사용X
 -------------------------------------
 function StatusEffectHelper:checkPassiveActivation(char, chance_value, t_status_effect)
 	if (chance_value == 'none') then

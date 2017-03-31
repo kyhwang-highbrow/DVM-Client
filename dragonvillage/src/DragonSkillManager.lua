@@ -259,7 +259,7 @@ function IDragonSkillManager:checkSkillRate(skill_type)
         local sum_random = SumRandom()
 
         for i,v in pairs(self.m_lSkillIndivisualInfo[skill_type]) do
-            local rate = (v.m_tSkill['chance_value'])
+            local rate = (v.m_tSkill['chance_value'] * 100)
             local skill_id = v.m_skillID
             sum_random:addItem(rate, skill_id)
         end
