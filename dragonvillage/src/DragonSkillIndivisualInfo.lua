@@ -85,9 +85,9 @@ function DragonSkillIndivisualInfo:applySkillLevel()
                         if (modify == 'exchange') then
                             t_modify['value'] = value
                         elseif (modify == 'add') then
-                            t_modify['value'] = (t_modify['value'] + value)
+                            t_modify['value'] = (t_modify['value'] + tonumber(value))
                         elseif (modify == 'multiply') then
-                            t_modify['value'] = (t_modify['value'] + value)
+                            t_modify['value'] = (t_modify['value'] + tonumber(value))
                         end
                     end
                 end

@@ -56,9 +56,11 @@ function GameHighlightMgr:update(dt)
 
         -- 드래그 스킬일 경우, 맞는 대상을 제외한 적들에게 부분 암전을 건다
         local dragon = world.m_gameDragonSkill:getFocusingDragon()
+        local dragons = self.m_world:getDragonList()
         local enemys = dragon.m_skillIndicator:getTargetForHighlight()
         
-        Add({dragon})
+        --Add({dragon})
+        Add(dragons)
         Add(enemys)
     end
 
