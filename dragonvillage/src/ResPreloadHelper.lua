@@ -193,10 +193,10 @@ end
 -- function getPreloadList_Tamer
 -------------------------------------
 function getPreloadList_Tamer()
-	--@TODO 테이블 참조하도록 수정
-    local ret = {
-        'res/character/tamer/goni_i/goni_i.spine',
-        'res/effect/effect_skillcut_goni/effect_skillcut_goni.vrp'
+	local ret = {
+        g_userData:getTamerInfo('res_sd'),
+
+        -- TODO: 컷씬도 정리되면 추가
     }
     
     return ret

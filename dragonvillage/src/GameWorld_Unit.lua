@@ -4,8 +4,7 @@
 function GameWorld:makeTamerNew(t_tamer, bRightFormation)
     local bLeftFormation = not bRightFormation
 
-    local res = 'res/character/tamer/dede/dede.spine'
-    --local res = t_tamer['res_sd']
+    local res = t_tamer['res_sd']
 
     local tamer = Tamer(res, {0, 0, 0})
     tamer.m_tamerID = t_tamer['tid']
