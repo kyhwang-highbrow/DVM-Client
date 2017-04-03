@@ -1029,9 +1029,9 @@ function GameState:onEvent(event_name, t_event, ...)
     elseif (event_name == 'tamer_skill') then
         self.m_globalCoolTime = g_constant:get('INGAME', 'SKILL_GLOBAL_COOLTIME')
         
-    -- 테이머 궁극기 사용 이벤트
-    elseif (event_name == 'tamer_special_skill') then
-        self.m_globalCoolTime = 5
+    -- 드래곤 드래그 스킬 사용 이벤트
+    elseif (event_name == 'hero_active_skill') then
+        self.m_globalCoolTime = g_constant:get('INGAME', 'SKILL_GLOBAL_COOLTIME')
     
     end
 end

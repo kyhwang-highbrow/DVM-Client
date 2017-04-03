@@ -303,23 +303,7 @@ function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
         local dragonNode = self.m_skillOpeningCutBg.m_node:getSocketNode('dragon')
         dragonNode:removeAllChildren()
 
-        local aniName = 'idle'
-        if (dragon.m_charTable['type']  == 'powerdragon') then
-            aniName = 'skill_appear'
-        elseif (dragon.m_charTable['type']  == 'pinkbell') then
-            aniName = 'attack'
-        elseif (dragon.m_charTable['type']  == 'lightningdragon') then
-            aniName = 'pose_1'
-        elseif (dragon.m_charTable['type']  == 'clowndragon') then
-            aniName = 'skill_appear'
-        elseif (dragon.m_charTable['type']  == 'wonderdragon') then
-            aniName = 'attack'
-        elseif (dragon.m_charTable['type']  == 'blackdragon') then
-            aniName = 'pose_1'
-        elseif (dragon.m_charTable['type']  == 'smartdragon') then
-            aniName = 'pose_1'
-        end
-
+        local aniName = self:getDragonAniForCut(dragon)
         local res_name = dragon.m_animator.m_resName
         local animator = MakeAnimator(res_name)
         animator:changeAni(aniName, false)
@@ -366,23 +350,7 @@ function GameDragonSkill:makeDragonCut(dragon, cbEnd)
     local animator = MakeAnimator(res_name)
     self.m_node:addChild(animator.m_node)
 
-    local aniName = 'attack'
-    if (dragon.m_charTable['type']  == 'powerdragon') then
-        aniName = 'skill_appear'
-    elseif (dragon.m_charTable['type']  == 'pinkbell') then
-        aniName = 'attack'
-    elseif (dragon.m_charTable['type']  == 'lightningdragon') then
-        aniName = 'pose_1'
-    elseif (dragon.m_charTable['type']  == 'clowndragon') then
-        aniName = 'skill_appear'
-    elseif (dragon.m_charTable['type']  == 'wonderdragon') then
-        aniName = 'attack'
-    elseif (dragon.m_charTable['type']  == 'blackdragon') then
-        aniName = 'pose_1'
-    elseif (dragon.m_charTable['type']  == 'smartdragon') then
-        aniName = 'pose_1'
-    end
-
+    local aniName = self:getDragonAniForCut(dragon)
     animator:changeAni('skill_appear', false)
         
     local bFlip = dragon.m_animator.m_bFlip
@@ -410,6 +378,35 @@ function GameDragonSkill:makeDragonCut(dragon, cbEnd)
     end
 
     self.m_dragonCut = animator
+end
+
+-------------------------------------
+-- function getDragonAniForCut
+-------------------------------------
+function GameDragonSkill:getDragonAniForCut(dragon)
+    local aniName = 'idle'
+
+    if (dragon.m_charTable['type']  == 'powerdragon') then
+        if (dragon.m_tDragonInfo['evolution'] == 3) then
+            aniName = 'skill_appear'
+        else
+            aniName = 'pose_2'
+        end
+    elseif (dragon.m_charTable['type']  == 'pinkbell') then
+        aniName = 'attack'
+    elseif (dragon.m_charTable['type']  == 'lightningdragon') then
+        aniName = 'pose_1'
+    elseif (dragon.m_charTable['type']  == 'clowndragon') then
+        aniName = 'skill_appear'
+    elseif (dragon.m_charTable['type']  == 'wonderdragon') then
+        aniName = 'attack'
+    elseif (dragon.m_charTable['type']  == 'blackdragon') then
+        aniName = 'pose_1'
+    elseif (dragon.m_charTable['type']  == 'smartdragon') then
+        aniName = 'pose_1'
+    end
+
+    return aniName
 end
 
 -------------------------------------
@@ -443,6 +440,13 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
             self:changeState(GAME_DRAGON_SKILL_LIVE2)
         end
     end
+end
+
+-------------------------------------
+-- function getFocusingDragon
+-------------------------------------
+function GameDragonSkill:getFocusingDragon()
+    return self.m_dragon
 end
 
 -------------------------------------
