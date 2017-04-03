@@ -10,6 +10,7 @@ ITopUserInfo_EventListener = {
     m_titleStr = 'string',
 
 	m_staminaType = 'string',	-- 보여줄 활동력 타입
+    m_bShowLactea = 'boolean', -- 라테아를 노출할지 여부
 }
 
 -------------------------------------
@@ -20,6 +21,7 @@ function ITopUserInfo_EventListener:init()
     self.m_bUseExitBtn = true
     self.m_titleStr = nil
 	self.m_staminaType = 'st'
+    self.m_bShowLactea = false
 end
 
 -------------------------------------

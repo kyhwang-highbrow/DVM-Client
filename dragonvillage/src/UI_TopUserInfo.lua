@@ -27,6 +27,7 @@ function UI_TopUserInfo:init()
     self.m_lNumberLabel['cash'] = NumberLabel(vars['rubyLabel'], 0, 0.3)
     self.m_lNumberLabel['st_ad'] = NumberLabel(vars['actingPowerLabel'], 0, 0.3)
     self.m_lNumberLabel['fp'] = NumberLabel(vars['fpLabel'], 0, 0.3)
+    self.m_lNumberLabel['lactea'] = NumberLabel(vars['lacteaLabel'], 0, 0.3)
     
 
     self:clearOwnerUI()
@@ -48,6 +49,7 @@ function UI_TopUserInfo:refreshData()
     local gold = g_userData:get('gold')
     local cash = g_userData:get('cash')
     local fp = g_userData:get('fp')
+    local lactea = g_userData:get('lactea')
     
     self.m_lNumberLabel['gold']:setNumber(gold)
     self.m_lNumberLabel['cash']:setNumber(cash)
@@ -60,6 +62,8 @@ function UI_TopUserInfo:refreshData()
     vars['actingPowerTimeLabel']:setString(str)
 
     self.m_lNumberLabel['fp']:setNumber(fp)
+
+    self.m_lNumberLabel['lactea']:setNumber(lactea)
 end
 
 -------------------------------------
@@ -163,6 +167,10 @@ function UI_TopUserInfo:changeOwnerUI(ui)
             g_staminasData:updateOff()
         end
     end
+
+    -- lactea or fp
+    vars['lacteaNode']:setVisible(ui.m_bShowLactea)
+    vars['fpNode']:setVisible(not ui.m_bShowLactea)
 
     self:refreshData()
     self:doAction()

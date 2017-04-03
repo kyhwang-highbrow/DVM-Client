@@ -25,6 +25,7 @@ function UI_DragonGoodbye:initParentVariable()
     self.m_bVisible = true or false
     self.m_titleStr = Str('작별') or nil
     self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
+    self.m_bShowLactea = true
 end
 
 -------------------------------------

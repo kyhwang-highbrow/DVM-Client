@@ -20,6 +20,7 @@ function UI_DragonResearch:initParentVariable()
     self.m_bVisible = true or false
     self.m_titleStr = Str('연구')
     self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
+    self.m_bShowLactea = true
 end
 
 -------------------------------------
