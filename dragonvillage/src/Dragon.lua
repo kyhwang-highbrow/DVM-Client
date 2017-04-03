@@ -1,4 +1,4 @@
-local PARENT = class(Character, IHighlight:getCloneTable())
+local PARENT = Character
 
 -------------------------------------
 -- class Dragon
@@ -130,7 +130,8 @@ function Dragon:initAnimatorDragon(file_name, evolution, attr, scale)
 
     -- Animator 생성
     self.m_animator = AnimatorHelper:makeDragonAnimator(file_name, evolution, attr)
-    if self.m_animator.m_node then
+    
+    if (self.m_animator.m_node) then
         self.m_rootNode:addChild(self.m_animator.m_node)
 		if (scale) then
 			self.m_animator:setScale(scale/2)
@@ -141,7 +142,7 @@ function Dragon:initAnimatorDragon(file_name, evolution, attr, scale)
     self:blockMatchingSlotShader('effect_')
 
     -- 하이라이트 노드 설정
-    self:setHighlightNode(self.m_animator.m_node)
+    self:addHighlightNode(self.m_animator.m_node)
 
     -- 스킬 오프셋값 설정(애니메이션 정보로부터 얻음)
     local eventList = self.m_animator:getEventList('skill_disappear', 'attack')
@@ -1115,4 +1116,15 @@ function Dragon:updateBasicTimeSkillTimer(dt)
     end    
 
     return ret
+end
+
+-------------------------------------
+-- function runAction_Highlight
+-------------------------------------
+function Dragon:runAction_Highlight(duration, level)
+    PARENT.runAction_Highlight(self, duration, level)
+    
+    if (self.m_unitInfoNode) then
+        self.m_unitInfoNode:setVisible(level == 255)
+    end
 end

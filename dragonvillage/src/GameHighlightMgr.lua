@@ -33,7 +33,9 @@ function GameHighlightMgr:update(dt)
 
     local function Add(list)
         for _, v in pairs(list) do
-            mHighlightList[v] = true
+            if (not v.m_bDead) then
+                mHighlightList[v] = true
+            end
         end
     end
 

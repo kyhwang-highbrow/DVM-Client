@@ -2,7 +2,7 @@
 -- interface IHighlight
 -------------------------------------
 IHighlight = {
-    m_highlightNode = 'cc.Node',
+    m_lHighlightNodes = 'table',
     m_highlightLevel = 'number',
 }
 
@@ -10,19 +10,19 @@ IHighlight = {
 -- function init
 -------------------------------------
 function IHighlight:init()
-    self.m_highlightNode = nil
+    self.m_lHighlightNodes = {}
     self.m_highlightLevel = 0
 end
 
 -------------------------------------
--- function init
+-- function addHighlightNode
 -------------------------------------
-function IHighlight:setHighlightNode(node)
-    self.m_highlightNode = node
+function IHighlight:addHighlightNode(node)
+    table.insert(self.m_lHighlightNodes, node)
 end
 
 -------------------------------------
--- function updateHighlight
+-- function setHighlight
 -------------------------------------
 function IHighlight:setHighlight(highlightLevel)
     if (self.m_highlightLevel == highlightLevel) then return end
@@ -36,8 +36,12 @@ end
 -- function runAction_Highlight
 -------------------------------------
 function IHighlight:runAction_Highlight(duration, level)
-    if (self.m_highlightNode) then
-        self.m_highlightNode:runAction( cc.TintTo:create(duration, level, level, level) )
+    local function f_tint(node)
+        node:runAction( cc.TintTo:create(duration, level, level, level) )
+    end
+
+    for i, node in ipairs(self.m_lHighlightNodes) do
+        doAllChildren(node, f_tint)
     end
 end
 

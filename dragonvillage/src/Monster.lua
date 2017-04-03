@@ -1,4 +1,4 @@
-local PARENT = class(Character, IHighlight:getCloneTable())
+local PARENT = Character
 
 -------------------------------------
 -- class Monster
@@ -91,7 +91,7 @@ function Monster:initAnimatorMonster(file_name, attr, scale)
     self:blockMatchingSlotShader('effect_')
 
     -- 하이라이트 노드 설정
-    self:setHighlightNode(self.m_animator.m_node)
+    self:addHighlightNode(self.m_animator.m_node)
 end
 
 -------------------------------------

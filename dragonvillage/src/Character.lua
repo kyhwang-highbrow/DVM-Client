@@ -1,4 +1,4 @@
-local PARENT = class(Entity, IEventListener:getCloneTable(), IEventDispatcher:getCloneTable(), IDragonSkillManager:getCloneTable())
+local PARENT = class(Entity, IEventListener:getCloneTable(), IEventDispatcher:getCloneTable(), IHighlight:getCloneTable(), IDragonSkillManager:getCloneTable())
 
 local CHARACTER_ACTION_TAG__ROAM = 0
 
@@ -197,6 +197,9 @@ function Character:initWorld(game_world)
     if (not self.m_unitInfoNode) then
         self.m_unitInfoNode = cc.Node:create()
         self.m_world.m_unitInfoNode:addChild(self.m_unitInfoNode)
+
+        -- 하이라이트 노드 설정
+        self:addHighlightNode(self.m_unitInfoNode)
     end
 end
 
