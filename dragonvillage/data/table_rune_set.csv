@@ -1,9 +1,9 @@
 set_id,t_name,color,need_equip,key,value
-1,내구,yellow,2,hp_multi,15
-2,기회,purple,2,cri_chance_add,12
-3,정밀,green,2,accuracy_add,20
-4,인내,orange,2,def_multi,15
-5,내성,bluegreen,2,resistance_add,20
-6,맹공,red,4,atk_multi,30
-7,충격,pink,4,cri_dmg_add,40
-8,쾌속,blue,4,aspd_add,25
+1,노랑,yellow,2,hp_multi,15
+2,보라,purple,2,cri_chance_add,12
+3,녹색,green,2,accuracy_add,20
+4,주황,orange,2,def_multi,15
+5,청록,bluegreen,2,resistance_add,20
+6,빨강,red,4,atk_multi,30
+7,분홍,pink,4,cri_dmg_add,40
+8,파랑,blue,4,aspd_add,25
