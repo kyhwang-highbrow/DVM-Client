@@ -111,7 +111,7 @@ function Tamer:initState()
     self:addState('bring', Tamer.st_bring, 'i_idle', true)
 
 	self:addState('active', Tamer.st_active, 'i_idle', false)
-	self:addState('event', Tamer.st_event, 'skill_2', false)
+	self:addState('event', Tamer.st_event, 'skill_1', false)
 
     self:addState('wait', Tamer.st_wait, 'i_idle', true)
     self:addState('move', PARENT.st_move, 'i_idle', true)
@@ -373,7 +373,7 @@ function Tamer.st_active(owner, dt)
 		local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
 
 		local function cb_function()
-			owner.m_animator:changeAni('skill_1', false)
+			owner.m_animator:changeAni('skill_2', false)
 
 			-- 애니메이션 종료시
 			owner:addAniHandler(function()
