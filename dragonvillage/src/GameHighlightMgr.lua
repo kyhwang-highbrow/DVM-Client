@@ -27,6 +27,7 @@ end
 function GameHighlightMgr:update(dt)
     local world = self.m_world
 
+    local bPass = false
     local level = 0
     local mHighlightList = {}
 
@@ -36,8 +37,21 @@ function GameHighlightMgr:update(dt)
         end
     end
 
+    -- 인디케이터 조작 중
+    if (world.m_skillIndicatorMgr:isControlling()) then
+        bPass = true
+        level = math_max(level, 200)
+
+        local dragon = world.m_skillIndicatorMgr.m_selectHero
+        local enemys = dragon.m_skillIndicator:getTargetForHighlight()
+
+        Add({dragon})
+        Add(enemys)
+    end
+
     -- 드래곤 드래그 스킬 연출 중
-    if (world.m_gameDragonSkill:isPlayingActiveSkill()) then
+    if (not bPass and world.m_gameDragonSkill:isPlayingActiveSkill()) then
+        bPass = true
         level = math_max(level, 255)
 
         -- 드래그 스킬일 경우, 맞는 대상을 제외한 적들에게 부분 암전을 건다
@@ -46,11 +60,10 @@ function GameHighlightMgr:update(dt)
         
         Add({dragon})
         Add(enemys)
-        
     end
 
     -- 드래곤 타임 스킬 연출 중
-    if (world.m_gameDragonSkill:isPlayingTimeSkill()) then
+    if (not bPass and world.m_gameDragonSkill:isPlayingTimeSkill()) then
         level = math_max(level, 170)
 
         -- 쿨타임 스킬일 경우, 사용자가 아닌, 다른 드래곤들에겐 부분 암전을 건다
@@ -61,19 +74,8 @@ function GameHighlightMgr:update(dt)
         Add(enemys)
     end
 
-    -- 인디케이터 조작 중
-    if (world.m_skillIndicatorMgr:isControlling()) then
-        level = math_max(level, 200)
-
-        local dragon = world.m_skillIndicatorMgr.m_selectHero
-        local enemys = dragon.m_skillIndicator:getTargetForHighlight()
-
-        Add({dragon})
-        Add(enemys)
-    end
-
     -- 테이머 스킬 연출 중
-    if (world.m_tamer and world.m_tamer:isRequiredHighLight()) then
+    if (not bPass and world.m_tamer and world.m_tamer:isRequiredHighLight()) then
         level = math_max(level, 170)
 
         local dragons = self.m_world:getDragonList()

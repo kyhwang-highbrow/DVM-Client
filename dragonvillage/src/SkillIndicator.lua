@@ -365,6 +365,7 @@ end
 -------------------------------------
 function SkillIndicator:makeTargetEffect(target_char)
     if (target_char.m_targetEffect) then return end
+    if (self.m_siState ~= SI_STATE_APPEAR) then return end
 
    local ani_name1
    local ani_name2
