@@ -2,14 +2,12 @@
 -- table SkillTargetFinder
 -- @brief 스킬과 인디케이터가 공통으로 사용할 스태틱한 find target 함수
 -------------------------------------
-SkillTargetFinder = class({
-	m_world = 'GameWorld'
-})
+SkillTargetFinder = {}
 
 -------------------------------------
 -- function findTarget_AoERound
 -------------------------------------
-function SkillTargetFinder:findTarget_AoERound(owner, x, y, range)
+function SkillTargetFinder:findTarget_AoERound(l_target, x, y, range)
 	local l_target = l_target or {}
 	local pos_x = x or 0
 	local pos_y = y or 0
@@ -25,4 +23,28 @@ function SkillTargetFinder:findTarget_AoERound(owner, x, y, range)
     end
     
     return l_ret
+end
+
+-------------------------------------
+-- function findTarget_AoESquare
+-------------------------------------
+function SkillTargetFinder:findTarget_AoESquare(owner, x, y, range)
+end
+
+-------------------------------------
+-- function findTarget_AoEWedge
+-------------------------------------
+function SkillTargetFinder:findTarget_AoEWedge(owner, x, y, range)
+end
+
+-------------------------------------
+-- function findTarget_Bar
+-------------------------------------
+function SkillTargetFinder:findTarget_Bar(owner, x, y, range)
+end
+
+-------------------------------------
+-- function findTarget_AoERound
+-------------------------------------
+function SkillTargetFinder:findTarget_AoESquare(owner, x, y, range)
 end

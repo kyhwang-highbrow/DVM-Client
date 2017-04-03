@@ -648,7 +648,6 @@ end
 -- function doSkillActive
 -------------------------------------
 function Tamer:doSkillActive()
-	cclog('############ Tamer:doSkillActive()')
     self.m_world:dispatch('tamer_skill')
     return self:doSkill(TAMER_SKILL_ACTIVE)
 end
@@ -657,7 +656,6 @@ end
 -- function doSkillEvent
 -------------------------------------
 function Tamer:doSkillEvent()
-	cclog('############ Tamer:doSkillEvent()')
     return self:doSkill(TAMER_SKILL_EVENT)
 end
 
@@ -665,7 +663,6 @@ end
 -- function doSkillPassive
 -------------------------------------
 function Tamer:doSkillPassive()
-	cclog('############ Tamer:doSkillPassive()')
     return self:doSkill(TAMER_SKILL_PASSIVE)
 end
 

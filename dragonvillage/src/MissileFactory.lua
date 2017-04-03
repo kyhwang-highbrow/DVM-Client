@@ -168,7 +168,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     local lua_missile = nil
 
     -- 리소스명 변경 (@를 속성명으로 변경)
-    if (t_option['attr_name']) then
+    if (missile_res_name) and (t_option['attr_name']) then
         missile_res_name = string.gsub(missile_res_name, '@', t_option['attr_name'])
     end
 

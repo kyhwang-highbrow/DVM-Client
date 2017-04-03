@@ -85,17 +85,15 @@ function SkillAoERound.st_attack(owner, dt)
 		owner.m_attackCnt = 0
     end
 
-	-- 반복 공격
     owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
-    if (owner.m_multiAtkTimer > owner.m_hitInterval) then
-        owner:runAttack()
-        owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
-		owner.m_attackCnt = owner.m_attackCnt + 1
-    end
-	
 	-- 공격 횟수 초과시 탈출
     if (owner.m_maxAttackCnt <= owner.m_attackCnt) then
 		owner:escapeAttack()
+	-- 반복 공격
+    elseif (owner.m_multiAtkTimer > owner.m_hitInterval) then
+        owner:runAttack()
+        owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
+		owner.m_attackCnt = owner.m_attackCnt + 1
     end
 end
 
@@ -159,9 +157,11 @@ end
 -- @brief 공격이 종료되는 시점에 실행
 -------------------------------------
 function SkillAoERound:escapeAttack()
-	local t_target = self:findTarget()
-    self:doStatusEffect({ STATUS_EFFECT_CON__SKILL_HIT }, t_target)
-    self:changeState('disappear')
+	self.m_animator:addAniHandler(function()
+		local t_target = self:findTarget()
+		self:doStatusEffect({ STATUS_EFFECT_CON__SKILL_HIT }, t_target)
+		self:changeState('disappear')
+	end)
 end
 
 -------------------------------------
