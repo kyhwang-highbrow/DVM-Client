@@ -114,7 +114,7 @@ function ServerData_Collection:response_collectionInfo(ret)
     local to_number_list = {'cash_reward', 'req_point'}
 
     -- 드래곤 도감 테이블
-    local table_dragon_collection = ret['table_dragon_collection'] or ret['collection_table'] -- 서버에서 넘겨주는 key값이 변경되었음 170403 sgkim
+    local table_dragon_collection = ret['table_dragon_collection']
     if table_dragon_collection then
         table.toNumber(table_dragon_collection, to_number_list)
         self.m_collectionPointList = table.listToMap(table_dragon_collection, 'req_point')
