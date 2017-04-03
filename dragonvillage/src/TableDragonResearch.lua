@@ -38,6 +38,10 @@ function TableDragonResearch:getDragonResearchStatus(dragon_type, research_lv)
 
     local base_did = TableDragonType:getBaseDid(dragon_type)
 
+    if (not base_did) then
+        return 0, 0, 0
+    end
+
     local table_dragon  = TableDragon()
 
     local atk_max = table_dragon:getMaxStatus(base_did, 'atk')
