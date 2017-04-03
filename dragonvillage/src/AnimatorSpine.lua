@@ -9,6 +9,8 @@ AnimatorSpine = class(Animator, {
 -------------------------------------
 function AnimatorSpine:init(file_name, is_json)
     local file_name_ = nil
+	
+	self.m_resName = file_name
 
     if is_json then
         file_name_ = string.gsub(file_name, '%.json', '')
@@ -27,6 +29,7 @@ end
 -------------------------------------
 function AnimatorSpine:setSkin(skin_name)
     if (not self.m_node) then
+		self:printAnimatorError()
         return
     end
 
@@ -39,6 +42,7 @@ end
 -------------------------------------
 function AnimatorSpine:changeAni(animation_name, loop, checking)
     if (not self.m_node) then
+		self:printAnimatorError()
         return
     end
 
@@ -73,6 +77,7 @@ end
 -------------------------------------
 function AnimatorSpine:addAniHandler(cb)
     if (not self.m_node) then
+		self:printAnimatorError()
         return
     end
 
@@ -88,6 +93,7 @@ end
 -------------------------------------
 function AnimatorSpine:setEventHandler(cb)
     if (not self.m_node) then
+		self:printAnimatorError()
         return
     end
 
@@ -164,6 +170,7 @@ end
 -------------------------------------
 function AnimatorSpine:getDuration()
     if (not self.m_node) then
+		self:printAnimatorError()
         return 0
     end
 
@@ -175,6 +182,7 @@ end
 -------------------------------------
 function AnimatorSpine:setIgnoreLowEndMode(ignore)
     if (not self.m_node) then
+		self:printAnimatorError()
         return
     end
 
@@ -186,6 +194,7 @@ end
 -------------------------------------
 function AnimatorSpine:isIgnoreLowEndMode(ignore)
     if (not self.m_node) then
+		self:printAnimatorError()
         return false
     end
 
@@ -199,6 +208,7 @@ function AnimatorSpine:setTimeScale(time_scale)
     self.m_timeScale = time_scale
 
     if (not self.m_node) then
+		self:printAnimatorError()
         return false
     end
 
@@ -223,6 +233,7 @@ function AnimatorSpine:setAnimationPause(pause)
     self.m_bAnimationPause = pause
 
     if (not self.m_node) then
+		self:printAnimatorError()
         return
     end
 

@@ -11,7 +11,9 @@ function AnimatorVrp:init(file_name)
     if (file_name) then
         local file_name = string.gsub(file_name, '%.vrp', '')
 
-        -- plist 등록
+		self.m_resName = file_name
+        
+		-- plist 등록
         --cc.SpriteFrameCache:getInstance():addSpriteFrames(file_name .. '.plist')
 
         -- vrp 생성
@@ -38,6 +40,7 @@ end
 -------------------------------------
 function AnimatorVrp:changeAni(animation_name, loop, checking)
     if (not self.m_node) then
+		self:printAnimatorError()
         return
     end
 
@@ -69,11 +72,16 @@ end
 -- function addAniHandler
 -------------------------------------
 function AnimatorVrp:addAniHandler(cb)
-    if cb then
-        self.m_node:registerScriptLoopHandler(cb)
-    else
-        self.m_node:unregisterScriptLoopHandler()
+	if (not self.m_node) then
+		self:printAnimatorError()
+        return
     end
+
+	if cb then
+		self.m_node:registerScriptLoopHandler(cb)
+	else
+		self.m_node:unregisterScriptLoopHandler()
+	end
 end
 
 -------------------------------------
@@ -108,6 +116,7 @@ end
 -------------------------------------
 function AnimatorVrp:getDuration()
     if (not self.m_node) then
+		self:printAnimatorError()
         return 0
     end
 
@@ -119,6 +128,7 @@ end
 -------------------------------------
 function AnimatorVrp:setIgnoreLowEndMode(ignore)
     if (not self.m_node) then
+		self:printAnimatorError()
         return
     end
 
@@ -130,6 +140,7 @@ end
 -------------------------------------
 function AnimatorVrp:isIgnoreLowEndMode(ignore)
     if (not self.m_node) then
+		self:printAnimatorError()
         return false
     end
 
@@ -143,6 +154,7 @@ function AnimatorVrp:setTimeScale(time_scale)
     self.m_timeScale = time_scale
 
     if (not self.m_node) then
+		self:printAnimatorError()
         return false
     end
 
@@ -167,6 +179,7 @@ function AnimatorVrp:setAnimationPause(pause)
     self.m_bAnimationPause = pause
 
     if (not self.m_node) then
+		self:printAnimatorError()
         return
     end
 

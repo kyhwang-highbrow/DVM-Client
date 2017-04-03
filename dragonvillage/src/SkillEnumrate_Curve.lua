@@ -38,7 +38,7 @@ function SkillEnumrate_Curve:fireMissile(idx)
 	local char = self.m_owner
 	local target_char = self.m_skillTargetList[idx]
 	if (not traget_char) or (target_char.m_bDead) then
-		local l_target = world:getTargetList(char, self.pos.x, self.pos.y, 'enemy', 'x', 'random')
+		local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
         target_char = l_target[1]
 	end
 
@@ -66,9 +66,11 @@ function SkillEnumrate_Curve:fireMissile(idx)
 	t_option['lua_param']['value2'] = g_constant:get('SKILL', 'RANDOM_CARD_SPEED')
 	t_option['lua_param']['value3'] = g_constant:get('SKILL', 'RANDOM_CARD_FIRE_DELAY')
 	t_option['lua_param']['value4'] = self.m_skillStartPosList[idx]
-	t_option['lua_param']['value5'] = function()
-		-- 공격
-		self:attack(t_option['target'])
+	if (target_char) then
+		t_option['lua_param']['value5'] = function()
+			-- 공격
+			self:attack(target_char)
+		end
 	end
 
     t_option['missile_res_name'] = self.m_missileRes
