@@ -199,48 +199,25 @@ function UI_TamerInfoPopup:refresh_tamerSkill()
 	local tamer_skill_table = TableTamerSkill()
 
 	-- 스킬1의 정보
-	do
-		vars['skillNode1']:removeAllChildren()
+	for i = 1, 2 do 
+		vars['skillNode' .. i]:removeAllChildren()
 
-		local skill_1_id = t_tamer['skill_1']
-		local t_skill_1 = tamer_skill_table:getTamerSkill(skill_1_id)
+		local skill_id = t_tamer['skill_' .. i]
+		local t_skill = tamer_skill_table:getTamerSkill(skill_id)
 	
-		if (t_skill_1) then
+		if (t_skill) then
 			-- 스킬명
-			vars['skillTitleLabel1']:setString(Str(t_skill_1['t_name']))
+			vars['skillTitleLabel' .. i]:setString(Str(t_skill['t_name']))
 			-- 스킬 상세
-			vars['skillDscLabel1']:setString(Str(t_skill_1['t_desc']))
+			vars['skillDscLabel' .. i]:setString(Str(t_skill['t_desc']))
 			-- 스킬 아이콘
-			local skill_1_icon = MakeAnimator(t_skill_1['res_icon'])
-			if (skill_1_icon) then
-				vars['skillNode1']:addChild(skill_1_icon)
+			local skill_icon = MakeAnimator(t_skill['res_icon'])
+			if (skill_icon) then
+				--vars['skillNode' .. i]:addChild(skill_icon)
 			end
 		else
-			vars['skillTitleLabel1']:setString('없음')
-			vars['skillDscLabel1']:setString('-')
-		end
-	end
-
-	-- 스킬2의 정보
-	do
-		vars['skillNode2']:removeAllChildren()
-	
-		local skill_2_id = t_tamer['skill_2']
-		local t_skill_2 = tamer_skill_table:getTamerSkill(skill_2_id)
-	
-		if (t_skill_2) then
-			-- 스킬명
-			vars['skillTitleLabel2']:setString(Str(t_skill_2['t_name']))
-			-- 스킬 상세
-			vars['skillDscLabel2']:setString(Str(t_skill_2['t_desc']))
-			-- 스킬 아이콘
-			local skill_2_icon = MakeAnimator(t_skill_2['res_icon'])
-			if (skill_2_icon) then
-				vars['skillNode2']:addChild(skill_2_icon)
-			end
-		else
-			vars['skillTitleLabel2']:setString('없음')
-			vars['skillDscLabel2']:setString('-')
+			vars['skillTitleLabel' .. i]:setString('없음')
+			vars['skillDscLabel' .. i]:setString('-')
 		end
 	end
 end
