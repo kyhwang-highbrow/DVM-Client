@@ -41,7 +41,12 @@ function IHighlight:runAction_Highlight(duration, level)
     end
 
     for i, node in ipairs(self.m_lHighlightNodes) do
-        doAllChildren(node, f_tint)
+        if (level == 0) then
+            node:setVisible(false)
+        else
+            node:setVisible(true)
+            doAllChildren(node, f_tint)
+        end
     end
 end
 
