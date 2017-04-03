@@ -18,15 +18,12 @@ UI_Tooltip_Indicator = class(PARENT, {
 		m_richLabel3 = 'RichLabel',
 
 		m_tActiveSkillId = 'list',
-		m_char = 'Character',
-
-        m_skillIndivisualInfo = 'DragonSkillIndivisualInfo',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Tooltip_Indicator:init(x, y, dragon)
+function UI_Tooltip_Indicator:init()
     -- 오른쪽 아래를 기준으로 하여 x, y를 산정한다
 	self.root = cc.Node:create()
     self.root:setDockPoint(cc.p(0, 0))
@@ -36,25 +33,23 @@ function UI_Tooltip_Indicator:init(x, y, dragon)
     self.m_bubbleImage:setDockPoint(cc.p(0, 0))
     self.m_bubbleImage:setAnchorPoint(cc.p(0, 0))
     self.m_bubbleImage:setContentSize(0, 0)
-    self.m_bubbleImage:setPosition(x, y)
     self.root:addChild(self.m_bubbleImage)
+
+    for i = 1, 2 do
+        local rich_label = self:makeRichLabel(' ')
+        self.m_bubbleImage:addChild(rich_label.m_root)
+        self['m_richLabel' .. i] = rich_label
+    end
 	
     UIManager:open(self, UIManager.TOOLTIP)
-
-	self:init_data(dragon)
-	
-	self.m_char = dragon
-
-    self.m_skillIndivisualInfo = dragon:getSkillIndivisualInfo('active')
 end
 
 -------------------------------------
 -- function init_data
 -------------------------------------
 function UI_Tooltip_Indicator:init_data(dragon)
-	local char_type = dragon.m_charType
 	local dragon_id = dragon.m_dragonID
-	local t_dragon = TABLE:get(char_type)[dragon_id]
+	local t_dragon = TABLE:get('dragon')[dragon_id]
 	local dragon_evol = dragon.m_tDragonInfo['evolution']
 	
 	-- 1. 전체 드래곤 액티브 스킬을 체크한다.
@@ -77,13 +72,13 @@ end
 -- @brief public으로 사용
 -------------------------------------
 function UI_Tooltip_Indicator:displayData()
-	local char_type = self.m_char.m_charType
+	local char_type = 'dragon'
 	local skill_type = 'active'
 	local str = nil 
 	local idx = 1
 	for i, v in pairs(self.m_tActiveSkillId) do 
 		str = self:getSkillDescStr(char_type, v['skill_id'], skill_type, v['isActivation'])
-		self:setSkillText(idx, str)
+        self:setSkillText(idx, str)
 		idx = idx + 1
 	end
 end
@@ -92,14 +87,14 @@ end
 -- function setSkillText
 -------------------------------------
 function UI_Tooltip_Indicator:setSkillText(idx, text)
-    local rich_label = self:makeRichLabel(text)
-    self['m_richLabel' .. idx] = rich_label
+    local rich_label = self['m_richLabel' .. idx]
 
+    rich_label:setString(text)
+    
 	-- 위치는 왼쪽 위에서 10, 10 띈 후 일정 간격 씩 내려옴
 	rich_label.m_root:setPosition(10, - 10 - LABEL_GAP * (idx - 1) )
 	rich_label.m_root:setAnchorPoint(cc.p(0, 1))
-    self.m_bubbleImage:addChild(rich_label.m_root)
-	
+    	
     -- 배경 이미지의 ContentSize를 갱신한다. 갭 * 갯수 + 여유분
     self.m_bubbleImage:setContentSize(600, LABEL_GAP * idx + 20)
 end
@@ -166,17 +161,7 @@ function UI_Tooltip_Indicator:makeRichLabel(text)
 
     -- RichLabel상에서의 width, height를 얻어온다.
     local rich_label = RichLabel(text, font_size, dimensions_width, dimensions_height, align_h, align_v, dock_point, is_limit_message)
-    local width = rich_label:getStringWidth()
-    local height = rich_label:getStringHeight()
-
-    -- 적절한 ToolTip의 크기를 얻어온다.
-    width = math_clamp(width, MIN_WIDTH, MAX_WIDTH)
-    height = math_clamp(height + FONT_SIZE, MIN_HEIGHT, MAX_HEIGHT)
-
-    -- 조절된 사이즈로 RichLabel을 생성한다.
-    rich_label = RichLabel(text, font_size, width, height, align_h, align_v, dock_point, is_limit_message)
-
-   return rich_label
+    return rich_label
 end
 
 -------------------------------------
@@ -242,8 +227,7 @@ end
 function UI_Tooltip_Indicator:getSkillDescStr(char_type, skill_id, skill_type, isActivation)
     local table_skill = TABLE:get(char_type .. '_skill')
     local t_skill = table_skill[skill_id]
-    --local t_skill = self.m_skillIndivisualInfo.m_tSkill
-
+    
 	local name_color = isActivation and '{@ORANGE}' or '{@GRAY}'
 	local text_color = isActivation and '{@WHITE}' or '{@GRAY}'
 
@@ -264,4 +248,11 @@ function UI_Tooltip_Indicator:getSkillDescStr(char_type, skill_id, skill_type, i
     local str = name_color .. skill_type_str .. ' : ' .. text_color .. desc
 
     return str
+end
+
+-------------------------------------
+-- function setVisible
+-------------------------------------
+function UI_Tooltip_Indicator:setVisible(b)
+    self.root:setVisible(b)
 end

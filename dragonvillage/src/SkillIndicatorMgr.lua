@@ -64,6 +64,9 @@ function SkillIndicatorMgr:init(world)
     self.m_firstTouchPos = nil
     self.m_firstTouchUIPos = nil
 	self.m_targetList = {}
+
+    self.m_uiToolTip = UI_Tooltip_Indicator()
+    self.m_uiToolTip:setVisible(false)
 end
 
 -------------------------------------
@@ -158,7 +161,7 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
         local ui_pos = self.m_world.m_inGameUI.root:convertToNodeSpace(location)
         local distance = getDistance(self.m_firstTouchUIPos['x'], self.m_firstTouchUIPos['y'], ui_pos['x'], ui_pos['y'])
         if (distance >= 50) then
-            if (self.m_touchedHero:isPossibleSkill('active')) then
+            if (self.m_touchedHero:isPossibleSkill()) then
                 self.m_bSlowMode = true
 
                 self:setSelectHero(self.m_touchedHero)
@@ -313,13 +316,13 @@ end
 -------------------------------------
 -- function makeSkillToolTip
 -------------------------------------
-function SkillIndicatorMgr:makeSkillToolTip(character)
+function SkillIndicatorMgr:makeSkillToolTip(dragon)
 	-- 드래곤만 툴팁을 띄울수 있다
-	if (character.m_charType ~= 'dragon') then return end 
+	if (dragon.m_charType ~= 'dragon') then return end 
 
-	local ui_tooltip = UI_Tooltip_Indicator(0, 0, character)
-	self.m_uiToolTip = ui_tooltip
+	self.m_uiToolTip:init_data(dragon)
 	self.m_uiToolTip:displayData()
+    self.m_uiToolTip:setVisible(true)
 end
 
 -------------------------------------
@@ -327,8 +330,7 @@ end
 -------------------------------------
 function SkillIndicatorMgr:closeSkillToolTip()
 	if (not self.m_uiToolTip) then return end
-	self.m_uiToolTip:close()
-	self.m_uiToolTip = nil 
+	self.m_uiToolTip:setVisible(false)
 end
 
 -------------------------------------

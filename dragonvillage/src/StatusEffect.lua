@@ -88,9 +88,6 @@ end
 -------------------------------------
 function StatusEffect.st_start(owner, dt)
     if (owner.m_stateTimer == 0) then
-        if (string.match(owner.m_statusEffectName, 'feedback')) then
-            cclog('feedback st_start')
-        end
         -- status effect 적용
 		owner:statusEffectApply()
 		
@@ -114,9 +111,6 @@ end
 -------------------------------------
 function StatusEffect.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
-        if (string.match(owner.m_statusEffectName, 'feedback')) then
-            cclog('feedback st_idle')
-        end
     end
 end
 
@@ -125,11 +119,7 @@ end
 -------------------------------------
 function StatusEffect.st_end(owner, dt)
     if (owner.m_stateTimer == 0) then
-        if (string.match(owner.m_statusEffectName, 'feedback')) then
-            cclog('feedback st_end')
-        end
-
-		-- onstart 에서 설정한 부가 효과 해제
+        -- onstart 에서 설정한 부가 효과 해제
 		owner:onEnd_StatusEffect()
 		
 		-- status effect 해제
