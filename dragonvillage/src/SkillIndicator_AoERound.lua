@@ -35,11 +35,7 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_AoERound:onTouchMoved(x, y)
-    if (self.m_siState == SI_STATE_READY) then
-        return
-    end
-
-	local touch_x, touch_y = x, y
+    local touch_x, touch_y = x, y
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
     
 	local t_collision_obj = self:findTargetList(touch_x, touch_y, self.m_range, self.m_isFixedOnTarget)

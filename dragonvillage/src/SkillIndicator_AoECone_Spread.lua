@@ -21,11 +21,7 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_AoECone_Spread:onTouchMoved(x, y)
-	if (self.m_siState == SI_STATE_READY) then
-        return
-    end
-
-    local pos_x, pos_y = self:getAttackPosition()
+	local pos_x, pos_y = self:getAttackPosition()
     local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
 	
 	-- 1. 각도 제한

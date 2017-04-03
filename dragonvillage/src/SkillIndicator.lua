@@ -349,12 +349,13 @@ function SkillIndicator:getIndicatorData()
     t_data['y'] = self.m_targetPosY
     t_data['target'] = self.m_targetChar
     t_data['score'] = self.m_resultScore
-
+    --[[
 	self.m_targetDir = nil
     self.m_targetPosX = nil
     self.m_targetPosY = nil
     self.m_targetChar = nil
     self.m_resultScore = 0
+    ]]--
 
     return t_data
 end
@@ -476,3 +477,42 @@ function SkillIndicator:checkIndicatorLimit(angle, distance)
 	}
 end
 
+-------------------------------------
+-- function getTargetForHighlight
+-- @brief 피격(하이라이트) 대상을 미리 얻어오기 위해 임시 추가
+-------------------------------------
+function SkillIndicator:getTargetForHighlight()
+    local x, y
+    
+    if (self.m_targetPosX and self.m_targetPosY) then
+        x = self.m_targetPosX
+        y = self.m_targetPosY
+
+    else
+        return {}
+        --[[
+        local l_target = self.m_hero:getTargetListByType(self.m_targetType)
+	    local target = nil
+
+	    for i, v in pairs(l_target) do
+		    -- @TODO 추가된 캐릭터 일단 제외 
+		    if (not v.m_isSlaveCharacter) then 
+			    target = v
+			    break
+		    end
+	    end
+    
+	    if target then
+		    x = target.pos.x
+            y = target.pos.y
+        else
+            x = self.m_owner.pos.x
+            y = self.m_owner.pos.y
+        end
+        ]]--
+    end
+
+    self:onTouchMoved(x, y)
+
+    return self.m_highlightList
+end

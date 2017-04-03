@@ -1,4 +1,4 @@
-local PARENT = Character
+local PARENT = class(Character, IHighlight:getCloneTable())
 
 -------------------------------------
 -- class Monster
@@ -89,6 +89,9 @@ function Monster:initAnimatorMonster(file_name, attr, scale)
 
     -- 각종 쉐이더 효과 시 예외 처리할 슬롯 설정(Spine)
     self:blockMatchingSlotShader('effect_')
+
+    -- 하이라이트 노드 설정
+    self:setHighlightNode(self.m_animator.m_node)
 end
 
 -------------------------------------

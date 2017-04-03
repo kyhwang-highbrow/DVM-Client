@@ -39,11 +39,7 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_Penetration:onTouchMoved(x, y)
-    if (self.m_siState == SI_STATE_READY) then
-        return
-    end
-
-	local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
+    local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
 
 	-- 1. 각도 및 거리 제한
     local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))

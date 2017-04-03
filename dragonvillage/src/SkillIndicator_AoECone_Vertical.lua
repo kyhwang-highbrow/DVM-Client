@@ -18,11 +18,7 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_AoECone_Vertical:onTouchMoved(x, y)
-    if (self.m_siState == SI_STATE_READY) then
-        return
-    end
-
-	self.m_targetPosX = x
+    self.m_targetPosX = x
     self.m_targetPosY = y
 
 	local pos_x, pos_y = self.m_indicatorRootNode:getPosition()

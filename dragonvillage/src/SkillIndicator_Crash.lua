@@ -26,10 +26,6 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_Crash:onTouchMoved(x, y)
-    if (self.m_siState == SI_STATE_READY) then
-        return
-    end
-
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
 
     self.m_targetPosX = x

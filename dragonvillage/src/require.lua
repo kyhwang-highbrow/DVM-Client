@@ -163,6 +163,7 @@ local t_module = {
     -- Interface
     'IEventDispatcher',
 	'IEventListener',
+    'IHighlight',
     'IStateHelper',
     'ITopUserInfo_EventListener',
     'ITabUI',

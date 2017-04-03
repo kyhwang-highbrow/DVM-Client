@@ -1,4 +1,4 @@
-local PARENT = Character
+local PARENT = class(Character, IHighlight:getCloneTable())
 
 -------------------------------------
 -- class Dragon
@@ -139,7 +139,10 @@ function Dragon:initAnimatorDragon(file_name, evolution, attr, scale)
     -- 각종 쉐이더 효과 시 예외 처리할 슬롯 설정(Spine)
     self:blockMatchingSlotShader('effect_')
 
-    -- 스킬 오프셋값 설정
+    -- 하이라이트 노드 설정
+    self:setHighlightNode(self.m_animator.m_node)
+
+    -- 스킬 오프셋값 설정(애니메이션 정보로부터 얻음)
     local eventList = self.m_animator:getEventList('skill_disappear', 'attack')
     local event = eventList[1]
     if event then

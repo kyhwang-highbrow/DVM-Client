@@ -35,10 +35,6 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_AoEWedge:onTouchMoved(x, y)
-    if (self.m_siState == SI_STATE_READY) then
-        return
-    end
-
     local pos_x, pos_y = self:getAttackPosition()
 	local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
 	
