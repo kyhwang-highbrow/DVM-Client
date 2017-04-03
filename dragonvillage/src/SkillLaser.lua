@@ -51,7 +51,7 @@ function SkillLaser:init_skill(missile_res, hit, thickness)
     self.m_multiHitTimer = 0
 	
     self.m_clearCount = 0
-	self.m_maxClearCount = hit - 1
+	self.m_maxClearCount = hit
 	
     self.m_laserDir = 180
 
@@ -124,10 +124,8 @@ function SkillLaser.st_idle(owner, dt)
     end
     
     owner.m_multiHitTimer = owner.m_multiHitTimer + dt
-	cclog(owner.m_stateTimer, owner.m_limitTime)
     if (owner.m_multiHitTimer >= owner.m_multiHitTime) and
         (owner.m_clearCount < owner.m_maxClearCount) then
-        cclog('--------------', owner.m_maxClearCount, owner.m_clearCount, owner.m_multiHitTimer, owner.m_multiHitTime)
 		owner:clearCollisionObjectList()
         owner.m_multiHitTimer = owner.m_multiHitTimer - owner.m_multiHitTime
         owner.m_clearCount = owner.m_clearCount + 1
