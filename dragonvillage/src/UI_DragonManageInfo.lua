@@ -363,9 +363,17 @@ function UI_DragonManageInfo:refresh_status(t_dragon_data, t_dragon)
     local doid = t_dragon_data['id']
     local status_calc = MakeOwnDragonStatusCalculator(doid)
 
-    vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
-    vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
-    vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
+    if vars['atk_label'] then
+        vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
+    end
+
+    if vars['def_label'] then
+        vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
+    end
+    
+    if vars['hp_label'] then
+        vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
+    end
 
     if vars['cp_label'] then
         vars['cp_label']:setString(comma_value(status_calc:getCombatPower()))
