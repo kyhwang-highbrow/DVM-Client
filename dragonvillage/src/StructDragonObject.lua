@@ -71,3 +71,12 @@ function StructDragonObject:applyTableData(data)
         self[key] = v
     end
 end
+
+-------------------------------------
+-- function setDragonResearchLevel
+-- @breif
+-------------------------------------
+function StructDragonObject:setDragonResearchLevel(rlv, updated_at)
+    self.rlv = rlv
+    self.updated_at = (updated_at or Timer:getServerTime())
+end

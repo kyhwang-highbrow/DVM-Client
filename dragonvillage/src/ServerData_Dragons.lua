@@ -88,6 +88,15 @@ function ServerData_Dragons:getDragonDataFromUid(doid)
 end
 
 -------------------------------------
+-- function getDragonDataFromUidRef
+-- @brief doid 로 드래곤 정보를 얻음
+-------------------------------------
+function ServerData_Dragons:getDragonDataFromUidRef(doid)
+    local dragon_obj = self.m_serverData:getRef('dragons', doid)
+    return dragon_obj
+end
+
+-------------------------------------
 -- function applyDragonData_list
 -- @brief 서버에서 넘어오는 드래곤의 정보 갱신
 -------------------------------------
@@ -748,4 +757,35 @@ function ServerData_Dragons:request_dragonsInfo(finish_cb, fail_cb)
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function getDragonResearchLevel
+-- @breif 연구(research) 레벨
+-------------------------------------
+function ServerData_Dragons:getDragonResearchLevel(doid)
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+
+    if (not t_dragon_data) then
+        return 0
+    end
+
+    local did = t_dragon_data['did']
+    local research_lv = g_collectionData:getDragonResearchLevel_did(did)
+    return research_lv
+end
+
+-------------------------------------
+-- function checkResearchUpgradeable
+-- @brief
+-------------------------------------
+function ServerData_Dragons:checkResearchUpgradeable(doid)
+    local research_lv = self:getDragonResearchLevel(doid)
+
+    -- 최대 등급 체크
+    if (research_lv >= MAX_DRAGON_RESEARCH_LV) then
+        return false, Str('최고 연구 단계의 드래곤입니다.')
+    end
+
+    return true
 end

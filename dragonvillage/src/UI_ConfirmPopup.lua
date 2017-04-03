@@ -97,6 +97,9 @@ function UI_ConfirmPopup:getPriceIcon(price_type)
 
     elseif (price_type == 'money') then
 
+    elseif (price_type == 'lactea') then
+        res = 'res/ui/icon/inbox/inbox_lactea.png'
+
     else
         error('price_type : ' .. price_type)
     end

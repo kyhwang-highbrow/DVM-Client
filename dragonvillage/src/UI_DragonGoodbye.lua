@@ -11,6 +11,8 @@ UI_DragonGoodbye = class(PARENT,{
         m_tableDragonTrainInfo = 'TableDragonTrainInfo',
         m_addLactea = 'number', -- 추가될 라테아 수
         m_dragonSortMgr = 'DragonSortManager',
+
+        m_excludedDragons = '',
     })
 
 -------------------------------------
@@ -28,7 +30,9 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonGoodbye:init()
+function UI_DragonGoodbye:init(excluded_dragons)
+    self.m_excludedDragons = (excluded_dragons or {})
+
     local vars = self:load('dragon_manage_sell.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -135,10 +139,27 @@ function UI_DragonGoodbye:init_dragonMaterialTableView()
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
 
     -- 리스트 설정
-    local l_item_list = g_dragonsData:getDragonsList()
+    local l_item_list = self:makeMaterialList()
     table_view_td:setItemList(l_item_list)
 
     self.m_tableViewExtMaterial = table_view_td
+end
+
+-------------------------------------
+-- function makeMaterialList
+-- @brief
+-------------------------------------
+function UI_DragonGoodbye:makeMaterialList()
+    local l_item_list = g_dragonsData:getDragonsList()
+
+    for i,v in pairs(l_item_list) do
+        local doid = i
+        if self.m_excludedDragons[doid] then
+            l_item_list[i] = nil
+        end
+    end
+
+    return l_item_list
 end
 
 -------------------------------------

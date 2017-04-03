@@ -339,6 +339,11 @@ function ServerData:networkCommonRespone(ret)
         if ret['tickets'] then
             self:applyServerData(ret['tickets'], 'user', 'tickets')
         end
+
+        -- 라테아 갱신
+        if ret['lactea'] then
+            self:applyServerData(ret['lactea'], 'user', 'lactea')
+        end
     end
 
 	-- 퀘스트 갱신

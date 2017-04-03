@@ -541,6 +541,16 @@ end
 -- @brief 연구 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_resechBtn()
+    local doid = self.m_selectDragonOID
+
+    do -- 최대 등급인지 확인
+        local upgradeable, msg = g_dragonsData:checkResearchUpgradeable(doid)
+        if (not upgradeable) then
+            UIManager:toastNotificationRed(msg)
+            return
+        end
+    end
+
     self:openSubManageUI(UI_DragonResearch)
 end
 

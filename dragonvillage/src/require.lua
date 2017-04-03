@@ -140,6 +140,7 @@ local t_module = {
     'TableDragonSkillEnhance',
     'TableDragonTrainInfo',
     'TableDragonTrainStatus',
+    'TableDragonResearch',
     'TableDrop',
     'TableTamer',
 	'TableTamerSkill',

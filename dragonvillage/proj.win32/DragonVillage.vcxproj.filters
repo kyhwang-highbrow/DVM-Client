@@ -1923,6 +1923,9 @@
     <None Include="..\src\UI_DragonResearch.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableDragonResearch.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

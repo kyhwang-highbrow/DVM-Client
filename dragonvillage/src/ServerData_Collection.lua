@@ -1,3 +1,5 @@
+MAX_DRAGON_RESEARCH_LV = 10
+
 -------------------------------------
 -- class ServerData_Collection
 -------------------------------------
@@ -100,12 +102,7 @@ function ServerData_Collection:response_collectionInfo(ret)
     self.m_mCollectionData = ret['book']
 
     do -- 드래곤 원종별 도감
-        self.m_mDragonTypeCollectionData = {}
-        if ret['dragon_type'] then
-            for i,v in pairs(ret['dragon_type']) do
-                self.m_mDragonTypeCollectionData[v] = true
-            end
-        end
+        self.m_mDragonTypeCollectionData = ret['dragon_type']
     end
 
     self.m_collectionPoint = ret['cpoint']
@@ -118,6 +115,11 @@ function ServerData_Collection:response_collectionInfo(ret)
     if table_dragon_collection then
         table.toNumber(table_dragon_collection, to_number_list)
         self.m_collectionPointList = table.listToMap(table_dragon_collection, 'req_point')
+    end
+
+    -- 드래곤 연구(research) 테이블
+    if ret['table_dragon_research'] then
+        TABLE:setServerTable('table_dragon_research', ret['table_dragon_research'])
     end
 
     -- 보상을 받았는지 여부
@@ -166,7 +168,11 @@ end
 -- @brief 도감에 표시 여부
 -------------------------------------
 function ServerData_Collection:isExistDragonType(dragon_type)
-    return self.m_mDragonTypeCollectionData[dragon_type]
+    if self.m_mDragonTypeCollectionData[dragon_type] then
+        return true
+    else
+        return false
+    end
 end
 
 -------------------------------------
@@ -222,7 +228,9 @@ function ServerData_Collection:setDragonCollection(did)
 
     do -- 드래곤 원종의 도감 정보
         local dragon_type = TableDragon():getValue(tonumber(did), 'type')
-        self.m_mDragonTypeCollectionData[dragon_type] = true
+        if (not self.m_mDragonTypeCollectionData[dragon_type]) then
+            self.m_mDragonTypeCollectionData[dragon_type] = 0
+        end
     end
 
     -- 마지막으로 데이터가 변경된 시간 갱신
@@ -401,4 +409,98 @@ function ServerData_Collection:request_collectionPointReward(req_point, finish_c
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+end
+
+-------------------------------------
+-- function getDragonResearchLevel_did
+-- @brief 드래곤 타입별 연구 레벨
+-------------------------------------
+function ServerData_Collection:getDragonResearchLevel_did(did)
+    local dragon_type = TableDragon:getDragonType(did)
+
+    if (not dragon_type) then
+        return 0
+    end
+
+    local research_lv = self:getDragonResearchLevel(dragon_type)
+    return research_lv
+end
+
+-------------------------------------
+-- function getDragonResearchLevel
+-- @brief 드래곤 타입별 연구 레벨
+-------------------------------------
+function ServerData_Collection:getDragonResearchLevel(dragon_type)
+    if (not self.m_mDragonTypeCollectionData) then
+        return 0
+    end
+
+    local research_lv = self.m_mDragonTypeCollectionData[dragon_type]
+    
+    if (not research_lv) then
+        research_lv = 0
+    end
+
+    return research_lv
+end
+
+-------------------------------------
+-- function request_dragonResearch
+-------------------------------------
+function ServerData_Collection:request_dragonResearch(dragon_type, finish_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    
+    -- 성공 콜백
+    local function success_cb(ret)
+
+        -- 공통 응답 처리 (lactea 갱신)
+        g_serverData:networkCommonRespone(ret)
+
+        -- 드래곤 연구 레벨 갱신
+        if (ret['dragon_rlv'] and ret['modified_dragon_oids']) then
+            self:refresh_dragonResearchLevel(dragon_type, ret)
+        end
+
+        -- modified_dragon_oids
+        -- dragon_rlv
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/research')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('type', dragon_type)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function refresh_dragonResearchLevel
+-- @brief 드래곤 연구 레벨 갱신
+-------------------------------------
+function ServerData_Collection:refresh_dragonResearchLevel(dragon_type, ret)
+    if (not ret['dragon_rlv']) or (not ret['modified_dragon_oids']) then
+        return
+    end
+
+    local dragon_rlv = ret['dragon_rlv']
+
+    self.m_mDragonTypeCollectionData[dragon_type] = dragon_rlv
+
+    for i,v in pairs(ret['modified_dragon_oids']) do
+        local doid = v
+        local t_dragon_data = g_dragonsData:getDragonDataFromUidRef(doid)
+        if t_dragon_data then
+            t_dragon_data:setDragonResearchLevel(dragon_rlv)
+        end
+    end
 end

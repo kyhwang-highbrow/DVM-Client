@@ -131,3 +131,40 @@ function TableDragon:getImplementedDid(did)
         return 120011 -- 파워드래곤
     end
 end
+
+-------------------------------------
+-- function getDragonType
+-------------------------------------
+function TableDragon:getDragonType(did)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local dragon_type = self:getValue(did, 'type')
+    return dragon_type
+end
+
+-------------------------------------
+-- function getDragonName
+-------------------------------------
+function TableDragon:getDragonName(did)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local dragon_name = self:getValue(did, 't_name')
+    return Str(dragon_name)
+end
+
+
+-------------------------------------
+-- function getMaxStatus
+-------------------------------------
+function TableDragon:getMaxStatus(did, status_name)
+    if (self == THIS) then
+        self = THIS()
+    end 
+
+    local max_status = self:getValue(did, status_name .. '_max')
+    return max_status
+end
