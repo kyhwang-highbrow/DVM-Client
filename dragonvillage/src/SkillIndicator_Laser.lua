@@ -5,26 +5,28 @@ local PARENT = SkillIndicator
 -------------------------------------
 SkillIndicator_Laser = class(PARENT, {
         m_thickness = 'number', -- 레이저의 굵기
-		m_indicatorAddEffect = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function SkillIndicator_Laser:init(hero, t_skill)
-    -- 스킬테이블의 val_1의 값으로 레이저의 굵기를 조정
-    local size = t_skill['val_1']
-    if (size == 1) then
-        self.m_thickness = 30
-    elseif (size == 2) then
-        self.m_thickness = 60
-    elseif (size == 3) then
-        self.m_thickness = 120
-    else
-        error('size : ' .. size)
-    end
-
 	self.m_indicatorAngleLimit = g_constant:get('SKILL', 'ANGLE_LIMIT')
+end
+
+-------------------------------------
+-- function init_indicator
+-------------------------------------
+function SkillIndicator_Laser:init_indicator(t_skill)
+	PARENT.init_indicator(self, t_skill)
+
+	local skill_size = t_skill['skill_size']
+	if (skill_size) and (not (skill_size == '')) then
+		local t_data = SkillHelper:getSizeAndScale('bar', skill_size)  
+
+		self.m_indicatorScale = t_data['scale']
+		self.m_thickness = t_data['size']
+	end
 end
 
 -------------------------------------
@@ -48,7 +50,6 @@ function SkillIndicator_Laser:onTouchMoved(x, y)
 	-- 이펙트 조정
 	self.m_targetDir = dir
     self.m_indicatorEffect:setRotation(dir)
-    self.m_indicatorAddEffect:setRotation(dir)
 
     if (not t_ret['is_change']) then
         local adjust_pos = getPointFromAngleAndDistance(dir, 500)
@@ -57,12 +58,9 @@ function SkillIndicator_Laser:onTouchMoved(x, y)
         local bp1 = {x=0, y=y}
         local bp2 = {x=3000, y=y}
         local ip_x, ip_y = getIntersectPoint(ap1, ap2, bp1, bp2)
-        self.m_indicatorAddEffect:setPosition(ip_x - pos_x + self.m_attackPosOffsetX, ip_y - pos_y + self.m_attackPosOffsetY)
 
         self.m_targetPosX = (ip_x + self.m_attackPosOffsetX)
         self.m_targetPosY = (ip_y + self.m_attackPosOffsetY)
-    else
-        self.m_indicatorAddEffect:setPosition(x - pos_x + self.m_attackPosOffsetX, y - pos_y + self.m_attackPosOffsetY)
     end
 
 	-- 하이라이트 갱신
@@ -81,20 +79,12 @@ function SkillIndicator_Laser:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
     do
-        local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
+		local indicator_res = g_constant:get('INDICATOR', 'RES', 'bar')
+        local indicator = MakeAnimator(indicator_res)
         indicator:setPosition(self.m_attackPosOffsetX, self.m_attackPosOffsetY)
+        indicator.m_node:setScaleX(self.m_indicatorScale)
         root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator
-
-        -- a2d상에서 굵기가 120으로 되어있음
-        indicator.m_node:setScaleX(self.m_thickness/120)
-    end
-
-    do
-        local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
-        indicator:changeAni('cursor', true)
-        root_node:addChild(indicator.m_node)
-        self.m_indicatorAddEffect = indicator
     end
 end
 
@@ -106,12 +96,10 @@ function SkillIndicator_Laser:onChangeTargetCount(old_target_count, cur_target_c
     -- 활성화
     if (old_target_count == 0) and (cur_target_count > 0) then
         self.m_indicatorEffect.m_node:setColor(COLOR_RED)
-        self.m_indicatorAddEffect.m_node:setColor(COLOR_RED)
 
     -- 비활성화
     elseif (old_target_count > 0) and (cur_target_count == 0) then
         self.m_indicatorEffect.m_node:setColor(COLOR_CYAN)
-		self.m_indicatorAddEffect.m_node:setColor(COLOR_CYAN)
     end
 end
 

@@ -9,8 +9,6 @@ AnimatorSpine = class(Animator, {
 -------------------------------------
 function AnimatorSpine:init(file_name, is_json)
     local file_name_ = nil
-	
-	self.m_resName = file_name
 
     if is_json then
         file_name_ = string.gsub(file_name, '%.json', '')

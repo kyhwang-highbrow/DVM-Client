@@ -23,7 +23,6 @@ SkillLaser = class(PARENT, {
 
         m_physGroup = '',
 
-		m_thickness = '',
         m_laserThickness = 'number', -- 레이저 굵기
      })
 
@@ -45,12 +44,11 @@ function SkillLaser:init_skill(missile_res, hit, thickness)
 
     local duration = (self.m_owner.m_statusCalc.m_attackTick / 2)
     local hit = math_max(hit, 1)
-	self.m_thickness = thickness
 
 	    -- 쿨타임 지정
     self.m_limitTime = duration
     self.m_multiHitTime = self.m_limitTime / hit
-    self.m_multiHitTimer = -g_constant:get('SKILL', 'LASER_ATK_DELAY')
+    self.m_multiHitTimer = 0
 	
     self.m_clearCount = 0
 	self.m_maxClearCount = hit - 1
@@ -60,26 +58,29 @@ function SkillLaser:init_skill(missile_res, hit, thickness)
     self.m_startPosX = 0
     self.m_startPosY = 0
 	
-    do
-        -- 스케일 지정
-        if	   (thickness == 1) then self.m_laserThickness = 30
-        elseif (thickness == 2) then self.m_laserThickness = 60
-        elseif (thickness == 3) then self.m_laserThickness = 120
-        else                    error('레이저 두께는 1~3 이어야 합니다. 현재 thickness : ' .. thickness)
-        end
-    end
-
     -- 레이저 링크 이펙트 생성
-    self:makeLaserLinkEffect(missile_res, thickness)
+    self:makeLaserLinkEffect(missile_res)
 	
     -- character를 delegate상태로 변경
     self.m_owner:setStateDelegate(self)
 end
 
 -------------------------------------
+-- function initSkillSize
+-------------------------------------
+function SkillLaser:initSkillSize()
+	if (self.m_skillSize) and (not (self.m_skillSize == '')) then
+		local t_data = SkillHelper:getSizeAndScale('round', self.m_skillSize)  
+
+		self.m_resScale = t_data['scale']
+		self.m_laserThickness = t_data['size']
+	end
+end
+
+-------------------------------------
 -- function makeLaserLinkEffect
 -------------------------------------
-function SkillLaser:makeLaserLinkEffect(file_name, thickness)
+function SkillLaser:makeLaserLinkEffect(file_name)
     local link_effect = EffectLink(file_name)
 
     link_effect.m_bRotateEndEffect = false
@@ -91,15 +92,7 @@ function SkillLaser:makeLaserLinkEffect(file_name, thickness)
     link_effect:registCommonAppearAniHandler()
 
     do -- 이펙트 스케일 지정
-        local scale = 1
-
-        -- 스케일 지정
-        if     (thickness == 1) then scale = 0.5
-        elseif (thickness == 2) then scale = 1
-        elseif (thickness == 3) then scale = 2
-        else                    error('레이저 두께는 1~3 이어야 합니다. 현재 thickness : ' .. thickness)
-        end
-
+        local scale = self.m_resScale
         link_effect.m_startPointNode:setScale(scale)
         link_effect.m_effectNode:setScale(scale, 1)
         link_effect.m_endPointNode:setScale(scale)
@@ -131,9 +124,10 @@ function SkillLaser.st_idle(owner, dt)
     end
     
     owner.m_multiHitTimer = owner.m_multiHitTimer + dt
+	cclog(owner.m_stateTimer, owner.m_limitTime)
     if (owner.m_multiHitTimer >= owner.m_multiHitTime) and
         (owner.m_clearCount < owner.m_maxClearCount) then
-        
+        cclog('--------------', owner.m_maxClearCount, owner.m_clearCount, owner.m_multiHitTimer, owner.m_multiHitTime)
 		owner:clearCollisionObjectList()
         owner.m_multiHitTimer = owner.m_multiHitTimer - owner.m_multiHitTime
         owner.m_clearCount = owner.m_clearCount + 1
@@ -238,7 +232,6 @@ function SkillLaser:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
     local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 	local hit = t_skill['hit']
-	local thickness = t_skill['val_1']
 	
 	-- 인스턴스 생성부
 	------------------------------------------------------	
@@ -247,7 +240,7 @@ function SkillLaser:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(missile_res, hit, thickness)
+    skill:init_skill(missile_res, hit)
 	skill:initState()
 
 	-- 3. state 시작 

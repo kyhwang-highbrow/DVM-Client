@@ -11,8 +11,6 @@ function AnimatorVrp:init(file_name)
     if (file_name) then
         local file_name = string.gsub(file_name, '%.vrp', '')
 
-		self.m_resName = file_name
-        
 		-- plist 등록
         --cc.SpriteFrameCache:getInstance():addSpriteFrames(file_name .. '.plist')
 

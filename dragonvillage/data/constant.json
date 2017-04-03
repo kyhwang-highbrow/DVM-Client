@@ -125,9 +125,6 @@
         "ANGLE_LIMIT" : 60,
         "LONG_LENGTH" : 2048,
         
-        // # SkillLaser
-        "LASER_ATK_DELAY" : 0.5,
-
         // # SkillLeafBlade
         "LEAF_COLLISION_SIZE" : 30,
         "LEAF_STRAIGHT_ANGLE" : 30,
@@ -230,7 +227,7 @@
             "square_width" : "res/indicator/square_witdh/square_witdh.vrp",
             "square_height" : "res/indicator/square_witdh/square_witdh.vrp",
             "fan" : "",
-            "bar" : "",
+            "bar" : "res/indicator/bar/bar.vrp",
             "target" : "res/indicator/indicator_type_target/indicator_type_target.vrp",
             "target_cone_90" : "",
             "target_cone_180" : "",

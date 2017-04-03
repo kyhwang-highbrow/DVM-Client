@@ -142,7 +142,7 @@ end
 -- function setPowerRate
 -------------------------------------
 function ActivityCarrier:setPowerRate(power_rate)
-	if (not power_rate) then
+	if (not power_rate) or (power_rate == '') then
 		error('power_rate 가 nil입니다.')
 	end
 
