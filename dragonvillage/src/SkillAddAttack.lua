@@ -57,7 +57,7 @@ function SkillAddAttack:findTarget()
 	local x, y = self.m_targetPos.x, self.m_targetPos.y
 	
     local world = self.m_world
-	local l_target = world:getTargetList(self.m_owner, x, y, 'enemy', 'x', 'distance_line')
+	local l_target = self.m_owner:getTargetListByType('enemy_distance_line')
     
 	local l_ret = {}
     local distance = 0

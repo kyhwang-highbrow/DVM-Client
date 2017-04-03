@@ -64,5 +64,5 @@ function SkillIndicator_AoECone_Vertical:findTargetList(x, y)
     t_data['angle_range'] = self.m_skillAngle
     t_data['radius'] = self.m_skillRadius
 
-    return world:getTargetList(self.m_hero, x, y, 'enemy', 'x', 'fan_shape', t_data)
+    return world:getTargetList(self.m_hero, x, y, 'enemy', nil, 'fan_shape', t_data)
 end

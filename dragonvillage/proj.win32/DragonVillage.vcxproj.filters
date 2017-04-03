@@ -1929,6 +1929,9 @@
     <None Include="..\src\TableDragonResearch.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\SkillTargetFinder.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

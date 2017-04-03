@@ -263,7 +263,7 @@ function SkillCrash:attackShockwave(x, y)
         t_data['dir'] = 180
     end
 
-    local l_target = world:getTargetList(self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, 'enemy', 'x', 'fan_shape', t_data)
+    local l_target = world:getTargetList(self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, 'enemy', nil, 'fan_shape', t_data)
 
     -- 공격에 성공한 카운트
     local target_count = 0

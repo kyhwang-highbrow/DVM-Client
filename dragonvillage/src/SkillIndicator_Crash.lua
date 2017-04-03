@@ -111,5 +111,5 @@ function SkillIndicator_Crash:findShockwaveTarget(x, y)
         t_data['dir'] = 180
     end
 
-    return world:getTargetList(self.m_hero, self.m_hero.pos.x, self.m_hero.pos.y, 'enemy', 'x', 'fan_shape', t_data)
+    return world:getTargetList(self.m_hero, self.m_hero.pos.x, self.m_hero.pos.y, 'enemy', nil, 'fan_shape', t_data)
 end

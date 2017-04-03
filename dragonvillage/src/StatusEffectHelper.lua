@@ -62,7 +62,7 @@ function StatusEffectHelper:doStatusEffectByStr(owner, m_skill_target, l_status_
 	while true do 
 		-- 1. 파싱할 구문 가져오고 탈출 체크
 		effect_str = l_status_effect_str[idx]
-		if (not effect_str) or (effect_str == 'x') or (effect_str == '') then 
+		if (not effect_str) or (effect_str == '') then 
 			break 
 		end
 
@@ -84,7 +84,6 @@ function StatusEffectHelper:doStatusEffectByStr(owner, m_skill_target, l_status_
             end
 
 			for _, target in ipairs(m_skill_target) do
-				--cclog(target_type, target:getName())
 				if (StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
                     cb_invoke(target)
                 end
@@ -93,7 +92,6 @@ function StatusEffectHelper:doStatusEffectByStr(owner, m_skill_target, l_status_
 			-- 별도의 계산된 타겟 리스트 사용
 			local l_target = owner:getTargetListByType(target_type, nil)
 			for _, target in ipairs(l_target) do
-				--cclog(target_type, target:getName())
 				if (StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
                     cb_invoke(target)
                 end
@@ -116,7 +114,7 @@ function StatusEffectHelper:invokeStatusEffect(char, status_effect_type, status_
 		return nil
 	end
     -- status effect validation
-	if (not status_effect_type) or (status_effect_type == 'x') then
+	if (not status_effect_type) or (status_effect_type == '') then
         return nil
     end
 	-- 확률 검사
@@ -163,7 +161,7 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 	-- res attr parsing
     local res = t_status_effect['res']
 	if (res) then 
-		if (res == 'x') then 
+		if (res == '') then 
 			res = nil 
 		else
 			res = string.gsub(res, '@', char:getAttribute())
@@ -200,7 +198,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 		res = string.gsub(res, '@', char:getAttribute())
 	end
 	-- nil 처리
-	if (res == 'x') then 
+	if (res == '') then 
 		res = nil 
 	end
 
@@ -343,7 +341,7 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 	while true do 
 		-- 1. 파싱할 구문 가져오고 탈출 체크
 		effect_str = l_status_effect_str[idx]
-		if (not effect_str) or (effect_str == 'x') or (effect_str == '') then 
+		if (not effect_str) or (effect_str == '') then
 			break 
 		end
 
@@ -463,7 +461,7 @@ end
 -------------------------------------
 function StatusEffectHelper:releaseStatusEffect(char, t_status_effect_str)
     -- 타입 있는지 검사
-    if (not status_effect_type) or (status_effect_type == 'x') then return end
+    if (not status_effect_type) or (status_effect_type == '') then return end
 
 	-- 피격자가 사망했을 경우 리턴
     if (char.m_bDead == true) then return end
@@ -472,7 +470,7 @@ function StatusEffectHelper:releaseStatusEffect(char, t_status_effect_str)
 	local idx = 1
 	while true do 
 		local effect_str = t_status_effect_str[idx]
-		if (not effect_str) or (effect_str == 'x') or (effect_str == '') then 
+		if (not effect_str) or (effect_str == '') then 
 			break 
 		end
 
@@ -499,7 +497,7 @@ end
 -------------------------------------
 function StatusEffectHelper:releaseStatusEffectByType(char, status_effect_type)
     -- 타입 있는지 검사
-    if (not status_effect_type) or (status_effect_type == 'x') then return end
+    if (not status_effect_type) or (status_effect_type == '') then return end
 
 	-- 피격자가 사망했을 경우 리턴
     if (char.m_bDead == true) then return end
@@ -577,7 +575,7 @@ end
 -------------------------------------
 function StatusEffectHelper:getStatusEffectTableFromSkillTable(t_skill, idx)
 	local effect_str = t_skill['add_option_' .. idx]
-	if (not effect_str) or (effect_str == 'x') or (effect_str == '') then 
+	if (not effect_str) or (effect_str == '') then 
 		return {}
 	end
 	return self:parsingStr(effect_str)
@@ -596,7 +594,7 @@ end
 -- @brief 상태효과 타입 파싱해서 테이블 반환
 -------------------------------------
 function StatusEffectHelper:parsingStr(status_effect_str)
-	if (not status_effect_str) or (status_effect_str == 'x') or (status_effect_str == '') then 
+	if (not status_effect_str) or (status_effect_str == '') then 
 		return nil 
 	end
 	local t_effect = stringSplit(status_effect_str, ';')

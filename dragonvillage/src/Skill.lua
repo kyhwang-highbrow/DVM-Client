@@ -102,6 +102,9 @@ function Skill:initActvityCarrier(power_rate, power_abs)
     
     
 	-- 피격시 상태효과가 있다면 activityCarrier에 추가
+	-- @TODO 기본적으로 상태효과에서는 m_activityCarrier에 담지 않아야 컨트롤하기 좋음
+	-- 이벤트 방식으로 처리할 예정
+	--[[
     do
         local lStatusEffect = self:getStatusEffectListByStartCondition({
             STATUS_EFFECT_CON__SKILL_HIT,
@@ -113,6 +116,7 @@ function Skill:initActvityCarrier(power_rate, power_abs)
             self.m_activityCarrier:insertStatusEffectRate(lStatusEffect)
         end
     end
+	]]
 end
 
 -------------------------------------
@@ -266,20 +270,21 @@ end
 -------------------------------------
 function Skill:doStatusEffect(l_start_con, t_target)
     local lStatusEffect = self:getStatusEffectListByStartCondition(l_start_con)
+
     if (#lStatusEffect > 0) then
-        local t_target = nil
+        local l_ret = nil
 		if (#self.m_tSpecialTarget > 0) then 
 			-- type이 target이고 해당 테이블에 대상이 담겨있을때 적용하게됨
-			t_target = self.m_tSpecialTarget
+			l_ret = self.m_tSpecialTarget
 		else
-			t_target = t_target or self:findTarget()
+			l_ret = t_target or self:findTarget()
 		end
-        StatusEffectHelper:doStatusEffectByStr(self.m_owner, t_target, lStatusEffect)
+        StatusEffectHelper:doStatusEffectByStr(self.m_owner, l_ret, lStatusEffect)
 
         -- 액티브 스킬로 아군에게 버프를 주는 경우 피버 게이지 상승
         do
             if (self.m_owner.m_bLeftFormation and self.m_activityCarrier:getAttackType() == 'active') then
-                for _, target in pairs(t_target) do
+                for _, target in pairs(l_ret) do
                     if (target.m_bLeftFormation) then
                         target:dispatch('hit_active_buff', {}, target)
 
@@ -363,22 +368,12 @@ end
 -- @default 직선거리에서 범위를 기준으로 충돌여부 판단
 -------------------------------------
 function Skill:findTarget()
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
 	local x = self.m_targetPos.x
 	local y = self.m_targetPos.y
 	local range = self.m_range
 
-    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
-
-	local l_ret = {}
-
-	-- 바디사이즈를 감안한 충돌 체크
-    for _, target in pairs(l_target) do
-		if isCollision(x, y, target, range) then 
-			table.insert(l_ret, target)
-		end
-    end
-    
-    return l_ret
+	return SkillTargetFinder:findTarget_AoERound(l_target, x, y, range)
 end
 
 -------------------------------------
@@ -480,12 +475,15 @@ function Skill:getStatusEffectListByStartCondition(l_start_con)
     local lStatusEffect = {}
     
     for i, str in ipairs(self.m_lStatusEffectStr) do
-        for _, con in ipairs(l_start_con) do
-            if (string.match(str, con)) then
-                table.insert(lStatusEffect, str)
-                break
-            end
-        end
+		if (str ~= '') then
+			for _, con in ipairs(l_start_con) do
+				local t_effect = StatusEffectHelper:parsingStr(str)
+				if (t_effect['start_con'] == con) then
+					table.insert(lStatusEffect, str)
+					break
+				end
+			end
+		end
     end
 
     return lStatusEffect
@@ -513,33 +511,7 @@ end
 -- @breif 대상에게 생성되는 추가 이펙트 생성
 -------------------------------------
 function Skill:makeEffect(res, x, y, ani_name, cb_function)
-	-- 리소스 없을시 탈출
-	if (res == 'x') then return end
-	
-	local ani_name = ani_name or 'idle'
-
-    -- 이팩트 생성
-    local effect = MakeAnimator(res)
-    effect:setPosition(x, y)
-	effect:changeAni(ani_name, false)
-
-    local missileNode = self.m_world:getMissileNode()
-    missileNode:addChild(effect.m_node, 0)
-
-    -- 하이라이트
-    if (self.m_bHighlight) then
-        --self.m_world.m_gameHighlight:addEffect(effect)
-    end
-    	
-	-- 1회 재생후 동작
-	local cb_ani = function() 
-		if (cb_function) then 
-			cb_function(effect)
-		end
-		effect.m_node:runAction(cc.RemoveSelf:create())
-	end
-	effect:addAniHandler(cb_ani)
-
+	local effect = SkillHelper:makeEffect(self.m_world, res, x, y, ani_name, cb_function)
 	return effect
 end
 

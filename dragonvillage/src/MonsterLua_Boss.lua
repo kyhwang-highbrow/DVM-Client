@@ -284,7 +284,7 @@ function MonsterLua_Boss:getAttackAnimationName(idx_str)
         return default_ani
     end
 
-    if (animation_name == 'x') then
+    if (animation_name == '') then
         return default_ani
     end
 

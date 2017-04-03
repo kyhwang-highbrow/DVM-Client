@@ -70,10 +70,10 @@ function CommonMissile:initCommonMissile(owner, t_skill)
 	self:initAttackPos()
 
 	-- resource 체크 
-	if (not self.m_missileRes) or (self.m_missileRes == 'x') then
+	if (not self.m_missileRes) or (self.m_missileRes == '') then
 		error('공통탄 .. ' ..  t_skill['skill_type'] .. ' .. 리소스 없음')
 	end
-	if (self.m_motionStreakRes == 'x') then 
+	if (self.m_motionStreakRes == '') then 
 		self.m_motionStreakRes = nil 
 	end
 end

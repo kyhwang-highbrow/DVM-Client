@@ -100,7 +100,6 @@ end
 -- @brief 공격 대상 찾음
 -------------------------------------
 function SkillAoEWedge:findTarget()
-	
 	local t_data = {}
 	t_data['x'] = self.pos.x				-- 시작 좌표
 	t_data['y'] = self.pos.y
@@ -108,7 +107,7 @@ function SkillAoEWedge:findTarget()
 	t_data['radius'] = self.m_range			-- 거리
     t_data['angle_range'] = self.m_angle	-- 각도 범위
 
-	local l_target = self.m_world:getTargetList(self.m_owner, self.pos.x, self.pos.y, 'enemy', 'x', 'fan_shape', t_data)
+	local l_target = self.m_world:getTargetList(self.m_owner, self.pos.x, self.pos.y, 'enemy', nil, 'fan_shape', t_data)
 
     return l_target
 end

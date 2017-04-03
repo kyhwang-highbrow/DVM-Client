@@ -197,7 +197,9 @@ function SkillMeleeHack:attackMelee()
     t_option['object_key'] = char:getAttackPhysGroup()
     t_option['attack_damage'] = self.m_activityCarrier
 
-    t_option['damage_rate'] = self.m_powerRate / 100
+	t_option['missile_res_name'] = nil
+    
+	t_option['damage_rate'] = self.m_powerRate / 100
     t_option['movement'] = 'instant'
     t_option['missile_type'] = 'NORMAL'
 
@@ -221,7 +223,7 @@ function SkillMeleeHack:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
 	local move_speed = t_skill['val_1'] or 1500
     local comeback_speed = t_skill['val_2'] or 1500
-	local attack_ani = (t_skill['animation'] == 'x') and 'attack_hack' or t_skill['animation']
+	local attack_ani = (t_skill['animation'] == '') and 'attack_hack' or t_skill['animation']
 
 	-- 인스턴스 생성부
 	------------------------------------------------------	

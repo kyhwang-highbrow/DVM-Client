@@ -55,7 +55,6 @@ end
 -- function st_idle
 -------------------------------------
 function SkillLaser_Lightning.st_idle(owner, dt)
-	cclog(owner.m_state)
 	-- 0타임에 충돌 적 수 체크 -> 추가공격 횟수로 사용
     if (owner.m_stateTimer == 0) then
 		owner.m_collisionNum = table.count(owner:findTarget())

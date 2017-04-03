@@ -124,17 +124,13 @@ function SkillIndicator_AoERound:findTargetList(x, y, range, isFixedOnTarget)
 	local pos_x = x
 	local pos_y = y
 
-	local l_ret = {}
+	local l_ret
 	if isFixedOnTarget then
 		local target_formation_mgr = self.m_hero:getFormationMgr(true)
 		l_ret = target_formation_mgr:findNearTarget(x, y, range, -1, EMPTY_TABLE)
 	else
 		local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
-		for _, target in pairs(l_target) do
-			if isCollision(pos_x, pos_y, target, range) then 
-				table.insert(l_ret, target)
-			end
-		end
+		l_ret = SkillTargetFinder:findTarget_AoERound(l_target, pos_x, pos_y, range)
     end
     
 	return l_ret

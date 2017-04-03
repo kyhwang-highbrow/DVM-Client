@@ -57,7 +57,7 @@ end
 -------------------------------------
 function SkillFieldCheck:runAttack()
     -- 모든 대상 반환
-	local l_target = self.m_world:getTargetList(self.m_owner, 0, 0, self.m_fieldType, 'x', 'distance_line')
+	local l_target = self.m_owner:getTargetListByType(self.m_fieldType .. '_none')
 
 	-- 특정 상태효과를 지닌 대상 탐색
 	for _, target_char in pairs(l_target) do
@@ -98,7 +98,7 @@ end
 -- @breif 흡수하는 투사체 이펙트 생성 
 -------------------------------------
 function SkillFieldCheck:makeDrainEffect(x, y)
-	if (self.m_drainRes == 'x') then return end
+	if (self.m_drainRes == '') then return end
 
     -- 이팩트 생성
     local effect = MakeAnimator(self.m_drainRes)

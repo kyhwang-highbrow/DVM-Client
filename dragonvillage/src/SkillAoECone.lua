@@ -98,7 +98,7 @@ function SkillAoECone:findTarget()
 	t_data['radius'] = self.m_range			-- 거리
     t_data['angle_range'] = self.m_angle	-- 각도 범위
 
-	local l_target = world:getTargetList(self.m_owner, x, y, 'enemy', 'x', 'fan_shape', t_data)
+	local l_target = world:getTargetList(self.m_owner, x, y, 'enemy', nil, 'fan_shape', t_data)
 
     return l_target
 end

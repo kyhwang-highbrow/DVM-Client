@@ -70,7 +70,7 @@ end
 -------------------------------------
 function SkillHelper:makeEffect(world, res, x, y, ani_name, cb_function)
 	-- 리소스 없을시 탈출
-	if (res == 'x') then return end
+	if (res == '') then return end
 	
 	local ani_name = ani_name or 'idle'
 

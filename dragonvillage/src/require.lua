@@ -102,6 +102,7 @@ local t_module = {
     'ValidationDragon',
     'TableViewExtension',
 	'SkillHelper',
+	'SkillTargetFinder',
     'StatusEffectHelper',
     'AreaOfEffectHelper',
     'ShaderCache',

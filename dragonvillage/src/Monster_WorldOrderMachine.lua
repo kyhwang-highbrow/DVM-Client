@@ -176,7 +176,7 @@ end
 -------------------------------------
 function Monster_WorldOrderMachine:makeEffect(res, x, y)
 	-- 리소스 없을시 탈출
-	if (not res) or (res == 'x') then return end
+	if (not res) or (res == '') then return end
 
     -- 이팩트 생성
     local effect = MakeAnimator(res)

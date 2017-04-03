@@ -90,5 +90,5 @@ function SkillIndicator_AoEWedge:findTargetList(x, y, dir)
     t_data['angle_range'] = tonumber(self.m_skillAngle)
     t_data['radius'] = self.m_skillRadius
 
-    return world:getTargetList(char, char.pos.x, char.pos.y, 'enemy', 'x', 'fan_shape', t_data)
+    return world:getTargetList(char, char.pos.x, char.pos.y, 'enemy', nil, 'fan_shape', t_data)
 end

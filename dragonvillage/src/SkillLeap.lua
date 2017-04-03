@@ -196,30 +196,6 @@ function SkillLeap:getDefaultTargetPos()
 end
 
 -------------------------------------
--- function findTarget
--- @brief 공격 대상 찾음
--------------------------------------
-function SkillLeap:findTarget()
-	local x = self.m_targetPos.x
-	local y = self.m_targetPos.y
-	local range = self.m_range
-	
-    local world = self.m_world
-	local l_target = world:getTargetList(self.m_owner, x, y, 'enemy', 'x', 'distance_line')
-    
-	local l_ret = {}
-    local distance = 0
-
-    for _, target in pairs(l_target) do
-		if isCollision(x, y, target, range) then 
-			table.insert(l_ret, target)
-		end
-    end
-
-    return l_ret
-end
-
--------------------------------------
 -- function makeSkillInstance
 -------------------------------------
 function SkillLeap:makeSkillInstance(owner, t_skill, t_data)

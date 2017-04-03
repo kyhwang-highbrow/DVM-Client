@@ -202,8 +202,8 @@ function MissileLua.lua_angle(owner)
 			return 
 		end
 
-		-- 리소스가 x인것은 테이블상 오류일 가능성이 크므로 진행
-		if (explosion_res == 'x') then
+		-- 리소스가 없는것은 테이블상 오류일 가능성이 크므로 진행
+		if (explosion_res == '') then
 			explosion_res = nil
 		end
 

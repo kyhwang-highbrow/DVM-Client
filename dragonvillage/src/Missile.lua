@@ -140,8 +140,8 @@ function Missile:initAnimator(file_name)
         self.m_animator = nil
     end
 
-    if (file_name == 'x') then
-        cclog('## 미사일 리소스가 없습니다. ## file_name : ' .. file_name)
+    if (file_name == '') then
+        cclog('## 미사일 리소스가 없습니다. file_name : ' .. file_name)
         file_name = 'res/missile/missile_developing.png'
     end
 

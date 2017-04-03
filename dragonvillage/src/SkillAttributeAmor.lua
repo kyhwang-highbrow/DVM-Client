@@ -189,7 +189,7 @@ end
 -- function findTarget
 -------------------------------------
 function SkillAttributeAmor:findTarget()
-    local l_target = self.m_world:getTargetList(self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, 'enemy', 'x', 'random')
+	local l_target = self.m_owner:getTargetListByType('enemy_random')
     return l_target
 end
 

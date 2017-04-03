@@ -404,6 +404,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SkillRapidShot.lua" />
     <None Include="..\src\SkillRapidShot_AddAttack.lua" />
     <None Include="..\src\SkillSpiderWeb.lua" />
+    <None Include="..\src\SkillTargetFinder.lua" />
     <None Include="..\src\SkillVoltesX.lua" />
     <None Include="..\src\SortManager.lua" />
     <None Include="..\src\SortManager_Dragon.lua" />
