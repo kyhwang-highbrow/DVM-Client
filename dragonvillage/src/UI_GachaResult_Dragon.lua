@@ -69,6 +69,7 @@ function UI_GachaResult_Dragon:refresh()
     local did = t_gacha_dragon['did']
     local grade = t_gacha_dragon['grade']
     local evolution = t_gacha_dragon['evolution']
+    local rlv = t_gacha_dragon['rlv']
 
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[did]
@@ -80,7 +81,7 @@ function UI_GachaResult_Dragon:refresh()
     vars['nameLabel']:setString(Str(t_dragon['t_name']) .. '-' .. evolutionName(evolution))
 
     do -- 능력치
-        self:refresh_status(t_dragon, evolution)
+        self:refresh_status(t_dragon, evolution, rlv)
     end
 
     do -- 희귀도
@@ -133,7 +134,7 @@ end
 -- function refresh_status
 -- @brief 능력치 정보 갱신
 -------------------------------------
-function UI_GachaResult_Dragon:refresh_status(t_dragon, evolution)
+function UI_GachaResult_Dragon:refresh_status(t_dragon, evolution, rlv)
     local vars = self.vars
     local dragon_id = t_dragon['did']
     local lv = 1
@@ -142,7 +143,7 @@ function UI_GachaResult_Dragon:refresh_status(t_dragon, evolution)
     local eclv = eclv
 
     -- 능력치 계산기
-    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv)
+    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv, rlv)
 
     vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
     vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))

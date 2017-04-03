@@ -65,6 +65,7 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation)
     local grade = t_dragon_data['grade'] or 1
     local evolution = t_dragon_data['evolution'] or 1
     local eclv = t_dragon_data['eclv'] or 0
+    local rlv = t_dragon_data['rlv'] or 0
 	local attr = t_dragon['attr']
 
 	-- 기본 정보 저장
@@ -80,7 +81,7 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation)
 	self:initAnimatorDragon(t_dragon['res'], evolution, attr, t_dragon['scale'])
     self:makeCastingNode()
     self:setStatusCalc(status_calc)
-    self:initStatus(t_dragon, lv, grade, evolution, doid, eclv)
+    self:initStatus(t_dragon, lv, grade, evolution, doid, eclv, rlv)
 	self:initTriggerListener()
 
 	-- 피격 처리
@@ -667,7 +668,7 @@ function Dragon:initStatus(t_char, level, grade, evolution, doid, eclv)
 
     -- 능력치 설정이 되지 않은 경우
     if (not self.m_statusCalc) then
-        local status_calc = MakeDragonStatusCalculator(self.m_charTable['did'], level, grade, evolution, eclv)
+        local status_calc = MakeDragonStatusCalculator(self.m_charTable['did'], level, grade, evolution, eclv, rlv)
         self:setStatusCalc(status_calc)
     end
 

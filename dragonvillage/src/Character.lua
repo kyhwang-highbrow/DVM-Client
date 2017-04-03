@@ -316,7 +316,7 @@ end
 -------------------------------------
 -- function initStatus
 -------------------------------------
-function Character:initStatus(t_char, level, grade, evolution, doid, eclv)
+function Character:initStatus(t_char, level, grade, evolution, doid, eclv, rlv)
     local level = level or 1
     self.m_charTable = t_char
 	self.m_attribute = t_char['attr']
@@ -330,10 +330,10 @@ function Character:initStatus(t_char, level, grade, evolution, doid, eclv)
         if doid then
             self.m_statusCalc = MakeOwnDragonStatusCalculator(doid)
         else
-            self.m_statusCalc = MakeDragonStatusCalculator(self.m_charTable['did'], level, grade, evolution, eclv)
+            self.m_statusCalc = MakeDragonStatusCalculator(self.m_charTable['did'], level, grade, evolution, eclv, rlv)
         end
     elseif (self.m_charType == 'monster') then
-        self.m_statusCalc = StatusCalculator(self.m_charType, self.m_charTable['mid'], level, grade, evolution, eclv)
+        self.m_statusCalc = StatusCalculator(self.m_charType, self.m_charTable['mid'], level, grade, evolution, eclv, rlv)
     else
         error('self.m_charType : ' .. self.m_charType)
     end

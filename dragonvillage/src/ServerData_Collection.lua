@@ -117,11 +117,6 @@ function ServerData_Collection:response_collectionInfo(ret)
         self.m_collectionPointList = table.listToMap(table_dragon_collection, 'req_point')
     end
 
-    -- 드래곤 연구(research) 테이블
-    if ret['table_dragon_research'] then
-        TABLE:setServerTable('table_dragon_research', ret['table_dragon_research'])
-    end
-
     -- 보상을 받았는지 여부
     if ret['cpoint_reward'] then
         -- 0은 추가

@@ -30,6 +30,9 @@ StatusCalculator = class({
         m_attackTick = 'number',
 
 
+        m_charType = 'string',
+        m_chapterID = 'number',
+
         m_charTable = '',
         m_evolutionTable = '',
         m_gradeTable = '',
@@ -39,6 +42,8 @@ StatusCalculator = class({
 -- function init
 -------------------------------------
 function StatusCalculator:init(char_type, cid, lv, grade, evolution, eclv)
+    self.m_charType = char_type
+    self.m_chapterID = cid
     eclv = (eclv or 0)
     self.m_charTable = TABLE:get(char_type)
     if (char_type == 'dragon') then
@@ -227,6 +232,23 @@ function StatusCalculator:applyRuneSetBonus(t_rune_set)
     end
 end
 
+-------------------------------------
+-- function applyDragonResearchBuff
+-- @brief 연구 버프 적용
+-------------------------------------
+function StatusCalculator:applyDragonResearchBuff(rlv)
+    if (self.m_charType ~= 'dragon') then
+        return
+    end
+
+    local did = self.m_chapterID
+    local dragon_type = TableDragon:getDragonType(did)
+    local atk, def, hp = TableDragonResearch:getDragonResearchStatus(dragon_type, rlv)
+
+    self.m_lPassiveAbs['atk'] = (self.m_lPassiveAbs['atk'] + atk)
+    self.m_lPassiveAbs['def'] = (self.m_lPassiveAbs['def'] + atk)
+    self.m_lPassiveAbs['hp'] = (self.m_lPassiveAbs['hp'] + atk)
+end
 
 -------------------------------------
 -- function applyFormationBonus
@@ -286,7 +308,6 @@ function StatusCalculator:applyFriendBuff(t_friend_buff)
     end
 end
 
-
 -------------------------------------
 -- function getCombatPower
 -- @brief 드래곤의 최종 전투력을 얻어옴
@@ -300,8 +321,8 @@ function StatusCalculator:getCombatPower()
     for stat_name,t_status in pairs(self.m_lStatusList) do
         
         if (not isExistValue(stat_name, 'dmg_adj_rate', 'attr_adj_rate')) then
-            -- 모든 연산이 끝난 후의 능력치 얻어옴 (패시브로 실시간 적용되는 부분은 제외)
-            local final_stat = t_status['final']
+            -- 모든 연산이 끝난 후의 능력치 얻어옴
+            local final_stat = self:getFinalStat(stat_name)
 
             -- 능력치별 계수(coef)를 얻어옴
             local coef = table_status:getValue(stat_name, 'combat_power_coef') or 0
@@ -320,7 +341,7 @@ end
 -- function MakeDragonStatusCalculator
 -- @brief
 -------------------------------------
-function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv, l_friendship_bonus, l_train_bonus, l_rune_bonus, t_rune_set)
+function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv, rlv, l_friendship_bonus, l_train_bonus, l_rune_bonus, t_rune_set)
     lv = (lv or 1)
     grade = (grade or 1)
     evolution = (evolution or 1)
@@ -330,6 +351,7 @@ function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv, l_fri
     status_calc:applyTrainBonus(l_train_bonus)
     status_calc:applyRuneBonus(l_rune_bonus)
     status_calc:applyRuneSetBonus(t_rune_set)
+    status_calc:applyDragonResearchBuff(rlv or 0)
     return status_calc
 end
 
@@ -372,6 +394,7 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, l_rune_bo
     local grade = t_dragon_data['grade']
     local evolution = t_dragon_data['evolution']
     local eclv = t_dragon_data['eclv']
+    local rlv = t_dragon_data['rlv']
 
     -- 친밀도 보너스
     local l_friendship_bonus = {}
@@ -389,7 +412,7 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, l_rune_bo
     -- 룬 세트 보너스
     local t_rune_set = t_dragon_data['rune_set']
 
-    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv,
+    local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv, rlv,
         l_friendship_bonus, l_train_bonus, l_rune_bonus, t_rune_set)
 
     return status_calc

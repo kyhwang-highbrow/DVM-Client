@@ -455,6 +455,19 @@ function ServerData:networkCommonRespone_addedItems(ret)
 end
 
 -------------------------------------
+-- function setServerTable
+-- @breif
+-------------------------------------
+function ServerData:setServerTable(ret, table_name)
+    if (not ret[table_name]) then
+        cclog('## table_name : "' .. table_name .. '" 테이블 정보를 서버에서 주지 않았습니다.')
+        return
+    end
+
+    TABLE:setServerTable(table_name, ret[table_name])
+end
+
+-------------------------------------
 -- function request_serverTables
 -- @breif
 -------------------------------------
@@ -464,7 +477,8 @@ function ServerData:request_serverTables(finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
-        TABLE:setServerTable('table_stamina_info', ret['table_stamina_info'])
+        self:setServerTable(ret, 'table_stamina_info')
+        self:setServerTable(ret, 'table_dragon_research')
 
         if finish_cb then
             finish_cb(ret)
