@@ -574,7 +574,6 @@ local t_module = {
     'UI_DragonManageInfoView',
     'UI_DragonLevelUp',
     'UI_DragonLevelUpHelper',
-    'UI_DragonUpgrade',
     'UI_DragonUpgradeNew',
     'UI_DragonEclvupNew',
     'UI_DragonResearch',
