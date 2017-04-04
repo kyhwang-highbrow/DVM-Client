@@ -180,7 +180,7 @@ function Character.st_attackDelay(owner, dt)
             owner:changeState('charge')
         end
 
-    else
+    elseif (not owner.m_world.m_gameState:isWaitingGlobalCoolTime()) then
         -- indie_time류 스킬
         local skill_id = owner:getBasicTimeAttackSkillID()
         if (not owner.m_isSilence and skill_id) then

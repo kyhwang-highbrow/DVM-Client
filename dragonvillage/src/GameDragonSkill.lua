@@ -21,8 +21,6 @@ GameDragonSkill = class(PARENT, {
         m_skillOpeningCutBg = 'Animator',
         m_skillOpeningCutTop = 'Animator',
 
-        m_dragonCut = 'Animator',
-
         m_skillDescEffect = 'Animator',
         m_skillNameLabel = 'cc.Label',
         m_skillDescLabel = 'cc.Label',
@@ -62,17 +60,18 @@ function GameDragonSkill:initUI()
     self.m_skillOpeningCutTop:setVisible(false)
     self.m_node:addChild(self.m_skillOpeningCutTop.m_node)
 
-    self.m_dragonCut = nil
-
     -- 스킬 설명
     self.m_skillDescEffect = MakeAnimator('res/ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp')
-    self.m_skillDescEffect:setPosition(0, 200)
-    self.m_skillDescEffect:setAnchorPoint(cc.p(0.5, 0.5))
-	self.m_skillDescEffect:setDockPoint(cc.p(0.5, 0))
+    --self.m_skillDescEffect:setPosition(0, 200)
+    --self.m_skillDescEffect:setAnchorPoint(cc.p(0.5, 0.5))
+	--self.m_skillDescEffect:setDockPoint(cc.p(0.5, 0))
+    --self.m_world.m_inGameUI.root:addChild(self.m_skillDescEffect.m_node, 10)
+    self.m_skillDescEffect:setPosition(0, -250)
+    self.m_node:addChild(self.m_skillDescEffect.m_node)
+
     self.m_skillDescEffect:changeAni('skill', false)
     self.m_skillDescEffect:setVisible(false)
-    self.m_world.m_inGameUI.root:addChild(self.m_skillDescEffect.m_node, 10)
-
+    
     local titleNode = self.m_skillDescEffect.m_node:getSocketNode('skill_title')
     local descNode = self.m_skillDescEffect.m_node:getSocketNode('skill_dsc')
     
@@ -131,6 +130,9 @@ function GameDragonSkill.update_live(self, dt)
             self:makeSkillOpeningCut(dragon, function()
                 self:nextStep()
             end)
+
+            -- 스킬 이름 및 설명 문구를 표시
+            self:makeSkillDesc(dragon, delayTime)
         end
         
     elseif (self:getStep() == 1) then
@@ -150,23 +152,6 @@ function GameDragonSkill.update_live(self, dt)
                 self.m_skillOpeningCutBg:setVisible(false)
             end)
 
-            --[[
-            self.m_skillOpeningCutTop:setVisible(true)
-            self.m_skillOpeningCutTop:changeAni('scene_3', false)
-            self.m_skillOpeningCutTop:setPosition(-300, 0)
-            self.m_skillOpeningCutTop:addAniHandler(function()
-                self.m_skillOpeningCutTop:setVisible(false)
-            end)
-
-            -- 컷씬
-            self:makeDragonCut(dragon, function()
-                -- 화면 쉐이킹
-                world.m_shakeMgr:doShake(50, 50, 1)
-
-                self:nextStep()
-            end)
-            ]]--
-            --self.m_skillOpeningCutBg:setVisible(false)
             self.m_skillOpeningCutTop:setVisible(false)
             self:nextStep()
         end
@@ -175,12 +160,6 @@ function GameDragonSkill.update_live(self, dt)
         if (self:isBeginningStep()) then
             -- 카메라 줌인
             world.m_gameCamera:setTarget(dragon, {scale = 3, time = delayTime / 4})
-
-            -- 컷씬 삭제
-            if (self.m_dragonCut) then
-                self.m_dragonCut:release()
-                self.m_dragonCut = nil
-            end
 
             -- 드래곤만 일시 정지 제외시킴
             world:setTemporaryPause(true, dragon)
@@ -193,7 +172,7 @@ function GameDragonSkill.update_live(self, dt)
             dragon.m_animator:setTimeScale(duration / delayTime)
 
             -- 스킬 이름 및 설명 문구를 표시
-            self:makeSkillDesc(dragon, delayTime)
+            --self:makeSkillDesc(dragon, delayTime)
                         
             -- 효과음
             SoundMgr:playEffect('EFFECT', 'skill_ready')
@@ -258,8 +237,10 @@ function GameDragonSkill.update_live(self, dt)
     end
 
     do
-        local realCameraHomePosX, realCameraHomePosY = world.m_gameCamera:getPosition()
-        self.m_skillOpeningCutBg:setPosition(CRITERIA_RESOLUTION_X / 2 + realCameraHomePosX, realCameraHomePosY)
+        local curCameraPosX, curCameraPosY = world.m_gameCamera:getPosition()
+        local curCameraScale = world.m_gameCamera:getScale()
+        self.m_skillOpeningCutBg:setPosition(CRITERIA_RESOLUTION_X / 2 + curCameraPosX * curCameraScale, curCameraPosY * curCameraScale)
+        self.m_skillOpeningCutBg:setScale(1 / curCameraScale)
     end
 end
 
@@ -354,50 +335,6 @@ function GameDragonSkill:makeSkillDesc(dragon, delayTime)
 
     self.m_skillNameLabel:setString(Str(t_skill['t_name']))
     self.m_skillDescLabel:setString(IDragonSkillManager:getSkillDescPure(t_skill))
-end
-
--------------------------------------
--- function makeDragonCut
--- @brief 포효씬 드래곤 컷
--------------------------------------
-function GameDragonSkill:makeDragonCut(dragon, cbEnd)
-    if (self.m_dragonCut) then
-        self.m_dragonCut:release()
-        self.m_dragonCut = nil
-    end
-
-    local res_name = dragon.m_animator.m_resName
-    local animator = MakeAnimator(res_name)
-    self.m_node:addChild(animator.m_node)
-
-    local aniName = self:getDragonAniForCut(dragon)
-    animator:changeAni('skill_appear', false)
-        
-    local bFlip = dragon.m_animator.m_bFlip
-    if (bFlip) then
-        animator:setPosition(300, 2000)
-        animator:setScale(1.5)
-        animator:setFlip(true)
-        animator:runAction(cc.Sequence:create(
-            cc.MoveTo:create(0.5, cc.p(300, -50)),
-            cc.CallFunc:create(function()
-                animator:changeAni(aniName, false)
-                animator:addAniHandler(cbEnd)
-            end)
-        ))
-    else
-        animator:setPosition(-300, 2000)
-        animator:setScale(1.5)
-        animator:runAction(cc.Sequence:create(
-            cc.MoveTo:create(0.5, cc.p(-300, -50)),
-            cc.CallFunc:create(function()
-                animator:changeAni(aniName, false)
-                animator:addAniHandler(cbEnd)
-            end)
-        ))
-    end
-
-    self.m_dragonCut = animator
 end
 
 -------------------------------------

@@ -85,7 +85,7 @@ function Monster_GiantDragon.st_dying(owner, dt)
         owner:animatorSpot()
 
     elseif (owner:isPassedStepTime(1)) then
-        owner:runAction_Shake()        
+        owner:runAction_dyingShake()        
 
     elseif (owner:isPassedStepTime(3)) then
         local action = cc.EaseIn:create(cc.MoveTo:create(3, cc.p(0, -2000)), 2)
@@ -134,9 +134,9 @@ function Monster_GiantDragon:animatorSpot()
 end
 
 -------------------------------------
--- function runAction_Shake
+-- function runAction_dyingShake
 -------------------------------------
-function Monster_GiantDragon:runAction_Shake()
+function Monster_GiantDragon:runAction_dyingShake()
     local target_node = self.m_animator.m_node
     if (not target_node) then
         return

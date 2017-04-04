@@ -314,6 +314,11 @@ function Dragon.st_attack(owner, dt)
 
                 if (t_skill['chance_type'] == 'indie_time') then
                     owner:increaseActiveSkillCool(t_temp['time_skill'])
+
+                    -- 쿨타임 공격시 이벤트
+                    if (owner.m_bLeftFormation) then
+                        owner:dispatch('hero_time_skill', {}, owner)
+                    end
                 else
                     owner:increaseActiveSkillCool(t_temp['passive_skill'])
                 end
@@ -1107,10 +1112,17 @@ function Dragon:updateBasicTimeSkillTimer(dt)
 
     -- 스킬 정보가 있을 경우 쿨타임 진행 정보를 확인한다.
     if (skill_info) then
+        -- 글로벌 쿨타임 적용
+        local globalCoolTime = self.m_world.m_gameState:getGlobalCoolTime()
+        if (skill_info.m_timer < globalCoolTime) then
+            skill_info.m_timer = globalCoolTime
+            ret = false
+        end
+
         local cur = skill_info.m_timer
         local max = skill_info.m_tSkill['chance_value']
         local run_skill = ret -- 스킬 동작 여부
-
+        
         local t_event = {['cur']=cur, ['max']=max, ['run_skill']=run_skill}
         self:dispatch('basic_time_skill_gauge', t_event)
     end    
