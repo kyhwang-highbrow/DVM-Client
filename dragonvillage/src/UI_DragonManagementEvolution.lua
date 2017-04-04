@@ -396,6 +396,11 @@ function UI_DragonManagementEvolution:click_evolutionBtn()
     -- 진화 재료 부족
     if (not self.m_bEnoughSvolutionStones) then
         UIManager:toastNotificationRed(Str('진화재료가 부족합니다.'))
+        local vars = self.vars
+
+        cca.uiImpossibleAction(vars['moveBtn1'])
+        cca.uiImpossibleAction(vars['moveBtn2'])
+        cca.uiImpossibleAction(vars['moveBtn3'])
         return
     end
 

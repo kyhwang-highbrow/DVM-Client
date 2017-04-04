@@ -229,3 +229,17 @@ function cca.buttonShakeAction(level)
 
     return cc.RepeatForever:create(sequence)
 end
+
+-------------------------------------
+-- function uiImpossibleAction
+-------------------------------------
+function cca.uiImpossibleAction(node, level)
+    local level = level or 1
+    local angle = 5 * level
+    
+    local start_action = cc.RotateTo:create(0.05, angle)
+    local end_action = cc.EaseElasticOut:create(cc.RotateTo:create(0.5 * 2, 0), 0.1)
+    local sequence = cc.Sequence:create(start_action, end_action)
+
+    cca.runAction(node, sequence)
+end
