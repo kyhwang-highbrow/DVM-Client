@@ -539,6 +539,7 @@ local t_module = {
     'UI_ItemInfoPopup',
     'UI_ChapterAchieveRewardPopup',
     'UI_NotificationFullInventoryPopup',
+    'UI_DragonInfoBoard',
     
     -- 도감 관련
     'UI_Collection',

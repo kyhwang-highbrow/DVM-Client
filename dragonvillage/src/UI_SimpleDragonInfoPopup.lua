@@ -8,6 +8,7 @@ UI_SimpleDragonInfoPopup = class(PARENT, {
         m_dragonObjectID = 'string',
         m_tableDragon = 'TableDragon',
         m_idx = 'number',
+        m_dragonInfoBoardUI = 'UI_DragonInfoBoard',
      })
 
 -------------------------------------
@@ -43,6 +44,10 @@ end
 -------------------------------------
 function UI_SimpleDragonInfoPopup:initUI()
     local vars = self.vars
+
+    -- 드래곤 정보 보드 생성
+    self.m_dragonInfoBoardUI = UI_DragonInfoBoard()
+    self.vars['rightNode']:addChild(self.m_dragonInfoBoardUI.root)
 end
 
 -------------------------------------
@@ -65,6 +70,8 @@ function UI_SimpleDragonInfoPopup:refresh()
 
     local t_dragon_data = self:getDragonData()
 
+    self.m_dragonInfoBoardUI:refresh(t_dragon_data)self.m_dragonInfoBoardUI:refresh(t_dragon_data)
+
     local did = t_dragon_data['did']
 
     local table_dragon = TableDragon()
@@ -72,35 +79,6 @@ function UI_SimpleDragonInfoPopup:refresh()
 
     -- 코드 중복을 막기 위해 UI_DragonManageInfo클래스의 기능을 활용
     UI_DragonManageInfo.refresh_dragonBasicInfo(self, t_dragon_data, t_dragon)
-    UI_DragonManageInfo.refresh_dragonSkillsInfo(self, t_dragon_data, t_dragon, function() self:click_skillDetailBtn() end)
-    UI_DragonManageInfo.refresh_icons(self, t_dragon_data, t_dragon)
-
-    -- 능력치 출력
-    self:refresh_status()
-end
-
--------------------------------------
--- function refresh_status
--- @brief 능력치 출력
--------------------------------------
-function UI_SimpleDragonInfoPopup:refresh_status()
-    local vars = self.vars
-
-    local status_calc = self:getStatusCalculator()
-
-    vars['atk_p_label']:setString(status_calc:getFinalStatDisplay('atk'))
-    vars['atk_spd_label']:setString(status_calc:getFinalStatDisplay('aspd'))
-    vars['cri_chance_label']:setString(status_calc:getFinalStatDisplay('cri_chance'))
-    vars['def_p_label']:setString(status_calc:getFinalStatDisplay('def'))
-    vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
-    vars['cri_avoid_label']:setString(status_calc:getFinalStatDisplay('cri_avoid'))
-    vars['avoid_label']:setString(status_calc:getFinalStatDisplay('avoid'))
-    vars['hit_rate_label']:setString(status_calc:getFinalStatDisplay('hit_rate'))
-    vars['cri_dmg_label']:setString(status_calc:getFinalStatDisplay('cri_dmg'))
-
-    if vars['cp_label'] then
-        vars['cp_label']:setString(comma_value(status_calc:getCombatPower()))
-    end
 end
 
 -------------------------------------
@@ -126,15 +104,6 @@ function UI_SimpleDragonInfoPopup:makeDragonData(did)
     t_dragon_data['skill_3'] = 1
     
     return t_dragon_data
-end
-
--------------------------------------
--- function click_skillDetailBtn
--- @brief 스킬 상세정보 보기 버튼
--------------------------------------
-function UI_SimpleDragonInfoPopup:click_skillDetailBtn()
-    local t_dragon_data = self.m_tDragonData
-    UI_SkillDetailPopup(t_dragon_data, true)
 end
 
 -------------------------------------
