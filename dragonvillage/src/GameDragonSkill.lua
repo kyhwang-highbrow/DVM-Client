@@ -62,11 +62,7 @@ function GameDragonSkill:initUI()
 
     -- 스킬 설명
     self.m_skillDescEffect = MakeAnimator('res/ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp')
-    --self.m_skillDescEffect:setPosition(0, 200)
-    --self.m_skillDescEffect:setAnchorPoint(cc.p(0.5, 0.5))
-	--self.m_skillDescEffect:setDockPoint(cc.p(0.5, 0))
-    --self.m_world.m_inGameUI.root:addChild(self.m_skillDescEffect.m_node, 10)
-    self.m_skillDescEffect:setPosition(0, -250)
+    self.m_skillDescEffect:setPosition(0, -285)
     self.m_node:addChild(self.m_skillDescEffect.m_node)
 
     self.m_skillDescEffect:changeAni('skill', false)
