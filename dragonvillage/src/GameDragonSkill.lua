@@ -415,7 +415,11 @@ function GameDragonSkill:getDragonAniForCut(dragon)
     elseif (dragon.m_charTable['type']  == 'pinkbell') then
         aniName = 'attack'
     elseif (dragon.m_charTable['type']  == 'lightningdragon') then
-        aniName = 'pose_1'
+        if (dragon.m_charTable['attr'] == T_ATTR_LIST[ATTR_FIRE]) then
+            aniName = 'pose_2'
+        else
+            aniName = 'pose_1'
+        end
     elseif (dragon.m_charTable['type']  == 'clowndragon') then
         aniName = 'skill_appear'
     elseif (dragon.m_charTable['type']  == 'wonderdragon') then

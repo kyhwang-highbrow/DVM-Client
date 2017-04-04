@@ -20,7 +20,7 @@
             <key>skill_powerdragon_stone_res_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{823,189},{88,88}}</string>
+                <string>{{502,204},{88,88}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -56,6 +56,19 @@
                 <key>sourceSize</key>
                 <string>{200,319}</string>
             </dict>
+            <key>skill_powerdragon_stone_res_04_earth.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{823,189},{191,228}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{191,228}}</string>
+                <key>sourceSize</key>
+                <string>{191,228}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -66,7 +79,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:9833939eaa7d0a90d3bc254b85120bbb$</string>
+            <string>$TexturePacker:SmartUpdate:31b50e2f3e981067c9f4e6356de55976$</string>
             <key>textureFileName</key>
             <string>skill_powerdragon_stone.png</string>
         </dict>
