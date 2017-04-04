@@ -4,7 +4,6 @@ local PARENT = UI_DragonManage_Base
 -- class UI_DragonManagementEvolution
 -------------------------------------
 UI_DragonManagementEvolution = class(PARENT,{
-        m_bChangeDragonList = 'boolean',
     })
 
 -------------------------------------
@@ -23,9 +22,7 @@ end
 -- function init
 -------------------------------------
 function UI_DragonManagementEvolution:init(doid, b_ascending_sort, sort_type)
-    self.m_bChangeDragonList = false
-
-    local vars = self:load('dragon_management_evolution.ui')
+    local vars = self:load('dragon_management_evolution_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -51,6 +48,34 @@ function UI_DragonManagementEvolution:initUI()
     local vars = self.vars
     self:init_dragonTableView()
     --self:setDefaultSelectDragon()
+
+    local width, height = vars['statsNode']:getNormalSize()
+    local before_x = 200
+    local arrow_x = 210
+    local after_x = 230
+
+    local l_pos = getSortPosList(30, 3)
+
+    local uic_stats = UIC_IndivisualStats()
+    uic_stats:initUIComponent()
+    uic_stats:setPositionY(l_pos[1])
+    uic_stats:setParentNode(vars['statsNode'])
+    uic_stats:setStatsName(Str('공격력'))
+    vars['atkStats'] = uic_stats
+
+    local uic_stats = UIC_IndivisualStats()
+    uic_stats:initUIComponent()
+    uic_stats:setPositionY(l_pos[2])
+    uic_stats:setParentNode(vars['statsNode'])
+    uic_stats:setStatsName(Str('방어력'))
+    vars['defStats'] = uic_stats
+
+    local uic_stats = UIC_IndivisualStats()
+    uic_stats:initUIComponent()
+    uic_stats:setPositionY(l_pos[3])
+    uic_stats:setParentNode(vars['statsNode'])
+    uic_stats:setStatsName(Str('생명력'))
+    vars['hpStats'] = uic_stats
 end
 
 -------------------------------------
@@ -59,14 +84,14 @@ end
 -------------------------------------
 function UI_DragonManagementEvolution:initButton()
     local vars = self.vars
-    vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
+    vars['evolutionBtn']:registerScriptTapHandler(function() self:click_evolutionBtn() end)
 end
 
 -------------------------------------
 -- function refresh
+-- @brief 선택된 드래곤이 변경되거나 갱신되었을 때 호출
 -------------------------------------
 function UI_DragonManagementEvolution:refresh()
-
     local t_dragon_data = self.m_selectDragonData
 
     if (not t_dragon_data) then
@@ -86,6 +111,14 @@ function UI_DragonManagementEvolution:refresh()
         UIManager:toastNotificationGreen(Str('최대 진화단계의 드래곤입니다.'))
     end
 
+    -- 배경
+    local attr = t_dragon['attr']
+    if self:checkVarsKey('bgNode', attr) then    
+        vars['bgNode']:removeAllChildren()
+        local animator = ResHelper:getUIDragonBG(attr, 'idle')
+        vars['bgNode']:addChild(animator.m_node)
+    end
+
     -- 왼쪽 정보(현재 진화 단계)
     self:refresh_currDragonInfo(t_dragon_data, t_dragon)
 
@@ -100,6 +133,47 @@ function UI_DragonManagementEvolution:refresh()
 
     -- 진화하기 버튼 갱싱
     self:refresh_evolutionButton(t_dragon_data, t_dragon, is_max_evolution)
+
+    -- 능력치
+    self:refresh_stats(t_dragon_data, t_dragon, is_max_evolution)
+end
+
+-------------------------------------
+-- function refresh_stats
+-- @brief 능력치
+-------------------------------------
+function UI_DragonManagementEvolution:refresh_stats(t_dragon_data, t_dragon, is_max_evolution)
+    local vars = self.vars
+    local doid = t_dragon_data['id']
+
+    -- 현재 레벨의 능력치 계산기
+    local status_calc = MakeOwnDragonStatusCalculator(doid)
+
+    -- 현재 레벨의 능력치
+    local curr_atk = status_calc:getFinalStat('atk')
+    local curr_def = status_calc:getFinalStat('def')
+    local curr_hp = status_calc:getFinalStat('hp')
+    local curr_cp = status_calc:getCombatPower()
+
+    vars['atkStats']:setBeforeStats(curr_atk)
+    vars['defStats']:setBeforeStats(curr_def)
+    vars['hpStats']:setBeforeStats(curr_hp)
+
+    -- 변경된 레벨의 능력치 계산기
+    local chaged_dragon_data = {}
+    local evolution = t_dragon_data['evolution']
+    chaged_dragon_data['evolution'] = math_min((evolution + 1), MAX_DRAGON_EVOLUTION)
+    local changed_status_calc = MakeOwnDragonStatusCalculator(doid, chaged_dragon_data)
+
+    -- 변경된 레벨의 능력치
+    local changed_atk = changed_status_calc:getFinalStat('atk')
+    local changed_def = changed_status_calc:getFinalStat('def')
+    local changed_hp = changed_status_calc:getFinalStat('hp')
+    local changed_cp = changed_status_calc:getCombatPower()
+
+    vars['atkStats']:setAfterStats(changed_atk)
+    vars['defStats']:setAfterStats(changed_def)
+    vars['hpStats']:setAfterStats(changed_hp)
 end
 
 -------------------------------------
@@ -110,23 +184,23 @@ function UI_DragonManagementEvolution:refresh_currDragonInfo(t_dragon_data, t_dr
     local vars = self.vars
 
     -- 드래곤 이름
-    vars['nameLabel']:setString(Str(t_dragon['t_name']))
-
-    -- 진화도 (해치, 해츨링, 성룡)
-    local evolution = t_dragon_data['evolution']
-    local evolution_name = evolutionName(evolution)
-    vars['beforeLabel']:setString(evolution_name)
+    vars['dragonNameLabel']:setString(Str(t_dragon['t_name']))
 
     do -- 드래곤 리소스
         local evolution = t_dragon_data['evolution']
-        vars['beforeNode']:removeAllChildren()
+        vars['dragonBeforeNode']:removeAllChildren()
         local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
-        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
-        animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
-        vars['beforeNode']:addChild(animator.m_node)
+        animator:setDockPoint(cc.p(0.5, 0.5))
+        animator:setAnchorPoint(cc.p(0.5, 0.5))
+        animator:changeAni('idle', true)
 
-        animator:changeAni('pose_1', false)
-        animator:addAniHandler(function() animator:changeAni('idle', true) end)
+        vars['dragonBeforeNode']:addChild(animator.m_node)
+    end
+
+    do -- 드래곤 아이콘
+        vars['dragonNode']:removeAllChildren()
+        local ui = UI_DragonCard(t_dragon_data)
+        vars['dragonNode']:addChild(ui.root)
     end
 end
 
@@ -136,27 +210,20 @@ end
 function UI_DragonManagementEvolution:refresh_nextDragonInfo(t_dragon_data, t_dragon, is_max_evolution)
     local vars = self.vars
 
-    if is_max_evolution then
-        vars['afterLabel']:setString('')
-        vars['afterNode']:removeAllChildren()
-        return
-    end
-
     -- 진화도 (해치, 해츨링, 성룡)
     local evolution = t_dragon_data['evolution'] + 1
     local evolution_name = evolutionName(evolution)
-    vars['afterLabel']:setString(evolution_name)
+    vars['evolutionLabel']:setString(evolution_name)
 
     do -- 드래곤 리소스
         local evolution = t_dragon_data['evolution'] + 1
-        vars['afterNode']:removeAllChildren()
+        vars['dragonAfterNode']:removeAllChildren()
         local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
-        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
-        animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
-        vars['afterNode']:addChild(animator.m_node)
-
+        animator:setDockPoint(cc.p(0.5, 0.5))
+        animator:setAnchorPoint(cc.p(0.5, 0.5))
         animator:changeAni('pose_1', false)
         animator:addAniHandler(function() animator:changeAni('idle', true) end)
+        vars['dragonAfterNode']:addChild(animator.m_node)
     end
 end
 
@@ -179,12 +246,13 @@ function UI_DragonManagementEvolution:refresh_nextSkillInfo(t_dragon_data, t_dra
     local evolution = t_dragon_data['evolution'] + 1
     local skill_id = t_dragon['skill_' .. evolution]
     local skill_type = t_dragon['skill_type_' .. evolution]
+    local skill_lv = 1
 
     if (skill_id == '') then
         vars['skillInfoLabel']:setString('스킬이 지정되지 않았습니다.')
     else
         -- 스킬 아이콘
-        local icon = UI_SkillCard('dragon', skill_id, skill_type)
+        local icon = UI_SkillCard('dragon', skill_id, skill_type, skill_lv)
 		icon:setSkillTypeVisible(false)
         vars['skillNode']:addChild(icon.root)
 
@@ -199,7 +267,14 @@ function UI_DragonManagementEvolution:refresh_nextSkillInfo(t_dragon_data, t_dra
         -- 스킬 설명
         local str = icon:getSkillDescStrPure(skill_id, skill_type)
         vars['skillInfoLabel']:setString(str)
+
+        -- 스킬 타입
+        local str = getSkillType_byEvolution(evolution)
+        vars['skillTypeLabel']:setString(str)
     end
+
+
+    cca.uiReactionSlow(vars['skillInfoNode'])
 end
 
 -------------------------------------
@@ -299,9 +374,9 @@ function UI_DragonManagementEvolution:refresh_evolutionButton(t_dragon_data, t_d
 end
 
 -------------------------------------
--- function click_upgradeBtn
+-- function click_evolutionBtn
 -------------------------------------
-function UI_DragonManagementEvolution:click_upgradeBtn()
+function UI_DragonManagementEvolution:click_evolutionBtn()
     if (self.m_selectDragonData['evolution'] >= MAX_DRAGON_EVOLUTION) then
         UIManager:toastNotificationGreen(Str('최대 진화단계의 드래곤입니다.'))
         return
@@ -353,36 +428,20 @@ function UI_DragonManagementEvolution:click_upgradeBtn()
 end
 
 -------------------------------------
--- function click_exitBtn
+-- function getDragonList
+-- @breif 하단 리스트뷰에 노출될 드래곤 리스트
 -------------------------------------
-function UI_DragonManagementEvolution:click_exitBtn()
-    self:close()
-end
+function UI_DragonManagementEvolution:getDragonList()
+    local l_item_list = g_dragonsData:getDragonsList()
 
--------------------------------------
--- function createDragonCardCB
--- @brief 드래곤 생성 콜백
--------------------------------------
-function UI_DragonManagementEvolution:createDragonCardCB(ui, data)
-    local doid = data['id']
-
-    if g_dragonsData:isMaxEvolution(doid) then
-        if ui then
-            ui:setShadowSpriteVisible(true)
+    for i,v in pairs(l_item_list) do
+        local doid = i
+        if g_dragonsData:isMaxEvolution(doid) then
+            l_item_list[doid] = nil
         end
     end
-end
 
--------------------------------------
--- function checkDragonSelect
--- @brief 선택이 가능한 드래곤인지 여부
--------------------------------------
-function UI_DragonManagementEvolution:checkDragonSelect(doid)
-    if g_dragonsData:isMaxEvolution(doid) then
-        UIManager:toastNotificationGreen(Str('최대 진화단계의 드래곤입니다.'))
-        return false
-    end
-    return true
+    return l_item_list
 end
 
 --@CHECK

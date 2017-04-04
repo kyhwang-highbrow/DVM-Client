@@ -412,6 +412,7 @@ local t_module = {
     'UIC_RichLabelCore',
     'UIC_TabManager',
     'UIC_Factory',
+    'UIC_IndivisualStats',
 
 	-- UI
     'UI_BlockPopup',

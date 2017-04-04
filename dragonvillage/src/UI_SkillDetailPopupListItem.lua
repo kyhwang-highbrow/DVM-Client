@@ -35,16 +35,8 @@ function UI_SkillDetailPopupListItem:initUI()
 
     do -- 스킬 타입
         local skill_idx = self.m_skillIdx
-        local str = ''
-        if (skill_idx == 0) then
-            str = Str('일반 스킬')
-        elseif (skill_idx == 1) or (skill_idx == 2) then
-            str = Str('패시브 스킬')
-        elseif (skill_idx == 3) then
-            str = Str('액티브 스킬')
-        else
-            error('skill_idx : ' .. skill_idx)
-        end
+        local evolution = skill_idx
+        local str = getSkillType_byEvolution(evolution)
         vars['skillTypeLabel']:setString(str)
     end
 

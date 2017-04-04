@@ -16,6 +16,7 @@ function UI_SkillCard:init(char_type, skill_id, skill_type, skill_lv)
     self.m_charType = char_type
     self.m_skillID = skill_id
     self.m_skillType = skill_type
+    skill_lv = (skill_lv or 0)
     local vars = self:load('skill_item_new.ui')
 
     local icon = IconHelper:getSkillIcon(char_type, skill_id)

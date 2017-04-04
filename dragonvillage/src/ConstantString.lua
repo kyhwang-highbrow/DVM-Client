@@ -195,3 +195,25 @@ function getSkillTypeStr(skill_type, is_use_brakets)
 
 	return skill_type_str
 end
+
+-------------------------------------
+-- function getSkillType_byEvolution
+-- @brief 진화 단계에 따른 스킬 타입명
+-------------------------------------
+function getSkillType_byEvolution(evolution)
+    local str = ''
+
+	if (evolution == 0) then
+        str = Str('일반 스킬')
+    elseif (evolution == 1) then
+        str = Str('패시브 스킬')
+    elseif (evolution == 2) then
+        str = Str('패시브 스킬')
+    elseif (evolution == 3) then
+        str = Str('액티브 스킬')
+    else
+        error('evolution : ' .. evolution)
+    end
+
+	return str
+end
