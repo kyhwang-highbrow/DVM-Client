@@ -331,7 +331,7 @@ function GameDragonSkill:makeSkillDesc(dragon, delayTime)
 
     self.m_skillDescEffect.m_node:setFrame(0)
     self.m_skillDescEffect:setVisible(true)
-    self.m_skillDescEffect:setTimeScale(0.5)
+    self.m_skillDescEffect:setTimeScale(0.7)
 
     self.m_skillNameLabel:setString(Str(t_skill['t_name']))
     self.m_skillDescLabel:setString(IDragonSkillManager:getSkillDescPure(t_skill))
