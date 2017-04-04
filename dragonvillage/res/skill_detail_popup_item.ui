@@ -175,7 +175,7 @@
 				visible = true;
 				lua_name = 'skillDscLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 22;
 				text = 'skillDscLabel';
 				h_alignment = 1;
 				v_alignment = 0;
