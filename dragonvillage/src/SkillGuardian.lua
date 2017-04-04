@@ -19,12 +19,12 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillGuardian:init_skill(duration, res)
+function SkillGuardian:init_skill(res, duration)
 	PARENT.init_skill(self)
 
 	-- 멤버 변수
-	self.m_duration = duration
 	self.m_res = res
+	self.m_duration = duration
 end
 
 -------------------------------------
@@ -49,11 +49,6 @@ function SkillGuardian.st_idle(owner, dt)
         owner.m_world:addToUnitList(buff)
         buff:init_buff(owner.m_owner, owner.m_duration, owner.m_targetChar, owner.m_res)
 
-        -- 하이라이트
-        if (owner.m_bHighlight) then
-            --owner.m_world.m_gameHighlight:addMissile(buff)
-        end
-	
 		-- 상태효과
         owner:doStatusEffect({
             STATUS_EFFECT_CON__SKILL_HIT,
@@ -72,7 +67,6 @@ function SkillGuardian:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
     local duration = t_skill['val_1']
-    local def_up_rate = t_skill['val_2']
 	local res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 
 	-- 인스턴스 생성부
@@ -82,7 +76,7 @@ function SkillGuardian:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(duration, def_up_rate, res)
+    skill:init_skill(res, duration)
 	skill:initState()
 
 	-- 3. state 시작 
@@ -93,9 +87,4 @@ function SkillGuardian:makeSkillInstance(owner, t_skill, t_data)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
-
-    -- 5. 하이라이트
-    if (skill.m_bHighlight) then
-        --world.m_gameHighlight:addMissile(skill)
-    end
 end
