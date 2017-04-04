@@ -214,18 +214,38 @@ function GameDragonSkill.update_live(self, dt)
             -- 드래곤 스킬 애니메이션 시작
             dragon:changeState('skillIdle')
 
-            -- 카메라 줌인
+            -- 카메라 연출
+            local cameraWorkingType = self:getCameraWorkingType(dragon)
             local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
+            local cameraHomeScale = world.m_gameCamera:getHomeScale()
             world.m_gameCamera:clearTarget()
-            world.m_gameCamera:setAction({
-                pos_x = CRITERIA_RESOLUTION_X / 4 + cameraHomePosX,
-                pos_y = cameraHomePosY,
-                scale = 1.2,
-                time = 0.25
-            })
+            
+            if (cameraWorkingType == 1) then
+                world.m_gameCamera:setAction({
+                    pos_x = cameraHomePosX,
+                    pos_y = cameraHomePosY,
+                    scale = 0.8,
+                    time = 0.25
+                })
+
+                -- 화면 쉐이킹
+                world.m_shakeMgr:doShakeUpDown(25, 10)
+            else
+                
+                world.m_gameCamera:setAction({
+                    pos_x = CRITERIA_RESOLUTION_X / 4 + cameraHomePosX,
+                    pos_y = cameraHomePosY,
+                    scale = 1.2,
+                    time = 0.25
+                })
+            end
 
         elseif (self:isPassedStepTime(1.5)) then
+            -- 카메라 초기화
             world.m_gameCamera:reset()
+
+            -- 화면 쉐이킹 멈춤
+            world.m_shakeMgr:stopShake()
             
         elseif (self:isPassedStepTime(2)) then
             self.m_dragon = nil
@@ -407,6 +427,19 @@ function GameDragonSkill:getDragonAniForCut(dragon)
     end
 
     return aniName
+end
+
+-------------------------------------
+-- function getDragonAniForCut
+-------------------------------------
+function GameDragonSkill:getCameraWorkingType(dragon)
+    local type = 0
+
+    if (dragon.m_charTable['type']  == 'lightningdragon') then
+        type = 1
+    end
+
+    return type
 end
 
 -------------------------------------

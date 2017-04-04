@@ -11,7 +11,7 @@ GAME_AUTO_AI_TAMER__SKILL_1 = 1
 GAME_AUTO_AI_TAMER__SKILL_2 = 2
 GAME_AUTO_AI_TAMER__SKILL_3 = 3
 
-local GAME_AUTO_AI_DELAY_TIME = 2.5
+local GAME_AUTO_AI_DELAY_TIME = 2
 
 -------------------------------------
 -- class GameAuto
@@ -127,12 +127,13 @@ end
 -- @brief 스킬 사용 여부를 확인
 -------------------------------------
 function GameAuto:checkSkill(owner, t_skill, aiAttack, aiHeal)
-    local chance_type = t_skill['chance_type']
-    if (not owner:isPossibleSkill(chance_type)) then return false end
+    if (not owner:isPossibleSkill()) then return false end
 
     local target_type = t_skill['target_type']
-    local aiAttack = aiAttack or g_autoPlaySetting:get('dragon_atk_skill')
-    local aiHeal = aiHeal or g_autoPlaySetting:get('dragon_heal_skill')
+    --local aiAttack = aiAttack or g_autoPlaySetting:get('dragon_atk_skill')
+    --local aiHeal = aiHeal or g_autoPlaySetting:get('dragon_heal_skill')
+    local aiAttack = GAME_AUTO_AI_ATTACK__COOLTIME
+    local aiHeal = GAME_AUTO_AI_HEAL__COOLTIME
 
     if startsWith(target_type, 'ally_') then
         -- 회복형
