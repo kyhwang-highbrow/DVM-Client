@@ -190,39 +190,22 @@ function GameDragonSkill.update_live(self, dt)
             dragon:changeState('skillIdle')
 
             -- 카메라 연출
-            local cameraWorkingType = self:getCameraWorkingType(dragon)
-            local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
-            local cameraHomeScale = world.m_gameCamera:getHomeScale()
-            world.m_gameCamera:clearTarget()
+            self:doCameraWork(dragon)
             
-            if (cameraWorkingType == 1) then
-                world.m_gameCamera:setAction({
-                    pos_x = cameraHomePosX,
-                    pos_y = cameraHomePosY,
-                    scale = 0.8,
-                    time = 0.25
-                })
-
-                -- 화면 쉐이킹
-                world.m_shakeMgr:doShakeUpDown(25, 10)
-            else
-                
-                world.m_gameCamera:setAction({
-                    pos_x = CRITERIA_RESOLUTION_X / 4 + cameraHomePosX,
-                    pos_y = cameraHomePosY,
-                    scale = 1.2,
-                    time = 0.25
-                })
-            end
-
         elseif (self:isPassedStepTime(1.5)) then
             -- 카메라 초기화
             world.m_gameCamera:reset()
 
             -- 화면 쉐이킹 멈춤
             world.m_shakeMgr:stopShake()
-            
+
         elseif (self:isPassedStepTime(2)) then
+            self:nextStep()
+
+        end
+
+    elseif (self:getStep() == 4) then
+        if (self:isBeginningStep()) then
             self.m_dragon = nil
 
             self:changeState(GAME_DRAGON_SKILL_WAIT)
@@ -367,16 +350,45 @@ function GameDragonSkill:getDragonAniForCut(dragon)
 end
 
 -------------------------------------
--- function getDragonAniForCut
+-- function doCameraWork
 -------------------------------------
-function GameDragonSkill:getCameraWorkingType(dragon)
-    local type = 0
+function GameDragonSkill:doCameraWork(dragon)
+    local world = self.m_world
+    local active_skill_id = dragon:getSkillID('active')
+    local t_skill = TableDragonSkill():get(active_skill_id)
+    
+    local cameraWorkType = tonumber(t_skill['camera_work']) or 1
+    local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
+    local cameraHomeScale = world.m_gameCamera:getHomeScale()
+    
+    world.m_gameCamera:clearTarget()
 
-    if (dragon.m_charTable['type']  == 'lightningdragon') then
-        type = 1
+    if (cameraWorkType == 2) then
+        world.m_gameCamera:setAction({
+            pos_x = cameraHomePosX,
+            pos_y = cameraHomePosY,
+            scale = 0.8,
+            time = 0.25
+        })
+
+        -- 화면 쉐이킹
+        world.m_shakeMgr:doShakeUpDown(25, 10)
+
+    elseif (cameraWorkType == 3) then
+        world.m_gameCamera:setTarget(dragon, {
+            scale = 1.2,
+            time = 0.25
+        })
+
+    else
+                
+        world.m_gameCamera:setAction({
+            pos_x = CRITERIA_RESOLUTION_X / 4 + cameraHomePosX,
+            pos_y = cameraHomePosY,
+            scale = 1.2,
+            time = 0.25
+        })
     end
-
-    return type
 end
 
 -------------------------------------

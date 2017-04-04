@@ -59,30 +59,10 @@ function GameCoolTime:onEvent(event_name, t_event, ...)
     local add_time = arg[1] or 0
 
     if (event_name == 'set_global_cool_time_passive') then
-        cclog('PASSIVE_SKILL = ' .. self.m_mRemainTimer[GLOBAL_COOL_TIME.PASSIVE_SKILL])
-
         self.m_mRemainTimer[GLOBAL_COOL_TIME.PASSIVE_SKILL] = self.m_mStartTime[GLOBAL_COOL_TIME.PASSIVE_SKILL] + add_time
 
     elseif (event_name == 'set_global_cool_time_active') then
-        cclog('ACTIVE_SKILL = ' .. self.m_mRemainTimer[GLOBAL_COOL_TIME.ACTIVE_SKILL])
-
         self.m_mRemainTimer[GLOBAL_COOL_TIME.ACTIVE_SKILL] = self.m_mStartTime[GLOBAL_COOL_TIME.ACTIVE_SKILL] + add_time
-
-    -- 테이머 패시브 스킬 사용
-    elseif (event_name == 'tamer_passive_skill') then
-        --self.m_mRemainTimer[GLOBAL_COOL_TIME.PASSIVE_SKILL] = self.m_mStartTime[GLOBAL_COOL_TIME.PASSIVE_SKILL] + add_time
-
-    -- 테이머 액티브 스킬 사용
-    elseif (event_name == 'tamer_active_skill') then
-        --self.m_mRemainTimer[GLOBAL_COOL_TIME.ACTIVE_SKILL] = self.m_mStartTime[GLOBAL_COOL_TIME.ACTIVE_SKILL] + add_time
-
-    -- 드래곤 쿨타임 스킬 사용
-    elseif (event_name == 'hero_time_skill') then
-        --self.m_mRemainTimer[GLOBAL_COOL_TIME.PASSIVE_SKILL] = self.m_mStartTime[GLOBAL_COOL_TIME.PASSIVE_SKILL] + add_time
-        
-    -- 드래곤 드래그 스킬 사용
-    elseif (event_name == 'hero_active_skill') then
-        --self.m_mRemainTimer[GLOBAL_COOL_TIME.ACTIVE_SKILL] = self.m_mStartTime[GLOBAL_COOL_TIME.ACTIVE_SKILL] + add_time
 
     end
 end

@@ -308,13 +308,6 @@ function Dragon.st_attack(owner, dt)
             local t_skill = owner:getSkillTable(owner.m_reservedSkillId)
             SkillHelper:makePassiveSkillSpeech(owner, t_skill['t_name'])
 
-            -- 쿨타임 공격시 이벤트
-            if (owner.m_bLeftFormation) then
-                if (t_skill['chance_type'] == 'indie_time') then
-                    owner:dispatch('hero_time_skill', {}, owner)
-                end
-            end
-            
             -- 스킬 게이지 증가
             if (role_type == 'supporter') then
                 local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')
