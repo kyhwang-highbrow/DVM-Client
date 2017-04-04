@@ -1,0 +1,146 @@
+
+psykerdragon_dark_03.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+psykerdragon_dark_03_arm_01
+  rotate: false
+  xy: 1828, 458
+  size: 182, 211
+  orig: 182, 211
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_body_01
+  rotate: false
+  xy: 2, 661
+  size: 552, 358
+  orig: 552, 358
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_body_02
+  rotate: false
+  xy: 1620, 473
+  size: 206, 196
+  orig: 206, 196
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_effect_01
+  rotate: true
+  xy: 2, 2
+  size: 49, 82
+  orig: 49, 82
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_effect_02
+  rotate: false
+  xy: 2, 357
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_effect_03
+  rotate: false
+  xy: 556, 717
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_effect_04
+  rotate: false
+  xy: 2, 53
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_effect_05
+  rotate: false
+  xy: 1088, 717
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_effect_06
+  rotate: false
+  xy: 556, 413
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_effect_07
+  rotate: false
+  xy: 1088, 413
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_effect_08
+  rotate: false
+  xy: 534, 109
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_effect_09
+  rotate: false
+  xy: 1066, 109
+  size: 530, 302
+  orig: 530, 302
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_eye_01
+  rotate: false
+  xy: 1772, 431
+  size: 22, 25
+  orig: 22, 25
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_eye_02
+  rotate: false
+  xy: 1772, 458
+  size: 37, 13
+  orig: 37, 13
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_eye_03
+  rotate: true
+  xy: 534, 616
+  size: 43, 20
+  orig: 43, 20
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_eye_04
+  rotate: true
+  xy: 2012, 609
+  size: 60, 34
+  orig: 60, 34
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_eye_05
+  rotate: false
+  xy: 534, 65
+  size: 38, 42
+  orig: 38, 42
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_head_01
+  rotate: true
+  xy: 1620, 671
+  size: 348, 396
+  orig: 348, 396
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_mouth_01
+  rotate: false
+  xy: 1598, 254
+  size: 149, 103
+  orig: 149, 103
+  offset: 0, 0
+  index: -1
+psykerdragon_dark_03_wing_01
+  rotate: false
+  xy: 1620, 359
+  size: 150, 112
+  orig: 150, 112
+  offset: 0, 0
+  index: -1
