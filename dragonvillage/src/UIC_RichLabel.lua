@@ -501,6 +501,10 @@ function UIC_RichLabel:getColor(color)
     COLOR['rune_sopt'] = cc.c3b(240, 215, 159)
     COLOR['rune_set'] = cc.c3b(255, 234, 91)
 
+    -- 가능, 불가능 색상
+    COLOR['possible'] = cc.c3b(150, 255, 65)
+    COLOR['impossible'] = cc.c3b(255, 44, 44)
+
     return COLOR[color] or cc.c3b(255,255,255)
 end
 

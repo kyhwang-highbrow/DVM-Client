@@ -4,6 +4,7 @@ local PARENT = UI_DragonManage_Base
 -- class UI_DragonManagementEvolution
 -------------------------------------
 UI_DragonManagementEvolution = class(PARENT,{
+        m_bEnoughSvolutionStones = 'boolean',
     })
 
 -------------------------------------
@@ -47,7 +48,6 @@ end
 function UI_DragonManagementEvolution:initUI()
     local vars = self.vars
     self:init_dragonTableView()
-    --self:setDefaultSelectDragon()
 
     local width, height = vars['statsNode']:getNormalSize()
     local before_x = 200
@@ -193,6 +193,7 @@ function UI_DragonManagementEvolution:refresh_currDragonInfo(t_dragon_data, t_dr
         animator:setDockPoint(cc.p(0.5, 0.5))
         animator:setAnchorPoint(cc.p(0.5, 0.5))
         animator:changeAni('idle', true)
+        animator:setAnimationPause(true)
 
         vars['dragonBeforeNode']:addChild(animator.m_node)
     end
@@ -313,6 +314,7 @@ function UI_DragonManagementEvolution:refresh_evolutionStones(t_dragon_data, t_d
 
     -- 진화 재료 1~3개 셋팅
     local table_evolution_item = TABLE:get('evolution_item')
+    self.m_bEnoughSvolutionStones = true
     for i=1,3 do
         vars['moveBtn' .. i]:setVisible(true)
 
@@ -335,7 +337,16 @@ function UI_DragonManagementEvolution:refresh_evolutionStones(t_dragon_data, t_d
         do -- 갯수 체크
             local req_count = item_value
             local own_count = g_userData:get('evolution_stones', tostring(item_id)) or 0
-            vars['numberLabel' .. i]:setString(Str('{1} / {2}', own_count, req_count))
+            local str = Str('{1} / {2}', own_count, req_count)
+
+            if (req_count <= own_count) then
+                str = '{@possible}' .. str
+            else
+                str = '{@impossible}' .. str
+                self.m_bEnoughSvolutionStones = false
+            end
+
+            vars['numberLabel' .. i]:setString(str)
         end
     end
 end
@@ -382,6 +393,12 @@ function UI_DragonManagementEvolution:click_evolutionBtn()
         return
     end
 
+    -- 진화 재료 부족
+    if (not self.m_bEnoughSvolutionStones) then
+        UIManager:toastNotificationRed(Str('진화재료가 부족합니다.'))
+        return
+    end
+
     local uid = g_userData:get('uid')
     local doid = self.m_selectDragonOID
 
@@ -393,6 +410,7 @@ function UI_DragonManagementEvolution:click_evolutionBtn()
 
         -- 승급된 드래곤 갱신
         if ret['dragon'] then
+            ret['dragon']['updated_at'] = Timer:getServerTime()
             g_dragonsData:applyDragonData(ret['dragon'])
         end
 
@@ -409,6 +427,7 @@ function UI_DragonManagementEvolution:click_evolutionBtn()
 
         -- 최대 진화도를 달성했을 경우
         if g_dragonsData:isMaxEvolution(doid) then
+            UIManager:toastNotificationGreen(Str('최대 진화 단계를 달성하셨습니다.'))
             self:close()
             return
         end
