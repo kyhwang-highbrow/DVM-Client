@@ -1932,6 +1932,9 @@
     <None Include="..\src\UIC_IndivisualStats.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\GameCoolTime.lua">
+      <Filter>lua</Filter>
+    </None>
     <None Include="..\src\UI_DragonUpgradeNew.lua">
       <Filter>lua\UI</Filter>
     </None>

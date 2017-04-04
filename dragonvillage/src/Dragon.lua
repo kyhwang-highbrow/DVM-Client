@@ -307,6 +307,13 @@ function Dragon.st_attack(owner, dt)
             -- 텍스트
             local t_skill = owner:getSkillTable(owner.m_reservedSkillId)
             SkillHelper:makePassiveSkillSpeech(owner, t_skill['t_name'])
+
+            -- 쿨타임 공격시 이벤트
+            if (owner.m_bLeftFormation) then
+                if (t_skill['chance_type'] == 'indie_time') then
+                    owner:dispatch('hero_time_skill', {}, owner)
+                end
+            end
             
             -- 스킬 게이지 증가
             if (role_type == 'supporter') then
@@ -314,11 +321,6 @@ function Dragon.st_attack(owner, dt)
 
                 if (t_skill['chance_type'] == 'indie_time') then
                     owner:increaseActiveSkillCool(t_temp['time_skill'])
-
-                    -- 쿨타임 공격시 이벤트
-                    if (owner.m_bLeftFormation) then
-                        owner:dispatch('hero_time_skill', {}, owner)
-                    end
                 else
                     owner:increaseActiveSkillCool(t_temp['passive_skill'])
                 end
@@ -423,6 +425,7 @@ function Dragon.st_skillIdle(owner, dt)
             -- 액티브 스킬 사용 이벤트 발생
             if (owner.m_bLeftFormation) then
                 owner:dispatch('hero_active_skill', {}, owner)
+                owner:dispatch('set_global_cool_time_active')
             else
                 owner:dispatch('enemy_active_skill', {}, owner)
             end
@@ -1111,18 +1114,19 @@ function Dragon:updateBasicTimeSkillTimer(dt)
 
     -- 스킬 정보가 있을 경우 쿨타임 진행 정보를 확인한다.
     if (skill_info) then
+        local max = skill_info.m_tSkill['chance_value']
+        local cur = skill_info.m_timer
+        local remain_time = max - cur
+        
         -- 글로벌 쿨타임 적용
-        local globalCoolTime = self.m_world.m_gameState:getGlobalCoolTime()
-        if (skill_info.m_timer < globalCoolTime) then
-            skill_info.m_timer = globalCoolTime
+        local remain_global_time = self.m_world.m_gameCoolTime:get(GLOBAL_COOL_TIME.PASSIVE_SKILL)
+        if (remain_time < remain_global_time) then
+            max = g_constant:get('INGAME', 'SKILL_GLOBAL_COOLTIME')
+            cur = max - remain_global_time
             ret = false
         end
-
-        local cur = skill_info.m_timer
-        local max = skill_info.m_tSkill['chance_value']
-        local run_skill = ret -- 스킬 동작 여부
-        
-        local t_event = {['cur']=cur, ['max']=max, ['run_skill']=run_skill}
+                
+        local t_event = {['cur']=cur, ['max']=max, ['run_skill']=ret}
         self:dispatch('basic_time_skill_gauge', t_event)
     end    
 

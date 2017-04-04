@@ -367,6 +367,9 @@ function Tamer.st_active(owner, dt)
 		owner.m_afterimageMove = 0
 		owner:setAfterImage(true)
 
+        -- 이벤트
+        world:dispatch('set_global_cool_time_active')
+
 	elseif (owner.m_isOnTheMove == false) and (owner.m_bActiveSKillUsable) then
 		owner.m_bActiveSKillUsable = false
 		local world = owner.m_world
@@ -428,6 +431,9 @@ function Tamer.st_event(owner, dt)
 		-- 연출 세팅
 		local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
 		owner:setTamerSkillDirecting(CRITERIA_RESOLUTION_X/4, cameraHomePosY + 200, TAMER_SKILL_EVENT, cb_func)
+
+        -- 이벤트
+        owner.m_world:dispatch('set_global_cool_time_passive')
     end
 end
 
@@ -648,7 +654,6 @@ end
 -- function doSkillActive
 -------------------------------------
 function Tamer:doSkillActive()
-    self.m_world:dispatch('tamer_skill')
     return self:doSkill(TAMER_SKILL_ACTIVE)
 end
 
@@ -675,12 +680,17 @@ function Tamer:checkEventSkill(skill_idx)
 		return 
 	end
 
-	-- 1. 쿨타임 체크
+    -- 1. 글로벌 쿨타임 체크
+	if (self.m_world.m_gameCoolTime:isWaiting(GLOBAL_COOL_TIME.PASSIVE_SKILL)) then
+		return false
+	end
+
+	-- 2. 쿨타임 체크
 	if (self.m_lSkillCoolTimer[skill_idx] > 0) then
 		return false
 	end
 
-	-- 2. 발동 확률 체크 (100단위 사용 심플)
+	-- 3. 발동 확률 체크 (100단위 사용 심플)
 	local t_skill = self.m_lSkill[skill_idx]
 	local chance_value = t_skill['chance_value']
 	local random_100 = math_random(1, 100)

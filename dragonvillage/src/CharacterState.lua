@@ -180,7 +180,7 @@ function Character.st_attackDelay(owner, dt)
             owner:changeState('charge')
         end
 
-    elseif (not owner.m_world.m_gameState:isWaitingGlobalCoolTime()) then
+    elseif (not owner.m_world.m_gameCoolTime:isWaiting(GLOBAL_COOL_TIME.PASSIVE_SKILL)) then
         -- indie_time류 스킬
         local skill_id = owner:getBasicTimeAttackSkillID()
         if (not owner.m_isSilence and skill_id) then
@@ -190,12 +190,13 @@ function Character.st_attackDelay(owner, dt)
 
             owner:reserveSkill(skill_id)
             owner.m_isAddSkill = false
-            
-            if owner.m_reservedSkillCastTime > 0 then
-                owner:changeState('casting')
-            else
-                owner:changeState('charge')
+
+            -- 글로벌 쿨타임 적용
+            if (owner.m_bLeftFormation) then
+                owner:dispatch('set_global_cool_time_passive')
             end
+            
+            owner:changeState('attack')
         end
     end
 end

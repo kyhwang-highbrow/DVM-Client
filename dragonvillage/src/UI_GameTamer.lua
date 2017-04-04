@@ -46,6 +46,9 @@ function UI_Game:click_tamerSkillBtn(idx)
 	local tamer = world.m_tamer
 	local vars = self.vars
 
+    -- 조작 가능 상태인지 확인
+    if (not world:isPossibleControl()) then return end
+
 	if (tamer.m_bActiveSKillUsable) then
         vars['tamerSkillVisual']:setVisible(false)
 		tamer:changeState('active')

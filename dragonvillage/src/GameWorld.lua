@@ -45,7 +45,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         m_gameAutoHero = '',        -- 아군 자동시 AI
         m_gameAutoEnemy = '',       -- 적군(드래곤) AI
-        
+        m_gameCoolTime = '',
         m_gameDragonSkill = '',
         m_gameFever = '',
         m_gameCamera = '',
@@ -178,7 +178,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
     self.m_gameTimeScale = GameTimeScale(self)
     self.m_gameHighlight = GameHighlightMgr(self, self.m_darkLayer)
-    
+    self.m_gameCoolTime = GameCoolTime(self)
     self.m_gameDragonSkill = GameDragonSkill(self)
     --self.m_gameFever = GameFever(self)
     
@@ -375,7 +375,8 @@ function GameWorld:initTamer()
 
     -- 테이머 생성
     self.m_tamer = self:makeTamerNew(t_tamer)
-    self:addListener('tamer_skill', self.m_gameState)
+    self:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
+    self:addListener('set_global_cool_time_active', self.m_gameCoolTime)
     self:addListener('dragon_summon', self)
     
     -- 테이머 대사
@@ -387,7 +388,7 @@ function GameWorld:initTamer()
     self:addListener('boss_wave', self.m_tamerSpeechSystem)
     self:addListener('stage_clear', self.m_tamerSpeechSystem)
     self:addListener('friend_dragon_appear', self.m_tamerSpeechSystem)
-    self:addListener('tamer_skill', self.m_tamerSpeechSystem)
+    self:addListener('tamer_active_skill', self.m_tamerSpeechSystem)
 end
 
 
@@ -582,6 +583,10 @@ function GameWorld:update(dt)
 
     if self.m_gameState then
         self.m_gameState:update(dt)
+    end
+
+    if self.m_gameCoolTime then
+        self.m_gameCoolTime:update(dt)
     end
 
     if self.m_gameCamera then
@@ -814,8 +819,8 @@ function GameWorld:addHero(hero, idx)
     hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
     
     hero:addListener('hero_basic_skill', self)
-    hero:addListener('hero_time_skill', self.m_gameState)
-    hero:addListener('hero_active_skill', self.m_gameState)
+    hero:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
+    hero:addListener('set_global_cool_time_active', self.m_gameCoolTime)
     hero:addListener('hero_active_skill', self.m_gameAutoHero)
         
     hero:addListener('hero_casting_start', self.m_gameAutoHero)
@@ -1467,7 +1472,7 @@ function GameWorld:isPossibleControl()
     end
 
     -- 글로벌 쿨타임 중일 경우
-    if (self.m_gameState:isWaitingGlobalCoolTime()) then
+    if (self.m_gameCoolTime:isWaiting(GLOBAL_COOL_TIME.ACTIVE_SKILL)) then
         return false
     end
 

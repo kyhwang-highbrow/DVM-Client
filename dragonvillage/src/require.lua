@@ -211,6 +211,7 @@ local t_module = {
     'GameAuto',
     'GameAuto_Hero',
     'GameAuto_Enemy',
+    'GameCoolTime',
     'GameDragonSkill',
     'GameFever',
     'GameCamera',

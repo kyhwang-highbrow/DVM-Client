@@ -37,8 +37,7 @@ GameState = class(PARENT, {
         m_stateParam = 'boolean',
         m_fightTimer = '',
         m_limitTime = 'number',     -- 제한 시간
-        m_globalCoolTime = 'number',
-
+        
         m_bAppearHero = 'boolean',
         m_nAppearedEnemys = 'number',
 
@@ -64,7 +63,7 @@ function GameState:init(world)
     self.m_stateTimer = -1
     self.m_fightTimer = 0
     self.m_limitTime = 0
-    self.m_globalCoolTime = 0
+    
     self.m_bAppearHero = false
 
     self.m_bgmBoss = 'bgm_boss'
@@ -121,15 +120,6 @@ function GameState:update(dt)
 
     -- 특정 상태에서만 타임 계산
     if (isExistValue(self.m_state, GAME_STATE_FIGHT, GAME_STATE_FIGHT_FEVER)) then
-        -- 글로벌 쿨타임 계산
-        if (self.m_globalCoolTime > 0) then
-            self.m_globalCoolTime = (self.m_globalCoolTime - dt)
-
-            if (self.m_globalCoolTime < 0) then
-                self.m_globalCoolTime = 0
-            end
-        end
-
         -- 플레이 시간 계산
         self.m_fightTimer = self.m_fightTimer + dt
         
@@ -1024,34 +1014,7 @@ function GameState:onEvent(event_name, t_event, ...)
         else
             self.m_nAppearedEnemys = self.m_nAppearedEnemys + 1
         end
-
-    -- 테이머 스킬 사용 이벤트
-    elseif (event_name == 'tamer_skill') then
-        self.m_globalCoolTime = g_constant:get('INGAME', 'SKILL_GLOBAL_COOLTIME')
-        
-    -- 드래곤 드래그 스킬 사용 이벤트
-    elseif (event_name == 'hero_active_skill') then
-        self.m_globalCoolTime = g_constant:get('INGAME', 'SKILL_GLOBAL_COOLTIME')
-
-    -- 드래곤 쿨타임 스킬 사용 이벤트
-    elseif (event_name == 'hero_time_skill') then
-        self.m_globalCoolTime = g_constant:get('INGAME', 'SKILL_GLOBAL_COOLTIME')
-    
     end
-end
-
--------------------------------------
--- function onEvent
--------------------------------------
-function GameState:getGlobalCoolTime()
-    return self.m_globalCoolTime
-end
-
--------------------------------------
--- function isWaitingGlobalCoolTime
--------------------------------------
-function GameState:isWaitingGlobalCoolTime()
-    return (self.m_globalCoolTime > 0)
 end
 
 -------------------------------------
