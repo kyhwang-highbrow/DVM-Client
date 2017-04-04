@@ -17,6 +17,8 @@ UI_CharacterCard = class(PARENT, {
         m_charLevelNumber = 'number',
         m_attrSynastry = 'Animator', -- 속성 상성 이펙트
 
+        m_bCheckVisible = 'boolean',
+
         m_tag = '',
     })
 
@@ -34,6 +36,7 @@ function UI_CharacterCard:init(t_dragon_data)
 
     self.vars = {}
     self.m_dragonData = t_dragon_data
+    self.m_bCheckVisible = false
 
     self:refreshDragonInfo()
 end
@@ -428,6 +431,24 @@ function UI_CharacterCard:setAttrSynastry(attr_synastry)
         end
     end
 end
+-------------------------------------
+-- function setCheckSpriteVisible
+-- @brief 카드 음영 표시
+-------------------------------------
+function UI_CharacterCard:setCheckSpriteVisible(visible)
+    if self.vars['checkSprite'] then
+        self.vars['checkSprite']:setVisible(visible)
+    elseif (visible) then
+        local sprite = cc.Sprite:create('res/ui/frame/check.png')
+        sprite:setDockPoint(CENTER_POINT)
+        sprite:setAnchorPoint(CENTER_POINT)
+        self.vars['clickBtn']:addChild(sprite, 15)
+        self.vars['checkSprite'] = sprite
+    end
+
+    self.m_bCheckVisible = visible
+end
+
 
 
 

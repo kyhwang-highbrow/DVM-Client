@@ -58,6 +58,36 @@ end
 function UI_DragonLevelUp:initUI()
     local vars = self.vars
     self:init_dragonTableView()
+    self:initStatusUI()
+end
+
+-------------------------------------
+-- function initStatusUI
+-------------------------------------
+function UI_DragonLevelUp:initStatusUI()
+    local vars = self.vars
+    local l_pos = getSortPosList(30, 3)
+
+    local uic_stats = UIC_IndivisualStats()
+    uic_stats:initUIComponent()
+    uic_stats:setPositionY(l_pos[1])
+    uic_stats:setParentNode(vars['statsNode'])
+    uic_stats:setStatsName(Str('공격력'))
+    vars['atkStats'] = uic_stats
+
+    local uic_stats = UIC_IndivisualStats()
+    uic_stats:initUIComponent()
+    uic_stats:setPositionY(l_pos[2])
+    uic_stats:setParentNode(vars['statsNode'])
+    uic_stats:setStatsName(Str('방어력'))
+    vars['defStats'] = uic_stats
+
+    local uic_stats = UIC_IndivisualStats()
+    uic_stats:initUIComponent()
+    uic_stats:setPositionY(l_pos[3])
+    uic_stats:setParentNode(vars['statsNode'])
+    uic_stats:setStatsName(Str('생명력'))
+    vars['hpStats'] = uic_stats
 end
 
 -------------------------------------
@@ -166,7 +196,7 @@ function UI_DragonLevelUp:refresh_dragonLevelupMaterialTableView()
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
     
     -- 리스트가 비었을 때
-    table_view_td:makeDefaultEmptyDescLabel(Str('레벨업을 도와줄 드래곤이 없어요 ㅠㅠ\n(리더로 설정되거나 모험 중인 드래곤은 사용할 수 없습니다)'))
+    table_view_td:makeDefaultEmptyDescLabel(Str('레벨업을 도와줄 드래곤이 없어요 ㅠㅠ\n(리더로 설정되거나 탐험 중인 드래곤은 사용할 수 없습니다)'))
 
     self.m_mtrlTableViewTD = table_view_td
 
@@ -328,7 +358,7 @@ function UI_DragonLevelUp:refresh_materialDragonIndivisual(doid)
 
     local helper = self.m_dragonLevelUpUIHelper
     local is_selected = helper:isSelectedDragon(doid)
-    ui:setShadowSpriteVisible(is_selected)
+    ui:setCheckSpriteVisible(is_selected)
 end
 
 -------------------------------------
@@ -362,6 +392,46 @@ function UI_DragonLevelUp:refresh_selectedMaterial()
 
     local plus_level = helper:getPlusLevel()
     vars['gradeLabel']:setString(Str('+{1}', plus_level))
+
+    -- 능력치 정보 갱신
+    self:refresh_stats(t_dragon_data, helper.m_changedLevel)
+end
+
+-------------------------------------
+-- function refresh_stats
+-- @brief 능력치
+-------------------------------------
+function UI_DragonLevelUp:refresh_stats(t_dragon_data, lv)
+    local vars = self.vars
+    local doid = t_dragon_data['id']
+
+    -- 현재 레벨의 능력치 계산기
+    local status_calc = MakeOwnDragonStatusCalculator(doid)
+
+    -- 현재 레벨의 능력치
+    local curr_atk = status_calc:getFinalStat('atk')
+    local curr_def = status_calc:getFinalStat('def')
+    local curr_hp = status_calc:getFinalStat('hp')
+    local curr_cp = status_calc:getCombatPower()
+
+    vars['atkStats']:setBeforeStats(curr_atk)
+    vars['defStats']:setBeforeStats(curr_def)
+    vars['hpStats']:setBeforeStats(curr_hp)
+
+    -- 변경된 레벨의 능력치 계산기
+    local chaged_dragon_data = {}
+    chaged_dragon_data['lv'] = lv
+    local changed_status_calc = MakeOwnDragonStatusCalculator(doid, chaged_dragon_data)
+
+    -- 변경된 레벨의 능력치
+    local changed_atk = changed_status_calc:getFinalStat('atk')
+    local changed_def = changed_status_calc:getFinalStat('def')
+    local changed_hp = changed_status_calc:getFinalStat('hp')
+    local changed_cp = changed_status_calc:getCombatPower()
+
+    vars['atkStats']:setAfterStats(changed_atk)
+    vars['defStats']:setAfterStats(changed_def)
+    vars['hpStats']:setAfterStats(changed_hp)
 end
 
 -------------------------------------
