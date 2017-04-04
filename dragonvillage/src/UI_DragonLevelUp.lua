@@ -5,14 +5,8 @@ local MAX_DRAGON_LEVELUP_MATERIAL_MAX = 30 -- 한 번에 사용 가능한 재료
 -- class UI_DragonLevelUp
 -------------------------------------
 UI_DragonLevelUp = class(PARENT,{
-        m_bChangeDragonList = 'boolean',
-
         m_mtrlTableViewTD = '', -- 재료
         m_mtrlDragonSortManager = 'SortManager_Dragon',
-        m_selectedMtrlTableView = '',
-
-        -- 재료 UI 오픈 여부(왼쪽에 테이블 뷰)
-        m_bOpenMaterial = 'boolean',
 
         m_dragonLevelUpUIHelper = 'UI_DragonLevelUpHelper',
     })
@@ -33,9 +27,7 @@ end
 -- function init
 -------------------------------------
 function UI_DragonLevelUp:init(doid, b_ascending_sort, sort_type)
-    self.m_bOpenMaterial = false
-
-    local vars = self:load('dragon_management_levelup.ui')
+    local vars = self:load('dragon_management_levelup_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -44,17 +36,20 @@ function UI_DragonLevelUp:init(doid, b_ascending_sort, sort_type)
     -- 정렬 매니저
     self.m_mtrlDragonSortManager = SortManager_Dragon()
 
+    
+
     self:sceneFadeInAction()
 
     self:initUI()
+
+    -- 첫 선택 드래곤 지정
+    self:setDefaultSelectDragon(doid)
+
     self:initButton()
     self:refresh()
 
     -- 정렬 도우미
     self:init_dragonSortMgr(b_ascending_sort, sort_type)
-
-    -- 첫 선택 드래곤 지정
-    self:setDefaultSelectDragon(doid)
 end
 
 -------------------------------------
@@ -62,36 +57,7 @@ end
 -------------------------------------
 function UI_DragonLevelUp:initUI()
     local vars = self.vars
-
-    vars['leftMenu']:setVisible(false)
-    vars['rightMenu']:setPositionX(0)
-
     self:init_dragonTableView()
-    self:init_selectedMaterialTableView()
-end
-
--------------------------------------
--- function init_selectedMaterialTableView
--- @brief 선택된 드래곤 재료(다른 드래곤) 리스트 테이블 뷰
--------------------------------------
-function UI_DragonLevelUp:init_selectedMaterialTableView()
-    local list_table_node = self.vars['materialNode']
-    list_table_node:removeAllChildren()
-
-    -- 리스트 아이템 생성 콜백
-    local function create_func(ui, data)
-        ui.root:setScale(0.6)
-
-        -- 클릭 버튼 설정
-        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(data) end)
-    end
-
-    -- 테이블뷰 생성
-    local table_view = UIC_TableView(list_table_node)
-    table_view.m_defaultCellSize = cc.size(90, 90)
-    table_view:setCellUIClass(UI_DragonCard, create_func)
-    table_view:setItemList({})
-    self.m_selectedMtrlTableView = table_view
 end
 
 -------------------------------------
@@ -100,7 +66,6 @@ end
 -------------------------------------
 function UI_DragonLevelUp:initButton()
     local vars = self.vars
-    vars['materialBtn']:registerScriptTapHandler(function() self:click_materialBtn() end)
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_levelupBtn() end)
 
     do -- 정렬 관련 버튼들
@@ -126,20 +91,13 @@ function UI_DragonLevelUp:refresh()
         self.m_dragonLevelUpUIHelper = UI_DragonLevelUpHelper(self.m_selectDragonOID, MAX_DRAGON_LEVELUP_MATERIAL_MAX)
     end
     self:refresh_dragonInfo()
-
-    -- 재료 리스트 갱신
-    if self.m_bOpenMaterial then
-        self:refresh_dragonLevelupMaterialTableView()
-    end
-
-    self:init_selectedMaterialTableView()
-
-    self:refresh_btnState()
+    self:refresh_dragonLevelupMaterialTableView()
     self:refresh_selectedMaterial()
 end
 
 -------------------------------------
 -- function refresh_dragonInfo
+-- @brief 드래곤 정보
 -------------------------------------
 function UI_DragonLevelUp:refresh_dragonInfo()
     local t_dragon_data = self.m_selectDragonData
@@ -150,88 +108,41 @@ function UI_DragonLevelUp:refresh_dragonInfo()
 
     local vars = self.vars
 
-    -- 드래곤 테이블
+    local vars = self.vars
+    local did = t_dragon_data['did']
+
+    -- 배경
+    local attr = TableDragon:getDragonAttr(did)
+    if self:checkVarsKey('bgNode', attr) then    
+        vars['bgNode']:removeAllChildren()
+        local animator = ResHelper:getUIDragonBG(attr, 'idle')
+        vars['bgNode']:addChild(animator.m_node)
+    end
+
+        -- 드래곤 테이블
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[t_dragon_data['did']]
 
     do -- 드래곤 이름
-        vars['nameLabel']:setString(Str(t_dragon['t_name']))
+        vars['dragonNameLabel']:setString(Str(t_dragon['t_name']))
     end
-
-    do -- 드래곤 현재 정보 카드
-        vars['termsIconNode']:removeAllChildren()
-        local dragon_card = UI_DragonCard(t_dragon_data)
-        vars['termsIconNode']:addChild(dragon_card.root)
-    end
-
-    --[[
-    do -- 레벨 표시
-        local grade = t_dragon_data['grade']
-        local lv = t_dragon_data['lv']
-        local max_lv = TableGradeInfo():getValue(grade, 'max_lv')
-        vars['levelLabel']:setString(Str('레벨{1}/{2}', lv, max_lv))
-    end
-
-    do -- 경혐치 exp
-        local grade = (t_dragon_data['grade'] or 1)
-        local lv = (t_dragon_data['lv'] or 1)
-        local exp = (t_dragon_data['exp'] or 0)
-        local table_exp = TableDragonExp()
-        local max_exp = table_exp:getDragonMaxExp(grade, lv)
-
-        local percentage = (exp / max_exp) * 100
-        vars['expGauge1']:setVisible(true)
-        vars['expGauge1']:setPercentage(percentage)
-
-        vars['expLabel']:setString(Str('{1}/{2}', exp, max_exp))
-    end
-    --]]
-
-    vars['expGauge1']:setVisible(true)
-end
-
--------------------------------------
--- function refresh_btnState
--- @brief
--------------------------------------
-function UI_DragonLevelUp:refresh_btnState()
-    local vars = self.vars
-
-    vars['levelupBtn']:setVisible(false)
-
-    if (not self.m_bOpenMaterial) then
-        vars['materialBtn']:setVisible(true)
-    else
-        vars['materialBtn']:setVisible(false)
-        vars['levelupBtn']:setVisible(true)
-    end
-end
-
--------------------------------------
--- function click_materialBtn
--- @brief "재료 선택" 버튼 클릭
---        재료 리스트가 등장하고, 승급(or 초월) 버튼 등장
--------------------------------------
-function UI_DragonLevelUp:click_materialBtn()
-    if (self.m_bOpenMaterial == true) then
-        return
-    end
-
-    self.m_bOpenMaterial = true
-    self:refresh_btnState()
-
-    local vars = self.vars
     
-    local visibleSize = cc.Director:getInstance():getVisibleSize()
-    local pos_x, pos_y = vars['leftMenu']:getPosition()
-    vars['leftMenu']:setPositionX(pos_x - visibleSize['width'])
-    local action = cc.EaseInOut:create(cc.MoveTo:create(0.5, cc.p(pos_x, pos_y)), 2)
-    cca.runAction(vars['leftMenu'], action)
+    do -- 드래곤 현재 정보 카드
+        vars['dragonIconNode']:removeAllChildren()
+        local dragon_card = UI_DragonCard(t_dragon_data)
+        vars['dragonIconNode']:addChild(dragon_card.root)
+    end
 
-    cca.reserveFuncWithTag(vars['leftMenu'], 0.5, function() self:refresh_dragonLevelupMaterialTableView() end, 100)
+    do -- 드래곤 리소스
+        local evolution = t_dragon_data['evolution']
+        vars['dragonNode']:removeAllChildren()
+        local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
+        animator:setDockPoint(cc.p(0.5, 0.5))
+        animator:setAnchorPoint(cc.p(0.5, 0.5))
+        animator:changeAni('idle', true)
 
-    vars['leftMenu']:setVisible(true)
-    vars['rightMenu']:runAction(cc.EaseInOut:create(cc.MoveTo:create(0.5, cc.p(320, 69)), 2))
+        vars['dragonNode']:addChild(animator.m_node)
+    end
 end
 
 -------------------------------------
@@ -239,23 +150,24 @@ end
 -- @brief 드래곤 승급 재료(다른 드래곤) 리스트 테이블 뷰
 -------------------------------------
 function UI_DragonLevelUp:refresh_dragonLevelupMaterialTableView()
-    -- 최초로 leftMenu가 등장했을 때 예약된 함수 제거
-    cca.stopAction(self.vars['leftMenu'], 100)
-    
-    local list_table_node = self.vars['selectListNode']
+    local list_table_node = self.vars['materialTableViewNode']
     list_table_node:removeAllChildren()
 
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
-        ui.root:setScale(0.7)
+        ui.root:setScale(0.66)
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(data) end)
     end
 
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
-    table_view_td.m_cellSize = cc.size(105, 105)
+    table_view_td.m_cellSize = cc.size(100, 100)
     table_view_td.m_nItemPerCell = 5
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
+    
+    -- 리스트가 비었을 때
+    table_view_td:makeDefaultEmptyDescLabel(Str('레벨업을 도와줄 드래곤이 없어요 ㅠㅠ\n(리더로 설정되거나 모험 중인 드래곤은 사용할 수 없습니다)'))
+
     self.m_mtrlTableViewTD = table_view_td
 
     -- 재료로 사용 가능한 리스트를 얻어옴
@@ -272,8 +184,17 @@ end
 -------------------------------------
 function UI_DragonLevelUp:getDragonLevelupMaterialList(doid)
     local l_dragon_list = g_dragonsData:getDragonsList()-- clone된 데이터를 사용
+
     -- 자기 자신 드래곤 제외
     l_dragon_list[doid] = nil
+
+    -- 재료로 사용 불가능한 드래곤 제외
+    for doid,v in pairs(l_dragon_list) do
+        if (not g_dragonsData:possibleMaterialDragon(doid)) then
+            l_dragon_list[doid] = nil
+        end
+    end
+
     return l_dragon_list
 end
 
@@ -363,36 +284,22 @@ end
 -------------------------------------
 -- function click_dragonMaterial
 -------------------------------------
-function UI_DragonLevelUp:click_dragonMaterial(data)
-    local doid = data['id']
+function UI_DragonLevelUp:click_dragonMaterial(t_dragon_data)
+    local doid = t_dragon_data['id']
 
-    local selected_material_item = self.m_selectedMtrlTableView:getItem(doid)
+    local helper = self.m_dragonLevelUpUIHelper
 
-    -- 재료 해제
-    if selected_material_item then
-        self.m_selectedMtrlTableView:delItem(doid)
-        --self:refresh_materialDragonIndivisual(doid)
-        --self:refresh_selectedMaterial()
-        --self.m_materialSortMgr:changeSort2()
+    if (not helper:isSelectedDragon(doid)) then
+        local is_can_add, fail_type = helper:isCanAdd()
 
-    -- 재료 추가
-    else
-        local material_count = self.m_selectedMtrlTableView:getItemCount()
-
-        -- 최대 재료 갯수 체크
-        if (material_count >= MAX_DRAGON_LEVELUP_MATERIAL_MAX) then
-            UIManager:toastNotificationRed(Str('한 번에 최대 {1}마리까지 가능합니다.', MAX_DRAGON_LEVELUP_MATERIAL_MAX))
+        if (not is_can_add) then
+            if (fail_type == 'max_cnt') then
+                UIManager:toastNotificationRed(Str('한 번에 최대 {1}마리까지 가능합니다.', MAX_DRAGON_LEVELUP_MATERIAL_MAX))
+            elseif (fail_type == 'max_lv') then
+                UIManager:toastNotificationRed(Str('더 이상 레벨업할 수 없습니다.', MAX_DRAGON_LEVELUP_MATERIAL_MAX))
+            end
             return
         end
-
-        -- 리더 설정 여부 확인
-        local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
-        if (not possible) then
-            UIManager:toastNotificationRed(msg)
-            return
-        end
-
-        self.m_selectedMtrlTableView:addItem(doid, data)
     end
 
     self.m_dragonLevelUpUIHelper:modifyMaterial(doid)
@@ -409,10 +316,6 @@ function UI_DragonLevelUp:refresh_materialDragonIndivisual(doid)
         return
     end
 
-    if (not self.m_selectedMtrlTableView) then
-        return
-    end
-
     local item = self.m_mtrlTableViewTD:getItem(doid)
     if (not item) then
         return
@@ -423,7 +326,8 @@ function UI_DragonLevelUp:refresh_materialDragonIndivisual(doid)
         return
     end
 
-    local is_selected = (self.m_selectedMtrlTableView:getItem(doid) ~= nil)
+    local helper = self.m_dragonLevelUpUIHelper
+    local is_selected = helper:isSelectedDragon(doid)
     ui:setShadowSpriteVisible(is_selected)
 end
 
@@ -445,7 +349,7 @@ function UI_DragonLevelUp:refresh_selectedMaterial()
 
     vars['selectLabel']:setString(helper:getMaterialCountString())
     vars['priceLabel']:setString(comma_value(helper.m_price))
-    vars['expGauge1']:setPercentage(helper.m_expPercentage)
+    vars['expGauge']:setPercentage(helper.m_expPercentage)
     
     vars['levelLabel']:setString(Str('레벨{1}/{2}', helper.m_changedLevel, helper.m_maxLevel))
 
@@ -453,49 +357,11 @@ function UI_DragonLevelUp:refresh_selectedMaterial()
         vars['expLabel']:setString(Str('{1}/{2}', helper.m_changedExp, helper.m_changedMaxExp))
     else
         vars['expLabel']:setString('')
-        vars['expGauge1']:setPercentage(100)
+        vars['expGauge']:setPercentage(100)
     end
 
-    do
-        -- 현재 레벨의 능력치 계산기
-        local status_calc = MakeOwnDragonStatusCalculator(doid)
-
-        -- 현재 레벨의 능력치
-        local curr_atk = status_calc:getFinalStat('atk')
-        local curr_def = status_calc:getFinalStat('def')
-        local curr_hp = status_calc:getFinalStat('hp')
-        local curr_cp = status_calc:getCombatPower()
-
-        -- 현재 레벨의 능력치 표시
-        vars['atk_p_label']:setString(comma_value(math_floor(curr_atk)))
-        vars['def_p_label']:setString(comma_value(math_floor(curr_def)))
-        vars['hp_label']:setString(comma_value(math_floor(curr_hp)))
-        vars['cp_label']:setString(comma_value(math_floor(curr_cp)))
-
-        if possible and (helper.m_dragonLevel ~= helper.m_changedLevel) then
-            -- 변경된 레벨의 능력치 계산기
-            local chaged_dragon_data = {}
-            chaged_dragon_data['lv'] = math_max((t_dragon_data['lv'] + 1), helper.m_changedLevel)
-            local changed_status_calc = MakeOwnDragonStatusCalculator(doid, chaged_dragon_data)
-
-            -- 변경된 레벨의 능력치
-            local changed_atk = changed_status_calc:getFinalStat('atk')
-            local changed_def = changed_status_calc:getFinalStat('def')
-            local changed_hp = changed_status_calc:getFinalStat('hp')
-            local changed_cp = changed_status_calc:getCombatPower()
-
-            -- 상승되는 능력치 표시
-            vars['atk_p_label2']:setString(Str('+{1}', comma_value(math_floor(changed_atk - curr_atk))))
-            vars['def_p_label2']:setString(Str('+{1}', comma_value(math_floor(changed_def - curr_def))))
-            vars['hp_label2']:setString(Str('+{1}', comma_value(math_floor(changed_hp - curr_hp))))
-            vars['cp_label2']:setString(Str('+{1}', comma_value(math_floor(changed_cp - curr_cp))))
-        else
-            vars['atk_p_label2']:setString('')
-            vars['def_p_label2']:setString('')
-            vars['hp_label2']:setString('')
-            vars['cp_label2']:setString('')
-        end
-    end
+    local plus_level = helper:getPlusLevel()
+    vars['gradeLabel']:setString(Str('+{1}', plus_level))
 end
 
 -------------------------------------
@@ -512,42 +378,37 @@ function UI_DragonLevelUp:click_levelupBtn()
 
     local function success_cb(ret)
 
-        self.vars['expVisual']:setVisible(true)
-        self.vars['expVisual']:setVisual('group', 'dragon_levelup_gg')
-        self.vars['expVisual']:setRepeat(false)
-        self.vars['expVisual']:addAniHandler(function()
-            -- 재료로 사용된 드래곤 삭제
-            if ret['deleted_dragons_oid'] then
-                for _,doid in pairs(ret['deleted_dragons_oid']) do
-                    g_dragonsData:delDragonData(doid)
+        -- 재료로 사용된 드래곤 삭제
+        if ret['deleted_dragons_oid'] then
+            for _,doid in pairs(ret['deleted_dragons_oid']) do
+                g_dragonsData:delDragonData(doid)
 
-                    -- 드래곤 리스트 갱신
-                    self.m_tableViewExt:delItem(doid)
-                end
+                -- 드래곤 리스트 갱신
+                self.m_tableViewExt:delItem(doid)
             end
+        end
 
-            -- 드래곤 정보 갱신
-            g_dragonsData:applyDragonData(ret['modified_dragon'])
+        -- 드래곤 정보 갱신
+        g_dragonsData:applyDragonData(ret['modified_dragon'])
 
-            -- 골드 갱신
-            if ret['gold'] then
-                g_serverData:applyServerData(ret['gold'], 'user', 'gold')
-                g_topUserInfo:refreshData()
-            end
+        -- 골드 갱신
+        if ret['gold'] then
+            g_serverData:applyServerData(ret['gold'], 'user', 'gold')
+            g_topUserInfo:refreshData()
+        end
 
-            self.m_bChangeDragonList = true
+        self.m_bChangeDragonList = true
 
-            self:setSelectDragonDataRefresh()
+        self:setSelectDragonDataRefresh()
 
-            local doid = self.m_selectDragonOID
-            self:refresh_dragonIndivisual(doid)
+        local doid = self.m_selectDragonOID
+        self:refresh_dragonIndivisual(doid)
 
 
-            local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
-            if (not possible) then
-                MakeSimplePopup(POPUP_TYPE.OK, msg, function() self:close() end)
-            end
-        end)
+        local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
+        if (not possible) then
+            MakeSimplePopup(POPUP_TYPE.OK, msg, function() self:close() end)
+        end
     end
 
     local uid = g_userData:get('uid')

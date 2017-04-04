@@ -7,13 +7,10 @@ UI_DragonLevelUpHelper = class({
         m_materialCount = 'number',
         m_maxMaterialCount = 'number',
 
-
         m_dragonGrade = 'number',
         m_dragonLevel = 'number',
         m_dragonExp = 'number',
         m_maxLevel = 'number',
-
-        
 
         m_addExp = 'number',
         m_price = 'number',
@@ -142,6 +139,14 @@ function UI_DragonLevelUpHelper:clacChangedLevelAndExp()
     end
 
     self.m_changedMaxExp = max_exp
+
+    do -- 최대 레벨 체크
+        if (self.m_maxLevel <= self.m_changedLevel) then
+            self.m_changedExp = max_level_table[self.m_maxLevel - 1] 
+            self.m_changedMaxExp = self.m_changedExp
+            self.m_expPercentage = 100
+        end
+    end
 end
 
 
@@ -151,3 +156,40 @@ end
 function UI_DragonLevelUpHelper:getMaterialCountString()
     return Str('선택재료 {1} / {2}', self.m_materialCount, self.m_maxMaterialCount)
 end
+
+-------------------------------------
+-- function isCanAdd
+-------------------------------------
+function UI_DragonLevelUpHelper:isCanAdd()
+    -- 재료 갯수 초과
+    if (self.m_materialCount >= self.m_maxMaterialCount) then
+        return false, 'max_cnt'
+    end
+
+    -- 등급(구간)별 최대 레벨로 인해 추가할 수 없음
+    if (self.m_changedLevel >= self.m_maxLevel) then
+        return false, 'max_lv'
+    end
+
+    return true
+end
+
+
+-------------------------------------
+-- function isSelectedDragon
+-------------------------------------
+function UI_DragonLevelUpHelper:isSelectedDragon(doid)
+    if (self.m_materialDoidMap[doid]) then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
+-- function getPlusLevel
+-------------------------------------
+function UI_DragonLevelUpHelper:getPlusLevel()
+    return (self.m_changedLevel - self.m_dragonLevel)
+end
+
