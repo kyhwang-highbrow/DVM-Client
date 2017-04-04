@@ -160,6 +160,19 @@
                 <key>sourceSize</key>
                 <string>{1054,308}</string>
             </dict>
+            <key>skill_blackdragon_res_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{482,1912},{88,88}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{88,88}}</string>
+                <key>sourceSize</key>
+                <string>{88,88}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -170,7 +183,7 @@
             <key>size</key>
             <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:1b428fcf902c55db9856678c69e3b593$</string>
+            <string>$TexturePacker:SmartUpdate:82f8f31e8c67800e45b270623c1369c7$</string>
             <key>textureFileName</key>
             <string>skill_blackdragon.png</string>
         </dict>
