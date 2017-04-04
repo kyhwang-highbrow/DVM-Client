@@ -491,19 +491,20 @@ function TargetRule_getTargetList_rectangle(org_list, t_data)
 
     local t_ret = {}
 
-    for i,v in org_list do
+    for i, v in pairs(org_list) do
         local is_collision, dist, x3, y3 = TargetRule_getTargetList_line(v, x1, y1, x2, y2, thickness)
 
         if is_collision then
-            table.insert(t_ret, {obj=v, dist=dist, x=x3, y=y3})
+            --table.insert(t_ret, {obj=v, dist=dist, x=x3, y=y3})
+			table.insert(t_ret, v)
         end
     end
-
+	--[[
     -- dist가 짧은 순으로 정렬
     table.sort(t_ret, function(a, b)
         return a['dist'] < b['dist']
     end)
-
+	]]
     return t_ret
 end
 

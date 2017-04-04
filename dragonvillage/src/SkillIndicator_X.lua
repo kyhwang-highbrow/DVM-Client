@@ -5,14 +5,14 @@ local PARENT = SkillIndicator
 -------------------------------------
 SkillIndicator_X = class(PARENT, {
 		m_indicatorAddEffect = '',
-		m_physGroup = '',
+		m_lineSize = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function SkillIndicator_X:init(hero, t_skill)
-	self.m_physGroup = nil
+	self.m_lineSize = g_constant:get('SKILL', 'VOLTES_LINE_SIZE')
 end
 
 -------------------------------------
@@ -81,38 +81,36 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_X:findTarget(pos_x, pos_y)
-	local t_collision_obj = nil
+	local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
 	local t_ret = {}
 	
     local radius = 20
-	local std_width = (1280 / 2)
-	local std_height = (720 / 2)
+	local std_width = (CRITERIA_RESOLUTION_X / 2)
+	local std_height = (CRITERIA_RESOLUTION_Y / 2)
 	
 	local target_x, target_y = pos_x, pos_y
-	local start_x, start_y = nil, nil
-	local end_x, end_y = nil, nil
     
-	if (not self.m_physGroup) then
-		self.m_physGroup = self.m_hero:getAttackPhysGroup()
-	end
-
 	-- 레이저에 충돌된 모든 객체 리턴
 	for i = 1, 2 do 
-		
-		start_x = target_x - std_width
-		start_y = target_y - (std_height * (math_pow(-1, i)))
-		
-		end_x = target_x + std_width
-		end_y = target_y + (std_height * (math_pow(-1, i)))
-		
-		t_collision_obj = self.m_world.m_physWorld:getLaserCollision(
-			start_x, start_y,
-			end_x, end_y, radius, self.m_physGroup)
+		local t_collision_obj = self:findTargetEachLine(l_target, target_x, target_y, std_width, std_height, idx)
 		
 		for i, obj in pairs(t_collision_obj) do 
-			table.insert(t_ret, obj['obj'])
+			table.insert(t_ret, obj)
 		end
     end
 	
 	return t_ret
+end
+
+-------------------------------------
+-- function findTargetEachLine
+-------------------------------------
+function SkillIndicator_X:findTargetEachLine(l_target, target_x, target_y, std_width, std_height, idx)
+	local start_x = target_x - std_width
+	local start_y = target_y - (std_height * (math_pow(-1, idx)))
+		
+	local end_x = target_x + std_width
+	local end_y = target_y + (std_height * (math_pow(-1, idx)))
+
+	return SkillTargetFinder:findTarget_Bar(l_target, start_x, start_y, end_x, end_y, self.m_lineSize/2)
 end

@@ -558,64 +558,6 @@ function PhysWorld:drawGrid()
 end
 
 -------------------------------------
--- 레이저 관련
--------------------------------------
-
--------------------------------------
--- function getRectangularCoordinates
--- @brief 선분과 임의의 점의 직교 좌표
--- @param x1, y1, x2, y2 선분의 시작과 끝
--- @param px, py 임의의 점
--- @return ax, ay 직교 좌표
--------------------------------------
-function PhysWorld:getRectangularCoordinates(x1, y1, x2, y2, px, py)
-    local ax, ay;   -- 교점
-    local ml;       -- 기울기
-    local kl;       -- 방정식 y = mx + k1의 상수 k1
-
-    local m2; -- 수직인 직선의 기울기
-    local k2; -- 수직인 직선의 방정식 y = mx + k2의 상수 k2
-
-    -- 먼저 직선의 방정식부터 구한다
-    -- 구하는 방법은 두 점 p1, p2 를 지나는 직선의 방정식
-    -- y - yp1 = (yp1-yp2)/(xp1-xp2) * (x-xp1) 이 됨
-
-    -- 기울기를 구할 건데 예외 상황부터 먼저 처리
-
-    -- 선분이 수직일 경우
-    if ( x1 == x2 ) then
-        ax = x1;
-        ay = py;
-    -- 선분이 수평일 경우
-    elseif ( y1 == y2 ) then
-        ax = px;
-        ay = y1;
-    -- 그 외의 경우
-    else
-        -- 기울기 m1
-        m1 = (y1 - y2) / (x1 - x2);
-        -- 상수 k1
-        k1 = -m1 * x1 + y1;
-
-        -- 선분 l 을 포함하는 직선의 방정식은 y = m1x + k1
-        -- 남은 것은 점 p 를 지나고 위의 직선과 직교하는 직선의 방정식을 구한다
-        -- 두 직선은 직교하기 때문에 m1 * m2 = -1
-
-        -- 기울기 m2
-        m2 = -1.0 / m1;
-        -- p 를 지나기 때문에 yp = m2 * xp + k2 => k2 = yp - m2 * xp
-        k2 = py - m2 * px;
-
-        -- 두 직선 y = m1x + k1, y = m2x + k2 의 교점을 구한다
-        ax = (k2 - k1) / (m1 - m2);
-        ay = m1 * ax + k1;
-    end
-
-    return ax, ay
-end
-
-
--------------------------------------
 -- function getLaserCollision
 -------------------------------------
 function PhysWorld:getLaserCollision(x1, y1, x2, y2, thickness, phys_key)
@@ -652,7 +594,7 @@ function PhysWorld:getLaserCollision(x1, y1, x2, y2, thickness, phys_key)
             local obj_size = object.body.size
 
             local not_finish = true
-            local x3, y3 = self:getRectangularCoordinates(x1, y1, x2, y2, obj_x, obj_y)
+            local x3, y3 = getRectangularCoordinates(x1, y1, x2, y2, obj_x, obj_y)
             
 
             -- 직교 좌표가 범위를 넘어갔을 경우

@@ -131,7 +131,7 @@ function SkillLaser.st_idle(owner, dt)
         owner.m_clearCount = owner.m_clearCount + 1
 
         local t_collision_obj = owner:findTarget()
-		owner:collisionAttack(t_collision_obj)
+		owner:runAttack(t_collision_obj)
     end
 
     owner:refresh()
@@ -164,7 +164,6 @@ function SkillLaser:refresh(force)
     if (self.m_owner) then
         if (self.m_owner.pos.x ~= self.m_startPosX) or (self.m_owner.pos.y ~= self.m_startPosY) then
             change_start = true
-            --self.m_startPosX = self.m_owner.pos.x + (self.m_attackPosOffsetX * math.max(self.m_thickness/2, 1))
             self.m_startPosX = self.m_owner.pos.x + self.m_attackPosOffsetX
             self.m_startPosY = self.m_owner.pos.y + self.m_attackPosOffsetY
             self:setPosition(self.m_startPosX, self.m_startPosY)
@@ -189,35 +188,28 @@ end
 -- function findTarget
 -------------------------------------
 function SkillLaser:findTarget()
-    local radius = (self.m_laserThickness / 2)
-
-    -- 레이저에 충돌된 모든 객체 리턴
-    local t_collision_obj = self.m_world.m_physWorld:getLaserCollision(self.m_startPosX, self.m_startPosY,
-        self.m_laserEndPosX, self.m_laserEndPosY, radius, self.m_physGroup)
-    
-	return t_collision_obj
+	local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+	return SkillTargetFinder:findTarget_Bar(l_target, self.m_startPosX, self.m_startPosY, self.m_laserEndPosX, self.m_laserEndPosY, self.m_laserThickness/2)
 end
 
 -------------------------------------
--- function collisionAttack
+-- function runAttack
 -------------------------------------
-function SkillLaser:collisionAttack(t_collision_obj)
+function SkillLaser:runAttack(t_collision_obj)
 	if (not self.t_collision) then
 		return
 	end
-	local target_char
-    for i, v in ipairs(t_collision_obj) do
-		target_char = v['obj']
-
+	
+    for i, target in ipairs(t_collision_obj) do
 		-- 이미 충돌된 객체라면 리턴
-		if (self.t_collision[target_char.phys_idx]) then
+		if (self.t_collision[target.phys_idx]) then
 			return
 		end
 
 		-- 충돌, 공격 처리
-		self.t_collision[target_char.phys_idx] = true
+		self.t_collision[target.phys_idx] = true
 	
-		self:attack(target_char)
+		self:attack(target)
 	end
 end
 
@@ -256,5 +248,4 @@ function SkillLaser:makeSkillInstance(owner, t_skill, t_data)
     end
 
     skill:refresh(true)
-
 end

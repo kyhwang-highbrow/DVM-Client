@@ -4,7 +4,7 @@ local PARENT = SkillIndicator
 -- class SkillIndicator_AoEWedge
 -------------------------------------
 SkillIndicator_AoEWedge = class(PARENT, {
-		m_skillRadius = 'num',
+		m_skillRange = 'num',
 		m_skillAngle = 'num',
     })
 	 
@@ -12,7 +12,7 @@ SkillIndicator_AoEWedge = class(PARENT, {
 -- function init
 -------------------------------------
 function SkillIndicator_AoEWedge:init(hero, t_skill)
-	self.m_skillRadius = g_constant:get('SKILL', 'LONG_LENGTH')
+	self.m_skillRange = g_constant:get('SKILL', 'LONG_LENGTH')
 	self.m_indicatorAngleLimit = g_constant:get('SKILL', 'ANGLE_LIMIT')
 end
 
@@ -51,7 +51,7 @@ function SkillIndicator_AoEWedge:onTouchMoved(x, y)
 	self.m_indicatorEffect:setRotation(dir)
 
 	-- 하이라이트 갱신
-	local t_collision_obj = self:findTargetList(x, y, dir)
+	local t_collision_obj = self:findTarget(dir)
     self:setHighlightEffect(t_collision_obj)
 end
 
@@ -68,27 +68,22 @@ function SkillIndicator_AoEWedge:initIndicatorNode()
     do -- 캐스팅 이펙트
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'wedge'..self.m_skillAngle)
         local indicator = MakeAnimator(indicator_res)
+		
 		indicator.m_node:setColor(COLOR_CYAN)
 		indicator:setPosition(self:getAttackPosition())
 		indicator:setScale(self.m_indicatorScale)
+
         root_node:addChild(indicator.m_node)
 		self.m_indicatorEffect = indicator
     end
 end
 
 -------------------------------------
--- function findTargetList
+-- function findTarget
 -------------------------------------
-function SkillIndicator_AoEWedge:findTargetList(x, y, dir)
-    local world = self:getWorld()
+function SkillIndicator_AoEWedge:findTarget(dir)
 	local char = self.m_hero
-
-    local t_data = {}
-    t_data['x'] = char.pos.x
-    t_data['y'] = char.pos.y
-    t_data['dir'] = dir
-    t_data['angle_range'] = tonumber(self.m_skillAngle)
-    t_data['radius'] = self.m_skillRadius
-
-    return world:getTargetList(char, char.pos.x, char.pos.y, 'enemy', nil, 'fan_shape', t_data)
+	local l_target = char:getTargetListByType(self.m_targetType, self.m_targetFormation)
+	local dir = dir
+	return SkillTargetFinder:findTarget_AoEWedge(l_target, char.pos.x, char.pos.y, dir, self.m_skillRange, self.m_skillAngle)
 end

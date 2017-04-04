@@ -48,10 +48,13 @@ function SkillIndicator_AoESquare_Width:initIndicatorNode()
     do -- 캐스팅 이펙트
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'square_width')
         local indicator = MakeAnimator(indicator_res)
-        indicator:setRotation(0)
-        root_node:addChild(indicator.m_node)
+
 		indicator.m_node:setColor(COLOR_CYAN)
+		indicator:setScaleX(self.m_indicatorScale)
+		indicator:setScaleY(1)
+        indicator:setRotation(0)
+
+        root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator
-        indicator.m_node:setScaleY(self.m_indicatorScale)
     end
 end

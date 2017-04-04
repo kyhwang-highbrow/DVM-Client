@@ -722,8 +722,7 @@ function Dragon:init_skillIndicator()
 	
 	-- 세로로 긴 직사각형
 	elseif (indicator_type == 'square_height') then
-		local target_type = (t_char['type'] == 'pinkbell') and 'all' or 'enemy'
-		self.m_skillIndicator = SkillIndicator_AoESquare_Height(self, t_skill, target_type)
+		self.m_skillIndicator = SkillIndicator_AoESquare_Height(self, t_skill)
 	
     -- 굵은 가로형 직사각형
     elseif (indicator_type == 'square_width') then

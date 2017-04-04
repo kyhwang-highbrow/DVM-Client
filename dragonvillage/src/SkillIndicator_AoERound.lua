@@ -79,9 +79,11 @@ function SkillIndicator_AoERound:initIndicatorNode()
     do
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'round')
         local indicator = MakeAnimator(indicator_res)
-        indicator:setScale(self.m_indicatorScale)
+        
         indicator:changeAni('idle', false)
 		indicator.m_node:setColor(COLOR_CYAN)
+		indicator:setScale(self.m_indicatorScale)
+
         root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator
     end
@@ -89,8 +91,10 @@ function SkillIndicator_AoERound:initIndicatorNode()
     do
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'target')
         local link_effect = EffectLink(indicator_res, 'normal_bar_idle', 'normal_start_idle', 'normal_end_idle', 200, 200)
+		
 		link_effect:doNotUseHead()
-        root_node:addChild(link_effect.m_node)
+        
+		root_node:addChild(link_effect.m_node)
         self.m_indicatorAddEffect = link_effect
     end
 end

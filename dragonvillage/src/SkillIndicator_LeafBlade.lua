@@ -55,7 +55,7 @@ function SkillIndicator_LeafBlade:onTouchMoved(x, y)
         tar_x, tar_y = adj_pos.x + pos_x, adj_pos.y + pos_y
     end
 
-    local t_collision_obj = self:findTargetList(tar_x, tar_y)
+    local t_collision_obj = self:findTarget(tar_x, tar_y)
     self.m_targetChar = t_collision_obj[1]
 	
     -- 4-1. 베지어 곡선 이펙트 위치 갱신
@@ -127,7 +127,7 @@ end
 -------------------------------------
 -- function findTarget
 -------------------------------------
-function SkillIndicator_LeafBlade:findTargetList(x, y)
+function SkillIndicator_LeafBlade:findTarget(x, y)
     local world = self:getWorld()
     local target_formation_mgr = self.m_hero:getFormationMgr(true)
 	
@@ -161,36 +161,33 @@ function SkillIndicator_LeafBlade:findTargetList(x, y)
 	-- 충돌체크에 필요한 변수 생성
     local std_dist = 1000
 	local degree = getDegree(pos_x, pos_y, x, y)
-	local phys_group = self.m_hero:getAttackPhysGroup()
 	local leaf_body_size = g_constant:get('SKILL', 'LEAF_COLLISION_SIZE')
 	local straight_angle = g_constant:get('SKILL', 'LEAF_STRAIGHT_ANGLE')
+	local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
 
     -- 직선에 의한 충돌 리스트 (상)
     local rad = math_rad(degree + straight_angle)
     local factor_y = math.tan(rad)
-    local t_target_line_1 = self.m_world.m_physWorld:getLaserCollision(x, y,
-        x + std_dist, y + std_dist * factor_y, leaf_body_size, phys_group)
+    local t_target_line_1 = SkillTargetFinder:findTarget_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
 
     -- 직선에 의한 충돌 리스트 (하)
     rad = math_rad(degree - straight_angle)
     factor_y = math.tan(rad)
-    local t_target_line_2 = self.m_world.m_physWorld:getLaserCollision(x, y,
-        x + std_dist, y + std_dist * factor_y, leaf_body_size, phys_group)
-    
-    -- getLaserCollision는 반환값이 특정 테이블이기때문에 Character 클래스만 꺼내와서 정리한다.
+    local t_target_line_2 = SkillTargetFinder:findTarget_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
+
 	-- 00. 무관통 탄의 경우 첫번째 오브젝트만 가져간다.
     local l_target_line = {}
-    for i, col in pairs(t_target_line_1) do
-        table.insert(l_target_line, col['obj'])
+    for i, target in pairs(t_target_line_1) do
+        table.insert(l_target_line, target)
 		if (not self.m_isPass) and (not self.m_target_2) then 
-			self.m_target_2 = col['obj']
+			self.m_target_2 = target
 			break
 		end
     end
-    for i, col in pairs(t_target_line_2) do
-        table.insert(l_target_line, col['obj'])
+    for i, target in pairs(t_target_line_2) do
+        table.insert(l_target_line, target)
 		if (not self.m_isPass) and (not self.m_target_1) then 
-			self.m_target_1 = col['obj']
+			self.m_target_1 = target
 			break
 		end
     end

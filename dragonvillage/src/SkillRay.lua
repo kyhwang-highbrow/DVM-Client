@@ -2,6 +2,7 @@ local PARENT = class(Skill, IStateDelegate:getCloneTable())
 
 -------------------------------------
 -- class SkillRay
+-- @TODO 처음부터 다시 만들어야 한다 
 -------------------------------------
 SkillRay = class(PARENT, {
 

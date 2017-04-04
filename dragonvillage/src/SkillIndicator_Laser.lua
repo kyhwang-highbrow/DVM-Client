@@ -2,6 +2,7 @@ local PARENT = SkillIndicator
 
 -------------------------------------
 -- class SkillIndicator_Laser
+-- @breif 이름이 bar여야 하는데...
 -------------------------------------
 SkillIndicator_Laser = class(PARENT, {
         m_thickness = 'number', -- 레이저의 굵기
@@ -77,8 +78,11 @@ function SkillIndicator_Laser:initIndicatorNode()
     do
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'bar')
         local indicator = MakeAnimator(indicator_res)
-        indicator:setPosition(self.m_attackPosOffsetX, self.m_attackPosOffsetY)
-        indicator.m_node:setScaleX(self.m_indicatorScale)
+        
+		indicator:setPosition(self.m_attackPosOffsetX, self.m_attackPosOffsetY)
+        indicator:setScaleX(self.m_indicatorScale)
+		indicator:setScaleY(1)
+
         root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator
     end
@@ -103,21 +107,10 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_Laser:findTarget(pos_x, pos_y, dir)
+	local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
     local end_pos = getPointFromAngleAndDistance(dir, 2560)    
     local end_x = pos_x + end_pos['x']
     local end_y = pos_y + end_pos['y']
 
-	local phys_group = self.m_hero:getAttackPhysGroup()
-
-    -- 레이저에 충돌된 모든 객체 리턴
-    local t_collision_obj = self.m_world.m_physWorld:getLaserCollision(pos_x, pos_y,
-        end_x, end_y, self.m_thickness/2, phys_group)
-
-    local t_ret = {}
-
-    for i,v in ipairs(t_collision_obj) do
-        table.insert(t_ret, v['obj'])
-    end
-
-    return t_ret
+	return SkillTargetFinder:findTarget_Bar(l_target, pos_x, pos_y, end_x, end_y, self.m_thickness/2)
 end

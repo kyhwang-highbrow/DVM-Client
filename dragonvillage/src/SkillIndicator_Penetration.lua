@@ -9,8 +9,6 @@ SkillIndicator_Penetration = class(PARENT, {
 		
 		m_skillLineNum = 'num',		-- 공격 하는 직선 갯수
 		m_skillLineSize = 'num',	-- 직선의 두께
-		
-		m_skillLineGap = 'num',		-- 직선 간의 간격
 
 		m_lEffectList = 'Effect',
     })
@@ -19,20 +17,28 @@ SkillIndicator_Penetration = class(PARENT, {
 -- function init
 -------------------------------------
 function SkillIndicator_Penetration:init(hero, t_skill)
-	PARENT.init(self, hero)
-	
-	self.m_skillLineNum = t_skill['hit']
-	self.m_skillLineSize = t_skill['val_1']
-	
-	self.m_skillLineGap = nil
-
-	self.m_indicatorScale = (self.m_skillLineSize / 150)
-
-	self.m_indicatorAngleLimit = g_constant:get('SKILL', 'PENERATION_ANGLE_LIMIT')
-	self.m_indicatorDistanceLimit = g_constant:get('SKILL', 'PENERATION_DIST_LIMIT')
+	self.m_indicatorAngleLimit = g_constant:get('SKILL', 'ENUMRATE_ANGLE_LIMIT')
+	self.m_indicatorDistanceLimit = g_constant:get('SKILL', 'ENUMRATE_DIST_LIMIT')
 
 	self.m_lIndicatorEffectList = {}
 	self.m_lEffectList = {}
+end
+
+-------------------------------------
+-- function init_indicator
+-------------------------------------
+function SkillIndicator_Penetration:init_indicator(t_skill)
+	PARENT.init_indicator(self, t_skill)
+
+	local skill_size = t_skill['skill_size']
+	if (skill_size) and (not (skill_size == '')) then
+		local t_data = SkillHelper:getSizeAndScale('fan', skill_size)  
+
+		self.m_indicatorScale = t_data['scale'] * 0.1
+		self.m_skillLineSize = t_data['size']
+	end
+		
+	self.m_skillLineNum = t_skill['hit']
 end
 
 -------------------------------------
@@ -90,18 +96,21 @@ function SkillIndicator_Penetration:initIndicatorNode()
     local root_node = self.m_indicatorRootNode
 
 	-- 인디케이터 다발
+	local indicator_res = g_constant:get('INDICATOR', 'RES', 'fan')
     for i = 1, self.m_skillLineNum do
-        local indicator = MakeAnimator(RES_INDICATOR['STRAIGHT'])
-		indicator.m_node:setScale(self.m_indicatorScale, 2.5)
-		indicator.m_node:setColor(COLOR_CYAN)
-		root_node:addChild(indicator.m_node)
+        local indicator = MakeAnimator(indicator_res)
 		
+		indicator:setScaleX(self.m_indicatorScale)
+		indicator:setColor(COLOR_CYAN)
+		
+		root_node:addChild(indicator.m_node)
 		table.insert(self.m_lIndicatorEffectList, indicator)
     end
 
 	-- 겹치는 부분 가리는 추가 인디케이터
+	local indicator_res = g_constant:get('INDICATOR', 'RES', 'round')
 	do
-        local indicator = MakeAnimator(RES_INDICATOR['RANGE'])
+        local indicator = MakeAnimator(indicator_res)
         indicator:setScale(0.1)
         indicator:changeAni('skill_range_normal', true)
         root_node:addChild(indicator.m_node)
@@ -110,7 +119,7 @@ function SkillIndicator_Penetration:initIndicatorNode()
 
 	-- @TEST 좌표 확인용
     for i = 1, self.m_skillLineNum do
-        local indicator = MakeAnimator(RES_INDICATOR['RANGE'])
+        local indicator = MakeAnimator(indicator_res)
         indicator:setScale(0.1)
         indicator:changeAni('skill_range_normal', true)
 		root_node:addChild(indicator.m_node)
@@ -215,13 +224,16 @@ end
 -- function findTarget
 -------------------------------------
 function SkillIndicator_Penetration:findTarget(l_attack_pos, l_dir)
+	local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
+	
 	local t_ret = {}
 	
 	local t_each
 	for i = 1, self.m_skillLineNum do
-		t_collision_obj = self:findTargetEachLine(l_attack_pos[i], l_dir[i])
-		for i,v in ipairs(t_collision_obj) do
-			local object = v['obj']
+		-- 각 줄의 충돌 체크
+		local t_collision_obj = self:findTargetEachLine(l_target, l_attack_pos[i], l_dir[i])
+
+		for i, object in ipairs(t_collision_obj) do
 			-- 중복 제거 위한 처리
 			t_ret[object['phys_idx']] = object
 		end
@@ -239,7 +251,7 @@ end
 -------------------------------------
 -- function findTargetEachLine
 -------------------------------------
-function SkillIndicator_Penetration:findTargetEachLine(start_pos, dir)
+function SkillIndicator_Penetration:findTargetEachLine(l_target, start_pos, dir)
     -- 참조하는 좌표
 	local end_pos = getPointFromAngleAndDistance(dir, 2560)
 	local hero_pos = self.m_hero.pos
@@ -251,12 +263,5 @@ function SkillIndicator_Penetration:findTargetEachLine(start_pos, dir)
     local end_x = start_x + end_pos['x']
     local end_y = start_y + end_pos['y']
 
-	-- 충돌 그룹 키
-	local phys_group = self.m_hero:getAttackPhysGroup()
-
-    -- 레이저에 충돌된 모든 객체 리턴
-    local t_collision_obj = self.m_world.m_physWorld:getLaserCollision(start_x, start_y,
-        end_x, end_y, self.m_skillLineSize/2, phys_group)
-
-    return t_collision_obj
+	return SkillTargetFinder:findTarget_Bar(l_target, start_x, start_y, end_x, end_y, self.m_skillLineSize/2)
 end

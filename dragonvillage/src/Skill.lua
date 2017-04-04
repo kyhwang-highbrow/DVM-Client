@@ -73,12 +73,6 @@ function Skill:init_skill()
         local x, y = self:getDefaultTargetPos()
 		self.m_targetPos = {x = x, y = y}
     end
-
-    -- 하이라이트
-    if (self.m_bHighlight) then
-        --self.m_world.m_gameHighlight:addChar(self.m_owner)
-        --self.m_world.m_gameHighlight:addChar(self.m_targetChar)
-    end
 end
 
 -------------------------------------

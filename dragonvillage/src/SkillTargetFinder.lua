@@ -1,6 +1,6 @@
 -------------------------------------
 -- table SkillTargetFinder
--- @brief 스킬과 인디케이터가 공통으로 사용할 스태틱한 find target 함수
+-- @brief 스킬과 인디케이터가 공통으로 사용할 find target 함수
 -------------------------------------
 SkillTargetFinder = {}
 
@@ -9,15 +9,12 @@ SkillTargetFinder = {}
 -------------------------------------
 function SkillTargetFinder:findTarget_AoERound(l_target, x, y, range)
 	local l_target = l_target or {}
-	local pos_x = x or 0
-	local pos_y = y or 0
-	local range = range or 0
 
 	local l_ret = {}
 
 	-- 바디사이즈를 감안한 충돌 체크
     for _, target in pairs(l_target) do
-		if isCollision(pos_x, pos_y, target, range) then 
+		if isCollision(x, y, target, range) then 
 			table.insert(l_ret, target)
 		end
     end
@@ -28,23 +25,46 @@ end
 -------------------------------------
 -- function findTarget_AoESquare
 -------------------------------------
-function SkillTargetFinder:findTarget_AoESquare(owner, x, y, range)
+function SkillTargetFinder:findTarget_AoESquare(l_target, x, y, width, height)
+	local l_target = l_target or {}
+	
+	local l_ret = {}
+    
+	for i, target in ipairs(l_target) do
+		if isCollision_Rect(x, y, target, width, height) then
+            table.insert(l_ret, target)
+		end
+    end
+
+    return l_ret 
 end
 
 -------------------------------------
 -- function findTarget_AoEWedge
 -------------------------------------
-function SkillTargetFinder:findTarget_AoEWedge(owner, x, y, range)
+function SkillTargetFinder:findTarget_AoEWedge(l_target, x, y, dir, range, angle)
+	local t_data = {
+		x = x,					-- 회전축 좌표 x
+		y = y,					-- 회전축 좌표 y
+		dir = dir,				-- 방향
+		radius = range,			-- 거리
+		angle_range = angle		-- 각도
+	}
+
+	return TargetRule_getTargetList_fan_shape(l_target, t_data)
 end
 
 -------------------------------------
 -- function findTarget_Bar
 -------------------------------------
-function SkillTargetFinder:findTarget_Bar(owner, x, y, range)
-end
+function SkillTargetFinder:findTarget_Bar(l_target, start_x, start_y, end_x, end_y, thickness)
+	local t_data = {
+		x1 = start_x,
+		y1 = start_y,
+		x2 = end_x,
+		y2 = end_y,
+		thickness = thickness
+	}
 
--------------------------------------
--- function findTarget_AoERound
--------------------------------------
-function SkillTargetFinder:findTarget_AoESquare(owner, x, y, range)
+	return TargetRule_getTargetList_rectangle(l_target, t_data)
 end

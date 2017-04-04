@@ -55,8 +55,10 @@ function SkillIndicator_AoESquare:initIndicatorNode()
     do -- 캐스팅 이펙트
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'sqaure')
         local indicator = MakeAnimator(indicator_res)
-        root_node:addChild(indicator.m_node)
+		
 		indicator.m_node:setColor(COLOR_CYAN)
+        
+		root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator
     end
 end
@@ -66,17 +68,10 @@ end
 -------------------------------------
 function SkillIndicator_AoESquare:findTarget(x, y)
     local l_target = self.m_hero:getTargetListByType(self.m_targetType, self.m_targetFormation)
-    
-    local l_ret = {}
+    local x = x
+	local y = y
+	local width = (self.m_skillWidth / 2)
+	local height = (self.m_skillHeight / 2)
 
-    local std_width = (self.m_skillWidth / 2)
-	local std_height = (self.m_skillHeight / 2)
-
-    for i, target in ipairs(l_target) do
-		if isCollision_Rect(x, y, target, std_width, std_height) then
-            table.insert(l_ret, target)
-		end
-    end
-
-    return l_ret
+    return SkillTargetFinder:findTarget_AoESquare(l_target, x, y, width, height)
 end

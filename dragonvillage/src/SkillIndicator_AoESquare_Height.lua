@@ -9,7 +9,7 @@ SkillIndicator_AoESquare_Height = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillIndicator_AoESquare_Height:init(hero, t_skill, target_type)
+function SkillIndicator_AoESquare_Height:init(hero, t_skill)
 end
 
 -------------------------------------
@@ -48,9 +48,12 @@ function SkillIndicator_AoESquare_Height:initIndicatorNode()
     do -- 캐스팅 이펙트
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'square_height')
         local indicator = MakeAnimator(RES_INDICATOR['HEALING_WIND'])
-        root_node:addChild(indicator.m_node)
+        
 		indicator.m_node:setColor(COLOR_CYAN)
+		indicator:setScaleX(self.m_indicatorScale)
+		indicator:setScaleY(1)
+        
+		root_node:addChild(indicator.m_node)
         self.m_indicatorEffect = indicator
-        indicator.m_node:setScaleX(self.m_indicatorScale)
     end
 end

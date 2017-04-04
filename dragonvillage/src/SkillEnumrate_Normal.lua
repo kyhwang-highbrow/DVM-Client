@@ -17,13 +17,12 @@ end
 -------------------------------------
 -- function init_SkillEnumrate_Normal
 -------------------------------------
-function SkillEnumrate_Normal:init_skill(missile_res, motionstreak_res, line_num, line_size, pos_type, target_type)
-	PARENT.init_skill(self, missile_res, motionstreak_res, line_num, line_size)
+function SkillEnumrate_Normal:init_skill(missile_res, motionstreak_res, pos_type, target_type)
+	PARENT.init_skill(self, missile_res, motionstreak_res, pos_type, target_type)
 
 	-- 1. 멤버 변수
-	self.m_skillInterval = g_constant:get('SKILL', 'PENERATION_APPEAR_INTERVAR')
-	self.m_enumTargetType = target_type
-	self.m_enumPosType = pos_type
+	self.m_skillInterval = g_constant:get('SKILL', 'ENUMRATE_APPEAR_INTERVAR')
+	self.m_skillTotalTime = (self.m_skillLineNum * self.m_skillInterval) + g_constant:get('SKILL', 'ENUMRATE_FIRE_DELAY') -- 발사 간격 * 발사 수 + 발사 딜레이
 end
 
 -------------------------------------
@@ -82,10 +81,8 @@ function SkillEnumrate_Normal:makeSkillInstance(owner, t_skill, t_data)
     local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 	local motionstreak_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)
 
-	local line_num = t_skill['hit']
-	local line_size = t_skill['val_1']
-	local pos_type = t_skill['val_2']
-	local target_type = t_skill['val_3']
+	local pos_type = t_skill['val_1']
+	local target_type = t_skill['val_2']
 
 	-- 인스턴스 생성부
 	------------------------------------------------------ 
@@ -94,7 +91,7 @@ function SkillEnumrate_Normal:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(missile_res, motionstreak_res, line_num, line_size, pos_type, target_type)
+    skill:init_skill(missile_res, motionstreak_res, pos_type, target_type)
 	skill:initState()
 
 	-- 3. state 시작 
@@ -105,9 +102,4 @@ function SkillEnumrate_Normal:makeSkillInstance(owner, t_skill, t_data)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
-
-    -- 5. 하이라이트
-    if (skill.m_bHighlight) then
-        --world.m_gameHighlight:addMissile(skill)
-    end
 end

@@ -34,24 +34,39 @@ end
 -------------------------------------
 -- function init_SkillEnumrate
 -------------------------------------
-function SkillEnumrate:init_skill(missile_res, motionstreak_res, line_num, line_size, pos_type, target_type)
+function SkillEnumrate:init_skill(missile_res, motionstreak_res, line_num, pos_type, target_type)
 	PARENT.init_skill(self)
-
+	 
 	-- 1. 멤버 변수
     self.m_missileRes = missile_res
 	self.m_motionStreakRes = motionstreak_res
 
 	self.m_skillLineNum = line_num
-	self.m_skillLineSize = line_size
-	self.m_skillLineTotalWidth = g_constant:get('SKILL', 'PENERATION_TOTAL_LENGTH')		-- 직선으로 배치될경우 총 길이
+	--self.m_skillLineSize --> initSkillSize에서 지정
+	self.m_skillLineTotalWidth = g_constant:get('SKILL', 'ENUMRATE_TOTAL_LENGTH')		-- 직선으로 배치될경우 총 길이
 	
-	self.m_skillInterval = g_constant:get('SKILL', 'PENERATION_APPEAR_INTERVAR')		-- 순차적으로 발사될 탄의 발사 간격
-	self.m_skillTotalTime = (self.m_skillLineNum * self.m_skillInterval) + g_constant:get('SKILL', 'PENERATION_FIRE_DELAY') -- 발사 간격 * 발사 수 + 발사 딜레이
+	self.m_skillInterval = g_constant:get('SKILL', 'ENUMRATE_APPEAR_INTERVAR')		-- 순차적으로 발사될 탄의 발사 간격
+	self.m_skillTotalTime = (self.m_skillLineNum * self.m_skillInterval) + g_constant:get('SKILL', 'ENUMRATE_FIRE_DELAY') -- 발사 간격 * 발사 수 + 발사 딜레이
 	self.m_skillTimer = 0
 	self.m_skillCount = 1
 
+	self.m_enumTargetType = target_type
+	self.m_enumPosType = pos_type
+
 	self.m_skillStartPosList = nil
 	self.m_skillTargetList = nil
+end
+
+-------------------------------------
+-- function initSkillSize
+-------------------------------------
+function SkillEnumrate:initSkillSize()
+	if (self.m_skillSize) and (not (self.m_skillSize == '')) then
+		local t_data = SkillHelper:getSizeAndScale('fan', self.m_skillSize)  
+
+		--self.m_resScale = t_data['scale']
+		self.m_skillLineSize = t_data['size']
+	end
 end
 
 -------------------------------------
@@ -109,17 +124,6 @@ end
 -- @brief 공격 횟수에 맞춰 랜덤한 타겟 리스트를 생성한다.
 -------------------------------------
 function SkillEnumrate:getSkillTargetList_Random()
-	--[[
-	local world = self.m_owner.m_world
-	local l_target = self.m_owner:getOpponentList()
-	local l_ret = {}
-
-	for i = 1, self.m_skillLineNum do
-		local target = table.getRandom(l_target)
-		table.insert(l_ret, target)	
-	end
-	]]
-
 	local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
 	return l_target
 end
@@ -170,7 +174,7 @@ end
 function SkillEnumrate:getStartPosList_Linear()
 	local t_ret = {}
 	
-	local start_pos_dist = g_constant:get('SKILL', 'PENERATION_ATK_START_POS_DIST')
+	local start_pos_dist = g_constant:get('SKILL', 'ENUMRATE_ATK_START_POS_DIST')
 
 	local owner_pos = self.m_owner.pos
 	local touch_x, touch_y = (self.m_targetPos.x - owner_pos.x), (self.m_targetPos.y - owner_pos.y)
@@ -248,9 +252,8 @@ function SkillEnumrate:makeSkillInstance(owner, t_skill, t_data)
 	local motionstreak_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)
 
 	local line_num = t_skill['hit']
-	local line_size = t_skill['val_1']
-	local pos_type = t_skill['val_2']
-	local target_type = t_skill['val_3']
+	local pos_type = t_skill['val_1']
+	local target_type = t_skill['val_2']
 
 	-- 인스턴스 생성부
 	------------------------------------------------------ 
@@ -259,7 +262,7 @@ function SkillEnumrate:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(missile_res, motionstreak_res, line_num, line_size, pos_type, target_type)
+    skill:init_skill(missile_res, motionstreak_res, line_num, pos_type, target_type)
 	skill:initState()
 
 	-- 3. state 시작 
@@ -270,9 +273,4 @@ function SkillEnumrate:makeSkillInstance(owner, t_skill, t_data)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
-
-    -- 5. 하이라이트
-    if (skill.m_bHighlight) then
-        --world.m_gameHighlight:addMissile(skill)
-    end
 end

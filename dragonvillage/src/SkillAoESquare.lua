@@ -116,23 +116,13 @@ end
 -- function findTarget
 -------------------------------------
 function SkillAoESquare:findTarget()
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
     local x = self.pos.x
 	local y = self.pos.y
+	local width = (self.m_skillWidth / 2)
+	local height = (self.m_skillHeight / 2)
 
-    local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
-    
-    local l_ret = {}
-
-    local std_width = (self.m_skillWidth / 2)
-	local std_height = (self.m_skillHeight / 2)
-
-    for i,v in ipairs(l_target) do
-		if isCollision_Rect(x, y, v, std_width, std_height) then
-            table.insert(l_ret, v)
-		end
-    end
-
-    return l_ret 
+    return SkillTargetFinder:findTarget_AoESquare(l_target, x, y, width, height)
 end
 
 -------------------------------------
