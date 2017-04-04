@@ -31,7 +31,7 @@ end
 function SkillAoESquare_Fairy:initState()
 	self:setCommonState(self)
 	self:addState('start', SkillAoESquare_Fairy.st_appear, 'appear', false)
-    self:addState('attack', SkillAoESquare_Fairy.st_attack, self.m_idleAniName, true)
+    self:addState('attack', SkillAoESquare_Fairy.st_attack, 'idle', true)
 	self:addState('disappear', SkillAoESquare_Fairy.st_disappear, 'disappear', false)
 end
 
