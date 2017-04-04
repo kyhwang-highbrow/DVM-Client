@@ -608,6 +608,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StructEventPopupTab.lua" />
     <None Include="..\src\StructProduct.lua" />
     <None Include="..\src\StructRuneObject.lua" />
+    <None Include="..\src\StructStatusEffect.lua" />
     <None Include="..\src\SumRandom.lua" />
     <None Include="..\src\SwipeGesture.lua" />
     <None Include="..\src\Table.lua" />
