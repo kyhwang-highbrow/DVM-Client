@@ -1,10 +1,9 @@
-local PARENT = class(UI, ITabUI:getCloneTable())
+local PARENT = class(UI_DragonManage_Base, ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_DragonRunes
 -------------------------------------
 UI_DragonRunes = class(PARENT,{
-        m_doid = 'doid',
         m_listFilterSetID = 'number', -- 0번은 전체 1~8은 해당 세트만
         m_tableViewTD = 'UIC_TableViewTD',
 
@@ -15,14 +14,26 @@ UI_DragonRunes = class(PARENT,{
     })
 
 -------------------------------------
+-- function initParentVariable
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_DragonRunes:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_DragonRunes'
+    self.m_bVisible = true or false
+    self.m_titleStr = Str('룬')
+    self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
+end
+
+-------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonRunes:init(doid, slot_idx)
-    self.m_doid = doid
+function UI_DragonRunes:init(doid, b_ascending_sort, sort_type, slot_idx)
+    self.m_selectDragonOID = doid
     self.m_listFilterSetID = 0
     self.m_mEquippedRuneObjects = {}
 
-    local vars = self:load('dragon_rune_new.ui')
+    local vars = self:load('dragon_rune_new_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -35,7 +46,13 @@ function UI_DragonRunes:init(doid, slot_idx)
 
     self:initUI()
     self:initButton()
-    self:refresh()
+    --self:refresh()
+
+    -- 정렬 도우미
+    self:init_dragonSortMgr(b_ascending_sort, sort_type)
+
+    -- 첫 선택 드래곤 지정
+    self:setDefaultSelectDragon(doid)
 
     -- 룬 Tab 설정
     self:initUI_runeTab(slot_idx)
@@ -49,6 +66,8 @@ function UI_DragonRunes:initUI()
 
     self:setEquipedRuneObject(nil)
     self:setSelectedRuneObject(nil)
+
+    self:init_dragonTableView()
 end
 
 -------------------------------------
@@ -56,22 +75,22 @@ end
 -------------------------------------
 function UI_DragonRunes:initButton()
     local vars = self.vars
-    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 
     -- 장착된 룬
     vars['useEnhanceBtn']:registerScriptTapHandler(function() self:click_useEnhanceBtn() end)
     vars['removeBtn']:registerScriptTapHandler(function() self:click_removeBtn() end)    
 
     -- 선택된 룬 판매
-    vars['binBtn']:registerScriptTapHandler(function() self:click_binBtn() end)
+    --vars['binBtn']:registerScriptTapHandler(function() self:click_binBtn() end)
     vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
-    vars['selectEnhance']:registerScriptTapHandler(function() self:click_selectEnhance() end)
+    --vars['selectEnhance']:registerScriptTapHandler(function() self:click_selectEnhance() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_DragonRunes:refresh()
+    self:refreshTableViewList()
 end
 
 -------------------------------------
@@ -130,7 +149,7 @@ function UI_DragonRunes:onChangeTab(tab, first)
 
     -- 슬롯 타입이 변경되었을 때
     local slot_idx = tab
-    local dragon_obj = g_dragonsData:getDragonDataFromUid(self.m_doid)
+    local dragon_obj = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
     local roid = dragon_obj['runes'][tostring(slot_idx)]
     if (roid == '') then
         roid = nil
@@ -196,11 +215,11 @@ end
 
 -------------------------------------
 -- function refreshEquippedRunes
--- @brief
+-- @brief 장착된 룬 리스트(탭에 붙어 있음)
 -------------------------------------
 function UI_DragonRunes:refreshEquippedRunes()
     local vars = self.vars
-    local dragon_obj = g_dragonsData:getDragonDataFromUid(self.m_doid)
+    local dragon_obj = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
 
     local slot_idx = self.m_currTab
 
@@ -217,6 +236,7 @@ function UI_DragonRunes:refreshEquippedRunes()
         -- 장착이 해제가 된 경우
         elseif (self.m_mEquippedRuneObjects[i] and (not equipeed_roid)) then
             rune_slot:removeAllChildren()
+            self.m_mEquippedRuneObjects[i] = nil
 
             if (slot_idx == i) then
                 self:setEquipedRuneObject(nil)
@@ -388,7 +408,7 @@ function UI_DragonRunes:click_removeBtn()
 
     local rune_obj = self.m_equippedRuneObject
     local slot = rune_obj['slot']
-    local doid = self.m_doid
+    local doid = self.m_selectDragonOID
 
     local function finish_cb(ret)
         self:refreshTableViewList()
@@ -430,7 +450,7 @@ function UI_DragonRunes:click_equipBtn()
 
     local rune_obj = self.m_selectedRuneObject
     local roid = rune_obj['roid']
-    local doid = self.m_doid
+    local doid = self.m_selectDragonOID
 
     local function finish_cb(ret)
         self:refreshTableViewList()

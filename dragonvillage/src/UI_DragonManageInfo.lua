@@ -472,36 +472,20 @@ end
 -- @brief 룬 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_runeBtn(slot_idx)
-    --self:openSubManageUI(UI_DragonMgrRunesNew)
-
-    local doid = self.m_selectDragonOID
-    local prev_dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
-
-    local ui = UI_DragonRunes(doid, slot_idx)
-
-    local function close_cb()
-        local curr_dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
-        if (prev_dragon_obj['updated_at'] ~= curr_dragon_obj['updated_at']) then
-            local b_force = true
-            self:setSelectDragonData(doid, b_force)
-        end
-        self:sceneFadeInAction()
-    end
-
-    ui:setCloseCB(close_cb)
+    self:openSubManageUI(UI_DragonRunes, slot_idx)
 end
 
 -------------------------------------
 -- function openSubManageUI
 -- @brief
 -------------------------------------
-function UI_DragonManageInfo:openSubManageUI(sub_manage_ui)
+function UI_DragonManageInfo:openSubManageUI(sub_manage_ui, add_param)
     -- 선탠된 드래곤과 정렬 설정
     local doid = self.m_selectDragonOID
     local b_ascending_sort = self.m_dragonSortMgr.m_bAscendingSort
     local sort_type = self.m_dragonSortMgr.m_currSortType
 
-    local ui = sub_manage_ui(doid, b_ascending_sort, sort_type)
+    local ui = sub_manage_ui(doid, b_ascending_sort, sort_type, add_param)
 
     -- UI종료 후 콜백
     local function close_cb()

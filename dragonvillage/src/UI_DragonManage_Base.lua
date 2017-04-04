@@ -9,6 +9,7 @@ UI_DragonManage_Base = class(PARENT,{
         m_tableViewExt = 'TableViewExtension',  -- 하단의 드래곤 리스트 테이블 뷰
         m_dragonSelectFrame = 'sprite',         -- 선택된 드래곤의 카드에 표시
         m_dragonSortMgr = 'DragonSortManager',
+        m_bChangeDragonList = 'boolean',
     })
 
 -------------------------------------
@@ -29,6 +30,7 @@ end
 --        하위 클래스에서 init을 해야함
 -------------------------------------
 function UI_DragonManage_Base:init()
+    self.m_bChangeDragonList = false
 
     -- 드래곤들의 덱설정 여부 데이터 갱신
     g_deckData:resetDragonDeckInfo()
