@@ -158,6 +158,18 @@ end
 
 
 -------------------------------------
+-- function getDragonAttr
+-------------------------------------
+function TableDragon:getDragonAttr(did)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local dragon_attr = self:getValue(did, 'attr')
+    return dragon_attr
+end
+
+-------------------------------------
 -- function getMaxStatus
 -------------------------------------
 function TableDragon:getMaxStatus(did, status_name)

@@ -49,11 +49,6 @@ function UI_DragonManagementEvolution:initUI()
     local vars = self.vars
     self:init_dragonTableView()
 
-    local width, height = vars['statsNode']:getNormalSize()
-    local before_x = 200
-    local arrow_x = 210
-    local after_x = 230
-
     local l_pos = getSortPosList(30, 3)
 
     local uic_stats = UIC_IndivisualStats()

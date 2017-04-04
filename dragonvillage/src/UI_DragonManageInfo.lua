@@ -420,7 +420,7 @@ function UI_DragonManageInfo:click_upgradeBtn()
         end
     end
 
-    self:openSubManageUI(UI_DragonUpgrade)
+    self:openSubManageUI(UI_DragonUpgradeNew)
 end
 
 -------------------------------------
