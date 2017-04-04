@@ -5,11 +5,13 @@
 -- #    always: 웨이브 시작시 발동 -> 캐릭터가 사망할 때 까지 유지. 해제 불가
 -- #    wave_start: 웨이브 시작 시 발동
 
+-- #    none : 발동하지 않음
+STATUS_EFFECT_CON__NONE = 'none'
+
 -- #    skill_action: 스킬 사용시 발동
 STATUS_EFFECT_CON__SKILL_START = 'skill_start'
 -- #    skill_end: 스킬이 종료된 후 발동
 STATUS_EFFECT_CON__SKILL_END = 'skill_end'
-
 -- #    hit: 자신의 공격이 적에게 적중 했을 때 발동
 STATUS_EFFECT_CON__SKILL_HIT = 'hit'
 
@@ -24,5 +26,9 @@ STATUS_EFFECT_CON__SKILL_SLAIN = 'slain'
 -- ===================================================
 
 
--- #    none : 발동하지 않음
-STATUS_EFFECT_CON__NONE = 'none'
+
+-- 변수명 고민중...
+CON_SKILL_START = 'skill_start'
+CON_SKILL_HIT = 'skill_hit'
+CON_SKILL_END = 'skill_end'
+

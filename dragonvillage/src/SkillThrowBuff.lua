@@ -64,10 +64,8 @@ end
 -------------------------------------
 function SkillThrowBuff.st_obtain(owner, dt)
     if (owner.m_stateTimer == 0) then
-        owner:doStatusEffect({
-            STATUS_EFFECT_CON__SKILL_HIT,
-            STATUS_EFFECT_CON__SKILL_HIT_CRI
-        }, {owner.m_targetChar})
+		-- 상태효과
+        owner:dispatch(CON_SKILL_HIT, {l_target = {owner.m_targetChar}})
 
 		owner.m_animator:setPosition(0, 100)
 		owner.m_animator:addAniHandler(function()

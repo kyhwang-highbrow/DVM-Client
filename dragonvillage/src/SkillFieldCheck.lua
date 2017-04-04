@@ -74,10 +74,7 @@ function SkillFieldCheck:runAttack()
 		
 				-- 상태효과 시전
 				for i = 1, status_effect.m_overlabCnt do 
-                    self:doStatusEffect({
-                        STATUS_EFFECT_CON__SKILL_HIT,
-                        STATUS_EFFECT_CON__SKILL_HIT_CRI
-                    }, {target_char})
+                    self:dispatch(CON_SKILL_HIT, {l_target = {target_char}})
 				end
 	
 				-- 대상의 상태효과 해제(필요한경우)

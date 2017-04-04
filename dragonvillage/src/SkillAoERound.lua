@@ -115,20 +115,19 @@ end
 -- function runAttack
 -------------------------------------
 function SkillAoERound:runAttack()
-    local t_target = self:findTarget()
+    local l_target = self:findTarget()
 	
-	-- 특수한 부가 효과 구현
-	self:doSpecialEffect(t_target)
-
-    for i, target_char in ipairs(t_target) do
+    for i, target_char in ipairs(l_target) do
         -- 공격
         self:attack(target_char)
 		-- 타겟별 리소스
 		self:makeEffect(self.m_aoeRes, target_char.pos.x, target_char.pos.y)
     end
 
-	-- 스킬이 제거할 수 있는 미사일 제거
-	self:removeDestructibleMissile()
+	-- 특수한 부가 효과 구현
+	self:doSpecialEffect(l_target)
+
+	self:doCommonAttackEffect(l_target)
 end
 
 -------------------------------------
@@ -158,8 +157,6 @@ end
 -------------------------------------
 function SkillAoERound:escapeAttack()
 	self.m_animator:addAniHandler(function()
-		local t_target = self:findTarget()
-		self:doStatusEffect({ STATUS_EFFECT_CON__SKILL_HIT }, t_target)
 		self:changeState('disappear')
 	end)
 end

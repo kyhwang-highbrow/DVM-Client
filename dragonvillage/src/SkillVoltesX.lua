@@ -165,14 +165,7 @@ function SkillVoltesX:runAttack(idx)
 		self:attack(target_char)
     end
 	
-	-- 스킬이 제거할 수 있는 미사일 제거
-	self:removeDestructibleMissile()
-
-	-- 상태효과
-    self:doStatusEffect({
-        STATUS_EFFECT_CON__SKILL_HIT,
-        STATUS_EFFECT_CON__SKILL_HIT_CRI
-    }, t_target)
+	self:doCommonAttackEffect(l_target)
 end
 
 -------------------------------------

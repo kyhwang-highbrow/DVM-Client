@@ -73,6 +73,8 @@ function SkillChainLightning:runAttack()
         local effect = self:makeEffect(self.m_lightningRes, i)
         table.insert(self.m_tEffectList, effect)
     end
+
+	self:doCommonAttackEffect(self.m_tTargetList)
 end
 
 -------------------------------------

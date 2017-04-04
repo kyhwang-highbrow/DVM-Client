@@ -50,10 +50,7 @@ function SkillGuardian.st_idle(owner, dt)
         buff:init_buff(owner.m_owner, owner.m_duration, owner.m_targetChar, owner.m_res)
 
 		-- 상태효과
-        owner:doStatusEffect({
-            STATUS_EFFECT_CON__SKILL_HIT,
-            STATUS_EFFECT_CON__SKILL_HIT_CRI
-        }, {owner.m_targetChar})
+        owner:dispatch(CON_SKILL_HIT, {l_target = {owner.m_targetChar}})
 
         owner:changeState('dying')
         return

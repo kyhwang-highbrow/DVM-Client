@@ -211,6 +211,8 @@ function SkillLaser:runAttack(t_collision_obj)
 	
 		self:attack(target)
 	end
+
+	self:doCommonAttackEffect(t_collision_obj)
 end
 
 -------------------------------------

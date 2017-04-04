@@ -25,12 +25,14 @@ end
 -- function runAttack
 -------------------------------------
 function SkillAoERound_Egg:runAttack()
-    local t_target = self:findTarget()
+    local l_target = self:findTarget()
 
     for i, target_char in ipairs(t_target) do
 		-- 타겟별 리소스
 		self:makeEffect(self.m_aoeRes, target_char.pos.x, target_char.pos.y)
     end
+
+	self:doCommonAttackEffect(l_target)
 end
 
 -------------------------------------

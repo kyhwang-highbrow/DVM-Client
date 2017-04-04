@@ -30,20 +30,6 @@ function SkillAoESquare_Heal:init_skill(skill_width, skill_height, hit, heal_rat
 end
 
 -------------------------------------
--- function escapeAttack
--------------------------------------
-function SkillAoESquare_Heal:escapeAttack()
-    PARENT.escapeAttack(self)
-
-	-- 상태효과
-	local t_target = self:findTarget()
-    self:doStatusEffect({
-        STATUS_EFFECT_CON__SKILL_HIT,
-        STATUS_EFFECT_CON__SKILL_HIT_CRI
-    }, t_target)
-end
-
--------------------------------------
 -- function attack
 -------------------------------------
 function SkillAoESquare_Heal:attack(target_char)

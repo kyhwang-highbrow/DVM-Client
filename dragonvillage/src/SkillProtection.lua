@@ -37,11 +37,7 @@ end
 function SkillProtection.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
 		-- 기본 타겟에 실드
-        owner:doStatusEffect({
-            STATUS_EFFECT_CON__SKILL_HIT,
-            STATUS_EFFECT_CON__SKILL_HIT_CRI,
-            STATUS_EFFECT_CON__SKILL_SLAIN
-        })
+        owner:dispatch(CON_SKILL_HIT, {l_target = {owner.m_targetChar}})
         owner:changeState('dying')
         return
     end

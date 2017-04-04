@@ -60,10 +60,7 @@ function SkillHeartOfRuin.st_idle(owner, dt)
         owner:makeSpecialEffect()
 
         -- 버프 적용
-        owner:doStatusEffect({
-            STATUS_EFFECT_CON__SKILL_HIT,
-            STATUS_EFFECT_CON__SKILL_HIT_CRI
-        }, {})
+        owner:dispatch(CON_SKILL_HIT)
 
         local world = owner.m_world
 

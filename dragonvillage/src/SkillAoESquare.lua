@@ -99,20 +99,6 @@ function SkillAoESquare.st_disappear(owner, dt)
 end
 
 -------------------------------------
--- function runAttack
--------------------------------------
-function SkillAoESquare:runAttack()
-    local t_target = self:findTarget()
-
-    for i, target_char in ipairs(t_target) do
-		self:attack(target_char)	
-    end
-
-	-- 스킬이 제거할 수 있는 미사일 제거
-	self:removeDestructibleMissile()
-end
-
--------------------------------------
 -- function enterAttack
 -- @brief 공격이 시작되는 시점에 실행
 -------------------------------------
@@ -125,8 +111,6 @@ end
 -------------------------------------
 function SkillAoESquare:escapeAttack()
 	self.m_animator:addAniHandler(function()
-		local t_target = self:findTarget()
-		self:doStatusEffect({ STATUS_EFFECT_CON__SKILL_HIT }, t_target)
 		self:changeState('disappear')
 	end)
 end

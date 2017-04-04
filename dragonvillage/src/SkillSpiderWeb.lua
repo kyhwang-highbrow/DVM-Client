@@ -44,11 +44,6 @@ end
 -------------------------------------
 function SkillSpiderWeb.st_appear(owner, dt)
 	if (owner.m_stateTimer == 0) then
-        owner:doStatusEffect({
-            STATUS_EFFECT_CON__SKILL_HIT,
-            STATUS_EFFECT_CON__SKILL_HIT_CRI
-        }, {owner.m_targetChar})
-
 		owner.m_animator:addAniHandler(function()
 			owner.m_targetChar.m_animator:setVisible(false)
 			owner:changeState('idle')
@@ -61,6 +56,9 @@ end
 -------------------------------------
 function SkillSpiderWeb.st_idle(owner, dt)
 	if (owner.m_stateTimer == 0) then
+		-- 상태효과
+        owner:dispatch(CON_SKILL_HIT, {l_target = {owner.m_targetChar}})
+
 	elseif (owner.m_stateTimer > owner.m_statusDuration) then
 		owner:changeState('end')
 	end

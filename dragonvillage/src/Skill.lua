@@ -1,4 +1,4 @@
-local PARENT = Entity
+local PARENT = class(Entity, IEventListener:getCloneTable(), IEventDispatcher:getCloneTable())
 
 -------------------------------------
 -- class Skill
@@ -57,18 +57,22 @@ end
 -- @brief actvityCarrier, AttackOffset, defualt target, default target pos를 설정한다. 
 -------------------------------------
 function Skill:init_skill()
-	-- 고유값 가지는 멤버 변수 
+	-- 멤버 변수 
 	self.m_range = 0    
 	self.m_tSpecialTarget = {}
 
+	-- 세부 초기화 함수 실행
 	self:initActvityCarrier(self.m_powerRate, self.m_powerAbs)
     self:initAttackPosOffset()
 	self:initSkillSize()
+	self:initEventListener()
 	self:adjustAnimator()
 	
+	-- 타겟이 없다면 기본 타겟 찾음
 	if (not self.m_targetChar) then
 		self.m_targetChar = self:getDefaultTarget()
 	end
+	-- 타겟 좌표가 없다면 기본 타겟 좌표를 찾음
     if (not self.m_targetPos.x) or (not self.m_targetPos.y) then
         local x, y = self:getDefaultTargetPos()
 		self.m_targetPos = {x = x, y = y}
@@ -93,24 +97,6 @@ function Skill:initActvityCarrier(power_rate, power_abs)
 
     -- 피격시 하일라이트 여부
     self.m_activityCarrier:setHighlight(self.m_bHighlight)
-    
-    
-	-- 피격시 상태효과가 있다면 activityCarrier에 추가
-	-- @TODO 기본적으로 상태효과에서는 m_activityCarrier에 담지 않아야 컨트롤하기 좋음
-	-- 이벤트 방식으로 처리할 예정
-	--[[
-    do
-        local lStatusEffect = self:getStatusEffectListByStartCondition({
-            STATUS_EFFECT_CON__SKILL_HIT,
-            STATUS_EFFECT_CON__SKILL_HIT_CRI,
-            STATUS_EFFECT_CON__SKILL_SLAIN
-        })
-
-        if (#lStatusEffect > 0) then
-            self.m_activityCarrier:insertStatusEffectRate(lStatusEffect)
-        end
-    end
-	]]
 end
 
 -------------------------------------
@@ -118,6 +104,20 @@ end
 -- @breif table의 skill_size를 통하여 필요한 값과 scale 추출 / 각 스킬 대분류 마다 작성
 -------------------------------------
 function Skill:initSkillSize()
+end
+
+-------------------------------------
+-- function initEventListener
+-- @breif 이벤트 처리..
+-------------------------------------
+function Skill:initEventListener()
+	-- 스킬 생명 주기 내의 이벤트
+	self:addListener(CON_SKILL_START, self)
+	self:addListener(CON_SKILL_HIT, self)
+	self:addListener(CON_SKILL_END, self)
+
+	-- 스킬 외부에서의 이벤트
+	--self.m_owner:addListener('hit', self)
 end
 
 -------------------------------------
@@ -230,7 +230,7 @@ function Skill.st_delay(owner, dt)
 		owner:changeState('start')
 
         -- 스킬 사용시 발동되는 status effect를 적용
-        owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_START })
+		owner:dispatch(CON_SKILL_START)
     end
 end
 
@@ -246,7 +246,7 @@ function Skill.st_dying(owner, dt)
 		end
 
         -- 스킬 종료시 발동되는 status effect를 적용
-        owner:doStatusEffect({ STATUS_EFFECT_CON__SKILL_END })
+		owner:dispatch(CON_SKILL_END)
 
         -- 보너스 버프 효과 부여
         if (owner.m_bonusLevel > 0) then
@@ -259,11 +259,19 @@ function Skill.st_dying(owner, dt)
 end
 
 -------------------------------------
+-- function onEvent
+-------------------------------------
+function Skill:onEvent(event_name, t_event, ...)
+	local t_event = t_event or {}
+	self:doStatusEffect(event_name, t_event['l_target'])
+end
+
+-------------------------------------
 -- function doStatusEffect
 -- @brief l_start_con 조건에 해당하는 statusEffect를 적용
 -------------------------------------
-function Skill:doStatusEffect(l_start_con, t_target)
-    local lStatusEffect = self:getStatusEffectListByStartCondition(l_start_con)
+function Skill:doStatusEffect(start_con, t_target)
+    local lStatusEffect = self:getStatusEffectList(start_con)
 
     if (#lStatusEffect > 0) then
         local l_ret = nil
@@ -274,21 +282,6 @@ function Skill:doStatusEffect(l_start_con, t_target)
 			l_ret = t_target or self:findTarget()
 		end
         StatusEffectHelper:doStatusEffectByStr(self.m_owner, l_ret, lStatusEffect)
-
-        -- 액티브 스킬로 아군에게 버프를 주는 경우 피버 게이지 상승
-        do
-            if (self.m_owner.m_bLeftFormation and self.m_activityCarrier:getAttackType() == 'active') then
-                for _, target in pairs(l_ret) do
-                    if (target.m_bLeftFormation) then
-                        target:dispatch('hit_active_buff', {}, target)
-
-                        if (self.m_bHighlight) then
-                            --self.m_world.m_gameHighlight:addChar(target)
-                        end
-                    end
-                end
-            end
-        end
     end
 end
 
@@ -296,22 +289,26 @@ end
 -- function runAttack
 -- @brief findtarget으로 찾은 적에게 공격을 실행한다. 
 -------------------------------------
-function Skill:runAttack(bNoStatusEffect)
-	local t_target = self:findTarget()
-    for i,target_char in ipairs(t_target) do
+function Skill:runAttack()
+	local l_target = self:findTarget()
+    for i, target_char in ipairs(l_target) do
 		self:attack(target_char)
     end
-	
+
+	self:doCommonAttackEffect(l_target)
+end
+
+-------------------------------------
+-- function doCommonAttackEffect
+-- @breif 어택 이벤트와 관련된 처리
+-------------------------------------
+function Skill:doCommonAttackEffect(l_target)
 	-- 스킬이 제거할 수 있는 미사일 제거
 	self:removeDestructibleMissile()
 
 	-- 상태효과
-	if not bNoStatusEffect then
-        self:doStatusEffect({
-            STATUS_EFFECT_CON__SKILL_HIT,
-            STATUS_EFFECT_CON__SKILL_HIT_CRI
-        }, t_target)
-	end
+	local t_event = {l_target = l_target}
+	self:dispatch(CON_SKILL_HIT, t_event)
 end
 
 -------------------------------------
@@ -327,7 +324,7 @@ function Skill:attack(target_char)
 end
 
 -------------------------------------
--- function attack
+-- function onAttack
 -- @brief 공격(attack) 직후 호출됨
 -------------------------------------
 function Skill:onAttack(target_char)
@@ -461,26 +458,36 @@ function Skill:getAttackPositionAtWorld()
 end
 
 -------------------------------------
--- function getAttackPosition
+-- function getStatusEffectListByStartCondition
 -- @brief 시작 조건에 해당하는 status effect 리스트를 얻음
 -- @param l_start_con : 시작 조건을 지칭하는 스트링값 리스트 ex) { 'skill_action', 'hit' }
 -------------------------------------
 function Skill:getStatusEffectListByStartCondition(l_start_con)
-    local lStatusEffect = {}
+    local l_status_effect = {}
     
-    for i, str in ipairs(self.m_lStatusEffectStr) do
-		if (str ~= '') then
-			for _, con in ipairs(l_start_con) do
-				local t_effect = StatusEffectHelper:parsingStr(str)
-				if (t_effect['start_con'] == con) then
-					table.insert(lStatusEffect, str)
-					break
-				end
-			end
-		end
+	for _, start_con in ipairs(l_start_con) do
+		local l_ret = self:getStatusEffectList(start_con)
+		table.merge(l_status_effect, l_ret)
     end
 
-    return lStatusEffect
+    return l_status_effect
+end
+
+-------------------------------------
+-- function getStatusEffectList
+-------------------------------------
+function Skill:getStatusEffectList(start_con)
+	local l_status_effect = {}
+	for i, str in ipairs(self.m_lStatusEffectStr) do
+		if (str ~= '') then
+			local t_effect = StatusEffectHelper:parsingStr(str)
+			if (t_effect['start_con'] == start_con) then
+				table.insert(l_status_effect, str)
+			end
+		end
+	end
+
+	return l_status_effect
 end
 
 -------------------------------------

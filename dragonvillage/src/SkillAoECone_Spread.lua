@@ -30,9 +30,9 @@ end
 -- function runAttack
 -------------------------------------
 function SkillAoECone_Spread:runAttack()
-    local t_target = self:findTarget()
+    local l_target = self:findTarget()
 
-    for i, target_char in ipairs(t_target) do
+    for i, target_char in ipairs(l_target) do
         -- 공격
         self:attack(target_char)
 		
@@ -45,14 +45,7 @@ function SkillAoECone_Spread:runAttack()
     end
 	self.m_speardCnt = 1
 
-	-- 스킬이 제거할 수 있는 미사일 제거
-	self:removeDestructibleMissile()
-
-	-- 상태효과
-    self:doStatusEffect({
-        STATUS_EFFECT_CON__SKILL_HIT,
-        STATUS_EFFECT_CON__SKILL_HIT_CRI
-    }, t_target)
+	self:doCommonAttackEffect(l_target)
 end
 
 -------------------------------------

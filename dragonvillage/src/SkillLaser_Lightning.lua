@@ -95,7 +95,6 @@ end
 -- function runAttack
 -------------------------------------
 function SkillLaser_Lightning:runAttack()
-	
     for i, target_char in ipairs(self.m_tTargetList) do
 		
 		self.m_activityCarrier:setPowerRate(self.m_lightingDmgRate)

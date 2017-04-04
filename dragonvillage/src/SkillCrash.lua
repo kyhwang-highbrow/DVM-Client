@@ -286,12 +286,6 @@ function SkillCrash:attackShockwave(x, y)
 
     -- 메뉴얼 스킬 발동
     self:doManualSkill(target_count)
-
-	-- 상태효과
-    self:doStatusEffect({
-        STATUS_EFFECT_CON__SKILL_HIT,
-        STATUS_EFFECT_CON__SKILL_HIT_CRI
-    }, t_target)
 end
 
 -------------------------------------

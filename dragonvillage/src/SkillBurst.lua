@@ -54,9 +54,9 @@ end
 -- function runAttack
 -------------------------------------
 function SkillBurst:runAttack()
-    local t_target = self.m_owner:getTargetListByType(self.m_targetType)
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType)
 	
-    for i, target_char in ipairs(t_target) do
+    for i, target_char in ipairs(l_target) do
 		-- 추가 데미지 여부 판별
 		local has_target_status_effect = false
 		local multiply_value = 1
@@ -92,8 +92,7 @@ function SkillBurst:runAttack()
 	-- shake
 	self.m_owner.m_world.m_shakeMgr:shakeBySpeed(math_random(335-20, 335+20), math_random(500, 1500))
 
-	-- 스킬이 제거할 수 있는 미사일 제거
-	self:removeDestructibleMissile()
+	self:doCommonAttackEffect(l_target)
 end
 
 -------------------------------------
