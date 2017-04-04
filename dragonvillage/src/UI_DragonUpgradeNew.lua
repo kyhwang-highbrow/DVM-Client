@@ -313,9 +313,11 @@ function UI_DragonUpgradeNew:getDragonUpgradeMaterialList(doid)
     -- 2. 자기 자신 드래곤 제외
     l_dragon_list[doid] = nil
 
-    for i,v in pairs(l_dragon_list) do
+    for doid,v in pairs(l_dragon_list) do
         if (v['grade'] < t_dragon_data['grade']) then
-            l_dragon_list[i] = nil
+            l_dragon_list[doid] = nil
+        elseif (not g_dragonsData:possibleMaterialDragon(doid)) then
+            l_dragon_list[doid] = nil
         end
     end
 
