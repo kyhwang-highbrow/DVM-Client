@@ -12,8 +12,6 @@ SkillAoESquare = class(PARENT, {
 
 		m_attackCnt = 'number',
 		m_maxAttackCnt = 'number',
-
-		m_idleAniName = 'idle',
      })
 
 -------------------------------------
@@ -35,11 +33,8 @@ function SkillAoESquare:init_skill(hit)
 	-- 멤버 변수
 	self.m_maxAttackCnt = hit 
     self.m_attackCnt = 0
-    self.m_hitInterval = ONE_FRAME * 7
+    self.m_hitInterval = 0.3
 	self.m_multiAtkTimer = self.m_hitInterval
-	
-	-- 하드코딩..
-	self.m_idleAniName = 'idle'
 
 	-- 위치 설정
 	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
@@ -50,7 +45,23 @@ end
 -------------------------------------
 function SkillAoESquare:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillAoESquare.st_attack, self.m_idleAniName, true)
+	self:addState('start', SkillAoESquare.st_appear, 'appear', false)
+    self:addState('attack', SkillAoESquare.st_attack, 'idle', true)
+	self:addState('disappear', SkillAoESquare.st_disappear, 'disappear', false)
+end
+
+-------------------------------------
+-- function st_appear
+-------------------------------------
+function SkillAoESquare.st_appear(owner, dt)
+    if (owner.m_stateTimer == 0) then
+		if (not owner.m_targetChar) then 
+			owner:changeState('dying') 
+		end
+		owner.m_animator:addAniHandler(function()
+			owner:changeState('attack')
+		end)
+    end
 end
 
 -------------------------------------
@@ -77,6 +88,17 @@ function SkillAoESquare.st_attack(owner, dt)
 end
 
 -------------------------------------
+-- function st_disappear
+-------------------------------------
+function SkillAoESquare.st_disappear(owner, dt)
+    if (owner.m_stateTimer == 0) then
+		owner.m_animator:addAniHandler(function()
+			owner:changeState('dying')
+		end)
+    end
+end
+
+-------------------------------------
 -- function runAttack
 -------------------------------------
 function SkillAoESquare:runAttack()
@@ -98,18 +120,15 @@ function SkillAoESquare:enterAttack()
 end
 
 -------------------------------------
--- function doSpecialEffect
--- @brief 시작 위치를 자유롭게 지정하여 실행
--------------------------------------
-function SkillAoESquare:doSpecialEffect()
-end
-
--------------------------------------
 -- function escapeAttack
 -- @brief 공격이 종료되는 시점에 실행
 -------------------------------------
 function SkillAoESquare:escapeAttack()
-	self:changeState('dying')
+	self.m_animator:addAniHandler(function()
+		local t_target = self:findTarget()
+		self:doStatusEffect({ STATUS_EFFECT_CON__SKILL_HIT }, t_target)
+		self:changeState('disappear')
+	end)
 end
 
 -------------------------------------

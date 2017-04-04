@@ -35,7 +35,8 @@ function SkillAoESquare_Width:init_skill()
         self.m_animator:setFlip(true)
     end
 
-	self:setPosition(cameraHomePosX + (CRITERIA_RESOLUTION_X / 2), self.m_targetPos.y) -- X좌표값은 화면의 중심으로 세팅
+	-- X좌표값은 화면의 중심으로 세팅
+	self:setPosition(cameraHomePosX + (CRITERIA_RESOLUTION_X / 2), self.m_targetPos.y)
 end
 
 -------------------------------------

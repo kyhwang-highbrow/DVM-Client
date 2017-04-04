@@ -32,13 +32,12 @@ function SkillAoERound_Alien:init_skill(attack_count, range, aoe_res, is_release
 end
 
 -------------------------------------
--- function doSpecialEffect_onAppear
+-- function enterAttack
 -------------------------------------
-function SkillAoERound_Alien:doSpecialEffect_onAppear()
+function SkillAoERound_Alien:enterAttack()
 	self.m_isStartZoom = true
 	local vitual_char = {pos = self.pos}
 	self.m_world.m_gameCamera:setTarget(vitual_char, {time = 0.05})
-
 end
 
 -------------------------------------

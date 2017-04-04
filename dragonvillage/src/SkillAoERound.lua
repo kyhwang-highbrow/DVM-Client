@@ -66,7 +66,7 @@ function SkillAoERound.st_appear(owner, dt)
 		if (not owner.m_targetChar) then 
 			owner:changeState('dying') 
 		end
-		owner:doSpecialEffect_onAppear()
+		owner:enterAttack()
 		owner.m_animator:addAniHandler(function()
 			owner:changeState('attack')
 		end)
@@ -141,9 +141,9 @@ function SkillAoERound:setAttackInterval()
 end
 
 -------------------------------------
--- function doSpecialEffect_onAppear
+-- function enterAttack
 -------------------------------------
-function SkillAoERound:doSpecialEffect_onAppear(t_target)
+function SkillAoERound:enterAttack(t_target)
 end
 
 -------------------------------------
