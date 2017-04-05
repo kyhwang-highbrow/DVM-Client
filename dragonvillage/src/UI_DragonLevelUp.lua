@@ -26,7 +26,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonLevelUp:init(doid, b_ascending_sort, sort_type)
+function UI_DragonLevelUp:init(doid)
     local vars = self:load('dragon_management_levelup_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -49,7 +49,7 @@ function UI_DragonLevelUp:init(doid, b_ascending_sort, sort_type)
     self:refresh()
 
     -- 정렬 도우미
-    self:init_dragonSortMgr(b_ascending_sort, sort_type)
+    self:init_dragonSortMgr()
 end
 
 -------------------------------------

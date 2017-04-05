@@ -22,7 +22,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonManagementEvolution:init(doid, b_ascending_sort, sort_type)
+function UI_DragonManagementEvolution:init(doid)
     local vars = self:load('dragon_management_evolution_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -36,7 +36,7 @@ function UI_DragonManagementEvolution:init(doid, b_ascending_sort, sort_type)
     self:refresh()
 
     -- 정렬 도우미
-    self:init_dragonSortMgr(b_ascending_sort, sort_type)
+    self:init_dragonSortMgr()
 
     -- 첫 선택 드래곤 지정
     self:setDefaultSelectDragon(doid)

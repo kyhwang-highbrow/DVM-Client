@@ -10,6 +10,9 @@ SortManager_UIHelper = class({
         m_ascendingSprite = 'cc.Sprite',
 
         m_cbOnChange = 'function',
+
+        --
+        m_mSortData = '',
     })
 
 -------------------------------------

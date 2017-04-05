@@ -25,7 +25,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonManageInfo:init(doid, b_ascending_sort, sort_type)
+function UI_DragonManageInfo:init(doid)
     local vars = self:load('dragon_management_info.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -39,7 +39,7 @@ function UI_DragonManageInfo:init(doid, b_ascending_sort, sort_type)
     self:refresh()
 
     -- 정렬 도우미
-    self:init_dragonSortMgr(b_ascending_sort, sort_type)
+    self:init_dragonSortMgr()
 
     -- 첫 선택 드래곤 지정
     self:setDefaultSelectDragon(doid)
@@ -111,12 +111,6 @@ function UI_DragonManageInfo:initButton()
         -- 도감
         vars['collectionBtn']:setVisible(true)
         vars['collectionBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end)
-        
-        -- 정렬
-        vars['sortBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"정렬" 미구현') end)
-        
-        -- 오름차순, 내림차순
-        vars['sortOrderBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed('"오름차순, 내림차순" 미구현') end)
 
         -- 진화 단계 보기
         vars['evolutionViewBtn']:registerScriptTapHandler(function() self:click_evolutionViewBtn() end)
@@ -338,10 +332,8 @@ end
 function UI_DragonManageInfo:openSubManageUI(sub_manage_ui, add_param)
     -- 선탠된 드래곤과 정렬 설정
     local doid = self.m_selectDragonOID
-    local b_ascending_sort = self.m_dragonSortMgr.m_bAscendingSort
-    local sort_type = self.m_dragonSortMgr.m_currSortType
 
-    local ui = sub_manage_ui(doid, b_ascending_sort, sort_type, add_param)
+    local ui = sub_manage_ui(doid, add_param)
 
     -- UI종료 후 콜백
     local function close_cb()
@@ -358,9 +350,7 @@ function UI_DragonManageInfo:openSubManageUI(sub_manage_ui, add_param)
         end
 
         do -- 정렬
-            self.m_dragonSortMgr:click_sortOrderBtn(ui.m_dragonSortMgr.m_bAscendingSort, true)
-            self.m_dragonSortMgr:click_sortTypeBtn(ui.m_dragonSortMgr.m_currSortType, true)
-            self.m_dragonSortMgr:changeSort()
+            self:apply_dragonSort_saveData()
         end
 
         self:sceneFadeInAction()
@@ -557,8 +547,8 @@ function UI_DragonManageInfo:checkDragonListRefresh()
         -- 드래곤 리스트 새로 생성
         self:init_dragonTableView()
 
-        -- @TODO sgkim 정렬 클래스 바꾸자!!
-        self.m_dragonSortMgr:changeSort()
+        -- 정렬
+        self:apply_dragonSort_saveData()
     end
 end
 

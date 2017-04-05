@@ -495,9 +495,6 @@
     <None Include="..\src\PatchData.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UILua.lua">
-      <Filter>lua\uilib</Filter>
-    </None>
     <None Include="..\src\Camera.lua">
       <Filter>lua</Filter>
     </None>
@@ -1952,6 +1949,9 @@
     </None>
     <None Include="..\src\StatusEffect_AddDmg.lua">
       <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UIC_SortList.lua">
+      <Filter>lua\UIC</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

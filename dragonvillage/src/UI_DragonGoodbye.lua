@@ -58,7 +58,7 @@ end
 -- function init_dragonSortMgr
 -- @brief 정렬 도우미
 -------------------------------------
-function UI_DragonGoodbye:init_dragonSortMgr(b_ascending_sort, sort_type)
+function UI_DragonGoodbye:init_dragonSortMgr()
     self.m_dragonSortMgr = DragonSortManagerUpgradeMaterial(self.vars, self.m_tableViewExtMaterial, b_ascending_sort, sort_type)
 end
 

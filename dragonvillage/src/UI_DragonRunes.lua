@@ -29,7 +29,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonRunes:init(doid, b_ascending_sort, sort_type, slot_idx)
+function UI_DragonRunes:init(doid, slot_idx)
     self.m_selectDragonOID = doid
     self.m_listFilterSetID = 0
     self.m_mEquippedRuneObjects = {}
@@ -50,7 +50,7 @@ function UI_DragonRunes:init(doid, b_ascending_sort, sort_type, slot_idx)
     --self:refresh()
 
     -- 정렬 도우미
-    self:init_dragonSortMgr(b_ascending_sort, sort_type)
+    self:init_dragonSortMgr()
 
     -- 첫 선택 드래곤 지정
     self:setDefaultSelectDragon(doid)
@@ -481,3 +481,33 @@ function UI_DragonRunes:click_equipBtn()
 
     g_runesData:request_runesEquip(doid, roid, finish_cb, fail_cb)
 end
+
+
+--================================================================
+-------------------------------------
+-- function init_setSortUI
+-- @brief
+-------------------------------------
+function UI_DragonRunes:init_setSortUI()
+    --[[
+    local vars = self.vars
+        setSortBtn -- 세트 정렬 버튼
+        setSortLabel -- 세트 정렬 
+        setSortEffectLabel -- 세트 효과 이름
+
+        setSortNode -- extend
+
+        setSelectAllBtn 전체
+        setSelectAspdBtn
+        setSelectDmgBtn
+        setSelectAtkBtn
+        setSelectResistBtn
+        setSelectDefBtn
+        setSelectRateBtn
+        setSelectCriBtn
+        setSelectHpBtn
+    --]]
+end
+
+
+--================================================================

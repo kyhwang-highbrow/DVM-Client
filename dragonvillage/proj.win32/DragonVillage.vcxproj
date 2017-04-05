@@ -668,6 +668,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UIC_RadioButton.lua" />
     <None Include="..\src\UIC_RichLabel.lua" />
     <None Include="..\src\UIC_RichLabelCore.lua" />
+    <None Include="..\src\UIC_SortList.lua" />
     <None Include="..\src\UIC_TableView.lua" />
     <None Include="..\src\UIC_TableViewCell.lua" />
     <None Include="..\src\UIC_TableViewProtocol.lua" />
@@ -678,7 +679,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\uilib\UI.lua" />
     <None Include="..\src\uilib\UILoader.lua" />
     <None Include="..\src\uilib\UIManager.lua" />
-    <None Include="..\src\UILua.lua" />
     <None Include="..\src\UINavigator.lua" />
     <None Include="..\src\UI_AcquisitionRegionInformation.lua" />
     <None Include="..\src\UI_AcquisitionRegionListItem.lua" />

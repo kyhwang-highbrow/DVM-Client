@@ -29,7 +29,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonEclvupNew:init(doid, b_ascending_sort, sort_type)
+function UI_DragonEclvupNew:init(doid)
     self.m_bChangeDragonList = false
 
     local vars = self:load('dragon_transcend.ui')
@@ -48,7 +48,7 @@ function UI_DragonEclvupNew:init(doid, b_ascending_sort, sort_type)
     self:refresh()
 
     -- 정렬 도우미
-    self:init_dragonSortMgr(b_ascending_sort, sort_type)
+    self:init_dragonSortMgr()
 
     -- 첫 선택 드래곤 지정
     self:setDefaultSelectDragon(doid)
