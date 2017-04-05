@@ -318,10 +318,9 @@ end
 -- function invokePassive
 -------------------------------------
 function StatusEffectHelper:invokePassive(char, t_skill)
-	local table_status_effect = TABLE:get('status_effect')
-	local l_status_effect_str = {t_skill['add_option_1'], t_skill['add_option_2']}
+	local l_status_effect_struct = SkillHelper:makeStructStatusEffectList(t_skill)
 	
-	-- 1. 발동 조건 확인 (발동되지 않을 경우 리턴)\
+	-- 1. 발동 조건 확인 (발동되지 않을 경우 리턴)
 	-- 기획 이슈로 제거
 
 	-- 2. 타겟 대상에 passive생성
@@ -335,25 +334,22 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 	local rate = nil
 	local value_1 = nil
 	local value_2 = nil
-	local t_status_effect = {}
 
 	while true do 
 		-- 1. 파싱할 구문 가져오고 탈출 체크
-		effect_str = l_status_effect_str[idx]
-		if (not effect_str) or (effect_str == '') then
+		status_effect_struct = l_status_effect_struct[idx]
+		if (not status_effect_struct) then 
 			break 
 		end
 
 		-- 2. 파싱하여 규칙에 맞게 분배
-		t_effect = self:parsingStr(effect_str)
-		type = t_effect['type']
-		target_type = t_effect['target_type']
-        start_con = t_effect['start_con']
-		duration = t_effect['duration']
-		rate = t_effect['rate'] 
-		value_1 = t_effect['value_1']
-				
-		t_status_effect = table_status_effect[type]
+		type = status_effect_struct.m_type
+		target_type = status_effect_struct.m_targetType
+        trigger = status_effect_struct.m_trigger
+		duration = status_effect_struct.m_duration
+		rate = status_effect_struct.m_rate
+		value_1 = status_effect_struct.m_value1
+		value_2 = status_effect_struct.m_value2
 		
 		local function apply_world_passive_effect(char)
 			local world = char.m_world
@@ -361,7 +357,7 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 			if (not world.m_mPassiveEffect[char]) then
 				world.m_mPassiveEffect[char] = {}
 			end
-			world.m_mPassiveEffect[char][t_status_effect['t_name']] = true
+			world.m_mPassiveEffect[char][t_skill['t_name']] = true
 		end
 
 		-- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
