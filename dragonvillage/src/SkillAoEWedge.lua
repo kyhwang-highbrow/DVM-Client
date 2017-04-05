@@ -57,7 +57,9 @@ end
 -------------------------------------
 function SkillAoEWedge:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillAoEWedge.st_idle, 'idle', true)
+    self:addState('start', SkillAoEWedge.st_appear, 'appear', false)
+    self:addState('attack', SkillAoEWedge.st_attack, 'idle', true)
+	self:addState('disappear', SkillAoEWedge.st_disappear, 'disappear', false)
 end
 
 -------------------------------------
@@ -69,32 +71,56 @@ function SkillAoEWedge:initConeAnimator()
 end
 
 -------------------------------------
--- function st_idle
+-- function st_appear
 -------------------------------------
-function SkillAoEWedge.st_idle(owner, dt)
+function SkillAoEWedge.st_appear(owner, dt)
+    if (owner.m_stateTimer == 0) then
+		if (not owner.m_targetChar) then 
+			owner:changeState('dying') 
+		end
+		owner:enterAttack()
+		owner.m_animator:addAniHandler(function()
+			owner:changeState('attack')
+		end)
+    end
+end
+
+-------------------------------------
+-- function st_attack
+-------------------------------------
+function SkillAoEWedge.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
 		-- 이펙트 재생 단위 시간
-		owner.m_hitInterval = (owner.m_animator:getDuration() / owner.m_maxAttackCount)
+		owner:setAttackInterval()
+
 		-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
         owner.m_multiAtkTimer = owner.m_hitInterval
 
 		owner.m_attackCount = 0
     end
 	
-	-- 반복 공격
     owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
-    if (owner.m_multiAtkTimer > owner.m_hitInterval) then
-		owner.m_attackCount = owner.m_attackCount + 1
-        owner:runAttack()
-        owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
-    end
-	
 	-- 공격 횟수 초과시 탈출
     if (owner.m_attackCount >= owner.m_maxAttackCount) then
         owner:escapeAttack()
+	-- 반복 공격
+    elseif (owner.m_multiAtkTimer > owner.m_hitInterval) then
+        owner:runAttack()
+        owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
+		owner.m_attackCount = owner.m_attackCount + 1
     end
 end
 
+-------------------------------------
+-- function st_disappear
+-------------------------------------
+function SkillAoEWedge.st_disappear(owner, dt)
+    if (owner.m_stateTimer == 0) then
+		owner.m_animator:addAniHandler(function()
+			owner:changeState('dying')
+		end)
+    end
+end
 -------------------------------------
 -- function findTarget
 -- @brief 공격 대상 찾음
@@ -105,11 +131,29 @@ function SkillAoEWedge:findTarget()
 end
 
 -------------------------------------
+-- function setAttackInterval
+-- @brief 스킬에 따라 오버라이딩 해서 사용
+-------------------------------------
+function SkillAoEWedge:setAttackInterval()
+	-- 이펙트 재생 단위 시간
+	--self.m_hitInterval = self.m_animator:getDuration()
+	self.m_hitInterval = (self.m_animator:getDuration() / self.m_maxAttackCount)
+end
+
+-------------------------------------
+-- function enterAttack
+-------------------------------------
+function SkillAoEWedge:enterAttack(t_target)
+end
+
+-------------------------------------
 -- function escapeAttack
 -- @brief 공격이 종료되는 시점에 실행
 -------------------------------------
 function SkillAoEWedge:escapeAttack()
-	self:changeState('dying')
+	self.m_animator:addAniHandler(function()
+		self:changeState('disappear')
+	end)
 end
 
 -------------------------------------

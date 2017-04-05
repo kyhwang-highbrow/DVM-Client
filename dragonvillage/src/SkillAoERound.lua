@@ -78,10 +78,12 @@ end
 -------------------------------------
 function SkillAoERound.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
+		-- 이펙트 재생 단위 시간
 		owner:setAttackInterval()
 
 		-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
         owner.m_multiAtkTimer = owner.m_hitInterval
+
 		owner.m_attackCnt = 0
     end
 
