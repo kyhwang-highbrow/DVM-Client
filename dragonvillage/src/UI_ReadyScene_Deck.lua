@@ -59,7 +59,7 @@ function UI_ReadyScene_Deck:initUI()
 
 	-- 진형 회전 효과를 위한 것
 	vars['formationNodeHelper']:setScaleY(0.7)
-	vars['formationNodeHelperXAxis']:setRotation3D(cc.Vertex3F(0, 0, 60))
+	vars['formationNodeHelperXAxis']:setRotation3D(cc.Vertex3F(0, 0, 50))
 	
     for i=1, TOTAL_POS_CNT do
 		vars['chNode'..i]:setLocalZOrder(ZORDER.BACK_PLATE)
