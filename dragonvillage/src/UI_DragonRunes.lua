@@ -45,6 +45,8 @@ function UI_DragonRunes:init(doid, slot_idx)
     self:doActionReset()
     self:doAction(nil, false)
 
+    self:sceneFadeInAction()
+
     self:initUI()
     self:initButton()
     --self:refresh()
@@ -114,15 +116,32 @@ function UI_DragonRunes:initButton()
     vars['removeBtn']:registerScriptTapHandler(function() self:click_removeBtn() end)    
 
     -- 선택된 룬 판매
-    --vars['binBtn']:registerScriptTapHandler(function() self:click_binBtn() end)
+    vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
     vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
-    --vars['selectEnhance']:registerScriptTapHandler(function() self:click_selectEnhance() end)
+    vars['selectEnhanceBtn']:registerScriptTapHandler(function() self:click_selectEnhance() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_DragonRunes:refresh()
+    local t_dragon_data = self.m_selectDragonData
+
+    if (not t_dragon_data) then
+        return
+    end
+
+    local vars = self.vars
+    local did = t_dragon_data['did']
+
+    -- 배경
+    local attr = TableDragon:getDragonAttr(did)
+    if self:checkVarsKey('bgNode', attr) then    
+        vars['bgNode']:removeAllChildren()
+        local animator = ResHelper:getUIDragonBG(attr, 'idle')
+        vars['bgNode']:addChild(animator.m_node)
+    end    
+
     self:refreshTableViewList()
 end
 
@@ -164,11 +183,11 @@ function UI_DragonRunes:init_tableViewTD()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size(101, 101)
-    table_view_td.m_nItemPerCell = 7
+    table_view_td.m_cellSize = cc.size(100, 100)
+    table_view_td.m_nItemPerCell = 5
     table_view_td:setCellUIClass(UI_RuneCard, create_func)
     table_view_td:setItemList(l_item_list)
-    table_view_td:makeDefaultEmptyDescLabel(Str('룬 인벤토리가 비어있습니다.\n다양한 전투를 통해 룬을 획득해보세요!'))
+    table_view_td:makeDefaultEmptyDescLabel(Str('조건에 맞는 룬이 없습니다.\n다양한 전투를 통해 룬을 획득해보세요!'))
 
     -- 정렬
     local sort_manager = SortManager_Rune()
@@ -360,7 +379,14 @@ function UI_DragonRunes:setEquipedRuneObject(rune_obj)
     vars['useLockBtn']:setVisible(false)
 
     if (not rune_obj) then
+        vars['useMenu']:setVisible(false)
+        vars['useEmptyMenu']:setVisible(true)
+        cca.uiReactionSlow(vars['useEmptyMenu'])
         return
+    else
+        vars['useMenu']:setVisible(true)
+        vars['useEmptyMenu']:setVisible(false)
+        cca.uiReactionSlow(vars['useMenu'])
     end
 
     -- 룬 명칭
@@ -397,7 +423,11 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
     vars['selectLockBtn']:setVisible(false)
 
     if (not rune_obj) then
+        vars['selectMenu']:setVisible(false)
         return
+    else
+        vars['selectMenu']:setVisible(true)
+        cca.uiReactionSlow(vars['selectMenu'])
     end
 
     -- 룬 명칭
@@ -418,10 +448,10 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
 end
 
 -------------------------------------
--- function click_binBtn
+-- function click_sellBtn
 -- @brief 룬 판매 버튼
 -------------------------------------
-function UI_DragonRunes:click_binBtn()
+function UI_DragonRunes:click_sellBtn()
     if (not self.m_selectedRuneObject) then
         return
     end
@@ -528,33 +558,3 @@ function UI_DragonRunes:click_equipBtn()
 
     g_runesData:request_runesEquip(doid, roid, finish_cb, fail_cb)
 end
-
-
---================================================================
--------------------------------------
--- function init_setSortUI
--- @brief
--------------------------------------
-function UI_DragonRunes:init_setSortUI()
-    --[[
-    local vars = self.vars
-        setSortBtn -- 세트 정렬 버튼
-        setSortLabel -- 세트 정렬 
-        setSortEffectLabel -- 세트 효과 이름
-
-        setSortNode -- extend
-
-        setSelectAllBtn 전체
-        setSelectAspdBtn
-        setSelectDmgBtn
-        setSelectAtkBtn
-        setSelectResistBtn
-        setSelectDefBtn
-        setSelectRateBtn
-        setSelectCriBtn
-        setSelectHpBtn
-    --]]
-end
-
-
---================================================================
