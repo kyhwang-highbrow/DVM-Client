@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/base_frame_0201.png';
+				file_name = 'ui/frame/a_frame_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -49,7 +49,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/sub_frame_0102.png';
+				file_name = 'ui/frame/a_frame_03.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -116,8 +116,8 @@
 				visible = true;
 				lua_name = 'okBtn';
 				enable = true;
-				normal = 'ui/btn/base_btn_0101.png';
-				selected = 'ui/btn/base_btn_0102.png';
+				normal = 'ui/btn/a_btn_0201.png';
+				selected = 'ui/btn/a_btn_0202.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -180,8 +180,8 @@
 				visible = true;
 				lua_name = 'inventoryBtn';
 				enable = true;
-				normal = 'ui/btn/base_btn_0101.png';
-				selected = 'ui/btn/base_btn_0102.png';
+				normal = 'ui/btn/a_btn_0204.png';
+				selected = 'ui/btn/a_btn_0202.png';
 				disable = '';
 				image_type = 1;
 			};
@@ -208,7 +208,7 @@
 				text = '드래곤이 가득 차 더 이상 보상을 획득 할 수 없습니다.\n계속 진행하시겠습니까?';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 240; 215; 159; };
 				opacity = 255;
 				dimension_width = 600;
 				dimension_height = 180;
@@ -283,7 +283,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/base_frame_12.png';
+				file_name = 'ui/frame/a_frame_06.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;

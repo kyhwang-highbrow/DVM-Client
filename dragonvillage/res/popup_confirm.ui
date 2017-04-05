@@ -49,7 +49,7 @@
 					text = 'message';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 87; 64; 34; };
+					color = { 240; 215; 159; };
 					opacity = 255;
 					dimension_width = 480;
 					dimension_height = 104;
@@ -82,7 +82,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/base_frame_13.png';
+				file_name = 'ui/frame/a_frame_03.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -108,7 +108,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/mini_bg_07.png';
+				file_name = 'ui/frame/a_frame_06.png';
 				color = { 186; 151; 82; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -158,7 +158,7 @@
 				text = '{1}';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 87; 64; 34; };
+				color = { 240; 215; 159; };
 				opacity = 255;
 				dimension_width = 179;
 				dimension_height = 50;
@@ -191,7 +191,7 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'ui/frame/base_frame_05.png';
+			file_name = 'ui/frame/a_frame_01.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			center_rect_x = 0;
@@ -203,8 +203,8 @@
 		{
 			type = 'Button';
 			ui_name = '';
-			x = 247.000000;
-			y = 133.000000;
+			x = 250.000000;
+			y = 138.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -282,8 +282,8 @@
 			visible = true;
 			lua_name = 'okBtn';
 			enable = true;
-			normal = 'ui/btn/base_btn_0103.png';
-			selected = 'ui/btn/base_btn_0104.png';
+			normal = 'ui/btn/a_btn_0204.png';
+			selected = 'ui/btn/a_btn_0202.png';
 			disable = '';
 			image_type = 1;
 		};
@@ -346,8 +346,8 @@
 			visible = true;
 			lua_name = 'cancelBtn';
 			enable = true;
-			normal = 'ui/btn/base_btn_0101.png';
-			selected = 'ui/btn/base_btn_0102.png';
+			normal = 'ui/btn/a_btn_0201.png';
+			selected = 'ui/btn/a_btn_0202.png';
 			disable = '';
 			image_type = 1;
 		};
