@@ -1947,6 +1947,12 @@
     <None Include="..\src\SortManager_UIHelper.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\TableMonsterSkill.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\StatusEffect_AddDmg.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

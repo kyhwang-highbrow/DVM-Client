@@ -414,6 +414,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SortManager_Rune.lua" />
     <None Include="..\src\SortManager_UIHelper.lua" />
     <None Include="..\src\StageMissionMgr.lua" />
+    <None Include="..\src\StatusEffect_AddDmg.lua" />
     <None Include="..\src\StatusEffect_AttributeChange.lua" />
     <None Include="..\src\StatusEffect_Barrier.lua" />
     <None Include="..\src\Camera.lua" />
