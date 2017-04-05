@@ -297,6 +297,7 @@ function Dragon.st_attack(owner, dt)
         if (owner.m_charTable['skill_basic'] ~= owner.m_reservedSkillId) then
             local attr = owner:getAttribute()
             local res = 'res/effect/effect_missile_charge/effect_missile_charge.vrp'
+            local t_skill = owner:getSkillTable(owner.m_reservedSkillId)
                 
             local animator = MakeAnimator(res)
             animator:changeAni('idle_' .. attr, false)
@@ -305,9 +306,13 @@ function Dragon.st_attack(owner, dt)
             animator:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
 
             -- 텍스트
-            local t_skill = owner:getSkillTable(owner.m_reservedSkillId)
             SkillHelper:makePassiveSkillSpeech(owner, t_skill['t_name'])
 
+            -- indie_time 공격시 이벤트
+            if (t_skill['chance_type'] == 'indie_time') then
+                owner:dispatch('dragon_time_skill', {}, owner)
+            end
+            
             -- 스킬 게이지 증가
             if (role_type == 'supporter') then
                 local t_temp = g_constant:get('INGAME', 'DRAGON_SKILL_ACTIVE_POINT_INCREMENT_VALUE')

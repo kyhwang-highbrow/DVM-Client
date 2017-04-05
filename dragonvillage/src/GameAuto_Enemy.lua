@@ -20,8 +20,8 @@ end
 -------------------------------------
 function GameAuto_Enemy:checkSkill(dragon, t_skill)
     --적군 AI는 쿨타임 기반으로 강제 설정
-    --return PARENT.checkSkill(self, dragon, t_skill, GAME_AUTO_AI_ATTACK__COOLTIME, GAME_AUTO_AI_HEAL__COOLTIME)
-    return false
+    return PARENT.checkSkill(self, dragon, t_skill, GAME_AUTO_AI_ATTACK__COOLTIME, GAME_AUTO_AI_HEAL__COOLTIME)
+    --return false
 end
 
 

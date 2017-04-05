@@ -103,15 +103,6 @@ function Character.st_attack(owner, dt)
         -- 공격 타이밍이 있을 경우
         owner.m_animator:setEventHandler(attack_cb)
 
-        -- indie_time 공격시 이벤트
-        do
-            local skill_id = owner.m_reservedSkillId
-            local t_skill = owner:getSkillTable(skill_id)
-            if (t_skill['chance_type'] == 'indie_time') then
-                owner:dispatch('dragon_time_skill', {}, owner)
-            end
-        end
-
         -- 캐스팅 게이지
         if owner.m_castingUI then
             owner.m_castingUI:stopAllActions()

@@ -167,9 +167,6 @@ function GameDragonSkill.update_live(self, dt)
             local duration = dragon:getAniDuration()
             dragon.m_animator:setTimeScale(duration / delayTime)
 
-            -- 스킬 이름 및 설명 문구를 표시
-            --self:makeSkillDesc(dragon, delayTime)
-                        
             -- 효과음
             SoundMgr:playEffect('EFFECT', 'skill_ready')
 
@@ -220,6 +217,10 @@ function GameDragonSkill.update_live(self, dt)
         local curCameraScale = world.m_gameCamera:getScale()
         self.m_skillOpeningCutBg:setPosition(CRITERIA_RESOLUTION_X / 2 + curCameraPosX * curCameraScale, curCameraPosY * curCameraScale)
         self.m_skillOpeningCutBg:setScale(1 / curCameraScale)
+
+        if (not dragon.m_bLeftFormation) then
+            self.m_skillOpeningCutBg:setFlip(true)
+        end
     end
 end
 
@@ -298,6 +299,11 @@ function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
     self.m_skillOpeningCutTop:changeAni('scene_1', false)
     self.m_skillOpeningCutTop:setPosition(0, 0)
     self.m_skillOpeningCutTop:setVisible(true)
+
+    if (not dragon.m_bLeftFormation) then
+        self.m_skillOpeningCutBg:setFlip(true)
+        self.m_skillOpeningCutTop:setFlip(true)
+    end
 end
 
 -------------------------------------
@@ -381,9 +387,16 @@ function GameDragonSkill:doCameraWork(dragon)
         })
 
     else
+        local pos_x
+
+        if (dragon.m_bLeftFormation) then
+            pos_x = CRITERIA_RESOLUTION_X / 4
+        else
+            pos_x = -(CRITERIA_RESOLUTION_X / 4)
+        end
                 
         world.m_gameCamera:setAction({
-            pos_x = CRITERIA_RESOLUTION_X / 4 + cameraHomePosX,
+            pos_x = pos_x + cameraHomePosX,
             pos_y = cameraHomePosY,
             scale = 1.2,
             time = 0.25
@@ -416,7 +429,7 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         local dragon = arg[1]
 
         if (self:isPlaying()) then
-        else
+        elseif (dragon.m_bLeftFormation) then
             self.m_dragon = dragon
 
             self:changeState(GAME_DRAGON_SKILL_LIVE2)
