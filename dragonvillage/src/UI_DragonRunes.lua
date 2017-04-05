@@ -6,6 +6,7 @@ local PARENT = class(UI_DragonManage_Base, ITabUI:getCloneTable())
 UI_DragonRunes = class(PARENT,{
         m_listFilterSetID = 'number', -- 0번은 전체 1~8은 해당 세트만
         m_tableViewTD = 'UIC_TableViewTD',
+        m_sortManagerRune = 'SortManager_Rune', -- 룬 정렬
 
         m_equippedRuneObject = 'StructRuneObject',
         m_selectedRuneObject = 'StructRuneObject',
@@ -137,7 +138,26 @@ function UI_DragonRunes:init_tableViewTD()
     table_view_td:makeDefaultEmptyDescLabel(Str('룬 인벤토리가 비어있습니다.\n다양한 전투를 통해 룬을 획득해보세요!'))
 
     -- 정렬
+    local sort_manager = SortManager_Rune()
+    self.m_sortManagerRune = sort_manager
+
     self.m_tableViewTD = table_view_td
+
+
+    local vars = self.vars
+    local sort_ui_helper = SortManager_UIHelper(sort_manager)
+    sort_ui_helper:setCurrSortTypeLabel(vars['runeSortLabel'])
+    sort_ui_helper:setExtendMenu(vars['runeSortBtn'], vars['runeSortNode'])
+    sort_ui_helper:setAscendingUI(vars['runeSortOrderBtn'], vars['runeSortOrderSprite'])
+    sort_ui_helper:setSortBtn(vars['runeSortLvBtn'], 'lv')
+    sort_ui_helper:setSortBtn(vars['runeSortRarityBtn'], 'rarity')
+    sort_ui_helper:setSortBtn(vars['runeSortGradeBtn'], 'grade')
+    sort_ui_helper:onChangeSortType() -- 최초 UI 갱신을 위해
+    sort_ui_helper:setOnChangeCB(function()         
+            -- 정렬
+            self.m_sortManagerRune:sortExecution(self.m_tableViewTD.m_itemList)
+            self.m_tableViewTD:setDirtyItemList()
+        end)
 end
 
 -------------------------------------
@@ -196,6 +216,9 @@ function UI_DragonRunes:refreshTableViewList()
     end
 
     self.m_tableViewTD:mergeItemList(l_item_list, refresh_func)
+
+    -- 정렬
+    self.m_sortManagerRune:sortExecution(self.m_tableViewTD.m_itemList)
 
     -- 선택된 룬 refresh
     if (self.m_selectedRuneObject) then

@@ -4,6 +4,7 @@
 -------------------------------------
 SortType = {}
 SortType['name'] = 'none'       -- 정렬 타입 이름
+SortType['t_name'] = 'none'
 SortType['ascending'] = false   -- 오름차순 여부
 SortType['sort_func'] = 'function'
 
@@ -29,9 +30,10 @@ end
 -------------------------------------
 -- function addSortType
 -------------------------------------
-function SortManager:addSortType(name, ascending, sort_func)
+function SortManager:addSortType(name, ascending, sort_func, t_name)
     local t_sort_type = clone(SortType)
     t_sort_type['name'] = name
+    t_sort_type['t_name'] = t_name or Str('미지정')
     t_sort_type['ascending'] = ascending
     t_sort_type['sort_func'] = sort_func
     --table.insert(self.m_mSortType, t_sort_type)
@@ -117,6 +119,16 @@ end
 -------------------------------------
 function SortManager:getTopSortingType()
     return self.m_lSortOrder[1]
+end
+
+-------------------------------------
+-- function getTopSortingName
+-- @brief
+-------------------------------------
+function SortManager:getTopSortingName()
+    local top_sorting_type = self:getTopSortingType()
+    local name = self.m_mSortType[top_sorting_type]['t_name']
+    return name
 end
 
 -------------------------------------

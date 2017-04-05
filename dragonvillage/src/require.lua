@@ -120,6 +120,7 @@ local t_module = {
     'AreaOfEffectHelper',
     'ShaderCache',
     'SortManager',
+    'SortManager_UIHelper',
     'SortManager_Rune',
     'SortManager_Fruit',
     'SortManager_EvolutionStone',

@@ -760,7 +760,9 @@ function UIC_TableView:expandTemp(duration, animated)
     local l_visible_cells = {}
     for i,v in ipairs(self._cellsUsed) do
         local idx = v['idx']
-        l_visible_cells[idx] = v
+        if idx then
+            l_visible_cells[idx] = v
+        end
     end
 
     self:_updateCellPositions()
