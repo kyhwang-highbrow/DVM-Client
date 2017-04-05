@@ -243,7 +243,8 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	----------- 도트 데미지 들어가는 패시브 ------------------
 	elseif (t_status_effect['type'] == 'dot_dmg') then
 		status_effect = StatusEffect_DotDmg(res)
-		status_effect:init_dotDmg(char, t_status_effect, status_effect_value, self:getActivityCarrier())
+		local caster_activity_carrier = self:getActivityCarrier()
+		status_effect:init_dotDmg(char, t_status_effect, status_effect_value, caster_activity_carrier)
 
 	----------- HP 보호막 ------------------
 	elseif (status_effect_type == 'barrier_protection') then
@@ -280,7 +281,8 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 	elseif string.find(status_effect_type, 'add_dmg_') then
 		status_effect = StatusEffect_AddDmg(res)
 		local condition = string.gsub(status_effect_type, 'add_dmg_', '')
-		status_effect:init_statusEffect(char, condition)
+		local caster_activity_carrier = self:getActivityCarrier()
+		status_effect:init_statusEffect(char, condition, status_effect_value, caster_activity_carrier)
 
 
     else

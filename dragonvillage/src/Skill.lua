@@ -321,10 +321,6 @@ end
 function Skill:doCommonAttackEffect(l_target)
 	-- 스킬이 제거할 수 있는 미사일 제거
 	self:removeDestructibleMissile()
-
-	-- 상태효과
-	local t_event = {l_target = l_target}
-	self:dispatch(CON_SKILL_HIT, t_event)
 end
 
 -------------------------------------
@@ -341,7 +337,7 @@ end
 
 -------------------------------------
 -- function onAttack
--- @brief 공격(attack) 직후 호출됨
+-- @brief 공격(attack) 직후 호출됨, 스킬에서 미사일 날릴 때 콜백으로도 사용
 -------------------------------------
 function Skill:onAttack(target_char)
     -- 연출
@@ -351,6 +347,10 @@ function Skill:onAttack(target_char)
 
     -- 타격 카운트 갱신
     self:addHitCount()
+	
+	-- 상태효과
+	local t_event = {l_target = {target_char}}
+	self:dispatch(CON_SKILL_HIT, t_event)
 
     -- 화면 쉐이킹
     if (self.m_bHighlight) then

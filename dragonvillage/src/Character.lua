@@ -621,7 +621,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, is_protection)
     t_info['attr'] = attacker.m_activityCarrier.m_attribute
     t_info['dmg_type'] = dmg_type
 	t_info['critical'] = critical
-    t_info['attr_bonus_dmg'] = attr_bonus_dmg
+    t_info['is_add_dmg'] = attacker.m_activityCarrier:getFlag('add_dmg')
+
     self:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 
     -- 상태이상 체크
@@ -710,7 +711,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     else
         self:makeDamageEffect(t_info['dmg_type'], t_info['attr'], i_x, i_y, dir, t_info['critical'], is_highlight)
     end
-    self:makeDamageFont(damage, i_x, i_y, t_info['critical'], t_info['attr_bonus_dmg'], is_highlight)
+    self:makeDamageFont(damage, i_x, i_y, t_info['critical'], t_info['is_add_dmg'], is_highlight)
 
     -- 무적 체크 후 데미지 적용
 	if (self.m_bLeftFormation and g_constant:get('DEBUG', 'PLAYER_INVINCIBLE')) then
@@ -841,102 +842,54 @@ end
 -------------------------------------
 -- function makeDamageFont
 -------------------------------------
-function Character:makeDamageFont(damage, x, y, critical, attr_bonus_dmg, is_highlight)
+function Character:makeDamageFont(damage, x, y, critical, is_add_dmg)
     local y = y + 60
 
+	-- 0 데미지는 출력하지 않는다.
     if (damage == 0) then
         return
     end
 
     -- 소수점 제거
-    damage = math_floor(damage)
-    if attr_bonus_dmg then
-        attr_bonus_dmg = math_floor(attr_bonus_dmg)
-    end
+    local damage = math_floor(damage)
 
-    -- 속성 상성 보너스 데미지
-    local attr_bonus_dmg_label = nil
-    if (attr_bonus_dmg and (attr_bonus_dmg ~= 0)) then
+	-- label 생성
+	local font_res = 'res/font/normal.fnt'
+	if critical then
+		font_res = 'res/font/critical.fnt'	-- 보라계열
+	end
+    local label = cc.Label:createWithBMFont(font_res, comma_value(damage))
 
-        local color = nil
-        local str = nil
-        local scale = 0.8
-
-        if (0 < attr_bonus_dmg) then
-            color = cc.c3b(225, 229, 0)
-            str = '(+' .. comma_value(attr_bonus_dmg) .. ')'
-        elseif (attr_bonus_dmg < 0) then
-            color = cc.c3b(158, 158, 158)
-            str = '(' .. comma_value(attr_bonus_dmg) .. ')'
-        end
-
-        attr_bonus_dmg_label = cc.Label:createWithBMFont('res/font/normal.fnt', str)
-        attr_bonus_dmg_label:setAnchorPoint(cc.p(0, 0.5)) -- 위치에서 오른쪽으로 숫자가 펼쳐지도록
-        attr_bonus_dmg_label:setScale(scale)
-        attr_bonus_dmg_label:setColor(color)
-        --self:makeDmgFontFadeOut(attr_bonus_dmg_label)
-    end
-
-    -- 일반 데미지
-    local scale = 1
-    local node = nil
-    
+	-- 크리티컬 데미지
     if critical then
-        local label = cc.Label:createWithBMFont('res/font/critical.fnt', comma_value(damage))
-        --self:makeDmgFontFadeOut(label)
-        
-        --if attr_bonus_dmg_label then
-        if false then
-            node = cc.Node:create()
-            node:addChild(label)
-            node:addChild(attr_bonus_dmg_label)
-            
-            local string_width = label:getStringWidth()
-            local offset_x = (string_width / 2)
-            attr_bonus_dmg_label:setPositionX(offset_x)
-        else
-            node = label
-        end
+        label:setPosition(x, y)
+        label:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.4), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
+        label:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
 
-        node:setPosition(x, y)
-        --node:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 3.5 * scale), cc.ScaleTo:create(0.3, 1 * scale), cc.DelayTime:create(0.4), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
-        node:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.4), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
-        node:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
-        --node:runAction(self:makeDmgFontAction())
-        self.m_world:addChild3(node, DEPTH_CRITICAL_FONT)
-        
-    else
-        local label = cc.Label:createWithBMFont('res/font/normal.fnt', comma_value(damage))
-        --self:makeDmgFontFadeOut(label)
-        
+	-- 추가 데미지
+    elseif (is_add_dmg) then
+        label:setScale(0.8)
+        label:setColor(cc.c3b(225, 229, 0))	-- 노랑
+		label:setPosition(x, y)
+		label:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.2), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
+        label:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
+
+	-- 일반 데미지
+	else
         if (self.m_bLeftFormation) then
-            label:setColor(cc.c3b(235, 71, 42))
+            label:setColor(cc.c3b(235, 71, 42))	-- 빨강
         end
 
-        --if attr_bonus_dmg_label then
-        if false then
-            node = cc.Node:create()
-            node:addChild(label)
-            node:addChild(attr_bonus_dmg_label)
-            
-            local string_width = label:getStringWidth()
-            local offset_x = (string_width / 2)
-            attr_bonus_dmg_label:setPositionX(offset_x)
-        else
-            node = label
-        end
-
-        node:setPosition(x, y)
-        --node:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 1.5 * scale), cc.ScaleTo:create(0.1, 1 * scale), cc.DelayTime:create(0.2), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
-        node:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.2), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
-        node:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
+        label:setPosition(x, y)
+        label:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.2), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
+        label:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
+        
+		--node:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 1.5 * scale), cc.ScaleTo:create(0.1, 1 * scale), cc.DelayTime:create(0.2), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
         --node:runAction(self:makeDmgFontAction())
-        self.m_world:addChild3(node, DEPTH_DAMAGE_FONT)
     end
 
-    if (is_highlight) then
-        --self.m_world.m_gameHighlight:addDamage(node)
-    end
+	-- 월드에 출력
+	self.m_world:addChild3(label, DEPTH_DAMAGE_FONT)
 end
 
 -------------------------------------
