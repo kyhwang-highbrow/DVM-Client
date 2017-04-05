@@ -82,6 +82,24 @@ function TableRuneSet:makeRuneSetDescRichText(set_id)
 end
 
 -------------------------------------
+-- function makeRuneSetEffectText
+-------------------------------------
+function TableRuneSet:makeRuneSetEffectText(set_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_table = self:get(set_id)
+
+    local option = t_table['key']
+    local value = t_table['value']
+
+    local text = TableOption:getOptionDesc(option, value)
+
+    return text
+end
+
+-------------------------------------
 -- function runeSetAnalysis
 -- 세트 효과 분석
 -------------------------------------

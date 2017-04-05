@@ -29,6 +29,12 @@ UIC_SortList = class(UIC_Node, {
         m_extendButton = '',
         m_sortTypeLabel = '',
         m_sortChangeCB = '',
+
+
+        ------------------------------------
+        -- 속성
+        m_buttonHeight = 'number',
+        m_buttonMargin = 'number',
     })
 
 -------------------------------------
@@ -42,6 +48,9 @@ function UIC_SortList:init()
     self.m_lSortData = {}
     self.m_mSortData = {}
     self.m_direction = UIC_SORT_LIST_BOT_TO_TOP
+    
+    self.m_buttonHeight = BUTTON_HEIGHT
+    self.m_buttonMargin = BUTTON_MARGIN
 
     self.m_bShow = false
 end
@@ -143,7 +152,7 @@ function UIC_SortList:addSortType(sort_type, sort_name)
 
     local button = cc.MenuItemImage:create('res/ui/btn/a_btn_0101.png', 'res/ui/btn/a_btn_0102.png', 'res/ui/btn/a_btn_0103.png', 1)
     local width, heigth = self.m_node:getNormalSize()
-    button:setNormalSize(width - (BUTTON_MARGIN * 2), BUTTON_HEIGHT)
+    button:setNormalSize(width - (self.m_buttonMargin * 2), self.m_buttonHeight)
 
     local direction = self.m_direction
 
@@ -166,7 +175,7 @@ function UIC_SortList:addSortType(sort_type, sort_name)
     do -- 라벨 생성
         local font_name = 'res/font/common_font_01.ttf'
         local stroke_tickness = 2
-        local font_size = (BUTTON_HEIGHT / 2) -- 버튼 사이즈의 반을 사용
+        local font_size = (self.m_buttonHeight / 2) -- 버튼 사이즈의 반을 사용
         local size = cc.size(256, 256)
         local node = cc.Label:createWithTTF(sort_name, font_name, font_size, stroke_tickness, size, cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         node:setDockPoint(cc.p(0.5, 0.5))
@@ -228,7 +237,7 @@ function UIC_SortList:getButtonPosition(idx)
         idx = 1        
     end
 
-    local pos_y = (BUTTON_MARGIN * idx) + ((idx-1) * BUTTON_HEIGHT)
+    local pos_y = (self.m_buttonMargin * idx) + ((idx-1) * self.m_buttonHeight)
 
     local direction = self.m_direction
 
@@ -250,7 +259,7 @@ end
 -------------------------------------
 function UIC_SortList:getMenuMinSize()
     local button_cnt = 1
-    local size = ((button_cnt+1) * BUTTON_MARGIN) + (button_cnt * BUTTON_HEIGHT)
+    local size = ((button_cnt+1) * self.m_buttonMargin) + (button_cnt * self.m_buttonHeight)
     return size
 end
 
@@ -259,7 +268,7 @@ end
 -------------------------------------
 function UIC_SortList:getMenuMaxSize()
     local button_cnt = #self.m_lSortData
-    local size = ((button_cnt+1) * BUTTON_MARGIN) + (button_cnt * BUTTON_HEIGHT)
+    local size = ((button_cnt+1) * self.m_buttonMargin) + (button_cnt * self.m_buttonHeight)
     return size
 end
 
@@ -467,6 +476,42 @@ function MakeUICSortList_runeManage(button, label)
     uic:addSortType('lv', Str('레벨'))
     uic:addSortType('grade', Str('등급'))
     uic:addSortType('rarity', Str('희귀도'))
+
+    return uic
+end
+
+function MakeUICSortList_runeManageFilter(button, label)
+    local width, height = button:getNormalSize()
+    local parent = button:getParent()
+    local x, y = button:getPosition()
+
+    local uic = UIC_SortList()
+
+    -- 커스텀하게 조절
+    uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
+    uic.m_buttonHeight = 38
+    uic.m_buttonMargin = 2
+    width = width * 0.66
+
+    uic:setNormalSize(width, height)
+    uic:setPosition(x, y)
+    uic:init_container()
+
+    uic:setExtendButton(button)
+    uic:setSortTypeLabel(label)
+
+    parent:addChild(uic.m_node)
+
+    -- 0은 전체
+    uic:addSortType(0, Str('전체'))
+
+    -- set_id는 자연수
+    local table_rune_set = TableRuneSet()
+    for i,v in ipairs(table_rune_set.m_orgTable) do
+        local set_id = i
+        local name = Str(v['t_name'])
+        uic:addSortType(set_id, name)
+    end
 
     return uic
 end

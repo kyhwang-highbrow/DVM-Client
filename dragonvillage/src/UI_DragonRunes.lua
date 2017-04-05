@@ -69,6 +69,38 @@ function UI_DragonRunes:initUI()
     self:setSelectedRuneObject(nil)
 
     self:init_dragonTableView()
+    self:initUI_runeSetFilter()
+end
+
+-------------------------------------
+-- function initUI_runeSetFilter
+-------------------------------------
+function UI_DragonRunes:initUI_runeSetFilter()
+    local vars = self.vars
+
+
+    local uic_sort_list = MakeUICSortList_runeManageFilter(vars['setSortBtn'], vars['setSortLabel'])
+
+    -- 버튼을 통해 정렬이 변경되었을 경우
+    local function sort_change_cb(sort_type)
+        self.m_listFilterSetID = sort_type
+        self:refreshTableViewList()
+
+        -- 세트 효과 표기
+        local set_id = sort_type
+        if (set_id ~= 0) then
+            local text = TableRuneSet:makeRuneSetEffectText(set_id)
+            vars['setSortEffectLabel']:setString(text)
+            vars['setSortLabel']:setPositionY(10)
+        else
+            vars['setSortEffectLabel']:setString('')
+            vars['setSortLabel']:setPositionY(0)
+        end
+    end
+    uic_sort_list:setSortChangeCB(sort_change_cb)
+
+    -- 전체를 선택
+    uic_sort_list:setSelectSortType(0)
 end
 
 -------------------------------------
@@ -209,19 +241,6 @@ function UI_DragonRunes:onChangeTab(tab, first)
         self:setEquipedRuneObject(nil)
     end
 end
-
--------------------------------------
--- function setListFilterSetID
--- @brief
--------------------------------------
-function UI_DragonRunes:setListFilterSetID(list_filter_set_id)
-    if (self.m_listFilterSetID == list_filter_set_id) then
-        return
-    end
-
-    self.m_listFilterSetID = list_filter_set_id
-end
-
 
 -------------------------------------
 -- function refreshTableViewList
