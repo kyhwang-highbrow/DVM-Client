@@ -483,38 +483,76 @@ function UI_ReadyScene_Deck:updateFormation(formation, immediately)
 
 	-- 상태에 따라 즉시 이동 혹은 움직임 액션 추가
 	if immediately then
-		for i, node_space in ipairs(l_pos_list) do
-			-- 드래곤 카드
-			vars['positionNode' .. i]:setPosition(node_space['x'], node_space['y'])
-			vars['positionNode' .. i]:setLocalZOrder(1000 - node_space['y'])
-
-			-- 모션스트릭
-			self.m_lMotionStreakList[i]:setPosition(node_space['x'], node_space['y'])
-		end
+		self:actionForChangeDeck_Sky(l_pos_list)
 	else
-		for i, node_space in ipairs(l_pos_list) do
-			vars['positionNode' .. i]:setLocalZOrder(1000 - node_space['y'])
-			
-			local motion_streak = self.m_lMotionStreakList[i]
-			
-			-- 배치된 카드에 액션을 준다.
-			local out_action = cca.makeBasicEaseMove(0.3, node_space['x'], 2000)
-			local in_action = cca.makeBasicEaseMove(0.3 + (0.1 * i), node_space['x'], node_space['y'])
-			local action = cc.Sequence:create(out_action, in_action)
-			cca.runAction(vars['positionNode' .. i], action, 100)
-
-			-- 모션스트릭에 동일한 액션을 준다.
-			local out_action = cca.makeBasicEaseMove(0.3, node_space['x'], 2000)
-			local in_action = cca.makeBasicEaseMove(0.3 + (0.1 * i), node_space['x'], node_space['y'])
-			local action = cc.Sequence:create(out_action, in_action)
-			cca.runAction(motion_streak, action, 101)
-		end
+		self:actionForChangeDeck_Smooth(l_pos_list)
 	end
 
 	-- 덩실 위치 조정
 	vars['formationNode']:runAction(cc.MoveBy:create(0.1, cc.p(0, -50)))
 
 	self:updateFormationInfo(formation)
+end
+
+-------------------------------------
+-- function actionForChangeDeck_Immediately
+-- @brief 각 덱이 진형이 변경되었을 시 액션 : 액션없이 즉시 이동
+-------------------------------------
+function UI_ReadyScene_Deck:actionForChangeDeck_Immediately(l_pos_list)
+	for i, node_space in ipairs(l_pos_list) do
+		-- 드래곤 카드
+		vars['positionNode' .. i]:setPosition(node_space['x'], node_space['y'])
+		vars['positionNode' .. i]:setLocalZOrder(1000 - node_space['y'])
+
+		-- 모션스트릭
+		self.m_lMotionStreakList[i]:setPosition(node_space['x'], node_space['y'])
+	end
+end
+
+-------------------------------------
+-- function actionForChangeDeck_Sky
+-- @brief 각 덱이 진형이 변경되었을 시 액션 : 하늘로 솟았다가 내려온다.
+-------------------------------------
+function UI_ReadyScene_Deck:actionForChangeDeck_Sky(l_pos_list)
+	local vars = self.m_uiReadyScene.vars
+	for i, node_space in ipairs(l_pos_list) do
+		vars['positionNode' .. i]:setLocalZOrder(1000 - node_space['y'])
+			
+		local motion_streak = self.m_lMotionStreakList[i]
+			
+		-- 배치된 카드에 액션을 준다.
+		local out_action = cca.makeBasicEaseMove(0.1, node_space['x'], 2000)
+		local in_action = cca.makeBasicEaseMove(0.3 + (0.1 * i), node_space['x'], node_space['y'])
+		local action = cc.Sequence:create(out_action, in_action)
+		cca.runAction(vars['positionNode' .. i], action, 100)
+
+		-- 모션스트릭에 동일한 액션을 준다.
+		local out_action = cca.makeBasicEaseMove(0.2, node_space['x'], 2000)
+		local in_action = cca.makeBasicEaseMove(0.3 + (0.1 * i), node_space['x'], node_space['y'])
+		local action = cc.Sequence:create(out_action, in_action)
+		cca.runAction(motion_streak, action, 101)
+	end
+end
+
+-------------------------------------
+-- function actionForChangeDeck_Smooth
+-- @brief 각 덱이 진형이 변경되었을 시 액션 : 부드럽게 바뀐 진형으로 이동
+-------------------------------------
+function UI_ReadyScene_Deck:actionForChangeDeck_Smooth(l_pos_list)
+	local vars = self.m_uiReadyScene.vars
+	for i, node_space in ipairs(l_pos_list) do
+		vars['positionNode' .. i]:setLocalZOrder(1000 - node_space['y'])
+			
+		local motion_streak = self.m_lMotionStreakList[i]
+			
+		-- 배치된 카드에 액션을 준다.
+		local action = cca.makeBasicEaseMove(0.3, node_space['x'], node_space['y'])
+		cca.runAction(vars['positionNode' .. i], action, 100)
+
+		-- 모션스트릭에 동일한 액션을 준다.
+		local action = cca.makeBasicEaseMove(0.3, node_space['x'], node_space['y'])
+		cca.runAction(motion_streak, action, 101)
+	end
 end
 
 -------------------------------------

@@ -202,7 +202,7 @@ function UI_ReadyScene:init_dragonTableView()
     list_table_node:removeAllChildren()
 
     local function create_func(ui, data)
-        ui.root:setScale(0.7)
+        ui.root:setScale(0.6)	-- UI 테이블뷰 사이즈가 변경될 시 조정
 
         local unique_id = data['id']
         self:refresh_dragonCard(unique_id)
@@ -223,8 +223,8 @@ function UI_ReadyScene:init_dragonTableView()
 
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
-    table_view_td.m_cellSize = cc.size(110, 110)
-    table_view_td.m_nItemPerCell = 4
+    table_view_td.m_cellSize = cc.size(97, 94)	-- UI 테이블뷰 사이즈가 변경될 시 조정
+    table_view_td.m_nItemPerCell = 4			-- UI 테이블뷰 사이즈가 변경될 시 조정
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
 
     -- 리스트 설정
