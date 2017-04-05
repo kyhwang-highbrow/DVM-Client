@@ -56,11 +56,11 @@ function UI_Tooltip_Indicator:init_data(dragon)
 	-- key = skill id, value = 활성화 여부
 	-- @TODO 스킬 활성화 조건에 대해 체크해야함
 	local t_active_id = {} 
+
 	table.insert(t_active_id, {	skill_id = t_dragon['skill_active'], isActivation = true})
-	for i = 1, 4 do 
-		if (t_dragon['skill_type_' .. i ] == 'active') then 
-			table.insert(t_active_id, {	skill_id = t_dragon['skill_' .. i ], isActivation = dragon_evol == 3})
-		end
+	local skill_id = t_dragon['skill_3']
+	if (TableDragonSkill():getSkillType(skill_id) == 'active') then 
+		table.insert(t_active_id, {	skill_id = skill_id, isActivation = dragon_evol == 3})
 	end
 	
 	-- 2. 멤버 변수에 저장

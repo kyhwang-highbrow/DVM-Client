@@ -81,7 +81,7 @@ function UI_DragonManageUpgradeResult:refresh()
     do -- 스킬 정보 표시
         local grade = t_dragon_data['evolution']
         local skill_id = t_dragon['skill_' .. evolution]
-        local skill_type = t_dragon['skill_type_' .. evolution]
+        local skill_type = TableDragonSkill:getSkillType(skill_id)
 
         local table_skill = TableDragonSkill()
 

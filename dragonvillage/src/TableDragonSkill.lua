@@ -37,6 +37,7 @@ end
 -- function getSkillName
 -------------------------------------
 function TableDragonSkill:getSkillName(key)
+	if (not key) or (key == '') then return end
     local t_skill = self:get(key)
     return t_skill['t_name']
 end
@@ -44,8 +45,18 @@ end
 -------------------------------------
 -- function getSkillDesc
 -------------------------------------
-function TableDragonSkill:getSkillDesc()
+function TableDragonSkill:getSkillDesc(key)
+	if (not key) or (key == '') then return end
     local t_skill = self:get(key)
     local desc = IDragonSkillManager:getSkillDescPure(t_skill)
     return desc
+end
+
+-------------------------------------
+-- function getSkillType
+-------------------------------------
+function TableDragonSkill:getSkillType(key)
+	if (not key) or (key == '') then return end
+    local t_skill = self:get(key)
+    return t_skill['chance_type']
 end

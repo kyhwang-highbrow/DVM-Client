@@ -276,6 +276,13 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
 		local tar_attr = self:getActivityCarrier().m_activityCarrierOwner.m_targetChar:getAttribute()
 		status_effect:init_statusEffect(char, tar_attr)
 
+	----------- 조건부 추가 데미지 ------------------
+	elseif string.find(status_effect_type, 'add_dmg_') then
+		status_effect = StatusEffect_AddDmg(res)
+		local condition = string.gsub(status_effect_type, 'add_dmg_', '')
+		status_effect:init_statusEffect(char, condition)
+
+
     else
         status_effect = StatusEffect(res)
     end

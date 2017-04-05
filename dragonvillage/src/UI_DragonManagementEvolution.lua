@@ -241,7 +241,7 @@ function UI_DragonManagementEvolution:refresh_nextSkillInfo(t_dragon_data, t_dra
 
     local evolution = t_dragon_data['evolution'] + 1
     local skill_id = t_dragon['skill_' .. evolution]
-    local skill_type = t_dragon['skill_type_' .. evolution]
+    local skill_type = TableDragonSkill():getSkillType(skill_id)
     local skill_lv = 1
 
     if (skill_id == '') then

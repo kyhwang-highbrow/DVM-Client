@@ -61,8 +61,8 @@ function ValidationDragon:validationSkill(t_dragon)
     local table_dragon_skill = TableDragonSkill()
 
     for i=1, 6 do
-        local skill_type = t_dragon[string.format('skill_type_%d', i)]
         local skill_id = t_dragon[string.format('skill_%d', i)]
+        local skill_type = table_dragon_skill:getSkillType(skill_id)
 
         -- 스킬테이블 참조
         if isExistValue(skill_type, 'basic', 'normal', 'passive', 'active') then

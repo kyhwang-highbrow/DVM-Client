@@ -1,7 +1,7 @@
-tid,type,t_name,t_desc,res,res_sd,res_icon,scale,skill_1,skill_type_1,skill_2,skill_type_2,skill_3,skill_type_3
-110001,goni,고니,고니는 남자아이이다.,res/character/tamer/goni_i/goni_i.spine,res/character/tamer/goni/goni.spine,res/ui/icon/cha/tamer_goni.png,1,241101,active,241201,passive,241301,passive
-110002,nuri,누리,누리는 여자아이이다.,res/character/tamer/nuri_i/nuri_i.spine,res/character/tamer/nuri/nuri.spine,res/ui/icon/cha/tamer_nuri.png,1,242101,active,242201,passive,242301,passive
-110003,dede,데데,데데데데데데데데,res/character/tamer/dede_i/dede_i.spine,res/character/tamer/dede/dede.spine,res/ui/icon/cha/tamer_dede.png,1,243101,active,243201,passive,243301,passive
-110004,kesath,케사스,케사스는 남자이름같다.,res/character/tamer/kesath_i/kesath_i.spine,res/character/tamer/kesath/kesath.spine,res/ui/icon/cha/tamer_kesath.png,1,244101,active,244201,passive,244301,passive
-110005,durun,두른,두른은 새로 나왔다.,res/character/tamer/durun_i/durun_i.spine,res/character/tamer/durun/durun.spine,res/ui/icon/cha/tamer_durun.png,1,245101,active,245201,passive,245301,passive
-110006,mokoji,모코지,모코지..?,res/character/tamer/mokoji_i/mokoji_i.spine,res/character/tamer/mokoji/mokoji.spine,res/ui/icon/cha/tamer_mokoji.png,1,246101,active,246201,passive,246301,passive
+tid,type,t_name,t_desc,res,res_sd,res_icon,scale,skill_1,skill_2,skill_3
+110001,goni,고니,고니는 남자아이이다.,res/character/tamer/goni_i/goni_i.spine,res/character/tamer/goni/goni.spine,res/ui/icon/cha/tamer_goni.png,1,241101,241201,241301
+110002,nuri,누리,누리는 여자아이이다.,res/character/tamer/nuri_i/nuri_i.spine,res/character/tamer/nuri/nuri.spine,res/ui/icon/cha/tamer_nuri.png,1,242101,242201,242301
+110003,dede,데데,데데데데데데데데,res/character/tamer/dede_i/dede_i.spine,res/character/tamer/dede/dede.spine,res/ui/icon/cha/tamer_dede.png,1,243101,243201,243301
+110004,kesath,케사스,케사스는 남자이름같다.,res/character/tamer/kesath_i/kesath_i.spine,res/character/tamer/kesath/kesath.spine,res/ui/icon/cha/tamer_kesath.png,1,244101,244201,244301
+110005,durun,두른,두른은 새로 나왔다.,res/character/tamer/durun_i/durun_i.spine,res/character/tamer/durun/durun.spine,res/ui/icon/cha/tamer_durun.png,1,245101,245201,245301
+110006,mokoji,모코지,모코지..?,res/character/tamer/mokoji_i/mokoji_i.spine,res/character/tamer/mokoji/mokoji.spine,res/ui/icon/cha/tamer_mokoji.png,1,246101,246201,246301

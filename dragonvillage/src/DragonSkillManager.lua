@@ -51,12 +51,10 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, open_ski
     -- 캐릭터 등급에 따라 루프를 돌며 스킬을 초기화 한다.
     -- 스킬 타입 별로 나중에 추가한것으로 덮어 씌운다.
     local max_idx = open_skill_count
+	local table_skill = GetSkillTable(self.m_charType)
     for i = 1, max_idx do
-        local skill_type_key = 'skill_type_' .. i
-        local skill_key = 'skill_' .. i
-
-        local skill_type = t_character[skill_type_key]
-        local skill_id = t_character[skill_key]
+        local skill_id = t_character['skill_' .. i]
+        local skill_type = table_skill:getSkillType(skill_id)
 
         if skill_type and skill_id then
             self:setSkillID(skill_type, skill_id, self:getSkillLevel(i))
@@ -227,8 +225,6 @@ end
 function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
     local t_character = self.m_charTable
 
-    local t_character = self.m_charTable
-
     local skill_id
     local skill_type
 
@@ -237,10 +233,10 @@ function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
         skill_type = 'active'
     else
         skill_id = t_character['skill_' .. idx]
-        skill_type = t_character['skill_type_' .. idx]
+		skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
     end
 
-    if (skill_type ~= '') and skill_id ~= 0 then
+    if (skill_type) and skill_id ~= 0 then
         local skill_lv = self:getSkillLevel(idx)
         local skill_indivisual_info = DragonSkillIndivisualInfo('dragon', skill_type, skill_id, skill_lv)
         skill_indivisual_info:init_skillLevelupIDList()
@@ -533,4 +529,15 @@ function MakeDragonSkillFromDragonData(t_dragon_data)
     local dragon_skill_mgr = MakeDragonSkillManager(did, evolution_lv, skill_00_lv, skill_01_lv, skill_02_lv, skill_03_lv)
 
     return dragon_skill_mgr
+end
+
+-------------------------------------
+-- function GetSkillTable
+-------------------------------------
+function GetSkillTable(char_type)
+	if (char_type == 'dragon') then
+		return TableDragonSkill()
+	else
+		return TableMonsterSkill()
+	end
 end
