@@ -1,4 +1,4 @@
-local PARENT = UI
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
 -- class UI_DragonRunesEnhance
@@ -8,9 +8,21 @@ UI_DragonRunesEnhance = class(PARENT,{
     })
 
 -------------------------------------
+-- function initParentVariable
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_DragonRunesEnhance:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_DragonRunesEnhance'
+    self.m_bVisible = true
+    self.m_titleStr = Str('룬 강화')
+    self.m_bUseExitBtn = false
+end
+
+-------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonRunesEnhance:init(rune_obj)
+function UI_DragonRunesEnhance:init(rune_obj, attr)
     self.m_runeObject = rune_obj
 
     local vars = self:load('dragon_rune_enhance_new.ui')
@@ -24,7 +36,7 @@ function UI_DragonRunesEnhance:init(rune_obj)
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initUI()
+    self:initUI(attr)
     self:initButton()
     self:refresh()
 end
@@ -32,15 +44,15 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_DragonRunesEnhance:initUI()
+function UI_DragonRunesEnhance:initUI(attr)
     local vars = self.vars
+
+    local animator = ResHelper:getUIDragonBG(attr or 'earth', 'idle')
+    vars['bgNode']:addChild(animator.m_node)
+
 
     local rune_obj = self.m_runeObject
     vars['runeNameLabel']:setString(rune_obj['name'])
-
-    -- 강화 시 메인 옵션 추가 능력치
-    vars['mainOptionStatusUpLabel']:setVisible(false)
-    vars['mainOptionStatusUpSprite']:setVisible(false)
 end
 
 -------------------------------------
@@ -67,10 +79,8 @@ function UI_DragonRunesEnhance:refresh()
     vars['runeNode']:addChild(ui.root)
 
     -- 능력치 출력
-    vars['optionLabel']:setString(rune_obj:makeRuneDescRichText())
-
-    -- 보유 골드
-    self:refreshGold()
+    local for_enhance = true
+    vars['optionLabel']:setString(rune_obj:makeRuneDescRichText(for_enhance))
 
     -- 소모 골드
     local req_gold = rune_obj:getRuneEnhanceReqGold()
@@ -79,16 +89,6 @@ function UI_DragonRunesEnhance:refresh()
 
     local is_max_lv = rune_obj:isMaxRuneLv()
     vars['enhanceBtn']:setVisible(not is_max_lv)
-end
-
--------------------------------------
--- function refreshGoldLabel
--------------------------------------
-function UI_DragonRunesEnhance:refreshGold()
-    -- 보유 골드
-    local gold = g_userData:get('gold')
-    self.vars['goldLabel']:setString(comma_value(gold))
-    cca.uiReactionSlow(self.vars['goldLabel'])
 end
 
 -------------------------------------
@@ -105,7 +105,6 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
             UIManager:toastNotificationGreen(Str('{1}강화를 성공하였습니다.', self.m_runeObject['lv']))
         else
             UIManager:toastNotificationRed(Str('{1}강화를 실패하였습니다.', rune_obj['lv'] + 1))
-            self:refreshGold()
         end
     end
 

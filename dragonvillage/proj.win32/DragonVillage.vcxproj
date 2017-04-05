@@ -638,6 +638,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableMonsterSkill.lua" />
     <None Include="..\src\TableOption.lua" />
     <None Include="..\src\TableQuest.lua" />
+    <None Include="..\src\TableRuneGrade.lua" />
+    <None Include="..\src\TableRuneMoptStatus.lua" />
     <None Include="..\src\TableRuneSet.lua" />
     <None Include="..\src\TableSecretDungeon.lua" />
     <None Include="..\src\TableShop.lua" />

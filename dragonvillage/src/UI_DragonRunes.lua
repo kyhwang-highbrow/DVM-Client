@@ -478,6 +478,22 @@ end
 
 
 -------------------------------------
+-- function getSelectDragonAttr
+-- @brief
+-------------------------------------
+function UI_DragonRunes:getSelectDragonAttr()
+    local t_dragon_data = self.m_selectDragonData
+
+    if (not t_dragon_data) then
+        return nil
+    end
+
+    local did = t_dragon_data['did']
+    local attr = TableDragon:getDragonAttr(did)
+    return attr
+end
+
+-------------------------------------
 -- function click_useEnhanceBtn
 -- @brief 룬 강화 버튼
 -------------------------------------
@@ -486,7 +502,7 @@ function UI_DragonRunes:click_useEnhanceBtn()
         return
     end
 
-    local ui = UI_DragonRunesEnhance(self.m_equippedRuneObject)
+    local ui = UI_DragonRunesEnhance(self.m_equippedRuneObject, self:getSelectDragonAttr())
 
     local function close_cb()
         if (self.m_equippedRuneObject['updated_at'] ~= ui.m_runeObject['updated_at']) then
@@ -510,11 +526,24 @@ function UI_DragonRunes:click_removeBtn()
     local slot = rune_obj['slot']
     local doid = self.m_selectDragonOID
 
-    local function finish_cb(ret)
-        self:refreshTableViewList()
+    local grade = rune_obj['grade']
+    local price = TableRuneGrade:getUnequipPrice(grade)
+
+    local function ok_btn_cb()
+        local function finish_cb(ret)
+
+            -- 해제한 룬을 선택하게 함
+            if (not self.m_selectedRuneObject) then 
+                self:setSelectedRuneObject(rune_obj)
+            end
+
+            self:refreshTableViewList()
+        end
+
+        g_runesData:request_runesUnequip(doid, slot, finish_cb, fail_cb)
     end
 
-    g_runesData:request_runesUnequip(doid, slot, finish_cb, fail_cb)
+    MakeSimplePopup_Confirm('gold', price, '룬을 해제하시겠습니까?', ok_btn_cb)
 end
 
 
@@ -528,7 +557,7 @@ function UI_DragonRunes:click_selectEnhance()
         return
     end
 
-    local ui = UI_DragonRunesEnhance(self.m_selectedRuneObject)
+    local ui = UI_DragonRunesEnhance(self.m_selectedRuneObject, self:getSelectDragonAttr())
 
     local function close_cb()
         if (self.m_selectedRuneObject['updated_at'] ~= ui.m_runeObject['updated_at']) then
@@ -552,9 +581,26 @@ function UI_DragonRunes:click_equipBtn()
     local roid = rune_obj['roid']
     local doid = self.m_selectDragonOID
 
+
+    local slot_idx = rune_obj['slot']
+    if self.m_mEquippedRuneObjects[slot_idx] then
+        local function ok_btn_cb()
+            self:request_runeEquip(doid, roid)
+        end
+        MakeSimplePopup(POPUP_TYPE.YES_NO, '기존에 장착된 룬은 파괴됩니다.\n장착하시겠습니까?\n\n(골드를 사용하여 룬을 "해제"할 수 있습니다)', ok_btn_cb)
+    else
+        self:request_runeEquip(doid, roid)
+    end
+end
+
+-------------------------------------
+-- function request_runeEquip
+-- @brief 룬 장착
+-------------------------------------
+function UI_DragonRunes:request_runeEquip(doid, roid)
     local function finish_cb(ret)
         self:refreshTableViewList()
     end
 
-    g_runesData:request_runesEquip(doid, roid, finish_cb, fail_cb)
+    g_runesData:request_runesEquip(doid, roid, finish_cb)
 end

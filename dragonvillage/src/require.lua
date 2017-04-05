@@ -161,6 +161,8 @@ local t_module = {
     'TableStatus',
     'TableFormation',
     'TableRuneSet',
+    'TableRuneGrade',
+    'TableRuneMoptStatus',
     'TableItem',
 	'TableQuest',
 	'TableShop',

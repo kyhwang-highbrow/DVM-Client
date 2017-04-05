@@ -108,6 +108,7 @@ function ServerData_Runes:request_runesUnequip(doid, slot, finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
 
         if ret['modified_rune'] then
             self:applyRuneData(ret['modified_rune'])

@@ -136,15 +136,44 @@ function StructRuneObject:getRuneOptionDesc(option_str)
 end
 
 -------------------------------------
+-- function getNextLevelMopt
+-------------------------------------
+function StructRuneObject:getNextLevelMopt()
+    local lv = self['lv']
+    local grade = self['grade']
+    if (15 <= lv) then
+        return nil
+    end
+
+    local option_str = self['mopt']
+    local option, value = self:parseRuneOptionStr(option_str)
+
+    local vid = option .. '_' .. grade
+    local lv = lv + 1
+
+    local status = TableRuneMoptStatus:getStatusValue(vid, lv)
+    local new_option_str = option .. ';' .. status
+
+    return new_option_str
+end
+
+-------------------------------------
 -- function makeRuneDescRichText
 -------------------------------------
-function StructRuneObject:makeRuneDescRichText()
+function StructRuneObject:makeRuneDescRichText(for_enhance)
     local text = ''
 
     -- 주 옵션
     local text_ = self:getRuneOptionDesc(self['mopt'])
     if text_ then
         text = '{@w}' .. text_
+
+        if for_enhance then
+            local new_option_str = self:getNextLevelMopt()
+            if new_option_str then
+                text = text .. ' {@O}▶ {@G}' .. self:getRuneOptionDesc(new_option_str)
+            end
+        end
     end
 
     -- 유니크 옵션
