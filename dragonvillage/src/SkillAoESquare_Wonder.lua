@@ -90,7 +90,7 @@ function SkillAoESquare_Wonder:doSpecialEffect()
 				idx = idx + 1
 				
 				-- 궁극 강화시 버프 적용 위해
-				StatusEffectHelper:doStatusEffectByStr(self.m_owner, {}, self.m_lStatusEffectStr)
+				StatusEffectHelper:doStatusEffectByStruct(self.m_owner, {}, self.m_lStatusEffect)
 
 				break
 			else

@@ -98,9 +98,6 @@ function CommonMissile_Release:fireMissile()
 		--t_option['accel'] = t_option['accel'] - 500
 		t_option['accel_delay'] = t_option['accel_delay'] + 0.2
 	end
-
-	-- 상태이상 체크
-	StatusEffectHelper:doStatusEffectByStr(self.m_owner, {self.m_target}, self.m_lStatusEffectStr)
 end
 
 -------------------------------------

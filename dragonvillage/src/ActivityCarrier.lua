@@ -70,14 +70,14 @@ end
 -- function insertStatusEffectRate
 -- @brief 상태이상 유발
 -------------------------------------
-function ActivityCarrier:insertStatusEffectRate(l_status_effect_str)
+function ActivityCarrier:insertStatusEffectRate(l_status_effect_struct)
 	for i = 1, 2 do 
-		local l_effect = StatusEffectHelper:parsingStatusEffectStr(l_status_effect_str[i])
-		if l_effect then
-			local type = l_effect['type']
-            local _start_con = l_effect['start_con']
-			local _rate = l_effect['rate']
-            local _value = l_effect['value_1']
+		local status_effect_struct = l_status_effect_struct[i]
+		if (status_effect_struct) and (status_effect_struct.m_type) then
+			local type = status_effect_struct.m_type
+            local _start_con = status_effect_struct.m_trigger
+			local _rate = status_effect_struct.m_rate
+            local _value = status_effect_struct.m_value1
 
 			if (not self.m_lStatusEffectRate[type]) then
 				self.m_lStatusEffectRate[type] = {value = 0, rate = 0}

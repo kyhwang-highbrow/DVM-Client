@@ -28,7 +28,7 @@ Skill = class(PARENT, {
 		m_targetPos = 'pos', -- 인디케이터에서 보낸 x, y 좌표
 		
 		-- 상태 효과 관련 변수들
-		m_lStatusEffectStr = '',
+		m_lStatusEffect = 'List<StructStatusEffect>',
 		m_tSpecialTarget = '', -- 임시 처리
 
 		-- 캐릭터의 중심을 기준으로 실제 공격이 시작되는 offset
@@ -182,7 +182,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
     self.m_powerAbs = SkillHelper:getValid(t_skill['power_add'], 0)
 	self.m_powerSource  = SkillHelper:getValid(t_skill['power_source'], 'atk')
 	self.m_powerIgnore = SkillHelper:getValid(t_skill['ignore'])
-	self.m_lStatusEffectStr = {t_skill['add_option_1'], t_skill['add_option_2']}
+	self.m_lStatusEffect = SkillHelper:makeStructStatusEffectList(t_skill)
 	
 	self.m_preDelay = SkillHelper:getValid(t_skill['pre_delay'], 0)
 	self.m_resScale = SkillHelper:getValid(t_skill['res_scale'])
@@ -281,7 +281,7 @@ function Skill:doStatusEffect(start_con, t_target)
 		else
 			l_ret = t_target or self:findTarget()
 		end
-        StatusEffectHelper:doStatusEffectByStr(self.m_owner, l_ret, lStatusEffect)
+        StatusEffectHelper:doStatusEffectByStruct(self.m_owner, l_ret, lStatusEffect)
     end
 end
 
@@ -478,12 +478,9 @@ end
 -------------------------------------
 function Skill:getStatusEffectList(start_con)
 	local l_status_effect = {}
-	for i, str in ipairs(self.m_lStatusEffectStr) do
-		if (str ~= '') then
-			local t_effect = StatusEffectHelper:parsingStr(str)
-			if (t_effect['start_con'] == start_con) then
-				table.insert(l_status_effect, str)
-			end
+	for i, struct_status_effect in ipairs(self.m_lStatusEffect) do
+		if (struct_status_effect.m_trigger == start_con) then
+			table.insert(l_status_effect, struct_status_effect)
 		end
 	end
 

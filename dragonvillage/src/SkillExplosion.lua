@@ -35,7 +35,7 @@ end
 -------------------------------------
 function SkillExplosion:boombaSideEffect() 
 	-- 액티브 스킬 사용시 def 버프 해제
-	StatusEffectHelper:releaseStatusEffect(self.m_owner, self.m_lStatusEffectStr)
+	StatusEffectHelper:releaseStatusEffect(self.m_owner, self.m_lStatusEffect)
 end
 
 -------------------------------------

@@ -15,7 +15,7 @@ CommonMissile = class(PARENT, {
 		m_activityCarrier = 'AttackDamage',
 		m_powerRate = 'num',
 		m_chanceType = 'str',
-		m_lStatusEffectStr = '',
+		m_lStatusEffect = 'List<StructStatusEffect>',
 
 		m_targetType = '', -- target_type 필드, 상대 선택 규칙
         m_attackPos = 'number', -- 캐릭터의 중심을 기준으로 실제 공격이 시작 지점
@@ -42,25 +42,18 @@ function CommonMissile:initCommonMissile(owner, t_skill)
     -- 변수 초기화
 	self.m_owner = owner
 	
-	local attr = owner:getAttributeForRes()
-	self.m_missileRes = string.gsub(t_skill['res_1'], '@', attr)
-	self.m_motionStreakRes = string.gsub(t_skill['res_2'], '@', attr)
-	self.m_resScale = t_skill['res_scale']
+	self.m_missileRes = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
+	self.m_motionStreakRes = SkillHelper:getAttributeRes(t_skill['res_2'], owner)
+	self.m_lStatusEffect = SkillHelper:makeStructStatusEffectList(t_skill)
+	self.m_resScale = SkillHelper:getValid(t_skill['res_scale'])
+	self.m_missileSpeed = SkillHelper:getValid(t_skill['val_3'], 1000)
 
 	self.m_powerRate = t_skill['power_rate']
 	self.m_chanceType = t_skill['chance_type']
-	self.m_lStatusEffectStr = {t_skill['add_option_1'], t_skill['add_option_2']}
 	self.m_targetType = t_skill['target_type']
 	self.m_maxFireCnt = t_skill['hit']
 	self.m_fireCnt = 0
 	self.m_fireLimitTime = g_constant:get('INGAME', 'FIRE_LIMIT_TIME')
-
-	-- 탄 속도
-	if (not t_skill['val_3']) or (t_skill['val_3'] == 0) then
-		self.m_missileSpeed = 1000
-	else
-		self.m_missileSpeed = t_skill['val_3']
-	end
 
 	self.m_target = self:getRandomTargetByRule()
 	self.m_missileTimer = 0
@@ -86,7 +79,7 @@ function CommonMissile:initActvityCarrier()
 
     self.m_activityCarrier:setPowerRate(self.m_powerRate)
 	self.m_activityCarrier:setAttackType(self.m_chanceType)
-    self.m_activityCarrier:insertStatusEffectRate(self.m_lStatusEffectStr)
+    self.m_activityCarrier:insertStatusEffectRate(self.m_lStatusEffect)
 end
 
 -------------------------------------

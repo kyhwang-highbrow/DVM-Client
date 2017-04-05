@@ -33,11 +33,9 @@ function SkillHeartOfRuin:init_skill()
     self.m_attackPosOffsetY = 0
 
     -- 스테이터스 이펙트 타입명 저장
-    local statusEffectStr = self.m_lStatusEffectStr[1]
-    if statusEffectStr then
-        local t_effect = StatusEffectHelper:parsingStr(statusEffectStr)
-        
-        self.m_statusEffectType = t_effect.type
+    local struct_status_effect = self.m_lStatusEffect[1]
+    if struct_status_effect then
+        self.m_statusEffectType = struct_status_effect.m_type
     end
 
     self:setPosition(self.m_owner.pos.x + self.m_attackPosOffsetX, self.m_owner.pos.y + self.m_attackPosOffsetY)    

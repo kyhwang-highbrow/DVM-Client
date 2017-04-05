@@ -73,7 +73,7 @@ function SkillShield:onEvent(event_name, t_event, ...)
 
         if self.m_hpRange <= self.m_currDamage then
             self.m_currDamage = (self.m_currDamage % self.m_hpRange)
-            StatusEffectHelper:doStatusEffectByStr(self.m_owner, {self.m_targetChar}, self.m_lStatusEffectStr)
+            StatusEffectHelper:doStatusEffectByStruct(self.m_owner, {self.m_targetChar}, self.m_lStatusEffect)
         end
     end
 

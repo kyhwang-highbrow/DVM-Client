@@ -115,7 +115,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 			local status_effect_str = {t_skill['add_option_1'], t_skill['add_option_2']}
 			
 			-- 3. 타겟에 상태효과생성
-			StatusEffectHelper:doStatusEffectByStr(self, l_target, status_effect_str)
+			StatusEffectHelper:doStatusEffectByStruct(self, l_target, status_effect_str)
 			return true
 
 		-- [스킬]

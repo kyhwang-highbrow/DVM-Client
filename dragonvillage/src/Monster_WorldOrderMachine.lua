@@ -151,7 +151,7 @@ function Monster_WorldOrderMachine:doMagicAttack()
 		-- effect
 		local effect = self:makeEffect(STUN_EFFECT_RES, target_char.pos.x, target_char.pos.y)
 		effect:addAniHandler(function() 
-			StatusEffectHelper:doStatusEffectByStr(self, {target_char}, {self:getValue()})
+			StatusEffectHelper:doStatusEffectByStruct(self, {target_char}, {self:getValue()})
 			effect.m_node:runAction(cc.RemoveSelf:create())
 		end)
 	end

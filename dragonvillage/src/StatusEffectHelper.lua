@@ -33,10 +33,10 @@ function StatusEffectHelper:statusEffectCheck_onHit(activity_carrier, defender)
 end
 
 -------------------------------------
--- function doStatusEffectByStr
--- @brief statuseffect 배열 사용함
+-- function doStatusEffectByStruct
+-- @brief statuseffect struct 사용함
 -------------------------------------
-function StatusEffectHelper:doStatusEffectByStr(owner, m_skill_target, l_status_effect_str, cb_invoke)
+function StatusEffectHelper:doStatusEffectByStruct(owner, m_skill_target, l_status_effect_struct, cb_invoke)
     -- 피격자가 사망했을 경우 리턴
     if (owner.m_bDead == true) then return end
 
@@ -53,7 +53,7 @@ function StatusEffectHelper:doStatusEffectByStr(owner, m_skill_target, l_status_
 	local t_effect = nil
 	local type = nil 
 	local target_type = nil 
-    local start_con = nil
+    local trigger = nil
 	local duration = nil
 	local rate = nil
 	local value_1 = nil
@@ -61,26 +61,25 @@ function StatusEffectHelper:doStatusEffectByStr(owner, m_skill_target, l_status_
 	
 	while true do 
 		-- 1. 파싱할 구문 가져오고 탈출 체크
-		effect_str = l_status_effect_str[idx]
-		if (not effect_str) or (effect_str == '') then 
+		status_effect_struct = l_status_effect_struct[idx]
+		if (not status_effect_struct) then 
 			break 
 		end
 
 		-- 2. 파싱하여 규칙에 맞게 분배
-		t_effect = self:parsingStr(effect_str)
-		type = t_effect['type']
-		target_type = t_effect['target_type']
-        start_con = t_effect['start_con']
-		duration = t_effect['duration']
-		rate = t_effect['rate'] 
-		value_1 = t_effect['value_1']
-
+		type = status_effect_struct.m_type
+		target_type = status_effect_struct.m_targetType
+        trigger = status_effect_struct.m_trigger
+		duration = status_effect_struct.m_duration
+		rate = status_effect_struct.m_rate
+		value_1 = status_effect_struct.m_value1
+		value_2 = status_effect_struct.m_value2
 
         -- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
 		if (target_type == 'target') then
             -- 스킬로 부터 받은 타겟 리스트 사용
             if (not m_skill_target) then
-                error('doStatusEffectByStr no m_skill_target')
+                error('doStatusEffectByStruct no m_skill_target')
             end
 
 			for _, target in ipairs(m_skill_target) do
@@ -88,13 +87,13 @@ function StatusEffectHelper:doStatusEffectByStr(owner, m_skill_target, l_status_
                     cb_invoke(target)
                 end
 			end
-		else
+		elseif (target_type) then
 			-- 별도의 계산된 타겟 리스트 사용
 			local l_target = owner:getTargetListByType(target_type, nil)
 			for _, target in ipairs(l_target) do
 				if (StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)) then
-                    cb_invoke(target)
-                end
+					cb_invoke(target)
+				end
 			end
 		end
 

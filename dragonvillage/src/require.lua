@@ -39,6 +39,19 @@ local t_module = {
     'ConstantStatusEffect',
     'ConstantColosseum',
 
+    -- Data클래스
+    'ColosseumUserInfo',
+    		
+    -- Struct
+    'StructEventPopupTab',
+    'StructAdventureChapterAchieveInfo',
+    'StructAdventureStageInfo',
+    'StructCalendarDay',
+    'StructAttendanceData',
+    'StructRuneObject',
+    'StructDragonObject',
+	'StructStatusEffect',
+
     -- Util
     'Action',
     'TimeLib',
@@ -123,9 +136,6 @@ local t_module = {
 
     'ChatClient',
 
-    -- Data클래스
-    'ColosseumUserInfo',
-    	
     -- Table
     'TableStageDesc',
     'TableDragon',
@@ -631,15 +641,6 @@ local t_module = {
     'TriggerHpPercent',
     'TriggerTime',
     'EffectTimer',
-
-    -- Struct
-    'StructEventPopupTab',
-    'StructAdventureChapterAchieveInfo',
-    'StructAdventureStageInfo',
-    'StructCalendarDay',
-    'StructAttendanceData',
-    'StructRuneObject',
-    'StructDragonObject',
 
     -- Network
     'Network',

@@ -20,6 +20,7 @@ end
 
 -------------------------------------
 -- function getValid
+-- @brief 데이터 적합성을 간단하게 체크하고 ('') 아니라면 지정된 기본값 반환
 -------------------------------------
 function SkillHelper:getValid(value, default)
 	if (not value) then 
@@ -29,6 +30,30 @@ function SkillHelper:getValid(value, default)
 	else
 		return value
 	end
+end
+
+-------------------------------------
+-- function makeStructStatusEffectList
+-------------------------------------
+function SkillHelper:makeStructStatusEffectList(t_skill)
+	local l_ret = {}
+
+	for i = 1, 2 do
+		if (t_skill['add_option_type_' .. i] ~= '') then
+			local struct_status_effect = StructStatusEffect({
+				type = t_skill['add_option_type_' .. i],
+				target_type = t_skill['add_option_target_' .. i],
+				trigger = t_skill['add_option_trigger_' .. i],
+				duration = t_skill['add_option_time_' .. i],
+				rate = t_skill['add_option_rate_' .. i],
+				value1 = t_skill['add_option_value_' .. i],
+				value2 = t_skill['add_option_value2_' .. i]
+			})
+			table.insert(l_ret, struct_status_effect)
+		end
+	end
+
+	return l_ret
 end
 
 -------------------------------------
@@ -240,7 +265,7 @@ function SkillHelper:invokeDragonActiveSkillBonus(dragon, bonus_level)
     -- 스테이터스 이펙트 적용
     local str_status_effect = string.format('%s;self;hit;%d;100;%d', status_effect_type, status_effect_time, status_effect_value)
     if (str_status_effect) then
-        StatusEffectHelper:doStatusEffectByStr(dragon, {dragon}, {str_status_effect})
+        --StatusEffectHelper:doStatusEffectByStruct(dragon, {dragon}, {str_status_effect})
     end
 
     -- 연출 이펙트

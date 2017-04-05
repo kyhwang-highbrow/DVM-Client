@@ -138,7 +138,7 @@ function SkillRapidShot_AddAttack:ultimateActiveForClownDragon()
 
     if target then 
 		self:fireMissile(target, true)
-		StatusEffectHelper:doStatusEffectByStr(self.m_owner, {target}, {self.m_addAttackStatusEffect})
+		StatusEffectHelper:doStatusEffectByStruct(self.m_owner, {target}, {self.m_addAttackStatusEffect})
 	end
 end
 

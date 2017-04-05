@@ -110,7 +110,7 @@ function StatusEffect_Trigger:getTriggerFunction()
 		-- 모션 스트릭이 첨가된 힐
 		trigger_func = function()
 			local allyList = char:getFellowList()
-			StatusEffectHelper:doStatusEffectByStr(char, allyList, {t_skill['add_option_1'], t_skill['add_option_2']}, function(target)
+			StatusEffectHelper:doStatusEffectByStruct(char, allyList, SkillHelper:makeStructStatusEffectList(t_skill), function(target)
 				EffectMotionStreak(target.m_world, char.pos.x, char.pos.y, target.pos.x, target.pos.y, RES_SE_MS)
 			end)
 		end
@@ -142,7 +142,7 @@ function StatusEffect_Trigger:getTriggerFunction()
 		-- target_rule에 따른 대상 1한테 시전
 		trigger_func = function()
 			local target_list = char:getTargetListByTable(t_skill)
-			StatusEffectHelper:doStatusEffectByStr(char, {target_list[1]}, {t_skill['add_option_1'], t_skill['add_option_2']})
+			StatusEffectHelper:doStatusEffectByStruct(char, {target_list[1]}, SkillHelper:makeStructStatusEffectList(t_skill))
 		end
 
     elseif (skill_type == 'passive_target_ms_effect') then
@@ -151,7 +151,7 @@ function StatusEffect_Trigger:getTriggerFunction()
 		trigger_func = function(t_event)
 			local defender = t_event['defender']
 			local target_list = char:getTargetListByTable(t_skill)
-			StatusEffectHelper:doStatusEffectByStr(char, target_list, {t_skill['add_option_1'], t_skill['add_option_2']}, function(target)
+			StatusEffectHelper:doStatusEffectByStruct(char, target_list, SkillHelper:makeStructStatusEffectList(t_skill), function(target)
 				EffectMotionStreak(target.m_world, defender.pos.x, defender.pos.y, target.pos.x, target.pos.y, RES_SE_MS)
 			end)
 		end
@@ -160,8 +160,7 @@ function StatusEffect_Trigger:getTriggerFunction()
 	----------------------------------------------------------------------
 	else
 		trigger_func = function(t_event)
-			local t_status_effect_str = {t_skill['add_option_1'], t_skill['add_option_2']}
-			StatusEffectHelper:doStatusEffectByStr(char, {defender}, t_status_effect_str)
+			StatusEffectHelper:doStatusEffectByStruct(char, {defender}, SkillHelper:makeStructStatusEffectList(t_skill))
 		end
 	end
 
