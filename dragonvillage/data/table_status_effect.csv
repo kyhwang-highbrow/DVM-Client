@@ -20,9 +20,10 @@ attr_change_dark,buff,속성 변환:어둠,,,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,
 def_up_overlab,buff,방어력 증가 오버랩,res/effect/effect_defense_up/effect_defense_up.vrp,res/ui/icon/status_effect/def_up.png,x,false,20,5,0,100,0,0,0,0,0,0,0,0,0,,,,0,,,,,5,x,x,x,{1}초 동안 {2}만큼 방어력 증가,정수x퍼센트 (곱연산)
 atk_up_overlab,buff,공격력 증가 오버랩,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,20,5,100,0,0,0,0,0,0,0,0,0,0,,,,0,,,,,5,x,x,x,{1}초 동안 {2}만큼 공격력 증가,정수x퍼센트 (곱연산)
 darknix,buff,파멸의 고동,res/effect/effect_combat_up/effect_combat_up.vrp,res/ui/icon/status_effect/atk_up.png,x,false,99,999,20,0,0,0,10,0,0,0,0,0,0,,,,0,,,,,20,10,x,x,공격력 {1}% 증가. 치명 확률 {2}% 증가,
-heal,dot_heal,회복,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,,100,0,hp_target,,,,x,x,x,x,x,x
+heal,dot_heal,회복,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,,100,0,atk,,,,x,x,x,x,x,x
+heal2,dot_heal,회복,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,0.3,,100,0,atk,,,,x,x,x,x,x,x
 heal_abs,dot_heal,회복,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,,100,1,hp_abs,,,,x,x,x,x,x,x
-heal_per_atk,dot_heal,회복,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,,100,0,atk,,,,x,x,x,x,x,x
+heal_per_hp,dot_heal,회복,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,1,15,0,0,0,0,0,0,0,0,0,0,0,3,,100,0,hp_target,,,,x,x,x,x,x,x
 heal_overlab,dot_heal,회복 오버랩,res/effect/effect_heal/effect_heal.vrp,res/ui/icon/status_effect/heal.png,x,false,5,15,0,0,0,0,0,0,0,0,0,0,0,3,,100,0,atk,,,,x,x,x,x,x,x
 barrier_protection,barrier,보호막,res/effect/effect_protection/effect_protection.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,20,0,0,0,0,0,0,0,0,0,0,0,,,,0,100,,,,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
 barrier_protection_abs,barrier,보호막,res/effect/effect_protection/effect_protection.vrp,res/ui/icon/status_effect/p_resist.png,x,false,1,-1,0,0,0,0,0,0,0,0,0,0,0,,,,0,hit_abs,,,,x,x,x,x,데미지를 흡수하는 보호막 생성,시전자 체력의 val_1% 만큼 데미지를 흡수하는 보호막 생성
@@ -47,7 +48,7 @@ sleep,cc,수면,res/effect/effect_sleep/effect_sleep.spine,res/ui/icon/status_ef
 silence,cc,침묵,res/effect/effect_silence/effect_silence.vrp,res/ui/icon/status_effect/silence.png,x,false,1,10,0,0,0,0,0,0,0,0,0,0,0,,,,0,1,1,1,,x,x,x,x,{duration}초 동안 일반 공격만 가능,스킬 사용 불가
 bleed,dot_dmg,출혈,res/effect/effect_bleed/effect_bleed.vrp,res/ui/icon/status_effect/bleed.png,x,false,3,15,0,0,0,0,0,0,0,0,0,0,0,1,20,,0,,,,,x,x,x,x,{duration}초 동안 {dot_interval}초마다 공격력의 {dot_dmg}%의 데미지를 줌. 피해를 입으면 즉시 공격력의 {dot_dmg}%의 피해를 주고 지속 시간이 {dot_intervla}만큼 감소.,"속성 영향 받지 않음.(트루뎀), 보스 1/10뎀, 타격당 추뎀 있음."
 poison,dot_dmg,중독,res/effect/effect_poison/effect_poison.vrp,res/ui/icon/status_effect/poison.png,x,false,3,15,0,0,0,0,0,0,0,0,0,0,0,1,20,,0,,,,,x,x,x,x,{duration}초 동안 {dot_interval}초마다 공격력의 {dot_dmg}%의 데미지를 줌.,"속성 영향 받지 않음.(트루뎀), 보스 1/10뎀,"
-burn,dot_dmg,화상,res/effect/effect_burn/effect_burn.vrp,res/ui/icon/status_effect/burn.png,x,false,3,15,0,0,0,0,0,0,0,0,0,0,0,1,20,,0,10,,,,x,x,x,x,"즉시 공격력의 {1}% 피해를 주고, {duration}초 동안 {dot_interval}초마다 공격력의 {dot_dmg}% 데미지를 줌.","속성 영향 받지 않음.(트루뎀), 보스 1/10뎀,"
+burn,dot_dmg,화상,res/effect/effect_burn/effect_burn.vrp,res/ui/icon/status_effect/burn.png,x,false,3,15,0,0,0,0,0,0,0,0,0,0,0,2,20,,0,10,,,,x,x,x,x,"즉시 공격력의 {1}% 피해를 주고, {duration}초 동안 {dot_interval}초마다 공격력의 {dot_dmg}% 데미지를 줌.","속성 영향 받지 않음.(트루뎀), 보스 1/10뎀,"
 cure,dispell,해로운 효과 해제,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,x,false,1,1,0,0,0,0,0,0,0,0,0,0,0,,,,0,,,,,x,x,x,x,,
 remove,dispell,이로운 효과 해제,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,x,false,1,1,0,0,0,0,0,0,0,0,0,0,0,,,,0,,,,,x,x,x,x,,
 invalid,dispell,모든 효과 해제,res/effect/effect_status_effect_clear/effect_status_effect_clear.vrp,,x,false,1,1,0,0,0,0,0,0,0,0,0,0,0,,,,0,,,,,x,x,x,x,,

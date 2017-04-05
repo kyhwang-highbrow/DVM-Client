@@ -1,0 +1,13 @@
+
+figer_water_02.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+figer_water_02_body_01
+  rotate: false
+  xy: 2, 2
+  size: 550, 550
+  orig: 550, 550
+  offset: 0, 0
+  index: -1
