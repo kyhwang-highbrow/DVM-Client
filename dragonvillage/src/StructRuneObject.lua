@@ -290,3 +290,65 @@ function StructRuneObject:makeSampleData()
 
     return data
 end
+
+-------------------------------------
+-- function getRarityName
+-------------------------------------
+function StructRuneObject:getRarityName(rarity)
+    local rarity = (rarity or self['rarity'])
+    
+    local name
+
+    -- 일반 (common)
+    if (rarity == 1) then
+        name = Str('일반')
+
+    -- 희귀 (rare)
+    elseif (rarity == 2) then
+        name = Str('희귀')
+
+    -- 영웅 (hero)
+    elseif (rarity == 3) then
+        name = Str('영웅')
+
+    -- 전설 (legend)
+    elseif (rarity == 4) then
+        name = Str('전설')
+
+    else
+        error('rarity : ' .. rarity)
+    end
+
+    return name
+end
+
+-------------------------------------
+-- function getRarityColor
+-------------------------------------
+function StructRuneObject:getRarityColor(rarity)
+    local rarity = (rarity or self['rarity'])
+
+    local color
+
+    -- 일반 (common)
+    if (rarity == 1) then
+        color = cc.c3b(174, 172, 162)
+
+    -- 희귀 (rare)
+    elseif (rarity == 2) then
+        color = cc.c3b(62, 139, 255)
+
+    -- 영웅 (hero)
+    elseif (rarity == 3) then
+        color = cc.c3b(213, 57, 246)
+
+    -- 전설 (legend)
+    elseif (rarity == 4) then
+        color = cc.c3b(255, 210, 0)
+
+    else
+        error('rarity : ' .. rarity)
+    end
+
+    return color
+end

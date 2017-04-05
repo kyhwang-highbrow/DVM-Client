@@ -381,12 +381,12 @@ function UI_DragonRunes:setEquipedRuneObject(rune_obj)
     if (not rune_obj) then
         vars['useMenu']:setVisible(false)
         vars['useEmptyMenu']:setVisible(true)
-        cca.uiReactionSlow(vars['useEmptyMenu'])
+        cca.uiReactionSlow(vars['useEmptyMenu'], 1, 1, 0.95)
         return
     else
         vars['useMenu']:setVisible(true)
         vars['useEmptyMenu']:setVisible(false)
-        cca.uiReactionSlow(vars['useMenu'])
+        cca.uiReactionSlow(vars['useMenu'], 1, 1, 0.95)
     end
 
     -- 룬 명칭
@@ -404,6 +404,14 @@ function UI_DragonRunes:setEquipedRuneObject(rune_obj)
 
     -- 세트 옵션
     vars['useRuneSetLabel']:setString(rune_obj:makeRuneSetDescRichText())
+
+    do -- 레어도
+        local color = rune_obj:getRarityColor()
+        vars['useRuneNameLabel']:setColor(color)
+
+        local name = rune_obj:getRarityName()
+        vars['useRarityLabel']:setString(name)
+    end
 end
 
 -------------------------------------
@@ -427,7 +435,7 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
         return
     else
         vars['selectMenu']:setVisible(true)
-        cca.uiReactionSlow(vars['selectMenu'])
+        cca.uiReactionSlow(vars['selectMenu'], 1, 1, 0.95)
     end
 
     -- 룬 명칭
@@ -445,6 +453,14 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
 
     -- 세트 옵션
     vars['selectRuneSetLabel']:setString(rune_obj:makeRuneSetDescRichText())
+
+    do -- 레어도
+        local color = rune_obj:getRarityColor()
+        vars['selectRuneNameLabel']:setColor(color)
+
+        local name = rune_obj:getRarityName()
+        vars['selectRarityLabel']:setString(name)
+    end
 end
 
 -------------------------------------
