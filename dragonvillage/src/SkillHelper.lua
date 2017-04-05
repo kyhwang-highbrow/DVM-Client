@@ -263,9 +263,17 @@ function SkillHelper:invokeDragonActiveSkillBonus(dragon, bonus_level)
     local status_effect_value   = t_info['value']
         
     -- 스테이터스 이펙트 적용
-    local str_status_effect = string.format('%s;self;hit;%d;100;%d', status_effect_type, status_effect_time, status_effect_value)
-    if (str_status_effect) then
-        --StatusEffectHelper:doStatusEffectByStruct(dragon, {dragon}, {str_status_effect})
+	local struct_status_effect = StructStatusEffect({
+		type = status_effect_type,
+		target_type = 'self',
+		trigger = 'skill_end',
+		duration = status_effect_time,
+		rate = 100,
+		value1 = status_effect_value,
+		value2 = 0
+	})
+    if (struct_status_effect) then
+        StatusEffectHelper:doStatusEffectByStruct(dragon, {dragon}, {struct_status_effect})
     end
 
     -- 연출 이펙트
