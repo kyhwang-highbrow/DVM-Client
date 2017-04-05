@@ -91,12 +91,13 @@ function MissileLauncher:init_missileLauncher(t_skill, object_key, activity_carr
 	
 		-- script 상의 상태효과 추가
 		if v['status_effect'] then 
-			self.m_activityCarrier:insertStatusEffectRate({v['status_effect']})
+			--self.m_activityCarrier:insertStatusEffectRate({v['status_effect']})
 		end
     end
 
 	-- 상태 효과 적용
-    activity_carrier:insertStatusEffectRate({t_skill['add_option_1'], t_skill['add_option_2']})
+	local l_status_effect_struct = SkillHelper:makeStructStatusEffectList(t_skill)
+    activity_carrier:insertStatusEffectRate(l_status_effect_struct)
 
     -- 미사일 패턴 초기화
     self:init_missilePattern(self.m_attackIdx)
@@ -140,7 +141,7 @@ function MissileLauncher:init_missileLauncherByScript(script_data, object_key, a
 
 		-- script 상의 상태효과 추가
 		if v['status_effect'] then 
-			self.m_activityCarrier:insertStatusEffectRate({v['status_effect']})
+			--self.m_activityCarrier:insertStatusEffectRate({v['status_effect']})
 		end
     end
 

@@ -150,6 +150,18 @@ end
 -- function setTriggerPassive
 -------------------------------------
 function StatusEffectHelper:setTriggerPassive(char, t_skill)
+	error('mskim에게 문의주세요 : setTriggerPassive')
+	--[[
+	-- 없앨지 말지 고민중
+	상태효과 자체가 이벤트를 처리하지 않고
+	스킬에서 처리되는 것이 더 좋지 않을까 함.
+	
+	상태효과에서 처리하던 이벤트를 캐릭터에서 처리하여
+	이벤트가 발생하면 스킬을 실행하고 스킬에서 상태효과 실행 
+	
+	과거) 캐릭터 -> 상태효과 발동 -> 상태효과 상존하면서 이벤트 체크
+	미래) 캐릭터 이벤트 체크 -> 스킬 실행 -> 상태효과 실행
+
 	-- 상태효과 타입
 	local status_effect_type = self:getStatusEffectTableFromSkillTable(t_skill, 1)['type']
     
@@ -175,6 +187,7 @@ function StatusEffectHelper:setTriggerPassive(char, t_skill)
 	char.m_world:addToUnitList(status_effect)
 
     return status_effect
+	]]
 end
 
 -------------------------------------
@@ -307,10 +320,6 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
     status_effect:initState()
     status_effect:changeState('start')
 
-    if (char.m_bHighlight) then
-        --char.m_world.m_gameHighlight:addMissile(status_effect)
-    end
-
     return status_effect
 end
 
@@ -368,7 +377,7 @@ function StatusEffectHelper:invokePassive(char, t_skill)
 				StatusEffectHelper:invokeStatusEffect(target, type, value_1, rate, duration)
 				apply_world_passive_effect(target)
 			end
-		else
+		elseif (target_type) then
 			-- 별도의 계산된 타겟 리스트 사용
 			local l_target = char:getTargetListByType(target_type, nil)
 			for _, target in ipairs(l_target) do
