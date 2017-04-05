@@ -41,9 +41,6 @@ function SkillCharge:init_skill(animation_name, effect_res, attack_count)
 	self.m_preCollisionTime = 0
 	
 	self.m_chargePos = {x = 0, y = self.m_targetPos.y}
-
-	-- StateDelegate 적용
-    self.m_owner:setStateDelegate(self)
 end
 
 -------------------------------------
@@ -55,7 +52,6 @@ function SkillCharge:initState()
 	self:addState('ready', SkillCharge.st_ready, nil, true)
 	self:addState('charge', SkillCharge.st_charge, nil, true)
     self:addState('comeback', SkillCharge.st_comeback, nil, true)
-	self:addState('dying', IStateDelegate.st_dying, nil, nil, 10)
 end
 
 -------------------------------------

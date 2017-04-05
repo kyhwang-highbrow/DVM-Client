@@ -60,10 +60,6 @@ function SkillCrash:init_skill(owner, t_skill, t_data)
 
     local target_x, target_y = self:getTargetPos(t_data)    
     owner:setMove(target_x, target_y, SPEED_MOVE)
-    
-
-    -- StateDelegate 적용
-    owner:setStateDelegate(self)
 end
 
 -------------------------------------

@@ -1,8 +1,11 @@
---
--- Character 클래스의 상태를 대리로 수행하는 클래스
--- owner character는 'delegate'상태로 변경시킨 후
--- IStateDelegate가 owner character를 관리하는 시스템
---
+--[[
+
+Character 클래스의 상태를 대리로 수행하는 클래스
+owner character는 'delegate'상태로 변경시킨 후
+IStateDelegate가 owner character를 관리하는 시스템
+스킬에 붙어 동작하며 스킬에 있는 함수를 덮어씌우면서 자동으로 동작한다.
+
+]]
 
 -------------------------------------
 -- class IStateDelegate
@@ -21,27 +24,23 @@ function IStateDelegate:init(file_name, body, ...)
 end
 
 -------------------------------------
--- function initState
+-- function onDelay
+-- @breif Skill class에 붙을 경우 st_delay 에서 자동으로 동작
 -------------------------------------
-function IStateDelegate:initState()
-    self:addState('dying', IStateDelegate.st_dying, nil, nil, 10)
+function IStateDelegate:onDelay(char)
+	-- 등록
+	char:setStateDelegate(self)                                   
 end
 
 -------------------------------------
--- function st_dying
+-- function onDying
+-- @breif Skill class에 붙을 경우 st_dying 에서 자동으로 동작
 -------------------------------------
-function IStateDelegate.st_dying(owner, dt)
-    -- m_character의 StateDelegate를 초기화
-    if owner.m_character then
-        owner.m_character:restore()
-
-		-- 해제
-        if (owner.m_character.m_stateDelegate == owner) then
-            owner.m_character:setStateDelegate(nil)
-        end
-    end
-    owner:setOwnerCharacter(nil)
-    return true
+function IStateDelegate:onDying()
+	-- 해제
+	if (self.m_character) then
+		self.m_character:setStateDelegate(nil)
+	end
 end
 
 -------------------------------------

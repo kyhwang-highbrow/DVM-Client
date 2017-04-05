@@ -221,6 +221,8 @@ end
 -------------------------------------
 function Skill.st_delay(owner, dt)
     if (owner.m_stateTimer == 0) then
+		owner:onDelay(owner.m_owner)
+		-- 타겟이 없다면 바로 종료
 		if (not owner.m_targetChar) then 
 			SkillHelper:printTargetNotExist(owner)
 			owner:changeState('dying') 
@@ -239,6 +241,8 @@ end
 -------------------------------------
 function Skill.st_dying(owner, dt)
     if (owner.m_stateTimer == 0) then
+		owner:onDying()
+
         owner.m_owner:restore()
 		
 		if (owner.m_rangeEffect) then
@@ -256,6 +260,18 @@ function Skill.st_dying(owner, dt)
         
 		return true
     end
+end
+
+-------------------------------------
+-- function onDelay
+-------------------------------------
+function Skill:onDelay(char)                                       
+end
+
+-------------------------------------
+-- function onDying
+-------------------------------------
+function Skill:onDying()                                       
 end
 
 -------------------------------------

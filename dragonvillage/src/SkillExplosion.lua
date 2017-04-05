@@ -23,19 +23,7 @@ function SkillExplosion:init_skill(explosion_res, jump_res, range)
 	
 	self.m_explosionRes = explosion_res
 	
-	-- 특정 드래곤 전용 
-	self:boombaSideEffect()
-
 	self:makeRangeEffect(RES_RANGE, range)
-end
-
--------------------------------------
--- function boombaSideEffect
--- @breif 특정 드래곤 하드 코딩
--------------------------------------
-function SkillExplosion:boombaSideEffect() 
-	-- 액티브 스킬 사용시 def 버프 해제
-	StatusEffectHelper:releaseStatusEffect(self.m_owner, self.m_lStatusEffect)
 end
 
 -------------------------------------
@@ -46,9 +34,6 @@ function SkillExplosion:initState()
     self:addState('start', SkillExplosion.st_move, nil, true)
     self:addState('attack', SkillExplosion.st_attack, nil, false)
 	self:addState('comeback', SkillExplosion.st_comeback, nil, true)
-	
-	-- 영웅을 제어하는 스킬은 dying state를 별도로 정의
-	self:addState('dying', IStateDelegate.st_dying, nil, nil, 10)
 end
 
 -------------------------------------

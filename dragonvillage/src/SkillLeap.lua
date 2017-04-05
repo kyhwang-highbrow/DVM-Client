@@ -28,9 +28,6 @@ function SkillLeap:init_skill(jump_res, range)
 	self.m_afterimageMove = 0
 
 	self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
-    
-	-- character를 delegate상태로 변경
-    self.m_owner:setStateDelegate(self)
 end
 
 -------------------------------------
@@ -41,9 +38,6 @@ function SkillLeap:initState()
     self:addState('start', SkillLeap.st_move, 'move', true)
     self:addState('attack', SkillLeap.st_attack, 'idle', false)
 	self:addState('comeback', SkillLeap.st_comeback, 'move', true)
-	
-	-- 영웅을 제어하는 스킬은 dying state를 별도로 정의
-	self:addState('dying', IStateDelegate.st_dying, nil, nil, 10)
 end
 
 -------------------------------------

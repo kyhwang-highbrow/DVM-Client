@@ -37,10 +37,6 @@ function SkillMeleeHack:init_skill(move_speed, comeback_speed)
         target_x = target_x + 100
     end
     char:setMove(target_x, target_y, self.m_moveSpeed)
-
-
-    -- StateDelegate 적용
-    char:setStateDelegate(self)
 end
 
 -------------------------------------
@@ -51,9 +47,6 @@ function SkillMeleeHack:initState(attack_ani)
     self:addState('start', SkillMeleeHack.st_move, 'attack_hack_move', true)
     self:addState('attack', SkillMeleeHack.st_attack, attack_ani, false)
     self:addState('comeback', SkillMeleeHack.st_comeback, 'idle', true)
-
-	-- 영웅을 제어하는 스킬은 dying state를 별도로 정의
-	self:addState('dying', IStateDelegate.st_dying, nil, nil, 10)
 end
 
 -------------------------------------

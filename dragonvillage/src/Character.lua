@@ -1909,6 +1909,7 @@ end
 -- @brief 스킬들이 캐릭터의 상태를 대신 수행하는 클래스
 -------------------------------------
 function Character:setStateDelegate(state_delegate)
+	-- 있던 것은 없애버린다.
     if self.m_stateDelegate then
         self.m_stateDelegate:changeState('dying')
         self.m_stateDelegate:setOwnerCharacter(nil)
