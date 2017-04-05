@@ -165,6 +165,9 @@ function UI_DragonManageInfo:refresh()
             end
         end
     end
+
+    -- 리더 드래곤 여부 표시
+    self:refresh_leaderDragon(t_dragon_data)
 end
 
 -------------------------------------
@@ -196,6 +199,29 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
         animator:addAniHandler(function() animator:changeAni('idle', true) end)
         animator:setAlpha(0)
         animator:runAction(cc.FadeIn:create(0.1))
+    end
+end
+
+-------------------------------------
+-- function refresh_leaderDragon
+-- @brief
+-------------------------------------
+function UI_DragonManageInfo:refresh_leaderDragon(t_dragon_data)
+    local t_dragon_data = (t_dragon_data or self.m_selectDragonData)
+    local doid = nil
+    if (t_dragon_data) then
+        doid = t_dragon_data['id']
+    end
+    local vars = self.vars
+
+    -- 리더 드래곤
+    if vars['leaderSprite'] then
+        if doid then
+            local is_leader = g_dragonsData:isLeaderDragon(doid)
+            vars['leaderSprite']:setVisible(is_leader)
+        else
+            vars['leaderSprite']:setVisible(false)
+        end
     end
 end
 
@@ -410,6 +436,10 @@ function UI_DragonManageInfo:click_leaderBtn()
             end
 
             UIManager:toastNotificationGreen(Str('대표 드래곤으로 설정되었습니다.'))
+            
+            -- 리더 드래곤 여부 표시
+            self:setSelectDragonDataRefresh()
+            self:refresh_leaderDragon(t_dragon_data)
         end
 
         local ui_network = UI_Network()
