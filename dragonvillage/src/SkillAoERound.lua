@@ -66,7 +66,7 @@ function SkillAoERound.st_appear(owner, dt)
 		if (not owner.m_targetChar) then 
 			owner:changeState('dying') 
 		end
-		owner:enterAttack()
+		owner:onAppear()
 		owner.m_animator:addAniHandler(function()
 			owner:changeState('attack')
 		end)
@@ -78,9 +78,9 @@ end
 -------------------------------------
 function SkillAoERound.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
+		owner:enterAttack()
 		-- 이펙트 재생 단위 시간
 		owner:setAttackInterval()
-
 		-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
         owner.m_multiAtkTimer = owner.m_hitInterval
 
@@ -142,15 +142,21 @@ function SkillAoERound:setAttackInterval()
 end
 
 -------------------------------------
+-- function onAppear
+-------------------------------------
+function SkillAoERound:onAppear()
+end
+
+-------------------------------------
 -- function enterAttack
 -------------------------------------
-function SkillAoERound:enterAttack(t_target)
+function SkillAoERound:enterAttack()
 end
 
 -------------------------------------
 -- function doSpecialEffect (onHit)
 -------------------------------------
-function SkillAoERound:doSpecialEffect(t_target)
+function SkillAoERound:doSpecialEffect()
 end
 
 -------------------------------------

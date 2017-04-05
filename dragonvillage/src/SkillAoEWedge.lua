@@ -78,7 +78,7 @@ function SkillAoEWedge.st_appear(owner, dt)
 		if (not owner.m_targetChar) then 
 			owner:changeState('dying') 
 		end
-		owner:enterAttack()
+		owner:onAppear()
 		owner.m_animator:addAniHandler(function()
 			owner:changeState('attack')
 		end)
@@ -90,12 +90,11 @@ end
 -------------------------------------
 function SkillAoEWedge.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
+		owner:enterAttack()
 		-- 이펙트 재생 단위 시간
 		owner:setAttackInterval()
-
 		-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
         owner.m_multiAtkTimer = owner.m_hitInterval
-
 		owner.m_attackCount = 0
     end
 	
@@ -138,6 +137,12 @@ function SkillAoEWedge:setAttackInterval()
 	-- 이펙트 재생 단위 시간
 	--self.m_hitInterval = self.m_animator:getDuration()
 	self.m_hitInterval = (self.m_animator:getDuration() / self.m_maxAttackCount)
+end
+
+-------------------------------------
+-- function onAppear
+-------------------------------------
+function SkillAoEWedge:onAppear(t_target)
 end
 
 -------------------------------------

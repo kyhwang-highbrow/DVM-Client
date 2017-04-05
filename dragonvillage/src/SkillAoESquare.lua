@@ -32,9 +32,7 @@ function SkillAoESquare:init_skill(hit)
 
 	-- 멤버 변수
 	self.m_maxAttackCnt = hit 
-    self.m_attackCnt = 0
-    self.m_hitInterval = 0.3
-	self.m_multiAtkTimer = self.m_hitInterval
+    --self.m_hitInterval -> attack state에서 지정
 
 	-- 위치 설정
 	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
@@ -70,6 +68,12 @@ end
 function SkillAoESquare.st_attack(owner, dt)
 	if (owner.m_stateTimer == 0) then
 		owner:enterAttack()
+		-- 이펙트 재생 단위 시간
+		owner:setAttackInterval()
+		-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
+		owner.m_multiAtkTimer = owner.m_hitInterval
+
+	    owner.m_attackCnt = 0
 	end
 
 	owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
@@ -113,6 +117,16 @@ function SkillAoESquare:escapeAttack()
 	self.m_animator:addAniHandler(function()
 		self:changeState('disappear')
 	end)
+end
+
+-------------------------------------
+-- function setAttackInterval
+-- @brief 스킬에 따라 오버라이딩 해서 사용
+-------------------------------------
+function SkillAoESquare:setAttackInterval()
+	-- 이펙트 재생 단위 시간
+	--self.m_hitInterval = self.m_animator:getDuration()
+	self.m_hitInterval = (self.m_animator:getDuration() / self.m_maxAttackCnt)
 end
 
 -------------------------------------

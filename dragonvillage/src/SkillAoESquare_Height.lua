@@ -23,9 +23,10 @@ function SkillAoESquare_Height:init_skill(hit)
 	-- Y좌표값 중심으로 세팅
 	local cameraHomePosX, cameraHomePosY = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
 	self:setPosition(self.m_targetPos.x, cameraHomePosY)
+
 	-- @TODO 핑크벨 확인 위해 임시 처리
 	local pos_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) - self.m_targetPos.x
-	self.m_animator:setPosition(pos_x, cameraHomePosY)
+	self.m_animator:setPositionX(pos_x)
 end
 
 -------------------------------------
@@ -50,13 +51,6 @@ function SkillAoESquare_Height:adjustAnimator()
 	self.m_animator:setVisible(false) 
 
 	self.m_animator:setScaleX(self.m_resScale)
-end
-
--------------------------------------
--- function enterAttack
--- @brief 공격이 시작되는 시점에 실행
--------------------------------------
-function SkillAoESquare_Height:enterAttack()
 end
 
 -------------------------------------
