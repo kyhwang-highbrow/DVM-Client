@@ -5,498 +5,505 @@ format: RGBA8888
 filter: Linear,Linear
 repeat: none
 nuri_acce_01
-  rotate: true
-  xy: 2, 2
+  rotate: false
+  xy: 239, 64
   size: 29, 38
   orig: 29, 38
   offset: 0, 0
   index: -1
 nuri_acce_02
-  rotate: true
-  xy: 42, 2
+  rotate: false
+  xy: 242, 24
   size: 29, 38
   orig: 29, 38
   offset: 0, 0
   index: -1
 nuri_acce_03
   rotate: false
-  xy: 116, 2
+  xy: 335, 354
   size: 30, 29
   orig: 30, 29
   offset: 0, 0
   index: -1
 nuri_acce_04
   rotate: false
-  xy: 431, 670
+  xy: 335, 323
   size: 30, 29
   orig: 30, 29
   offset: 0, 0
   index: -1
 nuri_arm_01
   rotate: false
-  xy: 743, 715
+  xy: 566, 467
   size: 34, 52
   orig: 34, 52
   offset: 0, 0
   index: -1
 nuri_arm_02
   rotate: true
-  xy: 978, 885
+  xy: 865, 711
   size: 24, 38
   orig: 24, 38
   offset: 0, 0
   index: -1
 nuri_arm_03
-  rotate: true
-  xy: 958, 757
+  rotate: false
+  xy: 790, 666
   size: 30, 45
   orig: 30, 45
   offset: 0, 0
   index: -1
 nuri_arm_04
   rotate: false
-  xy: 407, 609
+  xy: 239, 104
   size: 30, 46
   orig: 30, 46
   offset: 0, 0
   index: -1
 nuri_body_01
   rotate: false
-  xy: 314, 674
+  xy: 468, 427
   size: 55, 78
   orig: 55, 78
   offset: 0, 0
   index: -1
 nuri_body_02
-  rotate: false
-  xy: 365, 779
+  rotate: true
+  xy: 683, 618
   size: 68, 42
   orig: 68, 42
   offset: 0, 0
   index: -1
 nuri_body_03
-  rotate: false
-  xy: 980, 717
+  rotate: true
+  xy: 860, 681
   size: 28, 38
   orig: 28, 38
   offset: 0, 0
   index: -1
 nuri_body_04
-  rotate: false
-  xy: 631, 707
+  rotate: true
+  xy: 187, 6
   size: 55, 53
   orig: 55, 53
   offset: 0, 0
   index: -1
 nuri_effect_01
-  rotate: false
-  xy: 772, 884
+  rotate: true
+  xy: 383, 507
   size: 146, 138
   orig: 146, 138
   offset: 0, 0
   index: -1
 nuri_effect_02
   rotate: false
-  xy: 572, 762
+  xy: 205, 307
   size: 96, 86
   orig: 96, 86
   offset: 0, 0
   index: -1
 nuri_effect_03
   rotate: false
-  xy: 609, 862
+  xy: 290, 655
   size: 161, 160
   orig: 161, 160
   offset: 0, 0
   index: -1
 nuri_effect_04
   rotate: false
-  xy: 232, 823
+  xy: 2, 304
   size: 201, 199
   orig: 201, 199
   offset: 0, 0
   index: -1
 nuri_effect_05
   rotate: false
-  xy: 176, 117
+  xy: 593, 688
   size: 132, 132
   orig: 132, 132
   offset: 0, 0
   index: -1
 nuri_effect_06
   rotate: false
-  xy: 435, 850
+  xy: 2, 130
   size: 172, 172
   orig: 172, 172
   offset: 0, 0
   index: -1
 nuri_effect_07
   rotate: false
-  xy: 2, 399
+  xy: 516, 822
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 nuri_effect_08
   rotate: false
-  xy: 2, 225
+  xy: 718, 850
   size: 172, 172
   orig: 172, 172
   offset: 0, 0
   index: -1
 nuri_effect_09
   rotate: false
-  xy: 2, 808
+  xy: 2, 505
   size: 228, 214
   orig: 228, 214
   offset: 0, 0
   index: -1
 nuri_effect_10
   rotate: false
-  xy: 2, 77
+  xy: 232, 507
   size: 149, 146
   orig: 149, 146
   offset: 0, 0
   index: -1
 nuri_effect_11
   rotate: true
-  xy: 176, 251
+  xy: 453, 669
   size: 146, 138
   orig: 146, 138
   offset: 0, 0
   index: -1
 nuri_effect_12
-  rotate: true
-  xy: 2, 33
+  rotate: false
+  xy: 523, 523
   size: 42, 144
   orig: 42, 144
   offset: 0, 0
   index: -1
 nuri_effect_13
   rotate: false
-  xy: 834, 723
+  xy: 608, 520
   size: 48, 45
   orig: 48, 45
   offset: 0, 0
   index: -1
+nuri_effect_14
+  rotate: false
+  xy: 2, 721
+  size: 286, 301
+  orig: 286, 301
+  offset: 0, 0
+  index: -1
 nuri_eye_01
   rotate: false
-  xy: 920, 884
+  xy: 236, 193
   size: 56, 25
   orig: 56, 25
   offset: 0, 0
   index: -1
 nuri_eye_02
-  rotate: true
-  xy: 153, 175
+  rotate: false
+  xy: 815, 714
   size: 48, 21
   orig: 48, 21
   offset: 0, 0
   index: -1
 nuri_eye_03
   rotate: true
-  xy: 153, 130
+  xy: 892, 853
   size: 43, 21
   orig: 43, 21
   offset: 0, 0
   index: -1
 nuri_face_01
-  rotate: true
-  xy: 381, 601
+  rotate: false
+  xy: 602, 469
   size: 13, 14
   orig: 13, 14
   offset: 0, 0
   index: -1
 nuri_foot_01
   rotate: false
-  xy: 364, 616
+  xy: 239, 152
   size: 41, 39
   orig: 41, 39
   offset: 0, 0
   index: -1
 nuri_foot_02
-  rotate: false
-  xy: 937, 720
+  rotate: true
+  xy: 566, 424
   size: 41, 35
   orig: 41, 35
   offset: 0, 0
   index: -1
 nuri_hair_00
-  rotate: false
-  xy: 499, 704
+  rotate: true
+  xy: 232, 658
   size: 61, 56
   orig: 61, 56
   offset: 0, 0
   index: -1
 nuri_hair_01
-  rotate: false
-  xy: 153, 12
+  rotate: true
+  xy: 919, 787
   size: 109, 103
   orig: 109, 103
   offset: 0, 0
   index: -1
 nuri_hair_02
-  rotate: false
-  xy: 562, 710
+  rotate: true
+  xy: 187, 63
   size: 67, 50
   orig: 67, 50
   offset: 0, 0
   index: -1
 nuri_hair_03
   rotate: true
-  xy: 920, 911
+  xy: 815, 737
   size: 111, 102
   orig: 111, 102
   offset: 0, 0
   index: -1
 nuri_hair_04
-  rotate: true
-  xy: 884, 725
+  rotate: false
+  xy: 567, 521
   size: 39, 51
   orig: 39, 51
   offset: 0, 0
   index: -1
 nuri_hair_05
-  rotate: true
-  xy: 1001, 806
+  rotate: false
+  xy: 272, 2
   size: 22, 20
   orig: 22, 20
   offset: 0, 0
   index: -1
 nuri_hair_06
   rotate: false
-  xy: 463, 679
+  xy: 678, 544
   size: 22, 20
   orig: 22, 20
   offset: 0, 0
   index: -1
 nuri_hair_07
-  rotate: true
-  xy: 772, 770
+  rotate: false
+  xy: 892, 898
   size: 112, 124
   orig: 112, 124
   offset: 0, 0
   index: -1
 nuri_hand_01
   rotate: false
-  xy: 82, 2
+  xy: 306, 386
   size: 32, 29
   orig: 32, 29
   offset: 0, 0
   index: -1
 nuri_hand_02
   rotate: true
-  xy: 758, 681
+  xy: 796, 632
   size: 32, 27
   orig: 32, 27
   offset: 0, 0
   index: -1
 nuri_hand_03
   rotate: false
-  xy: 1001, 860
+  xy: 426, 411
   size: 21, 23
   orig: 21, 23
   offset: 0, 0
   index: -1
 nuri_hand_04
-  rotate: true
-  xy: 819, 684
+  rotate: false
+  xy: 392, 410
   size: 32, 24
   orig: 32, 24
   offset: 0, 0
   index: -1
 nuri_hand_05
-  rotate: true
-  xy: 1001, 830
+  rotate: false
+  xy: 242, 2
   size: 28, 20
   orig: 28, 20
   offset: 0, 0
   index: -1
 nuri_head_01
   rotate: true
-  xy: 670, 769
+  xy: 919, 694
   size: 91, 99
   orig: 91, 99
   offset: 0, 0
   index: -1
 nuri_lowbody_01
-  rotate: true
-  xy: 326, 754
+  rotate: false
+  xy: 727, 622
   size: 67, 37
   orig: 67, 37
   offset: 0, 0
   index: -1
 nuri_reg_01
-  rotate: true
-  xy: 435, 762
+  rotate: false
+  xy: 727, 713
   size: 86, 135
   orig: 86, 135
   offset: 0, 0
   index: -1
 nuri_reg_02
-  rotate: true
-  xy: 204, 416
+  rotate: false
+  xy: 132, 5
   size: 53, 123
   orig: 53, 123
   offset: 0, 0
   index: -1
 nuri_reg_03
-  rotate: true
-  xy: 232, 782
+  rotate: false
+  xy: 525, 429
   size: 39, 92
   orig: 39, 92
   offset: 0, 0
   index: -1
 nuri_reg_04
   rotate: false
-  xy: 958, 789
+  xy: 567, 574
   size: 41, 93
   orig: 41, 93
   offset: 0, 0
   index: -1
 nuri_sholder_01
   rotate: false
-  xy: 688, 679
+  xy: 822, 676
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 nuri_sholder_02
-  rotate: true
-  xy: 228, 601
+  rotate: false
+  xy: 658, 543
   size: 18, 22
   orig: 18, 22
   offset: 0, 0
   index: -1
 nuri_wepon_01
   rotate: false
-  xy: 371, 657
+  xy: 602, 485
   size: 53, 33
   orig: 53, 33
   offset: 0, 0
   index: -1
 nuri_wepon_02
   rotate: false
-  xy: 364, 601
+  xy: 593, 673
   size: 15, 13
   orig: 15, 13
   offset: 0, 0
   index: -1
 nuri_wepon_03
-  rotate: true
-  xy: 204, 399
+  rotate: false
+  xy: 1006, 1009
   size: 15, 13
   orig: 15, 13
   offset: 0, 0
   index: -1
 nuri_wepon_04
   rotate: false
-  xy: 688, 717
+  xy: 678, 566
   size: 53, 50
   orig: 53, 50
   offset: 0, 0
   index: -1
 nuri_wepon_05
   rotate: false
-  xy: 779, 718
+  xy: 733, 570
   size: 53, 50
   orig: 53, 50
   offset: 0, 0
   index: -1
 nuri_wepon_06
-  rotate: true
-  xy: 332, 538
+  rotate: false
+  xy: 727, 661
   size: 61, 50
   orig: 61, 50
   offset: 0, 0
   index: -1
 nuri_wepon_07
-  rotate: true
-  xy: 304, 601
+  rotate: false
+  xy: 610, 628
   size: 71, 58
   orig: 71, 58
   offset: 0, 0
   index: -1
 nuri_z2_01
   rotate: false
-  xy: 2, 601
+  xy: 290, 817
   size: 224, 205
   orig: 224, 205
   offset: 0, 0
   index: -1
 nuri_z2_02
-  rotate: false
-  xy: 204, 471
+  rotate: true
+  xy: 2, 2
   size: 126, 128
   orig: 126, 128
   offset: 0, 0
   index: -1
 nuri_z2_03
   rotate: false
-  xy: 228, 692
+  xy: 306, 417
   size: 84, 88
   orig: 84, 88
   offset: 0, 0
   index: -1
 nuri_z2_04
-  rotate: false
-  xy: 726, 681
+  rotate: true
+  xy: 340, 385
   size: 30, 32
   orig: 30, 32
   offset: 0, 0
   index: -1
 nuri_z2_05
   rotate: false
-  xy: 787, 684
+  xy: 303, 352
   size: 30, 32
   orig: 30, 32
   offset: 0, 0
   index: -1
 nuri_z2_06
   rotate: false
-  xy: 845, 689
+  xy: 303, 318
   size: 30, 32
   orig: 30, 32
   offset: 0, 0
   index: -1
 nuri_z2_07
   rotate: false
-  xy: 228, 621
+  xy: 392, 436
   size: 74, 69
   orig: 74, 69
   offset: 0, 0
   index: -1
 nuri_z2_08
   rotate: true
-  xy: 371, 692
+  xy: 236, 220
   size: 85, 58
   orig: 85, 58
   offset: 0, 0
   index: -1
 nuri_z2_09
   rotate: true
-  xy: 898, 766
+  xy: 176, 186
   size: 116, 58
   orig: 116, 58
   offset: 0, 0
   index: -1
 nuri_z2_10
-  rotate: false
-  xy: 332, 475
+  rotate: true
+  xy: 176, 132
   size: 52, 61
   orig: 52, 61
   offset: 0, 0
   index: -1
 nuri_z_01
   rotate: true
-  xy: 264, 7
+  xy: 205, 395
   size: 108, 99
   orig: 108, 99
   offset: 0, 0
   index: -1
 nuri_z_02
   rotate: false
-  xy: 431, 701
+  xy: 610, 567
   size: 66, 59
   orig: 66, 59
   offset: 0, 0

@@ -1,21 +1,25 @@
-product_id,product_type,price_type,slot_type,price,product_content,mbuy_count,mbuy_due,event_type,event_form,event_start_date,event_start_time,event_end_date,event_end_time,event_price,event_product_content,icon
-1,cash,money,normal,3300,cash;100,0,,,,,,,,,,res/ui/icon/item/shop_cash_01.png
-2,cash,money,normal,5500,cash;180,1,,,,,,,,,,res/ui/icon/item/shop_cash_02.png
-3,cash,money,normal,11000,cash;370,1,,,,,,,,,,res/ui/icon/item/shop_cash_03.png
-4,cash,money,normal,22000,cash;770,1,,,,,,,,,,res/ui/icon/item/shop_cash_04.png
-5,cash,money,normal,55000,cash;2000,1,,,,,,,,,,res/ui/icon/item/shop_cash_04.png
-6,cash,money,normal,110000,cash;4170,1,1,,,,,,,,,res/ui/icon/item/shop_cash_04.png
-7,gold,cash,normal,40,gold;40000,0,,limit_time,,20170101,0,20180101,0,,,res/ui/icon/item/shop_gold_01.png
-8,gold,cash,normal,130,gold;133000,0,,sale,first,20170101,0,20180101,12,5,,res/ui/icon/item/shop_gold_02.png
-9,gold,cash,normal,700,gold;667000,0,,limit_time,,20170101,0,20180101,24,,,res/ui/icon/item/shop_gold_03.png
-10,gold,cash,normal,1300,gold;1333000,0,,sale,first,20170101,0,20180101,36,6,,res/ui/icon/item/shop_gold_04.png
-11,stamina,cash,normal,40,stamina;30,0,,,,,,,,,,res/ui/icon/item/shop_staminas_st_01.png
-12,stamina,cash,normal,130,stamina;90,0,,hot,allways,20170101,0,20180101,12,,,res/ui/icon/item/shop_staminas_st_02.png
-13,stamina,cash,normal,200,stamina;130,0,,,,,,,,,,res/ui/icon/item/shop_staminas_st_03.png
-14,stamina,cash,normal,470,stamina;310,0,,hot,allways,20170102,1,20180102,13,,,res/ui/icon/item/shop_staminas_st_04.png
-15,stamina,cash,normal,670,stamina;450,0,,,,,,,,,,res/ui/icon/item/shop_staminas_st_04.png
-16,stamina,cash,normal,930,stamina;620,0,,hot,allways,20170103,2,20180103,14,,,res/ui/icon/item/shop_staminas_st_04.png
-17,honor,honor,normal,500,gold;10000,0,,,,,,,,,,res/ui/icon/item/shop_gold_01.png
-18,honor,honor,normal,500,gold;10000,0,,,,,,,,,,res/ui/icon/item/shop_gold_01.png
-19,recommend,cash,special,250,"gold;100000,stamina;500",1,,,,,,,,,,res/ui/icon/item/shop_draw_01.png
-20,recommend,cash,special,1000,"gold;500000,stamina;2500",0,,,,,,,,,,res/ui/icon/item/shop_draw_01.png
+product_id,t_name,display,group_type,price_type,slot_type,price_value,product_content,max_buy_count,max_buy_term,icon,r_desc,daily_term,daily_item
+10001,,true,cash,money,normal,1000,cash;100,0,,res/ui/icon/item/shop_cash_01.png,,,
+10002,,true,cash,money,normal,4000,cash;500,0,,res/ui/icon/item/shop_cash_02.png,,30,cash;10
+10003,,true,cash,money,normal,10000,cash;1000,0,,res/ui/icon/item/shop_cash_03.png,,,
+10004,,true,cash,money,normal,30000,cash;3000,1,,res/ui/icon/item/shop_cash_04.png,,,
+10005,,true,cash,money,normal,50000,cash;5000,1,,res/ui/icon/item/shop_cash_04.png,,,
+10006,,true,cash,money,normal,100000,cash;10000,1,weekly,res/ui/icon/item/shop_cash_04.png,,,
+20001,,true,gold,cash,normal,50,gold;10000,0,monthly,res/ui/icon/item/shop_gold_01.png,,,
+20002,,true,gold,cash,normal,250,gold;50000,0,,res/ui/icon/item/shop_gold_02.png,,,
+20003,,true,gold,cash,normal,500,gold;105000,0,,res/ui/icon/item/shop_gold_03.png,,,
+20004,,true,gold,cash,normal,1000,gold;220000,0,,res/ui/icon/item/shop_gold_04.png,,,
+20005,,true,gold,cash,normal,2000,gold;448000,0,,res/ui/icon/item/shop_gold_04.png,,,
+20006,,true,gold,cash,normal,5000,gold;1150000,0,,res/ui/icon/item/shop_gold_04.png,,,
+30001,,true,stamina,cash,normal,100,stamina;50,0,,res/ui/icon/item/shop_staminas_st_01.png,,,
+30002,,true,stamina,cash,normal,200,stamina;100,0,,res/ui/icon/item/shop_staminas_st_02.png,,,
+30003,,true,stamina,cash,normal,250,stamina;170,0,,res/ui/icon/item/shop_staminas_st_03.png,,,
+30004,,true,stamina,cash,normal,500,stamina;350,0,,res/ui/icon/item/shop_staminas_st_04.png,,,
+30005,,true,stamina,cash,normal,1000,stamina;720,0,,res/ui/icon/item/shop_staminas_st_04.png,,,
+40001,,true,honor,honor,normal,40,700101;30,0,,res/ui/icon/item/shop_gold_01.png,,,
+40002,,true,honor,honor,normal,10,703001;1,0,permanent,res/ui/icon/item/shop_gold_01.png,테스트용 계정 1회 제한,,
+40003,,true,honor,honor,normal,100,703003;1,1,weekly,res/ui/icon/item/shop_gold_01.png,테스트용 주간1회제한,,
+50001,추천 패키지_1,true,recommend,cash,special,250,"gold;100000,700101;500",1,,res/ui/icon/item/shop_draw_01.png,,,
+50002,추천 패키지_2,true,recommend,cash,special,1000,"gold;500000,stamina;2500",1,,res/ui/icon/item/shop_draw_01.png,,,
+21001,,false,gold,cash,normal,700,gold;667000,0,,res/ui/icon/item/shop_gold_03.png,,,
+21002,,false,gold,cash,normal,1300,gold;1333000,0,,res/ui/icon/item/shop_gold_04.png,,,

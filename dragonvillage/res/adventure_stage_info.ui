@@ -322,6 +322,84 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					lua_name = '';
+					file_name = 'ui/icon/stage_info_star_02.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[2] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 18.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 76;
+					height = 74;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/icon/stage_info_star_02.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[3] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = -74.000000;
+					y = 18.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 76;
+					height = 74;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/icon/stage_info_star_02.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[4] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 74.000000;
+					y = 18.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 76;
+					height = 74;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
 					lua_name = 'starSprite3';
 					file_name = 'ui/icon/stage_info_star_01.png';
 					color = { 255; 255; 255; };
@@ -331,7 +409,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[2] =
+				[5] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -357,7 +435,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[3] =
+				[6] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -472,7 +550,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = -5.000000;
+						x = -10.000000;
 						y = 0.000000;
 						dock_point = { 1.000000; 0.500000; };
 						anchor_point = { 1.000000; 0.500000; };
@@ -515,7 +593,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 89;
+					width = 100;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -526,7 +604,7 @@
 					lua_name = '';
 					file_name = 'ui/frame/price_0101.png';
 					color = { 255; 255; 255; };
-					opacity = 255;
+					opacity = 200;
 					center_rect_x = 0;
 					center_rect_y = 0;
 					center_rect_width = 0;
@@ -535,9 +613,9 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = -104.000000;
+				y = -50.000000;
 				dock_point = { 0.500000; 0.000000; };
-				anchor_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 300;
 				height = 76;

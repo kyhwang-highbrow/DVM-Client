@@ -5,22 +5,22 @@ format: RGBA8888
 filter: Linear,Linear
 repeat: none
 kesath_acc_01
-  rotate: true
-  xy: 464, 262
+  rotate: false
+  xy: 459, 387
   size: 29, 28
   orig: 29, 28
   offset: 0, 0
   index: -1
 kesath_acc_02
   rotate: false
-  xy: 834, 888
+  xy: 265, 58
   size: 14, 16
   orig: 14, 16
   offset: 0, 0
   index: -1
 kesath_acc_03
   rotate: false
-  xy: 490, 428
+  xy: 453, 417
   size: 35, 34
   orig: 35, 34
   offset: 0, 0
@@ -34,7 +34,7 @@ kesath_arm_01
   index: -1
 kesath_arm_02
   rotate: false
-  xy: 271, 143
+  xy: 490, 483
   size: 65, 63
   orig: 65, 63
   offset: 0, 0
@@ -48,28 +48,28 @@ kesath_arm_03
   index: -1
 kesath_arm_04
   rotate: false
-  xy: 490, 506
+  xy: 568, 615
   size: 36, 40
   orig: 36, 40
   offset: 0, 0
   index: -1
 kesath_arm_05
   rotate: false
-  xy: 490, 464
+  xy: 568, 573
   size: 36, 40
   orig: 36, 40
   offset: 0, 0
   index: -1
 kesath_belt_01
-  rotate: false
-  xy: 453, 488
+  rotate: true
+  xy: 490, 446
   size: 35, 50
   orig: 35, 50
   offset: 0, 0
   index: -1
 kesath_belt_02
   rotate: false
-  xy: 380, 187
+  xy: 414, 266
   size: 35, 34
   orig: 35, 34
   offset: 0, 0
@@ -96,29 +96,29 @@ kesath_body_03
   offset: 0, 0
   index: -1
 kesath_body_04
-  rotate: false
-  xy: 453, 436
+  rotate: true
+  xy: 490, 409
   size: 35, 50
   orig: 35, 50
   offset: 0, 0
   index: -1
 kesath_body_05
-  rotate: true
-  xy: 717, 753
+  rotate: false
+  xy: 453, 453
   size: 35, 85
   orig: 35, 85
   offset: 0, 0
   index: -1
 kesath_body_06
-  rotate: true
-  xy: 453, 409
+  rotate: false
+  xy: 459, 327
   size: 25, 26
   orig: 25, 26
   offset: 0, 0
   index: -1
 kesath_brow_01
-  rotate: true
-  xy: 390, 247
+  rotate: false
+  xy: 567, 657
   size: 49, 21
   orig: 49, 21
   offset: 0, 0
@@ -172,6 +172,20 @@ kesath_effect_06
   orig: 267, 250
   offset: 0, 0
   index: -1
+kesath_effect_07
+  rotate: true
+  xy: 569, 769
+  size: 81, 87
+  orig: 81, 87
+  offset: 0, 0
+  index: -1
+kesath_effect_08
+  rotate: false
+  xy: 567, 680
+  size: 81, 87
+  orig: 81, 87
+  offset: 0, 0
+  index: -1
 kesath_effect_i_01
   rotate: false
   xy: 730, 848
@@ -180,8 +194,8 @@ kesath_effect_i_01
   offset: 0, 0
   index: -1
 kesath_effect_i_02
-  rotate: false
-  xy: 717, 790
+  rotate: true
+  xy: 650, 663
   size: 102, 56
   orig: 102, 56
   offset: 0, 0
@@ -195,7 +209,7 @@ kesath_effect_i_03
   index: -1
 kesath_effect_i_04
   rotate: true
-  xy: 338, 146
+  xy: 806, 767
   size: 79, 40
   orig: 79, 40
   offset: 0, 0
@@ -229,15 +243,15 @@ kesath_face_01
   offset: 0, 0
   index: -1
 kesath_finger_01
-  rotate: false
-  xy: 137, 5
+  rotate: true
+  xy: 618, 643
   size: 35, 30
   orig: 35, 30
   offset: 0, 0
   index: -1
 kesath_finger_02
   rotate: false
-  xy: 380, 155
+  xy: 137, 5
   size: 35, 30
   orig: 35, 30
   offset: 0, 0
@@ -250,43 +264,43 @@ kesath_foot_01
   offset: 0, 0
   index: -1
 kesath_foot_02
-  rotate: true
-  xy: 528, 507
+  rotate: false
+  xy: 606, 605
   size: 39, 36
   orig: 39, 36
   offset: 0, 0
   index: -1
 kesath_foot_03
-  rotate: true
-  xy: 528, 466
+  rotate: false
+  xy: 606, 569
   size: 39, 34
   orig: 39, 34
   offset: 0, 0
   index: -1
 kesath_hair_01
   rotate: false
-  xy: 654, 767
+  xy: 658, 767
   size: 61, 83
   orig: 61, 83
   offset: 0, 0
   index: -1
 kesath_hair_02
   rotate: false
-  xy: 282, 12
+  xy: 410, 353
   size: 47, 54
   orig: 47, 54
   offset: 0, 0
   index: -1
 kesath_hair_03
   rotate: true
-  xy: 569, 773
+  xy: 721, 769
   size: 77, 83
   orig: 77, 83
   offset: 0, 0
   index: -1
 kesath_hair_04
   rotate: false
-  xy: 410, 352
+  xy: 271, 151
   size: 59, 55
   orig: 59, 55
   offset: 0, 0
@@ -299,8 +313,8 @@ kesath_hand_01
   offset: 0, 0
   index: -1
 kesath_hand_03
-  rotate: false
-  xy: 413, 247
+  rotate: true
+  xy: 413, 302
   size: 49, 44
   orig: 49, 44
   offset: 0, 0
@@ -328,21 +342,21 @@ kesath_lowbody_01
   index: -1
 kesath_lowbody_03
   rotate: true
-  xy: 265, 68
+  xy: 265, 76
   size: 73, 55
   orig: 73, 55
   offset: 0, 0
   index: -1
 kesath_wepon_01
-  rotate: false
-  xy: 413, 293
+  rotate: true
+  xy: 332, 157
   size: 68, 57
   orig: 68, 57
   offset: 0, 0
   index: -1
 kesath_wepon_02
-  rotate: true
-  xy: 390, 223
+  rotate: false
+  xy: 390, 256
   size: 22, 40
   orig: 22, 40
   offset: 0, 0
@@ -362,8 +376,8 @@ kesath_wepon_04
   offset: 0, 0
   index: -1
 kesath_wepon_05
-  rotate: false
-  xy: 432, 217
+  rotate: true
+  xy: 459, 355
   size: 30, 28
   orig: 30, 28
   offset: 0, 0

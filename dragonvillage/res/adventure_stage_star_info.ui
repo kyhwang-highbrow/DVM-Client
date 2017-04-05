@@ -7,32 +7,6 @@
 		{
 			[1] =
 			{
-				[1] =
-				{
-					type = 'Scale9Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 3;
-					width = -50;
-					height = -50;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/frame/base_frame_13.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					center_rect_x = 0;
-					center_rect_y = 0;
-					center_rect_width = 0;
-					center_rect_height = 0;
-				};
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
@@ -49,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/base_frame_05.png';
+				file_name = 'ui/frame/a_frame_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -61,8 +35,8 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = -28.000000;
-				y = -28.000000;
+				x = -8.000000;
+				y = -8.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -87,51 +61,51 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = 9.000000;
+					x = 27.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 400;
-					height = 50;
+					width = 378;
+					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'titleLabel';
+					lua_name = 'infoLabel1';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 38;
+					font_size = 24;
 					text = '별 획득 조건';
-					h_alignment = 1;
+					h_alignment = 0;
 					v_alignment = 1;
-					color = { 255; 255; 255; };
+					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 400;
-					dimension_height = 50;
+					dimension_width = 378;
+					dimension_height = 40;
 					letter_spacing = 0.000000;
-					has_stroke = true;
+					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
 					stroke_color = { 61; 50; 27; };
-					has_shadow = true;
+					has_shadow = false;
 					shadow_color = { 61; 50; 27; };
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				type = 'Sprite';
+				type = 'Scale9Sprite';
 				ui_name = '';
-				x = 0.000000;
-				y = -6.000000;
-				dock_point = { 0.500000; 1.000000; };
+				x = 8.000000;
+				y = 69.000000;
+				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 382;
-				height = 75;
+				width = 435;
+				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -139,13 +113,13 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/frame_title_bg_01.png';
+				file_name = 'ui/frame/a_frame_03.png';
 				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
+				opacity = 150;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
 			};
 			[4] =
 			{
@@ -166,13 +140,13 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'infoLabel1';
+					lua_name = 'infoLabel2';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 24;
 					text = '별 획득 조건';
 					h_alignment = 0;
 					v_alignment = 1;
-					color = { 255; 255; 255; };
+					color = { 240; 215; 159; };
 					opacity = 255;
 					dimension_width = 378;
 					dimension_height = 40;
@@ -192,12 +166,12 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 8.000000;
-				y = 77.000000;
+				y = -10.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 435;
-				height = 41;
+				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -205,7 +179,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/base_frame_18.png';
+				file_name = 'ui/frame/a_frame_03.png';
 				color = { 255; 255; 255; };
 				opacity = 150;
 				center_rect_x = 0;
@@ -234,11 +208,11 @@
 					visible = true;
 					lua_name = 'infoLabel3';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 24;
 					text = '별 획득 조건';
 					h_alignment = 0;
 					v_alignment = 1;
-					color = { 255; 255; 255; };
+					color = { 240; 215; 159; };
 					opacity = 255;
 					dimension_width = 378;
 					dimension_height = 40;
@@ -258,12 +232,12 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 8.000000;
-				y = -81.000000;
+				y = -89.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 435;
-				height = 41;
+				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -271,7 +245,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frame/base_frame_18.png';
+				file_name = 'ui/frame/a_frame_03.png';
 				color = { 255; 255; 255; };
 				opacity = 150;
 				center_rect_x = 0;
@@ -280,72 +254,6 @@
 				center_rect_height = 0;
 			};
 			[6] =
-			{
-				[1] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 27.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 378;
-					height = 40;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'infoLabel2';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
-					text = '별 획득 조건';
-					h_alignment = 0;
-					v_alignment = 1;
-					color = { 255; 255; 255; };
-					opacity = 255;
-					dimension_width = 378;
-					dimension_height = 40;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 61; 50; 27; };
-					has_shadow = false;
-					shadow_color = { 61; 50; 27; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 3.000000;
-				};
-				type = 'Scale9Sprite';
-				ui_name = '';
-				x = 8.000000;
-				y = -2.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 435;
-				height = 41;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/frame/base_frame_18.png';
-				color = { 255; 255; 255; };
-				opacity = 150;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
-			};
-			[7] =
 			{
 				[1] =
 				{
@@ -375,8 +283,8 @@
 				};
 				type = 'Sprite';
 				ui_name = '';
-				x = -207.000031;
-				y = 79.999924;
+				x = -207.000000;
+				y = 71.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -397,7 +305,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[8] =
+			[7] =
 			{
 				[1] =
 				{
@@ -428,7 +336,7 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = -207.000000;
-				y = 0.000000;
+				y = -8.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -449,7 +357,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[9] =
+			[8] =
 			{
 				[1] =
 				{
@@ -480,7 +388,7 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = -207.000000;
-				y = -80.000000;
+				y = -88.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -501,6 +409,72 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
+			[9] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 400;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'titleLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 30;
+					text = '별 획득 조건';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 240; 215; 159; };
+					opacity = 255;
+					dimension_width = 400;
+					dimension_height = 50;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = false;
+					stroke_tickness = 2.000000;
+					stroke_color = { 61; 50; 27; };
+					has_shadow = true;
+					shadow_color = { 61; 50; 27; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 400;
+				height = 54;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frame/a_frame_02.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
@@ -509,7 +483,7 @@
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 600;
-			height = 350;
+			height = 300;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
