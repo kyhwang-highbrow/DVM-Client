@@ -1218,9 +1218,6 @@
     <None Include="..\src\ServerData_Runes.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\UI_DragonMgrRunes.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\SceneGameColosseum.lua">
       <Filter>lua</Filter>
     </None>
@@ -1943,6 +1940,9 @@
     </None>
     <None Include="..\src\StructStatusEffect.lua">
       <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\UI_RuneCard.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
