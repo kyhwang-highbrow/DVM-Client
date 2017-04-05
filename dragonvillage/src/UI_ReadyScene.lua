@@ -21,6 +21,8 @@ UI_ReadyScene = class(PARENT,{
 		m_formationUIToMovePosX = 'num',	-- 진형 선택 메뉴가 화면밖으로 숨어 있을 곳의 x좌표
     })
 
+local DC_SCALE = 0.6
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -202,7 +204,7 @@ function UI_ReadyScene:init_dragonTableView()
     list_table_node:removeAllChildren()
 
     local function create_func(ui, data)
-        ui.root:setScale(0.6)	-- UI 테이블뷰 사이즈가 변경될 시 조정
+        ui.root:setScale(DC_SCALE)	-- UI 테이블뷰 사이즈가 변경될 시 조정
 
         local unique_id = data['id']
         self:refresh_dragonCard(unique_id)

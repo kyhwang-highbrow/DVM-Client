@@ -35,7 +35,8 @@ local ZORDER =
 }
 
 local DC_POS_Y = 50
-local DC_SCALE = 0.7
+local DC_SCALE_ON_PLATE = 0.7
+local DC_SCALE = 0.6
 local DC_SCALE_PICK = 0.5
 
 -------------------------------------
@@ -273,14 +274,14 @@ end
 
 -------------------------------------
 -- function makeSettedDragonCard
--- @breif
+-- @breif 접시위에 올라간 드래곤카드
 -------------------------------------
 function UI_ReadyScene_Deck:makeSettedDragonCard(t_dragon_data, idx)
     local vars = self.m_uiReadyScene.vars
 
     local ui = UI_DragonCard(t_dragon_data)
 	ui.root:setPosition(0, DC_POS_Y)
-    cca.uiReactionSlow(ui.root, DC_SCALE, DC_SCALE, DC_SCALE_PICK)
+    cca.uiReactionSlow(ui.root, DC_SCALE_ON_PLATE, DC_SCALE_ON_PLATE, DC_SCALE_PICK)
     
     
     -- 설정된 드래곤 표시 없애기
@@ -303,7 +304,7 @@ end
 
 -------------------------------------
 -- function refresh_dragonCard
--- @brief 장착여부에 따른 카드 갱신
+-- @brief 장착여부에 따른 테이블뷰에 있는 카드 갱신
 -------------------------------------
 function UI_ReadyScene_Deck:refresh_dragonCard(doid)
     local item = self.m_uiReadyScene.m_tableViewExt.m_itemMap[doid]
@@ -319,7 +320,7 @@ function UI_ReadyScene_Deck:refresh_dragonCard(doid)
         return
     end
 
-    cca.uiReactionSlow(ui.root, 0.7, 0.7, 0.7 * 0.7)
+    cca.uiReactionSlow(ui.root, DC_SCALE, DC_SCALE, DC_SCALE_PICK)
 
     if is_setted then
         ui:setReadySpriteVisible(true)
@@ -527,7 +528,7 @@ function UI_ReadyScene_Deck:actionForChangeDeck_Sky(l_pos_list)
 		cca.runAction(vars['positionNode' .. i], action, 100)
 
 		-- 모션스트릭에 동일한 액션을 준다.
-		local out_action = cca.makeBasicEaseMove(0.2, node_space['x'], 2000)
+		local out_action = cca.makeBasicEaseMove(0.1, node_space['x'], 2000)
 		local in_action = cca.makeBasicEaseMove(0.3 + (0.1 * i), node_space['x'], node_space['y'])
 		local action = cc.Sequence:create(out_action, in_action)
 		cca.runAction(motion_streak, action, 101)
@@ -695,7 +696,7 @@ function UI_ReadyScene_Deck:onTouchBegan(touch, event)
         self.m_selectedDragonCard = self.m_lSettedDragonCard[select_idx]
 
         local node = self.m_selectedDragonCard.root
-        node:setScale(0.7)
+        node:setScale(DC_SCALE)
 
         local local_pos = convertToAnoterParentSpace(node, vars['formationNode'])
         node:setPosition(local_pos['x'], local_pos['y'])
@@ -760,7 +761,7 @@ function UI_ReadyScene_Deck:onTouchEnded(touch, event)
     -- 같은 자리일 경우
     if (near_idx == self.m_selectedDragonSlotIdx) then
         local node = self.m_selectedDragonCard.root
-        node:setScale(DC_SCALE)
+        node:setScale(DC_SCALE_ON_PLATE)
         node:setPosition(0, DC_POS_Y)
 
         -- root로 옮김
