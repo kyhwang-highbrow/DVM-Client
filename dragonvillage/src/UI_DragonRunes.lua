@@ -115,6 +115,7 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonRunes:init_tableViewTD()
+    local vars = self.vars
     local node = self.vars['runeTableViewNode']
     node:removeAllChildren()
 
@@ -144,20 +145,47 @@ function UI_DragonRunes:init_tableViewTD()
     self.m_tableViewTD = table_view_td
 
 
-    local vars = self.vars
-    local sort_ui_helper = SortManager_UIHelper(sort_manager)
-    sort_ui_helper:setCurrSortTypeLabel(vars['runeSortLabel'])
-    sort_ui_helper:setExtendMenu(vars['runeSortBtn'], vars['runeSortNode'])
-    sort_ui_helper:setAscendingUI(vars['runeSortOrderBtn'], vars['runeSortOrderSprite'])
-    sort_ui_helper:setSortBtn(vars['runeSortLvBtn'], 'lv')
-    sort_ui_helper:setSortBtn(vars['runeSortRarityBtn'], 'rarity')
-    sort_ui_helper:setSortBtn(vars['runeSortGradeBtn'], 'grade')
-    sort_ui_helper:onChangeSortType() -- 최초 UI 갱신을 위해
-    sort_ui_helper:setOnChangeCB(function()         
-            -- 정렬
-            self.m_sortManagerRune:sortExecution(self.m_tableViewTD.m_itemList)
-            self.m_tableViewTD:setDirtyItemList()
-        end)
+    do -- 정렬 UI 생성
+        local uic_sort_list = MakeUICSortList_runeManage(vars['runeSortBtn'], vars['runeSortLabel'])
+
+        -- 버튼을 통해 정렬이 변경되었을 경우
+        local function sort_change_cb(sort_type)
+            sort_manager:pushSortOrder(sort_type)
+            self:apply_runesSort()
+        
+        end
+        uic_sort_list:setSortChangeCB(sort_change_cb)
+
+        -- 최초 정렬 설정
+        uic_sort_list:setSelectSortType('lv')
+    end
+
+    do -- 오름차순/내림차순 버튼
+        local function click()
+            local ascending = (not sort_manager.m_defaultSortAscending)
+            sort_manager:setAllAscending(ascending)
+            self:apply_runesSort()
+
+            vars['runeSortOrderSprite']:stopAllActions()
+            if ascending then
+                vars['runeSortOrderSprite']:runAction(cc.RotateTo:create(0.15, 180))
+            else
+                vars['runeSortOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
+            end
+        end
+
+        vars['runeSortOrderBtn']:registerScriptTapHandler(click)
+    end
+    
+end
+
+-------------------------------------
+-- function apply_runesSort
+-- @brief 테이블 뷰에 정렬 적용
+-------------------------------------
+function UI_DragonRunes:apply_runesSort()
+    self.m_sortManagerRune:sortExecution(self.m_tableViewTD.m_itemList)
+    self.m_tableViewTD:setDirtyItemList()
 end
 
 -------------------------------------
@@ -218,7 +246,7 @@ function UI_DragonRunes:refreshTableViewList()
     self.m_tableViewTD:mergeItemList(l_item_list, refresh_func)
 
     -- 정렬
-    self.m_sortManagerRune:sortExecution(self.m_tableViewTD.m_itemList)
+    self:apply_runesSort()
 
     -- 선택된 룬 refresh
     if (self.m_selectedRuneObject) then

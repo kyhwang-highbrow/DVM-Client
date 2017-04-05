@@ -75,10 +75,19 @@ function UIC_SortList:init_container()
 
     do -- 배경 이미지 생성
         self.m_containerBG = cc.Scale9Sprite:create(cc.rect(0,0,0,0), 'res/ui/frame/a_frame_03.png')
-        self.m_containerBG:setDockPoint(cc.p(0.5, 0.5))
-        self.m_containerBG:setAnchorPoint(cc.p(0.5, 0.5))
-        self.m_containerBG:setRelativeSizeAndType(cc.size(0, 0), 3, true)
         self.m_containerMenu:addChild(self.m_containerBG)
+
+        -- 위에서 아래에서 위로 펼쳐짐
+        if (direction == UIC_SORT_LIST_BOT_TO_TOP) then
+            self.m_containerBG:setDockPoint(cc.p(0.5, 1))
+            self.m_containerBG:setAnchorPoint(cc.p(0.5, 0))
+
+        -- 위에서 아래로 펼쳐짐
+        elseif (direction == UIC_SORT_LIST_TOP_TO_BOT) then
+            self.m_containerBG:setDockPoint(cc.p(0.5, 0))
+            self.m_containerBG:setAnchorPoint(cc.p(0.5, 1))
+
+        end
     end
 
     do -- 블록 버튼 생성
@@ -259,12 +268,12 @@ function UIC_SortList:show()
 
     do
         local function tween_cb(value, node)
-            self.m_containerMenu:setNormalSize(self.m_menuWidth, value)
+            self.m_containerBG:setNormalSize(self.m_menuWidth, value)
         end
-        local width, height = self.m_containerMenu:getNormalSize()
+        local width, height = self.m_containerBG:getNormalSize()
         local tween_action = cc.ActionTweenForLua:create(SORT_LIST_ACTION_DURATION, height, self:getMenuMaxSize(), tween_cb)
         local action = cc.EaseElasticOut:create(tween_action, 1.5)
-        self.m_containerMenu:runAction(action)
+        self.m_containerBG:runAction(action)
     end
 
     for i,v in ipairs(self.m_lSortData) do
@@ -296,13 +305,13 @@ function UIC_SortList:hide()
 
     do
         local function tween_cb(value, node)
-            self.m_containerMenu:setNormalSize(self.m_menuWidth, value)
+            self.m_containerBG:setNormalSize(self.m_menuWidth, value)
         end
-        local width, height = self.m_containerMenu:getNormalSize()
+        local width, height = self.m_containerBG:getNormalSize()
         local tween_action = cc.ActionTweenForLua:create(SORT_LIST_ACTION_DURATION, height, self:getMenuMinSize(), tween_cb)
         local ease = cc.EaseElasticIn:create(tween_action, 1.5)
         local action = cc.Sequence:create(ease, cc.CallFunc:create(function() self.m_containerMenu:setVisible(false) end))
-        self.m_containerMenu:runAction(action)
+        self.m_containerBG:runAction(action)
     end
 
     for i,v in ipairs(self.m_lSortData) do
@@ -424,10 +433,27 @@ function MakeUICSortList_dragonManage(button, label)
     return uic
 end
 
-function MakeUICSortList(width, height)
+function MakeUICSortList_runeManage(button, label)
+
+    local width, height = button:getNormalSize()
+    local parent = button:getParent()
+    local x, y = button:getPosition()
+
     local uic = UIC_SortList()
+    uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
     uic:setNormalSize(width, height)
+    uic:setPosition(x, y)
     uic:init_container()
+
+    uic:setExtendButton(button)
+    uic:setSortTypeLabel(label)
+
+    parent:addChild(uic.m_node)
+
+    uic:addSortType('lv', Str('레벨'))
+    uic:addSortType('grade', Str('등급'))
+    uic:addSortType('rarity', Str('희귀도'))
+
     return uic
 end
 
