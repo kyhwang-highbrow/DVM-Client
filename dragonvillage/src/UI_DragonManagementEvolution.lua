@@ -188,7 +188,7 @@ function UI_DragonManagementEvolution:refresh_currDragonInfo(t_dragon_data, t_dr
         animator:setDockPoint(cc.p(0.5, 0.5))
         animator:setAnchorPoint(cc.p(0.5, 0.5))
         animator:changeAni('idle', true)
-        animator:setAnimationPause(true)
+        --animator:setAnimationPause(true)
 
         vars['dragonBeforeNode']:addChild(animator.m_node)
     end
