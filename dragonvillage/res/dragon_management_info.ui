@@ -1998,7 +1998,7 @@
 				enable = true;
 				normal = 'ui/btn/leader_01.png';
 				selected = 'ui/btn/leader_02.png';
-				disable = 'ui/btn/leader_03.png';
+				disable = '';
 				image_type = 0;
 			};
 			[2] =
@@ -2009,6 +2009,72 @@
 					ui_name = '';
 					x = 0.000000;
 					y = -37.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 80;
+					height = 30;
+					scale_x = 0.980000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 20;
+					text = '대표설정';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 240; 215; 159; };
+					opacity = 255;
+					dimension_width = 80;
+					dimension_height = 30;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 85; 44; 25; };
+					has_shadow = true;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 180;
+					shadow_direction = 0;
+					shadow_distance = 2.000000;
+				};
+				type = 'Sprite';
+				ui_name = '';
+				x = 56.000004;
+				y = -212.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 80;
+				height = 80;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'leaderSprite';
+				file_name = 'ui/btn/leader_03.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[3] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -37.000008;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -2062,10 +2128,76 @@
 				enable = true;
 				normal = 'ui/btn/lock_0101.png';
 				selected = 'ui/btn/lock_0102.png';
-				disable = 'ui/btn/lock_0103.png';
+				disable = '';
 				image_type = 0;
 			};
-			[3] =
+			[4] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -37.000008;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 80;
+					height = 30;
+					scale_x = 0.980000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 20;
+					text = '잠금';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 240; 215; 159; };
+					opacity = 255;
+					dimension_width = 80;
+					dimension_height = 30;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 85; 44; 25; };
+					has_shadow = true;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 180;
+					shadow_direction = 0;
+					shadow_distance = 2.000000;
+				};
+				type = 'Sprite';
+				ui_name = '';
+				x = 139.000000;
+				y = -212.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 80;
+				height = 80;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'lockSprite';
+				file_name = 'ui/btn/lock_0103.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[5] =
 			{
 				[1] =
 				{
@@ -2129,7 +2261,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[4] =
+			[6] =
 			{
 				[1] =
 				{
@@ -2198,7 +2330,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[5] =
+			[7] =
 			{
 				[1] =
 				{
@@ -2267,7 +2399,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[6] =
+			[8] =
 			{
 				[1] =
 				{
@@ -2336,7 +2468,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[7] =
+			[9] =
 			{
 				[1] =
 				{
@@ -2405,7 +2537,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[8] =
+			[10] =
 			{
 				[1] =
 				{
@@ -2474,7 +2606,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[9] =
+			[11] =
 			{
 				[1] =
 				{
@@ -2543,7 +2675,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[10] =
+			[12] =
 			{
 				[1] =
 				{
@@ -2607,7 +2739,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[11] =
+			[13] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -2626,7 +2758,7 @@
 				visible = true;
 				lua_name = 'dragonNode';
 			};
-			[12] =
+			[14] =
 			{
 				[1] =
 				{
