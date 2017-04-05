@@ -1,138 +1,138 @@
 
-mutanteggdragon_earth_03.png
-size: 512,512
+mutanteggdragon_dark_03.png
+size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-mutanteggdragon_earth_03_arm_01
-  rotate: true
-  xy: 396, 25
+mutanteggdragon_dark_03_arm_01
+  rotate: false
+  xy: 238, 140
   size: 50, 64
   orig: 50, 64
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_03_body_01
+mutanteggdragon_dark_03_body_01
   rotate: false
   xy: 2, 42
   size: 148, 162
   orig: 148, 162
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_03_ear_01
+mutanteggdragon_dark_03_ear_01
   rotate: true
-  xy: 400, 77
+  xy: 470, 279
   size: 61, 79
   orig: 61, 79
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_03_effect_01
+mutanteggdragon_dark_03_effect_01
   rotate: false
   xy: 2, 206
   size: 286, 301
   orig: 286, 301
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_03_effect_02
+mutanteggdragon_dark_03_effect_02
   rotate: false
-  xy: 324, 27
-  size: 70, 61
-  orig: 70, 61
+  xy: 772, 419
+  size: 88, 88
+  orig: 88, 88
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_03_eggshell_01
+mutanteggdragon_dark_03_eggshell_01
   rotate: true
   xy: 290, 213
   size: 180, 102
   orig: 180, 102
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_03_eggshell_02
+mutanteggdragon_dark_03_eggshell_02
   rotate: false
   xy: 290, 395
   size: 178, 112
   orig: 178, 112
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_03_eggshell_03
+mutanteggdragon_dark_03_eggshell_03
   rotate: true
   xy: 152, 55
   size: 149, 84
   orig: 149, 84
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_03_eggshell_04
-  rotate: true
-  xy: 394, 244
+mutanteggdragon_dark_03_eggshell_04
+  rotate: false
+  xy: 470, 423
   size: 149, 84
   orig: 149, 84
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_03_eggshell_05
-  rotate: true
-  xy: 238, 55
+mutanteggdragon_dark_03_eggshell_05
+  rotate: false
+  xy: 621, 423
   size: 149, 84
   orig: 149, 84
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_03_eye_01
+mutanteggdragon_dark_03_eye_01
+  rotate: false
+  xy: 290, 168
+  size: 53, 43
+  orig: 53, 43
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_03_eye_02
+  rotate: false
+  xy: 394, 227
+  size: 53, 43
+  orig: 53, 43
+  offset: 0, 0
+  index: -1
+mutanteggdragon_dark_03_face_01
   rotate: true
-  xy: 462, 22
-  size: 53, 43
-  orig: 53, 43
-  offset: 0, 0
-  index: -1
-mutanteggdragon_earth_03_eye_02
-  rotate: false
-  xy: 152, 10
-  size: 53, 43
-  orig: 53, 43
-  offset: 0, 0
-  index: -1
-mutanteggdragon_earth_03_face_01
-  rotate: false
-  xy: 207, 35
+  xy: 551, 312
   size: 28, 18
   orig: 28, 18
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_03_leg_01
+mutanteggdragon_dark_03_leg_01
   rotate: true
   xy: 2, 2
   size: 38, 53
   orig: 38, 53
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_03_leg_02
+mutanteggdragon_dark_03_leg_02
   rotate: false
-  xy: 470, 398
+  xy: 862, 460
   size: 30, 47
   orig: 30, 47
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_03_mouth_01
+mutanteggdragon_dark_03_mouth_01
   rotate: false
-  xy: 470, 478
+  xy: 238, 109
   size: 40, 29
   orig: 40, 29
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_03_mouth_02
+mutanteggdragon_dark_03_mouth_02
   rotate: false
-  xy: 470, 447
-  size: 40, 29
-  orig: 40, 29
+  xy: 574, 389
+  size: 40, 32
+  orig: 40, 32
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_03_tail_01
+mutanteggdragon_dark_03_tail_01
   rotate: true
-  xy: 324, 90
+  xy: 394, 272
   size: 121, 74
   orig: 121, 74
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_03_wing_01
-  rotate: true
-  xy: 400, 140
+mutanteggdragon_dark_03_wing_01
+  rotate: false
+  xy: 470, 342
   size: 102, 79
   orig: 102, 79
   offset: 0, 0

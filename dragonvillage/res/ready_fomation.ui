@@ -9,8 +9,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -227.000000;
-				y = -1.000000;
+				x = -248.000000;
+				y = -38.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -28,8 +28,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 61.000000;
-				y = 79.000000;
+				x = -63.000000;
+				y = 85.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -47,8 +47,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 18.000000;
-				y = -31.000000;
+				x = -63.000000;
+				y = -38.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -66,8 +66,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 211.000000;
-				y = -81.000000;
+				x = 123.000000;
+				y = -38.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -85,8 +85,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 63.000000;
-				y = -121.000000;
+				x = -62.000000;
+				y = -161.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -102,8 +102,8 @@
 			};
 			type = 'Menu';
 			ui_name = 'fomation';
-			x = 266.000000;
-			y = 97.000000;
+			x = -79.000000;
+			y = 50.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -114,7 +114,7 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = true;
+			visible = false;
 			lua_name = 'aFomationNode';
 		};
 		[2] =
@@ -123,8 +123,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -82.000000;
-				y = 39.000000;
+				x = -206.000000;
+				y = 50.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -142,27 +142,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 128.000000;
-				y = -101.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 136;
-				height = 70;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'bPositionNode1';
-			};
-			[3] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = 161.000000;
-				y = 9.000000;
+				x = 32.000000;
+				y = 44.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -176,12 +157,12 @@
 				visible = true;
 				lua_name = 'bPositionNode2';
 			};
-			[4] =
+			[3] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 18.000000;
-				y = -31.000000;
+				x = -83.000000;
+				y = -26.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -195,12 +176,12 @@
 				visible = true;
 				lua_name = 'bPositionNode3';
 			};
-			[5] =
+			[4] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -127.000000;
-				y = -71.000000;
+				x = -199.000000;
+				y = -97.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -214,10 +195,29 @@
 				visible = true;
 				lua_name = 'bPositionNode4';
 			};
+			[5] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 32.000000;
+				y = -95.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 136;
+				height = 70;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'bPositionNode1';
+			};
 			type = 'Menu';
 			ui_name = 'fomation';
-			x = 266.000000;
-			y = 97.000000;
+			x = -79.000000;
+			y = 50.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -237,8 +237,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -82.000000;
-				y = 39.000000;
+				x = -227.000000;
+				y = 60.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -256,8 +256,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 18.000000;
-				y = -31.000000;
+				x = -113.000000;
+				y = -10.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -275,8 +275,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 271.000000;
-				y = -61.000000;
+				x = 116.000000;
+				y = -8.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -294,8 +294,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 128.000000;
-				y = -101.000000;
+				x = 1.000000;
+				y = -78.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -313,8 +313,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -17.000000;
-				y = -141.000000;
+				x = -115.000000;
+				y = -149.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -330,8 +330,8 @@
 			};
 			type = 'Menu';
 			ui_name = 'fomation';
-			x = 266.000000;
-			y = 97.000000;
+			x = -79.000000;
+			y = 50.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -351,8 +351,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 61.000000;
-				y = 79.000000;
+				x = -5.000000;
+				y = 67.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -370,8 +370,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -82.000000;
-				y = 39.000000;
+				x = -120.000000;
+				y = -3.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -389,8 +389,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -227.000000;
-				y = -1.000000;
+				x = -236.000000;
+				y = -74.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -408,8 +408,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 91.000000;
-				y = -11.000000;
+				x = 111.000000;
+				y = -3.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -427,8 +427,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -47.000000;
-				y = -51.000000;
+				x = -120.000000;
+				y = -148.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -444,8 +444,8 @@
 			};
 			type = 'Menu';
 			ui_name = 'fomation';
-			x = 266.000000;
-			y = 97.000000;
+			x = -79.000000;
+			y = 50.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;

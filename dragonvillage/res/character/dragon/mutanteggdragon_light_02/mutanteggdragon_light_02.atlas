@@ -1,118 +1,125 @@
 
-mutanteggdragon_earth_01.png
+mutanteggdragon_light_02.png
 size: 1024,256
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-mutanteggdragon_earth_01_arm_01
+mutanteggdragon_light_02_arm_01
   rotate: false
   xy: 967, 176
   size: 50, 64
   orig: 50, 64
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_01_body_01
+mutanteggdragon_light_02_body_01
   rotate: false
   xy: 2, 78
   size: 148, 162
   orig: 148, 162
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_01_ear_01
-  rotate: true
-  xy: 152, 65
+mutanteggdragon_light_02_ear_01
+  rotate: false
+  xy: 256, 47
   size: 61, 79
   orig: 61, 79
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_01_eggshell_01
+mutanteggdragon_light_02_eggshell_01
   rotate: false
   xy: 332, 138
   size: 180, 102
   orig: 180, 102
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_01_eggshell_02
+mutanteggdragon_light_02_eggshell_02
   rotate: false
   xy: 152, 128
   size: 178, 112
   orig: 178, 112
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_01_eggshell_03
+mutanteggdragon_light_02_eggshell_03
   rotate: false
   xy: 514, 156
   size: 149, 84
   orig: 149, 84
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_01_eggshell_04
+mutanteggdragon_light_02_eggshell_04
   rotate: false
   xy: 665, 156
   size: 149, 84
   orig: 149, 84
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_01_eggshell_05
+mutanteggdragon_light_02_eggshell_05
   rotate: false
   xy: 816, 156
   size: 149, 84
   orig: 149, 84
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_01_eye_01
+mutanteggdragon_light_02_eye_01
   rotate: false
-  xy: 233, 83
+  xy: 514, 111
   size: 53, 43
   orig: 53, 43
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_01_eye_02
+mutanteggdragon_light_02_eye_02
   rotate: false
-  xy: 288, 83
+  xy: 569, 111
   size: 53, 43
   orig: 53, 43
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_01_face_01
+mutanteggdragon_light_02_face_01
   rotate: true
   xy: 125, 48
   size: 28, 18
   orig: 28, 18
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_01_leg_01
-  rotate: false
-  xy: 343, 83
+mutanteggdragon_light_02_leg_01
+  rotate: true
+  xy: 624, 116
   size: 38, 53
   orig: 38, 53
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_01_leg_02
-  rotate: false
-  xy: 383, 89
+mutanteggdragon_light_02_leg_02
+  rotate: true
+  xy: 679, 124
   size: 30, 47
   orig: 30, 47
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_01_mouth_01
+mutanteggdragon_light_02_mouth_01
   rotate: false
-  xy: 415, 107
+  xy: 728, 125
   size: 40, 29
   orig: 40, 29
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_01_mouth_02
+mutanteggdragon_light_02_mouth_02
   rotate: false
-  xy: 457, 107
+  xy: 770, 125
   size: 40, 29
   orig: 40, 29
   offset: 0, 0
   index: -1
-mutanteggdragon_earth_01_tail_01
+mutanteggdragon_light_02_tail_01
   rotate: false
   xy: 2, 2
   size: 121, 74
   orig: 121, 74
+  offset: 0, 0
+  index: -1
+mutanteggdragon_light_02_wing_01
+  rotate: false
+  xy: 152, 47
+  size: 102, 79
+  orig: 102, 79
   offset: 0, 0
   index: -1
