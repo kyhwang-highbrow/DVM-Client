@@ -22,6 +22,7 @@ UIC_SortList = class(UIC_Node, {
         m_menuWidth = '',
         m_containerMenu = '',
         m_containerBG = '',
+        m_blockButton = '',
 
         ------------------------------------
         -- 외부에서 지정
@@ -92,10 +93,20 @@ function UIC_SortList:init_container()
 
     do -- 블록 버튼 생성
         local button = cc.MenuItemImage:create(EMPTY_PNG, EMPTY_PNG)
-        button:setDockPoint(cc.p(0.5, 0.5))
-        button:setAnchorPoint(cc.p(0.5, 0.5))
+        -- 위에서 아래에서 위로 펼쳐짐
+        if (direction == UIC_SORT_LIST_BOT_TO_TOP) then
+            button:setDockPoint(cc.p(0.5, 1))
+            button:setAnchorPoint(cc.p(0.5, 0))
+
+        -- 위에서 아래로 펼쳐짐
+        elseif (direction == UIC_SORT_LIST_TOP_TO_BOT) then
+            button:setDockPoint(cc.p(0.5, 0))
+            button:setAnchorPoint(cc.p(0.5, 1))
+
+        end
         button:setRelativeSizeAndType(cc.size(0, 0), 3, true)
         self.m_containerMenu:addChild(button)
+        self.m_blockButton = button
     end
 end
 
@@ -274,6 +285,9 @@ function UIC_SortList:show()
         local tween_action = cc.ActionTweenForLua:create(SORT_LIST_ACTION_DURATION, height, self:getMenuMaxSize(), tween_cb)
         local action = cc.EaseElasticOut:create(tween_action, 1.5)
         self.m_containerBG:runAction(action)
+
+        -- 하단 UI 클릭을 막는 버튼도 크기 조정
+        self.m_blockButton:setNormalSize(self.m_menuWidth, self:getMenuMaxSize())
     end
 
     for i,v in ipairs(self.m_lSortData) do
