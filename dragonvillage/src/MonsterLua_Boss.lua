@@ -396,6 +396,20 @@ function MonsterLua_Boss:doPattern(pattern)
 end
 
 -------------------------------------
+-- function setDamage
+-------------------------------------
+function MonsterLua_Boss:setDamage(attacker, defender, i_x, i_y, damage, t_info)
+    PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
+    
+    if (self.m_bDead) then return end
+
+    -- 약점 대기 시간 감소
+    if (self.m_remainTimeForWeakPoint > 5) then
+        self.m_remainTimeForWeakPoint = 5
+    end
+end
+
+-------------------------------------
 -- function setHp
 -------------------------------------
 function MonsterLua_Boss:setHp(hp)
