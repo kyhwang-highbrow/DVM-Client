@@ -24,17 +24,7 @@ end
 -------------------------------------
 function GameState_NestDungeon_Gold:initState()
     PARENT.initState(self)
-    self:addState(GAME_STATE_WAVE_INTERMISSION, GameState_NestDungeon_Gold.update_wave_intermission)
     self:addState(GAME_STATE_SUCCESS, GameState_NestDungeon_Gold.update_success)
-end
-
--------------------------------------
--- function update_wave_intermission
--------------------------------------
-function GameState_NestDungeon_Gold.update_wave_intermission(self, dt)
-	local world = self.m_world
-	
-    return PARENT.update_wave_intermission(self, dt)
 end
 
 -------------------------------------
@@ -94,12 +84,4 @@ function GameState_NestDungeon_Gold:doDirectionForIntermission()
     -- 카메라 액션 설정
     world:changeCameraOption(t_camera_info)
     world:changeHeroHomePosByCamera()
-end
-
--------------------------------------
--- function processTimeOut
--------------------------------------
-function GameState_NestDungeon_Gold:processTimeOut()
-    -- 게임 실패 처리
-    self:changeState(GAME_STATE_SUCCESS)
 end
