@@ -86,7 +86,7 @@ function CommonMissile_Release:fireMissile()
 	if self.m_owner.m_bLeftFormation then
 		dir_set = {225, 135}
     else
-        dir_set = {405, 315}
+        dir_set = {45, 315}
     end
 
 	-- 같은 시점에서의 반복 공격
