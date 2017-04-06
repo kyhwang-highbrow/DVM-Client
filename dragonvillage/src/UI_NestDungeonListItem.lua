@@ -1,17 +1,5 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable())
 
-local t_nest_dungeon_ani = {}
-t_nest_dungeon_ani[1210100] = 'nest_dungeon_dragon_earth' -- 거대용 던전
-t_nest_dungeon_ani[1210200] = 'nest_dungeon_dragon_water'
-t_nest_dungeon_ani[1210300] = 'nest_dungeon_dragon_fire'
-t_nest_dungeon_ani[1210400] = 'nest_dungeon_dragon_light'
-t_nest_dungeon_ani[1210500] = 'nest_dungeon_dragon_dark'
-t_nest_dungeon_ani[1220100] = 'nest_dungeon_nightmare'    -- 악몽
-t_nest_dungeon_ani[1220200] = 'nest_dungeon_nightmare'
-t_nest_dungeon_ani[1220300] = 'nest_dungeon_nightmare'
-t_nest_dungeon_ani[1220400] = 'nest_dungeon_nightmare'
-t_nest_dungeon_ani[1230100] = 'nest_dungeon_tree'         -- 거목
-
 -------------------------------------
 -- class UI_NestDungeonListItem
 -------------------------------------
@@ -46,14 +34,17 @@ end
 -- function initUI
 -------------------------------------
 function UI_NestDungeonListItem:initUI(t_data)
-
     local vars = self.vars
 
-    local dungeon_id = t_data['mode_id']
-    local ani_name = t_nest_dungeon_ani[dungeon_id]
-    vars['dungeonListVisual']:changeAni(ani_name)
+    -- 리스트 아이템 이미지 지정
+    local res = t_data['res']
+    local ani = t_data['ani']
+    local animator = MakeAnimator(res)
+    animator:changeAni(ani, true)
+    vars['dungeonImgNode']:addChild(animator.m_node)
 
     -- 남은 시간 얻어오기
+    local dungeon_id = t_data['mode_id']
     g_nestDungeonData:getNestDungeonRemainTimeText(dungeon_id)
 end
 

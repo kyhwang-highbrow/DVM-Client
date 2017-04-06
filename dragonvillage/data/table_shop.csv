@@ -1,10 +1,10 @@
 product_id,t_name,display,group_type,price_type,slot_type,price_value,product_content,max_buy_count,max_buy_term,icon,r_desc,daily_term,daily_item
 10001,,true,cash,money,normal,1000,cash;100,0,,res/ui/icon/item/shop_cash_01.png,,,
 10002,,true,cash,money,normal,4000,cash;500,0,,res/ui/icon/item/shop_cash_02.png,,30,cash;10
-10003,,true,cash,money,normal,10000,cash;1000,0,,res/ui/icon/item/shop_cash_03.png,,,
-10004,,true,cash,money,normal,30000,cash;3000,1,,res/ui/icon/item/shop_cash_04.png,,,
-10005,,true,cash,money,normal,50000,cash;5000,1,,res/ui/icon/item/shop_cash_04.png,,,
-10006,,true,cash,money,normal,100000,cash;10000,1,weekly,res/ui/icon/item/shop_cash_04.png,,,
+10003,,true,cash,money,normal,10000,cash;1050,0,,res/ui/icon/item/shop_cash_03.png,,,
+10004,,true,cash,money,normal,30000,cash;3300,1,,res/ui/icon/item/shop_cash_04.png,,,
+10005,,true,cash,money,normal,50000,cash;5600,1,,res/ui/icon/item/shop_cash_04.png,,,
+10006,,true,cash,money,normal,100000,cash;11500,1,weekly,res/ui/icon/item/shop_cash_04.png,,,
 20001,,true,gold,cash,normal,50,gold;10000,0,monthly,res/ui/icon/item/shop_gold_01.png,,,
 20002,,true,gold,cash,normal,250,gold;50000,0,,res/ui/icon/item/shop_gold_02.png,,,
 20003,,true,gold,cash,normal,500,gold;105000,0,,res/ui/icon/item/shop_gold_03.png,,,

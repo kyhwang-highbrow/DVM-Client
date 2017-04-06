@@ -525,6 +525,11 @@ function MakeAnimator(file_name, skip_error_msg)
         end
     end
 
+    if animator.m_node then
+        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+        animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
+    end
+
     return animator
 end
 

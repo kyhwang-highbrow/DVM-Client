@@ -61,14 +61,6 @@ function UI_NestDungeonStageListItem:refresh(t_data)
         local tier = t_dungeon_id_info['tier']
         local str = Str('{1}단계', tier)
 
-        -- 악몽 던전의 경우 세부 모드 표시 (공격, 방어, 지원, 회복)
-        local stage_id = self.m_stageTable['stage']
-        local t_dungeon_id_info = g_nestDungeonData:parseNestDungeonID(stage_id)
-        if (t_dungeon_id_info['dungeon_mode'] == NEST_DUNGEON_NIGHTMARE) then
-            local role_str = dragonRoleName(t_dungeon_id_info['detail_mode'])
-            str = role_str .. ' - ' .. str
-        end
-
         vars['dungeonLevelLabel']:setString(str)
     end
 

@@ -217,6 +217,12 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
             
             self.m_gameState = GameState_NestDungeon_Tree(self)
 
+        elseif (dungeonMode == NEST_DUNGEON_GOLD) then
+            self.m_gameState = GameState_SecretDungeon_Gold(self)
+            self.m_inGameUI:init_goldUI()
+			local display_wave = false
+            self.m_inGameUI:init_timeUI(display_wave, self.m_gameState.m_limitTime)
+
 		else
 			error('네스트 던전 아이디가 잘못되어있습니다. 확인해주세요. ' .. self.m_stageID)
         end
