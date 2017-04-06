@@ -83,19 +83,3 @@ function Monster_GoldDragon.st_dying(owner, dt)
         end
     end
 end
-
--------------------------------------
--- function setHp
--------------------------------------
-function Monster_GoldDragon:setHp(hp)
-end
-
--------------------------------------
--- function makeHPGauge
--------------------------------------
-function Monster_GoldDragon:makeHPGauge(hp_ui_offset, force)
-    self.m_unitInfoOffset = hp_ui_offset
-
-    self.m_statusNode = cc.Node:create()
-    self.m_rootNode:addChild(self.m_statusNode)
-end
