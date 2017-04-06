@@ -11,8 +11,6 @@ SkillIndicator_AoECone_Spread = class(PARENT, {
 -- function init
 -------------------------------------
 function SkillIndicator_AoECone_Spread:init(hero, t_skill)
-	PARENT.init(self, hero, t_skill)
-
 	self.m_skillRadius = t_skill['val_1']
 	self.m_lSpreadEffect = {}
 end

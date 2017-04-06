@@ -12,8 +12,6 @@ SkillIndicator_AoECone = class(PARENT, {
 -- function init
 -------------------------------------
 function SkillIndicator_AoECone:init(hero, t_skill)
-	PARENT.init(self, hero)
-	
 	self.m_skillRadius = t_skill['val_1']
 	self.m_skillAngle = t_skill['val_2']
 	self.m_indicatorScale = t_skill['res_scale']

@@ -23,8 +23,6 @@ SkillIndicator_LeafBlade = class(PARENT, {
 -- function init
 -------------------------------------
 function SkillIndicator_LeafBlade:init(hero, t_skill)
-	PARENT.init(self, hero)
-
 	self.m_isPass = (t_skill['val_1'] == 1)
 	self.m_isCollision = false
 	self.m_target_1 = nil

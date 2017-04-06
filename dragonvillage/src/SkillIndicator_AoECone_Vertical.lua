@@ -11,7 +11,6 @@ SkillIndicator_AoECone_Vertical = class(PARENT, {
 -- function init
 -------------------------------------
 function SkillIndicator_AoECone_Vertical:init(hero, t_skill)
-	PARENT.init(self, hero, t_skill)
 end
 
 -------------------------------------

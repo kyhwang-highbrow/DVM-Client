@@ -21,8 +21,8 @@ function CommonMissile_Bounce:initCommonMissile(owner, t_skill)
 	PARENT.initCommonMissile(self, owner, t_skill)
 	
 	-- 특수 변수
-	self.m_jumpHeight = t_skill['val_1']
-	self.m_maxCount = t_skill['val_2']
+	self.m_jumpHeight = SkillHelper:getValid(t_skill['val_1'], 100)
+	self.m_maxCount = SkillHelper:getValid(t_skill['val_2'], 1)
 end
 
 -------------------------------------
