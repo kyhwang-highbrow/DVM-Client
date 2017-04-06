@@ -219,7 +219,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
             self.m_gameState = GameState_NestDungeon_Tree(self)
 
         elseif (dungeonMode == NEST_DUNGEON_GOLD) then
-            self.m_gameState = GameState_SecretDungeon_Gold(self)
+            self.m_gameState = GameState_NestDungeon_Gold(self)
 			display_wave = false
             display_time = display_wave, self.m_gameState.m_limitTime
 
@@ -234,7 +234,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
         local dungeonMode = t_dungeon['dungeon_mode']
 
         if (dungeonMode == SECRET_DUNGEON_GOLD) then
-            self.m_gameState = GameState_SecretDungeon_Gold(self)
+            self.m_gameState = GameState_NestDungeon_Gold(self)
             display_wave = false
 			display_time = self.m_gameState.m_limitTime
 

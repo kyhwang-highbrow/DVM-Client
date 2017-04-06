@@ -1380,9 +1380,6 @@
     <None Include="..\src\SceneSecretDungeon.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\GameState_SecretDungeon_Gold.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\LocalData.lua">
       <Filter>lua</Filter>
     </None>
@@ -1960,6 +1957,9 @@
       <Filter>lua</Filter>
     </None>
     <None Include="..\src\GameWorld_Gold.lua">
+      <Filter>lua</Filter>
+    </None>
+    <None Include="..\src\GameState_NestDungeon_Gold.lua">
       <Filter>lua</Filter>
     </None>
   </ItemGroup>
