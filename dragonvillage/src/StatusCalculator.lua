@@ -230,8 +230,8 @@ function StatusCalculator:applyDragonResearchBuff(rlv)
     local atk, def, hp = TableDragonResearch:getDragonResearchStatus(dragon_type, rlv)
 
     self.m_lPassiveAbs['atk'] = (self.m_lPassiveAbs['atk'] + atk)
-    self.m_lPassiveAbs['def'] = (self.m_lPassiveAbs['def'] + atk)
-    self.m_lPassiveAbs['hp'] = (self.m_lPassiveAbs['hp'] + atk)
+    self.m_lPassiveAbs['def'] = (self.m_lPassiveAbs['def'] + def)
+    self.m_lPassiveAbs['hp'] = (self.m_lPassiveAbs['hp'] + hp)
 end
 
 -------------------------------------

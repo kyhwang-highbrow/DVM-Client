@@ -298,7 +298,7 @@ function StatusEffectHelper:makeStatusEffectInstance(char, status_effect_type, s
         local value = t_status_effect[type] or 0
         if (value ~= 0) then
 			value = value * status_effect_value/100
-            status_effect:insertStatus(type, value, t_status_effect['abs_switch'], is_abs)
+            status_effect:insertStatus(type, value, is_abs)
         end
     end
 

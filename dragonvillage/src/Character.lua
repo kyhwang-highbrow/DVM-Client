@@ -1290,6 +1290,7 @@ function Character:update(dt)
     end
 
     self:updateMove(dt)
+	self:updateStat(dt)
 	self:updateStatusIcon(dt)
 
 	-- @TEST 디버깅용 디스플레이
@@ -1505,6 +1506,24 @@ function Character:removeActivedSkill(skill)
             break
         end
     end
+end
+
+-------------------------------------
+-- function updateStat
+-- @brief 각종 스탯이 실시간으로 변해야 할 경우
+-------------------------------------
+function Character:updateStat(dt)
+	if (not self.m_statusCalc) then
+		return
+	end
+
+	-- 체력 버프 발동시 실시간 변화
+	if (self.m_statusCalc:getFinalStat('hp') ~= self.m_maxHp) then
+		local max_hp = self.m_statusCalc:getFinalStat('hp')
+		local curr_hp_percent = self.m_hp/self.m_maxHp
+		self.m_maxHp = max_hp
+		self.m_hp = max_hp * curr_hp_percent
+	end
 end
 
 -------------------------------------
