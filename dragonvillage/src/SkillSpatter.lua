@@ -5,7 +5,6 @@ local PARENT = Skill
 -------------------------------------
 SkillSpatter = class(PARENT, {
         m_owner = 'Character',
-        m_spatterRange = 'number',
         m_spatterCount = 'number',
         m_spatterMaxCount = 'number',
         m_spatterHealRate = 'number',
@@ -16,8 +15,8 @@ SkillSpatter = class(PARENT, {
         m_prevPosX = 'number',
         m_prevPosY = 'number',
 
-        m_lTargetedIdx = 'list',
-        m_targetChar = 'character',
+		m_lTargetList = 'Character list',
+		m_targetIdx = 'number',
      })
 
 -------------------------------------
@@ -29,13 +28,11 @@ function SkillSpatter:init(file_name, body, ...)
     self:initState()
 end
 
-
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillSpatter:init_skill(motionstreak_res, range_res, range, count, std_pos_x, std_pos_y)
+function SkillSpatter:init_skill(motionstreak_res, count, std_pos_x, std_pos_y)
 	-- 멤버 변수
-    self.m_spatterRange = range
     self.m_spatterCount = 0
     self.m_spatterMaxCount = count
     self.m_spatterHealRate = self.m_powerRate / 100
@@ -46,8 +43,12 @@ function SkillSpatter:init_skill(motionstreak_res, range_res, range, count, std_
     self.m_prevPosX = std_pos_x
     self.m_prevPosY = std_pos_y
 
-    self.m_lTargetedIdx = {}
-    self.m_lTargetedIdx[self.m_owner['phys_idx']] = true -- 시전자는 대상에서 제외
+	self.m_lTargetList = self:findTarget()
+	self.m_targetIdx = 1
+
+	-- 위치 지정 및 모션스트릭	
+	self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
+    self:setMotionStreak(self.m_world:getMissileNode(), motionstreak_res)
 
 	-- 스킬 효과 시작
     self:spatterHeal(self.m_owner) -- 시전자는 회복을 하고 시작
@@ -67,18 +68,24 @@ end
 -------------------------------------
 function SkillSpatter.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
+		local target_char = owner:getNextTarget()
+
         -- JumpTo액션 실행
-        local target_pos = cc.p(owner.m_targetChar.pos.x, owner.m_targetChar.pos.y)
-        local action = cc.JumpTo:create(0.5, target_pos, 100, 1)
+		if (target_char) then
+			local target_pos = cc.p(target_char.pos.x, target_char.pos.y)
+			local action = cc.JumpTo:create(0.5, target_pos, 100, 1)
 
-        -- 액션 종료 후 타겟을 회복, 튀기기 시도
-        local function end_func()
-            owner:spatterHeal(owner.m_targetChar)
-            owner:trySpatter()
-        end
+			-- 액션 종료 후 타겟을 회복, 튀기기 시도
+			local function end_func()
+				owner:spatterHeal(target_char)
+				owner:trySpatter()
+			end
 
-        local sequence = cc.Sequence:create(action, cc.CallFunc:create(end_func))
-        owner.m_rootNode:runAction(sequence)
+			local sequence = cc.Sequence:create(action, cc.CallFunc:create(end_func))
+			owner.m_rootNode:runAction(sequence)
+		else
+			owner:changeState('dying')
+		end
     end
 
     -- m_rootNode의 위치로 클래스위 위치 동기화, 각도 지정
@@ -90,34 +97,25 @@ function SkillSpatter.st_idle(owner, dt)
 end
 
 -------------------------------------
+-- function trySpatter
+-------------------------------------
+function SkillSpatter:trySpatter()
+	if (self.m_spatterCount >= self.m_spatterMaxCount) then
+        self:changeState('dying')
+        return false
+    end
+
+    self:changeState('idle')
+    
+	self.m_spatterCount = self.m_spatterCount + 1
+    return true
+end
+
+-------------------------------------
 -- function findTarget
 -------------------------------------
 function SkillSpatter:findTarget()
-    local world = self.m_owner.m_world
-    local t_ret = world:getTargetList(self.m_owner, self.m_stdPosX, self.m_stdPosY, 'ally', 'x', 'distance_line')
-    
-    local t_target = {}
-
-    for i,dragon in ipairs(t_ret) do
-        local phys_idx = dragon['phys_idx']
-        if (not self.m_lTargetedIdx[phys_idx]) then
-            local distance = getDistance(self.m_stdPosX, self.m_stdPosY, dragon.pos.x, dragon.pos.y)
-            if (self.m_spatterRange <= 0) or (distance <= self.m_spatterRange) then
-                table.insert(t_target, dragon)
-            end
-        end
-    end
-
-    -- 체력 비율이 낮은 순으로 정렬
-    local l_last_target = TargetRule_getTargetList_hp_low(t_target)
-    local target = l_last_target[1]
-
-    if target then
-        local phys_idx = target['phys_idx']
-        self.m_lTargetedIdx[phys_idx] = true
-    end
-
-    return target
+    return self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
 end
 
 -------------------------------------
@@ -128,45 +126,49 @@ function SkillSpatter:spatterHeal(target_char)
         return
     end
 
-    -- 시전자의 최대 체력에 비례한 회복
-    local heal = (self.m_owner.m_maxHp * self.m_spatterHealRate)
+    -- 시전자의 공격력에 비례한 회복
+	local atk_dmg = self.m_owner.m_statusCalc:getFinalStat('atk')
+	local heal = HealCalc_M(atk_dmg) * self.m_spatterHealRate
     target_char:healAbs(self.m_owner, heal, true)
 end
 
 -------------------------------------
--- function trySpatter
+-- function getNextTarget
 -------------------------------------
-function SkillSpatter:trySpatter()
-    if (self.m_spatterCount >= self.m_spatterMaxCount) then
-        self:changeState('dying')
-        return false
-    end
+function SkillSpatter:getNextTarget()
+	local target_char
 
-    self.m_targetChar = self:findTarget()
-    if (not self.m_targetChar) then
-        self:changeState('dying')
-        return false
-    end
+	local target_char = self.m_lTargetList[self.m_targetIdx]
+	
+	-- 타겟이 없거나 죽었을 시 다음 적절한 타겟을 찾기 위해 타겟리스트를 순서대로 한번 순회
+	local idx = 0
+	while (not target_char) or (target_char.m_bDead) do
+		idx = idx + 1
+		self.m_targetIdx = self.m_targetIdx + 1
+		target_char = self.m_lTargetList[self.m_targetIdx]
 
-    self.m_spatterCount = self.m_spatterCount + 1
-    self:changeState('idle')
-    return true
+		if (self.m_targetIdx > #self.m_lTargetList) then
+			self.m_targetIdx = 0
+		end
+
+		if (idx > #self.m_lTargetList) then
+			break
+		end
+	end
+
+	self.m_targetIdx = self.m_targetIdx + 1
+	return target_char
 end
 
 -------------------------------------
 -- function makeSkillInstance
--- @param missile_res       'res/missile/missile_water/missile_water.vrp'
--- @param motionstreak_res  'res/missile/motion_streak/motion_streak_water.png'
--- @param range_res         'res/effect/effect_aoe_water/effect_aoe_water.vrp'
 -------------------------------------
 function SkillSpatter:makeSkillInstance(owner, t_skill)
 	-- 변수 선언부
 	------------------------------------------------------
     local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
     local motionstreak_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)
-    local range_res = t_skill['res_3'] -- 삭제되어있음 
-    local range = t_skill['val_1']
-    local count = t_skill['val_2']
+    local count = t_skill['hit']
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
@@ -175,7 +177,7 @@ function SkillSpatter:makeSkillInstance(owner, t_skill)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, {})
-    skill:init_skill(motionstreak_res, range_res, range, count, owner.pos.x, owner.pos.y)
+    skill:init_skill(motionstreak_res, range, count, owner.pos.x, owner.pos.y)
 	skill:initState()
 
 	-- 3. state 시작 
@@ -186,21 +188,4 @@ function SkillSpatter:makeSkillInstance(owner, t_skill)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
-
-    -- 5. 하이라이트
-    if (skill.m_bHighlight) then
-        --world.m_gameHighlight:addMissile(skill)
-    end
-
-	-- 위치 지정 및 모션스트릭	
-	skill:setPosition(owner.pos.x, owner.pos.y)
-    skill:setMotionStreak(missileNode, motionstreak_res)
-
-    -- 영역 이펙트 생성 .. 사용 안함
-    if (range > 0) and (range_res and (range_res ~= 'x')) then
-        local suffix, scale = AreaOfEffectHelper:getAOEData(range)
-        local animation_name = 'idle_' .. suffix
-        local effect = world:addInstantEffectWorld(range_res, animation_name, owner.pos.x, owner.pos.y)
-        effect:setScale(scale)
-    end
 end

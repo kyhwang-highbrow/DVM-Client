@@ -123,7 +123,7 @@ function SkillLeafBlade:makeSkillInstance(owner, t_skill, t_data)
     local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
 	local motionstreak_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)
 	local target_count = t_skill['hit']
-	local isPass = t_skill['val_1'] == 1
+	local isPass = true
 	local leaf_body_size = g_constant:get('SKILL', 'LEAF_COLLISION_SIZE')
 
 	-- 인스턴스 생성부
@@ -144,9 +144,4 @@ function SkillLeafBlade:makeSkillInstance(owner, t_skill, t_data)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
-
-    -- 5. 하이라이트
-    if (skill.m_bHighlight) then
-        --world.m_gameHighlight:addMissile(skill)
-    end
 end

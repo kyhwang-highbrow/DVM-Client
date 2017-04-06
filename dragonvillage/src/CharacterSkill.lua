@@ -229,6 +229,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillRolling:makeSkillInstance(self, t_skill, t_data)
 				return true
 
+			elseif string.find(skill_type, 'skill_spatter') then
+				SkillSpatter:makeSkillInstance(self, t_skill, t_data)
+				return true
+
 			elseif string.find(skill_type, 'skill_buff') then
 				SkillThrowBuff:makeSkillInstance(self, t_skill, t_data)
 				return true
