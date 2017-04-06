@@ -147,27 +147,15 @@ end
 -- @brief 다각형 모양의 공격 시작 좌표 리턴
 -------------------------------------
 function SkillEnumrate:getStartPosList_Polygons()
-	local l_attack_pos
-	if (self.m_skillLineNum == 5) then
-		l_attack_pos = {
-            {x = 0, y = 100},
-            {x = 100, y = 50},
-            {x = 80, y = -100},
-            {x = -80, y = -100},
-            {x = -100, y = 50}
-		}
-	elseif (self.m_skillLineNum == 3) then
-		l_attack_pos = {
-			{x = 0, y = 100},
-			{x = 70, y = -70},
-			{x = -70, y = - 70}
-		}
-	elseif (self.m_skillLineNum == 1) then
-		l_attack_pos = {
-			{x = 50, y = 0}
-		}
-	else
-		error('다각형 탄 배치 작업중입니다')
+	local l_attack_pos = {}
+	local angle_unit = (360 / self.m_skillLineNum)
+	local distance = 100
+
+	-- 좌표 계산
+	for i = 1, self.m_skillLineNum do
+		local angle = angle_unit * (i - 1)
+		local pos = getPointFromAngleAndDistance(angle, distance)
+		table.insert(l_attack_pos, pos)
 	end
 
 	return l_attack_pos
