@@ -22,12 +22,13 @@ end
 function ISkillMultiAttack.st_appear(owner, dt)
     if (owner.m_stateTimer == 0) then
 		if (not owner.m_targetChar) then 
-			owner:changeState('dying') 
+			owner:changeState('dying')
+		else
+			owner:onAppear()
+			owner.m_animator:addAniHandler(function()
+				owner:changeState('attack')
+			end)
 		end
-		owner:onAppear()
-		owner.m_animator:addAniHandler(function()
-			owner:changeState('attack')
-		end)
     end
 end
 
@@ -56,6 +57,7 @@ end
 -------------------------------------
 function ISkillMultiAttack.st_disappear(owner, dt)
     if (owner.m_stateTimer == 0) then
+		owner:onDisappear()
 		owner.m_animator:addAniHandler(function()
 			owner:changeState('dying')
 		end)
@@ -88,7 +90,11 @@ end
 function ISkillMultiAttack:escapeAttack()
 end
 
-
+-------------------------------------
+-- function onDisappear
+-------------------------------------
+function ISkillMultiAttack:onDisappear()
+end
 
 
 

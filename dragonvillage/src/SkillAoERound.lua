@@ -1,15 +1,10 @@
-local PARENT = Skill
+local PARENT = class(Skill, ISkillMultiAttack:getCloneTable())
 
 -------------------------------------
 -- class SkillAoERound
 -------------------------------------
 SkillAoERound = class(PARENT, {
-        m_maxAttackCnt = 'number',
-		m_attackCnt = 'number',
 		m_aoeRes = 'str', 
-
-        m_multiAtkTimer = 'dt',
-        m_hitInterval = 'number',
      })
 
 -------------------------------------
@@ -27,7 +22,7 @@ function SkillAoERound:init_skill(aoe_res, attack_count)
     PARENT.init_skill(self)
 
 	-- 멤버 변수
-    self.m_maxAttackCnt = attack_count 
+    self.m_maxAttackCount = attack_count 
 	self.m_aoeRes = aoe_res
 	--self.m_hitInterval -> attack state에서 지정
 	
@@ -59,61 +54,6 @@ function SkillAoERound:initState()
 end
 
 -------------------------------------
--- function st_appear
--------------------------------------
-function SkillAoERound.st_appear(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		if (not owner.m_targetChar) then 
-			owner:changeState('dying') 
-		end
-		owner:onAppear()
-		owner.m_animator:addAniHandler(function()
-			owner:changeState('attack')
-		end)
-    end
-end
-
--------------------------------------
--- function st_attack
--------------------------------------
-function SkillAoERound.st_attack(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		owner:enterAttack()
-		-- 이펙트 재생 단위 시간
-		owner:setAttackInterval()
-		-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
-        owner.m_multiAtkTimer = owner.m_hitInterval
-
-		owner.m_attackCnt = 0
-    end
-
-    owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
-	-- 공격 횟수 초과시 탈출
-    if (owner.m_maxAttackCnt <= owner.m_attackCnt) then
-		owner:escapeAttack()
-	-- 반복 공격
-    elseif (owner.m_multiAtkTimer > owner.m_hitInterval) then
-        owner:runAttack()
-        owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
-		owner.m_attackCnt = owner.m_attackCnt + 1
-    end
-end
-
--------------------------------------
--- function st_disappear
--------------------------------------
-function SkillAoERound.st_disappear(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		-- 타격범위 이펙트
-		owner.m_rangeEffect:changeAni('disappear', true)
-
-		owner.m_animator:addAniHandler(function()
-			owner:changeState('dying')
-		end)
-    end
-end
-
--------------------------------------
 -- function runAttack
 -------------------------------------
 function SkillAoERound:runAttack()
@@ -142,21 +82,15 @@ function SkillAoERound:setAttackInterval()
 end
 
 -------------------------------------
--- function onAppear
--------------------------------------
-function SkillAoERound:onAppear()
-end
-
--------------------------------------
 -- function enterAttack
 -------------------------------------
 function SkillAoERound:enterAttack()
-end
-
--------------------------------------
--- function doSpecialEffect (onHit)
--------------------------------------
-function SkillAoERound:doSpecialEffect()
+	-- 이펙트 재생 단위 시간
+	self:setAttackInterval()
+	-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
+	self.m_multiAtkTimer = self.m_hitInterval
+	-- 공격 카운트 초기화
+	self.m_attackCount = 0
 end
 
 -------------------------------------
@@ -167,6 +101,12 @@ function SkillAoERound:escapeAttack()
 	self.m_animator:addAniHandler(function()
 		self:changeState('disappear')
 	end)
+end
+
+-------------------------------------
+-- function doSpecialEffect (onHit)
+-------------------------------------
+function SkillAoERound:doSpecialEffect()
 end
 
 -------------------------------------

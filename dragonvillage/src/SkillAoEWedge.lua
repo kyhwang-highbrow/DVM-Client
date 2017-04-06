@@ -1,4 +1,4 @@
-local PARENT = Skill
+local PARENT = class(Skill, ISkillMultiAttack:getCloneTable())
 
 -------------------------------------
 -- class SkillAoEWedge
@@ -6,12 +6,6 @@ local PARENT = Skill
 SkillAoEWedge = class(PARENT, {
 		m_angle = 'num',
 		m_dir = 'num', 
-
-		m_attackCount = 'number',
-		m_maxAttackCount = 'number',
-		
-		m_hitInterval = 'number',
-		m_multiAtkTimer = 'dt',
      })
 
 -------------------------------------
@@ -71,65 +65,6 @@ function SkillAoEWedge:initConeAnimator()
 end
 
 -------------------------------------
--- function st_appear
--------------------------------------
-function SkillAoEWedge.st_appear(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		if (not owner.m_targetChar) then 
-			owner:changeState('dying') 
-		end
-		owner:onAppear()
-		owner.m_animator:addAniHandler(function()
-			owner:changeState('attack')
-		end)
-    end
-end
-
--------------------------------------
--- function st_attack
--------------------------------------
-function SkillAoEWedge.st_attack(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		owner:enterAttack()
-		-- 이펙트 재생 단위 시간
-		owner:setAttackInterval()
-		-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
-        owner.m_multiAtkTimer = owner.m_hitInterval
-		owner.m_attackCount = 0
-    end
-	
-    owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
-	-- 공격 횟수 초과시 탈출
-    if (owner.m_attackCount >= owner.m_maxAttackCount) then
-        owner:escapeAttack()
-	-- 반복 공격
-    elseif (owner.m_multiAtkTimer > owner.m_hitInterval) then
-        owner:runAttack()
-        owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
-		owner.m_attackCount = owner.m_attackCount + 1
-    end
-end
-
--------------------------------------
--- function st_disappear
--------------------------------------
-function SkillAoEWedge.st_disappear(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		owner.m_animator:addAniHandler(function()
-			owner:changeState('dying')
-		end)
-    end
-end
--------------------------------------
--- function findTarget
--- @brief 공격 대상 찾음
--------------------------------------
-function SkillAoEWedge:findTarget()
-	local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
-    return SkillTargetFinder:findTarget_AoEWedge(l_target, self.pos.x, self.pos.y, self.m_dir, self.m_range, self.m_angle)
-end
-
--------------------------------------
 -- function setAttackInterval
 -- @brief 스킬에 따라 오버라이딩 해서 사용
 -------------------------------------
@@ -140,15 +75,15 @@ function SkillAoEWedge:setAttackInterval()
 end
 
 -------------------------------------
--- function onAppear
--------------------------------------
-function SkillAoEWedge:onAppear(t_target)
-end
-
--------------------------------------
 -- function enterAttack
 -------------------------------------
-function SkillAoEWedge:enterAttack(t_target)
+function SkillAoEWedge:enterAttack()
+	-- 이펙트 재생 단위 시간
+	self:setAttackInterval()
+	-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
+	self.m_multiAtkTimer = self.m_hitInterval
+	-- 공격 카운트 초기화
+	self.m_attackCount = 0
 end
 
 -------------------------------------
@@ -159,6 +94,15 @@ function SkillAoEWedge:escapeAttack()
 	self.m_animator:addAniHandler(function()
 		self:changeState('disappear')
 	end)
+end
+
+-------------------------------------
+-- function findTarget
+-- @brief 공격 대상 찾음
+-------------------------------------
+function SkillAoEWedge:findTarget()
+	local l_target = self.m_owner:getTargetListByType(self.m_targetType, self.m_targetFormation)
+    return SkillTargetFinder:findTarget_AoEWedge(l_target, self.pos.x, self.pos.y, self.m_dir, self.m_range, self.m_angle)
 end
 
 -------------------------------------

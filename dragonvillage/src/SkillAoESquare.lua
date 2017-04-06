@@ -1,4 +1,4 @@
-local PARENT = Skill
+local PARENT = class(Skill, ISkillMultiAttack:getCloneTable())
 
 -------------------------------------
 -- class SkillAoESquare
@@ -6,12 +6,6 @@ local PARENT = Skill
 SkillAoESquare = class(PARENT, {
         m_skillWidth = 'number',
 		m_skillHeight = 'number',
-
-		m_multiAtkTimer = 'dt',
-        m_hitInterval = 'number',
-
-		m_attackCnt = 'number',
-		m_maxAttackCnt = 'number',
      })
 
 -------------------------------------
@@ -31,7 +25,7 @@ function SkillAoESquare:init_skill(hit)
     PARENT.init_skill(self)
 
 	-- 멤버 변수
-	self.m_maxAttackCnt = hit 
+	self.m_maxAttackCount = hit 
     --self.m_hitInterval -> attack state에서 지정
 
 	-- 위치 설정
@@ -49,57 +43,9 @@ function SkillAoESquare:initState()
 end
 
 -------------------------------------
--- function st_appear
+-- function onAppear
 -------------------------------------
-function SkillAoESquare.st_appear(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		if (not owner.m_targetChar) then 
-			owner:changeState('dying') 
-		end
-		owner.m_animator:addAniHandler(function()
-			owner:changeState('attack')
-		end)
-    end
-end
-
--------------------------------------
--- function st_attack
--------------------------------------
-function SkillAoESquare.st_attack(owner, dt)
-	if (owner.m_stateTimer == 0) then
-		owner:enterAttack()
-		-- 이펙트 재생 단위 시간
-		owner:setAttackInterval()
-		-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
-		owner.m_multiAtkTimer = owner.m_hitInterval
-
-	    owner.m_attackCnt = 0
-	end
-
-	owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
-
-	-- 반복 공격	
-	if (owner.m_multiAtkTimer > owner.m_hitInterval) then
-		owner:runAttack()
-		owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
-		owner.m_attackCnt = owner.m_attackCnt + 1
-	end
-
-	-- 탈출
-	if (owner.m_maxAttackCnt <= owner.m_attackCnt) then
-		owner:escapeAttack()
-	end
-end
-
--------------------------------------
--- function st_disappear
--------------------------------------
-function SkillAoESquare.st_disappear(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		owner.m_animator:addAniHandler(function()
-			owner:changeState('dying')
-		end)
-    end
+function SkillAoESquare:onAppear()
 end
 
 -------------------------------------
@@ -107,6 +53,12 @@ end
 -- @brief 공격이 시작되는 시점에 실행
 -------------------------------------
 function SkillAoESquare:enterAttack()
+	-- 이펙트 재생 단위 시간
+	self:setAttackInterval()
+	-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
+	self.m_multiAtkTimer = self.m_hitInterval
+	-- 공격 카운트 초기화
+	self.m_attackCount = 0
 end
 
 -------------------------------------
@@ -121,12 +73,11 @@ end
 
 -------------------------------------
 -- function setAttackInterval
--- @brief 스킬에 따라 오버라이딩 해서 사용
 -------------------------------------
 function SkillAoESquare:setAttackInterval()
 	-- 이펙트 재생 단위 시간
 	--self.m_hitInterval = self.m_animator:getDuration()
-	self.m_hitInterval = (self.m_animator:getDuration() / self.m_maxAttackCnt)
+	self.m_hitInterval = (self.m_animator:getDuration() / self.m_maxAttackCount)
 end
 
 -------------------------------------

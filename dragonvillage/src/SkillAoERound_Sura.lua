@@ -50,7 +50,7 @@ end
 -------------------------------------
 function SkillAoERound_Sura:setAttackInterval()
 	-- 공격 애니 재생시간을 hit수로 나눔
-	self.m_hitInterval = (self.m_animator:getDuration() / self.m_maxAttackCnt)
+	self.m_hitInterval = (self.m_animator:getDuration() / self.m_maxAttackCount)
 end
 
 -------------------------------------
