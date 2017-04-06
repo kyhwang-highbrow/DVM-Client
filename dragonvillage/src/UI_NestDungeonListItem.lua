@@ -61,6 +61,9 @@ function UI_NestDungeonListItem:refresh()
     local vars = self.vars
     vars['dayLabel']:setString('')
 
+    vars['titleLabel']:setString(Str(self.m_tData['t_name']))
+    vars['infoLabel']:setString(Str(self.m_tData['t_info']))
+
     -- 요일 정보 출력
     self:refresh_dayLabel(self.m_tData['major_day'], self.m_tData['days'], self.m_tData['mode'])
 
