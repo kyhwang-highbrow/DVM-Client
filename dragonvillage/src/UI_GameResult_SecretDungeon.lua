@@ -36,9 +36,9 @@ function UI_GameResult_SecretDungeon:init_difficultyIcon(stage_id)
 end
 
 -------------------------------------
--- function click_retryButton
+-- function click_retryBtn
 -------------------------------------
-function UI_GameResult_SecretDungeon:click_retryButton()
+function UI_GameResult_SecretDungeon:click_retryBtn()
     local scene = SceneSecretDungeon()
     scene:runScene()
 end

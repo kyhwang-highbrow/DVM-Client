@@ -31,9 +31,9 @@ function UI_GameResult_NestDungeon:init_difficultyIcon(stage_id)
 end
 
 -------------------------------------
--- function click_retryButton
+-- function click_retryBtn
 -------------------------------------
-function UI_GameResult_NestDungeon:click_retryButton()
+function UI_GameResult_NestDungeon:click_retryBtn()
     local scene = SceneNestDungeon(self.m_stageID)
     scene:runScene()
 end
