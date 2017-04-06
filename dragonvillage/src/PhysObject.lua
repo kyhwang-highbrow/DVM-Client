@@ -8,6 +8,8 @@ PhysObject = class({
 
         pos = 'cc.p',
         body = 'table',
+        body_list = 'table',
+
         rotation = 'number',
         enable_body = 'boolean',
 		
@@ -44,18 +46,9 @@ PhysObject = class({
 -- function init
 -------------------------------------
 function PhysObject:init()
-end
-
--------------------------------------
--- function initPhys
--- @param body
--------------------------------------
-function PhysObject_initPhys(self, body)
-    local body = body or {}
-
     self.pos = {x=0, y=0}
     self.rotation = 0
-    self.enable_body = true
+    self.enable_body = false
 	self.bFixedAttack = false
     self.speed = 0
     self.movement_theta = 0
@@ -78,8 +71,38 @@ function PhysObject_initPhys(self, body)
     -- 일시 정지
     self.m_temporaryPause = false
 
-    --self.body = {x=body[1] or 0, y=body[2] or 0, size=body[3] or 0}
-    PhysObject_setBody(self, body[1] or 0, body[2] or 0, body[3] or 0)
+    self.body_list = nil
+end
+
+-------------------------------------
+-- function initPhys
+-- @param body
+-------------------------------------
+function PhysObject:initPhys(body)
+    self.enable_body = true
+
+    local body = body or {}
+
+    if (type(body[1]) == 'table') then
+        local body_list = body
+        local body = body_list[1]
+
+        -- 기본 body
+        PhysObject_setBody(self, body[1] or 0, body[2] or 0, body[3] or 0)
+
+        -- body 리스트
+        self.body_list = {}
+
+        for i, v in ipairs(body_list) do
+            local data = { key = i, x = v[1], y = v[2], size = v[3] }
+
+            self:addBody(data)
+        end
+        
+    else
+        PhysObject_setBody(self, body[1] or 0, body[2] or 0, body[3] or 0)
+
+    end
 end
 
 -------------------------------------
@@ -178,6 +201,36 @@ function PhysObject:getBody()
 end
 
 -------------------------------------
+-- function addBody
+-- @param body
+-------------------------------------
+function PhysObject:addBody(data)
+    if (not self.body_list) then
+        self.body_list = {}
+    end
+
+    table.insert(self.body_list, data)
+end
+
+-------------------------------------
+-- function getBodyList
+-- @param body
+-------------------------------------
+function PhysObject:getBodyList()
+    local ret = {}
+
+    if (self.body_list) then
+        for i, body in ipairs(self.body_list) do
+            table.insert(ret, body)
+        end
+    else
+        table.insert(ret, self.body)
+    end
+
+    return ret
+end
+
+-------------------------------------
 -- function setSpeed
 -- @param s
 -------------------------------------
@@ -242,15 +295,33 @@ end
 -- @param y
 -------------------------------------
 function PhysObject:isIntersectBody(opponentBody, x, y)
-    if self.body.size <= 0 then return false end
+    if (self.body.size <= 0) then return false end
 
-    local d = math_pow(self.pos.x + self.body.x - (x + opponentBody.x), 2) + math_pow(self.pos.y + self.body.y - (y + opponentBody.y), 2)
-    local dist = math_sqrt(d)    
-    if dist < (opponentBody.size + self.body.size) then
-        return true, ((self.pos.x + self.body.x + x) / 2), ((self.pos.y + self.body.y + y) / 2)
-    else 
-        return false, 0, 0
+    local function check(body)
+        local d = math_pow(self.pos.x + body.x - (x + opponentBody.x), 2) + math_pow(self.pos.y + body.y - (y + opponentBody.y), 2)
+        local dist = math_sqrt(d)    
+        if dist < (opponentBody.size + body.size) then
+            return true, ((self.pos.x + body.x + x) / 2), ((self.pos.y + body.y + y) / 2)
+        else 
+            return false, 0, 0
+        end
     end
+
+    if (self.body_list) then
+        for i, body in ipairs(self.body_list) do
+            local b, x, y = check(self.body)
+            if (b) then
+                return true, x, y
+            end
+        end
+    else
+        local b, x, y = check(self.body)
+        if (b) then
+            return true, x, y
+        end
+    end
+
+    return false
 end
 
 -------------------------------------
@@ -380,5 +451,27 @@ function PhysObject:posUpdateAdditionalPhysObject(x, y)
 		phys_obj:setOrgHomePos(pos_x, pos_y)
 		phys_obj:setHomePos(pos_x, pos_y)
 		phys_obj:setPosition(pos_x, pos_y)
+    end
+end
+
+-------------------------------------
+-- function primitivesDraw
+-- @brief body 영역을 그림
+-------------------------------------
+function PhysObject:primitivesDraw()
+    local function draw(body)
+        local x = self.pos.x + body.x
+        local y = self.pos.y + body.y
+        local radius = body.size
+
+        cc.DrawPrimitives.drawSolidCircle(cc.p(x, y), radius, 0, 32)
+    end
+
+    if (self.body_list) then
+        for i, body in ipairs(self.body_list) do
+            draw(body)
+        end
+    else
+        draw(self.body)
     end
 end

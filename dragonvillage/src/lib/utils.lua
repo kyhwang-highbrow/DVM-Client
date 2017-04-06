@@ -751,8 +751,8 @@ end
 -- @return boolean
 -------------------------------------
 function isCollision_Rect(x, y, target, range_x, range_y)
-	local target_x = target.pos.x
-	local target_y = target.pos.y
+	local target_x = target.pos.x + target.body['x']
+	local target_y = target.pos.y + target.body['y']
 	local body_size = target.body['size']
 	return (math_abs(target_x - x) - body_size < range_x) and (math_abs(target_y - y) - body_size  < range_y)
 end

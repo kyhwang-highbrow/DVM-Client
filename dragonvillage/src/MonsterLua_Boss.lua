@@ -43,6 +43,11 @@ function MonsterLua_Boss:initScript(pattern_script_name, is_boss)
     
     self.m_tOrgPattern = self:getBasePatternList()
     self.m_tCurrPattern = clone(self.m_tOrgPattern)
+
+    -- body 설정
+    if script['body'] then
+        self:initPhys(script['body'])
+    end
     
     -- HP 트리거 생성
     if script['hp_trriger'] then

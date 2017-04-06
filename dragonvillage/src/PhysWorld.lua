@@ -500,10 +500,7 @@ function PhysWorld:primitivesDraw(transform, transformUpdated)
 
         for _, object in ipairs(l_object) do
             if (object.enable_body) or (object.bFixedAttack) then
-                local x = object.pos.x + object.body.x
-                local y = object.pos.y + object.body.y
-                local radius = object.body.size
-                cc.DrawPrimitives.drawSolidCircle(cc.p(x, y), radius, 0, 32)
+                object:primitivesDraw()
             end
         end
     end

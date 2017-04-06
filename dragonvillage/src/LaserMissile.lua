@@ -74,7 +74,7 @@ function LaserMissile:initTail(count, interval)
 
         -- 바디 생성
         local phys_obj = PhysObject()
-        PhysObject_initPhys(phys_obj, {self.body.x, self.body.y, self.body.size})
+        phys_obj:initPhys({self.body.x, self.body.y, self.body.size})
         self.m_world.m_physWorld:addObject(PHYS.MISSILE.HERO, phys_obj)
 
         phys_obj.m_ownerObject = self

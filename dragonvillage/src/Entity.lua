@@ -39,7 +39,7 @@ function Entity:init(file_name, body)
 
     -- PhysBody 초기화
     local body = body or {0,0,50}
-    PhysObject_initPhys(self, body)
+    self:initPhys(body)
 
     -- Animator 생성
     self:initAnimator(file_name)

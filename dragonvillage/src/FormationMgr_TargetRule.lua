@@ -431,42 +431,41 @@ function TargetRule_getTargetList_fan_shape(org_list, t_data)
 
     local t_ret = {}
 
-    for i,v in pairs(org_list) do
-        local continue = false
-        -- 거리 체크
-        if (not continue) then
-            local distance = getDistance(x, y, v.pos.x, v.pos.y)
-            if ((radius + v.body.size) < distance) then
-                continue = true
-            end
-        end
+    for i, v in pairs(org_list) do
+        local body_list = v:getBodyList()
 
-        -- 각도 체크
-        if (not continue) then
-            local degree = getDegree(x, y, v.pos.x, v.pos.y)
+        for _, body in ipairs(body_list) do
+            local target_x = v.pos.x + body.x
+            local target_y = v.pos.y + body.y
+            local target_size = body.size
+
+            -- 거리 체크
+            local distance = getDistance(x, y, target_x, target_y)
+            if ((radius + target_size) < distance) then
+                 break
+            end
+            
+            -- 각도 체크
+            local degree = getDegree(x, y, target_x, target_y)
             if angleIsBetweenAngles(degree, dir_min, dir_max) then
                 table.insert(t_ret, v)
-                continue = true
+                break
             end
-        end
-
-        -- 낮은 각도 라인 체크
-        if (not continue) then
+            
+            -- 낮은 각도 라인 체크
             local is_collision, dist, x3, y3 = TargetRule_getTargetList_line(v, x, y, low_pos['x'], low_pos['y'], 0)
             if is_collision then
                 table.insert(t_ret, v)
-                continue = true
+                break
             end
-        end
-
-        -- 높은 각도 라인 체크
-        if (not continue) then
+            
+            -- 높은 각도 라인 체크
             local is_collision, dist, x3, y3 = TargetRule_getTargetList_line(v, x, y, high_pos['x'], high_pos['y'], 0)
             if is_collision then
                 table.insert(t_ret, v)
-                continue = true
+                break
             end
-        end        
+        end
     end
 
     return t_ret
@@ -531,44 +530,47 @@ function TargetRule_getTargetList_line(obj, x1, y1, x2, y2, thickness)
         max_y = y1 + thickness
     end
 
+    local body_list = obj:getBodyList()
 
-    local obj_x = obj.pos.x + obj.body.x
-    local obj_y = obj.pos.y + obj.body.y
-    local obj_size = obj.body.size
+    for _, body in ipairs(body_list) do
+        local obj_x = obj.pos.x + body.x
+        local obj_y = obj.pos.y + body.y
+        local obj_size = body.size
 
-    local not_finish = true
-    local x3, y3 = getRectangularCoordinates(x1, y1, x2, y2, obj_x, obj_y)
+        local not_finish = true
+        local x3, y3 = getRectangularCoordinates(x1, y1, x2, y2, obj_x, obj_y)
 
-    -- 직교 좌표가 범위를 넘어갔을 경우
-    if (x3 < min_x) or (max_x < x3) or (y3 < min_y) or (max_y < y3) then
+        -- 직교 좌표가 범위를 넘어갔을 경우
+        if (x3 < min_x) or (max_x < x3) or (y3 < min_y) or (max_y < y3) then
 
-        -- 시작 좌표와 충돌 확인
-        if not_finish then
-            local dist = math_distance(obj_x, obj_y, x1, y1)
+            -- 시작 좌표와 충돌 확인
+            if not_finish then
+                local dist = math_distance(obj_x, obj_y, x1, y1)
+                if dist <= (obj_size + thickness) then
+                    not_finish = false
+                end
+            end
+
+            -- 종료 좌표와 충돌 확인
+            if not_finish then
+                local dist = math_distance(obj_x, obj_y, x2, y2)
+                if dist <= (obj_size + thickness) then
+                    not_finish = false
+                end
+            end
+        else
+            -- 직교 좌표가 범위안에 존재할 경우
+            local dist = math_distance(obj_x, obj_y, x3, y3)
             if dist <= (obj_size + thickness) then
                 not_finish = false
             end
         end
 
-        -- 종료 좌표와 충돌 확인
-        if not_finish then
-            local dist = math_distance(obj_x, obj_y, x2, y2)
-            if dist <= (obj_size + thickness) then
-                not_finish = false
-            end
+        -- 충돌된 객체라면
+        if (not_finish == false) then
+            local distance = math_distance(x1, y1, x3, y3)
+            return true, distance, x3, y3
         end
-    else
-        -- 직교 좌표가 범위안에 존재할 경우
-        local dist = math_distance(obj_x, obj_y, x3, y3)
-        if dist <= (obj_size + thickness) then
-            not_finish = false
-        end
-    end
-
-    -- 충돌된 객체라면
-    if (not_finish == false) then
-        local distance = math_distance(x1, y1, x3, y3)
-        return true, distance, x3, y3
     end
 
     return false
