@@ -407,9 +407,6 @@ local t_module = {
 	'Buff',
     'Buff_Guardian',
     
-	-- TAMER SPECAIL SKILL
-	'TamerSpecialSkillCombination',
-
 	'WaveMgr',
     'WaveMgr_SecretRelation',
     'WaveMgr_Colosseum',
