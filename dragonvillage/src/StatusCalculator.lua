@@ -80,7 +80,6 @@ function StatusCalculator:calcStatusList(char_type, cid, lv, grade, evolution, e
         t_status['evolution'] = evolution_stat
         t_status['eclv'] = eclv_stat
         t_status['friendship_bonus'] = 0
-        t_status['train_bonus'] = 0
         t_status['rune_bonus'] = 0
 
         l_status[status_name] = t_status
@@ -136,7 +135,7 @@ end
 -------------------------------------
 function StatusCalculator:getFinalAddStatDisplay(stat_type)
     local t_status = self.m_lStatusList[stat_type]
-    local add_stat = t_status['friendship_bonus'] + t_status['train_bonus']
+    local add_stat = t_status['friendship_bonus']
 
     add_stat = math_floor(add_stat)
     if (add_stat == 0) then
@@ -173,21 +172,6 @@ function StatusCalculator:applyFriendshipBonus(l_bonus)
     for key, value in pairs(l_bonus) do
         local t_status = self.m_lStatusList[key]
         t_status['friendship_bonus'] = value
-        t_status['final'] = t_status['final'] + value
-    end
-end
-
--------------------------------------
--- function applyTrainBonus
--------------------------------------
-function StatusCalculator:applyTrainBonus(l_bonus)
-    if (not l_bonus) then
-        return
-    end
-
-    for key, value in pairs(l_bonus) do
-        local t_status = self.m_lStatusList[key]
-        t_status['train_bonus'] = value
         t_status['final'] = t_status['final'] + value
     end
 end
@@ -341,14 +325,13 @@ end
 -- function MakeDragonStatusCalculator
 -- @brief
 -------------------------------------
-function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv, rlv, l_friendship_bonus, l_train_bonus, l_rune_bonus, t_rune_set)
+function MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv, rlv, l_friendship_bonus, l_rune_bonus, t_rune_set)
     lv = (lv or 1)
     grade = (grade or 1)
     evolution = (evolution or 1)
 
     local status_calc = StatusCalculator('dragon', dragon_id, lv, grade, evolution, eclv)
     status_calc:applyFriendshipBonus(l_friendship_bonus)
-    status_calc:applyTrainBonus(l_train_bonus)
     status_calc:applyRuneBonus(l_rune_bonus)
     status_calc:applyRuneSetBonus(t_rune_set)
     status_calc:applyDragonResearchBuff(rlv or 0)
@@ -402,18 +385,11 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, l_rune_bo
     l_friendship_bonus['def'] = t_dragon_data['def'] or 0
     l_friendship_bonus['hp'] = t_dragon_data['hp'] or 0
 
-    -- 수련 보너스
-    local table_dragon_train_status = TableDragonTrainStatus()
-    local l_train_bonus = table_dragon_train_status:getTrainStatus(t_dragon_data['did'], t_dragon_data['train_slot'] or {})
-
-    -- 룬 보너스
-    l_rune_bonus = (l_rune_bonus or nil)
-
     -- 룬 세트 보너스
     local t_rune_set = t_dragon_data['rune_set']
 
     local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv, rlv,
-        l_friendship_bonus, l_train_bonus, l_rune_bonus, t_rune_set)
+        l_friendship_bonus, l_rune_bonus, t_rune_set)
 
     return status_calc
 end

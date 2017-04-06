@@ -332,15 +332,6 @@ function SceneDV:dockPointTest()
 end
 
 -------------------------------------
--- function expandTest
--------------------------------------
-function SceneDV:expandTest()
-    local ui = UI_DragonTrainSlot_ListItem({})
-    self.m_scene:addChild(ui.root)
-    ui.vars['clickBtn']:registerScriptTapHandler(function() ui:setExpand((not ui.m_bExpanded), 0.15)  end)
-end
-
--------------------------------------
 -- function shaderTest_sample
 -------------------------------------
 function SceneDV:shaderTest_sample()

@@ -918,17 +918,8 @@
     <None Include="..\src\TableDragonTrainInfo.lua">
       <Filter>lua</Filter>
     </None>
-    <None Include="..\src\TableDragonTrainStatus.lua">
-      <Filter>lua</Filter>
-    </None>
     <None Include="..\src\GameWorld_Unit.lua">
       <Filter>lua</Filter>
-    </None>
-    <None Include="..\src\UI_DragonManageTrain.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_DragonTrainSlot_ListItem.lua">
-      <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\SkillSpiderWeb.lua">
       <Filter>lua</Filter>
