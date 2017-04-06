@@ -264,7 +264,8 @@ function PatchCore:st_downloadPatchFile_setCurrDownloadRes()
     do
         --local에 파일로 저장할땐 web에 업로드된 패스와 상관없이
 	    --writeable경로에 저장하기 위해 파일명만 추출
-	    local web_path = 'http://test.perplelab.com/dv_test/' .. self.m_currDownloadRes['name']
+	    --local web_path = 'http://test.perplelab.com/dv_test/' .. self.m_currDownloadRes['name']  -- v0.0.9까지 사용하던 이전 패치 url
+        local web_path = 'http://patch-12.perplelab.net/dv_test/' .. self.m_currDownloadRes['name']
 	    local l_word = seperate(web_path, '/')
 	    local local_path = self:getDownloadPath() .. l_word[#l_word]
         self.m_currDownloadRes['web_path'] = web_path
