@@ -302,6 +302,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\GameWorld_Unit.lua" />
     <None Include="..\src\IEventListener.lua" />
     <None Include="..\src\IHighlight.lua" />
+    <None Include="..\src\ISkillMultiAttack.lua" />
     <None Include="..\src\IStateHelper.lua" />
     <None Include="..\src\ITabUI.lua" />
     <None Include="..\src\LobbyCharacter.lua" />

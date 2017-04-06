@@ -181,6 +181,7 @@ local t_module = {
     'IStateHelper',
     'ITopUserInfo_EventListener',
     'ITabUI',
+	'ISkillMultiAttack',
 
     -- Scene
     'SceneCommon',

@@ -1956,6 +1956,9 @@
     <None Include="..\src\TableRuneMoptStatus.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\ISkillMultiAttack.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
