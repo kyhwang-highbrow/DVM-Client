@@ -1,3 +1,5 @@
+RUNE_SLOT_MAX = 6
+
 -------------------------------------
 -- class StructRuneObject
 -- @instance rune_obj

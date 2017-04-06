@@ -35,6 +35,10 @@ StructDragonObject = class({
         created_at = 'timestamp',
 
         ----------------------------------------------
+        -- 룬정보
+        m_mRuneObjects = 'map', -- key roid, value rune object
+
+        ----------------------------------------------
         -- 아직 안쓰는 정보
         lock = '',
         friendship = '',
@@ -52,6 +56,8 @@ StructDragonObject = class({
 -- function init
 -------------------------------------
 function StructDragonObject:init(data)
+    self.m_mRuneObjects = nil
+
     if data then
         self:applyTableData(data)
     end
@@ -79,4 +85,75 @@ end
 function StructDragonObject:setDragonResearchLevel(rlv, updated_at)
     self.rlv = rlv
     self.updated_at = (updated_at or Timer:getServerTime())
+end
+
+
+-------------------------------------
+-- function getRuneObjectList
+-- @breif
+-------------------------------------
+function StructDragonObject:getRuneObjectList()
+    if (not self['runes']) then
+        return {}
+    end
+
+    local l_rune_obj = {}
+
+    for _,roid in pairs(self['runes']) do
+        local rune_obj = self:getRuneObject(roid)
+        if rune_obj then
+            table.insert(l_rune_obj, rune_obj)
+        end
+    end
+
+    return l_rune_obj
+end
+
+-------------------------------------
+-- function getRuneObject
+-- @breif
+-------------------------------------
+function StructDragonObject:getRuneObject(roid)
+    if (not roid) then
+        return nil
+    end
+
+    if (roid == '') then
+        return nil
+    end
+
+    -- 드래곤 오브젝트 객체에 룬 객체를 가지고 있을 경우 (친구나 다른 유저의 정보)
+    if self.m_mRuneObjects then
+        if self.m_mRuneObjects[roid] then
+            return self.m_mRuneObjects[roid]
+        end
+    end
+
+    -- 유저의 룬을 찾음
+    return g_runesData:getRuneObject(roid)
+end
+
+-------------------------------------
+-- function getRuneObjectBySlot
+-- @breif
+-------------------------------------
+function StructDragonObject:getRuneObjectBySlot(slot)
+    if (not self['runes']) then
+        return nil
+    end
+    
+    local roid = self['runes'][tostring(slot)]
+    return self:getRuneObject(roid)
+end
+
+
+-------------------------------------
+-- function getStructRuneSetObject
+-- @breif
+-------------------------------------
+function StructDragonObject:getStructRuneSetObject()
+    local rune_set_obj = StructRuneSetObject()
+    local rune_obj_list = self:getRuneObjectList()
+    rune_set_obj:setRuneObjectList(rune_obj_list)
+    return rune_set_obj
 end

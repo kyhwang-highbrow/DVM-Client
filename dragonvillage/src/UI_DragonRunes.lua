@@ -523,6 +523,7 @@ function UI_DragonRunes:click_useEnhanceBtn()
     local function close_cb()
         if (self.m_equippedRuneObject['updated_at'] ~= ui.m_runeObject['updated_at']) then
             self:refreshTableViewList()
+            self.m_bChangeDragonList = true
         end
     end
 
@@ -554,6 +555,7 @@ function UI_DragonRunes:click_removeBtn()
             end
 
             self:refreshTableViewList()
+            self.m_bChangeDragonList = true
         end
 
         g_runesData:request_runesUnequip(doid, slot, finish_cb, fail_cb)
@@ -578,6 +580,7 @@ function UI_DragonRunes:click_selectEnhance()
     local function close_cb()
         if (self.m_selectedRuneObject['updated_at'] ~= ui.m_runeObject['updated_at']) then
             self:refreshTableViewList()
+            self.m_bChangeDragonList = true
         end
     end
 
@@ -616,6 +619,7 @@ end
 function UI_DragonRunes:request_runeEquip(doid, roid)
     local function finish_cb(ret)
         self:refreshTableViewList()
+        self.m_bChangeDragonList = true
     end
 
     g_runesData:request_runesEquip(doid, roid, finish_cb)

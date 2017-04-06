@@ -49,6 +49,7 @@ local t_module = {
     'StructCalendarDay',
     'StructAttendanceData',
     'StructRuneObject',
+    'StructRuneSetObject',
     'StructDragonObject',
 	'StructStatusEffect',
 

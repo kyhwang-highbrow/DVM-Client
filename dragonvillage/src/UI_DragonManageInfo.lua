@@ -146,19 +146,9 @@ function UI_DragonManageInfo:refresh()
     -- 드래곤 기본 정보 갱신
     self:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
 
-    do -- 장착된 룬 표시
-        local t_runes = t_dragon_data['runes']
-        for i=1, 6 do
-            local roid = t_dragon_data['runes'][tostring(i)]
-            vars['runeSlotNode' .. i]:removeAllChildren()
-
-            if (roid and roid ~= '') then
-                local rune_obj = g_runesData:getRuneObject(roid)
-                local icon = IconHelper:getItemIcon(rune_obj['item_id'], rune_obj)
-                vars['runeSlotNode' .. i]:addChild(icon)
-            end
-        end
-    end
+    
+    -- 드래곤이 장착 중인 룬 정보 갱신
+    self:refresh_dragonRunes(t_dragon_data, t_dragon)
 
     -- 리더 드래곤 여부 표시
     self:refresh_leaderDragon(t_dragon_data)
@@ -194,6 +184,30 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data, t_dragon)
         animator:setAlpha(0)
         animator:runAction(cc.FadeIn:create(0.1))
     end
+end
+
+-------------------------------------
+-- function refresh_dragonRunes
+-- @brief 드래곤이 장착 중인 룬 정보 갱신
+-------------------------------------
+function UI_DragonManageInfo:refresh_dragonRunes(t_dragon_data, t_dragon)
+    local vars = self.vars
+
+    do -- 장착된 룬 표시
+        for slot=1, RUNE_SLOT_MAX do
+            vars['runeSlotNode' .. slot]:removeAllChildren()
+            local rune_obj = t_dragon_data:getRuneObjectBySlot(slot)
+            if rune_obj then
+                local icon = IconHelper:getItemIcon(rune_obj['item_id'], rune_obj)
+                vars['runeSlotNode' .. slot]:addChild(icon)
+            end
+        end
+    end
+
+    -- 룬 세트
+    local rune_set_obj = t_dragon_data:getStructRuneSetObject()
+    local active_set_list = rune_set_obj:getActiveRuneSetList()
+    --ccdump(active_set_list)
 end
 
 -------------------------------------

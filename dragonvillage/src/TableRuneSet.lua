@@ -116,7 +116,7 @@ function TableRuneSet:runeSetAnalysis(l_rid)
         local t_set_data = rune_set_analysis[set_id]
         if (not t_set_data) then
             local need_equip = self:getValue(set_id, 'need_equip')
-            t_set_data = {['need_equip'] = need_equip, ['count'] = 0, ['active'] = false}
+            t_set_data = {['set_id'] = set_id, ['need_equip'] = need_equip, ['count'] = 0, ['active'] = false}
             rune_set_analysis[set_id] = t_set_data
         end
 
