@@ -153,6 +153,30 @@
 					}
 				},
 				{
+					"name":"nest_dungeon_gold",
+					"apply":true,
+					"fps":10,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)nest_dungeon.plist'<azSprite>'nest_dungeon_gold.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
 					"name":"nest_dungeon_nightmare",
 					"apply":true,
 					"fps":10,
@@ -177,7 +201,7 @@
 					}
 				},
 				{
-					"name":"nest_dungeon_tree",
+					"name":"nest_dungeon_tree_dark",
 					"apply":true,
 					"fps":10,
 					"layer_root":
@@ -187,7 +211,103 @@
 						"layer_list":
 						[
 							{
-								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)nest_dungeon.plist'<azSprite>'nest_dungeon_tree.png'",
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)nest_dungeon.plist'<azSprite>'nest_dungeon_tree_dark.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"nest_dungeon_tree_earth",
+					"apply":true,
+					"fps":10,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)nest_dungeon.plist'<azSprite>'nest_dungeon_tree_earth.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"nest_dungeon_tree_fire",
+					"apply":true,
+					"fps":10,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)nest_dungeon.plist'<azSprite>'nest_dungeon_tree_fire.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"nest_dungeon_tree_light",
+					"apply":true,
+					"fps":10,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)nest_dungeon.plist'<azSprite>'nest_dungeon_tree_light.png'",
+								"expand":false,
+								"apply":true,
+								"key_list":
+								[
+									{
+										"frame":0
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name":"nest_dungeon_tree_water",
+					"apply":true,
+					"fps":10,
+					"layer_root":
+					{
+						"expand":true,
+						"apply":true,
+						"layer_list":
+						[
+							{
+								"res_id":"<azProject>''<azBitmap>'(PROJECT_PATH)nest_dungeon.plist'<azSprite>'nest_dungeon_tree_water.png'",
 								"expand":false,
 								"apply":true,
 								"key_list":

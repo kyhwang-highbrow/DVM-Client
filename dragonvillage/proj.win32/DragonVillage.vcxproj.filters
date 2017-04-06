@@ -1962,6 +1962,9 @@
     <None Include="..\src\GameState_NestDungeon_Gold.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\StructRuneSetObject.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
