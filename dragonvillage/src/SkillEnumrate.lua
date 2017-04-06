@@ -149,7 +149,13 @@ end
 function SkillEnumrate:getStartPosList_Polygons()
 	local l_attack_pos
 	if (self.m_skillLineNum == 5) then
-		l_attack_pos = g_constant:get('SKILL', 'RANDOM_CARD_PENTAGON_POS')
+		l_attack_pos = {
+            {x = 0, y = 100},
+            {x = 100, y = 50},
+            {x = 80, y = -100},
+            {x = -80, y = -100},
+            {x = -100, y = 50}
+		}
 	elseif (self.m_skillLineNum == 3) then
 		l_attack_pos = {
 			{x = 0, y = 100},
