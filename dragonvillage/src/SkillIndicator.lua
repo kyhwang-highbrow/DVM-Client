@@ -33,6 +33,7 @@ SkillIndicator = class({
 
         m_indicatorTouchPosX = '',
         m_indicatorTouchPosY = '',
+        m_bDirty = '',
 
         m_targetDir = '',
         m_targetPosX = '',
@@ -61,6 +62,7 @@ function SkillIndicator:init(hero, t_skill, ...)
 
     self.m_indicatorTouchPosX = hero.pos.x
     self.m_indicatorTouchPosY = hero.pos.y
+    self.m_bDirty = true
 
     self.m_resultScore = 0
 
@@ -516,4 +518,13 @@ function SkillIndicator:getTargetForHighlight()
     self:onTouchMoved(x, y)
 
     return self.m_highlightList
+end
+
+-------------------------------------
+-- function setIndicatorTouchPos
+-------------------------------------
+function SkillIndicator:setIndicatorTouchPos(x, y)
+    self.m_indicatorTouchPosX = x
+    self.m_indicatorTouchPosY = y
+    self.m_bDirty = true
 end

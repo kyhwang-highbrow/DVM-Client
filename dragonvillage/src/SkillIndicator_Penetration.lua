@@ -45,6 +45,9 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_Penetration:onTouchMoved(x, y)
+    if (not self.m_bDirty) then return end
+    self.m_bDirty = false
+
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
 
 	-- 1. 각도 및 거리 제한

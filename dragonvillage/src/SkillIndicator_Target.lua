@@ -18,6 +18,9 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_Target:onTouchMoved(x, y)
+    if (not self.m_bDirty) then return end
+    self.m_bDirty = false
+
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
 
     local t_collision_obj = self:findTarget(x, y)

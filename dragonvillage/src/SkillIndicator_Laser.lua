@@ -34,6 +34,9 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_Laser:onTouchMoved(x, y)
+    if (not self.m_bDirty) then return end
+    self.m_bDirty = false
+
     local pos_x, pos_y = self:getAttackPosition()
 
 	-- 각도 제한

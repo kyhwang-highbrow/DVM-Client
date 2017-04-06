@@ -36,6 +36,9 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_LeafBlade:onTouchMoved(x, y)
+    if (not self.m_bDirty) then return end
+    self.m_bDirty = false
+
     local tar_x, tar_y = x, y
     local pos_x = self.m_hero.pos.x
     local pos_y = self.m_hero.pos.y

@@ -133,8 +133,7 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
         
         self.m_touchedHero = select_hero
 
-        self.m_touchedHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
-        self.m_touchedHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
+        self.m_touchedHero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
 
         event:stopPropagation()
 
@@ -154,9 +153,8 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
     local location = touch:getLocation()
     local node_pos = self.m_touchNode:convertToNodeSpace(location)
 
-    self.m_touchedHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
-    self.m_touchedHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
-
+    self.m_touchedHero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
+    
     if (self.m_bSlowMode == false) then
         local ui_pos = self.m_world.m_inGameUI.root:convertToNodeSpace(location)
         local distance = getDistance(self.m_firstTouchUIPos['x'], self.m_firstTouchUIPos['y'], ui_pos['x'], ui_pos['y'])
@@ -202,8 +200,7 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             local location = touch:getLocation()
             local node_pos = self.m_touchNode:convertToNodeSpace(location)
 
-            self.m_selectHero.m_skillIndicator.m_indicatorTouchPosX = node_pos['x']
-            self.m_selectHero.m_skillIndicator.m_indicatorTouchPosY = node_pos['y']
+            self.m_selectHero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
 
             -- 타겟수에 따른 점수(%)값 저장
             do
@@ -284,8 +281,7 @@ function SkillIndicatorMgr:setSelectHero(hero)
 
         hero.m_skillIndicator:changeSIState(SI_STATE_READY)
         hero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)
-        hero.m_skillIndicator.m_indicatorTouchPosX = self.m_firstTouchPos['x']
-        hero.m_skillIndicator.m_indicatorTouchPosY = self.m_firstTouchPos['y']
+        hero.m_skillIndicator:setIndicatorTouchPos(self.m_firstTouchPos['x'], self.m_firstTouchPos['y'])
         hero.m_skillIndicator:update()
 
         self.m_world:setTemporaryPause(true, hero)

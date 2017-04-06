@@ -17,6 +17,9 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_AoECone_Vertical:onTouchMoved(x, y)
+    if (not self.m_bDirty) then return end
+    self.m_bDirty = false
+
     self.m_targetPosX = x
     self.m_targetPosY = y
 

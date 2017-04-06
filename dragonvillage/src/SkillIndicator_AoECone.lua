@@ -22,6 +22,9 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_AoECone:onTouchMoved(x, y)
+    if (not self.m_bDirty) then return end
+    self.m_bDirty = false
+
     local pos_x, pos_y = self:getAttackPosition()
 	local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
 	

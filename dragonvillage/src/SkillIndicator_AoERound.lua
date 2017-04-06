@@ -35,6 +35,9 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_AoERound:onTouchMoved(x, y)
+    if (not self.m_bDirty) then return end
+    self.m_bDirty = false
+
     local touch_x, touch_y = x, y
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
     

@@ -26,6 +26,9 @@ end
 -- function onTouchMoved
 -------------------------------------
 function SkillIndicator_Crash:onTouchMoved(x, y)
+    if (not self.m_bDirty) then return end
+    self.m_bDirty = false
+
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
 
     self.m_targetPosX = x
