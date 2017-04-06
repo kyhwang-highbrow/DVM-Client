@@ -323,10 +323,12 @@ function Tamer.st_bring(owner, dt)
             end)
         ))
 
+        --[[
         owner.m_animator:changeAni('i_summon', false)
         owner.m_animator:addAniHandler(function()
             owner.m_animator:changeAni('i_idle', true)
         end)
+        ]]--
 
         owner.m_afterimageMove = 0
         owner:setAfterImage(true)
