@@ -99,6 +99,7 @@ local t_module = {
     'ServerData_DragonSummon',
     'UserData',
 	'ConstantData',
+    'CollisionHelper',
     'DropHelper',
     'DragonAutoSetHelper',
     'DragonSkillManager',

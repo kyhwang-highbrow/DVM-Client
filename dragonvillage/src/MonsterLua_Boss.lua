@@ -4,7 +4,7 @@ local PARENT = Monster
 -- class MonsterLua_Boss
 -------------------------------------
 MonsterLua_Boss = class(PARENT, {
-        --m_actionGauge = '',
+        m_actionGauge = '',
 
         m_tOrgPattern = 'table',    -- 반복되어서 수행될 패턴 리스트
         m_tCurrPattern = 'table',
@@ -19,6 +19,10 @@ MonsterLua_Boss = class(PARENT, {
         m_patternTime = 'number',   -- TimeTrigger 발동시간 체크를 위한 누적 시간
 
         m_tEffectSound = 'table',
+
+        m_bHasWeakPoint = 'boolean',        -- 약점 시스템 사용 여부
+        m_weakPointKey = 'number',          -- 현재 약점 body의 키
+        m_remainTimeForWeakPoint = 'number',-- 약점 시스템 이동까지 남은 시간
      })
 
 -------------------------------------
@@ -27,10 +31,14 @@ MonsterLua_Boss = class(PARENT, {
 -- @param body
 -------------------------------------
 function MonsterLua_Boss:init(file_name, body, ...)
-    --self.m_actionGauge = nil
+    self.m_actionGauge = nil
 
     self.m_patternTime = 0
     self.m_tEffectSound = {}
+
+    self.m_bHasWeakPoint = false
+    self.m_weakPointKey = nil
+    self.m_remainTimeForWeakPoint = 0
 end
 
 -------------------------------------
@@ -47,6 +55,9 @@ function MonsterLua_Boss:initScript(pattern_script_name, is_boss)
     -- body 설정
     if script['body'] then
         self:initPhys(script['body'])
+
+        self.m_bHasWeakPoint = true
+        self.m_remainTimeForWeakPoint = 2
     end
     
     -- HP 트리거 생성
@@ -121,9 +132,19 @@ end
 function MonsterLua_Boss:update(dt)
     if (self.m_state ~= 'idle' and self.m_state ~= 'move') then
         self.m_patternTime = self.m_patternTime + dt
-            
-        if self.m_triggerTime then
+
+        if (self.m_triggerTime) then
             self.m_triggerTime:checkTrigger(self.m_patternTime)
+        end
+
+        if (self.m_bHasWeakPoint) then
+            self.m_remainTimeForWeakPoint = self.m_remainTimeForWeakPoint - dt
+
+            if (self.m_remainTimeForWeakPoint <= 0) then
+                self.body_list = randomShuffle(self.body_list)
+                self.m_weakPointKey = self.body_list[1]['key']
+                self.m_remainTimeForWeakPoint = 2
+            end
         end
     end
     
@@ -499,4 +520,10 @@ function MonsterLua_Boss:printCurBossPatternList()
     cclog('##############################################################')
 
     cclog('현재 패턴 정보 : ' .. luadump(self.m_tCurrPattern))
+end
+
+-------------------------------------
+-- function printBossPattern
+-------------------------------------
+function MonsterLua_Boss:printCurBossPatternList()
 end

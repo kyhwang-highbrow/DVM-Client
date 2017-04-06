@@ -14,7 +14,8 @@ function SkillTargetFinder:findTarget_AoERound(l_target, x, y, range)
 
 	-- 바디사이즈를 감안한 충돌 체크
     for _, target in pairs(l_target) do
-		if isCollision(x, y, target, range) then 
+        local b, body_key = isCollision(target, x, y, range)
+		if (b) then
 			table.insert(l_ret, target)
 		end
     end
@@ -31,7 +32,8 @@ function SkillTargetFinder:findTarget_AoESquare(l_target, x, y, width, height)
 	local l_ret = {}
     
 	for i, target in ipairs(l_target) do
-		if isCollision_Rect(x, y, target, width, height) then
+        local b, body_key = isCollision_Rect(target, x, y, width, height)
+		if (b) then
             table.insert(l_ret, target)
 		end
     end

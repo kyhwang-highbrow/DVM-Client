@@ -736,28 +736,6 @@ function getBezierPosList(tar_x, tar_y, pos_x, pos_y, course)
 end
 
 -------------------------------------
--- function isCollision
--- @brief body size를 고려한 충돌 여부 판단, 원형 
--- @return boolean
--------------------------------------
-function isCollision(x, y, target, range)
-	local distance = getDistance(x, y, target.pos['x'], target.pos['y'])
-	return distance - target.body['size'] < range
-end
-
--------------------------------------
--- function isCollision_Rect
--- @brief body size를 고려한 충돌 여부 판단, 사각형 
--- @return boolean
--------------------------------------
-function isCollision_Rect(x, y, target, range_x, range_y)
-	local target_x = target.pos.x + target.body['x']
-	local target_y = target.pos.y + target.body['y']
-	local body_size = target.body['size']
-	return (math_abs(target_x - x) - body_size < range_x) and (math_abs(target_y - y) - body_size  < range_y)
-end
-
--------------------------------------
 -- function addChild
 -- @brief addChild수행과 parent의 globalZOrder를 자식들이 따르도록 지정
 -------------------------------------

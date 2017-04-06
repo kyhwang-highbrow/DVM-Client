@@ -513,7 +513,7 @@ function Skill:removeDestructibleMissile()
 		local y = self.m_targetPos.y
 		local range = 300
 		for i, v in pairs(self.m_world.m_lSpecailMissileList) do
-			if isCollision(x, y, v, range) then 
+			if isCollision(v, x, y, range) then 
 				v:release()
 			end
 		end

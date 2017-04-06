@@ -63,7 +63,7 @@ function SkillAddAttack:findTarget()
     local distance = 0
 
     for _, target in pairs(l_target) do
-		if isCollision_Rect(x, y, target, self.m_rangeX, self.m_rangeY) then 
+		if isCollision_Rect(target, x, y, self.m_rangeX, self.m_rangeY) then 
 			table.insert(l_ret, target)
 		end
     end

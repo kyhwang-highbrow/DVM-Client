@@ -103,7 +103,7 @@ function SkillAoECone_Spread:findSpreadTarget(x, y, range)
 
     for _, target in pairs(l_target) do
 		-- 바디사이즈를 감안한 충돌 체크
-		if isCollision(x, y, target, range) then 
+		if isCollision(target, x, y, range) then 
 			table.insert(l_ret, target)
 		end
     end

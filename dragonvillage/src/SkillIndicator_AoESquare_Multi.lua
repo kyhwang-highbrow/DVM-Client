@@ -98,7 +98,7 @@ function SkillIndicator_AoESquare_Multi:findTarget(x, y)
 	-- x 좌표값 리스트를 따라 충돌체크를 한다.
     for i, v in ipairs(l_target) do
 		for i, pos_x in pairs(l_pos_x) do
-			if isCollision_Rect(pos_x, y, v, std_width, std_height) then
+			if isCollision_Rect(v, pos_x, y, std_width, std_height) then
 				table.insert(l_ret, v)
 			end
 		end

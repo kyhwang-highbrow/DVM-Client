@@ -71,6 +71,7 @@ function PhysObject:init()
     -- 일시 정지
     self.m_temporaryPause = false
 
+    self.body = nil
     self.body_list = nil
 end
 
@@ -179,7 +180,7 @@ end
 -------------------------------------
 function PhysObject_setBody(self, x, y, size)
     if (not self.body) then
-        self.body = {x=x, y=y, size=size}
+        self.body = {key=0, x=x, y=y, size=size}
         self.m_dirtyPos = true
     else
         if (self.body.size~=size) or (self.body.x~=x) or (self.body.y~=y) then
@@ -458,7 +459,7 @@ end
 -- function primitivesDraw
 -- @brief body 영역을 그림
 -------------------------------------
-function PhysObject:primitivesDraw()
+function PhysObject:primitivesDraw(color)
     local function draw(body)
         local x = self.pos.x + body.x
         local y = self.pos.y + body.y
@@ -469,6 +470,11 @@ function PhysObject:primitivesDraw()
 
     if (self.body_list) then
         for i, body in ipairs(self.body_list) do
+            if (i == 1) then
+                cc.DrawPrimitives.drawColor4B(255, 0, 0, 127)
+            else
+                cc.DrawPrimitives.drawColor4B(color[1], color[2], color[3], color[4])
+            end
             draw(body)
         end
     else

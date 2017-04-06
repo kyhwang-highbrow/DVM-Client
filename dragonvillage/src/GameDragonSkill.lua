@@ -215,7 +215,7 @@ function GameDragonSkill.update_live(self, dt)
     do
         local curCameraPosX, curCameraPosY = world.m_gameCamera:getPosition()
         local curCameraScale = world.m_gameCamera:getScale()
-        self.m_skillOpeningCutBg:setPosition(CRITERIA_RESOLUTION_X / 2 + curCameraPosX * curCameraScale, curCameraPosY * curCameraScale)
+        self.m_skillOpeningCutBg:setPosition(CRITERIA_RESOLUTION_X / 2 + curCameraPosX, curCameraPosY)
         self.m_skillOpeningCutBg:setScale(1 / curCameraScale)
 
         if (not dragon.m_bLeftFormation) then

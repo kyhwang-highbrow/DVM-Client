@@ -74,7 +74,6 @@ Character = class(PARENT, {
 
         -- @hp UI
 		m_infoUI = '',
-        m_actionGauge = '',
         m_hpNode = '',
         m_hpGauge = '',
         m_hpGauge2 = '',
@@ -1140,7 +1139,6 @@ function Character:makeHPGauge(hp_ui_offset)
         self.m_hpGauge = nil
         self.m_hpGauge2 = nil
         self.m_statusNode = nil
-        self.m_actionGauge = nil
         self.m_infoUI = nil
     end
     

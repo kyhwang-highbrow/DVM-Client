@@ -220,7 +220,7 @@ function PhysWorld:update(dt)
                     y = object.pos.y
 					-- 점과 점의 거리를 이용하여 충돌 여부 확인
 					if target then 
-						ret = isCollision(x, y, target, 20)
+						ret = isCollision(target, x, y, 20)
 					end
                     -- 충돌 콜백 실행
                     if ret and target then
@@ -500,7 +500,7 @@ function PhysWorld:primitivesDraw(transform, transformUpdated)
 
         for _, object in ipairs(l_object) do
             if (object.enable_body) or (object.bFixedAttack) then
-                object:primitivesDraw()
+                object:primitivesDraw(color)
             end
         end
     end
